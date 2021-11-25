@@ -3,10 +3,26 @@
   abstract: true
   components:
   - type: Item
+  - type: Stackable
 
 - type: entity
   id: Dagger
-  abstract: true
+  parent: BaseItem
   components:
   - type: Item
     value: 5
+
+
+- type: entity
+  id: BaseChara
+  abstract: true
+  components:
+  - type: Chara
+
+- type: entity
+  id: Putit
+  parent: BaseChara
+  components:
+  - type: Chara
+    displayName: putit
+    title: The wind

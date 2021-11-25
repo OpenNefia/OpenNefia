@@ -298,7 +298,6 @@ namespace Why.Core.GameObjects
             // add the required MetaDataComponent directly.
             AddComponentInternal(uid.Value, metadata);
 
-
             return entity;
         }
 

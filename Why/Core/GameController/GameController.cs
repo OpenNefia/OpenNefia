@@ -114,10 +114,24 @@ namespace Why.Core.GameController
             for (int i = 0; i < 10; i++)
                 _entityManager.SpawnEntity("Dagger", new MapCoordinates(map.Id, 1 + i, 1));
 
+            for (int i = 0; i < 20; i++)
+                _entityManager.SpawnEntity("Putit", new MapCoordinates(map.Id, 1 + i, 2));
+
             PrintMap(map);
 
-            foreach (var entity in map.Entities)
-                _entityManager.EventBus.RaiseLocalEvent(entity.Uid, new TestEntityEvent(5));
+            foreach (var entity in map.Entities.ToList())
+            {
+                _entityManager.EventBus.RaiseLocalEvent(entity.Uid, new TestEntityEvent(1));
+                _entityManager.EventBus.RaiseLocalEvent(entity.Uid, new ImpregnateEvent());
+            }
+
+            for (int i = 0; i < 10; i++)
+            {
+                foreach (var entity in map.Entities.ToList())
+                {
+                    _entityManager.EventBus.RaiseLocalEvent(entity.Uid, new TurnStartEvent());
+                }
+            }
 
             foreach (var entity in map.Entities)
             {

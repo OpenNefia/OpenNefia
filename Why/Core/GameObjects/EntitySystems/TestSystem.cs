@@ -12,8 +12,6 @@ namespace Why.Core.GameObjects
 {
     public class TestSystem : EntitySystem
     {
-        [Dependency] private readonly IEntityManager _entityManager = default!;
-
         public override void Initialize()
         {
             base.Initialize();
@@ -23,16 +21,14 @@ namespace Why.Core.GameObjects
 
         public void DoTest(EntityUid uid, ItemComponent component, TestEntityEvent args)
         {
-            if (!_entityManager.TryGetEntity(uid, out var entity))
-            {
+            if (!EntityManager.TryGetEntity(uid, out var entity))
                 return;
-            }
 
             foreach (var pos in PosUtils.GetSurroundingCoords(entity.Coords))
             {
                 foreach (var other in pos.GetEntities())
                 {
-                    Logger.Log(LogLevel.Info, $"Found entity {other.Uid} {other.Prototype?.ID} (args {args.TestField})");
+                    Logger.Log(LogLevel.Info, $"Found entity {DisplayNameSystem.GetDisplayName(uid)} {other.Prototype?.ID} (args {args.TestField}) (value: {component.Value})");
                 }
             }
         }

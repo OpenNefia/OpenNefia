@@ -8,6 +8,7 @@ using Why.Core.IoC;
 using Why.Core.Log;
 using Why.Core.Maps;
 using Why.Core.Prototypes;
+using Why.Core.Random;
 using Why.Core.Reflection;
 using Why.Core.ResourceManagement;
 using Why.Core.Serialization.Manager;
@@ -39,6 +40,7 @@ namespace Why
             IoCManager.Register<IGraphics, LoveGraphics>();
             IoCManager.Register<ISerializationManager, SerializationManager>();
             IoCManager.Register<IGameController, GameController>();
+            IoCManager.Register<IRandom, SysRandom>();
         }
     }
 }

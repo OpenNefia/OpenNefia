@@ -48,7 +48,7 @@ namespace Why.Core.Prototypes
 
         public EntityPrototype()
         {
-            // All entities comes with a metadata component.
+            // All entities come with a metadata component.
             Components.Add("MetaData", new MetaDataComponent());
         }
 
