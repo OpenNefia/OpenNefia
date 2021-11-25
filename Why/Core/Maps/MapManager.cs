@@ -43,5 +43,10 @@ namespace Why.Core.Maps
         {
             this.CurrentMap = CachedMaps[id];
         }
+
+        public bool IsMapInitialized(MapId mapId)
+        {
+            return this.CachedMaps.ContainsKey(mapId);
+        }
     }
 }
