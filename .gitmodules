@@ -1,0 +1,3 @@
+[submodule "thirdparty/Love2dCS"]
+	path = thirdparty/Love2dCS
+	url = https://github.com/endlesstravel/Love2dCS
