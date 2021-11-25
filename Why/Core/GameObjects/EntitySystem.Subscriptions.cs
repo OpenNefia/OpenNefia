@@ -135,15 +135,6 @@ namespace Why.Core.GameObjects
                 System.SubEvent(src, handler, before, after);
             }
 
-            public void SubSessionEvent<T>(
-                EventSource src,
-                EntitySessionEventHandler<T> handler,
-                Type[]? before = null, Type[]? after = null)
-                where T : notnull
-            {
-                System.SubSessionEvent(src, handler, before, after);
-            }
-
             public void SubscribeLocalEvent<TComp, TEvent>(
                 ComponentEventHandler<TComp, TEvent> handler,
                 Type[]? before = null, Type[]? after = null)

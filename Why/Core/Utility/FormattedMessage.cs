@@ -73,7 +73,7 @@ namespace Why.Core.Utility
             _tags.Add(new TagText(text));
         }
 
-        public void PushColor(Love.Color color)
+        public void PushColor(Color color)
         {
             _tags.Add(new TagColor(color));
         }
@@ -142,7 +142,7 @@ namespace Why.Core.Utility
         }
 
         [Serializable]
-        public sealed record TagColor(Love.Color Color) : Tag
+        public sealed record TagColor(Color Color) : Tag
         {
             public override string ToString()
             {

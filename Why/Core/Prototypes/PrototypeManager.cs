@@ -195,7 +195,7 @@ namespace Why.Core.Prototypes
         }
     }
 
-    public class PrototypeManager : IPrototypeManager
+    public sealed partial class PrototypeManager : IPrototypeManager
     {
         [Dependency] private readonly IReflectionManager _reflectionManager = default!;
         [Dependency] protected readonly IResourceManager Resources = default!;
@@ -217,7 +217,7 @@ namespace Why.Core.Prototypes
 
         private readonly HashSet<string> _ignoredPrototypeTypes = new();
 
-        public virtual void Initialize()
+        public void Initialize()
         {
             if (_initialized)
             {
@@ -225,7 +225,9 @@ namespace Why.Core.Prototypes
             }
 
             _initialized = true;
-            ReloadPrototypeTypes();
+            ReloadPrototypeTypes(); 
+
+            WatchResources();
         }
 
         public IEnumerable<T> EnumeratePrototypes<T>() where T : class, IPrototype

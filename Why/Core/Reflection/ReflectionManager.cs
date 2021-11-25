@@ -5,7 +5,6 @@ using System.Linq;
 using System.Reflection;
 using Why.Core.Log;
 using Why.Core.Serialization;
-using Why.Core.ViewVariables;
 
 namespace Why.Core.Reflection
 {
@@ -24,7 +23,6 @@ namespace Why.Core.Reflection
 
         public event EventHandler<ReflectionUpdateEventArgs>? OnAssemblyAdded;
 
-        [ViewVariables]
         public IReadOnlyList<Assembly> Assemblies => assemblies;
 
         private readonly Dictionary<(Type baseType, string typeName), Type?> _yamlTypeTagCache = new();

@@ -3,9 +3,11 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using Why.Core.GameObjects;
 using Why.Core.IoC;
+using Why.Core.Maths;
 using Why.Core.Serialization;
 using Why.Core.Serialization.Manager;
 using Why.Core.Serialization.Manager.Attributes;
+using Why.Core.Serialization.TypeSerializers.Implementations.Custom.Prototype;
 
 namespace Why.Core.Prototypes
 {

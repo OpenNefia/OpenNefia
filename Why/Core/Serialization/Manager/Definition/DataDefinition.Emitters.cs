@@ -3,7 +3,6 @@ using System.Linq.Expressions;
 using System.Reflection;
 using System.Reflection.Emit;
 using Why.Core.IoC;
-using Why.Core.Network;
 using Why.Core.Serialization.Manager.Result;
 using Why.Core.Serialization.Markdown.Mapping;
 using Why.Core.Utility;
@@ -22,12 +21,6 @@ namespace Why.Core.Serialization.Manager.Definition
                 for (var i = 0; i < BaseFieldDefinitions.Length; i++)
                 {
                     var fieldDefinition = BaseFieldDefinitions[i];
-
-                    if (fieldDefinition.Attribute.ServerOnly && !IoCManager.Resolve<INetManager>().IsServer)
-                    {
-                        mappedInfo[i] = new DeserializedFieldEntry(false, fieldDefinition.InheritanceBehavior);
-                        continue;
-                    }
 
                     var mapped = mappingDataNode.Has(fieldDefinition.Attribute.Tag);
 
@@ -112,12 +105,6 @@ namespace Why.Core.Serialization.Manager.Definition
                     var fieldDefinition = BaseFieldDefinitions[i];
 
                     if (fieldDefinition.Attribute.ReadOnly)
-                    {
-                        continue;
-                    }
-
-                    if (fieldDefinition.Attribute.ServerOnly &&
-                        !IoCManager.Resolve<INetManager>().IsServer)
                     {
                         continue;
                     }
