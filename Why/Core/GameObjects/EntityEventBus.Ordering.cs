@@ -45,7 +45,8 @@ namespace Why.Core.GameObjects
         private void RaiseLocalOrdered(EntityUid uid,
             Type eventType,
             ref Unit unitRef,
-            bool broadcast, bool byRef)
+            bool broadcast, 
+            bool byRef)
         {
             var found = new List<(RefEventHandler, OrderingData?)>();
 
@@ -55,9 +56,6 @@ namespace Why.Core.GameObjects
             _eventTables.CollectOrdered(uid, eventType, found, byRef);
 
             DispatchOrderedEvents(ref unitRef, found);
-
-            if (broadcast)
-                ProcessAwaitingMessages(EventSource.Local, ref unitRef, eventType);
         }
 
         private static void DispatchOrderedEvents(ref Unit eventArgs, List<(RefEventHandler, OrderingData?)> found)

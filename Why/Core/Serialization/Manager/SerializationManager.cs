@@ -251,9 +251,9 @@ namespace Why.Core.Serialization.Manager
                 return new ValidatedValueNode(node);
             }
 
-            if (node.Tag?.StartsWith("!type:") == true)
+            if (!node.Tag.IsEmpty && node.Tag.Value.StartsWith("!type:"))
             {
-                var typeString = node.Tag.Substring(6);
+                var typeString = node.Tag.Value.Substring(6);
                 try
                 {
                     underlyingType = ResolveConcreteType(underlyingType, typeString);

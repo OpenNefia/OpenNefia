@@ -1,0 +1,12 @@
+- type: entity
+  id: BaseItem
+  abstract: true
+  components:
+  - type: Item
+
+- type: entity
+  id: Dagger
+  abstract: true
+  components:
+  - type: Item
+    value: 5

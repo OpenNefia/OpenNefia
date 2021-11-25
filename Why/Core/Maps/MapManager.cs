@@ -25,6 +25,11 @@ namespace Why.Core.Maps
             return map;
         }
 
+        public void SaveMap(MapId id)
+        {
+
+        }
+
         public MapId RegisterMap(IMap map)
         {
             DebugTools.Assert(map.Id == MapId.Nullspace, $"Map {map.Id} already registered");
@@ -34,9 +39,9 @@ namespace Why.Core.Maps
             return map.Id;
         }
 
-        public void SaveMap(MapId id)
+        public IMap GetMap(MapId id)
         {
-
+            return CachedMaps[id];
         }
 
         public void ChangeCurrentMap(MapId id)

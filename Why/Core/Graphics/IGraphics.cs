@@ -11,5 +11,9 @@ namespace Why.Core.Graphics
         event Action<WindowResizedEventArgs> OnWindowResized;
 
         event Action<WindowFocusedEventArgs> OnWindowFocused;
+
+        public void Initialize();
+
+        public void Shutdown();
     }
 }

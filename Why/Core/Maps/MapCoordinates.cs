@@ -12,7 +12,7 @@ namespace Why.Core.Maps
     [Serializable]
     public readonly struct MapCoordinates : IEquatable<MapCoordinates>
     {
-        public static readonly MapCoordinates Nullspace = new(Vector2i.Zero, MapId.Nullspace);
+        public static readonly MapCoordinates Nullspace = new(MapId.Nullspace, Vector2i.Zero);
 
         /// <summary>
         ///     World Position coordinates.
@@ -37,9 +37,9 @@ namespace Why.Core.Maps
         /// <summary>
         ///     Constructs a new instance of <c>MapCoordinates</c>.
         /// </summary>
-        /// <param name="position">World position coordinates.</param>
         /// <param name="mapId">Map identifier relevant to this position.</param>
-        public MapCoordinates(Vector2i position, MapId mapId)
+        /// <param name="position">World position coordinates.</param>
+        public MapCoordinates(MapId mapId, Vector2i position)
         {
             Position = position;
             MapId = mapId;
@@ -51,13 +51,13 @@ namespace Why.Core.Maps
         /// <param name="x">World position coordinate on the X axis.</param>
         /// <param name="y">World position coordinate on the Y axis.</param>
         /// <param name="mapId">Map identifier relevant to this position.</param>
-        public MapCoordinates(int x, int y, MapId mapId)
-            : this(new Vector2i(x, y), mapId) { }
+        public MapCoordinates(MapId mapId, int x, int y)
+            : this(mapId, new Vector2i(x, y)) { }
 
         /// <inheritdoc />
         public override string ToString()
         {
-            return $"Map={MapId}, X={Position.X:N2}, Y={Position.Y:N2}";
+            return $"Map={MapId}, X={Position.X}, Y={Position.Y}";
         }
 
         /// <inheritdoc />
@@ -131,7 +131,7 @@ namespace Why.Core.Maps
         /// <returns>A copy of these coordinates, but offset.</returns>
         public MapCoordinates Offset(Vector2i offset)
         {
-            return new MapCoordinates(Position + offset, MapId);
+            return new MapCoordinates(MapId, Position + offset);
         }
 
         /// <summary>

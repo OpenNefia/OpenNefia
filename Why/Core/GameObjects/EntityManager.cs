@@ -12,12 +12,12 @@ namespace Why.Core.GameObjects
     public delegate void EntityUidQueryCallback(EntityUid uid);
 
     /// <inheritdoc />
-    public partial class EntityManager : IEntityManager
+    public sealed partial class EntityManager : IEntityManager
     {
         #region Dependencies
 
-        [IoC.Dependency] protected readonly IPrototypeManager PrototypeManager = default!;
-        [IoC.Dependency] protected readonly IEntitySystemManager EntitySystemManager = default!;
+        [IoC.Dependency] private readonly IPrototypeManager PrototypeManager = default!;
+        [IoC.Dependency] private readonly IEntitySystemManager EntitySystemManager = default!;
         [IoC.Dependency] private readonly IMapManager _mapManager = default!;
 
         #endregion Dependencies
@@ -27,17 +27,17 @@ namespace Why.Core.GameObjects
         /// <inheritdoc />
         public IEntitySystemManager EntitySysManager => EntitySystemManager;
 
-        protected readonly Queue<EntityUid> QueuedDeletions = new();
-        protected readonly HashSet<EntityUid> QueuedDeletionsSet = new();
+        private readonly Queue<EntityUid> QueuedDeletions = new();
+        private readonly HashSet<EntityUid> QueuedDeletionsSet = new();
 
         /// <summary>
         ///     All entities currently stored in the manager.
         /// </summary>
-        protected readonly Dictionary<EntityUid, Entity> Entities = new();
+        private readonly Dictionary<EntityUid, Entity> Entities = new();
 
         private EntityEventBus _eventBus = null!;
 
-        protected virtual int NextEntityUid { get; set; } = (int)EntityUid.FirstUid;
+        private int NextEntityUid { get; set; } = (int)EntityUid.FirstUid;
 
         /// <inheritdoc />
         public IEventBus EventBus => _eventBus;
@@ -47,8 +47,8 @@ namespace Why.Core.GameObjects
         public event EventHandler<EntityUid>? EntityStarted;
         public event EventHandler<EntityUid>? EntityDeleted;
 
-        public bool Started { get; protected set; }
-        public bool Initialized { get; protected set; }
+        public bool Started { get; private set; }
+        public bool Initialized { get; private set; }
 
         /// <summary>
         /// Constructs a new instance of <see cref="EntityManager"/>.
@@ -57,7 +57,7 @@ namespace Why.Core.GameObjects
         {
         }
 
-        public virtual void Initialize()
+        public void Initialize()
         {
             if (Initialized)
                 throw new InvalidOperationException("Initialize() called multiple times");
@@ -69,7 +69,7 @@ namespace Why.Core.GameObjects
             Initialized = true;
         }
 
-        public virtual void Startup()
+        public void Startup()
         {
             if (Started)
                 throw new InvalidOperationException("Startup() called multiple times");
@@ -78,7 +78,7 @@ namespace Why.Core.GameObjects
             Started = true;
         }
 
-        public virtual void Shutdown()
+        public void Shutdown()
         {
             FlushEntities();
             _eventBus.ClearEventTables();
@@ -109,22 +109,25 @@ namespace Why.Core.GameObjects
         }
 
         /// <inheritdoc />
-        public virtual IEntity CreateEntityUninitialized(string? prototypeName)
+        public IEntity CreateEntityUninitialized(string? prototypeName)
         {
             return CreateEntity(prototypeName);
         }
 
         /// <inheritdoc />
-        public virtual IEntity CreateEntityUninitialized(string? prototypeName, MapCoordinates coordinates)
+        public IEntity CreateEntityUninitialized(string? prototypeName, MapCoordinates coordinates)
         {
             var newEntity = CreateEntity(prototypeName);
-            // newEntity.Transform.AttachParent(_mapManager.GetMapEntity(coordinates.MapId));
+            var map = _mapManager.GetMap(coordinates.MapId);
+            map.Entities.Add(newEntity);
+            newEntity.ChangeMapId(coordinates.MapId);
+            newEntity.Pos = coordinates.Position;
 
             return newEntity;
         }
 
         /// <inheritdoc />
-        public virtual IEntity SpawnEntity(string? protoName, MapCoordinates coordinates)
+        public IEntity SpawnEntity(string? protoName, MapCoordinates coordinates)
         {
             var entity = CreateEntityUninitialized(protoName, coordinates);
             InitializeAndStartEntity((Entity) entity, coordinates.MapId);
@@ -173,7 +176,7 @@ namespace Why.Core.GameObjects
         /// Shuts-down and removes given Entity. This is also broadcast to all clients.
         /// </summary>
         /// <param name="e">Entity to remove</param>
-        public virtual void DeleteEntity(IEntity e)
+        public void DeleteEntity(IEntity e)
         {
             // Networking blindly spams entities at this function, they can already be
             // deleted from being a child of a previously deleted entity
@@ -248,7 +251,7 @@ namespace Why.Core.GameObjects
         /// <summary>
         ///     Allocates an entity and stores it but does not load components or do initialization.
         /// </summary>
-        private protected Entity AllocEntity(string? prototypeName, EntityUid? uid = null)
+        private Entity AllocEntity(string? prototypeName, EntityUid? uid = null)
         {
             EntityPrototype? prototype = null;
             if (!string.IsNullOrWhiteSpace(prototypeName))
@@ -267,7 +270,7 @@ namespace Why.Core.GameObjects
         /// <summary>
         ///     Allocates an entity and stores it but does not load components or do initialization.
         /// </summary>
-        private protected Entity AllocEntity(EntityUid? uid = null)
+        private Entity AllocEntity(EntityUid? uid = null)
         {
             if (uid == null)
             {
@@ -302,7 +305,7 @@ namespace Why.Core.GameObjects
         /// <summary>
         ///     Allocates an entity and loads components but does not do initialization.
         /// </summary>
-        private protected virtual Entity CreateEntity(string? prototypeName, EntityUid? uid = null)
+        private Entity CreateEntity(string? prototypeName, EntityUid? uid = null)
         {
             if (prototypeName == null)
                 return AllocEntity(uid);
@@ -340,13 +343,13 @@ namespace Why.Core.GameObjects
             }
         }
 
-        protected void InitializeEntity(Entity entity)
+        private void InitializeEntity(Entity entity)
         {
             InitializeComponents(entity.Uid);
             EntityInitialized?.Invoke(this, entity.Uid);
         }
 
-        protected void StartEntity(Entity entity)
+        private void StartEntity(Entity entity)
         {
             StartComponents(entity.Uid);
             EntityStarted?.Invoke(this, entity.Uid);
@@ -358,7 +361,7 @@ namespace Why.Core.GameObjects
         ///     Factory for generating a new EntityUid for an entity currently being created.
         /// </summary>
         /// <inheritdoc />
-        protected virtual EntityUid GenerateEntityUid()
+        private EntityUid GenerateEntityUid()
         {
             return new(NextEntityUid++);
         }

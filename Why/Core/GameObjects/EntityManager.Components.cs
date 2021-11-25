@@ -12,7 +12,7 @@ using DependencyAttribute = Why.Core.IoC.DependencyAttribute;
 namespace Why.Core.GameObjects
 {
     /// <inheritdoc />
-    public partial class EntityManager
+    public sealed partial class EntityManager
     {
         [Dependency] private readonly IComponentFactory _componentFactory = default!;
         [Dependency] private readonly IComponentDependencyManager _componentDependencyManager = default!;
@@ -90,13 +90,7 @@ namespace Why.Core.GameObjects
             DebugTools.Assert(metadata.EntityLifeStage == EntityLifeStage.PreInit);
             metadata.EntityLifeStage = EntityLifeStage.Initializing;
 
-            // Initialize() can modify the collection of components.
-            var components = GetComponents(uid)
-                .OrderBy(x => x switch
-                {
-                    TransformComponent _ => 0,
-                    _ => int.MaxValue
-                });
+            var components = GetComponents(uid);
 
             foreach (var component in components)
             {
@@ -125,15 +119,7 @@ namespace Why.Core.GameObjects
 
         public void StartComponents(EntityUid uid)
         {
-            // TODO: Move this to EntityManager.
-            // Startup() can modify _components
-            // This code can only handle additions to the list. Is there a better way? Probably not.
-            var comps = GetComponents(uid)
-                .OrderBy(x => x switch
-                {
-                    TransformComponent _ => 0,
-                    _ => int.MaxValue
-                });
+            var comps = GetComponents(uid);
 
             foreach (var component in comps)
             {
@@ -198,8 +184,8 @@ namespace Why.Core.GameObjects
                     throw new InvalidOperationException(
                         $"Component reference type {type} already occupied by {duplicate}");
 
-                // these two components are required on all entities and cannot be overwritten.
-                if (duplicate is TransformComponent || duplicate is MetaDataComponent)
+                // metadata are required on all entities and cannot be overwritten.
+                if (duplicate is MetaDataComponent)
                     throw new InvalidOperationException("Tried to overwrite a protected component.");
 
                 RemoveComponentImmediate(duplicate, uid, false);
@@ -267,8 +253,7 @@ namespace Why.Core.GameObjects
             static int Sequence(IComponent x)
                 => x switch
                 {
-                    MetaDataComponent _ => 0,
-                    TransformComponent _ => 1,
+                    MetaDataComponent => 0,
                     _ => int.MaxValue
                 };
 
@@ -309,8 +294,8 @@ namespace Why.Core.GameObjects
             try
             {
 #endif
-            // these two components are required on all entities and cannot be removed normally.
-            if (!removeProtected && component is TransformComponent or MetaDataComponent)
+            // metadata are required on all entities and cannot be removed normally.
+            if (!removeProtected && component is MetaDataComponent)
             {
                 DebugTools.Assert("Tried to remove a protected component.");
                 return;
@@ -349,8 +334,8 @@ namespace Why.Core.GameObjects
 #endif
             if (!component.Deleted)
             {
-                // these two components are required on all entities and cannot be removed.
-                if (!removeProtected && component is TransformComponent or MetaDataComponent)
+                // metadata are required on all entities and cannot be removed.
+                if (!removeProtected && component is MetaDataComponent)
                 {
                     DebugTools.Assert("Tried to remove a protected component.");
                     return;

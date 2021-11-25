@@ -1,4 +1,5 @@
 ﻿using System;
+using Why.Core.GameObjects;
 
 namespace Why.Core.Maps
 {
@@ -17,10 +18,10 @@ namespace Why.Core.Maps
         public int Width { get; }
         public int Height { get; }
 
-        public Tile[,] Tiles;
-        public Tile[,] TileMemory;
+        public Tile[,] Tiles { get; }
+        public Tile[,] TileMemory { get; }
 
-        // public List<IEntity> Entities = new List<IEntity>();
+        public List<IEntity> Entities { get; } = new List<IEntity>();
 
         public Map(int width, int height)
         {
@@ -38,7 +39,7 @@ namespace Why.Core.Maps
                 {
                     for (var y = 0; y < Height; y++)
                     {
-                        yield return new TileRef(this.Id, x, y, Tiles[x, y]);
+                        yield return new TileRef(Id, x, y, Tiles[x, y]);
                     }
                 }
             }
@@ -52,10 +53,15 @@ namespace Why.Core.Maps
                 {
                     for (var y = 0; y < Height; y++)
                     {
-                        yield return new TileRef(this.Id, x, y, Tiles[x, y]);
+                        yield return new TileRef(Id, x, y, Tiles[x, y]);
                     }
                 }
             }
+        }
+
+        public MapCoordinates AtPos(int x, int y)
+        {
+            return new MapCoordinates(Id, x, y);
         }
     }
 }

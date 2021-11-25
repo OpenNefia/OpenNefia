@@ -8,7 +8,7 @@ using Why.Core.Serialization;
 
 namespace Why.Core.Reflection
 {
-    public abstract class ReflectionManager : IReflectionManager
+    public sealed class ReflectionManager : IReflectionManager
     {
         /// <summary>
         /// Enumerable over prefixes that are added to the type provided to <see cref="GetType(string)"/>
@@ -17,7 +17,7 @@ namespace Why.Core.Reflection
         /// <remarks>
         /// First prefix should probably be <code>""</code>.
         /// </remarks>
-        protected abstract IEnumerable<string> TypePrefixes { get; }
+        private IEnumerable<string> TypePrefixes { get; } = new List<string>() { "", "Why.Core." };
 
         private readonly List<Assembly> assemblies = new();
 

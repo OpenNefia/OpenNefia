@@ -26,6 +26,11 @@ namespace Why.Core.GameObjects
         EntityUid OwnerUid => Owner.Uid;
 
         /// <summary>
+        /// Name of this component.
+        /// </summary>
+        string Name { get; }
+
+        /// <summary>
         /// Component has been properly initialized.
         /// </summary>
         bool Initialized { get; }

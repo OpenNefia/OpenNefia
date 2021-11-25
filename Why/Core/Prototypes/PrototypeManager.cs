@@ -4,6 +4,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
+using System.Text;
 using System.Threading;
 using JetBrains.Annotations;
 using Why.Core.Asynchronous;
@@ -198,9 +199,8 @@ namespace Why.Core.Prototypes
     public sealed partial class PrototypeManager : IPrototypeManager
     {
         [Dependency] private readonly IReflectionManager _reflectionManager = default!;
-        [Dependency] protected readonly IResourceManager Resources = default!;
+        [Dependency] private readonly IResourceManager Resources = default!;
         [Dependency] private readonly IEntityManager _entityManager = default!;
-        [Dependency] protected readonly ITaskManager TaskManager = default!;
         [Dependency] private readonly ISerializationManager _serializationManager = default!;
 
         private readonly Dictionary<string, Type> _prototypeTypes = new();
@@ -227,7 +227,7 @@ namespace Why.Core.Prototypes
             _initialized = true;
             ReloadPrototypeTypes(); 
 
-            WatchResources();
+            // WatchResources();
         }
 
         public IEnumerable<T> EnumeratePrototypes<T>() where T : class, IPrototype
@@ -295,7 +295,7 @@ namespace Why.Core.Prototypes
             return _prototypePriorities[b].CompareTo(_prototypePriorities[a]);
         }
 
-        protected void ReloadPrototypes(IEnumerable<ResourcePath> filePaths)
+        private void ReloadPrototypes(IEnumerable<ResourcePath> filePaths)
         {
 #if !FULL_RELEASE
             var changed = filePaths.SelectMany(f => LoadFile(f.ToRootedPath(), true)).ToList();

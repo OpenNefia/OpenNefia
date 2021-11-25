@@ -1,10 +1,11 @@
 using Why.Core.Serialization.Manager;
+using YamlDotNet.Core;
 
 namespace Why.Core.Serialization.Markdown
 {
     public abstract class DataNode
     {
-        public string? Tag;
+        public TagName Tag;
         public NodeMark Start;
         public NodeMark End;
 

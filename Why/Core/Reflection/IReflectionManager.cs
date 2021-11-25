@@ -55,7 +55,7 @@ namespace Why.Core.Reflection
         /// <param name="name">
         /// The type name to look up. Anything accepted by <see cref="Type.GetType"/> works.
         /// However, if the type does not start with <code>Robust.*</code> and cannot be found,
-        /// it will add <code>Robust.Client</code>, <code>Why.Core</code>, etc... in front of it.
+        /// it will add <code>Why.Core</code>, <code>Why.Core</code>, etc... in front of it.
         /// </param>
         /// <returns></returns>
         Type? GetType(string name);

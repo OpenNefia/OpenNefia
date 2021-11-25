@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using Why.Core.Maps;
+using Why.Core.Maths;
 using Why.Core.Prototypes;
 using Why.Core.Utility;
 
@@ -20,7 +21,13 @@ namespace Why.Core.GameObjects
         public EntityUid Uid { get; }
 
         /// <inheritdoc />
-        public MapCoordinates Coords { get; }
+        public Vector2i Pos { get; set; }
+
+        /// <inheritdoc />
+        public MapId MapId { get; private set; }
+        
+        /// <inheritdoc />
+        public MapCoordinates Coords { get => new MapCoordinates(MapId, Pos); }
 
         /// <inheritdoc />
         EntityLifeStage IEntity.LifeStage { get => LifeStage; set => LifeStage = value; }
@@ -32,21 +39,6 @@ namespace Why.Core.GameObjects
         {
             get => MetaData.EntityPrototype;
             internal set => MetaData.EntityPrototype = value;
-        }
-        
-
-        /// <inheritdoc />
-        public string Description
-        {
-            get => MetaData.EntityDescription;
-            set => MetaData.EntityDescription = value;
-        }
-
-        /// <inheritdoc />
-        public string Name
-        {
-            get => MetaData.EntityName;
-            set => MetaData.EntityName = value;
         }
 
         /// <inheritdoc />
@@ -84,6 +76,16 @@ namespace Why.Core.GameObjects
         }
 
         #endregion Initialization
+
+        internal void ChangeMapId(MapId newMapId)
+        {
+            if (newMapId == MapId)
+                return;
+
+            var oldMapId = MapId;
+
+            MapId = newMapId;
+        }
 
         #region Components
 

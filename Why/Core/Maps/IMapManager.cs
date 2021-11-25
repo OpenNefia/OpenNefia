@@ -1,4 +1,6 @@
-﻿namespace Why.Core.Maps
+﻿using Why.Core.GameObjects;
+
+namespace Why.Core.Maps
 {
     public interface IMapManager
     {
@@ -7,5 +9,6 @@
         MapId RegisterMap(IMap map);
         void SaveMap(MapId id);
         bool IsMapInitialized(MapId mapId);
+        IMap GetMap(MapId id);
     }
 }

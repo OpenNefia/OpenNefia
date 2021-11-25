@@ -3,6 +3,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using Why.Core.GameObjects;
 using Why.Core.IoC;
+using Why.Core.Log;
 using Why.Core.Maths;
 using Why.Core.Serialization;
 using Why.Core.Serialization.Manager;
@@ -17,17 +18,7 @@ namespace Why.Core.Prototypes
     [Prototype("entity", -1)]
     public class EntityPrototype : IPrototype, IInheritingPrototype, ISerializationHooks
     {
-        private static readonly Dictionary<string, string> LocPropertiesDefault = new();
-
-        // LOCALIZATION NOTE:
-        // Localization-related properties in here are manually localized in LocalizationManager.
-        // As such, they should NOT be inherited to avoid confusing the system.
-
         private const int DEFAULT_RANGE = 200;
-
-        [NeverPushInheritance]
-        [DataField("loc")]
-        private Dictionary<string, string>? _locPropertiesSet;
 
         /// <summary>
         /// The "in code name" of the object. Must be unique.
@@ -89,11 +80,11 @@ namespace Why.Core.Prototypes
             var oldPrototype = entity.Prototype;
 
             var oldPrototypeComponents = oldPrototype.Components.Keys
-                .Where(n => n != "Transform" && n != "MetaData")
+                .Where(n => n != "MetaData")
                 .Select(name => (name, factory.GetRegistration(name).Type))
                 .ToList();
             var newPrototypeComponents = Components.Keys
-                .Where(n => n != "Transform" && n != "MetaData")
+                .Where(n => n != "MetaData")
                 .Select(name => (name, factory.GetRegistration(name).Type))
                 .ToList();
 

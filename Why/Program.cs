@@ -1,10 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using Why.Core.GameController;
+using Why.Core.GameObjects;
 using Why.Core.IoC;
+using Why.Core.Log;
 using Why.Core.Maps;
+using Why.Core.Reflection;
 
 namespace Why
 {
@@ -42,28 +47,33 @@ namespace Why
     {
         public static void Main(string[] args)
         {
-            IoCSetup.Run();
-            IoCManager.BuildGraph();
+            InitIoC();
 
-            StartGame();
+            var gc = IoCManager.Resolve<IGameController>();
+
+            if (!gc.Startup())
+            {
+                Logger.Fatal("Failed to start game controller!");
+                return;
+            }
+
+            gc.Run();
         }
 
-        private static void StartGame()
+        private static void InitIoC()
         {
-            var mapManager = IoCManager.Resolve<IMapManager>();
+            IoCSetup.Run();
+            IoCManager.BuildGraph();
+            RegisterReflection();
+        }
 
-            var map = new Map(40, 10);
-
-            mapManager.RegisterMap(map);
-
-            for (int y = 0; y < map.Height; y++)
+        private static void RegisterReflection()
+        {
+            // Gets a handle to the shared and the current (client) dll.
+            IoCManager.Resolve<IReflectionManager>().LoadAssemblies(new List<Assembly>(1)
             {
-                for (int x = 0; x < map.Width; x++)
-                {
-                    Console.Write($"{(char)(map.Tiles[x, y].Type + 'A')}");
-                }
-                Console.Write("\n");
-            }
+                Assembly.GetExecutingAssembly()
+            });
         }
     }
 }

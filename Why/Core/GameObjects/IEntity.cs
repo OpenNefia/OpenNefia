@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Why.Core.Maps;
+using Why.Core.Maths;
 using Why.Core.Prototypes;
 
 namespace Why.Core.GameObjects
@@ -19,6 +20,16 @@ namespace Why.Core.GameObjects
         /// The unique ID of this entity.
         /// </summary>
         EntityUid Uid { get; }
+
+        /// <summary>
+        /// Position of this entity on the map.
+        /// </summary>
+        public Vector2i Pos { get; set; }
+
+        /// <summary>
+        /// ID of the map this entity is in.
+        /// </summary>
+        public MapId MapId { get; }
 
         /// <summary>
         ///     The current lifetime stage of this entity. You can use this to check

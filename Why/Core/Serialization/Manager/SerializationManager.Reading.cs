@@ -24,9 +24,9 @@ namespace Why.Core.Serialization.Manager
 
         private ReadDelegate GetOrCreateReader(Type value, DataNode node)
         {
-            if (node.Tag?.StartsWith("!type:") ?? false)
+            if (!node.Tag.IsEmpty && node.Tag.Value.StartsWith("!type:"))
             {
-                var typeString = node.Tag.Substring(6);
+                var typeString = node.Tag.Value.Substring(6);
                 value = ResolveConcreteType(value, typeString);
             }
 

@@ -81,16 +81,6 @@ namespace Why.Core.GameObjects
         IComponent GetComponent(string componentName, bool ignoreCase = false);
 
         /// <summary>
-        /// Gets a new component instantiated of the specified network ID.
-        /// </summary>
-        /// <param name="netId">net id of component to make</param>
-        /// <returns>A Component</returns>
-        /// <exception cref="UnknownComponentException">
-        ///     Thrown if no component exists with the given id <see cref="netId"/>.
-        /// </exception>
-        IComponent GetComponent(ushort netId);
-
-        /// <summary>
         ///     Gets the registration belonging to a component, throwing an exception if it does not exist.
         /// </summary>
         /// <param name="componentName">The name of the component.</param>
@@ -117,17 +107,6 @@ namespace Why.Core.GameObjects
         ///     Thrown if no component of type <see cref="T"/> exists.
         /// </exception>
         IComponentRegistration GetRegistration<T>() where T : IComponent, new();
-
-        /// <summary>
-        ///     Gets the registration belonging to a component, throwing an
-        ///     exception if it does not exist.
-        /// </summary>
-        /// <param name="netID">The network ID corresponding to the component.</param>
-        /// <returns></returns>
-        /// <exception cref="UnknownComponentException">
-        ///     Thrown if no component with id <see cref="netID"/> exists.
-        /// </exception>
-        IComponentRegistration GetRegistration(ushort netID);
 
         /// <summary>
         ///     Gets the registration of a component, throwing an exception if
@@ -166,14 +145,6 @@ namespace Why.Core.GameObjects
         bool TryGetRegistration<T>([NotNullWhen(true)] out IComponentRegistration? registration) where T : IComponent, new();
 
         /// <summary>
-        ///     Tries to get the registration belonging to a component.
-        /// </summary>
-        /// <param name="netID">The network ID corresponding to the component.</param>
-        /// <param name="registration">The registration if found, null otherwise.</param>
-        /// <returns>true it found, false otherwise.</returns>
-        bool TryGetRegistration(ushort netID, [NotNullWhen(true)] out IComponentRegistration? registration);
-
-        /// <summary>
         ///     Tries to get the registration of a component.
         /// </summary>
         /// <param name="component">An instance of the component.</param>
@@ -187,6 +158,8 @@ namespace Why.Core.GameObjects
         void DoAutoRegistrations();
 
         IEnumerable<Type> GetAllRefTypes();
+
+        void FinishRegistration();
     }
 
     /// <summary>
