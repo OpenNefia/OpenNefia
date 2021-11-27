@@ -1,7 +1,7 @@
 using System;
 using YamlDotNet.Core;
 
-namespace Why.Core.Serialization.Markdown
+namespace OpenNefia.Core.Serialization.Markdown
 {
     public readonly struct NodeMark : IEquatable<NodeMark>, IComparable<NodeMark>
     {

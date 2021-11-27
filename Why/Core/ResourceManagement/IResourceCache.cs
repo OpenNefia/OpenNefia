@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using Why.Core.ContentPack;
-using Why.Core.Utility;
+using OpenNefia.Core.ContentPack;
+using OpenNefia.Core.Utility;
 
-namespace Why.Core.ResourceManagement
+namespace OpenNefia.Core.ResourceManagement
 {
     public interface IResourceCache : IResourceManager
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace Why.Core.ContentPack
+namespace OpenNefia.Core.ContentPack
 {
     [Serializable]
     public class TypeCheckFailedException : Exception

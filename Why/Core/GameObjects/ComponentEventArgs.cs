@@ -1,7 +1,7 @@
 #nullable enable
 using System;
 
-namespace Why.Core.GameObjects
+namespace OpenNefia.Core.GameObjects
 {
 
     /// <summary>

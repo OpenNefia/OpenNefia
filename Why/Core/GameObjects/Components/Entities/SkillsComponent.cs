@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Why.Core.Prototypes;
+using OpenNefia.Core.Prototypes;
 
-namespace Why.Core.GameObjects
+namespace OpenNefia.Core.GameObjects
 {
     /// <summary>
     /// Holds HP/MP/stamina and skill data. (Skills and stats are treated the same.)

@@ -2,10 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using Why.Core.Maps;
-using Why.Core.Prototypes;
+using OpenNefia.Core.Maps;
+using OpenNefia.Core.Prototypes;
 
-namespace Why.Core.GameObjects
+namespace OpenNefia.Core.GameObjects
 {
     public delegate void EntityQueryCallback(IEntity entity);
 

@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection;
-using Why.Core.Log;
-using Why.Core.Serialization;
+using OpenNefia.Core.Log;
+using OpenNefia.Core.Serialization;
 
-namespace Why.Core.Reflection
+namespace OpenNefia.Core.Reflection
 {
     public sealed class ReflectionManager : IReflectionManager
     {
@@ -17,7 +17,7 @@ namespace Why.Core.Reflection
         /// <remarks>
         /// First prefix should probably be <code>""</code>.
         /// </remarks>
-        private IEnumerable<string> TypePrefixes { get; } = new List<string>() { "", "Why.Core." };
+        private IEnumerable<string> TypePrefixes { get; } = new List<string>() { "", "OpenNefia.Core." };
 
         private readonly List<Assembly> assemblies = new();
 

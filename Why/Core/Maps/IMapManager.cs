@@ -1,6 +1,6 @@
-﻿using Why.Core.GameObjects;
+﻿using OpenNefia.Core.GameObjects;
 
-namespace Why.Core.Maps
+namespace OpenNefia.Core.Maps
 {
     public interface IMapManager
     {

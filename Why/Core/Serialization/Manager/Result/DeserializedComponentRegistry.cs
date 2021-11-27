@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Why.Core.GameObjects;
-using Why.Core.IoC;
-using Why.Core.Utility;
-using static Why.Core.Prototypes.EntityPrototype;
+using OpenNefia.Core.GameObjects;
+using OpenNefia.Core.IoC;
+using OpenNefia.Core.Utility;
+using static OpenNefia.Core.Prototypes.EntityPrototype;
 
-namespace Why.Core.Serialization.Manager.Result
+namespace OpenNefia.Core.Serialization.Manager.Result
 {
     public class DeserializedComponentRegistry : DeserializationResult<ComponentRegistry>
     {

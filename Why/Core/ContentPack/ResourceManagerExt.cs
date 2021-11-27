@@ -1,8 +1,8 @@
 ﻿using System;
 using System.IO;
-using Why.Core.Utility;
+using OpenNefia.Core.Utility;
 
-namespace Why.Core.ContentPack
+namespace OpenNefia.Core.ContentPack
 {
     public static class ResourceManagerExt
     {

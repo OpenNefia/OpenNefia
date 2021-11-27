@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Threading;
-using Why.Core.Exceptions;
-using Why.Core.IoC;
+using OpenNefia.Core.Exceptions;
+using OpenNefia.Core.IoC;
 
-namespace Why.Core.Timing
+namespace OpenNefia.Core.Timing
 {
     internal sealed class TimerManager : ITimerManager
     {

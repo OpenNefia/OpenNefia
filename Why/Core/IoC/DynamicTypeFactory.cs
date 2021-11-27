@@ -1,10 +1,10 @@
 ﻿using System;
 using JetBrains.Annotations;
-using Why.Core.ContentPack;
-using Why.Core.Exceptions;
-using Why.Core.Utility;
+using OpenNefia.Core.ContentPack;
+using OpenNefia.Core.Exceptions;
+using OpenNefia.Core.Utility;
 
-namespace Why.Core.IoC
+namespace OpenNefia.Core.IoC
 {
     /// <summary>
     ///     The sole purpose of this factory is to create arbitrary objects that have their

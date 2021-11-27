@@ -6,9 +6,9 @@ using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
 using JetBrains.Annotations;
-using Why.Core.Utility;
+using OpenNefia.Core.Utility;
 
-namespace Why.Core.GameObjects
+namespace OpenNefia.Core.GameObjects
 {
     /// <summary>
     /// Provides a central event bus that EntitySystems can subscribe to. This is the main way that

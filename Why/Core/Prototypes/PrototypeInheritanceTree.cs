@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Why.Core.Prototypes
+namespace OpenNefia.Core.Prototypes
 {
     public class PrototypeInheritanceTree
     {

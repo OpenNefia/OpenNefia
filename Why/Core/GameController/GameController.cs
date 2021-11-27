@@ -4,19 +4,19 @@ using System.Linq;
 using System.Runtime;
 using System.Text;
 using System.Threading.Tasks;
-using Why.Core.Asynchronous;
-using Why.Core.ContentPack;
-using Why.Core.GameObjects;
-using Why.Core.Graphics;
-using Why.Core.IoC;
-using Why.Core.Log;
-using Why.Core.Maps;
-using Why.Core.Prototypes;
-using Why.Core.ResourceManagement;
-using Why.Core.Serialization.Manager;
-using Why.Core.Utility;
+using OpenNefia.Core.Asynchronous;
+using OpenNefia.Core.ContentPack;
+using OpenNefia.Core.GameObjects;
+using OpenNefia.Core.Graphics;
+using OpenNefia.Core.IoC;
+using OpenNefia.Core.Log;
+using OpenNefia.Core.Maps;
+using OpenNefia.Core.Prototypes;
+using OpenNefia.Core.ResourceManagement;
+using OpenNefia.Core.Serialization.Manager;
+using OpenNefia.Core.Utility;
 
-namespace Why.Core.GameController
+namespace OpenNefia.Core.GameController
 {
     internal sealed class GameController : IGameController
     {

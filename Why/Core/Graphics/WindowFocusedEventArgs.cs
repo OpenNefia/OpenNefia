@@ -1,4 +1,4 @@
-﻿namespace Why.Core.Graphics
+﻿namespace OpenNefia.Core.Graphics
 {
     public readonly struct WindowFocusedEventArgs
     {

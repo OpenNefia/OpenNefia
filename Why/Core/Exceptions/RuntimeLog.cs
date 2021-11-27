@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text;
-using Why.Core.Log;
+using OpenNefia.Core.Log;
 
-namespace Why.Core.Exceptions
+namespace OpenNefia.Core.Exceptions
 {
     internal sealed class RuntimeLog : IRuntimeLog
     {

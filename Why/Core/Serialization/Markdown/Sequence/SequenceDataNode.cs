@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
-using Why.Core.Serialization.Markdown.Value;
+using OpenNefia.Core.Serialization.Markdown.Value;
 using YamlDotNet.RepresentationModel;
 
-namespace Why.Core.Serialization.Markdown.Sequence
+namespace OpenNefia.Core.Serialization.Markdown.Sequence
 {
     public class SequenceDataNode : DataNode<SequenceDataNode>
     {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 
-namespace Why.Core.Utility
+namespace OpenNefia.Core.Utility
 {
     public sealed class TopologicalSort
     {

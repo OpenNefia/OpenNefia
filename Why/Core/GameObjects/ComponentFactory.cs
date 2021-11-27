@@ -1,11 +1,11 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.Serialization;
-using Why.Core.IoC;
-using Why.Core.Log;
-using Why.Core.Reflection;
+using OpenNefia.Core.IoC;
+using OpenNefia.Core.Log;
+using OpenNefia.Core.Reflection;
 
-namespace Why.Core.GameObjects
+namespace OpenNefia.Core.GameObjects
 {
     internal sealed class ComponentFactory : IComponentFactory
     {

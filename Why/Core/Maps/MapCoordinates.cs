@@ -1,9 +1,9 @@
 ﻿using System;
 using JetBrains.Annotations;
 using Love;
-using Why.Core.Maths;
+using OpenNefia.Core.Maths;
 
-namespace Why.Core.Maps
+namespace OpenNefia.Core.Maps
 {
     /// <summary>
     ///     Coordinates relative to a specific map.
@@ -27,12 +27,12 @@ namespace Why.Core.Maps
         /// <summary>
         ///     World position on the X axis.
         /// </summary>
-        public float X => Position.X;
+        public int X => Position.X;
 
         /// <summary>
         ///     World position on the Y axis.
         /// </summary>
-        public float Y => Position.Y;
+        public int Y => Position.Y;
 
         /// <summary>
         ///     Constructs a new instance of <c>MapCoordinates</c>.

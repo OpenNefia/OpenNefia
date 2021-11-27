@@ -1,6 +1,6 @@
-﻿using Why.Core.Maths;
+﻿using OpenNefia.Core.Maths;
 
-namespace Why.Core.Maps
+namespace OpenNefia.Core.Maps
 {
     public struct TileRef
     {

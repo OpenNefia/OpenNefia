@@ -1,4 +1,4 @@
-﻿namespace Why.Core.ContentPack
+﻿namespace OpenNefia.Core.ContentPack
 {
     /// <summary>
     ///     Run levels of the Content entry point.

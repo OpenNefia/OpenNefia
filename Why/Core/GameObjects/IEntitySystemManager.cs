@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 
-namespace Why.Core.GameObjects
+namespace OpenNefia.Core.GameObjects
 {
     /// <summary>
     /// Controls <see cref="IEntitySystem"/> instances.

@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
-using Why.Core.Utility;
+using OpenNefia.Core.Utility;
 
-namespace Why.Core.ContentPack
+namespace OpenNefia.Core.ContentPack
 {
     internal partial class ResourceManager
     {

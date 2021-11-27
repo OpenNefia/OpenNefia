@@ -3,16 +3,16 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using Why.Core.Log;
-using Why.Core.Serialization.Manager.Attributes;
-using Why.Core.Serialization.Manager.Result;
-using Why.Core.Serialization.Markdown.Mapping;
-using Why.Core.Serialization.Markdown.Validation;
-using Why.Core.Serialization.Markdown.Value;
-using Why.Core.Utility;
-using static Why.Core.Serialization.Manager.SerializationManager;
+using OpenNefia.Core.Log;
+using OpenNefia.Core.Serialization.Manager.Attributes;
+using OpenNefia.Core.Serialization.Manager.Result;
+using OpenNefia.Core.Serialization.Markdown.Mapping;
+using OpenNefia.Core.Serialization.Markdown.Validation;
+using OpenNefia.Core.Serialization.Markdown.Value;
+using OpenNefia.Core.Utility;
+using static OpenNefia.Core.Serialization.Manager.SerializationManager;
 
-namespace Why.Core.Serialization.Manager.Definition
+namespace OpenNefia.Core.Serialization.Manager.Definition
 {
     public partial class DataDefinition
     {

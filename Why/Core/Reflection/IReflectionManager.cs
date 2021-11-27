@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 
-namespace Why.Core.Reflection
+namespace OpenNefia.Core.Reflection
 {
     /// <summary>
     /// Manages common reflection operations, such as iterating over all subtypes of something.
@@ -55,7 +55,7 @@ namespace Why.Core.Reflection
         /// <param name="name">
         /// The type name to look up. Anything accepted by <see cref="Type.GetType"/> works.
         /// However, if the type does not start with <code>Robust.*</code> and cannot be found,
-        /// it will add <code>Why.Core</code>, <code>Why.Core</code>, etc... in front of it.
+        /// it will add <code>OpenNefia.Core</code>, <code>OpenNefia.Core</code>, etc... in front of it.
         /// </param>
         /// <returns></returns>
         Type? GetType(string name);

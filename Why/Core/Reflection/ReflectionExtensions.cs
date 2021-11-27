@@ -1,7 +1,7 @@
 using System;
 using System.Reflection;
 
-namespace Why.Core.Reflection
+namespace OpenNefia.Core.Reflection
 {
     internal static class ReflectionExtensions
     {

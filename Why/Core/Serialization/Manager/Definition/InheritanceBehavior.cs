@@ -1,4 +1,4 @@
-﻿namespace Why.Core.Serialization.Manager.Definition
+﻿namespace OpenNefia.Core.Serialization.Manager.Definition
 {
     public enum InheritanceBehavior : byte
     {

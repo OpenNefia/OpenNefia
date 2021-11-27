@@ -1,9 +1,9 @@
 using System;
 using System.Threading;
-using Why.Core.Exceptions;
-using Why.Core.IoC;
+using OpenNefia.Core.Exceptions;
+using OpenNefia.Core.IoC;
 
-namespace Why.Core.Asynchronous
+namespace OpenNefia.Core.Asynchronous
 {
     internal sealed class TaskManager : ITaskManager
     {

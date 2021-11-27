@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using JetBrains.Annotations;
 
-namespace Why.Core.Utility
+namespace OpenNefia.Core.Utility
 {
     public static class DebugTools
     {

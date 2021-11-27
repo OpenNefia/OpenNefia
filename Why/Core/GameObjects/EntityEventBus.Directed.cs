@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 
-namespace Why.Core.GameObjects
+namespace OpenNefia.Core.GameObjects
 {
     public interface IEventBus : IDirectedEventBus, IBroadcastEventBus
     {

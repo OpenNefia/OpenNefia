@@ -1,4 +1,4 @@
-﻿namespace Why.Core.ContentPack
+﻿namespace OpenNefia.Core.ContentPack
 {
     /// <summary>
     ///     Levels at which point the content assemblies are getting updates.

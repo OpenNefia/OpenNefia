@@ -1,6 +1,6 @@
 using System;
 
-namespace Why.Core.GameObjects
+namespace OpenNefia.Core.GameObjects
 {
     /// <remarks>
     ///     Base component for the ECS system.

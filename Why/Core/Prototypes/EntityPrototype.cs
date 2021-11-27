@@ -1,16 +1,16 @@
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using Why.Core.GameObjects;
-using Why.Core.IoC;
-using Why.Core.Log;
-using Why.Core.Maths;
-using Why.Core.Serialization;
-using Why.Core.Serialization.Manager;
-using Why.Core.Serialization.Manager.Attributes;
-using Why.Core.Serialization.TypeSerializers.Implementations.Custom.Prototype;
+using OpenNefia.Core.GameObjects;
+using OpenNefia.Core.IoC;
+using OpenNefia.Core.Log;
+using OpenNefia.Core.Maths;
+using OpenNefia.Core.Serialization;
+using OpenNefia.Core.Serialization.Manager;
+using OpenNefia.Core.Serialization.Manager.Attributes;
+using OpenNefia.Core.Serialization.TypeSerializers.Implementations.Custom.Prototype;
 
-namespace Why.Core.Prototypes
+namespace OpenNefia.Core.Prototypes
 {
     /// <summary>
     /// Prototype that represents game entities.

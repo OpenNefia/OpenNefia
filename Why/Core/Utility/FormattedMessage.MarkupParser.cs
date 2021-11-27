@@ -1,10 +1,10 @@
 using System.Collections.Generic;
 using Pidgin;
-using Why.Core.Maths;
+using OpenNefia.Core.Maths;
 using static Pidgin.Parser;
 using static Pidgin.Parser<char>;
 
-namespace Why.Core.Utility
+namespace OpenNefia.Core.Utility
 {
     public partial class FormattedMessage
     {

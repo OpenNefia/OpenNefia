@@ -1,7 +1,7 @@
 using System;
 using JetBrains.Annotations;
 
-namespace Why.Core.Serialization.Manager.Attributes
+namespace OpenNefia.Core.Serialization.Manager.Attributes
 {
     [AttributeUsage(AttributeTargets.Class, Inherited = false)]
     [MeansImplicitUse]

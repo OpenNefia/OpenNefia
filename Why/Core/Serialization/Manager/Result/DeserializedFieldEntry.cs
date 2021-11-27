@@ -1,6 +1,6 @@
-﻿using Why.Core.Serialization.Manager.Definition;
+﻿using OpenNefia.Core.Serialization.Manager.Definition;
 
-namespace Why.Core.Serialization.Manager.Result
+namespace OpenNefia.Core.Serialization.Manager.Result
 {
     public class DeserializedFieldEntry
     {

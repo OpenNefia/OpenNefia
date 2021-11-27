@@ -1,7 +1,7 @@
 using System;
 using System.Runtime.Serialization;
 
-namespace Why.Core.GameObjects
+namespace OpenNefia.Core.GameObjects
 {
     /// <summary>
     ///     Thrown if an entity fails to be created due to an exception inside a component.

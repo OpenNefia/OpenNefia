@@ -2,7 +2,7 @@
 using Love;
 using Timer = Love.Timer;
 
-namespace Why.Core.Graphics
+namespace OpenNefia.Core.Graphics
 {
     public class LoveGraphics : IGraphics
     {

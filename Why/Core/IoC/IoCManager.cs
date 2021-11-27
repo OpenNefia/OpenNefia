@@ -1,10 +1,10 @@
-﻿using Why.Core.IoC.Exceptions;
+﻿using OpenNefia.Core.IoC.Exceptions;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 using JetBrains.Annotations;
 using NotNull = System.Diagnostics.CodeAnalysis.NotNullAttribute;
 
-namespace Why.Core.IoC
+namespace OpenNefia.Core.IoC
 {
     /// <summary>
     /// The IoCManager handles Dependency Injection in the project.

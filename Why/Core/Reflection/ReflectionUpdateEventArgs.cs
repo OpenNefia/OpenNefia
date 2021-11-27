@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Why.Core.Reflection
+namespace OpenNefia.Core.Reflection
 {
     public class ReflectionUpdateEventArgs : EventArgs
     {

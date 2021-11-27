@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Why.Core.GameObjects
+namespace OpenNefia.Core.GameObjects
 {
     [AttributeUsage(AttributeTargets.Field)]
     public class ComponentDependencyAttribute : Attribute

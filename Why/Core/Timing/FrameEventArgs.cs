@@ -1,4 +1,4 @@
-﻿namespace Why.Core.Timing
+﻿namespace OpenNefia.Core.Timing
 {
     /// <summary>
     ///     Arguments of the GameLoop frame event.

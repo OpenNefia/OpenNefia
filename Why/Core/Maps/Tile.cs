@@ -1,4 +1,4 @@
-﻿namespace Why.Core.Maps
+﻿namespace OpenNefia.Core.Maps
 {
     public struct Tile
     {

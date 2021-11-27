@@ -1,4 +1,4 @@
-﻿namespace Why.Core.IoC
+﻿namespace OpenNefia.Core.IoC
 {
     /// <summary>
     /// If implemented on a type instantiated by IoC,

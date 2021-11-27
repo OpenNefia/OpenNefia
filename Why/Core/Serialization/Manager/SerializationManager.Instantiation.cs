@@ -2,7 +2,7 @@
 using System.Collections.Concurrent;
 using System.Reflection.Emit;
 
-namespace Why.Core.Serialization.Manager
+namespace OpenNefia.Core.Serialization.Manager
 {
     public partial class SerializationManager
     {

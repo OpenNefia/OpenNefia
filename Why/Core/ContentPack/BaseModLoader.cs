@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using Why.Core.IoC;
-using Why.Core.Log;
-using Why.Core.Reflection;
-using Why.Core.Timing;
+using OpenNefia.Core.IoC;
+using OpenNefia.Core.Log;
+using OpenNefia.Core.Reflection;
+using OpenNefia.Core.Timing;
 
-namespace Why.Core.ContentPack
+namespace OpenNefia.Core.ContentPack
 {
     public abstract class BaseModLoader
     {

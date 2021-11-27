@@ -3,7 +3,7 @@ using System;
 using System.Runtime.InteropServices;
 using System.Text.Json.Serialization;
 
-namespace Why.Core.Maths
+namespace OpenNefia.Core.Maths
 {
     [Serializable]
     [StructLayout(LayoutKind.Sequential)]

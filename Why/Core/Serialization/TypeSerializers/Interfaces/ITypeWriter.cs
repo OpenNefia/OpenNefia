@@ -1,7 +1,7 @@
-﻿using Why.Core.Serialization.Manager;
-using Why.Core.Serialization.Markdown;
+﻿using OpenNefia.Core.Serialization.Manager;
+using OpenNefia.Core.Serialization.Markdown;
 
-namespace Why.Core.Serialization.TypeSerializers.Interfaces
+namespace OpenNefia.Core.Serialization.TypeSerializers.Interfaces
 {
     public interface ITypeWriter<TType>
     {

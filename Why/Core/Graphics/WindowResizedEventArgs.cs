@@ -1,6 +1,6 @@
-﻿using Why.Core.Maths;
+﻿using OpenNefia.Core.Maths;
 
-namespace Why.Core.Graphics
+namespace OpenNefia.Core.Graphics
 {
     public readonly struct WindowResizedEventArgs
     {

@@ -1,4 +1,4 @@
-﻿using Why.Core.Maths;
+﻿using OpenNefia.Core.Maths;
 using Love;
 using System;
 using System.Collections.Generic;
@@ -8,9 +8,9 @@ using System.Globalization;
 using System.Linq;
 using System.Threading;
 using YamlDotNet.RepresentationModel;
-using Color = Why.Core.Maths.Color;
+using Color = OpenNefia.Core.Maths.Color;
 
-namespace Why.Core.Utility
+namespace OpenNefia.Core.Utility
 {
     public static class YamlHelpers
     {

@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Why.Core.Serialization.Manager.Attributes;
-using Why.Core.Serialization.TypeSerializers.Implementations.Custom.Prototype.Dictionary;
+using OpenNefia.Core.Serialization.Manager.Attributes;
+using OpenNefia.Core.Serialization.TypeSerializers.Implementations.Custom.Prototype.Dictionary;
 
-namespace Why.Core.Prototypes
+namespace OpenNefia.Core.Prototypes
 {
     [Prototype("Class")]
     public class ClassPrototype : IPrototype

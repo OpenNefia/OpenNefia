@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Why.Core.IoC;
-using Why.Core.Log;
-using Why.Core.Maps;
-using Why.Core.Random;
-using Why.Core.Utility;
+using OpenNefia.Core.IoC;
+using OpenNefia.Core.Log;
+using OpenNefia.Core.Maps;
+using OpenNefia.Core.Random;
+using OpenNefia.Core.Utility;
 
-namespace Why.Core.GameObjects
+namespace OpenNefia.Core.GameObjects
 {
     public class PregnantSystem : EntitySystem
     {

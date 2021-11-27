@@ -1,8 +1,8 @@
 ﻿using System;
-using Why.Core.Serialization.Manager.Attributes;
-using Why.Core.Utility;
+using OpenNefia.Core.Serialization.Manager.Attributes;
+using OpenNefia.Core.Utility;
 
-namespace Why.Core.Serialization.Manager.Definition
+namespace OpenNefia.Core.Serialization.Manager.Definition
 {
     internal class FieldDefinition
     {

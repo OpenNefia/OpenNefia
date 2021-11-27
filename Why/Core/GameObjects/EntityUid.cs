@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Diagnostics.Contracts;
 
-namespace Why.Core.GameObjects
+namespace OpenNefia.Core.GameObjects
 {
     public readonly struct EntityUid : IEquatable<EntityUid>, IComparable<EntityUid>
     {

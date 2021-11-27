@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 
-namespace Why.Core.Utility
+namespace OpenNefia.Core.Utility
 {
     internal abstract class AbstractFieldInfo
     {

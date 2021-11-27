@@ -2,12 +2,12 @@
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
-using Why.Core.Graphics;
-using Why.Core;
-using Why.Core.IoC;
-using Why.Core.Log;
+using OpenNefia.Core.Graphics;
+using OpenNefia.Core;
+using OpenNefia.Core.IoC;
+using OpenNefia.Core.Log;
 
-namespace Why.Core.ResourceManagement
+namespace OpenNefia.Core.ResourceManagement
 {
     internal partial class ResourceCache
     {

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Why.Core.Utility
+namespace OpenNefia.Core.Utility
 {
     public static class StringHelpers
     {

@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Why.Core.Prototypes;
-using Why.Core.Serialization.Manager.Attributes;
+using OpenNefia.Core.Prototypes;
+using OpenNefia.Core.Serialization.Manager.Attributes;
 
-namespace Why.Core.GameObjects
+namespace OpenNefia.Core.GameObjects
 {
     [RegisterComponent]
     public class CharaComponent : Component

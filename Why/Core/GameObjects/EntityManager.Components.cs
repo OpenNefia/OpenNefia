@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using Why.Core.Utility;
+using OpenNefia.Core.Utility;
 #if EXCEPTION_TOLERANCE
-using Why.Core.Exceptions;
+using OpenNefia.Core.Exceptions;
 #endif
-using DependencyAttribute = Why.Core.IoC.DependencyAttribute;
+using DependencyAttribute = OpenNefia.Core.IoC.DependencyAttribute;
 
-namespace Why.Core.GameObjects
+namespace OpenNefia.Core.GameObjects
 {
     /// <inheritdoc />
     public sealed partial class EntityManager

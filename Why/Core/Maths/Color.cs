@@ -39,7 +39,7 @@ using System.Runtime.Intrinsics;
 using System.Runtime.Intrinsics.X86;
 #endif
 
-namespace Why.Core.Maths
+namespace OpenNefia.Core.Maths
 {
     /// <summary>
     ///     Represents a color with 4 floating-point components (R, G, B, A).

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Why.Core.Serialization.Manager.Result
+namespace OpenNefia.Core.Serialization.Manager.Result
 {
     public class DeserializedArray : DeserializationResult
     {

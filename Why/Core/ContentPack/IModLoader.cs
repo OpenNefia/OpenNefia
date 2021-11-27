@@ -2,10 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
-using Why.Core.Timing;
-using Why.Core.Utility;
+using OpenNefia.Core.Timing;
+using OpenNefia.Core.Utility;
 
-namespace Why.Core.ContentPack
+namespace OpenNefia.Core.ContentPack
 {
     /// <summary>
     ///     The mod loader is in charge of loading content assemblies and managing them.

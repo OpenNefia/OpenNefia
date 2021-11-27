@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Why.Core.Serialization
+namespace OpenNefia.Core.Serialization
 {
     /// <summary>
     /// Attribute for marking an enum type as being the bitflag representation for a field.

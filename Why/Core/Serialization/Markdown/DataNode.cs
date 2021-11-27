@@ -1,7 +1,7 @@
-using Why.Core.Serialization.Manager;
+using OpenNefia.Core.Serialization.Manager;
 using YamlDotNet.Core;
 
-namespace Why.Core.Serialization.Markdown
+namespace OpenNefia.Core.Serialization.Markdown
 {
     public abstract class DataNode
     {

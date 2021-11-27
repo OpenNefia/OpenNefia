@@ -1,6 +1,6 @@
 ﻿using System.Runtime.Serialization;
 
-namespace Why.Core.IoC.Exceptions
+namespace OpenNefia.Core.IoC.Exceptions
 {
     /// <summary>
     /// Like <see cref="UnregisteredTypeException"/>,

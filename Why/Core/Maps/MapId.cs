@@ -1,4 +1,4 @@
-namespace Why.Core.Maps
+namespace OpenNefia.Core.Maps
 {
     [Serializable]
     public readonly struct MapId : IEquatable<MapId>

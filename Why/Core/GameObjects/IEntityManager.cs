@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics.CodeAnalysis;
-using Why.Core.Maps;
+using OpenNefia.Core.Maps;
 
-namespace Why.Core.GameObjects
+namespace OpenNefia.Core.GameObjects
 {
     public partial interface IEntityManager
     {        

@@ -7,7 +7,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using JetBrains.Annotations;
 
-namespace Why.Core.Utility
+namespace OpenNefia.Core.Utility
 {
 
     /// <summary>

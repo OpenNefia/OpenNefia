@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 
-namespace Why.Core.Utility
+namespace OpenNefia.Core.Utility
 {
     public class VectorSerializerUtility
     {

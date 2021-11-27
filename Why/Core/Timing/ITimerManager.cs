@@ -1,6 +1,6 @@
 ﻿using System.Threading;
 
-namespace Why.Core.Timing
+namespace OpenNefia.Core.Timing
 {
     public interface ITimerManager
     {

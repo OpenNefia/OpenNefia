@@ -6,11 +6,11 @@ using System.Reflection;
 using System.Reflection.Emit;
 using System.Runtime.CompilerServices;
 using JetBrains.Annotations;
-using Why.Core.IoC.Exceptions;
-using Why.Core.Utility;
+using OpenNefia.Core.IoC.Exceptions;
+using OpenNefia.Core.Utility;
 using NotNull = System.Diagnostics.CodeAnalysis.NotNullAttribute;
 
-namespace Why.Core.IoC
+namespace OpenNefia.Core.IoC
 {
     public delegate T DependencyFactoryDelegate<out T>()
         where T : class;

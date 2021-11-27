@@ -1,7 +1,7 @@
 ﻿using System;
-using Why.Core.Prototypes;
+using OpenNefia.Core.Prototypes;
 
-namespace Why.Core.GameObjects
+namespace OpenNefia.Core.GameObjects
 {
     public class SkillInitSystem : EntitySystem
     {

@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Why.Core.Exceptions;
-using Why.Core.IoC;
+using OpenNefia.Core.Exceptions;
+using OpenNefia.Core.IoC;
 
-namespace Why.Core.Timing
+namespace OpenNefia.Core.Timing
 {
     public class Timer
     {

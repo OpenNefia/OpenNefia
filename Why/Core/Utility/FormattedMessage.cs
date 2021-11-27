@@ -3,10 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 using JetBrains.Annotations;
-using Why.Core.Maths;
-using Why.Core.Serialization;
+using OpenNefia.Core.Maths;
+using OpenNefia.Core.Serialization;
 
-namespace Why.Core.Utility
+namespace OpenNefia.Core.Utility
 {
     /// <summary>
     ///     Represents a formatted message in the form of a list of "tags".

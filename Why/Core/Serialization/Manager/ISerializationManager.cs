@@ -1,11 +1,11 @@
 using System;
 using JetBrains.Annotations;
-using Why.Core.Serialization.Manager.Result;
-using Why.Core.Serialization.Markdown;
-using Why.Core.Serialization.Markdown.Validation;
-using Why.Core.Serialization.TypeSerializers.Interfaces;
+using OpenNefia.Core.Serialization.Manager.Result;
+using OpenNefia.Core.Serialization.Markdown;
+using OpenNefia.Core.Serialization.Markdown.Validation;
+using OpenNefia.Core.Serialization.TypeSerializers.Interfaces;
 
-namespace Why.Core.Serialization.Manager
+namespace OpenNefia.Core.Serialization.Manager
 {
     public interface ISerializationManager
     {

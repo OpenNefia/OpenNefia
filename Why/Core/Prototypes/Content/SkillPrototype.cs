@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Why.Core.Serialization.Manager.Attributes;
+using OpenNefia.Core.Serialization.Manager.Attributes;
 
-namespace Why.Core.Prototypes
+namespace OpenNefia.Core.Prototypes
 {
     [Prototype("Skill")]
     public class SkillPrototype : IPrototype

@@ -1,17 +1,17 @@
 using System.Collections.Generic;
-using Why.Core.IoC;
-using Why.Core.Prototypes;
-using Why.Core.Serialization.Manager;
-using Why.Core.Serialization.Manager.Attributes;
-using Why.Core.Serialization.Manager.Result;
-using Why.Core.Serialization.Markdown;
-using Why.Core.Serialization.Markdown.Mapping;
-using Why.Core.Serialization.Markdown.Validation;
-using Why.Core.Serialization.Markdown.Value;
-using Why.Core.Serialization.TypeSerializers.Implementations.Generic;
-using Why.Core.Serialization.TypeSerializers.Interfaces;
+using OpenNefia.Core.IoC;
+using OpenNefia.Core.Prototypes;
+using OpenNefia.Core.Serialization.Manager;
+using OpenNefia.Core.Serialization.Manager.Attributes;
+using OpenNefia.Core.Serialization.Manager.Result;
+using OpenNefia.Core.Serialization.Markdown;
+using OpenNefia.Core.Serialization.Markdown.Mapping;
+using OpenNefia.Core.Serialization.Markdown.Validation;
+using OpenNefia.Core.Serialization.Markdown.Value;
+using OpenNefia.Core.Serialization.TypeSerializers.Implementations.Generic;
+using OpenNefia.Core.Serialization.TypeSerializers.Interfaces;
 
-namespace Why.Core.Serialization.TypeSerializers.Implementations.Custom.Prototype.Dictionary
+namespace OpenNefia.Core.Serialization.TypeSerializers.Implementations.Custom.Prototype.Dictionary
 {
     // [TypeSerializer]
     public class PrototypeIdDictionarySerializer<TPrototype, TValue> :

@@ -1,4 +1,4 @@
-namespace Why.Core.GameObjects
+namespace OpenNefia.Core.GameObjects
 {
     public interface IComponentDependencyManager
     {

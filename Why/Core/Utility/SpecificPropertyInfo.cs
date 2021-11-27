@@ -4,7 +4,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection;
 
-namespace Why.Core.Utility
+namespace OpenNefia.Core.Utility
 {
     internal sealed class SpecificPropertyInfo : AbstractFieldInfo
     {

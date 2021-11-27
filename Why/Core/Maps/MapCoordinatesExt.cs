@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Why.Core.GameObjects;
-using Why.Core.IoC;
+using OpenNefia.Core.GameObjects;
+using OpenNefia.Core.IoC;
 
-namespace Why.Core.Maps
+namespace OpenNefia.Core.Maps
 {
     public static class MapCoordinatesExt
     {

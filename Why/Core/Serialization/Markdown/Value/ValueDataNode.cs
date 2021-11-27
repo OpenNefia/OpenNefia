@@ -1,6 +1,6 @@
 using YamlDotNet.RepresentationModel;
 
-namespace Why.Core.Serialization.Markdown.Value
+namespace OpenNefia.Core.Serialization.Markdown.Value
 {
     public class ValueDataNode : DataNode<ValueDataNode>
     {

@@ -1,9 +1,9 @@
-﻿using Why.Core.IoC;
-using Why.Core.Serialization.Manager;
-using Why.Core.Serialization.Manager.Result;
-using Why.Core.Serialization.Markdown;
+﻿using OpenNefia.Core.IoC;
+using OpenNefia.Core.Serialization.Manager;
+using OpenNefia.Core.Serialization.Manager.Result;
+using OpenNefia.Core.Serialization.Markdown;
 
-namespace Why.Core.Serialization.TypeSerializers.Interfaces
+namespace OpenNefia.Core.Serialization.TypeSerializers.Interfaces
 {
     public interface ITypeReader<TType, TNode> : ITypeValidator<TType, TNode> where TNode : DataNode
     {

@@ -2,7 +2,7 @@ using System;
 using System.Reflection;
 using System.Text;
 
-namespace Why.Core.Utility
+namespace OpenNefia.Core.Utility
 {
     public static class ExceptionHelpers
     {

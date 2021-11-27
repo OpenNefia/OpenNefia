@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Why.Core.ContentPack
+namespace OpenNefia.Core.ContentPack
 {
     public static class ModLoaderExt
     {

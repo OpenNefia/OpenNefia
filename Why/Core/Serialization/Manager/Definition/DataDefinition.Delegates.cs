@@ -1,7 +1,7 @@
-﻿using Why.Core.Serialization.Manager.Result;
-using Why.Core.Serialization.Markdown.Mapping;
+﻿using OpenNefia.Core.Serialization.Manager.Result;
+using OpenNefia.Core.Serialization.Markdown.Mapping;
 
-namespace Why.Core.Serialization.Manager.Definition
+namespace OpenNefia.Core.Serialization.Manager.Definition
 {
     public partial class DataDefinition
     {

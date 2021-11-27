@@ -1,6 +1,6 @@
-﻿using Why.Core.GameObjects;
+﻿using OpenNefia.Core.GameObjects;
 
-namespace Why.Core.Maps
+namespace OpenNefia.Core.Maps
 {
     public interface IMap
     {
@@ -11,6 +11,7 @@ namespace Why.Core.Maps
         Tile[,] TileMemory { get; }
 
         public List<IEntity> Entities { get; }
+        TileFlag[,] TileFlags { get; }
 
         MapCoordinates AtPos(int x, int y);
     }

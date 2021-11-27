@@ -1,6 +1,6 @@
-using Why.Core.Utility;
+using OpenNefia.Core.Utility;
 
-namespace Why.Core.GameObjects
+namespace OpenNefia.Core.GameObjects
 {
     /// <summary>
     ///     Raised directed on an entity when the map is initialized.

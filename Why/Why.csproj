@@ -1,5 +1,5 @@
-<Project Sdk="Microsoft.NET.Sdk">
-  <Import Project="..\MSBuild\Why.Properties.targets" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="..\MSBuild\OpenNefia.Properties.targets" />
 	
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -15,7 +15,7 @@
     <PackageReference Include="YamlDotNet" Version="11.2.1" />
   </ItemGroup>
 	
-  <Import Project="..\MSBuild\Why.DefineConstants.targets" />
+  <Import Project="..\MSBuild\OpenNefia.DefineConstants.targets" />
 
   <ItemGroup>
     <ProjectReference Include="..\Thirdparty\Love2dCS\project_dotnet\project_dotnet.csproj" />

@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using YamlDotNet.RepresentationModel;
 
-namespace Why.Core.GameObjects
+namespace OpenNefia.Core.GameObjects
 {
     /// <summary>
     ///     Interface used to allow the map loader to override prototype data with map data.

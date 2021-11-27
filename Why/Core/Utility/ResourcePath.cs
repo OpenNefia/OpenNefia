@@ -6,9 +6,9 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using JetBrains.Annotations;
-using Why.Core.Serialization;
+using OpenNefia.Core.Serialization;
 
-namespace Why.Core.Utility
+namespace OpenNefia.Core.Utility
 {
     /// <summary>
     ///     Provides object-oriented path manipulation for resource paths.

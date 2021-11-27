@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Why.Core.Maps;
-using Why.Core.Maths;
-using Why.Core.Prototypes;
+using OpenNefia.Core.Maps;
+using OpenNefia.Core.Maths;
+using OpenNefia.Core.Prototypes;
 
-namespace Why.Core.GameObjects
+namespace OpenNefia.Core.GameObjects
 {
     public interface IEntity
     {

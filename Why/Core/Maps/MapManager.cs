@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Why.Core.Utility;
+using OpenNefia.Core.Utility;
 
-namespace Why.Core.Maps
+namespace OpenNefia.Core.Maps
 {
     public class MapManager : IMapManager
     {

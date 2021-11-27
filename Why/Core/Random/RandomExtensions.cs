@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using Why.Core.Utility;
+using OpenNefia.Core.Utility;
 
-namespace Why.Core.Random
+namespace OpenNefia.Core.Random
 {
     public static class RandomExtensions
     {

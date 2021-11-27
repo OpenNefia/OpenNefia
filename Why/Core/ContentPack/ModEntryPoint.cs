@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using Why.Core.Timing;
+using OpenNefia.Core.Timing;
 
-namespace Why.Core.ContentPack
+namespace OpenNefia.Core.ContentPack
 {
     /// <summary>
     ///     Common entry point for Content assemblies.

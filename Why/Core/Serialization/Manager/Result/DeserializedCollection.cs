@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Why.Core.Serialization.Manager.Result
+namespace OpenNefia.Core.Serialization.Manager.Result
 {
     public class DeserializedCollection<TCollection, TElement> : DeserializationResult<TCollection> where TCollection : IReadOnlyCollection<TElement>
     {

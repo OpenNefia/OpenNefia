@@ -10,11 +10,11 @@ using System.Runtime.ExceptionServices;
 using System.Runtime.Loader;
 using System.Threading;
 using System.Threading.Tasks;
-using Why.Core.IoC;
-using Why.Core.Log;
-using Why.Core.Utility;
+using OpenNefia.Core.IoC;
+using OpenNefia.Core.Log;
+using OpenNefia.Core.Utility;
 
-namespace Why.Core.ContentPack
+namespace OpenNefia.Core.ContentPack
 {
     /// <summary>
     ///     Class for managing the loading of assemblies into the engine.

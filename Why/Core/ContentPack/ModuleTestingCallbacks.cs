@@ -1,4 +1,4 @@
-namespace Why.Core.ContentPack
+namespace OpenNefia.Core.ContentPack
 {
     /// <summary>
     ///     Can be passed to the content entry points via <see cref="IModLoader.SetModuleBaseCallbacks"/> and

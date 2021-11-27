@@ -2,7 +2,7 @@ using System;
 using System.Linq;
 using System.Reflection;
 
-namespace Why.Core.ContentPack
+namespace OpenNefia.Core.ContentPack
 {
     public static class AppDomainExt
     {

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Why.Core.IoC;
+using OpenNefia.Core.IoC;
 
-namespace Why.Core.Prototypes
+namespace OpenNefia.Core.Prototypes
 {
     public static class PrototypeIdExt
     {

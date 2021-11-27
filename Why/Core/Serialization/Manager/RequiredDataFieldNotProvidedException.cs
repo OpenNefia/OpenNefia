@@ -1,6 +1,6 @@
 using System;
 
-namespace Why.Core.Serialization.Manager
+namespace OpenNefia.Core.Serialization.Manager
 {
     public class RequiredDataFieldNotProvidedException : Exception
     {

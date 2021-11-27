@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using Why.Core.Utility;
+using OpenNefia.Core.Utility;
 
-namespace Why.Core.ContentPack
+namespace OpenNefia.Core.ContentPack
 {
     /// <inheritdoc />
     internal class WritableDirProvider : IWritableDirProvider

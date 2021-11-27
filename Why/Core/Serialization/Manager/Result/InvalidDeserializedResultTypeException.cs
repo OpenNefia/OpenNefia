@@ -2,7 +2,7 @@ using System;
 using System.Runtime.Serialization;
 using JetBrains.Annotations;
 
-namespace Why.Core.Serialization.Manager.Result
+namespace OpenNefia.Core.Serialization.Manager.Result
 {
     public class InvalidDeserializedResultTypeException<TExpected> : Exception
     {

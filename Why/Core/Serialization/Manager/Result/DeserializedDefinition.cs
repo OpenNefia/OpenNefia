@@ -1,7 +1,7 @@
 ﻿using System;
-using Why.Core.IoC;
+using OpenNefia.Core.IoC;
 
-namespace Why.Core.Serialization.Manager.Result
+namespace OpenNefia.Core.Serialization.Manager.Result
 {
     public class DeserializedDefinition<T> : DeserializationResult<T>, IDeserializedDefinition where T : notnull, new()
     {

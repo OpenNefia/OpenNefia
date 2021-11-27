@@ -4,18 +4,18 @@ using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using Why.Core.IoC;
-using Why.Core.IoC.Exceptions;
-using Why.Core.Log;
-using Why.Core.Reflection;
-using Why.Core.Utility;
-using Dependency = Why.Core.IoC.DependencyAttribute;
+using OpenNefia.Core.IoC;
+using OpenNefia.Core.IoC.Exceptions;
+using OpenNefia.Core.Log;
+using OpenNefia.Core.Reflection;
+using OpenNefia.Core.Utility;
+using Dependency = OpenNefia.Core.IoC.DependencyAttribute;
 #if EXCEPTION_TOLERANCE
-using Why.Core.Exceptions;
+using OpenNefia.Core.Exceptions;
 #endif
 
 
-namespace Why.Core.GameObjects
+namespace OpenNefia.Core.GameObjects
 {
     public class EntitySystemManager : IEntitySystemManager
     {

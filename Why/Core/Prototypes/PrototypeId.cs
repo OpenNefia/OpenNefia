@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Diagnostics.Contracts;
 
-namespace Why.Core.Prototypes
+namespace OpenNefia.Core.Prototypes
 {
     /// <summary>
     /// Strong type wrapper around a string identifier for a <see cref="IPrototype"/>.

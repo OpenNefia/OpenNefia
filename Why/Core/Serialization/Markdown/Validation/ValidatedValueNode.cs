@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Why.Core.Serialization.Markdown.Validation
+namespace OpenNefia.Core.Serialization.Markdown.Validation
 {
     public class ValidatedValueNode : ValidationNode
     {

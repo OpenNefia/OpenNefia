@@ -1,7 +1,7 @@
 using System;
-using Why.Core.Prototypes;
+using OpenNefia.Core.Prototypes;
 
-namespace Why.Core.GameObjects
+namespace OpenNefia.Core.GameObjects
 {
     /// <summary>
     ///     Contains meta data about this entity that isn't component specific.

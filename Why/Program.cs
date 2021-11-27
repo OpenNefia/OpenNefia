@@ -4,12 +4,12 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
-using Why.Core.GameController;
-using Why.Core.GameObjects;
-using Why.Core.IoC;
-using Why.Core.Log;
-using Why.Core.Maps;
-using Why.Core.Reflection;
+using OpenNefia.Core.GameController;
+using OpenNefia.Core.GameObjects;
+using OpenNefia.Core.IoC;
+using OpenNefia.Core.Log;
+using OpenNefia.Core.Maps;
+using OpenNefia.Core.Reflection;
 
 namespace Why
 {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Why.Core.IoC
+namespace OpenNefia.Core.IoC
 {
     /// <summary>
     /// Specifies that the field this is applied to is a dependency,

@@ -1,10 +1,10 @@
 ﻿using System;
 using System.IO;
 using System.Reflection;
-using Why.Core.ContentPack;
-using Why.Core.Utility;
+using OpenNefia.Core.ContentPack;
+using OpenNefia.Core.Utility;
 
-namespace Why.Tests
+namespace OpenNefia.Tests
 {
     internal sealed class TestingModLoader : BaseModLoader, IModLoaderInternal
     {

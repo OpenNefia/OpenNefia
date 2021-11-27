@@ -1,7 +1,7 @@
 using System;
 using System.IO;
 
-namespace Why.Core.Utility
+namespace OpenNefia.Core.Utility
 {
     /// <summary>
     ///     Extension methods for working with streams.

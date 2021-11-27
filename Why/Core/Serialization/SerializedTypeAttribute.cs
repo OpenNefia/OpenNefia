@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Why.Core.Serialization
+namespace OpenNefia.Core.Serialization
 {
     [AttributeUsage(AttributeTargets.Class, Inherited = false)]
     public class SerializedTypeAttribute : Attribute

@@ -1,6 +1,6 @@
 ﻿using System.Runtime.Serialization;
 
-namespace Why.Core.IoC.Exceptions
+namespace OpenNefia.Core.IoC.Exceptions
 {
     /// <summary>
     /// Signifies that a type threw an exception from its constructor while IoC was trying to build it.

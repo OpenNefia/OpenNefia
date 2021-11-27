@@ -5,7 +5,7 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 
-namespace Why.Core.Utility
+namespace OpenNefia.Core.Utility
 {
     public static class TypeHelpers
     {

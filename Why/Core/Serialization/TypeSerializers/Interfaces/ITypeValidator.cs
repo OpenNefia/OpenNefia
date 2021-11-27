@@ -1,9 +1,9 @@
 using JetBrains.Annotations;
-using Why.Core.IoC;
-using Why.Core.Serialization.Manager;
-using Why.Core.Serialization.Markdown.Validation;
+using OpenNefia.Core.IoC;
+using OpenNefia.Core.Serialization.Manager;
+using OpenNefia.Core.Serialization.Markdown.Validation;
 
-namespace Why.Core.Serialization.TypeSerializers.Interfaces
+namespace OpenNefia.Core.Serialization.TypeSerializers.Interfaces
 {
     public interface ITypeValidator<[UsedImplicitly]TType, TNode>
     {

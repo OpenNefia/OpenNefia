@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Why.Core.Serialization.Manager.Result
+namespace OpenNefia.Core.Serialization.Manager.Result
 {
     public class DeserializedDictionary<TDict, TKey, TValue> :
         DeserializationResult<TDict>

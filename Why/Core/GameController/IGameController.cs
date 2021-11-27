@@ -1,4 +1,4 @@
-﻿namespace Why.Core.GameController
+﻿namespace OpenNefia.Core.GameController
 {
     public interface IGameController
     {

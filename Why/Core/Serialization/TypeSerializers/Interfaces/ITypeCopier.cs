@@ -1,7 +1,7 @@
 ﻿using JetBrains.Annotations;
-using Why.Core.Serialization.Manager;
+using OpenNefia.Core.Serialization.Manager;
 
-namespace Why.Core.Serialization.TypeSerializers.Interfaces
+namespace OpenNefia.Core.Serialization.TypeSerializers.Interfaces
 {
     public interface ITypeCopier<TType>
     {

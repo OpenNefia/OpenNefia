@@ -1,4 +1,4 @@
-namespace Why.Core.Random
+namespace OpenNefia.Core.Random
 {
     public class SysRandom : IRandom
     {

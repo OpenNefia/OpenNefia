@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Why.Core.Maps;
-using Why.Core.Maths;
+using OpenNefia.Core.Maps;
+using OpenNefia.Core.Maths;
 
-namespace Why.Core.Utility
+namespace OpenNefia.Core.Utility
 {
     public static class PosUtils
     {

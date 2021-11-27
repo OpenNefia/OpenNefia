@@ -1,10 +1,10 @@
 using System;
-using Why.Core.Serialization.Markdown.Mapping;
-using Why.Core.Serialization.Markdown.Sequence;
-using Why.Core.Serialization.Markdown.Value;
+using OpenNefia.Core.Serialization.Markdown.Mapping;
+using OpenNefia.Core.Serialization.Markdown.Sequence;
+using OpenNefia.Core.Serialization.Markdown.Value;
 using YamlDotNet.RepresentationModel;
 
-namespace Why.Core.Serialization.Markdown
+namespace OpenNefia.Core.Serialization.Markdown
 {
     public static class YamlNodeHelpers
     {

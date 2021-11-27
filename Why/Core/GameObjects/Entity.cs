@@ -2,12 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using Why.Core.Maps;
-using Why.Core.Maths;
-using Why.Core.Prototypes;
-using Why.Core.Utility;
+using OpenNefia.Core.Maps;
+using OpenNefia.Core.Maths;
+using OpenNefia.Core.Prototypes;
+using OpenNefia.Core.Utility;
 
-namespace Why.Core.GameObjects
+namespace OpenNefia.Core.GameObjects
 {
     /// <inheritdoc />
     public sealed class Entity : IEntity

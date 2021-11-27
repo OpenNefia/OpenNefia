@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Why.Core.Serialization.Manager
+namespace OpenNefia.Core.Serialization.Manager
 {
     // TODO Serialization: make this actually not kanser to use holy moly (& allow generics)
     public interface ISerializationContext

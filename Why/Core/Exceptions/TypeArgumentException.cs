@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace Why.Core.Exceptions
+namespace OpenNefia.Core.Exceptions
 {
     /// <summary>
     /// Thrown if a method is called with an invalid type argument.

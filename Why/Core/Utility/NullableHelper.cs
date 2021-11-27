@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 
-namespace Why.Core.Utility
+namespace OpenNefia.Core.Utility
 {
     public static class NullableHelper
     {

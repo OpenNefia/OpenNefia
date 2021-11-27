@@ -14,7 +14,7 @@ using System;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 
-namespace Why.Core.Maths
+namespace OpenNefia.Core.Maths
 {
     /// <summary>
     /// Contains common mathematical functions and constants.

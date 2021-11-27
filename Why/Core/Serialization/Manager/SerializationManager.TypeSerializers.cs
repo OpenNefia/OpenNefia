@@ -1,11 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Why.Core.Log;
-using Why.Core.Serialization.Manager.Attributes;
-using Why.Core.Serialization.TypeSerializers.Interfaces;
+using OpenNefia.Core.Log;
+using OpenNefia.Core.Serialization.Manager.Attributes;
+using OpenNefia.Core.Serialization.TypeSerializers.Interfaces;
 
-namespace Why.Core.Serialization.Manager
+namespace OpenNefia.Core.Serialization.Manager
 {
     public partial class SerializationManager
     {

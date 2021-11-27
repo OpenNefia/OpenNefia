@@ -2,12 +2,12 @@
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Reflection.Emit;
-using Why.Core.IoC;
-using Why.Core.Serialization.Manager.Result;
-using Why.Core.Serialization.Markdown.Mapping;
-using Why.Core.Utility;
+using OpenNefia.Core.IoC;
+using OpenNefia.Core.Serialization.Manager.Result;
+using OpenNefia.Core.Serialization.Markdown.Mapping;
+using OpenNefia.Core.Utility;
 
-namespace Why.Core.Serialization.Manager.Definition
+namespace OpenNefia.Core.Serialization.Manager.Definition
 {
     public partial class DataDefinition
     {

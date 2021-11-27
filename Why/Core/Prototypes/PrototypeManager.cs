@@ -7,24 +7,24 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Threading;
 using JetBrains.Annotations;
-using Why.Core.Asynchronous;
-using Why.Core.ContentPack;
-using Why.Core.GameObjects;
-using Why.Core.IoC;
-using Why.Core.IoC.Exceptions;
-using Why.Core.Log;
-using Why.Core.Reflection;
-using Why.Core.Serialization.Manager;
-using Why.Core.Serialization.Manager.Attributes;
-using Why.Core.Serialization.Manager.Result;
-using Why.Core.Serialization.Markdown;
-using Why.Core.Serialization.Markdown.Mapping;
-using Why.Core.Serialization.Markdown.Validation;
-using Why.Core.Utility;
+using OpenNefia.Core.Asynchronous;
+using OpenNefia.Core.ContentPack;
+using OpenNefia.Core.GameObjects;
+using OpenNefia.Core.IoC;
+using OpenNefia.Core.IoC.Exceptions;
+using OpenNefia.Core.Log;
+using OpenNefia.Core.Reflection;
+using OpenNefia.Core.Serialization.Manager;
+using OpenNefia.Core.Serialization.Manager.Attributes;
+using OpenNefia.Core.Serialization.Manager.Result;
+using OpenNefia.Core.Serialization.Markdown;
+using OpenNefia.Core.Serialization.Markdown.Mapping;
+using OpenNefia.Core.Serialization.Markdown.Validation;
+using OpenNefia.Core.Utility;
 using YamlDotNet.Core;
 using YamlDotNet.RepresentationModel;
 
-namespace Why.Core.Prototypes
+namespace OpenNefia.Core.Prototypes
 {
     /// <summary>
     /// Handle storage and loading of YAML prototypes.

@@ -1,4 +1,4 @@
-namespace Why.Core.Serialization.Manager.Result
+namespace OpenNefia.Core.Serialization.Manager.Result
 {
     public abstract class DeserializationResult
     {

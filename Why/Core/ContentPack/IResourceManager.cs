@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Text;
-using Why.Core.Utility;
+using OpenNefia.Core.Utility;
 using YamlDotNet.RepresentationModel;
 
-namespace Why.Core.ContentPack
+namespace OpenNefia.Core.ContentPack
 {
     /// <summary>
     ///     Virtual file system for all disk resources.

@@ -5,15 +5,15 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading;
-using Why.Core.ContentPack;
-using Why.Core.Graphics;
-using Why.Core.IoC;
-using Why.Core.Log;
-using Why.Core.Prototypes;
-using Why.Core.Utility;
-using Timer = Why.Core.Timing.Timer;
+using OpenNefia.Core.ContentPack;
+using OpenNefia.Core.Graphics;
+using OpenNefia.Core.IoC;
+using OpenNefia.Core.Log;
+using OpenNefia.Core.Prototypes;
+using OpenNefia.Core.Utility;
+using Timer = OpenNefia.Core.Timing.Timer;
 
-namespace Why.Core.Prototypes
+namespace OpenNefia.Core.Prototypes
 {
     public sealed partial class PrototypeManager : IPrototypeManager
     {

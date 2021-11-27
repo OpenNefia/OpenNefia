@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Why.Core.Utility;
+using OpenNefia.Core.Utility;
 
-namespace Why.Core.GameObjects
+namespace OpenNefia.Core.GameObjects
 {
     internal partial class EntityEventBus
     {

@@ -2,10 +2,10 @@ using System;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
-using Why.Core.Log;
-using Why.Core.Utility;
+using OpenNefia.Core.Log;
+using OpenNefia.Core.Utility;
 
-namespace Why.Core.GameObjects
+namespace OpenNefia.Core.GameObjects
 {
     public abstract partial class EntitySystem
     {

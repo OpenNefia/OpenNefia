@@ -1,18 +1,18 @@
 using System.Collections.Generic;
 using System.Linq;
-using Why.Core.IoC;
-using Why.Core.Prototypes;
-using Why.Core.Serialization.Manager;
-using Why.Core.Serialization.Manager.Attributes;
-using Why.Core.Serialization.Manager.Result;
-using Why.Core.Serialization.Markdown;
-using Why.Core.Serialization.Markdown.Sequence;
-using Why.Core.Serialization.Markdown.Validation;
-using Why.Core.Serialization.Markdown.Value;
-using Why.Core.Serialization.TypeSerializers.Interfaces;
-using Why.Core.Utility;
+using OpenNefia.Core.IoC;
+using OpenNefia.Core.Prototypes;
+using OpenNefia.Core.Serialization.Manager;
+using OpenNefia.Core.Serialization.Manager.Attributes;
+using OpenNefia.Core.Serialization.Manager.Result;
+using OpenNefia.Core.Serialization.Markdown;
+using OpenNefia.Core.Serialization.Markdown.Sequence;
+using OpenNefia.Core.Serialization.Markdown.Validation;
+using OpenNefia.Core.Serialization.Markdown.Value;
+using OpenNefia.Core.Serialization.TypeSerializers.Interfaces;
+using OpenNefia.Core.Utility;
 
-namespace Why.Core.Serialization.TypeSerializers.Implementations.Custom.Prototype
+namespace OpenNefia.Core.Serialization.TypeSerializers.Implementations.Custom.Prototype
 {
     [TypeSerializer]
     public class PrototypeFlagsTypeSerializer<T>

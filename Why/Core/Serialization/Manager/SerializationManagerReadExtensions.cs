@@ -1,9 +1,9 @@
 ﻿#nullable enable
 using System;
-using Why.Core.Serialization.Manager.Result;
-using Why.Core.Serialization.Markdown;
+using OpenNefia.Core.Serialization.Manager.Result;
+using OpenNefia.Core.Serialization.Markdown;
 
-namespace Why.Core.Serialization.Manager
+namespace OpenNefia.Core.Serialization.Manager
 {
     public static class SerializationManagerReadExtensions
     {

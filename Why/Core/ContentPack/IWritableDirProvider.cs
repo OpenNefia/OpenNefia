@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using JetBrains.Annotations;
-using Why.Core.Utility;
+using OpenNefia.Core.Utility;
 
-namespace Why.Core.ContentPack
+namespace OpenNefia.Core.ContentPack
 {
     /// <summary>
     /// Provides an API for file and directory manipulation inside of a rooted folder.

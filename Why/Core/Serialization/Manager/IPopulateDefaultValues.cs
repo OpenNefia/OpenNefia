@@ -1,4 +1,4 @@
-namespace Why.Core.Serialization.Manager
+namespace OpenNefia.Core.Serialization.Manager
 {
     public interface IPopulateDefaultValues
     {

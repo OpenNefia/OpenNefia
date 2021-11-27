@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
-using Why.Core.Serialization.Markdown.Sequence;
-using Why.Core.Serialization.Markdown.Value;
+using OpenNefia.Core.Serialization.Markdown.Sequence;
+using OpenNefia.Core.Serialization.Markdown.Value;
 
-namespace Why.Core.Serialization.Markdown.Mapping
+namespace OpenNefia.Core.Serialization.Markdown.Mapping
 {
     public static class MappingDataNodeExtensions
     {

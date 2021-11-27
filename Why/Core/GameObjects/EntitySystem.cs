@@ -4,10 +4,10 @@ using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
 using JetBrains.Annotations;
-using Why.Core.IoC;
-using Why.Core.Reflection;
+using OpenNefia.Core.IoC;
+using OpenNefia.Core.Reflection;
 
-namespace Why.Core.GameObjects
+namespace OpenNefia.Core.GameObjects
 {
     /// <summary>
     ///     A subsystem that acts on all components of a type at once.

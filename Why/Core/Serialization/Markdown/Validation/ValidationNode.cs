@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace Why.Core.Serialization.Markdown.Validation
+namespace OpenNefia.Core.Serialization.Markdown.Validation
 {
     public abstract class ValidationNode
     {

@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using NUnit.Framework;
-using Why.Core.ContentPack;
-using Why.Core.GameObjects;
-using Why.Core.IoC;
-using Why.Core.Maps;
-using Why.Core.Reflection;
-using Why.Core.Utility;
+using OpenNefia.Core.ContentPack;
+using OpenNefia.Core.GameObjects;
+using OpenNefia.Core.IoC;
+using OpenNefia.Core.Maps;
+using OpenNefia.Core.Reflection;
+using OpenNefia.Core.Utility;
 
-namespace Why.Tests
+namespace OpenNefia.Tests
 {
     [Parallelizable]
     public abstract partial class WhyUnitTest

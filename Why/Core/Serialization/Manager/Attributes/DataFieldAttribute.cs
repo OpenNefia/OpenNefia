@@ -1,7 +1,7 @@
 using System;
 using JetBrains.Annotations;
 
-namespace Why.Core.Serialization.Manager.Attributes
+namespace OpenNefia.Core.Serialization.Manager.Attributes
 {
     /// <summary>
     /// Defines a field that can be (de)serialized in YAML.

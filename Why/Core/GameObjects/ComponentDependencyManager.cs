@@ -5,9 +5,9 @@ using System.Reflection;
 using System.Reflection.Emit;
 using System.Runtime.CompilerServices;
 using JetBrains.Annotations;
-using Why.Core.Utility;
+using OpenNefia.Core.Utility;
 
-namespace Why.Core.GameObjects
+namespace OpenNefia.Core.GameObjects
 {
     public class ComponentDependencyManager : IComponentDependencyManager
     {

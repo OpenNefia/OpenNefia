@@ -4,11 +4,11 @@ using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Threading;
-using Why.Core.IoC;
-using Why.Core.Log;
-using Why.Core.Utility;
+using OpenNefia.Core.IoC;
+using OpenNefia.Core.Log;
+using OpenNefia.Core.Utility;
 
-namespace Why.Core.ContentPack
+namespace OpenNefia.Core.ContentPack
 {
     /// <summary>
     ///     Virtual file system for all disk resources.

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace Why.Core.Exceptions
+namespace OpenNefia.Core.Exceptions
 {
     [Serializable]
     public class SandboxArgumentException : Exception

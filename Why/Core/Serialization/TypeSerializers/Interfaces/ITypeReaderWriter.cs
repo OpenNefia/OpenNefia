@@ -1,6 +1,6 @@
-﻿using Why.Core.Serialization.Markdown;
+﻿using OpenNefia.Core.Serialization.Markdown;
 
-namespace Why.Core.Serialization.TypeSerializers.Interfaces
+namespace OpenNefia.Core.Serialization.TypeSerializers.Interfaces
 {
     public interface ITypeReaderWriter<TType, TNode> :
         ITypeReader<TType, TNode>,

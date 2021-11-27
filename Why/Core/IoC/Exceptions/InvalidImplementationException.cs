@@ -1,4 +1,4 @@
-namespace Why.Core.IoC.Exceptions
+namespace OpenNefia.Core.IoC.Exceptions
 {
     /// <summary>
     /// An exception for when a type doesn't correctly implement an interface, but is still IoC or reflection accessible..

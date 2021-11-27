@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Threading;
-using Why.Core.Utility;
+using OpenNefia.Core.Utility;
 
-namespace Why.Core.ResourceManagement
+namespace OpenNefia.Core.ResourceManagement
 {
     /// <summary>
     ///     Base resource for the cache.

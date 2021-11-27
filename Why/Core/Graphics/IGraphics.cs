@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Why.Core.Graphics
+namespace OpenNefia.Core.Graphics
 {
     public interface IGraphics
     {

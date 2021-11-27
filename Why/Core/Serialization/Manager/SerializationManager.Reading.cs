@@ -1,16 +1,16 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Linq.Expressions;
-using Why.Core.Serialization.Manager.Definition;
-using Why.Core.Serialization.Manager.Result;
-using Why.Core.Serialization.Markdown;
-using Why.Core.Serialization.Markdown.Mapping;
-using Why.Core.Serialization.Markdown.Sequence;
-using Why.Core.Serialization.Markdown.Value;
-using Why.Core.Serialization.TypeSerializers.Interfaces;
-using Why.Core.Utility;
+using OpenNefia.Core.Serialization.Manager.Definition;
+using OpenNefia.Core.Serialization.Manager.Result;
+using OpenNefia.Core.Serialization.Markdown;
+using OpenNefia.Core.Serialization.Markdown.Mapping;
+using OpenNefia.Core.Serialization.Markdown.Sequence;
+using OpenNefia.Core.Serialization.Markdown.Value;
+using OpenNefia.Core.Serialization.TypeSerializers.Interfaces;
+using OpenNefia.Core.Utility;
 
-namespace Why.Core.Serialization.Manager
+namespace OpenNefia.Core.Serialization.Manager
 {
     public partial class SerializationManager
     {

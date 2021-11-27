@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Why.Core.Reflection
+namespace OpenNefia.Core.Reflection
 {
     /// <summary>
     /// Controls additional info about discoverability from the <see cref="IReflectionManager"/>.

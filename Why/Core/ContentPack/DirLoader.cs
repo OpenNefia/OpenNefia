@@ -4,10 +4,10 @@ using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Threading.Tasks;
-using Why.Core.Log;
-using Why.Core.Utility;
+using OpenNefia.Core.Log;
+using OpenNefia.Core.Utility;
 
-namespace Why.Core.ContentPack
+namespace OpenNefia.Core.ContentPack
 {
     internal partial class ResourceManager
     {

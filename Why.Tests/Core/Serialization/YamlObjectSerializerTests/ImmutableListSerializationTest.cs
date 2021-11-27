@@ -1,17 +1,17 @@
 ﻿using System.Collections.Immutable;
 using System.IO;
 using NUnit.Framework;
-using Why.Core.IoC;
-using Why.Core.Serialization.Manager;
-using Why.Core.Serialization.Markdown;
-using Why.Core.Serialization.Markdown.Mapping;
-using Why.Core.Serialization.Markdown.Sequence;
-using Why.Core.Utility;
+using OpenNefia.Core.IoC;
+using OpenNefia.Core.Serialization.Manager;
+using OpenNefia.Core.Serialization.Markdown;
+using OpenNefia.Core.Serialization.Markdown.Mapping;
+using OpenNefia.Core.Serialization.Markdown.Sequence;
+using OpenNefia.Core.Utility;
 using YamlDotNet.RepresentationModel;
 
 // ReSharper disable AccessToStaticMemberViaDerivedType
 
-namespace Why.Tests.Shared.Serialization.YamlObjectSerializerTests
+namespace OpenNefia.Tests.Shared.Serialization.YamlObjectSerializerTests
 {
     [TestFixture]
     public class ImmutableListSerializationTest : WhyUnitTest

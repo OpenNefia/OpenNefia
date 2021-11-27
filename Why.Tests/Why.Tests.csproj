@@ -1,5 +1,5 @@
-<Project Sdk="Microsoft.NET.Sdk">
-	<Import Project="..\MSBuild\Why.Properties.targets" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<Import Project="..\MSBuild\OpenNefia.Properties.targets" />
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -15,10 +15,10 @@
     <PackageReference Include="coverlet.collector" Version="3.1.0" />
   </ItemGroup>
 	
-  <Import Project="..\MSBuild\Why.DefineConstants.targets" />
+  <Import Project="..\MSBuild\OpenNefia.DefineConstants.targets" />
 
   <ItemGroup>
-    <ProjectReference Include="..\Why\Why.csproj" />
+    <ProjectReference Include="..\Why\OpenNefia.csproj" />
   </ItemGroup>
 
 </Project>

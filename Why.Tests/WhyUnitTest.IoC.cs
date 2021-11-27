@@ -1,9 +1,9 @@
 using System;
 using Why;
-using Why.Core.ContentPack;
-using Why.Core.IoC;
+using OpenNefia.Core.ContentPack;
+using OpenNefia.Core.IoC;
 
-namespace Why.Tests
+namespace OpenNefia.Tests
 {
     public partial class WhyUnitTest
     {

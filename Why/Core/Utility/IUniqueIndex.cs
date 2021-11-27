@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using JetBrains.Annotations;
 
-namespace Why.Core.Utility
+namespace OpenNefia.Core.Utility
 {
 
     /// <summary>

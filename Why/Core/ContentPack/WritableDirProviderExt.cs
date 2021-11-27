@@ -1,9 +1,9 @@
 ﻿using System;
 using System.IO;
 using JetBrains.Annotations;
-using Why.Core.Utility;
+using OpenNefia.Core.Utility;
 
-namespace Why.Core.ContentPack
+namespace OpenNefia.Core.ContentPack
 {
     [PublicAPI]
     public static class WritableDirProviderExt

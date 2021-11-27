@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Concurrent;
 using System.Threading;
-using Why.Core.Exceptions;
+using OpenNefia.Core.Exceptions;
 
-namespace Why.Core.Asynchronous
+namespace OpenNefia.Core.Asynchronous
 {
     internal class RobustSynchronizationContext : SynchronizationContext
     {

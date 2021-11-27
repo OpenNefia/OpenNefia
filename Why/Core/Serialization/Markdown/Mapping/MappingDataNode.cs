@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading;
-using Why.Core.Serialization.Markdown.Value;
-using Why.Core.Utility;
+using OpenNefia.Core.Serialization.Markdown.Value;
+using OpenNefia.Core.Utility;
 using YamlDotNet.RepresentationModel;
 
-namespace Why.Core.Serialization.Markdown.Mapping
+namespace OpenNefia.Core.Serialization.Markdown.Mapping
 {
     public class MappingDataNode : DataNode<MappingDataNode>
     {

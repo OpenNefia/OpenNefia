@@ -1,10 +1,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Why.Core.Prototypes;
-using Why.Core.Serialization;
+using OpenNefia.Core.Prototypes;
+using OpenNefia.Core.Serialization;
 
-namespace Why.Core.Utility
+namespace OpenNefia.Core.Utility
 {
     /// <summary>
     ///     Data structure for storing prototype IDs, and ensuring that all stored IDs resolve to valid prototypes.

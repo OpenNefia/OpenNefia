@@ -1,6 +1,6 @@
 using System;
 
-namespace Why.Core.GameObjects
+namespace OpenNefia.Core.GameObjects
 {
     /// <summary>
     ///     Marks a component as having a specific reference type,

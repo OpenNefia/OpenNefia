@@ -1,7 +1,7 @@
 using System;
 using JetBrains.Annotations;
 
-namespace Why.Core.GameObjects
+namespace OpenNefia.Core.GameObjects
 {
     /// <summary>
     ///     Marks a component as being automatically registered by <see cref="IComponentFactory.DoAutoRegistrations" />

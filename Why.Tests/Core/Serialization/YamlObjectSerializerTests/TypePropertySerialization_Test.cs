@@ -1,18 +1,18 @@
 using System.IO;
 using NUnit.Framework;
-using Why.Core.GameObjects;
-using Why.Core.IoC;
-using Why.Core.Serialization;
-using Why.Core.Serialization.Manager;
-using Why.Core.Serialization.Manager.Attributes;
-using Why.Core.Serialization.Markdown;
-using Why.Core.Serialization.Markdown.Mapping;
-using Why.Core.Serialization.Markdown.Value;
+using OpenNefia.Core.GameObjects;
+using OpenNefia.Core.IoC;
+using OpenNefia.Core.Serialization;
+using OpenNefia.Core.Serialization.Manager;
+using OpenNefia.Core.Serialization.Manager.Attributes;
+using OpenNefia.Core.Serialization.Markdown;
+using OpenNefia.Core.Serialization.Markdown.Mapping;
+using OpenNefia.Core.Serialization.Markdown.Value;
 using YamlDotNet.RepresentationModel;
 
 // ReSharper disable AccessToStaticMemberViaDerivedType
 
-namespace Why.Tests.Shared.Serialization.YamlObjectSerializerTests
+namespace OpenNefia.Tests.Shared.Serialization.YamlObjectSerializerTests
 {
     [TestFixture]
     public class TypePropertySerialization_Test : WhyUnitTest

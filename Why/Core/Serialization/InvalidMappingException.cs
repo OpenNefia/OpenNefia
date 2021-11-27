@@ -1,6 +1,6 @@
 using System;
 
-namespace Why.Core.Serialization
+namespace OpenNefia.Core.Serialization
 {
     public class InvalidMappingException : Exception
     {

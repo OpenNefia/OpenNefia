@@ -3,10 +3,10 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq.Expressions;
-using Why.Core.Serialization.Markdown;
-using Why.Core.Serialization.TypeSerializers.Interfaces;
+using OpenNefia.Core.Serialization.Markdown;
+using OpenNefia.Core.Serialization.TypeSerializers.Interfaces;
 
-namespace Why.Core.Serialization.Manager
+namespace OpenNefia.Core.Serialization.Manager
 {
     public partial class SerializationManager
     {

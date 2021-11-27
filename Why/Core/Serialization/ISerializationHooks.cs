@@ -1,4 +1,4 @@
-namespace Why.Core.Serialization
+namespace OpenNefia.Core.Serialization
 {
     /// <summary>
     /// Provides a method that gets executed after deserialization is complete and a method that gets executed before serialization

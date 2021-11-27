@@ -1,13 +1,13 @@
-﻿using Why.Core.ContentPack;
-using Why.Core.Log;
-using Why.Core.Utility;
+﻿using OpenNefia.Core.ContentPack;
+using OpenNefia.Core.Log;
+using OpenNefia.Core.Utility;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Runtime.CompilerServices;
 
-namespace Why.Core.ResourceManagement
+namespace OpenNefia.Core.ResourceManagement
 {
     internal partial class ResourceCache : ResourceManager, IResourceCacheInternal, IDisposable
     {

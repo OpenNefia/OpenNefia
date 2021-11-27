@@ -1,7 +1,7 @@
 using System.Collections.Generic;
-using Why.Core.Maths;
+using OpenNefia.Core.Maths;
 
-namespace Why.Core.Random
+namespace OpenNefia.Core.Random
 {
     public interface IRandom
     {
