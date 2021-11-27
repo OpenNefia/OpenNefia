@@ -15,7 +15,7 @@ namespace Why.Core.GameObjects
             SubscribeLocalEvent<ItemComponent, GetItemNameEvent>(BasicName);
         }
 
-        public void BasicName(EntityUid uid, ItemComponent component, GetItemNameEvent args)
+        public void BasicName(EntityUid uid, ItemComponent component, ref GetItemNameEvent args)
         {
             var jp = false;
             if (jp)

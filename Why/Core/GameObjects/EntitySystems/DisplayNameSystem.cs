@@ -20,36 +20,27 @@ namespace Why.Core.GameObjects
             SubscribeLocalEvent<ItemComponent, GetDisplayNameEvent>(GetItemName);
         }
 
-        public void GetCharaName(EntityUid uid, CharaComponent component, GetDisplayNameEvent args)
+        public void GetCharaName(EntityUid uid, CharaComponent component, ref GetDisplayNameEvent args)
         {
-            if (args.Handled)
-                return;
-
             args.Name = component.DisplayName;
-            args.Handled = true;
         }
 
-        public void GetItemName(EntityUid uid, ItemComponent component, GetDisplayNameEvent args)
+        public void GetItemName(EntityUid uid, ItemComponent component, ref GetDisplayNameEvent args)
         {
-            if (args.Handled)
-                return;
-
             var ev = new GetItemNameEvent();
-            EntityManager.EventBus.RaiseLocalEvent(uid, ev);
-
+            EntityManager.EventBus.RaiseLocalEvent(uid, ref ev);
             args.Name = ev.ItemName;
-            args.Handled = true;
         }
 
         public static string GetDisplayName(EntityUid uid)
         {
             var ev = new GetDisplayNameEvent();
-            Get<DisplayNameSystem>().EntityManager.EventBus.RaiseLocalEvent(uid, ev);
+            Get<DisplayNameSystem>().EntityManager.EventBus.RaiseLocalEvent(uid, ref ev);
             return ev.Name;
         }
     }
 
-    public sealed class GetDisplayNameEvent : HandledEntityEventArgs
+    public struct GetDisplayNameEvent
     {
         public string Name = string.Empty;
 
@@ -58,7 +49,7 @@ namespace Why.Core.GameObjects
         }
     }
 
-    public sealed class GetItemNameEvent : EntityEventArgs
+    public struct GetItemNameEvent
     {
         public string ItemName = string.Empty;
 

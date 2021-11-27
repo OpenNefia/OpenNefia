@@ -13,9 +13,6 @@ namespace Why.Core.GameObjects
         /// </summary>
         protected Subscriptions Subs { get; }
 
-        // NOTE: EntityEventHandler<T> and EntitySessionEventHandler<T> CANNOT BE ORDERED BETWEEN EACH OTHER.
-        // EntityEventRefHandler<T> and EntityEventHandler<T> can be, however. They're essentially the same.
-
         protected void SubscribeNetworkEvent<T>(
             EntityEventHandler<T> handler,
             Type[]? before = null, Type[]? after = null)
