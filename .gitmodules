@@ -1,3 +1,6 @@
 [submodule "thirdparty/Love2dCS"]
 	path = thirdparty/Love2dCS
 	url = https://github.com/endlesstravel/Love2dCS
+[submodule "Thirdparty/CSharpRepl"]
+	path = Thirdparty/CSharpRepl
+	url = git@github.com:waf/CSharpRepl
