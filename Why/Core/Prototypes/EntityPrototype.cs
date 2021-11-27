@@ -15,7 +15,7 @@ namespace Why.Core.Prototypes
     /// <summary>
     /// Prototype that represents game entities.
     /// </summary>
-    [Prototype("entity", -1)]
+    [Prototype("Entity", -1)]
     public class EntityPrototype : IPrototype, IInheritingPrototype, ISerializationHooks
     {
         private const int DEFAULT_RANGE = 200;

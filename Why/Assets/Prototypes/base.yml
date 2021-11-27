@@ -1,11 +1,11 @@
-- type: entity
+- type: Entity
   id: BaseItem
   abstract: true
   components:
   - type: Item
   - type: Stackable
 
-- type: entity
+- type: Entity
   id: Dagger
   parent: BaseItem
   components:
@@ -13,13 +13,13 @@
     value: 5
 
 
-- type: entity
+- type: Entity
   id: BaseChara
   abstract: true
   components:
   - type: Chara
 
-- type: entity
+- type: Entity
   id: Putit
   parent: BaseChara
   components:

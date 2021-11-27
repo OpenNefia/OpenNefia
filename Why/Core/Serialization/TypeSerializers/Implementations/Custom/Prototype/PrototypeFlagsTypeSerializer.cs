@@ -41,14 +41,14 @@ namespace Why.Core.Serialization.TypeSerializers.Implementations.Custom.Prototyp
         public DeserializationResult Read(ISerializationManager serializationManager, SequenceDataNode node,
             IDependencyCollection dependencies, bool skipHook, ISerializationContext? context = null)
         {
-            var flags = new List<string>(node.Sequence.Count);
+            var flags = new List<PrototypeId<T>>(node.Sequence.Count);
 
             foreach (var dataNode in node.Sequence)
             {
                 if (dataNode is not ValueDataNode value)
                     continue;
 
-                flags.Add(value.Value);
+                flags.Add(new(value.Value));
             }
 
             return new DeserializedValue<PrototypeFlags<T>>(new PrototypeFlags<T>(flags));
@@ -57,7 +57,7 @@ namespace Why.Core.Serialization.TypeSerializers.Implementations.Custom.Prototyp
         public DataNode Write(ISerializationManager serializationManager, PrototypeFlags<T> value, bool alwaysWrite = false,
             ISerializationContext? context = null)
         {
-            return new SequenceDataNode(value.ToArray());
+            return new SequenceDataNode(value.Select(x => (string)x).ToArray());
         }
 
         public PrototypeFlags<T> Copy(ISerializationManager serializationManager, PrototypeFlags<T> source, PrototypeFlags<T> target,
@@ -75,7 +75,7 @@ namespace Why.Core.Serialization.TypeSerializers.Implementations.Custom.Prototyp
         public DeserializationResult Read(ISerializationManager serializationManager, ValueDataNode node,
             IDependencyCollection dependencies, bool skipHook, ISerializationContext? context = null)
         {
-            return new DeserializedValue<PrototypeFlags<T>>(new PrototypeFlags<T>(node.Value));
+            return new DeserializedValue<PrototypeFlags<T>>(new PrototypeFlags<T>(new PrototypeId<T>(node.Value)));
         }
     }
 }

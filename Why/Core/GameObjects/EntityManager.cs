@@ -257,7 +257,7 @@ namespace Why.Core.GameObjects
             if (!string.IsNullOrWhiteSpace(prototypeName))
             {
                 // If the prototype doesn't exist then we throw BEFORE we allocate the entity.
-                prototype = PrototypeManager.Index<EntityPrototype>(prototypeName);
+                prototype = PrototypeManager.Index<EntityPrototype>(new(prototypeName));
             }
 
             var entity = AllocEntity(uid);

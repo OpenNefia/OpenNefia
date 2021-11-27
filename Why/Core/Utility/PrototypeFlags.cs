@@ -13,23 +13,23 @@ namespace Why.Core.Utility
     public sealed class PrototypeFlags<T> : IReadOnlyPrototypeFlags<T>
         where T : class, IPrototype
     {
-        private readonly HashSet<string> _flags;
+        private readonly HashSet<PrototypeId<T>> _flags;
 
         #region Constructors
 
         public PrototypeFlags()
         {
-            _flags = new HashSet<string>();
+            _flags = new HashSet<PrototypeId<T>>();
         }
 
-        public PrototypeFlags(params string[] flags)
+        public PrototypeFlags(params PrototypeId<T>[] flags)
         {
-            _flags = new HashSet<string>(flags);
+            _flags = new HashSet<PrototypeId<T>>(flags);
         }
 
-        public PrototypeFlags(IEnumerable<string> flags)
+        public PrototypeFlags(IEnumerable<PrototypeId<T>> flags)
         {
-            _flags = new HashSet<string>(flags);
+            _flags = new HashSet<PrototypeId<T>>(flags);
         }
 
         #endregion
@@ -44,7 +44,7 @@ namespace Why.Core.Utility
         /// <param name="flag">The prototype identifier.</param>
         /// <param name="prototypeManager">The prototype manager containing the prototype.</param>
         /// <returns>Whether the flag was added or not.</returns>
-        public bool Add(string flag, IPrototypeManager prototypeManager)
+        public bool Add(PrototypeId<T> flag, IPrototypeManager prototypeManager)
         {
             return !prototypeManager.TryIndex<T>(flag, out _) && _flags.Add(flag);
         }
@@ -52,7 +52,7 @@ namespace Why.Core.Utility
         /// <summary>
         ///     Checks whether a specific flag is contained here or not.
         /// </summary>
-        public bool Contains(string flag)
+        public bool Contains(PrototypeId<T> flag)
         {
             return _flags.Contains(flag);
         }
@@ -60,7 +60,7 @@ namespace Why.Core.Utility
         /// <summary>
         ///     Checks whether all specified flags are contained here or not.
         /// </summary>
-        public bool ContainsAll(IEnumerable<string> flags)
+        public bool ContainsAll(IEnumerable<PrototypeId<T>> flags)
         {
             foreach (var flag in flags)
             {
@@ -76,15 +76,15 @@ namespace Why.Core.Utility
         /// <summary>
         ///     Checks whether all specified flags are contained here or not.
         /// </summary>
-        public bool ContainsAll(params string[] flags)
+        public bool ContainsAll(params PrototypeId<T>[] flags)
         {
-            return ContainsAll((IEnumerable<string>) flags);
+            return ContainsAll((IEnumerable<PrototypeId<T>>) flags);
         }
 
         /// <summary>
         ///     Checks whether any of the specified flags are contained here or not.
         /// </summary>
-        public bool ContainsAny(IEnumerable<string> flags)
+        public bool ContainsAny(IEnumerable<PrototypeId<T>> flags)
         {
             foreach (var flag in flags)
             {
@@ -100,9 +100,9 @@ namespace Why.Core.Utility
         /// <summary>
         ///     Checks whether any of the specified flags are contained here or not.
         /// </summary>
-        public bool ContainsAny(params string[] flags)
+        public bool ContainsAny(params PrototypeId<T>[] flags)
         {
-            return ContainsAny((IEnumerable<string>) flags);
+            return ContainsAny((IEnumerable<PrototypeId<T>>) flags);
         }
 
         /// <summary>
@@ -110,7 +110,7 @@ namespace Why.Core.Utility
         /// </summary>
         /// <param name="flag">The flag to be removed.</param>
         /// <returns>Whether the prototype flag was successfully removed.</returns>
-        public bool Remove(string flag)
+        public bool Remove(PrototypeId<T> flag)
         {
             return _flags.Remove(flag);
         }
@@ -135,7 +135,7 @@ namespace Why.Core.Utility
             }
         }
 
-        public IEnumerator<string> GetEnumerator()
+        public IEnumerator<PrototypeId<T>> GetEnumerator()
         {
             return _flags.GetEnumerator();
         }
@@ -148,16 +148,16 @@ namespace Why.Core.Utility
         #endregion
     }
 
-    public interface IReadOnlyPrototypeFlags<T> : IEnumerable<string>
+    public interface IReadOnlyPrototypeFlags<T> : IEnumerable<PrototypeId<T>>
         where T : class, IPrototype
     {
         int Count { get; }
 
-        bool Contains(string flag);
-        bool ContainsAll(IEnumerable<string> flags);
-        bool ContainsAll(params string[] flags);
-        bool ContainsAny(IEnumerable<string> flags);
-        bool ContainsAny(params string[] flags);
+        bool Contains(PrototypeId<T> flag);
+        bool ContainsAll(IEnumerable<PrototypeId<T>> flags);
+        bool ContainsAll(params PrototypeId<T>[] flags);
+        bool ContainsAny(IEnumerable<PrototypeId<T>> flags);
+        bool ContainsAny(params PrototypeId<T>[] flags);
 
         /// <summary>
         ///     Enumerates all prototype flags and returns their actual prototype instances.

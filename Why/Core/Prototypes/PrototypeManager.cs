@@ -63,7 +63,7 @@ namespace Why.Core.Prototypes
         /// <exception cref="KeyNotFoundException">
         /// Thrown if the type of prototype is not registered.
         /// </exception>
-        T Index<T>(string id) where T : class, IPrototype;
+        T Index<T>(PrototypeId<T> id) where T : class, IPrototype;
 
         /// <summary>
         /// Index for a <see cref="IPrototype"/> by ID.
@@ -76,8 +76,8 @@ namespace Why.Core.Prototypes
         /// <summary>
         ///     Returns whether a prototype of type <typeparamref name="T"/> with the specified <param name="id"/> exists.
         /// </summary>
-        bool HasIndex<T>(string id) where T : class, IPrototype;
-        bool TryIndex<T>(string id, [NotNullWhen(true)] out T? prototype) where T : class, IPrototype;
+        bool HasIndex<T>(PrototypeId<T> id) where T : class, IPrototype;
+        bool TryIndex<T>(PrototypeId<T> id, [NotNullWhen(true)] out T? prototype) where T : class, IPrototype;
         bool TryIndex(Type type, string id, [NotNullWhen(true)] out IPrototype? prototype);
 
         /// <summary>
@@ -153,11 +153,6 @@ namespace Why.Core.Prototypes
         void Resync();
 
         /// <summary>
-        ///     Registers a specific prototype name to be ignored.
-        /// </summary>
-        void RegisterIgnore(string name);
-
-        /// <summary>
         /// Loads a single prototype class type into the manager.
         /// </summary>
         /// <param name="protoClass">A prototype class type that implements IPrototype. This type also
@@ -215,8 +210,6 @@ namespace Why.Core.Prototypes
         private readonly Dictionary<Type, Dictionary<string, DeserializationResult>> _prototypeResults = new();
         private readonly Dictionary<Type, PrototypeInheritanceTree> _inheritanceTrees = new();
 
-        private readonly HashSet<string> _ignoredPrototypeTypes = new();
-
         public void Initialize()
         {
             if (_initialized)
@@ -255,7 +248,7 @@ namespace Why.Core.Prototypes
             return EnumeratePrototypes(GetVariantType(variant));
         }
 
-        public T Index<T>(string id) where T : class, IPrototype
+        public T Index<T>(PrototypeId<T> id) where T : class, IPrototype
         {
             if (!_hasEverBeenReloaded)
             {
@@ -264,11 +257,11 @@ namespace Why.Core.Prototypes
 
             try
             {
-                return (T) _prototypes[typeof(T)][id];
+                return (T) _prototypes[typeof(T)][(string)id];
             }
             catch (KeyNotFoundException)
             {
-                throw new UnknownPrototypeException(id);
+                throw new UnknownPrototypeException((string)id, typeof(T));
             }
         }
 
@@ -484,11 +477,6 @@ namespace Why.Core.Prototypes
                         var type = node.GetNode("type").AsString();
                         if (!_prototypeTypes.ContainsKey(type))
                         {
-                            if (_ignoredPrototypeTypes.Contains(type))
-                            {
-                                continue;
-                            }
-
                             throw new PrototypeLoadException($"Unknown prototype type: '{type}'");
                         }
 
@@ -656,11 +644,6 @@ namespace Why.Core.Prototypes
                 var type = node.GetNode("type").AsString();
                 if (!_prototypeTypes.ContainsKey(type))
                 {
-                    if (_ignoredPrototypeTypes.Contains(type))
-                    {
-                        continue;
-                    }
-
                     throw new PrototypeLoadException($"Unknown prototype type: '{type}'");
                 }
 
@@ -691,19 +674,19 @@ namespace Why.Core.Prototypes
             return changedPrototypes;
         }
 
-        public bool HasIndex<T>(string id) where T : class, IPrototype
+        public bool HasIndex<T>(PrototypeId<T> id) where T : class, IPrototype
         {
             if (!_prototypes.TryGetValue(typeof(T), out var index))
             {
-                throw new UnknownPrototypeException(id);
+                throw new UnknownPrototypeException((string)id, typeof(T));
             }
 
-            return index.ContainsKey(id);
+            return index.ContainsKey((string)id);
         }
 
-        public bool TryIndex<T>(string id, [NotNullWhen(true)] out T? prototype) where T : class, IPrototype
+        public bool TryIndex<T>(PrototypeId<T> id, [NotNullWhen(true)] out T? prototype) where T : class, IPrototype
         {
-            var returned = TryIndex(typeof(T), id, out var proto);
+            var returned = TryIndex(typeof(T), (string)id, out var proto);
             prototype = (proto ?? null) as T;
             return returned;
         }
@@ -712,7 +695,7 @@ namespace Why.Core.Prototypes
         {
             if (!_prototypes.TryGetValue(type, out var index))
             {
-                throw new UnknownPrototypeException(id);
+                throw new UnknownPrototypeException(id, type);
             }
 
             return index.TryGetValue(id, out prototype);
@@ -769,11 +752,6 @@ namespace Why.Core.Prototypes
         public bool TryGetVariantFrom(IPrototype prototype, [NotNullWhen(true)] out string? variant)
         {
             return TryGetVariantFrom(prototype.GetType(), out variant);
-        }
-
-        public void RegisterIgnore(string name)
-        {
-            _ignoredPrototypeTypes.Add(name);
         }
 
         /// <inheritdoc />
@@ -839,10 +817,12 @@ namespace Why.Core.Prototypes
     {
         public override string Message => "Unknown prototype: " + Prototype;
         public readonly string? Prototype;
+        public readonly Type? Type;
 
-        public UnknownPrototypeException(string prototype)
+        public UnknownPrototypeException(string? prototype, Type? type)
         {
             Prototype = prototype;
+            Type = type;
         }
 
         public UnknownPrototypeException(SerializationInfo info, StreamingContext context) : base(info, context)

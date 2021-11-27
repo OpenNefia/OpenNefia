@@ -14,7 +14,7 @@ namespace Why.Core.Serialization.TypeSerializers.Implementations.Custom.Prototyp
         public ValidationNode Validate(ISerializationManager serializationManager, ValueDataNode node,
             IDependencyCollection dependencies, ISerializationContext? context = null)
         {
-            return dependencies.Resolve<IPrototypeManager>().HasIndex<TPrototype>(node.Value)
+            return dependencies.Resolve<IPrototypeManager>().HasIndex(new PrototypeId<TPrototype>(node.Value))
                 ? new ValidatedValueNode(node)
                 : new ErrorNode(node, $"PrototypeID {node.Value} for type {typeof(TPrototype)} not found");
         }

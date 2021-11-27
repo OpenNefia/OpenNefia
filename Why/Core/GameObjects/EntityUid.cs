@@ -18,7 +18,7 @@ namespace Why.Core.GameObjects
         public static readonly EntityUid FirstUid = new(1);
 
         /// <summary>
-        ///     Creates an instance of this structure, with the given network ID.
+        ///     Creates an instance of this structure.
         /// </summary>
         public EntityUid(int uid)
         {
