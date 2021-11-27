@@ -1,4 +1,5 @@
 ﻿using Love;
+using OpenNefia.Core.Maths;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Core.UI.Element;
 using OpenNefia.Core.UI.Element.List;
@@ -17,9 +18,9 @@ namespace OpenNefia.Core.UI
             return Enum.GetName(typeof(Keys), keyAndModifiers)!.ToLowerInvariant();
         }
 
-        public static bool IsPointInVisibleScreen(int screenX, int screenY)
+        public static bool IsPointInVisibleScreen(Vector2i screenPos)
         {
-            return screenX >= 0 && screenY >= 0 && screenX < Love.Graphics.GetWidth() && screenY < Love.Graphics.GetHeight() - Constants.INF_MSGH;
+            return screenPos.X >= 0 && screenPos.Y >= 0 && screenPos.X < Love.Graphics.GetWidth() && screenPos.Y < Love.Graphics.GetHeight() - Constants.INF_MSGH;
         }
 
         public static Rectangle GetCenteredParams(int width, int height)
@@ -43,10 +44,10 @@ namespace OpenNefia.Core.UI
 
         public static void DebugDraw(IDrawable elem)
         {
-            Graphics.SetColor(Love.Color.Red);
-            GraphicsEx.LineRect(elem.X, elem.Y, elem.Width, elem.Height);
-            Graphics.SetColor(Love.Color.Blue);
-            Graphics.Line(elem.X, elem.Y, elem.X + elem.Width, elem.Y + elem.Height);
+            Love.Graphics.SetColor(Love.Color.Red);
+            Love.Graphics.Rectangle(Love.DrawMode.Line, elem.X, elem.Y, elem.Width, elem.Height);
+            Love.Graphics.SetColor(Love.Color.Blue);
+            Love.Graphics.Line(elem.X, elem.Y, elem.X + elem.Width, elem.Y + elem.Height);
             //Graphics.Print($"{elem}", elem.X, elem.Y);
         }
     }

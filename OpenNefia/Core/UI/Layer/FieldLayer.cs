@@ -386,7 +386,7 @@ namespace OpenNefia.Core.UI.Layer
 
             var player = Current.Player!;
             player.GetScreenPos(out var sx, out var sy);
-            GraphicsEx.LineRect(X + sx, Y + sy, OrthographicCoords.TILE_SIZE, OrthographicCoords.TILE_SIZE);
+            Love.Graphics.Rectangle(Love.DrawMode.Line, X + sx, Y + sy, OrthographicCoords.TILE_SIZE, OrthographicCoords.TILE_SIZE);
 
             GraphicsEx.SetFont(this.FontText);
             Love.Graphics.Print(Message, 5, 5);

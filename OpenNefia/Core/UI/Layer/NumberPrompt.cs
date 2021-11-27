@@ -165,7 +165,7 @@ namespace OpenNefia.Core.UI.Layer
         public override void Draw()
         {
             GraphicsEx.SetColor(this.ColorPromptBackground);
-            GraphicsEx.FilledRect(this.X + 24, this.Y + 4, this.Width - 42, this.Height - 1);
+            GraphicsEx.Love.Graphics.Rectangle(Love.DrawMode.Fill, (this.X + 24, this.Y + 4, this.Width - 42, this.Height - 1);
             
             this.TopicWindow.Draw();
 

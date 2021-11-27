@@ -77,7 +77,7 @@ namespace OpenNefia.Core.UI.Hud
         public override void Draw()
         {
             GraphicsEx.SetColor(0, 0, 0, 64);
-            GraphicsEx.FilledRect(this.X, this.Y, this.Width, this.Height);
+            GraphicsEx.Love.Graphics.Rectangle(Love.DrawMode.Fill, (this.X, this.Y, this.Width, this.Height);
 
             //GraphicsEx.SetScissor(this.X, this.Y, this.Width, this.Height);
             for (int i = 0; i < TextMessages.Length; i++)

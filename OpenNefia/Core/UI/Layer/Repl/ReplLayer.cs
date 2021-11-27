@@ -521,7 +521,7 @@ namespace OpenNefia.Core.UI.Layer.Repl
 
             // Background
             GraphicsEx.SetColor(ColorReplBackground);
-            GraphicsEx.FilledRect(X, y, Width, Height);
+            GraphicsEx.Love.Graphics.Rectangle(Love.DrawMode.Fill, (X, y, Width, Height);
 
             var yPos = y + Height - FontReplText.GetHeight() - 5;
 
@@ -813,17 +813,17 @@ namespace OpenNefia.Core.UI.Layer.Repl
                 return;
 
             GraphicsEx.SetColor(ColorCompletionBackground);
-            GraphicsEx.FilledRect(X, Y, Width, Height);
+            GraphicsEx.Love.Graphics.Rectangle(Love.DrawMode.Fill, (X, Y, Width, Height);
 
             GraphicsEx.SetColor(ColorCompletionBorder);
-            GraphicsEx.LineRect(X + BorderPadding, Y + BorderPadding, Width - BorderPadding * 2, Height - BorderPadding * 2);
+            Love.Graphics.Rectangle(Love.DrawMode.Line, X + BorderPadding, Y + BorderPadding, Width - BorderPadding * 2, Height - BorderPadding * 2);
 
             foreach (var entry in FilteredView)
             {
                 if (entry == FilteredView.SelectedItem)
                 {
                     GraphicsEx.SetColor(255, 255, 255, 128);
-                    GraphicsEx.FilledRect(entry.Text.X, entry.Text.Y, entry.Text.Width, entry.Text.Height);
+                    GraphicsEx.Love.Graphics.Rectangle(Love.DrawMode.Fill, (entry.Text.X, entry.Text.Y, entry.Text.Width, entry.Text.Height);
                 }
                 GraphicsEx.SetColor(Color.White);
                 entry.Icon.Draw(entry.Text.X - entry.Text.Height - 4, entry.Text.Y, entry.Text.Height, entry.Text.Height);

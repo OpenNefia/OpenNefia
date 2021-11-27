@@ -46,14 +46,14 @@ namespace OpenNefia.Core.UI.Layer
         public override void Draw()
         {
             Love.Graphics.SetColor(Love.Color.Black);
-            GraphicsEx.FilledRect(this.X, this.Y, this.Width, this.Height);
+            GraphicsEx.Love.Graphics.Rectangle(Love.DrawMode.Fill, (this.X, this.Y, this.Width, this.Height);
 
             Love.Graphics.SetColor(Love.Color.White);
             Love.Graphics.Draw(this.Image, this.X, this.Y);
 
             if (this.DrawBorder)
             {
-                GraphicsEx.LineRect(this.X, this.Y, this.Width, this.Height);
+                Love.Graphics.Rectangle(Love.DrawMode.Line, this.X, this.Y, this.Width, this.Height);
             }
         }
     }

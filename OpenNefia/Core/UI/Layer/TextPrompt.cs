@@ -179,7 +179,7 @@ namespace OpenNefia.Core.UI.Layer
             if (this.HasShadow)
             {
                 GraphicsEx.SetColor(this.ColorPromptBackground);
-                GraphicsEx.FilledRect(this.X + 4, this.Y + 4, this.Width - 1, this.Height - 1);
+                GraphicsEx.Love.Graphics.Rectangle(Love.DrawMode.Fill, (this.X + 4, this.Y + 4, this.Width - 1, this.Height - 1);
             }
 
             this.TopicWindow.Draw();

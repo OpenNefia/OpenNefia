@@ -96,7 +96,7 @@ namespace OpenNefia.Core.Rendering
             {
                 var tileX = index % Map.Width;
                 var tileY = index / Map.Width;
-                GraphicsEx.FilledRect(tileX * tileW + X, tileY * tileH + Y - 20, tileW, tileH / 6);
+                GraphicsEx.Love.Graphics.Rectangle(Love.DrawMode.Fill, (tileX * tileW + X, tileY * tileH + Y - 20, tileW, tileH / 6);
             }
 
             foreach (var index in BottomShadows)
@@ -105,10 +105,10 @@ namespace OpenNefia.Core.Rendering
                 var tileY = index / Map.Width;
 
                 GraphicsEx.SetColor(255, 255, 255, 16);
-                GraphicsEx.FilledRect(tileX * tileW + X, (tileY + 1) * tileH + Y, tileW, tileH / 2);
+                GraphicsEx.Love.Graphics.Rectangle(Love.DrawMode.Fill, (tileX * tileW + X, (tileY + 1) * tileH + Y, tileW, tileH / 2);
 
                 GraphicsEx.SetColor(255, 255, 255, 12);
-                GraphicsEx.FilledRect(tileX * tileW + X, (tileY + 1) * tileH + Y + tileW / 2, tileW, tileH / 4);
+                GraphicsEx.Love.Graphics.Rectangle(Love.DrawMode.Fill, (tileX * tileW + X, (tileY + 1) * tileH + Y + tileW / 2, tileW, tileH / 4);
             }
 
             Love.Graphics.SetBlendMode(Love.BlendMode.Alpha);

@@ -152,16 +152,6 @@ namespace OpenNefia.Core.Rendering
                 SetColor(spec.Color);
         }
 
-        public static void FilledRect(int x, int y, int width, int height)
-        {
-            Love.Graphics.Rectangle(Love.DrawMode.Fill, x, y, width, height);
-        }
-
-        public static void LineRect(int x, int y, int width, int height)
-        {
-            Love.Graphics.Rectangle(Love.DrawMode.Line, x, y, width, height);
-        }
-
         public static Love.Text NewText(string text, int size, FontFormatting style = FontFormatting.None, IResourcePath? fontFilepath = null)
         {
             return Love.Graphics.NewText(GetFont(size, style, fontFilepath), text);
