@@ -8,6 +8,7 @@ namespace Why.Core.Serialization.Manager.Definition
     {
         public FieldDefinition(
             DataFieldAttribute attr,
+            string tag,
             object? defaultValue,
             AbstractFieldInfo fieldInfo,
             AbstractFieldInfo backingField,
@@ -15,12 +16,15 @@ namespace Why.Core.Serialization.Manager.Definition
         {
             BackingField = backingField;
             Attribute = attr;
+            Tag = tag;
             DefaultValue = defaultValue;
             FieldInfo = fieldInfo;
             InheritanceBehavior = inheritanceBehavior;
         }
 
         public DataFieldAttribute Attribute { get; }
+
+        public string Tag { get; }
 
         public object? DefaultValue { get; }
 

@@ -12,13 +12,13 @@ namespace Why.Core.GameObjects
     {
         public override string Name => "Chara";
 
-        [DataField("displayName")]
+        [DataField]
         public string DisplayName { get; set; } = string.Empty;
 
-        [DataField("title")]
+        [DataField]
         public string Title { get; set; } = string.Empty;
 
-        [DataField("hasFullName")]
+        [DataField]
         public bool HasFullName { get; set; } = false;
     }
 }

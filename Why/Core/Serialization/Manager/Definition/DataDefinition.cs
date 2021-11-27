@@ -29,8 +29,8 @@ namespace Why.Core.Serialization.Manager.Definition
 
             Duplicates = fieldDefs
                 .Where(f =>
-                    fieldDefs.Count(df => df.Attribute.Tag == f.Attribute.Tag) > 1)
-                .Select(f => f.Attribute.Tag)
+                    fieldDefs.Count(df => df.Tag == f.Tag) > 1)
+                .Select(f => f.Tag)
                 .Distinct()
                 .ToArray();
 
@@ -120,7 +120,7 @@ namespace Why.Core.Serialization.Manager.Definition
                     continue;
                 }
 
-                var field = BaseFieldDefinitions.FirstOrDefault(f => f.Attribute.Tag == valueDataNode.Value);
+                var field = BaseFieldDefinitions.FirstOrDefault(f => f.Tag == valueDataNode.Value);
                 if (field == null)
                 {
                     var error = new ErrorNode(
@@ -169,6 +169,10 @@ namespace Why.Core.Serialization.Manager.Definition
                     continue;
                 }
 
+                // Default to lowercased field name from C# if no tag name is provided.
+                // Tag names will be lowerCamelCase.
+                var tag = dataField.Tag ?? abstractFieldInfo.MemberInfo.Name.ToLower();
+
                 var backingField = abstractFieldInfo;
 
                 if (abstractFieldInfo is SpecificPropertyInfo propertyInfo)
@@ -208,6 +212,7 @@ namespace Why.Core.Serialization.Manager.Definition
 
                 var fieldDefinition = new FieldDefinition(
                     dataField,
+                    tag,
                     abstractFieldInfo.GetValue(dummyObject),
                     abstractFieldInfo,
                     backingField,

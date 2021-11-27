@@ -3,12 +3,26 @@ using JetBrains.Annotations;
 
 namespace Why.Core.Serialization.Manager.Attributes
 {
+    /// <summary>
+    /// Defines a field that can be (de)serialized in YAML.
+    /// </summary>
     [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property)]
     [MeansImplicitUse(ImplicitUseKindFlags.Assign)]
     public class DataFieldAttribute : Attribute
     {
-        public readonly string Tag;
+        /// <summary>
+        /// Tag name to use. If none is provided, the serializer will use the lowercased C# field name.
+        /// </summary>
+        public readonly string? Tag;
+
+        /// <summary>
+        /// Numeric priority controlling the order of (de)serialization.
+        /// </summary>
         public readonly int Priority;
+
+        /// <summary>
+        /// If true, this type can only be deserialized.
+        /// </summary>
         public readonly bool ReadOnly;
 
         /// <summary>
@@ -18,9 +32,12 @@ namespace Why.Core.Serialization.Manager.Attributes
         /// </summary>
         public readonly bool Required;
 
+        /// <summary>
+        /// Type of an <see cref="ITypeSerializer"/> to (de)serialize this field with.
+        /// </summary>
         public readonly Type? CustomTypeSerializer;
 
-        public DataFieldAttribute([NotNull] string tag, bool readOnly = false, int priority = 1, bool required = false, Type? customTypeSerializer = null)
+        public DataFieldAttribute(string? tag = null, bool readOnly = false, int priority = 1, bool required = false, Type? customTypeSerializer = null)
         {
             Tag = tag;
             Priority = priority;

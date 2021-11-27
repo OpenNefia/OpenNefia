@@ -22,7 +22,7 @@ namespace Why.Core.Serialization.Manager.Definition
                 {
                     var fieldDefinition = BaseFieldDefinitions[i];
 
-                    var mapped = mappingDataNode.Has(fieldDefinition.Attribute.Tag);
+                    var mapped = mappingDataNode.Has(fieldDefinition.Tag);
 
                     if (!mapped)
                     {
@@ -31,7 +31,7 @@ namespace Why.Core.Serialization.Manager.Definition
                     }
 
                     var type = fieldDefinition.FieldType;
-                    var node = mappingDataNode.Get(fieldDefinition.Attribute.Tag);
+                    var node = mappingDataNode.Get(fieldDefinition.Tag);
                     var result = fieldDefinition.Attribute.CustomTypeSerializer != null
                         ? serializationManager.ReadWithTypeSerializer(type,
                             fieldDefinition.Attribute.CustomTypeSerializer, node, serializationContext,
@@ -129,7 +129,7 @@ namespace Why.Core.Serialization.Manager.Definition
                             value, alwaysWrite, context)
                         : manager.WriteValue(type, value, alwaysWrite, context);
 
-                    mapping[fieldDefinition.Attribute.Tag] = node;
+                    mapping[fieldDefinition.Tag] = node;
                 }
 
                 return mapping;

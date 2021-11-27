@@ -12,7 +12,7 @@ namespace Why.Core.GameObjects
     {
         public override string Name => "Stackable";
 
-        [DataField("amount")]
+        [DataField]
         public int Amount { get; set; } = 1;
     }
 }

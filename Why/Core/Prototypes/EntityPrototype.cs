@@ -23,26 +23,26 @@ namespace Why.Core.Prototypes
         /// <summary>
         /// The "in code name" of the object. Must be unique.
         /// </summary>
-        [DataField("id")]
+        [DataField]
         public string ID { get; private set; } = default!;
 
         /// <summary>
         ///     If true, this object should not show up in the entity spawn panel.
         /// </summary>
         [NeverPushInheritance]
-        [DataField("abstract")]
+        [DataField]
         public bool Abstract { get; private set; }
 
         /// <summary>
         /// The prototype we inherit from.
         /// </summary>
-        [DataField("parent", customTypeSerializer:typeof(PrototypeIdSerializer<EntityPrototype>))]
+        [DataField(customTypeSerializer:typeof(PrototypeIdSerializer<EntityPrototype>))]
         public string? Parent { get; private set; }
 
         /// <summary>
         /// A dictionary mapping the component type list to the YAML mapping containing their settings.
         /// </summary>
-        [DataField("components")]
+        [DataField]
         [AlwaysPushInheritance]
         public ComponentRegistry Components { get; } = new();
 
@@ -193,53 +193,6 @@ namespace Why.Core.Prototypes
 
             public ComponentRegistry(Dictionary<string, IComponent> components) : base(components)
             {
-            }
-        }
-
-        [DataDefinition]
-        public class EntityPlacementProperties
-        {
-            public bool PlacementOverriden { get; private set; }
-            public bool SnapOverriden { get; private set; }
-            private string _placementMode = "PlaceFree";
-            private Vector2i _placementOffset;
-
-            [DataField("mode")]
-            public string PlacementMode
-            {
-                get => _placementMode;
-                set
-                {
-                    PlacementOverriden = true;
-                    _placementMode = value;
-                }
-            }
-
-            [DataField("offset")]
-            public Vector2i PlacementOffset
-            {
-                get => _placementOffset;
-                set
-                {
-                    PlacementOverriden = true;
-                    _placementOffset = value;
-                }
-            }
-
-            [DataField("nodes")] public List<int>? MountingPoints;
-
-            [DataField("range")] public int PlacementRange = DEFAULT_RANGE;
-            private HashSet<string> _snapFlags = new();
-
-            [DataField("snap")]
-            public HashSet<string> SnapFlags
-            {
-                get => _snapFlags;
-                set
-                {
-                    SnapOverriden = true;
-                    _snapFlags = value;
-                }
             }
         }
     }

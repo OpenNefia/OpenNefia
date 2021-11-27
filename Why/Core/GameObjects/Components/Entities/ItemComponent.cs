@@ -12,7 +12,7 @@ namespace Why.Core.GameObjects
     {
         public override string Name => "Item";
 
-        [DataField("value")]
+        [DataField]
         public int Value { get; }
     }
 }
