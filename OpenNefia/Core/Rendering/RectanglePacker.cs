@@ -23,6 +23,7 @@
 // CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #endregion
 
+using OpenNefia.Core.Maths;
 using System;
 using System.Collections.Generic;
 
@@ -113,7 +114,7 @@ namespace OpenNefia.Core.Rendering
         ///   packing area (their 'rank') so the packer favors positions that are closer to
         ///   the upper left for new rectangles.
         /// </remarks>
-        private class AnchorRankComparer : IComparer<Point2i>
+        private class AnchorRankComparer : IComparer<Vector2i>
         {
 
             /// <summary>Provides a default instance for the anchor rank comparer</summary>
@@ -123,7 +124,7 @@ namespace OpenNefia.Core.Rendering
             /// <param name="left">Left anchor point that will be compared</param>
             /// <param name="right">Right anchor point that will be compared</param>
             /// <returns>The relation of the two anchor point's ranks to each other</returns>
-            public int Compare(Point2i left, Point2i right)
+            public int Compare(Vector2i left, Vector2i right)
             {
                 //return Math.Min(left.x, left.y) - Math.Min(right.x, right.y);
                 return (left.X + left.Y) - (right.X + right.Y);
@@ -147,8 +148,8 @@ namespace OpenNefia.Core.Rendering
             this.packingAreaHeight = packingAreaHeight;
 
             this.packedRectangles = new List<PackingRectangle>();
-            this.anchors = new List<Point2i>();
-            this.anchors.Add(new Point2i(0, 0));
+            this.anchors = new List<Vector2i>();
+            this.anchors.Add(new Vector2i(0, 0));
 
             this.actualPackingAreaWidth = 1;
             this.actualPackingAreaHeight = 1;
@@ -164,7 +165,7 @@ namespace OpenNefia.Core.Rendering
             outX = 0;
             outY = 0;
 
-            Point2i placement = Point2i.Zero;
+            Vector2i placement = Vector2i.Zero;
             // Try to find an anchor where the rectangle fits in, enlarging the packing
             // area and repeating the search recursively until it fits or the
             // maximum allowed size is exceeded.
@@ -198,8 +199,8 @@ namespace OpenNefia.Core.Rendering
                     this.anchors.RemoveAt(anchorIndex);
 
                 // Add new anchors at the upper right and lower left coordinates of the rectangle
-                insertAnchor(new Point2i(placement.X + rectangleWidth, placement.Y));
-                insertAnchor(new Point2i(placement.X, placement.Y + rectangleHeight));
+                insertAnchor(new Vector2i(placement.X + rectangleWidth, placement.Y));
+                insertAnchor(new Vector2i(placement.X, placement.Y + rectangleHeight));
             }
 
             // Finally, we can add the rectangle to our packed rectangles list
@@ -221,7 +222,7 @@ namespace OpenNefia.Core.Rendering
         /// <param name="rectangleWidth">Width of the rectangle to be optimized</param>
         /// <param name="rectangleHeight">Height of the rectangle to be optimized</param>
         private void optimizePlacement(
-          ref Point2i placement, int rectangleWidth, int rectangleHeight
+          ref Vector2i placement, int rectangleWidth, int rectangleHeight
         )
         {
             PackingRectangle rectangle = new PackingRectangle(
@@ -413,7 +414,7 @@ namespace OpenNefia.Core.Rendering
         ///   This method tries to keep the anchor list ordered by ranking the anchors
         ///   depending on the distance from the top left corner in the packing area.
         /// </remarks>
-        private void insertAnchor(Point2i anchor)
+        private void insertAnchor(Vector2i anchor)
         {
 
             // Find out where to insert the new anchor based on its rank (which is
@@ -441,7 +442,7 @@ namespace OpenNefia.Core.Rendering
         /// <summary>Rectangles contained in the packing area</summary>
         private List<PackingRectangle> packedRectangles;
         /// <summary>Anchoring points where new rectangles can potentially be placed</summary>
-        private List<Point2i> anchors;
+        private List<Vector2i> anchors;
 
     }
 

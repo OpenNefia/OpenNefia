@@ -359,13 +359,13 @@ namespace OpenNefia.Core.Rendering
             GraphicsEx.SetColor(255, 255, 255, (int)(this.ShadowStrength * ((256f - 9f) / 256f)));
 
             // Left
-            GraphicsEx.FilledRect(X, Y, ShadowBounds.X, this.HeightInScreen);
+            GraphicsEx.Love.Graphics.Rectangle(Love.DrawMode.Fill, (X, Y, ShadowBounds.X, this.HeightInScreen);
             // Right
-            GraphicsEx.FilledRect(X + ShadowBounds.X + ShadowBounds.Width, Y, ShadowBounds.Width, this.HeightInScreen);
+            GraphicsEx.Love.Graphics.Rectangle(Love.DrawMode.Fill, (X + ShadowBounds.X + ShadowBounds.Width, Y, ShadowBounds.Width, this.HeightInScreen);
             // Up
-            GraphicsEx.FilledRect(X + ShadowBounds.X, Y, ShadowBounds.Width, ShadowBounds.Y);
+            GraphicsEx.Love.Graphics.Rectangle(Love.DrawMode.Fill, (X + ShadowBounds.X, Y, ShadowBounds.Width, ShadowBounds.Y);
             // Down
-            GraphicsEx.FilledRect(X + ShadowBounds.X, Y + ShadowBounds.Y + ShadowBounds.Height, ShadowBounds.Width, ShadowBounds.Height);
+            GraphicsEx.Love.Graphics.Rectangle(Love.DrawMode.Fill, (X + ShadowBounds.X, Y + ShadowBounds.Y + ShadowBounds.Height, ShadowBounds.Width, ShadowBounds.Height);
 
             Love.Graphics.SetBlendMode(BlendMode.Alpha);
         }

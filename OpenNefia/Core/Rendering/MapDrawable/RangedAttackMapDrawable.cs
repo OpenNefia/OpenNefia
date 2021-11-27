@@ -1,7 +1,12 @@
 ﻿using Love;
+using OpenNefia.Core.Audio;
+using OpenNefia.Core.Config;
 using OpenNefia.Core.Data.Types;
-using OpenNefia.Core.Map;
+using OpenNefia.Core.Game;
+using OpenNefia.Core.Maps;
+using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.UI;
+using OpenNefia.Core.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,50 +17,54 @@ namespace OpenNefia.Core.Rendering
 {
     public class RangedAttackMapDrawable : BaseMapDrawable
     {
-        private TilePos StartPos;
-        private TilePos EndPos;
-        private ChipDef Chip;
-        private Color Color;
-        private SoundDef? Sound;
-        private SoundDef? ImpactSound;
-        private TileAtlasBatch ChipBatch;
-        private FrameCounter Counter;
+        private MapCoordinates _startPos;
+        private MapCoordinates _endPos;
+        private PrototypeId<ChipPrototype> _chip;
+        private Color _color;
+        private PrototypeId<SoundPrototype>? _sound;
+        private PrototypeId<SoundPrototype>? _impactSound;
+        private TileAtlasBatch _chipBatch;
+        private FrameCounter _counter;
 
-        public RangedAttackMapDrawable(TilePos startPos, TilePos endPos, ChipDef chip, Love.Color? color = null, SoundDef? sound = null, SoundDef? impactSound = null)
+        public RangedAttackMapDrawable(MapCoordinates startPos, MapCoordinates endPos, 
+            PrototypeId<ChipPrototype> chip,
+            Love.Color? color = null, 
+            PrototypeId<SoundPrototype>? sound = null, 
+            PrototypeId<SoundPrototype>? impactSound = null)
         {
-            this.StartPos = startPos;
-            this.EndPos = endPos;
-            this.Chip = chip;
-            this.Color = color ?? Love.Color.White;
-            this.Sound = sound;
-            this.ImpactSound = sound;
-            this.ChipBatch = new TileAtlasBatch(Atlases.Chip);
+            this._startPos = startPos;
+            this._endPos = endPos;
+            this._chip = chip;
+            this._color = color ?? Love.Color.White;
+            this._sound = sound;
+            this._impactSound = sound;
+            this._chipBatch = new TileAtlasBatch(AtlasNames.Chip);
 
-            var maxFrames = this.StartPos.DistanceTo(this.EndPos) / 2 + 1;
-            this.Counter = new FrameCounter(Config.AnimeWait, (uint)maxFrames);
+            var maxFrames = PosHelpers.Distance(_startPos.Position, _endPos.Position) / 2 + 1;
+            this._counter = new FrameCounter(ConfigVars.AnimeWait, (uint)maxFrames);
         }
 
         public override bool CanEnqueue()
         {
-            return Current.Player!.CanSee(this.StartPos) || Current.Player.CanSee(this.EndPos);
+            return GameSession.Player.CanSee(this._startPos) || GameSession.Player.CanSee(this._endPos);
         }
 
         public override void OnEnqueue()
         {
-            if (this.Sound != null)
+            if (_sound != null)
             {
-                Sounds.PlayOneShot(this.Sound, this.StartPos);
+                Sounds.Play(_sound.Value, _startPos);
             }
         }
 
         public override void Update(float dt)
         {
-            this.Counter.Update(dt);
-            if (this.Counter.IsFinished)
+            this._counter.Update(dt);
+            if (this._counter.IsFinished)
             {
-                if (this.ImpactSound != null)
+                if (this._impactSound != null)
                 {
-                    Sounds.PlayOneShot(this.ImpactSound, this.EndPos);
+                    Sounds.Play(_impactSound.Value, _endPos);
                 }
                 this.Finish();
             }
@@ -64,29 +73,29 @@ namespace OpenNefia.Core.Rendering
         public override void Draw()
         {
             var coords = GraphicsEx.Coords;
-            coords.TileToScreen(this.EndPos.X - StartPos.X, this.EndPos.Y - StartPos.Y, out var sx, out var sy);
-            var cx = (int)(this.Counter.Frame * (sx) / this.Counter.MaxFrames);
-            var cy = (int)(this.Counter.Frame * (sy) / this.Counter.MaxFrames);
+            coords.TileToScreen(_endPos.Position - _startPos.Position, out var screenPos);
+            var cx = (int)(this._counter.Frame * (screenPos.X) / this._counter.MaxFrames);
+            var cy = (int)(this._counter.Frame * (screenPos.Y) / this._counter.MaxFrames);
 
             if (UiUtils.IsPointInVisibleScreen(this.X + cx, this.Y + cy) || true)
             {
-                this.ChipBatch.Clear();
-                this.ChipBatch.Add(this.Chip.Image, 
+                this._chipBatch.Clear();
+                this._chipBatch.Add(this._chip.Image, 
                     cx + coords.TileWidth / 2, 
                     cy + coords.TileHeight / 2, 
                     coords.TileWidth,
                     coords.TileHeight,
-                    color: this.Color, 
+                    color: this._color, 
                     centered: true, 
-                    rotation: this.StartPos.AngleBetween(this.EndPos));
-                this.ChipBatch.Flush();
-                this.ChipBatch.Draw(this.X, this.Y, this.Width, this.Height);
+                    rotation: this._startPos.AngleBetween(this._endPos));
+                this._chipBatch.Flush();
+                this._chipBatch.Draw(this.X, this.Y, this.Width, this.Height);
             }
         }
 
         public override void Dispose()
         {
-            this.ChipBatch.Dispose();
+            this._chipBatch.Dispose();
         }
     }
 }
