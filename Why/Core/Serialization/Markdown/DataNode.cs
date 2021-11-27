@@ -5,7 +5,7 @@ namespace OpenNefia.Core.Serialization.Markdown
 {
     public abstract class DataNode
     {
-        public TagName Tag;
+        public string? Tag;
         public NodeMark Start;
         public NodeMark End;
 

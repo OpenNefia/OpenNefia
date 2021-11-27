@@ -251,9 +251,9 @@ namespace OpenNefia.Core.Serialization.Manager
                 return new ValidatedValueNode(node);
             }
 
-            if (!node.Tag.IsEmpty && node.Tag.Value.StartsWith("!type:"))
+            if (node.Tag?.StartsWith("!type:") ?? false)
             {
-                var typeString = node.Tag.Value.Substring(6);
+                var typeString = node.Tag.Substring(6);
                 try
                 {
                     underlyingType = ResolveConcreteType(underlyingType, typeString);

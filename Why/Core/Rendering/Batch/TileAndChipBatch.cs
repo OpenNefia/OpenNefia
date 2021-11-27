@@ -1,4 +1,5 @@
 ﻿using Love;
+using OpenNefia.Core.Log;
 using OpenNefia.Core.UI;
 using OpenNefia.Core.UI.Element;
 using System;
@@ -14,38 +15,42 @@ namespace OpenNefia.Core.Rendering
     /// </summary>
     internal class TileAndChipBatch : BaseDrawable
     {
-        int TiledWidth;
-        int TiledHeight;
+        private readonly IAtlasManager _atlasManager;
 
-        string[] Tiles;
-        internal Dictionary<int, ChipBatchEntry> ChipsByIndex;
-        internal Dictionary<int, int> MemoryIndexToRowIndex;
-        internal Stack<ChipBatchEntry> DeadEntries;
-        TileBatchRow[] Rows;
-        HashSet<int> DirtyRows;
-        bool RedrawAll;
-        private ICoords Coords;
-        private TileAtlas TileAtlas;
-        private TileAtlas ChipAtlas;
+        private int _tiledWidth;
+        private int _tiledHeight;
+
+        private string[] _tiles;
+        internal Dictionary<int, ChipBatchEntry> _chipsByIndex;
+        internal Dictionary<int, int> _memoryIndexToRowIndex;
+        internal Stack<ChipBatchEntry> _deadEntries;
+        private TileBatchRow[] _rows;
+        private HashSet<int> _dirtyRows;
+        private bool _redrawAll;
+        private ICoords _coords;
+        private TileAtlas _tileAtlas;
+        private TileAtlas _chipAtlas;
 
 
-        public TileAndChipBatch(int width, int height, ICoords coords)
+        public TileAndChipBatch(int width, int height, ICoords coords, IAtlasManager atlasManager)
         {
-            TiledWidth = width;
-            TiledHeight = height;
-            TileAtlas = Atlases.Tile;
-            ChipAtlas = Atlases.Chip;
-            Coords = coords;
-            Tiles = new string[width * height];
-            ChipsByIndex = new Dictionary<int, ChipBatchEntry>();
-            MemoryIndexToRowIndex = new Dictionary<int, int>();
-            DeadEntries = new Stack<ChipBatchEntry>();
-            Rows = new TileBatchRow[height];
-            DirtyRows = new HashSet<int>();
-            RedrawAll = true;
+            _atlasManager = atlasManager;
+
+            _tiledWidth = width;
+            _tiledHeight = height;
+            _tileAtlas = atlasManager.GetAtlas(AtlasNames.Tile);
+            _chipAtlas = atlasManager.GetAtlas(AtlasNames.Chip);
+            _coords = coords;
+            _tiles = new string[width * height];
+            _chipsByIndex = new Dictionary<int, ChipBatchEntry>();
+            _memoryIndexToRowIndex = new Dictionary<int, int>();
+            _deadEntries = new Stack<ChipBatchEntry>();
+            _rows = new TileBatchRow[height];
+            _dirtyRows = new HashSet<int>();
+            _redrawAll = true;
             for (int tileY = 0; tileY < height; tileY++)
             {
-                Rows[tileY] = new TileBatchRow(TileAtlas, ChipAtlas, Coords, width, tileY);
+                _rows[tileY] = new TileBatchRow(_tileAtlas, _chipAtlas, _coords, width, tileY);
             }
         }
 
@@ -53,25 +58,25 @@ namespace OpenNefia.Core.Rendering
         {
             ChipBatchEntry? entry;
 
-            var tile = ChipAtlas.GetTile(memory.ChipIndex);
+            var tile = _chipAtlas.GetTile(memory.ChipIndex);
             if (tile == null)
                 throw new Exception($"Missing chip {memory.ChipIndex}");
 
 
-            if (this.ChipsByIndex.TryGetValue(memory.Index, out entry))
+            if (this._chipsByIndex.TryGetValue(memory.Index, out entry))
             {
                 // This memory is being reused for a potentially different object. This means that it exists in one of the Z layer strips already.
                 // Since the Y coordinate of the memory might have changed since then, we have to make sure it gets put into the correct batch.
 
-                var prevRowIndex = this.MemoryIndexToRowIndex[entry.Memory.Index];
+                var prevRowIndex = this._memoryIndexToRowIndex[entry.Memory.Index];
                 var newRowIndex = memory.TileY;
 
                 if (prevRowIndex != newRowIndex)
                 {
                     // Y coordinate of the object changed, move the entry between the two rows.
-                    var prevRow = this.Rows[prevRowIndex];
+                    var prevRow = this._rows[prevRowIndex];
                     prevRow.ChipBatch.RemoveChipEntry(entry);
-                    DirtyRows.Add(prevRowIndex);
+                    _dirtyRows.Add(prevRowIndex);
                 }
 
                 entry.Memory = memory;
@@ -82,9 +87,9 @@ namespace OpenNefia.Core.Rendering
             {
                 // This memory was newly allocated, so allocate a new entry or reuse one.
 
-                if (this.DeadEntries.Count > 0)
+                if (this._deadEntries.Count > 0)
                 {
-                    entry = this.DeadEntries.Pop();
+                    entry = this._deadEntries.Pop();
                     entry.Memory = memory;
                     entry.RowIndex = memory.TileY;
                     entry.AtlasTile = tile;
@@ -95,59 +100,59 @@ namespace OpenNefia.Core.Rendering
                 }
 
                 // Add to top level, for tracking purposes.
-                this.ChipsByIndex.Add(entry.Memory.Index, entry);
+                this._chipsByIndex.Add(entry.Memory.Index, entry);
             }
 
             // Add to the appropriate Z layer strip.
-            this.Rows[entry.RowIndex].ChipBatch.AddOrUpdateChipEntry(entry);
-            DirtyRows.Add(entry.RowIndex);
+            this._rows[entry.RowIndex].ChipBatch.AddOrUpdateChipEntry(entry);
+            _dirtyRows.Add(entry.RowIndex);
 
             // And track the row it's placed into.
-            this.MemoryIndexToRowIndex[entry.Memory.Index] = entry.RowIndex;
+            this._memoryIndexToRowIndex[entry.Memory.Index] = entry.RowIndex;
         }
 
         public ChipBatchEntry? GetChipEntry(MapObjectMemory memory)
-            => ChipsByIndex.GetValueOrDefault(memory.Index);
+            => _chipsByIndex.GetValueOrDefault(memory.Index);
 
         public void RemoveChipEntry(MapObjectMemory memory)
         {
             var entry = GetChipEntry(memory);
 
             // First remove the reference at the top level.
-            this.ChipsByIndex.Remove(memory.Index);
+            this._chipsByIndex.Remove(memory.Index);
 
-            this.MemoryIndexToRowIndex.Remove(memory.Index);
+            this._memoryIndexToRowIndex.Remove(memory.Index);
 
             if (entry != null)
             {
                 // Now remove it from the Z layer strip it's in.
-                var row = this.Rows[entry.RowIndex];
+                var row = this._rows[entry.RowIndex];
                 row.ChipBatch.RemoveChipEntry(entry);
-                this.DeadEntries.Push(entry);
-                DirtyRows.Add(entry.RowIndex);
+                this._deadEntries.Push(entry);
+                _dirtyRows.Add(entry.RowIndex);
             }
         }
 
-        public void OnThemeSwitched(TileAtlas tileAtlas, TileAtlas chipAtlas, ICoords coords)
+        public void OnThemeSwitched(ICoords coords)
         {
-            TileAtlas = tileAtlas;
-            ChipAtlas = chipAtlas;
-            Coords = coords;
+            _tileAtlas = _atlasManager.GetAtlas(AtlasNames.Tile);
+            _chipAtlas = _atlasManager.GetAtlas(AtlasNames.Chip);
+            _coords = coords;
             
             this.Clear();
 
-            foreach (var row in Rows)
+            foreach (var row in _rows)
             {
-                row.OnThemeSwitched(TileAtlas, ChipAtlas, coords);
+                row.OnThemeSwitched(_tileAtlas, _chipAtlas, coords);
             }
         }
 
         public void Clear()
         {
-            this.DeadEntries.Clear();
-            this.RedrawAll = true;
+            this._deadEntries.Clear();
+            this._redrawAll = true;
 
-            foreach (var row in Rows)
+            foreach (var row in _rows)
             {
                 row.Clear();
             }
@@ -155,37 +160,37 @@ namespace OpenNefia.Core.Rendering
 
         public void SetTile(int x, int y, string tile)
         {
-            Tiles[y * TiledWidth + x] = tile;
-            DirtyRows.Add(y);
+            _tiles[y * _tiledWidth + x] = tile;
+            _dirtyRows.Add(y);
         }
 
         public void UpdateBatches()
         {
-            if (RedrawAll)
+            if (_redrawAll)
             {
-                for (int y = 0; y < Rows.Length; y++)
+                for (int y = 0; y < _rows.Length; y++)
                 {
-                    var row = Rows[y];
-                    row.UpdateTileBatches(Tiles, y * TiledWidth, TiledWidth);
+                    var row = _rows[y];
+                    row.UpdateTileBatches(_tiles, y * _tiledWidth, _tiledWidth);
                     row.UpdateChipBatch();
                 }
             }
             else
             {
-                foreach (int y in DirtyRows)
+                foreach (int y in _dirtyRows)
                 {
-                    var row = Rows[y];
-                    row.UpdateTileBatches(Tiles, y * TiledWidth, TiledWidth);
+                    var row = _rows[y];
+                    row.UpdateTileBatches(_tiles, y * _tiledWidth, _tiledWidth);
                     row.UpdateChipBatch();
                 }
             }
-            RedrawAll = false;
-            DirtyRows.Clear();
+            _redrawAll = false;
+            _dirtyRows.Clear();
         }
 
         public override void Update(float dt)
         {
-            foreach (var row in Rows)
+            foreach (var row in _rows)
             {
                 row.Update(dt);
             }
@@ -193,9 +198,9 @@ namespace OpenNefia.Core.Rendering
 
         public override void Draw()
         {
-            for (int tileY = 0; tileY < Rows.Length; tileY++)
+            for (int tileY = 0; tileY < _rows.Length; tileY++)
             {
-                var row = Rows[tileY];
+                var row = _rows[tileY];
                 row.Draw(X, Y);
             }
         }
@@ -255,7 +260,7 @@ namespace OpenNefia.Core.Rendering
                 var tile = TileAtlas.GetTile(tileId);
                 if (tile == null)
                 {
-                    Logger.Error($"Missing tile {tileId}");
+                    Logger.Log(LogLevel.Error, $"Missing tile {tileId}");
                 }
                 else
                 {

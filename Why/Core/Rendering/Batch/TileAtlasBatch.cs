@@ -22,7 +22,7 @@ namespace OpenNefia.Core.Rendering
             this.Height = 0;
         }
 
-        public void Add(TileSpec spec, int x, int y, int? width = null, int? height = null, Love.Color? color = null, bool centered = false, float rotation = 0f)
+        public void Add(TileSpecifier spec, int x, int y, int? width = null, int? height = null, Love.Color? color = null, bool centered = false, float rotation = 0f)
         {
             var tile = this.Atlas.GetTile(spec);
 

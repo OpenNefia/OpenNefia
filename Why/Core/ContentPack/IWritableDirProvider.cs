@@ -21,7 +21,7 @@ namespace OpenNefia.Core.ContentPack
         /// Creates a directory. If the directory exists, does nothing.
         /// </summary>
         /// <param name="path">Path of directory to create.</param>
-        void CreateDir(ResourcePath path);
+        void CreateDirectory(ResourcePath path);
 
         /// <summary>
         /// Deletes a file or empty directory. If the file or directory
@@ -51,7 +51,7 @@ namespace OpenNefia.Core.ContentPack
         /// </summary>
         /// <param name="path">Path to test.</param>
         /// <returns>True if it is a directory, false if it is a file.</returns>
-        bool IsDir(ResourcePath path);
+        bool IsDirectory(ResourcePath path);
 
         /// <summary>
         /// Attempts to open a file.

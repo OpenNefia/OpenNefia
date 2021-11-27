@@ -4,15 +4,16 @@ namespace OpenNefia.Core.Serialization.Markdown.Value
 {
     public class ValueDataNode : DataNode<ValueDataNode>
     {
-        public ValueDataNode(string value) : base(NodeMark.Invalid, NodeMark.Invalid)
+        public ValueDataNode(string value, string? tag = null) : base(NodeMark.Invalid, NodeMark.Invalid)
         {
             Value = value;
+            Tag = tag;
         }
 
         public ValueDataNode(YamlScalarNode node) : base(node.Start, node.End)
         {
             Value = node.Value ?? string.Empty;
-            Tag = node.Tag;
+            Tag = node.Tag.IsEmpty ? null : node.Tag.Value;
         }
 
         public string Value { get; set; }

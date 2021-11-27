@@ -1,4 +1,5 @@
 ﻿using NetVips.Extensions;
+using OpenNefia.Core.Utility;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -61,7 +62,8 @@ namespace OpenNefia.Core.Rendering
         }
 
         /// <summary>
-        /// Wrapper around <see cref="Love.Graphics.NewImage"/> that also supports loading .BMP files.
+        /// Wrapper around <see cref="Love.Graphics.NewImage"/> that also supports loading .BMP files
+        /// with a key color.
         /// </summary>
         /// <param name="filepath">Path to image file.</param>
         /// <returns></returns>
@@ -75,9 +77,9 @@ namespace OpenNefia.Core.Rendering
             return Love.Graphics.NewImage(filepath);
         }
 
-        internal static object LoadImage()
+        public static Love.Image NewImage(ResourcePath filepath, Love.Color? keyColor = null)
         {
-            throw new NotImplementedException();
+            return NewImage(filepath.ToString(), keyColor);
         }
     }
 }

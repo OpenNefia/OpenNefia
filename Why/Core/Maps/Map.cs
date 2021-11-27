@@ -2,6 +2,7 @@
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Maths;
+using OpenNefia.Core.Rendering;
 using OpenNefia.Core.Utility;
 
 namespace OpenNefia.Core.Maps
@@ -24,6 +25,14 @@ namespace OpenNefia.Core.Maps
         public Tile[,] Tiles { get; }
         public Tile[,] TileMemory { get; }
         public TileFlag[,] TileFlags { get; }
+        internal int[] _InSight;
+        internal int _LastSightId;
+        public ShadowMap _ShadowMap { get; }
+        public MapObjectMemoryStore MapObjectMemory { get; }
+
+        internal HashSet<Vector2i> _DirtyTilesThisTurn;
+        internal bool _RedrawAllThisTurn;
+        internal bool _NeedsRedraw { get => _DirtyTilesThisTurn.Count > 0 || _RedrawAllThisTurn; }
 
         public List<IEntity> Entities { get; } = new List<IEntity>();
 
@@ -34,6 +43,7 @@ namespace OpenNefia.Core.Maps
             Tiles = new Tile[width, height];
             TileMemory = new Tile[width, height];
             TileFlags = new TileFlag[width, height];
+            MapObjectMemory = new MapObjectMemoryStore(this);
         }
 
         public void Clear(TileDef tile)
@@ -87,6 +97,16 @@ namespace OpenNefia.Core.Maps
         public MapCoordinates AtPos(int x, int y)
         {
             return new MapCoordinates(Id, x, y);
+        }
+
+        public TileRef GetTileRef(Vector2i pos)
+        {
+            return new TileRef(Id, pos.X, pos.Y, Tiles[pos.X, pos.Y]);
+        }
+
+        public TileRef GetTileMemoryRef(Vector2i pos)
+        {
+            return new TileRef(Id, pos.X, pos.Y, TileMemory[pos.X, pos.Y]);
         }
     }
 

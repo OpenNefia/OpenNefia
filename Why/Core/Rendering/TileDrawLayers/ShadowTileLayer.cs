@@ -1,23 +1,19 @@
-﻿using OpenNefia.Game;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using OpenNefia.Core.Maps;
+using OpenNefia.Core.Maths;
 
 namespace OpenNefia.Core.Rendering.TileDrawLayers
 {
     public class ShadowTileLayer : BaseTileLayer
     {
-        private InstancedMap Map;
+        private Map Map;
         private ICoords Coords;
         private ShadowBatch Batch;
 
-        public ShadowTileLayer(InstancedMap map)
+        public ShadowTileLayer(Map map, IAssetManager assetManager)
         {
             this.Map = map;
             this.Coords = GraphicsEx.Coords;
-            this.Batch = new ShadowBatch(map.Width, map.Height, Coords);
+            this.Batch = new ShadowBatch(map.Width, map.Height, Coords, assetManager);
         }
 
         public override void OnThemeSwitched()
@@ -42,7 +38,7 @@ namespace OpenNefia.Core.Rendering.TileDrawLayers
             this.Batch.UpdateBatches();
         }
 
-        public override void RedrawDirtyTiles(HashSet<int> dirtyTilesThisTurn)
+        public override void RedrawDirtyTiles(HashSet<Vector2i> dirtyTilesThisTurn)
         {
             this.Batch.SetAllTileShadows(Map._ShadowMap.ShadowTiles, Map._ShadowMap.ShadowBounds);
             this.Batch.UpdateBatches();

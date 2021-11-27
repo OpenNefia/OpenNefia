@@ -1,4 +1,5 @@
-﻿using OpenNefia.Core.Util;
+﻿using OpenNefia.Core.Maths;
+using OpenNefia.Core.Utility;
 using System.Collections.Generic;
 
 namespace OpenNefia.Core.Rendering
@@ -13,6 +14,7 @@ namespace OpenNefia.Core.Rendering
                 return fovList;
 
             var radius = (fovMax + 2) / 2;
+            var radiusVector = new Vector2i(radius, radius);
             double maxDist = (double)fovMax / 2;
 
             var fovMap = new bool[fovMax+2, fovMax+2];
@@ -21,7 +23,7 @@ namespace OpenNefia.Core.Rendering
             {
                 for (int x = 0; x < fovMax+2; x++)
                 {
-                    fovMap[y, x] = PosUtils.Dist(x, y, radius, radius) < maxDist;
+                    fovMap[y, x] = PosHelpers.Distance(new Vector2i(x, y), radiusVector) < maxDist;
                 }
             }
 

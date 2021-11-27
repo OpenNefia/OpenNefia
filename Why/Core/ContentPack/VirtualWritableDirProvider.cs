@@ -19,7 +19,7 @@ namespace OpenNefia.Core.ContentPack
         /// <inheritdoc />
         public string? RootDir => null;
 
-        public void CreateDir(ResourcePath path)
+        public void CreateDirectory(ResourcePath path)
         {
             if (!path.IsRooted)
             {
@@ -78,7 +78,7 @@ namespace OpenNefia.Core.ContentPack
             throw new NotImplementedException();
         }
 
-        public bool IsDir(ResourcePath path)
+        public bool IsDirectory(ResourcePath path)
         {
             return TryGetNodeAt(path, out var node) && node is DirectoryNode;
         }

@@ -3,17 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Why.Core.Config;
 
 namespace OpenNefia.Core.Rendering
 {
     public class BasicAnimMapDrawable : BaseMapDrawable
     {
-        public BasicAnimDef BasicAnim { get; }
+        public BasicAnimPrototype BasicAnim { get; }
 
         private FrameCounter Counter;
         private AssetDrawable AssetDrawable;
 
-        public BasicAnimMapDrawable(BasicAnimDef basicAnim)
+        public BasicAnimMapDrawable(BasicAnimPrototype basicAnim)
         {
             this.BasicAnim = basicAnim;
 

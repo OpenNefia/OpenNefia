@@ -1,4 +1,5 @@
-﻿using OpenNefia.Core.UI.Element;
+﻿using OpenNefia.Core.Maths;
+using OpenNefia.Core.UI.Element;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,6 @@ namespace OpenNefia.Core.Rendering.TileDrawLayers
     {
         void OnThemeSwitched();
         void RedrawAll();
-        void RedrawDirtyTiles(HashSet<int> dirtyTilesThisTurn);
+        void RedrawDirtyTiles(HashSet<Vector2i> dirtyTilesThisTurn);
     }
 }

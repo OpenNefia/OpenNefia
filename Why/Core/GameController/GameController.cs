@@ -49,7 +49,7 @@ namespace OpenNefia.Core.GameController
 
             _serialization.Initialize();
 
-            _resourceCache.Initialize(null);
+            _resourceCache.Initialize("UserData");
             _resourceCache.MountContentDirectory("Assets");
 
             _modLoader.BroadcastRunLevel(ModRunLevel.PreInit);

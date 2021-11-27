@@ -72,7 +72,7 @@ namespace OpenNefia.Core.Rendering
         private ShadowTile[] Tiles;
         private Rectangle ShadowBounds;
 
-        public ShadowBatch(int width, int height, ICoords coords)
+        public ShadowBatch(int width, int height, ICoords coords, IAssetManager assetManager)
         {
             this.WidthInTiles = width;
             this.HeightInTiles = height;
@@ -80,8 +80,8 @@ namespace OpenNefia.Core.Rendering
 
             this.ShadowStrength = 70;
 
-            this.AssetShadow = new AssetDrawable(AssetDefOf.Shadow);
-            this.AssetShadowEdges = new AssetDrawable(AssetDefOf.ShadowEdges);
+            this.AssetShadow = assetManager.GetAsset(new("Shadow"));
+            this.AssetShadowEdges = new AssetDrawable(new("ShadowEdges"));
 
             this.BatchShadow = Love.Graphics.NewSpriteBatch(this.AssetShadow.Image, 2048, SpriteBatchUsage.Dynamic);
             this.BatchShadowEdges = Love.Graphics.NewSpriteBatch(this.AssetShadowEdges.Image, 2048, SpriteBatchUsage.Dynamic);

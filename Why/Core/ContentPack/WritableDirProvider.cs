@@ -24,7 +24,7 @@ namespace OpenNefia.Core.ContentPack
         #region File Access
 
         /// <inheritdoc />
-        public void CreateDir(ResourcePath path)
+        public void CreateDirectory(ResourcePath path)
         {
             var fullPath = GetFullPath(path);
             Directory.CreateDirectory(fullPath);
@@ -77,7 +77,7 @@ namespace OpenNefia.Core.ContentPack
         }
 
         /// <inheritdoc />
-        public bool IsDir(ResourcePath path)
+        public bool IsDirectory(ResourcePath path)
         {
             return Directory.Exists(GetFullPath(path));
         }

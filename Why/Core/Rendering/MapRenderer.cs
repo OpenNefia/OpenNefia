@@ -1,4 +1,5 @@
-﻿using OpenNefia.Core.Rendering.TileDrawLayers;
+﻿using OpenNefia.Core.Maps;
+using OpenNefia.Core.Rendering.TileDrawLayers;
 using OpenNefia.Core.UI.Element;
 using System;
 using System.Collections.Generic;
@@ -8,9 +9,9 @@ namespace OpenNefia.Core.Rendering
     public class MapRenderer : BaseDrawable
     {
         private List<ITileLayer> TileLayers = new List<ITileLayer>();
-        private InstancedMap Map;
+        private Map Map;
 
-        public MapRenderer(InstancedMap map)
+        public MapRenderer(Map map)
         {
             Map = map;
             TileLayers.Add(new TileAndChipTileLayer(map));
@@ -18,7 +19,7 @@ namespace OpenNefia.Core.Rendering
             RefreshAllLayers();
         }
 
-        public void SetMap(InstancedMap map)
+        public void SetMap(Map map)
         {
             Map = map;
             TileLayers.Clear();
@@ -54,7 +55,7 @@ namespace OpenNefia.Core.Rendering
 
             this.Map._RedrawAllThisTurn = false;
             this.Map._DirtyTilesThisTurn.Clear();
-            this.Map._MapObjectMemory.Flush();
+            this.Map.MapObjectMemory.Flush();
         }
 
         public override void SetSize(int width = 0, int height = 0)

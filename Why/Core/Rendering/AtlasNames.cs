@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace OpenNefia.Core.Rendering
 {
-    public static class Atlases
+    public static class AtlasNames
     {
-        public static TileAtlas Chip { get; internal set; } = null!;
-        public static TileAtlas Tile { get; internal set; } = null!;
+        public const string Tile = nameof(Tile);
+        public const string Chip = nameof(Chip);
     }
 }

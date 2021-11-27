@@ -1,4 +1,4 @@
-﻿using OpenNefia.Core.Util;
+﻿using OpenNefia.Core.Utility;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;

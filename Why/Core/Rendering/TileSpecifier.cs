@@ -7,7 +7,7 @@ using OpenNefia.Core.Utility;
 namespace OpenNefia.Core.Rendering
 {
     [DataDefinition]
-    public class TileSpecifer
+    public class TileSpecifier
     {
         [DataField(required: true)]
         public string TileId = "Default";
@@ -31,5 +31,8 @@ namespace OpenNefia.Core.Rendering
         /// </summary>
         [DataField]
         public ImageRegion? ImageRegion;
+
+        public string TileIndex => TileId;
+        public bool HasOverhang => false;
     }
 }

@@ -1,6 +1,4 @@
-﻿using YamlDotNet.RepresentationModel;
-
-namespace OpenNefia.Core.Prototypes
+﻿namespace OpenNefia.Core.Prototypes
 {
     /// <summary>
     ///     An IPrototype is a prototype that can be loaded from the global YAML prototypes.

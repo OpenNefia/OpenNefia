@@ -1,11 +1,15 @@
 ﻿using OpenNefia.Core.Data.Types;
+using OpenNefia.Core.IoC;
+using OpenNefia.Core.Maps;
+using OpenNefia.Core.Maths;
+using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.UI;
-using OpenNefia.Game;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Why.Core.Rendering;
 
 namespace OpenNefia.Core.Rendering.TileDrawLayers
 {
@@ -13,138 +17,135 @@ namespace OpenNefia.Core.Rendering.TileDrawLayers
     // This would be a combination of tile_layer, tile_overhang_layer and chip_layer.
     public class TileAndChipTileLayer : BaseTileLayer
     {
-        private InstancedMap Map;
-        private TileAtlas TileAtlas;
-        private TileAtlas ChipAtlas;
-        private TileAndChipBatch TileAndChipBatch;
-        private ICoords Coords;
-        private WallTileShadows WallShadows;
+        private readonly IAtlasManager _atlasManager;
 
-        public TileAndChipTileLayer(InstancedMap map)
+        private Map _map;
+        private TileAndChipBatch _tileAndChipBatch;
+        private ICoords _coords;
+        private WallTileShadows _wallShadows;
+
+        public TileAndChipTileLayer(Map map, IAtlasManager atlasManager)
         {
-            Map = map;
-            TileAtlas = Atlases.Tile;
-            ChipAtlas = Atlases.Chip;
-            Coords = GraphicsEx.Coords;
-            TileAndChipBatch = new TileAndChipBatch(map.Width, map.Height, Coords);
-            WallShadows = new WallTileShadows(map, Coords);
+            _atlasManager = atlasManager;
+
+            _map = map;
+            _coords = GraphicsEx.Coords;
+            _tileAndChipBatch = new TileAndChipBatch(map.Width, map.Height, _coords, atlasManager);
+            _wallShadows = new WallTileShadows(map, _coords);
         }
 
         public override void OnThemeSwitched()
         {
             var coords = Current.Game.Coords;
-            TileAtlas = Atlases.Tile;
-            ChipAtlas = Atlases.Chip;
-            Coords = coords;
-            this.TileAndChipBatch.OnThemeSwitched(TileAtlas, ChipAtlas, coords);
-            this.WallShadows.OnThemeSwitched(coords);
+            _coords = coords;
+            this._tileAndChipBatch.OnThemeSwitched(coords);
+            this._wallShadows.OnThemeSwitched(coords);
         }
 
         public override void SetSize(int width = 0, int height = 0)
         {
             base.SetSize(width, height);
-            this.TileAndChipBatch.SetSize(width, height);
-            this.WallShadows.SetSize(width, height);
+            this._tileAndChipBatch.SetSize(width, height);
+            this._wallShadows.SetSize(width, height);
         }
 
         public override void SetPosition(int x = 0, int y = 0)
         {
             base.SetPosition(x, y);
-            this.TileAndChipBatch.SetPosition(x, y);
-            this.WallShadows.SetPosition(x, y);
+            this._tileAndChipBatch.SetPosition(x, y);
+            this._wallShadows.SetPosition(x, y);
         }
 
-        private string ModifyWalls(int x, int y, TileDef tile)
+        private string ModifyWalls(TileRef tileRef)
         {
             // If the tile is a wall, convert the displayed tile to that of
             // the bottom wall if appropriate.
+            var tile = tileRef.Tile;
             var tileIndex = tile.Image.TileIndex;
             if (tile.WallImage != null)
             {
-                var oneTileDown = Map.GetTile(x, y + 1);
-                if (oneTileDown != null && oneTileDown.WallImage == null && Map.IsMemorized(x, y + 1))
+                var oneTileDown = _map.GetTile(x, y + 1);
+                if (oneTileDown != null && oneTileDown.WallImage == null && _map.IsMemorized(x, y + 1))
                 {
                     tileIndex = tile.WallImage.TileIndex;
                 }
 
-                var oneTileUp = Map.GetTile(x, y - 1);
-                if (oneTileUp != null && oneTileUp.WallImage != null && Map.IsMemorized(x, y - 1))
+                var oneTileUp = _map.GetTile(x, y - 1);
+                if (oneTileUp != null && oneTileUp.WallImage != null && _map.IsMemorized(x, y - 1))
                 {
-                    this.TileAndChipBatch.SetTile(x, y - 1, oneTileUp.Image.TileIndex);
+                    this._tileAndChipBatch.SetTile(x, y - 1, oneTileUp.Image.TileIndex);
                 }
             }
             else if (y > 0)
             {
-                var oneTileUp = Map.GetTile(x, y - 1);
-                if (oneTileUp != null && oneTileUp.WallImage != null && Map.IsMemorized(x, y - 1))
+                var oneTileUp = _map.GetTile(x, y - 1);
+                if (oneTileUp != null && oneTileUp.WallImage != null && _map.IsMemorized(x, y - 1))
                 {
-                    this.TileAndChipBatch.SetTile(x, y - 1, oneTileUp.WallImage.TileIndex);
+                    this._tileAndChipBatch.SetTile(x, y - 1, oneTileUp.WallImage.TileIndex);
                 }
             }
 
             return tileIndex;
         }
 
-        private void SetMapTile(int x, int y, TileDef tile)
+        private void SetMapTile(TileRef tileRef)
         {
-            var tileIndex = ModifyWalls(x, y, tile);
+            var tileIndex = ModifyWalls(tileRef);
 
-            this.WallShadows.SetTile(x, y, tile);
-            this.TileAndChipBatch.SetTile(x, y, tileIndex);
+            this._wallShadows.SetTile(tileRef);
+            this._tileAndChipBatch.SetTile(tileRef);
         }
 
         public void RedrawMapObjects()
         {
-            foreach (var removed in Map._MapObjectMemory.Removed)
+            foreach (var removed in _map.MapObjectMemory.Removed)
             {
-                this.TileAndChipBatch.RemoveChipEntry(removed);
+                this._tileAndChipBatch.RemoveChipEntry(removed);
             }
 
-            foreach (var added in Map._MapObjectMemory.Added)
+            foreach (var added in _map.MapObjectMemory.Added)
             {
-                this.TileAndChipBatch.AddOrUpdateChipEntry(added);
+                this._tileAndChipBatch.AddOrUpdateChipEntry(added);
             }
         }
 
         public override void RedrawAll()
         {
-            this.WallShadows.Clear();
-            this.TileAndChipBatch.Clear();
+            this._wallShadows.Clear();
+            this._tileAndChipBatch.Clear();
 
-            foreach (var (x, y, tileDef) in Map.TileMemory)
+            foreach (var tileRef in _map.AllTileMemory)
             {
-                SetMapTile(x, y, tileDef);
+                SetMapTile(tileRef);
             }
 
             RedrawMapObjects();
 
-            this.TileAndChipBatch.UpdateBatches();
+            this._tileAndChipBatch.UpdateBatches();
         }
 
-        public override void RedrawDirtyTiles(HashSet<int> dirtyTilesThisTurn)
+        public override void RedrawDirtyTiles(HashSet<Vector2i> dirtyTilesThisTurn)
         {
-            foreach (var index in dirtyTilesThisTurn)
+            foreach (var pos in dirtyTilesThisTurn)
             {
-                var x = index % Map.Width;
-                var y = index / Map.Width;
-                SetMapTile(x, y, Map.GetTileMemory(x, y)!);
+                SetMapTile(_map.GetTileMemoryRef(pos));
             }
 
             RedrawMapObjects();
 
-            this.TileAndChipBatch.UpdateBatches();
+            this._tileAndChipBatch.UpdateBatches();
         }
 
         public override void Update(float dt)
         {
-            this.TileAndChipBatch.Update(dt);
-            this.WallShadows.Update(dt);
+            this._tileAndChipBatch.Update(dt);
+            this._wallShadows.Update(dt);
         }
 
         public override void Draw()
         {
-            this.TileAndChipBatch.Draw();
-            this.WallShadows.Draw();
+            this._tileAndChipBatch.Draw();
+            this._wallShadows.Draw();
         }
     }
 }

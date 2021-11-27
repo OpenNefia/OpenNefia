@@ -30,7 +30,7 @@ namespace OpenNefia.Core.Prototypes
         public string ID { get; } = default!;
 
         [DataField(required: true)]
-        public TileSpecifer Image = null!;
+        public TileSpecifier Image = null!;
 
         [DataField]
         public int? ElonaAtlas = null;
@@ -42,7 +42,7 @@ namespace OpenNefia.Core.Prototypes
         public bool IsOpaque = false;
 
         [DataField]
-        public TileSpecifer? WallImage = null;
+        public TileSpecifier? WallImage = null;
 
         [DataField]
         public TileKind Kind = TileKind.None;

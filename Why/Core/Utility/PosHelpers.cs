@@ -5,6 +5,13 @@ namespace OpenNefia.Core.Utility
 {
     public static class PosHelpers
     {
+        public static double Distance(Vector2i a, Vector2i b)
+        {
+            double dx = a.X - b.X;
+            double dy = a.Y - b.Y;
+            return Math.Sqrt(dx * dx + dy * dy);
+        }
+
         /// <summary>
         /// From http://ericw.ca/notes/bresenhams-line-algorithm-in-csharp.html.
         /// </summary>

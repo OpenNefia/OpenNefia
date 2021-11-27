@@ -1,5 +1,5 @@
 ﻿using Love;
-using OpenNefia.Core.Data.Types;
+using OpenNefia.Core.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,11 +27,11 @@ namespace OpenNefia.Core.Rendering
             }
         }
 
-        public AssetDef Asset;
-        public Love.Image Image;
+        public AssetPrototype Asset { get; }
+        public Love.Image Image { get; }
 
         private Dictionary<string, Love.Quad> Quads;
-        private Dictionary<string, AssetDef.Region> Regions;
+        private AssetRegions Regions;
 
         public uint CountX { get; }
         public uint CountY { get; }
@@ -41,82 +41,17 @@ namespace OpenNefia.Core.Rendering
         public int Width { get => this.Image.GetWidth(); }
         public int Height { get => this.Image.GetHeight(); }
 
-        private static Image LoadImageSource(ResourcePath atlasPath, ImageRegion imageRegion)
-        {
-            var parentImage = ImageLoader.NewImage(atlasPath);
-
-            var quad = Love.Graphics.NewQuad(imageRegion.X, imageRegion.Y, imageRegion.Width, imageRegion.Height, parentImage.GetWidth(), parentImage.GetHeight());
-
-            var canvas = Love.Graphics.NewCanvas(imageRegion.Width, imageRegion.Height);
-            var oldCanvas = Love.Graphics.GetCanvas();
-
-            // Reset global drawing state to be clean so the asset gets copied correctly
-            Love.Graphics.GetBlendMode(out Love.BlendMode blendMode, out Love.BlendAlphaMode blendAlphaMode);
-            var scissor = Love.Graphics.GetScissor();
-            var color = Love.Graphics.GetColor();
-            Love.Graphics.SetBlendMode(Love.BlendMode.Alpha);
-            GraphicsEx.SetScissor();
-            Love.Graphics.SetColor(1f, 1f, 1f, 1f);
-            Love.Graphics.SetCanvas(canvas);
-
-            Love.Graphics.Draw(quad, parentImage, 0, 0);
-
-            Love.Graphics.SetBlendMode(blendMode, blendAlphaMode);
-            GraphicsEx.SetScissor(scissor); // BUG: Love.Graphics.SetScissor is bugged (does not distinguish null scissors).
-            Love.Graphics.SetColor(color);
-            Love.Graphics.SetCanvas(oldCanvas);
-
-            var image = Love.Graphics.NewImage(canvas.NewImageData());
-
-            quad.Dispose();
-            canvas.Dispose();
-            
-            return image;
-        }
-
-        private static Love.Image LoadImage(AssetDef asset)
-        {
-            Love.Image image;
-
-            var imageSpec = asset.Image;
-
-            if (imageSpec.ImagePath != null)
-            {
-                var path = imageSpec.ImagePath.Resolve();
-                image = ImageLoader.NewImage(path);
-            }
-            else if (imageSpec.ImageRegion != null)
-            {
-                image = LoadImageSource(imageSpec.ImageRegion);
-            }
-            else
-            {
-                throw new ArgumentException($"Asset has neither ImagePath nor ImageRegion: {asset.Id}");
-            }
-
-            if (imageSpec.ImageFilter != null)
-            {
-                image.SetFilter(imageSpec.ImageFilter.Min, imageSpec.ImageFilter.Mag, imageSpec.ImageFilter.Anisotropy);
-            }
-
-            return image;
-        }
-
-        public AssetDrawable(AssetDef asset, int batchWidth, int batchHeight)
+        public AssetDrawable(AssetPrototype asset, Love.Image image, AssetRegions regions)
         {
             this.Asset = asset;
-            this.Image = LoadImage(this.Asset);
+            this.Image = Image;
             this.Quads = new Dictionary<string, Quad>();
             this.CountX = this.Asset.CountX;
             this.CountY = this.Asset.CountY;
-            this.BatchWidth = batchWidth;
-            this.BatchHeight = batchHeight;
-            this.Regions = this.Asset.GetRegions(this.BatchWidth.Value, this.BatchHeight.Value);
+            this.Regions = regions;
 
             this.SetupQuads();
         }
-
-        public AssetDrawable(AssetDef asset) : this(asset, 1, 1) { }
 
         private void SetupQuads()
         {

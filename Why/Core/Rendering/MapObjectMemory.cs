@@ -1,10 +1,4 @@
-﻿using OpenNefia.Core.Object;
-using OpenNefia.Serial;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using OpenNefia.Core.GameObjects;
 
 namespace OpenNefia.Core.Rendering
 {
@@ -22,9 +16,10 @@ namespace OpenNefia.Core.Rendering
         Removed
     }
 
-    public class MapObjectMemory : IDataExposable
+    [Serializable]
+    public class MapObjectMemory
     {
-        public ulong ObjectUid;
+        public EntityUid ObjectUid;
         public bool IsVisible;
         public string ChipIndex = string.Empty;
         public int ScreenXOffset;
@@ -38,25 +33,5 @@ namespace OpenNefia.Core.Rendering
         internal int TileY;
         internal int ZOrder;
         internal MemoryState State;
-        internal Type ObjectType = typeof(MapObject);
-
-        public void Expose(DataExposer data)
-        {
-            data.ExposeValue(ref ObjectUid, nameof(ObjectUid));
-            data.ExposeValue(ref IsVisible, nameof(IsVisible));
-            data.ExposeValue(ref ChipIndex!, nameof(ChipIndex));
-            data.ExposeValue(ref ScreenXOffset, nameof(ScreenXOffset));
-            data.ExposeValue(ref ScreenYOffset, nameof(ScreenYOffset));
-            data.ExposeValue(ref Rotation, nameof(Rotation));
-            data.ExposeValue(ref Color, nameof(Color));
-            data.ExposeValue(ref ShadowType, nameof(ShadowType));
-
-            data.ExposeValue(ref Index, nameof(Index));
-            data.ExposeValue(ref TileX, nameof(TileX));
-            data.ExposeValue(ref TileY, nameof(TileY));
-            data.ExposeValue(ref ZOrder, nameof(ZOrder));
-            data.ExposeValue(ref State, nameof(State));
-            data.ExposeValue(ref ObjectType!, nameof(ObjectType));
-        }
     }
 }

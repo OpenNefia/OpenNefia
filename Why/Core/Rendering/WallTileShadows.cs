@@ -1,4 +1,5 @@
 ﻿using OpenNefia.Core.Data.Types;
+using OpenNefia.Core.Maps;
 using OpenNefia.Core.UI.Element;
 using System;
 using System.Collections.Generic;
@@ -10,13 +11,13 @@ namespace OpenNefia.Core.Rendering
 {
     public class WallTileShadows : BaseDrawable
     {
-        private InstancedMap Map;
+        private Map Map;
         private ICoords Coords;
 
         private HashSet<int> TopShadows;
         private HashSet<int> BottomShadows;
 
-        public WallTileShadows(InstancedMap map, ICoords coords)
+        public WallTileShadows(Map map, ICoords coords)
         {
             this.Map = map;
             this.Coords = coords;
@@ -29,8 +30,9 @@ namespace OpenNefia.Core.Rendering
             this.Coords = coords;
         }
 
-        public void SetTile(int x, int y, TileDef tile)
+        public void SetTile(TileRef tileRef)
         {
+            var tile = tileRef.Tile;
             var tileIndex = tile.Image.TileIndex;
             if (tile.WallImage != null)
             {

@@ -10,6 +10,7 @@ using OpenNefia.Core.Maps;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Random;
 using OpenNefia.Core.Reflection;
+using OpenNefia.Core.Rendering;
 using OpenNefia.Core.ResourceManagement;
 using OpenNefia.Core.Serialization.Manager;
 
@@ -39,8 +40,10 @@ namespace Why
             IoCManager.Register<IEntityManager, EntityManager>();
             IoCManager.Register<IGraphics, LoveGraphics>();
             IoCManager.Register<ISerializationManager, SerializationManager>();
-            IoCManager.Register<IGameController, GameController>();
+            IoCManager.Register<IAssetManager, AssetManager>();
+            IoCManager.Register<IAtlasManager, AtlasManager>();
             IoCManager.Register<IRandom, SysRandom>();
+            IoCManager.Register<IGameController, GameController>();
         }
     }
 }
