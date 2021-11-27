@@ -8,9 +8,18 @@ namespace Why.Core.Utility
 {
     public static class StringHelpers
     {
-        public static string FirstCharToLowerCase(this string str)
+        /// <summary>
+        /// Converts an UpperCamelCase C# identifier to its default name in YAML.
+        /// </summary>
+        /// <remarks>
+        /// "BaseSkills" -> "baseSkills"
+        /// "ID" -> "iD"
+        /// </remarks>
+        /// <param name="fieldName"></param>
+        /// <returns></returns>
+        public static string GetPrototypeFieldName(this string fieldName)
         {
-            return char.ToLower(str[0]) + str.Substring(1);
+            return char.ToLower(fieldName[0]) + fieldName.Substring(1);
         }
     }
 }

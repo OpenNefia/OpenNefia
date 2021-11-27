@@ -119,6 +119,11 @@ namespace Why.Core.GameController
 
             PrintMap(map);
 
+            foreach (var chara in _entityManager.EntityQuery<CharaComponent>())
+            {
+                _entityManager.EventBus.RaiseLocalEvent(chara.OwnerUid, new CharaInitEvent());
+            }
+
             foreach (var entity in map.Entities.ToList())
             {
                 _entityManager.EventBus.RaiseLocalEvent(entity.Uid, new TestEntityEvent(1));

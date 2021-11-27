@@ -37,13 +37,15 @@ namespace Why.Core.GameObjects
 
         public void DoTest(EntityUid uid, CharaComponent component, TestEntityEvent args)
         {
-            if (!EntityManager.TryGetEntity(uid, out var entity))
+            SkillsComponent? skills = null;
+
+            if (!Resolve(uid, ref skills))
                 return;
 
             var klass = component.Class.ResolvePrototype();
 
             Logger.Log(LogLevel.Info, $"My class: {klass.ID}");
-            foreach (var pair in klass.BaseSkills)
+            foreach (var pair in skills.Skills)
             {
                 Logger.Log(LogLevel.Info, $"Skill: {pair.Key} {pair.Value}");
             }
