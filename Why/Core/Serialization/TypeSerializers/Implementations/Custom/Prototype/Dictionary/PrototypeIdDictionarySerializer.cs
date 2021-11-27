@@ -14,13 +14,13 @@ using Why.Core.Serialization.TypeSerializers.Interfaces;
 namespace Why.Core.Serialization.TypeSerializers.Implementations.Custom.Prototype.Dictionary
 {
     // [TypeSerializer]
-    public class PrototypeIdDictionarySerializer<TValue, TPrototype> :
-        ITypeSerializer<Dictionary<string, TValue>, MappingDataNode>,
-        ITypeSerializer<SortedDictionary<string, TValue>, MappingDataNode>,
-        ITypeSerializer<IReadOnlyDictionary<string, TValue>, MappingDataNode>
+    public class PrototypeIdDictionarySerializer<TPrototype, TValue> :
+        ITypeSerializer<Dictionary<PrototypeId<TPrototype>, TValue>, MappingDataNode>,
+        ITypeSerializer<SortedDictionary<PrototypeId<TPrototype>, TValue>, MappingDataNode>,
+        ITypeSerializer<IReadOnlyDictionary<PrototypeId<TPrototype>, TValue>, MappingDataNode>
         where TPrototype : class, IPrototype
     {
-        private readonly DictionarySerializer<string, TValue> _dictionarySerializer = new();
+        private readonly DictionarySerializer<PrototypeId<TPrototype>, TValue> _dictionarySerializer = new();
         private readonly PrototypeIdSerializer<TPrototype> _prototypeSerializer = new();
 
         private ValidationNode Validate(ISerializationManager serializationManager, MappingDataNode node, IDependencyCollection dependencies, ISerializationContext? context)
@@ -41,86 +41,86 @@ namespace Why.Core.Serialization.TypeSerializers.Implementations.Custom.Prototyp
             return new ValidatedMappingNode(mapping);
         }
 
-        ValidationNode ITypeValidator<Dictionary<string, TValue>, MappingDataNode>.Validate(
+        ValidationNode ITypeValidator<Dictionary<PrototypeId<TPrototype>, TValue>, MappingDataNode>.Validate(
             ISerializationManager serializationManager, MappingDataNode node,
             IDependencyCollection dependencies, ISerializationContext? context)
         {
             return Validate(serializationManager, node, dependencies, context);
         }
 
-        ValidationNode ITypeValidator<SortedDictionary<string, TValue>, MappingDataNode>.Validate(
+        ValidationNode ITypeValidator<SortedDictionary<PrototypeId<TPrototype>, TValue>, MappingDataNode>.Validate(
             ISerializationManager serializationManager, MappingDataNode node,
             IDependencyCollection dependencies, ISerializationContext? context)
         {
             return Validate(serializationManager, node, dependencies, context);
         }
 
-        ValidationNode ITypeValidator<IReadOnlyDictionary<string, TValue>, MappingDataNode>.Validate(
+        ValidationNode ITypeValidator<IReadOnlyDictionary<PrototypeId<TPrototype>, TValue>, MappingDataNode>.Validate(
             ISerializationManager serializationManager, MappingDataNode node,
             IDependencyCollection dependencies, ISerializationContext? context)
         {
             return Validate(serializationManager, node, dependencies, context);
         }
 
-        DeserializationResult ITypeReader<Dictionary<string, TValue>, MappingDataNode>.Read(
+        DeserializationResult ITypeReader<Dictionary<PrototypeId<TPrototype>, TValue>, MappingDataNode>.Read(
             ISerializationManager serializationManager, MappingDataNode node,
             IDependencyCollection dependencies, bool skipHook, ISerializationContext? context)
         {
             return _dictionarySerializer.Read(serializationManager, node, dependencies, skipHook, context);
         }
 
-        DeserializationResult ITypeReader<SortedDictionary<string, TValue>, MappingDataNode>.Read(
+        DeserializationResult ITypeReader<SortedDictionary<PrototypeId<TPrototype>, TValue>, MappingDataNode>.Read(
             ISerializationManager serializationManager, MappingDataNode node,
             IDependencyCollection dependencies, bool skipHook, ISerializationContext? context)
         {
             return _dictionarySerializer.Read(serializationManager, node, dependencies, skipHook, context);
         }
 
-        DeserializationResult ITypeReader<IReadOnlyDictionary<string, TValue>, MappingDataNode>.Read(
+        DeserializationResult ITypeReader<IReadOnlyDictionary<PrototypeId<TPrototype>, TValue>, MappingDataNode>.Read(
             ISerializationManager serializationManager, MappingDataNode node,
             IDependencyCollection dependencies, bool skipHook, ISerializationContext? context)
         {
             return _dictionarySerializer.Read(serializationManager, node, dependencies, skipHook, context);
         }
 
-        public DataNode Write(ISerializationManager serializationManager, Dictionary<string, TValue> value,
+        public DataNode Write(ISerializationManager serializationManager, Dictionary<PrototypeId<TPrototype>, TValue> value,
             bool alwaysWrite = false,
             ISerializationContext? context = null)
         {
             return _dictionarySerializer.Write(serializationManager, value, alwaysWrite, context);
         }
 
-        public DataNode Write(ISerializationManager serializationManager, SortedDictionary<string, TValue> value,
+        public DataNode Write(ISerializationManager serializationManager, SortedDictionary<PrototypeId<TPrototype>, TValue> value,
             bool alwaysWrite = false,
             ISerializationContext? context = null)
         {
             return _dictionarySerializer.Write(serializationManager, value, alwaysWrite, context);
         }
 
-        public DataNode Write(ISerializationManager serializationManager, IReadOnlyDictionary<string, TValue> value,
+        public DataNode Write(ISerializationManager serializationManager, IReadOnlyDictionary<PrototypeId<TPrototype>, TValue> value,
             bool alwaysWrite = false,
             ISerializationContext? context = null)
         {
             return _dictionarySerializer.Write(serializationManager, value, alwaysWrite, context);
         }
 
-        public Dictionary<string, TValue> Copy(ISerializationManager serializationManager,
-            Dictionary<string, TValue> source, Dictionary<string, TValue> target, bool skipHook,
+        public Dictionary<PrototypeId<TPrototype>, TValue> Copy(ISerializationManager serializationManager,
+            Dictionary<PrototypeId<TPrototype>, TValue> source, Dictionary<PrototypeId<TPrototype>, TValue> target, bool skipHook,
             ISerializationContext? context = null)
         {
             return _dictionarySerializer.Copy(serializationManager, source, target, skipHook, context);
         }
 
-        public SortedDictionary<string, TValue> Copy(ISerializationManager serializationManager,
-            SortedDictionary<string, TValue> source, SortedDictionary<string, TValue> target,
+        public SortedDictionary<PrototypeId<TPrototype>, TValue> Copy(ISerializationManager serializationManager,
+            SortedDictionary<PrototypeId<TPrototype>, TValue> source, SortedDictionary<PrototypeId<TPrototype>, TValue> target,
             bool skipHook, ISerializationContext? context = null)
         {
             return _dictionarySerializer.Copy(serializationManager, source, target, skipHook, context);
         }
 
-        public IReadOnlyDictionary<string, TValue> Copy(ISerializationManager serializationManager,
-            IReadOnlyDictionary<string, TValue> source,
-            IReadOnlyDictionary<string, TValue> target, bool skipHook, ISerializationContext? context = null)
+        public IReadOnlyDictionary<PrototypeId<TPrototype>, TValue> Copy(ISerializationManager serializationManager,
+            IReadOnlyDictionary<PrototypeId<TPrototype>, TValue> source,
+            IReadOnlyDictionary<PrototypeId<TPrototype>, TValue> target, bool skipHook, ISerializationContext? context = null)
         {
             return _dictionarySerializer.Copy(serializationManager, source, target, skipHook, context);
         }

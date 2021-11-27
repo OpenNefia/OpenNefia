@@ -13,7 +13,7 @@ using Why.Core.Serialization.TypeSerializers.Interfaces;
 namespace Why.Core.Serialization.TypeSerializers.Implementations.Custom.Prototype.List
 {
     public partial class PrototypeIdListSerializer<T> :
-        ITypeSerializer<ImmutableList<string>, SequenceDataNode>
+        ITypeSerializer<ImmutableList<PrototypeId<T>>, SequenceDataNode>
         where T : class, IPrototype
     {
         public ValidationNode Validate(ISerializationManager serializationManager, SequenceDataNode node,
@@ -25,7 +25,7 @@ namespace Why.Core.Serialization.TypeSerializers.Implementations.Custom.Prototyp
         public DeserializationResult Read(ISerializationManager serializationManager, SequenceDataNode node,
             IDependencyCollection dependencies, bool skipHook, ISerializationContext? context = null)
         {
-            var builder = ImmutableList.CreateBuilder<string>();
+            var builder = ImmutableList.CreateBuilder<PrototypeId<T>>();
             var mappings = new List<DeserializationResult>();
 
             foreach (var dataNode in node.Sequence)
@@ -37,21 +37,21 @@ namespace Why.Core.Serialization.TypeSerializers.Implementations.Custom.Prototyp
                     skipHook,
                     context);
 
-                builder.Add((string) result.RawValue!);
+                builder.Add(new((string) result.RawValue!));
                 mappings.Add(result);
             }
 
-            return new DeserializedCollection<ImmutableList<string>, string>(builder.ToImmutable(), mappings,
+            return new DeserializedCollection<ImmutableList<PrototypeId<T>>, PrototypeId<T>>(builder.ToImmutable(), mappings,
                 ImmutableList.CreateRange);
         }
 
-        public DataNode Write(ISerializationManager serializationManager, ImmutableList<string> value, bool alwaysWrite = false,
+        public DataNode Write(ISerializationManager serializationManager, ImmutableList<PrototypeId<T>> value, bool alwaysWrite = false,
             ISerializationContext? context = null)
         {
             return WriteInternal(serializationManager, value, alwaysWrite, context);
         }
 
-        public ImmutableList<string> Copy(ISerializationManager serializationManager, ImmutableList<string> source, ImmutableList<string> target,
+        public ImmutableList<PrototypeId<T>> Copy(ISerializationManager serializationManager, ImmutableList<PrototypeId<T>> source, ImmutableList<PrototypeId<T>> target,
             bool skipHook, ISerializationContext? context = null)
         {
             return ImmutableList.CreateRange(source);

@@ -10,8 +10,7 @@ using Why.Core.Serialization.TypeSerializers.Interfaces;
 
 namespace Why.Core.Serialization.TypeSerializers.Implementations.Custom.Prototype
 {
-    [TypeSerializer]
-    public class PrototypeIdSerializer<TPrototype> : ITypeSerializer<PrototypeId<TPrototype>, ValueDataNode> where TPrototype : class, IPrototype
+    public class PrototypeIdStringSerializer<TPrototype> : ITypeSerializer<string, ValueDataNode> where TPrototype : class, IPrototype
     {
         public ValidationNode Validate(ISerializationManager serializationManager, ValueDataNode node,
             IDependencyCollection dependencies, ISerializationContext? context = null)
@@ -24,16 +23,16 @@ namespace Why.Core.Serialization.TypeSerializers.Implementations.Custom.Prototyp
         public DeserializationResult Read(ISerializationManager serializationManager, ValueDataNode node,
             IDependencyCollection dependencies, bool skipHook, ISerializationContext? context = null)
         {
-            return new DeserializedValue<PrototypeId<TPrototype>>(new(node.Value));
+            return new DeserializedValue<string>(node.Value);
         }
 
-        public DataNode Write(ISerializationManager serializationManager, PrototypeId<TPrototype> value, bool alwaysWrite = false,
+        public DataNode Write(ISerializationManager serializationManager, string value, bool alwaysWrite = false,
             ISerializationContext? context = null)
         {
             return new ValueDataNode((string)value);
         }
 
-        public PrototypeId<TPrototype> Copy(ISerializationManager serializationManager, PrototypeId<TPrototype> source, PrototypeId<TPrototype> target, bool skipHook,
+        public string Copy(ISerializationManager serializationManager, string source, string target, bool skipHook,
             ISerializationContext? context = null)
         {
             return source;

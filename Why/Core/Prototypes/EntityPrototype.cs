@@ -18,12 +18,10 @@ namespace Why.Core.Prototypes
     [Prototype("Entity", -1)]
     public class EntityPrototype : IPrototype, IInheritingPrototype, ISerializationHooks
     {
-        private const int DEFAULT_RANGE = 200;
-
         /// <summary>
         /// The "in code name" of the object. Must be unique.
         /// </summary>
-        [DataField]
+        [DataField("id")]
         public string ID { get; private set; } = default!;
 
         /// <summary>
@@ -36,7 +34,7 @@ namespace Why.Core.Prototypes
         /// <summary>
         /// The prototype we inherit from.
         /// </summary>
-        [DataField(customTypeSerializer:typeof(PrototypeIdSerializer<EntityPrototype>))]
+        [DataField(customTypeSerializer:typeof(PrototypeIdStringSerializer<EntityPrototype>))]
         public string? Parent { get; private set; }
 
         /// <summary>

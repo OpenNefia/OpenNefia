@@ -12,12 +12,12 @@ using Why.Core.Serialization.TypeSerializers.Interfaces;
 
 namespace Why.Core.Serialization.TypeSerializers.Implementations.Custom.Prototype.List
 {
-    public partial class PrototypeIdListSerializer<T> : ITypeSerializer<IReadOnlyList<string>, SequenceDataNode>
+    public partial class PrototypeIdListSerializer<T> : ITypeSerializer<IReadOnlyList<PrototypeId<T>>, SequenceDataNode>
         where T : class, IPrototype
     {
-        DataNode ITypeWriter<IReadOnlyList<string>>.Write(
+        DataNode ITypeWriter<IReadOnlyList<PrototypeId<T>>>.Write(
             ISerializationManager serializationManager,
-            IReadOnlyList<string> value,
+            IReadOnlyList<PrototypeId<T>> value,
             bool alwaysWrite,
             ISerializationContext? context)
         {
@@ -25,24 +25,24 @@ namespace Why.Core.Serialization.TypeSerializers.Implementations.Custom.Prototyp
         }
 
         [MustUseReturnValue]
-        IReadOnlyList<string> ITypeCopier<IReadOnlyList<string>>.Copy(
+        IReadOnlyList<PrototypeId<T>> ITypeCopier<IReadOnlyList<PrototypeId<T>>>.Copy(
             ISerializationManager serializationManager,
-            IReadOnlyList<string> source,
-            IReadOnlyList<string> target,
+            IReadOnlyList<PrototypeId<T>> source,
+            IReadOnlyList<PrototypeId<T>> target,
             bool skipHook,
             ISerializationContext? context)
         {
-            return new List<string>(source);
+            return new List<PrototypeId<T>>(source);
         }
 
-        DeserializationResult ITypeReader<IReadOnlyList<string>, SequenceDataNode>.Read(
+        DeserializationResult ITypeReader<IReadOnlyList<PrototypeId<T>>, SequenceDataNode>.Read(
             ISerializationManager serializationManager,
             SequenceDataNode node,
             IDependencyCollection dependencies,
             bool skipHook,
             ISerializationContext? context)
         {
-            var list = new List<string>();
+            var list = new List<PrototypeId<T>>();
             var mappings = new List<DeserializationResult>();
 
             foreach (var dataNode in node.Sequence)
@@ -54,15 +54,15 @@ namespace Why.Core.Serialization.TypeSerializers.Implementations.Custom.Prototyp
                     skipHook,
                     context);
 
-                list.Add((string) result.RawValue!);
+                list.Add(new((string) result.RawValue!));
                 mappings.Add(result);
             }
 
-            return new DeserializedCollection<IReadOnlyList<string>, string>(list, mappings,
-                elements => new List<string>(elements));
+            return new DeserializedCollection<IReadOnlyList<PrototypeId<T>>, PrototypeId<T>>(list, mappings,
+                elements => new List<PrototypeId<T>>(elements));
         }
 
-        ValidationNode ITypeValidator<IReadOnlyList<string>, SequenceDataNode>.Validate(
+        ValidationNode ITypeValidator<IReadOnlyList<PrototypeId<T>>, SequenceDataNode>.Validate(
             ISerializationManager serializationManager,
             SequenceDataNode node,
             IDependencyCollection dependencies,

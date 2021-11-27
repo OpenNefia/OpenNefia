@@ -171,7 +171,8 @@ namespace Why.Core.Serialization.Manager.Definition
 
                 // Default to lowercased field name from C# if no tag name is provided.
                 // Tag names will be lowerCamelCase.
-                var tag = dataField.Tag ?? abstractFieldInfo.MemberInfo.Name.ToLower();
+                // This doesn't handle things like "ID".
+                var tag = dataField.Tag ?? abstractFieldInfo.MemberInfo.Name.FirstCharToLowerCase();
 
                 var backingField = abstractFieldInfo;
 

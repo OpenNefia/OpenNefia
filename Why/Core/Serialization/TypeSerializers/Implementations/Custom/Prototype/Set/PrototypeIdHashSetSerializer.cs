@@ -11,9 +11,9 @@ using Why.Core.Serialization.TypeSerializers.Interfaces;
 
 namespace Why.Core.Serialization.TypeSerializers.Implementations.Custom.Prototype.Set
 {
-    public class PrototypeIdHashSetSerializer<TPrototype> : ITypeSerializer<HashSet<string>, SequenceDataNode> where TPrototype : class, IPrototype
+    public class PrototypeIdHashSetSerializer<T> : ITypeSerializer<HashSet<PrototypeId<T>>, SequenceDataNode> where T : class, IPrototype
     {
-        private readonly PrototypeIdSerializer<TPrototype> _prototypeSerializer = new();
+        private readonly PrototypeIdSerializer<T> _prototypeSerializer = new();
 
         public ValidationNode Validate(ISerializationManager serializationManager, SequenceDataNode node, IDependencyCollection dependencies, ISerializationContext? context = null)
         {
@@ -35,7 +35,7 @@ namespace Why.Core.Serialization.TypeSerializers.Implementations.Custom.Prototyp
 
         public DeserializationResult Read(ISerializationManager serializationManager, SequenceDataNode node, IDependencyCollection dependencies, bool skipHook, ISerializationContext? context = null)
         {
-            var set = new HashSet<string>();
+            var set = new HashSet<PrototypeId<T>>();
             var mappings = new List<DeserializationResult>();
 
             foreach (var dataNode in node.Sequence)
@@ -47,15 +47,15 @@ namespace Why.Core.Serialization.TypeSerializers.Implementations.Custom.Prototyp
                     skipHook,
                     context);
 
-                set.Add((string) result.RawValue!);
+                set.Add(new((string) result.RawValue!));
                 mappings.Add(result);
             }
 
-            return new DeserializedCollection<HashSet<string>, string>(set, mappings,
-                elements => new HashSet<string>(elements));
+            return new DeserializedCollection<HashSet<PrototypeId<T>>, PrototypeId<T>>(set, mappings,
+                elements => new HashSet<PrototypeId<T>>(elements));
         }
 
-        public DataNode Write(ISerializationManager serializationManager, HashSet<string> value, bool alwaysWrite = false, ISerializationContext? context = null)
+        public DataNode Write(ISerializationManager serializationManager, HashSet<PrototypeId<T>> value, bool alwaysWrite = false, ISerializationContext? context = null)
         {
             var list = new List<DataNode>();
 
@@ -67,7 +67,7 @@ namespace Why.Core.Serialization.TypeSerializers.Implementations.Custom.Prototyp
             return new SequenceDataNode(list);
         }
 
-        public HashSet<string> Copy(ISerializationManager serializationManager, HashSet<string> source, HashSet<string> target, bool skipHook, ISerializationContext? context = null)
+        public HashSet<PrototypeId<T>> Copy(ISerializationManager serializationManager, HashSet<PrototypeId<T>> source, HashSet<PrototypeId<T>> target, bool skipHook, ISerializationContext? context = null)
         {
             return new(source);
         }

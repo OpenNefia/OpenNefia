@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Why.Core.Serialization.Manager.Attributes;
+using Why.Core.Prototypes;
 
 namespace Why.Core.GameObjects
 {
@@ -51,14 +51,12 @@ namespace Why.Core.GameObjects
         /// <summary>
         /// Level, potential, and experience for skills and stats.
         /// </summary>
-        [DataField]
-        public Dictionary<string, LevelAndPotential> Skills = new();
+        public Dictionary<PrototypeId<SkillPrototype>, LevelAndPotential> Skills = new();
 
         /// <summary>
         /// Level, potential, and experience for skills and stats.
         /// </summary>
-        [DataField]
-        public Dictionary<string, LevelPotentialAndStock> Spells = new();
+        public Dictionary<PrototypeId<SkillPrototype>, LevelPotentialAndStock> Spells = new();
     }
 
     /// <summary>

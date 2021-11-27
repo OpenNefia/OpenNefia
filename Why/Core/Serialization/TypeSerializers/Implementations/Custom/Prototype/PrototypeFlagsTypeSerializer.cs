@@ -32,7 +32,7 @@ namespace Why.Core.Serialization.TypeSerializers.Implementations.Custom.Prototyp
                     continue;
                 }
 
-                list.Add(serializationManager.ValidateNodeWith<string, PrototypeIdSerializer<T>, ValueDataNode>(value, context));
+                list.Add(serializationManager.ValidateNodeWith<PrototypeId<T>, PrototypeIdSerializer<T>, ValueDataNode>(value, context));
             }
 
             return new ValidatedSequenceNode(list);
@@ -69,7 +69,7 @@ namespace Why.Core.Serialization.TypeSerializers.Implementations.Custom.Prototyp
         public ValidationNode Validate(ISerializationManager serializationManager, ValueDataNode node,
             IDependencyCollection dependencies, ISerializationContext? context = null)
         {
-            return serializationManager.ValidateNodeWith<string, PrototypeIdSerializer<T>, ValueDataNode>(node, context);
+            return serializationManager.ValidateNodeWith<PrototypeId<T>, PrototypeIdSerializer<T>, ValueDataNode>(node, context);
         }
 
         public DeserializationResult Read(ISerializationManager serializationManager, ValueDataNode node,

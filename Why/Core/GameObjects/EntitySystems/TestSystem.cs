@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Why.Core.IoC;
 using Why.Core.Log;
 using Why.Core.Maps;
+using Why.Core.Prototypes;
 using Why.Core.Utility;
 
 namespace Why.Core.GameObjects
@@ -17,6 +18,7 @@ namespace Why.Core.GameObjects
             base.Initialize();
 
             SubscribeLocalEvent<ItemComponent, TestEntityEvent>(DoTest);
+            SubscribeLocalEvent<CharaComponent, TestEntityEvent>(DoTest);
         }
 
         public void DoTest(EntityUid uid, ItemComponent component, TestEntityEvent args)
@@ -30,6 +32,20 @@ namespace Why.Core.GameObjects
                 {
                     Logger.Log(LogLevel.Info, $"Found entity {DisplayNameSystem.GetDisplayName(uid)} {other.Prototype?.ID} (args {args.TestField}) (value: {component.Value})");
                 }
+            }
+        }
+
+        public void DoTest(EntityUid uid, CharaComponent component, TestEntityEvent args)
+        {
+            if (!EntityManager.TryGetEntity(uid, out var entity))
+                return;
+
+            var klass = component.Class.ResolvePrototype();
+
+            Logger.Log(LogLevel.Info, $"My class: {klass.ID}");
+            foreach (var pair in klass.BaseSkills)
+            {
+                Logger.Log(LogLevel.Info, $"Skill: {pair.Key} {pair.Value}");
             }
         }
     }

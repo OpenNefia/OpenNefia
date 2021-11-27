@@ -1,3 +1,10 @@
+- type: Skill
+  id: StatStr
+- type: Skill
+  id: StatDex
+- type: Skill
+  id: StatCon
+
 - type: Entity
   id: BaseItem
   abstract: true
@@ -12,12 +19,19 @@
   - type: Item
     value: 5
 
+- type: Class
+  id: Slime
+  baseSkills:
+    StatStr: 2
+    StatDex: 6
+    StatCon: 4
 
 - type: Entity
   id: BaseChara
   abstract: true
   components:
   - type: Chara
+  - type: Skills
 
 - type: Entity
   id: Putit
@@ -26,3 +40,4 @@
   - type: Chara
     displayName: putit
     title: The wind
+    class: Slime
