@@ -6,11 +6,9 @@ using System.Threading.Tasks;
 
 namespace OpenNefia.Core.Rendering
 {
-    public class AtlasManager : IAtlasManager
+    public interface IFontManager
     {
-        public TileAtlas GetAtlas(string name)
-        {
-            return null!;
-        }
+        public Love.Font GetFont(FontSpec spec);
+        public void Clear();
     }
 }

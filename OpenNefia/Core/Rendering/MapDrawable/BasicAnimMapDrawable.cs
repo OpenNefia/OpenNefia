@@ -54,8 +54,8 @@ namespace OpenNefia.Core.Rendering
         {
             Love.Graphics.SetColor(Love.Color.White);
             this.AssetDrawable.DrawRegion(Counter.FrameInt.ToString(), 
-                this.X + GameSession.Coords.TileWidth / 2, 
-                this.Y + GameSession.Coords.TileHeight / 6,
+                this.Left + GameSession.Coords.TileWidth / 2, 
+                this.Top + GameSession.Coords.TileHeight / 6,
                 centered: true,
                 rotation: this.BasicAnim.Rotation * this.Counter.Frame);
         }

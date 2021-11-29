@@ -77,7 +77,7 @@ namespace OpenNefia.Core.Rendering
             var cx = (int)(this._counter.Frame * (screenPos.X) / this._counter.MaxFrames);
             var cy = (int)(this._counter.Frame * (screenPos.Y) / this._counter.MaxFrames);
 
-            if (UiUtils.IsPointInVisibleScreen(this.X + cx, this.Y + cy) || true)
+            if (UiUtils.IsPointInVisibleScreen(this.Left + cx, this.Top + cy) || true)
             {
                 this._chipBatch.Clear();
                 this._chipBatch.Add(this._chip.Image, 
@@ -89,7 +89,7 @@ namespace OpenNefia.Core.Rendering
                     centered: true, 
                     rotation: this._startPos.AngleBetween(this._endPos));
                 this._chipBatch.Flush();
-                this._chipBatch.Draw(this.X, this.Y, this.Width, this.Height);
+                this._chipBatch.Draw(this.Left, this.Top, this.Width, this.Height);
             }
         }
 

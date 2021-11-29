@@ -1,6 +1,8 @@
-﻿using OpenNefia.Core.Data.Types;
+﻿using OpenNefia.Core.Audio;
+using OpenNefia.Core.Maths;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Core.UI.Element;
+using OpenNefia.Core.UI.Styling;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -58,13 +60,13 @@ namespace OpenNefia.Core.UI.Layer
         public bool IsCancellable { get; set; }
 
         protected UiTopicWindow TopicWindow;
-        protected IUiText Text;
 
         protected AssetDrawable AssetLabelInput;
         protected AssetDrawable AssetArrowLeft;
         protected AssetDrawable AssetArrowRight;
-        protected ColorDef ColorPromptBackground;
-        protected FontDef FontPromptText;
+
+        [UiStyled] protected Color ColorPromptBackground;
+        [UiStyled] protected IUiText Text = default!;
 
         public NumberPrompt(int maxValue = 1, int minValue = 1, int? initialValue = null, bool isCancellable = true)
         {
@@ -78,49 +80,48 @@ namespace OpenNefia.Core.UI.Layer
             this._Value = initialValue.Value;
             this.IsCancellable = isCancellable;
 
-            this.AssetLabelInput = new AssetDrawable(AssetDefOf.LabelInput);
-            this.AssetArrowLeft = new AssetDrawable(AssetDefOf.ArrowLeft);
-            this.AssetArrowRight = new AssetDrawable(AssetDefOf.ArrowRight);
-            this.ColorPromptBackground = ColorDefOf.PromptBackground;
-            this.FontPromptText = FontDefOf.PromptText;
+            this.AssetLabelInput = Assets.Get(AssetPrototypeOf.LabelInput);
+            this.AssetArrowLeft = Assets.Get(AssetPrototypeOf.ArrowLeft);
+            this.AssetArrowRight = Assets.Get(AssetPrototypeOf.ArrowRight);
 
-            this.TopicWindow = new UiTopicWindow(UiTopicWindow.FrameStyle.Zero, UiTopicWindow.WindowStyle.Two);
-            this.Text = new UiText(this.FontPromptText);
-            
-            this.UpdateText();
+            this.TopicWindow = new UiTopicWindow(UiTopicWindow.FrameStyleKind.Zero, UiTopicWindow.WindowStyleKind.Two);
 
             this.BindKeys();
+        }
+
+        public override void Initialize()
+        {
+            base.Initialize();
+
+            this.UpdateText();
         }
 
         protected virtual void BindKeys()
         {
             this.Keybinds[Keybind.UIUp] += (_) => {
                 this.Value = this.MaxValue;
-                Sounds.PlayOneShot(SoundDefOf.Cursor1);
+                Sounds.Play(SoundPrototypeOf.Cursor1);
             };
             this.Keybinds[Keybind.UIDown] += (_) => {
                 this.Value = this.MinValue;
-                Sounds.PlayOneShot(SoundDefOf.Cursor1);
+                Sounds.Play(SoundPrototypeOf.Cursor1);
             };
             this.Keybinds[Keybind.UILeft] += (_) => {
                 this.Value = Math.Max(this.Value - 1, this.MinValue);
-                Sounds.PlayOneShot(SoundDefOf.Cursor1);
+                Sounds.Play(SoundPrototypeOf.Cursor1);
             };
             this.Keybinds[Keybind.UIRight] += (_) => {
                 this.Value = Math.Min(this.Value + 1, this.MaxValue);
-                Sounds.PlayOneShot(SoundDefOf.Cursor1);
+                Sounds.Play(SoundPrototypeOf.Cursor1);
             };
             this.Keybinds[Keybind.Cancel] += (_) => { if (this.IsCancellable) this.Cancel(); };
             this.Keybinds[Keybind.Escape] += (_) => { if (this.IsCancellable) this.Cancel(); };
             this.Keybinds[Keybind.Enter] += (_) => this.Finish(new NumberPromptResult(this.Value));
         }
 
-        [MethodImpl(MethodImplOptions.NoInlining)]
-        public override UiResult<NumberPromptResult> Query() => base.Query();
-
         public override void OnQuery()
         {
-            Sounds.PlayOneShot(SoundDefOf.Pop2);
+            Sounds.Play(SoundPrototypeOf.Pop2);
         }
 
         protected virtual void UpdateText()
@@ -140,20 +141,20 @@ namespace OpenNefia.Core.UI.Layer
             height = rect.Height;
         }
 
-        public override void SetSize(int width = 0, int height = 0)
+        public override void SetSize(Vector2i size)
         {
-            base.SetSize(width, height);
+            base.SetSize(size);
 
             this.TopicWindow.SetSize(this.Width - 40, this.Height);
             this.Text.SetPreferredSize();
         }
 
-        public override void SetPosition(int x, int y)
+        public override void SetPosition(Vector2i pos)
         {
-            base.SetPosition(x, y);
+            base.SetPosition(pos);
 
-            this.TopicWindow.SetPosition(this.X + 20, this.Y);
-            this.Text.SetPosition(this.X + this.Width - 70 - Text.Width + 8, this.Y + 11);
+            this.TopicWindow.SetPosition(this.Left + 20, this.Top);
+            this.Text.SetPosition(this.Left + this.Width - 70 - Text.Width + 8, this.Top + 11);
         }
 
         public override void Update(float dt)
@@ -165,14 +166,14 @@ namespace OpenNefia.Core.UI.Layer
         public override void Draw()
         {
             GraphicsEx.SetColor(this.ColorPromptBackground);
-            Love.Graphics.Rectangle(Love.DrawMode.Fill, this.X + 24, this.Y + 4, this.Width - 42, this.Height - 1);
+            Love.Graphics.Rectangle(Love.DrawMode.Fill, this.Left + 24, this.Top + 4, this.Width - 42, this.Height - 1);
             
             this.TopicWindow.Draw();
 
             GraphicsEx.SetColor(Love.Color.White);
-            this.AssetLabelInput.Draw(this.X + this.Width / 2 - 56, this.Y - 32);
-            this.AssetArrowLeft.Draw(this.X + 28, this.Y + 4);
-            this.AssetArrowRight.Draw(this.X + this.Width - 51, this.Y + 4);
+            this.AssetLabelInput.Draw(this.Left + this.Width / 2 - 56, this.Top - 32);
+            this.AssetArrowLeft.Draw(this.Left + 28, this.Top + 4);
+            this.AssetArrowRight.Draw(this.Left + this.Width - 51, this.Top + 4);
 
             this.Text.Draw();
         }

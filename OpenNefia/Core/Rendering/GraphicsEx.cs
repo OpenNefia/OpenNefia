@@ -110,77 +110,13 @@ namespace OpenNefia.Core.Rendering
         }
 
         public static void SetColor(Love.Color color) => Love.Graphics.SetColor(color);
-        public static void SetColor(ColorDef color) => SetColor(color.R, color.G, color.B, color.A);
+        public static void SetColor(Maths.Color color) => Love.Graphics.SetColor(color.R, color.G, color.B, color.A);
 
-        public static int GetTextWidth(string text)
+        public static void SetFont(FontSpec spec, bool noColor = false)
         {
-            return Love.Graphics.GetFont().GetWidth(text);
-        }
-
-        public static int GetTextHeight()
-        {
-            return Love.Graphics.GetFont().GetHeight();
-        }
-
-        public enum FontFormatting
-        {
-            None = 0x0,
-            Bold = 0x1,
-            Italic = 0x2,
-            Underline = 0x4,
-            Strikethrough = 0x8
-        }
-
-        public enum FontStyle
-        {
-            Normal,
-            Outlined,
-            Shadowed
-        }
-
-        private static Dictionary<int, Love.Font> _fontCache = new Dictionary<int, Love.Font>();
-        private static ResourcePath _fallbackFontPath = new ResourcePath("Assets/Fonts/kochi-gothic-subst.ttf");
-
-        public static void SetFont(int size, FontFormatting style = FontFormatting.None, ResourcePath? fontFilepath = null)
-        {
-            Love.Graphics.SetFont(GetFont(size, style, fontFilepath));
-        }
-
-        public static void SetFont(FontDef spec, bool noColor = false)
-        {
-            SetFont(spec.Size, spec.Formatting, spec.FontFilepath);
+            Love.Graphics.SetFont(spec.LoveFont);
             if (!noColor)
                 SetColor(spec.Color);
-        }
-
-        public static Love.Text NewText(string text, int size, FontFormatting style = FontFormatting.None, ResourcePath? fontFilepath = null)
-        {
-            return Love.Graphics.NewText(GetFont(size, style, fontFilepath), text);
-        }
-
-        public static Love.Text NewText(string text, FontDef spec)
-        {
-            return NewText(text, spec.Size, spec.Formatting, spec.FontFilepath);
-        }
-
-        public static Love.Font GetFont(int size, FontFormatting style = FontFormatting.None, ResourcePath? fontFilepath = null)
-        {
-            if (_fontCache.TryGetValue(size, out Love.Font? cachedFont))
-            {
-                return cachedFont;
-            }
-
-            if (fontFilepath == null)
-                fontFilepath = _fallbackFontPath;
-
-            var font = Love.Graphics.NewFont(fontFilepath.ToString(), size);
-            _fontCache[size] = font;
-            return font;
-        }
-
-        public static Font GetFont(FontDef spec)
-        {
-            return GetFont(spec.Size, spec.Formatting, spec.FontFilepath);
         }
 
         /// <summary>

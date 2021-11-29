@@ -1,4 +1,4 @@
-﻿using OpenNefia.Core.Data.Types;
+﻿using OpenNefia.Core.Audio;
 using OpenNefia.Core.UI.Element;
 using OpenNefia.Core.UI.Element.List;
 using System;
@@ -36,7 +36,7 @@ namespace OpenNefia.Core.UI.Layer
 
             UiListEventHandler<string> printIt = (_, evt) =>
             {
-                Sounds.PlayOneShot(SoundDefOf.Ok1);
+                Sounds.Play(SoundPrototypeOf.Ok1);
                 Console.WriteLine($"Get item: {evt.SelectedCell.Data}");
             };
             this.List1.EventOnActivate += printIt;
@@ -57,21 +57,21 @@ namespace OpenNefia.Core.UI.Layer
 
             this.MouseMoved.Callback += (evt) =>
             {
-                if (this.List1.ContainsPoint(evt.X, evt.Y) && this.Index != 1)
+                if (this.List1.ContainsPoint(evt.Pos) && this.Index != 1)
                 {
-                    Sounds.PlayOneShot(SoundDefOf.Cursor1);
+                    Sounds.Play(SoundPrototypeOf.Cursor1);
                     this.Index = 1;
                     this.SelectList(this.List1);
                 }
-                else if (this.List2.ContainsPoint(evt.X, evt.Y) && this.Index != 2)
+                else if (this.List2.ContainsPoint(evt.Pos) && this.Index != 2)
                 {
-                    Sounds.PlayOneShot(SoundDefOf.Cursor1);
+                    Sounds.Play(SoundPrototypeOf.Cursor1);
                     this.Index = 2;
                     this.SelectList(this.List2);
                 }
-                else if (this.List3.ContainsPoint(evt.X, evt.Y) && this.Index != 3)
+                else if (this.List3.ContainsPoint(evt.Pos) && this.Index != 3)
                 {
-                    Sounds.PlayOneShot(SoundDefOf.Cursor1);
+                    Sounds.Play(SoundPrototypeOf.Cursor1);
                     this.Index = 3;
                     this.SelectList(this.List3);
                 }
@@ -85,12 +85,12 @@ namespace OpenNefia.Core.UI.Layer
 
         public override void OnQuery()
         {
-            Sounds.PlayOneShot(SoundDefOf.Pop2);
+            Sounds.Play(SoundPrototypeOf.Pop2);
         }
 
         private void NextList(int delta)
         {
-            Sounds.PlayOneShot(SoundDefOf.Cursor1);
+            Sounds.Play(SoundPrototypeOf.Cursor1);
 
             this.Index += delta;
             if (this.Index > 3)
@@ -148,10 +148,10 @@ namespace OpenNefia.Core.UI.Layer
         {
             base.SetPosition(x, y);
 
-            this.Window.SetPosition(this.X, this.Y);
-            this.List1.SetPosition(this.X + 20, this.Y + 40);
-            this.List2.SetPosition(this.X + 20 + (int)((this.Width - 40) * 0.33), this.Y + 40);
-            this.List3.SetPosition(this.X + 20 + (int)((this.Width - 40) * 0.66), this.Y + 40);
+            this.Window.SetPosition(this.Left, this.Top);
+            this.List1.SetPosition(this.Left + 20, this.Top + 40);
+            this.List2.SetPosition(this.Left + 20 + (int)((this.Width - 40) * 0.33), this.Top + 40);
+            this.List3.SetPosition(this.Left + 20 + (int)((this.Width - 40) * 0.66), this.Top + 40);
         }
 
         public override void Update(float dt)

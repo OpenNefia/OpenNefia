@@ -13,7 +13,7 @@ namespace OpenNefia.Core.UI.Hud
 
         private bool NeedsRelayout;
 
-        private FontDef FontTargetText;
+        private FontSpec FontTargetText;
         private IUiText[] TextMessages;
 
         public SimpleMessageWindow()
@@ -77,13 +77,13 @@ namespace OpenNefia.Core.UI.Hud
         public override void Draw()
         {
             GraphicsEx.SetColor(0, 0, 0, 64);
-            Love.Graphics.Rectangle(Love.DrawMode.Fill, this.X, this.Y, this.Width, this.Height);
+            Love.Graphics.Rectangle(Love.DrawMode.Fill, this.Left, this.Top, this.Width, this.Height);
 
             //GraphicsEx.SetScissor(this.X, this.Y, this.Width, this.Height);
             for (int i = 0; i < TextMessages.Length; i++)
             {
                 var text = TextMessages[i];
-                text.SetPosition(X + 5, Y + Height - (FontTargetText.GetHeight()) * (i + 1) - 5);
+                text.SetPosition(Left + 5, Top + Height - (FontTargetText.GetHeight()) * (i + 1) - 5);
                 text.Draw();
             }
             //GraphicsEx.SetScissor();

@@ -24,7 +24,7 @@ namespace OpenNefia.Core.UI
                 this.Keybind = keybind;
             }
 
-            public static KeybindDelegateWrapper operator +(KeybindDelegateWrapper delegateWrapper, Action<KeyInputEvent> evt)
+            public static KeybindDelegateWrapper operator +(KeybindDelegateWrapper delegateWrapper, Action<UiKeyInputEventArgs> evt)
             {
                 delegateWrapper.BindKey(delegateWrapper.Keybind, evt);
                 return delegateWrapper;
@@ -35,10 +35,10 @@ namespace OpenNefia.Core.UI
                 this.UnbindKey(this.Keybind);
             }
 
-            public void BindKey(Action<KeyInputEvent> func, bool trackReleased = false)
+            public void BindKey(Action<UiKeyInputEventArgs> func, bool trackReleased = false)
                 => this.BindKey(this.Keybind, func, trackReleased);
 
-            public void BindKey(IKeybind keybind, Action<KeyInputEvent> func, bool trackReleased = false)
+            public void BindKey(IKeybind keybind, Action<UiKeyInputEventArgs> func, bool trackReleased = false)
             {
                 this.Parent.KeyInput.BindKey(keybind, func, trackReleased);
             }

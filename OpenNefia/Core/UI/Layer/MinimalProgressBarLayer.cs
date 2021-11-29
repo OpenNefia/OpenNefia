@@ -69,7 +69,7 @@ namespace OpenNefia.Core.UI.Layer
                 if (this.AdvanceStep())
                 {
                     this.StatusText.Set(Love.ColoredStringArray.Create(this.Steps.Current.Text));
-                    this.SetPosition(X, Y);
+                    this.SetPosition(Left, Top);
                 }
             }
             else if (Steps.Current.Task.IsCompleted)
@@ -82,8 +82,8 @@ namespace OpenNefia.Core.UI.Layer
         {
             Love.Graphics.Clear(Love.Color.Black);
 
-            var x = this.X + this.Width / 2;
-            var y = this.Y + this.Height / 2;
+            var x = this.Left + this.Width / 2;
+            var y = this.Top + this.Height / 2;
             var barWidth = 400;
             var barHeight = 20;
 

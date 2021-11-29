@@ -6,7 +6,7 @@ namespace OpenNefia.Core.UI
     {
         bool TextInputEnabled { get; set; }
 
-        void BindTextInput(Action<TextInputEvent> evt);
+        void BindTextInput(Action<UiTextInputEventArgs> evt);
         void UnbindTextInput();
     }
 }

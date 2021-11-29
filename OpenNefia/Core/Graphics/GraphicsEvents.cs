@@ -1,5 +1,6 @@
 ﻿using Love;
 using OpenNefia.Core.Maths;
+using OpenNefia.Core.UI;
 
 namespace OpenNefia.Core.Graphics
 {
@@ -79,7 +80,7 @@ namespace OpenNefia.Core.Graphics
 
     public readonly struct MousePressedEventArgs
     {
-        public MousePressedEventArgs(Vector2 pos, int button, bool isTouch, bool isPressed)
+        public MousePressedEventArgs(Vector2 pos, MouseButtons button, bool isTouch, bool isPressed)
         {
             Pos = pos;
             Button = button;
@@ -88,7 +89,7 @@ namespace OpenNefia.Core.Graphics
         }
 
         public Vector2 Pos { get; }
-        public int Button { get; }
+        public MouseButtons Button { get; }
         public bool IsTouch { get; }
         public bool IsPressed { get; }
     }

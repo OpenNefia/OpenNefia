@@ -45,7 +45,7 @@ namespace OpenNefia.Core.Rendering
                     Removed.Push(memory);
                 }
 
-                Positional[index] = null;
+                Positional[coords.X, coords.Y] = null;
             }
         }
 
@@ -70,12 +70,9 @@ namespace OpenNefia.Core.Rendering
             }
         }
 
-        public void RevealObjects(int index)
+        public void RevealObjects(Vector2i coords)
         {
-            var at = Positional[index];
-
-            var x = index % Map.Width;
-            var y = index / Map.Width;
+            var at = Positional[coords.X, coords.Y];
 
             if (at != null)
             {
@@ -89,12 +86,12 @@ namespace OpenNefia.Core.Rendering
             }
 
             int i = 0;
-            foreach (var obj in Map.AtPos(new Vector2i(x, y)).GetEntities())
+            foreach (var obj in Map.AtPos(coords).GetEntities())
             {
                 if (at == null)
                 {
                     at = new List<MapObjectMemory>();
-                    Positional[index] = at;
+                    Positional[coords.X, coords.Y] = at;
                 }
 
                 var memory = GetOrCreateMemory();
@@ -106,8 +103,7 @@ namespace OpenNefia.Core.Rendering
                     this.AllMemory[memory.Index] = memory;
                     this.Added.Add(memory);
                     memory.ObjectUid = obj.Uid;
-                    memory.TileX = x;
-                    memory.TileY = y;
+                    memory.Coords = obj.Coords;
                     memory.ZOrder = i;
                     at.Add(memory);
                 }

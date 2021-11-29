@@ -1,5 +1,6 @@
 ﻿using OpenNefia.Core.IoC;
 using OpenNefia.Core.Maps;
+using OpenNefia.Core.Maths;
 using OpenNefia.Core.Rendering.TileDrawLayers;
 using OpenNefia.Core.UI.Element;
 using System;
@@ -65,21 +66,21 @@ namespace OpenNefia.Core.Rendering
             this._map.MapObjectMemory.Flush();
         }
 
-        public override void SetSize(int width = 0, int height = 0)
+        public override void SetSize(Vector2i size)
         {
-            base.SetSize(width, height);
+            base.SetSize(size);
             foreach (var layer in this._tileLayers)
             {
-                layer.SetSize(width, height);
+                layer.SetSize(size);
             }
         }
 
-        public override void SetPosition(int x = 0, int y = 0)
+        public override void SetPosition(Vector2i pos)
         {
-            base.SetPosition(x, y);
+            base.SetPosition(pos);
             foreach (var layer in this._tileLayers)
             {
-                layer.SetPosition(x, y);
+                layer.SetPosition(pos);
             }
         }
 

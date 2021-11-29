@@ -26,7 +26,7 @@ namespace OpenNefia.Core.Maps
         MapCoordinates AtPos(Vector2i pos);
         MapCoordinates AtPos(int x, int y);
 
-        bool IsInWindowFov(Vector2i position);
+        bool IsInWindowFov(MapCoordinates coords);
         void RefreshVisibility();
     }
 }

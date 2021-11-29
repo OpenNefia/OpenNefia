@@ -1,11 +1,6 @@
-﻿using Love;
-using OpenNefia.Core.Data.Types;
+﻿using OpenNefia.Core.Maths;
 using OpenNefia.Core.Rendering;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Color = OpenNefia.Core.Maths.Color;
 
 namespace OpenNefia.Core.UI.Element
 {
@@ -16,18 +11,22 @@ namespace OpenNefia.Core.UI.Element
         public List<UiKeyHint> KeyHints { get; }
         public int XOffset { get; }
         public int YOffset { get; }
-        public bool HasTitle => TitleText.Text != string.Empty;
+        public bool HasTitle => TextTitle.Text != string.Empty;
+
+        [UiStyled] protected Color ColorBottomLine1;
+        [UiStyled] protected Color ColorBottomLine2;
+        [UiStyled] protected FontSpec FontWindowTitle = default!;
+        [UiStyled] protected FontSpec FontWindowKeyHints = default!;
 
         protected AssetDrawable AssetTipIcons;
-        protected ColorDef ColorWindowBottomLine1;
-        protected ColorDef ColorWindowBottomLine2;
-        protected FontDef FontWindowTitle;
-        protected FontDef FontWindowKeyHints;
 
-        [Localize(Key="Title")]
-        protected IUiText TitleText;
+        [UiStyled]
+        [Localize("Title")]
+        protected IUiText TextTitle = default!;
 
-        protected IUiText KeyHintText;
+        [UiStyled]
+        protected IUiText TextKeyHint = default!;
+
         protected UiWindowBacking Window;
         protected UiWindowBacking WindowShadow;
         protected UiTopicWindow TopicWindow;
@@ -42,53 +41,52 @@ namespace OpenNefia.Core.UI.Element
             this.XOffset = xOffset;
             this.YOffset = yOffset;
 
-            this.AssetTipIcons = new AssetDrawable(AssetDefOf.TipIcons);
-            this.ColorWindowBottomLine1 = ColorDefOf.WindowBottomLine1;
-            this.ColorWindowBottomLine2 = ColorDefOf.WindowBottomLine2;
-            this.FontWindowTitle = FontDefOf.WindowTitle;
-            this.FontWindowKeyHints = FontDefOf.WindowKeyHints;
+            this.AssetTipIcons = Assets.Get(AssetPrototypeOf.TipIcons);
 
-            this.TitleText = new UiText(this.FontWindowTitle);
-            this.KeyHintText = new UiText(this.FontWindowKeyHints, "hogepiyo");
             this.Window = new UiWindowBacking();
             this.WindowShadow = new UiWindowBacking(UiWindowBacking.WindowBackingType.Shadow);
             this.TopicWindow = new UiTopicWindow();
         }
 
-        public override void SetPosition(int x, int y)
+        public override void Initialize()
         {
-            base.SetPosition(x, y);
-
-            if (this.HasShadow)
-                this.WindowShadow.SetPosition(this.X + 4, this.Y + 4);
-
-            this.Window.SetPosition(x, y);
-
-            if (this.HasTitle)
-            {
-                this.TopicWindow.SetPosition(x + 34, y - 4);
-                this.TitleText.SetPosition(x + 45 * this.Width / 200 + 34 - this.TitleText.Width / 2 + Math.Clamp(this.TitleText.Width - 120, 0, 200), this.Y + 4);
-            }
-
-            this.KeyHintText.SetPosition(x + 58 + this.XOffset, y + this.Height - 43 - this.Height % 8);
+            this.TextKeyHint.Text = "hogepiyo";
         }
 
-        public override void SetSize(int width, int height)
+        public override void SetPosition(Vector2i pos)
         {
-            base.SetSize(width, height);
+            base.SetPosition(pos);
 
             if (this.HasShadow)
-                this.WindowShadow.SetSize(this.Width, this.Height);
+                this.WindowShadow.SetPosition(this.Left + 4, this.Top + 4);
 
-            this.Window.SetSize(this.Width, this.Height);
+            this.Window.SetPosition(pos);
 
             if (this.HasTitle)
             {
-                this.TopicWindow.SetSize(45 * this.Width / 100 + Math.Clamp(this.TitleText.Width - 120, 0, 200), 32);
-                this.TitleText.SetPreferredSize();
+                this.TopicWindow.SetPosition(pos.X + 34, pos.Y - 4);
+                this.TextTitle.SetPosition(pos.X + 45 * this.Width / 200 + 34 - this.TextTitle.Width / 2 + Math.Clamp(this.TextTitle.Width - 120, 0, 200), this.Top + 4);
             }
 
-            this.KeyHintText.SetPreferredSize();
+            this.TextKeyHint.SetPosition(pos.X + 58 + this.XOffset, pos.Y + this.Height - 43 - this.Height % 8);
+        }
+
+        public override void SetSize(Vector2i size)
+        {
+            base.SetSize(size);
+
+            if (this.HasShadow)
+                this.WindowShadow.SetSize(this.Size);
+
+            this.Window.SetSize(this.Size);
+
+            if (this.HasTitle)
+            {
+                this.TopicWindow.SetSize(45 * this.Width / 100 + Math.Clamp(this.TextTitle.Width - 120, 0, 200), 32);
+                this.TextTitle.SetPreferredSize();
+            }
+
+            this.TextKeyHint.SetPreferredSize();
         }
 
         public override void Update(float dt)
@@ -96,8 +94,8 @@ namespace OpenNefia.Core.UI.Element
             this.Window.Update(dt);
             this.WindowShadow.Update(dt);
             this.TopicWindow.Update(dt);
-            this.TitleText?.Update(dt);
-            this.KeyHintText.Update(dt);
+            this.TextTitle?.Update(dt);
+            this.TextKeyHint.Update(dt);
         }
 
         public override void Draw()
@@ -105,44 +103,44 @@ namespace OpenNefia.Core.UI.Element
             if (this.HasShadow)
             {
                 GraphicsEx.SetColor(255, 255, 255, 80);
-                Love.Graphics.SetBlendMode(BlendMode.Subtract);
+                Love.Graphics.SetBlendMode(Love.BlendMode.Subtract);
                 this.WindowShadow.Draw();
-                Love.Graphics.SetBlendMode(BlendMode.Alpha);
+                Love.Graphics.SetBlendMode(Love.BlendMode.Alpha);
             }
 
             GraphicsEx.SetColor(Color.White);
             this.Window.Draw();
 
-            this.AssetTipIcons.DrawRegion("1", this.X + 30 + this.XOffset, this.Y + this.Height - 47 - this.Height % 8);
+            this.AssetTipIcons.DrawRegion("1", this.Left + 30 + this.XOffset, this.Top + this.Height - 47 - this.Height % 8);
 
             if (this.HasTitle)
             {
                 this.TopicWindow.Draw();
-                this.TitleText.Draw();
+                this.TextTitle.Draw();
             }
 
-            GraphicsEx.SetColor(this.ColorWindowBottomLine1);
+            GraphicsEx.SetColor(this.ColorBottomLine1);
             Love.Graphics.Line(
-                this.X + 50 + this.XOffset,
-                this.Y + this.Height - 48 - this.Height % 8,
-                this.X + this.Width - 40,
-                this.Y + this.Height - 48 - this.Height % 8);
+                this.Left + 50 + this.XOffset,
+                this.Top + this.Height - 48 - this.Height % 8,
+                this.Left + this.Width - 40,
+                this.Top + this.Height - 48 - this.Height % 8);
 
-            GraphicsEx.SetColor(this.ColorWindowBottomLine2);
+            GraphicsEx.SetColor(this.ColorBottomLine2);
             Love.Graphics.Line(
-                this.X + 50 + this.XOffset,
-                this.Y + this.Height - 49 - this.Height % 8,
-                this.X + this.Width - 40,
-                this.Y + this.Height - 49 - this.Height % 8);
+                this.Left + 50 + this.XOffset,
+                this.Top + this.Height - 49 - this.Height % 8,
+                this.Left + this.Width - 40,
+                this.Top + this.Height - 49 - this.Height % 8);
 
-            this.KeyHintText.Draw();
+            this.TextKeyHint.Draw();
         }
 
         public override void Dispose()
         {
             this.AssetTipIcons.Dispose();
-            this.TitleText?.Dispose();
-            this.KeyHintText.Dispose();
+            this.TextTitle?.Dispose();
+            this.TextKeyHint.Dispose();
             this.Window.Dispose();
             this.WindowShadow.Dispose();
             this.TopicWindow.Dispose();

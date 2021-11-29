@@ -1,31 +1,25 @@
 ﻿using OpenNefia.Core.Data.Types;
+using OpenNefia.Core.Prototypes;
 using KeybindPrototypeID = OpenNefia.Core.Prototypes.PrototypeId<OpenNefia.Core.UI.KeybindPrototype>;
 
 namespace OpenNefia.Core.UI
 {
     public class KeybindTranslator
     {
-        private Dictionary<Keys, KeybindPrototypeID> Translations;
-        private HashSet<KeybindPrototypeID> AcceptedKeybinds;
-        private bool Dirty;
+        private Dictionary<Keys, IKeybind> _translations = new();
+        private HashSet<IKeybind> _acceptedKeybinds = new();
+        private bool _dirty = true;
 
-        public KeybindTranslator()
+        internal void Enable(IKeybind keybind)
         {
-            this.Translations = new Dictionary<Keys, KeybindPrototypeID>();
-            this.AcceptedKeybinds = new HashSet<KeybindPrototypeID>();
-            this.Dirty = true;
+            this._acceptedKeybinds.Add(keybind);
+            this._dirty = true;
         }
 
-        internal void Enable(KeybindPrototypeID keybind)
+        internal void Disable(IKeybind keybind)
         {
-            this.AcceptedKeybinds.Add(keybind);
-            this.Dirty = true;
-        }
-
-        internal void Disable(KeybindPrototypeID keybind)
-        {
-            this.AcceptedKeybinds.Remove(keybind);
-            this.Dirty = true;
+            this._acceptedKeybinds.Remove(keybind);
+            this._dirty = true;
         }
 
         public void Reload()
@@ -71,26 +65,31 @@ namespace OpenNefia.Core.UI
 
             this.BindKey(Keys.Backquote, Keybind.Repl);
 
-            this.Dirty = false;
+            this._dirty = false;
+        }
+
+        public void BindKey(Keys keyAndModifiers, IKeybind keybind)
+        {
+            if (this._acceptedKeybinds.Contains(keybind))
+            {
+                this._translations[keyAndModifiers] = keybind;
+            }
         }
 
         public void BindKey(Keys keyAndModifiers, KeybindPrototypeID keybind)
         {
-            if (this.AcceptedKeybinds.Contains(keybind))
-            {
-                this.Translations[keyAndModifiers] = keybind;
-            }
+            this.BindKey(keyAndModifiers, keybind.ResolvePrototype());
         }
 
-        public KeybindPrototypeID? KeyToKeybind(Keys keyAndModifiers)
+        public IKeybind? KeyToKeybind(Keys keyAndModifiers)
         {
-            if (this.Dirty)
+            if (this._dirty)
             {
                 // Get the list of all key bindings and bind only the ones that have actions set.
                 this.Reload();
             }
 
-            if (this.Translations.TryGetValue(keyAndModifiers, out KeybindPrototypeID? keybind))
+            if (this._translations.TryGetValue(keyAndModifiers, out IKeybind? keybind))
             {
                 return keybind;
             }

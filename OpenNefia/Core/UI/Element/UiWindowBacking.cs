@@ -1,5 +1,4 @@
-﻿using OpenNefia.Core.Data.Types;
-using OpenNefia.Core.Rendering;
+﻿using OpenNefia.Core.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -74,7 +73,7 @@ namespace OpenNefia.Core.UI.Element
                 parts.Add(new AssetBatchPart($"mid_right_{tile_y}", x_inner, dy * 8 + y + 48));
             }
 
-            this.AssetWindow = new AssetDrawable(AssetDefOf.Window, this.Width, this.Height);
+            this.AssetWindow = new AssetDrawable(AssetPrototypeOf.Window, this.Width, this.Height);
             this.Batch = this.AssetWindow.MakeBatch(parts);
         }
 
@@ -84,7 +83,7 @@ namespace OpenNefia.Core.UI.Element
 
         public override void Draw()
         {
-            GraphicsEx.DrawSpriteBatch(this.Batch!, this.X, this.Y);
+            GraphicsEx.DrawSpriteBatch(this.Batch!, this.Left, this.Top);
         }
 
         public override void Dispose()

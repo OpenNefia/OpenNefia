@@ -1,9 +1,9 @@
 ﻿using Love;
 using OpenNefia.Core.Game;
-using OpenNefia.Core.Map;
+using OpenNefia.Core.GameController;
+using OpenNefia.Core.IoC;
 using OpenNefia.Core.Maps;
 using OpenNefia.Core.UI.Element;
-using OpenNefia.Game;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,18 +13,18 @@ namespace OpenNefia.Core.Rendering
 {
     public class MapDrawables : BaseDrawable
     {
-        private class MapDrawableEntry : IComparable<MapDrawableEntry>
+        private class Entry : IComparable<Entry>
         {
             public IMapDrawable Drawable;
             public int ZOrder;
 
-            public MapDrawableEntry(IMapDrawable drawable, int zOrder = 0)
+            public Entry(IMapDrawable drawable, int zOrder = 0)
             {
                 Drawable = drawable;
                 ZOrder = zOrder;
             }
 
-            public int CompareTo(MapDrawableEntry? other)
+            public int CompareTo(Entry? other)
             {
                 if (ZOrder == other?.ZOrder)
                 {
@@ -34,18 +34,24 @@ namespace OpenNefia.Core.Rendering
             }
         }
 
-        private SortedSet<MapDrawableEntry> Active = new SortedSet<MapDrawableEntry>();
+        [Dependency] private readonly IGameController _gameController = default!;
+
+        private SortedSet<Entry> Active = new();
+
+        public MapDrawables(IGameController gameController)
+        {
+            _gameController = gameController;
+        }
 
         public void Enqueue(IMapDrawable drawable, MapCoordinates? pos, int zOrder = 0)
         {
-            if (pos == null || pos.Value.MapId != GameSession.ActiveMap.Id)
+            if (pos == null || pos.Value.Map != GameSession.ActiveMap)
                 return;
 
-            GameSession.Coords.TileToScreen(pos.Value.X, pos.Value.Y, out var screenX, out var screenY);
-            drawable.ScreenLocalX = screenX;
-            drawable.ScreenLocalY = screenY;
+            GameSession.Coords.TileToScreen(pos.Value.Position, out var screenPos);
+            drawable.ScreenLocalPos = screenPos;
             drawable.OnEnqueue();
-            Active.Add(new MapDrawableEntry(drawable, zOrder));
+            Active.Add(new Entry(drawable, zOrder));
         }
 
         public void Clear()
@@ -62,12 +68,12 @@ namespace OpenNefia.Core.Rendering
         {
             while (HasActiveDrawables())
             {
-                var dt = Timer.GetDelta();
-                Engine.Instance.Update(dt);
+                var dt = Love.Timer.GetDelta();
+                _gameController.Update(dt);
                 this.Update(dt);
 
-                Engine.Instance.Draw();
-                Engine.Instance.SystemStep();
+                _gameController.Draw();
+                _gameController.SystemStep();
             }
         }
 
@@ -77,7 +83,7 @@ namespace OpenNefia.Core.Rendering
             {
                 var drawable = entry.Drawable;
                 drawable.Update(dt);
-                drawable.SetPosition(this.X + drawable.ScreenLocalX, this.Y + drawable.ScreenLocalY);
+                drawable.SetPosition(this.TopLeft + drawable.ScreenLocalPos);
             }
 
             Active.RemoveWhere(entry => entry.Drawable.IsFinished);

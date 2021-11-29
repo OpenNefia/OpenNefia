@@ -1,4 +1,4 @@
-﻿using OpenNefia.Core.Data.Types;
+﻿using OpenNefia.Core.Audio;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Core.UI.Element;
 using System;
@@ -34,7 +34,7 @@ namespace OpenNefia.Core.UI.Layer
 
         private float ProgressPercent => Math.Clamp((float)this.StepNumber / (float)this.Job.NumberOfSteps, 0f, 1f);
 
-        private FontDef FontListText;
+        private FontSpec FontListText;
         private ColorDef ColorTextBlack;
         private IUiText TextStatus;
         private UiWindow Window;
@@ -64,7 +64,7 @@ namespace OpenNefia.Core.UI.Layer
 
         public override void OnQuery()
         {
-            Sounds.PlayOneShot(SoundDefOf.Pop2);
+            Sounds.Play(SoundPrototypeOf.Pop2);
         }
 
         public override void SetSize(int width, int height)
@@ -77,7 +77,7 @@ namespace OpenNefia.Core.UI.Layer
         {
             base.SetPosition(x, y);
             this.Window.SetPosition(x, y);
-            this.TextStatus.SetPosition(this.X + this.Width / 2 - this.TextStatus.Width / 2, this.Y + this.Height / 2 - this.TextStatus.Height * 3);
+            this.TextStatus.SetPosition(this.Left + this.Width / 2 - this.TextStatus.Width / 2, this.Top + this.Height / 2 - this.TextStatus.Height * 3);
         }
 
         public override void GetPreferredBounds(out int x, out int y, out int width, out int height)
@@ -100,7 +100,7 @@ namespace OpenNefia.Core.UI.Layer
                 if (this.AdvanceStep())
                 {
                     this.TextStatus.Text = this.Steps.Current.Text;
-                    this.SetPosition(X, Y);
+                    this.SetPosition(Left, Top);
                 }
             }
             else if (Steps.Current.Task.IsCompleted)
@@ -119,8 +119,8 @@ namespace OpenNefia.Core.UI.Layer
             this.TextStatus.Draw();
 
             GraphicsEx.SetColor(this.ColorTextBlack);
-            Love.Graphics.Rectangle(Love.DrawMode.Line, this.X + 30, this.Y + this.Height / 2 - 10, this.Width - 60, 20);
-            Love.Graphics.Rectangle(Love.DrawMode.Fill, this.X + 30, this.Y + this.Height / 2 - 10, (int)((this.Width - 60) * this.ProgressPercent), 20);
+            Love.Graphics.Rectangle(Love.DrawMode.Line, this.Left + 30, this.Top + this.Height / 2 - 10, this.Width - 60, 20);
+            Love.Graphics.Rectangle(Love.DrawMode.Fill, this.Left + 30, this.Top + this.Height / 2 - 10, (int)((this.Width - 60) * this.ProgressPercent), 20);
         }
 
         public override void Dispose()

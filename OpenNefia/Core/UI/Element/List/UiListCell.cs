@@ -1,5 +1,4 @@
 ﻿using Love;
-using OpenNefia.Core.Data.Types;
 using OpenNefia.Core.Rendering;
 using System;
 using System.Collections.Generic;
@@ -44,7 +43,7 @@ namespace OpenNefia.Core.UI.Element.List
 
         protected AssetDrawable AssetListBullet;
         public AssetDrawable AssetSelectKey;
-        protected FontDef FontListKeyName;
+        protected FontSpec FontListKeyName;
         public ColorDef ColorSelectedAdd;
         public ColorDef ColorSelectedSub;
 
@@ -53,8 +52,8 @@ namespace OpenNefia.Core.UI.Element.List
             this.Data = data;
             this.UiText = text;
 
-            this.AssetSelectKey = new AssetDrawable(AssetDefOf.SelectKey);
-            this.AssetListBullet = new AssetDrawable(AssetDefOf.ListBullet);
+            this.AssetSelectKey = new AssetDrawable(AssetPrototypeOf.SelectKey);
+            this.AssetListBullet = new AssetDrawable(AssetPrototypeOf.ListBullet);
             this.FontListKeyName = FontDefOf.ListKeyName;
             this.ColorSelectedAdd = ColorDefOf.ListSelectedAdd;
             this.ColorSelectedSub = ColorDefOf.ListSelectedSub;
@@ -76,7 +75,7 @@ namespace OpenNefia.Core.UI.Element.List
             this.UiText.SetPosition(x + this.AssetSelectKey.Width + 2 + 4 + this.XOffset, y);
 
             var keyNameX = x + (this.AssetSelectKey.Width - this.KeyNameText.Width) / 2 - 2;
-            var keyNameY = y + (this.AssetSelectKey.Height - GraphicsEx.GetTextHeight()) / 2 - 1;
+            var keyNameY = y + (this.AssetSelectKey.Height - Love.Graphics.GetFont().GetHeight()) / 2 - 1;
             this.KeyNameText.SetPosition(keyNameX, keyNameY);
         }
 
@@ -93,19 +92,19 @@ namespace OpenNefia.Core.UI.Element.List
             var width = Math.Clamp(this.UiText.TextWidth + this.AssetSelectKey.Width + 8 + this.XOffset, 10, 480);
             Love.Graphics.SetBlendMode(Love.BlendMode.Subtract);
             GraphicsEx.SetColor(this.ColorSelectedSub);
-            Love.Graphics.Rectangle(Love.DrawMode.Fill, this.UiText.X - 4, this.UiText.Y - 2, width, 19);
+            Love.Graphics.Rectangle(Love.DrawMode.Fill, this.UiText.Left - 4, this.UiText.Top - 2, width, 19);
             Love.Graphics.SetBlendMode(Love.BlendMode.Add);
             GraphicsEx.SetColor(this.ColorSelectedAdd);
-            Love.Graphics.Rectangle(Love.DrawMode.Fill, this.UiText.X - 3, this.UiText.Y - 1, width - 2, 17);
+            Love.Graphics.Rectangle(Love.DrawMode.Fill, this.UiText.Left - 3, this.UiText.Top - 1, width - 2, 17);
             Love.Graphics.SetBlendMode(Love.BlendMode.Alpha);
             GraphicsEx.SetColor(Love.Color.White);
-            this.AssetListBullet.Draw(this.UiText.X - 5 + width - 20, this.UiText.Y + 2);
+            this.AssetListBullet.Draw(this.UiText.Left - 5 + width - 20, this.UiText.Top + 2);
         }
 
         public override void Draw()
         {
             GraphicsEx.SetColor(Love.Color.White);
-            this.AssetSelectKey.Draw(this.X, this.Y - 1);
+            this.AssetSelectKey.Draw(this.Left, this.Top - 1);
             this.KeyNameText.Draw();
             this.UiText.Draw();
         }

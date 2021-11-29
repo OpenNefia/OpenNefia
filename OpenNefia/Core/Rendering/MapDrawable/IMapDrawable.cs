@@ -8,7 +8,7 @@ namespace OpenNefia.Core.Rendering
     {
         public bool IsFinished { get; }
         public MapId MapId { get; }
-        public Vector2i ScreenLocalPos { get; }
+        public Vector2i ScreenLocalPos { get; set; }
 
         public bool CanEnqueue();
         public void OnEnqueue();

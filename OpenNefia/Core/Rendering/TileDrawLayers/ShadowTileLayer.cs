@@ -21,16 +21,16 @@ namespace OpenNefia.Core.Rendering.TileDrawLayers
         {
         }
 
-        public override void SetSize(int width = 0, int height = 0)
+        public override void SetSize(Vector2i size)
         {
-            base.SetSize(width, height);
-            this.Batch.SetSize(width, height);
+            base.SetSize(size);
+            this.Batch.SetSize(size);
         }
 
-        public override void SetPosition(int x = 0, int y = 0)
+        public override void SetPosition(Vector2i pos)
         {
-            base.SetPosition(x, y);
-            this.Batch.SetPosition(x, y);
+            base.SetPosition(pos);
+            this.Batch.SetPosition(pos);
         }
 
         public override void RedrawAll()

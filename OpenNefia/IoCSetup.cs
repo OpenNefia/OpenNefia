@@ -47,6 +47,7 @@ namespace Why
             IoCManager.Register<IAtlasManager, AtlasManager>();
             IoCManager.Register<IUiLayerManager, UiLayerManager>();
             IoCManager.Register<IRandom, SysRandom>();
+            IoCManager.Register<IFontManager, FontManager>();
             IoCManager.Register<IGameSessionManager, GameSessionManager>();
             IoCManager.Register<IGameController, GameController>();
         }

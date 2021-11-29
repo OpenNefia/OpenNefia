@@ -1,8 +1,10 @@
 ﻿using OpenNefia.Core.IoC;
 using OpenNefia.Core.Locale;
+using OpenNefia.Core.Serialization.Manager.Attributes;
 
 namespace OpenNefia.Core.UI.Element
 {
+    [ImplicitDataDefinitionForInheritors]
     public abstract class BaseUiElement : BaseDrawable, IUiDefaultSizeable, ILocalizable
     {
         public bool IsLocalized { get; private set; }
@@ -11,6 +13,13 @@ namespace OpenNefia.Core.UI.Element
         {
             width = 64;
             height = 64;
+        }
+
+        /// <summary>
+        /// Called after <see cref="UiStyled" /> fields are applied to this element.
+        /// </summary>
+        public virtual void Initialize()
+        {
         }
 
         public void SetPreferredSize()

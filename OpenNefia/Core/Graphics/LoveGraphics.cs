@@ -1,6 +1,7 @@
 ﻿using System;
 using Love;
 using OpenNefia.Core.Maths;
+using OpenNefia.Core.UI;
 using Timer = Love.Timer;
 
 namespace OpenNefia.Core.Graphics
@@ -100,12 +101,12 @@ namespace OpenNefia.Core.Graphics
 
         public override void MousePressed(float x, float y, int button, bool isTouch)
         {
-            OnMousePressed?.Invoke(new MousePressedEventArgs(new Vector2(x, y), button, isTouch, true));
+            OnMousePressed?.Invoke(new MousePressedEventArgs(new Vector2(x, y), (MouseButtons)button, isTouch, true));
         }
 
         public override void MouseReleased(float x, float y, int button, bool isTouch)
         {
-            OnMouseReleased?.Invoke(new MousePressedEventArgs(new Vector2(x, y), button, isTouch, false));
+            OnMouseReleased?.Invoke(new MousePressedEventArgs(new Vector2(x, y), (MouseButtons)button, isTouch, false));
         }
 
         #endregion

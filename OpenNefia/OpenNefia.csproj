@@ -19,7 +19,6 @@
     <PackageReference Include="Serilog" Version="2.11.0-dev-01371" />
     <PackageReference Include="TextCopy" Version="4.3.1" />
     <PackageReference Include="YamlDotNet" Version="11.2.1" />
-	<PackageReference Include="Microsoft.CodeAnalysis.Common" Version="4.0.1" />
   </ItemGroup>
 	
   <Import Project="..\MSBuild\OpenNefia.DefineConstants.targets" />

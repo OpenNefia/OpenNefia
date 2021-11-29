@@ -25,22 +25,22 @@ namespace OpenNefia.Core.UI
             parent.Keybinds[Keybind.UIRight].BindKey((state) => this.MoveRight(state), trackReleased: true);
         }
 
-        private void MoveUp(KeyInputEvent evt)
+        private void MoveUp(UiKeyInputEventArgs evt)
         {
             this.Up = (evt.State != KeyPressState.Released);
         }
 
-        private void MoveDown(KeyInputEvent evt)
+        private void MoveDown(UiKeyInputEventArgs evt)
         {
             this.Down = (evt.State != KeyPressState.Released);
         }
 
-        private void MoveLeft(KeyInputEvent evt)
+        private void MoveLeft(UiKeyInputEventArgs evt)
         {
             this.Left = (evt.State != KeyPressState.Released);
         }
 
-        private void MoveRight(KeyInputEvent evt)
+        private void MoveRight(UiKeyInputEventArgs evt)
         {
             this.Right = (evt.State != KeyPressState.Released);
         }

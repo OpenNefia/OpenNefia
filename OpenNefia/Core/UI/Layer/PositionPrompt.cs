@@ -36,7 +36,7 @@ namespace OpenNefia.Core.UI.Layer
         bool IsPanning = false;
 
         ColorDef ColorTargetedTile;
-        FontDef FontTargetText;
+        FontSpec FontTargetText;
         IUiText TextTarget;
 
         public PositionPrompt(MapCoordinates origin, MapCoordinates? target = null, IEntity? onlooker = null)

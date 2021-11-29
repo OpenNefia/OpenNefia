@@ -1,5 +1,8 @@
 ﻿using Love;
+using OpenNefia.Core.Audio;
 using OpenNefia.Core.Data.Types;
+using OpenNefia.Core.Maths;
+using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Rendering;
 using System;
 using System.Collections;
@@ -103,9 +106,9 @@ namespace OpenNefia.Core.UI.Element.List
                 IKeybind keybind;
                 if (choiceKey.UseKeybind)
                 {
-                    if (Keybinds.SelectionKeys.ContainsKey(choiceKey.Key))
+                    if (Keybind.SelectionKeys.ContainsKey(choiceKey.Key))
                     {
-                        keybind = Keybinds.SelectionKeys[choiceKey.Key];
+                        keybind = Keybind.SelectionKeys[choiceKey.Key].ResolvePrototype();
                     }
                     else
                     {
@@ -124,12 +127,12 @@ namespace OpenNefia.Core.UI.Element.List
 
             this.Keybinds[Keybind.UIUp] += (_) =>
             {
-                Sounds.PlayOneShot(SoundDefOf.Cursor1);
+                Sounds.Play(SoundPrototypeOf.Cursor1);
                 this.IncrementIndex(-1);
             };
             this.Keybinds[Keybind.UIDown] += (_) =>
             {
-                Sounds.PlayOneShot(SoundDefOf.Cursor1);
+                Sounds.Play(SoundPrototypeOf.Cursor1);
                 this.IncrementIndex(1);
             };
             this.Keybinds[Keybind.Enter] += (_) => this.Activate(this.SelectedIndex);
@@ -138,11 +141,11 @@ namespace OpenNefia.Core.UI.Element.List
             {
                 for (var index = 0; index < this.Cells.Count; index++)
                 {
-                    if (this.Cells[index].ContainsPoint(evt.X, evt.Y))
+                    if (this.Cells[index].ContainsPoint(evt.Pos))
                     {
                         if (this.SelectedIndex != index)
                         {
-                            Sounds.PlayOneShot(SoundDefOf.Cursor1);
+                            Sounds.Play(SoundPrototypeOf.Cursor1);
                             this.Select(index);
                         }
                         break;
@@ -152,7 +155,7 @@ namespace OpenNefia.Core.UI.Element.List
 
             this.MouseButtons[UI.MouseButtons.Mouse1] += (evt) =>
             {
-                if (this.SelectedCell.ContainsPoint(evt.X, evt.Y))
+                if (this.SelectedCell.ContainsPoint(evt.Pos))
                 {
                     this.Activate(this.SelectedIndex);
                 }
@@ -236,17 +239,17 @@ namespace OpenNefia.Core.UI.Element.List
 
         #region UI Handling
 
-        public override void SetPosition(int x, int y)
+        public override void SetPosition(Vector2i pos)
         {
-            base.SetPosition(x, y);
+            base.SetPosition(pos);
 
-            var iy = this.Y;
+            var iy = this.Top;
 
             for (int index = 0; index < this.Count; index++)
             {
                 var cell = this.Cells[index];
                 cell.XOffset = this.ItemOffsetX;
-                cell.SetPosition(this.X, iy);
+                cell.SetPosition(this.Left, iy);
 
                 iy += cell.Height;
             }
@@ -266,17 +269,17 @@ namespace OpenNefia.Core.UI.Element.List
             }
         }
 
-        public override void SetSize(int width = 0, int height = 0)
+        public override void SetSize(Vector2i size)
         {
             for (int index = 0; index < this.Count; index++)
             {
                 var cell = this.Cells[index];
                 cell.GetPreferredSize(out var _, out var ch);
-                cell.SetSize(width, Math.Max(ch, this.ItemHeight));
-                width = Math.Max(width, cell.Width);
+                cell.SetSize(size.X, Math.Max(ch, this.ItemHeight));
+                size.X = Math.Max(size.X, cell.Width);
             }
 
-            base.SetSize(width, height);
+            base.SetSize(size);
         }
         
         public override void Update(float dt)

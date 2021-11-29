@@ -1,4 +1,6 @@
 ﻿using OpenNefia.Core.Data.Types;
+using OpenNefia.Core.Graphics;
+using OpenNefia.Core.Maths;
 using System;
 using System.Collections.Generic;
 
@@ -8,30 +10,30 @@ namespace OpenNefia.Core.UI
     {
         private class KeyAction
         {
-            private Action<KeyInputEvent> Callback;
+            private Action<UiKeyInputEventArgs> Callback;
             public bool TrackReleased { get; private set; }
 
-            public KeyAction(Action<KeyInputEvent> func, bool trackReleased)
+            public KeyAction(Action<UiKeyInputEventArgs> func, bool trackReleased)
             {
                 this.Callback = func;
                 this.TrackReleased = trackReleased;
             }
 
-            public void Run(KeyInputEvent evt) => this.Callback(evt);
+            public void Run(UiKeyInputEventArgs evt) => this.Callback(evt);
         }
 
         private class MouseButtonAction
         {
-            private Action<MouseButtonEvent> Callback;
+            private Action<UiMousePressedEventArgs> Callback;
             public bool TrackReleased { get; private set; }
 
-            public MouseButtonAction(Action<MouseButtonEvent> func, bool trackReleased)
+            public MouseButtonAction(Action<UiMousePressedEventArgs> func, bool trackReleased)
             {
                 this.Callback = func;
                 this.TrackReleased = trackReleased;
             }
 
-            public void Run(MouseButtonEvent evt) => this.Callback(evt);
+            public void Run(UiMousePressedEventArgs evt) => this.Callback(evt);
         }
 
         private class KeyRepeatDelay
@@ -58,77 +60,44 @@ namespace OpenNefia.Core.UI
             }
         }
 
-        private HashSet<Keys> KeysPressed;
-        private HashSet<MouseButtons> MousePressed;
-        private List<MouseButtonPress> MousePressedThisFrame;
-        private List<MouseButtonPress> MouseUnpressedThisFrame;
-        private Dictionary<Keys, KeyRepeatDelay> RepeatDelays;
-        private HashSet<Keys> UnpressedThisFrame;
+        private HashSet<Keys> KeysPressed = new();
+        private HashSet<MouseButtons> MousePressed = new();
+        private List<MousePressedEventArgs> MousePressedThisFrame = new();
+        private List<MousePressedEventArgs> MouseUnpressedThisFrame = new();
+        private Dictionary<Keys, KeyRepeatDelay> RepeatDelays = new();
+        private HashSet<Keys> UnpressedThisFrame = new();
         private Keys Modifiers;
-        private List<IInputHandler> Forwards;
-        private Dictionary<IKeybind, KeyAction> Actions;
-        private Action<TextInputEvent>? TextInputHandler;
-        private Dictionary<MouseButtons, MouseButtonAction> MouseButtonActions;
-        private Action<MouseMovedEvent>? MouseMovedHandler;
-        private KeybindTranslator Keybinds;
+        private List<IInputHandler> Forwards = new();
+        private Dictionary<IKeybind, KeyAction> Actions = new();
+        private Action<UiTextInputEventArgs>? TextInputHandler;
+        private Dictionary<MouseButtons, MouseButtonAction> MouseButtonActions = new();
+        private Action<UiMouseMovedEventArgs>? MouseMovedHandler;
+        private KeybindTranslator Keybinds = new();
         private bool Halted;
         private bool StopHalt;
-        private string? TextInputThisFrame;
+        private TextInputEventArgs? TextInputThisFrame;
         private bool EnterReceivedThisFrame;
-        private bool WasMouseMovedThisFrame;
-        private int MouseMovedXThisFrame;
-        private int MouseMovedYThisFrame;
-        private int MouseMovedDXThisFrame;
-        private int MouseMovedDYThisFrame;
+        private MouseMovedEventArgs? MouseMovedThisFrame;
 
         public bool NoShiftDelay { get; set; }
         public int KeyHeldFrames { get; private set; }
         public bool TextInputEnabled { get; set; }
 
-        public InputHandler()
-        {
-            this.KeysPressed = new HashSet<Keys>();
-            this.MousePressedThisFrame = new List<MouseButtonPress>();
-            this.MouseUnpressedThisFrame = new List<MouseButtonPress>();
-            this.MousePressed = new HashSet<MouseButtons>();
-            this.RepeatDelays = new Dictionary<Keys, KeyRepeatDelay>();  
-            this.UnpressedThisFrame = new HashSet<Keys>();
-            this.Modifiers = Keys.None;
-            this.Forwards = new List<IInputHandler>();
-            this.Actions = new Dictionary<IKeybind, KeyAction>();
-            this.Keybinds = new KeybindTranslator();
-            this.Halted = false;
-            this.StopHalt = false;
-            this.NoShiftDelay = false;
-            this.KeyHeldFrames = 0;
-            this.TextInputEnabled = false;
-            this.TextInputThisFrame = null;
-            this.EnterReceivedThisFrame = false;
-            this.TextInputHandler = null;
-            this.MouseButtonActions = new Dictionary<MouseButtons, MouseButtonAction>();
-            this.MouseMovedHandler = null;
-            this.WasMouseMovedThisFrame = false;
-            this.MouseMovedXThisFrame = 0;
-            this.MouseMovedYThisFrame = 0;
-            this.MouseMovedDXThisFrame = 0;
-            this.MouseMovedDYThisFrame = 0;
-        }
-
         /// <inheritdoc />
-        public void ReceiveKeyPressed(Love.KeyConstant loveKey, bool isRepeat)
+        public void ReceiveKeyPressed(KeyPressedEventArgs args)
         {
             foreach (var forward in this.Forwards)
             {
-                forward.ReceiveKeyPressed(loveKey, isRepeat);
+                forward.ReceiveKeyPressed(args);
             }
 
-            if (this.Halted && isRepeat) {
+            if (this.Halted && args.IsRepeat) {
                 return;
             }
 
-            var key = (Keys)loveKey;
+            var key = (Keys)args.Key;
 
-            var modifier = InputUtils.GetModifier(loveKey);
+            var modifier = InputUtils.GetModifier(args.Key);
             if (modifier.HasValue)
             {
                 this.Modifiers |= modifier.Value;
@@ -149,23 +118,23 @@ namespace OpenNefia.Core.UI
             // frame. Therefore, text shouldn't be submitted if a "return"
             // keypress event is not the very last event received in this
             // frame.
-            if (this.TextInputThisFrame == null && loveKey == Love.KeyConstant.Enter)
+            if (this.TextInputThisFrame == null && args.Key == Love.KeyConstant.Enter)
             {
                 this.EnterReceivedThisFrame = true;
             }
         }
 
         /// <inheritdoc />
-        public void ReceiveKeyReleased(Love.KeyConstant loveKey)
+        public void ReceiveKeyReleased(KeyPressedEventArgs args)
         {
             foreach (var forward in this.Forwards)
             {
-                forward.ReceiveKeyReleased(loveKey);
+                forward.ReceiveKeyReleased(args);
             }
 
-            var key = (Keys)loveKey;
+            var key = (Keys)args.Key;
 
-            var modifier = InputUtils.GetModifier(loveKey);
+            var modifier = InputUtils.GetModifier(args.Key);
             if (modifier.HasValue)
             {
                 this.Modifiers &= ~modifier.Value;
@@ -178,11 +147,11 @@ namespace OpenNefia.Core.UI
         }
 
         /// <inheritdoc />
-        public void ReceiveTextInput(string text)
+        public void ReceiveTextInput(TextInputEventArgs args)
         {
             foreach (var forward in this.Forwards)
             {
-                forward.ReceiveTextInput(text);
+                forward.ReceiveTextInput(args);
             }
 
             if (!this.TextInputEnabled)
@@ -197,26 +166,22 @@ namespace OpenNefia.Core.UI
                 this.EnterReceivedThisFrame = false;
             }
 
-            this.TextInputThisFrame = text;
+            this.TextInputThisFrame = args;
         }
 
-        public void ReceiveMouseMoved(float x, float y, float dx, float dy, bool isTouch)
+        public void ReceiveMouseMoved(MouseMovedEventArgs args)
         {
-            this.WasMouseMovedThisFrame = true;
-            this.MouseMovedXThisFrame = (int)x;
-            this.MouseMovedYThisFrame = (int)y;
-            this.MouseMovedDXThisFrame = (int)dx;
-            this.MouseMovedDYThisFrame = (int)dy;
+            this.MouseMovedThisFrame = args;
         }
 
-        public void ReceiveMousePressed(float x, float y, int button, bool isTouch)
+        public void ReceiveMousePressed(MousePressedEventArgs args)
         {
-            this.MousePressedThisFrame.Add(new MouseButtonPress((MouseButtons)button, (int)x, (int)y));
+            this.MousePressedThisFrame.Add(args);
         }
 
-        public void ReceiveMouseReleased(float x, float y, int button, bool isTouch)
+        public void ReceiveMouseReleased(MousePressedEventArgs args)
         {
-            this.MouseUnpressedThisFrame.Add(new MouseButtonPress((MouseButtons)button, (int)x, (int)y));
+            this.MouseUnpressedThisFrame.Add(args);
         }
 
         public void HaltInput()
@@ -227,7 +192,7 @@ namespace OpenNefia.Core.UI
             }
             foreach (var button in this.MousePressed)
             {
-                this.ReleaseMouseButton(new MouseButtonPress(button, (int)Love.Mouse.GetX(), (int)Love.Mouse.GetY()));
+                this.ReleaseMouseButton(new MousePressedEventArgs(new Vector2i((int)Love.Mouse.GetX(), (int)Love.Mouse.GetY()), button, false, false));
             }
 
             this.RepeatDelays.Clear();
@@ -239,11 +204,7 @@ namespace OpenNefia.Core.UI
             this.KeyHeldFrames = 0;
             this.TextInputThisFrame = null;
             this.EnterReceivedThisFrame = false;
-            this.WasMouseMovedThisFrame = false;
-            this.MouseMovedXThisFrame = 0;
-            this.MouseMovedYThisFrame = 0;
-            this.MouseMovedDXThisFrame = 0;
-            this.MouseMovedDYThisFrame = 0;
+            this.MouseMovedThisFrame = null;
 
             foreach (var forward in this.Forwards)
             {
@@ -396,7 +357,7 @@ namespace OpenNefia.Core.UI
                                 if (isRepeating && state == KeyPressState.Pressed)
                                     state = KeyPressState.Repeated;
 
-                                var evt = new KeyInputEvent(state);
+                                var evt = new UiKeyInputEventArgs(keybind, state);
                                 action.Run(evt);
                                 if (!evt.Passed)
                                 {
@@ -420,11 +381,11 @@ namespace OpenNefia.Core.UI
             return false;
         }
 
-        public bool RunMouseAction(MouseButtonPress press)
+        public bool RunMouseAction(MousePressedEventArgs press)
         {
             if (this.MouseButtonActions.TryGetValue(press.Button, out MouseButtonAction? action))
             {
-                var evt = new MouseButtonEvent(KeyPressState.Pressed, press.Button, press.X, press.Y);
+                var evt = new UiMousePressedEventArgs(press.Button, KeyPressState.Pressed, (Vector2i)press.Pos);
                 action.Run(evt);
                 if (!evt.Passed)
                 {
@@ -443,11 +404,11 @@ namespace OpenNefia.Core.UI
             return false;
         }
 
-        public bool RunTextInputAction(string text)
+        public bool RunTextInputAction(TextInputEventArgs args)
         {
             if (this.TextInputHandler != null)
             {
-                var evt = new TextInputEvent(text);
+                var evt = new UiTextInputEventArgs(args.Text);
                 this.TextInputHandler(evt);
                 if (!evt.Passed)
                 {
@@ -457,7 +418,7 @@ namespace OpenNefia.Core.UI
 
             foreach (var forward in this.Forwards)
             {
-                if (forward.RunTextInputAction(text))
+                if (forward.RunTextInputAction(args.Text))
                 {
                     return true;
                 }
@@ -466,11 +427,11 @@ namespace OpenNefia.Core.UI
             return false;
         }
 
-        public bool RunMouseMovedAction(int x, int y, int dx, int dy)
+        public bool RunMouseMovedAction(MouseMovedEventArgs args)
         {
             if (this.MouseMovedHandler != null)
             {
-                var evt = new MouseMovedEvent(x, y, dx, dy);
+                var evt = new UiMouseMovedEventArgs((Vector2i)args.Pos, (Vector2i)args.DPos);
                 this.MouseMovedHandler(evt);
                 if (!evt.Passed)
                 {
@@ -480,7 +441,7 @@ namespace OpenNefia.Core.UI
 
             foreach (var forward in this.Forwards)
             {
-                if (forward.RunMouseMovedAction(x, y, dx, dy))
+                if (forward.RunMouseMovedAction(args))
                 {
                     return true;
                 }
@@ -489,7 +450,7 @@ namespace OpenNefia.Core.UI
             return false;
         }
 
-        public void BindKey(IKeybind keybind, Action<KeyInputEvent> handler, bool trackReleased = false)
+        public void BindKey(IKeybind keybind, Action<UiKeyInputEventArgs> handler, bool trackReleased = false)
         {
             this.Actions[keybind] = new KeyAction(handler, trackReleased);
             this.Keybinds.Enable(keybind);
@@ -501,7 +462,7 @@ namespace OpenNefia.Core.UI
             this.Keybinds.Disable(keybind);
         }
 
-        public void BindMouseButton(MouseButtons button, Action<MouseButtonEvent> handler, bool trackReleased = false)
+        public void BindMouseButton(MouseButtons button, Action<UiMousePressedEventArgs> handler, bool trackReleased = false)
         {
             this.MouseButtonActions[button] = new MouseButtonAction(handler, trackReleased);
         }
@@ -511,7 +472,7 @@ namespace OpenNefia.Core.UI
             this.MouseButtonActions.Remove(button);
         }
 
-        public void BindMouseMoved(Action<MouseMovedEvent> handler)
+        public void BindMouseMoved(Action<UiMouseMovedEventArgs> handler)
         {
             this.MouseMovedHandler = handler;
         }
@@ -521,7 +482,7 @@ namespace OpenNefia.Core.UI
             this.MouseMovedHandler = null;
         }
 
-        public void BindTextInput(Action<TextInputEvent> handler)
+        public void BindTextInput(Action<UiTextInputEventArgs> handler)
         {
             this.TextInputHandler = handler;
         }
@@ -536,20 +497,24 @@ namespace OpenNefia.Core.UI
             return (this.Modifiers & modifier) == modifier;
         }
 
-        public void ReleaseKey(Keys key)
+        public void ReleaseKey(Keys key, bool runEvents = true)
         {
             this.KeysPressed.Remove(key);
 
             if (this.RepeatDelays.TryGetValue(key & (~Keys.AllModifiers), out var repeatDelay))
             {
-                foreach (var activeKeybind in repeatDelay.ActiveKeybinds)
+                if (runEvents)
                 {
-                    if (this.Actions.TryGetValue(activeKeybind, out KeyAction? action))
+                    foreach (var activeKeybind in repeatDelay.ActiveKeybinds)
                     {
-                        if (action.TrackReleased)
+                        if (this.Actions.TryGetValue(activeKeybind, out KeyAction? action))
                         {
-                            var evt = new KeyInputEvent(KeyPressState.Released);
-                            action.Run(evt);
+                            if (action.TrackReleased)
+                            {
+                                var evt = new UiKeyInputEventArgs(activeKeybind, KeyPressState.Released);
+                                action.Run(evt);
+                                runEvents = evt.Passed;
+                            }
                         }
                     }
                 }
@@ -559,26 +524,27 @@ namespace OpenNefia.Core.UI
 
             foreach (var forward in this.Forwards)
             {
-                forward.ReleaseKey(key);
+                forward.ReleaseKey(key, runEvents);
             }
         }
 
-        public void ReleaseMouseButton(MouseButtonPress press)
+        public void ReleaseMouseButton(MousePressedEventArgs press, bool runEvents = true)
         {
             this.MousePressed.Remove(press.Button);
 
-            if (this.MouseButtonActions.TryGetValue(press.Button, out var action))
+            if (runEvents && this.MouseButtonActions.TryGetValue(press.Button, out var action))
             {
                 if (action.TrackReleased)
                 {
-                    var evt = new MouseButtonEvent(KeyPressState.Released, press.Button, press.X, press.Y);
+                    var evt = new UiMousePressedEventArgs(press.Button, KeyPressState.Released, (Vector2i)Love.Mouse.GetPosition());
                     action.Run(evt);
+                    runEvents = evt.Passed;
                 }
             }
 
             foreach (var forward in this.Forwards)
             {
-                forward.ReleaseMouseButton(press);
+                forward.ReleaseMouseButton(press, runEvents);
             }
         }
 
@@ -613,18 +579,18 @@ namespace OpenNefia.Core.UI
                 this.RunMouseAction(press);
             }
 
-            if (this.WasMouseMovedThisFrame)
+            if (this.MouseMovedThisFrame != null)
             {
-                this.RunMouseMovedAction(this.MouseMovedXThisFrame, this.MouseMovedYThisFrame, this.MouseMovedDXThisFrame, this.MouseMovedDYThisFrame);
+                this.RunMouseMovedAction(this.MouseMovedThisFrame.Value);
 
-                this.WasMouseMovedThisFrame = false;
+                this.MouseMovedThisFrame = null;
             }
 
             if (this.TextInputThisFrame != null)
             {
                 if (this.TextInputEnabled)
                 {
-                    this.RunTextInputAction(this.TextInputThisFrame);
+                    this.RunTextInputAction(this.TextInputThisFrame.Value);
                 }
 
                 this.TextInputThisFrame = null;

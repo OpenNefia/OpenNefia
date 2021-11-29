@@ -104,7 +104,7 @@ namespace OpenNefia.Core.UI.Layer
         {
             base.SetPosition(x, y);
 
-            this.WindowBacking.SetPosition(this.X, this.Y);
+            this.WindowBacking.SetPosition(this.Left, this.Top);
         }
 
         public override void Update(float dt)

@@ -91,20 +91,31 @@ namespace OpenNefia.Core.UI
         /// 
         /// </summary>
         /// <param name="key"></param>
-        void ReleaseKey(Keys key);
+        void ReleaseKey(Keys key, bool runEvents = true);
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="press"></param>
-        void ReleaseMouseButton(MouseButtonPress press);
+        /// <param name="args"></param>
+        void ReleaseMouseButton(MousePressedEventArgs args, bool runEvents = true);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="args"></param>
+        /// <returns></returns>
+        bool RunMouseMovedAction(MouseMovedEventArgs args);
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="args"></param>
+        /// <returns></returns>
+        bool RunMouseAction(MousePressedEventArgs args);
 
         /// <summary>
         /// Run key actions based on the current state of the key handler.
         /// </summary>
         /// <param name="dt">Frame delta time.</param>
         void RunKeyActions(float dt);
-        bool RunMouseMovedAction(int x, int y, int dx, int dy);
-        bool RunMouseAction(MouseButtonPress press);
     }
 }

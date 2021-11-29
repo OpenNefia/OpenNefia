@@ -1,5 +1,4 @@
 ﻿using OpenNefia.Core.Audio;
-using OpenNefia.Core.Data.Types;
 using OpenNefia.Core.Locale;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Core.UI.Element;
@@ -44,7 +43,7 @@ namespace OpenNefia.Core.UI.Layer
         protected AssetDrawable AssetImeStatusNone;
         protected AssetDrawable AssetInputCaret;
         protected ColorDef ColorPromptBackground;
-        protected FontDef FontPromptText;
+        protected FontSpec FontPromptText;
 
         public TextPrompt(int? maxLength = 16, bool limitLength = false, string? initialValue = null, bool isCancellable = true, bool hasShadow = true)
         {
@@ -57,15 +56,15 @@ namespace OpenNefia.Core.UI.Layer
             this.IsCancellable = isCancellable;
             this.HasShadow = hasShadow;
 
-            this.AssetLabelInput = new AssetDrawable(AssetDefOf.LabelInput);
-            this.AssetImeStatusJapanese = new AssetDrawable(AssetDefOf.ImeStatusJapanese);
-            this.AssetImeStatusEnglish = new AssetDrawable(AssetDefOf.ImeStatusEnglish);
-            this.AssetImeStatusNone = new AssetDrawable(AssetDefOf.ImeStatusNone);
-            this.AssetInputCaret = new AssetDrawable(AssetDefOf.InputCaret);
+            this.AssetLabelInput = new AssetDrawable(AssetPrototypeOf.LabelInput);
+            this.AssetImeStatusJapanese = new AssetDrawable(AssetPrototypeOf.ImeStatusJapanese);
+            this.AssetImeStatusEnglish = new AssetDrawable(AssetPrototypeOf.ImeStatusEnglish);
+            this.AssetImeStatusNone = new AssetDrawable(AssetPrototypeOf.ImeStatusNone);
+            this.AssetInputCaret = new AssetDrawable(AssetPrototypeOf.InputCaret);
             this.ColorPromptBackground = ColorDefOf.PromptBackground;
             this.FontPromptText = FontDefOf.PromptText;
 
-            this.TopicWindow = new UiTopicWindow(UiTopicWindow.FrameStyle.Zero, UiTopicWindow.WindowStyle.Two);
+            this.TopicWindow = new UiTopicWindow(UiTopicWindow.FrameStyleKind.Zero, UiTopicWindow.WindowStyleKind.Two);
             this.Text = new UiText(this.FontPromptText);
 
             this.UpdateText();
@@ -96,7 +95,7 @@ namespace OpenNefia.Core.UI.Layer
 
         public override void OnQuery()
         {
-            Sounds.Play(SoundDefOf.Pop2);
+            Sounds.Play(SoundPrototypeOf.Pop2);
         }
 
         protected virtual void UpdateText()
@@ -161,8 +160,8 @@ namespace OpenNefia.Core.UI.Layer
         {
             base.SetPosition(x, y);
 
-            this.TopicWindow.SetPosition(this.X, this.Y);
-            this.Text.SetPosition(this.X + 36, this.Y + 9);
+            this.TopicWindow.SetPosition(this.Left, this.Top);
+            this.Text.SetPosition(this.Left + 36, this.Top + 9);
         }
 
         public override void Update(float dt)
@@ -178,27 +177,27 @@ namespace OpenNefia.Core.UI.Layer
             if (this.HasShadow)
             {
                 GraphicsEx.SetColor(this.ColorPromptBackground);
-                Love.Graphics.Rectangle(Love.DrawMode.Fill, this.X + 4, this.Y + 4, this.Width - 1, this.Height - 1);
+                Love.Graphics.Rectangle(Love.DrawMode.Fill, this.Left + 4, this.Top + 4, this.Width - 1, this.Height - 1);
             }
 
             this.TopicWindow.Draw();
 
             GraphicsEx.SetColor(Love.Color.White);
-            this.AssetLabelInput.Draw(this.X + this.Width / 2 - 60, this.Y - 32);
+            this.AssetLabelInput.Draw(this.Left + this.Width / 2 - 60, this.Top - 32);
 
             if (this.IsCutOff)
             {
-                this.AssetImeStatusNone.Draw(this.X + 8, this.Y + 4);
+                this.AssetImeStatusNone.Draw(this.Left + 8, this.Top + 4);
             }
             else
             {
-                this.AssetImeStatusEnglish.Draw(this.X + 8, this.Y + 4);
+                this.AssetImeStatusEnglish.Draw(this.Left + 8, this.Top + 4);
             }
 
             this.Text.Draw();
 
             GraphicsEx.SetColor(255, 255, 255, (int)this.CaretAlpha);
-            this.AssetInputCaret.Draw(this.X + this.Text.Width + 34, this.Y + 5);
+            this.AssetInputCaret.Draw(this.Left + this.Text.Width + 34, this.Top + 5);
         }
 
         public override void Dispose()

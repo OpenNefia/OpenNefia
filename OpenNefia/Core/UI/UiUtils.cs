@@ -45,9 +45,9 @@ namespace OpenNefia.Core.UI
         public static void DebugDraw(IDrawable elem)
         {
             Love.Graphics.SetColor(Love.Color.Red);
-            Love.Graphics.Rectangle(Love.DrawMode.Line, elem.X, elem.Y, elem.Width, elem.Height);
+            Love.Graphics.Rectangle(Love.DrawMode.Line, elem.Left, elem.Top, elem.Width, elem.Height);
             Love.Graphics.SetColor(Love.Color.Blue);
-            Love.Graphics.Line(elem.X, elem.Y, elem.X + elem.Width, elem.Y + elem.Height);
+            Love.Graphics.Line(elem.Left, elem.Top, elem.Left + elem.Width, elem.Top + elem.Height);
             //Graphics.Print($"{elem}", elem.X, elem.Y);
         }
     }

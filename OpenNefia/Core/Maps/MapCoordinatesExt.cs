@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using OpenNefia.Core.Game;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
+using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Utility;
 
 namespace OpenNefia.Core.Maps
@@ -87,6 +88,14 @@ namespace OpenNefia.Core.Maps
             return coords.Map.Tiles[coords.X, coords.Y] == coords.Map.TileMemory[coords.X, coords.Y];
         }
 
+        public static void SetTile(this MapCoordinates coords, PrototypeId<TilePrototype> tileId)
+        {
+            if (!coords.IsInBounds())
+                return;
+
+            coords.Map.SetTile(coords.Position, tileId);
+        }
+
         public static void MemorizeTile(this MapCoordinates coords)
         {
             if (!coords.IsInBounds())
@@ -97,7 +106,13 @@ namespace OpenNefia.Core.Maps
 
         public static bool IsInWindowFov(this MapCoordinates coords)
         {
-            return coords.Map?.IsInWindowFov(coords.Position) ?? false;
+            if (coords.Map != GameSession.ActiveMap)
+                return false;
+
+            if (!coords.IsInBounds())
+                return false;
+
+            return coords.Map.IsInWindowFov(coords);
         }
     }
 }

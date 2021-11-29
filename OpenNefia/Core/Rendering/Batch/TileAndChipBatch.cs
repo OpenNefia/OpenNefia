@@ -70,7 +70,7 @@ namespace OpenNefia.Core.Rendering
                 // Since the Y coordinate of the memory might have changed since then, we have to make sure it gets put into the correct batch.
 
                 var prevRowIndex = this._memoryIndexToRowIndex[entry.Memory.Index];
-                var newRowIndex = memory.TileY;
+                var newRowIndex = memory.Coords.Y;
 
                 if (prevRowIndex != newRowIndex)
                 {
@@ -92,7 +92,7 @@ namespace OpenNefia.Core.Rendering
                 {
                     entry = this._deadEntries.Pop();
                     entry.Memory = memory;
-                    entry.RowIndex = memory.TileY;
+                    entry.RowIndex = memory.Coords.Y;
                     entry.AtlasTile = tile;
                 }
                 else
@@ -202,7 +202,7 @@ namespace OpenNefia.Core.Rendering
             for (int tileY = 0; tileY < _rows.Length; tileY++)
             {
                 var row = _rows[tileY];
-                row.Draw(X, Y);
+                row.Draw(Left, Top);
             }
         }
     }

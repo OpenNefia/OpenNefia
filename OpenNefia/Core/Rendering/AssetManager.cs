@@ -99,7 +99,7 @@ namespace OpenNefia.Core.Rendering
             _assets[id] = new AssetDrawable(prototype, image, regions);
         }
 
-        public AssetDrawable LoadSizedAsset(PrototypeId<AssetPrototype> id, Vector2i size)
+        public AssetDrawable GetSizedAsset(PrototypeId<AssetPrototype> id, Vector2i size)
         {
             var prototype = id.ResolvePrototype();
 

@@ -40,20 +40,20 @@ namespace OpenNefia.Core.UI.Layer
         public override void Update(float dt)
         {
             Scroller.GetPositionDiff(dt, out var dx, out var dy);
-            this.SetPosition(this.X + dx, this.Y + dy);
+            this.SetPosition(this.Left + dx, this.Top + dy);
         }
 
         public override void Draw()
         {
             Love.Graphics.SetColor(Love.Color.Black);
-            Love.Graphics.Rectangle(Love.DrawMode.Fill, this.X, this.Y, this.Width, this.Height);
+            Love.Graphics.Rectangle(Love.DrawMode.Fill, this.Left, this.Top, this.Width, this.Height);
 
             Love.Graphics.SetColor(Love.Color.White);
-            Love.Graphics.Draw(this.Image, this.X, this.Y);
+            Love.Graphics.Draw(this.Image, this.Left, this.Top);
 
             if (this.DrawBorder)
             {
-                Love.Graphics.Rectangle(Love.DrawMode.Line, this.X, this.Y, this.Width, this.Height);
+                Love.Graphics.Rectangle(Love.DrawMode.Line, this.Left, this.Top, this.Width, this.Height);
             }
         }
     }

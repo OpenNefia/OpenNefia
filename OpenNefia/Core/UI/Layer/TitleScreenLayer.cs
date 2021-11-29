@@ -1,5 +1,4 @@
-﻿using OpenNefia.Core.Data.Types;
-using OpenNefia.Core.Rendering;
+﻿using OpenNefia.Core.Rendering;
 using OpenNefia.Core.UI.Element;
 using OpenNefia.Core.UI.Element.List;
 using OpenNefia.Game;
@@ -45,7 +44,7 @@ namespace OpenNefia.Core.UI.Layer
             public override void Localize(LocaleKey key)
             {
                 base.Localize(key);
-                this.SetPosition(X, Y);
+                this.SetPosition(Left, Top);
             }
 
             public override void SetPosition(int x, int y)
@@ -74,7 +73,7 @@ namespace OpenNefia.Core.UI.Layer
             public override void Draw()
             {
                 GraphicsEx.SetColor(Love.Color.White);
-                this.AssetSelectKey.Draw(this.X, this.Y - 1);
+                this.AssetSelectKey.Draw(this.Left, this.Top - 1);
                 this.KeyNameText.Draw();
                 this.UiText.Draw();
                 if (I18N.IsFullwidth())
@@ -97,7 +96,7 @@ namespace OpenNefia.Core.UI.Layer
             }
         }
 
-        private FontDef FontTitleText;
+        private FontSpec FontTitleText;
         private AssetDrawable AssetTitle;
         private AssetDrawable AssetG4;
 
@@ -112,8 +111,8 @@ namespace OpenNefia.Core.UI.Layer
         public TitleScreenLayer()
         {
             FontTitleText = FontDefOf.TitleScreenText;
-            AssetTitle = new AssetDrawable(AssetDefOf.Title);
-            AssetG4 = new AssetDrawable(AssetDefOf.G4);
+            AssetTitle = new AssetDrawable(AssetPrototypeOf.Title);
+            AssetG4 = new AssetDrawable(AssetPrototypeOf.G4);
 
             var version = "1.22";
             TextInfo = new IUiText[3];
@@ -150,7 +149,7 @@ namespace OpenNefia.Core.UI.Layer
         {
             if (selectedChoice != TitleScreenChoice.Generate)
             {
-                Sounds.PlayOneShot(SoundDefOf.Ok1);
+                Sounds.Play(SoundPrototypeOf.Ok1);
             }
 
             switch (selectedChoice)
@@ -176,11 +175,11 @@ namespace OpenNefia.Core.UI.Layer
         public override void SetPosition(int x, int y)
         {
             base.SetPosition(x, y);
-            TextInfo[0].SetPosition(this.X + 20, this.Y + 20);
-            TextInfo[1].SetPosition(this.X + 20, this.Y + 20 + (FontTitleText.GetHeight() + 5));
-            TextInfo[2].SetPosition(this.X + 20, this.Y + 20 + (FontTitleText.GetHeight() + 5) * 2);
-            this.Window.SetPosition(this.X + 80, (this.Height - 308) / 2);
-            this.List.SetPosition(this.Window.X + 40, this.Window.Y + 48);
+            TextInfo[0].SetPosition(this.Left + 20, this.Top + 20);
+            TextInfo[1].SetPosition(this.Left + 20, this.Top + 20 + (FontTitleText.GetHeight() + 5));
+            TextInfo[2].SetPosition(this.Left + 20, this.Top + 20 + (FontTitleText.GetHeight() + 5) * 2);
+            this.Window.SetPosition(this.Left + 80, (this.Height - 308) / 2);
+            this.List.SetPosition(this.Window.Left + 40, this.Window.Top + 48);
         }
 
         public override void OnQuery()
@@ -200,7 +199,7 @@ namespace OpenNefia.Core.UI.Layer
         public override void Draw()
         {
             GraphicsEx.SetColor(Love.Color.White);
-            this.AssetTitle.Draw(this.X, this.Y, this.Width, this.Height);
+            this.AssetTitle.Draw(this.Left, this.Top, this.Width, this.Height);
 
             foreach (var text in this.TextInfo)
                 text.Draw();
@@ -211,8 +210,8 @@ namespace OpenNefia.Core.UI.Layer
             var bgPicWidth = this.Window.Width / 5 * 4;
             var bgPicHeight = this.Window.Height - 80;
             GraphicsEx.SetColor(255, 255, 255, 50);
-            this.AssetG4.Draw(this.Window.X + 160 - (bgPicWidth / 2),
-                              this.Window.Y + this.Window.Height / 2 - (bgPicHeight / 2),
+            this.AssetG4.Draw(this.Window.Left + 160 - (bgPicWidth / 2),
+                              this.Window.Top + this.Window.Height / 2 - (bgPicHeight / 2),
                               bgPicWidth,
                               bgPicHeight);
         }

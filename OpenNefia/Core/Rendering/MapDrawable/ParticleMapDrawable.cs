@@ -1,9 +1,9 @@
-﻿using OpenNefia.Core.Data.Types;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using OpenNefia.Core.Audio;
+using OpenNefia.Core.Config;
+using OpenNefia.Core.Game;
+using OpenNefia.Core.Maths;
+using OpenNefia.Core.Prototypes;
+using OpenNefia.Core.Random;
 
 namespace OpenNefia.Core.Rendering
 {
@@ -11,39 +11,36 @@ namespace OpenNefia.Core.Rendering
     {
         private struct Particle
         {
-            public int X;
-            public int Y;
+            public Vector2i Pos;
             public float Rotation;
 
-            public Particle(int x, int y, float rotation)
+            public Particle(Vector2i pos, float rotation)
             {
-                X = x;
-                Y = y;
+                Pos = pos;
                 Rotation = rotation;
             }
         }
 
         private AssetDrawable AssetParticle;
-        private SoundDef? Sound;
+        private PrototypeId<SoundPrototype>? Sound;
         private float RotationVariance;
         private float AnimeWait;
         private Particle[] Particles;
         private FrameCounter Counter;
 
-        public ParticleMapDrawable(AssetDef asset, SoundDef? sound, float rotationVariance = -1f, float? wait = null)
+        public ParticleMapDrawable(PrototypeId<AssetPrototype> asset, PrototypeId<SoundPrototype>? sound, float rotationVariance = -1f, float? wait = null)
         {
             if (wait == null)
-                wait = Config.AnimeWait;
+                wait = ConfigVars.AnimeWait;
 
-            this.AssetParticle = new AssetDrawable(asset);
+            this.AssetParticle = Assets.Get(asset);
             this.Sound = sound;
             this.RotationVariance = rotationVariance;
             this.AnimeWait = wait.Value;
             var coords = GameSession.Coords;
             this.Particles = Enumerable.Range(0, 15)
-                .Select(_ => new Particle(Rand.NextInt(coords.TileWidth), 
-                                          Rand.NextInt(coords.TileHeight),
-                                          Rand.NextInt(4) + 1 * rotationVariance))
+                .Select(_ => new Particle(new Vector2i(Rand.Next(coords.TileSize.X), Rand.Next(coords.TileSize.Y)),
+                                          Rand.Next(4) + 1 * rotationVariance))
                 .ToArray();
             this.Counter = new FrameCounter(wait.Value, 10);
         }
@@ -52,7 +49,7 @@ namespace OpenNefia.Core.Rendering
         {
             if (this.Sound != null)
             {
-                Sounds.PlayOneShot(this.Sound, this.ScreenLocalX, this.ScreenLocalY);
+                Sounds.Play(this.Sound.Value, this.ScreenLocalPos);
             }
         }
 
@@ -71,10 +68,10 @@ namespace OpenNefia.Core.Rendering
             Love.Graphics.SetColor(Love.Color.White);
             foreach (var p in this.Particles)
             {
-                this.AssetParticle.Draw(this.X + p.X, 
-                    this.Y + p.Y + frame2 / p.Rotation, 
-                    GameSession.Coords.TileWidth - frame2 * 2,
-                    GameSession.Coords.TileHeight - frame2 * 2,
+                this.AssetParticle.Draw(this.Left + p.Pos.X, 
+                    this.Top + p.Pos.Y + frame2 / p.Rotation, 
+                    GameSession.Coords.TileSize.X - frame2 * 2,
+                    GameSession.Coords.TileSize.Y - frame2 * 2,
                     true,
                     frame2 * p.Rotation);
             }

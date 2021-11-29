@@ -1,4 +1,4 @@
-﻿using OpenNefia.Core.Data.Types;
+﻿using OpenNefia.Core.Audio;
 using OpenNefia.Core.UI.Element;
 using OpenNefia.Core.UI.Element.List;
 using System;
@@ -59,7 +59,7 @@ namespace OpenNefia.Core.UI.Layer
         public Prompt(IEnumerable<PromptChoice<T>> choices, PromptOptions options)
         {
             this.List = new UiList<PromptChoice<T>>(choices);
-            this.Window = new UiTopicWindow(UiTopicWindow.FrameStyle.Zero, UiTopicWindow.WindowStyle.Zero);
+            this.Window = new UiTopicWindow(UiTopicWindow.FrameStyleKind.Zero, UiTopicWindow.WindowStyleKind.Zero);
             this.Options = options;
 
             this.DefaultWidth = this.Options.Width;
@@ -84,7 +84,7 @@ namespace OpenNefia.Core.UI.Layer
 
         protected virtual void BindKeys()
         {
-            Action<KeyInputEvent> cancel = (_) => {
+            Action<UiKeyInputEventArgs> cancel = (_) => {
                 if (this.Options.IsCancellable)
                     this.Cancel();
             };
@@ -96,7 +96,7 @@ namespace OpenNefia.Core.UI.Layer
 
             this.List.EventOnActivate += (o, e) =>
             {
-                Sounds.PlayOneShot(SoundDefOf.Ok1);
+                Sounds.Play(SoundPrototypeOf.Ok1);
                 this.Finish(e.SelectedCell.Data);
             };
         }
@@ -107,7 +107,7 @@ namespace OpenNefia.Core.UI.Layer
             {
                 Messages.Print(this.Options.QueryText);
             }
-            Sounds.PlayOneShot(SoundDefOf.Pop2);
+            Sounds.Play(SoundPrototypeOf.Pop2);
         }
 
         public override void GetPreferredBounds(out int x, out int y, out int width, out int height)
@@ -136,8 +136,8 @@ namespace OpenNefia.Core.UI.Layer
         {
             base.SetPosition(x, y);
 
-            this.List.SetPosition(this.X + 30, this.Y + 24);
-            this.Window.SetPosition(this.X + 8, this.Y + 8);
+            this.List.SetPosition(this.Left + 30, this.Top + 24);
+            this.Window.SetPosition(this.Left + 8, this.Top + 8);
         }
 
         public override void Update(float dt)

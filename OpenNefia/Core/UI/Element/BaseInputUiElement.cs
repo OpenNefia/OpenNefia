@@ -1,5 +1,6 @@
 ﻿using Love;
 using OpenNefia.Core.Data.Types;
+using OpenNefia.Core.Graphics;
 using System;
 using System.Collections.Generic;
 
@@ -43,14 +44,14 @@ namespace OpenNefia.Core.UI.Element
             this._Forwards = new InputForwardsWrapper(this.InputHandler);
         }
 
-        public void ReceiveKeyPressed(KeyConstant key, bool isRepeat) => InputHandler.ReceiveKeyPressed(key, isRepeat);
-        public void ReceiveKeyReleased(KeyConstant key) => InputHandler.ReceiveKeyReleased(key);
-        public void ReceiveTextInput(string text) => InputHandler.ReceiveTextInput(text);
-        public void ReceiveMouseMoved(float x, float y, float dx, float dy, bool isTouch) => InputHandler.ReceiveMouseMoved(x, y, dx, dy, isTouch);
-        public void ReceiveMousePressed(float x, float y, int button, bool isTouch) => InputHandler.ReceiveMousePressed(x, y, button, isTouch);
-        public void ReceiveMouseReleased(float x, float y, int button, bool isTouch) => InputHandler.ReceiveMouseReleased(x, y, button, isTouch);
+        public void ReceiveKeyPressed(KeyPressedEventArgs args) => InputHandler.ReceiveKeyPressed(args);
+        public void ReceiveKeyReleased(KeyPressedEventArgs args) => InputHandler.ReceiveKeyReleased(args);
+        public void ReceiveTextInput(TextInputEventArgs args) => InputHandler.ReceiveTextInput(args);
+        public void ReceiveMouseMoved(MouseMovedEventArgs args) => InputHandler.ReceiveMouseMoved(args);
+        public void ReceiveMousePressed(MousePressedEventArgs args) => InputHandler.ReceiveMousePressed(args);
+        public void ReceiveMouseReleased(MousePressedEventArgs args) => InputHandler.ReceiveMouseReleased(args);
 
-        public void BindKey(IKeybind keybind, Action<KeyInputEvent> func, bool trackReleased = false) => InputHandler.BindKey(keybind, func, trackReleased);
+        public void BindKey(IKeybind keybind, Action<UiKeyInputEventArgs> func, bool trackReleased = false) => InputHandler.BindKey(keybind, func, trackReleased);
         public void UnbindKey(IKeybind keybind) => InputHandler.UnbindKey(keybind);
         public void HaltInput() => InputHandler.HaltInput();
         public bool IsModifierHeld(Keys modifier) => InputHandler.IsModifierHeld(modifier);
@@ -68,7 +69,7 @@ namespace OpenNefia.Core.UI.Element
         public void ReleaseMouseButton(MouseButtonPress press) => InputHandler.ReleaseMouseButton(press);
 
         public bool RunTextInputAction(string text) => InputHandler.RunTextInputAction(text);
-        public void BindTextInput(Action<TextInputEvent> evt) => InputHandler.BindTextInput(evt);
+        public void BindTextInput(Action<UiTextInputEventArgs> evt) => InputHandler.BindTextInput(evt);
         public void UnbindTextInput() => InputHandler.UnbindTextInput();
 
         public void ForwardTo(IInputHandler keys, int? priority = null) => InputHandler.ForwardTo(keys, priority);

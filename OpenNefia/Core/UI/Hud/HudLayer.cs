@@ -24,7 +24,7 @@ namespace OpenNefia.Core.UI.Hud
         public override void SetPosition(int x, int y)
         {
             base.SetPosition(x, y);
-            this.MessageWindow.SetPosition(this.X + 50, this.Y + this.Height - this.MessageWindow.Height - 10);
+            this.MessageWindow.SetPosition(this.Left + 50, this.Top + this.Height - this.MessageWindow.Height - 10);
         }
 
         public override void Update(float dt)

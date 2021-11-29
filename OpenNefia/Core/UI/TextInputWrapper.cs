@@ -21,7 +21,7 @@ namespace OpenNefia.Core.UI
                 this.Parent = parent;
             }
 
-            public static TextInputDelegateWrapper operator +(TextInputDelegateWrapper forwardsWrapper, Action<TextInputEvent> handler)
+            public static TextInputDelegateWrapper operator +(TextInputDelegateWrapper forwardsWrapper, Action<UiTextInputEventArgs> handler)
             {
                 forwardsWrapper.BindTextInput(handler);
                 return forwardsWrapper;
@@ -29,7 +29,7 @@ namespace OpenNefia.Core.UI
 
             public void Clear() => this.UnbindTextInput();
 
-            public void BindTextInput(Action<TextInputEvent> handler) => this.Parent.InputHandler.BindTextInput(handler);
+            public void BindTextInput(Action<UiTextInputEventArgs> handler) => this.Parent.InputHandler.BindTextInput(handler);
             public void UnbindTextInput() => this.Parent.InputHandler.UnbindTextInput();
 
             public bool TextInputEnabled

@@ -53,7 +53,7 @@ namespace OpenNefia.Core.UI
             this.Result = result;
         }
 
-        public void Initialize()
+        public virtual void Initialize()
         {
             this.Result = null;
             this.WasCancelled = false;

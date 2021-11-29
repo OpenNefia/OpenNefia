@@ -19,7 +19,7 @@ namespace OpenNefia.Core.UI.Element
         float PrevRamDiff = 0f;
         DateTime Now;
 
-        private FontDef FontText;
+        private FontSpec FontText;
 
         public bool ShowDrawStats { get; set; } = true;
         public IUiText Text { get; }
