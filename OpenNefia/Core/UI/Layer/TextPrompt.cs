@@ -1,5 +1,6 @@
 ﻿using OpenNefia.Core.Audio;
 using OpenNefia.Core.Locale;
+using OpenNefia.Core.Maths;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Core.UI.Element;
 using OpenNefia.Core.Utility;
@@ -42,8 +43,9 @@ namespace OpenNefia.Core.UI.Layer
         protected AssetDrawable AssetImeStatusEnglish;
         protected AssetDrawable AssetImeStatusNone;
         protected AssetDrawable AssetInputCaret;
-        protected ColorDef ColorPromptBackground;
-        protected FontSpec FontPromptText;
+        
+        [UiStyled] protected Color ColorPromptBackground;
+        [UiStyled] protected FontSpec FontPromptText = new();
 
         public TextPrompt(int? maxLength = 16, bool limitLength = false, string? initialValue = null, bool isCancellable = true, bool hasShadow = true)
         {
@@ -56,13 +58,11 @@ namespace OpenNefia.Core.UI.Layer
             this.IsCancellable = isCancellable;
             this.HasShadow = hasShadow;
 
-            this.AssetLabelInput = new AssetDrawable(AssetPrototypeOf.LabelInput);
-            this.AssetImeStatusJapanese = new AssetDrawable(AssetPrototypeOf.ImeStatusJapanese);
-            this.AssetImeStatusEnglish = new AssetDrawable(AssetPrototypeOf.ImeStatusEnglish);
-            this.AssetImeStatusNone = new AssetDrawable(AssetPrototypeOf.ImeStatusNone);
-            this.AssetInputCaret = new AssetDrawable(AssetPrototypeOf.InputCaret);
-            this.ColorPromptBackground = ColorDefOf.PromptBackground;
-            this.FontPromptText = FontDefOf.PromptText;
+            this.AssetLabelInput = Assets.Get(AssetPrototypeOf.LabelInput);
+            this.AssetImeStatusJapanese = Assets.Get(AssetPrototypeOf.ImeStatusJapanese);
+            this.AssetImeStatusEnglish = Assets.Get(AssetPrototypeOf.ImeStatusEnglish);
+            this.AssetImeStatusNone = Assets.Get(AssetPrototypeOf.ImeStatusNone);
+            this.AssetInputCaret = Assets.Get(AssetPrototypeOf.InputCaret);
 
             this.TopicWindow = new UiTopicWindow(UiTopicWindow.FrameStyleKind.Zero, UiTopicWindow.WindowStyleKind.Two);
             this.Text = new UiText(this.FontPromptText);
@@ -137,28 +137,24 @@ namespace OpenNefia.Core.UI.Layer
         public const int DEFAULT_WIDTH = 16 * 16 + 60;
         public const int DEFAULT_HEIGHT = 36;
         
-        public override void GetPreferredBounds(out int x, out int y, out int width, out int height)
+        public override void GetPreferredBounds(out Box2i bounds)
         {
-            var rect = UiUtils.GetCenteredParams(DEFAULT_WIDTH, DEFAULT_HEIGHT);
-            x = rect.X;
-            y = rect.Y;
-            width = rect.Width;
-            height = rect.Height;
+            UiUtils.GetCenteredParams(DEFAULT_WIDTH, DEFAULT_HEIGHT, out bounds);
         }
 
-        public override void SetSize(int width = 0, int height = 0)
+        public override void SetSize(Vector2i size)
         {
-            width = Math.Max(width, this.FontPromptText.GetWidth(this.Value));
+            size.X = Math.Max(size.X, this.FontPromptText.LoveFont.GetWidth(this.Value));
 
-            base.SetSize(width, height);
+            base.SetSize(size);
 
             this.TopicWindow.SetSize(this.Width, this.Height);
             this.Text.SetPreferredSize();
         }
 
-        public override void SetPosition(int x, int y)
+        public override void SetPosition(Vector2i pos)
         {
-            base.SetPosition(x, y);
+            base.SetPosition(pos);
 
             this.TopicWindow.SetPosition(this.Left, this.Top);
             this.Text.SetPosition(this.Left + 36, this.Top + 9);

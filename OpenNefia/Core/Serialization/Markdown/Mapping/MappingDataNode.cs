@@ -32,7 +32,7 @@ namespace OpenNefia.Core.Serialization.Markdown.Mapping
                 _children.Add(key.ToDataNode(), val.ToDataNode());
             }
 
-            Tag = mapping.Tag;
+            Tag = mapping.Tag.IsEmpty ? null : mapping.Tag.Value;
         }
 
         public MappingDataNode(Dictionary<DataNode, DataNode> nodes) : this()

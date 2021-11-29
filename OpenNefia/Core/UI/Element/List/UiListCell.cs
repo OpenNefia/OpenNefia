@@ -1,10 +1,13 @@
 ﻿using Love;
+using OpenNefia.Core.Locale;
+using OpenNefia.Core.Maths;
 using OpenNefia.Core.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Color = OpenNefia.Core.Maths.Color;
 
 namespace OpenNefia.Core.UI.Element.List
 {
@@ -22,7 +25,7 @@ namespace OpenNefia.Core.UI.Element.List
                 {
                     keyName = UiUtils.GetKeyName(this.Key.Key);
                 }
-                this.KeyNameText = new UiText(this.FontListKeyName, keyName);
+                this.KeyNameText = new UiText(/*this.FontListKeyName,*/ keyName);
             }
         }
 
@@ -32,7 +35,7 @@ namespace OpenNefia.Core.UI.Element.List
             set => this.UiText.Text = value;
         }
 
-        [Localize(Key="Text")]
+        [Localize("Text")]
         protected IUiText UiText;
 
         protected IUiText KeyNameText = null!;
@@ -41,50 +44,48 @@ namespace OpenNefia.Core.UI.Element.List
 
         public int XOffset { get; set; }
 
+        [UiStyled] protected FontSpec FontListKeyName = new();
+        [UiStyled] public Color ColorSelectedAdd;
+        [UiStyled] public Color ColorSelectedSub;
+
         protected AssetDrawable AssetListBullet;
         public AssetDrawable AssetSelectKey;
-        protected FontSpec FontListKeyName;
-        public ColorDef ColorSelectedAdd;
-        public ColorDef ColorSelectedSub;
 
         public UiListCell(T data, IUiText text, UiListChoiceKey? key = null)
         {
             this.Data = data;
             this.UiText = text;
 
-            this.AssetSelectKey = new AssetDrawable(AssetPrototypeOf.SelectKey);
-            this.AssetListBullet = new AssetDrawable(AssetPrototypeOf.ListBullet);
-            this.FontListKeyName = FontDefOf.ListKeyName;
-            this.ColorSelectedAdd = ColorDefOf.ListSelectedAdd;
-            this.ColorSelectedSub = ColorDefOf.ListSelectedSub;
+            this.AssetSelectKey = Assets.Get(AssetPrototypeOf.SelectKey);
+            this.AssetListBullet = Assets.Get(AssetPrototypeOf.ListBullet);
 
             this.Key = key;
         }
 
-        public UiListCell(T data, string text, UiListChoiceKey? key = null) : this(data, new UiText(FontDefOf.ListText, text), key) {}
+        public UiListCell(T data, string text, UiListChoiceKey? key = null) : this(data, new UiText(/* FontDefOf.ListText, */text), key) {}
 
-        public override void GetPreferredSize(out int width, out int height)
+        public override void GetPreferredSize(out Vector2i size)
         {
-            this.UiText.GetPreferredSize(out width, out height);
-            width = width + this.AssetSelectKey.Width + 2 + 4 + this.XOffset;
+            this.UiText.GetPreferredSize(out size);
+            size.X = size.X + this.AssetSelectKey.Width + 2 + 4 + this.XOffset;
         }
 
-        public override void SetPosition(int x, int y)
+        public override void SetSize(Vector2i size)
         {
-            base.SetPosition(x, y);
-            this.UiText.SetPosition(x + this.AssetSelectKey.Width + 2 + 4 + this.XOffset, y);
-
-            var keyNameX = x + (this.AssetSelectKey.Width - this.KeyNameText.Width) / 2 - 2;
-            var keyNameY = y + (this.AssetSelectKey.Height - Love.Graphics.GetFont().GetHeight()) / 2 - 1;
-            this.KeyNameText.SetPosition(keyNameX, keyNameY);
-        }
-
-        public override void SetSize(int width = -1, int height = -1)
-        {
-            this.UiText.GetPreferredSize(out var textWidth, out var textHeight);
-            this.UiText.SetSize(width - this.AssetSelectKey.Width - 6 + this.XOffset, textHeight);
+            this.UiText.GetPreferredSize(out var textSize);
+            this.UiText.SetSize(textSize.Y - this.AssetSelectKey.Width - 6 + this.XOffset, textSize.Y);
             this.KeyNameText.SetPreferredSize();
-            base.SetSize(Math.Max(width, textWidth + this.AssetSelectKey.Width + 2 + 4 + this.XOffset), height);
+            base.SetSize(Math.Max(size.X, textSize.X + this.AssetSelectKey.Width + 2 + 4 + this.XOffset), textSize.Y);
+        }
+
+        public override void SetPosition(Vector2i pos)
+        {
+            base.SetPosition(pos);
+            this.UiText.SetPosition(pos.X + this.AssetSelectKey.Width + 2 + 4 + this.XOffset, pos.Y);
+
+            var keyNameX = pos.X + (this.AssetSelectKey.Width - this.KeyNameText.Width) / 2 - 2;
+            var keyNameY = pos.Y + (this.AssetSelectKey.Height - Love.Graphics.GetFont().GetHeight()) / 2 - 1;
+            this.KeyNameText.SetPosition(keyNameX, keyNameY);
         }
 
         public virtual void DrawHighlight()

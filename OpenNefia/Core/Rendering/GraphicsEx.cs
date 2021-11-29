@@ -112,11 +112,9 @@ namespace OpenNefia.Core.Rendering
         public static void SetColor(Love.Color color) => Love.Graphics.SetColor(color);
         public static void SetColor(Maths.Color color) => Love.Graphics.SetColor(color.R, color.G, color.B, color.A);
 
-        public static void SetFont(FontSpec spec, bool noColor = false)
+        public static void SetFont(FontSpec spec)
         {
             Love.Graphics.SetFont(spec.LoveFont);
-            if (!noColor)
-                SetColor(spec.Color);
         }
 
         /// <summary>

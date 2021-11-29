@@ -150,7 +150,7 @@ namespace OpenNefia.Core.GameController
                 Cleanup();
             }
 
-            Love.Boot.SystemStep(Scene);
+            Love.Boot.SystemStep((Love.Scene)_graphics);
         }
     }
 }

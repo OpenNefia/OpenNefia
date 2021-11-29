@@ -1,24 +1,34 @@
-﻿using Love;
-using OpenNefia.Core.Data.Types;
+﻿using OpenNefia.Core.Maths;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Core.UI.Element;
 using OpenNefia.Core.Utility;
-using System;
+using Color = OpenNefia.Core.Maths.Color;
 
 namespace OpenNefia.Core.UI.Hud
 {
+    public class ColoredString
+    {
+        public readonly string Text;
+        public readonly Color Color;
+
+        public ColoredString(string text, Color color)
+        {
+            this.Text = text;
+            this.Color = color;
+        }
+    }
+
     public class SimpleMessageWindow : BaseUiElement, IHudMessageWindow
     {
         CircularBuffer<ColoredString> Messages;
 
         private bool NeedsRelayout;
 
-        private FontSpec FontTargetText;
+        [UiStyled] private FontSpec FontTargetText = new();
         private IUiText[] TextMessages;
 
         public SimpleMessageWindow()
         {
-            FontTargetText = FontDefOf.TargetText;
             Messages = new CircularBuffer<ColoredString>(50);
             TextMessages = new IUiText[6];
             for (int i = 0; i < TextMessages.Length; i++)
@@ -28,18 +38,18 @@ namespace OpenNefia.Core.UI.Hud
             NeedsRelayout = true;
         }
 
-        public void Print(string text, Love.Color? color = null)
+        public void Print(string text, Color? color = null)
         {
             if (color == null)
-                color = Love.Color.White;
+                color = Color.White;
 
             this.Messages.PushFront(new ColoredString(text, color.Value));
             this.NeedsRelayout = true;
         }
 
-        public override void SetPosition(int x, int y)
+        public override void SetPosition(Vector2i pos)
         {
-            base.SetPosition(x, y);
+            base.SetPosition(pos);
             this.NeedsRelayout = true;
         }
 
@@ -54,8 +64,8 @@ namespace OpenNefia.Core.UI.Hud
 
                 var uiText = TextMessages[i];
                 var line = Messages[i];
-                uiText.Text = line.text;
-                uiText.Color = new Love.Color(line.color.r, line.color.g, line.color.b, line.color.a);
+                uiText.Text = line.Text;
+                uiText.Color = line.Color;
             }
 
             this.NeedsRelayout = false;
@@ -83,7 +93,7 @@ namespace OpenNefia.Core.UI.Hud
             for (int i = 0; i < TextMessages.Length; i++)
             {
                 var text = TextMessages[i];
-                text.SetPosition(Left + 5, Top + Height - (FontTargetText.GetHeight()) * (i + 1) - 5);
+                text.SetPosition(Left + 5, Top + Height - (FontTargetText.LoveFont.GetHeight()) * (i + 1) - 5);
                 text.Draw();
             }
             //GraphicsEx.SetScissor();

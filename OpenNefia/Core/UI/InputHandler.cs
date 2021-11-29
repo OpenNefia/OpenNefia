@@ -418,7 +418,7 @@ namespace OpenNefia.Core.UI
 
             foreach (var forward in this.Forwards)
             {
-                if (forward.RunTextInputAction(args.Text))
+                if (forward.RunTextInputAction(args))
                 {
                     return true;
                 }

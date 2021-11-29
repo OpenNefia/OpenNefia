@@ -1,5 +1,6 @@
 ﻿using Love;
 using OpenNefia.Core.Data.Types;
+using OpenNefia.Core.Maths;
 using OpenNefia.Core.Rendering;
 using System;
 using System.Collections.Generic;
@@ -19,7 +20,7 @@ namespace OpenNefia.Core.UI.Element
         float PrevRamDiff = 0f;
         DateTime Now;
 
-        private FontSpec FontText;
+        [UiStyled] private FontSpec FontText = new();
 
         public bool ShowDrawStats { get; set; } = true;
         public IUiText Text { get; }
@@ -27,25 +28,24 @@ namespace OpenNefia.Core.UI.Element
         public UiFpsCounter()
         {
             Now = DateTime.Now;
-            FontText = FontDefOf.FpsCounter;
             Text = new UiText(FontText);
         }
 
-        public override void SetPosition(int x = 0, int y = 0)
+        public override void SetPosition(Vector2i pos)
         {
-            base.SetPosition(x, y);
-            this.Text.SetPosition(x, y);
+            base.SetPosition(pos);
+            this.Text.SetPosition(pos);
         }
 
-        public override void SetSize(int width = 0, int height = 0)
+        public override void SetSize(Vector2i size)
         {
-            base.SetSize(width, height);
-            this.Text.SetPosition(width, height);
+            base.SetSize(size);
+            this.Text.SetPosition(size);
         }
 
-        public override void GetPreferredSize(out int x, out int y)
+        public override void GetPreferredSize(out Vector2i size)
         {
-            this.Text.GetPreferredSize(out x, out y);
+            this.Text.GetPreferredSize(out size);
         }
 
         public override void Update(float dt)

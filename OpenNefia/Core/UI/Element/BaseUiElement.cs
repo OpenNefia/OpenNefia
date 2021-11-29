@@ -1,31 +1,31 @@
 ﻿using OpenNefia.Core.IoC;
 using OpenNefia.Core.Locale;
+using OpenNefia.Core.Maths;
 using OpenNefia.Core.Serialization.Manager.Attributes;
 
 namespace OpenNefia.Core.UI.Element
 {
     [ImplicitDataDefinitionForInheritors]
-    public abstract class BaseUiElement : BaseDrawable, IUiDefaultSizeable, ILocalizable
+    public abstract class BaseUiElement : BaseDrawable, IUiThemeable, IUiDefaultSizeable, ILocalizable
     {
-        public bool IsLocalized { get; private set; }
+        public bool IsLocalized { get; protected set; }
 
-        public virtual void GetPreferredSize(out int width, out int height)
+        public virtual void GetPreferredSize(out Vector2i size)
         {
-            width = 64;
-            height = 64;
+            size = new Vector2i(64, 64);
         }
 
         /// <summary>
         /// Called after <see cref="UiStyled" /> fields are applied to this element.
         /// </summary>
-        public virtual void Initialize()
+        public virtual void ApplyTheme()
         {
         }
 
         public void SetPreferredSize()
         {
-            this.GetPreferredSize(out int width, out int height);
-            this.SetSize(width, height);
+            this.GetPreferredSize(out var size);
+            this.SetSize(size);
         }
 
         public virtual void Localize(LocaleKey key)

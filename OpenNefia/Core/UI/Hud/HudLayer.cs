@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OpenNefia.Core.Maths;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,15 +16,15 @@ namespace OpenNefia.Core.UI.Hud
             this.MessageWindow = new SimpleMessageWindow();
         }
 
-        public override void SetSize(int width, int height)
+        public override void SetSize(Vector2i size)
         {
-            base.SetSize(width, height);
+            base.SetSize(size);
             this.MessageWindow.SetSize(Love.Graphics.GetWidth() - 100, 150);
         }
 
-        public override void SetPosition(int x, int y)
+        public override void SetPosition(Vector2i pos)
         {
-            base.SetPosition(x, y);
+            base.SetPosition(pos);
             this.MessageWindow.SetPosition(this.Left + 50, this.Top + this.Height - this.MessageWindow.Height - 10);
         }
 

@@ -22,7 +22,7 @@ namespace OpenNefia.Core.GameController
                     for (int x = 0; x < map.Width; x++)
                     {
                         char c = (char)(map.Tiles[x, y].Type + '.');
-                        if (map.AtPos(new Vector2i(x, y)).GetEntities().Any())
+                        if (map.AtPos(x, y).GetEntities().Any())
                             c = '$';
 
                         Console.Write($"{c}");
@@ -32,10 +32,10 @@ namespace OpenNefia.Core.GameController
             }
 
             for (int i = 0; i < 10; i++)
-                entityManager.SpawnEntity("Dagger", new MapCoordinates(map.Id, 1 + i, 1));
+                entityManager.SpawnEntity("Dagger", new MapCoordinates(map, 1 + i, 1));
 
             for (int i = 0; i < 20; i++)
-                entityManager.SpawnEntity("Putit", new MapCoordinates(map.Id, 1 + i, 2));
+                entityManager.SpawnEntity("Putit", new MapCoordinates(map, 1 + i, 2));
 
             PrintMap(map);
 

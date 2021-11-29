@@ -44,7 +44,7 @@ namespace OpenNefia.Core.Rendering
         public AssetDrawable(AssetPrototype asset, Love.Image image, AssetRegions regions)
         {
             this.Asset = asset;
-            this.Image = Image;
+            this.Image = image;
             this.Quads = new Dictionary<string, Quad>();
             this.CountX = this.Asset.CountX;
             this.CountY = this.Asset.CountY;

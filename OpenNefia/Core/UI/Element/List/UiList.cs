@@ -255,17 +255,16 @@ namespace OpenNefia.Core.UI.Element.List
             }
         }
 
-        public override void GetPreferredSize(out int width, out int height)
+        public override void GetPreferredSize(out Vector2i size)
         {
-            width = 0;
-            height = 0;
+            size = Vector2i.Zero;
 
             for (int index = 0; index < this.Count; index++)
             {
                 var cell = this.Cells[index];
-                cell.GetPreferredSize(out var cw, out var ch);
-                width = Math.Max(width, cw);
-                height += Math.Max(ch, this.ItemHeight);
+                cell.GetPreferredSize(out var cellSize);
+                size.X = Math.Max(size.X, cellSize.X);
+                size.Y += Math.Max(size.Y, this.ItemHeight);
             }
         }
 
@@ -274,8 +273,8 @@ namespace OpenNefia.Core.UI.Element.List
             for (int index = 0; index < this.Count; index++)
             {
                 var cell = this.Cells[index];
-                cell.GetPreferredSize(out var _, out var ch);
-                cell.SetSize(size.X, Math.Max(ch, this.ItemHeight));
+                cell.GetPreferredSize(out var cellSize);
+                cell.SetSize(size.X, Math.Max(cellSize.Y, this.ItemHeight));
                 size.X = Math.Max(size.X, cell.Width);
             }
 

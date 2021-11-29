@@ -21,7 +21,7 @@ namespace OpenNefia.Core.UI
                 this.Parent = parent;
             }
 
-            public static MouseMovedDelegateWrapper operator +(MouseMovedDelegateWrapper forwardsWrapper, Action<MouseMovedEvent> handler)
+            public static MouseMovedDelegateWrapper operator +(MouseMovedDelegateWrapper forwardsWrapper, Action<UiMouseMovedEventArgs> handler)
             {
                 forwardsWrapper.BindMouseMoved(handler);
                 return forwardsWrapper;
@@ -29,7 +29,7 @@ namespace OpenNefia.Core.UI
 
             public void Clear() => this.UnbindMouseMoved();
 
-            public void BindMouseMoved(Action<MouseMovedEvent> handler) => this.Parent.InputHandler.BindMouseMoved(handler);
+            public void BindMouseMoved(Action<UiMouseMovedEventArgs> handler) => this.Parent.InputHandler.BindMouseMoved(handler);
             public void UnbindMouseMoved() => this.Parent.InputHandler.UnbindMouseMoved();
         }
 

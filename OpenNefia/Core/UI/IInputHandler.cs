@@ -85,7 +85,7 @@ namespace OpenNefia.Core.UI
         /// </summary>
         /// <param name="text"></param>
         /// <returns></returns>
-        bool RunTextInputAction(string text);
+        bool RunTextInputAction(TextInputEventArgs args);
 
         /// <summary>
         /// 

@@ -1,12 +1,12 @@
 ﻿using System;
 
-namespace OpenNefia.Core
+namespace OpenNefia.Core.Locale
 {
     public class LocalizeAttribute : Attribute, ILocalizeAttribute
     {
         public string? Key { get; set; }
 
-        public LocalizeAttribute(string? key)
+        public LocalizeAttribute(string? key = null)
         {
             Key = key;
         }

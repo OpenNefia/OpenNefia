@@ -3,34 +3,60 @@ using CSharpRepl.Services.Completion;
 using CSharpRepl.Services.Logging;
 using CSharpRepl.Services.Roslyn;
 using CSharpRepl.Services.Roslyn.Scripting;
-using FluentResults;
+using OpenNefia.Core.Asynchronous;
+using OpenNefia.Core.Log;
 using OpenNefia.Core.Util;
 using PrettyPrompt.Consoles;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Threading;
-using System.Threading.Tasks;
+using DependencyAttribute = OpenNefia.Core.IoC.DependencyAttribute;
 
 namespace OpenNefia.Core.UI.Layer.Repl
 {
     public class CSharpReplExecutor : IReplExecutor
     {
+        [Dependency] private readonly ITaskManager _taskManager;
+
         private IConsole Console;
         private Configuration Config;
         private RoslynServices Roslyn;
         private bool IsInitialized = false;
 
-        internal sealed class NullLogger : ITraceLogger
+        internal sealed class OpenNefiaLogger : ITraceLogger
         {
-            public void Log(string message) {}
-            public void Log(Func<string> message) {}
-            public void LogPaths(string message, Func<IEnumerable<string?>> paths) {}
+            private readonly ISawmill _sawmill;
+
+            public OpenNefiaLogger()
+            {
+                _sawmill = Logger.GetSawmill(CommonSawmills.Repl);
+            }
+
+            public void Log(string message) 
+            {
+                _sawmill.Log(LogLevel.Info, message);
+            }
+
+            public void Log(Func<string> message)
+            {
+                _sawmill.Log(LogLevel.Info, message());
+            }
+            
+            public void LogPaths(string message, Func<IEnumerable<string?>> paths)
+            {
+                _sawmill.Log(LogLevel.Info, $"{message}, { string.Join(", ", paths())}");
+            }
         }
 
-        public CSharpReplExecutor(ReplLayer replLayer) : this(replLayer, BuildDefaultConfig())
+        public CSharpReplExecutor(ReplLayer replLayer, ITaskManager taskManager) : this(replLayer, BuildDefaultConfig(), taskManager)
         {
+        }
+
+        public CSharpReplExecutor(ReplLayer replLayer, Configuration config, ITaskManager taskManager)
+        {
+            _taskManager = taskManager;
+
+            Console = new ReplLayerConsoleBridge(replLayer);
+            Config = config;
+            Roslyn = new RoslynServices(Console, Config, new OpenNefiaLogger());
         }
 
         private static Configuration BuildDefaultConfig()
@@ -61,21 +87,14 @@ namespace OpenNefia.Core.UI.Layer.Repl
             };
         }
 
-        public CSharpReplExecutor(ReplLayer replLayer, Configuration config)
-        {
-            Console = new ReplLayerConsoleBridge(replLayer);
-            Config = config;
-            Roslyn = new RoslynServices(Console, Config, new NullLogger());
-        }
-
-        public void Init()
+        public void Initialize()
         {
             if (this.IsInitialized)
                 return;
 
-            TaskRunner.Run(Roslyn.WarmUpAsync(Config.LoadScriptArgs));
+            TaskRunnerLayer.Run(Roslyn.WarmUpAsync(Config.LoadScriptArgs));
             var loadReferenceScript = string.Join("\r\n", Config.References.Select(reference => $@"#r ""{reference}"""));
-            var loadReferenceScriptResult = TaskRunner.Run(Roslyn.EvaluateAsync(loadReferenceScript));
+            var loadReferenceScriptResult = TaskRunnerLayer.Run(Roslyn.EvaluateAsync(loadReferenceScript));
 
             this.IsInitialized = true;
         }

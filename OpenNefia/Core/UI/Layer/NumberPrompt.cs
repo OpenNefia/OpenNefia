@@ -2,13 +2,6 @@
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Core.UI.Element;
-using OpenNefia.Core.UI.Styling;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OpenNefia.Core.UI.Layer
 {
@@ -66,7 +59,7 @@ namespace OpenNefia.Core.UI.Layer
         protected AssetDrawable AssetArrowRight;
 
         [UiStyled] protected Color ColorPromptBackground;
-        [UiStyled] protected IUiText Text = default!;
+        [UiStyled] protected IUiText Text;
 
         public NumberPrompt(int maxValue = 1, int minValue = 1, int? initialValue = null, bool isCancellable = true)
         {
@@ -80,20 +73,17 @@ namespace OpenNefia.Core.UI.Layer
             this._Value = initialValue.Value;
             this.IsCancellable = isCancellable;
 
+            this.Text = new UiText();
+
             this.AssetLabelInput = Assets.Get(AssetPrototypeOf.LabelInput);
             this.AssetArrowLeft = Assets.Get(AssetPrototypeOf.ArrowLeft);
             this.AssetArrowRight = Assets.Get(AssetPrototypeOf.ArrowRight);
 
             this.TopicWindow = new UiTopicWindow(UiTopicWindow.FrameStyleKind.Zero, UiTopicWindow.WindowStyleKind.Two);
 
-            this.BindKeys();
-        }
-
-        public override void Initialize()
-        {
-            base.Initialize();
-
             this.UpdateText();
+
+            this.BindKeys();
         }
 
         protected virtual void BindKeys()
@@ -132,13 +122,9 @@ namespace OpenNefia.Core.UI.Layer
         public const int DEFAULT_WIDTH = 8 * 16 + 60;
         public const int DEFAULT_HEIGHT = 36;
 
-        public override void GetPreferredBounds(out int x, out int y, out int width, out int height)
+        public override void GetPreferredBounds(out Box2i bounds)
         {
-            var rect = UiUtils.GetCenteredParams(DEFAULT_WIDTH, DEFAULT_HEIGHT);
-            x = rect.X;
-            y = rect.Y;
-            width = rect.Width;
-            height = rect.Height;
+            UiUtils.GetCenteredParams(DEFAULT_WIDTH, DEFAULT_HEIGHT, out bounds);
         }
 
         public override void SetSize(Vector2i size)

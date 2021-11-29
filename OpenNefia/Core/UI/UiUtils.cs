@@ -1,13 +1,7 @@
 ﻿using Love;
+using OpenNefia.Core.Game;
 using OpenNefia.Core.Maths;
-using OpenNefia.Core.Rendering;
 using OpenNefia.Core.UI.Element;
-using OpenNefia.Core.UI.Element.List;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OpenNefia.Core.UI
 {
@@ -23,7 +17,7 @@ namespace OpenNefia.Core.UI
             return screenPos.X >= 0 && screenPos.Y >= 0 && screenPos.X < Love.Graphics.GetWidth() && screenPos.Y < Love.Graphics.GetHeight() - Constants.INF_MSGH;
         }
 
-        public static Rectangle GetCenteredParams(int width, int height)
+        public static void GetCenteredParams(int width, int height, out Box2i bounds)
         {
             var ingame = false;
             var x = (Love.Graphics.GetWidth() - width) / 2;
@@ -31,15 +25,15 @@ namespace OpenNefia.Core.UI
             if (ingame)
             {
                 var coords = GameSession.Coords;
-                var tiledHeight = Love.Graphics.GetHeight() / coords.TileHeight;
-                y = ((tiledHeight - 2) * coords.TileHeight - height) / 2 + 8;
+                var tiledHeight = Love.Graphics.GetHeight() / coords.TileSize.Y;
+                y = ((tiledHeight - 2) * coords.TileSize.Y - height) / 2 + 8;
             }
             else
             {
                 y = (Love.Graphics.GetHeight() - height) / 2;
             }
 
-            return new Rectangle(x, y, width, height);
+            bounds = Box2i.FromDimensions(x, y, width, height);
         }
 
         public static void DebugDraw(IDrawable elem)
@@ -48,7 +42,6 @@ namespace OpenNefia.Core.UI
             Love.Graphics.Rectangle(Love.DrawMode.Line, elem.Left, elem.Top, elem.Width, elem.Height);
             Love.Graphics.SetColor(Love.Color.Blue);
             Love.Graphics.Line(elem.Left, elem.Top, elem.Left + elem.Width, elem.Top + elem.Height);
-            //Graphics.Print($"{elem}", elem.X, elem.Y);
         }
     }
 }

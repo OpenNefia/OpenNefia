@@ -1,5 +1,6 @@
 ﻿using Love;
 using OpenNefia.Core.Data.Types;
+using OpenNefia.Core.Maths;
 using OpenNefia.Core.Rendering;
 using System;
 using System.Collections.Generic;
@@ -28,13 +29,9 @@ namespace OpenNefia.Core.UI.Layer
             this.Keybinds[Keybind.Cancel] += (_) => this.Cancel();
         }
 
-        public override void GetPreferredBounds(out int x, out int y, out int width, out int height)
+        public override void GetPreferredBounds(out Box2i bounds)
         {
-            var rect = UiUtils.GetCenteredParams(this.Image.GetWidth(), this.Image.GetHeight());
-            x = rect.X;
-            y = rect.Y;
-            width = rect.Width;
-            height = rect.Height;
+            UiUtils.GetCenteredParams(this.Image.GetWidth(), this.Image.GetHeight(), out bounds);
         }
 
         public override void Update(float dt)

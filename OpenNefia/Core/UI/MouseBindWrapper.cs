@@ -23,7 +23,7 @@ namespace OpenNefia.Core.UI
                 this.MouseButton = button;
             }
 
-            public static MouseBindDelegateWrapper operator +(MouseBindDelegateWrapper delegateWrapper, Action<MouseButtonEvent> evt)
+            public static MouseBindDelegateWrapper operator +(MouseBindDelegateWrapper delegateWrapper, Action<UiMousePressedEventArgs> evt)
             {
                 delegateWrapper.BindMouseButton(delegateWrapper.MouseButton, evt);
                 return delegateWrapper;
@@ -34,10 +34,10 @@ namespace OpenNefia.Core.UI
                 this.UnbindMouseButton(this.MouseButton);
             }
 
-            public void BindMouseButton(Action<MouseButtonEvent> func, bool trackReleased = false)
+            public void BindMouseButton(Action<UiMousePressedEventArgs> func, bool trackReleased = false)
                 => this.BindMouseButton(this.MouseButton, func, trackReleased);
 
-            public void BindMouseButton(MouseButtons button, Action<MouseButtonEvent> func, bool trackReleased = false)
+            public void BindMouseButton(MouseButtons button, Action<UiMousePressedEventArgs> func, bool trackReleased = false)
             {
                 this.Parent.Input.BindMouseButton(button, func, trackReleased);
             }
@@ -47,7 +47,7 @@ namespace OpenNefia.Core.UI
                 this.Parent.Input.UnbindMouseButton(button);
             }
 
-            public void Bind(Action<MouseButtonEvent> func, bool trackReleased = false) 
+            public void Bind(Action<UiMousePressedEventArgs> func, bool trackReleased = false) 
                 => BindMouseButton(this.MouseButton, func, trackReleased);
         }
 

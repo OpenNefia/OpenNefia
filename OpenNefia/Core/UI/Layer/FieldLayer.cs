@@ -224,7 +224,7 @@ namespace OpenNefia.Core.UI.Layer
                 this.Cancel();
         }
 
-        private void PlaceTile(MouseButtonEvent evt)
+        private void PlaceTile(UiMousePressedEventArgs evt)
         {
             if (evt.State == KeyPressState.Pressed)
             {

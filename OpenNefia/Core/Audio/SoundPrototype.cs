@@ -11,6 +11,6 @@ namespace OpenNefia.Core.Audio
         public string ID { get; } = default!;
 
         [DataField(required: true)]
-        public ResourcePath Path { get; }
+        public ResourcePath Path { get; } = default!;
     }
 }

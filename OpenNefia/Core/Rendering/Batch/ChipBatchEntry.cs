@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OpenNefia.Core.Maths;
+using System;
 
 namespace OpenNefia.Core.Rendering
 {
@@ -7,14 +8,13 @@ namespace OpenNefia.Core.Rendering
         public MapObjectMemory Memory;
         public AtlasTile AtlasTile;
         public int RowIndex;
-        public int ScrollXOffset = 0;
-        public int ScrollYOffset = 0;
+        public Vector2i ScrollOffset;
 
         public ChipBatchEntry(AtlasTile atlasTile, MapObjectMemory memory)
         {
             Memory = memory;
             AtlasTile = atlasTile;
-            RowIndex = memory.TileY;
+            RowIndex = memory.Coords.Y;
         }
 
         public int CompareTo(ChipBatchEntry? other)

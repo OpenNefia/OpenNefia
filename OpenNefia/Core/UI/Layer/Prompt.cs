@@ -1,4 +1,5 @@
 ﻿using OpenNefia.Core.Audio;
+using OpenNefia.Core.Maths;
 using OpenNefia.Core.UI.Element;
 using OpenNefia.Core.UI.Element.List;
 using System;
@@ -105,36 +106,38 @@ namespace OpenNefia.Core.UI.Layer
         {
             if (this.Options.QueryText != null)
             {
-                Messages.Print(this.Options.QueryText);
+                // Messages.Print(this.Options.QueryText);
             }
             Sounds.Play(SoundPrototypeOf.Pop2);
         }
 
-        public override void GetPreferredBounds(out int x, out int y, out int width, out int height)
+        public override void GetPreferredBounds(out Box2i bounds)
         {
-            this.List.GetPreferredSize(out var listWidth, out var listHeight);
-            width = Math.Max(this.DefaultWidth, listWidth + 26 + 44);
-            height = listHeight;
+            this.List.GetPreferredSize(out var listSize);
+            var width = Math.Max(this.DefaultWidth, listSize.X + 26 + 44);
+            var height = listSize.Y;
 
             var promptX = (Love.Graphics.GetWidth() - 10) / 2 + 3;
             var promptY = (Love.Graphics.GetHeight() - Constants.INF_VERH - 30) / 2 - 4;
 
-            x = promptX - width / 2;
-            y = promptY - height / 2;
+            var x = promptX - width / 2;
+            var y = promptY - height / 2;
+
+            bounds = Box2i.FromDimensions(x, y, width, height);
         }
 
-        public override void SetSize(int width = 0, int height = 0)
+        public override void SetSize(Vector2i size)
         {
-            this.List.SetSize(width, height);
+            this.List.SetSize(size);
 
-            base.SetSize(width, height + 42);
+            base.SetSize(size.X, size.Y + 42);
 
             this.Window.SetSize(this.Width - 16, this.Height - 16);
         }
 
-        public override void SetPosition(int x, int y)
+        public override void SetPosition(Vector2i pos)
         {
-            base.SetPosition(x, y);
+            base.SetPosition(pos);
 
             this.List.SetPosition(this.Left + 30, this.Top + 24);
             this.Window.SetPosition(this.Left + 8, this.Top + 8);

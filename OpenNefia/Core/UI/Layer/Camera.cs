@@ -32,7 +32,7 @@ namespace OpenNefia.Core.UI.Layer
 
         public void CenterOn(MapCoordinates coords)
         {
-            if (coords.MapId != _map.Id)
+            if (coords.Map != _map)
                 return;
 
             GameSession.Coords.TileToScreen(coords.Position, out var screenPos);
@@ -53,7 +53,7 @@ namespace OpenNefia.Core.UI.Layer
         public void VisibleScreenToTile(Vector2i screenPos, out MapCoordinates coords)
         {
             GameSession.Coords.ScreenToTile(screenPos - _screenPos, out var tile);
-            coords = new MapCoordinates(_map.Id, tile);
+            coords = new MapCoordinates(_map, tile);
         }
     }
 }

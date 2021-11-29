@@ -16,7 +16,7 @@ namespace OpenNefia.Core.Rendering
         /// Path to tile or atlas image.
         /// </summary>
         [DataField(required: true)]
-        public ResourcePath? ImagePath;
+        public ResourcePath ImagePath = default!;
 
         /// <summary>
         /// Number of tiles in the X direction.

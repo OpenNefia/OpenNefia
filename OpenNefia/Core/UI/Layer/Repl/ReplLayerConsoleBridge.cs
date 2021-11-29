@@ -18,7 +18,7 @@ namespace OpenNefia.Core.UI.Layer.Repl
 
         public int CursorTop => ReplLayer.ScrollbackSize;
 
-        public int BufferWidth => ReplLayer.Width / ReplLayer.FontReplText.GetWidth(" ");
+        public int BufferWidth => ReplLayer.Width / ReplLayer.FontReplText.LoveFont.GetWidth(" ");
 
         public int WindowHeight => ReplLayer.MaxLines;
 

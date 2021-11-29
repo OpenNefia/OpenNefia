@@ -1,8 +1,5 @@
-﻿using Love;
-using OpenNefia.Core.Data.Types;
+﻿using OpenNefia.Core.Data.Types;
 using OpenNefia.Core.Graphics;
-using System;
-using System.Collections.Generic;
 
 namespace OpenNefia.Core.UI.Element
 {
@@ -58,17 +55,17 @@ namespace OpenNefia.Core.UI.Element
         public void UpdateKeyRepeats(float dt) => InputHandler.UpdateKeyRepeats(dt);
         public void RunKeyActions(float dt) => InputHandler.RunKeyActions(dt);
         public bool RunKeyAction(Keys key, KeyPressState state) => InputHandler.RunKeyAction(key, state);
-        public void ReleaseKey(Keys key) => InputHandler.ReleaseKey(key);
+        public void ReleaseKey(Keys key, bool runEvents = true) => InputHandler.ReleaseKey(key, runEvents);
 
-        public void BindMouseButton(MouseButtons button, Action<MouseButtonEvent> handler, bool trackReleased = false) => InputHandler.BindMouseButton(button, handler, trackReleased);
+        public void BindMouseButton(MouseButtons button, Action<UiMousePressedEventArgs> handler, bool trackReleased = false) => InputHandler.BindMouseButton(button, handler, trackReleased);
         public void UnbindMouseButton(MouseButtons button) => InputHandler.UnbindMouseButton(button);
-        public void BindMouseMoved(Action<MouseMovedEvent> handler) => InputHandler.BindMouseMoved(handler);
+        public void BindMouseMoved(Action<UiMouseMovedEventArgs> handler) => InputHandler.BindMouseMoved(handler);
         public void UnbindMouseMoved() => InputHandler.UnbindMouseMoved();
-        public bool RunMouseAction(MouseButtonPress press) => InputHandler.RunMouseAction(press);
-        public bool RunMouseMovedAction(int x, int y, int dx, int dy) => InputHandler.RunMouseMovedAction(x, y, dx, dy);
-        public void ReleaseMouseButton(MouseButtonPress press) => InputHandler.ReleaseMouseButton(press);
+        public bool RunMouseAction(MousePressedEventArgs args) => InputHandler.RunMouseAction(args);
+        public bool RunMouseMovedAction(MouseMovedEventArgs args) => InputHandler.RunMouseMovedAction(args);
+        public void ReleaseMouseButton(MousePressedEventArgs args, bool runEvents = true) => InputHandler.ReleaseMouseButton(args, runEvents);
 
-        public bool RunTextInputAction(string text) => InputHandler.RunTextInputAction(text);
+        public bool RunTextInputAction(TextInputEventArgs args) => InputHandler.RunTextInputAction(args);
         public void BindTextInput(Action<UiTextInputEventArgs> evt) => InputHandler.BindTextInput(evt);
         public void UnbindTextInput() => InputHandler.UnbindTextInput();
 

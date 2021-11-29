@@ -4,7 +4,7 @@ namespace OpenNefia.Core.UI
 {
     public interface IMouseMovedBinder
     {
-        void BindMouseMoved(Action<MouseMovedEvent> handler);
+        void BindMouseMoved(Action<UiMouseMovedEventArgs> handler);
         void UnbindMouseMoved();
     }
 }

@@ -1,12 +1,9 @@
-﻿using OpenNefia.Core.Rendering;
+﻿using OpenNefia.Core.Audio;
+using OpenNefia.Core.Locale;
+using OpenNefia.Core.Maths;
+using OpenNefia.Core.Rendering;
 using OpenNefia.Core.UI.Element;
 using OpenNefia.Core.UI.Element.List;
-using OpenNefia.Game;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OpenNefia.Core.UI.Layer
 {
@@ -29,16 +26,16 @@ namespace OpenNefia.Core.UI.Layer
             
             public TitleScreenChoice Submenu;
 
-            [Localize(Key="Subtext")]
-            public IUiText UiTextSubtext;
+            [Localize]
+            public IUiText TextSubtext;
 
             public override string? LocalizeKey => Enum.GetName(Submenu);
 
             public TitleScreenCell(TitleScreenChoice submenu)
-                : base(submenu, new UiText(FontDefOf.ListTitleScreenText))
+                : base(submenu, new UiText())
             {
                 this.Submenu = submenu;
-                this.UiTextSubtext = new UiText(FontDefOf.ListTitleScreenSubtext);
+                this.TextSubtext = new UiText();
             }
 
             public override void Localize(LocaleKey key)
@@ -47,27 +44,27 @@ namespace OpenNefia.Core.UI.Layer
                 this.SetPosition(Left, Top);
             }
 
-            public override void SetPosition(int x, int y)
+            public override void SetPosition(Vector2i pos)
             {
-                base.SetPosition(x, y);
-                if (this.UiTextSubtext.Text != string.Empty)
+                base.SetPosition(pos);
+                if (this.TextSubtext.Text != string.Empty)
                 {
-                    this.UiTextSubtext.SetPosition(x + 40, y - 4);
-                    this.UiText.SetPosition(x + 40 + this.XOffset + 4, y + 8);
+                    this.TextSubtext.SetPosition(pos.X + 40, pos.Y - 4);
+                    this.UiText.SetPosition(pos.X + 40 + this.XOffset + 4, pos.Y + 8);
                 }
                 else
                 {
-                    this.UiText.SetPosition(x + 40 + this.XOffset + 4, y + 1);
+                    this.UiText.SetPosition(pos.X + 40 + this.XOffset + 4, pos.Y + 1);
                 }
             }
 
-            public override void SetSize(int width = -1, int height = -1)
+            public override void SetSize(Vector2i size)
             {
-                height = ITEM_HEIGHT;
+                size.Y = ITEM_HEIGHT;
 
-                this.UiText.SetSize(width, height);
-                this.UiTextSubtext.SetSize(width, height);
-                base.SetSize(Math.Max(width, this.UiText.Width), height);
+                this.UiText.SetSize(size);
+                this.TextSubtext.SetSize(size);
+                base.SetSize(Math.Max(size.X, this.UiText.Width), size.Y);
             }
 
             public override void Draw()
@@ -76,9 +73,9 @@ namespace OpenNefia.Core.UI.Layer
                 this.AssetSelectKey.Draw(this.Left, this.Top - 1);
                 this.KeyNameText.Draw();
                 this.UiText.Draw();
-                if (I18N.IsFullwidth())
+                if (Loc.IsFullwidth())
                 {
-                    this.UiTextSubtext.Draw();
+                    this.TextSubtext.Draw();
                 }
             }
 
@@ -86,17 +83,17 @@ namespace OpenNefia.Core.UI.Layer
             {
                 this.KeyNameText.Update(dt);
                 this.UiText.Update(dt);
-                this.UiTextSubtext.Update(dt);
+                this.TextSubtext.Update(dt);
             }
 
             public override void Dispose()
             {
                 base.Dispose();
-                this.UiTextSubtext.Dispose();
+                this.TextSubtext.Dispose();
             }
         }
 
-        private FontSpec FontTitleText;
+        [UiStyled] private FontSpec FontTitleText = default!;
         private AssetDrawable AssetTitle;
         private AssetDrawable AssetG4;
 
@@ -110,23 +107,22 @@ namespace OpenNefia.Core.UI.Layer
 
         public TitleScreenLayer()
         {
-            FontTitleText = FontDefOf.TitleScreenText;
-            AssetTitle = new AssetDrawable(AssetPrototypeOf.Title);
-            AssetG4 = new AssetDrawable(AssetPrototypeOf.G4);
+            AssetTitle = Assets.Get(AssetPrototypeOf.Title);
+            AssetG4 = Assets.Get(AssetPrototypeOf.G4);
 
             var version = "1.22";
             TextInfo = new IUiText[3];
 
-            TextInfo[0] = new UiText(FontTitleText, $"Elona version {version}  Developed by Noa");
-            if (I18N.Language == "ja_JP")
+            TextInfo[0] = new UiText($"Elona version {version}  Developed by Noa");
+            if (Loc.Language == LanguagePrototypeOf.Japanese)
             {
-                TextInfo[1] = new UiText(FontTitleText, "Contributor MSL / View the credits for more");
+                TextInfo[1] = new UiText("Contributor MSL / View the credits for more");
             }
-            else if (I18N.Language == "en_US")
+            else if (Loc.Language == LanguagePrototypeOf.English)
             {
-                TextInfo[1] = new UiText(FontTitleText, "Contributor f1r3fly, Sunstrike, Schmidt, Elvenspirit / View the credits for more");
+                TextInfo[1] = new UiText("Contributor f1r3fly, Sunstrike, Schmidt, Elvenspirit / View the credits for more");
             }
-            TextInfo[2] = new UiText(FontTitleText, $"{Engine.NameBase} version {Engine.Version} Developed by Ruin0x11");
+            TextInfo[2] = new UiText($"{Engine.NameBase} version {Engine.Version} Developed by Ruin0x11");
 
             Window = new UiWindow();
 
@@ -165,26 +161,26 @@ namespace OpenNefia.Core.UI.Layer
             }
         }
 
-        public override void SetSize(int width, int height)
+        public override void SetSize(Vector2i size)
         {
-            base.SetSize(width, height);
+            base.SetSize(size);
             this.Window.SetSize(320, 355);
             this.List.SetPreferredSize();
         }
 
-        public override void SetPosition(int x, int y)
+        public override void SetPosition(Vector2i pos)
         {
-            base.SetPosition(x, y);
+            base.SetPosition(pos);
             TextInfo[0].SetPosition(this.Left + 20, this.Top + 20);
-            TextInfo[1].SetPosition(this.Left + 20, this.Top + 20 + (FontTitleText.GetHeight() + 5));
-            TextInfo[2].SetPosition(this.Left + 20, this.Top + 20 + (FontTitleText.GetHeight() + 5) * 2);
+            TextInfo[1].SetPosition(this.Left + 20, this.Top + 20 + (FontTitleText.LoveFont.GetHeight() + 5));
+            TextInfo[2].SetPosition(this.Left + 20, this.Top + 20 + (FontTitleText.LoveFont.GetHeight() + 5) * 2);
             this.Window.SetPosition(this.Left + 80, (this.Height - 308) / 2);
             this.List.SetPosition(this.Window.Left + 40, this.Window.Top + 48);
         }
 
         public override void OnQuery()
         {
-            Music.PlayMusic(MusicDefOf.Opening);
+            // Music.PlayMusic(MusicDefOf.Opening);
         }
 
         public override void Update(float dt)

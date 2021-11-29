@@ -7,7 +7,7 @@ namespace OpenNefia.Core.Rendering
     [DataDefinition]
     public class FontSpec
     {
-        public FontSpec(int size, int smallSize)
+        public FontSpec(int size = 14, int smallSize = 12)
         {
             Size = size;
             SmallSize = smallSize;

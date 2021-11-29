@@ -3,15 +3,13 @@ using OpenNefia.Core.Audio;
 using OpenNefia.Core.Config;
 using OpenNefia.Core.Data.Types;
 using OpenNefia.Core.Game;
+using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Maps;
+using OpenNefia.Core.Maths;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.UI;
 using OpenNefia.Core.Utility;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Color = OpenNefia.Core.Maths.Color;
 
 namespace OpenNefia.Core.Rendering
 {
@@ -19,10 +17,10 @@ namespace OpenNefia.Core.Rendering
     {
         private MapCoordinates _startPos;
         private MapCoordinates _endPos;
-        private PrototypeId<ChipPrototype> _chip;
+        private ChipPrototype _chip;
         private Color _color;
-        private PrototypeId<SoundPrototype>? _sound;
-        private PrototypeId<SoundPrototype>? _impactSound;
+        private SoundPrototype? _sound;
+        private SoundPrototype? _impactSound;
         private TileAtlasBatch _chipBatch;
         private FrameCounter _counter;
 
@@ -34,10 +32,10 @@ namespace OpenNefia.Core.Rendering
         {
             this._startPos = startPos;
             this._endPos = endPos;
-            this._chip = chip;
-            this._color = color ?? Love.Color.White;
-            this._sound = sound;
-            this._impactSound = sound;
+            this._chip = chip.ResolvePrototype();
+            this._color = color ?? Color.White;
+            this._sound = sound?.ResolvePrototype();
+            this._impactSound = sound?.ResolvePrototype();
             this._chipBatch = new TileAtlasBatch(AtlasNames.Chip);
 
             var maxFrames = PosHelpers.Distance(_startPos.Position, _endPos.Position) / 2 + 1;
@@ -53,7 +51,7 @@ namespace OpenNefia.Core.Rendering
         {
             if (_sound != null)
             {
-                Sounds.Play(_sound.Value, _startPos);
+                Sounds.Play(_sound.GetStrongID(), _startPos);
             }
         }
 
@@ -64,7 +62,7 @@ namespace OpenNefia.Core.Rendering
             {
                 if (this._impactSound != null)
                 {
-                    Sounds.Play(_impactSound.Value, _endPos);
+                    Sounds.Play(_impactSound.GetStrongID(), _endPos);
                 }
                 this.Finish();
             }
@@ -77,17 +75,17 @@ namespace OpenNefia.Core.Rendering
             var cx = (int)(this._counter.Frame * (screenPos.X) / this._counter.MaxFrames);
             var cy = (int)(this._counter.Frame * (screenPos.Y) / this._counter.MaxFrames);
 
-            if (UiUtils.IsPointInVisibleScreen(this.Left + cx, this.Top + cy) || true)
+            if (UiUtils.IsPointInVisibleScreen(this.TopLeft + (cx, cy)))
             {
                 this._chipBatch.Clear();
                 this._chipBatch.Add(this._chip.Image, 
-                    cx + coords.TileWidth / 2, 
-                    cy + coords.TileHeight / 2, 
-                    coords.TileWidth,
-                    coords.TileHeight,
+                    cx + coords.TileSize.X / 2, 
+                    cy + coords.TileSize.Y / 2, 
+                    coords.TileSize.X,
+                    coords.TileSize.Y,
                     color: this._color, 
                     centered: true, 
-                    rotation: this._startPos.AngleBetween(this._endPos));
+                    rotation: (float)Angle.BetweenPoints(this._startPos.Position, this._endPos.Position).Degrees);
                 this._chipBatch.Flush();
                 this._chipBatch.Draw(this.Left, this.Top, this.Width, this.Height);
             }

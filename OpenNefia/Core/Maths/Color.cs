@@ -163,6 +163,16 @@ namespace OpenNefia.Core.Maths
             return new(tuple.r, tuple.g, tuple.b);
         }
 
+        public static implicit operator Color(Love.Color color)
+        {
+            return new(color.Rf, color.Gf, color.Bf, color.Af);
+        }
+
+        public static implicit operator Love.Color(Color color)
+        {
+            return new(color.R, color.G, color.B, color.A);
+        }
+
         public readonly void Deconstruct(out float r, out float g, out float b, out float a)
         {
             r = R;

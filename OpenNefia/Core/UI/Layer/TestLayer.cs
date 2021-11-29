@@ -1,12 +1,8 @@
 ﻿using Love;
-using OpenNefia.Core.Data.Types;
+using OpenNefia.Core.Maths;
 using OpenNefia.Core.UI.Element;
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OpenNefia.Core.UI.Layer
 {
@@ -84,27 +80,23 @@ namespace OpenNefia.Core.UI.Layer
             IEnumerator IEnumerable.GetEnumerator() => this.GetEnumerator();
         }
 
-        public override void GetPreferredBounds(out int x, out int y, out int width, out int height)
+        public override void GetPreferredBounds(out Box2i bounds)
         {
-            var rect = UiUtils.GetCenteredParams(400, 300);
-            x = rect.X;
-            y = rect.Y;
-            width = rect.Width;
-            height = rect.Height;
+            UiUtils.GetCenteredParams(400, 300, out bounds);
         }
 
-        public override void SetSize(int width, int height)
+        public override void SetSize(Vector2i size)
         {
-            base.SetSize(width, height);
+            base.SetSize(size);
 
-            this.WindowBacking.SetSize(width, height);
+            this.WindowBacking.SetSize(size);
         }
 
-        public override void SetPosition(int x, int y)
+        public override void SetPosition(Vector2i pos)
         {
-            base.SetPosition(x, y);
+            base.SetPosition(pos);
 
-            this.WindowBacking.SetPosition(this.Left, this.Top);
+            this.WindowBacking.SetPosition(this.TopLeft);
         }
 
         public override void Update(float dt)
@@ -123,12 +115,12 @@ namespace OpenNefia.Core.UI.Layer
 
         public override void Draw()
         {
-            Graphics.SetColor(1f, 1f, 1f);
-            Graphics.Rectangle(DrawMode.Fill, 100, 100, 100, 100);
-            Graphics.SetColor(1f, 0, 1f);
-            Graphics.Rectangle(DrawMode.Fill, 50 + this.SquareX, 50, 100, 100);
+            Love.Graphics.SetColor(1f, 1f, 1f);
+            Love.Graphics.Rectangle(DrawMode.Fill, 100, 100, 100, 100);
+            Love.Graphics.SetColor(1f, 0, 1f);
+            Love.Graphics.Rectangle(DrawMode.Fill, 50 + this.SquareX, 50, 100, 100);
 
-            Graphics.SetColor(1f, 1f, 1f);
+            Love.Graphics.SetColor(1f, 1f, 1f);
             this.WindowBacking.Draw();
         }
 

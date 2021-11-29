@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OpenNefia.Core.Maths;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +9,7 @@ namespace OpenNefia.Core.UI.Element
 {
     public interface IUiDefaultSizeable : IDrawable
     {
-        void GetPreferredSize(out int width, out int height);
+        void GetPreferredSize(out Vector2i size);
         void SetPreferredSize();
     }
 }

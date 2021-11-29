@@ -1,4 +1,6 @@
 ﻿using OpenNefia.Core.Audio;
+using OpenNefia.Core.Locale;
+using OpenNefia.Core.Maths;
 using OpenNefia.Core.UI.Element;
 using OpenNefia.Core.UI.Element.List;
 using System;
@@ -124,31 +126,27 @@ namespace OpenNefia.Core.UI.Layer
             this.Forwards += list;
         }
 
-        public override void GetPreferredBounds(out int x, out int y, out int width, out int height)
+        public override void GetPreferredBounds(out Box2i bounds)
         {
-            var rect = UiUtils.GetCenteredParams(400, 170);
-            x = rect.X;
-            y = rect.Y;
-            width = rect.Width;
-            height = rect.Height;
+            UiUtils.GetCenteredParams(400, 170, out bounds);
         }
 
-        public override void SetSize(int width, int height)
+        public override void SetSize(Vector2i size)
         {
-            base.SetSize(width, height);
+            base.SetSize(size);
 
-            this.Window.SetSize(this.Width, this.Height);
+            this.Window.SetSize(this.Size);
             var listWidth = (this.Width - 40) / 3;
             this.List1.SetSize(listWidth, this.Height - 40);
             this.List2.SetSize(listWidth, this.Height - 40);
             this.List3.SetSize(listWidth, this.Height - 40);
         }
 
-        public override void SetPosition(int x, int y)
+        public override void SetPosition(Vector2i pos)
         {
-            base.SetPosition(x, y);
+            base.SetPosition(pos);
 
-            this.Window.SetPosition(this.Left, this.Top);
+            this.Window.SetPosition(this.TopLeft);
             this.List1.SetPosition(this.Left + 20, this.Top + 40);
             this.List2.SetPosition(this.Left + 20 + (int)((this.Width - 40) * 0.33), this.Top + 40);
             this.List3.SetPosition(this.Left + 20 + (int)((this.Width - 40) * 0.66), this.Top + 40);

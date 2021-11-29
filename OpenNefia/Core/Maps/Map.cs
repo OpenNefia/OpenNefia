@@ -35,7 +35,9 @@ namespace OpenNefia.Core.Maps
         internal bool _RedrawAllThisTurn;
         internal bool _NeedsRedraw { get => _DirtyTilesThisTurn.Count > 0 || _RedrawAllThisTurn; }
 
-        public List<IEntity> Entities { get; } = new List<IEntity>();
+        private List<IEntity> _entities { get; } = new List<IEntity>();
+
+        public IEnumerable<IEntity> Entities => _entities.ToList();
 
         public Map(int width, int height)
         {
@@ -133,6 +135,16 @@ namespace OpenNefia.Core.Maps
                 return false;
 
             return _InSight[coords.X, coords.Y] == _LastSightId;
+        }
+
+        public void AddEntity(IEntity newEntity)
+        {
+            if (newEntity.Map != null)
+            {
+                throw new ArgumentException($"Entity is already in map {newEntity.Map.Id}", nameof(newEntity));
+            }
+            ((Entity)newEntity).ChangeMap(this);
+            _entities.Add(newEntity);
         }
     }
 }

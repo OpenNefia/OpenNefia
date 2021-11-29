@@ -1,5 +1,6 @@
 ﻿using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Maps;
+using OpenNefia.Core.Maths;
 
 namespace OpenNefia.Core.Rendering
 {
@@ -23,10 +24,9 @@ namespace OpenNefia.Core.Rendering
         public EntityUid ObjectUid;
         public bool IsVisible;
         public string ChipIndex = string.Empty;
-        public int ScreenXOffset;
-        public int ScreenYOffset;
+        public Vector2i ScreenOffset;
         public float Rotation;
-        public Love.Color Color;
+        public Color Color;
         public ShadowType ShadowType;
 
         internal int Index;

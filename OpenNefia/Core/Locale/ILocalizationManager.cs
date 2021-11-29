@@ -9,6 +9,8 @@ namespace OpenNefia.Core.Locale
 {
     public interface ILocalizationManager
     {
+        PrototypeId<LanguagePrototype> Language { get; }
+
         void DoLocalize(object o, LocaleKey key);
         LocaleFunc<T> GetFunction<T>(LocaleKey key);
         LocaleFunc<T1, T2> GetFunction<T1, T2>(LocaleKey key);

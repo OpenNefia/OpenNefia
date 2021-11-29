@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Color = OpenNefia.Core.Maths.Color;
 
 namespace OpenNefia.Core.UI.Layer
 {
@@ -35,8 +36,8 @@ namespace OpenNefia.Core.UI.Layer
         bool CanSee = false;
         bool IsPanning = false;
 
-        ColorDef ColorTargetedTile;
-        FontSpec FontTargetText;
+        [UiStyled] Color ColorTargetedTile;
+        [UiStyled] FontSpec FontTargetText = new();
         IUiText TextTarget;
 
         public PositionPrompt(MapCoordinates origin, MapCoordinates? target = null, IEntity? onlooker = null)
@@ -45,9 +46,7 @@ namespace OpenNefia.Core.UI.Layer
             this.TargetPos = target ?? origin;
             this.Onlooker = onlooker ?? GameSession.Player!;
 
-            this.ColorTargetedTile = ColorDefOf.PromptTargetedTile;
-            this.FontTargetText = FontDefOf.TargetText;
-            this.TextTarget = new UiText(this.FontTargetText);
+            this.TextTarget = new UiText(/*this.FontTargetText*/);
 
             this.BindKeys();
         }
@@ -81,7 +80,7 @@ namespace OpenNefia.Core.UI.Layer
             this.MouseButtons[UI.MouseButtons.Mouse2].Bind((evt) => this.IsPanning = evt.State == KeyPressState.Pressed, trackReleased: true);
         }
 
-        private void PanWithMouse(MouseMovedEvent evt)
+        private void PanWithMouse(UiMouseMovedEventArgs evt)
         {
             GameSession.Field.Camera.Pan(evt.DPos);
         }
@@ -94,12 +93,12 @@ namespace OpenNefia.Core.UI.Layer
 
         protected void MoveTargetPos(int dx, int dy)
         {
-            var map = this.TargetPos.GetMap();
+            var map = this.TargetPos.Map!;
 
             var tilePos = new Vector2i(Math.Clamp(this.TargetPos.X + dx, 0, map.Width - 1),
                                        Math.Clamp(this.TargetPos.Y + dy, 0, map.Height - 1));
 
-            this.SetTargetPos(new MapCoordinates(map.Id, tilePos));
+            this.SetTargetPos(new MapCoordinates(map, tilePos));
             this.UpdateCamera();
         }
 
@@ -121,8 +120,8 @@ namespace OpenNefia.Core.UI.Layer
 
         private void UpdateTargetText()
         {
-            this.CanSee = TargetText.GetTargetText(this.Onlooker, this.TargetPos, out var text, visibleOnly: true);
-            this.TextTarget.Text = text;
+            this.CanSee = false; // TargetText.GetTargetText(this.Onlooker, this.TargetPos, out var text, visibleOnly: true);
+            this.TextTarget.Text = "asdf"; //text;
         }
 
         private void NextTarget()
@@ -135,9 +134,9 @@ namespace OpenNefia.Core.UI.Layer
 
         }
 
-        public override void SetPosition(int x, int y)
+        public override void SetPosition(Vector2i pos)
         {
-            base.SetPosition(x, y);
+            base.SetPosition(pos);
             this.TextTarget.SetPosition(100, this.Height - Constants.INF_MSGH - 45 - this.TextTarget.Height);
         }
 

@@ -26,7 +26,7 @@ namespace OpenNefia.Core.GameObjects
             if (!EntityManager.TryGetEntity(uid, out var entity))
                 return;
 
-            foreach (var pos in PosUtils.GetSurroundingCoords(entity.Coords))
+            foreach (var pos in PosHelpers.GetSurroundingCoords(entity.Coords))
             {
                 foreach (var other in pos.GetEntities())
                 {

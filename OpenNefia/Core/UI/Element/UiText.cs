@@ -1,4 +1,5 @@
 ﻿using OpenNefia.Core.Locale;
+using OpenNefia.Core.Maths;
 using OpenNefia.Core.Rendering;
 
 namespace OpenNefia.Core.UI.Element
@@ -34,11 +35,13 @@ namespace OpenNefia.Core.UI.Element
         [UiStyled] public Maths.Color Color { get; set; }
 
 #pragma warning disable CS8618
-        
+
+        public UiText(string text = "") : this(new FontSpec(), text) { }
+
         public UiText(FontSpec font, string text = "")
         {
             this._text = text;
-            this._font = font;
+            this._font = font ?? throw new ArgumentNullException(nameof(font));
             this.RebakeText();
         }
 
@@ -51,10 +54,10 @@ namespace OpenNefia.Core.UI.Element
             this.SetPreferredSize();
         }
 
-        public override void GetPreferredSize(out int width, out int height)
+        public override void GetPreferredSize(out Vector2i size)
         {
-            width = this.Font.LoveFont.GetWidth(this.Text);
-            height = this.Font.LoveFont.GetHeight() * this.Text.Split('\n').Length;
+            size.X = this.Font.LoveFont.GetWidth(this.Text);
+            size.Y = this.Font.LoveFont.GetHeight() * this.Text.Split('\n').Length;
         }
 
         public override void Localize(LocaleKey key)

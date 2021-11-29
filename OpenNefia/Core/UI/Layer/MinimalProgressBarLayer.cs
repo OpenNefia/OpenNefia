@@ -1,4 +1,5 @@
 ﻿using OpenNefia.Core.Data.Types;
+using OpenNefia.Core.Maths;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Core.UI.Element;
 using System;
@@ -25,12 +26,15 @@ namespace OpenNefia.Core.UI.Layer
 
         private float ProgressPercent => Math.Clamp((float)this.StepNumber / (float)this.Job.NumberOfSteps, 0f, 1f);
 
+        private FontSpec FontTextLarge = new(20, 20);
+        private FontSpec FontTextSmall = new(14, 14);
+
         public MinimalProgressBarLayer(IProgressableJob job)
         {
             this.Job = job;
             this.Steps = job.GetEnumerator();
-            this.LoadingText = Love.Graphics.NewText(GraphicsEx.GetFont(20), "Now Loading...");
-            this.StatusText = Love.Graphics.NewText(GraphicsEx.GetFont(14), string.Empty);
+            this.LoadingText = Love.Graphics.NewText(FontTextLarge.LoveFont, "Now Loading...");
+            this.StatusText = Love.Graphics.NewText(FontTextSmall.LoveFont, string.Empty);
 
             if (this.AdvanceStep())
             {
@@ -49,13 +53,9 @@ namespace OpenNefia.Core.UI.Layer
         {
         }
 
-        public override void GetPreferredBounds(out int x, out int y, out int width, out int height)
+        public override void GetPreferredBounds(out Box2i bounds)
         {
-            var rect = UiUtils.GetCenteredParams(400, 200);
-            x = rect.X;
-            y = rect.Y;
-            width = rect.Width;
-            height = rect.Height;
+            UiUtils.GetCenteredParams(400, 200, out bounds);
         }
 
         public override void Update(float dt)

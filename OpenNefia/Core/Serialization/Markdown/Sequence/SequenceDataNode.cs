@@ -31,7 +31,7 @@ namespace OpenNefia.Core.Serialization.Markdown.Sequence
                 _nodes.Add(node.ToDataNode());
             }
 
-            Tag = sequence.Tag;
+            Tag = sequence.Tag.IsEmpty ? null : sequence.Tag.Value;
         }
 
         public SequenceDataNode(params DataNode[] nodes) : this()

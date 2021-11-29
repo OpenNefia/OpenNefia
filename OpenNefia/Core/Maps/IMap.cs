@@ -14,7 +14,7 @@ namespace OpenNefia.Core.Maps
         Tile[,] Tiles { get; }
         Tile[,] TileMemory { get; }
 
-        public List<IEntity> Entities { get; }
+        public IEnumerable<IEntity> Entities { get; }
         TileFlag[,] TileFlags { get; }
         MapObjectMemoryStore MapObjectMemory { get; }
 
@@ -28,5 +28,6 @@ namespace OpenNefia.Core.Maps
 
         bool IsInWindowFov(MapCoordinates coords);
         void RefreshVisibility();
+        void AddEntity(IEntity newEntity);
     }
 }

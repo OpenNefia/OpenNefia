@@ -1,10 +1,6 @@
 ﻿using OpenNefia.Core.Data.Types;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using OpenNefia.Core;
+using OpenNefia.Core.Utility;
+using OpenNefia.Core.Log;
 
 namespace OpenNefia.Core.UI
 {
@@ -66,9 +62,9 @@ namespace OpenNefia.Core.UI
 
         private static Dictionary<Keys, RawKey> GenerateAllModifierVariants()
         {
-            Logger.Info($"[RawKey] Generating key modifier combinations.");
+            Logger.Log(LogLevel.Info, $"[RawKey] Generating key modifier combinations.");
 
-            return EnumUtils.EnumerateValues<Keys>().Where((k) => !IsVirtualKey(k))
+            return EnumHelpers.EnumerateValues<Keys>().Where((k) => !IsVirtualKey(k))
                 .Distinct()
                 .SelectMany((k) => GenerateModifierVariants(k))
                 .ToDictionary((k) => k, (k) => new RawKey(k));

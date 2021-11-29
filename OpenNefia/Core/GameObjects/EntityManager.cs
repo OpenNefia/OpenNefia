@@ -118,9 +118,11 @@ namespace OpenNefia.Core.GameObjects
         public IEntity CreateEntityUninitialized(string? prototypeName, MapCoordinates coordinates)
         {
             var newEntity = CreateEntity(prototypeName);
-            var map = _mapManager.GetMap(coordinates.MapId);
-            map.Entities.Add(newEntity);
-            newEntity.ChangeMapId(coordinates.MapId);
+            var map = coordinates.Map;
+            if (map != null)
+            {
+                map.AddEntity(newEntity);
+            }
             newEntity.Pos = coordinates.Position;
 
             return newEntity;
@@ -130,7 +132,7 @@ namespace OpenNefia.Core.GameObjects
         public IEntity SpawnEntity(string? protoName, MapCoordinates coordinates)
         {
             var entity = CreateEntityUninitialized(protoName, coordinates);
-            InitializeAndStartEntity((Entity) entity, coordinates.MapId);
+            InitializeAndStartEntity((Entity) entity, coordinates.Map?.Id ?? MapId.Nullspace);
             return entity;
         }
 

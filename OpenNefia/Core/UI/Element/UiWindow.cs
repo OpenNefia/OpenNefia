@@ -1,4 +1,5 @@
-﻿using OpenNefia.Core.Maths;
+﻿using OpenNefia.Core.Locale;
+using OpenNefia.Core.Maths;
 using OpenNefia.Core.Rendering;
 using Color = OpenNefia.Core.Maths.Color;
 
@@ -22,10 +23,10 @@ namespace OpenNefia.Core.UI.Element
 
         [UiStyled]
         [Localize("Title")]
-        protected IUiText TextTitle = default!;
+        protected IUiText TextTitle;
 
         [UiStyled]
-        protected IUiText TextKeyHint = default!;
+        protected IUiText TextKeyHint;
 
         protected UiWindowBacking Window;
         protected UiWindowBacking WindowShadow;
@@ -43,14 +44,12 @@ namespace OpenNefia.Core.UI.Element
 
             this.AssetTipIcons = Assets.Get(AssetPrototypeOf.TipIcons);
 
+            this.TextTitle = new UiText();
+            this.TextKeyHint = new UiText("hogepiyo");
+
             this.Window = new UiWindowBacking();
             this.WindowShadow = new UiWindowBacking(UiWindowBacking.WindowBackingType.Shadow);
             this.TopicWindow = new UiTopicWindow();
-        }
-
-        public override void Initialize()
-        {
-            this.TextKeyHint.Text = "hogepiyo";
         }
 
         public override void SetPosition(Vector2i pos)

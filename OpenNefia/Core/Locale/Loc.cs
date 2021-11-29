@@ -15,9 +15,11 @@ namespace OpenNefia.Core.Locale
     {
         private static ILocalizationManager _localization => IoCManager.Resolve<ILocalizationManager>();
 
+        public static PrototypeId<LanguagePrototype> Language => _localization.Language;
+
         public static void SwitchLanguage(PrototypeId<LanguagePrototype> language)
         {
-            return _localization.SwitchLanguage(language);
+            _localization.SwitchLanguage(language);
         }
 
         public static LocaleFunc<T> GetFunction<T>(LocaleKey key)

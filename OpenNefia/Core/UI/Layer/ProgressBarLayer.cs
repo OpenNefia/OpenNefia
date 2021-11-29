@@ -1,4 +1,5 @@
 ﻿using OpenNefia.Core.Audio;
+using OpenNefia.Core.Maths;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Core.UI.Element;
 using System;
@@ -34,8 +35,8 @@ namespace OpenNefia.Core.UI.Layer
 
         private float ProgressPercent => Math.Clamp((float)this.StepNumber / (float)this.Job.NumberOfSteps, 0f, 1f);
 
-        private FontSpec FontListText;
-        private ColorDef ColorTextBlack;
+        [UiStyled] private FontSpec FontListText = new();
+        [UiStyled] private Color ColorTextBlack;
         private IUiText TextStatus;
         private UiWindow Window;
 
@@ -44,9 +45,7 @@ namespace OpenNefia.Core.UI.Layer
             this.Job = job;
             this.Steps = job.GetEnumerator();
 
-            this.FontListText = FontDefOf.ListText;
-            this.ColorTextBlack = ColorDefOf.TextBlack;
-            this.TextStatus = new UiText(this.FontListText);
+            this.TextStatus = new UiText(/*this.FontListText*/);
             this.Window = new UiWindow();
 
             if (this.AdvanceStep())
@@ -67,26 +66,22 @@ namespace OpenNefia.Core.UI.Layer
             Sounds.Play(SoundPrototypeOf.Pop2);
         }
 
-        public override void SetSize(int width, int height)
+        public override void SetSize(Vector2i size)
         {
-            base.SetSize(width, height);
-            this.Window.SetSize(width, height);
+            base.SetSize(size);
+            this.Window.SetSize(size);
         }
 
-        public override void SetPosition(int x, int y)
+        public override void SetPosition(Vector2i pos)
         {
-            base.SetPosition(x, y);
-            this.Window.SetPosition(x, y);
+            base.SetPosition(pos);
+            this.Window.SetPosition(pos);
             this.TextStatus.SetPosition(this.Left + this.Width / 2 - this.TextStatus.Width / 2, this.Top + this.Height / 2 - this.TextStatus.Height * 3);
         }
 
-        public override void GetPreferredBounds(out int x, out int y, out int width, out int height)
+        public override void GetPreferredBounds(out Box2i bounds)
         {
-            var rect = UiUtils.GetCenteredParams(400, 200);
-            x = rect.X;
-            y = rect.Y;
-            width = rect.Width;
-            height = rect.Height;
+            UiUtils.GetCenteredParams(400, 200, out bounds);
         }
 
         public override void Update(float dt)

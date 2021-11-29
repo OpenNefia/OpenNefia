@@ -1,8 +1,5 @@
-﻿using OpenNefia.Core.Utility;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using OpenNefia.Core.Game;
+using OpenNefia.Core.Utility;
 
 namespace OpenNefia.Core.Rendering
 {
@@ -21,8 +18,6 @@ namespace OpenNefia.Core.Rendering
             this.Atlas = atlas;
             this.Coords = coords;
         }
-
-        public ChipBatch(TileAtlas atlas) : this(atlas, GameSession.Coords) { }
 
         public void Clear()
         {
@@ -89,24 +84,21 @@ namespace OpenNefia.Core.Rendering
                         ToDraw.Add(currentBatch);
                     }
 
-                    int screenX;
-                    int screenY;
-                    this.Coords.TileToScreen(memory.TileX, memory.TileY, out screenX, out screenY);
+                    this.Coords.TileToScreen(memory.Coords.Position, out var screenPos);
 
-                    var px = screenX + memory.ScreenXOffset + entry.ScrollXOffset;
-                    var py = screenY + memory.ScreenYOffset + entry.ScrollYOffset;
+                    var p = screenPos + memory.ScreenOffset + entry.ScrollOffset;
 
-                    currentBatch.SetColor((float)memory.Color.r / 255f,
-                        (float)memory.Color.b / 255f,
-                        (float)memory.Color.g / 255f,
-                        (float)memory.Color.a / 255f);
+                    currentBatch.SetColor(memory.Color.R,
+                        memory.Color.G,
+                        memory.Color.B,
+                        memory.Color.A);
 
                     var tile = entry.AtlasTile;
 
                     var rect = tile.Quad.GetViewport();
                     currentBatch.Add(tile.Quad,
-                        px + (rect.Width / 2),
-                        py + tile.YOffset + (rect.Height / 2),
+                        p.X + (rect.Width / 2),
+                        p.Y + tile.YOffset + (rect.Height / 2),
                         memory.Rotation,
                         1,
                         1,

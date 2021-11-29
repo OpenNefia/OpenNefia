@@ -20,7 +20,7 @@ namespace OpenNefia.Core
         }
 
         // TODO needs to be LanguageDef
-        public static PrototypeId<LanguagePrototype> Language { get; private set; } = LanguagePrototypeIDs.English;
+        public PrototypeId<LanguagePrototype> Language { get; private set; } = LanguagePrototypeOf.English;
         
         public void SwitchLanguage(PrototypeId<LanguagePrototype> language)
         {
@@ -92,7 +92,7 @@ namespace OpenNefia.Core
 
         public bool IsFullwidth()
         {
-            return Language == LanguagePrototypeIDs.Japanese;
+            return Language == LanguagePrototypeOf.Japanese;
         }
 
         public void DoLocalize(object o, LocaleKey key)

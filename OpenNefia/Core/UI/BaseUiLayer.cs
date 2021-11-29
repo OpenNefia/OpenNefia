@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Love;
 using OpenNefia.Core.IoC;
+using OpenNefia.Core.Maths;
 using OpenNefia.Core.UI.Element;
 
 namespace OpenNefia.Core.UI
@@ -18,19 +19,16 @@ namespace OpenNefia.Core.UI
         public bool WasFinished { get => this.Result != null; }
         public bool WasCancelled { get; private set; }
         public T? Result { get; private set; }
-        public bool IsLocalized { get; private set; } = false;
         
-        public override sealed void GetPreferredSize(out int width, out int height)
+        public override sealed void GetPreferredSize(out Vector2i size)
         {
-            GetPreferredBounds(out var _, out var _, out width, out height);
+            GetPreferredBounds(out var bounds);
+            size = bounds.Size;
         }
 
-        public virtual void GetPreferredBounds(out int x, out int y, out int width, out int height)
+        public virtual void GetPreferredBounds(out Box2i bounds)
         {
-            x = 0;
-            y = 0;
-            width = Love.Graphics.GetWidth();
-            height = Love.Graphics.GetHeight();
+            bounds = Box2i.FromDimensions(0, 0, Love.Graphics.GetWidth(), Love.Graphics.GetHeight());
         }
 
         public bool IsInActiveLayerList()
@@ -53,7 +51,11 @@ namespace OpenNefia.Core.UI
             this.Result = result;
         }
 
-        public virtual void Initialize()
+        public virtual void ApplyTheme()
+        {
+        }
+
+        public void Initialize()
         {
             this.Result = null;
             this.WasCancelled = false;
@@ -76,36 +78,6 @@ namespace OpenNefia.Core.UI
         public virtual void OnQueryFinish()
         {
 
-        }
-
-        public void OnLoveKeyPressed(KeyConstant key, bool isRepeat)
-        {
-            this.ReceiveKeyPressed(key, isRepeat);
-        }
-
-        public void OnLoveKeyReleased(KeyConstant key)
-        {
-            this.ReceiveKeyReleased(key);
-        }
-
-        public void OnLoveTextInput(string text)
-        {
-            this.ReceiveTextInput(text);
-        }
-
-        public void OnLoveMouseMoved(float x, float y, float dx, float dy, bool isTouch)
-        {
-            this.ReceiveMouseMoved(x, y, dx, dy, isTouch);
-        }
-
-        public void OnLoveMousePressed(float x, float y, int button, bool isTouch)
-        {
-            this.ReceiveMousePressed(x, y, button, isTouch);
-        }
-
-        public void OnLoveMouseReleased(float x, float y, int button, bool isTouch)
-        {
-            this.ReceiveMouseReleased(x, y, button, isTouch);
         }
 
         public override void Localize(LocaleKey key)

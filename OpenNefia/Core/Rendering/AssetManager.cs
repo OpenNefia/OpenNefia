@@ -54,7 +54,7 @@ namespace OpenNefia.Core.Rendering
             }
             else if (imageSpec.ImageRegion != null)
             {
-                image = LoadImageSource(imageSpec.ImagePath, imageSpec.ImageRegion);
+                image = LoadImageSource(imageSpec.ImagePath!, imageSpec.ImageRegion);
             }
             else
             {

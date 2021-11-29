@@ -8,5 +8,8 @@ namespace OpenNefia.Core.Rendering
     {
         [DataField("id", required: true)]
         public string ID { get; } = default!;
+
+        [DataField(required: true)]
+        public TileSpecifier Image = null!;
     }
 }
