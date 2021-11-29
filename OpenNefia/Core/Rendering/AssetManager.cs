@@ -1,4 +1,5 @@
-﻿using OpenNefia.Core.Maths;
+﻿using OpenNefia.Core.IoC;
+using OpenNefia.Core.Maths;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Utility;
 
@@ -6,6 +7,8 @@ namespace OpenNefia.Core.Rendering
 {
     public class AssetManager : IAssetManager
     {
+        [Dependency] private readonly IPrototypeManager _prototypes = default!;
+
         private readonly Dictionary<PrototypeId<AssetPrototype>, AssetDrawable> _assets = new();
 
         private Love.Image LoadImageSource(ResourcePath atlasPath, ImageRegion imageRegion)
@@ -97,6 +100,14 @@ namespace OpenNefia.Core.Rendering
             var regions = prototype.Regions;
 
             _assets[id] = new AssetDrawable(prototype, image, regions);
+        }
+
+        public void PreloadAssets()
+        {
+            foreach (var assetProto in _prototypes.EnumeratePrototypes<AssetPrototype>())
+            {
+                LoadAsset(assetProto.GetStrongID());
+            }
         }
 
         public AssetDrawable GetSizedAsset(PrototypeId<AssetPrototype> id, Vector2i size)

@@ -2,6 +2,7 @@
 using OpenNefia.Core.GameController;
 using OpenNefia.Core.Graphics;
 using OpenNefia.Core.IoC;
+using OpenNefia.Core.Locale;
 using OpenNefia.Core.Log;
 
 namespace OpenNefia.Core.UI

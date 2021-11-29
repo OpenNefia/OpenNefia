@@ -51,10 +51,6 @@ namespace OpenNefia.Core.UI
             this.Result = result;
         }
 
-        public virtual void ApplyTheme()
-        {
-        }
-
         public void Initialize()
         {
             this.Result = null;

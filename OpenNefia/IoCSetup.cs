@@ -6,6 +6,7 @@ using OpenNefia.Core.GameController;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Graphics;
 using OpenNefia.Core.IoC;
+using OpenNefia.Core.Locale;
 using OpenNefia.Core.Log;
 using OpenNefia.Core.Maps;
 using OpenNefia.Core.Prototypes;
@@ -48,6 +49,7 @@ namespace Why
             IoCManager.Register<IUiLayerManager, UiLayerManager>();
             IoCManager.Register<IRandom, SysRandom>();
             IoCManager.Register<IFontManager, FontManager>();
+            IoCManager.Register<ILocalizationManager, LocalizationManager>();
             IoCManager.Register<IGameSessionManager, GameSessionManager>();
             IoCManager.Register<IGameController, GameController>();
         }

@@ -24,7 +24,7 @@ namespace OpenNefia.Core.Graphics
         {
             var bootConfig = new BootConfig()
             {
-                WindowTitle = "OpenNefia",
+                WindowTitle = Engine.Title,
                 WindowDisplay = 0,
                 WindowMinWidth = 800,
                 WindowMinHeight = 600,
@@ -72,6 +72,11 @@ namespace OpenNefia.Core.Graphics
         public override void WindowResize(int w, int h)
         {
             OnWindowResized?.Invoke(new WindowResizedEventArgs(new Vector2i(w, h)));
+        }
+
+        public override void WindowFocus(bool focus)
+        {
+            OnWindowFocused?.Invoke(new WindowFocusedEventArgs(focus));
         }
 
         public override void KeyPressed(Love.KeyConstant key, Love.Scancode scancode, bool isRepeat)

@@ -12,6 +12,7 @@ using OpenNefia.Core.IoC;
 using OpenNefia.Core.Log;
 using OpenNefia.Core.Maps;
 using OpenNefia.Core.Prototypes;
+using OpenNefia.Core.Rendering;
 using OpenNefia.Core.ResourceManagement;
 using OpenNefia.Core.Serialization.Manager;
 using OpenNefia.Core.UI;
@@ -23,6 +24,7 @@ namespace OpenNefia.Core.GameController
     {
         [Dependency] private readonly IGraphics _graphics = default!;
         [Dependency] private readonly IResourceCacheInternal _resourceCache = default!;
+        [Dependency] private readonly IAssetManager _assetManager = default!;
         [Dependency] private readonly IModLoaderInternal _modLoader = default!;
         [Dependency] private readonly IMapManager _mapManager = default!;
         [Dependency] private readonly IEntityManager _entityManager = default!;
@@ -69,6 +71,8 @@ namespace OpenNefia.Core.GameController
             _prototypeManager.Initialize();
             _prototypeManager.LoadDirectory(ResourcePath.Root / "Prototypes");
             _prototypeManager.Resync();
+
+            _assetManager.PreloadAssets();
 
             _modLoader.BroadcastRunLevel(ModRunLevel.PostInit);
 

@@ -6,7 +6,7 @@ using System.Reflection;
 using NLua;
 using OpenNefia.Core.Prototypes;
 
-namespace OpenNefia.Core
+namespace OpenNefia.Core.Locale
 {
     public class LocalizationManager : ILocalizationManager
     {

@@ -5,7 +5,6 @@ using OpenNefia.Core.Serialization.Manager.Attributes;
 
 namespace OpenNefia.Core.UI.Element
 {
-    [ImplicitDataDefinitionForInheritors]
     public abstract class BaseUiElement : BaseDrawable, IUiThemeable, IUiDefaultSizeable, ILocalizable
     {
         public bool IsLocalized { get; protected set; }
