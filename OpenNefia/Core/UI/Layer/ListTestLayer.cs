@@ -29,10 +29,10 @@ namespace OpenNefia.Core.UI.Layer
 
             this.SelectList(this.List1);
 
-            this.Keybinds[Keybind.Entries.Escape] += (_) => this.Cancel();
-            this.Keybinds[Keybind.Entries.Cancel] += (_) => this.Cancel();
-            this.Keybinds[Keybind.Entries.UILeft] += (_) => this.NextList(-1);
-            this.Keybinds[Keybind.Entries.UIRight] += (_) => this.NextList(1);
+            this.Keybinds[Keybind.Escape] += (_) => this.Cancel();
+            this.Keybinds[Keybind.Cancel] += (_) => this.Cancel();
+            this.Keybinds[Keybind.UILeft] += (_) => this.NextList(-1);
+            this.Keybinds[Keybind.UIRight] += (_) => this.NextList(1);
 
             UiListEventHandler<string> printIt = (_, evt) =>
             {
@@ -53,7 +53,7 @@ namespace OpenNefia.Core.UI.Layer
             this.List2.EventOnSelect += selectIt;
             this.List3.EventOnSelect += selectIt;
 
-            this.List2.Keybinds[Keybind.Entries.Mode] += (_) => Console.WriteLine("Dood!");
+            this.List2.Keybinds[Keybind.Mode] += (_) => Console.WriteLine("Dood!");
 
             this.MouseMoved.Callback += (evt) =>
             {

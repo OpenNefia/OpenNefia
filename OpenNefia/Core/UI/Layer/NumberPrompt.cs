@@ -94,25 +94,25 @@ namespace OpenNefia.Core.UI.Layer
 
         protected virtual void BindKeys()
         {
-            this.Keybinds[Keybind.Entries.UIUp] += (_) => {
+            this.Keybinds[Keybind.UIUp] += (_) => {
                 this.Value = this.MaxValue;
                 Sounds.PlayOneShot(SoundDefOf.Cursor1);
             };
-            this.Keybinds[Keybind.Entries.UIDown] += (_) => {
+            this.Keybinds[Keybind.UIDown] += (_) => {
                 this.Value = this.MinValue;
                 Sounds.PlayOneShot(SoundDefOf.Cursor1);
             };
-            this.Keybinds[Keybind.Entries.UILeft] += (_) => {
+            this.Keybinds[Keybind.UILeft] += (_) => {
                 this.Value = Math.Max(this.Value - 1, this.MinValue);
                 Sounds.PlayOneShot(SoundDefOf.Cursor1);
             };
-            this.Keybinds[Keybind.Entries.UIRight] += (_) => {
+            this.Keybinds[Keybind.UIRight] += (_) => {
                 this.Value = Math.Min(this.Value + 1, this.MaxValue);
                 Sounds.PlayOneShot(SoundDefOf.Cursor1);
             };
-            this.Keybinds[Keybind.Entries.Cancel] += (_) => { if (this.IsCancellable) this.Cancel(); };
-            this.Keybinds[Keybind.Entries.Escape] += (_) => { if (this.IsCancellable) this.Cancel(); };
-            this.Keybinds[Keybind.Entries.Enter] += (_) => this.Finish(new NumberPromptResult(this.Value));
+            this.Keybinds[Keybind.Cancel] += (_) => { if (this.IsCancellable) this.Cancel(); };
+            this.Keybinds[Keybind.Escape] += (_) => { if (this.IsCancellable) this.Cancel(); };
+            this.Keybinds[Keybind.Enter] += (_) => this.Finish(new NumberPromptResult(this.Value));
         }
 
         [MethodImpl(MethodImplOptions.NoInlining)]
@@ -165,7 +165,7 @@ namespace OpenNefia.Core.UI.Layer
         public override void Draw()
         {
             GraphicsEx.SetColor(this.ColorPromptBackground);
-            GraphicsEx.Love.Graphics.Rectangle(Love.DrawMode.Fill, (this.X + 24, this.Y + 4, this.Width - 42, this.Height - 1);
+            Love.Graphics.Rectangle(Love.DrawMode.Fill, this.X + 24, this.Y + 4, this.Width - 42, this.Height - 1);
             
             this.TopicWindow.Draw();
 

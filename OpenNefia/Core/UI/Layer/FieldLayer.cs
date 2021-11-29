@@ -1,17 +1,16 @@
 ﻿using OpenNefia.Core.Data;
-using OpenNefia.Core.Data.Serial;
 using OpenNefia.Core.Data.Types;
-using OpenNefia.Core.Effect;
-using OpenNefia.Core.Logic;
-using OpenNefia.Core.Map;
-using OpenNefia.Core.Object;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Core.UI.Element;
 using OpenNefia.Core.UI.Hud;
-using OpenNefia.Game;
+using OpenNefia.Core.IoC;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using OpenNefia.Core.Maps;
+using OpenNefia.Core.Prototypes;
+using OpenNefia.Core.Game;
+using OpenNefia.Core.Audio;
 
 namespace OpenNefia.Core.UI.Layer
 {
@@ -19,7 +18,7 @@ namespace OpenNefia.Core.UI.Layer
     {
         public static FieldLayer? Instance = null;
 
-        public Map Map { get; private set; }
+        public IMap Map { get; private set; }
 
         private UiScroller Scroller;
         public Camera Camera { get; }
@@ -32,9 +31,7 @@ namespace OpenNefia.Core.UI.Layer
 
         public string Message { get; private set; }
         private string MouseText;
-        private TileDef? PlacingTile = null;
-
-        public List<Thing> Things;
+        private PrototypeId<TilePrototype>? PlacingTile = null;
 
         internal FieldLayer(Map map)
         {
@@ -42,17 +39,7 @@ namespace OpenNefia.Core.UI.Layer
 
             Scroller = new UiScroller();
             Camera = new Camera(this.Map, this);
-            Things = new List<Thing>();
             FontText = FontDefOf.WindowTitle;
-
-            int x = 0;
-            int y = 0;
-            foreach (var pair in ThingRepo.Instance.Iter())
-            {
-                var thingData = pair.Value;
-                Things.Add(new Thing(thingData, x, y));
-                x += 1;
-            }
 
             var result = PrintMessage("dood");
             Console.WriteLine($"Got back: {result}");
@@ -71,15 +58,19 @@ namespace OpenNefia.Core.UI.Layer
 
         protected virtual void BindKeys()
         {
-            this.Keybinds[Keybind.Entries.Identify] += (state) => this.QueryLayer();
-            this.Keybinds[Keybind.Entries.Escape] += (_) => this.PromptToCancel();
+            this.Keybinds[Keybind.Identify] += (state) => this.QueryLayer();
+            this.Keybinds[Keybind.Escape] += (_) => this.PromptToCancel();
             this.Keybinds[Keys.Ctrl | Keys.S] += (_) => this.Save();
             this.Keybinds[Keys.Ctrl | Keys.O] += (_) => this.Load();
-            this.Keybinds[Keys.Ctrl | Keys.T] += (_) => new PicViewLayer(Atlases.Tile.Image).Query();
-            this.Keybinds[Keybind.Entries.North] += (_) => this.MovePlayer(0, -1);
-            this.Keybinds[Keybind.Entries.South] += (_) => this.MovePlayer(0, 1);
-            this.Keybinds[Keybind.Entries.West] += (_) => this.MovePlayer(-1, 0);
-            this.Keybinds[Keybind.Entries.East] += (_) => this.MovePlayer(1, 0);
+            this.Keybinds[Keys.Ctrl | Keys.T] += (_) =>
+            {
+                var atlas = IoCManager.Resolve<IAtlasManager>().GetAtlas(AtlasNames.Tile);
+                new PicViewLayer(atlas.Image).Query();
+            };
+            this.Keybinds[Keybind.North] += (_) => this.MovePlayer(0, -1);
+            this.Keybinds[Keybind.South] += (_) => this.MovePlayer(0, 1);
+            this.Keybinds[Keybind.West] += (_) => this.MovePlayer(-1, 0);
+            this.Keybinds[Keybind.East] += (_) => this.MovePlayer(1, 0);
             this.Keybinds[Keys.G] += (_) => this.GetItem();
             this.Keybinds[Keys.D] += (_) => this.DropItem();
             this.Keybinds[Keys.C] += (_) => this.CastSpell();
@@ -92,7 +83,7 @@ namespace OpenNefia.Core.UI.Layer
 
             this.MouseMoved.Callback += (evt) =>
             {
-                this.MouseText = $"{evt.X}, {evt.Y}";
+                this.MouseText = $"{evt.Pos}";
             };
 
             this.MouseButtons[UI.MouseButtons.Mouse1].Bind((evt) => PlaceTile(evt), trackReleased: true);
@@ -102,16 +93,10 @@ namespace OpenNefia.Core.UI.Layer
 
         public void RefreshScreen()
         {
-            var player = Current.Player!;
+            var player = GameSession.Player!;
 
             Camera.CenterOn(player);
             Map.RefreshVisibility();
-
-            var coords = GraphicsEx.Coords;
-            coords.TileToScreen(player.X, player.Y, out var listenerX, out var listenerY);
-            listenerX += coords.TileWidth / 2;
-            listenerY += coords.TileHeight / 2;
-            Love.Audio.SetPosition(listenerX, listenerY, 0f);
         }
 
         private void MovePlayer(int dx, int dy)
@@ -356,7 +341,7 @@ namespace OpenNefia.Core.UI.Layer
             if (PlacingTile != null)
             {
                 var mouse = Love.Mouse.GetPosition();
-                var coords = GraphicsEx.Coords;
+                var coords = GameSession.Coords;
                 coords.ScreenToTile((int)mouse.X - this.X, (int)mouse.Y - this.Y, out var tileX, out var tileY);
 
                 if (Map.GetTile(tileX, tileY) != PlacingTile)

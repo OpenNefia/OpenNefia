@@ -103,9 +103,9 @@ namespace OpenNefia.Core.UI.Element.List
                 IKeybind keybind;
                 if (choiceKey.UseKeybind)
                 {
-                    if (Keybind.Entries.SelectionKeys.ContainsKey(choiceKey.Key))
+                    if (Keybinds.SelectionKeys.ContainsKey(choiceKey.Key))
                     {
-                        keybind = Keybind.Entries.SelectionKeys[choiceKey.Key];
+                        keybind = Keybinds.SelectionKeys[choiceKey.Key];
                     }
                     else
                     {
@@ -122,17 +122,17 @@ namespace OpenNefia.Core.UI.Element.List
                 this.Keybinds[keybind] += (_) => this.Activate(indexCopy);
             }
 
-            this.Keybinds[Keybind.Entries.UIUp] += (_) =>
+            this.Keybinds[Keybind.UIUp] += (_) =>
             {
                 Sounds.PlayOneShot(SoundDefOf.Cursor1);
                 this.IncrementIndex(-1);
             };
-            this.Keybinds[Keybind.Entries.UIDown] += (_) =>
+            this.Keybinds[Keybind.UIDown] += (_) =>
             {
                 Sounds.PlayOneShot(SoundDefOf.Cursor1);
                 this.IncrementIndex(1);
             };
-            this.Keybinds[Keybind.Entries.Enter] += (_) => this.Activate(this.SelectedIndex);
+            this.Keybinds[Keybind.Enter] += (_) => this.Activate(this.SelectedIndex);
 
             this.MouseMoved.Callback += (evt) =>
             {

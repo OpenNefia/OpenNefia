@@ -27,9 +27,9 @@ namespace OpenNefia.Core.GameObjects
         public Vector2i Pos { get; set; }
 
         /// <summary>
-        /// ID of the map this entity is in.
+        /// Map this entity is in.
         /// </summary>
-        public MapId MapId { get; }
+        public IMap? Map { get; }
 
         /// <summary>
         ///     The current lifetime stage of this entity. You can use this to check

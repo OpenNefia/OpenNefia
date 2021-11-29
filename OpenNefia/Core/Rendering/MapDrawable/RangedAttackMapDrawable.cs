@@ -72,7 +72,7 @@ namespace OpenNefia.Core.Rendering
 
         public override void Draw()
         {
-            var coords = GraphicsEx.Coords;
+            var coords = GameSession.Coords;
             coords.TileToScreen(_endPos.Position - _startPos.Position, out var screenPos);
             var cx = (int)(this._counter.Frame * (screenPos.X) / this._counter.MaxFrames);
             var cy = (int)(this._counter.Frame * (screenPos.Y) / this._counter.MaxFrames);

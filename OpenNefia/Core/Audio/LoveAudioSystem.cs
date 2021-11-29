@@ -1,8 +1,9 @@
 ﻿using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Maps;
 using OpenNefia.Core.Config;
-using OpenNefia.Core.Rendering;
 using OpenNefia.Core.Prototypes;
+using OpenNefia.Core.Maths;
+using OpenNefia.Core.Game;
 
 namespace OpenNefia.Core.Audio
 {
@@ -19,6 +20,11 @@ namespace OpenNefia.Core.Audio
         }
 
         private List<PlayingSource> _playingSources = new();
+
+        public override void Initialize()
+        {
+            SubscribeAllEvent<FrameUpdateEventArgs>(OnFrameUpdate);
+        }
 
         /// <inheritdoc />
         public void Play(PrototypeId<SoundPrototype> prototype, AudioParams? audioParams = null)
@@ -44,14 +50,22 @@ namespace OpenNefia.Core.Audio
         /// <inheritdoc />
         public void Play(PrototypeId<SoundPrototype> prototype, IEntity entity, AudioParams? audioParams = null)
         {
-            if (!ConfigVars.EnableSound)
-                return;
-
             Play(prototype, entity.Coords, audioParams);
         }
 
         /// <inheritdoc />
         public void Play(PrototypeId<SoundPrototype> prototype, MapCoordinates coordinates, AudioParams? audioParams = null)
+        {
+            if (coordinates.Map != GameSession.ActiveMap)
+                return;
+
+            GameSession.Coords.TileToScreen(coordinates.Position, out var screenPosition);
+
+            Play(prototype, screenPosition, audioParams);
+        }
+
+        /// <inheritdoc />
+        public void Play(PrototypeId<SoundPrototype> prototype, Vector2i screenPosition, AudioParams? audioParams = null)
         {
             if (!ConfigVars.EnableSound)
                 return;
@@ -60,10 +74,8 @@ namespace OpenNefia.Core.Audio
 
             if (source.GetChannelCount() == 1)
             {
-                var coords = GraphicsEx.Coords;
-                coords.TileToScreen(coordinates.X, coordinates.Y, out var screenX, out var screenY);
                 source.SetRelative(false);
-                source.SetPosition(screenX, screenY, 0f);
+                source.SetPosition(screenPosition.X, screenPosition.Y, 0f);
                 source.SetAttenuationDistances(100, 500);
             }
 
@@ -73,5 +85,22 @@ namespace OpenNefia.Core.Audio
 
             _playingSources.Add(new PlayingSource(source));
         }
+
+        private void OnFrameUpdate(FrameUpdateEventArgs args)
+        {
+            var player = GameSession.Player;
+            if (player == null)
+                return;
+
+            var coords = GameSession.Coords;
+            coords.TileToScreen(player.Coords.Position, out var listenerPos);
+            listenerPos += coords.TileSize / 2;
+            Love.Audio.SetPosition(listenerPos.X, listenerPos.Y, 0f);
+        }
+    }
+
+    public struct FrameUpdateEventArgs
+    {
+        public float Dt;
     }
 }

@@ -42,7 +42,7 @@ namespace OpenNefia.Core.Rendering
         private Dictionary<string, List<AnimFrame>> _anims = new Dictionary<string, List<AnimFrame>>();
         private ResourcePath _imageFilepath;
 
-        public Image Image { get; private set; }
+        public Love.Image Image { get; private set; }
 
         public TileAtlas(Image image, ResourcePath imageFilepath, Dictionary<string, AtlasTile> atlasTiles)
         {
@@ -58,7 +58,7 @@ namespace OpenNefia.Core.Rendering
             return null;
         }
 
-        public AtlasTile? GetTile(TileSpecifier spec) => GetTile(spec.TileIndex);
+        public AtlasTile? GetTile(TileSpecifier spec) => GetTile(spec.Identifier);
 
         public bool GetTileSize(TileSpecifier spec, out int width, out int height)
         {

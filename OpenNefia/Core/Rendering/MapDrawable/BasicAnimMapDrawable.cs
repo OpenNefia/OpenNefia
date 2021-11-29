@@ -1,9 +1,14 @@
-﻿using OpenNefia.Core.Data.Types;
+﻿using OpenNefia.Core.Audio;
+using OpenNefia.Core.Config;
+using OpenNefia.Core.Data.Types;
+using OpenNefia.Core.Game;
+using OpenNefia.Core.IoC;
+using OpenNefia.Core.Maps;
+using OpenNefia.Core.Prototypes;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Why.Core.Config;
 
 namespace OpenNefia.Core.Rendering
 {
@@ -18,13 +23,13 @@ namespace OpenNefia.Core.Rendering
         {
             this.BasicAnim = basicAnim;
 
-            var animeWait = Config.AnimeWait;
-            var maxFrames = this.BasicAnim.Asset.CountX;
+            var animeWait = ConfigVars.AnimeWait;
+            var maxFrames = this.BasicAnim.Asset.ResolvePrototype().CountX;
             if (this.BasicAnim.FrameCount != null)
                 maxFrames = this.BasicAnim.FrameCount.Value;
 
             this.Counter = new FrameCounter(animeWait + this.BasicAnim.FrameDelayMillis / 2, maxFrames);
-            this.AssetDrawable = new AssetDrawable(this.BasicAnim.Asset);
+            this.AssetDrawable = IoCManager.Resolve<IAssetManager>().GetAsset(this.BasicAnim.Asset);
         }
 
         public override void OnEnqueue()
@@ -32,7 +37,7 @@ namespace OpenNefia.Core.Rendering
             if (this.BasicAnim.Sound != null)
             {
                 // TODO positional audio
-                Sounds.PlayOneShot(this.BasicAnim.Sound);
+                Sounds.Play(this.BasicAnim.Sound.Value, this.ScreenLocalPos);
             }
         }
 
@@ -49,8 +54,8 @@ namespace OpenNefia.Core.Rendering
         {
             Love.Graphics.SetColor(Love.Color.White);
             this.AssetDrawable.DrawRegion(Counter.FrameInt.ToString(), 
-                this.X + GraphicsEx.Coords.TileWidth / 2, 
-                this.Y + GraphicsEx.Coords.TileHeight / 6,
+                this.X + GameSession.Coords.TileWidth / 2, 
+                this.Y + GameSession.Coords.TileHeight / 6,
                 centered: true,
                 rotation: this.BasicAnim.Rotation * this.Counter.Frame);
         }

@@ -1,5 +1,6 @@
 ﻿using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Maths;
+using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Rendering;
 
 namespace OpenNefia.Core.Maps
@@ -9,6 +10,7 @@ namespace OpenNefia.Core.Maps
         MapId Id { get; set; }
         int Width { get; }
         int Height { get; }
+        Vector2i Size { get; }
         Tile[,] Tiles { get; }
         Tile[,] TileMemory { get; }
 
@@ -16,9 +18,15 @@ namespace OpenNefia.Core.Maps
         TileFlag[,] TileFlags { get; }
         MapObjectMemoryStore MapObjectMemory { get; }
 
+        void Clear(PrototypeId<TilePrototype> tile);
+        void ClearMemory(PrototypeId<TilePrototype> tile);
+        void SetTile(Vector2i pos, PrototypeId<TilePrototype> tile);
+        void SetTileMemory(Vector2i pos, PrototypeId<TilePrototype> tile);
+
+        MapCoordinates AtPos(Vector2i pos);
         MapCoordinates AtPos(int x, int y);
-        TileRef GetTileMemoryRef(Vector2i pos);
-        TileRef GetTileRef(Vector2i pos);
-        void MemorizeTile(Vector2i position);
+
+        bool IsInWindowFov(Vector2i position);
+        void RefreshVisibility();
     }
 }

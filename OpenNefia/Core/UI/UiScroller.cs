@@ -19,10 +19,10 @@ namespace OpenNefia.Core.UI
 
         public void BindKeys(IUiInputElement parent)
         {
-            parent.Keybinds[Keybind.Entries.UIUp].BindKey((state) => this.MoveUp(state), trackReleased: true);
-            parent.Keybinds[Keybind.Entries.UIDown].BindKey((state) => this.MoveDown(state), trackReleased: true);
-            parent.Keybinds[Keybind.Entries.UILeft].BindKey((state) => this.MoveLeft(state), trackReleased: true);
-            parent.Keybinds[Keybind.Entries.UIRight].BindKey((state) => this.MoveRight(state), trackReleased: true);
+            parent.Keybinds[Keybind.UIUp].BindKey((state) => this.MoveUp(state), trackReleased: true);
+            parent.Keybinds[Keybind.UIDown].BindKey((state) => this.MoveDown(state), trackReleased: true);
+            parent.Keybinds[Keybind.UILeft].BindKey((state) => this.MoveLeft(state), trackReleased: true);
+            parent.Keybinds[Keybind.UIRight].BindKey((state) => this.MoveRight(state), trackReleased: true);
         }
 
         private void MoveUp(KeyInputEvent evt)

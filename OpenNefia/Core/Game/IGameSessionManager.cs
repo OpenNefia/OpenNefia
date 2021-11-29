@@ -1,4 +1,6 @@
 ﻿using OpenNefia.Core.GameObjects;
+using OpenNefia.Core.Rendering;
+using OpenNefia.Core.UI.Layer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,5 +12,7 @@ namespace OpenNefia.Core.Game
     public interface IGameSessionManager
     {
         public IEntity Player { get; }
+        ICoords Coords { get; set; }
+        FieldLayer Field { get; }
     }
 }

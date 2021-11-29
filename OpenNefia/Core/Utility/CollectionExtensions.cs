@@ -217,5 +217,43 @@ namespace OpenNefia.Core.Utility
             value = default;
             return false;
         }
+
+        public static void ForEach<T>(this IEnumerable<T> iterator, Action<T> action)
+        {
+            foreach (T item in iterator)
+            {
+                action(item);
+            }
+        }
+
+        /// <summary>
+        /// Wraps the given enumerable with the index for each element.
+        /// 
+        /// For use with <code>foreach</code> to capture the index and value at the same time.
+        /// </summary>
+        public static IEnumerable<(T, int)> WithIndex<T>(this IEnumerable<T> ie) => ie.Select((x, index) => (x, index));
+
+        /// <summary>
+        /// Selects the nonnull elements of the given enumerable.
+        /// </summary>
+        public static IEnumerable<T> WhereNotNull<T>(this IEnumerable<T?> iterator)
+        {
+            foreach (var item in iterator)
+            {
+                if (item != null)
+                    yield return item;
+            }
+        }
+
+        /// <summary>
+        /// Adds all the key-value pairs of one dictionary to another.
+        /// </summary>
+        public static void AddRange<TKey, TValue>(this IDictionary<TKey, TValue> targetDict, IDictionary<TKey, TValue> sourceDict)
+        {
+            foreach (var x in sourceDict)
+            {
+                targetDict.Add(x.Key, x.Value);
+            }
+        }
     }
 }

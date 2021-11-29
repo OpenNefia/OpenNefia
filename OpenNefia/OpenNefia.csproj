@@ -6,6 +6,7 @@
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+	<CodeAnalysisRuleSet>$(SolutionDir)OpenNefia.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
 
   <ItemGroup>
@@ -13,14 +14,19 @@
     <PackageReference Include="NetVips" Version="2.0.1" />
     <PackageReference Include="NetVips.Extensions" Version="2.0.0" />
     <PackageReference Include="NetVips.Native" Version="8.12.0-rc1" />
+    <PackageReference Include="NLua" Version="1.6.0" />
     <PackageReference Include="Pidgin" Version="3.0.0" />
     <PackageReference Include="Serilog" Version="2.11.0-dev-01371" />
+    <PackageReference Include="TextCopy" Version="4.3.1" />
     <PackageReference Include="YamlDotNet" Version="11.2.1" />
+	<PackageReference Include="Microsoft.CodeAnalysis.Common" Version="4.0.1" />
   </ItemGroup>
 	
   <Import Project="..\MSBuild\OpenNefia.DefineConstants.targets" />
 
   <ItemGroup>
+    <ProjectReference Include="..\..\OpenNefia.NET\Thirdparty\CSharpRepl\CSharpRepl\CSharpRepl.csproj" />
+    <ProjectReference Include="..\OpenNefia.Analyzers\OpenNefia.Analyzers.csproj" />
     <ProjectReference Include="..\Thirdparty\Love2dCS\project_dotnet\project_dotnet.csproj" />
   </ItemGroup>
 
@@ -30,4 +36,5 @@
 	</Content>
   </ItemGroup>
 
+  <Import Project="..\MSBuild\OpenNefia.Analyzers.targets" />
 </Project>

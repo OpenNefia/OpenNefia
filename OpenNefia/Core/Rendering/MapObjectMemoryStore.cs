@@ -1,4 +1,5 @@
 ﻿using OpenNefia.Core.Maps;
+using OpenNefia.Core.Maths;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -14,7 +15,7 @@ namespace OpenNefia.Core.Rendering
         internal IMap Map;
         internal int CurrentIndex;
         internal Dictionary<int, MapObjectMemory> AllMemory;
-        internal List<MapObjectMemory>?[] Positional;
+        internal List<MapObjectMemory>?[,] Positional;
         internal HashSet<MapObjectMemory> Added;
         internal Stack<MapObjectMemory> Removed;
 
@@ -23,7 +24,7 @@ namespace OpenNefia.Core.Rendering
             this.Map = map;
             CurrentIndex = 0;
             this.AllMemory = new Dictionary<int, MapObjectMemory>();
-            this.Positional = new List<MapObjectMemory>?[map.Width * map.Height];
+            this.Positional = new List<MapObjectMemory>?[map.Width, map.Height];
             this.Added = new HashSet<MapObjectMemory>();
             this.Removed = new Stack<MapObjectMemory>();
         }
@@ -32,9 +33,9 @@ namespace OpenNefia.Core.Rendering
 
         IEnumerator IEnumerable.GetEnumerator() => AllMemory.Values.GetEnumerator();
 
-        public void ForgetObjects(int index)
+        public void ForgetObjects(Vector2i coords)
         {
-            var at = Positional[index];
+            var at = Positional[coords.X, coords.Y];
 
             if (at != null)
             {
@@ -88,7 +89,7 @@ namespace OpenNefia.Core.Rendering
             }
 
             int i = 0;
-            foreach (var obj in Map.AtPos(x, y).GetEntities())
+            foreach (var obj in Map.AtPos(new Vector2i(x, y)).GetEntities())
             {
                 if (at == null)
                 {

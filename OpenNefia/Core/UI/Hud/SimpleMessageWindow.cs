@@ -2,7 +2,7 @@
 using OpenNefia.Core.Data.Types;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Core.UI.Element;
-using OpenNefia.Core.Util.Collections;
+using OpenNefia.Core.Utility;
 using System;
 
 namespace OpenNefia.Core.UI.Hud
@@ -77,7 +77,7 @@ namespace OpenNefia.Core.UI.Hud
         public override void Draw()
         {
             GraphicsEx.SetColor(0, 0, 0, 64);
-            GraphicsEx.Love.Graphics.Rectangle(Love.DrawMode.Fill, (this.X, this.Y, this.Width, this.Height);
+            Love.Graphics.Rectangle(Love.DrawMode.Fill, this.X, this.Y, this.Width, this.Height);
 
             //GraphicsEx.SetScissor(this.X, this.Y, this.Width, this.Height);
             for (int i = 0; i < TextMessages.Length; i++)

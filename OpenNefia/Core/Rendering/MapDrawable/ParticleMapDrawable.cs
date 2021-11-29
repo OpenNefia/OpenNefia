@@ -39,7 +39,7 @@ namespace OpenNefia.Core.Rendering
             this.Sound = sound;
             this.RotationVariance = rotationVariance;
             this.AnimeWait = wait.Value;
-            var coords = GraphicsEx.Coords;
+            var coords = GameSession.Coords;
             this.Particles = Enumerable.Range(0, 15)
                 .Select(_ => new Particle(Rand.NextInt(coords.TileWidth), 
                                           Rand.NextInt(coords.TileHeight),
@@ -73,8 +73,8 @@ namespace OpenNefia.Core.Rendering
             {
                 this.AssetParticle.Draw(this.X + p.X, 
                     this.Y + p.Y + frame2 / p.Rotation, 
-                    GraphicsEx.Coords.TileWidth - frame2 * 2,
-                    GraphicsEx.Coords.TileHeight - frame2 * 2,
+                    GameSession.Coords.TileWidth - frame2 * 2,
+                    GameSession.Coords.TileHeight - frame2 * 2,
                     true,
                     frame2 * p.Rotation);
             }

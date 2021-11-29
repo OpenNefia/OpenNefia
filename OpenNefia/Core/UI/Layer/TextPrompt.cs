@@ -1,7 +1,9 @@
-﻿using OpenNefia.Core.Data.Types;
-using OpenNefia.Core.Extensions;
+﻿using OpenNefia.Core.Audio;
+using OpenNefia.Core.Data.Types;
+using OpenNefia.Core.Locale;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Core.UI.Element;
+using OpenNefia.Core.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -78,8 +80,8 @@ namespace OpenNefia.Core.UI.Layer
                 this.Value = this.Value + evt.Text;
                 this.UpdateText();
             };
-            this.Keybinds[Keybind.Entries.Enter] += (_) => this.Finish(this.Value);
-            this.Keybinds[Keybind.Entries.Escape] += (_) => {
+            this.Keybinds[Keybind.Enter] += (_) => this.Finish(this.Value);
+            this.Keybinds[Keybind.Escape] += (_) => {
                 if (this.IsCancellable)
                     this.Cancel();
             };
@@ -92,12 +94,9 @@ namespace OpenNefia.Core.UI.Layer
             };
         }
 
-        [MethodImpl(MethodImplOptions.NoInlining)]
-        public override UiResult<string> Query() => base.Query();
-
         public override void OnQuery()
         {
-            Sounds.PlayOneShot(SoundDefOf.Pop2);
+            Sounds.Play(SoundDefOf.Pop2);
         }
 
         protected virtual void UpdateText()
@@ -111,7 +110,7 @@ namespace OpenNefia.Core.UI.Layer
                 if (this.MaxLength.HasValue && wideLength > this.MaxLength.Value - 2)
                 {
                     var dots = "...";
-                    if (I18N.IsFullwidth())
+                    if (Loc.IsFullwidth())
                     {
                         dots = "…";
                     }
@@ -179,7 +178,7 @@ namespace OpenNefia.Core.UI.Layer
             if (this.HasShadow)
             {
                 GraphicsEx.SetColor(this.ColorPromptBackground);
-                GraphicsEx.Love.Graphics.Rectangle(Love.DrawMode.Fill, (this.X + 4, this.Y + 4, this.Width - 1, this.Height - 1);
+                Love.Graphics.Rectangle(Love.DrawMode.Fill, this.X + 4, this.Y + 4, this.Width - 1, this.Height - 1);
             }
 
             this.TopicWindow.Draw();

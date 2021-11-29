@@ -1,5 +1,7 @@
-﻿using OpenNefia.Core.Map;
-using OpenNefia.Core.Object;
+﻿using OpenNefia.Core.Game;
+using OpenNefia.Core.GameObjects;
+using OpenNefia.Core.Maps;
+using OpenNefia.Core.Maths;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Core.UI.Element;
 
@@ -7,56 +9,51 @@ namespace OpenNefia.Core.UI.Layer
 {
     public class Camera
     {
-        private Map Map;
-        private IDrawable Parent;
-        private int _ScreenX;
-        private int _ScreenY;
-        public int ScreenX { get => _ScreenX; }
-        public int ScreenY { get => _ScreenY; }
+        private IMap _map;
+        private IDrawable _parent;
+        private Vector2i _screenPos;
+        public Vector2i ScreenPos { get => _screenPos; set => _screenPos = value; }
 
-        public Camera(Map map, IDrawable parent)
+        public Camera(IMap map, IDrawable parent)
         {
-            Map = map;
-            Parent = parent;
-            _ScreenX = 0;
-            _ScreenY = 0;
+            _map = map;
+            _parent = parent;
         }
 
-        public void CenterOn(int sx, int sy)
+        public void CenterOn(Vector2i screenPos)
         {
-            var coords = GraphicsEx.Coords;
-            coords.BoundDrawPosition(sx, sy, this.Map.Width, this.Map.Height, this.Parent.Width, this.Parent.Height, out _ScreenX, out _ScreenY);
+            GameSession.Coords.BoundDrawPosition(screenPos, _map.Size, this._parent.Size, out _screenPos);
         }
 
-        public void CenterOn(MapObject obj)
+        public void CenterOn(IEntity obj)
         {
-            obj.GetScreenPos(out var sx, out var sy);
-            CenterOn(sx, sy);
+            CenterOn(obj.Coords);
         }
 
-        public void CenterOn(TilePos pos)
+        public void CenterOn(MapCoordinates coords)
         {
-            pos.GetScreenPos(out var sx, out var sy);
-            CenterOn(sx, sy);
+            if (coords.MapId != _map.Id)
+                return;
+
+            GameSession.Coords.TileToScreen(coords.Position, out var screenPos);
+            CenterOn(screenPos);
         }
 
-        public void Pan(int sdx, int sdy)
+        public void Pan(Vector2i screenDPos)
         {
-            this._ScreenX += sdx;
-            this._ScreenY += sdy;
+            _screenPos += screenDPos;
         }
 
-        public void TileToVisibleScreen(TilePos pos, out int sx, out int sy)
+        public void TileToVisibleScreen(MapCoordinates coords, out Vector2i screenPos)
         {
-            pos.GetScreenPos(out sx, out sy);
-            sx += ScreenX;
-            sy += ScreenY;
+            GameSession.Coords.TileToScreen(coords.Position, out screenPos);
+            _screenPos += screenPos;
         }
 
-        public void VisibleScreenToTile(int sx, int sy, out int tx, out int ty)
+        public void VisibleScreenToTile(Vector2i screenPos, out MapCoordinates coords)
         {
-            var coords = GraphicsEx.Coords;
-            coords.ScreenToTile(sx - this.ScreenX, sy - this.ScreenY, out tx, out ty);
+            GameSession.Coords.ScreenToTile(screenPos - _screenPos, out var tile);
+            coords = new MapCoordinates(_map.Id, tile);
         }
     }
 }

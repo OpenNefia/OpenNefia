@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<RuleSet Name="New Rule Set" Description=" " ToolsVersion="17.0">
+  <Rules AnalyzerId="Microsoft.CodeAnalysis.CSharp" RuleNamespace="Microsoft.CodeAnalysis.CSharp">
+    <Rule Id="CS8597" Action="Error" />
+    <Rule Id="CS8600" Action="Error" />
+    <Rule Id="CS8601" Action="Error" />
+    <Rule Id="CS8602" Action="Error" />
+    <Rule Id="CS8603" Action="Error" />
+    <Rule Id="CS8604" Action="Error" />
+    <Rule Id="CS8605" Action="Error" />
+    <Rule Id="CS8607" Action="Error" />
+    <Rule Id="CS8608" Action="Error" />
+    <Rule Id="CS8609" Action="Error" />
+    <Rule Id="CS8610" Action="Error" />
+    <Rule Id="CS8611" Action="Error" />
+    <Rule Id="CS8612" Action="Error" />
+    <Rule Id="CS8613" Action="Error" />
+    <Rule Id="CS8614" Action="Error" />
+    <Rule Id="CS8615" Action="Error" />
+    <Rule Id="CS8616" Action="Error" />
+    <Rule Id="CS8617" Action="Error" />
+    <Rule Id="CS8618" Action="Error" />
+    <Rule Id="CS8619" Action="Error" />
+    <Rule Id="CS8620" Action="Error" />
+    <Rule Id="CS8621" Action="Error" />
+    <Rule Id="CS8622" Action="Error" />
+    <Rule Id="CS8624" Action="Error" />
+    <Rule Id="CS8625" Action="Error" />
+    <Rule Id="CS8629" Action="Error" />
+    <Rule Id="CS8631" Action="Error" />
+    <Rule Id="CS8632" Action="Error" />
+    <Rule Id="CS8633" Action="Error" />
+    <Rule Id="CS8634" Action="Error" />
+    <Rule Id="CS8643" Action="Error" />
+    <Rule Id="CS8644" Action="Error" />
+    <Rule Id="CS8645" Action="Error" />
+    <Rule Id="CS8655" Action="Error" />
+    <Rule Id="CS8656" Action="Error" />
+    <Rule Id="CS8667" Action="Error" />
+    <Rule Id="CS8669" Action="Error" />
+    <Rule Id="CS8670" Action="Error" />
+    <Rule Id="CS8714" Action="Error" />
+    <Rule Id="CS8762" Action="Error" />
+    <Rule Id="CS8763" Action="Error" />
+    <Rule Id="CS8764" Action="Error" />
+    <Rule Id="CS8765" Action="Error" />
+    <Rule Id="CS8766" Action="Error" />
+    <Rule Id="CS8767" Action="Error" />
+    <Rule Id="CS8768" Action="Error" />
+    <Rule Id="CS8769" Action="Error" />
+  </Rules>
+</RuleSet>

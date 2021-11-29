@@ -11,13 +11,13 @@ namespace OpenNefia.Core.Rendering
     {
         public const int TILE_SIZE = 64;
 
-        public int TileWidth { get => TILE_SIZE; }
-        public int TileHeight { get => TILE_SIZE; }
+        private static Vector2i _tileSize = new Vector2i(TILE_SIZE, TILE_SIZE);
+        public Vector2i TileSize => _tileSize;
 
         public void GetTiledSize(Vector2i screenSize, out Vector2i tiledSize)
         {
-            tiledSize.X = (screenSize.X / TileWidth);
-            tiledSize.Y = (screenSize.Y / TileHeight);
+            tiledSize.X = (screenSize.X / TileSize.X);
+            tiledSize.Y = (screenSize.Y / TileSize.Y);
         }
 
         public void TileToScreen(Vector2i tilePos, out Vector2i screenPos)
@@ -29,8 +29,8 @@ namespace OpenNefia.Core.Rendering
         public void ScreenToTile(Vector2i screenPos, out Vector2i tilePos)
         {
             // TODO
-            tilePos.X = screenPos.X / TileWidth;
-            tilePos.Y = screenPos.Y / TileHeight;
+            tilePos.X = screenPos.X / TileSize.X;
+            tilePos.Y = screenPos.Y / TileSize.Y;
         }
 
         public void BoundDrawPosition(Vector2i screenPos, Vector2i tiledSize, Vector2i viewportSize, out Vector2i drawPos)

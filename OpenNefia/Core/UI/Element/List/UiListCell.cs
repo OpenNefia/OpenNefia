@@ -93,10 +93,10 @@ namespace OpenNefia.Core.UI.Element.List
             var width = Math.Clamp(this.UiText.TextWidth + this.AssetSelectKey.Width + 8 + this.XOffset, 10, 480);
             Love.Graphics.SetBlendMode(Love.BlendMode.Subtract);
             GraphicsEx.SetColor(this.ColorSelectedSub);
-            GraphicsEx.Love.Graphics.Rectangle(Love.DrawMode.Fill, (this.UiText.X - 4, this.UiText.Y - 2, width, 19);
+            Love.Graphics.Rectangle(Love.DrawMode.Fill, this.UiText.X - 4, this.UiText.Y - 2, width, 19);
             Love.Graphics.SetBlendMode(Love.BlendMode.Add);
             GraphicsEx.SetColor(this.ColorSelectedAdd);
-            GraphicsEx.Love.Graphics.Rectangle(Love.DrawMode.Fill, (this.UiText.X - 3, this.UiText.Y - 1, width - 2, 17);
+            Love.Graphics.Rectangle(Love.DrawMode.Fill, this.UiText.X - 3, this.UiText.Y - 1, width - 2, 17);
             Love.Graphics.SetBlendMode(Love.BlendMode.Alpha);
             GraphicsEx.SetColor(Love.Color.White);
             this.AssetListBullet.Draw(this.UiText.X - 5 + width - 20, this.UiText.Y + 2);

@@ -1,11 +1,12 @@
 ﻿using Love;
 using OpenNefia.Core.Data.Types;
-using OpenNefia.Core.Logic;
-using OpenNefia.Core.Map;
-using OpenNefia.Core.Object;
+using OpenNefia.Core.Game;
+using OpenNefia.Core.GameObjects;
+using OpenNefia.Core.Maps;
+using OpenNefia.Core.Maths;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Core.UI.Element;
-using OpenNefia.Core.Util;
+using OpenNefia.Core.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,19 +19,19 @@ namespace OpenNefia.Core.UI.Layer
     {
         public new class Result
         {
-            public TilePos Pos;
+            public MapCoordinates Pos;
             public bool CanSee;
 
-            public Result(TilePos pos, bool canSee)
+            public Result(MapCoordinates pos, bool canSee)
             {
                 Pos = pos;
                 CanSee = canSee;
             }
         }
 
-        TilePos OriginPos;
-        TilePos TargetPos;
-        Chara Onlooker;
+        MapCoordinates OriginPos;
+        MapCoordinates TargetPos;
+        IEntity Onlooker;
         bool CanSee = false;
         bool IsPanning = false;
 
@@ -38,11 +39,11 @@ namespace OpenNefia.Core.UI.Layer
         FontDef FontTargetText;
         IUiText TextTarget;
 
-        public PositionPrompt(TilePos origin, TilePos? target = null, Chara? onlooker = null)
+        public PositionPrompt(MapCoordinates origin, MapCoordinates? target = null, IEntity? onlooker = null)
         {
             this.OriginPos = origin;
             this.TargetPos = target ?? origin;
-            this.Onlooker = onlooker ?? Current.Player!;
+            this.Onlooker = onlooker ?? GameSession.Player!;
 
             this.ColorTargetedTile = ColorDefOf.PromptTargetedTile;
             this.FontTargetText = FontDefOf.TargetText;
@@ -51,30 +52,30 @@ namespace OpenNefia.Core.UI.Layer
             this.BindKeys();
         }
 
-        public PositionPrompt(Chara onlooker) : this(onlooker.GetTilePos()!.Value, onlooker: onlooker) { }
+        public PositionPrompt(IEntity onlooker) : this(onlooker.Coords, onlooker: onlooker) { }
 
         protected virtual void BindKeys()
         {
-            this.Keybinds[Keybind.Entries.Enter] += (_) => this.Finish(new Result(this.TargetPos, this.CanSee));
-            this.Keybinds[Keybind.Entries.North] += (_) => this.MoveTargetPos(0, -1);
-            this.Keybinds[Keybind.Entries.South] += (_) => this.MoveTargetPos(0, 1);
-            this.Keybinds[Keybind.Entries.West] += (_) => this.MoveTargetPos(-1, 0);
-            this.Keybinds[Keybind.Entries.East] += (_) => this.MoveTargetPos(1, 0);
-            this.Keybinds[Keybind.Entries.Northwest] += (_) => this.MoveTargetPos(-1, -1);
-            this.Keybinds[Keybind.Entries.Southwest] += (_) => this.MoveTargetPos(-1, 1);
-            this.Keybinds[Keybind.Entries.Northeast] += (_) => this.MoveTargetPos(1, -1);
-            this.Keybinds[Keybind.Entries.Southeast] += (_) => this.MoveTargetPos(1, 1);
-            this.Keybinds[Keybind.Entries.Escape] += (_) => this.Cancel();
-            this.Keybinds[Keybind.Entries.Cancel] += (_) => this.Cancel();
-            this.Keybinds[Keybind.Entries.NextPage] += (_) => this.NextTarget();
-            this.Keybinds[Keybind.Entries.PreviousPage] += (_) => this.PreviousTarget();
+            this.Keybinds[Keybind.Enter] += (_) => this.Finish(new Result(this.TargetPos, this.CanSee));
+            this.Keybinds[Keybind.North] += (_) => this.MoveTargetPos(0, -1);
+            this.Keybinds[Keybind.South] += (_) => this.MoveTargetPos(0, 1);
+            this.Keybinds[Keybind.West] += (_) => this.MoveTargetPos(-1, 0);
+            this.Keybinds[Keybind.East] += (_) => this.MoveTargetPos(1, 0);
+            this.Keybinds[Keybind.Northwest] += (_) => this.MoveTargetPos(-1, -1);
+            this.Keybinds[Keybind.Southwest] += (_) => this.MoveTargetPos(-1, 1);
+            this.Keybinds[Keybind.Northeast] += (_) => this.MoveTargetPos(1, -1);
+            this.Keybinds[Keybind.Southeast] += (_) => this.MoveTargetPos(1, 1);
+            this.Keybinds[Keybind.Escape] += (_) => this.Cancel();
+            this.Keybinds[Keybind.Cancel] += (_) => this.Cancel();
+            this.Keybinds[Keybind.NextPage] += (_) => this.NextTarget();
+            this.Keybinds[Keybind.PreviousPage] += (_) => this.PreviousTarget();
 
             this.MouseMoved.Callback += (evt) =>
             {
                 if (this.IsPanning)
                     this.PanWithMouse(evt);
                 else
-                    this.MouseToTargetPos(evt.X, evt.Y);
+                    this.MouseToTargetPos(evt.Pos);
             };
             this.MouseButtons[UI.MouseButtons.Mouse1] += (evt) => this.Finish(new Result(this.TargetPos, this.CanSee));
             this.MouseButtons[UI.MouseButtons.Mouse2].Bind((evt) => this.IsPanning = evt.State == KeyPressState.Pressed, trackReleased: true);
@@ -82,38 +83,40 @@ namespace OpenNefia.Core.UI.Layer
 
         private void PanWithMouse(MouseMovedEvent evt)
         {
-            Current.Field!.Camera.Pan(evt.Dx, evt.Dy);
+            GameSession.Field.Camera.Pan(evt.DPos);
         }
 
-        private void MouseToTargetPos(int x, int y)
+        private void MouseToTargetPos(Vector2i screenPos)
         {
-            Current.Field!.Camera.VisibleScreenToTile(x, y, out var tx, out var ty);
-            this.SetTargetPos(tx, ty);
+            GameSession.Field.Camera.VisibleScreenToTile(screenPos, out var tilePos);
+            this.SetTargetPos(tilePos);
         }
 
         protected void MoveTargetPos(int dx, int dy)
         {
-            var tx = Math.Clamp(this.TargetPos.X + dx, 0, this.TargetPos.Map.Width - 1);
-            var ty = Math.Clamp(this.TargetPos.Y + dy, 0, this.TargetPos.Map.Height - 1);
-            this.SetTargetPos(tx, ty);
+            var map = this.TargetPos.GetMap();
+
+            var tilePos = new Vector2i(Math.Clamp(this.TargetPos.X + dx, 0, map.Width - 1),
+                                       Math.Clamp(this.TargetPos.Y + dy, 0, map.Height - 1));
+
+            this.SetTargetPos(new MapCoordinates(map.Id, tilePos));
             this.UpdateCamera();
         }
 
-        protected void SetTargetPos(int tx, int ty)
+        protected void SetTargetPos(MapCoordinates tilePos)
         {
-            if (this.TargetPos.X == tx && this.TargetPos.Y == ty)
+            if (this.TargetPos == tilePos)
             {
                 return;
             }
 
-            this.TargetPos.X = tx;
-            this.TargetPos.Y = ty;
+            this.TargetPos = tilePos;
             this.UpdateTargetText();
         }
 
         private void UpdateCamera()
         {
-            Current.Field!.Camera.CenterOn(this.TargetPos);
+            GameSession.Field!.Camera.CenterOn(this.TargetPos);
         }
 
         private void UpdateTargetText()
@@ -146,7 +149,7 @@ namespace OpenNefia.Core.UI.Layer
 
         public override void OnQueryFinish()
         {
-            Current.Field!.RefreshScreen();
+            GameSession.Field!.RefreshScreen();
         }
 
         public override void Update(float dt)
@@ -168,18 +171,17 @@ namespace OpenNefia.Core.UI.Layer
 
         public override void Draw()
         {
-            Current.Field!.Camera.TileToVisibleScreen(this.TargetPos, out var sx, out var sy);
-            var coords = GraphicsEx.Coords;
+            GameSession.Field.Camera.TileToVisibleScreen(this.TargetPos, out var screenPos);
             Love.Graphics.SetBlendMode(BlendMode.Add);
             GraphicsEx.SetColor(this.ColorTargetedTile);
-            Love.Graphics.Rectangle(DrawMode.Fill, sx, sy, coords.TileWidth, coords.TileHeight);
+            Love.Graphics.Rectangle(DrawMode.Fill, screenPos.X, screenPos.Y, GameSession.Coords.TileSize.X, GameSession.Coords.TileSize.Y);
 
             if (this.ShouldDrawLine())
             {
-                foreach (var (tx, ty) in PosUtils.EnumerateLine(OriginPos.X, OriginPos.Y, TargetPos.X, TargetPos.Y))
+                foreach (var coords in PosHelpers.EnumerateLine(OriginPos, TargetPos))
                 {
-                    Current.Field!.Camera.TileToVisibleScreen(this.TargetPos.Map.AtPos(tx, ty), out sx, out sy);
-                    Love.Graphics.Rectangle(DrawMode.Fill, sx, sy, coords.TileWidth, coords.TileHeight);
+                    GameSession.Field.Camera.TileToVisibleScreen(coords, out screenPos);
+                    Love.Graphics.Rectangle(DrawMode.Fill, screenPos.X, screenPos.Y, GameSession.Coords.TileSize.X, GameSession.Coords.TileSize.Y);
                 }
             }
 

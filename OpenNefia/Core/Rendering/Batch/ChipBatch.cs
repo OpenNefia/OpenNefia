@@ -22,7 +22,7 @@ namespace OpenNefia.Core.Rendering
             this.Coords = coords;
         }
 
-        public ChipBatch(TileAtlas atlas) : this(atlas, GraphicsEx.Coords) { }
+        public ChipBatch(TileAtlas atlas) : this(atlas, GameSession.Coords) { }
 
         public void Clear()
         {

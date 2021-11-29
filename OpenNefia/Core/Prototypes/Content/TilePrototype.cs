@@ -24,10 +24,13 @@ namespace OpenNefia.Core.Prototypes
     }
 
     [Prototype("Tile")]
-    public class TilePrototype : IPrototype
+    public class TilePrototype : IPrototype, ITileDefinition
     {
         [DataField("id", required: true)]
         public string ID { get; } = default!;
+
+        /// <inheritdoc />
+        public ushort TileIndex { get; private set; } = 0;
 
         [DataField(required: true)]
         public TileSpecifier Image = null!;
@@ -49,5 +52,11 @@ namespace OpenNefia.Core.Prototypes
 
         [DataField]
         public TileKind Kind2 = TileKind.None;
+
+        /// <inheritdoc />
+        public void AssignTileIndex(ushort id)
+        {
+            TileIndex = id;
+        }
     }
 }

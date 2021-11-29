@@ -1,5 +1,7 @@
 ﻿using Love;
+using OpenNefia.Core.Game;
 using OpenNefia.Core.Map;
+using OpenNefia.Core.Maps;
 using OpenNefia.Core.UI.Element;
 using OpenNefia.Game;
 using System;
@@ -34,12 +36,12 @@ namespace OpenNefia.Core.Rendering
 
         private SortedSet<MapDrawableEntry> Active = new SortedSet<MapDrawableEntry>();
 
-        public void Enqueue(IMapDrawable drawable, TilePos? pos, int zOrder = 0)
+        public void Enqueue(IMapDrawable drawable, MapCoordinates? pos, int zOrder = 0)
         {
-            if (pos == null || pos.Value.Map != Current.Map)
+            if (pos == null || pos.Value.MapId != GameSession.ActiveMap.Id)
                 return;
 
-            GraphicsEx.Coords.TileToScreen(pos.Value.X, pos.Value.Y, out var screenX, out var screenY);
+            GameSession.Coords.TileToScreen(pos.Value.X, pos.Value.Y, out var screenX, out var screenY);
             drawable.ScreenLocalX = screenX;
             drawable.ScreenLocalY = screenY;
             drawable.OnEnqueue();

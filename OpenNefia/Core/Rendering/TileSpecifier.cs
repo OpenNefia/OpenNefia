@@ -32,7 +32,7 @@ namespace OpenNefia.Core.Rendering
         [DataField]
         public ImageRegion? ImageRegion;
 
-        public string TileIndex => TileId;
+        public string Identifier => TileId;
         public bool HasOverhang => false;
     }
 }

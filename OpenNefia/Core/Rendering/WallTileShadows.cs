@@ -1,75 +1,66 @@
-﻿using OpenNefia.Core.Data.Types;
+﻿using OpenNefia.Core.Game;
 using OpenNefia.Core.Maps;
+using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.UI.Element;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OpenNefia.Core.Rendering
 {
     public class WallTileShadows : BaseDrawable
     {
-        private Map Map;
-        private ICoords Coords;
+        private HashSet<MapCoordinates> TopShadows = new();
+        private HashSet<MapCoordinates> BottomShadows = new();
+        private ICoords _coords;
 
-        private HashSet<int> TopShadows;
-        private HashSet<int> BottomShadows;
-
-        public WallTileShadows(Map map, ICoords coords)
+        public WallTileShadows(ICoords coords)
         {
-            this.Map = map;
-            this.Coords = coords;
-            TopShadows = new HashSet<int>();
-            BottomShadows = new HashSet<int>();
+            _coords = coords;
         }
 
         public void OnThemeSwitched(ICoords coords)
         {
-            this.Coords = coords;
+            _coords = coords;
         }
 
-        public void SetTile(TileRef tileRef)
+        public void SetTile(MapCoordinates coords, TilePrototype tile)
         {
-            var tile = tileRef.Tile;
-            var tileIndex = tile.Image.TileIndex;
+            var oneDown = coords.Offset(0, 1);
+
+            var oneUp = coords.Offset(0, -1);
+            var oneTileUp = oneUp.GetTile();
+
             if (tile.WallImage != null)
             {
-                var oneTileDown = Map.GetTile(x, y + 1);
-                if (oneTileDown != null && oneTileDown.WallImage == null && Map.IsMemorized(x, y + 1))
+                var oneTileDown = oneDown.GetTile();
+                if (oneTileDown != null && oneTileDown.Value.Prototype.WallImage == null && oneDown.IsMemorized())
                 {
-                    tileIndex = tile.WallImage.TileIndex;
-                    BottomShadows.Add(y * Map.Width + x);
+                    BottomShadows.Add(coords);
                 }
                 else
                 {
-                    BottomShadows.Remove(y * Map.Width + x);
-                    TopShadows.Remove((y + 1) * Map.Width + x);
+                    BottomShadows.Remove(coords);
+                    TopShadows.Remove(oneDown);
                 }
 
-                var oneTileUp = Map.GetTile(x, y - 1);
-                if (oneTileUp != null && oneTileUp.WallImage != null && Map.IsMemorized(x, y - 1))
+                if (oneTileUp != null && oneTileUp.Value.Prototype.WallImage != null && oneDown.IsMemorized())
                 {
-                    TopShadows.Remove(y * Map.Width + x);
-                    BottomShadows.Remove((y - 1) * Map.Width + x);
+                    TopShadows.Remove(coords);
+                    BottomShadows.Remove(oneUp);
                 }
                 else
                 {
-                    TopShadows.Add(y * Map.Width + x);
+                    TopShadows.Add(coords);
                 }
             }
             else
             {
-                TopShadows.Remove(y * Map.Width + x);
-                var oneTileUp = Map.GetTile(x, y - 1);
-                if (oneTileUp != null && oneTileUp.WallImage != null && Map.IsMemorized(x, y - 1))
+                TopShadows.Remove(coords);
+                if (oneTileUp != null && oneTileUp.Value.Prototype.WallImage != null && oneDown.IsMemorized())
                 {
-                    BottomShadows.Add((y - 1) * Map.Width + x);
+                    BottomShadows.Add(oneUp);
                 }
                 else
                 {
-                    BottomShadows.Remove((y - 1) * Map.Width + x);
+                    BottomShadows.Remove(oneUp);
                 }
             }
         }
@@ -86,29 +77,23 @@ namespace OpenNefia.Core.Rendering
 
         public override void Draw()
         {
-            var tileW = Coords.TileWidth;
-            var tileH = Coords.TileHeight;
+            var (tileW, tileH) = _coords.TileSize;
 
             Love.Graphics.SetBlendMode(Love.BlendMode.Subtract);
             GraphicsEx.SetColor(255, 255, 255, 20);
 
-            foreach (var index in TopShadows)
+            foreach (var (_, tileX, tileY) in TopShadows)
             {
-                var tileX = index % Map.Width;
-                var tileY = index / Map.Width;
-                GraphicsEx.Love.Graphics.Rectangle(Love.DrawMode.Fill, (tileX * tileW + X, tileY * tileH + Y - 20, tileW, tileH / 6);
+                Love.Graphics.Rectangle(Love.DrawMode.Fill, tileX * tileW + X, tileY * tileH + Y - 20, tileW, tileH / 6);
             }
 
-            foreach (var index in BottomShadows)
+            foreach (var (_, tileX, tileY) in BottomShadows)
             {
-                var tileX = index % Map.Width;
-                var tileY = index / Map.Width;
-
                 GraphicsEx.SetColor(255, 255, 255, 16);
-                GraphicsEx.Love.Graphics.Rectangle(Love.DrawMode.Fill, (tileX * tileW + X, (tileY + 1) * tileH + Y, tileW, tileH / 2);
+                Love.Graphics.Rectangle(Love.DrawMode.Fill, tileX * tileW + X, (tileY + 1) * tileH + Y, tileW, tileH / 2);
 
                 GraphicsEx.SetColor(255, 255, 255, 12);
-                GraphicsEx.Love.Graphics.Rectangle(Love.DrawMode.Fill, (tileX * tileW + X, (tileY + 1) * tileH + Y + tileW / 2, tileW, tileH / 4);
+                Love.Graphics.Rectangle(Love.DrawMode.Fill, tileX * tileW + X, (tileY + 1) * tileH + Y + tileW / 2, tileW, tileH / 4);
             }
 
             Love.Graphics.SetBlendMode(Love.BlendMode.Alpha);

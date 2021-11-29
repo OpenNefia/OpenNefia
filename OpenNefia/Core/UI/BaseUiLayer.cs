@@ -5,9 +5,8 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using Love;
-using OpenNefia.Core.Extensions;
+using OpenNefia.Core.IoC;
 using OpenNefia.Core.UI.Element;
-using OpenNefia.Game;
 
 namespace OpenNefia.Core.UI
 {
@@ -19,7 +18,7 @@ namespace OpenNefia.Core.UI
         public bool WasFinished { get => this.Result != null; }
         public bool WasCancelled { get; private set; }
         public T? Result { get; private set; }
-        internal bool IsLocalized = false;
+        public bool IsLocalized { get; private set; } = false;
         
         public override sealed void GetPreferredSize(out int width, out int height)
         {
@@ -36,12 +35,12 @@ namespace OpenNefia.Core.UI
 
         public bool IsInActiveLayerList()
         {
-            return Engine.Instance.IsInActiveLayerList(this);
+            return IoCManager.Resolve<IUiLayerManager>().IsInActiveLayerList(this);
         }
 
         public bool IsQuerying()
         {
-            return Engine.Instance.IsQuerying(this);
+            return IoCManager.Resolve<IUiLayerManager>().IsQuerying(this);
         }
 
         public virtual void Cancel()
@@ -52,6 +51,12 @@ namespace OpenNefia.Core.UI
         public virtual void Finish(T result)
         {
             this.Result = result;
+        }
+
+        public void Initialize()
+        {
+            this.Result = null;
+            this.WasCancelled = false;
         }
 
         public virtual UiResult<T>? GetResult()
@@ -107,75 +112,6 @@ namespace OpenNefia.Core.UI
         {
             base.Localize(key);
             IsLocalized = true;
-        }
-
-        public virtual UiResult<T> Query()
-        {
-            if (DefaultZOrder != null)
-            {
-                ZOrder = DefaultZOrder.Value;
-            }
-            else
-            {
-                ZOrder = (Engine.Instance.CurrentLayer?.ZOrder ?? 0) + 1000;
-            }
-
-            Engine.Instance.CurrentLayer?.HaltInput();
-
-            if (!IsLocalized)
-            {
-                this.Localize(this.GetType().GetBaseLocaleKey());
-            }
-
-            Engine.Instance.PushLayer(this);
-
-            UiResult<T>? result;
-
-            try
-            {
-                // Global REPL hotkey
-                this.Keybinds[Keys.Backquote] += (_) =>
-                {
-                    var repl = Current.Game.Repl.Value;
-                    if (!repl.IsInActiveLayerList())
-                        repl.Query();
-                };
-
-                this.Result = null;
-                this.WasCancelled = false;
-
-
-                this.OnQuery();
-
-                while (true)
-                {
-                    var dt = Timer.GetDelta();
-                    this.RunKeyActions(dt);
-                    Engine.Instance.Update(dt);
-                    result = this.GetResult();
-                    if (result != null)
-                    {
-                        break;
-                    }
-
-                    Engine.Instance.Draw();
-                    Engine.Instance.SystemStep();
-                }
-            }
-            catch (Exception ex)
-            {
-                Logger.Error($"Error during {this.GetType().Name}.Query()", ex);
-                result = new UiResult<T>.Error(ex);
-            }
-            finally
-            {
-                Engine.Instance.PopLayer(this);
-            }
-
-            this.HaltInput();
-            this.OnQueryFinish();
-
-            return result;
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using OpenNefia.Core.Data.Types;
+using OpenNefia.Core.Prototypes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -64,6 +65,17 @@ namespace OpenNefia.Core.UI
                 if (!this._Cache.ContainsKey(index))
                     this._Cache[index] = new KeybindDelegateWrapper(this, index);
                 return this._Cache[index];
+            }
+            set
+            {
+            }
+        }
+
+        public KeybindDelegateWrapper this[PrototypeId<KeybindPrototype> index]
+        {
+            get
+            {
+                return this[index.ResolvePrototype()];
             }
             set
             {

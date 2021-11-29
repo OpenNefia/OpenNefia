@@ -1,5 +1,6 @@
 ﻿using Love;
 using OpenNefia.Core.Data.Types;
+using OpenNefia.Core.Graphics;
 using System;
 
 namespace OpenNefia.Core.UI
@@ -11,19 +12,19 @@ namespace OpenNefia.Core.UI
         /// </summary>
         /// <param name="key"></param>
         /// <param name="is_repeat"></param>
-        void ReceiveKeyPressed(KeyConstant key, bool is_repeat);
+        void ReceiveKeyPressed(KeyPressedEventArgs args);
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="key"></param>
-        void ReceiveKeyReleased(KeyConstant key);
+        void ReceiveKeyReleased(KeyPressedEventArgs args);
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="text"></param>
-        void ReceiveTextInput(string text);
+        void ReceiveTextInput(TextInputEventArgs args);
 
         /// <summary>
         /// 
@@ -33,7 +34,7 @@ namespace OpenNefia.Core.UI
         /// <param name="dx"></param>
         /// <param name="dy"></param>
         /// <param name="isTouch"></param>
-        void ReceiveMouseMoved(float x, float y, float dx, float dy, bool isTouch);
+        void ReceiveMouseMoved(MouseMovedEventArgs args);
 
         /// <summary>
         /// 
@@ -42,7 +43,7 @@ namespace OpenNefia.Core.UI
         /// <param name="y"></param>
         /// <param name="button"></param>
         /// <param name="isTouch"></param>
-        void ReceiveMousePressed(float x, float y, int button, bool isTouch);
+        void ReceiveMousePressed(MousePressedEventArgs args);
 
         /// <summary>
         /// 
@@ -51,7 +52,7 @@ namespace OpenNefia.Core.UI
         /// <param name="y"></param>
         /// <param name="button"></param>
         /// <param name="isTouch"></param>
-        void ReceiveMouseReleased(float x, float y, int button, bool isTouch);
+        void ReceiveMouseReleased(MousePressedEventArgs args);
 
         /// <summary>
         /// 

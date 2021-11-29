@@ -162,7 +162,7 @@ namespace OpenNefia.Core.UI.Element
                 if (rect)
                 {
                     Love.Graphics.SetBlendMode(Love.BlendMode.Subtract);
-                    GraphicsEx.Love.Graphics.Rectangle(Love.DrawMode.Fill, (this.X + 4, this.Y + 4, this.Width - 4, this.Height - 4);
+                    Love.Graphics.Rectangle(Love.DrawMode.Fill, this.X + 4, this.Y + 4, this.Width - 4, this.Height - 4);
                     Love.Graphics.SetBlendMode(Love.BlendMode.Alpha);
                 }
             }
@@ -178,7 +178,7 @@ namespace OpenNefia.Core.UI.Element
                 GraphicsEx.DrawSpriteBatch(this.TopicWindowBatch, this.X + 2, this.Y + 2, this.Width - 4, this.Height - 5);
 
                 Love.Graphics.SetBlendMode(Love.BlendMode.Subtract);
-                GraphicsEx.Love.Graphics.Rectangle(Love.DrawMode.Fill, (this.X + 4, this.Y + 4, this.Width - 4, this.Height - 4);
+                Love.Graphics.Rectangle(Love.DrawMode.Fill, this.X + 4, this.Y + 4, this.Width - 4, this.Height - 4);
                 Love.Graphics.SetBlendMode(Love.BlendMode.Alpha);
             }
         }

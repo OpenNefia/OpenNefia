@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using JetBrains.Annotations;
 using Love;
 using OpenNefia.Core.Maths;
@@ -12,7 +13,7 @@ namespace OpenNefia.Core.Maps
     [Serializable]
     public readonly struct MapCoordinates : IEquatable<MapCoordinates>
     {
-        public static readonly MapCoordinates Nullspace = new(MapId.Nullspace, Vector2i.Zero);
+        public static readonly MapCoordinates Nullspace = new(null, Vector2i.Zero);
 
         /// <summary>
         ///     World Position coordinates.
@@ -20,9 +21,9 @@ namespace OpenNefia.Core.Maps
         public readonly Vector2i Position;
 
         /// <summary>
-        ///     Map identifier relevant to this position.
+        ///     Map these coordinates reference.
         /// </summary>
-        public readonly MapId MapId;
+        public readonly IMap? Map;
 
         /// <summary>
         ///     World position on the X axis.
@@ -35,35 +36,57 @@ namespace OpenNefia.Core.Maps
         public int Y => Position.Y;
 
         /// <summary>
-        ///     Constructs a new instance of <c>MapCoordinates</c>.
+        ///     Tile this position references.
         /// </summary>
-        /// <param name="mapId">Map identifier relevant to this position.</param>
-        /// <param name="position">World position coordinates.</param>
-        public MapCoordinates(MapId mapId, Vector2i position)
+        public Tile? GetTile()
         {
-            Position = position;
-            MapId = mapId;
+            if (!IsInBounds())
+                return null;
+
+            return Map.Tiles[X, Y];
+        }
+
+        /// <summary>
+        ///     Tile memory this position references.
+        /// </summary>
+        public Tile? GetTileMemory()
+        {
+            if (!IsInBounds())
+                return null;
+
+            return Map.TileMemory[X, Y];
         }
 
         /// <summary>
         ///     Constructs a new instance of <c>MapCoordinates</c>.
         /// </summary>
+        /// <param name="mapId">Map relevant to this position.</param>
+        /// <param name="position">World position coordinates.</param>
+        public MapCoordinates(IMap? map, Vector2i position)
+        {
+            Position = position;
+            Map = map;
+        }
+
+        /// <summary>
+        ///     Constructs a new instance of <c>MapCoordinates</c>.
+        /// </summary>
+        /// <param name="mapId">Map relevant to this position.</param>
         /// <param name="x">World position coordinate on the X axis.</param>
         /// <param name="y">World position coordinate on the Y axis.</param>
-        /// <param name="mapId">Map identifier relevant to this position.</param>
-        public MapCoordinates(MapId mapId, int x, int y)
-            : this(mapId, new Vector2i(x, y)) { }
+        public MapCoordinates(IMap? map, int x, int y)
+            : this(map, new Vector2i(x, y)) { }
 
         /// <inheritdoc />
         public override string ToString()
         {
-            return $"Map={MapId}, X={Position.X}, Y={Position.Y}";
+            return $"Map={Map?.Id}, X={Position.X}, Y={Position.Y}";
         }
 
         /// <inheritdoc />
         public bool Equals(MapCoordinates other)
         {
-            return Position.Equals(other.Position) && MapId.Equals(other.MapId);
+            return Position.Equals(other.Position) && (Map?.Id.Equals(other.Map?.Id) ?? false);
         }
 
         /// <inheritdoc />
@@ -79,7 +102,7 @@ namespace OpenNefia.Core.Maps
         {
             unchecked
             {
-                return (Position.GetHashCode() * 397) ^ MapId.GetHashCode();
+                return (Position.GetHashCode() * 397) ^ (Map?.Id ?? MapId.Nullspace).GetHashCode();
             }
         }
 
@@ -117,9 +140,9 @@ namespace OpenNefia.Core.Maps
         /// <param name="mapId">Map identifier relevant to this position.</param>
         /// <param name="x">World position coordinate on the X axis.</param>
         /// <param name="y">World position coordinate on the Y axis.</param>
-        public void Deconstruct(out MapId mapId, out float x, out float y)
+        public void Deconstruct(out IMap? map, out float x, out float y)
         {
-            mapId = MapId;
+            map = Map;
             x = X;
             y = Y;
         }
@@ -131,7 +154,7 @@ namespace OpenNefia.Core.Maps
         /// <returns>A copy of these coordinates, but offset.</returns>
         public MapCoordinates Offset(Vector2i offset)
         {
-            return new MapCoordinates(MapId, Position + offset);
+            return new MapCoordinates(Map, Position + offset);
         }
 
         /// <summary>
@@ -143,6 +166,15 @@ namespace OpenNefia.Core.Maps
         public MapCoordinates Offset(int x, int y)
         {
             return Offset(new Vector2i(x, y));
+        }
+
+        [MemberNotNullWhen(true, nameof(Map))]
+        public bool IsInBounds()
+        {
+            if (Map == null)
+                return false;
+
+            return X >= 0 && Y >= 0 && X < Map.Width && Y < Map.Height;
         }
     }
 }

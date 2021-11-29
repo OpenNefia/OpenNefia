@@ -1,4 +1,5 @@
-﻿using OpenNefia.Core.Maps;
+﻿using OpenNefia.Core.Game;
+using OpenNefia.Core.Maps;
 using OpenNefia.Core.Maths;
 
 namespace OpenNefia.Core.Rendering.TileDrawLayers
@@ -12,8 +13,8 @@ namespace OpenNefia.Core.Rendering.TileDrawLayers
         public ShadowTileLayer(Map map, IAssetManager assetManager)
         {
             this.Map = map;
-            this.Coords = GraphicsEx.Coords;
-            this.Batch = new ShadowBatch(map.Width, map.Height, Coords, assetManager);
+            this.Coords = GameSession.Coords;
+            this.Batch = new ShadowBatch(map.Size, Coords, assetManager);
         }
 
         public override void OnThemeSwitched()
@@ -34,13 +35,13 @@ namespace OpenNefia.Core.Rendering.TileDrawLayers
 
         public override void RedrawAll()
         {
-            this.Batch.SetAllTileShadows(Map._ShadowMap.ShadowTiles, Map._ShadowMap.ShadowBounds);
+            this.Batch.SetAllTileShadows(Map.ShadowMap.ShadowTiles, Map.ShadowMap.ShadowBounds);
             this.Batch.UpdateBatches();
         }
 
-        public override void RedrawDirtyTiles(HashSet<Vector2i> dirtyTilesThisTurn)
+        public override void RedrawDirtyTiles(HashSet<MapCoordinates> dirtyTilesThisTurn)
         {
-            this.Batch.SetAllTileShadows(Map._ShadowMap.ShadowTiles, Map._ShadowMap.ShadowBounds);
+            this.Batch.SetAllTileShadows(Map.ShadowMap.ShadowTiles, Map.ShadowMap.ShadowBounds);
             this.Batch.UpdateBatches();
         }
 

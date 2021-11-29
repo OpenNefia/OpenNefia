@@ -120,7 +120,7 @@ namespace OpenNefia.Core.UI.Layer
 
             GraphicsEx.SetColor(this.ColorTextBlack);
             Love.Graphics.Rectangle(Love.DrawMode.Line, this.X + 30, this.Y + this.Height / 2 - 10, this.Width - 60, 20);
-            GraphicsEx.Love.Graphics.Rectangle(Love.DrawMode.Fill, (this.X + 30, this.Y + this.Height / 2 - 10, (int)((this.Width - 60) * this.ProgressPercent), 20);
+            Love.Graphics.Rectangle(Love.DrawMode.Fill, this.X + 30, this.Y + this.Height / 2 - 10, (int)((this.Width - 60) * this.ProgressPercent), 20);
         }
 
         public override void Dispose()

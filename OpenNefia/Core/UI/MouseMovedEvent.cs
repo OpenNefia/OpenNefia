@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OpenNefia.Core.Maths;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,18 +9,14 @@ namespace OpenNefia.Core.UI
 {
     public class MouseMovedEvent : IInputEvent
     {
-        public int X { get; }
-        public int Y { get; }
-        public int Dx { get; }
-        public int Dy { get; }
+        public Vector2i Pos;
+        public Vector2i DPos;
         public bool Passed { get; private set; }
 
-        public MouseMovedEvent(int x, int y, int dx, int dy)
+        public MouseMovedEvent(Vector2i pos, Vector2i dpos)
         {
-            this.X = x;
-            this.Y = y;
-            this.Dx = dx;
-            this.Dy = dy;
+            this.Pos = pos;
+            this.DPos = dpos;
             this.Passed = false;
         }
 

@@ -4,5 +4,9 @@
     {
         public bool Startup();
         public void Run();
+
+        void Update(float dt);
+        void Draw();
+        void SystemStep();
     }
 }

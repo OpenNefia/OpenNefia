@@ -1,5 +1,6 @@
 using System;
 using JetBrains.Annotations;
+using OpenNefia.Analyzers;
 
 namespace OpenNefia.Core.Serialization.Manager.Attributes
 {
@@ -7,6 +8,7 @@ namespace OpenNefia.Core.Serialization.Manager.Attributes
     /// Defines a field that can be (de)serialized in YAML.
     /// </summary>
     [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property)]
+    [MeansImplicitAssignment]
     [MeansImplicitUse(ImplicitUseKindFlags.Assign)]
     public class DataFieldAttribute : Attribute
     {

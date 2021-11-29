@@ -1,4 +1,5 @@
-﻿using OpenNefia.Core.Maths;
+﻿using OpenNefia.Core.Maps;
+using OpenNefia.Core.Maths;
 using OpenNefia.Core.UI.Element;
 using System;
 using System.Collections.Generic;
@@ -12,6 +13,6 @@ namespace OpenNefia.Core.Rendering.TileDrawLayers
     {
         public abstract void OnThemeSwitched();
         public abstract void RedrawAll();
-        public abstract void RedrawDirtyTiles(HashSet<Vector2i> dirtyTilesThisTurn);
+        public abstract void RedrawDirtyTiles(HashSet<MapCoordinates> dirtyTilesThisTurn);
     }
 }

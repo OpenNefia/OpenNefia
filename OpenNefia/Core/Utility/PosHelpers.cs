@@ -1,4 +1,5 @@
 ﻿using System;
+using OpenNefia.Core.Maps;
 using OpenNefia.Core.Maths;
 
 namespace OpenNefia.Core.Utility
@@ -12,14 +13,9 @@ namespace OpenNefia.Core.Utility
             return Math.Sqrt(dx * dx + dy * dy);
         }
 
-        /// <summary>
+        /// <remarks>
         /// From http://ericw.ca/notes/bresenhams-line-algorithm-in-csharp.html.
-        /// </summary>
-        /// <param name="a.X"></param>
-        /// <param name="a.Y"></param>
-        /// <param name="b.X"></param>
-        /// <param name="b.Y"></param>
-        /// <returns></returns>
+        /// </remarks>
         public static IEnumerable<Vector2i> EnumerateLine(Vector2i a, Vector2i b)
         {
             bool steep = Math.Abs(b.Y - a.Y) > Math.Abs(b.X - a.X);
@@ -59,6 +55,14 @@ namespace OpenNefia.Core.Utility
                 }
             }
             yield break;
+        }
+
+        public static IEnumerable<MapCoordinates> EnumerateLine(MapCoordinates a, MapCoordinates b)
+        {
+            if (a.MapId != b.MapId)
+                return Enumerable.Empty<MapCoordinates>();
+
+            return EnumerateLine(a.Position, b.Position).Select(pos => new MapCoordinates(a.MapId, pos));
         }
     }
 }

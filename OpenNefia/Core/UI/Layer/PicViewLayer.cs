@@ -24,8 +24,8 @@ namespace OpenNefia.Core.UI.Layer
             Scroller = new UiScroller();
             
             Scroller.BindKeys(this);
-            this.Keybinds[Keybind.Entries.Escape] += (_) => this.Cancel();
-            this.Keybinds[Keybind.Entries.Cancel] += (_) => this.Cancel();
+            this.Keybinds[Keybind.Escape] += (_) => this.Cancel();
+            this.Keybinds[Keybind.Cancel] += (_) => this.Cancel();
         }
 
         public override void GetPreferredBounds(out int x, out int y, out int width, out int height)
@@ -46,7 +46,7 @@ namespace OpenNefia.Core.UI.Layer
         public override void Draw()
         {
             Love.Graphics.SetColor(Love.Color.Black);
-            GraphicsEx.Love.Graphics.Rectangle(Love.DrawMode.Fill, (this.X, this.Y, this.Width, this.Height);
+            Love.Graphics.Rectangle(Love.DrawMode.Fill, this.X, this.Y, this.Width, this.Height);
 
             Love.Graphics.SetColor(Love.Color.White);
             Love.Graphics.Draw(this.Image, this.X, this.Y);

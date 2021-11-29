@@ -1,4 +1,5 @@
 ﻿using OpenNefia.Core.GameObjects;
+using OpenNefia.Core.Maps;
 
 namespace OpenNefia.Core.Rendering
 {
@@ -29,8 +30,7 @@ namespace OpenNefia.Core.Rendering
         public ShadowType ShadowType;
 
         internal int Index;
-        internal int TileX;
-        internal int TileY;
+        internal MapCoordinates Coords;
         internal int ZOrder;
         internal MemoryState State;
     }

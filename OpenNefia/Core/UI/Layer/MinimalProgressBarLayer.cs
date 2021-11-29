@@ -92,7 +92,7 @@ namespace OpenNefia.Core.UI.Layer
 
             Love.Graphics.Draw(this.StatusText, x - this.StatusText.GetWidth() / 2, y - this.StatusText.GetHeight() / 2 - 4 - barHeight);
             Love.Graphics.Rectangle(Love.DrawMode.Line, x - barWidth / 2, y, barWidth, barHeight);
-            GraphicsEx.Love.Graphics.Rectangle(Love.DrawMode.Fill, (x - barWidth / 2, y, (int)(barWidth * this.ProgressPercent), barHeight);
+            Love.Graphics.Rectangle(Love.DrawMode.Fill, x - barWidth / 2, y, (int)(barWidth * this.ProgressPercent), barHeight);
         }
 
         public override void Dispose()

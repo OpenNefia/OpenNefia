@@ -6,10 +6,9 @@ using Love;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Tags;
 using OpenNefia.Core.Data.Types;
-using OpenNefia.Core.Extensions;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Core.UI.Element;
-using OpenNefia.Core.Util.Collections;
+using OpenNefia.Core.Utility;
 using TextCopy;
 
 namespace OpenNefia.Core.UI.Layer.Repl
@@ -427,9 +426,9 @@ namespace OpenNefia.Core.UI.Layer.Repl
 
         public override void GetPreferredBounds(out int x, out int y, out int width, out int height)
         {
-            var viewportHeight = Graphics.GetHeight();
+            var viewportHeight = Love.Graphics.GetHeight();
 
-            width = Graphics.GetWidth();
+            width = Love.Graphics.GetWidth();
             height = (int)Math.Clamp(viewportHeight * HeightPercentage, 0, viewportHeight - 1);
             x = 0;
             y = 0;
@@ -521,7 +520,7 @@ namespace OpenNefia.Core.UI.Layer.Repl
 
             // Background
             GraphicsEx.SetColor(ColorReplBackground);
-            GraphicsEx.Love.Graphics.Rectangle(Love.DrawMode.Fill, (X, y, Width, Height);
+            Love.Graphics.Rectangle(Love.DrawMode.Fill, X, y, Width, Height);
 
             var yPos = y + Height - FontReplText.GetHeight() - 5;
 
@@ -579,7 +578,7 @@ namespace OpenNefia.Core.UI.Layer.Repl
                 var curX = CursorDisplayX;
                 var curY = CursorDisplayY;
                 GraphicsEx.SetColor(FontReplText.Color);
-                Graphics.Line(curX, curY, curX, curY + FontReplText.GetHeight());
+                Love.Graphics.Line(curX, curY, curX, curY + FontReplText.GetHeight());
             }
 
             CompletionsPane.Draw();
@@ -813,7 +812,7 @@ namespace OpenNefia.Core.UI.Layer.Repl
                 return;
 
             GraphicsEx.SetColor(ColorCompletionBackground);
-            GraphicsEx.Love.Graphics.Rectangle(Love.DrawMode.Fill, (X, Y, Width, Height);
+            Love.Graphics.Rectangle(Love.DrawMode.Fill, X, Y, Width, Height);
 
             GraphicsEx.SetColor(ColorCompletionBorder);
             Love.Graphics.Rectangle(Love.DrawMode.Line, X + BorderPadding, Y + BorderPadding, Width - BorderPadding * 2, Height - BorderPadding * 2);
@@ -823,7 +822,7 @@ namespace OpenNefia.Core.UI.Layer.Repl
                 if (entry == FilteredView.SelectedItem)
                 {
                     GraphicsEx.SetColor(255, 255, 255, 128);
-                    GraphicsEx.Love.Graphics.Rectangle(Love.DrawMode.Fill, (entry.Text.X, entry.Text.Y, entry.Text.Width, entry.Text.Height);
+                    Love.Graphics.Rectangle(Love.DrawMode.Fill, entry.Text.X, entry.Text.Y, entry.Text.Width, entry.Text.Height);
                 }
                 GraphicsEx.SetColor(Color.White);
                 entry.Icon.Draw(entry.Text.X - entry.Text.Height - 4, entry.Text.Y, entry.Text.Height, entry.Text.Height);

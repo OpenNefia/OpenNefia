@@ -79,7 +79,7 @@ namespace OpenNefia.Core.Rendering
 
             if (!this._binpack.Pack((int)quadSize.Width, (int)quadSize.Height, out int rectX, out int rectY))
             {
-                throw new Exception($"Ran out of space while packing tile atlas ({tile.TileIndex})");
+                throw new Exception($"Ran out of space while packing tile atlas ({tile.Identifier})");
             }
 
             if (this.OnLoadTile != null)
@@ -104,7 +104,7 @@ namespace OpenNefia.Core.Rendering
             if (tile.HasOverhang)
                 atlasTile.HasOverhang = true;
 
-            this._atlasTiles.Add(tile.TileIndex, atlasTile);
+            this._atlasTiles.Add(tile.Identifier, atlasTile);
 
             quad.Dispose();
         }
@@ -145,9 +145,9 @@ namespace OpenNefia.Core.Rendering
             string hashString;
             using (var sha256Hash = IncrementalHash.CreateHash(HashAlgorithmName.SHA256))
             {
-                foreach (var tile in _tileSpecs.OrderBy(x => x.TileIndex))
+                foreach (var tile in _tileSpecs.OrderBy(x => x.Identifier))
                 {
-                    sha256Hash.AppendData(Encoding.UTF8.GetBytes(tile.TileIndex));
+                    sha256Hash.AppendData(Encoding.UTF8.GetBytes(tile.Identifier));
                     sha256Hash.AppendData(Encoding.UTF8.GetBytes(tile.ImagePath.ToString()));
                 }
 

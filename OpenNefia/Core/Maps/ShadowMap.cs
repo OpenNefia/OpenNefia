@@ -10,15 +10,16 @@ namespace OpenNefia.Core.Maps
     {
         private IMap Map;
         private ICoords Coords;
-        internal ShadowTile[] ShadowTiles;
+        internal ShadowTile[,] ShadowTiles;
         internal Vector2i ShadowPos;
         internal Vector2i ShadowSize;
+        internal Box2i ShadowBounds { get => Box2i.FromDimensions(ShadowPos, ShadowSize); }
 
         public ShadowMap(IMap map)
         {
             Map = map;
-            Coords = GraphicsEx.Coords;
-            ShadowTiles = new ShadowTile[map.Width * map.Height];
+            Coords = GameSession.Coords;
+            ShadowTiles = new ShadowTile[map.Width, map.Height];
         }
 
         private void SetShadowBorder(int tx, int ty, ShadowTile shadow)
@@ -26,7 +27,7 @@ namespace OpenNefia.Core.Maps
             var ind = ty * Map.Width + tx;
 
             if (ind >= 0 && ind < ShadowTiles.Length)
-                ShadowTiles[ty * Map.Width + tx] |= shadow;
+                ShadowTiles[tx, ty] |= shadow;
         }
 
         private void MarkShadow(int tx, int ty)
@@ -48,18 +49,18 @@ namespace OpenNefia.Core.Maps
             var player = GameSession.Player!;
             var playerPos = player.Coords.Position;
 
-            GraphicsEx.GetWindowTiledSize(out var windowTiledW, out var windowTiledH);
+            GraphicsEx.GetWindowTiledSize(out var windowTiledSize);
 
-            windowTiledW = Math.Min(windowTiledW, Map.Width);
-            windowTiledH = Math.Min(windowTiledH, Map.Height);
+            var windowTiledW = Math.Min(windowTiledSize.X, Map.Width);
+            var windowTiledH = Math.Min(windowTiledSize.Y, Map.Height);
 
             var start = new Vector2i(Math.Clamp(playerPos.X - windowTiledW / 2 - 2, 0, Map.Width - windowTiledW),
                                     Math.Clamp(playerPos.Y - windowTiledH / 2 - 2, 0, Map.Height - windowTiledH));
             var end = new Vector2i(start.X + windowTiledW + 4, start.Y + windowTiledH + 4);
 
-            Coords.TileToScreen(start, ref ShadowPos);
-            Coords.TileToScreen(end - 1, ref ShadowSize);
-            ShadowSize -= ShadowPos;
+            Coords.TileToScreen(start, out ShadowPos);
+            Coords.TileToScreen(end - 1, out var shadowEnd);
+            ShadowSize = shadowEnd - ShadowPos;
 
             var fovSize = 15;
             var fovRadius = FovRadius.Get(fovSize);
@@ -125,10 +126,10 @@ namespace OpenNefia.Core.Maps
                             {
                                 if (i >= fovRadius[j + cy, 0] + cx && i < fovRadius[j + cy, 1] + cx)
                                 {
-                                    var coords = new MapCoordinates(player.MapId, i, j);
-                                    if (MapQuery.HasLos(player.Coords, coords))
+                                    var coords = player.Map!.AtPos(new Vector2i(i, j));
+                                    if (player.Coords.HasLos(coords))
                                     {
-                                        Map.MemorizeTile(coords.Position);
+                                        coords.MemorizeTile();
                                         shadow = false;
                                     }
                                 }

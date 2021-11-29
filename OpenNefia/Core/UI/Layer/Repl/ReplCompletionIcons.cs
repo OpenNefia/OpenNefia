@@ -1,116 +1,102 @@
 ﻿using Microsoft.CodeAnalysis.Tags;
-using OpenNefia.Core.Data;
-using OpenNefia.Core.Data.Types;
+using OpenNefia.Core.IoC;
 using OpenNefia.Core.Rendering;
-using System;
-using System.Collections.Generic;
 using System.Collections.Immutable;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using AssetPrototypeID = OpenNefia.Core.Prototypes.PrototypeId<OpenNefia.Core.Rendering.AssetPrototype>;
 
 namespace OpenNefia.Core.UI.Layer.Repl
 {
-    [DefOfEntries]
-    internal static class ReplIconsAssetDefOf
+    internal static class ReplIconsAssetPrototypeIDs
     {
-        public static AssetDef ReplCompletionIcon_Array = null!;
-        public static AssetDef ReplCompletionIcon_Boolean = null!;
-        public static AssetDef ReplCompletionIcon_Class = null!;
-        public static AssetDef ReplCompletionIcon_Color = null!;
-        public static AssetDef ReplCompletionIcon_Constant = null!;
-        public static AssetDef ReplCompletionIcon_Document = null!;
-        public static AssetDef ReplCompletionIcon_EnumeratorMember = null!;
-        public static AssetDef ReplCompletionIcon_Enumerator = null!;
-        public static AssetDef ReplCompletionIcon_Event = null!;
-        public static AssetDef ReplCompletionIcon_Field = null!;
-        public static AssetDef ReplCompletionIcon_Folder = null!;
-        public static AssetDef ReplCompletionIcon_Interface = null!;
-        public static AssetDef ReplCompletionIcon_Key = null!;
-        public static AssetDef ReplCompletionIcon_Keyword = null!;
-        public static AssetDef ReplCompletionIcon_Library = null!;
-        public static AssetDef ReplCompletionIcon_LocalVariable = null!;
-        public static AssetDef ReplCompletionIcon_Method = null!;
-        public static AssetDef ReplCompletionIcon_Misc = null!;
-        public static AssetDef ReplCompletionIcon_Namespace = null!;
-        public static AssetDef ReplCompletionIcon_Numeric = null!;
-        public static AssetDef ReplCompletionIcon_Operator = null!;
-        public static AssetDef ReplCompletionIcon_Parameter = null!;
-        public static AssetDef ReplCompletionIcon_Property = null!;
-        public static AssetDef ReplCompletionIcon_Ruler = null!;
-        public static AssetDef ReplCompletionIcon_Snippet = null!;
-        public static AssetDef ReplCompletionIcon_String = null!;
-        public static AssetDef ReplCompletionIcon_Structure = null!;
-        public static AssetDef ReplCompletionIcon_Unlink = null!;
-        public static AssetDef ReplCompletionIcon_Variable = null!;
+        public static AssetPrototypeID ReplCompletionIcon_Array            = new(nameof(ReplCompletionIcon_Array));
+        public static AssetPrototypeID ReplCompletionIcon_Boolean          = new(nameof(ReplCompletionIcon_Boolean));
+        public static AssetPrototypeID ReplCompletionIcon_Class            = new(nameof(ReplCompletionIcon_Class));
+        public static AssetPrototypeID ReplCompletionIcon_Color            = new(nameof(ReplCompletionIcon_Color));
+        public static AssetPrototypeID ReplCompletionIcon_Constant         = new(nameof(ReplCompletionIcon_Constant));
+        public static AssetPrototypeID ReplCompletionIcon_Document         = new(nameof(ReplCompletionIcon_Document));
+        public static AssetPrototypeID ReplCompletionIcon_EnumeratorMember = new(nameof(ReplCompletionIcon_EnumeratorMember));
+        public static AssetPrototypeID ReplCompletionIcon_Enumerator       = new(nameof(ReplCompletionIcon_Enumerator));
+        public static AssetPrototypeID ReplCompletionIcon_Event            = new(nameof(ReplCompletionIcon_Event));
+        public static AssetPrototypeID ReplCompletionIcon_Field            = new(nameof(ReplCompletionIcon_Field));
+        public static AssetPrototypeID ReplCompletionIcon_Folder           = new(nameof(ReplCompletionIcon_Folder));
+        public static AssetPrototypeID ReplCompletionIcon_Interface        = new(nameof(ReplCompletionIcon_Interface));
+        public static AssetPrototypeID ReplCompletionIcon_Key              = new(nameof(ReplCompletionIcon_Key));
+        public static AssetPrototypeID ReplCompletionIcon_Keyword          = new(nameof(ReplCompletionIcon_Keyword));
+        public static AssetPrototypeID ReplCompletionIcon_Library          = new(nameof(ReplCompletionIcon_Library));
+        public static AssetPrototypeID ReplCompletionIcon_LocalVariable    = new(nameof(ReplCompletionIcon_LocalVariable));
+        public static AssetPrototypeID ReplCompletionIcon_Method           = new(nameof(ReplCompletionIcon_Method));
+        public static AssetPrototypeID ReplCompletionIcon_Misc             = new(nameof(ReplCompletionIcon_Misc));
+        public static AssetPrototypeID ReplCompletionIcon_Namespace        = new(nameof(ReplCompletionIcon_Namespace));
+        public static AssetPrototypeID ReplCompletionIcon_Numeric          = new(nameof(ReplCompletionIcon_Numeric));
+        public static AssetPrototypeID ReplCompletionIcon_Operator         = new(nameof(ReplCompletionIcon_Operator));
+        public static AssetPrototypeID ReplCompletionIcon_Parameter        = new(nameof(ReplCompletionIcon_Parameter));
+        public static AssetPrototypeID ReplCompletionIcon_Property         = new(nameof(ReplCompletionIcon_Property));
+        public static AssetPrototypeID ReplCompletionIcon_Ruler            = new(nameof(ReplCompletionIcon_Ruler));
+        public static AssetPrototypeID ReplCompletionIcon_Snippet          = new(nameof(ReplCompletionIcon_Snippet));
+        public static AssetPrototypeID ReplCompletionIcon_String           = new(nameof(ReplCompletionIcon_String));
+        public static AssetPrototypeID ReplCompletionIcon_Structure        = new(nameof(ReplCompletionIcon_Structure));
+        public static AssetPrototypeID ReplCompletionIcon_Unlink           = new(nameof(ReplCompletionIcon_Unlink));
+        public static AssetPrototypeID ReplCompletionIcon_Variable         = new(nameof(ReplCompletionIcon_Variable));
     }
 
     internal class ReplCompletionIcons : IDisposable
     {
-        public static Dictionary<string, AssetDef> RoslynTagToIconAssetDef = new Dictionary<string, AssetDef>()
+        private static IAssetManager _assets => IoCManager.Resolve<IAssetManager>();
+
+        public static Dictionary<string, AssetPrototypeID> RoslynTagToIconAssetPrototypeID = new Dictionary<string, AssetPrototypeID>()
         {
-            { WellKnownTags.Public,            ReplIconsAssetDefOf.ReplCompletionIcon_Keyword },
-            { WellKnownTags.Protected,         ReplIconsAssetDefOf.ReplCompletionIcon_Keyword },
-            { WellKnownTags.Private,           ReplIconsAssetDefOf.ReplCompletionIcon_Keyword },
-            { WellKnownTags.Internal,          ReplIconsAssetDefOf.ReplCompletionIcon_Keyword },
-            { WellKnownTags.File,              ReplIconsAssetDefOf.ReplCompletionIcon_Document },
-            { WellKnownTags.Project,           ReplIconsAssetDefOf.ReplCompletionIcon_Document },
-            { WellKnownTags.Folder,            ReplIconsAssetDefOf.ReplCompletionIcon_Folder },
-            { WellKnownTags.Assembly,          ReplIconsAssetDefOf.ReplCompletionIcon_Library },
-            { WellKnownTags.Class,             ReplIconsAssetDefOf.ReplCompletionIcon_Class },
-            { WellKnownTags.Constant,          ReplIconsAssetDefOf.ReplCompletionIcon_Constant },
-            { WellKnownTags.Delegate,          ReplIconsAssetDefOf.ReplCompletionIcon_Method },
-            { WellKnownTags.Enum,              ReplIconsAssetDefOf.ReplCompletionIcon_Enumerator },
-            { WellKnownTags.EnumMember,        ReplIconsAssetDefOf.ReplCompletionIcon_EnumeratorMember },
-            { WellKnownTags.Event,             ReplIconsAssetDefOf.ReplCompletionIcon_Event },
-            { WellKnownTags.ExtensionMethod,   ReplIconsAssetDefOf.ReplCompletionIcon_Method },
-            { WellKnownTags.Field,             ReplIconsAssetDefOf.ReplCompletionIcon_Field },
-            { WellKnownTags.Interface,         ReplIconsAssetDefOf.ReplCompletionIcon_Interface },
-            { WellKnownTags.Intrinsic,         ReplIconsAssetDefOf.ReplCompletionIcon_Misc },
-            { WellKnownTags.Keyword,           ReplIconsAssetDefOf.ReplCompletionIcon_Keyword },
-            { WellKnownTags.Label,             ReplIconsAssetDefOf.ReplCompletionIcon_Misc },
-            { WellKnownTags.Local,             ReplIconsAssetDefOf.ReplCompletionIcon_LocalVariable },
-            { WellKnownTags.Namespace,         ReplIconsAssetDefOf.ReplCompletionIcon_Namespace },
-            { WellKnownTags.Method,            ReplIconsAssetDefOf.ReplCompletionIcon_Method },
-            { WellKnownTags.Module,            ReplIconsAssetDefOf.ReplCompletionIcon_Library },
-            { WellKnownTags.Operator,          ReplIconsAssetDefOf.ReplCompletionIcon_Operator },
-            { WellKnownTags.Parameter,         ReplIconsAssetDefOf.ReplCompletionIcon_Parameter },
-            { WellKnownTags.Property,          ReplIconsAssetDefOf.ReplCompletionIcon_Property },
-            { WellKnownTags.RangeVariable,     ReplIconsAssetDefOf.ReplCompletionIcon_Variable },
-            { WellKnownTags.Reference,         ReplIconsAssetDefOf.ReplCompletionIcon_Unlink },
-            { WellKnownTags.Structure,         ReplIconsAssetDefOf.ReplCompletionIcon_Structure },
-            { WellKnownTags.TypeParameter,     ReplIconsAssetDefOf.ReplCompletionIcon_Parameter },
-            { WellKnownTags.Snippet,           ReplIconsAssetDefOf.ReplCompletionIcon_Snippet },
-            { WellKnownTags.Error,             ReplIconsAssetDefOf.ReplCompletionIcon_Misc },
-            { WellKnownTags.Warning,           ReplIconsAssetDefOf.ReplCompletionIcon_Misc },
-            // { WellKnownTags.StatusInformation, ReplIconsAssetDefOf.ReplCompletionIcon_Misc },
-            // { WellKnownTags.AddReference,      ReplIconsAssetDefOf.ReplCompletionIcon_Misc },
-            // { WellKnownTags.NuGet,             ReplIconsAssetDefOf.ReplCompletionIcon_Misc }
+            { WellKnownTags.Public,            ReplIconsAssetPrototypeIDs.ReplCompletionIcon_Keyword },
+            { WellKnownTags.Protected,         ReplIconsAssetPrototypeIDs.ReplCompletionIcon_Keyword },
+            { WellKnownTags.Private,           ReplIconsAssetPrototypeIDs.ReplCompletionIcon_Keyword },
+            { WellKnownTags.Internal,          ReplIconsAssetPrototypeIDs.ReplCompletionIcon_Keyword },
+            { WellKnownTags.File,              ReplIconsAssetPrototypeIDs.ReplCompletionIcon_Document },
+            { WellKnownTags.Project,           ReplIconsAssetPrototypeIDs.ReplCompletionIcon_Document },
+            { WellKnownTags.Folder,            ReplIconsAssetPrototypeIDs.ReplCompletionIcon_Folder },
+            { WellKnownTags.Assembly,          ReplIconsAssetPrototypeIDs.ReplCompletionIcon_Library },
+            { WellKnownTags.Class,             ReplIconsAssetPrototypeIDs.ReplCompletionIcon_Class },
+            { WellKnownTags.Constant,          ReplIconsAssetPrototypeIDs.ReplCompletionIcon_Constant },
+            { WellKnownTags.Delegate,          ReplIconsAssetPrototypeIDs.ReplCompletionIcon_Method },
+            { WellKnownTags.Enum,              ReplIconsAssetPrototypeIDs.ReplCompletionIcon_Enumerator },
+            { WellKnownTags.EnumMember,        ReplIconsAssetPrototypeIDs.ReplCompletionIcon_EnumeratorMember },
+            { WellKnownTags.Event,             ReplIconsAssetPrototypeIDs.ReplCompletionIcon_Event },
+            { WellKnownTags.ExtensionMethod,   ReplIconsAssetPrototypeIDs.ReplCompletionIcon_Method },
+            { WellKnownTags.Field,             ReplIconsAssetPrototypeIDs.ReplCompletionIcon_Field },
+            { WellKnownTags.Interface,         ReplIconsAssetPrototypeIDs.ReplCompletionIcon_Interface },
+            { WellKnownTags.Intrinsic,         ReplIconsAssetPrototypeIDs.ReplCompletionIcon_Misc },
+            { WellKnownTags.Keyword,           ReplIconsAssetPrototypeIDs.ReplCompletionIcon_Keyword },
+            { WellKnownTags.Label,             ReplIconsAssetPrototypeIDs.ReplCompletionIcon_Misc },
+            { WellKnownTags.Local,             ReplIconsAssetPrototypeIDs.ReplCompletionIcon_LocalVariable },
+            { WellKnownTags.Namespace,         ReplIconsAssetPrototypeIDs.ReplCompletionIcon_Namespace },
+            { WellKnownTags.Method,            ReplIconsAssetPrototypeIDs.ReplCompletionIcon_Method },
+            { WellKnownTags.Module,            ReplIconsAssetPrototypeIDs.ReplCompletionIcon_Library },
+            { WellKnownTags.Operator,          ReplIconsAssetPrototypeIDs.ReplCompletionIcon_Operator },
+            { WellKnownTags.Parameter,         ReplIconsAssetPrototypeIDs.ReplCompletionIcon_Parameter },
+            { WellKnownTags.Property,          ReplIconsAssetPrototypeIDs.ReplCompletionIcon_Property },
+            { WellKnownTags.RangeVariable,     ReplIconsAssetPrototypeIDs.ReplCompletionIcon_Variable },
+            { WellKnownTags.Reference,         ReplIconsAssetPrototypeIDs.ReplCompletionIcon_Unlink },
+            { WellKnownTags.Structure,         ReplIconsAssetPrototypeIDs.ReplCompletionIcon_Structure },
+            { WellKnownTags.TypeParameter,     ReplIconsAssetPrototypeIDs.ReplCompletionIcon_Parameter },
+            { WellKnownTags.Snippet,           ReplIconsAssetPrototypeIDs.ReplCompletionIcon_Snippet },
+            { WellKnownTags.Error,             ReplIconsAssetPrototypeIDs.ReplCompletionIcon_Misc },
+            { WellKnownTags.Warning,           ReplIconsAssetPrototypeIDs.ReplCompletionIcon_Misc },
+            // { WellKnownTags.StatusInformation, ReplIconsAssetPrototypeIDOf.ReplCompletionIcon_Misc },
+            // { WellKnownTags.AddReference,      ReplIconsAssetPrototypeIDOf.ReplCompletionIcon_Misc },
+            // { WellKnownTags.NuGet,             ReplIconsAssetPrototypeIDOf.ReplCompletionIcon_Misc }
         };
 
-        private Dictionary<AssetDef, AssetDrawable> Drawables = new Dictionary<AssetDef, AssetDrawable>();
-
-        private AssetDrawable GetDrawable(AssetDef def)
-        {
-            if (this.Drawables.TryGetValue(def, out var drawable))
-                return drawable;
-
-            drawable = new AssetDrawable(def);
-            this.Drawables[def] = drawable;
-            return drawable;
-        }
+        private Dictionary<AssetPrototypeID, AssetDrawable> Drawables = new();
 
         public AssetDrawable GetIcon(ImmutableArray<string> roslynTags)
         {
             foreach (var tag in roslynTags)
             {
-                if (RoslynTagToIconAssetDef.TryGetValue(tag, out var assetDef))
+                if (RoslynTagToIconAssetPrototypeID.TryGetValue(tag, out var id))
                 {
-                    return GetDrawable(assetDef);
+                    return _assets.GetAsset(id);
                 }
             }
 
-            return GetDrawable(ReplIconsAssetDefOf.ReplCompletionIcon_Misc);
+            return _assets.GetAsset(ReplIconsAssetPrototypeIDs.ReplCompletionIcon_Misc);
         }
 
         public void Dispose()

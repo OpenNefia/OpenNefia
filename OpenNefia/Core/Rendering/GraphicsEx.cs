@@ -1,6 +1,7 @@
 ﻿using Love;
 using OpenNefia.Core.Data;
 using OpenNefia.Core.Data.Types;
+using OpenNefia.Core.Game;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.Utility;
 using System;
@@ -43,7 +44,7 @@ namespace OpenNefia.Core.Rendering
 
         internal static void GetWindowTiledSize(out Vector2i windowTiledSize)
         {
-            Coords.GetTiledSize(GetViewportSize(), out windowTiledSize);
+            GameSession.Coords.GetTiledSize(GetViewportSize(), out windowTiledSize);
         }
 
         public static void DrawSpriteBatch(Love.SpriteBatch batch, float x = 0, float y = 0, float width = 0, float height = 0, float rotation = 0)
@@ -152,7 +153,7 @@ namespace OpenNefia.Core.Rendering
                 SetColor(spec.Color);
         }
 
-        public static Love.Text NewText(string text, int size, FontFormatting style = FontFormatting.None, IResourcePath? fontFilepath = null)
+        public static Love.Text NewText(string text, int size, FontFormatting style = FontFormatting.None, ResourcePath? fontFilepath = null)
         {
             return Love.Graphics.NewText(GetFont(size, style, fontFilepath), text);
         }
@@ -162,7 +163,7 @@ namespace OpenNefia.Core.Rendering
             return NewText(text, spec.Size, spec.Formatting, spec.FontFilepath);
         }
 
-        public static Love.Font GetFont(int size, FontFormatting style = FontFormatting.None, IResourcePath? fontFilepath = null)
+        public static Love.Font GetFont(int size, FontFormatting style = FontFormatting.None, ResourcePath? fontFilepath = null)
         {
             if (_fontCache.TryGetValue(size, out Love.Font? cachedFont))
             {
@@ -170,9 +171,9 @@ namespace OpenNefia.Core.Rendering
             }
 
             if (fontFilepath == null)
-                fontFilepath = FONT_PATH;
+                fontFilepath = _fallbackFontPath;
 
-            var font = Love.Graphics.NewFont(fontFilepath.Resolve(), size);
+            var font = Love.Graphics.NewFont(fontFilepath.ToString(), size);
             _fontCache[size] = font;
             return font;
         }
@@ -211,7 +212,5 @@ namespace OpenNefia.Core.Rendering
                 Love.Graphics.SetScissor(x, y, width, height);
             }
         }
-
-        public static ICoords Coords { get => Current.Game.Coords; }
     }
 }

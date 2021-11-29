@@ -1,4 +1,5 @@
-﻿using OpenNefia.Core.Maps;
+﻿using OpenNefia.Core.IoC;
+using OpenNefia.Core.Maps;
 using OpenNefia.Core.Rendering.TileDrawLayers;
 using OpenNefia.Core.UI.Element;
 using System;
@@ -8,29 +9,35 @@ namespace OpenNefia.Core.Rendering
 {
     public class MapRenderer : BaseDrawable
     {
-        private List<ITileLayer> TileLayers = new List<ITileLayer>();
-        private Map Map;
+        [Dependency] private readonly IAtlasManager _atlasManager;
+        [Dependency] private readonly IAssetManager _assetManager;
 
-        public MapRenderer(Map map)
+        private List<ITileLayer> _tileLayers = new List<ITileLayer>();
+        private Map _map;
+
+        public MapRenderer(Map map, IAtlasManager atlasManager, IAssetManager assetManager)
         {
-            Map = map;
-            TileLayers.Add(new TileAndChipTileLayer(map));
-            TileLayers.Add(new ShadowTileLayer(map));
+            _atlasManager = atlasManager;
+            _assetManager = assetManager;
+
+            _map = map;
+            _tileLayers.Add(new TileAndChipTileLayer(_map, _atlasManager));
+            _tileLayers.Add(new ShadowTileLayer(_map, _assetManager));
             RefreshAllLayers();
         }
 
         public void SetMap(Map map)
         {
-            Map = map;
-            TileLayers.Clear();
-            TileLayers.Add(new TileAndChipTileLayer(map));
-            TileLayers.Add(new ShadowTileLayer(map));
+            _map = map;
+            _tileLayers.Clear();
+            _tileLayers.Add(new TileAndChipTileLayer(_map, _atlasManager));
+            _tileLayers.Add(new ShadowTileLayer(_map, _assetManager));
             RefreshAllLayers();
         }
 
         public void OnThemeSwitched()
         {
-            foreach (var layer in TileLayers)
+            foreach (var layer in _tileLayers)
             {
                 layer.OnThemeSwitched();
             }
@@ -38,30 +45,30 @@ namespace OpenNefia.Core.Rendering
 
         public void RefreshAllLayers()
         {
-            if (this.Map._RedrawAllThisTurn)
+            if (this._map._RedrawAllThisTurn)
             {
-                foreach (var layer in TileLayers)
+                foreach (var layer in _tileLayers)
                 {
                     layer.RedrawAll();
                 }
             }
-            else if(this.Map._DirtyTilesThisTurn.Count > 0)
+            else if(this._map._DirtyTilesThisTurn.Count > 0)
             {
-                foreach (var layer in TileLayers)
+                foreach (var layer in _tileLayers)
                 {
-                    layer.RedrawDirtyTiles(this.Map._DirtyTilesThisTurn);
+                    layer.RedrawDirtyTiles(this._map._DirtyTilesThisTurn);
                 }
             }
 
-            this.Map._RedrawAllThisTurn = false;
-            this.Map._DirtyTilesThisTurn.Clear();
-            this.Map.MapObjectMemory.Flush();
+            this._map._RedrawAllThisTurn = false;
+            this._map._DirtyTilesThisTurn.Clear();
+            this._map.MapObjectMemory.Flush();
         }
 
         public override void SetSize(int width = 0, int height = 0)
         {
             base.SetSize(width, height);
-            foreach (var layer in this.TileLayers)
+            foreach (var layer in this._tileLayers)
             {
                 layer.SetSize(width, height);
             }
@@ -70,7 +77,7 @@ namespace OpenNefia.Core.Rendering
         public override void SetPosition(int x = 0, int y = 0)
         {
             base.SetPosition(x, y);
-            foreach (var layer in this.TileLayers)
+            foreach (var layer in this._tileLayers)
             {
                 layer.SetPosition(x, y);
             }
@@ -78,7 +85,7 @@ namespace OpenNefia.Core.Rendering
 
         public override void Update(float dt)
         {
-            foreach (var layer in TileLayers)
+            foreach (var layer in _tileLayers)
             {
                 layer.Update(dt);
             }
@@ -86,7 +93,7 @@ namespace OpenNefia.Core.Rendering
 
         public override void Draw()
         {
-            foreach (var layer in TileLayers)
+            foreach (var layer in _tileLayers)
             {
                 layer.Draw();
             }

@@ -24,10 +24,10 @@ namespace OpenNefia.Core.GameObjects
         public Vector2i Pos { get; set; }
 
         /// <inheritdoc />
-        public MapId MapId { get; private set; }
+        public IMap? Map { get; private set; }
         
         /// <inheritdoc />
-        public MapCoordinates Coords { get => new MapCoordinates(MapId, Pos); }
+        public MapCoordinates Coords { get => new MapCoordinates(Map, Pos); }
 
         /// <inheritdoc />
         EntityLifeStage IEntity.LifeStage { get => LifeStage; set => LifeStage = value; }
@@ -77,14 +77,14 @@ namespace OpenNefia.Core.GameObjects
 
         #endregion Initialization
 
-        internal void ChangeMapId(MapId newMapId)
+        internal void ChangeMap(IMap newMap)
         {
-            if (newMapId == MapId)
+            if (newMap == Map)
                 return;
 
-            var oldMapId = MapId;
+            var oldMap = Map;
 
-            MapId = newMapId;
+            Map = newMap;
         }
 
         #region Components

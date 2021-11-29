@@ -1,7 +1,7 @@
-﻿using System;
+﻿using OpenNefia.Core.Game;
 using OpenNefia.Core.GameObjects;
-using OpenNefia.Core.IoC;
 using OpenNefia.Core.Maths;
+using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Core.Utility;
 
@@ -21,16 +21,17 @@ namespace OpenNefia.Core.Maps
 
         public int Width { get; }
         public int Height { get; }
+        public Vector2i Size => new Vector2i(Width, Height);
 
         public Tile[,] Tiles { get; }
         public Tile[,] TileMemory { get; }
         public TileFlag[,] TileFlags { get; }
-        internal int[] _InSight;
+        internal int[,] _InSight;
         internal int _LastSightId;
         public ShadowMap ShadowMap { get; }
         public MapObjectMemoryStore MapObjectMemory { get; }
 
-        internal HashSet<Vector2i> _DirtyTilesThisTurn;
+        internal HashSet<MapCoordinates> _DirtyTilesThisTurn = new();
         internal bool _RedrawAllThisTurn;
         internal bool _NeedsRedraw { get => _DirtyTilesThisTurn.Count > 0 || _RedrawAllThisTurn; }
 
@@ -44,29 +45,44 @@ namespace OpenNefia.Core.Maps
             TileMemory = new Tile[width, height];
             TileFlags = new TileFlag[width, height];
             MapObjectMemory = new MapObjectMemoryStore(this);
+            _InSight = new int[width, height];
+            ShadowMap = new ShadowMap(this);
         }
 
-        public void Clear(TileDef tile)
+        public void Clear(PrototypeId<TilePrototype> tile)
         {
             for (int y = 0; y < this.Height; y++)
             {
                 for (int x = 0; x < this.Width; x++)
                 {
-                    this.SetTile(x, y, tile);
+                    this.SetTile(new Vector2i(x, y), tile);
                 }
             }
         }
 
-        public void ClearMemory(TileDef tile)
+        public void ClearMemory(PrototypeId<TilePrototype> tile)
         {
-            for (int i = 0; i < _TileInds.Length; i++)
+            for (int y = 0; y < this.Height; y++)
             {
-                _TileMemoryInds[i] = _TileIndexMapping.TileDefIdToIndex[tile.Id];
+                for (int x = 0; x < this.Width; x++)
+                {
+                    this.SetTileMemory(new Vector2i(x, y), tile);
+                }
             }
-            this._redrawAllThisTurn = true;
+            this._RedrawAllThisTurn = true;
         }
 
-        public IEnumerable<TileRef> AllTiles
+        public void SetTile(Vector2i pos, PrototypeId<TilePrototype> tileId)
+        {
+            Tiles[pos.X, pos.Y] = new Tile(tileId.ResolvePrototype().TileIndex);
+        }
+
+        public void SetTileMemory(Vector2i pos, PrototypeId<TilePrototype> tileId)
+        {
+            TileMemory[pos.X, pos.Y] = new Tile(tileId.ResolvePrototype().TileIndex);
+        }
+
+        public IEnumerable<MapCoordinates> AllTiles
         {
             get
             {
@@ -74,110 +90,49 @@ namespace OpenNefia.Core.Maps
                 {
                     for (var y = 0; y < Height; y++)
                     {
-                        yield return new TileRef(Id, x, y, Tiles[x, y]);
+                        yield return new MapCoordinates(this, x, y);
                     }
                 }
             }
         }
 
-        public IEnumerable<TileRef> AllTileMemory
+        public MapCoordinates AtPos(Vector2i pos)
         {
-            get
-            {
-                for (var x = 0; x < Width; x++)
-                {
-                    for (var y = 0; y < Height; y++)
-                    {
-                        yield return new TileRef(Id, x, y, Tiles[x, y]);
-                    }
-                }
-            }
+            return new MapCoordinates(this, pos);
         }
 
         public MapCoordinates AtPos(int x, int y)
         {
-            return new MapCoordinates(Id, x, y);
+            return new MapCoordinates(this, x, y);
         }
 
-        public TileRef GetTileRef(Vector2i pos)
+        public void RefreshVisibility()
         {
-            return new TileRef(Id, pos.X, pos.Y, Tiles[pos.X, pos.Y]);
+            _LastSightId += 1;
+            this.ShadowMap.RefreshVisibility();
+
+            MapObjectMemory.AllMemory.Values
+                .Where(memory => !IsInWindowFov(memory.Coords) && !ShouldShowMemory(memory))
+                .Select(memory => memory.Coords)
+                .Distinct()
+                .ForEach(coords => MapObjectMemory.ForgetObjects(coords.Position));
         }
 
-        public TileRef GetTileMemoryRef(Vector2i pos)
+        private static bool ShouldShowMemory(MapObjectMemory memory)
         {
-            return new TileRef(Id, pos.X, pos.Y, TileMemory[pos.X, pos.Y]);
-        }
-
-        public void MemorizeTile(Vector2i pos)
-        {
-            Tiles[pos.X, pos.Y] = TileMemory[pos.X, pos.Y];
-        }
-    }
-
-    public static class MapQuery
-    {
-        /// <summary>
-        /// uh
-        /// </summary>
-        public static IMap GetMap(this MapCoordinates coords)
-        {
-            return IoCManager.Resolve<IMapManager>().GetMap(coords.MapId);
-        }
-
-        private static bool IsInBounds(IMap map, Vector2i coords)
-        {
-            return coords.X >= 0 && coords.Y >= 0 && coords.X < map.Width && coords.Y < map.Height;
-        }
-
-        public static bool IsInBounds(this MapCoordinates coords)
-        {
-            return IsInBounds(GetMap(coords), coords.Position);
-        }
-
-        private static bool CanSeeThrough(IMap map, Vector2i coords)
-        {
-            if (!IsInBounds(map, coords))
-                return false;
-
-            return (map.TileFlags[coords.X, coords.Y] & TileFlag.IsOpaque) == TileFlag.None;
-        }
-
-        public static bool CanSeeThrough(this MapCoordinates coords)
-        {
-            return CanSeeThrough(GetMap(coords), coords.Position);
-        }
-
-        private static bool CanPassThrough(IMap map, Vector2i coords)
-        {
-            if (!IsInBounds(map, coords))
-                return false;
-
-            return (map.TileFlags[coords.X, coords.Y] & TileFlag.IsSolid) == TileFlag.None;
-        }
-
-        public static bool CanPassThrough(this MapCoordinates coords)
-        {
-            return CanPassThrough(GetMap(coords), coords.Position);
-        }
-
-        public static bool HasLos(MapCoordinates from, MapCoordinates to)
-        {
-            if (from.MapId != to.MapId)
-                return false;
-
-            var map = from.GetMap();
-
-            foreach (var pos in PosHelpers.EnumerateLine(from.Position, to.Position))
-            {
-                // In Elona, the final tile is visible even if it is solid.
-                if (!CanSeeThrough(map, pos) && pos != to.Position)
-                {
-                    return false;
-                }
-            }
-
+            // TODO
             return true;
+        }
+
+        public bool IsInWindowFov(MapCoordinates coords)
+        {
+            if (GameSession.ActiveMap != coords.Map)
+                return false;
+
+            if (!coords.IsInBounds())
+                return false;
+
+            return _InSight[coords.X, coords.Y] == _LastSightId;
         }
     }
 }

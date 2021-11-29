@@ -8,12 +8,20 @@ namespace OpenNefia.Core.Graphics
 {
     public interface IGraphics
     {
-        event Action<WindowResizedEventArgs> OnWindowResized;
-
-        event Action<WindowFocusedEventArgs> OnWindowFocused;
+        event Action<WindowResizedEventArgs>? OnWindowResized;
+        event Action<WindowFocusedEventArgs>? OnWindowFocused;
+        event Action<KeyPressedEventArgs>? OnKeyPressed;
+        event Action<KeyPressedEventArgs>? OnKeyReleased;
+        event Action<TextEditingEventArgs>? OnTextEditing;
+        event Action<TextInputEventArgs>? OnTextInput;
+        event Action<MouseMovedEventArgs>? OnMouseMoved;
+        event Action<MousePressedEventArgs>? OnMousePressed;
+        event Action<MousePressedEventArgs>? OnMouseReleased;
 
         public void Initialize();
-
         public void Shutdown();
+
+        public void BeginDraw();
+        public void EndDraw();
     }
 }

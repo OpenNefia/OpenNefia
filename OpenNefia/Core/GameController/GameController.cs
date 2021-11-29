@@ -14,6 +14,7 @@ using OpenNefia.Core.Maps;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.ResourceManagement;
 using OpenNefia.Core.Serialization.Manager;
+using OpenNefia.Core.UI;
 using OpenNefia.Core.Utility;
 
 namespace OpenNefia.Core.GameController
@@ -30,12 +31,16 @@ namespace OpenNefia.Core.GameController
         [Dependency] private readonly ILogManager _logManager = default!;
         [Dependency] private readonly ISerializationManager _serialization = default!;
         [Dependency] private readonly IComponentFactory _components = default!;
+        [Dependency] private readonly ITileDefinitionManager _tileDefinitionManager = default!;
+        [Dependency] private readonly IUiLayerManager _uiLayers = default!;
 
         public bool Startup()
         {
             SetupLogging(_logManager, () => new ConsoleLogHandler());
 
             _graphics.Initialize();
+
+            _uiLayers.Initialize();
 
             _taskManager.Initialize();
 
@@ -67,10 +72,31 @@ namespace OpenNefia.Core.GameController
 
             _modLoader.BroadcastRunLevel(ModRunLevel.PostInit);
 
+            _initTileDefinitions();
+
             GCSettings.LargeObjectHeapCompactionMode = GCLargeObjectHeapCompactionMode.CompactOnce;
             GC.Collect();
 
             return true;
+        }
+
+        private void _initTileDefinitions()
+        {
+            var prototypeList = new List<TilePrototype>();
+            foreach (var tileDef in _prototypeManager.EnumeratePrototypes<TilePrototype>())
+            {
+                prototypeList.Add(tileDef);
+            }
+
+            // Ensure deterministic ordering for save files, etc.
+            prototypeList.Sort((a, b) => string.Compare(a.ID, b.ID, StringComparison.Ordinal));
+
+            foreach (var tileDef in prototypeList)
+            {
+                _tileDefinitionManager.Register(tileDef);
+            }
+
+            _tileDefinitionManager.Initialize();
         }
 
         internal static void SetupLogging(ILogManager logManager, Func<ILogHandler> logHandlerFactory)
@@ -91,64 +117,40 @@ namespace OpenNefia.Core.GameController
 
         private void MainLoop()
         {
-            var map = new Map(40, 10);
-
-            var uid = _mapManager.RegisterMap(map);
-
-            static void PrintMap(IMap map)
-            {
-                for (int y = 0; y < map.Height; y++)
-                {
-                    for (int x = 0; x < map.Width; x++)
-                    {
-                        char c = (char)(map.Tiles[x, y].Type + '.');
-                        if (map.AtPos(x, y).GetEntities().Any())
-                            c = '$';
-
-                        Console.Write($"{c}");
-                    }
-                    Console.Write("\n");
-                }
-            }
-
-            for (int i = 0; i < 10; i++)
-                _entityManager.SpawnEntity("Dagger", new MapCoordinates(map.Id, 1 + i, 1));
-
-            for (int i = 0; i < 20; i++)
-                _entityManager.SpawnEntity("Putit", new MapCoordinates(map.Id, 1 + i, 2));
-
-            PrintMap(map);
-
-            foreach (var chara in _entityManager.EntityQuery<CharaComponent>())
-            {
-                _entityManager.EventBus.RaiseLocalEvent(chara.OwnerUid, new CharaInitEvent());
-            }
-
-            foreach (var entity in map.Entities.ToList())
-            {
-                _entityManager.EventBus.RaiseLocalEvent(entity.Uid, new TestEntityEvent(1));
-                _entityManager.EventBus.RaiseLocalEvent(entity.Uid, new ImpregnateEvent());
-            }
-
-            for (int i = 0; i < 10; i++)
-            {
-                foreach (var entity in map.Entities.ToList())
-                {
-                    _entityManager.EventBus.RaiseLocalEvent(entity.Uid, new TurnStartEvent());
-                }
-            }
-
-            foreach (var entity in map.Entities)
-            {
-                _entityManager.DeleteEntity(entity);
-            }
-
-            PrintMap(map);
+            Logic.Go();
         }
 
         private void Cleanup()
         {
             _entityManager.Shutdown();
+            _uiLayers.Shutdown();
+            _graphics.Shutdown();
+            Logger.Log(LogLevel.Info, "Quitting game.");
+            Environment.Exit(0);
+        }
+
+        public void Update(float dt)
+        {
+            _uiLayers.UpdateLayers(dt);
+        }
+
+        public void Draw()
+        {
+            _graphics.BeginDraw();
+
+            _uiLayers.DrawLayers();
+
+            _graphics.EndDraw();
+        }
+
+        public void SystemStep()
+        {
+            if (Love.Boot.QuitFlag)
+            {
+                Cleanup();
+            }
+
+            Love.Boot.SystemStep(Scene);
         }
     }
 }
