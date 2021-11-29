@@ -25,8 +25,8 @@ namespace OpenNefia.Core.UI.Layer
             Scroller = new UiScroller();
             
             Scroller.BindKeys(this);
-            this.Keybinds[Keybind.Escape] += (_) => this.Cancel();
-            this.Keybinds[Keybind.Cancel] += (_) => this.Cancel();
+            this.Keybinds[CoreKeybinds.Escape] += (_) => this.Cancel();
+            this.Keybinds[CoreKeybinds.Cancel] += (_) => this.Cancel();
         }
 
         public override void GetPreferredBounds(out Box2i bounds)

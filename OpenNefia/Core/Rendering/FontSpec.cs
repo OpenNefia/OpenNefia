@@ -13,11 +13,15 @@ namespace OpenNefia.Core.Rendering
             SmallSize = smallSize;
         }
 
-        [DataField(required: true)]
-        public int Size { get; }
+        public FontSpec()
+        {
+        }
 
         [DataField(required: true)]
-        public int SmallSize { get; }
+        public int Size { get; } = 14;
+
+        [DataField(required: true)]
+        public int SmallSize { get; } = 12;
 
         [DataField]
         public FontStyle Style { get; } = FontStyle.None;

@@ -55,19 +55,19 @@ namespace OpenNefia.Core.UI.Layer
 
         protected virtual void BindKeys()
         {
-            this.Keybinds[Keybind.Enter] += (_) => this.Finish(new Result(this.TargetPos, this.CanSee));
-            this.Keybinds[Keybind.North] += (_) => this.MoveTargetPos(0, -1);
-            this.Keybinds[Keybind.South] += (_) => this.MoveTargetPos(0, 1);
-            this.Keybinds[Keybind.West] += (_) => this.MoveTargetPos(-1, 0);
-            this.Keybinds[Keybind.East] += (_) => this.MoveTargetPos(1, 0);
-            this.Keybinds[Keybind.Northwest] += (_) => this.MoveTargetPos(-1, -1);
-            this.Keybinds[Keybind.Southwest] += (_) => this.MoveTargetPos(-1, 1);
-            this.Keybinds[Keybind.Northeast] += (_) => this.MoveTargetPos(1, -1);
-            this.Keybinds[Keybind.Southeast] += (_) => this.MoveTargetPos(1, 1);
-            this.Keybinds[Keybind.Escape] += (_) => this.Cancel();
-            this.Keybinds[Keybind.Cancel] += (_) => this.Cancel();
-            this.Keybinds[Keybind.NextPage] += (_) => this.NextTarget();
-            this.Keybinds[Keybind.PreviousPage] += (_) => this.PreviousTarget();
+            this.Keybinds[CoreKeybinds.Enter] += (_) => this.Finish(new Result(this.TargetPos, this.CanSee));
+            this.Keybinds[CoreKeybinds.North] += (_) => this.MoveTargetPos(0, -1);
+            this.Keybinds[CoreKeybinds.South] += (_) => this.MoveTargetPos(0, 1);
+            this.Keybinds[CoreKeybinds.West] += (_) => this.MoveTargetPos(-1, 0);
+            this.Keybinds[CoreKeybinds.East] += (_) => this.MoveTargetPos(1, 0);
+            this.Keybinds[CoreKeybinds.Northwest] += (_) => this.MoveTargetPos(-1, -1);
+            this.Keybinds[CoreKeybinds.Southwest] += (_) => this.MoveTargetPos(-1, 1);
+            this.Keybinds[CoreKeybinds.Northeast] += (_) => this.MoveTargetPos(1, -1);
+            this.Keybinds[CoreKeybinds.Southeast] += (_) => this.MoveTargetPos(1, 1);
+            this.Keybinds[CoreKeybinds.Escape] += (_) => this.Cancel();
+            this.Keybinds[CoreKeybinds.Cancel] += (_) => this.Cancel();
+            this.Keybinds[CoreKeybinds.NextPage] += (_) => this.NextTarget();
+            this.Keybinds[CoreKeybinds.PreviousPage] += (_) => this.PreviousTarget();
 
             this.MouseMoved.Callback += (evt) =>
             {

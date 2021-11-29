@@ -21,10 +21,10 @@ namespace OpenNefia.Core.UI.Layer
 
         protected virtual void BindKeys()
         {
-            this.Keybinds[Keybind.Escape] += (_) => this.Cancel();
-            this.Keybinds[Keybind.Cancel] += (_) => this.Cancel();
+            this.Keybinds[CoreKeybinds.Escape] += (_) => this.Cancel();
+            this.Keybinds[CoreKeybinds.Cancel] += (_) => this.Cancel();
 
-            this.Keybinds[Keybind.Identify] += (_) =>
+            this.Keybinds[CoreKeybinds.Identify] += (_) =>
             {
                 var choices = new List<PromptChoice<int>>()
                 {
@@ -38,7 +38,7 @@ namespace OpenNefia.Core.UI.Layer
                 Console.WriteLine($"Prompt result: {result}");
             };
 
-            this.Keybinds[Keybind.Mode] += (_) =>
+            this.Keybinds[CoreKeybinds.Mode] += (_) =>
             {
                 var numberPrompt = new NumberPrompt(minValue: 2, maxValue: 100, initialValue: 50);
                 var result = numberPrompt.Query();

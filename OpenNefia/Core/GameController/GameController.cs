@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Runtime;
 using OpenNefia.Core.Asynchronous;
 using OpenNefia.Core.ContentPack;
+using OpenNefia.Core.Game;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Graphics;
 using OpenNefia.Core.IoC;
@@ -16,6 +12,7 @@ using OpenNefia.Core.Rendering;
 using OpenNefia.Core.ResourceManagement;
 using OpenNefia.Core.Serialization.Manager;
 using OpenNefia.Core.UI;
+using OpenNefia.Core.UI.Layer;
 using OpenNefia.Core.Utility;
 
 namespace OpenNefia.Core.GameController
@@ -26,7 +23,6 @@ namespace OpenNefia.Core.GameController
         [Dependency] private readonly IResourceCacheInternal _resourceCache = default!;
         [Dependency] private readonly IAssetManager _assetManager = default!;
         [Dependency] private readonly IModLoaderInternal _modLoader = default!;
-        [Dependency] private readonly IMapManager _mapManager = default!;
         [Dependency] private readonly IEntityManager _entityManager = default!;
         [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
         [Dependency] private readonly ITaskManager _taskManager = default!;
@@ -41,7 +37,6 @@ namespace OpenNefia.Core.GameController
             SetupLogging(_logManager, () => new ConsoleLogHandler());
 
             _graphics.Initialize();
-
             _uiLayers.Initialize();
 
             _taskManager.Initialize();
@@ -62,11 +57,17 @@ namespace OpenNefia.Core.GameController
             _modLoader.BroadcastRunLevel(ModRunLevel.PreInit);
             _modLoader.BroadcastRunLevel(ModRunLevel.Init);
 
+            _entityManager.Initialize();
+
+            if (!_tryDownloadVanillaAssets())
+            {
+                return false;
+            }
+
             _components.DoAutoRegistrations();
             _components.FinishRegistration();
 
             _resourceCache.PreloadTextures();
-            _entityManager.Initialize();
 
             _prototypeManager.Initialize();
             _prototypeManager.LoadDirectory(ResourcePath.Root / "Prototypes");
@@ -80,6 +81,28 @@ namespace OpenNefia.Core.GameController
 
             GCSettings.LargeObjectHeapCompactionMode = GCLargeObjectHeapCompactionMode.CompactOnce;
             GC.Collect();
+
+            return true;
+        }
+
+        private bool _tryDownloadVanillaAssets()
+        {
+            var downloader = new VanillaAssetsDownloader(_resourceCache);
+
+            if (downloader.NeedsDownload())
+            {
+                var result = new MinimalProgressBarLayer(downloader).Query();
+                if (!result.HasValue)
+                {
+                    Exception? ex = null;
+                    if (result is UiResult<UiNoResult>.Error err)
+                    {
+                        ex = err.Exception;
+                    }
+                    Logger.Fatal($"Error downloading vanilla assets! {ex}");
+                    return false;
+                }
+            }
 
             return true;
         }
@@ -122,6 +145,8 @@ namespace OpenNefia.Core.GameController
         private void MainLoop()
         {
             Logic.Go();
+
+            new TestLayer2().Query();
         }
 
         private void Cleanup()
@@ -139,6 +164,27 @@ namespace OpenNefia.Core.GameController
         }
 
         public void Draw()
+        {
+            if (Love.Graphics.IsActive())
+            {
+                Love.Vector4 backgroundColor = Love.Graphics.GetBackgroundColor();
+                Love.Graphics.Clear(backgroundColor.r, backgroundColor.g, backgroundColor.b, backgroundColor.a);
+                Love.Graphics.Origin();
+                DoDraw();
+                Love.Graphics.Present();
+            }
+
+            if (Love.Timer.IsLimitMaxFPS())
+            {
+                // Timer.SleepByMaxFPS();
+            }
+            else
+            {
+                Love.Timer.Sleep(0.001f);
+            }
+        }
+
+        private void DoDraw()
         {
             _graphics.BeginDraw();
 

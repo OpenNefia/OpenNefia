@@ -79,8 +79,8 @@ namespace OpenNefia.Core.UI.Layer
                 this.Value = this.Value + evt.Text;
                 this.UpdateText();
             };
-            this.Keybinds[Keybind.Enter] += (_) => this.Finish(this.Value);
-            this.Keybinds[Keybind.Escape] += (_) => {
+            this.Keybinds[CoreKeybinds.Enter] += (_) => this.Finish(this.Value);
+            this.Keybinds[CoreKeybinds.Escape] += (_) => {
                 if (this.IsCancellable)
                     this.Cancel();
             };

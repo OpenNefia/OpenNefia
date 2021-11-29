@@ -67,8 +67,8 @@ namespace OpenNefia.Core.UI.Layer
 
         protected virtual void BindKeys()
         {
-            this.Keybinds[Keybind.Identify] += (state) => this.QueryLayer();
-            this.Keybinds[Keybind.Escape] += (_) => this.PromptToCancel();
+            this.Keybinds[CoreKeybinds.Identify] += (state) => this.QueryLayer();
+            this.Keybinds[CoreKeybinds.Escape] += (_) => this.PromptToCancel();
             //this.Keybinds[Keys.Ctrl | Keys.S] += (_) => this.Save();
             //this.Keybinds[Keys.Ctrl | Keys.O] += (_) => this.Load();
             this.Keybinds[Keys.Ctrl | Keys.T] += (_) =>
@@ -76,10 +76,10 @@ namespace OpenNefia.Core.UI.Layer
                 var atlas = IoCManager.Resolve<IAtlasManager>().GetAtlas(AtlasNames.Tile);
                 new PicViewLayer(atlas.Image).Query();
             };
-            //this.Keybinds[Keybind.North] += (_) => this.MovePlayer(0, -1);
-            //this.Keybinds[Keybind.South] += (_) => this.MovePlayer(0, 1);
-            //this.Keybinds[Keybind.West] += (_) => this.MovePlayer(-1, 0);
-            //this.Keybinds[Keybind.East] += (_) => this.MovePlayer(1, 0);
+            //this.Keybinds[CoreKeybinds.North] += (_) => this.MovePlayer(0, -1);
+            //this.Keybinds[CoreKeybinds.South] += (_) => this.MovePlayer(0, 1);
+            //this.Keybinds[CoreKeybinds.West] += (_) => this.MovePlayer(-1, 0);
+            //this.Keybinds[CoreKeybinds.East] += (_) => this.MovePlayer(1, 0);
             //this.Keybinds[Keys.G] += (_) => this.GetItem();
             //this.Keybinds[Keys.D] += (_) => this.DropItem();
             //this.Keybinds[Keys.C] += (_) => this.CastSpell();

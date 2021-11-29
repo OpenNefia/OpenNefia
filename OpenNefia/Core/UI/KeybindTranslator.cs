@@ -1,6 +1,5 @@
 ﻿using OpenNefia.Core.Data.Types;
 using OpenNefia.Core.Prototypes;
-using KeybindPrototypeID = OpenNefia.Core.Prototypes.PrototypeId<OpenNefia.Core.UI.KeybindPrototype>;
 
 namespace OpenNefia.Core.UI
 {
@@ -24,46 +23,46 @@ namespace OpenNefia.Core.UI
 
         public void Reload()
         {
-            this.BindKey(Keys.Return, Keybind.Enter);
-            this.BindKey(Keys.Shift, Keybind.Cancel);
-            this.BindKey(Keys.Escape, Keybind.Escape);
-            this.BindKey(Keys.Escape, Keybind.Quit);
+            this.BindKey(Keys.Return, CoreKeybinds.Enter);
+            this.BindKey(Keys.Shift, CoreKeybinds.Cancel);
+            this.BindKey(Keys.Escape, CoreKeybinds.Escape);
+            this.BindKey(Keys.Escape, CoreKeybinds.Quit);
 
-            this.BindKey(Keys.Up, Keybind.UIUp);
-            this.BindKey(Keys.Down, Keybind.UIDown);
-            this.BindKey(Keys.Left, Keybind.UILeft);
-            this.BindKey(Keys.Right, Keybind.UIRight);
+            this.BindKey(Keys.Up, CoreKeybinds.UIUp);
+            this.BindKey(Keys.Down, CoreKeybinds.UIDown);
+            this.BindKey(Keys.Left, CoreKeybinds.UILeft);
+            this.BindKey(Keys.Right, CoreKeybinds.UIRight);
 
-            this.BindKey(Keys.Up, Keybind.North);
-            this.BindKey(Keys.Down, Keybind.South);
-            this.BindKey(Keys.Left, Keybind.West);
-            this.BindKey(Keys.Right, Keybind.East);
+            this.BindKey(Keys.Up, CoreKeybinds.North);
+            this.BindKey(Keys.Down, CoreKeybinds.South);
+            this.BindKey(Keys.Left, CoreKeybinds.West);
+            this.BindKey(Keys.Right, CoreKeybinds.East);
 
-            this.BindKey(Keys.Period, Keybind.Wait);
-            this.BindKey(Keys.X, Keybind.Identify);
-            this.BindKey(Keys.Z, Keybind.Mode);
-            this.BindKey(Keys.KeypadMultiply, Keybind.Mode2);
+            this.BindKey(Keys.Period, CoreKeybinds.Wait);
+            this.BindKey(Keys.X, CoreKeybinds.Identify);
+            this.BindKey(Keys.Z, CoreKeybinds.Mode);
+            this.BindKey(Keys.KeypadMultiply, CoreKeybinds.Mode2);
 
-            this.BindKey(Keys.A, Keybind.SelectionA);
-            this.BindKey(Keys.B, Keybind.SelectionB);
-            this.BindKey(Keys.C, Keybind.SelectionC);
-            this.BindKey(Keys.D, Keybind.SelectionD);
-            this.BindKey(Keys.E, Keybind.SelectionE);
-            this.BindKey(Keys.F, Keybind.SelectionF);
-            this.BindKey(Keys.G, Keybind.SelectionG);
-            this.BindKey(Keys.H, Keybind.SelectionH);
-            this.BindKey(Keys.I, Keybind.SelectionI);
-            this.BindKey(Keys.J, Keybind.SelectionJ);
-            this.BindKey(Keys.K, Keybind.SelectionK);
-            this.BindKey(Keys.L, Keybind.SelectionL);
-            this.BindKey(Keys.M, Keybind.SelectionM);
-            this.BindKey(Keys.N, Keybind.SelectionN);
-            this.BindKey(Keys.O, Keybind.SelectionO);
-            this.BindKey(Keys.P, Keybind.SelectionP);
-            this.BindKey(Keys.Q, Keybind.SelectionQ);
-            this.BindKey(Keys.R, Keybind.SelectionR);
+            this.BindKey(Keys.A, CoreKeybinds.SelectionA);
+            this.BindKey(Keys.B, CoreKeybinds.SelectionB);
+            this.BindKey(Keys.C, CoreKeybinds.SelectionC);
+            this.BindKey(Keys.D, CoreKeybinds.SelectionD);
+            this.BindKey(Keys.E, CoreKeybinds.SelectionE);
+            this.BindKey(Keys.F, CoreKeybinds.SelectionF);
+            this.BindKey(Keys.G, CoreKeybinds.SelectionG);
+            this.BindKey(Keys.H, CoreKeybinds.SelectionH);
+            this.BindKey(Keys.I, CoreKeybinds.SelectionI);
+            this.BindKey(Keys.J, CoreKeybinds.SelectionJ);
+            this.BindKey(Keys.K, CoreKeybinds.SelectionK);
+            this.BindKey(Keys.L, CoreKeybinds.SelectionL);
+            this.BindKey(Keys.M, CoreKeybinds.SelectionM);
+            this.BindKey(Keys.N, CoreKeybinds.SelectionN);
+            this.BindKey(Keys.O, CoreKeybinds.SelectionO);
+            this.BindKey(Keys.P, CoreKeybinds.SelectionP);
+            this.BindKey(Keys.Q, CoreKeybinds.SelectionQ);
+            this.BindKey(Keys.R, CoreKeybinds.SelectionR);
 
-            this.BindKey(Keys.Backquote, Keybind.Repl);
+            this.BindKey(Keys.Backquote, CoreKeybinds.Repl);
 
             this._dirty = false;
         }
@@ -74,11 +73,6 @@ namespace OpenNefia.Core.UI
             {
                 this._translations[keyAndModifiers] = keybind;
             }
-        }
-
-        public void BindKey(Keys keyAndModifiers, KeybindPrototypeID keybind)
-        {
-            this.BindKey(keyAndModifiers, keybind.ResolvePrototype());
         }
 
         public IKeybind? KeyToKeybind(Keys keyAndModifiers)

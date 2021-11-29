@@ -1,8 +1,6 @@
-﻿using System;
-using Love;
+﻿using Love;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.UI;
-using Timer = Love.Timer;
 
 namespace OpenNefia.Core.Graphics
 {
@@ -33,12 +31,19 @@ namespace OpenNefia.Core.Graphics
                 DefaultRandomSeed = 0
             };
 
-            Boot.Init(bootConfig);
-            Timer.Step();
+            Love.Boot.Init(bootConfig);
+            Love.Timer.Step();
+
+            var iconData = Love.Image.NewImageData("Assets/Core/Icon/icon.png");
+            Love.Window.SetIcon(iconData);
+
+            Love.Boot.SystemStep(this);
 
             TargetCanvas = Love.Graphics.NewCanvas(Love.Graphics.GetWidth(), Love.Graphics.GetHeight());
 
             OnWindowResized += HandleWindowResized;
+
+            InitializeGraphicsDefaults();
         }
 
         public void Shutdown()
@@ -46,9 +51,10 @@ namespace OpenNefia.Core.Graphics
             OnWindowResized -= HandleWindowResized;
         }
 
-        public void HandleWindowResized(WindowResizedEventArgs args)
+        private void InitializeGraphicsDefaults()
         {
-            TargetCanvas = Love.Graphics.NewCanvas(args.NewSize.X, args.NewSize.Y);
+            Love.Graphics.SetLineStyle(Love.LineStyle.Rough);
+            Love.Graphics.SetLineWidth(1);
         }
 
         public void BeginDraw()
@@ -65,7 +71,18 @@ namespace OpenNefia.Core.Graphics
             Love.Graphics.SetBlendMode(Love.BlendMode.Alpha, Love.BlendAlphaMode.PreMultiplied);
 
             Love.Graphics.Draw(TargetCanvas);
+            Love.Graphics.SetColor(1f, 0f, 1f, 1f);
+            Love.Graphics.Rectangle(Love.DrawMode.Fill, 1, 1, 1100, 100);
         }
+
+        #region Love Event Handlers
+
+        public void HandleWindowResized(WindowResizedEventArgs args)
+        {
+            TargetCanvas = Love.Graphics.NewCanvas(args.NewSize.X, args.NewSize.Y);
+        }
+
+        #endregion
 
         #region Love Events
 

@@ -19,6 +19,7 @@ namespace OpenNefia.Core.UI
         public bool WasFinished { get => this.Result != null; }
         public bool WasCancelled { get; private set; }
         public T? Result { get; private set; }
+        public Exception? Exception { get; private set; }
         
         public override sealed void GetPreferredSize(out Vector2i size)
         {
@@ -51,6 +52,11 @@ namespace OpenNefia.Core.UI
             this.Result = result;
         }
 
+        public virtual void Error(Exception ex)
+        {
+            this.Exception = ex;
+        }
+
         public void Initialize()
         {
             this.Result = null;
@@ -63,6 +69,8 @@ namespace OpenNefia.Core.UI
                 return new UiResult<T>.Finished(this.Result);
             if (this.WasCancelled)
                 return new UiResult<T>.Cancelled();
+            if (this.Exception != null)
+                return new UiResult<T>.Error(this.Exception);
 
             return null;
         }

@@ -70,18 +70,7 @@ namespace OpenNefia.Core.UI
             {
             }
         }
-
-        public KeybindDelegateWrapper this[PrototypeId<KeybindPrototype> index]
-        {
-            get
-            {
-                return this[index.ResolvePrototype()];
-            }
-            set
-            {
-            }
-        }
-
+        
         public KeybindDelegateWrapper this[Keys index]
         {
             get => this[RawKey.AllKeys[index]!];

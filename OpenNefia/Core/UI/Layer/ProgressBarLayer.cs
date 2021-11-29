@@ -1,4 +1,5 @@
 ﻿using OpenNefia.Core.Audio;
+using OpenNefia.Core.Log;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Core.UI.Element;
@@ -16,22 +17,14 @@ namespace OpenNefia.Core.UI.Layer
         Failed
     }
 
-    public class ProgressBarLayer : BaseUiLayer<ProgressBarLayer.Result>
+    public class ProgressBarLayer : BaseUiLayer<UiNoResult>
     {
-        public new class Result
-        {
-            public ProgressState State;
-
-            public Result(ProgressState state)
-            {
-                State = state;
-            }
-        }
-
         public IProgressableJob Job { get; }
         private IEnumerator<ProgressStep> Steps;
-        private bool HasNext = false;
         private int StepNumber = 0;
+
+        private ProgressOperation _currentOperation = new();
+        private Task? _currentTask;
 
         private float ProgressPercent => Math.Clamp((float)this.StepNumber / (float)this.Job.NumberOfSteps, 0f, 1f);
 
@@ -56,9 +49,21 @@ namespace OpenNefia.Core.UI.Layer
 
         private bool AdvanceStep()
         {
-            this.HasNext = this.Steps.MoveNext();
+            var hasNext = this.Steps.MoveNext();
             this.StepNumber++;
-            return this.HasNext;
+
+            if (hasNext)
+            {
+                _currentOperation = new ProgressOperation();
+                this.TextStatus.Text = this.Steps.Current.Text;
+                _currentTask = Steps.Current.Delegate(_currentOperation);
+            }
+            else
+            {
+                _currentTask = null;
+            }
+
+            return hasNext;
         }
 
         public override void OnQuery()
@@ -86,21 +91,24 @@ namespace OpenNefia.Core.UI.Layer
 
         public override void Update(float dt)
         {
-            if (!HasNext)
+            if (_currentTask == null)
             {
-                this.Finish(new Result(ProgressState.Succeeded));
+                this.Finish(new UiNoResult());
             }
-            if (Steps.Current.Task.IsCompletedSuccessfully)
+            else if (_currentTask.IsCompletedSuccessfully)
             {
                 if (this.AdvanceStep())
                 {
-                    this.TextStatus.Text = this.Steps.Current.Text;
-                    this.SetPosition(Left, Top);
+                    this.SetPosition(TopLeft);
                 }
             }
-            else if (Steps.Current.Task.IsCompleted)
+            else if (_currentTask.IsCompleted)
             {
-                this.Finish(new Result(ProgressState.Failed));
+                Logger.Log(LogLevel.Error, $"Progress task failed: {_currentTask.Exception}");
+                Exception exception = _currentTask.Exception != null
+                    ? _currentTask.Exception
+                    : new InvalidOperationException("Progress task failed.");
+                this.Error(exception);
             }
 
             this.Window.Update(dt);

@@ -88,25 +88,25 @@ namespace OpenNefia.Core.UI.Layer
 
         protected virtual void BindKeys()
         {
-            this.Keybinds[Keybind.UIUp] += (_) => {
+            this.Keybinds[CoreKeybinds.UIUp] += (_) => {
                 this.Value = this.MaxValue;
                 Sounds.Play(SoundPrototypeOf.Cursor1);
             };
-            this.Keybinds[Keybind.UIDown] += (_) => {
+            this.Keybinds[CoreKeybinds.UIDown] += (_) => {
                 this.Value = this.MinValue;
                 Sounds.Play(SoundPrototypeOf.Cursor1);
             };
-            this.Keybinds[Keybind.UILeft] += (_) => {
+            this.Keybinds[CoreKeybinds.UILeft] += (_) => {
                 this.Value = Math.Max(this.Value - 1, this.MinValue);
                 Sounds.Play(SoundPrototypeOf.Cursor1);
             };
-            this.Keybinds[Keybind.UIRight] += (_) => {
+            this.Keybinds[CoreKeybinds.UIRight] += (_) => {
                 this.Value = Math.Min(this.Value + 1, this.MaxValue);
                 Sounds.Play(SoundPrototypeOf.Cursor1);
             };
-            this.Keybinds[Keybind.Cancel] += (_) => { if (this.IsCancellable) this.Cancel(); };
-            this.Keybinds[Keybind.Escape] += (_) => { if (this.IsCancellable) this.Cancel(); };
-            this.Keybinds[Keybind.Enter] += (_) => this.Finish(new NumberPromptResult(this.Value));
+            this.Keybinds[CoreKeybinds.Cancel] += (_) => { if (this.IsCancellable) this.Cancel(); };
+            this.Keybinds[CoreKeybinds.Escape] += (_) => { if (this.IsCancellable) this.Cancel(); };
+            this.Keybinds[CoreKeybinds.Enter] += (_) => this.Finish(new NumberPromptResult(this.Value));
         }
 
         public override void OnQuery()
