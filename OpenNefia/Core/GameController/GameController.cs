@@ -87,7 +87,7 @@ namespace OpenNefia.Core.GameController
 
         private bool _tryDownloadVanillaAssets()
         {
-            var downloader = new VanillaAssetsDownloader(_resourceCache);
+            var downloader = new VanillaAssetsDownloader();
 
             if (downloader.NeedsDownload())
             {

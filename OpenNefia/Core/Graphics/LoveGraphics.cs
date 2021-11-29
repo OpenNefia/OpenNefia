@@ -71,8 +71,6 @@ namespace OpenNefia.Core.Graphics
             Love.Graphics.SetBlendMode(Love.BlendMode.Alpha, Love.BlendAlphaMode.PreMultiplied);
 
             Love.Graphics.Draw(TargetCanvas);
-            Love.Graphics.SetColor(1f, 0f, 1f, 1f);
-            Love.Graphics.Rectangle(Love.DrawMode.Fill, 1, 1, 1100, 100);
         }
 
         #region Love Event Handlers
