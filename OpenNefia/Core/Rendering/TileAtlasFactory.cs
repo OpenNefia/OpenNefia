@@ -151,14 +151,7 @@ namespace OpenNefia.Core.Rendering
                     sha256Hash.AppendData(Encoding.UTF8.GetBytes(tile.ImagePath.ToString()));
                 }
 
-                var data = sha256Hash.GetCurrentHash();
-
-                var sBuilder = new StringBuilder();
-                for (int i = 0; i < data.Length; i++)
-                {
-                    sBuilder.Append(data[i].ToString("x2"));
-                }
-                hashString = sBuilder.ToString();
+                hashString = sha256Hash.GetCurrentHash().ToHexString();
             }
 
             var serializedFilepath = path / $"{hashString}.bin";

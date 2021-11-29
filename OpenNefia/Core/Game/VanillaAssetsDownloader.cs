@@ -1,5 +1,6 @@
 ﻿using OpenNefia.Core.Data;
 using OpenNefia.Core.IoC;
+using OpenNefia.Core.Log;
 using OpenNefia.Core.ResourceManagement;
 using OpenNefia.Core.UI.Layer;
 using OpenNefia.Core.Utility;
@@ -11,6 +12,7 @@ using System.IO.Compression;
 using System.Linq;
 using System.Net.Http;
 using System.Runtime.Serialization;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -21,11 +23,12 @@ namespace OpenNefia.Core.Game
         private readonly IResourceCacheInternal _resourceCache = default!;
 
         private const string URL_YLVANIA_ELONA122 = "http://ylvania.style.coocan.jp/file/elona122.zip";
+        private const string ELONA122_ZIP_SHA256 = "6880f616f34be608435977dd3725d2cc76eaf6d2ad3f40e2d14b36f8f7a802d8";
 
         private static readonly ResourcePath _assetsGraphicPath =  new ResourcePath("/Assets/Elona/Graphic");
         private static readonly ResourcePath _assetsSoundPath =  new ResourcePath("/Assets/Elona/Sound");
 
-        private static readonly ResourcePath _cachePath = new ResourcePath("/Cache/Deps/elona122.zip");
+        private static readonly ResourcePath _elona122ZipPath = new ResourcePath("/Cache/Deps/elona122.zip");
 
         public VanillaAssetsDownloader(IResourceCacheInternal resourceCache)
         {
@@ -43,36 +46,53 @@ namespace OpenNefia.Core.Game
 
         private async Task DownloadElona122Zip(ProgressOperation progress)
         {
-            if (_resourceCache.UserData.Exists(_cachePath))
-                return;
+            if (_resourceCache.UserData.Exists(_elona122ZipPath))
+            {
+                bool valid = false;
+                using (var stream = _resourceCache.UserData.Open(_elona122ZipPath, FileMode.Open, FileAccess.Read, FileShare.None))
+                {
+                    var sha256 = SHA256.Create();
+                    var bytes = sha256.ComputeHash(stream);
+                    valid = bytes.ToHexString() == ELONA122_ZIP_SHA256;
+                }
+                if (valid)
+                {
+                    return;
+                }
+                else
+                {
+                    Logger.LogS(LogLevel.Warning, CommonSawmills.Boot, "Integrity check of elona122.zip failed, redownloading.");
+                    _resourceCache.UserData.Delete(_elona122ZipPath);
+                }
+            }
 
-            if (!_resourceCache.UserData.IsDirectory(_cachePath))
-                _resourceCache.UserData.CreateDirectory(_cachePath.Directory);
+            if (!_resourceCache.UserData.IsDirectory(_elona122ZipPath))
+                _resourceCache.UserData.CreateDirectory(_elona122ZipPath.Directory);
 
             using (var client = new HttpClient())
             {
                 HttpResponseMessage response = await client.GetAsync(URL_YLVANIA_ELONA122, HttpCompletionOption.ResponseHeadersRead).ConfigureAwait(false);
                 response.EnsureSuccessStatusCode();
-                using (var stream = await response.Content.ReadAsStreamAsync().ConfigureAwait(false))
+                using (var responseStream = await response.Content.ReadAsStreamAsync().ConfigureAwait(false))
                 {
-                    using (MemoryStream ms = new MemoryStream())
+                    using (var destStream = _resourceCache.UserData.Open(_elona122ZipPath, FileMode.Create, FileAccess.Write, FileShare.None))
                     {
                         byte[] buffer = new byte[1024];
-                        Console.WriteLine("Download Started");
-                        long receivedBytes = 0;
+                        int receivedBytes = 0;
                         long totalBytes = response.Content.Headers.ContentLength!.Value;
 
                         for (;;)
                         {
-                            int bytesRead = await stream.ReadAsync(buffer, 0, buffer.Length).ConfigureAwait(false);
+                            int bytesRead = await responseStream.ReadAsync(buffer, 0, buffer.Length).ConfigureAwait(false);
                             if (bytesRead == 0)
                             {
+                                progress.Report(1);
                                 await Task.Yield();
                                 break;
                             }
 
+                            await destStream.WriteAsync(buffer, 0, bytesRead).ConfigureAwait(false);
                             receivedBytes += bytesRead;
-
                             progress.Report((double)receivedBytes / totalBytes);
                         }
                     }
@@ -84,23 +104,23 @@ namespace OpenNefia.Core.Game
         {
             _resourceCache.UserData.CreateDirectory(toDirectory);
 
-            var matching = new List<(ZipArchiveEntry, ResourcePath)>();
+            var matching = new List<(ZipArchiveEntry, string)>();
 
             foreach (var entry in archive.Entries)
             {
                 if (entry.Name != string.Empty)
                 {
-                    var isRelative = new ResourcePath(entry.FullName).Directory.TryRelativeTo(fromDirectory, out var relativePath);
-                    if (isRelative)
+                    var isRelative = new ResourcePath(entry.FullName).Directory.TryRelativeTo(fromDirectory, out var _);
+                    if (isRelative && entry.Name != string.Empty)
                     {
-                        matching.Add((entry, relativePath!));
+                        matching.Add((entry, entry.Name));
                     }
                 }
             }
 
-            foreach (var ((entry, relativePath), index) in matching.WithIndex())
+            foreach (var ((entry, filename), index) in matching.WithIndex())
             {
-                var fullPath = toDirectory / relativePath;
+                var fullPath = toDirectory / filename;
                 _resourceCache.UserData.CreateDirectory(fullPath.Directory);
                 using (var destStream = _resourceCache.UserData.Open(fullPath, FileMode.Create, FileAccess.Write, FileShare.None))
                 {
@@ -117,7 +137,7 @@ namespace OpenNefia.Core.Game
 
         private async Task UnpackVanillaAssets(ProgressOperation progress)
         {
-            using (var fileStream = _resourceCache.UserData.Open(_cachePath, FileMode.Open, FileAccess.Read, FileShare.None))
+            using (var fileStream = _resourceCache.UserData.Open(_elona122ZipPath, FileMode.Open, FileAccess.Read, FileShare.None))
             {
                 using (var zip = new ZipArchive(fileStream, ZipArchiveMode.Read))
                 {
