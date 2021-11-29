@@ -1,69 +1,74 @@
-﻿using OpenNefia.Core.GameObjects;
+﻿using OpenNefia.Core.Game;
+using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Maps;
+using OpenNefia.Core.Prototypes.Content;
+using OpenNefia.Core.UI;
+using OpenNefia.Core.UI.Layer;
 
 namespace OpenNefia.Core.GameController
 {
-    internal class Logic
+    public interface ILogic
     {
-        internal static void Go()
+        void RunTitleScreen();
+    }
+
+    public class Logic : ILogic
+    {
+        [Dependency] private readonly IMapManager _mapManager = default!;
+        [Dependency] private readonly IEntityManager _entityManager = default!;
+        [Dependency] private readonly IGameSessionManager _gameSessionManager = default!;
+        [Dependency] private readonly IFieldLayer _fieldLayer = default!;
+
+        public void RunTitleScreen()
         {
-            var mapManager = IoCManager.Resolve<IMapManager>();
-            var entityManager = IoCManager.Resolve<IEntityManager>();
+            var action = TitleScreenAction.ReturnToTitle;
 
-            var map = new Map(40, 10);
-
-            var uid = mapManager.RegisterMap(map);
-
-            static void PrintMap(IMap map)
+            while (action != TitleScreenAction.Quit)
             {
-                for (int y = 0; y < map.Height; y++)
+                using (ITitleScreenLayer titleScreen = new TitleScreenLayer())
                 {
-                    for (int x = 0; x < map.Width; x++)
+                    var result = titleScreen.Query();
+                    Console.WriteLine(result);
+
+                    if (result.HasValue)
                     {
-                        char c = (char)(map.Tiles[x, y].Type + '.');
-                        if (map.AtPos(x, y).GetEntities().Any())
-                            c = '$';
+                        action = result.Value.Action;
+                        switch (action)
+                        {
+                            case TitleScreenAction.ReturnToTitle:
+                                break;
+                            case TitleScreenAction.StartGame:
+                                var map = InitMap();
+                                _mapManager.RegisterMap(map);
 
-                        Console.Write($"{c}");
+                                _mapManager.ChangeCurrentMap(map.Id);
+                                _fieldLayer.SetMap(map);
+                                
+                                _fieldLayer.Query();
+                                break;
+                            case TitleScreenAction.Quit:
+                                break;
+                        }
                     }
-                    Console.Write("\n");
+                    else
+                    {
+                        action = TitleScreenAction.ReturnToTitle;
+                    }
                 }
             }
+        }
 
-            for (int i = 0; i < 10; i++)
-                entityManager.SpawnEntity("Dagger", new MapCoordinates(map, 1 + i, 1));
+        private Map InitMap()
+        {
+            var map = new Map(25, 25);
 
-            for (int i = 0; i < 20; i++)
-                entityManager.SpawnEntity("Putit", new MapCoordinates(map, 1 + i, 2));
+            var player = _entityManager.SpawnEntity(new("Putit"), map.AtPos(2, 2));
+            _gameSessionManager.Player = player;
+            map.Clear(TilePrototypeOf.Grass);
+            map.MemorizeAll();
 
-            PrintMap(map);
-
-            foreach (var chara in entityManager.EntityQuery<CharaComponent>())
-            {
-                entityManager.EventBus.RaiseLocalEvent(chara.OwnerUid, new CharaInitEvent());
-            }
-
-            foreach (var entity in map.Entities.ToList())
-            {
-                entityManager.EventBus.RaiseLocalEvent(entity.Uid, new TestEntityEvent(1));
-                entityManager.EventBus.RaiseLocalEvent(entity.Uid, new ImpregnateEvent());
-            }
-
-            for (int i = 0; i < 10; i++)
-            {
-                foreach (var entity in map.Entities.ToList())
-                {
-                    entityManager.EventBus.RaiseLocalEvent(entity.Uid, new TurnStartEvent());
-                }
-            }
-
-            foreach (var entity in map.Entities)
-            {
-                entityManager.DeleteEntity(entity);
-            }
-
-            PrintMap(map);
+            return map;
         }
     }
 }

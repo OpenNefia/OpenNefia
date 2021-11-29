@@ -31,6 +31,8 @@ namespace OpenNefia.Core.GameController
         [Dependency] private readonly IComponentFactory _components = default!;
         [Dependency] private readonly ITileDefinitionManager _tileDefinitionManager = default!;
         [Dependency] private readonly IUiLayerManager _uiLayers = default!;
+        
+        private ILogic _logic = default!;
 
         public bool Startup()
         {
@@ -67,6 +69,11 @@ namespace OpenNefia.Core.GameController
             _components.DoAutoRegistrations();
             _components.FinishRegistration();
 
+            if (!InjectLoveDependents())
+            {
+                return false;
+            }
+
             _resourceCache.PreloadTextures();
 
             _prototypeManager.Initialize();
@@ -81,6 +88,25 @@ namespace OpenNefia.Core.GameController
 
             GCSettings.LargeObjectHeapCompactionMode = GCLargeObjectHeapCompactionMode.CompactOnce;
             GC.Collect();
+
+            return true;
+        }
+
+        /// <summary>
+        /// Initializes dependencies that require Love to be booted
+        /// and the game window to be created first (since otherwise
+        /// you can't use anything under <see cref="Love.Graphics" />)
+        /// </summary>
+        private bool InjectLoveDependents()
+        {
+            IoCManager.Register<IMapRenderer, MapRenderer>();
+            IoCManager.Register<IMapDrawables, MapDrawables>();
+            IoCManager.Register<IFieldLayer, FieldLayer>();
+            IoCManager.Register<ILogic, Logic>();
+
+            IoCManager.BuildGraph();
+
+            _logic = IoCManager.Resolve<ILogic>();
 
             return true;
         }
@@ -144,9 +170,7 @@ namespace OpenNefia.Core.GameController
 
         private void MainLoop()
         {
-            Logic.Go();
-
-            new TestLayer2().Query();
+            _logic.RunTitleScreen();
         }
 
         private void Cleanup()

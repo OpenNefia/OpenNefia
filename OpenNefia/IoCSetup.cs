@@ -16,6 +16,7 @@ using OpenNefia.Core.Rendering;
 using OpenNefia.Core.ResourceManagement;
 using OpenNefia.Core.Serialization.Manager;
 using OpenNefia.Core.UI;
+using OpenNefia.Core.UI.Layer;
 
 namespace Why
 {
@@ -23,6 +24,7 @@ namespace Why
     {
         public static void Run()
         {
+            IoCManager.Register<IGraphics, LoveGraphics>();
             IoCManager.Register<IRuntimeLog, RuntimeLog>();
             IoCManager.Register<ILogManager, LogManager>();
             IoCManager.Register<IDynamicTypeFactory, DynamicTypeFactory>();
@@ -42,7 +44,6 @@ namespace Why
             IoCManager.Register<IModLoaderInternal, ModLoader>();
             IoCManager.Register<ITileDefinitionManager, TileDefinitionManager>();
             IoCManager.Register<IEntityManager, EntityManager>();
-            IoCManager.Register<IGraphics, LoveGraphics>();
             IoCManager.Register<ISerializationManager, SerializationManager>();
             IoCManager.Register<IAssetManager, AssetManager>();
             IoCManager.Register<IAtlasManager, AtlasManager>();

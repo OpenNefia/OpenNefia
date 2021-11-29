@@ -6,11 +6,11 @@ namespace OpenNefia.Core.Rendering.TileDrawLayers
 {
     public class ShadowTileLayer : BaseTileLayer
     {
-        private Map Map;
+        private IMap Map;
         private ICoords Coords;
         private ShadowBatch Batch;
 
-        public ShadowTileLayer(Map map, IAssetManager assetManager)
+        public ShadowTileLayer(IMap map, IAssetManager assetManager)
         {
             this.Map = map;
             this.Coords = GameSession.Coords;

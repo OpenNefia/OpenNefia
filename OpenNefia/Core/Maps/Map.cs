@@ -31,9 +31,9 @@ namespace OpenNefia.Core.Maps
         public ShadowMap ShadowMap { get; }
         public MapObjectMemoryStore MapObjectMemory { get; }
 
-        internal HashSet<MapCoordinates> _DirtyTilesThisTurn = new();
-        internal bool _RedrawAllThisTurn;
-        internal bool _NeedsRedraw { get => _DirtyTilesThisTurn.Count > 0 || _RedrawAllThisTurn; }
+        public HashSet<MapCoordinates> DirtyTilesThisTurn { get; } = new();
+        public bool RedrawAllThisTurn { get; set; }
+        public bool NeedsRedraw { get => DirtyTilesThisTurn.Count > 0 || RedrawAllThisTurn; }
 
         private List<IEntity> _entities { get; } = new List<IEntity>();
 
@@ -71,7 +71,20 @@ namespace OpenNefia.Core.Maps
                     this.SetTileMemory(new Vector2i(x, y), tile);
                 }
             }
-            this._RedrawAllThisTurn = true;
+            this.RedrawAllThisTurn = true;
+        }
+
+        public void MemorizeAll()
+        {
+            for (int y = 0; y < this.Height; y++)
+            {
+                for (int x = 0; x < this.Width; x++)
+                {
+                    TileMemory[x, y] = Tiles[x, y];
+                    _InSight[x, y] = _LastSightId;
+                }
+            }
+            this.RedrawAllThisTurn = true;
         }
 
         public void SetTile(Vector2i pos, PrototypeId<TilePrototype> tileId)

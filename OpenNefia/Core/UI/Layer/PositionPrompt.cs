@@ -115,7 +115,7 @@ namespace OpenNefia.Core.UI.Layer
 
         private void UpdateCamera()
         {
-            GameSession.Field!.Camera.CenterOn(this.TargetPos);
+            GameSession.Field.Camera.CenterOn(this.TargetPos);
         }
 
         private void UpdateTargetText()

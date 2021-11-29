@@ -19,12 +19,12 @@ namespace OpenNefia.Core.Rendering.TileDrawLayers
     {
         private readonly IAtlasManager _atlasManager;
 
-        private Map _map;
+        private IMap _map;
         private TileAndChipBatch _tileAndChipBatch;
         private ICoords _coords;
         private WallTileShadows _wallShadows;
 
-        public TileAndChipTileLayer(Map map, IAtlasManager atlasManager)
+        public TileAndChipTileLayer(IMap map, IAtlasManager atlasManager)
         {
             _atlasManager = atlasManager;
 

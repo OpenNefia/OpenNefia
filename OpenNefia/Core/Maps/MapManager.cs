@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using OpenNefia.Core.Utility;
+﻿using OpenNefia.Core.Utility;
 
 namespace OpenNefia.Core.Maps
 {

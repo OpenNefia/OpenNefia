@@ -1,39 +1,30 @@
-﻿using OpenNefia.Core.IoC;
+﻿using OpenNefia.Core.GameController;
+using OpenNefia.Core.IoC;
 using OpenNefia.Core.Maps;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.Rendering.TileDrawLayers;
 using OpenNefia.Core.UI.Element;
-using System;
-using System.Collections.Generic;
 
 namespace OpenNefia.Core.Rendering
 {
-    public class MapRenderer : BaseDrawable
+    public class MapRenderer : BaseDrawable, IMapRenderer
     {
-        [Dependency] private readonly IAtlasManager _atlasManager;
-        [Dependency] private readonly IAssetManager _assetManager;
+        [Dependency] private readonly IAtlasManager _atlasManager = default!;
+        [Dependency] private readonly IAssetManager _assetManager = default!;
+        [Dependency] private readonly IGameController _gameController = default!;
+        [Dependency] private readonly IMapDrawables _mapDrawables = default!;
 
         private List<ITileLayer> _tileLayers = new List<ITileLayer>();
-        private Map _map;
+        private IMap _map = default!;
 
-        public MapRenderer(Map map, IAtlasManager atlasManager, IAssetManager assetManager)
-        {
-            _atlasManager = atlasManager;
-            _assetManager = assetManager;
-
-            _map = map;
-            _tileLayers.Add(new TileAndChipTileLayer(_map, _atlasManager));
-            _tileLayers.Add(new ShadowTileLayer(_map, _assetManager));
-            RefreshAllLayers();
-        }
-
-        public void SetMap(Map map)
+        public void SetMap(IMap map)
         {
             _map = map;
             _tileLayers.Clear();
             _tileLayers.Add(new TileAndChipTileLayer(_map, _atlasManager));
             _tileLayers.Add(new ShadowTileLayer(_map, _assetManager));
             RefreshAllLayers();
+            _mapDrawables.Clear();
         }
 
         public void OnThemeSwitched()
@@ -46,23 +37,23 @@ namespace OpenNefia.Core.Rendering
 
         public void RefreshAllLayers()
         {
-            if (this._map._RedrawAllThisTurn)
+            if (this._map.RedrawAllThisTurn)
             {
                 foreach (var layer in _tileLayers)
                 {
                     layer.RedrawAll();
                 }
             }
-            else if(this._map._DirtyTilesThisTurn.Count > 0)
+            else if(this._map.DirtyTilesThisTurn.Count > 0)
             {
                 foreach (var layer in _tileLayers)
                 {
-                    layer.RedrawDirtyTiles(this._map._DirtyTilesThisTurn);
+                    layer.RedrawDirtyTiles(this._map.DirtyTilesThisTurn);
                 }
             }
 
-            this._map._RedrawAllThisTurn = false;
-            this._map._DirtyTilesThisTurn.Clear();
+            this._map.RedrawAllThisTurn = false;
+            this._map.DirtyTilesThisTurn.Clear();
             this._map.MapObjectMemory.Flush();
         }
 
@@ -82,6 +73,7 @@ namespace OpenNefia.Core.Rendering
             {
                 layer.SetPosition(pos);
             }
+            _mapDrawables.SetPosition(pos);
         }
 
         public override void Update(float dt)
@@ -90,6 +82,7 @@ namespace OpenNefia.Core.Rendering
             {
                 layer.Update(dt);
             }
+            _mapDrawables.Update(dt);
         }
 
         public override void Draw()
@@ -98,6 +91,12 @@ namespace OpenNefia.Core.Rendering
             {
                 layer.Draw();
             }
+            _mapDrawables.Draw();
+        }
+
+        public override void Dispose()
+        {
+            base.Dispose();
         }
     }
 }

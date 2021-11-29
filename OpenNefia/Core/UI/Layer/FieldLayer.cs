@@ -18,16 +18,20 @@ using OpenNefia.Core.Logic;
 
 namespace OpenNefia.Core.UI.Layer
 {
-    public class FieldLayer : BaseUiLayer<UiNoResult>
+    public class FieldLayer : BaseUiLayer<UiNoResult>, IFieldLayer
     {
+        [Dependency] private readonly IAtlasManager _atlasManager = default!;
+        [Dependency] private readonly IAssetManager _assetManager = default!;
+        [Dependency] private readonly IGameController _gameController = default!;
+        [Dependency] private readonly IMapRenderer _mapRenderer = default!;
+
         public static FieldLayer? Instance = null;
 
-        public Map Map { get; private set; }
+        public IMap Map { get; private set; } = default!;
 
-        private UiScroller Scroller;
-        public Camera Camera { get; }
-        private MapRenderer MapRenderer;
-        public MapDrawables MapDrawables { get; }
+        private UiScroller _scroller;
+
+        public Camera Camera { get; private set; }
         private UiFpsCounter FpsCounter;
         public HudLayer Hud { get; }
 
@@ -37,11 +41,9 @@ namespace OpenNefia.Core.UI.Layer
         private string MouseText;
         private TilePrototype? PlacingTile = null;
 
-        internal FieldLayer(Map map)
+        public FieldLayer()
         {
-            Map = map;
-
-            Scroller = new UiScroller();
+            _scroller = new UiScroller();
             Camera = new Camera(this.Map, this);
             FontText = new FontSpec(14, 12);
 
@@ -50,17 +52,21 @@ namespace OpenNefia.Core.UI.Layer
             Message = result;
             this.MouseText = "";
 
-            var atlasManager = IoCManager.Resolve<IAtlasManager>();
-            var assetManager = IoCManager.Resolve<IAssetManager>();
-            MapRenderer = new MapRenderer(this.Map, atlasManager, assetManager);
-
-            var gameController = IoCManager.Resolve<IGameController>();
-            MapDrawables = new MapDrawables(gameController);
-
             FpsCounter = new UiFpsCounter();
             Hud = new HudLayer();
 
             this.BindKeys();
+        }
+
+        public void SetMap(IMap map)
+        {
+            if (map == this.Map)
+                return;
+
+            Map = (Map)map;
+
+            Camera = new Camera(this.Map, this);
+            _mapRenderer.SetMap(this.Map);
 
             RefreshScreen();
         }
@@ -88,7 +94,7 @@ namespace OpenNefia.Core.UI.Layer
             //this.Keybinds[Keys.Ctrl | Keys.B] += (_) => this.ActivateBeautify();
             //this.Keybinds[Keys.Period] += (_) => this.MovePlayer(0, 0);
 
-            this.Scroller.BindKeys(this);
+            this._scroller.BindKeys(this);
 
             this.MouseMoved.Callback += (evt) =>
             {
@@ -102,10 +108,13 @@ namespace OpenNefia.Core.UI.Layer
 
         public void RefreshScreen()
         {
-            var player = GameSession.Player!;
+            var player = GameSession.Player;
 
-            Camera.CenterOn(player);
-            Map.RefreshVisibility();
+            if (player != null)
+            {
+                Camera.CenterOn(player);
+                Map.RefreshVisibility();
+            }
         }
 
 /*        private void MovePlayer(int dx, int dy)
@@ -256,7 +265,7 @@ namespace OpenNefia.Core.UI.Layer
         public override void SetSize(Vector2i size)
         {
             base.SetSize(size);
-            MapRenderer.SetSize(size);
+            _mapRenderer.SetSize(size);
             FpsCounter.SetSize(400, 500);
             Hud.SetSize(size);
 
@@ -270,8 +279,7 @@ namespace OpenNefia.Core.UI.Layer
         public override void SetPosition(Vector2i pos)
         {
             base.SetPosition(pos);
-            MapRenderer.SetPosition(pos);
-            MapDrawables.SetPosition(pos);
+            _mapRenderer.SetPosition(pos);
             FpsCounter.SetPosition(Width - FpsCounter.Text.Width - 5, 5);
             Hud.SetPosition(0, 0);
         }
@@ -296,13 +304,13 @@ namespace OpenNefia.Core.UI.Layer
 
         public override void Update(float dt)
         {
-            if (this.Map._NeedsRedraw)
+            if (this.Map.NeedsRedraw)
             {
                 Map.RefreshVisibility();
-                this.MapRenderer.RefreshAllLayers();
+                this._mapRenderer.RefreshAllLayers();
             }
 
-            this.Scroller.GetPositionDiff(dt, out var dx, out var dy);
+            this._scroller.GetPositionDiff(dt, out var dx, out var dy);
 
             this.SetPosition(Camera.ScreenPos);
 
@@ -325,8 +333,7 @@ namespace OpenNefia.Core.UI.Layer
             }
 
             this.Hud.Update(dt);
-            this.MapRenderer.Update(dt);
-            this.MapDrawables.Update(dt);
+            this._mapRenderer.Update(dt);
             this.FpsCounter.Update(dt);
         }
 
@@ -334,7 +341,7 @@ namespace OpenNefia.Core.UI.Layer
         {
             Love.Graphics.SetColor(255, 255, 255);
 
-            this.MapRenderer.Draw();
+            this._mapRenderer.Draw();
 
             Love.Graphics.SetColor(255, 0, 0);
 
@@ -347,7 +354,6 @@ namespace OpenNefia.Core.UI.Layer
             Love.Graphics.Print(MouseText, 5, 20);
             Love.Graphics.Print($"Player: ({player.Coords})", 5, 35);
 
-            this.MapDrawables.Draw();
             this.Hud.Draw();
             this.FpsCounter.Draw();
         }
@@ -355,8 +361,6 @@ namespace OpenNefia.Core.UI.Layer
         public override void Dispose()
         {
             this.Hud.Dispose();
-            this.MapDrawables.Dispose();
-            this.MapRenderer.Dispose();
             this.FpsCounter.Dispose();
         }
     }

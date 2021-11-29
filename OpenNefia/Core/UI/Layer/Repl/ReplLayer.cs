@@ -3,6 +3,7 @@ using CSharpRepl.Services.Completion;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Tags;
 using OpenNefia.Core.Asynchronous;
+using OpenNefia.Core.Game;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.Rendering;
@@ -400,7 +401,7 @@ namespace OpenNefia.Core.UI.Layer.Repl
                     break;
             }
 
-            // Current.Field?.RefreshScreen();
+            GameSession.Field.RefreshScreen();
         }
 
         public void PrintError(string text) => PrintText(text, ColorReplTextError);

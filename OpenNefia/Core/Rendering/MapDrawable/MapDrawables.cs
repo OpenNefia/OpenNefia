@@ -1,17 +1,12 @@
-﻿using Love;
-using OpenNefia.Core.Game;
+﻿using OpenNefia.Core.Game;
 using OpenNefia.Core.GameController;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Maps;
 using OpenNefia.Core.UI.Element;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace OpenNefia.Core.Rendering
 {
-    public class MapDrawables : BaseDrawable
+    public class MapDrawables : BaseDrawable, IMapDrawables
     {
         private class Entry : IComparable<Entry>
         {
@@ -37,11 +32,6 @@ namespace OpenNefia.Core.Rendering
         [Dependency] private readonly IGameController _gameController = default!;
 
         private SortedSet<Entry> Active = new();
-
-        public MapDrawables(IGameController gameController)
-        {
-            _gameController = gameController;
-        }
 
         public void Enqueue(IMapDrawable drawable, MapCoordinates? pos, int zOrder = 0)
         {

@@ -11,12 +11,20 @@ namespace OpenNefia.Core.Maps
         int Width { get; }
         int Height { get; }
         Vector2i Size { get; }
+
         Tile[,] Tiles { get; }
         Tile[,] TileMemory { get; }
+        TileFlag[,] TileFlags { get; }
+
+        MapObjectMemoryStore MapObjectMemory { get; }
+        ShadowMap ShadowMap { get; }
+        bool NeedsRedraw { get; }
 
         public IEnumerable<IEntity> Entities { get; }
-        TileFlag[,] TileFlags { get; }
-        MapObjectMemoryStore MapObjectMemory { get; }
+
+        IEnumerable<MapCoordinates> AllTiles { get; }
+        HashSet<MapCoordinates> DirtyTilesThisTurn { get; }
+        bool RedrawAllThisTurn { get; set; }
 
         void Clear(PrototypeId<TilePrototype> tile);
         void ClearMemory(PrototypeId<TilePrototype> tile);
@@ -29,5 +37,6 @@ namespace OpenNefia.Core.Maps
         bool IsInWindowFov(MapCoordinates coords);
         void RefreshVisibility();
         void AddEntity(IEntity newEntity);
+        void MemorizeAll();
     }
 }
