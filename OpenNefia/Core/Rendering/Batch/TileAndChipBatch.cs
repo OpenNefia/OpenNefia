@@ -58,9 +58,9 @@ namespace OpenNefia.Core.Rendering
         {
             ChipBatchEntry? entry;
 
-            var tile = _chipAtlas.GetTile(memory.ChipIndex);
+            var tile = _chipAtlas.GetTile(memory.AtlasIndex);
             if (tile == null)
-                throw new Exception($"Missing chip {memory.ChipIndex}");
+                throw new Exception($"Missing chip {memory.AtlasIndex}");
 
 
             if (this._chipsByIndex.TryGetValue(memory.Index, out entry))

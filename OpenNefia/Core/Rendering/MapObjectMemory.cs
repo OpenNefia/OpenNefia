@@ -23,7 +23,7 @@ namespace OpenNefia.Core.Rendering
     {
         public EntityUid ObjectUid;
         public bool IsVisible;
-        public string ChipIndex = string.Empty;
+        public string AtlasIndex = string.Empty;
         public Vector2i ScreenOffset;
         public float Rotation;
         public Color Color;

@@ -74,7 +74,7 @@ namespace OpenNefia.Core.UI.Element
 
         public override void Draw()
         {
-            GraphicsEx.SetColor(Color);
+            GraphicsEx.SetColor(this.Color);
             Love.Graphics.Draw(this.BakedText, this.X, this.Y);
         }
 

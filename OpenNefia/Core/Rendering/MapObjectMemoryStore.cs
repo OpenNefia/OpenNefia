@@ -1,4 +1,5 @@
-﻿using OpenNefia.Core.Maps;
+﻿using OpenNefia.Core.GameObjects;
+using OpenNefia.Core.Maps;
 using OpenNefia.Core.Maths;
 using System;
 using System.Collections;
@@ -18,6 +19,8 @@ namespace OpenNefia.Core.Rendering
         internal List<MapObjectMemory>?[,] Positional;
         internal HashSet<MapObjectMemory> Added;
         internal Stack<MapObjectMemory> Removed;
+
+        private GetMapObjectMemoryEventArgs _event = new(default!);
 
         public MapObjectMemoryStore(IMap map)
         {
@@ -96,7 +99,9 @@ namespace OpenNefia.Core.Rendering
 
                 var memory = GetOrCreateMemory();
 
-                // obj.ProduceMemory(memory);
+                _event.Memory = memory;
+                obj.EntityManager.EventBus.RaiseLocalEvent(obj.Uid, _event);
+                memory = _event.Memory;
 
                 if (memory.IsVisible)
                 {
@@ -136,6 +141,16 @@ namespace OpenNefia.Core.Rendering
             memory.State = MemoryState.Added;
 
             return memory;
+        }
+    }
+
+    public sealed class GetMapObjectMemoryEventArgs : EntityEventArgs
+    {
+        public MapObjectMemory Memory;
+
+        public GetMapObjectMemoryEventArgs(MapObjectMemory memory)
+        {
+            Memory = memory;
         }
     }
 }

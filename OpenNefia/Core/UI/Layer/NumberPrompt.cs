@@ -59,6 +59,7 @@ namespace OpenNefia.Core.UI.Layer
         protected IAssetDrawable AssetArrowRight;
 
         protected Color ColorPromptBackground = UiColors.PromptBackground;
+        protected FontSpec FontPromptText = UiFonts.PromptText;
         protected IUiText Text;
 
         public NumberPrompt(int maxValue = 1, int minValue = 1, int? initialValue = null, bool isCancellable = true)
@@ -73,7 +74,7 @@ namespace OpenNefia.Core.UI.Layer
             this._Value = initialValue.Value;
             this.IsCancellable = isCancellable;
 
-            this.Text = new UiText();
+            this.Text = new UiText(FontPromptText);
 
             this.AssetLabelInput = Assets.Get(AssetPrototypeOf.LabelInput);
             this.AssetArrowLeft = Assets.Get(AssetPrototypeOf.ArrowLeft);

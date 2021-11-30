@@ -348,6 +348,7 @@ namespace OpenNefia.Core.UI.Layer
             Love.Graphics.Rectangle(Love.DrawMode.Line, X + screenPos.X, Y + screenPos.Y, OrthographicCoords.TILE_SIZE, OrthographicCoords.TILE_SIZE);
 
             GraphicsEx.SetFont(this.FontText);
+            GraphicsEx.SetColor(Color.White);
             Love.Graphics.Print(Message, 5, 5);
             Love.Graphics.Print(MouseText, 5, 20);
             Love.Graphics.Print($"Player: ({player.Coords})", 5, 35);
