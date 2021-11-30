@@ -1,5 +1,6 @@
 ﻿using Love;
 using OpenNefia.Core.Game;
+using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.Rendering;
 using System;
@@ -125,7 +126,7 @@ namespace OpenNefia.Core.Maps
                                 if (i >= fovRadius[j + cy, 0] + cx && i < fovRadius[j + cy, 1] + cx)
                                 {
                                     var coords = player.Map!.AtPos(new Vector2i(i, j));
-                                    if (player.Coords.HasLos(coords))
+                                    if (player.HasLos(coords))
                                     {
                                         coords.MemorizeTile();
                                         shadow = false;

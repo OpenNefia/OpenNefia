@@ -104,7 +104,7 @@ namespace OpenNefia.Core.GameObjects
 
         /// <summary>
         ///     Removes ALL components from an entity. This includes the required components,
-        ///     <see cref="TransformComponent"/> and <see cref="MetaDataComponent"/>. This should ONLY be
+        ///     <see cref="SpatialComponent"/> and <see cref="MetaDataComponent"/>. This should ONLY be
         ///     used when deleting an entity.
         /// </summary>
         /// <param name="uid">Entity UID to modify.</param>

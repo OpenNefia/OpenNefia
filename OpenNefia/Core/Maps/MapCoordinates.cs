@@ -174,7 +174,7 @@ namespace OpenNefia.Core.Maps
             if (Map == null)
                 return false;
 
-            return X >= 0 && Y >= 0 && X < Map.Width && Y < Map.Height;
+            return Map.IsInBounds(Position);
         }
     }
 }

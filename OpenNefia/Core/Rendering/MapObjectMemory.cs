@@ -28,6 +28,7 @@ namespace OpenNefia.Core.Rendering
         public float Rotation;
         public Color Color;
         public ShadowType ShadowType;
+        public bool HideWhenOutOfSight;
 
         internal int Index;
         internal MapCoordinates Coords;

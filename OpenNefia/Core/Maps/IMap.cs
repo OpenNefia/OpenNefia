@@ -31,12 +31,16 @@ namespace OpenNefia.Core.Maps
         void SetTile(Vector2i pos, PrototypeId<TilePrototype> tile);
         void SetTileMemory(Vector2i pos, PrototypeId<TilePrototype> tile);
 
+        void RefreshTile(Vector2i pos);
+
         MapCoordinates AtPos(Vector2i pos);
         MapCoordinates AtPos(int x, int y);
 
-        bool IsInWindowFov(MapCoordinates coords);
+        bool IsInWindowFov(Vector2i coords);
         void RefreshVisibility();
         void AddEntity(IEntity newEntity);
         void MemorizeAll();
+        bool IsInBounds(Vector2i position);
+        void MemorizeTile(Vector2i position);
     }
 }

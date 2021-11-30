@@ -172,7 +172,7 @@ namespace OpenNefia.Core.UI
                     //    repl.Query();
                 };
 
-                layer.ApplyTheme();
+                layer.Initialize();
                 layer.OnQuery();
 
                 while (true)

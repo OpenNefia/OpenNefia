@@ -23,6 +23,7 @@ namespace OpenNefia.Core.Rendering
             _tileLayers.Clear();
             _tileLayers.Add(new TileAndChipTileLayer(_map, _atlasManager));
             _tileLayers.Add(new ShadowTileLayer(_map, _assetManager));
+            map.RedrawAllThisTurn = true;
             RefreshAllLayers();
             _mapDrawables.Clear();
         }

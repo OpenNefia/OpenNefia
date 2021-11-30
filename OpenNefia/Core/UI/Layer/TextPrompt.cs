@@ -198,11 +198,6 @@ namespace OpenNefia.Core.UI.Layer
 
         public override void Dispose()
         {
-            this.AssetLabelInput.Dispose();
-            this.AssetImeStatusEnglish.Dispose();
-            this.AssetImeStatusJapanese.Dispose();
-            this.AssetImeStatusNone.Dispose();
-            this.AssetInputCaret.Dispose();
             this.Text.Dispose();
             this.TopicWindow.Dispose();
         }

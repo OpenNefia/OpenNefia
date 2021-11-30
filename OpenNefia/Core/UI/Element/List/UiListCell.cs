@@ -118,7 +118,6 @@ namespace OpenNefia.Core.UI.Element.List
 
         public override void Dispose()
         {
-            this.AssetSelectKey.Dispose();
             this.KeyNameText.Dispose();
             this.UiText.Dispose();
         }

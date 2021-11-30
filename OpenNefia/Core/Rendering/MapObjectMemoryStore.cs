@@ -52,6 +52,25 @@ namespace OpenNefia.Core.Rendering
             }
         }
 
+        public void HideObjects(Vector2i coords)
+        {
+            var at = Positional[coords.X, coords.Y];
+
+            if (at != null)
+            {
+                foreach (var memory in at)
+                {
+                    if (memory.HideWhenOutOfSight)
+                    {
+                        AllMemory.Remove(memory.Index);
+                        Removed.Push(memory);
+                    }
+                }
+                if (at.Count == 0)
+                    Positional[coords.X, coords.Y] = null;
+            }
+        }
+
         internal void Flush()
         {
             foreach (var added in this.Added)

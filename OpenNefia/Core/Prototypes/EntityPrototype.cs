@@ -46,7 +46,8 @@ namespace OpenNefia.Core.Prototypes
 
         public EntityPrototype()
         {
-            // All entities come with a metadata component.
+            // All entities come with a spatial and metadata component.
+            Components.Add("Spatial", new SpatialComponent());
             Components.Add("MetaData", new MetaDataComponent());
         }
 

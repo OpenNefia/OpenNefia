@@ -63,10 +63,10 @@ namespace OpenNefia.Core.Maps
 
         public static bool HasLos(this MapCoordinates from, MapCoordinates to)
         {
-            if (!from.IsInBounds() || to.IsInBounds())
+            if (!from.IsInBounds() || !to.IsInBounds())
                 return false;
 
-            if (from != to)
+            if (from.Map != to.Map)
                 return false;
 
             foreach (var pos in PosHelpers.EnumerateLine(from.Position, to.Position))
@@ -83,7 +83,7 @@ namespace OpenNefia.Core.Maps
 
         public static bool IsMemorized(this MapCoordinates coords)
         {
-            if (!coords.IsInBounds())
+            if (coords.Map == null)
                 return false;
 
             return coords.Map.Tiles[coords.X, coords.Y] == coords.Map.TileMemory[coords.X, coords.Y];
@@ -91,7 +91,7 @@ namespace OpenNefia.Core.Maps
 
         public static void SetTile(this MapCoordinates coords, PrototypeId<TilePrototype> tileId)
         {
-            if (!coords.IsInBounds())
+            if (coords.Map == null)
                 return;
 
             coords.Map.SetTile(coords.Position, tileId);
@@ -99,10 +99,10 @@ namespace OpenNefia.Core.Maps
 
         public static void MemorizeTile(this MapCoordinates coords)
         {
-            if (!coords.IsInBounds())
+            if (coords.Map == null)
                 return;
 
-            coords.Map.Tiles[coords.X, coords.Y] = coords.Map.TileMemory[coords.X, coords.Y];
+            coords.Map.MemorizeTile(coords.Position);
         }
 
         public static bool IsInWindowFov(this MapCoordinates coords)
@@ -110,10 +110,7 @@ namespace OpenNefia.Core.Maps
             if (coords.Map != GameSession.ActiveMap)
                 return false;
 
-            if (!coords.IsInBounds())
-                return false;
-
-            return coords.Map.IsInWindowFov(coords);
+            return coords.Map.IsInWindowFov(coords.Position);
         }
     }
 }

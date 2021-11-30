@@ -179,8 +179,6 @@ namespace OpenNefia.Core.UI.Element
 
         public override void Dispose()
         {
-            this.AssetTopicWindow.Dispose();
-            this.AssetWindow.Dispose();
             this.TopicWindowBatch.Dispose();
         }
     }

@@ -1,5 +1,6 @@
 ﻿using OpenNefia.Core.Game;
 using OpenNefia.Core.GameObjects;
+using OpenNefia.Core.IoC;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Rendering;
@@ -87,14 +88,69 @@ namespace OpenNefia.Core.Maps
             this.RedrawAllThisTurn = true;
         }
 
+        public bool IsInBounds(Vector2i pos)
+        {
+            return pos.X >= 0 && pos.Y >= 0 && pos.X < Width && pos.Y < Height;
+        }
+
         public void SetTile(Vector2i pos, PrototypeId<TilePrototype> tileId)
         {
+            if (!IsInBounds(pos))
+                return;
+
             Tiles[pos.X, pos.Y] = new Tile(tileId.ResolvePrototype().TileIndex);
+            this.RefreshTile(pos);
         }
 
         public void SetTileMemory(Vector2i pos, PrototypeId<TilePrototype> tileId)
         {
+            if (!IsInBounds(pos))
+                return;
+
             TileMemory[pos.X, pos.Y] = new Tile(tileId.ResolvePrototype().TileIndex);
+            DirtyTilesThisTurn.Add(this.AtPos(pos));
+        }
+
+        public void MemorizeTile(Vector2i pos)
+        {
+            if (!IsInBounds(pos))
+                return;
+
+            Tiles[pos.X, pos.Y] = TileMemory[pos.X, pos.Y];
+            MapObjectMemory.RevealObjects(pos);
+            _InSight[pos.X, pos.Y] = _LastSightId;
+            DirtyTilesThisTurn.Add(AtPos(pos));
+        }
+
+        public void RefreshTile(Vector2i pos)
+        {
+            if (!IsInBounds(pos))
+                return;
+
+            var flags = TileFlag.None;
+
+            // TODO
+            var tileDefinitions = IoCManager.Resolve<ITileDefinitionManager>();
+            
+            var tile = Tiles[pos.X, pos.Y];
+            var tileProto = tileDefinitions[tile.Type];
+            var isSolid = tileProto.IsSolid;
+            var isOpaque = tileProto.IsOpaque;
+
+            foreach (var obj in AtPos(pos).GetEntities())
+            {
+                var spatial = obj.Spatial;
+                isSolid |= spatial.IsSolid;
+                isOpaque |= spatial.IsOpaque;
+            }
+
+            if (isSolid)
+                flags |= TileFlag.IsSolid;
+            if (isOpaque)
+                flags |= TileFlag.IsOpaque;
+
+            this.TileFlags[pos.X, pos.Y] = flags;
+            this.DirtyTilesThisTurn.Add(AtPos(pos));
         }
 
         public IEnumerable<MapCoordinates> AllTiles
@@ -127,27 +183,18 @@ namespace OpenNefia.Core.Maps
             this.ShadowMap.RefreshVisibility();
 
             MapObjectMemory.AllMemory.Values
-                .Where(memory => !IsInWindowFov(memory.Coords) && !ShouldShowMemory(memory))
+                .Where(memory => memory.HideWhenOutOfSight && !IsInWindowFov(memory.Coords.Position))
                 .Select(memory => memory.Coords)
                 .Distinct()
-                .ForEach(coords => MapObjectMemory.ForgetObjects(coords.Position));
+                .ForEach(coords => MapObjectMemory.HideObjects(coords.Position));
         }
 
-        private static bool ShouldShowMemory(MapObjectMemory memory)
+        public bool IsInWindowFov(Vector2i pos)
         {
-            // TODO
-            return true;
-        }
-
-        public bool IsInWindowFov(MapCoordinates coords)
-        {
-            if (GameSession.ActiveMap != coords.Map)
+            if (!IsInBounds(pos))
                 return false;
 
-            if (!coords.IsInBounds())
-                return false;
-
-            return _InSight[coords.X, coords.Y] == _LastSightId;
+            return _InSight[pos.X, pos.Y] == _LastSightId;
         }
 
         public void AddEntity(IEntity newEntity)

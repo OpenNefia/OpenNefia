@@ -220,8 +220,6 @@ namespace OpenNefia.Core.UI.Layer
             }
             Window.Dispose();
             List.Dispose();
-            AssetTitle.Dispose();
-            AssetG4.Dispose();
         }
     }
 }

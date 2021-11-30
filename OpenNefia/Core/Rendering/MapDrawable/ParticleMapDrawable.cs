@@ -79,7 +79,6 @@ namespace OpenNefia.Core.Rendering
 
         public override void Dispose()
         {
-            this.AssetParticle.Dispose();
         }
     }
 }

@@ -48,6 +48,11 @@ namespace OpenNefia.Core.GameObjects
         MapCoordinates Coords { get; }
 
         /// <summary>
+        ///     The Transform Component of this entity.
+        /// </summary>
+        SpatialComponent Spatial { get; }
+
+        /// <summary>
         ///     The MetaData Component of this entity.
         /// </summary>
         MetaDataComponent MetaData { get; }

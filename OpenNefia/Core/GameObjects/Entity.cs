@@ -50,6 +50,15 @@ namespace OpenNefia.Core.GameObjects
         /// <inheritdoc />
         public bool Deleted => LifeStage >= EntityLifeStage.Deleted;
 
+        private SpatialComponent? _spatial;
+
+        /// <inheritdoc />
+        public SpatialComponent Spatial
+        {
+            get => _spatial ??= GetComponent<SpatialComponent>();
+            internal set => _spatial = value;
+        }
+
         private MetaDataComponent? _metaData;
 
         /// <inheritdoc />
@@ -76,16 +85,6 @@ namespace OpenNefia.Core.GameObjects
         }
 
         #endregion Initialization
-
-        internal void ChangeMap(IMap newMap)
-        {
-            if (newMap == Map)
-                return;
-
-            var oldMap = Map;
-
-            Map = newMap;
-        }
 
         #region Components
 
@@ -186,14 +185,24 @@ namespace OpenNefia.Core.GameObjects
 
         #endregion Components
 
+        internal void ChangeMap(IMap newMap)
+        {
+            if (newMap == Map)
+                return;
+
+            var oldMap = Map;
+
+            Map = newMap;
+        }
+
         /// <inheritdoc />
-        //public override string ToString()
-        //{
-        //    if (Deleted)
-        //    {
-        //        return $"{Name} ({Uid}, {Prototype?.ID})D";
-        //    }
-        //    return $"{Name} ({Uid}, {Prototype?.ID})";
-        //}
+        public override string ToString()
+        {
+            if (Deleted)
+            {
+                return $"({Uid}, {Prototype?.ID})D";
+            }
+            return $"({Uid}, {Prototype?.ID})";
+        }
     }
 }

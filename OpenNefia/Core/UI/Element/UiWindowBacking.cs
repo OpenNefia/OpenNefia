@@ -84,7 +84,6 @@ namespace OpenNefia.Core.UI.Element
 
         public override void Dispose()
         {
-            this.AssetWindow?.Dispose();
             this.Batch?.Dispose();
         }
     }

@@ -80,10 +80,10 @@ namespace OpenNefia.Core.UI.Layer
                 var atlas = IoCManager.Resolve<ITileAtlasManager>().GetAtlas(AtlasNames.Tile);
                 new PicViewLayer(atlas.Image).Query();
             };
-            //this.Keybinds[CoreKeybinds.North] += (_) => this.MovePlayer(0, -1);
-            //this.Keybinds[CoreKeybinds.South] += (_) => this.MovePlayer(0, 1);
-            //this.Keybinds[CoreKeybinds.West] += (_) => this.MovePlayer(-1, 0);
-            //this.Keybinds[CoreKeybinds.East] += (_) => this.MovePlayer(1, 0);
+            this.Keybinds[CoreKeybinds.North] += (_) => this.MovePlayer(Direction.North);
+            this.Keybinds[CoreKeybinds.South] += (_) => this.MovePlayer(Direction.South);
+            this.Keybinds[CoreKeybinds.West] += (_) => this.MovePlayer(Direction.West);
+            this.Keybinds[CoreKeybinds.East] += (_) => this.MovePlayer(Direction.East);
             //this.Keybinds[Keys.G] += (_) => this.GetItem();
             //this.Keybinds[Keys.D] += (_) => this.DropItem();
             //this.Keybinds[Keys.C] += (_) => this.CastSpell();
@@ -106,26 +106,29 @@ namespace OpenNefia.Core.UI.Layer
 
         public void RefreshScreen()
         {
+            Map.RefreshVisibility();
+
             var player = GameSession.Player;
 
             if (player != null)
             {
                 Camera.CenterOn(player);
-                Map.RefreshVisibility();
             }
         }
 
-/*        private void MovePlayer(int dx, int dy)
+        private void MovePlayer(Direction dir)
         {
             var player = GameSession.Player;
 
             if (player != null)
             {
-                CharaAction.Move(player, player.X + dx, player.Y + dy);
-                RefreshScreen();
+                //CharaAction.Move(player, player.X + dx, player.Y + dy);
+                player.Pos += dir.ToIntVec();
+                player.Map!.RefreshTile(player.Pos);
             }
         }
 
+/*
         private void GetItem()
         {
             var player = GameSession.Player;
@@ -304,7 +307,7 @@ namespace OpenNefia.Core.UI.Layer
         {
             if (this.Map.NeedsRedraw)
             {
-                Map.RefreshVisibility();
+                RefreshScreen();
                 this._mapRenderer.RefreshAllLayers();
             }
 

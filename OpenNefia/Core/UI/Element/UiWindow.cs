@@ -135,7 +135,6 @@ namespace OpenNefia.Core.UI.Element
 
         public override void Dispose()
         {
-            this.AssetTipIcons.Dispose();
             this.TextTitle?.Dispose();
             this.TextKeyHint.Dispose();
             this.Window.Dispose();

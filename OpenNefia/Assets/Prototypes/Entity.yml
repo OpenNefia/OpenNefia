@@ -17,6 +17,9 @@
   parent: BaseObject
   abstract: true
   components:
+  - type: Spatial
+    isSolid: false
+    isOpaque: false
   - type: Item
   - type: Stackable
 
@@ -41,6 +44,9 @@
   parent: BaseObject
   abstract: true
   components:
+  - type: Spatial
+    isSolid: true
+    isOpaque: false
   - type: Chara
     class: Slime
   - type: Skills
