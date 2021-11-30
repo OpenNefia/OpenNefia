@@ -29,10 +29,11 @@ namespace OpenNefia.Core.Rendering
             Quad = Love.Graphics.NewQuad(0, 0, 0, 0, 0, 0);
         }
 
-        public AtlasTile(Quad quad, int yOffset = 0)
+        public AtlasTile(Quad quad, int yOffset = 0, bool hasOverhang = false)
         {
             Quad = quad;
             YOffset = yOffset;
+            HasOverhang = hasOverhang;
         }
     }
 

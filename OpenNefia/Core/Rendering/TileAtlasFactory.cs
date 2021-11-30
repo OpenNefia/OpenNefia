@@ -1,17 +1,11 @@
 ﻿using OpenNefia.Core.ContentPack;
-using OpenNefia.Core.Data;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Log;
+using OpenNefia.Core.Maths;
 using OpenNefia.Core.ResourceManagement;
-using OpenNefia.Core.Serialization.Manager;
 using OpenNefia.Core.Utility;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace OpenNefia.Core.Rendering
 {
@@ -28,11 +22,9 @@ namespace OpenNefia.Core.Rendering
         private List<TileSpecifier> _tileSpecs = new();
         private Dictionary<string, AtlasTile> _atlasTiles = new();
         private ImageFilter _filter = new();
+        private Dictionary<Love.Image, Love.SpriteBatch> _pendingQuads = new();
 
         private Love.Canvas _workCanvas;
-
-        public delegate void LoadTileDelegate(Love.Image image, Love.Quad quad, int rectX, int rectY);
-        private LoadTileDelegate? OnLoadTile;
 
         public TileAtlasFactory(int tileWidth = OrthographicCoords.TILE_SIZE, 
             int tileHeight = OrthographicCoords.TILE_SIZE, 
@@ -51,12 +43,6 @@ namespace OpenNefia.Core.Rendering
             _workCanvas = Love.Graphics.NewCanvas(imageWidth, imageHeight);
         }
 
-        public TileAtlasFactory WithLoadTileCallback(LoadTileDelegate? callback)
-        {
-            this.OnLoadTile = callback;
-            return this;
-        }
-
         private Tuple<Love.Image, Love.Quad> LoadImageAndQuad(TileSpecifier tile)
         {
             Love.Image image = _resourceCache.GetResource<LoveImageResource>(tile.Filepath);
@@ -64,7 +50,7 @@ namespace OpenNefia.Core.Rendering
             if (tile.Region != null)
             {
                 var imageRegion = tile.Region.Value;
-                var quad = Love.Graphics.NewQuad(imageRegion.Left, imageRegion.Left, imageRegion.Width, imageRegion.Height, image.GetWidth(), image.GetHeight());
+                var quad = Love.Graphics.NewQuad(imageRegion.Left, imageRegion.Top, imageRegion.Width, imageRegion.Height, image.GetWidth(), image.GetHeight());
                 return Tuple.Create(image, quad);
             }
             else
@@ -76,40 +62,30 @@ namespace OpenNefia.Core.Rendering
 
         public void LoadTile(TileSpecifier tile)
         {
-            var (image, quad) = LoadImageAndQuad(tile);
+            var (image, quadInSource) = LoadImageAndQuad(tile);
 
-            var quadSize = quad.GetViewport();
+            var quadSize = quadInSource.GetViewport();
 
             if (!this._binpack.Pack((int)quadSize.Width, (int)quadSize.Height, out int rectX, out int rectY))
             {
                 throw new Exception($"Ran out of space while packing tile atlas ({tile.AtlasIndex})");
             }
 
-            if (this.OnLoadTile != null)
-            {
-                this.OnLoadTile(image, quad, rectX, rectY);
-            }
-            else
-            {
-                Love.Graphics.Draw(quad, image, rectX, rectY);
-            }
+            if (!_pendingQuads.ContainsKey(image))
+                _pendingQuads.Add(image, Love.Graphics.NewSpriteBatch(image, 2048, Love.SpriteBatchUsage.Static));
 
-            var innerQuad = Love.Graphics.NewQuad(rectX, rectY, quadSize.Width, quadSize.Height, this._workCanvas.GetWidth(), this._workCanvas.GetHeight());
+            var quadInAtlas = Love.Graphics.NewQuad(rectX, rectY, quadSize.Width, quadSize.Height, this._workCanvas.GetWidth(), this._workCanvas.GetHeight());
+
+            _pendingQuads[image].Add(quadInSource, rectX, rectY);
 
             var isTall = quadSize.Height == quadSize.Width * 2;
             var yOffset = 0;
             if (isTall)
                 yOffset = -this._tileHeight;
 
-            var atlasTile = new AtlasTile(innerQuad, yOffset);
-
-            // Special case for wall tiles
-            if (tile.HasOverhang)
-                atlasTile.HasOverhang = true;
+            var atlasTile = new AtlasTile(quadInAtlas, yOffset, tile.HasOverhang);
 
             this._atlasTiles.Add(tile.AtlasIndex, atlasTile);
-
-            quad.Dispose();
         }
 
         public TileAtlasFactory LoadTiles(IEnumerable<TileSpecifier> tiles)
@@ -182,6 +158,7 @@ namespace OpenNefia.Core.Rendering
             var canvas = Love.Graphics.GetCanvas();
 
             Love.Graphics.SetCanvas(this._workCanvas);
+            Love.Graphics.Clear();
             Love.Graphics.SetBlendMode(Love.BlendMode.Alpha);
             Love.Graphics.SetColor(Love.Color.White);
             GraphicsEx.SetDefaultFilter(this._filter);
@@ -189,6 +166,11 @@ namespace OpenNefia.Core.Rendering
             foreach (var tile in _tileSpecs)
             {
                 LoadTile(tile);
+            }
+
+            foreach (var batch in _pendingQuads.Values)
+            {
+                Love.Graphics.Draw(batch, 0, 0);
             }
 
             Love.Graphics.SetCanvas(canvas);
@@ -216,6 +198,14 @@ namespace OpenNefia.Core.Rendering
         public void Dispose()
         {
             this._workCanvas.Dispose();
+
+            foreach (var (sourceImage, batch) in _pendingQuads)
+            {
+                batch.Dispose();
+                sourceImage.Dispose();
+            }
+
+            _pendingQuads.Clear();
         }
     }
 }
