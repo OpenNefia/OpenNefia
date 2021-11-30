@@ -1625,6 +1625,11 @@ namespace OpenNefia.Core.Maths
         public static Color Purple => new(128, 0, 128, 255);
 
         /// <summary>
+        ///     Gets the system color with (R, G, B, A) = (102, 51, 153, 255).
+        /// </summary>
+        public static Color RebeccaPurple => new(102, 51, 153, 255);
+
+        /// <summary>
         ///     Gets the system color with (R, G, B, A) = (255, 0, 0, 255).
         /// </summary>
         public static Color Red => new(255, 0, 0, 255);
@@ -1875,6 +1880,7 @@ namespace OpenNefia.Core.Maths
             ["plum"] = Plum,
             ["powderblue"] = PowderBlue,
             ["purple"] = Purple,
+            ["rebeccapurple"] = RebeccaPurple,
             ["red"] = Red,
             ["rosybrown"] = RosyBrown,
             ["royalblue"] = RoyalBlue,
