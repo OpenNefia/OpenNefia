@@ -10,20 +10,17 @@ namespace OpenNefia.Core.Rendering
     [DataDefinition]
     public class TileSpecifier
     {
-        [DataField(required: true)]
-        public string TileId = "Default";
-
         /// <summary>
         /// Path to tile or atlas image.
         /// </summary>
         [DataField(required: true)]
-        public ResourcePath ImagePath = default!;
+        public ResourcePath Filepath { get; } = default!;
 
         /// <summary>
         /// Number of tiles in the X direction.
         /// </summary>
         [DataField]
-        public int CountX = 1;
+        public int CountX { get; } = 1;
 
         /// <summary>
         /// Region of a texture atlas to use.
@@ -31,9 +28,13 @@ namespace OpenNefia.Core.Rendering
         /// If non-null, indicates this specifier operates on a texture atlas.
         /// </summary>
         [DataField]
-        public Box2i? ImageRegion;
+        public Box2i? Region { get; }
 
-        public string Identifier => TileId;
-        public bool HasOverhang => false;
+        /// <summary>
+        /// Internal string to use for graphics purposes in the tile atlases.
+        /// </summary>
+        public string AtlasIndex { get; internal set; } = string.Empty;
+
+        public bool HasOverhang { get; internal set; } = false;
     }
 }

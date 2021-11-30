@@ -13,14 +13,13 @@ using OpenNefia.Core.Audio;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.GameController;
 using OpenNefia.Core.GameObjects;
-using OpenNefia.Core.Prototypes.Content;
 using OpenNefia.Core.Logic;
 
 namespace OpenNefia.Core.UI.Layer
 {
     public class FieldLayer : BaseUiLayer<UiNoResult>, IFieldLayer
     {
-        [Dependency] private readonly IAtlasManager _atlasManager = default!;
+        [Dependency] private readonly ITileAtlasManager _atlasManager = default!;
         [Dependency] private readonly IAssetManager _assetManager = default!;
         [Dependency] private readonly IGameController _gameController = default!;
         [Dependency] private readonly IMapRenderer _mapRenderer = default!;
@@ -78,7 +77,7 @@ namespace OpenNefia.Core.UI.Layer
             //this.Keybinds[Keys.Ctrl | Keys.O] += (_) => this.Load();
             this.Keybinds[Keys.Ctrl | Keys.T] += (_) =>
             {
-                var atlas = IoCManager.Resolve<IAtlasManager>().GetAtlas(AtlasNames.Tile);
+                var atlas = IoCManager.Resolve<ITileAtlasManager>().GetAtlas(AtlasNames.Tile);
                 new PicViewLayer(atlas.Image).Query();
             };
             //this.Keybinds[CoreKeybinds.North] += (_) => this.MovePlayer(0, -1);

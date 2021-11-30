@@ -3,7 +3,6 @@ using OpenNefia.Core.Game;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Maps;
 using OpenNefia.Core.Maths;
-using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.UI;
 using System;
 using System.Collections.Generic;
@@ -17,14 +16,14 @@ namespace OpenNefia.Core.Rendering.TileDrawLayers
     // This would be a combination of tile_layer, tile_overhang_layer and chip_layer.
     public class TileAndChipTileLayer : BaseTileLayer
     {
-        private readonly IAtlasManager _atlasManager;
+        private readonly ITileAtlasManager _atlasManager;
 
         private IMap _map;
         private TileAndChipBatch _tileAndChipBatch;
         private ICoords _coords;
         private WallTileShadows _wallShadows;
 
-        public TileAndChipTileLayer(IMap map, IAtlasManager atlasManager)
+        public TileAndChipTileLayer(IMap map, ITileAtlasManager atlasManager)
         {
             _atlasManager = atlasManager;
 
@@ -59,7 +58,7 @@ namespace OpenNefia.Core.Rendering.TileDrawLayers
         {
             // If the tile is a wall, convert the displayed tile to that of
             // the bottom wall if appropriate.
-            var tileIndex = tile.Image.Identifier;
+            var tileIndex = tile.Image.AtlasIndex;
 
             var oneDown = coords.Offset(0, 1);
             var oneTileDown = oneDown.GetTile();
@@ -71,19 +70,19 @@ namespace OpenNefia.Core.Rendering.TileDrawLayers
             {
                 if (oneTileDown != null && oneTileDown.Value.Prototype.WallImage == null && oneDown.IsMemorized())
                 {
-                    tileIndex = tile.WallImage.Identifier;
+                    tileIndex = tile.WallImage.AtlasIndex;
                 }
 
                 if (oneTileUp != null && oneTileUp.Value.Prototype.WallImage != null && oneDown.IsMemorized())
                 {
-                    this._tileAndChipBatch.SetTile(oneUp.Position, oneTileUp.Value.Prototype.Image.Identifier);
+                    this._tileAndChipBatch.SetTile(oneUp.Position, oneTileUp.Value.Prototype.Image.AtlasIndex);
                 }
             }
             else if (coords.Y > 0)
             {
                 if (oneTileUp != null && oneTileUp.Value.Prototype.WallImage != null && oneDown.IsMemorized())
                 {
-                    this._tileAndChipBatch.SetTile(oneUp.Position, oneTileUp.Value.Prototype.WallImage.Identifier);
+                    this._tileAndChipBatch.SetTile(oneUp.Position, oneTileUp.Value.Prototype.WallImage.AtlasIndex);
                 }
             }
 
@@ -95,7 +94,7 @@ namespace OpenNefia.Core.Rendering.TileDrawLayers
             var tileIndex = ModifyWalls(coords, tile);
 
             this._wallShadows.SetTile(coords, tile);
-            this._tileAndChipBatch.SetTile(coords.Position, tile.Image.Identifier);
+            this._tileAndChipBatch.SetTile(coords.Position, tile.Image.AtlasIndex);
         }
 
         public void RedrawMapObjects()

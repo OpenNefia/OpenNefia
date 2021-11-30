@@ -1,5 +1,6 @@
 ﻿using Love;
 using OpenNefia.Core.Data.Types;
+using OpenNefia.Core.Serialization.Manager.Attributes;
 using OpenNefia.Core.Utility;
 using System;
 using System.Collections.Generic;
@@ -40,14 +41,12 @@ namespace OpenNefia.Core.Rendering
     {
         private Dictionary<string, AtlasTile> _tiles = new Dictionary<string, AtlasTile>();
         private Dictionary<string, List<AnimFrame>> _anims = new Dictionary<string, List<AnimFrame>>();
-        private ResourcePath _imageFilepath;
 
         public Love.Image Image { get; private set; }
 
-        public TileAtlas(Image image, ResourcePath imageFilepath, Dictionary<string, AtlasTile> atlasTiles)
+        public TileAtlas(Image image, Dictionary<string, AtlasTile> atlasTiles)
         {
             this.Image = image;
-            this._imageFilepath = imageFilepath;
             this._tiles = atlasTiles;
         }
 
@@ -58,7 +57,7 @@ namespace OpenNefia.Core.Rendering
             return null;
         }
 
-        public AtlasTile? GetTile(TileSpecifier spec) => GetTile(spec.Identifier);
+        public AtlasTile? GetTile(TileSpecifier spec) => GetTile(spec.AtlasIndex);
 
         public bool GetTileSize(TileSpecifier spec, out int width, out int height)
         {

@@ -1,0 +1,59 @@
+- type: Chip
+  id: MefWeb
+  elonaId: 11
+  group: Mef
+  image:
+    filepath: Assets/Elona/Graphic/item.bmp
+    region: "528, 0, 48, 48"
+
+- type: Chip
+  id: MefAcid
+  elonaId: 19
+  group: Mef
+  image:
+    filepath: Assets/Elona/Graphic/item.bmp
+    region: "912, 0, 48, 48"
+    countX: 2
+
+- type: Chip
+  id: MefEther
+  elonaId: 20
+  group: Mef
+  image:
+    filepath: Assets/Elona/Graphic/item.bmp
+    region: "960, 0, 48, 48"
+
+- type: Chip
+  id: MefWater
+  elonaId: 22
+  group: Mef
+  image:
+    filepath: Assets/Elona/Graphic/item.bmp
+    region: "1056, 0, 48, 48"
+
+- type: Chip
+  id: MefFire
+  elonaId: 24
+  group: Mef
+  image:
+    filepath: Assets/Elona/Graphic/item.bmp
+    region: "1152, 0, 48, 48"
+    countX: 3
+
+- type: Chip
+  id: MefPotion
+  elonaId: 27
+  group: Mef
+  image:
+    filepath: Assets/Elona/Graphic/item.bmp
+    region: "1296, 0, 48, 48"
+    countX: 3
+
+- type: Chip
+  id: MefMist
+  elonaId: 30
+  group: Mef
+  image:
+    filepath: Assets/Elona/Graphic/item.bmp
+    region: "1440, 0, 48, 48"
+    countX: 2

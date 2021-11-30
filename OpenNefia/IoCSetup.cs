@@ -44,7 +44,7 @@ namespace Why
             IoCManager.Register<IEntityManager, EntityManager>();
             IoCManager.Register<ISerializationManager, SerializationManager>();
             IoCManager.Register<IAssetManager, AssetManager>();
-            IoCManager.Register<IAtlasManager, AtlasManager>();
+            IoCManager.Register<ITileAtlasManager, TileAtlasManager>();
             IoCManager.Register<IUiLayerManager, UiLayerManager>();
             IoCManager.Register<IRandom, SysRandom>();
             IoCManager.Register<IFontManager, FontManager>();

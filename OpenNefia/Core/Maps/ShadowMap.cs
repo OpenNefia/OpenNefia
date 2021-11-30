@@ -24,9 +24,7 @@ namespace OpenNefia.Core.Maps
 
         private void SetShadowBorder(int tx, int ty, ShadowTile shadow)
         {
-            var ind = ty * Map.Width + tx;
-
-            if (ind >= 0 && ind < ShadowTiles.Length)
+            if (tx >= 0 && ty >= 0 && tx < Map.Width && ty < Map.Height)
                 ShadowTiles[tx, ty] |= shadow;
         }
 

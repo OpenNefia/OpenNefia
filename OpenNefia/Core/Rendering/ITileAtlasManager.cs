@@ -6,11 +6,10 @@ using System.Threading.Tasks;
 
 namespace OpenNefia.Core.Rendering
 {
-    public class AtlasManager : IAtlasManager
+    public interface ITileAtlasManager
     {
-        public TileAtlas GetAtlas(string name)
-        {
-            return null!;
-        }
+        void LoadAtlases();
+
+        public TileAtlas GetAtlas(string name);
     }
 }

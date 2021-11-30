@@ -22,6 +22,7 @@ namespace OpenNefia.Core.GameController
         [Dependency] private readonly IGraphics _graphics = default!;
         [Dependency] private readonly IResourceCacheInternal _resourceCache = default!;
         [Dependency] private readonly IAssetManager _assetManager = default!;
+        [Dependency] private readonly ITileAtlasManager _atlasManager = default!;
         [Dependency] private readonly IModLoaderInternal _modLoader = default!;
         [Dependency] private readonly IEntityManager _entityManager = default!;
         [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
@@ -80,11 +81,12 @@ namespace OpenNefia.Core.GameController
 
             _assetManager.PreloadAssets();
 
+            _initTileDefinitions();
+            _atlasManager.LoadAtlases();
+
             _localizationManager.Initialize();
 
             _modLoader.BroadcastRunLevel(ModRunLevel.PostInit);
-
-            _initTileDefinitions();
 
             GCSettings.LargeObjectHeapCompactionMode = GCLargeObjectHeapCompactionMode.CompactOnce;
             GC.Collect();
@@ -113,7 +115,7 @@ namespace OpenNefia.Core.GameController
 
         private bool _tryDownloadVanillaAssets()
         {
-            var downloader = new VanillaAssetsDownloader();
+            var downloader = new VanillaAssetsDownloader(_resourceCache);
 
             if (downloader.NeedsDownload())
             {

@@ -9,7 +9,7 @@ namespace OpenNefia.Core.Rendering
 {
     public class MapRenderer : BaseDrawable, IMapRenderer
     {
-        [Dependency] private readonly IAtlasManager _atlasManager = default!;
+        [Dependency] private readonly ITileAtlasManager _atlasManager = default!;
         [Dependency] private readonly IAssetManager _assetManager = default!;
         [Dependency] private readonly IGameController _gameController = default!;
         [Dependency] private readonly IMapDrawables _mapDrawables = default!;

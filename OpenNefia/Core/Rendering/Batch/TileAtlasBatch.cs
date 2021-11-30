@@ -17,7 +17,7 @@ namespace OpenNefia.Core.Rendering
 
         public TileAtlasBatch(string atlasName)
         {
-            _atlas = IoCManager.Resolve<IAtlasManager>().GetAtlas(atlasName);
+            _atlas = IoCManager.Resolve<ITileAtlasManager>().GetAtlas(atlasName);
             _batch = Love.Graphics.NewSpriteBatch(_atlas.Image, 2048, SpriteBatchUsage.Dynamic);
             Width = 0;
             Height = 0;
@@ -28,7 +28,7 @@ namespace OpenNefia.Core.Rendering
             var tile = this._atlas.GetTile(spec);
 
             if (tile == null)
-                throw new Exception($"Unknown tile {spec.TileId}");
+                throw new ArgumentException($"Unknown tile {spec.AtlasIndex}", nameof(spec));
 
             var quadRect = tile.Quad.GetViewport();
             var sx = 1f;

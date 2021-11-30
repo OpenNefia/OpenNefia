@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TilePrototypeId = OpenNefia.Core.Prototypes.PrototypeId<OpenNefia.Core.Prototypes.TilePrototype>;
+﻿using OpenNefia.Core.Prototypes;
+using TilePrototypeId = OpenNefia.Core.Prototypes.PrototypeId<OpenNefia.Core.Rendering.TilePrototype>;
 
-namespace OpenNefia.Core.Prototypes.Content
+namespace OpenNefia.Core.Rendering
 {
     [PrototypeOfEntries]
     public static class TilePrototypeOf

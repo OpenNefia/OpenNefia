@@ -19,6 +19,8 @@ namespace OpenNefia.Core.Rendering
     {
         private readonly IResourceCache _resourceCache = default!;
 
+        private static readonly ResourcePath _cachePath = new ResourcePath("/Cache/Atlas");
+
         internal RectanglePacker _binpack { get; }
         public int _tileWidth { get; }
         public int _tileHeight { get; }
@@ -57,11 +59,11 @@ namespace OpenNefia.Core.Rendering
 
         private Tuple<Love.Image, Love.Quad> LoadImageAndQuad(TileSpecifier tile)
         {
-            Love.Image image = _resourceCache.GetResource<LoveImageResource>(tile.ImagePath);
+            Love.Image image = _resourceCache.GetResource<LoveImageResource>(tile.Filepath);
 
-            if (tile.ImageRegion != null)
+            if (tile.Region != null)
             {
-                var imageRegion = tile.ImageRegion.Value;
+                var imageRegion = tile.Region.Value;
                 var quad = Love.Graphics.NewQuad(imageRegion.Left, imageRegion.Left, imageRegion.Width, imageRegion.Height, image.GetWidth(), image.GetHeight());
                 return Tuple.Create(image, quad);
             }
@@ -80,7 +82,7 @@ namespace OpenNefia.Core.Rendering
 
             if (!this._binpack.Pack((int)quadSize.Width, (int)quadSize.Height, out int rectX, out int rectY))
             {
-                throw new Exception($"Ran out of space while packing tile atlas ({tile.Identifier})");
+                throw new Exception($"Ran out of space while packing tile atlas ({tile.AtlasIndex})");
             }
 
             if (this.OnLoadTile != null)
@@ -105,7 +107,7 @@ namespace OpenNefia.Core.Rendering
             if (tile.HasOverhang)
                 atlasTile.HasOverhang = true;
 
-            this._atlasTiles.Add(tile.Identifier, atlasTile);
+            this._atlasTiles.Add(tile.AtlasIndex, atlasTile);
 
             quad.Dispose();
         }
@@ -137,33 +139,45 @@ namespace OpenNefia.Core.Rendering
             return sBuilder.ToString();
         }
 
-        public TileAtlas Build()
+        private string GetSha256()
         {
-            var path = new ResourcePath("Cache/Atlas");
-            if (!_resourceCache.UserData.Exists(path))
-                _resourceCache.UserData.CreateDirectory(path);
-
-            string hashString;
             using (var sha256Hash = IncrementalHash.CreateHash(HashAlgorithmName.SHA256))
             {
-                foreach (var tile in _tileSpecs.OrderBy(x => x.Identifier))
+                foreach (var tile in _tileSpecs.OrderBy(x => x.AtlasIndex))
                 {
-                    sha256Hash.AppendData(Encoding.UTF8.GetBytes(tile.Identifier));
-                    sha256Hash.AppendData(Encoding.UTF8.GetBytes(tile.ImagePath.ToString()));
+                    sha256Hash.AppendData(Encoding.UTF8.GetBytes(tile.AtlasIndex));
+                    sha256Hash.AppendData(Encoding.UTF8.GetBytes(tile.Filepath.ToString()));
                 }
 
-                hashString = sha256Hash.GetCurrentHash().ToHexString();
+                return sha256Hash.GetCurrentHash().ToHexString();
             }
+        }
 
-            var serializedFilepath = path / $"{hashString}.bin";
+        private TileAtlas? CheckCache(string hashString)
+        {
+            if (!_resourceCache.UserData.Exists(_cachePath))
+                _resourceCache.UserData.CreateDirectory(_cachePath);
+
+            var serializedFilepath = _cachePath / $"{hashString}.bin";
 
             if (_resourceCache.UserData.Exists(serializedFilepath))
             {
                 Logger.LogS(LogLevel.Info, "tile_atlas", $"Cache hit! {hashString}");
 
-                var stream = _resourceCache.UserData.Open(serializedFilepath, FileMode.Open);
                 return SerializationHelpers.Deserialize<TileAtlas>(serializedFilepath)!;
             }
+
+            return null;
+        }
+
+        public TileAtlas Build()
+        {
+            // var hashString = GetSha256();
+            // var cached = CheckCache(hashString);
+            // if (cached != null)
+            // {
+            //     return cached;
+            // }
 
             var canvas = Love.Graphics.GetCanvas();
 
@@ -181,17 +195,22 @@ namespace OpenNefia.Core.Rendering
             Love.Graphics.SetDefaultFilter(Love.FilterMode.Linear, Love.FilterMode.Linear, 1);
 
             var imageData = this._workCanvas.NewImageData();
-            var imageFilepath = path / $"{hashString}.png";
-            var fileData = imageData.Encode(Love.ImageFormat.PNG);
-            _resourceCache.UserData.WriteAllBytes(imageFilepath, fileData.GetBytes());
-
             var image = Love.Graphics.NewImage(imageData);
 
-            var tileAtlas = new TileAtlas(image, imageFilepath, this._atlasTiles);
+            var tileAtlas = new TileAtlas(image, this._atlasTiles);
 
-            SerializationHelpers.Serialize(serializedFilepath, tileAtlas);
+            // WriteCachedAtlas(tileAtlas, imageData, hashString);
 
             return tileAtlas;
+        }
+
+        private void WriteCachedAtlas(TileAtlas tileAtlas, Love.ImageData imageData, string hashString)
+        {
+            var imageFilepath = _cachePath / $"{hashString}.png";
+            var serializedFilepath = _cachePath / $"{hashString}.bin";
+            var fileData = imageData.Encode(Love.ImageFormat.PNG);
+            _resourceCache.UserData.WriteAllBytes(imageFilepath, fileData.GetBytes());
+            SerializationHelpers.Serialize(serializedFilepath, tileAtlas);
         }
 
         public void Dispose()

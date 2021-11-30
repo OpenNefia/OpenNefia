@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using OpenNefia.Core.Rendering;
+using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Serialization.Manager.Attributes;
 
-namespace OpenNefia.Core.Prototypes
+namespace OpenNefia.Core.Rendering
 {
     public enum TileKind
     {
@@ -24,7 +24,7 @@ namespace OpenNefia.Core.Prototypes
     }
 
     [Prototype("Tile")]
-    public class TilePrototype : IPrototype, ITileDefinition
+    public class TilePrototype : IPrototype, ITileDefinition, IAtlasRegionProvider
     {
         [DataField("id", required: true)]
         public string ID { get; } = default!;
@@ -57,6 +57,16 @@ namespace OpenNefia.Core.Prototypes
         public void AssignTileIndex(ushort id)
         {
             TileIndex = id;
+        }
+
+        public IEnumerable<AtlasRegion> GetAtlasRegions()
+        {
+            var hasOverhang = WallImage != null;
+
+            yield return new(AtlasNames.Tile, $"{ID}:Tile", Image, hasOverhang);
+
+            if (WallImage != null)
+                yield return new(AtlasNames.Tile, $"{ID}:Tile_Wall", WallImage, hasOverhang);
         }
     }
 }

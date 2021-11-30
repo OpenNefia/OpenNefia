@@ -6,7 +6,15 @@
   id: StatCon
 
 - type: Entity
+  id: BaseObject
+  abstract: true
+  components:
+  - type: Chip
+    id: Default
+
+- type: Entity
   id: BaseItem
+  parent: BaseObject
   abstract: true
   components:
   - type: Item
@@ -18,6 +26,8 @@
   components:
   - type: Item
     value: 5
+  - type: Chip
+    id: ItemDagger
 
 - type: Class
   id: Slime
@@ -28,9 +38,11 @@
 
 - type: Entity
   id: BaseChara
+  parent: BaseObject
   abstract: true
   components:
   - type: Chara
+    class: Slime
   - type: Skills
 
 - type: Entity
@@ -41,3 +53,5 @@
     displayName: putit
     title: The wind
     class: Slime
+  - type: Chip
+    id: CharaRaceSlime

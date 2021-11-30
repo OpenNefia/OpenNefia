@@ -16,7 +16,7 @@ namespace OpenNefia.Core.Rendering
     /// </summary>
     internal class TileAndChipBatch : BaseDrawable
     {
-        private readonly IAtlasManager _atlasManager;
+        private readonly ITileAtlasManager _atlasManager;
 
         private int _tiledWidth;
         private int _tiledHeight;
@@ -32,8 +32,7 @@ namespace OpenNefia.Core.Rendering
         private TileAtlas _tileAtlas;
         private TileAtlas _chipAtlas;
 
-
-        public TileAndChipBatch(int width, int height, ICoords coords, IAtlasManager atlasManager)
+        public TileAndChipBatch(int width, int height, ICoords coords, ITileAtlasManager atlasManager)
         {
             _atlasManager = atlasManager;
 

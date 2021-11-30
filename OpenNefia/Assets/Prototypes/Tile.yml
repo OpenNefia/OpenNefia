@@ -1979,7 +1979,7 @@
     region: "0, 0, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 0
 
 - type: Tile
@@ -1989,7 +1989,7 @@
     region: "48, 0, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 1
 
 - type: Tile
@@ -1999,7 +1999,7 @@
     region: "96, 0, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 2
 
 - type: Tile
@@ -2009,7 +2009,7 @@
     region: "144, 0, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 3
 
 - type: Tile
@@ -2019,7 +2019,7 @@
     region: "192, 0, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 4
 
 - type: Tile
@@ -2029,7 +2029,7 @@
     region: "240, 0, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 5
 
 - type: Tile
@@ -2039,7 +2039,7 @@
     region: "288, 0, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 6
 
 - type: Tile
@@ -2049,7 +2049,7 @@
     region: "336, 0, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 7
 
 - type: Tile
@@ -2059,7 +2059,7 @@
     region: "384, 0, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 8
 
 - type: Tile
@@ -2069,7 +2069,7 @@
     region: "432, 0, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 9
 
 - type: Tile
@@ -2079,7 +2079,7 @@
     region: "480, 0, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 10
 
 - type: Tile
@@ -2089,7 +2089,7 @@
     region: "528, 0, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 11
 
 - type: Tile
@@ -2099,7 +2099,7 @@
     region: "576, 0, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 12
 
 - type: Tile
@@ -2109,7 +2109,7 @@
     region: "624, 0, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 13
 
 - type: Tile
@@ -2119,7 +2119,7 @@
     region: "672, 0, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 14
 
 - type: Tile
@@ -2129,7 +2129,7 @@
     region: "768, 0, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 16
 
 - type: Tile
@@ -2139,7 +2139,7 @@
     region: "816, 0, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 17
 
 - type: Tile
@@ -2149,7 +2149,7 @@
     region: "864, 0, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 18
 
 - type: Tile
@@ -2159,7 +2159,7 @@
     region: "912, 0, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 19
 
 - type: Tile
@@ -2169,7 +2169,7 @@
     region: "960, 0, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 20
 
 - type: Tile
@@ -2179,7 +2179,7 @@
     region: "1008, 0, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 21
 
 - type: Tile
@@ -2190,7 +2190,7 @@
   kind: Dryground
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 29
 
 - type: Tile
@@ -2201,7 +2201,7 @@
   kind: Crop
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 30
 
 - type: Tile
@@ -2212,7 +2212,7 @@
   kind: Crop
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 31
 
 - type: Tile
@@ -2222,7 +2222,7 @@
     region: "0, 48, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 33
 
 - type: Tile
@@ -2232,7 +2232,7 @@
     region: "48, 48, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 34
 
 - type: Tile
@@ -2242,7 +2242,7 @@
     region: "96, 48, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 35
 
 - type: Tile
@@ -2252,7 +2252,7 @@
     region: "144, 48, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 36
 
 - type: Tile
@@ -2262,7 +2262,7 @@
     region: "192, 48, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 37
 
 - type: Tile
@@ -2272,7 +2272,7 @@
     region: "240, 48, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 38
 
 - type: Tile
@@ -2282,7 +2282,7 @@
     region: "288, 48, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 39
 
 - type: Tile
@@ -2292,7 +2292,7 @@
     region: "336, 48, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 40
 
 - type: Tile
@@ -2302,7 +2302,7 @@
     region: "384, 48, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 41
 
 - type: Tile
@@ -2313,7 +2313,7 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 45
 
 - type: Tile
@@ -2324,7 +2324,7 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 46
 
 - type: Tile
@@ -2335,7 +2335,7 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 47
 
 - type: Tile
@@ -2346,7 +2346,7 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 48
 
 - type: Tile
@@ -2357,7 +2357,7 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 49
 
 - type: Tile
@@ -2368,7 +2368,7 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 50
 
 - type: Tile
@@ -2379,7 +2379,7 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 51
 
 - type: Tile
@@ -2390,7 +2390,7 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 52
 
 - type: Tile
@@ -2401,7 +2401,7 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 53
 
 - type: Tile
@@ -2412,7 +2412,7 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 54
 
 - type: Tile
@@ -2423,7 +2423,7 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 55
 
 - type: Tile
@@ -2434,7 +2434,7 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 56
 
 - type: Tile
@@ -2445,7 +2445,7 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 57
 
 - type: Tile
@@ -2456,7 +2456,7 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 58
 
 - type: Tile
@@ -2467,7 +2467,7 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 59
 
 - type: Tile
@@ -2478,7 +2478,7 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 60
 
 - type: Tile
@@ -2488,7 +2488,7 @@
     region: "1344, 48, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 61
 
 - type: Tile
@@ -2498,7 +2498,7 @@
     region: "1392, 48, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 62
 
 - type: Tile
@@ -2508,7 +2508,7 @@
     region: "1440, 48, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 63
 
 - type: Tile
@@ -2518,7 +2518,7 @@
     region: "1488, 48, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 64
 
 - type: Tile
@@ -2528,7 +2528,7 @@
     region: "1536, 48, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 65
 
 - type: Tile
@@ -2538,7 +2538,7 @@
     region: "0, 96, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 66
 
 - type: Tile
@@ -2548,7 +2548,7 @@
     region: "48, 96, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 67
 
 - type: Tile
@@ -2558,7 +2558,7 @@
     region: "96, 96, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 68
 
 - type: Tile
@@ -2568,7 +2568,7 @@
     region: "144, 96, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 69
 
 - type: Tile
@@ -2578,7 +2578,7 @@
     region: "192, 96, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 70
 
 - type: Tile
@@ -2588,7 +2588,7 @@
     region: "240, 96, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 71
 
 - type: Tile
@@ -2598,7 +2598,7 @@
     region: "288, 96, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 72
 
 - type: Tile
@@ -2608,7 +2608,7 @@
     region: "336, 96, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 73
 
 - type: Tile
@@ -2618,7 +2618,7 @@
     region: "384, 96, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 74
 
 - type: Tile
@@ -2628,7 +2628,7 @@
     region: "432, 96, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 75
 
 - type: Tile
@@ -2638,7 +2638,7 @@
     region: "480, 96, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 76
 
 - type: Tile
@@ -2648,7 +2648,7 @@
     region: "528, 96, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 77
 
 - type: Tile
@@ -2658,7 +2658,7 @@
     region: "576, 96, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 78
 
 - type: Tile
@@ -2668,7 +2668,7 @@
     region: "720, 96, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 81
 
 - type: Tile
@@ -2679,7 +2679,7 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 82
 
 - type: Tile
@@ -2690,7 +2690,7 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 83
 
 - type: Tile
@@ -2701,7 +2701,7 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 84
 
 - type: Tile
@@ -2711,7 +2711,7 @@
     region: "912, 96, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 85
 
 - type: Tile
@@ -2721,7 +2721,7 @@
     region: "960, 96, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 86
 
 - type: Tile
@@ -2731,7 +2731,7 @@
     region: "1008, 96, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 87
 
 - type: Tile
@@ -2741,7 +2741,7 @@
     region: "1056, 96, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 88
 
 - type: Tile
@@ -2751,7 +2751,7 @@
     region: "1104, 96, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 89
 
 - type: Tile
@@ -2761,7 +2761,7 @@
     region: "1536, 96, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 98
 
 - type: Tile
@@ -2771,7 +2771,7 @@
     region: "0, 144, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 99
 
 - type: Tile
@@ -2781,7 +2781,7 @@
     region: "48, 144, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 100
 
 - type: Tile
@@ -2791,7 +2791,7 @@
     region: "96, 144, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 101
 
 - type: Tile
@@ -2801,7 +2801,7 @@
     region: "144, 144, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 102
 
 - type: Tile
@@ -2811,7 +2811,7 @@
     region: "192, 144, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 103
 
 - type: Tile
@@ -2821,7 +2821,7 @@
     region: "288, 144, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 105
 
 - type: Tile
@@ -2831,7 +2831,7 @@
     region: "480, 144, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 109
 
 - type: Tile
@@ -2841,7 +2841,7 @@
     region: "528, 144, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 110
 
 - type: Tile
@@ -2851,7 +2851,7 @@
     region: "576, 144, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 111
 
 - type: Tile
@@ -2861,7 +2861,7 @@
     region: "624, 144, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 112
 
 - type: Tile
@@ -2871,7 +2871,7 @@
     region: "672, 144, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 113
 
 - type: Tile
@@ -2881,7 +2881,7 @@
     region: "720, 144, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 114
 
 - type: Tile
@@ -2891,7 +2891,7 @@
     region: "768, 144, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 115
 
 - type: Tile
@@ -2901,7 +2901,7 @@
     region: "912, 144, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 118
 
 - type: Tile
@@ -2911,7 +2911,7 @@
     region: "960, 144, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 119
 
 - type: Tile
@@ -2921,7 +2921,7 @@
     region: "1008, 144, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 120
 
 - type: Tile
@@ -2931,7 +2931,7 @@
     region: "1056, 144, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 121
 
 - type: Tile
@@ -2941,7 +2941,7 @@
     region: "1104, 144, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 122
 
 - type: Tile
@@ -2951,7 +2951,7 @@
     region: "1152, 144, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 123
 
 - type: Tile
@@ -2961,7 +2961,7 @@
     region: "1296, 144, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 126
 
 - type: Tile
@@ -2971,7 +2971,7 @@
     region: "1392, 144, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 128
 
 - type: Tile
@@ -2981,7 +2981,7 @@
     region: "1440, 144, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 129
 
 - type: Tile
@@ -2991,7 +2991,7 @@
     region: "1488, 144, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 130
 
 - type: Tile
@@ -3001,7 +3001,7 @@
     region: "1536, 144, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 131
 
 - type: Tile
@@ -3011,7 +3011,7 @@
     region: "0, 192, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 132
 
 - type: Tile
@@ -3021,7 +3021,7 @@
     region: "48, 192, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 133
 
 - type: Tile
@@ -3031,7 +3031,7 @@
     region: "96, 192, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 134
 
 - type: Tile
@@ -3041,7 +3041,7 @@
     region: "144, 192, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 135
 
 - type: Tile
@@ -3051,7 +3051,7 @@
     region: "192, 192, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 136
 
 - type: Tile
@@ -3061,7 +3061,7 @@
     region: "240, 192, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 137
 
 - type: Tile
@@ -3071,7 +3071,7 @@
     region: "288, 192, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 138
 
 - type: Tile
@@ -3081,7 +3081,7 @@
     region: "336, 192, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 139
 
 - type: Tile
@@ -3091,7 +3091,7 @@
     region: "384, 192, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 140
 
 - type: Tile
@@ -3101,7 +3101,7 @@
     region: "432, 192, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 141
 
 - type: Tile
@@ -3111,7 +3111,7 @@
     region: "576, 192, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 144
 
 - type: Tile
@@ -3121,7 +3121,7 @@
     region: "672, 192, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 146
 
 - type: Tile
@@ -3131,7 +3131,7 @@
     region: "720, 192, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 147
 
 - type: Tile
@@ -3141,7 +3141,7 @@
     region: "768, 192, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 148
 
 - type: Tile
@@ -3151,7 +3151,7 @@
     region: "816, 192, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 149
 
 - type: Tile
@@ -3161,7 +3161,7 @@
     region: "864, 192, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 150
 
 - type: Tile
@@ -3171,7 +3171,7 @@
     region: "912, 192, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 151
 
 - type: Tile
@@ -3181,7 +3181,7 @@
     region: "960, 192, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 152
 
 - type: Tile
@@ -3191,7 +3191,7 @@
     region: "1008, 192, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 153
 
 - type: Tile
@@ -3201,7 +3201,7 @@
     region: "1152, 192, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 156
 
 - type: Tile
@@ -3211,7 +3211,7 @@
     region: "1200, 192, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 157
 
 - type: Tile
@@ -3221,7 +3221,7 @@
     region: "1248, 192, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 158
 
 - type: Tile
@@ -3231,7 +3231,7 @@
     region: "1296, 192, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 159
 
 - type: Tile
@@ -3241,7 +3241,7 @@
     region: "1344, 192, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 160
 
 - type: Tile
@@ -3251,7 +3251,7 @@
     region: "1392, 192, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 161
 
 - type: Tile
@@ -3261,7 +3261,7 @@
     region: "1488, 192, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 163
 
 - type: Tile
@@ -3271,7 +3271,7 @@
     region: "1536, 192, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 164
 
 - type: Tile
@@ -3279,11 +3279,11 @@
   image:
     filepath: Assets/Elona/Graphic/map1.bmp
     region: "0, 240, 48, 48"
-    _CountX: '3'
+    countX: 3
   kind: Water
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 165
 
 - type: Tile
@@ -3291,11 +3291,11 @@
   image:
     filepath: Assets/Elona/Graphic/map1.bmp
     region: "144, 240, 48, 48"
-    _CountX: '3'
+    countX: 3
   kind: Water
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 168
 
 - type: Tile
@@ -3303,12 +3303,12 @@
   image:
     filepath: Assets/Elona/Graphic/map1.bmp
     region: "288, 240, 48, 48"
-    _CountX: '3'
+    countX: 3
   kind: Water
   kind2: MountainWater
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 171
 
 - type: Tile
@@ -3318,7 +3318,7 @@
     region: "576, 240, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 177
 
 - type: Tile
@@ -3328,7 +3328,7 @@
     region: "672, 240, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 179
 
 - type: Tile
@@ -3338,7 +3338,7 @@
     region: "720, 240, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 180
 
 - type: Tile
@@ -3348,7 +3348,7 @@
     region: "864, 240, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 183
 
 - type: Tile
@@ -3358,7 +3358,7 @@
     region: "1008, 240, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 186
 
 - type: Tile
@@ -3368,7 +3368,7 @@
     region: "1104, 240, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 188
 
 - type: Tile
@@ -3378,7 +3378,7 @@
     region: "1152, 240, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 189
 
 - type: Tile
@@ -3388,7 +3388,7 @@
     region: "1200, 240, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 190
 
 - type: Tile
@@ -3398,7 +3398,7 @@
     region: "1296, 240, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 192
 
 - type: Tile
@@ -3408,7 +3408,7 @@
     region: "1344, 240, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 193
 
 - type: Tile
@@ -3418,7 +3418,7 @@
     region: "1488, 240, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 196
 
 - type: Tile
@@ -3428,7 +3428,7 @@
     region: "0, 288, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 198
 
 - type: Tile
@@ -3438,7 +3438,7 @@
     region: "48, 288, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 199
 
 - type: Tile
@@ -3448,7 +3448,7 @@
     region: "144, 288, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 201
 
 - type: Tile
@@ -3458,7 +3458,7 @@
     region: "192, 288, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 202
 
 - type: Tile
@@ -3468,7 +3468,7 @@
     region: "240, 288, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 203
 
 - type: Tile
@@ -3478,7 +3478,7 @@
     region: "288, 288, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 204
 
 - type: Tile
@@ -3488,7 +3488,7 @@
     region: "336, 288, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 205
 
 - type: Tile
@@ -3498,7 +3498,7 @@
     region: "384, 288, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 206
 
 - type: Tile
@@ -3508,7 +3508,7 @@
     region: "480, 288, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 208
 
 - type: Tile
@@ -3518,7 +3518,7 @@
     region: "528, 288, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 209
 
 - type: Tile
@@ -3528,7 +3528,7 @@
     region: "624, 288, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 211
 
 - type: Tile
@@ -3538,7 +3538,7 @@
     region: "672, 288, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 212
 
 - type: Tile
@@ -3548,7 +3548,7 @@
     region: "720, 288, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 213
 
 - type: Tile
@@ -3558,7 +3558,7 @@
     region: "768, 288, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 214
 
 - type: Tile
@@ -3568,7 +3568,7 @@
     region: "864, 288, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 216
 
 - type: Tile
@@ -3578,7 +3578,7 @@
     region: "960, 288, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 218
 
 - type: Tile
@@ -3588,7 +3588,7 @@
     region: "1008, 288, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 219
 
 - type: Tile
@@ -3598,7 +3598,7 @@
     region: "1104, 288, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 221
 
 - type: Tile
@@ -3608,7 +3608,7 @@
     region: "1152, 288, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 222
 
 - type: Tile
@@ -3618,7 +3618,7 @@
     region: "1200, 288, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 223
 
 - type: Tile
@@ -3628,7 +3628,7 @@
     region: "1248, 288, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 224
 
 - type: Tile
@@ -3638,7 +3638,7 @@
     region: "1296, 288, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 225
 
 - type: Tile
@@ -3648,7 +3648,7 @@
     region: "1440, 288, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 228
 
 - type: Tile
@@ -3658,7 +3658,7 @@
     region: "1488, 288, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 229
 
 - type: Tile
@@ -3668,7 +3668,7 @@
     region: "1536, 288, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 230
 
 - type: Tile
@@ -3678,7 +3678,7 @@
     region: "0, 480, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 330
 
 - type: Tile
@@ -3688,7 +3688,7 @@
     region: "48, 480, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 331
 
 - type: Tile
@@ -3698,7 +3698,7 @@
     region: "96, 480, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 332
 
 - type: Tile
@@ -3708,7 +3708,7 @@
     region: "144, 480, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 333
 
 - type: Tile
@@ -3718,7 +3718,7 @@
     region: "192, 480, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 334
 
 - type: Tile
@@ -3728,7 +3728,7 @@
     region: "240, 480, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 335
 
 - type: Tile
@@ -3738,7 +3738,7 @@
     region: "288, 480, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 336
 
 - type: Tile
@@ -3748,7 +3748,7 @@
     region: "336, 480, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 337
 
 - type: Tile
@@ -3758,7 +3758,7 @@
     region: "384, 480, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 338
 
 - type: Tile
@@ -3768,7 +3768,7 @@
     region: "432, 480, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 339
 
 - type: Tile
@@ -3778,7 +3778,7 @@
     region: "480, 480, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 340
 
 - type: Tile
@@ -3788,7 +3788,7 @@
     region: "528, 480, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 341
 
 - type: Tile
@@ -3798,7 +3798,7 @@
     region: "576, 480, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 342
 
 - type: Tile
@@ -3808,7 +3808,7 @@
     region: "624, 480, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 343
 
 - type: Tile
@@ -3818,7 +3818,7 @@
     region: "768, 480, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 346
 
 - type: Tile
@@ -3828,7 +3828,7 @@
     region: "816, 480, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 347
 
 - type: Tile
@@ -3838,7 +3838,7 @@
     region: "864, 480, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 348
 
 - type: Tile
@@ -3848,7 +3848,7 @@
     region: "912, 480, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 349
 
 - type: Tile
@@ -3858,7 +3858,7 @@
     region: "1392, 480, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 359
 
 - type: Tile
@@ -3868,7 +3868,7 @@
     region: "1440, 480, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 360
 
 - type: Tile
@@ -3878,7 +3878,7 @@
     region: "1488, 480, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 361
 
 - type: Tile
@@ -3888,7 +3888,7 @@
     region: "1536, 480, 48, 48"
   isSolid: false
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 362
 
 - type: Tile
@@ -3901,7 +3901,7 @@
   Wallimage:
     filepath: Assets/Elona/Graphic/map1.bmp
     region: "0, 624, 48, 48"
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 396
 
 - type: Tile
@@ -3914,7 +3914,7 @@
   Wallimage:
     filepath: Assets/Elona/Graphic/map1.bmp
     region: "48, 624, 48, 48"
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 397
 
 - type: Tile
@@ -3927,7 +3927,7 @@
   Wallimage:
     filepath: Assets/Elona/Graphic/map1.bmp
     region: "96, 624, 48, 48"
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 398
 
 - type: Tile
@@ -3940,7 +3940,7 @@
   Wallimage:
     filepath: Assets/Elona/Graphic/map1.bmp
     region: "144, 624, 48, 48"
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 399
 
 - type: Tile
@@ -3953,7 +3953,7 @@
   Wallimage:
     filepath: Assets/Elona/Graphic/map1.bmp
     region: "192, 624, 48, 48"
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 400
 
 - type: Tile
@@ -3966,7 +3966,7 @@
   Wallimage:
     filepath: Assets/Elona/Graphic/map1.bmp
     region: "240, 624, 48, 48"
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 401
 
 - type: Tile
@@ -3979,7 +3979,7 @@
   Wallimage:
     filepath: Assets/Elona/Graphic/map1.bmp
     region: "288, 624, 48, 48"
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 402
 
 - type: Tile
@@ -3992,7 +3992,7 @@
   Wallimage:
     filepath: Assets/Elona/Graphic/map1.bmp
     region: "336, 624, 48, 48"
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 403
 
 - type: Tile
@@ -4005,7 +4005,7 @@
   Wallimage:
     filepath: Assets/Elona/Graphic/map1.bmp
     region: "384, 624, 48, 48"
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 404
 
 - type: Tile
@@ -4018,7 +4018,7 @@
   Wallimage:
     filepath: Assets/Elona/Graphic/map1.bmp
     region: "432, 624, 48, 48"
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 405
 
 - type: Tile
@@ -4031,7 +4031,7 @@
   Wallimage:
     filepath: Assets/Elona/Graphic/map1.bmp
     region: "480, 624, 48, 48"
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 406
 
 - type: Tile
@@ -4044,7 +4044,7 @@
   Wallimage:
     filepath: Assets/Elona/Graphic/map1.bmp
     region: "528, 624, 48, 48"
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 407
 
 - type: Tile
@@ -4057,7 +4057,7 @@
   Wallimage:
     filepath: Assets/Elona/Graphic/map1.bmp
     region: "576, 624, 48, 48"
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 408
 
 - type: Tile
@@ -4070,7 +4070,7 @@
   Wallimage:
     filepath: Assets/Elona/Graphic/map1.bmp
     region: "624, 624, 48, 48"
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 409
 
 - type: Tile
@@ -4083,7 +4083,7 @@
   Wallimage:
     filepath: Assets/Elona/Graphic/map1.bmp
     region: "672, 624, 48, 48"
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 410
 
 - type: Tile
@@ -4096,7 +4096,7 @@
   Wallimage:
     filepath: Assets/Elona/Graphic/map1.bmp
     region: "720, 624, 48, 48"
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 411
 
 - type: Tile
@@ -4109,7 +4109,7 @@
   Wallimage:
     filepath: Assets/Elona/Graphic/map1.bmp
     region: "768, 624, 48, 48"
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 412
 
 - type: Tile
@@ -4122,7 +4122,7 @@
   Wallimage:
     filepath: Assets/Elona/Graphic/map1.bmp
     region: "816, 624, 48, 48"
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 413
 
 - type: Tile
@@ -4135,7 +4135,7 @@
   Wallimage:
     filepath: Assets/Elona/Graphic/map1.bmp
     region: "0, 720, 48, 48"
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 462
 
 - type: Tile
@@ -4148,7 +4148,7 @@
   Wallimage:
     filepath: Assets/Elona/Graphic/map1.bmp
     region: "48, 720, 48, 48"
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 463
 
 - type: Tile
@@ -4162,7 +4162,7 @@
   Wallimage:
     filepath: Assets/Elona/Graphic/map1.bmp
     region: "96, 720, 48, 48"
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 464
 
 - type: Tile
@@ -4175,7 +4175,7 @@
   Wallimage:
     filepath: Assets/Elona/Graphic/map1.bmp
     region: "144, 720, 48, 48"
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 465
 
 - type: Tile
@@ -4188,7 +4188,7 @@
   Wallimage:
     filepath: Assets/Elona/Graphic/map1.bmp
     region: "192, 720, 48, 48"
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 466
 
 - type: Tile
@@ -4201,7 +4201,7 @@
   Wallimage:
     filepath: Assets/Elona/Graphic/map1.bmp
     region: "240, 720, 48, 48"
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 467
 
 - type: Tile
@@ -4214,7 +4214,7 @@
   Wallimage:
     filepath: Assets/Elona/Graphic/map1.bmp
     region: "288, 720, 48, 48"
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 468
 
 - type: Tile
@@ -4227,7 +4227,7 @@
   Wallimage:
     filepath: Assets/Elona/Graphic/map1.bmp
     region: "336, 720, 48, 48"
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 469
 
 - type: Tile
@@ -4240,7 +4240,7 @@
   Wallimage:
     filepath: Assets/Elona/Graphic/map1.bmp
     region: "384, 720, 48, 48"
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 470
 
 - type: Tile
@@ -4253,7 +4253,7 @@
   Wallimage:
     filepath: Assets/Elona/Graphic/map1.bmp
     region: "432, 720, 48, 48"
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 471
 
 - type: Tile
@@ -4266,7 +4266,7 @@
   Wallimage:
     filepath: Assets/Elona/Graphic/map1.bmp
     region: "480, 720, 48, 48"
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 472
 
 - type: Tile
@@ -4279,7 +4279,7 @@
   Wallimage:
     filepath: Assets/Elona/Graphic/map1.bmp
     region: "528, 720, 48, 48"
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 473
 
 - type: Tile
@@ -4292,7 +4292,7 @@
   Wallimage:
     filepath: Assets/Elona/Graphic/map1.bmp
     region: "576, 720, 48, 48"
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 474
 
 - type: Tile
@@ -4305,7 +4305,7 @@
   Wallimage:
     filepath: Assets/Elona/Graphic/map1.bmp
     region: "624, 720, 48, 48"
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 475
 
 - type: Tile
@@ -4318,7 +4318,7 @@
   Wallimage:
     filepath: Assets/Elona/Graphic/map1.bmp
     region: "672, 720, 48, 48"
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 476
 
 - type: Tile
@@ -4331,7 +4331,7 @@
   Wallimage:
     filepath: Assets/Elona/Graphic/map1.bmp
     region: "720, 720, 48, 48"
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 477
 
 - type: Tile
@@ -4344,7 +4344,7 @@
   Wallimage:
     filepath: Assets/Elona/Graphic/map1.bmp
     region: "768, 720, 48, 48"
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 478
 
 - type: Tile
@@ -4357,7 +4357,7 @@
   Wallimage:
     filepath: Assets/Elona/Graphic/map1.bmp
     region: "816, 720, 48, 48"
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 479
 
 - type: Tile
@@ -4370,7 +4370,7 @@
   Wallimage:
     filepath: Assets/Elona/Graphic/map1.bmp
     region: "864, 720, 48, 48"
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 480
 
 - type: Tile
@@ -4383,7 +4383,7 @@
   Wallimage:
     filepath: Assets/Elona/Graphic/map1.bmp
     region: "912, 720, 48, 48"
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 481
 
 - type: Tile
@@ -4396,7 +4396,7 @@
   Wallimage:
     filepath: Assets/Elona/Graphic/map1.bmp
     region: "960, 720, 48, 48"
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 482
 
 - type: Tile
@@ -4409,7 +4409,7 @@
   Wallimage:
     filepath: Assets/Elona/Graphic/map1.bmp
     region: "1008, 720, 48, 48"
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 483
 
 - type: Tile
@@ -4422,7 +4422,7 @@
   Wallimage:
     filepath: Assets/Elona/Graphic/map1.bmp
     region: "1056, 720, 48, 48"
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 484
 
 - type: Tile
@@ -4435,7 +4435,7 @@
   Wallimage:
     filepath: Assets/Elona/Graphic/map1.bmp
     region: "1104, 720, 48, 48"
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 485
 
 - type: Tile
@@ -4448,7 +4448,7 @@
   Wallimage:
     filepath: Assets/Elona/Graphic/map1.bmp
     region: "1152, 720, 48, 48"
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 486
 
 - type: Tile
@@ -4461,7 +4461,7 @@
   Wallimage:
     filepath: Assets/Elona/Graphic/map1.bmp
     region: "1200, 720, 48, 48"
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 487
 
 - type: Tile
@@ -4474,7 +4474,7 @@
   Wallimage:
     filepath: Assets/Elona/Graphic/map1.bmp
     region: "1248, 720, 48, 48"
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 488
 
 - type: Tile
@@ -4487,7 +4487,7 @@
   Wallimage:
     filepath: Assets/Elona/Graphic/map1.bmp
     region: "1296, 720, 48, 48"
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 489
 
 - type: Tile
@@ -4500,7 +4500,7 @@
   Wallimage:
     filepath: Assets/Elona/Graphic/map1.bmp
     region: "1344, 720, 48, 48"
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 490
 
 - type: Tile
@@ -4513,7 +4513,7 @@
   Wallimage:
     filepath: Assets/Elona/Graphic/map1.bmp
     region: "1392, 720, 48, 48"
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 491
 
 - type: Tile
@@ -4526,7 +4526,7 @@
   Wallimage:
     filepath: Assets/Elona/Graphic/map1.bmp
     region: "1440, 720, 48, 48"
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 492
 
 - type: Tile
@@ -4539,7 +4539,7 @@
   Wallimage:
     filepath: Assets/Elona/Graphic/map1.bmp
     region: "1488, 720, 48, 48"
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 493
 
 - type: Tile
@@ -4552,7 +4552,7 @@
   Wallimage:
     filepath: Assets/Elona/Graphic/map1.bmp
     region: "1536, 720, 48, 48"
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 494
 
 - type: Tile
@@ -4562,7 +4562,7 @@
     region: "0, 768, 48, 48"
   isSolid: true
   isOpaque: true
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 528
 
 - type: Tile
@@ -4572,7 +4572,7 @@
     region: "48, 768, 48, 48"
   isSolid: true
   isOpaque: true
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 529
 
 - type: Tile
@@ -4582,7 +4582,7 @@
     region: "96, 768, 48, 48"
   isSolid: true
   isOpaque: true
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 530
 
 - type: Tile
@@ -4592,7 +4592,7 @@
     region: "144, 768, 48, 48"
   isSolid: true
   isOpaque: true
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 531
 
 - type: Tile
@@ -4602,7 +4602,7 @@
     region: "192, 768, 48, 48"
   isSolid: true
   isOpaque: true
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 532
 
 - type: Tile
@@ -4612,7 +4612,7 @@
     region: "240, 768, 48, 48"
   isSolid: true
   isOpaque: true
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 533
 
 - type: Tile
@@ -4622,7 +4622,7 @@
     region: "288, 768, 48, 48"
   isSolid: true
   isOpaque: true
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 534
 
 - type: Tile
@@ -4632,7 +4632,7 @@
     region: "336, 768, 48, 48"
   isSolid: true
   isOpaque: true
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 535
 
 - type: Tile
@@ -4642,7 +4642,7 @@
     region: "384, 768, 48, 48"
   isSolid: true
   isOpaque: true
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 536
 
 - type: Tile
@@ -4652,7 +4652,7 @@
     region: "432, 768, 48, 48"
   isSolid: true
   isOpaque: true
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 537
 
 - type: Tile
@@ -4662,7 +4662,7 @@
     region: "480, 768, 48, 48"
   isSolid: true
   isOpaque: true
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 538
 
 - type: Tile
@@ -4672,7 +4672,7 @@
     region: "528, 768, 48, 48"
   isSolid: true
   isOpaque: true
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 539
 
 - type: Tile
@@ -4682,7 +4682,7 @@
     region: "576, 768, 48, 48"
   isSolid: true
   isOpaque: true
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 540
 
 - type: Tile
@@ -4692,7 +4692,7 @@
     region: "624, 768, 48, 48"
   isSolid: true
   isOpaque: true
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 541
 
 - type: Tile
@@ -4702,7 +4702,7 @@
     region: "672, 768, 48, 48"
   isSolid: true
   isOpaque: true
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 542
 
 - type: Tile
@@ -4712,7 +4712,7 @@
     region: "720, 768, 48, 48"
   isSolid: true
   isOpaque: true
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 543
 
 - type: Tile
@@ -4722,7 +4722,7 @@
     region: "768, 768, 48, 48"
   isSolid: true
   isOpaque: true
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 544
 
 - type: Tile
@@ -4732,7 +4732,7 @@
     region: "816, 768, 48, 48"
   isSolid: true
   isOpaque: true
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 545
 
 - type: Tile
@@ -4740,10 +4740,10 @@
   image:
     filepath: Assets/Elona/Graphic/map1.bmp
     region: "1056, 768, 48, 48"
-    _CountX: 2
+    countX: 2
   isSolid: true
   isOpaque: true
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 550
 
 - type: Tile
@@ -4753,7 +4753,7 @@
     region: "144, 816, 48, 48"
   isSolid: true
   isOpaque: true
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 564
 
 - type: Tile
@@ -4763,7 +4763,7 @@
     region: "192, 816, 48, 48"
   isSolid: true
   isOpaque: true
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 565
 
 - type: Tile
@@ -4773,7 +4773,7 @@
     region: "240, 816, 48, 48"
   isSolid: true
   isOpaque: true
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 566
 
 - type: Tile
@@ -4783,7 +4783,7 @@
     region: "288, 816, 48, 48"
   isSolid: true
   isOpaque: true
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 567
 
 - type: Tile
@@ -4793,7 +4793,7 @@
     region: "336, 816, 48, 48"
   isSolid: true
   isOpaque: true
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 568
 
 - type: Tile
@@ -4803,7 +4803,7 @@
     region: "528, 816, 48, 48"
   isSolid: true
   isOpaque: true
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 572
 
 - type: Tile
@@ -4813,7 +4813,7 @@
     region: "576, 816, 48, 48"
   isSolid: true
   isOpaque: true
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 573
 
 - type: Tile
@@ -4823,7 +4823,7 @@
     region: "624, 816, 48, 48"
   isSolid: true
   isOpaque: true
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 574
 
 - type: Tile
@@ -4833,7 +4833,7 @@
     region: "672, 816, 48, 48"
   isSolid: true
   isOpaque: true
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 575
 
 - type: Tile
@@ -4843,7 +4843,7 @@
     region: "720, 816, 48, 48"
   isSolid: true
   isOpaque: true
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 576
 
 - type: Tile
@@ -4853,7 +4853,7 @@
     region: "768, 816, 48, 48"
   isSolid: true
   isOpaque: true
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 577
 
 - type: Tile
@@ -4861,11 +4861,11 @@
   image:
     filepath: Assets/Elona/Graphic/map1.bmp
     region: "0, 864, 48, 48"
-    _CountX: '3'
+    countX: 3
   kind: Water
   isSolid: true
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 594
 
 - type: Tile
@@ -4875,7 +4875,7 @@
     region: "0, 912, 48, 48"
   isSolid: true
   isOpaque: true
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 627
 
 - type: Tile
@@ -4885,7 +4885,7 @@
     region: "48, 912, 48, 48"
   isSolid: true
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 628
 
 - type: Tile
@@ -4895,7 +4895,7 @@
     region: "96, 912, 48, 48"
   isSolid: true
   isOpaque: true
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 629
 
 - type: Tile
@@ -4905,7 +4905,7 @@
     region: "144, 912, 48, 48"
   isSolid: true
   isOpaque: true
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 630
 
 - type: Tile
@@ -4915,7 +4915,7 @@
     region: "192, 912, 48, 48"
   isSolid: true
   isOpaque: true
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 631
 
 - type: Tile
@@ -4925,7 +4925,7 @@
     region: "240, 912, 48, 48"
   isSolid: true
   isOpaque: true
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 632
 
 - type: Tile
@@ -4935,7 +4935,7 @@
     region: "288, 912, 48, 48"
   isSolid: true
   isOpaque: true
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 633
 
 - type: Tile
@@ -4945,7 +4945,7 @@
     region: "336, 912, 48, 48"
   isSolid: true
   isOpaque: true
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 634
 
 - type: Tile
@@ -4955,7 +4955,7 @@
     region: "384, 912, 48, 48"
   isSolid: true
   isOpaque: true
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 635
 
 - type: Tile
@@ -4965,7 +4965,7 @@
     region: "432, 912, 48, 48"
   isSolid: true
   isOpaque: true
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 636
 
 - type: Tile
@@ -4975,7 +4975,7 @@
     region: "480, 912, 48, 48"
   isSolid: true
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 637
 
 - type: Tile
@@ -4985,7 +4985,7 @@
     region: "528, 912, 48, 48"
   isSolid: true
   isOpaque: true
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 638
 
 - type: Tile
@@ -4995,7 +4995,7 @@
     region: "576, 912, 48, 48"
   isSolid: true
   isOpaque: true
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 639
 
 - type: Tile
@@ -5005,7 +5005,7 @@
     region: "672, 912, 48, 48"
   isSolid: true
   isOpaque: false
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 641
 
 - type: Tile
@@ -5015,7 +5015,7 @@
     region: "912, 912, 48, 48"
   isSolid: true
   isOpaque: true
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 646
 
 - type: Tile
@@ -5025,7 +5025,7 @@
     region: "960, 912, 48, 48"
   isSolid: true
   isOpaque: true
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 647
 
 - type: Tile
@@ -5035,7 +5035,7 @@
     region: "1008, 912, 48, 48"
   isSolid: true
   isOpaque: true
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 648
 
 - type: Tile
@@ -5045,7 +5045,7 @@
     region: "1152, 912, 48, 48"
   isSolid: true
   isOpaque: true
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 651
 
 - type: Tile
@@ -5055,7 +5055,7 @@
     region: "1200, 912, 48, 48"
   isSolid: true
   isOpaque: true
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 652
 
 - type: Tile
@@ -5065,7 +5065,7 @@
     region: "1296, 912, 48, 48"
   isSolid: true
   isOpaque: true
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 654
 
 - type: Tile
@@ -5075,7 +5075,7 @@
     region: "1344, 912, 48, 48"
   isSolid: true
   isOpaque: true
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 655
 
 - type: Tile
@@ -5085,7 +5085,7 @@
     region: "1392, 912, 48, 48"
   isSolid: true
   isOpaque: true
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 656
 
 - type: Tile
@@ -5095,7 +5095,7 @@
     region: "1440, 912, 48, 48"
   isSolid: true
   isOpaque: true
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 657
 
 - type: Tile
@@ -5105,7 +5105,7 @@
     region: "1488, 912, 48, 48"
   isSolid: true
   isOpaque: true
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 658
 
 - type: Tile
@@ -5115,7 +5115,7 @@
     region: "1536, 912, 48, 48"
   isSolid: true
   isOpaque: true
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 659
 
 - type: Tile
@@ -5125,7 +5125,7 @@
     region: "96, 960, 48, 48"
   isSolid: true
   isOpaque: true
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 662
 
 - type: Tile
@@ -5135,7 +5135,7 @@
     region: "144, 960, 48, 48"
   isSolid: true
   isOpaque: true
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 663
 
 - type: Tile
@@ -5145,7 +5145,7 @@
     region: "192, 960, 48, 48"
   isSolid: true
   isOpaque: true
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 664
 
 - type: Tile
@@ -5155,7 +5155,7 @@
     region: "240, 960, 48, 48"
   isSolid: true
   isOpaque: true
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 665
 
 - type: Tile
@@ -5165,7 +5165,7 @@
     region: "288, 960, 48, 48"
   isSolid: true
   isOpaque: true
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 666
 
 - type: Tile
@@ -5175,7 +5175,7 @@
     region: "336, 960, 48, 48"
   isSolid: true
   isOpaque: true
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 667
 
 - type: Tile
@@ -5185,7 +5185,7 @@
     region: "384, 960, 48, 48"
   isSolid: true
   isOpaque: true
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 668
 
 - type: Tile
@@ -5195,7 +5195,7 @@
     region: "432, 960, 48, 48"
   isSolid: true
   isOpaque: true
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 669
 
 - type: Tile
@@ -5205,7 +5205,7 @@
     region: "1440, 960, 48, 48"
   isSolid: true
   isOpaque: true
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 690
 
 - type: Tile
@@ -5215,7 +5215,7 @@
     region: "1488, 960, 48, 48"
   isSolid: true
   isOpaque: true
-  elonaAtlas: '1'
+  elonaAtlas: 1
   elonaId: 691
 
 - type: Tile

@@ -1,6 +1,5 @@
 ﻿using OpenNefia.Core.Game;
 using OpenNefia.Core.Maps;
-using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.UI.Element;
 
 namespace OpenNefia.Core.Rendering
