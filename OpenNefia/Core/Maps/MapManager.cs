@@ -50,7 +50,7 @@ namespace OpenNefia.Core.Maps
             return CachedMaps[id];
         }
 
-        public void ChangeCurrentMap(MapId id)
+        public void ChangeActiveMap(MapId id)
         {
             this.ActiveMap = CachedMaps[id];
             _currentMapId = id;

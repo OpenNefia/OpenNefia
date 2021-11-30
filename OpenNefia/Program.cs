@@ -62,8 +62,10 @@ namespace Why
 
         private static void InitIoC()
         {
+            IoCManager.InitThread();
             IoCSetup.Run();
             IoCManager.BuildGraph();
+
             RegisterReflection();
         }
 

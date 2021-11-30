@@ -42,7 +42,7 @@ namespace OpenNefia.Core.GameController
                                 var map = InitMap();
                                 _mapManager.RegisterMap(map);
 
-                                _mapManager.ChangeCurrentMap(map.Id);
+                                _mapManager.ChangeActiveMap(map.Id);
                                 _fieldLayer.SetMap(map);
                                 
                                 _fieldLayer.Query();

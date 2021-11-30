@@ -2,6 +2,7 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 using JetBrains.Annotations;
+using OpenNefia.Core.Utility;
 using NotNull = System.Diagnostics.CodeAnalysis.NotNullAttribute;
 
 namespace OpenNefia.Core.IoC
@@ -24,11 +25,62 @@ namespace OpenNefia.Core.IoC
     /// To use the IoCManager, it first needs some types registered through <see cref="Register{TInterface, TImplementation}"/>.
     /// These implementations can then be fetched with <see cref="Resolve{T}"/>, or through field injection with <see cref="DependencyAttribute" />.
     /// </para>
+    /// <para>
+    /// <c>IoCManager</c> is actually a static wrapper class around a thread local <see cref="IDependencyCollection"/>.
+    /// As such, <c>IoCManager</c> will not work in other threads,
+    /// unless they have first been initialized with <see cref="InitThread()"/> or <see cref="InitThread(IDependencyCollection,bool)"/>.
+    /// You should not initialize IoC in thread pools like that of <see cref="Task.Run(Action)"/>,
+    /// since said thread pool might be used by different running instances
+    /// (for example, server and client running in the same process, they have a different IoC instance).
+    /// </para>
     /// </remarks>
     /// <seealso cref="IReflectionManager"/>
     public static class IoCManager
     {
-        public static IDependencyCollection Instance { get; private set; } = new DependencyCollection();
+        private const string NoContextAssert = "IoC has no context on this thread. Are you calling IoC from the wrong thread or did you forget to initialize it?";
+        private static readonly ThreadLocal<IDependencyCollection> _container = new();
+
+        /// <summary>
+        /// Returns the singleton thread-local instance of the IoCManager's dependency collection.
+        /// </summary>
+        /// <remarks>
+        /// This property will be null if <see cref="InitThread()"/> has not been called on this thread yet.
+        /// </remarks>
+        public static IDependencyCollection? Instance => _container.IsValueCreated ? _container.Value : null;
+
+        /// <summary>
+        /// Ensures that the <see cref="IDependencyCollection"/> instance exists for this thread.
+        /// </summary>
+        /// <remarks>
+        /// This will create a new instance of a <see cref="IDependencyCollection"/> for this thread,
+        /// otherwise it will do nothing if one already exists.
+        /// </remarks>
+        public static void InitThread()
+        {
+            if (_container.IsValueCreated)
+            {
+                return;
+            }
+
+            _container.Value = new DependencyCollection();
+        }
+
+        /// <summary>
+        /// Sets an existing <see cref="IDependencyCollection"/> as the instance for this thread.
+        /// </summary>
+        /// <exception cref="InvalidOperationException">Will be thrown if a <see cref="IDependencyCollection"/> instance is already set for this thread,
+        /// and replaceExisting is set to false.</exception>
+        /// <param name="collection">Collection to set as the instance for this thread.</param>
+        /// <param name="replaceExisting">If this is true, replaces the existing collection, if one is set for this thread.</param>
+        public static void InitThread(IDependencyCollection collection, bool replaceExisting = false)
+        {
+            if (_container.IsValueCreated && !replaceExisting)
+            {
+                throw new InvalidOperationException("This thread has already been initialized.");
+            }
+
+            _container.Value = collection;
+        }
 
         /// <summary>
         /// Registers an interface to an implementation, to make it accessible to <see cref="Resolve{T}"/>
@@ -46,7 +98,9 @@ namespace OpenNefia.Core.IoC
         public static void Register<TInterface, [MeansImplicitUse] TImplementation>(bool overwrite = false)
             where TImplementation : class, TInterface
         {
-            Instance.Register<TInterface, TImplementation>(overwrite);
+            DebugTools.Assert(_container.IsValueCreated, NoContextAssert);
+
+            _container.Value!.Register<TInterface, TImplementation>(overwrite);
         }
 
         /// <summary>
@@ -84,7 +138,9 @@ namespace OpenNefia.Core.IoC
         public static void Register<TInterface, TImplementation>(DependencyFactoryDelegate<TImplementation> factory, bool overwrite = false)
             where TImplementation : class, TInterface
         {
-            Instance.Register<TInterface, TImplementation>(factory, overwrite);
+            DebugTools.Assert(_container.IsValueCreated, NoContextAssert);
+
+            _container.Value!.Register<TInterface, TImplementation>(factory, overwrite);
         }
 
         /// <summary>
@@ -101,7 +157,9 @@ namespace OpenNefia.Core.IoC
         /// </param>
         public static void RegisterInstance<TInterface>(object implementation, bool overwrite = false)
         {
-            Instance.RegisterInstance<TInterface>(implementation, overwrite);
+            DebugTools.Assert(_container.IsValueCreated, NoContextAssert);
+
+            _container.Value!.RegisterInstance<TInterface>(implementation, overwrite);
         }
 
         /// <summary>
@@ -111,7 +169,8 @@ namespace OpenNefia.Core.IoC
         /// </summary>
         public static void Clear()
         {
-            Instance.Clear();
+            if (_container.IsValueCreated)
+                _container.Value!.Clear();
         }
 
         /// <summary>
@@ -125,14 +184,18 @@ namespace OpenNefia.Core.IoC
         [System.Diagnostics.Contracts.Pure]
         public static T Resolve<T>()
         {
-            return Instance.Resolve<T>();
+            DebugTools.Assert(_container.IsValueCreated, NoContextAssert);
+
+            return _container.Value!.Resolve<T>();
         }
 
         /// <inheritdoc cref="Resolve{T}()"/>
         [MethodImpl(MethodImplOptions.AggressiveOptimization | MethodImplOptions.AggressiveInlining)]
         public static void Resolve<T>([NotNull] ref T? instance)
         {
-            Instance.Resolve(ref instance);
+            DebugTools.Assert(_container.IsValueCreated, NoContextAssert);
+
+            _container.Value!.Resolve(ref instance);
         }
 
         /// <summary>
@@ -146,7 +209,9 @@ namespace OpenNefia.Core.IoC
         [System.Diagnostics.Contracts.Pure]
         public static object ResolveType(Type type)
         {
-            return Instance.ResolveType(type);
+            DebugTools.Assert(_container.IsValueCreated, NoContextAssert);
+
+            return _container.Value!.ResolveType(type);
         }
 
         /// <summary>
@@ -155,7 +220,9 @@ namespace OpenNefia.Core.IoC
         /// <seealso cref="InjectDependencies{T}"/>
         public static void BuildGraph()
         {
-            Instance.BuildGraph();
+            DebugTools.Assert(_container.IsValueCreated, NoContextAssert);
+
+            _container.Value!.BuildGraph();
         }
 
         /// <summary>
@@ -172,7 +239,8 @@ namespace OpenNefia.Core.IoC
         /// <seealso cref="BuildGraph"/>
         public static T InjectDependencies<T>(T obj) where T : notnull
         {
-            Instance.InjectDependencies(obj);
+            DebugTools.Assert(_container.IsValueCreated, NoContextAssert);
+            _container.Value!.InjectDependencies(obj);
             return obj;
         }
     }

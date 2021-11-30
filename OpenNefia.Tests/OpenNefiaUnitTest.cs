@@ -19,13 +19,14 @@ namespace OpenNefia.Tests
         public void BaseSetup()
         {
             // Clear state across tests.
+            IoCManager.InitThread();
             IoCManager.Clear();
 
             RegisterIoC();
 
             var assemblies = new List<Assembly>(4);
 
-            assemblies.Add(AppDomain.CurrentDomain.GetAssemblyByName("Why"));
+            assemblies.Add(AppDomain.CurrentDomain.GetAssemblyByName("OpenNefia"));
             assemblies.Add(Assembly.GetExecutingAssembly());
 
             var contentAssemblies = GetContentAssemblies();

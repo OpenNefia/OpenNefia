@@ -28,9 +28,6 @@ namespace OpenNefia.Core.GameObjects
         private const int EntityCapacity = 1024;
         private const int NetComponentCapacity = 8;
 
-        private readonly Dictionary<EntityUid, Dictionary<ushort, Component>> _netComponents
-            = new(EntityCapacity);
-
         private readonly Dictionary<Type, Dictionary<EntityUid, Component>> _entTraitDict
             = new();
 
@@ -66,7 +63,6 @@ namespace OpenNefia.Core.GameObjects
         {
             _componentFactory.ComponentAdded -= OnComponentAdded;
             _componentFactory.ComponentReferenceAdded -= OnComponentReferenceAdded;
-            _netComponents.Clear();
             _entCompIndex.Clear();
             _deleteSet.Clear();
             FillComponentDict();
@@ -227,13 +223,6 @@ namespace OpenNefia.Core.GameObjects
         public void RemoveComponent(EntityUid uid, Type type)
         {
             RemoveComponentImmediate((Component)GetComponent(uid, type), uid, false);
-        }
-
-        /// <inheritdoc />
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void RemoveComponent(EntityUid uid, ushort netId)
-        {
-            RemoveComponentImmediate((Component)GetComponent(uid, netId), uid, false);
         }
 
         /// <inheritdoc />
@@ -403,14 +392,6 @@ namespace OpenNefia.Core.GameObjects
             return dict.TryGetValue(uid, out var comp) && !comp.Deleted;
         }
 
-        /// <inheritdoc />
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public bool HasComponent(EntityUid uid, ushort netId)
-        {
-            return _netComponents.TryGetValue(uid, out var netSet)
-                   && netSet.ContainsKey(netId);
-        }
-
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public T EnsureComponent<T>(IEntity entity) where T : Component, new()
         {
@@ -455,12 +436,6 @@ namespace OpenNefia.Core.GameObjects
         }
 
         /// <inheritdoc />
-        public IComponent GetComponent(EntityUid uid, ushort netId)
-        {
-            return _netComponents[uid][netId];
-        }
-
-        /// <inheritdoc />
         public bool TryGetComponent<T>(EntityUid uid, [NotNullWhen(true)] out T component)
         {
             if (TryGetComponent(uid, typeof(T), out var comp))
@@ -494,20 +469,6 @@ namespace OpenNefia.Core.GameObjects
         }
 
         /// <inheritdoc />
-        public bool TryGetComponent(EntityUid uid, ushort netId, [MaybeNullWhen(false)] out IComponent component)
-        {
-            if (_netComponents.TryGetValue(uid, out var netSet)
-                && netSet.TryGetValue(netId, out var comp))
-            {
-                component = comp;
-                return true;
-            }
-
-            component = default;
-            return false;
-        }
-
-        /// <inheritdoc />
         public IEnumerable<IComponent> GetComponents(EntityUid uid)
         {
             // ReSharper disable once LoopCanBeConvertedToQuery
@@ -529,12 +490,6 @@ namespace OpenNefia.Core.GameObjects
 
                 yield return tComp;
             }
-        }
-
-        /// <inheritdoc />
-        public NetComponentEnumerable GetNetComponents(EntityUid uid)
-        {
-            return new NetComponentEnumerable(_netComponents[uid]);
         }
 
         #region Join Functions
@@ -655,31 +610,5 @@ namespace OpenNefia.Core.GameObjects
                 _entTraitDict.Add(refType, new Dictionary<EntityUid, Component>());
             }
         }
-    }
-
-    public readonly struct NetComponentEnumerable
-    {
-        private readonly Dictionary<ushort, Component> _dictionary;
-
-        public NetComponentEnumerable(Dictionary<ushort, Component> dictionary) => _dictionary = dictionary;
-        public NetComponentEnumerator GetEnumerator() => new(_dictionary);
-    }
-
-    public struct NetComponentEnumerator
-    {
-        // DO NOT MAKE THIS READONLY
-        private Dictionary<ushort, Component>.Enumerator _dictEnum;
-
-        public NetComponentEnumerator(Dictionary<ushort, Component> dictionary) => _dictEnum = dictionary.GetEnumerator();
-        public bool MoveNext() => _dictEnum.MoveNext();
-        public (ushort netId, IComponent component) Current
-        {
-            get
-            {
-                var val = _dictEnum.Current;
-                return (val.Key, val.Value);
-            }
-        }
-
     }
 }

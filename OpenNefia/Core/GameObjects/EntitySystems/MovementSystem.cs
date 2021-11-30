@@ -1,7 +1,7 @@
 ﻿using OpenNefia.Core.Maps;
 using OpenNefia.Core.Maths;
 
-namespace OpenNefia.Core.GameObjects.EntitySystems
+namespace OpenNefia.Core.GameObjects
 {
     public class MovementSystem : EntitySystem
     {
@@ -25,12 +25,12 @@ namespace OpenNefia.Core.GameObjects.EntitySystems
             if (!Resolve(uid, ref moveable, ref spatial))
                 return;
 
-            spatial.Direction = (args.NewPos.Position - args.OldPos.Position).GetDir();
+            spatial.Direction = (args.NewPosition.Position - args.OldPosition.Position).GetDir();
 
             var evBefore = new BeforeMoveEventArgs()
             {
-                OldPos = args.OldPos,
-                NewPos = args.NewPos
+                OldPosition = args.OldPosition,
+                NewPosition = args.NewPosition
             };
             RaiseLocalEvent(uid, evBefore);
 
@@ -41,16 +41,16 @@ namespace OpenNefia.Core.GameObjects.EntitySystems
                 return;
             }
 
-            if (args.OldPos.Map != args.NewPos.Map || !args.NewPos.CanAccess())
+            if (args.OldPosition.Map != args.NewPosition.Map || !args.NewPosition.CanAccess())
             {
                 args.Handled = true;
                 args.TurnResult = TurnResult.Failed;
                 return;
             }
 
-            spatial.Pos = args.NewPos.Position;
-            spatial.Map!.RefreshTile(args.OldPos.Position);
-            spatial.Map.RefreshTile(args.NewPos.Position);
+            spatial.Pos = args.NewPosition.Position;
+            spatial.Map!.RefreshTile(args.OldPosition.Position);
+            spatial.Map.RefreshTile(args.NewPosition.Position);
 
             var evAfter = new AfterMoveEventArgs();
             RaiseLocalEvent(uid, evAfter);
@@ -62,16 +62,16 @@ namespace OpenNefia.Core.GameObjects.EntitySystems
 
     public class OnMoveEventArgs : HandledEntityEventArgs
     {
-        public MapCoordinates OldPos;
-        public MapCoordinates NewPos;
+        public MapCoordinates OldPosition;
+        public MapCoordinates NewPosition;
 
         public TurnResult TurnResult;
     }
 
     public class BeforeMoveEventArgs : HandledEntityEventArgs
     {
-        public MapCoordinates OldPos;
-        public MapCoordinates NewPos;
+        public MapCoordinates OldPosition;
+        public MapCoordinates NewPosition;
 
         public TurnResult TurnResult;
     }

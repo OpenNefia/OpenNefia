@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using OpenNefia.Core.Maps;
+using OpenNefia.Core.Maths;
 using OpenNefia.Core.Prototypes;
 
 namespace OpenNefia.Core.GameObjects
@@ -134,6 +135,12 @@ namespace OpenNefia.Core.GameObjects
             var entity = CreateEntityUninitialized(protoName, coordinates);
             InitializeAndStartEntity((Entity) entity, coordinates.Map?.Id ?? MapId.Nullspace);
             return entity;
+        }
+
+        /// <inheritdoc />
+        public IEntity SpawnEntity(string? protoName, IMap map, Vector2i position)
+        {
+            return SpawnEntity(protoName, new MapCoordinates(map, position));
         }
 
         /// <summary>

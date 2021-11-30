@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using OpenNefia.Core.Maps;
+using OpenNefia.Core.Maths;
 
 namespace OpenNefia.Core.GameObjects
 {
@@ -38,6 +39,15 @@ namespace OpenNefia.Core.GameObjects
         /// <param name="coordinates"></param>
         /// <returns></returns>
         IEntity SpawnEntity(string? protoName, MapCoordinates coordinates);
+
+        /// <summary>
+        /// Spawns an entity at a specific position
+        /// </summary>
+        /// <param name="protoName"></param>
+        /// <param name="map"></param>
+        /// <param name="position"></param>
+        /// <returns></returns>
+        IEntity SpawnEntity(string? protoName, IMap map, Vector2i position);
 
         /// <summary>
         /// Returns an entity by id

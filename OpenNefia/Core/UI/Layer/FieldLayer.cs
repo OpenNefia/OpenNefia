@@ -132,8 +132,8 @@ namespace OpenNefia.Core.UI.Layer
             {
                 var ev = new OnMoveEventArgs() 
                 {
-                    OldPos = player.Spatial.Coords,
-                    NewPos = player.Spatial.Coords.Offset(dir.ToIntVec())
+                    OldPosition = player.Spatial.Coords,
+                    NewPosition = player.Spatial.Coords.Offset(dir.ToIntVec())
                 };
                 player.EntityManager.EventBus.RaiseLocalEvent(player.Uid, ev);
             }

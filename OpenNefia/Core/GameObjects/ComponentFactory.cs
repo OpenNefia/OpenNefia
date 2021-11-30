@@ -15,7 +15,6 @@ namespace OpenNefia.Core.GameObjects
         private class ComponentRegistration : IComponentRegistration
         {
             public string Name { get; }
-            public ushort? NetID { get; set; }
             public Type Type { get; }
             internal readonly List<Type> References = new();
             IReadOnlyList<Type> IComponentRegistration.References => References;
@@ -23,7 +22,6 @@ namespace OpenNefia.Core.GameObjects
             public ComponentRegistration(string name, Type type)
             {
                 Name = name;
-                NetID = null;
                 Type = type;
                 References.Add(type);
             }
