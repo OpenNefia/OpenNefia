@@ -1,0 +1,34 @@
+- type: BasicAnim
+  id: AnimSmoke
+  elonaId: 8
+  asset: AnimSmoke
+  sound: Offer1
+
+- type: BasicAnim
+  id: AnimSparkle
+  elonaId: 10
+  asset: AnimSparkle
+  sound: Enc2
+  frameCount: 8
+  frameDelayMillis: 8
+  rotation: 0.2
+
+- type: BasicAnim
+  id: AnimBuff
+  elonaId: 11
+  asset: AnimBuff
+  sound: Enc
+  frameCount: 5
+  frameDelayMillis: 50
+
+- type: BasicAnim
+  id: AnimCurse
+  elonaId: 14
+  asset: AnimCurse
+  frameCount: 5
+  frameDelayMillis: 50
+
+- type: BasicAnim
+  id: AnimElec
+  elonaId: 15
+  asset: AnimElec

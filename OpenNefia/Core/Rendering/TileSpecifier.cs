@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Xml.Linq;
+using OpenNefia.Core.Maths;
 using OpenNefia.Core.Serialization.Manager.Attributes;
 using OpenNefia.Core.Utility;
 
@@ -30,7 +31,7 @@ namespace OpenNefia.Core.Rendering
         /// If non-null, indicates this specifier operates on a texture atlas.
         /// </summary>
         [DataField]
-        public ImageRegion? ImageRegion;
+        public Box2i? ImageRegion;
 
         public string Identifier => TileId;
         public bool HasOverhang => false;

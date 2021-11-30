@@ -5,21 +5,40 @@ using OpenNefia.Core.Utility;
 using System.Reflection;
 using NLua;
 using OpenNefia.Core.Prototypes;
+using OpenNefia.Core.ContentPack;
 
 namespace OpenNefia.Core.Locale
 {
+    public interface ILocalizationManager
+    {
+        PrototypeId<LanguagePrototype> Language { get; }
+
+        void Initialize();
+
+        bool IsFullwidth();
+        void SwitchLanguage(PrototypeId<LanguagePrototype> language);
+
+        void DoLocalize(object o, LocaleKey key);
+
+        LocaleFunc<T> GetFunction<T>(LocaleKey key);
+        LocaleFunc<T1, T2> GetFunction<T1, T2>(LocaleKey key);
+        string GetString(LocaleKey key);
+    }
+
     public class LocalizationManager : ILocalizationManager
     {
         [Dependency] private readonly IUiLayerManager _uiLayers = default!;
+        [Dependency] private readonly IResourceManager _resourceManager = default!;
 
         private LocalizationEnv _env = null!;
 
         public void Initialize()
         {
-            _env = new LocalizationEnv();
+            _env = new LocalizationEnv(_resourceManager);
+
+            SwitchLanguage(LanguagePrototypeOf.English);
         }
 
-        // TODO needs to be LanguageDef
         public PrototypeId<LanguagePrototype> Language { get; private set; } = LanguagePrototypeOf.English;
         
         public void SwitchLanguage(PrototypeId<LanguagePrototype> language)
@@ -36,7 +55,7 @@ namespace OpenNefia.Core.Locale
 
         public string GetString(LocaleKey key)
         {
-            var result = _env.StringStore.GetValueOrDefault(key);
+            var result = _env._StringStore.GetValueOrDefault(key);
             if (result != null)
             {
                 return result;
@@ -46,10 +65,10 @@ namespace OpenNefia.Core.Locale
 
         public LocaleFunc<T> GetFunction<T>(LocaleKey key)
         {
-            var luaFunc = _env.FunctionStore.GetValueOrDefault(key);
+            var luaFunc = _env._FunctionStore.GetValueOrDefault(key);
             if (luaFunc == null)
             {
-                var luaString = _env.StringStore.GetValueOrDefault(key);
+                var luaString = _env._StringStore.GetValueOrDefault(key);
                 if (luaString == null)
                 {
                     return (_) => $"<Missing key: {key}>";
@@ -69,10 +88,10 @@ namespace OpenNefia.Core.Locale
 
         public LocaleFunc<T1, T2> GetFunction<T1, T2>(LocaleKey key)
         {
-            var luaFunc = _env.FunctionStore.GetValueOrDefault(key);
+            var luaFunc = _env._FunctionStore.GetValueOrDefault(key);
             if (luaFunc == null)
             {
-                var luaString = _env.StringStore.GetValueOrDefault(key);
+                var luaString = _env._StringStore.GetValueOrDefault(key);
                 if (luaString == null)
                 {
                     return (_, _) => $"<Missing key: {key}>";
@@ -107,38 +126,13 @@ namespace OpenNefia.Core.Locale
         {
             var attr = field.GetLocalizeAttribute();
 
-            // If the field is an ILocalizable, the locale key will match exactly how it is defined
-            // in Lua.
-
-            // Otherwise, the name of the field must be "Text<...>" in the C# side and the key is
-            // "<...>" in Lua.
-            // This makes it easier to tell what was localized from the variable name and what is
-            // just a plain string.
-
-            string keyFrag;
+            string keyFrag = attr?.Key ?? field.Name;
 
             if (typeof(ILocalizable).IsAssignableFrom(field.FieldType))
             {
-                keyFrag = attr?.Key ?? field.Name;
                 var localizable = (ILocalizable)field.GetValue(o)!;
                 localizable.Localize(baseKey.With(keyFrag));
                 return;
-            }
-
-            if (field.IsStatic)
-            {
-                if (field.Name.StartsWith("Text"))
-                {
-                    keyFrag = attr?.Key ?? field.Name.RemovePrefix("Text");
-                }
-                else
-                {
-                    throw new Exception($"Localized fields should start with 'Text' (got: {field.Name}, {baseKey})");
-                }
-            }
-            else
-            {
-                keyFrag = attr?.Key ?? field.Name;
             }
 
             var nextKey = baseKey.With(keyFrag);
@@ -185,7 +179,7 @@ namespace OpenNefia.Core.Locale
 
         private void LocalizeDictionary(FieldInfo field, LocaleKey localeKey)
         {
-            var luaTable = _env.Lua.GetTable(localeKey);
+            var luaTable = _env._Lua.GetTable(localeKey);
             
             if (luaTable == null)
             {

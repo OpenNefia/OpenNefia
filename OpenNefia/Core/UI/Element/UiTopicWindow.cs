@@ -27,23 +27,23 @@ namespace OpenNefia.Core.UI.Element
             Six = 6
         }
 
-        [UiStyled] protected FrameStyleKind FrameStyle;
-        [UiStyled] protected WindowStyleKind WindowStyle;
+        protected FrameStyleKind FrameStyle;
+        protected WindowStyleKind WindowStyle;
 
-        [UiStyled] private readonly Color ColorStyle0;
-        [UiStyled] private readonly Color ColorStyle1;
-        [UiStyled] private readonly Color ColorStyle2;
-        [UiStyled] private readonly Color ColorStyle3;
-        [UiStyled] private readonly Color ColorStyle4;
-        [UiStyled] private readonly Color ColorStyle5;
-        [UiStyled] private readonly Color ColorStyle6;
+        private readonly Color ColorStyle0 = UiColors.TopicWindowStyle0;
+        private readonly Color ColorStyle1 = UiColors.TopicWindowStyle1;
+        private readonly Color ColorStyle2 = UiColors.TopicWindowStyle2;
+        private readonly Color ColorStyle3 = UiColors.TopicWindowStyle3;
+        private readonly Color ColorStyle4 = UiColors.TopicWindowStyle4;
+        private readonly Color ColorStyle5 = UiColors.TopicWindowStyle5;
+        private readonly Color ColorStyle6 = UiColors.TopicWindowStyle6;
 
-        protected AssetDrawable AssetTopicWindow;
-        protected AssetDrawable AssetWindow;
+        protected IAssetDrawable AssetTopicWindow;
+        protected IAssetDrawable AssetWindow;
 
         protected Love.SpriteBatch TopicWindowBatch;
 
-        private AssetDrawable GetTopicWindowAsset(FrameStyleKind frameStyle)
+        private IAssetDrawable GetTopicWindowAsset(FrameStyleKind frameStyle)
         {
             switch (frameStyle)
             {
@@ -108,9 +108,9 @@ namespace OpenNefia.Core.UI.Element
             return this.AssetTopicWindow.MakeBatch(parts);
         }
 
-        public override void SetSize(Vector2i size)
+        public override void SetSize(int width, int height)
         {
-            base.SetSize(size);
+            base.SetSize(width, height);
             this.TopicWindowBatch = this.MakeBatch();
         }
 
@@ -123,7 +123,7 @@ namespace OpenNefia.Core.UI.Element
             if (this.WindowStyle == WindowStyleKind.Six)
             {
                 GraphicsEx.SetColor(this.ColorStyle6);
-                GraphicsEx.DrawSpriteBatch(this.TopicWindowBatch, this.Left, this.Top, this.Width - 4, this.Height - 4);
+                GraphicsEx.DrawSpriteBatch(this.TopicWindowBatch, this.X, this.Y, this.Width - 4, this.Height - 4);
             }
             else
             {
@@ -156,23 +156,23 @@ namespace OpenNefia.Core.UI.Element
                 if (rect)
                 {
                     Love.Graphics.SetBlendMode(Love.BlendMode.Subtract);
-                    Love.Graphics.Rectangle(Love.DrawMode.Fill, this.Left + 4, this.Top + 4, this.Width - 4, this.Height - 4);
+                    Love.Graphics.Rectangle(Love.DrawMode.Fill, this.X + 4, this.Y + 4, this.Width - 4, this.Height - 4);
                     Love.Graphics.SetBlendMode(Love.BlendMode.Alpha);
                 }
             }
 
-            this.AssetWindow.DrawRegion("fill", this.Left + 4, this.Top + 4, this.Width - 6, this.Height - 8);
+            this.AssetWindow.DrawRegion("fill", this.X + 4, this.Y + 4, this.Width - 6, this.Height - 8);
 
             GraphicsEx.SetColor(Love.Color.White);
-            GraphicsEx.DrawSpriteBatch(this.TopicWindowBatch, this.Left, this.Top);
+            GraphicsEx.DrawSpriteBatch(this.TopicWindowBatch, this.X, this.Y);
 
             if (this.WindowStyle == WindowStyleKind.Five)
             {
                 GraphicsEx.SetColor(this.ColorStyle5);
-                GraphicsEx.DrawSpriteBatch(this.TopicWindowBatch, this.Left + 2, this.Top + 2, this.Width - 4, this.Height - 5);
+                GraphicsEx.DrawSpriteBatch(this.TopicWindowBatch, this.X + 2, this.Y + 2, this.Width - 4, this.Height - 5);
 
                 Love.Graphics.SetBlendMode(Love.BlendMode.Subtract);
-                Love.Graphics.Rectangle(Love.DrawMode.Fill, this.Left + 4, this.Top + 4, this.Width - 4, this.Height - 4);
+                Love.Graphics.Rectangle(Love.DrawMode.Fill, this.X + 4, this.Y + 4, this.Width - 4, this.Height - 4);
                 Love.Graphics.SetBlendMode(Love.BlendMode.Alpha);
             }
         }

@@ -4,8 +4,8 @@ using OpenNefia.Core.Utility;
 
 namespace OpenNefia.Core.Audio
 {
-    [Prototype("Sound")]
-    public class SoundPrototype : IPrototype
+    [Prototype("Music")]
+    public class MusicPrototype : IPrototype
     {
         [DataField("id", required: true)]
         public string ID { get; } = default!;

@@ -1,14 +1,25 @@
 ﻿using Love;
 using OpenNefia.Core.Utility;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OpenNefia.Core.Rendering
 {
-    public class AssetDrawable : IDisposable
+    public interface IAssetDrawable : IDisposable
+    {
+        int Width { get; }
+        int Height { get; }
+
+        AssetPrototype Asset { get; }
+        uint CountX { get; }
+        uint CountY { get; }
+
+        Love.SpriteBatch MakeBatch(List<AssetDrawable.AssetBatchPart> parts, int maxSprites = 2048);
+        Love.SpriteBatch MakeSpriteBatch(int count, Love.SpriteBatchUsage usage);
+
+        void Draw(float x = 0, float y = 0, float width = 0, float height = 0, bool centered = false, float rotation = 0);
+        void DrawRegion(string regionId, float x = 0, float y = 0, float width = 0, float height = 0, bool centered = false, float rotation = 0);
+    }
+
+    public class AssetDrawable : IAssetDrawable
     {
         /// <summary>
         /// Data to submit to <see cref="MakeBatch(List{AssetBatchPart}, int, SpriteBatchUsage)"/>
@@ -25,18 +36,21 @@ namespace OpenNefia.Core.Rendering
                 X = x;
                 Y = y;
             }
+
+            public override string ToString()
+            {
+                return $"{RegionId}: ({X}, {Y})";
+            }
         }
 
         public AssetPrototype Asset { get; }
-        public Love.Image Image { get; }
+        private Love.Image Image { get; }
 
         private Dictionary<string, Love.Quad> Quads;
         private AssetRegions Regions;
 
         public uint CountX { get; }
         public uint CountY { get; }
-        public int? BatchWidth { get; private set; }
-        public int? BatchHeight { get; private set; }
 
         public int Width { get => this.Image.GetWidth(); }
         public int Height { get => this.Image.GetHeight(); }
@@ -85,7 +99,7 @@ namespace OpenNefia.Core.Rendering
             {
                 var key = pair.Key;
                 var region = pair.Value;
-                this.Quads[key] = Love.Graphics.NewQuad(region.X, region.Y, region.Width, region.Height, imageWidth, imageHeight);
+                this.Quads[key] = Love.Graphics.NewQuad(region.Left, region.Top, region.Width, region.Height, imageWidth, imageHeight);
             }
         }
 
@@ -103,7 +117,12 @@ namespace OpenNefia.Core.Rendering
 
             return batch;
         }
-        
+
+        public SpriteBatch MakeSpriteBatch(int count, SpriteBatchUsage usage)
+        {
+            return Love.Graphics.NewSpriteBatch(Image, count, usage);
+        }
+
         public void Draw(float x = 0, float y = 0, float width = 0, float height = 0, bool centered = false, float rotation = 0)
         {
             GraphicsEx.DrawImage(this.Image, x, y, width, height, centered, rotation);

@@ -36,5 +36,12 @@
 	</Content>
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Remove="Assets\Prototypes\NewFolder\**" />
+    <Content Remove="Assets\Prototypes\NewFolder\**" />
+    <EmbeddedResource Remove="Assets\Prototypes\NewFolder\**" />
+    <None Remove="Assets\Prototypes\NewFolder\**" />
+  </ItemGroup>
+
   <Import Project="..\MSBuild\OpenNefia.Analyzers.targets" />
 </Project>

@@ -20,7 +20,7 @@ namespace OpenNefia.Core.UI.Element
         float PrevRamDiff = 0f;
         DateTime Now;
 
-        [UiStyled] private FontSpec FontText = new();
+        private FontSpec FontText = UiFonts.FpsCounter;
 
         public bool ShowDrawStats { get; set; } = true;
         public IUiText Text { get; }
@@ -28,19 +28,19 @@ namespace OpenNefia.Core.UI.Element
         public UiFpsCounter()
         {
             Now = DateTime.Now;
-            Text = new UiText(FontText);
+            Text = new UiTextOutlined(FontText);
         }
 
-        public override void SetPosition(Vector2i pos)
+        public override void SetPosition(int x, int y)
         {
-            base.SetPosition(pos);
-            this.Text.SetPosition(pos);
+            base.SetPosition(x, y);
+            this.Text.SetPosition(x, y);
         }
 
-        public override void SetSize(Vector2i size)
+        public override void SetSize(int width, int height)
         {
-            base.SetSize(size);
-            this.Text.SetPosition(size);
+            base.SetSize(width, height);
+            this.Text.SetSize(width, height);
         }
 
         public override void GetPreferredSize(out Vector2i size)

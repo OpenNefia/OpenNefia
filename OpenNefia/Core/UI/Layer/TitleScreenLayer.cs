@@ -26,7 +26,7 @@ namespace OpenNefia.Core.UI.Layer
             
             public TitleScreenChoice Submenu;
 
-            [Localize]
+            [Localize("Subtext")]
             public IUiText TextSubtext;
 
             public override string? LocalizeKey => Enum.GetName(Submenu);
@@ -41,36 +41,36 @@ namespace OpenNefia.Core.UI.Layer
             public override void Localize(LocaleKey key)
             {
                 base.Localize(key);
-                this.SetPosition(Left, Top);
+                this.SetPosition(X, Y);
             }
 
-            public override void SetPosition(Vector2i pos)
+            public override void SetPosition(int x, int y)
             {
-                base.SetPosition(pos);
+                base.SetPosition(x, y);
                 if (this.TextSubtext.Text != string.Empty)
                 {
-                    this.TextSubtext.SetPosition(pos.X + 40, pos.Y - 4);
-                    this.UiText.SetPosition(pos.X + 40 + this.XOffset + 4, pos.Y + 8);
+                    this.TextSubtext.SetPosition(y + 40, y - 4);
+                    this.UiText.SetPosition(x + 40 + this.XOffset + 4, y + 8);
                 }
                 else
                 {
-                    this.UiText.SetPosition(pos.X + 40 + this.XOffset + 4, pos.Y + 1);
+                    this.UiText.SetPosition(x + 40 + this.XOffset + 4, y + 1);
                 }
             }
 
-            public override void SetSize(Vector2i size)
+            public override void SetSize(int width, int height)
             {
-                size.Y = ITEM_HEIGHT;
+                height = ITEM_HEIGHT;
 
-                this.UiText.SetSize(size);
-                this.TextSubtext.SetSize(size);
-                base.SetSize(Math.Max(size.X, this.UiText.Width), size.Y);
+                this.UiText.SetSize(width, height);
+                this.TextSubtext.SetSize(width, height);
+                base.SetSize(Math.Max(width, this.UiText.Width), height);
             }
 
             public override void Draw()
             {
                 GraphicsEx.SetColor(Love.Color.White);
-                this.AssetSelectKey.Draw(this.Left, this.Top - 1);
+                this.AssetSelectKey.Draw(this.X, this.Y - 1);
                 this.KeyNameText.Draw();
                 this.UiText.Draw();
                 if (Loc.IsFullwidth())
@@ -93,9 +93,9 @@ namespace OpenNefia.Core.UI.Layer
             }
         }
 
-        [UiStyled] private FontSpec FontTitleText = default!;
-        private AssetDrawable AssetTitle;
-        private AssetDrawable AssetG4;
+        private FontSpec FontTitleText = UiFonts.TitleScreenText;
+        private IAssetDrawable AssetTitle;
+        private IAssetDrawable AssetG4;
 
         private IUiText[] TextInfo;
         
@@ -113,16 +113,16 @@ namespace OpenNefia.Core.UI.Layer
             var version = "1.22";
             TextInfo = new IUiText[3];
 
-            TextInfo[0] = new UiText($"Elona version {version}  Developed by Noa");
+            TextInfo[0] = new UiText(FontTitleText, $"Elona version {version}  Developed by Noa");
             if (Loc.Language == LanguagePrototypeOf.Japanese)
             {
-                TextInfo[1] = new UiText("Contributor MSL / View the credits for more");
+                TextInfo[1] = new UiText(FontTitleText, "Contributor MSL / View the credits for more");
             }
             else if (Loc.Language == LanguagePrototypeOf.English)
             {
-                TextInfo[1] = new UiText("Contributor f1r3fly, Sunstrike, Schmidt, Elvenspirit / View the credits for more");
+                TextInfo[1] = new UiText(FontTitleText, "Contributor f1r3fly, Sunstrike, Schmidt, Elvenspirit / View the credits for more");
             }
-            TextInfo[2] = new UiText($"{Engine.NameBase} version {Engine.Version} Developed by Ruin0x11");
+            TextInfo[2] = new UiText(FontTitleText, $"{Engine.NameBase} version {Engine.Version} Developed by Ruin0x11");
 
             Window = new UiWindow();
 
@@ -161,21 +161,21 @@ namespace OpenNefia.Core.UI.Layer
             }
         }
 
-        public override void SetSize(Vector2i size)
+        public override void SetSize(int width, int height)
         {
-            base.SetSize(size);
+            base.SetSize(width, height);
             this.Window.SetSize(320, 355);
             this.List.SetPreferredSize();
         }
 
-        public override void SetPosition(Vector2i pos)
+        public override void SetPosition(int x, int y)
         {
-            base.SetPosition(pos);
-            TextInfo[0].SetPosition(this.Left + 20, this.Top + 20);
-            TextInfo[1].SetPosition(this.Left + 20, this.Top + 20 + (FontTitleText.LoveFont.GetHeight() + 5));
-            TextInfo[2].SetPosition(this.Left + 20, this.Top + 20 + (FontTitleText.LoveFont.GetHeight() + 5) * 2);
-            this.Window.SetPosition(this.Left + 80, (this.Height - 308) / 2);
-            this.List.SetPosition(this.Window.Left + 40, this.Window.Top + 48);
+            base.SetPosition(x, y);
+            TextInfo[0].SetPosition(this.X + 20, this.Y + 20);
+            TextInfo[1].SetPosition(this.X + 20, this.Y + 20 + (FontTitleText.LoveFont.GetHeight() + 5));
+            TextInfo[2].SetPosition(this.X + 20, this.Y + 20 + (FontTitleText.LoveFont.GetHeight() + 5) * 2);
+            this.Window.SetPosition(this.X + 80, (this.Height - 308) / 2);
+            this.List.SetPosition(this.Window.X + 40, this.Window.Y + 48);
         }
 
         public override void OnQuery()
@@ -195,7 +195,7 @@ namespace OpenNefia.Core.UI.Layer
         public override void Draw()
         {
             GraphicsEx.SetColor(Love.Color.White);
-            this.AssetTitle.Draw(this.Left, this.Top, this.Width, this.Height);
+            this.AssetTitle.Draw(this.X, this.Y, this.Width, this.Height);
 
             foreach (var text in this.TextInfo)
                 text.Draw();
@@ -206,8 +206,8 @@ namespace OpenNefia.Core.UI.Layer
             var bgPicWidth = this.Window.Width / 5 * 4;
             var bgPicHeight = this.Window.Height - 80;
             GraphicsEx.SetColor(255, 255, 255, 50);
-            this.AssetG4.Draw(this.Window.Left + 160 - (bgPicWidth / 2),
-                              this.Window.Top + this.Window.Height / 2 - (bgPicHeight / 2),
+            this.AssetG4.Draw(this.Window.X + 160 - (bgPicWidth / 2),
+                              this.Window.Y + this.Window.Height / 2 - (bgPicHeight / 2),
                               bgPicWidth,
                               bgPicHeight);
         }

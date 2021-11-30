@@ -7,7 +7,6 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Threading;
 using JetBrains.Annotations;
-using OpenNefia.Core.Asynchronous;
 using OpenNefia.Core.ContentPack;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;

@@ -86,9 +86,9 @@ namespace OpenNefia.Core.UI.Layer.Repl
             // { WellKnownTags.NuGet,             ReplIconsAssetPrototypeIDOf.ReplCompletionIcon_Misc }
         };
 
-        private Dictionary<AssetPrototypeID, AssetDrawable> Drawables = new();
+        private Dictionary<AssetPrototypeID, IAssetDrawable> Drawables = new();
 
-        public AssetDrawable GetIcon(ImmutableArray<string> roslynTags)
+        public IAssetDrawable GetIcon(ImmutableArray<string> roslynTags)
         {
             foreach (var tag in roslynTags)
             {

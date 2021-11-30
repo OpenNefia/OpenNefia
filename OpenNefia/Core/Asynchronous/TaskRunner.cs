@@ -30,11 +30,11 @@ namespace OpenNefia.Core.Util
         public override void Draw()
         {
             GraphicsEx.SetColor(0, 0, 0, 128);
-            Love.Graphics.Rectangle(Love.DrawMode.Fill, this.Left, this.Top, this.Width, this.Height);
+            Love.Graphics.Rectangle(Love.DrawMode.Fill, this.X, this.Y, this.Width, this.Height);
 
             {
                 Love.Graphics.Push();
-                Love.Graphics.Translate(this.Left + this.Width / 2, this.Top + this.Height / 2);
+                Love.Graphics.Translate(this.X + this.Width / 2, this.Y + this.Height / 2);
                 Love.Graphics.Rotate(Dt);
                 Love.Graphics.SetColor(Love.Color.White);
                 Love.Graphics.Rectangle(Love.DrawMode.Fill, -32, -32, 64, 64);

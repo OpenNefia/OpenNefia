@@ -23,6 +23,7 @@ namespace OpenNefia.Core.Rendering
             var fontFilepath = _fallbackFontPath;
 
             var font = Love.Graphics.NewFont(fontFilepath.ToString(), size);
+            font.SetFilter(Love.FilterMode.Nearest, Love.FilterMode.Nearest, 1);
             _fontCache[size] = font;
 
             return font;

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using OpenNefia.Core.Maths;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Serialization.Manager.Attributes;
 using OpenNefia.Core.Utility;
@@ -48,7 +49,7 @@ namespace OpenNefia.Core.Rendering
         public bool RequiresSizeArgument => RegionSpecifier != null;
     }
 
-    public class AssetRegions : Dictionary<string, Love.Rectangle>
+    public class AssetRegions : Dictionary<string, Box2i>
     {
     }
 
@@ -59,18 +60,27 @@ namespace OpenNefia.Core.Rendering
         /// Path of the image to use.
         /// </summary>
         [DataField(required: true)]
-        public ResourcePath ImagePath = default!;
+        public ResourcePath Filepath = default!;
 
         /// <summary>
         /// Information for a region of an image to cut out and use for this <see cref="AssetDef"/>.
         /// </summary>
         [DataField]
-        public ImageRegion? ImageRegion;
+        public Box2i? Region;
+
+        /// <summary>
+        /// Color in the image to replace with transparency.
+        /// </summary>
+        /// <remarks>
+        /// This is for the convenience of being able to use existing .BMP images.
+        /// </remarks>
+        [DataField]
+        public Color? KeyColor { get; set; } = null;
 
         /// <summary>
         /// Filter to apply to the image.
         /// </summary>
         [DataField]
-        public ImageFilter? ImageFilter;
+        public ImageFilter? Filter;
     }
 }

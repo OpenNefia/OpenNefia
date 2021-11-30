@@ -59,8 +59,8 @@ namespace OpenNefia.Core.Rendering
 
         public Vector2i ScreenSize { get => SizeInTiles * Coords.TileSize; }
 
-        private AssetDrawable AssetShadow;
-        private AssetDrawable AssetShadowEdges;
+        private IAssetDrawable AssetShadow;
+        private IAssetDrawable AssetShadowEdges;
 
         private SpriteBatch BatchShadow;
         private SpriteBatch BatchShadowEdges;
@@ -86,8 +86,8 @@ namespace OpenNefia.Core.Rendering
             AssetShadow = _assetManager.GetAsset(new("Shadow"));
             AssetShadowEdges = _assetManager.GetAsset(new("ShadowEdges"));
 
-            BatchShadow = Love.Graphics.NewSpriteBatch(AssetShadow.Image, 2048, SpriteBatchUsage.Dynamic);
-            BatchShadowEdges = Love.Graphics.NewSpriteBatch(AssetShadowEdges.Image, 2048, SpriteBatchUsage.Dynamic);
+            BatchShadow = AssetShadow.MakeSpriteBatch(2048, SpriteBatchUsage.Dynamic);
+            BatchShadowEdges = AssetShadowEdges.MakeSpriteBatch(2048, SpriteBatchUsage.Dynamic);
 
             InnerQuads = new Love.Quad[8, 6];
             CornerQuads = new Love.Quad[4, 3];
@@ -95,8 +95,8 @@ namespace OpenNefia.Core.Rendering
 
             Tiles = new ShadowTile[SizeInTiles.X, SizeInTiles.Y];
 
-            var iw = AssetShadow.Image.GetWidth();
-            var ih = AssetShadow.Image.GetHeight();
+            var iw = AssetShadow.Width;
+            var ih = AssetShadow.Height;
 
             for (int i = 0; i < 8; i++)
             {
@@ -113,8 +113,8 @@ namespace OpenNefia.Core.Rendering
                 }
             }
 
-            iw = AssetShadowEdges.Image.GetWidth();
-            ih = AssetShadowEdges.Image.GetHeight();
+            iw = AssetShadowEdges.Width;
+            ih = AssetShadowEdges.Height;
 
             for (int i = 0; i < 17; i++)
             {
@@ -357,21 +357,21 @@ namespace OpenNefia.Core.Rendering
             Love.Graphics.SetBlendMode(BlendMode.Subtract);
             GraphicsEx.SetColor(255, 255, 255, ShadowStrength);
 
-            GraphicsEx.SetScissor(Left + ShadowBounds.Left, Top + ShadowBounds.Top, ShadowBounds.Width, ShadowBounds.Height);
-            Love.Graphics.Draw(BatchShadow, Left, Top);
-            Love.Graphics.Draw(BatchShadowEdges, Left, Top);
+            GraphicsEx.SetScissor(X + ShadowBounds.Left, Y + ShadowBounds.Top, ShadowBounds.Width, ShadowBounds.Height);
+            Love.Graphics.Draw(BatchShadow, X, Y);
+            Love.Graphics.Draw(BatchShadowEdges, X, Y);
             GraphicsEx.SetScissor();
 
             GraphicsEx.SetColor(255, 255, 255, (int)(ShadowStrength * ((256f - 9f) / 256f)));
 
             // Left
-            Love.Graphics.Rectangle(Love.DrawMode.Fill, Left, Top, ShadowBounds.Top, ScreenSize.Y);
+            Love.Graphics.Rectangle(Love.DrawMode.Fill, X, Y, ShadowBounds.Top, ScreenSize.Y);
             // Right
-            Love.Graphics.Rectangle(Love.DrawMode.Fill, Left + ShadowBounds.Right, Top, ShadowBounds.Width, ScreenSize.Y);
+            Love.Graphics.Rectangle(Love.DrawMode.Fill, X + ShadowBounds.Right, Y, ShadowBounds.Width, ScreenSize.Y);
             // Up
-            Love.Graphics.Rectangle(Love.DrawMode.Fill, Left + ShadowBounds.Left, Top, ShadowBounds.Width, ShadowBounds.Top);
+            Love.Graphics.Rectangle(Love.DrawMode.Fill, X + ShadowBounds.Left, Y, ShadowBounds.Width, ShadowBounds.Top);
             // Down
-            Love.Graphics.Rectangle(Love.DrawMode.Fill, Left + ShadowBounds.Left, Top + ShadowBounds.Bottom, ShadowBounds.Width, ShadowBounds.Height);
+            Love.Graphics.Rectangle(Love.DrawMode.Fill, X + ShadowBounds.Left, Y + ShadowBounds.Bottom, ShadowBounds.Width, ShadowBounds.Height);
 
             Love.Graphics.SetBlendMode(BlendMode.Alpha);
         }

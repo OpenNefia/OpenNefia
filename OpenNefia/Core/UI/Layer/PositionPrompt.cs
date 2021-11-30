@@ -36,8 +36,8 @@ namespace OpenNefia.Core.UI.Layer
         bool CanSee = false;
         bool IsPanning = false;
 
-        [UiStyled] Color ColorTargetedTile;
-        [UiStyled] FontSpec FontTargetText = new();
+        Color ColorTargetedTile = UiColors.PromptTargetedTile;
+        FontSpec FontTargetText = UiFonts.TargetText;
         IUiText TextTarget;
 
         public PositionPrompt(MapCoordinates origin, MapCoordinates? target = null, IEntity? onlooker = null)
@@ -46,7 +46,7 @@ namespace OpenNefia.Core.UI.Layer
             this.TargetPos = target ?? origin;
             this.Onlooker = onlooker ?? GameSession.Player!;
 
-            this.TextTarget = new UiText(/*this.FontTargetText*/);
+            this.TextTarget = new UiTextOutlined(this.FontTargetText);
 
             this.BindKeys();
         }
@@ -134,9 +134,9 @@ namespace OpenNefia.Core.UI.Layer
 
         }
 
-        public override void SetPosition(Vector2i pos)
+        public override void SetPosition(int x, int y)
         {
-            base.SetPosition(pos);
+            base.SetPosition(x, y);
             this.TextTarget.SetPosition(100, this.Height - Constants.INF_MSGH - 45 - this.TextTarget.Height);
         }
 

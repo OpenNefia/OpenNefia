@@ -84,16 +84,16 @@ namespace OpenNefia.Core.Rendering
 
             foreach (var (_, tileX, tileY) in TopShadows)
             {
-                Love.Graphics.Rectangle(Love.DrawMode.Fill, tileX * tileW + Left, tileY * tileH + Top - 20, tileW, tileH / 6);
+                Love.Graphics.Rectangle(Love.DrawMode.Fill, tileX * tileW + X, tileY * tileH + Y - 20, tileW, tileH / 6);
             }
 
             foreach (var (_, tileX, tileY) in BottomShadows)
             {
                 GraphicsEx.SetColor(255, 255, 255, 16);
-                Love.Graphics.Rectangle(Love.DrawMode.Fill, tileX * tileW + Left, (tileY + 1) * tileH + Top, tileW, tileH / 2);
+                Love.Graphics.Rectangle(Love.DrawMode.Fill, tileX * tileW + X, (tileY + 1) * tileH + Y, tileW, tileH / 2);
 
                 GraphicsEx.SetColor(255, 255, 255, 12);
-                Love.Graphics.Rectangle(Love.DrawMode.Fill, tileX * tileW + Left, (tileY + 1) * tileH + Top + tileW / 2, tileW, tileH / 4);
+                Love.Graphics.Rectangle(Love.DrawMode.Fill, tileX * tileW + X, (tileY + 1) * tileH + Y + tileW / 2, tileW, tileH / 4);
             }
 
             Love.Graphics.SetBlendMode(Love.BlendMode.Alpha);

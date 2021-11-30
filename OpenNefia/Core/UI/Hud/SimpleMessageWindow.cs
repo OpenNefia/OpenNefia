@@ -1,5 +1,4 @@
-﻿using OpenNefia.Core.Maths;
-using OpenNefia.Core.Rendering;
+﻿using OpenNefia.Core.Rendering;
 using OpenNefia.Core.UI.Element;
 using OpenNefia.Core.Utility;
 using Color = OpenNefia.Core.Maths.Color;
@@ -24,7 +23,7 @@ namespace OpenNefia.Core.UI.Hud
 
         private bool NeedsRelayout;
 
-        [UiStyled] private FontSpec FontTargetText = new();
+        private FontSpec FontTargetText = UiFonts.TargetText;
         private IUiText[] TextMessages;
 
         public SimpleMessageWindow()
@@ -33,7 +32,7 @@ namespace OpenNefia.Core.UI.Hud
             TextMessages = new IUiText[6];
             for (int i = 0; i < TextMessages.Length; i++)
             {
-                TextMessages[i] = new UiText(FontTargetText);
+                TextMessages[i] = new UiTextOutlined(FontTargetText);
             }
             NeedsRelayout = true;
         }
@@ -47,9 +46,9 @@ namespace OpenNefia.Core.UI.Hud
             this.NeedsRelayout = true;
         }
 
-        public override void SetPosition(Vector2i pos)
+        public override void SetPosition(int x, int y)
         {
-            base.SetPosition(pos);
+            base.SetPosition(x, y);
             this.NeedsRelayout = true;
         }
 
@@ -87,13 +86,13 @@ namespace OpenNefia.Core.UI.Hud
         public override void Draw()
         {
             GraphicsEx.SetColor(0, 0, 0, 64);
-            Love.Graphics.Rectangle(Love.DrawMode.Fill, this.Left, this.Top, this.Width, this.Height);
+            Love.Graphics.Rectangle(Love.DrawMode.Fill, this.X, this.Y, this.Width, this.Height);
 
             //GraphicsEx.SetScissor(this.X, this.Y, this.Width, this.Height);
             for (int i = 0; i < TextMessages.Length; i++)
             {
                 var text = TextMessages[i];
-                text.SetPosition(Left + 5, Top + Height - (FontTargetText.LoveFont.GetHeight()) * (i + 1) - 5);
+                text.SetPosition(X + 5, Y + Height - (FontTargetText.LoveFont.GetHeight()) * (i + 1) - 5);
                 text.Draw();
             }
             //GraphicsEx.SetScissor();

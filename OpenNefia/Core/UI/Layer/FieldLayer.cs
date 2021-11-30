@@ -35,7 +35,7 @@ namespace OpenNefia.Core.UI.Layer
         private UiFpsCounter FpsCounter;
         public HudLayer Hud { get; }
 
-        private FontSpec FontText;
+        private FontSpec FontText = new(14, 12);
 
         public string Message { get; private set; }
         private string MouseText;
@@ -45,7 +45,6 @@ namespace OpenNefia.Core.UI.Layer
         {
             _scroller = new UiScroller();
             Camera = new Camera(this.Map, this);
-            FontText = new FontSpec(14, 12);
 
             var result = PrintMessage("dood");
             Console.WriteLine($"Got back: {result}");
@@ -262,12 +261,12 @@ namespace OpenNefia.Core.UI.Layer
             return dood + "?";
         }
 
-        public override void SetSize(Vector2i size)
+        public override void SetSize(int width, int height)
         {
-            base.SetSize(size);
-            _mapRenderer.SetSize(size);
+            base.SetSize(width, height);
+            _mapRenderer.SetSize(width, height);
             FpsCounter.SetSize(400, 500);
-            Hud.SetSize(size);
+            Hud.SetSize(width, height);
 
             var player = GameSession.Player;
             if (player != null)
@@ -276,10 +275,10 @@ namespace OpenNefia.Core.UI.Layer
             }
         }
 
-        public override void SetPosition(Vector2i pos)
+        public override void SetPosition(int x, int y)
         {
-            base.SetPosition(pos);
-            _mapRenderer.SetPosition(pos);
+            base.SetPosition(x, y);
+            _mapRenderer.SetPosition(x, y);
             FpsCounter.SetPosition(Width - FpsCounter.Text.Width - 5, 5);
             Hud.SetPosition(0, 0);
         }
@@ -312,13 +311,13 @@ namespace OpenNefia.Core.UI.Layer
 
             this._scroller.GetPositionDiff(dt, out var dx, out var dy);
 
-            this.SetPosition(Camera.ScreenPos);
+            this.SetPosition(Camera.ScreenPos.X, Camera.ScreenPos.Y);
 
             if (PlacingTile != null)
             {
                 var mouse = Love.Mouse.GetPosition();
                 var coords = GameSession.Coords;
-                coords.ScreenToTile(new Vector2i((int)mouse.X - this.Left, (int)mouse.Y - this.Top), out var tiledPos);
+                coords.ScreenToTile(new Vector2i((int)mouse.X - this.X, (int)mouse.Y - this.Y), out var tiledPos);
                 var tileCoords = Map.AtPos(tiledPos);
 
                 if (tileCoords.GetTile()?.Prototype != PlacingTile)
@@ -347,7 +346,7 @@ namespace OpenNefia.Core.UI.Layer
 
             var player = GameSession.Player!;
             player.GetScreenPos(out var screenPos);
-            Love.Graphics.Rectangle(Love.DrawMode.Line, Left + screenPos.X, Top + screenPos.Y, OrthographicCoords.TILE_SIZE, OrthographicCoords.TILE_SIZE);
+            Love.Graphics.Rectangle(Love.DrawMode.Line, X + screenPos.X, Y + screenPos.Y, OrthographicCoords.TILE_SIZE, OrthographicCoords.TILE_SIZE);
 
             GraphicsEx.SetFont(this.FontText);
             Love.Graphics.Print(Message, 5, 5);

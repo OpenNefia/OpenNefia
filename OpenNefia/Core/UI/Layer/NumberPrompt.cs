@@ -54,12 +54,12 @@ namespace OpenNefia.Core.UI.Layer
 
         protected UiTopicWindow TopicWindow;
 
-        protected AssetDrawable AssetLabelInput;
-        protected AssetDrawable AssetArrowLeft;
-        protected AssetDrawable AssetArrowRight;
+        protected IAssetDrawable AssetLabelInput;
+        protected IAssetDrawable AssetArrowLeft;
+        protected IAssetDrawable AssetArrowRight;
 
-        [UiStyled] protected Color ColorPromptBackground;
-        [UiStyled] protected IUiText Text;
+        protected Color ColorPromptBackground = UiColors.PromptBackground;
+        protected IUiText Text;
 
         public NumberPrompt(int maxValue = 1, int minValue = 1, int? initialValue = null, bool isCancellable = true)
         {
@@ -127,20 +127,20 @@ namespace OpenNefia.Core.UI.Layer
             UiUtils.GetCenteredParams(DEFAULT_WIDTH, DEFAULT_HEIGHT, out bounds);
         }
 
-        public override void SetSize(Vector2i size)
+        public override void SetSize(int width, int height)
         {
-            base.SetSize(size);
+            base.SetSize(width, height);
 
             this.TopicWindow.SetSize(this.Width - 40, this.Height);
             this.Text.SetPreferredSize();
         }
 
-        public override void SetPosition(Vector2i pos)
+        public override void SetPosition(int x, int y)
         {
-            base.SetPosition(pos);
+            base.SetPosition(x, y);
 
-            this.TopicWindow.SetPosition(this.Left + 20, this.Top);
-            this.Text.SetPosition(this.Left + this.Width - 70 - Text.Width + 8, this.Top + 11);
+            this.TopicWindow.SetPosition(this.X + 20, this.Y);
+            this.Text.SetPosition(this.X + this.Width - 70 - Text.Width + 8, this.Y + 11);
         }
 
         public override void Update(float dt)
@@ -152,14 +152,14 @@ namespace OpenNefia.Core.UI.Layer
         public override void Draw()
         {
             GraphicsEx.SetColor(this.ColorPromptBackground);
-            Love.Graphics.Rectangle(Love.DrawMode.Fill, this.Left + 24, this.Top + 4, this.Width - 42, this.Height - 1);
+            Love.Graphics.Rectangle(Love.DrawMode.Fill, this.X + 24, this.Y + 4, this.Width - 42, this.Height - 1);
             
             this.TopicWindow.Draw();
 
             GraphicsEx.SetColor(Love.Color.White);
-            this.AssetLabelInput.Draw(this.Left + this.Width / 2 - 56, this.Top - 32);
-            this.AssetArrowLeft.Draw(this.Left + 28, this.Top + 4);
-            this.AssetArrowRight.Draw(this.Left + this.Width - 51, this.Top + 4);
+            this.AssetLabelInput.Draw(this.X + this.Width / 2 - 56, this.Y - 32);
+            this.AssetArrowLeft.Draw(this.X + 28, this.Y + 4);
+            this.AssetArrowRight.Draw(this.X + this.Width - 51, this.Y + 4);
 
             this.Text.Draw();
         }

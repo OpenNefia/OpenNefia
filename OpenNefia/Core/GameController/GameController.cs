@@ -1,10 +1,10 @@
 ﻿using System.Runtime;
-using OpenNefia.Core.Asynchronous;
 using OpenNefia.Core.ContentPack;
 using OpenNefia.Core.Game;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Graphics;
 using OpenNefia.Core.IoC;
+using OpenNefia.Core.Locale;
 using OpenNefia.Core.Log;
 using OpenNefia.Core.Maps;
 using OpenNefia.Core.Prototypes;
@@ -25,13 +25,13 @@ namespace OpenNefia.Core.GameController
         [Dependency] private readonly IModLoaderInternal _modLoader = default!;
         [Dependency] private readonly IEntityManager _entityManager = default!;
         [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-        [Dependency] private readonly ITaskManager _taskManager = default!;
         [Dependency] private readonly ILogManager _logManager = default!;
         [Dependency] private readonly ISerializationManager _serialization = default!;
         [Dependency] private readonly IComponentFactory _components = default!;
         [Dependency] private readonly ITileDefinitionManager _tileDefinitionManager = default!;
         [Dependency] private readonly IUiLayerManager _uiLayers = default!;
-        
+        [Dependency] private readonly ILocalizationManager _localizationManager = default!;
+
         private ILogic _logic = default!;
 
         public bool Startup()
@@ -40,8 +40,6 @@ namespace OpenNefia.Core.GameController
 
             _graphics.Initialize();
             _uiLayers.Initialize();
-
-            _taskManager.Initialize();
 
             _modLoader.SetUseLoadContext(true);
 
@@ -81,6 +79,8 @@ namespace OpenNefia.Core.GameController
             _prototypeManager.Resync();
 
             _assetManager.PreloadAssets();
+
+            _localizationManager.Initialize();
 
             _modLoader.BroadcastRunLevel(ModRunLevel.PostInit);
 

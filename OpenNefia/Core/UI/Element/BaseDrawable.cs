@@ -14,41 +14,21 @@ namespace OpenNefia.Core.UI.Element
         public Box2i Bounds { get => _bounds; }
 
         public Vector2i Size { get => Bounds.Size; }
-
-        public Vector2i BottomLeft { get => Bounds.BottomLeft; }
-        public Vector2i TopRight { get => Bounds.TopRight; }
-
-        public Vector2i BottomRight { get => Bounds.BottomRight; }
-        public Vector2i TopLeft { get => Bounds.TopLeft; }
+        public Vector2i Position { get => Bounds.TopLeft; }
 
         public int Width { get => Bounds.Width; }
         public int Height { get => Bounds.Height; }
+        public int X { get => Bounds.Left; }
+        public int Y { get => Bounds.Top; }
 
-        public int Left { get => Bounds.Left; }
-        public int Top { get => Bounds.Top; }
-        public int Right { get => Bounds.Right; }
-        public int Bottom { get => Bounds.Bottom; }
-
-        public void SetSize(int width, int height)
+        public virtual void SetSize(int width, int height)
         {
-            SetSize(new Vector2i(width, height));
+            _bounds = Box2i.FromDimensions(X, Y, width, height);
         }
 
-        public virtual void SetSize(Vector2i size)
+        public virtual void SetPosition(int x, int y)
         {
-            _bounds.Right = _bounds.Left + size.X;
-            _bounds.Bottom = _bounds.Top + size.Y;
-        }
-
-        public void SetPosition(int x, int y)
-        {
-            SetPosition(new Vector2i(x, y));
-        }
-
-        public virtual void SetPosition(Vector2i pos)
-        {
-            _bounds.Left = pos.X;
-            _bounds.Top = pos.Y;
+            _bounds = Box2i.FromDimensions(x, y, Width, Height);
         }
 
         public bool ContainsPoint(int x, int y)

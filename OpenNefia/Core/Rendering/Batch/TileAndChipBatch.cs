@@ -202,7 +202,7 @@ namespace OpenNefia.Core.Rendering
             for (int tileY = 0; tileY < _rows.Length; tileY++)
             {
                 var row = _rows[tileY];
-                row.Draw(Left, Top);
+                row.Draw(X, Y);
             }
         }
     }

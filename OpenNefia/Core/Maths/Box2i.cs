@@ -9,42 +9,42 @@ namespace OpenNefia.Core.Maths
     public struct Box2i : IEquatable<Box2i>
     {
         [FieldOffset(sizeof(int) * 0)] public int Left;
-        [FieldOffset(sizeof(int) * 1)] public int Bottom;
+        [FieldOffset(sizeof(int) * 1)] public int Top;
         [FieldOffset(sizeof(int) * 2)] public int Right;
-        [FieldOffset(sizeof(int) * 3)] public int Top;
+        [FieldOffset(sizeof(int) * 3)] public int Bottom;
 
-        [FieldOffset(sizeof(int) * 0)] public Vector2i BottomLeft;
-        [FieldOffset(sizeof(int) * 2)] public Vector2i TopRight;
+        [FieldOffset(sizeof(int) * 0)] public Vector2i TopLeft;
+        [FieldOffset(sizeof(int) * 2)] public Vector2i BottomRight;
 
-        public readonly Vector2i BottomRight => new(Right, Bottom);
-        public readonly Vector2i TopLeft => new(Left, Top);
+        public readonly Vector2i TopRight => new(Right, Top);
+        public readonly Vector2i BottomLeft => new(Left, Bottom);
         public readonly int Width => Math.Abs(Right - Left);
         public readonly int Height => Math.Abs(Top - Bottom);
         public readonly Vector2i Size => new(Width, Height);
 
         public readonly int Area => Width * Height;
 
-        public Box2i(Vector2i bottomLeft, Vector2i topRight)
+        public Box2i(Vector2i topLeft, Vector2i bottomRight)
         {
             Unsafe.SkipInit(out this);
 
-            BottomLeft = bottomLeft;
-            TopRight = topRight;
+            TopLeft = topLeft;
+            BottomRight = bottomRight;
         }
 
-        public Box2i(int left, int bottom, int right, int top)
+        public Box2i(int left, int top, int right, int bottom)
         {
             Unsafe.SkipInit(out this);
 
             Left = left;
-            Right = right;
             Top = top;
+            Right = right;
             Bottom = bottom;
         }
 
-        public static Box2i FromDimensions(int left, int bottom, int width, int height)
+        public static Box2i FromDimensions(int left, int top, int width, int height)
         {
-            return new(left, bottom, left + width, bottom + height);
+            return new(left, top, left + width, top + height);
         }
 
         public static Box2i FromDimensions(Vector2i position, Vector2i size)
@@ -76,7 +76,7 @@ namespace OpenNefia.Core.Maths
         /// <summary>Returns a UIBox2 translated by the given amount.</summary>
         public readonly Box2i Translated(Vector2i point)
         {
-            return new(Left + point.X, Bottom + point.Y, Right + point.X, Top + point.Y);
+            return new(Left + point.X, Top + point.Y, Right + point.X, Bottom + point.Y);
         }
 
         /// <summary>
@@ -90,7 +90,7 @@ namespace OpenNefia.Core.Maths
             var top = Math.Max(Top, other.Top);
 
             if (left <= right && bottom <= top)
-                return new Box2i(left, bottom, right, top);
+                return new Box2i(left, top, right, bottom);
 
             return new Box2i();
         }
@@ -123,7 +123,7 @@ namespace OpenNefia.Core.Maths
 
         public override readonly string ToString()
         {
-            return $"({Left}, {Bottom}, {Right}, {Top})";
+            return $"({Left}, {Top}, {Right}, {Bottom})";
         }
     }
 }

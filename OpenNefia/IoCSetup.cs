@@ -1,5 +1,4 @@
-﻿using OpenNefia.Core.Asynchronous;
-using OpenNefia.Core.ContentPack;
+﻿using OpenNefia.Core.ContentPack;
 using OpenNefia.Core.Exceptions;
 using OpenNefia.Core.Game;
 using OpenNefia.Core.GameController;
@@ -32,7 +31,6 @@ namespace Why
             IoCManager.Register<IEntitySystemManager, EntitySystemManager>();
             IoCManager.Register<IReflectionManager, ReflectionManager>();
             IoCManager.Register<IMapManager, MapManager>();
-            IoCManager.Register<ITaskManager, TaskManager>();
             IoCManager.Register<IComponentDependencyManager, ComponentDependencyManager>();
             IoCManager.Register<IComponentFactory, ComponentFactory>();
             IoCManager.Register<IPrototypeManager, PrototypeManager>();

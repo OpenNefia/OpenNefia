@@ -11,11 +11,13 @@ namespace OpenNefia.Core.Rendering
 
         private readonly Dictionary<PrototypeId<AssetPrototype>, AssetDrawable> _assets = new();
 
-        private Love.Image LoadImageSource(ResourcePath atlasPath, ImageRegion imageRegion)
+        private Love.Image LoadImageSource(AssetSpecifier spec)
         {
+            var atlasPath = spec.Filepath;
+            var imageRegion = spec.Region!.Value;
             var parentImage = ImageLoader.NewImage(atlasPath.ToString());
 
-            var quad = Love.Graphics.NewQuad(imageRegion.X, imageRegion.Y, imageRegion.Width, imageRegion.Height, parentImage.GetWidth(), parentImage.GetHeight());
+            var quad = Love.Graphics.NewQuad(imageRegion.Left, imageRegion.Top, imageRegion.Width, imageRegion.Height, parentImage.GetWidth(), parentImage.GetHeight());
 
             var canvas = Love.Graphics.NewCanvas(imageRegion.Width, imageRegion.Height);
             var oldCanvas = Love.Graphics.GetCanvas();
@@ -50,33 +52,28 @@ namespace OpenNefia.Core.Rendering
 
             var imageSpec = asset.Image;
 
-            if (imageSpec.ImagePath != null)
+            if (imageSpec.Region == null)
             {
-                var path = imageSpec.ImagePath;
-                image = ImageLoader.NewImage(path.ToString());
-            }
-            else if (imageSpec.ImageRegion != null)
-            {
-                image = LoadImageSource(imageSpec.ImagePath!, imageSpec.ImageRegion);
+                image = ImageLoader.NewImage(imageSpec.Filepath);
             }
             else
             {
-                throw new ArgumentException($"Asset has neither ImagePath nor ImageRegion: {asset.ID}");
+                image = LoadImageSource(imageSpec);
             }
 
-            if (imageSpec.ImageFilter != null)
+            if (imageSpec.Filter != null)
             {
-                image.SetFilter(imageSpec.ImageFilter.Min, imageSpec.ImageFilter.Mag, imageSpec.ImageFilter.Anisotropy);
+                image.SetFilter(imageSpec.Filter.Min, imageSpec.Filter.Mag, imageSpec.Filter.Anisotropy);
             }
 
             return image;
         }
 
-        private static AssetRegions GetRegions(AssetPrototype prototype, int width, int height)
+        private static AssetRegions GetRegions(AssetPrototype prototype, Vector2i size)
         {
             if (prototype.RegionSpecifier != null)
             {
-                return prototype.RegionSpecifier.GetRegions(width, height);
+                return prototype.RegionSpecifier.GetRegions(size);
             }
             return prototype.Regions;
         }
@@ -85,19 +82,12 @@ namespace OpenNefia.Core.Rendering
         {
             if (_assets.ContainsKey(id))
             {
-                throw new InvalidOperationException($"Asset {id} has already been loaded");
+                throw new InvalidOperationException($"Asset '{id}' has already been loaded");
             }
 
             var prototype = id.ResolvePrototype();
-
-            // TODO better caching of custom batch size assets
-            if (prototype.RequiresSizeArgument)
-            {
-                throw new ArgumentException($"Asset {id} can only be loaded as a batch asset", nameof(id));
-            }
-            
             var image = LoadImage(prototype);
-            var regions = prototype.Regions;
+            var regions = GetRegions(prototype, Vector2i.One);
 
             _assets[id] = new AssetDrawable(prototype, image, regions);
         }
@@ -110,23 +100,17 @@ namespace OpenNefia.Core.Rendering
             }
         }
 
-        public AssetDrawable GetSizedAsset(PrototypeId<AssetPrototype> id, Vector2i size)
+        public IAssetDrawable GetSizedAsset(PrototypeId<AssetPrototype> id, Vector2i size)
         {
             var prototype = id.ResolvePrototype();
 
             var image = LoadImage(prototype);
-
-            var regions = prototype.Regions;
-
-            if (prototype.RegionSpecifier == null)
-            {
-                regions = GetRegions(prototype, size.X, size.Y);
-            }
+            var regions = GetRegions(prototype, size);
 
             return new AssetDrawable(prototype, image, regions);
         }
 
-        public AssetDrawable GetAsset(PrototypeId<AssetPrototype> id)
+        public IAssetDrawable GetAsset(PrototypeId<AssetPrototype> id)
         {
             return _assets[id];
         }

@@ -3,19 +3,15 @@ using CSharpRepl.Services.Completion;
 using CSharpRepl.Services.Logging;
 using CSharpRepl.Services.Roslyn;
 using CSharpRepl.Services.Roslyn.Scripting;
-using OpenNefia.Core.Asynchronous;
 using OpenNefia.Core.Log;
 using OpenNefia.Core.Util;
 using PrettyPrompt.Consoles;
 using System.Reflection;
-using DependencyAttribute = OpenNefia.Core.IoC.DependencyAttribute;
 
 namespace OpenNefia.Core.UI.Layer.Repl
 {
     public class CSharpReplExecutor : IReplExecutor
     {
-        [Dependency] private readonly ITaskManager _taskManager;
-
         private IConsole Console;
         private Configuration Config;
         private RoslynServices Roslyn;
@@ -46,14 +42,12 @@ namespace OpenNefia.Core.UI.Layer.Repl
             }
         }
 
-        public CSharpReplExecutor(ReplLayer replLayer, ITaskManager taskManager) : this(replLayer, BuildDefaultConfig(), taskManager)
+        public CSharpReplExecutor(ReplLayer replLayer) : this(replLayer, BuildDefaultConfig())
         {
         }
 
-        public CSharpReplExecutor(ReplLayer replLayer, Configuration config, ITaskManager taskManager)
+        public CSharpReplExecutor(ReplLayer replLayer, Configuration config)
         {
-            _taskManager = taskManager;
-
             Console = new ReplLayerConsoleBridge(replLayer);
             Config = config;
             Roslyn = new RoslynServices(Console, Config, new OpenNefiaLogger());

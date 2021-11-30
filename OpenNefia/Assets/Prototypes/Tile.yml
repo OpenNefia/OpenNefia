@@ -1,0 +1,6420 @@
+- type: Tile
+  id: WorldGrass
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "0, 0, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 0
+  elonaId: 0
+
+- type: Tile
+  id: WorldSmallTrees1
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "48, 0, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 0
+  elonaId: 1
+
+- type: Tile
+  id: WorldSmallTrees2
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "96, 0, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 0
+  elonaId: 2
+
+- type: Tile
+  id: WorldSmallTrees3
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "144, 0, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 0
+  elonaId: 3
+
+- type: Tile
+  id: WorldTrees1
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "192, 0, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 0
+  elonaId: 4
+
+- type: Tile
+  id: WorldTrees2
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "240, 0, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 0
+  elonaId: 5
+
+- type: Tile
+  id: WorldTrees3
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "288, 0, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 0
+  elonaId: 6
+
+- type: Tile
+  id: WorldTrees4
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "336, 0, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 0
+  elonaId: 7
+
+- type: Tile
+  id: WorldTrees5
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "384, 0, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 0
+  elonaId: 8
+
+- type: Tile
+  id: WorldTrees6
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "432, 0, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 0
+  elonaId: 9
+
+- type: Tile
+  id: WorldPlants1
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "480, 0, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 0
+  elonaId: 10
+
+- type: Tile
+  id: WorldPlants2
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "528, 0, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 0
+  elonaId: 11
+
+- type: Tile
+  id: WorldPlants3
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "576, 0, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 0
+  elonaId: 12
+
+- type: Tile
+  id: WorldDirt1
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "624, 0, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 0
+  elonaId: 13
+
+- type: Tile
+  id: WorldDirt2
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "672, 0, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 0
+  elonaId: 14
+
+- type: Tile
+  id: WorldDirt3
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "720, 0, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 0
+  elonaId: 15
+
+- type: Tile
+  id: WorldDirt4
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "768, 0, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 0
+  elonaId: 16
+
+- type: Tile
+  id: WorldSnowCross
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "1248, 0, 48, 48"
+  kind: Snow
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 0
+  elonaId: 26
+
+- type: Tile
+  id: WorldSnow
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "1296, 0, 48, 48"
+  kind: Snow
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 0
+  elonaId: 27
+
+- type: Tile
+  id: WorldSnowTrees1
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "1392, 0, 48, 48"
+  kind: Snow
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 0
+  elonaId: 29
+
+- type: Tile
+  id: WorldSnowTrees2
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "1440, 0, 48, 48"
+  kind: Snow
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 0
+  elonaId: 30
+
+- type: Tile
+  id: WorldSnowCrater
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "1488, 0, 48, 48"
+  kind: Snow
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 0
+  elonaId: 31
+
+- type: Tile
+  id: WorldSnowMounds
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "1536, 0, 48, 48"
+  kind: Snow
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 0
+  elonaId: 32
+
+- type: Tile
+  id: WorldRoadNs
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "48, 48, 48, 48"
+  isSolid: false
+  isOpaque: false
+  IsRoad: true
+  elonaAtlas: 0
+  elonaId: 34
+
+- type: Tile
+  id: WorldRoadWe
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "96, 48, 48, 48"
+  isSolid: false
+  isOpaque: false
+  IsRoad: true
+  elonaAtlas: 0
+  elonaId: 35
+
+- type: Tile
+  id: WorldRoadSw
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "144, 48, 48, 48"
+  isSolid: false
+  isOpaque: false
+  IsRoad: true
+  elonaAtlas: 0
+  elonaId: 36
+
+- type: Tile
+  id: WorldRoadSe
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "192, 48, 48, 48"
+  isSolid: false
+  isOpaque: false
+  IsRoad: true
+  elonaAtlas: 0
+  elonaId: 37
+
+- type: Tile
+  id: WorldRoadNw
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "240, 48, 48, 48"
+  isSolid: false
+  isOpaque: false
+  IsRoad: true
+  elonaAtlas: 0
+  elonaId: 38
+
+- type: Tile
+  id: WorldRoadNe
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "288, 48, 48, 48"
+  isSolid: false
+  isOpaque: false
+  IsRoad: true
+  elonaAtlas: 0
+  elonaId: 39
+
+- type: Tile
+  id: WorldRoadSwe
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "336, 48, 48, 48"
+  isSolid: false
+  isOpaque: false
+  IsRoad: true
+  elonaAtlas: 0
+  elonaId: 40
+
+- type: Tile
+  id: WorldRoadNsw
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "384, 48, 48, 48"
+  isSolid: false
+  isOpaque: false
+  IsRoad: true
+  elonaAtlas: 0
+  elonaId: 41
+
+- type: Tile
+  id: WorldRoadNwe
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "432, 48, 48, 48"
+  isSolid: false
+  isOpaque: false
+  IsRoad: true
+  elonaAtlas: 0
+  elonaId: 42
+
+- type: Tile
+  id: WorldRoadNse
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "480, 48, 48, 48"
+  isSolid: false
+  isOpaque: false
+  IsRoad: true
+  elonaAtlas: 0
+  elonaId: 43
+
+- type: Tile
+  id: WorldFlower1
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "0, 96, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 0
+  elonaId: 66
+
+- type: Tile
+  id: WorldFlower2
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "48, 96, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 0
+  elonaId: 67
+
+- type: Tile
+  id: WorldFlower3
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "96, 96, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 0
+  elonaId: 68
+
+- type: Tile
+  id: WorldFlower4
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "144, 96, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 0
+  elonaId: 69
+
+- type: Tile
+  id: WorldFlower5
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "192, 96, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 0
+  elonaId: 70
+
+- type: Tile
+  id: WorldFlower6
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "240, 96, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 0
+  elonaId: 71
+
+- type: Tile
+  id: WorldFlower7
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "288, 96, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 0
+  elonaId: 72
+
+- type: Tile
+  id: WorldMounds1
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "336, 96, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 0
+  elonaId: 73
+
+- type: Tile
+  id: WorldMounds2
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "384, 96, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 0
+  elonaId: 74
+
+- type: Tile
+  id: WorldBridgeLeft
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "528, 96, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 0
+  elonaId: 77
+
+- type: Tile
+  id: WorldBridgeMiddle
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "576, 96, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 0
+  elonaId: 78
+
+- type: Tile
+  id: WorldBridgeRight
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "624, 96, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 0
+  elonaId: 79
+
+- type: Tile
+  id: WorldDesert
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "0, 144, 48, 48"
+  kind: Sand
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 0
+  elonaId: 99
+
+- type: Tile
+  id: WorldDesertTrees1
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "48, 144, 48, 48"
+  kind: Sand
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 0
+  elonaId: 100
+
+- type: Tile
+  id: WorldDesertTrees2
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "96, 144, 48, 48"
+  kind: Sand
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 0
+  elonaId: 101
+
+- type: Tile
+  id: WorldDesertTrees3
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "144, 144, 48, 48"
+  kind: Sand
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 0
+  elonaId: 102
+
+- type: Tile
+  id: WorldDesertTrees4
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "192, 144, 48, 48"
+  kind: Sand
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 0
+  elonaId: 103
+
+- type: Tile
+  id: WorldDesertDeadTrees1
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "240, 144, 48, 48"
+  kind: Sand
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 0
+  elonaId: 104
+
+- type: Tile
+  id: WorldDesertDeadTrees2
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "288, 144, 48, 48"
+  kind: Sand
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 0
+  elonaId: 105
+
+- type: Tile
+  id: WorldDesertDeadTrees3
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "336, 144, 48, 48"
+  kind: Sand
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 0
+  elonaId: 106
+
+- type: Tile
+  id: WorldDesertBorderW
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "384, 144, 48, 48"
+  kind: Sand
+  kind2: Coast
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 0
+  elonaId: 107
+
+- type: Tile
+  id: WorldDesertBorderS
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "528, 144, 48, 48"
+  kind: Sand
+  kind2: Coast
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 0
+  elonaId: 110
+
+- type: Tile
+  id: WorldDesertBorderSw
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "720, 144, 48, 48"
+  kind: Sand
+  kind2: Coast
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 0
+  elonaId: 114
+
+- type: Tile
+  id: WorldDesertBorderCornerNe
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "768, 144, 48, 48"
+  kind: Sand
+  kind2: Coast
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 0
+  elonaId: 115
+
+- type: Tile
+  id: WorldDesertBones
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "960, 144, 48, 48"
+  kind: Sand
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 0
+  elonaId: 119
+
+- type: Tile
+  id: WorldDesertRocks1
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "1008, 144, 48, 48"
+  kind: Sand
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 0
+  elonaId: 120
+
+- type: Tile
+  id: WorldDesertRocks2
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "1056, 144, 48, 48"
+  kind: Sand
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 0
+  elonaId: 121
+
+- type: Tile
+  id: WorldDesertRocks3
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "1104, 144, 48, 48"
+  kind: Sand
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 0
+  elonaId: 122
+
+- type: Tile
+  id: WorldDesertRocks4
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "1152, 144, 48, 48"
+  kind: Sand
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 0
+  elonaId: 123
+
+- type: Tile
+  id: WorldDesertPlants1
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "1200, 144, 48, 48"
+  kind: Sand
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 0
+  elonaId: 124
+
+- type: Tile
+  id: WorldDesertPlants2
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "1248, 144, 48, 48"
+  kind: Sand
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 0
+  elonaId: 125
+
+- type: Tile
+  id: WorldDesertPlants3
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "1296, 144, 48, 48"
+  kind: Sand
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 0
+  elonaId: 126
+
+- type: Tile
+  id: WorldDirt
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "0, 240, 48, 48"
+  kind: SandHard
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 0
+  elonaId: 165
+
+- type: Tile
+  id: WorldDirtCrater
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "48, 240, 48, 48"
+  kind: SandHard
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 0
+  elonaId: 166
+
+- type: Tile
+  id: WorldDirtRocks1
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "96, 240, 48, 48"
+  kind: SandHard
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 0
+  elonaId: 167
+
+- type: Tile
+  id: WorldDirtRocks2
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "144, 240, 48, 48"
+  kind: SandHard
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 0
+  elonaId: 168
+
+- type: Tile
+  id: WorldDirtDeadTrees1
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "240, 240, 48, 48"
+  kind: SandHard
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 0
+  elonaId: 170
+
+- type: Tile
+  id: WorldDirtDeadTrees2
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "288, 240, 48, 48"
+  kind: SandHard
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 0
+  elonaId: 171
+
+- type: Tile
+  id: WorldDirtDeadTrees3
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "336, 240, 48, 48"
+  kind: SandHard
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 0
+  elonaId: 172
+
+- type: Tile
+  id: WorldDirtBorderW
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "384, 240, 48, 48"
+  kind: SandHard
+  kind2: Coast
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 0
+  elonaId: 173
+
+- type: Tile
+  id: WorldDirtBorderE
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "432, 240, 48, 48"
+  kind: SandHard
+  kind2: Coast
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 0
+  elonaId: 174
+
+- type: Tile
+  id: WorldDirtBorderN
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "480, 240, 48, 48"
+  kind: SandHard
+  kind2: Coast
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 0
+  elonaId: 175
+
+- type: Tile
+  id: WorldDirtBorderS
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "528, 240, 48, 48"
+  kind: SandHard
+  kind2: Coast
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 0
+  elonaId: 176
+
+- type: Tile
+  id: WorldDirtBorderCornerNe
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "576, 240, 48, 48"
+  kind: SandHard
+  kind2: Coast
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 0
+  elonaId: 177
+
+- type: Tile
+  id: WorldDirtBorderCornerNw
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "624, 240, 48, 48"
+  kind: SandHard
+  kind2: Coast
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 0
+  elonaId: 178
+
+- type: Tile
+  id: WorldDirtBorderCornerSe
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "672, 240, 48, 48"
+  kind: SandHard
+  kind2: Coast
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 0
+  elonaId: 179
+
+- type: Tile
+  id: WorldDirtBorderCornerSw
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "720, 240, 48, 48"
+  kind: SandHard
+  kind2: Coast
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 0
+  elonaId: 180
+
+- type: Tile
+  id: WorldDirtBorderNe
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "768, 240, 48, 48"
+  kind: SandHard
+  kind2: Coast
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 0
+  elonaId: 181
+
+- type: Tile
+  id: WorldDirtBorderNw
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "816, 240, 48, 48"
+  kind: SandHard
+  kind2: Coast
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 0
+  elonaId: 182
+
+- type: Tile
+  id: WorldDirtBorderSe
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "864, 240, 48, 48"
+  kind: SandHard
+  kind2: Coast
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 0
+  elonaId: 183
+
+- type: Tile
+  id: WorldDirtBorderSw
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "912, 240, 48, 48"
+  kind: SandHard
+  kind2: Coast
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 0
+  elonaId: 184
+
+- type: Tile
+  id: WorldSnowDeadTree
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "48, 288, 48, 48"
+  kind: Snow
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 0
+  elonaId: 199
+
+- type: Tile
+  id: WorldSnowTrees3
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "96, 288, 48, 48"
+  kind: Snow
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 0
+  elonaId: 200
+
+- type: Tile
+  id: WorldSnowTrees4
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "144, 288, 48, 48"
+  kind: Snow
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 0
+  elonaId: 201
+
+- type: Tile
+  id: WorldSnowTrees5
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "192, 288, 48, 48"
+  kind: Snow
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 0
+  elonaId: 202
+
+- type: Tile
+  id: WorldSnowBorderW
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "384, 288, 48, 48"
+  kind: Snow
+  kind2: Coast
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 0
+  elonaId: 206
+
+- type: Tile
+  id: WorldSnowBorderE
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "432, 288, 48, 48"
+  kind: Snow
+  kind2: Coast
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 0
+  elonaId: 207
+
+- type: Tile
+  id: WorldSnowBorderN
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "480, 288, 48, 48"
+  kind: Snow
+  kind2: Coast
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 0
+  elonaId: 208
+
+- type: Tile
+  id: WorldSnowBorderS
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "528, 288, 48, 48"
+  kind: Snow
+  kind2: Coast
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 0
+  elonaId: 209
+
+- type: Tile
+  id: WorldSnowBorderCornerNe
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "576, 288, 48, 48"
+  kind: Snow
+  kind2: Coast
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 0
+  elonaId: 210
+
+- type: Tile
+  id: WorldSnowBorderCornerNw
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "624, 288, 48, 48"
+  kind: Snow
+  kind2: Coast
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 0
+  elonaId: 211
+
+- type: Tile
+  id: WorldSnowBorderCornerSe
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "672, 288, 48, 48"
+  kind: Snow
+  kind2: Coast
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 0
+  elonaId: 212
+
+- type: Tile
+  id: WorldSnowBorderCornerSw
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "720, 288, 48, 48"
+  kind: Snow
+  kind2: Coast
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 0
+  elonaId: 213
+
+- type: Tile
+  id: WorldSnowBorderNe
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "768, 288, 48, 48"
+  kind: Snow
+  kind2: Coast
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 0
+  elonaId: 214
+
+- type: Tile
+  id: WorldSnowBorderNw
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "816, 288, 48, 48"
+  kind: Snow
+  kind2: Coast
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 0
+  elonaId: 215
+
+- type: Tile
+  id: WorldSnowBorderSe
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "864, 288, 48, 48"
+  kind: Snow
+  kind2: Coast
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 0
+  elonaId: 216
+
+- type: Tile
+  id: WorldSnowBorderSw
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "912, 288, 48, 48"
+  kind: Snow
+  kind2: Coast
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 0
+  elonaId: 217
+
+- type: Tile
+  id: WorldWater
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "0, 384, 48, 48"
+  isSolid: true
+  isOpaque: false
+  elonaAtlas: 0
+  elonaId: 264
+
+- type: Tile
+  id: WorldWaterRocks
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "48, 384, 48, 48"
+  isSolid: true
+  isOpaque: false
+  elonaAtlas: 0
+  elonaId: 265
+
+- type: Tile
+  id: WorldWater2
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "96, 384, 48, 48"
+  isSolid: true
+  isOpaque: false
+  elonaAtlas: 0
+  elonaId: 266
+
+- type: Tile
+  id: WorldWaterPole
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "144, 384, 48, 48"
+  isSolid: true
+  isOpaque: false
+  elonaAtlas: 0
+  elonaId: 267
+
+- type: Tile
+  id: WorldWaterIceberg
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "192, 384, 48, 48"
+  isSolid: true
+  isOpaque: false
+  elonaAtlas: 0
+  elonaId: 268
+
+- type: Tile
+  id: WorldWaterRock
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "240, 384, 48, 48"
+  isSolid: true
+  isOpaque: false
+  elonaAtlas: 0
+  elonaId: 269
+
+- type: Tile
+  id: WorldWaterShadow
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "288, 384, 48, 48"
+  isSolid: true
+  isOpaque: false
+  elonaAtlas: 0
+  elonaId: 270
+
+- type: Tile
+  id: WorldGrassWaterBorderW
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "1008, 384, 48, 48"
+  isSolid: true
+  isOpaque: false
+  elonaAtlas: 0
+  elonaId: 285
+
+- type: Tile
+  id: WorldGrassWaterBorderE
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "1056, 384, 48, 48"
+  isSolid: true
+  isOpaque: false
+  elonaAtlas: 0
+  elonaId: 286
+
+- type: Tile
+  id: WorldGrassWaterBorderN
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "1104, 384, 48, 48"
+  isSolid: true
+  isOpaque: false
+  elonaAtlas: 0
+  elonaId: 287
+
+- type: Tile
+  id: WorldGrassWaterBorderS
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "1152, 384, 48, 48"
+  isSolid: true
+  isOpaque: false
+  elonaAtlas: 0
+  elonaId: 288
+
+- type: Tile
+  id: WorldGrassWaterBorderCornerNe
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "1200, 384, 48, 48"
+  isSolid: true
+  isOpaque: false
+  elonaAtlas: 0
+  elonaId: 289
+
+- type: Tile
+  id: WorldGrassWaterBorderCornerNw
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "1248, 384, 48, 48"
+  isSolid: true
+  isOpaque: false
+  elonaAtlas: 0
+  elonaId: 290
+
+- type: Tile
+  id: WorldGrassWaterBorderCornerSe
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "1296, 384, 48, 48"
+  isSolid: true
+  isOpaque: false
+  elonaAtlas: 0
+  elonaId: 291
+
+- type: Tile
+  id: WorldGrassWaterBorderCornerSw
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "1344, 384, 48, 48"
+  isSolid: true
+  isOpaque: false
+  elonaAtlas: 0
+  elonaId: 292
+
+- type: Tile
+  id: WorldGrassWaterBorderNe
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "1392, 384, 48, 48"
+  isSolid: true
+  isOpaque: false
+  elonaAtlas: 0
+  elonaId: 293
+
+- type: Tile
+  id: WorldGrassWaterBorderNw
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "1440, 384, 48, 48"
+  isSolid: true
+  isOpaque: false
+  elonaAtlas: 0
+  elonaId: 294
+
+- type: Tile
+  id: WorldGrassWaterBorderSe
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "1488, 384, 48, 48"
+  isSolid: true
+  isOpaque: false
+  elonaAtlas: 0
+  elonaId: 295
+
+- type: Tile
+  id: WorldGrassWaterBorderSw
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "1536, 384, 48, 48"
+  isSolid: true
+  isOpaque: false
+  elonaAtlas: 0
+  elonaId: 296
+
+- type: Tile
+  id: WorldSnowWaterBorderW
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "0, 432, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 0
+  elonaId: 297
+
+- type: Tile
+  id: WorldSnowWaterBorderE
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "48, 432, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 0
+  elonaId: 298
+
+- type: Tile
+  id: WorldSnowWaterBorderN
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "96, 432, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 0
+  elonaId: 299
+
+- type: Tile
+  id: WorldSnowWaterBorderS
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "144, 432, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 0
+  elonaId: 300
+
+- type: Tile
+  id: WorldSnowWaterBorderCornerNe
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "192, 432, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 0
+  elonaId: 301
+
+- type: Tile
+  id: WorldSnowWaterBorderCornerNw
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "240, 432, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 0
+  elonaId: 302
+
+- type: Tile
+  id: WorldSnowWaterBorderCornerSe
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "288, 432, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 0
+  elonaId: 303
+
+- type: Tile
+  id: WorldSnowWaterBorderCornerSw
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "336, 432, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 0
+  elonaId: 304
+
+- type: Tile
+  id: WorldSnowWaterBorderNe
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "384, 432, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 0
+  elonaId: 305
+
+- type: Tile
+  id: WorldSnowWaterBorderNw
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "432, 432, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 0
+  elonaId: 306
+
+- type: Tile
+  id: WorldSnowWaterBorderSe
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "480, 432, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 0
+  elonaId: 307
+
+- type: Tile
+  id: WorldSnowWaterBorderSw
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "528, 432, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 0
+  elonaId: 308
+
+- type: Tile
+  id: WorldDesertWaterBorderW
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "576, 432, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 0
+  elonaId: 309
+
+- type: Tile
+  id: WorldDesertWaterBorderE
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "624, 432, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 0
+  elonaId: 310
+
+- type: Tile
+  id: WorldDesertWaterBorderN
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "672, 432, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 0
+  elonaId: 311
+
+- type: Tile
+  id: WorldDesertWaterBorderS
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "720, 432, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 0
+  elonaId: 312
+
+- type: Tile
+  id: WorldDesertWaterBorderCornerNe
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "768, 432, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 0
+  elonaId: 313
+
+- type: Tile
+  id: WorldDesertWaterBorderCornerNw
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "816, 432, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 0
+  elonaId: 314
+
+- type: Tile
+  id: WorldDesertWaterBorderCornerSe
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "864, 432, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 0
+  elonaId: 315
+
+- type: Tile
+  id: WorldDesertWaterBorderCornerSw
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "912, 432, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 0
+  elonaId: 316
+
+- type: Tile
+  id: WorldDesertWaterBorderNe
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "960, 432, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 0
+  elonaId: 317
+
+- type: Tile
+  id: WorldDesertWaterBorderNw
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "1008, 432, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 0
+  elonaId: 318
+
+- type: Tile
+  id: WorldDesertWaterBorderSe
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "1056, 432, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 0
+  elonaId: 319
+
+- type: Tile
+  id: WorldDesertWaterBorderSw
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "1104, 432, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 0
+  elonaId: 320
+
+- type: Tile
+  id: WorldCliffNw
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "0, 672, 48, 48"
+  isSolid: true
+  isOpaque: true
+  elonaAtlas: 0
+  elonaId: 462
+
+- type: Tile
+  id: WorldCliffN
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "48, 672, 48, 48"
+  isSolid: true
+  isOpaque: true
+  elonaAtlas: 0
+  elonaId: 463
+
+- type: Tile
+  id: WorldCliffNe
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "96, 672, 48, 48"
+  isSolid: true
+  isOpaque: true
+  elonaAtlas: 0
+  elonaId: 464
+
+- type: Tile
+  id: WorldCliffW
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "0, 720, 48, 48"
+  isSolid: true
+  isOpaque: true
+  elonaAtlas: 0
+  elonaId: 495
+
+- type: Tile
+  id: WorldCliffE
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "96, 720, 48, 48"
+  isSolid: true
+  isOpaque: true
+  elonaAtlas: 0
+  elonaId: 497
+
+- type: Tile
+  id: WorldCliffInnerSw
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "144, 720, 48, 48"
+  isSolid: true
+  isOpaque: true
+  elonaAtlas: 0
+  elonaId: 498
+
+- type: Tile
+  id: WorldCliffInnerSe
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "240, 720, 48, 48"
+  isSolid: true
+  isOpaque: true
+  elonaAtlas: 0
+  elonaId: 500
+
+- type: Tile
+  id: WorldBlank
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "0, 768, 48, 48"
+  isSolid: true
+  isOpaque: true
+  elonaAtlas: 0
+  elonaId: 528
+
+- type: Tile
+  id: WorldCliffSw
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "48, 768, 48, 48"
+  isSolid: true
+  isOpaque: true
+  elonaAtlas: 0
+  elonaId: 529
+
+- type: Tile
+  id: WorldCliffS
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "96, 768, 48, 48"
+  isSolid: true
+  isOpaque: true
+  elonaAtlas: 0
+  elonaId: 530
+
+- type: Tile
+  id: WorldCliffSe
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "144, 768, 48, 48"
+  isSolid: true
+  isOpaque: true
+  elonaAtlas: 0
+  elonaId: 531
+
+- type: Tile
+  id: WorldCliffTop5
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "240, 768, 48, 48"
+  isSolid: true
+  isOpaque: true
+  elonaAtlas: 0
+  elonaId: 533
+
+- type: Tile
+  id: WorldGrassMountain1
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "0, 816, 48, 48"
+  isSolid: true
+  isOpaque: true
+  elonaAtlas: 0
+  elonaId: 561
+
+- type: Tile
+  id: WorldGrassMountain2
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "48, 816, 48, 48"
+  isSolid: true
+  isOpaque: true
+  elonaAtlas: 0
+  elonaId: 562
+
+- type: Tile
+  id: WorldGrassMountain3
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "144, 816, 48, 48"
+  isSolid: true
+  isOpaque: true
+  elonaAtlas: 0
+  elonaId: 564
+
+- type: Tile
+  id: WorldGrassMountain4
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "192, 816, 48, 48"
+  isSolid: true
+  isOpaque: true
+  elonaAtlas: 0
+  elonaId: 565
+
+- type: Tile
+  id: WorldGrassMountain5
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "240, 816, 48, 48"
+  isSolid: true
+  isOpaque: true
+  elonaAtlas: 0
+  elonaId: 566
+
+- type: Tile
+  id: WorldGrassMountain6
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "288, 816, 48, 48"
+  isSolid: true
+  isOpaque: true
+  elonaAtlas: 0
+  elonaId: 567
+
+- type: Tile
+  id: WorldSnowMountain1
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "336, 816, 48, 48"
+  kind: Snow
+  isSolid: true
+  isOpaque: true
+  elonaAtlas: 0
+  elonaId: 568
+
+- type: Tile
+  id: WorldSnowMountain2
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "384, 816, 48, 48"
+  kind: Snow
+  isSolid: true
+  isOpaque: true
+  elonaAtlas: 0
+  elonaId: 569
+
+- type: Tile
+  id: WorldSnowMountain3
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "432, 816, 48, 48"
+  kind: Snow
+  isSolid: true
+  isOpaque: true
+  elonaAtlas: 0
+  elonaId: 570
+
+- type: Tile
+  id: WorldDesertMountain1
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "0, 864, 48, 48"
+  kind: Sand
+  isSolid: true
+  isOpaque: true
+  elonaAtlas: 0
+  elonaId: 594
+
+- type: Tile
+  id: WorldDesertMountain2
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "48, 864, 48, 48"
+  kind: Sand
+  isSolid: true
+  isOpaque: true
+  elonaAtlas: 0
+  elonaId: 595
+
+- type: Tile
+  id: WorldDesertMountain3
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "96, 864, 48, 48"
+  kind: Sand
+  isSolid: true
+  isOpaque: true
+  elonaAtlas: 0
+  elonaId: 596
+
+- type: Tile
+  id: WorldDesertMountain4
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "144, 864, 48, 48"
+  kind: Sand
+  isSolid: true
+  isOpaque: true
+  elonaAtlas: 0
+  elonaId: 597
+
+- type: Tile
+  id: WorldDesertMountain5
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "192, 864, 48, 48"
+  kind: Sand
+  isSolid: true
+  isOpaque: true
+  elonaAtlas: 0
+  elonaId: 598
+
+- type: Tile
+  id: WorldDirtMountain1
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "240, 864, 48, 48"
+  kind: SandHard
+  isSolid: true
+  isOpaque: true
+  elonaAtlas: 0
+  elonaId: 599
+
+- type: Tile
+  id: WorldDirtMountain2
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "288, 864, 48, 48"
+  kind: SandHard
+  isSolid: true
+  isOpaque: true
+  elonaAtlas: 0
+  elonaId: 600
+
+- type: Tile
+  id: WorldOasisC
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "480, 864, 48, 48"
+  kind: SandWater
+  isSolid: true
+  isOpaque: true
+  elonaAtlas: 0
+  elonaId: 604
+
+- type: Tile
+  id: WorldOasisE
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "528, 864, 48, 48"
+  kind: SandWater
+  kind2: Coast
+  isSolid: true
+  isOpaque: true
+  elonaAtlas: 0
+  elonaId: 605
+
+- type: Tile
+  id: WorldOasisW
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "576, 864, 48, 48"
+  kind: SandWater
+  kind2: Coast
+  isSolid: true
+  isOpaque: true
+  elonaAtlas: 0
+  elonaId: 606
+
+- type: Tile
+  id: WorldOasisS
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "624, 864, 48, 48"
+  kind: SandWater
+  kind2: Coast
+  isSolid: true
+  isOpaque: true
+  elonaAtlas: 0
+  elonaId: 607
+
+- type: Tile
+  id: WorldOasisN
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "672, 864, 48, 48"
+  kind: SandWater
+  kind2: Coast
+  isSolid: true
+  isOpaque: true
+  elonaAtlas: 0
+  elonaId: 608
+
+- type: Tile
+  id: WorldOasisCornerSw
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "720, 864, 48, 48"
+  kind: SandWater
+  kind2: Coast
+  isSolid: true
+  isOpaque: true
+  elonaAtlas: 0
+  elonaId: 609
+
+- type: Tile
+  id: WorldOasisCornerSe
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "768, 864, 48, 48"
+  kind: SandWater
+  kind2: Coast
+  isSolid: true
+  isOpaque: true
+  elonaAtlas: 0
+  elonaId: 610
+
+- type: Tile
+  id: WorldOasisCornerNe
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "816, 864, 48, 48"
+  kind: SandWater
+  kind2: Coast
+  isSolid: true
+  isOpaque: true
+  elonaAtlas: 0
+  elonaId: 611
+
+- type: Tile
+  id: WorldOasisCornerNw
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "864, 864, 48, 48"
+  kind: SandWater
+  kind2: Coast
+  isSolid: true
+  isOpaque: true
+  elonaAtlas: 0
+  elonaId: 612
+
+- type: Tile
+  id: WorldOasisNe
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "912, 864, 48, 48"
+  kind: SandWater
+  kind2: Coast
+  isSolid: true
+  isOpaque: true
+  elonaAtlas: 0
+  elonaId: 613
+
+- type: Tile
+  id: WorldOasisNw
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "960, 864, 48, 48"
+  kind: SandWater
+  kind2: Coast
+  isSolid: true
+  isOpaque: true
+  elonaAtlas: 0
+  elonaId: 614
+
+- type: Tile
+  id: WorldOasisSe
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "1008, 864, 48, 48"
+  kind: SandWater
+  kind2: Coast
+  isSolid: true
+  isOpaque: true
+  elonaAtlas: 0
+  elonaId: 615
+
+- type: Tile
+  id: WorldOasisSw
+  image:
+    filepath: Assets/Elona/Graphic/map0.bmp
+    region: "1056, 864, 48, 48"
+  kind: SandWater
+  kind2: Coast
+  isSolid: true
+  isOpaque: true
+  elonaAtlas: 0
+  elonaId: 616
+
+- type: Tile
+  id: Grass
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "0, 0, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 0
+
+- type: Tile
+  id: GrassViolets
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "48, 0, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 1
+
+- type: Tile
+  id: GrassRocks
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "96, 0, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 2
+
+- type: Tile
+  id: GrassTall1
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "144, 0, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 3
+
+- type: Tile
+  id: GrassTall2
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "192, 0, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 4
+
+- type: Tile
+  id: GrassPatch1
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "240, 0, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 5
+
+- type: Tile
+  id: GrassPatch2
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "288, 0, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 6
+
+- type: Tile
+  id: GrassBush1
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "336, 0, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 7
+
+- type: Tile
+  id: GrassBush2
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "384, 0, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 8
+
+- type: Tile
+  id: GrassBush3
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "432, 0, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 9
+
+- type: Tile
+  id: GrassPatch3
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "480, 0, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 10
+
+- type: Tile
+  id: GrassRocks2
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "528, 0, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 11
+
+- type: Tile
+  id: CrackedDirt1
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "576, 0, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 12
+
+- type: Tile
+  id: CrackedDirt2
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "624, 0, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 13
+
+- type: Tile
+  id: RoomDefault
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "672, 0, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 14
+
+- type: Tile
+  id: DesertRocks1
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "768, 0, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 16
+
+- type: Tile
+  id: DesertRocks2
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "816, 0, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 17
+
+- type: Tile
+  id: DesertRocks3
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "864, 0, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 18
+
+- type: Tile
+  id: Desert
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "912, 0, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 19
+
+- type: Tile
+  id: DesertFlowers1
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "960, 0, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 20
+
+- type: Tile
+  id: DesertFlowers2
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "1008, 0, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 21
+
+- type: Tile
+  id: Dryground
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "1392, 0, 48, 48"
+  kind: Dryground
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 29
+
+- type: Tile
+  id: Field1
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "1440, 0, 48, 48"
+  kind: Crop
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 30
+
+- type: Tile
+  id: Field2
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "1488, 0, 48, 48"
+  kind: Crop
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 31
+
+- type: Tile
+  id: DarkDirt1
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "0, 48, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 33
+
+- type: Tile
+  id: DarkDirt2
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "48, 48, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 34
+
+- type: Tile
+  id: DarkDirt3
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "96, 48, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 35
+
+- type: Tile
+  id: DarkDirt4
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "144, 48, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 36
+
+- type: Tile
+  id: Destroyed
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "192, 48, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 37
+
+- type: Tile
+  id: DirtPatch
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "240, 48, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 38
+
+- type: Tile
+  id: DirtGrass
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "288, 48, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 39
+
+- type: Tile
+  id: DirtRocks
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "336, 48, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 40
+
+- type: Tile
+  id: Dirt
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "384, 48, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 41
+
+- type: Tile
+  id: Snow
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "576, 48, 48, 48"
+  kind: Snow
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 45
+
+- type: Tile
+  id: SnowMound
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "624, 48, 48, 48"
+  kind: Snow
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 46
+
+- type: Tile
+  id: SnowPlants
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "672, 48, 48, 48"
+  kind: Snow
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 47
+
+- type: Tile
+  id: SnowRock
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "720, 48, 48, 48"
+  kind: Snow
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 48
+
+- type: Tile
+  id: SnowStump
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "768, 48, 48, 48"
+  kind: Snow
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 49
+
+- type: Tile
+  id: SnowFlowers1
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "816, 48, 48, 48"
+  kind: Snow
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 50
+
+- type: Tile
+  id: SnowFlowers2
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "864, 48, 48, 48"
+  kind: Snow
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 51
+
+- type: Tile
+  id: SnowFlowers3
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "912, 48, 48, 48"
+  kind: Snow
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 52
+
+- type: Tile
+  id: SnowField1
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "960, 48, 48, 48"
+  kind: Snow
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 53
+
+- type: Tile
+  id: SnowField2
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "1008, 48, 48, 48"
+  kind: Snow
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 54
+
+- type: Tile
+  id: SnowIce
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "1056, 48, 48, 48"
+  kind: Snow
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 55
+
+- type: Tile
+  id: SnowClumps1
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "1104, 48, 48, 48"
+  kind: Snow
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 56
+
+- type: Tile
+  id: SnowClumps2
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "1152, 48, 48, 48"
+  kind: Snow
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 57
+
+- type: Tile
+  id: SnowStalks
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "1200, 48, 48, 48"
+  kind: Snow
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 58
+
+- type: Tile
+  id: SnowGrass
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "1248, 48, 48, 48"
+  kind: Snow
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 59
+
+- type: Tile
+  id: SnowBlueTile
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "1296, 48, 48, 48"
+  kind: Snow
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 60
+
+- type: Tile
+  id: SnowCobble1
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "1344, 48, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 61
+
+- type: Tile
+  id: SnowCobble2
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "1392, 48, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 62
+
+- type: Tile
+  id: SnowCobble3
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "1440, 48, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 63
+
+- type: Tile
+  id: SnowCobble4
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "1488, 48, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 64
+
+- type: Tile
+  id: SnowStairs
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "1536, 48, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 65
+
+- type: Tile
+  id: TowerOfFireTile1
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "0, 96, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 66
+
+- type: Tile
+  id: TowerOfFireTile2
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "48, 96, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 67
+
+- type: Tile
+  id: TowerOfFireTile3
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "96, 96, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 68
+
+- type: Tile
+  id: BallroomRoomFloor
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "144, 96, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 69
+
+- type: Tile
+  id: HardwoodFloor1
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "192, 96, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 70
+
+- type: Tile
+  id: HardwoodFloor2
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "240, 96, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 71
+
+- type: Tile
+  id: HardwoodFloor3
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "288, 96, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 72
+
+- type: Tile
+  id: HardwoodFloor4
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "336, 96, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 73
+
+- type: Tile
+  id: HardwoodFloor5
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "384, 96, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 74
+
+- type: Tile
+  id: HardwoodFloor6
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "432, 96, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 75
+
+- type: Tile
+  id: MetalPlatingRusted
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "480, 96, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 76
+
+- type: Tile
+  id: Thatching
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "528, 96, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 77
+
+- type: Tile
+  id: Cobble
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "576, 96, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 78
+
+- type: Tile
+  id: Cobble2
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "720, 96, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 81
+
+- type: Tile
+  id: SnowFlowers4
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "768, 96, 48, 48"
+  kind: Snow
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 82
+
+- type: Tile
+  id: SnowFlowers5
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "816, 96, 48, 48"
+  kind: Snow
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 83
+
+- type: Tile
+  id: SnowFlowers6
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "864, 96, 48, 48"
+  kind: Snow
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 84
+
+- type: Tile
+  id: SnowBushes1
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "912, 96, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 85
+
+- type: Tile
+  id: SnowBushes2
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "960, 96, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 86
+
+- type: Tile
+  id: SnowBushes3
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "1008, 96, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 87
+
+- type: Tile
+  id: SnowBush
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "1056, 96, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 88
+
+- type: Tile
+  id: SnowBoulder
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "1104, 96, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 89
+
+- type: Tile
+  id: SnowPillar
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "1536, 96, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 98
+
+- type: Tile
+  id: Cobble3
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "0, 144, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 99
+
+- type: Tile
+  id: Concrete2
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "48, 144, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 100
+
+- type: Tile
+  id: Flooring1
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "96, 144, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 101
+
+- type: Tile
+  id: Flooring2
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "144, 144, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 102
+
+- type: Tile
+  id: Cobble4
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "192, 144, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 103
+
+- type: Tile
+  id: Cobble6
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "288, 144, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 105
+
+- type: Tile
+  id: Cobble9
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "480, 144, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 109
+
+- type: Tile
+  id: Cobble10
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "528, 144, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 110
+
+- type: Tile
+  id: Cobble11
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "576, 144, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 111
+
+- type: Tile
+  id: Cobble12
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "624, 144, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 112
+
+- type: Tile
+  id: CobbleDiagonal
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "672, 144, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 113
+
+- type: Tile
+  id: CobbleDiagonalRound
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "720, 144, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 114
+
+- type: Tile
+  id: CobbleDiagonalRaised
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "768, 144, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 115
+
+- type: Tile
+  id: HardwoodFloor7
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "912, 144, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 118
+
+- type: Tile
+  id: CobbleDark1
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "960, 144, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 119
+
+- type: Tile
+  id: CobbleDark2
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "1008, 144, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 120
+
+- type: Tile
+  id: CobbleDark3
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "1056, 144, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 121
+
+- type: Tile
+  id: CobbleDark4
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "1104, 144, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 122
+
+- type: Tile
+  id: Rough1
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "1152, 144, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 123
+
+- type: Tile
+  id: Rough4
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "1296, 144, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 126
+
+- type: Tile
+  id: Rough6
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "1392, 144, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 128
+
+- type: Tile
+  id: Rough7
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "1440, 144, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 129
+
+- type: Tile
+  id: Rough8
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "1488, 144, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 130
+
+- type: Tile
+  id: Rough9
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "1536, 144, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 131
+
+- type: Tile
+  id: Tile1
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "0, 192, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 132
+
+- type: Tile
+  id: Tile2
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "48, 192, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 133
+
+- type: Tile
+  id: Tile3
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "96, 192, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 134
+
+- type: Tile
+  id: Brick1
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "144, 192, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 135
+
+- type: Tile
+  id: Brick2
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "192, 192, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 136
+
+- type: Tile
+  id: CobbleCaution
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "240, 192, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 137
+
+- type: Tile
+  id: Concrete4
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "288, 192, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 138
+
+- type: Tile
+  id: ConcreteTiled
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "336, 192, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 139
+
+- type: Tile
+  id: ShopPlatform
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "384, 192, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 140
+
+- type: Tile
+  id: MetalDark
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "432, 192, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 141
+
+- type: Tile
+  id: CobbleWallRoof
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "576, 192, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 144
+
+- type: Tile
+  id: Carpet1
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "672, 192, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 146
+
+- type: Tile
+  id: HardwoodBordered
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "720, 192, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 147
+
+- type: Tile
+  id: Tatami1
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "768, 192, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 148
+
+- type: Tile
+  id: Tatami2
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "816, 192, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 149
+
+- type: Tile
+  id: Cyber1
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "864, 192, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 150
+
+- type: Tile
+  id: Cyber2
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "912, 192, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 151
+
+- type: Tile
+  id: Cyber3
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "960, 192, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 152
+
+- type: Tile
+  id: Cyber4
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "1008, 192, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 153
+
+- type: Tile
+  id: CarpetNw
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "1152, 192, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 156
+
+- type: Tile
+  id: CarpetN
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "1200, 192, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 157
+
+- type: Tile
+  id: CarpetNe
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "1248, 192, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 158
+
+- type: Tile
+  id: CarpetSw
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "1296, 192, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 159
+
+- type: Tile
+  id: CarpetS
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "1344, 192, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 160
+
+- type: Tile
+  id: CarpetSe
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "1392, 192, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 161
+
+- type: Tile
+  id: Rough11
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "1488, 192, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 163
+
+- type: Tile
+  id: Rough12
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "1536, 192, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 164
+
+- type: Tile
+  id: AnimeWaterShallow
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "0, 240, 48, 48"
+    _CountX: '3'
+  kind: Water
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 165
+
+- type: Tile
+  id: AnimeWaterSea
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "144, 240, 48, 48"
+    _CountX: '3'
+  kind: Water
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 168
+
+- type: Tile
+  id: AnimeWaterHotSpring
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "288, 240, 48, 48"
+    _CountX: '3'
+  kind: Water
+  kind2: MountainWater
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 171
+
+- type: Tile
+  id: CobbleWall
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "576, 240, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 177
+
+- type: Tile
+  id: IceTiled1
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "672, 240, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 179
+
+- type: Tile
+  id: IceTiled2
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "720, 240, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 180
+
+- type: Tile
+  id: IceTiled4
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "864, 240, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 183
+
+- type: Tile
+  id: IceStairs2
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "1008, 240, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 186
+
+- type: Tile
+  id: BridgeWe
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "1104, 240, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 188
+
+- type: Tile
+  id: RedStairs
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "1152, 240, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 189
+
+- type: Tile
+  id: CobbleStairs
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "1200, 240, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 190
+
+- type: Tile
+  id: BridgeNs
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "1296, 240, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 192
+
+- type: Tile
+  id: CobbleRaised2
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "1344, 240, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 193
+
+- type: Tile
+  id: CobbleRaised3
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "1488, 240, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 196
+
+- type: Tile
+  id: ChurchFloor
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "0, 288, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 198
+
+- type: Tile
+  id: ChurchSymbol
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "48, 288, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 199
+
+- type: Tile
+  id: CarpetRed
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "144, 288, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 201
+
+- type: Tile
+  id: Tiled
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "192, 288, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 202
+
+- type: Tile
+  id: CarpetGreen
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "240, 288, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 203
+
+- type: Tile
+  id: CarpetBlue
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "288, 288, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 204
+
+- type: Tile
+  id: WoodFloor1
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "336, 288, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 205
+
+- type: Tile
+  id: WoodFloor2
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "384, 288, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 206
+
+- type: Tile
+  id: WoodFloor4
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "480, 288, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 208
+
+- type: Tile
+  id: WoodStair
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "528, 288, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 209
+
+- type: Tile
+  id: Marble
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "624, 288, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 211
+
+- type: Tile
+  id: Tiled2
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "672, 288, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 212
+
+- type: Tile
+  id: GreyFloor
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "720, 288, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 213
+
+- type: Tile
+  id: Stair
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "768, 288, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 214
+
+- type: Tile
+  id: CobbleStairs2
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "864, 288, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 216
+
+- type: Tile
+  id: WoodFloor5
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "960, 288, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 218
+
+- type: Tile
+  id: WoodFloor6
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "1008, 288, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 219
+
+- type: Tile
+  id: WoodFloor8
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "1104, 288, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 221
+
+- type: Tile
+  id: RedFloor
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "1152, 288, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 222
+
+- type: Tile
+  id: BlackFloor
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "1200, 288, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 223
+
+- type: Tile
+  id: WoodFloor9
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "1248, 288, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 224
+
+- type: Tile
+  id: Carpet2
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "1296, 288, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 225
+
+- type: Tile
+  id: Carpet4
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "1440, 288, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 228
+
+- type: Tile
+  id: Carpet5
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "1488, 288, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 229
+
+- type: Tile
+  id: GreenFloor
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "1536, 288, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 230
+
+- type: Tile
+  id: LightGrass1
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "0, 480, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 330
+
+- type: Tile
+  id: LightGrass2
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "48, 480, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 331
+
+- type: Tile
+  id: LightGrass3
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "96, 480, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 332
+
+- type: Tile
+  id: LightGrassBush1
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "144, 480, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 333
+
+- type: Tile
+  id: LightGrassBush2
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "192, 480, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 334
+
+- type: Tile
+  id: LightGrassPlants
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "240, 480, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 335
+
+- type: Tile
+  id: LightGrassPatch
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "288, 480, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 336
+
+- type: Tile
+  id: LightGrassShrubs
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "336, 480, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 337
+
+- type: Tile
+  id: LightGrassBushes
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "384, 480, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 338
+
+- type: Tile
+  id: LightGrassCliffSw
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "432, 480, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 339
+
+- type: Tile
+  id: LightGrassCliffS
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "480, 480, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 340
+
+- type: Tile
+  id: LightGrassCliffSe
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "528, 480, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 341
+
+- type: Tile
+  id: LightGrassFlowers
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "576, 480, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 342
+
+- type: Tile
+  id: LightGrassDirt
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "624, 480, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 343
+
+- type: Tile
+  id: LightGrassCobble1
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "768, 480, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 346
+
+- type: Tile
+  id: LightGrassCobble2
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "816, 480, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 347
+
+- type: Tile
+  id: LightGrassCobble3
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "864, 480, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 348
+
+- type: Tile
+  id: LightGrassCobble4
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "912, 480, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 349
+
+- type: Tile
+  id: LightGrassWheel
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "1392, 480, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 359
+
+- type: Tile
+  id: LightGrassRailroadTracksNs
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "1440, 480, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 360
+
+- type: Tile
+  id: LightGrassRailroadTracksWe
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "1488, 480, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 361
+
+- type: Tile
+  id: LightGrassBoulder
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "1536, 480, 48, 48"
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 362
+
+- type: Tile
+  id: WallOriental
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "0, 576, 48, 48"
+  isSolid: true
+  isOpaque: true
+  Wallimage:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "0, 624, 48, 48"
+  elonaAtlas: '1'
+  elonaId: 396
+
+- type: Tile
+  id: WallBrick
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "48, 576, 48, 48"
+  isSolid: true
+  isOpaque: true
+  Wallimage:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "48, 624, 48, 48"
+  elonaAtlas: '1'
+  elonaId: 397
+
+- type: Tile
+  id: WallRegal
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "96, 576, 48, 48"
+  isSolid: true
+  isOpaque: true
+  Wallimage:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "96, 624, 48, 48"
+  elonaAtlas: '1'
+  elonaId: 398
+
+- type: Tile
+  id: WallPillar
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "144, 576, 48, 48"
+  isSolid: true
+  isOpaque: true
+  Wallimage:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "144, 624, 48, 48"
+  elonaAtlas: '1'
+  elonaId: 399
+
+- type: Tile
+  id: WallLog
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "192, 576, 48, 48"
+  isSolid: true
+  isOpaque: true
+  Wallimage:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "192, 624, 48, 48"
+  elonaAtlas: '1'
+  elonaId: 400
+
+- type: Tile
+  id: WallWood
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "240, 576, 48, 48"
+  isSolid: true
+  isOpaque: true
+  Wallimage:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "240, 624, 48, 48"
+  elonaAtlas: '1'
+  elonaId: 401
+
+- type: Tile
+  id: WallPlank
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "288, 576, 48, 48"
+  isSolid: true
+  isOpaque: true
+  Wallimage:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "288, 624, 48, 48"
+  elonaAtlas: '1'
+  elonaId: 402
+
+- type: Tile
+  id: WallShingle
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "336, 576, 48, 48"
+  isSolid: true
+  isOpaque: true
+  Wallimage:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "336, 624, 48, 48"
+  elonaAtlas: '1'
+  elonaId: 403
+
+- type: Tile
+  id: WallSmooth
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "384, 576, 48, 48"
+  isSolid: true
+  isOpaque: true
+  Wallimage:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "384, 624, 48, 48"
+  elonaAtlas: '1'
+  elonaId: 404
+
+- type: Tile
+  id: WallCurtain
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "432, 576, 48, 48"
+  isSolid: true
+  isOpaque: true
+  Wallimage:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "432, 624, 48, 48"
+  elonaAtlas: '1'
+  elonaId: 405
+
+- type: Tile
+  id: WallMoss
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "480, 576, 48, 48"
+  isSolid: true
+  isOpaque: true
+  Wallimage:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "480, 624, 48, 48"
+  elonaAtlas: '1'
+  elonaId: 406
+
+- type: Tile
+  id: WallCrypt
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "528, 576, 48, 48"
+  isSolid: true
+  isOpaque: true
+  Wallimage:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "528, 624, 48, 48"
+  elonaAtlas: '1'
+  elonaId: 407
+
+- type: Tile
+  id: WallIce1
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "576, 576, 48, 48"
+  isSolid: true
+  isOpaque: true
+  Wallimage:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "576, 624, 48, 48"
+  elonaAtlas: '1'
+  elonaId: 408
+
+- type: Tile
+  id: WallIce2
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "624, 576, 48, 48"
+  isSolid: true
+  isOpaque: true
+  Wallimage:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "624, 624, 48, 48"
+  elonaAtlas: '1'
+  elonaId: 409
+
+- type: Tile
+  id: WallIce3
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "672, 576, 48, 48"
+  isSolid: true
+  isOpaque: true
+  Wallimage:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "672, 624, 48, 48"
+  elonaAtlas: '1'
+  elonaId: 410
+
+- type: Tile
+  id: WallSnow1
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "720, 576, 48, 48"
+  isSolid: true
+  isOpaque: true
+  Wallimage:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "720, 624, 48, 48"
+  elonaAtlas: '1'
+  elonaId: 411
+
+- type: Tile
+  id: WallSnow2
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "768, 576, 48, 48"
+  isSolid: true
+  isOpaque: true
+  Wallimage:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "768, 624, 48, 48"
+  elonaAtlas: '1'
+  elonaId: 412
+
+- type: Tile
+  id: WallSnow3
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "816, 576, 48, 48"
+  isSolid: true
+  isOpaque: true
+  Wallimage:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "816, 624, 48, 48"
+  elonaAtlas: '1'
+  elonaId: 413
+
+- type: Tile
+  id: WallStone1
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "0, 672, 48, 48"
+  isSolid: true
+  isOpaque: true
+  Wallimage:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "0, 720, 48, 48"
+  elonaAtlas: '1'
+  elonaId: 462
+
+- type: Tile
+  id: WallStone2
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "48, 672, 48, 48"
+  isSolid: true
+  isOpaque: true
+  Wallimage:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "48, 720, 48, 48"
+  elonaAtlas: '1'
+  elonaId: 463
+
+- type: Tile
+  id: WallStone3
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "96, 672, 48, 48"
+  kind: HardWall
+  isSolid: true
+  isOpaque: true
+  Wallimage:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "96, 720, 48, 48"
+  elonaAtlas: '1'
+  elonaId: 464
+
+- type: Tile
+  id: WallStone4
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "144, 672, 48, 48"
+  isSolid: true
+  isOpaque: true
+  Wallimage:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "144, 720, 48, 48"
+  elonaAtlas: '1'
+  elonaId: 465
+
+- type: Tile
+  id: WallStone5
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "192, 672, 48, 48"
+  isSolid: true
+  isOpaque: true
+  Wallimage:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "192, 720, 48, 48"
+  elonaAtlas: '1'
+  elonaId: 466
+
+- type: Tile
+  id: WallWooden
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "240, 672, 48, 48"
+  isSolid: true
+  isOpaque: true
+  Wallimage:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "240, 720, 48, 48"
+  elonaAtlas: '1'
+  elonaId: 467
+
+- type: Tile
+  id: WallDirt
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "288, 672, 48, 48"
+  isSolid: true
+  isOpaque: true
+  Wallimage:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "288, 720, 48, 48"
+  elonaAtlas: '1'
+  elonaId: 468
+
+- type: Tile
+  id: WallDirtDark
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "336, 672, 48, 48"
+  isSolid: true
+  isOpaque: true
+  Wallimage:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "336, 720, 48, 48"
+  elonaAtlas: '1'
+  elonaId: 469
+
+- type: Tile
+  id: WallPyramid
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "384, 672, 48, 48"
+  isSolid: true
+  isOpaque: true
+  Wallimage:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "384, 720, 48, 48"
+  elonaAtlas: '1'
+  elonaId: 470
+
+- type: Tile
+  id: WallShingled
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "432, 672, 48, 48"
+  isSolid: true
+  isOpaque: true
+  Wallimage:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "432, 720, 48, 48"
+  elonaAtlas: '1'
+  elonaId: 471
+
+- type: Tile
+  id: WallConcrete
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "480, 672, 48, 48"
+  isSolid: true
+  isOpaque: true
+  Wallimage:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "480, 720, 48, 48"
+  elonaAtlas: '1'
+  elonaId: 472
+
+- type: Tile
+  id: WallConcreteLight
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "528, 672, 48, 48"
+  isSolid: true
+  isOpaque: true
+  Wallimage:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "528, 720, 48, 48"
+  elonaAtlas: '1'
+  elonaId: 473
+
+- type: Tile
+  id: WallTowerOfFire
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "576, 672, 48, 48"
+  isSolid: true
+  isOpaque: true
+  Wallimage:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "576, 720, 48, 48"
+  elonaAtlas: '1'
+  elonaId: 474
+
+- type: Tile
+  id: WallForest
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "624, 672, 48, 48"
+  isSolid: true
+  isOpaque: true
+  Wallimage:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "624, 720, 48, 48"
+  elonaAtlas: '1'
+  elonaId: 475
+
+- type: Tile
+  id: WallStone6
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "672, 672, 48, 48"
+  isSolid: true
+  isOpaque: true
+  Wallimage:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "672, 720, 48, 48"
+  elonaAtlas: '1'
+  elonaId: 476
+
+- type: Tile
+  id: WallStone7
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "720, 672, 48, 48"
+  isSolid: true
+  isOpaque: true
+  Wallimage:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "720, 720, 48, 48"
+  elonaAtlas: '1'
+  elonaId: 477
+
+- type: Tile
+  id: WallStone8
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "768, 672, 48, 48"
+  isSolid: true
+  isOpaque: true
+  Wallimage:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "768, 720, 48, 48"
+  elonaAtlas: '1'
+  elonaId: 478
+
+- type: Tile
+  id: WallStone9
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "816, 672, 48, 48"
+  isSolid: true
+  isOpaque: true
+  Wallimage:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "816, 720, 48, 48"
+  elonaAtlas: '1'
+  elonaId: 479
+
+- type: Tile
+  id: WallStone10
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "864, 672, 48, 48"
+  isSolid: true
+  isOpaque: true
+  Wallimage:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "864, 720, 48, 48"
+  elonaAtlas: '1'
+  elonaId: 480
+
+- type: Tile
+  id: WallHay
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "912, 672, 48, 48"
+  isSolid: true
+  isOpaque: true
+  Wallimage:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "912, 720, 48, 48"
+  elonaAtlas: '1'
+  elonaId: 481
+
+- type: Tile
+  id: WallDecor
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "960, 672, 48, 48"
+  isSolid: true
+  isOpaque: true
+  Wallimage:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "960, 720, 48, 48"
+  elonaAtlas: '1'
+  elonaId: 482
+
+- type: Tile
+  id: WallPalace1
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "1008, 672, 48, 48"
+  isSolid: true
+  isOpaque: true
+  Wallimage:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "1008, 720, 48, 48"
+  elonaAtlas: '1'
+  elonaId: 483
+
+- type: Tile
+  id: WallPalace2
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "1056, 672, 48, 48"
+  isSolid: true
+  isOpaque: true
+  Wallimage:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "1056, 720, 48, 48"
+  elonaAtlas: '1'
+  elonaId: 484
+
+- type: Tile
+  id: WallPalace3
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "1104, 672, 48, 48"
+  isSolid: true
+  isOpaque: true
+  Wallimage:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "1104, 720, 48, 48"
+  elonaAtlas: '1'
+  elonaId: 485
+
+- type: Tile
+  id: WallStone11
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "1152, 672, 48, 48"
+  isSolid: true
+  isOpaque: true
+  Wallimage:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "1152, 720, 48, 48"
+  elonaAtlas: '1'
+  elonaId: 486
+
+- type: Tile
+  id: WallCyber
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "1200, 672, 48, 48"
+  isSolid: true
+  isOpaque: true
+  Wallimage:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "1200, 720, 48, 48"
+  elonaAtlas: '1'
+  elonaId: 487
+
+- type: Tile
+  id: WallStone12
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "1248, 672, 48, 48"
+  isSolid: true
+  isOpaque: true
+  Wallimage:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "1248, 720, 48, 48"
+  elonaAtlas: '1'
+  elonaId: 488
+
+- type: Tile
+  id: WallWhite
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "1296, 672, 48, 48"
+  isSolid: true
+  isOpaque: true
+  Wallimage:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "1296, 720, 48, 48"
+  elonaAtlas: '1'
+  elonaId: 489
+
+- type: Tile
+  id: WallDecor2
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "1344, 672, 48, 48"
+  isSolid: true
+  isOpaque: true
+  Wallimage:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "1344, 720, 48, 48"
+  elonaAtlas: '1'
+  elonaId: 490
+
+- type: Tile
+  id: WallConcrete2
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "1392, 672, 48, 48"
+  isSolid: true
+  isOpaque: true
+  Wallimage:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "1392, 720, 48, 48"
+  elonaAtlas: '1'
+  elonaId: 491
+
+- type: Tile
+  id: WallConcrete3
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "1440, 672, 48, 48"
+  isSolid: true
+  isOpaque: true
+  Wallimage:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "1440, 720, 48, 48"
+  elonaAtlas: '1'
+  elonaId: 492
+
+- type: Tile
+  id: WallConcreteDark1
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "1488, 672, 48, 48"
+  isSolid: true
+  isOpaque: true
+  Wallimage:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "1488, 720, 48, 48"
+  elonaAtlas: '1'
+  elonaId: 493
+
+- type: Tile
+  id: WallConcreteDark2
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "1536, 672, 48, 48"
+  isSolid: true
+  isOpaque: true
+  Wallimage:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "1536, 720, 48, 48"
+  elonaAtlas: '1'
+  elonaId: 494
+
+- type: Tile
+  id: WallStone1Fog
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "0, 768, 48, 48"
+  isSolid: true
+  isOpaque: true
+  elonaAtlas: '1'
+  elonaId: 528
+
+- type: Tile
+  id: WallStone2Fog
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "48, 768, 48, 48"
+  isSolid: true
+  isOpaque: true
+  elonaAtlas: '1'
+  elonaId: 529
+
+- type: Tile
+  id: WallStone3Fog
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "96, 768, 48, 48"
+  isSolid: true
+  isOpaque: true
+  elonaAtlas: '1'
+  elonaId: 530
+
+- type: Tile
+  id: WallStone4Fog
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "144, 768, 48, 48"
+  isSolid: true
+  isOpaque: true
+  elonaAtlas: '1'
+  elonaId: 531
+
+- type: Tile
+  id: WallStone5Fog
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "192, 768, 48, 48"
+  isSolid: true
+  isOpaque: true
+  elonaAtlas: '1'
+  elonaId: 532
+
+- type: Tile
+  id: WallWoodenFog
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "240, 768, 48, 48"
+  isSolid: true
+  isOpaque: true
+  elonaAtlas: '1'
+  elonaId: 533
+
+- type: Tile
+  id: WallDirtFog
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "288, 768, 48, 48"
+  isSolid: true
+  isOpaque: true
+  elonaAtlas: '1'
+  elonaId: 534
+
+- type: Tile
+  id: WallDirtDarkFog
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "336, 768, 48, 48"
+  isSolid: true
+  isOpaque: true
+  elonaAtlas: '1'
+  elonaId: 535
+
+- type: Tile
+  id: WallPyramidFog
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "384, 768, 48, 48"
+  isSolid: true
+  isOpaque: true
+  elonaAtlas: '1'
+  elonaId: 536
+
+- type: Tile
+  id: WallShingledFog
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "432, 768, 48, 48"
+  isSolid: true
+  isOpaque: true
+  elonaAtlas: '1'
+  elonaId: 537
+
+- type: Tile
+  id: WallConcreteFog
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "480, 768, 48, 48"
+  isSolid: true
+  isOpaque: true
+  elonaAtlas: '1'
+  elonaId: 538
+
+- type: Tile
+  id: WallConcreteLightFog
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "528, 768, 48, 48"
+  isSolid: true
+  isOpaque: true
+  elonaAtlas: '1'
+  elonaId: 539
+
+- type: Tile
+  id: WallTowerOfFireFog
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "576, 768, 48, 48"
+  isSolid: true
+  isOpaque: true
+  elonaAtlas: '1'
+  elonaId: 540
+
+- type: Tile
+  id: WallForestFog
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "624, 768, 48, 48"
+  isSolid: true
+  isOpaque: true
+  elonaAtlas: '1'
+  elonaId: 541
+
+- type: Tile
+  id: WallStone6Fog
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "672, 768, 48, 48"
+  isSolid: true
+  isOpaque: true
+  elonaAtlas: '1'
+  elonaId: 542
+
+- type: Tile
+  id: WallStone7Fog
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "720, 768, 48, 48"
+  isSolid: true
+  isOpaque: true
+  elonaAtlas: '1'
+  elonaId: 543
+
+- type: Tile
+  id: WallStone8Fog
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "768, 768, 48, 48"
+  isSolid: true
+  isOpaque: true
+  elonaAtlas: '1'
+  elonaId: 544
+
+- type: Tile
+  id: StableTop
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "816, 768, 48, 48"
+  isSolid: true
+  isOpaque: true
+  elonaAtlas: '1'
+  elonaId: 545
+
+- type: Tile
+  id: PalaceFountain
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "1056, 768, 48, 48"
+    _CountX: 2
+  isSolid: true
+  isOpaque: true
+  elonaAtlas: '1'
+  elonaId: 550
+
+- type: Tile
+  id: LightGrassCarts
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "144, 816, 48, 48"
+  isSolid: true
+  isOpaque: true
+  elonaAtlas: '1'
+  elonaId: 564
+
+- type: Tile
+  id: LightGrassCartsGold
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "192, 816, 48, 48"
+  isSolid: true
+  isOpaque: true
+  elonaAtlas: '1'
+  elonaId: 565
+
+- type: Tile
+  id: LightGrassCartsJewels
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "240, 816, 48, 48"
+  isSolid: true
+  isOpaque: true
+  elonaAtlas: '1'
+  elonaId: 566
+
+- type: Tile
+  id: LightGrassCartsRocks
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "288, 816, 48, 48"
+  isSolid: true
+  isOpaque: true
+  elonaAtlas: '1'
+  elonaId: 567
+
+- type: Tile
+  id: LightGrassRocks
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "336, 816, 48, 48"
+  isSolid: true
+  isOpaque: true
+  elonaAtlas: '1'
+  elonaId: 568
+
+- type: Tile
+  id: LightGrassFencingNs
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "528, 816, 48, 48"
+  isSolid: true
+  isOpaque: true
+  elonaAtlas: '1'
+  elonaId: 572
+
+- type: Tile
+  id: LightGrassFencingWe
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "576, 816, 48, 48"
+  isSolid: true
+  isOpaque: true
+  elonaAtlas: '1'
+  elonaId: 573
+
+- type: Tile
+  id: GrassFencingNs
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "624, 816, 48, 48"
+  isSolid: true
+  isOpaque: true
+  elonaAtlas: '1'
+  elonaId: 574
+
+- type: Tile
+  id: GrassFencingWe
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "672, 816, 48, 48"
+  isSolid: true
+  isOpaque: true
+  elonaAtlas: '1'
+  elonaId: 575
+
+- type: Tile
+  id: StableBottom
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "720, 816, 48, 48"
+  isSolid: true
+  isOpaque: true
+  elonaAtlas: '1'
+  elonaId: 576
+
+- type: Tile
+  id: HorseBottom
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "768, 816, 48, 48"
+  isSolid: true
+  isOpaque: true
+  elonaAtlas: '1'
+  elonaId: 577
+
+- type: Tile
+  id: Water
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "0, 864, 48, 48"
+    _CountX: '3'
+  kind: Water
+  isSolid: true
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 594
+
+- type: Tile
+  id: LightGrassBox
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "0, 912, 48, 48"
+  isSolid: true
+  isOpaque: true
+  elonaAtlas: '1'
+  elonaId: 627
+
+- type: Tile
+  id: WaterWallEdge
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "48, 912, 48, 48"
+  isSolid: true
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 628
+
+- type: Tile
+  id: CobbleDiagonalFish
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "96, 912, 48, 48"
+  isSolid: true
+  isOpaque: true
+  elonaAtlas: '1'
+  elonaId: 629
+
+- type: Tile
+  id: CobbleDiagonalPosts
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "144, 912, 48, 48"
+  isSolid: true
+  isOpaque: true
+  elonaAtlas: '1'
+  elonaId: 630
+
+- type: Tile
+  id: CratesOpen
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "192, 912, 48, 48"
+  isSolid: true
+  isOpaque: true
+  elonaAtlas: '1'
+  elonaId: 631
+
+- type: Tile
+  id: Crates
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "240, 912, 48, 48"
+  isSolid: true
+  isOpaque: true
+  elonaAtlas: '1'
+  elonaId: 632
+
+- type: Tile
+  id: WharfCrates1
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "288, 912, 48, 48"
+  isSolid: true
+  isOpaque: true
+  elonaAtlas: '1'
+  elonaId: 633
+
+- type: Tile
+  id: WharfCrates2
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "336, 912, 48, 48"
+  isSolid: true
+  isOpaque: true
+  elonaAtlas: '1'
+  elonaId: 634
+
+- type: Tile
+  id: CobbleDiagonalNet
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "384, 912, 48, 48"
+  isSolid: true
+  isOpaque: true
+  elonaAtlas: '1'
+  elonaId: 635
+
+- type: Tile
+  id: CobbleStatue
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "432, 912, 48, 48"
+  isSolid: true
+  isOpaque: true
+  elonaAtlas: '1'
+  elonaId: 636
+
+- type: Tile
+  id: WaterWallEdgeGrass
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "480, 912, 48, 48"
+  isSolid: true
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 637
+
+- type: Tile
+  id: CobblePillar
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "528, 912, 48, 48"
+  isSolid: true
+  isOpaque: true
+  elonaAtlas: '1'
+  elonaId: 638
+
+- type: Tile
+  id: Carpet3FishBoards
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "576, 912, 48, 48"
+  isSolid: true
+  isOpaque: true
+  elonaAtlas: '1'
+  elonaId: 639
+
+- type: Tile
+  id: CobbleFence
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "672, 912, 48, 48"
+  isSolid: true
+  isOpaque: false
+  elonaAtlas: '1'
+  elonaId: 641
+
+- type: Tile
+  id: SignMagic
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "912, 912, 48, 48"
+  isSolid: true
+  isOpaque: true
+  elonaAtlas: '1'
+  elonaId: 646
+
+- type: Tile
+  id: SignInn
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "960, 912, 48, 48"
+  isSolid: true
+  isOpaque: true
+  elonaAtlas: '1'
+  elonaId: 647
+
+- type: Tile
+  id: SignEquip
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "1008, 912, 48, 48"
+  isSolid: true
+  isOpaque: true
+  elonaAtlas: '1'
+  elonaId: 648
+
+- type: Tile
+  id: SignBlacksmith
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "1152, 912, 48, 48"
+  isSolid: true
+  isOpaque: true
+  elonaAtlas: '1'
+  elonaId: 651
+
+- type: Tile
+  id: SignGeneralVendor
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "1200, 912, 48, 48"
+  isSolid: true
+  isOpaque: true
+  elonaAtlas: '1'
+  elonaId: 652
+
+- type: Tile
+  id: SignShield
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "1296, 912, 48, 48"
+  isSolid: true
+  isOpaque: true
+  elonaAtlas: '1'
+  elonaId: 654
+
+- type: Tile
+  id: SignPotion
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "1344, 912, 48, 48"
+  isSolid: true
+  isOpaque: true
+  elonaAtlas: '1'
+  elonaId: 655
+
+- type: Tile
+  id: SignLamp
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "1392, 912, 48, 48"
+  isSolid: true
+  isOpaque: true
+  elonaAtlas: '1'
+  elonaId: 656
+
+- type: Tile
+  id: SignBakery
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "1440, 912, 48, 48"
+  isSolid: true
+  isOpaque: true
+  elonaAtlas: '1'
+  elonaId: 657
+
+- type: Tile
+  id: SignPub
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "1488, 912, 48, 48"
+  isSolid: true
+  isOpaque: true
+  elonaAtlas: '1'
+  elonaId: 658
+
+- type: Tile
+  id: SignCasino
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "1536, 912, 48, 48"
+  isSolid: true
+  isOpaque: true
+  elonaAtlas: '1'
+  elonaId: 659
+
+- type: Tile
+  id: StackedWood
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "96, 960, 48, 48"
+  isSolid: true
+  isOpaque: true
+  elonaAtlas: '1'
+  elonaId: 662
+
+- type: Tile
+  id: StackedSacks
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "144, 960, 48, 48"
+  isSolid: true
+  isOpaque: true
+  elonaAtlas: '1'
+  elonaId: 663
+
+- type: Tile
+  id: StackedCratesGreen
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "192, 960, 48, 48"
+  isSolid: true
+  isOpaque: true
+  elonaAtlas: '1'
+  elonaId: 664
+
+- type: Tile
+  id: StackedCrates
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "240, 960, 48, 48"
+  isSolid: true
+  isOpaque: true
+  elonaAtlas: '1'
+  elonaId: 665
+
+- type: Tile
+  id: SnowLargeMound
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "288, 960, 48, 48"
+  isSolid: true
+  isOpaque: true
+  elonaAtlas: '1'
+  elonaId: 666
+
+- type: Tile
+  id: CobbleRaised4
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "336, 960, 48, 48"
+  isSolid: true
+  isOpaque: true
+  elonaAtlas: '1'
+  elonaId: 667
+
+- type: Tile
+  id: SnowLog
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "384, 960, 48, 48"
+  isSolid: true
+  isOpaque: true
+  elonaAtlas: '1'
+  elonaId: 668
+
+- type: Tile
+  id: IceWallEdge
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "432, 960, 48, 48"
+  isSolid: true
+  isOpaque: true
+  elonaAtlas: '1'
+  elonaId: 669
+
+- type: Tile
+  id: BoatLeft
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "1440, 960, 48, 48"
+  isSolid: true
+  isOpaque: true
+  elonaAtlas: '1'
+  elonaId: 690
+
+- type: Tile
+  id: BoatRight
+  image:
+    filepath: Assets/Elona/Graphic/map1.bmp
+    region: "1488, 960, 48, 48"
+  isSolid: true
+  isOpaque: true
+  elonaAtlas: '1'
+  elonaId: 691
+
+- type: Tile
+  id: Onii1
+  image:
+    filepath: Assets/Elona/Graphic/map2.bmp
+    region: "1056, 0, 48, 48"
+  kind: Snow
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 2
+  elonaId: 22
+
+- type: Tile
+  id: Onii2
+  image:
+    filepath: Assets/Elona/Graphic/map2.bmp
+    region: "1104, 0, 48, 48"
+  kind: Snow
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 2
+  elonaId: 23
+
+- type: Tile
+  id: Onii3
+  image:
+    filepath: Assets/Elona/Graphic/map2.bmp
+    region: "1152, 0, 48, 48"
+  kind: Snow
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 2
+  elonaId: 24
+
+- type: Tile
+  id: Onii4
+  image:
+    filepath: Assets/Elona/Graphic/map2.bmp
+    region: "1248, 0, 48, 48"
+  kind: Snow
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 2
+  elonaId: 26
+
+- type: Tile
+  id: Onii5
+  image:
+    filepath: Assets/Elona/Graphic/map2.bmp
+    region: "1296, 0, 48, 48"
+  kind: Snow
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 2
+  elonaId: 27
+
+- type: Tile
+  id: Onii6
+  image:
+    filepath: Assets/Elona/Graphic/map2.bmp
+    region: "1344, 0, 48, 48"
+  kind: Snow
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 2
+  elonaId: 28
+
+- type: Tile
+  id: Onii7
+  image:
+    filepath: Assets/Elona/Graphic/map2.bmp
+    region: "1392, 0, 48, 48"
+  kind: Snow
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 2
+  elonaId: 29
+
+- type: Tile
+  id: Onii8
+  image:
+    filepath: Assets/Elona/Graphic/map2.bmp
+    region: "1440, 0, 48, 48"
+  kind: Snow
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 2
+  elonaId: 30
+
+- type: Tile
+  id: Onii9
+  image:
+    filepath: Assets/Elona/Graphic/map2.bmp
+    region: "1488, 0, 48, 48"
+  kind: Snow
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 2
+  elonaId: 31
+
+- type: Tile
+  id: SnowCracksAtlas2
+  image:
+    filepath: Assets/Elona/Graphic/map2.bmp
+    region: "48, 48, 48, 48"
+  kind: Snow
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 2
+  elonaId: 34
+
+- type: Tile
+  id: SnowGrassAtlas2
+  image:
+    filepath: Assets/Elona/Graphic/map2.bmp
+    region: "144, 48, 48, 48"
+  kind: Snow
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 2
+  elonaId: 36
+
+- type: Tile
+  id: SnowPillarAtlas2
+  image:
+    filepath: Assets/Elona/Graphic/map2.bmp
+    region: "528, 48, 48, 48"
+  kind: Snow
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 2
+  elonaId: 44
+
+- type: Tile
+  id: SnowPlantsAtlas2
+  image:
+    filepath: Assets/Elona/Graphic/map2.bmp
+    region: "864, 48, 48, 48"
+  kind: Snow
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 2
+  elonaId: 51
+
+- type: Tile
+  id: Onii10
+  image:
+    filepath: Assets/Elona/Graphic/map2.bmp
+    region: "960, 48, 48, 48"
+  kind: Snow
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 2
+  elonaId: 53
+
+- type: Tile
+  id: Onii11
+  image:
+    filepath: Assets/Elona/Graphic/map2.bmp
+    region: "1008, 48, 48, 48"
+  kind: Snow
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 2
+  elonaId: 54
+
+- type: Tile
+  id: Onii12
+  image:
+    filepath: Assets/Elona/Graphic/map2.bmp
+    region: "1056, 48, 48, 48"
+  kind: Snow
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 2
+  elonaId: 55
+
+- type: Tile
+  id: Onii13
+  image:
+    filepath: Assets/Elona/Graphic/map2.bmp
+    region: "1104, 48, 48, 48"
+  kind: Snow
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 2
+  elonaId: 56
+
+- type: Tile
+  id: Onii14
+  image:
+    filepath: Assets/Elona/Graphic/map2.bmp
+    region: "1152, 48, 48, 48"
+  kind: Snow
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 2
+  elonaId: 57
+
+- type: Tile
+  id: Onii15
+  image:
+    filepath: Assets/Elona/Graphic/map2.bmp
+    region: "1200, 48, 48, 48"
+  kind: Snow
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 2
+  elonaId: 58
+
+- type: Tile
+  id: Onii16
+  image:
+    filepath: Assets/Elona/Graphic/map2.bmp
+    region: "1296, 48, 48, 48"
+  kind: Snow
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 2
+  elonaId: 60
+
+- type: Tile
+  id: Onii17
+  image:
+    filepath: Assets/Elona/Graphic/map2.bmp
+    region: "1344, 48, 48, 48"
+  kind: Snow
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 2
+  elonaId: 61
+
+- type: Tile
+  id: Onii18
+  image:
+    filepath: Assets/Elona/Graphic/map2.bmp
+    region: "1392, 48, 48, 48"
+  kind: Snow
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 2
+  elonaId: 62
+
+- type: Tile
+  id: Onii19
+  image:
+    filepath: Assets/Elona/Graphic/map2.bmp
+    region: "1440, 48, 48, 48"
+  kind: Snow
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 2
+  elonaId: 63
+
+- type: Tile
+  id: Onii20
+  image:
+    filepath: Assets/Elona/Graphic/map2.bmp
+    region: "1488, 48, 48, 48"
+  kind: Snow
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 2
+  elonaId: 64
+
+- type: Tile
+  id: Onii21
+  image:
+    filepath: Assets/Elona/Graphic/map2.bmp
+    region: "1536, 48, 48, 48"
+  kind: Snow
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 2
+  elonaId: 65
+
+- type: Tile
+  id: Onii22
+  image:
+    filepath: Assets/Elona/Graphic/map2.bmp
+    region: "960, 96, 48, 48"
+  kind: Snow
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 2
+  elonaId: 86
+
+- type: Tile
+  id: Onii23
+  image:
+    filepath: Assets/Elona/Graphic/map2.bmp
+    region: "1008, 96, 48, 48"
+  kind: Snow
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 2
+  elonaId: 87
+
+- type: Tile
+  id: Onii24
+  image:
+    filepath: Assets/Elona/Graphic/map2.bmp
+    region: "1056, 96, 48, 48"
+  kind: Snow
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 2
+  elonaId: 88
+
+- type: Tile
+  id: Onii25
+  image:
+    filepath: Assets/Elona/Graphic/map2.bmp
+    region: "1104, 96, 48, 48"
+  kind: Snow
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 2
+  elonaId: 89
+
+- type: Tile
+  id: Onii26
+  image:
+    filepath: Assets/Elona/Graphic/map2.bmp
+    region: "1152, 96, 48, 48"
+  kind: Snow
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 2
+  elonaId: 90
+
+- type: Tile
+  id: Onii27
+  image:
+    filepath: Assets/Elona/Graphic/map2.bmp
+    region: "1200, 96, 48, 48"
+  kind: Snow
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 2
+  elonaId: 91
+
+- type: Tile
+  id: Onii28
+  image:
+    filepath: Assets/Elona/Graphic/map2.bmp
+    region: "1248, 96, 48, 48"
+  kind: Snow
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 2
+  elonaId: 92
+
+- type: Tile
+  id: Onii29
+  image:
+    filepath: Assets/Elona/Graphic/map2.bmp
+    region: "1296, 96, 48, 48"
+  kind: Snow
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 2
+  elonaId: 93
+
+- type: Tile
+  id: Onii30
+  image:
+    filepath: Assets/Elona/Graphic/map2.bmp
+    region: "1344, 96, 48, 48"
+  kind: Snow
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 2
+  elonaId: 94
+
+- type: Tile
+  id: Onii31
+  image:
+    filepath: Assets/Elona/Graphic/map2.bmp
+    region: "1392, 96, 48, 48"
+  kind: Snow
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 2
+  elonaId: 95
+
+- type: Tile
+  id: Onii32
+  image:
+    filepath: Assets/Elona/Graphic/map2.bmp
+    region: "1440, 96, 48, 48"
+  kind: Snow
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 2
+  elonaId: 96
+
+- type: Tile
+  id: Onii33
+  image:
+    filepath: Assets/Elona/Graphic/map2.bmp
+    region: "1488, 96, 48, 48"
+  kind: Snow
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 2
+  elonaId: 97
+
+- type: Tile
+  id: Onii34
+  image:
+    filepath: Assets/Elona/Graphic/map2.bmp
+    region: "1536, 96, 48, 48"
+  kind: Snow
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 2
+  elonaId: 98
+
+- type: Tile
+  id: Onii35
+  image:
+    filepath: Assets/Elona/Graphic/map2.bmp
+    region: "960, 144, 48, 48"
+  kind: Snow
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 2
+  elonaId: 119
+
+- type: Tile
+  id: Onii36
+  image:
+    filepath: Assets/Elona/Graphic/map2.bmp
+    region: "1008, 144, 48, 48"
+  kind: Snow
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 2
+  elonaId: 120
+
+- type: Tile
+  id: Onii37
+  image:
+    filepath: Assets/Elona/Graphic/map2.bmp
+    region: "1056, 144, 48, 48"
+  kind: Snow
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 2
+  elonaId: 121
+
+- type: Tile
+  id: Onii38
+  image:
+    filepath: Assets/Elona/Graphic/map2.bmp
+    region: "1104, 144, 48, 48"
+  kind: Snow
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 2
+  elonaId: 122
+
+- type: Tile
+  id: Onii39
+  image:
+    filepath: Assets/Elona/Graphic/map2.bmp
+    region: "1152, 144, 48, 48"
+  kind: Snow
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 2
+  elonaId: 123
+
+- type: Tile
+  id: Onii40
+  image:
+    filepath: Assets/Elona/Graphic/map2.bmp
+    region: "1200, 144, 48, 48"
+  kind: Snow
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 2
+  elonaId: 124
+
+- type: Tile
+  id: Onii41
+  image:
+    filepath: Assets/Elona/Graphic/map2.bmp
+    region: "1248, 144, 48, 48"
+  kind: Snow
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 2
+  elonaId: 125
+
+- type: Tile
+  id: Onii42
+  image:
+    filepath: Assets/Elona/Graphic/map2.bmp
+    region: "1296, 144, 48, 48"
+  kind: Snow
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 2
+  elonaId: 126
+
+- type: Tile
+  id: Onii43
+  image:
+    filepath: Assets/Elona/Graphic/map2.bmp
+    region: "1344, 144, 48, 48"
+  kind: Snow
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 2
+  elonaId: 127
+
+- type: Tile
+  id: Onii44
+  image:
+    filepath: Assets/Elona/Graphic/map2.bmp
+    region: "1392, 144, 48, 48"
+  kind: Snow
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 2
+  elonaId: 128
+
+- type: Tile
+  id: Onii45
+  image:
+    filepath: Assets/Elona/Graphic/map2.bmp
+    region: "1440, 144, 48, 48"
+  kind: Snow
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 2
+  elonaId: 129
+
+- type: Tile
+  id: Onii46
+  image:
+    filepath: Assets/Elona/Graphic/map2.bmp
+    region: "1488, 144, 48, 48"
+  kind: Snow
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 2
+  elonaId: 130
+
+- type: Tile
+  id: Onii47
+  image:
+    filepath: Assets/Elona/Graphic/map2.bmp
+    region: "1536, 144, 48, 48"
+  kind: Snow
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 2
+  elonaId: 131
+
+- type: Tile
+  id: Onii48
+  image:
+    filepath: Assets/Elona/Graphic/map2.bmp
+    region: "960, 192, 48, 48"
+  kind: Snow
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 2
+  elonaId: 152
+
+- type: Tile
+  id: Onii49
+  image:
+    filepath: Assets/Elona/Graphic/map2.bmp
+    region: "1008, 192, 48, 48"
+  kind: Snow
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 2
+  elonaId: 153
+
+- type: Tile
+  id: Onii50
+  image:
+    filepath: Assets/Elona/Graphic/map2.bmp
+    region: "1056, 192, 48, 48"
+  kind: Snow
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 2
+  elonaId: 154
+
+- type: Tile
+  id: Onii51
+  image:
+    filepath: Assets/Elona/Graphic/map2.bmp
+    region: "1104, 192, 48, 48"
+  kind: Snow
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 2
+  elonaId: 155
+
+- type: Tile
+  id: Onii52
+  image:
+    filepath: Assets/Elona/Graphic/map2.bmp
+    region: "1152, 192, 48, 48"
+  kind: Snow
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 2
+  elonaId: 156
+
+- type: Tile
+  id: Onii53
+  image:
+    filepath: Assets/Elona/Graphic/map2.bmp
+    region: "1200, 192, 48, 48"
+  kind: Snow
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 2
+  elonaId: 157
+
+- type: Tile
+  id: Onii54
+  image:
+    filepath: Assets/Elona/Graphic/map2.bmp
+    region: "1296, 192, 48, 48"
+  kind: Snow
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 2
+  elonaId: 159
+
+- type: Tile
+  id: Onii55
+  image:
+    filepath: Assets/Elona/Graphic/map2.bmp
+    region: "1344, 192, 48, 48"
+  kind: Snow
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 2
+  elonaId: 160
+
+- type: Tile
+  id: Onii56
+  image:
+    filepath: Assets/Elona/Graphic/map2.bmp
+    region: "1392, 192, 48, 48"
+  kind: Snow
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 2
+  elonaId: 161
+
+- type: Tile
+  id: Onii57
+  image:
+    filepath: Assets/Elona/Graphic/map2.bmp
+    region: "1440, 192, 48, 48"
+  kind: Snow
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 2
+  elonaId: 162
+
+- type: Tile
+  id: Onii58
+  image:
+    filepath: Assets/Elona/Graphic/map2.bmp
+    region: "1488, 192, 48, 48"
+  kind: Snow
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 2
+  elonaId: 163
+
+- type: Tile
+  id: Onii59
+  image:
+    filepath: Assets/Elona/Graphic/map2.bmp
+    region: "1536, 192, 48, 48"
+  kind: Snow
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 2
+  elonaId: 164
+
+- type: Tile
+  id: Onii60
+  image:
+    filepath: Assets/Elona/Graphic/map2.bmp
+    region: "960, 240, 48, 48"
+  kind: Snow
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 2
+  elonaId: 185
+
+- type: Tile
+  id: Onii61
+  image:
+    filepath: Assets/Elona/Graphic/map2.bmp
+    region: "1008, 240, 48, 48"
+  kind: Snow
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 2
+  elonaId: 186
+
+- type: Tile
+  id: Onii62
+  image:
+    filepath: Assets/Elona/Graphic/map2.bmp
+    region: "1056, 240, 48, 48"
+  kind: Snow
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 2
+  elonaId: 187
+
+- type: Tile
+  id: Onii63
+  image:
+    filepath: Assets/Elona/Graphic/map2.bmp
+    region: "1104, 240, 48, 48"
+  kind: Snow
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 2
+  elonaId: 188
+
+- type: Tile
+  id: Onii64
+  image:
+    filepath: Assets/Elona/Graphic/map2.bmp
+    region: "1152, 240, 48, 48"
+  kind: Snow
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 2
+  elonaId: 189
+
+- type: Tile
+  id: Onii65
+  image:
+    filepath: Assets/Elona/Graphic/map2.bmp
+    region: "1200, 240, 48, 48"
+  kind: Snow
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 2
+  elonaId: 190
+
+- type: Tile
+  id: Onii66
+  image:
+    filepath: Assets/Elona/Graphic/map2.bmp
+    region: "1296, 240, 48, 48"
+  kind: Snow
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 2
+  elonaId: 192
+
+- type: Tile
+  id: Onii67
+  image:
+    filepath: Assets/Elona/Graphic/map2.bmp
+    region: "1344, 240, 48, 48"
+  kind: Snow
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 2
+  elonaId: 193
+
+- type: Tile
+  id: Onii68
+  image:
+    filepath: Assets/Elona/Graphic/map2.bmp
+    region: "1392, 240, 48, 48"
+  kind: Snow
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 2
+  elonaId: 194
+
+- type: Tile
+  id: Onii69
+  image:
+    filepath: Assets/Elona/Graphic/map2.bmp
+    region: "1440, 240, 48, 48"
+  kind: Snow
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 2
+  elonaId: 195
+
+- type: Tile
+  id: Onii70
+  image:
+    filepath: Assets/Elona/Graphic/map2.bmp
+    region: "1488, 240, 48, 48"
+  kind: Snow
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 2
+  elonaId: 196
+
+- type: Tile
+  id: Onii71
+  image:
+    filepath: Assets/Elona/Graphic/map2.bmp
+    region: "960, 288, 48, 48"
+  kind: Snow
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 2
+  elonaId: 218
+
+- type: Tile
+  id: Onii72
+  image:
+    filepath: Assets/Elona/Graphic/map2.bmp
+    region: "1008, 288, 48, 48"
+  kind: Snow
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 2
+  elonaId: 219
+
+- type: Tile
+  id: Onii73
+  image:
+    filepath: Assets/Elona/Graphic/map2.bmp
+    region: "1056, 288, 48, 48"
+  kind: Snow
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 2
+  elonaId: 220
+
+- type: Tile
+  id: Onii74
+  image:
+    filepath: Assets/Elona/Graphic/map2.bmp
+    region: "1104, 288, 48, 48"
+  kind: Snow
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 2
+  elonaId: 221
+
+- type: Tile
+  id: Onii75
+  image:
+    filepath: Assets/Elona/Graphic/map2.bmp
+    region: "1152, 288, 48, 48"
+  kind: Snow
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 2
+  elonaId: 222
+
+- type: Tile
+  id: Onii76
+  image:
+    filepath: Assets/Elona/Graphic/map2.bmp
+    region: "1200, 288, 48, 48"
+  kind: Snow
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 2
+  elonaId: 223
+
+- type: Tile
+  id: Onii77
+  image:
+    filepath: Assets/Elona/Graphic/map2.bmp
+    region: "1008, 336, 48, 48"
+  kind: Snow
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 2
+  elonaId: 252
+
+- type: Tile
+  id: Onii78
+  image:
+    filepath: Assets/Elona/Graphic/map2.bmp
+    region: "1056, 336, 48, 48"
+  kind: Snow
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 2
+  elonaId: 253
+
+- type: Tile
+  id: Onii79
+  image:
+    filepath: Assets/Elona/Graphic/map2.bmp
+    region: "1104, 336, 48, 48"
+  kind: Snow
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 2
+  elonaId: 254
+
+- type: Tile
+  id: Onii80
+  image:
+    filepath: Assets/Elona/Graphic/map2.bmp
+    region: "1152, 336, 48, 48"
+  kind: Snow
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 2
+  elonaId: 255
+
+- type: Tile
+  id: Onii81
+  image:
+    filepath: Assets/Elona/Graphic/map2.bmp
+    region: "1200, 336, 48, 48"
+  kind: Snow
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 2
+  elonaId: 256
+
+- type: Tile
+  id: Onii82
+  image:
+    filepath: Assets/Elona/Graphic/map2.bmp
+    region: "1008, 384, 48, 48"
+  kind: Snow
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 2
+  elonaId: 285
+
+- type: Tile
+  id: Onii83
+  image:
+    filepath: Assets/Elona/Graphic/map2.bmp
+    region: "1056, 384, 48, 48"
+  kind: Snow
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 2
+  elonaId: 286
+
+- type: Tile
+  id: Onii84
+  image:
+    filepath: Assets/Elona/Graphic/map2.bmp
+    region: "1104, 384, 48, 48"
+  kind: Snow
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 2
+  elonaId: 287
+
+- type: Tile
+  id: Onii85
+  image:
+    filepath: Assets/Elona/Graphic/map2.bmp
+    region: "1152, 384, 48, 48"
+  kind: Snow
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 2
+  elonaId: 288
+
+- type: Tile
+  id: Onii86
+  image:
+    filepath: Assets/Elona/Graphic/map2.bmp
+    region: "1200, 384, 48, 48"
+  kind: Snow
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 2
+  elonaId: 289
+
+- type: Tile
+  id: Onii87
+  image:
+    filepath: Assets/Elona/Graphic/map2.bmp
+    region: "960, 432, 48, 48"
+  kind: Snow
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 2
+  elonaId: 317
+
+- type: Tile
+  id: Onii88
+  image:
+    filepath: Assets/Elona/Graphic/map2.bmp
+    region: "1008, 432, 48, 48"
+  kind: Snow
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 2
+  elonaId: 318
+
+- type: Tile
+  id: Onii89
+  image:
+    filepath: Assets/Elona/Graphic/map2.bmp
+    region: "1056, 432, 48, 48"
+  kind: Snow
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 2
+  elonaId: 319
+
+- type: Tile
+  id: Onii90
+  image:
+    filepath: Assets/Elona/Graphic/map2.bmp
+    region: "1104, 432, 48, 48"
+  kind: Snow
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 2
+  elonaId: 320
+
+- type: Tile
+  id: Onii91
+  image:
+    filepath: Assets/Elona/Graphic/map2.bmp
+    region: "1152, 432, 48, 48"
+  kind: Snow
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 2
+  elonaId: 321
+
+- type: Tile
+  id: Onii92
+  image:
+    filepath: Assets/Elona/Graphic/map2.bmp
+    region: "1200, 432, 48, 48"
+  kind: Snow
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 2
+  elonaId: 322
+
+- type: Tile
+  id: Onii93
+  image:
+    filepath: Assets/Elona/Graphic/map2.bmp
+    region: "960, 480, 48, 48"
+  kind: Snow
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 2
+  elonaId: 350
+
+- type: Tile
+  id: Onii94
+  image:
+    filepath: Assets/Elona/Graphic/map2.bmp
+    region: "1008, 480, 48, 48"
+  kind: Snow
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 2
+  elonaId: 351
+
+- type: Tile
+  id: Onii95
+  image:
+    filepath: Assets/Elona/Graphic/map2.bmp
+    region: "1056, 480, 48, 48"
+  kind: Snow
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 2
+  elonaId: 352
+
+- type: Tile
+  id: Onii96
+  image:
+    filepath: Assets/Elona/Graphic/map2.bmp
+    region: "1104, 480, 48, 48"
+  kind: Snow
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 2
+  elonaId: 353
+
+- type: Tile
+  id: Onii97
+  image:
+    filepath: Assets/Elona/Graphic/map2.bmp
+    region: "1152, 480, 48, 48"
+  kind: Snow
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 2
+  elonaId: 354
+
+- type: Tile
+  id: Onii98
+  image:
+    filepath: Assets/Elona/Graphic/map2.bmp
+    region: "1200, 480, 48, 48"
+  kind: Snow
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 2
+  elonaId: 355
+
+- type: Tile
+  id: Onii99
+  image:
+    filepath: Assets/Elona/Graphic/map2.bmp
+    region: "1248, 480, 48, 48"
+  kind: Snow
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 2
+  elonaId: 356
+
+- type: Tile
+  id: Onii100
+  image:
+    filepath: Assets/Elona/Graphic/map2.bmp
+    region: "1296, 480, 48, 48"
+  kind: Snow
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 2
+  elonaId: 357
+
+- type: Tile
+  id: Onii101
+  image:
+    filepath: Assets/Elona/Graphic/map2.bmp
+    region: "1344, 480, 48, 48"
+  kind: Snow
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 2
+  elonaId: 358
+
+- type: Tile
+  id: Onii102
+  image:
+    filepath: Assets/Elona/Graphic/map2.bmp
+    region: "1392, 480, 48, 48"
+  kind: Snow
+  isSolid: false
+  isOpaque: false
+  elonaAtlas: 2
+  elonaId: 359
+
+- type: Tile
+  id: MapgenDefault
+  image:
+    filepath: Assets/Core/Graphic/Tile/Default.png
+  isSolid: true
+  isOpaque: false
+
+- type: Tile
+  id: MapgenTunnel
+  image:
+    filepath: Assets/Core/Graphic/Tile/Default.png
+  isSolid: false
+  isOpaque: false
+
+- type: Tile
+  id: MapgenWall
+  image:
+    filepath: Assets/Core/Graphic/Tile/Default.png
+  isSolid: true
+  isOpaque: false
+
+- type: Tile
+  id: MapgenRoom
+  image:
+    filepath: Assets/Core/Graphic/Tile/Default.png
+  isSolid: false
+  isOpaque: false
+
+- type: Tile
+  id: MapgenFog
+  image:
+    filepath: Assets/Core/Graphic/Tile/Default.png
+  isSolid: true
+  isOpaque: false

@@ -239,17 +239,17 @@ namespace OpenNefia.Core.UI.Element.List
 
         #region UI Handling
 
-        public override void SetPosition(Vector2i pos)
+        public override void SetPosition(int x, int y)
         {
-            base.SetPosition(pos);
+            base.SetPosition(x, y);
 
-            var iy = this.Top;
+            var iy = this.Y;
 
             for (int index = 0; index < this.Count; index++)
             {
                 var cell = this.Cells[index];
                 cell.XOffset = this.ItemOffsetX;
-                cell.SetPosition(this.Left, iy);
+                cell.SetPosition(this.X, iy);
 
                 iy += cell.Height;
             }
@@ -264,21 +264,21 @@ namespace OpenNefia.Core.UI.Element.List
                 var cell = this.Cells[index];
                 cell.GetPreferredSize(out var cellSize);
                 size.X = Math.Max(size.X, cellSize.X);
-                size.Y += Math.Max(size.Y, this.ItemHeight);
+                size.Y += Math.Max(cellSize.Y, this.ItemHeight);
             }
         }
 
-        public override void SetSize(Vector2i size)
+        public override void SetSize(int width, int height)
         {
             for (int index = 0; index < this.Count; index++)
             {
                 var cell = this.Cells[index];
                 cell.GetPreferredSize(out var cellSize);
-                cell.SetSize(size.X, Math.Max(cellSize.Y, this.ItemHeight));
-                size.X = Math.Max(size.X, cell.Width);
+                cell.SetSize(width, Math.Max(cellSize.Y, this.ItemHeight));
+                width = Math.Max(width, cell.Width);
             }
 
-            base.SetSize(size);
+            base.SetSize(width, height);
         }
         
         public override void Update(float dt)

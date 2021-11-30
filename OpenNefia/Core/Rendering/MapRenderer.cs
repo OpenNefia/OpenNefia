@@ -57,23 +57,23 @@ namespace OpenNefia.Core.Rendering
             this._map.MapObjectMemory.Flush();
         }
 
-        public override void SetSize(Vector2i size)
+        public override void SetSize(int width, int height)
         {
-            base.SetSize(size);
+            base.SetSize(width, height);
             foreach (var layer in this._tileLayers)
             {
-                layer.SetSize(size);
+                layer.SetSize(width, height);
             }
         }
 
-        public override void SetPosition(Vector2i pos)
+        public override void SetPosition(int x, int y)
         {
-            base.SetPosition(pos);
+            base.SetPosition(x, y);
             foreach (var layer in this._tileLayers)
             {
-                layer.SetPosition(pos);
+                layer.SetPosition(x, y);
             }
-            _mapDrawables.SetPosition(pos);
+            _mapDrawables.SetPosition(x, y);
         }
 
         public override void Update(float dt)

@@ -131,25 +131,25 @@ namespace OpenNefia.Core.UI.Layer
             UiUtils.GetCenteredParams(400, 170, out bounds);
         }
 
-        public override void SetSize(Vector2i size)
+        public override void SetSize(int width, int height)
         {
-            base.SetSize(size);
+            base.SetSize(width, height);
 
-            this.Window.SetSize(this.Size);
+            this.Window.SetSize(this.Width, this.Height);
             var listWidth = (this.Width - 40) / 3;
             this.List1.SetSize(listWidth, this.Height - 40);
             this.List2.SetSize(listWidth, this.Height - 40);
             this.List3.SetSize(listWidth, this.Height - 40);
         }
 
-        public override void SetPosition(Vector2i pos)
+        public override void SetPosition(int x, int y)
         {
-            base.SetPosition(pos);
+            base.SetPosition(x, y);
 
-            this.Window.SetPosition(this.TopLeft);
-            this.List1.SetPosition(this.Left + 20, this.Top + 40);
-            this.List2.SetPosition(this.Left + 20 + (int)((this.Width - 40) * 0.33), this.Top + 40);
-            this.List3.SetPosition(this.Left + 20 + (int)((this.Width - 40) * 0.66), this.Top + 40);
+            this.Window.SetPosition(this.X, this.Y);
+            this.List1.SetPosition(this.X + 20, this.Y + 40);
+            this.List2.SetPosition(this.X + 20 + (int)((this.Width - 40) * 0.33), this.Y + 40);
+            this.List3.SetPosition(this.X + 20 + (int)((this.Width - 40) * 0.66), this.Y + 40);
         }
 
         public override void Update(float dt)

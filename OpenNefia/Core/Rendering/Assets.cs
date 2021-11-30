@@ -6,12 +6,12 @@ namespace OpenNefia.Core.Rendering
 {
     public static class Assets
     {
-        public static AssetDrawable Get(PrototypeId<AssetPrototype> id)
+        public static IAssetDrawable Get(PrototypeId<AssetPrototype> id)
         {
             return IoCManager.Resolve<IAssetManager>().GetAsset(id);
         }
 
-        public static AssetDrawable GetSized(PrototypeId<AssetPrototype> id, Vector2i size)
+        public static IAssetDrawable GetSized(PrototypeId<AssetPrototype> id, Vector2i size)
         {
             return IoCManager.Resolve<IAssetManager>().GetSizedAsset(id, size);
         }

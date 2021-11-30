@@ -17,7 +17,7 @@ namespace OpenNefia.Core.Rendering
         public BasicAnimPrototype BasicAnim { get; }
 
         private FrameCounter Counter;
-        private AssetDrawable AssetDrawable;
+        private IAssetDrawable AssetDrawable;
 
         public BasicAnimMapDrawable(BasicAnimPrototype basicAnim)
         {
@@ -54,8 +54,8 @@ namespace OpenNefia.Core.Rendering
         {
             Love.Graphics.SetColor(Love.Color.White);
             this.AssetDrawable.DrawRegion(Counter.FrameInt.ToString(), 
-                this.Left + GameSession.Coords.TileSize.X / 2, 
-                this.Top + GameSession.Coords.TileSize.Y / 6,
+                this.X + GameSession.Coords.TileSize.X / 2, 
+                this.Y + GameSession.Coords.TileSize.Y / 6,
                 centered: true,
                 rotation: this.BasicAnim.Rotation * this.Counter.Frame);
         }

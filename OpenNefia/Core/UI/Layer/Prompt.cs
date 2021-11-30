@@ -126,21 +126,21 @@ namespace OpenNefia.Core.UI.Layer
             bounds = Box2i.FromDimensions(x, y, width, height);
         }
 
-        public override void SetSize(Vector2i size)
+        public override void SetSize(int width, int height)
         {
-            this.List.SetSize(size);
+            this.List.SetSize(width, height);
 
-            base.SetSize(size.X, size.Y + 42);
+            base.SetSize(width, height + 42);
 
             this.Window.SetSize(this.Width - 16, this.Height - 16);
         }
 
-        public override void SetPosition(Vector2i pos)
+        public override void SetPosition(int x, int y)
         {
-            base.SetPosition(pos);
+            base.SetPosition(x, y);
 
-            this.List.SetPosition(this.Left + 30, this.Top + 24);
-            this.Window.SetPosition(this.Left + 8, this.Top + 8);
+            this.List.SetPosition(this.X + 30, this.Y + 24);
+            this.Window.SetPosition(this.X + 8, this.Y + 8);
         }
 
         public override void Update(float dt)

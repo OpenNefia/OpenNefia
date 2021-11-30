@@ -19,14 +19,14 @@ namespace OpenNefia.Core.UI.Layer
             UiUtils.GetCenteredParams(400, 300, out bounds);
         }
 
-        public override void SetSize(Vector2i size)
+        public override void SetSize(int width, int height)
         {
-            base.SetSize(size);
+            base.SetSize(width, height);
         }
 
-        public override void SetPosition(Vector2i pos)
+        public override void SetPosition(int x, int y)
         {
-            base.SetPosition(pos);
+            base.SetPosition(x, y);
         }
 
         public override void Update(float dt)

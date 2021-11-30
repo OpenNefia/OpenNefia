@@ -61,7 +61,8 @@ namespace OpenNefia.Core.Rendering
 
             if (tile.ImageRegion != null)
             {
-                var quad = Love.Graphics.NewQuad(tile.ImageRegion.X, tile.ImageRegion.Y, tile.ImageRegion.Width, tile.ImageRegion.Height, image.GetWidth(), image.GetHeight());
+                var imageRegion = tile.ImageRegion.Value;
+                var quad = Love.Graphics.NewQuad(imageRegion.Left, imageRegion.Left, imageRegion.Width, imageRegion.Height, image.GetWidth(), image.GetHeight());
                 return Tuple.Create(image, quad);
             }
             else

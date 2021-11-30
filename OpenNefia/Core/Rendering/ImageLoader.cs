@@ -12,6 +12,7 @@ using VipsImage = NetVips.Image;
 
 namespace OpenNefia.Core.Rendering
 {
+    [Obsolete("TODO move to IResourceCache")]
     public static class ImageLoader
     {
         private static Dictionary<string, Love.Image> Cache = new Dictionary<string, Love.Image>();

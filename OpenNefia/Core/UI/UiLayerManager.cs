@@ -46,8 +46,8 @@ namespace OpenNefia.Core.UI
             foreach (var layer in this.Layers)
             {
                 layer.GetPreferredBounds(out var bounds);
-                layer.SetSize(bounds.Size);
-                layer.SetPosition(bounds.TopLeft);
+                layer.SetSize(bounds.Width, bounds.Height);
+                layer.SetPosition(bounds.Left, bounds.Top);
             }
         }
 
@@ -118,8 +118,8 @@ namespace OpenNefia.Core.UI
         public void PushLayer(IUiLayer layer)
         {
             layer.GetPreferredBounds(out var bounds);
-            layer.SetSize(bounds.Size);
-            layer.SetPosition(bounds.TopLeft);
+            layer.SetSize(bounds.Width, bounds.Height);
+            layer.SetPosition(bounds.Left, bounds.Top);
             Layers.Add(layer);
             SortLayers();
         }
@@ -155,7 +155,7 @@ namespace OpenNefia.Core.UI
 
             if (!layer.IsLocalized)
             {
-                layer.Localize(this.GetType().GetBaseLocaleKey());
+                layer.Localize(layer.GetType().GetBaseLocaleKey());
             }
 
             PushLayer(layer);

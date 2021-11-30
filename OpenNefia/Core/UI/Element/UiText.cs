@@ -6,12 +6,12 @@ namespace OpenNefia.Core.UI.Element
 {
     public class UiText : BaseUiElement, IUiText
     {
-        private Love.Text BakedText;
+        protected Love.Text BakedText;
 
         public int TextWidth { get => this.Font.LoveFont.GetWidth(this.Text); }
 
         private FontSpec _font;
-        [UiStyled] public FontSpec Font
+        public FontSpec Font
         {
             get => _font;
             set
@@ -32,7 +32,8 @@ namespace OpenNefia.Core.UI.Element
             }
         }
 
-        [UiStyled] public Maths.Color Color { get; set; }
+        public Maths.Color Color { get; set; }
+        public Maths.Color BgColor { get; set; }
 
 #pragma warning disable CS8618
 
@@ -42,6 +43,8 @@ namespace OpenNefia.Core.UI.Element
         {
             this._text = text;
             this._font = font ?? throw new ArgumentNullException(nameof(font));
+            this.Color = font.Color;
+            this.BgColor = font.BgColor;
             this.RebakeText();
         }
 
@@ -71,35 +74,45 @@ namespace OpenNefia.Core.UI.Element
 
         public override void Draw()
         {
-            //switch(this.Font.Style)
-            //{
-                //case FontStyle.Normal:
-                    Love.Graphics.Draw(this.BakedText, this.Left, this.Top);
-            //        break;
-
-            //    case FontStyle.Outlined:
-            //        GraphicsEx.SetColor(this.Font.ExtraColors[FontSpec.ColorKinds.Background]);
-            //        for (int dx = -1; dx <= 1; dx++)
-            //            for (int dy = -1; dy <= 1; dy++)
-            //                Love.Graphics.Draw(this.BakedText, this.Left + dx, this.Top + dy);
-
-            //        GraphicsEx.SetColor(this.UsedColor);
-            //        Love.Graphics.Draw(this.BakedText, this.Left, this.Top);
-            //        break;
-
-            //    case FontStyle.Shadowed:
-            //        GraphicsEx.SetColor(this.Font.ExtraColors[FontSpec.ColorKinds.Background]);
-            //        Love.Graphics.Draw(this.BakedText, this.Left + 1, this.Top + 1);
-
-            //        GraphicsEx.SetColor(this.UsedColor);
-            //        Love.Graphics.Draw(this.BakedText, this.Left, this.Top);
-            //        break;
-            //}
+            GraphicsEx.SetColor(Color);
+            Love.Graphics.Draw(this.BakedText, this.X, this.Y);
         }
 
         public override void Dispose()
         {
             this.BakedText.Dispose();
+        }
+    }
+
+    public class UiTextOutlined : UiText
+    {
+        public UiTextOutlined(string text = "") : base(text) { }
+        public UiTextOutlined(FontSpec font, string text = "") : base(font, text) { }
+
+        public override void Draw()
+        {
+            GraphicsEx.SetColor(this.Color);
+            for (int dx = -1; dx <= 1; dx++)
+                for (int dy = -1; dy <= 1; dy++)
+                    Love.Graphics.Draw(this.BakedText, this.X + dx, this.Y + dy);
+
+            GraphicsEx.SetColor(this.BgColor);
+            Love.Graphics.Draw(this.BakedText, this.X, this.Y);
+        }
+    }
+
+    public class UiTextShadowed : UiText
+    {
+        public UiTextShadowed(string text = "") : base(text) { }
+        public UiTextShadowed(FontSpec font, string text = "") : base(font, text) { }
+
+        public override void Draw()
+        {
+            GraphicsEx.SetColor(this.Color);
+            Love.Graphics.Draw(this.BakedText, this.X + 1, this.Y + 1);
+
+            GraphicsEx.SetColor(this.BgColor);
+            Love.Graphics.Draw(this.BakedText, this.X, this.Y);
         }
     }
 }

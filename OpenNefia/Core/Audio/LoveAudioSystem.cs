@@ -32,10 +32,10 @@ namespace OpenNefia.Core.Audio
             if (!ConfigVars.EnableSound)
                 return;
 
-            var source = Love.Audio.NewSource(prototype.ResolvePrototype().Path.ToString(), Love.SourceType.Static);
+            var source = Love.Audio.NewSource(prototype.ResolvePrototype().Filepath.ToString(), Love.SourceType.Static);
 
             if (source.GetChannelCount() == 1)
-        {
+            {
                 source.SetRelative(true);
                 source.SetAttenuationDistances(0, 0);
             }
@@ -70,7 +70,7 @@ namespace OpenNefia.Core.Audio
             if (!ConfigVars.EnableSound)
                 return;
 
-            var source = Love.Audio.NewSource(prototype.ResolvePrototype().Path.ToString(), Love.SourceType.Static);
+            var source = Love.Audio.NewSource(prototype.ResolvePrototype().Filepath.ToString(), Love.SourceType.Static);
 
             if (source.GetChannelCount() == 1)
             {

@@ -16,16 +16,16 @@ namespace OpenNefia.Core.UI.Hud
             this.MessageWindow = new SimpleMessageWindow();
         }
 
-        public override void SetSize(Vector2i size)
+        public override void SetSize(int width, int height)
         {
-            base.SetSize(size);
+            base.SetSize(width, height);
             this.MessageWindow.SetSize(Love.Graphics.GetWidth() - 100, 150);
         }
 
-        public override void SetPosition(Vector2i pos)
+        public override void SetPosition(int x, int y)
         {
-            base.SetPosition(pos);
-            this.MessageWindow.SetPosition(this.Left + 50, this.Top + this.Height - this.MessageWindow.Height - 10);
+            base.SetPosition(x, y);
+            this.MessageWindow.SetPosition(this.X + 50, this.Y + this.Height - this.MessageWindow.Height - 10);
         }
 
         public override void Update(float dt)

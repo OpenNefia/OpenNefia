@@ -73,7 +73,7 @@ namespace OpenNefia.Core.Rendering
             {
                 var drawable = entry.Drawable;
                 drawable.Update(dt);
-                drawable.SetPosition(this.TopLeft + drawable.ScreenLocalPos);
+                drawable.SetPosition(this.X + drawable.ScreenLocalPos.X, this.Y + drawable.ScreenLocalPos.Y);
             }
 
             Active.RemoveWhere(entry => entry.Drawable.IsFinished);

@@ -1,16 +1,21 @@
 ﻿using OpenNefia.Core.IoC;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.Serialization.Manager.Attributes;
+using OpenNefia.Core.UI;
 
 namespace OpenNefia.Core.Rendering
 {
     [DataDefinition]
     public class FontSpec
     {
-        public FontSpec(int size = 14, int smallSize = 12)
+        public FontSpec(int size = 14, int smallSize = 12, Maths.Color? color = null, Maths.Color? bgColor = null)
         {
             Size = size;
             SmallSize = smallSize;
+            if (color != null)
+                Color = color.Value;
+            if (bgColor != null)
+                BgColor = bgColor.Value;
         }
 
         public FontSpec()
@@ -25,6 +30,12 @@ namespace OpenNefia.Core.Rendering
 
         [DataField]
         public FontStyle Style { get; } = FontStyle.None;
+
+        [DataField]
+        public Maths.Color Color { get; } = UiColors.TextBlack;
+
+        [DataField]
+        public Maths.Color BgColor { get; } = UiColors.TextWhite;
 
         private Love.Font? _font = null;
 

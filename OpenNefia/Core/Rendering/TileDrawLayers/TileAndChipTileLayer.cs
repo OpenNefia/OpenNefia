@@ -41,18 +41,18 @@ namespace OpenNefia.Core.Rendering.TileDrawLayers
             this._wallShadows.OnThemeSwitched(_coords);
         }
 
-        public override void SetSize(Vector2i size)
+        public override void SetSize(int width, int height)
         {
-            base.SetSize(size);
-            this._tileAndChipBatch.SetSize(size);
-            this._wallShadows.SetSize(size);
+            base.SetSize(width, height);
+            this._tileAndChipBatch.SetSize(width, height);
+            this._wallShadows.SetSize(width, height);
         }
 
-        public override void SetPosition(Vector2i pos)
+        public override void SetPosition(int x, int y)
         {
-            base.SetPosition(pos);
-            this._tileAndChipBatch.SetPosition(pos);
-            this._wallShadows.SetPosition(pos);
+            base.SetPosition(x, y);
+            this._tileAndChipBatch.SetPosition(x, y);
+            this._wallShadows.SetPosition(x, y);
         }
 
         private string ModifyWalls(MapCoordinates coords, TilePrototype tile)

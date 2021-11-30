@@ -14,6 +14,7 @@ namespace OpenNefia.Core.Utility
     /// </summary>
     [PublicAPI]
     [Serializable]
+    [Obsolete]
     public sealed partial class FormattedMessage
     {
         public TagList Tags => new(_tags);

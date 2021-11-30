@@ -38,14 +38,14 @@ namespace OpenNefia.Core.UI.Layer
         protected UiTopicWindow TopicWindow;
         protected IUiText Text;
 
-        protected AssetDrawable AssetLabelInput;
-        protected AssetDrawable AssetImeStatusJapanese;
-        protected AssetDrawable AssetImeStatusEnglish;
-        protected AssetDrawable AssetImeStatusNone;
-        protected AssetDrawable AssetInputCaret;
+        protected IAssetDrawable AssetLabelInput;
+        protected IAssetDrawable AssetImeStatusJapanese;
+        protected IAssetDrawable AssetImeStatusEnglish;
+        protected IAssetDrawable AssetImeStatusNone;
+        protected IAssetDrawable AssetInputCaret;
         
-        [UiStyled] protected Color ColorPromptBackground;
-        [UiStyled] protected FontSpec FontPromptText = new();
+        protected Color ColorPromptBackground = UiColors.PromptBackground;
+        protected FontSpec FontPromptText = UiFonts.PromptText;
 
         public TextPrompt(int? maxLength = 16, bool limitLength = false, string? initialValue = null, bool isCancellable = true, bool hasShadow = true)
         {
@@ -142,22 +142,22 @@ namespace OpenNefia.Core.UI.Layer
             UiUtils.GetCenteredParams(DEFAULT_WIDTH, DEFAULT_HEIGHT, out bounds);
         }
 
-        public override void SetSize(Vector2i size)
+        public override void SetSize(int width, int height)
         {
-            size.X = Math.Max(size.X, this.FontPromptText.LoveFont.GetWidth(this.Value));
+            width = Math.Max(width, this.FontPromptText.LoveFont.GetWidth(this.Value));
 
-            base.SetSize(size);
+            base.SetSize(width, height);
 
             this.TopicWindow.SetSize(this.Width, this.Height);
             this.Text.SetPreferredSize();
         }
 
-        public override void SetPosition(Vector2i pos)
+        public override void SetPosition(int x, int y)
         {
-            base.SetPosition(pos);
+            base.SetPosition(x, y);
 
-            this.TopicWindow.SetPosition(this.Left, this.Top);
-            this.Text.SetPosition(this.Left + 36, this.Top + 9);
+            this.TopicWindow.SetPosition(this.X, this.Y);
+            this.Text.SetPosition(this.X + 36, this.Y + 9);
         }
 
         public override void Update(float dt)
@@ -173,27 +173,27 @@ namespace OpenNefia.Core.UI.Layer
             if (this.HasShadow)
             {
                 GraphicsEx.SetColor(this.ColorPromptBackground);
-                Love.Graphics.Rectangle(Love.DrawMode.Fill, this.Left + 4, this.Top + 4, this.Width - 1, this.Height - 1);
+                Love.Graphics.Rectangle(Love.DrawMode.Fill, this.X + 4, this.Y + 4, this.Width - 1, this.Height - 1);
             }
 
             this.TopicWindow.Draw();
 
             GraphicsEx.SetColor(Love.Color.White);
-            this.AssetLabelInput.Draw(this.Left + this.Width / 2 - 60, this.Top - 32);
+            this.AssetLabelInput.Draw(this.X + this.Width / 2 - 60, this.Y - 32);
 
             if (this.IsCutOff)
             {
-                this.AssetImeStatusNone.Draw(this.Left + 8, this.Top + 4);
+                this.AssetImeStatusNone.Draw(this.X + 8, this.Y + 4);
             }
             else
             {
-                this.AssetImeStatusEnglish.Draw(this.Left + 8, this.Top + 4);
+                this.AssetImeStatusEnglish.Draw(this.X + 8, this.Y + 4);
             }
 
             this.Text.Draw();
 
             GraphicsEx.SetColor(255, 255, 255, (int)this.CaretAlpha);
-            this.AssetInputCaret.Draw(this.Left + this.Text.Width + 34, this.Top + 5);
+            this.AssetInputCaret.Draw(this.X + this.Text.Width + 34, this.Y + 5);
         }
 
         public override void Dispose()
