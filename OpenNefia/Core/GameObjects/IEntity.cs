@@ -22,16 +22,6 @@ namespace OpenNefia.Core.GameObjects
         EntityUid Uid { get; }
 
         /// <summary>
-        /// Position of this entity on the map.
-        /// </summary>
-        public Vector2i Pos { get; set; }
-
-        /// <summary>
-        /// Map this entity is in.
-        /// </summary>
-        public IMap? Map { get; }
-
-        /// <summary>
         ///     The current lifetime stage of this entity. You can use this to check
         ///     if the entity is initialized or being deleted.
         /// </summary>
@@ -41,11 +31,6 @@ namespace OpenNefia.Core.GameObjects
         ///     The prototype that was used to create this entity.
         /// </summary>
         EntityPrototype? Prototype { get; }
-
-        /// <summary>
-        /// Position of this entity on the map.
-        /// </summary>
-        MapCoordinates Coords { get; }
 
         /// <summary>
         ///     The Transform Component of this entity.

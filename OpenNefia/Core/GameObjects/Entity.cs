@@ -19,16 +19,7 @@ namespace OpenNefia.Core.GameObjects
 
         /// <inheritdoc />
         public EntityUid Uid { get; }
-
-        /// <inheritdoc />
-        public Vector2i Pos { get; set; }
-
-        /// <inheritdoc />
-        public IMap? Map { get; private set; }
         
-        /// <inheritdoc />
-        public MapCoordinates Coords { get => new MapCoordinates(Map, Pos); }
-
         /// <inheritdoc />
         EntityLifeStage IEntity.LifeStage { get => LifeStage; set => LifeStage = value; }
 
@@ -184,16 +175,6 @@ namespace OpenNefia.Core.GameObjects
         }
 
         #endregion Components
-
-        internal void ChangeMap(IMap newMap)
-        {
-            if (newMap == Map)
-                return;
-
-            var oldMap = Map;
-
-            Map = newMap;
-        }
 
         /// <inheritdoc />
         public override string ToString()

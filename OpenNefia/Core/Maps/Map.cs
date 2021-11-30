@@ -197,13 +197,18 @@ namespace OpenNefia.Core.Maps
             return _InSight[pos.X, pos.Y] == _LastSightId;
         }
 
+        public bool CanAccess(Vector2i pos)
+        {
+            return IsInBounds(pos) && (TileFlags[pos.X, pos.Y] & TileFlag.IsSolid) == TileFlag.None;
+        }
+
         public void AddEntity(IEntity newEntity)
         {
-            if (newEntity.Map != null)
+            if (newEntity.Spatial.Map != null)
             {
-                throw new ArgumentException($"Entity is already in map {newEntity.Map.Id}", nameof(newEntity));
+                throw new ArgumentException($"Entity is already in map {newEntity.Spatial.Map.Id}", nameof(newEntity));
             }
-            ((Entity)newEntity).ChangeMap(this);
+            ((Entity)newEntity).Spatial.ChangeMap(this);
             _entities.Add(newEntity);
         }
     }

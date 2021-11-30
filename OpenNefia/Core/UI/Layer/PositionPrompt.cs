@@ -51,7 +51,7 @@ namespace OpenNefia.Core.UI.Layer
             this.BindKeys();
         }
 
-        public PositionPrompt(IEntity onlooker) : this(onlooker.Coords, onlooker: onlooker) { }
+        public PositionPrompt(IEntity onlooker) : this(onlooker.Spatial.Coords, onlooker: onlooker) { }
 
         protected virtual void BindKeys()
         {

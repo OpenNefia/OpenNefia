@@ -18,6 +18,18 @@ namespace OpenNefia.Core.GameObjects
         public override string Name => "Spatial";
 
         /// <summary>
+        /// Position of this entity on the map.
+        /// </summary>
+        public Vector2i Pos { get; set; }
+
+        /// <summary>
+        /// Map this entity is in.
+        /// </summary>
+        public IMap? Map { get; private set; }
+
+        public MapCoordinates Coords { get => new MapCoordinates(Map, Pos); }
+
+        /// <summary>
         /// If true, this entity cannot be moved over. This also causes
         /// collision events to be fired when the entity is moved into.
         /// </summary>
@@ -29,5 +41,18 @@ namespace OpenNefia.Core.GameObjects
         /// </summary>
         [DataField]
         public bool IsOpaque { get; set; }
+
+        [DataField]
+        public Direction Direction { get; set; } = Direction.South;
+
+        internal void ChangeMap(IMap newMap)
+        {
+            if (newMap == Map)
+                return;
+
+            var oldMap = Map;
+
+            Map = newMap;
+        }
     }
 }

@@ -123,7 +123,7 @@ namespace OpenNefia.Core.GameObjects
             {
                 map.AddEntity(newEntity);
             }
-            newEntity.Pos = coordinates.Position;
+            newEntity.Spatial.Pos = coordinates.Position;
 
             return newEntity;
         }

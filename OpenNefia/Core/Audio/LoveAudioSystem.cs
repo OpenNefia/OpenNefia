@@ -50,7 +50,7 @@ namespace OpenNefia.Core.Audio
         /// <inheritdoc />
         public void Play(PrototypeId<SoundPrototype> prototype, IEntity entity, AudioParams? audioParams = null)
         {
-            Play(prototype, entity.Coords, audioParams);
+            Play(prototype, entity.Spatial.Coords, audioParams);
         }
 
         /// <inheritdoc />
@@ -93,7 +93,7 @@ namespace OpenNefia.Core.Audio
                 return;
 
             var coords = GameSession.Coords;
-            coords.TileToScreen(player.Coords.Position, out var listenerPos);
+            coords.TileToScreen(player.Spatial.Coords.Position, out var listenerPos);
             listenerPos += coords.TileSize / 2;
             Love.Audio.SetPosition(listenerPos.X, listenerPos.Y, 0f);
         }

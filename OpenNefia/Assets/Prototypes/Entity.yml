@@ -47,6 +47,7 @@
   - type: Spatial
     isSolid: true
     isOpaque: false
+  - type: Moveable
   - type: Chara
     class: Slime
   - type: Skills

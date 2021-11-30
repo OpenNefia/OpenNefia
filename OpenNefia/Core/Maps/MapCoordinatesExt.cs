@@ -19,7 +19,7 @@ namespace OpenNefia.Core.Maps
         {
             return coords.Map?
                 .Entities
-                .Where(entity => entity.Coords == coords)
+                .Where(entity => entity.Spatial.Coords == coords)
                 ?? Enumerable.Empty<IEntity>();
         }
 
@@ -41,7 +41,7 @@ namespace OpenNefia.Core.Maps
         {
             return IoCManager.Resolve<IEntityManager>()
                 .EntityQuery<CharaComponent>()
-                .Where(chara => chara.Owner.Coords == coords)
+                .Where(chara => chara.Owner.Spatial.Coords == coords)
                 .FirstOrDefault()?.Owner;
         }
 
@@ -111,6 +111,14 @@ namespace OpenNefia.Core.Maps
                 return false;
 
             return coords.Map.IsInWindowFov(coords.Position);
+        }
+
+        public static bool CanAccess(this MapCoordinates coords)
+        {
+            if (coords.Map == null)
+                return false;
+
+            return coords.Map.CanAccess(coords.Position);
         }
     }
 }

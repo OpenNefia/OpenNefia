@@ -46,7 +46,7 @@ namespace OpenNefia.Core.Maps
             Array.Clear(ShadowTiles, 0, ShadowTiles.Length);
 
             var player = GameSession.Player!;
-            var playerPos = player.Coords.Position;
+            var playerPos = player.Spatial.Coords.Position;
 
             GraphicsEx.GetWindowTiledSize(out var windowTiledSize);
 
@@ -125,8 +125,8 @@ namespace OpenNefia.Core.Maps
                             {
                                 if (i >= fovRadius[j + cy, 0] + cx && i < fovRadius[j + cy, 1] + cx)
                                 {
-                                    var coords = player.Map!.AtPos(new Vector2i(i, j));
-                                    if (player.HasLos(coords))
+                                    var coords = player.Spatial.Map!.AtPos(new Vector2i(i, j));
+                                    if (player.Spatial.Coords.HasLos(coords))
                                     {
                                         coords.MemorizeTile();
                                         shadow = false;

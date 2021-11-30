@@ -44,7 +44,7 @@ namespace OpenNefia.Core.Rendering
 
         public override bool CanEnqueue()
         {
-            return GameSession.Player.CanSee(this._startPos) || GameSession.Player.CanSee(this._endPos);
+            return GameSession.Player.HasLos(this._startPos) || GameSession.Player.HasLos(this._endPos);
         }
 
         public override void OnEnqueue()

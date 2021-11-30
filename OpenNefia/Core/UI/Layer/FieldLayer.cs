@@ -14,6 +14,7 @@ using OpenNefia.Core.Maths;
 using OpenNefia.Core.GameController;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Logic;
+using OpenNefia.Core.GameObjects.EntitySystems;
 
 namespace OpenNefia.Core.UI.Layer
 {
@@ -129,9 +130,12 @@ namespace OpenNefia.Core.UI.Layer
 
             if (player != null)
             {
-                //CharaAction.Move(player, player.X + dx, player.Y + dy);
-                player.Pos += dir.ToIntVec();
-                player.Map!.RefreshTile(player.Pos);
+                var ev = new OnMoveEventArgs() 
+                {
+                    OldPos = player.Spatial.Coords,
+                    NewPos = player.Spatial.Coords.Offset(dir.ToIntVec())
+                };
+                player.EntityManager.EventBus.RaiseLocalEvent(player.Uid, ev);
             }
         }
 
@@ -361,7 +365,7 @@ namespace OpenNefia.Core.UI.Layer
             GraphicsEx.SetColor(Color.White);
             Love.Graphics.Print(Message, 5, 5);
             Love.Graphics.Print(MouseText, 5, 20);
-            Love.Graphics.Print($"Player: ({player.Coords})", 5, 35);
+            Love.Graphics.Print($"Player: ({player.Spatial.Coords})", 5, 35);
 
             this.Hud.Draw();
             this.FpsCounter.Draw();

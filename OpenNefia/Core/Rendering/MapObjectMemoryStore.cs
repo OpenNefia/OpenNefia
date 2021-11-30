@@ -127,7 +127,7 @@ namespace OpenNefia.Core.Rendering
                     this.AllMemory[memory.Index] = memory;
                     this.Added.Add(memory);
                     memory.ObjectUid = obj.Uid;
-                    memory.Coords = obj.Coords;
+                    memory.Coords = obj.Spatial.Coords;
                     memory.ZOrder = i;
                     at.Add(memory);
                 }

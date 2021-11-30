@@ -42,5 +42,6 @@ namespace OpenNefia.Core.Maps
         void MemorizeAll();
         bool IsInBounds(Vector2i position);
         void MemorizeTile(Vector2i position);
+        bool CanAccess(Vector2i position);
     }
 }

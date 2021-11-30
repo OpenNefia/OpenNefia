@@ -27,7 +27,7 @@ namespace OpenNefia.Core.UI.Layer
 
         public void CenterOn(IEntity obj)
         {
-            CenterOn(obj.Coords);
+            CenterOn(obj.Spatial.Coords);
         }
 
         public void CenterOn(MapCoordinates coords)

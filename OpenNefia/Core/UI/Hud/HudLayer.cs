@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace OpenNefia.Core.UI.Hud
 {
-    public class HudLayer : BaseUiLayer<UiNoResult>
+    public class HudLayer : BaseUiLayer<UiNoResult>, IHudLayer
     {
-        internal IHudMessageWindow MessageWindow { get; }
+        public IHudMessageWindow MessageWindow { get; }
 
         public HudLayer()
         {
