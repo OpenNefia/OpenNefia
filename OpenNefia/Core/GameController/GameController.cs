@@ -33,7 +33,7 @@ namespace OpenNefia.Core.GameController
         [Dependency] private readonly IUiLayerManager _uiLayers = default!;
         [Dependency] private readonly ILocalizationManager _localizationManager = default!;
 
-        private ILogic _logic = default!;
+        private IMainTitleLogic _logic = default!;
 
         public bool Startup()
         {
@@ -104,11 +104,11 @@ namespace OpenNefia.Core.GameController
             IoCManager.Register<IMapRenderer, MapRenderer>();
             IoCManager.Register<IMapDrawables, MapDrawables>();
             IoCManager.Register<IFieldLayer, FieldLayer>();
-            IoCManager.Register<ILogic, Logic>();
+            IoCManager.Register<IMainTitleLogic, MainTitleLogic>();
 
             IoCManager.BuildGraph();
 
-            _logic = IoCManager.Resolve<ILogic>();
+            _logic = IoCManager.Resolve<IMainTitleLogic>();
 
             return true;
         }

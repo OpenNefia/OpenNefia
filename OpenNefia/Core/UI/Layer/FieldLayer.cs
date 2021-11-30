@@ -71,15 +71,11 @@ namespace OpenNefia.Core.UI.Layer
 
         protected virtual void BindKeys()
         {
-            this.Keybinds[CoreKeybinds.Identify] += (state) => this.QueryLayer();
-            this.Keybinds[CoreKeybinds.Escape] += (_) => this.PromptToCancel();
+            this.Keybinds[CoreKeybinds.Identify] += QueryLayer;
+            this.Keybinds[CoreKeybinds.Escape] += PromptToCancel;
             //this.Keybinds[Keys.Ctrl | Keys.S] += (_) => this.Save();
             //this.Keybinds[Keys.Ctrl | Keys.O] += (_) => this.Load();
-            this.Keybinds[Keys.Ctrl | Keys.T] += (_) =>
-            {
-                var atlas = IoCManager.Resolve<ITileAtlasManager>().GetAtlas(AtlasNames.Tile);
-                new PicViewLayer(atlas.Image).Query();
-            };
+            this.Keybinds[Keys.Ctrl | Keys.T] += QueryAtlas;
             this.Keybinds[CoreKeybinds.North] += (_) => this.MovePlayer(Direction.North);
             this.Keybinds[CoreKeybinds.South] += (_) => this.MovePlayer(Direction.South);
             this.Keybinds[CoreKeybinds.West] += (_) => this.MovePlayer(Direction.West);
@@ -102,6 +98,17 @@ namespace OpenNefia.Core.UI.Layer
             this.MouseButtons[UI.MouseButtons.Mouse1].Bind((evt) => PlaceTile(evt), trackReleased: true);
             this.MouseButtons[UI.MouseButtons.Mouse2].Bind((evt) => PlaceTile(evt), trackReleased: true);
             this.MouseButtons[UI.MouseButtons.Mouse3].Bind((evt) => PlaceTile(evt), trackReleased: true);
+        }
+
+        private void QueryAtlas(UiKeyInputEventArgs args)
+        {
+            var prompt = new Prompt<string>(new List<string>() { AtlasNames.Tile, AtlasNames.Chip });
+            var result = prompt.Query();
+            if (result.HasValue)
+            {
+                var atlas = IoCManager.Resolve<ITileAtlasManager>().GetAtlas(result.Value.ChoiceData);
+                new PicViewLayer(atlas.Image).Query();
+            }
         }
 
         public void RefreshScreen()
@@ -228,7 +235,7 @@ namespace OpenNefia.Core.UI.Layer
             }
         }*/
 
-        public void PromptToCancel()
+        public void PromptToCancel(UiKeyInputEventArgs args)
         {
             if (PlayerQuery.YesOrNo("Quit to title screen?"))
                 this.Cancel();
@@ -293,7 +300,7 @@ namespace OpenNefia.Core.UI.Layer
         {
         }
 
-        private void QueryLayer()
+        private void QueryLayer(UiKeyInputEventArgs args)
         {
             using (var layer = new TestLayer())
             {

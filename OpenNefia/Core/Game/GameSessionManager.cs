@@ -19,7 +19,7 @@ namespace OpenNefia.Core.Game
         public static IEntity Player { get => IoCManager.Resolve<IGameSessionManager>().Player; }
         public static ICoords Coords { get => IoCManager.Resolve<IGameSessionManager>().Coords; }
 
-        public static IMap ActiveMap { get => IoCManager.Resolve<IMapManager>().ActiveMap; }
+        public static IMap? ActiveMap { get => IoCManager.Resolve<IMapManager>().ActiveMap; }
 
         public static IFieldLayer Field { get => IoCManager.Resolve<IFieldLayer>(); }
     }

@@ -8,12 +8,12 @@ using OpenNefia.Core.UI.Layer;
 
 namespace OpenNefia.Core.GameController
 {
-    public interface ILogic
+    public interface IMainTitleLogic
     {
         void RunTitleScreen();
     }
 
-    public class Logic : ILogic
+    public class MainTitleLogic : IMainTitleLogic
     {
         [Dependency] private readonly IMapManager _mapManager = default!;
         [Dependency] private readonly IEntityManager _entityManager = default!;
@@ -46,6 +46,8 @@ namespace OpenNefia.Core.GameController
                                 _fieldLayer.SetMap(map);
                                 
                                 _fieldLayer.Query();
+
+                                _mapManager.UnloadMap(map.Id);
                                 break;
                             case TitleScreenAction.Quit:
                                 break;

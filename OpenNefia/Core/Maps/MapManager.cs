@@ -6,7 +6,7 @@ namespace OpenNefia.Core.Maps
     {
         public Dictionary<MapId, IMap> CachedMaps = new Dictionary<MapId, IMap>();
 
-        public IMap ActiveMap { get; private set; } = default!;
+        public IMap? ActiveMap { get; private set; } = default!;
 
         private MapId _currentMapId = MapId.Nullspace;
 
@@ -18,6 +18,17 @@ namespace OpenNefia.Core.Maps
             map = new Map(100, 100);
             CachedMaps.Add(id, map);
             return map;
+        }
+
+        public void UnloadMap(MapId id)
+        {
+            CachedMaps.Remove(id);
+
+            if (id == _currentMapId)
+            {
+                _currentMapId = MapId.Nullspace;
+                ActiveMap = null;
+            }
         }
 
         public void SaveMap(MapId id)
@@ -42,6 +53,7 @@ namespace OpenNefia.Core.Maps
         public void ChangeCurrentMap(MapId id)
         {
             this.ActiveMap = CachedMaps[id];
+            _currentMapId = id;
         }
 
         public bool IsMapInitialized(MapId mapId)

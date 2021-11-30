@@ -4,7 +4,7 @@ namespace OpenNefia.Core.Maps
 {
     public interface IMapManager
     {
-        IMap ActiveMap { get; }
+        IMap? ActiveMap { get; }
 
         void ChangeCurrentMap(MapId id);
         IMap LoadMap(MapId id);
@@ -12,5 +12,6 @@ namespace OpenNefia.Core.Maps
         void SaveMap(MapId id);
         bool IsMapInitialized(MapId mapId);
         IMap GetMap(MapId id);
+        void UnloadMap(MapId id);
     }
 }

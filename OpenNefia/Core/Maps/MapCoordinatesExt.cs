@@ -107,7 +107,7 @@ namespace OpenNefia.Core.Maps
 
         public static bool IsInWindowFov(this MapCoordinates coords)
         {
-            if (coords.Map != GameSession.ActiveMap)
+            if (coords.Map == null || coords.Map != GameSession.ActiveMap)
                 return false;
 
             return coords.Map.IsInWindowFov(coords.Position);
