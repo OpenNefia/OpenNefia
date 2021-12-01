@@ -1,9 +1,11 @@
 [submodule "thirdparty/Love2dCS"]
 	path = thirdparty/Love2dCS
-	url = https://github.com/endlesstravel/Love2dCS
+	url = https://github.com/ruin0x11/Love2dCS
+	branch = opennefia-net
 [submodule "Thirdparty/CSharpRepl"]
 	path = Thirdparty/CSharpRepl
 	url = git@github.com:waf/CSharpRepl
 [submodule "Thirdparty/megasource"]
 	path = Thirdparty/megasource
-	url = https://github.com/love2d/megasource
+	url = https://github.com/ruin0x11/megasource
+	branch = opennefia-net

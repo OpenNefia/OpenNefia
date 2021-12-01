@@ -301,7 +301,7 @@ namespace OpenNefia.Core.Rendering
             {
                 var overhangHeight = Coords.TileSize.Y / 4;
                 Love.Graphics.SetScissor(screenX, screenY + RowYIndex * Coords.TileSize.Y - overhangHeight, ScreenWidth, overhangHeight);
-                GraphicsEx.DrawSpriteBatch(TileOverhangBatch, screenX, screenY - overhangHeight);
+                Love.Graphics.Draw(TileOverhangBatch, screenX, screenY - overhangHeight);
                 Love.Graphics.SetScissor();
             }
 

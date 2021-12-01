@@ -79,7 +79,7 @@ namespace OpenNefia.Core.UI.Element
 
         public override void Draw()
         {
-            GraphicsEx.DrawSpriteBatch(this.Batch!, this.X, this.Y);
+            Love.Graphics.Draw(this.Batch!, this.X, this.Y);
         }
 
         public override void Dispose()

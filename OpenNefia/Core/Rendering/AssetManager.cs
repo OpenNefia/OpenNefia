@@ -35,7 +35,8 @@ namespace OpenNefia.Core.Rendering
             Love.Graphics.Draw(quad, parentImage, 0, 0);
 
             Love.Graphics.SetBlendMode(blendMode, blendAlphaMode);
-            Love.Graphics.SetScissor(scissor); // BUG: Love.Graphics.SetScissor is bugged (does not distinguish null scissors).
+            if (scissor.HasValue)
+                Love.Graphics.SetScissor(scissor.Value);
             Love.Graphics.SetColor(color);
             Love.Graphics.SetCanvas(oldCanvas);
 

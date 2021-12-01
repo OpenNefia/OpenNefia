@@ -164,7 +164,7 @@ namespace OpenNefia.Core.UI.Element
             this.AssetWindow.DrawRegion("fill", this.X + 4, this.Y + 4, this.Width - 6, this.Height - 8);
 
             GraphicsEx.SetColor(Love.Color.White);
-            GraphicsEx.DrawSpriteBatch(this.TopicWindowBatch, this.X, this.Y);
+            Love.Graphics.Draw(this.TopicWindowBatch, this.X, this.Y);
 
             if (this.WindowStyle == WindowStyleKind.Five)
             {

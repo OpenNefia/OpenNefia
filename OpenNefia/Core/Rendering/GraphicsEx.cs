@@ -47,7 +47,7 @@ namespace OpenNefia.Core.Rendering
             GameSession.Coords.GetTiledSize(GetViewportSize(), out windowTiledSize);
         }
 
-        public static void DrawSpriteBatch(Love.SpriteBatch batch, float x = 0, float y = 0, float width = 0, float height = 0, float rotation = 0)
+        public static void DrawSpriteBatch(Love.SpriteBatch batch, float x, float y, float width, float height, float rotation = 0)
         {
             // Sprite batches will ignore the width and height of
             // love.graphics.draw; we have to manually set the scissor.
@@ -56,7 +56,8 @@ namespace OpenNefia.Core.Rendering
 
             Love.Graphics.Draw(batch, x, y, rotation);
 
-            Love.Graphics.SetScissor(scissor);
+            if (scissor.HasValue)
+                Love.Graphics.SetScissor(scissor.Value);
         }
 
         public static void DrawImageRegion(Love.Image image, Love.Quad quad, float x = 0, float y = 0, float width = 0, float height = 0, bool centered = false, float rotation = 0)
