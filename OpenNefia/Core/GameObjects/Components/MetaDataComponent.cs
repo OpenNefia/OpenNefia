@@ -6,7 +6,6 @@ namespace OpenNefia.Core.GameObjects
     /// <summary>
     ///     Contains meta data about this entity that isn't component specific.
     /// </summary>
-    [RegisterComponent]
     public class MetaDataComponent : Component
     {
         public override string Name => "MetaData";

@@ -12,7 +12,6 @@ namespace OpenNefia.Core.GameObjects
     /// <summary>
     ///     Contains information about the entity's position in a map.
     /// </summary>
-    [RegisterComponent]
     public class SpatialComponent : Component
     {
         public override string Name => "Spatial";
@@ -62,7 +61,7 @@ namespace OpenNefia.Core.GameObjects
         public bool IsOpaque { get; set; }
 
         [DataField]
-        public Direction Direction { get; set; } = Direction.South;
+        public Direction Direction { get; set; } = Direction.North;
 
         internal void ChangeMap(IMap newMap)
         {

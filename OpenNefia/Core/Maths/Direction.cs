@@ -6,14 +6,14 @@ namespace OpenNefia.Core.Maths
     public enum Direction : sbyte
     {
         Invalid = -1,
-        South = 0,
-        SouthEast = 1,
+        North = 0,
+        NorthEast = 1,
         East = 2,
-        NorthEast = 3,
-        North = 4,
-        NorthWest = 5,
+        SouthEast = 3,
+        South = 4,
+        SouthWest = 5,
         West = 6,
-        SouthWest = 7,
+        NorthWest = 7,
     }
 
     [Flags]
@@ -43,21 +43,21 @@ namespace OpenNefia.Core.Maths
             switch (directionFlag)
             {
                 case DirectionFlag.South:
-                    return Direction.South;
+                    return Direction.North;
                 case DirectionFlag.SouthEast:
-                    return Direction.SouthEast;
+                    return Direction.NorthEast;
                 case DirectionFlag.East:
                     return Direction.East;
                 case DirectionFlag.NorthEast:
-                    return Direction.NorthEast;
+                    return Direction.SouthEast;
                 case DirectionFlag.North:
-                    return Direction.North;
+                    return Direction.South;
                 case DirectionFlag.NorthWest:
-                    return Direction.NorthWest;
+                    return Direction.SouthWest;
                 case DirectionFlag.West:
                     return Direction.West;
                 case DirectionFlag.SouthWest:
-                    return Direction.SouthWest;
+                    return Direction.NorthWest;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
@@ -67,21 +67,21 @@ namespace OpenNefia.Core.Maths
         {
             switch (direction)
             {
-                case Direction.South:
+                case Direction.North:
                     return DirectionFlag.South;
-                case Direction.SouthEast:
+                case Direction.NorthEast:
                     return DirectionFlag.SouthEast;
                 case Direction.East:
                     return DirectionFlag.East;
-                case Direction.NorthEast:
+                case Direction.SouthEast:
                     return DirectionFlag.NorthEast;
-                case Direction.North:
+                case Direction.South:
                     return DirectionFlag.North;
-                case Direction.NorthWest:
+                case Direction.SouthWest:
                     return DirectionFlag.NorthWest;
                 case Direction.West:
                     return DirectionFlag.West;
-                case Direction.SouthWest:
+                case Direction.NorthWest:
                     return DirectionFlag.SouthWest;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -124,12 +124,12 @@ namespace OpenNefia.Core.Maths
             {
                 Direction.East => Direction.West,
                 Direction.West => Direction.East,
-                Direction.North => Direction.South,
                 Direction.South => Direction.North,
-                Direction.NorthEast => Direction.SouthWest,
-                Direction.SouthWest => Direction.NorthEast,
-                Direction.NorthWest => Direction.SouthEast,
+                Direction.North => Direction.South,
                 Direction.SouthEast => Direction.NorthWest,
+                Direction.NorthWest => Direction.SouthEast,
+                Direction.SouthWest => Direction.NorthEast,
+                Direction.NorthEast => Direction.SouthWest,
                 _ => throw new ArgumentOutOfRangeException(nameof(direction))
             };
         }
@@ -138,14 +138,14 @@ namespace OpenNefia.Core.Maths
         {
             return direction switch
             {
-                Direction.East => Direction.South,
-                Direction.West => Direction.North,
-                Direction.North => Direction.East,
-                Direction.South => Direction.West,
-                Direction.NorthEast => Direction.SouthEast,
-                Direction.SouthWest => Direction.NorthWest,
-                Direction.NorthWest => Direction.NorthEast,
-                Direction.SouthEast => Direction.SouthWest,
+                Direction.East => Direction.North,
+                Direction.West => Direction.South,
+                Direction.South => Direction.East,
+                Direction.North => Direction.West,
+                Direction.SouthEast => Direction.NorthEast,
+                Direction.NorthWest => Direction.SouthWest,
+                Direction.SouthWest => Direction.SouthEast,
+                Direction.NorthEast => Direction.NorthWest,
                 _ => throw new ArgumentOutOfRangeException(nameof(direction))
             };
         }

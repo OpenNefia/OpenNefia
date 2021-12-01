@@ -13,13 +13,13 @@ namespace OpenNefia.Tests.Core.Maths
         private static IEnumerable<TestCaseData> Sources()
         {
             yield return new TestCaseData(1, 0, Direction.East, Direction.East, Angle.FromDegrees(90));
-            yield return new TestCaseData(1, 1, Direction.NorthEast, Direction.North, Angle.FromDegrees(135));
-            yield return new TestCaseData(0, 1, Direction.North, Direction.North, Angle.FromDegrees(180));
-            yield return new TestCaseData(-1, 1, Direction.NorthWest, Direction.West, Angle.FromDegrees(-135));
+            yield return new TestCaseData(1, 1, Direction.SouthEast, Direction.South, Angle.FromDegrees(135));
+            yield return new TestCaseData(0, 1, Direction.South, Direction.South, Angle.FromDegrees(180));
+            yield return new TestCaseData(-1, 1, Direction.SouthWest, Direction.West, Angle.FromDegrees(-135));
             yield return new TestCaseData(-1, 0, Direction.West, Direction.West, Angle.FromDegrees(-90));
-            yield return new TestCaseData(-1, -1, Direction.SouthWest, Direction.South, Angle.FromDegrees(-45));
-            yield return new TestCaseData(0, -1, Direction.South, Direction.South, Angle.FromDegrees(0));
-            yield return new TestCaseData(1, -1, Direction.SouthEast, Direction.East, Angle.FromDegrees(45));
+            yield return new TestCaseData(-1, -1, Direction.NorthWest, Direction.North, Angle.FromDegrees(-45));
+            yield return new TestCaseData(0, -1, Direction.North, Direction.North, Angle.FromDegrees(0));
+            yield return new TestCaseData(1, -1, Direction.NorthEast, Direction.East, Angle.FromDegrees(45));
         }
 
         [Test]
@@ -52,7 +52,7 @@ namespace OpenNefia.Tests.Core.Maths
         public void TestDirectionOffset()
         {
             var v = new Vector2i(1, 1);
-            var expected = new Vector2i(2, 2);
+            var expected = new Vector2i(2, 0);
             var dir = Direction.NorthEast;
 
             Assert.That(v.Offset(dir), Is.EqualTo(expected));

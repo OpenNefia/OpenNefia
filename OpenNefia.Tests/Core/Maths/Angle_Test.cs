@@ -15,13 +15,13 @@ namespace OpenNefia.Tests.Maths
         private static IEnumerable<(float, float, Direction, double)> Sources => new(float, float, Direction, double)[]
         {
             (1, 0, Direction.East, 0.0),
-            (1, 1, Direction.NorthEast, System.Math.PI / 4.0),
-            (0, 1, Direction.North, System.Math.PI / 2.0),
-            (-1, 1, Direction.NorthWest, 3 * System.Math.PI / 4.0),
+            (1, 1, Direction.SouthEast, System.Math.PI / 4.0),
+            (0, 1, Direction.South, System.Math.PI / 2.0),
+            (-1, 1, Direction.SouthWest, 3 * System.Math.PI / 4.0),
             (-1, 0, Direction.West, System.Math.PI),
-            (-1, -1, Direction.SouthWest, -3 * System.Math.PI / 4.0),
-            (0, -1, Direction.South, -System.Math.PI / 2.0),
-            (1, -1, Direction.SouthEast, -System.Math.PI / 4.0),
+            (-1, -1, Direction.NorthWest, -3 * System.Math.PI / 4.0),
+            (0, -1, Direction.North, -System.Math.PI / 2.0),
+            (1, -1, Direction.NorthEast, -System.Math.PI / 4.0),
 
             (0.92387953251128674f, -0.38268343236508978f, Direction.East, -System.Math.PI / 8.0)
         };
@@ -126,9 +126,9 @@ namespace OpenNefia.Tests.Maths
 
         [Test]
         [TestCase(MathHelper.PiOver2, ExpectedResult = Direction.East)]
-        [TestCase(0, ExpectedResult = Direction.South)]
+        [TestCase(0, ExpectedResult = Direction.North)]
         [TestCase(-MathHelper.PiOver2, ExpectedResult = Direction.West)]
-        [TestCase(Math.PI, ExpectedResult = Direction.North)]
+        [TestCase(Math.PI, ExpectedResult = Direction.South)]
         public Direction TestAngleToCardinal(double angle)
         {
             return new Angle(angle).GetCardinalDir();
