@@ -72,7 +72,7 @@ namespace OpenNefia.Core.Rendering
         public int ShadowStrength { get; set; }
 
         private ShadowTile[,] Tiles;
-        private Box2i ShadowBounds;
+        private UIBox2i ShadowBounds;
 
         public ShadowBatch(Vector2i sizeInTiles, ICoords coords, IAssetManager assetManager)
         {
@@ -127,7 +127,7 @@ namespace OpenNefia.Core.Rendering
             Tiles[x, y] = shadow;
         }
 
-        public void SetAllTileShadows(ShadowTile[,] tiles, Box2i shadowBounds)
+        public void SetAllTileShadows(ShadowTile[,] tiles, UIBox2i shadowBounds)
         {
             if (tiles.Length != Tiles.Length)
                 throw new Exception($"Invalid tile array size ({tiles.Length} != {Tiles.Length})");

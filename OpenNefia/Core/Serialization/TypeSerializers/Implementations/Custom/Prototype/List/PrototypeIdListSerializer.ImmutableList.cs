@@ -37,7 +37,7 @@ namespace OpenNefia.Core.Serialization.TypeSerializers.Implementations.Custom.Pr
                     skipHook,
                     context);
 
-                builder.Add(new((string) result.RawValue!));
+                builder.Add((PrototypeId<T>)result.RawValue!);
                 mappings.Add(result);
             }
 

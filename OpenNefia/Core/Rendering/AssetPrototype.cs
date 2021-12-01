@@ -49,7 +49,7 @@ namespace OpenNefia.Core.Rendering
         public bool RequiresSizeArgument => RegionSpecifier != null;
     }
 
-    public class AssetRegions : Dictionary<string, Box2i>
+    public class AssetRegions : Dictionary<string, UIBox2i>
     {
     }
 
@@ -66,7 +66,7 @@ namespace OpenNefia.Core.Rendering
         /// Information for a region of an image to cut out and use for this <see cref="AssetDef"/>.
         /// </summary>
         [DataField]
-        public Box2i? Region;
+        public UIBox2i? Region;
 
         /// <summary>
         /// Color in the image to replace with transparency.

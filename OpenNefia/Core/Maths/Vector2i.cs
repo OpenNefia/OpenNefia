@@ -1,6 +1,4 @@
-﻿using Love;
-using System;
-using System.Runtime.InteropServices;
+﻿using System.Runtime.InteropServices;
 using System.Text.Json.Serialization;
 
 namespace OpenNefia.Core.Maths
@@ -156,6 +154,11 @@ namespace OpenNefia.Core.Maths
         public static explicit operator Vector2i(Vector2 vector)
         {
             return new((int) vector.X, (int) vector.Y);
+        }
+
+        public static explicit operator Vector2i(Love.Vector2 vector)
+        {
+            return new((int)vector.X, (int)vector.Y);
         }
 
         public static implicit operator Vector2i((int x, int y) tuple)

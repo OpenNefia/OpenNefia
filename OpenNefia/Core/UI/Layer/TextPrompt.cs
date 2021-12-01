@@ -137,7 +137,7 @@ namespace OpenNefia.Core.UI.Layer
         public const int DEFAULT_WIDTH = 16 * 16 + 60;
         public const int DEFAULT_HEIGHT = 36;
         
-        public override void GetPreferredBounds(out Box2i bounds)
+        public override void GetPreferredBounds(out UIBox2i bounds)
         {
             UiUtils.GetCenteredParams(DEFAULT_WIDTH, DEFAULT_HEIGHT, out bounds);
         }

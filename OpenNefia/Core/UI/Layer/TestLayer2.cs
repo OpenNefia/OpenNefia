@@ -14,7 +14,7 @@ namespace OpenNefia.Core.UI.Layer
 
         private int SquareX = 0;
 
-        public override void GetPreferredBounds(out Box2i bounds)
+        public override void GetPreferredBounds(out UIBox2i bounds)
         {
             UiUtils.GetCenteredParams(400, 300, out bounds);
         }

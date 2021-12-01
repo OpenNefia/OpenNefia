@@ -147,9 +147,7 @@ namespace OpenNefia.Core.Utility
         {
             public override string ToString()
             {
-                //TODO
-                //return $"[color={Color.ToHex()}]";
-                return $"[color=\"black\"]";
+                return $"[color={Color.ToHex()}]";
             }
         }
 

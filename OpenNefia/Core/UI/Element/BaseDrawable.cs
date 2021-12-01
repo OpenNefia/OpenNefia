@@ -10,8 +10,8 @@ namespace OpenNefia.Core.UI.Element
 {
     public abstract class BaseDrawable : IDrawable
     {
-        private Box2i _bounds;
-        public Box2i Bounds { get => _bounds; }
+        private UIBox2i _bounds;
+        public UIBox2i Bounds { get => _bounds; }
 
         public Vector2i Size { get => Bounds.Size; }
         public Vector2i Position { get => Bounds.TopLeft; }
@@ -23,12 +23,12 @@ namespace OpenNefia.Core.UI.Element
 
         public virtual void SetSize(int width, int height)
         {
-            _bounds = Box2i.FromDimensions(X, Y, width, height);
+            _bounds = UIBox2i.FromDimensions(X, Y, width, height);
         }
 
         public virtual void SetPosition(int x, int y)
         {
-            _bounds = Box2i.FromDimensions(x, y, Width, Height);
+            _bounds = UIBox2i.FromDimensions(x, y, Width, Height);
         }
 
         public bool ContainsPoint(int x, int y)

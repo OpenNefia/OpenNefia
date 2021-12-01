@@ -8,7 +8,7 @@ using OpenNefia.Core.Serialization;
 
 namespace OpenNefia.Core.Reflection
 {
-    public sealed class ReflectionManager : IReflectionManager
+    public class ReflectionManager : IReflectionManager
     {
         /// <summary>
         /// Enumerable over prefixes that are added to the type provided to <see cref="GetType(string)"/>
@@ -17,7 +17,7 @@ namespace OpenNefia.Core.Reflection
         /// <remarks>
         /// First prefix should probably be <code>""</code>.
         /// </remarks>
-        private IEnumerable<string> TypePrefixes { get; } = new List<string>() { "", "OpenNefia.Core." };
+        protected virtual IEnumerable<string> TypePrefixes { get; } = new List<string>() { "", "OpenNefia.Core." };
 
         private readonly List<Assembly> assemblies = new();
 

@@ -29,7 +29,7 @@ namespace OpenNefia.Core.UI.Layer
             this.Keybinds[CoreKeybinds.Cancel] += (_) => this.Cancel();
         }
 
-        public override void GetPreferredBounds(out Box2i bounds)
+        public override void GetPreferredBounds(out UIBox2i bounds)
         {
             UiUtils.GetCenteredParams(this.Image.GetWidth(), this.Image.GetHeight(), out bounds);
         }

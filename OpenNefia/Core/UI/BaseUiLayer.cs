@@ -27,9 +27,9 @@ namespace OpenNefia.Core.UI
             size = bounds.Size;
         }
 
-        public virtual void GetPreferredBounds(out Box2i bounds)
+        public virtual void GetPreferredBounds(out UIBox2i bounds)
         {
-            bounds = Box2i.FromDimensions(0, 0, Love.Graphics.GetWidth(), Love.Graphics.GetHeight());
+            bounds = UIBox2i.FromDimensions(0, 0, Love.Graphics.GetWidth(), Love.Graphics.GetHeight());
         }
 
         public bool IsInActiveLayerList()

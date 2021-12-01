@@ -17,7 +17,7 @@ namespace OpenNefia.Core.UI
             return screenPos.X >= 0 && screenPos.Y >= 0 && screenPos.X < Love.Graphics.GetWidth() && screenPos.Y < Love.Graphics.GetHeight() - Constants.INF_MSGH;
         }
 
-        public static void GetCenteredParams(int width, int height, out Box2i bounds)
+        public static void GetCenteredParams(int width, int height, out UIBox2i bounds)
         {
             var ingame = false;
             var x = (Love.Graphics.GetWidth() - width) / 2;
@@ -33,7 +33,7 @@ namespace OpenNefia.Core.UI
                 y = (Love.Graphics.GetHeight() - height) / 2;
             }
 
-            bounds = Box2i.FromDimensions(x, y, width, height);
+            bounds = UIBox2i.FromDimensions(x, y, width, height);
         }
 
         public static void DebugDraw(IDrawable elem)

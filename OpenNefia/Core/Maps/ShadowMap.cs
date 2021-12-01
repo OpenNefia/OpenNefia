@@ -14,7 +14,7 @@ namespace OpenNefia.Core.Maps
         internal ShadowTile[,] ShadowTiles;
         internal Vector2i ShadowPos;
         internal Vector2i ShadowSize;
-        internal Box2i ShadowBounds { get => Box2i.FromDimensions(ShadowPos, ShadowSize); }
+        internal UIBox2i ShadowBounds { get => UIBox2i.FromDimensions(ShadowPos, ShadowSize); }
 
         public ShadowMap(IMap map)
         {

@@ -84,7 +84,7 @@ namespace OpenNefia.Core.UI.Layer
             this.TextStatus.SetPosition(this.X + this.Width / 2 - this.TextStatus.Width / 2, this.Y + this.Height / 2 - this.TextStatus.Height * 3);
         }
 
-        public override void GetPreferredBounds(out Box2i bounds)
+        public override void GetPreferredBounds(out UIBox2i bounds)
         {
             UiUtils.GetCenteredParams(400, 200, out bounds);
         }

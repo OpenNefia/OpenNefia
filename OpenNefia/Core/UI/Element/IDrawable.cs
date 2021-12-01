@@ -5,7 +5,7 @@ namespace OpenNefia.Core.UI.Element
 {
     public interface IDrawable : IDisposable
     {
-        Box2i Bounds { get; }
+        UIBox2i Bounds { get; }
 
         public Vector2i Position { get; }
         public Vector2i Size { get; }

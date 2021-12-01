@@ -80,7 +80,7 @@ namespace OpenNefia.Core.UI.Layer
             IEnumerator IEnumerable.GetEnumerator() => this.GetEnumerator();
         }
 
-        public override void GetPreferredBounds(out Box2i bounds)
+        public override void GetPreferredBounds(out UIBox2i bounds)
         {
             UiUtils.GetCenteredParams(400, 300, out bounds);
         }

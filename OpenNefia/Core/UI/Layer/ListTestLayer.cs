@@ -126,7 +126,7 @@ namespace OpenNefia.Core.UI.Layer
             this.Forwards += list;
         }
 
-        public override void GetPreferredBounds(out Box2i bounds)
+        public override void GetPreferredBounds(out UIBox2i bounds)
         {
             UiUtils.GetCenteredParams(400, 170, out bounds);
         }

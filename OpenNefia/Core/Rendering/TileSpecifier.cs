@@ -28,7 +28,7 @@ namespace OpenNefia.Core.Rendering
         /// If non-null, indicates this specifier operates on a texture atlas.
         /// </summary>
         [DataField]
-        public Box2i? Region { get; }
+        public UIBox2i? Region { get; }
 
         /// <summary>
         /// Internal string to use for graphics purposes in the tile atlases.

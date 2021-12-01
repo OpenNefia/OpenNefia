@@ -111,7 +111,7 @@ namespace OpenNefia.Core.UI.Layer
             Sounds.Play(SoundPrototypeOf.Pop2);
         }
 
-        public override void GetPreferredBounds(out Box2i bounds)
+        public override void GetPreferredBounds(out UIBox2i bounds)
         {
             this.List.GetPreferredSize(out var listSize);
             var width = Math.Max(this.DefaultWidth, listSize.X + 26 + 44);
@@ -123,7 +123,7 @@ namespace OpenNefia.Core.UI.Layer
             var x = promptX - width / 2;
             var y = promptY - height / 2;
 
-            bounds = Box2i.FromDimensions(x, y, width, height);
+            bounds = UIBox2i.FromDimensions(x, y, width, height);
         }
 
         public override void SetSize(int width, int height)

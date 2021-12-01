@@ -419,11 +419,11 @@ namespace OpenNefia.Core.UI.Layer.Repl
             NeedsScrollbackRedraw = true;
         }
 
-        public override void GetPreferredBounds(out Box2i bounds)
+        public override void GetPreferredBounds(out UIBox2i bounds)
         {
             var viewportHeight = Love.Graphics.GetHeight();
 
-            bounds = Box2i.FromDimensions(0, 0, Love.Graphics.GetWidth(), (int)Math.Clamp(viewportHeight * HeightPercentage, 0, viewportHeight - 1));
+            bounds = UIBox2i.FromDimensions(0, 0, Love.Graphics.GetWidth(), (int)Math.Clamp(viewportHeight * HeightPercentage, 0, viewportHeight - 1));
         }
 
         public override void SetSize(int width, int height)

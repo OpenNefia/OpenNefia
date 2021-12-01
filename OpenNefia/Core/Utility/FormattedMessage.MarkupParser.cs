@@ -29,13 +29,11 @@ namespace OpenNefia.Core.Utility
                 .Then(Token(ValidColorNameContents).AtLeastOnceString()
                     .Select(s =>
                     {
-                        //TODO
-                        //if (Color.TryFromName(s, out var color))
-                        //{
-                        //    return new TagColor(color);
-                        //}
-                        //return new TagColor(Color.FromHex(s));
-                        return new TagColor(Color.Black);
+                        if (Color.TryFromName(s, out var color))
+                        {
+                            return new TagColor(color);
+                        }
+                        return new TagColor(Color.FromHex(s));
                     }));
 
         private static readonly Parser<char, TagPop> ParseTagPop =

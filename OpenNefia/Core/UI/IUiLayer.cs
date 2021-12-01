@@ -7,7 +7,7 @@ namespace OpenNefia.Core.UI
     {
         int ZOrder { get; set; }
 
-        void GetPreferredBounds(out Box2i bounds);
+        void GetPreferredBounds(out UIBox2i bounds);
         void OnQuery();
         void OnQueryFinish();
         bool IsQuerying();

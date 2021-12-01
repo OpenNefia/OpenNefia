@@ -6,7 +6,7 @@ namespace OpenNefia.Core.Maths
 {
     [Serializable]
     [StructLayout(LayoutKind.Explicit)]
-    public struct Box2i : IEquatable<Box2i>
+    public struct UIBox2i : IEquatable<UIBox2i>
     {
         [FieldOffset(sizeof(int) * 0)] public int Left;
         [FieldOffset(sizeof(int) * 1)] public int Top;
@@ -22,9 +22,7 @@ namespace OpenNefia.Core.Maths
         public readonly int Height => Math.Abs(Top - Bottom);
         public readonly Vector2i Size => new(Width, Height);
 
-        public readonly int Area => Width * Height;
-
-        public Box2i(Vector2i topLeft, Vector2i bottomRight)
+        public UIBox2i(Vector2i topLeft, Vector2i bottomRight)
         {
             Unsafe.SkipInit(out this);
 
@@ -32,22 +30,22 @@ namespace OpenNefia.Core.Maths
             BottomRight = bottomRight;
         }
 
-        public Box2i(int left, int top, int right, int bottom)
+        public UIBox2i(int left, int top, int right, int bottom)
         {
             Unsafe.SkipInit(out this);
 
             Left = left;
-            Top = top;
             Right = right;
+            Top = top;
             Bottom = bottom;
         }
 
-        public static Box2i FromDimensions(int left, int top, int width, int height)
+        public static UIBox2i FromDimensions(int left, int top, int width, int height)
         {
             return new(left, top, left + width, top + height);
         }
 
-        public static Box2i FromDimensions(Vector2i position, Vector2i size)
+        public static UIBox2i FromDimensions(Vector2i position, Vector2i size)
         {
             return FromDimensions(position.X, position.Y, size.X, size.Y);
         }
@@ -63,42 +61,47 @@ namespace OpenNefia.Core.Maths
                 ? point.X >= Left ^ point.X > Right
                 : point.X > Left ^ point.X >= Right;
             var yOk = closedRegion
-                ? point.Y >= Bottom ^ point.Y > Top
-                : point.Y > Bottom ^ point.Y >= Top;
+                ? point.Y >= Top ^ point.Y > Bottom
+                : point.Y > Top ^ point.Y >= Bottom;
             return xOk && yOk;
         }
 
-        public readonly bool IsEmpty()
-        {
-            return Bottom == Top || Left == Right;
-        }
-
         /// <summary>Returns a UIBox2 translated by the given amount.</summary>
-        public readonly Box2i Translated(Vector2i point)
+        public readonly UIBox2i Translated(Vector2i point)
         {
             return new(Left + point.X, Top + point.Y, Right + point.X, Bottom + point.Y);
         }
 
         /// <summary>
-        ///     Returns the smallest rectangle that contains both of the rectangles.
+        ///     Calculates the "intersection" of this and another box.
+        ///     Basically, the smallest region that fits in both boxes.
         /// </summary>
-        public readonly Box2i Union(in Box2i other)
+        /// <param name="other">The box to calculate the intersection with.</param>
+        /// <returns>
+        ///     <c>null</c> if there is no intersection, otherwise the smallest region that fits in both boxes.
+        /// </returns>
+        public readonly UIBox2i? Intersection(in UIBox2i other)
         {
-            var left = Math.Min(Left, other.Left);
-            var right = Math.Max(Right, other.Right);
-            var bottom = Math.Min(Bottom, other.Bottom);
-            var top = Math.Max(Top, other.Top);
+            if (!Intersects(other))
+            {
+                return null;
+            }
 
-            if (left <= right && bottom <= top)
-                return new Box2i(left, top, right, bottom);
+            return new UIBox2i(
+                Vector2i.ComponentMax(TopLeft, other.TopLeft),
+                Vector2i.ComponentMin(BottomRight, other.BottomRight));
+        }
 
-            return new Box2i();
+        public readonly bool Intersects(in UIBox2i other)
+        {
+            return other.Bottom >= this.Top && other.Top <= this.Bottom && other.Right >= this.Left &&
+                   other.Left <= this.Right;
         }
 
         // override object.Equals
         public override readonly bool Equals(object? obj)
         {
-            if (obj is Box2i box)
+            if (obj is UIBox2i box)
             {
                 return Equals(box);
             }
@@ -106,7 +109,7 @@ namespace OpenNefia.Core.Maths
             return false;
         }
 
-        public readonly bool Equals(Box2i other)
+        public readonly bool Equals(UIBox2i other)
         {
             return other.Left == Left && other.Right == Right && other.Bottom == Bottom && other.Top == Top;
         }
@@ -119,6 +122,13 @@ namespace OpenNefia.Core.Maths
             code = (code * 929) ^ Top.GetHashCode();
             code = (code * 929) ^ Bottom.GetHashCode();
             return code;
+        }
+
+        public static UIBox2i operator +(UIBox2i box, (int lo, int to, int ro, int bo) offsets)
+        {
+            var (lo, to, ro, bo) = offsets;
+
+            return new UIBox2i(box.Left + lo, box.Top + to, box.Right + ro, box.Bottom + bo);
         }
 
         public override readonly string ToString()

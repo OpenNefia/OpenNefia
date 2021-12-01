@@ -1,6 +1,7 @@
 ﻿using Love;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.UI;
+using Vector2 = OpenNefia.Core.Maths.Vector2;
 
 namespace OpenNefia.Core.Graphics
 {

@@ -237,6 +237,7 @@ namespace OpenNefia.Core.IoC
             _resolveTypes.Clear();
             _resolveFactories.Clear();
             _injectorCache.Clear();
+            _pendingResolves.Clear();
         }
 
         /// <inheritdoc />

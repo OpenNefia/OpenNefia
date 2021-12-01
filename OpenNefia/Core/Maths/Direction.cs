@@ -105,7 +105,7 @@ namespace OpenNefia.Core.Maths
         /// <returns></returns>
         public static Direction GetDir(this Vector2i vec)
         {
-            return new Angle(vec).GetDir();
+            return Angle.FromWorldVec(vec).GetDir();
         }
 
         /// <summary>
@@ -115,7 +115,7 @@ namespace OpenNefia.Core.Maths
         /// <returns></returns>
         public static Direction GetCardinalDir(this Vector2i vec)
         {
-            return new Angle(vec).GetCardinalDir();
+            return Angle.FromWorldVec(vec).GetCardinalDir();
         }
 
         public static Direction GetOpposite(this Direction direction)
@@ -130,6 +130,22 @@ namespace OpenNefia.Core.Maths
                 Direction.SouthWest => Direction.NorthEast,
                 Direction.NorthWest => Direction.SouthEast,
                 Direction.SouthEast => Direction.NorthWest,
+                _ => throw new ArgumentOutOfRangeException(nameof(direction))
+            };
+        }
+
+        public static Direction GetClockwise90Degrees(this Direction direction)
+        {
+            return direction switch
+            {
+                Direction.East => Direction.South,
+                Direction.West => Direction.North,
+                Direction.North => Direction.East,
+                Direction.South => Direction.West,
+                Direction.NorthEast => Direction.SouthEast,
+                Direction.SouthWest => Direction.NorthWest,
+                Direction.NorthWest => Direction.NorthEast,
+                Direction.SouthEast => Direction.SouthWest,
                 _ => throw new ArgumentOutOfRangeException(nameof(direction))
             };
         }
@@ -150,25 +166,25 @@ namespace OpenNefia.Core.Maths
         }
 
         private static readonly Vector2[] DirectionVectors = {
-            new (0, 1),
-            new Vector2(1, 1).Normalized(),
-            new (1, 0),
-            new Vector2(1, -1).Normalized(),
             new (0, -1),
-            new Vector2(-1, -1).Normalized(),
+            new Vector2(1, -1).Normalized,
+            new (1, 0),
+            new Vector2(1, 1).Normalized,
+            new (0, 1),
+            new Vector2(-1, 1).Normalized,
             new (-1, 0),
-            new Vector2(-1, 1).Normalized()
+            new Vector2(-1, -1).Normalized
         };
 
         private static readonly Vector2i[] IntDirectionVectors = {
-            new (0, 1),
-            new (1, 1),
-            new (1, 0),
-            new (1, -1),
             new (0, -1),
-            new (-1, -1),
+            new (1, -1),
+            new (1, 0),
+            new (1, 1),
+            new (0, 1),
+            new (-1, 1),
             new (-1, 0),
-            new (-1, 1)
+            new (-1, -1)
         };
 
         /// <summary>
