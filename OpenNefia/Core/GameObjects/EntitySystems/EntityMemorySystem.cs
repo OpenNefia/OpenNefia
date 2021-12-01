@@ -24,6 +24,7 @@ namespace OpenNefia.Core.GameObjects.EntitySystems
             memory.Color = chip.Color;
             memory.IsVisible = true;
             memory.ScreenOffset = Vector2i.Zero;
+            memory.IsVisible = EntityManager.IsAlive(uid);
         }
     }
 }

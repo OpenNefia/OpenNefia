@@ -63,7 +63,7 @@ namespace OpenNefia.Core.GameObjects
         [DataField]
         public Direction Direction { get; set; } = Direction.North;
 
-        internal void ChangeMap(IMap newMap)
+        internal void ChangeMap(IMap? newMap)
         {
             if (newMap == Map)
                 return;

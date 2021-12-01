@@ -38,10 +38,12 @@ namespace OpenNefia.Core.Maps
 
         bool IsInWindowFov(Vector2i coords);
         void RefreshVisibility();
-        void AddEntity(IEntity newEntity);
         void MemorizeAll();
         bool IsInBounds(Vector2i position);
         void MemorizeTile(Vector2i position);
         bool CanAccess(Vector2i position);
+
+        void AddEntity(IEntity newEntity);
+        void RemoveEntity(IEntity entity);
     }
 }

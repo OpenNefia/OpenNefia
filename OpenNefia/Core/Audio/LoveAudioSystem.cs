@@ -23,7 +23,7 @@ namespace OpenNefia.Core.Audio
 
         public override void Initialize()
         {
-            SubscribeAllEvent<FrameUpdateEventArgs>(OnFrameUpdate);
+            SubscribeLocalEvent<FrameUpdateEventArgs>(OnFrameUpdate);
         }
 
         /// <inheritdoc />

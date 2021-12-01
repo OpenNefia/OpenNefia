@@ -202,14 +202,25 @@ namespace OpenNefia.Core.Maps
             return IsInBounds(pos) && (TileFlags[pos.X, pos.Y] & TileFlag.IsSolid) == TileFlag.None;
         }
 
-        public void AddEntity(IEntity newEntity)
+        public void AddEntity(IEntity entity)
         {
-            if (newEntity.Spatial.Map != null)
+            if (entity.Spatial.Map != null)
             {
-                throw new ArgumentException($"Entity is already in map {newEntity.Spatial.Map.Id}", nameof(newEntity));
+                throw new ArgumentException($"Entity is already in map {entity.Spatial.Map.Id}", nameof(entity));
             }
-            ((Entity)newEntity).Spatial.ChangeMap(this);
-            _entities.Add(newEntity);
+            entity.Spatial.ChangeMap(this);
+            _entities.Add(entity);
+        }
+
+        public void RemoveEntity(IEntity entity)
+        {
+            if (entity.Spatial.Map != this)
+            {
+                throw new ArgumentException($"Entity is in map {entity.Spatial.Map?.Id}", nameof(entity));
+            }
+            entity.Spatial.ChangeMap(null);
+            _entities.Remove(entity);
+            RefreshTile(entity.Spatial.Pos);
         }
     }
 }

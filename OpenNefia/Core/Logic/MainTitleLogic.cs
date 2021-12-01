@@ -66,9 +66,15 @@ namespace OpenNefia.Core.GameController
             var map = new Map(25, 25);
 
             var player = _entityManager.SpawnEntity(new("Putit"), map.AtPos(2, 2));
+            player.AddComponent<PlayerComponent>();
             _gameSessionManager.Player = player;
             map.Clear(TilePrototypeOf.Grass);
             map.MemorizeAll();
+
+            
+            _entityManager.SpawnEntity(new("Yeek"), map.AtPos(5, 5));
+            _entityManager.SpawnEntity(new("Yeek"), map.AtPos(5, 5));
+            _entityManager.SpawnEntity(new("Yeek"), map.AtPos(5, 7));
 
             return map;
         }

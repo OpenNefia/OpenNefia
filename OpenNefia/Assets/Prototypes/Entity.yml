@@ -39,6 +39,13 @@
     StatDex: 6
     StatCon: 4
 
+- type: Class
+  id: Yeek
+  baseSkills:
+    StatStr: 4
+    StatDex: 4
+    StatCon: 2
+
 - type: Entity
   id: BaseChara
   parent: BaseObject
@@ -62,3 +69,14 @@
     class: Slime
   - type: Chip
     id: CharaRaceSlime
+    
+- type: Entity
+  id: Yeek
+  parent: BaseChara
+  components:
+  - type: Chara
+    displayName: yeek
+    title: The wind
+    class: Yeek
+  - type: Chip
+    id: CharaYeek

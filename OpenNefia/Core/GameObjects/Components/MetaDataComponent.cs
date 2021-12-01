@@ -33,5 +33,40 @@ namespace OpenNefia.Core.GameObjects
         public bool EntityInitialized => EntityLifeStage >= EntityLifeStage.Initialized;
         public bool EntityInitializing => EntityLifeStage == EntityLifeStage.Initializing;
         public bool EntityDeleted => EntityLifeStage >= EntityLifeStage.Deleted;
+
+        /// <summary>
+        /// Liveness of the entity for validity purposes.
+        /// 
+        /// As an example, if a character is killed it will still remain in
+        /// the map as a DeadAndBuried entity, for example if something wants to
+        /// cast Resurrect on it. If the character is an ally, it will become
+        /// Hidden when killed instead, so it doesn't get permanently removed
+        /// when the map is changed.
+        /// 
+        /// A stackable entity with amount 0 counts as DeadAndBuried.
+        /// </summary>
+        public EntityGameLiveness Liveness = EntityGameLiveness.Alive;
+
+        public bool IsAlive => Liveness == EntityGameLiveness.Alive && !EntityDeleted;
+        public bool IsDeadAndBuried => Liveness == EntityGameLiveness.DeadAndBuried || EntityDeleted;
+    }
+
+    public enum EntityGameLiveness
+    {
+        /// <summary>
+        /// This entity is active in the map.
+        /// </summary>
+        Alive,
+
+        /// <summary>
+        /// This entity is not active, but should not be removed from the map.
+        /// </summary>
+        Hidden,
+
+        /// <summary>
+        /// This entity should be removed from the map when certain actions are performed
+        /// (enumerating a container, changing maps).
+        /// </summary>
+        DeadAndBuried
     }
 }

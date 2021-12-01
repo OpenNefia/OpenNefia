@@ -126,18 +126,18 @@ namespace OpenNefia.Core.Maps
         /// <summary>
         /// Used to deconstruct this object into a tuple.
         /// </summary>
-        /// <param name="x">World position coordinate on the X axis.</param>
-        /// <param name="y">World position coordinate on the Y axis.</param>
-        public void Deconstruct(out float x, out float y)
+        /// <param name="map">Map relevant to this position.</param>
+        /// <param name="position">World position coordinate.</param>
+        public void Deconstruct(out IMap? map, out Vector2i position)
         {
-            x = X;
-            y = Y;
+            map = Map;
+            position = Position;
         }
 
         /// <summary>
         /// Used to deconstruct this object into a tuple.
         /// </summary>
-        /// <param name="mapId">Map identifier relevant to this position.</param>
+        /// <param name="map">Map relevant to this position.</param>
         /// <param name="x">World position coordinate on the X axis.</param>
         /// <param name="y">World position coordinate on the Y axis.</param>
         public void Deconstruct(out IMap? map, out float x, out float y)

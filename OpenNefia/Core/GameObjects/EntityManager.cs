@@ -213,6 +213,12 @@ namespace OpenNefia.Core.GameObjects
 
             EventBus.RaiseLocalEvent(entity.Uid, new EntityTerminatingEvent(), false);
 
+            var map = entity.Spatial.Map;
+            if (map != null)
+            {
+                map.RemoveEntity(entity);
+            }
+
             // Dispose all my components, in a safe order so transform is available
             DisposeComponents(entity.Uid);
 
