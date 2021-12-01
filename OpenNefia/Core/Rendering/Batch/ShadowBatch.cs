@@ -357,10 +357,10 @@ namespace OpenNefia.Core.Rendering
             Love.Graphics.SetBlendMode(BlendMode.Subtract);
             GraphicsEx.SetColor(255, 255, 255, ShadowStrength);
 
-            GraphicsEx.SetScissor(X + ShadowBounds.Left, Y + ShadowBounds.Top, ShadowBounds.Width, ShadowBounds.Height);
+            Love.Graphics.SetScissor(X + ShadowBounds.Left, Y + ShadowBounds.Top, ShadowBounds.Width, ShadowBounds.Height);
             Love.Graphics.Draw(BatchShadow, X, Y);
             Love.Graphics.Draw(BatchShadowEdges, X, Y);
-            GraphicsEx.SetScissor();
+            Love.Graphics.SetScissor();
 
             GraphicsEx.SetColor(255, 255, 255, (int)(ShadowStrength * ((256f - 9f) / 256f)));
 

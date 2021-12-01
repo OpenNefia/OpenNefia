@@ -9,6 +9,7 @@ using System.Threading;
 using JetBrains.Annotations;
 using OpenNefia.Core.ContentPack;
 using OpenNefia.Core.GameObjects;
+using OpenNefia.Core.Graphics;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.IoC.Exceptions;
 using OpenNefia.Core.Log;
@@ -196,6 +197,7 @@ namespace OpenNefia.Core.Prototypes
         [Dependency] private readonly IResourceManager Resources = default!;
         [Dependency] private readonly IEntityManager _entityManager = default!;
         [Dependency] private readonly ISerializationManager _serializationManager = default!;
+        [Dependency] private readonly IGraphics _graphics = default!;
 
         private readonly Dictionary<string, Type> _prototypeTypes = new();
         private readonly Dictionary<Type, int> _prototypePriorities = new();
@@ -217,9 +219,11 @@ namespace OpenNefia.Core.Prototypes
             }
 
             _initialized = true;
-            ReloadPrototypeTypes(); 
+            ReloadPrototypeTypes();
 
-            // WatchResources();
+            _graphics.OnWindowFocused += WindowFocusedChanged;
+
+            WatchResources();
         }
 
         public IEnumerable<T> EnumeratePrototypes<T>() where T : class, IPrototype

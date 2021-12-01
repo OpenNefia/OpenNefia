@@ -1,5 +1,6 @@
 ﻿using System;
 using OpenNefia.Core.Data.Types;
+using OpenNefia.Core.Maths;
 using OpenNefia.Core.Rendering;
 
 namespace OpenNefia.Core.UI.Element
@@ -8,6 +9,7 @@ namespace OpenNefia.Core.UI.Element
     {
         public string Text { get; set; }
         public Maths.Color Color { get; set; }
+        public Maths.Color BgColor { get; set; }
         public FontSpec Font { get; set; }
         public int TextWidth { get; }
     }

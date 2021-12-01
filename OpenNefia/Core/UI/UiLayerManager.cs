@@ -192,7 +192,7 @@ namespace OpenNefia.Core.UI
             }
             catch (Exception ex)
             {
-                Logger.Log(LogLevel.Error, $"Error during {this.GetType().Name}.Query()", ex);
+                Logger.Log(LogLevel.Error, ex, $"Error during {this.GetType().Name}.Query()");
                 result = new UiResult<T>.Error(ex);
             }
             finally

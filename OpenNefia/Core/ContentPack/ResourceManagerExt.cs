@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using OpenNefia.Core.Rendering;
 using OpenNefia.Core.Utility;
 
 namespace OpenNefia.Core.ContentPack

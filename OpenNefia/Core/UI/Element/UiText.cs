@@ -91,12 +91,12 @@ namespace OpenNefia.Core.UI.Element
 
         public override void Draw()
         {
-            GraphicsEx.SetColor(this.Color);
+            GraphicsEx.SetColor(this.BgColor);
             for (int dx = -1; dx <= 1; dx++)
                 for (int dy = -1; dy <= 1; dy++)
                     Love.Graphics.Draw(this.BakedText, this.X + dx, this.Y + dy);
 
-            GraphicsEx.SetColor(this.BgColor);
+            GraphicsEx.SetColor(this.Color);
             Love.Graphics.Draw(this.BakedText, this.X, this.Y);
         }
     }
@@ -108,10 +108,10 @@ namespace OpenNefia.Core.UI.Element
 
         public override void Draw()
         {
-            GraphicsEx.SetColor(this.Color);
+            GraphicsEx.SetColor(this.BgColor);
             Love.Graphics.Draw(this.BakedText, this.X + 1, this.Y + 1);
 
-            GraphicsEx.SetColor(this.BgColor);
+            GraphicsEx.SetColor(this.Color);
             Love.Graphics.Draw(this.BakedText, this.X, this.Y);
         }
     }

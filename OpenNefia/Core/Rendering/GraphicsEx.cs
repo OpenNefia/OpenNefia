@@ -52,11 +52,11 @@ namespace OpenNefia.Core.Rendering
             // Sprite batches will ignore the width and height of
             // love.graphics.draw; we have to manually set the scissor.
             var scissor = Love.Graphics.GetScissor();
-            SetScissor((int)x, (int)y, (int)width, (int)height);
+            Love.Graphics.SetScissor((int)x, (int)y, (int)width, (int)height);
 
             Love.Graphics.Draw(batch, x, y, rotation);
 
-            SetScissor(scissor);
+            Love.Graphics.SetScissor(scissor);
         }
 
         public static void DrawImageRegion(Love.Image image, Love.Quad quad, float x = 0, float y = 0, float width = 0, float height = 0, bool centered = false, float rotation = 0)
@@ -115,36 +115,6 @@ namespace OpenNefia.Core.Rendering
         public static void SetFont(FontSpec spec)
         {
             Love.Graphics.SetFont(spec.LoveFont);
-        }
-
-        /// <summary>
-        /// BUG: <see cref="Love.Graphics.SetScissor"/> doesn't distinguish between a zero-sized Rectangle and no scissor.
-        /// This function is a temporary workaround.
-        /// </summary>
-        /// <param name="rectangle"></param>
-        public static void SetScissor(Love.Rectangle rectangle)
-        {
-            SetScissor(rectangle.X, rectangle.Y, rectangle.Width, rectangle.Height);
-        }
-
-        /// <summary>
-        /// BUG: <see cref="Love.Graphics.SetScissor"/> doesn't distinguish between a zero-sized scissor and no scissor.
-        /// This function is a temporary workaround.
-        /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <param name="width"></param>
-        /// <param name="height"></param>
-        public static void SetScissor(int x = 0, int y = 0, int width = 0, int height = 0)
-        {
-            if (width <= 0 && height <= 0)
-            {
-                Love.Graphics.SetScissor();
-            }
-            else
-            {
-                Love.Graphics.SetScissor(x, y, width, height);
-            }
         }
     }
 }

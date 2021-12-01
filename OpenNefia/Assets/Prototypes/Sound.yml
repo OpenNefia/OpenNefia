@@ -1,594 +1,594 @@
 - type: Sound
   id: Alert1
-  filepath: Assets/Elona/Sound/alert1.wav
+  filepath: /Elona/Sound/alert1.wav
   elonaId: 21
 
 - type: Sound
   id: Ammo
-  filepath: Assets/Elona/Sound/ammo.wav
+  filepath: /Elona/Sound/ammo.wav
   elonaId: 90
 
 - type: Sound
   id: Arrow1
-  filepath: Assets/Elona/Sound/arrow1.wav
+  filepath: /Elona/Sound/arrow1.wav
   elonaId: 36
 
 - type: Sound
   id: Atk1
-  filepath: Assets/Elona/Sound/atk1.wav
+  filepath: /Elona/Sound/atk1.wav
   elonaId: 2
 
 - type: Sound
   id: Atk2
-  filepath: Assets/Elona/Sound/atk2.wav
+  filepath: /Elona/Sound/atk2.wav
   elonaId: 3
 
 - type: Sound
   id: AtkChaos
-  filepath: Assets/Elona/Sound/atk_chaos.wav
+  filepath: /Elona/Sound/atk_chaos.wav
   elonaId: 114
 
 - type: Sound
   id: AtkDark
-  filepath: Assets/Elona/Sound/atk_dark.wav
+  filepath: /Elona/Sound/atk_dark.wav
   elonaId: 115
 
 - type: Sound
   id: AtkElec
-  filepath: Assets/Elona/Sound/atk_elec.wav
+  filepath: /Elona/Sound/atk_elec.wav
   elonaId: 107
 
 - type: Sound
   id: AtkFire
-  filepath: Assets/Elona/Sound/atk_fire.wav
+  filepath: /Elona/Sound/atk_fire.wav
   elonaId: 108
 
 - type: Sound
   id: AtkHell
-  filepath: Assets/Elona/Sound/atk_hell.wav
+  filepath: /Elona/Sound/atk_hell.wav
   elonaId: 109
 
 - type: Sound
   id: AtkIce
-  filepath: Assets/Elona/Sound/atk_ice.wav
+  filepath: /Elona/Sound/atk_ice.wav
   elonaId: 106
 
 - type: Sound
   id: AtkMind
-  filepath: Assets/Elona/Sound/atk_mind.wav
+  filepath: /Elona/Sound/atk_mind.wav
   elonaId: 113
 
 - type: Sound
   id: AtkNerve
-  filepath: Assets/Elona/Sound/atk_nerve.wav
+  filepath: /Elona/Sound/atk_nerve.wav
   elonaId: 111
 
 - type: Sound
   id: AtkPoison
-  filepath: Assets/Elona/Sound/atk_poison.wav
+  filepath: /Elona/Sound/atk_poison.wav
   elonaId: 110
 
 - type: Sound
   id: AtkSound
-  filepath: Assets/Elona/Sound/atk_sound.wav
+  filepath: /Elona/Sound/atk_sound.wav
   elonaId: 112
 
 - type: Sound
   id: Atksword
-  filepath: Assets/Elona/Sound/atksword.wav
+  filepath: /Elona/Sound/atksword.wav
   elonaId: 105
 
 - type: Sound
   id: Ball1
-  filepath: Assets/Elona/Sound/ball1.wav
+  filepath: /Elona/Sound/ball1.wav
   elonaId: 34
 
 - type: Sound
   id: Bash1
-  filepath: Assets/Elona/Sound/bash1.wav
+  filepath: /Elona/Sound/bash1.wav
   elonaId: 73
 
 - type: Sound
   id: BgFire
-  filepath: Assets/Elona/Sound/bg_fire.wav
+  filepath: /Elona/Sound/bg_fire.wav
   elonaId: 80
 
 - type: Sound
   id: BgRain
-  filepath: Assets/Elona/Sound/bg_rain.wav
+  filepath: /Elona/Sound/bg_rain.wav
   elonaId: 75
 
 - type: Sound
   id: BgSea
-  filepath: Assets/Elona/Sound/bg_sea.wav
+  filepath: /Elona/Sound/bg_sea.wav
   elonaId: 78
 
 - type: Sound
   id: BgThunder
-  filepath: Assets/Elona/Sound/bg_thunder.wav
+  filepath: /Elona/Sound/bg_thunder.wav
   elonaId: 76
 
 - type: Sound
   id: BgTown
-  filepath: Assets/Elona/Sound/bg_town.wav
+  filepath: /Elona/Sound/bg_town.wav
   elonaId: 79
 
 - type: Sound
   id: BgWind
-  filepath: Assets/Elona/Sound/bg_wind.wav
+  filepath: /Elona/Sound/bg_wind.wav
   elonaId: 77
 
 - type: Sound
   id: Bolt1
-  filepath: Assets/Elona/Sound/bolt1.wav
+  filepath: /Elona/Sound/bolt1.wav
   elonaId: 37
 
 - type: Sound
   id: Book1
-  filepath: Assets/Elona/Sound/book1.wav
+  filepath: /Elona/Sound/book1.wav
   elonaId: 59
 
 - type: Sound
   id: Bow1
-  filepath: Assets/Elona/Sound/bow1.wav
+  filepath: /Elona/Sound/bow1.wav
   elonaId: 29
 
 - type: Sound
   id: Breath1
-  filepath: Assets/Elona/Sound/breath1.wav
+  filepath: /Elona/Sound/breath1.wav
   elonaId: 35
 
 - type: Sound
   id: Build1
-  filepath: Assets/Elona/Sound/build1.wav
+  filepath: /Elona/Sound/build1.wav
   elonaId: 58
 
 - type: Sound
   id: Bush1
-  filepath: Assets/Elona/Sound/bush1.wav
+  filepath: /Elona/Sound/bush1.wav
   elonaId: 55
 
 - type: Sound
   id: Card1
-  filepath: Assets/Elona/Sound/card1.wav
+  filepath: /Elona/Sound/card1.wav
   elonaId: 71
 
 - type: Sound
   id: Chara
-  filepath: Assets/Elona/Sound/chara.wav
+  filepath: /Elona/Sound/chara.wav
   elonaId: 94
 
 - type: Sound
   id: Chat
-  filepath: Assets/Elona/Sound/chat.wav
+  filepath: /Elona/Sound/chat.wav
   elonaId: 99
 
 - type: Sound
   id: Cheer
-  filepath: Assets/Elona/Sound/cheer.wav
+  filepath: /Elona/Sound/cheer.wav
   elonaId: 69
 
 - type: Sound
   id: Chest1
-  filepath: Assets/Elona/Sound/chest1.wav
+  filepath: /Elona/Sound/chest1.wav
   elonaId: 23
 
 - type: Sound
   id: Chime
-  filepath: Assets/Elona/Sound/chime.wav
+  filepath: /Elona/Sound/chime.wav
   elonaId: 53
 
 - type: Sound
   id: Click1
-  filepath: Assets/Elona/Sound/click1.wav
+  filepath: /Elona/Sound/click1.wav
   elonaId: 40
 
 - type: Sound
   id: Complete1
-  filepath: Assets/Elona/Sound/complete1.wav
+  filepath: /Elona/Sound/complete1.wav
   elonaId: 51
 
 - type: Sound
   id: Cook1
-  filepath: Assets/Elona/Sound/cook1.wav
+  filepath: /Elona/Sound/cook1.wav
   elonaId: 25
 
 - type: Sound
   id: Crush1
-  filepath: Assets/Elona/Sound/crush1.wav
+  filepath: /Elona/Sound/crush1.wav
   elonaId: 45
 
 - type: Sound
   id: Crush2
-  filepath: Assets/Elona/Sound/crush2.wav
+  filepath: /Elona/Sound/crush2.wav
   elonaId: 47
 
 - type: Sound
   id: Curse1
-  filepath: Assets/Elona/Sound/curse1.wav
+  filepath: /Elona/Sound/curse1.wav
   elonaId: 38
 
 - type: Sound
   id: Curse2
-  filepath: Assets/Elona/Sound/curse2.wav
+  filepath: /Elona/Sound/curse2.wav
   elonaId: 116
 
 - type: Sound
   id: Curse3
-  filepath: Assets/Elona/Sound/curse3.wav
+  filepath: /Elona/Sound/curse3.wav
   elonaId: 117
 
 - type: Sound
   id: Cursor1
-  filepath: Assets/Elona/Sound/cursor1.wav
+  filepath: /Elona/Sound/cursor1.wav
   elonaId: 5
 
 - type: Sound
   id: Dead1
-  filepath: Assets/Elona/Sound/dead1.wav
+  filepath: /Elona/Sound/dead1.wav
   elonaId: 50
 
 - type: Sound
   id: Dice
-  filepath: Assets/Elona/Sound/dice.wav
+  filepath: /Elona/Sound/dice.wav
   elonaId: 103
 
 - type: Sound
   id: Dig1
-  filepath: Assets/Elona/Sound/dig1.wav
+  filepath: /Elona/Sound/dig1.wav
   elonaId: 52
 
 - type: Sound
   id: Dig2
-  filepath: Assets/Elona/Sound/dig2.wav
+  filepath: /Elona/Sound/dig2.wav
   elonaId: 54
 
 - type: Sound
   id: Ding1
-  filepath: Assets/Elona/Sound/ding1.wav
+  filepath: /Elona/Sound/ding1.wav
   elonaId: 60
 
 - type: Sound
   id: Ding2
-  filepath: Assets/Elona/Sound/ding2.wav
+  filepath: /Elona/Sound/ding2.wav
   elonaId: 24
 
 - type: Sound
   id: Ding3
-  filepath: Assets/Elona/Sound/ding3.wav
+  filepath: /Elona/Sound/ding3.wav
   elonaId: 61
 
 - type: Sound
   id: Door1
-  filepath: Assets/Elona/Sound/door1.wav
+  filepath: /Elona/Sound/door1.wav
   elonaId: 48
 
 - type: Sound
   id: Door2
-  filepath: Assets/Elona/Sound/door2.wav
+  filepath: /Elona/Sound/door2.wav
   elonaId: 67
 
 - type: Sound
   id: Drink1
-  filepath: Assets/Elona/Sound/drink1.wav
+  filepath: /Elona/Sound/drink1.wav
   elonaId: 17
 
 - type: Sound
   id: Drop1
-  filepath: Assets/Elona/Sound/drop1.wav
+  filepath: /Elona/Sound/drop1.wav
   elonaId: 16
 
 - type: Sound
   id: Eat1
-  filepath: Assets/Elona/Sound/eat1.wav
+  filepath: /Elona/Sound/eat1.wav
   elonaId: 18
 
 - type: Sound
   id: Enc2
-  filepath: Assets/Elona/Sound/enc2.wav
+  filepath: /Elona/Sound/enc2.wav
   elonaId: 119
 
 - type: Sound
   id: Enc
-  filepath: Assets/Elona/Sound/enc.wav
+  filepath: /Elona/Sound/enc.wav
   elonaId: 118
 
 - type: Sound
   id: Equip1
-  filepath: Assets/Elona/Sound/equip1.wav
+  filepath: /Elona/Sound/equip1.wav
   elonaId: 13
 
 - type: Sound
   id: Exitmap1
-  filepath: Assets/Elona/Sound/exitmap1.wav
+  filepath: /Elona/Sound/exitmap1.wav
   elonaId: 49
 
 - type: Sound
   id: Fail1
-  filepath: Assets/Elona/Sound/fail1.wav
+  filepath: /Elona/Sound/fail1.wav
   elonaId: 27
 
 - type: Sound
   id: Feat
-  filepath: Assets/Elona/Sound/feat.wav
+  filepath: /Elona/Sound/feat.wav
   elonaId: 96
 
 - type: Sound
   id: Fire1
-  filepath: Assets/Elona/Sound/fire1.wav
+  filepath: /Elona/Sound/fire1.wav
   elonaId: 6
 
 - type: Sound
   id: FishCast
-  filepath: Assets/Elona/Sound/fish_cast.wav
+  filepath: /Elona/Sound/fish_cast.wav
   elonaId: 87
 
 - type: Sound
   id: FishFight
-  filepath: Assets/Elona/Sound/fish_fight.wav
+  filepath: /Elona/Sound/fish_fight.wav
   elonaId: 89
 
 - type: Sound
   id: FishGet
-  filepath: Assets/Elona/Sound/fish_get.wav
+  filepath: /Elona/Sound/fish_get.wav
   elonaId: 88
 
 - type: Sound
   id: Fizzle
-  filepath: Assets/Elona/Sound/fizzle.wav
+  filepath: /Elona/Sound/fizzle.wav
   elonaId: 66
 
 - type: Sound
   id: Foot1a
-  filepath: Assets/Elona/Sound/foot1a.wav
+  filepath: /Elona/Sound/foot1a.wav
   elonaId: 81
 
 - type: Sound
   id: Foot1b
-  filepath: Assets/Elona/Sound/foot1b.wav
+  filepath: /Elona/Sound/foot1b.wav
   elonaId: 82
 
 - type: Sound
   id: Foot2a
-  filepath: Assets/Elona/Sound/foot2a.wav
+  filepath: /Elona/Sound/foot2a.wav
   elonaId: 83
 
 - type: Sound
   id: Foot2b
-  filepath: Assets/Elona/Sound/foot2b.wav
+  filepath: /Elona/Sound/foot2b.wav
   elonaId: 84
 
 - type: Sound
   id: Foot2c
-  filepath: Assets/Elona/Sound/foot2c.wav
+  filepath: /Elona/Sound/foot2c.wav
   elonaId: 85
 
 - type: Sound
   id: Foot
-  filepath: Assets/Elona/Sound/foot.wav
+  filepath: /Elona/Sound/foot.wav
   elonaId: 43
 
 - type: Sound
   id: Gasha
-  filepath: Assets/Elona/Sound/gasha.wav
+  filepath: /Elona/Sound/gasha.wav
   elonaId: 56
 
 - type: Sound
   id: Get1
-  filepath: Assets/Elona/Sound/get1.wav
+  filepath: /Elona/Sound/get1.wav
   elonaId: 14
 
 - type: Sound
   id: Get2
-  filepath: Assets/Elona/Sound/get2.wav
+  filepath: /Elona/Sound/get2.wav
   elonaId: 15
 
 - type: Sound
   id: Get3
-  filepath: Assets/Elona/Sound/get3.wav
+  filepath: /Elona/Sound/get3.wav
   elonaId: 41
 
 - type: Sound
   id: Getgold1
-  filepath: Assets/Elona/Sound/getgold1.wav
+  filepath: /Elona/Sound/getgold1.wav
   elonaId: 11
 
 - type: Sound
   id: Gun1
-  filepath: Assets/Elona/Sound/gun1.wav
+  filepath: /Elona/Sound/gun1.wav
   elonaId: 30
 
 - type: Sound
   id: Heal1
-  filepath: Assets/Elona/Sound/heal1.wav
+  filepath: /Elona/Sound/heal1.wav
   elonaId: 33
 
 - type: Sound
   id: Heart1
-  filepath: Assets/Elona/Sound/Heart1.wav
+  filepath: /Elona/Sound/Heart1.wav
   elonaId: 33
 
 - type: Sound
   id: Inv
-  filepath: Assets/Elona/Sound/inv.wav
+  filepath: /Elona/Sound/inv.wav
   elonaId: 100
 
 - type: Sound
   id: Kill1
-  filepath: Assets/Elona/Sound/kill1.wav
+  filepath: /Elona/Sound/kill1.wav
   elonaId: 8
 
 - type: Sound
   id: Kill2
-  filepath: Assets/Elona/Sound/kill2.wav
+  filepath: /Elona/Sound/kill2.wav
   elonaId: 9
 
 - type: Sound
   id: Laser1
-  filepath: Assets/Elona/Sound/laser1.wav
+  filepath: /Elona/Sound/laser1.wav
   elonaId: 42
 
 - type: Sound
   id: Locked1
-  filepath: Assets/Elona/Sound/locked1.wav
+  filepath: /Elona/Sound/locked1.wav
   elonaId: 22
 
 - type: Sound
   id: Log
-  filepath: Assets/Elona/Sound/log.wav
+  filepath: /Elona/Sound/log.wav
   elonaId: 93
 
 - type: Sound
   id: Miss
-  filepath: Assets/Elona/Sound/miss.wav
+  filepath: /Elona/Sound/miss.wav
   elonaId: 4
 
 - type: Sound
   id: More1
-  filepath: Assets/Elona/Sound/more1.wav
+  filepath: /Elona/Sound/more1.wav
   elonaId: 10
 
 - type: Sound
   id: Night
-  filepath: Assets/Elona/Sound/night.wav
+  filepath: /Elona/Sound/night.wav
   elonaId: 74
 
 - type: Sound
   id: Offer1
-  filepath: Assets/Elona/Sound/offer1.wav
+  filepath: /Elona/Sound/offer1.wav
   elonaId: 65
 
 - type: Sound
   id: Offer2
-  filepath: Assets/Elona/Sound/offer2.wav
+  filepath: /Elona/Sound/offer2.wav
   elonaId: 121
 
 - type: Sound
   id: Ok1
-  filepath: Assets/Elona/Sound/ok1.wav
+  filepath: /Elona/Sound/ok1.wav
   elonaId: 20
 
 - type: Sound
   id: Paygold1
-  filepath: Assets/Elona/Sound/paygold1.wav
+  filepath: /Elona/Sound/paygold1.wav
   elonaId: 12
 
 - type: Sound
   id: Pop1
-  filepath: Assets/Elona/Sound/pop1.wav
+  filepath: /Elona/Sound/pop1.wav
   elonaId: 1
 
 - type: Sound
   id: Pop2
-  filepath: Assets/Elona/Sound/pop2.wav
+  filepath: /Elona/Sound/pop2.wav
   elonaId: 26
 
 - type: Sound
   id: Pop3
-  filepath: Assets/Elona/Sound/pop3.wav
+  filepath: /Elona/Sound/pop3.wav
   elonaId: 39
 
 - type: Sound
   id: Pop4
-  filepath: Assets/Elona/Sound/pop4.wav
+  filepath: /Elona/Sound/pop4.wav
   elonaId: 62
 
 - type: Sound
   id: Port
-  filepath: Assets/Elona/Sound/port.wav
+  filepath: /Elona/Sound/port.wav
   elonaId: 97
 
 - type: Sound
   id: Pray1
-  filepath: Assets/Elona/Sound/pray1.wav
+  filepath: /Elona/Sound/pray1.wav
   elonaId: 64
 
 - type: Sound
   id: Pray2
-  filepath: Assets/Elona/Sound/pray2.wav
+  filepath: /Elona/Sound/pray2.wav
   elonaId: 120
 
 - type: Sound
   id: Punish1
-  filepath: Assets/Elona/Sound/punish1.wav
+  filepath: /Elona/Sound/punish1.wav
   elonaId: 63
 
 - type: Sound
   id: Scroll
-  filepath: Assets/Elona/Sound/scroll.wav
+  filepath: /Elona/Sound/scroll.wav
   elonaId: 92
 
 - type: Sound
   id: Skill
-  filepath: Assets/Elona/Sound/skill.wav
+  filepath: /Elona/Sound/skill.wav
   elonaId: 101
 
 - type: Sound
   id: Snow
-  filepath: Assets/Elona/Sound/snow.wav
+  filepath: /Elona/Sound/snow.wav
   elonaId: 86
 
 - type: Sound
   id: Spell
-  filepath: Assets/Elona/Sound/spell.wav
+  filepath: /Elona/Sound/spell.wav
   elonaId: 102
 
 - type: Sound
   id: Spend1
-  filepath: Assets/Elona/Sound/spend1.wav
+  filepath: /Elona/Sound/spend1.wav
   elonaId: 19
 
 - type: Sound
   id: Teleport1
-  filepath: Assets/Elona/Sound/teleport1.wav
+  filepath: /Elona/Sound/teleport1.wav
   elonaId: 72
 
 - type: Sound
   id: Throw1
-  filepath: Assets/Elona/Sound/throw1.wav
+  filepath: /Elona/Sound/throw1.wav
   elonaId: 31
 
 - type: Sound
   id: Throw2
-  filepath: Assets/Elona/Sound/throw2.wav
+  filepath: /Elona/Sound/throw2.wav
   elonaId: 91
 
 - type: Sound
   id: Trap1
-  filepath: Assets/Elona/Sound/trap1.wav
+  filepath: /Elona/Sound/trap1.wav
   elonaId: 70
 
 - type: Sound
   id: Unpop1
-  filepath: Assets/Elona/Sound/unpop1.wav
+  filepath: /Elona/Sound/unpop1.wav
   elonaId: 98
 
 - type: Sound
   id: Vomit
-  filepath: Assets/Elona/Sound/vomit.wav
+  filepath: /Elona/Sound/vomit.wav
   elonaId: 104
 
 - type: Sound
   id: Water2
-  filepath: Assets/Elona/Sound/water2.wav
+  filepath: /Elona/Sound/water2.wav
   elonaId: 46
 
 - type: Sound
   id: Water
-  filepath: Assets/Elona/Sound/water.wav
+  filepath: /Elona/Sound/water.wav
   elonaId: 57
 
 - type: Sound
   id: Wear
-  filepath: Assets/Elona/Sound/wear.wav
+  filepath: /Elona/Sound/wear.wav
   elonaId: 95
 
 - type: Sound
   id: Web
-  filepath: Assets/Elona/Sound/web.wav
+  filepath: /Elona/Sound/web.wav
   elonaId: 68
 
 - type: Sound
   id: Write1
-  filepath: Assets/Elona/Sound/write1.wav
+  filepath: /Elona/Sound/write1.wav
   elonaId: 44

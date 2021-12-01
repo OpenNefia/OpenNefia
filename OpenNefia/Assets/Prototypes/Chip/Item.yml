@@ -3,7 +3,7 @@
   elonaId: 0
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "0, 0, 48, 48"
 
 - type: Chip
@@ -11,7 +11,7 @@
   elonaId: 1
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "48, 0, 48, 48"
 
 - type: Chip
@@ -19,7 +19,7 @@
   elonaId: 2
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "96, 0, 48, 48"
 
 - type: Chip
@@ -27,7 +27,7 @@
   elonaId: 3
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "144, 0, 48, 48"
 
 - type: Chip
@@ -35,7 +35,7 @@
   elonaId: 4
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "192, 0, 48, 48"
 
 - type: Chip
@@ -43,7 +43,7 @@
   elonaId: 5
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "240, 0, 48, 48"
 
 - type: Chip
@@ -51,7 +51,7 @@
   elonaId: 6
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "288, 0, 48, 48"
 
 - type: Chip
@@ -59,7 +59,7 @@
   elonaId: 7
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "336, 0, 48, 48"
 
 - type: Chip
@@ -67,7 +67,7 @@
   elonaId: 8
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "384, 0, 48, 48"
 
 - type: Chip
@@ -75,7 +75,7 @@
   elonaId: 9
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "432, 0, 48, 48"
 
 - type: Chip
@@ -83,7 +83,7 @@
   elonaId: 10
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "480, 0, 48, 48"
 
 - type: Chip
@@ -91,7 +91,7 @@
   elonaId: 13
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "624, 0, 48, 48"
 
 - type: Chip
@@ -99,7 +99,7 @@
   elonaId: 23
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1104, 0, 48, 48"
 
 - type: Chip
@@ -107,7 +107,7 @@
   elonaId: 33
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "0, 48, 48, 48"
 
 - type: Chip
@@ -115,7 +115,7 @@
   elonaId: 66
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "0, 96, 48, 48"
 
 - type: Chip
@@ -123,7 +123,7 @@
   elonaId: 67
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "48, 96, 48, 48"
 
 - type: Chip
@@ -131,7 +131,7 @@
   elonaId: 68
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "96, 96, 48, 48"
 
 - type: Chip
@@ -139,7 +139,7 @@
   elonaId: 69
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "144, 96, 48, 48"
 
 - type: Chip
@@ -147,7 +147,7 @@
   elonaId: 70
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "192, 96, 48, 48"
 
 - type: Chip
@@ -155,7 +155,7 @@
   elonaId: 71
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "240, 96, 48, 48"
 
 - type: Chip
@@ -163,7 +163,7 @@
   elonaId: 72
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "288, 96, 48, 48"
 
 - type: Chip
@@ -171,7 +171,7 @@
   elonaId: 73
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "336, 96, 48, 48"
 
 - type: Chip
@@ -179,7 +179,7 @@
   elonaId: 74
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "384, 96, 48, 48"
 
 - type: Chip
@@ -187,7 +187,7 @@
   elonaId: 75
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "432, 96, 48, 48"
 
 - type: Chip
@@ -195,7 +195,7 @@
   elonaId: 76
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "480, 96, 48, 48"
 
 - type: Chip
@@ -203,7 +203,7 @@
   elonaId: 77
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "528, 96, 48, 48"
 
 - type: Chip
@@ -211,7 +211,7 @@
   elonaId: 78
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "576, 96, 48, 48"
 
 - type: Chip
@@ -219,7 +219,7 @@
   elonaId: 79
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "624, 96, 48, 48"
 
 - type: Chip
@@ -227,7 +227,7 @@
   elonaId: 80
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "672, 96, 48, 48"
 
 - type: Chip
@@ -235,7 +235,7 @@
   elonaId: 81
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "720, 96, 48, 48"
 
 - type: Chip
@@ -243,7 +243,7 @@
   elonaId: 82
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "768, 96, 48, 48"
 
 - type: Chip
@@ -251,7 +251,7 @@
   elonaId: 83
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "816, 96, 48, 48"
 
 - type: Chip
@@ -259,7 +259,7 @@
   elonaId: 84
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "864, 96, 48, 48"
 
 - type: Chip
@@ -267,7 +267,7 @@
   elonaId: 85
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "912, 96, 48, 48"
 
 - type: Chip
@@ -275,7 +275,7 @@
   elonaId: 86
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "960, 96, 48, 48"
 
 - type: Chip
@@ -283,7 +283,7 @@
   elonaId: 87
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1008, 96, 48, 48"
 
 - type: Chip
@@ -291,7 +291,7 @@
   elonaId: 88
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1056, 96, 48, 48"
 
 - type: Chip
@@ -299,7 +299,7 @@
   elonaId: 89
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1104, 96, 48, 48"
 
 - type: Chip
@@ -307,7 +307,7 @@
   elonaId: 90
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1152, 96, 48, 48"
 
 - type: Chip
@@ -315,7 +315,7 @@
   elonaId: 91
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1200, 96, 48, 48"
 
 - type: Chip
@@ -323,7 +323,7 @@
   elonaId: 92
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1248, 96, 48, 48"
 
 - type: Chip
@@ -331,7 +331,7 @@
   elonaId: 93
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1296, 96, 48, 48"
 
 - type: Chip
@@ -339,7 +339,7 @@
   elonaId: 94
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1344, 96, 48, 48"
 
 - type: Chip
@@ -347,7 +347,7 @@
   elonaId: 95
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1392, 96, 48, 48"
 
 - type: Chip
@@ -355,7 +355,7 @@
   elonaId: 96
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1440, 96, 48, 48"
 
 - type: Chip
@@ -363,7 +363,7 @@
   elonaId: 97
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1488, 96, 48, 48"
 
 - type: Chip
@@ -371,7 +371,7 @@
   elonaId: 98
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1536, 96, 48, 48"
 
 - type: Chip
@@ -379,7 +379,7 @@
   elonaId: 99
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "0, 144, 48, 48"
 
 - type: Chip
@@ -387,7 +387,7 @@
   elonaId: 100
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "48, 144, 48, 48"
 
 - type: Chip
@@ -395,7 +395,7 @@
   elonaId: 101
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "96, 144, 48, 48"
 
 - type: Chip
@@ -403,7 +403,7 @@
   elonaId: 102
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "144, 144, 48, 48"
 
 - type: Chip
@@ -411,7 +411,7 @@
   elonaId: 103
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "192, 144, 48, 48"
 
 - type: Chip
@@ -419,7 +419,7 @@
   elonaId: 104
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "240, 144, 48, 48"
 
 - type: Chip
@@ -427,7 +427,7 @@
   elonaId: 105
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "288, 144, 48, 48"
 
 - type: Chip
@@ -435,7 +435,7 @@
   elonaId: 106
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "336, 144, 48, 48"
 
 - type: Chip
@@ -443,7 +443,7 @@
   elonaId: 107
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "384, 144, 48, 48"
 
 - type: Chip
@@ -451,7 +451,7 @@
   elonaId: 108
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "432, 144, 48, 48"
 
 - type: Chip
@@ -459,7 +459,7 @@
   elonaId: 109
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "480, 144, 48, 48"
 
 - type: Chip
@@ -467,7 +467,7 @@
   elonaId: 110
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "528, 144, 48, 48"
 
 - type: Chip
@@ -475,7 +475,7 @@
   elonaId: 111
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "576, 144, 48, 48"
 
 - type: Chip
@@ -483,7 +483,7 @@
   elonaId: 112
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "624, 144, 48, 48"
 
 - type: Chip
@@ -491,7 +491,7 @@
   elonaId: 113
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "672, 144, 48, 48"
 
 - type: Chip
@@ -499,7 +499,7 @@
   elonaId: 114
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "720, 144, 48, 48"
 
 - type: Chip
@@ -507,7 +507,7 @@
   elonaId: 115
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "768, 144, 48, 48"
 
 - type: Chip
@@ -515,7 +515,7 @@
   elonaId: 116
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "816, 144, 48, 48"
 
 - type: Chip
@@ -523,7 +523,7 @@
   elonaId: 117
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "864, 144, 48, 48"
 
 - type: Chip
@@ -531,7 +531,7 @@
   elonaId: 118
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "912, 144, 48, 48"
 
 - type: Chip
@@ -539,7 +539,7 @@
   elonaId: 119
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "960, 144, 48, 48"
 
 - type: Chip
@@ -547,7 +547,7 @@
   elonaId: 120
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1008, 144, 48, 48"
 
 - type: Chip
@@ -555,7 +555,7 @@
   elonaId: 121
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1056, 144, 48, 48"
 
 - type: Chip
@@ -563,7 +563,7 @@
   elonaId: 122
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1104, 144, 48, 48"
 
 - type: Chip
@@ -571,7 +571,7 @@
   elonaId: 123
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1152, 144, 48, 48"
 
 - type: Chip
@@ -579,7 +579,7 @@
   elonaId: 124
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1200, 144, 48, 48"
 
 - type: Chip
@@ -587,7 +587,7 @@
   elonaId: 125
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1248, 144, 48, 48"
 
 - type: Chip
@@ -595,7 +595,7 @@
   elonaId: 126
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1296, 144, 48, 48"
 
 - type: Chip
@@ -603,7 +603,7 @@
   elonaId: 127
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1344, 144, 48, 48"
 
 - type: Chip
@@ -611,7 +611,7 @@
   elonaId: 128
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1392, 144, 48, 48"
 
 - type: Chip
@@ -619,7 +619,7 @@
   elonaId: 129
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1440, 144, 48, 48"
 
 - type: Chip
@@ -627,7 +627,7 @@
   elonaId: 130
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1488, 144, 48, 48"
 
 - type: Chip
@@ -635,7 +635,7 @@
   elonaId: 131
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1536, 144, 48, 48"
 
 - type: Chip
@@ -643,7 +643,7 @@
   elonaId: 132
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "0, 192, 48, 48"
 
 - type: Chip
@@ -651,7 +651,7 @@
   elonaId: 133
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "48, 192, 48, 48"
 
 - type: Chip
@@ -659,7 +659,7 @@
   elonaId: 134
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "96, 192, 48, 48"
 
 - type: Chip
@@ -667,7 +667,7 @@
   elonaId: 135
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "144, 192, 48, 48"
 
 - type: Chip
@@ -675,7 +675,7 @@
   elonaId: 136
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "192, 192, 48, 48"
 
 - type: Chip
@@ -683,7 +683,7 @@
   elonaId: 137
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "240, 192, 48, 48"
 
 - type: Chip
@@ -691,7 +691,7 @@
   elonaId: 138
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "288, 192, 48, 48"
 
 - type: Chip
@@ -699,7 +699,7 @@
   elonaId: 139
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "336, 192, 48, 48"
 
 - type: Chip
@@ -707,7 +707,7 @@
   elonaId: 140
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "384, 192, 48, 48"
 
 - type: Chip
@@ -715,7 +715,7 @@
   elonaId: 141
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "432, 192, 48, 48"
 
 - type: Chip
@@ -723,7 +723,7 @@
   elonaId: 142
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "480, 192, 48, 48"
 
 - type: Chip
@@ -731,7 +731,7 @@
   elonaId: 143
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "528, 192, 48, 48"
 
 - type: Chip
@@ -739,7 +739,7 @@
   elonaId: 144
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "576, 192, 48, 48"
 
 - type: Chip
@@ -747,7 +747,7 @@
   elonaId: 145
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "624, 192, 48, 48"
 
 - type: Chip
@@ -755,7 +755,7 @@
   elonaId: 146
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "672, 192, 48, 48"
 
 - type: Chip
@@ -763,7 +763,7 @@
   elonaId: 147
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "720, 192, 48, 48"
 
 - type: Chip
@@ -771,7 +771,7 @@
   elonaId: 148
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "768, 192, 48, 48"
 
 - type: Chip
@@ -779,7 +779,7 @@
   elonaId: 149
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "816, 192, 48, 48"
 
 - type: Chip
@@ -787,7 +787,7 @@
   elonaId: 150
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "864, 192, 48, 48"
 
 - type: Chip
@@ -795,7 +795,7 @@
   elonaId: 151
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "912, 192, 48, 48"
 
 - type: Chip
@@ -803,7 +803,7 @@
   elonaId: 152
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "960, 192, 48, 48"
 
 - type: Chip
@@ -811,7 +811,7 @@
   elonaId: 153
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1008, 192, 48, 48"
 
 - type: Chip
@@ -819,7 +819,7 @@
   elonaId: 154
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1056, 192, 48, 48"
 
 - type: Chip
@@ -827,7 +827,7 @@
   elonaId: 155
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1104, 192, 48, 48"
 
 - type: Chip
@@ -835,7 +835,7 @@
   elonaId: 156
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1152, 192, 48, 48"
 
 - type: Chip
@@ -843,7 +843,7 @@
   elonaId: 157
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1200, 192, 48, 48"
 
 - type: Chip
@@ -851,7 +851,7 @@
   elonaId: 158
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1248, 192, 48, 48"
 
 - type: Chip
@@ -859,7 +859,7 @@
   elonaId: 159
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1296, 192, 48, 48"
 
 - type: Chip
@@ -867,7 +867,7 @@
   elonaId: 160
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1344, 192, 48, 48"
 
 - type: Chip
@@ -875,7 +875,7 @@
   elonaId: 161
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1392, 192, 48, 48"
 
 - type: Chip
@@ -883,7 +883,7 @@
   elonaId: 162
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1440, 192, 48, 48"
 
 - type: Chip
@@ -891,7 +891,7 @@
   elonaId: 163
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1488, 192, 48, 48"
 
 - type: Chip
@@ -899,7 +899,7 @@
   elonaId: 164
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1536, 192, 48, 48"
 
 - type: Chip
@@ -907,7 +907,7 @@
   elonaId: 165
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "0, 240, 48, 48"
 
 - type: Chip
@@ -915,7 +915,7 @@
   elonaId: 166
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "48, 240, 48, 48"
 
 - type: Chip
@@ -923,7 +923,7 @@
   elonaId: 167
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "96, 240, 48, 48"
 
 - type: Chip
@@ -931,7 +931,7 @@
   elonaId: 168
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "144, 240, 48, 48"
 
 - type: Chip
@@ -939,7 +939,7 @@
   elonaId: 169
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "192, 240, 48, 48"
 
 - type: Chip
@@ -947,7 +947,7 @@
   elonaId: 170
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "240, 240, 48, 48"
 
 - type: Chip
@@ -955,7 +955,7 @@
   elonaId: 171
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "288, 240, 48, 48"
 
 - type: Chip
@@ -963,7 +963,7 @@
   elonaId: 172
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "336, 240, 48, 48"
 
 - type: Chip
@@ -971,7 +971,7 @@
   elonaId: 173
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "384, 240, 48, 48"
 
 - type: Chip
@@ -979,7 +979,7 @@
   elonaId: 174
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "432, 240, 48, 48"
 
 - type: Chip
@@ -987,7 +987,7 @@
   elonaId: 175
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "480, 240, 48, 48"
 
 - type: Chip
@@ -995,7 +995,7 @@
   elonaId: 176
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "528, 240, 48, 48"
 
 - type: Chip
@@ -1003,7 +1003,7 @@
   elonaId: 177
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "576, 240, 48, 48"
 
 - type: Chip
@@ -1011,7 +1011,7 @@
   elonaId: 178
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "624, 240, 48, 48"
 
 - type: Chip
@@ -1019,7 +1019,7 @@
   elonaId: 179
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "672, 240, 48, 48"
 
 - type: Chip
@@ -1027,7 +1027,7 @@
   elonaId: 180
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "720, 240, 48, 48"
 
 - type: Chip
@@ -1035,7 +1035,7 @@
   elonaId: 181
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "768, 240, 48, 48"
 
 - type: Chip
@@ -1043,7 +1043,7 @@
   elonaId: 182
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "816, 240, 48, 48"
 
 - type: Chip
@@ -1051,7 +1051,7 @@
   elonaId: 183
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "864, 240, 48, 48"
 
 - type: Chip
@@ -1059,7 +1059,7 @@
   elonaId: 184
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "912, 240, 48, 48"
 
 - type: Chip
@@ -1067,7 +1067,7 @@
   elonaId: 185
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "960, 240, 48, 48"
 
 - type: Chip
@@ -1075,7 +1075,7 @@
   elonaId: 186
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1008, 240, 48, 48"
 
 - type: Chip
@@ -1083,7 +1083,7 @@
   elonaId: 187
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1056, 240, 48, 48"
 
 - type: Chip
@@ -1091,7 +1091,7 @@
   elonaId: 188
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1104, 240, 48, 48"
 
 - type: Chip
@@ -1099,7 +1099,7 @@
   elonaId: 189
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1152, 240, 48, 48"
 
 - type: Chip
@@ -1107,7 +1107,7 @@
   elonaId: 190
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1200, 240, 48, 48"
 
 - type: Chip
@@ -1115,7 +1115,7 @@
   elonaId: 191
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1248, 240, 48, 48"
 
 - type: Chip
@@ -1123,7 +1123,7 @@
   elonaId: 192
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1296, 240, 48, 48"
 
 - type: Chip
@@ -1131,7 +1131,7 @@
   elonaId: 193
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1344, 240, 48, 48"
 
 - type: Chip
@@ -1139,7 +1139,7 @@
   elonaId: 194
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1392, 240, 48, 48"
 
 - type: Chip
@@ -1147,7 +1147,7 @@
   elonaId: 195
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1440, 240, 48, 48"
 
 - type: Chip
@@ -1155,7 +1155,7 @@
   elonaId: 196
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1488, 240, 48, 48"
 
 - type: Chip
@@ -1163,7 +1163,7 @@
   elonaId: 197
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1536, 240, 48, 48"
 
 - type: Chip
@@ -1171,7 +1171,7 @@
   elonaId: 198
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "0, 288, 48, 48"
 
 - type: Chip
@@ -1179,7 +1179,7 @@
   elonaId: 199
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "48, 288, 48, 48"
 
 - type: Chip
@@ -1187,7 +1187,7 @@
   elonaId: 200
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "96, 288, 48, 48"
 
 - type: Chip
@@ -1195,7 +1195,7 @@
   elonaId: 201
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "144, 288, 48, 48"
 
 - type: Chip
@@ -1203,7 +1203,7 @@
   elonaId: 202
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "192, 288, 48, 48"
 
 - type: Chip
@@ -1211,7 +1211,7 @@
   elonaId: 203
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "240, 288, 48, 48"
 
 - type: Chip
@@ -1219,7 +1219,7 @@
   elonaId: 204
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "288, 288, 48, 48"
 
 - type: Chip
@@ -1227,7 +1227,7 @@
   elonaId: 205
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "336, 288, 48, 48"
 
 - type: Chip
@@ -1235,7 +1235,7 @@
   elonaId: 206
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "384, 288, 48, 48"
 
 - type: Chip
@@ -1243,7 +1243,7 @@
   elonaId: 207
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "432, 288, 48, 48"
 
 - type: Chip
@@ -1251,7 +1251,7 @@
   elonaId: 208
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "480, 288, 48, 48"
 
 - type: Chip
@@ -1259,7 +1259,7 @@
   elonaId: 209
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "528, 288, 48, 48"
 
 - type: Chip
@@ -1267,7 +1267,7 @@
   elonaId: 210
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "576, 288, 48, 48"
 
 - type: Chip
@@ -1275,7 +1275,7 @@
   elonaId: 211
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "624, 288, 48, 48"
 
 - type: Chip
@@ -1283,7 +1283,7 @@
   elonaId: 212
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "672, 288, 48, 48"
 
 - type: Chip
@@ -1291,7 +1291,7 @@
   elonaId: 213
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "720, 288, 48, 48"
 
 - type: Chip
@@ -1299,7 +1299,7 @@
   elonaId: 214
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "768, 288, 48, 48"
 
 - type: Chip
@@ -1307,7 +1307,7 @@
   elonaId: 215
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "816, 288, 48, 48"
 
 - type: Chip
@@ -1315,7 +1315,7 @@
   elonaId: 216
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "864, 288, 48, 48"
 
 - type: Chip
@@ -1323,7 +1323,7 @@
   elonaId: 217
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "912, 288, 48, 48"
 
 - type: Chip
@@ -1331,7 +1331,7 @@
   elonaId: 218
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "960, 288, 48, 48"
 
 - type: Chip
@@ -1339,7 +1339,7 @@
   elonaId: 219
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1008, 288, 48, 48"
 
 - type: Chip
@@ -1347,7 +1347,7 @@
   elonaId: 220
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1056, 288, 48, 48"
 
 - type: Chip
@@ -1355,7 +1355,7 @@
   elonaId: 221
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1104, 288, 48, 48"
 
 - type: Chip
@@ -1363,7 +1363,7 @@
   elonaId: 222
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1152, 288, 48, 48"
 
 - type: Chip
@@ -1371,7 +1371,7 @@
   elonaId: 223
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1200, 288, 48, 48"
 
 - type: Chip
@@ -1379,7 +1379,7 @@
   elonaId: 224
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1248, 288, 48, 48"
 
 - type: Chip
@@ -1387,7 +1387,7 @@
   elonaId: 225
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1296, 288, 48, 48"
 
 - type: Chip
@@ -1395,7 +1395,7 @@
   elonaId: 226
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1344, 288, 48, 48"
 
 - type: Chip
@@ -1403,7 +1403,7 @@
   elonaId: 227
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1392, 288, 48, 48"
 
 - type: Chip
@@ -1411,7 +1411,7 @@
   elonaId: 228
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1440, 288, 48, 48"
 
 - type: Chip
@@ -1419,7 +1419,7 @@
   elonaId: 229
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1488, 288, 48, 48"
 
 - type: Chip
@@ -1427,7 +1427,7 @@
   elonaId: 230
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1536, 288, 48, 48"
 
 - type: Chip
@@ -1435,7 +1435,7 @@
   elonaId: 231
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "0, 336, 48, 48"
 
 - type: Chip
@@ -1443,7 +1443,7 @@
   elonaId: 232
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "48, 336, 48, 48"
 
 - type: Chip
@@ -1451,7 +1451,7 @@
   elonaId: 233
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "96, 336, 48, 48"
 
 - type: Chip
@@ -1459,7 +1459,7 @@
   elonaId: 234
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "144, 336, 48, 48"
 
 - type: Chip
@@ -1467,7 +1467,7 @@
   elonaId: 235
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "192, 336, 48, 48"
 
 - type: Chip
@@ -1475,7 +1475,7 @@
   elonaId: 236
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "240, 336, 48, 48"
 
 - type: Chip
@@ -1483,7 +1483,7 @@
   elonaId: 237
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "288, 336, 48, 48"
 
 - type: Chip
@@ -1491,7 +1491,7 @@
   elonaId: 238
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "336, 336, 48, 48"
 
 - type: Chip
@@ -1499,7 +1499,7 @@
   elonaId: 239
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "384, 336, 48, 48"
 
 - type: Chip
@@ -1507,7 +1507,7 @@
   elonaId: 240
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "432, 336, 48, 48"
 
 - type: Chip
@@ -1515,7 +1515,7 @@
   elonaId: 241
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "480, 336, 48, 48"
 
 - type: Chip
@@ -1523,7 +1523,7 @@
   elonaId: 242
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "528, 336, 48, 48"
 
 - type: Chip
@@ -1531,7 +1531,7 @@
   elonaId: 243
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "576, 336, 48, 48"
 
 - type: Chip
@@ -1539,7 +1539,7 @@
   elonaId: 244
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "624, 336, 48, 48"
 
 - type: Chip
@@ -1547,7 +1547,7 @@
   elonaId: 245
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "672, 336, 48, 48"
 
 - type: Chip
@@ -1555,7 +1555,7 @@
   elonaId: 246
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "720, 336, 48, 48"
 
 - type: Chip
@@ -1563,7 +1563,7 @@
   elonaId: 247
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "768, 336, 48, 48"
 
 - type: Chip
@@ -1571,7 +1571,7 @@
   elonaId: 248
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "816, 336, 48, 48"
 
 - type: Chip
@@ -1579,7 +1579,7 @@
   elonaId: 249
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "864, 336, 48, 48"
 
 - type: Chip
@@ -1587,7 +1587,7 @@
   elonaId: 250
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "912, 336, 48, 48"
 
 - type: Chip
@@ -1595,7 +1595,7 @@
   elonaId: 251
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "960, 336, 48, 48"
 
 - type: Chip
@@ -1603,7 +1603,7 @@
   elonaId: 252
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1008, 336, 48, 48"
 
 - type: Chip
@@ -1611,7 +1611,7 @@
   elonaId: 253
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1056, 336, 48, 48"
 
 - type: Chip
@@ -1619,7 +1619,7 @@
   elonaId: 254
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1104, 336, 48, 48"
 
 - type: Chip
@@ -1627,7 +1627,7 @@
   elonaId: 255
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1152, 336, 48, 48"
 
 - type: Chip
@@ -1635,7 +1635,7 @@
   elonaId: 256
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1200, 336, 48, 48"
 
 - type: Chip
@@ -1643,7 +1643,7 @@
   elonaId: 257
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1248, 336, 48, 48"
 
 - type: Chip
@@ -1651,7 +1651,7 @@
   elonaId: 258
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1296, 336, 48, 48"
 
 - type: Chip
@@ -1659,7 +1659,7 @@
   elonaId: 259
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1344, 336, 48, 48"
 
 - type: Chip
@@ -1667,7 +1667,7 @@
   elonaId: 260
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1392, 336, 48, 48"
 
 - type: Chip
@@ -1675,7 +1675,7 @@
   elonaId: 261
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1440, 336, 48, 48"
 
 - type: Chip
@@ -1683,7 +1683,7 @@
   elonaId: 262
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1488, 336, 48, 48"
 
 - type: Chip
@@ -1691,7 +1691,7 @@
   elonaId: 263
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1536, 336, 48, 48"
 
 - type: Chip
@@ -1699,7 +1699,7 @@
   elonaId: 264
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "0, 384, 48, 48"
 
 - type: Chip
@@ -1707,7 +1707,7 @@
   elonaId: 265
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "48, 384, 48, 48"
 
 - type: Chip
@@ -1715,7 +1715,7 @@
   elonaId: 266
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "96, 384, 48, 48"
 
 - type: Chip
@@ -1723,7 +1723,7 @@
   elonaId: 267
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "144, 384, 48, 48"
 
 - type: Chip
@@ -1731,7 +1731,7 @@
   elonaId: 268
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "192, 384, 48, 48"
 
 - type: Chip
@@ -1739,7 +1739,7 @@
   elonaId: 269
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "240, 384, 48, 48"
 
 - type: Chip
@@ -1747,7 +1747,7 @@
   elonaId: 270
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "288, 384, 48, 48"
 
 - type: Chip
@@ -1755,7 +1755,7 @@
   elonaId: 271
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "336, 384, 48, 48"
 
 - type: Chip
@@ -1763,7 +1763,7 @@
   elonaId: 272
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "384, 384, 48, 48"
 
 - type: Chip
@@ -1771,7 +1771,7 @@
   elonaId: 273
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "432, 384, 48, 48"
 
 - type: Chip
@@ -1779,7 +1779,7 @@
   elonaId: 274
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "480, 384, 48, 48"
 
 - type: Chip
@@ -1787,7 +1787,7 @@
   elonaId: 275
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "528, 384, 48, 48"
 
 - type: Chip
@@ -1795,7 +1795,7 @@
   elonaId: 276
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "576, 384, 48, 48"
 
 - type: Chip
@@ -1803,7 +1803,7 @@
   elonaId: 277
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "624, 384, 48, 48"
 
 - type: Chip
@@ -1811,7 +1811,7 @@
   elonaId: 278
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "672, 384, 48, 48"
 
 - type: Chip
@@ -1819,7 +1819,7 @@
   elonaId: 279
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "720, 384, 48, 48"
 
 - type: Chip
@@ -1827,7 +1827,7 @@
   elonaId: 280
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "768, 384, 48, 48"
 
 - type: Chip
@@ -1835,7 +1835,7 @@
   elonaId: 281
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "816, 384, 48, 48"
 
 - type: Chip
@@ -1843,7 +1843,7 @@
   elonaId: 282
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "864, 384, 48, 48"
 
 - type: Chip
@@ -1851,7 +1851,7 @@
   elonaId: 283
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "912, 384, 48, 48"
 
 - type: Chip
@@ -1859,7 +1859,7 @@
   elonaId: 284
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "960, 384, 48, 48"
 
 - type: Chip
@@ -1867,7 +1867,7 @@
   elonaId: 285
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1008, 384, 48, 48"
 
 - type: Chip
@@ -1875,7 +1875,7 @@
   elonaId: 286
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1056, 384, 48, 48"
 
 - type: Chip
@@ -1883,7 +1883,7 @@
   elonaId: 287
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1104, 384, 48, 48"
 
 - type: Chip
@@ -1891,7 +1891,7 @@
   elonaId: 288
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1152, 384, 48, 48"
 
 - type: Chip
@@ -1899,7 +1899,7 @@
   elonaId: 289
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1200, 384, 48, 48"
 
 - type: Chip
@@ -1907,7 +1907,7 @@
   elonaId: 290
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1248, 384, 48, 48"
 
 - type: Chip
@@ -1915,7 +1915,7 @@
   elonaId: 291
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1296, 384, 48, 48"
 
 - type: Chip
@@ -1923,7 +1923,7 @@
   elonaId: 292
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1344, 384, 48, 48"
 
 - type: Chip
@@ -1931,7 +1931,7 @@
   elonaId: 293
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1392, 384, 48, 48"
 
 - type: Chip
@@ -1939,7 +1939,7 @@
   elonaId: 294
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1440, 384, 48, 48"
 
 - type: Chip
@@ -1947,7 +1947,7 @@
   elonaId: 295
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1488, 384, 48, 48"
 
 - type: Chip
@@ -1955,7 +1955,7 @@
   elonaId: 296
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1536, 384, 48, 48"
 
 - type: Chip
@@ -1963,7 +1963,7 @@
   elonaId: 297
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "0, 432, 48, 48"
 
 - type: Chip
@@ -1971,7 +1971,7 @@
   elonaId: 298
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "48, 432, 48, 48"
 
 - type: Chip
@@ -1979,7 +1979,7 @@
   elonaId: 299
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "96, 432, 48, 48"
 
 - type: Chip
@@ -1987,7 +1987,7 @@
   elonaId: 300
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "144, 432, 48, 48"
 
 - type: Chip
@@ -1995,7 +1995,7 @@
   elonaId: 301
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "192, 432, 48, 48"
 
 - type: Chip
@@ -2003,7 +2003,7 @@
   elonaId: 302
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "240, 432, 48, 48"
 
 - type: Chip
@@ -2011,7 +2011,7 @@
   elonaId: 303
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "288, 432, 48, 48"
 
 - type: Chip
@@ -2019,7 +2019,7 @@
   elonaId: 304
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "336, 432, 48, 48"
 
 - type: Chip
@@ -2027,7 +2027,7 @@
   elonaId: 305
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "384, 432, 48, 48"
 
 - type: Chip
@@ -2035,7 +2035,7 @@
   elonaId: 306
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "432, 432, 48, 48"
 
 - type: Chip
@@ -2043,7 +2043,7 @@
   elonaId: 307
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "480, 432, 48, 48"
 
 - type: Chip
@@ -2051,7 +2051,7 @@
   elonaId: 308
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "528, 432, 48, 48"
 
 - type: Chip
@@ -2059,7 +2059,7 @@
   elonaId: 309
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "576, 432, 48, 48"
 
 - type: Chip
@@ -2067,7 +2067,7 @@
   elonaId: 310
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "624, 432, 48, 48"
 
 - type: Chip
@@ -2075,7 +2075,7 @@
   elonaId: 311
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "672, 432, 48, 48"
 
 - type: Chip
@@ -2083,7 +2083,7 @@
   elonaId: 312
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "720, 432, 48, 48"
 
 - type: Chip
@@ -2091,7 +2091,7 @@
   elonaId: 313
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "768, 432, 48, 48"
 
 - type: Chip
@@ -2099,7 +2099,7 @@
   elonaId: 314
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "816, 432, 48, 48"
 
 - type: Chip
@@ -2107,7 +2107,7 @@
   elonaId: 315
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "864, 432, 48, 48"
 
 - type: Chip
@@ -2115,7 +2115,7 @@
   elonaId: 316
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "912, 432, 48, 48"
 
 - type: Chip
@@ -2123,7 +2123,7 @@
   elonaId: 317
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "960, 432, 48, 48"
 
 - type: Chip
@@ -2131,7 +2131,7 @@
   elonaId: 318
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1008, 432, 48, 48"
 
 - type: Chip
@@ -2139,7 +2139,7 @@
   elonaId: 319
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1056, 432, 48, 48"
 
 - type: Chip
@@ -2147,7 +2147,7 @@
   elonaId: 320
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1104, 432, 48, 48"
 
 - type: Chip
@@ -2155,7 +2155,7 @@
   elonaId: 321
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1152, 432, 48, 48"
 
 - type: Chip
@@ -2163,7 +2163,7 @@
   elonaId: 322
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1200, 432, 48, 48"
 
 - type: Chip
@@ -2171,7 +2171,7 @@
   elonaId: 323
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1248, 432, 48, 48"
 
 - type: Chip
@@ -2179,7 +2179,7 @@
   elonaId: 324
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1296, 432, 48, 48"
 
 - type: Chip
@@ -2187,7 +2187,7 @@
   elonaId: 325
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1344, 432, 48, 48"
 
 - type: Chip
@@ -2195,7 +2195,7 @@
   elonaId: 326
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1392, 432, 48, 48"
 
 - type: Chip
@@ -2203,7 +2203,7 @@
   elonaId: 327
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1440, 432, 48, 48"
 
 - type: Chip
@@ -2211,7 +2211,7 @@
   elonaId: 328
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1488, 432, 48, 48"
 
 - type: Chip
@@ -2219,7 +2219,7 @@
   elonaId: 329
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1536, 432, 48, 48"
 
 - type: Chip
@@ -2227,7 +2227,7 @@
   elonaId: 330
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "0, 480, 48, 48"
 
 - type: Chip
@@ -2235,7 +2235,7 @@
   elonaId: 331
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "48, 480, 48, 48"
 
 - type: Chip
@@ -2243,7 +2243,7 @@
   elonaId: 332
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "96, 480, 48, 48"
 
 - type: Chip
@@ -2251,7 +2251,7 @@
   elonaId: 333
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "144, 480, 48, 48"
 
 - type: Chip
@@ -2259,7 +2259,7 @@
   elonaId: 334
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "192, 480, 48, 48"
 
 - type: Chip
@@ -2267,7 +2267,7 @@
   elonaId: 335
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "240, 480, 48, 48"
 
 - type: Chip
@@ -2275,7 +2275,7 @@
   elonaId: 336
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "288, 480, 48, 48"
 
 - type: Chip
@@ -2283,7 +2283,7 @@
   elonaId: 337
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "336, 480, 48, 48"
 
 - type: Chip
@@ -2291,7 +2291,7 @@
   elonaId: 338
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "384, 480, 48, 48"
 
 - type: Chip
@@ -2299,7 +2299,7 @@
   elonaId: 339
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "432, 480, 48, 48"
 
 - type: Chip
@@ -2307,7 +2307,7 @@
   elonaId: 340
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "480, 480, 48, 48"
 
 - type: Chip
@@ -2315,7 +2315,7 @@
   elonaId: 341
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "528, 480, 48, 48"
 
 - type: Chip
@@ -2323,7 +2323,7 @@
   elonaId: 342
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "576, 480, 48, 48"
 
 - type: Chip
@@ -2331,7 +2331,7 @@
   elonaId: 343
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "624, 480, 48, 48"
 
 - type: Chip
@@ -2339,7 +2339,7 @@
   elonaId: 344
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "672, 480, 48, 48"
 
 - type: Chip
@@ -2347,7 +2347,7 @@
   elonaId: 345
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "720, 480, 48, 48"
 
 - type: Chip
@@ -2355,7 +2355,7 @@
   elonaId: 346
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "768, 480, 48, 48"
 
 - type: Chip
@@ -2363,7 +2363,7 @@
   elonaId: 347
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "816, 480, 48, 48"
 
 - type: Chip
@@ -2371,7 +2371,7 @@
   elonaId: 348
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "864, 480, 48, 48"
 
 - type: Chip
@@ -2379,7 +2379,7 @@
   elonaId: 349
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "912, 480, 48, 48"
     countX: 3
 
@@ -2388,7 +2388,7 @@
   elonaId: 350
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "960, 480, 48, 48"
 
 - type: Chip
@@ -2396,7 +2396,7 @@
   elonaId: 351
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1008, 480, 48, 48"
 
 - type: Chip
@@ -2404,7 +2404,7 @@
   elonaId: 352
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1056, 480, 48, 48"
 
 - type: Chip
@@ -2412,7 +2412,7 @@
   elonaId: 353
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1104, 480, 48, 48"
 
 - type: Chip
@@ -2420,7 +2420,7 @@
   elonaId: 354
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1152, 480, 48, 48"
 
 - type: Chip
@@ -2428,7 +2428,7 @@
   elonaId: 355
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1200, 480, 48, 48"
     countX: 3
 
@@ -2437,7 +2437,7 @@
   elonaId: 356
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1248, 480, 48, 48"
 
 - type: Chip
@@ -2445,7 +2445,7 @@
   elonaId: 357
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1296, 480, 48, 48"
 
 - type: Chip
@@ -2453,7 +2453,7 @@
   elonaId: 358
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1344, 480, 48, 48"
 
 - type: Chip
@@ -2461,7 +2461,7 @@
   elonaId: 359
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1392, 480, 48, 48"
 
 - type: Chip
@@ -2469,7 +2469,7 @@
   elonaId: 360
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1440, 480, 48, 48"
 
 - type: Chip
@@ -2477,7 +2477,7 @@
   elonaId: 363
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "0, 528, 48, 48"
 
 - type: Chip
@@ -2485,7 +2485,7 @@
   elonaId: 364
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "48, 528, 48, 48"
 
 - type: Chip
@@ -2493,7 +2493,7 @@
   elonaId: 365
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "96, 528, 48, 48"
 
 - type: Chip
@@ -2501,7 +2501,7 @@
   elonaId: 366
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "144, 528, 48, 48"
 
 - type: Chip
@@ -2509,7 +2509,7 @@
   elonaId: 367
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "192, 528, 48, 48"
 
 - type: Chip
@@ -2517,7 +2517,7 @@
   elonaId: 368
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "240, 528, 48, 48"
 
 - type: Chip
@@ -2525,7 +2525,7 @@
   elonaId: 369
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "288, 528, 48, 48"
 
 - type: Chip
@@ -2533,7 +2533,7 @@
   elonaId: 370
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "336, 528, 48, 48"
 
 - type: Chip
@@ -2541,7 +2541,7 @@
   elonaId: 371
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "384, 528, 48, 48"
 
 - type: Chip
@@ -2549,7 +2549,7 @@
   elonaId: 372
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "432, 528, 48, 48"
 
 - type: Chip
@@ -2557,7 +2557,7 @@
   elonaId: 373
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "480, 528, 48, 48"
 
 - type: Chip
@@ -2565,7 +2565,7 @@
   elonaId: 374
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "528, 528, 48, 48"
 
 - type: Chip
@@ -2573,7 +2573,7 @@
   elonaId: 375
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "576, 528, 48, 48"
 
 - type: Chip
@@ -2581,7 +2581,7 @@
   elonaId: 376
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "624, 528, 48, 48"
 
 - type: Chip
@@ -2589,7 +2589,7 @@
   elonaId: 377
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "672, 528, 48, 48"
 
 - type: Chip
@@ -2597,7 +2597,7 @@
   elonaId: 378
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "720, 528, 48, 48"
 
 - type: Chip
@@ -2605,7 +2605,7 @@
   elonaId: 379
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "768, 528, 48, 48"
 
 - type: Chip
@@ -2613,7 +2613,7 @@
   elonaId: 380
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "816, 528, 48, 48"
 
 - type: Chip
@@ -2621,7 +2621,7 @@
   elonaId: 381
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "864, 528, 48, 48"
 
 - type: Chip
@@ -2629,7 +2629,7 @@
   elonaId: 382
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "912, 528, 48, 48"
 
 - type: Chip
@@ -2637,7 +2637,7 @@
   elonaId: 383
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "960, 528, 48, 48"
 
 - type: Chip
@@ -2645,7 +2645,7 @@
   elonaId: 384
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1008, 528, 48, 48"
 
 - type: Chip
@@ -2653,7 +2653,7 @@
   elonaId: 385
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1056, 528, 48, 48"
 
 - type: Chip
@@ -2661,7 +2661,7 @@
   elonaId: 386
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1104, 528, 48, 48"
 
 - type: Chip
@@ -2669,7 +2669,7 @@
   elonaId: 387
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1152, 528, 48, 48"
 
 - type: Chip
@@ -2677,7 +2677,7 @@
   elonaId: 388
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1200, 528, 48, 48"
 
 - type: Chip
@@ -2685,7 +2685,7 @@
   elonaId: 389
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1248, 528, 48, 48"
 
 - type: Chip
@@ -2693,7 +2693,7 @@
   elonaId: 390
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1296, 528, 48, 48"
 
 - type: Chip
@@ -2701,7 +2701,7 @@
   elonaId: 391
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1344, 528, 48, 48"
 
 - type: Chip
@@ -2709,7 +2709,7 @@
   elonaId: 392
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1392, 528, 48, 48"
 
 - type: Chip
@@ -2717,7 +2717,7 @@
   elonaId: 393
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1440, 528, 48, 48"
 
 - type: Chip
@@ -2725,7 +2725,7 @@
   elonaId: 394
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1488, 528, 48, 48"
 
 - type: Chip
@@ -2733,7 +2733,7 @@
   elonaId: 395
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1536, 528, 48, 48"
 
 - type: Chip
@@ -2741,7 +2741,7 @@
   elonaId: 396
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "0, 576, 48, 48"
 
 - type: Chip
@@ -2749,7 +2749,7 @@
   elonaId: 398
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "96, 576, 48, 48"
 
 - type: Chip
@@ -2757,7 +2757,7 @@
   elonaId: 399
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "144, 576, 48, 48"
 
 - type: Chip
@@ -2765,7 +2765,7 @@
   elonaId: 400
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "192, 576, 48, 48"
 
 - type: Chip
@@ -2773,7 +2773,7 @@
   elonaId: 401
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "240, 576, 48, 48"
 
 - type: Chip
@@ -2781,7 +2781,7 @@
   elonaId: 402
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "288, 576, 48, 48"
 
 - type: Chip
@@ -2789,7 +2789,7 @@
   elonaId: 403
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "336, 576, 48, 48"
 
 - type: Chip
@@ -2797,7 +2797,7 @@
   elonaId: 404
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "384, 576, 48, 48"
 
 - type: Chip
@@ -2805,7 +2805,7 @@
   elonaId: 405
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "432, 576, 48, 48"
 
 - type: Chip
@@ -2813,7 +2813,7 @@
   elonaId: 406
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "480, 576, 48, 48"
 
 - type: Chip
@@ -2821,7 +2821,7 @@
   elonaId: 407
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "528, 576, 48, 48"
 
 - type: Chip
@@ -2829,7 +2829,7 @@
   elonaId: 408
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "576, 576, 48, 48"
 
 - type: Chip
@@ -2837,7 +2837,7 @@
   elonaId: 409
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "624, 576, 48, 48"
 
 - type: Chip
@@ -2845,7 +2845,7 @@
   elonaId: 410
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "672, 576, 48, 48"
 
 - type: Chip
@@ -2853,7 +2853,7 @@
   elonaId: 411
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "720, 576, 48, 48"
 
 - type: Chip
@@ -2861,7 +2861,7 @@
   elonaId: 412
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "768, 576, 48, 48"
 
 - type: Chip
@@ -2869,7 +2869,7 @@
   elonaId: 413
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "816, 576, 48, 48"
 
 - type: Chip
@@ -2877,7 +2877,7 @@
   elonaId: 414
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "864, 576, 48, 48"
 
 - type: Chip
@@ -2885,7 +2885,7 @@
   elonaId: 415
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "912, 576, 48, 48"
 
 - type: Chip
@@ -2893,7 +2893,7 @@
   elonaId: 416
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "960, 576, 48, 48"
 
 - type: Chip
@@ -2901,7 +2901,7 @@
   elonaId: 418
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1056, 576, 48, 48"
 
 - type: Chip
@@ -2909,7 +2909,7 @@
   elonaId: 419
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1104, 576, 48, 48"
 
 - type: Chip
@@ -2917,7 +2917,7 @@
   elonaId: 420
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1152, 576, 48, 48"
 
 - type: Chip
@@ -2925,7 +2925,7 @@
   elonaId: 421
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1200, 576, 48, 48"
 
 - type: Chip
@@ -2933,7 +2933,7 @@
   elonaId: 422
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1248, 576, 48, 48"
 
 - type: Chip
@@ -2941,7 +2941,7 @@
   elonaId: 423
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1296, 576, 48, 48"
 
 - type: Chip
@@ -2949,7 +2949,7 @@
   elonaId: 424
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1344, 576, 48, 48"
 
 - type: Chip
@@ -2957,7 +2957,7 @@
   elonaId: 425
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1392, 576, 48, 48"
 
 - type: Chip
@@ -2965,7 +2965,7 @@
   elonaId: 426
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1440, 576, 48, 48"
 
 - type: Chip
@@ -2973,7 +2973,7 @@
   elonaId: 427
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1488, 576, 48, 48"
 
 - type: Chip
@@ -2981,7 +2981,7 @@
   elonaId: 428
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1536, 576, 48, 48"
 
 - type: Chip
@@ -2989,7 +2989,7 @@
   elonaId: 429
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "0, 624, 48, 48"
 
 - type: Chip
@@ -2997,7 +2997,7 @@
   elonaId: 430
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "48, 624, 48, 48"
 
 - type: Chip
@@ -3005,7 +3005,7 @@
   elonaId: 431
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "96, 624, 48, 48"
 
 - type: Chip
@@ -3013,7 +3013,7 @@
   elonaId: 432
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "144, 624, 48, 48"
 
 - type: Chip
@@ -3021,7 +3021,7 @@
   elonaId: 433
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "192, 624, 48, 48"
 
 - type: Chip
@@ -3029,7 +3029,7 @@
   elonaId: 434
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "240, 624, 48, 48"
 
 - type: Chip
@@ -3037,7 +3037,7 @@
   elonaId: 435
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "288, 624, 48, 48"
 
 - type: Chip
@@ -3045,7 +3045,7 @@
   elonaId: 436
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "336, 624, 48, 48"
 
 - type: Chip
@@ -3053,7 +3053,7 @@
   elonaId: 437
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "384, 624, 48, 48"
 
 - type: Chip
@@ -3061,7 +3061,7 @@
   elonaId: 438
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "432, 624, 48, 48"
 
 - type: Chip
@@ -3069,7 +3069,7 @@
   elonaId: 440
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "528, 624, 48, 48"
 
 - type: Chip
@@ -3077,7 +3077,7 @@
   elonaId: 441
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "576, 624, 48, 48"
 
 - type: Chip
@@ -3085,7 +3085,7 @@
   elonaId: 442
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "624, 624, 48, 48"
 
 - type: Chip
@@ -3093,7 +3093,7 @@
   elonaId: 443
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "672, 624, 48, 48"
 
 - type: Chip
@@ -3101,7 +3101,7 @@
   elonaId: 444
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "720, 624, 48, 48"
 
 - type: Chip
@@ -3109,7 +3109,7 @@
   elonaId: 445
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "768, 624, 48, 48"
 
 - type: Chip
@@ -3117,7 +3117,7 @@
   elonaId: 446
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "816, 624, 48, 48"
 
 - type: Chip
@@ -3125,7 +3125,7 @@
   elonaId: 447
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "864, 624, 48, 48"
 
 - type: Chip
@@ -3133,7 +3133,7 @@
   elonaId: 448
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "912, 624, 48, 48"
 
 - type: Chip
@@ -3141,7 +3141,7 @@
   elonaId: 449
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "960, 624, 48, 48"
 
 - type: Chip
@@ -3149,7 +3149,7 @@
   elonaId: 450
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1008, 624, 48, 48"
 
 - type: Chip
@@ -3157,7 +3157,7 @@
   elonaId: 451
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1056, 624, 48, 48"
 
 - type: Chip
@@ -3165,7 +3165,7 @@
   elonaId: 452
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1104, 624, 48, 48"
 
 - type: Chip
@@ -3173,7 +3173,7 @@
   elonaId: 453
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1152, 624, 48, 48"
 
 - type: Chip
@@ -3181,7 +3181,7 @@
   elonaId: 454
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1200, 624, 48, 48"
 
 - type: Chip
@@ -3189,7 +3189,7 @@
   elonaId: 455
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1248, 624, 48, 48"
 
 - type: Chip
@@ -3197,7 +3197,7 @@
   elonaId: 456
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1296, 624, 48, 48"
 
 - type: Chip
@@ -3205,7 +3205,7 @@
   elonaId: 457
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1344, 624, 48, 48"
 
 - type: Chip
@@ -3213,7 +3213,7 @@
   elonaId: 458
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1392, 624, 48, 48"
 
 - type: Chip
@@ -3221,7 +3221,7 @@
   elonaId: 459
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1440, 624, 48, 48"
 
 - type: Chip
@@ -3229,7 +3229,7 @@
   elonaId: 460
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1488, 624, 48, 48"
 
 - type: Chip
@@ -3237,7 +3237,7 @@
   elonaId: 461
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1536, 624, 48, 48"
 
 - type: Chip
@@ -3245,7 +3245,7 @@
   elonaId: 470
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "384, 672, 48, 48"
 
 - type: Chip
@@ -3253,7 +3253,7 @@
   elonaId: 471
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "432, 672, 48, 48"
 
 - type: Chip
@@ -3261,7 +3261,7 @@
   elonaId: 472
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "480, 672, 48, 48"
 
 - type: Chip
@@ -3269,7 +3269,7 @@
   elonaId: 473
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "528, 672, 48, 48"
 
 - type: Chip
@@ -3277,7 +3277,7 @@
   elonaId: 474
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "576, 672, 48, 48"
 
 - type: Chip
@@ -3285,7 +3285,7 @@
   elonaId: 475
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "624, 672, 48, 48"
 
 - type: Chip
@@ -3293,7 +3293,7 @@
   elonaId: 476
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "672, 672, 48, 48"
 
 - type: Chip
@@ -3301,7 +3301,7 @@
   elonaId: 477
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "720, 672, 48, 48"
 
 - type: Chip
@@ -3309,7 +3309,7 @@
   elonaId: 478
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "768, 672, 48, 48"
 
 - type: Chip
@@ -3317,7 +3317,7 @@
   elonaId: 479
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "816, 672, 48, 48"
 
 - type: Chip
@@ -3325,7 +3325,7 @@
   elonaId: 480
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "864, 672, 48, 48"
 
 - type: Chip
@@ -3333,7 +3333,7 @@
   elonaId: 481
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "912, 672, 48, 48"
 
 - type: Chip
@@ -3341,7 +3341,7 @@
   elonaId: 482
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "960, 672, 48, 48"
 
 - type: Chip
@@ -3349,7 +3349,7 @@
   elonaId: 483
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1008, 672, 48, 48"
 
 - type: Chip
@@ -3357,7 +3357,7 @@
   elonaId: 484
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1056, 672, 48, 48"
 
 - type: Chip
@@ -3365,7 +3365,7 @@
   elonaId: 485
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1104, 672, 48, 48"
 
 - type: Chip
@@ -3373,7 +3373,7 @@
   elonaId: 486
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1152, 672, 48, 48"
 
 - type: Chip
@@ -3381,7 +3381,7 @@
   elonaId: 487
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1200, 672, 48, 48"
 
 - type: Chip
@@ -3389,7 +3389,7 @@
   elonaId: 488
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1248, 672, 48, 48"
 
 - type: Chip
@@ -3397,7 +3397,7 @@
   elonaId: 489
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1296, 672, 48, 48"
 
 - type: Chip
@@ -3405,7 +3405,7 @@
   elonaId: 490
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1344, 672, 48, 48"
 
 - type: Chip
@@ -3413,7 +3413,7 @@
   elonaId: 491
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1392, 672, 48, 48"
 
 - type: Chip
@@ -3421,7 +3421,7 @@
   elonaId: 492
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1440, 672, 48, 48"
 
 - type: Chip
@@ -3429,7 +3429,7 @@
   elonaId: 493
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1488, 672, 48, 48"
 
 - type: Chip
@@ -3437,7 +3437,7 @@
   elonaId: 494
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1536, 672, 48, 48"
 
 - type: Chip
@@ -3445,7 +3445,7 @@
   elonaId: 495
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "0, 720, 48, 48"
 
 - type: Chip
@@ -3453,7 +3453,7 @@
   elonaId: 496
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "48, 720, 48, 48"
 
 - type: Chip
@@ -3461,7 +3461,7 @@
   elonaId: 497
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "96, 720, 48, 48"
 
 - type: Chip
@@ -3469,7 +3469,7 @@
   elonaId: 498
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "144, 720, 48, 48"
 
 - type: Chip
@@ -3477,7 +3477,7 @@
   elonaId: 499
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "192, 720, 48, 48"
 
 - type: Chip
@@ -3485,7 +3485,7 @@
   elonaId: 500
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "240, 720, 48, 48"
 
 - type: Chip
@@ -3493,7 +3493,7 @@
   elonaId: 501
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "288, 720, 48, 48"
 
 - type: Chip
@@ -3501,7 +3501,7 @@
   elonaId: 502
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "336, 720, 48, 48"
 
 - type: Chip
@@ -3509,7 +3509,7 @@
   elonaId: 503
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "384, 720, 48, 48"
 
 - type: Chip
@@ -3517,7 +3517,7 @@
   elonaId: 504
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "432, 720, 48, 48"
 
 - type: Chip
@@ -3525,7 +3525,7 @@
   elonaId: 505
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "480, 720, 48, 48"
 
 - type: Chip
@@ -3533,7 +3533,7 @@
   elonaId: 506
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "528, 720, 48, 48"
 
 - type: Chip
@@ -3541,7 +3541,7 @@
   elonaId: 507
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "576, 720, 48, 48"
 
 - type: Chip
@@ -3549,7 +3549,7 @@
   elonaId: 508
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "624, 720, 48, 48"
 
 - type: Chip
@@ -3557,7 +3557,7 @@
   elonaId: 509
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "672, 720, 48, 48"
 
 - type: Chip
@@ -3565,7 +3565,7 @@
   elonaId: 510
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "720, 720, 48, 48"
 
 - type: Chip
@@ -3573,7 +3573,7 @@
   elonaId: 511
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "768, 720, 48, 48"
 
 - type: Chip
@@ -3581,7 +3581,7 @@
   elonaId: 512
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "816, 720, 48, 48"
 
 - type: Chip
@@ -3589,7 +3589,7 @@
   elonaId: 513
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "864, 720, 48, 48"
 
 - type: Chip
@@ -3597,7 +3597,7 @@
   elonaId: 514
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "912, 720, 48, 48"
 
 - type: Chip
@@ -3605,7 +3605,7 @@
   elonaId: 515
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "960, 720, 48, 48"
 
 - type: Chip
@@ -3613,7 +3613,7 @@
   elonaId: 516
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1008, 720, 48, 48"
 
 - type: Chip
@@ -3621,7 +3621,7 @@
   elonaId: 517
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1056, 720, 48, 48"
 
 - type: Chip
@@ -3629,7 +3629,7 @@
   elonaId: 518
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1104, 720, 48, 48"
 
 - type: Chip
@@ -3637,7 +3637,7 @@
   elonaId: 519
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1152, 720, 48, 48"
 
 - type: Chip
@@ -3645,7 +3645,7 @@
   elonaId: 520
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1200, 720, 48, 48"
 
 - type: Chip
@@ -3653,7 +3653,7 @@
   elonaId: 521
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1248, 720, 48, 48"
 
 - type: Chip
@@ -3661,7 +3661,7 @@
   elonaId: 522
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1296, 720, 48, 48"
 
 - type: Chip
@@ -3669,7 +3669,7 @@
   elonaId: 523
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1344, 720, 48, 96"
 
 - type: Chip
@@ -3677,7 +3677,7 @@
   elonaId: 524
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1392, 720, 48, 96"
 
 - type: Chip
@@ -3685,7 +3685,7 @@
   elonaId: 525
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1440, 720, 48, 96"
 
 - type: Chip
@@ -3693,7 +3693,7 @@
   elonaId: 526
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1488, 720, 48, 96"
 
 - type: Chip
@@ -3701,7 +3701,7 @@
   elonaId: 527
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1536, 720, 48, 96"
 
 - type: Chip
@@ -3709,7 +3709,7 @@
   elonaId: 528
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "0, 768, 48, 48"
 
 - type: Chip
@@ -3717,7 +3717,7 @@
   elonaId: 530
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "96, 768, 48, 48"
 
 - type: Chip
@@ -3725,7 +3725,7 @@
   elonaId: 531
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "144, 768, 48, 48"
 
 - type: Chip
@@ -3733,7 +3733,7 @@
   elonaId: 532
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "192, 768, 48, 48"
 
 - type: Chip
@@ -3741,7 +3741,7 @@
   elonaId: 533
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "240, 768, 48, 48"
 
 - type: Chip
@@ -3749,7 +3749,7 @@
   elonaId: 534
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "288, 768, 48, 48"
 
 - type: Chip
@@ -3757,7 +3757,7 @@
   elonaId: 535
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "336, 768, 48, 48"
 
 - type: Chip
@@ -3765,7 +3765,7 @@
   elonaId: 536
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "384, 768, 48, 48"
 
 - type: Chip
@@ -3773,7 +3773,7 @@
   elonaId: 537
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "432, 768, 48, 48"
 
 - type: Chip
@@ -3781,7 +3781,7 @@
   elonaId: 538
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "480, 768, 48, 48"
 
 - type: Chip
@@ -3789,7 +3789,7 @@
   elonaId: 539
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "528, 768, 48, 48"
 
 - type: Chip
@@ -3797,7 +3797,7 @@
   elonaId: 540
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "576, 768, 48, 48"
 
 - type: Chip
@@ -3805,7 +3805,7 @@
   elonaId: 541
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "624, 768, 48, 48"
 
 - type: Chip
@@ -3813,7 +3813,7 @@
   elonaId: 542
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "672, 768, 48, 48"
 
 - type: Chip
@@ -3821,7 +3821,7 @@
   elonaId: 543
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "720, 768, 48, 48"
 
 - type: Chip
@@ -3829,7 +3829,7 @@
   elonaId: 544
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "768, 768, 48, 48"
 
 - type: Chip
@@ -3837,7 +3837,7 @@
   elonaId: 545
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "816, 768, 48, 48"
 
 - type: Chip
@@ -3845,7 +3845,7 @@
   elonaId: 546
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "864, 768, 48, 48"
 
 - type: Chip
@@ -3853,7 +3853,7 @@
   elonaId: 547
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "912, 768, 48, 48"
 
 - type: Chip
@@ -3861,7 +3861,7 @@
   elonaId: 548
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "960, 768, 48, 48"
 
 - type: Chip
@@ -3869,7 +3869,7 @@
   elonaId: 549
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1008, 768, 48, 48"
 
 - type: Chip
@@ -3877,7 +3877,7 @@
   elonaId: 550
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1056, 768, 48, 48"
 
 - type: Chip
@@ -3885,7 +3885,7 @@
   elonaId: 551
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1104, 768, 48, 48"
 
 - type: Chip
@@ -3893,7 +3893,7 @@
   elonaId: 552
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1152, 768, 48, 48"
 
 - type: Chip
@@ -3901,7 +3901,7 @@
   elonaId: 553
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1200, 768, 48, 48"
 
 - type: Chip
@@ -3909,7 +3909,7 @@
   elonaId: 554
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1248, 768, 48, 48"
 
 - type: Chip
@@ -3917,7 +3917,7 @@
   elonaId: 555
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1296, 768, 48, 48"
 
 - type: Chip
@@ -3925,7 +3925,7 @@
   elonaId: 563
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "96, 816, 48, 96"
 
 - type: Chip
@@ -3933,7 +3933,7 @@
   elonaId: 564
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "144, 816, 48, 96"
 
 - type: Chip
@@ -3941,7 +3941,7 @@
   elonaId: 566
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "240, 816, 48, 96"
 
 - type: Chip
@@ -3949,7 +3949,7 @@
   elonaId: 567
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "288, 816, 48, 96"
 
 - type: Chip
@@ -3957,7 +3957,7 @@
   elonaId: 568
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "336, 816, 48, 96"
 
 - type: Chip
@@ -3965,7 +3965,7 @@
   elonaId: 569
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "384, 816, 48, 96"
 
 - type: Chip
@@ -3973,7 +3973,7 @@
   elonaId: 570
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "432, 816, 48, 96"
 
 - type: Chip
@@ -3981,7 +3981,7 @@
   elonaId: 571
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "480, 816, 48, 96"
 
 - type: Chip
@@ -3989,7 +3989,7 @@
   elonaId: 572
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "528, 816, 48, 96"
 
 - type: Chip
@@ -3997,7 +3997,7 @@
   elonaId: 573
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "576, 816, 48, 96"
 
 - type: Chip
@@ -4005,7 +4005,7 @@
   elonaId: 574
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "624, 816, 48, 96"
 
 - type: Chip
@@ -4013,7 +4013,7 @@
   elonaId: 575
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "672, 816, 48, 96"
 
 - type: Chip
@@ -4021,7 +4021,7 @@
   elonaId: 576
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "720, 816, 48, 96"
 
 - type: Chip
@@ -4029,7 +4029,7 @@
   elonaId: 577
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "768, 816, 48, 96"
 
 - type: Chip
@@ -4037,7 +4037,7 @@
   elonaId: 578
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "816, 816, 48, 96"
 
 - type: Chip
@@ -4045,7 +4045,7 @@
   elonaId: 579
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "864, 816, 48, 96"
 
 - type: Chip
@@ -4053,7 +4053,7 @@
   elonaId: 580
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "912, 816, 48, 96"
 
 - type: Chip
@@ -4061,7 +4061,7 @@
   elonaId: 581
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "960, 816, 48, 96"
 
 - type: Chip
@@ -4069,7 +4069,7 @@
   elonaId: 582
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1008, 816, 48, 96"
 
 - type: Chip
@@ -4077,7 +4077,7 @@
   elonaId: 583
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1056, 816, 48, 96"
 
 - type: Chip
@@ -4085,7 +4085,7 @@
   elonaId: 584
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1104, 816, 48, 96"
 
 - type: Chip
@@ -4093,7 +4093,7 @@
   elonaId: 585
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1152, 816, 48, 96"
 
 - type: Chip
@@ -4101,7 +4101,7 @@
   elonaId: 586
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1200, 816, 48, 96"
 
 - type: Chip
@@ -4109,7 +4109,7 @@
   elonaId: 587
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1248, 816, 48, 96"
 
 - type: Chip
@@ -4117,7 +4117,7 @@
   elonaId: 588
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1296, 816, 48, 96"
 
 - type: Chip
@@ -4125,7 +4125,7 @@
   elonaId: 589
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1344, 816, 48, 96"
 
 - type: Chip
@@ -4133,7 +4133,7 @@
   elonaId: 590
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1392, 816, 48, 96"
 
 - type: Chip
@@ -4141,7 +4141,7 @@
   elonaId: 591
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1440, 816, 48, 96"
 
 - type: Chip
@@ -4149,7 +4149,7 @@
   elonaId: 592
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1488, 816, 48, 96"
 
 - type: Chip
@@ -4157,7 +4157,7 @@
   elonaId: 593
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1536, 816, 48, 96"
 
 - type: Chip
@@ -4165,7 +4165,7 @@
   elonaId: 627
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "0, 912, 48, 48"
 
 - type: Chip
@@ -4173,7 +4173,7 @@
   elonaId: 628
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "48, 912, 48, 48"
 
 - type: Chip
@@ -4181,7 +4181,7 @@
   elonaId: 629
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "96, 912, 48, 48"
 
 - type: Chip
@@ -4189,7 +4189,7 @@
   elonaId: 630
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "144, 912, 48, 48"
 
 - type: Chip
@@ -4197,7 +4197,7 @@
   elonaId: 631
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "192, 912, 48, 48"
 
 - type: Chip
@@ -4205,7 +4205,7 @@
   elonaId: 632
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "240, 912, 48, 48"
 
 - type: Chip
@@ -4213,7 +4213,7 @@
   elonaId: 633
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "288, 912, 48, 48"
 
 - type: Chip
@@ -4221,7 +4221,7 @@
   elonaId: 634
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "336, 912, 48, 48"
 
 - type: Chip
@@ -4229,7 +4229,7 @@
   elonaId: 635
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "384, 912, 48, 48"
 
 - type: Chip
@@ -4237,7 +4237,7 @@
   elonaId: 636
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "432, 912, 48, 48"
 
 - type: Chip
@@ -4245,7 +4245,7 @@
   elonaId: 637
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "480, 912, 48, 48"
 
 - type: Chip
@@ -4253,7 +4253,7 @@
   elonaId: 638
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "528, 912, 48, 48"
 
 - type: Chip
@@ -4261,7 +4261,7 @@
   elonaId: 639
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "576, 912, 48, 48"
 
 - type: Chip
@@ -4269,7 +4269,7 @@
   elonaId: 640
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "624, 912, 48, 48"
 
 - type: Chip
@@ -4277,7 +4277,7 @@
   elonaId: 641
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "672, 912, 48, 48"
 
 - type: Chip
@@ -4285,7 +4285,7 @@
   elonaId: 642
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "720, 912, 48, 48"
 
 - type: Chip
@@ -4293,7 +4293,7 @@
   elonaId: 643
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "768, 912, 48, 48"
 
 - type: Chip
@@ -4301,7 +4301,7 @@
   elonaId: 644
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "816, 912, 48, 48"
 
 - type: Chip
@@ -4309,7 +4309,7 @@
   elonaId: 645
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "864, 912, 48, 48"
 
 - type: Chip
@@ -4317,7 +4317,7 @@
   elonaId: 646
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "912, 912, 48, 48"
 
 - type: Chip
@@ -4325,7 +4325,7 @@
   elonaId: 647
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "960, 912, 48, 48"
 
 - type: Chip
@@ -4333,7 +4333,7 @@
   elonaId: 648
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1008, 912, 48, 48"
 
 - type: Chip
@@ -4341,7 +4341,7 @@
   elonaId: 649
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1056, 912, 48, 48"
 
 - type: Chip
@@ -4349,7 +4349,7 @@
   elonaId: 650
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1104, 912, 48, 48"
 
 - type: Chip
@@ -4357,7 +4357,7 @@
   elonaId: 651
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1152, 912, 48, 48"
 
 - type: Chip
@@ -4365,7 +4365,7 @@
   elonaId: 652
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1200, 912, 48, 48"
 
 - type: Chip
@@ -4373,7 +4373,7 @@
   elonaId: 653
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1248, 912, 48, 48"
 
 - type: Chip
@@ -4381,7 +4381,7 @@
   elonaId: 654
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1296, 912, 48, 48"
 
 - type: Chip
@@ -4389,7 +4389,7 @@
   elonaId: 655
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1344, 912, 48, 48"
 
 - type: Chip
@@ -4397,7 +4397,7 @@
   elonaId: 656
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1392, 912, 48, 48"
 
 - type: Chip
@@ -4405,7 +4405,7 @@
   elonaId: 657
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1440, 912, 48, 48"
 
 - type: Chip
@@ -4413,7 +4413,7 @@
   elonaId: 658
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1488, 912, 48, 48"
 
 - type: Chip
@@ -4421,7 +4421,7 @@
   elonaId: 659
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1536, 912, 48, 48"
 
 - type: Chip
@@ -4429,7 +4429,7 @@
   elonaId: 662
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "96, 960, 48, 48"
 
 - type: Chip
@@ -4437,7 +4437,7 @@
   elonaId: 663
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "144, 960, 48, 48"
 
 - type: Chip
@@ -4445,7 +4445,7 @@
   elonaId: 664
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "192, 960, 48, 48"
 
 - type: Chip
@@ -4453,7 +4453,7 @@
   elonaId: 665
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "240, 960, 48, 48"
 
 - type: Chip
@@ -4461,7 +4461,7 @@
   elonaId: 666
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "288, 960, 48, 48"
 
 - type: Chip
@@ -4469,7 +4469,7 @@
   elonaId: 667
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "336, 960, 48, 48"
 
 - type: Chip
@@ -4477,7 +4477,7 @@
   elonaId: 668
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "384, 960, 48, 48"
 
 - type: Chip
@@ -4485,7 +4485,7 @@
   elonaId: 669
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "432, 960, 48, 48"
 
 - type: Chip
@@ -4493,7 +4493,7 @@
   elonaId: 670
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "480, 960, 48, 48"
 
 - type: Chip
@@ -4501,7 +4501,7 @@
   elonaId: 671
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "528, 960, 48, 48"
 
 - type: Chip
@@ -4509,7 +4509,7 @@
   elonaId: 672
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "576, 960, 48, 48"
 
 - type: Chip
@@ -4517,7 +4517,7 @@
   elonaId: 673
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "624, 960, 48, 48"
 
 - type: Chip
@@ -4525,7 +4525,7 @@
   elonaId: 674
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "672, 960, 48, 48"
 
 - type: Chip
@@ -4533,7 +4533,7 @@
   elonaId: 675
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "720, 960, 48, 48"
 
 - type: Chip
@@ -4541,7 +4541,7 @@
   elonaId: 676
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "768, 960, 48, 48"
 
 - type: Chip
@@ -4549,7 +4549,7 @@
   elonaId: 677
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "816, 960, 48, 48"
 
 - type: Chip
@@ -4557,7 +4557,7 @@
   elonaId: 678
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "864, 960, 48, 48"
 
 - type: Chip
@@ -4565,7 +4565,7 @@
   elonaId: 679
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "912, 960, 48, 48"
 
 - type: Chip
@@ -4573,7 +4573,7 @@
   elonaId: 680
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "960, 960, 48, 96"
 
 - type: Chip
@@ -4581,7 +4581,7 @@
   elonaId: 681
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1008, 960, 48, 96"
 
 - type: Chip
@@ -4589,7 +4589,7 @@
   elonaId: 682
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1056, 960, 48, 96"
 
 - type: Chip
@@ -4597,7 +4597,7 @@
   elonaId: 683
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1104, 960, 48, 96"
 
 - type: Chip
@@ -4605,7 +4605,7 @@
   elonaId: 684
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1152, 960, 48, 96"
 
 - type: Chip
@@ -4613,7 +4613,7 @@
   elonaId: 685
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1200, 960, 48, 96"
 
 - type: Chip
@@ -4621,7 +4621,7 @@
   elonaId: 686
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1248, 960, 48, 96"
 
 - type: Chip
@@ -4629,7 +4629,7 @@
   elonaId: 687
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1296, 960, 48, 96"
 
 - type: Chip
@@ -4637,7 +4637,7 @@
   elonaId: 688
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1344, 960, 48, 96"
 
 - type: Chip
@@ -4645,7 +4645,7 @@
   elonaId: 689
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1392, 960, 48, 96"
 
 - type: Chip
@@ -4653,7 +4653,7 @@
   elonaId: 690
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1440, 960, 48, 96"
 
 - type: Chip
@@ -4661,7 +4661,7 @@
   elonaId: 691
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1488, 960, 48, 96"
 
 - type: Chip
@@ -4669,7 +4669,7 @@
   elonaId: 692
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1536, 960, 48, 96"
 
 - type: Chip
@@ -4677,7 +4677,7 @@
   elonaId: 695
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "96, 1008, 48, 48"
 
 - type: Chip
@@ -4685,7 +4685,7 @@
   elonaId: 696
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "144, 1008, 48, 48"
 
 - type: Chip
@@ -4693,7 +4693,7 @@
   elonaId: 697
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "192, 1008, 48, 48"
 
 - type: Chip
@@ -4701,7 +4701,7 @@
   elonaId: 698
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "240, 1008, 48, 48"
 
 - type: Chip
@@ -4709,5 +4709,5 @@
   elonaId: 699
   group: Item
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "288, 1008, 48, 48"

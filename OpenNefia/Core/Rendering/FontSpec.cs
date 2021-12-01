@@ -35,7 +35,7 @@ namespace OpenNefia.Core.Rendering
         public Maths.Color Color { get; } = UiColors.TextBlack;
 
         [DataField]
-        public Maths.Color BgColor { get; } = UiColors.TextWhite;
+        public Maths.Color BgColor { get; } = UiColors.TextBlack;
 
         private Love.Font? _font = null;
 

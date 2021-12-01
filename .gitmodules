@@ -4,3 +4,6 @@
 [submodule "Thirdparty/CSharpRepl"]
 	path = Thirdparty/CSharpRepl
 	url = git@github.com:waf/CSharpRepl
+[submodule "Thirdparty/megasource"]
+	path = Thirdparty/megasource
+	url = https://github.com/love2d/megasource

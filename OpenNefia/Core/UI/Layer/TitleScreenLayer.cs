@@ -180,7 +180,7 @@ namespace OpenNefia.Core.UI.Layer
 
         public override void OnQuery()
         {
-            // Music.PlayMusic(MusicDefOf.Opening);
+            Music.Play(MusicPrototypeOf.Opening);
         }
 
         public override void Update(float dt)

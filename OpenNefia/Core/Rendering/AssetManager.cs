@@ -1,13 +1,14 @@
 ﻿using OpenNefia.Core.IoC;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.Prototypes;
-using OpenNefia.Core.Utility;
+using OpenNefia.Core.ResourceManagement;
 
 namespace OpenNefia.Core.Rendering
 {
     public class AssetManager : IAssetManager
     {
         [Dependency] private readonly IPrototypeManager _prototypes = default!;
+        [Dependency] private readonly IResourceCache _resourceCache = default!;
 
         private readonly Dictionary<PrototypeId<AssetPrototype>, AssetDrawable> _assets = new();
 
@@ -15,7 +16,7 @@ namespace OpenNefia.Core.Rendering
         {
             var atlasPath = spec.Filepath;
             var imageRegion = spec.Region!.Value;
-            var parentImage = ImageLoader.NewImage(atlasPath.ToString());
+            var parentImage = _resourceCache.GetLoveImageResource(atlasPath);
 
             var quad = Love.Graphics.NewQuad(imageRegion.Left, imageRegion.Top, imageRegion.Width, imageRegion.Height, parentImage.GetWidth(), parentImage.GetHeight());
 
@@ -27,14 +28,14 @@ namespace OpenNefia.Core.Rendering
             var scissor = Love.Graphics.GetScissor();
             var color = Love.Graphics.GetColor();
             Love.Graphics.SetBlendMode(Love.BlendMode.Alpha);
-            GraphicsEx.SetScissor();
+            Love.Graphics.SetScissor();
             Love.Graphics.SetColor(1f, 1f, 1f, 1f);
             Love.Graphics.SetCanvas(canvas);
 
             Love.Graphics.Draw(quad, parentImage, 0, 0);
 
             Love.Graphics.SetBlendMode(blendMode, blendAlphaMode);
-            GraphicsEx.SetScissor(scissor); // BUG: Love.Graphics.SetScissor is bugged (does not distinguish null scissors).
+            Love.Graphics.SetScissor(scissor); // BUG: Love.Graphics.SetScissor is bugged (does not distinguish null scissors).
             Love.Graphics.SetColor(color);
             Love.Graphics.SetCanvas(oldCanvas);
 
@@ -54,7 +55,7 @@ namespace OpenNefia.Core.Rendering
 
             if (imageSpec.Region == null)
             {
-                image = ImageLoader.NewImage(imageSpec.Filepath);
+                image = _resourceCache.GetLoveImageResource(imageSpec.Filepath);
             }
             else
             {

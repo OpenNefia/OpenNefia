@@ -12,52 +12,45 @@ using VipsImage = NetVips.Image;
 
 namespace OpenNefia.Core.Rendering
 {
+    /// <summary>
+    /// TODO this can't be put into IResourceCache because of the need to
+    /// specify a key color.
+    /// 
+    /// Robust worked around this by putting a .yml file next to every image
+    /// with the metadata to use (I don't really like this).
+    /// </summary>
     [Obsolete("TODO move to IResourceCache")]
     public static class ImageLoader
     {
-        private static Dictionary<string, Love.Image> Cache = new Dictionary<string, Love.Image>();
+        private static Dictionary<ResourcePath, Love.Image> _cache = new();
 
         public static void ClearCache()
         {
-            Cache.Clear();
+            _cache.Clear();
         }
 
-        private static VipsImage RemoveKeyColor(VipsImage image, Love.Color keyColor)
+        private static VipsImage RemoveKeyColor(VipsImage image, Maths.Color keyColor)
         {
             if (image.Bands == 4)
             {
                 image = image.Flatten();
             }
 
-            var compare = new int[] { keyColor.r, keyColor.g, keyColor.b };
+            var compare = new int[] { keyColor.RByte, keyColor.GByte, keyColor.BByte };
             var alpha = image.Equal(compare).Ifthenelse(0, 255).BandOr();
             return image.Bandjoin(alpha);
         }
 
-        private static Love.Image LoadBitmap(string filepath, Love.Color? keyColor)
+        private static Love.Image LoadBitmap(Stream stream, Maths.Color keyColor)
         {
-            if (Cache.TryGetValue(filepath, out var cachedImage))
-            {
-                return cachedImage;
-            }
+            var image = new Bitmap(stream).ToVips();
 
-            if (!File.Exists(filepath))
-                throw new FileNotFoundException($"File {filepath} does not exist.");
-
-            var image = new Bitmap(filepath).ToVips();
-
-            if (!keyColor.HasValue)
-            {
-                keyColor = Love.Color.Black;
-            }
-
-            image = RemoveKeyColor(image, keyColor.Value);
+            image = RemoveKeyColor(image, keyColor);
 
             var memory = image.WriteToMemory();
             var imageData = Love.Image.NewImageData(image.Width, image.Height, Love.ImageDataPixelFormat.RGBA8, memory);
 
             var loveImage = Love.Graphics.NewImage(imageData);
-            Cache[filepath] = loveImage;
 
             return loveImage;
         }
@@ -68,19 +61,17 @@ namespace OpenNefia.Core.Rendering
         /// </summary>
         /// <param name="filepath">Path to image file.</param>
         /// <returns></returns>
-        public static Love.Image NewImage(string filepath, Love.Color? keyColor = null)
+        public static Love.Image NewImage(Stream stream, ResourcePath filepath, Maths.Color keyColor)
         {
-            if (Path.GetExtension(filepath) == ".bmp")
+            if (_cache.TryGetValue(filepath, out var cachedImage))
             {
-                return LoadBitmap(filepath, keyColor);
+                return cachedImage;
             }
 
-            return Love.Graphics.NewImage(filepath);
-        }
+            Love.Image image = LoadBitmap(stream, keyColor);
 
-        public static Love.Image NewImage(ResourcePath filepath, Love.Color? keyColor = null)
-        {
-            return NewImage(filepath.ToString(), keyColor);
+            _cache[filepath] = image;
+            return image;
         }
     }
 }

@@ -69,7 +69,7 @@
     class: Slime
   - type: Chip
     id: CharaRaceSlime
-    
+
 - type: Entity
   id: Yeek
   parent: BaseChara

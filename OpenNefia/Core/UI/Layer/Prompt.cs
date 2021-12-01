@@ -1,4 +1,5 @@
 ﻿using OpenNefia.Core.Audio;
+using OpenNefia.Core.Logic;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.UI.Element;
 using OpenNefia.Core.UI.Element.List;
@@ -97,7 +98,6 @@ namespace OpenNefia.Core.UI.Layer
 
             this.List.EventOnActivate += (o, e) =>
             {
-                Sounds.Play(SoundPrototypeOf.Ok1);
                 this.Finish(e.SelectedCell.Data);
             };
         }
@@ -106,7 +106,7 @@ namespace OpenNefia.Core.UI.Layer
         {
             if (this.Options.QueryText != null)
             {
-                // Messages.Print(this.Options.QueryText);
+                Mes.Display(this.Options.QueryText);
             }
             Sounds.Play(SoundPrototypeOf.Pop2);
         }

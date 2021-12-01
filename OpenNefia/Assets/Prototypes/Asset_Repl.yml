@@ -1,144 +1,144 @@
 - type: Asset
   id: ReplCompletionIcon_Array
   image:
-    filepath: Assets/Core/Graphic/Repl/IconArray.png
+    filepath: /Core/Graphic/Repl/IconArray.png
 
 - type: Asset
   id: ReplCompletionIcon_Boolean
   image:
-    filepath: Assets/Core/Graphic/Repl/IconBoolean.png
+    filepath: /Core/Graphic/Repl/IconBoolean.png
 
 - type: Asset
   id: ReplCompletionIcon_Class
   image:
-    filepath: Assets/Core/Graphic/Repl/IconClass.png
+    filepath: /Core/Graphic/Repl/IconClass.png
 
 - type: Asset
   id: ReplCompletionIcon_Color
   image:
-    filepath: Assets/Core/Graphic/Repl/IconColor.png
+    filepath: /Core/Graphic/Repl/IconColor.png
 
 - type: Asset
   id: ReplCompletionIcon_Constant
   image:
-    filepath: Assets/Core/Graphic/Repl/IconConstant.png
+    filepath: /Core/Graphic/Repl/IconConstant.png
 
 - type: Asset
   id: ReplCompletionIcon_Document
   image:
-    filepath: Assets/Core/Graphic/Repl/IconDocument.png
+    filepath: /Core/Graphic/Repl/IconDocument.png
 
 - type: Asset
   id: ReplCompletionIcon_EnumeratorMember
   image:
-    filepath: Assets/Core/Graphic/Repl/IconEnumeratorMember.png
+    filepath: /Core/Graphic/Repl/IconEnumeratorMember.png
 
 - type: Asset
   id: ReplCompletionIcon_Enumerator
   image:
-    filepath: Assets/Core/Graphic/Repl/IconEnumerator.png
+    filepath: /Core/Graphic/Repl/IconEnumerator.png
 
 - type: Asset
   id: ReplCompletionIcon_Event
   image:
-    filepath: Assets/Core/Graphic/Repl/IconEvent.png
+    filepath: /Core/Graphic/Repl/IconEvent.png
 
 - type: Asset
   id: ReplCompletionIcon_Field
   image:
-    filepath: Assets/Core/Graphic/Repl/IconField.png
+    filepath: /Core/Graphic/Repl/IconField.png
 
 - type: Asset
   id: ReplCompletionIcon_Folder
   image:
-    filepath: Assets/Core/Graphic/Repl/IconFolder.png
+    filepath: /Core/Graphic/Repl/IconFolder.png
 
 - type: Asset
   id: ReplCompletionIcon_Interface
   image:
-    filepath: Assets/Core/Graphic/Repl/IconInterface.png
+    filepath: /Core/Graphic/Repl/IconInterface.png
 
 - type: Asset
   id: ReplCompletionIcon_Key
   image:
-    filepath: Assets/Core/Graphic/Repl/IconKey.png
+    filepath: /Core/Graphic/Repl/IconKey.png
 
 - type: Asset
   id: ReplCompletionIcon_Keyword
   image:
-    filepath: Assets/Core/Graphic/Repl/IconKeyword.png
+    filepath: /Core/Graphic/Repl/IconKeyword.png
 
 - type: Asset
   id: ReplCompletionIcon_Library
   image:
-    filepath: Assets/Core/Graphic/Repl/IconLibrary.png
+    filepath: /Core/Graphic/Repl/IconLibrary.png
 
 - type: Asset
   id: ReplCompletionIcon_LocalVariable
   image:
-    filepath: Assets/Core/Graphic/Repl/IconLocalVariable.png
+    filepath: /Core/Graphic/Repl/IconLocalVariable.png
 
 - type: Asset
   id: ReplCompletionIcon_Method
   image:
-    filepath: Assets/Core/Graphic/Repl/IconMethod.png
+    filepath: /Core/Graphic/Repl/IconMethod.png
 
 - type: Asset
   id: ReplCompletionIcon_Misc
   image:
-    filepath: Assets/Core/Graphic/Repl/IconMisc.png
+    filepath: /Core/Graphic/Repl/IconMisc.png
 
 - type: Asset
   id: ReplCompletionIcon_Namespace
   image:
-    filepath: Assets/Core/Graphic/Repl/IconNamespace.png
+    filepath: /Core/Graphic/Repl/IconNamespace.png
 
 - type: Asset
   id: ReplCompletionIcon_Numeric
   image:
-    filepath: Assets/Core/Graphic/Repl/IconNumeric.png
+    filepath: /Core/Graphic/Repl/IconNumeric.png
 
 - type: Asset
   id: ReplCompletionIcon_Operator
   image:
-    filepath: Assets/Core/Graphic/Repl/IconOperator.png
+    filepath: /Core/Graphic/Repl/IconOperator.png
 
 - type: Asset
   id: ReplCompletionIcon_Parameter
   image:
-    filepath: Assets/Core/Graphic/Repl/IconParameter.png
+    filepath: /Core/Graphic/Repl/IconParameter.png
 
 - type: Asset
   id: ReplCompletionIcon_Property
   image:
-    filepath: Assets/Core/Graphic/Repl/IconProperty.png
+    filepath: /Core/Graphic/Repl/IconProperty.png
 
 - type: Asset
   id: ReplCompletionIcon_Ruler
   image:
-    filepath: Assets/Core/Graphic/Repl/IconRuler.png
+    filepath: /Core/Graphic/Repl/IconRuler.png
 
 - type: Asset
   id: ReplCompletionIcon_Snippet
   image:
-    filepath: Assets/Core/Graphic/Repl/IconSnippet.png
+    filepath: /Core/Graphic/Repl/IconSnippet.png
 
 - type: Asset
   id: ReplCompletionIcon_String
   image:
-    filepath: Assets/Core/Graphic/Repl/IconString.png
+    filepath: /Core/Graphic/Repl/IconString.png
 
 - type: Asset
   id: ReplCompletionIcon_Structure
   image:
-    filepath: Assets/Core/Graphic/Repl/IconStructure.png
+    filepath: /Core/Graphic/Repl/IconStructure.png
 
 - type: Asset
   id: ReplCompletionIcon_Unlink
   image:
-    filepath: Assets/Core/Graphic/Repl/IconUnlink.png
+    filepath: /Core/Graphic/Repl/IconUnlink.png
 
 - type: Asset
   id: ReplCompletionIcon_Variable
   image:
-    filepath: Assets/Core/Graphic/Repl/IconVariable.png
+    filepath: /Core/Graphic/Repl/IconVariable.png

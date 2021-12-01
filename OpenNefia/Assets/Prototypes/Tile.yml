@@ -1,7 +1,7 @@
 - type: Tile
   id: WorldGrass
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "0, 0, 48, 48"
   isSolid: false
   isOpaque: false
@@ -11,7 +11,7 @@
 - type: Tile
   id: WorldSmallTrees1
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "48, 0, 48, 48"
   isSolid: false
   isOpaque: false
@@ -21,7 +21,7 @@
 - type: Tile
   id: WorldSmallTrees2
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "96, 0, 48, 48"
   isSolid: false
   isOpaque: false
@@ -31,7 +31,7 @@
 - type: Tile
   id: WorldSmallTrees3
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "144, 0, 48, 48"
   isSolid: false
   isOpaque: false
@@ -41,7 +41,7 @@
 - type: Tile
   id: WorldTrees1
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "192, 0, 48, 48"
   isSolid: false
   isOpaque: false
@@ -51,7 +51,7 @@
 - type: Tile
   id: WorldTrees2
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "240, 0, 48, 48"
   isSolid: false
   isOpaque: false
@@ -61,7 +61,7 @@
 - type: Tile
   id: WorldTrees3
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "288, 0, 48, 48"
   isSolid: false
   isOpaque: false
@@ -71,7 +71,7 @@
 - type: Tile
   id: WorldTrees4
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "336, 0, 48, 48"
   isSolid: false
   isOpaque: false
@@ -81,7 +81,7 @@
 - type: Tile
   id: WorldTrees5
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "384, 0, 48, 48"
   isSolid: false
   isOpaque: false
@@ -91,7 +91,7 @@
 - type: Tile
   id: WorldTrees6
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "432, 0, 48, 48"
   isSolid: false
   isOpaque: false
@@ -101,7 +101,7 @@
 - type: Tile
   id: WorldPlants1
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "480, 0, 48, 48"
   isSolid: false
   isOpaque: false
@@ -111,7 +111,7 @@
 - type: Tile
   id: WorldPlants2
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "528, 0, 48, 48"
   isSolid: false
   isOpaque: false
@@ -121,7 +121,7 @@
 - type: Tile
   id: WorldPlants3
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "576, 0, 48, 48"
   isSolid: false
   isOpaque: false
@@ -131,7 +131,7 @@
 - type: Tile
   id: WorldDirt1
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "624, 0, 48, 48"
   isSolid: false
   isOpaque: false
@@ -141,7 +141,7 @@
 - type: Tile
   id: WorldDirt2
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "672, 0, 48, 48"
   isSolid: false
   isOpaque: false
@@ -151,7 +151,7 @@
 - type: Tile
   id: WorldDirt3
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "720, 0, 48, 48"
   isSolid: false
   isOpaque: false
@@ -161,7 +161,7 @@
 - type: Tile
   id: WorldDirt4
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "768, 0, 48, 48"
   isSolid: false
   isOpaque: false
@@ -171,7 +171,7 @@
 - type: Tile
   id: WorldSnowCross
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "1248, 0, 48, 48"
   kind: Snow
   isSolid: false
@@ -182,7 +182,7 @@
 - type: Tile
   id: WorldSnow
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "1296, 0, 48, 48"
   kind: Snow
   isSolid: false
@@ -193,7 +193,7 @@
 - type: Tile
   id: WorldSnowTrees1
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "1392, 0, 48, 48"
   kind: Snow
   isSolid: false
@@ -204,7 +204,7 @@
 - type: Tile
   id: WorldSnowTrees2
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "1440, 0, 48, 48"
   kind: Snow
   isSolid: false
@@ -215,7 +215,7 @@
 - type: Tile
   id: WorldSnowCrater
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "1488, 0, 48, 48"
   kind: Snow
   isSolid: false
@@ -226,7 +226,7 @@
 - type: Tile
   id: WorldSnowMounds
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "1536, 0, 48, 48"
   kind: Snow
   isSolid: false
@@ -237,7 +237,7 @@
 - type: Tile
   id: WorldRoadNs
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "48, 48, 48, 48"
   isSolid: false
   isOpaque: false
@@ -248,7 +248,7 @@
 - type: Tile
   id: WorldRoadWe
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "96, 48, 48, 48"
   isSolid: false
   isOpaque: false
@@ -259,7 +259,7 @@
 - type: Tile
   id: WorldRoadSw
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "144, 48, 48, 48"
   isSolid: false
   isOpaque: false
@@ -270,7 +270,7 @@
 - type: Tile
   id: WorldRoadSe
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "192, 48, 48, 48"
   isSolid: false
   isOpaque: false
@@ -281,7 +281,7 @@
 - type: Tile
   id: WorldRoadNw
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "240, 48, 48, 48"
   isSolid: false
   isOpaque: false
@@ -292,7 +292,7 @@
 - type: Tile
   id: WorldRoadNe
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "288, 48, 48, 48"
   isSolid: false
   isOpaque: false
@@ -303,7 +303,7 @@
 - type: Tile
   id: WorldRoadSwe
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "336, 48, 48, 48"
   isSolid: false
   isOpaque: false
@@ -314,7 +314,7 @@
 - type: Tile
   id: WorldRoadNsw
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "384, 48, 48, 48"
   isSolid: false
   isOpaque: false
@@ -325,7 +325,7 @@
 - type: Tile
   id: WorldRoadNwe
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "432, 48, 48, 48"
   isSolid: false
   isOpaque: false
@@ -336,7 +336,7 @@
 - type: Tile
   id: WorldRoadNse
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "480, 48, 48, 48"
   isSolid: false
   isOpaque: false
@@ -347,7 +347,7 @@
 - type: Tile
   id: WorldFlower1
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "0, 96, 48, 48"
   isSolid: false
   isOpaque: false
@@ -357,7 +357,7 @@
 - type: Tile
   id: WorldFlower2
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "48, 96, 48, 48"
   isSolid: false
   isOpaque: false
@@ -367,7 +367,7 @@
 - type: Tile
   id: WorldFlower3
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "96, 96, 48, 48"
   isSolid: false
   isOpaque: false
@@ -377,7 +377,7 @@
 - type: Tile
   id: WorldFlower4
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "144, 96, 48, 48"
   isSolid: false
   isOpaque: false
@@ -387,7 +387,7 @@
 - type: Tile
   id: WorldFlower5
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "192, 96, 48, 48"
   isSolid: false
   isOpaque: false
@@ -397,7 +397,7 @@
 - type: Tile
   id: WorldFlower6
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "240, 96, 48, 48"
   isSolid: false
   isOpaque: false
@@ -407,7 +407,7 @@
 - type: Tile
   id: WorldFlower7
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "288, 96, 48, 48"
   isSolid: false
   isOpaque: false
@@ -417,7 +417,7 @@
 - type: Tile
   id: WorldMounds1
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "336, 96, 48, 48"
   isSolid: false
   isOpaque: false
@@ -427,7 +427,7 @@
 - type: Tile
   id: WorldMounds2
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "384, 96, 48, 48"
   isSolid: false
   isOpaque: false
@@ -437,7 +437,7 @@
 - type: Tile
   id: WorldBridgeLeft
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "528, 96, 48, 48"
   isSolid: false
   isOpaque: false
@@ -447,7 +447,7 @@
 - type: Tile
   id: WorldBridgeMiddle
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "576, 96, 48, 48"
   isSolid: false
   isOpaque: false
@@ -457,7 +457,7 @@
 - type: Tile
   id: WorldBridgeRight
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "624, 96, 48, 48"
   isSolid: false
   isOpaque: false
@@ -467,7 +467,7 @@
 - type: Tile
   id: WorldDesert
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "0, 144, 48, 48"
   kind: Sand
   isSolid: false
@@ -478,7 +478,7 @@
 - type: Tile
   id: WorldDesertTrees1
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "48, 144, 48, 48"
   kind: Sand
   isSolid: false
@@ -489,7 +489,7 @@
 - type: Tile
   id: WorldDesertTrees2
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "96, 144, 48, 48"
   kind: Sand
   isSolid: false
@@ -500,7 +500,7 @@
 - type: Tile
   id: WorldDesertTrees3
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "144, 144, 48, 48"
   kind: Sand
   isSolid: false
@@ -511,7 +511,7 @@
 - type: Tile
   id: WorldDesertTrees4
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "192, 144, 48, 48"
   kind: Sand
   isSolid: false
@@ -522,7 +522,7 @@
 - type: Tile
   id: WorldDesertDeadTrees1
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "240, 144, 48, 48"
   kind: Sand
   isSolid: false
@@ -533,7 +533,7 @@
 - type: Tile
   id: WorldDesertDeadTrees2
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "288, 144, 48, 48"
   kind: Sand
   isSolid: false
@@ -544,7 +544,7 @@
 - type: Tile
   id: WorldDesertDeadTrees3
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "336, 144, 48, 48"
   kind: Sand
   isSolid: false
@@ -555,7 +555,7 @@
 - type: Tile
   id: WorldDesertBorderW
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "384, 144, 48, 48"
   kind: Sand
   kind2: Coast
@@ -567,7 +567,7 @@
 - type: Tile
   id: WorldDesertBorderS
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "528, 144, 48, 48"
   kind: Sand
   kind2: Coast
@@ -579,7 +579,7 @@
 - type: Tile
   id: WorldDesertBorderSw
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "720, 144, 48, 48"
   kind: Sand
   kind2: Coast
@@ -591,7 +591,7 @@
 - type: Tile
   id: WorldDesertBorderCornerNe
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "768, 144, 48, 48"
   kind: Sand
   kind2: Coast
@@ -603,7 +603,7 @@
 - type: Tile
   id: WorldDesertBones
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "960, 144, 48, 48"
   kind: Sand
   isSolid: false
@@ -614,7 +614,7 @@
 - type: Tile
   id: WorldDesertRocks1
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "1008, 144, 48, 48"
   kind: Sand
   isSolid: false
@@ -625,7 +625,7 @@
 - type: Tile
   id: WorldDesertRocks2
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "1056, 144, 48, 48"
   kind: Sand
   isSolid: false
@@ -636,7 +636,7 @@
 - type: Tile
   id: WorldDesertRocks3
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "1104, 144, 48, 48"
   kind: Sand
   isSolid: false
@@ -647,7 +647,7 @@
 - type: Tile
   id: WorldDesertRocks4
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "1152, 144, 48, 48"
   kind: Sand
   isSolid: false
@@ -658,7 +658,7 @@
 - type: Tile
   id: WorldDesertPlants1
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "1200, 144, 48, 48"
   kind: Sand
   isSolid: false
@@ -669,7 +669,7 @@
 - type: Tile
   id: WorldDesertPlants2
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "1248, 144, 48, 48"
   kind: Sand
   isSolid: false
@@ -680,7 +680,7 @@
 - type: Tile
   id: WorldDesertPlants3
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "1296, 144, 48, 48"
   kind: Sand
   isSolid: false
@@ -691,7 +691,7 @@
 - type: Tile
   id: WorldDirt
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "0, 240, 48, 48"
   kind: SandHard
   isSolid: false
@@ -702,7 +702,7 @@
 - type: Tile
   id: WorldDirtCrater
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "48, 240, 48, 48"
   kind: SandHard
   isSolid: false
@@ -713,7 +713,7 @@
 - type: Tile
   id: WorldDirtRocks1
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "96, 240, 48, 48"
   kind: SandHard
   isSolid: false
@@ -724,7 +724,7 @@
 - type: Tile
   id: WorldDirtRocks2
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "144, 240, 48, 48"
   kind: SandHard
   isSolid: false
@@ -735,7 +735,7 @@
 - type: Tile
   id: WorldDirtDeadTrees1
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "240, 240, 48, 48"
   kind: SandHard
   isSolid: false
@@ -746,7 +746,7 @@
 - type: Tile
   id: WorldDirtDeadTrees2
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "288, 240, 48, 48"
   kind: SandHard
   isSolid: false
@@ -757,7 +757,7 @@
 - type: Tile
   id: WorldDirtDeadTrees3
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "336, 240, 48, 48"
   kind: SandHard
   isSolid: false
@@ -768,7 +768,7 @@
 - type: Tile
   id: WorldDirtBorderW
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "384, 240, 48, 48"
   kind: SandHard
   kind2: Coast
@@ -780,7 +780,7 @@
 - type: Tile
   id: WorldDirtBorderE
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "432, 240, 48, 48"
   kind: SandHard
   kind2: Coast
@@ -792,7 +792,7 @@
 - type: Tile
   id: WorldDirtBorderN
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "480, 240, 48, 48"
   kind: SandHard
   kind2: Coast
@@ -804,7 +804,7 @@
 - type: Tile
   id: WorldDirtBorderS
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "528, 240, 48, 48"
   kind: SandHard
   kind2: Coast
@@ -816,7 +816,7 @@
 - type: Tile
   id: WorldDirtBorderCornerNe
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "576, 240, 48, 48"
   kind: SandHard
   kind2: Coast
@@ -828,7 +828,7 @@
 - type: Tile
   id: WorldDirtBorderCornerNw
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "624, 240, 48, 48"
   kind: SandHard
   kind2: Coast
@@ -840,7 +840,7 @@
 - type: Tile
   id: WorldDirtBorderCornerSe
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "672, 240, 48, 48"
   kind: SandHard
   kind2: Coast
@@ -852,7 +852,7 @@
 - type: Tile
   id: WorldDirtBorderCornerSw
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "720, 240, 48, 48"
   kind: SandHard
   kind2: Coast
@@ -864,7 +864,7 @@
 - type: Tile
   id: WorldDirtBorderNe
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "768, 240, 48, 48"
   kind: SandHard
   kind2: Coast
@@ -876,7 +876,7 @@
 - type: Tile
   id: WorldDirtBorderNw
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "816, 240, 48, 48"
   kind: SandHard
   kind2: Coast
@@ -888,7 +888,7 @@
 - type: Tile
   id: WorldDirtBorderSe
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "864, 240, 48, 48"
   kind: SandHard
   kind2: Coast
@@ -900,7 +900,7 @@
 - type: Tile
   id: WorldDirtBorderSw
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "912, 240, 48, 48"
   kind: SandHard
   kind2: Coast
@@ -912,7 +912,7 @@
 - type: Tile
   id: WorldSnowDeadTree
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "48, 288, 48, 48"
   kind: Snow
   isSolid: false
@@ -923,7 +923,7 @@
 - type: Tile
   id: WorldSnowTrees3
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "96, 288, 48, 48"
   kind: Snow
   isSolid: false
@@ -934,7 +934,7 @@
 - type: Tile
   id: WorldSnowTrees4
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "144, 288, 48, 48"
   kind: Snow
   isSolid: false
@@ -945,7 +945,7 @@
 - type: Tile
   id: WorldSnowTrees5
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "192, 288, 48, 48"
   kind: Snow
   isSolid: false
@@ -956,7 +956,7 @@
 - type: Tile
   id: WorldSnowBorderW
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "384, 288, 48, 48"
   kind: Snow
   kind2: Coast
@@ -968,7 +968,7 @@
 - type: Tile
   id: WorldSnowBorderE
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "432, 288, 48, 48"
   kind: Snow
   kind2: Coast
@@ -980,7 +980,7 @@
 - type: Tile
   id: WorldSnowBorderN
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "480, 288, 48, 48"
   kind: Snow
   kind2: Coast
@@ -992,7 +992,7 @@
 - type: Tile
   id: WorldSnowBorderS
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "528, 288, 48, 48"
   kind: Snow
   kind2: Coast
@@ -1004,7 +1004,7 @@
 - type: Tile
   id: WorldSnowBorderCornerNe
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "576, 288, 48, 48"
   kind: Snow
   kind2: Coast
@@ -1016,7 +1016,7 @@
 - type: Tile
   id: WorldSnowBorderCornerNw
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "624, 288, 48, 48"
   kind: Snow
   kind2: Coast
@@ -1028,7 +1028,7 @@
 - type: Tile
   id: WorldSnowBorderCornerSe
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "672, 288, 48, 48"
   kind: Snow
   kind2: Coast
@@ -1040,7 +1040,7 @@
 - type: Tile
   id: WorldSnowBorderCornerSw
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "720, 288, 48, 48"
   kind: Snow
   kind2: Coast
@@ -1052,7 +1052,7 @@
 - type: Tile
   id: WorldSnowBorderNe
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "768, 288, 48, 48"
   kind: Snow
   kind2: Coast
@@ -1064,7 +1064,7 @@
 - type: Tile
   id: WorldSnowBorderNw
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "816, 288, 48, 48"
   kind: Snow
   kind2: Coast
@@ -1076,7 +1076,7 @@
 - type: Tile
   id: WorldSnowBorderSe
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "864, 288, 48, 48"
   kind: Snow
   kind2: Coast
@@ -1088,7 +1088,7 @@
 - type: Tile
   id: WorldSnowBorderSw
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "912, 288, 48, 48"
   kind: Snow
   kind2: Coast
@@ -1100,7 +1100,7 @@
 - type: Tile
   id: WorldWater
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "0, 384, 48, 48"
   isSolid: true
   isOpaque: false
@@ -1110,7 +1110,7 @@
 - type: Tile
   id: WorldWaterRocks
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "48, 384, 48, 48"
   isSolid: true
   isOpaque: false
@@ -1120,7 +1120,7 @@
 - type: Tile
   id: WorldWater2
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "96, 384, 48, 48"
   isSolid: true
   isOpaque: false
@@ -1130,7 +1130,7 @@
 - type: Tile
   id: WorldWaterPole
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "144, 384, 48, 48"
   isSolid: true
   isOpaque: false
@@ -1140,7 +1140,7 @@
 - type: Tile
   id: WorldWaterIceberg
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "192, 384, 48, 48"
   isSolid: true
   isOpaque: false
@@ -1150,7 +1150,7 @@
 - type: Tile
   id: WorldWaterRock
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "240, 384, 48, 48"
   isSolid: true
   isOpaque: false
@@ -1160,7 +1160,7 @@
 - type: Tile
   id: WorldWaterShadow
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "288, 384, 48, 48"
   isSolid: true
   isOpaque: false
@@ -1170,7 +1170,7 @@
 - type: Tile
   id: WorldGrassWaterBorderW
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "1008, 384, 48, 48"
   isSolid: true
   isOpaque: false
@@ -1180,7 +1180,7 @@
 - type: Tile
   id: WorldGrassWaterBorderE
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "1056, 384, 48, 48"
   isSolid: true
   isOpaque: false
@@ -1190,7 +1190,7 @@
 - type: Tile
   id: WorldGrassWaterBorderN
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "1104, 384, 48, 48"
   isSolid: true
   isOpaque: false
@@ -1200,7 +1200,7 @@
 - type: Tile
   id: WorldGrassWaterBorderS
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "1152, 384, 48, 48"
   isSolid: true
   isOpaque: false
@@ -1210,7 +1210,7 @@
 - type: Tile
   id: WorldGrassWaterBorderCornerNe
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "1200, 384, 48, 48"
   isSolid: true
   isOpaque: false
@@ -1220,7 +1220,7 @@
 - type: Tile
   id: WorldGrassWaterBorderCornerNw
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "1248, 384, 48, 48"
   isSolid: true
   isOpaque: false
@@ -1230,7 +1230,7 @@
 - type: Tile
   id: WorldGrassWaterBorderCornerSe
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "1296, 384, 48, 48"
   isSolid: true
   isOpaque: false
@@ -1240,7 +1240,7 @@
 - type: Tile
   id: WorldGrassWaterBorderCornerSw
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "1344, 384, 48, 48"
   isSolid: true
   isOpaque: false
@@ -1250,7 +1250,7 @@
 - type: Tile
   id: WorldGrassWaterBorderNe
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "1392, 384, 48, 48"
   isSolid: true
   isOpaque: false
@@ -1260,7 +1260,7 @@
 - type: Tile
   id: WorldGrassWaterBorderNw
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "1440, 384, 48, 48"
   isSolid: true
   isOpaque: false
@@ -1270,7 +1270,7 @@
 - type: Tile
   id: WorldGrassWaterBorderSe
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "1488, 384, 48, 48"
   isSolid: true
   isOpaque: false
@@ -1280,7 +1280,7 @@
 - type: Tile
   id: WorldGrassWaterBorderSw
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "1536, 384, 48, 48"
   isSolid: true
   isOpaque: false
@@ -1290,7 +1290,7 @@
 - type: Tile
   id: WorldSnowWaterBorderW
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "0, 432, 48, 48"
   isSolid: false
   isOpaque: false
@@ -1300,7 +1300,7 @@
 - type: Tile
   id: WorldSnowWaterBorderE
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "48, 432, 48, 48"
   isSolid: false
   isOpaque: false
@@ -1310,7 +1310,7 @@
 - type: Tile
   id: WorldSnowWaterBorderN
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "96, 432, 48, 48"
   isSolid: false
   isOpaque: false
@@ -1320,7 +1320,7 @@
 - type: Tile
   id: WorldSnowWaterBorderS
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "144, 432, 48, 48"
   isSolid: false
   isOpaque: false
@@ -1330,7 +1330,7 @@
 - type: Tile
   id: WorldSnowWaterBorderCornerNe
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "192, 432, 48, 48"
   isSolid: false
   isOpaque: false
@@ -1340,7 +1340,7 @@
 - type: Tile
   id: WorldSnowWaterBorderCornerNw
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "240, 432, 48, 48"
   isSolid: false
   isOpaque: false
@@ -1350,7 +1350,7 @@
 - type: Tile
   id: WorldSnowWaterBorderCornerSe
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "288, 432, 48, 48"
   isSolid: false
   isOpaque: false
@@ -1360,7 +1360,7 @@
 - type: Tile
   id: WorldSnowWaterBorderCornerSw
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "336, 432, 48, 48"
   isSolid: false
   isOpaque: false
@@ -1370,7 +1370,7 @@
 - type: Tile
   id: WorldSnowWaterBorderNe
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "384, 432, 48, 48"
   isSolid: false
   isOpaque: false
@@ -1380,7 +1380,7 @@
 - type: Tile
   id: WorldSnowWaterBorderNw
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "432, 432, 48, 48"
   isSolid: false
   isOpaque: false
@@ -1390,7 +1390,7 @@
 - type: Tile
   id: WorldSnowWaterBorderSe
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "480, 432, 48, 48"
   isSolid: false
   isOpaque: false
@@ -1400,7 +1400,7 @@
 - type: Tile
   id: WorldSnowWaterBorderSw
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "528, 432, 48, 48"
   isSolid: false
   isOpaque: false
@@ -1410,7 +1410,7 @@
 - type: Tile
   id: WorldDesertWaterBorderW
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "576, 432, 48, 48"
   isSolid: false
   isOpaque: false
@@ -1420,7 +1420,7 @@
 - type: Tile
   id: WorldDesertWaterBorderE
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "624, 432, 48, 48"
   isSolid: false
   isOpaque: false
@@ -1430,7 +1430,7 @@
 - type: Tile
   id: WorldDesertWaterBorderN
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "672, 432, 48, 48"
   isSolid: false
   isOpaque: false
@@ -1440,7 +1440,7 @@
 - type: Tile
   id: WorldDesertWaterBorderS
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "720, 432, 48, 48"
   isSolid: false
   isOpaque: false
@@ -1450,7 +1450,7 @@
 - type: Tile
   id: WorldDesertWaterBorderCornerNe
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "768, 432, 48, 48"
   isSolid: false
   isOpaque: false
@@ -1460,7 +1460,7 @@
 - type: Tile
   id: WorldDesertWaterBorderCornerNw
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "816, 432, 48, 48"
   isSolid: false
   isOpaque: false
@@ -1470,7 +1470,7 @@
 - type: Tile
   id: WorldDesertWaterBorderCornerSe
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "864, 432, 48, 48"
   isSolid: false
   isOpaque: false
@@ -1480,7 +1480,7 @@
 - type: Tile
   id: WorldDesertWaterBorderCornerSw
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "912, 432, 48, 48"
   isSolid: false
   isOpaque: false
@@ -1490,7 +1490,7 @@
 - type: Tile
   id: WorldDesertWaterBorderNe
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "960, 432, 48, 48"
   isSolid: false
   isOpaque: false
@@ -1500,7 +1500,7 @@
 - type: Tile
   id: WorldDesertWaterBorderNw
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "1008, 432, 48, 48"
   isSolid: false
   isOpaque: false
@@ -1510,7 +1510,7 @@
 - type: Tile
   id: WorldDesertWaterBorderSe
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "1056, 432, 48, 48"
   isSolid: false
   isOpaque: false
@@ -1520,7 +1520,7 @@
 - type: Tile
   id: WorldDesertWaterBorderSw
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "1104, 432, 48, 48"
   isSolid: false
   isOpaque: false
@@ -1530,7 +1530,7 @@
 - type: Tile
   id: WorldCliffNw
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "0, 672, 48, 48"
   isSolid: true
   isOpaque: true
@@ -1540,7 +1540,7 @@
 - type: Tile
   id: WorldCliffN
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "48, 672, 48, 48"
   isSolid: true
   isOpaque: true
@@ -1550,7 +1550,7 @@
 - type: Tile
   id: WorldCliffNe
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "96, 672, 48, 48"
   isSolid: true
   isOpaque: true
@@ -1560,7 +1560,7 @@
 - type: Tile
   id: WorldCliffW
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "0, 720, 48, 48"
   isSolid: true
   isOpaque: true
@@ -1570,7 +1570,7 @@
 - type: Tile
   id: WorldCliffE
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "96, 720, 48, 48"
   isSolid: true
   isOpaque: true
@@ -1580,7 +1580,7 @@
 - type: Tile
   id: WorldCliffInnerSw
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "144, 720, 48, 48"
   isSolid: true
   isOpaque: true
@@ -1590,7 +1590,7 @@
 - type: Tile
   id: WorldCliffInnerSe
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "240, 720, 48, 48"
   isSolid: true
   isOpaque: true
@@ -1600,7 +1600,7 @@
 - type: Tile
   id: WorldBlank
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "0, 768, 48, 48"
   isSolid: true
   isOpaque: true
@@ -1610,7 +1610,7 @@
 - type: Tile
   id: WorldCliffSw
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "48, 768, 48, 48"
   isSolid: true
   isOpaque: true
@@ -1620,7 +1620,7 @@
 - type: Tile
   id: WorldCliffS
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "96, 768, 48, 48"
   isSolid: true
   isOpaque: true
@@ -1630,7 +1630,7 @@
 - type: Tile
   id: WorldCliffSe
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "144, 768, 48, 48"
   isSolid: true
   isOpaque: true
@@ -1640,7 +1640,7 @@
 - type: Tile
   id: WorldCliffTop5
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "240, 768, 48, 48"
   isSolid: true
   isOpaque: true
@@ -1650,7 +1650,7 @@
 - type: Tile
   id: WorldGrassMountain1
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "0, 816, 48, 48"
   isSolid: true
   isOpaque: true
@@ -1660,7 +1660,7 @@
 - type: Tile
   id: WorldGrassMountain2
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "48, 816, 48, 48"
   isSolid: true
   isOpaque: true
@@ -1670,7 +1670,7 @@
 - type: Tile
   id: WorldGrassMountain3
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "144, 816, 48, 48"
   isSolid: true
   isOpaque: true
@@ -1680,7 +1680,7 @@
 - type: Tile
   id: WorldGrassMountain4
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "192, 816, 48, 48"
   isSolid: true
   isOpaque: true
@@ -1690,7 +1690,7 @@
 - type: Tile
   id: WorldGrassMountain5
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "240, 816, 48, 48"
   isSolid: true
   isOpaque: true
@@ -1700,7 +1700,7 @@
 - type: Tile
   id: WorldGrassMountain6
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "288, 816, 48, 48"
   isSolid: true
   isOpaque: true
@@ -1710,7 +1710,7 @@
 - type: Tile
   id: WorldSnowMountain1
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "336, 816, 48, 48"
   kind: Snow
   isSolid: true
@@ -1721,7 +1721,7 @@
 - type: Tile
   id: WorldSnowMountain2
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "384, 816, 48, 48"
   kind: Snow
   isSolid: true
@@ -1732,7 +1732,7 @@
 - type: Tile
   id: WorldSnowMountain3
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "432, 816, 48, 48"
   kind: Snow
   isSolid: true
@@ -1743,7 +1743,7 @@
 - type: Tile
   id: WorldDesertMountain1
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "0, 864, 48, 48"
   kind: Sand
   isSolid: true
@@ -1754,7 +1754,7 @@
 - type: Tile
   id: WorldDesertMountain2
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "48, 864, 48, 48"
   kind: Sand
   isSolid: true
@@ -1765,7 +1765,7 @@
 - type: Tile
   id: WorldDesertMountain3
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "96, 864, 48, 48"
   kind: Sand
   isSolid: true
@@ -1776,7 +1776,7 @@
 - type: Tile
   id: WorldDesertMountain4
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "144, 864, 48, 48"
   kind: Sand
   isSolid: true
@@ -1787,7 +1787,7 @@
 - type: Tile
   id: WorldDesertMountain5
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "192, 864, 48, 48"
   kind: Sand
   isSolid: true
@@ -1798,7 +1798,7 @@
 - type: Tile
   id: WorldDirtMountain1
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "240, 864, 48, 48"
   kind: SandHard
   isSolid: true
@@ -1809,7 +1809,7 @@
 - type: Tile
   id: WorldDirtMountain2
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "288, 864, 48, 48"
   kind: SandHard
   isSolid: true
@@ -1820,7 +1820,7 @@
 - type: Tile
   id: WorldOasisC
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "480, 864, 48, 48"
   kind: SandWater
   isSolid: true
@@ -1831,7 +1831,7 @@
 - type: Tile
   id: WorldOasisE
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "528, 864, 48, 48"
   kind: SandWater
   kind2: Coast
@@ -1843,7 +1843,7 @@
 - type: Tile
   id: WorldOasisW
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "576, 864, 48, 48"
   kind: SandWater
   kind2: Coast
@@ -1855,7 +1855,7 @@
 - type: Tile
   id: WorldOasisS
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "624, 864, 48, 48"
   kind: SandWater
   kind2: Coast
@@ -1867,7 +1867,7 @@
 - type: Tile
   id: WorldOasisN
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "672, 864, 48, 48"
   kind: SandWater
   kind2: Coast
@@ -1879,7 +1879,7 @@
 - type: Tile
   id: WorldOasisCornerSw
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "720, 864, 48, 48"
   kind: SandWater
   kind2: Coast
@@ -1891,7 +1891,7 @@
 - type: Tile
   id: WorldOasisCornerSe
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "768, 864, 48, 48"
   kind: SandWater
   kind2: Coast
@@ -1903,7 +1903,7 @@
 - type: Tile
   id: WorldOasisCornerNe
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "816, 864, 48, 48"
   kind: SandWater
   kind2: Coast
@@ -1915,7 +1915,7 @@
 - type: Tile
   id: WorldOasisCornerNw
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "864, 864, 48, 48"
   kind: SandWater
   kind2: Coast
@@ -1927,7 +1927,7 @@
 - type: Tile
   id: WorldOasisNe
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "912, 864, 48, 48"
   kind: SandWater
   kind2: Coast
@@ -1939,7 +1939,7 @@
 - type: Tile
   id: WorldOasisNw
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "960, 864, 48, 48"
   kind: SandWater
   kind2: Coast
@@ -1951,7 +1951,7 @@
 - type: Tile
   id: WorldOasisSe
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "1008, 864, 48, 48"
   kind: SandWater
   kind2: Coast
@@ -1963,7 +1963,7 @@
 - type: Tile
   id: WorldOasisSw
   image:
-    filepath: Assets/Elona/Graphic/map0.bmp
+    filepath: /Elona/Graphic/map0.bmp
     region: "1056, 864, 48, 48"
   kind: SandWater
   kind2: Coast
@@ -1975,7 +1975,7 @@
 - type: Tile
   id: Grass
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "0, 0, 48, 48"
   isSolid: false
   isOpaque: false
@@ -1985,7 +1985,7 @@
 - type: Tile
   id: GrassViolets
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "48, 0, 48, 48"
   isSolid: false
   isOpaque: false
@@ -1995,7 +1995,7 @@
 - type: Tile
   id: GrassRocks
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "96, 0, 48, 48"
   isSolid: false
   isOpaque: false
@@ -2005,7 +2005,7 @@
 - type: Tile
   id: GrassTall1
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "144, 0, 48, 48"
   isSolid: false
   isOpaque: false
@@ -2015,7 +2015,7 @@
 - type: Tile
   id: GrassTall2
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "192, 0, 48, 48"
   isSolid: false
   isOpaque: false
@@ -2025,7 +2025,7 @@
 - type: Tile
   id: GrassPatch1
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "240, 0, 48, 48"
   isSolid: false
   isOpaque: false
@@ -2035,7 +2035,7 @@
 - type: Tile
   id: GrassPatch2
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "288, 0, 48, 48"
   isSolid: false
   isOpaque: false
@@ -2045,7 +2045,7 @@
 - type: Tile
   id: GrassBush1
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "336, 0, 48, 48"
   isSolid: false
   isOpaque: false
@@ -2055,7 +2055,7 @@
 - type: Tile
   id: GrassBush2
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "384, 0, 48, 48"
   isSolid: false
   isOpaque: false
@@ -2065,7 +2065,7 @@
 - type: Tile
   id: GrassBush3
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "432, 0, 48, 48"
   isSolid: false
   isOpaque: false
@@ -2075,7 +2075,7 @@
 - type: Tile
   id: GrassPatch3
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "480, 0, 48, 48"
   isSolid: false
   isOpaque: false
@@ -2085,7 +2085,7 @@
 - type: Tile
   id: GrassRocks2
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "528, 0, 48, 48"
   isSolid: false
   isOpaque: false
@@ -2095,7 +2095,7 @@
 - type: Tile
   id: CrackedDirt1
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "576, 0, 48, 48"
   isSolid: false
   isOpaque: false
@@ -2105,7 +2105,7 @@
 - type: Tile
   id: CrackedDirt2
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "624, 0, 48, 48"
   isSolid: false
   isOpaque: false
@@ -2115,7 +2115,7 @@
 - type: Tile
   id: RoomDefault
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "672, 0, 48, 48"
   isSolid: false
   isOpaque: false
@@ -2125,7 +2125,7 @@
 - type: Tile
   id: DesertRocks1
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "768, 0, 48, 48"
   isSolid: false
   isOpaque: false
@@ -2135,7 +2135,7 @@
 - type: Tile
   id: DesertRocks2
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "816, 0, 48, 48"
   isSolid: false
   isOpaque: false
@@ -2145,7 +2145,7 @@
 - type: Tile
   id: DesertRocks3
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "864, 0, 48, 48"
   isSolid: false
   isOpaque: false
@@ -2155,7 +2155,7 @@
 - type: Tile
   id: Desert
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "912, 0, 48, 48"
   isSolid: false
   isOpaque: false
@@ -2165,7 +2165,7 @@
 - type: Tile
   id: DesertFlowers1
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "960, 0, 48, 48"
   isSolid: false
   isOpaque: false
@@ -2175,7 +2175,7 @@
 - type: Tile
   id: DesertFlowers2
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "1008, 0, 48, 48"
   isSolid: false
   isOpaque: false
@@ -2185,7 +2185,7 @@
 - type: Tile
   id: Dryground
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "1392, 0, 48, 48"
   kind: Dryground
   isSolid: false
@@ -2196,7 +2196,7 @@
 - type: Tile
   id: Field1
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "1440, 0, 48, 48"
   kind: Crop
   isSolid: false
@@ -2207,7 +2207,7 @@
 - type: Tile
   id: Field2
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "1488, 0, 48, 48"
   kind: Crop
   isSolid: false
@@ -2218,7 +2218,7 @@
 - type: Tile
   id: DarkDirt1
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "0, 48, 48, 48"
   isSolid: false
   isOpaque: false
@@ -2228,7 +2228,7 @@
 - type: Tile
   id: DarkDirt2
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "48, 48, 48, 48"
   isSolid: false
   isOpaque: false
@@ -2238,7 +2238,7 @@
 - type: Tile
   id: DarkDirt3
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "96, 48, 48, 48"
   isSolid: false
   isOpaque: false
@@ -2248,7 +2248,7 @@
 - type: Tile
   id: DarkDirt4
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "144, 48, 48, 48"
   isSolid: false
   isOpaque: false
@@ -2258,7 +2258,7 @@
 - type: Tile
   id: Destroyed
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "192, 48, 48, 48"
   isSolid: false
   isOpaque: false
@@ -2268,7 +2268,7 @@
 - type: Tile
   id: DirtPatch
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "240, 48, 48, 48"
   isSolid: false
   isOpaque: false
@@ -2278,7 +2278,7 @@
 - type: Tile
   id: DirtGrass
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "288, 48, 48, 48"
   isSolid: false
   isOpaque: false
@@ -2288,7 +2288,7 @@
 - type: Tile
   id: DirtRocks
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "336, 48, 48, 48"
   isSolid: false
   isOpaque: false
@@ -2298,7 +2298,7 @@
 - type: Tile
   id: Dirt
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "384, 48, 48, 48"
   isSolid: false
   isOpaque: false
@@ -2308,7 +2308,7 @@
 - type: Tile
   id: Snow
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "576, 48, 48, 48"
   kind: Snow
   isSolid: false
@@ -2319,7 +2319,7 @@
 - type: Tile
   id: SnowMound
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "624, 48, 48, 48"
   kind: Snow
   isSolid: false
@@ -2330,7 +2330,7 @@
 - type: Tile
   id: SnowPlants
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "672, 48, 48, 48"
   kind: Snow
   isSolid: false
@@ -2341,7 +2341,7 @@
 - type: Tile
   id: SnowRock
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "720, 48, 48, 48"
   kind: Snow
   isSolid: false
@@ -2352,7 +2352,7 @@
 - type: Tile
   id: SnowStump
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "768, 48, 48, 48"
   kind: Snow
   isSolid: false
@@ -2363,7 +2363,7 @@
 - type: Tile
   id: SnowFlowers1
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "816, 48, 48, 48"
   kind: Snow
   isSolid: false
@@ -2374,7 +2374,7 @@
 - type: Tile
   id: SnowFlowers2
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "864, 48, 48, 48"
   kind: Snow
   isSolid: false
@@ -2385,7 +2385,7 @@
 - type: Tile
   id: SnowFlowers3
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "912, 48, 48, 48"
   kind: Snow
   isSolid: false
@@ -2396,7 +2396,7 @@
 - type: Tile
   id: SnowField1
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "960, 48, 48, 48"
   kind: Snow
   isSolid: false
@@ -2407,7 +2407,7 @@
 - type: Tile
   id: SnowField2
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "1008, 48, 48, 48"
   kind: Snow
   isSolid: false
@@ -2418,7 +2418,7 @@
 - type: Tile
   id: SnowIce
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "1056, 48, 48, 48"
   kind: Snow
   isSolid: false
@@ -2429,7 +2429,7 @@
 - type: Tile
   id: SnowClumps1
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "1104, 48, 48, 48"
   kind: Snow
   isSolid: false
@@ -2440,7 +2440,7 @@
 - type: Tile
   id: SnowClumps2
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "1152, 48, 48, 48"
   kind: Snow
   isSolid: false
@@ -2451,7 +2451,7 @@
 - type: Tile
   id: SnowStalks
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "1200, 48, 48, 48"
   kind: Snow
   isSolid: false
@@ -2462,7 +2462,7 @@
 - type: Tile
   id: SnowGrass
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "1248, 48, 48, 48"
   kind: Snow
   isSolid: false
@@ -2473,7 +2473,7 @@
 - type: Tile
   id: SnowBlueTile
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "1296, 48, 48, 48"
   kind: Snow
   isSolid: false
@@ -2484,7 +2484,7 @@
 - type: Tile
   id: SnowCobble1
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "1344, 48, 48, 48"
   isSolid: false
   isOpaque: false
@@ -2494,7 +2494,7 @@
 - type: Tile
   id: SnowCobble2
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "1392, 48, 48, 48"
   isSolid: false
   isOpaque: false
@@ -2504,7 +2504,7 @@
 - type: Tile
   id: SnowCobble3
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "1440, 48, 48, 48"
   isSolid: false
   isOpaque: false
@@ -2514,7 +2514,7 @@
 - type: Tile
   id: SnowCobble4
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "1488, 48, 48, 48"
   isSolid: false
   isOpaque: false
@@ -2524,7 +2524,7 @@
 - type: Tile
   id: SnowStairs
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "1536, 48, 48, 48"
   isSolid: false
   isOpaque: false
@@ -2534,7 +2534,7 @@
 - type: Tile
   id: TowerOfFireTile1
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "0, 96, 48, 48"
   isSolid: false
   isOpaque: false
@@ -2544,7 +2544,7 @@
 - type: Tile
   id: TowerOfFireTile2
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "48, 96, 48, 48"
   isSolid: false
   isOpaque: false
@@ -2554,7 +2554,7 @@
 - type: Tile
   id: TowerOfFireTile3
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "96, 96, 48, 48"
   isSolid: false
   isOpaque: false
@@ -2564,7 +2564,7 @@
 - type: Tile
   id: BallroomRoomFloor
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "144, 96, 48, 48"
   isSolid: false
   isOpaque: false
@@ -2574,7 +2574,7 @@
 - type: Tile
   id: HardwoodFloor1
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "192, 96, 48, 48"
   isSolid: false
   isOpaque: false
@@ -2584,7 +2584,7 @@
 - type: Tile
   id: HardwoodFloor2
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "240, 96, 48, 48"
   isSolid: false
   isOpaque: false
@@ -2594,7 +2594,7 @@
 - type: Tile
   id: HardwoodFloor3
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "288, 96, 48, 48"
   isSolid: false
   isOpaque: false
@@ -2604,7 +2604,7 @@
 - type: Tile
   id: HardwoodFloor4
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "336, 96, 48, 48"
   isSolid: false
   isOpaque: false
@@ -2614,7 +2614,7 @@
 - type: Tile
   id: HardwoodFloor5
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "384, 96, 48, 48"
   isSolid: false
   isOpaque: false
@@ -2624,7 +2624,7 @@
 - type: Tile
   id: HardwoodFloor6
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "432, 96, 48, 48"
   isSolid: false
   isOpaque: false
@@ -2634,7 +2634,7 @@
 - type: Tile
   id: MetalPlatingRusted
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "480, 96, 48, 48"
   isSolid: false
   isOpaque: false
@@ -2644,7 +2644,7 @@
 - type: Tile
   id: Thatching
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "528, 96, 48, 48"
   isSolid: false
   isOpaque: false
@@ -2654,7 +2654,7 @@
 - type: Tile
   id: Cobble
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "576, 96, 48, 48"
   isSolid: false
   isOpaque: false
@@ -2664,7 +2664,7 @@
 - type: Tile
   id: Cobble2
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "720, 96, 48, 48"
   isSolid: false
   isOpaque: false
@@ -2674,7 +2674,7 @@
 - type: Tile
   id: SnowFlowers4
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "768, 96, 48, 48"
   kind: Snow
   isSolid: false
@@ -2685,7 +2685,7 @@
 - type: Tile
   id: SnowFlowers5
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "816, 96, 48, 48"
   kind: Snow
   isSolid: false
@@ -2696,7 +2696,7 @@
 - type: Tile
   id: SnowFlowers6
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "864, 96, 48, 48"
   kind: Snow
   isSolid: false
@@ -2707,7 +2707,7 @@
 - type: Tile
   id: SnowBushes1
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "912, 96, 48, 48"
   isSolid: false
   isOpaque: false
@@ -2717,7 +2717,7 @@
 - type: Tile
   id: SnowBushes2
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "960, 96, 48, 48"
   isSolid: false
   isOpaque: false
@@ -2727,7 +2727,7 @@
 - type: Tile
   id: SnowBushes3
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "1008, 96, 48, 48"
   isSolid: false
   isOpaque: false
@@ -2737,7 +2737,7 @@
 - type: Tile
   id: SnowBush
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "1056, 96, 48, 48"
   isSolid: false
   isOpaque: false
@@ -2747,7 +2747,7 @@
 - type: Tile
   id: SnowBoulder
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "1104, 96, 48, 48"
   isSolid: false
   isOpaque: false
@@ -2757,7 +2757,7 @@
 - type: Tile
   id: SnowPillar
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "1536, 96, 48, 48"
   isSolid: false
   isOpaque: false
@@ -2767,7 +2767,7 @@
 - type: Tile
   id: Cobble3
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "0, 144, 48, 48"
   isSolid: false
   isOpaque: false
@@ -2777,7 +2777,7 @@
 - type: Tile
   id: Concrete2
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "48, 144, 48, 48"
   isSolid: false
   isOpaque: false
@@ -2787,7 +2787,7 @@
 - type: Tile
   id: Flooring1
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "96, 144, 48, 48"
   isSolid: false
   isOpaque: false
@@ -2797,7 +2797,7 @@
 - type: Tile
   id: Flooring2
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "144, 144, 48, 48"
   isSolid: false
   isOpaque: false
@@ -2807,7 +2807,7 @@
 - type: Tile
   id: Cobble4
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "192, 144, 48, 48"
   isSolid: false
   isOpaque: false
@@ -2817,7 +2817,7 @@
 - type: Tile
   id: Cobble6
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "288, 144, 48, 48"
   isSolid: false
   isOpaque: false
@@ -2827,7 +2827,7 @@
 - type: Tile
   id: Cobble9
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "480, 144, 48, 48"
   isSolid: false
   isOpaque: false
@@ -2837,7 +2837,7 @@
 - type: Tile
   id: Cobble10
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "528, 144, 48, 48"
   isSolid: false
   isOpaque: false
@@ -2847,7 +2847,7 @@
 - type: Tile
   id: Cobble11
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "576, 144, 48, 48"
   isSolid: false
   isOpaque: false
@@ -2857,7 +2857,7 @@
 - type: Tile
   id: Cobble12
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "624, 144, 48, 48"
   isSolid: false
   isOpaque: false
@@ -2867,7 +2867,7 @@
 - type: Tile
   id: CobbleDiagonal
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "672, 144, 48, 48"
   isSolid: false
   isOpaque: false
@@ -2877,7 +2877,7 @@
 - type: Tile
   id: CobbleDiagonalRound
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "720, 144, 48, 48"
   isSolid: false
   isOpaque: false
@@ -2887,7 +2887,7 @@
 - type: Tile
   id: CobbleDiagonalRaised
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "768, 144, 48, 48"
   isSolid: false
   isOpaque: false
@@ -2897,7 +2897,7 @@
 - type: Tile
   id: HardwoodFloor7
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "912, 144, 48, 48"
   isSolid: false
   isOpaque: false
@@ -2907,7 +2907,7 @@
 - type: Tile
   id: CobbleDark1
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "960, 144, 48, 48"
   isSolid: false
   isOpaque: false
@@ -2917,7 +2917,7 @@
 - type: Tile
   id: CobbleDark2
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "1008, 144, 48, 48"
   isSolid: false
   isOpaque: false
@@ -2927,7 +2927,7 @@
 - type: Tile
   id: CobbleDark3
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "1056, 144, 48, 48"
   isSolid: false
   isOpaque: false
@@ -2937,7 +2937,7 @@
 - type: Tile
   id: CobbleDark4
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "1104, 144, 48, 48"
   isSolid: false
   isOpaque: false
@@ -2947,7 +2947,7 @@
 - type: Tile
   id: Rough1
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "1152, 144, 48, 48"
   isSolid: false
   isOpaque: false
@@ -2957,7 +2957,7 @@
 - type: Tile
   id: Rough4
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "1296, 144, 48, 48"
   isSolid: false
   isOpaque: false
@@ -2967,7 +2967,7 @@
 - type: Tile
   id: Rough6
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "1392, 144, 48, 48"
   isSolid: false
   isOpaque: false
@@ -2977,7 +2977,7 @@
 - type: Tile
   id: Rough7
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "1440, 144, 48, 48"
   isSolid: false
   isOpaque: false
@@ -2987,7 +2987,7 @@
 - type: Tile
   id: Rough8
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "1488, 144, 48, 48"
   isSolid: false
   isOpaque: false
@@ -2997,7 +2997,7 @@
 - type: Tile
   id: Rough9
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "1536, 144, 48, 48"
   isSolid: false
   isOpaque: false
@@ -3007,7 +3007,7 @@
 - type: Tile
   id: Tile1
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "0, 192, 48, 48"
   isSolid: false
   isOpaque: false
@@ -3017,7 +3017,7 @@
 - type: Tile
   id: Tile2
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "48, 192, 48, 48"
   isSolid: false
   isOpaque: false
@@ -3027,7 +3027,7 @@
 - type: Tile
   id: Tile3
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "96, 192, 48, 48"
   isSolid: false
   isOpaque: false
@@ -3037,7 +3037,7 @@
 - type: Tile
   id: Brick1
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "144, 192, 48, 48"
   isSolid: false
   isOpaque: false
@@ -3047,7 +3047,7 @@
 - type: Tile
   id: Brick2
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "192, 192, 48, 48"
   isSolid: false
   isOpaque: false
@@ -3057,7 +3057,7 @@
 - type: Tile
   id: CobbleCaution
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "240, 192, 48, 48"
   isSolid: false
   isOpaque: false
@@ -3067,7 +3067,7 @@
 - type: Tile
   id: Concrete4
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "288, 192, 48, 48"
   isSolid: false
   isOpaque: false
@@ -3077,7 +3077,7 @@
 - type: Tile
   id: ConcreteTiled
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "336, 192, 48, 48"
   isSolid: false
   isOpaque: false
@@ -3087,7 +3087,7 @@
 - type: Tile
   id: ShopPlatform
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "384, 192, 48, 48"
   isSolid: false
   isOpaque: false
@@ -3097,7 +3097,7 @@
 - type: Tile
   id: MetalDark
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "432, 192, 48, 48"
   isSolid: false
   isOpaque: false
@@ -3107,7 +3107,7 @@
 - type: Tile
   id: CobbleWallRoof
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "576, 192, 48, 48"
   isSolid: false
   isOpaque: false
@@ -3117,7 +3117,7 @@
 - type: Tile
   id: Carpet1
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "672, 192, 48, 48"
   isSolid: false
   isOpaque: false
@@ -3127,7 +3127,7 @@
 - type: Tile
   id: HardwoodBordered
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "720, 192, 48, 48"
   isSolid: false
   isOpaque: false
@@ -3137,7 +3137,7 @@
 - type: Tile
   id: Tatami1
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "768, 192, 48, 48"
   isSolid: false
   isOpaque: false
@@ -3147,7 +3147,7 @@
 - type: Tile
   id: Tatami2
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "816, 192, 48, 48"
   isSolid: false
   isOpaque: false
@@ -3157,7 +3157,7 @@
 - type: Tile
   id: Cyber1
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "864, 192, 48, 48"
   isSolid: false
   isOpaque: false
@@ -3167,7 +3167,7 @@
 - type: Tile
   id: Cyber2
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "912, 192, 48, 48"
   isSolid: false
   isOpaque: false
@@ -3177,7 +3177,7 @@
 - type: Tile
   id: Cyber3
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "960, 192, 48, 48"
   isSolid: false
   isOpaque: false
@@ -3187,7 +3187,7 @@
 - type: Tile
   id: Cyber4
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "1008, 192, 48, 48"
   isSolid: false
   isOpaque: false
@@ -3197,7 +3197,7 @@
 - type: Tile
   id: CarpetNw
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "1152, 192, 48, 48"
   isSolid: false
   isOpaque: false
@@ -3207,7 +3207,7 @@
 - type: Tile
   id: CarpetN
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "1200, 192, 48, 48"
   isSolid: false
   isOpaque: false
@@ -3217,7 +3217,7 @@
 - type: Tile
   id: CarpetNe
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "1248, 192, 48, 48"
   isSolid: false
   isOpaque: false
@@ -3227,7 +3227,7 @@
 - type: Tile
   id: CarpetSw
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "1296, 192, 48, 48"
   isSolid: false
   isOpaque: false
@@ -3237,7 +3237,7 @@
 - type: Tile
   id: CarpetS
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "1344, 192, 48, 48"
   isSolid: false
   isOpaque: false
@@ -3247,7 +3247,7 @@
 - type: Tile
   id: CarpetSe
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "1392, 192, 48, 48"
   isSolid: false
   isOpaque: false
@@ -3257,7 +3257,7 @@
 - type: Tile
   id: Rough11
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "1488, 192, 48, 48"
   isSolid: false
   isOpaque: false
@@ -3267,7 +3267,7 @@
 - type: Tile
   id: Rough12
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "1536, 192, 48, 48"
   isSolid: false
   isOpaque: false
@@ -3277,7 +3277,7 @@
 - type: Tile
   id: AnimeWaterShallow
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "0, 240, 48, 48"
     countX: 3
   kind: Water
@@ -3289,7 +3289,7 @@
 - type: Tile
   id: AnimeWaterSea
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "144, 240, 48, 48"
     countX: 3
   kind: Water
@@ -3301,7 +3301,7 @@
 - type: Tile
   id: AnimeWaterHotSpring
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "288, 240, 48, 48"
     countX: 3
   kind: Water
@@ -3314,7 +3314,7 @@
 - type: Tile
   id: CobbleWall
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "576, 240, 48, 48"
   isSolid: false
   isOpaque: false
@@ -3324,7 +3324,7 @@
 - type: Tile
   id: IceTiled1
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "672, 240, 48, 48"
   isSolid: false
   isOpaque: false
@@ -3334,7 +3334,7 @@
 - type: Tile
   id: IceTiled2
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "720, 240, 48, 48"
   isSolid: false
   isOpaque: false
@@ -3344,7 +3344,7 @@
 - type: Tile
   id: IceTiled4
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "864, 240, 48, 48"
   isSolid: false
   isOpaque: false
@@ -3354,7 +3354,7 @@
 - type: Tile
   id: IceStairs2
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "1008, 240, 48, 48"
   isSolid: false
   isOpaque: false
@@ -3364,7 +3364,7 @@
 - type: Tile
   id: BridgeWe
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "1104, 240, 48, 48"
   isSolid: false
   isOpaque: false
@@ -3374,7 +3374,7 @@
 - type: Tile
   id: RedStairs
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "1152, 240, 48, 48"
   isSolid: false
   isOpaque: false
@@ -3384,7 +3384,7 @@
 - type: Tile
   id: CobbleStairs
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "1200, 240, 48, 48"
   isSolid: false
   isOpaque: false
@@ -3394,7 +3394,7 @@
 - type: Tile
   id: BridgeNs
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "1296, 240, 48, 48"
   isSolid: false
   isOpaque: false
@@ -3404,7 +3404,7 @@
 - type: Tile
   id: CobbleRaised2
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "1344, 240, 48, 48"
   isSolid: false
   isOpaque: false
@@ -3414,7 +3414,7 @@
 - type: Tile
   id: CobbleRaised3
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "1488, 240, 48, 48"
   isSolid: false
   isOpaque: false
@@ -3424,7 +3424,7 @@
 - type: Tile
   id: ChurchFloor
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "0, 288, 48, 48"
   isSolid: false
   isOpaque: false
@@ -3434,7 +3434,7 @@
 - type: Tile
   id: ChurchSymbol
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "48, 288, 48, 48"
   isSolid: false
   isOpaque: false
@@ -3444,7 +3444,7 @@
 - type: Tile
   id: CarpetRed
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "144, 288, 48, 48"
   isSolid: false
   isOpaque: false
@@ -3454,7 +3454,7 @@
 - type: Tile
   id: Tiled
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "192, 288, 48, 48"
   isSolid: false
   isOpaque: false
@@ -3464,7 +3464,7 @@
 - type: Tile
   id: CarpetGreen
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "240, 288, 48, 48"
   isSolid: false
   isOpaque: false
@@ -3474,7 +3474,7 @@
 - type: Tile
   id: CarpetBlue
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "288, 288, 48, 48"
   isSolid: false
   isOpaque: false
@@ -3484,7 +3484,7 @@
 - type: Tile
   id: WoodFloor1
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "336, 288, 48, 48"
   isSolid: false
   isOpaque: false
@@ -3494,7 +3494,7 @@
 - type: Tile
   id: WoodFloor2
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "384, 288, 48, 48"
   isSolid: false
   isOpaque: false
@@ -3504,7 +3504,7 @@
 - type: Tile
   id: WoodFloor4
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "480, 288, 48, 48"
   isSolid: false
   isOpaque: false
@@ -3514,7 +3514,7 @@
 - type: Tile
   id: WoodStair
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "528, 288, 48, 48"
   isSolid: false
   isOpaque: false
@@ -3524,7 +3524,7 @@
 - type: Tile
   id: Marble
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "624, 288, 48, 48"
   isSolid: false
   isOpaque: false
@@ -3534,7 +3534,7 @@
 - type: Tile
   id: Tiled2
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "672, 288, 48, 48"
   isSolid: false
   isOpaque: false
@@ -3544,7 +3544,7 @@
 - type: Tile
   id: GreyFloor
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "720, 288, 48, 48"
   isSolid: false
   isOpaque: false
@@ -3554,7 +3554,7 @@
 - type: Tile
   id: Stair
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "768, 288, 48, 48"
   isSolid: false
   isOpaque: false
@@ -3564,7 +3564,7 @@
 - type: Tile
   id: CobbleStairs2
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "864, 288, 48, 48"
   isSolid: false
   isOpaque: false
@@ -3574,7 +3574,7 @@
 - type: Tile
   id: WoodFloor5
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "960, 288, 48, 48"
   isSolid: false
   isOpaque: false
@@ -3584,7 +3584,7 @@
 - type: Tile
   id: WoodFloor6
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "1008, 288, 48, 48"
   isSolid: false
   isOpaque: false
@@ -3594,7 +3594,7 @@
 - type: Tile
   id: WoodFloor8
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "1104, 288, 48, 48"
   isSolid: false
   isOpaque: false
@@ -3604,7 +3604,7 @@
 - type: Tile
   id: RedFloor
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "1152, 288, 48, 48"
   isSolid: false
   isOpaque: false
@@ -3614,7 +3614,7 @@
 - type: Tile
   id: BlackFloor
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "1200, 288, 48, 48"
   isSolid: false
   isOpaque: false
@@ -3624,7 +3624,7 @@
 - type: Tile
   id: WoodFloor9
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "1248, 288, 48, 48"
   isSolid: false
   isOpaque: false
@@ -3634,7 +3634,7 @@
 - type: Tile
   id: Carpet2
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "1296, 288, 48, 48"
   isSolid: false
   isOpaque: false
@@ -3644,7 +3644,7 @@
 - type: Tile
   id: Carpet4
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "1440, 288, 48, 48"
   isSolid: false
   isOpaque: false
@@ -3654,7 +3654,7 @@
 - type: Tile
   id: Carpet5
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "1488, 288, 48, 48"
   isSolid: false
   isOpaque: false
@@ -3664,7 +3664,7 @@
 - type: Tile
   id: GreenFloor
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "1536, 288, 48, 48"
   isSolid: false
   isOpaque: false
@@ -3674,7 +3674,7 @@
 - type: Tile
   id: LightGrass1
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "0, 480, 48, 48"
   isSolid: false
   isOpaque: false
@@ -3684,7 +3684,7 @@
 - type: Tile
   id: LightGrass2
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "48, 480, 48, 48"
   isSolid: false
   isOpaque: false
@@ -3694,7 +3694,7 @@
 - type: Tile
   id: LightGrass3
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "96, 480, 48, 48"
   isSolid: false
   isOpaque: false
@@ -3704,7 +3704,7 @@
 - type: Tile
   id: LightGrassBush1
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "144, 480, 48, 48"
   isSolid: false
   isOpaque: false
@@ -3714,7 +3714,7 @@
 - type: Tile
   id: LightGrassBush2
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "192, 480, 48, 48"
   isSolid: false
   isOpaque: false
@@ -3724,7 +3724,7 @@
 - type: Tile
   id: LightGrassPlants
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "240, 480, 48, 48"
   isSolid: false
   isOpaque: false
@@ -3734,7 +3734,7 @@
 - type: Tile
   id: LightGrassPatch
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "288, 480, 48, 48"
   isSolid: false
   isOpaque: false
@@ -3744,7 +3744,7 @@
 - type: Tile
   id: LightGrassShrubs
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "336, 480, 48, 48"
   isSolid: false
   isOpaque: false
@@ -3754,7 +3754,7 @@
 - type: Tile
   id: LightGrassBushes
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "384, 480, 48, 48"
   isSolid: false
   isOpaque: false
@@ -3764,7 +3764,7 @@
 - type: Tile
   id: LightGrassCliffSw
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "432, 480, 48, 48"
   isSolid: false
   isOpaque: false
@@ -3774,7 +3774,7 @@
 - type: Tile
   id: LightGrassCliffS
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "480, 480, 48, 48"
   isSolid: false
   isOpaque: false
@@ -3784,7 +3784,7 @@
 - type: Tile
   id: LightGrassCliffSe
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "528, 480, 48, 48"
   isSolid: false
   isOpaque: false
@@ -3794,7 +3794,7 @@
 - type: Tile
   id: LightGrassFlowers
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "576, 480, 48, 48"
   isSolid: false
   isOpaque: false
@@ -3804,7 +3804,7 @@
 - type: Tile
   id: LightGrassDirt
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "624, 480, 48, 48"
   isSolid: false
   isOpaque: false
@@ -3814,7 +3814,7 @@
 - type: Tile
   id: LightGrassCobble1
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "768, 480, 48, 48"
   isSolid: false
   isOpaque: false
@@ -3824,7 +3824,7 @@
 - type: Tile
   id: LightGrassCobble2
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "816, 480, 48, 48"
   isSolid: false
   isOpaque: false
@@ -3834,7 +3834,7 @@
 - type: Tile
   id: LightGrassCobble3
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "864, 480, 48, 48"
   isSolid: false
   isOpaque: false
@@ -3844,7 +3844,7 @@
 - type: Tile
   id: LightGrassCobble4
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "912, 480, 48, 48"
   isSolid: false
   isOpaque: false
@@ -3854,7 +3854,7 @@
 - type: Tile
   id: LightGrassWheel
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "1392, 480, 48, 48"
   isSolid: false
   isOpaque: false
@@ -3864,7 +3864,7 @@
 - type: Tile
   id: LightGrassRailroadTracksNs
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "1440, 480, 48, 48"
   isSolid: false
   isOpaque: false
@@ -3874,7 +3874,7 @@
 - type: Tile
   id: LightGrassRailroadTracksWe
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "1488, 480, 48, 48"
   isSolid: false
   isOpaque: false
@@ -3884,7 +3884,7 @@
 - type: Tile
   id: LightGrassBoulder
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "1536, 480, 48, 48"
   isSolid: false
   isOpaque: false
@@ -3894,12 +3894,12 @@
 - type: Tile
   id: WallOriental
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "0, 576, 48, 48"
   isSolid: true
   isOpaque: true
   Wallimage:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "0, 624, 48, 48"
   elonaAtlas: 1
   elonaId: 396
@@ -3907,12 +3907,12 @@
 - type: Tile
   id: WallBrick
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "48, 576, 48, 48"
   isSolid: true
   isOpaque: true
   Wallimage:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "48, 624, 48, 48"
   elonaAtlas: 1
   elonaId: 397
@@ -3920,12 +3920,12 @@
 - type: Tile
   id: WallRegal
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "96, 576, 48, 48"
   isSolid: true
   isOpaque: true
   Wallimage:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "96, 624, 48, 48"
   elonaAtlas: 1
   elonaId: 398
@@ -3933,12 +3933,12 @@
 - type: Tile
   id: WallPillar
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "144, 576, 48, 48"
   isSolid: true
   isOpaque: true
   Wallimage:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "144, 624, 48, 48"
   elonaAtlas: 1
   elonaId: 399
@@ -3946,12 +3946,12 @@
 - type: Tile
   id: WallLog
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "192, 576, 48, 48"
   isSolid: true
   isOpaque: true
   Wallimage:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "192, 624, 48, 48"
   elonaAtlas: 1
   elonaId: 400
@@ -3959,12 +3959,12 @@
 - type: Tile
   id: WallWood
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "240, 576, 48, 48"
   isSolid: true
   isOpaque: true
   Wallimage:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "240, 624, 48, 48"
   elonaAtlas: 1
   elonaId: 401
@@ -3972,12 +3972,12 @@
 - type: Tile
   id: WallPlank
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "288, 576, 48, 48"
   isSolid: true
   isOpaque: true
   Wallimage:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "288, 624, 48, 48"
   elonaAtlas: 1
   elonaId: 402
@@ -3985,12 +3985,12 @@
 - type: Tile
   id: WallShingle
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "336, 576, 48, 48"
   isSolid: true
   isOpaque: true
   Wallimage:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "336, 624, 48, 48"
   elonaAtlas: 1
   elonaId: 403
@@ -3998,12 +3998,12 @@
 - type: Tile
   id: WallSmooth
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "384, 576, 48, 48"
   isSolid: true
   isOpaque: true
   Wallimage:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "384, 624, 48, 48"
   elonaAtlas: 1
   elonaId: 404
@@ -4011,12 +4011,12 @@
 - type: Tile
   id: WallCurtain
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "432, 576, 48, 48"
   isSolid: true
   isOpaque: true
   Wallimage:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "432, 624, 48, 48"
   elonaAtlas: 1
   elonaId: 405
@@ -4024,12 +4024,12 @@
 - type: Tile
   id: WallMoss
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "480, 576, 48, 48"
   isSolid: true
   isOpaque: true
   Wallimage:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "480, 624, 48, 48"
   elonaAtlas: 1
   elonaId: 406
@@ -4037,12 +4037,12 @@
 - type: Tile
   id: WallCrypt
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "528, 576, 48, 48"
   isSolid: true
   isOpaque: true
   Wallimage:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "528, 624, 48, 48"
   elonaAtlas: 1
   elonaId: 407
@@ -4050,12 +4050,12 @@
 - type: Tile
   id: WallIce1
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "576, 576, 48, 48"
   isSolid: true
   isOpaque: true
   Wallimage:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "576, 624, 48, 48"
   elonaAtlas: 1
   elonaId: 408
@@ -4063,12 +4063,12 @@
 - type: Tile
   id: WallIce2
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "624, 576, 48, 48"
   isSolid: true
   isOpaque: true
   Wallimage:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "624, 624, 48, 48"
   elonaAtlas: 1
   elonaId: 409
@@ -4076,12 +4076,12 @@
 - type: Tile
   id: WallIce3
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "672, 576, 48, 48"
   isSolid: true
   isOpaque: true
   Wallimage:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "672, 624, 48, 48"
   elonaAtlas: 1
   elonaId: 410
@@ -4089,12 +4089,12 @@
 - type: Tile
   id: WallSnow1
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "720, 576, 48, 48"
   isSolid: true
   isOpaque: true
   Wallimage:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "720, 624, 48, 48"
   elonaAtlas: 1
   elonaId: 411
@@ -4102,12 +4102,12 @@
 - type: Tile
   id: WallSnow2
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "768, 576, 48, 48"
   isSolid: true
   isOpaque: true
   Wallimage:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "768, 624, 48, 48"
   elonaAtlas: 1
   elonaId: 412
@@ -4115,12 +4115,12 @@
 - type: Tile
   id: WallSnow3
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "816, 576, 48, 48"
   isSolid: true
   isOpaque: true
   Wallimage:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "816, 624, 48, 48"
   elonaAtlas: 1
   elonaId: 413
@@ -4128,12 +4128,12 @@
 - type: Tile
   id: WallStone1
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "0, 672, 48, 48"
   isSolid: true
   isOpaque: true
   Wallimage:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "0, 720, 48, 48"
   elonaAtlas: 1
   elonaId: 462
@@ -4141,12 +4141,12 @@
 - type: Tile
   id: WallStone2
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "48, 672, 48, 48"
   isSolid: true
   isOpaque: true
   Wallimage:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "48, 720, 48, 48"
   elonaAtlas: 1
   elonaId: 463
@@ -4154,13 +4154,13 @@
 - type: Tile
   id: WallStone3
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "96, 672, 48, 48"
   kind: HardWall
   isSolid: true
   isOpaque: true
   Wallimage:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "96, 720, 48, 48"
   elonaAtlas: 1
   elonaId: 464
@@ -4168,12 +4168,12 @@
 - type: Tile
   id: WallStone4
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "144, 672, 48, 48"
   isSolid: true
   isOpaque: true
   Wallimage:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "144, 720, 48, 48"
   elonaAtlas: 1
   elonaId: 465
@@ -4181,12 +4181,12 @@
 - type: Tile
   id: WallStone5
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "192, 672, 48, 48"
   isSolid: true
   isOpaque: true
   Wallimage:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "192, 720, 48, 48"
   elonaAtlas: 1
   elonaId: 466
@@ -4194,12 +4194,12 @@
 - type: Tile
   id: WallWooden
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "240, 672, 48, 48"
   isSolid: true
   isOpaque: true
   Wallimage:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "240, 720, 48, 48"
   elonaAtlas: 1
   elonaId: 467
@@ -4207,12 +4207,12 @@
 - type: Tile
   id: WallDirt
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "288, 672, 48, 48"
   isSolid: true
   isOpaque: true
   Wallimage:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "288, 720, 48, 48"
   elonaAtlas: 1
   elonaId: 468
@@ -4220,12 +4220,12 @@
 - type: Tile
   id: WallDirtDark
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "336, 672, 48, 48"
   isSolid: true
   isOpaque: true
   Wallimage:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "336, 720, 48, 48"
   elonaAtlas: 1
   elonaId: 469
@@ -4233,12 +4233,12 @@
 - type: Tile
   id: WallPyramid
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "384, 672, 48, 48"
   isSolid: true
   isOpaque: true
   Wallimage:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "384, 720, 48, 48"
   elonaAtlas: 1
   elonaId: 470
@@ -4246,12 +4246,12 @@
 - type: Tile
   id: WallShingled
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "432, 672, 48, 48"
   isSolid: true
   isOpaque: true
   Wallimage:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "432, 720, 48, 48"
   elonaAtlas: 1
   elonaId: 471
@@ -4259,12 +4259,12 @@
 - type: Tile
   id: WallConcrete
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "480, 672, 48, 48"
   isSolid: true
   isOpaque: true
   Wallimage:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "480, 720, 48, 48"
   elonaAtlas: 1
   elonaId: 472
@@ -4272,12 +4272,12 @@
 - type: Tile
   id: WallConcreteLight
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "528, 672, 48, 48"
   isSolid: true
   isOpaque: true
   Wallimage:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "528, 720, 48, 48"
   elonaAtlas: 1
   elonaId: 473
@@ -4285,12 +4285,12 @@
 - type: Tile
   id: WallTowerOfFire
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "576, 672, 48, 48"
   isSolid: true
   isOpaque: true
   Wallimage:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "576, 720, 48, 48"
   elonaAtlas: 1
   elonaId: 474
@@ -4298,12 +4298,12 @@
 - type: Tile
   id: WallForest
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "624, 672, 48, 48"
   isSolid: true
   isOpaque: true
   Wallimage:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "624, 720, 48, 48"
   elonaAtlas: 1
   elonaId: 475
@@ -4311,12 +4311,12 @@
 - type: Tile
   id: WallStone6
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "672, 672, 48, 48"
   isSolid: true
   isOpaque: true
   Wallimage:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "672, 720, 48, 48"
   elonaAtlas: 1
   elonaId: 476
@@ -4324,12 +4324,12 @@
 - type: Tile
   id: WallStone7
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "720, 672, 48, 48"
   isSolid: true
   isOpaque: true
   Wallimage:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "720, 720, 48, 48"
   elonaAtlas: 1
   elonaId: 477
@@ -4337,12 +4337,12 @@
 - type: Tile
   id: WallStone8
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "768, 672, 48, 48"
   isSolid: true
   isOpaque: true
   Wallimage:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "768, 720, 48, 48"
   elonaAtlas: 1
   elonaId: 478
@@ -4350,12 +4350,12 @@
 - type: Tile
   id: WallStone9
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "816, 672, 48, 48"
   isSolid: true
   isOpaque: true
   Wallimage:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "816, 720, 48, 48"
   elonaAtlas: 1
   elonaId: 479
@@ -4363,12 +4363,12 @@
 - type: Tile
   id: WallStone10
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "864, 672, 48, 48"
   isSolid: true
   isOpaque: true
   Wallimage:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "864, 720, 48, 48"
   elonaAtlas: 1
   elonaId: 480
@@ -4376,12 +4376,12 @@
 - type: Tile
   id: WallHay
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "912, 672, 48, 48"
   isSolid: true
   isOpaque: true
   Wallimage:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "912, 720, 48, 48"
   elonaAtlas: 1
   elonaId: 481
@@ -4389,12 +4389,12 @@
 - type: Tile
   id: WallDecor
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "960, 672, 48, 48"
   isSolid: true
   isOpaque: true
   Wallimage:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "960, 720, 48, 48"
   elonaAtlas: 1
   elonaId: 482
@@ -4402,12 +4402,12 @@
 - type: Tile
   id: WallPalace1
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "1008, 672, 48, 48"
   isSolid: true
   isOpaque: true
   Wallimage:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "1008, 720, 48, 48"
   elonaAtlas: 1
   elonaId: 483
@@ -4415,12 +4415,12 @@
 - type: Tile
   id: WallPalace2
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "1056, 672, 48, 48"
   isSolid: true
   isOpaque: true
   Wallimage:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "1056, 720, 48, 48"
   elonaAtlas: 1
   elonaId: 484
@@ -4428,12 +4428,12 @@
 - type: Tile
   id: WallPalace3
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "1104, 672, 48, 48"
   isSolid: true
   isOpaque: true
   Wallimage:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "1104, 720, 48, 48"
   elonaAtlas: 1
   elonaId: 485
@@ -4441,12 +4441,12 @@
 - type: Tile
   id: WallStone11
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "1152, 672, 48, 48"
   isSolid: true
   isOpaque: true
   Wallimage:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "1152, 720, 48, 48"
   elonaAtlas: 1
   elonaId: 486
@@ -4454,12 +4454,12 @@
 - type: Tile
   id: WallCyber
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "1200, 672, 48, 48"
   isSolid: true
   isOpaque: true
   Wallimage:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "1200, 720, 48, 48"
   elonaAtlas: 1
   elonaId: 487
@@ -4467,12 +4467,12 @@
 - type: Tile
   id: WallStone12
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "1248, 672, 48, 48"
   isSolid: true
   isOpaque: true
   Wallimage:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "1248, 720, 48, 48"
   elonaAtlas: 1
   elonaId: 488
@@ -4480,12 +4480,12 @@
 - type: Tile
   id: WallWhite
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "1296, 672, 48, 48"
   isSolid: true
   isOpaque: true
   Wallimage:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "1296, 720, 48, 48"
   elonaAtlas: 1
   elonaId: 489
@@ -4493,12 +4493,12 @@
 - type: Tile
   id: WallDecor2
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "1344, 672, 48, 48"
   isSolid: true
   isOpaque: true
   Wallimage:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "1344, 720, 48, 48"
   elonaAtlas: 1
   elonaId: 490
@@ -4506,12 +4506,12 @@
 - type: Tile
   id: WallConcrete2
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "1392, 672, 48, 48"
   isSolid: true
   isOpaque: true
   Wallimage:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "1392, 720, 48, 48"
   elonaAtlas: 1
   elonaId: 491
@@ -4519,12 +4519,12 @@
 - type: Tile
   id: WallConcrete3
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "1440, 672, 48, 48"
   isSolid: true
   isOpaque: true
   Wallimage:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "1440, 720, 48, 48"
   elonaAtlas: 1
   elonaId: 492
@@ -4532,12 +4532,12 @@
 - type: Tile
   id: WallConcreteDark1
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "1488, 672, 48, 48"
   isSolid: true
   isOpaque: true
   Wallimage:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "1488, 720, 48, 48"
   elonaAtlas: 1
   elonaId: 493
@@ -4545,12 +4545,12 @@
 - type: Tile
   id: WallConcreteDark2
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "1536, 672, 48, 48"
   isSolid: true
   isOpaque: true
   Wallimage:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "1536, 720, 48, 48"
   elonaAtlas: 1
   elonaId: 494
@@ -4558,7 +4558,7 @@
 - type: Tile
   id: WallStone1Fog
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "0, 768, 48, 48"
   isSolid: true
   isOpaque: true
@@ -4568,7 +4568,7 @@
 - type: Tile
   id: WallStone2Fog
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "48, 768, 48, 48"
   isSolid: true
   isOpaque: true
@@ -4578,7 +4578,7 @@
 - type: Tile
   id: WallStone3Fog
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "96, 768, 48, 48"
   isSolid: true
   isOpaque: true
@@ -4588,7 +4588,7 @@
 - type: Tile
   id: WallStone4Fog
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "144, 768, 48, 48"
   isSolid: true
   isOpaque: true
@@ -4598,7 +4598,7 @@
 - type: Tile
   id: WallStone5Fog
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "192, 768, 48, 48"
   isSolid: true
   isOpaque: true
@@ -4608,7 +4608,7 @@
 - type: Tile
   id: WallWoodenFog
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "240, 768, 48, 48"
   isSolid: true
   isOpaque: true
@@ -4618,7 +4618,7 @@
 - type: Tile
   id: WallDirtFog
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "288, 768, 48, 48"
   isSolid: true
   isOpaque: true
@@ -4628,7 +4628,7 @@
 - type: Tile
   id: WallDirtDarkFog
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "336, 768, 48, 48"
   isSolid: true
   isOpaque: true
@@ -4638,7 +4638,7 @@
 - type: Tile
   id: WallPyramidFog
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "384, 768, 48, 48"
   isSolid: true
   isOpaque: true
@@ -4648,7 +4648,7 @@
 - type: Tile
   id: WallShingledFog
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "432, 768, 48, 48"
   isSolid: true
   isOpaque: true
@@ -4658,7 +4658,7 @@
 - type: Tile
   id: WallConcreteFog
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "480, 768, 48, 48"
   isSolid: true
   isOpaque: true
@@ -4668,7 +4668,7 @@
 - type: Tile
   id: WallConcreteLightFog
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "528, 768, 48, 48"
   isSolid: true
   isOpaque: true
@@ -4678,7 +4678,7 @@
 - type: Tile
   id: WallTowerOfFireFog
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "576, 768, 48, 48"
   isSolid: true
   isOpaque: true
@@ -4688,7 +4688,7 @@
 - type: Tile
   id: WallForestFog
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "624, 768, 48, 48"
   isSolid: true
   isOpaque: true
@@ -4698,7 +4698,7 @@
 - type: Tile
   id: WallStone6Fog
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "672, 768, 48, 48"
   isSolid: true
   isOpaque: true
@@ -4708,7 +4708,7 @@
 - type: Tile
   id: WallStone7Fog
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "720, 768, 48, 48"
   isSolid: true
   isOpaque: true
@@ -4718,7 +4718,7 @@
 - type: Tile
   id: WallStone8Fog
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "768, 768, 48, 48"
   isSolid: true
   isOpaque: true
@@ -4728,7 +4728,7 @@
 - type: Tile
   id: StableTop
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "816, 768, 48, 48"
   isSolid: true
   isOpaque: true
@@ -4738,7 +4738,7 @@
 - type: Tile
   id: PalaceFountain
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "1056, 768, 48, 48"
     countX: 2
   isSolid: true
@@ -4749,7 +4749,7 @@
 - type: Tile
   id: LightGrassCarts
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "144, 816, 48, 48"
   isSolid: true
   isOpaque: true
@@ -4759,7 +4759,7 @@
 - type: Tile
   id: LightGrassCartsGold
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "192, 816, 48, 48"
   isSolid: true
   isOpaque: true
@@ -4769,7 +4769,7 @@
 - type: Tile
   id: LightGrassCartsJewels
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "240, 816, 48, 48"
   isSolid: true
   isOpaque: true
@@ -4779,7 +4779,7 @@
 - type: Tile
   id: LightGrassCartsRocks
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "288, 816, 48, 48"
   isSolid: true
   isOpaque: true
@@ -4789,7 +4789,7 @@
 - type: Tile
   id: LightGrassRocks
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "336, 816, 48, 48"
   isSolid: true
   isOpaque: true
@@ -4799,7 +4799,7 @@
 - type: Tile
   id: LightGrassFencingNs
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "528, 816, 48, 48"
   isSolid: true
   isOpaque: true
@@ -4809,7 +4809,7 @@
 - type: Tile
   id: LightGrassFencingWe
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "576, 816, 48, 48"
   isSolid: true
   isOpaque: true
@@ -4819,7 +4819,7 @@
 - type: Tile
   id: GrassFencingNs
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "624, 816, 48, 48"
   isSolid: true
   isOpaque: true
@@ -4829,7 +4829,7 @@
 - type: Tile
   id: GrassFencingWe
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "672, 816, 48, 48"
   isSolid: true
   isOpaque: true
@@ -4839,7 +4839,7 @@
 - type: Tile
   id: StableBottom
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "720, 816, 48, 48"
   isSolid: true
   isOpaque: true
@@ -4849,7 +4849,7 @@
 - type: Tile
   id: HorseBottom
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "768, 816, 48, 48"
   isSolid: true
   isOpaque: true
@@ -4859,7 +4859,7 @@
 - type: Tile
   id: Water
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "0, 864, 48, 48"
     countX: 3
   kind: Water
@@ -4871,7 +4871,7 @@
 - type: Tile
   id: LightGrassBox
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "0, 912, 48, 48"
   isSolid: true
   isOpaque: true
@@ -4881,7 +4881,7 @@
 - type: Tile
   id: WaterWallEdge
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "48, 912, 48, 48"
   isSolid: true
   isOpaque: false
@@ -4891,7 +4891,7 @@
 - type: Tile
   id: CobbleDiagonalFish
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "96, 912, 48, 48"
   isSolid: true
   isOpaque: true
@@ -4901,7 +4901,7 @@
 - type: Tile
   id: CobbleDiagonalPosts
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "144, 912, 48, 48"
   isSolid: true
   isOpaque: true
@@ -4911,7 +4911,7 @@
 - type: Tile
   id: CratesOpen
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "192, 912, 48, 48"
   isSolid: true
   isOpaque: true
@@ -4921,7 +4921,7 @@
 - type: Tile
   id: Crates
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "240, 912, 48, 48"
   isSolid: true
   isOpaque: true
@@ -4931,7 +4931,7 @@
 - type: Tile
   id: WharfCrates1
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "288, 912, 48, 48"
   isSolid: true
   isOpaque: true
@@ -4941,7 +4941,7 @@
 - type: Tile
   id: WharfCrates2
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "336, 912, 48, 48"
   isSolid: true
   isOpaque: true
@@ -4951,7 +4951,7 @@
 - type: Tile
   id: CobbleDiagonalNet
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "384, 912, 48, 48"
   isSolid: true
   isOpaque: true
@@ -4961,7 +4961,7 @@
 - type: Tile
   id: CobbleStatue
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "432, 912, 48, 48"
   isSolid: true
   isOpaque: true
@@ -4971,7 +4971,7 @@
 - type: Tile
   id: WaterWallEdgeGrass
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "480, 912, 48, 48"
   isSolid: true
   isOpaque: false
@@ -4981,7 +4981,7 @@
 - type: Tile
   id: CobblePillar
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "528, 912, 48, 48"
   isSolid: true
   isOpaque: true
@@ -4991,7 +4991,7 @@
 - type: Tile
   id: Carpet3FishBoards
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "576, 912, 48, 48"
   isSolid: true
   isOpaque: true
@@ -5001,7 +5001,7 @@
 - type: Tile
   id: CobbleFence
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "672, 912, 48, 48"
   isSolid: true
   isOpaque: false
@@ -5011,7 +5011,7 @@
 - type: Tile
   id: SignMagic
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "912, 912, 48, 48"
   isSolid: true
   isOpaque: true
@@ -5021,7 +5021,7 @@
 - type: Tile
   id: SignInn
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "960, 912, 48, 48"
   isSolid: true
   isOpaque: true
@@ -5031,7 +5031,7 @@
 - type: Tile
   id: SignEquip
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "1008, 912, 48, 48"
   isSolid: true
   isOpaque: true
@@ -5041,7 +5041,7 @@
 - type: Tile
   id: SignBlacksmith
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "1152, 912, 48, 48"
   isSolid: true
   isOpaque: true
@@ -5051,7 +5051,7 @@
 - type: Tile
   id: SignGeneralVendor
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "1200, 912, 48, 48"
   isSolid: true
   isOpaque: true
@@ -5061,7 +5061,7 @@
 - type: Tile
   id: SignShield
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "1296, 912, 48, 48"
   isSolid: true
   isOpaque: true
@@ -5071,7 +5071,7 @@
 - type: Tile
   id: SignPotion
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "1344, 912, 48, 48"
   isSolid: true
   isOpaque: true
@@ -5081,7 +5081,7 @@
 - type: Tile
   id: SignLamp
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "1392, 912, 48, 48"
   isSolid: true
   isOpaque: true
@@ -5091,7 +5091,7 @@
 - type: Tile
   id: SignBakery
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "1440, 912, 48, 48"
   isSolid: true
   isOpaque: true
@@ -5101,7 +5101,7 @@
 - type: Tile
   id: SignPub
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "1488, 912, 48, 48"
   isSolid: true
   isOpaque: true
@@ -5111,7 +5111,7 @@
 - type: Tile
   id: SignCasino
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "1536, 912, 48, 48"
   isSolid: true
   isOpaque: true
@@ -5121,7 +5121,7 @@
 - type: Tile
   id: StackedWood
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "96, 960, 48, 48"
   isSolid: true
   isOpaque: true
@@ -5131,7 +5131,7 @@
 - type: Tile
   id: StackedSacks
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "144, 960, 48, 48"
   isSolid: true
   isOpaque: true
@@ -5141,7 +5141,7 @@
 - type: Tile
   id: StackedCratesGreen
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "192, 960, 48, 48"
   isSolid: true
   isOpaque: true
@@ -5151,7 +5151,7 @@
 - type: Tile
   id: StackedCrates
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "240, 960, 48, 48"
   isSolid: true
   isOpaque: true
@@ -5161,7 +5161,7 @@
 - type: Tile
   id: SnowLargeMound
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "288, 960, 48, 48"
   isSolid: true
   isOpaque: true
@@ -5171,7 +5171,7 @@
 - type: Tile
   id: CobbleRaised4
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "336, 960, 48, 48"
   isSolid: true
   isOpaque: true
@@ -5181,7 +5181,7 @@
 - type: Tile
   id: SnowLog
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "384, 960, 48, 48"
   isSolid: true
   isOpaque: true
@@ -5191,7 +5191,7 @@
 - type: Tile
   id: IceWallEdge
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "432, 960, 48, 48"
   isSolid: true
   isOpaque: true
@@ -5201,7 +5201,7 @@
 - type: Tile
   id: BoatLeft
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "1440, 960, 48, 48"
   isSolid: true
   isOpaque: true
@@ -5211,7 +5211,7 @@
 - type: Tile
   id: BoatRight
   image:
-    filepath: Assets/Elona/Graphic/map1.bmp
+    filepath: /Elona/Graphic/map1.bmp
     region: "1488, 960, 48, 48"
   isSolid: true
   isOpaque: true
@@ -5221,7 +5221,7 @@
 - type: Tile
   id: Onii1
   image:
-    filepath: Assets/Elona/Graphic/map2.bmp
+    filepath: /Elona/Graphic/map2.bmp
     region: "1056, 0, 48, 48"
   kind: Snow
   isSolid: false
@@ -5232,7 +5232,7 @@
 - type: Tile
   id: Onii2
   image:
-    filepath: Assets/Elona/Graphic/map2.bmp
+    filepath: /Elona/Graphic/map2.bmp
     region: "1104, 0, 48, 48"
   kind: Snow
   isSolid: false
@@ -5243,7 +5243,7 @@
 - type: Tile
   id: Onii3
   image:
-    filepath: Assets/Elona/Graphic/map2.bmp
+    filepath: /Elona/Graphic/map2.bmp
     region: "1152, 0, 48, 48"
   kind: Snow
   isSolid: false
@@ -5254,7 +5254,7 @@
 - type: Tile
   id: Onii4
   image:
-    filepath: Assets/Elona/Graphic/map2.bmp
+    filepath: /Elona/Graphic/map2.bmp
     region: "1248, 0, 48, 48"
   kind: Snow
   isSolid: false
@@ -5265,7 +5265,7 @@
 - type: Tile
   id: Onii5
   image:
-    filepath: Assets/Elona/Graphic/map2.bmp
+    filepath: /Elona/Graphic/map2.bmp
     region: "1296, 0, 48, 48"
   kind: Snow
   isSolid: false
@@ -5276,7 +5276,7 @@
 - type: Tile
   id: Onii6
   image:
-    filepath: Assets/Elona/Graphic/map2.bmp
+    filepath: /Elona/Graphic/map2.bmp
     region: "1344, 0, 48, 48"
   kind: Snow
   isSolid: false
@@ -5287,7 +5287,7 @@
 - type: Tile
   id: Onii7
   image:
-    filepath: Assets/Elona/Graphic/map2.bmp
+    filepath: /Elona/Graphic/map2.bmp
     region: "1392, 0, 48, 48"
   kind: Snow
   isSolid: false
@@ -5298,7 +5298,7 @@
 - type: Tile
   id: Onii8
   image:
-    filepath: Assets/Elona/Graphic/map2.bmp
+    filepath: /Elona/Graphic/map2.bmp
     region: "1440, 0, 48, 48"
   kind: Snow
   isSolid: false
@@ -5309,7 +5309,7 @@
 - type: Tile
   id: Onii9
   image:
-    filepath: Assets/Elona/Graphic/map2.bmp
+    filepath: /Elona/Graphic/map2.bmp
     region: "1488, 0, 48, 48"
   kind: Snow
   isSolid: false
@@ -5320,7 +5320,7 @@
 - type: Tile
   id: SnowCracksAtlas2
   image:
-    filepath: Assets/Elona/Graphic/map2.bmp
+    filepath: /Elona/Graphic/map2.bmp
     region: "48, 48, 48, 48"
   kind: Snow
   isSolid: false
@@ -5331,7 +5331,7 @@
 - type: Tile
   id: SnowGrassAtlas2
   image:
-    filepath: Assets/Elona/Graphic/map2.bmp
+    filepath: /Elona/Graphic/map2.bmp
     region: "144, 48, 48, 48"
   kind: Snow
   isSolid: false
@@ -5342,7 +5342,7 @@
 - type: Tile
   id: SnowPillarAtlas2
   image:
-    filepath: Assets/Elona/Graphic/map2.bmp
+    filepath: /Elona/Graphic/map2.bmp
     region: "528, 48, 48, 48"
   kind: Snow
   isSolid: false
@@ -5353,7 +5353,7 @@
 - type: Tile
   id: SnowPlantsAtlas2
   image:
-    filepath: Assets/Elona/Graphic/map2.bmp
+    filepath: /Elona/Graphic/map2.bmp
     region: "864, 48, 48, 48"
   kind: Snow
   isSolid: false
@@ -5364,7 +5364,7 @@
 - type: Tile
   id: Onii10
   image:
-    filepath: Assets/Elona/Graphic/map2.bmp
+    filepath: /Elona/Graphic/map2.bmp
     region: "960, 48, 48, 48"
   kind: Snow
   isSolid: false
@@ -5375,7 +5375,7 @@
 - type: Tile
   id: Onii11
   image:
-    filepath: Assets/Elona/Graphic/map2.bmp
+    filepath: /Elona/Graphic/map2.bmp
     region: "1008, 48, 48, 48"
   kind: Snow
   isSolid: false
@@ -5386,7 +5386,7 @@
 - type: Tile
   id: Onii12
   image:
-    filepath: Assets/Elona/Graphic/map2.bmp
+    filepath: /Elona/Graphic/map2.bmp
     region: "1056, 48, 48, 48"
   kind: Snow
   isSolid: false
@@ -5397,7 +5397,7 @@
 - type: Tile
   id: Onii13
   image:
-    filepath: Assets/Elona/Graphic/map2.bmp
+    filepath: /Elona/Graphic/map2.bmp
     region: "1104, 48, 48, 48"
   kind: Snow
   isSolid: false
@@ -5408,7 +5408,7 @@
 - type: Tile
   id: Onii14
   image:
-    filepath: Assets/Elona/Graphic/map2.bmp
+    filepath: /Elona/Graphic/map2.bmp
     region: "1152, 48, 48, 48"
   kind: Snow
   isSolid: false
@@ -5419,7 +5419,7 @@
 - type: Tile
   id: Onii15
   image:
-    filepath: Assets/Elona/Graphic/map2.bmp
+    filepath: /Elona/Graphic/map2.bmp
     region: "1200, 48, 48, 48"
   kind: Snow
   isSolid: false
@@ -5430,7 +5430,7 @@
 - type: Tile
   id: Onii16
   image:
-    filepath: Assets/Elona/Graphic/map2.bmp
+    filepath: /Elona/Graphic/map2.bmp
     region: "1296, 48, 48, 48"
   kind: Snow
   isSolid: false
@@ -5441,7 +5441,7 @@
 - type: Tile
   id: Onii17
   image:
-    filepath: Assets/Elona/Graphic/map2.bmp
+    filepath: /Elona/Graphic/map2.bmp
     region: "1344, 48, 48, 48"
   kind: Snow
   isSolid: false
@@ -5452,7 +5452,7 @@
 - type: Tile
   id: Onii18
   image:
-    filepath: Assets/Elona/Graphic/map2.bmp
+    filepath: /Elona/Graphic/map2.bmp
     region: "1392, 48, 48, 48"
   kind: Snow
   isSolid: false
@@ -5463,7 +5463,7 @@
 - type: Tile
   id: Onii19
   image:
-    filepath: Assets/Elona/Graphic/map2.bmp
+    filepath: /Elona/Graphic/map2.bmp
     region: "1440, 48, 48, 48"
   kind: Snow
   isSolid: false
@@ -5474,7 +5474,7 @@
 - type: Tile
   id: Onii20
   image:
-    filepath: Assets/Elona/Graphic/map2.bmp
+    filepath: /Elona/Graphic/map2.bmp
     region: "1488, 48, 48, 48"
   kind: Snow
   isSolid: false
@@ -5485,7 +5485,7 @@
 - type: Tile
   id: Onii21
   image:
-    filepath: Assets/Elona/Graphic/map2.bmp
+    filepath: /Elona/Graphic/map2.bmp
     region: "1536, 48, 48, 48"
   kind: Snow
   isSolid: false
@@ -5496,7 +5496,7 @@
 - type: Tile
   id: Onii22
   image:
-    filepath: Assets/Elona/Graphic/map2.bmp
+    filepath: /Elona/Graphic/map2.bmp
     region: "960, 96, 48, 48"
   kind: Snow
   isSolid: false
@@ -5507,7 +5507,7 @@
 - type: Tile
   id: Onii23
   image:
-    filepath: Assets/Elona/Graphic/map2.bmp
+    filepath: /Elona/Graphic/map2.bmp
     region: "1008, 96, 48, 48"
   kind: Snow
   isSolid: false
@@ -5518,7 +5518,7 @@
 - type: Tile
   id: Onii24
   image:
-    filepath: Assets/Elona/Graphic/map2.bmp
+    filepath: /Elona/Graphic/map2.bmp
     region: "1056, 96, 48, 48"
   kind: Snow
   isSolid: false
@@ -5529,7 +5529,7 @@
 - type: Tile
   id: Onii25
   image:
-    filepath: Assets/Elona/Graphic/map2.bmp
+    filepath: /Elona/Graphic/map2.bmp
     region: "1104, 96, 48, 48"
   kind: Snow
   isSolid: false
@@ -5540,7 +5540,7 @@
 - type: Tile
   id: Onii26
   image:
-    filepath: Assets/Elona/Graphic/map2.bmp
+    filepath: /Elona/Graphic/map2.bmp
     region: "1152, 96, 48, 48"
   kind: Snow
   isSolid: false
@@ -5551,7 +5551,7 @@
 - type: Tile
   id: Onii27
   image:
-    filepath: Assets/Elona/Graphic/map2.bmp
+    filepath: /Elona/Graphic/map2.bmp
     region: "1200, 96, 48, 48"
   kind: Snow
   isSolid: false
@@ -5562,7 +5562,7 @@
 - type: Tile
   id: Onii28
   image:
-    filepath: Assets/Elona/Graphic/map2.bmp
+    filepath: /Elona/Graphic/map2.bmp
     region: "1248, 96, 48, 48"
   kind: Snow
   isSolid: false
@@ -5573,7 +5573,7 @@
 - type: Tile
   id: Onii29
   image:
-    filepath: Assets/Elona/Graphic/map2.bmp
+    filepath: /Elona/Graphic/map2.bmp
     region: "1296, 96, 48, 48"
   kind: Snow
   isSolid: false
@@ -5584,7 +5584,7 @@
 - type: Tile
   id: Onii30
   image:
-    filepath: Assets/Elona/Graphic/map2.bmp
+    filepath: /Elona/Graphic/map2.bmp
     region: "1344, 96, 48, 48"
   kind: Snow
   isSolid: false
@@ -5595,7 +5595,7 @@
 - type: Tile
   id: Onii31
   image:
-    filepath: Assets/Elona/Graphic/map2.bmp
+    filepath: /Elona/Graphic/map2.bmp
     region: "1392, 96, 48, 48"
   kind: Snow
   isSolid: false
@@ -5606,7 +5606,7 @@
 - type: Tile
   id: Onii32
   image:
-    filepath: Assets/Elona/Graphic/map2.bmp
+    filepath: /Elona/Graphic/map2.bmp
     region: "1440, 96, 48, 48"
   kind: Snow
   isSolid: false
@@ -5617,7 +5617,7 @@
 - type: Tile
   id: Onii33
   image:
-    filepath: Assets/Elona/Graphic/map2.bmp
+    filepath: /Elona/Graphic/map2.bmp
     region: "1488, 96, 48, 48"
   kind: Snow
   isSolid: false
@@ -5628,7 +5628,7 @@
 - type: Tile
   id: Onii34
   image:
-    filepath: Assets/Elona/Graphic/map2.bmp
+    filepath: /Elona/Graphic/map2.bmp
     region: "1536, 96, 48, 48"
   kind: Snow
   isSolid: false
@@ -5639,7 +5639,7 @@
 - type: Tile
   id: Onii35
   image:
-    filepath: Assets/Elona/Graphic/map2.bmp
+    filepath: /Elona/Graphic/map2.bmp
     region: "960, 144, 48, 48"
   kind: Snow
   isSolid: false
@@ -5650,7 +5650,7 @@
 - type: Tile
   id: Onii36
   image:
-    filepath: Assets/Elona/Graphic/map2.bmp
+    filepath: /Elona/Graphic/map2.bmp
     region: "1008, 144, 48, 48"
   kind: Snow
   isSolid: false
@@ -5661,7 +5661,7 @@
 - type: Tile
   id: Onii37
   image:
-    filepath: Assets/Elona/Graphic/map2.bmp
+    filepath: /Elona/Graphic/map2.bmp
     region: "1056, 144, 48, 48"
   kind: Snow
   isSolid: false
@@ -5672,7 +5672,7 @@
 - type: Tile
   id: Onii38
   image:
-    filepath: Assets/Elona/Graphic/map2.bmp
+    filepath: /Elona/Graphic/map2.bmp
     region: "1104, 144, 48, 48"
   kind: Snow
   isSolid: false
@@ -5683,7 +5683,7 @@
 - type: Tile
   id: Onii39
   image:
-    filepath: Assets/Elona/Graphic/map2.bmp
+    filepath: /Elona/Graphic/map2.bmp
     region: "1152, 144, 48, 48"
   kind: Snow
   isSolid: false
@@ -5694,7 +5694,7 @@
 - type: Tile
   id: Onii40
   image:
-    filepath: Assets/Elona/Graphic/map2.bmp
+    filepath: /Elona/Graphic/map2.bmp
     region: "1200, 144, 48, 48"
   kind: Snow
   isSolid: false
@@ -5705,7 +5705,7 @@
 - type: Tile
   id: Onii41
   image:
-    filepath: Assets/Elona/Graphic/map2.bmp
+    filepath: /Elona/Graphic/map2.bmp
     region: "1248, 144, 48, 48"
   kind: Snow
   isSolid: false
@@ -5716,7 +5716,7 @@
 - type: Tile
   id: Onii42
   image:
-    filepath: Assets/Elona/Graphic/map2.bmp
+    filepath: /Elona/Graphic/map2.bmp
     region: "1296, 144, 48, 48"
   kind: Snow
   isSolid: false
@@ -5727,7 +5727,7 @@
 - type: Tile
   id: Onii43
   image:
-    filepath: Assets/Elona/Graphic/map2.bmp
+    filepath: /Elona/Graphic/map2.bmp
     region: "1344, 144, 48, 48"
   kind: Snow
   isSolid: false
@@ -5738,7 +5738,7 @@
 - type: Tile
   id: Onii44
   image:
-    filepath: Assets/Elona/Graphic/map2.bmp
+    filepath: /Elona/Graphic/map2.bmp
     region: "1392, 144, 48, 48"
   kind: Snow
   isSolid: false
@@ -5749,7 +5749,7 @@
 - type: Tile
   id: Onii45
   image:
-    filepath: Assets/Elona/Graphic/map2.bmp
+    filepath: /Elona/Graphic/map2.bmp
     region: "1440, 144, 48, 48"
   kind: Snow
   isSolid: false
@@ -5760,7 +5760,7 @@
 - type: Tile
   id: Onii46
   image:
-    filepath: Assets/Elona/Graphic/map2.bmp
+    filepath: /Elona/Graphic/map2.bmp
     region: "1488, 144, 48, 48"
   kind: Snow
   isSolid: false
@@ -5771,7 +5771,7 @@
 - type: Tile
   id: Onii47
   image:
-    filepath: Assets/Elona/Graphic/map2.bmp
+    filepath: /Elona/Graphic/map2.bmp
     region: "1536, 144, 48, 48"
   kind: Snow
   isSolid: false
@@ -5782,7 +5782,7 @@
 - type: Tile
   id: Onii48
   image:
-    filepath: Assets/Elona/Graphic/map2.bmp
+    filepath: /Elona/Graphic/map2.bmp
     region: "960, 192, 48, 48"
   kind: Snow
   isSolid: false
@@ -5793,7 +5793,7 @@
 - type: Tile
   id: Onii49
   image:
-    filepath: Assets/Elona/Graphic/map2.bmp
+    filepath: /Elona/Graphic/map2.bmp
     region: "1008, 192, 48, 48"
   kind: Snow
   isSolid: false
@@ -5804,7 +5804,7 @@
 - type: Tile
   id: Onii50
   image:
-    filepath: Assets/Elona/Graphic/map2.bmp
+    filepath: /Elona/Graphic/map2.bmp
     region: "1056, 192, 48, 48"
   kind: Snow
   isSolid: false
@@ -5815,7 +5815,7 @@
 - type: Tile
   id: Onii51
   image:
-    filepath: Assets/Elona/Graphic/map2.bmp
+    filepath: /Elona/Graphic/map2.bmp
     region: "1104, 192, 48, 48"
   kind: Snow
   isSolid: false
@@ -5826,7 +5826,7 @@
 - type: Tile
   id: Onii52
   image:
-    filepath: Assets/Elona/Graphic/map2.bmp
+    filepath: /Elona/Graphic/map2.bmp
     region: "1152, 192, 48, 48"
   kind: Snow
   isSolid: false
@@ -5837,7 +5837,7 @@
 - type: Tile
   id: Onii53
   image:
-    filepath: Assets/Elona/Graphic/map2.bmp
+    filepath: /Elona/Graphic/map2.bmp
     region: "1200, 192, 48, 48"
   kind: Snow
   isSolid: false
@@ -5848,7 +5848,7 @@
 - type: Tile
   id: Onii54
   image:
-    filepath: Assets/Elona/Graphic/map2.bmp
+    filepath: /Elona/Graphic/map2.bmp
     region: "1296, 192, 48, 48"
   kind: Snow
   isSolid: false
@@ -5859,7 +5859,7 @@
 - type: Tile
   id: Onii55
   image:
-    filepath: Assets/Elona/Graphic/map2.bmp
+    filepath: /Elona/Graphic/map2.bmp
     region: "1344, 192, 48, 48"
   kind: Snow
   isSolid: false
@@ -5870,7 +5870,7 @@
 - type: Tile
   id: Onii56
   image:
-    filepath: Assets/Elona/Graphic/map2.bmp
+    filepath: /Elona/Graphic/map2.bmp
     region: "1392, 192, 48, 48"
   kind: Snow
   isSolid: false
@@ -5881,7 +5881,7 @@
 - type: Tile
   id: Onii57
   image:
-    filepath: Assets/Elona/Graphic/map2.bmp
+    filepath: /Elona/Graphic/map2.bmp
     region: "1440, 192, 48, 48"
   kind: Snow
   isSolid: false
@@ -5892,7 +5892,7 @@
 - type: Tile
   id: Onii58
   image:
-    filepath: Assets/Elona/Graphic/map2.bmp
+    filepath: /Elona/Graphic/map2.bmp
     region: "1488, 192, 48, 48"
   kind: Snow
   isSolid: false
@@ -5903,7 +5903,7 @@
 - type: Tile
   id: Onii59
   image:
-    filepath: Assets/Elona/Graphic/map2.bmp
+    filepath: /Elona/Graphic/map2.bmp
     region: "1536, 192, 48, 48"
   kind: Snow
   isSolid: false
@@ -5914,7 +5914,7 @@
 - type: Tile
   id: Onii60
   image:
-    filepath: Assets/Elona/Graphic/map2.bmp
+    filepath: /Elona/Graphic/map2.bmp
     region: "960, 240, 48, 48"
   kind: Snow
   isSolid: false
@@ -5925,7 +5925,7 @@
 - type: Tile
   id: Onii61
   image:
-    filepath: Assets/Elona/Graphic/map2.bmp
+    filepath: /Elona/Graphic/map2.bmp
     region: "1008, 240, 48, 48"
   kind: Snow
   isSolid: false
@@ -5936,7 +5936,7 @@
 - type: Tile
   id: Onii62
   image:
-    filepath: Assets/Elona/Graphic/map2.bmp
+    filepath: /Elona/Graphic/map2.bmp
     region: "1056, 240, 48, 48"
   kind: Snow
   isSolid: false
@@ -5947,7 +5947,7 @@
 - type: Tile
   id: Onii63
   image:
-    filepath: Assets/Elona/Graphic/map2.bmp
+    filepath: /Elona/Graphic/map2.bmp
     region: "1104, 240, 48, 48"
   kind: Snow
   isSolid: false
@@ -5958,7 +5958,7 @@
 - type: Tile
   id: Onii64
   image:
-    filepath: Assets/Elona/Graphic/map2.bmp
+    filepath: /Elona/Graphic/map2.bmp
     region: "1152, 240, 48, 48"
   kind: Snow
   isSolid: false
@@ -5969,7 +5969,7 @@
 - type: Tile
   id: Onii65
   image:
-    filepath: Assets/Elona/Graphic/map2.bmp
+    filepath: /Elona/Graphic/map2.bmp
     region: "1200, 240, 48, 48"
   kind: Snow
   isSolid: false
@@ -5980,7 +5980,7 @@
 - type: Tile
   id: Onii66
   image:
-    filepath: Assets/Elona/Graphic/map2.bmp
+    filepath: /Elona/Graphic/map2.bmp
     region: "1296, 240, 48, 48"
   kind: Snow
   isSolid: false
@@ -5991,7 +5991,7 @@
 - type: Tile
   id: Onii67
   image:
-    filepath: Assets/Elona/Graphic/map2.bmp
+    filepath: /Elona/Graphic/map2.bmp
     region: "1344, 240, 48, 48"
   kind: Snow
   isSolid: false
@@ -6002,7 +6002,7 @@
 - type: Tile
   id: Onii68
   image:
-    filepath: Assets/Elona/Graphic/map2.bmp
+    filepath: /Elona/Graphic/map2.bmp
     region: "1392, 240, 48, 48"
   kind: Snow
   isSolid: false
@@ -6013,7 +6013,7 @@
 - type: Tile
   id: Onii69
   image:
-    filepath: Assets/Elona/Graphic/map2.bmp
+    filepath: /Elona/Graphic/map2.bmp
     region: "1440, 240, 48, 48"
   kind: Snow
   isSolid: false
@@ -6024,7 +6024,7 @@
 - type: Tile
   id: Onii70
   image:
-    filepath: Assets/Elona/Graphic/map2.bmp
+    filepath: /Elona/Graphic/map2.bmp
     region: "1488, 240, 48, 48"
   kind: Snow
   isSolid: false
@@ -6035,7 +6035,7 @@
 - type: Tile
   id: Onii71
   image:
-    filepath: Assets/Elona/Graphic/map2.bmp
+    filepath: /Elona/Graphic/map2.bmp
     region: "960, 288, 48, 48"
   kind: Snow
   isSolid: false
@@ -6046,7 +6046,7 @@
 - type: Tile
   id: Onii72
   image:
-    filepath: Assets/Elona/Graphic/map2.bmp
+    filepath: /Elona/Graphic/map2.bmp
     region: "1008, 288, 48, 48"
   kind: Snow
   isSolid: false
@@ -6057,7 +6057,7 @@
 - type: Tile
   id: Onii73
   image:
-    filepath: Assets/Elona/Graphic/map2.bmp
+    filepath: /Elona/Graphic/map2.bmp
     region: "1056, 288, 48, 48"
   kind: Snow
   isSolid: false
@@ -6068,7 +6068,7 @@
 - type: Tile
   id: Onii74
   image:
-    filepath: Assets/Elona/Graphic/map2.bmp
+    filepath: /Elona/Graphic/map2.bmp
     region: "1104, 288, 48, 48"
   kind: Snow
   isSolid: false
@@ -6079,7 +6079,7 @@
 - type: Tile
   id: Onii75
   image:
-    filepath: Assets/Elona/Graphic/map2.bmp
+    filepath: /Elona/Graphic/map2.bmp
     region: "1152, 288, 48, 48"
   kind: Snow
   isSolid: false
@@ -6090,7 +6090,7 @@
 - type: Tile
   id: Onii76
   image:
-    filepath: Assets/Elona/Graphic/map2.bmp
+    filepath: /Elona/Graphic/map2.bmp
     region: "1200, 288, 48, 48"
   kind: Snow
   isSolid: false
@@ -6101,7 +6101,7 @@
 - type: Tile
   id: Onii77
   image:
-    filepath: Assets/Elona/Graphic/map2.bmp
+    filepath: /Elona/Graphic/map2.bmp
     region: "1008, 336, 48, 48"
   kind: Snow
   isSolid: false
@@ -6112,7 +6112,7 @@
 - type: Tile
   id: Onii78
   image:
-    filepath: Assets/Elona/Graphic/map2.bmp
+    filepath: /Elona/Graphic/map2.bmp
     region: "1056, 336, 48, 48"
   kind: Snow
   isSolid: false
@@ -6123,7 +6123,7 @@
 - type: Tile
   id: Onii79
   image:
-    filepath: Assets/Elona/Graphic/map2.bmp
+    filepath: /Elona/Graphic/map2.bmp
     region: "1104, 336, 48, 48"
   kind: Snow
   isSolid: false
@@ -6134,7 +6134,7 @@
 - type: Tile
   id: Onii80
   image:
-    filepath: Assets/Elona/Graphic/map2.bmp
+    filepath: /Elona/Graphic/map2.bmp
     region: "1152, 336, 48, 48"
   kind: Snow
   isSolid: false
@@ -6145,7 +6145,7 @@
 - type: Tile
   id: Onii81
   image:
-    filepath: Assets/Elona/Graphic/map2.bmp
+    filepath: /Elona/Graphic/map2.bmp
     region: "1200, 336, 48, 48"
   kind: Snow
   isSolid: false
@@ -6156,7 +6156,7 @@
 - type: Tile
   id: Onii82
   image:
-    filepath: Assets/Elona/Graphic/map2.bmp
+    filepath: /Elona/Graphic/map2.bmp
     region: "1008, 384, 48, 48"
   kind: Snow
   isSolid: false
@@ -6167,7 +6167,7 @@
 - type: Tile
   id: Onii83
   image:
-    filepath: Assets/Elona/Graphic/map2.bmp
+    filepath: /Elona/Graphic/map2.bmp
     region: "1056, 384, 48, 48"
   kind: Snow
   isSolid: false
@@ -6178,7 +6178,7 @@
 - type: Tile
   id: Onii84
   image:
-    filepath: Assets/Elona/Graphic/map2.bmp
+    filepath: /Elona/Graphic/map2.bmp
     region: "1104, 384, 48, 48"
   kind: Snow
   isSolid: false
@@ -6189,7 +6189,7 @@
 - type: Tile
   id: Onii85
   image:
-    filepath: Assets/Elona/Graphic/map2.bmp
+    filepath: /Elona/Graphic/map2.bmp
     region: "1152, 384, 48, 48"
   kind: Snow
   isSolid: false
@@ -6200,7 +6200,7 @@
 - type: Tile
   id: Onii86
   image:
-    filepath: Assets/Elona/Graphic/map2.bmp
+    filepath: /Elona/Graphic/map2.bmp
     region: "1200, 384, 48, 48"
   kind: Snow
   isSolid: false
@@ -6211,7 +6211,7 @@
 - type: Tile
   id: Onii87
   image:
-    filepath: Assets/Elona/Graphic/map2.bmp
+    filepath: /Elona/Graphic/map2.bmp
     region: "960, 432, 48, 48"
   kind: Snow
   isSolid: false
@@ -6222,7 +6222,7 @@
 - type: Tile
   id: Onii88
   image:
-    filepath: Assets/Elona/Graphic/map2.bmp
+    filepath: /Elona/Graphic/map2.bmp
     region: "1008, 432, 48, 48"
   kind: Snow
   isSolid: false
@@ -6233,7 +6233,7 @@
 - type: Tile
   id: Onii89
   image:
-    filepath: Assets/Elona/Graphic/map2.bmp
+    filepath: /Elona/Graphic/map2.bmp
     region: "1056, 432, 48, 48"
   kind: Snow
   isSolid: false
@@ -6244,7 +6244,7 @@
 - type: Tile
   id: Onii90
   image:
-    filepath: Assets/Elona/Graphic/map2.bmp
+    filepath: /Elona/Graphic/map2.bmp
     region: "1104, 432, 48, 48"
   kind: Snow
   isSolid: false
@@ -6255,7 +6255,7 @@
 - type: Tile
   id: Onii91
   image:
-    filepath: Assets/Elona/Graphic/map2.bmp
+    filepath: /Elona/Graphic/map2.bmp
     region: "1152, 432, 48, 48"
   kind: Snow
   isSolid: false
@@ -6266,7 +6266,7 @@
 - type: Tile
   id: Onii92
   image:
-    filepath: Assets/Elona/Graphic/map2.bmp
+    filepath: /Elona/Graphic/map2.bmp
     region: "1200, 432, 48, 48"
   kind: Snow
   isSolid: false
@@ -6277,7 +6277,7 @@
 - type: Tile
   id: Onii93
   image:
-    filepath: Assets/Elona/Graphic/map2.bmp
+    filepath: /Elona/Graphic/map2.bmp
     region: "960, 480, 48, 48"
   kind: Snow
   isSolid: false
@@ -6288,7 +6288,7 @@
 - type: Tile
   id: Onii94
   image:
-    filepath: Assets/Elona/Graphic/map2.bmp
+    filepath: /Elona/Graphic/map2.bmp
     region: "1008, 480, 48, 48"
   kind: Snow
   isSolid: false
@@ -6299,7 +6299,7 @@
 - type: Tile
   id: Onii95
   image:
-    filepath: Assets/Elona/Graphic/map2.bmp
+    filepath: /Elona/Graphic/map2.bmp
     region: "1056, 480, 48, 48"
   kind: Snow
   isSolid: false
@@ -6310,7 +6310,7 @@
 - type: Tile
   id: Onii96
   image:
-    filepath: Assets/Elona/Graphic/map2.bmp
+    filepath: /Elona/Graphic/map2.bmp
     region: "1104, 480, 48, 48"
   kind: Snow
   isSolid: false
@@ -6321,7 +6321,7 @@
 - type: Tile
   id: Onii97
   image:
-    filepath: Assets/Elona/Graphic/map2.bmp
+    filepath: /Elona/Graphic/map2.bmp
     region: "1152, 480, 48, 48"
   kind: Snow
   isSolid: false
@@ -6332,7 +6332,7 @@
 - type: Tile
   id: Onii98
   image:
-    filepath: Assets/Elona/Graphic/map2.bmp
+    filepath: /Elona/Graphic/map2.bmp
     region: "1200, 480, 48, 48"
   kind: Snow
   isSolid: false
@@ -6343,7 +6343,7 @@
 - type: Tile
   id: Onii99
   image:
-    filepath: Assets/Elona/Graphic/map2.bmp
+    filepath: /Elona/Graphic/map2.bmp
     region: "1248, 480, 48, 48"
   kind: Snow
   isSolid: false
@@ -6354,7 +6354,7 @@
 - type: Tile
   id: Onii100
   image:
-    filepath: Assets/Elona/Graphic/map2.bmp
+    filepath: /Elona/Graphic/map2.bmp
     region: "1296, 480, 48, 48"
   kind: Snow
   isSolid: false
@@ -6365,7 +6365,7 @@
 - type: Tile
   id: Onii101
   image:
-    filepath: Assets/Elona/Graphic/map2.bmp
+    filepath: /Elona/Graphic/map2.bmp
     region: "1344, 480, 48, 48"
   kind: Snow
   isSolid: false
@@ -6376,7 +6376,7 @@
 - type: Tile
   id: Onii102
   image:
-    filepath: Assets/Elona/Graphic/map2.bmp
+    filepath: /Elona/Graphic/map2.bmp
     region: "1392, 480, 48, 48"
   kind: Snow
   isSolid: false
@@ -6387,34 +6387,34 @@
 - type: Tile
   id: MapgenDefault
   image:
-    filepath: Assets/Core/Graphic/Tile/Default.png
+    filepath: /Core/Graphic/Tile/Default.png
   isSolid: true
   isOpaque: false
 
 - type: Tile
   id: MapgenTunnel
   image:
-    filepath: Assets/Core/Graphic/Tile/Default.png
+    filepath: /Core/Graphic/Tile/Default.png
   isSolid: false
   isOpaque: false
 
 - type: Tile
   id: MapgenWall
   image:
-    filepath: Assets/Core/Graphic/Tile/Default.png
+    filepath: /Core/Graphic/Tile/Default.png
   isSolid: true
   isOpaque: false
 
 - type: Tile
   id: MapgenRoom
   image:
-    filepath: Assets/Core/Graphic/Tile/Default.png
+    filepath: /Core/Graphic/Tile/Default.png
   isSolid: false
   isOpaque: false
 
 - type: Tile
   id: MapgenFog
   image:
-    filepath: Assets/Core/Graphic/Tile/Default.png
+    filepath: /Core/Graphic/Tile/Default.png
   isSolid: true
   isOpaque: false

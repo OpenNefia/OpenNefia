@@ -21,12 +21,15 @@ namespace OpenNefia.Core.Game
         private static readonly ResourcePath _elona122ZipPath = new ResourcePath("/Cache/Deps/elona122.zip");
 
         private readonly WritableDirProvider _assetsDir;
+        private readonly WritableDirProvider _exeDir;
 
         public VanillaAssetsDownloader(IResourceManager resourceManager)
         {
             _resourceManager = resourceManager;
 
-            _assetsDir = new WritableDirProvider(new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory));
+            var exeDir = AppDomain.CurrentDomain.BaseDirectory;
+            _exeDir = new WritableDirProvider(new DirectoryInfo(exeDir));
+            _assetsDir = new WritableDirProvider(new DirectoryInfo(exeDir + "/../../.."));
         }
 
         public bool NeedsDownload()
@@ -131,7 +134,7 @@ namespace OpenNefia.Core.Game
 
         private async Task UnpackVanillaAssets(ProgressOperation progress)
         {
-            using (var fileStream = _assetsDir.Open(_elona122ZipPath, FileMode.Open, FileAccess.Read, FileShare.None))
+            using (var fileStream = _exeDir.Open(_elona122ZipPath, FileMode.Open, FileAccess.Read, FileShare.None))
             {
                 using (var zip = new ZipArchive(fileStream, ZipArchiveMode.Read))
                 {

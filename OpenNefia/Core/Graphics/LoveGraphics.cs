@@ -1,5 +1,7 @@
 ﻿using Love;
+using OpenNefia.Core.IoC;
 using OpenNefia.Core.Maths;
+using OpenNefia.Core.ResourceManagement;
 using OpenNefia.Core.UI;
 using Vector2 = OpenNefia.Core.Maths.Vector2;
 
@@ -7,6 +9,8 @@ namespace OpenNefia.Core.Graphics
 {
     public class LoveGraphics : Love.Scene, IGraphics
     {
+        [Dependency] private readonly IResourceCache _resourceCache = default!;
+
         public event Action<WindowResizedEventArgs>? OnWindowResized;
         public event Action<WindowFocusedEventArgs>? OnWindowFocused;
         public new event Action<KeyPressedEventArgs>? OnKeyPressed;
@@ -35,7 +39,8 @@ namespace OpenNefia.Core.Graphics
             Love.Boot.Init(bootConfig);
             Love.Timer.Step();
 
-            var iconData = Love.Image.NewImageData("Assets/Core/Icon/icon.png");
+            var data = _resourceCache.GetResource<LoveFileDataResource>("/Core/Icon/icon.png");
+            var iconData = Love.Image.NewImageData(data);
             Love.Window.SetIcon(iconData);
 
             Love.Boot.SystemStep(this);

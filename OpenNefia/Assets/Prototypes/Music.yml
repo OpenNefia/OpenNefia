@@ -1,239 +1,239 @@
 - type: Music
   id: Reset
   elonaId: 50
-  filepath: Assets/Elona/Sound/gm_on.mid
+  filepath: /Elona/Sound/gm_on.mid
 
 - type: Music
   id: Town1
   elonaId: 51
-  filepath: Assets/Elona/Sound/pop01.mid
+  filepath: /Elona/Sound/pop01.mid
 
 - type: Music
   id: Town2
   elonaId: 52
-  filepath: Assets/Elona/Sound/morning_breeze.mid
+  filepath: /Elona/Sound/morning_breeze.mid
 
 - type: Music
   id: Town3
   elonaId: 53
-  filepath: Assets/Elona/Sound/happymarch.mid
+  filepath: /Elona/Sound/happymarch.mid
 
 - type: Music
   id: Town4
   elonaId: 54
-  filepath: Assets/Elona/Sound/xp_field7.mid
+  filepath: /Elona/Sound/xp_field7.mid
 
 - type: Music
   id: Dungeon1
   elonaId: 55
-  filepath: Assets/Elona/Sound/pop03.mid
+  filepath: /Elona/Sound/pop03.mid
 
 - type: Music
   id: Dungeon2
   elonaId: 56
-  filepath: Assets/Elona/Sound/PSML522.MID
+  filepath: /Elona/Sound/PSML522.MID
 
 - type: Music
   id: Dungeon3
   elonaId: 57
-  filepath: Assets/Elona/Sound/PSML514.MID
+  filepath: /Elona/Sound/PSML514.MID
 
 - type: Music
   id: Dungeon4
   elonaId: 58
-  filepath: Assets/Elona/Sound/PSML507.MID
+  filepath: /Elona/Sound/PSML507.MID
 
 - type: Music
   id: Dungeon5
   elonaId: 59
-  filepath: Assets/Elona/Sound/fantasy04.mid
+  filepath: /Elona/Sound/fantasy04.mid
 
 - type: Music
   id: Dungeon6
   elonaId: 60
-  filepath: Assets/Elona/Sound/fantasy03.mid
+  filepath: /Elona/Sound/fantasy03.mid
 
 - type: Music
   id: Puti
   elonaId: 61
-  filepath: Assets/Elona/Sound/dwarf.mid
+  filepath: /Elona/Sound/dwarf.mid
 
 - type: Music
   id: Boss
   elonaId: 62
-  filepath: Assets/Elona/Sound/battle1.mid
+  filepath: /Elona/Sound/battle1.mid
 
 - type: Music
   id: Boss2
   elonaId: 63
-  filepath: Assets/Elona/Sound/climax.mid
+  filepath: /Elona/Sound/climax.mid
 
 - type: Music
   id: Victory
   elonaId: 64
-  filepath: Assets/Elona/Sound/orc05.mid
+  filepath: /Elona/Sound/orc05.mid
 
 - type: Music
   id: Opening
   elonaId: 65
-  filepath: Assets/Elona/Sound/orc01.mid
+  filepath: /Elona/Sound/orc01.mid
 
 - type: Music
   id: LastBoss
   elonaId: 66
-  filepath: Assets/Elona/Sound/orc03.mid
+  filepath: /Elona/Sound/orc03.mid
 
 - type: Music
   id: Home
   elonaId: 67
-  filepath: Assets/Elona/Sound/PSML516.MID
+  filepath: /Elona/Sound/PSML516.MID
 
 - type: Music
   id: Lonely
   elonaId: 68
-  filepath: Assets/Elona/Sound/PSML060.MID
+  filepath: /Elona/Sound/PSML060.MID
 
 - type: Music
   id: Chaos
   elonaId: 69
-  filepath: Assets/Elona/Sound/fantasy01.mid
+  filepath: /Elona/Sound/fantasy01.mid
 
 - type: Music
   id: March1
   elonaId: 70
-  filepath: Assets/Elona/Sound/orc06.mid
+  filepath: /Elona/Sound/orc06.mid
 
 - type: Music
   id: March2
   elonaId: 71
-  filepath: Assets/Elona/Sound/orc02.mid
+  filepath: /Elona/Sound/orc02.mid
 
 - type: Music
   id: March3
   elonaId: 72
-  filepath: Assets/Elona/Sound/orc04.mid
+  filepath: /Elona/Sound/orc04.mid
 
 - type: Music
   id: Arena
   elonaId: 73
-  filepath: Assets/Elona/Sound/victory.mid
+  filepath: /Elona/Sound/victory.mid
 
 - type: Music
   id: Fanfare
   elonaId: 74
-  filepath: Assets/Elona/Sound/fanfare.mid
+  filepath: /Elona/Sound/fanfare.mid
 
 - type: Music
   id: Village1
   elonaId: 75
-  filepath: Assets/Elona/Sound/cobalt.mid
+  filepath: /Elona/Sound/cobalt.mid
 
 - type: Music
   id: Battle1
   elonaId: 76
-  filepath: Assets/Elona/Sound/battle3.mid
+  filepath: /Elona/Sound/battle3.mid
 
 - type: Music
   id: Casino
   elonaId: 77
-  filepath: Assets/Elona/Sound/town2l.mid
+  filepath: /Elona/Sound/town2l.mid
 
 - type: Music
   id: Coda
   elonaId: 78
-  filepath: Assets/Elona/Sound/epi1coda.mid
+  filepath: /Elona/Sound/epi1coda.mid
 
 - type: Music
   id: Ruin
   elonaId: 79
-  filepath: Assets/Elona/Sound/ruins1.mid
+  filepath: /Elona/Sound/ruins1.mid
 
 - type: Music
   id: Wedding
   elonaId: 80
-  filepath: Assets/Elona/Sound/PSML052.MID
+  filepath: /Elona/Sound/PSML052.MID
 
 - type: Music
   id: PetArena
   elonaId: 81
-  filepath: Assets/Elona/Sound/main2.mid
+  filepath: /Elona/Sound/main2.mid
 
 - type: Music
   id: Unrest
   elonaId: 82
-  filepath: Assets/Elona/Sound/PSML514.MID
+  filepath: /Elona/Sound/PSML514.MID
 
 - type: Music
   id: Town5
   elonaId: 83
-  filepath: Assets/Elona/Sound/PSML047.MID
+  filepath: /Elona/Sound/PSML047.MID
 
 - type: Music
   id: Unrest2
   elonaId: 84
-  filepath: Assets/Elona/Sound/xp_shrine2.mid
+  filepath: /Elona/Sound/xp_shrine2.mid
 
 - type: Music
   id: Town6
   elonaId: 85
-  filepath: Assets/Elona/Sound/morning_breeze.mid
+  filepath: /Elona/Sound/morning_breeze.mid
 
 - type: Music
   id: Field1
   elonaId: 86
-  filepath: Assets/Elona/Sound/orc04.mid
+  filepath: /Elona/Sound/orc04.mid
 
 - type: Music
   id: Field2
   elonaId: 87
-  filepath: Assets/Elona/Sound/xp_field2.mid
+  filepath: /Elona/Sound/xp_field2.mid
 
 - type: Music
   id: Field3
   elonaId: 88
-  filepath: Assets/Elona/Sound/xp_field4.mid
+  filepath: /Elona/Sound/xp_field4.mid
 
 - type: Music
   id: Memory
   elonaId: 89
-  filepath: Assets/Elona/Sound/memory.mid
+  filepath: /Elona/Sound/memory.mid
 
 - type: Music
   id: Intro
   elonaId: 90
-  filepath: Assets/Elona/Sound/field1_d.mid
+  filepath: /Elona/Sound/field1_d.mid
 
 - type: Music
   id: Soraochi
   elonaId: 91
-  filepath: Assets/Elona/Sound/soraochi.mid
+  filepath: /Elona/Sound/soraochi.mid
 
 - type: Music
   id: Psml515
   elonaId: 92
-  filepath: Assets/Elona/Sound/PSML515.MID
+  filepath: /Elona/Sound/PSML515.MID
 
 - type: Music
   id: Psml035
   elonaId: 93
-  filepath: Assets/Elona/Sound/PSML035.MID
+  filepath: /Elona/Sound/PSML035.MID
 
 - type: Music
   id: Pinch2
   elonaId: 94
-  filepath: Assets/Elona/Sound/pinch2.mid
+  filepath: /Elona/Sound/pinch2.mid
 
 - type: Music
   id: Memory2
   elonaId: 95
-  filepath: Assets/Elona/Sound/memory2.mid
+  filepath: /Elona/Sound/memory2.mid
 
 - type: Music
   id: AnoSora
   elonaId: 96
-  filepath: Assets/Elona/Sound/AnoSora.mid
+  filepath: /Elona/Sound/AnoSora.mid
 
 - type: Music
   id: Epilogue
   elonaId: 97
-  filepath: Assets/Elona/Sound/xp_epilogue1.mid
+  filepath: /Elona/Sound/xp_epilogue1.mid

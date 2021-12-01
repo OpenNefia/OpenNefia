@@ -4,11 +4,15 @@ using OpenNefia.Core.Config;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.Game;
+using OpenNefia.Core.ResourceManagement;
+using OpenNefia.Core.IoC;
 
 namespace OpenNefia.Core.Audio
 {
     public class LoveAudioSystem : EntitySystem, IAudioSystem
     {
+        [Dependency] private readonly IResourceCache _resourceCache = default!;
+
         private class PlayingSource
         {
             public Love.Source Source;
@@ -32,7 +36,8 @@ namespace OpenNefia.Core.Audio
             if (!ConfigVars.EnableSound)
                 return;
 
-            var source = Love.Audio.NewSource(prototype.ResolvePrototype().Filepath.ToString(), Love.SourceType.Static);
+            var fileData = _resourceCache.GetResource<LoveFileDataResource>(prototype.ResolvePrototype().Filepath);
+            var source = Love.Audio.NewSource(fileData, Love.SourceType.Static);
 
             if (source.GetChannelCount() == 1)
             {

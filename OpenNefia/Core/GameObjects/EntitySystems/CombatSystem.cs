@@ -30,6 +30,9 @@ namespace OpenNefia.Core.GameObjects.EntitySystems
 
         private void HandlePhysicalAttackMain(EntityUid uid, SkillsComponent component, PhysicalAttackEventArgs args)
         {
+            if (args.Handled)
+                return;
+
             Sounds.Play(SoundPrototypeOf.Atk2);
             EntityManager.DeleteEntity(args.Target);
             args.Handled = true;

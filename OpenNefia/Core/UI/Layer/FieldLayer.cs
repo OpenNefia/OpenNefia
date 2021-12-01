@@ -24,6 +24,7 @@ namespace OpenNefia.Core.UI.Layer
         [Dependency] private readonly IAssetManager _assetManager = default!;
         [Dependency] private readonly IGameController _gameController = default!;
         [Dependency] private readonly IMapRenderer _mapRenderer = default!;
+        [Dependency] private readonly IHudLayer _hud = default!;
 
         public static FieldLayer? Instance = null;
 
@@ -33,7 +34,6 @@ namespace OpenNefia.Core.UI.Layer
 
         public Camera Camera { get; private set; }
         private UiFpsCounter FpsCounter;
-        public HudLayer Hud { get; }
 
         private FontSpec FontText = new(14, 12);
 
@@ -44,61 +44,60 @@ namespace OpenNefia.Core.UI.Layer
         public FieldLayer()
         {
             _scroller = new UiScroller();
-            Camera = new Camera(this.Map, this);
+            Camera = new Camera(Map, this);
 
             var result = PrintMessage("dood");
             Console.WriteLine($"Got back: {result}");
             Message = result;
-            this.MouseText = "";
+            MouseText = "";
 
             FpsCounter = new UiFpsCounter();
-            Hud = new HudLayer();
 
-            this.BindKeys();
+            BindKeys();
         }
 
         public void SetMap(IMap map)
         {
-            if (map == this.Map)
+            if (map == Map)
                 return;
 
             Map = (Map)map;
 
-            Camera = new Camera(this.Map, this);
-            _mapRenderer.SetMap(this.Map);
+            Camera = new Camera(Map, this);
+            _mapRenderer.SetMap(Map);
 
             RefreshScreen();
         }
 
         protected virtual void BindKeys()
         {
-            this.Keybinds[CoreKeybinds.Identify] += QueryLayer;
-            this.Keybinds[CoreKeybinds.Escape] += PromptToCancel;
-            //this.Keybinds[Keys.Ctrl | Keys.S] += (_) => this.Save();
-            //this.Keybinds[Keys.Ctrl | Keys.O] += (_) => this.Load();
-            this.Keybinds[Keys.Ctrl | Keys.T] += QueryAtlas;
-            this.Keybinds[CoreKeybinds.North] += (_) => this.MovePlayer(Direction.North);
-            this.Keybinds[CoreKeybinds.South] += (_) => this.MovePlayer(Direction.South);
-            this.Keybinds[CoreKeybinds.West] += (_) => this.MovePlayer(Direction.West);
-            this.Keybinds[CoreKeybinds.East] += (_) => this.MovePlayer(Direction.East);
-            //this.Keybinds[Keys.G] += (_) => this.GetItem();
-            //this.Keybinds[Keys.D] += (_) => this.DropItem();
-            //this.Keybinds[Keys.C] += (_) => this.CastSpell();
-            //this.Keybinds[Keys.Q] += (_) => this.DrinkItem();
-            //this.Keybinds[Keys.T] += (_) => this.ThrowItem();
-            //this.Keybinds[Keys.Ctrl | Keys.B] += (_) => this.ActivateBeautify();
-            //this.Keybinds[Keys.Period] += (_) => this.MovePlayer(0, 0);
+            Keybinds[CoreKeybinds.Identify] += QueryLayer;
+            Keybinds[CoreKeybinds.Escape] += PromptToCancel;
+            //Keybinds[Keys.Ctrl | Keys.S] += (_) => Save();
+            //Keybinds[Keys.Ctrl | Keys.O] += (_) => Load();
+            Keybinds[Keys.Ctrl | Keys.T] += QueryAtlas;
+            Keybinds[CoreKeybinds.North] += (_) => MovePlayer(Direction.North);
+            Keybinds[CoreKeybinds.South] += (_) => MovePlayer(Direction.South);
+            Keybinds[CoreKeybinds.West] += (_) => MovePlayer(Direction.West);
+            Keybinds[CoreKeybinds.East] += (_) => MovePlayer(Direction.East);
+            //Keybinds[Keys.G] += (_) => GetItem();
+            //Keybinds[Keys.D] += (_) => DropItem();
+            //Keybinds[Keys.C] += (_) => CastSpell();
+            //Keybinds[Keys.Q] += (_) => DrinkItem();
+            //Keybinds[Keys.T] += (_) => ThrowItem();
+            //Keybinds[Keys.Ctrl | Keys.B] += (_) => ActivateBeautify();
+            //Keybinds[Keys.Period] += (_) => MovePlayer(0, 0);
 
-            this._scroller.BindKeys(this);
+            _scroller.BindKeys(this);
 
-            this.MouseMoved.Callback += (evt) =>
+            MouseMoved.Callback += (evt) =>
             {
-                this.MouseText = $"{evt.Pos}";
+                MouseText = $"{evt.Pos}";
             };
 
-            this.MouseButtons[UI.MouseButtons.Mouse1].Bind((evt) => PlaceTile(evt), trackReleased: true);
-            this.MouseButtons[UI.MouseButtons.Mouse2].Bind((evt) => PlaceTile(evt), trackReleased: true);
-            this.MouseButtons[UI.MouseButtons.Mouse3].Bind((evt) => PlaceTile(evt), trackReleased: true);
+            MouseButtons[UI.MouseButtons.Mouse1].Bind((evt) => PlaceTile(evt), trackReleased: true);
+            MouseButtons[UI.MouseButtons.Mouse2].Bind((evt) => PlaceTile(evt), trackReleased: true);
+            MouseButtons[UI.MouseButtons.Mouse3].Bind((evt) => PlaceTile(evt), trackReleased: true);
         }
 
         private void QueryAtlas(UiKeyInputEventArgs args)
@@ -242,7 +241,7 @@ namespace OpenNefia.Core.UI.Layer
         public void PromptToCancel(UiKeyInputEventArgs args)
         {
             if (PlayerQuery.YesOrNo("Quit to title screen?"))
-                this.Cancel();
+                Cancel();
         }
 
         private void PlaceTile(UiMousePressedEventArgs evt)
@@ -279,7 +278,7 @@ namespace OpenNefia.Core.UI.Layer
             base.SetSize(width, height);
             _mapRenderer.SetSize(width, height);
             FpsCounter.SetSize(400, 500);
-            Hud.SetSize(width, height);
+            _hud.SetSize(width, height);
 
             var player = GameSession.Player;
             if (player != null)
@@ -293,11 +292,12 @@ namespace OpenNefia.Core.UI.Layer
             base.SetPosition(x, y);
             _mapRenderer.SetPosition(x, y);
             FpsCounter.SetPosition(Width - FpsCounter.Text.Width - 5, 5);
-            Hud.SetPosition(0, 0);
+            _hud.SetPosition(0, 0);
         }
 
         public override void OnQuery()
         {
+            Music.Play(MusicPrototypeOf.March1);
         }
 
         public override void OnQueryFinish()
@@ -316,21 +316,21 @@ namespace OpenNefia.Core.UI.Layer
 
         public override void Update(float dt)
         {
-            if (this.Map.NeedsRedraw)
+            if (Map.NeedsRedraw)
             {
                 RefreshScreen();
-                this._mapRenderer.RefreshAllLayers();
+                _mapRenderer.RefreshAllLayers();
             }
 
-            this._scroller.GetPositionDiff(dt, out var dx, out var dy);
+            _scroller.GetPositionDiff(dt, out var dx, out var dy);
 
-            this.SetPosition(Camera.ScreenPos.X, Camera.ScreenPos.Y);
+            SetPosition(Camera.ScreenPos.X, Camera.ScreenPos.Y);
 
             if (PlacingTile != null)
             {
                 var mouse = Love.Mouse.GetPosition();
                 var coords = GameSession.Coords;
-                coords.ScreenToTile(new Vector2i((int)mouse.X - this.X, (int)mouse.Y - this.Y), out var tiledPos);
+                coords.ScreenToTile(new Vector2i((int)mouse.X - X, (int)mouse.Y - Y), out var tiledPos);
                 var tileCoords = Map.AtPos(tiledPos);
 
                 if (tileCoords.GetTile()?.Prototype != PlacingTile)
@@ -344,16 +344,16 @@ namespace OpenNefia.Core.UI.Layer
                 }
             }
 
-            this.Hud.Update(dt);
-            this._mapRenderer.Update(dt);
-            this.FpsCounter.Update(dt);
+            _hud.Update(dt);
+            _mapRenderer.Update(dt);
+            FpsCounter.Update(dt);
         }
 
         public override void Draw()
         {
             Love.Graphics.SetColor(255, 255, 255);
 
-            this._mapRenderer.Draw();
+            _mapRenderer.Draw();
 
             Love.Graphics.SetColor(255, 0, 0);
 
@@ -361,20 +361,19 @@ namespace OpenNefia.Core.UI.Layer
             player.GetScreenPos(out var screenPos);
             Love.Graphics.Rectangle(Love.DrawMode.Line, X + screenPos.X, Y + screenPos.Y, OrthographicCoords.TILE_SIZE, OrthographicCoords.TILE_SIZE);
 
-            GraphicsEx.SetFont(this.FontText);
+            GraphicsEx.SetFont(FontText);
             GraphicsEx.SetColor(Color.White);
             Love.Graphics.Print(Message, 5, 5);
             Love.Graphics.Print(MouseText, 5, 20);
             Love.Graphics.Print($"Player: ({player.Spatial.Coords})", 5, 35);
 
-            this.Hud.Draw();
-            this.FpsCounter.Draw();
+            _hud.Draw();
+            FpsCounter.Draw();
         }
 
         public override void Dispose()
         {
-            this.Hud.Dispose();
-            this.FpsCounter.Dispose();
+            FpsCounter.Dispose();
         }
     }
 }

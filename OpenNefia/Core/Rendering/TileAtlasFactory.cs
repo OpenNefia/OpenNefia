@@ -45,17 +45,23 @@ namespace OpenNefia.Core.Rendering
 
         private Tuple<Love.Image, Love.Quad> LoadImageAndQuad(TileSpecifier tile)
         {
-            Love.Image image = _resourceCache.GetResource<LoveImageResource>(tile.Filepath);
+            Love.Image image = _resourceCache.GetLoveImageResource(tile.Filepath);
 
             if (tile.Region != null)
             {
                 var imageRegion = tile.Region.Value;
-                var quad = Love.Graphics.NewQuad(imageRegion.Left, imageRegion.Top, imageRegion.Width, imageRegion.Height, image.GetWidth(), image.GetHeight());
+                var quad = Love.Graphics.NewQuad(imageRegion.Left, imageRegion.Top, 
+                    imageRegion.Width, imageRegion.Height, 
+                    image.GetWidth(), image.GetHeight());
+
                 return Tuple.Create(image, quad);
             }
             else
             {
-                var quad = Love.Graphics.NewQuad(0, 0, image.GetWidth(), image.GetHeight(), image.GetWidth(), image.GetHeight());
+                var quad = Love.Graphics.NewQuad(0, 0, 
+                    image.GetWidth(), image.GetHeight(), 
+                    image.GetWidth(), image.GetHeight());
+
                 return Tuple.Create(image, quad);
             }
         }

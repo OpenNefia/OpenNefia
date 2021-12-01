@@ -1,4 +1,5 @@
 ﻿using System.Runtime;
+using OpenNefia.Core.Asynchronous;
 using OpenNefia.Core.ContentPack;
 using OpenNefia.Core.Game;
 using OpenNefia.Core.GameObjects;
@@ -32,6 +33,7 @@ namespace OpenNefia.Core.GameController
         [Dependency] private readonly ITileDefinitionManager _tileDefinitionManager = default!;
         [Dependency] private readonly IUiLayerManager _uiLayers = default!;
         [Dependency] private readonly ILocalizationManager _localizationManager = default!;
+        [Dependency] private readonly ITaskManager _taskManager = default!;
 
         private IMainTitleLogic _logic = default!;
 
@@ -39,12 +41,11 @@ namespace OpenNefia.Core.GameController
         {
             SetupLogging(_logManager, () => new ConsoleLogHandler());
 
-            _graphics.Initialize();
-            _uiLayers.Initialize();
+            _taskManager.Initialize();
 
             _modLoader.SetUseLoadContext(true);
 
-            if (!_modLoader.TryLoadModulesFrom(new ResourcePath("/Assets/Assemblies"), string.Empty))
+            if (!_modLoader.TryLoadModulesFrom(new ResourcePath("/Assemblies"), string.Empty))
             {
                 Logger.Fatal("Errors while loading content assemblies.");
                 return false;
@@ -53,7 +54,10 @@ namespace OpenNefia.Core.GameController
             _serialization.Initialize();
 
             _resourceCache.Initialize("UserData");
-            _resourceCache.MountContentDirectory("Assets");
+            _resourceCache.MountContentDirectory("../../../Assets");
+
+            _graphics.Initialize();
+            _uiLayers.Initialize();
 
             _modLoader.BroadcastRunLevel(ModRunLevel.PreInit);
             _modLoader.BroadcastRunLevel(ModRunLevel.Init);
@@ -69,7 +73,7 @@ namespace OpenNefia.Core.GameController
             _components.DoAutoRegistrations();
             _components.FinishRegistration();
 
-            if (!InjectLoveDependents())
+            if (!RegisterLoveDependents())
             {
                 return false;
             }
@@ -95,17 +99,9 @@ namespace OpenNefia.Core.GameController
             return true;
         }
 
-        /// <summary>
-        /// Initializes dependencies that require Love to be booted
-        /// and the game window to be created first (since otherwise
-        /// you can't use anything under <see cref="Love.Graphics" />)
-        /// </summary>
-        private bool InjectLoveDependents()
+        private bool RegisterLoveDependents()
         {
-            IoCManager.Register<IMapRenderer, MapRenderer>();
-            IoCManager.Register<IMapDrawables, MapDrawables>();
-            IoCManager.Register<IFieldLayer, FieldLayer>();
-            IoCManager.Register<IMainTitleLogic, MainTitleLogic>();
+            IoCSetup.RegisterLoveDependents();
 
             IoCManager.BuildGraph();
 

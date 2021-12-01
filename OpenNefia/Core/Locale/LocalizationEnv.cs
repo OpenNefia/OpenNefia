@@ -30,18 +30,31 @@ namespace OpenNefia.Core.Locale
             _StringStore.Clear();
         }
 
-        private static Lua SetupLua()
+        private Lua SetupLua()
         {
             var lua = new Lua();
             lua.State.Encoding = Encoding.UTF8;
+            AddContentRootsToSearchPath(lua);
             return lua;
+        }
+
+        private void AddContentRootsToSearchPath(Lua lua)
+        {
+            var path = (string)lua["package.path"];
+            foreach (var root in _resourceManager.GetContentRoots())
+            {
+                path += $";{root / "?.lua"}";
+            }
+            lua["package.path"] = path;
         }
 
         public void LoadAll(PrototypeId<LanguagePrototype> language)
         {
             var opts = new EnumerationOptions() { RecurseSubdirectories = true };
             _Lua["_LANGUAGE_CODE"] = (string)language;
-            _Lua.DoFile("Assets/Core/Lua/LocaleEnv.lua");
+
+            var chunk = _resourceManager.ContentFileReadAllText("/Core/Lua/LocaleEnv.lua");
+            _Lua.DoString(chunk);
 
             var path = new ResourcePath("/Elona/Locale") / language.ToString();
 

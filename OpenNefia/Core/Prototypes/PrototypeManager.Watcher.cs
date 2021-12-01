@@ -1,15 +1,10 @@
-﻿/*
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Threading;
+using OpenNefia.Core.Asynchronous;
 using OpenNefia.Core.ContentPack;
 using OpenNefia.Core.Graphics;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Log;
-using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Utility;
 using Timer = OpenNefia.Core.Timing.Timer;
 
@@ -17,7 +12,7 @@ namespace OpenNefia.Core.Prototypes
 {
     public sealed partial class PrototypeManager : IPrototypeManager
     {
-        [Dependency] private readonly IGraphics _graphics = default!;
+        [Dependency] private readonly ITaskManager _taskManager = default!;
 
         private readonly List<FileSystemWatcher> _watchers = new();
         private readonly TimeSpan _reloadDelay = TimeSpan.FromMilliseconds(10);
@@ -55,8 +50,6 @@ namespace OpenNefia.Core.Prototypes
         private void WatchResources()
         {
 #if !FULL_RELEASE
-            _graphics.OnWindowFocused += WindowFocusedChanged;
-
             foreach (var path in Resources.GetContentRoots().Select(r => r.ToString())
                 .Where(r => Directory.Exists(r + "/Prototypes")).Select(p => p + "/Prototypes"))
             {
@@ -82,7 +75,7 @@ namespace OpenNefia.Core.Prototypes
                             throw new ArgumentOutOfRangeException();
                     }
 
-                    TaskManager.RunOnMainThread(() =>
+                    _taskManager.RunOnMainThread(() =>
                     {
                         var file = new ResourcePath(args.FullPath);
 
@@ -105,4 +98,3 @@ namespace OpenNefia.Core.Prototypes
         }
     }
 }
-*/

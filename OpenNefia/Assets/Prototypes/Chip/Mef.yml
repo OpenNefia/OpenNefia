@@ -3,7 +3,7 @@
   elonaId: 11
   group: Mef
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "528, 0, 48, 48"
 
 - type: Chip
@@ -11,7 +11,7 @@
   elonaId: 19
   group: Mef
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "912, 0, 48, 48"
     countX: 2
 
@@ -20,7 +20,7 @@
   elonaId: 20
   group: Mef
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "960, 0, 48, 48"
 
 - type: Chip
@@ -28,7 +28,7 @@
   elonaId: 22
   group: Mef
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1056, 0, 48, 48"
 
 - type: Chip
@@ -36,7 +36,7 @@
   elonaId: 24
   group: Mef
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1152, 0, 48, 48"
     countX: 3
 
@@ -45,7 +45,7 @@
   elonaId: 27
   group: Mef
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1296, 0, 48, 48"
     countX: 3
 
@@ -54,6 +54,6 @@
   elonaId: 30
   group: Mef
   image:
-    filepath: Assets/Elona/Graphic/item.bmp
+    filepath: /Elona/Graphic/item.bmp
     region: "1440, 0, 48, 48"
     countX: 2
