@@ -65,6 +65,7 @@ namespace OpenNefia.Core.GameController
                 return false;
             }
 
+            _components.DoDefaultRegistrations();
             _components.DoAutoRegistrations();
             _components.FinishRegistration();
 

@@ -130,7 +130,7 @@ namespace OpenNefia.Core.UI.Layer
 
             if (player != null)
             {
-                var ev = new OnMoveEventArgs() 
+                var ev = new MoveEventArgs() 
                 {
                     OldPosition = player.Spatial.Coords,
                     NewPosition = player.Spatial.Coords.Offset(dir.ToIntVec())

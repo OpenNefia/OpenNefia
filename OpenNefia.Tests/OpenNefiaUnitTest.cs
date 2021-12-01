@@ -58,6 +58,10 @@ namespace OpenNefia.Tests
             {
                 compFactory.RegisterClass<MetaDataComponent>();
             }
+            if (!compFactory.AllRegisteredTypes.Contains(typeof(SpatialComponent)))
+            {
+                compFactory.RegisterClass<SpatialComponent>();
+            }
 
             if (entMan.EventBus == null)
             {

@@ -307,6 +307,9 @@ namespace OpenNefia.Core.GameObjects
             // add the required MetaDataComponent directly.
             AddComponentInternal(uid.Value, metadata);
 
+            // allocate the required SpatialComponent
+            AddComponent<SpatialComponent>(entity);
+
             return entity;
         }
 

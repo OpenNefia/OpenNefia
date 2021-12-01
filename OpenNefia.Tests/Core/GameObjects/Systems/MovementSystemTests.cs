@@ -6,7 +6,7 @@ using OpenNefia.Core.Maths;
 namespace OpenNefia.Tests.Core.GameObjects.Systems
 {
     [TestFixture, Parallelizable]
-    class TransformSystemTests
+    class MovementSystemTests
     {
         private static ISimulation SimulationFactory()
         {
@@ -20,7 +20,7 @@ namespace OpenNefia.Tests.Core.GameObjects.Systems
         }
 
         /// <summary>
-        /// When the local position of the transform changes, a MoveEvent is raised.
+        /// When the local position of the spatial component changes, a PositionChangedEvent is raised.
         /// </summary>
         [Test]
         public void OnMove_LocalPosChanged_RaiseMoveEvent()
@@ -31,13 +31,13 @@ namespace OpenNefia.Tests.Core.GameObjects.Systems
 
             var subscriber = new Subscriber();
             int calledCount = 0;
-            entMan.EventBus.SubscribeEvent<OnMoveEventArgs>(EventSource.Local, subscriber, MoveEventHandler);
+            entMan.EventBus.SubscribeEvent<PositionChangedEvent>(EventSource.Local, subscriber, MoveEventHandler);
             var ent1 = entMan.SpawnEntity(null, map, Vector2i.Zero);
 
             ent1.Spatial.Pos = Vector2i.One;
 
             Assert.That(calledCount, Is.EqualTo(1));
-            void MoveEventHandler(OnMoveEventArgs ev)
+            void MoveEventHandler(ref PositionChangedEvent ev)
             {
                 calledCount++;
                 Assert.That(ev.OldPosition, Is.EqualTo(new MapCoordinates(map, Vector2i.Zero)));

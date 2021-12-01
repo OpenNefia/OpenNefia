@@ -20,7 +20,26 @@ namespace OpenNefia.Core.GameObjects
         /// <summary>
         /// Position of this entity on the map.
         /// </summary>
-        public Vector2i Pos { get; set; }
+        private Vector2i _pos;
+        public Vector2i Pos { 
+            get => _pos; 
+            set
+            {
+                var oldPos = _pos;
+
+                _pos = value;
+
+                if (oldPos != _pos)
+                {
+                    var ev = new PositionChangedEvent()
+                    {
+                        OldPosition = new MapCoordinates(Map, oldPos),
+                        NewPosition = new MapCoordinates(Map, _pos)
+                    };
+                    Owner.EntityManager.EventBus.RaiseLocalEvent(OwnerUid, ref ev);
+                }
+            }
+        }
 
         /// <summary>
         /// Map this entity is in.

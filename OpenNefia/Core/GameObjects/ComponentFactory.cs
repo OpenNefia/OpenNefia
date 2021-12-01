@@ -76,6 +76,12 @@ namespace OpenNefia.Core.GameObjects
             _reflectionManager = reflectionManager;
         }
 
+        public void DoDefaultRegistrations()
+        {
+            RegisterClass<MetaDataComponent>();
+            RegisterClass<SpatialComponent>();
+        }
+
         private void Register(Type type, bool overwrite = false)
         {
             if (_wasFinalized)

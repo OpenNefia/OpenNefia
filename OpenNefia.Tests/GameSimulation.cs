@@ -2,6 +2,7 @@
 using Moq;
 using OpenNefia.Core.ContentPack;
 using OpenNefia.Core.Exceptions;
+using OpenNefia.Core.Game;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Locale;
@@ -11,6 +12,7 @@ using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Reflection;
 using OpenNefia.Core.Serialization.Manager;
 using OpenNefia.Core.Serialization.Manager.Attributes;
+using OpenNefia.Core.UI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -128,6 +130,9 @@ namespace OpenNefia.Tests
             container.Register<IModLoader, TestingModLoader>();
             container.Register<IModLoaderInternal, TestingModLoader>();
 
+            var uiLayerManager = new Mock<IUiLayerManager>();
+            container.RegisterInstance<IUiLayerManager>(uiLayerManager.Object);
+
             var realReflection = new ReflectionManager();
             realReflection.LoadAssemblies(new List<Assembly>(1)
             {
@@ -170,6 +175,7 @@ namespace OpenNefia.Tests
             container.Register<IComponentFactory, ComponentFactory>();
             container.Register<IComponentDependencyManager, ComponentDependencyManager>();
             container.Register<IEntitySystemManager, EntitySystemManager>();
+            container.Register<IGameSessionManager, GameSessionManager>();
 
             _diFactory?.Invoke(container);
             container.BuildGraph();
@@ -178,9 +184,7 @@ namespace OpenNefia.Tests
             logMan.RootSawmill.AddHandler(new TestLogHandler("SIM"));
 
             var compFactory = container.Resolve<IComponentFactory>();
-
-            compFactory.RegisterClass<MetaDataComponent>();
-            compFactory.RegisterClass<SpatialComponent>();
+            compFactory.DoDefaultRegistrations();
 
             _regDelegate?.Invoke(compFactory);
 

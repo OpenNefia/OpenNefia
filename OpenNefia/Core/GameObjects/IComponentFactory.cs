@@ -34,6 +34,11 @@ namespace OpenNefia.Core.GameObjects
         /// </summary>
         IEnumerable<Type> AllRegisteredTypes { get; }
 
+        /// <summary>
+        /// Registers the default components.
+        /// </summary>
+        public void DoDefaultRegistrations();
+
         public bool IsRegistered(string name);
 
         /// <summary>

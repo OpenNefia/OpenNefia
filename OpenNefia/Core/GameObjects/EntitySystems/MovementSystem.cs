@@ -7,18 +7,30 @@ namespace OpenNefia.Core.GameObjects
     {
         public override void Initialize()
         {
-            SubscribeLocalEvent<MoveableComponent, OnMoveEventArgs>(HandleOnMove);
+            SubscribeLocalEvent<MoveableComponent, MoveEventArgs>(HandleMove);
+            SubscribeLocalEvent<MoveableComponent, PositionChangedEvent>(HandlePositionChanged);
         }
 
-        private void HandleOnMove(EntityUid uid, MoveableComponent moveable, OnMoveEventArgs args)
+        private void HandlePositionChanged(EntityUid uid, MoveableComponent component, ref PositionChangedEvent args)
+        {
+            SpatialComponent? spatial = null;
+
+            if (!Resolve(uid, ref spatial))
+                return;
+
+            spatial.Map!.RefreshTile(args.OldPosition.Position);
+            spatial.Map.RefreshTile(args.NewPosition.Position);
+        }
+
+        private void HandleMove(EntityUid uid, MoveableComponent moveable, MoveEventArgs args)
         {
             if (args.Handled)
                 return;
 
-            OnMove(uid, args, moveable);
+            HandleMove(uid, args, moveable);
         }
 
-        private void OnMove(EntityUid uid, OnMoveEventArgs args, 
+        private void HandleMove(EntityUid uid, MoveEventArgs args, 
             MoveableComponent? moveable = null,
             SpatialComponent? spatial = null)
         {
@@ -49,10 +61,12 @@ namespace OpenNefia.Core.GameObjects
             }
 
             spatial.Pos = args.NewPosition.Position;
-            spatial.Map!.RefreshTile(args.OldPosition.Position);
-            spatial.Map.RefreshTile(args.NewPosition.Position);
 
-            var evAfter = new AfterMoveEventArgs();
+            var evAfter = new AfterMoveEventArgs()
+            {
+                OldPosition = args.OldPosition,
+                NewPosition = args.NewPosition
+            };
             RaiseLocalEvent(uid, evAfter);
 
             args.Handled = true;
@@ -60,7 +74,13 @@ namespace OpenNefia.Core.GameObjects
         }
     }
 
-    public class OnMoveEventArgs : HandledEntityEventArgs
+    public struct PositionChangedEvent
+    {
+        public MapCoordinates OldPosition;
+        public MapCoordinates NewPosition;
+    }
+
+    public class MoveEventArgs : HandledEntityEventArgs
     {
         public MapCoordinates OldPosition;
         public MapCoordinates NewPosition;
@@ -78,5 +98,7 @@ namespace OpenNefia.Core.GameObjects
 
     public class AfterMoveEventArgs : HandledEntityEventArgs
     {
+        public MapCoordinates OldPosition;
+        public MapCoordinates NewPosition;
     }
 }
