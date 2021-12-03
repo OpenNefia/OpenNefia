@@ -54,14 +54,14 @@ namespace OpenNefia.Core.UI
 
     public sealed class UiMousePressedEventArgs : UiInputEventArgs
     {
-        public UiMousePressedEventArgs(MouseButtons button, KeyPressState state, Vector2i pos)
+        public UiMousePressedEventArgs(MouseButton button, KeyPressState state, Vector2i pos)
         {
             Button = button;
             State = state;
             Pos = pos;
         }
 
-        public MouseButtons Button { get; }
+        public MouseButton Button { get; }
         public KeyPressState State { get; }
         public Vector2i Pos { get; }
     }

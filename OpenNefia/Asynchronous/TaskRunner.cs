@@ -1,5 +1,6 @@
 ﻿using OpenNefia.Core.Rendering;
 using OpenNefia.Core.UI;
+using OpenNefia.Core.UI.Layer;
 
 namespace OpenNefia.Core.Util
 {
@@ -7,7 +8,7 @@ namespace OpenNefia.Core.Util
     /// Layer for running an async task synchronously, by displaying a temporary
     /// loading screen until the task is finished.
     /// </summary>
-    internal class TaskRunnerLayer : BaseUiLayer<UiNoResult>
+    public class TaskRunnerLayer : BaseUiLayer<UiNoResult>
     {
         private Task ActiveTask;
         private float Dt;

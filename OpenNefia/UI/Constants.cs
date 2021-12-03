@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace OpenNefia.Core.UI
 {
-    internal class Constants
+    public static class Constants
     {
         public const int INF_BARH = 16;
         public const int INF_MSGH = 72;

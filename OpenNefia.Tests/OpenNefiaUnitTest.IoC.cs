@@ -11,7 +11,7 @@ namespace OpenNefia.Tests
         /// </summary>
         private void RegisterIoC()
         {
-            IoCSetup.Run();
+            IoCSetup.Register();
 
             IoCManager.Register<IModLoader, TestingModLoader>(overwrite: true);
             IoCManager.Register<IModLoaderInternal, TestingModLoader>(overwrite: true);

@@ -16,15 +16,13 @@ using OpenNefia.Core.Reflection;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Core.ResourceManagement;
 using OpenNefia.Core.Serialization.Manager;
-using OpenNefia.Core.UI;
-using OpenNefia.Core.UI.Hud;
 using OpenNefia.Core.UI.Layer;
 
 namespace OpenNefia
 {
     public class IoCSetup
     {
-        public static void Run()
+        public static void Register()
         {
             IoCManager.Register<IGraphics, LoveGraphics>();
             IoCManager.Register<IRuntimeLog, RuntimeLog>();
@@ -56,20 +54,8 @@ namespace OpenNefia
             IoCManager.Register<IGameSessionManager, GameSessionManager>();
             IoCManager.Register<IGameController, GameController>();
             IoCManager.Register<ICoords, OrthographicCoords>();
-        }
-
-        /// <summary>
-        /// Initializes dependencies that require Love to be booted
-        /// and the game window to be created first (since otherwise
-        /// you can't use anything under <see cref="Love.Graphics" />)
-        /// </summary>
-        public static void RegisterLoveDependents()
-        {
             IoCManager.Register<IMapRenderer, MapRenderer>();
             IoCManager.Register<IMapDrawables, MapDrawables>();
-            IoCManager.Register<IFieldLayer, FieldLayer>();
-            IoCManager.Register<IHudLayer, HudLayer>();
-            IoCManager.Register<IMainTitleLogic, MainTitleLogic>();
             IoCManager.Register<IMusicManager, LoveMusicManager>();
         }
     }

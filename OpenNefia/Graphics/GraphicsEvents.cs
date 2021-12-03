@@ -81,7 +81,7 @@ namespace OpenNefia.Core.Graphics
 
     public readonly struct MousePressedEventArgs
     {
-        public MousePressedEventArgs(Vector2 pos, MouseButtons button, bool isTouch, bool isPressed)
+        public MousePressedEventArgs(Vector2 pos, UI.MouseButton button, bool isTouch, bool isPressed)
         {
             Pos = pos;
             Button = button;
@@ -90,7 +90,7 @@ namespace OpenNefia.Core.Graphics
         }
 
         public Vector2 Pos { get; }
-        public MouseButtons Button { get; }
+        public UI.MouseButton Button { get; }
         public bool IsTouch { get; }
         public bool IsPressed { get; }
     }

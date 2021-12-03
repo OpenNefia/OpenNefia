@@ -23,28 +23,6 @@ namespace OpenNefia.Core.Maps
                 ?? Enumerable.Empty<IEntity>();
         }
 
-        /// <summary>
-        /// Gets the primary character on this tile.
-        /// 
-        /// In Elona, traditionally only one character is allowed on each tile. However, extra features
-        /// such as the Riding mechanic or the Tag Teams mechanic added in Elona+ allow multiple characters to
-        /// occupy the same tile.
-        /// 
-        /// This function retrieves the "primary" character used for things like
-        /// damage calculation, spell effects, and so on, which should exclude the riding mount, tag team
-        /// partner, etc.
-        /// 
-        /// It's necessary to keep track of the non-primary characters on the same tile because they are 
-        /// still affected by things like area of effect magic.
-        /// </summary>
-        public static IEntity? GetPrimaryChara(this MapCoordinates coords)
-        {
-            return IoCManager.Resolve<IEntityManager>()
-                .EntityQuery<CharaComponent>()
-                .Where(chara => chara.Owner.Spatial.Coords == coords)
-                .FirstOrDefault()?.Owner;
-        }
-
         private static bool CanSeeThrough(this MapCoordinates coords)
         {
             if (!coords.IsInBounds())

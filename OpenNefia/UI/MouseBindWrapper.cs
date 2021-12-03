@@ -14,10 +14,10 @@ namespace OpenNefia.Core.UI
     {
         public class MouseBindDelegateWrapper : IMouseBinder
         {
-            public MouseButtons MouseButton { get; }
+            public MouseButton MouseButton { get; }
             public MouseBindWrapper Parent { get; }
 
-            public MouseBindDelegateWrapper(MouseBindWrapper parent, MouseButtons button)
+            public MouseBindDelegateWrapper(MouseBindWrapper parent, MouseButton button)
             {
                 this.Parent = parent;
                 this.MouseButton = button;
@@ -37,12 +37,12 @@ namespace OpenNefia.Core.UI
             public void BindMouseButton(Action<UiMousePressedEventArgs> func, bool trackReleased = false)
                 => this.BindMouseButton(this.MouseButton, func, trackReleased);
 
-            public void BindMouseButton(MouseButtons button, Action<UiMousePressedEventArgs> func, bool trackReleased = false)
+            public void BindMouseButton(MouseButton button, Action<UiMousePressedEventArgs> func, bool trackReleased = false)
             {
                 this.Parent.Input.BindMouseButton(button, func, trackReleased);
             }
 
-            public void UnbindMouseButton(MouseButtons button)
+            public void UnbindMouseButton(MouseButton button)
             {
                 this.Parent.Input.UnbindMouseButton(button);
             }
@@ -53,15 +53,15 @@ namespace OpenNefia.Core.UI
 
         public IInputHandler Input { get; }
 
-        private Dictionary<MouseButtons, MouseBindDelegateWrapper> _Cache;
+        private Dictionary<MouseButton, MouseBindDelegateWrapper> _Cache;
 
         public MouseBindWrapper(IInputHandler parent)
         {
             this.Input = parent;
-            this._Cache = new Dictionary<MouseButtons, MouseBindDelegateWrapper>();
+            this._Cache = new Dictionary<MouseButton, MouseBindDelegateWrapper>();
         }
 
-        public MouseBindDelegateWrapper this[MouseButtons index]
+        public MouseBindDelegateWrapper this[MouseButton index]
         {
             get
             {

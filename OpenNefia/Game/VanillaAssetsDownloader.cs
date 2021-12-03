@@ -1,7 +1,7 @@
 ﻿using OpenNefia.Core.ContentPack;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Log;
-using OpenNefia.Core.UI.Layer;
+using OpenNefia.Core.UI;
 using OpenNefia.Core.Utility;
 using System.Collections;
 using System.IO.Compression;
@@ -29,7 +29,7 @@ namespace OpenNefia.Core.Game
 
             var exeDir = AppDomain.CurrentDomain.BaseDirectory;
             _exeDir = new WritableDirProvider(new DirectoryInfo(exeDir));
-            _assetsDir = new WritableDirProvider(new DirectoryInfo(exeDir + "/../../../.."));
+            _assetsDir = new WritableDirProvider(new DirectoryInfo(exeDir + "/../../../../OpenNefia.Content/"));
         }
 
         public bool NeedsDownload()
@@ -58,7 +58,7 @@ namespace OpenNefia.Core.Game
                 }
                 else
                 {
-                    Logger.LogS(LogLevel.Warning, CommonSawmills.Boot, "Integrity check of elona122.zip failed, redownloading.");
+                    Logger.LogS(LogLevel.Warning, "boot", "Integrity check of elona122.zip failed, redownloading.");
                     _resourceManager.UserData.Delete(_elona122ZipPath);
                 }
             }
@@ -78,7 +78,7 @@ namespace OpenNefia.Core.Game
                         int receivedBytes = 0;
                         long totalBytes = response.Content.Headers.ContentLength!.Value;
 
-                        for (;;)
+                        for (; ; )
                         {
                             int bytesRead = await responseStream.ReadAsync(buffer, 0, buffer.Length).ConfigureAwait(false);
                             if (bytesRead == 0)
@@ -150,6 +150,6 @@ namespace OpenNefia.Core.Game
             yield return new ProgressStep("Unpacking assets...", UnpackVanillaAssets);
         }
 
-        IEnumerator IEnumerable.GetEnumerator() => this.GetEnumerator();
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
     }
 }

@@ -32,10 +32,10 @@ namespace OpenNefia.Core.Rendering
         public FontStyle Style { get; } = FontStyle.None;
 
         [DataField]
-        public Maths.Color Color { get; } = UiColors.TextBlack;
+        public Maths.Color Color { get; } = Color.Black;
 
         [DataField]
-        public Maths.Color BgColor { get; } = UiColors.TextBlack;
+        public Maths.Color BgColor { get; } = Color.Black;
 
         private Love.Font? _font = null;
 

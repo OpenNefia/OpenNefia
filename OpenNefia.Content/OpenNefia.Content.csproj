@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -8,6 +8,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\OpenNefia\OpenNefia.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Startup\" />
   </ItemGroup>
 
 </Project>

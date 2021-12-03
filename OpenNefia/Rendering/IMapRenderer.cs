@@ -3,7 +3,7 @@ using OpenNefia.Core.UI.Element;
 
 namespace OpenNefia.Core.Rendering
 {
-    internal interface IMapRenderer : IDrawable
+    public interface IMapRenderer : IDrawable
     {
         void RegisterTileLayers();
         void RefreshAllLayers();

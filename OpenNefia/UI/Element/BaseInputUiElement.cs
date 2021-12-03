@@ -57,8 +57,8 @@ namespace OpenNefia.Core.UI.Element
         public bool RunKeyAction(Keys key, KeyPressState state) => InputHandler.RunKeyAction(key, state);
         public void ReleaseKey(Keys key, bool runEvents = true) => InputHandler.ReleaseKey(key, runEvents);
 
-        public void BindMouseButton(MouseButtons button, Action<UiMousePressedEventArgs> handler, bool trackReleased = false) => InputHandler.BindMouseButton(button, handler, trackReleased);
-        public void UnbindMouseButton(MouseButtons button) => InputHandler.UnbindMouseButton(button);
+        public void BindMouseButton(MouseButton button, Action<UiMousePressedEventArgs> handler, bool trackReleased = false) => InputHandler.BindMouseButton(button, handler, trackReleased);
+        public void UnbindMouseButton(MouseButton button) => InputHandler.UnbindMouseButton(button);
         public void BindMouseMoved(Action<UiMouseMovedEventArgs> handler) => InputHandler.BindMouseMoved(handler);
         public void UnbindMouseMoved() => InputHandler.UnbindMouseMoved();
         public bool RunMouseAction(MousePressedEventArgs args) => InputHandler.RunMouseAction(args);

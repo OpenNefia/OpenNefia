@@ -6,6 +6,7 @@ using System.Reflection;
 using NLua;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.ContentPack;
+using OpenNefia.Core.UI.Layer;
 
 namespace OpenNefia.Core.Locale
 {

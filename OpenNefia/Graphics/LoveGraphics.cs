@@ -127,12 +127,12 @@ namespace OpenNefia.Core.Graphics
 
         public override void MousePressed(float x, float y, int button, bool isTouch)
         {
-            OnMousePressed?.Invoke(new MousePressedEventArgs(new Vector2(x, y), (MouseButtons)button, isTouch, true));
+            OnMousePressed?.Invoke(new MousePressedEventArgs(new Vector2(x, y), (UI.MouseButton)button, isTouch, true));
         }
 
         public override void MouseReleased(float x, float y, int button, bool isTouch)
         {
-            OnMouseReleased?.Invoke(new MousePressedEventArgs(new Vector2(x, y), (MouseButtons)button, isTouch, false));
+            OnMouseReleased?.Invoke(new MousePressedEventArgs(new Vector2(x, y), (UI.MouseButton)button, isTouch, false));
         }
 
         #endregion

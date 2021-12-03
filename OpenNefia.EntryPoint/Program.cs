@@ -27,7 +27,7 @@ namespace OpenNefia
         private static void InitIoC()
         {
             IoCManager.InitThread();
-            IoCSetup.Run();
+            IoCSetup.Register();
             IoCManager.BuildGraph();
 
             RegisterReflection();

@@ -61,7 +61,7 @@ namespace OpenNefia.Core.UI
         }
 
         private HashSet<Keys> KeysPressed = new();
-        private HashSet<MouseButtons> MousePressed = new();
+        private HashSet<MouseButton> MousePressed = new();
         private List<MousePressedEventArgs> MousePressedThisFrame = new();
         private List<MousePressedEventArgs> MouseUnpressedThisFrame = new();
         private Dictionary<Keys, KeyRepeatDelay> RepeatDelays = new();
@@ -70,7 +70,7 @@ namespace OpenNefia.Core.UI
         private List<IInputHandler> Forwards = new();
         private Dictionary<IKeybind, KeyAction> Actions = new();
         private Action<UiTextInputEventArgs>? TextInputHandler;
-        private Dictionary<MouseButtons, MouseButtonAction> MouseButtonActions = new();
+        private Dictionary<MouseButton, MouseButtonAction> MouseButtonActions = new();
         private Action<UiMouseMovedEventArgs>? MouseMovedHandler;
         private KeybindTranslator Keybinds = new();
         private bool Halted;
@@ -462,12 +462,12 @@ namespace OpenNefia.Core.UI
             this.Keybinds.Disable(keybind);
         }
 
-        public void BindMouseButton(MouseButtons button, Action<UiMousePressedEventArgs> handler, bool trackReleased = false)
+        public void BindMouseButton(MouseButton button, Action<UiMousePressedEventArgs> handler, bool trackReleased = false)
         {
             this.MouseButtonActions[button] = new MouseButtonAction(handler, trackReleased);
         }
 
-        public void UnbindMouseButton(MouseButtons button)
+        public void UnbindMouseButton(MouseButton button)
         {
             this.MouseButtonActions.Remove(button);
         }

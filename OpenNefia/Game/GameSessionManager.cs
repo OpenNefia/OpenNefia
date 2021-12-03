@@ -18,8 +18,6 @@ namespace OpenNefia.Core.Game
 
         public static IMap? ActiveMap { get => IoCManager.Resolve<IMapManager>().ActiveMap; }
 
-        public static IFieldLayer Field { get => IoCManager.Resolve<IFieldLayer>(); }
-
         public static ICoords Coords { get => IoCManager.Resolve<ICoords>(); }
     }
 }

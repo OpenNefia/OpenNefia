@@ -4,7 +4,7 @@ namespace OpenNefia.Core.UI
 {
     public interface IMouseBinder
     {
-        void BindMouseButton(MouseButtons button, Action<UiMousePressedEventArgs> handler, bool trackReleased = false);
-        void UnbindMouseButton(MouseButtons button);
+        void BindMouseButton(MouseButton button, Action<UiMousePressedEventArgs> handler, bool trackReleased = false);
+        void UnbindMouseButton(MouseButton button);
     }
 }
