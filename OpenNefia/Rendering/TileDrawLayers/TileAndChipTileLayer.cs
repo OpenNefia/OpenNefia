@@ -87,14 +87,10 @@ namespace OpenNefia.Core.Rendering.TileDrawLayers
 
         public void RedrawMapObjects()
         {
-            foreach (var removed in _map.MapObjectMemory.Removed)
+            this._tileAndChipBatch.Clear();
+            foreach (var memory in _map.MapObjectMemory)
             {
-                this._tileAndChipBatch.RemoveChipEntry(removed);
-            }
-
-            foreach (var added in _map.MapObjectMemory.Added)
-            {
-                this._tileAndChipBatch.AddOrUpdateChipEntry(added);
+                this._tileAndChipBatch.AddChipEntry(memory);
             }
         }
 

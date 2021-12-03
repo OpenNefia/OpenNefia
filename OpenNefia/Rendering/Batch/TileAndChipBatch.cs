@@ -25,8 +25,6 @@ namespace OpenNefia.Core.Rendering
 
         private Vector2i _tiledSize;
         private string[,] _tiles = new string[0, 0];
-        private Dictionary<int, ChipBatchEntry> _chipsByIndex = new();
-        private Dictionary<int, int> _memoryIndexToRowIndex = new();
         private Stack<ChipBatchEntry> _deadEntries = new();
         private TileBatchRow[] _rows = new TileBatchRow[0];
         private HashSet<int> _dirtyRows = new();
@@ -48,8 +46,6 @@ namespace OpenNefia.Core.Rendering
             _tiledSize = size;
             _tiles = new string[width, height];
             
-            _chipsByIndex.Clear();
-            _memoryIndexToRowIndex.Clear();
             _deadEntries.Clear();
             _rows = new TileBatchRow[height];
             _dirtyRows.Clear();
@@ -62,7 +58,7 @@ namespace OpenNefia.Core.Rendering
             }
         }
 
-        public void AddOrUpdateChipEntry(MapObjectMemory memory)
+        public void AddChipEntry(MapObjectMemory memory)
         {
             ChipBatchEntry? entry;
 
@@ -70,75 +66,12 @@ namespace OpenNefia.Core.Rendering
             if (tile == null)
                 throw new Exception($"Missing chip {memory.AtlasIndex}");
 
-
-            if (this._chipsByIndex.TryGetValue(memory.Index, out entry))
-            {
-                // This memory is being reused for a potentially different object. This means that it exists in one of the Z layer strips already.
-                // Since the Y coordinate of the memory might have changed since then, we have to make sure it gets put into the correct batch.
-
-                var prevRowIndex = this._memoryIndexToRowIndex[entry.Memory.Index];
-                var newRowIndex = memory.Coords.Y;
-
-                if (prevRowIndex != newRowIndex)
-                {
-                    // Y coordinate of the object changed, move the entry between the two rows.
-                    var prevRow = this._rows[prevRowIndex];
-                    prevRow.ChipBatch.RemoveChipEntry(entry);
-                    _dirtyRows.Add(prevRowIndex);
-                }
-
-                entry.Memory = memory;
-                entry.RowIndex = newRowIndex;
-                entry.AtlasTile = tile;
-            }
-            else
-            {
-                // This memory was newly allocated, so allocate a new entry or reuse one.
-
-                if (this._deadEntries.Count > 0)
-                {
-                    entry = this._deadEntries.Pop();
-                    entry.Memory = memory;
-                    entry.RowIndex = memory.Coords.Y;
-                    entry.AtlasTile = tile;
-                }
-                else
-                {
-                    entry = new ChipBatchEntry(tile, memory);
-                }
-
-                // Add to top level, for tracking purposes.
-                this._chipsByIndex.Add(entry.Memory.Index, entry);
-            }
+            // Allocate a new chip batch entry.
+            entry = new ChipBatchEntry(tile, memory);
 
             // Add to the appropriate Z layer strip.
             this._rows[entry.RowIndex].ChipBatch.AddOrUpdateChipEntry(entry);
             _dirtyRows.Add(entry.RowIndex);
-
-            // And track the row it's placed into.
-            this._memoryIndexToRowIndex[entry.Memory.Index] = entry.RowIndex;
-        }
-
-        public ChipBatchEntry? GetChipEntry(MapObjectMemory memory)
-            => _chipsByIndex.GetValueOrDefault(memory.Index);
-
-        public void RemoveChipEntry(MapObjectMemory memory)
-        {
-            var entry = GetChipEntry(memory);
-
-            // First remove the reference at the top level.
-            this._chipsByIndex.Remove(memory.Index);
-
-            this._memoryIndexToRowIndex.Remove(memory.Index);
-
-            if (entry != null)
-            {
-                // Now remove it from the Z layer strip it's in.
-                var row = this._rows[entry.RowIndex];
-                row.ChipBatch.RemoveChipEntry(entry);
-                this._deadEntries.Push(entry);
-                _dirtyRows.Add(entry.RowIndex);
-            }
         }
 
         public void Clear()

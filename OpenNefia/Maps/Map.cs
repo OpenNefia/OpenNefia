@@ -36,8 +36,7 @@ namespace OpenNefia.Core.Maps
         public bool RedrawAllThisTurn { get; set; }
         public bool NeedsRedraw { get => DirtyTilesThisTurn.Count > 0 || RedrawAllThisTurn; }
 
-        private List<Entity> _entities { get; } = new List<Entity>();
-
+        private readonly List<Entity> _entities = new List<Entity>();
         public IEnumerable<Entity> Entities => _entities.ToList();
 
         public Map(int width, int height)
