@@ -31,15 +31,5 @@
     <ProjectReference Include="..\Thirdparty\Love2dCS\project_dotnet\project_dotnet.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <None Update="Assets\Core\Icon\icon.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Core\Effects\Content\" />
-  </ItemGroup>
-
   <Import Project="..\MSBuild\OpenNefia.Analyzers.targets" />
 </Project>

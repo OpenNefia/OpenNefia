@@ -38,7 +38,7 @@ namespace OpenNefia
             // Gets a handle to the shared and the current (client) dll.
             IoCManager.Resolve<IReflectionManager>().LoadAssemblies(new List<Assembly>(1)
             {
-                AppDomain.CurrentDomain.GetAssemblyByName("OpenNefia"),
+                AppDomain.CurrentDomain.GetAssemblyByName("OpenNefia.Core"),
                 Assembly.GetExecutingAssembly()
             });
         }

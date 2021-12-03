@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -7,13 +7,13 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\OpenNefia.Content\OpenNefia.Content.csproj" />
-    <ProjectReference Include="..\OpenNefia\OpenNefia.csproj" />
-  </ItemGroup>
-
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <Exec Command="mkdir &quot;$(TargetDir)Assets\Assemblies&#xD;&#xA;copy /Y &quot;$(TargetDir)OpenNefia.Content.dll&quot; &quot;$(TargetDir)Assets\Assemblies&quot;" />
   </Target>
+
+  <ItemGroup>
+    <ProjectReference Include="..\OpenNefia.Content\OpenNefia.Content.csproj" />
+    <ProjectReference Include="..\OpenNefia\OpenNefia.Core.csproj" />
+  </ItemGroup>
 
 </Project>

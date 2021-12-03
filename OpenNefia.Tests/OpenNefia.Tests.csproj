@@ -26,7 +26,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\OpenNefia\OpenNefia.csproj" />
+    <ProjectReference Include="..\OpenNefia\OpenNefia.Core.csproj" />
   </ItemGroup>
 	
   <Import Project="..\MSBuild\OpenNefia.DefineConstants.targets" />

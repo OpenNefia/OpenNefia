@@ -136,7 +136,7 @@ namespace OpenNefia.Tests
             var realReflection = new ReflectionManager();
             realReflection.LoadAssemblies(new List<Assembly>(1)
             {
-                AppDomain.CurrentDomain.GetAssemblyByName("OpenNefia"),
+                AppDomain.CurrentDomain.GetAssemblyByName("OpenNefia.Core"),
             });
 
             var reflectionManager = new Mock<IReflectionManager>();
