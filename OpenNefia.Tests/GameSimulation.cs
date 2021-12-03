@@ -1,15 +1,18 @@
 ﻿using JetBrains.Annotations;
 using Moq;
+using OpenNefia.Core.Asynchronous;
 using OpenNefia.Core.ContentPack;
 using OpenNefia.Core.Exceptions;
 using OpenNefia.Core.Game;
 using OpenNefia.Core.GameObjects;
+using OpenNefia.Core.Graphics;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Locale;
 using OpenNefia.Core.Log;
 using OpenNefia.Core.Maps;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Reflection;
+using OpenNefia.Core.Rendering;
 using OpenNefia.Core.Serialization.Manager;
 using OpenNefia.Core.Serialization.Manager.Attributes;
 using OpenNefia.Core.UI;
@@ -47,7 +50,7 @@ namespace OpenNefia.Tests
         /// Registers and sets a map as active.
         /// </summary>
         void SetActiveMap(IMap map);
-        IEntity SpawnEntity(string? protoId, MapCoordinates coordinates);
+        Entity SpawnEntity(string? protoId, MapCoordinates coordinates);
 
         IMap? ActiveMap { get; }
     }
@@ -83,7 +86,7 @@ namespace OpenNefia.Tests
             mapMan.ChangeActiveMap(map.Id);
         }
 
-        public IEntity SpawnEntity(string? protoId, MapCoordinates coordinates)
+        public Entity SpawnEntity(string? protoId, MapCoordinates coordinates)
         {
             var entMan = Collection.Resolve<IEntityManager>();
             return entMan.SpawnEntity(protoId, coordinates);
@@ -130,9 +133,10 @@ namespace OpenNefia.Tests
             container.Register<ILocalizationManager, LocalizationManager>();
             container.Register<IModLoader, TestingModLoader>();
             container.Register<IModLoaderInternal, TestingModLoader>();
+            container.Register<ITaskManager, TaskManager>();
 
-            var uiLayerManager = new Mock<IUiLayerManager>();
-            container.RegisterInstance<IUiLayerManager>(uiLayerManager.Object);
+            container.RegisterInstance<IUiLayerManager>(new Mock<IUiLayerManager>().Object);
+            container.RegisterInstance<IGraphics>(new Mock<IGraphics>().Object);
 
             var realReflection = new ReflectionManager();
             realReflection.LoadAssemblies(new List<Assembly>(1)
@@ -177,6 +181,7 @@ namespace OpenNefia.Tests
             container.Register<IComponentDependencyManager, ComponentDependencyManager>();
             container.Register<IEntitySystemManager, EntitySystemManager>();
             container.Register<IGameSessionManager, GameSessionManager>();
+            container.Register<ICoords, OrthographicCoords>();
 
             _diFactory?.Invoke(container);
             container.BuildGraph();

@@ -26,7 +26,7 @@ namespace OpenNefia.Content.Logic
         /// It's necessary to keep track of the non-primary characters on the same tile because they are 
         /// still affected by things like area of effect magic.
         /// </summary>
-        public static IEntity? GetPrimaryChara(this MapCoordinates coords)
+        public static Entity? GetPrimaryChara(this MapCoordinates coords)
         {
             return IoCManager.Resolve<IEntityManager>()
                 .EntityQuery<CharaComponent>()

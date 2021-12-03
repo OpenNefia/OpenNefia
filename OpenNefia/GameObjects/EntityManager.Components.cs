@@ -127,7 +127,7 @@ namespace OpenNefia.Core.GameObjects
             }
         }
 
-        public T AddComponent<T>(IEntity entity) where T : Component, new()
+        public T AddComponent<T>(Entity entity) where T : Component, new()
         {
             if (entity == null) throw new ArgumentNullException(nameof(entity));
 
@@ -147,7 +147,7 @@ namespace OpenNefia.Core.GameObjects
             return AddComponent<T>(entity);
         }
 
-        public void AddComponent<T>(IEntity entity, T component, bool overwrite = false) where T : Component
+        public void AddComponent<T>(Entity entity, T component, bool overwrite = false) where T : Component
         {
             AddComponent(entity.Uid, component, overwrite);
         }
@@ -393,7 +393,7 @@ namespace OpenNefia.Core.GameObjects
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public T EnsureComponent<T>(IEntity entity) where T : Component, new()
+        public T EnsureComponent<T>(Entity entity) where T : Component, new()
         {
             if (TryGetComponent<T>(entity.Uid, out var component))
             {

@@ -11,7 +11,7 @@ namespace OpenNefia.Core.GameObjects
 {
     public static class IEntityExt
     {
-        public static void GetScreenPos(this IEntity entity, out Vector2i screenPos)
+        public static void GetScreenPos(this Entity entity, out Vector2i screenPos)
         {
             GameSession.Coords.TileToScreen(entity.Spatial.Pos, out screenPos);
         }
@@ -22,7 +22,7 @@ namespace OpenNefia.Core.GameObjects
         /// <param name="entity"></param>
         /// <param name="other"></param>
         /// <returns></returns>
-        public static bool CanSee(this IEntity entity, IEntity other)
+        public static bool CanSee(this Entity entity, Entity other)
         {
             return entity.HasLos(other.Spatial.Coords);
         }
@@ -33,7 +33,7 @@ namespace OpenNefia.Core.GameObjects
         /// <param name="entity"></param>
         /// <param name="other"></param>
         /// <returns></returns>
-        public static bool HasLos(this IEntity entity, MapCoordinates coords)
+        public static bool HasLos(this Entity entity, MapCoordinates coords)
         {
             return entity.Spatial.Coords.HasLos(coords);
         }

@@ -188,7 +188,7 @@ namespace OpenNefia.Core.GameObjects
 
         /// <summary>
         /// A list of type references that can be used to get a reference to an instance of this component,
-        /// for methods like <see cref="IEntity.GetComponent{T}" />.
+        /// for methods like <see cref="Entity.GetComponent{T}" />.
         /// These are not unique and can overlap with other components.
         /// </summary>
         IReadOnlyList<Type> References { get; }

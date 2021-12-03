@@ -11,7 +11,7 @@ namespace OpenNefia.Core.GameObjects
     public abstract class Component : IComponent
     {
         /// <inheritdoc />
-        public IEntity Owner { get; set; } = default!;
+        public Entity Owner { get; set; } = default!;
 
         /// <inheritdoc />
         public EntityUid OwnerUid => Owner.Uid;

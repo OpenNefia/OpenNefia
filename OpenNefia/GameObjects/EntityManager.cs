@@ -8,7 +8,7 @@ using OpenNefia.Core.Prototypes;
 
 namespace OpenNefia.Core.GameObjects
 {
-    public delegate void EntityQueryCallback(IEntity entity);
+    public delegate void EntityQueryCallback(Entity entity);
 
     public delegate void EntityUidQueryCallback(EntityUid uid);
 
@@ -104,19 +104,19 @@ namespace OpenNefia.Core.GameObjects
 
         #region Entity Management
 
-        public IEntity CreateEntityUninitialized(string? prototypeName, EntityUid? euid)
+        public Entity CreateEntityUninitialized(string? prototypeName, EntityUid? euid)
         {
             return CreateEntity(prototypeName, euid);
         }
 
         /// <inheritdoc />
-        public IEntity CreateEntityUninitialized(string? prototypeName)
+        public Entity CreateEntityUninitialized(string? prototypeName)
         {
             return CreateEntity(prototypeName);
         }
 
         /// <inheritdoc />
-        public IEntity CreateEntityUninitialized(string? prototypeName, MapCoordinates coordinates)
+        public Entity CreateEntityUninitialized(string? prototypeName, MapCoordinates coordinates)
         {
             var newEntity = CreateEntity(prototypeName);
             var map = coordinates.Map;
@@ -130,7 +130,7 @@ namespace OpenNefia.Core.GameObjects
         }
 
         /// <inheritdoc />
-        public IEntity SpawnEntity(string? protoName, MapCoordinates coordinates)
+        public Entity SpawnEntity(string? protoName, MapCoordinates coordinates)
         {
             var entity = CreateEntityUninitialized(protoName, coordinates);
             InitializeAndStartEntity((Entity) entity, coordinates.Map?.Id ?? MapId.Nullspace);
@@ -138,7 +138,7 @@ namespace OpenNefia.Core.GameObjects
         }
 
         /// <inheritdoc />
-        public IEntity SpawnEntity(string? protoName, IMap map, Vector2i position)
+        public Entity SpawnEntity(string? protoName, IMap map, Vector2i position)
         {
             return SpawnEntity(protoName, new MapCoordinates(map, position));
         }
@@ -148,7 +148,7 @@ namespace OpenNefia.Core.GameObjects
         /// </summary>
         /// <param name="uid"></param>
         /// <returns>Entity or throws if the entity doesn't exist</returns>
-        public IEntity GetEntity(EntityUid uid)
+        public Entity GetEntity(EntityUid uid)
         {
             return Entities[uid];
         }
@@ -159,7 +159,7 @@ namespace OpenNefia.Core.GameObjects
         /// <param name="uid"></param>
         /// <param name="entity">The requested entity or null if the entity couldn't be found.</param>
         /// <returns>True if a value was returned, false otherwise.</returns>
-        public bool TryGetEntity(EntityUid uid, [NotNullWhen(true)] out IEntity? entity)
+        public bool TryGetEntity(EntityUid uid, [NotNullWhen(true)] out Entity? entity)
         {
             if (Entities.TryGetValue(uid, out var cEntity) && !cEntity.Deleted)
             {
@@ -177,7 +177,7 @@ namespace OpenNefia.Core.GameObjects
         public int EntityCount => Entities.Count;
 
         /// <inheritdoc />
-        public IEnumerable<IEntity> GetEntities() => Entities.Values;
+        public IEnumerable<Entity> GetEntities() => Entities.Values;
 
         public IEnumerable<EntityUid> GetEntityUids() => Entities.Keys;
 
@@ -185,7 +185,7 @@ namespace OpenNefia.Core.GameObjects
         /// Shuts-down and removes given Entity. This is also broadcast to all clients.
         /// </summary>
         /// <param name="e">Entity to remove</param>
-        public void DeleteEntity(IEntity e)
+        public void DeleteEntity(Entity e)
         {
             // Networking blindly spams entities at this function, they can already be
             // deleted from being a child of a previously deleted entity
@@ -203,7 +203,7 @@ namespace OpenNefia.Core.GameObjects
             RecursiveDeleteEntity(e);
         }
 
-        private void RecursiveDeleteEntity(IEntity entity)
+        private void RecursiveDeleteEntity(Entity entity)
         {
             if(entity.Deleted)
                 return;
@@ -228,7 +228,7 @@ namespace OpenNefia.Core.GameObjects
             Entities.Remove(entity.Uid);
         }
 
-        public void QueueDeleteEntity(IEntity entity)
+        public void QueueDeleteEntity(Entity entity)
         {
             QueueDeleteEntity(entity.Uid);
         }

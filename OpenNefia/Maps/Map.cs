@@ -36,9 +36,9 @@ namespace OpenNefia.Core.Maps
         public bool RedrawAllThisTurn { get; set; }
         public bool NeedsRedraw { get => DirtyTilesThisTurn.Count > 0 || RedrawAllThisTurn; }
 
-        private List<IEntity> _entities { get; } = new List<IEntity>();
+        private List<Entity> _entities { get; } = new List<Entity>();
 
-        public IEnumerable<IEntity> Entities => _entities.ToList();
+        public IEnumerable<Entity> Entities => _entities.ToList();
 
         public Map(int width, int height)
         {
@@ -202,7 +202,7 @@ namespace OpenNefia.Core.Maps
             return IsInBounds(pos) && (TileFlags[pos.X, pos.Y] & TileFlag.IsSolid) == TileFlag.None;
         }
 
-        public void AddEntity(IEntity entity)
+        public void AddEntity(Entity entity)
         {
             if (entity.Spatial.Map != null)
             {
@@ -212,7 +212,7 @@ namespace OpenNefia.Core.Maps
             _entities.Add(entity);
         }
 
-        public void RemoveEntity(IEntity entity)
+        public void RemoveEntity(Entity entity)
         {
             if (entity.Spatial.Map != this)
             {

@@ -29,7 +29,7 @@ namespace OpenNefia.Content.UI.Layer
             GameSession.Coords.BoundDrawPosition(screenPos, _mapSize, _parent.Size, out _screenPos);
         }
 
-        public void CenterOnTilePos(IEntity obj)
+        public void CenterOnTilePos(Entity obj)
         {
             CenterOnTilePos(obj.Spatial.Coords);
         }

@@ -26,11 +26,11 @@ namespace OpenNefia.Core.GameObjects
         event EventHandler<EntityUid>? EntityStarted;
         event EventHandler<EntityUid>? EntityDeleted;
 
-        IEntity CreateEntityUninitialized(string? prototypeName, EntityUid? euid);
+        Entity CreateEntityUninitialized(string? prototypeName, EntityUid? euid);
 
-        IEntity CreateEntityUninitialized(string? prototypeName);
+        Entity CreateEntityUninitialized(string? prototypeName);
 
-        IEntity CreateEntityUninitialized(string? prototypeName, MapCoordinates coordinates);
+        Entity CreateEntityUninitialized(string? prototypeName, MapCoordinates coordinates);
 
         /// <summary>
         /// Spawns an entity at a specific position
@@ -38,7 +38,7 @@ namespace OpenNefia.Core.GameObjects
         /// <param name="protoName"></param>
         /// <param name="coordinates"></param>
         /// <returns></returns>
-        IEntity SpawnEntity(string? protoName, MapCoordinates coordinates);
+        Entity SpawnEntity(string? protoName, MapCoordinates coordinates);
 
         /// <summary>
         /// Spawns an entity at a specific position
@@ -47,14 +47,14 @@ namespace OpenNefia.Core.GameObjects
         /// <param name="map"></param>
         /// <param name="position"></param>
         /// <returns></returns>
-        IEntity SpawnEntity(string? protoName, IMap map, Vector2i position);
+        Entity SpawnEntity(string? protoName, IMap map, Vector2i position);
 
         /// <summary>
         /// Returns an entity by id
         /// </summary>
         /// <param name="uid"></param>
         /// <returns>Entity or throws if entity id doesn't exist</returns>
-        IEntity GetEntity(EntityUid uid);
+        Entity GetEntity(EntityUid uid);
 
         /// <summary>
         /// Attempt to get an entity, returning whether or not an entity was gotten.
@@ -62,7 +62,7 @@ namespace OpenNefia.Core.GameObjects
         /// <param name="uid"></param>
         /// <param name="entity">The requested entity or null if the entity couldn't be found.</param>
         /// <returns>True if a value was returned, false otherwise.</returns>
-        bool TryGetEntity(EntityUid uid, [NotNullWhen(true)] out IEntity? entity);
+        bool TryGetEntity(EntityUid uid, [NotNullWhen(true)] out Entity? entity);
 
         /// <summary>
         /// How many entities are currently active.
@@ -73,7 +73,7 @@ namespace OpenNefia.Core.GameObjects
         /// Returns all entities
         /// </summary>
         /// <returns></returns>
-        IEnumerable<IEntity> GetEntities();
+        IEnumerable<Entity> GetEntities();
 
         /// <summary>
         /// Returns all entities by uid
@@ -82,10 +82,10 @@ namespace OpenNefia.Core.GameObjects
         IEnumerable<EntityUid> GetEntityUids();
 
         /// <summary>
-        /// Shuts-down and removes given <see cref="IEntity"/>. This is also broadcast to all clients.
+        /// Shuts-down and removes given <see cref="Entity"/>. This is also broadcast to all clients.
         /// </summary>
         /// <param name="e">Entity to remove</param>
-        void DeleteEntity(IEntity e);
+        void DeleteEntity(Entity e);
 
         /// <summary>
         /// Shuts-down and removes the entity with the given <see cref="EntityUid"/>. This is also broadcast to all clients.

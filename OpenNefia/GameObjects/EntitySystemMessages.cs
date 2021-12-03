@@ -9,9 +9,9 @@ namespace OpenNefia.Core.GameObjects
 {
     public sealed class EntityInitializedMessage : EntityEventArgs
     {
-        public IEntity Entity { get; }
+        public Entity Entity { get; }
 
-        public EntityInitializedMessage(IEntity entity)
+        public EntityInitializedMessage(Entity entity)
         {
             Entity = entity;
         }
@@ -19,13 +19,13 @@ namespace OpenNefia.Core.GameObjects
 
     public class EntMapIdChangedMessage : EntityEventArgs
     {
-        public EntMapIdChangedMessage(IEntity entity, MapId oldMapId)
+        public EntMapIdChangedMessage(Entity entity, MapId oldMapId)
         {
             Entity = entity;
             OldMapId = oldMapId;
         }
 
-        public IEntity Entity { get; }
+        public Entity Entity { get; }
         public MapId OldMapId { get; }
     }
 
@@ -36,9 +36,9 @@ namespace OpenNefia.Core.GameObjects
 
     public sealed class EntityDeletedMessage : EntityEventArgs
     {
-        public IEntity Entity { get; }
+        public Entity Entity { get; }
 
-        public EntityDeletedMessage(IEntity entity)
+        public EntityDeletedMessage(Entity entity)
         {
             Entity = entity;
         }

@@ -13,7 +13,7 @@ namespace OpenNefia.Core.GameObjects
     {
         private static readonly MapInitEvent MapInit = new MapInitEvent();
 
-        public static void RunMapInit(this IEntity entity)
+        public static void RunMapInit(this Entity entity)
         {
             DebugTools.Assert(entity.LifeStage == EntityLifeStage.Initialized);
             entity.LifeStage = EntityLifeStage.MapInitialized;

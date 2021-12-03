@@ -41,7 +41,7 @@ namespace OpenNefia.Content.UI.Layer
 
         MapCoordinates OriginPos;
         MapCoordinates TargetPos;
-        IEntity Onlooker;
+        Entity Onlooker;
         bool CanSee = false;
         bool IsPanning = false;
 
@@ -49,7 +49,7 @@ namespace OpenNefia.Content.UI.Layer
         FontSpec FontTargetText = UiFonts.TargetText;
         IUiText TextTarget;
 
-        public PositionPrompt(MapCoordinates origin, MapCoordinates? target = null, IEntity? onlooker = null)
+        public PositionPrompt(MapCoordinates origin, MapCoordinates? target = null, Entity? onlooker = null)
         {
             IoCManager.InjectDependencies(this);
 
@@ -62,7 +62,7 @@ namespace OpenNefia.Content.UI.Layer
             BindKeys();
         }
 
-        public PositionPrompt(IEntity onlooker) : this(onlooker.Spatial.Coords, onlooker: onlooker) { }
+        public PositionPrompt(Entity onlooker) : this(onlooker.Spatial.Coords, onlooker: onlooker) { }
 
         protected virtual void BindKeys()
         {

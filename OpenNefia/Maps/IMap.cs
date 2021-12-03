@@ -20,7 +20,7 @@ namespace OpenNefia.Core.Maps
         ShadowMap ShadowMap { get; }
         bool NeedsRedraw { get; }
 
-        public IEnumerable<IEntity> Entities { get; }
+        public IEnumerable<Entity> Entities { get; }
 
         IEnumerable<MapCoordinates> AllTiles { get; }
         HashSet<MapCoordinates> DirtyTilesThisTurn { get; }
@@ -43,7 +43,7 @@ namespace OpenNefia.Core.Maps
         void MemorizeTile(Vector2i position);
         bool CanAccess(Vector2i position);
 
-        void AddEntity(IEntity newEntity);
-        void RemoveEntity(IEntity entity);
+        void AddEntity(Entity newEntity);
+        void RemoveEntity(Entity entity);
     }
 }

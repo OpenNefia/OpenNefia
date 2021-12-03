@@ -11,7 +11,7 @@ using OpenNefia.Core.Serialization.TypeSerializers.Interfaces;
 namespace OpenNefia.Core.Serialization.TypeSerializers.Implementations
 {
     [TypeSerializer]
-    public class EntitySerializer : ITypeReaderWriter<IEntity, ValueDataNode>
+    public class EntitySerializer : ITypeReaderWriter<Entity, ValueDataNode>
     {
         public DeserializationResult Read(
             ISerializationManager serializationManager,
@@ -27,7 +27,7 @@ namespace OpenNefia.Core.Serialization.TypeSerializers.Implementations
             }
 
             var entity = dependencies.Resolve<IEntityManager>().GetEntity(uid);
-            return new DeserializedValue<IEntity>(entity);
+            return new DeserializedValue<Entity>(entity);
         }
 
         public ValidationNode Validate(ISerializationManager serializationManager, ValueDataNode node,
@@ -41,7 +41,7 @@ namespace OpenNefia.Core.Serialization.TypeSerializers.Implementations
                 : new ErrorNode(node, "Failed parsing EntityUid");
         }
 
-        public DataNode Write(ISerializationManager serializationManager, IEntity value, bool alwaysWrite = false,
+        public DataNode Write(ISerializationManager serializationManager, Entity value, bool alwaysWrite = false,
             ISerializationContext? context = null)
         {
             return new ValueDataNode(value.Uid.ToString());

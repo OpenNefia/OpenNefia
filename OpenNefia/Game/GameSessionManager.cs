@@ -8,13 +8,13 @@ namespace OpenNefia.Core.Game
 {
     public class GameSessionManager : IGameSessionManager
     {
-        public IEntity? _player;
-        public IEntity Player { get => _player!; set => _player = value; }
+        public Entity? _player;
+        public Entity Player { get => _player!; set => _player = value; }
     }
 
     public static class GameSession
     {
-        public static IEntity Player { get => IoCManager.Resolve<IGameSessionManager>().Player; }
+        public static Entity Player { get => IoCManager.Resolve<IGameSessionManager>().Player; }
 
         public static IMap? ActiveMap { get => IoCManager.Resolve<IMapManager>().ActiveMap; }
 
