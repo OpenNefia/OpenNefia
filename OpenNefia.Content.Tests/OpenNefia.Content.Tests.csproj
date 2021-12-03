@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<Import Project="..\MSBuild\OpenNefia.Properties.targets" />
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <IsPackable>false</IsPackable>
+	<CodeAnalysisRuleSet>$(SolutionDir)OpenNefia.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.11.0" />
+    <PackageReference Include="NUnit" Version="3.13.2" />
+    <PackageReference Include="NUnit3TestAdapter" Version="4.1.0" />
+    <PackageReference Include="coverlet.collector" Version="3.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\OpenNefia.Content\OpenNefia.Content.csproj" />
+    <ProjectReference Include="..\OpenNefia.Tests\OpenNefia.Tests.csproj" />
+    <ProjectReference Include="..\OpenNefia\OpenNefia.Core.csproj" />
+  </ItemGroup>
+	
+  <Import Project="..\MSBuild\OpenNefia.DefineConstants.targets" />
+</Project>

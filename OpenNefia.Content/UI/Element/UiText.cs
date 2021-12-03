@@ -8,6 +8,7 @@ namespace OpenNefia.Content.UI.Element
 {
     public class UiText : BaseUiElement, IUiText
     {
+        protected bool NeedsRebake = true;
         protected Love.Text BakedText;
 
         public int TextWidth { get => this.Font.LoveFont.GetWidth(this.Text); }
@@ -47,7 +48,7 @@ namespace OpenNefia.Content.UI.Element
             this._font = font ?? throw new ArgumentNullException(nameof(font));
             this.Color = font.Color;
             this.BgColor = font.BgColor;
-            this.RebakeText();
+            this.NeedsRebake = true;
         }
 
 #pragma warning restore CS8618
@@ -57,6 +58,7 @@ namespace OpenNefia.Content.UI.Element
             GraphicsEx.SetColor(this.Color);
             this.BakedText = Love.Graphics.NewText(this.Font.LoveFont, this.Text);
             this.SetPreferredSize();
+            this.NeedsRebake = false;
         }
 
         public override void GetPreferredSize(out Vector2i size)
@@ -72,6 +74,8 @@ namespace OpenNefia.Content.UI.Element
 
         public override void Update(float dt)
         {
+            if (this.NeedsRebake)
+                this.RebakeText();
         }
 
         public override void Draw()

@@ -26,7 +26,7 @@ namespace OpenNefia.Tests
 
             var assemblies = new List<Assembly>(4);
 
-            assemblies.Add(AppDomain.CurrentDomain.GetAssemblyByName("OpenNefia.Core"));
+            assemblies.Add(typeof(OpenNefia.Core.Engine).Assembly);
             assemblies.Add(Assembly.GetExecutingAssembly());
 
             var contentAssemblies = GetContentAssemblies();

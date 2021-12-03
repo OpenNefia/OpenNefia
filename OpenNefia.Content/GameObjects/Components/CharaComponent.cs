@@ -17,5 +17,42 @@ namespace OpenNefia.Content.GameObjects
 
         [DataField(required: true)]
         public PrototypeId<ClassPrototype> Class { get; set; } = default;
+
+        [ComponentDependency]
+        private MetaDataComponent? _metaData;
+
+        private CharaLivenessState _liveness;
+        public CharaLivenessState Liveness
+        {
+            get => _liveness;
+            set
+            {
+                _liveness = value;
+                _metaData!.Liveness = GetGeneralLivenessState(value);
+            }
+        }
+
+        private static EntityGameLiveness GetGeneralLivenessState(CharaLivenessState charaLiveness)
+        {
+            switch (charaLiveness)
+            {
+                case CharaLivenessState.Alive:
+                    return EntityGameLiveness.Alive;
+                case CharaLivenessState.PetDead:
+                case CharaLivenessState.VillagerDead:
+                    return EntityGameLiveness.Hidden;
+                case CharaLivenessState.Dead:
+                default:
+                    return EntityGameLiveness.DeadAndBuried;
+            }
+        }
+    } 
+
+    public enum CharaLivenessState
+    {
+        Alive,
+        PetDead,
+        VillagerDead,
+        Dead,
     }
 }
