@@ -29,12 +29,12 @@ namespace OpenNefia.Content.UI.Layer
 
         public new class Result
         {
-            public MapCoordinates Pos;
+            public MapCoordinates Coords;
             public bool CanSee;
 
             public Result(MapCoordinates pos, bool canSee)
             {
-                Pos = pos;
+                Coords = pos;
                 CanSee = canSee;
             }
         }
@@ -62,7 +62,11 @@ namespace OpenNefia.Content.UI.Layer
             BindKeys();
         }
 
-        public PositionPrompt(Entity onlooker) : this(onlooker.Spatial.Coords, onlooker: onlooker) { }
+        public PositionPrompt(Entity onlooker, MapCoordinates? target)
+            : this(onlooker.Spatial.Coords, target, onlooker) { }
+
+        public PositionPrompt(Entity onlooker) 
+            : this(onlooker.Spatial.Coords, onlooker: onlooker) { }
 
         protected virtual void BindKeys()
         {

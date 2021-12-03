@@ -1,4 +1,5 @@
 ﻿using OpenNefia.Core.GameObjects;
+using OpenNefia.Core.Maths;
 
 namespace OpenNefia.Core.Maps
 {
@@ -15,5 +16,7 @@ namespace OpenNefia.Core.Maps
         void SaveMap(MapId id);
         IMap GetMap(MapId id);
         void UnloadMap(MapId id);
+
+        IEnumerable<Entity> GetEntities(MapCoordinates coords);
     }
 }

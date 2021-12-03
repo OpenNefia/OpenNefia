@@ -72,10 +72,12 @@ namespace OpenNefia.Content.Logic
             map.Clear(TilePrototypeOf.Grass);
             map.MemorizeAll();
 
-
-            _entityManager.SpawnEntity(new("Yeek"), map.AtPos(5, 5));
-            _entityManager.SpawnEntity(new("Yeek"), map.AtPos(6, 5));
-            _entityManager.SpawnEntity(new("Yeek"), map.AtPos(7, 5));
+            for (int i = 0; i < 10; i++)
+            {
+                _entityManager.SpawnEntity(new("Yeek"), map.AtPos(i + 5, 5));
+                _entityManager.SpawnEntity(new("Potion"), map.AtPos(i + 5, 2));
+                _entityManager.SpawnEntity(new("Computer"), map.AtPos(i + 5, 3));
+            }
 
             return map;
         }

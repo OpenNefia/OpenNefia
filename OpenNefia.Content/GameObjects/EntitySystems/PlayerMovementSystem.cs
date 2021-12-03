@@ -8,6 +8,7 @@ namespace OpenNefia.Content.GameObjects
     public class PlayerMovementSystem : EntitySystem
     {
         [Dependency] private readonly IPlayerQuery _playerQuery = default!;
+        [Dependency] private readonly IMapManager _map = default!;
 
         public override void Initialize()
         {
@@ -51,7 +52,7 @@ namespace OpenNefia.Content.GameObjects
             if (args.Handled || !Resolve(uid, ref moveable))
                 return;
 
-            var entities = args.NewPosition.GetEntities()
+            var entities = _map.GetEntities(args.NewPosition)
                 .Where(x => x.Spatial.IsSolid);
 
             foreach (var entity in entities)

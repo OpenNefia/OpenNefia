@@ -4,8 +4,9 @@ using OpenNefia.Core.Game;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Random;
+using OpenNefia.Core.Rendering;
 
-namespace OpenNefia.Core.Rendering
+namespace OpenNefia.Content.Rendering
 {
     public class ParticleMapDrawable : BaseMapDrawable
     {

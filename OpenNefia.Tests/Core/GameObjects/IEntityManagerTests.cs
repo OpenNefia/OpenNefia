@@ -1,6 +1,7 @@
 using NUnit.Framework;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Maps;
+using OpenNefia.Core.Maths;
 
 namespace OpenNefia.Tests.Core.GameObjects
 {
@@ -39,8 +40,10 @@ namespace OpenNefia.Tests.Core.GameObjects
 
             var entMan = sim.Resolve<IEntityManager>();
             var map = sim.Resolve<IMapManager>().ActiveMap!;
-            var newEnt = entMan.SpawnEntity("dummy", map.AtPos(0, 0));
+            var newEnt = entMan.SpawnEntity("dummy", map.AtPos(Vector2i.Zero));
             Assert.That(newEnt, Is.Not.Null);
+            Assert.That(newEnt.Spatial.Map, Is.EqualTo(map));
+            Assert.That(newEnt.Spatial.Coords.Position, Is.EqualTo(Vector2i.Zero));
         }
     }
 }

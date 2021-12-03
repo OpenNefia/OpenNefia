@@ -82,3 +82,27 @@
     class: Yeek
   - type: Chip
     id: CharaYeek
+    
+- type: Entity
+  id: Potion
+  parent: BaseItem
+  components:
+  - type: MetaData
+    displayName: potion
+  - type: Item
+    value: 5
+  - type: Chip
+    id: ItemPotion
+  - type: Throwable
+    
+- type: Entity
+  id: Computer
+  parent: BaseItem
+  components:
+  - type: MetaData
+    displayName: computer
+  - type: Item
+    value: 50
+  - type: Chip
+    id: ItemComputer
+  - type: Throwable

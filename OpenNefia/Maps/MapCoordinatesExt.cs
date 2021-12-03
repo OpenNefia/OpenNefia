@@ -17,10 +17,10 @@ namespace OpenNefia.Core.Maps
     {
         public static IEnumerable<Entity> GetEntities(this MapCoordinates coords)
         {
-            return coords.Map?
-                .Entities
-                .Where(entity => entity.Spatial.Coords == coords)
-                ?? Enumerable.Empty<Entity>();
+            if (coords.Map == null)
+                return Enumerable.Empty<Entity>();
+
+            return IoCManager.Resolve<IMapManager>().GetEntities(coords);
         }
 
         private static bool CanSeeThrough(this MapCoordinates coords)

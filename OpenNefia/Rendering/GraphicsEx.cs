@@ -50,10 +50,15 @@ namespace OpenNefia.Core.Rendering
 
         public static void DrawSpriteBatch(Love.SpriteBatch batch, float x, float y, float width, float height, float rotation = 0)
         {
-            // Sprite batches will ignore the width and height of
-            // love.graphics.draw; we have to manually set the scissor.
-            var scissor = Love.Graphics.GetScissor();
-            Love.Graphics.SetScissor((int)x, (int)y, (int)width, (int)height);
+            Rectangle? scissor = null;
+
+            if (width > 0 || height > 0)
+            {
+                // Sprite batches will ignore the width and height of
+                // love.graphics.draw; we have to manually set the scissor.
+                scissor = Love.Graphics.GetScissor();
+                Love.Graphics.SetScissor((int)x, (int)y, (int)width, (int)height);
+            }
 
             Love.Graphics.Draw(batch, x, y, rotation);
 

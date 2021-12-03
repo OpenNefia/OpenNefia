@@ -18,7 +18,10 @@ namespace OpenNefia.Core.GameObjects
             if (!Resolve(uid, ref spatial))
                 return;
 
-            spatial.Map!.RefreshTile(args.OldPosition.Position);
+            if (spatial.Map == null)
+                return;
+
+            spatial.Map.RefreshTile(args.OldPosition.Position);
             spatial.Map.RefreshTile(args.NewPosition.Position);
         }
 
@@ -39,11 +42,7 @@ namespace OpenNefia.Core.GameObjects
 
             spatial.Direction = (args.NewPosition.Position - args.OldPosition.Position).GetDir();
 
-            var evBefore = new BeforeMoveEventArgs()
-            {
-                OldPosition = args.OldPosition,
-                NewPosition = args.NewPosition
-            };
+            var evBefore = new BeforeMoveEventArgs(args.OldPosition, args.NewPosition);
             RaiseLocalEvent(uid, evBefore);
 
             if (evBefore.Handled || !EntityManager.IsAlive(uid))
@@ -62,11 +61,7 @@ namespace OpenNefia.Core.GameObjects
 
             spatial.Pos = args.NewPosition.Position;
 
-            var evAfter = new AfterMoveEventArgs()
-            {
-                OldPosition = args.OldPosition,
-                NewPosition = args.NewPosition
-            };
+            var evAfter = new AfterMoveEventArgs(args.OldPosition, args.NewPosition);
             RaiseLocalEvent(uid, evAfter);
 
             args.Handled = true;
@@ -76,29 +71,53 @@ namespace OpenNefia.Core.GameObjects
 
     public struct PositionChangedEvent
     {
-        public MapCoordinates OldPosition;
-        public MapCoordinates NewPosition;
+        public readonly MapCoordinates OldPosition;
+        public readonly MapCoordinates NewPosition;
+
+        public PositionChangedEvent(MapCoordinates oldPosition, MapCoordinates newPosition)
+        {
+            OldPosition = oldPosition;
+            NewPosition = newPosition;
+        }
     }
 
     public class MoveEventArgs : HandledEntityEventArgs
     {
-        public MapCoordinates OldPosition;
-        public MapCoordinates NewPosition;
+        public readonly MapCoordinates OldPosition;
+        public readonly MapCoordinates NewPosition;
+
+        public MoveEventArgs(MapCoordinates oldPosition, MapCoordinates newPosition)
+        {
+            OldPosition = oldPosition;
+            NewPosition = newPosition;
+        }
 
         public TurnResult TurnResult;
     }
 
     public class BeforeMoveEventArgs : HandledEntityEventArgs
     {
-        public MapCoordinates OldPosition;
-        public MapCoordinates NewPosition;
+        public readonly MapCoordinates OldPosition;
+        public readonly MapCoordinates NewPosition;
+
+        public BeforeMoveEventArgs(MapCoordinates oldPosition, MapCoordinates newPosition)
+        {
+            OldPosition = oldPosition;
+            NewPosition = newPosition;
+        }
 
         public TurnResult TurnResult;
     }
 
     public class AfterMoveEventArgs : HandledEntityEventArgs
     {
-        public MapCoordinates OldPosition;
-        public MapCoordinates NewPosition;
+        public readonly MapCoordinates OldPosition;
+        public readonly MapCoordinates NewPosition;
+
+        public AfterMoveEventArgs(MapCoordinates oldPosition, MapCoordinates newPosition)
+        {
+            OldPosition = oldPosition;
+            NewPosition = newPosition;
+        }
     }
 }

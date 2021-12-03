@@ -1,4 +1,6 @@
-﻿using OpenNefia.Core.Utility;
+﻿using OpenNefia.Core.GameObjects;
+using OpenNefia.Core.Maths;
+using OpenNefia.Core.Utility;
 
 namespace OpenNefia.Core.Maps
 {
@@ -50,6 +52,11 @@ namespace OpenNefia.Core.Maps
             return CachedMaps[id];
         }
 
+        public IMap? GetMapOrNull(MapId id)
+        {
+            return CachedMaps.GetValueOrDefault(id);
+        }
+
         public void ChangeActiveMap(MapId id)
         {
             this.ActiveMap = CachedMaps[id];
@@ -59,6 +66,14 @@ namespace OpenNefia.Core.Maps
         public bool IsMapInitialized(MapId mapId)
         {
             return this.CachedMaps.ContainsKey(mapId);
+        }
+
+        public IEnumerable<Entity> GetEntities(MapCoordinates coords)
+        {
+            return coords.Map
+                 ?.Entities
+                 .Where(entity => entity.Spatial.Coords == coords)
+                 ?? Enumerable.Empty<Entity>();
         }
     }
 }

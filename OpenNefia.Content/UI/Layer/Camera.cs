@@ -48,7 +48,7 @@ namespace OpenNefia.Content.UI.Layer
         public void TileToVisibleScreen(MapCoordinates coords, out Vector2i screenPos)
         {
             GameSession.Coords.TileToScreen(coords.Position, out screenPos);
-            _screenPos += screenPos;
+            screenPos += _screenPos;
         }
 
         public void VisibleScreenToTile(Vector2i screenPos, out Vector2i tilePos)

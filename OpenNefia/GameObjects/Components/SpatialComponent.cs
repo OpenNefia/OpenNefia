@@ -30,11 +30,7 @@ namespace OpenNefia.Core.GameObjects
 
                 if (oldPos != _pos)
                 {
-                    var ev = new PositionChangedEvent()
-                    {
-                        OldPosition = new MapCoordinates(Map, oldPos),
-                        NewPosition = new MapCoordinates(Map, _pos)
-                    };
+                    var ev = new PositionChangedEvent(new MapCoordinates(Map, oldPos), new MapCoordinates(Map, _pos));
                     Owner.EntityManager.EventBus.RaiseLocalEvent(OwnerUid, ref ev);
                 }
             }
@@ -45,7 +41,7 @@ namespace OpenNefia.Core.GameObjects
         /// </summary>
         public IMap? Map { get; private set; }
 
-        public MapCoordinates Coords { get => new MapCoordinates(Map, Pos); }
+        public MapCoordinates Coords => new MapCoordinates(Map, Pos);
 
         /// <summary>
         /// If true, this entity cannot be moved over. This also causes

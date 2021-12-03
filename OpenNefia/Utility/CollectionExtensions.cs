@@ -245,14 +245,11 @@ namespace OpenNefia.Core.Utility
             }
         }
 
-        /// <summary>
-        /// Adds all the key-value pairs of one dictionary to another.
-        /// </summary>
-        public static void AddRange<TKey, TValue>(this IDictionary<TKey, TValue> targetDict, IDictionary<TKey, TValue> sourceDict)
+        public static void AddRange<T>(this ICollection<T> collection, IEnumerable<T> items)
         {
-            foreach (var x in sourceDict)
+            foreach (T item in items)
             {
-                targetDict.Add(x.Key, x.Value);
+                collection.Add(item);
             }
         }
     }

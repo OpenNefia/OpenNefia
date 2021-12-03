@@ -1,5 +1,4 @@
 ﻿using System.Reflection;
-using OpenNefia.Core.ContentPack;
 using OpenNefia.Core.GameController;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Log;
@@ -38,7 +37,7 @@ namespace OpenNefia
             // Gets a handle to the shared and the current (client) dll.
             IoCManager.Resolve<IReflectionManager>().LoadAssemblies(new List<Assembly>(1)
             {
-                AppDomain.CurrentDomain.GetAssemblyByName("OpenNefia.Core"),
+                typeof(OpenNefia.Core.Engine).Assembly,
                 Assembly.GetExecutingAssembly()
             });
         }

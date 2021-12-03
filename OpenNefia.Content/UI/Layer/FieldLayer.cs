@@ -12,6 +12,8 @@ using OpenNefia.Content.UI.Element;
 using OpenNefia.Content.UI.Hud;
 using OpenNefia.Content.Logic;
 using OpenNefia.Content.UI.Layer.Repl;
+using OpenNefia.Content.GameObjects.EntitySystems;
+using OpenNefia.Core.Logic;
 
 namespace OpenNefia.Content.UI.Layer
 {
@@ -22,6 +24,8 @@ namespace OpenNefia.Content.UI.Layer
         [Dependency] private readonly ICoords _coords = default!;
         [Dependency] private readonly IPlayerQuery _playerQuery = default!;
         [Dependency] private readonly IReplLayer _repl = default!;
+        [Dependency] private readonly IGameSessionManager _gameSession = default!;
+        [Dependency] private readonly IMapManager _map = default!;
 
         public static FieldLayer? Instance = null;
 
@@ -30,7 +34,6 @@ namespace OpenNefia.Content.UI.Layer
         private UiScroller _scroller;
 
         public Camera Camera { get; private set; }
-        private UiFpsCounter FpsCounter;
 
         private FontSpec FontText = new(14, 12);
 
@@ -47,8 +50,6 @@ namespace OpenNefia.Content.UI.Layer
             Console.WriteLine($"Got back: {result}");
             Message = result;
             MouseText = "";
-
-            FpsCounter = new UiFpsCounter();
 
             BindKeys();
         }
@@ -82,7 +83,7 @@ namespace OpenNefia.Content.UI.Layer
             //Keybinds[Keys.D] += (_) => DropItem();
             //Keybinds[Keys.C] += (_) => CastSpell();
             //Keybinds[Keys.Q] += (_) => DrinkItem();
-            //Keybinds[Keys.T] += (_) => ThrowItem();
+            Keybinds[Keys.T] += ThrowItem;
             //Keybinds[Keys.Ctrl | Keys.B] += (_) => ActivateBeautify();
             //Keybinds[Keys.Period] += (_) => MovePlayer(0, 0);
 
@@ -118,7 +119,7 @@ namespace OpenNefia.Content.UI.Layer
         {
             Map.RefreshVisibility();
 
-            var player = GameSession.Player;
+            var player = _gameSession.Player;
 
             if (player != null)
             {
@@ -128,7 +129,7 @@ namespace OpenNefia.Content.UI.Layer
 
         private void MovePlayer(Direction dir)
         {
-            var player = GameSession.Player;
+            var player = _gameSession.Player;
 
             if (player != null)
             {
@@ -142,7 +143,7 @@ namespace OpenNefia.Content.UI.Layer
         /*
                 private void GetItem()
                 {
-                    var player = GameSession.Player;
+                    var player = _gameSession.Player;
 
                     if (player != null)
                     {
@@ -168,7 +169,7 @@ namespace OpenNefia.Content.UI.Layer
 
                 private void DropItem()
                 {
-                    var player = GameSession.Player;
+                    var player = _gameSession.Player;
 
                     if (player != null)
                     {
@@ -190,7 +191,7 @@ namespace OpenNefia.Content.UI.Layer
 
                 private void DrinkItem()
                 {
-                    var player = GameSession.Player;
+                    var player = _gameSession.Player;
 
                     if (player != null)
                     {
@@ -205,36 +206,37 @@ namespace OpenNefia.Content.UI.Layer
                         RefreshScreen();
                     }
                 }
+        */
+        private void ThrowItem(UiKeyInputEventArgs args)
+        {
+            var player = _gameSession.Player;
 
-                private void ThrowItem()
+            if (player != null)
+            {
+                var throwVerb = new Verb(ThrowableSystem.VerbIDThrow);
+                var verbSystem = EntitySystem.Get<VerbSystem>();
+
+                foreach (var target in _map.GetEntities(player.Spatial.Coords))
                 {
-                    var player = GameSession.Player;
-
-                    if (player != null)
+                    var verbs = verbSystem.GetLocalVerbs(target.Uid, player.Uid);
+                    if (verbs.Contains(throwVerb))
                     {
-                        var item = player.Inventory.Where(i => i.CanThrow(player)).FirstOrDefault();
-
-                        if (item != null)
-                        {
-                            var posResult = new PositionPrompt(player).Query();
-                            if (!posResult.HasValue)
-                                return;
-
-                            var targetPos = posResult.Value.Pos;
-                            CharaAction.Throw(player, item, targetPos);
-                        }
-
-                        RefreshScreen();
+                        verbSystem.ExecuteVerb(player.Uid, target.Uid, throwVerb);
+                        break;
                     }
                 }
 
+                RefreshScreen();
+            }
+        }
+        /*
                 private void CastSpell()
                 {
                     var prompt = new Prompt<CastableDef>(DefStore<CastableDef>.Enumerate());
                     var result = prompt.Query();
                     if (result.HasValue)
                     {
-                        Spell.CastSpell(result.Value.ChoiceData, GameSession.Player!);
+                        Spell.CastSpell(result.Value.ChoiceData, _gameSession.Player!);
                         RefreshScreen();
                     }
                 }*/
@@ -278,10 +280,9 @@ namespace OpenNefia.Content.UI.Layer
         {
             base.SetSize(width, height);
             _mapRenderer.SetSize(width, height);
-            FpsCounter.SetSize(400, 500);
             _hud.SetSize(width, height);
 
-            var player = GameSession.Player;
+            var player = _gameSession.Player;
             if (player != null)
             {
                 Camera.CenterOnTilePos(player);
@@ -292,7 +293,6 @@ namespace OpenNefia.Content.UI.Layer
         {
             base.SetPosition(x, y);
             _mapRenderer.SetPosition(x, y);
-            FpsCounter.SetPosition(Width - FpsCounter.Text.Width - 5, 5);
             _hud.SetPosition(0, 0);
         }
 
@@ -346,7 +346,6 @@ namespace OpenNefia.Content.UI.Layer
 
             _hud.Update(dt);
             _mapRenderer.Update(dt);
-            FpsCounter.Update(dt);
         }
 
         public override void Draw()
@@ -357,7 +356,7 @@ namespace OpenNefia.Content.UI.Layer
 
             Love.Graphics.SetColor(255, 0, 0);
 
-            var player = GameSession.Player!;
+            var player = _gameSession.Player!;
             player.GetScreenPos(out var screenPos);
             Love.Graphics.Rectangle(Love.DrawMode.Line, X + screenPos.X, Y + screenPos.Y, _coords.TileSize.X, _coords.TileSize.Y);
 
@@ -368,12 +367,10 @@ namespace OpenNefia.Content.UI.Layer
             Love.Graphics.Print($"Player: ({player.Spatial.Coords})", 5, 35);
 
             _hud.Draw();
-            FpsCounter.Draw();
         }
 
         public override void Dispose()
         {
-            FpsCounter.Dispose();
         }
     }
 }

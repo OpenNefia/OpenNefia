@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using OpenNefia.Core.Serialization.Manager.Attributes;
+﻿using OpenNefia.Core.Serialization.Manager.Attributes;
 
 namespace OpenNefia.Core.GameObjects
 {
@@ -12,7 +7,29 @@ namespace OpenNefia.Core.GameObjects
     {
         public override string Name => "Stackable";
 
+        [ComponentDependency]
+        private MetaDataComponent? _metaData;
+
+        private int _amount = 1;
+
         [DataField]
-        public int Amount { get; set; } = 1;
+        public int Amount
+        {
+            get => _amount;
+            set
+            {
+                _amount = value;
+
+                if (_amount <= 0)
+                {
+                    _amount = 0;
+                    _metaData!.Liveness = EntityGameLiveness.DeadAndBuried;
+                }
+                else
+                {
+                    _metaData!.Liveness = EntityGameLiveness.Alive;
+                }
+            }
+        }
     }
 }

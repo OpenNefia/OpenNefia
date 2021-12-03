@@ -3,7 +3,7 @@ using OpenNefia.Core.UI.Element;
 
 namespace OpenNefia.Core.Rendering
 {
-    internal interface IMapDrawables : IDrawable
+    public interface IMapDrawables : IDrawable
     {
         void Clear();
         void Enqueue(IMapDrawable drawable, MapCoordinates? pos, int zOrder = 0);

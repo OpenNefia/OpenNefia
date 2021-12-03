@@ -1,17 +1,17 @@
 ﻿using Love;
 using OpenNefia.Core.Audio;
 using OpenNefia.Core.Config;
-using OpenNefia.Core.Data.Types;
 using OpenNefia.Core.Game;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Maps;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.Prototypes;
+using OpenNefia.Core.Rendering;
 using OpenNefia.Core.UI;
 using OpenNefia.Core.Utility;
 using Color = OpenNefia.Core.Maths.Color;
 
-namespace OpenNefia.Core.Rendering
+namespace OpenNefia.Content.Rendering
 {
     public class RangedAttackMapDrawable : BaseMapDrawable
     {
@@ -75,7 +75,7 @@ namespace OpenNefia.Core.Rendering
             var cx = (int)(this._counter.Frame * (screenPos.X) / this._counter.MaxFrames);
             var cy = (int)(this._counter.Frame * (screenPos.Y) / this._counter.MaxFrames);
 
-            if (UiUtils.IsPointInVisibleScreen(this.Position))
+            if (UiUtils.IsPointInVisibleScreen(this.Position + new Vector2i(cx, cy)))
             {
                 this._chipBatch.Clear();
                 this._chipBatch.Add(this._chip.Image, 
