@@ -474,13 +474,14 @@ namespace OpenNefia.Core.Prototypes
 
                 for (var i = 0; i < yamlStream.Documents.Count; i++)
                 {
-                    var rootNode = (YamlSequenceNode) yamlStream.Documents[i].RootNode;
+                    YamlDocument document = yamlStream.Documents[i];
+                    var rootNode = (YamlSequenceNode)document.RootNode;
                     foreach (YamlMappingNode node in rootNode.Cast<YamlMappingNode>())
                     {
                         var type = node.GetNode("type").AsString();
                         if (!_prototypeTypes.ContainsKey(type))
                         {
-                            throw new PrototypeLoadException($"Unknown prototype type: '{type}'");
+                            throw new PrototypeLoadException($"Unknown prototype type: '{type}'", resourcePath.ToString(), node);
                         }
 
                         var mapping = node.ToDataNodeCast<MappingDataNode>();
@@ -551,7 +552,7 @@ namespace OpenNefia.Core.Prototypes
                 {
                     try
                     {
-                        var documentPrototypes = LoadFromDocument(yamlStream.Documents[i], overwrite);
+                        var documentPrototypes = LoadFromDocument(yamlStream.Documents[i], overwrite, file.ToString());
                         changedPrototypes.UnionWith(documentPrototypes);
                     }
                     catch (Exception e)
@@ -578,14 +579,15 @@ namespace OpenNefia.Core.Prototypes
 
             for (var i = 0; i < yaml.Documents.Count; i++)
             {
+                var document = yaml.Documents[i];
                 try
                 {
-                    var documentPrototypes = LoadFromDocument(yaml.Documents[i], overwrite);
+                    var documentPrototypes = LoadFromDocument(document, overwrite);
                     changedPrototypes.AddRange(documentPrototypes);
                 }
                 catch (Exception e)
                 {
-                    throw new PrototypeLoadException($"Failed to load prototypes from document#{i}", e);
+                    throw new PrototypeLoadException($"Failed to load prototypes from document#{i}", e, "[anonymous]");
                 }
             }
 
@@ -637,17 +639,24 @@ namespace OpenNefia.Core.Prototypes
             }
         }
 
-        private HashSet<IPrototype> LoadFromDocument(YamlDocument document, bool overwrite = false)
+        private HashSet<IPrototype> LoadFromDocument(YamlDocument document, bool overwrite = false, string? filename = null)
         {
             var changedPrototypes = new HashSet<IPrototype>();
             var rootNode = (YamlSequenceNode) document.RootNode;
+            filename ??= "[anonymous]";
 
             foreach (YamlMappingNode node in rootNode.Cast<YamlMappingNode>())
             {
-                var type = node.GetNode("type").AsString();
+                if (!node.TryGetNode("type", out var typeNode))
+                {
+                    throw new PrototypeLoadException($"Missing 'type' property", filename, node);
+                }
+
+                var type = typeNode.AsString();
+
                 if (!_prototypeTypes.ContainsKey(type))
                 {
-                    throw new PrototypeLoadException($"Unknown prototype type: '{type}'");
+                    throw new PrototypeLoadException($"Unknown prototype type: '{type}'", filename, node);
                 }
 
                 var prototypeType = _prototypeTypes[type];
@@ -656,7 +665,7 @@ namespace OpenNefia.Core.Prototypes
 
                 if (!overwrite && _prototypes[prototypeType].ContainsKey(prototype.ID))
                 {
-                    throw new PrototypeLoadException($"Duplicate ID: '{prototype.ID}'");
+                    throw new PrototypeLoadException($"Duplicate ID: '{prototype.ID}'", filename, node);
                 }
 
                 _prototypeResults[prototypeType][prototype.ID] = res;
@@ -798,20 +807,54 @@ namespace OpenNefia.Core.Prototypes
     [Serializable]
     public class PrototypeLoadException : Exception
     {
+        public override string Message
+        {
+            get
+            {
+                var sb = new StringBuilder();
+                sb.Append(base.Message);
+                
+                if (Filename != null)
+                {
+                    sb.Append($" at {Filename}");
+
+                    if (Node != null)
+                    {
+                        sb.Append($", line {Node.Start.Line}, column {Node.Start.Column}");
+                    }
+                }
+
+                return sb.ToString();
+            }
+        }
+
+        public readonly string? Filename;
+        public readonly YamlNode? Node;
+
         public PrototypeLoadException()
         {
         }
 
-        public PrototypeLoadException(string message) : base(message)
+        public PrototypeLoadException(string message, string? filename = null, YamlNode? node = null) : base(message)
         {
+            Filename = filename;
+            Node = node;
         }
 
-        public PrototypeLoadException(string message, Exception inner) : base(message, inner)
+        public PrototypeLoadException(string message, Exception inner, string? filename = null) : base(message, inner)
         {
+            Filename = filename;
         }
 
         public PrototypeLoadException(SerializationInfo info, StreamingContext context) : base(info, context)
         {
+        }
+
+        public override void GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+            base.GetObjectData(info, context);
+            info.AddValue("filename", Filename, typeof(string));
+            info.AddValue("node", Node, typeof(YamlNode));
         }
     }
 
