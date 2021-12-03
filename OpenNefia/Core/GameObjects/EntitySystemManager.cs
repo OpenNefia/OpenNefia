@@ -149,40 +149,7 @@ namespace OpenNefia.Core.GameObjects
                 SystemLoaded?.Invoke(this, new SystemChangedArgs(system));
             }
 
-            // Create update order for entity systems.
-            var (fUpdate, update) = CalculateUpdateOrder(_systemTypes, subTypes, _systemDependencyCollection);
-
             _initialized = true;
-        }
-
-        private static (IEnumerable<IEntitySystem> frameUpd, IEnumerable<IEntitySystem> upd)
-            CalculateUpdateOrder(
-                List<Type> systemTypes,
-                Dictionary<Type, Type> subTypes,
-                DependencyCollection dependencyCollection)
-        {
-            var allNodes = new List<TopologicalSort.GraphNode<IEntitySystem>>();
-            var typeToNode = new Dictionary<Type, TopologicalSort.GraphNode<IEntitySystem>>();
-
-            foreach (var systemType in systemTypes)
-            {
-                var node = new TopologicalSort.GraphNode<IEntitySystem>((IEntitySystem) dependencyCollection.ResolveType(systemType));
-
-                typeToNode.Add(systemType, node);
-                allNodes.Add(node);
-            }
-
-            foreach (var (type, system) in subTypes)
-            {
-                var node = typeToNode[system];
-                typeToNode[type] = node;
-            }
-
-            var order = TopologicalSort.Sort(allNodes).ToArray();
-            var frameUpdate = order.Where(p => NeedsFrameUpdate(p.GetType()));
-            var update = order.Where(p => NeedsUpdate(p.GetType()));
-
-            return (frameUpdate, update);
         }
 
         private static IEnumerable<Type> GetBaseTypes(Type type) {

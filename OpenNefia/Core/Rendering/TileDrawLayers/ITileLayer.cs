@@ -5,7 +5,8 @@ namespace OpenNefia.Core.Rendering.TileDrawLayers
 {
     public interface ITileLayer : IDrawable
     {
-        void OnThemeSwitched();
+        void Initialize();
+        void SetMap(IMap map);
         void RedrawAll();
         void RedrawDirtyTiles(HashSet<MapCoordinates> dirtyTilesThisTurn);
     }

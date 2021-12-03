@@ -1,0 +1,767 @@
+- id: Elona.StatLife
+  ordering: 101000
+  type: Skill
+
+- id: Elona.StatMana
+  ordering: 102000
+  type: Skill
+
+- id: Elona.StatStrength
+  ordering: 103000
+  type: Skill
+
+- id: Elona.StatConstitution
+  ordering: 104000
+  type: Skill
+
+- id: Elona.StatDexterity
+  ordering: 105000
+  type: Skill
+
+- id: Elona.StatPerception
+  ordering: 106000
+  type: Skill
+
+- id: Elona.StatLearning
+  ordering: 107000
+  type: Skill
+
+- id: Elona.StatWill
+  ordering: 108000
+  type: Skill
+
+- id: Elona.StatMagic
+  ordering: 109000
+  type: Skill
+
+- id: Elona.StatCharisma
+  ordering: 110000
+  type: Skill
+
+- id: Elona.StatSpeed
+  ordering: 111000
+  type: Skill
+
+- id: Elona.StatLuck
+  ordering: 112000
+  type: Skill
+
+- id: Elona.LongSword
+  ordering: 113000
+  type: Skill
+
+- id: Elona.ShortSword
+  ordering: 114000
+  type: Skill
+
+- id: Elona.Axe
+  ordering: 115000
+  type: Skill
+
+- id: Elona.Blunt
+  ordering: 116000
+  type: Skill
+
+- id: Elona.Polearm
+  ordering: 117000
+  type: Skill
+
+- id: Elona.Stave
+  ordering: 118000
+  type: Skill
+
+- id: Elona.MartialArts
+  ordering: 119000
+  type: Skill
+
+- id: Elona.Scythe
+  ordering: 120000
+  type: Skill
+
+- id: Elona.Bow
+  ordering: 121000
+  type: Skill
+
+- id: Elona.Crossbow
+  ordering: 122000
+  type: Skill
+
+- id: Elona.Firearm
+  ordering: 123000
+  type: Skill
+
+- id: Elona.Throwing
+  ordering: 124000
+  type: Skill
+
+- id: Elona.Shield
+  ordering: 125000
+  type: Skill
+
+- id: Elona.Evasion
+  ordering: 126000
+  type: Skill
+
+- id: Elona.DualWield
+  ordering: 127000
+  type: Skill
+
+- id: Elona.TwoHand
+  ordering: 128000
+  type: Skill
+
+- id: Elona.WeightLifting
+  ordering: 129000
+  type: Skill
+
+- id: Elona.Tactics
+  ordering: 130000
+  type: Skill
+
+- id: Elona.Marksman
+  ordering: 131000
+  type: Skill
+
+- id: Elona.Healing
+  ordering: 132000
+  type: Skill
+
+- id: Elona.Mining
+  ordering: 133000
+  type: Skill
+
+- id: Elona.Carpentry
+  ordering: 134000
+  type: Skill
+
+- id: Elona.HeavyArmor
+  ordering: 135000
+  type: Skill
+
+- id: Elona.MediumArmor
+  ordering: 136000
+  type: Skill
+
+- id: Elona.LightArmor
+  ordering: 137000
+  type: Skill
+
+- id: Elona.LockPicking
+  ordering: 138000
+  type: Skill
+
+- id: Elona.DisarmTrap
+  ordering: 139000
+  type: Skill
+
+- id: Elona.Tailoring
+  ordering: 140000
+  type: Skill
+
+- id: Elona.Jeweler
+  ordering: 141000
+  type: Skill
+
+- id: Elona.Stealth
+  ordering: 142000
+  type: Skill
+
+- id: Elona.Detection
+  ordering: 143000
+  type: Skill
+
+- id: Elona.SenseQuality
+  ordering: 144000
+  type: Skill
+
+- id: Elona.EyeOfMind
+  ordering: 145000
+  type: Skill
+
+- id: Elona.GreaterEvasion
+  ordering: 146000
+  type: Skill
+
+- id: Elona.Anatomy
+  ordering: 147000
+  type: Skill
+
+- id: Elona.Literacy
+  ordering: 148000
+  type: Skill
+
+- id: Elona.Memorization
+  ordering: 149000
+  type: Skill
+
+- id: Elona.Alchemy
+  ordering: 150000
+  type: Skill
+
+- id: Elona.Gardening
+  ordering: 151000
+  type: Skill
+
+- id: Elona.GeneEngineer
+  ordering: 152000
+  type: Skill
+
+- id: Elona.Meditation
+  ordering: 153000
+  type: Skill
+
+- id: Elona.MagicDevice
+  ordering: 154000
+  type: Skill
+
+- id: Elona.Casting
+  ordering: 155000
+  type: Skill
+
+- id: Elona.ControlMagic
+  ordering: 156000
+  type: Skill
+
+- id: Elona.MagicCapacity
+  ordering: 157000
+  type: Skill
+
+- id: Elona.Faith
+  ordering: 158000
+  type: Skill
+
+- id: Elona.Traveling
+  ordering: 159000
+  type: Skill
+
+- id: Elona.Negotiation
+  ordering: 160000
+  type: Skill
+
+- id: Elona.Investing
+  ordering: 161000
+  type: Skill
+
+- id: Elona.Performer
+  ordering: 162000
+  type: Skill
+
+- id: Elona.Cooking
+  ordering: 163000
+  type: Skill
+
+- id: Elona.Fishing
+  ordering: 164000
+  type: Skill
+
+- id: Elona.Pickpocket
+  ordering: 165000
+  type: Skill
+
+- id: Elona.Riding
+  ordering: 166000
+  type: Skill
+
+- id: Elona.SpellGravity
+  ordering: 167000
+  type: Skill
+
+- id: Elona.SpellDominate
+  ordering: 168000
+  type: Skill
+
+- id: Elona.ActionCurse
+  ordering: 169000
+  type: Skill
+
+- id: Elona.SpellReturn
+  ordering: 170000
+  type: Skill
+
+- id: Elona.SpellFourDimensionalPocket
+  ordering: 171000
+  type: Skill
+
+- id: Elona.SpellMagicMap
+  ordering: 172000
+  type: Skill
+
+- id: Elona.SpellSenseObject
+  ordering: 173000
+  type: Skill
+
+- id: Elona.SpellIdentify
+  ordering: 174000
+  type: Skill
+
+- id: Elona.SpellUncurse
+  ordering: 175000
+  type: Skill
+
+- id: Elona.SpellOracle
+  ordering: 176000
+  type: Skill
+
+- id: Elona.SpellWallCreation
+  ordering: 177000
+  type: Skill
+
+- id: Elona.SpellDoorCreation
+  ordering: 178000
+  type: Skill
+
+- id: Elona.SpellWizardsHarvest
+  ordering: 179000
+  type: Skill
+
+- id: Elona.SpellRestoreBody
+  ordering: 180000
+  type: Skill
+
+- id: Elona.SpellRestoreSpirit
+  ordering: 181000
+  type: Skill
+
+- id: Elona.SpellWish
+  ordering: 182000
+  type: Skill
+
+- id: Elona.SpellResurrection
+  ordering: 183000
+  type: Skill
+
+- id: Elona.SpellMeteor
+  ordering: 184000
+  type: Skill
+
+- id: Elona.SpellIceBolt
+  ordering: 185000
+  type: Skill
+
+- id: Elona.SpellFireBolt
+  ordering: 186000
+  type: Skill
+
+- id: Elona.SpellLightningBolt
+  ordering: 187000
+  type: Skill
+
+- id: Elona.SpellDarknessBolt
+  ordering: 188000
+  type: Skill
+
+- id: Elona.SpellMindBolt
+  ordering: 189000
+  type: Skill
+
+- id: Elona.SpellMagicDart
+  ordering: 190000
+  type: Skill
+
+- id: Elona.SpellNetherArrow
+  ordering: 191000
+  type: Skill
+
+- id: Elona.SpellNerveArrow
+  ordering: 192000
+  type: Skill
+
+- id: Elona.SpellChaosEye
+  ordering: 193000
+  type: Skill
+
+- id: Elona.SpellDarkEye
+  ordering: 194000
+  type: Skill
+
+- id: Elona.SpellCrystalSpear
+  ordering: 195000
+  type: Skill
+
+- id: Elona.SpellIceBall
+  ordering: 196000
+  type: Skill
+
+- id: Elona.SpellFireBall
+  ordering: 197000
+  type: Skill
+
+- id: Elona.SpellChaosBall
+  ordering: 198000
+  type: Skill
+
+- id: Elona.SpellRagingRoar
+  ordering: 199000
+  type: Skill
+
+- id: Elona.SpellMagicStorm
+  ordering: 200000
+  type: Skill
+
+- id: Elona.ActionGrenade
+  ordering: 201000
+  type: Skill
+
+- id: Elona.SpellHealingRain
+  ordering: 202000
+  type: Skill
+
+- id: Elona.ActionRainOfSanity
+  ordering: 203000
+  type: Skill
+
+- id: Elona.ActionSuicideAttack
+  ordering: 204000
+  type: Skill
+
+- id: Elona.SpellHealLight
+  ordering: 205000
+  type: Skill
+
+- id: Elona.SpellHealCritical
+  ordering: 206000
+  type: Skill
+
+- id: Elona.SpellHealingTouch
+  ordering: 207000
+  type: Skill
+
+- id: Elona.SpellCureOfEris
+  ordering: 208000
+  type: Skill
+
+- id: Elona.SpellCureOfJure
+  ordering: 209000
+  type: Skill
+
+- id: Elona.ActionPrayerOfJure
+  ordering: 210000
+  type: Skill
+
+- id: Elona.SpellTeleport
+  ordering: 211000
+  type: Skill
+
+- id: Elona.SpellTeleportOther
+  ordering: 212000
+  type: Skill
+
+- id: Elona.SpellShortTeleport
+  ordering: 213000
+  type: Skill
+
+- id: Elona.ActionDimensionalMove
+  ordering: 214000
+  type: Skill
+
+- id: Elona.ActionShadowStep
+  ordering: 215000
+  type: Skill
+
+- id: Elona.ActionDrawShadow
+  ordering: 216000
+  type: Skill
+
+- id: Elona.ActionSuspiciousHand
+  ordering: 217000
+  type: Skill
+
+- id: Elona.ActionFireBreath
+  ordering: 218000
+  type: Skill
+
+- id: Elona.ActionColdBreath
+  ordering: 219000
+  type: Skill
+
+- id: Elona.ActionLightningBreath
+  ordering: 220000
+  type: Skill
+
+- id: Elona.ActionDarknessBreath
+  ordering: 221000
+  type: Skill
+
+- id: Elona.ActionChaosBreath
+  ordering: 222000
+  type: Skill
+
+- id: Elona.ActionSoundBreath
+  ordering: 223000
+  type: Skill
+
+- id: Elona.ActionNetherBreath
+  ordering: 224000
+  type: Skill
+
+- id: Elona.ActionNerveBreath
+  ordering: 225000
+  type: Skill
+
+- id: Elona.ActionPoisonBreath
+  ordering: 226000
+  type: Skill
+
+- id: Elona.ActionMindBreath
+  ordering: 227000
+  type: Skill
+
+- id: Elona.ActionPowerBreath
+  ordering: 228000
+  type: Skill
+
+- id: Elona.SpellHolyLight
+  ordering: 229000
+  type: Skill
+
+- id: Elona.SpellVanquishHex
+  ordering: 230000
+  type: Skill
+
+- id: Elona.SpellSummonMonsters
+  ordering: 231000
+  type: Skill
+
+- id: Elona.SpellSummonWild
+  ordering: 232000
+  type: Skill
+
+- id: Elona.ActionSummonCats
+  ordering: 233000
+  type: Skill
+
+- id: Elona.ActionSummonYeek
+  ordering: 234000
+  type: Skill
+
+- id: Elona.ActionSummonPawn
+  ordering: 235000
+  type: Skill
+
+- id: Elona.ActionSummonFire
+  ordering: 236000
+  type: Skill
+
+- id: Elona.ActionSummonSister
+  ordering: 237000
+  type: Skill
+
+- id: Elona.ActionEyeOfMutation
+  ordering: 238000
+  type: Skill
+
+- id: Elona.SpellMutation
+  ordering: 239000
+  type: Skill
+
+- id: Elona.EffectEvolution
+  ordering: 240000
+  type: Skill
+
+- id: Elona.SpellWeb
+  ordering: 241000
+  type: Skill
+
+- id: Elona.SpellMistOfDarkness
+  ordering: 242000
+  type: Skill
+
+- id: Elona.SpellAcidGround
+  ordering: 243000
+  type: Skill
+
+- id: Elona.SpellFireWall
+  ordering: 244000
+  type: Skill
+
+- id: Elona.ActionEtherGround
+  ordering: 245000
+  type: Skill
+
+- id: Elona.ActionPregnant
+  ordering: 246000
+  type: Skill
+
+- id: Elona.ActionEyeOfInsanity
+  ordering: 247000
+  type: Skill
+
+- id: Elona.ActionHarvestMana
+  ordering: 248000
+  type: Skill
+
+- id: Elona.ActionAbsorbMagic
+  ordering: 249000
+  type: Skill
+
+- id: Elona.ActionDrainBlood
+  ordering: 250000
+  type: Skill
+
+- id: Elona.ActionManisDisassembly
+  ordering: 251000
+  type: Skill
+
+- id: Elona.ActionTouchOfWeakness
+  ordering: 252000
+  type: Skill
+
+- id: Elona.ActionTouchOfHunger
+  ordering: 253000
+  type: Skill
+
+- id: Elona.ActionTouchOfPoison
+  ordering: 254000
+  type: Skill
+
+- id: Elona.ActionTouchOfNerve
+  ordering: 255000
+  type: Skill
+
+- id: Elona.ActionTouchOfFear
+  ordering: 256000
+  type: Skill
+
+- id: Elona.ActionTouchOfSleep
+  ordering: 257000
+  type: Skill
+
+- id: Elona.ActionScavenge
+  ordering: 258000
+  type: Skill
+
+- id: Elona.ActionDecapitation
+  ordering: 259000
+  type: Skill
+
+- id: Elona.ActionEyeOfEther
+  ordering: 260000
+  type: Skill
+
+- id: Elona.ActionEyeOfDimness
+  ordering: 261000
+  type: Skill
+
+- id: Elona.ActionInsult
+  ordering: 262000
+  type: Skill
+
+- id: Elona.ActionEyeOfMana
+  ordering: 263000
+  type: Skill
+
+- id: Elona.ActionVanish
+  ordering: 264000
+  type: Skill
+
+- id: Elona.ActionDistantAttack4
+  ordering: 265000
+  type: Skill
+
+- id: Elona.ActionDistantAttack7
+  ordering: 266000
+  type: Skill
+
+- id: Elona.ActionChange
+  ordering: 267000
+  type: Skill
+
+- id: Elona.ActionDrawCharge
+  ordering: 268000
+  type: Skill
+
+- id: Elona.ActionFillCharge
+  ordering: 269000
+  type: Skill
+
+- id: Elona.ActionSwarm
+  ordering: 270000
+  type: Skill
+
+- id: Elona.ActionCheer
+  ordering: 271000
+  type: Skill
+
+- id: Elona.ActionMewmewmew
+  ordering: 272000
+  type: Skill
+
+- id: Elona.ActionMirror
+  ordering: 273000
+  type: Skill
+
+- id: Elona.ActionDropMine
+  ordering: 274000
+  type: Skill
+
+- id: Elona.BuffHolyShield
+  ordering: 275000
+  type: Skill
+
+- id: Elona.BuffMistOfSilence
+  ordering: 276000
+  type: Skill
+
+- id: Elona.BuffRegeneration
+  ordering: 277000
+  type: Skill
+
+- id: Elona.BuffElementalShield
+  ordering: 278000
+  type: Skill
+
+- id: Elona.BuffSpeed
+  ordering: 279000
+  type: Skill
+
+- id: Elona.BuffSlow
+  ordering: 280000
+  type: Skill
+
+- id: Elona.BuffHero
+  ordering: 281000
+  type: Skill
+
+- id: Elona.BuffMistOfFrailness
+  ordering: 282000
+  type: Skill
+
+- id: Elona.BuffElementScar
+  ordering: 283000
+  type: Skill
+
+- id: Elona.BuffHolyVeil
+  ordering: 284000
+  type: Skill
+
+- id: Elona.BuffNightmare
+  ordering: 285000
+  type: Skill
+
+- id: Elona.BuffDivineWisdom
+  ordering: 286000
+  type: Skill
+
+- id: Elona.BuffPunishment
+  ordering: 287000
+  type: Skill
+
+- id: Elona.BuffLulwysTrick
+  ordering: 288000
+  type: Skill
+
+- id: Elona.BuffIncognito
+  ordering: 289000
+  type: Skill
+
+- id: Elona.BuffDeathWord
+  ordering: 290000
+  type: Skill
+
+- id: Elona.BuffBoost
+  ordering: 291000
+  type: Skill
+
+- id: Elona.BuffContingency
+  ordering: 292000
+  type: Skill

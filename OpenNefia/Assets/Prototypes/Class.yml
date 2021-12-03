@@ -1,0 +1,289 @@
+- id: Elona.Warrior
+  ordering: 10010
+  type: Class
+  isExtra: false
+  equipmentType: Elona.Warrior
+  baseSkills:
+    Elona.Axe: 6
+    Elona.Blunt: 6
+    Elona.Evasion: 5
+    Elona.Healing: 5
+    Elona.HeavyArmor: 4
+    Elona.LongSword: 6
+    Elona.MediumArmor: 4
+    Elona.Polearm: 4
+    Elona.Scythe: 5
+    Elona.Shield: 5
+    Elona.ShortSword: 4
+    Elona.StatCharisma: 0
+    Elona.StatConstitution: 10
+    Elona.StatDexterity: 2
+    Elona.StatLearning: 0
+    Elona.StatMagic: 0
+    Elona.StatPerception: 0
+    Elona.StatSpeed: 0
+    Elona.StatStrength: 10
+    Elona.StatWill: 3
+    Elona.Tactics: 4
+    Elona.TwoHand: 6
+
+- id: Elona.Thief
+  ordering: 10020
+  type: Class
+  isExtra: false
+  equipmentType: Elona.Thief
+  baseSkills:
+    Elona.Bow: 3
+    Elona.DualWield: 4
+    Elona.Evasion: 4
+    Elona.LongSword: 3
+    Elona.MagicDevice: 3
+    Elona.MediumArmor: 4
+    Elona.Negotiation: 4
+    Elona.Pickpocket: 4
+    Elona.ShortSword: 4
+    Elona.StatCharisma: 0
+    Elona.StatConstitution: 4
+    Elona.StatDexterity: 8
+    Elona.StatLearning: 4
+    Elona.StatMagic: 0
+    Elona.StatPerception: 5
+    Elona.StatSpeed: 0
+    Elona.StatStrength: 4
+    Elona.StatWill: 0
+    Elona.Tactics: 3
+
+- id: Elona.Wizard
+  ordering: 10030
+  type: Class
+  isExtra: false
+  onInitPlayer: !type:InitWizardEffect {}
+  equipmentType: Elona.Mage
+  baseSkills:
+    Elona.Alchemy: 4
+    Elona.Casting: 5
+    Elona.LightArmor: 4
+    Elona.Literacy: 6
+    Elona.MagicCapacity: 6
+    Elona.MagicDevice: 5
+    Elona.Memorization: 3
+    Elona.ShortSword: 2
+    Elona.StatCharisma: 0
+    Elona.StatConstitution: 0
+    Elona.StatDexterity: 0
+    Elona.StatLearning: 3
+    Elona.StatMagic: 10
+    Elona.StatPerception: 4
+    Elona.StatSpeed: 0
+    Elona.StatStrength: 0
+    Elona.StatWill: 8
+    Elona.Stave: 3
+
+- id: Elona.Farmer
+  ordering: 10040
+  type: Class
+  isExtra: false
+  onInitPlayer: !type:InitFarmerEffect {}
+  equipmentType: Elona.Warrior
+  baseSkills:
+    Elona.Anatomy: 7
+    Elona.Cooking: 6
+    Elona.Evasion: 3
+    Elona.Gardening: 5
+    Elona.Healing: 5
+    Elona.Negotiation: 5
+    Elona.Polearm: 4
+    Elona.Scythe: 3
+    Elona.StatCharisma: 0
+    Elona.StatConstitution: 5
+    Elona.StatDexterity: 2
+    Elona.StatLearning: 8
+    Elona.StatMagic: 0
+    Elona.StatPerception: 0
+    Elona.StatSpeed: 0
+    Elona.StatStrength: 5
+    Elona.StatWill: 5
+    Elona.Tailoring: 5
+
+- id: Elona.Archer
+  ordering: 10050
+  type: Class
+  isExtra: false
+  equipmentType: Elona.Archer
+  baseSkills:
+    Elona.Axe: 3
+    Elona.Bow: 5
+    Elona.Crossbow: 5
+    Elona.Evasion: 5
+    Elona.MagicDevice: 3
+    Elona.Marksman: 3
+    Elona.MediumArmor: 3
+    Elona.Riding: 4
+    Elona.ShortSword: 4
+    Elona.StatCharisma: 0
+    Elona.StatConstitution: 4
+    Elona.StatDexterity: 8
+    Elona.StatLearning: 2
+    Elona.StatMagic: 0
+    Elona.StatPerception: 5
+    Elona.StatSpeed: 0
+    Elona.StatStrength: 6
+    Elona.StatWill: 0
+    Elona.Tailoring: 4
+
+- id: Elona.Warmage
+  ordering: 10060
+  type: Class
+  isExtra: false
+  onInitPlayer: !type:InitWarmageEffect {}
+  equipmentType: Elona.War_mage
+  baseSkills:
+    Elona.Casting: 4
+    Elona.Evasion: 3
+    Elona.HeavyArmor: 4
+    Elona.Literacy: 4
+    Elona.LongSword: 4
+    Elona.MagicCapacity: 3
+    Elona.MagicDevice: 5
+    Elona.MediumArmor: 4
+    Elona.ShortSword: 3
+    Elona.StatCharisma: 0
+    Elona.StatConstitution: 6
+    Elona.StatDexterity: 2
+    Elona.StatLearning: 0
+    Elona.StatMagic: 7
+    Elona.StatPerception: 0
+    Elona.StatSpeed: 0
+    Elona.StatStrength: 6
+    Elona.StatWill: 4
+
+- id: Elona.Tourist
+  ordering: 10070
+  type: Class
+  isExtra: false
+  properties: []
+  baseSkills:
+    Elona.Fishing: 5
+    Elona.StatCharisma: 0
+    Elona.StatConstitution: 0
+    Elona.StatDexterity: 0
+    Elona.StatLearning: 0
+    Elona.StatMagic: 0
+    Elona.StatPerception: 0
+    Elona.StatSpeed: 0
+    Elona.StatStrength: 0
+    Elona.StatWill: 0
+    Elona.Traveling: 3
+
+- id: Elona.Pianist
+  ordering: 10080
+  type: Class
+  isExtra: false
+  onInitPlayer: !type:InitPianistEffect {}
+  equipmentType: Elona.Archer
+  baseSkills:
+    Elona.Jeweler: 5
+    Elona.LightArmor: 4
+    Elona.Literacy: 4
+    Elona.MagicDevice: 6
+    Elona.Memorization: 6
+    Elona.Performer: 6
+    Elona.Riding: 3
+    Elona.StatCharisma: 8
+    Elona.StatConstitution: 0
+    Elona.StatDexterity: 4
+    Elona.StatLearning: 6
+    Elona.StatMagic: 4
+    Elona.StatPerception: 5
+    Elona.StatSpeed: 0
+    Elona.StatStrength: 6
+    Elona.StatWill: 0
+    Elona.WeightLifting: 19
+
+- id: Elona.Priest
+  ordering: 10090
+  type: Class
+  isExtra: false
+  onInitPlayer: !type:InitPriestEffect {}
+  equipmentType: Elona.Priest
+  baseSkills:
+    Elona.Blunt: 3
+    Elona.Casting: 5
+    Elona.Faith: 5
+    Elona.Healing: 5
+    Elona.HeavyArmor: 4
+    Elona.Literacy: 5
+    Elona.MagicDevice: 5
+    Elona.MediumArmor: 3
+    Elona.Shield: 3
+    Elona.StatCharisma: 2
+    Elona.StatConstitution: 2
+    Elona.StatDexterity: 0
+    Elona.StatLearning: 2
+    Elona.StatMagic: 7
+    Elona.StatPerception: 2
+    Elona.StatSpeed: 0
+    Elona.StatStrength: 2
+    Elona.StatWill: 10
+
+- id: Elona.Claymore
+  ordering: 10100
+  type: Class
+  isExtra: false
+  equipmentType: Elona.Claymore
+  baseSkills:
+    Elona.Evasion: 7
+    Elona.GreaterEvasion: 4
+    Elona.Healing: 6
+    Elona.LightArmor: 5
+    Elona.Literacy: 4
+    Elona.LongSword: 6
+    Elona.StatCharisma: 0
+    Elona.StatConstitution: 3
+    Elona.StatDexterity: 7
+    Elona.StatLearning: 0
+    Elona.StatMagic: 4
+    Elona.StatPerception: 6
+    Elona.StatSpeed: 0
+    Elona.StatStrength: 9
+    Elona.StatWill: 0
+    Elona.Tactics: 5
+    Elona.TwoHand: 7
+
+- id: Elona.Predator
+  ordering: 20010
+  type: Class
+  isExtra: true
+  properties: []
+  baseSkills:
+    Elona.StatCharisma: 0
+    Elona.StatConstitution: 11
+    Elona.StatDexterity: 8
+    Elona.StatLearning: 0
+    Elona.StatMagic: 0
+    Elona.StatPerception: 0
+    Elona.StatSpeed: 10
+    Elona.StatStrength: 8
+    Elona.StatWill: 0
+    Elona.Tactics: 4
+
+- id: Elona.Gunner
+  ordering: 20020
+  type: Class
+  isExtra: true
+  equipmentType: Elona.Gunner
+  baseSkills:
+    Elona.Evasion: 4
+    Elona.Firearm: 5
+    Elona.Healing: 4
+    Elona.Literacy: 3
+    Elona.Marksman: 3
+    Elona.StatCharisma: 0
+    Elona.StatConstitution: 2
+    Elona.StatDexterity: 5
+    Elona.StatLearning: 5
+    Elona.StatMagic: 3
+    Elona.StatPerception: 8
+    Elona.StatSpeed: 0
+    Elona.StatStrength: 0
+    Elona.StatWill: 4

@@ -6,12 +6,14 @@ using OpenNefia.Core.Maths;
 using OpenNefia.Core.Game;
 using OpenNefia.Core.ResourceManagement;
 using OpenNefia.Core.IoC;
+using OpenNefia.Core.Rendering;
 
 namespace OpenNefia.Core.Audio
 {
     public class LoveAudioSystem : EntitySystem, IAudioSystem
     {
         [Dependency] private readonly IResourceCache _resourceCache = default!;
+        [Dependency] private readonly ICoords _coords = default!;
 
         private class PlayingSource
         {
@@ -64,7 +66,7 @@ namespace OpenNefia.Core.Audio
             if (coordinates.Map != GameSession.ActiveMap)
                 return;
 
-            GameSession.Coords.TileToScreen(coordinates.Position, out var screenPosition);
+            _coords.TileToScreen(coordinates.Position, out var screenPosition);
 
             Play(prototype, screenPosition, audioParams);
         }
@@ -97,9 +99,8 @@ namespace OpenNefia.Core.Audio
             if (player == null)
                 return;
 
-            var coords = GameSession.Coords;
-            coords.TileToScreen(player.Spatial.Coords.Position, out var listenerPos);
-            listenerPos += coords.TileSize / 2;
+            _coords.TileToScreen(player.Spatial.Coords.Position, out var listenerPos);
+            listenerPos += _coords.TileSize / 2;
             Love.Audio.SetPosition(listenerPos.X, listenerPos.Y, 0f);
         }
     }

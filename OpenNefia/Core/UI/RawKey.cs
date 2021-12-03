@@ -62,7 +62,7 @@ namespace OpenNefia.Core.UI
 
         private static Dictionary<Keys, RawKey> GenerateAllModifierVariants()
         {
-            Logger.Log(LogLevel.Info, $"[RawKey] Generating key modifier combinations.");
+            Logger.InfoS("rawkey", $"Generating key modifier combinations.");
 
             return EnumHelpers.EnumerateValues<Keys>().Where((k) => !IsVirtualKey(k))
                 .Distinct()

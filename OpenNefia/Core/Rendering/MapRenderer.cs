@@ -1,43 +1,114 @@
-﻿using OpenNefia.Core.GameController;
-using OpenNefia.Core.IoC;
+﻿using OpenNefia.Core.IoC;
+using OpenNefia.Core.Log;
 using OpenNefia.Core.Maps;
-using OpenNefia.Core.Maths;
+using OpenNefia.Core.Reflection;
 using OpenNefia.Core.Rendering.TileDrawLayers;
 using OpenNefia.Core.UI.Element;
+using OpenNefia.Core.Utility;
+using System.Reflection;
 
 namespace OpenNefia.Core.Rendering
 {
-    public class MapRenderer : BaseDrawable, IMapRenderer
+    public sealed class MapRenderer : BaseDrawable, IMapRenderer
     {
-        [Dependency] private readonly ITileAtlasManager _atlasManager = default!;
-        [Dependency] private readonly IAssetManager _assetManager = default!;
-        [Dependency] private readonly IGameController _gameController = default!;
-        [Dependency] private readonly IMapDrawables _mapDrawables = default!;
+        private const string Sawmill = "maprenderer.sys";
 
-        private List<ITileLayer> _tileLayers = new List<ITileLayer>();
-        private IMap _map = default!;
+        [Dependency] private readonly IMapDrawables _mapDrawables = default!;
+        [Dependency] private readonly IReflectionManager _reflectionManager = default!;
+
+        private ISawmill _sawmill = default!;
+        private DependencyCollection _layerDependencyCollection = default!;
+
+        private sealed record OrderingData(Type OrderType, Type[]? Before, Type[]? After);
+
+        private Dictionary<Type, OrderingData> _types = new();
+        private List<ITileLayer> _tileLayers = new();
+        private IMap? _map;
+
+        public void RegisterTileLayers()
+        {
+            _tileLayers.Clear();
+            _types.Clear();
+
+            _layerDependencyCollection = new(IoCManager.Instance!);
+
+            foreach (var type in _reflectionManager.FindTypesWithAttribute<RegisterTileLayerAttribute>())
+            {
+                RegisterTileLayer(type);
+            }
+
+            _layerDependencyCollection.BuildGraph();
+
+            foreach (var type in GetSortedLayers())
+            {
+                var layer = (ITileLayer) _layerDependencyCollection.ResolveType(type);
+                layer.Initialize();
+                _tileLayers.Add(layer);
+            }
+
+            GetSortedLayers();
+
+            if (_map != null)
+            {
+                foreach (var layer in _tileLayers)
+                {
+                    layer.SetMap(_map);
+                }
+            }
+        }
+
+        private void RegisterTileLayer(Type type)
+        {
+            Logger.InfoS(Sawmill, "Registering tile layer {0}", type);
+
+            if (!typeof(ITileLayer).IsAssignableFrom(type))
+            {
+                Logger.ErrorS(Sawmill, "Type {0} has RegisterComponentAttribute but does not implement IComponent.", type);
+            }
+
+            if (_types.ContainsKey(type))
+            {
+                throw new InvalidOperationException($"Type is already registered: {type}");
+            }
+
+            var attribute = type.GetCustomAttribute<RegisterTileLayerAttribute>()!;
+            _types.Add(type, new OrderingData(type, attribute.RenderBefore, attribute.RenderAfter));
+            _layerDependencyCollection.Register(type);
+        }
+
+        private IEnumerable<Type> GetSortedLayers()
+        {
+            var nodes = TopologicalSort.FromBeforeAfter(
+                _types.Values,
+                n => n.OrderType,
+                n => n,
+                n => n.Before ?? Array.Empty<Type>(),
+                n => n.After ?? Array.Empty<Type>(),
+                allowMissing: true);
+
+            return TopologicalSort.Sort(nodes)
+                .Select(o => o.OrderType);
+        }
 
         public void SetMap(IMap map)
         {
             _map = map;
-            _tileLayers.Clear();
-            _tileLayers.Add(new TileAndChipTileLayer(_map, _atlasManager));
-            _tileLayers.Add(new ShadowTileLayer(_map, _assetManager));
+
+            foreach (var layer in _tileLayers)
+            {
+                layer.SetMap(map);
+            }
+
             map.RedrawAllThisTurn = true;
             RefreshAllLayers();
             _mapDrawables.Clear();
         }
 
-        public void OnThemeSwitched()
-        {
-            foreach (var layer in _tileLayers)
-            {
-                layer.OnThemeSwitched();
-            }
-        }
-
         public void RefreshAllLayers()
         {
+            if (this._map == null)
+                return;
+
             if (this._map.RedrawAllThisTurn)
             {
                 foreach (var layer in _tileLayers)

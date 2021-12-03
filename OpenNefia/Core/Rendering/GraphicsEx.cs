@@ -2,6 +2,7 @@
 using OpenNefia.Core.Data;
 using OpenNefia.Core.Data.Types;
 using OpenNefia.Core.Game;
+using OpenNefia.Core.IoC;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.Utility;
 using System;
@@ -42,9 +43,9 @@ namespace OpenNefia.Core.Rendering
 
         public static Vector2i GetViewportSize() => new Vector2i(Love.Graphics.GetWidth(), Love.Graphics.GetHeight());
 
-        internal static void GetWindowTiledSize(out Vector2i windowTiledSize)
+        public static void GetWindowTiledSize(this ICoords coords, out Vector2i windowTiledSize)
         {
-            GameSession.Coords.GetTiledSize(GetViewportSize(), out windowTiledSize);
+            coords.GetTiledSize(GetViewportSize(), out windowTiledSize);
         }
 
         public static void DrawSpriteBatch(Love.SpriteBatch batch, float x, float y, float width, float height, float rotation = 0)

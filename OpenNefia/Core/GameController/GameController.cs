@@ -35,6 +35,7 @@ namespace OpenNefia.Core.GameController
         [Dependency] private readonly ILocalizationManager _localizationManager = default!;
         [Dependency] private readonly ITaskManager _taskManager = default!;
 
+        private IMapRenderer _mapRenderer = default!;
         private IMainTitleLogic _logic = default!;
 
         public bool Startup()
@@ -88,6 +89,7 @@ namespace OpenNefia.Core.GameController
 
             _initTileDefinitions();
             _atlasManager.LoadAtlases();
+            _mapRenderer.RegisterTileLayers();
 
             _localizationManager.Initialize();
 
@@ -106,6 +108,7 @@ namespace OpenNefia.Core.GameController
             IoCManager.BuildGraph();
 
             _logic = IoCManager.Resolve<IMainTitleLogic>();
+            _mapRenderer = IoCManager.Resolve<IMapRenderer>();
 
             return true;
         }

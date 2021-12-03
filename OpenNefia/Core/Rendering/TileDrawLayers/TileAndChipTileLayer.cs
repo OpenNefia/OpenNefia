@@ -14,30 +14,27 @@ namespace OpenNefia.Core.Rendering.TileDrawLayers
 {
     // Needs to be interleaved per-row to support wall occlusion.
     // This would be a combination of tile_layer, tile_overhang_layer and chip_layer.
-    public class TileAndChipTileLayer : BaseTileLayer
+    [RegisterTileLayer]
+    public sealed class TileAndChipTileLayer : BaseTileLayer
     {
-        private readonly ITileAtlasManager _atlasManager;
+        [Dependency] private readonly ITileAtlasManager _atlasManager = default!;
+        [Dependency] private readonly ICoords _coords = default!;
 
-        private IMap _map;
-        private TileAndChipBatch _tileAndChipBatch;
-        private ICoords _coords;
-        private WallTileShadows _wallShadows;
+        private IMap _map = default!;
+        private TileAndChipBatch _tileAndChipBatch = new();
+        private WallTileShadows _wallShadows = new();
 
-        public TileAndChipTileLayer(IMap map, ITileAtlasManager atlasManager)
+        public override void Initialize()
         {
-            _atlasManager = atlasManager;
-
-            _map = map;
-            _coords = GameSession.Coords;
-            _tileAndChipBatch = new TileAndChipBatch(map.Width, map.Height, _coords, atlasManager);
-            _wallShadows = new WallTileShadows(_coords);
+            _tileAndChipBatch.Initialize(_atlasManager, _coords);
+            _wallShadows.Initialize(_coords);
         }
 
-        public override void OnThemeSwitched()
+        public override void SetMap(IMap map)
         {
-            _coords = GameSession.Coords;
-            this._tileAndChipBatch.OnThemeSwitched(_coords);
-            this._wallShadows.OnThemeSwitched(_coords);
+            _map = map;
+
+            _tileAndChipBatch.SetMapSize(map.Size);
         }
 
         public override void SetSize(int width, int height)

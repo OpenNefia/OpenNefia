@@ -55,6 +55,7 @@ namespace OpenNefia
             IoCManager.Register<ITaskManager, TaskManager>();
             IoCManager.Register<IGameSessionManager, GameSessionManager>();
             IoCManager.Register<IGameController, GameController>();
+            IoCManager.Register<ICoords, OrthographicCoords>();
         }
 
         /// <summary>

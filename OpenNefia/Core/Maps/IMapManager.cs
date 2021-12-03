@@ -7,10 +7,12 @@ namespace OpenNefia.Core.Maps
         IMap? ActiveMap { get; }
 
         void ChangeActiveMap(MapId id);
-        IMap LoadMap(MapId id);
         MapId RegisterMap(IMap map);
-        void SaveMap(MapId id);
+
         bool IsMapInitialized(MapId mapId);
+
+        IMap LoadMap(MapId id);
+        void SaveMap(MapId id);
         IMap GetMap(MapId id);
         void UnloadMap(MapId id);
     }

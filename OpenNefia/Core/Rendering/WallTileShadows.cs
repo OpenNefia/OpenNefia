@@ -6,16 +6,12 @@ namespace OpenNefia.Core.Rendering
 {
     public class WallTileShadows : BaseDrawable
     {
+        private ICoords _coords = default!;
+
         private HashSet<MapCoordinates> TopShadows = new();
         private HashSet<MapCoordinates> BottomShadows = new();
-        private ICoords _coords;
 
-        public WallTileShadows(ICoords coords)
-        {
-            _coords = coords;
-        }
-
-        public void OnThemeSwitched(ICoords coords)
+        public void Initialize(ICoords coords)
         {
             _coords = coords;
         }

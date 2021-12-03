@@ -12,6 +12,5 @@ namespace OpenNefia.Core.Game
     public interface IGameSessionManager
     {
         public IEntity Player { get; set; }
-        ICoords Coords { get; set; }
     }
 }

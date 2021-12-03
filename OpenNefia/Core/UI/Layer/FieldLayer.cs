@@ -25,6 +25,7 @@ namespace OpenNefia.Core.UI.Layer
         [Dependency] private readonly IGameController _gameController = default!;
         [Dependency] private readonly IMapRenderer _mapRenderer = default!;
         [Dependency] private readonly IHudLayer _hud = default!;
+        [Dependency] private readonly ICoords _coords = default!;
 
         public static FieldLayer? Instance = null;
 
@@ -329,8 +330,7 @@ namespace OpenNefia.Core.UI.Layer
             if (PlacingTile != null)
             {
                 var mouse = Love.Mouse.GetPosition();
-                var coords = GameSession.Coords;
-                coords.ScreenToTile(new Vector2i((int)mouse.X - X, (int)mouse.Y - Y), out var tiledPos);
+                _coords.ScreenToTile(new Vector2i((int)mouse.X - X, (int)mouse.Y - Y), out var tiledPos);
                 var tileCoords = Map.AtPos(tiledPos);
 
                 if (tileCoords.GetTile()?.Prototype != PlacingTile)

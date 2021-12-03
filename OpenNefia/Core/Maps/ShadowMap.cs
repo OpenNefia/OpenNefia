@@ -1,32 +1,31 @@
-﻿using Love;
-using OpenNefia.Core.Game;
-using OpenNefia.Core.GameObjects;
+﻿using OpenNefia.Core.Game;
+using OpenNefia.Core.IoC;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.Rendering;
-using System;
 
 namespace OpenNefia.Core.Maps
 {
     public sealed class ShadowMap
     {
-        private IMap Map;
-        private ICoords Coords;
-        internal ShadowTile[,] ShadowTiles;
-        internal Vector2i ShadowPos;
-        internal Vector2i ShadowSize;
-        internal UIBox2i ShadowBounds { get => UIBox2i.FromDimensions(ShadowPos, ShadowSize); }
+        private ICoords _coords;
+
+        private IMap _map;
+        internal ShadowTile[,] _ShadowTiles;
+        internal Vector2i _ShadowPos;
+        internal Vector2i _ShadowSize;
+        internal UIBox2i _ShadowBounds { get => UIBox2i.FromDimensions(_ShadowPos, _ShadowSize); }
 
         public ShadowMap(IMap map)
         {
-            Map = map;
-            Coords = GameSession.Coords;
-            ShadowTiles = new ShadowTile[map.Width, map.Height];
+            _map = map;
+            _coords = IoCManager.Resolve<ICoords>();
+            _ShadowTiles = new ShadowTile[map.Width, map.Height];
         }
 
         private void SetShadowBorder(int tx, int ty, ShadowTile shadow)
         {
-            if (tx >= 0 && ty >= 0 && tx < Map.Width && ty < Map.Height)
-                ShadowTiles[tx, ty] |= shadow;
+            if (tx >= 0 && ty >= 0 && tx < _map.Width && ty < _map.Height)
+                _ShadowTiles[tx, ty] |= shadow;
         }
 
         private void MarkShadow(int tx, int ty)
@@ -43,23 +42,23 @@ namespace OpenNefia.Core.Maps
 
         internal void RefreshVisibility()
         {
-            Array.Clear(ShadowTiles, 0, ShadowTiles.Length);
+            Array.Clear(_ShadowTiles, 0, _ShadowTiles.Length);
 
             var player = GameSession.Player!;
             var playerPos = player.Spatial.Coords.Position;
 
-            GraphicsEx.GetWindowTiledSize(out var windowTiledSize);
+            _coords.GetWindowTiledSize(out var windowTiledSize);
 
-            var windowTiledW = Math.Min(windowTiledSize.X, Map.Width);
-            var windowTiledH = Math.Min(windowTiledSize.Y, Map.Height);
+            var windowTiledW = Math.Min(windowTiledSize.X, _map.Width);
+            var windowTiledH = Math.Min(windowTiledSize.Y, _map.Height);
 
-            var start = new Vector2i(Math.Clamp(playerPos.X - windowTiledW / 2 - 2, 0, Map.Width - windowTiledW),
-                                    Math.Clamp(playerPos.Y - windowTiledH / 2 - 2, 0, Map.Height - windowTiledH));
+            var start = new Vector2i(Math.Clamp(playerPos.X - windowTiledW / 2 - 2, 0, _map.Width - windowTiledW),
+                                    Math.Clamp(playerPos.Y - windowTiledH / 2 - 2, 0, _map.Height - windowTiledH));
             var end = new Vector2i(start.X + windowTiledW + 4, start.Y + windowTiledH + 4);
 
-            Coords.TileToScreen(start, out ShadowPos);
-            Coords.TileToScreen(end - 1, out var shadowEnd);
-            ShadowSize = shadowEnd - ShadowPos;
+            _coords.TileToScreen(start, out _ShadowPos);
+            _coords.TileToScreen(end - 1, out var shadowEnd);
+            _ShadowSize = shadowEnd - _ShadowPos;
 
             var fovSize = 15;
             var fovRadius = FovRadius.Get(fovSize);
@@ -78,7 +77,7 @@ namespace OpenNefia.Core.Maps
                     SetShadowBorder(start.X, y, ShadowTile.West);
                 }
             }
-            if (end.X - 4 < Map.Width - windowTiledW)
+            if (end.X - 4 < _map.Width - windowTiledW)
             {
                 for (int y = start.Y; y < end.Y; y++)
                 {
@@ -92,7 +91,7 @@ namespace OpenNefia.Core.Maps
                     SetShadowBorder(x, start.Y, ShadowTile.South);
                 }
             }
-            if (end.Y - 4 < Map.Height)
+            if (end.Y - 4 < _map.Height)
             {
                 for (int x = start.X; x < end.X; x++)
                 {
@@ -102,7 +101,7 @@ namespace OpenNefia.Core.Maps
 
             for (int j = start.Y; j < end.Y; j++)
             {
-                if (j < 0 || j >= Map.Height)
+                if (j < 0 || j >= _map.Height)
                 {
                     for (int i = start.X; i < end.X; i++)
                     {
@@ -113,7 +112,7 @@ namespace OpenNefia.Core.Maps
                 {
                     for (int i = start.X; i < end.X; i++)
                     {
-                        if (i < 0 || i >= Map.Width)
+                        if (i < 0 || i >= _map.Width)
                         {
                             MarkShadow(i, j);
                         }

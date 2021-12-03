@@ -5,7 +5,7 @@ namespace OpenNefia.Core.Rendering
 {
     internal interface IMapRenderer : IDrawable
     {
-        void OnThemeSwitched();
+        void RegisterTileLayers();
         void RefreshAllLayers();
         void SetMap(IMap map);
     }

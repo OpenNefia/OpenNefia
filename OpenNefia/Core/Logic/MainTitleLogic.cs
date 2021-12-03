@@ -73,8 +73,8 @@ namespace OpenNefia.Core.GameController
 
             
             _entityManager.SpawnEntity(new("Yeek"), map.AtPos(5, 5));
-            _entityManager.SpawnEntity(new("Yeek"), map.AtPos(5, 5));
-            _entityManager.SpawnEntity(new("Yeek"), map.AtPos(5, 7));
+            _entityManager.SpawnEntity(new("Yeek"), map.AtPos(6, 5));
+            _entityManager.SpawnEntity(new("Yeek"), map.AtPos(7, 5));
 
             return map;
         }

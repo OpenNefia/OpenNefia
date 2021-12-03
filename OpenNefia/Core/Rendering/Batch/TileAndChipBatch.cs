@@ -1,4 +1,5 @@
 ﻿using Love;
+using OpenNefia.Core.Game;
 using OpenNefia.Core.Log;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.UI;
@@ -16,38 +17,45 @@ namespace OpenNefia.Core.Rendering
     /// </summary>
     internal class TileAndChipBatch : BaseDrawable
     {
-        private readonly ITileAtlasManager _atlasManager;
+        private ITileAtlasManager _atlasManager = default!;
+        private ICoords _coords = default!;
 
-        private int _tiledWidth;
-        private int _tiledHeight;
+        private TileAtlas _tileAtlas = default!;
+        private TileAtlas _chipAtlas = default!;
 
-        private string[,] _tiles;
-        internal Dictionary<int, ChipBatchEntry> _chipsByIndex;
-        internal Dictionary<int, int> _memoryIndexToRowIndex;
-        internal Stack<ChipBatchEntry> _deadEntries;
-        private TileBatchRow[] _rows;
-        private HashSet<int> _dirtyRows;
+        private Vector2i _tiledSize;
+        private string[,] _tiles = new string[0, 0];
+        private Dictionary<int, ChipBatchEntry> _chipsByIndex = new();
+        private Dictionary<int, int> _memoryIndexToRowIndex = new();
+        private Stack<ChipBatchEntry> _deadEntries = new();
+        private TileBatchRow[] _rows = new TileBatchRow[0];
+        private HashSet<int> _dirtyRows = new();
         private bool _redrawAll;
-        private ICoords _coords;
-        private TileAtlas _tileAtlas;
-        private TileAtlas _chipAtlas;
 
-        public TileAndChipBatch(int width, int height, ICoords coords, ITileAtlasManager atlasManager)
+        public void Initialize(ITileAtlasManager atlasManager, ICoords coords)
         {
             _atlasManager = atlasManager;
-
-            _tiledWidth = width;
-            _tiledHeight = height;
-            _tileAtlas = atlasManager.GetAtlas(AtlasNames.Tile);
-            _chipAtlas = atlasManager.GetAtlas(AtlasNames.Chip);
             _coords = coords;
+
+            _tileAtlas = _atlasManager.GetAtlas(AtlasNames.Tile);
+            _chipAtlas = _atlasManager.GetAtlas(AtlasNames.Chip);
+        }
+
+        public void SetMapSize(Vector2i size)
+        {
+            var (width, height) = size;
+            
+            _tiledSize = size;
             _tiles = new string[width, height];
-            _chipsByIndex = new Dictionary<int, ChipBatchEntry>();
-            _memoryIndexToRowIndex = new Dictionary<int, int>();
-            _deadEntries = new Stack<ChipBatchEntry>();
+            
+            _chipsByIndex.Clear();
+            _memoryIndexToRowIndex.Clear();
+            _deadEntries.Clear();
             _rows = new TileBatchRow[height];
-            _dirtyRows = new HashSet<int>();
+            _dirtyRows.Clear();
+            
             _redrawAll = true;
+
             for (int tileY = 0; tileY < height; tileY++)
             {
                 _rows[tileY] = new TileBatchRow(_tileAtlas, _chipAtlas, _coords, width, tileY);
@@ -133,20 +141,6 @@ namespace OpenNefia.Core.Rendering
             }
         }
 
-        public void OnThemeSwitched(ICoords coords)
-        {
-            _tileAtlas = _atlasManager.GetAtlas(AtlasNames.Tile);
-            _chipAtlas = _atlasManager.GetAtlas(AtlasNames.Chip);
-            _coords = coords;
-            
-            this.Clear();
-
-            foreach (var row in _rows)
-            {
-                row.OnThemeSwitched(_tileAtlas, _chipAtlas, coords);
-            }
-        }
-
         public void Clear()
         {
             this._deadEntries.Clear();
@@ -171,7 +165,7 @@ namespace OpenNefia.Core.Rendering
                 for (int y = 0; y < _rows.Length; y++)
                 {
                     var row = _rows[y];
-                    row.UpdateTileBatches(_tiles, y, _tiledWidth);
+                    row.UpdateTileBatches(_tiles, y, _tiledSize.X);
                     row.UpdateChipBatch();
                 }
             }
@@ -180,7 +174,7 @@ namespace OpenNefia.Core.Rendering
                 foreach (int y in _dirtyRows)
                 {
                     var row = _rows[y];
-                    row.UpdateTileBatches(_tiles, y, _tiledWidth);
+                    row.UpdateTileBatches(_tiles, y, _tiledSize.X);
                     row.UpdateChipBatch();
                 }
             }
@@ -233,17 +227,6 @@ namespace OpenNefia.Core.Rendering
             TileWidth = Coords.TileSize.Y;
             RowYIndex = rowYIndex;
             ScreenWidth = widthInTiles * TileWidth;
-        }
-
-        internal void OnThemeSwitched(TileAtlas tileAtlas, TileAtlas chipAtlas, ICoords coords)
-        {
-            TileAtlas = tileAtlas;
-            ChipAtlas = chipAtlas;
-            Coords = coords;
-
-            TileBatch = Love.Graphics.NewSpriteBatch(tileAtlas.Image, 2048, Love.SpriteBatchUsage.Dynamic);
-            ChipBatch = new ChipBatch(chipAtlas, coords);
-            TileOverhangBatch = Love.Graphics.NewSpriteBatch(tileAtlas.Image, 2048, Love.SpriteBatchUsage.Dynamic);
         }
 
         internal void UpdateTileBatches(string[,] tiles, int y, int widthInTiles)

@@ -1,0 +1,47 @@
+- id: Elona.Warrior
+  ordering: 101000
+  type: EquipmentType
+  elonaId: 1
+  behavior: !type:WarriorEquipmentTypeBehavior {}
+
+- id: Elona.Mage
+  ordering: 102000
+  type: EquipmentType
+  elonaId: 2
+  behavior: !type:MageEquipmentTypeBehavior {}
+
+- id: Elona.Archer
+  ordering: 103000
+  type: EquipmentType
+  elonaId: 3
+  behavior: !type:ArcherEquipmentTypeBehavior {}
+
+- id: Elona.Gunner
+  ordering: 104000
+  type: EquipmentType
+  elonaId: 4
+  behavior: !type:GunnerEquipmentTypeBehavior {}
+
+- id: Elona.WarMage
+  ordering: 105000
+  type: EquipmentType
+  elonaId: 5
+  behavior: !type:WarMageEquipmentTypeBehavior {}
+
+- id: Elona.Priest
+  ordering: 106000
+  type: EquipmentType
+  elonaId: 6
+  behavior: !type:PriestEquipmentTypeBehavior {}
+
+- id: Elona.Thief
+  ordering: 107000
+  type: EquipmentType
+  elonaId: 7
+  behavior: !type:ThiefEquipmentTypeBehavior {}
+
+- id: Elona.Claymore
+  ordering: 108000
+  type: EquipmentType
+  elonaId: 8
+  behavior: !type:ClaymoreEquipmentTypeBehavior {}

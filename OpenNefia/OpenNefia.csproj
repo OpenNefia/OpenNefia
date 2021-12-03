@@ -37,5 +37,9 @@
     </None>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Core\Effects\Content\" />
+  </ItemGroup>
+
   <Import Project="..\MSBuild\OpenNefia.Analyzers.targets" />
 </Project>

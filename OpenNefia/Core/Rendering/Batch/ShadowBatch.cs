@@ -1,13 +1,8 @@
 ﻿using Love;
-using OpenNefia.Core.Data.Types;
+using OpenNefia.Core.Game;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.UI.Element;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OpenNefia.Core.Rendering
 {
@@ -52,110 +47,102 @@ namespace OpenNefia.Core.Rendering
 
         private static readonly int[] SHADOW_MAP = { -1, 8, 9, 4, 11, 6, -1, 0, 10, -1, 5, 2, 7, 3, 1, -1, -1 };
 
-        [Dependency] private readonly IAssetManager _assetManager;
+        private IAssetManager _assetManager = default!;
+        private IAssetDrawable _assetShadow = default!;
+        private IAssetDrawable _assetShadowEdges = default!;
+        private SpriteBatch _batchShadow = default!;
+        private SpriteBatch _batchShadowEdges = default!;
+        private ICoords _coords = default!;
 
-        private Vector2i SizeInTiles;
-        private ICoords Coords;
+        public Vector2i ScreenSize { get => _sizeInTiles * _coords.TileSize; }
+        public int ShadowStrength { get; set; } = 70;
 
-        public Vector2i ScreenSize { get => SizeInTiles * Coords.TileSize; }
+        private Love.Quad[,] _innerQuads = new Love.Quad[8, 6];
+        private Love.Quad[,] _cornerQuads = new Love.Quad[4, 3];
+        private Love.Quad[] _edgeQuads = new Love.Quad[17];
 
-        private IAssetDrawable AssetShadow;
-        private IAssetDrawable AssetShadowEdges;
+        private Vector2i _sizeInTiles;
+        private ShadowTile[,] _tiles = new ShadowTile[0, 0];
+        private UIBox2i _shadowBounds;
 
-        private SpriteBatch BatchShadow;
-        private SpriteBatch BatchShadowEdges;
-
-        private Love.Quad[,] InnerQuads;
-        private Love.Quad[,] CornerQuads;
-        private Love.Quad[] EdgeQuads;
-
-        public int ShadowStrength { get; set; }
-
-        private ShadowTile[,] Tiles;
-        private UIBox2i ShadowBounds;
-
-        public ShadowBatch(Vector2i sizeInTiles, ICoords coords, IAssetManager assetManager)
+        public void Initialize(IAssetManager assetManager, ICoords coords)
         {
             _assetManager = assetManager;
+            _coords = coords;
 
-            SizeInTiles = sizeInTiles;
-            Coords = coords;
+            _assetShadow = _assetManager.GetAsset(new("Shadow"));
+            _assetShadowEdges = _assetManager.GetAsset(new("ShadowEdges"));
 
-            ShadowStrength = 70;
+            _batchShadow = _assetShadow.MakeSpriteBatch(2048, SpriteBatchUsage.Dynamic);
+            _batchShadowEdges = _assetShadowEdges.MakeSpriteBatch(2048, SpriteBatchUsage.Dynamic);
 
-            AssetShadow = _assetManager.GetAsset(new("Shadow"));
-            AssetShadowEdges = _assetManager.GetAsset(new("ShadowEdges"));
-
-            BatchShadow = AssetShadow.MakeSpriteBatch(2048, SpriteBatchUsage.Dynamic);
-            BatchShadowEdges = AssetShadowEdges.MakeSpriteBatch(2048, SpriteBatchUsage.Dynamic);
-
-            InnerQuads = new Love.Quad[8, 6];
-            CornerQuads = new Love.Quad[4, 3];
-            EdgeQuads = new Love.Quad[17];
-
-            Tiles = new ShadowTile[SizeInTiles.X, SizeInTiles.Y];
-
-            var iw = AssetShadow.Width;
-            var ih = AssetShadow.Height;
+            var iw = _assetShadow.Width;
+            var ih = _assetShadow.Height;
 
             for (int i = 0; i < 8; i++)
             {
                 for (int j = 0; j < 6; j++)
                 {
-                    InnerQuads[i, j] = Love.Graphics.NewQuad(i * 24, j * 24, 24, 24, iw, ih);
+                    _innerQuads[i, j] = Love.Graphics.NewQuad(i * 24, j * 24, 24, 24, iw, ih);
                 }
             }
             for (int i = 0; i < 4; i++)
             {
                 for (int j = 0; j < 3; j++)
                 {
-                    CornerQuads[i, j] = Love.Graphics.NewQuad(i * 48, j * 48, 48, 48, iw, ih);
+                    _cornerQuads[i, j] = Love.Graphics.NewQuad(i * 48, j * 48, 48, 48, iw, ih);
                 }
             }
 
-            iw = AssetShadowEdges.Width;
-            ih = AssetShadowEdges.Height;
+            iw = _assetShadowEdges.Width;
+            ih = _assetShadowEdges.Height;
 
             for (int i = 0; i < 17; i++)
             {
-                EdgeQuads[i] = Love.Graphics.NewQuad(i * 48, 0, 48, 48, iw, ih);
+                _edgeQuads[i] = Love.Graphics.NewQuad(i * 48, 0, 48, 48, iw, ih);
             }
+        }
+
+        public void SetMapSize(Vector2i sizeInTiles)
+        {
+            _sizeInTiles = sizeInTiles;
+            _tiles = new ShadowTile[_sizeInTiles.X, _sizeInTiles.Y];
         }
 
         public void SetTileShadow(int x, int y, ShadowTile shadow)
         {
-            Tiles[x, y] = shadow;
+            _tiles[x, y] = shadow;
         }
 
         public void SetAllTileShadows(ShadowTile[,] tiles, UIBox2i shadowBounds)
         {
-            if (tiles.Length != Tiles.Length)
-                throw new Exception($"Invalid tile array size ({tiles.Length} != {Tiles.Length})");
+            if (tiles.Length != _tiles.Length)
+                throw new Exception($"Invalid tile array size ({tiles.Length} != {_tiles.Length})");
 
-            Tiles = tiles;
-            ShadowBounds = shadowBounds;
+            _tiles = tiles;
+            _shadowBounds = shadowBounds;
         }
 
         public void UpdateBatches()
         {
-            BatchShadow.Clear();
-            BatchShadowEdges.Clear();
+            _batchShadow.Clear();
+            _batchShadowEdges.Clear();
 
-            for (int x = 0; x < SizeInTiles.X; x++)
+            for (int x = 0; x < _sizeInTiles.X; x++)
             {
-                for (int y = 0; y < SizeInTiles.Y; y++)
+                for (int y = 0; y < _sizeInTiles.Y; y++)
                 {
-                    UpdateTileShadow(new Vector2i(x, y), Tiles[x, y]);
+                    UpdateTileShadow(new Vector2i(x, y), _tiles[x, y]);
                 }
             }
 
-            BatchShadow.Flush();
-            BatchShadowEdges.Flush();
+            _batchShadow.Flush();
+            _batchShadowEdges.Flush();
         }
 
         private void UpdateTileShadow(Vector2i tilePos, ShadowTile shadow)
         {
-            Coords.TileToScreen(tilePos, out var screenPos);
+            _coords.TileToScreen(tilePos, out var screenPos);
 
             if (shadow == ShadowTile.None)
                 return;
@@ -209,11 +196,11 @@ namespace OpenNefia.Core.Rendering
 
             if (tile == -1)
             {
-                BatchShadow.Add(CornerQuads[3, 2], screenPos.X, screenPos.Y);
+                _batchShadow.Add(_cornerQuads[3, 2], screenPos.X, screenPos.Y);
             }
             else
             {
-                BatchShadowEdges.Add(EdgeQuads[tile], screenPos.X, screenPos.Y);
+                _batchShadowEdges.Add(_edgeQuads[tile], screenPos.X, screenPos.Y);
             }
         }
 
@@ -229,7 +216,7 @@ namespace OpenNefia.Core.Rendering
             else
             {
                 // deco0, deco1 is x, y index into shadow image by size 48
-                BatchShadow.Add(CornerQuads[deco0, deco1], screenPos.X, screenPos.Y);
+                _batchShadow.Add(_cornerQuads[deco0, deco1], screenPos.X, screenPos.Y);
             }
 
             var deco2 = DECO[(int)shadow, 2];
@@ -247,99 +234,99 @@ namespace OpenNefia.Core.Rendering
             switch (deco)
             {
                 case 1: // upper-left inner
-                    BatchShadow.Add(InnerQuads[7, 1], x, y);
+                    _batchShadow.Add(_innerQuads[7, 1], x, y);
                     break;
                 case 2:
                     // lower-right inner
-                    BatchShadow.Add(InnerQuads[6, 0], x + 24, y + 24);
+                    _batchShadow.Add(_innerQuads[6, 0], x + 24, y + 24);
                     break;
                 case 3:
                     // lower-left inner
-                    BatchShadow.Add(InnerQuads[7, 0], x, y + 24);
+                    _batchShadow.Add(_innerQuads[7, 0], x, y + 24);
                     break;
                 case 4:
                     // upper-right inner
-                    BatchShadow.Add(InnerQuads[6, 1], x + 24, y);
+                    _batchShadow.Add(_innerQuads[6, 1], x + 24, y);
                     break;
                 case 5:
                     // upper-left inner
                     // lower-right inner
-                    BatchShadow.Add(InnerQuads[6, 0], x + 24, y + 24);
-                    BatchShadow.Add(InnerQuads[7, 1], x, y);
+                    _batchShadow.Add(_innerQuads[6, 0], x + 24, y + 24);
+                    _batchShadow.Add(_innerQuads[7, 1], x, y);
                     break;
                 case 6:
                     // upper-right inner
                     // lower-left inner
-                    BatchShadow.Add(InnerQuads[7, 0], x, y + 24);
-                    BatchShadow.Add(InnerQuads[6, 1], x + 24, y);
+                    _batchShadow.Add(_innerQuads[7, 0], x, y + 24);
+                    _batchShadow.Add(_innerQuads[6, 1], x + 24, y);
                     break;
                 case 7:
                     // lower-right inner
                     // lower-left inner
-                    BatchShadow.Add(InnerQuads[7, 0], x, y + 24);
-                    BatchShadow.Add(InnerQuads[6, 0], x + 24, y + 24);
+                    _batchShadow.Add(_innerQuads[7, 0], x, y + 24);
+                    _batchShadow.Add(_innerQuads[6, 0], x + 24, y + 24);
                     break;
                 case 8:
                     // upper-right inner
                     // upper-left inner
-                    BatchShadow.Add(InnerQuads[7, 1], x, y);
-                    BatchShadow.Add(InnerQuads[6, 1], x + 24, y);
+                    _batchShadow.Add(_innerQuads[7, 1], x, y);
+                    _batchShadow.Add(_innerQuads[6, 1], x + 24, y);
                     break;
                 case 9:
                     // upper-left inner
                     // lower-left inner
-                    BatchShadow.Add(InnerQuads[7, 1], x, y);
-                    BatchShadow.Add(InnerQuads[7, 0], x, y + 24);
+                    _batchShadow.Add(_innerQuads[7, 1], x, y);
+                    _batchShadow.Add(_innerQuads[7, 0], x, y + 24);
                     break;
                 case 10:
                     // upper-right inner
                     // lower-right inner
-                    BatchShadow.Add(InnerQuads[6, 1], x + 24, y);
-                    BatchShadow.Add(InnerQuads[6, 0], x + 24, y + 24);
+                    _batchShadow.Add(_innerQuads[6, 1], x + 24, y);
+                    _batchShadow.Add(_innerQuads[6, 0], x + 24, y + 24);
                     break;
                 case 20:
                     // left border
                     // right border
-                    BatchShadow.Add(InnerQuads[0, 2], x, y);
-                    BatchShadow.Add(InnerQuads[0, 3], x, y + 24);
-                    BatchShadow.Add(InnerQuads[5, 2], x + 24, y);
-                    BatchShadow.Add(InnerQuads[5, 3], x + 24, y + 24);
+                    _batchShadow.Add(_innerQuads[0, 2], x, y);
+                    _batchShadow.Add(_innerQuads[0, 3], x, y + 24);
+                    _batchShadow.Add(_innerQuads[5, 2], x + 24, y);
+                    _batchShadow.Add(_innerQuads[5, 3], x + 24, y + 24);
                     break;
                 case 21:
                     // top border
                     // bottom border
-                    BatchShadow.Add(InnerQuads[2, 0], x, y);
-                    BatchShadow.Add(InnerQuads[3, 0], x + 24, y);
-                    BatchShadow.Add(InnerQuads[2, 5], x, y + 24);
-                    BatchShadow.Add(InnerQuads[3, 5], x + 24, y + 24);
+                    _batchShadow.Add(_innerQuads[2, 0], x, y);
+                    _batchShadow.Add(_innerQuads[3, 0], x + 24, y);
+                    _batchShadow.Add(_innerQuads[2, 5], x, y + 24);
+                    _batchShadow.Add(_innerQuads[3, 5], x + 24, y + 24);
                     break;
                 case 30:
                     // right outer dart
-                    BatchShadow.Add(InnerQuads[0, 0], x, y);
-                    BatchShadow.Add(InnerQuads[1, 0], x + 24, y);
-                    BatchShadow.Add(InnerQuads[0, 5], x, y + 24);
-                    BatchShadow.Add(InnerQuads[1, 5], x + 24, y + 24);
+                    _batchShadow.Add(_innerQuads[0, 0], x, y);
+                    _batchShadow.Add(_innerQuads[1, 0], x + 24, y);
+                    _batchShadow.Add(_innerQuads[0, 5], x, y + 24);
+                    _batchShadow.Add(_innerQuads[1, 5], x + 24, y + 24);
                     break;
                 case 31:
                     // left outer dart
-                    BatchShadow.Add(InnerQuads[4, 0], x, y);
-                    BatchShadow.Add(InnerQuads[5, 0], x + 24, y);
-                    BatchShadow.Add(InnerQuads[4, 5], x, y + 24);
-                    BatchShadow.Add(InnerQuads[5, 5], x + 24, y + 24);
+                    _batchShadow.Add(_innerQuads[4, 0], x, y);
+                    _batchShadow.Add(_innerQuads[5, 0], x + 24, y);
+                    _batchShadow.Add(_innerQuads[4, 5], x, y + 24);
+                    _batchShadow.Add(_innerQuads[5, 5], x + 24, y + 24);
                     break;
                 case 32:
                     // upper outer dart
-                    BatchShadow.Add(InnerQuads[0, 0], x, y);
-                    BatchShadow.Add(InnerQuads[0, 1], x, y + 24);
-                    BatchShadow.Add(InnerQuads[5, 0], x + 24, y);
-                    BatchShadow.Add(InnerQuads[5, 1], x + 24, y + 24);
+                    _batchShadow.Add(_innerQuads[0, 0], x, y);
+                    _batchShadow.Add(_innerQuads[0, 1], x, y + 24);
+                    _batchShadow.Add(_innerQuads[5, 0], x + 24, y);
+                    _batchShadow.Add(_innerQuads[5, 1], x + 24, y + 24);
                     break;
                 case 33:
                     // lower outer dart
-                    BatchShadow.Add(InnerQuads[0, 4], x, y);
-                    BatchShadow.Add(InnerQuads[0, 5], x, y + 24);
-                    BatchShadow.Add(InnerQuads[5, 4], x + 24, y);
-                    BatchShadow.Add(InnerQuads[5, 5], x + 24, y + 24);
+                    _batchShadow.Add(_innerQuads[0, 4], x, y);
+                    _batchShadow.Add(_innerQuads[0, 5], x, y + 24);
+                    _batchShadow.Add(_innerQuads[5, 4], x + 24, y);
+                    _batchShadow.Add(_innerQuads[5, 5], x + 24, y + 24);
                     break;
             }
         }
@@ -357,9 +344,9 @@ namespace OpenNefia.Core.Rendering
             Love.Graphics.SetBlendMode(BlendMode.Subtract);
             GraphicsEx.SetColor(255, 255, 255, ShadowStrength);
 
-            Love.Graphics.SetScissor(X + ShadowBounds.Left, Y + ShadowBounds.Top, ShadowBounds.Width, ShadowBounds.Height);
-            Love.Graphics.Draw(BatchShadow, X, Y);
-            Love.Graphics.Draw(BatchShadowEdges, X, Y);
+            Love.Graphics.SetScissor(X + _shadowBounds.Left, Y + _shadowBounds.Top, _shadowBounds.Width, _shadowBounds.Height);
+            Love.Graphics.Draw(_batchShadow, X, Y);
+            Love.Graphics.Draw(_batchShadowEdges, X, Y);
             Love.Graphics.SetScissor();
 
             GraphicsEx.SetColor(255, 255, 255, (int)(ShadowStrength * ((256f - 9f) / 256f)));

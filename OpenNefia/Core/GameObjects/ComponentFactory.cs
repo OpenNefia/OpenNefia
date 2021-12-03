@@ -351,6 +351,7 @@ namespace OpenNefia.Core.GameObjects
                 throw new Exception("ComponentFactory was finalized twice.");
             }
             _wasFinalized = true;
+            Logger.Info($"Registered {types.Count} components.");
         }
     }
 
