@@ -2,6 +2,8 @@
 {
     public interface IGameController
     {
+        public Action? MainCallback { get; set; }
+
         public bool Startup();
         public void Run();
 

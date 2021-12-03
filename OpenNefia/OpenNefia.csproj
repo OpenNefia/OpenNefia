@@ -2,7 +2,7 @@
   <Import Project="..\MSBuild\OpenNefia.Properties.targets" />
 	
   <PropertyGroup>
-    <OutputType>Exe</OutputType>
+    <OutputType>Library</OutputType>
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>

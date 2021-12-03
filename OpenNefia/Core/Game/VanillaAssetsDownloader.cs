@@ -29,7 +29,7 @@ namespace OpenNefia.Core.Game
 
             var exeDir = AppDomain.CurrentDomain.BaseDirectory;
             _exeDir = new WritableDirProvider(new DirectoryInfo(exeDir));
-            _assetsDir = new WritableDirProvider(new DirectoryInfo(exeDir + "/../../.."));
+            _assetsDir = new WritableDirProvider(new DirectoryInfo(exeDir + "/../../../.."));
         }
 
         public bool NeedsDownload()

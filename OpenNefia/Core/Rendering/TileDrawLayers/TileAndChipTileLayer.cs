@@ -1,14 +1,5 @@
-﻿using OpenNefia.Core.Data.Types;
-using OpenNefia.Core.Game;
-using OpenNefia.Core.IoC;
+﻿using OpenNefia.Core.IoC;
 using OpenNefia.Core.Maps;
-using OpenNefia.Core.Maths;
-using OpenNefia.Core.UI;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OpenNefia.Core.Rendering.TileDrawLayers
 {

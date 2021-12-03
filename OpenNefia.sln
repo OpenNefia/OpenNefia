@@ -14,9 +14,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenNefia.Tests", "OpenNefi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CSharpRepl", "..\OpenNefia.NET\Thirdparty\CSharpRepl\CSharpRepl\CSharpRepl.csproj", "{6078ABD3-0531-4259-9E26-C1FEFEA2617F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenNefia.Analyzers", "OpenNefia.Analyzers\OpenNefia.Analyzers.csproj", "{6719921A-7085-47BE-90FD-A0A0435943C2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenNefia.Analyzers", "OpenNefia.Analyzers\OpenNefia.Analyzers.csproj", "{6719921A-7085-47BE-90FD-A0A0435943C2}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CSharpRepl.Services", "..\OpenNefia.NET\Thirdparty\CSharpRepl\CSharpRepl.Services\CSharpRepl.Services.csproj", "{8A5B7637-6128-4046-A552-BB2310FFB73C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenNefia.EntryPoint", "OpenNefia.EntryPoint\OpenNefia.EntryPoint.csproj", "{3AEBAAE2-2565-4153-A2B7-ED2D7DD092D8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenNefia.Content", "OpenNefia.Content\OpenNefia.Content.csproj", "{9339C5BA-AE0C-4AEB-82E4-8C7051FBFF8E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -48,6 +52,14 @@ Global
 		{8A5B7637-6128-4046-A552-BB2310FFB73C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8A5B7637-6128-4046-A552-BB2310FFB73C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8A5B7637-6128-4046-A552-BB2310FFB73C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3AEBAAE2-2565-4153-A2B7-ED2D7DD092D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3AEBAAE2-2565-4153-A2B7-ED2D7DD092D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3AEBAAE2-2565-4153-A2B7-ED2D7DD092D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3AEBAAE2-2565-4153-A2B7-ED2D7DD092D8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9339C5BA-AE0C-4AEB-82E4-8C7051FBFF8E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9339C5BA-AE0C-4AEB-82E4-8C7051FBFF8E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9339C5BA-AE0C-4AEB-82E4-8C7051FBFF8E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9339C5BA-AE0C-4AEB-82E4-8C7051FBFF8E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
