@@ -11,6 +11,7 @@ using OpenNefia.Core.UI.Layer;
 using OpenNefia.Content.UI.Element;
 using OpenNefia.Content.UI.Hud;
 using OpenNefia.Content.Logic;
+using OpenNefia.Content.UI.Layer.Repl;
 
 namespace OpenNefia.Content.UI.Layer
 {
@@ -20,6 +21,7 @@ namespace OpenNefia.Content.UI.Layer
         [Dependency] private readonly IHudLayer _hud = default!;
         [Dependency] private readonly ICoords _coords = default!;
         [Dependency] private readonly IPlayerQuery _playerQuery = default!;
+        [Dependency] private readonly IReplLayer _repl = default!;
 
         public static FieldLayer? Instance = null;
 
@@ -75,6 +77,7 @@ namespace OpenNefia.Content.UI.Layer
             Keybinds[CoreKeybinds.South] += (_) => MovePlayer(Direction.South);
             Keybinds[CoreKeybinds.West] += (_) => MovePlayer(Direction.West);
             Keybinds[CoreKeybinds.East] += (_) => MovePlayer(Direction.East);
+            Keybinds[CoreKeybinds.Repl] += QueryRepl;
             //Keybinds[Keys.G] += (_) => GetItem();
             //Keybinds[Keys.D] += (_) => DropItem();
             //Keybinds[Keys.C] += (_) => CastSpell();
@@ -104,6 +107,11 @@ namespace OpenNefia.Content.UI.Layer
                 var atlas = IoCManager.Resolve<ITileAtlasManager>().GetAtlas(result.Value.ChoiceData);
                 new PicViewLayer(atlas.Image).Query();
             }
+        }
+
+        private void QueryRepl(UiKeyInputEventArgs args)
+        {
+            _repl.Query();
         }
 
         public void RefreshScreen()

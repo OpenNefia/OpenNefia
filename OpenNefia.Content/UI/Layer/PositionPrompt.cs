@@ -99,7 +99,7 @@ namespace OpenNefia.Content.UI.Layer
         private void MouseToTargetPos(Vector2i screenPos)
         {
             _field.Camera.VisibleScreenToTile(screenPos, out var tilePos);
-            this.SetTargetPos(_mapManager.ActiveMap.AtPos(tilePos));
+            this.SetTargetPos(_mapManager.ActiveMap!.AtPos(tilePos));
         }
 
         protected void MoveTargetPos(int dx, int dy)

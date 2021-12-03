@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OpenNefia.Core.UI.Layer.Repl
+namespace OpenNefia.Content.UI.Layer.Repl
 {
     internal class ReplLayerConsoleBridge : IConsole
     {
@@ -26,7 +26,7 @@ namespace OpenNefia.Core.UI.Layer.Repl
 
         public bool KeyAvailable => true;
 
-        public bool CaptureControlC { get => false; set {} }
+        public bool CaptureControlC { get => false; set { } }
 
         public event ConsoleCancelEventHandler CancelKeyPress
         {

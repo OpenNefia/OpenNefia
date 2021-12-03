@@ -8,7 +8,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace OpenNefia.Core.UI.Layer.Repl
+namespace OpenNefia.Content.UI.Layer.Repl
 {
     /// <summary>
     /// Datastructure that provides a window over a segment of an array, similar to <see cref="ArraySegment{T}"/>, but
