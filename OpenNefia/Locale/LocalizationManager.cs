@@ -125,7 +125,7 @@ namespace OpenNefia.Core.Locale
 
         private void DoLocalizeField(object? o, LocaleKey baseKey, FieldInfo field)
         {
-            var attr = field.GetLocalizeAttribute();
+            var attr = field.GetCustomAttribute<LocalizeAttribute>();
 
             string keyFrag = attr?.Key ?? field.Name;
 
@@ -239,18 +239,10 @@ namespace OpenNefia.Core.Locale
     {
         public static LocaleKey GetBaseLocaleKey(this Type type) => type.FullName!;
 
-        public static ILocalizeAttribute? GetLocalizeAttribute(this MemberInfo member)
-        {
-            return member.GetCustomAttributes()
-                .Select(attr => attr as ILocalizeAttribute)
-                .WhereNotNull()
-                .FirstOrDefault();
-        }
-
         public static IEnumerable<FieldInfo> GetLocalizableFields(this Type type)
         {
             return type.GetFields(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic)
-                .Where(field => field.GetLocalizeAttribute() != null);
+                .Where(field => field.GetCustomAttribute<LocalizeAttribute>() != null);
         }
     }
 }

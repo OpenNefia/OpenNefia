@@ -10,9 +10,6 @@ namespace OpenNefia.Content.GameObjects
         public override string Name => "Chara";
 
         [DataField]
-        public string DisplayName { get; set; } = string.Empty;
-
-        [DataField]
         public string Title { get; set; } = string.Empty;
 
         [DataField]

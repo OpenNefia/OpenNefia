@@ -63,8 +63,9 @@
   id: Putit
   parent: BaseChara
   components:
-  - type: Chara
+  - type: MetaData
     displayName: putit
+  - type: Chara
     title: The wind
     class: Slime
   - type: Chip
@@ -74,8 +75,9 @@
   id: Yeek
   parent: BaseChara
   components:
-  - type: Chara
+  - type: MetaData
     displayName: yeek
+  - type: Chara
     title: The wind
     class: Yeek
   - type: Chip

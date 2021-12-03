@@ -1,5 +1,7 @@
 using System;
+using OpenNefia.Core.Locale;
 using OpenNefia.Core.Prototypes;
+using OpenNefia.Core.Serialization.Manager.Attributes;
 
 namespace OpenNefia.Core.GameObjects
 {
@@ -9,6 +11,13 @@ namespace OpenNefia.Core.GameObjects
     public class MetaDataComponent : Component
     {
         public override string Name => "MetaData";
+
+        /// <summary>
+        ///     The in-game name of this entity.
+        /// </summary>
+        [DataField]
+        [Localize]
+        public string? DisplayName;
 
         private EntityPrototype? _entityPrototype;
 
