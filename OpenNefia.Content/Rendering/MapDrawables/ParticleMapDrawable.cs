@@ -1,6 +1,7 @@
 ﻿using OpenNefia.Core.Audio;
 using OpenNefia.Core.Config;
 using OpenNefia.Core.Game;
+using OpenNefia.Core.IoC;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Random;
@@ -31,6 +32,8 @@ namespace OpenNefia.Content.Rendering
 
         public ParticleMapDrawable(PrototypeId<AssetPrototype> asset, PrototypeId<SoundPrototype>? sound, float rotationVariance = -1f, float? wait = null)
         {
+            var rand = IoCManager.Resolve<IRandom>();
+
             if (wait == null)
                 wait = ConfigVars.AnimeWait;
 
@@ -40,8 +43,8 @@ namespace OpenNefia.Content.Rendering
             this.AnimeWait = wait.Value;
             var coords = GameSession.Coords;
             this.Particles = Enumerable.Range(0, 15)
-                .Select(_ => new Particle(new Vector2i(Rand.Next(coords.TileSize.X), Rand.Next(coords.TileSize.Y)),
-                                          Rand.Next(4) + 1 * rotationVariance))
+                .Select(_ => new Particle(new Vector2i(rand.Next(coords.TileSize.X), rand.Next(coords.TileSize.Y)),
+                                          rand.Next(4) + 1 * rotationVariance))
                 .ToArray();
             this.Counter = new FrameCounter(wait.Value, 10);
         }

@@ -12,11 +12,11 @@ namespace OpenNefia.Content.GameObjects
 
         public override void Initialize()
         {
-            SubscribeLocalEvent<DrinkableComponent, GetVerbsEventArgs>(HandleGetVerbs);
-            SubscribeLocalEvent<ExecuteVerbEventArgs>(HandleExecuteVerb);
-            SubscribeLocalEvent<DrinkableComponent, ThrownEntityImpactedOtherEvent>(HandleImpactOther);
-            SubscribeLocalEvent<DrinkableComponent, ThrownEntityImpactedGroundEvent>(HandleImpactGround);
-            SubscribeLocalEvent<PotionPuddleComponent, EntitySteppedOnEvent>(HandlePotionPuddleSteppedOn);
+            SubscribeLocalEvent<DrinkableComponent, GetVerbsEventArgs>(HandleGetVerbs, nameof(HandleGetVerbs));
+            SubscribeLocalEvent<ExecuteVerbEventArgs>(HandleExecuteVerb, nameof(HandleExecuteVerb));
+            SubscribeLocalEvent<DrinkableComponent, ThrownEntityImpactedOtherEvent>(HandleImpactOther, nameof(HandleImpactOther));
+            SubscribeLocalEvent<DrinkableComponent, ThrownEntityImpactedGroundEvent>(HandleImpactGround, nameof(HandleImpactGround));
+            SubscribeLocalEvent<PotionPuddleComponent, EntitySteppedOnEvent>(HandlePotionPuddleSteppedOn, nameof(HandlePotionPuddleSteppedOn));
         }
 
         private void HandleGetVerbs(EntityUid potion, DrinkableComponent drinkableComp, GetVerbsEventArgs args)

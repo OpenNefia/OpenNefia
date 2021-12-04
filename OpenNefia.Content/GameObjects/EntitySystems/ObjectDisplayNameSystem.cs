@@ -8,8 +8,8 @@ namespace OpenNefia.Content.GameObjects
         {
             base.Initialize();
 
-            SubscribeLocalEvent<CharaComponent, GetDisplayNameEventArgs>(GetCharaName);
-            SubscribeLocalEvent<ItemComponent, GetDisplayNameEventArgs>(GetItemName);
+            SubscribeLocalEvent<CharaComponent, GetDisplayNameEventArgs>(GetCharaName, nameof(GetCharaName));
+            SubscribeLocalEvent<ItemComponent, GetDisplayNameEventArgs>(GetItemName, nameof(GetItemName));
         }
 
         public void GetCharaName(EntityUid uid, CharaComponent component, ref GetDisplayNameEventArgs args)

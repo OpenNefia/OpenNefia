@@ -30,7 +30,7 @@ namespace OpenNefia.Core.Audio
 
         public override void Initialize()
         {
-            SubscribeLocalEvent<FrameUpdateEventArgs>(OnFrameUpdate);
+            SubscribeLocalEvent<FrameUpdateEventArgs>(OnFrameUpdate, "OnFrameUpdate");
         }
 
         private Love.Source GetLoveSource(PrototypeId<SoundPrototype> prototype)

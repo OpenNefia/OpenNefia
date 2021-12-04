@@ -7,8 +7,8 @@ namespace OpenNefia.Core.GameObjects
     {
         public override void Initialize()
         {
-            SubscribeLocalEvent<MoveableComponent, MoveEventArgs>(HandleMove);
-            SubscribeLocalEvent<MoveableComponent, PositionChangedEvent>(HandlePositionChanged);
+            SubscribeLocalEvent<MoveableComponent, MoveEventArgs>(HandleMove, nameof(HandleMove));
+            SubscribeLocalEvent<MoveableComponent, PositionChangedEvent>(HandlePositionChanged, nameof(HandlePositionChanged));
         }
 
         private void HandlePositionChanged(EntityUid uid, MoveableComponent component, ref PositionChangedEvent args)

@@ -62,10 +62,10 @@ namespace OpenNefia.Core.GameObjects
         {
             var nodes = TopologicalSort.FromBeforeAfter(
                 found.Where(f => f.Item2 != null),
-                n => n.Item2!.OrderType,
+                n => n.Item2!.OrderIdent,
                 n => n.Item1!,
-                n => n.Item2!.Before ?? Array.Empty<Type>(),
-                n => n.Item2!.After ?? Array.Empty<Type>(),
+                n => n.Item2!.Before ?? Array.Empty<SubId>(),
+                n => n.Item2!.After ?? Array.Empty<SubId>(),
                 allowMissing: true);
 
             foreach (var handler in TopologicalSort.Sort(nodes))
@@ -90,7 +90,7 @@ namespace OpenNefia.Core.GameObjects
                 _orderedEvents.Add(eventType);
         }
 
-        private sealed record OrderingData(Type OrderType, Type[]? Before, Type[]? After);
+        private sealed record OrderingData(SubId OrderIdent, SubId[]? Before, SubId[]? After);
 
     }
 }

@@ -10,7 +10,7 @@ namespace OpenNefia.Content.GameObjects
         {
             base.Initialize();
 
-            SubscribeLocalEvent<CharaComponent, CharaInitEvent>(OnCharaInit);
+            SubscribeLocalEvent<CharaComponent, CharaInitEvent>(OnCharaInit, nameof(OnCharaInit));
         }
 
         private void OnCharaInit(EntityUid uid, CharaComponent component, CharaInitEvent args)

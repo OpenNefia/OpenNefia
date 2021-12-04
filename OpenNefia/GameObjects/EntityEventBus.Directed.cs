@@ -22,7 +22,7 @@ namespace OpenNefia.Core.GameObjects
 
         void SubscribeLocalEvent<TComp, TEvent>(
             ComponentEventHandler<TComp, TEvent> handler,
-            Type orderType, Type[]? before = null, Type[]? after = null)
+            SubId orderIdent, SubId[]? before = null, SubId[]? after = null)
             where TComp : IComponent
             where TEvent : notnull;
 
@@ -39,7 +39,7 @@ namespace OpenNefia.Core.GameObjects
 
         void SubscribeLocalEvent<TComp, TEvent>(
             ComponentEventRefHandler<TComp, TEvent> handler,
-            Type orderType, Type[]? before = null, Type[]? after = null)
+            SubId orderIdent, SubId[]? before = null, SubId[]? after = null)
             where TComp : IComponent
             where TEvent : notnull;
 
@@ -176,16 +176,16 @@ namespace OpenNefia.Core.GameObjects
 
         public void SubscribeLocalEvent<TComp, TEvent>(
             ComponentEventHandler<TComp, TEvent> handler,
-            Type orderType,
-            Type[]? before = null,
-            Type[]? after = null)
+            SubId orderIdent,
+            SubId[]? before = null,
+            SubId[]? after = null)
             where TComp : IComponent
             where TEvent : notnull
         {
             void EventHandler(EntityUid uid, IComponent comp, ref TEvent args)
                 => handler(uid, (TComp)comp, args);
 
-            var orderData = new OrderingData(orderType, before, after);
+            var orderData = new OrderingData(orderIdent, before, after);
 
             _eventTables.Subscribe<TEvent>(typeof(TComp), typeof(TEvent), EventHandler, orderData, false);
             HandleOrderRegistration(typeof(TEvent), orderData);
@@ -200,14 +200,14 @@ namespace OpenNefia.Core.GameObjects
             _eventTables.Subscribe<TEvent>(typeof(TComp), typeof(TEvent), EventHandler, null, true);
         }
 
-        public void SubscribeLocalEvent<TComp, TEvent>(ComponentEventRefHandler<TComp, TEvent> handler, Type orderType,
-            Type[]? before = null,
-            Type[]? after = null) where TComp : IComponent where TEvent : notnull
+        public void SubscribeLocalEvent<TComp, TEvent>(ComponentEventRefHandler<TComp, TEvent> handler, SubId orderIdent,
+            SubId[]? before = null,
+            SubId[]? after = null) where TComp : IComponent where TEvent : notnull
         {
             void EventHandler(EntityUid uid, IComponent comp, ref TEvent args)
                 => handler(uid, (TComp)comp, ref args);
 
-            var orderData = new OrderingData(orderType, before, after);
+            var orderData = new OrderingData(orderIdent, before, after);
 
             _eventTables.Subscribe<TEvent>(typeof(TComp), typeof(TEvent), EventHandler, orderData, true);
             HandleOrderRegistration(typeof(TEvent), orderData);

@@ -16,9 +16,10 @@ namespace OpenNefia.Content.GameObjects
     {
         public override void Initialize()
         {
-            SubscribeLocalEvent<SpatialComponent, CollideWithEventArgs>(HandleCollideWith);
-            SubscribeLocalEvent<StatusFearComponent, PhysicalAttackEventArgs>(HandlePhysicalAttackFear);
-            SubscribeLocalEvent<SkillsComponent, PhysicalAttackEventArgs>(HandlePhysicalAttackMain);
+            SubscribeLocalEvent<SpatialComponent, CollideWithEventArgs>(HandleCollideWith, nameof(HandleCollideWith));
+            SubscribeLocalEvent<StatusFearComponent, PhysicalAttackEventArgs>(HandlePhysicalAttackFear, nameof(HandlePhysicalAttackFear), 
+                before: new[] { new SubId(typeof(CombatSystem), nameof(HandlePhysicalAttackMain))});
+            SubscribeLocalEvent<SkillsComponent, PhysicalAttackEventArgs>(HandlePhysicalAttackMain, nameof(HandlePhysicalAttackMain));
         }
 
         private void HandlePhysicalAttackFear(EntityUid uid, StatusFearComponent component, PhysicalAttackEventArgs args)

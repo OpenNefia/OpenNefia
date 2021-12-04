@@ -9,8 +9,8 @@ namespace OpenNefia.Content.GameObjects
     {
         public override void Initialize()
         {
-            SubscribeLocalEvent<ChipComponent, GetMapObjectMemoryEventArgs>(ProduceSpriteMemory);
-            SubscribeLocalEvent<CharaComponent, GetMapObjectMemoryEventArgs>(HideWhenOutOfSight);
+            SubscribeLocalEvent<ChipComponent, GetMapObjectMemoryEventArgs>(ProduceSpriteMemory, nameof(ProduceSpriteMemory));
+            SubscribeLocalEvent<CharaComponent, GetMapObjectMemoryEventArgs>(HideWhenOutOfSight, nameof(HideWhenOutOfSight));
         }
 
         private void HideWhenOutOfSight(EntityUid uid, CharaComponent component, GetMapObjectMemoryEventArgs args)

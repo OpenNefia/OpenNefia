@@ -204,9 +204,11 @@ namespace OpenNefia.Tests.Core.GameObjects
 
             void HandlerC(EntityUid uid, Component comp, TestEvent ev) => c = true;
 
-            bus.SubscribeLocalEvent<OrderComponentA, TestEvent>(HandlerA, typeof(OrderComponentA), before: new []{typeof(OrderComponentB), typeof(OrderComponentC)});
-            bus.SubscribeLocalEvent<OrderComponentB, TestEvent>(HandlerB, typeof(OrderComponentB), after: new []{typeof(OrderComponentC)});
-            bus.SubscribeLocalEvent<OrderComponentC, TestEvent>(HandlerC, typeof(OrderComponentC));
+            bus.SubscribeLocalEvent<OrderComponentA, TestEvent>(HandlerA, new SubId(typeof(OrderComponentA), "A"), 
+                before: new []{new SubId(typeof(OrderComponentB), "B"), new SubId(typeof(OrderComponentC), "C")});
+            bus.SubscribeLocalEvent<OrderComponentB, TestEvent>(HandlerB, new SubId(typeof(OrderComponentB), "B"),
+                after: new []{new SubId(typeof(OrderComponentC), "C")});
+            bus.SubscribeLocalEvent<OrderComponentC, TestEvent>(HandlerC, new SubId(typeof(OrderComponentC), "C"));
 
             // add a component to the system
             entManMock.Raise(m=>m.EntityAdded += null, entManMock.Object, entUid);

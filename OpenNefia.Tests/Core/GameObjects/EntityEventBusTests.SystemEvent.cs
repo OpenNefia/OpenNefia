@@ -360,9 +360,12 @@ namespace OpenNefia.Tests.Core.GameObjects
 
             void HandlerC(TestEventArgs ev) => c = true;
 
-            bus.SubscribeEvent<TestEventArgs>(EventSource.Local, new SubA(), HandlerA, typeof(SubA), before: new []{typeof(SubB), typeof(SubC)});
-            bus.SubscribeEvent<TestEventArgs>(EventSource.Local, new SubB(), HandlerB, typeof(SubB), after: new []{typeof(SubC)});
-            bus.SubscribeEvent<TestEventArgs>(EventSource.Local, new SubC(), HandlerC, typeof(SubC));
+            bus.SubscribeEvent<TestEventArgs>(EventSource.Local, new SubA(), HandlerA,
+                new SubId(typeof(SubA), "A"), before: new []{new SubId(typeof(SubB), "B"), new SubId(typeof(SubC), "C")});
+            bus.SubscribeEvent<TestEventArgs>(EventSource.Local, new SubB(), HandlerB, 
+                new SubId(typeof(SubB), "B"), after: new []{new SubId(typeof(SubC), "C")});
+            bus.SubscribeEvent<TestEventArgs>(EventSource.Local, new SubC(), HandlerC, 
+                new SubId(typeof(SubC), "C"));
 
             // Act
             bus.RaiseEvent(EventSource.Local, new TestEventArgs());

@@ -13,45 +13,42 @@ namespace OpenNefia.Core.GameObjects
         /// </summary>
         protected Subscriptions Subs { get; }
 
-        protected void SubscribeNetworkEvent<T>(
-            EntityEventHandler<T> handler,
-            Type[]? before = null, Type[]? after = null)
-            where T : notnull
-        {
-            SubEvent(EventSource.Network, handler, before, after);
-        }
-
         protected void SubscribeLocalEvent<T>(
             EntityEventHandler<T> handler,
-            Type[]? before = null, Type[]? after = null)
+            string id,
+            SubId[]? before = null, SubId[]? after = null)
             where T : notnull
         {
-            SubEvent(EventSource.Local, handler, before, after);
+            SubEvent(EventSource.Local, handler, id, before, after);
         }
 
         protected void SubscribeLocalEvent<T>(
             EntityEventRefHandler<T> handler,
-            Type[]? before = null, Type[]? after = null)
+            string id,
+            SubId[]? before = null, SubId[]? after = null)
             where T : notnull
         {
-            SubEvent(EventSource.Local, handler, before, after);
+            SubEvent(EventSource.Local, handler, id, before, after);
         }
 
         protected void SubscribeAllEvent<T>(
             EntityEventHandler<T> handler,
-            Type[]? before = null, Type[]? after = null)
+            string id,
+            SubId[]? before = null, SubId[]? after = null)
             where T : notnull
         {
-            SubEvent(EventSource.All, handler, before, after);
+            SubEvent(EventSource.All, handler, id, before, after);
         }
 
         private void SubEvent<T>(
             EventSource src,
             EntityEventHandler<T> handler,
-            Type[]? before, Type[]? after)
+            string id, 
+            SubId[]? before, SubId[]? after)
             where T : notnull
         {
-            EntityManager.EventBus.SubscribeEvent(src, this, handler, GetType(), before, after);
+            var eventIdent = new SubId(GetType(), id);
+            EntityManager.EventBus.SubscribeEvent(src, this, handler, eventIdent, before, after);
 
             _subscriptions ??= new();
             _subscriptions.Add(new SubBroadcast<T>(src));
@@ -60,10 +57,12 @@ namespace OpenNefia.Core.GameObjects
         private void SubEvent<T>(
             EventSource src,
             EntityEventRefHandler<T> handler,
-            Type[]? before, Type[]? after)
+            string id,
+            SubId[]? before, SubId[]? after)
             where T : notnull
         {
-            EntityManager.EventBus.SubscribeEvent(src, this, handler, GetType(), before, after);
+            var eventIdent = new SubId(GetType(), id);
+            EntityManager.EventBus.SubscribeEvent(src, this, handler, eventIdent, before, after);
 
             _subscriptions ??= new();
             _subscriptions.Add(new SubBroadcast<T>(src));
@@ -71,11 +70,13 @@ namespace OpenNefia.Core.GameObjects
 
         protected void SubscribeLocalEvent<TComp, TEvent>(
             ComponentEventHandler<TComp, TEvent> handler,
-            Type[]? before = null, Type[]? after = null)
+            string id,
+            SubId[]? before = null, SubId[]? after = null)
             where TComp : IComponent
             where TEvent : notnull
         {
-            EntityManager.EventBus.SubscribeLocalEvent(handler, GetType(), before, after);
+            var eventIdent = new SubId(GetType(), id);
+            EntityManager.EventBus.SubscribeLocalEvent(handler, eventIdent, before, after);
 
             _subscriptions ??= new();
             _subscriptions.Add(new SubLocal<TComp, TEvent>());
@@ -83,11 +84,13 @@ namespace OpenNefia.Core.GameObjects
 
         protected void SubscribeLocalEvent<TComp, TEvent>(
             ComponentEventRefHandler<TComp, TEvent> handler,
-            Type[]? before = null, Type[]? after = null)
+            string id,
+            SubId[]? before = null, SubId[]? after = null)
             where TComp : IComponent
             where TEvent : notnull
         {
-            EntityManager.EventBus.SubscribeLocalEvent(handler, GetType(), before, after);
+            var eventIdent = new SubId(GetType(), id);
+            EntityManager.EventBus.SubscribeLocalEvent(handler, eventIdent, before, after);
 
             _subscriptions ??= new();
             _subscriptions.Add(new SubLocal<TComp, TEvent>());
@@ -126,19 +129,21 @@ namespace OpenNefia.Core.GameObjects
             public void SubEvent<T>(
                 EventSource src,
                 EntityEventHandler<T> handler,
-                Type[]? before = null, Type[]? after = null)
+                string id,
+                SubId[]? before = null, SubId[]? after = null)
                 where T : notnull
             {
-                System.SubEvent(src, handler, before, after);
+                System.SubEvent(src, handler, id, before, after);
             }
 
             public void SubscribeLocalEvent<TComp, TEvent>(
                 ComponentEventHandler<TComp, TEvent> handler,
-                Type[]? before = null, Type[]? after = null)
+                string id,
+                SubId[]? before = null, SubId[]? after = null)
                 where TComp : IComponent
                 where TEvent : EntityEventArgs
             {
-                System.SubscribeLocalEvent(handler, before, after);
+                System.SubscribeLocalEvent(handler, id, before, after);
             }
         }
 

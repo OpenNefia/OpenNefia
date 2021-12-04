@@ -31,9 +31,9 @@ namespace OpenNefia.Core.GameObjects
             EventSource source,
             IEntityEventSubscriber subscriber,
             EntityEventHandler<T> eventHandler,
-            Type orderType,
-            Type[]? before = null,
-            Type[]? after = null)
+            SubId orderIdent,
+            SubId[]? before = null,
+            SubId[]? after = null)
             where T : notnull;
 
         void SubscribeEvent<T>(EventSource source, IEntityEventSubscriber subscriber,
@@ -43,9 +43,9 @@ namespace OpenNefia.Core.GameObjects
             EventSource source,
             IEntityEventSubscriber subscriber,
             EntityEventRefHandler<T> eventHandler,
-            Type orderType,
-            Type[]? before = null,
-            Type[]? after = null)
+            SubId orderIdent,
+            SubId[]? before = null,
+            SubId[]? after = null)
             where T : notnull;
 
         /// <summary>
@@ -73,6 +73,8 @@ namespace OpenNefia.Core.GameObjects
         /// <param name="subscriber">Owner of the handlers being removed.</param>
         void UnsubscribeEvents(IEntityEventSubscriber subscriber);
     }
+
+    public sealed record SubId(Type OrderType, string ID);
 
     [Flags]
     public enum EventSource : byte
@@ -136,15 +138,15 @@ namespace OpenNefia.Core.GameObjects
             EventSource source,
             IEntityEventSubscriber subscriber,
             EntityEventHandler<T> eventHandler,
-            Type orderType,
-            Type[]? before = null,
-            Type[]? after = null)
+            SubId orderIdent,
+            SubId[]? before = null,
+            SubId[]? after = null)
             where T : notnull
         {
             if (eventHandler == null)
                 throw new ArgumentNullException(nameof(eventHandler));
 
-            var order = new OrderingData(orderType, before, after);
+            var order = new OrderingData(orderIdent, before, after);
 
             SubscribeEventCommon<T>(source, subscriber,
                 (ref Unit ev) => eventHandler(Unsafe.As<Unit, T>(ref ev)), eventHandler, order, false);
@@ -164,9 +166,9 @@ namespace OpenNefia.Core.GameObjects
 
         public void SubscribeEvent<T>(EventSource source, IEntityEventSubscriber subscriber,
             EntityEventRefHandler<T> eventHandler,
-            Type orderType, Type[]? before = null, Type[]? after = null) where T : notnull
+            SubId orderIdent, SubId[]? before = null, SubId[]? after = null) where T : notnull
         {
-            var order = new OrderingData(orderType, before, after);
+            var order = new OrderingData(orderIdent, before, after);
 
             SubscribeEventCommon<T>(source, subscriber, (ref Unit ev) =>
             {

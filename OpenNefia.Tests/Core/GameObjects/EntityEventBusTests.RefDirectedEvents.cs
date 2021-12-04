@@ -39,7 +39,7 @@ namespace OpenNefia.Tests.Core.GameObjects
         {
             public override void Initialize()
             {
-                SubscribeLocalEvent<DummyComponent, TestStructEvent>(MyRefHandler);
+                SubscribeLocalEvent<DummyComponent, TestStructEvent>(MyRefHandler, "MyRefHandler");
             }
 
             private void MyRefHandler(EntityUid uid, DummyComponent component, ref TestStructEvent args)
@@ -73,8 +73,8 @@ namespace OpenNefia.Tests.Core.GameObjects
             public override void Initialize()
             {
                 // The below is not allowed, as you're subscribing by-ref and by-value to the same event...
-                SubscribeLocalEvent<DummyComponent, TestStructEvent>(MyRefHandler);
-                SubscribeLocalEvent<DummyTwoComponent, TestStructEvent>(MyValueHandler);
+                SubscribeLocalEvent<DummyComponent, TestStructEvent>(MyRefHandler, "MyRefHandler");
+                SubscribeLocalEvent<DummyTwoComponent, TestStructEvent>(MyValueHandler, "MyValueHandler");
             }
 
             private void MyValueHandler(EntityUid uid, DummyTwoComponent component, TestStructEvent args) { }
@@ -125,7 +125,7 @@ namespace OpenNefia.Tests.Core.GameObjects
             {
                 base.Initialize();
 
-                SubscribeLocalEvent<OrderComponentA, TestStructEvent>(OnA, new[]{typeof(OrderBSystem)}, new[]{typeof(OrderCSystem)});
+                SubscribeLocalEvent<OrderComponentA, TestStructEvent>(OnA, "OnA", new[]{new SubId(typeof(OrderBSystem), "OnB")}, new[]{new SubId(typeof(OrderCSystem), "OnC")});
             }
 
             private void OnA(EntityUid uid, OrderComponentA component, ref TestStructEvent args)
@@ -143,7 +143,7 @@ namespace OpenNefia.Tests.Core.GameObjects
             {
                 base.Initialize();
 
-                SubscribeLocalEvent<OrderComponentB, TestStructEvent>(OnB, null, new []{typeof(OrderASystem)});
+                SubscribeLocalEvent<OrderComponentB, TestStructEvent>(OnB, "OnB", null, new[]{new SubId(typeof(OrderASystem), "OnA")});
             }
 
             private void OnB(EntityUid uid, OrderComponentB component, ref TestStructEvent args)
@@ -161,7 +161,7 @@ namespace OpenNefia.Tests.Core.GameObjects
             {
                 base.Initialize();
 
-                SubscribeLocalEvent<OrderComponentC, TestStructEvent>(OnC);
+                SubscribeLocalEvent<OrderComponentC, TestStructEvent>(OnC, "OnC");
             }
 
             private void OnC(EntityUid uid, OrderComponentC component, ref TestStructEvent args)

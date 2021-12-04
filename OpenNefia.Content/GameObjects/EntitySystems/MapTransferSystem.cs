@@ -7,7 +7,7 @@ namespace OpenNefia.Content.GameObjects
     {
         public override void Initialize()
         {
-            SubscribeLocalEvent<PlayerComponent, ExitMapEventArgs>(HandleExitMap);
+            SubscribeLocalEvent<PlayerComponent, ExitMapEventArgs>(HandleExitMap, nameof(HandleExitMap));
         }
 
         private void HandleExitMap(EntityUid uid, PlayerComponent component, ExitMapEventArgs args)

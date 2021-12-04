@@ -14,15 +14,17 @@ namespace OpenNefia.Content.GameObjects
 {
     public class PregnantSystem : EntitySystem
     {
+        [Dependency] private readonly IRandom _rand = default!;
+
         public override void Initialize()
         {
             base.Initialize();
 
-            SubscribeLocalEvent<CharaComponent, ImpregnateEvent>(DoImpregnate);
-            SubscribeLocalEvent<PregnantComponent, TurnStartEvent>(DoAlienBirth);
+            SubscribeLocalEvent<CharaComponent, ImpregnateEvent>(HandleImpregnate, nameof(HandleImpregnate));
+            SubscribeLocalEvent<PregnantComponent, TurnStartEvent>(DoAlienBirth, nameof(DoAlienBirth));
         }
 
-        public void DoImpregnate(EntityUid uid, CharaComponent component, ImpregnateEvent args)
+        public void HandleImpregnate(EntityUid uid, CharaComponent component, ImpregnateEvent args)
         {
             if (EntityManager.HasComponent<PregnantComponent>(uid))
                 return;
@@ -33,7 +35,7 @@ namespace OpenNefia.Content.GameObjects
 
         public void DoAlienBirth(EntityUid uid, PregnantComponent component, TurnStartEvent args)
         {
-            if (Rand.OneIn(10))
+            if (_rand.OneIn(10))
             {
                 Console.WriteLine("Suddenly an alien bursts from " + DisplayNameSystem.GetDisplayName(uid) + "'s stomach!");
                 EntityManager.SpawnEntity("Putit", component.Owner.Spatial.Coords.Offset(1, 1));

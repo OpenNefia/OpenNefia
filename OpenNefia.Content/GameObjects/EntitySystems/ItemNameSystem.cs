@@ -13,7 +13,7 @@ namespace OpenNefia.Content.GameObjects
         {
             base.Initialize();
 
-            SubscribeLocalEvent<ItemComponent, GetItemNameEvent>(BasicName);
+            SubscribeLocalEvent<ItemComponent, GetItemNameEvent>(BasicName, "BasicName");
         }
 
         public void BasicName(EntityUid uid, ItemComponent component, ref GetItemNameEvent args)

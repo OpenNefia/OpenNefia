@@ -29,7 +29,7 @@ namespace OpenNefia.Tests.Core.GameObjects
             {
                 base.Initialize();
 
-                SubscribeLocalEvent<TestStructEvent>(OnTestEvent);
+                SubscribeLocalEvent<TestStructEvent>(OnTestEvent, nameof(OnTestEvent));
             }
 
             private void OnTestEvent(ref TestStructEvent ev)
@@ -58,8 +58,8 @@ namespace OpenNefia.Tests.Core.GameObjects
             public override void Initialize()
             {
                 // The below is not allowed, as you're subscribing by-ref and by-value to the same event...
-                SubscribeLocalEvent<TestStructEvent>(MyRefHandler);
-                SubscribeLocalEvent<TestStructEvent>(MyValueHandler);
+                SubscribeLocalEvent<TestStructEvent>(MyRefHandler, nameof(MyRefHandler));
+                SubscribeLocalEvent<TestStructEvent>(MyValueHandler, nameof(MyValueHandler));
             }
 
             private void MyValueHandler(TestStructEvent args) { }
@@ -96,7 +96,7 @@ namespace OpenNefia.Tests.Core.GameObjects
             {
                 base.Initialize();
 
-                SubscribeLocalEvent<TestStructEvent>(OnA, new[]{typeof(BroadcastOrderBSystem)}, new[]{typeof(BroadcastOrderCSystem)});
+                SubscribeLocalEvent<TestStructEvent>(OnA, "OnA", new[]{new SubId(typeof(BroadcastOrderBSystem), "OnB")}, new[]{new SubId(typeof(BroadcastOrderCSystem), "OnC")});
             }
 
             private void OnA(ref TestStructEvent args)
@@ -114,7 +114,7 @@ namespace OpenNefia.Tests.Core.GameObjects
             {
                 base.Initialize();
 
-                SubscribeLocalEvent<TestStructEvent>(OnB, null, new []{typeof(BroadcastOrderASystem)});
+                SubscribeLocalEvent<TestStructEvent>(OnB, "OnB", null, new []{new SubId(typeof(BroadcastOrderASystem), "OnA")});
             }
 
             private void OnB(ref TestStructEvent args)
@@ -132,7 +132,7 @@ namespace OpenNefia.Tests.Core.GameObjects
             {
                 base.Initialize();
 
-                SubscribeLocalEvent<TestStructEvent>(OnC);
+                SubscribeLocalEvent<TestStructEvent>(OnC, "OnC");
             }
 
             private void OnC(ref TestStructEvent args)

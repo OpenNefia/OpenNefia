@@ -6,7 +6,7 @@
         {
             base.Initialize();
 
-            SubscribeLocalEvent<MetaDataComponent, GetDisplayNameEventArgs>(GetFallbackName);
+            SubscribeLocalEvent<MetaDataComponent, GetDisplayNameEventArgs>(GetFallbackName, nameof(GetFallbackName));
         }
 
         public void GetFallbackName(EntityUid uid, MetaDataComponent component, ref GetDisplayNameEventArgs args)
