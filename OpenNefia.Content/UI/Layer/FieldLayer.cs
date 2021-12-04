@@ -81,7 +81,7 @@ namespace OpenNefia.Content.UI.Layer
             //Keybinds[Keys.G] += (_) => GetItem();
             //Keybinds[Keys.D] += (_) => DropItem();
             //Keybinds[Keys.C] += (_) => CastSpell();
-            //Keybinds[Keys.Q] += (_) => DrinkItem();
+            Keybinds[Keys.Q] += DrinkItem;
             Keybinds[Keys.T] += ThrowItem;
             //Keybinds[Keys.Ctrl | Keys.B] += (_) => ActivateBeautify();
             //Keybinds[Keys.Period] += (_) => MovePlayer(0, 0);
@@ -187,25 +187,34 @@ namespace OpenNefia.Content.UI.Layer
                         RefreshScreen();
                     }
                 }
+        
+        */
+        private void DrinkItem(UiKeyInputEventArgs args)
+        {
+            var player = _gameSession.Player;
 
-                private void DrinkItem()
+            if (player != null)
+            {
+                var drinkVerb = new Verb(DrinkableSystem.VerbIDDrink);
+                var verbSystem = EntitySystem.Get<VerbSystem>();
+
+                foreach (var target in _map.GetEntities(player.Spatial.Coords))
                 {
-                    var player = _gameSession.Player;
-
-                    if (player != null)
+                    if (target.Uid != player.Uid)
                     {
-                        var item = player.Inventory.Where(i => i.CanDrink(player)).FirstOrDefault();
-
-                        if (item != null)
+                        var verbs = verbSystem.GetLocalVerbs(target.Uid, player.Uid);
+                        if (verbs.Contains(drinkVerb))
                         {
-                            CharaAction.Drink(player, item);
-                            Sounds.Play(SoundPrototypeOf.Drink1, player.X, player.Y);
+                            verbSystem.ExecuteVerb(player.Uid, target.Uid, drinkVerb);
+                            break;
                         }
-
-                        RefreshScreen();
                     }
                 }
-        */
+
+                RefreshScreen();
+            }
+        }
+
         private void ThrowItem(UiKeyInputEventArgs args)
         {
             var player = _gameSession.Player;
@@ -217,11 +226,14 @@ namespace OpenNefia.Content.UI.Layer
 
                 foreach (var target in _map.GetEntities(player.Spatial.Coords))
                 {
-                    var verbs = verbSystem.GetLocalVerbs(target.Uid, player.Uid);
-                    if (verbs.Contains(throwVerb))
+                    if (target.Uid != player.Uid)
                     {
-                        verbSystem.ExecuteVerb(player.Uid, target.Uid, throwVerb);
-                        break;
+                        var verbs = verbSystem.GetLocalVerbs(target.Uid, player.Uid);
+                        if (verbs.Contains(throwVerb))
+                        {
+                            verbSystem.ExecuteVerb(player.Uid, target.Uid, throwVerb);
+                            break;
+                        }
                     }
                 }
 

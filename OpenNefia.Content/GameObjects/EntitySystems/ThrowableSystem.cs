@@ -84,6 +84,8 @@ namespace OpenNefia.Content.GameObjects
                 return;
             }
 
+            // TODO stacking
+
             if (ThrowEntity(source, args.Target, posResult.Value.Coords))
             {
                 args.TurnResult = TurnResult.Succeeded;

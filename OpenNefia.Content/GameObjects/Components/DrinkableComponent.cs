@@ -5,9 +5,9 @@ using OpenNefia.Core.Serialization.Manager.Attributes;
 namespace OpenNefia.Content.GameObjects
 {
     [RegisterComponent]
-    public class PotionComponent : Component
+    public class DrinkableComponent : Component
     {
-        public override string Name => "Potion";
+        public override string Name => "Drinkable";
 
         [DataField]
         public EffectArgs Args = new();

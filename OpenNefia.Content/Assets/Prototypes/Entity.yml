@@ -95,7 +95,7 @@
   - type: Chip
     id: ItemPotion
   - type: Throwable
-  - type: Potion
+  - type: Drinkable
     args:
       power: 100
 
@@ -107,7 +107,7 @@
     displayName: potion of test
   - type: Chip
     color: yellow
-  - type: Potion
+  - type: Drinkable
     effect: !type:TestEffect {}
 
 - type: Entity
@@ -118,7 +118,7 @@
     displayName: potion of cure minor
   - type: Chip
     color: green
-  - type: Potion
+  - type: Drinkable
     effect: !type:HealingEffect {}
     
 - type: Entity
