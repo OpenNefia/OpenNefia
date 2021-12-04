@@ -92,6 +92,7 @@ namespace OpenNefia.Tests.Core.GameObjects
                     factory.RegisterClass<OrderComponentA>();
                     factory.RegisterClass<OrderComponentB>();
                     factory.RegisterClass<OrderComponentC>();
+                    factory.RegisterClass<OrderComponentC2>();
                 })
                 .RegisterEntitySystems(factory =>
                 {
@@ -108,6 +109,7 @@ namespace OpenNefia.Tests.Core.GameObjects
             entity.AddComponent<OrderComponentA>();
             entity.AddComponent<OrderComponentB>();
             entity.AddComponent<OrderComponentC>();
+            entity.AddComponent<OrderComponentC2>();
 
             // Act.
             var testEvent = new TestStructEvent {TestNumber = 5};
@@ -115,7 +117,7 @@ namespace OpenNefia.Tests.Core.GameObjects
             eventBus.RaiseLocalEvent(entity.Uid, ref testEvent);
 
             // Check that the entity systems changed the value correctly
-            Assert.That(testEvent.TestNumber, Is.EqualTo(15));
+            Assert.That(testEvent.TestNumber, Is.EqualTo(20));
         }
 
         [Reflect(false)]
@@ -125,13 +127,13 @@ namespace OpenNefia.Tests.Core.GameObjects
             {
                 base.Initialize();
 
-                SubscribeLocalEvent<OrderComponentA, TestStructEvent>(OnA, "OnA", new[]{new SubId(typeof(OrderBSystem), "OnB")}, new[]{new SubId(typeof(OrderCSystem), "OnC")});
+                SubscribeLocalEvent<OrderComponentA, TestStructEvent>(OnA, "OnA", new[]{new SubId(typeof(OrderBSystem), "OnB")}, new[]{new SubId(typeof(OrderCSystem), "OnC2")});
             }
 
             private void OnA(EntityUid uid, OrderComponentA component, ref TestStructEvent args)
             {
-                // Second handler being ran.
-                Assert.That(args.TestNumber, Is.EqualTo(0));
+                // Third handler being ran.
+                Assert.That(args.TestNumber, Is.EqualTo(15));
                 args.TestNumber = 10;
             }
         }
@@ -150,7 +152,7 @@ namespace OpenNefia.Tests.Core.GameObjects
             {
                 // Last handler being ran.
                 Assert.That(args.TestNumber, Is.EqualTo(10));
-                args.TestNumber = 15;
+                args.TestNumber = 20;
             }
         }
 
@@ -162,6 +164,7 @@ namespace OpenNefia.Tests.Core.GameObjects
                 base.Initialize();
 
                 SubscribeLocalEvent<OrderComponentC, TestStructEvent>(OnC, "OnC");
+                SubscribeLocalEvent<OrderComponentC2, TestStructEvent>(OnC2, "OnC2", after: new[] {new SubId(typeof(OrderCSystem), "OnC")});
             }
 
             private void OnC(EntityUid uid, OrderComponentC component, ref TestStructEvent args)
@@ -169,6 +172,13 @@ namespace OpenNefia.Tests.Core.GameObjects
                 // First handler being ran.
                 Assert.That(args.TestNumber, Is.EqualTo(5));
                 args.TestNumber = 0;
+            }
+
+            private void OnC2(EntityUid uid, OrderComponentC2 component, ref TestStructEvent args)
+            {
+                // Second handler being ran.
+                Assert.That(args.TestNumber, Is.EqualTo(0));
+                args.TestNumber = 15;
             }
         }
 

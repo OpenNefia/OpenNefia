@@ -361,11 +361,54 @@ namespace OpenNefia.Tests.Core.GameObjects
             void HandlerC(TestEventArgs ev) => c = true;
 
             bus.SubscribeEvent<TestEventArgs>(EventSource.Local, new SubA(), HandlerA,
-                new SubId(typeof(SubA), "A"), before: new []{new SubId(typeof(SubB), "B"), new SubId(typeof(SubC), "C")});
+                new SubId(typeof(SubA), "Sub"), before: new []{new SubId(typeof(SubB), "Sub"), new SubId(typeof(SubC), "Sub") });
             bus.SubscribeEvent<TestEventArgs>(EventSource.Local, new SubB(), HandlerB, 
-                new SubId(typeof(SubB), "B"), after: new []{new SubId(typeof(SubC), "C")});
+                new SubId(typeof(SubB), "Sub"), after: new []{new SubId(typeof(SubC), "Sub") });
             bus.SubscribeEvent<TestEventArgs>(EventSource.Local, new SubC(), HandlerC, 
-                new SubId(typeof(SubC), "C"));
+                new SubId(typeof(SubC), "Sub"));
+
+            // Act
+            bus.RaiseEvent(EventSource.Local, new TestEventArgs());
+
+            // Assert
+            Assert.That(a, Is.True, "A did not fire");
+            Assert.That(b, Is.True, "B did not fire");
+            Assert.That(c, Is.True, "C did not fire");
+        }
+
+        [Test]
+        public void RaiseEvent_OrderedSubId()
+        {
+            // Arrange
+            var bus = BusFactory();
+
+            // Expected order is A -> C -> B
+            var a = false;
+            var b = false;
+            var c = false;
+
+            void HandlerA(TestEventArgs ev)
+            {
+                Assert.That(b, Is.False, "A should run before B");
+                Assert.That(c, Is.False, "A should run before C");
+
+                a = true;
+            }
+
+            void HandlerB(TestEventArgs ev)
+            {
+                Assert.That(c, Is.True, "B should run after C");
+                b = true;
+            }
+
+            void HandlerC(TestEventArgs ev) => c = true;
+
+            bus.SubscribeEvent<TestEventArgs>(EventSource.Local, new SubA(), HandlerA,
+                new SubId(typeof(SubA), "A"), before: new[] { new SubId(typeof(SubA), "B"), new SubId(typeof(SubA), "C") });
+            bus.SubscribeEvent<TestEventArgs>(EventSource.Local, new SubB(), HandlerB,
+                new SubId(typeof(SubA), "B"), after: new[] { new SubId(typeof(SubA), "C") });
+            bus.SubscribeEvent<TestEventArgs>(EventSource.Local, new SubC(), HandlerC,
+                new SubId(typeof(SubA), "C"));
 
             // Act
             bus.RaiseEvent(EventSource.Local, new TestEventArgs());

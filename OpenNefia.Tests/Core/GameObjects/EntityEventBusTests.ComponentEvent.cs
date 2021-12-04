@@ -179,6 +179,7 @@ namespace OpenNefia.Tests.Core.GameObjects
             Setup<OrderComponentA>(out var instA);
             Setup<OrderComponentB>(out var instB);
             Setup<OrderComponentC>(out var instC);
+            Setup<OrderComponentC2>(out var instC2);
 
             entManMock.Setup(m => m.ComponentFactory).Returns(compFacMock.Object);
             var bus = new EntityEventBus(entManMock.Object);
@@ -187,11 +188,13 @@ namespace OpenNefia.Tests.Core.GameObjects
             var a = false;
             var b = false;
             var c = false;
+            var c2 = false;
 
             void HandlerA(EntityUid uid, Component comp, TestEvent ev)
             {
                 Assert.That(b, Is.False, "A should run before B");
                 Assert.That(c, Is.False, "A should run before C");
+                Assert.That(c2, Is.False, "A should run before C2");
 
                 a = true;
             }
@@ -199,8 +202,16 @@ namespace OpenNefia.Tests.Core.GameObjects
             void HandlerB(EntityUid uid, Component comp, TestEvent ev)
             {
                 Assert.That(c, Is.True, "B should run after C");
+                Assert.That(c2, Is.False, "B should run before C2");
                 b = true;
             }
+
+            void HandlerC2(EntityUid uid, Component comp, TestEvent ev)
+            {
+                Assert.That(b, Is.True, "B should run before C2");
+                Assert.That(c, Is.True, "C2 should run after C");
+                c2 = true;
+            };
 
             void HandlerC(EntityUid uid, Component comp, TestEvent ev) => c = true;
 
@@ -209,12 +220,15 @@ namespace OpenNefia.Tests.Core.GameObjects
             bus.SubscribeLocalEvent<OrderComponentB, TestEvent>(HandlerB, new SubId(typeof(OrderComponentB), "B"),
                 after: new []{new SubId(typeof(OrderComponentC), "C")});
             bus.SubscribeLocalEvent<OrderComponentC, TestEvent>(HandlerC, new SubId(typeof(OrderComponentC), "C"));
+            bus.SubscribeLocalEvent<OrderComponentC2, TestEvent>(HandlerC2, new SubId(typeof(OrderComponentC), "C2"),
+                after: new[] {new SubId(typeof(OrderComponentC), "C")});
 
             // add a component to the system
             entManMock.Raise(m=>m.EntityAdded += null, entManMock.Object, entUid);
             entManMock.Raise(m => m.ComponentAdded += null, new AddedComponentEventArgs(instA, entUid));
             entManMock.Raise(m => m.ComponentAdded += null, new AddedComponentEventArgs(instB, entUid));
             entManMock.Raise(m => m.ComponentAdded += null, new AddedComponentEventArgs(instC, entUid));
+            entManMock.Raise(m => m.ComponentAdded += null, new AddedComponentEventArgs(instC2, entUid));
 
             // Raise
             var evntArgs = new TestEvent(5);
@@ -224,6 +238,7 @@ namespace OpenNefia.Tests.Core.GameObjects
             Assert.That(a, Is.True, "A did not fire");
             Assert.That(b, Is.True, "B did not fire");
             Assert.That(c, Is.True, "C did not fire");
+            Assert.That(c2, Is.True, "C2 did not fire");
         }
 
         private class DummyComponent : Component
@@ -244,6 +259,10 @@ namespace OpenNefia.Tests.Core.GameObjects
         private class OrderComponentC : Component
         {
             public override string Name => "OrderComponentC";
+        }
+        private class OrderComponentC2 : Component
+        {
+            public override string Name => "OrderComponentC2";
         }
 
 
