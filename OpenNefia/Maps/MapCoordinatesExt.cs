@@ -98,5 +98,10 @@ namespace OpenNefia.Core.Maps
 
             return coords.Map.CanAccess(coords.Position);
         }
+
+        public static double DistanceTo(this MapCoordinates from, MapCoordinates to)
+        {
+            return PosHelpers.Distance(from.Position, to.Position);
+        }
     }
 }

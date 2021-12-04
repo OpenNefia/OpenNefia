@@ -7,6 +7,7 @@ using OpenNefia.Core.Game;
 using OpenNefia.Core.ResourceManagement;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Rendering;
+using OpenNefia.Core.Utility;
 
 namespace OpenNefia.Core.Audio
 {
@@ -32,14 +33,19 @@ namespace OpenNefia.Core.Audio
             SubscribeLocalEvent<FrameUpdateEventArgs>(OnFrameUpdate);
         }
 
+        private Love.Source GetLoveSource(PrototypeId<SoundPrototype> prototype)
+        {
+            var fileData = _resourceCache.GetResource<LoveFileDataResource>(prototype.ResolvePrototype().Filepath);
+            return Love.Audio.NewSource(fileData, Love.SourceType.Static);
+        }
+
         /// <inheritdoc />
         public void Play(PrototypeId<SoundPrototype> prototype, AudioParams? audioParams = null)
         {
             if (!ConfigVars.EnableSound)
                 return;
 
-            var fileData = _resourceCache.GetResource<LoveFileDataResource>(prototype.ResolvePrototype().Filepath);
-            var source = Love.Audio.NewSource(fileData, Love.SourceType.Static);
+            var source = GetLoveSource(prototype);
 
             if (source.GetChannelCount() == 1)
             {
@@ -77,7 +83,7 @@ namespace OpenNefia.Core.Audio
             if (!ConfigVars.EnableSound)
                 return;
 
-            var source = Love.Audio.NewSource(prototype.ResolvePrototype().Filepath.ToString(), Love.SourceType.Static);
+            var source = GetLoveSource(prototype);
 
             if (source.GetChannelCount() == 1)
             {

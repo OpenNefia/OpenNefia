@@ -26,6 +26,7 @@ namespace OpenNefia.Content.GameObjects
             memory.IsVisible = true;
             memory.ScreenOffset = Vector2i.Zero;
             memory.IsVisible = EntityManager.IsAlive(uid);
+            memory.HideWhenOutOfSight = false;
         }
     }
 }

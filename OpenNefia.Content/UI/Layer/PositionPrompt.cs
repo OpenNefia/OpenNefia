@@ -1,7 +1,7 @@
 ﻿using Love;
+using OpenNefia.Content.GameObjects;
 using OpenNefia.Content.Logic;
 using OpenNefia.Content.UI.Element;
-using OpenNefia.Core.Data.Types;
 using OpenNefia.Core.Game;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
@@ -9,14 +9,8 @@ using OpenNefia.Core.Maps;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Core.UI;
-using OpenNefia.Core.UI.Element;
 using OpenNefia.Core.UI.Layer;
 using OpenNefia.Core.Utility;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Color = OpenNefia.Core.Maths.Color;
 using MouseButton = OpenNefia.Core.UI.MouseButton;
 
@@ -135,8 +129,8 @@ namespace OpenNefia.Content.UI.Layer
 
         private void UpdateTargetText()
         {
-            CanSee = false; // TargetText.GetTargetText(this.Onlooker, this.TargetPos, out var text, visibleOnly: true);
-            TextTarget.Text = "asdf"; //text;
+            CanSee = EntitySystem.Get<TargetTextSystem>().GetTargetText(this.Onlooker.Uid, this.TargetPos, out var text, visibleOnly: true);
+            TextTarget.Text = text;
         }
 
         private void NextTarget()
@@ -173,9 +167,9 @@ namespace OpenNefia.Content.UI.Layer
 
         private bool ShouldDrawLine()
         {
-            var targetChara = TargetPos.GetPrimaryChara();
+            var targetChara = TargetPos.GetPrimaryEntity();
 
-            if (targetChara == null || !Onlooker.CanSee(targetChara) || !targetChara.HasLos(OriginPos))
+            if (targetChara == null || !EntitySystem.Get<VisibilitySystem>().CanSeeEntity(targetChara.Uid) || !targetChara.HasLos(OriginPos))
             {
                 return false;
             }

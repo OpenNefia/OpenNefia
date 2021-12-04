@@ -56,7 +56,8 @@ namespace OpenNefia.Core.GameObjects
         /// </summary>
         public EntityGameLiveness Liveness = EntityGameLiveness.Alive;
 
-        public bool IsAlive => Liveness == EntityGameLiveness.Alive && !EntityDeleted;
+        public bool IsAliveAndPrimary => Liveness == EntityGameLiveness.Alive && !EntityDeleted;
+        public bool IsAlive => (Liveness == EntityGameLiveness.Alive || Liveness == EntityGameLiveness.AliveSecondary) && !EntityDeleted;
         public bool IsDeadAndBuried => Liveness == EntityGameLiveness.DeadAndBuried || EntityDeleted;
     }
 
@@ -66,6 +67,12 @@ namespace OpenNefia.Core.GameObjects
         /// This entity is active in the map.
         /// </summary>
         Alive,
+
+        /// <summary>
+        /// This entity is active, but should not be considered the "primary" entity
+        /// on the tile (riding/tag team partners).
+        /// </summary>
+        AliveSecondary,
 
         /// <summary>
         /// This entity is not active, but should not be removed from the map.

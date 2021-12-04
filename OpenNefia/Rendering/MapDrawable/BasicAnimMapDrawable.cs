@@ -1,14 +1,8 @@
 ﻿using OpenNefia.Core.Audio;
 using OpenNefia.Core.Config;
-using OpenNefia.Core.Data.Types;
 using OpenNefia.Core.Game;
 using OpenNefia.Core.IoC;
-using OpenNefia.Core.Maps;
 using OpenNefia.Core.Prototypes;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OpenNefia.Core.Rendering
 {
@@ -19,9 +13,9 @@ namespace OpenNefia.Core.Rendering
         private FrameCounter Counter;
         private IAssetDrawable AssetDrawable;
 
-        public BasicAnimMapDrawable(BasicAnimPrototype basicAnim)
+        public BasicAnimMapDrawable(PrototypeId<BasicAnimPrototype> basicAnimId)
         {
-            this.BasicAnim = basicAnim;
+            this.BasicAnim = basicAnimId.ResolvePrototype();
 
             var animeWait = ConfigVars.AnimeWait;
             var maxFrames = this.BasicAnim.Asset.ResolvePrototype().CountX;

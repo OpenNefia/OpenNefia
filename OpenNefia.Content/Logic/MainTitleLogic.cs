@@ -75,7 +75,8 @@ namespace OpenNefia.Content.Logic
             for (int i = 0; i < 10; i++)
             {
                 _entityManager.SpawnEntity(new("Yeek"), map.AtPos(i + 5, 5));
-                _entityManager.SpawnEntity(new("Potion"), map.AtPos(i + 5, 2));
+                _entityManager.SpawnEntity(new("PotionOfCureMinor"), map.AtPos(i + 5, 2));
+                _entityManager.SpawnEntity(new("PotionOfTest"), map.AtPos(i + 5, 1));
                 _entityManager.SpawnEntity(new("Computer"), map.AtPos(i + 5, 3));
             }
 

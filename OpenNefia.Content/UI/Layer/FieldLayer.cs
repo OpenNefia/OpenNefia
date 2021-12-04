@@ -8,12 +8,11 @@ using OpenNefia.Core.Maths;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.UI;
 using OpenNefia.Core.UI.Layer;
-using OpenNefia.Content.UI.Element;
 using OpenNefia.Content.UI.Hud;
 using OpenNefia.Content.Logic;
 using OpenNefia.Content.UI.Layer.Repl;
-using OpenNefia.Content.GameObjects.EntitySystems;
 using OpenNefia.Core.Logic;
+using OpenNefia.Content.GameObjects;
 
 namespace OpenNefia.Content.UI.Layer
 {

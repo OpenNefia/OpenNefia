@@ -15,6 +15,6 @@ namespace OpenNefia.Core.GameObjects
         public PrototypeId<ChipPrototype> ID { get; }
 
         [DataField]
-        public Color Color { get; } = Color.White;
+        public Color Color { get; set; } = Color.White;
     }
 }

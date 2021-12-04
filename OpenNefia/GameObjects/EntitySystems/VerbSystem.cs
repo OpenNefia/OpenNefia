@@ -51,7 +51,6 @@ namespace OpenNefia.Core.GameObjects
         public readonly SortedSet<Verb> Verbs = new();
 
         public readonly EntityUid Source;
-
         public readonly EntityUid Target;
 
         public GetVerbsEventArgs(EntityUid source, EntityUid target)
@@ -77,7 +76,7 @@ namespace OpenNefia.Core.GameObjects
 
         public ExecuteVerbEventArgs(EntityUid source, EntityUid target, Verb verb)
         {
-            this.Source = target;
+            this.Source = source;
             this.Target = target;
             this.Verb = verb;
         }

@@ -1,19 +1,14 @@
-﻿using OpenNefia.Content.Rendering;
+﻿using OpenNefia.Content.Logic;
+using OpenNefia.Content.Rendering;
 using OpenNefia.Content.UI.Layer;
-using OpenNefia.Core.Game;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Logic;
 using OpenNefia.Core.Maps;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Core.UI.Layer;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace OpenNefia.Content.GameObjects.EntitySystems
+namespace OpenNefia.Content.GameObjects
 {
     public class ThrowableSystem : EntitySystem
     {
@@ -27,7 +22,17 @@ namespace OpenNefia.Content.GameObjects.EntitySystems
         {
             SubscribeLocalEvent<ThrowableComponent, GetVerbsEventArgs>(HandleGetVerbs);
             SubscribeLocalEvent<ExecuteVerbEventArgs>(HandleExecuteVerb);
+            SubscribeLocalEvent<ChipComponent, EntityThrownEventArgs>(ShowThrownChipRenderable);
             SubscribeLocalEvent<ThrowableComponent, EntityThrownEventArgs>(HandleEntityThrown);
+        }
+
+        private void ShowThrownChipRenderable(EntityUid target, ChipComponent targetChip, EntityThrownEventArgs args)
+        {
+            if (!EntityManager.TryGetComponent(args.Thrower, out SpatialComponent sourceSpatial))
+                return;
+
+            var drawable = new RangedAttackMapDrawable(sourceSpatial.Coords, args.Coords, targetChip.ID, targetChip.Color);
+            _mapDrawables.Enqueue(drawable, sourceSpatial.Coords);
         }
 
         private void HandleGetVerbs(EntityUid target, ThrowableComponent component, GetVerbsEventArgs args)
@@ -37,9 +42,16 @@ namespace OpenNefia.Content.GameObjects.EntitySystems
 
         private void HandleExecuteVerb(ExecuteVerbEventArgs args)
         {
-            if (args.Verb.ID != VerbIDThrow)
-                return;
+            switch (args.Verb.ID)
+            {
+                case VerbIDThrow:
+                    ExecuteVerbThrow(args);
+                    break;
+            }
+        }
 
+        private void ExecuteVerbThrow(ExecuteVerbEventArgs args)
+        {
             var source = args.Source;
 
             if (args.Handled || !EntityManager.TryGetEntity(source, out var sourceEntity))
@@ -56,6 +68,13 @@ namespace OpenNefia.Content.GameObjects.EntitySystems
             if (!posResult.HasValue)
             {
                 args.TurnResult = TurnResult.Aborted;
+                return;
+            }
+
+            if (!posResult.Value.CanSee)
+            {
+                Mes.Display("You can't see the location.");
+                args.TurnResult = TurnResult.Failed;
                 return;
             }
 
@@ -76,12 +95,12 @@ namespace OpenNefia.Content.GameObjects.EntitySystems
             return true;
         }
 
-        private void HandleEntityThrown(EntityUid uid, ThrowableComponent throwable, EntityThrownEventArgs args)
+        private void HandleEntityThrown(EntityUid target, ThrowableComponent throwable, EntityThrownEventArgs args)
         {
             if (args.Handled)
                 return;
 
-            DoEntityThrown(uid, args);
+            DoEntityThrown(target, args);
         }
 
         private void DoEntityThrown(EntityUid target, 
@@ -98,23 +117,23 @@ namespace OpenNefia.Content.GameObjects.EntitySystems
 
             args.Handled = true;
 
-            if (EntityManager.TryGetComponent(target, out ChipComponent? targetChip))
-            {
-                var drawable = new RangedAttackMapDrawable(sourceSpatial.Coords, args.Coords, targetChip.ID, targetChip.Color);
-                _mapDrawables.Enqueue(drawable, sourceSpatial.Coords);
-            }
-
             foreach (var entity in _map.GetEntities(args.Coords))
             {
                 if (entity.Spatial.IsSolid)
                 {
-                    var ev = new HitByThrownEntityEventArgs(args.Thrower, target);
+                    var ev = new HitByThrownEntityEventArgs(args.Thrower, target, entity.Spatial.Coords);
                     RaiseLocalEvent(entity.Uid, ev);
                     if (ev.WasHit)
                     {
-
-                        var ev2 = new ThrownEntityImpactedOtherEvent(args.Thrower, entity.Uid);
+                        var ev2 = new ThrownEntityImpactedOtherEvent(args.Thrower, entity.Uid, entity.Spatial.Coords);
                         RaiseLocalEvent(target, ev2);
+
+                        if (!ev2.Handled && EntityManager.IsAlive(target))
+                        {
+                            // Place the entity on the map.
+                            targetSpatial.Pos = args.Coords.Position;
+                        }
+
                         return;
                     }
                 }
@@ -135,32 +154,36 @@ namespace OpenNefia.Content.GameObjects.EntitySystems
     {
         public readonly EntityUid Thrower;
         public readonly EntityUid Thrown;
+        public readonly MapCoordinates Coords;
 
         public bool WasHit = true;
 
-        public HitByThrownEntityEventArgs(EntityUid thrower, EntityUid thrown)
+        public HitByThrownEntityEventArgs(EntityUid thrower, EntityUid thrown, MapCoordinates coords)
         {
             this.Thrower = thrower;
             this.Thrown = thrown;
+            this.Coords = coords;
         }
     }
 
     public class ThrownEntityImpactedOtherEvent : HandledEntityEventArgs
     {
-        private EntityUid Thrower;
-        private EntityUid ImpactedWith;
+        public readonly EntityUid Thrower;
+        public readonly EntityUid ImpactedWith;
+        public readonly MapCoordinates Coords;
 
-        public ThrownEntityImpactedOtherEvent(EntityUid thrower, EntityUid impactedWith)
+        public ThrownEntityImpactedOtherEvent(EntityUid thrower, EntityUid impactedWith, MapCoordinates coords)
         {
             this.Thrower = thrower;
             this.ImpactedWith = impactedWith;
+            this.Coords = coords;
         }
     }
 
     public class ThrownEntityImpactedGroundEvent : HandledEntityEventArgs
     {
-        private EntityUid Thrower;
-        private MapCoordinates Coords;
+        public readonly EntityUid Thrower;
+        public readonly MapCoordinates Coords;
 
         public bool DidImpact = true;
 
@@ -174,7 +197,6 @@ namespace OpenNefia.Content.GameObjects.EntitySystems
     public class EntityThrownEventArgs : HandledEntityEventArgs
     {
         public readonly EntityUid Thrower;
-
         public readonly MapCoordinates Coords;
 
         public EntityThrownEventArgs(EntityUid thrower, MapCoordinates coords)

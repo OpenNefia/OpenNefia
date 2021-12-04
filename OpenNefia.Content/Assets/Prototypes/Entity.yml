@@ -84,8 +84,9 @@
     id: CharaYeek
     
 - type: Entity
-  id: Potion
+  id: BasePotion
   parent: BaseItem
+  abstract: true
   components:
   - type: MetaData
     displayName: potion
@@ -94,6 +95,31 @@
   - type: Chip
     id: ItemPotion
   - type: Throwable
+  - type: Potion
+    args:
+      power: 100
+
+- type: Entity
+  id: PotionOfTest
+  parent: BasePotion
+  components:
+  - type: MetaData
+    displayName: potion of test
+  - type: Chip
+    color: yellow
+  - type: Potion
+    effect: !type:TestEffect {}
+
+- type: Entity
+  id: PotionOfCureMinor
+  parent: BasePotion
+  components:
+  - type: MetaData
+    displayName: potion of cure minor
+  - type: Chip
+    color: green
+  - type: Potion
+    effect: !type:HealingEffect {}
     
 - type: Entity
   id: Computer
@@ -106,3 +132,10 @@
   - type: Chip
     id: ItemComputer
   - type: Throwable
+
+- type: Entity
+  id: PotionPuddle
+  components:
+  - type: Chip
+    id: MefPotion
+  - type: PotionPuddle
