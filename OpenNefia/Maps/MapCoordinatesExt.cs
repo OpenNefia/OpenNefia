@@ -20,7 +20,7 @@ namespace OpenNefia.Core.Maps
             if (coords.Map == null)
                 return Enumerable.Empty<Entity>();
 
-            return IoCManager.Resolve<IMapManager>().GetEntities(coords);
+            return IoCManager.Resolve<IMapManager>().GetLiveEntities(coords);
         }
 
         private static bool CanSeeThrough(this MapCoordinates coords)

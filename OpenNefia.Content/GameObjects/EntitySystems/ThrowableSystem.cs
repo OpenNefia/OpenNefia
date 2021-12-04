@@ -126,7 +126,7 @@ namespace OpenNefia.Content.GameObjects
 
             args.Handled = true;
 
-            foreach (var entity in _map.GetEntities(args.Coords))
+            foreach (var entity in _map.GetLiveEntities(args.Coords))
             {
                 var ev = new HitByThrownEntityEventArgs(args.Thrower, target, entity.Spatial.Coords);
                 RaiseLocalEvent(entity.Uid, ev);

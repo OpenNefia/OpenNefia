@@ -17,6 +17,11 @@ namespace OpenNefia.Core.Maps
         IMap GetMap(MapId id);
         void UnloadMap(MapId id);
 
-        IEnumerable<Entity> GetEntities(MapCoordinates coords);
+        /// <summary>
+        /// Retrives the entities in the given coordinates that can be targeted.
+        /// This means they must have the <see cref="EntityGameLiveness.Alive" />
+        /// or <see cref="EntityGameLiveness.AliveSecondary" /> liveness.
+        /// </summary>
+        IEnumerable<Entity> GetLiveEntities(MapCoordinates coords);
     }
 }

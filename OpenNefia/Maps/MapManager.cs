@@ -68,11 +68,13 @@ namespace OpenNefia.Core.Maps
             return this.CachedMaps.ContainsKey(mapId);
         }
 
-        public IEnumerable<Entity> GetEntities(MapCoordinates coords)
+        /// <inheritdoc />
+        public IEnumerable<Entity> GetLiveEntities(MapCoordinates coords)
         {
             return coords.Map
                  ?.Entities
-                 .Where(entity => entity.Spatial.Coords == coords)
+                 .Where(entity => entity.Spatial.Coords == coords
+                               && entity.MetaData.IsAlive)
                  ?? Enumerable.Empty<Entity>();
         }
     }

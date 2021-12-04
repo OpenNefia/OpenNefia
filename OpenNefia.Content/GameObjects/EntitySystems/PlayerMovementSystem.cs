@@ -52,7 +52,7 @@ namespace OpenNefia.Content.GameObjects
             if (args.Handled || !Resolve(uid, ref moveable))
                 return;
 
-            var entities = _map.GetEntities(args.NewPosition)
+            var entities = _map.GetLiveEntities(args.NewPosition)
                 .Where(x => x.Spatial.IsSolid);
 
             foreach (var entity in entities)
