@@ -1,7 +1,9 @@
 ﻿using OpenNefia.Core.IoC;
+using OpenNefia.Core.Log;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.ResourceManagement;
+using OpenNefia.Core.Timing;
 
 namespace OpenNefia.Core.Rendering
 {
@@ -96,9 +98,12 @@ namespace OpenNefia.Core.Rendering
 
         public void PreloadAssets()
         {
-            foreach (var assetProto in _prototypes.EnumeratePrototypes<AssetPrototype>())
+            using (var sw = new StopwatchLogger(LogLevel.Info, "boot.asset", "Preloading assets"))
             {
-                LoadAsset(assetProto.GetStrongID());
+                foreach (var assetProto in _prototypes.EnumeratePrototypes<AssetPrototype>())
+                {
+                    LoadAsset(assetProto.GetStrongID());
+                }
             }
         }
 
