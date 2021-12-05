@@ -197,8 +197,9 @@ namespace OpenNefia.Content.UI.Layer
             {
                 var drinkVerb = new Verb(DrinkableSystem.VerbIDDrink);
                 var verbSystem = EntitySystem.Get<VerbSystem>();
+                var lookup = EntitySystem.Get<IEntityLookup>();
 
-                foreach (var target in _map.GetLiveEntities(player.Spatial.Coords))
+                foreach (var target in lookup.GetLiveEntitiesAtPos(player.Spatial.Coords))
                 {
                     if (target.Uid != player.Uid)
                     {
@@ -223,8 +224,9 @@ namespace OpenNefia.Content.UI.Layer
             {
                 var throwVerb = new Verb(ThrowableSystem.VerbIDThrow);
                 var verbSystem = EntitySystem.Get<VerbSystem>();
+                var lookup = EntitySystem.Get<IEntityLookup>();
 
-                foreach (var target in _map.GetLiveEntities(player.Spatial.Coords))
+                foreach (var target in lookup.GetLiveEntitiesAtPos(player.Spatial.Coords))
                 {
                     if (target.Uid != player.Uid)
                     {

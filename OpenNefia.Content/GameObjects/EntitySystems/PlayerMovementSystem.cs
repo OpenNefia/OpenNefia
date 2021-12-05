@@ -9,6 +9,7 @@ namespace OpenNefia.Content.GameObjects
     {
         [Dependency] private readonly IPlayerQuery _playerQuery = default!;
         [Dependency] private readonly IMapManager _map = default!;
+        [Dependency] private readonly IEntityLookup _lookup = default!;
 
         public override void Initialize()
         {
@@ -52,7 +53,7 @@ namespace OpenNefia.Content.GameObjects
             if (args.Handled || !Resolve(uid, ref moveable))
                 return;
 
-            var entities = _map.GetLiveEntities(args.NewPosition)
+            var entities = _lookup.GetLiveEntitiesAtPos(args.NewPosition)
                 .Where(x => x.Spatial.IsSolid);
 
             foreach (var entity in entities)

@@ -136,7 +136,7 @@ namespace OpenNefia.Core.Maps
             var isSolid = tileProto.IsSolid;
             var isOpaque = tileProto.IsOpaque;
 
-            foreach (var obj in AtPos(pos).GetEntities())
+            foreach (var obj in AtPos(pos).GetLiveEntitiesAtPos())
             {
                 var spatial = obj.Spatial;
                 isSolid |= spatial.IsSolid;

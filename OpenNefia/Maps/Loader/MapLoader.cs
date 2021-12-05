@@ -179,7 +179,7 @@ namespace OpenNefia.Core.Maps
             {
                 var uids = new MapContextUids();
 
-                foreach (var entity in _mapManager.GetAllEntities(_mapId))
+                foreach (var entity in _entityManager.GetEntities().Where(e => e.Spatial.Coords.Map?.Id == _mapId))
                 {
                     uids.Uids.Add(entity.Uid);
                 }

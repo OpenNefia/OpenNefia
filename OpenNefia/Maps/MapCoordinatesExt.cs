@@ -15,12 +15,9 @@ namespace OpenNefia.Core.Maps
 {
     public static class MapCoordinatesExt
     {
-        public static IEnumerable<Entity> GetEntities(this MapCoordinates coords)
+        public static IEnumerable<Entity> GetLiveEntitiesAtPos(this MapCoordinates coords)
         {
-            if (coords.Map == null)
-                return Enumerable.Empty<Entity>();
-
-            return IoCManager.Resolve<IMapManager>().GetLiveEntities(coords);
+            return EntitySystem.Get<IEntityLookup>().GetLiveEntitiesAtPos(coords);
         }
 
         private static bool CanSeeThrough(this MapCoordinates coords)

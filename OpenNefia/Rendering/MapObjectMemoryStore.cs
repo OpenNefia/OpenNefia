@@ -108,7 +108,7 @@ namespace OpenNefia.Core.Rendering
             }
 
             int i = 0;
-            foreach (var obj in Map.AtPos(coords).GetEntities())
+            foreach (var obj in Map.AtPos(coords).GetLiveEntitiesAtPos())
             {
                 if (at == null)
                 {

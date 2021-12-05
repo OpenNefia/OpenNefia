@@ -26,6 +26,7 @@ namespace OpenNefia.Tests.Core.Maps
             simulation.SetActiveMap(map);
 
             var entMan = simulation.Resolve<IEntityManager>();
+            var lookup = simulation.Resolve<IEntitySystemManager>().GetEntitySystem<IEntityLookup>();
 
             var pos = Vector2i.Zero;
 
@@ -54,7 +55,7 @@ namespace OpenNefia.Tests.Core.Maps
             metaDead.Liveness = EntityGameLiveness.DeadAndBuried;
 
             var mapManager = (MapManager) simulation.Resolve<IMapManager>();
-            var ents = mapManager.GetLiveEntities(map.AtPos(pos));
+            var ents = lookup.GetLiveEntitiesAtPos(map.AtPos(pos));
 
             Assert.That(ents, Is.EquivalentTo(new[]
             {

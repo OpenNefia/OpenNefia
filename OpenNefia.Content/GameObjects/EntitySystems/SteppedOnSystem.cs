@@ -22,7 +22,7 @@ namespace OpenNefia.Content.GameObjects
             if (!Resolve(stepper, ref moveable, ref spatial))
                 return;
 
-            foreach (var entity in spatial.Coords.GetEntities())
+            foreach (var entity in spatial.Coords.GetLiveEntitiesAtPos())
             {
                 var ev = new EntitySteppedOnEvent(stepper, spatial.Coords);
                 RaiseLocalEvent(entity.Uid, ev);

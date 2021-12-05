@@ -21,7 +21,7 @@ namespace OpenNefia.Content.GameObjects
 
             var sb = new StringBuilder();
 
-            foreach (var entity in targetPos.GetEntities())
+            foreach (var entity in targetPos.GetLiveEntitiesAtPos())
             {
                 var ev = new GetTargetTextEventArgs(onlooker, visibleOnly);
                 RaiseLocalEvent(entity.Uid, ev);

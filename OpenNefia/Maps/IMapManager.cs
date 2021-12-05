@@ -1,5 +1,6 @@
 ﻿using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Maths;
+using System.Diagnostics.CodeAnalysis;
 
 namespace OpenNefia.Core.Maps
 {
@@ -7,25 +8,17 @@ namespace OpenNefia.Core.Maps
     {
         IMap? ActiveMap { get; }
 
-        void ChangeActiveMap(MapId id);
+        void ChangeActiveMap(MapId mapId);
         MapId RegisterMap(IMap map);
 
         bool IsMapInitialized(MapId mapId);
 
         bool MapExists(MapId mapId);
         MapId CreateMap(MapId? mapId, int width, int height);
-        IMap LoadMap(MapId id);
-        void SaveMap(MapId id);
-        IMap GetMap(MapId id);
-        void UnloadMap(MapId id);
-
-        IEnumerable<Entity> GetAllEntities(MapId id);
-
-        /// <summary>
-        /// Retrives the entities in the given coordinates that can be targeted.
-        /// This means they must have the <see cref="EntityGameLiveness.Alive" />
-        /// or <see cref="EntityGameLiveness.AliveSecondary" /> liveness.
-        /// </summary>
-        IEnumerable<Entity> GetLiveEntities(MapCoordinates coords);
+        IMap LoadMap(MapId mapId);
+        void SaveMap(MapId mapId);
+        IMap GetMap(MapId mapId);
+        bool TryGetMap(MapId mapId, [NotNullWhen(true)] out IMap? map);
+        void UnloadMap(MapId mapId);
     }
 }

@@ -4,7 +4,6 @@ using OpenNefia.Core.ContentPack;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Maps;
 using OpenNefia.Core.Maths;
-using OpenNefia.Core.Serialization.Instanced;
 using OpenNefia.Core.Utility;
 
 namespace OpenNefia.Tests.Core.Maps.Loader
@@ -33,6 +32,8 @@ namespace OpenNefia.Tests.Core.Maps.Loader
             mapManager.CreateMap(mapId, 50, 50);
 
             mapLoader.SaveMap(mapId, new ResourcePath("/Test.sav"));
+
+            Assert.That(mapManager.MapExists(mapId), Is.True);
 
             mapManager.UnloadMap(mapId);
 

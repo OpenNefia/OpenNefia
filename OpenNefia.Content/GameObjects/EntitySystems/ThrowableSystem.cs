@@ -15,6 +15,7 @@ namespace OpenNefia.Content.GameObjects
         [Dependency] private readonly IMapDrawables _mapDrawables = default!;
         [Dependency] private readonly IUiLayerManager _uiLayers = default!;
         [Dependency] private readonly IMapManager _map = default!;
+        [Dependency] private readonly IEntityLookup _lookup = default!;
 
         public const string VerbIDThrow = "Elona.Throw";
 
@@ -126,7 +127,7 @@ namespace OpenNefia.Content.GameObjects
 
             args.Handled = true;
 
-            foreach (var entity in _map.GetLiveEntities(args.Coords))
+            foreach (var entity in _lookup.GetLiveEntitiesAtPos(args.Coords))
             {
                 var ev = new HitByThrownEntityEventArgs(args.Thrower, target, entity.Spatial.Coords);
                 RaiseLocalEvent(entity.Uid, ev);

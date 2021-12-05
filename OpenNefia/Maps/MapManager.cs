@@ -1,6 +1,7 @@
 ﻿using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.Utility;
+using System.Diagnostics.CodeAnalysis;
 
 namespace OpenNefia.Core.Maps
 {
@@ -85,9 +86,9 @@ namespace OpenNefia.Core.Maps
             return CachedMaps[mapId];
         }
 
-        public IMap? GetMapOrNull(MapId mapId)
+        public bool TryGetMap(MapId mapId, [NotNullWhen(true)] out IMap? map)
         {
-            return CachedMaps.GetValueOrDefault(mapId);
+            return CachedMaps.TryGetValue(mapId, out map);
         }
 
         public void ChangeActiveMap(MapId mapId)
@@ -99,23 +100,6 @@ namespace OpenNefia.Core.Maps
         public bool IsMapInitialized(MapId mapId)
         {
             return this.CachedMaps.ContainsKey(mapId);
-        }
-
-        public IEnumerable<Entity> GetAllEntities(MapId mapId)
-        {
-            return GetMapOrNull(mapId)
-                ?.Entities
-                ?? Enumerable.Empty<Entity>();
-        }
-
-        /// <inheritdoc />
-        public IEnumerable<Entity> GetLiveEntities(MapCoordinates coords)
-        {
-            return coords.Map
-                 ?.Entities
-                 .Where(entity => entity.Spatial.Coords == coords
-                               && entity.MetaData.IsAlive)
-                 ?? Enumerable.Empty<Entity>();
         }
     }
 }
