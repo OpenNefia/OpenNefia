@@ -13,7 +13,7 @@ namespace OpenNefia.Tests.Core.Maps
 {
     [TestFixture]
     [TestOf(typeof(MapManager))]
-    public class MapManager_Tests
+    public class MapManager_Tests : OpenNefiaUnitTest
     {
         [Test]
         public void TestGetLiveEntities()

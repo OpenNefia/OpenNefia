@@ -22,7 +22,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenNefia.EntryPoint", "Ope
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenNefia.Content", "OpenNefia.Content\OpenNefia.Content.csproj", "{9339C5BA-AE0C-4AEB-82E4-8C7051FBFF8E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenNefia.Content.Tests", "OpenNefia.Content.Tests\OpenNefia.Content.Tests.csproj", "{92BB5654-5344-45C0-A10C-24C2635455EA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenNefia.Content.Tests", "OpenNefia.Content.Tests\OpenNefia.Content.Tests.csproj", "{92BB5654-5344-45C0-A10C-24C2635455EA}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OdinSerializerNetCore", "Thirdparty\odin-serializer\OdinSerializer\OdinSerializerNetCore.csproj", "{A9B3CF0C-47FF-4FC0-B9A7-377F0BAC0C7E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -66,6 +68,10 @@ Global
 		{92BB5654-5344-45C0-A10C-24C2635455EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{92BB5654-5344-45C0-A10C-24C2635455EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{92BB5654-5344-45C0-A10C-24C2635455EA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A9B3CF0C-47FF-4FC0-B9A7-377F0BAC0C7E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A9B3CF0C-47FF-4FC0-B9A7-377F0BAC0C7E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A9B3CF0C-47FF-4FC0-B9A7-377F0BAC0C7E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A9B3CF0C-47FF-4FC0-B9A7-377F0BAC0C7E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

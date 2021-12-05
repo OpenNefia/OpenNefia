@@ -309,8 +309,8 @@ namespace OpenNefia.Core.ContentPack
             public override bool CanRead { get; }
             public override bool CanSeek => true;
             public override bool CanWrite { get; }
-            public override long Length => _source.Position;
-            public override long Position { get; set; }
+            public override long Length => _source.Length;
+            public override long Position { get => _source.Position; set => _source.Position = value; }
         }
     }
 }
