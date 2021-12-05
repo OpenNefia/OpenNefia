@@ -16,17 +16,19 @@ namespace OpenNefia.Tests.Core.Maps
     public class MapManager_Tests : OpenNefiaUnitTest
     {
         [Test]
-        public void TestGetLiveEntities()
+        public void TestGetLiveEntitiesAtPos()
         {
             var simulation = GameSimulation
                 .NewSimulation()
+                .RegisterEntitySystems(factory => factory.LoadExtraSystemType<EntityLookup>())
                 .InitializeInstance();
 
             var map = new Map(50, 50);
             simulation.SetActiveMap(map);
 
             var entMan = simulation.Resolve<IEntityManager>();
-            var lookup = simulation.Resolve<IEntitySystemManager>().GetEntitySystem<IEntityLookup>();
+            var entSysMan = simulation.Resolve<IEntitySystemManager>();
+            var lookup = entSysMan.GetEntitySystem<IEntityLookup>();
 
             var pos = Vector2i.Zero;
 
@@ -38,7 +40,8 @@ namespace OpenNefia.Tests.Core.Maps
             metaAlive.Liveness = EntityGameLiveness.Alive;
 
             // "AliveSecondary" means the entity can be targeted, but shouldn't
-            // be used for certain calculations like AoE spells.
+            // be used for certain calculations like AoE spells. This will be used
+            // for Riding/Tag Team allies.
             var entAliveSecondary = entMan.SpawnEntity(null, map, pos);
             var metaAliveSecondary = entMan.GetComponent<MetaDataComponent>(entAliveSecondary.Uid);
             metaAliveSecondary.Liveness = EntityGameLiveness.AliveSecondary;
@@ -54,7 +57,6 @@ namespace OpenNefia.Tests.Core.Maps
             var metaDead = entMan.GetComponent<MetaDataComponent>(entDead.Uid);
             metaDead.Liveness = EntityGameLiveness.DeadAndBuried;
 
-            var mapManager = (MapManager) simulation.Resolve<IMapManager>();
             var ents = lookup.GetLiveEntitiesAtPos(map.AtPos(pos));
 
             Assert.That(ents, Is.EquivalentTo(new[]
