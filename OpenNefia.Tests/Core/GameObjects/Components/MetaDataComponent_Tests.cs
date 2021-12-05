@@ -49,25 +49,16 @@ namespace OpenNefia.Tests.Core.GameObjects
             var metaDataComp = entityManager.GetComponent<MetaDataComponent>(dummy.Uid);
 
             Assert.That(metaDataComp.Liveness, Is.EqualTo(EntityGameLiveness.Alive));
-            Assert.That(metaDataComp.IsAliveAndPrimary, Is.EqualTo(true));
-            Assert.That(metaDataComp.IsAlive, Is.EqualTo(true));
-            Assert.That(metaDataComp.IsDeadAndBuried, Is.EqualTo(false));
-
-            metaDataComp.Liveness = EntityGameLiveness.AliveSecondary;
-
-            Assert.That(metaDataComp.IsAliveAndPrimary, Is.EqualTo(false));
             Assert.That(metaDataComp.IsAlive, Is.EqualTo(true));
             Assert.That(metaDataComp.IsDeadAndBuried, Is.EqualTo(false));
 
             metaDataComp.Liveness = EntityGameLiveness.Hidden;
 
-            Assert.That(metaDataComp.IsAliveAndPrimary, Is.EqualTo(false));
             Assert.That(metaDataComp.IsAlive, Is.EqualTo(false));
             Assert.That(metaDataComp.IsDeadAndBuried, Is.EqualTo(false));
 
             metaDataComp.Liveness = EntityGameLiveness.DeadAndBuried;
 
-            Assert.That(metaDataComp.IsAliveAndPrimary, Is.EqualTo(false));
             Assert.That(metaDataComp.IsAlive, Is.EqualTo(false));
             Assert.That(metaDataComp.IsDeadAndBuried, Is.EqualTo(true));
         }

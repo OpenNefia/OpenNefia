@@ -8,17 +8,24 @@ namespace OpenNefia.Core.Maps
     {
         IMap? ActiveMap { get; }
 
+        // TODO: Whatever map the current player is in == active map.
+        // That way you can just do player.Coords.MapId = mapId and everything
+        // is supposed to magically work.
+        // It never really made sense to have the active and player maps be different
+        // anyway, it was a source of bugs and general annoyance.
         void ChangeActiveMap(MapId mapId);
-        MapId RegisterMap(IMap map);
 
         bool IsMapInitialized(MapId mapId);
 
         bool MapExists(MapId mapId);
-        MapId CreateMap(MapId? mapId, int width, int height);
-        IMap LoadMap(MapId mapId);
-        void SaveMap(MapId mapId);
+        IMap CreateMap(MapId? mapId, int width, int height);
+
         IMap GetMap(MapId mapId);
+        Entity GetMapEntity(MapId mapId);
+
         bool TryGetMap(MapId mapId, [NotNullWhen(true)] out IMap? map);
+        bool TryGetMapEntity(MapId mapId, [NotNullWhen(true)] out Entity? mapEntity);
+
         void UnloadMap(MapId mapId);
     }
 }

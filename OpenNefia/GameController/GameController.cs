@@ -129,9 +129,18 @@ namespace OpenNefia.Core.GameController
 
         private void InitTileDefinitions()
         {
+            // Tile.Empty relies on the Empty tile prototype being registered first
+            // so it gets index 0.
+            var emptyDef = _prototypeManager.Index<TilePrototype>(TilePrototypeOf.Empty);
+
+            _tileDefinitionManager.Register(emptyDef);
+
             var prototypeList = new List<TilePrototype>();
             foreach (var tileDef in _prototypeManager.EnumeratePrototypes<TilePrototype>())
             {
+                if (tileDef.GetStrongID() == TilePrototypeOf.Empty)
+                    continue;
+
                 prototypeList.Add(tileDef);
             }
 

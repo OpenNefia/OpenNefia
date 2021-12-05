@@ -25,7 +25,7 @@ namespace OpenNefia.Tests.Core.GameObjects
                 .RegisterPrototypes(protoMan => protoMan.LoadString(PROTOTYPE))
                 .InitializeInstance();
 
-            sim.SetActiveMap(new Map(50, 50));
+            sim.CreateMapAndSetActive(50, 50);
 
             return sim;
         }
@@ -42,8 +42,8 @@ namespace OpenNefia.Tests.Core.GameObjects
             var map = sim.Resolve<IMapManager>().ActiveMap!;
             var newEnt = entMan.SpawnEntity("dummy", map.AtPos(Vector2i.Zero));
             Assert.That(newEnt, Is.Not.Null);
-            Assert.That(newEnt.Spatial.Map, Is.EqualTo(map));
-            Assert.That(newEnt.Spatial.Coords.Position, Is.EqualTo(Vector2i.Zero));
+            Assert.That(newEnt.Spatial.MapID, Is.EqualTo(map.Id));
+            Assert.That(newEnt.Spatial.MapPosition.Position, Is.EqualTo(Vector2i.Zero));
         }
     }
 }

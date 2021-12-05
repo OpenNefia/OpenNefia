@@ -195,6 +195,18 @@ namespace OpenNefia.Core.GameObjects
             _extraLoadedTypes.Add(typeof(T));
         }
 
+        /// <inheritdoc />
+        public T InjectDependencies<T>(T obj) where T : notnull
+        {
+            if (_systemDependencyCollection == null)
+            {
+                throw new InvalidOperationException(
+                    "Cannot use InjectDependencies when the entity system manager is not initialized yet.");
+            }
+            _systemDependencyCollection.InjectDependencies(obj);
+            return obj;
+        }
+
         private static bool NeedsUpdate(Type type)
         {
             if (!typeof(EntitySystem).IsAssignableFrom(type))

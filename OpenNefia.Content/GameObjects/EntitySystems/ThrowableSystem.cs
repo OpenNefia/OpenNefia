@@ -14,7 +14,7 @@ namespace OpenNefia.Content.GameObjects
     {
         [Dependency] private readonly IMapDrawables _mapDrawables = default!;
         [Dependency] private readonly IUiLayerManager _uiLayers = default!;
-        [Dependency] private readonly IMapManager _map = default!;
+        [Dependency] private readonly IMapManager _mapManager = default!;
         [Dependency] private readonly IEntityLookup _lookup = default!;
 
         public const string VerbIDThrow = "Elona.Throw";
@@ -39,8 +39,8 @@ namespace OpenNefia.Content.GameObjects
             if (!EntityManager.TryGetComponent(args.Thrower, out SpatialComponent sourceSpatial))
                 return;
 
-            var drawable = new RangedAttackMapDrawable(sourceSpatial.Coords, args.Coords, targetChip.ID, targetChip.Color);
-            _mapDrawables.Enqueue(drawable, sourceSpatial.Coords);
+            var drawable = new RangedAttackMapDrawable(sourceSpatial.MapPosition, args.Coords, targetChip.ID, targetChip.Color);
+            _mapDrawables.Enqueue(drawable, sourceSpatial.MapPosition);
         }
 
         private void HandleGetVerbs(EntityUid target, ThrowableComponent component, GetVerbsEventArgs args)
@@ -67,8 +67,7 @@ namespace OpenNefia.Content.GameObjects
 
             args.Handled = true;
 
-            var map = sourceEntity.Spatial.Map;
-            if (map == null)
+            if (!_mapManager.TryGetMap(sourceEntity.Spatial.MapID, out var map))
                 return;
 
             var prompt = new PositionPrompt(sourceEntity);
@@ -96,8 +95,9 @@ namespace OpenNefia.Content.GameObjects
 
         public bool ThrowEntity(EntityUid source, EntityUid throwing, MapCoordinates coords)
         {
-            var map = coords.Map;
-            if (map == null || !EntityManager.IsAlive(source) || !EntityManager.IsAlive(throwing))
+            if (!_mapManager.MapExists(coords.MapId) 
+                || !EntityManager.IsAlive(source) 
+                || !EntityManager.IsAlive(throwing))
                 return false;
 
             var ev = new EntityThrownEventArgs(source, coords);
@@ -122,24 +122,24 @@ namespace OpenNefia.Content.GameObjects
                 return;
             if (!Resolve(target, ref targetSpatial))
                 return;
-            if (sourceSpatial.Coords.Map != args.Coords.Map)
+            if (sourceSpatial.MapPosition.MapId != args.Coords.MapId)
                 return;
 
             args.Handled = true;
 
             foreach (var entity in _lookup.GetLiveEntitiesAtPos(args.Coords))
             {
-                var ev = new HitByThrownEntityEventArgs(args.Thrower, target, entity.Spatial.Coords);
+                var ev = new HitByThrownEntityEventArgs(args.Thrower, target, entity.Spatial.MapPosition);
                 RaiseLocalEvent(entity.Uid, ev);
                 if (ev.WasHit)
                 {
-                    var ev2 = new ThrownEntityImpactedOtherEvent(args.Thrower, entity.Uid, entity.Spatial.Coords);
+                    var ev2 = new ThrownEntityImpactedOtherEvent(args.Thrower, entity.Uid, entity.Spatial.MapPosition);
                     RaiseLocalEvent(target, ev2);
 
                     if (!ev2.Handled && EntityManager.IsAlive(target))
                     {
                         // Place the entity on the map.
-                        targetSpatial.Pos = args.Coords.Position;
+                        targetSpatial.WorldPosition = args.Coords.Position;
                     }
 
                     return;
@@ -152,7 +152,7 @@ namespace OpenNefia.Content.GameObjects
             if (!ev3.Handled && EntityManager.IsAlive(target))
             {
                 // Place the entity on the map.
-                targetSpatial.Pos = args.Coords.Position;
+                targetSpatial.WorldPosition = args.Coords.Position;
             }
         }
     }

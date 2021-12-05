@@ -7,7 +7,7 @@ namespace OpenNefia.Core.Maps
 {
     public sealed class ShadowMap
     {
-        private ICoords _coords;
+        private readonly ICoords _coords;
 
         private IMap _map;
         internal ShadowTile[,] _ShadowTiles;
@@ -15,10 +15,10 @@ namespace OpenNefia.Core.Maps
         internal Vector2i _ShadowSize;
         internal UIBox2i _ShadowBounds { get => UIBox2i.FromDimensions(_ShadowPos, _ShadowSize); }
 
-        public ShadowMap(IMap map)
+        public ShadowMap(IMap map, ICoords coords)
         {
             _map = map;
-            _coords = IoCManager.Resolve<ICoords>();
+            _coords = coords;
             _ShadowTiles = new ShadowTile[map.Width, map.Height];
         }
 
@@ -45,7 +45,10 @@ namespace OpenNefia.Core.Maps
             Array.Clear(_ShadowTiles, 0, _ShadowTiles.Length);
 
             var player = GameSession.Player!;
-            var playerPos = player.Spatial.Coords.Position;
+            var playerPos = player.Spatial.MapPosition.Position;
+
+            if (_map.Id != player.Spatial.MapID)
+                return;
 
             _coords.GetWindowTiledSize(out var windowTiledSize);
 
@@ -124,10 +127,10 @@ namespace OpenNefia.Core.Maps
                             {
                                 if (i >= fovRadius[j + cy, 0] + cx && i < fovRadius[j + cy, 1] + cx)
                                 {
-                                    var coords = player.Spatial.Map!.AtPos(new Vector2i(i, j));
-                                    if (player.Spatial.Coords.HasLos(coords))
+                                    var pos = new Vector2i(i, j);
+                                    if (_map.HasLos(player.Spatial.WorldPosition, pos))
                                     {
-                                        coords.MemorizeTile();
+                                        _map.MemorizeTile(pos);
                                         shadow = false;
                                     }
                                 }

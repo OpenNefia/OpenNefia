@@ -8,7 +8,7 @@ namespace OpenNefia.Content.GameObjects
     public class PlayerMovementSystem : EntitySystem
     {
         [Dependency] private readonly IPlayerQuery _playerQuery = default!;
-        [Dependency] private readonly IMapManager _map = default!;
+        [Dependency] private readonly IMapManager _mapManager = default!;
         [Dependency] private readonly IEntityLookup _lookup = default!;
 
         public override void Initialize()
@@ -28,9 +28,9 @@ namespace OpenNefia.Content.GameObjects
             if (args.Handled || !Resolve(uid, ref player))
                 return;
 
-            var (map, pos) = args.NewPosition;
+            var (pos, mapId) = args.NewPosition;
 
-            if (map != null && !map.IsInBounds(pos))
+            if (_mapManager.TryGetMap(mapId, out var map) && !map.IsInBounds(pos))
             {
                 if (_playerQuery.YesOrNo("Do you want to exit the map?"))
                 {

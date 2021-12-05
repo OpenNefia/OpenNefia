@@ -12,8 +12,8 @@ using System.Threading.Tasks;
 namespace OpenNefia.Tests.Core.Maps
 {
     [TestFixture]
-    [TestOf(typeof(MapManager))]
-    public class MapManager_Tests : OpenNefiaUnitTest
+    [TestOf(typeof(EntityLookup))]
+    public class EntityLookup_Tests : OpenNefiaUnitTest
     {
         [Test]
         public void TestGetLiveEntitiesAtPos()
@@ -23,8 +23,7 @@ namespace OpenNefia.Tests.Core.Maps
                 .RegisterEntitySystems(factory => factory.LoadExtraSystemType<EntityLookup>())
                 .InitializeInstance();
 
-            var map = new Map(50, 50);
-            simulation.SetActiveMap(map);
+            var map = simulation.CreateMapAndSetActive(50, 50);
 
             var entMan = simulation.Resolve<IEntityManager>();
             var entSysMan = simulation.Resolve<IEntitySystemManager>();
@@ -35,34 +34,50 @@ namespace OpenNefia.Tests.Core.Maps
             // "Alive" means the entity is considered the primary entity on the tile.
             // In HSP Elona, each map tile can only hold a single character ID for
             // positional querying purposes; this emulates that behavior.
-            var entAlive = entMan.SpawnEntity(null, map, pos);
+            var entAlive = entMan.SpawnEntity(null, map.AtPos(pos));
             var metaAlive = entMan.GetComponent<MetaDataComponent>(entAlive.Uid);
             metaAlive.Liveness = EntityGameLiveness.Alive;
 
-            // "AliveSecondary" means the entity can be targeted, but shouldn't
-            // be used for certain calculations like AoE spells. This will be used
-            // for Riding/Tag Team allies.
-            var entAliveSecondary = entMan.SpawnEntity(null, map, pos);
-            var metaAliveSecondary = entMan.GetComponent<MetaDataComponent>(entAliveSecondary.Uid);
-            metaAliveSecondary.Liveness = EntityGameLiveness.AliveSecondary;
+            // Child entities don't count as being in the map.
+            var entChild = entMan.SpawnEntity(null, new EntityCoordinates(entAlive.Uid, Vector2i.Zero));
+            var metaChild = entMan.GetComponent<MetaDataComponent>(entChild.Uid);
+            metaChild.Liveness = EntityGameLiveness.Alive;
 
             // "Hidden" means the entity is not visible in the map and cannot be targeted,
             // but should not be removed from the map, such as for dead allies.
-            var entHidden = entMan.SpawnEntity(null, map, pos);
+            var entHidden = entMan.SpawnEntity(null, map.AtPos(pos));
             var metaHidden = entMan.GetComponent<MetaDataComponent>(entHidden.Uid);
             metaHidden.Liveness = EntityGameLiveness.Hidden;
 
             // "DeadAndBuried" means the entity can be removed at any time.
-            var entDead = entMan.SpawnEntity(null, map, pos);
+            var entDead = entMan.SpawnEntity(null, map.AtPos(pos));
             var metaDead = entMan.GetComponent<MetaDataComponent>(entDead.Uid);
             metaDead.Liveness = EntityGameLiveness.DeadAndBuried;
 
-            var ents = lookup.GetLiveEntitiesAtPos(map.AtPos(pos));
+            var ents = lookup.GetAllEntitiesInMap(map.Id);
 
             Assert.That(ents, Is.EquivalentTo(new[]
             {
                 entAlive,
-                entAliveSecondary
+                entChild,
+                entHidden,
+                entDead
+            }));
+
+            ents = lookup.GetEntitiesDirectlyInMap(map.Id);
+
+            Assert.That(ents, Is.EquivalentTo(new[]
+            {
+                entAlive,
+                entHidden,
+                entDead
+            }));
+
+            ents = lookup.GetLiveEntitiesAtPos(map.AtPos(pos));
+
+            Assert.That(ents, Is.EquivalentTo(new[]
+            {
+                entAlive,
             }));
         }
     }

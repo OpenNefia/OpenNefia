@@ -1,4 +1,5 @@
 ﻿using OpenNefia.Core.GameObjects;
+using OpenNefia.Core.IoC;
 using OpenNefia.Core.Maps;
 using System.Text;
 
@@ -6,6 +7,8 @@ namespace OpenNefia.Content.GameObjects
 {
     public class TargetTextSystem : EntitySystem
     {
+        [Dependency] private readonly IEntityLookup _lookup = default!;
+
         public override void Initialize()
         {
             SubscribeLocalEvent<CharaComponent, GetTargetTextEventArgs>(HandleTargetTextChara, nameof(HandleTargetTextChara));
@@ -21,7 +24,7 @@ namespace OpenNefia.Content.GameObjects
 
             var sb = new StringBuilder();
 
-            foreach (var entity in targetPos.GetLiveEntitiesAtPos())
+            foreach (var entity in _lookup.GetLiveEntitiesAtPos(targetPos))
             {
                 var ev = new GetTargetTextEventArgs(onlooker, visibleOnly);
                 RaiseLocalEvent(entity.Uid, ev);
@@ -51,15 +54,15 @@ namespace OpenNefia.Content.GameObjects
             if (!Resolve(target, ref chara, ref spatial, ref meta))
                 return;
 
-            if (!meta.IsAliveAndPrimary)
+            if (!meta.IsAlive)
                 return;
 
             if (Get<VisibilitySystem>().CanSeeEntity(args.Onlooker, target)
                 && EntityManager.TryGetComponent(args.Onlooker, out SpatialComponent? onlookerSpatial))
             {
-                var dist = (int)onlookerSpatial.Coords.DistanceTo(spatial.Coords);
+                onlookerSpatial.MapPosition.TryDistance(spatial.MapPosition, out var dist);
                 var targetLevelText = GetTargetDangerText(args.Onlooker, target);
-                args.TargetTexts.Add("You are targeting " + DisplayNameSystem.GetDisplayName(target) + " (distance " + dist + ")");
+                args.TargetTexts.Add("You are targeting " + DisplayNameSystem.GetDisplayName(target) + " (distance " + (int)dist + ")");
                 args.TargetTexts.Add(targetLevelText);
             }
         }

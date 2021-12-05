@@ -41,7 +41,6 @@ namespace OpenNefia.Content.Logic
                                 break;
                             case TitleScreenAction.StartGame:
                                 var map = InitMap();
-                                _mapManager.RegisterMap(map);
 
                                 _mapManager.ChangeActiveMap(map.Id);
                                 _fieldLayer.SetMap(map);
@@ -62,9 +61,9 @@ namespace OpenNefia.Content.Logic
             }
         }
 
-        private Map InitMap()
+        private IMap InitMap()
         {
-            var map = new Map(25, 25);
+            var map = _mapManager.CreateMap(null, 25, 25);
 
             var player = _entityManager.SpawnEntity(new("Putit"), map.AtPos(2, 2));
             player.AddComponent<PlayerComponent>();

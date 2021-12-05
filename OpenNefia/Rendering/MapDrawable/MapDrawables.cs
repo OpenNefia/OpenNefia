@@ -33,12 +33,12 @@ namespace OpenNefia.Core.Rendering
 
         private SortedSet<Entry> Active = new();
 
-        public void Enqueue(IMapDrawable drawable, MapCoordinates? pos, int zOrder = 0)
+        public void Enqueue(IMapDrawable drawable, MapCoordinates pos, int zOrder = 0)
         {
-            if (pos == null || pos.Value.Map != GameSession.ActiveMap)
+            if (pos.MapId != GameSession.ActiveMap?.Id)
                 return;
 
-            GameSession.Coords.TileToScreen(pos.Value.Position, out var screenPos);
+            GameSession.Coords.TileToScreen(pos.Position, out var screenPos);
             drawable.ScreenLocalPos = screenPos;
             drawable.OnEnqueue();
             Active.Add(new Entry(drawable, zOrder));

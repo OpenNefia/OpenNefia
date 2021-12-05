@@ -47,9 +47,10 @@ namespace OpenNefia.Tests
         T Resolve<T>();
 
         /// <summary>
-        /// Registers and sets a map as active.
+        /// Creates a map and sets it as active.
         /// </summary>
-        void SetActiveMap(IMap map);
+        IMap CreateMapAndSetActive(int width, int height);
+
         Entity SpawnEntity(string? protoId, MapCoordinates coordinates);
 
         IMap? ActiveMap { get; }
@@ -79,11 +80,12 @@ namespace OpenNefia.Tests
             return Collection.Resolve<T>();
         }
 
-        public void SetActiveMap(IMap map)
+        public IMap CreateMapAndSetActive(int width, int height)
         {
             var mapMan = Collection.Resolve<IMapManager>();
-            mapMan.RegisterMap(map);
+            var map = mapMan.CreateMap(null, width, height);
             mapMan.ChangeActiveMap(map.Id);
+            return map;
         }
 
         public Entity SpawnEntity(string? protoId, MapCoordinates coordinates)
@@ -192,6 +194,7 @@ namespace OpenNefia.Tests
 
             var compFactory = container.Resolve<IComponentFactory>();
             compFactory.DoDefaultRegistrations();
+            compFactory.RegisterClass<MapComponent>();
 
             _regDelegate?.Invoke(compFactory);
 

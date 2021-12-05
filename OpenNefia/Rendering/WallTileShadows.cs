@@ -1,5 +1,6 @@
 ﻿using OpenNefia.Core.Game;
 using OpenNefia.Core.Maps;
+using OpenNefia.Core.Maths;
 using OpenNefia.Core.UI.Element;
 
 namespace OpenNefia.Core.Rendering
@@ -7,26 +8,32 @@ namespace OpenNefia.Core.Rendering
     public class WallTileShadows : BaseDrawable
     {
         private ICoords _coords = default!;
+        private IMap _map = default!;
 
-        private HashSet<MapCoordinates> TopShadows = new();
-        private HashSet<MapCoordinates> BottomShadows = new();
+        private HashSet<Vector2i> TopShadows = new();
+        private HashSet<Vector2i> BottomShadows = new();
 
         public void Initialize(ICoords coords)
         {
             _coords = coords;
         }
 
-        public void SetTile(MapCoordinates coords, TilePrototype tile)
+        public void SetMap(IMap map)
         {
-            var oneDown = coords.Offset(0, 1);
+            _map = map;
+        }
 
-            var oneUp = coords.Offset(0, -1);
-            var oneTileUp = oneUp.GetTile();
+        public void SetTile(Vector2i coords, TilePrototype tile)
+        {
+            var oneDown = coords + (0, 1);
+
+            var oneUp = coords + (0, -1);
+            var oneTileUp = _map.GetTile(oneUp);
 
             if (tile.WallImage != null)
             {
-                var oneTileDown = oneDown.GetTile();
-                if (oneTileDown != null && oneTileDown.Value.Prototype.WallImage == null && oneDown.IsMemorized())
+                var oneTileDown = _map.GetTile(oneDown);
+                if (oneTileDown != Tile.Empty && oneTileDown.ResolvePrototype().WallImage == null && _map.IsMemorized(oneDown))
                 {
                     BottomShadows.Add(coords);
                 }
@@ -36,7 +43,7 @@ namespace OpenNefia.Core.Rendering
                     TopShadows.Remove(oneDown);
                 }
 
-                if (oneTileUp != null && oneTileUp.Value.Prototype.WallImage != null && oneDown.IsMemorized())
+                if (oneTileUp != Tile.Empty && oneTileUp.ResolvePrototype().WallImage != null && _map.IsMemorized(oneUp))
                 {
                     TopShadows.Remove(coords);
                     BottomShadows.Remove(oneUp);
@@ -49,7 +56,7 @@ namespace OpenNefia.Core.Rendering
             else
             {
                 TopShadows.Remove(coords);
-                if (oneTileUp != null && oneTileUp.Value.Prototype.WallImage != null && oneDown.IsMemorized())
+                if (oneTileUp != Tile.Empty && oneTileUp.ResolvePrototype().WallImage != null && _map.IsMemorized(oneUp))
                 {
                     BottomShadows.Add(oneUp);
                 }
@@ -77,12 +84,12 @@ namespace OpenNefia.Core.Rendering
             Love.Graphics.SetBlendMode(Love.BlendMode.Subtract);
             GraphicsEx.SetColor(255, 255, 255, 20);
 
-            foreach (var (_, tileX, tileY) in TopShadows)
+            foreach (var (tileX, tileY) in TopShadows)
             {
                 Love.Graphics.Rectangle(Love.DrawMode.Fill, tileX * tileW + X, tileY * tileH + Y - 20, tileW, tileH / 6);
             }
 
-            foreach (var (_, tileX, tileY) in BottomShadows)
+            foreach (var (tileX, tileY) in BottomShadows)
             {
                 GraphicsEx.SetColor(255, 255, 255, 16);
                 Love.Graphics.Rectangle(Love.DrawMode.Fill, tileX * tileW + X, (tileY + 1) * tileH + Y, tileW, tileH / 2);

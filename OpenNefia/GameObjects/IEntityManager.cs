@@ -30,7 +30,17 @@ namespace OpenNefia.Core.GameObjects
 
         Entity CreateEntityUninitialized(string? prototypeName);
 
+        Entity CreateEntityUninitialized(string? prototypeName, EntityCoordinates coordinates);
+
         Entity CreateEntityUninitialized(string? prototypeName, MapCoordinates coordinates);
+
+        /// <summary>
+        /// Spawns an initialized entity at the default location, using the given prototype.
+        /// </summary>
+        /// <param name="protoName">The prototype to clone. If this is null, the entity won't have a prototype.</param>
+        /// <param name="coordinates"></param>
+        /// <returns>Newly created entity.</returns>
+        Entity SpawnEntity(string? protoName, EntityCoordinates coordinates);
 
         /// <summary>
         /// Spawns an entity at a specific position
@@ -39,15 +49,6 @@ namespace OpenNefia.Core.GameObjects
         /// <param name="coordinates"></param>
         /// <returns></returns>
         Entity SpawnEntity(string? protoName, MapCoordinates coordinates);
-
-        /// <summary>
-        /// Spawns an entity at a specific position
-        /// </summary>
-        /// <param name="protoName"></param>
-        /// <param name="map"></param>
-        /// <param name="position"></param>
-        /// <returns></returns>
-        Entity SpawnEntity(string? protoName, IMap map, Vector2i position);
 
         /// <summary>
         /// Returns an entity by id

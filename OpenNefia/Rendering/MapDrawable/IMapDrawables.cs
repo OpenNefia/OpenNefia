@@ -6,7 +6,7 @@ namespace OpenNefia.Core.Rendering
     public interface IMapDrawables : IDrawable
     {
         void Clear();
-        void Enqueue(IMapDrawable drawable, MapCoordinates? pos, int zOrder = 0);
+        void Enqueue(IMapDrawable drawable, MapCoordinates pos, int zOrder = 0);
         bool HasActiveDrawables();
         void WaitForDrawables();
     }

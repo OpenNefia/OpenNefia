@@ -1,13 +1,16 @@
 ﻿using OpenNefia.Core.GameObjects;
-using OpenNefia.Core.Maths;
-using OpenNefia.Core.Utility;
+using OpenNefia.Core.IoC;
+using OpenNefia.Core.Log;
 using System.Diagnostics.CodeAnalysis;
 
 namespace OpenNefia.Core.Maps
 {
     public class MapManager : IMapManager
     {
-        public Dictionary<MapId, IMap> CachedMaps = new Dictionary<MapId, IMap>();
+        [Dependency] private readonly IEntityManager _entityManager = default!;
+
+        private protected readonly Dictionary<MapId, IMap> _maps = new();
+        private protected readonly Dictionary<MapId, EntityUid> _mapEntities = new();
 
         public IMap? ActiveMap { get; private set; } = default!;
 
@@ -15,11 +18,16 @@ namespace OpenNefia.Core.Maps
 
         public bool MapExists(MapId mapId)
         {
-            return CachedMaps.ContainsKey(mapId);
+            return _maps.ContainsKey(mapId);
         }
 
-        public MapId CreateMap(MapId? mapId, int width, int height)
+        public IMap CreateMap(MapId? mapId, int width, int height)
         {
+            if (mapId == MapId.Nullspace)
+            {
+                throw new ArgumentException("Null map cannot be created.", nameof(mapId));
+            }
+
             MapId actualID;
             if (mapId != null)
             {
@@ -41,65 +49,108 @@ namespace OpenNefia.Core.Maps
             }
 
             var map = new Map(width, height);
-            this.CachedMaps[_highestMapID] = map;
+            this._maps[_highestMapID] = map;
             map.Id = actualID;
 
-            return actualID;
-        }
+            RebindMapEntity(actualID);
 
-        public IMap LoadMap(MapId mapId)
-        {
-            if (CachedMaps.TryGetValue(mapId, out IMap? map))
-                return map;
-
-            map = new Map(100, 100);
-            CachedMaps.Add(mapId, map);
             return map;
         }
 
-        public void UnloadMap(MapId mapId)
+        private void RebindMapEntity(MapId actualID)
         {
-            CachedMaps.Remove(mapId);
+            var mapComps = _entityManager.EntityQuery<MapComponent>();
 
-            if (mapId == ActiveMap?.Id)
+            MapComponent? result = null;
+            foreach (var mapComp in mapComps)
             {
-                ActiveMap = null;
+                if (mapComp.MapId != actualID)
+                    continue;
+
+                result = mapComp;
+                break;
+            }
+
+            if (result != null)
+            {
+                _mapEntities.Add(actualID, result.OwnerUid);
+                Logger.DebugS("map", $"Rebinding map {actualID} to entity {result.OwnerUid}");
+            }
+            else
+            {
+                var newEnt = _entityManager.CreateEntityUninitialized(null);
+                _mapEntities.Add(actualID, newEnt.Uid);
+
+                var mapComp = newEnt.AddComponent<MapComponent>();
+                mapComp.MapId = actualID;
+                _entityManager.InitializeComponents(newEnt.Uid);
+                _entityManager.StartComponents(newEnt.Uid);
+                Logger.DebugS("map", $"Binding map {actualID} to entity {newEnt.Uid}");
             }
         }
 
-        public void SaveMap(MapId mapId)
+        public void UnloadMap(MapId mapID)
         {
+            if (mapID == ActiveMap?.Id)
+            {
+                ActiveMap = null;
+            }
 
-        }
+            if (!_maps.ContainsKey(mapID))
+            {
+                throw new InvalidOperationException($"Attempted to delete nonexistant map '{mapID}'");
+            }
 
-        public MapId RegisterMap(IMap map)
-        {
-            DebugTools.Assert(map.Id == MapId.Nullspace, $"Map {map.Id} already registered");
-            _highestMapID = new MapId(_highestMapID.Value + 1);
-            map.Id = _highestMapID;
-            this.CachedMaps[_highestMapID] = map;
-            return map.Id;
+            _maps.Remove(mapID);
+
+            if (_mapEntities.TryGetValue(mapID, out var ent))
+            {
+                if (_entityManager.TryGetEntity(ent, out var mapEnt))
+                    mapEnt.Delete();
+
+                _mapEntities.Remove(mapID);
+            }
+
+            Logger.InfoS("map", $"Deleting map {mapID}");
         }
 
         public IMap GetMap(MapId mapId)
         {
-            return CachedMaps[mapId];
+            return _maps[mapId];
+        }
+
+        public Entity GetMapEntity(MapId mapId)
+        {
+            if (!_mapEntities.ContainsKey(mapId))
+                throw new InvalidOperationException($"Map {mapId} does not have a set map entity.");
+
+            return _entityManager.GetEntity(_mapEntities[mapId]);
         }
 
         public bool TryGetMap(MapId mapId, [NotNullWhen(true)] out IMap? map)
         {
-            return CachedMaps.TryGetValue(mapId, out map);
+            return _maps.TryGetValue(mapId, out map);
+        }
+
+        public bool TryGetMapEntity(MapId mapId, [NotNullWhen(true)] out Entity? mapEntity)
+        {
+            mapEntity = null;
+
+            if (!_mapEntities.TryGetValue(mapId, out var mapEntityUid))
+                return false;
+
+            return _entityManager.TryGetEntity(mapEntityUid, out mapEntity);
         }
 
         public void ChangeActiveMap(MapId mapId)
         {
-            this.ActiveMap = CachedMaps[mapId];
+            this.ActiveMap = _maps[mapId];
             _highestMapID = mapId;
         }
 
         public bool IsMapInitialized(MapId mapId)
         {
-            return this.CachedMaps.ContainsKey(mapId);
+            return this._maps.ContainsKey(mapId);
         }
     }
 }

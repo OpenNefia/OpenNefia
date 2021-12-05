@@ -45,9 +45,9 @@ namespace OpenNefia.Content.GameObjects
             if (!EntityManager.TryGetComponent(args.Source, out SpatialComponent sourceSpatial))
                 return;
 
-            Sounds.Play(SoundPrototypeOf.Drink1, sourceSpatial.Coords);
+            Sounds.Play(SoundPrototypeOf.Drink1, sourceSpatial.MapPosition);
 
-            drinkableComp.Effect?.Apply(args.Source, sourceSpatial.Coords, args.Source, drinkableComp.Args);
+            drinkableComp.Effect?.Apply(args.Source, sourceSpatial.MapPosition, args.Source, drinkableComp.Args);
 
             // TODO stacking
             EntityManager.DeleteEntity(potion);

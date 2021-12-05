@@ -19,8 +19,7 @@ namespace OpenNefia.Tests.Core.GameObjects
                 .RegisterEntitySystems(factory => factory.LoadExtraSystemType<SubscribeCompRefDirectedEventSystem>())
                 .InitializeInstance();
 
-            var map = new Map(50, 50);
-            simulation.SetActiveMap(map);
+            var map = simulation.CreateMapAndSetActive(50, 50);
 
             var entity = simulation.SpawnEntity(null, map.AtPos(0, 0));
             entity.AddComponent<DummyComponent>();
@@ -102,8 +101,7 @@ namespace OpenNefia.Tests.Core.GameObjects
                 })
                 .InitializeInstance();
 
-            var map = new Map(50, 50);
-            simulation.SetActiveMap(map);
+            var map = simulation.CreateMapAndSetActive(50, 50);
 
             var entity = simulation.SpawnEntity(null, map.AtPos(0, 0));
             entity.AddComponent<OrderComponentA>();

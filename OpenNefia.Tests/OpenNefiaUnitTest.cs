@@ -62,6 +62,10 @@ namespace OpenNefia.Tests
             {
                 compFactory.RegisterClass<SpatialComponent>();
             }
+            if (!compFactory.AllRegisteredTypes.Contains(typeof(MapComponent)))
+            {
+                compFactory.RegisterClass<MapComponent>();
+            }
 
             if (entMan.EventBus == null)
             {

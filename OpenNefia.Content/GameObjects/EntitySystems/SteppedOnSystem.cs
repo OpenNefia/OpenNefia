@@ -1,10 +1,13 @@
 ﻿using OpenNefia.Core.GameObjects;
+using OpenNefia.Core.IoC;
 using OpenNefia.Core.Maps;
 
 namespace OpenNefia.Content.GameObjects
 {
     public class SteppedOnSystem : EntitySystem
     {
+        [Dependency] private readonly IEntityLookup _lookup = default!;
+
         public override void Initialize()
         {
             SubscribeLocalEvent<MoveableComponent, AfterMoveEventArgs>(HandleAfterMove, nameof(HandleAfterMove));
@@ -15,16 +18,17 @@ namespace OpenNefia.Content.GameObjects
             CheckSteppedOn(uid, args, moveable);
         }
 
-        private void CheckSteppedOn(EntityUid stepper, AfterMoveEventArgs args, 
+        private void CheckSteppedOn(EntityUid stepper,
+            AfterMoveEventArgs args, 
             MoveableComponent? moveable = null,
             SpatialComponent? spatial = null)
         {
             if (!Resolve(stepper, ref moveable, ref spatial))
                 return;
 
-            foreach (var entity in spatial.Coords.GetLiveEntitiesAtPos())
+            foreach (var entity in _lookup.GetLiveEntitiesAtPos(spatial.MapPosition))
             {
-                var ev = new EntitySteppedOnEvent(stepper, spatial.Coords);
+                var ev = new EntitySteppedOnEvent(stepper, spatial.MapPosition);
                 RaiseLocalEvent(entity.Uid, ev);
 
                 if (!EntityManager.IsAlive(stepper))

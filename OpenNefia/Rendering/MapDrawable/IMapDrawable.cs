@@ -7,7 +7,7 @@ namespace OpenNefia.Core.Rendering
     public interface IMapDrawable : IDrawable
     {
         public bool IsFinished { get; }
-        public MapId MapId { get; }
+        public IMap Map { get; }
         public Vector2i ScreenLocalPos { get; set; }
 
         public bool CanEnqueue();

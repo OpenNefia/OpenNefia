@@ -1,4 +1,11 @@
 - type: Tile
+  id: Empty
+  image:
+    filepath: /Core/Graphic/Tile/Default.png
+  isSolid: false
+  isOpaque: false
+
+- type: Tile
   id: WorldGrass
   image:
     filepath: /Elona/Graphic/map0.bmp

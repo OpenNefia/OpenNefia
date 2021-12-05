@@ -116,31 +116,44 @@ namespace OpenNefia.Core.GameObjects
         }
 
         /// <inheritdoc />
-        public Entity CreateEntityUninitialized(string? prototypeName, MapCoordinates coordinates)
+        public virtual Entity CreateEntityUninitialized(string? prototypeName, EntityCoordinates coordinates)
         {
             var newEntity = CreateEntity(prototypeName);
-            var map = coordinates.Map;
-            if (map != null)
+
+            if (coordinates.IsValid(this))
             {
-                map.AddEntity(newEntity);
+                newEntity.Spatial.Coordinates = coordinates;
             }
-            newEntity.Spatial.Pos = coordinates.Position;
 
             return newEntity;
         }
 
         /// <inheritdoc />
-        public Entity SpawnEntity(string? protoName, MapCoordinates coordinates)
+        public virtual Entity CreateEntityUninitialized(string? prototypeName, MapCoordinates coordinates)
         {
+            var newEntity = CreateEntity(prototypeName);
+            newEntity.Spatial.AttachParent(_mapManager.GetMapEntity(coordinates.MapId));
+            newEntity.Spatial.WorldPosition = coordinates.Position;
+            return newEntity;
+        }
+
+        /// <inheritdoc />
+        public virtual Entity SpawnEntity(string? protoName, EntityCoordinates coordinates)
+        {
+            if (!coordinates.IsValid(this))
+                throw new InvalidOperationException($"Tried to spawn entity {protoName} on invalid coordinates {coordinates}.");
+
             var entity = CreateEntityUninitialized(protoName, coordinates);
-            InitializeAndStartEntity((Entity) entity, coordinates.Map?.Id ?? MapId.Nullspace);
+            InitializeAndStartEntity(entity, coordinates.GetMapId(this));
             return entity;
         }
 
         /// <inheritdoc />
-        public Entity SpawnEntity(string? protoName, IMap map, Vector2i position)
+        public virtual Entity SpawnEntity(string? protoName, MapCoordinates coordinates)
         {
-            return SpawnEntity(protoName, new MapCoordinates(map, position));
+            var entity = CreateEntityUninitialized(protoName, coordinates);
+            InitializeAndStartEntity(entity, coordinates.MapId);
+            return entity;
         }
 
         /// <summary>
@@ -208,15 +221,32 @@ namespace OpenNefia.Core.GameObjects
             if(entity.Deleted)
                 return;
 
+            var uid = entity.Uid;
+            var spatial = entity.Spatial;
             var metadata = entity.MetaData;
             entity.LifeStage = EntityLifeStage.Terminating;
 
             EventBus.RaiseLocalEvent(entity.Uid, new EntityTerminatingEvent(), false);
 
-            var map = entity.Spatial.Map;
-            if (map != null)
+            // DeleteEntity modifies our _children collection, we must cache the collection to iterate properly
+            foreach (var childTransform in spatial.Children.ToArray())
             {
-                map.RemoveEntity(entity);
+                // Recursion Alert
+                RecursiveDeleteEntity(childTransform.Owner);
+            }
+
+            // Shut down all components.
+            foreach (var component in InSafeOrder(_entCompIndex[uid]))
+            {
+                if (component.Running)
+                    component.LifeShutdown();
+            }
+
+            // map does not have a parent node, everything else needs to be detached
+            if (spatial.ParentUid != EntityUid.Invalid)
+            {
+                // Detach from my parent, if any
+                spatial.DetachParentToNull();
             }
 
             // Dispose all my components, in a safe order so transform is available

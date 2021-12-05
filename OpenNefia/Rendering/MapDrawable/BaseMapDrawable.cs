@@ -1,4 +1,5 @@
-﻿using OpenNefia.Core.Maps;
+﻿using OpenNefia.Core.Game;
+using OpenNefia.Core.Maps;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.UI.Element;
 
@@ -7,7 +8,7 @@ namespace OpenNefia.Core.Rendering
     public abstract class BaseMapDrawable : BaseDrawable, IMapDrawable
     {
         public bool IsFinished { get; protected set; }
-        public MapId MapId { get; protected set; }
+        public IMap Map { get => GameSession.ActiveMap!; }
         public Vector2i ScreenLocalPos { get; set; }
 
         public virtual void OnEnqueue()

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using OpenNefia.Core.IoC;
+using OpenNefia.Core.IoC.Exceptions;
 
 namespace OpenNefia.Core.GameObjects
 {
@@ -71,5 +73,19 @@ namespace OpenNefia.Core.GameObjects
         /// Thrown if the manager has been initialized already.
         /// </exception>
         void LoadExtraSystemType<T>() where T : IEntitySystem, new();
+
+        /// <summary>
+        ///     Injects dependencies into all fields with <see cref="DependencyAttribute"/> on the provided object, 
+        ///     including the dependencies used to initialize <see cref="IEntitySystem"/>s.
+        /// </summary>
+        /// <param name="obj">The object to inject into.</param>
+        /// <exception cref="UnregisteredDependencyException">
+        ///     Thrown if a dependency field on the object is not registered.
+        /// </exception>
+        /// <exception cref="InvalidOperationException">
+        ///     Thrown if the entity system manager has not been initialized yet.
+        /// </exception>
+        /// <seealso cref="BuildGraph"/>
+        public T InjectDependencies<T>(T obj) where T : notnull;
     }
 }

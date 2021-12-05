@@ -1,4 +1,5 @@
-﻿using System.Runtime.InteropServices;
+﻿using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
 using System.Text.Json.Serialization;
 
 namespace OpenNefia.Core.Maths
@@ -30,6 +31,24 @@ namespace OpenNefia.Core.Maths
         {
             X = x;
             Y = y;
+        }
+
+        /// <summary>
+        ///     Gets the length (magnitude) of the vector.
+        /// </summary>
+        public readonly float Length
+        {
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            get => MathF.Sqrt(LengthSquared);
+        }
+
+        /// <summary>
+        ///     Gets the squared length of the vector.
+        /// </summary>
+        public readonly float LengthSquared
+        {
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            get => X * X + Y * Y;
         }
 
         public static Vector2i ComponentMax(Vector2i a, Vector2i b)

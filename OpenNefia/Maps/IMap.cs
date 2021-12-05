@@ -7,23 +7,20 @@ namespace OpenNefia.Core.Maps
 {
     public interface IMap
     {
-        MapId Id { get; set; }
+        MapId Id { get; }
         int Width { get; }
         int Height { get; }
         Vector2i Size { get; }
 
         Tile[,] Tiles { get; }
         Tile[,] TileMemory { get; }
-        TileFlag[,] TileFlags { get; }
 
         MapObjectMemoryStore MapObjectMemory { get; }
         ShadowMap ShadowMap { get; }
         bool NeedsRedraw { get; }
 
-        public IEnumerable<Entity> Entities { get; }
-
         IEnumerable<MapCoordinates> AllTiles { get; }
-        HashSet<MapCoordinates> DirtyTilesThisTurn { get; }
+        HashSet<Vector2i> DirtyTilesThisTurn { get; }
         bool RedrawAllThisTurn { get; set; }
 
         void Clear(PrototypeId<TilePrototype> tile);
@@ -35,15 +32,17 @@ namespace OpenNefia.Core.Maps
 
         MapCoordinates AtPos(Vector2i pos);
         MapCoordinates AtPos(int x, int y);
+        public Tile GetTile(Vector2i pos);
+        public Tile GetTileMemory(Vector2i pos);
 
-        bool IsInWindowFov(Vector2i coords);
+        bool IsInWindowFov(Vector2i pos);
+        bool IsMemorized(Vector2i pos);
         void RefreshVisibility();
         void MemorizeAll();
         bool IsInBounds(Vector2i position);
         void MemorizeTile(Vector2i position);
         bool CanAccess(Vector2i position);
-
-        void AddEntity(Entity newEntity);
-        void RemoveEntity(Entity entity);
+        bool CanSeeThrough(Vector2i position);
+        bool HasLos(Vector2i worldPosition, Vector2i pos);
     }
 }

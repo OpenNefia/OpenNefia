@@ -23,7 +23,7 @@ namespace OpenNefia.Core.Rendering
             {
                 for (int x = 0; x < fovMax+2; x++)
                 {
-                    fovMap[y, x] = PosHelpers.Distance(new Vector2i(x, y), radiusVector) < maxDist;
+                    fovMap[y, x] = (new Vector2i(x, y) - radiusVector).LengthSquared < maxDist * maxDist;
                 }
             }
 

@@ -31,7 +31,7 @@ namespace OpenNefia.Content.UI.Layer
 
         public void CenterOnTilePos(Entity obj)
         {
-            CenterOnTilePos(obj.Spatial.Coords);
+            CenterOnTilePos(obj.Spatial.MapPosition);
         }
 
         public void CenterOnTilePos(MapCoordinates coords)

@@ -63,13 +63,13 @@ namespace OpenNefia.Core.Audio
         /// <inheritdoc />
         public void Play(PrototypeId<SoundPrototype> prototype, Entity entity, AudioParams? audioParams = null)
         {
-            Play(prototype, entity.Spatial.Coords, audioParams);
+            Play(prototype, entity.Spatial.MapPosition, audioParams);
         }
 
         /// <inheritdoc />
         public void Play(PrototypeId<SoundPrototype> prototype, MapCoordinates coordinates, AudioParams? audioParams = null)
         {
-            if (coordinates.Map != GameSession.ActiveMap)
+            if (coordinates.MapId != GameSession.ActiveMap?.Id)
                 return;
 
             _coords.TileToScreen(coordinates.Position, out var screenPosition);
@@ -105,7 +105,7 @@ namespace OpenNefia.Core.Audio
             if (player == null)
                 return;
 
-            _coords.TileToScreen(player.Spatial.Coords.Position, out var listenerPos);
+            _coords.TileToScreen(player.Spatial.MapPosition.Position, out var listenerPos);
             listenerPos += _coords.TileSize / 2;
             Love.Audio.SetPosition(listenerPos.X, listenerPos.Y, 0f);
         }

@@ -17,7 +17,7 @@ namespace OpenNefia.Tests.Core.GameObjects
             // Arrange
             var sim = SimulationFactory();
             var entMan = sim.Resolve<IEntityManager>();
-            var entity = entMan.SpawnEntity(null, sim.ActiveMap!, DefaultCoords);
+            var entity = entMan.SpawnEntity(null, sim.ActiveMap!.AtPos(DefaultCoords));
             var component = new DummyComponent()
             {
                 Owner = entity
@@ -37,7 +37,7 @@ namespace OpenNefia.Tests.Core.GameObjects
             // Arrange
             var sim = SimulationFactory();
             var entMan = sim.Resolve<IEntityManager>();
-            var entity = entMan.SpawnEntity(null, sim.ActiveMap!, DefaultCoords);
+            var entity = entMan.SpawnEntity(null, sim.ActiveMap!.AtPos(DefaultCoords));
             var component = new DummyComponent()
             {
                 Owner = entity
@@ -57,7 +57,7 @@ namespace OpenNefia.Tests.Core.GameObjects
             // Arrange
             var sim = SimulationFactory();
             var entMan = sim.Resolve<IEntityManager>();
-            var entity = entMan.SpawnEntity(null, sim.ActiveMap!, DefaultCoords);
+            var entity = entMan.SpawnEntity(null, sim.ActiveMap!.AtPos(DefaultCoords));
             var firstComp = new DummyComponent {Owner = entity};
             entMan.AddComponent(entity, firstComp);
             entMan.RemoveComponent<DummyComponent>(entity.Uid);
@@ -77,7 +77,7 @@ namespace OpenNefia.Tests.Core.GameObjects
             // Arrange
             var sim = SimulationFactory();
             var entMan = sim.Resolve<IEntityManager>();
-            var entity = entMan.SpawnEntity(null, sim.ActiveMap!, DefaultCoords);
+            var entity = entMan.SpawnEntity(null, sim.ActiveMap!.AtPos(DefaultCoords));
             entity.AddComponent<DummyComponent>();
 
             // Act
@@ -93,7 +93,7 @@ namespace OpenNefia.Tests.Core.GameObjects
             // Arrange
             var sim = SimulationFactory();
             var entMan = sim.Resolve<IEntityManager>();
-            var entity = entMan.SpawnEntity(null, sim.ActiveMap!, DefaultCoords);
+            var entity = entMan.SpawnEntity(null, sim.ActiveMap!.AtPos(DefaultCoords));
             var component = entity.AddComponent<DummyComponent>();
 
             // Act
@@ -110,7 +110,7 @@ namespace OpenNefia.Tests.Core.GameObjects
             // Arrange
             var sim = SimulationFactory();
             var entMan = sim.Resolve<IEntityManager>();
-            var entity = entMan.SpawnEntity(null, sim.ActiveMap!, DefaultCoords);
+            var entity = entMan.SpawnEntity(null, sim.ActiveMap!.AtPos(DefaultCoords));
             var component = entity.AddComponent<DummyComponent>();
 
             // Act
@@ -127,7 +127,7 @@ namespace OpenNefia.Tests.Core.GameObjects
             // Arrange
             var sim = SimulationFactory();
             var entMan = sim.Resolve<IEntityManager>();
-            var entity = entMan.SpawnEntity(null, sim.ActiveMap!, DefaultCoords);
+            var entity = entMan.SpawnEntity(null, sim.ActiveMap!.AtPos(DefaultCoords));
             var component = entity.AddComponent<DummyComponent>();
 
             // Act
@@ -145,7 +145,7 @@ namespace OpenNefia.Tests.Core.GameObjects
             // Arrange
             var sim = SimulationFactory();
             var entMan = sim.Resolve<IEntityManager>();
-            var entity = entMan.SpawnEntity(null, sim.ActiveMap!, DefaultCoords);
+            var entity = entMan.SpawnEntity(null, sim.ActiveMap!.AtPos(DefaultCoords));
             var component = entity.AddComponent<DummyComponent>();
 
             // Act
@@ -163,7 +163,7 @@ namespace OpenNefia.Tests.Core.GameObjects
             // Arrange
             var sim = SimulationFactory();
             var entMan = sim.Resolve<IEntityManager>();
-            var entity = entMan.SpawnEntity(null, sim.ActiveMap!, DefaultCoords);
+            var entity = entMan.SpawnEntity(null, sim.ActiveMap!.AtPos(DefaultCoords));
             var component = entity.AddComponent<DummyComponent>();
 
             // Act
@@ -182,7 +182,7 @@ namespace OpenNefia.Tests.Core.GameObjects
                 .RegisterComponents(factory => factory.RegisterClass<DummyComponent>())
                 .InitializeInstance();
 
-            sim.SetActiveMap(new Map(50, 50));
+            sim.CreateMapAndSetActive(50, 50);
 
             return sim;
         }

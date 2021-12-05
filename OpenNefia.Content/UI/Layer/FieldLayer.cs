@@ -19,12 +19,12 @@ namespace OpenNefia.Content.UI.Layer
     public class FieldLayer : BaseUiLayer<UiNoResult>, IFieldLayer
     {
         [Dependency] private readonly IMapRenderer _mapRenderer = default!;
+        [Dependency] private readonly IEntityManager _entityManager = default!;
         [Dependency] private readonly IHudLayer _hud = default!;
         [Dependency] private readonly ICoords _coords = default!;
         [Dependency] private readonly IPlayerQuery _playerQuery = default!;
         [Dependency] private readonly IReplLayer _repl = default!;
         [Dependency] private readonly IGameSessionManager _gameSession = default!;
-        [Dependency] private readonly IMapManager _map = default!;
 
         public static FieldLayer? Instance = null;
 
@@ -132,8 +132,8 @@ namespace OpenNefia.Content.UI.Layer
 
             if (player != null)
             {
-                var oldPosition = player.Spatial.Coords;
-                var newPosition = player.Spatial.Coords.Offset(dir.ToIntVec());
+                var oldPosition = player.Spatial.MapPosition;
+                var newPosition = player.Spatial.MapPosition.Offset(dir.ToIntVec());
                 var ev = new MoveEventArgs(oldPosition, newPosition);
                 player.EntityManager.EventBus.RaiseLocalEvent(player.Uid, ev);
             }
@@ -199,7 +199,7 @@ namespace OpenNefia.Content.UI.Layer
                 var verbSystem = EntitySystem.Get<VerbSystem>();
                 var lookup = EntitySystem.Get<IEntityLookup>();
 
-                foreach (var target in lookup.GetLiveEntitiesAtPos(player.Spatial.Coords))
+                foreach (var target in lookup.GetLiveEntitiesAtPos(player.Spatial.MapPosition))
                 {
                     if (target.Uid != player.Uid)
                     {
@@ -226,7 +226,7 @@ namespace OpenNefia.Content.UI.Layer
                 var verbSystem = EntitySystem.Get<VerbSystem>();
                 var lookup = EntitySystem.Get<IEntityLookup>();
 
-                foreach (var target in lookup.GetLiveEntitiesAtPos(player.Spatial.Coords))
+                foreach (var target in lookup.GetLiveEntitiesAtPos(player.Spatial.MapPosition))
                 {
                     if (target.Uid != player.Uid)
                     {
@@ -344,16 +344,15 @@ namespace OpenNefia.Content.UI.Layer
             {
                 var mouse = Love.Mouse.GetPosition();
                 _coords.ScreenToTile(new Vector2i((int)mouse.X - X, (int)mouse.Y - Y), out var tiledPos);
-                var tileCoords = Map.AtPos(tiledPos);
 
-                if (tileCoords.GetTile()?.Prototype != PlacingTile)
+                if (Map.Tiles[tiledPos.X, tiledPos.Y].ResolvePrototype() != PlacingTile)
                 {
                     if (PlacingTile.IsSolid)
                     {
-                        Sounds.Play(SoundPrototypeOf.Offer1, tileCoords);
+                        Sounds.Play(SoundPrototypeOf.Offer1, Map.AtPos(tiledPos));
                     }
-                    tileCoords.SetTile(PlacingTile.GetStrongID());
-                    tileCoords.MemorizeTile();
+                    Map.SetTile(tiledPos, PlacingTile.GetStrongID());
+                    Map.MemorizeTile(tiledPos);
                 }
             }
 
@@ -377,7 +376,7 @@ namespace OpenNefia.Content.UI.Layer
             GraphicsEx.SetColor(Color.White);
             Love.Graphics.Print(Message, 5, 5);
             Love.Graphics.Print(MouseText, 5, 20);
-            Love.Graphics.Print($"Player: ({player.Spatial.Coords})", 5, 35);
+            Love.Graphics.Print($"Player: ({player.Spatial.MapPosition})", 5, 35);
 
             _hud.Draw();
         }

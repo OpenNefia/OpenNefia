@@ -38,7 +38,7 @@ namespace OpenNefia.Content.GameObjects
             if (_rand.OneIn(10))
             {
                 Console.WriteLine("Suddenly an alien bursts from " + DisplayNameSystem.GetDisplayName(uid) + "'s stomach!");
-                EntityManager.SpawnEntity("Putit", component.Owner.Spatial.Coords.Offset(1, 1));
+                EntityManager.SpawnEntity("Putit", component.Owner.Spatial.MapPosition.Offset(1, 1));
             }
         }
     }

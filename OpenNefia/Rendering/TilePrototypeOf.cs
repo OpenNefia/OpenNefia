@@ -6,6 +6,13 @@ namespace OpenNefia.Core.Rendering
     [PrototypeOfEntries]
     public static class TilePrototypeOf
     {
+        /// <summary>
+        /// This is the tile prototype that should correspond to 
+        /// <see cref="Maps.Tile.Empty" />, i.e. it should be registered
+        /// first so it gets tile index 0.
+        /// </summary>
+        public static TilePrototypeId Empty = new(nameof(Empty));
+
         public static TilePrototypeId WorldGrass = new(nameof(WorldGrass));
         public static TilePrototypeId WorldSmallTrees1 = new(nameof(WorldSmallTrees1));
         public static TilePrototypeId WorldSmallTrees2 = new(nameof(WorldSmallTrees2));

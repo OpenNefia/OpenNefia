@@ -15,7 +15,12 @@ namespace OpenNefia.Core.Maps
             Type = type;
         }
 
-        public TilePrototype Prototype => IoCManager.Resolve<ITileDefinitionManager>()[Type];
+        /// <summary>
+        ///     An empty tile that can be compared against.
+        /// </summary>
+        public static readonly Tile Empty = new(0);
+
+        public TilePrototype ResolvePrototype() => IoCManager.Resolve<ITileDefinitionManager>()[Type];
 
         public override bool Equals(object? obj)
         {
@@ -24,7 +29,7 @@ namespace OpenNefia.Core.Maps
 
         public override int GetHashCode()
         {
-            return HashCode.Combine(Type, Prototype);
+            return Type.GetHashCode();
         }
 
         /// <summary>

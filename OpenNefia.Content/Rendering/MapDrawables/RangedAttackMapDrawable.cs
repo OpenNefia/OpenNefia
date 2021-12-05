@@ -38,13 +38,18 @@ namespace OpenNefia.Content.Rendering
             this._impactSound = sound?.ResolvePrototype();
             this._chipBatch = new TileAtlasBatch(AtlasNames.Chip);
 
-            var maxFrames = PosHelpers.Distance(_startPos.Position, _endPos.Position) / 2 + 1;
+            var maxFrames = 0; 
+            if (_startPos.TryDistance(_endPos, out var dist)) {
+                maxFrames = (int)dist / 2 + 1;
+            }
             this._counter = new FrameCounter(ConfigVars.AnimeWait, (uint)maxFrames);
         }
 
         public override bool CanEnqueue()
         {
-            return GameSession.Player.HasLos(this._startPos) || GameSession.Player.HasLos(this._endPos);
+            return _startPos.MapId == _endPos.MapId 
+                && (Map.HasLos(GameSession.Player.Spatial.WorldPosition, this._startPos.Position) 
+                || Map.HasLos(GameSession.Player.Spatial.WorldPosition, this._endPos.Position));
         }
 
         public override void OnEnqueue()

@@ -6,6 +6,9 @@ namespace OpenNefia.Core.UI.Element
     public abstract class BaseInputUiElement : BaseUiElement, IUiInputElement
     {
         protected IInputHandler InputHandler;
+
+        // TODO: these should be declarative (returns list of keybinds/mousebinds)
+        // instead of mutable.
         public KeybindWrapper Keybinds { get; }
         public MouseBindWrapper MouseButtons { get; }
 

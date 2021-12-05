@@ -44,7 +44,7 @@ namespace OpenNefia.Core.Rendering.TileDrawLayers
             _batch.UpdateBatches();
         }
 
-        public override void RedrawDirtyTiles(HashSet<MapCoordinates> dirtyTilesThisTurn)
+        public override void RedrawDirtyTiles(HashSet<Vector2i> dirtyTilesThisTurn)
         {
             _batch.SetAllTileShadows(_map.ShadowMap._ShadowTiles, _map.ShadowMap._ShadowBounds);
             _batch.UpdateBatches();

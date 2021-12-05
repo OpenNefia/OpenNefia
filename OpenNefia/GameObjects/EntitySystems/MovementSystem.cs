@@ -1,28 +1,31 @@
-﻿using OpenNefia.Core.Maps;
+﻿using OpenNefia.Core.IoC;
+using OpenNefia.Core.Maps;
 using OpenNefia.Core.Maths;
 
 namespace OpenNefia.Core.GameObjects
 {
     public class MovementSystem : EntitySystem
     {
+        [Dependency] private readonly IMapManager _mapManager = default!;
+
         public override void Initialize()
         {
             SubscribeLocalEvent<MoveableComponent, MoveEventArgs>(HandleMove, nameof(HandleMove));
-            SubscribeLocalEvent<MoveableComponent, PositionChangedEvent>(HandlePositionChanged, nameof(HandlePositionChanged));
+            SubscribeLocalEvent<MoveableComponent, EntPositionChangedEvent>(HandlePositionChanged, nameof(HandlePositionChanged));
         }
 
-        private void HandlePositionChanged(EntityUid uid, MoveableComponent component, ref PositionChangedEvent args)
+        private void HandlePositionChanged(EntityUid uid, MoveableComponent component, ref EntPositionChangedEvent args)
         {
             SpatialComponent? spatial = null;
 
             if (!Resolve(uid, ref spatial))
                 return;
 
-            if (spatial.Map == null)
+            if (!_mapManager.TryGetMap(spatial.MapID, out var map))
                 return;
 
-            spatial.Map.RefreshTile(args.OldPosition.Position);
-            spatial.Map.RefreshTile(args.NewPosition.Position);
+            map.RefreshTile(args.OldPosition.Position);
+            map.RefreshTile(args.NewPosition.Position);
         }
 
         private void HandleMove(EntityUid uid, MoveableComponent moveable, MoveEventArgs args)
@@ -52,32 +55,21 @@ namespace OpenNefia.Core.GameObjects
                 return;
             }
 
-            if (args.OldPosition.Map != args.NewPosition.Map || !args.NewPosition.CanAccess())
+            if (!_mapManager.TryGetMap(args.NewPosition.MapId, out var map) 
+                || !map.CanAccess(args.NewPosition.Position))
             {
                 args.Handled = true;
                 args.TurnResult = TurnResult.Failed;
                 return;
             }
 
-            spatial.Pos = args.NewPosition.Position;
+            spatial.WorldPosition = args.NewPosition.Position;
 
             var evAfter = new AfterMoveEventArgs(args.OldPosition, args.NewPosition);
             RaiseLocalEvent(uid, evAfter);
 
             args.Handled = true;
             args.TurnResult = TurnResult.Succeeded;
-        }
-    }
-
-    public struct PositionChangedEvent
-    {
-        public readonly MapCoordinates OldPosition;
-        public readonly MapCoordinates NewPosition;
-
-        public PositionChangedEvent(MapCoordinates oldPosition, MapCoordinates newPosition)
-        {
-            OldPosition = oldPosition;
-            NewPosition = newPosition;
         }
     }
 

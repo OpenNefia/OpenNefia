@@ -5,6 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using JetBrains.Annotations;
 using OpenNefia.Core.IoC;
+using OpenNefia.Core.IoC.Exceptions;
 using OpenNefia.Core.Reflection;
 
 namespace OpenNefia.Core.GameObjects
@@ -108,6 +109,19 @@ namespace OpenNefia.Core.GameObjects
         public static bool TryGet<T>([NotNullWhen(true)] out T? entitySystem) where T : IEntitySystem
         {
             return IoCManager.Resolve<IEntitySystemManager>().TryGetEntitySystem(out entitySystem);
+        }
+
+        /// <summary>
+        ///     Injects dependencies into all fields with <see cref="DependencyAttribute"/> on the provided object,
+        ///     using the dependency collection of the <see cref="IEntitySystemManager"/>.
+        /// </summary>
+        /// <param name="obj">The object to inject into.</param>
+        /// <exception cref="UnregisteredDependencyException">
+        ///     Thrown if a dependency field on the object is not registered.
+        /// </exception>
+        public static T InjectDependencies<T>(T obj) where T : notnull
+        {
+            return IoCManager.Resolve<IEntitySystemManager>().InjectDependencies(obj);
         }
 
         #endregion

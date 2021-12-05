@@ -18,7 +18,7 @@ namespace OpenNefia.Core.Maps
 
     public sealed class Map : IMap
     {
-        public MapId Id { get; set; }
+        public MapId Id { get; internal set; }
 
         public int Width { get; }
         public int Height { get; }
@@ -26,13 +26,15 @@ namespace OpenNefia.Core.Maps
 
         public Tile[,] Tiles { get; }
         public Tile[,] TileMemory { get; }
-        public TileFlag[,] TileFlags { get; }
+        private TileFlag[,] _tileFlagsTiles { get; }
+        private TileFlag[,] _tileFlagsEntities { get; }
+        private TileFlag[,] _tileFlags { get; }
         internal int[,] _InSight;
         internal int _LastSightId;
         public ShadowMap ShadowMap { get; }
         public MapObjectMemoryStore MapObjectMemory { get; }
 
-        public HashSet<MapCoordinates> DirtyTilesThisTurn { get; } = new();
+        public HashSet<Vector2i> DirtyTilesThisTurn { get; } = new();
         public bool RedrawAllThisTurn { get; set; }
         public bool NeedsRedraw { get => DirtyTilesThisTurn.Count > 0 || RedrawAllThisTurn; }
 
@@ -45,10 +47,12 @@ namespace OpenNefia.Core.Maps
             Height = height;
             Tiles = new Tile[width, height];
             TileMemory = new Tile[width, height];
-            TileFlags = new TileFlag[width, height];
+            _tileFlagsTiles = new TileFlag[width, height];
+            _tileFlagsEntities = new TileFlag[width, height];
+            _tileFlags = new TileFlag[width, height];
             MapObjectMemory = new MapObjectMemoryStore(this);
             _InSight = new int[width, height];
-            ShadowMap = new ShadowMap(this);
+            ShadowMap = new ShadowMap(this, IoCManager.Resolve<ICoords>());
         }
 
         public void Clear(PrototypeId<TilePrototype> tile)
@@ -107,7 +111,7 @@ namespace OpenNefia.Core.Maps
                 return;
 
             TileMemory[pos.X, pos.Y] = new Tile(tileId.ResolvePrototype().TileIndex);
-            DirtyTilesThisTurn.Add(this.AtPos(pos));
+            DirtyTilesThisTurn.Add(pos);
         }
 
         public void MemorizeTile(Vector2i pos)
@@ -115,10 +119,10 @@ namespace OpenNefia.Core.Maps
             if (!IsInBounds(pos))
                 return;
 
-            Tiles[pos.X, pos.Y] = TileMemory[pos.X, pos.Y];
+            TileMemory[pos.X, pos.Y] = Tiles[pos.X, pos.Y];
+            DirtyTilesThisTurn.Add(pos);
             MapObjectMemory.RevealObjects(pos);
             _InSight[pos.X, pos.Y] = _LastSightId;
-            DirtyTilesThisTurn.Add(AtPos(pos));
         }
 
         public void RefreshTile(Vector2i pos)
@@ -130,13 +134,14 @@ namespace OpenNefia.Core.Maps
 
             // TODO
             var tileDefinitions = IoCManager.Resolve<ITileDefinitionManager>();
+            var lookup = EntitySystem.Get<IEntityLookup>();
             
             var tile = Tiles[pos.X, pos.Y];
             var tileProto = tileDefinitions[tile.Type];
             var isSolid = tileProto.IsSolid;
             var isOpaque = tileProto.IsOpaque;
 
-            foreach (var obj in AtPos(pos).GetLiveEntitiesAtPos())
+            foreach (var obj in lookup.GetLiveEntitiesAtPos(AtPos(pos)))
             {
                 var spatial = obj.Spatial;
                 isSolid |= spatial.IsSolid;
@@ -148,8 +153,32 @@ namespace OpenNefia.Core.Maps
             if (isOpaque)
                 flags |= TileFlag.IsOpaque;
 
-            this.TileFlags[pos.X, pos.Y] = flags;
-            this.DirtyTilesThisTurn.Add(AtPos(pos));
+            _tileFlagsTiles[pos.X, pos.Y] = flags;
+            _tileFlags[pos.X, pos.Y] = flags | _tileFlagsEntities[pos.X, pos.Y];
+            this._tileFlags[pos.X, pos.Y] = flags;
+            this.DirtyTilesThisTurn.Add(pos);
+        }
+
+        public void RefreshTileEntities(Vector2i pos, IEnumerable<Entity> entities)
+        {
+            var isSolid = false;
+            var isOpaque = false;
+            var flags = TileFlag.None;
+
+            foreach (var obj in entities)
+            {
+                var spatial = obj.Spatial;
+                isSolid |= spatial.IsSolid;
+                isOpaque |= spatial.IsOpaque;
+            }
+
+            if (isSolid)
+                flags |= TileFlag.IsSolid;
+            if (isOpaque)
+                flags |= TileFlag.IsOpaque;
+
+            _tileFlagsEntities[pos.X, pos.Y] = flags;
+            _tileFlags[pos.X, pos.Y] = flags | _tileFlagsTiles[pos.X, pos.Y];
         }
 
         public IEnumerable<MapCoordinates> AllTiles
@@ -160,20 +189,36 @@ namespace OpenNefia.Core.Maps
                 {
                     for (var y = 0; y < Height; y++)
                     {
-                        yield return new MapCoordinates(this, x, y);
+                        yield return new MapCoordinates(x, y, Id);
                     }
                 }
             }
         }
 
+        public Tile GetTile(Vector2i pos)
+        {
+            if (!IsInBounds(pos))
+                return Tile.Empty;
+
+            return Tiles[pos.X, pos.Y];
+        }
+
+        public Tile GetTileMemory(Vector2i pos)
+        {
+            if (!IsInBounds(pos))
+                return Tile.Empty;
+
+            return TileMemory[pos.X, pos.Y];
+        }
+
         public MapCoordinates AtPos(Vector2i pos)
         {
-            return new MapCoordinates(this, pos);
+            return new MapCoordinates(pos, this.Id);
         }
 
         public MapCoordinates AtPos(int x, int y)
         {
-            return new MapCoordinates(this, x, y);
+            return new MapCoordinates(x, y, this.Id);
         }
 
         public void RefreshVisibility()
@@ -196,30 +241,39 @@ namespace OpenNefia.Core.Maps
             return _InSight[pos.X, pos.Y] == _LastSightId;
         }
 
+        public bool IsMemorized(Vector2i pos)
+        {
+            if (!IsInBounds(pos))
+                return false;
+
+            return TileMemory[pos.X, pos.Y] == Tiles[pos.X, pos.Y];
+        }
+
         public bool CanAccess(Vector2i pos)
         {
-            return IsInBounds(pos) && (TileFlags[pos.X, pos.Y] & TileFlag.IsSolid) == TileFlag.None;
+            return IsInBounds(pos) && (_tileFlags[pos.X, pos.Y] & TileFlag.IsSolid) == TileFlag.None;
         }
 
-        public void AddEntity(Entity entity)
+        public bool CanSeeThrough(Vector2i pos)
         {
-            if (entity.Spatial.Map != null)
-            {
-                throw new ArgumentException($"Entity is already in map {entity.Spatial.Map.Id}", nameof(entity));
-            }
-            entity.Spatial.ChangeMap(this);
-            _entities.Add(entity);
+            return IsInBounds(pos) && (_tileFlags[pos.X, pos.Y] & TileFlag.IsOpaque) == TileFlag.None;
         }
 
-        public void RemoveEntity(Entity entity)
+        public bool HasLos(Vector2i from, Vector2i to)
         {
-            if (entity.Spatial.Map != this)
+            if (!IsInBounds(from) || !IsInBounds(to))
+                return false;
+
+            foreach (var pos in PosHelpers.EnumerateLine(from, to))
             {
-                throw new ArgumentException($"Entity is in map {entity.Spatial.Map?.Id}", nameof(entity));
+                // In Elona, the final tile is visible even if it is solid.
+                if (!CanSeeThrough(pos) && pos != to)
+                {
+                    return false;
+                }
             }
-            entity.Spatial.ChangeMap(null);
-            _entities.Remove(entity);
-            RefreshTile(entity.Spatial.Pos);
+
+            return true;
         }
     }
 }

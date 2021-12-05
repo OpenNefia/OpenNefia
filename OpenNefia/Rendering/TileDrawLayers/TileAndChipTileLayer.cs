@@ -1,5 +1,6 @@
 ﻿using OpenNefia.Core.IoC;
 using OpenNefia.Core.Maps;
+using OpenNefia.Core.Maths;
 
 namespace OpenNefia.Core.Rendering.TileDrawLayers
 {
@@ -26,6 +27,7 @@ namespace OpenNefia.Core.Rendering.TileDrawLayers
             _map = map;
 
             _tileAndChipBatch.SetMapSize(map.Size);
+            _wallShadows.SetMap(map);
         }
 
         public override void SetSize(int width, int height)
@@ -42,47 +44,47 @@ namespace OpenNefia.Core.Rendering.TileDrawLayers
             this._wallShadows.SetPosition(x, y);
         }
 
-        private string ModifyWalls(MapCoordinates coords, TilePrototype tile)
+        private string ModifyWalls(Vector2i pos, TilePrototype tile)
         {
             // If the tile is a wall, convert the displayed tile to that of
             // the bottom wall if appropriate.
             var tileIndex = tile.Image.AtlasIndex;
 
-            var oneDown = coords.Offset(0, 1);
-            var oneTileDown = oneDown.GetTile();
+            var oneDown = pos + (0, 1);
+            var oneTileDown = _map.GetTile(oneDown);
 
-            var oneUp = coords.Offset(0, -1);
-            var oneTileUp = oneUp.GetTile();
+            var oneUp = pos + (0, -1);
+            var oneTileUp = _map.GetTile(oneUp);
 
             if (tile.WallImage != null)
             {
-                if (oneTileDown != null && oneTileDown.Value.Prototype.WallImage == null && oneDown.IsMemorized())
+                if (oneTileDown != Tile.Empty && oneTileDown.ResolvePrototype().WallImage == null && _map.IsMemorized(oneDown))
                 {
                     tileIndex = tile.WallImage.AtlasIndex;
                 }
 
-                if (oneTileUp != null && oneTileUp.Value.Prototype.WallImage != null && oneDown.IsMemorized())
+                if (oneTileUp != Tile.Empty && oneTileUp.ResolvePrototype().WallImage != null && _map.IsMemorized(oneDown))
                 {
-                    this._tileAndChipBatch.SetTile(oneUp.Position, oneTileUp.Value.Prototype.Image.AtlasIndex);
+                    this._tileAndChipBatch.SetTile(oneUp, oneTileUp.ResolvePrototype().Image.AtlasIndex);
                 }
             }
-            else if (coords.Y > 0)
+            else if (pos.Y > 0)
             {
-                if (oneTileUp != null && oneTileUp.Value.Prototype.WallImage != null && oneDown.IsMemorized())
+                if (oneTileUp != Tile.Empty && oneTileUp.ResolvePrototype().WallImage != null && _map.IsMemorized(oneUp))
                 {
-                    this._tileAndChipBatch.SetTile(oneUp.Position, oneTileUp.Value.Prototype.WallImage.AtlasIndex);
+                    this._tileAndChipBatch.SetTile(oneUp, oneTileUp.ResolvePrototype().WallImage!.AtlasIndex);
                 }
             }
 
             return tileIndex;
         }
 
-        private void SetMapTile(MapCoordinates coords, TilePrototype tile)
+        private void SetMapTile(Vector2i pos, TilePrototype tile)
         {
-            var tileIndex = ModifyWalls(coords, tile);
+            var tileIndex = ModifyWalls(pos, tile);
 
-            this._wallShadows.SetTile(coords, tile);
-            this._tileAndChipBatch.SetTile(coords.Position, tile.Image.AtlasIndex);
+            this._wallShadows.SetTile(pos, tile);
+            this._tileAndChipBatch.SetTile(pos, tile.Image.AtlasIndex);
         }
 
         public void RedrawMapObjects()
@@ -101,7 +103,7 @@ namespace OpenNefia.Core.Rendering.TileDrawLayers
 
             foreach (var coords in _map.AllTiles)
             {
-                SetMapTile(coords, coords.GetTileMemory()!.Value.Prototype);
+                SetMapTile(coords.Position, _map.TileMemory[coords.X, coords.Y].ResolvePrototype());
             }
 
             RedrawMapObjects();
@@ -109,11 +111,11 @@ namespace OpenNefia.Core.Rendering.TileDrawLayers
             this._tileAndChipBatch.UpdateBatches();
         }
 
-        public override void RedrawDirtyTiles(HashSet<MapCoordinates> dirtyTilesThisTurn)
+        public override void RedrawDirtyTiles(HashSet<Vector2i> dirtyTilesThisTurn)
         {
-            foreach (var coords in dirtyTilesThisTurn)
+            foreach (var pos in dirtyTilesThisTurn)
             {
-                SetMapTile(coords, coords.GetTileMemory()!.Value.Prototype);
+                SetMapTile(pos, _map.TileMemory[pos.X, pos.Y].ResolvePrototype());
             }
 
             RedrawMapObjects();

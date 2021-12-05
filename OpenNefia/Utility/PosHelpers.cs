@@ -59,10 +59,10 @@ namespace OpenNefia.Core.Utility
 
         public static IEnumerable<MapCoordinates> EnumerateLine(MapCoordinates a, MapCoordinates b)
         {
-            if (a.Map != b.Map)
+            if (a.MapId != b.MapId)
                 return Enumerable.Empty<MapCoordinates>();
 
-            return EnumerateLine(a.Position, b.Position).Select(pos => new MapCoordinates(a.Map, pos));
+            return EnumerateLine(a.Position, b.Position).Select(pos => new MapCoordinates(pos, a.MapId));
         }
 
         public static IEnumerable<MapCoordinates> GetSurroundingCoords(MapCoordinates coords)
@@ -73,7 +73,7 @@ namespace OpenNefia.Core.Utility
                 {
                     if (i != 0 || j != 0)
                     {
-                        yield return new MapCoordinates(coords.Map, coords.Position + new Vector2i(i, j));
+                        yield return coords.Offset(i, j);
                     }
                 }
             }
