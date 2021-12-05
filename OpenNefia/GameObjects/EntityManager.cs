@@ -13,7 +13,7 @@ namespace OpenNefia.Core.GameObjects
     public delegate void EntityUidQueryCallback(EntityUid uid);
 
     /// <inheritdoc />
-    public sealed partial class EntityManager : IEntityManager
+    public partial class EntityManager : IEntityManager
     {
         #region Dependencies
 
@@ -266,7 +266,7 @@ namespace OpenNefia.Core.GameObjects
         /// <summary>
         ///     Allocates an entity and stores it but does not load components or do initialization.
         /// </summary>
-        private Entity AllocEntity(string? prototypeName, EntityUid? uid = null)
+        private protected Entity AllocEntity(string? prototypeName, EntityUid? uid = null)
         {
             EntityPrototype? prototype = null;
             if (!string.IsNullOrWhiteSpace(prototypeName))
@@ -285,7 +285,7 @@ namespace OpenNefia.Core.GameObjects
         /// <summary>
         ///     Allocates an entity and stores it but does not load components or do initialization.
         /// </summary>
-        private Entity AllocEntity(EntityUid? uid = null)
+        private protected Entity AllocEntity(EntityUid? uid = null)
         {
             if (uid == null)
             {
@@ -322,7 +322,7 @@ namespace OpenNefia.Core.GameObjects
         /// <summary>
         ///     Allocates an entity and loads components but does not do initialization.
         /// </summary>
-        private Entity CreateEntity(string? prototypeName, EntityUid? uid = null)
+        private protected Entity CreateEntity(string? prototypeName, EntityUid? uid = null)
         {
             if (prototypeName == null)
                 return AllocEntity(uid);
@@ -340,6 +340,11 @@ namespace OpenNefia.Core.GameObjects
                 DeleteEntity(entity);
                 throw new EntityCreationException($"Exception inside CreateEntity with prototype {prototypeName}", e);
             }
+        }
+
+        private protected void LoadEntity(Entity entity, IEntityLoadContext? context)
+        {
+            EntityPrototype.LoadEntity(entity.Prototype, entity, ComponentFactory, context);
         }
 
         private void InitializeAndStartEntity(Entity entity, MapId mapId)
@@ -360,13 +365,13 @@ namespace OpenNefia.Core.GameObjects
             }
         }
 
-        private void InitializeEntity(Entity entity)
+        private protected void InitializeEntity(Entity entity)
         {
             InitializeComponents(entity.Uid);
             EntityInitialized?.Invoke(this, entity.Uid);
         }
 
-        private void StartEntity(Entity entity)
+        private protected void StartEntity(Entity entity)
         {
             StartComponents(entity.Uid);
             EntityStarted?.Invoke(this, entity.Uid);

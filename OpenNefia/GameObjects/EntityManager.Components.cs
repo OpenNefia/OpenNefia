@@ -12,7 +12,7 @@ using DependencyAttribute = OpenNefia.Core.IoC.DependencyAttribute;
 namespace OpenNefia.Core.GameObjects
 {
     /// <inheritdoc />
-    public sealed partial class EntityManager
+    public partial class EntityManager
     {
         [Dependency] private readonly IComponentFactory _componentFactory = default!;
         [Dependency] private readonly IComponentDependencyManager _componentDependencyManager = default!;

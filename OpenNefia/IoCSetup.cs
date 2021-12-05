@@ -43,7 +43,8 @@ namespace OpenNefia
             IoCManager.Register<IModLoader, ModLoader>();
             IoCManager.Register<IModLoaderInternal, ModLoader>();
             IoCManager.Register<ITileDefinitionManager, TileDefinitionManager>();
-            IoCManager.Register<IEntityManager, EntityManager>();
+            IoCManager.Register<IEntityManager, EntityManagerInternal>();
+            IoCManager.Register<IEntityManagerInternal, EntityManagerInternal>();
             IoCManager.Register<ISerializationManager, SerializationManager>();
             IoCManager.Register<IAssetManager, AssetManager>();
             IoCManager.Register<ITileAtlasManager, TileAtlasManager>();

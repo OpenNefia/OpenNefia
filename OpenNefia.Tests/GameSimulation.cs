@@ -173,7 +173,8 @@ namespace OpenNefia.Tests
             container.RegisterInstance<IResourceManager>(new Mock<IResourceManager>().Object); // no disk access for tests
 
             //Tier 2: Simulation
-            container.Register<IEntityManager, EntityManager>();
+            container.Register<IEntityManager, EntityManagerInternal>();
+            container.Register<IEntityManagerInternal, EntityManagerInternal>();
             container.Register<IMapManager, MapManager>();
             container.Register<ISerializationManager, SerializationManager>();
             container.Register<IPrototypeManager, PrototypeManager>();

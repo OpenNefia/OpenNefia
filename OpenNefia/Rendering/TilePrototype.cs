@@ -30,7 +30,7 @@ namespace OpenNefia.Core.Rendering
         public string ID { get; } = default!;
 
         /// <inheritdoc />
-        public ushort TileIndex { get; private set; } = 0;
+        public int TileIndex { get; private set; } = 0;
 
         [DataField(required: true)]
         public TileSpecifier Image = null!;
@@ -54,7 +54,7 @@ namespace OpenNefia.Core.Rendering
         public TileKind Kind2 = TileKind.None;
 
         /// <inheritdoc />
-        public void AssignTileIndex(ushort id)
+        public void AssignTileIndex(int id)
         {
             TileIndex = id;
         }

@@ -10,12 +10,12 @@
         /// <summary>
         ///     The numeric tile ID used to refer to this tile inside the map datastructure.
         /// </summary>
-        ushort TileIndex { get; }
+        int TileIndex { get; }
 
         /// <summary>
         ///     Assign a new value to <see cref="TileId"/>, used when registering the tile definition.
         /// </summary>
         /// <param name="id">The new tile ID for this tile definition.</param>
-        void AssignTileIndex(ushort id);
+        void AssignTileIndex(int id);
     }
 }

@@ -10,30 +10,63 @@ namespace OpenNefia.Core.Maps
 
         public IMap? ActiveMap { get; private set; } = default!;
 
-        private MapId _currentMapId = MapId.Nullspace;
+        private MapId _highestMapID = MapId.Nullspace;
 
-        public IMap LoadMap(MapId id)
+        public bool MapExists(MapId mapId)
         {
-            if (CachedMaps.TryGetValue(id, out IMap? map))
+            return CachedMaps.ContainsKey(mapId);
+        }
+
+        public MapId CreateMap(MapId? mapId, int width, int height)
+        {
+            MapId actualID;
+            if (mapId != null)
+            {
+                actualID = mapId.Value;
+            }
+            else
+            {
+                actualID = new MapId(_highestMapID.Value + 1);
+            }
+
+            if (MapExists(actualID))
+            {
+                throw new InvalidOperationException($"A map with ID {actualID} already exists");
+            }
+
+            if (_highestMapID.Value < actualID.Value)
+            {
+                _highestMapID = actualID;
+            }
+
+            var map = new Map(width, height);
+            this.CachedMaps[_highestMapID] = map;
+            map.Id = actualID;
+
+            return actualID;
+        }
+
+        public IMap LoadMap(MapId mapId)
+        {
+            if (CachedMaps.TryGetValue(mapId, out IMap? map))
                 return map;
 
             map = new Map(100, 100);
-            CachedMaps.Add(id, map);
+            CachedMaps.Add(mapId, map);
             return map;
         }
 
-        public void UnloadMap(MapId id)
+        public void UnloadMap(MapId mapId)
         {
-            CachedMaps.Remove(id);
+            CachedMaps.Remove(mapId);
 
-            if (id == _currentMapId)
+            if (mapId == ActiveMap?.Id)
             {
-                _currentMapId = MapId.Nullspace;
                 ActiveMap = null;
             }
         }
 
-        public void SaveMap(MapId id)
+        public void SaveMap(MapId mapId)
         {
 
         }
@@ -41,31 +74,38 @@ namespace OpenNefia.Core.Maps
         public MapId RegisterMap(IMap map)
         {
             DebugTools.Assert(map.Id == MapId.Nullspace, $"Map {map.Id} already registered");
-            _currentMapId = new MapId(_currentMapId.Value + 1);
-            map.Id = _currentMapId;
-            this.CachedMaps[_currentMapId] = map;
+            _highestMapID = new MapId(_highestMapID.Value + 1);
+            map.Id = _highestMapID;
+            this.CachedMaps[_highestMapID] = map;
             return map.Id;
         }
 
-        public IMap GetMap(MapId id)
+        public IMap GetMap(MapId mapId)
         {
-            return CachedMaps[id];
+            return CachedMaps[mapId];
         }
 
-        public IMap? GetMapOrNull(MapId id)
+        public IMap? GetMapOrNull(MapId mapId)
         {
-            return CachedMaps.GetValueOrDefault(id);
+            return CachedMaps.GetValueOrDefault(mapId);
         }
 
-        public void ChangeActiveMap(MapId id)
+        public void ChangeActiveMap(MapId mapId)
         {
-            this.ActiveMap = CachedMaps[id];
-            _currentMapId = id;
+            this.ActiveMap = CachedMaps[mapId];
+            _highestMapID = mapId;
         }
 
         public bool IsMapInitialized(MapId mapId)
         {
             return this.CachedMaps.ContainsKey(mapId);
+        }
+
+        public IEnumerable<Entity> GetAllEntities(MapId mapId)
+        {
+            return GetMapOrNull(mapId)
+                ?.Entities
+                ?? Enumerable.Empty<Entity>();
         }
 
         /// <inheritdoc />

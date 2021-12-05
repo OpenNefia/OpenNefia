@@ -12,10 +12,14 @@ namespace OpenNefia.Core.Maps
 
         bool IsMapInitialized(MapId mapId);
 
+        bool MapExists(MapId mapId);
+        MapId CreateMap(MapId? mapId, int width, int height);
         IMap LoadMap(MapId id);
         void SaveMap(MapId id);
         IMap GetMap(MapId id);
         void UnloadMap(MapId id);
+
+        IEnumerable<Entity> GetAllEntities(MapId id);
 
         /// <summary>
         /// Retrives the entities in the given coordinates that can be targeted.
