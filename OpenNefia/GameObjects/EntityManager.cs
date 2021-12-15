@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using OpenNefia.Core.IoC;
 using OpenNefia.Core.Maps;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.Prototypes;
@@ -348,6 +349,7 @@ namespace OpenNefia.Core.GameObjects
 
             // Create the MetaDataComponent and set it directly on the Entity to avoid a stack overflow in DEBUG.
             var metadata = new MetaDataComponent() { Owner = entity };
+            metadata = IoCManager.InjectDependencies(metadata);
             entity.MetaData = metadata;
 
             // add the required MetaDataComponent directly.
