@@ -31,6 +31,11 @@ namespace OpenNefia.Core.Prototypes
         [DataField]
         public bool Abstract { get; private set; }
 
+        /// True if this entity will be saved by the map loader.
+        /// </summary>
+        [DataField]
+        public bool MapSavable { get; protected set; } = true;
+
         /// <summary>
         /// The prototype we inherit from.
         /// </summary>

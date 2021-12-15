@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using OpenNefia.Core.Maps;
 using OpenNefia.Core.Maths;
+using OpenNefia.Core.Prototypes;
 
 namespace OpenNefia.Core.GameObjects
 {
@@ -26,21 +27,21 @@ namespace OpenNefia.Core.GameObjects
         event EventHandler<EntityUid>? EntityStarted;
         event EventHandler<EntityUid>? EntityDeleted;
 
-        Entity CreateEntityUninitialized(string? prototypeName, EntityUid? euid);
+        Entity CreateEntityUninitialized(PrototypeId<EntityPrototype>? prototypeId, EntityUid? euid);
 
-        Entity CreateEntityUninitialized(string? prototypeName);
+        Entity CreateEntityUninitialized(PrototypeId<EntityPrototype>? prototypeId);
 
-        Entity CreateEntityUninitialized(string? prototypeName, EntityCoordinates coordinates);
+        Entity CreateEntityUninitialized(PrototypeId<EntityPrototype>? prototypeId, EntityCoordinates coordinates);
 
-        Entity CreateEntityUninitialized(string? prototypeName, MapCoordinates coordinates);
+        Entity CreateEntityUninitialized(PrototypeId<EntityPrototype>? prototypeId, MapCoordinates coordinates);
 
         /// <summary>
         /// Spawns an initialized entity at the default location, using the given prototype.
         /// </summary>
-        /// <param name="protoName">The prototype to clone. If this is null, the entity won't have a prototype.</param>
+        /// <param name="protoId">The prototype to clone. If this is null, the entity won't have a prototype.</param>
         /// <param name="coordinates"></param>
         /// <returns>Newly created entity.</returns>
-        Entity SpawnEntity(string? protoName, EntityCoordinates coordinates);
+        Entity SpawnEntity(PrototypeId<EntityPrototype>? protoId, EntityCoordinates coordinates);
 
         /// <summary>
         /// Spawns an entity at a specific position
@@ -48,7 +49,7 @@ namespace OpenNefia.Core.GameObjects
         /// <param name="protoName"></param>
         /// <param name="coordinates"></param>
         /// <returns></returns>
-        Entity SpawnEntity(string? protoName, MapCoordinates coordinates);
+        Entity SpawnEntity(PrototypeId<EntityPrototype>? protoId, MapCoordinates coordinates);
 
         /// <summary>
         /// Returns an entity by id

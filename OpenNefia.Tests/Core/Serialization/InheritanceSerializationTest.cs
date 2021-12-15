@@ -70,18 +70,18 @@ namespace OpenNefia.Tests.Core.Serialization
 
             var coordinates = map.AtPos(Vector2i.Zero);
 
-            var baseEntity = entityManager.SpawnEntity(BaseEntityId, coordinates);
+            var baseEntity = entityManager.SpawnEntity(new(BaseEntityId), coordinates);
 
             Assert.That(baseEntity.TryGetComponent(out BaseComponent? baseComponent));
             Assert.That(baseComponent!.BaseField, Is.EqualTo(BaseComponentFieldValue));
 
-            var inheritorEntity = entityManager.SpawnEntity(InheritorEntityId, coordinates);
+            var inheritorEntity = entityManager.SpawnEntity(new(InheritorEntityId), coordinates);
 
             Assert.That(inheritorEntity.TryGetComponent(out InheritorComponent? inheritorComponent));
             Assert.That(inheritorComponent!.BaseField, Is.EqualTo(BaseComponentFieldValue));
             Assert.That(inheritorComponent!.InheritorField, Is.EqualTo(InheritorComponentFieldValue));
 
-            var finalEntity = entityManager.SpawnEntity(FinalEntityId, coordinates);
+            var finalEntity = entityManager.SpawnEntity(new(FinalEntityId), coordinates);
 
             Assert.That(finalEntity.TryGetComponent(out FinalComponent? finalComponent));
             Assert.That(finalComponent!.BaseField, Is.EqualTo(BaseComponentFieldValue));

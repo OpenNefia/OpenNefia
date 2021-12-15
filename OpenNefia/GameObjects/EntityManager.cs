@@ -105,21 +105,21 @@ namespace OpenNefia.Core.GameObjects
 
         #region Entity Management
 
-        public Entity CreateEntityUninitialized(string? prototypeName, EntityUid? euid)
+        public Entity CreateEntityUninitialized(PrototypeId<EntityPrototype>? prototypeId, EntityUid? euid)
         {
-            return CreateEntity(prototypeName, euid);
+            return CreateEntity(prototypeId, euid);
         }
 
         /// <inheritdoc />
-        public Entity CreateEntityUninitialized(string? prototypeName)
+        public Entity CreateEntityUninitialized(PrototypeId<EntityPrototype>? prototypeId)
         {
-            return CreateEntity(prototypeName);
+            return CreateEntity(prototypeId);
         }
 
         /// <inheritdoc />
-        public virtual Entity CreateEntityUninitialized(string? prototypeName, EntityCoordinates coordinates)
+        public virtual Entity CreateEntityUninitialized(PrototypeId<EntityPrototype>? prototypeId, EntityCoordinates coordinates)
         {
-            var newEntity = CreateEntity(prototypeName);
+            var newEntity = CreateEntity(prototypeId);
 
             if (coordinates.IsValid(this))
             {
@@ -130,29 +130,29 @@ namespace OpenNefia.Core.GameObjects
         }
 
         /// <inheritdoc />
-        public virtual Entity CreateEntityUninitialized(string? prototypeName, MapCoordinates coordinates)
+        public virtual Entity CreateEntityUninitialized(PrototypeId<EntityPrototype>? prototypeId, MapCoordinates coordinates)
         {
-            var newEntity = CreateEntity(prototypeName);
+            var newEntity = CreateEntity(prototypeId);
             newEntity.Spatial.AttachParent(_mapManager.GetMapEntity(coordinates.MapId));
             newEntity.Spatial.WorldPosition = coordinates.Position;
             return newEntity;
         }
 
         /// <inheritdoc />
-        public virtual Entity SpawnEntity(string? protoName, EntityCoordinates coordinates)
+        public virtual Entity SpawnEntity(PrototypeId<EntityPrototype>? protoId, EntityCoordinates coordinates)
         {
             if (!coordinates.IsValid(this))
-                throw new InvalidOperationException($"Tried to spawn entity {protoName} on invalid coordinates {coordinates}.");
+                throw new InvalidOperationException($"Tried to spawn entity {protoId} on invalid coordinates {coordinates}.");
 
-            var entity = CreateEntityUninitialized(protoName, coordinates);
+            var entity = CreateEntityUninitialized(protoId, coordinates);
             InitializeAndStartEntity(entity, coordinates.GetMapId(this));
             return entity;
         }
 
         /// <inheritdoc />
-        public virtual Entity SpawnEntity(string? protoName, MapCoordinates coordinates)
+        public virtual Entity SpawnEntity(PrototypeId<EntityPrototype>? protoId, MapCoordinates coordinates)
         {
-            var entity = CreateEntityUninitialized(protoName, coordinates);
+            var entity = CreateEntityUninitialized(protoId, coordinates);
             InitializeAndStartEntity(entity, coordinates.MapId);
             return entity;
         }
@@ -308,13 +308,13 @@ namespace OpenNefia.Core.GameObjects
         /// <summary>
         ///     Allocates an entity and stores it but does not load components or do initialization.
         /// </summary>
-        private protected Entity AllocEntity(string? prototypeName, EntityUid? uid = null)
+        private protected Entity AllocEntity(PrototypeId<EntityPrototype>? prototypeId, EntityUid? uid = null)
         {
             EntityPrototype? prototype = null;
-            if (!string.IsNullOrWhiteSpace(prototypeName))
+            if ((prototypeId?.IsValid() ?? false))
             {
                 // If the prototype doesn't exist then we throw BEFORE we allocate the entity.
-                prototype = PrototypeManager.Index<EntityPrototype>(new(prototypeName));
+                prototype = PrototypeManager.Index(prototypeId.Value);
             }
 
             var entity = AllocEntity(uid);
@@ -364,7 +364,7 @@ namespace OpenNefia.Core.GameObjects
         /// <summary>
         ///     Allocates an entity and loads components but does not do initialization.
         /// </summary>
-        private protected Entity CreateEntity(string? prototypeName, EntityUid? uid = null)
+        private protected Entity CreateEntity(PrototypeId<EntityPrototype>? prototypeName, EntityUid? uid = null)
         {
             if (prototypeName == null)
                 return AllocEntity(uid);
@@ -398,7 +398,7 @@ namespace OpenNefia.Core.GameObjects
 
                 // If the map we're initializing the entity on is initialized, run map init on it.
                 if (_mapManager.IsMapInitialized(mapId))
-                    entity.RunMapInit();
+                    entity.Uid.RunMapInit();
             }
             catch (Exception e)
             {

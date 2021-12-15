@@ -9,7 +9,7 @@ using OpenNefia.Core.Utility;
 namespace OpenNefia.Tests.Core.Maps.Loader
 {
     [TestFixture]
-    [TestOf(typeof(MapLoader))]
+    [TestOf(typeof(SerialMapLoader))]
     public class MapLoader_Tests : OpenNefiaUnitTest
     {
         protected override void OverrideIoC()
@@ -26,7 +26,7 @@ namespace OpenNefia.Tests.Core.Maps.Loader
         public void TestMapLoader()
         {
             var mapManager = IoCManager.Resolve<IMapManager>();
-            var mapLoader = IoCManager.Resolve<IMapLoader>();
+            var mapLoader = IoCManager.Resolve<ISerialMapLoader>();
 
             var mapId = new MapId(1);
             mapManager.CreateMap(50, 50, mapId);

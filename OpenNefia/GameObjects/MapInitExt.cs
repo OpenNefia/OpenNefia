@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using OpenNefia.Core.IoC;
 using OpenNefia.Core.Utility;
 
 namespace OpenNefia.Core.GameObjects
@@ -11,13 +13,15 @@ namespace OpenNefia.Core.GameObjects
 
     public static class MapInitExt
     {
-        public static void RunMapInit(this Entity entity)
+        public static void RunMapInit(this EntityUid entity)
         {
-            DebugTools.Assert(entity.LifeStage == EntityLifeStage.Initialized);
-            entity.LifeStage = EntityLifeStage.MapInitialized;
+            var entMan = IoCManager.Resolve<IEntityManager>();
+            var meta = entMan.GetComponent<MetaDataComponent>(entity);
+            DebugTools.Assert(meta.EntityLifeStage == EntityLifeStage.Initialized);
+            meta.EntityLifeStage = EntityLifeStage.MapInitialized;
 
             var ev = new MapInitEvent();
-            entity.EntityManager.EventBus.RaiseLocalEvent(entity.Uid, ref ev, false);
+            entMan.EventBus.RaiseLocalEvent(entity, ref ev, false);
         }
     }
 }

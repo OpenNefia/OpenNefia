@@ -13,7 +13,11 @@ using System.Threading.Tasks;
 
 namespace OpenNefia.Core.Maps
 {
-    public sealed class MapLoader : IMapLoader
+    /// <summary>
+    /// Loads maps in the binary format used for saved games.
+    /// </summary>
+    /// <seealso cref="MapBlueprintLoader"/>
+    public sealed class SerialMapLoader : ISerialMapLoader
     {
         private const int MapFormatVersion = 1;
 

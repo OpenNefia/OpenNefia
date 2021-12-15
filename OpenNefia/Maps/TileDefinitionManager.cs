@@ -4,7 +4,7 @@ using OpenNefia.Core.Rendering;
 
 namespace OpenNefia.Core.Maps
 {
-    public class TileDefinitionManager : ITileDefinitionManager
+    public class TileDefinitionManager : ITileDefinitionManagerInternal
     {
         [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
 
@@ -48,6 +48,32 @@ namespace OpenNefia.Core.Maps
             TileDefs.Add(tileDef);
             _tileDefs[index] = tileDef;
             _tileIndices[id] = index;
+        }
+
+        public void RegisterAll()
+        {
+            // Tile.Empty relies on the Empty tile prototype being registered first
+            // so it gets index 0.
+            var emptyDef = _prototypeManager.Index(TilePrototypeOf.Empty);
+
+            Register(emptyDef);
+
+            var prototypeList = new List<TilePrototype>();
+            foreach (var tileDef in _prototypeManager.EnumeratePrototypes<TilePrototype>())
+            {
+                if (tileDef.GetStrongID() == TilePrototypeOf.Empty)
+                    continue;
+
+                prototypeList.Add(tileDef);
+            }
+
+            // Ensure deterministic ordering for save files, etc.
+            prototypeList.Sort((a, b) => string.Compare(a.ID, b.ID, StringComparison.Ordinal));
+
+            foreach (var tileDef in prototypeList)
+            {
+                Register(tileDef);
+            }
         }
 
         public TilePrototype this[int index] => TileDefs[index];

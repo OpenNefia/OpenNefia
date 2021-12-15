@@ -179,7 +179,7 @@ namespace OpenNefia.Tests.Core.GameObjects
             var entityManager = IoCManager.Resolve<IEntityManager>();
 
             // This dummy should have all of its dependencies resolved.
-            var dummyOne = entityManager.CreateEntityUninitialized("dummyOne");
+            var dummyOne = entityManager.CreateEntityUninitialized(new("dummyOne"));
 
             Assert.That(dummyOne, Is.Not.Null);
 
@@ -201,7 +201,7 @@ namespace OpenNefia.Tests.Core.GameObjects
             Assert.That(dummyComp.TestThree!.TestOne, Is.EqualTo(dummyComp));
 
             // Dummy with only TestTwo.
-            var dummyTwo = entityManager.CreateEntityUninitialized("dummyTwo");
+            var dummyTwo = entityManager.CreateEntityUninitialized(new("dummyTwo"));
 
             Assert.That(dummyTwo, Is.Not.Null);
 
@@ -212,7 +212,7 @@ namespace OpenNefia.Tests.Core.GameObjects
             Assert.That(dummyTwoComp.Spatial, Is.Not.Null);
 
             // Dummy with only TestThree.
-            var dummyThree = entityManager.CreateEntityUninitialized("dummyThree");
+            var dummyThree = entityManager.CreateEntityUninitialized(new("dummyThree"));
 
             Assert.That(dummyThree, Is.Not.Null);
 
@@ -222,7 +222,7 @@ namespace OpenNefia.Tests.Core.GameObjects
             Assert.That(dummyThreeComp.TestOne, Is.Null);
 
             // Dummy with TestInterface and TestFour.
-            var dummyFour = entityManager.CreateEntityUninitialized("dummyFour");
+            var dummyFour = entityManager.CreateEntityUninitialized(new("dummyFour"));
 
             Assert.That(dummyFour, Is.Not.Null);
 
@@ -238,7 +238,7 @@ namespace OpenNefia.Tests.Core.GameObjects
             var entityManager = IoCManager.Resolve<IEntityManager>();
 
             // Dummy with only TestThree.
-            var dummyThree = entityManager.CreateEntityUninitialized("dummyThree");
+            var dummyThree = entityManager.CreateEntityUninitialized(new("dummyThree"));
 
             Assert.That(dummyThree, Is.Not.Null);
 
@@ -288,7 +288,7 @@ namespace OpenNefia.Tests.Core.GameObjects
             var entityManager = IoCManager.Resolve<IEntityManager>();
 
             // This dummy should have all of its dependencies resolved.
-            var dummyOne = entityManager.CreateEntityUninitialized("dummyOne");
+            var dummyOne = entityManager.CreateEntityUninitialized(new("dummyOne"));
 
             Assert.That(dummyOne, Is.Not.Null);
 
@@ -337,7 +337,7 @@ namespace OpenNefia.Tests.Core.GameObjects
             var entityManager = IoCManager.Resolve<IEntityManager>();
 
             // An entity with no components.
-            var dummy = entityManager.CreateEntityUninitialized("dummy");
+            var dummy = entityManager.CreateEntityUninitialized(new("dummy"));
 
             // First we add test one.
             var testOne = dummy.AddComponent<TestOneComponent>();
@@ -414,7 +414,7 @@ namespace OpenNefia.Tests.Core.GameObjects
             var entityManager = IoCManager.Resolve<IEntityManager>();
 
             // An entity with TestFour.
-            var dummyFour = entityManager.CreateEntityUninitialized("dummyFour");
+            var dummyFour = entityManager.CreateEntityUninitialized(new("dummyFour"));
 
             Assert.That(dummyFour, Is.Not.Null);
 
@@ -433,7 +433,7 @@ namespace OpenNefia.Tests.Core.GameObjects
             var entityManager = IoCManager.Resolve<IEntityManager>();
 
             // An entity with TestFour.
-            var dummyFour = entityManager.CreateEntityUninitialized("dummyFour");
+            var dummyFour = entityManager.CreateEntityUninitialized(new("dummyFour"));
 
             Assert.That(dummyFour, Is.Not.Null);
 
@@ -455,7 +455,7 @@ namespace OpenNefia.Tests.Core.GameObjects
             var entityManager = IoCManager.Resolve<IEntityManager>();
 
             // An entity with TestFive.
-            var except = Assert.Throws(Is.Not.Null, () => entityManager.CreateEntityUninitialized("dummyFive"));
+            var except = Assert.Throws(Is.Not.Null, () => entityManager.CreateEntityUninitialized(new("dummyFive")));
 
             // I absolutely hate this. On RELEASE, the exception thrown is EntityCreationException with an inner exception.
             // On DEBUG, however, the exception is simply the ComponentDependencyValueTypeException. This is awful.
@@ -469,7 +469,7 @@ namespace OpenNefia.Tests.Core.GameObjects
             var entityManager = IoCManager.Resolve<IEntityManager>();
 
             // An entity with TestSix.
-            var except = Assert.Throws(Is.Not.Null, () => entityManager.CreateEntityUninitialized("dummySix"));
+            var except = Assert.Throws(Is.Not.Null, () => entityManager.CreateEntityUninitialized(new("dummySix")));
 
             // I absolutely hate this. On RELEASE, the exception thrown is EntityCreationException with an inner exception.
             // On DEBUG, however, the exception is simply the ComponentDependencyNotNullableException. This is awful.
@@ -481,7 +481,7 @@ namespace OpenNefia.Tests.Core.GameObjects
         public void OnAddRemoveMethodTest()
         {
             var entityManager = IoCManager.Resolve<IEntityManager>();
-            var entity = entityManager.CreateEntityUninitialized("dummy");
+            var entity = entityManager.CreateEntityUninitialized(new("dummy"));
             var t1Comp = entity.AddComponent<TestOneComponent>();
 
             Assert.That(t1Comp.TestTwoIsAdded, Is.False);
@@ -499,7 +499,7 @@ namespace OpenNefia.Tests.Core.GameObjects
         public void OnAddRemoveMethodInvalidTest()
         {
             var entityManager = IoCManager.Resolve<IEntityManager>();
-            var entity = entityManager.CreateEntityUninitialized("dummy");
+            var entity = entityManager.CreateEntityUninitialized(new("dummy"));
             try
             {
                 var t7Comp = entity.AddComponent<TestSevenComponent>();

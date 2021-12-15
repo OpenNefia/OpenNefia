@@ -53,19 +53,7 @@ namespace OpenNefia.Tests
 
             // Required components for the engine to work
             var compFactory = IoCManager.Resolve<IComponentFactory>();
-
-            if (!compFactory.AllRegisteredTypes.Contains(typeof(MetaDataComponent)))
-            {
-                compFactory.RegisterClass<MetaDataComponent>();
-            }
-            if (!compFactory.AllRegisteredTypes.Contains(typeof(SpatialComponent)))
-            {
-                compFactory.RegisterClass<SpatialComponent>();
-            }
-            if (!compFactory.AllRegisteredTypes.Contains(typeof(MapComponent)))
-            {
-                compFactory.RegisterClass<MapComponent>();
-            }
+            compFactory.DoDefaultRegistrations();
 
             if (entMan.EventBus == null)
             {

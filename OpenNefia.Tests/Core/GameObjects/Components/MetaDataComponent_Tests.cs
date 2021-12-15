@@ -40,7 +40,7 @@ namespace OpenNefia.Tests.Core.GameObjects
         {
             var entityManager = IoCManager.Resolve<IEntityManager>();
 
-            var dummy = entityManager.CreateEntityUninitialized("dummy");
+            var dummy = entityManager.CreateEntityUninitialized(new("dummy"));
 
             Assert.That(dummy, Is.Not.Null);
             Assert.That(entityManager.IsAlive(dummy.Uid), Is.True);

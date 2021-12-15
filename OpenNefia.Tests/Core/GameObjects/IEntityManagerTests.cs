@@ -40,7 +40,7 @@ namespace OpenNefia.Tests.Core.GameObjects
 
             var entMan = sim.Resolve<IEntityManager>();
             var map = sim.Resolve<IMapManager>().ActiveMap!;
-            var newEnt = entMan.SpawnEntity("dummy", map.AtPos(Vector2i.Zero));
+            var newEnt = entMan.SpawnEntity(new("dummy"), map.AtPos(Vector2i.Zero));
             Assert.That(newEnt, Is.Not.Null);
             Assert.That(newEnt.Spatial.MapID, Is.EqualTo(map.Id));
             Assert.That(newEnt.Spatial.MapPosition.Position, Is.EqualTo(Vector2i.Zero));

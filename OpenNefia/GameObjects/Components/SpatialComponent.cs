@@ -62,6 +62,23 @@ namespace OpenNefia.Core.GameObjects
         }
 
         /// <summary>
+        ///     Recurses up this object's chain of parents.
+        /// </summary>
+        public IEnumerable<SpatialComponent> Parents
+        {
+            get
+            {
+                var parent = _parent;
+                while (parent.IsValid())
+                {
+                    var parentSpatial = _entityManager.GetComponent<SpatialComponent>(parent);
+                    yield return parentSpatial;
+                    parent = parentSpatial.ParentUid;
+                }
+            }
+        }
+
+        /// <summary>
         /// The UID of the parent entity that this entity is attached to.
         /// </summary>
         public EntityUid ParentUid

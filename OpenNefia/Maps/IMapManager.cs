@@ -19,7 +19,9 @@ namespace OpenNefia.Core.Maps
 
         bool MapExists(MapId mapId);
         IMap CreateMap(int width, int height, MapId? mapId = null);
+        MapId RegisterMap(IMap map, MapId? mapId = null);
 
+        MapId GetFreeMapId();
         IMap GetMap(MapId mapId);
         Entity GetMapEntity(MapId mapId);
 

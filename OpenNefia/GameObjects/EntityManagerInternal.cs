@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OpenNefia.Core.Prototypes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +9,7 @@ namespace OpenNefia.Core.GameObjects
 {
     internal class EntityManagerInternal : EntityManager, IEntityManagerInternal
     {
-        Entity IEntityManagerInternal.AllocEntity(string? prototypeName, EntityUid? uid)
+        Entity IEntityManagerInternal.AllocEntity(PrototypeId<EntityPrototype>? prototypeName, EntityUid? uid)
         {
             return AllocEntity(prototypeName, uid);
         }

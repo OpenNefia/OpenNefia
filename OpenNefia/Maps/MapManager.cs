@@ -2,6 +2,7 @@
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Log;
 using System.Diagnostics.CodeAnalysis;
+using System.Reflection;
 
 namespace OpenNefia.Core.Maps
 {
@@ -21,7 +22,43 @@ namespace OpenNefia.Core.Maps
             return _maps.ContainsKey(mapId);
         }
 
+        public MapId GetFreeMapId()
+        {
+            return new MapId(_highestMapID.Value + 1);
+        }
+
         public IMap CreateMap(int width, int height, MapId? mapId = null)
+        {
+            var actualID = AllocFreeMapId(mapId);
+
+            var map = new Map(width, height);
+            this._maps[_highestMapID] = map;
+            map.Id = actualID;
+            map.MapEntityUid = RebindMapEntity(actualID);
+
+            return map;
+        }
+
+        public MapId RegisterMap(IMap map, MapId? mapId = null)
+        {
+            var actualID = AllocFreeMapId(mapId);
+
+            if (map.MapEntityUid.IsValid() || map.Id != MapId.Nullspace)
+            {
+                throw new ArgumentException("Map is already in use.", nameof(map));
+            }
+
+            this._maps[_highestMapID] = map;
+
+            var idField = map.GetType().GetProperty("Id", BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic)!;
+            var mapEntityUidField = map.GetType().GetProperty("MapEntityUid", BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic)!;
+            idField.SetValue(map, actualID);
+            mapEntityUidField.SetValue(map, RebindMapEntity(actualID));
+
+            return actualID;
+        }
+
+        private MapId AllocFreeMapId(MapId? mapId)
         {
             if (mapId == MapId.Nullspace)
             {
@@ -35,7 +72,7 @@ namespace OpenNefia.Core.Maps
             }
             else
             {
-                actualID = new MapId(_highestMapID.Value + 1);
+                actualID = GetFreeMapId();
             }
 
             if (MapExists(actualID))
@@ -48,16 +85,10 @@ namespace OpenNefia.Core.Maps
                 _highestMapID = actualID;
             }
 
-            var map = new Map(width, height);
-            this._maps[_highestMapID] = map;
-            map.Id = actualID;
-
-            RebindMapEntity(actualID);
-
-            return map;
+            return actualID;
         }
 
-        private void RebindMapEntity(MapId actualID)
+        private EntityUid RebindMapEntity(MapId actualID)
         {
             var mapComps = _entityManager.EntityQuery<MapComponent>();
 
@@ -75,6 +106,7 @@ namespace OpenNefia.Core.Maps
             {
                 _mapEntities.Add(actualID, result.OwnerUid);
                 Logger.DebugS("map", $"Rebinding map {actualID} to entity {result.OwnerUid}");
+                return result.OwnerUid;
             }
             else
             {
@@ -86,6 +118,7 @@ namespace OpenNefia.Core.Maps
                 _entityManager.InitializeComponents(newEnt.Uid);
                 _entityManager.StartComponents(newEnt.Uid);
                 Logger.DebugS("map", $"Binding map {actualID} to entity {newEnt.Uid}");
+                return newEnt.Uid;
             }
         }
 

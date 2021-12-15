@@ -18,6 +18,7 @@ namespace OpenNefia.Core.Maps
 
     public sealed class Map : IMap
     {
+        public EntityUid MapEntityUid { get; internal set; }
         public MapId Id { get; internal set; }
 
         public int Width { get; }
@@ -43,6 +44,9 @@ namespace OpenNefia.Core.Maps
 
         public Map(int width, int height)
         {
+            MapEntityUid = EntityUid.Invalid;
+            Id = MapId.Nullspace;
+
             Width = width;
             Height = height;
             Tiles = new Tile[width, height];
@@ -134,19 +138,11 @@ namespace OpenNefia.Core.Maps
 
             // TODO
             var tileDefinitions = IoCManager.Resolve<ITileDefinitionManager>();
-            var lookup = EntitySystem.Get<IEntityLookup>();
             
             var tile = Tiles[pos.X, pos.Y];
             var tileProto = tileDefinitions[tile.Type];
             var isSolid = tileProto.IsSolid;
             var isOpaque = tileProto.IsOpaque;
-
-            foreach (var obj in lookup.GetLiveEntitiesAtPos(AtPos(pos)))
-            {
-                var spatial = obj.Spatial;
-                isSolid |= spatial.IsSolid;
-                isOpaque |= spatial.IsOpaque;
-            }
 
             if (isSolid)
                 flags |= TileFlag.IsSolid;

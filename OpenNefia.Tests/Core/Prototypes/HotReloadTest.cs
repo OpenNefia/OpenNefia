@@ -59,7 +59,7 @@ namespace OpenNefia.Tests.Core.Prototypes
         public void TestHotReload()
         {
             var map = _maps.CreateMap(25, 25);
-            var entity = _entities.SpawnEntity(DummyId, map.AtPos(Vector2i.Zero));
+            var entity = _entities.SpawnEntity(new(DummyId), map.AtPos(Vector2i.Zero));
             var entityComponent = entity.GetComponent<HotReloadTestComponentOne>();
 
             Assert.That(entityComponent.Value, Is.EqualTo(5));

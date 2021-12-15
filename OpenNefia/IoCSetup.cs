@@ -44,6 +44,7 @@ namespace OpenNefia
             IoCManager.Register<IModLoader, ModLoader>();
             IoCManager.Register<IModLoaderInternal, ModLoader>();
             IoCManager.Register<ITileDefinitionManager, TileDefinitionManager>();
+            IoCManager.Register<ITileDefinitionManagerInternal, TileDefinitionManager>();
             IoCManager.Register<IEntityManager, EntityManagerInternal>();
             IoCManager.Register<IEntityManagerInternal, EntityManagerInternal>();
             IoCManager.Register<ISerializationManager, SerializationManager>();
@@ -60,9 +61,10 @@ namespace OpenNefia
             IoCManager.Register<IMapRenderer, MapRenderer>();
             IoCManager.Register<IMapDrawables, MapDrawables>();
             IoCManager.Register<IMusicManager, LoveMusicManager>();
-            IoCManager.Register<IMapLoader, MapLoader>();
+            IoCManager.Register<ISerialMapLoader, SerialMapLoader>();
             IoCManager.Register<IInstancedSerializer, InstancedSerializer>();
             IoCManager.Register<ITimerManager, TimerManager>();
+            IoCManager.Register<IMapBlueprintLoader, MapBlueprintLoader>();
         }
     }
 }

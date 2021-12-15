@@ -18,6 +18,8 @@ namespace OpenNefia.Tests.Core.GameObjects.Components
     {
         private IEntityManagerInternal EntityManager = default!;
         private IMapManager MapManager = default!;
+        private PrototypeId<EntityPrototype> IdDummy = new("dummy");
+        private PrototypeId<EntityPrototype> IdMapDummy = new("mapDummy");
 
         const string PROTOTYPES = @"
 - type: Entity
@@ -64,8 +66,8 @@ namespace OpenNefia.Tests.Core.GameObjects.Components
         public void ParentMapSwitchTest()
         {
             // two entities
-            var parent = EntityManager.SpawnEntity("dummy", InitialPos).Uid;
-            var child = EntityManager.SpawnEntity("dummy", InitialPos).Uid;
+            var parent = EntityManager.SpawnEntity(IdDummy, InitialPos).Uid;
+            var child = EntityManager.SpawnEntity(IdDummy, InitialPos).Uid;
 
             var parentTrans = IoCManager.Resolve<IEntityManager>().GetComponent<SpatialComponent>(parent);
             var childTrans = IoCManager.Resolve<IEntityManager>().GetComponent<SpatialComponent>(child);
@@ -82,14 +84,14 @@ namespace OpenNefia.Tests.Core.GameObjects.Components
             {
                 Assert.That(childTrans.MapID, Is.EqualTo(parentTrans.MapID));
                 Assert.That(childTrans.Coordinates, Is.EqualTo(new EntityCoordinates(parentTrans.OwnerUid, (-1, -1))));
-                Assert.That(childTrans.WorldPosition, NUnit.Framework.Is.EqualTo(new Vector2i(4, 4)));
+                Assert.That(childTrans.WorldPosition, Is.EqualTo(new Vector2i(4, 4)));
             });
 
             // move the parent, and the child should move with it
             childTrans.LocalPosition = new Vector2i(6, 6);
             parentTrans.WorldPosition = new Vector2i(-8, -8);
 
-            Assert.That(childTrans.WorldPosition, NUnit.Framework.Is.EqualTo(new Vector2i(-2, -2)));
+            Assert.That(childTrans.WorldPosition, Is.EqualTo(new Vector2i(-2, -2)));
 
             // if we detach parent, the child should be left where it was, still relative to parents grid
             var oldLpos = new Vector2i(-2, -2);
@@ -101,7 +103,7 @@ namespace OpenNefia.Tests.Core.GameObjects.Components
 
             Assert.Multiple(() =>
             {
-                Assert.That(childTrans.Coordinates.Position, NUnit.Framework.Is.EqualTo(oldLpos));
+                Assert.That(childTrans.Coordinates.Position, Is.EqualTo(oldLpos));
                 Assert.That(childTrans.WorldPosition, Is.EqualTo(oldWpos));
             });
         }
@@ -113,8 +115,8 @@ namespace OpenNefia.Tests.Core.GameObjects.Components
         public void ParentAttachMoveTest()
         {
             // Arrange
-            var parent = EntityManager.SpawnEntity("dummy", InitialPos).Uid;
-            var child = EntityManager.SpawnEntity("dummy", InitialPos).Uid;
+            var parent = EntityManager.SpawnEntity(IdDummy, InitialPos).Uid;
+            var child = EntityManager.SpawnEntity(IdDummy, InitialPos).Uid;
             var parentTrans = IoCManager.Resolve<IEntityManager>().GetComponent<SpatialComponent>(parent);
             var childTrans = IoCManager.Resolve<IEntityManager>().GetComponent<SpatialComponent>(child);
             parentTrans.WorldPosition = new Vector2i(5, 5);
@@ -136,9 +138,9 @@ namespace OpenNefia.Tests.Core.GameObjects.Components
         public void ParentDoubleAttachMoveTest()
         {
             // Arrange
-            var parent = EntityManager.SpawnEntity("dummy", InitialPos).Uid;
-            var childOne = EntityManager.SpawnEntity("dummy", InitialPos).Uid;
-            var childTwo = EntityManager.SpawnEntity("dummy", InitialPos).Uid;
+            var parent = EntityManager.SpawnEntity(IdDummy, InitialPos).Uid;
+            var childOne = EntityManager.SpawnEntity(IdDummy, InitialPos).Uid;
+            var childTwo = EntityManager.SpawnEntity(IdDummy, InitialPos).Uid;
             var parentTrans = IoCManager.Resolve<IEntityManager>().GetComponent<SpatialComponent>(parent);
             var childOneTrans = IoCManager.Resolve<IEntityManager>().GetComponent<SpatialComponent>(childOne);
             var childTwoTrans = IoCManager.Resolve<IEntityManager>().GetComponent<SpatialComponent>(childTwo);
@@ -170,10 +172,10 @@ namespace OpenNefia.Tests.Core.GameObjects.Components
         public void PositionCompositionTest()
         {
             // Arrange
-            var node1 = EntityManager.SpawnEntity("dummy", InitialPos).Uid;
-            var node2 = EntityManager.SpawnEntity("dummy", InitialPos).Uid;
-            var node3 = EntityManager.SpawnEntity("dummy", InitialPos).Uid;
-            var node4 = EntityManager.SpawnEntity("dummy", InitialPos).Uid;
+            var node1 = EntityManager.SpawnEntity(IdDummy, InitialPos).Uid;
+            var node2 = EntityManager.SpawnEntity(IdDummy, InitialPos).Uid;
+            var node3 = EntityManager.SpawnEntity(IdDummy, InitialPos).Uid;
+            var node4 = EntityManager.SpawnEntity(IdDummy, InitialPos).Uid;
 
             var node1Trans = IoCManager.Resolve<IEntityManager>().GetComponent<SpatialComponent>(node1);
             var node2Trans = IoCManager.Resolve<IEntityManager>().GetComponent<SpatialComponent>(node2);
@@ -205,9 +207,9 @@ namespace OpenNefia.Tests.Core.GameObjects.Components
         public void ParentLocalPositionRoundingErrorTest()
         {
             // Arrange
-            var node1 = EntityManager.SpawnEntity("dummy", InitialPos).Uid;
-            var node2 = EntityManager.SpawnEntity("dummy", InitialPos).Uid;
-            var node3 = EntityManager.SpawnEntity("dummy", InitialPos).Uid;
+            var node1 = EntityManager.SpawnEntity(IdDummy, InitialPos).Uid;
+            var node2 = EntityManager.SpawnEntity(IdDummy, InitialPos).Uid;
+            var node3 = EntityManager.SpawnEntity(IdDummy, InitialPos).Uid;
 
             var node1Trans = IoCManager.Resolve<IEntityManager>().GetComponent<SpatialComponent>(node1);
             var node2Trans = IoCManager.Resolve<IEntityManager>().GetComponent<SpatialComponent>(node2);
@@ -250,10 +252,10 @@ namespace OpenNefia.Tests.Core.GameObjects.Components
             // Arrange
             var control = Matrix3.Identity;
 
-            var node1 = EntityManager.SpawnEntity("dummy", InitialPos).Uid;
-            var node2 = EntityManager.SpawnEntity("dummy", InitialPos).Uid;
-            var node3 = EntityManager.SpawnEntity("dummy", InitialPos).Uid;
-            var node4 = EntityManager.SpawnEntity("dummy", InitialPos).Uid;
+            var node1 = EntityManager.SpawnEntity(IdDummy, InitialPos).Uid;
+            var node2 = EntityManager.SpawnEntity(IdDummy, InitialPos).Uid;
+            var node3 = EntityManager.SpawnEntity(IdDummy, InitialPos).Uid;
+            var node4 = EntityManager.SpawnEntity(IdDummy, InitialPos).Uid;
 
             var node1Trans = IoCManager.Resolve<IEntityManager>().GetComponent<SpatialComponent>(node1);
             var node2Trans = IoCManager.Resolve<IEntityManager>().GetComponent<SpatialComponent>(node2);
@@ -296,9 +298,9 @@ namespace OpenNefia.Tests.Core.GameObjects.Components
         [Test]
         public void MatrixUpdateTest()
         {
-            var node1 = EntityManager.SpawnEntity("dummy", InitialPos).Uid;
-            var node2 = EntityManager.SpawnEntity("dummy", InitialPos).Uid;
-            var node3 = EntityManager.SpawnEntity("dummy", InitialPos).Uid;
+            var node1 = EntityManager.SpawnEntity(IdDummy, InitialPos).Uid;
+            var node2 = EntityManager.SpawnEntity(IdDummy, InitialPos).Uid;
+            var node3 = EntityManager.SpawnEntity(IdDummy, InitialPos).Uid;
 
             var node1Trans = IoCManager.Resolve<IEntityManager>().GetComponent<SpatialComponent>(node1);
             var node2Trans = IoCManager.Resolve<IEntityManager>().GetComponent<SpatialComponent>(node2);
@@ -322,9 +324,9 @@ namespace OpenNefia.Tests.Core.GameObjects.Components
             // Set private _parent field via reflection here.
             // This basically simulates the field getting set in ExposeData(), with way less test boilerplate.
             var field = typeof(SpatialComponent).GetField("_parent", BindingFlags.NonPublic | BindingFlags.Instance)!;
-            var parent = EntityManager.CreateEntityUninitialized("mapDummy");
-            var child1 = EntityManager.CreateEntityUninitialized("dummy");
-            var child2 = EntityManager.CreateEntityUninitialized("dummy");
+            var parent = EntityManager.CreateEntityUninitialized(IdMapDummy);
+            var child1 = EntityManager.CreateEntityUninitialized(IdDummy);
+            var child2 = EntityManager.CreateEntityUninitialized(IdDummy);
 
             field.SetValue(IoCManager.Resolve<IEntityManager>().GetComponent<SpatialComponent>(child1.Uid), parent.Uid);
             field.SetValue(IoCManager.Resolve<IEntityManager>().GetComponent<SpatialComponent>(child2.Uid), child1.Uid);

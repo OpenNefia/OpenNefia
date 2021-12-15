@@ -1,3 +1,5 @@
+using OpenNefia.Core.Prototypes;
+
 namespace OpenNefia.Core.GameObjects
 {
     internal interface IEntityManagerInternal : IEntityManager
@@ -5,7 +7,7 @@ namespace OpenNefia.Core.GameObjects
         // These methods are used by the map loader to do multi-stage entity construction during map load.
         // I would recommend you refer to the MapLoader for usage.
 
-        Entity AllocEntity(string? prototypeName, EntityUid? uid = null);
+        Entity AllocEntity(PrototypeId<EntityPrototype>? prototypeName, EntityUid? uid = null);
 
         void FinishEntityLoad(Entity entity, IEntityLoadContext? context = null);
 

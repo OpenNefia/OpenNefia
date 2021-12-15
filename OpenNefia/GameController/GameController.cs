@@ -31,7 +31,7 @@ namespace OpenNefia.Core.GameController
         [Dependency] private readonly ILogManager _logManager = default!;
         [Dependency] private readonly ISerializationManager _serialization = default!;
         [Dependency] private readonly IComponentFactory _components = default!;
-        [Dependency] private readonly ITileDefinitionManager _tileDefinitionManager = default!;
+        [Dependency] private readonly ITileDefinitionManagerInternal _tileDefinitionManager = default!;
         [Dependency] private readonly IUiLayerManager _uiLayers = default!;
         [Dependency] private readonly ILocalizationManager _localizationManager = default!;
         [Dependency] private readonly ITaskManager _taskManager = default!;
@@ -93,7 +93,8 @@ namespace OpenNefia.Core.GameController
 
             _assetManager.PreloadAssets();
 
-            InitTileDefinitions();
+            _tileDefinitionManager.Initialize();
+            _tileDefinitionManager.RegisterAll();
             _atlasManager.Initialize();
             _atlasManager.LoadAtlases();
             _mapRenderer.Initialize();
@@ -129,34 +130,6 @@ namespace OpenNefia.Core.GameController
             }
 
             return true;
-        }
-
-        private void InitTileDefinitions()
-        {
-            // Tile.Empty relies on the Empty tile prototype being registered first
-            // so it gets index 0.
-            var emptyDef = _prototypeManager.Index<TilePrototype>(TilePrototypeOf.Empty);
-
-            _tileDefinitionManager.Register(emptyDef);
-
-            var prototypeList = new List<TilePrototype>();
-            foreach (var tileDef in _prototypeManager.EnumeratePrototypes<TilePrototype>())
-            {
-                if (tileDef.GetStrongID() == TilePrototypeOf.Empty)
-                    continue;
-
-                prototypeList.Add(tileDef);
-            }
-
-            // Ensure deterministic ordering for save files, etc.
-            prototypeList.Sort((a, b) => string.Compare(a.ID, b.ID, StringComparison.Ordinal));
-
-            foreach (var tileDef in prototypeList)
-            {
-                _tileDefinitionManager.Register(tileDef);
-            }
-
-            _tileDefinitionManager.Initialize();
         }
 
         internal static void SetupLogging(ILogManager logManager, Func<ILogHandler> logHandlerFactory)

@@ -14,7 +14,7 @@ namespace OpenNefia.Core.Maps
     /// <remarks>
     /// This is used for game save purposes, not map archetype purposes.
     /// </remarks>
-    public interface IMapLoader
+    public interface ISerialMapLoader
     {
         void LoadMap(MapId mapId, ResourcePath filepath);
         void SaveMap(MapId mapId, ResourcePath filepath);

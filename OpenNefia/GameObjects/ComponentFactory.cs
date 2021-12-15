@@ -7,7 +7,7 @@ using OpenNefia.Core.Reflection;
 
 namespace OpenNefia.Core.GameObjects
 {
-    internal sealed class ComponentFactory : IComponentFactory
+    internal sealed partial class ComponentFactory : IComponentFactory
     {
         private readonly IDynamicTypeFactoryInternal _typeFactory;
         private readonly IReflectionManager _reflectionManager;
@@ -74,12 +74,6 @@ namespace OpenNefia.Core.GameObjects
         {
             _typeFactory = typeFactory;
             _reflectionManager = reflectionManager;
-        }
-
-        public void DoDefaultRegistrations()
-        {
-            RegisterClass<MetaDataComponent>();
-            RegisterClass<SpatialComponent>();
         }
 
         private void Register(Type type, bool overwrite = false)
