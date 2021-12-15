@@ -42,6 +42,7 @@ namespace OpenNefia.Core.GameObjects
         public bool EntityInitialized => EntityLifeStage >= EntityLifeStage.Initialized;
         public bool EntityInitializing => EntityLifeStage == EntityLifeStage.Initializing;
         public bool EntityDeleted => EntityLifeStage >= EntityLifeStage.Deleted;
+        public bool EntityTerminating => EntityLifeStage >= EntityLifeStage.Terminating;
 
         /// <summary>
         /// Liveness of the entity for validity purposes.
@@ -56,8 +57,8 @@ namespace OpenNefia.Core.GameObjects
         /// </summary>
         public EntityGameLiveness Liveness = EntityGameLiveness.Alive;
 
-        public bool IsAlive => (Liveness == EntityGameLiveness.Alive) && !EntityDeleted;
-        public bool IsDeadAndBuried => Liveness == EntityGameLiveness.DeadAndBuried || EntityDeleted;
+        public bool IsAlive => (Liveness == EntityGameLiveness.Alive) && !EntityTerminating;
+        public bool IsDeadAndBuried => Liveness == EntityGameLiveness.DeadAndBuried || EntityTerminating;
     }
 
     public enum EntityGameLiveness

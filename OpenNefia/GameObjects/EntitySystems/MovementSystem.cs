@@ -7,25 +7,52 @@ namespace OpenNefia.Core.GameObjects
     public class MovementSystem : EntitySystem
     {
         [Dependency] private readonly IMapManager _mapManager = default!;
+        [Dependency] private readonly IEntityManager _entityManager = default!;
+        [Dependency] private readonly IEntityLookup _lookup = default!;
 
         public override void Initialize()
         {
             SubscribeLocalEvent<MoveableComponent, MoveEventArgs>(HandleMove, nameof(HandleMove));
-            SubscribeLocalEvent<MoveableComponent, EntPositionChangedEvent>(HandlePositionChanged, nameof(HandlePositionChanged));
+            SubscribeLocalEvent<EntPositionChangedEvent>(HandlePositionChanged, nameof(HandlePositionChanged));
+            SubscribeLocalEvent<MoveableComponent, MapInitEvent>(HandleMapInit, nameof(HandleEntityTerminating));
+            SubscribeLocalEvent<MoveableComponent, EntityTerminatingEvent>(HandleEntityTerminating, nameof(HandleEntityTerminating));
         }
 
-        private void HandlePositionChanged(EntityUid uid, MoveableComponent component, ref EntPositionChangedEvent args)
+        private void HandlePositionChanged(ref EntPositionChangedEvent args)
         {
-            SpatialComponent? spatial = null;
+            var spatial = args.Entity.Spatial;
 
+            if (!_mapManager.TryGetMap(spatial.MapID, out var map))
+                return;
+
+            var oldMap = args.OldPosition.ToMap(_entityManager);
+            var newMap = args.NewPosition.ToMap(_entityManager);
+
+            map.RefreshTileEntities(args.OldPosition.Position, _lookup.GetLiveEntitiesAtPos(oldMap));
+            map.RefreshTileEntities(args.NewPosition.Position, _lookup.GetLiveEntitiesAtPos(newMap));
+        }
+
+        private void RefreshTileOfEntity(EntityUid uid, SpatialComponent? spatial = null)
+        {
             if (!Resolve(uid, ref spatial))
                 return;
 
             if (!_mapManager.TryGetMap(spatial.MapID, out var map))
                 return;
 
-            map.RefreshTile(args.OldPosition.Position);
-            map.RefreshTile(args.NewPosition.Position);
+            var mapPos = spatial.MapPosition;
+
+            map.RefreshTileEntities(mapPos.Position, _lookup.GetLiveEntitiesAtPos(mapPos));
+        }
+
+        private void HandleMapInit(EntityUid uid, MoveableComponent _, MapInitEvent args)
+        {
+            RefreshTileOfEntity(uid);
+        }
+
+        private void HandleEntityTerminating(EntityUid uid, MoveableComponent _, EntityTerminatingEvent args)
+        {
+            RefreshTileOfEntity(uid);
         }
 
         private void HandleMove(EntityUid uid, MoveableComponent moveable, MoveEventArgs args)

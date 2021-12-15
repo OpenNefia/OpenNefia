@@ -509,15 +509,15 @@ namespace OpenNefia.Core.GameObjects
     /// </summary>
     public readonly struct EntPositionChangedEvent
     {
-        public EntPositionChangedEvent(Entity sender, EntityCoordinates oldPos, EntityCoordinates newPos, SpatialComponent component)
+        public EntPositionChangedEvent(Entity entity, EntityCoordinates oldPos, EntityCoordinates newPos, SpatialComponent component)
         {
-            Sender = sender;
+            Entity = entity;
             OldPosition = oldPos;
             NewPosition = newPos;
             Component = component;
         }
 
-        public readonly Entity Sender;
+        public readonly Entity Entity;
         public readonly EntityCoordinates OldPosition;
         public readonly EntityCoordinates NewPosition;
         public readonly SpatialComponent Component;

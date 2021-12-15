@@ -26,7 +26,7 @@ namespace OpenNefia.Content.GameObjects
             if (!Resolve(stepper, ref moveable, ref spatial))
                 return;
 
-            foreach (var entity in _lookup.GetLiveEntitiesAtPos(spatial.MapPosition))
+            foreach (var entity in _lookup.GetLiveEntitiesAtPos(spatial.MapPosition).ToList())
             {
                 var ev = new EntitySteppedOnEvent(stepper, spatial.MapPosition);
                 RaiseLocalEvent(entity.Uid, ev);
