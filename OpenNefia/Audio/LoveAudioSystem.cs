@@ -28,11 +28,6 @@ namespace OpenNefia.Core.Audio
 
         private List<PlayingSource> _playingSources = new();
 
-        public override void Initialize()
-        {
-            SubscribeLocalEvent<FrameUpdateEventArgs>(OnFrameUpdate, "OnFrameUpdate");
-        }
-
         private Love.Source GetLoveSource(PrototypeId<SoundPrototype> prototype)
         {
             var fileData = _resourceCache.GetResource<LoveFileDataResource>(prototype.ResolvePrototype().Filepath);
@@ -99,7 +94,8 @@ namespace OpenNefia.Core.Audio
             _playingSources.Add(new PlayingSource(source));
         }
 
-        private void OnFrameUpdate(FrameUpdateEventArgs args)
+        // TODO
+        private void FrameUpdate(FrameUpdateEventArgs args)
         {
             var player = GameSession.Player;
             if (player == null)

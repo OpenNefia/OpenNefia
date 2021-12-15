@@ -12,6 +12,7 @@ using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Core.ResourceManagement;
 using OpenNefia.Core.Serialization.Manager;
+using OpenNefia.Core.Timing;
 using OpenNefia.Core.UI;
 using OpenNefia.Core.UI.Layer;
 using OpenNefia.Core.Utility;
@@ -34,6 +35,7 @@ namespace OpenNefia.Core.GameController
         [Dependency] private readonly IUiLayerManager _uiLayers = default!;
         [Dependency] private readonly ILocalizationManager _localizationManager = default!;
         [Dependency] private readonly ITaskManager _taskManager = default!;
+        [Dependency] private readonly ITimerManager _timerManager = default!;
         [Dependency] private readonly IMapRenderer _mapRenderer = default!;
 
         public Action? MainCallback { get; set; } = null;
@@ -92,7 +94,9 @@ namespace OpenNefia.Core.GameController
             _assetManager.PreloadAssets();
 
             InitTileDefinitions();
+            _atlasManager.Initialize();
             _atlasManager.LoadAtlases();
+            _mapRenderer.Initialize();
             _mapRenderer.RegisterTileLayers();
 
             _localizationManager.Initialize();
@@ -180,9 +184,11 @@ namespace OpenNefia.Core.GameController
             Environment.Exit(0);
         }
 
-        public void Update(float dt)
+        public void Update(FrameEventArgs frame)
         {
-            _uiLayers.UpdateLayers(dt);
+            _taskManager.ProcessPendingTasks();
+            _timerManager.UpdateTimers(frame);
+            _uiLayers.UpdateLayers(frame);
         }
 
         public void Draw()

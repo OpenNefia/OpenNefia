@@ -38,7 +38,7 @@ namespace OpenNefia.Content.UI.Layer
 
         public string Message { get; private set; }
         private string MouseText;
-        private TilePrototype? PlacingTile = null;
+        private PrototypeId<TilePrototype>? PlacingTile = null;
 
         public FieldLayer()
         {
@@ -266,15 +266,15 @@ namespace OpenNefia.Content.UI.Layer
             {
                 if (evt.Button == MouseButton.Mouse1)
                 {
-                    PlacingTile = TilePrototypeOf.Dirt.ResolvePrototype();
+                    PlacingTile = TilePrototypeOf.Dirt;
                 }
                 else if (evt.Button == MouseButton.Mouse2)
                 {
-                    PlacingTile = TilePrototypeOf.WallBrick.ResolvePrototype();
+                    PlacingTile = TilePrototypeOf.WallBrick;
                 }
                 else
                 {
-                    PlacingTile = TilePrototypeOf.Flooring1.ResolvePrototype();
+                    PlacingTile = TilePrototypeOf.Flooring1;
                 }
             }
             else
@@ -345,13 +345,14 @@ namespace OpenNefia.Content.UI.Layer
                 var mouse = Love.Mouse.GetPosition();
                 _coords.ScreenToTile(new Vector2i((int)mouse.X - X, (int)mouse.Y - Y), out var tiledPos);
 
-                if (Map.Tiles[tiledPos.X, tiledPos.Y].ResolvePrototype() != PlacingTile)
+                if (Map.Tiles[tiledPos.X, tiledPos.Y].ResolvePrototype().GetStrongID() != PlacingTile)
                 {
-                    if (PlacingTile.IsSolid)
+                    var proto = PlacingTile.Value.ResolvePrototype();
+                    if (proto.IsSolid)
                     {
                         Sounds.Play(SoundPrototypeOf.Offer1, Map.AtPos(tiledPos));
                     }
-                    Map.SetTile(tiledPos, PlacingTile.GetStrongID());
+                    Map.SetTile(tiledPos, PlacingTile.Value);
                     Map.MemorizeTile(tiledPos);
                 }
             }

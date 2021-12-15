@@ -2,6 +2,7 @@
 using OpenNefia.Core.GameController;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Maps;
+using OpenNefia.Core.Timing;
 using OpenNefia.Core.UI.Element;
 
 namespace OpenNefia.Core.Rendering
@@ -59,7 +60,8 @@ namespace OpenNefia.Core.Rendering
             while (HasActiveDrawables())
             {
                 var dt = Love.Timer.GetDelta();
-                _gameController.Update(dt);
+                var frameArgs = new FrameEventArgs(dt);
+                _gameController.Update(frameArgs);
                 this.Update(dt);
 
                 _gameController.Draw();

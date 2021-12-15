@@ -20,6 +20,11 @@ namespace OpenNefia.Core.Rendering.TileDrawLayers
             _batch.Initialize(_assetManager, _coords);
         }
 
+        public override void OnThemeSwitched()
+        {
+            _batch.OnThemeSwitched();
+        }
+
         public override void SetMap(IMap map)
         {
             _map = map;

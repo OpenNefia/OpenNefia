@@ -1,6 +1,7 @@
 ﻿using Love;
 using OpenNefia.Core.Data.Types;
 using OpenNefia.Core.Graphics;
+using OpenNefia.Core.Timing;
 using System;
 
 namespace OpenNefia.Core.UI
@@ -69,8 +70,8 @@ namespace OpenNefia.Core.UI
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="dt"></param>
-        public void UpdateKeyRepeats(float dt);
+        /// <param name="frame"></param>
+        public void UpdateKeyRepeats(FrameEventArgs frame);
 
         /// <summary>
         /// 
@@ -115,7 +116,7 @@ namespace OpenNefia.Core.UI
         /// <summary>
         /// Run key actions based on the current state of the key handler.
         /// </summary>
-        /// <param name="dt">Frame delta time.</param>
-        void RunKeyActions(float dt);
+        /// <param name="args">Frame delta time.</param>
+        void RunKeyActions(FrameEventArgs args);
     }
 }

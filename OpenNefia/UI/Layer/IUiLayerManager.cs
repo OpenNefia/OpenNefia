@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OpenNefia.Core.Timing;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,7 +20,7 @@ namespace OpenNefia.Core.UI.Layer
         bool IsQuerying(IUiLayer layer);
         void PopLayer(IUiLayer layer);
         void PushLayer(IUiLayer layer);
-        void UpdateLayers(float dt);
+        void UpdateLayers(FrameEventArgs frame);
         bool IsInActiveLayerList(IUiLayer layer);
         UiResult<T> Query<T>(IUiLayerWithResult<T> layer) where T : class;
     }

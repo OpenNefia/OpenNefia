@@ -39,6 +39,17 @@ namespace OpenNefia.Core.Rendering
             _chipAtlas = _atlasManager.GetAtlas(AtlasNames.Chip);
         }
 
+        public void OnThemeSwitched()
+        {
+            _tileAtlas = _atlasManager.GetAtlas(AtlasNames.Tile);
+            _chipAtlas = _atlasManager.GetAtlas(AtlasNames.Chip);
+
+            for (int tileY = 0; tileY < _tiledSize.Y; tileY++)
+            {
+                _rows[tileY] = new TileBatchRow(_tileAtlas, _chipAtlas, _coords, _tiledSize.X, tileY);
+            }
+        }
+
         public void SetMapSize(Vector2i size)
         {
             var (width, height) = size;
@@ -160,6 +171,11 @@ namespace OpenNefia.Core.Rendering
             TileWidth = Coords.TileSize.Y;
             RowYIndex = rowYIndex;
             ScreenWidth = widthInTiles * TileWidth;
+        }
+
+        public void OnThemeSwitched()
+        {
+
         }
 
         internal void UpdateTileBatches(string[,] tiles, int y, int widthInTiles)

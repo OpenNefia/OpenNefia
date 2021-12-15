@@ -3905,7 +3905,7 @@
     region: "0, 576, 48, 48"
   isSolid: true
   isOpaque: true
-  Wallimage:
+  wallImage:
     filepath: /Elona/Graphic/map1.bmp
     region: "0, 624, 48, 48"
   elonaAtlas: 1
@@ -3918,7 +3918,7 @@
     region: "48, 576, 48, 48"
   isSolid: true
   isOpaque: true
-  Wallimage:
+  wallImage:
     filepath: /Elona/Graphic/map1.bmp
     region: "48, 624, 48, 48"
   elonaAtlas: 1
@@ -3931,7 +3931,7 @@
     region: "96, 576, 48, 48"
   isSolid: true
   isOpaque: true
-  Wallimage:
+  wallImage:
     filepath: /Elona/Graphic/map1.bmp
     region: "96, 624, 48, 48"
   elonaAtlas: 1
@@ -3944,7 +3944,7 @@
     region: "144, 576, 48, 48"
   isSolid: true
   isOpaque: true
-  Wallimage:
+  wallImage:
     filepath: /Elona/Graphic/map1.bmp
     region: "144, 624, 48, 48"
   elonaAtlas: 1
@@ -3957,7 +3957,7 @@
     region: "192, 576, 48, 48"
   isSolid: true
   isOpaque: true
-  Wallimage:
+  wallImage:
     filepath: /Elona/Graphic/map1.bmp
     region: "192, 624, 48, 48"
   elonaAtlas: 1
@@ -3970,7 +3970,7 @@
     region: "240, 576, 48, 48"
   isSolid: true
   isOpaque: true
-  Wallimage:
+  wallImage:
     filepath: /Elona/Graphic/map1.bmp
     region: "240, 624, 48, 48"
   elonaAtlas: 1
@@ -3983,7 +3983,7 @@
     region: "288, 576, 48, 48"
   isSolid: true
   isOpaque: true
-  Wallimage:
+  wallImage:
     filepath: /Elona/Graphic/map1.bmp
     region: "288, 624, 48, 48"
   elonaAtlas: 1
@@ -3996,7 +3996,7 @@
     region: "336, 576, 48, 48"
   isSolid: true
   isOpaque: true
-  Wallimage:
+  wallImage:
     filepath: /Elona/Graphic/map1.bmp
     region: "336, 624, 48, 48"
   elonaAtlas: 1
@@ -4009,7 +4009,7 @@
     region: "384, 576, 48, 48"
   isSolid: true
   isOpaque: true
-  Wallimage:
+  wallImage:
     filepath: /Elona/Graphic/map1.bmp
     region: "384, 624, 48, 48"
   elonaAtlas: 1
@@ -4022,7 +4022,7 @@
     region: "432, 576, 48, 48"
   isSolid: true
   isOpaque: true
-  Wallimage:
+  wallImage:
     filepath: /Elona/Graphic/map1.bmp
     region: "432, 624, 48, 48"
   elonaAtlas: 1
@@ -4035,7 +4035,7 @@
     region: "480, 576, 48, 48"
   isSolid: true
   isOpaque: true
-  Wallimage:
+  wallImage:
     filepath: /Elona/Graphic/map1.bmp
     region: "480, 624, 48, 48"
   elonaAtlas: 1
@@ -4048,7 +4048,7 @@
     region: "528, 576, 48, 48"
   isSolid: true
   isOpaque: true
-  Wallimage:
+  wallImage:
     filepath: /Elona/Graphic/map1.bmp
     region: "528, 624, 48, 48"
   elonaAtlas: 1
@@ -4061,7 +4061,7 @@
     region: "576, 576, 48, 48"
   isSolid: true
   isOpaque: true
-  Wallimage:
+  wallImage:
     filepath: /Elona/Graphic/map1.bmp
     region: "576, 624, 48, 48"
   elonaAtlas: 1
@@ -4074,7 +4074,7 @@
     region: "624, 576, 48, 48"
   isSolid: true
   isOpaque: true
-  Wallimage:
+  wallImage:
     filepath: /Elona/Graphic/map1.bmp
     region: "624, 624, 48, 48"
   elonaAtlas: 1
@@ -4087,7 +4087,7 @@
     region: "672, 576, 48, 48"
   isSolid: true
   isOpaque: true
-  Wallimage:
+  wallImage:
     filepath: /Elona/Graphic/map1.bmp
     region: "672, 624, 48, 48"
   elonaAtlas: 1
@@ -4100,7 +4100,7 @@
     region: "720, 576, 48, 48"
   isSolid: true
   isOpaque: true
-  Wallimage:
+  wallImage:
     filepath: /Elona/Graphic/map1.bmp
     region: "720, 624, 48, 48"
   elonaAtlas: 1
@@ -4113,7 +4113,7 @@
     region: "768, 576, 48, 48"
   isSolid: true
   isOpaque: true
-  Wallimage:
+  wallImage:
     filepath: /Elona/Graphic/map1.bmp
     region: "768, 624, 48, 48"
   elonaAtlas: 1
@@ -4126,7 +4126,7 @@
     region: "816, 576, 48, 48"
   isSolid: true
   isOpaque: true
-  Wallimage:
+  wallImage:
     filepath: /Elona/Graphic/map1.bmp
     region: "816, 624, 48, 48"
   elonaAtlas: 1
@@ -4139,7 +4139,7 @@
     region: "0, 672, 48, 48"
   isSolid: true
   isOpaque: true
-  Wallimage:
+  wallImage:
     filepath: /Elona/Graphic/map1.bmp
     region: "0, 720, 48, 48"
   elonaAtlas: 1
@@ -4152,7 +4152,7 @@
     region: "48, 672, 48, 48"
   isSolid: true
   isOpaque: true
-  Wallimage:
+  wallImage:
     filepath: /Elona/Graphic/map1.bmp
     region: "48, 720, 48, 48"
   elonaAtlas: 1
@@ -4166,7 +4166,7 @@
   kind: HardWall
   isSolid: true
   isOpaque: true
-  Wallimage:
+  wallImage:
     filepath: /Elona/Graphic/map1.bmp
     region: "96, 720, 48, 48"
   elonaAtlas: 1
@@ -4179,7 +4179,7 @@
     region: "144, 672, 48, 48"
   isSolid: true
   isOpaque: true
-  Wallimage:
+  wallImage:
     filepath: /Elona/Graphic/map1.bmp
     region: "144, 720, 48, 48"
   elonaAtlas: 1
@@ -4192,7 +4192,7 @@
     region: "192, 672, 48, 48"
   isSolid: true
   isOpaque: true
-  Wallimage:
+  wallImage:
     filepath: /Elona/Graphic/map1.bmp
     region: "192, 720, 48, 48"
   elonaAtlas: 1
@@ -4205,7 +4205,7 @@
     region: "240, 672, 48, 48"
   isSolid: true
   isOpaque: true
-  Wallimage:
+  wallImage:
     filepath: /Elona/Graphic/map1.bmp
     region: "240, 720, 48, 48"
   elonaAtlas: 1
@@ -4218,7 +4218,7 @@
     region: "288, 672, 48, 48"
   isSolid: true
   isOpaque: true
-  Wallimage:
+  wallImage:
     filepath: /Elona/Graphic/map1.bmp
     region: "288, 720, 48, 48"
   elonaAtlas: 1
@@ -4231,7 +4231,7 @@
     region: "336, 672, 48, 48"
   isSolid: true
   isOpaque: true
-  Wallimage:
+  wallImage:
     filepath: /Elona/Graphic/map1.bmp
     region: "336, 720, 48, 48"
   elonaAtlas: 1
@@ -4244,7 +4244,7 @@
     region: "384, 672, 48, 48"
   isSolid: true
   isOpaque: true
-  Wallimage:
+  wallImage:
     filepath: /Elona/Graphic/map1.bmp
     region: "384, 720, 48, 48"
   elonaAtlas: 1
@@ -4257,7 +4257,7 @@
     region: "432, 672, 48, 48"
   isSolid: true
   isOpaque: true
-  Wallimage:
+  wallImage:
     filepath: /Elona/Graphic/map1.bmp
     region: "432, 720, 48, 48"
   elonaAtlas: 1
@@ -4270,7 +4270,7 @@
     region: "480, 672, 48, 48"
   isSolid: true
   isOpaque: true
-  Wallimage:
+  wallImage:
     filepath: /Elona/Graphic/map1.bmp
     region: "480, 720, 48, 48"
   elonaAtlas: 1
@@ -4283,7 +4283,7 @@
     region: "528, 672, 48, 48"
   isSolid: true
   isOpaque: true
-  Wallimage:
+  wallImage:
     filepath: /Elona/Graphic/map1.bmp
     region: "528, 720, 48, 48"
   elonaAtlas: 1
@@ -4296,7 +4296,7 @@
     region: "576, 672, 48, 48"
   isSolid: true
   isOpaque: true
-  Wallimage:
+  wallImage:
     filepath: /Elona/Graphic/map1.bmp
     region: "576, 720, 48, 48"
   elonaAtlas: 1
@@ -4309,7 +4309,7 @@
     region: "624, 672, 48, 48"
   isSolid: true
   isOpaque: true
-  Wallimage:
+  wallImage:
     filepath: /Elona/Graphic/map1.bmp
     region: "624, 720, 48, 48"
   elonaAtlas: 1
@@ -4322,7 +4322,7 @@
     region: "672, 672, 48, 48"
   isSolid: true
   isOpaque: true
-  Wallimage:
+  wallImage:
     filepath: /Elona/Graphic/map1.bmp
     region: "672, 720, 48, 48"
   elonaAtlas: 1
@@ -4335,7 +4335,7 @@
     region: "720, 672, 48, 48"
   isSolid: true
   isOpaque: true
-  Wallimage:
+  wallImage:
     filepath: /Elona/Graphic/map1.bmp
     region: "720, 720, 48, 48"
   elonaAtlas: 1
@@ -4348,7 +4348,7 @@
     region: "768, 672, 48, 48"
   isSolid: true
   isOpaque: true
-  Wallimage:
+  wallImage:
     filepath: /Elona/Graphic/map1.bmp
     region: "768, 720, 48, 48"
   elonaAtlas: 1
@@ -4361,7 +4361,7 @@
     region: "816, 672, 48, 48"
   isSolid: true
   isOpaque: true
-  Wallimage:
+  wallImage:
     filepath: /Elona/Graphic/map1.bmp
     region: "816, 720, 48, 48"
   elonaAtlas: 1
@@ -4374,7 +4374,7 @@
     region: "864, 672, 48, 48"
   isSolid: true
   isOpaque: true
-  Wallimage:
+  wallImage:
     filepath: /Elona/Graphic/map1.bmp
     region: "864, 720, 48, 48"
   elonaAtlas: 1
@@ -4387,7 +4387,7 @@
     region: "912, 672, 48, 48"
   isSolid: true
   isOpaque: true
-  Wallimage:
+  wallImage:
     filepath: /Elona/Graphic/map1.bmp
     region: "912, 720, 48, 48"
   elonaAtlas: 1
@@ -4400,7 +4400,7 @@
     region: "960, 672, 48, 48"
   isSolid: true
   isOpaque: true
-  Wallimage:
+  wallImage:
     filepath: /Elona/Graphic/map1.bmp
     region: "960, 720, 48, 48"
   elonaAtlas: 1
@@ -4413,7 +4413,7 @@
     region: "1008, 672, 48, 48"
   isSolid: true
   isOpaque: true
-  Wallimage:
+  wallImage:
     filepath: /Elona/Graphic/map1.bmp
     region: "1008, 720, 48, 48"
   elonaAtlas: 1
@@ -4426,7 +4426,7 @@
     region: "1056, 672, 48, 48"
   isSolid: true
   isOpaque: true
-  Wallimage:
+  wallImage:
     filepath: /Elona/Graphic/map1.bmp
     region: "1056, 720, 48, 48"
   elonaAtlas: 1
@@ -4439,7 +4439,7 @@
     region: "1104, 672, 48, 48"
   isSolid: true
   isOpaque: true
-  Wallimage:
+  wallImage:
     filepath: /Elona/Graphic/map1.bmp
     region: "1104, 720, 48, 48"
   elonaAtlas: 1
@@ -4452,7 +4452,7 @@
     region: "1152, 672, 48, 48"
   isSolid: true
   isOpaque: true
-  Wallimage:
+  wallImage:
     filepath: /Elona/Graphic/map1.bmp
     region: "1152, 720, 48, 48"
   elonaAtlas: 1
@@ -4465,7 +4465,7 @@
     region: "1200, 672, 48, 48"
   isSolid: true
   isOpaque: true
-  Wallimage:
+  wallImage:
     filepath: /Elona/Graphic/map1.bmp
     region: "1200, 720, 48, 48"
   elonaAtlas: 1
@@ -4478,7 +4478,7 @@
     region: "1248, 672, 48, 48"
   isSolid: true
   isOpaque: true
-  Wallimage:
+  wallImage:
     filepath: /Elona/Graphic/map1.bmp
     region: "1248, 720, 48, 48"
   elonaAtlas: 1
@@ -4491,7 +4491,7 @@
     region: "1296, 672, 48, 48"
   isSolid: true
   isOpaque: true
-  Wallimage:
+  wallImage:
     filepath: /Elona/Graphic/map1.bmp
     region: "1296, 720, 48, 48"
   elonaAtlas: 1
@@ -4504,7 +4504,7 @@
     region: "1344, 672, 48, 48"
   isSolid: true
   isOpaque: true
-  Wallimage:
+  wallImage:
     filepath: /Elona/Graphic/map1.bmp
     region: "1344, 720, 48, 48"
   elonaAtlas: 1
@@ -4517,7 +4517,7 @@
     region: "1392, 672, 48, 48"
   isSolid: true
   isOpaque: true
-  Wallimage:
+  wallImage:
     filepath: /Elona/Graphic/map1.bmp
     region: "1392, 720, 48, 48"
   elonaAtlas: 1
@@ -4530,7 +4530,7 @@
     region: "1440, 672, 48, 48"
   isSolid: true
   isOpaque: true
-  Wallimage:
+  wallImage:
     filepath: /Elona/Graphic/map1.bmp
     region: "1440, 720, 48, 48"
   elonaAtlas: 1
@@ -4543,7 +4543,7 @@
     region: "1488, 672, 48, 48"
   isSolid: true
   isOpaque: true
-  Wallimage:
+  wallImage:
     filepath: /Elona/Graphic/map1.bmp
     region: "1488, 720, 48, 48"
   elonaAtlas: 1
@@ -4556,7 +4556,7 @@
     region: "1536, 672, 48, 48"
   isSolid: true
   isOpaque: true
-  Wallimage:
+  wallImage:
     filepath: /Elona/Graphic/map1.bmp
     region: "1536, 720, 48, 48"
   elonaAtlas: 1

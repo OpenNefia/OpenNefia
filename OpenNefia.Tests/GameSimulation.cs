@@ -204,6 +204,10 @@ namespace OpenNefia.Tests
             entityMan.Initialize();
 
             var entitySystemMan = container.Resolve<IEntitySystemManager>();
+
+            entitySystemMan.LoadExtraSystemType<SpatialSystem>();
+            entitySystemMan.LoadExtraSystemType<EntityLookup>();
+
             _systemDelegate?.Invoke(entitySystemMan);
 
             var mapManager = container.Resolve<IMapManager>();

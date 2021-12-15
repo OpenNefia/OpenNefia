@@ -216,6 +216,8 @@ namespace OpenNefia.Core.GameObjects
             RecursiveDeleteEntity(e);
         }
 
+        private EntityTerminatingEvent EntityTerminating = new();
+
         private void RecursiveDeleteEntity(Entity entity)
         {
             if(entity.Deleted)
@@ -226,7 +228,7 @@ namespace OpenNefia.Core.GameObjects
             var metadata = entity.MetaData;
             entity.LifeStage = EntityLifeStage.Terminating;
 
-            EventBus.RaiseLocalEvent(entity.Uid, new EntityTerminatingEvent(), false);
+            EventBus.RaiseLocalEvent(entity.Uid, ref EntityTerminating, false);
 
             // DeleteEntity modifies our _children collection, we must cache the collection to iterate properly
             foreach (var childTransform in spatial.Children.ToArray())

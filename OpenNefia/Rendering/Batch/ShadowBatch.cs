@@ -103,6 +103,15 @@ namespace OpenNefia.Core.Rendering
             }
         }
 
+        public void OnThemeSwitched()
+        {
+            _assetShadow = _assetManager.GetAsset(new("Shadow"));
+            _assetShadowEdges = _assetManager.GetAsset(new("ShadowEdges"));
+
+            _batchShadow = _assetShadow.MakeSpriteBatch(2048, SpriteBatchUsage.Dynamic);
+            _batchShadowEdges = _assetShadowEdges.MakeSpriteBatch(2048, SpriteBatchUsage.Dynamic);
+        }
+
         public void SetMapSize(Vector2i sizeInTiles)
         {
             _sizeInTiles = sizeInTiles;

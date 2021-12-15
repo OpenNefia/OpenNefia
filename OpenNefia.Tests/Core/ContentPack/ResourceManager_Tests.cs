@@ -8,9 +8,9 @@ using OpenNefia.Core.Utility;
 namespace OpenNefia.Tests.Core.ContentPack
 {
     [TestFixture]
-    public class ResourceManagerTest : OpenNefiaUnitTest
+    public class ResourceManager_Tests : OpenNefiaUnitTest
     {
-        private static Stream ZipStream => typeof(ResourceManagerTest).Assembly
+        private static Stream ZipStream => typeof(ResourceManager_Tests).Assembly
             .GetManifestResourceStream("OpenNefia.Tests.Core.ContentPack.ZipTest.zip")!;
 
         private static readonly byte[] Data =

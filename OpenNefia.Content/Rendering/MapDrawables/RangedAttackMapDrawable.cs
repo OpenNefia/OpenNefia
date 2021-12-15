@@ -45,6 +45,13 @@ namespace OpenNefia.Content.Rendering
             this._counter = new FrameCounter(ConfigVars.AnimeWait, (uint)maxFrames);
         }
 
+        public override void OnThemeSwitched()
+        {
+            base.OnThemeSwitched();
+
+            _chipBatch.OnThemeSwitched();
+        }
+
         public override bool CanEnqueue()
         {
             return _startPos.MapId == _endPos.MapId 

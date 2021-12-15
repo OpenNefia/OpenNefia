@@ -1,5 +1,6 @@
 ﻿using OpenNefia.Core.Data.Types;
 using OpenNefia.Core.Graphics;
+using OpenNefia.Core.Timing;
 
 namespace OpenNefia.Core.UI.Element
 {
@@ -55,8 +56,8 @@ namespace OpenNefia.Core.UI.Element
         public void UnbindKey(IKeybind keybind) => InputHandler.UnbindKey(keybind);
         public void HaltInput() => InputHandler.HaltInput();
         public bool IsModifierHeld(Keys modifier) => InputHandler.IsModifierHeld(modifier);
-        public void UpdateKeyRepeats(float dt) => InputHandler.UpdateKeyRepeats(dt);
-        public void RunKeyActions(float dt) => InputHandler.RunKeyActions(dt);
+        public void UpdateKeyRepeats(FrameEventArgs frame) => InputHandler.UpdateKeyRepeats(frame);
+        public void RunKeyActions(FrameEventArgs frame) => InputHandler.RunKeyActions(frame);
         public bool RunKeyAction(Keys key, KeyPressState state) => InputHandler.RunKeyAction(key, state);
         public void ReleaseKey(Keys key, bool runEvents = true) => InputHandler.ReleaseKey(key, runEvents);
 

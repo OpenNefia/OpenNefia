@@ -17,9 +17,9 @@ namespace OpenNefia.Core.GameObjects
         }
     }
 
-    public class EntMapIdChangedMessage : EntityEventArgs
+    public class EntMapIdChangedEvent : EntityEventArgs
     {
-        public EntMapIdChangedMessage(Entity entity, MapId oldMapId)
+        public EntMapIdChangedEvent(Entity entity, MapId oldMapId)
         {
             Entity = entity;
             OldMapId = oldMapId;

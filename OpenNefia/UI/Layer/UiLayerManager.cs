@@ -3,6 +3,7 @@ using OpenNefia.Core.Graphics;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Locale;
 using OpenNefia.Core.Log;
+using OpenNefia.Core.Timing;
 
 namespace OpenNefia.Core.UI.Layer
 {
@@ -98,11 +99,11 @@ namespace OpenNefia.Core.UI.Layer
 
         public bool IsInActiveLayerList(IUiLayer layer) => this.Layers.Contains(layer);
 
-        public void UpdateLayers(float dt)
+        public void UpdateLayers(FrameEventArgs frame)
         {
             for (int i = 0; i < this.Layers.Count; i++)
             {
-                this.Layers[i].Update(dt);
+                this.Layers[i].Update(frame.DeltaSeconds);
             }
         }
 
@@ -177,8 +178,9 @@ namespace OpenNefia.Core.UI.Layer
                 while (true)
                 {
                     var dt = Love.Timer.GetDelta();
-                    layer.RunKeyActions(dt);
-                    _gameController.Update(dt);
+                    var frameArgs = new FrameEventArgs(dt);
+                    layer.RunKeyActions(frameArgs);
+                    _gameController.Update(frameArgs);
                     result = layer.GetResult();
                     if (result != null)
                     {

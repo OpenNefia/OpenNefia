@@ -1,10 +1,15 @@
 ﻿using OpenNefia.Core.IoC;
 using OpenNefia.Core.Maps;
 using OpenNefia.Core.Maths;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace OpenNefia.Core.GameObjects
 {
-    public class MovementSystem : EntitySystem
+    public class MoveableSystem : EntitySystem
     {
         [Dependency] private readonly IMapManager _mapManager = default!;
         [Dependency] private readonly IEntityManager _entityManager = default!;
@@ -13,46 +18,6 @@ namespace OpenNefia.Core.GameObjects
         public override void Initialize()
         {
             SubscribeLocalEvent<MoveableComponent, MoveEventArgs>(HandleMove, nameof(HandleMove));
-            SubscribeLocalEvent<EntPositionChangedEvent>(HandlePositionChanged, nameof(HandlePositionChanged));
-            SubscribeLocalEvent<MoveableComponent, MapInitEvent>(HandleMapInit, nameof(HandleEntityTerminating));
-            SubscribeLocalEvent<MoveableComponent, EntityTerminatingEvent>(HandleEntityTerminating, nameof(HandleEntityTerminating));
-        }
-
-        private void HandlePositionChanged(ref EntPositionChangedEvent args)
-        {
-            var spatial = args.Entity.Spatial;
-
-            if (!_mapManager.TryGetMap(spatial.MapID, out var map))
-                return;
-
-            var oldMap = args.OldPosition.ToMap(_entityManager);
-            var newMap = args.NewPosition.ToMap(_entityManager);
-
-            map.RefreshTileEntities(args.OldPosition.Position, _lookup.GetLiveEntitiesAtPos(oldMap));
-            map.RefreshTileEntities(args.NewPosition.Position, _lookup.GetLiveEntitiesAtPos(newMap));
-        }
-
-        private void RefreshTileOfEntity(EntityUid uid, SpatialComponent? spatial = null)
-        {
-            if (!Resolve(uid, ref spatial))
-                return;
-
-            if (!_mapManager.TryGetMap(spatial.MapID, out var map))
-                return;
-
-            var mapPos = spatial.MapPosition;
-
-            map.RefreshTileEntities(mapPos.Position, _lookup.GetLiveEntitiesAtPos(mapPos));
-        }
-
-        private void HandleMapInit(EntityUid uid, MoveableComponent _, MapInitEvent args)
-        {
-            RefreshTileOfEntity(uid);
-        }
-
-        private void HandleEntityTerminating(EntityUid uid, MoveableComponent _, EntityTerminatingEvent args)
-        {
-            RefreshTileOfEntity(uid);
         }
 
         private void HandleMove(EntityUid uid, MoveableComponent moveable, MoveEventArgs args)
@@ -63,7 +28,7 @@ namespace OpenNefia.Core.GameObjects
             HandleMove(uid, args, moveable);
         }
 
-        private void HandleMove(EntityUid uid, MoveEventArgs args, 
+        private void HandleMove(EntityUid uid, MoveEventArgs args,
             MoveableComponent? moveable = null,
             SpatialComponent? spatial = null)
         {
@@ -82,7 +47,7 @@ namespace OpenNefia.Core.GameObjects
                 return;
             }
 
-            if (!_mapManager.TryGetMap(args.NewPosition.MapId, out var map) 
+            if (!_mapManager.TryGetMap(args.NewPosition.MapId, out var map)
                 || !map.CanAccess(args.NewPosition.Position))
             {
                 args.Handled = true;

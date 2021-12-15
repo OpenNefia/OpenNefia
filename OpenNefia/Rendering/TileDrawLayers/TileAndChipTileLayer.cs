@@ -22,6 +22,11 @@ namespace OpenNefia.Core.Rendering.TileDrawLayers
             _wallShadows.Initialize(_coords);
         }
 
+        public override void OnThemeSwitched()
+        {
+            _tileAndChipBatch.OnThemeSwitched();
+        }
+
         public override void SetMap(IMap map)
         {
             _map = map;

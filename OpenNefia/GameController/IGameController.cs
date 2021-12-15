@@ -1,4 +1,6 @@
-﻿namespace OpenNefia.Core.GameController
+﻿using OpenNefia.Core.Timing;
+
+namespace OpenNefia.Core.GameController
 {
     public interface IGameController
     {
@@ -7,7 +9,7 @@
         public bool Startup();
         public void Run();
 
-        void Update(float dt);
+        void Update(FrameEventArgs frame);
         void Draw();
         void SystemStep();
     }

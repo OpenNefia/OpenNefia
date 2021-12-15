@@ -1,6 +1,7 @@
 ﻿using OpenNefia.Core.Data.Types;
 using OpenNefia.Core.Graphics;
 using OpenNefia.Core.Maths;
+using OpenNefia.Core.Timing;
 using System;
 using System.Collections.Generic;
 
@@ -212,7 +213,7 @@ namespace OpenNefia.Core.UI
             }
         }
 
-        public void UpdateKeyRepeats(float dt)
+        public void UpdateKeyRepeats(FrameEventArgs frame)
         {
             foreach (var key in this.KeysPressed)
             {
@@ -229,37 +230,37 @@ namespace OpenNefia.Core.UI
                         if (this.NoShiftDelay)
                         {
                             keyRepeat.WaitRemain = 0;
-                            keyRepeat.Delay = 40;
+                            keyRepeat.Delay = 0.04f;
                         }
                         else
                         {
                             keyRepeat.WaitRemain = 3;
-                            keyRepeat.Delay = 200;
+                            keyRepeat.Delay = 0.2f;
                         }
                     }
                     else
                     {
                         keyRepeat.WaitRemain = 0;
-                        keyRepeat.Delay = 600;
+                        keyRepeat.Delay = 0.6f;
                     }
                     keyRepeat.IsPressed = true;
                 }
 
-                keyRepeat.Delay -= dt * 1000f;
-                if (keyRepeat.Delay <= 0)
+                keyRepeat.Delay -= frame.DeltaSeconds;
+                if (keyRepeat.Delay <= 0.0f)
                 {
                     keyRepeat.IsPressed = true;
                 }
 
                 if (isShiftDelayed && (this.Modifiers & Keys.Shift) == Keys.Shift)
                 {
-                    keyRepeat.Delay = 10;
+                    keyRepeat.Delay = 0.01f;
                 }
             }
 
             foreach (var forward in this.Forwards)
             {
-                forward.UpdateKeyRepeats(dt);
+                forward.UpdateKeyRepeats(frame);
             }
         }
 
@@ -294,11 +295,11 @@ namespace OpenNefia.Core.UI
                 {
                     if (this.NoShiftDelay)
                     {
-                        keyRepeat.Delay = 100;
+                        keyRepeat.Delay = 0.1f;
                     }
                     else
                     {
-                        keyRepeat.Delay = 20;
+                        keyRepeat.Delay = 0.02f;
                     }
                 }
                 if (keyRepeat.IsFast)
@@ -314,21 +315,21 @@ namespace OpenNefia.Core.UI
                     // TODO
                     if (this.NoShiftDelay)
                     {
-                        keyRepeat.Delay = 100;
+                        keyRepeat.Delay = 0.1f;
                     }
                     else
                     {
-                        keyRepeat.Delay = 20;
+                        keyRepeat.Delay = 0.02f;
                     }
                 }
                 else
                 {
-                    keyRepeat.Delay = 10;
+                    keyRepeat.Delay = 0.01f;
                 }
             }
             else
             {
-                keyRepeat.Delay = 200;
+                keyRepeat.Delay = 0.2f;
             }
             keyRepeat.IsPressed = false;
 
@@ -548,7 +549,7 @@ namespace OpenNefia.Core.UI
             }
         }
 
-        public void RunKeyActions(float dt)
+        public void RunKeyActions(FrameEventArgs frame)
         {
             foreach (var key in this.UnpressedThisFrame)
             {
@@ -601,7 +602,7 @@ namespace OpenNefia.Core.UI
             this.MouseUnpressedThisFrame.Clear();
             this.EnterReceivedThisFrame = false;
 
-            this.UpdateKeyRepeats(dt);
+            this.UpdateKeyRepeats(frame);
 
             this.Halted = this.Halted && !this.StopHalt;
 

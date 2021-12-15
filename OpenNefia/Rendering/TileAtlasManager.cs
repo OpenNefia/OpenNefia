@@ -13,7 +13,28 @@ namespace OpenNefia.Core.Rendering
     {
         [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
 
+        public event Action? ThemeSwitched = null;
+
         private Dictionary<string, TileAtlas> _atlases = new();
+
+        public void Initialize()
+        {
+            _prototypeManager.PrototypesReloaded += OnPrototypesReloaded;
+        }
+
+        private void OnPrototypesReloaded(PrototypesReloadedEventArgs args)
+        {
+            // TODO
+            if (args.ByType.ContainsKey(typeof(ChipPrototype)) || args.ByType.ContainsKey(typeof(TilePrototype)))
+            {
+                Logger.InfoS(CommonSawmills.ResAtlas, "Detected atlas prototype reload.");
+
+                Clear();
+                LoadAtlases();
+
+                ThemeSwitched?.Invoke();
+            }
+        }
 
         public void LoadAtlases()
         {
@@ -66,6 +87,16 @@ namespace OpenNefia.Core.Rendering
         public TileAtlas GetAtlas(string atlasName)
         {
             return _atlases[atlasName];
+        }
+
+        private void Clear()
+        {
+            foreach (var atlas in _atlases.Values)
+            {
+                atlas.Dispose();
+            }
+
+            _atlases.Clear();
         }
     }
 }

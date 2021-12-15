@@ -38,7 +38,7 @@ namespace OpenNefia.Core.Rendering
     }
 
     [Serializable]
-    public class TileAtlas
+    public class TileAtlas : IDisposable
     {
         private Dictionary<string, AtlasTile> _tiles = new Dictionary<string, AtlasTile>();
         private Dictionary<string, List<AnimFrame>> _anims = new Dictionary<string, List<AnimFrame>>();
@@ -76,6 +76,16 @@ namespace OpenNefia.Core.Rendering
             height = (int)rect.Height;
 
             return true;
+        }
+
+        public void Dispose()
+        {
+            Image.Dispose();
+
+            foreach (var tile in _tiles.Values)
+            {
+                tile.Quad.Dispose();
+            }
         }
     }
 }

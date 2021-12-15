@@ -17,6 +17,7 @@ using OpenNefia.Core.Rendering;
 using OpenNefia.Core.ResourceManagement;
 using OpenNefia.Core.Serialization.Instanced;
 using OpenNefia.Core.Serialization.Manager;
+using OpenNefia.Core.Timing;
 using OpenNefia.Core.UI.Layer;
 
 namespace OpenNefia
@@ -61,6 +62,7 @@ namespace OpenNefia
             IoCManager.Register<IMusicManager, LoveMusicManager>();
             IoCManager.Register<IMapLoader, MapLoader>();
             IoCManager.Register<IInstancedSerializer, InstancedSerializer>();
+            IoCManager.Register<ITimerManager, TimerManager>();
         }
     }
 }

@@ -6,7 +6,8 @@ using OpenNefia.Core.Maths;
 namespace OpenNefia.Tests.Core.GameObjects.Systems
 {
     [TestFixture, Parallelizable]
-    class MovementSystemTests
+    [TestOf(typeof(SpatialSystem))]
+    class SpatialSystem_Tests
     {
         private static readonly string Prototypes = $@"
 - type: Entity
@@ -41,13 +42,13 @@ namespace OpenNefia.Tests.Core.GameObjects.Systems
 
             var subscriber = new Subscriber();
             int calledCount = 0;
-            entMan.EventBus.SubscribeEvent<EntPositionChangedEvent>(EventSource.Local, subscriber, MoveEventHandler);
+            entMan.EventBus.SubscribeEvent<EntityPositionChangedEvent>(EventSource.Local, subscriber, MoveEventHandler);
             var ent1 = entMan.SpawnEntity(null, new MapCoordinates(Vector2i.Zero, map.Id));
 
             ent1.Spatial.WorldPosition = Vector2i.One;
 
             Assert.That(calledCount, Is.EqualTo(1));
-            void MoveEventHandler(ref EntPositionChangedEvent ev)
+            void MoveEventHandler(ref EntityPositionChangedEvent ev)
             {
                 calledCount++;
                 Assert.That(ev.OldPosition, Is.EqualTo(new EntityCoordinates(mapEnt.Uid, Vector2i.Zero)));
@@ -88,22 +89,29 @@ namespace OpenNefia.Tests.Core.GameObjects.Systems
             var map = sim.ActiveMap!;
             var mapEnt = sim.Resolve<IMapManager>().GetMapEntity(map.Id);
 
-            var pos = Vector2i.One;
+            var pos1 = Vector2i.One;
+            var pos2 = pos1 + Vector2i.One;
 
-            var ent = entMan.SpawnEntity(new("dummySolidOpaque"), map.AtPos(pos));
+            var ent = entMan.SpawnEntity(new("dummySolidOpaque"), map.AtPos(pos1));
 
-            Assert.That(map.CanAccess(pos), Is.False);
-            Assert.That(map.CanSeeThrough(pos), Is.False);
+            Assert.That(map.CanAccess(pos1), Is.False);
+            Assert.That(map.CanSeeThrough(pos1), Is.False);
+            Assert.That(map.CanAccess(pos2), Is.True);
+            Assert.That(map.CanSeeThrough(pos2), Is.True);
 
-            ent.Spatial.WorldPosition += (1, 1);
+            ent.Spatial.WorldPosition = pos2;
 
-            Assert.That(map.CanAccess(pos), Is.True);
-            Assert.That(map.CanSeeThrough(pos), Is.True);
+            Assert.That(map.CanAccess(pos1), Is.True);
+            Assert.That(map.CanSeeThrough(pos1), Is.True);
+            Assert.That(map.CanAccess(pos2), Is.False);
+            Assert.That(map.CanSeeThrough(pos2), Is.False);
 
-            ent.Spatial.WorldPosition = pos;
+            ent.Spatial.WorldPosition = pos1;
 
-            Assert.That(map.CanAccess(pos), Is.False);
-            Assert.That(map.CanSeeThrough(pos), Is.False);
+            Assert.That(map.CanAccess(pos1), Is.False);
+            Assert.That(map.CanSeeThrough(pos1), Is.False);
+            Assert.That(map.CanAccess(pos2), Is.True);
+            Assert.That(map.CanSeeThrough(pos2), Is.True);
         }
 
         /// <summary>
@@ -131,7 +139,7 @@ namespace OpenNefia.Tests.Core.GameObjects.Systems
         }
 
         /// <summary>
-        /// When an entity is deleted, the accessibility of the corresponding map tile should be updated.
+        /// When an entity's liveness changes, the accessibility of the corresponding map tile should be updated.
         /// </summary>
         [Test]
         public void TestRefreshMapTileFlagsOnEntityLiveness()

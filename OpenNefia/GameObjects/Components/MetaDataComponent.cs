@@ -44,6 +44,8 @@ namespace OpenNefia.Core.GameObjects
         public bool EntityDeleted => EntityLifeStage >= EntityLifeStage.Deleted;
         public bool EntityTerminating => EntityLifeStage >= EntityLifeStage.Terminating;
 
+        private EntityGameLiveness _liveness = EntityGameLiveness.Alive;
+
         /// <summary>
         /// Liveness of the entity for validity purposes.
         /// 
@@ -55,7 +57,18 @@ namespace OpenNefia.Core.GameObjects
         /// 
         /// A stackable entity with amount 0 counts as DeadAndBuried.
         /// </summary>
-        public EntityGameLiveness Liveness = EntityGameLiveness.Alive;
+        public EntityGameLiveness Liveness
+        {
+            get => _liveness;
+            set
+            {
+                var oldLiveness = _liveness;
+                _liveness = value;
+
+                var livenessEvent = new EntityLivenessChangedEvent(Owner, oldLiveness, Liveness);
+                Owner.EntityManager.EventBus.RaiseLocalEvent(OwnerUid, ref livenessEvent);
+            }
+        }
 
         public bool IsAlive => (Liveness == EntityGameLiveness.Alive) && !EntityTerminating;
         public bool IsDeadAndBuried => Liveness == EntityGameLiveness.DeadAndBuried || EntityTerminating;
@@ -78,5 +91,19 @@ namespace OpenNefia.Core.GameObjects
         /// (enumerating a container, changing maps).
         /// </summary>
         DeadAndBuried
+    }
+
+    public struct EntityLivenessChangedEvent
+    {
+        public readonly Entity Owner;
+        public readonly EntityGameLiveness OldLiveness;
+        public readonly EntityGameLiveness NewLiveness;
+
+        public EntityLivenessChangedEvent(Entity owner, EntityGameLiveness oldLiveness, EntityGameLiveness liveness)
+        {
+            this.Owner = owner;
+            this.OldLiveness = oldLiveness;
+            this.NewLiveness = liveness;
+        }
     }
 }

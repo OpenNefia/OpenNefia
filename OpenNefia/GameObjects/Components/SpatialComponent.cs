@@ -214,7 +214,7 @@ namespace OpenNefia.Core.GameObjects
 
             if (!noEvents && oldPosition.Position != Coordinates.Position)
             {
-                var moveEvent = new EntPositionChangedEvent(Owner, oldPosition, Coordinates, this);
+                var moveEvent = new EntityPositionChangedEvent(Owner, oldPosition, Coordinates, this);
                 Owner.EntityManager.EventBus.RaiseLocalEvent(OwnerUid, ref moveEvent);
             }
         }
@@ -249,7 +249,7 @@ namespace OpenNefia.Core.GameObjects
 
             if (!noEvents)
             {
-                var moveEvent = new EntPositionChangedEvent(Owner, oldPos, Coordinates, this);
+                var moveEvent = new EntityPositionChangedEvent(Owner, oldPos, Coordinates, this);
                 Owner.EntityManager.EventBus.RaiseLocalEvent(OwnerUid, ref moveEvent);
             }
         }
@@ -433,7 +433,7 @@ namespace OpenNefia.Core.GameObjects
 
         private void MapIdChanged(MapId oldId)
         {
-            Owner.EntityManager.EventBus.RaiseLocalEvent(OwnerUid, new EntMapIdChangedMessage(Owner, oldId));
+            Owner.EntityManager.EventBus.RaiseLocalEvent(OwnerUid, new EntMapIdChangedEvent(Owner, oldId));
         }
 
         public void AttachParent(Entity parent)
@@ -507,9 +507,9 @@ namespace OpenNefia.Core.GameObjects
     ///     Raised whenever an entity moves.
     ///     There is no guarantee it will be raised if they move in worldspace, only when moved relative to their parent.
     /// </summary>
-    public readonly struct EntPositionChangedEvent
+    public readonly struct EntityPositionChangedEvent
     {
-        public EntPositionChangedEvent(Entity entity, EntityCoordinates oldPos, EntityCoordinates newPos, SpatialComponent component)
+        public EntityPositionChangedEvent(Entity entity, EntityCoordinates oldPos, EntityCoordinates newPos, SpatialComponent component)
         {
             Entity = entity;
             OldPosition = oldPos;

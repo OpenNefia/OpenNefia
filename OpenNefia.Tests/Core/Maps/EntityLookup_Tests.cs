@@ -20,7 +20,6 @@ namespace OpenNefia.Tests.Core.Maps
         {
             var simulation = GameSimulation
                 .NewSimulation()
-                .RegisterEntitySystems(factory => factory.LoadExtraSystemType<EntityLookup>())
                 .InitializeInstance();
 
             var map = simulation.CreateMapAndSetActive(50, 50);

@@ -15,6 +15,7 @@ namespace OpenNefia.Core.Rendering
 
         [Dependency] private readonly IMapDrawables _mapDrawables = default!;
         [Dependency] private readonly IReflectionManager _reflectionManager = default!;
+        [Dependency] private readonly ITileAtlasManager _tileAtlasManager = default!;
 
         private ISawmill _sawmill = default!;
         private DependencyCollection _layerDependencyCollection = default!;
@@ -24,6 +25,11 @@ namespace OpenNefia.Core.Rendering
         private Dictionary<Type, OrderingData> _types = new();
         private List<ITileLayer> _tileLayers = new();
         private IMap? _map;
+
+        public void Initialize()
+        {
+            _tileAtlasManager.ThemeSwitched += OnThemeSwitched;
+        }
 
         public void RegisterTileLayers()
         {
@@ -102,6 +108,19 @@ namespace OpenNefia.Core.Rendering
             map.RedrawAllThisTurn = true;
             RefreshAllLayers();
             _mapDrawables.Clear();
+        }
+
+        private void OnThemeSwitched()
+        {
+            foreach (var layer in _tileLayers)
+            {
+                layer.OnThemeSwitched();
+            }
+
+            foreach (var layer in _tileLayers)
+            {
+                layer.RedrawAll();
+            }
         }
 
         public void RefreshAllLayers()

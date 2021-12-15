@@ -10,17 +10,25 @@ namespace OpenNefia.Core.Rendering
 {
     public class TileAtlasBatch : IDisposable
     {
-        private TileAtlas _atlas { get; }
-        private SpriteBatch _batch { get; }
+        private string _atlasName { get; }
+        private TileAtlas _atlas { get; set; }
+        private SpriteBatch _batch { get; set; }
         public int Width { get; private set; }
         public int Height { get; private set; }
 
         public TileAtlasBatch(string atlasName)
         {
+            _atlasName = atlasName;
             _atlas = IoCManager.Resolve<ITileAtlasManager>().GetAtlas(atlasName);
             _batch = Love.Graphics.NewSpriteBatch(_atlas.Image, 2048, SpriteBatchUsage.Dynamic);
             Width = 0;
             Height = 0;
+        }
+
+        public void OnThemeSwitched()
+        {
+            _atlas = IoCManager.Resolve<ITileAtlasManager>().GetAtlas(_atlasName);
+            _batch = Love.Graphics.NewSpriteBatch(_atlas.Image, 2048, SpriteBatchUsage.Dynamic);
         }
 
         public void Add(TileSpecifier spec, int x, int y, int? width = null, int? height = null, Love.Color? color = null, bool centered = false, float rotation = 0f)

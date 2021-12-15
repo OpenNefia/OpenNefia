@@ -179,6 +179,7 @@ namespace OpenNefia.Core.Maps
 
             _tileFlagsEntities[pos.X, pos.Y] = flags;
             _tileFlags[pos.X, pos.Y] = flags | _tileFlagsTiles[pos.X, pos.Y];
+            this.DirtyTilesThisTurn.Add(pos);
         }
 
         public IEnumerable<MapCoordinates> AllTiles
