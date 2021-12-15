@@ -135,7 +135,7 @@ namespace OpenNefia.Core.Maps
                     throw new InvalidOperationException($"Map is already loaded in slot {_mapId}.");
                 }
 
-                _mapManager.CreateMap(_mapId, _meta.Width, _meta.Height);
+                _mapManager.CreateMap( _meta.Width, _meta.Height, _mapId);
             }
 
             private void AllocEntities()

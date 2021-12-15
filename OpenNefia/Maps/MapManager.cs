@@ -21,7 +21,7 @@ namespace OpenNefia.Core.Maps
             return _maps.ContainsKey(mapId);
         }
 
-        public IMap CreateMap(MapId? mapId, int width, int height)
+        public IMap CreateMap(int width, int height, MapId? mapId = null)
         {
             if (mapId == MapId.Nullspace)
             {

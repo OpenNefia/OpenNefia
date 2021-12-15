@@ -66,7 +66,7 @@ namespace OpenNefia.Tests.Core.Serialization
 
             var mapManager = IoCManager.Resolve<IMapManager>();
 
-            var map = mapManager.CreateMap(null, 20, 20);
+            var map = mapManager.CreateMap(20, 20);
 
             var coordinates = map.AtPos(Vector2i.Zero);
 

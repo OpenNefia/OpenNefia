@@ -14,6 +14,9 @@ namespace OpenNefia.Core.GameObjects
     /// </summary>
     public sealed class SpatialComponent : Component
     {
+        [Dependency] private readonly IEntityManager _entityManager = default!;
+        [Dependency] private readonly IMapManager _mapManager = default!;
+
         [DataField("parent")]
         private EntityUid _parent;
         [DataField("pos")]
@@ -30,8 +33,6 @@ namespace OpenNefia.Core.GameObjects
 
         private readonly SortedSet<EntityUid> _children = new();
 
-        [Dependency] private readonly IMapManager _mapManager = default!;
-
         public override string Name => "Spatial";
 
         /// <summary>
@@ -46,7 +47,7 @@ namespace OpenNefia.Core.GameObjects
         /// </summary>
         public SpatialComponent? Parent
         {
-            get => !_parent.IsValid() ? null : Owner.EntityManager.GetComponent<SpatialComponent>(_parent);
+            get => !_parent.IsValid() ? null : _entityManager.GetComponent<SpatialComponent>(_parent);
             internal set
             {
                 if (value != null)
@@ -66,7 +67,7 @@ namespace OpenNefia.Core.GameObjects
         public EntityUid ParentUid
         {
             get => _parent;
-            set => Parent = Owner.EntityManager.GetComponent<SpatialComponent>(value);
+            set => Parent = _entityManager.GetComponent<SpatialComponent>(value);
         }
 
         /// <summary>
@@ -186,7 +187,7 @@ namespace OpenNefia.Core.GameObjects
             if (!sameParent)
             {
                 changedParent = true;
-                var newParent = Owner.EntityManager.GetComponent<SpatialComponent>(value.EntityId);
+                var newParent = _entityManager.GetComponent<SpatialComponent>(value.EntityId);
 
                 DebugTools.Assert(newParent != this,
                     $"Can't parent a {nameof(SpatialComponent)} to itself.");
@@ -202,8 +203,8 @@ namespace OpenNefia.Core.GameObjects
                 _parent = value.EntityId;
                 ChangeMapId(newParent.MapID);
 
-                var entParentChangedMessage = new EntParentChangedEvent(Owner, oldParent?.Owner);
-                Owner.EntityManager.EventBus.RaiseLocalEvent(OwnerUid, ref entParentChangedMessage);
+                var entParentChangedMessage = new EntParentChangedEvent(OwnerUid, oldParent?.OwnerUid);
+                _entityManager.EventBus.RaiseLocalEvent(OwnerUid, ref entParentChangedMessage);
             }
 
             // These conditions roughly emulate the effects of the code before I changed things,
@@ -214,8 +215,8 @@ namespace OpenNefia.Core.GameObjects
 
             if (!noEvents && oldPosition.Position != Coordinates.Position)
             {
-                var moveEvent = new EntityPositionChangedEvent(Owner, oldPosition, Coordinates, this);
-                Owner.EntityManager.EventBus.RaiseLocalEvent(OwnerUid, ref moveEvent);
+                var moveEvent = new EntityPositionChangedEvent(OwnerUid, oldPosition, Coordinates, this);
+                _entityManager.EventBus.RaiseLocalEvent(OwnerUid, ref moveEvent);
             }
         }
 
@@ -249,13 +250,13 @@ namespace OpenNefia.Core.GameObjects
 
             if (!noEvents)
             {
-                var moveEvent = new EntityPositionChangedEvent(Owner, oldPos, Coordinates, this);
-                Owner.EntityManager.EventBus.RaiseLocalEvent(OwnerUid, ref moveEvent);
+                var moveEvent = new EntityPositionChangedEvent(OwnerUid, oldPos, Coordinates, this);
+                _entityManager.EventBus.RaiseLocalEvent(OwnerUid, ref moveEvent);
             }
         }
 
         public IEnumerable<SpatialComponent> Children =>
-            _children.Select(u => Owner.EntityManager.GetEntity(u).Spatial);
+            _children.Select(u => _entityManager.GetEntity(u).Spatial);
 
         public IEnumerable<EntityUid> ChildEntityUids => _children;
 
@@ -268,7 +269,7 @@ namespace OpenNefia.Core.GameObjects
             // Children MAY be initialized here before their parents are.
             // We do this whole dance to handle this recursively,
             // setting _mapIdInitialized along the way to avoid going to the IMapComponent every iteration.
-            static MapId FindMapIdAndSet(SpatialComponent p)
+            MapId FindMapIdAndSet(SpatialComponent p)
             {
                 if (p._mapIdInitialized)
                 {
@@ -283,7 +284,7 @@ namespace OpenNefia.Core.GameObjects
                 else
                 {
                     // second level node, terminates recursion up the branch of the tree
-                    if (p.Owner.TryGetComponent(out MapComponent? mapComp))
+                    if (_entityManager.TryGetComponent(p.OwnerUid, out MapComponent? mapComp))
                     {
                         value = mapComp.MapId;
                     }
@@ -348,8 +349,8 @@ namespace OpenNefia.Core.GameObjects
             }
 
             // this would be a no-op
-            var oldParentEnt = oldParent.Owner;
-            if (newMapEntity == oldParentEnt)
+            var oldParentEntUid = oldParent.OwnerUid;
+            if (newMapEntity.Uid == oldParentEntUid)
             {
                 return;
             }
@@ -373,8 +374,8 @@ namespace OpenNefia.Core.GameObjects
             oldConcrete._children.Remove(uid);
 
             _parent = EntityUid.Invalid;
-            var entParentChangedMessage = new EntParentChangedEvent(Owner, oldParent?.Owner);
-            Owner.EntityManager.EventBus.RaiseLocalEvent(OwnerUid, ref entParentChangedMessage);
+            var entParentChangedMessage = new EntParentChangedEvent(OwnerUid, oldParent?.OwnerUid);
+            _entityManager.EventBus.RaiseLocalEvent(OwnerUid, ref entParentChangedMessage);
             var oldMapId = MapID;
             MapID = MapId.Nullspace;
 
@@ -411,7 +412,7 @@ namespace OpenNefia.Core.GameObjects
 
             MapID = newMapId;
             MapIdChanged(oldMapId);
-            UpdateChildMapIdsRecursive(MapID, Owner.EntityManager);
+            UpdateChildMapIdsRecursive(MapID, _entityManager);
         }
 
         private void UpdateChildMapIdsRecursive(MapId newMapId, IEntityManager entMan)
@@ -433,7 +434,7 @@ namespace OpenNefia.Core.GameObjects
 
         private void MapIdChanged(MapId oldId)
         {
-            Owner.EntityManager.EventBus.RaiseLocalEvent(OwnerUid, new EntMapIdChangedEvent(Owner, oldId));
+            _entityManager.EventBus.RaiseLocalEvent(OwnerUid, new EntMapIdChangedEvent(OwnerUid, oldId));
         }
 
         public void AttachParent(Entity parent)
@@ -509,15 +510,15 @@ namespace OpenNefia.Core.GameObjects
     /// </summary>
     public readonly struct EntityPositionChangedEvent
     {
-        public EntityPositionChangedEvent(Entity entity, EntityCoordinates oldPos, EntityCoordinates newPos, SpatialComponent component)
+        public EntityPositionChangedEvent(EntityUid entityUid, EntityCoordinates oldPos, EntityCoordinates newPos, SpatialComponent component)
         {
-            Entity = entity;
+            EntityUid = entityUid;
             OldPosition = oldPos;
             NewPosition = newPos;
             Component = component;
         }
 
-        public readonly Entity Entity;
+        public readonly EntityUid EntityUid;
         public readonly EntityCoordinates OldPosition;
         public readonly EntityCoordinates NewPosition;
         public readonly SpatialComponent Component;
@@ -531,21 +532,21 @@ namespace OpenNefia.Core.GameObjects
         /// <summary>
         ///     Entity that was adopted. The transform component has a property with the new parent.
         /// </summary>
-        public Entity Entity { get; }
+        public EntityUid EntityUid { get; }
 
         /// <summary>
         ///     Old parent that abandoned the Entity.
         /// </summary>
-        public Entity? OldParent { get; }
+        public EntityUid? OldParent { get; }
 
         /// <summary>
         ///     Creates a new instance of <see cref="EntParentChangedEvent"/>.
         /// </summary>
         /// <param name="entity"></param>
         /// <param name="oldParent"></param>
-        public EntParentChangedEvent(Entity entity, Entity? oldParent)
+        public EntParentChangedEvent(EntityUid entity, EntityUid? oldParent)
         {
-            Entity = entity;
+            EntityUid = entity;
             OldParent = oldParent;
         }
     }

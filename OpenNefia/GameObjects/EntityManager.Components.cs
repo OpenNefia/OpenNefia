@@ -110,7 +110,7 @@ namespace OpenNefia.Core.GameObjects
 #endif
             DebugTools.Assert(metadata.EntityLifeStage == EntityLifeStage.Initializing);
             metadata.EntityLifeStage = EntityLifeStage.Initialized;
-            EventBus.RaiseEvent(EventSource.Local, new EntityInitializedMessage(GetEntity(uid)));
+            EventBus.RaiseEvent(EventSource.Local, new EntityInitializedMessage(uid));
         }
 
         public void StartComponents(EntityUid uid)
@@ -231,7 +231,7 @@ namespace OpenNefia.Core.GameObjects
         {
             if (component == null) throw new ArgumentNullException(nameof(component));
 
-            if (component.Owner == null || component.OwnerUid != uid)
+            if (component.OwnerUid != uid)
                 throw new InvalidOperationException("Component is not owned by entity.");
 
             RemoveComponentImmediate((Component)component, uid, false);

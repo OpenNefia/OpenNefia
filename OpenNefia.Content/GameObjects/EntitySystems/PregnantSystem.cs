@@ -35,10 +35,15 @@ namespace OpenNefia.Content.GameObjects
 
         public void DoAlienBirth(EntityUid uid, PregnantComponent component, TurnStartEvent args)
         {
+            SpatialComponent? spatial = null;
+
+            if (!Resolve(uid, ref spatial))
+                return;
+
             if (_rand.OneIn(10))
             {
                 Console.WriteLine("Suddenly an alien bursts from " + DisplayNameSystem.GetDisplayName(uid) + "'s stomach!");
-                EntityManager.SpawnEntity("Putit", component.Owner.Spatial.MapPosition.Offset(1, 1));
+                EntityManager.SpawnEntity("Putit", spatial.MapPosition.Offset(1, 1));
             }
         }
     }

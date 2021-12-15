@@ -1,4 +1,5 @@
 using System;
+using OpenNefia.Core.IoC;
 using OpenNefia.Core.Locale;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Serialization.Manager.Attributes;
@@ -10,6 +11,8 @@ namespace OpenNefia.Core.GameObjects
     /// </summary>
     public class MetaDataComponent : Component
     {
+        [Dependency] private readonly IEntityManager _entityManager = default!;
+
         public override string Name => "MetaData";
 
         /// <summary>
@@ -65,8 +68,8 @@ namespace OpenNefia.Core.GameObjects
                 var oldLiveness = _liveness;
                 _liveness = value;
 
-                var livenessEvent = new EntityLivenessChangedEvent(Owner, oldLiveness, Liveness);
-                Owner.EntityManager.EventBus.RaiseLocalEvent(OwnerUid, ref livenessEvent);
+                var livenessEvent = new EntityLivenessChangedEvent(OwnerUid, oldLiveness, Liveness);
+                _entityManager.EventBus.RaiseLocalEvent(OwnerUid, ref livenessEvent);
             }
         }
 
@@ -95,13 +98,13 @@ namespace OpenNefia.Core.GameObjects
 
     public struct EntityLivenessChangedEvent
     {
-        public readonly Entity Owner;
+        public readonly EntityUid EntityUid;
         public readonly EntityGameLiveness OldLiveness;
         public readonly EntityGameLiveness NewLiveness;
 
-        public EntityLivenessChangedEvent(Entity owner, EntityGameLiveness oldLiveness, EntityGameLiveness liveness)
+        public EntityLivenessChangedEvent(EntityUid entityUid, EntityGameLiveness oldLiveness, EntityGameLiveness liveness)
         {
-            this.Owner = owner;
+            this.EntityUid = entityUid;
             this.OldLiveness = oldLiveness;
             this.NewLiveness = liveness;
         }

@@ -29,7 +29,7 @@ namespace OpenNefia.Tests.Core.Maps.Loader
             var mapLoader = IoCManager.Resolve<IMapLoader>();
 
             var mapId = new MapId(1);
-            mapManager.CreateMap(mapId, 50, 50);
+            mapManager.CreateMap(50, 50, mapId);
 
             mapLoader.SaveMap(mapId, new ResourcePath("/Test.sav"));
 

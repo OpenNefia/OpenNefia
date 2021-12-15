@@ -213,28 +213,27 @@ namespace OpenNefia.Core.GameObjects
                 return;
 #endif
 
-            RecursiveDeleteEntity(e);
+            RecursiveDeleteEntity(e.Uid);
         }
 
         private EntityTerminatingEvent EntityTerminating = new();
 
-        private void RecursiveDeleteEntity(Entity entity)
+        private void RecursiveDeleteEntity(EntityUid uid)
         {
-            if(entity.Deleted)
+            if (Deleted(uid)) //TODO: Why was this still a child if it was already deleted?
                 return;
 
-            var uid = entity.Uid;
-            var spatial = entity.Spatial;
-            var metadata = entity.MetaData;
-            entity.LifeStage = EntityLifeStage.Terminating;
+            var spatial = GetComponent<SpatialComponent>(uid);
+            var metadata = GetComponent<MetaDataComponent>(uid);
+            GetComponent<MetaDataComponent>(uid).EntityLifeStage = EntityLifeStage.Terminating;
 
-            EventBus.RaiseLocalEvent(entity.Uid, ref EntityTerminating, false);
+            EventBus.RaiseLocalEvent(uid, ref EntityTerminating, false);
 
             // DeleteEntity modifies our _children collection, we must cache the collection to iterate properly
             foreach (var childTransform in spatial.Children.ToArray())
             {
                 // Recursion Alert
-                RecursiveDeleteEntity(childTransform.Owner);
+                RecursiveDeleteEntity(childTransform.OwnerUid);
             }
 
             // Shut down all components.
@@ -252,12 +251,12 @@ namespace OpenNefia.Core.GameObjects
             }
 
             // Dispose all my components, in a safe order so transform is available
-            DisposeComponents(entity.Uid);
+            DisposeComponents(uid);
 
             metadata.EntityLifeStage = EntityLifeStage.Deleted;
-            EntityDeleted?.Invoke(this, entity.Uid);
-            EventBus.RaiseEvent(EventSource.Local, new EntityDeletedMessage(entity));
-            Entities.Remove(entity.Uid);
+            EntityDeleted?.Invoke(this, uid);
+            EventBus.RaiseEvent(EventSource.Local, new EntityDeletedMessage(uid));
+            Entities.Remove(uid);
         }
 
         public void QueueDeleteEntity(Entity entity)
@@ -282,6 +281,16 @@ namespace OpenNefia.Core.GameObjects
         public bool EntityExists(EntityUid uid)
         {
             return TryGetEntity(uid, out _);
+        }
+
+        public bool Deleted(EntityUid uid)
+        {
+            return !_entTraitDict[typeof(MetaDataComponent)].TryGetValue(uid, out var comp) || ((MetaDataComponent)comp).EntityDeleted;
+        }
+
+        public bool Deleted(EntityUid? uid)
+        {
+            return !uid.HasValue || !_entTraitDict[typeof(MetaDataComponent)].TryGetValue(uid.Value, out var comp) || ((MetaDataComponent)comp).EntityDeleted;
         }
 
         /// <summary>
@@ -330,7 +339,6 @@ namespace OpenNefia.Core.GameObjects
             }
 
             var entity = new Entity(this, uid.Value);
-
 
             // we want this called before adding components
             EntityAdded?.Invoke(this, entity.Uid);

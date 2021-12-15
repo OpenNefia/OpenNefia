@@ -63,7 +63,7 @@ namespace OpenNefia.Content.Logic
 
         private IMap InitMap()
         {
-            var map = _mapManager.CreateMap(null, 25, 25);
+            var map = _mapManager.CreateMap(25, 25);
 
             var player = _entityManager.SpawnEntity(new("Putit"), map.AtPos(2, 2));
             player.AddComponent<PlayerComponent>();

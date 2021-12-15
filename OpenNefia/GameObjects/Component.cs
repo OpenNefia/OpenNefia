@@ -1,4 +1,5 @@
 ﻿using System;
+using OpenNefia.Core.IoC;
 using OpenNefia.Core.Reflection;
 using OpenNefia.Core.Serialization.Manager.Attributes;
 using OpenNefia.Core.Utility;
@@ -142,9 +143,9 @@ namespace OpenNefia.Core.GameObjects
             // Apparently components are being created outside of the EntityManager,
             // and the Owner is not being set correctly.
             // ReSharper disable once RedundantAssertionStatement
-            DebugTools.AssertNotNull(Owner);
+            DebugTools.Assert(OwnerUid != EntityUid.Invalid);
 
-            return Owner.EntityManager.EventBus;
+            return IoCManager.Resolve<IEntityManager>().EventBus;
         }
 
         /// <summary>
