@@ -40,7 +40,7 @@ namespace OpenNefia.Core.Maps
         bool IsInWindowFov(Vector2i pos);
         bool IsMemorized(Vector2i pos);
         void RefreshVisibility();
-        void MemorizeAll();
+        void MemorizeAllTiles();
         bool IsInBounds(Vector2i position);
         void MemorizeTile(Vector2i position);
         bool CanAccess(Vector2i position);

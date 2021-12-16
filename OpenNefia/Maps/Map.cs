@@ -82,7 +82,7 @@ namespace OpenNefia.Core.Maps
             this.RedrawAllThisTurn = true;
         }
 
-        public void MemorizeAll()
+        public void MemorizeAllTiles()
         {
             for (int y = 0; y < this.Height; y++)
             {

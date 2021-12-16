@@ -1,0 +1,117 @@
+meta:
+  format: 1
+  name: test
+  author: ruin
+grid: |
+  @@@@@@@@@@@
+  @.........@
+  @.........@
+  @.........@
+  @.........@
+  @.........@
+  @.........@
+  @.........@
+  @@@@@@@@@@@
+tilemap:
+  '@': WallBrick
+  '.': Tile1
+entities:
+- uid: 0
+  components:
+  - type: Map
+- uid: 1
+  protoId: Yeek
+  components:
+  - type: Spatial
+    parent: 0
+    pos: 2,5
+- uid: 2
+  protoId: Yeek
+  components:
+  - type: Spatial
+    parent: 0
+    pos: 3,5
+- uid: 3
+  protoId: Yeek
+  components:
+  - type: Spatial
+    parent: 0
+    pos: 4,5
+- uid: 4
+  protoId: Yeek
+  components:
+  - type: Spatial
+    parent: 0
+    pos: 5,5
+- uid: 5
+  protoId: PotionOfCureMinor
+  components:
+  - type: Spatial
+    parent: 0
+    pos: 2,2
+- uid: 6
+  protoId: PotionOfCureMinor
+  components:
+  - type: Spatial
+    parent: 0
+    pos: 3,2
+- uid: 7
+  protoId: PotionOfCureMinor
+  components:
+  - type: Spatial
+    parent: 0
+    pos: 4,2
+- uid: 8
+  protoId: PotionOfCureMinor
+  components:
+  - type: Spatial
+    parent: 0
+    pos: 5,2
+- uid: 9
+  protoId: Computer
+  components:
+  - type: Spatial
+    parent: 0
+    pos: 2,3
+- uid: 10
+  protoId: Computer
+  components:
+  - type: Spatial
+    parent: 0
+    pos: 3,3
+- uid: 11
+  protoId: Computer
+  components:
+  - type: Spatial
+    parent: 0
+    pos: 4,3
+- uid: 12
+  protoId: Computer
+  components:
+  - type: Spatial
+    parent: 0
+    pos: 5,3
+- uid: 13
+  protoId: PotionOfTest
+  components:
+  - type: Spatial
+    parent: 0
+    pos: 2,4
+- uid: 14
+  protoId: PotionOfTest
+  components:
+  - type: Spatial
+    parent: 0
+    pos: 3,4
+- uid: 15
+  protoId: PotionOfTest
+  components:
+  - type: Spatial
+    parent: 0
+    pos: 4,4
+- uid: 16
+  protoId: PotionOfTest
+  components:
+  - type: Spatial
+    parent: 0
+    pos: 5,4

@@ -1,4 +1,5 @@
-﻿using OpenNefia.Core.Serialization.Manager.Attributes;
+﻿using OpenNefia.Core.Serialization;
+using OpenNefia.Core.Serialization.Manager.Attributes;
 
 namespace OpenNefia.Core.GameObjects
 {
@@ -10,9 +11,11 @@ namespace OpenNefia.Core.GameObjects
         [ComponentDependency]
         private MetaDataComponent? _metaData;
 
+        // The required dependency on _metaData isn't filled out when deserializing,
+        // so set the amount directly.
+        [DataField("amount")]
         private int _amount = 1;
 
-        [DataField]
         public int Amount
         {
             get => _amount;

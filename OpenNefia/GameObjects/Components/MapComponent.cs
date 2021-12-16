@@ -7,7 +7,6 @@ namespace OpenNefia.Core.GameObjects
     /// <summary>
     ///     Represents a map inside the ECS system.
     /// </summary>
-    [RegisterComponent]
     public class MapComponent : Component
     {
         /// <inheritdoc />

@@ -6,6 +6,7 @@ using OpenNefia.Core.Maps;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Core.UI;
 using OpenNefia.Core.UI.Layer;
+using OpenNefia.Core.Utility;
 
 namespace OpenNefia.Content.Logic
 {
@@ -20,6 +21,7 @@ namespace OpenNefia.Content.Logic
         [Dependency] private readonly IEntityManager _entityManager = default!;
         [Dependency] private readonly IGameSessionManager _gameSessionManager = default!;
         [Dependency] private readonly IFieldLayer _fieldLayer = default!;
+        [Dependency] private readonly IMapBlueprintLoader _mapBlueprints = default!;
 
         public void RunTitleScreen()
         {
@@ -63,21 +65,13 @@ namespace OpenNefia.Content.Logic
 
         private IMap InitMap()
         {
-            var map = _mapManager.CreateMap(25, 25);
+            var mapId = _mapManager.GetFreeMapId();
+            var map = _mapBlueprints.LoadBlueprint(mapId, new ResourcePath("/Elona/Map/Test.yml"));
 
             var player = _entityManager.SpawnEntity(new("Putit"), map.AtPos(2, 2));
             player.AddComponent<PlayerComponent>();
             _gameSessionManager.Player = player;
-            map.Clear(TilePrototypeOf.Grass);
-            map.MemorizeAll();
-
-            for (int i = 0; i < 10; i++)
-            {
-                _entityManager.SpawnEntity(new("Yeek"), map.AtPos(i + 5, 5));
-                _entityManager.SpawnEntity(new("PotionOfCureMinor"), map.AtPos(i + 5, 2));
-                _entityManager.SpawnEntity(new("PotionOfTest"), map.AtPos(i + 5, 1));
-                _entityManager.SpawnEntity(new("Computer"), map.AtPos(i + 5, 3));
-            }
+            map.MemorizeAllTiles();
 
             return map;
         }

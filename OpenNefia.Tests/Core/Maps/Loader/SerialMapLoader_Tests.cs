@@ -10,7 +10,7 @@ namespace OpenNefia.Tests.Core.Maps.Loader
 {
     [TestFixture]
     [TestOf(typeof(SerialMapLoader))]
-    public class MapLoader_Tests : OpenNefiaUnitTest
+    public class SerialMapLoader_Tests : OpenNefiaUnitTest
     {
         protected override void OverrideIoC()
         {

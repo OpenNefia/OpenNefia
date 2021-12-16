@@ -56,7 +56,7 @@ namespace OpenNefia.Core.Maps
             stream.Save(new YamlMappingFix(new Emitter(writer)), false);
         }
 
-        public IMap? LoadBlueprint(MapId mapId, ResourcePath yamlPath)
+        public IMap LoadBlueprint(MapId mapId, ResourcePath yamlPath)
         {
             TextReader reader;
 
@@ -72,8 +72,7 @@ namespace OpenNefia.Core.Maps
                 }
                 else
                 {
-                    Logger.ErrorS("map", $"No blueprint found: {yamlPath}");
-                    return null;
+                    throw new ArgumentException($"No blueprint found: {yamlPath}", nameof(yamlPath));
                 }
             }
             else
@@ -231,7 +230,7 @@ namespace OpenNefia.Core.Maps
                 // Actually instance components and run ExposeData on them.
                 FinishEntitiesLoad();
 
-                AttachEntitiesToMap();
+                FixMapEntity();
 
                 // Run Initialize on all components.
                 FinishEntitiesInitialization();
@@ -350,15 +349,39 @@ namespace OpenNefia.Core.Maps
                 }
             }
 
-            private void AttachEntitiesToMap()
+            private EntityUid FindMapEntity()
             {
-                var mapEntity = _mapManager.GetMapEntity(_targetMapId);
+                EntityUid found = EntityUid.Invalid;
 
                 foreach (var entity in Entities)
                 {
-                    var spatial = _entityManager.GetComponent<SpatialComponent>(entity);
-                    spatial.AttachParent(mapEntity);
+                    if (_entityManager.HasComponent<MapComponent>(entity))
+                    {
+                        if (found.IsValid())
+                        {
+                            throw new InvalidDataException($"Map blueprint has more than one entity with a {nameof(MapComponent)}");
+                        }
+
+                        found = entity;
+                    }
                 }
+
+                if (!found.IsValid())
+                {
+                    throw new InvalidDataException($"Map blueprint does not contain an entity with a {nameof(MapComponent)}");
+                }
+
+                return found;
+            }
+
+            private void FixMapEntity()
+            {
+                var mapEntityInBlueprint = FindMapEntity();
+                _mapManager.SetMapEntity(_targetMapId, mapEntityInBlueprint);
+
+                var mapEntity = _mapManager.GetMapEntity(_targetMapId)!;
+                var mapComponent = _entityManager.EnsureComponent<MapComponent>(mapEntity.Uid);
+                mapComponent.MapId = _targetMapId;
             }
 
             private void FinishEntitiesInitialization()

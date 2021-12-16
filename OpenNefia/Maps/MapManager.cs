@@ -39,6 +39,15 @@ namespace OpenNefia.Core.Maps
             return map;
         }
 
+        private void SetMapGridIds(IMap map, MapId mapId, EntityUid mapEntityUid)
+        {
+            var flags = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic;
+            var idField = map.GetType().GetProperty("Id", flags)!;
+            var mapEntityUidField = map.GetType().GetProperty("MapEntityUid", flags)!;
+            idField.SetValue(map, mapId);
+            mapEntityUidField.SetValue(map, mapEntityUid);
+        }
+
         public MapId RegisterMap(IMap map, MapId? mapId = null)
         {
             var actualID = AllocFreeMapId(mapId);
@@ -50,10 +59,8 @@ namespace OpenNefia.Core.Maps
 
             this._maps[_highestMapID] = map;
 
-            var idField = map.GetType().GetProperty("Id", BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic)!;
-            var mapEntityUidField = map.GetType().GetProperty("MapEntityUid", BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic)!;
-            idField.SetValue(map, actualID);
-            mapEntityUidField.SetValue(map, RebindMapEntity(actualID));
+            var entityUid = RebindMapEntity(actualID);
+            SetMapGridIds(map, actualID, entityUid);
 
             return actualID;
         }
@@ -120,6 +127,51 @@ namespace OpenNefia.Core.Maps
                 Logger.DebugS("map", $"Binding map {actualID} to entity {newEnt.Uid}");
                 return newEnt.Uid;
             }
+        }
+
+        public void SetMapEntity(MapId mapId, EntityUid newMapEntity)
+        {
+            if (!_maps.TryGetValue(mapId, out var mapGrid))
+                throw new InvalidOperationException($"Map {mapId} does not exist.");
+
+            foreach (var kvEntity in _mapEntities)
+            {
+                if (kvEntity.Value == newMapEntity)
+                {
+                    throw new InvalidOperationException(
+                        $"Entity {newMapEntity} is already the root node of map {kvEntity.Key}.");
+                }
+            }
+
+            // remove existing graph
+            if (_mapEntities.TryGetValue(mapId, out var oldEntId))
+            {
+                //Note: This prevents setting a subgraph as the root, since the subgraph will be deleted
+                _entityManager.DeleteEntity(oldEntId);
+            }
+            else
+            {
+                _mapEntities.Add(mapId, EntityUid.Invalid);
+            }
+
+            // re-use or add map component
+            if (!_entityManager.TryGetComponent(newMapEntity, out MapComponent? mapComp))
+            {
+                mapComp = _entityManager.AddComponent<MapComponent>(newMapEntity);
+            }
+            else
+            {
+                if (mapComp.MapId != mapId)
+                    Logger.WarningS("map",
+                        $"Setting map {mapId} root to entity {newMapEntity}, but entity thinks it is root node of map {mapComp.MapId}.");
+            }
+
+            Logger.DebugS("map", $"Setting map {mapId} entity to {newMapEntity}");
+
+            // set as new map entity
+            mapComp.MapId = mapId;
+            _mapEntities[mapId] = newMapEntity;
+            SetMapGridIds(mapGrid, mapId, newMapEntity);
         }
 
         public void UnloadMap(MapId mapID)
