@@ -9,14 +9,14 @@ namespace OpenNefia.Core.GameObjects
 
         public override void Initialize()
         {
-            SubscribeLocalEvent<StackableComponent, EntityInitializedMessage>(HandleEntityInitialized, nameof(HandleEntityInitialized));
+            SubscribeLocalEvent<StackableComponent, MapInitEvent>(HandleEntityInitialized, nameof(HandleEntityInitialized));
         }
 
         /// <summary>
         /// Ensure that the liveness based on stackable amount is properly initialized.
         /// It has a dependency on <see cref="MetaDataComponent"/>.
         /// </summary>
-        private void HandleEntityInitialized(EntityUid uid, StackableComponent stackable, ref EntityInitializedMessage args)
+        private void HandleEntityInitialized(EntityUid uid, StackableComponent stackable, ref MapInitEvent args)
         {
             MetaDataComponent? metaData = null;
 

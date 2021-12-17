@@ -21,7 +21,7 @@ namespace OpenNefia.Content.GameObjects
         private void ProduceSpriteMemory(EntityUid uid, ChipComponent chip, GetMapObjectMemoryEventArgs args)
         {
             var memory = args.Memory;
-            memory.AtlasIndex = chip.ID.ResolvePrototype().Image.AtlasIndex;
+            memory.AtlasIndex = chip.ChipID.ResolvePrototype().Image.AtlasIndex;
             memory.Color = chip.Color;
             memory.IsVisible = true;
             memory.ScreenOffset = Vector2i.Zero;

@@ -65,7 +65,7 @@ namespace OpenNefia.Core.GameObjects
         }
     }
 
-    public class MoveEventArgs : HandledEntityEventArgs
+    public class MoveEventArgs : TurnResultEntityEventArgs
     {
         public readonly MapCoordinates OldPosition;
         public readonly MapCoordinates NewPosition;
@@ -75,11 +75,9 @@ namespace OpenNefia.Core.GameObjects
             OldPosition = oldPosition;
             NewPosition = newPosition;
         }
-
-        public TurnResult TurnResult;
     }
 
-    public class BeforeMoveEventArgs : HandledEntityEventArgs
+    public class BeforeMoveEventArgs : TurnResultEntityEventArgs
     {
         public readonly MapCoordinates OldPosition;
         public readonly MapCoordinates NewPosition;
@@ -89,8 +87,6 @@ namespace OpenNefia.Core.GameObjects
             OldPosition = oldPosition;
             NewPosition = newPosition;
         }
-
-        public TurnResult TurnResult;
     }
 
     public class AfterMoveEventArgs : HandledEntityEventArgs

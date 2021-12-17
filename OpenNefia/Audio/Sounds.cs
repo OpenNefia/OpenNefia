@@ -24,11 +24,11 @@ namespace OpenNefia.Core.Audio
         /// Plays an audio file following an entity.
         /// </summary>
         /// <param name="prototype">Prototype of the sound to play.</param>
-        /// <param name="entity">The UID of the entity "emitting" the audio.</param>
+        /// <param name="entityUid">The UID of the entity "emitting" the audio.</param>
         /// <param name="audioParams">Audio parameters to apply when playing the sound.</param>
-        public static void Play(PrototypeId<SoundPrototype> prototype, Entity entity, AudioParams? audioParams = null)
+        public static void Play(PrototypeId<SoundPrototype> prototype, EntityUid entityUid, AudioParams? audioParams = null)
         {
-            EntitySystem.Get<IAudioSystem>().Play(prototype, entity, audioParams);
+            EntitySystem.Get<IAudioSystem>().Play(prototype, entityUid, audioParams);
         }
 
         /// <summary>

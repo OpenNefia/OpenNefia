@@ -172,6 +172,31 @@ namespace OpenNefia.Tests.Core.GameObjects.Systems
             Assert.That(map.CanSeeThrough(pos), Is.True);
         }
 
+        /// <summary>
+        ///     Tests that changing solidity/opacity updates the corresponding map tile.
+        /// </summary>
+        [Test]
+        public void TestMapSolidOpaqueRefresh()
+        {
+            var sim = SimulationFactory();
+            var entMan = sim.Resolve<IEntityManager>();
+            var map = sim.ActiveMap!;
+
+            var pos = Vector2i.One;
+
+            var ent = entMan.SpawnEntity(new("dummySolidOpaque"), map.AtPos(pos));
+            var entSpatial = entMan.GetComponent<SpatialComponent>(ent.Uid);
+
+            Assert.That(map.CanSeeThrough(entSpatial.WorldPosition), Is.False);
+            Assert.That(map.CanAccess(entSpatial.WorldPosition), Is.False);
+
+            entSpatial.IsSolid = false;
+            entSpatial.IsOpaque = false;
+
+            Assert.That(map.CanSeeThrough(entSpatial.WorldPosition), Is.True);
+            Assert.That(map.CanAccess(entSpatial.WorldPosition), Is.True);
+        }
+
         private class Subscriber : IEntityEventSubscriber { }
     }
 }

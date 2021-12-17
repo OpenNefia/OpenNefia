@@ -39,7 +39,7 @@ namespace OpenNefia.Content.GameObjects
             if (!EntityManager.TryGetComponent(args.Thrower, out SpatialComponent sourceSpatial))
                 return;
 
-            var drawable = new RangedAttackMapDrawable(sourceSpatial.MapPosition, args.Coords, targetChip.ID, targetChip.Color);
+            var drawable = new RangedAttackMapDrawable(sourceSpatial.MapPosition, args.Coords, targetChip.ChipID, targetChip.Color);
             _mapDrawables.Enqueue(drawable, sourceSpatial.MapPosition);
         }
 

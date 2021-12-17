@@ -256,7 +256,7 @@ namespace OpenNefia.Core.GameObjects
 
             metadata.EntityLifeStage = EntityLifeStage.Deleted;
             EntityDeleted?.Invoke(this, uid);
-            EventBus.RaiseEvent(EventSource.Local, new EntityDeletedMessage(uid));
+            EventBus.RaiseEvent(EventSource.Local, new EntityDeletedEvent(uid));
             Entities.Remove(uid);
         }
 

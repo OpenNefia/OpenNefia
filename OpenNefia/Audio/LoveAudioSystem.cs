@@ -56,9 +56,12 @@ namespace OpenNefia.Core.Audio
         }
 
         /// <inheritdoc />
-        public void Play(PrototypeId<SoundPrototype> prototype, Entity entity, AudioParams? audioParams = null)
+        public void Play(PrototypeId<SoundPrototype> prototype, EntityUid entity, AudioParams? audioParams = null)
         {
-            Play(prototype, entity.Spatial.MapPosition, audioParams);
+            if (EntityManager.TryGetComponent<SpatialComponent>(entity, out var spatial))
+                Play(prototype, spatial.MapPosition, audioParams);
+            else
+                Play(prototype);
         }
 
         /// <inheritdoc />

@@ -7,11 +7,11 @@ using OpenNefia.Core.Maps;
 
 namespace OpenNefia.Core.GameObjects
 {
-    public sealed class EntityInitializedMessage : EntityEventArgs
+    public sealed class EntityInitializedEvent : EntityEventArgs
     {
         public EntityUid EntityUid { get; }
 
-        public EntityInitializedMessage(EntityUid entityUid)
+        public EntityInitializedEvent(EntityUid entityUid)
         {
             EntityUid = entityUid;
         }
@@ -36,11 +36,11 @@ namespace OpenNefia.Core.GameObjects
     {
     }
 
-    public sealed class EntityDeletedMessage : EntityEventArgs
+    public sealed class EntityDeletedEvent : EntityEventArgs
     {
         public EntityUid EntityUid { get; }
 
-        public EntityDeletedMessage(EntityUid entityUid)
+        public EntityDeletedEvent(EntityUid entityUid)
         {
             EntityUid = entityUid;
         }

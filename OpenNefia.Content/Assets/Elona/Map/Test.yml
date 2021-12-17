@@ -115,3 +115,27 @@ entities:
   - type: Spatial
     parent: 0
     pos: 5,4
+- uid: 17
+  protoId: Elona.FeatDoorWooden
+  components:
+  - type: Spatial
+    parent: 0
+    pos: 6,2
+- uid: 18
+  protoId: Elona.FeatDoorSF
+  components:
+  - type: Spatial
+    parent: 0
+    pos: 6,3
+- uid: 19
+  protoId: Elona.FeatDoorEastern
+  components:
+  - type: Spatial
+    parent: 0
+    pos: 6,4
+- uid: 20
+  protoId: Elona.FeatDoorJail
+  components:
+  - type: Spatial
+    parent: 0
+    pos: 6,5

@@ -174,18 +174,42 @@ namespace OpenNefia.Core.GameObjects
             set => SetCoordinates(value, false);
         }
 
+        [DataField("isSolid")]
+        private bool _isSolid;
+
         /// <summary>
         /// If true, this entity cannot be moved over. This also causes
         /// collision events to be fired when the entity is moved into.
         /// </summary>
-        [DataField]
-        public bool IsSolid { get; set; }
+        public bool IsSolid 
+        {
+            get => _isSolid;
+            set
+            {
+                _isSolid = value;
+
+                var ev = new EntTangibilityChangedEvent();
+                _entityManager.EventBus.RaiseLocalEvent(OwnerUid, ref ev);
+            } 
+        }
+
+        [DataField("isOpaque")]
+        private bool _isOpaque;
 
         /// <summary>
         /// If true, this entity blocks field of view.
         /// </summary>
-        [DataField]
-        public bool IsOpaque { get; set; }
+        public bool IsOpaque
+        {
+            get => _isOpaque;
+            set
+            {
+                _isOpaque = value;
+
+                var ev = new EntTangibilityChangedEvent();
+                _entityManager.EventBus.RaiseLocalEvent(OwnerUid, ref ev);
+            }
+        }
 
         [DataField]
         public Direction Direction { get; set; } = Direction.North;
@@ -565,6 +589,16 @@ namespace OpenNefia.Core.GameObjects
         {
             EntityUid = entity;
             OldParent = oldParent;
+        }
+    }
+
+    /// <summary>
+    ///     Raised when an entity's solidity or opacity changes.
+    /// </summary>
+    public struct EntTangibilityChangedEvent
+    {
+        public EntTangibilityChangedEvent()
+        {
         }
     }
 }

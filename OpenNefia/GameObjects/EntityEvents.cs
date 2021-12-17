@@ -20,6 +20,21 @@ namespace OpenNefia.Core.GameObjects
     }
 
     [Serializable]
+    public abstract class TurnResultEntityEventArgs : HandledEntityEventArgs
+    {
+        /// <summary>
+        ///     Turn result of this event.
+        /// </summary>
+        public TurnResult TurnResult { get; set; }
+
+        public void Handle(TurnResult turnResult)
+        {
+            Handled = true;
+            TurnResult = turnResult;
+        }
+    }
+
+    [Serializable]
     public abstract class CancellableEntityEventArgs : EntityEventArgs
     {
         /// <summary>

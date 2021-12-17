@@ -16,6 +16,7 @@ namespace OpenNefia.Core.GameObjects
             SubscribeLocalEvent<SpatialComponent, MapInitEvent>(HandleMapInit, nameof(HandleMapInit));
             SubscribeLocalEvent<SpatialComponent, EntityTerminatingEvent>(HandleEntityTerminating, nameof(HandleEntityTerminating));
             SubscribeLocalEvent<SpatialComponent, EntityLivenessChangedEvent>(HandleLivenessChanged, nameof(HandleLivenessChanged));
+            SubscribeLocalEvent<SpatialComponent, EntTangibilityChangedEvent>(HandleTangibilityChanged, nameof(HandleTangibilityChanged));
         }
 
         private void HandlePositionChanged(EntityUid uid, SpatialComponent spatial, ref EntityPositionChangedEvent args)
@@ -51,6 +52,11 @@ namespace OpenNefia.Core.GameObjects
         }
 
         private void HandleLivenessChanged(EntityUid uid, SpatialComponent spatial, ref EntityLivenessChangedEvent args)
+        {
+            RefreshTileOfEntity(uid, spatial);
+        }
+
+        private void HandleTangibilityChanged(EntityUid uid, SpatialComponent spatial, ref EntTangibilityChangedEvent args)
         {
             RefreshTileOfEntity(uid, spatial);
         }

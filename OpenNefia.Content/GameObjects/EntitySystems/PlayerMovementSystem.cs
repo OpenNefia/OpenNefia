@@ -35,8 +35,7 @@ namespace OpenNefia.Content.GameObjects
                 if (_playerQuery.YesOrNo("Do you want to exit the map?"))
                 {
                     RaiseLocalEvent(uid, new ExitMapEventArgs());
-                    args.Handled = true;
-                    args.TurnResult = TurnResult.Succeeded;
+                    args.Handle(TurnResult.Succeeded);
                     return;
                 }
             }
@@ -47,40 +46,52 @@ namespace OpenNefia.Content.GameObjects
             CollideWithEntities(uid, args, moveable);
         }
 
-        public void CollideWithEntities(EntityUid uid, BeforeMoveEventArgs args,
+        public void CollideWithEntities(EntityUid source, BeforeMoveEventArgs args,
             MoveableComponent? moveable = null)
         {
-            if (args.Handled || !Resolve(uid, ref moveable))
+            if (args.Handled || !Resolve(source, ref moveable))
                 return;
 
             var entities = _lookup.GetLiveEntitiesAtPos(args.NewPosition)
                 .Where(x => x.Spatial.IsSolid);
 
-            foreach (var entity in entities)
+            foreach (var collided in entities.ToList())
             {
-                var ev = new CollideWithEventArgs() { Target = entity.Uid };
-                RaiseLocalEvent(uid, ev);
-                if (ev.Handled)
-                {
-                    args.Handled = true;
-                    args.TurnResult = ev.TurnResult;
+                var ev = new CollideWithEventArgs(collided.Uid);
+                if (!Raise(source, ev, args))
                     return;
-                }
+
+                var ev2 = new WasCollidedWithEventArgs(source);
+                if (!Raise(collided.Uid, ev2, args))
+                    return;
             }
         }
     }
 
-    internal class ExitMapEventArgs
+    public class ExitMapEventArgs
     {
         public ExitMapEventArgs()
         {
         }
     }
 
-    public class CollideWithEventArgs : HandledEntityEventArgs
+    public class CollideWithEventArgs : TurnResultEntityEventArgs
     {
-        public EntityUid Target;
+        public readonly EntityUid Target;
 
-        public TurnResult TurnResult;
+        public CollideWithEventArgs(EntityUid target)
+        {
+            Target = target;
+        }
+    }
+
+    public class WasCollidedWithEventArgs : TurnResultEntityEventArgs
+    {
+        public readonly EntityUid Source;
+
+        public WasCollidedWithEventArgs(EntityUid source)
+        {
+            Source = source;
+        }
     }
 }

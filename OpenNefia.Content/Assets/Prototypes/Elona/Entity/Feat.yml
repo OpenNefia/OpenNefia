@@ -4,7 +4,7 @@
   hspIds:
     elona122: 10
   hspCellObjIds:
-    elona12: [5]
+    elona122: [5]
 
 - type: Entity
   id: Elona.FeatStairsDown
@@ -12,7 +12,7 @@
   hspIds:
     elona122: 11
   hspCellObjIds:
-    elona12: [6]
+    elona122: [6]
 
 - type: Entity
   id: Elona.FeatMine
@@ -20,7 +20,7 @@
   hspIds:
     elona122: 14
   hspCellObjIds:
-    elona12: [3, 4]
+    elona122: [3, 4]
 
 - type: Entity
   id: Elona.FeatMapEntrance
@@ -41,7 +41,7 @@
   id: Elona.FeatDoorWooden
   parent: Elona.FeatDoor
   hspCellObjIds:
-    elona12: [0, 1, 2]
+    elona122: [0, 1, 2]
   components:
     - type: Door
       chipOpen: Elona.FeatDoorWoodenOpen
@@ -52,7 +52,7 @@
   id: Elona.FeatDoorSF
   parent: Elona.FeatDoor
   hspCellObjIds:
-    elona12: [7]
+    elona122: [7]
   components:
     - type: Door
       chipOpen: Elona.FeatDoorSFOpen
@@ -63,7 +63,7 @@
   id: Elona.FeatDoorEastern
   parent: Elona.FeatDoor
   hspCellObjIds:
-    elona12: [11]
+    elona122: [11]
   components:
     - type: Door
       chipOpen: Elona.FeatDoorEasternOpen
@@ -74,7 +74,7 @@
   id: Elona.FeatDoorJail
   parent: Elona.FeatDoor
   hspCellObjIds:
-    elona12: [13]
+    elona122: [13]
   components:
     - type: Door
       chipOpen: Elona.FeatDoorJailOpen
@@ -93,7 +93,7 @@
   hspIds:
     elona122: 23
   hspCellObjIds:
-    elona12: [8]
+    elona122: [8]
 
 - type: Entity
   id: Elona.FeatPlant
@@ -113,7 +113,7 @@
   hspIds:
     elona122: 31
   hspCellObjIds:
-    elona12: [9]
+    elona122: [9]
 
 - type: Entity
   id: Elona.FeatSmallMedal
@@ -121,7 +121,7 @@
   hspIds:
     elona122: 32
   hspCellObjIds:
-    elona12: [10]
+    elona122: [10]
 
 - type: Entity
   id: Elona.FeatPoliticsBoard
@@ -129,7 +129,7 @@
   hspIds:
     elona122: 33
   hspCellObjIds:
-    elona12: [12]
+    elona122: [12]
 
 - id: Elona.FeatMapgenBlock
   parent: BaseFeat

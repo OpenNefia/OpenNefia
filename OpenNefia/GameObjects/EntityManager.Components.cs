@@ -110,7 +110,7 @@ namespace OpenNefia.Core.GameObjects
 #endif
             DebugTools.Assert(metadata.EntityLifeStage == EntityLifeStage.Initializing);
             metadata.EntityLifeStage = EntityLifeStage.Initialized;
-            EventBus.RaiseEvent(EventSource.Local, new EntityInitializedMessage(uid));
+            EventBus.RaiseEvent(EventSource.Local, new EntityInitializedEvent(uid));
         }
 
         public void StartComponents(EntityUid uid)

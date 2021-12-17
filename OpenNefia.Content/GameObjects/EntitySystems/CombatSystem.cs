@@ -16,7 +16,7 @@ namespace OpenNefia.Content.GameObjects
     {
         public override void Initialize()
         {
-            SubscribeLocalEvent<SpatialComponent, CollideWithEventArgs>(HandleCollideWith, nameof(HandleCollideWith));
+            SubscribeLocalEvent<MoveableComponent, CollideWithEventArgs>(HandleCollideWith, nameof(HandleCollideWith));
             SubscribeLocalEvent<StatusFearComponent, PhysicalAttackEventArgs>(HandlePhysicalAttackFear, nameof(HandlePhysicalAttackFear), 
                 before: new[] { new SubId(typeof(CombatSystem), nameof(HandlePhysicalAttackMain))});
             SubscribeLocalEvent<SkillsComponent, PhysicalAttackEventArgs>(HandlePhysicalAttackMain, nameof(HandlePhysicalAttackMain));
@@ -42,8 +42,11 @@ namespace OpenNefia.Content.GameObjects
             args.Handled = true;
         }
 
-        private void HandleCollideWith(EntityUid uid, SpatialComponent _, CollideWithEventArgs args)
+        private void HandleCollideWith(EntityUid uid, MoveableComponent _, CollideWithEventArgs args)
         {
+            if (!EntityManager.HasComponent<MoveableComponent>(args.Target))
+                return;
+
             var turnResult = MeleeAttack(uid, args.Target);
 
             if (turnResult != null)
