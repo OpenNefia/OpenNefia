@@ -1,0 +1,96 @@
+- type: Entity
+  id: Elona.FeatDoor
+  parent: BaseFeat
+  hspOrigin: elona122
+  hspIds:
+    elona122: 21
+
+- type: Entity
+  id: Elona.FeatPot
+  parent: BaseFeat
+  hspOrigin: elona122
+  hspIds:
+    elona122: 30
+
+- type: Entity
+  id: Elona.FeatHiddenPath
+  parent: BaseFeat
+  hspOrigin: elona122
+  hspIds:
+    elona122: 22
+
+- type: Entity
+  id: Elona.FeatQuestBoard
+  parent: BaseFeat
+  hspOrigin: elona122
+  hspIds:
+    elona122: 23
+
+- type: Entity
+  id: Elona.FeatVotingBox
+  parent: BaseFeat
+  hspOrigin: elona122
+  hspIds:
+    elona122: 31
+
+- type: Entity
+  id: Elona.FeatSmallMedal
+  parent: BaseFeat
+  hspOrigin: elona122
+  hspIds:
+    elona122: 32
+
+- type: Entity
+  id: Elona.FeatPoliticsBoard
+  parent: BaseFeat
+  hspOrigin: elona122
+  hspIds:
+    elona122: 33
+
+- type: Entity
+  id: Elona.FeatMine
+  parent: BaseFeat
+  hspOrigin: elona122
+  hspIds:
+    elona122: 14
+
+- id: Elona.FeatMapgenBlock
+  parent: BaseFeat
+  type: Entity
+
+- type: Entity
+  id: Elona.FeatPlant
+  parent: BaseFeat
+  hspOrigin: elona122
+  hspIds:
+    elona122: 29
+
+- type: Entity
+  id: Elona.FeatStairsDown
+  parent: BaseFeat
+  hspOrigin: elona122
+  hspIds:
+    elona122: 11
+
+- type: Entity
+  id: Elona.FeatStairsUp
+  parent: BaseFeat
+  hspOrigin: elona122
+  hspIds:
+    elona122: 10
+
+- type: Entity
+  id: Elona.FeatMapEntrance
+  parent: BaseFeat
+  hspOrigin: elona122
+  hspIds:
+    elona122: 15
+
+- id: Elona.FeatLockedHatch
+  parent: BaseFeat
+  type: Entity
+
+- id: Elona.FeatMaterialSpot
+  parent: BaseFeat
+  type: Entity
+...

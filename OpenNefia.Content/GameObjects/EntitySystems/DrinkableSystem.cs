@@ -68,7 +68,7 @@ namespace OpenNefia.Content.GameObjects
             Mes.Display($"{DisplayNameSystem.GetDisplayName(thrown)} shatters.");
             Sounds.Play(SoundPrototypeOf.Crush2, args.Coords);
 
-            var puddle = EntityManager.SpawnEntity(new("PotionPuddle"), args.Coords);
+            var puddle = EntityManager.SpawnEntity(Protos.Mef.Potion, args.Coords);
 
             if (EntityManager.TryGetComponent(puddle.Uid, out ChipComponent chipCompPuddle)
                 && EntityManager.TryGetComponent(thrown, out ChipComponent chipCompPotion))

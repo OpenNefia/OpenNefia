@@ -1,5 +1,5 @@
 - type: Chip
-  id: ItemEmpty
+  id: Elona.ItemEmpty
   elonaId: 0
   group: Item
   image:
@@ -7,7 +7,7 @@
     region: "0, 0, 48, 48"
 
 - type: Chip
-  id: ItemProjectileArrow
+  id: Elona.ItemProjectileArrow
   elonaId: 1
   group: Item
   image:
@@ -15,7 +15,7 @@
     region: "48, 0, 48, 48"
 
 - type: Chip
-  id: ItemProjectileBullet
+  id: Elona.ItemProjectileBullet
   elonaId: 2
   group: Item
   image:
@@ -23,7 +23,7 @@
     region: "96, 0, 48, 48"
 
 - type: Chip
-  id: ItemProjectileBolt
+  id: Elona.ItemProjectileBolt
   elonaId: 3
   group: Item
   image:
@@ -31,7 +31,7 @@
     region: "144, 0, 48, 48"
 
 - type: Chip
-  id: ItemProjectileBomb1
+  id: Elona.ItemProjectileBomb1
   elonaId: 4
   group: Item
   image:
@@ -39,7 +39,7 @@
     region: "192, 0, 48, 48"
 
 - type: Chip
-  id: ItemProjectileBomb2
+  id: Elona.ItemProjectileBomb2
   elonaId: 5
   group: Item
   image:
@@ -47,7 +47,7 @@
     region: "240, 0, 48, 48"
 
 - type: Chip
-  id: ItemProjectileMagicArrow
+  id: Elona.ItemProjectileMagicArrow
   elonaId: 6
   group: Item
   image:
@@ -55,7 +55,7 @@
     region: "288, 0, 48, 48"
 
 - type: Chip
-  id: ItemMaterialSpark
+  id: Elona.ItemMaterialSpark
   elonaId: 7
   group: Item
   image:
@@ -63,7 +63,7 @@
     region: "336, 0, 48, 48"
 
 - type: Chip
-  id: ItemMaterialSkull
+  id: Elona.ItemMaterialSkull
   elonaId: 8
   group: Item
   image:
@@ -71,7 +71,7 @@
     region: "384, 0, 48, 48"
 
 - type: Chip
-  id: ItemMaterialCandle
+  id: Elona.ItemMaterialCandle
   elonaId: 9
   group: Item
   image:
@@ -79,7 +79,7 @@
     region: "432, 0, 48, 48"
 
 - type: Chip
-  id: ItemMaterialSweat
+  id: Elona.ItemMaterialSweat
   elonaId: 10
   group: Item
   image:
@@ -87,7 +87,7 @@
     region: "480, 0, 48, 48"
 
 - type: Chip
-  id: ItemProjectileLaser
+  id: Elona.ItemProjectileLaser
   elonaId: 13
   group: Item
   image:
@@ -95,7 +95,7 @@
     region: "624, 0, 48, 48"
 
 - type: Chip
-  id: ItemProjectileSpore
+  id: Elona.ItemProjectileSpore
   elonaId: 23
   group: Item
   image:
@@ -103,7 +103,7 @@
     region: "1104, 0, 48, 48"
 
 - type: Chip
-  id: ItemWorthlessFakeGoldBar
+  id: Elona.ItemWorthlessFakeGoldBar
   elonaId: 33
   group: Item
   image:
@@ -111,7 +111,7 @@
     region: "0, 48, 48, 48"
 
 - type: Chip
-  id: ItemBed
+  id: Elona.ItemBed
   elonaId: 66
   group: Item
   image:
@@ -119,7 +119,7 @@
     region: "0, 96, 48, 48"
 
 - type: Chip
-  id: ItemRagDoll
+  id: Elona.ItemRagDoll
   elonaId: 67
   group: Item
   image:
@@ -127,7 +127,7 @@
     region: "48, 96, 48, 48"
 
 - type: Chip
-  id: ItemNobleToy
+  id: Elona.ItemNobleToy
   elonaId: 68
   group: Item
   image:
@@ -135,7 +135,7 @@
     region: "96, 96, 48, 48"
 
 - type: Chip
-  id: ItemModernTable
+  id: Elona.ItemModernTable
   elonaId: 69
   group: Item
   image:
@@ -143,7 +143,7 @@
     region: "144, 96, 48, 48"
 
 - type: Chip
-  id: ItemDiningTable
+  id: Elona.ItemDiningTable
   elonaId: 70
   group: Item
   image:
@@ -151,7 +151,7 @@
     region: "192, 96, 48, 48"
 
 - type: Chip
-  id: Item71
+  id: Elona.Item71
   elonaId: 71
   group: Item
   image:
@@ -159,7 +159,7 @@
     region: "240, 96, 48, 48"
 
 - type: Chip
-  id: ItemBarrel
+  id: Elona.ItemBarrel
   elonaId: 72
   group: Item
   image:
@@ -167,7 +167,7 @@
     region: "288, 96, 48, 48"
 
 - type: Chip
-  id: ItemArmor
+  id: Elona.ItemArmor
   elonaId: 73
   group: Item
   image:
@@ -175,7 +175,7 @@
     region: "336, 96, 48, 48"
 
 - type: Chip
-  id: ItemLotOfGoods
+  id: Elona.ItemLotOfGoods
   elonaId: 74
   group: Item
   image:
@@ -183,7 +183,7 @@
     region: "384, 96, 48, 48"
 
 - type: Chip
-  id: ItemLotOfAccessories
+  id: Elona.ItemLotOfAccessories
   elonaId: 75
   group: Item
   image:
@@ -191,7 +191,7 @@
     region: "432, 96, 48, 48"
 
 - type: Chip
-  id: ItemGouldsPiano
+  id: Elona.ItemGouldsPiano
   elonaId: 76
   group: Item
   image:
@@ -199,7 +199,7 @@
     region: "480, 96, 48, 48"
 
 - type: Chip
-  id: Item77
+  id: Elona.Item77
   elonaId: 77
   group: Item
   image:
@@ -207,7 +207,7 @@
     region: "528, 96, 48, 48"
 
 - type: Chip
-  id: ItemBarTableAlpha
+  id: Elona.ItemBarTableAlpha
   elonaId: 78
   group: Item
   image:
@@ -215,7 +215,7 @@
     region: "576, 96, 48, 48"
 
 - type: Chip
-  id: Item79
+  id: Elona.Item79
   elonaId: 79
   group: Item
   image:
@@ -223,7 +223,7 @@
     region: "624, 96, 48, 48"
 
 - type: Chip
-  id: ItemBarTableBeta
+  id: Elona.ItemBarTableBeta
   elonaId: 80
   group: Item
   image:
@@ -231,7 +231,7 @@
     region: "672, 96, 48, 48"
 
 - type: Chip
-  id: ItemPaintingOfMadam
+  id: Elona.ItemPaintingOfMadam
   elonaId: 81
   group: Item
   image:
@@ -239,7 +239,7 @@
     region: "720, 96, 48, 48"
 
 - type: Chip
-  id: ItemBrokenPillar
+  id: Elona.ItemBrokenPillar
   elonaId: 82
   group: Item
   image:
@@ -247,7 +247,7 @@
     region: "768, 96, 48, 48"
 
 - type: Chip
-  id: ItemBigTable
+  id: Elona.ItemBigTable
   elonaId: 83
   group: Item
   image:
@@ -255,7 +255,7 @@
     region: "816, 96, 48, 48"
 
 - type: Chip
-  id: ItemModernChair
+  id: Elona.ItemModernChair
   elonaId: 84
   group: Item
   image:
@@ -263,7 +263,7 @@
     region: "864, 96, 48, 48"
 
 - type: Chip
-  id: ItemPick
+  id: Elona.ItemPick
   elonaId: 85
   group: Item
   image:
@@ -271,7 +271,7 @@
     region: "912, 96, 48, 48"
 
 - type: Chip
-  id: ItemLantern
+  id: Elona.ItemLantern
   elonaId: 86
   group: Item
   image:
@@ -279,7 +279,7 @@
     region: "960, 96, 48, 48"
 
 - type: Chip
-  id: ItemDecorativeArmor
+  id: Elona.ItemDecorativeArmor
   elonaId: 87
   group: Item
   image:
@@ -287,7 +287,7 @@
     region: "1008, 96, 48, 48"
 
 - type: Chip
-  id: ItemAnvil
+  id: Elona.ItemAnvil
   elonaId: 88
   group: Item
   image:
@@ -295,7 +295,7 @@
     region: "1056, 96, 48, 48"
 
 - type: Chip
-  id: ItemClosedPot
+  id: Elona.ItemClosedPot
   elonaId: 89
   group: Item
   image:
@@ -303,7 +303,7 @@
     region: "1104, 96, 48, 48"
 
 - type: Chip
-  id: ItemOpenPot
+  id: Elona.ItemOpenPot
   elonaId: 90
   group: Item
   image:
@@ -311,7 +311,7 @@
     region: "1152, 96, 48, 48"
 
 - type: Chip
-  id: ItemAcademicTable
+  id: Elona.ItemAcademicTable
   elonaId: 91
   group: Item
   image:
@@ -319,7 +319,7 @@
     region: "1200, 96, 48, 48"
 
 - type: Chip
-  id: ItemPaintingOfLandscape
+  id: Elona.ItemPaintingOfLandscape
   elonaId: 92
   group: Item
   image:
@@ -327,7 +327,7 @@
     region: "1248, 96, 48, 48"
 
 - type: Chip
-  id: ItemSquareChair
+  id: Elona.ItemSquareChair
   elonaId: 93
   group: Item
   image:
@@ -335,7 +335,7 @@
     region: "1296, 96, 48, 48"
 
 - type: Chip
-  id: ItemCheapChair
+  id: Elona.ItemCheapChair
   elonaId: 94
   group: Item
   image:
@@ -343,7 +343,7 @@
     region: "1344, 96, 48, 48"
 
 - type: Chip
-  id: ItemCupboard
+  id: Elona.ItemCupboard
   elonaId: 95
   group: Item
   image:
@@ -351,7 +351,7 @@
     region: "1392, 96, 48, 48"
 
 - type: Chip
-  id: ItemBarn
+  id: Elona.ItemBarn
   elonaId: 96
   group: Item
   image:
@@ -359,7 +359,7 @@
     region: "1440, 96, 48, 48"
 
 - type: Chip
-  id: ItemNeatShelf
+  id: Elona.ItemNeatShelf
   elonaId: 97
   group: Item
   image:
@@ -367,7 +367,7 @@
     region: "1488, 96, 48, 48"
 
 - type: Chip
-  id: ItemCloset
+  id: Elona.ItemCloset
   elonaId: 98
   group: Item
   image:
@@ -375,7 +375,7 @@
     region: "1536, 96, 48, 48"
 
 - type: Chip
-  id: ItemVarietyOfTools
+  id: Elona.ItemVarietyOfTools
   elonaId: 99
   group: Item
   image:
@@ -383,7 +383,7 @@
     region: "0, 144, 48, 48"
 
 - type: Chip
-  id: ItemVarietyOfGoods
+  id: Elona.ItemVarietyOfGoods
   elonaId: 100
   group: Item
   image:
@@ -391,7 +391,7 @@
     region: "48, 144, 48, 48"
 
 - type: Chip
-  id: ItemWell
+  id: Elona.ItemWell
   elonaId: 101
   group: Item
   image:
@@ -399,7 +399,7 @@
     region: "96, 144, 48, 48"
 
 - type: Chip
-  id: ItemVarietyOfClothes
+  id: Elona.ItemVarietyOfClothes
   elonaId: 102
   group: Item
   image:
@@ -407,7 +407,7 @@
     region: "144, 144, 48, 48"
 
 - type: Chip
-  id: ItemFurnace
+  id: Elona.ItemFurnace
   elonaId: 103
   group: Item
   image:
@@ -415,7 +415,7 @@
     region: "192, 144, 48, 48"
 
 - type: Chip
-  id: ItemOven
+  id: Elona.ItemOven
   elonaId: 104
   group: Item
   image:
@@ -423,7 +423,7 @@
     region: "240, 144, 48, 48"
 
 - type: Chip
-  id: ItemSign
+  id: Elona.ItemSign
   elonaId: 105
   group: Item
   image:
@@ -431,7 +431,7 @@
     region: "288, 144, 48, 48"
 
 - type: Chip
-  id: ItemCrossroadSign
+  id: Elona.ItemCrossroadSign
   elonaId: 106
   group: Item
   image:
@@ -439,7 +439,7 @@
     region: "336, 144, 48, 48"
 
 - type: Chip
-  id: ItemHouseBoard
+  id: Elona.ItemHouseBoard
   elonaId: 107
   group: Item
   image:
@@ -447,7 +447,7 @@
     region: "384, 144, 48, 48"
 
 - type: Chip
-  id: ItemDishSweet3
+  id: Elona.ItemDishSweet3
   elonaId: 108
   group: Item
   image:
@@ -455,7 +455,7 @@
     region: "432, 144, 48, 48"
 
 - type: Chip
-  id: ItemEmptyBasket
+  id: Elona.ItemEmptyBasket
   elonaId: 109
   group: Item
   image:
@@ -463,7 +463,7 @@
     region: "480, 144, 48, 48"
 
 - type: Chip
-  id: ItemDishSweet5
+  id: Elona.ItemDishSweet5
   elonaId: 110
   group: Item
   image:
@@ -471,7 +471,7 @@
     region: "528, 144, 48, 48"
 
 - type: Chip
-  id: ItemDishBread9
+  id: Elona.ItemDishBread9
   elonaId: 111
   group: Item
   image:
@@ -479,7 +479,7 @@
     region: "576, 144, 48, 48"
 
 - type: Chip
-  id: ItemDishBread5
+  id: Elona.ItemDishBread5
   elonaId: 112
   group: Item
   image:
@@ -487,7 +487,7 @@
     region: "624, 144, 48, 48"
 
 - type: Chip
-  id: ItemDishBread7
+  id: Elona.ItemDishBread7
   elonaId: 113
   group: Item
   image:
@@ -495,7 +495,7 @@
     region: "672, 144, 48, 48"
 
 - type: Chip
-  id: ItemDishBread6
+  id: Elona.ItemDishBread6
   elonaId: 114
   group: Item
   image:
@@ -503,7 +503,7 @@
     region: "720, 144, 48, 48"
 
 - type: Chip
-  id: ItemDishBread8
+  id: Elona.ItemDishBread8
   elonaId: 115
   group: Item
   image:
@@ -511,7 +511,7 @@
     region: "768, 144, 48, 48"
 
 - type: Chip
-  id: ItemShowCaseOfBreads
+  id: Elona.ItemShowCaseOfBreads
   elonaId: 116
   group: Item
   image:
@@ -519,7 +519,7 @@
     region: "816, 144, 48, 48"
 
 - type: Chip
-  id: ItemStickBread
+  id: Elona.ItemStickBread
   elonaId: 117
   group: Item
   image:
@@ -527,7 +527,7 @@
     region: "864, 144, 48, 48"
 
 - type: Chip
-  id: ItemBeaker
+  id: Elona.ItemBeaker
   elonaId: 118
   group: Item
   image:
@@ -535,7 +535,7 @@
     region: "912, 144, 48, 48"
 
 - type: Chip
-  id: ItemAlchemyKit
+  id: Elona.ItemAlchemyKit
   elonaId: 119
   group: Item
   image:
@@ -543,7 +543,7 @@
     region: "960, 144, 48, 48"
 
 - type: Chip
-  id: ItemPentagram
+  id: Elona.ItemPentagram
   elonaId: 120
   group: Item
   image:
@@ -551,7 +551,7 @@
     region: "1008, 144, 48, 48"
 
 - type: Chip
-  id: ItemSmallFoliagePlant
+  id: Elona.ItemSmallFoliagePlant
   elonaId: 121
   group: Item
   image:
@@ -559,7 +559,7 @@
     region: "1056, 144, 48, 48"
 
 - type: Chip
-  id: ItemRose
+  id: Elona.ItemRose
   elonaId: 122
   group: Item
   image:
@@ -567,7 +567,7 @@
     region: "1104, 144, 48, 48"
 
 - type: Chip
-  id: ItemLargeFoliagePlant
+  id: Elona.ItemLargeFoliagePlant
   elonaId: 123
   group: Item
   image:
@@ -575,7 +575,7 @@
     region: "1152, 144, 48, 48"
 
 - type: Chip
-  id: ItemSage
+  id: Elona.ItemSage
   elonaId: 124
   group: Item
   image:
@@ -583,7 +583,7 @@
     region: "1200, 144, 48, 48"
 
 - type: Chip
-  id: ItemGazania
+  id: Elona.ItemGazania
   elonaId: 125
   group: Item
   image:
@@ -591,7 +591,7 @@
     region: "1248, 144, 48, 48"
 
 - type: Chip
-  id: ItemNerine
+  id: Elona.ItemNerine
   elonaId: 126
   group: Item
   image:
@@ -599,7 +599,7 @@
     region: "1296, 144, 48, 48"
 
 - type: Chip
-  id: ItemAnemos
+  id: Elona.ItemAnemos
   elonaId: 127
   group: Item
   image:
@@ -607,7 +607,7 @@
     region: "1344, 144, 48, 48"
 
 - type: Chip
-  id: ItemFoxtailGrass
+  id: Elona.ItemFoxtailGrass
   elonaId: 128
   group: Item
   image:
@@ -615,7 +615,7 @@
     region: "1392, 144, 48, 48"
 
 - type: Chip
-  id: ItemCarnation
+  id: Elona.ItemCarnation
   elonaId: 129
   group: Item
   image:
@@ -623,7 +623,7 @@
     region: "1440, 144, 48, 48"
 
 - type: Chip
-  id: ItemBlackCrystal
+  id: Elona.ItemBlackCrystal
   elonaId: 130
   group: Item
   image:
@@ -631,7 +631,7 @@
     region: "1488, 144, 48, 48"
 
 - type: Chip
-  id: ItemPaintingOfSunflower
+  id: Elona.ItemPaintingOfSunflower
   elonaId: 131
   group: Item
   image:
@@ -639,7 +639,7 @@
     region: "1536, 144, 48, 48"
 
 - type: Chip
-  id: ItemCanvas
+  id: Elona.ItemCanvas
   elonaId: 132
   group: Item
   image:
@@ -647,7 +647,7 @@
     region: "0, 192, 48, 48"
 
 - type: Chip
-  id: ItemMap
+  id: Elona.ItemMap
   elonaId: 133
   group: Item
   image:
@@ -655,7 +655,7 @@
     region: "48, 192, 48, 48"
 
 - type: Chip
-  id: ItemSnowMan
+  id: Elona.ItemSnowMan
   elonaId: 134
   group: Item
   image:
@@ -663,7 +663,7 @@
     region: "96, 192, 48, 48"
 
 - type: Chip
-  id: ItemBundleOfBows
+  id: Elona.ItemBundleOfBows
   elonaId: 135
   group: Item
   image:
@@ -671,7 +671,7 @@
     region: "144, 192, 48, 48"
 
 - type: Chip
-  id: ItemBundleOfWeapons
+  id: Elona.ItemBundleOfWeapons
   elonaId: 136
   group: Item
   image:
@@ -679,7 +679,7 @@
     region: "192, 192, 48, 48"
 
 - type: Chip
-  id: ItemDecoratedCloth
+  id: Elona.ItemDecoratedCloth
   elonaId: 137
   group: Item
   image:
@@ -687,7 +687,7 @@
     region: "240, 192, 48, 48"
 
 - type: Chip
-  id: ItemDecoratedArmor
+  id: Elona.ItemDecoratedArmor
   elonaId: 138
   group: Item
   image:
@@ -695,7 +695,7 @@
     region: "288, 192, 48, 48"
 
 - type: Chip
-  id: ItemStatueOfArmor
+  id: Elona.ItemStatueOfArmor
   elonaId: 139
   group: Item
   image:
@@ -703,7 +703,7 @@
     region: "336, 192, 48, 48"
 
 - type: Chip
-  id: ItemDisorderlyBook
+  id: Elona.ItemDisorderlyBook
   elonaId: 140
   group: Item
   image:
@@ -711,7 +711,7 @@
     region: "384, 192, 48, 48"
 
 - type: Chip
-  id: ItemLotOfBooks
+  id: Elona.ItemLotOfBooks
   elonaId: 141
   group: Item
   image:
@@ -719,7 +719,7 @@
     region: "432, 192, 48, 48"
 
 - type: Chip
-  id: ItemCraftRack
+  id: Elona.ItemCraftRack
   elonaId: 142
   group: Item
   image:
@@ -727,7 +727,7 @@
     region: "480, 192, 48, 48"
 
 - type: Chip
-  id: ItemCraftBookShelf
+  id: Elona.ItemCraftBookShelf
   elonaId: 143
   group: Item
   image:
@@ -735,7 +735,7 @@
     region: "528, 192, 48, 48"
 
 - type: Chip
-  id: ItemLotOfAlcohols
+  id: Elona.ItemLotOfAlcohols
   elonaId: 144
   group: Item
   image:
@@ -743,7 +743,7 @@
     region: "576, 192, 48, 48"
 
 - type: Chip
-  id: ItemKitchen
+  id: Elona.ItemKitchen
   elonaId: 145
   group: Item
   image:
@@ -751,7 +751,7 @@
     region: "624, 192, 48, 48"
 
 - type: Chip
-  id: ItemWashstand
+  id: Elona.ItemWashstand
   elonaId: 146
   group: Item
   image:
@@ -759,7 +759,7 @@
     region: "672, 192, 48, 48"
 
 - type: Chip
-  id: ItemKitchenOven
+  id: Elona.ItemKitchenOven
   elonaId: 147
   group: Item
   image:
@@ -767,7 +767,7 @@
     region: "720, 192, 48, 48"
 
 - type: Chip
-  id: ItemNarrowDiningTable
+  id: Elona.ItemNarrowDiningTable
   elonaId: 148
   group: Item
   image:
@@ -775,7 +775,7 @@
     region: "768, 192, 48, 48"
 
 - type: Chip
-  id: ItemElegantTable
+  id: Elona.ItemElegantTable
   elonaId: 149
   group: Item
   image:
@@ -783,7 +783,7 @@
     region: "816, 192, 48, 48"
 
 - type: Chip
-  id: ItemGorgeousCandlestick
+  id: Elona.ItemGorgeousCandlestick
   elonaId: 150
   group: Item
   image:
@@ -791,7 +791,7 @@
     region: "864, 192, 48, 48"
 
 - type: Chip
-  id: ItemSimpleShelf
+  id: Elona.ItemSimpleShelf
   elonaId: 151
   group: Item
   image:
@@ -799,7 +799,7 @@
     region: "912, 192, 48, 48"
 
 - type: Chip
-  id: ItemSewingKit
+  id: Elona.ItemSewingKit
   elonaId: 152
   group: Item
   image:
@@ -807,7 +807,7 @@
     region: "960, 192, 48, 48"
 
 - type: Chip
-  id: ItemCarpentersTool
+  id: Elona.ItemCarpentersTool
   elonaId: 153
   group: Item
   image:
@@ -815,7 +815,7 @@
     region: "1008, 192, 48, 48"
 
 - type: Chip
-  id: ItemMessyCloth
+  id: Elona.ItemMessyCloth
   elonaId: 154
   group: Item
   image:
@@ -823,7 +823,7 @@
     region: "1056, 192, 48, 48"
 
 - type: Chip
-  id: ItemSilkCloth
+  id: Elona.ItemSilkCloth
   elonaId: 155
   group: Item
   image:
@@ -831,7 +831,7 @@
     region: "1104, 192, 48, 48"
 
 - type: Chip
-  id: ItemCollapsedGrave
+  id: Elona.ItemCollapsedGrave
   elonaId: 156
   group: Item
   image:
@@ -839,7 +839,7 @@
     region: "1152, 192, 48, 48"
 
 - type: Chip
-  id: ItemCrumbledGrave
+  id: Elona.ItemCrumbledGrave
   elonaId: 157
   group: Item
   image:
@@ -847,7 +847,7 @@
     region: "1200, 192, 48, 48"
 
 - type: Chip
-  id: ItemGraveOfOrnamentedWithFlowers
+  id: Elona.ItemGraveOfOrnamentedWithFlowers
   elonaId: 158
   group: Item
   image:
@@ -855,7 +855,7 @@
     region: "1248, 192, 48, 48"
 
 - type: Chip
-  id: ItemBrandNewGrave
+  id: Elona.ItemBrandNewGrave
   elonaId: 159
   group: Item
   image:
@@ -863,7 +863,7 @@
     region: "1296, 192, 48, 48"
 
 - type: Chip
-  id: ItemSolemnTomb
+  id: Elona.ItemSolemnTomb
   elonaId: 160
   group: Item
   image:
@@ -871,7 +871,7 @@
     region: "1344, 192, 48, 48"
 
 - type: Chip
-  id: ItemGrave
+  id: Elona.ItemGrave
   elonaId: 161
   group: Item
   image:
@@ -879,7 +879,7 @@
     region: "1392, 192, 48, 48"
 
 - type: Chip
-  id: ItemOldGrave
+  id: Elona.ItemOldGrave
   elonaId: 162
   group: Item
   image:
@@ -887,7 +887,7 @@
     region: "1440, 192, 48, 48"
 
 - type: Chip
-  id: ItemCeremonyAltar
+  id: Elona.ItemCeremonyAltar
   elonaId: 163
   group: Item
   image:
@@ -895,7 +895,7 @@
     region: "1488, 192, 48, 48"
 
 - type: Chip
-  id: ItemGreenPea
+  id: Elona.ItemGreenPea
   elonaId: 164
   group: Item
   image:
@@ -903,7 +903,7 @@
     region: "1536, 192, 48, 48"
 
 - type: Chip
-  id: ItemSmallMedal
+  id: Elona.ItemSmallMedal
   elonaId: 165
   group: Item
   image:
@@ -911,7 +911,7 @@
     region: "0, 240, 48, 48"
 
 - type: Chip
-  id: ItemBunkBed
+  id: Elona.ItemBunkBed
   elonaId: 166
   group: Item
   image:
@@ -919,7 +919,7 @@
     region: "48, 240, 48, 48"
 
 - type: Chip
-  id: ItemDishMeat5
+  id: Elona.ItemDishMeat5
   elonaId: 167
   group: Item
   image:
@@ -927,7 +927,7 @@
     region: "96, 240, 48, 48"
 
 - type: Chip
-  id: ItemHeroCheese
+  id: Elona.ItemHeroCheese
   elonaId: 168
   group: Item
   image:
@@ -935,7 +935,7 @@
     region: "144, 240, 48, 48"
 
 - type: Chip
-  id: ItemQuwapana
+  id: Elona.ItemQuwapana
   elonaId: 169
   group: Item
   image:
@@ -943,7 +943,7 @@
     region: "192, 240, 48, 48"
 
 - type: Chip
-  id: ItemStomafillia
+  id: Elona.ItemStomafillia
   elonaId: 170
   group: Item
   image:
@@ -951,7 +951,7 @@
     region: "240, 240, 48, 48"
 
 - type: Chip
-  id: ItemEdibleWildPlant
+  id: Elona.ItemEdibleWildPlant
   elonaId: 171
   group: Item
   image:
@@ -959,7 +959,7 @@
     region: "288, 240, 48, 48"
 
 - type: Chip
-  id: ItemHappyApple
+  id: Elona.ItemHappyApple
   elonaId: 172
   group: Item
   image:
@@ -967,7 +967,7 @@
     region: "336, 240, 48, 48"
 
 - type: Chip
-  id: ItemGrape
+  id: Elona.ItemGrape
   elonaId: 173
   group: Item
   image:
@@ -975,7 +975,7 @@
     region: "384, 240, 48, 48"
 
 - type: Chip
-  id: ItemKiwi
+  id: Elona.ItemKiwi
   elonaId: 174
   group: Item
   image:
@@ -983,7 +983,7 @@
     region: "432, 240, 48, 48"
 
 - type: Chip
-  id: ItemCherry
+  id: Elona.ItemCherry
   elonaId: 175
   group: Item
   image:
@@ -991,7 +991,7 @@
     region: "480, 240, 48, 48"
 
 - type: Chip
-  id: ItemGuava
+  id: Elona.ItemGuava
   elonaId: 176
   group: Item
   image:
@@ -999,7 +999,7 @@
     region: "528, 240, 48, 48"
 
 - type: Chip
-  id: ItemCarrot
+  id: Elona.ItemCarrot
   elonaId: 177
   group: Item
   image:
@@ -1007,7 +1007,7 @@
     region: "576, 240, 48, 48"
 
 - type: Chip
-  id: ItemRadish
+  id: Elona.ItemRadish
   elonaId: 178
   group: Item
   image:
@@ -1015,7 +1015,7 @@
     region: "624, 240, 48, 48"
 
 - type: Chip
-  id: ItemSweetPotato
+  id: Elona.ItemSweetPotato
   elonaId: 179
   group: Item
   image:
@@ -1023,7 +1023,7 @@
     region: "672, 240, 48, 48"
 
 - type: Chip
-  id: ItemLettuce
+  id: Elona.ItemLettuce
   elonaId: 180
   group: Item
   image:
@@ -1031,7 +1031,7 @@
     region: "720, 240, 48, 48"
 
 - type: Chip
-  id: ItemStackOfDishes
+  id: Elona.ItemStackOfDishes
   elonaId: 181
   group: Item
   image:
@@ -1039,7 +1039,7 @@
     region: "768, 240, 48, 48"
 
 - type: Chip
-  id: ItemImo
+  id: Elona.ItemImo
   elonaId: 182
   group: Item
   image:
@@ -1047,7 +1047,7 @@
     region: "816, 240, 48, 48"
 
 - type: Chip
-  id: ItemApiNut
+  id: Elona.ItemApiNut
   elonaId: 183
   group: Item
   image:
@@ -1055,7 +1055,7 @@
     region: "864, 240, 48, 48"
 
 - type: Chip
-  id: ItemStrawberry
+  id: Elona.ItemStrawberry
   elonaId: 184
   group: Item
   image:
@@ -1063,7 +1063,7 @@
     region: "912, 240, 48, 48"
 
 - type: Chip
-  id: ItemHealthyLeaf
+  id: Elona.ItemHealthyLeaf
   elonaId: 185
   group: Item
   image:
@@ -1071,7 +1071,7 @@
     region: "960, 240, 48, 48"
 
 - type: Chip
-  id: ItemRainbowFruit
+  id: Elona.ItemRainbowFruit
   elonaId: 186
   group: Item
   image:
@@ -1079,7 +1079,7 @@
     region: "1008, 240, 48, 48"
 
 - type: Chip
-  id: ItemQucche
+  id: Elona.ItemQucche
   elonaId: 187
   group: Item
   image:
@@ -1087,7 +1087,7 @@
     region: "1056, 240, 48, 48"
 
 - type: Chip
-  id: ItemOrange
+  id: Elona.ItemOrange
   elonaId: 188
   group: Item
   image:
@@ -1095,7 +1095,7 @@
     region: "1104, 240, 48, 48"
 
 - type: Chip
-  id: ItemMagicFruit
+  id: Elona.ItemMagicFruit
   elonaId: 189
   group: Item
   image:
@@ -1103,7 +1103,7 @@
     region: "1152, 240, 48, 48"
 
 - type: Chip
-  id: ItemDishEgg3
+  id: Elona.ItemDishEgg3
   elonaId: 190
   group: Item
   image:
@@ -1111,7 +1111,7 @@
     region: "1200, 240, 48, 48"
 
 - type: Chip
-  id: ItemCbocchi
+  id: Elona.ItemCbocchi
   elonaId: 191
   group: Item
   image:
@@ -1119,7 +1119,7 @@
     region: "1248, 240, 48, 48"
 
 - type: Chip
-  id: ItemMelon
+  id: Elona.ItemMelon
   elonaId: 192
   group: Item
   image:
@@ -1127,7 +1127,7 @@
     region: "1296, 240, 48, 48"
 
 - type: Chip
-  id: ItemLeccho
+  id: Elona.ItemLeccho
   elonaId: 193
   group: Item
   image:
@@ -1135,7 +1135,7 @@
     region: "1344, 240, 48, 48"
 
 - type: Chip
-  id: ItemDishMeat7
+  id: Elona.ItemDishMeat7
   elonaId: 194
   group: Item
   image:
@@ -1143,7 +1143,7 @@
     region: "1392, 240, 48, 48"
 
 - type: Chip
-  id: ItemDishMeat3
+  id: Elona.ItemDishMeat3
   elonaId: 195
   group: Item
   image:
@@ -1151,7 +1151,7 @@
     region: "1440, 240, 48, 48"
 
 - type: Chip
-  id: ItemCorpse
+  id: Elona.ItemCorpse
   elonaId: 196
   group: Item
   image:
@@ -1159,7 +1159,7 @@
     region: "1488, 240, 48, 48"
 
 - type: Chip
-  id: ItemShopStrongbox
+  id: Elona.ItemShopStrongbox
   elonaId: 197
   group: Item
   image:
@@ -1167,7 +1167,7 @@
     region: "1536, 240, 48, 48"
 
 - type: Chip
-  id: ItemPot
+  id: Elona.ItemPot
   elonaId: 198
   group: Item
   image:
@@ -1175,7 +1175,7 @@
     region: "0, 288, 48, 48"
 
 - type: Chip
-  id: ItemAnimalBone
+  id: Elona.ItemAnimalBone
   elonaId: 199
   group: Item
   image:
@@ -1183,7 +1183,7 @@
     region: "48, 288, 48, 48"
 
 - type: Chip
-  id: ItemStraw
+  id: Elona.ItemStraw
   elonaId: 200
   group: Item
   image:
@@ -1191,7 +1191,7 @@
     region: "96, 288, 48, 48"
 
 - type: Chip
-  id: ItemBombFish
+  id: Elona.ItemBombFish
   elonaId: 201
   group: Item
   image:
@@ -1199,7 +1199,7 @@
     region: "144, 288, 48, 48"
 
 - type: Chip
-  id: ItemRope
+  id: Elona.ItemRope
   elonaId: 202
   group: Item
   image:
@@ -1207,7 +1207,7 @@
     region: "192, 288, 48, 48"
 
 - type: Chip
-  id: ItemBowl
+  id: Elona.ItemBowl
   elonaId: 203
   group: Item
   image:
@@ -1215,7 +1215,7 @@
     region: "240, 288, 48, 48"
 
 - type: Chip
-  id: ItemWashing
+  id: Elona.ItemWashing
   elonaId: 204
   group: Item
   image:
@@ -1223,7 +1223,7 @@
     region: "288, 288, 48, 48"
 
 - type: Chip
-  id: Item205
+  id: Elona.Item205
   elonaId: 205
   group: Item
   image:
@@ -1231,7 +1231,7 @@
     region: "336, 288, 48, 48"
 
 - type: Chip
-  id: ItemEmptyBowl
+  id: Elona.ItemEmptyBowl
   elonaId: 206
   group: Item
   image:
@@ -1239,7 +1239,7 @@
     region: "384, 288, 48, 48"
 
 - type: Chip
-  id: ItemBasket
+  id: Elona.ItemBasket
   elonaId: 207
   group: Item
   image:
@@ -1247,7 +1247,7 @@
     region: "432, 288, 48, 48"
 
 - type: Chip
-  id: ItemWhisky
+  id: Elona.ItemWhisky
   elonaId: 208
   group: Item
   image:
@@ -1255,7 +1255,7 @@
     region: "480, 288, 48, 48"
 
 - type: Chip
-  id: ItemOrePiece
+  id: Elona.ItemOrePiece
   elonaId: 209
   group: Item
   image:
@@ -1263,7 +1263,7 @@
     region: "528, 288, 48, 48"
 
 - type: Chip
-  id: ItemBottleOfWhisky
+  id: Elona.ItemBottleOfWhisky
   elonaId: 210
   group: Item
   image:
@@ -1271,7 +1271,7 @@
     region: "576, 288, 48, 48"
 
 - type: Chip
-  id: ItemCrystal
+  id: Elona.ItemCrystal
   elonaId: 211
   group: Item
   image:
@@ -1279,7 +1279,7 @@
     region: "624, 288, 48, 48"
 
 - type: Chip
-  id: ItemRawOre
+  id: Elona.ItemRawOre
   elonaId: 212
   group: Item
   image:
@@ -1287,7 +1287,7 @@
     region: "672, 288, 48, 48"
 
 - type: Chip
-  id: ItemRawOreOfDiamond
+  id: Elona.ItemRawOreOfDiamond
   elonaId: 213
   group: Item
   image:
@@ -1295,7 +1295,7 @@
     region: "720, 288, 48, 48"
 
 - type: Chip
-  id: Item214
+  id: Elona.Item214
   elonaId: 214
   group: Item
   image:
@@ -1303,7 +1303,7 @@
     region: "768, 288, 48, 48"
 
 - type: Chip
-  id: Item215
+  id: Elona.Item215
   elonaId: 215
   group: Item
   image:
@@ -1311,7 +1311,7 @@
     region: "816, 288, 48, 48"
 
 - type: Chip
-  id: Item216
+  id: Elona.Item216
   elonaId: 216
   group: Item
   image:
@@ -1319,7 +1319,7 @@
     region: "864, 288, 48, 48"
 
 - type: Chip
-  id: Item217
+  id: Elona.Item217
   elonaId: 217
   group: Item
   image:
@@ -1327,7 +1327,7 @@
     region: "912, 288, 48, 48"
 
 - type: Chip
-  id: Item218
+  id: Elona.Item218
   elonaId: 218
   group: Item
   image:
@@ -1335,7 +1335,7 @@
     region: "960, 288, 48, 48"
 
 - type: Chip
-  id: Item219
+  id: Elona.Item219
   elonaId: 219
   group: Item
   image:
@@ -1343,7 +1343,7 @@
     region: "1008, 288, 48, 48"
 
 - type: Chip
-  id: ItemSmallGambleChest
+  id: Elona.ItemSmallGambleChest
   elonaId: 220
   group: Item
   image:
@@ -1351,7 +1351,7 @@
     region: "1056, 288, 48, 48"
 
 - type: Chip
-  id: ItemFigurineOfSword
+  id: Elona.ItemFigurineOfSword
   elonaId: 221
   group: Item
   image:
@@ -1359,7 +1359,7 @@
     region: "1104, 288, 48, 48"
 
 - type: Chip
-  id: ItemFigurineOfWarrior
+  id: Elona.ItemFigurineOfWarrior
   elonaId: 222
   group: Item
   image:
@@ -1367,7 +1367,7 @@
     region: "1152, 288, 48, 48"
 
 - type: Chip
-  id: ItemMolotov
+  id: Elona.ItemMolotov
   elonaId: 223
   group: Item
   image:
@@ -1375,7 +1375,7 @@
     region: "1200, 288, 48, 48"
 
 - type: Chip
-  id: ItemHorn
+  id: Elona.ItemHorn
   elonaId: 224
   group: Item
   image:
@@ -1383,7 +1383,7 @@
     region: "1248, 288, 48, 48"
 
 - type: Chip
-  id: Item225
+  id: Elona.Item225
   elonaId: 225
   group: Item
   image:
@@ -1391,7 +1391,7 @@
     region: "1296, 288, 48, 48"
 
 - type: Chip
-  id: ItemPortableCookingTool
+  id: Elona.ItemPortableCookingTool
   elonaId: 226
   group: Item
   image:
@@ -1399,7 +1399,7 @@
     region: "1344, 288, 48, 48"
 
 - type: Chip
-  id: ItemDishMeat4
+  id: Elona.ItemDishMeat4
   elonaId: 227
   group: Item
   image:
@@ -1407,7 +1407,7 @@
     region: "1392, 288, 48, 48"
 
 - type: Chip
-  id: ItemDishFish3
+  id: Elona.ItemDishFish3
   elonaId: 228
   group: Item
   image:
@@ -1415,7 +1415,7 @@
     region: "1440, 288, 48, 48"
 
 - type: Chip
-  id: ItemDishMeat8
+  id: Elona.ItemDishMeat8
   elonaId: 229
   group: Item
   image:
@@ -1423,7 +1423,7 @@
     region: "1488, 288, 48, 48"
 
 - type: Chip
-  id: ItemDishCharred
+  id: Elona.ItemDishCharred
   elonaId: 230
   group: Item
   image:
@@ -1431,7 +1431,7 @@
     region: "1536, 288, 48, 48"
 
 - type: Chip
-  id: ItemFireWood
+  id: Elona.ItemFireWood
   elonaId: 231
   group: Item
   image:
@@ -1439,7 +1439,7 @@
     region: "0, 336, 48, 48"
 
 - type: Chip
-  id: ItemScarecrow
+  id: Elona.ItemScarecrow
   elonaId: 232
   group: Item
   image:
@@ -1447,7 +1447,7 @@
     region: "48, 336, 48, 48"
 
 - type: Chip
-  id: ItemSack
+  id: Elona.ItemSack
   elonaId: 233
   group: Item
   image:
@@ -1455,7 +1455,7 @@
     region: "96, 336, 48, 48"
 
 - type: Chip
-  id: ItemLuxuryDrawer
+  id: Elona.ItemLuxuryDrawer
   elonaId: 234
   group: Item
   image:
@@ -1463,7 +1463,7 @@
     region: "144, 336, 48, 48"
 
 - type: Chip
-  id: ItemBookshelf
+  id: Elona.ItemBookshelf
   elonaId: 235
   group: Item
   image:
@@ -1471,7 +1471,7 @@
     region: "192, 336, 48, 48"
 
 - type: Chip
-  id: ItemModernRack
+  id: Elona.ItemModernRack
   elonaId: 236
   group: Item
   image:
@@ -1479,7 +1479,7 @@
     region: "240, 336, 48, 48"
 
 - type: Chip
-  id: ItemRoundChair
+  id: Elona.ItemRoundChair
   elonaId: 237
   group: Item
   image:
@@ -1487,7 +1487,7 @@
     region: "288, 336, 48, 48"
 
 - type: Chip
-  id: ItemJunkStone
+  id: Elona.ItemJunkStone
   elonaId: 238
   group: Item
   image:
@@ -1495,7 +1495,7 @@
     region: "336, 336, 48, 48"
 
 - type: Chip
-  id: ItemWoodPiece
+  id: Elona.ItemWoodPiece
   elonaId: 239
   group: Item
   image:
@@ -1503,7 +1503,7 @@
     region: "384, 336, 48, 48"
 
 - type: Chip
-  id: ItemGarbage
+  id: Elona.ItemGarbage
   elonaId: 240
   group: Item
   image:
@@ -1511,7 +1511,7 @@
     region: "432, 336, 48, 48"
 
 - type: Chip
-  id: ItemBrokenVase
+  id: Elona.ItemBrokenVase
   elonaId: 241
   group: Item
   image:
@@ -1519,7 +1519,7 @@
     region: "480, 336, 48, 48"
 
 - type: Chip
-  id: ItemBonfire
+  id: Elona.ItemBonfire
   elonaId: 242
   group: Item
   image:
@@ -1527,7 +1527,7 @@
     region: "528, 336, 48, 48"
 
 - type: Chip
-  id: ItemFlag
+  id: Elona.ItemFlag
   elonaId: 243
   group: Item
   image:
@@ -1535,7 +1535,7 @@
     region: "576, 336, 48, 48"
 
 - type: Chip
-  id: ItemBrokenSword
+  id: Elona.ItemBrokenSword
   elonaId: 244
   group: Item
   image:
@@ -1543,7 +1543,7 @@
     region: "624, 336, 48, 48"
 
 - type: Chip
-  id: ItemBoneFragment
+  id: Elona.ItemBoneFragment
   elonaId: 245
   group: Item
   image:
@@ -1551,7 +1551,7 @@
     region: "672, 336, 48, 48"
 
 - type: Chip
-  id: ItemSkeleton
+  id: Elona.ItemSkeleton
   elonaId: 246
   group: Item
   image:
@@ -1559,7 +1559,7 @@
     region: "720, 336, 48, 48"
 
 - type: Chip
-  id: ItemTombstone
+  id: Elona.ItemTombstone
   elonaId: 247
   group: Item
   image:
@@ -1567,7 +1567,7 @@
     region: "768, 336, 48, 48"
 
 - type: Chip
-  id: ItemBroom
+  id: Elona.ItemBroom
   elonaId: 248
   group: Item
   image:
@@ -1575,7 +1575,7 @@
     region: "816, 336, 48, 48"
 
 - type: Chip
-  id: ItemWaterTub
+  id: Elona.ItemWaterTub
   elonaId: 249
   group: Item
   image:
@@ -1583,7 +1583,7 @@
     region: "864, 336, 48, 48"
 
 - type: Chip
-  id: ItemComfortableTable
+  id: Elona.ItemComfortableTable
   elonaId: 250
   group: Item
   image:
@@ -1591,7 +1591,7 @@
     region: "912, 336, 48, 48"
 
 - type: Chip
-  id: ItemInnerTube
+  id: Elona.ItemInnerTube
   elonaId: 251
   group: Item
   image:
@@ -1599,7 +1599,7 @@
     region: "960, 336, 48, 48"
 
 - type: Chip
-  id: ItemTreasureMap
+  id: Elona.ItemTreasureMap
   elonaId: 252
   group: Item
   image:
@@ -1607,7 +1607,7 @@
     region: "1008, 336, 48, 48"
 
 - type: Chip
-  id: ItemHeirTrunk
+  id: Elona.ItemHeirTrunk
   elonaId: 253
   group: Item
   image:
@@ -1615,7 +1615,7 @@
     region: "1056, 336, 48, 48"
 
 - type: Chip
-  id: ItemWallet
+  id: Elona.ItemWallet
   elonaId: 254
   group: Item
   image:
@@ -1623,7 +1623,7 @@
     region: "1104, 336, 48, 48"
 
 - type: Chip
-  id: ItemWellKeptArmor
+  id: Elona.ItemWellKeptArmor
   elonaId: 255
   group: Item
   image:
@@ -1631,7 +1631,7 @@
     region: "1152, 336, 48, 48"
 
 - type: Chip
-  id: ItemRackOfGoods
+  id: Elona.ItemRackOfGoods
   elonaId: 256
   group: Item
   image:
@@ -1639,7 +1639,7 @@
     region: "1200, 336, 48, 48"
 
 - type: Chip
-  id: ItemRackOfAccessories
+  id: Elona.ItemRackOfAccessories
   elonaId: 257
   group: Item
   image:
@@ -1647,7 +1647,7 @@
     region: "1248, 336, 48, 48"
 
 - type: Chip
-  id: ItemTowel
+  id: Elona.ItemTowel
   elonaId: 258
   group: Item
   image:
@@ -1655,7 +1655,7 @@
     region: "1296, 336, 48, 48"
 
 - type: Chip
-  id: ItemRaggedTable
+  id: Elona.ItemRaggedTable
   elonaId: 259
   group: Item
   image:
@@ -1663,7 +1663,7 @@
     region: "1344, 336, 48, 48"
 
 - type: Chip
-  id: ItemCabinet
+  id: Elona.ItemCabinet
   elonaId: 260
   group: Item
   image:
@@ -1671,7 +1671,7 @@
     region: "1392, 336, 48, 48"
 
 - type: Chip
-  id: ItemLuxuryBed
+  id: Elona.ItemLuxuryBed
   elonaId: 261
   group: Item
   image:
@@ -1679,7 +1679,7 @@
     region: "1440, 336, 48, 48"
 
 - type: Chip
-  id: ItemVase
+  id: Elona.ItemVase
   elonaId: 262
   group: Item
   image:
@@ -1687,7 +1687,7 @@
     region: "1488, 336, 48, 48"
 
 - type: Chip
-  id: ItemHighGradeDresser
+  id: Elona.ItemHighGradeDresser
   elonaId: 263
   group: Item
   image:
@@ -1695,7 +1695,7 @@
     region: "1536, 336, 48, 48"
 
 - type: Chip
-  id: ItemNeatBarTable
+  id: Elona.ItemNeatBarTable
   elonaId: 264
   group: Item
   image:
@@ -1703,7 +1703,7 @@
     region: "0, 384, 48, 48"
 
 - type: Chip
-  id: ItemLargeBouquet
+  id: Elona.ItemLargeBouquet
   elonaId: 265
   group: Item
   image:
@@ -1711,7 +1711,7 @@
     region: "48, 384, 48, 48"
 
 - type: Chip
-  id: ItemChestOfClothes
+  id: Elona.ItemChestOfClothes
   elonaId: 266
   group: Item
   image:
@@ -1719,7 +1719,7 @@
     region: "96, 384, 48, 48"
 
 - type: Chip
-  id: ItemGiantBed
+  id: Elona.ItemGiantBed
   elonaId: 267
   group: Item
   image:
@@ -1727,7 +1727,7 @@
     region: "144, 384, 48, 48"
 
 - type: Chip
-  id: ItemPlainBed
+  id: Elona.ItemPlainBed
   elonaId: 268
   group: Item
   image:
@@ -1735,7 +1735,7 @@
     region: "192, 384, 48, 48"
 
 - type: Chip
-  id: ItemCoffin
+  id: Elona.ItemCoffin
   elonaId: 269
   group: Item
   image:
@@ -1743,7 +1743,7 @@
     region: "240, 384, 48, 48"
 
 - type: Chip
-  id: ItemFoodProcessor
+  id: Elona.ItemFoodProcessor
   elonaId: 270
   group: Item
   image:
@@ -1751,7 +1751,7 @@
     region: "288, 384, 48, 48"
 
 - type: Chip
-  id: ItemSoftBed
+  id: Elona.ItemSoftBed
   elonaId: 271
   group: Item
   image:
@@ -1759,7 +1759,7 @@
     region: "336, 384, 48, 48"
 
 - type: Chip
-  id: ItemCheapRack
+  id: Elona.ItemCheapRack
   elonaId: 272
   group: Item
   image:
@@ -1767,7 +1767,7 @@
     region: "384, 384, 48, 48"
 
 - type: Chip
-  id: ItemDresser
+  id: Elona.ItemDresser
   elonaId: 273
   group: Item
   image:
@@ -1775,7 +1775,7 @@
     region: "432, 384, 48, 48"
 
 - type: Chip
-  id: ItemCleanBed
+  id: Elona.ItemCleanBed
   elonaId: 274
   group: Item
   image:
@@ -1783,7 +1783,7 @@
     region: "480, 384, 48, 48"
 
 - type: Chip
-  id: ItemBathtub
+  id: Elona.ItemBathtub
   elonaId: 275
   group: Item
   image:
@@ -1791,7 +1791,7 @@
     region: "528, 384, 48, 48"
 
 - type: Chip
-  id: ItemPachisuroMachine
+  id: Elona.ItemPachisuroMachine
   elonaId: 276
   group: Item
   image:
@@ -1799,7 +1799,7 @@
     region: "576, 384, 48, 48"
 
 - type: Chip
-  id: ItemCasinoTable
+  id: Elona.ItemCasinoTable
   elonaId: 277
   group: Item
   image:
@@ -1807,7 +1807,7 @@
     region: "624, 384, 48, 48"
 
 - type: Chip
-  id: ItemSlotMachine
+  id: Elona.ItemSlotMachine
   elonaId: 278
   group: Item
   image:
@@ -1815,7 +1815,7 @@
     region: "672, 384, 48, 48"
 
 - type: Chip
-  id: ItemDartsBoard
+  id: Elona.ItemDartsBoard
   elonaId: 279
   group: Item
   image:
@@ -1823,7 +1823,7 @@
     region: "720, 384, 48, 48"
 
 - type: Chip
-  id: ItemBigFoliagePlant
+  id: Elona.ItemBigFoliagePlant
   elonaId: 280
   group: Item
   image:
@@ -1831,7 +1831,7 @@
     region: "768, 384, 48, 48"
 
 - type: Chip
-  id: ItemOldShelf
+  id: Elona.ItemOldShelf
   elonaId: 281
   group: Item
   image:
@@ -1839,7 +1839,7 @@
     region: "816, 384, 48, 48"
 
 - type: Chip
-  id: ItemOldBookshelf
+  id: Elona.ItemOldBookshelf
   elonaId: 282
   group: Item
   image:
@@ -1847,7 +1847,7 @@
     region: "864, 384, 48, 48"
 
 - type: Chip
-  id: ItemCheapBed
+  id: Elona.ItemCheapBed
   elonaId: 283
   group: Item
   image:
@@ -1855,7 +1855,7 @@
     region: "912, 384, 48, 48"
 
 - type: Chip
-  id: ItemCheapTable
+  id: Elona.ItemCheapTable
   elonaId: 284
   group: Item
   image:
@@ -1863,7 +1863,7 @@
     region: "960, 384, 48, 48"
 
 - type: Chip
-  id: ItemNeatRack
+  id: Elona.ItemNeatRack
   elonaId: 285
   group: Item
   image:
@@ -1871,7 +1871,7 @@
     region: "1008, 384, 48, 48"
 
 - type: Chip
-  id: ItemSimpleDresser
+  id: Elona.ItemSimpleDresser
   elonaId: 286
   group: Item
   image:
@@ -1879,7 +1879,7 @@
     region: "1056, 384, 48, 48"
 
 - type: Chip
-  id: Item287
+  id: Elona.Item287
   elonaId: 287
   group: Item
   image:
@@ -1887,7 +1887,7 @@
     region: "1104, 384, 48, 48"
 
 - type: Chip
-  id: ItemSacredAltar
+  id: Elona.ItemSacredAltar
   elonaId: 288
   group: Item
   image:
@@ -1895,7 +1895,7 @@
     region: "1152, 384, 48, 48"
 
 - type: Chip
-  id: ItemComfortableBed
+  id: Elona.ItemComfortableBed
   elonaId: 289
   group: Item
   image:
@@ -1903,7 +1903,7 @@
     region: "1200, 384, 48, 48"
 
 - type: Chip
-  id: ItemSimpleRack
+  id: Elona.ItemSimpleRack
   elonaId: 290
   group: Item
   image:
@@ -1911,7 +1911,7 @@
     region: "1248, 384, 48, 48"
 
 - type: Chip
-  id: ItemWideChair
+  id: Elona.ItemWideChair
   elonaId: 291
   group: Item
   image:
@@ -1919,7 +1919,7 @@
     region: "1296, 384, 48, 48"
 
 - type: Chip
-  id: ItemPiano
+  id: Elona.ItemPiano
   elonaId: 292
   group: Item
   image:
@@ -1927,7 +1927,7 @@
     region: "1344, 384, 48, 48"
 
 - type: Chip
-  id: ItemStatueOfCross
+  id: Elona.ItemStatueOfCross
   elonaId: 293
   group: Item
   image:
@@ -1935,7 +1935,7 @@
     region: "1392, 384, 48, 48"
 
 - type: Chip
-  id: ItemStump
+  id: Elona.ItemStump
   elonaId: 294
   group: Item
   image:
@@ -1943,7 +1943,7 @@
     region: "1440, 384, 48, 48"
 
 - type: Chip
-  id: ItemDress
+  id: Elona.ItemDress
   elonaId: 295
   group: Item
   image:
@@ -1951,7 +1951,7 @@
     region: "1488, 384, 48, 48"
 
 - type: Chip
-  id: ItemTable
+  id: Elona.ItemTable
   elonaId: 296
   group: Item
   image:
@@ -1959,7 +1959,7 @@
     region: "1536, 384, 48, 48"
 
 - type: Chip
-  id: ItemTravelersFood
+  id: Elona.ItemTravelersFood
   elonaId: 297
   group: Item
   image:
@@ -1967,7 +1967,7 @@
     region: "0, 432, 48, 48"
 
 - type: Chip
-  id: Item298
+  id: Elona.Item298
   elonaId: 298
   group: Item
   image:
@@ -1975,7 +1975,7 @@
     region: "48, 432, 48, 48"
 
 - type: Chip
-  id: ItemGoldenPedestal
+  id: Elona.ItemGoldenPedestal
   elonaId: 299
   group: Item
   image:
@@ -1983,7 +1983,7 @@
     region: "96, 432, 48, 48"
 
 - type: Chip
-  id: ItemGoldenStatue
+  id: Elona.ItemGoldenStatue
   elonaId: 300
   group: Item
   image:
@@ -1991,7 +1991,7 @@
     region: "144, 432, 48, 48"
 
 - type: Chip
-  id: ItemRabbitsTail
+  id: Elona.ItemRabbitsTail
   elonaId: 301
   group: Item
   image:
@@ -1999,7 +1999,7 @@
     region: "192, 432, 48, 48"
 
 - type: Chip
-  id: ItemRemainsBlood
+  id: Elona.ItemRemainsBlood
   elonaId: 302
   group: Item
   image:
@@ -2007,7 +2007,7 @@
     region: "240, 432, 48, 48"
 
 - type: Chip
-  id: ItemRemainsEye
+  id: Elona.ItemRemainsEye
   elonaId: 303
   group: Item
   image:
@@ -2015,7 +2015,7 @@
     region: "288, 432, 48, 48"
 
 - type: Chip
-  id: ItemRemainsHeart
+  id: Elona.ItemRemainsHeart
   elonaId: 304
   group: Item
   image:
@@ -2023,7 +2023,7 @@
     region: "336, 432, 48, 48"
 
 - type: Chip
-  id: ItemRemainsBone
+  id: Elona.ItemRemainsBone
   elonaId: 305
   group: Item
   image:
@@ -2031,7 +2031,7 @@
     region: "384, 432, 48, 48"
 
 - type: Chip
-  id: ItemFishingPole
+  id: Elona.ItemFishingPole
   elonaId: 306
   group: Item
   image:
@@ -2039,7 +2039,7 @@
     region: "432, 432, 48, 48"
 
 - type: Chip
-  id: ItemRune
+  id: Elona.ItemRune
   elonaId: 307
   group: Item
   image:
@@ -2047,7 +2047,7 @@
     region: "480, 432, 48, 48"
 
 - type: Chip
-  id: ItemDeed
+  id: Elona.ItemDeed
   elonaId: 308
   group: Item
   image:
@@ -2055,7 +2055,7 @@
     region: "528, 432, 48, 48"
 
 - type: Chip
-  id: ItemMoonfish
+  id: Elona.ItemMoonfish
   elonaId: 309
   group: Item
   image:
@@ -2063,7 +2063,7 @@
     region: "576, 432, 48, 48"
 
 - type: Chip
-  id: ItemFish
+  id: Elona.ItemFish
   elonaId: 310
   group: Item
   image:
@@ -2071,7 +2071,7 @@
     region: "624, 432, 48, 48"
 
 - type: Chip
-  id: ItemFlatfish
+  id: Elona.ItemFlatfish
   elonaId: 311
   group: Item
   image:
@@ -2079,7 +2079,7 @@
     region: "672, 432, 48, 48"
 
 - type: Chip
-  id: ItemManboo
+  id: Elona.ItemManboo
   elonaId: 312
   group: Item
   image:
@@ -2087,7 +2087,7 @@
     region: "720, 432, 48, 48"
 
 - type: Chip
-  id: ItemSeabream
+  id: Elona.ItemSeabream
   elonaId: 313
   group: Item
   image:
@@ -2095,7 +2095,7 @@
     region: "768, 432, 48, 48"
 
 - type: Chip
-  id: ItemSalmon
+  id: Elona.ItemSalmon
   elonaId: 314
   group: Item
   image:
@@ -2103,7 +2103,7 @@
     region: "816, 432, 48, 48"
 
 - type: Chip
-  id: ItemGlobefish
+  id: Elona.ItemGlobefish
   elonaId: 315
   group: Item
   image:
@@ -2111,7 +2111,7 @@
     region: "864, 432, 48, 48"
 
 - type: Chip
-  id: ItemTunaFish
+  id: Elona.ItemTunaFish
   elonaId: 316
   group: Item
   image:
@@ -2119,7 +2119,7 @@
     region: "912, 432, 48, 48"
 
 - type: Chip
-  id: ItemCutlassfish
+  id: Elona.ItemCutlassfish
   elonaId: 317
   group: Item
   image:
@@ -2127,7 +2127,7 @@
     region: "960, 432, 48, 48"
 
 - type: Chip
-  id: ItemSandborer
+  id: Elona.ItemSandborer
   elonaId: 318
   group: Item
   image:
@@ -2135,7 +2135,7 @@
     region: "1008, 432, 48, 48"
 
 - type: Chip
-  id: ItemGemCutter
+  id: Elona.ItemGemCutter
   elonaId: 319
   group: Item
   image:
@@ -2143,7 +2143,7 @@
     region: "1056, 432, 48, 48"
 
 - type: Chip
-  id: ItemRedTreasureMachine
+  id: Elona.ItemRedTreasureMachine
   elonaId: 320
   group: Item
   image:
@@ -2151,7 +2151,7 @@
     region: "1104, 432, 48, 48"
 
 - type: Chip
-  id: ItemBlueTreasureMachine
+  id: Elona.ItemBlueTreasureMachine
   elonaId: 321
   group: Item
   image:
@@ -2159,7 +2159,7 @@
     region: "1152, 432, 48, 48"
 
 - type: Chip
-  id: ItemRareTreasureBall
+  id: Elona.ItemRareTreasureBall
   elonaId: 322
   group: Item
   image:
@@ -2167,7 +2167,7 @@
     region: "1200, 432, 48, 48"
 
 - type: Chip
-  id: ItemSeed
+  id: Elona.ItemSeed
   elonaId: 323
   group: Item
   image:
@@ -2175,7 +2175,7 @@
     region: "1248, 432, 48, 48"
 
 - type: Chip
-  id: ItemSleepingBag
+  id: Elona.ItemSleepingBag
   elonaId: 324
   group: Item
   image:
@@ -2183,7 +2183,7 @@
     region: "1296, 432, 48, 48"
 
 - type: Chip
-  id: ItemSalaryChest
+  id: Elona.ItemSalaryChest
   elonaId: 325
   group: Item
   image:
@@ -2191,7 +2191,7 @@
     region: "1344, 432, 48, 48"
 
 - type: Chip
-  id: ItemFeather
+  id: Elona.ItemFeather
   elonaId: 326
   group: Item
   image:
@@ -2199,7 +2199,7 @@
     region: "1392, 432, 48, 48"
 
 - type: Chip
-  id: Item327
+  id: Elona.Item327
   elonaId: 327
   group: Item
   image:
@@ -2207,7 +2207,7 @@
     region: "1440, 432, 48, 48"
 
 - type: Chip
-  id: Item328
+  id: Elona.Item328
   elonaId: 328
   group: Item
   image:
@@ -2215,7 +2215,7 @@
     region: "1488, 432, 48, 48"
 
 - type: Chip
-  id: Item329
+  id: Elona.Item329
   elonaId: 329
   group: Item
   image:
@@ -2223,7 +2223,7 @@
     region: "1536, 432, 48, 48"
 
 - type: Chip
-  id: ItemShelter
+  id: Elona.ItemShelter
   elonaId: 330
   group: Item
   image:
@@ -2231,7 +2231,7 @@
     region: "0, 480, 48, 48"
 
 - type: Chip
-  id: ItemMastersDeliveryChest
+  id: Elona.ItemMastersDeliveryChest
   elonaId: 331
   group: Item
   image:
@@ -2239,7 +2239,7 @@
     region: "48, 480, 48, 48"
 
 - type: Chip
-  id: ItemRegister
+  id: Elona.ItemRegister
   elonaId: 332
   group: Item
   image:
@@ -2247,7 +2247,7 @@
     region: "96, 480, 48, 48"
 
 - type: Chip
-  id: ItemBook
+  id: Elona.ItemBook
   elonaId: 333
   group: Item
   image:
@@ -2255,7 +2255,7 @@
     region: "144, 480, 48, 48"
 
 - type: Chip
-  id: ItemTextbook
+  id: Elona.ItemTextbook
   elonaId: 334
   group: Item
   image:
@@ -2263,7 +2263,7 @@
     region: "192, 480, 48, 48"
 
 - type: Chip
-  id: ItemBlanket
+  id: Elona.ItemBlanket
   elonaId: 335
   group: Item
   image:
@@ -2271,7 +2271,7 @@
     region: "240, 480, 48, 48"
 
 - type: Chip
-  id: ItemRottenFood
+  id: Elona.ItemRottenFood
   elonaId: 336
   group: Item
   image:
@@ -2279,7 +2279,7 @@
     region: "288, 480, 48, 48"
 
 - type: Chip
-  id: ItemJerky
+  id: Elona.ItemJerky
   elonaId: 337
   group: Item
   image:
@@ -2287,7 +2287,7 @@
     region: "336, 480, 48, 48"
 
 - type: Chip
-  id: ItemEgg
+  id: Elona.ItemEgg
   elonaId: 338
   group: Item
   image:
@@ -2295,7 +2295,7 @@
     region: "384, 480, 48, 48"
 
 - type: Chip
-  id: ItemBottleOfMilk
+  id: Elona.ItemBottleOfMilk
   elonaId: 339
   group: Item
   image:
@@ -2303,7 +2303,7 @@
     region: "432, 480, 48, 48"
 
 - type: Chip
-  id: ItemShit
+  id: Elona.ItemShit
   elonaId: 340
   group: Item
   image:
@@ -2311,7 +2311,7 @@
     region: "480, 480, 48, 48"
 
 - type: Chip
-  id: ItemDishFish7
+  id: Elona.ItemDishFish7
   elonaId: 341
   group: Item
   image:
@@ -2319,7 +2319,7 @@
     region: "528, 480, 48, 48"
 
 - type: Chip
-  id: ItemDishVegetable4
+  id: Elona.ItemDishVegetable4
   elonaId: 342
   group: Item
   image:
@@ -2327,7 +2327,7 @@
     region: "576, 480, 48, 48"
 
 - type: Chip
-  id: ItemDishPasta3
+  id: Elona.ItemDishPasta3
   elonaId: 343
   group: Item
   image:
@@ -2335,7 +2335,7 @@
     region: "624, 480, 48, 48"
 
 - type: Chip
-  id: ItemDishPasta4
+  id: Elona.ItemDishPasta4
   elonaId: 344
   group: Item
   image:
@@ -2343,7 +2343,7 @@
     region: "672, 480, 48, 48"
 
 - type: Chip
-  id: ItemDishFruit6
+  id: Elona.ItemDishFruit6
   elonaId: 345
   group: Item
   image:
@@ -2351,7 +2351,7 @@
     region: "720, 480, 48, 48"
 
 - type: Chip
-  id: ItemDishFruit4
+  id: Elona.ItemDishFruit4
   elonaId: 346
   group: Item
   image:
@@ -2359,7 +2359,7 @@
     region: "768, 480, 48, 48"
 
 - type: Chip
-  id: ItemDishEgg8
+  id: Elona.ItemDishEgg8
   elonaId: 347
   group: Item
   image:
@@ -2367,7 +2367,7 @@
     region: "816, 480, 48, 48"
 
 - type: Chip
-  id: ItemKittyBank
+  id: Elona.ItemKittyBank
   elonaId: 348
   group: Item
   image:
@@ -2375,7 +2375,7 @@
     region: "864, 480, 48, 48"
 
 - type: Chip
-  id: ItemCampfire
+  id: Elona.ItemCampfire
   elonaId: 349
   group: Item
   image:
@@ -2384,7 +2384,7 @@
     countX: 3
 
 - type: Chip
-  id: Item350
+  id: Elona.Item350
   elonaId: 350
   group: Item
   image:
@@ -2392,7 +2392,7 @@
     region: "960, 480, 48, 48"
 
 - type: Chip
-  id: Item351
+  id: Elona.Item351
   elonaId: 351
   group: Item
   image:
@@ -2400,7 +2400,7 @@
     region: "1008, 480, 48, 48"
 
 - type: Chip
-  id: ItemTorch
+  id: Elona.ItemTorch
   elonaId: 352
   group: Item
   image:
@@ -2408,7 +2408,7 @@
     region: "1056, 480, 48, 48"
 
 - type: Chip
-  id: ItemCandle
+  id: Elona.ItemCandle
   elonaId: 353
   group: Item
   image:
@@ -2416,7 +2416,7 @@
     region: "1104, 480, 48, 48"
 
 - type: Chip
-  id: ItemPotion
+  id: Elona.ItemPotion
   elonaId: 354
   group: Item
   image:
@@ -2424,7 +2424,7 @@
     region: "1152, 480, 48, 48"
 
 - type: Chip
-  id: ItemFountain
+  id: Elona.ItemFountain
   elonaId: 355
   group: Item
   image:
@@ -2433,7 +2433,7 @@
     countX: 3
 
 - type: Chip
-  id: Item356
+  id: Elona.Item356
   elonaId: 356
   group: Item
   image:
@@ -2441,7 +2441,7 @@
     region: "1248, 480, 48, 48"
 
 - type: Chip
-  id: Item357
+  id: Elona.Item357
   elonaId: 357
   group: Item
   image:
@@ -2449,7 +2449,7 @@
     region: "1296, 480, 48, 48"
 
 - type: Chip
-  id: Item358
+  id: Elona.Item358
   elonaId: 358
   group: Item
   image:
@@ -2457,7 +2457,7 @@
     region: "1344, 480, 48, 48"
 
 - type: Chip
-  id: Item359
+  id: Elona.Item359
   elonaId: 359
   group: Item
   image:
@@ -2465,7 +2465,7 @@
     region: "1392, 480, 48, 48"
 
 - type: Chip
-  id: ItemDish
+  id: Elona.ItemDish
   elonaId: 360
   group: Item
   image:
@@ -2473,7 +2473,7 @@
     region: "1440, 480, 48, 48"
 
 - type: Chip
-  id: ItemStack
+  id: Elona.ItemStack
   elonaId: 363
   group: Item
   image:
@@ -2481,7 +2481,7 @@
     region: "0, 528, 48, 48"
 
 - type: Chip
-  id: ItemFancyLamp
+  id: Elona.ItemFancyLamp
   elonaId: 364
   group: Item
   image:
@@ -2489,7 +2489,7 @@
     region: "48, 528, 48, 48"
 
 - type: Chip
-  id: ItemHandfulOfSnow
+  id: Elona.ItemHandfulOfSnow
   elonaId: 365
   group: Item
   image:
@@ -2497,7 +2497,7 @@
     region: "96, 528, 48, 48"
 
 - type: Chip
-  id: ItemMiniSnowMan
+  id: Elona.ItemMiniSnowMan
   elonaId: 366
   group: Item
   image:
@@ -2505,7 +2505,7 @@
     region: "144, 528, 48, 48"
 
 - type: Chip
-  id: ItemSnowScarecrow
+  id: Elona.ItemSnowScarecrow
   elonaId: 367
   group: Item
   image:
@@ -2513,7 +2513,7 @@
     region: "192, 528, 48, 48"
 
 - type: Chip
-  id: ItemSnowBarrel
+  id: Elona.ItemSnowBarrel
   elonaId: 368
   group: Item
   image:
@@ -2521,7 +2521,7 @@
     region: "240, 528, 48, 48"
 
 - type: Chip
-  id: ItemStainedGlassWindow
+  id: Elona.ItemStainedGlassWindow
   elonaId: 369
   group: Item
   image:
@@ -2529,7 +2529,7 @@
     region: "288, 528, 48, 48"
 
 - type: Chip
-  id: ItemGiantsShackle
+  id: Elona.ItemGiantsShackle
   elonaId: 370
   group: Item
   image:
@@ -2537,7 +2537,7 @@
     region: "336, 528, 48, 48"
 
 - type: Chip
-  id: ItemEmptyBottle
+  id: Elona.ItemEmptyBottle
   elonaId: 371
   group: Item
   image:
@@ -2545,7 +2545,7 @@
     region: "384, 528, 48, 48"
 
 - type: Chip
-  id: ItemHolyWell
+  id: Elona.ItemHolyWell
   elonaId: 372
   group: Item
   image:
@@ -2553,7 +2553,7 @@
     region: "432, 528, 48, 48"
 
 - type: Chip
-  id: ItemPresidentsChair
+  id: Elona.ItemPresidentsChair
   elonaId: 373
   group: Item
   image:
@@ -2561,7 +2561,7 @@
     region: "480, 528, 48, 48"
 
 - type: Chip
-  id: ItemGreenPlant
+  id: Elona.ItemGreenPlant
   elonaId: 374
   group: Item
   image:
@@ -2569,7 +2569,7 @@
     region: "528, 528, 48, 48"
 
 - type: Chip
-  id: ItemMoneyTree
+  id: Elona.ItemMoneyTree
   elonaId: 375
   group: Item
   image:
@@ -2577,7 +2577,7 @@
     region: "576, 528, 48, 48"
 
 - type: Chip
-  id: ItemBarbecueSet
+  id: Elona.ItemBarbecueSet
   elonaId: 376
   group: Item
   image:
@@ -2585,7 +2585,7 @@
     region: "624, 528, 48, 48"
 
 - type: Chip
-  id: ItemGiantCactus
+  id: Elona.ItemGiantCactus
   elonaId: 377
   group: Item
   image:
@@ -2593,7 +2593,7 @@
     region: "672, 528, 48, 48"
 
 - type: Chip
-  id: ItemSquareWindow
+  id: Elona.ItemSquareWindow
   elonaId: 378
   group: Item
   image:
@@ -2601,7 +2601,7 @@
     region: "720, 528, 48, 48"
 
 - type: Chip
-  id: ItemWindow
+  id: Elona.ItemWindow
   elonaId: 379
   group: Item
   image:
@@ -2609,7 +2609,7 @@
     region: "768, 528, 48, 48"
 
 - type: Chip
-  id: ItemTrianglePlant
+  id: Elona.ItemTrianglePlant
   elonaId: 380
   group: Item
   image:
@@ -2617,7 +2617,7 @@
     region: "816, 528, 48, 48"
 
 - type: Chip
-  id: ItemBoard
+  id: Elona.ItemBoard
   elonaId: 381
   group: Item
   image:
@@ -2625,7 +2625,7 @@
     region: "864, 528, 48, 48"
 
 - type: Chip
-  id: ItemNiceWindow
+  id: Elona.ItemNiceWindow
   elonaId: 382
   group: Item
   image:
@@ -2633,7 +2633,7 @@
     region: "912, 528, 48, 48"
 
 - type: Chip
-  id: ItemBill
+  id: Elona.ItemBill
   elonaId: 383
   group: Item
   image:
@@ -2641,7 +2641,7 @@
     region: "960, 528, 48, 48"
 
 - type: Chip
-  id: ItemTaxMastersTaxBox
+  id: Elona.ItemTaxMastersTaxBox
   elonaId: 384
   group: Item
   image:
@@ -2649,7 +2649,7 @@
     region: "1008, 528, 48, 48"
 
 - type: Chip
-  id: ItemBaitWaterFlea
+  id: Elona.ItemBaitWaterFlea
   elonaId: 385
   group: Item
   image:
@@ -2657,7 +2657,7 @@
     region: "1056, 528, 48, 48"
 
 - type: Chip
-  id: ItemBaitGrasshopper
+  id: Elona.ItemBaitGrasshopper
   elonaId: 386
   group: Item
   image:
@@ -2665,7 +2665,7 @@
     region: "1104, 528, 48, 48"
 
 - type: Chip
-  id: ItemBaitLadybug
+  id: Elona.ItemBaitLadybug
   elonaId: 387
   group: Item
   image:
@@ -2673,7 +2673,7 @@
     region: "1152, 528, 48, 48"
 
 - type: Chip
-  id: ItemBaitDragonfly
+  id: Elona.ItemBaitDragonfly
   elonaId: 388
   group: Item
   image:
@@ -2681,7 +2681,7 @@
     region: "1200, 528, 48, 48"
 
 - type: Chip
-  id: ItemBaitLocust
+  id: Elona.ItemBaitLocust
   elonaId: 389
   group: Item
   image:
@@ -2689,7 +2689,7 @@
     region: "1248, 528, 48, 48"
 
 - type: Chip
-  id: ItemBaitBeetle
+  id: Elona.ItemBaitBeetle
   elonaId: 390
   group: Item
   image:
@@ -2697,7 +2697,7 @@
     region: "1296, 528, 48, 48"
 
 - type: Chip
-  id: ItemGift
+  id: Elona.ItemGift
   elonaId: 391
   group: Item
   image:
@@ -2705,7 +2705,7 @@
     region: "1344, 528, 48, 48"
 
 - type: Chip
-  id: ItemPanFlute
+  id: Elona.ItemPanFlute
   elonaId: 392
   group: Item
   image:
@@ -2713,7 +2713,7 @@
     region: "1392, 528, 48, 48"
 
 - type: Chip
-  id: ItemAlud
+  id: Elona.ItemAlud
   elonaId: 393
   group: Item
   image:
@@ -2721,7 +2721,7 @@
     region: "1440, 528, 48, 48"
 
 - type: Chip
-  id: ItemHarmonica
+  id: Elona.ItemHarmonica
   elonaId: 394
   group: Item
   image:
@@ -2729,7 +2729,7 @@
     region: "1488, 528, 48, 48"
 
 - type: Chip
-  id: ItemHarp
+  id: Elona.ItemHarp
   elonaId: 395
   group: Item
   image:
@@ -2737,7 +2737,7 @@
     region: "1536, 528, 48, 48"
 
 - type: Chip
-  id: ItemBreastplate
+  id: Elona.ItemBreastplate
   elonaId: 396
   group: Item
   image:
@@ -2745,7 +2745,7 @@
     region: "0, 576, 48, 48"
 
 - type: Chip
-  id: ItemDecorativeAmulet
+  id: Elona.ItemDecorativeAmulet
   elonaId: 398
   group: Item
   image:
@@ -2753,7 +2753,7 @@
     region: "96, 576, 48, 48"
 
 - type: Chip
-  id: ItemBardiche
+  id: Elona.ItemBardiche
   elonaId: 399
   group: Item
   image:
@@ -2761,7 +2761,7 @@
     region: "144, 576, 48, 48"
 
 - type: Chip
-  id: ItemDagger
+  id: Elona.ItemDagger
   elonaId: 400
   group: Item
   image:
@@ -2769,7 +2769,7 @@
     region: "192, 576, 48, 48"
 
 - type: Chip
-  id: ItemSpear
+  id: Elona.ItemSpear
   elonaId: 401
   group: Item
   image:
@@ -2777,7 +2777,7 @@
     region: "240, 576, 48, 48"
 
 - type: Chip
-  id: ItemSkullBow
+  id: Elona.ItemSkullBow
   elonaId: 402
   group: Item
   image:
@@ -2785,7 +2785,7 @@
     region: "288, 576, 48, 48"
 
 - type: Chip
-  id: Item403
+  id: Elona.Item403
   elonaId: 403
   group: Item
   image:
@@ -2793,7 +2793,7 @@
     region: "336, 576, 48, 48"
 
 - type: Chip
-  id: ItemLongBow
+  id: Elona.ItemLongBow
   elonaId: 404
   group: Item
   image:
@@ -2801,7 +2801,7 @@
     region: "384, 576, 48, 48"
 
 - type: Chip
-  id: ItemLongSword
+  id: Elona.ItemLongSword
   elonaId: 405
   group: Item
   image:
@@ -2809,7 +2809,7 @@
     region: "432, 576, 48, 48"
 
 - type: Chip
-  id: Item406
+  id: Elona.Item406
   elonaId: 406
   group: Item
   image:
@@ -2817,7 +2817,7 @@
     region: "480, 576, 48, 48"
 
 - type: Chip
-  id: ItemDecorativeRing
+  id: Elona.ItemDecorativeRing
   elonaId: 407
   group: Item
   image:
@@ -2825,7 +2825,7 @@
     region: "528, 576, 48, 48"
 
 - type: Chip
-  id: ItemRobe
+  id: Elona.ItemRobe
   elonaId: 408
   group: Item
   image:
@@ -2833,7 +2833,7 @@
     region: "576, 576, 48, 48"
 
 - type: Chip
-  id: ItemBandedMail
+  id: Elona.ItemBandedMail
   elonaId: 409
   group: Item
   image:
@@ -2841,7 +2841,7 @@
     region: "624, 576, 48, 48"
 
 - type: Chip
-  id: ItemPlateMail
+  id: Elona.ItemPlateMail
   elonaId: 410
   group: Item
   image:
@@ -2849,7 +2849,7 @@
     region: "672, 576, 48, 48"
 
 - type: Chip
-  id: ItemKnightShield
+  id: Elona.ItemKnightShield
   elonaId: 411
   group: Item
   image:
@@ -2857,7 +2857,7 @@
     region: "720, 576, 48, 48"
 
 - type: Chip
-  id: ItemBolt
+  id: Elona.ItemBolt
   elonaId: 412
   group: Item
   image:
@@ -2865,7 +2865,7 @@
     region: "768, 576, 48, 48"
 
 - type: Chip
-  id: ItemFeatherHat
+  id: Elona.ItemFeatherHat
   elonaId: 413
   group: Item
   image:
@@ -2873,7 +2873,7 @@
     region: "816, 576, 48, 48"
 
 - type: Chip
-  id: ItemPlateGauntlets
+  id: Elona.ItemPlateGauntlets
   elonaId: 414
   group: Item
   image:
@@ -2881,7 +2881,7 @@
     region: "864, 576, 48, 48"
 
 - type: Chip
-  id: ItemHolyLance
+  id: Elona.ItemHolyLance
   elonaId: 415
   group: Item
   image:
@@ -2889,7 +2889,7 @@
     region: "912, 576, 48, 48"
 
 - type: Chip
-  id: Item416
+  id: Elona.Item416
   elonaId: 416
   group: Item
   image:
@@ -2897,7 +2897,7 @@
     region: "960, 576, 48, 48"
 
 - type: Chip
-  id: ItemHeavyBoots
+  id: Elona.ItemHeavyBoots
   elonaId: 418
   group: Item
   image:
@@ -2905,7 +2905,7 @@
     region: "1056, 576, 48, 48"
 
 - type: Chip
-  id: ItemPistol
+  id: Elona.ItemPistol
   elonaId: 419
   group: Item
   image:
@@ -2913,7 +2913,7 @@
     region: "1104, 576, 48, 48"
 
 - type: Chip
-  id: ItemBullet
+  id: Elona.ItemBullet
   elonaId: 420
   group: Item
   image:
@@ -2921,7 +2921,7 @@
     region: "1152, 576, 48, 48"
 
 - type: Chip
-  id: ItemScythe
+  id: Elona.ItemScythe
   elonaId: 421
   group: Item
   image:
@@ -2929,7 +2929,7 @@
     region: "1200, 576, 48, 48"
 
 - type: Chip
-  id: ItemLightCloak
+  id: Elona.ItemLightCloak
   elonaId: 422
   group: Item
   image:
@@ -2937,7 +2937,7 @@
     region: "1248, 576, 48, 48"
 
 - type: Chip
-  id: ItemGirdle
+  id: Elona.ItemGirdle
   elonaId: 423
   group: Item
   image:
@@ -2945,7 +2945,7 @@
     region: "1296, 576, 48, 48"
 
 - type: Chip
-  id: ItemStone
+  id: Elona.ItemStone
   elonaId: 424
   group: Item
   image:
@@ -2953,7 +2953,7 @@
     region: "1344, 576, 48, 48"
 
 - type: Chip
-  id: ItemStaff
+  id: Elona.ItemStaff
   elonaId: 425
   group: Item
   image:
@@ -2961,7 +2961,7 @@
     region: "1392, 576, 48, 48"
 
 - type: Chip
-  id: ItemHalberd
+  id: Elona.ItemHalberd
   elonaId: 426
   group: Item
   image:
@@ -2969,7 +2969,7 @@
     region: "1440, 576, 48, 48"
 
 - type: Chip
-  id: ItemClub
+  id: Elona.ItemClub
   elonaId: 427
   group: Item
   image:
@@ -2977,7 +2977,7 @@
     region: "1488, 576, 48, 48"
 
 - type: Chip
-  id: Item428
+  id: Elona.Item428
   elonaId: 428
   group: Item
   image:
@@ -2985,7 +2985,7 @@
     region: "1536, 576, 48, 48"
 
 - type: Chip
-  id: ItemSpellbook
+  id: Elona.ItemSpellbook
   elonaId: 429
   group: Item
   image:
@@ -2993,7 +2993,7 @@
     region: "0, 624, 48, 48"
 
 - type: Chip
-  id: Item430
+  id: Elona.Item430
   elonaId: 430
   group: Item
   image:
@@ -3001,7 +3001,7 @@
     region: "48, 624, 48, 48"
 
 - type: Chip
-  id: ItemKatana
+  id: Elona.ItemKatana
   elonaId: 431
   group: Item
   image:
@@ -3009,7 +3009,7 @@
     region: "96, 624, 48, 48"
 
 - type: Chip
-  id: ItemWakizashi
+  id: Elona.ItemWakizashi
   elonaId: 432
   group: Item
   image:
@@ -3017,7 +3017,7 @@
     region: "144, 624, 48, 48"
 
 - type: Chip
-  id: ItemGoldPiece
+  id: Elona.ItemGoldPiece
   elonaId: 433
   group: Item
   image:
@@ -3025,7 +3025,7 @@
     region: "192, 624, 48, 48"
 
 - type: Chip
-  id: ItemCasinoChip
+  id: Elona.ItemCasinoChip
   elonaId: 434
   group: Item
   image:
@@ -3033,7 +3033,7 @@
     region: "240, 624, 48, 48"
 
 - type: Chip
-  id: ItemMaterialKey
+  id: Elona.ItemMaterialKey
   elonaId: 435
   group: Item
   image:
@@ -3041,7 +3041,7 @@
     region: "288, 624, 48, 48"
 
 - type: Chip
-  id: ItemMaterialFeather
+  id: Elona.ItemMaterialFeather
   elonaId: 436
   group: Item
   image:
@@ -3049,7 +3049,7 @@
     region: "336, 624, 48, 48"
 
 - type: Chip
-  id: ItemPlatinumCoin
+  id: Elona.ItemPlatinumCoin
   elonaId: 437
   group: Item
   image:
@@ -3057,7 +3057,7 @@
     region: "384, 624, 48, 48"
 
 - type: Chip
-  id: ItemMaterialBox
+  id: Elona.ItemMaterialBox
   elonaId: 438
   group: Item
   image:
@@ -3065,7 +3065,7 @@
     region: "432, 624, 48, 48"
 
 - type: Chip
-  id: ItemRingMail
+  id: Elona.ItemRingMail
   elonaId: 440
   group: Item
   image:
@@ -3073,7 +3073,7 @@
     region: "528, 624, 48, 48"
 
 - type: Chip
-  id: ItemCompositeMail
+  id: Elona.ItemCompositeMail
   elonaId: 441
   group: Item
   image:
@@ -3081,7 +3081,7 @@
     region: "576, 624, 48, 48"
 
 - type: Chip
-  id: ItemChainMail
+  id: Elona.ItemChainMail
   elonaId: 442
   group: Item
   image:
@@ -3089,7 +3089,7 @@
     region: "624, 624, 48, 48"
 
 - type: Chip
-  id: ItemPopeRobe
+  id: Elona.ItemPopeRobe
   elonaId: 443
   group: Item
   image:
@@ -3097,7 +3097,7 @@
     region: "672, 624, 48, 48"
 
 - type: Chip
-  id: ItemLightMail
+  id: Elona.ItemLightMail
   elonaId: 444
   group: Item
   image:
@@ -3105,7 +3105,7 @@
     region: "720, 624, 48, 48"
 
 - type: Chip
-  id: ItemCoat
+  id: Elona.ItemCoat
   elonaId: 445
   group: Item
   image:
@@ -3113,7 +3113,7 @@
     region: "768, 624, 48, 48"
 
 - type: Chip
-  id: ItemBreastplate2
+  id: Elona.ItemBreastplate2
   elonaId: 446
   group: Item
   image:
@@ -3121,7 +3121,7 @@
     region: "816, 624, 48, 48"
 
 - type: Chip
-  id: ItemBulletproofJacket
+  id: Elona.ItemBulletproofJacket
   elonaId: 447
   group: Item
   image:
@@ -3129,7 +3129,7 @@
     region: "864, 624, 48, 48"
 
 - type: Chip
-  id: ItemGloves
+  id: Elona.ItemGloves
   elonaId: 448
   group: Item
   image:
@@ -3137,7 +3137,7 @@
     region: "912, 624, 48, 48"
 
 - type: Chip
-  id: ItemDecoratedGloves
+  id: Elona.ItemDecoratedGloves
   elonaId: 449
   group: Item
   image:
@@ -3145,7 +3145,7 @@
     region: "960, 624, 48, 48"
 
 - type: Chip
-  id: ItemThickGauntlets
+  id: Elona.ItemThickGauntlets
   elonaId: 450
   group: Item
   image:
@@ -3153,7 +3153,7 @@
     region: "1008, 624, 48, 48"
 
 - type: Chip
-  id: ItemLightGloves
+  id: Elona.ItemLightGloves
   elonaId: 451
   group: Item
   image:
@@ -3161,7 +3161,7 @@
     region: "1056, 624, 48, 48"
 
 - type: Chip
-  id: ItemCompositeGauntlets
+  id: Elona.ItemCompositeGauntlets
   elonaId: 452
   group: Item
   image:
@@ -3169,7 +3169,7 @@
     region: "1104, 624, 48, 48"
 
 - type: Chip
-  id: ItemSmallShield
+  id: Elona.ItemSmallShield
   elonaId: 453
   group: Item
   image:
@@ -3177,7 +3177,7 @@
     region: "1152, 624, 48, 48"
 
 - type: Chip
-  id: ItemRoundShield
+  id: Elona.ItemRoundShield
   elonaId: 454
   group: Item
   image:
@@ -3185,7 +3185,7 @@
     region: "1200, 624, 48, 48"
 
 - type: Chip
-  id: ItemShield
+  id: Elona.ItemShield
   elonaId: 455
   group: Item
   image:
@@ -3193,7 +3193,7 @@
     region: "1248, 624, 48, 48"
 
 - type: Chip
-  id: ItemLargeShield
+  id: Elona.ItemLargeShield
   elonaId: 456
   group: Item
   image:
@@ -3201,7 +3201,7 @@
     region: "1296, 624, 48, 48"
 
 - type: Chip
-  id: ItemKiteShield
+  id: Elona.ItemKiteShield
   elonaId: 457
   group: Item
   image:
@@ -3209,7 +3209,7 @@
     region: "1344, 624, 48, 48"
 
 - type: Chip
-  id: ItemTowerShield
+  id: Elona.ItemTowerShield
   elonaId: 458
   group: Item
   image:
@@ -3217,7 +3217,7 @@
     region: "1392, 624, 48, 48"
 
 - type: Chip
-  id: ItemTightBoots
+  id: Elona.ItemTightBoots
   elonaId: 459
   group: Item
   image:
@@ -3225,7 +3225,7 @@
     region: "1440, 624, 48, 48"
 
 - type: Chip
-  id: ItemCompositeBoots
+  id: Elona.ItemCompositeBoots
   elonaId: 460
   group: Item
   image:
@@ -3233,7 +3233,7 @@
     region: "1488, 624, 48, 48"
 
 - type: Chip
-  id: ItemArmoredBoots
+  id: Elona.ItemArmoredBoots
   elonaId: 461
   group: Item
   image:
@@ -3241,7 +3241,7 @@
     region: "1536, 624, 48, 48"
 
 - type: Chip
-  id: ItemScroll
+  id: Elona.ItemScroll
   elonaId: 470
   group: Item
   image:
@@ -3249,7 +3249,7 @@
     region: "384, 672, 48, 48"
 
 - type: Chip
-  id: ItemRod
+  id: Elona.ItemRod
   elonaId: 471
   group: Item
   image:
@@ -3257,7 +3257,7 @@
     region: "432, 672, 48, 48"
 
 - type: Chip
-  id: Item472
+  id: Elona.Item472
   elonaId: 472
   group: Item
   image:
@@ -3265,7 +3265,7 @@
     region: "480, 672, 48, 48"
 
 - type: Chip
-  id: ItemBoots
+  id: Elona.ItemBoots
   elonaId: 473
   group: Item
   image:
@@ -3273,7 +3273,7 @@
     region: "528, 672, 48, 48"
 
 - type: Chip
-  id: ItemCompositeGirdle
+  id: Elona.ItemCompositeGirdle
   elonaId: 474
   group: Item
   image:
@@ -3281,7 +3281,7 @@
     region: "576, 672, 48, 48"
 
 - type: Chip
-  id: ItemArmoredCloak
+  id: Elona.ItemArmoredCloak
   elonaId: 475
   group: Item
   image:
@@ -3289,7 +3289,7 @@
     region: "624, 672, 48, 48"
 
 - type: Chip
-  id: ItemCloak
+  id: Elona.ItemCloak
   elonaId: 476
   group: Item
   image:
@@ -3297,7 +3297,7 @@
     region: "672, 672, 48, 48"
 
 - type: Chip
-  id: ItemMagicHat
+  id: Elona.ItemMagicHat
   elonaId: 477
   group: Item
   image:
@@ -3305,7 +3305,7 @@
     region: "720, 672, 48, 48"
 
 - type: Chip
-  id: ItemFairyHat
+  id: Elona.ItemFairyHat
   elonaId: 478
   group: Item
   image:
@@ -3313,7 +3313,7 @@
     region: "768, 672, 48, 48"
 
 - type: Chip
-  id: ItemHelm
+  id: Elona.ItemHelm
   elonaId: 479
   group: Item
   image:
@@ -3321,7 +3321,7 @@
     region: "816, 672, 48, 48"
 
 - type: Chip
-  id: ItemKnightHelm
+  id: Elona.ItemKnightHelm
   elonaId: 480
   group: Item
   image:
@@ -3329,7 +3329,7 @@
     region: "864, 672, 48, 48"
 
 - type: Chip
-  id: ItemHeavyHelm
+  id: Elona.ItemHeavyHelm
   elonaId: 481
   group: Item
   image:
@@ -3337,7 +3337,7 @@
     region: "912, 672, 48, 48"
 
 - type: Chip
-  id: ItemCompositeHelm
+  id: Elona.ItemCompositeHelm
   elonaId: 482
   group: Item
   image:
@@ -3345,7 +3345,7 @@
     region: "960, 672, 48, 48"
 
 - type: Chip
-  id: ItemEngagementAmulet
+  id: Elona.ItemEngagementAmulet
   elonaId: 483
   group: Item
   image:
@@ -3353,7 +3353,7 @@
     region: "1008, 672, 48, 48"
 
 - type: Chip
-  id: ItemBejeweledAmulet
+  id: Elona.ItemBejeweledAmulet
   elonaId: 484
   group: Item
   image:
@@ -3361,7 +3361,7 @@
     region: "1056, 672, 48, 48"
 
 - type: Chip
-  id: ItemCharm
+  id: Elona.ItemCharm
   elonaId: 485
   group: Item
   image:
@@ -3369,7 +3369,7 @@
     region: "1104, 672, 48, 48"
 
 - type: Chip
-  id: ItemNeckGuard
+  id: Elona.ItemNeckGuard
   elonaId: 486
   group: Item
   image:
@@ -3377,7 +3377,7 @@
     region: "1152, 672, 48, 48"
 
 - type: Chip
-  id: ItemTalisman
+  id: Elona.ItemTalisman
   elonaId: 487
   group: Item
   image:
@@ -3385,7 +3385,7 @@
     region: "1200, 672, 48, 48"
 
 - type: Chip
-  id: ItemPeridot
+  id: Elona.ItemPeridot
   elonaId: 488
   group: Item
   image:
@@ -3393,7 +3393,7 @@
     region: "1248, 672, 48, 48"
 
 - type: Chip
-  id: ItemEngagementRing
+  id: Elona.ItemEngagementRing
   elonaId: 489
   group: Item
   image:
@@ -3401,7 +3401,7 @@
     region: "1296, 672, 48, 48"
 
 - type: Chip
-  id: ItemRing
+  id: Elona.ItemRing
   elonaId: 490
   group: Item
   image:
@@ -3409,7 +3409,7 @@
     region: "1344, 672, 48, 48"
 
 - type: Chip
-  id: ItemArmoredRing
+  id: Elona.ItemArmoredRing
   elonaId: 491
   group: Item
   image:
@@ -3417,7 +3417,7 @@
     region: "1392, 672, 48, 48"
 
 - type: Chip
-  id: ItemCompositeRing
+  id: Elona.ItemCompositeRing
   elonaId: 492
   group: Item
   image:
@@ -3425,7 +3425,7 @@
     region: "1440, 672, 48, 48"
 
 - type: Chip
-  id: ItemStethoscope
+  id: Elona.ItemStethoscope
   elonaId: 493
   group: Item
   image:
@@ -3433,7 +3433,7 @@
     region: "1488, 672, 48, 48"
 
 - type: Chip
-  id: ItemTrident
+  id: Elona.ItemTrident
   elonaId: 494
   group: Item
   image:
@@ -3441,7 +3441,7 @@
     region: "1536, 672, 48, 48"
 
 - type: Chip
-  id: Item495
+  id: Elona.Item495
   elonaId: 495
   group: Item
   image:
@@ -3449,7 +3449,7 @@
     region: "0, 720, 48, 48"
 
 - type: Chip
-  id: Item496
+  id: Elona.Item496
   elonaId: 496
   group: Item
   image:
@@ -3457,7 +3457,7 @@
     region: "48, 720, 48, 48"
 
 - type: Chip
-  id: Item497
+  id: Elona.Item497
   elonaId: 497
   group: Item
   image:
@@ -3465,7 +3465,7 @@
     region: "96, 720, 48, 48"
 
 - type: Chip
-  id: ItemCrossbow
+  id: Elona.ItemCrossbow
   elonaId: 498
   group: Item
   image:
@@ -3473,7 +3473,7 @@
     region: "144, 720, 48, 48"
 
 - type: Chip
-  id: ItemHandAxe
+  id: Elona.ItemHandAxe
   elonaId: 499
   group: Item
   image:
@@ -3481,7 +3481,7 @@
     region: "192, 720, 48, 48"
 
 - type: Chip
-  id: ItemBattleAxe
+  id: Elona.ItemBattleAxe
   elonaId: 500
   group: Item
   image:
@@ -3489,7 +3489,7 @@
     region: "240, 720, 48, 48"
 
 - type: Chip
-  id: ItemZantetsu
+  id: Elona.ItemZantetsu
   elonaId: 501
   group: Item
   image:
@@ -3497,7 +3497,7 @@
     region: "288, 720, 48, 48"
 
 - type: Chip
-  id: ItemScimitar
+  id: Elona.ItemScimitar
   elonaId: 502
   group: Item
   image:
@@ -3505,7 +3505,7 @@
     region: "336, 720, 48, 48"
 
 - type: Chip
-  id: ItemClaymore
+  id: Elona.ItemClaymore
   elonaId: 503
   group: Item
   image:
@@ -3513,7 +3513,7 @@
     region: "384, 720, 48, 48"
 
 - type: Chip
-  id: ItemHammer
+  id: Elona.ItemHammer
   elonaId: 504
   group: Item
   image:
@@ -3521,7 +3521,7 @@
     region: "432, 720, 48, 48"
 
 - type: Chip
-  id: ItemLongStaff
+  id: Elona.ItemLongStaff
   elonaId: 505
   group: Item
   image:
@@ -3529,7 +3529,7 @@
     region: "480, 720, 48, 48"
 
 - type: Chip
-  id: ItemTrainingMachine
+  id: Elona.ItemTrainingMachine
   elonaId: 506
   group: Item
   image:
@@ -3537,7 +3537,7 @@
     region: "528, 720, 48, 48"
 
 - type: Chip
-  id: ItemMachine
+  id: Elona.ItemMachine
   elonaId: 507
   group: Item
   image:
@@ -3545,7 +3545,7 @@
     region: "576, 720, 48, 48"
 
 - type: Chip
-  id: ItemComputer
+  id: Elona.ItemComputer
   elonaId: 508
   group: Item
   image:
@@ -3553,7 +3553,7 @@
     region: "624, 720, 48, 48"
 
 - type: Chip
-  id: ItemCamera
+  id: Elona.ItemCamera
   elonaId: 509
   group: Item
   image:
@@ -3561,7 +3561,7 @@
     region: "672, 720, 48, 48"
 
 - type: Chip
-  id: ItemMicrowaveOven
+  id: Elona.ItemMicrowaveOven
   elonaId: 510
   group: Item
   image:
@@ -3569,7 +3569,7 @@
     region: "720, 720, 48, 48"
 
 - type: Chip
-  id: ItemServer
+  id: Elona.ItemServer
   elonaId: 511
   group: Item
   image:
@@ -3577,7 +3577,7 @@
     region: "768, 720, 48, 48"
 
 - type: Chip
-  id: ItemStorage
+  id: Elona.ItemStorage
   elonaId: 512
   group: Item
   image:
@@ -3585,7 +3585,7 @@
     region: "816, 720, 48, 48"
 
 - type: Chip
-  id: ItemTrashCan
+  id: Elona.ItemTrashCan
   elonaId: 513
   group: Item
   image:
@@ -3593,7 +3593,7 @@
     region: "864, 720, 48, 48"
 
 - type: Chip
-  id: ItemShotGun
+  id: Elona.ItemShotGun
   elonaId: 514
   group: Item
   image:
@@ -3601,7 +3601,7 @@
     region: "912, 720, 48, 48"
 
 - type: Chip
-  id: ItemChip
+  id: Elona.ItemChip
   elonaId: 515
   group: Item
   image:
@@ -3609,7 +3609,7 @@
     region: "960, 720, 48, 48"
 
 - type: Chip
-  id: ItemPlaybackDisc
+  id: Elona.ItemPlaybackDisc
   elonaId: 516
   group: Item
   image:
@@ -3617,7 +3617,7 @@
     region: "1008, 720, 48, 48"
 
 - type: Chip
-  id: ItemPopCorn
+  id: Elona.ItemPopCorn
   elonaId: 517
   group: Item
   image:
@@ -3625,7 +3625,7 @@
     region: "1056, 720, 48, 48"
 
 - type: Chip
-  id: ItemFriedPotato
+  id: Elona.ItemFriedPotato
   elonaId: 518
   group: Item
   image:
@@ -3633,7 +3633,7 @@
     region: "1104, 720, 48, 48"
 
 - type: Chip
-  id: ItemCyberSnack
+  id: Elona.ItemCyberSnack
   elonaId: 519
   group: Item
   image:
@@ -3641,7 +3641,7 @@
     region: "1152, 720, 48, 48"
 
 - type: Chip
-  id: ItemLaserGun
+  id: Elona.ItemLaserGun
   elonaId: 520
   group: Item
   image:
@@ -3649,7 +3649,7 @@
     region: "1200, 720, 48, 48"
 
 - type: Chip
-  id: ItemEnergyCell
+  id: Elona.ItemEnergyCell
   elonaId: 521
   group: Item
   image:
@@ -3657,7 +3657,7 @@
     region: "1248, 720, 48, 48"
 
 - type: Chip
-  id: ItemWing
+  id: Elona.ItemWing
   elonaId: 522
   group: Item
   image:
@@ -3665,7 +3665,7 @@
     region: "1296, 720, 48, 48"
 
 - type: Chip
-  id: ItemFoodMaker
+  id: Elona.ItemFoodMaker
   elonaId: 523
   group: Item
   image:
@@ -3673,7 +3673,7 @@
     region: "1344, 720, 48, 96"
 
 - type: Chip
-  id: ItemLongPillar
+  id: Elona.ItemLongPillar
   elonaId: 524
   group: Item
   image:
@@ -3681,7 +3681,7 @@
     region: "1392, 720, 48, 96"
 
 - type: Chip
-  id: ItemStatueOrnamentedWithPlants
+  id: Elona.ItemStatueOrnamentedWithPlants
   elonaId: 525
   group: Item
   image:
@@ -3689,7 +3689,7 @@
     region: "1440, 720, 48, 96"
 
 - type: Chip
-  id: ItemStatueOrnamentedWithFlowers
+  id: Elona.ItemStatueOrnamentedWithFlowers
   elonaId: 526
   group: Item
   image:
@@ -3697,7 +3697,7 @@
     region: "1488, 720, 48, 96"
 
 - type: Chip
-  id: ItemTreeOfBeech
+  id: Elona.ItemTreeOfBeech
   elonaId: 527
   group: Item
   image:
@@ -3705,7 +3705,7 @@
     region: "1536, 720, 48, 96"
 
 - type: Chip
-  id: ItemCard
+  id: Elona.ItemCard
   elonaId: 528
   group: Item
   image:
@@ -3713,7 +3713,7 @@
     region: "0, 768, 48, 48"
 
 - type: Chip
-  id: Item530
+  id: Elona.Item530
   elonaId: 530
   group: Item
   image:
@@ -3721,7 +3721,7 @@
     region: "96, 768, 48, 48"
 
 - type: Chip
-  id: ItemFigurine
+  id: Elona.ItemFigurine
   elonaId: 531
   group: Item
   image:
@@ -3729,7 +3729,7 @@
     region: "144, 768, 48, 48"
 
 - type: Chip
-  id: ItemTownBook
+  id: Elona.ItemTownBook
   elonaId: 532
   group: Item
   image:
@@ -3737,7 +3737,7 @@
     region: "192, 768, 48, 48"
 
 - type: Chip
-  id: ItemDeck
+  id: Elona.ItemDeck
   elonaId: 533
   group: Item
   image:
@@ -3745,7 +3745,7 @@
     region: "240, 768, 48, 48"
 
 - type: Chip
-  id: ItemWhistle
+  id: Elona.ItemWhistle
   elonaId: 534
   group: Item
   image:
@@ -3753,7 +3753,7 @@
     region: "288, 768, 48, 48"
 
 - type: Chip
-  id: ItemVomit
+  id: Elona.ItemVomit
   elonaId: 535
   group: Item
   image:
@@ -3761,7 +3761,7 @@
     region: "336, 768, 48, 48"
 
 - type: Chip
-  id: ItemShuriken
+  id: Elona.ItemShuriken
   elonaId: 536
   group: Item
   image:
@@ -3769,7 +3769,7 @@
     region: "384, 768, 48, 48"
 
 - type: Chip
-  id: ItemGrenade
+  id: Elona.ItemGrenade
   elonaId: 537
   group: Item
   image:
@@ -3777,7 +3777,7 @@
     region: "432, 768, 48, 48"
 
 - type: Chip
-  id: ItemTokenOfFriendship
+  id: Elona.ItemTokenOfFriendship
   elonaId: 538
   group: Item
   image:
@@ -3785,7 +3785,7 @@
     region: "480, 768, 48, 48"
 
 - type: Chip
-  id: ItemFortuneCookie
+  id: Elona.ItemFortuneCookie
   elonaId: 539
   group: Item
   image:
@@ -3793,7 +3793,7 @@
     region: "528, 768, 48, 48"
 
 - type: Chip
-  id: ItemTomato
+  id: Elona.ItemTomato
   elonaId: 540
   group: Item
   image:
@@ -3801,7 +3801,7 @@
     region: "576, 768, 48, 48"
 
 - type: Chip
-  id: ItemLargeBookshelf
+  id: Elona.ItemLargeBookshelf
   elonaId: 541
   group: Item
   image:
@@ -3809,7 +3809,7 @@
     region: "624, 768, 48, 48"
 
 - type: Chip
-  id: ItemSpecialSteamedMeatBun
+  id: Elona.ItemSpecialSteamedMeatBun
   elonaId: 542
   group: Item
   image:
@@ -3817,7 +3817,7 @@
     region: "672, 768, 48, 48"
 
 - type: Chip
-  id: ItemLuxurySofa
+  id: Elona.ItemLuxurySofa
   elonaId: 543
   group: Item
   image:
@@ -3825,7 +3825,7 @@
     region: "720, 768, 48, 48"
 
 - type: Chip
-  id: ItemDeerHead
+  id: Elona.ItemDeerHead
   elonaId: 544
   group: Item
   image:
@@ -3833,7 +3833,7 @@
     region: "768, 768, 48, 48"
 
 - type: Chip
-  id: ItemFurCarpet
+  id: Elona.ItemFurCarpet
   elonaId: 545
   group: Item
   image:
@@ -3841,7 +3841,7 @@
     region: "816, 768, 48, 48"
 
 - type: Chip
-  id: ItemKitchenKnife
+  id: Elona.ItemKitchenKnife
   elonaId: 546
   group: Item
   image:
@@ -3849,7 +3849,7 @@
     region: "864, 768, 48, 48"
 
 - type: Chip
-  id: ItemMachineGun
+  id: Elona.ItemMachineGun
   elonaId: 547
   group: Item
   image:
@@ -3857,7 +3857,7 @@
     region: "912, 768, 48, 48"
 
 - type: Chip
-  id: Item548
+  id: Elona.Item548
   elonaId: 548
   group: Item
   image:
@@ -3865,7 +3865,7 @@
     region: "960, 768, 48, 48"
 
 - type: Chip
-  id: ItemRecipeHolder
+  id: Elona.ItemRecipeHolder
   elonaId: 549
   group: Item
   image:
@@ -3873,7 +3873,7 @@
     region: "1008, 768, 48, 48"
 
 - type: Chip
-  id: ItemRecipe
+  id: Elona.ItemRecipe
   elonaId: 550
   group: Item
   image:
@@ -3881,7 +3881,7 @@
     region: "1056, 768, 48, 48"
 
 - type: Chip
-  id: ItemSackOfSugar
+  id: Elona.ItemSackOfSugar
   elonaId: 551
   group: Item
   image:
@@ -3889,7 +3889,7 @@
     region: "1104, 768, 48, 48"
 
 - type: Chip
-  id: ItemPuffPuffBread
+  id: Elona.ItemPuffPuffBread
   elonaId: 552
   group: Item
   image:
@@ -3897,7 +3897,7 @@
     region: "1152, 768, 48, 48"
 
 - type: Chip
-  id: ItemBottleOfSalt
+  id: Elona.ItemBottleOfSalt
   elonaId: 553
   group: Item
   image:
@@ -3905,7 +3905,7 @@
     region: "1200, 768, 48, 48"
 
 - type: Chip
-  id: ItemPotForTesting
+  id: Elona.ItemPotForTesting
   elonaId: 554
   group: Item
   image:
@@ -3913,7 +3913,7 @@
     region: "1248, 768, 48, 48"
 
 - type: Chip
-  id: ItemFryingPanForTesting
+  id: Elona.ItemFryingPanForTesting
   elonaId: 555
   group: Item
   image:
@@ -3921,7 +3921,7 @@
     region: "1296, 768, 48, 48"
 
 - type: Chip
-  id: ItemSandBag
+  id: Elona.ItemSandBag
   elonaId: 563
   group: Item
   image:
@@ -3929,7 +3929,7 @@
     region: "96, 816, 48, 96"
 
 - type: Chip
-  id: ItemFigurineTall
+  id: Elona.ItemFigurineTall
   elonaId: 564
   group: Item
   image:
@@ -3937,7 +3937,7 @@
     region: "144, 816, 48, 96"
 
 - type: Chip
-  id: ItemMoonGate
+  id: Elona.ItemMoonGate
   elonaId: 566
   group: Item
   image:
@@ -3945,7 +3945,7 @@
     region: "240, 816, 48, 96"
 
 - type: Chip
-  id: ItemMoonGateB
+  id: Elona.ItemMoonGateB
   elonaId: 567
   group: Item
   image:
@@ -3953,7 +3953,7 @@
     region: "288, 816, 48, 96"
 
 - type: Chip
-  id: ItemFlowerArch
+  id: Elona.ItemFlowerArch
   elonaId: 568
   group: Item
   image:
@@ -3961,7 +3961,7 @@
     region: "336, 816, 48, 96"
 
 - type: Chip
-  id: ItemKingsBed
+  id: Elona.ItemKingsBed
   elonaId: 569
   group: Item
   image:
@@ -3969,7 +3969,7 @@
     region: "384, 816, 48, 96"
 
 - type: Chip
-  id: ItemChristmasTree
+  id: Elona.ItemChristmasTree
   elonaId: 570
   group: Item
   image:
@@ -3977,7 +3977,7 @@
     region: "432, 816, 48, 96"
 
 - type: Chip
-  id: ItemPillar
+  id: Elona.ItemPillar
   elonaId: 571
   group: Item
   image:
@@ -3985,7 +3985,7 @@
     region: "480, 816, 48, 96"
 
 - type: Chip
-  id: ItemStatueOfHolyCross
+  id: Elona.ItemStatueOfHolyCross
   elonaId: 572
   group: Item
   image:
@@ -3993,7 +3993,7 @@
     region: "528, 816, 48, 96"
 
 - type: Chip
-  id: ItemModernLampB
+  id: Elona.ItemModernLampB
   elonaId: 573
   group: Item
   image:
@@ -4001,7 +4001,7 @@
     region: "576, 816, 48, 96"
 
 - type: Chip
-  id: ItemTreeOfFir
+  id: Elona.ItemTreeOfFir
   elonaId: 574
   group: Item
   image:
@@ -4009,7 +4009,7 @@
     region: "624, 816, 48, 96"
 
 - type: Chip
-  id: ItemTreeOfNaked
+  id: Elona.ItemTreeOfNaked
   elonaId: 575
   group: Item
   image:
@@ -4017,7 +4017,7 @@
     region: "672, 816, 48, 96"
 
 - type: Chip
-  id: ItemModernLampA
+  id: Elona.ItemModernLampA
   elonaId: 576
   group: Item
   image:
@@ -4025,7 +4025,7 @@
     region: "720, 816, 48, 96"
 
 - type: Chip
-  id: ItemFreezer
+  id: Elona.ItemFreezer
   elonaId: 577
   group: Item
   image:
@@ -4033,7 +4033,7 @@
     region: "768, 816, 48, 96"
 
 - type: Chip
-  id: ItemStatueOfCat
+  id: Elona.ItemStatueOfCat
   elonaId: 578
   group: Item
   image:
@@ -4041,7 +4041,7 @@
     region: "816, 816, 48, 96"
 
 - type: Chip
-  id: ItemThrone
+  id: Elona.ItemThrone
   elonaId: 579
   group: Item
   image:
@@ -4049,7 +4049,7 @@
     region: "864, 816, 48, 96"
 
 - type: Chip
-  id: ItemRackOfPotions
+  id: Elona.ItemRackOfPotions
   elonaId: 580
   group: Item
   image:
@@ -4057,7 +4057,7 @@
     region: "912, 816, 48, 96"
 
 - type: Chip
-  id: ItemStove
+  id: Elona.ItemStove
   elonaId: 581
   group: Item
   image:
@@ -4065,7 +4065,7 @@
     region: "960, 816, 48, 96"
 
 - type: Chip
-  id: ItemGiantFoliagePlant
+  id: Elona.ItemGiantFoliagePlant
   elonaId: 582
   group: Item
   image:
@@ -4073,7 +4073,7 @@
     region: "1008, 816, 48, 96"
 
 - type: Chip
-  id: ItemFurnance
+  id: Elona.ItemFurnance
   elonaId: 583
   group: Item
   image:
@@ -4081,7 +4081,7 @@
     region: "1056, 816, 48, 96"
 
 - type: Chip
-  id: ItemFireplace
+  id: Elona.ItemFireplace
   elonaId: 584
   group: Item
   image:
@@ -4089,7 +4089,7 @@
     region: "1104, 816, 48, 96"
 
 - type: Chip
-  id: ItemStreetLamp
+  id: Elona.ItemStreetLamp
   elonaId: 585
   group: Item
   image:
@@ -4097,7 +4097,7 @@
     region: "1152, 816, 48, 96"
 
 - type: Chip
-  id: ItemBigCupboard
+  id: Elona.ItemBigCupboard
   elonaId: 586
   group: Item
   image:
@@ -4105,7 +4105,7 @@
     region: "1200, 816, 48, 96"
 
 - type: Chip
-  id: ItemTreeOfAsh
+  id: Elona.ItemTreeOfAsh
   elonaId: 587
   group: Item
   image:
@@ -4113,7 +4113,7 @@
     region: "1248, 816, 48, 96"
 
 - type: Chip
-  id: ItemTreeOfPalm
+  id: Elona.ItemTreeOfPalm
   elonaId: 588
   group: Item
   image:
@@ -4121,7 +4121,7 @@
     region: "1296, 816, 48, 96"
 
 - type: Chip
-  id: ItemTreeOfZelkova
+  id: Elona.ItemTreeOfZelkova
   elonaId: 589
   group: Item
   image:
@@ -4129,7 +4129,7 @@
     region: "1344, 816, 48, 96"
 
 - type: Chip
-  id: ItemDeadTree
+  id: Elona.ItemDeadTree
   elonaId: 590
   group: Item
   image:
@@ -4137,7 +4137,7 @@
     region: "1392, 816, 48, 96"
 
 - type: Chip
-  id: ItemTreeOfFruits
+  id: Elona.ItemTreeOfFruits
   elonaId: 591
   group: Item
   image:
@@ -4145,7 +4145,7 @@
     region: "1440, 816, 48, 96"
 
 - type: Chip
-  id: ItemTreeOfFruitless
+  id: Elona.ItemTreeOfFruitless
   elonaId: 592
   group: Item
   image:
@@ -4153,7 +4153,7 @@
     region: "1488, 816, 48, 96"
 
 - type: Chip
-  id: ItemTreeOfCedar
+  id: Elona.ItemTreeOfCedar
   elonaId: 593
   group: Item
   image:
@@ -4161,7 +4161,7 @@
     region: "1536, 816, 48, 96"
 
 - type: Chip
-  id: ItemShrineGate
+  id: Elona.ItemShrineGate
   elonaId: 627
   group: Item
   image:
@@ -4169,7 +4169,7 @@
     region: "0, 912, 48, 48"
 
 - type: Chip
-  id: ItemDisguiseSet
+  id: Elona.ItemDisguiseSet
   elonaId: 628
   group: Item
   image:
@@ -4177,7 +4177,7 @@
     region: "48, 912, 48, 48"
 
 - type: Chip
-  id: ItemMaterialKit
+  id: Elona.ItemMaterialKit
   elonaId: 629
   group: Item
   image:
@@ -4185,7 +4185,7 @@
     region: "96, 912, 48, 48"
 
 - type: Chip
-  id: ItemPanty
+  id: Elona.ItemPanty
   elonaId: 630
   group: Item
   image:
@@ -4193,7 +4193,7 @@
     region: "144, 912, 48, 48"
 
 - type: Chip
-  id: ItemLeash
+  id: Elona.ItemLeash
   elonaId: 631
   group: Item
   image:
@@ -4201,7 +4201,7 @@
     region: "192, 912, 48, 48"
 
 - type: Chip
-  id: ItemMine
+  id: Elona.ItemMine
   elonaId: 632
   group: Item
   image:
@@ -4209,7 +4209,7 @@
     region: "240, 912, 48, 48"
 
 - type: Chip
-  id: ItemSkeletonKey
+  id: Elona.ItemSkeletonKey
   elonaId: 633
   group: Item
   image:
@@ -4217,7 +4217,7 @@
     region: "288, 912, 48, 48"
 
 - type: Chip
-  id: ItemLockpick
+  id: Elona.ItemLockpick
   elonaId: 634
   group: Item
   image:
@@ -4225,7 +4225,7 @@
     region: "336, 912, 48, 48"
 
 - type: Chip
-  id: ItemUnicornHorn
+  id: Elona.ItemUnicornHorn
   elonaId: 635
   group: Item
   image:
@@ -4233,7 +4233,7 @@
     region: "384, 912, 48, 48"
 
 - type: Chip
-  id: ItemCoolerBox
+  id: Elona.ItemCoolerBox
   elonaId: 636
   group: Item
   image:
@@ -4241,7 +4241,7 @@
     region: "432, 912, 48, 48"
 
 - type: Chip
-  id: ItemRiceBarrel
+  id: Elona.ItemRiceBarrel
   elonaId: 637
   group: Item
   image:
@@ -4249,7 +4249,7 @@
     region: "480, 912, 48, 48"
 
 - type: Chip
-  id: ItemEasternBed
+  id: Elona.ItemEasternBed
   elonaId: 638
   group: Item
   image:
@@ -4257,7 +4257,7 @@
     region: "528, 912, 48, 48"
 
 - type: Chip
-  id: ItemDecoratedWindow
+  id: Elona.ItemDecoratedWindow
   elonaId: 639
   group: Item
   image:
@@ -4265,7 +4265,7 @@
     region: "576, 912, 48, 48"
 
 - type: Chip
-  id: ItemKingDrawer
+  id: Elona.ItemKingDrawer
   elonaId: 640
   group: Item
   image:
@@ -4273,7 +4273,7 @@
     region: "624, 912, 48, 48"
 
 - type: Chip
-  id: ItemMenuBoard
+  id: Elona.ItemMenuBoard
   elonaId: 641
   group: Item
   image:
@@ -4281,7 +4281,7 @@
     region: "672, 912, 48, 48"
 
 - type: Chip
-  id: ItemBlackBoard
+  id: Elona.ItemBlackBoard
   elonaId: 642
   group: Item
   image:
@@ -4289,7 +4289,7 @@
     region: "720, 912, 48, 48"
 
 - type: Chip
-  id: ItemSofa
+  id: Elona.ItemSofa
   elonaId: 643
   group: Item
   image:
@@ -4297,7 +4297,7 @@
     region: "768, 912, 48, 48"
 
 - type: Chip
-  id: ItemFlowerbed
+  id: Elona.ItemFlowerbed
   elonaId: 644
   group: Item
   image:
@@ -4305,7 +4305,7 @@
     region: "816, 912, 48, 48"
 
 - type: Chip
-  id: ItemToilet
+  id: Elona.ItemToilet
   elonaId: 645
   group: Item
   image:
@@ -4313,7 +4313,7 @@
     region: "864, 912, 48, 48"
 
 - type: Chip
-  id: ItemCraftCupboard
+  id: Elona.ItemCraftCupboard
   elonaId: 646
   group: Item
   image:
@@ -4321,7 +4321,7 @@
     region: "912, 912, 48, 48"
 
 - type: Chip
-  id: ItemSink
+  id: Elona.ItemSink
   elonaId: 647
   group: Item
   image:
@@ -4329,7 +4329,7 @@
     region: "960, 912, 48, 48"
 
 - type: Chip
-  id: ItemJunk
+  id: Elona.ItemJunk
   elonaId: 648
   group: Item
   image:
@@ -4337,7 +4337,7 @@
     region: "1008, 912, 48, 48"
 
 - type: Chip
-  id: ItemDoubleBed
+  id: Elona.ItemDoubleBed
   elonaId: 649
   group: Item
   image:
@@ -4345,7 +4345,7 @@
     region: "1056, 912, 48, 48"
 
 - type: Chip
-  id: ItemEasternLamp
+  id: Elona.ItemEasternLamp
   elonaId: 650
   group: Item
   image:
@@ -4353,7 +4353,7 @@
     region: "1104, 912, 48, 48"
 
 - type: Chip
-  id: ItemEasternWindow
+  id: Elona.ItemEasternWindow
   elonaId: 651
   group: Item
   image:
@@ -4361,7 +4361,7 @@
     region: "1152, 912, 48, 48"
 
 - type: Chip
-  id: ItemChochin
+  id: Elona.ItemChochin
   elonaId: 652
   group: Item
   image:
@@ -4369,7 +4369,7 @@
     region: "1200, 912, 48, 48"
 
 - type: Chip
-  id: ItemPartition
+  id: Elona.ItemPartition
   elonaId: 653
   group: Item
   image:
@@ -4377,7 +4377,7 @@
     region: "1248, 912, 48, 48"
 
 - type: Chip
-  id: ItemMonsterHeart
+  id: Elona.ItemMonsterHeart
   elonaId: 654
   group: Item
   image:
@@ -4385,7 +4385,7 @@
     region: "1296, 912, 48, 48"
 
 - type: Chip
-  id: Item655
+  id: Elona.Item655
   elonaId: 655
   group: Item
   image:
@@ -4393,7 +4393,7 @@
     region: "1344, 912, 48, 48"
 
 - type: Chip
-  id: ItemSecretTreasure
+  id: Elona.ItemSecretTreasure
   elonaId: 656
   group: Item
   image:
@@ -4401,7 +4401,7 @@
     region: "1392, 912, 48, 48"
 
 - type: Chip
-  id: ItemGemstone
+  id: Elona.ItemGemstone
   elonaId: 657
   group: Item
   image:
@@ -4409,7 +4409,7 @@
     region: "1440, 912, 48, 48"
 
 - type: Chip
-  id: ItemMonsterBall
+  id: Elona.ItemMonsterBall
   elonaId: 658
   group: Item
   image:
@@ -4417,7 +4417,7 @@
     region: "1488, 912, 48, 48"
 
 - type: Chip
-  id: ItemEasternPartition
+  id: Elona.ItemEasternPartition
   elonaId: 659
   group: Item
   image:
@@ -4425,7 +4425,7 @@
     region: "1536, 912, 48, 48"
 
 - type: Chip
-  id: ItemSummoningCrystal
+  id: Elona.ItemSummoningCrystal
   elonaId: 662
   group: Item
   image:
@@ -4433,7 +4433,7 @@
     region: "96, 960, 48, 48"
 
 - type: Chip
-  id: Item663
+  id: Elona.Item663
   elonaId: 663
   group: Item
   image:
@@ -4441,7 +4441,7 @@
     region: "144, 960, 48, 48"
 
 - type: Chip
-  id: ItemDownstairs
+  id: Elona.ItemDownstairs
   elonaId: 664
   group: Item
   image:
@@ -4449,7 +4449,7 @@
     region: "192, 960, 48, 48"
 
 - type: Chip
-  id: ItemUpstairs
+  id: Elona.ItemUpstairs
   elonaId: 665
   group: Item
   image:
@@ -4457,7 +4457,7 @@
     region: "240, 960, 48, 48"
 
 - type: Chip
-  id: ItemNewYearsGift
+  id: Elona.ItemNewYearsGift
   elonaId: 666
   group: Item
   image:
@@ -4465,7 +4465,7 @@
     region: "288, 960, 48, 48"
 
 - type: Chip
-  id: ItemKotatsu
+  id: Elona.ItemKotatsu
   elonaId: 667
   group: Item
   image:
@@ -4473,7 +4473,7 @@
     region: "336, 960, 48, 48"
 
 - type: Chip
-  id: ItemDaruma
+  id: Elona.ItemDaruma
   elonaId: 668
   group: Item
   image:
@@ -4481,7 +4481,7 @@
     region: "384, 960, 48, 48"
 
 - type: Chip
-  id: ItemKagamiMochi
+  id: Elona.ItemKagamiMochi
   elonaId: 669
   group: Item
   image:
@@ -4489,7 +4489,7 @@
     region: "432, 960, 48, 48"
 
 - type: Chip
-  id: ItemMochi
+  id: Elona.ItemMochi
   elonaId: 670
   group: Item
   image:
@@ -4497,7 +4497,7 @@
     region: "480, 960, 48, 48"
 
 - type: Chip
-  id: ItemLightsabre
+  id: Elona.ItemLightsabre
   elonaId: 671
   group: Item
   image:
@@ -4505,7 +4505,7 @@
     region: "528, 960, 48, 48"
 
 - type: Chip
-  id: ItemFestivalWreath
+  id: Elona.ItemFestivalWreath
   elonaId: 672
   group: Item
   image:
@@ -4513,7 +4513,7 @@
     region: "576, 960, 48, 48"
 
 - type: Chip
-  id: ItemPedestal
+  id: Elona.ItemPedestal
   elonaId: 673
   group: Item
   image:
@@ -4521,7 +4521,7 @@
     region: "624, 960, 48, 48"
 
 - type: Chip
-  id: ItemCounter
+  id: Elona.ItemCounter
   elonaId: 674
   group: Item
   image:
@@ -4529,7 +4529,7 @@
     region: "672, 960, 48, 48"
 
 - type: Chip
-  id: ItemJuresBodyPillow
+  id: Elona.ItemJuresBodyPillow
   elonaId: 675
   group: Item
   image:
@@ -4537,7 +4537,7 @@
     region: "720, 960, 48, 48"
 
 - type: Chip
-  id: ItemNewYearsDecoration
+  id: Elona.ItemNewYearsDecoration
   elonaId: 676
   group: Item
   image:
@@ -4545,7 +4545,7 @@
     region: "768, 960, 48, 48"
 
 - type: Chip
-  id: ItemMiniatureTree
+  id: Elona.ItemMiniatureTree
   elonaId: 677
   group: Item
   image:
@@ -4553,7 +4553,7 @@
     region: "816, 960, 48, 48"
 
 - type: Chip
-  id: ItemBottleOfSoda
+  id: Elona.ItemBottleOfSoda
   elonaId: 678
   group: Item
   image:
@@ -4561,7 +4561,7 @@
     region: "864, 960, 48, 48"
 
 - type: Chip
-  id: ItemBlueCapsuleDrug
+  id: Elona.ItemBlueCapsuleDrug
   elonaId: 679
   group: Item
   image:
@@ -4569,7 +4569,7 @@
     region: "912, 960, 48, 48"
 
 - type: Chip
-  id: ItemStatueOfOpatos
+  id: Elona.ItemStatueOfOpatos
   elonaId: 680
   group: Item
   image:
@@ -4577,7 +4577,7 @@
     region: "960, 960, 48, 96"
 
 - type: Chip
-  id: ItemStatueOfKumiromi
+  id: Elona.ItemStatueOfKumiromi
   elonaId: 681
   group: Item
   image:
@@ -4585,7 +4585,7 @@
     region: "1008, 960, 48, 96"
 
 - type: Chip
-  id: ItemStatueOfMani
+  id: Elona.ItemStatueOfMani
   elonaId: 682
   group: Item
   image:
@@ -4593,7 +4593,7 @@
     region: "1056, 960, 48, 96"
 
 - type: Chip
-  id: ItemLuxuryCabinet
+  id: Elona.ItemLuxuryCabinet
   elonaId: 683
   group: Item
   image:
@@ -4601,7 +4601,7 @@
     region: "1104, 960, 48, 96"
 
 - type: Chip
-  id: ItemBlueStall
+  id: Elona.ItemBlueStall
   elonaId: 684
   group: Item
   image:
@@ -4609,7 +4609,7 @@
     region: "1152, 960, 48, 96"
 
 - type: Chip
-  id: ItemRedStall
+  id: Elona.ItemRedStall
   elonaId: 685
   group: Item
   image:
@@ -4617,7 +4617,7 @@
     region: "1200, 960, 48, 96"
 
 - type: Chip
-  id: ItemStatueOfCreator
+  id: Elona.ItemStatueOfCreator
   elonaId: 686
   group: Item
   image:
@@ -4625,7 +4625,7 @@
     region: "1248, 960, 48, 96"
 
 - type: Chip
-  id: ItemStatueOfEhekatl
+  id: Elona.ItemStatueOfEhekatl
   elonaId: 687
   group: Item
   image:
@@ -4633,7 +4633,7 @@
     region: "1296, 960, 48, 96"
 
 - type: Chip
-  id: ItemGuillotine
+  id: Elona.ItemGuillotine
   elonaId: 688
   group: Item
   image:
@@ -4641,7 +4641,7 @@
     region: "1344, 960, 48, 96"
 
 - type: Chip
-  id: ItemIronMaiden
+  id: Elona.ItemIronMaiden
   elonaId: 689
   group: Item
   image:
@@ -4649,7 +4649,7 @@
     region: "1392, 960, 48, 96"
 
 - type: Chip
-  id: ItemStatueOfJure
+  id: Elona.ItemStatueOfJure
   elonaId: 690
   group: Item
   image:
@@ -4657,7 +4657,7 @@
     region: "1440, 960, 48, 96"
 
 - type: Chip
-  id: ItemGeneMachine
+  id: Elona.ItemGeneMachine
   elonaId: 691
   group: Item
   image:
@@ -4665,7 +4665,7 @@
     region: "1488, 960, 48, 96"
 
 - type: Chip
-  id: ItemStatueOfLulwy
+  id: Elona.ItemStatueOfLulwy
   elonaId: 692
   group: Item
   image:
@@ -4673,7 +4673,7 @@
     region: "1536, 960, 48, 96"
 
 - type: Chip
-  id: ItemPutitoro
+  id: Elona.ItemPutitoro
   elonaId: 695
   group: Item
   image:
@@ -4681,7 +4681,7 @@
     region: "96, 1008, 48, 48"
 
 - type: Chip
-  id: Item696
+  id: Elona.Item696
   elonaId: 696
   group: Item
   image:
@@ -4689,7 +4689,7 @@
     region: "144, 1008, 48, 48"
 
 - type: Chip
-  id: ItemDragonSlayer
+  id: Elona.ItemDragonSlayer
   elonaId: 697
   group: Item
   image:
@@ -4697,7 +4697,7 @@
     region: "192, 1008, 48, 48"
 
 - type: Chip
-  id: ItemClaymoreUnique
+  id: Elona.ItemClaymoreUnique
   elonaId: 698
   group: Item
   image:
@@ -4705,7 +4705,7 @@
     region: "240, 1008, 48, 48"
 
 - type: Chip
-  id: ItemStradivarius
+  id: Elona.ItemStradivarius
   elonaId: 699
   group: Item
   image:

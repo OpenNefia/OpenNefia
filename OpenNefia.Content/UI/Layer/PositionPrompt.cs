@@ -23,6 +23,7 @@ namespace OpenNefia.Content.UI.Layer
         [Dependency] private readonly VisibilitySystem _visibility = default!;
         [Dependency] private readonly TargetTextSystem _targetText = default!;
         [Dependency] private readonly IEntityLookup _lookup = default!;
+        [Dependency] private readonly IEntityManager _entityManager = default!;
 
         public new class Result
         {
@@ -181,7 +182,7 @@ namespace OpenNefia.Content.UI.Layer
                 return false;
             }
 
-            return true;
+            return _entityManager.HasComponent<MoveableComponent>(targetChara.Uid);
         }
 
         public override void Draw()

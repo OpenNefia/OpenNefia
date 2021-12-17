@@ -1,5 +1,5 @@
 - type: Chip
-  id: CharaBlank
+  id: Elona.CharaBlank
   elonaId: 0
   group: Chara
   image:
@@ -7,7 +7,7 @@
     region: "0, 0, 48, 48"
 
 - type: Chip
-  id: CharaHumanMale
+  id: Elona.CharaHumanMale
   elonaId: 1
   group: Chara
   image:
@@ -15,7 +15,7 @@
     region: "48, 0, 48, 48"
 
 - type: Chip
-  id: CharaHumanFemale
+  id: Elona.CharaHumanFemale
   elonaId: 2
   group: Chara
   image:
@@ -23,7 +23,7 @@
     region: "96, 0, 48, 48"
 
 - type: Chip
-  id: CharaEleaMale
+  id: Elona.CharaEleaMale
   elonaId: 3
   group: Chara
   image:
@@ -31,7 +31,7 @@
     region: "144, 0, 48, 48"
 
 - type: Chip
-  id: CharaEleaFemale
+  id: Elona.CharaEleaFemale
   elonaId: 4
   group: Chara
   image:
@@ -39,7 +39,7 @@
     region: "192, 0, 48, 48"
 
 - type: Chip
-  id: CharaEuldernaMale
+  id: Elona.CharaEuldernaMale
   elonaId: 5
   group: Chara
   image:
@@ -47,7 +47,7 @@
     region: "240, 0, 48, 48"
 
 - type: Chip
-  id: CharaEuldernaFemale
+  id: Elona.CharaEuldernaFemale
   elonaId: 6
   group: Chara
   image:
@@ -55,7 +55,7 @@
     region: "288, 0, 48, 48"
 
 - type: Chip
-  id: CharaTrainerMale
+  id: Elona.CharaTrainerMale
   elonaId: 7
   group: Chara
   image:
@@ -63,7 +63,7 @@
     region: "336, 0, 48, 48"
 
 - type: Chip
-  id: CharaMiches
+  id: Elona.CharaMiches
   elonaId: 8
   group: Chara
   image:
@@ -71,7 +71,7 @@
     region: "384, 0, 48, 48"
 
 - type: Chip
-  id: CharaJuereMale
+  id: Elona.CharaJuereMale
   elonaId: 9
   group: Chara
   image:
@@ -79,7 +79,7 @@
     region: "432, 0, 48, 48"
 
 - type: Chip
-  id: CharaJuereFemale
+  id: Elona.CharaJuereFemale
   elonaId: 10
   group: Chara
   image:
@@ -87,7 +87,7 @@
     region: "480, 0, 48, 48"
 
 - type: Chip
-  id: CharaAdventurerMale1
+  id: Elona.CharaAdventurerMale1
   elonaId: 11
   group: Chara
   image:
@@ -95,7 +95,7 @@
     region: "528, 0, 48, 48"
 
 - type: Chip
-  id: CharaAdventurerFemale1
+  id: Elona.CharaAdventurerFemale1
   elonaId: 12
   group: Chara
   image:
@@ -103,7 +103,7 @@
     region: "576, 0, 48, 48"
 
 - type: Chip
-  id: CharaWizardMale
+  id: Elona.CharaWizardMale
   elonaId: 13
   group: Chara
   image:
@@ -111,7 +111,7 @@
     region: "624, 0, 48, 48"
 
 - type: Chip
-  id: CharaWizardFemale
+  id: Elona.CharaWizardFemale
   elonaId: 14
   group: Chara
   image:
@@ -119,7 +119,7 @@
     region: "672, 0, 48, 48"
 
 - type: Chip
-  id: CharaInformerMale
+  id: Elona.CharaInformerMale
   elonaId: 15
   group: Chara
   image:
@@ -127,7 +127,7 @@
     region: "720, 0, 48, 48"
 
 - type: Chip
-  id: CharaInformerFemale
+  id: Elona.CharaInformerFemale
   elonaId: 16
   group: Chara
   image:
@@ -135,7 +135,7 @@
     region: "768, 0, 48, 48"
 
 - type: Chip
-  id: CharaAdventurerMale2
+  id: Elona.CharaAdventurerMale2
   elonaId: 17
   group: Chara
   image:
@@ -143,7 +143,7 @@
     region: "816, 0, 48, 48"
 
 - type: Chip
-  id: CharaAdventurerFemale2
+  id: Elona.CharaAdventurerFemale2
   elonaId: 18
   group: Chara
   image:
@@ -151,7 +151,7 @@
     region: "864, 0, 48, 48"
 
 - type: Chip
-  id: CharaAdventurerMale3
+  id: Elona.CharaAdventurerMale3
   elonaId: 19
   group: Chara
   image:
@@ -159,7 +159,7 @@
     region: "912, 0, 48, 48"
 
 - type: Chip
-  id: CharaWarriorFemale
+  id: Elona.CharaWarriorFemale
   elonaId: 20
   group: Chara
   image:
@@ -167,7 +167,7 @@
     region: "960, 0, 48, 48"
 
 - type: Chip
-  id: CharaWarriorMale
+  id: Elona.CharaWarriorMale
   elonaId: 21
   group: Chara
   image:
@@ -175,7 +175,7 @@
     region: "1008, 0, 48, 48"
 
 - type: Chip
-  id: CharaAdventurerFemale3
+  id: Elona.CharaAdventurerFemale3
   elonaId: 22
   group: Chara
   image:
@@ -183,7 +183,7 @@
     region: "1056, 0, 48, 48"
 
 - type: Chip
-  id: CharaMoyerTheCrooked
+  id: Elona.CharaMoyerTheCrooked
   elonaId: 23
   group: Chara
   image:
@@ -191,7 +191,7 @@
     region: "1104, 0, 48, 48"
 
 - type: Chip
-  id: CharaAdventurerFemale4
+  id: Elona.CharaAdventurerFemale4
   elonaId: 24
   group: Chara
   image:
@@ -199,7 +199,7 @@
     region: "1152, 0, 48, 48"
 
 - type: Chip
-  id: CharaGuard
+  id: Elona.CharaGuard
   elonaId: 25
   group: Chara
   image:
@@ -207,7 +207,7 @@
     region: "1200, 0, 48, 48"
 
 - type: Chip
-  id: CharaAdventurerFemale5
+  id: Elona.CharaAdventurerFemale5
   elonaId: 26
   group: Chara
   image:
@@ -215,7 +215,7 @@
     region: "1248, 0, 48, 48"
 
 - type: Chip
-  id: CharaPunkFemale
+  id: Elona.CharaPunkFemale
   elonaId: 27
   group: Chara
   image:
@@ -223,7 +223,7 @@
     region: "1296, 0, 48, 48"
 
 - type: Chip
-  id: CharaAdventurerFemale6
+  id: Elona.CharaAdventurerFemale6
   elonaId: 28
   group: Chara
   image:
@@ -231,7 +231,7 @@
     region: "1344, 0, 48, 48"
 
 - type: Chip
-  id: CharaAdventurerMale4
+  id: Elona.CharaAdventurerMale4
   elonaId: 29
   group: Chara
   image:
@@ -239,7 +239,7 @@
     region: "1392, 0, 48, 48"
 
 - type: Chip
-  id: CharaAdventurerFemale7
+  id: Elona.CharaAdventurerFemale7
   elonaId: 30
   group: Chara
   image:
@@ -247,7 +247,7 @@
     region: "1440, 0, 48, 48"
 
 - type: Chip
-  id: CharaGangsterMale
+  id: Elona.CharaGangsterMale
   elonaId: 31
   group: Chara
   image:
@@ -255,7 +255,7 @@
     region: "1488, 0, 48, 48"
 
 - type: Chip
-  id: CharaAdventurerFemale8
+  id: Elona.CharaAdventurerFemale8
   elonaId: 32
   group: Chara
   image:
@@ -263,7 +263,7 @@
     region: "1536, 0, 48, 48"
 
 - type: Chip
-  id: CharaAdventurerMale5
+  id: Elona.CharaAdventurerMale5
   elonaId: 33
   group: Chara
   image:
@@ -271,7 +271,7 @@
     region: "0, 48, 48, 48"
 
 - type: Chip
-  id: CharaWarriorOfEleaFemale
+  id: Elona.CharaWarriorOfEleaFemale
   elonaId: 34
   group: Chara
   image:
@@ -279,7 +279,7 @@
     region: "48, 48, 48, 48"
 
 - type: Chip
-  id: CharaAdventurerMale6
+  id: Elona.CharaAdventurerMale6
   elonaId: 35
   group: Chara
   image:
@@ -287,7 +287,7 @@
     region: "96, 48, 48, 48"
 
 - type: Chip
-  id: CharaGangsterFemale
+  id: Elona.CharaGangsterFemale
   elonaId: 36
   group: Chara
   image:
@@ -295,7 +295,7 @@
     region: "144, 48, 48, 48"
 
 - type: Chip
-  id: CharaFallenSoldier
+  id: Elona.CharaFallenSoldier
   elonaId: 37
   group: Chara
   image:
@@ -303,7 +303,7 @@
     region: "192, 48, 48, 48"
 
 - type: Chip
-  id: CharaAdventurerFemale9
+  id: Elona.CharaAdventurerFemale9
   elonaId: 38
   group: Chara
   image:
@@ -311,7 +311,7 @@
     region: "240, 48, 48, 48"
 
 - type: Chip
-  id: CharaAdventurerMale7
+  id: Elona.CharaAdventurerMale7
   elonaId: 39
   group: Chara
   image:
@@ -319,7 +319,7 @@
     region: "288, 48, 48, 48"
 
 - type: Chip
-  id: CharaAdventurerFemale10
+  id: Elona.CharaAdventurerFemale10
   elonaId: 40
   group: Chara
   image:
@@ -327,7 +327,7 @@
     region: "336, 48, 48, 48"
 
 - type: Chip
-  id: CharaArenaMaster
+  id: Elona.CharaArenaMaster
   elonaId: 41
   group: Chara
   image:
@@ -335,7 +335,7 @@
     region: "384, 48, 48, 48"
 
 - type: Chip
-  id: CharaWizardOfEleaFemale
+  id: Elona.CharaWizardOfEleaFemale
   elonaId: 42
   group: Chara
   image:
@@ -343,7 +343,7 @@
     region: "432, 48, 48, 48"
 
 - type: Chip
-  id: CharaAdventurerMale8
+  id: Elona.CharaAdventurerMale8
   elonaId: 43
   group: Chara
   image:
@@ -351,7 +351,7 @@
     region: "480, 48, 48, 48"
 
 - type: Chip
-  id: CharaAdventurerFemale11
+  id: Elona.CharaAdventurerFemale11
   elonaId: 44
   group: Chara
   image:
@@ -359,7 +359,7 @@
     region: "528, 48, 48, 48"
 
 - type: Chip
-  id: CharaAdventurerMale9
+  id: Elona.CharaAdventurerMale9
   elonaId: 45
   group: Chara
   image:
@@ -367,7 +367,7 @@
     region: "576, 48, 48, 48"
 
 - type: Chip
-  id: CharaAdventurerFemale12
+  id: Elona.CharaAdventurerFemale12
   elonaId: 46
   group: Chara
   image:
@@ -375,7 +375,7 @@
     region: "624, 48, 48, 48"
 
 - type: Chip
-  id: CharaWizardOfEleaMale
+  id: Elona.CharaWizardOfEleaMale
   elonaId: 47
   group: Chara
   image:
@@ -383,7 +383,7 @@
     region: "672, 48, 48, 48"
 
 - type: Chip
-  id: CharaAdventurerFemale13
+  id: Elona.CharaAdventurerFemale13
   elonaId: 48
   group: Chara
   image:
@@ -391,7 +391,7 @@
     region: "720, 48, 48, 48"
 
 - type: Chip
-  id: CharaAdventurerMale10
+  id: Elona.CharaAdventurerMale10
   elonaId: 49
   group: Chara
   image:
@@ -399,7 +399,7 @@
     region: "768, 48, 48, 48"
 
 - type: Chip
-  id: CharaAdventurerFemale14
+  id: Elona.CharaAdventurerFemale14
   elonaId: 50
   group: Chara
   image:
@@ -407,7 +407,7 @@
     region: "816, 48, 48, 48"
 
 - type: Chip
-  id: CharaAdventurerMale11
+  id: Elona.CharaAdventurerMale11
   elonaId: 51
   group: Chara
   image:
@@ -415,7 +415,7 @@
     region: "864, 48, 48, 48"
 
 - type: Chip
-  id: CharaAdventurerFemale15
+  id: Elona.CharaAdventurerFemale15
   elonaId: 52
   group: Chara
   image:
@@ -423,7 +423,7 @@
     region: "912, 48, 48, 48"
 
 - type: Chip
-  id: CharaAdventurerMale12
+  id: Elona.CharaAdventurerMale12
   elonaId: 53
   group: Chara
   image:
@@ -431,7 +431,7 @@
     region: "960, 48, 48, 48"
 
 - type: Chip
-  id: CharaAdventurerFemale16
+  id: Elona.CharaAdventurerFemale16
   elonaId: 54
   group: Chara
   image:
@@ -439,7 +439,7 @@
     region: "1008, 48, 48, 48"
 
 - type: Chip
-  id: CharaAdventurerMale13
+  id: Elona.CharaAdventurerMale13
   elonaId: 55
   group: Chara
   image:
@@ -447,7 +447,7 @@
     region: "1056, 48, 48, 48"
 
 - type: Chip
-  id: CharaAdventurerFemale17
+  id: Elona.CharaAdventurerFemale17
   elonaId: 56
   group: Chara
   image:
@@ -455,7 +455,7 @@
     region: "1104, 48, 48, 48"
 
 - type: Chip
-  id: CharaMercenaryArcher
+  id: Elona.CharaMercenaryArcher
   elonaId: 57
   group: Chara
   image:
@@ -463,7 +463,7 @@
     region: "1152, 48, 48, 48"
 
 - type: Chip
-  id: CharaAdventurerFemale18
+  id: Elona.CharaAdventurerFemale18
   elonaId: 58
   group: Chara
   image:
@@ -471,7 +471,7 @@
     region: "1200, 48, 48, 48"
 
 - type: Chip
-  id: CharaAdventurerMale14
+  id: Elona.CharaAdventurerMale14
   elonaId: 59
   group: Chara
   image:
@@ -479,7 +479,7 @@
     region: "1248, 48, 48, 48"
 
 - type: Chip
-  id: CharaAdventurerFemale19
+  id: Elona.CharaAdventurerFemale19
   elonaId: 60
   group: Chara
   image:
@@ -487,7 +487,7 @@
     region: "1296, 48, 48, 48"
 
 - type: Chip
-  id: CharaAdventurerMale15
+  id: Elona.CharaAdventurerMale15
   elonaId: 61
   group: Chara
   image:
@@ -495,7 +495,7 @@
     region: "1344, 48, 48, 48"
 
 - type: Chip
-  id: CharaAdventurerFemale20
+  id: Elona.CharaAdventurerFemale20
   elonaId: 62
   group: Chara
   image:
@@ -503,7 +503,7 @@
     region: "1392, 48, 48, 48"
 
 - type: Chip
-  id: CharaAdventurerMale16
+  id: Elona.CharaAdventurerMale16
   elonaId: 63
   group: Chara
   image:
@@ -511,7 +511,7 @@
     region: "1440, 48, 48, 48"
 
 - type: Chip
-  id: CharaAdventurerFemale21
+  id: Elona.CharaAdventurerFemale21
   elonaId: 64
   group: Chara
   image:
@@ -519,7 +519,7 @@
     region: "1488, 48, 48, 48"
 
 - type: Chip
-  id: CharaAdventurerMale17
+  id: Elona.CharaAdventurerMale17
   elonaId: 65
   group: Chara
   image:
@@ -527,7 +527,7 @@
     region: "1536, 48, 48, 48"
 
 - type: Chip
-  id: CharaDwarf
+  id: Elona.CharaDwarf
   elonaId: 66
   group: Chara
   image:
@@ -535,7 +535,7 @@
     region: "0, 96, 48, 48"
 
 - type: Chip
-  id: Chara67
+  id: Elona.Chara67
   elonaId: 67
   group: Chara
   image:
@@ -543,7 +543,7 @@
     region: "48, 96, 48, 48"
 
 - type: Chip
-  id: Chara68
+  id: Elona.Chara68
   elonaId: 68
   group: Chara
   image:
@@ -551,7 +551,7 @@
     region: "96, 96, 48, 48"
 
 - type: Chip
-  id: CharaHealer
+  id: Elona.CharaHealer
   elonaId: 69
   group: Chara
   image:
@@ -559,7 +559,7 @@
     region: "144, 96, 48, 48"
 
 - type: Chip
-  id: CharaRichPersonFemale
+  id: Elona.CharaRichPersonFemale
   elonaId: 70
   group: Chara
   image:
@@ -567,7 +567,7 @@
     region: "192, 96, 48, 48"
 
 - type: Chip
-  id: CharaRichPersonMale
+  id: Elona.CharaRichPersonMale
   elonaId: 71
   group: Chara
   image:
@@ -575,7 +575,7 @@
     region: "240, 96, 48, 48"
 
 - type: Chip
-  id: CharaNobleChildFemale
+  id: Elona.CharaNobleChildFemale
   elonaId: 72
   group: Chara
   image:
@@ -583,7 +583,7 @@
     region: "288, 96, 48, 48"
 
 - type: Chip
-  id: CharaNobleChildMale
+  id: Elona.CharaNobleChildMale
   elonaId: 73
   group: Chara
   image:
@@ -591,7 +591,7 @@
     region: "336, 96, 48, 48"
 
 - type: Chip
-  id: CharaPalmianEliteSoldierMale
+  id: Elona.CharaPalmianEliteSoldierMale
   elonaId: 74
   group: Chara
   image:
@@ -599,7 +599,7 @@
     region: "384, 96, 48, 48"
 
 - type: Chip
-  id: CharaPalmianEliteSoldierFemale
+  id: Elona.CharaPalmianEliteSoldierFemale
   elonaId: 75
   group: Chara
   image:
@@ -607,7 +607,7 @@
     region: "432, 96, 48, 48"
 
 - type: Chip
-  id: CharaThiefGuildMemberMale
+  id: Elona.CharaThiefGuildMemberMale
   elonaId: 76
   group: Chara
   image:
@@ -615,7 +615,7 @@
     region: "480, 96, 48, 48"
 
 - type: Chip
-  id: CharaThiefGuildMemberFemale
+  id: Elona.CharaThiefGuildMemberFemale
   elonaId: 77
   group: Chara
   image:
@@ -623,7 +623,7 @@
     region: "528, 96, 48, 48"
 
 - type: Chip
-  id: CharaFighterGuildMemberMale
+  id: Elona.CharaFighterGuildMemberMale
   elonaId: 78
   group: Chara
   image:
@@ -631,7 +631,7 @@
     region: "576, 96, 48, 48"
 
 - type: Chip
-  id: CharaFighterGuildMemberFemale
+  id: Elona.CharaFighterGuildMemberFemale
   elonaId: 79
   group: Chara
   image:
@@ -639,7 +639,7 @@
     region: "624, 96, 48, 48"
 
 - type: Chip
-  id: CharaFray
+  id: Elona.CharaFray
   elonaId: 80
   group: Chara
   image:
@@ -647,7 +647,7 @@
     region: "672, 96, 48, 48"
 
 - type: Chip
-  id: Chara81
+  id: Elona.Chara81
   elonaId: 81
   group: Chara
   image:
@@ -655,7 +655,7 @@
     region: "720, 96, 48, 48"
 
 - type: Chip
-  id: Chara82
+  id: Elona.Chara82
   elonaId: 82
   group: Chara
   image:
@@ -663,7 +663,7 @@
     region: "768, 96, 48, 48"
 
 - type: Chip
-  id: Chara83
+  id: Elona.Chara83
   elonaId: 83
   group: Chara
   image:
@@ -671,7 +671,7 @@
     region: "816, 96, 48, 48"
 
 - type: Chip
-  id: Chara84
+  id: Elona.Chara84
   elonaId: 84
   group: Chara
   image:
@@ -679,7 +679,7 @@
     region: "864, 96, 48, 48"
 
 - type: Chip
-  id: Chara85
+  id: Elona.Chara85
   elonaId: 85
   group: Chara
   image:
@@ -687,7 +687,7 @@
     region: "912, 96, 48, 48"
 
 - type: Chip
-  id: Chara86
+  id: Elona.Chara86
   elonaId: 86
   group: Chara
   image:
@@ -695,7 +695,7 @@
     region: "960, 96, 48, 48"
 
 - type: Chip
-  id: Chara87
+  id: Elona.Chara87
   elonaId: 87
   group: Chara
   image:
@@ -703,7 +703,7 @@
     region: "1008, 96, 48, 48"
 
 - type: Chip
-  id: Chara88
+  id: Elona.Chara88
   elonaId: 88
   group: Chara
   image:
@@ -711,7 +711,7 @@
     region: "1056, 96, 48, 48"
 
 - type: Chip
-  id: Chara89
+  id: Elona.Chara89
   elonaId: 89
   group: Chara
   image:
@@ -719,7 +719,7 @@
     region: "1104, 96, 48, 48"
 
 - type: Chip
-  id: Chara90
+  id: Elona.Chara90
   elonaId: 90
   group: Chara
   image:
@@ -727,7 +727,7 @@
     region: "1152, 96, 48, 48"
 
 - type: Chip
-  id: Chara91
+  id: Elona.Chara91
   elonaId: 91
   group: Chara
   image:
@@ -735,7 +735,7 @@
     region: "1200, 96, 48, 48"
 
 - type: Chip
-  id: Chara92
+  id: Elona.Chara92
   elonaId: 92
   group: Chara
   image:
@@ -743,7 +743,7 @@
     region: "1248, 96, 48, 48"
 
 - type: Chip
-  id: Chara93
+  id: Elona.Chara93
   elonaId: 93
   group: Chara
   image:
@@ -751,7 +751,7 @@
     region: "1296, 96, 48, 48"
 
 - type: Chip
-  id: Chara94
+  id: Elona.Chara94
   elonaId: 94
   group: Chara
   image:
@@ -759,7 +759,7 @@
     region: "1344, 96, 48, 48"
 
 - type: Chip
-  id: Chara95
+  id: Elona.Chara95
   elonaId: 95
   group: Chara
   image:
@@ -767,7 +767,7 @@
     region: "1392, 96, 48, 48"
 
 - type: Chip
-  id: Chara96
+  id: Elona.Chara96
   elonaId: 96
   group: Chara
   image:
@@ -775,7 +775,7 @@
     region: "1440, 96, 48, 48"
 
 - type: Chip
-  id: Chara97
+  id: Elona.Chara97
   elonaId: 97
   group: Chara
   image:
@@ -783,7 +783,7 @@
     region: "1488, 96, 48, 48"
 
 - type: Chip
-  id: Chara98
+  id: Elona.Chara98
   elonaId: 98
   group: Chara
   image:
@@ -791,7 +791,7 @@
     region: "1536, 96, 48, 48"
 
 - type: Chip
-  id: CharaKaram
+  id: Elona.CharaKaram
   elonaId: 99
   group: Chara
   image:
@@ -799,7 +799,7 @@
     region: "0, 144, 48, 48"
 
 - type: Chip
-  id: CharaMercenaryWizard
+  id: Elona.CharaMercenaryWizard
   elonaId: 100
   group: Chara
   image:
@@ -807,7 +807,7 @@
     region: "48, 144, 48, 48"
 
 - type: Chip
-  id: Chara101
+  id: Elona.Chara101
   elonaId: 101
   group: Chara
   image:
@@ -815,7 +815,7 @@
     region: "96, 144, 48, 48"
 
 - type: Chip
-  id: CharaBeggarMale
+  id: Elona.CharaBeggarMale
   elonaId: 102
   group: Chara
   image:
@@ -823,7 +823,7 @@
     region: "144, 144, 48, 48"
 
 - type: Chip
-  id: CharaBeggarFemale
+  id: Elona.CharaBeggarFemale
   elonaId: 103
   group: Chara
   image:
@@ -831,7 +831,7 @@
     region: "192, 144, 48, 48"
 
 - type: Chip
-  id: CharaMaidMale
+  id: Elona.CharaMaidMale
   elonaId: 104
   group: Chara
   image:
@@ -839,7 +839,7 @@
     region: "240, 144, 48, 48"
 
 - type: Chip
-  id: CharaMaidFemale
+  id: Elona.CharaMaidFemale
   elonaId: 105
   group: Chara
   image:
@@ -847,7 +847,7 @@
     region: "288, 144, 48, 48"
 
 - type: Chip
-  id: CharaOldPersonMale
+  id: Elona.CharaOldPersonMale
   elonaId: 106
   group: Chara
   image:
@@ -855,7 +855,7 @@
     region: "336, 144, 48, 48"
 
 - type: Chip
-  id: CharaOldPersonFemale
+  id: Elona.CharaOldPersonFemale
   elonaId: 107
   group: Chara
   image:
@@ -863,7 +863,7 @@
     region: "384, 144, 48, 48"
 
 - type: Chip
-  id: Chara108
+  id: Elona.Chara108
   elonaId: 108
   group: Chara
   image:
@@ -871,7 +871,7 @@
     region: "432, 144, 48, 48"
 
 - type: Chip
-  id: CharaShena
+  id: Elona.CharaShena
   elonaId: 109
   group: Chara
   image:
@@ -879,7 +879,7 @@
     region: "480, 144, 48, 48"
 
 - type: Chip
-  id: Chara110
+  id: Elona.Chara110
   elonaId: 110
   group: Chara
   image:
@@ -887,7 +887,7 @@
     region: "528, 144, 48, 48"
 
 - type: Chip
-  id: Chara111
+  id: Elona.Chara111
   elonaId: 111
   group: Chara
   image:
@@ -895,7 +895,7 @@
     region: "576, 144, 48, 48"
 
 - type: Chip
-  id: CharaPunkMale
+  id: Elona.CharaPunkMale
   elonaId: 112
   group: Chara
   image:
@@ -903,7 +903,7 @@
     region: "624, 144, 48, 48"
 
 - type: Chip
-  id: Chara113
+  id: Elona.Chara113
   elonaId: 113
   group: Chara
   image:
@@ -911,7 +911,7 @@
     region: "672, 144, 48, 48"
 
 - type: Chip
-  id: Chara114
+  id: Elona.Chara114
   elonaId: 114
   group: Chara
   image:
@@ -919,7 +919,7 @@
     region: "720, 144, 48, 48"
 
 - type: Chip
-  id: Chara115
+  id: Elona.Chara115
   elonaId: 115
   group: Chara
   image:
@@ -927,7 +927,7 @@
     region: "768, 144, 48, 48"
 
 - type: Chip
-  id: CharaXabi
+  id: Elona.CharaXabi
   elonaId: 116
   group: Chara
   image:
@@ -935,7 +935,7 @@
     region: "816, 144, 48, 48"
 
 - type: Chip
-  id: CharaTestSubject
+  id: Elona.CharaTestSubject
   elonaId: 117
   group: Chara
   image:
@@ -943,7 +943,7 @@
     region: "864, 144, 48, 48"
 
 - type: Chip
-  id: Chara118
+  id: Elona.Chara118
   elonaId: 118
   group: Chara
   image:
@@ -951,7 +951,7 @@
     region: "912, 144, 48, 48"
 
 - type: Chip
-  id: CharaCaptain
+  id: Elona.CharaCaptain
   elonaId: 119
   group: Chara
   image:
@@ -959,7 +959,7 @@
     region: "960, 144, 48, 48"
 
 - type: Chip
-  id: CharaSailorMale
+  id: Elona.CharaSailorMale
   elonaId: 120
   group: Chara
   image:
@@ -967,7 +967,7 @@
     region: "1008, 144, 48, 48"
 
 - type: Chip
-  id: CharaSailorFemale
+  id: Elona.CharaSailorFemale
   elonaId: 121
   group: Chara
   image:
@@ -975,7 +975,7 @@
     region: "1056, 144, 48, 48"
 
 - type: Chip
-  id: CharaTouristMale
+  id: Elona.CharaTouristMale
   elonaId: 122
   group: Chara
   image:
@@ -983,7 +983,7 @@
     region: "1104, 144, 48, 48"
 
 - type: Chip
-  id: Chara123
+  id: Elona.Chara123
   elonaId: 123
   group: Chara
   image:
@@ -991,7 +991,7 @@
     region: "1152, 144, 48, 48"
 
 - type: Chip
-  id: Chara124
+  id: Elona.Chara124
   elonaId: 124
   group: Chara
   image:
@@ -999,7 +999,7 @@
     region: "1200, 144, 48, 48"
 
 - type: Chip
-  id: Chara125
+  id: Elona.Chara125
   elonaId: 125
   group: Chara
   image:
@@ -1007,7 +1007,7 @@
     region: "1248, 144, 48, 48"
 
 - type: Chip
-  id: Chara126
+  id: Elona.Chara126
   elonaId: 126
   group: Chara
   image:
@@ -1015,7 +1015,7 @@
     region: "1296, 144, 48, 48"
 
 - type: Chip
-  id: CharaCitizenOfCyberDome2Male
+  id: Elona.CharaCitizenOfCyberDome2Male
   elonaId: 127
   group: Chara
   image:
@@ -1023,7 +1023,7 @@
     region: "1344, 144, 48, 48"
 
 - type: Chip
-  id: CharaCitizenOfCyberDomeMale
+  id: Elona.CharaCitizenOfCyberDomeMale
   elonaId: 128
   group: Chara
   image:
@@ -1031,7 +1031,7 @@
     region: "1392, 144, 48, 48"
 
 - type: Chip
-  id: CharaCitizenOfCyberDomeFemale
+  id: Elona.CharaCitizenOfCyberDomeFemale
   elonaId: 129
   group: Chara
   image:
@@ -1039,7 +1039,7 @@
     region: "1440, 144, 48, 48"
 
 - type: Chip
-  id: Chara130
+  id: Elona.Chara130
   elonaId: 130
   group: Chara
   image:
@@ -1047,7 +1047,7 @@
     region: "1488, 144, 48, 48"
 
 - type: Chip
-  id: CharaCitizenOfCyberDome2Female
+  id: Elona.CharaCitizenOfCyberDome2Female
   elonaId: 131
   group: Chara
   image:
@@ -1055,7 +1055,7 @@
     region: "1536, 144, 48, 48"
 
 - type: Chip
-  id: Chara132
+  id: Elona.Chara132
   elonaId: 132
   group: Chara
   image:
@@ -1063,7 +1063,7 @@
     region: "0, 192, 48, 48"
 
 - type: Chip
-  id: Chara133
+  id: Elona.Chara133
   elonaId: 133
   group: Chara
   image:
@@ -1071,7 +1071,7 @@
     region: "48, 192, 48, 48"
 
 - type: Chip
-  id: CharaCitizen2Male
+  id: Elona.CharaCitizen2Male
   elonaId: 134
   group: Chara
   image:
@@ -1079,7 +1079,7 @@
     region: "96, 192, 48, 48"
 
 - type: Chip
-  id: CharaCitizen2Female
+  id: Elona.CharaCitizen2Female
   elonaId: 135
   group: Chara
   image:
@@ -1087,7 +1087,7 @@
     region: "144, 192, 48, 48"
 
 - type: Chip
-  id: CharaCitizenMale
+  id: Elona.CharaCitizenMale
   elonaId: 136
   group: Chara
   image:
@@ -1095,7 +1095,7 @@
     region: "192, 192, 48, 48"
 
 - type: Chip
-  id: CharaCitizenFemale
+  id: Elona.CharaCitizenFemale
   elonaId: 137
   group: Chara
   image:
@@ -1103,7 +1103,7 @@
     region: "240, 192, 48, 48"
 
 - type: Chip
-  id: CharaBaker
+  id: Elona.CharaBaker
   elonaId: 138
   group: Chara
   image:
@@ -1111,7 +1111,7 @@
     region: "288, 192, 48, 48"
 
 - type: Chip
-  id: CharaMercenaryMale
+  id: Elona.CharaMercenaryMale
   elonaId: 139
   group: Chara
   image:
@@ -1119,7 +1119,7 @@
     region: "336, 192, 48, 48"
 
 - type: Chip
-  id: CharaShopkeeperMale
+  id: Elona.CharaShopkeeperMale
   elonaId: 140
   group: Chara
   image:
@@ -1127,7 +1127,7 @@
     region: "384, 192, 48, 48"
 
 - type: Chip
-  id: CharaShopkeeperFemale
+  id: Elona.CharaShopkeeperFemale
   elonaId: 141
   group: Chara
   image:
@@ -1135,7 +1135,7 @@
     region: "432, 192, 48, 48"
 
 - type: Chip
-  id: CharaElderMale
+  id: Elona.CharaElderMale
   elonaId: 142
   group: Chara
   image:
@@ -1143,7 +1143,7 @@
     region: "480, 192, 48, 48"
 
 - type: Chip
-  id: CharaElderFemale
+  id: Elona.CharaElderFemale
   elonaId: 143
   group: Chara
   image:
@@ -1151,7 +1151,7 @@
     region: "528, 192, 48, 48"
 
 - type: Chip
-  id: CharaBartenderMale
+  id: Elona.CharaBartenderMale
   elonaId: 144
   group: Chara
   image:
@@ -1159,7 +1159,7 @@
     region: "576, 192, 48, 48"
 
 - type: Chip
-  id: CharaBartenderFemale
+  id: Elona.CharaBartenderFemale
   elonaId: 145
   group: Chara
   image:
@@ -1167,7 +1167,7 @@
     region: "624, 192, 48, 48"
 
 - type: Chip
-  id: CharaSalesPersonMale
+  id: Elona.CharaSalesPersonMale
   elonaId: 146
   group: Chara
   image:
@@ -1175,7 +1175,7 @@
     region: "672, 192, 48, 48"
 
 - type: Chip
-  id: CharaSalesPersonFemale
+  id: Elona.CharaSalesPersonFemale
   elonaId: 147
   group: Chara
   image:
@@ -1183,7 +1183,7 @@
     region: "720, 192, 48, 48"
 
 - type: Chip
-  id: CharaBard
+  id: Elona.CharaBard
   elonaId: 148
   group: Chara
   image:
@@ -1191,7 +1191,7 @@
     region: "768, 192, 48, 48"
 
 - type: Chip
-  id: Chara149
+  id: Elona.Chara149
   elonaId: 149
   group: Chara
   image:
@@ -1199,7 +1199,7 @@
     region: "816, 192, 48, 48"
 
 - type: Chip
-  id: CharaRogueBoss
+  id: Elona.CharaRogueBoss
   elonaId: 150
   group: Chara
   image:
@@ -1207,7 +1207,7 @@
     region: "864, 192, 48, 48"
 
 - type: Chip
-  id: Chara151
+  id: Elona.Chara151
   elonaId: 151
   group: Chara
   image:
@@ -1215,7 +1215,7 @@
     region: "912, 192, 48, 48"
 
 - type: Chip
-  id: Chara152
+  id: Elona.Chara152
   elonaId: 152
   group: Chara
   image:
@@ -1223,7 +1223,7 @@
     region: "960, 192, 48, 48"
 
 - type: Chip
-  id: Chara153
+  id: Elona.Chara153
   elonaId: 153
   group: Chara
   image:
@@ -1231,7 +1231,7 @@
     region: "1008, 192, 48, 48"
 
 - type: Chip
-  id: Chara154
+  id: Elona.Chara154
   elonaId: 154
   group: Chara
   image:
@@ -1239,7 +1239,7 @@
     region: "1056, 192, 48, 48"
 
 - type: Chip
-  id: Chara155
+  id: Elona.Chara155
   elonaId: 155
   group: Chara
   image:
@@ -1247,7 +1247,7 @@
     region: "1104, 192, 48, 48"
 
 - type: Chip
-  id: Chara156
+  id: Elona.Chara156
   elonaId: 156
   group: Chara
   image:
@@ -1255,7 +1255,7 @@
     region: "1152, 192, 48, 48"
 
 - type: Chip
-  id: CharaRogueWizard
+  id: Elona.CharaRogueWizard
   elonaId: 157
   group: Chara
   image:
@@ -1263,7 +1263,7 @@
     region: "1200, 192, 48, 48"
 
 - type: Chip
-  id: CharaRogueArcher
+  id: Elona.CharaRogueArcher
   elonaId: 158
   group: Chara
   image:
@@ -1271,7 +1271,7 @@
     region: "1248, 192, 48, 48"
 
 - type: Chip
-  id: CharaMercenaryWarrior
+  id: Elona.CharaMercenaryWarrior
   elonaId: 159
   group: Chara
   image:
@@ -1279,7 +1279,7 @@
     region: "1296, 192, 48, 48"
 
 - type: Chip
-  id: Chara160
+  id: Elona.Chara160
   elonaId: 160
   group: Chara
   image:
@@ -1287,7 +1287,7 @@
     region: "1344, 192, 48, 48"
 
 - type: Chip
-  id: Chara161
+  id: Elona.Chara161
   elonaId: 161
   group: Chara
   image:
@@ -1295,7 +1295,7 @@
     region: "1392, 192, 48, 48"
 
 - type: Chip
-  id: Chara162
+  id: Elona.Chara162
   elonaId: 162
   group: Chara
   image:
@@ -1303,7 +1303,7 @@
     region: "1440, 192, 48, 48"
 
 - type: Chip
-  id: CharaNun
+  id: Elona.CharaNun
   elonaId: 163
   group: Chara
   image:
@@ -1311,7 +1311,7 @@
     region: "1488, 192, 48, 48"
 
 - type: Chip
-  id: Chara164
+  id: Elona.Chara164
   elonaId: 164
   group: Chara
   image:
@@ -1319,7 +1319,7 @@
     region: "1536, 192, 48, 48"
 
 - type: Chip
-  id: CharaOrc
+  id: Elona.CharaOrc
   elonaId: 165
   group: Chara
   image:
@@ -1327,7 +1327,7 @@
     region: "0, 240, 48, 48"
 
 - type: Chip
-  id: CharaMasterThief
+  id: Elona.CharaMasterThief
   elonaId: 166
   group: Chara
   image:
@@ -1335,7 +1335,7 @@
     region: "48, 240, 48, 48"
 
 - type: Chip
-  id: CharaZombie
+  id: Elona.CharaZombie
   elonaId: 167
   group: Chara
   image:
@@ -1343,7 +1343,7 @@
     region: "96, 240, 48, 48"
 
 - type: Chip
-  id: CharaRaceSlime
+  id: Elona.CharaRaceSlime
   elonaId: 168
   group: Chara
   image:
@@ -1351,7 +1351,7 @@
     region: "144, 240, 48, 48"
 
 - type: Chip
-  id: CharaRabbit
+  id: Elona.CharaRabbit
   elonaId: 169
   group: Chara
   image:
@@ -1359,7 +1359,7 @@
     region: "192, 240, 48, 48"
 
 - type: Chip
-  id: CharaSheep
+  id: Elona.CharaSheep
   elonaId: 170
   group: Chara
   image:
@@ -1367,7 +1367,7 @@
     region: "240, 240, 48, 48"
 
 - type: Chip
-  id: CharaKobold
+  id: Elona.CharaKobold
   elonaId: 171
   group: Chara
   image:
@@ -1375,7 +1375,7 @@
     region: "288, 240, 48, 48"
 
 - type: Chip
-  id: CharaFrog
+  id: Elona.CharaFrog
   elonaId: 172
   group: Chara
   image:
@@ -1383,7 +1383,7 @@
     region: "336, 240, 48, 48"
 
 - type: Chip
-  id: CharaCentipede
+  id: Elona.CharaCentipede
   elonaId: 173
   group: Chara
   image:
@@ -1391,7 +1391,7 @@
     region: "384, 240, 48, 48"
 
 - type: Chip
-  id: CharaSnail
+  id: Elona.CharaSnail
   elonaId: 174
   group: Chara
   image:
@@ -1399,7 +1399,7 @@
     region: "432, 240, 48, 48"
 
 - type: Chip
-  id: CharaMandrake
+  id: Elona.CharaMandrake
   elonaId: 175
   group: Chara
   image:
@@ -1407,7 +1407,7 @@
     region: "480, 240, 48, 48"
 
 - type: Chip
-  id: CharaBeetle
+  id: Elona.CharaBeetle
   elonaId: 176
   group: Chara
   image:
@@ -1415,7 +1415,7 @@
     region: "528, 240, 48, 48"
 
 - type: Chip
-  id: CharaMushroom
+  id: Elona.CharaMushroom
   elonaId: 177
   group: Chara
   image:
@@ -1423,7 +1423,7 @@
     region: "576, 240, 48, 48"
 
 - type: Chip
-  id: CharaMercenaryFemale
+  id: Elona.CharaMercenaryFemale
   elonaId: 178
   group: Chara
   image:
@@ -1431,7 +1431,7 @@
     region: "624, 240, 48, 48"
 
 - type: Chip
-  id: CharaFarmerMale
+  id: Elona.CharaFarmerMale
   elonaId: 179
   group: Chara
   image:
@@ -1439,7 +1439,7 @@
     region: "672, 240, 48, 48"
 
 - type: Chip
-  id: CharaFarmerFemale
+  id: Elona.CharaFarmerFemale
   elonaId: 180
   group: Chara
   image:
@@ -1447,7 +1447,7 @@
     region: "720, 240, 48, 48"
 
 - type: Chip
-  id: CharaSisterMale
+  id: Elona.CharaSisterMale
   elonaId: 181
   group: Chara
   image:
@@ -1455,7 +1455,7 @@
     region: "768, 240, 48, 48"
 
 - type: Chip
-  id: CharaSisterFemale
+  id: Elona.CharaSisterFemale
   elonaId: 182
   group: Chara
   image:
@@ -1463,7 +1463,7 @@
     region: "816, 240, 48, 48"
 
 - type: Chip
-  id: CharaRogueMale
+  id: Elona.CharaRogueMale
   elonaId: 183
   group: Chara
   image:
@@ -1471,7 +1471,7 @@
     region: "864, 240, 48, 48"
 
 - type: Chip
-  id: CharaRogueFemale
+  id: Elona.CharaRogueFemale
   elonaId: 184
   group: Chara
   image:
@@ -1479,7 +1479,7 @@
     region: "912, 240, 48, 48"
 
 - type: Chip
-  id: CharaArtistMale
+  id: Elona.CharaArtistMale
   elonaId: 185
   group: Chara
   image:
@@ -1487,7 +1487,7 @@
     region: "960, 240, 48, 48"
 
 - type: Chip
-  id: CharaArtistFemale
+  id: Elona.CharaArtistFemale
   elonaId: 186
   group: Chara
   image:
@@ -1495,7 +1495,7 @@
     region: "1008, 240, 48, 48"
 
 - type: Chip
-  id: CharaMinerMale
+  id: Elona.CharaMinerMale
   elonaId: 187
   group: Chara
   image:
@@ -1503,7 +1503,7 @@
     region: "1056, 240, 48, 48"
 
 - type: Chip
-  id: CharaMinerFemale
+  id: Elona.CharaMinerFemale
   elonaId: 188
   group: Chara
   image:
@@ -1511,7 +1511,7 @@
     region: "1104, 240, 48, 48"
 
 - type: Chip
-  id: CharaNobleMale
+  id: Elona.CharaNobleMale
   elonaId: 189
   group: Chara
   image:
@@ -1519,7 +1519,7 @@
     region: "1152, 240, 48, 48"
 
 - type: Chip
-  id: CharaNobleFemale
+  id: Elona.CharaNobleFemale
   elonaId: 190
   group: Chara
   image:
@@ -1527,7 +1527,7 @@
     region: "1200, 240, 48, 48"
 
 - type: Chip
-  id: CharaMutant
+  id: Elona.CharaMutant
   elonaId: 191
   group: Chara
   image:
@@ -1535,7 +1535,7 @@
     region: "1248, 240, 48, 48"
 
 - type: Chip
-  id: CharaBalzak
+  id: Elona.CharaBalzak
   elonaId: 192
   group: Chara
   image:
@@ -1543,7 +1543,7 @@
     region: "1296, 240, 48, 48"
 
 - type: Chip
-  id: CharaRevlus
+  id: Elona.CharaRevlus
   elonaId: 193
   group: Chara
   image:
@@ -1551,7 +1551,7 @@
     region: "1344, 240, 48, 48"
 
 - type: Chip
-  id: CharaMageGuildMemberFemale
+  id: Elona.CharaMageGuildMemberFemale
   elonaId: 194
   group: Chara
   image:
@@ -1559,7 +1559,7 @@
     region: "1392, 240, 48, 48"
 
 - type: Chip
-  id: CharaMageGuildMemberMale
+  id: Elona.CharaMageGuildMemberMale
   elonaId: 195
   group: Chara
   image:
@@ -1567,7 +1567,7 @@
     region: "1440, 240, 48, 48"
 
 - type: Chip
-  id: CharaDoria
+  id: Elona.CharaDoria
   elonaId: 196
   group: Chara
   image:
@@ -1575,7 +1575,7 @@
     region: "1488, 240, 48, 48"
 
 - type: Chip
-  id: CharaSin
+  id: Elona.CharaSin
   elonaId: 197
   group: Chara
   image:
@@ -1583,7 +1583,7 @@
     region: "1536, 240, 48, 48"
 
 - type: Chip
-  id: CharaIronMaiden
+  id: Elona.CharaIronMaiden
   elonaId: 198
   group: Chara
   image:
@@ -1591,7 +1591,7 @@
     region: "0, 288, 48, 48"
 
 - type: Chip
-  id: CharaCatgod
+  id: Elona.CharaCatgod
   elonaId: 199
   group: Chara
   image:
@@ -1599,7 +1599,7 @@
     region: "48, 288, 48, 48"
 
 - type: Chip
-  id: CharaBat
+  id: Elona.CharaBat
   elonaId: 200
   group: Chara
   image:
@@ -1607,7 +1607,7 @@
     region: "96, 288, 48, 48"
 
 - type: Chip
-  id: CharaEnt
+  id: Elona.CharaEnt
   elonaId: 201
   group: Chara
   image:
@@ -1615,7 +1615,7 @@
     region: "144, 288, 48, 96"
 
 - type: Chip
-  id: CharaLich
+  id: Elona.CharaLich
   elonaId: 202
   group: Chara
   image:
@@ -1623,7 +1623,7 @@
     region: "192, 288, 48, 48"
 
 - type: Chip
-  id: CharaHound
+  id: Elona.CharaHound
   elonaId: 203
   group: Chara
   image:
@@ -1631,7 +1631,7 @@
     region: "240, 288, 48, 48"
 
 - type: Chip
-  id: CharaGiantSquirrel
+  id: Elona.CharaGiantSquirrel
   elonaId: 204
   group: Chara
   image:
@@ -1639,7 +1639,7 @@
     region: "288, 288, 48, 48"
 
 - type: Chip
-  id: CharaGhost
+  id: Elona.CharaGhost
   elonaId: 205
   group: Chara
   image:
@@ -1647,7 +1647,7 @@
     region: "336, 288, 48, 48"
 
 - type: Chip
-  id: CharaSpirit
+  id: Elona.CharaSpirit
   elonaId: 206
   group: Chara
   image:
@@ -1655,7 +1655,7 @@
     region: "384, 288, 48, 48"
 
 - type: Chip
-  id: CharaEye
+  id: Elona.CharaEye
   elonaId: 207
   group: Chara
   image:
@@ -1663,7 +1663,7 @@
     region: "432, 288, 48, 48"
 
 - type: Chip
-  id: CharaNurse
+  id: Elona.CharaNurse
   elonaId: 208
   group: Chara
   image:
@@ -1671,7 +1671,7 @@
     region: "480, 288, 48, 48"
 
 - type: Chip
-  id: CharaPuppet
+  id: Elona.CharaPuppet
   elonaId: 209
   group: Chara
   image:
@@ -1679,7 +1679,7 @@
     region: "528, 288, 48, 48"
 
 - type: Chip
-  id: CharaWasp
+  id: Elona.CharaWasp
   elonaId: 210
   group: Chara
   image:
@@ -1687,7 +1687,7 @@
     region: "576, 288, 48, 48"
 
 - type: Chip
-  id: CharaBlackCat
+  id: Elona.CharaBlackCat
   elonaId: 211
   group: Chara
   image:
@@ -1695,7 +1695,7 @@
     region: "624, 288, 48, 48"
 
 - type: Chip
-  id: CharaImp
+  id: Elona.CharaImp
   elonaId: 212
   group: Chara
   image:
@@ -1703,7 +1703,7 @@
     region: "672, 288, 48, 48"
 
 - type: Chip
-  id: CharaHand
+  id: Elona.CharaHand
   elonaId: 213
   group: Chara
   image:
@@ -1711,7 +1711,7 @@
     region: "720, 288, 48, 48"
 
 - type: Chip
-  id: CharaNymph
+  id: Elona.CharaNymph
   elonaId: 214
   group: Chara
   image:
@@ -1719,7 +1719,7 @@
     region: "768, 288, 48, 48"
 
 - type: Chip
-  id: CharaChaosFlower
+  id: Elona.CharaChaosFlower
   elonaId: 215
   group: Chara
   image:
@@ -1727,7 +1727,7 @@
     region: "816, 288, 48, 48"
 
 - type: Chip
-  id: CharaSnake
+  id: Elona.CharaSnake
   elonaId: 216
   group: Chara
   image:
@@ -1735,7 +1735,7 @@
     region: "864, 288, 48, 48"
 
 - type: Chip
-  id: CharaCuteFairy
+  id: Elona.CharaCuteFairy
   elonaId: 217
   group: Chara
   image:
@@ -1743,7 +1743,7 @@
     region: "912, 288, 48, 48"
 
 - type: Chip
-  id: CharaAndroid
+  id: Elona.CharaAndroid
   elonaId: 218
   group: Chara
   image:
@@ -1751,7 +1751,7 @@
     region: "960, 288, 48, 48"
 
 - type: Chip
-  id: CharaTuwen
+  id: Elona.CharaTuwen
   elonaId: 219
   group: Chara
   image:
@@ -1759,7 +1759,7 @@
     region: "1008, 288, 48, 48"
 
 - type: Chip
-  id: CharaGoblin
+  id: Elona.CharaGoblin
   elonaId: 220
   group: Chara
   image:
@@ -1767,7 +1767,7 @@
     region: "1056, 288, 48, 48"
 
 - type: Chip
-  id: CharaBaptist
+  id: Elona.CharaBaptist
   elonaId: 221
   group: Chara
   image:
@@ -1775,7 +1775,7 @@
     region: "1104, 288, 48, 48"
 
 - type: Chip
-  id: CharaBear
+  id: Elona.CharaBear
   elonaId: 222
   group: Chara
   image:
@@ -1783,7 +1783,7 @@
     region: "1152, 288, 48, 48"
 
 - type: Chip
-  id: CharaArmor
+  id: Elona.CharaArmor
   elonaId: 223
   group: Chara
   image:
@@ -1791,7 +1791,7 @@
     region: "1200, 288, 48, 48"
 
 - type: Chip
-  id: CharaMedusa
+  id: Elona.CharaMedusa
   elonaId: 224
   group: Chara
   image:
@@ -1799,7 +1799,7 @@
     region: "1248, 288, 48, 48"
 
 - type: Chip
-  id: CharaCupid
+  id: Elona.CharaCupid
   elonaId: 225
   group: Chara
   image:
@@ -1807,7 +1807,7 @@
     region: "1296, 288, 48, 48"
 
 - type: Chip
-  id: CharaPhantom
+  id: Elona.CharaPhantom
   elonaId: 226
   group: Chara
   image:
@@ -1815,7 +1815,7 @@
     region: "1344, 288, 48, 48"
 
 - type: Chip
-  id: CharaHarpy
+  id: Elona.CharaHarpy
   elonaId: 227
   group: Chara
   image:
@@ -1823,7 +1823,7 @@
     region: "1392, 288, 48, 48"
 
 - type: Chip
-  id: CharaDragon
+  id: Elona.CharaDragon
   elonaId: 228
   group: Chara
   image:
@@ -1831,7 +1831,7 @@
     region: "1440, 288, 48, 96"
 
 - type: Chip
-  id: CharaCerberus
+  id: Elona.CharaCerberus
   elonaId: 229
   group: Chara
   image:
@@ -1839,7 +1839,7 @@
     region: "1488, 288, 48, 48"
 
 - type: Chip
-  id: CharaSpider
+  id: Elona.CharaSpider
   elonaId: 230
   group: Chara
   image:
@@ -1847,7 +1847,7 @@
     region: "1536, 288, 48, 48"
 
 - type: Chip
-  id: CharaGolem
+  id: Elona.CharaGolem
   elonaId: 231
   group: Chara
   image:
@@ -1855,7 +1855,7 @@
     region: "0, 336, 48, 96"
 
 - type: Chip
-  id: CharaGiant
+  id: Elona.CharaGiant
   elonaId: 232
   group: Chara
   image:
@@ -1863,7 +1863,7 @@
     region: "48, 336, 48, 96"
 
 - type: Chip
-  id: CharaDrake
+  id: Elona.CharaDrake
   elonaId: 233
   group: Chara
   image:
@@ -1871,7 +1871,7 @@
     region: "96, 336, 48, 96"
 
 - type: Chip
-  id: CharaWyvern
+  id: Elona.CharaWyvern
   elonaId: 235
   group: Chara
   image:
@@ -1879,7 +1879,7 @@
     region: "192, 336, 48, 96"
 
 - type: Chip
-  id: CharaBlackAngel
+  id: Elona.CharaBlackAngel
   elonaId: 236
   group: Chara
   image:
@@ -1887,7 +1887,7 @@
     region: "240, 336, 48, 48"
 
 - type: Chip
-  id: CharaCrab
+  id: Elona.CharaCrab
   elonaId: 237
   group: Chara
   image:
@@ -1895,7 +1895,7 @@
     region: "288, 336, 48, 48"
 
 - type: Chip
-  id: Chara238
+  id: Elona.Chara238
   elonaId: 238
   group: Chara
   image:
@@ -1903,7 +1903,7 @@
     region: "336, 336, 48, 48"
 
 - type: Chip
-  id: CharaFireCentipede
+  id: Elona.CharaFireCentipede
   elonaId: 239
   group: Chara
   image:
@@ -1911,7 +1911,7 @@
     region: "384, 336, 48, 48"
 
 - type: Chip
-  id: CharaCultistOfFire
+  id: Elona.CharaCultistOfFire
   elonaId: 240
   group: Chara
   image:
@@ -1919,7 +1919,7 @@
     region: "432, 336, 48, 48"
 
 - type: Chip
-  id: CharaSkeleton
+  id: Elona.CharaSkeleton
   elonaId: 241
   group: Chara
   image:
@@ -1927,7 +1927,7 @@
     region: "480, 336, 48, 48"
 
 - type: Chip
-  id: CharaDefender
+  id: Elona.CharaDefender
   elonaId: 242
   group: Chara
   image:
@@ -1935,7 +1935,7 @@
     region: "528, 336, 48, 48"
 
 - type: Chip
-  id: CharaMissionaryOfDarkness
+  id: Elona.CharaMissionaryOfDarkness
   elonaId: 243
   group: Chara
   image:
@@ -1943,7 +1943,7 @@
     region: "576, 336, 48, 48"
 
 - type: Chip
-  id: CharaPiece
+  id: Elona.CharaPiece
   elonaId: 244
   group: Chara
   image:
@@ -1951,7 +1951,7 @@
     region: "624, 336, 48, 48"
 
 - type: Chip
-  id: CharaRook
+  id: Elona.CharaRook
   elonaId: 245
   group: Chara
   image:
@@ -1959,7 +1959,7 @@
     region: "672, 336, 48, 48"
 
 - type: Chip
-  id: CharaBishop
+  id: Elona.CharaBishop
   elonaId: 246
   group: Chara
   image:
@@ -1967,7 +1967,7 @@
     region: "720, 336, 48, 48"
 
 - type: Chip
-  id: CharaKnight
+  id: Elona.CharaKnight
   elonaId: 247
   group: Chara
   image:
@@ -1975,7 +1975,7 @@
     region: "768, 336, 48, 48"
 
 - type: Chip
-  id: CharaQueen
+  id: Elona.CharaQueen
   elonaId: 248
   group: Chara
   image:
@@ -1983,7 +1983,7 @@
     region: "816, 336, 48, 48"
 
 - type: Chip
-  id: CharaKing
+  id: Elona.CharaKing
   elonaId: 249
   group: Chara
   image:
@@ -1991,7 +1991,7 @@
     region: "864, 336, 48, 48"
 
 - type: Chip
-  id: CharaYerlesMachineInfantry
+  id: Elona.CharaYerlesMachineInfantry
   elonaId: 250
   group: Chara
   image:
@@ -1999,7 +1999,7 @@
     region: "912, 336, 48, 48"
 
 - type: Chip
-  id: CharaRockThrower
+  id: Elona.CharaRockThrower
   elonaId: 251
   group: Chara
   image:
@@ -2007,7 +2007,7 @@
     region: "960, 336, 48, 48"
 
 - type: Chip
-  id: CharaMetal
+  id: Elona.CharaMetal
   elonaId: 252
   group: Chara
   image:
@@ -2015,7 +2015,7 @@
     region: "1008, 336, 48, 48"
 
 - type: Chip
-  id: CharaCat
+  id: Elona.CharaCat
   elonaId: 253
   group: Chara
   image:
@@ -2023,7 +2023,7 @@
     region: "1056, 336, 48, 48"
 
 - type: Chip
-  id: CharaDog
+  id: Elona.CharaDog
   elonaId: 254
   group: Chara
   image:
@@ -2031,7 +2031,7 @@
     region: "1104, 336, 48, 48"
 
 - type: Chip
-  id: CharaRat
+  id: Elona.CharaRat
   elonaId: 255
   group: Chara
   image:
@@ -2039,7 +2039,7 @@
     region: "1152, 336, 48, 48"
 
 - type: Chip
-  id: CharaShell
+  id: Elona.CharaShell
   elonaId: 256
   group: Chara
   image:
@@ -2047,7 +2047,7 @@
     region: "1200, 336, 48, 48"
 
 - type: Chip
-  id: CharaSlime
+  id: Elona.CharaSlime
   elonaId: 257
   group: Chara
   image:
@@ -2055,7 +2055,7 @@
     region: "1248, 336, 48, 48"
 
 - type: Chip
-  id: CharaPublicPerformer
+  id: Elona.CharaPublicPerformer
   elonaId: 258
   group: Chara
   image:
@@ -2063,7 +2063,7 @@
     region: "1296, 336, 48, 48"
 
 - type: Chip
-  id: CharaTwintail
+  id: Elona.CharaTwintail
   elonaId: 259
   group: Chara
   image:
@@ -2071,7 +2071,7 @@
     region: "1344, 336, 48, 48"
 
 - type: Chip
-  id: CharaSilverWolf
+  id: Elona.CharaSilverWolf
   elonaId: 260
   group: Chara
   image:
@@ -2079,7 +2079,7 @@
     region: "1392, 336, 48, 48"
 
 - type: Chip
-  id: CharaHorse
+  id: Elona.CharaHorse
   elonaId: 262
   group: Chara
   image:
@@ -2087,7 +2087,7 @@
     region: "1488, 336, 48, 48"
 
 - type: Chip
-  id: CharaIcolle
+  id: Elona.CharaIcolle
   elonaId: 263
   group: Chara
   image:
@@ -2095,7 +2095,7 @@
     region: "1536, 336, 48, 48"
 
 - type: Chip
-  id: CharaGoldenKnight
+  id: Elona.CharaGoldenKnight
   elonaId: 267
   group: Chara
   image:
@@ -2103,7 +2103,7 @@
     region: "144, 384, 48, 48"
 
 - type: Chip
-  id: Chara268
+  id: Elona.Chara268
   elonaId: 268
   group: Chara
   image:
@@ -2111,7 +2111,7 @@
     region: "192, 384, 48, 48"
 
 - type: Chip
-  id: CharaExile
+  id: Elona.CharaExile
   elonaId: 269
   group: Chara
   image:
@@ -2119,7 +2119,7 @@
     region: "240, 384, 48, 48"
 
 - type: Chip
-  id: CharaMachine
+  id: Elona.CharaMachine
   elonaId: 270
   group: Chara
   image:
@@ -2127,7 +2127,7 @@
     region: "288, 384, 48, 48"
 
 - type: Chip
-  id: CharaDeformedEye
+  id: Elona.CharaDeformedEye
   elonaId: 271
   group: Chara
   image:
@@ -2135,7 +2135,7 @@
     region: "336, 384, 48, 48"
 
 - type: Chip
-  id: CharaWisp
+  id: Elona.CharaWisp
   elonaId: 272
   group: Chara
   image:
@@ -2143,7 +2143,7 @@
     region: "384, 384, 48, 48"
 
 - type: Chip
-  id: CharaShiningHedgehog
+  id: Elona.CharaShiningHedgehog
   elonaId: 273
   group: Chara
   image:
@@ -2151,7 +2151,7 @@
     region: "432, 384, 48, 48"
 
 - type: Chip
-  id: CharaChicken
+  id: Elona.CharaChicken
   elonaId: 274
   group: Chara
   image:
@@ -2159,7 +2159,7 @@
     region: "480, 384, 48, 48"
 
 - type: Chip
-  id: CharaPumpkin
+  id: Elona.CharaPumpkin
   elonaId: 275
   group: Chara
   image:
@@ -2167,7 +2167,7 @@
     region: "528, 384, 48, 48"
 
 - type: Chip
-  id: CharaStalker
+  id: Elona.CharaStalker
   elonaId: 276
   group: Chara
   image:
@@ -2175,7 +2175,7 @@
     region: "576, 384, 48, 48"
 
 - type: Chip
-  id: CharaShubNiggurath
+  id: Elona.CharaShubNiggurath
   elonaId: 277
   group: Chara
   image:
@@ -2183,7 +2183,7 @@
     region: "624, 384, 48, 48"
 
 - type: Chip
-  id: CharaGagu
+  id: Elona.CharaGagu
   elonaId: 278
   group: Chara
   image:
@@ -2191,7 +2191,7 @@
     region: "672, 384, 48, 48"
 
 - type: Chip
-  id: CharaSilverEyedWitch
+  id: Elona.CharaSilverEyedWitch
   elonaId: 279
   group: Chara
   image:
@@ -2199,7 +2199,7 @@
     region: "720, 384, 48, 48"
 
 - type: Chip
-  id: CharaShade
+  id: Elona.CharaShade
   elonaId: 280
   group: Chara
   image:
@@ -2207,7 +2207,7 @@
     region: "768, 384, 48, 96"
 
 - type: Chip
-  id: CharaQuickling
+  id: Elona.CharaQuickling
   elonaId: 281
   group: Chara
   image:
@@ -2215,7 +2215,7 @@
     region: "816, 384, 48, 48"
 
 - type: Chip
-  id: CharaCube
+  id: Elona.CharaCube
   elonaId: 282
   group: Chara
   image:
@@ -2223,7 +2223,7 @@
     region: "864, 384, 48, 48"
 
 - type: Chip
-  id: CharaAlien
+  id: Elona.CharaAlien
   elonaId: 283
   group: Chara
   image:
@@ -2231,7 +2231,7 @@
     region: "912, 384, 48, 48"
 
 - type: Chip
-  id: CharaFanaticFemale
+  id: Elona.CharaFanaticFemale
   elonaId: 284
   group: Chara
   image:
@@ -2239,7 +2239,7 @@
     region: "960, 384, 48, 48"
 
 - type: Chip
-  id: CharaFanaticMale
+  id: Elona.CharaFanaticMale
   elonaId: 285
   group: Chara
   image:
@@ -2247,7 +2247,7 @@
     region: "1008, 384, 48, 48"
 
 - type: Chip
-  id: Chara286
+  id: Elona.Chara286
   elonaId: 286
   group: Chara
   image:
@@ -2255,7 +2255,7 @@
     region: "1056, 384, 48, 48"
 
 - type: Chip
-  id: Chara287
+  id: Elona.Chara287
   elonaId: 287
   group: Chara
   image:
@@ -2263,7 +2263,7 @@
     region: "1104, 384, 48, 48"
 
 - type: Chip
-  id: Chara288
+  id: Elona.Chara288
   elonaId: 288
   group: Chara
   image:
@@ -2271,7 +2271,7 @@
     region: "1152, 384, 48, 48"
 
 - type: Chip
-  id: Chara289
+  id: Elona.Chara289
   elonaId: 289
   group: Chara
   image:
@@ -2279,7 +2279,7 @@
     region: "1200, 384, 48, 48"
 
 - type: Chip
-  id: Chara290
+  id: Elona.Chara290
   elonaId: 290
   group: Chara
   image:
@@ -2287,7 +2287,7 @@
     region: "1248, 384, 48, 48"
 
 - type: Chip
-  id: Chara291
+  id: Elona.Chara291
   elonaId: 291
   group: Chara
   image:
@@ -2295,7 +2295,7 @@
     region: "1296, 384, 48, 48"
 
 - type: Chip
-  id: Chara292
+  id: Elona.Chara292
   elonaId: 292
   group: Chara
   image:
@@ -2303,7 +2303,7 @@
     region: "1344, 384, 48, 48"
 
 - type: Chip
-  id: Chara293
+  id: Elona.Chara293
   elonaId: 293
   group: Chara
   image:
@@ -2311,7 +2311,7 @@
     region: "1392, 384, 48, 48"
 
 - type: Chip
-  id: Chara294
+  id: Elona.Chara294
   elonaId: 294
   group: Chara
   image:
@@ -2319,7 +2319,7 @@
     region: "1440, 384, 48, 48"
 
 - type: Chip
-  id: Chara295
+  id: Elona.Chara295
   elonaId: 295
   group: Chara
   image:
@@ -2327,7 +2327,7 @@
     region: "1488, 384, 48, 48"
 
 - type: Chip
-  id: Chara296
+  id: Elona.Chara296
   elonaId: 296
   group: Chara
   image:
@@ -2335,7 +2335,7 @@
     region: "1536, 384, 48, 48"
 
 - type: Chip
-  id: CharaZeome
+  id: Elona.CharaZeome
   elonaId: 297
   group: Chara
   image:
@@ -2343,7 +2343,7 @@
     region: "0, 432, 48, 96"
 
 - type: Chip
-  id: Chara307
+  id: Elona.Chara307
   elonaId: 307
   group: Chara
   image:
@@ -2351,7 +2351,7 @@
     region: "480, 432, 48, 48"
 
 - type: Chip
-  id: CharaOrphe
+  id: Elona.CharaOrphe
   elonaId: 331
   group: Chara
   image:
@@ -2359,7 +2359,7 @@
     region: "48, 480, 48, 48"
 
 - type: Chip
-  id: CharaMadScientist
+  id: Elona.CharaMadScientist
   elonaId: 332
   group: Chara
   image:
@@ -2367,7 +2367,7 @@
     region: "96, 480, 48, 48"
 
 - type: Chip
-  id: CharaIsca
+  id: Elona.CharaIsca
   elonaId: 333
   group: Chara
   image:
@@ -2375,7 +2375,7 @@
     region: "144, 480, 48, 48"
 
 - type: Chip
-  id: CharaWhomDwellInTheVanity
+  id: Elona.CharaWhomDwellInTheVanity
   elonaId: 334
   group: Chara
   image:
@@ -2383,7 +2383,7 @@
     region: "192, 480, 48, 48"
 
 - type: Chip
-  id: Chara335
+  id: Elona.Chara335
   elonaId: 335
   group: Chara
   image:
@@ -2391,7 +2391,7 @@
     region: "240, 480, 48, 48"
 
 - type: Chip
-  id: Chara336
+  id: Elona.Chara336
   elonaId: 336
   group: Chara
   image:
@@ -2399,7 +2399,7 @@
     region: "288, 480, 48, 48"
 
 - type: Chip
-  id: CharaLoyter
+  id: Elona.CharaLoyter
   elonaId: 337
   group: Chara
   image:
@@ -2407,7 +2407,7 @@
     region: "336, 480, 48, 48"
 
 - type: Chip
-  id: CharaVesda
+  id: Elona.CharaVesda
   elonaId: 338
   group: Chara
   image:
@@ -2415,7 +2415,7 @@
     region: "384, 480, 48, 96"
 
 - type: Chip
-  id: CharaIssizzle
+  id: Elona.CharaIssizzle
   elonaId: 339
   group: Chara
   image:
@@ -2423,7 +2423,7 @@
     region: "432, 480, 48, 96"
 
 - type: Chip
-  id: CharaErystia
+  id: Elona.CharaErystia
   elonaId: 340
   group: Chara
   image:
@@ -2431,7 +2431,7 @@
     region: "480, 480, 48, 48"
 
 - type: Chip
-  id: CharaWynan
+  id: Elona.CharaWynan
   elonaId: 341
   group: Chara
   image:
@@ -2439,7 +2439,7 @@
     region: "528, 480, 48, 96"
 
 - type: Chip
-  id: CharaCorgon
+  id: Elona.CharaCorgon
   elonaId: 342
   group: Chara
   image:
@@ -2447,7 +2447,7 @@
     region: "576, 480, 48, 96"
 
 - type: Chip
-  id: CharaQuruiza
+  id: Elona.CharaQuruiza
   elonaId: 343
   group: Chara
   image:
@@ -2455,7 +2455,7 @@
     region: "624, 480, 48, 96"
 
 - type: Chip
-  id: CharaDungeonCleaner
+  id: Elona.CharaDungeonCleaner
   elonaId: 344
   group: Chara
   image:
@@ -2463,7 +2463,7 @@
     region: "672, 480, 48, 48"
 
 - type: Chip
-  id: CharaLarnneire
+  id: Elona.CharaLarnneire
   elonaId: 345
   group: Chara
   image:
@@ -2471,7 +2471,7 @@
     region: "720, 480, 48, 48"
 
 - type: Chip
-  id: CharaLomias
+  id: Elona.CharaLomias
   elonaId: 346
   group: Chara
   image:
@@ -2479,7 +2479,7 @@
     region: "768, 480, 48, 48"
 
 - type: Chip
-  id: CharaAt
+  id: Elona.CharaAt
   elonaId: 347
   group: Chara
   image:
@@ -2487,7 +2487,7 @@
     region: "816, 480, 48, 48"
 
 - type: Chip
-  id: CharaFrisia
+  id: Elona.CharaFrisia
   elonaId: 348
   group: Chara
   image:
@@ -2495,7 +2495,7 @@
     region: "864, 480, 48, 48"
 
 - type: Chip
-  id: CharaMachinegod
+  id: Elona.CharaMachinegod
   elonaId: 349
   group: Chara
   image:
@@ -2503,7 +2503,7 @@
     region: "912, 480, 48, 96"
 
 - type: Chip
-  id: CharaUndeadgod
+  id: Elona.CharaUndeadgod
   elonaId: 350
   group: Chara
   image:
@@ -2511,7 +2511,7 @@
     region: "960, 480, 48, 48"
 
 - type: Chip
-  id: CharaEbon2
+  id: Elona.CharaEbon2
   elonaId: 351
   group: Chara
   image:
@@ -2519,7 +2519,7 @@
     region: "1008, 480, 48, 96"
 
 - type: Chip
-  id: CharaGarokk
+  id: Elona.CharaGarokk
   elonaId: 352
   group: Chara
   image:
@@ -2527,7 +2527,7 @@
     region: "1056, 480, 48, 48"
 
 - type: Chip
-  id: CharaMiral
+  id: Elona.CharaMiral
   elonaId: 353
   group: Chara
   image:
@@ -2535,7 +2535,7 @@
     region: "1104, 480, 48, 48"
 
 - type: Chip
-  id: CharaCatsister
+  id: Elona.CharaCatsister
   elonaId: 354
   group: Chara
   image:
@@ -2543,7 +2543,7 @@
     region: "1152, 480, 48, 48"
 
 - type: Chip
-  id: CharaYoungLady
+  id: Elona.CharaYoungLady
   elonaId: 355
   group: Chara
   image:
@@ -2551,7 +2551,7 @@
     region: "1200, 480, 48, 48"
 
 - type: Chip
-  id: CharaGwen
+  id: Elona.CharaGwen
   elonaId: 356
   group: Chara
   image:
@@ -2559,7 +2559,7 @@
     region: "1248, 480, 48, 48"
 
 - type: Chip
-  id: CharaTownChildFemale
+  id: Elona.CharaTownChildFemale
   elonaId: 357
   group: Chara
   image:
@@ -2567,7 +2567,7 @@
     region: "1296, 480, 48, 48"
 
 - type: Chip
-  id: CharaPael
+  id: Elona.CharaPael
   elonaId: 358
   group: Chara
   image:
@@ -2575,7 +2575,7 @@
     region: "1344, 480, 48, 48"
 
 - type: Chip
-  id: CharaLily
+  id: Elona.CharaLily
   elonaId: 359
   group: Chara
   image:
@@ -2583,7 +2583,7 @@
     region: "1392, 480, 48, 48"
 
 - type: Chip
-  id: CharaLilySick
+  id: Elona.CharaLilySick
   elonaId: 360
   group: Chara
   image:
@@ -2591,7 +2591,7 @@
     region: "1440, 480, 48, 48"
 
 - type: Chip
-  id: CharaRaphael
+  id: Elona.CharaRaphael
   elonaId: 361
   group: Chara
   image:
@@ -2599,7 +2599,7 @@
     region: "1488, 480, 48, 48"
 
 - type: Chip
-  id: CharaAinc
+  id: Elona.CharaAinc
   elonaId: 362
   group: Chara
   image:
@@ -2607,7 +2607,7 @@
     region: "1536, 480, 48, 48"
 
 - type: Chip
-  id: CharaGuardPortKapul
+  id: Elona.CharaGuardPortKapul
   elonaId: 363
   group: Chara
   image:
@@ -2615,7 +2615,7 @@
     region: "0, 528, 48, 48"
 
 - type: Chip
-  id: CharaPoppy
+  id: Elona.CharaPoppy
   elonaId: 364
   group: Chara
   image:
@@ -2623,7 +2623,7 @@
     region: "48, 528, 48, 48"
 
 - type: Chip
-  id: CharaRilian
+  id: Elona.CharaRilian
   elonaId: 365
   group: Chara
   image:
@@ -2631,7 +2631,7 @@
     region: "96, 528, 48, 48"
 
 - type: Chip
-  id: CharaTam
+  id: Elona.CharaTam
   elonaId: 366
   group: Chara
   image:
@@ -2639,7 +2639,7 @@
     region: "144, 528, 48, 48"
 
 - type: Chip
-  id: CharaCarbuncle
+  id: Elona.CharaCarbuncle
   elonaId: 367
   group: Chara
   image:
@@ -2647,7 +2647,7 @@
     region: "192, 528, 48, 48"
 
 - type: Chip
-  id: CharaLion
+  id: Elona.CharaLion
   elonaId: 368
   group: Chara
   image:
@@ -2655,7 +2655,7 @@
     region: "240, 528, 48, 48"
 
 - type: Chip
-  id: CharaCacy
+  id: Elona.CharaCacy
   elonaId: 369
   group: Chara
   image:
@@ -2663,7 +2663,7 @@
     region: "288, 528, 48, 48"
 
 - type: Chip
-  id: CharaGilbert
+  id: Elona.CharaGilbert
   elonaId: 370
   group: Chara
   image:
@@ -2671,7 +2671,7 @@
     region: "336, 528, 48, 48"
 
 - type: Chip
-  id: CharaYerlesSelfPropelledGun
+  id: Elona.CharaYerlesSelfPropelledGun
   elonaId: 373
   group: Chara
   image:
@@ -2679,7 +2679,7 @@
     region: "480, 528, 48, 48"
 
 - type: Chip
-  id: CharaJuereSwordman
+  id: Elona.CharaJuereSwordman
   elonaId: 377
   group: Chara
   image:
@@ -2687,7 +2687,7 @@
     region: "672, 528, 48, 48"
 
 - type: Chip
-  id: CharaYeek
+  id: Elona.CharaYeek
   elonaId: 378
   group: Chara
   image:
@@ -2695,7 +2695,7 @@
     region: "720, 528, 48, 48"
 
 - type: Chip
-  id: CharaHotSpringManiacMale
+  id: Elona.CharaHotSpringManiacMale
   elonaId: 379
   group: Chara
   image:
@@ -2703,7 +2703,7 @@
     region: "768, 528, 48, 48"
 
 - type: Chip
-  id: CharaHotSpringManiacFemale
+  id: Elona.CharaHotSpringManiacFemale
   elonaId: 380
   group: Chara
   image:
@@ -2711,7 +2711,7 @@
     region: "816, 528, 48, 48"
 
 - type: Chip
-  id: CharaRodlob
+  id: Elona.CharaRodlob
   elonaId: 381
   group: Chara
   image:
@@ -2719,7 +2719,7 @@
     region: "864, 528, 48, 48"
 
 - type: Chip
-  id: CharaArnord
+  id: Elona.CharaArnord
   elonaId: 383
   group: Chara
   image:
@@ -2727,7 +2727,7 @@
     region: "960, 528, 48, 48"
 
 - type: Chip
-  id: CharaKamikazeSamurai
+  id: Elona.CharaKamikazeSamurai
   elonaId: 385
   group: Chara
   image:
@@ -2735,7 +2735,7 @@
     region: "1056, 528, 48, 48"
 
 - type: Chip
-  id: CharaRock
+  id: Elona.CharaRock
   elonaId: 386
   group: Chara
   image:
@@ -2743,7 +2743,7 @@
     region: "1104, 528, 48, 48"
 
 - type: Chip
-  id: CharaStrayCat
+  id: Elona.CharaStrayCat
   elonaId: 387
   group: Chara
   image:
@@ -2751,7 +2751,7 @@
     region: "1152, 528, 48, 48"
 
 - type: Chip
-  id: CharaMia
+  id: Elona.CharaMia
   elonaId: 388
   group: Chara
   image:
@@ -2759,7 +2759,7 @@
     region: "1200, 528, 48, 48"
 
 - type: Chip
-  id: CharaDinosaur
+  id: Elona.CharaDinosaur
   elonaId: 389
   group: Chara
   image:
@@ -2767,7 +2767,7 @@
     region: "1248, 528, 48, 96"
 
 - type: Chip
-  id: CharaFairy
+  id: Elona.CharaFairy
   elonaId: 390
   group: Chara
   image:
@@ -2775,7 +2775,7 @@
     region: "1296, 528, 48, 48"
 
 - type: Chip
-  id: CharaTroll
+  id: Elona.CharaTroll
   elonaId: 391
   group: Chara
   image:
@@ -2783,7 +2783,7 @@
     region: "1344, 528, 48, 96"
 
 - type: Chip
-  id: CharaRenton
+  id: Elona.CharaRenton
   elonaId: 392
   group: Chara
   image:
@@ -2791,7 +2791,7 @@
     region: "1392, 528, 48, 48"
 
 - type: Chip
-  id: CharaLulwy
+  id: Elona.CharaLulwy
   elonaId: 393
   group: Chara
   image:
@@ -2799,7 +2799,7 @@
     region: "1440, 528, 48, 96"
 
 - type: Chip
-  id: CharaMarks
+  id: Elona.CharaMarks
   elonaId: 394
   group: Chara
   image:
@@ -2807,7 +2807,7 @@
     region: "1488, 528, 48, 48"
 
 - type: Chip
-  id: CharaAncientCoffin
+  id: Elona.CharaAncientCoffin
   elonaId: 395
   group: Chara
   image:
@@ -2815,7 +2815,7 @@
     region: "1536, 528, 48, 48"
 
 - type: Chip
-  id: CharaScorpion
+  id: Elona.CharaScorpion
   elonaId: 396
   group: Chara
   image:
@@ -2823,7 +2823,7 @@
     region: "0, 576, 48, 48"
 
 - type: Chip
-  id: CharaLizardman
+  id: Elona.CharaLizardman
   elonaId: 397
   group: Chara
   image:
@@ -2831,7 +2831,7 @@
     region: "48, 576, 48, 48"
 
 - type: Chip
-  id: CharaMinotaur
+  id: Elona.CharaMinotaur
   elonaId: 398
   group: Chara
   image:
@@ -2839,7 +2839,7 @@
     region: "96, 576, 48, 96"
 
 - type: Chip
-  id: CharaSporeMushroom
+  id: Elona.CharaSporeMushroom
   elonaId: 399
   group: Chara
   image:
@@ -2847,7 +2847,7 @@
     region: "144, 576, 48, 48"
 
 - type: Chip
-  id: CharaBubble
+  id: Elona.CharaBubble
   elonaId: 400
   group: Chara
   image:
@@ -2855,7 +2855,7 @@
     region: "192, 576, 48, 48"
 
 - type: Chip
-  id: CharaMassMonster
+  id: Elona.CharaMassMonster
   elonaId: 401
   group: Chara
   image:
@@ -2863,7 +2863,7 @@
     region: "240, 576, 48, 48"
 
 - type: Chip
-  id: Chara402
+  id: Elona.Chara402
   elonaId: 402
   group: Chara
   image:
@@ -2871,7 +2871,7 @@
     region: "288, 576, 48, 48"
 
 - type: Chip
-  id: CharaConery
+  id: Elona.CharaConery
   elonaId: 403
   group: Chara
   image:
@@ -2879,7 +2879,7 @@
     region: "336, 576, 48, 48"
 
 - type: Chip
-  id: CharaExecutioner
+  id: Elona.CharaExecutioner
   elonaId: 404
   group: Chara
   image:
@@ -2887,7 +2887,7 @@
     region: "384, 576, 48, 96"
 
 - type: Chip
-  id: CharaAsura
+  id: Elona.CharaAsura
   elonaId: 405
   group: Chara
   image:
@@ -2895,7 +2895,7 @@
     region: "432, 576, 48, 96"
 
 - type: Chip
-  id: CharaHungrySeaLion
+  id: Elona.CharaHungrySeaLion
   elonaId: 406
   group: Chara
   image:
@@ -2903,7 +2903,7 @@
     region: "480, 576, 48, 48"
 
 - type: Chip
-  id: CharaMadGaze
+  id: Elona.CharaMadGaze
   elonaId: 407
   group: Chara
   image:
@@ -2911,7 +2911,7 @@
     region: "528, 576, 48, 48"
 
 - type: Chip
-  id: CharaBigDaddy
+  id: Elona.CharaBigDaddy
   elonaId: 408
   group: Chara
   image:
@@ -2919,7 +2919,7 @@
     region: "576, 576, 48, 96"
 
 - type: Chip
-  id: CharaLittleSister
+  id: Elona.CharaLittleSister
   elonaId: 409
   group: Chara
   image:
@@ -2927,7 +2927,7 @@
     region: "624, 576, 48, 48"
 
 - type: Chip
-  id: CharaCleaner
+  id: Elona.CharaCleaner
   elonaId: 410
   group: Chara
   image:
@@ -2935,7 +2935,7 @@
     region: "672, 576, 48, 48"
 
 - type: Chip
-  id: CharaHardGay
+  id: Elona.CharaHardGay
   elonaId: 411
   group: Chara
   image:
@@ -2943,7 +2943,7 @@
     region: "720, 576, 48, 48"
 
 - type: Chip
-  id: CharaStrangeScientist
+  id: Elona.CharaStrangeScientist
   elonaId: 412
   group: Chara
   image:
@@ -2951,7 +2951,7 @@
     region: "768, 576, 48, 48"
 
 - type: Chip
-  id: CharaEhekatl
+  id: Elona.CharaEhekatl
   elonaId: 413
   group: Chara
   image:
@@ -2959,7 +2959,7 @@
     region: "816, 576, 48, 96"
 
 - type: Chip
-  id: CharaGuildTrainerFemale
+  id: Elona.CharaGuildTrainerFemale
   elonaId: 414
   group: Chara
   image:
@@ -2967,7 +2967,7 @@
     region: "864, 576, 48, 48"
 
 - type: Chip
-  id: CharaGuildTrainerMale
+  id: Elona.CharaGuildTrainerMale
   elonaId: 415
   group: Chara
   image:
@@ -2975,7 +2975,7 @@
     region: "912, 576, 48, 48"
 
 - type: Chip
-  id: CharaMysteriousProducer
+  id: Elona.CharaMysteriousProducer
   elonaId: 416
   group: Chara
   image:
@@ -2983,7 +2983,7 @@
     region: "960, 576, 48, 48"
 
 - type: Chip
-  id: CharaProstituteFemale
+  id: Elona.CharaProstituteFemale
   elonaId: 417
   group: Chara
   image:
@@ -2991,7 +2991,7 @@
     region: "1008, 576, 48, 48"
 
 - type: Chip
-  id: CharaProstituteMale
+  id: Elona.CharaProstituteMale
   elonaId: 418
   group: Chara
   image:
@@ -2999,7 +2999,7 @@
     region: "1056, 576, 48, 48"
 
 - type: Chip
-  id: CharaPrisonerMale
+  id: Elona.CharaPrisonerMale
   elonaId: 419
   group: Chara
   image:
@@ -3007,7 +3007,7 @@
     region: "1104, 576, 48, 48"
 
 - type: Chip
-  id: CharaPrisonerFemale
+  id: Elona.CharaPrisonerFemale
   elonaId: 420
   group: Chara
   image:
@@ -3015,7 +3015,7 @@
     region: "1152, 576, 48, 48"
 
 - type: Chip
-  id: CharaYith
+  id: Elona.CharaYith
   elonaId: 429
   group: Chara
   image:
@@ -3023,7 +3023,7 @@
     region: "0, 624, 48, 96"
 
 - type: Chip
-  id: CharaSpiralKing
+  id: Elona.CharaSpiralKing
   elonaId: 430
   group: Chara
   image:
@@ -3031,7 +3031,7 @@
     region: "48, 624, 48, 96"
 
 - type: Chip
-  id: CharaOpatos
+  id: Elona.CharaOpatos
   elonaId: 432
   group: Chara
   image:
@@ -3039,7 +3039,7 @@
     region: "144, 624, 48, 96"
 
 - type: Chip
-  id: CharaKumiromi
+  id: Elona.CharaKumiromi
   elonaId: 433
   group: Chara
   image:
@@ -3047,7 +3047,7 @@
     region: "192, 624, 48, 96"
 
 - type: Chip
-  id: CharaMineDog
+  id: Elona.CharaMineDog
   elonaId: 434
   group: Chara
   image:
@@ -3055,7 +3055,7 @@
     region: "240, 624, 48, 48"
 
 - type: Chip
-  id: Chara436
+  id: Elona.Chara436
   elonaId: 436
   group: Chara
   image:
@@ -3063,7 +3063,7 @@
     region: "336, 624, 48, 48"
 
 - type: Chip
-  id: CharaMammoth
+  id: Elona.CharaMammoth
   elonaId: 439
   group: Chara
   image:
@@ -3071,7 +3071,7 @@
     region: "480, 624, 48, 96"
 
 - type: Chip
-  id: CharaHolyBeast
+  id: Elona.CharaHolyBeast
   elonaId: 442
   group: Chara
   image:
@@ -3079,7 +3079,7 @@
     region: "624, 624, 48, 96"
 
 - type: Chip
-  id: CharaCaravanMaster
+  id: Elona.CharaCaravanMaster
   elonaId: 443
   group: Chara
   image:
@@ -3087,7 +3087,7 @@
     region: "672, 624, 48, 48"
 
 - type: Chip
-  id: Chara446
+  id: Elona.Chara446
   elonaId: 446
   group: Chara
   image:
@@ -3095,7 +3095,7 @@
     region: "816, 624, 48, 48"
 
 - type: Chip
-  id: CharaMani
+  id: Elona.CharaMani
   elonaId: 447
   group: Chara
   image:
@@ -3103,7 +3103,7 @@
     region: "864, 624, 48, 96"
 
 - type: Chip
-  id: Chara448
+  id: Elona.Chara448
   elonaId: 448
   group: Chara
   image:
@@ -3111,7 +3111,7 @@
     region: "912, 624, 48, 48"
 
 - type: Chip
-  id: Chara449
+  id: Elona.Chara449
   elonaId: 449
   group: Chara
   image:
@@ -3119,7 +3119,7 @@
     region: "960, 624, 48, 48"
 
 - type: Chip
-  id: Chara450
+  id: Elona.Chara450
   elonaId: 450
   group: Chara
   image:
@@ -3127,7 +3127,7 @@
     region: "1008, 624, 48, 48"
 
 - type: Chip
-  id: Chara451
+  id: Elona.Chara451
   elonaId: 451
   group: Chara
   image:
@@ -3135,7 +3135,7 @@
     region: "1056, 624, 48, 48"
 
 - type: Chip
-  id: Chara452
+  id: Elona.Chara452
   elonaId: 452
   group: Chara
   image:
@@ -3143,7 +3143,7 @@
     region: "1104, 624, 48, 48"
 
 - type: Chip
-  id: Chara467
+  id: Elona.Chara467
   elonaId: 467
   group: Chara
   image:
@@ -3151,7 +3151,7 @@
     region: "240, 672, 48, 48"
 
 - type: Chip
-  id: Chara468
+  id: Elona.Chara468
   elonaId: 468
   group: Chara
   image:
@@ -3159,7 +3159,7 @@
     region: "288, 672, 48, 48"
 
 - type: Chip
-  id: CharaKanedaBike
+  id: Elona.CharaKanedaBike
   elonaId: 470
   group: Chara
   image:
@@ -3167,7 +3167,7 @@
     region: "384, 672, 48, 48"
 
 - type: Chip
-  id: CharaBike
+  id: Elona.CharaBike
   elonaId: 471
   group: Chara
   image:
@@ -3175,7 +3175,7 @@
     region: "432, 672, 48, 48"
 
 - type: Chip
-  id: CharaPartTimeWorker
+  id: Elona.CharaPartTimeWorker
   elonaId: 473
   group: Chara
   image:
@@ -3183,7 +3183,7 @@
     region: "528, 672, 48, 48"
 
 - type: Chip
-  id: CharaFestivalTouristFemale
+  id: Elona.CharaFestivalTouristFemale
   elonaId: 476
   group: Chara
   image:
@@ -3191,7 +3191,7 @@
     region: "672, 672, 48, 48"
 
 - type: Chip
-  id: CharaFestivalTouristMale
+  id: Elona.CharaFestivalTouristMale
   elonaId: 477
   group: Chara
   image:
@@ -3199,7 +3199,7 @@
     region: "720, 672, 48, 48"
 
 - type: Chip
-  id: CharaTheLeopardWarrior
+  id: Elona.CharaTheLeopardWarrior
   elonaId: 478
   group: Chara
   image:
@@ -3207,7 +3207,7 @@
     region: "768, 672, 48, 48"
 
 - type: Chip
-  id: CharaSilvia
+  id: Elona.CharaSilvia
   elonaId: 479
   group: Chara
   image:
@@ -3215,7 +3215,7 @@
     region: "816, 672, 48, 48"
 
 - type: Chip
-  id: Chara660
+  id: Elona.Chara660
   elonaId: 660
   group: Chara
   image:

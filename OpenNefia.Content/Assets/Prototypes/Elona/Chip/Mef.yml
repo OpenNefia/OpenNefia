@@ -1,5 +1,5 @@
 - type: Chip
-  id: MefWeb
+  id: Elona.MefWeb
   elonaId: 11
   group: Mef
   image:
@@ -7,7 +7,7 @@
     region: "528, 0, 48, 48"
 
 - type: Chip
-  id: MefAcid
+  id: Elona.MefAcid
   elonaId: 19
   group: Mef
   image:
@@ -16,7 +16,7 @@
     countX: 2
 
 - type: Chip
-  id: MefEther
+  id: Elona.MefEther
   elonaId: 20
   group: Mef
   image:
@@ -24,7 +24,7 @@
     region: "960, 0, 48, 48"
 
 - type: Chip
-  id: MefWater
+  id: Elona.MefWater
   elonaId: 22
   group: Mef
   image:
@@ -32,7 +32,7 @@
     region: "1056, 0, 48, 48"
 
 - type: Chip
-  id: MefFire
+  id: Elona.MefFire
   elonaId: 24
   group: Mef
   image:
@@ -41,7 +41,7 @@
     countX: 3
 
 - type: Chip
-  id: MefPotion
+  id: Elona.MefPotion
   elonaId: 27
   group: Mef
   image:
@@ -50,7 +50,7 @@
     countX: 3
 
 - type: Chip
-  id: MefMist
+  id: Elona.MefMist
   elonaId: 30
   group: Mef
   image:

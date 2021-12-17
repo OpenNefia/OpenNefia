@@ -266,15 +266,15 @@ namespace OpenNefia.Content.UI.Layer
             {
                 if (evt.Button == MouseButton.Mouse1)
                 {
-                    PlacingTile = TilePrototypeOf.Dirt;
+                    PlacingTile = Protos.Tile.Dirt;
                 }
                 else if (evt.Button == MouseButton.Mouse2)
                 {
-                    PlacingTile = TilePrototypeOf.WallBrick;
+                    PlacingTile = Protos.Tile.WallBrick;
                 }
                 else
                 {
-                    PlacingTile = TilePrototypeOf.Flooring1;
+                    PlacingTile = Protos.Tile.Flooring1;
                 }
             }
             else

@@ -1,0 +1,64 @@
+- type: Entity
+  id: BaseObject
+  abstract: true
+  components:
+  - type: Chip
+    id: Default
+
+- type: Entity
+  id: BaseChara
+  parent: BaseObject
+  abstract: true
+  hspType: chara
+  components:
+  - type: Spatial
+    isSolid: true
+    isOpaque: false
+  - type: Moveable
+  - type: Chara
+    class: Slime
+  - type: Skills
+
+- type: Entity
+  id: BaseItem
+  parent: BaseObject
+  abstract: true
+  hspType: item
+  components:
+  - type: Spatial
+    isSolid: false
+    isOpaque: false
+  - type: Item
+  - type: Stackable
+
+- type: Entity
+  id: BasePotion
+  parent: BaseItem
+  abstract: true
+  components:
+  - type: MetaData
+    displayName: potion
+  - type: Item
+    value: 5
+  - type: Chip
+    id: Elona.ItemPotion
+  - type: Throwable
+  - type: Drinkable
+    args:
+      power: 100
+
+- type: Entity
+  id: BaseFeat
+  parent: BaseObject
+  abstract: true
+  hspType: feat
+  components:
+  - type: Spatial
+    isSolid: true
+    isOpaque: false
+
+- type: Entity
+  id: BaseMef
+  parent: BaseObject
+  abstract: true
+  hspType: mef

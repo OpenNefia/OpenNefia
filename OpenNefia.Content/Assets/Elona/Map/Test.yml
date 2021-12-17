@@ -13,80 +13,80 @@ grid: |
   @.........@
   @@@@@@@@@@@
 tilemap:
-  '@': WallBrick
-  '.': Tile1
+  '@': Elona.WallBrick
+  '.': Elona.Tile1
 entities:
 - uid: 0
   components:
   - type: Map
 - uid: 1
-  protoId: Elona.Yeek
+  protoId: Elona.CharaYeek
   components:
   - type: Spatial
     parent: 0
     pos: 2,5
 - uid: 2
-  protoId: Elona.Yeek
+  protoId: Elona.CharaYeek
   components:
   - type: Spatial
     parent: 0
     pos: 3,5
 - uid: 3
-  protoId: Elona.Yeek
+  protoId: Elona.CharaYeek
   components:
   - type: Spatial
     parent: 0
     pos: 4,5
 - uid: 4
-  protoId: Elona.Yeek
+  protoId: Elona.CharaYeek
   components:
   - type: Spatial
     parent: 0
     pos: 5,5
 - uid: 5
-  protoId: PotionOfCureMinor
+  protoId: Elona.ItemPotionOfCureMinorWound
   components:
   - type: Spatial
     parent: 0
     pos: 2,2
 - uid: 6
-  protoId: PotionOfCureMinor
+  protoId: Elona.ItemPotionOfCureMinorWound
   components:
   - type: Spatial
     parent: 0
     pos: 3,2
 - uid: 7
-  protoId: PotionOfCureMinor
+  protoId: Elona.ItemPotionOfCureMinorWound
   components:
   - type: Spatial
     parent: 0
     pos: 4,2
 - uid: 8
-  protoId: PotionOfCureMinor
+  protoId: Elona.ItemPotionOfCureMinorWound
   components:
   - type: Spatial
     parent: 0
     pos: 5,2
 - uid: 9
-  protoId: Computer
+  protoId: Elona.ItemComputer
   components:
   - type: Spatial
     parent: 0
     pos: 2,3
 - uid: 10
-  protoId: Computer
+  protoId: Elona.ItemComputer
   components:
   - type: Spatial
     parent: 0
     pos: 3,3
 - uid: 11
-  protoId: Computer
+  protoId: Elona.ItemComputer
   components:
   - type: Spatial
     parent: 0
     pos: 4,3
 - uid: 12
-  protoId: Computer
+  protoId: Elona.ItemComputer
   components:
   - type: Spatial
     parent: 0

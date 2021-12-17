@@ -1,0 +1,5570 @@
+- type: Entity
+  id: Elona.ItemBug
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 0
+
+- type: Entity
+  id: Elona.ItemBookUnreadable
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 23
+
+- type: Entity
+  id: Elona.ItemBook
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 24
+
+- type: Entity
+  id: Elona.ItemBuggedBook
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 25
+
+- type: Entity
+  id: Elona.ItemTextbook
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 563
+
+- type: Entity
+  id: Elona.ItemBookOfRachel
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 668
+
+- type: Entity
+  id: Elona.ItemTownBook
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 700
+
+- type: Entity
+  id: Elona.ItemBookOfBokonon
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 747
+
+- type: Entity
+  id: Elona.ItemCargoRagDoll
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 399
+
+- type: Entity
+  id: Elona.ItemCargoBarrel
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 400
+
+- type: Entity
+  id: Elona.ItemCargoPiano
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 401
+
+- type: Entity
+  id: Elona.ItemCargoRope
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 402
+
+- type: Entity
+  id: Elona.ItemCargoCoffin
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 403
+
+- type: Entity
+  id: Elona.ItemCargoManboo
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 404
+
+- type: Entity
+  id: Elona.ItemCargoGrave
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 405
+
+- type: Entity
+  id: Elona.ItemCargoTunaFish
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 406
+
+- type: Entity
+  id: Elona.ItemCargoWhisky
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 407
+
+- type: Entity
+  id: Elona.ItemCargoNobleToy
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 408
+
+- type: Entity
+  id: Elona.ItemCargoInnerTube
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 409
+
+- type: Entity
+  id: Elona.ItemCargoChristmasTree
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 597
+
+- type: Entity
+  id: Elona.ItemCargoSnowMan
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 598
+
+- type: Entity
+  id: Elona.ItemCargoArt
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 669
+
+- type: Entity
+  id: Elona.ItemCargoCanvas
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 670
+
+- type: Entity
+  id: Elona.ItemCargoTravelersFood
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 333
+
+- type: Entity
+  id: Elona.ItemBejeweledChest
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 239
+
+- type: Entity
+  id: Elona.ItemChest
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 240
+
+- type: Entity
+  id: Elona.ItemSafe
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 241
+
+- type: Entity
+  id: Elona.ItemSuitcase
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 283
+
+- type: Entity
+  id: Elona.ItemWallet
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 284
+
+- type: Entity
+  id: Elona.ItemShopkeepersTrunk
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 361
+
+- type: Entity
+  id: Elona.ItemMaterialBox
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 394
+
+- type: Entity
+  id: Elona.ItemTreasureBall
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 415
+
+- type: Entity
+  id: Elona.ItemRareTreasureBall
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 416
+
+- type: Entity
+  id: Elona.ItemSmallGambleChest
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 734
+
+- type: Entity
+  id: Elona.ItemNewYearsGift
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 752
+
+- type: Entity
+  id: Elona.ItemHeirTrunk
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 510
+
+- type: Entity
+  id: Elona.ItemSalaryChest
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 547
+
+- type: Entity
+  id: Elona.ItemMastersDeliveryChest
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 560
+
+- type: Entity
+  id: Elona.ItemShopStrongbox
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 561
+
+- type: Entity
+  id: Elona.ItemFreezer
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 579
+
+- type: Entity
+  id: Elona.ItemTaxMastersTaxBox
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 616
+
+- type: Entity
+  id: Elona.ItemCoolerBox
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 641
+
+- type: Entity
+  id: Elona.ItemGiantsShackle
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 600
+
+- type: Entity
+  id: Elona.ItemRecipeHolder
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 784
+
+- type: Entity
+  id: Elona.ItemGoldPiece
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 54
+
+- type: Entity
+  id: Elona.ItemPlatinumCoin
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 55
+
+- type: Entity
+  id: Elona.ItemSmallMedal
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 622
+
+- type: Entity
+  id: Elona.ItemMusicTicket
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 724
+
+- type: Entity
+  id: Elona.ItemTokenOfFriendship
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 730
+
+- type: Entity
+  id: Elona.ItemArrow
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 61
+
+- type: Entity
+  id: Elona.ItemBolt
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 483
+
+- type: Entity
+  id: Elona.ItemBullet
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 62
+
+- type: Entity
+  id: Elona.ItemEnergyCell
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 513
+
+- type: Entity
+  id: Elona.ItemThickGauntlets
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 10
+
+- type: Entity
+  id: Elona.ItemPlateGauntlets
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 446
+
+- type: Entity
+  id: Elona.ItemCompositeGauntlets
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 448
+
+- type: Entity
+  id: Elona.ItemDecoratedGloves
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 9
+
+- type: Entity
+  id: Elona.ItemGlovesOfVesda
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 355
+
+- type: Entity
+  id: Elona.ItemGloves
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 445
+
+- type: Entity
+  id: Elona.ItemLightGloves
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 447
+
+- type: Entity
+  id: Elona.ItemBreastplate
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 7
+
+- type: Entity
+  id: Elona.ItemBandedMail
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 435
+
+- type: Entity
+  id: Elona.ItemPlateMail
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 436
+
+- type: Entity
+  id: Elona.ItemRingMail
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 437
+
+- type: Entity
+  id: Elona.ItemCompositeMail
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 438
+
+- type: Entity
+  id: Elona.ItemChainMail
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 439
+
+- type: Entity
+  id: Elona.ItemRobe
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 8
+
+- type: Entity
+  id: Elona.ItemPopeRobe
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 440
+
+- type: Entity
+  id: Elona.ItemLightMail
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 441
+
+- type: Entity
+  id: Elona.ItemCoat
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 442
+
+- type: Entity
+  id: Elona.ItemBreastPlate
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 443
+
+- type: Entity
+  id: Elona.ItemBulletproofJacket
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 444
+
+- type: Entity
+  id: Elona.ItemLightCloak
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 65
+
+- type: Entity
+  id: Elona.ItemArmoredCloak
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 461
+
+- type: Entity
+  id: Elona.ItemCloak
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 462
+
+- type: Entity
+  id: Elona.ItemWing
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 520
+
+- type: Entity
+  id: Elona.ItemFeather
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 552
+
+- type: Entity
+  id: Elona.ItemVindaleCloak
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 557
+
+- type: Entity
+  id: Elona.ItemGirdle
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 66
+
+- type: Entity
+  id: Elona.ItemCompositeGirdle
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 459
+
+- type: Entity
+  id: Elona.ItemPlateGirdle
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 460
+
+- type: Entity
+  id: Elona.ItemCrimsonPlate
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 728
+
+- type: Entity
+  id: Elona.ItemHeavyHelm
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 464
+
+- type: Entity
+  id: Elona.ItemKnightHelm
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 465
+
+- type: Entity
+  id: Elona.ItemHelm
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 466
+
+- type: Entity
+  id: Elona.ItemCompositeHelm
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 467
+
+- type: Entity
+  id: Elona.ItemSagesHelm
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 627
+
+- type: Entity
+  id: Elona.ItemFiveHornedHelm
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 757
+
+- type: Entity
+  id: Elona.ItemMagicHat
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 5
+
+- type: Entity
+  id: Elona.ItemFairyHat
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 6
+
+- type: Entity
+  id: Elona.ItemFeatherHat
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 463
+
+- type: Entity
+  id: Elona.ItemHeavyBoots
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 11
+
+- type: Entity
+  id: Elona.ItemCompositeBoots
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 12
+
+- type: Entity
+  id: Elona.ItemArmoredBoots
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 458
+
+- type: Entity
+  id: Elona.ItemShoes
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 455
+
+- type: Entity
+  id: Elona.ItemBoots
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 456
+
+- type: Entity
+  id: Elona.ItemTightBoots
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 457
+
+- type: Entity
+  id: Elona.ItemSevenLeagueBoots
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 556
+
+- type: Entity
+  id: Elona.ItemDalIThalion
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 661
+
+- type: Entity
+  id: Elona.ItemClaymore
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 232
+
+- type: Entity
+  id: Elona.ItemClaymoreUnique
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 719
+
+- type: Entity
+  id: Elona.ItemDragonSlayer
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 791
+
+- type: Entity
+  id: Elona.ItemLongSword
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 1
+
+- type: Entity
+  id: Elona.ItemDiablo
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 56
+
+- type: Entity
+  id: Elona.ItemZantetsu
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 57
+
+- type: Entity
+  id: Elona.ItemMournblade
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 64
+
+- type: Entity
+  id: Elona.ItemRagnarok
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 73
+
+- type: Entity
+  id: Elona.ItemKatana
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 224
+
+- type: Entity
+  id: Elona.ItemHiryuTo
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 741
+
+- type: Entity
+  id: Elona.ItemLightsabre
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 759
+
+- type: Entity
+  id: Elona.ItemDagger
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 2
+  components:
+  - type: Item
+    value: 5
+  - type: Chip
+    id: ItemDagger
+
+- type: Entity
+  id: Elona.ItemEtherDagger
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 206
+
+- type: Entity
+  id: Elona.ItemScimitar
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 225
+
+- type: Entity
+  id: Elona.ItemWakizashi
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 266
+
+- type: Entity
+  id: Elona.ItemLuckyDagger
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 678
+
+- type: Entity
+  id: Elona.ItemKitchenKnife
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 781
+
+- type: Entity
+  id: Elona.ItemClub
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 4
+
+- type: Entity
+  id: Elona.ItemBloodMoon
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 356
+
+- type: Entity
+  id: Elona.ItemHammer
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 227
+
+- type: Entity
+  id: Elona.ItemGaiaHammer
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 679
+
+- type: Entity
+  id: Elona.ItemStaff
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 212
+
+- type: Entity
+  id: Elona.ItemLongStaff
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 229
+
+- type: Entity
+  id: Elona.ItemStaffOfInsanity
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 358
+
+- type: Entity
+  id: Elona.ItemElementalStaff
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 676
+
+- type: Entity
+  id: Elona.ItemSpear
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 213
+
+- type: Entity
+  id: Elona.ItemTrident
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 228
+
+- type: Entity
+  id: Elona.ItemRankis
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 359
+
+- type: Entity
+  id: Elona.ItemHolyLance
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 677
+
+- type: Entity
+  id: Elona.ItemHalberd
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 235
+
+- type: Entity
+  id: Elona.ItemHandAxe
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 3
+
+- type: Entity
+  id: Elona.ItemBattleAxe
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 226
+
+- type: Entity
+  id: Elona.ItemBardiche
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 234
+
+- type: Entity
+  id: Elona.ItemAxeOfDestruction
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 695
+
+- type: Entity
+  id: Elona.ItemScytheOfVoid
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 63
+
+- type: Entity
+  id: Elona.ItemSickle
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 211
+
+- type: Entity
+  id: Elona.ItemKumiromiScythe
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 675
+
+- type: Entity
+  id: Elona.ItemScythe
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 735
+
+- type: Entity
+  id: Elona.ItemFrisiasTail
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 739
+
+- type: Entity
+  id: Elona.ItemDecorativeAmulet
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 67
+
+- type: Entity
+  id: Elona.ItemPeridot
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 468
+
+- type: Entity
+  id: Elona.ItemTalisman
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 469
+
+- type: Entity
+  id: Elona.ItemNeckGuard
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 470
+
+- type: Entity
+  id: Elona.ItemCharm
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 471
+
+- type: Entity
+  id: Elona.ItemBejeweledAmulet
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 472
+
+- type: Entity
+  id: Elona.ItemEngagementAmulet
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 473
+
+- type: Entity
+  id: Elona.ItemBeggarsPendant
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 705
+
+- type: Entity
+  id: Elona.ItemArbalest
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 722
+
+- type: Entity
+  id: Elona.ItemTwinEdge
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 723
+
+- type: Entity
+  id: Elona.ItemUnknownShell
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 740
+
+- type: Entity
+  id: Elona.ItemLongBow
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 58
+
+- type: Entity
+  id: Elona.ItemBowOfVindale
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 207
+
+- type: Entity
+  id: Elona.ItemShortBow
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 230
+
+- type: Entity
+  id: Elona.ItemWindBow
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 673
+
+- type: Entity
+  id: Elona.ItemSkullBow
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 788
+
+- type: Entity
+  id: Elona.ItemCrossbow
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 482
+
+- type: Entity
+  id: Elona.ItemPistol
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 60
+
+- type: Entity
+  id: Elona.ItemMachineGun
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 231
+
+- type: Entity
+  id: Elona.ItemShotGun
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 496
+
+- type: Entity
+  id: Elona.ItemWinchesterPremium
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 674
+
+- type: Entity
+  id: Elona.ItemMauserC96Custom
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 758
+
+- type: Entity
+  id: Elona.ItemLaserGun
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 512
+
+- type: Entity
+  id: Elona.ItemRailGun
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 514
+
+- type: Entity
+  id: Elona.ItemStone
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 210
+
+- type: Entity
+  id: Elona.ItemShuriken
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 713
+
+- type: Entity
+  id: Elona.ItemGrenade
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 714
+
+- type: Entity
+  id: Elona.ItemVanillaRock
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 716
+
+- type: Entity
+  id: Elona.ItemKillKillPiano
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 725
+
+- type: Entity
+  id: Elona.ItemPanty
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 633
+
+- type: Entity
+  id: Elona.ItemShenasPanty
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 718
+
+- type: Entity
+  id: Elona.ItemDecorativeRing
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 13
+
+- type: Entity
+  id: Elona.ItemRingOfSteelDragon
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 357
+
+- type: Entity
+  id: Elona.ItemPalmiaPride
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 360
+
+- type: Entity
+  id: Elona.ItemCompositeRing
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 474
+
+- type: Entity
+  id: Elona.ItemArmoredRing
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 475
+
+- type: Entity
+  id: Elona.ItemRing
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 476
+
+- type: Entity
+  id: Elona.ItemEngagementRing
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 477
+
+- type: Entity
+  id: Elona.ItemAuroraRing
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 558
+
+- type: Entity
+  id: Elona.ItemSpeedRing
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 664
+
+- type: Entity
+  id: Elona.ItemKnightShield
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 59
+
+- type: Entity
+  id: Elona.ItemSmallShield
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 449
+
+- type: Entity
+  id: Elona.ItemRoundShield
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 450
+
+- type: Entity
+  id: Elona.ItemShield
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 451
+
+- type: Entity
+  id: Elona.ItemLargeShield
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 452
+
+- type: Entity
+  id: Elona.ItemKiteShield
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 453
+
+- type: Entity
+  id: Elona.ItemTowerShield
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 454
+
+- type: Entity
+  id: Elona.ItemAlud
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 726
+
+- type: Entity
+  id: Elona.ItemShieldOfThorn
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 727
+
+- type: Entity
+  id: Elona.ItemBombFish
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 261
+
+- type: Entity
+  id: Elona.ItemMoonfish
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 345
+
+- type: Entity
+  id: Elona.ItemSardine
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 346
+
+- type: Entity
+  id: Elona.ItemFlatfish
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 347
+
+- type: Entity
+  id: Elona.ItemManboo
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 348
+
+- type: Entity
+  id: Elona.ItemSeabream
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 349
+
+- type: Entity
+  id: Elona.ItemSalmon
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 350
+
+- type: Entity
+  id: Elona.ItemGlobefish
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 351
+
+- type: Entity
+  id: Elona.ItemTuna
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 352
+
+- type: Entity
+  id: Elona.ItemCutlassfish
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 353
+
+- type: Entity
+  id: Elona.ItemSandborer
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 354
+
+- type: Entity
+  id: Elona.ItemFish
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 618
+
+- type: Entity
+  id: Elona.ItemWoodPiece
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 43
+
+- type: Entity
+  id: Elona.ItemGarbage
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 45
+
+- type: Entity
+  id: Elona.ItemDeadFish
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 220
+
+- type: Entity
+  id: Elona.ItemFishJunk
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 619
+
+- type: Entity
+  id: Elona.ItemEdibleWildPlant
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 179
+
+- type: Entity
+  id: Elona.ItemApiNut
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 191
+
+- type: Entity
+  id: Elona.ItemHealthyLeaf
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 193
+
+- type: Entity
+  id: Elona.ItemCorpse
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 204
+
+- type: Entity
+  id: Elona.ItemRation
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 233
+
+- type: Entity
+  id: Elona.ItemStickBread
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 258
+
+- type: Entity
+  id: Elona.ItemPopCorn
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 497
+
+- type: Entity
+  id: Elona.ItemFriedPotato
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 498
+
+- type: Entity
+  id: Elona.ItemCyberSnack
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 499
+
+- type: Entity
+  id: Elona.ItemJerky
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 571
+
+- type: Entity
+  id: Elona.ItemEgg
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 573
+
+- type: Entity
+  id: Elona.ItemHeroCheese
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 655
+
+- type: Entity
+  id: Elona.ItemSistersLoveFueledLunch
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 667
+
+- type: Entity
+  id: Elona.ItemRabbitsTail
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 702
+
+- type: Entity
+  id: Elona.ItemFortuneCookie
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 738
+
+- type: Entity
+  id: Elona.ItemKagamiMochi
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 755
+
+- type: Entity
+  id: Elona.ItemMochi
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 756
+
+- type: Entity
+  id: Elona.ItemSpecialSteamedMeatBun
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 775
+
+- type: Entity
+  id: Elona.ItemBottleOfSalt
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 785
+
+- type: Entity
+  id: Elona.ItemSackOfSugar
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 786
+
+- type: Entity
+  id: Elona.ItemPuffPuffBread
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 787
+
+- type: Entity
+  id: Elona.ItemPutitoro
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 792
+
+- type: Entity
+  id: Elona.ItemSackOfFlour
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 260
+
+- type: Entity
+  id: Elona.ItemRawNoodle
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 259
+
+- type: Entity
+  id: Elona.ItemQuwapana
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 177
+
+- type: Entity
+  id: Elona.ItemAloe
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 178
+
+- type: Entity
+  id: Elona.ItemGuava
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 184
+
+- type: Entity
+  id: Elona.ItemCarrot
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 185
+
+- type: Entity
+  id: Elona.ItemRadish
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 186
+
+- type: Entity
+  id: Elona.ItemSweetPotato
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 187
+
+- type: Entity
+  id: Elona.ItemLettuce
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 188
+
+- type: Entity
+  id: Elona.ItemImo
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 190
+
+- type: Entity
+  id: Elona.ItemGreenPea
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 198
+
+- type: Entity
+  id: Elona.ItemCbocchi
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 199
+
+- type: Entity
+  id: Elona.ItemMelon
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 200
+
+- type: Entity
+  id: Elona.ItemLeccho
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 201
+
+- type: Entity
+  id: Elona.ItemApple
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 180
+
+- type: Entity
+  id: Elona.ItemGrape
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 181
+
+- type: Entity
+  id: Elona.ItemKiwi
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 182
+
+- type: Entity
+  id: Elona.ItemCherry
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 183
+
+- type: Entity
+  id: Elona.ItemStrawberry
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 192
+
+- type: Entity
+  id: Elona.ItemRainbowFruit
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 194
+
+- type: Entity
+  id: Elona.ItemQucche
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 195
+
+- type: Entity
+  id: Elona.ItemOrange
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 196
+
+- type: Entity
+  id: Elona.ItemLemon
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 197
+
+- type: Entity
+  id: Elona.ItemHappyApple
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 639
+
+- type: Entity
+  id: Elona.ItemMagicFruit
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 662
+
+- type: Entity
+  id: Elona.ItemTomato
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 772
+
+- type: Entity
+  id: Elona.ItemVegetableSeed
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 417
+
+- type: Entity
+  id: Elona.ItemFruitSeed
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 418
+
+- type: Entity
+  id: Elona.ItemHerbSeed
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 419
+
+- type: Entity
+  id: Elona.ItemUnknownSeed
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 420
+
+- type: Entity
+  id: Elona.ItemArtifactSeed
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 421
+
+- type: Entity
+  id: Elona.ItemGemSeed
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 553
+
+- type: Entity
+  id: Elona.ItemMagicalSeed
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 554
+
+- type: Entity
+  id: Elona.ItemMorgia
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 422
+
+- type: Entity
+  id: Elona.ItemMareilon
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 423
+
+- type: Entity
+  id: Elona.ItemSpenseweed
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 424
+
+- type: Entity
+  id: Elona.ItemCuraria
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 425
+
+- type: Entity
+  id: Elona.ItemAlraunia
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 426
+
+- type: Entity
+  id: Elona.ItemStomafillia
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 427
+
+- type: Entity
+  id: Elona.ItemRoundChair
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 77
+
+- type: Entity
+  id: Elona.ItemBookshelf
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 78
+
+- type: Entity
+  id: Elona.ItemLuxuryDrawer
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 79
+
+- type: Entity
+  id: Elona.ItemRagDoll
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 81
+
+- type: Entity
+  id: Elona.ItemToy
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 82
+
+- type: Entity
+  id: Elona.ItemModernTable
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 83
+
+- type: Entity
+  id: Elona.ItemDiningTable
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 84
+
+- type: Entity
+  id: Elona.ItemArmor
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 85
+
+- type: Entity
+  id: Elona.ItemLotOfGoods
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 86
+
+- type: Entity
+  id: Elona.ItemLotOfAccessories
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 87
+
+- type: Entity
+  id: Elona.ItemBarTableAlpha
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 89
+
+- type: Entity
+  id: Elona.ItemBarTableBeta
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 90
+
+- type: Entity
+  id: Elona.ItemBarrel
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 91
+
+- type: Entity
+  id: Elona.ItemModernChair
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 92
+
+- type: Entity
+  id: Elona.ItemPick
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 93
+
+- type: Entity
+  id: Elona.ItemLantern
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 94
+
+- type: Entity
+  id: Elona.ItemDecorativeArmor
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 95
+
+- type: Entity
+  id: Elona.ItemAnvil
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 96
+
+- type: Entity
+  id: Elona.ItemClosedPot
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 97
+
+- type: Entity
+  id: Elona.ItemOpenPot
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 98
+
+- type: Entity
+  id: Elona.ItemAcademicTable
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 99
+
+- type: Entity
+  id: Elona.ItemRackOfPotions
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 100
+
+- type: Entity
+  id: Elona.ItemSquareChair
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 101
+
+- type: Entity
+  id: Elona.ItemCheapChair
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 102
+
+- type: Entity
+  id: Elona.ItemCupboard
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 103
+
+- type: Entity
+  id: Elona.ItemBarn
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 104
+
+- type: Entity
+  id: Elona.ItemNeatShelf
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 105
+
+- type: Entity
+  id: Elona.ItemCloset
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 106
+
+- type: Entity
+  id: Elona.ItemVarietyOfTools
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 107
+
+- type: Entity
+  id: Elona.ItemVarietyOfGoods
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 108
+
+- type: Entity
+  id: Elona.ItemVarietyOfClothes
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 110
+
+- type: Entity
+  id: Elona.ItemFurnace
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 111
+
+- type: Entity
+  id: Elona.ItemSign
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 113
+
+- type: Entity
+  id: Elona.ItemCrossroadSign
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 114
+
+- type: Entity
+  id: Elona.ItemBoard
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 115
+
+- type: Entity
+  id: Elona.ItemEmptyBasket
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 117
+
+- type: Entity
+  id: Elona.ItemShowCaseOfBreads
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 124
+
+- type: Entity
+  id: Elona.ItemBeaker
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 126
+
+- type: Entity
+  id: Elona.ItemPentagram
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 128
+
+- type: Entity
+  id: Elona.ItemSmallFoliagePlant
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 129
+
+- type: Entity
+  id: Elona.ItemRose
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 130
+
+- type: Entity
+  id: Elona.ItemLargeFoliagePlant
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 131
+
+- type: Entity
+  id: Elona.ItemSage
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 132
+
+- type: Entity
+  id: Elona.ItemGazania
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 133
+
+- type: Entity
+  id: Elona.ItemNerine
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 134
+
+- type: Entity
+  id: Elona.ItemAnemos
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 135
+
+- type: Entity
+  id: Elona.ItemFoxtailGrass
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 136
+
+- type: Entity
+  id: Elona.ItemCarnation
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 137
+
+- type: Entity
+  id: Elona.ItemStatueOrnamentedWithPlants
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 138
+
+- type: Entity
+  id: Elona.ItemStatueOrnamentedWithFlowers
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 139
+
+- type: Entity
+  id: Elona.ItemCanvas
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 140
+
+- type: Entity
+  id: Elona.ItemMap
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 141
+
+- type: Entity
+  id: Elona.ItemBundleOfBows
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 143
+
+- type: Entity
+  id: Elona.ItemBundleOfWeapons
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 144
+
+- type: Entity
+  id: Elona.ItemDecoratedCloth
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 145
+
+- type: Entity
+  id: Elona.ItemDecoratedArmor
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 146
+
+- type: Entity
+  id: Elona.ItemStatueOfArmor
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 147
+
+- type: Entity
+  id: Elona.ItemDisorderlyBook
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 148
+
+- type: Entity
+  id: Elona.ItemLotOfBooks
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 149
+
+- type: Entity
+  id: Elona.ItemCraftRack
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 150
+
+- type: Entity
+  id: Elona.ItemCraftBookShelf
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 151
+
+- type: Entity
+  id: Elona.ItemLotOfAlcohols
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 152
+
+- type: Entity
+  id: Elona.ItemNarrowDiningTable
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 156
+
+- type: Entity
+  id: Elona.ItemElegantTable
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 157
+
+- type: Entity
+  id: Elona.ItemGorgeousCandlestick
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 158
+
+- type: Entity
+  id: Elona.ItemSimpleShelf
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 159
+
+- type: Entity
+  id: Elona.ItemMessyCloth
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 162
+
+- type: Entity
+  id: Elona.ItemSilkCloth
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 163
+
+- type: Entity
+  id: Elona.ItemCollapsedGrave
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 164
+
+- type: Entity
+  id: Elona.ItemCrumbledGrave
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 165
+
+- type: Entity
+  id: Elona.ItemGraveOfOrnamentedWithFlowers
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 166
+
+- type: Entity
+  id: Elona.ItemBrandNewGrave
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 167
+
+- type: Entity
+  id: Elona.ItemSolemnTomb
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 168
+
+- type: Entity
+  id: Elona.ItemAncientTomb
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 169
+
+- type: Entity
+  id: Elona.ItemOldGrave
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 170
+
+- type: Entity
+  id: Elona.ItemStackOfDishes
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 189
+
+- type: Entity
+  id: Elona.ItemFigurineOfWarrior
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 237
+
+- type: Entity
+  id: Elona.ItemFigurineOfSword
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 238
+
+- type: Entity
+  id: Elona.ItemLongPillar
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 276
+
+- type: Entity
+  id: Elona.ItemBrokenPillar
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 277
+
+- type: Entity
+  id: Elona.ItemStreetLamp
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 278
+
+- type: Entity
+  id: Elona.ItemWaterTub
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 279
+
+- type: Entity
+  id: Elona.ItemComfortableTable
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 280
+
+- type: Entity
+  id: Elona.ItemInnerTube
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 281
+
+- type: Entity
+  id: Elona.ItemMysteriousMap
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 282
+
+- type: Entity
+  id: Elona.ItemWellKeptArmor
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 291
+
+- type: Entity
+  id: Elona.ItemRackOfGoods
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 292
+
+- type: Entity
+  id: Elona.ItemRackOfAccessories
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 293
+
+- type: Entity
+  id: Elona.ItemTowel
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 294
+
+- type: Entity
+  id: Elona.ItemRaggedTable
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 295
+
+- type: Entity
+  id: Elona.ItemCabinet
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 296
+
+- type: Entity
+  id: Elona.ItemVase
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 298
+
+- type: Entity
+  id: Elona.ItemHighGradeDresser
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 299
+
+- type: Entity
+  id: Elona.ItemNeatBarTable
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 300
+
+- type: Entity
+  id: Elona.ItemChestOfClothes
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 302
+
+- type: Entity
+  id: Elona.ItemCheapRack
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 308
+
+- type: Entity
+  id: Elona.ItemDresser
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 309
+
+- type: Entity
+  id: Elona.ItemBathtub
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 311
+
+- type: Entity
+  id: Elona.ItemPachisuroMachine
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 312
+
+- type: Entity
+  id: Elona.ItemCasinoTable
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 313
+
+- type: Entity
+  id: Elona.ItemSlotMachine
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 314
+
+- type: Entity
+  id: Elona.ItemDartsBoard
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 315
+
+- type: Entity
+  id: Elona.ItemBigFoliagePlant
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 316
+
+- type: Entity
+  id: Elona.ItemOldShelf
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 317
+
+- type: Entity
+  id: Elona.ItemOldBookshelf
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 318
+
+- type: Entity
+  id: Elona.ItemCheapTable
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 320
+
+- type: Entity
+  id: Elona.ItemNeatRack
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 321
+
+- type: Entity
+  id: Elona.ItemSimpleDresser
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 322
+
+- type: Entity
+  id: Elona.ItemBigCupboard
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 323
+
+- type: Entity
+  id: Elona.ItemSacredAltar
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 324
+
+- type: Entity
+  id: Elona.ItemSimpleRack
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 326
+
+- type: Entity
+  id: Elona.ItemWideChair
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 327
+
+- type: Entity
+  id: Elona.ItemUprightPiano
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 328
+
+- type: Entity
+  id: Elona.ItemStatueOfCross
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 329
+
+- type: Entity
+  id: Elona.ItemDress
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 331
+
+- type: Entity
+  id: Elona.ItemTable
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 332
+
+- type: Entity
+  id: Elona.ItemThrone
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 334
+
+- type: Entity
+  id: Elona.ItemGoldenPedestal
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 335
+
+- type: Entity
+  id: Elona.ItemGoldenStatue
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 336
+
+- type: Entity
+  id: Elona.ItemRune
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 343
+
+- type: Entity
+  id: Elona.ItemRedTreasureMachine
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 413
+
+- type: Entity
+  id: Elona.ItemBlueTreasureMachine
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 414
+
+- type: Entity
+  id: Elona.ItemMachine
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 486
+
+- type: Entity
+  id: Elona.ItemComputer
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 487
+  components:
+  - type: MetaData
+    displayName: computer
+  - type: Item
+    value: 50
+  - type: Chip
+    id: Elona.ItemComputer
+  - type: Throwable
+
+- type: Entity
+  id: Elona.ItemTrainingMachine
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 488
+
+- type: Entity
+  id: Elona.ItemCamera
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 489
+
+- type: Entity
+  id: Elona.ItemMicrowaveOven
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 490
+
+- type: Entity
+  id: Elona.ItemServer
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 491
+
+- type: Entity
+  id: Elona.ItemStorage
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 492
+
+- type: Entity
+  id: Elona.ItemTrashCan
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 493
+
+- type: Entity
+  id: Elona.ItemChip
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 494
+
+- type: Entity
+  id: Elona.ItemBlankDisc
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 495
+
+- type: Entity
+  id: Elona.ItemFurnance
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 531
+
+- type: Entity
+  id: Elona.ItemFireplace
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 532
+
+- type: Entity
+  id: Elona.ItemStove
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 533
+
+- type: Entity
+  id: Elona.ItemGiantFoliagePlant
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 534
+
+- type: Entity
+  id: Elona.ItemBigTable
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 535
+
+- type: Entity
+  id: Elona.ItemPaintingOfMadam
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 536
+
+- type: Entity
+  id: Elona.ItemPaintingOfLandscape
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 537
+
+- type: Entity
+  id: Elona.ItemPaintingOfSunflower
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 538
+
+- type: Entity
+  id: Elona.ItemStatueOfCat
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 539
+
+- type: Entity
+  id: Elona.ItemBlackCrystal
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 540
+
+- type: Entity
+  id: Elona.ItemSnowMan
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 541
+
+- type: Entity
+  id: Elona.ItemModernRack
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 580
+
+- type: Entity
+  id: Elona.ItemCandle
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 584
+
+- type: Entity
+  id: Elona.ItemFancyLamp
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 585
+
+- type: Entity
+  id: Elona.ItemModernLampA
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 586
+
+- type: Entity
+  id: Elona.ItemMiniSnowMan
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 591
+
+- type: Entity
+  id: Elona.ItemSnowBarrel
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 592
+
+- type: Entity
+  id: Elona.ItemModernLampB
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 593
+
+- type: Entity
+  id: Elona.ItemStatueOfHolyCross
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 594
+
+- type: Entity
+  id: Elona.ItemPillar
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 595
+
+- type: Entity
+  id: Elona.ItemStainedGlassWindow
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 596
+
+- type: Entity
+  id: Elona.ItemPresidentsChair
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 603
+
+- type: Entity
+  id: Elona.ItemGreenPlant
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 604
+
+- type: Entity
+  id: Elona.ItemMoneyTree
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 605
+
+- type: Entity
+  id: Elona.ItemGiantCactus
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 607
+
+- type: Entity
+  id: Elona.ItemSquareWindow
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 608
+
+- type: Entity
+  id: Elona.ItemWindow
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 609
+
+- type: Entity
+  id: Elona.ItemTrianglePlant
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 610
+
+- type: Entity
+  id: Elona.ItemNiceWindow
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 612
+
+- type: Entity
+  id: Elona.ItemFlowerArch
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 614
+
+- type: Entity
+  id: Elona.ItemShrineGate
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 625
+
+- type: Entity
+  id: Elona.ItemMoonGate
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 631
+
+- type: Entity
+  id: Elona.ItemRiceBarrel
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 642
+
+- type: Entity
+  id: Elona.ItemDecoratedWindow
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 644
+
+- type: Entity
+  id: Elona.ItemKingDrawer
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 645
+
+- type: Entity
+  id: Elona.ItemMenuBoard
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 646
+
+- type: Entity
+  id: Elona.ItemBlackBoard
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 647
+
+- type: Entity
+  id: Elona.ItemSofa
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 648
+
+- type: Entity
+  id: Elona.ItemFlowerbed
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 649
+
+- type: Entity
+  id: Elona.ItemCraftCupboard
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 651
+
+- type: Entity
+  id: Elona.ItemSink
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 652
+
+- type: Entity
+  id: Elona.ItemJunk
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 653
+
+- type: Entity
+  id: Elona.ItemEasternLamp
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 656
+
+- type: Entity
+  id: Elona.ItemEasternWindow
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 657
+
+- type: Entity
+  id: Elona.ItemChochin
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 658
+
+- type: Entity
+  id: Elona.ItemPartition
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 659
+
+- type: Entity
+  id: Elona.ItemEasternPartition
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 694
+
+- type: Entity
+  id: Elona.ItemGift
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 729
+
+- type: Entity
+  id: Elona.ItemUpstairs
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 750
+
+- type: Entity
+  id: Elona.ItemDownstairs
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 751
+
+- type: Entity
+  id: Elona.ItemKotatsu
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 753
+
+- type: Entity
+  id: Elona.ItemDaruma
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 754
+
+- type: Entity
+  id: Elona.ItemFestivalWreath
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 762
+
+- type: Entity
+  id: Elona.ItemPedestal
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 763
+
+- type: Entity
+  id: Elona.ItemCounter
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 764
+
+- type: Entity
+  id: Elona.ItemRedStall
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 765
+
+- type: Entity
+  id: Elona.ItemBlueStall
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 766
+
+- type: Entity
+  id: Elona.ItemNewYearsDecoration
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 768
+
+- type: Entity
+  id: Elona.ItemMiniatureTree
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 769
+
+- type: Entity
+  id: Elona.ItemLargeBookshelf
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 773
+
+- type: Entity
+  id: Elona.ItemLuxuryCabinet
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 774
+
+- type: Entity
+  id: Elona.ItemLuxurySofa
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 778
+
+- type: Entity
+  id: Elona.ItemDeerHead
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 779
+
+- type: Entity
+  id: Elona.ItemFurCarpet
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 780
+
+- type: Entity
+  id: Elona.ItemDish
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 782
+
+- type: Entity
+  id: Elona.ItemWell
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 109
+
+- type: Entity
+  id: Elona.ItemFountain
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 173
+
+- type: Entity
+  id: Elona.ItemHolyWell
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 602
+
+- type: Entity
+  id: Elona.ItemToilet
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 650
+
+- type: Entity
+  id: Elona.ItemAltar
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 171
+
+- type: Entity
+  id: Elona.ItemCeremonyAltar
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 172
+
+- type: Entity
+  id: Elona.ItemOven
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 112
+
+- type: Entity
+  id: Elona.ItemFoodMaker
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 142
+
+- type: Entity
+  id: Elona.ItemKitchen
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 153
+
+- type: Entity
+  id: Elona.ItemWashstand
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 154
+
+- type: Entity
+  id: Elona.ItemKitchenOven
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 155
+
+- type: Entity
+  id: Elona.ItemFoodProcessor
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 306
+
+- type: Entity
+  id: Elona.ItemBarbecueSet
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 606
+
+- type: Entity
+  id: Elona.ItemBoringBed
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 80
+
+- type: Entity
+  id: Elona.ItemBunkBed
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 174
+
+- type: Entity
+  id: Elona.ItemLuxuryBed
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 297
+
+- type: Entity
+  id: Elona.ItemGiantBed
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 303
+
+- type: Entity
+  id: Elona.ItemPlainBed
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 304
+
+- type: Entity
+  id: Elona.ItemCoffin
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 305
+
+- type: Entity
+  id: Elona.ItemSoftBed
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 307
+
+- type: Entity
+  id: Elona.ItemCleanBed
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 310
+
+- type: Entity
+  id: Elona.ItemCheapBed
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 319
+
+- type: Entity
+  id: Elona.ItemComfortableBed
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 325
+
+- type: Entity
+  id: Elona.ItemSleepingBag
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 428
+
+- type: Entity
+  id: Elona.ItemKingsBed
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 613
+
+- type: Entity
+  id: Elona.ItemEasternBed
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 643
+
+- type: Entity
+  id: Elona.ItemDoubleBed
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 654
+
+- type: Entity
+  id: Elona.ItemHappyBed
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 720
+
+- type: Entity
+  id: Elona.ItemJuresBodyPillow
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 767
+
+- type: Entity
+  id: Elona.ItemGrandPiano
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 88
+
+- type: Entity
+  id: Elona.ItemHorn
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 254
+
+- type: Entity
+  id: Elona.ItemPanFlute
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 690
+
+- type: Entity
+  id: Elona.ItemLute
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 691
+
+- type: Entity
+  id: Elona.ItemHarmonica
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 692
+
+- type: Entity
+  id: Elona.ItemHarp
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 693
+
+- type: Entity
+  id: Elona.ItemStradivarius
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 707
+
+- type: Entity
+  id: Elona.ItemGouldsPiano
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 761
+
+- type: Entity
+  id: Elona.ItemBonfire
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 48
+
+- type: Entity
+  id: Elona.ItemFlag
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 49
+
+- type: Entity
+  id: Elona.ItemSkeleton
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 52
+
+- type: Entity
+  id: Elona.ItemTombstone
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 53
+
+- type: Entity
+  id: Elona.ItemBasket
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 216
+
+- type: Entity
+  id: Elona.ItemEmptyBowl
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 217
+
+- type: Entity
+  id: Elona.ItemBowl
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 218
+
+- type: Entity
+  id: Elona.ItemStraw
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 221
+
+- type: Entity
+  id: Elona.ItemFireWood
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 273
+
+- type: Entity
+  id: Elona.ItemScarecrow
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 274
+
+- type: Entity
+  id: Elona.ItemBroom
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 275
+
+- type: Entity
+  id: Elona.ItemLargeBouquet
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 301
+
+- type: Entity
+  id: Elona.ItemStump
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 330
+
+- type: Entity
+  id: Elona.ItemShit
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 575
+
+- type: Entity
+  id: Elona.ItemSnowScarecrow
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 590
+
+- type: Entity
+  id: Elona.ItemBrokenVase
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 46
+
+- type: Entity
+  id: Elona.ItemBrokenSword
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 50
+
+- type: Entity
+  id: Elona.ItemBoneFragment
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 51
+
+- type: Entity
+  id: Elona.ItemOrePiece
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 214
+
+- type: Entity
+  id: Elona.ItemAnimalBone
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 222
+
+- type: Entity
+  id: Elona.ItemWashing
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 47
+
+- type: Entity
+  id: Elona.ItemLotOfEmptyBottles
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 215
+
+- type: Entity
+  id: Elona.ItemBait
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 617
+
+- type: Entity
+  id: Elona.ItemMonsterHeart
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 663
+
+- type: Entity
+  id: Elona.ItemEarthCrystal
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 35
+
+- type: Entity
+  id: Elona.ItemManaCrystal
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 36
+
+- type: Entity
+  id: Elona.ItemSunCrystal
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 37
+
+- type: Entity
+  id: Elona.ItemGoldBar
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 38
+
+- type: Entity
+  id: Elona.ItemWorthlessFakeGoldBar
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 208
+
+- type: Entity
+  id: Elona.ItemRawOreOfRubynus
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 39
+
+- type: Entity
+  id: Elona.ItemRawOreOfMica
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 40
+
+- type: Entity
+  id: Elona.ItemRawOreOfEmerald
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 41
+
+- type: Entity
+  id: Elona.ItemRawOreOfDiamond
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 42
+
+- type: Entity
+  id: Elona.ItemJunkStone
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 44
+
+- type: Entity
+  id: Elona.ItemBottleOfDirtyWater
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 26
+
+- type: Entity
+  id: Elona.ItemPotionOfBlindness
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 27
+
+- type: Entity
+  id: Elona.ItemPotionOfConfusion
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 28
+
+- type: Entity
+  id: Elona.ItemPotionOfParalysis
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 29
+
+- type: Entity
+  id: Elona.ItemSleepingDrug
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 30
+
+- type: Entity
+  id: Elona.ItemPoison
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 262
+
+- type: Entity
+  id: Elona.ItemPotionOfPotential
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 287
+
+- type: Entity
+  id: Elona.ItemPotionOfDefender
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 364
+
+- type: Entity
+  id: Elona.ItemPotionOfSilence
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 368
+
+- type: Entity
+  id: Elona.ItemPotionOfTrollBlood
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 370
+
+- type: Entity
+  id: Elona.ItemPotionOfResistance
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 372
+
+- type: Entity
+  id: Elona.ItemPotionOfSpeed
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 375
+
+- type: Entity
+  id: Elona.ItemPotionOfSlow
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 376
+
+- type: Entity
+  id: Elona.ItemPotionOfHero
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 379
+
+- type: Entity
+  id: Elona.ItemPotionOfWeakness
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 382
+
+- type: Entity
+  id: Elona.ItemBottleOfSulfuric
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 392
+
+- type: Entity
+  id: Elona.ItemPotionOfWeakenResistance
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 429
+
+- type: Entity
+  id: Elona.ItemPotionOfMutation
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 432
+
+- type: Entity
+  id: Elona.ItemPotionOfCureMutation
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 433
+
+- type: Entity
+  id: Elona.ItemBottleOfWater
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 516
+
+- type: Entity
+  id: Elona.ItemBottleOfDye
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 519
+
+- type: Entity
+  id: Elona.ItemPotionOfCureCorruption
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 559
+
+- type: Entity
+  id: Elona.ItemAcidproofLiquid
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 566
+
+- type: Entity
+  id: Elona.ItemBottleOfMilk
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 574
+
+- type: Entity
+  id: Elona.ItemMolotov
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 577
+
+- type: Entity
+  id: Elona.ItemHandfulOfSnow
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 587
+
+- type: Entity
+  id: Elona.ItemLovePotion
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 620
+
+- type: Entity
+  id: Elona.ItemBottleOfHermesBlood
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 626
+
+- type: Entity
+  id: Elona.ItemPotionOfSaltSolution
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 698
+
+- type: Entity
+  id: Elona.ItemVomit
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 704
+
+- type: Entity
+  id: Elona.ItemPotionOfDescent
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 706
+
+- type: Entity
+  id: Elona.ItemPotionOfEvolution
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 711
+
+- type: Entity
+  id: Elona.ItemFireproofLiquid
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 736
+
+- type: Entity
+  id: Elona.ItemBottleOfSoda
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 770
+
+- type: Entity
+  id: Elona.ItemBlueCapsuleDrug
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 771
+
+- type: Entity
+  id: Elona.ItemPotionOfCureMinorWound
+  parent: BasePotion
+  hspOrigin: elona122
+  hspIds:
+    elona122: 68
+  components:
+  - type: MetaData
+    displayName: potion of cure minor wound
+  - type: Chip
+    color: green
+  - type: Drinkable
+    effect: !type:HealingEffect {}
+
+- type: Entity
+  id: Elona.ItemPotionOfCureMajorWound
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 69
+
+- type: Entity
+  id: Elona.ItemPotionOfCureCriticalWound
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 70
+
+- type: Entity
+  id: Elona.ItemPotionOfHealing
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 71
+
+- type: Entity
+  id: Elona.ItemPotionOfHealer
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 72
+
+- type: Entity
+  id: Elona.ItemPotionOfHealerOdina
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 74
+
+- type: Entity
+  id: Elona.ItemPotionOfHealerEris
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 75
+
+- type: Entity
+  id: Elona.ItemPotionOfHealerJure
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 76
+
+- type: Entity
+  id: Elona.ItemPotionOfRestoreBody
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 285
+
+- type: Entity
+  id: Elona.ItemPotionOfRestoreSpirit
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 286
+
+- type: Entity
+  id: Elona.ItemBottleOfCrimAle
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 31
+
+- type: Entity
+  id: Elona.ItemBottleOfWhisky
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 205
+
+- type: Entity
+  id: Elona.ItemBottleOfBeer
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 253
+
+- type: Entity
+  id: Elona.ItemEmptyBottle
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 601
+
+- type: Entity
+  id: Elona.ItemRemainsSkin
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 337
+
+- type: Entity
+  id: Elona.ItemRemainsBlood
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 338
+
+- type: Entity
+  id: Elona.ItemRemainsEye
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 339
+
+- type: Entity
+  id: Elona.ItemRemainsHeart
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 340
+
+- type: Entity
+  id: Elona.ItemRemainsBone
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 341
+
+- type: Entity
+  id: Elona.ItemFigurine
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 503
+
+- type: Entity
+  id: Elona.ItemCard
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 504
+
+- type: Entity
+  id: Elona.ItemRodOfIdentify
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 18
+
+- type: Entity
+  id: Elona.ItemRodOfTeleportation
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 19
+
+- type: Entity
+  id: Elona.ItemRodOfCureMinorWound
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 119
+
+- type: Entity
+  id: Elona.ItemRodOfMagicMissile
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 120
+
+- type: Entity
+  id: Elona.ItemRodOfSummonMonsters
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 121
+
+- type: Entity
+  id: Elona.ItemRodOfIceBolt
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 122
+
+- type: Entity
+  id: Elona.ItemRodOfFireBolt
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 123
+
+- type: Entity
+  id: Elona.ItemRodOfHeal
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 125
+
+- type: Entity
+  id: Elona.ItemRodOfLightningBolt
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 175
+
+- type: Entity
+  id: Elona.ItemRodOfSlow
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 176
+
+- type: Entity
+  id: Elona.ItemRodOfMagicMapping
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 202
+
+- type: Entity
+  id: Elona.ItemRodOfCure
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 203
+
+- type: Entity
+  id: Elona.ItemRodOfWishing
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 290
+
+- type: Entity
+  id: Elona.ItemRodOfSilence
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 366
+
+- type: Entity
+  id: Elona.ItemRodOfSpeed
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 377
+
+- type: Entity
+  id: Elona.ItemRodOfHolyLight
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 385
+
+- type: Entity
+  id: Elona.ItemRodOfMana
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 391
+
+- type: Entity
+  id: Elona.ItemRodOfUncurse
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 412
+
+- type: Entity
+  id: Elona.ItemRodOfDomination
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 480
+
+- type: Entity
+  id: Elona.ItemRodOfWeb
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 485
+
+- type: Entity
+  id: Elona.ItemRodOfChangeCreature
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 517
+
+- type: Entity
+  id: Elona.ItemRodOfAlchemy
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 518
+
+- type: Entity
+  id: Elona.ItemRodOfWallCreation
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 545
+
+- type: Entity
+  id: Elona.ItemRodOfHealingHands
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 551
+
+- type: Entity
+  id: Elona.ItemRodOfAcidGround
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 565
+
+- type: Entity
+  id: Elona.ItemRodOfFireWall
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 570
+
+- type: Entity
+  id: Elona.ItemRodOfMakeDoor
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 581
+
+- type: Entity
+  id: Elona.ItemScrollOfIdentify
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 14
+
+- type: Entity
+  id: Elona.ItemScrollOfOracle
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 15
+
+- type: Entity
+  id: Elona.ItemScrollOfTeleportation
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 16
+
+- type: Entity
+  id: Elona.ItemScrollOfIncognito
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 17
+
+- type: Entity
+  id: Elona.ItemScrollOfUncurse
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 209
+
+- type: Entity
+  id: Elona.ItemScrollOfReturn
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 236
+
+- type: Entity
+  id: Elona.ItemScrollOfMagicalMap
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 242
+
+- type: Entity
+  id: Elona.ItemScrollOfGainAttribute
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 243
+
+- type: Entity
+  id: Elona.ItemScrollOfWonder
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 244
+
+- type: Entity
+  id: Elona.ItemScrollOfMinorTeleportation
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 245
+
+- type: Entity
+  id: Elona.ItemScrollOfCurse
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 288
+
+- type: Entity
+  id: Elona.ItemScrollOfGreaterIdentify
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 362
+
+- type: Entity
+  id: Elona.ItemScrollOfVanishCurse
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 363
+
+- type: Entity
+  id: Elona.ItemScrollOfHolyVeil
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 384
+
+- type: Entity
+  id: Elona.ItemScrollOfHolyLight
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 388
+
+- type: Entity
+  id: Elona.ItemScrollOfHolyRain
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 389
+
+- type: Entity
+  id: Elona.ItemScrollOfMana
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 390
+
+- type: Entity
+  id: Elona.ItemScrollOfGainMaterial
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 395
+
+- type: Entity
+  id: Elona.ItemScrollOfKnowledge
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 398
+
+- type: Entity
+  id: Elona.ItemScrollOfDetectObjects
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 411
+
+- type: Entity
+  id: Elona.ItemScrollOfGrowth
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 430
+
+- type: Entity
+  id: Elona.ItemScrollOfFaith
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 431
+
+- type: Entity
+  id: Elona.ItemScrollOfAlly
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 479
+
+- type: Entity
+  id: Elona.ItemScrollOfInferiorMaterial
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 500
+
+- type: Entity
+  id: Elona.ItemScrollOfChangeMaterial
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 501
+
+- type: Entity
+  id: Elona.ItemScrollOfSuperiorMaterial
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 502
+
+- type: Entity
+  id: Elona.ItemScrollOfEnchantWeapon
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 506
+
+- type: Entity
+  id: Elona.ItemScrollOfGreaterEnchantWeapon
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 507
+
+- type: Entity
+  id: Elona.ItemScrollOfEnchantArmor
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 508
+
+- type: Entity
+  id: Elona.ItemScrollOfGreaterEnchantArmor
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 509
+
+- type: Entity
+  id: Elona.ItemScrollOfRecharge
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 515
+
+- type: Entity
+  id: Elona.ItemScrollOfHealingRain
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 549
+
+- type: Entity
+  id: Elona.ItemFlyingScroll
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 632
+
+- type: Entity
+  id: Elona.ItemScrollOfEscape
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 638
+
+- type: Entity
+  id: Elona.ItemBookOfResurrection
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 708
+
+- type: Entity
+  id: Elona.ItemScrollOfContingency
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 709
+
+- type: Entity
+  id: Elona.ItemScrollOfName
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 737
+
+- type: Entity
+  id: Elona.ItemLittleSistersDiary
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 505
+
+- type: Entity
+  id: Elona.ItemCatSistersDiary
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 623
+
+- type: Entity
+  id: Elona.ItemGirlsDiary
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 624
+
+- type: Entity
+  id: Elona.ItemDeed
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 344
+
+- type: Entity
+  id: Elona.ItemDeedOfMuseum
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 521
+
+- type: Entity
+  id: Elona.ItemDeedOfShop
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 522
+
+- type: Entity
+  id: Elona.ItemDeedOfFarm
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 542
+
+- type: Entity
+  id: Elona.ItemDeedOfStorageHouse
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 543
+
+- type: Entity
+  id: Elona.ItemDeedOfRanch
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 572
+
+- type: Entity
+  id: Elona.ItemDeedOfDungeon
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 712
+
+- type: Entity
+  id: Elona.ItemDeedOfHeirship
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 511
+
+- type: Entity
+  id: Elona.ItemBill
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 615
+
+- type: Entity
+  id: Elona.ItemTreasureMap
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 621
+
+- type: Entity
+  id: Elona.ItemLicenseOfTheVoidExplorer
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 742
+
+- type: Entity
+  id: Elona.ItemSpellbookOfTeleportation
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 20
+
+- type: Entity
+  id: Elona.ItemSpellbookOfIdentify
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 21
+
+- type: Entity
+  id: Elona.ItemSpellbookOfUncurse
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 22
+
+- type: Entity
+  id: Elona.ItemSpellbookOfIceBolt
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 32
+
+- type: Entity
+  id: Elona.ItemSpellbookOfFireBolt
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 33
+
+- type: Entity
+  id: Elona.ItemSpellbookOfLightningBolt
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 34
+
+- type: Entity
+  id: Elona.ItemSpellbookOfMinorTeleportation
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 116
+
+- type: Entity
+  id: Elona.ItemSpellbookOfSummonMonsters
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 118
+
+- type: Entity
+  id: Elona.ItemSpellbookOfMagicMapping
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 246
+
+- type: Entity
+  id: Elona.ItemSpellbookOfOracle
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 247
+
+- type: Entity
+  id: Elona.ItemSpellbookOfReturn
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 248
+
+- type: Entity
+  id: Elona.ItemSpellbookOfCureMinorWound
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 249
+
+- type: Entity
+  id: Elona.ItemSpellbookOfCureCriticalWound
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 250
+
+- type: Entity
+  id: Elona.ItemSpellbookOfCureEris
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 251
+
+- type: Entity
+  id: Elona.ItemSpellbookOfCureJure
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 252
+
+- type: Entity
+  id: Elona.ItemSpellbookOfMagicArrow
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 257
+
+- type: Entity
+  id: Elona.ItemSpellbookOfNetherEye
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 263
+
+- type: Entity
+  id: Elona.ItemSpellbookOfChaosEye
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 264
+
+- type: Entity
+  id: Elona.ItemSpellbookOfNerveEye
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 265
+
+- type: Entity
+  id: Elona.ItemSpellbookOfDarknessBeam
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 267
+
+- type: Entity
+  id: Elona.ItemSpellbookOfIllusionBeam
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 268
+
+- type: Entity
+  id: Elona.ItemSpellbookOfIceBall
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 269
+
+- type: Entity
+  id: Elona.ItemSpellbookOfFireBall
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 270
+
+- type: Entity
+  id: Elona.ItemSpellbookOfSoundBall
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 271
+
+- type: Entity
+  id: Elona.ItemSpellbookOfChaosBall
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 272
+
+- type: Entity
+  id: Elona.ItemSpellbookOfWishing
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 289
+
+- type: Entity
+  id: Elona.ItemSpellbookOfHolyShield
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 365
+
+- type: Entity
+  id: Elona.ItemSpellbookOfSilence
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 367
+
+- type: Entity
+  id: Elona.ItemSpellbookOfRegeneration
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 369
+
+- type: Entity
+  id: Elona.ItemSpellbookOfResistance
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 371
+
+- type: Entity
+  id: Elona.ItemSpellbookOfSpeed
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 373
+
+- type: Entity
+  id: Elona.ItemSpellbookOfSlow
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 374
+
+- type: Entity
+  id: Elona.ItemSpellbookOfHero
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 378
+
+- type: Entity
+  id: Elona.ItemSpellbookOfWeakness
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 380
+
+- type: Entity
+  id: Elona.ItemSpellbookOfElementalScar
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 381
+
+- type: Entity
+  id: Elona.ItemSpellbookOfHolyVeil
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 383
+
+- type: Entity
+  id: Elona.ItemSpellbookOfHolyLight
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 386
+
+- type: Entity
+  id: Elona.ItemSpellbookOfHolyRain
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 387
+
+- type: Entity
+  id: Elona.ItemSpellbookOfNightmare
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 396
+
+- type: Entity
+  id: Elona.ItemSpellbookOfKnowledge
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 397
+
+- type: Entity
+  id: Elona.ItemSpellbookOfDetectObjects
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 410
+
+- type: Entity
+  id: Elona.ItemSpellbookOfMutation
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 434
+
+- type: Entity
+  id: Elona.ItemSpellbookOfDomination
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 481
+
+- type: Entity
+  id: Elona.ItemSpellbookOfWeb
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 484
+
+- type: Entity
+  id: Elona.ItemSpellbookOfWallCreation
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 546
+
+- type: Entity
+  id: Elona.ItemSpellbookOfHealingRain
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 548
+
+- type: Entity
+  id: Elona.ItemSpellbookOfHealingHands
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 550
+
+- type: Entity
+  id: Elona.ItemSpellbookOfAcidGround
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 564
+
+- type: Entity
+  id: Elona.ItemSpellbookOfFireWall
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 569
+
+- type: Entity
+  id: Elona.ItemSpellbookOfMakeDoor
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 582
+
+- type: Entity
+  id: Elona.ItemSpellbookOfIncognito
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 628
+
+- type: Entity
+  id: Elona.ItemSpellbookOfDarknessArrow
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 660
+
+- type: Entity
+  id: Elona.ItemAncientBook
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 687
+
+- type: Entity
+  id: Elona.ItemSpellbookOfMagicBall
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 696
+
+- type: Entity
+  id: Elona.ItemSpellbookOfMagicLaser
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 697
+
+- type: Entity
+  id: Elona.ItemSpellbookOfContingency
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 710
+
+- type: Entity
+  id: Elona.ItemSpellbookOf4DimensionalPocket
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 731
+
+- type: Entity
+  id: Elona.ItemSpellbookOfHarvest
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 732
+
+- type: Entity
+  id: Elona.ItemRecipe
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 783
+
+- type: Entity
+  id: Elona.ItemAlchemyKit
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 127
+
+- type: Entity
+  id: Elona.ItemSewingKit
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 160
+
+- type: Entity
+  id: Elona.ItemCarpentersTool
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 161
+
+- type: Entity
+  id: Elona.ItemTightRope
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 219
+
+- type: Entity
+  id: Elona.ItemPot
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 223
+
+- type: Entity
+  id: Elona.ItemCampfire
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 255
+
+- type: Entity
+  id: Elona.ItemPortableCookingTool
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 256
+
+- type: Entity
+  id: Elona.ItemFishingPole
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 342
+
+- type: Entity
+  id: Elona.ItemGemCutter
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 393
+
+- type: Entity
+  id: Elona.ItemStethoscope
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 478
+
+- type: Entity
+  id: Elona.ItemDisc
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 544
+
+- type: Entity
+  id: Elona.ItemShelter
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 555
+
+- type: Entity
+  id: Elona.ItemRegister
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 562
+
+- type: Entity
+  id: Elona.ItemFireproofBlanket
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 567
+
+- type: Entity
+  id: Elona.ItemColdproofBlanket
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 568
+
+- type: Entity
+  id: Elona.ItemPlaybackDisc
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 576
+
+- type: Entity
+  id: Elona.ItemKittyBank
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 578
+
+- type: Entity
+  id: Elona.ItemTorch
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 583
+
+- type: Entity
+  id: Elona.ItemHouseBoard
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 611
+
+- type: Entity
+  id: Elona.ItemDisguiseSet
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 629
+
+- type: Entity
+  id: Elona.ItemMaterialKit
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 630
+
+- type: Entity
+  id: Elona.ItemLeash
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 634
+
+- type: Entity
+  id: Elona.ItemMine
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 635
+
+- type: Entity
+  id: Elona.ItemLockpick
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 636
+
+- type: Entity
+  id: Elona.ItemSkeletonKey
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 637
+
+- type: Entity
+  id: Elona.ItemUnicornHorn
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 640
+
+- type: Entity
+  id: Elona.ItemStatueOfOpatos
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 665
+
+- type: Entity
+  id: Elona.ItemStatueOfLulwy
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 666
+
+- type: Entity
+  id: Elona.ItemNuclearBomb
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 671
+
+- type: Entity
+  id: Elona.ItemSecretTreasure
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 672
+
+- type: Entity
+  id: Elona.ItemLulwysGemStoneOfGodSpeed
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 680
+
+- type: Entity
+  id: Elona.ItemJuresGemStoneOfHolyRain
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 681
+
+- type: Entity
+  id: Elona.ItemKumiromisGemStoneOfRejuvenation
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 682
+
+- type: Entity
+  id: Elona.ItemGemStoneOfMani
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 683
+
+- type: Entity
+  id: Elona.ItemGeneMachine
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 684
+
+- type: Entity
+  id: Elona.ItemMonsterBall
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 685
+
+- type: Entity
+  id: Elona.ItemStatueOfJure
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 686
+
+- type: Entity
+  id: Elona.ItemIronMaiden
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 688
+
+- type: Entity
+  id: Elona.ItemGuillotine
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 689
+
+- type: Entity
+  id: Elona.ItemLittleBall
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 699
+
+- type: Entity
+  id: Elona.ItemDeck
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 701
+
+- type: Entity
+  id: Elona.ItemWhistle
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 703
+
+- type: Entity
+  id: Elona.ItemSecretExperienceOfKumiromi
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 715
+
+- type: Entity
+  id: Elona.ItemSecretExperienceOfLomias
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 717
+
+- type: Entity
+  id: Elona.ItemStatueOfEhekatl
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 721
+
+- type: Entity
+  id: Elona.ItemSandBag
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 733
+
+- type: Entity
+  id: Elona.ItemPlankOfCarneades
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 743
+
+- type: Entity
+  id: Elona.ItemSchrodingersCat
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 744
+
+- type: Entity
+  id: Elona.ItemHeart
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 745
+
+- type: Entity
+  id: Elona.ItemTamersWhip
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 746
+
+- type: Entity
+  id: Elona.ItemSummoningCrystal
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 748
+
+- type: Entity
+  id: Elona.ItemStatueOfCreator
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 749
+
+- type: Entity
+  id: Elona.ItemGaroksHammer
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 760
+
+- type: Entity
+  id: Elona.ItemStatueOfKumiromi
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 776
+
+- type: Entity
+  id: Elona.ItemStatueOfMani
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 777
+
+- type: Entity
+  id: Elona.ItemPotForTesting
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 789
+
+- type: Entity
+  id: Elona.ItemFryingPanForTesting
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 790
+
+- type: Entity
+  id: Elona.ItemTreeOfBeech
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 523
+
+- type: Entity
+  id: Elona.ItemTreeOfCedar
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 524
+
+- type: Entity
+  id: Elona.ItemTreeOfFruitless
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 525
+
+- type: Entity
+  id: Elona.ItemTreeOfFruits
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 526
+
+- type: Entity
+  id: Elona.ItemDeadTree
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 527
+
+- type: Entity
+  id: Elona.ItemTreeOfZelkova
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 528
+
+- type: Entity
+  id: Elona.ItemTreeOfPalm
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 529
+
+- type: Entity
+  id: Elona.ItemTreeOfAsh
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 530
+
+- type: Entity
+  id: Elona.ItemTreeOfNaked
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 588
+
+- type: Entity
+  id: Elona.ItemTreeOfFir
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 589
+
+- type: Entity
+  id: Elona.ItemChristmasTree
+  parent: BaseItem
+  hspOrigin: elona122
+  hspIds:
+    elona122: 599

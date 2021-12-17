@@ -1,0 +1,6 @@
+- type: Tile
+  id: Empty
+  image:
+    filepath: /Core/Graphic/Tile/Default.png
+  isSolid: false
+  isOpaque: false

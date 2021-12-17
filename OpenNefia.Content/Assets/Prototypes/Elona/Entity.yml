@@ -1,0 +1,10 @@
+- type: Entity
+  id: PotionOfTest
+  parent: BasePotion
+  components:
+  - type: MetaData
+    displayName: potion of test
+  - type: Chip
+    color: yellow
+  - type: Drinkable
+    effect: !type:TestEffect {}
