@@ -2,7 +2,7 @@
   "profiles": {
     "HspMap": {
       "commandName": "Project",
-      "commandLineArgs": "convertHspMap C:\\Users\\yuno\\build\\OpenNefia.NET2\\OpenNefia.Content\\Assets\\Elona\\Map\\sqNightmare.map out/ --mapAuthor Noa"
+      "commandLineArgs": "convertHspMap C:\\Users\\yuno\\build\\OpenNefia.NET2\\OpenNefia.Content\\Assets\\Elona\\Map\\ntyris.map out/ --mapAuthor Noa"
     },
     "OpenNefia": {
       "commandName": "Project"

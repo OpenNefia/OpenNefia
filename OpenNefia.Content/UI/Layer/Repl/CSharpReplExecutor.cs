@@ -72,6 +72,7 @@ namespace OpenNefia.Content.UI.Layer.Repl
                     "OpenNefia.Core.UI",
                     "OpenNefia.Core.IoC",
                     "OpenNefia.Core.Game",
+                    "OpenNefia.Core.Maps",
                     "OpenNefia.Content.GameObjects",
                     "OpenNefia.Content.UI",
                     "OpenNefia.Content.Logic",

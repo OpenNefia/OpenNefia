@@ -68,6 +68,7 @@ namespace OpenNefia.Core.CommandLine
             {
                 var cmd = (ICommand)obj;
                 cmd = IoCManager.InjectDependencies(cmd);
+                cmd.Execute();
             });
             result = result.WithNotParsed(errors => DisplayUsage(result, errors));
         }

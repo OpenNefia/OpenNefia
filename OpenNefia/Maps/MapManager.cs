@@ -13,6 +13,8 @@ namespace OpenNefia.Core.Maps
         private protected readonly Dictionary<MapId, IMap> _maps = new();
         private protected readonly Dictionary<MapId, EntityUid> _mapEntities = new();
 
+        public event Action<IMap>? ActiveMapChanged;
+
         public IMap? ActiveMap { get; private set; } = default!;
 
         private MapId _highestMapID = MapId.Nullspace;
@@ -235,10 +237,14 @@ namespace OpenNefia.Core.Maps
             return _entityManager.TryGetEntity(mapEntityUid, out mapEntity);
         }
 
-        public void ChangeActiveMap(MapId mapId)
+        public void SetActiveMap(MapId mapId)
         {
-            this.ActiveMap = _maps[mapId];
-            _highestMapID = mapId;
+            if (mapId == ActiveMap?.Id)
+                return;
+
+            var map = _maps[mapId];
+            this.ActiveMap = map;
+            ActiveMapChanged?.Invoke(map);
         }
 
         public bool IsMapInitialized(MapId mapId)

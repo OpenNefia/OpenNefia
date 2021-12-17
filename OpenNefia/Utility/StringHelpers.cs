@@ -54,9 +54,9 @@ namespace OpenNefia.Core.Utility
         /// <summary>
         /// Gets the CJK width of this character.
         /// </summary>
-        /// <param name="c"></param>
+        /// <param name="rune"></param>
         /// <returns></returns>
-        public static int GetWideWidth(this char c) => UnicodeWidth.GetWidth(c);
+        public static int GetWideWidth(this Rune rune) => UnicodeWidth.GetWidth(rune);
 
         /// <summary>
         /// Like <see cref="string.Substring(int, int)"/>, but operating on CJK width instead of character count.
@@ -96,7 +96,7 @@ namespace OpenNefia.Core.Utility
                 if (pos >= str.Length)
                     break;
 
-                len = str[pos].GetWideWidth();
+                len = Rune.GetRuneAt(str, pos).GetWideWidth();
                 i -= len;
 
                 if (innerLength + len > length)

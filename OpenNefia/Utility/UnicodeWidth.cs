@@ -60,6 +60,7 @@
  */
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace OpenNefia.Core.Utility
 {
@@ -79,7 +80,7 @@ namespace OpenNefia.Core.Utility
         };
 
         /* auxiliary function for binary search in interval table */
-        static bool BinarySearch(char ucs, Interval[] table)
+        static bool BinarySearch(int ucs, Interval[] table)
         {
             int min = 0;
             int max = table.Length - 1;
@@ -185,8 +186,9 @@ namespace OpenNefia.Core.Utility
             * in ISO 10646.
             */
 
-        public static int GetWidth(char character)
+        public static int GetWidth(Rune rune)
         {
+            var character = rune.Value;
 
             /* test for 8-bit control characters */
             if (character == 0)
@@ -219,9 +221,9 @@ namespace OpenNefia.Core.Utility
         {
             var w = 0;
             int width = 0;
-            for (int i = 0; i < text.Length; i++)
+            foreach (var rune in text.EnumerateRunes())
             {
-                w = GetWidth(text[i]);
+                w = GetWidth(rune);
                 if (w < 0)
                 {
                     return -1;
@@ -296,11 +298,11 @@ namespace OpenNefia.Core.Utility
             * the traditional terminal character-width behaviour. It is not
             * otherwise recommended for general use.
             */
-        public static int GetWidthCJK(char charactor)
+        public static int GetWidthCJK(Rune charactor)
         {
             /* binary search in table of non-spacing characters */
-            if (BinarySearch(charactor, ambiguous))
-                return 2;
+            if (BinarySearch(charactor.Value, ambiguous))
+                return 1;
 
             return GetWidth(charactor);
         }
@@ -309,9 +311,9 @@ namespace OpenNefia.Core.Utility
         {
             var w = 0;
             int width = 0;
-            for (int i = 0; i < text.Length; i++)
+            foreach (var rune in text.EnumerateRunes())
             {
-                w = GetWidthCJK(text[i]);
+                w = GetWidthCJK(rune);
                 if (w < 0)
                 {
                     return -1;

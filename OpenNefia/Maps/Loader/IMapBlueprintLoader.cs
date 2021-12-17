@@ -8,7 +8,7 @@ namespace OpenNefia.Core.Maps
     /// </summary>
     public interface IMapBlueprintLoader
     {
-        IMap LoadBlueprint(MapId mapId, ResourcePath filepath);
-        void SaveBlueprint(MapId mapId, ResourcePath filepath);
+        IMap LoadBlueprint(MapId? mapId, ResourcePath filepath);
+        void SaveBlueprint(MapId? mapId, ResourcePath filepath);
     }
 }

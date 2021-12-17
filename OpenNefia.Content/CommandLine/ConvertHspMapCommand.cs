@@ -7,6 +7,7 @@ using OpenNefia.Core.Maps;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Reflection;
+using OpenNefia.Core.Serialization;
 using OpenNefia.Core.Serialization.Manager;
 using OpenNefia.Core.Serialization.Markdown;
 using OpenNefia.Core.Serialization.Markdown.Mapping;
@@ -14,6 +15,7 @@ using OpenNefia.Core.Serialization.Markdown.Value;
 using OpenNefia.Core.Utility;
 using System.Diagnostics.CodeAnalysis;
 using System.IO.Compression;
+using YamlDotNet.Core;
 using YamlDotNet.RepresentationModel;
 using static OpenNefia.Core.Prototypes.EntityPrototype;
 
@@ -410,6 +412,7 @@ namespace OpenNefia.Content.CommandLine
             }
 
             var meta = new YamlMappingNode();
+            meta.Add(MapBlueprintLoader.Keys.Meta_Format, "1");
             meta.Add(MapBlueprintLoader.Keys.Meta_Name, MapName);
             meta.Add(MapBlueprintLoader.Keys.Meta_Author, MapAuthor);
 
@@ -441,13 +444,29 @@ namespace OpenNefia.Content.CommandLine
             var entities = ReadHspMapObj(objFilePath, idx);
             var meta = BuildMapMetadata();
 
-            var yaml = new YamlMappingNode();
-            yaml.Add(MapBlueprintLoader.Keys.Meta, meta);
-            yaml.Add(MapBlueprintLoader.Keys.Grid, grid);
-            yaml.Add(MapBlueprintLoader.Keys.Tilemap, tileMap);
-            yaml.Add(MapBlueprintLoader.Keys.Entities, entities);
+            var root = new YamlMappingNode();
+            root.Add(MapBlueprintLoader.Keys.Meta, meta);
+            root.Add(MapBlueprintLoader.Keys.Grid, new YamlScalarNode(grid) { Style = ScalarStyle.Literal });
+            root.Add(MapBlueprintLoader.Keys.Tilemap, tileMap);
+            root.Add(MapBlueprintLoader.Keys.Entities, entities);
 
-            Console.WriteLine(yaml.ToString());
+            var document = new YamlDocument(root);
+            var outputPath = Path.Join(OutputDirectory, $"{fileBaseName}.yml");
+            
+            if (!Directory.Exists(OutputDirectory))
+                Directory.CreateDirectory(OutputDirectory);
+
+            using (var fileStream = File.Open(outputPath, FileMode.Create, FileAccess.Write))
+            {
+                using (var writer = new StreamWriter(fileStream))
+                {
+                    var stream = new YamlStream();
+                    stream.Add(document);
+                    stream.Save(new YamlMappingFix(new Emitter(writer)), false);
+                }
+            }
+
+            Console.WriteLine($"Wrote to {outputPath}.");
         }
     }
 }

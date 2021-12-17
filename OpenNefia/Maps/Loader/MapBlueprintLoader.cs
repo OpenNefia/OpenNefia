@@ -13,12 +13,7 @@ using OpenNefia.Core.Serialization.Markdown.Validation;
 using OpenNefia.Core.Serialization.Markdown.Value;
 using OpenNefia.Core.Serialization.TypeSerializers.Interfaces;
 using OpenNefia.Core.Utility;
-using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using YamlDotNet.Core;
 using YamlDotNet.RepresentationModel;
 
@@ -40,9 +35,12 @@ namespace OpenNefia.Core.Maps
         [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
 
         /// <inheritdoc />
-        public void SaveBlueprint(MapId mapId, ResourcePath resPath)
+        public void SaveBlueprint(MapId? mapId, ResourcePath resPath)
         {
-            var context = new MapBlueprintContext(mapId, _mapManager, _tileDefinitionManager, _entityManager, _prototypeManager);
+            if (mapId == null)
+                mapId = _mapManager.GetFreeMapId();
+
+            var context = new MapBlueprintContext(mapId.Value, _mapManager, _tileDefinitionManager, _entityManager, _prototypeManager);
             var root = context.Serialize();
             var document = new YamlDocument(root);
 
@@ -55,7 +53,7 @@ namespace OpenNefia.Core.Maps
             stream.Save(new YamlMappingFix(new Emitter(writer)), false);
         }
 
-        public IMap LoadBlueprint(MapId mapId, ResourcePath yamlPath)
+        public IMap LoadBlueprint(MapId? mapId, ResourcePath yamlPath)
         {
             TextReader reader;
 
@@ -84,9 +82,12 @@ namespace OpenNefia.Core.Maps
             {
                 Logger.InfoS("map", $"Loading Grid: {yamlPath}");
 
+                if (mapId == null)
+                    mapId = _mapManager.GetFreeMapId();
+
                 var data = new MapData(reader);
 
-                var context = new MapBlueprintContext(mapId, _mapManager, _tileDefinitionManager, _entityManager,
+                var context = new MapBlueprintContext(mapId.Value, _mapManager, _tileDefinitionManager, _entityManager,
                     _prototypeManager, (YamlMappingNode)data.RootNode);
                 context.Deserialize();
                 grid = context.MapGrid!;

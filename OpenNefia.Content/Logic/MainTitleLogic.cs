@@ -25,8 +25,15 @@ namespace OpenNefia.Content.Logic
         [Dependency] private readonly IFieldLayer _fieldLayer = default!;
         [Dependency] private readonly IMapBlueprintLoader _mapBlueprints = default!;
 
+        private void Startup()
+        {
+            _fieldLayer.Startup();
+        }
+
         public void RunTitleScreen()
         {
+            Startup();
+
             var action = TitleScreenAction.ReturnToTitle;
 
             while (action != TitleScreenAction.Quit)
@@ -46,8 +53,7 @@ namespace OpenNefia.Content.Logic
                             case TitleScreenAction.StartGame:
                                 var map = InitMap();
 
-                                _mapManager.ChangeActiveMap(map.Id);
-                                _fieldLayer.SetMap(map);
+                                _mapManager.SetActiveMap(map.Id);
 
                                 _fieldLayer.Query();
 

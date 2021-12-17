@@ -8,6 +8,7 @@ namespace OpenNefia.Content.UI.Layer
     {
         Camera Camera { get; }
 
+        void Startup();
         void SetMap(IMap map);
         void RefreshScreen();
     }

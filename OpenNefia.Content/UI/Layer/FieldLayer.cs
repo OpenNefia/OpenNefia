@@ -14,18 +14,20 @@ using OpenNefia.Content.UI.Layer.Repl;
 using OpenNefia.Core.Logic;
 using OpenNefia.Content.GameObjects;
 using OpenNefia.Content.Prototypes;
+using OpenNefia.Core.Graphics;
 
 namespace OpenNefia.Content.UI.Layer
 {
     public class FieldLayer : BaseUiLayer<UiNoResult>, IFieldLayer
     {
         [Dependency] private readonly IMapRenderer _mapRenderer = default!;
-        [Dependency] private readonly IEntityManager _entityManager = default!;
+        [Dependency] private readonly IMapManager _mapManager = default!;
         [Dependency] private readonly IHudLayer _hud = default!;
         [Dependency] private readonly ICoords _coords = default!;
         [Dependency] private readonly IPlayerQuery _playerQuery = default!;
         [Dependency] private readonly IReplLayer _repl = default!;
         [Dependency] private readonly IGameSessionManager _gameSession = default!;
+        [Dependency] private readonly IGraphics _graphics = default!;
 
         public static FieldLayer? Instance = null;
 
@@ -52,6 +54,12 @@ namespace OpenNefia.Content.UI.Layer
             MouseText = "";
 
             BindKeys();
+        }
+
+        public void Startup()
+        {
+            _mapManager.ActiveMapChanged += SetMap;
+            _graphics.OnWindowResized += (_) => RefreshScreen();
         }
 
         public void SetMap(IMap map)

@@ -1,0 +1,174 @@
+meta:
+  format: 1
+  name: ntyris
+  author: Noa
+grid: |
+  aaakaCMNN((1(PPPPPPPPOPPPPPP4PPPPPPPPP4PPÇ)iiiiqqiqiiqqqqq,,ÐPPP(PPP(P1PONP1PNPPPPPPPPPPPPPPPPP
+  accaaDNN$O*1PPPOPP1PPPP4PP1PPPOPP6P*1PPPÃÅiii%%iiiiiiiqiiqq,ÑÒPPPOPP1PP(1Ó(NÔ*(POP1PPPPPPP1((1P
+  acdcaDOONO(1PP16PPPPPPPPP(PPPPPP4PPPÃÉÉÉÅ)t)/I:0S~Ri%tii/,iq:ÑÒPPP41PNPPÓP*+Ô+1(PPOPPPPPPP411PP
+  aacbaDPNN(+(1PPPPP4PPPPPPPOPPPPPÃÉÉÉÅ:::tty'yI:/vR/~R~i%T)iq,:ÐP6PPP(PP1(P1*+(OPPPPP4PPP4P(6P1P
+  aabakEQZOOO*1451PPPPPPOPPPPPP1PPÇ::::tttttx_t)ywtS~oR9/wtwi,i/ÐPP1PPPPOP(PPP(PÓ1P6PPPPPP1PPP4PP
+  baabaaaEZPO(P((PPPP(PPP6P11PPPPÃÅ::tStlRvt)nmywTTto~o't)x/iiiiÐPPPPPP1PPPP1OPPPPPPPPPPPPPPPP1PP
+  aaaesFbaEZPO(O+1P(1P1O(*1(PP4PÃÅ::tmmty)~yoRvlvTTxmRltmtI/ii,iÑÒPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP
+  aaaftGaaaDNOOPO(OPPNPP1P(PPPPPÄÆ:txmyoyTlvRooRRRwlR~mRytI:i,ii:ÐPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP
+  aaafuHFaaEQQQZNP1POPPÀQQZ*P1PPPÇ:mmt%ttSSTxllRyRSmyvtR0IÈ/iqq%:ÐPPPPPPPPPPPPPPPPPPPPPPPP4PPPPPP
+  aaafvtGaaaaakEQQQQQQQÁakEZPÀQZPÄÆmxytS:%TSwmRÊÊyÊBÊyySt:/iqqi::ÑÒPPPPPPP4PPPPPPPPPPPPPPPPPPPPPP
+  aaafwIHFabaaaaaaaaaaaaaaaEQÁkEZPÇyoIA;TSSSlRtymÊÊByBttII%iqqi:::ÐPPPP4P6*PPPPPPPPP4PPPPPPPPPP6P
+  aaafmwBHFacabaaaaaaaakaaaaaaaaEQQjmw/_xSwxoxyÊBBBBBÊÊÊtÈIÈ%%Iy::ÐPPPPPPPPPPPPPPPPPPPPPPPP(P1PPP
+  aaehxBRmHFaaaabcbaaaaaaaaaaaaaaaagrrrjym/wxowmyBBBBÊmÊtIItIi/mt:ÑÒPPPPPPPPPPPPPPPPPPPPPP1PNPPPP
+  aaflmtxmmHFbaacdacbaaaaaaaaaaaaaaaaaagrjmmyxmmyÊBBÊBÊ)txItIimySÈ:ÐPPPPPPPPPPPPPPPPPPPPPP4PO(PPP
+  aafmywmwmxHssFaaesFesssssFaacabaaaaadadgrjAmoBÊBÊBymÊAwTTtx%y~ty:ÑÒPPPPPPPPPPPPPPPPPPPPPPPPP1PP
+  adfmzzz!wpBBBHFehiHhiiiqqHFaaaaacaessFbaafm/xmtÊmyBBxmTSTxmtÊxvyÈ:ÑÒPPPPPPP4PPPPPPP4PPPPP(PO4PP
+  adgjmxSVAwmBT,Hh%iiiiqiiiqHsFaadaafl_GacafmwoymyyyywtmxwTTTmx)ySy::ÑÒPPPPPPPPPPPPPPPPPPPPP146PP
+  aadgjxTVxBBpx/,)'9iqiollqiiiHFaaaafA?2abdfmyySyÊÊxlRRvSmwT'mmÊtvtÈ::ÑÒPPPPPPPPPPPPPPPPPPPPPPPPP
+  adaafwTVwvBBwT/Rv'Ri%Soxl~o%iHssFagr2aaaagjy)tmmÊSRvRRRoytymmtxÊytm::ÐPPPPPPPPPPPPPPPPPPPPPÀQQQ
+  aaaehwvVtmBmRmmmvRiioST;xRoSiiiiGaaaaessFagjmmmmmmSyv~vRoA_;)mmÊSttÈ:ÐPPPPPPPPPPPPPPPPPPPPÀÁaaa
+  aaafxwwVmAmmBBvmm%qlSxx_Blolv%qiHFaaehmoHFagrjymyÊyyywlSoRn0mSm)vy_t:ÐPPPPPPPPP1PPPPPPPPPÀÁaaak
+  aaehwyRVplvwBpwBBiqvwwmzzz!tRlRiqHsFfmwmmHssshmAyÊI_Am;p;ywSAymnmAtt:ÐPPPPPPPPPPPPPPPPPPÀÁaabaa
+  aafnAxU#zzzzzz!AmBqqS'ymmyVmloRSqiiGfÊympvRnAy)_tItÊyA0Uzzzzzzzzzz!;:ÐPP1PPPPPPPPPPPPPPPÕaakada
+  cafoyBVI%mmpvAVBTyBii%BmmU^mA,u'%%mHhymxmmAS_ymutyUzz@z^nmuAl;AvmnV_:ÐPPPP(PP6PPPPPPPPPPÕaaaaaa
+  aehpyyVpAimwmmWz!TUzz!vmBVS_pxwÈIUzz!v~oUzzzzzzzzzÂyymmuyIIymSm_mlVSnÑÒPP1PPPP1PPPPPPPPPÖØkaaak
+  afiiByW!yq,/JXX-W@^lSWzzzÂy)BwxtBVByWzzz^yuAnAnyyÊVxmwm0mxumSmvmmSWzz!ÑÒPP*P14PP*P1PPPPPPÕaabaa
+  agjqiJXVXX-iK,,.-VvlvSyyoVmttmmBxVtpwoR?rrrrjxonvmVmmyvv'?rrrrrrjn_;_V:ÑÉÒP1P(PNPPPP4PPP1ÖÙØaka
+  aagrjKyW!y.X3/,)8VSR~Boy:Voyww:TTVBÊB?r2dbacgrjv?jVÊvm)?r2aaaaaagrrrjW!::ÑÒPPPP1P4(P1PNP1PPÖØaa
+  aaaafLYlWzzzzzzzz^ml)y:woW!wtyTUz^Êw?2aaacaaaagr2fVmmo?2aaaaaaaaessFgjW!t:ÑÉÒPPPPPPPP(4POPPPÖÙÙ
+  aaaagjLYmBlmmy'/8x?rj',tIIVmvRU^SR)?2essssssssFaafVvm?2aaaaaaaaafmmHFgjVm)::ÑÉÉÉÉÉÒPP$P1*PPPPPP
+  aaaaagjKmvtmmmT7=)Gaf9'wvxWz@z^BBRvGehB9'Êy;AmGaehVm?2aaaaaaesFagrjnHshV_tmm::::::ÑÒPPPNP1PPPPP
+  aadcaafKtSymmyS8?r2afiTTlSRyVy)BvB~GfRB/wSmwomGaf;V0GaaaaaaehmGaaaf;_;_VytmÊtvt::::ÑÒP(*P(PPPPP
+  abaaaehK%)v'Smm8HFaeh,iTyRm~VB?rrrr2fmxIUzzmzzÌÍÏ@^tGaaaadaf_mÌÍÍÍÏzzzz^m_tmmmmmtt::ÑÒPP1POP4PP
+  aaaaafiL&Y/)TTt.-Hsh,x,wi~vvVyHssssshRIBVmwmumGÎfVovGaaaaaeh;mGÎÎÎfmmmm;)Êomvtmtmmt::ÐPPP4PPPPP
+  aaadagjiiL&Ymmm9.X-,Ax,,iiiRWzzzzzz!mmmU^A?rrr2ehVy?2aaaaafmv?2aacgrrjnÊvmmmomymmvm::ÑÉÒPPPP6PP
+  acaabagrjiqLY/mtmm8AIBB9iRiil~~lmIvËzzz^y?2adbafyVvGaaaaaagrr2aaaaaaehmÊmmÊmmÊ%:mÊmt:::ÑÒPPPPPP
+  aaaaaaaafiiiLYm9tm8mBiBvR~~Rivv~m~IV0Bu_?2aaaaehU^;GaaaaaaaaaaaabaaafmymImmvmoxmommxt:::ÑÉÉÉÒPP
+  aadaaesFgrrjiKimmmBBBptSo~~StvR~~vnV;n?r2acbaehU^t?2aaaaaaaaaaaaaaaehmmmmmmmm~momxÊmttt:::::ÑÉÉ
+  aabaafmHFaagjL&Ym7='ttw'woRovR~~RRnVA)GaadesshU^;?2aaaaacadaaaaessshmmImmmmmxmvmxR~vmÊmtt::::::
+  aaaaagjmHFaagjiL&=iittmi;ARRoooo~RlV//Gaaafm;U^~?2aaaaaaaaaaaesh99mS'mmmmmmImmmxmomymoommttÈttm
+  aaaaaehmmHssshiq,i,,t'mvmRRo~R~~~vRVv?2aaehUz^;?2aaaaaaaaaaaehJXXXX-vmmvmmym%mxxmxmo~~omom?rrrr
+  aaaaafmmmy/,/qq,,,'wmvRRRR~o~ooo~RRVRGaaeh;V~y?2aaaaaaaaaaaehJ37&&&=mÊmmmm/xmvmm/mmSmR0~~vGesss
+  aaaaagrj'wm'y,/'9mmIlSRRooooooooSS~VvGaafUz^?r2adaaaaaaaaeshJ3S8mÊ9Sm9mImmmmmmymmÊ~RmpvpR?2f0~m
+  aaaaaaagrrjm/mt:mpv)SmRRRvvv~oRRRUz#zÌÍÍÏ^m?2aaaaaaaaaaaaf99K9'89JX-0'mÊmm'mÊmtmmmm0yR?rr2eh~Ro
+  aaaaaaaaaagjtIwtym_;mynlRRmRRoRR~VRmmGÎÎf~?2aadaaaaaaaaeshJX3J-.X3u89Ê9mmmmmmmm%Sm9tpmGesshRuom
+  aadaaaaaaaagrjt;:wtmn;m_nlRv~~RRvVRS?2aagr2acaaaabacaaafmJ3JX3.XXX-.X-mImymÊmvmmÊmm'm%Gf~m/Rvo~
+  aaaaaaaaaaaaaftttvmpmmn;mnSUzzzzz^R/Gaaaaaaaaaaaaaaaaaeh9K%L&&YJX-8y989'xmxmmmmmmS/ym?2gjÊumtoo
+  aaaaaaaaaaaaagjm:mnmwm_nSlRVmv~vRRRRGaaacaaaaaaaaaaaaaf%ÊLY/yyKKy88y'.X-mmmSmmÊÊmm9m?2aagjvvm0R
+  aaadacaaesFaaafwpt:m;nmnmSvVvmRRvRRvGaaaaaaaaaaaadaaaehv9%L&&YKL&=80JX-8'm'ym%mmvÊmmGaaaafyoooo
+  aaaaaaaafpHFaagjtnt?rrrjnm_VmSvmy/R?2aaaaaesssFaaaaaafmm/~%/9KL&&&=J3y88m'm/mmtmm'ÊmHsFaehRo~o~
+  aabadaaagj0GaaafmmmGesFgjmtVmvmvmm?2aaaaaehmmBHFaaaaagjmvm//mL&YmJX3'/889'mmmmmm/mmmmxHshRmoo~~
+  aaaaaadaagr2aaagjm?2fvHFgjtVtmlRl;GabaesshmBwm/HFaaaaagrrj/m/mmLYKy/'7=8m'9m/mmm/mmmmmmm~mRo~~~
+  aaaaaaacaaaaaaaafmGeh~RHsh:t:mR~R_HssFfBym/xSvmmHFesFaaaagrrrjv/KL&&&=7='mmm/mm///mmmmmmR~vRo~~
+  abadaaaaaaaaaaaagr2fRoSvmt::tvo~RlnByHhBSxxwmBtxRHh)HsssssssFf%9L&&&&&=9%m9///m////mxmmmmvvRoo~
+  aaaaaaaaaaaacaaaaaafmSmmmmt:lmvoRvvm_yttmvmmmmtRvSt'9t'9))//Gf/vm9v/m%/mvm/////////mmxmR~Ro~~RR
+tilemap:
+  a: Elona.WorldWater
+  b: Elona.WorldWaterRock
+  c: Elona.WorldWaterRocks
+  d: Elona.WorldWater2
+  e: Elona.WorldGrassWaterBorderNw
+  f: Elona.WorldGrassWaterBorderE
+  g: Elona.WorldGrassWaterBorderSw
+  h: Elona.WorldGrassWaterBorderCornerSe
+  i: Elona.WorldGrassMountain1
+  j: Elona.WorldGrassWaterBorderCornerNe
+  k: Elona.WorldWaterIceberg
+  l: Elona.WorldTrees2
+  m: Elona.WorldGrass
+  n: Elona.WorldFlower2
+  o: Elona.WorldTrees5
+  p: Elona.WorldFlower6
+  q: Elona.WorldGrassMountain4
+  r: Elona.WorldGrassWaterBorderN
+  s: Elona.WorldGrassWaterBorderS
+  t: Elona.WorldDirt3
+  u: Elona.WorldFlower1
+  v: Elona.WorldTrees1
+  w: Elona.WorldPlants2
+  x: Elona.WorldPlants3
+  y: Elona.WorldSmallTrees2
+  z: Elona.WorldRoadWe
+  A: Elona.WorldFlower3
+  B: Elona.WorldSmallTrees1
+  C: Elona.WorldSnowWaterBorderNw
+  D: Elona.WorldSnowWaterBorderE
+  E: Elona.WorldSnowWaterBorderSw
+  F: Elona.WorldGrassWaterBorderNe
+  G: Elona.WorldGrassWaterBorderW
+  H: Elona.WorldGrassWaterBorderCornerSw
+  I: Elona.WorldDirt2
+  J: Elona.WorldCliffNw
+  K: Elona.WorldCliffW
+  L: Elona.WorldBlank
+  M: Elona.WorldSnowWaterBorderCornerSe
+  N: Elona.WorldSnowMountain2
+  O: Elona.WorldSnowMountain1
+  P: Elona.WorldSnow
+  Q: Elona.WorldSnowWaterBorderN
+  R: Elona.WorldTrees3
+  S: Elona.WorldTrees6
+  T: Elona.WorldPlants1
+  U: Elona.WorldRoadSe
+  V: Elona.WorldRoadNs
+  W: Elona.WorldRoadNe
+  X: Elona.WorldCliffN
+  Y: Elona.WorldCliffInnerSw
+  Z: Elona.WorldSnowWaterBorderCornerNe
+  '!': Elona.WorldRoadSw
+  '#': Elona.WorldRoadNwe
+  $: Elona.WorldSnowMountain3
+  '%': Elona.WorldGrassMountain3
+  '&': Elona.WorldCliffSw
+  "'": Elona.WorldMounds2
+  (: Elona.WorldSnowTrees1
+  ): Elona.WorldGrassMountain5
+  '*': Elona.WorldSnowTrees3
+  +: Elona.WorldSnowTrees5
+  ',': Elona.WorldGrassMountain6
+  '-': Elona.WorldCliffNe
+  .: Elona.WorldCliffTop5
+  /: Elona.WorldGrassMountain2
+  0: Elona.WorldFlower5
+  1: Elona.WorldSnowTrees2
+  2: Elona.WorldGrassWaterBorderSe
+  3: Elona.WorldCliffSe
+  4: Elona.WorldSnowMounds
+  5: Elona.WorldSnowCross
+  6: Elona.WorldSnowCrater
+  7: Elona.WorldCliffInnerSe
+  8: Elona.WorldCliffE
+  9: Elona.WorldMounds1
+  ':': Elona.WorldDirt4
+  ;: Elona.WorldFlower7
+  =: Elona.WorldCliffS
+  '?': Elona.WorldGrassWaterBorderCornerNw
+  '@': Elona.WorldRoadSwe
+  ^: Elona.WorldRoadNw
+  _: Elona.WorldFlower4
+  ~: Elona.WorldTrees4
+  À: Elona.WorldSnowWaterBorderCornerNw
+  Á: Elona.WorldSnowWaterBorderSe
+  Â: Elona.WorldRoadNsw
+  Ã: Elona.WorldSnowBorderCornerNw
+  Ä: Elona.WorldSnowBorderCornerSw
+  Å: Elona.WorldSnowBorderSe
+  Æ: Elona.WorldSnowBorderNe
+  Ç: Elona.WorldSnowBorderW
+  È: Elona.WorldDirt1
+  É: Elona.WorldSnowBorderN
+  Ê: Elona.WorldSmallTrees3
+  Ë: Elona.WorldRoadNse
+  Ì: Elona.WorldBridgeLeft
+  Í: Elona.WorldBridgeMiddle
+  Î: Elona.WorldWaterShadow
+  Ï: Elona.WorldBridgeRight
+  Ð: Elona.WorldSnowBorderE
+  Ñ: Elona.WorldSnowBorderSw
+  Ò: Elona.WorldSnowBorderCornerNe
+  Ó: Elona.WorldSnowDeadTree
+  Ô: Elona.WorldSnowTrees4
+  Õ: Elona.WorldSnowWaterBorderW
+  Ö: Elona.WorldSnowWaterBorderCornerSw
+  Ø: Elona.WorldSnowWaterBorderNe
+  Ù: Elona.WorldSnowWaterBorderS
+entities:
+- uid: 0
+  components:
+  - type: Map

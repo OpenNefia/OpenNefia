@@ -48,6 +48,11 @@ namespace OpenNefia.Core.Maps
             return map;
         }
 
+        private static Rune[] TileRunes = 
+            "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!#$%&\'()*+,-./0123456789:;=?@^_~ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïð"
+            .EnumerateRunes()
+            .ToArray();
+
         public static Dictionary<PrototypeId<TilePrototype>, string> BuildProtoToRuneTileMap(IMap map)
         {
             var tilesSeen = new HashSet<PrototypeId<TilePrototype>>();
@@ -58,12 +63,18 @@ namespace OpenNefia.Core.Maps
             }
 
             var result = new Dictionary<PrototypeId<TilePrototype>, string>();
-            char c = 'a'; // TODO beautify based on wall/floor
+            int index = 0; // TODO beautify based on wall/floor
 
             foreach (var tileId in tilesSeen)
             {
-                result.Add(tileId, c.ToString());
-                c++;
+                if (index > TileRunes.Length)
+                {
+                    throw new InvalidOperationException("Maximum tilemap tile count exceeded.");
+                }
+
+                var rune = TileRunes[index];
+                result.Add(tileId, rune.ToString());
+                index++;
             }
 
             return result;
