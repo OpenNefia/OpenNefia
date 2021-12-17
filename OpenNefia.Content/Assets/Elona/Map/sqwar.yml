@@ -1,0 +1,575 @@
+meta:
+  format: 1
+  name: sqwar
+  author: Noa
+grid: |
+  aaaaaaacccccccccaaaa
+  aaaaaaccccccccccaaaa
+  aaccaccccccccccccaaa
+  acccccccccccccccaaaa
+  aaccccccccccccccccaa
+  aaacccccccccccccccaa
+  aacccccccccccccaaaaa
+  aaaccccccccccccccaaa
+  aaaaccccccccccccccaa
+  aaaaacccccccccccaaaa
+  bbbaaacccccccccaaaab
+  bbbaaacccccccccabbbb
+  bbbbacccccccccccbbbb
+  bbbbbbbbbdddbbbbbbbb
+  bbbbbbbbbdddbbbbbbbb
+  bbbbbbbbcccccbbbbbbb
+  bbbbbbbccccccbbbbbbb
+  bbbbbbbcccccccbbbbbb
+  baaaccccccccccbbbbbb
+  baaacccccccccccaabbb
+  aaaacccccccccccaaaab
+  aaaccccccccccccccaaa
+  aaccccccccccccccaaaa
+  aaaccccccccccccccaaa
+  aacccccccccccccccaaa
+  aaccccccccccccccccaa
+tilemap:
+  a: Elona.WallDirt
+  b: Elona.Water
+  c: Elona.Desert
+  d: Elona.BridgeNs
+entities:
+- uid: 0
+  components:
+  - type: Map
+- uid: 1
+  protoId: Elona.CharaYerlesSelfPropelledGun
+  components:
+  - type: Spatial
+    pos: 7,12
+    parent: 0
+- uid: 2
+  protoId: Elona.CharaYerlesSelfPropelledGun
+  components:
+  - type: Spatial
+    pos: 9,12
+    parent: 0
+- uid: 3
+  protoId: Elona.CharaYerlesSelfPropelledGun
+  components:
+  - type: Spatial
+    pos: 13,12
+    parent: 0
+- uid: 4
+  protoId: Elona.CharaYerlesSelfPropelledGun
+  components:
+  - type: Spatial
+    pos: 7,9
+    parent: 0
+- uid: 5
+  protoId: Elona.CharaYerlesSelfPropelledGun
+  components:
+  - type: Spatial
+    pos: 10,9
+    parent: 0
+- uid: 6
+  protoId: Elona.CharaYerlesSelfPropelledGun
+  components:
+  - type: Spatial
+    pos: 13,9
+    parent: 0
+- uid: 7
+  protoId: Elona.CharaYerlesMachineInfantry
+  components:
+  - type: Spatial
+    pos: 8,11
+    parent: 0
+- uid: 8
+  protoId: Elona.CharaYerlesMachineInfantry
+  components:
+  - type: Spatial
+    pos: 12,11
+    parent: 0
+- uid: 9
+  protoId: Elona.CharaYerlesMachineInfantry
+  components:
+  - type: Spatial
+    pos: 15,12
+    parent: 0
+- uid: 10
+  protoId: Elona.CharaYerlesMachineInfantry
+  components:
+  - type: Spatial
+    pos: 11,12
+    parent: 0
+- uid: 11
+  protoId: Elona.CharaYerlesMachineInfantry
+  components:
+  - type: Spatial
+    pos: 12,9
+    parent: 0
+- uid: 12
+  protoId: Elona.CharaYerlesMachineInfantry
+  components:
+  - type: Spatial
+    pos: 6,8
+    parent: 0
+- uid: 13
+  protoId: Elona.CharaYerlesMachineInfantry
+  components:
+  - type: Spatial
+    pos: 6,6
+    parent: 0
+- uid: 14
+  protoId: Elona.CharaYerlesMachineInfantry
+  components:
+  - type: Spatial
+    pos: 9,7
+    parent: 0
+- uid: 15
+  protoId: Elona.CharaYerlesMachineInfantry
+  components:
+  - type: Spatial
+    pos: 13,6
+    parent: 0
+- uid: 16
+  protoId: Elona.CharaYerlesMachineInfantry
+  components:
+  - type: Spatial
+    pos: 14,4
+    parent: 0
+- uid: 17
+  protoId: Elona.CharaYerlesMachineInfantry
+  components:
+  - type: Spatial
+    pos: 10,4
+    parent: 0
+- uid: 18
+  protoId: Elona.CharaYerlesMachineInfantry
+  components:
+  - type: Spatial
+    pos: 5,4
+    parent: 0
+- uid: 19
+  protoId: Elona.CharaYerlesSelfPropelledGun
+  components:
+  - type: Spatial
+    pos: 6,10
+    parent: 0
+- uid: 20
+  protoId: Elona.CharaYerlesSelfPropelledGun
+  components:
+  - type: Spatial
+    pos: 14,10
+    parent: 0
+- uid: 21
+  protoId: Elona.CharaYerlesSelfPropelledGun
+  components:
+  - type: Spatial
+    pos: 5,12
+    parent: 0
+- uid: 22
+  protoId: Elona.CharaYerlesSelfPropelledGun
+  components:
+  - type: Spatial
+    pos: 10,11
+    parent: 0
+- uid: 23
+  protoId: Elona.CharaYerlesSelfPropelledGun
+  components:
+  - type: Spatial
+    pos: 4,4
+    parent: 0
+- uid: 24
+  protoId: Elona.CharaYerlesSelfPropelledGun
+  components:
+  - type: Spatial
+    pos: 15,4
+    parent: 0
+- uid: 25
+  protoId: Elona.CharaYerlesSelfPropelledGun
+  components:
+  - type: Spatial
+    pos: 8,1
+    parent: 0
+- uid: 26
+  protoId: Elona.CharaYerlesSelfPropelledGun
+  components:
+  - type: Spatial
+    pos: 12,1
+    parent: 0
+- uid: 27
+  protoId: Elona.ItemBoneFragment
+  components:
+  - type: Spatial
+    pos: 8,16
+    parent: 0
+- uid: 28
+  protoId: Elona.ItemBoneFragment
+  components:
+  - type: Spatial
+    pos: 10,14
+    parent: 0
+- uid: 29
+  protoId: Elona.ItemBoneFragment
+  components:
+  - type: Spatial
+    pos: 12,16
+    parent: 0
+- uid: 30
+  protoId: Elona.ItemBoneFragment
+  components:
+  - type: Spatial
+    pos: 10,18
+    parent: 0
+- uid: 31
+  protoId: Elona.ItemBoneFragment
+  components:
+  - type: Spatial
+    pos: 6,18
+    parent: 0
+- uid: 32
+  protoId: Elona.ItemBoneFragment
+  components:
+  - type: Spatial
+    pos: 12,17
+    parent: 0
+- uid: 33
+  protoId: Elona.ItemSkeleton
+  components:
+  - type: Spatial
+    pos: 7,17
+    parent: 0
+- uid: 34
+  protoId: Elona.ItemSkeleton
+  components:
+  - type: Spatial
+    pos: 9,13
+    parent: 0
+- uid: 35
+  protoId: Elona.ItemSkeleton
+  components:
+  - type: Spatial
+    pos: 11,13
+    parent: 0
+- uid: 36
+  protoId: Elona.ItemSkeleton
+  components:
+  - type: Spatial
+    pos: 11,16
+    parent: 0
+- uid: 37
+  protoId: Elona.ItemSkeleton
+  components:
+  - type: Spatial
+    pos: 9,15
+    parent: 0
+- uid: 38
+  protoId: Elona.ItemSkeleton
+  components:
+  - type: Spatial
+    pos: 11,15
+    parent: 0
+- uid: 39
+  protoId: Elona.ItemFlag
+  components:
+  - type: Spatial
+    pos: 5,20
+    parent: 0
+- uid: 40
+  protoId: Elona.ItemFlag
+  components:
+  - type: Spatial
+    pos: 5,22
+    parent: 0
+- uid: 41
+  protoId: Elona.ItemFlag
+  components:
+  - type: Spatial
+    pos: 13,20
+    parent: 0
+- uid: 42
+  protoId: Elona.ItemFlag
+  components:
+  - type: Spatial
+    pos: 13,22
+    parent: 0
+- uid: 43
+  protoId: Elona.ItemFlag
+  components:
+  - type: Spatial
+    pos: 13,24
+    parent: 0
+- uid: 44
+  protoId: Elona.ItemFlag
+  components:
+  - type: Spatial
+    pos: 5,24
+    parent: 0
+- uid: 45
+  protoId: Elona.ItemFlag
+  components:
+  - type: Spatial
+    pos: 7,4
+    parent: 0
+- uid: 46
+  protoId: Elona.ItemFlag
+  components:
+  - type: Spatial
+    pos: 12,4
+    parent: 0
+- uid: 47
+  protoId: Elona.ItemFlag
+  components:
+  - type: Spatial
+    pos: 7,2
+    parent: 0
+- uid: 48
+  protoId: Elona.ItemFlag
+  components:
+  - type: Spatial
+    pos: 12,2
+    parent: 0
+- uid: 49
+  protoId: Elona.ItemBrokenSword
+  components:
+  - type: Spatial
+    pos: 8,19
+    parent: 0
+- uid: 50
+  protoId: Elona.ItemBrokenSword
+  components:
+  - type: Spatial
+    pos: 10,16
+    parent: 0
+- uid: 51
+  protoId: Elona.ItemBrokenSword
+  components:
+  - type: Spatial
+    pos: 12,15
+    parent: 0
+- uid: 52
+  protoId: Elona.ItemBrokenSword
+  components:
+  - type: Spatial
+    pos: 10,13
+    parent: 0
+- uid: 53
+  protoId: Elona.ItemBonfire
+  components:
+  - type: Spatial
+    pos: 6,23
+    parent: 0
+- uid: 54
+  protoId: Elona.ItemBonfire
+  components:
+  - type: Spatial
+    pos: 6,21
+    parent: 0
+- uid: 55
+  protoId: Elona.ItemBonfire
+  components:
+  - type: Spatial
+    pos: 12,21
+    parent: 0
+- uid: 56
+  protoId: Elona.ItemBonfire
+  components:
+  - type: Spatial
+    pos: 12,23
+    parent: 0
+- uid: 57
+  protoId: Elona.ItemBonfire
+  components:
+  - type: Spatial
+    pos: 6,3
+    parent: 0
+- uid: 58
+  protoId: Elona.ItemBonfire
+  components:
+  - type: Spatial
+    pos: 13,3
+    parent: 0
+- uid: 59
+  protoId: Elona.ItemBonfire
+  components:
+  - type: Spatial
+    pos: 5,5
+    parent: 0
+- uid: 60
+  protoId: Elona.ItemBonfire
+  components:
+  - type: Spatial
+    pos: 14,5
+    parent: 0
+- uid: 61
+  protoId: Elona.ItemBonfire
+  components:
+  - type: Spatial
+    pos: 6,7
+    parent: 0
+- uid: 62
+  protoId: Elona.ItemBonfire
+  components:
+  - type: Spatial
+    pos: 13,7
+    parent: 0
+- uid: 63
+  protoId: Elona.CharaYerlesEliteMachineInfantry
+  components:
+  - type: Spatial
+    pos: 7,5
+    parent: 0
+- uid: 64
+  protoId: Elona.CharaYerlesEliteMachineInfantry
+  components:
+  - type: Spatial
+    pos: 9,3
+    parent: 0
+- uid: 65
+  protoId: Elona.CharaYerlesEliteMachineInfantry
+  components:
+  - type: Spatial
+    pos: 14,2
+    parent: 0
+- uid: 66
+  protoId: Elona.CharaYerlesEliteMachineInfantry
+  components:
+  - type: Spatial
+    pos: 12,5
+    parent: 0
+- uid: 67
+  protoId: Elona.CharaYerlesEliteMachineInfantry
+  components:
+  - type: Spatial
+    pos: 10,1
+    parent: 0
+- uid: 68
+  protoId: Elona.CharaYerlesSelfPropelledGun
+  components:
+  - type: Spatial
+    pos: 5,3
+    parent: 0
+- uid: 69
+  protoId: Elona.CharaYerlesSelfPropelledGun
+  components:
+  - type: Spatial
+    pos: 14,3
+    parent: 0
+- uid: 70
+  protoId: Elona.CharaYerlesSelfPropelledGun
+  components:
+  - type: Spatial
+    pos: 9,2
+    parent: 0
+- uid: 71
+  protoId: Elona.CharaYerlesSelfPropelledGun
+  components:
+  - type: Spatial
+    pos: 11,2
+    parent: 0
+- uid: 72
+  protoId: Elona.CharaYerlesMachineInfantry
+  components:
+  - type: Spatial
+    pos: 7,3
+    parent: 0
+- uid: 73
+  protoId: Elona.CharaYerlesMachineInfantry
+  components:
+  - type: Spatial
+    pos: 9,5
+    parent: 0
+- uid: 74
+  protoId: Elona.CharaYerlesMachineInfantry
+  components:
+  - type: Spatial
+    pos: 12,3
+    parent: 0
+- uid: 75
+  protoId: Elona.CharaYerlesMachineInfantry
+  components:
+  - type: Spatial
+    pos: 11,6
+    parent: 0
+- uid: 76
+  protoId: Elona.CharaYerlesMachineInfantry
+  components:
+  - type: Spatial
+    pos: 15,7
+    parent: 0
+- uid: 77
+  protoId: Elona.CharaYerlesMachineInfantry
+  components:
+  - type: Spatial
+    pos: 11,8
+    parent: 0
+- uid: 78
+  protoId: Elona.CharaYerlesMachineInfantry
+  components:
+  - type: Spatial
+    pos: 3,6
+    parent: 0
+- uid: 79
+  protoId: Elona.CharaYerlesMachineInfantry
+  components:
+  - type: Spatial
+    pos: 8,7
+    parent: 0
+- uid: 80
+  protoId: Elona.CharaYerlesMachineInfantry
+  components:
+  - type: Spatial
+    pos: 8,0
+    parent: 0
+- uid: 81
+  protoId: Elona.CharaYerlesMachineInfantry
+  components:
+  - type: Spatial
+    pos: 13,0
+    parent: 0
+- uid: 82
+  protoId: Elona.CharaYerlesMachineInfantry
+  components:
+  - type: Spatial
+    pos: 8,9
+    parent: 0
+- uid: 83
+  protoId: Elona.CharaYerlesMachineInfantry
+  components:
+  - type: Spatial
+    pos: 13,8
+    parent: 0
+- uid: 84
+  protoId: Elona.CharaYerlesMachineInfantry
+  components:
+  - type: Spatial
+    pos: 8,6
+    parent: 0
+- uid: 85
+  protoId: Elona.CharaYerlesMachineInfantry
+  components:
+  - type: Spatial
+    pos: 12,8
+    parent: 0
+- uid: 86
+  protoId: Elona.CharaYerlesMachineInfantry
+  components:
+  - type: Spatial
+    pos: 10,7
+    parent: 0
+- uid: 87
+  protoId: Elona.CharaYerlesMachineInfantry
+  components:
+  - type: Spatial
+    pos: 9,10
+    parent: 0
+- uid: 88
+  protoId: Elona.CharaYerlesMachineInfantry
+  components:
+  - type: Spatial
+    pos: 5,7
+    parent: 0
+- uid: 89
+  protoId: Elona.FeatStairsUp
+  components:
+  - type: Spatial
+    pos: 2,2
+    parent: 0
+...

@@ -1,0 +1,355 @@
+meta:
+  format: 1
+  name: roguet1
+  author: Noa
+grid: |
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+  aabbbbabbbbbbbbbbbbbbbbbabbbbaaaaa
+  aabbbbbbbbbbbbbbbbbbbbbbbbbbbaaaaa
+  aabbbbaaaaaaaabbbaaaaaaaabbbbaaaaa
+  aabbbbacdcdcdcdcdcdcdcdcabbbbaaaaa
+  aabbbbadcdcdcdcdcdcdcdcdabbbbaaaaa
+  aaaaaaacdcdcdcdcdcdcdcdcaaaaaaaaaa
+  aaaaaaadcdcdcdcdcdcdcdcdaaaaaaaaaa
+  aaaaaaacdcdcdcdcdcdcdcdcaaaaaaaaaa
+  aaaaaaadcdcdcdcdcdcdcdcdaaaaaaaaaa
+  aaaaaaacdcdcdcdcdcdcdcdcaaaaaaaaaa
+  aaaaaaadcdcdcdcdcdcdcdcdaaaaaaaaaa
+  aaaaaaacdcdcdcdcdcdcdcdcaaaaaaaaaa
+  aaaaaaaaaaaaaabbbaaaaaaaaaaaaaaaaa
+  aaaaaaaaaaaabbbbbbbaaaaaaaaaaaaaaa
+  aaaaaaaaaaabbbbbbbbbaaaaaaaaaaaaaa
+  aaaaaaaaaaaabbbbbbbaaaaaaaaaaaaaaa
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+tilemap:
+  a: Elona.WallStone5
+  b: Elona.Cobble4
+  c: Elona.Concrete2
+  d: Elona.Concrete4
+entities:
+- uid: 0
+  components:
+  - type: Map
+- uid: 1
+  protoId: Elona.FeatStairsUp
+  components:
+  - type: Spatial
+    pos: 15,16
+    parent: 0
+- uid: 2
+  protoId: Elona.CharaKing
+  components:
+  - type: Spatial
+    pos: 14,6
+    parent: 0
+- uid: 3
+  protoId: Elona.CharaQueen
+  components:
+  - type: Spatial
+    pos: 16,6
+    parent: 0
+- uid: 4
+  protoId: Elona.CharaBishop
+  components:
+  - type: Spatial
+    pos: 12,6
+    parent: 0
+- uid: 5
+  protoId: Elona.CharaBishop
+  components:
+  - type: Spatial
+    pos: 18,6
+    parent: 0
+- uid: 6
+  protoId: Elona.CharaKnight
+  components:
+  - type: Spatial
+    pos: 10,6
+    parent: 0
+- uid: 7
+  protoId: Elona.CharaKnight
+  components:
+  - type: Spatial
+    pos: 20,6
+    parent: 0
+- uid: 8
+  protoId: Elona.CharaRook
+  components:
+  - type: Spatial
+    pos: 22,6
+    parent: 0
+- uid: 9
+  protoId: Elona.CharaRook
+  components:
+  - type: Spatial
+    pos: 8,6
+    parent: 0
+- uid: 10
+  protoId: Elona.CharaPawn
+  components:
+  - type: Spatial
+    pos: 8,8
+    parent: 0
+- uid: 11
+  protoId: Elona.CharaPawn
+  components:
+  - type: Spatial
+    pos: 10,8
+    parent: 0
+- uid: 12
+  protoId: Elona.CharaPawn
+  components:
+  - type: Spatial
+    pos: 12,8
+    parent: 0
+- uid: 13
+  protoId: Elona.CharaPawn
+  components:
+  - type: Spatial
+    pos: 14,8
+    parent: 0
+- uid: 14
+  protoId: Elona.CharaPawn
+  components:
+  - type: Spatial
+    pos: 16,8
+    parent: 0
+- uid: 15
+  protoId: Elona.CharaPawn
+  components:
+  - type: Spatial
+    pos: 18,8
+    parent: 0
+- uid: 16
+  protoId: Elona.CharaPawn
+  components:
+  - type: Spatial
+    pos: 20,8
+    parent: 0
+- uid: 17
+  protoId: Elona.CharaPawn
+  components:
+  - type: Spatial
+    pos: 22,8
+    parent: 0
+- uid: 18
+  protoId: Elona.CharaWynan
+  components:
+  - type: Spatial
+    pos: 15,3
+    parent: 0
+- uid: 19
+  protoId: Elona.ItemBejeweledChest
+  components:
+  - type: Spatial
+    pos: 27,4
+    parent: 0
+- uid: 20
+  protoId: Elona.ItemBejeweledChest
+  components:
+  - type: Spatial
+    pos: 3,4
+    parent: 0
+- uid: 21
+  protoId: Elona.ItemDecoratedArmor
+  components:
+  - type: Spatial
+    pos: 12,2
+    parent: 0
+- uid: 22
+  protoId: Elona.ItemDecoratedArmor
+  components:
+  - type: Spatial
+    pos: 18,2
+    parent: 0
+- uid: 23
+  protoId: Elona.ItemStatueOfArmor
+  components:
+  - type: Spatial
+    pos: 7,2
+    parent: 0
+- uid: 24
+  protoId: Elona.ItemStatueOfArmor
+  components:
+  - type: Spatial
+    pos: 23,2
+    parent: 0
+- uid: 25
+  protoId: Elona.ItemStatueOfArmor
+  components:
+  - type: Spatial
+    pos: 13,15
+    parent: 0
+- uid: 26
+  protoId: Elona.ItemStatueOfArmor
+  components:
+  - type: Spatial
+    pos: 17,15
+    parent: 0
+- uid: 27
+  protoId: Elona.ItemStatueOrnamentedWithPlants
+  components:
+  - type: Spatial
+    pos: 2,2
+    parent: 0
+- uid: 28
+  protoId: Elona.ItemStatueOrnamentedWithPlants
+  components:
+  - type: Spatial
+    pos: 5,2
+    parent: 0
+- uid: 29
+  protoId: Elona.ItemStatueOrnamentedWithPlants
+  components:
+  - type: Spatial
+    pos: 2,6
+    parent: 0
+- uid: 30
+  protoId: Elona.ItemStatueOrnamentedWithPlants
+  components:
+  - type: Spatial
+    pos: 5,6
+    parent: 0
+- uid: 31
+  protoId: Elona.ItemStatueOrnamentedWithPlants
+  components:
+  - type: Spatial
+    pos: 25,2
+    parent: 0
+- uid: 32
+  protoId: Elona.ItemStatueOrnamentedWithPlants
+  components:
+  - type: Spatial
+    pos: 28,2
+    parent: 0
+- uid: 33
+  protoId: Elona.ItemStatueOrnamentedWithPlants
+  components:
+  - type: Spatial
+    pos: 25,6
+    parent: 0
+- uid: 34
+  protoId: Elona.ItemStatueOrnamentedWithPlants
+  components:
+  - type: Spatial
+    pos: 28,6
+    parent: 0
+- uid: 35
+  protoId: Elona.ItemDecorativeArmor
+  components:
+  - type: Spatial
+    pos: 3,2
+    parent: 0
+- uid: 36
+  protoId: Elona.ItemDecorativeArmor
+  components:
+  - type: Spatial
+    pos: 4,2
+    parent: 0
+- uid: 37
+  protoId: Elona.ItemDecorativeArmor
+  components:
+  - type: Spatial
+    pos: 3,6
+    parent: 0
+- uid: 38
+  protoId: Elona.ItemDecorativeArmor
+  components:
+  - type: Spatial
+    pos: 4,6
+    parent: 0
+- uid: 39
+  protoId: Elona.ItemDecorativeArmor
+  components:
+  - type: Spatial
+    pos: 26,2
+    parent: 0
+- uid: 40
+  protoId: Elona.ItemDecorativeArmor
+  components:
+  - type: Spatial
+    pos: 27,2
+    parent: 0
+- uid: 41
+  protoId: Elona.ItemDecorativeArmor
+  components:
+  - type: Spatial
+    pos: 26,6
+    parent: 0
+- uid: 42
+  protoId: Elona.ItemDecorativeArmor
+  components:
+  - type: Spatial
+    pos: 27,6
+    parent: 0
+- uid: 43
+  protoId: Elona.ItemVase
+  components:
+  - type: Spatial
+    pos: 12,15
+    parent: 0
+- uid: 44
+  protoId: Elona.ItemVase
+  components:
+  - type: Spatial
+    pos: 18,15
+    parent: 0
+- uid: 45
+  protoId: Elona.ItemGorgeousCandlestick
+  components:
+  - type: Spatial
+    pos: 11,16
+    parent: 0
+- uid: 46
+  protoId: Elona.ItemGorgeousCandlestick
+  components:
+  - type: Spatial
+    pos: 19,16
+    parent: 0
+- uid: 47
+  protoId: Elona.ItemGorgeousCandlestick
+  components:
+  - type: Spatial
+    pos: 10,2
+    parent: 0
+- uid: 48
+  protoId: Elona.ItemGorgeousCandlestick
+  components:
+  - type: Spatial
+    pos: 20,2
+    parent: 0
+- uid: 49
+  protoId: Elona.FeatDoorWooden
+  components:
+  - type: Spatial
+    pos: 6,3
+    parent: 0
+- uid: 50
+  protoId: Elona.FeatDoorWooden
+  components:
+  - type: Spatial
+    pos: 24,3
+    parent: 0
+- uid: 51
+  protoId: Elona.FeatSmallMedal
+  components:
+  - type: Spatial
+    pos: 26,3
+    parent: 0
+- uid: 52
+  protoId: Elona.FeatSmallMedal
+  components:
+  - type: Spatial
+    pos: 4,5
+    parent: 0
+- uid: 53
+  protoId: Elona.FeatSmallMedal
+  components:
+  - type: Spatial
+    pos: 19,10
+    parent: 0
+...

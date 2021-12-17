@@ -1,0 +1,35 @@
+meta:
+  format: 1
+  name: shop_1
+  author: Noa
+grid: |
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+  aaaaaaaaaaaaaaacccccaaaaaaaaaaaaaa
+  aaaaaaaaaaaaabbcccccbbaaaaaaaaaaaa
+  aaaaaaaaaaaabcccccccccbaaaaaaaaaaa
+  aaaaaaaaaaaabcdcbcbcdcbaaaaaaaaaaa
+  aaaaaaaaaaaabcccccccccbaaaaaaaaaaa
+  aaaaaaaaaaaabcdcbcbcdcbaaaaaaaaaaa
+  aaaaaaaaaaaabcccccccccbaaaaaaaaaaa
+  aaaaaaaaaaaaabbbcccbbbaaaaaaaaaaaa
+  aaaaaaaaaaaaaaaacccaaaaaaaaaaaaaaa
+  aaaaaaaaaaaaaaaacccaaaaaaaaaaaaaaa
+tilemap:
+  a: Elona.WallStone1
+  b: Elona.ShopPlatform
+  c: Elona.Cobble11
+  d: Elona.WallStone8
+entities:
+- uid: 0
+  components:
+  - type: Map
+...

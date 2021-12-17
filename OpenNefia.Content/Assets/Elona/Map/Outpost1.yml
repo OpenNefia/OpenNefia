@@ -1,0 +1,64 @@
+meta:
+  format: 1
+  name: Outpost1
+  author: Noa
+grid: |
+  abbbbbbbiabbbbbbbbbbbbbbbbbbbb
+  abbbbeaaaaibbbbbbcccccccccbbbb
+  abbbbccccccbbbbkkcdddddddcabbb
+  abbbbcddgdckbbkaacdddddddcaabb
+  abbbbcdgddclkkaaacdddddddcaaab
+  abbbbcdddgcaaaaaacdddddddcaabb
+  abbbacccjcckaaaaacdddddddcaabb
+  abbaaaaafhhhakkkacdddddddcaabb
+  abaaaaaaaaaahhhhkccdccdddcaabb
+  abaaaaaaaaaaaaaahaafacdddcaaab
+  abaccccccccccccaahaaacdddcaaab
+  abccddddddddddccaahhacccccaaab
+  aacddddddddddddcaaaaahaaaaaaab
+  aacddddddddddddcaaaaahhhaaaaab
+  aacddddddddddddcaaaaaaahaaaaab
+  aacddddddddddddcaaaaaaaaaaaabb
+  aacddddddddddddcaaaaaaaahaabbb
+  aacddddddddddddcaaaaaaaaahabbb
+  aacddddddddddddcaaaaaaaaahabbb
+  aacddddddddddddcaaabbaaaaaabbb
+  aacddddddddddddcaabbbbaaaaabbb
+  aacddddddddddddcabbbbbbahabbbb
+  aacddddddddddddcabbbbbbaaabbbb
+  aacddddddddddddcabbbbbbahabbbb
+  aacddddddddddddcabbbbbbaaaabbb
+  aacddddddddddddcaabbbbaaahaabb
+  aacddddddddddddcaaabbbaaahaaab
+  aaccddddddddddccaaaabaaaahaaab
+  abacccddccddcccaaaaaaaaaahaaab
+  abbaaaffaaffaaaaaaaaaaaaahaaab
+  abbbaaahaahahaaaaahaaaaaahaaab
+  aabbbbaahaaahaaahhaamaaaahaaab
+  aaabbbbbahahahhaaahahahaahaaab
+  aaaaabbbbhhahhaabaaaaaaaaaaabb
+  aaaaaaabbaahhahbbbbaaahhaaaabb
+  aaaaaaabbbbbaabbbbbbbaaahhabbb
+  aaaaaaaabbbbbbbbaabbbbbaahbbbb
+  aaaaaaaaabbbbbbaaaaabbbbbhbbba
+  aaaaaaaaaaaabbaaaaaaabbbbabbaa
+  aaaaaaaaaaaaaaaaaaaaaaaaahaaaa
+tilemap:
+  a: Elona.Grass
+  b: Elona.WallForest
+  c: Elona.WallHay
+  d: Elona.DarkDirt1
+  e: Elona.StackedCrates
+  f: Elona.GrassRocks2
+  g: Elona.DarkDirt3
+  h: Elona.GrassRocks
+  i: Elona.StackedWood
+  j: Empty
+  k: Elona.GrassFencingWe
+  l: Elona.HorseBottom
+  m: Elona.GrassBush1
+entities:
+- uid: 0
+  components:
+  - type: Map
+...

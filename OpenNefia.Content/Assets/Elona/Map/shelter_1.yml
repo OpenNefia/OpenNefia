@@ -1,0 +1,39 @@
+meta:
+  format: 1
+  name: shelter_1
+  author: Noa
+grid: |
+  aaaaaaaaaaaaaaaaaaaaaaaa
+  aaaaaaaaaaaaaaaaaaaaaaaa
+  aaaaaaaaaaaaaaaaaaaaaaaa
+  aaaaaaaaaaaaaaaaaaaaaaaa
+  aaaaaaaaaaaaaaaaaaaaaaaa
+  aaaaaaaaaaaaaaaaaaaaaaaa
+  aaaaaaaaaaaaaaaaaaaaaaaa
+  aaaaaaaaaaaaaaaaaaaaaaaa
+  aaaaaaaaaaaaaaaaaaaaaaaa
+  aaaaaaaaabbbbbbaaaaaaaaa
+  aaaaaaaaabbbbbbaaaaaaaaa
+  aaaaaaaabbbbbbbaaaaaaaaa
+  aaaaaaaaabbbbbbaaaaaaaaa
+  aaaaaaaaaaaaaaaaaaaaaaaa
+  aaaaaaaaaaaaaaaaaaaaaaaa
+  aaaaaaaaaaaaaaaaaaaaaaaa
+  aaaaaaaaaaaaaaaaaaaaaaaa
+  aaaaaaaaaaaaaaaaaaaaaaaa
+  aaaaaaaaaaaaaaaaaaaaaaaa
+  aaaaaaaaaaaaaaaaaaaaaaaa
+tilemap:
+  a: Elona.WallStone1
+  b: Elona.Cobble2
+entities:
+- uid: 0
+  components:
+  - type: Map
+- uid: 1
+  protoId: Elona.FeatStairsUp
+  components:
+  - type: Spatial
+    pos: 8,11
+    parent: 0
+...

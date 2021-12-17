@@ -1,0 +1,85 @@
+meta:
+  format: 1
+  name: home4
+  author: Noa
+grid: |
+  aaaacaabaaaaeaaaaacbadaaaaa
+  adaaeaaadafffffffaeaaaaaaea
+  aaffffffaafgggggfaaffffffab
+  bafggggfaefgggggfeafggggfaa
+  aafggggffffgggggffffggggfaa
+  aefffgffiifffgfffiiffgfffce
+  aaaafhhhhhfljjjkfhhhhhfaaaa
+  adacfhhhhhhjjjjjhhhhhhfaaca
+  aaeafhhhhhfjmjjjfhhhhhfeaaa
+  caaafhhhhhfjjjljfhhhhhfaada
+  aaaffffffffkjjjjffffffffaaa
+  daafgggggjjjjmjmjjgggggfaeb
+  aeafggggfkjjljjjjkfggggfcaa
+  acafggggfffjjjjjfffggggfaad
+  aaaffffffaffnnnffaffffffaaa
+  baaaeaaaaaefnnnfbacaeaaaabc
+  aaaaaadaaaaannneacaaaadaaea
+  aeacaaabaebannnaaaabaaaeaaa
+tilemap:
+  a: Elona.Desert
+  b: Elona.DesertFlowers2
+  c: Elona.DesertRocks3
+  d: Elona.DesertFlowers1
+  e: Elona.DesertRocks2
+  f: Elona.WallCyber
+  g: Elona.BlackFloor
+  h: Elona.GreenFloor
+  i: Elona.ShopPlatform
+  j: Elona.Cyber4
+  k: Elona.Cyber2
+  l: Elona.Cyber3
+  m: Elona.Cyber1
+  n: Elona.Cobble4
+entities:
+- uid: 0
+  components:
+  - type: Map
+- uid: 1
+  protoId: Elona.FeatDoorSF
+  components:
+  - type: Spatial
+    pos: 18,11
+    parent: 0
+- uid: 2
+  protoId: Elona.FeatDoorSF
+  components:
+  - type: Spatial
+    pos: 8,11
+    parent: 0
+- uid: 3
+  protoId: Elona.FeatDoorSF
+  components:
+  - type: Spatial
+    pos: 10,7
+    parent: 0
+- uid: 4
+  protoId: Elona.FeatDoorSF
+  components:
+  - type: Spatial
+    pos: 13,5
+    parent: 0
+- uid: 5
+  protoId: Elona.FeatDoorSF
+  components:
+  - type: Spatial
+    pos: 5,5
+    parent: 0
+- uid: 6
+  protoId: Elona.FeatDoorSF
+  components:
+  - type: Spatial
+    pos: 16,7
+    parent: 0
+- uid: 7
+  protoId: Elona.FeatDoorSF
+  components:
+  - type: Spatial
+    pos: 21,5
+    parent: 0
+...

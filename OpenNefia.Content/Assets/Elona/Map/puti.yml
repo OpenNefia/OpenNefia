@@ -1,0 +1,979 @@
+meta:
+  format: 1
+  name: puti
+  author: Noa
+grid: |
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+  aaaaaaaaaaaaaaaaaaaaaaaaaaabbbbbbaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+  aaaaaaaaaaaaaaaaaaabbbbbaaabbbbbbaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+  aaaaaaaaaaaaaaaaaaabbbbbaaabbbbbbaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabbbbbbaaa
+  aaaaaaaaaaaaaaaaaaabbbbaaaaaaabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabbbbbbaaa
+  aaaaaaaaaaaaaaaaaaaaaabaaaaaaabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabbbbbbaaa
+  aaaaaaaaaaaaaaaaaaaaaabaaaaaabbaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabbbbbbaaa
+  aaabaabaaaaaaaabbbbbbbbaaaaaabbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbaaa
+  aabbbbbbbbbbbbbbbbbbbbbaaaaaabbaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabbbbbbaaa
+  aabbbbbaaaaabbaaaaaaaabaaaaaabbaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabbbbbbaaa
+  aaabbbaaaaaaaaaaaaaaaabbaaaabbbaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabbbbbbaaa
+  aaaaaaaaaaaaaaaaaaaaaaabbaabbbaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabbbbbbaaa
+  aaaaaaaaaaaaaaaaaaaaaaaabbbbbaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+tilemap:
+  a: Elona.WallDirt
+  b: Elona.DirtRocks
+entities:
+- uid: 0
+  components:
+  - type: Map
+- uid: 1
+  protoId: Elona.ItemPick
+  components:
+  - type: Spatial
+    pos: 3,7
+    parent: 0
+- uid: 2
+  protoId: Elona.ItemPick
+  components:
+  - type: Spatial
+    pos: 13,9
+    parent: 0
+- uid: 3
+  protoId: Elona.ItemLantern
+  components:
+  - type: Spatial
+    pos: 12,9
+    parent: 0
+- uid: 4
+  protoId: Elona.ItemLantern
+  components:
+  - type: Spatial
+    pos: 6,7
+    parent: 0
+- uid: 5
+  protoId: Elona.ItemBrokenVase
+  components:
+  - type: Spatial
+    pos: 2,9
+    parent: 0
+- uid: 6
+  protoId: Elona.ItemJunkStone
+  components:
+  - type: Spatial
+    pos: 3,10
+    parent: 0
+- uid: 7
+  protoId: Elona.ItemSkeleton
+  components:
+  - type: Spatial
+    pos: 5,10
+    parent: 0
+- uid: 8
+  protoId: Elona.ItemSkeleton
+  components:
+  - type: Spatial
+    pos: 15,7
+    parent: 0
+- uid: 9
+  protoId: Elona.ItemBonfire
+  components:
+  - type: Spatial
+    pos: 17,7
+    parent: 0
+- uid: 10
+  protoId: Elona.ItemBonfire
+  components:
+  - type: Spatial
+    pos: 20,7
+    parent: 0
+- uid: 11
+  protoId: Elona.ItemBonfire
+  components:
+  - type: Spatial
+    pos: 29,6
+    parent: 0
+- uid: 12
+  protoId: Elona.ItemJunkStone
+  components:
+  - type: Spatial
+    pos: 29,11
+    parent: 0
+- uid: 13
+  protoId: Elona.ItemJunkStone
+  components:
+  - type: Spatial
+    pos: 19,7
+    parent: 0
+- uid: 14
+  protoId: Elona.ItemBroom
+  components:
+  - type: Spatial
+    pos: 19,4
+    parent: 0
+- uid: 15
+  protoId: Elona.ItemLantern
+  components:
+  - type: Spatial
+    pos: 27,11
+    parent: 0
+- uid: 16
+  protoId: Elona.ItemLantern
+  components:
+  - type: Spatial
+    pos: 30,10
+    parent: 0
+- uid: 17
+  protoId: Elona.ItemLotOfAccessories
+  components:
+  - type: Spatial
+    pos: 19,2
+    parent: 0
+- uid: 18
+  protoId: Elona.ItemLotOfAccessories
+  components:
+  - type: Spatial
+    pos: 21,2
+    parent: 0
+- uid: 19
+  protoId: Elona.ItemCupboard
+  components:
+  - type: Spatial
+    pos: 20,2
+    parent: 0
+- uid: 20
+  protoId: Elona.ItemTowel
+  components:
+  - type: Spatial
+    pos: 23,2
+    parent: 0
+- uid: 21
+  protoId: Elona.ItemShoes
+  components:
+  - type: Spatial
+    pos: 23,3
+    parent: 0
+- uid: 22
+  protoId: Elona.ItemLightMail
+  components:
+  - type: Spatial
+    pos: 22,2
+    parent: 0
+- uid: 23
+  protoId: Elona.ItemGirdle
+  components:
+  - type: Spatial
+    pos: 19,3
+    parent: 0
+- uid: 24
+  protoId: Elona.ItemMorgia
+  components:
+  - type: Spatial
+    pos: 21,8
+    parent: 0
+- uid: 25
+  protoId: Elona.ItemCuraria
+  components:
+  - type: Spatial
+    pos: 22,9
+    parent: 0
+- uid: 26
+  protoId: Elona.ItemStomafillia
+  components:
+  - type: Spatial
+    pos: 24,11
+    parent: 0
+- uid: 27
+  protoId: Elona.ItemLotOfAlcohols
+  components:
+  - type: Spatial
+    pos: 20,3
+    parent: 0
+- uid: 28
+  protoId: Elona.ItemSmallShield
+  components:
+  - type: Spatial
+    pos: 32,2
+    parent: 0
+- uid: 29
+  protoId: Elona.ItemGloves
+  components:
+  - type: Spatial
+    pos: 32,3
+    parent: 0
+- uid: 30
+  protoId: Elona.ItemLongBow
+  components:
+  - type: Spatial
+    pos: 32,1
+    parent: 0
+- uid: 31
+  protoId: Elona.ItemStone
+  components:
+  - type: Spatial
+    pos: 27,3
+    parent: 0
+- uid: 32
+  protoId: Elona.ItemArrow
+  components:
+  - type: Spatial
+    pos: 31,1
+    parent: 0
+- uid: 33
+  protoId: Elona.ItemWellKeptArmor
+  components:
+  - type: Spatial
+    pos: 30,1
+    parent: 0
+- uid: 34
+  protoId: Elona.ItemWellKeptArmor
+  components:
+  - type: Spatial
+    pos: 27,1
+    parent: 0
+- uid: 35
+  protoId: Elona.ItemBrokenSword
+  components:
+  - type: Spatial
+    pos: 31,2
+    parent: 0
+- uid: 36
+  protoId: Elona.ItemLightCloak
+  components:
+  - type: Spatial
+    pos: 29,1
+    parent: 0
+- uid: 37
+  protoId: Elona.ItemCheapTable
+  components:
+  - type: Spatial
+    pos: 27,2
+    parent: 0
+- uid: 38
+  protoId: Elona.ItemSquareChair
+  components:
+  - type: Spatial
+    pos: 28,2
+    parent: 0
+- uid: 39
+  protoId: Elona.ItemStraw
+  components:
+  - type: Spatial
+    pos: 28,1
+    parent: 0
+- uid: 40
+  protoId: Elona.ItemAnimalBone
+  components:
+  - type: Spatial
+    pos: 73,5
+    parent: 0
+- uid: 41
+  protoId: Elona.ItemAnimalBone
+  components:
+  - type: Spatial
+    pos: 75,10
+    parent: 0
+- uid: 42
+  protoId: Elona.ItemBoneFragment
+  components:
+  - type: Spatial
+    pos: 75,7
+    parent: 0
+- uid: 43
+  protoId: Elona.ItemBoneFragment
+  components:
+  - type: Spatial
+    pos: 71,10
+    parent: 0
+- uid: 44
+  protoId: Elona.ItemBonfire
+  components:
+  - type: Spatial
+    pos: 72,4
+    parent: 0
+- uid: 45
+  protoId: Elona.ItemBonfire
+  components:
+  - type: Spatial
+    pos: 72,10
+    parent: 0
+- uid: 46
+  protoId: Elona.ItemVegetableSeed
+  components:
+  - type: Spatial
+    pos: 75,4
+    parent: 0
+- uid: 47
+  protoId: Elona.ItemVegetableSeed
+  components:
+  - type: Spatial
+    pos: 73,3
+    parent: 0
+- uid: 48
+  protoId: Elona.ItemHerbSeed
+  components:
+  - type: Spatial
+    pos: 76,3
+    parent: 0
+- uid: 49
+  protoId: Elona.ItemHerbSeed
+  components:
+  - type: Spatial
+    pos: 76,5
+    parent: 0
+- uid: 50
+  protoId: Elona.ItemSpellbookOfCureMinorWound
+  components:
+  - type: Spatial
+    pos: 73,10
+    parent: 0
+- uid: 51
+  protoId: Elona.ItemSpellbookOfMagicMapping
+  components:
+  - type: Spatial
+    pos: 74,8
+    parent: 0
+- uid: 52
+  protoId: Elona.ItemSpellbookOfSlow
+  components:
+  - type: Spatial
+    pos: 76,11
+    parent: 0
+- uid: 53
+  protoId: Elona.CharaPutit
+  components:
+  - type: Spatial
+    pos: 8,8
+    parent: 0
+- uid: 54
+  protoId: Elona.CharaRedPutit
+  components:
+  - type: Spatial
+    pos: 12,8
+    parent: 0
+- uid: 55
+  protoId: Elona.CharaRedPutit
+  components:
+  - type: Spatial
+    pos: 16,7
+    parent: 0
+- uid: 56
+  protoId: Elona.CharaPutit
+  components:
+  - type: Spatial
+    pos: 19,8
+    parent: 0
+- uid: 57
+  protoId: Elona.CharaRedPutit
+  components:
+  - type: Spatial
+    pos: 21,4
+    parent: 0
+- uid: 58
+  protoId: Elona.CharaRedPutit
+  components:
+  - type: Spatial
+    pos: 22,3
+    parent: 0
+- uid: 59
+  protoId: Elona.CharaPutit
+  components:
+  - type: Spatial
+    pos: 20,4
+    parent: 0
+- uid: 60
+  protoId: Elona.CharaPutit
+  components:
+  - type: Spatial
+    pos: 22,5
+    parent: 0
+- uid: 61
+  protoId: Elona.CharaPutit
+  components:
+  - type: Spatial
+    pos: 21,3
+    parent: 0
+- uid: 62
+  protoId: Elona.CharaPutit
+  components:
+  - type: Spatial
+    pos: 22,4
+    parent: 0
+- uid: 63
+  protoId: Elona.CharaRedPutit
+  components:
+  - type: Spatial
+    pos: 28,12
+    parent: 0
+- uid: 64
+  protoId: Elona.CharaPutit
+  components:
+  - type: Spatial
+    pos: 29,8
+    parent: 0
+- uid: 65
+  protoId: Elona.CharaRedPutit
+  components:
+  - type: Spatial
+    pos: 28,3
+    parent: 0
+- uid: 66
+  protoId: Elona.CharaRedPutit
+  components:
+  - type: Spatial
+    pos: 30,2
+    parent: 0
+- uid: 67
+  protoId: Elona.CharaPutit
+  components:
+  - type: Spatial
+    pos: 31,3
+    parent: 0
+- uid: 68
+  protoId: Elona.CharaPutit
+  components:
+  - type: Spatial
+    pos: 29,1
+    parent: 0
+- uid: 69
+  protoId: Elona.CharaPutit
+  components:
+  - type: Spatial
+    pos: 32,7
+    parent: 0
+- uid: 70
+  protoId: Elona.CharaPutit
+  components:
+  - type: Spatial
+    pos: 33,7
+    parent: 0
+- uid: 71
+  protoId: Elona.CharaRedPutit
+  components:
+  - type: Spatial
+    pos: 34,7
+    parent: 0
+- uid: 72
+  protoId: Elona.CharaRedPutit
+  components:
+  - type: Spatial
+    pos: 36,7
+    parent: 0
+- uid: 73
+  protoId: Elona.CharaPutit
+  components:
+  - type: Spatial
+    pos: 35,7
+    parent: 0
+- uid: 74
+  protoId: Elona.CharaPutit
+  components:
+  - type: Spatial
+    pos: 37,7
+    parent: 0
+- uid: 75
+  protoId: Elona.CharaPutit
+  components:
+  - type: Spatial
+    pos: 38,7
+    parent: 0
+- uid: 76
+  protoId: Elona.CharaRedPutit
+  components:
+  - type: Spatial
+    pos: 39,7
+    parent: 0
+- uid: 77
+  protoId: Elona.CharaRedPutit
+  components:
+  - type: Spatial
+    pos: 40,7
+    parent: 0
+- uid: 78
+  protoId: Elona.CharaPutit
+  components:
+  - type: Spatial
+    pos: 41,7
+    parent: 0
+- uid: 79
+  protoId: Elona.CharaPutit
+  components:
+  - type: Spatial
+    pos: 43,7
+    parent: 0
+- uid: 80
+  protoId: Elona.CharaPutit
+  components:
+  - type: Spatial
+    pos: 42,7
+    parent: 0
+- uid: 81
+  protoId: Elona.CharaPutit
+  components:
+  - type: Spatial
+    pos: 44,7
+    parent: 0
+- uid: 82
+  protoId: Elona.CharaRedPutit
+  components:
+  - type: Spatial
+    pos: 45,7
+    parent: 0
+- uid: 83
+  protoId: Elona.CharaPutit
+  components:
+  - type: Spatial
+    pos: 46,7
+    parent: 0
+- uid: 84
+  protoId: Elona.CharaPutit
+  components:
+  - type: Spatial
+    pos: 47,7
+    parent: 0
+- uid: 85
+  protoId: Elona.CharaRedPutit
+  components:
+  - type: Spatial
+    pos: 48,7
+    parent: 0
+- uid: 86
+  protoId: Elona.CharaRedPutit
+  components:
+  - type: Spatial
+    pos: 49,7
+    parent: 0
+- uid: 87
+  protoId: Elona.CharaPutit
+  components:
+  - type: Spatial
+    pos: 50,7
+    parent: 0
+- uid: 88
+  protoId: Elona.CharaRedPutit
+  components:
+  - type: Spatial
+    pos: 51,7
+    parent: 0
+- uid: 89
+  protoId: Elona.CharaRedPutit
+  components:
+  - type: Spatial
+    pos: 52,7
+    parent: 0
+- uid: 90
+  protoId: Elona.CharaSlime
+  components:
+  - type: Spatial
+    pos: 53,7
+    parent: 0
+- uid: 91
+  protoId: Elona.CharaSlime
+  components:
+  - type: Spatial
+    pos: 55,7
+    parent: 0
+- uid: 92
+  protoId: Elona.CharaSlime
+  components:
+  - type: Spatial
+    pos: 60,7
+    parent: 0
+- uid: 93
+  protoId: Elona.CharaSlime
+  components:
+  - type: Spatial
+    pos: 72,5
+    parent: 0
+- uid: 94
+  protoId: Elona.CharaSlime
+  components:
+  - type: Spatial
+    pos: 73,8
+    parent: 0
+- uid: 95
+  protoId: Elona.CharaSlime
+  components:
+  - type: Spatial
+    pos: 75,6
+    parent: 0
+- uid: 96
+  protoId: Elona.CharaSlime
+  components:
+  - type: Spatial
+    pos: 76,9
+    parent: 0
+- uid: 97
+  protoId: Elona.CharaSlime
+  components:
+  - type: Spatial
+    pos: 74,11
+    parent: 0
+- uid: 98
+  protoId: Elona.CharaSlime
+  components:
+  - type: Spatial
+    pos: 71,11
+    parent: 0
+- uid: 99
+  protoId: Elona.CharaSlime
+  components:
+  - type: Spatial
+    pos: 71,7
+    parent: 0
+- uid: 100
+  protoId: Elona.CharaSlime
+  components:
+  - type: Spatial
+    pos: 74,3
+    parent: 0
+- uid: 101
+  protoId: Elona.CharaSlime
+  components:
+  - type: Spatial
+    pos: 76,4
+    parent: 0
+- uid: 102
+  protoId: Elona.CharaSlime
+  components:
+  - type: Spatial
+    pos: 73,6
+    parent: 0
+- uid: 103
+  protoId: Elona.CharaPutit
+  components:
+  - type: Spatial
+    pos: 57,7
+    parent: 0
+- uid: 104
+  protoId: Elona.CharaPutit
+  components:
+  - type: Spatial
+    pos: 54,7
+    parent: 0
+- uid: 105
+  protoId: Elona.CharaPutit
+  components:
+  - type: Spatial
+    pos: 58,7
+    parent: 0
+- uid: 106
+  protoId: Elona.CharaPutit
+  components:
+  - type: Spatial
+    pos: 63,7
+    parent: 0
+- uid: 107
+  protoId: Elona.CharaPutit
+  components:
+  - type: Spatial
+    pos: 65,7
+    parent: 0
+- uid: 108
+  protoId: Elona.CharaPutit
+  components:
+  - type: Spatial
+    pos: 68,7
+    parent: 0
+- uid: 109
+  protoId: Elona.CharaPutit
+  components:
+  - type: Spatial
+    pos: 72,7
+    parent: 0
+- uid: 110
+  protoId: Elona.CharaPutit
+  components:
+  - type: Spatial
+    pos: 73,5
+    parent: 0
+- uid: 111
+  protoId: Elona.CharaPutit
+  components:
+  - type: Spatial
+    pos: 75,4
+    parent: 0
+- uid: 112
+  protoId: Elona.CharaPutit
+  components:
+  - type: Spatial
+    pos: 72,3
+    parent: 0
+- uid: 113
+  protoId: Elona.CharaPutit
+  components:
+  - type: Spatial
+    pos: 71,5
+    parent: 0
+- uid: 114
+  protoId: Elona.CharaPutit
+  components:
+  - type: Spatial
+    pos: 72,6
+    parent: 0
+- uid: 115
+  protoId: Elona.CharaPutit
+  components:
+  - type: Spatial
+    pos: 72,9
+    parent: 0
+- uid: 116
+  protoId: Elona.CharaPutit
+  components:
+  - type: Spatial
+    pos: 71,10
+    parent: 0
+- uid: 117
+  protoId: Elona.CharaPutit
+  components:
+  - type: Spatial
+    pos: 72,11
+    parent: 0
+- uid: 118
+  protoId: Elona.CharaPutit
+  components:
+  - type: Spatial
+    pos: 75,9
+    parent: 0
+- uid: 119
+  protoId: Elona.CharaPutit
+  components:
+  - type: Spatial
+    pos: 76,11
+    parent: 0
+- uid: 120
+  protoId: Elona.CharaPutit
+  components:
+  - type: Spatial
+    pos: 76,8
+    parent: 0
+- uid: 121
+  protoId: Elona.CharaPutit
+  components:
+  - type: Spatial
+    pos: 76,6
+    parent: 0
+- uid: 122
+  protoId: Elona.CharaPutit
+  components:
+  - type: Spatial
+    pos: 74,5
+    parent: 0
+- uid: 123
+  protoId: Elona.CharaPutit
+  components:
+  - type: Spatial
+    pos: 73,4
+    parent: 0
+- uid: 124
+  protoId: Elona.CharaPutit
+  components:
+  - type: Spatial
+    pos: 76,3
+    parent: 0
+- uid: 125
+  protoId: Elona.CharaPutit
+  components:
+  - type: Spatial
+    pos: 72,8
+    parent: 0
+- uid: 126
+  protoId: Elona.CharaPutit
+  components:
+  - type: Spatial
+    pos: 74,10
+    parent: 0
+- uid: 127
+  protoId: Elona.CharaRedPutit
+  components:
+  - type: Spatial
+    pos: 56,7
+    parent: 0
+- uid: 128
+  protoId: Elona.CharaRedPutit
+  components:
+  - type: Spatial
+    pos: 59,7
+    parent: 0
+- uid: 129
+  protoId: Elona.CharaRedPutit
+  components:
+  - type: Spatial
+    pos: 61,7
+    parent: 0
+- uid: 130
+  protoId: Elona.CharaRedPutit
+  components:
+  - type: Spatial
+    pos: 62,7
+    parent: 0
+- uid: 131
+  protoId: Elona.CharaRedPutit
+  components:
+  - type: Spatial
+    pos: 64,7
+    parent: 0
+- uid: 132
+  protoId: Elona.CharaRedPutit
+  components:
+  - type: Spatial
+    pos: 66,7
+    parent: 0
+- uid: 133
+  protoId: Elona.CharaRedPutit
+  components:
+  - type: Spatial
+    pos: 67,7
+    parent: 0
+- uid: 134
+  protoId: Elona.CharaRedPutit
+  components:
+  - type: Spatial
+    pos: 69,7
+    parent: 0
+- uid: 135
+  protoId: Elona.CharaRedPutit
+  components:
+  - type: Spatial
+    pos: 71,4
+    parent: 0
+- uid: 136
+  protoId: Elona.CharaRedPutit
+  components:
+  - type: Spatial
+    pos: 71,3
+    parent: 0
+- uid: 137
+  protoId: Elona.CharaRedPutit
+  components:
+  - type: Spatial
+    pos: 72,4
+    parent: 0
+- uid: 138
+  protoId: Elona.CharaRedPutit
+  components:
+  - type: Spatial
+    pos: 71,6
+    parent: 0
+- uid: 139
+  protoId: Elona.CharaRedPutit
+  components:
+  - type: Spatial
+    pos: 71,8
+    parent: 0
+- uid: 140
+  protoId: Elona.CharaRedPutit
+  components:
+  - type: Spatial
+    pos: 71,9
+    parent: 0
+- uid: 141
+  protoId: Elona.CharaRedPutit
+  components:
+  - type: Spatial
+    pos: 72,10
+    parent: 0
+- uid: 142
+  protoId: Elona.CharaRedPutit
+  components:
+  - type: Spatial
+    pos: 73,9
+    parent: 0
+- uid: 143
+  protoId: Elona.CharaRedPutit
+  components:
+  - type: Spatial
+    pos: 73,7
+    parent: 0
+- uid: 144
+  protoId: Elona.CharaRedPutit
+  components:
+  - type: Spatial
+    pos: 74,6
+    parent: 0
+- uid: 145
+  protoId: Elona.CharaRedPutit
+  components:
+  - type: Spatial
+    pos: 74,9
+    parent: 0
+- uid: 146
+  protoId: Elona.CharaRedPutit
+  components:
+  - type: Spatial
+    pos: 75,8
+    parent: 0
+- uid: 147
+  protoId: Elona.CharaRedPutit
+  components:
+  - type: Spatial
+    pos: 74,4
+    parent: 0
+- uid: 148
+  protoId: Elona.FeatSmallMedal
+  components:
+  - type: Spatial
+    pos: 75,5
+    parent: 0
+- uid: 149
+  protoId: Elona.FeatSmallMedal
+  components:
+  - type: Spatial
+    pos: 73,11
+    parent: 0
+- uid: 150
+  protoId: Elona.FeatSmallMedal
+  components:
+  - type: Spatial
+    pos: 29,2
+    parent: 0
+- uid: 151
+  protoId: Elona.FeatStairsUp
+  components:
+  - type: Spatial
+    pos: 4,9
+    parent: 0
+- uid: 152
+  protoId: Elona.FeatDoorWooden
+  components:
+  - type: Door
+    unlockDifficulty: 15
+  - type: Spatial
+    pos: 7,8
+    parent: 0
+- uid: 153
+  protoId: Elona.FeatDoorWooden
+  components:
+  - type: Door
+    unlockDifficulty: 10
+  - type: Spatial
+    pos: 22,6
+    parent: 0
+- uid: 154
+  protoId: Elona.FeatDoorWooden
+  components:
+  - type: Spatial
+    pos: 30,5
+    parent: 0
+- uid: 155
+  protoId: Elona.FeatDoorWooden
+  components:
+  - type: Door
+    unlockDifficulty: 15
+  - type: Spatial
+    pos: 31,7
+    parent: 0
+- uid: 156
+  protoId: Elona.FeatDoorWooden
+  components:
+  - type: Door
+    unlockDifficulty: 15
+  - type: Spatial
+    pos: 70,7
+    parent: 0
+- uid: 157
+  protoId: Elona.CharaBubble
+  components:
+  - type: Spatial
+    pos: 74,7
+    parent: 0
+...

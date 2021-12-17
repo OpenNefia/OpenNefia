@@ -1,0 +1,73 @@
+meta:
+  format: 1
+  name: home3
+  author: Noa
+grid: |
+  abcccecfcdaccgcccccccfacbab
+  bcgcccccccccecccccedcccgceb
+  ccchhhhhhhhhccchhhhhhhhhcca
+  dechiiiihkkhhhhhkkhiiiihcab
+  cbghiiiiijjjjjjjjjiiiiihcga
+  afchiiiihjjjjjjjjjhiiiihdcc
+  aachhhhhhjjjjjjjjjhhhhhhcec
+  abchiiiijjjjjjjjjjjiiiihcdc
+  cgchiiihjjjjjjjjjjjhiiihcce
+  bcchiiihhhhjjjjjhhhhiiihcfg
+  cechhhhhcchjllljhcchhhhhcce
+  acfccccccchhhlhhhcccccccccb
+  aacdccgcccfcmmmcfcccncdccfa
+  acccccccccecmmmceccccccnceb
+  abccgfccccfcmmmcfcccccgcbab
+  bccfecccccecmmmcecccdccccba
+  cecccdcgccfcmmmcfcccfcccaab
+  dccdccccccecmmmcecccccceaaa
+tilemap:
+  a: Elona.GrassBush3
+  b: Elona.GrassBush2
+  c: Elona.Grass
+  d: Elona.GrassPatch1
+  e: Elona.GrassBush1
+  f: Elona.GrassViolets
+  g: Elona.GrassTall1
+  h: Elona.WallShingled
+  i: Elona.Tile3
+  j: Elona.WoodFloor9
+  k: Elona.ShopPlatform
+  l: Elona.Thatching
+  m: Elona.CobbleDiagonal
+  n: Elona.GrassTall2
+entities:
+- uid: 0
+  components:
+  - type: Map
+- uid: 1
+  protoId: Elona.FeatDoorWooden
+  components:
+  - type: Spatial
+    pos: 18,4
+    parent: 0
+- uid: 2
+  protoId: Elona.FeatDoorWooden
+  components:
+  - type: Spatial
+    pos: 8,4
+    parent: 0
+- uid: 3
+  protoId: Elona.FeatDoorWooden
+  components:
+  - type: Spatial
+    pos: 7,7
+    parent: 0
+- uid: 4
+  protoId: Elona.FeatDoorWooden
+  components:
+  - type: Spatial
+    pos: 19,7
+    parent: 0
+- uid: 5
+  protoId: Elona.FeatDoorWooden
+  components:
+  - type: Spatial
+    pos: 13,11
+    parent: 0
+...

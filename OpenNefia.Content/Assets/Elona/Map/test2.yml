@@ -1,0 +1,387 @@
+meta:
+  format: 1
+  name: test2
+  author: Noa
+grid: |
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+  aaaaaannnnnnaaaaaaaaaaaaaaaaaa
+  aaaaaanaaaanaaaaaaaaaaaaaaaaaa
+  aaaaaanaaaanfaafffaaaaaaaaaaaa
+  afffffnnannnaaaaafaaaaaaaaaaaa
+  aaaaaaaaaaaaaaaaaffffaafffffff
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+  bccccbbbbbbbbaaaaaaaaaaaaaaaaa
+  cccccbbbbbbbbbbbbbbbbbbbbbaacc
+  ccccccbbbbbbbbbbbbbbbbbbbbbccc
+  ccccccbbbbbbddooddddddooddbccc
+  dcccccddddddbbbbbbbbbbbbbbdddd
+  bdddddbbbbbbbbbbbbbbbbbbbbbbbb
+  bbbbbbbbbbbbbccccccbbbbbbbbbbb
+  bbbbbbbbbbbbbcddddccccbbbbbbbb
+  bbbbbeeeeeebbcbbbbdddcbbbbbbbb
+  bbbbbellllebbcbbbbbbbcbbbbbbbb
+  bbbbklllllebbcbbbbbbbcbbbrrrrr
+  bbbbkellllebbcccbbbbbcbbbrrrrr
+  bbbbkeeeeeebbddcccbbccbbbrrbbb
+  bbbbkkkkkkkbbbbdddbbddbbbrrbbb
+  eeeeebbbbbkkkkkkkkkkkbbbbfrbbb
+  eeeeebbbbbkbbbbbbbbbkbbbbrrbbb
+  cccccdddddodddddbbbbkbbbbrrbbb
+  dddddbbbbblbbbbbddddoddddrrddd
+  bbbbbbbbbblbbbbbkkkkkbbbbddbbb
+  fffffffffblbbbbbkbffffbbbbbbbb
+  ggijgmgaaaaaaaaaaaaaafffffffff
+  hhhgigjgaapaaaaaaqaaaaaaaaaaaa
+tilemap:
+  a: Elona.Snow
+  b: Elona.IceTiled4
+  c: Elona.WallIce1
+  d: Elona.IceWallEdge
+  e: Elona.WallIce3
+  f: Elona.WallSnow2
+  g: Elona.SnowBushes1
+  h: Elona.SnowBushes3
+  i: Elona.SnowBushes2
+  j: Elona.SnowBush
+  k: Elona.IceTiled2
+  l: Elona.IceTiled1
+  m: Elona.SnowIce
+  n: Elona.WallSnow1
+  o: Elona.IceStairs2
+  p: Elona.SnowBoulder
+  q: Elona.SnowLog
+  r: Elona.WallSnow3
+entities:
+- uid: 0
+  components:
+  - type: Map
+- uid: 1
+  protoId: Elona.ItemSnowBarrel
+  components:
+  - type: Spatial
+    pos: 5,65
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 2
+  protoId: Elona.ItemSnowBarrel
+  components:
+  - type: Spatial
+    pos: 14,61
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 3
+  protoId: Elona.ItemSnowBarrel
+  components:
+  - type: Spatial
+    pos: 12,52
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 4
+  protoId: Elona.ItemSnowBarrel
+  components:
+  - type: Spatial
+    pos: 25,52
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 5
+  protoId: Elona.ItemModernLampB
+  components:
+  - type: Spatial
+    pos: 9,63
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 6
+  protoId: Elona.ItemModernLampB
+  components:
+  - type: Spatial
+    pos: 11,63
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 7
+  protoId: Elona.ItemModernLampB
+  components:
+  - type: Spatial
+    pos: 19,64
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 8
+  protoId: Elona.ItemModernLampB
+  components:
+  - type: Spatial
+    pos: 21,64
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 9
+  protoId: Elona.ItemModernLampB
+  components:
+  - type: Spatial
+    pos: 13,52
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 10
+  protoId: Elona.ItemModernLampB
+  components:
+  - type: Spatial
+    pos: 16,52
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 11
+  protoId: Elona.ItemModernLampB
+  components:
+  - type: Spatial
+    pos: 21,52
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 12
+  protoId: Elona.ItemModernLampB
+  components:
+  - type: Spatial
+    pos: 24,52
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 13
+  protoId: Elona.ItemModernLampB
+  components:
+  - type: Spatial
+    pos: 3,58
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 14
+  protoId: Elona.ItemSnowMan
+  components:
+  - type: Spatial
+    pos: 9,66
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 15
+  protoId: Elona.ItemSnowMan
+  components:
+  - type: Spatial
+    pos: 23,60
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 16
+  protoId: Elona.ItemSnowMan
+  components:
+  - type: Spatial
+    pos: 20,53
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 17
+  protoId: Elona.ItemSnowMan
+  components:
+  - type: Spatial
+    pos: 9,50
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 18
+  protoId: Elona.ItemSnowMan
+  components:
+  - type: Spatial
+    pos: 14,45
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 19
+  protoId: Elona.ItemSnowMan
+  components:
+  - type: Spatial
+    pos: 23,38
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 20
+  protoId: Elona.ItemSnowMan
+  components:
+  - type: Spatial
+    pos: 15,35
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 21
+  protoId: Elona.ItemSnowMan
+  components:
+  - type: Spatial
+    pos: 7,27
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 22
+  protoId: Elona.ItemSnowMan
+  components:
+  - type: Spatial
+    pos: 24,25
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 23
+  protoId: Elona.ItemSnowMan
+  components:
+  - type: Spatial
+    pos: 20,28
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 24
+  protoId: Elona.ItemSnowMan
+  components:
+  - type: Spatial
+    pos: 12,19
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 25
+  protoId: Elona.ItemSnowMan
+  components:
+  - type: Spatial
+    pos: 7,9
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 26
+  protoId: Elona.ItemSnowMan
+  components:
+  - type: Spatial
+    pos: 22,5
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 27
+  protoId: Elona.ItemSnowMan
+  components:
+  - type: Spatial
+    pos: 14,4
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 28
+  protoId: Elona.ItemSnowMan
+  components:
+  - type: Spatial
+    pos: 5,4
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 29
+  protoId: Elona.ItemSnowMan
+  components:
+  - type: Spatial
+    pos: 18,18
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 30
+  protoId: Elona.ItemSnowMan
+  components:
+  - type: Spatial
+    pos: 8,33
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 31
+  protoId: Elona.ItemCargoChristmasTree
+  components:
+  - type: Spatial
+    pos: 15,65
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 32
+  protoId: Elona.ItemCargoChristmasTree
+  components:
+  - type: Spatial
+    pos: 13,65
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 33
+  protoId: Elona.ItemCargoChristmasTree
+  components:
+  - type: Spatial
+    pos: 8,65
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 34
+  protoId: Elona.ItemCargoChristmasTree
+  components:
+  - type: Spatial
+    pos: 6,65
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 35
+  protoId: Elona.ItemCargoChristmasTree
+  components:
+  - type: Spatial
+    pos: 18,50
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 36
+  protoId: Elona.ItemCargoChristmasTree
+  components:
+  - type: Spatial
+    pos: 19,52
+    parent: 0
+  - type: Item
+    ownState: NPC
+...

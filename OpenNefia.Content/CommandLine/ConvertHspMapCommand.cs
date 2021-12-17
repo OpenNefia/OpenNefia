@@ -3,6 +3,7 @@ using OpenNefia.Content.GameObjects;
 using OpenNefia.Core.CommandLine;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
+using OpenNefia.Core.Log;
 using OpenNefia.Core.Maps;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.Prototypes;
@@ -22,7 +23,7 @@ using static OpenNefia.Core.Prototypes.EntityPrototype;
 namespace OpenNefia.Content.CommandLine
 {
     [Verb(name: "convertHspMap", HelpText = "Converts a .map/.idx/.obj trio into a map blueprint.")]
-    public class ConvertHspMapCommand : ICommand
+    public class ConvertHspMapCommand : BaseCommand
     {
         [Value(0, MetaName = "mapFilePath", Required = true, HelpText = "Path to .map file.")]
         public string MapFilePath { get; set; } = default!;
@@ -193,7 +194,14 @@ namespace OpenNefia.Content.CommandLine
                     for (int x = 0; x < map.Width; x++)
                     {
                         var elonaTileId = reader.ReadInt32();
-                        var tileDef = tileMap[elonaTileId];
+                        PrototypeId<TilePrototype> tileDef;
+                        if (tileMap.ContainsKey(elonaTileId))
+                            tileDef = tileMap[elonaTileId];
+                        else
+                        {
+                            Logger.Error($"MISSING TILE map{idx.AtlasIndex}.bmp {elonaTileId} ({(elonaTileId % 33) * 48},{(elonaTileId / 33) * 48})");
+                            tileDef = TilePrototypeOf.Empty;
+                        }
                         map.SetTile(new Vector2i(x, y), tileDef);
                     }
                 }
@@ -245,7 +253,6 @@ namespace OpenNefia.Content.CommandLine
 
             foreach (var (compType, comp) in comps)
             {
-
                 var compMapping = _serializationManager.WriteValueAs<MappingDataNode>(comp.GetType(), comp);
 
                 // This is necessary since no entities/maps are tracked by the EntityManager during
@@ -275,7 +282,7 @@ namespace OpenNefia.Content.CommandLine
 
         private YamlMappingNode ConvertItemObj(Obj obj, HspEntityPrototypeIndex index)
         {
-            var ownState = obj.Param;
+            var ownState = (ItemOwnState)obj.Param;
 
             var protoId = index.GetValueOrThrow(HspEntityTypes.Item, obj.Id);
             var comps = MakeEntityComponentsBase(protoId);
@@ -306,6 +313,9 @@ namespace OpenNefia.Content.CommandLine
 
             var comps = MakeEntityComponentsBase(protoId);
 
+            if (obj.Param != 0)
+                Logger.Warning($"FEAT {param1} {param2} {protoId}");
+
             foreach (var comp in comps.Values.WhereAssignable<IComponent, IFromHspFeat>())
             {
                 comp.FromHspFeat(cellObjId, param1, param2);
@@ -314,17 +324,33 @@ namespace OpenNefia.Content.CommandLine
             return SerializeEntityNode(protoId, comps, obj.X, obj.Y);
         }
 
-        private YamlMappingNode MakeMapEntity()
+        private YamlMappingNode MakeMapEntity(HspMapIdx idx)
         {
+
             var mapEntity = new YamlMappingNode();
             mapEntity.Add(MapBlueprintLoader.Keys.Entities_Uid, MapEntityUid.ToString());
 
             var mapEntityComps = new YamlSequenceNode();
             mapEntity.Add(MapBlueprintLoader.Keys.Entities_Components, mapEntityComps);
 
-            var mapEntityMapComp = new YamlMappingNode();
-            mapEntityComps.Add(mapEntityMapComp);
-            mapEntityMapComp.Add(MapBlueprintLoader.Keys.Entities_Components_Type, "Map");
+            var mapComp = new MapComponent();
+
+            if (idx.StairUpPos != 0)
+            {
+                var pos = new Vector2i(idx.StairUpPos % 1000, idx.StairUpPos / 1000);
+                mapComp.StartLocation = new SpecificMapLocation(pos);
+            }
+
+            var comps = new ComponentRegistry();
+            comps.Add(mapComp.Name, mapComp);
+
+            foreach (var (_, comp) in comps)
+            {
+                var compMapping = _serializationManager.WriteValueAs<MappingDataNode>(comp.GetType(), comp);
+
+                compMapping.Insert(0, MapBlueprintLoader.Keys.Entities_Components_Type, new ValueDataNode(comp.Name));
+                mapEntityComps.Add(compMapping.ToYamlNode());
+            }
 
             return mapEntity;
         }
@@ -371,7 +397,7 @@ namespace OpenNefia.Content.CommandLine
 
             var entities = new YamlSequenceNode();
 
-            var mapEntity = MakeMapEntity();
+            var mapEntity = MakeMapEntity(idx);
             entities.Add(mapEntity);
 
             _maxEntityUid = new EntityUid(1);
@@ -430,8 +456,10 @@ namespace OpenNefia.Content.CommandLine
             return meta;
         }
 
-        public void Execute()
+        public override void Execute()
         {
+            Console.WriteLine($"Converting {MapFilePath}...");
+
             var dir = Path.GetDirectoryName(MapFilePath);
             var fileBaseName = Path.GetFileNameWithoutExtension(MapFilePath);
             var idxFilePath = Path.Join(dir, $"{fileBaseName}.idx");

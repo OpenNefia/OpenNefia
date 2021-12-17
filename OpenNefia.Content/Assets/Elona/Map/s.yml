@@ -1,0 +1,41 @@
+meta:
+  format: 1
+  name: s
+  author: Noa
+grid: |
+  aaaaaaacccccccccaaaa
+  aaaaaaccccccccccaaaa
+  aaccaccccccccccccaaa
+  acccccccccccccccaaaa
+  aaccccccccccccccccaa
+  aaacccccccccccccccaa
+  aacccccccccccccaaaaa
+  aaaccccccccccccccaaa
+  aaaaccccccccccccccaa
+  aaaaacccccccccccaaaa
+  bbbaaacccccccccaaaab
+  bbbaaacccccccccabbbb
+  bbbbacccccccccccbbbb
+  bbbbbbbbbbbcbbbbbbbb
+  bbbbbbbbbbbdbbbbbbbb
+  bbbbbbbbbcccccbbbbbb
+  bbbbbbbbcccccbbbbbbb
+  bbbbbbbcccccccbbbbbb
+  baaaccccccccccbbbbbb
+  baaacccccccccccaabbb
+  aaaacccccccccccaaaab
+  aaaccccccccccccccaaa
+  aaccccccccccccccaaaa
+  aaaccccccccccccccaaa
+  aacccccccccccccccaaa
+  aaccccccccccccccccaa
+tilemap:
+  a: Elona.WallDirt
+  b: Elona.Water
+  c: Elona.Desert
+  d: Elona.BridgeNs
+entities:
+- uid: 0
+  components:
+  - type: Map
+...

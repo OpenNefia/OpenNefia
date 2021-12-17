@@ -1,0 +1,42 @@
+meta:
+  format: 1
+  name: Juerefarm2
+  author: Noa
+grid: |
+  aaaadaaaaaaaaaaaaaaaaaaaaaaaaa
+  aaabbbbbbbbbbaaaaaaaaaaaaaaaaa
+  aaabeeeeeeeebaaaaaaaaaaaaagaaa
+  aaabeeeeeeeebaaaaaaaaaaaaaaaaa
+  aaabeeeeeeeebaaaaaaaaaaaaaaaaa
+  aaabeeeeeeeebaaaaaaaagaaaaaaaa
+  aaabbbbbeebbbbaaaaaaaaaaaaaaaa
+  aaaadabeeeeeebaaaaaaaaaadaaaaa
+  aaaaaabeeeeeeeaaaaaaaaaaaaagaa
+  aaaaaabeeeeeebaaaaaaaaaaaaaaaa
+  aaaaadbbbbbbbbaaaaaaaaaaaaaaaa
+  aaaaaaaaaaaafaaaaaaaaaaaaaaaaa
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+  aaacccccaacccccacccccacccccaaa
+  aaacccccaacccccacccccacccccaaa
+  aaacccccaacccccacccccacccccaaa
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+  aaacccccaacccccacccccacccccaaa
+  aaacccccaacccccacccccacccccaag
+  aaacccccaacccccacccccacccccaaa
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+tilemap:
+  a: Elona.Grass
+  b: Elona.WallHay
+  c: Elona.Field2
+  d: Elona.GrassBush3
+  e: Elona.WoodFloor6
+  f: Elona.GrassBush1
+  g: Elona.GrassBush2
+entities:
+- uid: 0
+  components:
+  - type: Map
+...

@@ -1,0 +1,39 @@
+meta:
+  format: 1
+  name: i
+  author: Noa
+grid: |
+  aaaaaaaaaaaaaaaaaaaaafffffffff
+  aabbbbbbbbbbbbbbbbbbaaffffffff
+  aabccccbeeebeeebeeebaafhhhhfff
+  aabccccbeeebeeebeeebaafhhhhfff
+  aabccccbeeebeeebeeebaafhhhhhff
+  aabccccbbdbbbdbbbdbbaaghhhhhff
+  aabbbdbbdddddddddddbaaggghhhff
+  aabddddddddddddddddbaaaaghhffa
+  aabbbdbbdddddddddddbdbbaggggga
+  aabccccbddddddddddddddbaaaaaaa
+  aabccccbddddddddddddddbaaaaaaf
+  aabccccbddddddddddddddbaaaaaff
+  aabbbbbbddddddddddddddbaaaafff
+  aaaaaaabbbbbbbdbbbbbbbbaaaaaff
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaf
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+tilemap:
+  a: Elona.Grass
+  b: Elona.WallLog
+  c: Elona.WoodFloor2
+  d: Elona.HardwoodFloor2
+  e: Elona.Carpet4
+  f: Elona.WallForest
+  g: Elona.WoodFloor4
+  h: Elona.AnimeWaterShallow
+entities:
+- uid: 0
+  components:
+  - type: Map
+...

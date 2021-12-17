@@ -1,0 +1,35 @@
+meta:
+  format: 1
+  name: museum_1
+  author: Noa
+grid: |
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+  aaaaaaaaaacbcbcbccbcbcbcaaaaaaaaaa
+  aaaaaaaaabddddddddddddddbaaaaaaaaa
+  aaaaaaaaacdaaddabbaddaadcaaaaaaaaa
+  aaaaaaaaacdaaddbccbddaadcaaaaaaaaa
+  aaaaaaaaabdddddbccbdddddbaaaaaaaaa
+  aaaaaaaaaacbcbdabbadbcbcaaaaaaaaaa
+  aaaaaaaaaaaaabddddddbaaaaaaaaaaaaa
+  aaaaaaaaaaaaabddddddbaaaaaaaaaaaaa
+  aaaaaaaaaaaaaaddddddaaaaaaaaaaaaaa
+tilemap:
+  a: Elona.WallPyramid
+  b: Elona.Concrete2
+  c: Elona.ShopPlatform
+  d: Elona.GreyFloor
+entities:
+- uid: 0
+  components:
+  - type: Map
+...

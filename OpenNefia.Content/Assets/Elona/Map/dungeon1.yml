@@ -1,0 +1,231 @@
+meta:
+  format: 1
+  name: dungeon1
+  author: Noa
+grid: |
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+  aaaaaaaaaaaaaaaaaaabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+  aaaaaaaaaaaabbaabbbbbaaaaaaaaaaaaaabbbbbabbbbbaaaaaaaaaabbaaaaaaaaaaabbbbbbaaaaa
+  aaaaaaaabbbbbbbbbbbbbaaaaabaaaaabbbbbbbbbbbbbbbcbbbaaaaaabbbaabaaaaabbbbbaaaaaaa
+  aaaaaaabbcbbbbbbbbbbbbabbabbbabbbbbbbbbbbbbbbbbbbbbbbaaaabbbbbbbabbbbbbbbaaaaaaa
+  aaaaaaabbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbcabbbbbbbbbbbbbbbbbbbbaaaaaa
+  aaaaabbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbaaaaaa
+  aaaaabbbbbbbbbbbbbbcbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbcbbbbbbcbbbbbaaaaaa
+  aaaabbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbcbbbbbbbbbbbbbbbbbbbbbbbbbbaaaaa
+  aaaabbbbbbbbbbbbbbbbbbbbbbbcbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbaaaaa
+  aaaabbbbbbbbbbbbbbbbbbbbbbbbbbbbbabbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbaaaaaaa
+  aaaabbbbbbbbbbbbbbbbbbbbbbbbbaaaaabbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbaaaaaa
+  aaaabbbbcbbbbbbbbbbbbbbbbbbbaaaaaabbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbaaaa
+  aaaabbbbbbbbbbbbbbbbcbbbbbbbaaaaaabbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbaaaa
+  aaaaabbbbbbbbbbbbbbbbbbbbbbaaaaaabbbbbbbbbbbbbbbbbbbcbbbbbbbbbbbbbbbbbbbbbbbbbaa
+  aaaaaabbbbbbbbbbbbbbbbbbbbbbbaaabbbbbbcbbbbbbbbbbbbbbbbbbbbbbbcbbbbbbbbbbbbbbaaa
+  aaaaaaabbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbaaa
+  aaaaaaaabbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbdbbbbbbbbbbbbbbbbbbbbbaaaa
+  aaaaabbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbcbbbbbbbbbbbbbbbbbbbbbbbbbcbbbaaa
+  aaaabbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbdbbbbbaabbbbbbbbbbbbbbbbbbbbbaaa
+  aaaabbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbcbbbbbbbbbbbbbbbbbaaaabbbbbbbbbbcbbbbbbbbaaaa
+  aaaabbbbbbbbbcbbbbbbbbbbbbbccbbbbbbbbbbbbbbbbbbbbbbbbbaaaabbbbbbbbbbbbbbbbbbaaaa
+  aaaabbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbaaa
+  aabbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbaaaaabbbbbbbbbbbbbaaa
+  aabbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbaaaaaaaabbbcbbbbbbbbaaa
+  aaabbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbaaaaaaabbbbbbbbbbbbaaa
+  aaaabbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbabaabbbbbbbbbbbbbaaa
+  aaabbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbcbbbbbbbbbbbbbbbbaaa
+  aaabbbbbbbbbbbbbbbbcbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbaaa
+  aaaabbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbaaaa
+  aaaaabbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbcbbbbbbbbbbbdbbbbbbbbbbbbbbbbbbcaaaaa
+  aaaabbbbbbbbbbbbbbbbbbbbbbbbbbbbcbbbbbbbbbbbbbbbbbabbbbbbbbbbbbbbbbbbbbbbbaaaaaa
+  aaabbbbbbbbbbbbbcbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbaabbbbbbbbbbbbbbbbbcbbbbbaaaaaa
+  aabbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbaaabbbbbbbbbbbbbbbbbbbbbbaaaaaa
+  aabbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbcbbbbbbbbbbbaaaabbbbbaabbbbbbbbbbbbbaaaaaaa
+  aaabbcbbbbbbbbbbbbbbbbbbbbbbbbbaaaaaaabbbbbbbbbbbaaaaaaaaaabcbbbbbbbbbbbbaaaaaaa
+  aaaababbbbbbbbbbbbbbbbbbbbbbbbbabbbbbabbbbbbdbbbbbaaaaaabbbbbbbbbbbbbbbbbbbaaaaa
+  aaaaaabbbbbbbbbbbbbbbbbbbbbbbbbabbbbbabbbbbbbbbbbbaaaaabbbbbbaabbbbbbbbbbbbbbaaa
+  aaaaaaaaabbbbbbbbbbbbbbbbbbbbbbabbbbbabbbbbbbbbbbbbaaabbbbbbbbaabbbbbbbbbbbbaaaa
+  aaaaaaaabbbbbbbbbbbbbbbbbbbbbaaaaabaaaabbbbbbbbbbbbaaabbbbbbbbaabbbbbbbbbbaaaaaa
+  aaaaaaabbbbbbbbbbbbbbbbbbbbbbabbbbbbbbabbbbbbbbbbbbaaaaabbbbbbaabbbbbbbbbbbaaaaa
+  aaaaaabbbbbbbbbbbbbbbbbbbbbbbabbbbbbbbabbbbbbbcbbbaaaaaabcbbbbaabbbcbbbbbbbbaaaa
+  aaaababbbbcbbbbbbbbbbbbbbbbbbabbbbbbbbabbbbbbbbbbbbaaaaabbbbbbaaabbbbbbbbbbbbaaa
+  aabbbbbbbbbbbbbbbbbbbbbbbbbbbabbbbbbbbabbbbbbbbbbbbbabbbbbbbbbaaabbbbbbbbbbbbbaa
+  abbbbbbbbbbbbbbbbbbbbbbbbbbbbaaabbaaaaabbbbbbbbbbbbbbbbbbbbbbbbaabbbbbbbbbbbbbaa
+  aabbbbbbbbbbbbbbbbbbbbbbbbbbcbbbbbbbbbbbbbbbcbbbbbbbbbbbbbbbbbbaabbbbbbbbbbaaaaa
+  aabbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbdbbbbbbbbbbbbbbbbbbbbbbbbaaaaabbbbbbbbbbbaaaaa
+  aaabbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbaaaaabbbbbbbbbbbbbaaaaa
+  aabbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbcbbbbabbbbbbbbbbbbcbaaaaa
+  aaabbbbbbbbbbbbbbbbbbbbbcbaaabbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbaa
+  aaabbbbbbbbbbbbbbbbbbbbbbbaaaabbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbaa
+  aaaabcbbbbbbbbbbbbbbbbbbbbaaaaabbbcbbbbbbbbbbbbbbbcbbbbbbbbbbbbbbbbbbbbbbbbbbaaa
+  aaabbbbbbbbbbbcbbbbbbbbbbbbaaabbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbaaaa
+  aaaaabbbbbbbbbbbbbabbbbbbbbbbbbbbbbbbbbdbbbbcbbbbbbbbbbbbbbbbbbbbbbbbbbbdbbaaaaa
+  aaaaaabbbbbbbbbbbaaaabbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbdbbbbbaababbbbbaaaaaa
+  aaaaabbbbbbbbbbbaaaaaabbbbbbbbbbbbbbcbbbbbbbbbbbbbbbbbbbbbbbbbbaaaaaaabbaaaaaaaa
+  aaaaaaabbbbbbbaaaaaaaabbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbaaabaaaaaaaaaaaaaaaaaa
+  aaaaaaaabaaaabaaaaaaaaaabbbbaaabbbbbbbbbbbbbbbbbbdbbbbbaaaaaaaaaaaaaaaaaaaaaaaaa
+  aaaaaaaaaaaaaaaaaaaaaaaaaabbaaaaabbbbbbbbbbbbbaabbbbabaaaaaaaaaaaaaaaaaaaaaaaaaa
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabbbbbbbbbaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+tilemap:
+  a: Elona.WallDirt
+  b: Elona.DarkDirt1
+  c: Elona.DarkDirt2
+  d: Elona.DarkDirt3
+entities:
+- uid: 0
+  components:
+  - type: Map
+- uid: 1
+  protoId: Elona.FeatDoorWooden
+  components:
+  - type: Spatial
+    pos: 34,39
+    parent: 0
+- uid: 2
+  protoId: Elona.ItemBarrel
+  components:
+  - type: Spatial
+    pos: 30,40
+    parent: 0
+- uid: 3
+  protoId: Elona.ItemBarrel
+  components:
+  - type: Spatial
+    pos: 30,41
+    parent: 0
+- uid: 4
+  protoId: Elona.ItemPick
+  components:
+  - type: Spatial
+    pos: 35,57
+    parent: 0
+- uid: 5
+  protoId: Elona.ItemPick
+  components:
+  - type: Spatial
+    pos: 44,54
+    parent: 0
+- uid: 6
+  protoId: Elona.ItemPick
+  components:
+  - type: Spatial
+    pos: 36,38
+    parent: 0
+- uid: 7
+  protoId: Elona.ItemPick
+  components:
+  - type: Spatial
+    pos: 38,46
+    parent: 0
+- uid: 8
+  protoId: Elona.ItemHouseBoard
+  components:
+  - type: Spatial
+    pos: 32,40
+    parent: 0
+- uid: 9
+  protoId: Elona.ItemRodOfMakeDoor
+  components:
+  - type: Spatial
+    pos: 32,36
+    parent: 0
+- uid: 10
+  protoId: Elona.ItemRodOfMakeDoor
+  components:
+  - type: Spatial
+    pos: 33,36
+    parent: 0
+- uid: 11
+  protoId: Elona.ItemRodOfMakeDoor
+  components:
+  - type: Spatial
+    pos: 32,37
+    parent: 0
+- uid: 12
+  protoId: Elona.ItemTorch
+  components:
+  - type: Spatial
+    pos: 37,53
+    parent: 0
+- uid: 13
+  protoId: Elona.ItemTorch
+  components:
+  - type: Spatial
+    pos: 36,36
+    parent: 0
+- uid: 14
+  protoId: Elona.ItemTorch
+  components:
+  - type: Spatial
+    pos: 35,36
+    parent: 0
+- uid: 15
+  protoId: Elona.ItemCandle
+  components:
+  - type: Spatial
+    pos: 33,40
+    parent: 0
+- uid: 16
+  protoId: Elona.ItemCandle
+  components:
+  - type: Spatial
+    pos: 35,45
+    parent: 0
+- uid: 17
+  protoId: Elona.ItemCandle
+  components:
+  - type: Spatial
+    pos: 30,45
+    parent: 0
+- uid: 18
+  protoId: Elona.ItemBlackBoard
+  components:
+  - type: Spatial
+    pos: 36,40
+    parent: 0
+- uid: 19
+  protoId: Elona.ItemBigTable
+  components:
+  - type: Spatial
+    pos: 36,41
+    parent: 0
+- uid: 20
+  protoId: Elona.ItemSquareChair
+  components:
+  - type: Spatial
+    pos: 35,41
+    parent: 0
+- uid: 21
+  protoId: Elona.ItemSquareChair
+  components:
+  - type: Spatial
+    pos: 36,42
+    parent: 0
+- uid: 22
+  protoId: Elona.ItemSquareChair
+  components:
+  - type: Spatial
+    pos: 37,41
+    parent: 0
+- uid: 23
+  protoId: Elona.ItemRune
+  components:
+  - type: Spatial
+    pos: 36,37
+    parent: 0
+- uid: 24
+  protoId: Elona.ItemRune
+  components:
+  - type: Spatial
+    pos: 34,36
+    parent: 0
+- uid: 25
+  protoId: Elona.ItemCoffin
+  components:
+  - type: Spatial
+    pos: 32,38
+    parent: 0
+- uid: 26
+  protoId: Elona.ItemCoffin
+  components:
+  - type: Spatial
+    pos: 33,38
+    parent: 0
+...

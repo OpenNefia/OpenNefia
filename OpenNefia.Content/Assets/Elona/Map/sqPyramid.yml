@@ -1,0 +1,259 @@
+meta:
+  format: 1
+  name: sqPyramid
+  author: Noa
+grid: |
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+  aaaaaaaaaaabbbbaaaaaaaaaaaaaaaaaaaaaaaaa
+  aaabbbbbaaaaaabaaaaaaabbbaaaaaaaaaaaaaaa
+  aaabbbbbaaaaaabaaabbbbbbbbbbbbbbbbbbbbaa
+  aaabbbbbaaaaaabaaabaaabbbaaababaaabbbbaa
+  aaabbbbbbbbbbbbbbbbaaaaaaaaababaaabbbbaa
+  abbbbbbbaabaaaaaaabbaaaaaaabbabaaabbbbaa
+  ababbbbbaabaaaaaaabbbbbbbbbbbabbbabbbbaa
+  ababbbbbaabbbaaaaaaaababaaaaaaaaaabbbbaa
+  abaababaaaaabaaaaaaaababaaaaaaaaaaabaaaa
+  abaababaaabbbbbaaaaaababbbbbbbbbabbbaaaa
+  abaababaaabaaabbbbbbbbaaaaaaaaababaaaaaa
+  abaabbbaaabbbabaaaaaaaaaaaaaaaababbbbbaa
+  abaaabaaaaaababaaaaaabbbabbbababaaaaabaa
+  ababbbaaaabbbababbbbababababababbbbbbbaa
+  abababaaaaaaaababbbbbbabbbabbbaaaaaaaaaa
+  abababbbbbbbbbbabbbbaaaabaaaabaaaaaaaaaa
+  ababaaaaaaaaaaaabbbbabbbbbbbabaaaabbbbaa
+  ababbbbbbbbbbbbbbbbbaaaaaaababaaaabaabaa
+  abaabaaaaaaaabaaaaaaabbbbbbbabbbbbbaabaa
+  abaabaaaabbbabbbbbaaabaaaaaaaaabaaaaabaa
+  abaabbbaabababaaaaaaaaabbbbbbaababbbbbaa
+  abaaaabbbbababaaaaabaaaaaaaabaababaaaaaa
+  abaabbbaaaababaaaaababababbabaababbbbbaa
+  abaabaaabbbbabaaabbbbbbbbbbabaabaaaaabaa
+  abaabbbabaaaabaaabababababbabaababbbbbaa
+  abaaaababbbbbbaaababaaaaaaaabaababaaaaaa
+  abaabbbaaaaaaaaaabaaaaaaaaaabaababaaabaa
+  abbbbaaaaaaaaaaaabbbbbbbbbbbbbbbabbbbbaa
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+tilemap:
+  a: Elona.WallPyramid
+  b: Elona.Rough1
+entities:
+- uid: 0
+  components:
+  - type: Map
+- uid: 1
+  protoId: Elona.FeatStairsUp
+  components:
+  - type: Spatial
+    pos: 23,3
+    parent: 0
+- uid: 2
+  protoId: Elona.FeatStairsDown
+  components:
+  - type: Spatial
+    pos: 26,24
+    parent: 0
+- uid: 3
+  protoId: Elona.CharaGreaterMummy
+  components:
+  - type: Spatial
+    pos: 5,14
+    parent: 0
+- uid: 4
+  protoId: Elona.CharaGreaterMummy
+  components:
+  - type: Spatial
+    pos: 36,6
+    parent: 0
+- uid: 5
+  protoId: Elona.CharaGreaterMummy
+  components:
+  - type: Spatial
+    pos: 5,5
+    parent: 0
+- uid: 6
+  protoId: Elona.CharaGreaterMummy
+  components:
+  - type: Spatial
+    pos: 18,16
+    parent: 0
+- uid: 7
+  protoId: Elona.CharaGreaterMummy
+  components:
+  - type: Spatial
+    pos: 20,24
+    parent: 0
+- uid: 8
+  protoId: Elona.CharaGreaterMummy
+  components:
+  - type: Spatial
+    pos: 24,24
+    parent: 0
+- uid: 9
+  protoId: Elona.CharaGreaterMummy
+  components:
+  - type: Spatial
+    pos: 4,28
+    parent: 0
+- uid: 10
+  protoId: Elona.CharaGreaterMummy
+  components:
+  - type: Spatial
+    pos: 34,19
+    parent: 0
+- uid: 11
+  protoId: Elona.CharaGreaterMummy
+  components:
+  - type: Spatial
+    pos: 31,27
+    parent: 0
+- uid: 12
+  protoId: Elona.CharaGreaterMummy
+  components:
+  - type: Spatial
+    pos: 22,19
+    parent: 0
+- uid: 13
+  protoId: Elona.CharaGreaterMummy
+  components:
+  - type: Spatial
+    pos: 11,24
+    parent: 0
+- uid: 14
+  protoId: Elona.CharaKingScorpion
+  components:
+  - type: Spatial
+    pos: 5,25
+    parent: 0
+- uid: 15
+  protoId: Elona.CharaKingScorpion
+  components:
+  - type: Spatial
+    pos: 4,6
+    parent: 0
+- uid: 16
+  protoId: Elona.CharaKingScorpion
+  components:
+  - type: Spatial
+    pos: 4,4
+    parent: 0
+- uid: 17
+  protoId: Elona.CharaKingScorpion
+  components:
+  - type: Spatial
+    pos: 6,7
+    parent: 0
+- uid: 18
+  protoId: Elona.CharaKingScorpion
+  components:
+  - type: Spatial
+    pos: 34,4
+    parent: 0
+- uid: 19
+  protoId: Elona.CharaKingScorpion
+  components:
+  - type: Spatial
+    pos: 37,4
+    parent: 0
+- uid: 20
+  protoId: Elona.CharaKingScorpion
+  components:
+  - type: Spatial
+    pos: 34,8
+    parent: 0
+- uid: 21
+  protoId: Elona.CharaKingScorpion
+  components:
+  - type: Spatial
+    pos: 17,15
+    parent: 0
+- uid: 22
+  protoId: Elona.CharaKingScorpion
+  components:
+  - type: Spatial
+    pos: 18,17
+    parent: 0
+- uid: 23
+  protoId: Elona.CharaKingScorpion
+  components:
+  - type: Spatial
+    pos: 14,11
+    parent: 0
+- uid: 24
+  protoId: Elona.CharaKingScorpion
+  components:
+  - type: Spatial
+    pos: 23,7
+    parent: 0
+- uid: 25
+  protoId: Elona.CharaKingScorpion
+  components:
+  - type: Spatial
+    pos: 36,14
+    parent: 0
+- uid: 26
+  protoId: Elona.CharaKingScorpion
+  components:
+  - type: Spatial
+    pos: 34,25
+    parent: 0
+- uid: 27
+  protoId: Elona.CharaKingScorpion
+  components:
+  - type: Spatial
+    pos: 19,22
+    parent: 0
+- uid: 28
+  protoId: Elona.CharaKingScorpion
+  components:
+  - type: Spatial
+    pos: 13,20
+    parent: 0
+- uid: 29
+  protoId: Elona.CharaKingScorpion
+  components:
+  - type: Spatial
+    pos: 1,15
+    parent: 0
+- uid: 30
+  protoId: Elona.CharaKingScorpion
+  components:
+  - type: Spatial
+    pos: 14,3
+    parent: 0
+- uid: 31
+  protoId: Elona.CharaKingScorpion
+  components:
+  - type: Spatial
+    pos: 29,16
+    parent: 0
+- uid: 32
+  protoId: Elona.ItemSpeedRing
+  components:
+  - type: Spatial
+    pos: 37,27
+    parent: 0
+- uid: 33
+  protoId: Elona.ItemUnicornHorn
+  components:
+  - type: Spatial
+    pos: 21,20
+    parent: 0
+- uid: 34
+  protoId: Elona.ItemTreasureMap
+  components:
+  - type: Spatial
+    pos: 11,1
+    parent: 0
+- uid: 35
+  protoId: Elona.ItemChest
+  components:
+  - type: Spatial
+    pos: 10,14
+    parent: 0
+- uid: 36
+  protoId: Elona.ItemChest
+  components:
+  - type: Spatial
+    pos: 32,7
+    parent: 0
+...

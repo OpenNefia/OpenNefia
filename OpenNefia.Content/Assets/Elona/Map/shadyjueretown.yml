@@ -1,0 +1,69 @@
+meta:
+  format: 1
+  name: shadyjueretown
+  author: Noa
+grid: |
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaav
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaavv
+  aaaaaaaaaaaaaaammmmmmmaaaaooooooooooaaaaaaaaaaavvv
+  aaaaaaaaaaaaaaamcccccmaaaaocqcccpccoaaaaaaaaaavvvv
+  aaaaaaaaaaaaakkccccccmaaaaocdcccccpoaaaaatttttttvv
+  aaaaaabbbbbbbkammmmmmmaaaaocccqcpccoaaaattuwuutvvv
+  aaaaaabcccccbkaaaaaaaaaaaaopcccccccoaaattuuuwuwvvv
+  aaaaaabcccccbkbbbbkaaaaaaaocccsccccoaattuuuuuuuvvv
+  aaaaaabcccccbkbccbkaaaaaaaooooddooooaatuuwwuwuvvvv
+  aaaaaabbbcbbbkbccbkaaaaaaaaaaaaaaaaaattuuuuuuuuvvv
+  aaaaaaaakkkkkkbccbkaaaaaaaaaaaaaaaaaauuuwuuuuuvvvv
+  aaaabbbbbbbklkbcbbkaaaaaaaaaaaaaaaaaauuuuuwuwuuvvv
+  aaaabcccccbkkkkkkkkaaaaaaaaaaaaaaaaaatttuuuuuuuuvv
+  aaaabcccccbkbbbbbbaaaaaaaaaaaaaaaaaaaaatttuuuuwuvv
+  aaaabcccccckbccccbaaaaaaaaaaaaaaaaaaaaaaatttttuuuv
+  aaaabdddddbkbccccbaaaaaaaaaaaaaaaaaaaaaaaaaaattttv
+  aaaaaeeeeekkbccccbaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaav
+  aaaaaefffekkcccccbaaaannnnnnnnnnnaaaaaaaaaaaaaavvv
+  aaaaaefffekkbbbbbbaaaancncncncncnaaaaaaaaaaaavvvvv
+  aaaaaefffekkkkkkaaaaaandndndndndnaaaaaaaaaaaaavvvv
+  aaaaaeejeeeeeeekaaaaaancccccccccnaaaaaaaaaaaaaavvv
+  aaaaaeggghghghekaaaaaandndndncccnaaaaaaaaaaaavvvvv
+  aaaaaehgggggggekaaaaaancncncncccnaaaaaaaaaaavvvvvv
+  aaaaaeggghhhhggkaaaaaannnnnnnndnnaaaaaaaaavvvvvvvv
+  aaaaaehggggggggkaaaaaaaaaaaaararaaaaaaaaavvvvvvvvv
+  aaaaaeggghghggeaaaaaaaaaaaaaaaaaaaaaaaaaavvvvvvvvv
+  aaaaaeeeeeeeeeeaaaaaaaaaaaaaaaaaaaaaaaaaavvvvvvvvv
+  aaaaaaiaaaaaaiaaaaaaaaaaaaaaaaaaaaaaaaaaaavvvvvvvv
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaavvvvvvvvv
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaavvvvvvvvvv
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaavvvvvvvvvvv
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaavvvvvvvvvvv
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaavvvvvvvvvvvv
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaavvvvvvvvvvvvv
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaavvvvvvvvvvvvv
+tilemap:
+  a: Elona.Grass
+  b: Elona.WallStone5
+  c: Elona.CobbleDark1
+  d: Empty
+  e: Elona.WallWooden
+  f: Elona.CobbleWallRoof
+  g: Elona.WorldSnowBorderCornerNe
+  h: Elona.CarpetRed
+  i: Elona.SignPub
+  j: Elona.WoodStair
+  k: Elona.WallStone4Fog
+  l: Elona.StackedCratesGreen
+  m: Elona.WallPyramid
+  n: Elona.WallShingled
+  o: Elona.WallStone3
+  p: Elona.CobbleDark3
+  q: Elona.CobbleDark2
+  r: Elona.SignInn
+  s: Elona.CobbleDark4
+  t: Elona.WallDirtDark
+  u: Elona.Dirt
+  v: Elona.WorldDesertMountain2
+  w: Elona.DirtPatch
+entities:
+- uid: 0
+  components:
+  - type: Map
+...

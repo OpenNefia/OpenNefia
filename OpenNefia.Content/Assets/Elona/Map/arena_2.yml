@@ -1,0 +1,457 @@
+meta:
+  format: 1
+  name: arena_2
+  author: Noa
+grid: |
+  aaaaaaaaaaaaaaaaaaaaaaaaa
+  aaabbbbbbbbbbbbbbbbbbbaaa
+  abbbbbbbbbbbbbbbbbbbbbbba
+  accccccccccccccccccccccca
+  addddddddddddddddddddddda
+  addddddddddddddddddddddda
+  addddddddddddddddddddddda
+  addddddddddddddddddddddda
+  addddddddddddddddddddddda
+  addddddddddddddddddddddda
+  addddddddddddddddddddddda
+  addddddddddddddddddddddda
+  addddddddddddddddddddddda
+  aaaaaaaaaaaaaaaaaaaaaaaaa
+tilemap:
+  a: Elona.WallConcreteLight
+  b: Elona.Cobble10
+  c: Elona.CobbleFence
+  d: Elona.Cobble3
+entities:
+- uid: 0
+  components:
+  - type: Map
+- uid: 1
+  protoId: Elona.FeatStairsUp
+  components:
+  - type: Spatial
+    pos: 7,1
+    parent: 0
+- uid: 2
+  protoId: Elona.FeatStairsUp
+  components:
+  - type: Spatial
+    pos: 17,1
+    parent: 0
+- uid: 3
+  protoId: Elona.FeatStairsUp
+  components:
+  - type: Spatial
+    pos: 12,1
+    parent: 0
+- uid: 4
+  protoId: Elona.CharaBeggar
+  components:
+  - type: Spatial
+    pos: 4,2
+    parent: 0
+- uid: 5
+  protoId: Elona.CharaBeggar
+  components:
+  - type: Spatial
+    pos: 20,1
+    parent: 0
+- uid: 6
+  protoId: Elona.CharaTownChild
+  components:
+  - type: Spatial
+    pos: 8,2
+    parent: 0
+- uid: 7
+  protoId: Elona.CharaTownChild
+  components:
+  - type: Spatial
+    pos: 13,2
+    parent: 0
+- uid: 8
+  protoId: Elona.CharaTownChild
+  components:
+  - type: Spatial
+    pos: 22,2
+    parent: 0
+- uid: 9
+  protoId: Elona.CharaTownChild
+  components:
+  - type: Spatial
+    pos: 3,2
+    parent: 0
+- uid: 10
+  protoId: Elona.CharaOldPerson
+  components:
+  - type: Spatial
+    pos: 5,2
+    parent: 0
+- uid: 11
+  protoId: Elona.CharaOldPerson
+  components:
+  - type: Spatial
+    pos: 11,2
+    parent: 0
+- uid: 12
+  protoId: Elona.CharaOldPerson
+  components:
+  - type: Spatial
+    pos: 15,1
+    parent: 0
+- uid: 13
+  protoId: Elona.CharaOldPerson
+  components:
+  - type: Spatial
+    pos: 19,2
+    parent: 0
+- uid: 14
+  protoId: Elona.CharaElder
+  components:
+  - type: Spatial
+    pos: 10,2
+    parent: 0
+- uid: 15
+  protoId: Elona.CharaElder
+  components:
+  - type: Spatial
+    pos: 4,1
+    parent: 0
+- uid: 16
+  protoId: Elona.CharaElder
+  components:
+  - type: Spatial
+    pos: 21,2
+    parent: 0
+- uid: 17
+  protoId: Elona.CharaCitizen2
+  components:
+  - type: Spatial
+    pos: 9,1
+    parent: 0
+- uid: 18
+  protoId: Elona.CharaCitizen2
+  components:
+  - type: Spatial
+    pos: 6,2
+    parent: 0
+- uid: 19
+  protoId: Elona.CharaCitizen2
+  components:
+  - type: Spatial
+    pos: 2,2
+    parent: 0
+- uid: 20
+  protoId: Elona.CharaCitizen2
+  components:
+  - type: Spatial
+    pos: 20,2
+    parent: 0
+- uid: 21
+  protoId: Elona.CharaCitizen2
+  components:
+  - type: Spatial
+    pos: 23,2
+    parent: 0
+- uid: 22
+  protoId: Elona.CharaTrainer
+  components:
+  - type: Spatial
+    pos: 18,2
+    parent: 0
+- uid: 23
+  protoId: Elona.CharaTrainer
+  components:
+  - type: Spatial
+    pos: 12,2
+    parent: 0
+- uid: 24
+  protoId: Elona.CharaTrainer
+  components:
+  - type: Spatial
+    pos: 10,1
+    parent: 0
+- uid: 25
+  protoId: Elona.CharaTrainer
+  components:
+  - type: Spatial
+    pos: 9,2
+    parent: 0
+- uid: 26
+  protoId: Elona.CharaWizard
+  components:
+  - type: Spatial
+    pos: 7,2
+    parent: 0
+- uid: 27
+  protoId: Elona.CharaWizard
+  components:
+  - type: Spatial
+    pos: 1,2
+    parent: 0
+- uid: 28
+  protoId: Elona.CharaWizard
+  components:
+  - type: Spatial
+    pos: 16,2
+    parent: 0
+- uid: 29
+  protoId: Elona.CharaCitizenOfCyberDome2
+  components:
+  - type: Spatial
+    pos: 17,2
+    parent: 0
+- uid: 30
+  protoId: Elona.CharaCitizenOfCyberDome2
+  components:
+  - type: Spatial
+    pos: 6,1
+    parent: 0
+- uid: 31
+  protoId: Elona.CharaCitizenOfCyberDome2
+  components:
+  - type: Spatial
+    pos: 21,1
+    parent: 0
+- uid: 32
+  protoId: Elona.CharaCitizenOfCyberDome
+  components:
+  - type: Spatial
+    pos: 14,2
+    parent: 0
+- uid: 33
+  protoId: Elona.CharaCitizenOfCyberDome
+  components:
+  - type: Spatial
+    pos: 13,1
+    parent: 0
+- uid: 34
+  protoId: Elona.CharaCitizenOfCyberDome
+  components:
+  - type: Spatial
+    pos: 19,1
+    parent: 0
+- uid: 35
+  protoId: Elona.CharaCitizen
+  components:
+  - type: Spatial
+    pos: 15,2
+    parent: 0
+- uid: 36
+  protoId: Elona.ItemBonfire
+  components:
+  - type: Spatial
+    pos: 2,5
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 37
+  protoId: Elona.ItemBonfire
+  components:
+  - type: Spatial
+    pos: 2,11
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 38
+  protoId: Elona.ItemBonfire
+  components:
+  - type: Spatial
+    pos: 22,5
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 39
+  protoId: Elona.ItemBonfire
+  components:
+  - type: Spatial
+    pos: 22,11
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 40
+  protoId: Elona.ItemStatueOfArmor
+  components:
+  - type: Spatial
+    pos: 1,4
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 41
+  protoId: Elona.ItemStatueOfArmor
+  components:
+  - type: Spatial
+    pos: 1,12
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 42
+  protoId: Elona.ItemStatueOfArmor
+  components:
+  - type: Spatial
+    pos: 23,4
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 43
+  protoId: Elona.ItemStatueOfArmor
+  components:
+  - type: Spatial
+    pos: 23,12
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 44
+  protoId: Elona.ItemGorgeousCandlestick
+  components:
+  - type: Spatial
+    pos: 3,1
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 45
+  protoId: Elona.ItemGorgeousCandlestick
+  components:
+  - type: Spatial
+    pos: 21,1
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 46
+  protoId: Elona.ItemBrokenSword
+  components:
+  - type: Spatial
+    pos: 5,6
+    parent: 0
+- uid: 47
+  protoId: Elona.ItemBrokenSword
+  components:
+  - type: Spatial
+    pos: 22,9
+    parent: 0
+- uid: 48
+  protoId: Elona.ItemBrokenSword
+  components:
+  - type: Spatial
+    pos: 15,5
+    parent: 0
+- uid: 49
+  protoId: Elona.ItemSkeleton
+  components:
+  - type: Spatial
+    pos: 19,7
+    parent: 0
+- uid: 50
+  protoId: Elona.ItemSkeleton
+  components:
+  - type: Spatial
+    pos: 5,11
+    parent: 0
+- uid: 51
+  protoId: Elona.ItemBoneFragment
+  components:
+  - type: Spatial
+    pos: 11,7
+    parent: 0
+- uid: 52
+  protoId: Elona.ItemBoneFragment
+  components:
+  - type: Spatial
+    pos: 16,11
+    parent: 0
+- uid: 53
+  protoId: Elona.ItemBoneFragment
+  components:
+  - type: Spatial
+    pos: 22,4
+    parent: 0
+- uid: 54
+  protoId: Elona.ItemBoneFragment
+  components:
+  - type: Spatial
+    pos: 1,8
+    parent: 0
+- uid: 55
+  protoId: Elona.ItemBoneFragment
+  components:
+  - type: Spatial
+    pos: 23,10
+    parent: 0
+- uid: 56
+  protoId: Elona.ItemBoneFragment
+  components:
+  - type: Spatial
+    pos: 21,12
+    parent: 0
+- uid: 57
+  protoId: Elona.ItemSkeleton
+  components:
+  - type: Spatial
+    pos: 22,12
+    parent: 0
+- uid: 58
+  protoId: Elona.ItemSkeleton
+  components:
+  - type: Spatial
+    pos: 1,10
+    parent: 0
+- uid: 59
+  protoId: Elona.ItemSkeleton
+  components:
+  - type: Spatial
+    pos: 3,12
+    parent: 0
+- uid: 60
+  protoId: Elona.ItemBoneFragment
+  components:
+  - type: Spatial
+    pos: 2,6
+    parent: 0
+- uid: 61
+  protoId: Elona.ItemBoneFragment
+  components:
+  - type: Spatial
+    pos: 22,6
+    parent: 0
+- uid: 62
+  protoId: Elona.ItemAnimalBone
+  components:
+  - type: Spatial
+    pos: 23,5
+    parent: 0
+- uid: 63
+  protoId: Elona.ItemAnimalBone
+  components:
+  - type: Spatial
+    pos: 1,5
+    parent: 0
+- uid: 64
+  protoId: Elona.ItemAnimalBone
+  components:
+  - type: Spatial
+    pos: 4,5
+    parent: 0
+- uid: 65
+  protoId: Elona.ItemAnimalBone
+  components:
+  - type: Spatial
+    pos: 19,5
+    parent: 0
+- uid: 66
+  protoId: Elona.ItemAnimalBone
+  components:
+  - type: Spatial
+    pos: 10,10
+    parent: 0
+- uid: 67
+  protoId: Elona.ItemAnimalBone
+  components:
+  - type: Spatial
+    pos: 8,5
+    parent: 0
+- uid: 68
+  protoId: Elona.ItemAnimalBone
+  components:
+  - type: Spatial
+    pos: 15,9
+    parent: 0
+...

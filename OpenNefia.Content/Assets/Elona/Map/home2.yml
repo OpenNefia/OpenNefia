@@ -1,0 +1,56 @@
+meta:
+  format: 1
+  name: home2
+  author: Noa
+grid: |
+  aaaacdeddfdddgddcabaaabaa
+  baddddddddhhhhhhhhhhhhaab
+  abghhhhhhhhhjjjhiiiiihdaa
+  acdhhjjjjjhhjjjjiiiiihdga
+  aedhjjjjjjjjjjjhhiiiihdca
+  cddhjjjjjjjjjjjjhiiiihddc
+  dfghjjjjjjhhhjhhhiiiihdfg
+  bgghhjjjjjhdkkdhhhhhhhddd
+  bchhhhjhhhhdkkkdddddfdgdd
+  bdhiiiiiiihdkkkdddddddfdd
+  cdhiiiiiiihddkkkdddgddded
+  ddhiiiiiiihdgkkkddfdddddd
+  efhhhhhhhhhdddkkdddddfddd
+  dgddddddddddddkkdddddgdfd
+  dddddfdddddddkkkdddeddedd
+  ddfddgdddfegdkkkddddddddd
+tilemap:
+  a: Elona.GrassBush2
+  b: Elona.GrassBush3
+  c: Elona.GrassBush1
+  d: Elona.Grass
+  e: Elona.GrassTall2
+  f: Elona.GrassViolets
+  g: Elona.GrassTall1
+  h: Elona.WallStone10
+  i: Elona.WoodFloor5
+  j: Elona.WoodFloor6
+  k: Elona.GrassRocks2
+entities:
+- uid: 0
+  components:
+  - type: Map
+- uid: 1
+  protoId: Elona.FeatDoorWooden
+  components:
+  - type: Spatial
+    pos: 15,3
+    parent: 0
+- uid: 2
+  protoId: Elona.FeatDoorWooden
+  components:
+  - type: Spatial
+    pos: 13,6
+    parent: 0
+- uid: 3
+  protoId: Elona.FeatDoorWooden
+  components:
+  - type: Spatial
+    pos: 6,8
+    parent: 0
+...

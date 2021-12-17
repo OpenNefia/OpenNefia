@@ -1,0 +1,274 @@
+meta:
+  format: 1
+  name: crop_1
+  author: Noa
+grid: |
+  abaeadaaafaadcebfadahe
+  abeiiiiiiiiagbbaaaafge
+  bcaijjjjjjiiiiiiiiiaeh
+  acdijjjjjjioooooooiahc
+  acdijjjjjjioooooooiada
+  abfiiijjiiioooooooiaac
+  bcgijjjjjjioooooooifaa
+  adaijjjjjjiiiioiiiiacg
+  aaaijjjjjjiaaklaaaaaae
+  abaiiijjiiiaalkaaaghac
+  aahaaakllaaaaklaaadaaa
+  aaaacaaakklkklmmmnnnae
+  aebaaaaaakkklkmmmnnnac
+  ccddadaammmnnnmmmnnnfa
+  caaafcabmmmnnnmmmnnnag
+  aaghcdacnnnmmmnnnmmmaa
+  aeccacaannnmmmnnnmmmah
+  acadhagannnmmmnnnmmmad
+  aaaeacfaaaadaaahaaafhe
+  aacgaheacaceacaaceghee
+tilemap:
+  a: Elona.Grass
+  b: Elona.GrassBush2
+  c: Elona.GrassBush3
+  d: Elona.GrassBush1
+  e: Elona.GrassTall1
+  f: Elona.GrassPatch1
+  g: Elona.GrassViolets
+  h: Elona.GrassTall2
+  i: Elona.WallHay
+  j: Elona.DarkDirt1
+  k: Elona.GrassRocks
+  l: Elona.GrassRocks2
+  m: Elona.Field2
+  n: Elona.Field1
+  o: Elona.HardwoodFloor1
+entities:
+- uid: 0
+  components:
+  - type: Map
+- uid: 1
+  protoId: Elona.ItemTreeOfBeech
+  components:
+  - type: Spatial
+    pos: 1,15
+    parent: 0
+- uid: 2
+  protoId: Elona.ItemTreeOfBeech
+  components:
+  - type: Spatial
+    pos: 4,18
+    parent: 0
+- uid: 3
+  protoId: Elona.ItemTreeOfBeech
+  components:
+  - type: Spatial
+    pos: 1,19
+    parent: 0
+- uid: 4
+  protoId: Elona.ItemTreeOfBeech
+  components:
+  - type: Spatial
+    pos: 2,8
+    parent: 0
+- uid: 5
+  protoId: Elona.ItemTreeOfBeech
+  components:
+  - type: Spatial
+    pos: 1,10
+    parent: 0
+- uid: 6
+  protoId: Elona.ItemTreeOfBeech
+  components:
+  - type: Spatial
+    pos: 3,14
+    parent: 0
+- uid: 7
+  protoId: Elona.ItemTreeOfBeech
+  components:
+  - type: Spatial
+    pos: 11,1
+    parent: 0
+- uid: 8
+  protoId: Elona.ItemTreeOfBeech
+  components:
+  - type: Spatial
+    pos: 19,4
+    parent: 0
+- uid: 9
+  protoId: Elona.ItemTreeOfBeech
+  components:
+  - type: Spatial
+    pos: 17,1
+    parent: 0
+- uid: 10
+  protoId: Elona.ItemTreeOfBeech
+  components:
+  - type: Spatial
+    pos: 20,6
+    parent: 0
+- uid: 11
+  protoId: Elona.ItemTreeOfBeech
+  components:
+  - type: Spatial
+    pos: 19,10
+    parent: 0
+- uid: 12
+  protoId: Elona.ItemTreeOfBeech
+  components:
+  - type: Spatial
+    pos: 20,17
+    parent: 0
+- uid: 13
+  protoId: Elona.ItemTreeOfBeech
+  components:
+  - type: Spatial
+    pos: 13,18
+    parent: 0
+- uid: 14
+  protoId: Elona.ItemTreeOfBeech
+  components:
+  - type: Spatial
+    pos: 7,17
+    parent: 0
+- uid: 15
+  protoId: Elona.ItemTreeOfBeech
+  components:
+  - type: Spatial
+    pos: 18,18
+    parent: 0
+- uid: 16
+  protoId: Elona.ItemTreeOfFruits
+  components:
+  - type: Spatial
+    pos: 2,17
+    parent: 0
+- uid: 17
+  protoId: Elona.FeatDoorWooden
+  components:
+  - type: Spatial
+    pos: 14,7
+    parent: 0
+- uid: 18
+  protoId: Elona.ItemScarecrow
+  components:
+  - type: Spatial
+    pos: 9,16
+    parent: 0
+- uid: 19
+  protoId: Elona.ItemScarecrow
+  components:
+  - type: Spatial
+    pos: 12,15
+    parent: 0
+- uid: 20
+  protoId: Elona.ItemScarecrow
+  components:
+  - type: Spatial
+    pos: 15,12
+    parent: 0
+- uid: 21
+  protoId: Elona.ItemScarecrow
+  components:
+  - type: Spatial
+    pos: 15,16
+    parent: 0
+- uid: 22
+  protoId: Elona.ItemScarecrow
+  components:
+  - type: Spatial
+    pos: 18,13
+    parent: 0
+- uid: 23
+  protoId: Elona.ItemScarecrow
+  components:
+  - type: Spatial
+    pos: 9,13
+    parent: 0
+- uid: 24
+  protoId: Elona.ItemScarecrow
+  components:
+  - type: Spatial
+    pos: 19,16
+    parent: 0
+- uid: 25
+  protoId: Elona.ItemStraw
+  components:
+  - type: Spatial
+    pos: 8,2
+    parent: 0
+- uid: 26
+  protoId: Elona.ItemStraw
+  components:
+  - type: Spatial
+    pos: 9,2
+    parent: 0
+- uid: 27
+  protoId: Elona.ItemStraw
+  components:
+  - type: Spatial
+    pos: 9,3
+    parent: 0
+- uid: 28
+  protoId: Elona.ItemStraw
+  components:
+  - type: Spatial
+    pos: 8,3
+    parent: 0
+- uid: 29
+  protoId: Elona.ItemStraw
+  components:
+  - type: Spatial
+    pos: 4,2
+    parent: 0
+- uid: 30
+  protoId: Elona.ItemStraw
+  components:
+  - type: Spatial
+    pos: 4,3
+    parent: 0
+- uid: 31
+  protoId: Elona.ItemStraw
+  components:
+  - type: Spatial
+    pos: 5,2
+    parent: 0
+- uid: 32
+  protoId: Elona.ItemStraw
+  components:
+  - type: Spatial
+    pos: 5,3
+    parent: 0
+- uid: 33
+  protoId: Elona.ItemStraw
+  components:
+  - type: Spatial
+    pos: 4,7
+    parent: 0
+- uid: 34
+  protoId: Elona.ItemStraw
+  components:
+  - type: Spatial
+    pos: 4,6
+    parent: 0
+- uid: 35
+  protoId: Elona.ItemStraw
+  components:
+  - type: Spatial
+    pos: 4,8
+    parent: 0
+- uid: 36
+  protoId: Elona.ItemStraw
+  components:
+  - type: Spatial
+    pos: 9,6
+    parent: 0
+- uid: 37
+  protoId: Elona.ItemStraw
+  components:
+  - type: Spatial
+    pos: 9,7
+    parent: 0
+- uid: 38
+  protoId: Elona.ItemStraw
+  components:
+  - type: Spatial
+    pos: 9,8
+    parent: 0
+...

@@ -1,0 +1,35 @@
+meta:
+  format: 1
+  name: n
+  author: Noa
+grid: |
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+  aaaaaaaaaaaaaaaaaaaaaaaabbbbaaaaaa
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+  aaaaaaabaaaaaaaaaaaaaaabaaaaaaaaaa
+  aaaaaaaabbaaaaaaaaaaaaaaaaaaaaaaaa
+  aaaaaaaaabbbaaaaaaaaaaaaaaaaaaaaaa
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaabaaaaa
+  aaaaaaaabbbbbaaaaaaaaaaaaaaaaabaaa
+  aaaaaabbaaaabaaaaaaaaaaaaaaaaaaaaa
+  aaaaabaaaaabbaaaaaaaaaaaaaaaaaaaaa
+  aaaaaaaaaaaaaaaaaaaabaaaaaaaaaaaaa
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+tilemap:
+  a: Empty
+  b: Elona.Grass
+entities:
+- uid: 0
+  components:
+  - type: Map
+...

@@ -1,0 +1,50 @@
+meta:
+  format: 1
+  name: unfinishedkeep
+  author: Noa
+grid: |
+  aaaaaaaaaaaddddddddddddddddddddda
+  aaaaikaaaimdjjjjjjjjjdlllllllllda
+  aaafiiaaikidjjjjjjjjjdlllllllllda
+  aaagaaacgaadjjjjjjjjjdlllllllllda
+  aacbaacchccdjjjjjjjjjdlllllllllda
+  aaahccbcbcddddddggddddlllllllllda
+  aaaaachbclellllllllllllllllllllda
+  aaaaagggdclllllllllllllllllllllda
+  aaaaiikidddgddddllddddgddddllddda
+  aadaifikdjjjjjjdlldjjjjjjdjjjjjda
+  aadikiiidjjjjjjdlldjjjjjjdjjjjjda
+  aadddddddjjjjjjdlldjjjjjjddddddda
+  aadjjjjjdjjjjjddllddjjjjjdjjjjjda
+  aadjjjjjdddddddlllldddddddjjjjjda
+  aadjjjjjllllllllnnlllllllljjjjjda
+  aadjjjjjllllllllnnlllllllljjjjjda
+  aadjjjjjdddddddlllldddddddjjjjjda
+  aadjjjjjdchcccddggddccchcdjjjjjda
+  aadddddddccchcdlooldcheccdddddddq
+  aaabdedccchhccccoocccccecccdhdqgp
+  aaecccchchccbcchoochchcccccbgqpqq
+  abbhccccccbcccecoocecchcchcpqpqgp
+tilemap:
+  a: Elona.WallDirtDark
+  b: Elona.DarkDirt4
+  c: Elona.DarkDirt1
+  d: Elona.WallConcrete
+  e: Elona.DarkDirt2
+  f: Elona.CobbleDark4
+  g: Empty
+  h: Elona.DarkDirt3
+  i: Elona.CobbleDark1
+  j: Elona.WallStone4Fog
+  k: Elona.CobbleDark2
+  l: Elona.Marble
+  m: Elona.CobbleDark3
+  n: Elona.CarpetRed
+  o: Elona.WallConcreteFog
+  p: Elona.WorldDirtDeadTrees1
+  q: Elona.AnimeWaterSea
+entities:
+- uid: 0
+  components:
+  - type: Map
+...

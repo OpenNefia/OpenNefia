@@ -12,6 +12,7 @@ namespace OpenNefia.Core.Maps
         int Width { get; }
         int Height { get; }
         Vector2i Size { get; }
+        UIBox2i Bounds { get; }
 
         Tile[,] Tiles { get; }
         Tile[,] TileMemory { get; }

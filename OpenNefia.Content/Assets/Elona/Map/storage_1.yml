@@ -1,0 +1,41 @@
+meta:
+  format: 1
+  name: storage_1
+  author: Noa
+grid: |
+  aaaaaaaaaaaaaaaaaaaa
+  aaaaaaaaaaaaaaaaaaaa
+  aaaaaaaaaaaaaaaaaaaa
+  aaaaaaaaaaaaaaaaaaaa
+  aaaaaaaaaaaaaaaaaaaa
+  aaaaaaaaaaaaaaaaaaaa
+  aaaaaaaaaaaaaaaaaaaa
+  aaaabbbbabbbabbbbaaa
+  aaaabbbbabbbabbbbaaa
+  aaaabbbbaabaabbbbaaa
+  aaaabbbbabbbbbbbbaaa
+  aaaabbbbbbbbbbbbbaaa
+  aaaabbbbabbbbbbbbaaa
+  aaaabbbbabbbbbbbbaaa
+  aaaaaaaaabbbaaaaaaaa
+  aaaaaaaaabbbaaaaaaaa
+tilemap:
+  a: Elona.WallStone4
+  b: Elona.HardwoodFloor4
+entities:
+- uid: 0
+  components:
+  - type: Map
+- uid: 1
+  protoId: Elona.FeatDoorWooden
+  components:
+  - type: Spatial
+    pos: 8,11
+    parent: 0
+- uid: 2
+  protoId: Elona.FeatDoorWooden
+  components:
+  - type: Spatial
+    pos: 10,9
+    parent: 0
+...

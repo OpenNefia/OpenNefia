@@ -1,0 +1,50 @@
+meta:
+  format: 1
+  name: outpost2
+  author: Noa
+grid: |
+  aaaaaaaaaaaaaabbbbbbbbbbbbbbbbaaabbbbaaaabbbbbbbbb
+  aaaaaabaaaabbbbbbbeeeeeeeeebbbaaabbbbbaaaabbbdbbbb
+  aaaabbbbbbbbbbbbbbefffffffebbbaabbbbbbaaaaabbbbbbb
+  aaaceeeeebbbbbbbbbfffffeffebbbaabbbbbbaaaaabbbbcbb
+  aabbefffebbbbbbbbbeffffeffebbaaabbbbbaaaaaibbbbbbb
+  abbbeffffbbbbbbbbbeffffeeeebaaabbbbaaaaaaaaaabbbbb
+  abbbefffebbbbbbbbbeeeeeebbbaaabbbbbaaaaaaaaaaabbbb
+  aabdeeeeebbbbbbaabbbbbbbaaaaabbbbbbbaaaaaaaaaaabba
+  aaabbbbbbbbbbbaaabdbbbaaaaaabbbbbbbbbaaaaaaaaadbaa
+  aaaaaaaaabbbbbaaaaaaaaaaabbbbbbbbbbbbbaaaaaabbbbaa
+  aaaaaaaaaaabbbaaaaaaaaaabbbbbbbbbbbbbbbaaabbbbbbaa
+  aaaabbbaaaabbbbabbbbbbbbbbbbbbbbbbbbbbbbabbbbbbbbb
+  aaabbbbbbbadbbbbbbbbbbeeeeeeeeeeeeeeeebbbbbbbbbbbb
+  aabbbbbbbbbbbbbbbbbbbbeffffffffffffffebbbbbbbbbbbb
+  abbbbbbbbbbbbbbbbbbbbbeffffffffffffffebbbbbbbbbbbb
+  aabbbbbbbbbbbbbbbbbbbbeffffffffffffffebbbbbbbbbbbb
+  aaabbbbbbbbbbbgbbbbbbbeffffffffffffffebbbbbbbbbbbb
+  aabbbbbbbbbbbbbbbbbbbbeffffffffffffffebbbbbbbbbbaa
+  aabbbbbbbbbbbbbbbbbbbbeffffffffffffffebbbbbbbbbaaa
+  aaaaaaaaaabbbbbbbbbbbbeffffffffffffffebbbbbbbaaaaa
+  baaaaabbaaabbbbbbbbbbbeffffffffffffffebbbbbaaaaaaa
+  bbabbbbbbaabbbbbbbbbbbeffffffffffffffebbbbbaaaaaaa
+  bbbbbbbbbbbbbbbbbbbbbbefffffffffeeeeeebbbbaaaaaaaa
+  bbbbbbbbbbbbbbaabbbbbbefffffffffebbbbbbbaaaaaaaaaa
+  bbbbbbbbbbbbbbaaabbbbbefffffffffehbbbbbaaaaaaaaaaa
+  bbbbbbbbbbbbbbaaaabbbdefffffffffebbbbaaaaaaaaaaaaa
+  bbbbbbbbbbbbbbbaaabbbbefffffffffehbbaaaaaaaaaaaaaa
+  bbbbbbbbbbbbbbbaaaabbbeeeeefeeeeebbaaaaaaaaaaaaaaa
+  bbbbbbbbbbbbbbbbaaabbbbbbbbbbbbbbbaaaaaaaaaaaaaaaa
+  bbbbbbbbbbbbbbbbbaaabbbbbbbbbbbbbaaaaaaaaaaaaaaaaa
+tilemap:
+  a: Elona.WallForest
+  b: Elona.Grass
+  c: Elona.GrassBush1
+  d: Elona.GrassBush2
+  e: Elona.WallHay
+  f: Elona.DarkDirt1
+  g: Elona.GrassBush3
+  h: Elona.HorseBottom
+  i: Empty
+entities:
+- uid: 0
+  components:
+  - type: Map
+...

@@ -1,0 +1,165 @@
+meta:
+  format: 1
+  name: arena_1
+  author: Noa
+grid: |
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+  aaaaaaabbaaaaaaaaabbaaaaaaaaaaaa
+  aaaaabbbbbbaabbbabbbbbbaaaaaaaaa
+  aaaabbbbbbbbbbbbbbbbbbbbbbaaaaaa
+  aaaabbbbbbbbbbbbbbbbbbbbbbbbbaaa
+  aaabbbbbbbbbbbbbbbbbbbbbbbbbbaaa
+  aaabbbbbaabbbbbbbbbbaabbbbbbbaaa
+  aabbbbbbaabbbbbbbbbbaabbbbbbaaaa
+  aabbbbbbbbbbbbbbbbbbbbbbbbbaaaaa
+  aaabbbbbbbbbbbbbbbbbbbbbbbbbaaaa
+  aaabbbbbbbbbbbbbbbbbbbbbbbbbbaaa
+  aabbbbbbbbbbbbbbbbbbbbbbbbbbbbaa
+  aabbbbbbbbbbbbbbbbbbbaabbbbbbbba
+  abbbbbbbbaabbbbbbbbbbaabbbbbbbaa
+  abbbbbbbbaabbbbbbbbbbbbbbbbbbbaa
+  aabbbbbbbbbbbbbbbbbbbbbbbbbbaaaa
+  aabbbbbbbbbbbbbbbbbbbbbbbbaaaaaa
+  aaabbbbbbbbbbbbbbbabbbbbbaaaaaaa
+  aaaabbbbbbbbbbbbbaaaabbaaaaaaaaa
+  aaaaabaabbbbbaaaaaaaaaaaaaaaaaaa
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+tilemap:
+  a: Elona.WallStone11
+  b: Elona.Cobble3
+entities:
+- uid: 0
+  components:
+  - type: Map
+- uid: 1
+  protoId: Elona.ItemSkeleton
+  components:
+  - type: Spatial
+    pos: 11,10
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 2
+  protoId: Elona.ItemSkeleton
+  components:
+  - type: Spatial
+    pos: 5,14
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 3
+  protoId: Elona.ItemSkeleton
+  components:
+  - type: Spatial
+    pos: 25,12
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 4
+  protoId: Elona.ItemSkeleton
+  components:
+  - type: Spatial
+    pos: 12,19
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 5
+  protoId: Elona.ItemBoneFragment
+  components:
+  - type: Spatial
+    pos: 23,5
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 6
+  protoId: Elona.ItemBoneFragment
+  components:
+  - type: Spatial
+    pos: 6,7
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 7
+  protoId: Elona.ItemBoneFragment
+  components:
+  - type: Spatial
+    pos: 22,17
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 8
+  protoId: Elona.ItemBoneFragment
+  components:
+  - type: Spatial
+    pos: 14,3
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 9
+  protoId: Elona.ItemBonfire
+  components:
+  - type: Spatial
+    pos: 11,7
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 10
+  protoId: Elona.ItemBonfire
+  components:
+  - type: Spatial
+    pos: 12,15
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 11
+  protoId: Elona.ItemBonfire
+  components:
+  - type: Spatial
+    pos: 19,14
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 12
+  protoId: Elona.ItemBonfire
+  components:
+  - type: Spatial
+    pos: 18,8
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 13
+  protoId: Elona.ItemBrokenPillar
+  components:
+  - type: Spatial
+    pos: 7,5
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 14
+  protoId: Elona.ItemBrokenPillar
+  components:
+  - type: Spatial
+    pos: 6,17
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 15
+  protoId: Elona.ItemBrokenPillar
+  components:
+  - type: Spatial
+    pos: 25,6
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 16
+  protoId: Elona.ItemBrokenPillar
+  components:
+  - type: Spatial
+    pos: 25,15
+    parent: 0
+  - type: Item
+    ownState: NPC
+...

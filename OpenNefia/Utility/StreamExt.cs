@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Text;
 
 namespace OpenNefia.Core.Utility
 {
@@ -82,6 +83,23 @@ namespace OpenNefia.Core.Utility
                 if (read == 0)
                     return totalRead;
             }
+        }
+
+        public static IEnumerable<string> ReadLines(this Stream stream, Encoding encoding)
+        {
+            using (var reader = new StreamReader(stream, encoding))
+            {
+                string? line;
+                while ((line = reader.ReadLine()) != null)
+                {
+                    yield return line;
+                }
+            }
+        }
+
+        public static IEnumerable<string> ReadLines(this Stream stream)
+        {
+            return ReadLines(stream, EncodingHelpers.UTF8);
         }
     }
 }

@@ -1,0 +1,57 @@
+meta:
+  format: 1
+  name: Wizardtower
+  author: Noa
+grid: |
+  aaaaaaaaaaaaaaaabccccccbaaaaaaaaaaaaaaaa
+  aaaaaaaaaaaabcccceeeeeeccccbaaaaaaaaaaaa
+  aaaaaaaaaabcceeeeeeeeeeeeeeccbaaaaaaaaaa
+  aaaaaaaaabceeeeeeeeeeeeeeeeeecbaaaaaaaaa
+  aaaaaaabcbeeeeeeeeeeeeeeeeeeeebcbaaaaaaa
+  aaaaaabceccbeeeeeeeeeeeeeeeebccecbaaaaaa
+  aaaaabceeeebccccbeeeeeebccccbeeeecbaaaaa
+  aaaabceeeebceeeecbeeeebceeeecbeeeecbaaaa
+  aaaabeeeebceeeeeecbddbceeeeeecbeeeebaaaa
+  aaabceeeebeeeeeeeebddbeeeeeeeebeeeecbaaa
+  aabbeeeeebeeeeeeeecddceeeeeeeebeeeeebbaa
+  aabbdbbbbbeeeeeeeeddddeeeeeeeebbbbbdbbaa
+  abcbdbcccbeeeeeeeebddbeeeeeeeebcccbdbcba
+  abdbdbeeebeeeeeeeebddbeeeeeeeebeeebdbdba
+  abdcdceeecbeeeeeebcddcbeeeeeebceeecdcdba
+  abddddeeeecbeeeebcddddcbeeeebceeeeddddba
+  bcccdceeeeebccccbddddddbccccbeeeeecdcccb
+  bdddddeeeebceeeecbddddbceeeecbeeeedddddb
+  bddbdbeeebceeeeeecbddbceeeeeecbeeebdbddb
+  bccbdbcccbeeeeeeeebddbeeeeeeeebcccbdbccb
+  bddcdceeebeeeeeeeecddceeeeeeeebeeecdcddb
+  bdddddeeebeeeeeeeeddddeeeeeeeebeeedddddb
+  bddbdbeeebeeeeeeeebddbeeeeeeeebeeebdbddb
+  bbcbdbcccbeeeeeeeebddbeeeeeeeebcccbdbcbb
+  abdcdceeecbeeeeeebbddbbeeeeeebceeecdcdba
+  abddddeeeebbeeeebbddddbbeeeebbeeeeddddba
+  abdbdbeeebcccccccddffddcccccccbeeebdbdba
+  abbcdbeebcddddddddffffddddddddcbeebdcbba
+  aabddccccddbdccdbddffddbdccdbddccccddbaa
+  aabbddddddbceeeecbddddbceeeecbddddddbbaa
+  aaabbccdcbceeeeeecbddbceeeeeecbcdccbbaaa
+  aaaabeeeebeeeeeeeebddbeeeeeeeebeeeebaaaa
+  aaaabbeeebeeeeeeeebddbeeeeeeeebeeebbaaaa
+  aaaaabbeebeeeeeeeebddbeeeeeeeebeebbaaaaa
+  aaaaaabbebeeeeeeeebddbeeeeeeeebebbaaaaaa
+  aaaaaaabbbeeeeeeebbddbbeeeeeeebbbaaaaaaa
+  aaaaaaaaabbeeeeebbaddabbeeeeebbaaaaaaaaa
+  aaaaaaaaaabbbeebbaaddaabbeebbbaaaaaaaaaa
+  aaaaaaaaaaaabbbbaaaddaaabbbbaaaaaaaaaaaa
+  aaaaaaaaaaaaaaaaaaaddaaaaaaaaaaaaaaaaaaa
+tilemap:
+  a: Elona.Grass
+  b: Elona.WallConcreteDark1
+  c: Elona.WallConcreteDark2
+  d: Empty
+  e: Elona.Marble
+  f: Elona.WorldDirtRocks1
+entities:
+- uid: 0
+  components:
+  - type: Map
+...

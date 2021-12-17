@@ -1,0 +1,78 @@
+meta:
+  format: 1
+  name: home5
+  author: Noa
+grid: |
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+  abdbbdbdbbdbdbdbdbdbdbdbdbbdbdbbdba
+  aceffeciiiidnnnnqqqnnnndiiiiceffeca
+  acffffciiiiinnnnqqqnnnniiiiicffffca
+  acffffciiiibnnnnqqqnnnnbiiiicffffca
+  adeffeddbbdcdbhhrrrhhbdcdbbddeffeda
+  acdhhdcaaaaaacnnqqqnncaaaaaacdhhdca
+  acaaaaaaaaaaacnnqqqnncaaaaaaaaaaaca
+  acaaaaaaaaaaacnnqqqnncaaaaaaaaaaaca
+  addbbdbaaaaaadnnqqqnndaaaaaabdbbdda
+  aceffecdbhhbdcbbhhhbbcdbhhbdceffeca
+  acffffcaaaaaaadcaaacdaaaaaaacffffca
+  acfffffajkkkjaaaaaaaaajkkkjafffffca
+  aceffebaklmlkaaopppoaaklmlkabeffeca
+  addbbdcakmmmkaapssspaakmmmkacdbbdda
+  acaaaaaaklmlkaapssspaaklmlkaaaaaaca
+  acaaaaaajkkkjaapssspaajkkkjaaaaaaca
+  acaaaaaaaaaaaaapssspaaaaaaaaaaaaaca
+  addggdbdgggdbaaopppoaabdgggdbdggdda
+  acggggcgggggcaaaaaaaaacgggggcggggca
+  acggggcgggggcaaaaaaaaacgggggcggggca
+  acggggcgggggcddbaaabddcgggggcggggca
+  acdbbdcdbbbdcaacaaacaacdbbbdcdbbdca
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+tilemap:
+  a: Elona.Cobble6
+  b: Elona.WallPalace3
+  c: Elona.WallPalace1
+  d: Elona.WallPalace2
+  e: Elona.CobblePillar
+  f: Elona.Cobble10
+  g: Elona.Cobble11
+  h: Elona.Stair
+  i: Elona.WoodFloor8
+  j: Elona.CobbleDiagonalRound
+  k: Elona.CobbleDiagonal
+  l: Elona.GrassBush1
+  m: Elona.GrassViolets
+  n: Elona.Tile2
+  o: Elona.CobbleStatue
+  p: Elona.ConcreteTiled
+  q: Elona.RedFloor
+  r: Elona.RedStairs
+  s: Elona.AnimeWaterShallow
+entities:
+- uid: 0
+  components:
+  - type: Map
+- uid: 1
+  protoId: Elona.FeatDoorWooden
+  components:
+  - type: Spatial
+    pos: 28,12
+    parent: 0
+- uid: 2
+  protoId: Elona.FeatDoorWooden
+  components:
+  - type: Spatial
+    pos: 23,3
+    parent: 0
+- uid: 3
+  protoId: Elona.FeatDoorWooden
+  components:
+  - type: Spatial
+    pos: 11,3
+    parent: 0
+- uid: 4
+  protoId: Elona.FeatDoorWooden
+  components:
+  - type: Spatial
+    pos: 6,12
+    parent: 0
+...

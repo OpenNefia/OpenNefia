@@ -1,0 +1,291 @@
+meta:
+  format: 1
+  name: sqRogue
+  author: Noa
+grid: |
+  aaaaaaaaaaaaaaaaa
+  aaabccbbbbcadddaa
+  aaacccbbbbcddddaa
+  aaaccccbbccadddaa
+  aaacccccbccaaaaaa
+  aaaaaaaccccccccaa
+  aaaddddcccccbccaa
+  aaadddaccbccccbaa
+  aaaaaaaccccccbbaa
+  aaaeeeebccbcbbbaa
+  aaaaaaaaaaaaaaaaa
+tilemap:
+  a: Elona.WallStone1
+  b: Elona.HardwoodFloor1
+  c: Elona.HardwoodFloor2
+  d: Elona.HardwoodFloor4
+  e: Elona.Cobble4
+entities:
+- uid: 0
+  components:
+  - type: Map
+- uid: 1
+  protoId: Elona.FeatStairsUp
+  components:
+  - type: Spatial
+    pos: 3,9
+    parent: 0
+- uid: 2
+  protoId: Elona.ItemLantern
+  components:
+  - type: Spatial
+    pos: 14,5
+    parent: 0
+- uid: 3
+  protoId: Elona.ItemLantern
+  components:
+  - type: Spatial
+    pos: 6,1
+    parent: 0
+- uid: 4
+  protoId: Elona.ItemBrokenSword
+  components:
+  - type: Spatial
+    pos: 3,7
+    parent: 0
+- uid: 5
+  protoId: Elona.ItemAnimalBone
+  components:
+  - type: Spatial
+    pos: 3,1
+    parent: 0
+- uid: 6
+  protoId: Elona.ItemAnimalBone
+  components:
+  - type: Spatial
+    pos: 14,1
+    parent: 0
+- uid: 7
+  protoId: Elona.ItemBoneFragment
+  components:
+  - type: Spatial
+    pos: 14,3
+    parent: 0
+- uid: 8
+  protoId: Elona.ItemBoneFragment
+  components:
+  - type: Spatial
+    pos: 13,5
+    parent: 0
+- uid: 9
+  protoId: Elona.ItemDagger
+  components:
+  - type: Spatial
+    pos: 3,6
+    parent: 0
+- uid: 10
+  protoId: Elona.ItemLongStaff
+  components:
+  - type: Spatial
+    pos: 12,1
+    parent: 0
+- uid: 11
+  protoId: Elona.ItemLightCloak
+  components:
+  - type: Spatial
+    pos: 14,2
+    parent: 0
+- uid: 12
+  protoId: Elona.FeatDoorWooden
+  components:
+  - type: Door
+    unlockDifficulty: 10
+  - type: Spatial
+    pos: 6,9
+    parent: 0
+- uid: 13
+  protoId: Elona.FeatDoorWooden
+  components:
+  - type: Door
+    unlockDifficulty: 10
+  - type: Spatial
+    pos: 6,6
+    parent: 0
+- uid: 14
+  protoId: Elona.FeatDoorWooden
+  components:
+  - type: Door
+    unlockDifficulty: 10
+  - type: Spatial
+    pos: 11,2
+    parent: 0
+- uid: 15
+  protoId: Elona.CharaThief
+  components:
+  - type: Spatial
+    pos: 5,2
+    parent: 0
+- uid: 16
+  protoId: Elona.CharaThief
+  components:
+  - type: Spatial
+    pos: 5,7
+    parent: 0
+- uid: 17
+  protoId: Elona.CharaThief
+  components:
+  - type: Spatial
+    pos: 12,7
+    parent: 0
+- uid: 18
+  protoId: Elona.CharaThief
+  components:
+  - type: Spatial
+    pos: 9,4
+    parent: 0
+- uid: 19
+  protoId: Elona.CharaThief
+  components:
+  - type: Spatial
+    pos: 13,2
+    parent: 0
+- uid: 20
+  protoId: Elona.CharaRobber
+  components:
+  - type: Spatial
+    pos: 4,1
+    parent: 0
+- uid: 21
+  protoId: Elona.CharaRobber
+  components:
+  - type: Spatial
+    pos: 13,1
+    parent: 0
+- uid: 22
+  protoId: Elona.ItemStraw
+  components:
+  - type: Spatial
+    pos: 14,8
+    parent: 0
+- uid: 23
+  protoId: Elona.ItemStraw
+  components:
+  - type: Spatial
+    pos: 14,9
+    parent: 0
+- uid: 24
+  protoId: Elona.ItemStraw
+  components:
+  - type: Spatial
+    pos: 13,9
+    parent: 0
+- uid: 25
+  protoId: Elona.ItemStraw
+  components:
+  - type: Spatial
+    pos: 3,4
+    parent: 0
+- uid: 26
+  protoId: Elona.ItemStraw
+  components:
+  - type: Spatial
+    pos: 3,3
+    parent: 0
+- uid: 27
+  protoId: Elona.ItemSuitcase
+  components:
+  - type: Spatial
+    pos: 12,3
+    parent: 0
+- uid: 28
+  protoId: Elona.ItemLotOfAlcohols
+  components:
+  - type: Spatial
+    pos: 9,2
+    parent: 0
+- uid: 29
+  protoId: Elona.ItemLotOfAlcohols
+  components:
+  - type: Spatial
+    pos: 5,3
+    parent: 0
+- uid: 30
+  protoId: Elona.ItemLotOfAlcohols
+  components:
+  - type: Spatial
+    pos: 11,8
+    parent: 0
+- uid: 31
+  protoId: Elona.ItemBarrel
+  components:
+  - type: Spatial
+    pos: 4,6
+    parent: 0
+- uid: 32
+  protoId: Elona.ItemBarrel
+  components:
+  - type: Spatial
+    pos: 14,6
+    parent: 0
+- uid: 33
+  protoId: Elona.ItemBarrel
+  components:
+  - type: Spatial
+    pos: 14,7
+    parent: 0
+- uid: 34
+  protoId: Elona.ItemBarrel
+  components:
+  - type: Spatial
+    pos: 8,1
+    parent: 0
+- uid: 35
+  protoId: Elona.ItemBarrel
+  components:
+  - type: Spatial
+    pos: 7,1
+    parent: 0
+- uid: 36
+  protoId: Elona.ItemBarrel
+  components:
+  - type: Spatial
+    pos: 10,7
+    parent: 0
+- uid: 37
+  protoId: Elona.ItemBarrel
+  components:
+  - type: Spatial
+    pos: 10,1
+    parent: 0
+- uid: 38
+  protoId: Elona.ItemBarrel
+  components:
+  - type: Spatial
+    pos: 3,2
+    parent: 0
+- uid: 39
+  protoId: Elona.ItemBarrel
+  components:
+  - type: Spatial
+    pos: 10,9
+    parent: 0
+- uid: 40
+  protoId: Elona.ItemBarrel
+  components:
+  - type: Spatial
+    pos: 12,5
+    parent: 0
+- uid: 41
+  protoId: Elona.ItemBarrel
+  components:
+  - type: Spatial
+    pos: 11,5
+    parent: 0
+- uid: 42
+  protoId: Elona.ItemBarrel
+  components:
+  - type: Spatial
+    pos: 13,3
+    parent: 0
+- uid: 43
+  protoId: Elona.ItemBarrel
+  components:
+  - type: Spatial
+    pos: 4,4
+    parent: 0
+...

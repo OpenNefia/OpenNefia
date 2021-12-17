@@ -1,0 +1,48 @@
+meta:
+  format: 1
+  name: Juerefarm1
+  author: Noa
+grid: |
+  aaaaaaaaaaaaaaakkkkkaa
+  aabbbbbbbbbaaialoaalaa
+  aabeeeeeeebaaaaadaalaa
+  aabeeeeeeebaaaakkkkkaa
+  aabeeeeeeebaaaaaaaaaaa
+  aabbbeebbbbaaabbbbbaaa
+  aaaaaggaaaaaaabmpmbaia
+  aaaaagahaaaaaabeeebaaa
+  aaaaadggadgaggeeeebaaa
+  aacfaagagaagageeeebaaa
+  aaaaaggaaaaaaabeeebaai
+  aaaaaagaaiaaaabbbbbaaa
+  aadaaagaaaaaaaannaaaaa
+  aaaaaagaaaaaaaaaaaqqqa
+  aaaaagaaaaaaaaaaaaqqqc
+  aaaaaagaaaaajjjjjaqqqa
+  aaaadgaaaaaajjjjjaqqqa
+  aaaaagaaaaaajjjjjaqqqa
+  aaaaagaaaaiaaaaaaaaaaa
+  aaaaaaaaaaaaaaaaaaaaaa
+tilemap:
+  a: Elona.Grass
+  b: Elona.WallStone10
+  c: Elona.GrassBush3
+  d: Elona.GrassTall1
+  e: Elona.HardwoodFloor4
+  f: Elona.GrassBush2
+  g: Elona.GrassRocks
+  h: Elona.GrassBush1
+  i: Elona.GrassPatch2
+  j: Elona.Field2
+  k: Elona.GrassFencingWe
+  l: Elona.GrassFencingNs
+  m: Elona.HardwoodFloor5
+  n: Elona.StackedCrates
+  o: Elona.HorseBottom
+  p: Elona.Thatching
+  q: Elona.Field1
+entities:
+- uid: 0
+  components:
+  - type: Map
+...

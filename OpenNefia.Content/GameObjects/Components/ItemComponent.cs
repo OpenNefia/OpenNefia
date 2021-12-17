@@ -9,11 +9,19 @@ using OpenNefia.Core.Serialization.Manager.Attributes;
 namespace OpenNefia.Content.GameObjects
 {
     [RegisterComponent]
-    public class ItemComponent : Component
+    public class ItemComponent : Component, IFromHspItem
     {
         public override string Name => "Item";
 
         [DataField]
-        public int Value { get; }
+        public int Value { get; set;  }
+
+        [DataField]
+        public ItemOwnState OwnState { get; set; }
+
+        public void FromHspItem(ItemOwnState ownState)
+        {
+            OwnState = ownState;
+        }
     }
 }

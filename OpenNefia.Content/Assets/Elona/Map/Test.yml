@@ -1,141 +1,151 @@
 meta:
   format: 1
   name: test
-  author: ruin
+  author: Noa
 grid: |
-  @@@@@@@@@@@
-  @.........@
-  @.........@
-  @.........@
-  @.........@
-  @.........@
-  @.........@
-  @.........@
-  @@@@@@@@@@@
+  aaaaaaaaaaaacLIW!&&&&&&&&&&&&&&&&&&Æaaaaaaaaaaaaaaaaaaaaaaaa
+  aaaabeeeeeEacIfW#&&&&'&&&&&&&&&9;;;ÇaÊÉÉÉÉÎaaaaaaaaaaaaaaaaa
+  aaabhqqmtfDbhfLX$&'&&&&&-0&&&&9À===ÈÉË====ÈÉÉÎaaaaaaaaaaaaaa
+  abehmrtyfzDcMfKMX$(''&(&.&&.&&:==============ÈÎaaaaaaaaaaaaa
+  acfinnuzfABcfPfffX$(&&&&(((&&9À===============ÈÉÉÉÉÉÉÎaaaaaa
+  acfjosvfABbhMinuZGX)$'(&(&(&&:==========Í??Ä=========Çaaaaaa
+  acfkppwfDacfiHSYuKffX)$&(&(9;À==========ÈÉÎÌ=====ÍÄ==Çaaaaaa
+  adgffrfABbhGjQTSvGffffW&&&&:==============ÇÅÄ===ÍÏÅÄ=Çaaaaaa
+  aadllllBbhfiHoURwfAlll*---&:==============ÈÎÅ???ÏaaÅ?Ïaaaaaa
+  abeeeeeehfiHNRpwKfDaaa+(--(4????Ä==========ÈÉÉÉÉÎaaaaaaaaaaa
+  acffffxCffjsOvzZ%ABaaa,*((45aaaaÅÄ==============Çaaaaaaaaaaa
+  adgffffxxfkppwVPzDaaaaa,//5beeEaaÅ???Ä==========ÈÉÉÉÉÎaaaaaa
+  aadllllgfCfIJIffVFeeEaaabeehffFeeEaaaÅÄ==============Çaaaaaa
+  aaaaaaadgfCJLKJLfC%fFEbehffffffffFEaaaÌ============Í?Ïaaaaaa
+  aaaaaaaacffKLKLffffCfFhffff1@ÁffffFEaaÌ============Çaaaaaaaa
+  aaaaaaaacffLKfIfffffffffff167ÂfffffDaaÅ?Ä==========Çaaaaaaaa
+  aaaaaaaacffffffffffffffff167^Ã1@ÁffDaaaaÌ=========ÍÏaaaaaaaa
+  aaaaabeeElllgffffffAgffff277_Á27_ÁfFEaaaÌ========ÍÏaaaaaaaaa
+  aaaaacffFeeEdgfffffDcffff3877_677ÂffFEaaÌ====Í???Ïaaaaaaaaaa
+  aaaaadgffffFEdgffffDcfffff387777^ÃfffDaaÅ????Ïaaaaaaaaaaaaaa
+  aaaaabhfffffFEdgfffDcffffff27^~~ÃffffDaaaaaaaaaaaaaaaaaaaaaa
+  aaaaacfffffffFEdlllBcffffff3~ÃfffffffFeEaaaaaaaaaaaaaaaaaaaa
+  aaaaacffffffffDbeeeehffffffffffffffffffFeEaaaaaaaaaaaaaaaaaa
+  aaaaacfffffffABcfffffffffffffffffffffffffFEaaaaaaaaaaaaaaaaa
+  aaaaacfffffAlBadlgffffffffffffffffffffffffDaaaaaaaaaaaaaaaaa
+  aaaaacfffffDaaaabhffffffffffffffffffffffffDaaaaaaaaaaaaaaaaa
+  aaaaacfffffDaaaacfffffffffffffffffffffffffDaaaaaaaaaaaaaaaaa
+  aaaaacfgfffFEaabhfffffffffffffffffffffffffDaaaaaaaaaaaaaaaaa
+  aaaaadlcffffFeehfffffffffffffffffffffffffABaaaaaaaaaaaaaaaaa
+  aaaaaaacfffffffffffffffffffffffffffffAgffDaaaaaaaaaaaaaaaaaa
+  aaaaaaadlgfffffffffffffffffffffffffffDcfABaaaaaaaaaaaaaaaaaa
+  aaaaaaaaadllllllllgffffffffffffffffffDdlBaaaaaaaaaaaaaaaaaaa
+  aaaaaaaaaaaaaaaaaadgfffffffffffffffffFeEbeeEaaaaaaaaaaaaaaaa
+  aaaaaaaaaaaaaaaaaaacfffffffffffffffffffDcffDaaaaaaaaaaaaaaaa
+  aaaaaaaaaaaaaaaaaaadlgfffffffffffffffffDcfABaaaaaaaaaaaaaaaa
+  aaaaaaaaaaaaaaaaaaaaadgffffffffffffffffDdlBaaaaaaaaaaaaaaaaa
+  aaaaaaaaaaaaaaaaaaaaaacffffffffffffffAlBaaaaaaaaaaaaaaaaaaaa
+  aaaaaaaaaaaaaaaaaaaaaadlllgfffffAlgfABaaaaaaaaaaaaaaaaaaaaaa
+  aaaaaaaaaaaaaaaaaaaaaaaaaadlllllBadlBaaaaaaaaaaaaaaaaaaaaaaa
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 tilemap:
-  '@': Elona.WallBrick
-  '.': Elona.Tile1
+  a: Elona.WorldWater
+  b: Elona.WorldDesertWaterBorderNw
+  c: Elona.WorldDesertWaterBorderE
+  d: Elona.WorldDesertWaterBorderSw
+  e: Elona.WorldDesertWaterBorderS
+  f: Elona.WorldDesert
+  g: Elona.WorldDesertWaterBorderCornerNe
+  h: Elona.WorldDesertWaterBorderCornerSe
+  i: Elona.WorldDirtBorderNw
+  j: Elona.WorldDirtBorderE
+  k: Elona.WorldDirtBorderSw
+  l: Elona.WorldDesertWaterBorderN
+  m: Elona.WorldDesertMountain4
+  n: Elona.WorldDirtBorderS
+  o: Elona.WorldDirtMountain2
+  p: Elona.WorldDirtBorderN
+  q: Elona.WorldDesertMountain5
+  r: Elona.WorldDesertDeadTrees2
+  s: Elona.WorldDirtDeadTrees1
+  t: Elona.WorldDesertMountain2
+  u: Elona.WorldDirtBorderNe
+  v: Elona.WorldDirtBorderW
+  w: Elona.WorldDirtBorderSe
+  x: Elona.WorldDesertMountain3
+  y: Elona.WorldDesertDeadTrees1
+  z: Elona.WorldDesertDeadTrees3
+  A: Elona.WorldDesertWaterBorderCornerNw
+  B: Elona.WorldDesertWaterBorderSe
+  C: Elona.WorldDesertMountain1
+  D: Elona.WorldDesertWaterBorderW
+  E: Elona.WorldDesertWaterBorderNe
+  F: Elona.WorldDesertWaterBorderCornerSw
+  G: Elona.WorldDesertPlants3
+  H: Elona.WorldDirtBorderCornerSe
+  I: Elona.WorldDesertTrees4
+  J: Elona.WorldDesertTrees3
+  K: Elona.WorldDesertTrees1
+  L: Elona.WorldDesertTrees2
+  M: Elona.WorldDesertPlants1
+  N: Elona.WorldDirtMountain1
+  O: Elona.WorldDirtDeadTrees2
+  P: Elona.WorldDesertRocks1
+  Q: Elona.WorldDirtCrater
+  R: Elona.WorldDirtBorderCornerNw
+  S: Elona.WorldDirtRocks2
+  T: Elona.WorldDirtRocks1
+  U: Elona.WorldDirtDeadTrees3
+  V: Elona.WorldDesertRocks4
+  W: Elona.WorldDesertBorderW
+  X: Elona.WorldDesertBorderSw
+  Y: Elona.WorldDirtBorderCornerSw
+  Z: Elona.WorldDesertBones
+  '!': Elona.WorldTrees1
+  '#': Elona.WorldTrees3
+  $: Elona.WorldDesertBorderCornerNe
+  '%': Elona.WorldDesertRocks2
+  '&': Elona.WorldGrass
+  "'": Elona.WorldTrees5
+  (: Elona.WorldSmallTrees1
+  ): Elona.WorldDesertBorderS
+  '*': Elona.WorldGrassWaterBorderCornerNe
+  +: Elona.WorldGrassWaterBorderE
+  ',': Elona.WorldGrassWaterBorderSw
+  '-': Elona.WorldSmallTrees2
+  .: Elona.WorldDirt2
+  /: Elona.WorldGrassWaterBorderN
+  0: Elona.WorldDirt1
+  1: Elona.WorldOasisNw
+  2: Elona.WorldOasisW
+  3: Elona.WorldOasisSw
+  4: Elona.WorldGrassWaterBorderCornerNw
+  5: Elona.WorldGrassWaterBorderSe
+  6: Elona.WorldOasisCornerNe
+  7: Elona.WorldOasisC
+  8: Elona.WorldOasisCornerSw
+  9: Elona.WorldSnowBorderNw
+  ':': Elona.WorldSnowBorderE
+  ;: Elona.WorldSnowBorderS
+  =: Elona.WorldSnow
+  '?': Elona.WorldSnowWaterBorderN
+  '@': Elona.WorldOasisN
+  ^: Elona.WorldOasisCornerSe
+  _: Elona.WorldOasisCornerNw
+  ~: Elona.WorldOasisS
+  À: Elona.WorldSnowBorderCornerSe
+  Á: Elona.WorldOasisNe
+  Â: Elona.WorldOasisE
+  Ã: Elona.WorldOasisSe
+  Ä: Elona.WorldSnowWaterBorderCornerNe
+  Å: Elona.WorldSnowWaterBorderSw
+  Æ: Elona.WorldGrassWaterBorderW
+  Ç: Elona.WorldSnowWaterBorderW
+  È: Elona.WorldSnowWaterBorderCornerSw
+  É: Elona.WorldSnowWaterBorderS
+  Ê: Elona.WorldSnowWaterBorderNw
+  Ë: Elona.WorldSnowWaterBorderCornerSe
+  Ì: Elona.WorldSnowWaterBorderE
+  Í: Elona.WorldSnowWaterBorderCornerNw
+  Î: Elona.WorldSnowWaterBorderNe
+  Ï: Elona.WorldSnowWaterBorderSe
 entities:
 - uid: 0
   components:
   - type: Map
-- uid: 1
-  protoId: Elona.CharaYeek
-  components:
-  - type: Spatial
-    parent: 0
-    pos: 2,5
-- uid: 2
-  protoId: Elona.CharaYeek
-  components:
-  - type: Spatial
-    parent: 0
-    pos: 3,5
-- uid: 3
-  protoId: Elona.CharaYeek
-  components:
-  - type: Spatial
-    parent: 0
-    pos: 4,5
-- uid: 4
-  protoId: Elona.CharaYeek
-  components:
-  - type: Spatial
-    parent: 0
-    pos: 5,5
-- uid: 5
-  protoId: Elona.ItemPotionOfCureMinorWound
-  components:
-  - type: Spatial
-    parent: 0
-    pos: 2,2
-- uid: 6
-  protoId: Elona.ItemPotionOfCureMinorWound
-  components:
-  - type: Spatial
-    parent: 0
-    pos: 3,2
-- uid: 7
-  protoId: Elona.ItemPotionOfCureMinorWound
-  components:
-  - type: Spatial
-    parent: 0
-    pos: 4,2
-- uid: 8
-  protoId: Elona.ItemPotionOfCureMinorWound
-  components:
-  - type: Spatial
-    parent: 0
-    pos: 5,2
-- uid: 9
-  protoId: Elona.ItemComputer
-  components:
-  - type: Spatial
-    parent: 0
-    pos: 2,3
-- uid: 10
-  protoId: Elona.ItemComputer
-  components:
-  - type: Spatial
-    parent: 0
-    pos: 3,3
-- uid: 11
-  protoId: Elona.ItemComputer
-  components:
-  - type: Spatial
-    parent: 0
-    pos: 4,3
-- uid: 12
-  protoId: Elona.ItemComputer
-  components:
-  - type: Spatial
-    parent: 0
-    pos: 5,3
-- uid: 13
-  protoId: PotionOfTest
-  components:
-  - type: Spatial
-    parent: 0
-    pos: 2,4
-- uid: 14
-  protoId: PotionOfTest
-  components:
-  - type: Spatial
-    parent: 0
-    pos: 3,4
-- uid: 15
-  protoId: PotionOfTest
-  components:
-  - type: Spatial
-    parent: 0
-    pos: 4,4
-- uid: 16
-  protoId: PotionOfTest
-  components:
-  - type: Spatial
-    parent: 0
-    pos: 5,4
-- uid: 17
-  protoId: Elona.FeatDoorWooden
-  components:
-  - type: Spatial
-    parent: 0
-    pos: 6,2
-- uid: 18
-  protoId: Elona.FeatDoorSF
-  components:
-  - type: Spatial
-    parent: 0
-    pos: 6,3
-- uid: 19
-  protoId: Elona.FeatDoorEastern
-  components:
-  - type: Spatial
-    parent: 0
-    pos: 6,4
-- uid: 20
-  protoId: Elona.FeatDoorJail
-  components:
-  - type: Spatial
-    parent: 0
-    pos: 6,5
+...

@@ -61,6 +61,12 @@ namespace OpenNefia.Core.Maths
             return new(Math.Min(a.X, b.X), Math.Min(a.Y, b.Y));
         }
 
+        public Vector2i BoundWithin(UIBox2i bounds)
+        {
+            return new(Math.Clamp(X, bounds.Left, bounds.Right),
+                       Math.Clamp(Y, bounds.Top, bounds.Bottom));
+        }
+
         /// <summary>
         /// Compare a vector to another vector and check if they are equal.
         /// </summary>

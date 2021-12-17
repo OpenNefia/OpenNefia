@@ -1,19 +1,13 @@
 ﻿using CommandLine;
 using CommandLine.Text;
-using OpenNefia.Core.ContentPack;
 using OpenNefia.Core.GameController;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Log;
 using OpenNefia.Core.Reflection;
-using OpenNefia.Core.ResourceManagement;
 using OpenNefia.Core.Utility;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
+using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OpenNefia.Core.CommandLine
 {
@@ -21,8 +15,9 @@ namespace OpenNefia.Core.CommandLine
     {
         [Dependency] private readonly IReflectionManager _reflectionManager = default!;
         [Dependency] private readonly IGameController _gameController = default!;
+        [Dependency] private readonly ILogManager _logManager = default!;
 
-        private IEnumerable<Type> Verbs
+        public IEnumerable<Type> Verbs
         {
             get
             {
@@ -51,6 +46,22 @@ namespace OpenNefia.Core.CommandLine
             Console.WriteLine(helpText);
         }
 
+        public bool TryParseCommand(string[] args, [NotNullWhen(true)] out ICommand? command)
+        {
+            var parser = new Parser(with => with.HelpWriter = null);
+            var verbs = Verbs.ToArray();
+
+            command = parser.ParseArguments(args, verbs)
+                .MapResult(obj =>
+                {
+                    var cmd = (ICommand)obj;
+                    cmd = IoCManager.InjectDependencies(cmd!);
+                    return (ICommand?)cmd;
+                }, obj => null);
+
+            return command != null;
+        }
+
         public void Run(string[] args)
         {
             if (!_gameController.Startup())
@@ -68,6 +79,7 @@ namespace OpenNefia.Core.CommandLine
             {
                 var cmd = (ICommand)obj;
                 cmd = IoCManager.InjectDependencies(cmd);
+                _logManager.RootSawmill.Level = cmd.LogLevel;
                 cmd.Execute();
             });
             result = result.WithNotParsed(errors => DisplayUsage(result, errors));

@@ -8,7 +8,7 @@ using OpenNefia.Content.Prototypes;
 namespace OpenNefia.Content.GameObjects
 {
     [RegisterComponent]
-    public class DoorComponent : Component
+    public class DoorComponent : Component, IFromHspFeat
     {
         public override string Name => "Door";
 
@@ -23,6 +23,9 @@ namespace OpenNefia.Content.GameObjects
 
         [DataField]
         public PrototypeId<SoundPrototype>? SoundOpen { get; }
+
+        [DataField]
+        public int UnlockDifficulty { get; set; } = 0;
 
         [DataField]
         private bool _isOpen = false;
@@ -44,6 +47,12 @@ namespace OpenNefia.Content.GameObjects
                     _chip.ChipID = _isOpen ? ChipOpen : ChipClosed;
                 }
             }
+        }
+
+        public void FromHspFeat(int cellObjId, int param1, int param2)
+        {
+            UnlockDifficulty = param1;
+            OpenNefia.Core.Log.Logger.Warning($"DOOR {param1} {param2}");
         }
     }
 }

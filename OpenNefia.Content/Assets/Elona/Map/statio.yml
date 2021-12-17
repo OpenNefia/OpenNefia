@@ -1,0 +1,48 @@
+meta:
+  format: 1
+  name: statio
+  author: Noa
+grid: |
+  aaaaaaaaaaaaaaaaaaaaaaaa
+  aaaaaaaaaaaaaaaaaaaaaaaa
+  bbbbbbbbbaeabbbbbbbbbbbb
+  aaaaaaaaaedaaaaaahfaaaaa
+  aaaaacaaedaaaaaaffihaaaa
+  aaaaaaadeaaaaaafghciaaaa
+  aaaaaaaadaaaaaaahiigaaaa
+  aaaaaaaaedaaaaaaghhiaaaa
+  aaaaaaaaaedaaaaaagaaaaaa
+  aaaaaaaaaeeaaaaaaaaaaaaa
+  aaaaaaaaaadaaaaaaaaaaaaa
+  aaaaaaaaaaaaaaaaaaaaaaaa
+  aaacaaaaaaaeaaaaaaaaaaaa
+  aaaaaaaaaaaedacaaaaaaaaa
+  aaaaaaaaaaadeaaaaaaaaaaa
+  aaaaaaaaaaaeaaaaaaaaaaaa
+  aaaaacaaaaeaaaaaaaaaaaaa
+  aaaaaaaaaadaaaaaaaaaaaaa
+  aaaaaaaaaadeaaaaaaaaaaaa
+  aaaaaaaaaaeaeaaaaaaaaaaa
+  aaaaaaaaaaaedaaaaacaaaaa
+  aaaaaaaaaadeeaaaaaaaaaaa
+  aaaaaaaaaaaeaaaaaaaaaaaa
+  aaaaaaaaaaaeaaaaaaaaaaaa
+  aaaaaaaaaaadaaaaaaaaaaaa
+  aaaaacaaaaaaaaaaaaaaaaaa
+  aaaaaaaaaaaaaaaaaaaaaaaa
+  aaaaaaaaaaaaaaaaaaaaaaaa
+tilemap:
+  a: Elona.Grass
+  b: Elona.GrassFencingWe
+  c: Elona.GrassBush3
+  d: Elona.GrassRocks2
+  e: Elona.GrassRocks
+  f: Elona.GrassViolets
+  g: Elona.GrassTall1
+  h: Elona.GrassTall2
+  i: Elona.GrassBush2
+entities:
+- uid: 0
+  components:
+  - type: Map
+...

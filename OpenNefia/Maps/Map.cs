@@ -24,6 +24,7 @@ namespace OpenNefia.Core.Maps
         public int Width { get; }
         public int Height { get; }
         public Vector2i Size => new Vector2i(Width, Height);
+        public UIBox2i Bounds => UIBox2i.FromDimensions(Vector2i.Zero, Size);
 
         public Tile[,] Tiles { get; }
         public Tile[,] TileMemory { get; }

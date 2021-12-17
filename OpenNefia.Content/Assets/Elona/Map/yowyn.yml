@@ -1,0 +1,1482 @@
+meta:
+  format: 1
+  name: yowyn
+  author: Noa
+grid: |
+  aaaacaaalceccgdgdgaaaaabaaaalaaaaaaaeeecea
+  aecaaffffhccaadadaaeeaaiiissacaaiiiiacebal
+  bfffffjjfkpcphagddaaaeaiiisssaAaiiiiaaceca
+  afjjjjjjfkffffaaddaeeaahpbiiiaaaiiiicaiiss
+  afjjjjjjfffnnfffbddalahpaaiiiaaaaaalaaiiss
+  afjjjjjjfnjjjjnfddgaeaphhhaaalaaaaaaabssii
+  afjjjffffnjjjjnfaddahevvvvvvvaassiiiaassii
+  afjjjfmmfffqjjqfpdgdatvwwwwwvaassiiiaassii
+  affjffjjjjfaaaahhdgggbwwwwwwvaassiiiaAaada
+  cakaaffmjjjaagappaggaawwwwwwveassiiiaaddad
+  aglaaefffffraggalaggatvvyvyvvaassiiiadglAa
+  dddddgeeaacccagaaadaaavyyvyvaaaaaaaaagaaaa
+  ccagadgddaccaaddbggeaavvvvvvaaaaaEEEadaEEa
+  ccccaagagddgdddgddaaeaaaaaaaabaaBFFFdgaFFa
+  ccccaggaaadaaaaaddeaaavvvvvvvaaaaaaaadaaaa
+  ccfffjfffaacasssdgaeluvxxxxxvaaaCCCCCdCCla
+  cafjjjjjfkclaiiigdglgaxxxxxxveAaDaaaaaaDaa
+  cafjjjjjfooaaiiiagdgagxxxxxxvzaaDaaaaGaDaa
+  bafjjjjjffffaiiiaaddgdvvvvvvvhhaDaaaaaaDaa
+  ahfffjjjfjjfaaaaaagadadbphphzhaaDGaaaaaDaA
+  aeaafffffjjjassiiiaaaddaasiiibaaDaaaaaaDaa
+  aiiaahafjjjfassiiiaiiigadsiiihahCCCCCCCDha
+  aiiaaeafffffassiiiaiiiaggzhhhhhaalaaaaalaa
+  aaabacaaaaaaaaaaabaiiidzhdhhpppphaAaaahaaa
+tilemap:
+  a: Elona.Grass
+  b: Elona.GrassPatch1
+  c: Elona.GrassTall1
+  d: Elona.GrassRocks
+  e: Elona.GrassTall2
+  f: Elona.WallHay
+  g: Elona.GrassRocks2
+  h: Elona.GrassBush1
+  i: Elona.Field1
+  j: Elona.DarkDirt1
+  k: Elona.Crates
+  l: Elona.GrassPatch3
+  m: Elona.Carpet1
+  n: Elona.Carpet2
+  o: Elona.CratesOpen
+  p: Elona.GrassBush3
+  q: Elona.SignGeneralVendor
+  r: Elona.SignLamp
+  s: Elona.Field2
+  t: Elona.SignInn
+  u: Elona.SignEquip
+  v: Elona.WallStone4
+  w: Elona.WoodFloor9
+  x: Elona.Cobble11
+  y: Elona.Carpet5
+  z: Elona.GrassBush2
+  A: Elona.GrassViolets
+  B: Elona.HorseBottom
+  C: Elona.GrassFencingWe
+  D: Elona.GrassFencingNs
+  E: Elona.WallStone7Fog
+  F: Elona.StableBottom
+  G: Elona.GrassPatch2
+entities:
+- uid: 0
+  components:
+  - type: Map
+- uid: 1
+  protoId: Elona.ItemPot
+  components:
+  - type: Spatial
+    pos: 6,17
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 2
+  protoId: Elona.ItemCheapBed
+  components:
+  - type: Spatial
+    pos: 6,2
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 3
+  protoId: Elona.ItemCheapBed
+  components:
+  - type: Spatial
+    pos: 7,2
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 4
+  protoId: Elona.ItemCheapBed
+  components:
+  - type: Spatial
+    pos: 3,17
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 5
+  protoId: Elona.ItemLantern
+  components:
+  - type: Spatial
+    pos: 11,17
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 6
+  protoId: Elona.ItemCheapTable
+  components:
+  - type: Spatial
+    pos: 5,4
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 7
+  protoId: Elona.ItemBonfire
+  components:
+  - type: Spatial
+    pos: 2,13
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 8
+  protoId: Elona.ItemBonfire
+  components:
+  - type: Spatial
+    pos: 19,13
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 9
+  protoId: Elona.ItemBonfire
+  components:
+  - type: Spatial
+    pos: 19,4
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 10
+  protoId: Elona.ItemBonfire
+  components:
+  - type: Spatial
+    pos: 18,1
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 11
+  protoId: Elona.ItemBonfire
+  components:
+  - type: Spatial
+    pos: 9,11
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 12
+  protoId: Elona.ItemPick
+  components:
+  - type: Spatial
+    pos: 26,3
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 13
+  protoId: Elona.ItemPick
+  components:
+  - type: Spatial
+    pos: 18,22
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 14
+  protoId: Elona.ItemWaterTub
+  components:
+  - type: Spatial
+    pos: 10,19
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 15
+  protoId: Elona.ItemWaterTub
+  components:
+  - type: Spatial
+    pos: 9,19
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 16
+  protoId: Elona.ItemEmptyBasket
+  components:
+  - type: Spatial
+    pos: 7,5
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 17
+  protoId: Elona.ItemBunkBed
+  components:
+  - type: Spatial
+    pos: 27,15
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 18
+  protoId: Elona.ItemStraw
+  components:
+  - type: Spatial
+    pos: 9,21
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 19
+  protoId: Elona.ItemStraw
+  components:
+  - type: Spatial
+    pos: 8,21
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 20
+  protoId: Elona.ItemStraw
+  components:
+  - type: Spatial
+    pos: 10,21
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 21
+  protoId: Elona.ItemDiningTable
+  components:
+  - type: Spatial
+    pos: 25,7
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 22
+  protoId: Elona.ItemSquareChair
+  components:
+  - type: Spatial
+    pos: 24,7
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 23
+  protoId: Elona.ItemSquareChair
+  components:
+  - type: Spatial
+    pos: 26,7
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 24
+  protoId: Elona.ItemBigFoliagePlant
+  components:
+  - type: Spatial
+    pos: 27,7
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 25
+  protoId: Elona.ItemPlainBed
+  components:
+  - type: Spatial
+    pos: 23,11
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 26
+  protoId: Elona.ItemPlainBed
+  components:
+  - type: Spatial
+    pos: 26,11
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 27
+  protoId: Elona.ItemScarecrow
+  components:
+  - type: Spatial
+    pos: 14,17
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 28
+  protoId: Elona.ItemScarecrow
+  components:
+  - type: Spatial
+    pos: 14,21
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 29
+  protoId: Elona.ItemScarecrow
+  components:
+  - type: Spatial
+    pos: 17,20
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 30
+  protoId: Elona.ItemScarecrow
+  components:
+  - type: Spatial
+    pos: 20,22
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 31
+  protoId: Elona.ItemScarecrow
+  components:
+  - type: Spatial
+    pos: 28,20
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 32
+  protoId: Elona.ItemScarecrow
+  components:
+  - type: Spatial
+    pos: 24,1
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 33
+  protoId: Elona.ItemScarecrow
+  components:
+  - type: Spatial
+    pos: 27,3
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 34
+  protoId: Elona.ItemScarecrow
+  components:
+  - type: Spatial
+    pos: 2,21
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 35
+  protoId: Elona.ItemRadish
+  components:
+  - type: Spatial
+    pos: 14,16
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 36
+  protoId: Elona.ItemRadish
+  components:
+  - type: Spatial
+    pos: 13,17
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 37
+  protoId: Elona.ItemRadish
+  components:
+  - type: Spatial
+    pos: 15,18
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 38
+  protoId: Elona.ItemRadish
+  components:
+  - type: Spatial
+    pos: 15,15
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 39
+  protoId: Elona.ItemGuava
+  components:
+  - type: Spatial
+    pos: 26,20
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 40
+  protoId: Elona.ItemGuava
+  components:
+  - type: Spatial
+    pos: 28,21
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 41
+  protoId: Elona.ItemGuava
+  components:
+  - type: Spatial
+    pos: 25,21
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 42
+  protoId: Elona.ItemCarrot
+  components:
+  - type: Spatial
+    pos: 24,2
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 43
+  protoId: Elona.ItemCarrot
+  components:
+  - type: Spatial
+    pos: 26,1
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 44
+  protoId: Elona.ItemCarrot
+  components:
+  - type: Spatial
+    pos: 27,2
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 45
+  protoId: Elona.ItemCarrot
+  components:
+  - type: Spatial
+    pos: 28,3
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 46
+  protoId: Elona.ItemCarrot
+  components:
+  - type: Spatial
+    pos: 27,4
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 47
+  protoId: Elona.ItemCarrot
+  components:
+  - type: Spatial
+    pos: 2,22
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 48
+  protoId: Elona.ItemCarrot
+  components:
+  - type: Spatial
+    pos: 1,21
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 49
+  protoId: Elona.ItemCarrot
+  components:
+  - type: Spatial
+    pos: 1,22
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 50
+  protoId: Elona.ItemEdibleWildPlant
+  components:
+  - type: Spatial
+    pos: 21,21
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 51
+  protoId: Elona.ItemEdibleWildPlant
+  components:
+  - type: Spatial
+    pos: 19,22
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 52
+  protoId: Elona.ItemEdibleWildPlant
+  components:
+  - type: Spatial
+    pos: 21,23
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 53
+  protoId: Elona.ItemEdibleWildPlant
+  components:
+  - type: Spatial
+    pos: 20,23
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 54
+  protoId: Elona.ItemLettuce
+  components:
+  - type: Spatial
+    pos: 15,21
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 55
+  protoId: Elona.ItemLettuce
+  components:
+  - type: Spatial
+    pos: 16,22
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 56
+  protoId: Elona.ItemLettuce
+  components:
+  - type: Spatial
+    pos: 13,21
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 57
+  protoId: Elona.ItemCherry
+  components:
+  - type: Spatial
+    pos: 16,20
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 58
+  protoId: Elona.ItemCherry
+  components:
+  - type: Spatial
+    pos: 13,20
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 59
+  protoId: Elona.ItemCherry
+  components:
+  - type: Spatial
+    pos: 14,22
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 60
+  protoId: Elona.ItemCherry
+  components:
+  - type: Spatial
+    pos: 17,21
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 61
+  protoId: Elona.ItemImo
+  components:
+  - type: Spatial
+    pos: 15,16
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 62
+  protoId: Elona.ItemImo
+  components:
+  - type: Spatial
+    pos: 13,15
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 63
+  protoId: Elona.ItemImo
+  components:
+  - type: Spatial
+    pos: 13,18
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 64
+  protoId: Elona.ItemPick
+  components:
+  - type: Spatial
+    pos: 14,14
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 65
+  protoId: Elona.ItemPick
+  components:
+  - type: Spatial
+    pos: 4,22
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 66
+  protoId: Elona.ItemBonfire
+  components:
+  - type: Spatial
+    pos: 12,14
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 67
+  protoId: Elona.ItemBonfire
+  components:
+  - type: Spatial
+    pos: 18,20
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 68
+  protoId: Elona.ItemLantern
+  components:
+  - type: Spatial
+    pos: 3,21
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 69
+  protoId: Elona.ItemLantern
+  components:
+  - type: Spatial
+    pos: 28,1
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 70
+  protoId: Elona.ItemClosedPot
+  components:
+  - type: Spatial
+    pos: 7,19
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 71
+  protoId: Elona.ItemClosedPot
+  components:
+  - type: Spatial
+    pos: 9,6
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 72
+  protoId: Elona.ItemNeatShelf
+  components:
+  - type: Spatial
+    pos: 7,16
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 73
+  protoId: Elona.ItemCloset
+  components:
+  - type: Spatial
+    pos: 11,4
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 74
+  protoId: Elona.ItemWoodPiece
+  components:
+  - type: Spatial
+    pos: 20,12
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 75
+  protoId: Elona.ItemWoodPiece
+  components:
+  - type: Spatial
+    pos: 4,12
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 76
+  protoId: Elona.ItemRaggedTable
+  components:
+  - type: Spatial
+    pos: 12,4
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 77
+  protoId: Elona.ItemBroom
+  components:
+  - type: Spatial
+    pos: 5,19
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 78
+  protoId: Elona.ItemWashing
+  components:
+  - type: Spatial
+    pos: 17,18
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 79
+  protoId: Elona.ItemWashing
+  components:
+  - type: Spatial
+    pos: 6,5
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 80
+  protoId: Elona.ItemSimpleDresser
+  components:
+  - type: Spatial
+    pos: 3,16
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 81
+  protoId: Elona.ItemBarrel
+  components:
+  - type: Spatial
+    pos: 27,17
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 82
+  protoId: Elona.ItemWell
+  components:
+  - type: Spatial
+    pos: 15,12
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 83
+  protoId: Elona.ItemVarietyOfClothes
+  components:
+  - type: Spatial
+    pos: 7,7
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 84
+  protoId: Elona.ItemDecoratedCloth
+  components:
+  - type: Spatial
+    pos: 6,7
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 85
+  protoId: Elona.ItemBundleOfWeapons
+  components:
+  - type: Spatial
+    pos: 9,5
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 86
+  protoId: Elona.ItemDisorderlyBook
+  components:
+  - type: Spatial
+    pos: 24,15
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 87
+  protoId: Elona.ItemMessyCloth
+  components:
+  - type: Spatial
+    pos: 27,16
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 88
+  protoId: Elona.ItemBrokenVase
+  components:
+  - type: Spatial
+    pos: 9,15
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 89
+  protoId: Elona.ItemCheapRack
+  components:
+  - type: Spatial
+    pos: 2,3
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 90
+  protoId: Elona.ItemPot
+  components:
+  - type: Spatial
+    pos: 3,5
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 91
+  protoId: Elona.ItemLotOfEmptyBottles
+  components:
+  - type: Spatial
+    pos: 25,17
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 92
+  protoId: Elona.ItemBottleOfBeer
+  components:
+  - type: Spatial
+    pos: 26,15
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 93
+  protoId: Elona.ItemRackOfGoods
+  components:
+  - type: Spatial
+    pos: 14,5
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 94
+  protoId: Elona.ItemRackOfAccessories
+  components:
+  - type: Spatial
+    pos: 14,6
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 95
+  protoId: Elona.ItemDecoratedArmor
+  components:
+  - type: Spatial
+    pos: 7,9
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 96
+  protoId: Elona.ItemStickBread
+  components:
+  - type: Spatial
+    pos: 9,8
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 97
+  protoId: Elona.FeatDoorWooden
+  components:
+  - type: Spatial
+    pos: 11,20
+    parent: 0
+- uid: 98
+  protoId: Elona.FeatDoorWooden
+  components:
+  - type: Spatial
+    pos: 10,9
+    parent: 0
+- uid: 99
+  protoId: Elona.FeatDoorWooden
+  components:
+  - type: Spatial
+    pos: 5,15
+    parent: 0
+- uid: 100
+  protoId: Elona.FeatDoorWooden
+  components:
+  - type: Spatial
+    pos: 3,8
+    parent: 0
+- uid: 101
+  protoId: Elona.ItemTreeOfFruits
+  components:
+  - type: Spatial
+    pos: 3,20
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 102
+  protoId: Elona.ItemTreeOfFruits
+  components:
+  - type: Spatial
+    pos: 24,4
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 103
+  protoId: Elona.ItemTreeOfFruits
+  components:
+  - type: Spatial
+    pos: 23,21
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 104
+  protoId: Elona.ItemTreeOfAsh
+  components:
+  - type: Spatial
+    pos: 1,14
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 105
+  protoId: Elona.ItemTreeOfAsh
+  components:
+  - type: Spatial
+    pos: 14,2
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 106
+  protoId: Elona.ItemTreeOfAsh
+  components:
+  - type: Spatial
+    pos: 12,1
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 107
+  protoId: Elona.ItemTreeOfAsh
+  components:
+  - type: Spatial
+    pos: 19,2
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 108
+  protoId: Elona.ItemTreeOfAsh
+  components:
+  - type: Spatial
+    pos: 21,5
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 109
+  protoId: Elona.ItemTreeOfAsh
+  components:
+  - type: Spatial
+    pos: 21,1
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 110
+  protoId: Elona.ItemTreeOfAsh
+  components:
+  - type: Spatial
+    pos: 6,21
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 111
+  protoId: Elona.ItemTreeOfAsh
+  components:
+  - type: Spatial
+    pos: 20,20
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 112
+  protoId: Elona.ItemTreeOfAsh
+  components:
+  - type: Spatial
+    pos: 16,19
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 113
+  protoId: Elona.ItemTreeOfAsh
+  components:
+  - type: Spatial
+    pos: 28,12
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 114
+  protoId: Elona.ItemTreeOfAsh
+  components:
+  - type: Spatial
+    pos: 29,1
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 115
+  protoId: Elona.ItemTreeOfAsh
+  components:
+  - type: Spatial
+    pos: 1,1
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 116
+  protoId: Elona.ItemFireplace
+  components:
+  - type: Spatial
+    pos: 25,15
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 117
+  protoId: Elona.ItemArmor
+  components:
+  - type: Spatial
+    pos: 23,15
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 118
+  protoId: Elona.FeatQuestBoard
+  components:
+  - type: Spatial
+    pos: 15,10
+    parent: 0
+- uid: 119
+  protoId: Elona.FeatVotingBox
+  components:
+  - type: Spatial
+    pos: 4,9
+    parent: 0
+- uid: 120
+  protoId: Elona.ItemCandle
+  components:
+  - type: Spatial
+    pos: 4,3
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 121
+  protoId: Elona.ItemCampfire
+  components:
+  - type: Spatial
+    pos: 5,17
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 122
+  protoId: Elona.ItemGorgeousCandlestick
+  components:
+  - type: Spatial
+    pos: 23,7
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 123
+  protoId: Elona.ItemNiceWindow
+  components:
+  - type: Spatial
+    pos: 2,9
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 124
+  protoId: Elona.ItemNiceWindow
+  components:
+  - type: Spatial
+    pos: 8,11
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 125
+  protoId: Elona.ItemNiceWindow
+  components:
+  - type: Spatial
+    pos: 26,13
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 126
+  protoId: Elona.ItemNiceWindow
+  components:
+  - type: Spatial
+    pos: 23,13
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 127
+  protoId: Elona.ItemNiceWindow
+  components:
+  - type: Spatial
+    pos: 23,19
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 128
+  protoId: Elona.ItemNiceWindow
+  components:
+  - type: Spatial
+    pos: 25,19
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 129
+  protoId: Elona.ItemNiceWindow
+  components:
+  - type: Spatial
+    pos: 27,19
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 130
+  protoId: Elona.FeatSmallMedal
+  components:
+  - type: Spatial
+    pos: 9,20
+    parent: 0
+- uid: 131
+  protoId: Elona.FeatSmallMedal
+  components:
+  - type: Spatial
+    pos: 23,20
+    parent: 0
+- uid: 132
+  protoId: Elona.FeatSmallMedal
+  components:
+  - type: Spatial
+    pos: 26,2
+    parent: 0
+- uid: 133
+  protoId: Elona.FeatSmallMedal
+  components:
+  - type: Spatial
+    pos: 7,4
+    parent: 0
+- uid: 134
+  protoId: Elona.FeatSmallMedal
+  components:
+  - type: Spatial
+    pos: 3,18
+    parent: 0
+- uid: 135
+  protoId: Elona.FeatSmallMedal
+  components:
+  - type: Spatial
+    pos: 15,11
+    parent: 0
+- uid: 136
+  protoId: Elona.ItemTreeOfAsh
+  components:
+  - type: Spatial
+    pos: 35,22
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 137
+  protoId: Elona.ItemTreeOfAsh
+  components:
+  - type: Spatial
+    pos: 40,18
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 138
+  protoId: Elona.ItemTreeOfAsh
+  components:
+  - type: Spatial
+    pos: 36,10
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 139
+  protoId: Elona.ItemTreeOfAsh
+  components:
+  - type: Spatial
+    pos: 40,11
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 140
+  protoId: Elona.ItemTreeOfAsh
+  components:
+  - type: Spatial
+    pos: 39,8
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 141
+  protoId: Elona.ItemTreeOfAsh
+  components:
+  - type: Spatial
+    pos: 36,2
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 142
+  protoId: Elona.ItemTreeOfAsh
+  components:
+  - type: Spatial
+    pos: 40,1
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 143
+  protoId: Elona.ItemTreeOfAsh
+  components:
+  - type: Spatial
+    pos: 32,5
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 144
+  protoId: Elona.ItemTreeOfAsh
+  components:
+  - type: Spatial
+    pos: 30,15
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 145
+  protoId: Elona.ItemTreeOfAsh
+  components:
+  - type: Spatial
+    pos: 41,21
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 146
+  protoId: Elona.ItemTreeOfAsh
+  components:
+  - type: Spatial
+    pos: 39,23
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 147
+  protoId: Elona.ItemTreeOfAsh
+  components:
+  - type: Spatial
+    pos: 36,23
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 148
+  protoId: Elona.ItemTreeOfAsh
+  components:
+  - type: Spatial
+    pos: 38,22
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 149
+  protoId: Elona.ItemLeccho
+  components:
+  - type: Spatial
+    pos: 33,2
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 150
+  protoId: Elona.ItemLeccho
+  components:
+  - type: Spatial
+    pos: 35,2
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 151
+  protoId: Elona.ItemLeccho
+  components:
+  - type: Spatial
+    pos: 32,1
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 152
+  protoId: Elona.ItemImo
+  components:
+  - type: Spatial
+    pos: 31,9
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 153
+  protoId: Elona.ItemImo
+  components:
+  - type: Spatial
+    pos: 31,7
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 154
+  protoId: Elona.ItemImo
+  components:
+  - type: Spatial
+    pos: 32,6
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 155
+  protoId: Elona.ItemImo
+  components:
+  - type: Spatial
+    pos: 32,8
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 156
+  protoId: Elona.ItemImo
+  components:
+  - type: Spatial
+    pos: 40,5
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 157
+  protoId: Elona.ItemImo
+  components:
+  - type: Spatial
+    pos: 41,6
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 158
+  protoId: Elona.ItemMelon
+  components:
+  - type: Spatial
+    pos: 39,3
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 159
+  protoId: Elona.ItemMelon
+  components:
+  - type: Spatial
+    pos: 38,6
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 160
+  protoId: Elona.ItemSweetPotato
+  components:
+  - type: Spatial
+    pos: 33,7
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 161
+  protoId: Elona.ItemSweetPotato
+  components:
+  - type: Spatial
+    pos: 35,7
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 162
+  protoId: Elona.ItemSweetPotato
+  components:
+  - type: Spatial
+    pos: 34,9
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 163
+  protoId: Elona.ItemSweetPotato
+  components:
+  - type: Spatial
+    pos: 33,10
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 164
+  protoId: Elona.ItemScarecrow
+  components:
+  - type: Spatial
+    pos: 34,8
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 165
+  protoId: Elona.ItemScarecrow
+  components:
+  - type: Spatial
+    pos: 39,5
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 166
+  protoId: Elona.ItemScarecrow
+  components:
+  - type: Spatial
+    pos: 34,1
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 167
+  protoId: Elona.ItemScarecrow
+  components:
+  - type: Spatial
+    pos: 41,3
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 168
+  protoId: Elona.ItemBroom
+  components:
+  - type: Spatial
+    pos: 38,13
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 169
+  protoId: Elona.ItemStraw
+  components:
+  - type: Spatial
+    pos: 38,16
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 170
+  protoId: Elona.ItemStraw
+  components:
+  - type: Spatial
+    pos: 33,17
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 171
+  protoId: Elona.ItemStraw
+  components:
+  - type: Spatial
+    pos: 38,20
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 172
+  protoId: Elona.ItemStraw
+  components:
+  - type: Spatial
+    pos: 37,20
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 173
+  protoId: Elona.ItemShit
+  components:
+  - type: Spatial
+    pos: 34,20
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 174
+  protoId: Elona.ItemShit
+  components:
+  - type: Spatial
+    pos: 38,18
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 175
+  protoId: Elona.ItemShit
+  components:
+  - type: Spatial
+    pos: 35,17
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 176
+  protoId: Elona.ItemAnimalBone
+  components:
+  - type: Spatial
+    pos: 36,18
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 177
+  protoId: Elona.ItemBonfire
+  components:
+  - type: Spatial
+    pos: 36,13
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 178
+  protoId: Elona.ItemBonfire
+  components:
+  - type: Spatial
+    pos: 37,9
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 179
+  protoId: Elona.ItemBonfire
+  components:
+  - type: Spatial
+    pos: 34,4
+    parent: 0
+  - type: Item
+    ownState: NPC
+- uid: 180
+  protoId: Elona.FeatPoliticsBoard
+  components:
+  - type: Spatial
+    pos: 18,13
+    parent: 0
+...
