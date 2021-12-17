@@ -19,7 +19,7 @@ namespace OpenNefia.Core.Maps
 
         bool MapExists(MapId mapId);
         IMap CreateMap(int width, int height, MapId? mapId = null);
-        MapId RegisterMap(IMap map, MapId? mapId = null);
+        MapId RegisterMap(IMap map, MapId? mapId = null, EntityUid? mapEntityUid = null);
 
         /// <summary>
         /// Sets the MapEntity(root node) for a given map. If an entity is already set, it will be deleted

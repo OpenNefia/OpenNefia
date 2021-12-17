@@ -62,7 +62,7 @@ namespace OpenNefia.Core.Maps
             // try user
             if (!_resourceManager.UserData.Exists(yamlPath))
             {
-                Logger.InfoS("map", $"No user blueprint path: {yamlPath}");
+                Logger.DebugS("map", $"No user blueprint path: {yamlPath}");
 
                 // fallback to content
                 if (_resourceManager.TryContentFileRead(yamlPath, out var contentReader))
@@ -303,8 +303,6 @@ namespace OpenNefia.Core.Maps
                 var gridString = _rootNode.GetNode(Keys.Grid).AsString().Trim();
 
                 MapGrid = YamlGridSerializer.DeserializeGrid(gridString, _tileMap!);
-                
-                _targetMapId = _mapManager.RegisterMap(MapGrid!, _targetMapId);
             }
 
             private void AllocEntities()
@@ -382,12 +380,10 @@ namespace OpenNefia.Core.Maps
             private void FixMapEntity()
             {
                 var mapEntityInBlueprint = FindMapEntity();
-                _mapManager.SetMapEntity(_targetMapId, mapEntityInBlueprint);
-
-                var mapEntity = _mapManager.GetMapEntity(_targetMapId)!;
-                var mapComponent = _entityManager.EnsureComponent<MapComponent>(mapEntity.Uid);
+                var mapComponent = _entityManager.EnsureComponent<MapComponent>(mapEntityInBlueprint);
                 mapComponent.MapId = _targetMapId;
                 mapComponent.Metadata = _mapMetadata;
+                _targetMapId = _mapManager.RegisterMap(MapGrid!, _targetMapId, mapEntityInBlueprint);
             }
 
             private void FinishEntitiesInitialization()

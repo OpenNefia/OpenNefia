@@ -1,594 +1,713 @@
 - type: Sound
-  id: Alert1
-  filepath: /Elona/Sound/alert1.wav
-  elonaId: 21
-
-- type: Sound
-  id: Ammo
-  filepath: /Elona/Sound/ammo.wav
-  elonaId: 90
-
-- type: Sound
-  id: Arrow1
-  filepath: /Elona/Sound/arrow1.wav
-  elonaId: 36
-
-- type: Sound
-  id: Atk1
-  filepath: /Elona/Sound/atk1.wav
-  elonaId: 2
-
-- type: Sound
-  id: Atk2
-  filepath: /Elona/Sound/atk2.wav
-  elonaId: 3
-
-- type: Sound
-  id: AtkChaos
-  filepath: /Elona/Sound/atk_chaos.wav
-  elonaId: 114
-
-- type: Sound
-  id: AtkDark
-  filepath: /Elona/Sound/atk_dark.wav
-  elonaId: 115
-
-- type: Sound
-  id: AtkElec
-  filepath: /Elona/Sound/atk_elec.wav
-  elonaId: 107
-
-- type: Sound
-  id: AtkFire
-  filepath: /Elona/Sound/atk_fire.wav
-  elonaId: 108
-
-- type: Sound
-  id: AtkHell
-  filepath: /Elona/Sound/atk_hell.wav
-  elonaId: 109
-
-- type: Sound
-  id: AtkIce
-  filepath: /Elona/Sound/atk_ice.wav
-  elonaId: 106
-
-- type: Sound
-  id: AtkMind
-  filepath: /Elona/Sound/atk_mind.wav
-  elonaId: 113
-
-- type: Sound
-  id: AtkNerve
-  filepath: /Elona/Sound/atk_nerve.wav
-  elonaId: 111
-
-- type: Sound
-  id: AtkPoison
-  filepath: /Elona/Sound/atk_poison.wav
-  elonaId: 110
-
-- type: Sound
-  id: AtkSound
-  filepath: /Elona/Sound/atk_sound.wav
-  elonaId: 112
-
-- type: Sound
-  id: Atksword
-  filepath: /Elona/Sound/atksword.wav
-  elonaId: 105
-
-- type: Sound
-  id: Ball1
-  filepath: /Elona/Sound/ball1.wav
-  elonaId: 34
-
-- type: Sound
-  id: Bash1
-  filepath: /Elona/Sound/bash1.wav
-  elonaId: 73
-
-- type: Sound
-  id: BgFire
-  filepath: /Elona/Sound/bg_fire.wav
-  elonaId: 80
-
-- type: Sound
-  id: BgRain
-  filepath: /Elona/Sound/bg_rain.wav
-  elonaId: 75
-
-- type: Sound
-  id: BgSea
-  filepath: /Elona/Sound/bg_sea.wav
-  elonaId: 78
-
-- type: Sound
-  id: BgThunder
-  filepath: /Elona/Sound/bg_thunder.wav
-  elonaId: 76
-
-- type: Sound
-  id: BgTown
-  filepath: /Elona/Sound/bg_town.wav
-  elonaId: 79
-
-- type: Sound
-  id: BgWind
-  filepath: /Elona/Sound/bg_wind.wav
-  elonaId: 77
-
-- type: Sound
-  id: Bolt1
-  filepath: /Elona/Sound/bolt1.wav
-  elonaId: 37
-
-- type: Sound
-  id: Book1
-  filepath: /Elona/Sound/book1.wav
-  elonaId: 59
-
-- type: Sound
-  id: Bow1
-  filepath: /Elona/Sound/bow1.wav
-  elonaId: 29
-
-- type: Sound
-  id: Breath1
-  filepath: /Elona/Sound/breath1.wav
-  elonaId: 35
-
-- type: Sound
-  id: Build1
-  filepath: /Elona/Sound/build1.wav
-  elonaId: 58
-
-- type: Sound
-  id: Bush1
-  filepath: /Elona/Sound/bush1.wav
-  elonaId: 55
-
-- type: Sound
-  id: Card1
-  filepath: /Elona/Sound/card1.wav
-  elonaId: 71
-
-- type: Sound
-  id: Chara
-  filepath: /Elona/Sound/chara.wav
-  elonaId: 94
-
-- type: Sound
-  id: Chat
-  filepath: /Elona/Sound/chat.wav
-  elonaId: 99
-
-- type: Sound
-  id: Cheer
-  filepath: /Elona/Sound/cheer.wav
-  elonaId: 69
-
-- type: Sound
-  id: Chest1
-  filepath: /Elona/Sound/chest1.wav
-  elonaId: 23
-
-- type: Sound
-  id: Chime
-  filepath: /Elona/Sound/chime.wav
-  elonaId: 53
-
-- type: Sound
-  id: Click1
-  filepath: /Elona/Sound/click1.wav
-  elonaId: 40
-
-- type: Sound
-  id: Complete1
-  filepath: /Elona/Sound/complete1.wav
-  elonaId: 51
-
-- type: Sound
-  id: Cook1
-  filepath: /Elona/Sound/cook1.wav
-  elonaId: 25
-
-- type: Sound
-  id: Crush1
-  filepath: /Elona/Sound/crush1.wav
-  elonaId: 45
-
-- type: Sound
-  id: Crush2
-  filepath: /Elona/Sound/crush2.wav
-  elonaId: 47
-
-- type: Sound
-  id: Curse1
-  filepath: /Elona/Sound/curse1.wav
-  elonaId: 38
-
-- type: Sound
-  id: Curse2
-  filepath: /Elona/Sound/curse2.wav
-  elonaId: 116
-
-- type: Sound
-  id: Curse3
-  filepath: /Elona/Sound/curse3.wav
-  elonaId: 117
-
-- type: Sound
-  id: Cursor1
-  filepath: /Elona/Sound/cursor1.wav
-  elonaId: 5
-
-- type: Sound
-  id: Dead1
-  filepath: /Elona/Sound/dead1.wav
-  elonaId: 50
-
-- type: Sound
-  id: Dice
-  filepath: /Elona/Sound/dice.wav
-  elonaId: 103
-
-- type: Sound
-  id: Dig1
-  filepath: /Elona/Sound/dig1.wav
-  elonaId: 52
-
-- type: Sound
-  id: Dig2
-  filepath: /Elona/Sound/dig2.wav
-  elonaId: 54
-
-- type: Sound
-  id: Ding1
-  filepath: /Elona/Sound/ding1.wav
-  elonaId: 60
-
-- type: Sound
-  id: Ding2
-  filepath: /Elona/Sound/ding2.wav
-  elonaId: 24
-
-- type: Sound
-  id: Ding3
-  filepath: /Elona/Sound/ding3.wav
-  elonaId: 61
-
-- type: Sound
-  id: Door1
-  filepath: /Elona/Sound/door1.wav
-  elonaId: 48
-
-- type: Sound
-  id: Door2
-  filepath: /Elona/Sound/door2.wav
-  elonaId: 67
-
-- type: Sound
-  id: Drink1
-  filepath: /Elona/Sound/drink1.wav
-  elonaId: 17
-
-- type: Sound
-  id: Drop1
-  filepath: /Elona/Sound/drop1.wav
-  elonaId: 16
-
-- type: Sound
-  id: Eat1
-  filepath: /Elona/Sound/eat1.wav
-  elonaId: 18
-
-- type: Sound
-  id: Enc2
-  filepath: /Elona/Sound/enc2.wav
-  elonaId: 119
-
-- type: Sound
-  id: Enc
-  filepath: /Elona/Sound/enc.wav
-  elonaId: 118
-
-- type: Sound
-  id: Equip1
-  filepath: /Elona/Sound/equip1.wav
-  elonaId: 13
-
-- type: Sound
-  id: Exitmap1
-  filepath: /Elona/Sound/exitmap1.wav
-  elonaId: 49
-
-- type: Sound
-  id: Fail1
-  filepath: /Elona/Sound/fail1.wav
-  elonaId: 27
-
-- type: Sound
-  id: Feat
-  filepath: /Elona/Sound/feat.wav
-  elonaId: 96
-
-- type: Sound
-  id: Fire1
-  filepath: /Elona/Sound/fire1.wav
-  elonaId: 6
-
-- type: Sound
-  id: FishCast
-  filepath: /Elona/Sound/fish_cast.wav
-  elonaId: 87
-
-- type: Sound
-  id: FishFight
-  filepath: /Elona/Sound/fish_fight.wav
-  elonaId: 89
-
-- type: Sound
-  id: FishGet
-  filepath: /Elona/Sound/fish_get.wav
-  elonaId: 88
-
-- type: Sound
-  id: Fizzle
-  filepath: /Elona/Sound/fizzle.wav
-  elonaId: 66
-
-- type: Sound
-  id: Foot1a
-  filepath: /Elona/Sound/foot1a.wav
-  elonaId: 81
-
-- type: Sound
-  id: Foot1b
-  filepath: /Elona/Sound/foot1b.wav
-  elonaId: 82
-
-- type: Sound
-  id: Foot2a
-  filepath: /Elona/Sound/foot2a.wav
-  elonaId: 83
-
-- type: Sound
-  id: Foot2b
-  filepath: /Elona/Sound/foot2b.wav
-  elonaId: 84
-
-- type: Sound
-  id: Foot2c
-  filepath: /Elona/Sound/foot2c.wav
-  elonaId: 85
-
-- type: Sound
-  id: Foot
-  filepath: /Elona/Sound/foot.wav
-  elonaId: 43
-
-- type: Sound
-  id: Gasha
-  filepath: /Elona/Sound/gasha.wav
-  elonaId: 56
-
-- type: Sound
-  id: Get1
-  filepath: /Elona/Sound/get1.wav
-  elonaId: 14
-
-- type: Sound
-  id: Get2
-  filepath: /Elona/Sound/get2.wav
-  elonaId: 15
-
-- type: Sound
-  id: Get3
-  filepath: /Elona/Sound/get3.wav
-  elonaId: 41
-
-- type: Sound
-  id: Getgold1
-  filepath: /Elona/Sound/getgold1.wav
-  elonaId: 11
-
-- type: Sound
-  id: Gun1
-  filepath: /Elona/Sound/gun1.wav
-  elonaId: 30
-
-- type: Sound
-  id: Heal1
-  filepath: /Elona/Sound/heal1.wav
-  elonaId: 33
-
-- type: Sound
-  id: Heart1
-  filepath: /Elona/Sound/Heart1.wav
-  elonaId: 33
-
-- type: Sound
-  id: Inv
-  filepath: /Elona/Sound/inv.wav
-  elonaId: 100
-
-- type: Sound
-  id: Kill1
-  filepath: /Elona/Sound/kill1.wav
-  elonaId: 8
-
-- type: Sound
-  id: Kill2
-  filepath: /Elona/Sound/kill2.wav
-  elonaId: 9
-
-- type: Sound
-  id: Laser1
-  filepath: /Elona/Sound/laser1.wav
-  elonaId: 42
-
-- type: Sound
-  id: Locked1
-  filepath: /Elona/Sound/locked1.wav
-  elonaId: 22
-
-- type: Sound
-  id: Log
-  filepath: /Elona/Sound/log.wav
-  elonaId: 93
-
-- type: Sound
-  id: Miss
-  filepath: /Elona/Sound/miss.wav
-  elonaId: 4
-
-- type: Sound
-  id: More1
-  filepath: /Elona/Sound/more1.wav
-  elonaId: 10
-
-- type: Sound
-  id: Night
-  filepath: /Elona/Sound/night.wav
-  elonaId: 74
-
-- type: Sound
-  id: Offer1
-  filepath: /Elona/Sound/offer1.wav
-  elonaId: 65
-
-- type: Sound
-  id: Offer2
-  filepath: /Elona/Sound/offer2.wav
-  elonaId: 121
-
-- type: Sound
-  id: Ok1
-  filepath: /Elona/Sound/ok1.wav
-  elonaId: 20
-
-- type: Sound
-  id: Paygold1
-  filepath: /Elona/Sound/paygold1.wav
-  elonaId: 12
-
-- type: Sound
-  id: Pop1
+  id: Elona.Pop1
+  hspIds:
+    elona122: 1
   filepath: /Elona/Sound/pop1.wav
-  elonaId: 1
 
 - type: Sound
-  id: Pop2
-  filepath: /Elona/Sound/pop2.wav
-  elonaId: 26
+  id: Elona.Atk1
+  hspIds:
+    elona122: 2
+  filepath: /Elona/Sound/atk1.wav
 
 - type: Sound
-  id: Pop3
-  filepath: /Elona/Sound/pop3.wav
-  elonaId: 39
+  id: Elona.Atk2
+  hspIds:
+    elona122: 3
+  filepath: /Elona/Sound/atk2.wav
 
 - type: Sound
-  id: Pop4
-  filepath: /Elona/Sound/pop4.wav
-  elonaId: 62
+  id: Elona.Miss
+  hspIds:
+    elona122: 4
+  filepath: /Elona/Sound/miss.wav
 
 - type: Sound
-  id: Port
-  filepath: /Elona/Sound/port.wav
-  elonaId: 97
+  id: Elona.Cursor1
+  hspIds:
+    elona122: 5
+  filepath: /Elona/Sound/cursor1.wav
 
 - type: Sound
-  id: Pray1
-  filepath: /Elona/Sound/pray1.wav
-  elonaId: 64
+  id: Elona.Fire1
+  hspIds:
+    elona122: 6
+  filepath: /Elona/Sound/fire1.wav
 
 - type: Sound
-  id: Pray2
-  filepath: /Elona/Sound/pray2.wav
-  elonaId: 120
+  id: Elona.Kill1
+  hspIds:
+    elona122: 8
+  filepath: /Elona/Sound/kill1.wav
 
 - type: Sound
-  id: Punish1
-  filepath: /Elona/Sound/punish1.wav
-  elonaId: 63
+  id: Elona.Kill2
+  hspIds:
+    elona122: 9
+  filepath: /Elona/Sound/kill2.wav
 
 - type: Sound
-  id: Scroll
-  filepath: /Elona/Sound/scroll.wav
-  elonaId: 92
+  id: Elona.More1
+  hspIds:
+    elona122: 10
+  filepath: /Elona/Sound/more1.wav
 
 - type: Sound
-  id: Skill
-  filepath: /Elona/Sound/skill.wav
-  elonaId: 101
+  id: Elona.Getgold1
+  hspIds:
+    elona122: 11
+  filepath: /Elona/Sound/getgold1.wav
 
 - type: Sound
-  id: Snow
-  filepath: /Elona/Sound/snow.wav
-  elonaId: 86
+  id: Elona.Paygold1
+  hspIds:
+    elona122: 12
+  filepath: /Elona/Sound/paygold1.wav
 
 - type: Sound
-  id: Spell
-  filepath: /Elona/Sound/spell.wav
-  elonaId: 102
+  id: Elona.Equip1
+  hspIds:
+    elona122: 13
+  filepath: /Elona/Sound/equip1.wav
 
 - type: Sound
-  id: Spend1
+  id: Elona.Get1
+  hspIds:
+    elona122: 14
+  filepath: /Elona/Sound/get1.wav
+
+- type: Sound
+  id: Elona.Get2
+  hspIds:
+    elona122: 15
+  filepath: /Elona/Sound/get2.wav
+
+- type: Sound
+  id: Elona.Drop1
+  hspIds:
+    elona122: 16
+  filepath: /Elona/Sound/drop1.wav
+
+- type: Sound
+  id: Elona.Drink1
+  hspIds:
+    elona122: 17
+  filepath: /Elona/Sound/drink1.wav
+
+- type: Sound
+  id: Elona.Eat1
+  hspIds:
+    elona122: 18
+  filepath: /Elona/Sound/eat1.wav
+
+- type: Sound
+  id: Elona.Spend1
+  hspIds:
+    elona122: 19
   filepath: /Elona/Sound/spend1.wav
-  elonaId: 19
 
 - type: Sound
-  id: Teleport1
-  filepath: /Elona/Sound/teleport1.wav
-  elonaId: 72
+  id: Elona.Ok1
+  hspIds:
+    elona122: 20
+  filepath: /Elona/Sound/ok1.wav
 
 - type: Sound
-  id: Throw1
+  id: Elona.Alert1
+  hspIds:
+    elona122: 21
+  filepath: /Elona/Sound/alert1.wav
+
+- type: Sound
+  id: Elona.Locked1
+  hspIds:
+    elona122: 22
+  filepath: /Elona/Sound/locked1.wav
+
+- type: Sound
+  id: Elona.Chest1
+  hspIds:
+    elona122: 23
+  filepath: /Elona/Sound/chest1.wav
+
+- type: Sound
+  id: Elona.Ding2
+  hspIds:
+    elona122: 24
+  filepath: /Elona/Sound/ding2.wav
+
+- type: Sound
+  id: Elona.Cook1
+  hspIds:
+    elona122: 25
+  filepath: /Elona/Sound/cook1.wav
+
+- type: Sound
+  id: Elona.Pop2
+  hspIds:
+    elona122: 26
+  filepath: /Elona/Sound/pop2.wav
+
+- type: Sound
+  id: Elona.Fail1
+  hspIds:
+    elona122: 27
+  filepath: /Elona/Sound/fail1.wav
+
+- type: Sound
+  id: Elona.Bow1
+  hspIds:
+    elona122: 29
+  filepath: /Elona/Sound/bow1.wav
+
+- type: Sound
+  id: Elona.Gun1
+  hspIds:
+    elona122: 30
+  filepath: /Elona/Sound/gun1.wav
+
+- type: Sound
+  id: Elona.Throw1
+  hspIds:
+    elona122: 31
   filepath: /Elona/Sound/throw1.wav
-  elonaId: 31
 
 - type: Sound
-  id: Throw2
-  filepath: /Elona/Sound/throw2.wav
-  elonaId: 91
+  id: Elona.Heart1
+  hspIds:
+    elona122: 32
+  filepath: /Elona/Sound/Heart1.wav
 
 - type: Sound
-  id: Trap1
-  filepath: /Elona/Sound/trap1.wav
-  elonaId: 70
+  id: Elona.Heal1
+  hspIds:
+    elona122: 33
+  filepath: /Elona/Sound/heal1.wav
 
 - type: Sound
-  id: Unpop1
-  filepath: /Elona/Sound/unpop1.wav
-  elonaId: 98
+  id: Elona.Ball1
+  hspIds:
+    elona122: 34
+  filepath: /Elona/Sound/ball1.wav
 
 - type: Sound
-  id: Vomit
-  filepath: /Elona/Sound/vomit.wav
-  elonaId: 104
+  id: Elona.Breath1
+  hspIds:
+    elona122: 35
+  filepath: /Elona/Sound/breath1.wav
 
 - type: Sound
-  id: Water2
-  filepath: /Elona/Sound/water2.wav
-  elonaId: 46
+  id: Elona.Arrow1
+  hspIds:
+    elona122: 36
+  filepath: /Elona/Sound/arrow1.wav
 
 - type: Sound
-  id: Water
-  filepath: /Elona/Sound/water.wav
-  elonaId: 57
+  id: Elona.Bolt1
+  hspIds:
+    elona122: 37
+  filepath: /Elona/Sound/bolt1.wav
 
 - type: Sound
-  id: Wear
-  filepath: /Elona/Sound/wear.wav
-  elonaId: 95
+  id: Elona.Curse1
+  hspIds:
+    elona122: 38
+  filepath: /Elona/Sound/curse1.wav
 
 - type: Sound
-  id: Web
-  filepath: /Elona/Sound/web.wav
-  elonaId: 68
+  id: Elona.Pop3
+  hspIds:
+    elona122: 39
+  filepath: /Elona/Sound/pop3.wav
 
 - type: Sound
-  id: Write1
+  id: Elona.Click1
+  hspIds:
+    elona122: 40
+  filepath: /Elona/Sound/click1.wav
+
+- type: Sound
+  id: Elona.Get3
+  hspIds:
+    elona122: 41
+  filepath: /Elona/Sound/get3.wav
+
+- type: Sound
+  id: Elona.Laser1
+  hspIds:
+    elona122: 42
+  filepath: /Elona/Sound/laser1.wav
+
+- type: Sound
+  id: Elona.Foot
+  hspIds:
+    elona122: 43
+  filepath: /Elona/Sound/foot.wav
+
+- type: Sound
+  id: Elona.Write1
+  hspIds:
+    elona122: 44
   filepath: /Elona/Sound/write1.wav
-  elonaId: 44
+
+- type: Sound
+  id: Elona.Crush1
+  hspIds:
+    elona122: 45
+  filepath: /Elona/Sound/crush1.wav
+
+- type: Sound
+  id: Elona.Water2
+  hspIds:
+    elona122: 46
+  filepath: /Elona/Sound/water2.wav
+
+- type: Sound
+  id: Elona.Crush2
+  hspIds:
+    elona122: 47
+  filepath: /Elona/Sound/crush2.wav
+
+- type: Sound
+  id: Elona.Door1
+  hspIds:
+    elona122: 48
+  filepath: /Elona/Sound/door1.wav
+
+- type: Sound
+  id: Elona.Exitmap1
+  hspIds:
+    elona122: 49
+  filepath: /Elona/Sound/exitmap1.wav
+
+- type: Sound
+  id: Elona.Dead1
+  hspIds:
+    elona122: 50
+  filepath: /Elona/Sound/dead1.wav
+
+- type: Sound
+  id: Elona.Complete1
+  hspIds:
+    elona122: 51
+  filepath: /Elona/Sound/complete1.wav
+
+- type: Sound
+  id: Elona.Dig1
+  hspIds:
+    elona122: 52
+  filepath: /Elona/Sound/dig1.wav
+
+- type: Sound
+  id: Elona.Chime
+  hspIds:
+    elona122: 53
+  filepath: /Elona/Sound/chime.wav
+
+- type: Sound
+  id: Elona.Dig2
+  hspIds:
+    elona122: 54
+  filepath: /Elona/Sound/dig2.wav
+
+- type: Sound
+  id: Elona.Bush1
+  hspIds:
+    elona122: 55
+  filepath: /Elona/Sound/bush1.wav
+
+- type: Sound
+  id: Elona.Gasha
+  hspIds:
+    elona122: 56
+  filepath: /Elona/Sound/gasha.wav
+
+- type: Sound
+  id: Elona.Water
+  hspIds:
+    elona122: 57
+  filepath: /Elona/Sound/water.wav
+
+- type: Sound
+  id: Elona.Build1
+  hspIds:
+    elona122: 58
+  filepath: /Elona/Sound/build1.wav
+
+- type: Sound
+  id: Elona.Book1
+  hspIds:
+    elona122: 59
+  filepath: /Elona/Sound/book1.wav
+
+- type: Sound
+  id: Elona.Ding1
+  hspIds:
+    elona122: 60
+  filepath: /Elona/Sound/ding1.wav
+
+- type: Sound
+  id: Elona.Ding3
+  hspIds:
+    elona122: 61
+  filepath: /Elona/Sound/ding3.wav
+
+- type: Sound
+  id: Elona.Pop4
+  hspIds:
+    elona122: 62
+  filepath: /Elona/Sound/pop4.wav
+
+- type: Sound
+  id: Elona.Punish1
+  hspIds:
+    elona122: 63
+  filepath: /Elona/Sound/punish1.wav
+
+- type: Sound
+  id: Elona.Pray1
+  hspIds:
+    elona122: 64
+  filepath: /Elona/Sound/pray1.wav
+
+- type: Sound
+  id: Elona.Offer1
+  hspIds:
+    elona122: 65
+  filepath: /Elona/Sound/offer1.wav
+
+- type: Sound
+  id: Elona.Fizzle
+  hspIds:
+    elona122: 66
+  filepath: /Elona/Sound/fizzle.wav
+
+- type: Sound
+  id: Elona.Door2
+  hspIds:
+    elona122: 67
+  filepath: /Elona/Sound/door2.wav
+
+- type: Sound
+  id: Elona.Web
+  hspIds:
+    elona122: 68
+  filepath: /Elona/Sound/web.wav
+
+- type: Sound
+  id: Elona.Cheer
+  hspIds:
+    elona122: 69
+  filepath: /Elona/Sound/cheer.wav
+
+- type: Sound
+  id: Elona.Trap1
+  hspIds:
+    elona122: 70
+  filepath: /Elona/Sound/trap1.wav
+
+- type: Sound
+  id: Elona.Card1
+  hspIds:
+    elona122: 71
+  filepath: /Elona/Sound/card1.wav
+
+- type: Sound
+  id: Elona.Teleport1
+  hspIds:
+    elona122: 72
+  filepath: /Elona/Sound/teleport1.wav
+
+- type: Sound
+  id: Elona.Bash1
+  hspIds:
+    elona122: 73
+  filepath: /Elona/Sound/bash1.wav
+
+- type: Sound
+  id: Elona.Night
+  hspIds:
+    elona122: 74
+  filepath: /Elona/Sound/night.wav
+
+- type: Sound
+  id: Elona.BgRain
+  hspIds:
+    elona122: 75
+  filepath: /Elona/Sound/bg_rain.wav
+
+- type: Sound
+  id: Elona.BgThunder
+  hspIds:
+    elona122: 76
+  filepath: /Elona/Sound/bg_thunder.wav
+
+- type: Sound
+  id: Elona.BgWind
+  hspIds:
+    elona122: 77
+  filepath: /Elona/Sound/bg_wind.wav
+
+- type: Sound
+  id: Elona.BgSea
+  hspIds:
+    elona122: 78
+  filepath: /Elona/Sound/bg_sea.wav
+
+- type: Sound
+  id: Elona.BgTown
+  hspIds:
+    elona122: 79
+  filepath: /Elona/Sound/bg_town.wav
+
+- type: Sound
+  id: Elona.BgFire
+  hspIds:
+    elona122: 80
+  filepath: /Elona/Sound/bg_fire.wav
+
+- type: Sound
+  id: Elona.Foot1a
+  hspIds:
+    elona122: 81
+  filepath: /Elona/Sound/foot1a.wav
+
+- type: Sound
+  id: Elona.Foot1b
+  hspIds:
+    elona122: 82
+  filepath: /Elona/Sound/foot1b.wav
+
+- type: Sound
+  id: Elona.Foot2a
+  hspIds:
+    elona122: 83
+  filepath: /Elona/Sound/foot2a.wav
+
+- type: Sound
+  id: Elona.Foot2b
+  hspIds:
+    elona122: 84
+  filepath: /Elona/Sound/foot2b.wav
+
+- type: Sound
+  id: Elona.Foot2c
+  hspIds:
+    elona122: 85
+  filepath: /Elona/Sound/foot2c.wav
+
+- type: Sound
+  id: Elona.Snow
+  hspIds:
+    elona122: 86
+  filepath: /Elona/Sound/snow.wav
+
+- type: Sound
+  id: Elona.FishCast
+  hspIds:
+    elona122: 87
+  filepath: /Elona/Sound/fish_cast.wav
+
+- type: Sound
+  id: Elona.FishGet
+  hspIds:
+    elona122: 88
+  filepath: /Elona/Sound/fish_get.wav
+
+- type: Sound
+  id: Elona.FishFight
+  hspIds:
+    elona122: 89
+  filepath: /Elona/Sound/fish_fight.wav
+
+- type: Sound
+  id: Elona.Ammo
+  hspIds:
+    elona122: 90
+  filepath: /Elona/Sound/ammo.wav
+
+- type: Sound
+  id: Elona.Throw2
+  hspIds:
+    elona122: 91
+  filepath: /Elona/Sound/throw2.wav
+
+- type: Sound
+  id: Elona.Scroll
+  hspIds:
+    elona122: 92
+  filepath: /Elona/Sound/scroll.wav
+
+- type: Sound
+  id: Elona.Log
+  hspIds:
+    elona122: 93
+  filepath: /Elona/Sound/log.wav
+
+- type: Sound
+  id: Elona.Chara
+  hspIds:
+    elona122: 94
+  filepath: /Elona/Sound/chara.wav
+
+- type: Sound
+  id: Elona.Wear
+  hspIds:
+    elona122: 95
+  filepath: /Elona/Sound/wear.wav
+
+- type: Sound
+  id: Elona.Feat
+  hspIds:
+    elona122: 96
+  filepath: /Elona/Sound/feat.wav
+
+- type: Sound
+  id: Elona.Port
+  hspIds:
+    elona122: 97
+  filepath: /Elona/Sound/port.wav
+
+- type: Sound
+  id: Elona.Unpop1
+  hspIds:
+    elona122: 98
+  filepath: /Elona/Sound/unpop1.wav
+
+- type: Sound
+  id: Elona.Chat
+  hspIds:
+    elona122: 99
+  filepath: /Elona/Sound/chat.wav
+
+- type: Sound
+  id: Elona.Inv
+  hspIds:
+    elona122: 100
+  filepath: /Elona/Sound/inv.wav
+
+- type: Sound
+  id: Elona.Skill
+  hspIds:
+    elona122: 101
+  filepath: /Elona/Sound/skill.wav
+
+- type: Sound
+  id: Elona.Spell
+  hspIds:
+    elona122: 102
+  filepath: /Elona/Sound/spell.wav
+
+- type: Sound
+  id: Elona.Dice
+  hspIds:
+    elona122: 103
+  filepath: /Elona/Sound/dice.wav
+
+- type: Sound
+  id: Elona.Vomit
+  hspIds:
+    elona122: 104
+  filepath: /Elona/Sound/vomit.wav
+
+- type: Sound
+  id: Elona.Atksword
+  hspIds:
+    elona122: 105
+  filepath: /Elona/Sound/atksword.wav
+
+- type: Sound
+  id: Elona.AtkIce
+  hspIds:
+    elona122: 106
+  filepath: /Elona/Sound/atk_ice.wav
+
+- type: Sound
+  id: Elona.AtkElec
+  hspIds:
+    elona122: 107
+  filepath: /Elona/Sound/atk_elec.wav
+
+- type: Sound
+  id: Elona.AtkFire
+  hspIds:
+    elona122: 108
+  filepath: /Elona/Sound/atk_fire.wav
+
+- type: Sound
+  id: Elona.AtkHell
+  hspIds:
+    elona122: 109
+  filepath: /Elona/Sound/atk_hell.wav
+
+- type: Sound
+  id: Elona.AtkPoison
+  hspIds:
+    elona122: 110
+  filepath: /Elona/Sound/atk_poison.wav
+
+- type: Sound
+  id: Elona.AtkNerve
+  hspIds:
+    elona122: 111
+  filepath: /Elona/Sound/atk_nerve.wav
+
+- type: Sound
+  id: Elona.AtkSound
+  hspIds:
+    elona122: 112
+  filepath: /Elona/Sound/atk_sound.wav
+
+- type: Sound
+  id: Elona.AtkMind
+  hspIds:
+    elona122: 113
+  filepath: /Elona/Sound/atk_mind.wav
+
+- type: Sound
+  id: Elona.AtkChaos
+  hspIds:
+    elona122: 114
+  filepath: /Elona/Sound/atk_chaos.wav
+
+- type: Sound
+  id: Elona.AtkDark
+  hspIds:
+    elona122: 115
+  filepath: /Elona/Sound/atk_dark.wav
+
+- type: Sound
+  id: Elona.Curse2
+  hspIds:
+    elona122: 116
+  filepath: /Elona/Sound/curse2.wav
+
+- type: Sound
+  id: Elona.Curse3
+  hspIds:
+    elona122: 117
+  filepath: /Elona/Sound/curse3.wav
+
+- type: Sound
+  id: Elona.Enc
+  hspIds:
+    elona122: 118
+  filepath: /Elona/Sound/enc.wav
+
+- type: Sound
+  id: Elona.Enc2
+  hspIds:
+    elona122: 119
+  filepath: /Elona/Sound/enc2.wav
+
+- type: Sound
+  id: Elona.Pray2
+  hspIds:
+    elona122: 120
+  filepath: /Elona/Sound/pray2.wav
+
+- type: Sound
+  id: Elona.Offer2
+  hspIds:
+    elona122: 121
+  filepath: /Elona/Sound/offer2.wav

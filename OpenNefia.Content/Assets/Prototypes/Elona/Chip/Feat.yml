@@ -1,6 +1,7 @@
 - type: Chip
   id: Elona.FeatStairsDown
-  elonaId: 231
+  hspIds:
+    elona122: 231
   group: Feat
   image:
     filepath: /Elona/Graphic/map1.bmp
@@ -8,7 +9,8 @@
 
 - type: Chip
   id: Elona.FeatStairsUp
-  elonaId: 232
+  hspIds:
+    elona122: 232
   group: Feat
   image:
     filepath: /Elona/Graphic/map1.bmp
@@ -16,7 +18,8 @@
 
 - type: Chip
   id: Elona.FeatHidden
-  elonaId: 233
+  hspIds:
+    elona122: 233
   group: Feat
   image:
     filepath: /Elona/Graphic/map1.bmp
@@ -24,7 +27,8 @@
 
 - type: Chip
   id: Elona.FeatTrap
-  elonaId: 234
+  hspIds:
+    elona122: 234
   group: Feat
   image:
     filepath: /Elona/Graphic/map1.bmp
@@ -32,7 +36,8 @@
 
 - type: Chip
   id: Elona.FeatBar
-  elonaId: 235
+  hspIds:
+    elona122: 235
   group: Feat
   image:
     filepath: /Elona/Graphic/map1.bmp
@@ -40,7 +45,8 @@
 
 - type: Chip
   id: Elona.FeatDoorWoodenOpen
-  elonaId: 236
+  hspIds:
+    elona122: 236
   group: Feat
   image:
     filepath: /Elona/Graphic/map1.bmp
@@ -48,7 +54,8 @@
 
 - type: Chip
   id: Elona.FeatLockedHatch
-  elonaId: 237
+  hspIds:
+    elona122: 237
   group: Feat
   image:
     filepath: /Elona/Graphic/map1.bmp
@@ -56,7 +63,8 @@
 
 - type: Chip
   id: Elona.FeatMaterialDig
-  elonaId: 238
+  hspIds:
+    elona122: 238
   group: Feat
   image:
     filepath: /Elona/Graphic/map1.bmp
@@ -64,7 +72,8 @@
 
 - type: Chip
   id: Elona.FeatMaterialGem
-  elonaId: 239
+  hspIds:
+    elona122: 239
   group: Feat
   image:
     filepath: /Elona/Graphic/map1.bmp
@@ -72,15 +81,17 @@
 
 - type: Chip
   id: Elona.FeatMaterialWood
-  elonaId: 240
+  hspIds:
+    elona122: 240
   group: Feat
   image:
     filepath: /Elona/Graphic/map1.bmp
     region: "432, 336, 48, 48"
 
 - type: Chip
-  id: Elona.FeatDoorSfOpen
-  elonaId: 241
+  id: Elona.FeatDoorSFOpen
+  hspIds:
+    elona122: 241
   group: Feat
   image:
     filepath: /Elona/Graphic/map1.bmp
@@ -88,7 +99,8 @@
 
 - type: Chip
   id: Elona.FeatPot
-  elonaId: 242
+  hspIds:
+    elona122: 242
   group: Feat
   image:
     filepath: /Elona/Graphic/map1.bmp
@@ -96,7 +108,8 @@
 
 - type: Chip
   id: Elona.FeatMaterialCrafting
-  elonaId: 243
+  hspIds:
+    elona122: 243
   group: Feat
   image:
     filepath: /Elona/Graphic/map1.bmp
@@ -104,7 +117,8 @@
 
 - type: Chip
   id: Elona.FeatMaterialMine
-  elonaId: 244
+  hspIds:
+    elona122: 244
   group: Feat
   image:
     filepath: /Elona/Graphic/map1.bmp
@@ -112,7 +126,8 @@
 
 - type: Chip
   id: Elona.FeatMaterialFish
-  elonaId: 245
+  hspIds:
+    elona122: 245
   group: Feat
   image:
     filepath: /Elona/Graphic/map1.bmp
@@ -120,7 +135,8 @@
 
 - type: Chip
   id: Elona.FeatMaterialPlant
-  elonaId: 246
+  hspIds:
+    elona122: 246
   group: Feat
   image:
     filepath: /Elona/Graphic/map1.bmp
@@ -128,7 +144,8 @@
 
 - type: Chip
   id: Elona.FeatPlant0
-  elonaId: 247
+  hspIds:
+    elona122: 247
   group: Feat
   image:
     filepath: /Elona/Graphic/map1.bmp
@@ -136,7 +153,8 @@
 
 - type: Chip
   id: Elona.FeatPlant1
-  elonaId: 248
+  hspIds:
+    elona122: 248
   group: Feat
   image:
     filepath: /Elona/Graphic/map1.bmp
@@ -144,7 +162,8 @@
 
 - type: Chip
   id: Elona.FeatPlant2
-  elonaId: 249
+  hspIds:
+    elona122: 249
   group: Feat
   image:
     filepath: /Elona/Graphic/map1.bmp
@@ -152,7 +171,8 @@
 
 - type: Chip
   id: Elona.FeatPlant3
-  elonaId: 250
+  hspIds:
+    elona122: 250
   group: Feat
   image:
     filepath: /Elona/Graphic/map1.bmp
@@ -160,7 +180,8 @@
 
 - type: Chip
   id: Elona.FeatDoorEasternOpen
-  elonaId: 264
+  hspIds:
+    elona122: 264
   group: Feat
   image:
     filepath: /Elona/Graphic/map1.bmp
@@ -168,7 +189,8 @@
 
 - type: Chip
   id: Elona.FeatDoorJailOpen
-  elonaId: 265
+  hspIds:
+    elona122: 265
   group: Feat
   image:
     filepath: /Elona/Graphic/map1.bmp
@@ -176,7 +198,8 @@
 
 - type: Chip
   id: Elona.FeatMoongate
-  elonaId: 284
+  hspIds:
+    elona122: 284
   group: Feat
   image:
     filepath: /Elona/Graphic/map1.bmp
@@ -185,7 +208,8 @@
 
 - type: Chip
   id: Elona.FeatDoorWoodenClosed
-  elonaId: 726
+  hspIds:
+    elona122: 726
   group: Feat
   image:
     filepath: /Elona/Graphic/map1.bmp
@@ -193,15 +217,17 @@
 
 - type: Chip
   id: Elona.FeatQuestBoard
-  elonaId: 727
+  hspIds:
+    elona122: 727
   group: Feat
   image:
     filepath: /Elona/Graphic/map1.bmp
     region: "48, 1056, 48, 48"
 
 - type: Chip
-  id: Elona.FeatDoorSfClosed
-  elonaId: 728
+  id: Elona.FeatDoorSFClosed
+  hspIds:
+    elona122: 728
   group: Feat
   image:
     filepath: /Elona/Graphic/map1.bmp
@@ -209,7 +235,8 @@
 
 - type: Chip
   id: Elona.FeatVotingBox
-  elonaId: 729
+  hspIds:
+    elona122: 729
   group: Feat
   image:
     filepath: /Elona/Graphic/map1.bmp
@@ -217,7 +244,8 @@
 
 - type: Chip
   id: Elona.FeatDoorEasternClosed
-  elonaId: 730
+  hspIds:
+    elona122: 730
   group: Feat
   image:
     filepath: /Elona/Graphic/map1.bmp
@@ -225,7 +253,8 @@
 
 - type: Chip
   id: Elona.FeatTomb
-  elonaId: 731
+  hspIds:
+    elona122: 731
   group: Feat
   image:
     filepath: /Elona/Graphic/map1.bmp
@@ -233,7 +262,8 @@
 
 - type: Chip
   id: Elona.FeatPoliticsBoard
-  elonaId: 732
+  hspIds:
+    elona122: 732
   group: Feat
   image:
     filepath: /Elona/Graphic/map1.bmp
@@ -241,7 +271,8 @@
 
 - type: Chip
   id: Elona.FeatDoorJailClosed
-  elonaId: 733
+  hspIds:
+    elona122: 733
   group: Feat
   image:
     filepath: /Elona/Graphic/map1.bmp
@@ -249,7 +280,8 @@
 
 - type: Chip
   id: Elona.FeatAreaCity
-  elonaId: 132
+  hspIds:
+    elona122: 132
   group: Feat
   image:
     filepath: /Elona/Graphic/map0.bmp
@@ -257,7 +289,8 @@
 
 - type: Chip
   id: Elona.FeatAreaCave
-  elonaId: 133
+  hspIds:
+    elona122: 133
   group: Feat
   image:
     filepath: /Elona/Graphic/map0.bmp
@@ -265,7 +298,8 @@
 
 - type: Chip
   id: Elona.FeatAreaRock
-  elonaId: 134
+  hspIds:
+    elona122: 134
   group: Feat
   image:
     filepath: /Elona/Graphic/map0.bmp
@@ -273,7 +307,8 @@
 
 - type: Chip
   id: Elona.FeatAreaTree
-  elonaId: 135
+  hspIds:
+    elona122: 135
   group: Feat
   image:
     filepath: /Elona/Graphic/map0.bmp
@@ -281,7 +316,8 @@
 
 - type: Chip
   id: Elona.FeatAreaPalace
-  elonaId: 136
+  hspIds:
+    elona122: 136
   group: Feat
   image:
     filepath: /Elona/Graphic/map0.bmp
@@ -289,7 +325,8 @@
 
 - type: Chip
   id: Elona.FeatAreaTower
-  elonaId: 137
+  hspIds:
+    elona122: 137
   group: Feat
   image:
     filepath: /Elona/Graphic/map0.bmp
@@ -297,7 +334,8 @@
 
 - type: Chip
   id: Elona.FeatAreaYourDungeon
-  elonaId: 138
+  hspIds:
+    elona122: 138
   group: Feat
   image:
     filepath: /Elona/Graphic/map0.bmp
@@ -305,7 +343,8 @@
 
 - type: Chip
   id: Elona.FeatAreaLesimas
-  elonaId: 139
+  hspIds:
+    elona122: 139
   group: Feat
   image:
     filepath: /Elona/Graphic/map0.bmp
@@ -313,7 +352,8 @@
 
 - type: Chip
   id: Elona.FeatAreaTemple
-  elonaId: 140
+  hspIds:
+    elona122: 140
   group: Feat
   image:
     filepath: /Elona/Graphic/map0.bmp
@@ -321,7 +361,8 @@
 
 - type: Chip
   id: Elona.FeatAreaCrypt
-  elonaId: 141
+  hspIds:
+    elona122: 141
   group: Feat
   image:
     filepath: /Elona/Graphic/map0.bmp
@@ -329,7 +370,8 @@
 
 - type: Chip
   id: Elona.FeatAreaVillage
-  elonaId: 142
+  hspIds:
+    elona122: 142
   group: Feat
   image:
     filepath: /Elona/Graphic/map0.bmp
@@ -337,7 +379,8 @@
 
 - type: Chip
   id: Elona.FeatAreaTown
-  elonaId: 143
+  hspIds:
+    elona122: 143
   group: Feat
   image:
     filepath: /Elona/Graphic/map0.bmp
@@ -345,7 +388,8 @@
 
 - type: Chip
   id: Elona.FeatAreaCastle
-  elonaId: 144
+  hspIds:
+    elona122: 144
   group: Feat
   image:
     filepath: /Elona/Graphic/map0.bmp
@@ -353,7 +397,8 @@
 
 - type: Chip
   id: Elona.FeatAreaTowerOfFire
-  elonaId: 145
+  hspIds:
+    elona122: 145
   group: Feat
   image:
     filepath: /Elona/Graphic/map0.bmp
@@ -361,7 +406,8 @@
 
 - type: Chip
   id: Elona.FeatAreaDungeon
-  elonaId: 146
+  hspIds:
+    elona122: 146
   group: Feat
   image:
     filepath: /Elona/Graphic/map0.bmp
@@ -369,7 +415,8 @@
 
 - type: Chip
   id: Elona.FeatAreaTruceGround
-  elonaId: 147
+  hspIds:
+    elona122: 147
   group: Feat
   image:
     filepath: /Elona/Graphic/map0.bmp
@@ -377,7 +424,8 @@
 
 - type: Chip
   id: Elona.FeatAreaTent
-  elonaId: 148
+  hspIds:
+    elona122: 148
   group: Feat
   image:
     filepath: /Elona/Graphic/map0.bmp
@@ -385,7 +433,8 @@
 
 - type: Chip
   id: Elona.FeatAreaGod
-  elonaId: 149
+  hspIds:
+    elona122: 149
   group: Feat
   image:
     filepath: /Elona/Graphic/map0.bmp
@@ -393,7 +442,8 @@
 
 - type: Chip
   id: Elona.FeatAreaMuseum
-  elonaId: 150
+  hspIds:
+    elona122: 150
   group: Feat
   image:
     filepath: /Elona/Graphic/map0.bmp
@@ -401,7 +451,8 @@
 
 - type: Chip
   id: Elona.FeatAreaShop
-  elonaId: 151
+  hspIds:
+    elona122: 151
   group: Feat
   image:
     filepath: /Elona/Graphic/map0.bmp
@@ -409,7 +460,8 @@
 
 - type: Chip
   id: Elona.FeatAreaCrop
-  elonaId: 152
+  hspIds:
+    elona122: 152
   group: Feat
   image:
     filepath: /Elona/Graphic/map0.bmp
@@ -417,7 +469,8 @@
 
 - type: Chip
   id: Elona.FeatAreaStorageHouse
-  elonaId: 153
+  hspIds:
+    elona122: 153
   group: Feat
   image:
     filepath: /Elona/Graphic/map0.bmp
@@ -425,7 +478,8 @@
 
 - type: Chip
   id: Elona.FeatAreaRanch
-  elonaId: 154
+  hspIds:
+    elona122: 154
   group: Feat
   image:
     filepath: /Elona/Graphic/map0.bmp
@@ -433,7 +487,8 @@
 
 - type: Chip
   id: Elona.FeatAreaEmbassy
-  elonaId: 155
+  hspIds:
+    elona122: 155
   group: Feat
   image:
     filepath: /Elona/Graphic/map0.bmp
@@ -441,7 +496,8 @@
 
 - type: Chip
   id: Elona.FeatAreaVillageSnow
-  elonaId: 156
+  hspIds:
+    elona122: 156
   group: Feat
   image:
     filepath: /Elona/Graphic/map0.bmp
@@ -449,7 +505,8 @@
 
 - type: Chip
   id: Elona.FeatAreaMiralAndGaroksWorkshop
-  elonaId: 157
+  hspIds:
+    elona122: 157
   group: Feat
   image:
     filepath: /Elona/Graphic/map0.bmp
@@ -457,7 +514,8 @@
 
 - type: Chip
   id: Elona.FeatAreaBorderTent
-  elonaId: 158
+  hspIds:
+    elona122: 158
   group: Feat
   image:
     filepath: /Elona/Graphic/map0.bmp
@@ -465,7 +523,8 @@
 
 - type: Chip
   id: Elona.FeatAreaTheSmokeAndPipe
-  elonaId: 159
+  hspIds:
+    elona122: 159
   group: Feat
   image:
     filepath: /Elona/Graphic/map0.bmp
@@ -473,7 +532,8 @@
 
 - type: Chip
   id: Elona.FeatAreaPyramid
-  elonaId: 160
+  hspIds:
+    elona122: 160
   group: Feat
   image:
     filepath: /Elona/Graphic/map0.bmp
@@ -481,7 +541,8 @@
 
 - type: Chip
   id: Elona.FeatAreaJail
-  elonaId: 161
+  hspIds:
+    elona122: 161
   group: Feat
   image:
     filepath: /Elona/Graphic/map0.bmp
@@ -489,7 +550,8 @@
 
 - type: Chip
   id: Elona.FeatBuildingMountain
-  elonaId: 363
+  hspIds:
+    elona122: 363
   group: Feat
   image:
     filepath: /Elona/Graphic/map0.bmp
@@ -497,7 +559,8 @@
 
 - type: Chip
   id: Elona.FeatBuildingCrop
-  elonaId: 364
+  hspIds:
+    elona122: 364
   group: Feat
   image:
     filepath: /Elona/Graphic/map0.bmp
@@ -505,7 +568,8 @@
 
 - type: Chip
   id: Elona.FeatBuildingHouse1
-  elonaId: 365
+  hspIds:
+    elona122: 365
   group: Feat
   image:
     filepath: /Elona/Graphic/map0.bmp
@@ -513,7 +577,8 @@
 
 - type: Chip
   id: Elona.FeatBuildingHouse2
-  elonaId: 366
+  hspIds:
+    elona122: 366
   group: Feat
   image:
     filepath: /Elona/Graphic/map0.bmp
@@ -521,7 +586,8 @@
 
 - type: Chip
   id: Elona.FeatBuildingHouse3
-  elonaId: 367
+  hspIds:
+    elona122: 367
   group: Feat
   image:
     filepath: /Elona/Graphic/map0.bmp
@@ -529,7 +595,8 @@
 
 - type: Chip
   id: Elona.FeatBuildingLighthouse
-  elonaId: 368
+  hspIds:
+    elona122: 368
   group: Feat
   image:
     filepath: /Elona/Graphic/map0.bmp

@@ -1,90 +1,139 @@
 - type: Entity
-  id: Elona.FeatDoor
+  id: Elona.FeatStairsUp
   parent: BaseFeat
-  hspOrigin: elona122
   hspIds:
-    elona122: 21
+    elona122: 10
+  hspCellObjIds:
+    elona12: [5]
 
 - type: Entity
-  id: Elona.FeatPot
+  id: Elona.FeatStairsDown
   parent: BaseFeat
-  hspOrigin: elona122
   hspIds:
-    elona122: 30
+    elona122: 11
+  hspCellObjIds:
+    elona12: [6]
+
+- type: Entity
+  id: Elona.FeatMine
+  parent: BaseFeat
+  hspIds:
+    elona122: 14
+  hspCellObjIds:
+    elona12: [3, 4]
+
+- type: Entity
+  id: Elona.FeatMapEntrance
+  parent: BaseFeat
+  hspIds:
+    elona122: 15
+
+- type: Entity
+  id: Elona.FeatDoor
+  abstract: true
+  parent: BaseFeat
+  hspIds:
+    elona122: 21
+  components:
+    - type: Door
+
+- type: Entity
+  id: Elona.FeatDoorWooden
+  parent: Elona.FeatDoor
+  hspCellObjIds:
+    elona12: [0, 1, 2]
+  components:
+    - type: Door
+      chipOpen: Elona.FeatDoorWoodenOpen
+      chipClosed: Elona.FeatDoorWoodenClosed
+      soundOpen: Elona.Door1
+
+- type: Entity
+  id: Elona.FeatDoorSF
+  parent: Elona.FeatDoor
+  hspCellObjIds:
+    elona12: [7]
+  components:
+    - type: Door
+      chipOpen: Elona.FeatDoorSFOpen
+      chipClosed: Elona.FeatDoorSFClosed
+      soundOpen: Elona.Door2
+
+- type: Entity
+  id: Elona.FeatDoorEastern
+  parent: Elona.FeatDoor
+  hspCellObjIds:
+    elona12: [11]
+  components:
+    - type: Door
+      chipOpen: Elona.FeatDoorEasternOpen
+      chipClosed: Elona.FeatDoorEasternClosed
+      soundOpen: Elona.Card1
+
+- type: Entity
+  id: Elona.FeatDoorJail
+  parent: Elona.FeatDoor
+  hspCellObjIds:
+    elona12: [13]
+  components:
+    - type: Door
+      chipOpen: Elona.FeatDoorJailOpen
+      chipClosed: Elona.FeatDoorJailClosed
+      soundOpen: Elona.Curse1
 
 - type: Entity
   id: Elona.FeatHiddenPath
   parent: BaseFeat
-  hspOrigin: elona122
   hspIds:
     elona122: 22
 
 - type: Entity
   id: Elona.FeatQuestBoard
   parent: BaseFeat
-  hspOrigin: elona122
   hspIds:
     elona122: 23
-
-- type: Entity
-  id: Elona.FeatVotingBox
-  parent: BaseFeat
-  hspOrigin: elona122
-  hspIds:
-    elona122: 31
-
-- type: Entity
-  id: Elona.FeatSmallMedal
-  parent: BaseFeat
-  hspOrigin: elona122
-  hspIds:
-    elona122: 32
-
-- type: Entity
-  id: Elona.FeatPoliticsBoard
-  parent: BaseFeat
-  hspOrigin: elona122
-  hspIds:
-    elona122: 33
-
-- type: Entity
-  id: Elona.FeatMine
-  parent: BaseFeat
-  hspOrigin: elona122
-  hspIds:
-    elona122: 14
-
-- id: Elona.FeatMapgenBlock
-  parent: BaseFeat
-  type: Entity
+  hspCellObjIds:
+    elona12: [8]
 
 - type: Entity
   id: Elona.FeatPlant
   parent: BaseFeat
-  hspOrigin: elona122
   hspIds:
     elona122: 29
 
 - type: Entity
-  id: Elona.FeatStairsDown
+  id: Elona.FeatPot
   parent: BaseFeat
-  hspOrigin: elona122
   hspIds:
-    elona122: 11
+    elona122: 30
 
 - type: Entity
-  id: Elona.FeatStairsUp
+  id: Elona.FeatVotingBox
   parent: BaseFeat
-  hspOrigin: elona122
   hspIds:
-    elona122: 10
+    elona122: 31
+  hspCellObjIds:
+    elona12: [9]
 
 - type: Entity
-  id: Elona.FeatMapEntrance
+  id: Elona.FeatSmallMedal
   parent: BaseFeat
-  hspOrigin: elona122
   hspIds:
-    elona122: 15
+    elona122: 32
+  hspCellObjIds:
+    elona12: [10]
+
+- type: Entity
+  id: Elona.FeatPoliticsBoard
+  parent: BaseFeat
+  hspIds:
+    elona122: 33
+  hspCellObjIds:
+    elona12: [12]
+
+- id: Elona.FeatMapgenBlock
+  parent: BaseFeat
+  type: Entity
 
 - id: Elona.FeatLockedHatch
   parent: BaseFeat

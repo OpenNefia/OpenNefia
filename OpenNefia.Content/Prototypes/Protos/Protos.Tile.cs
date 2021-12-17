@@ -1,6 +1,6 @@
 ﻿using TilePrototypeId = OpenNefia.Core.Prototypes.PrototypeId<OpenNefia.Core.Maps.TilePrototype>;
 
-namespace OpenNefia.Content.GameObjects
+namespace OpenNefia.Content.Prototypes
 {
     public static partial class Protos
     {

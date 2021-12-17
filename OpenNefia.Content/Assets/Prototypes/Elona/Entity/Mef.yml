@@ -1,42 +1,36 @@
 - type: Entity
   id: Elona.MefWeb
   parent: BaseMef
-  hspOrigin: elona122
   hspIds:
     elona122: 1
 
 - type: Entity
   id: Elona.MefMist
   parent: BaseMef
-  hspOrigin: elona122
   hspIds:
     elona122: 2
 
 - type: Entity
   id: Elona.MefAcid
   parent: BaseMef
-  hspOrigin: elona122
   hspIds:
     elona122: 3
 
 - type: Entity
   id: Elona.MefEther
   parent: BaseMef
-  hspOrigin: elona122
   hspIds:
     elona122: 4
 
 - type: Entity
   id: Elona.MefFire
   parent: BaseMef
-  hspOrigin: elona122
   hspIds:
     elona122: 5
 
 - type: Entity
   id: Elona.MefPotion
   parent: BaseMef
-  hspOrigin: elona122
   hspIds:
     elona122: 6
   components:
@@ -47,6 +41,5 @@
 - type: Entity
   id: Elona.MefNuke
   parent: BaseMef
-  hspOrigin: elona122
   hspIds:
     elona122: 7

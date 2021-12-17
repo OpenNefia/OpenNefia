@@ -1,28 +1,24 @@
 - type: Entity
   id: Elona.CharaBug
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 0
 
 - type: Entity
   id: Elona.CharaShopkeeper
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 1
 
 - type: Entity
   id: Elona.CharaZeome
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 2
 
 - type: Entity
   id: Elona.CharaPutit
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 3
   components:
@@ -37,1631 +33,1398 @@
 - type: Entity
   id: Elona.CharaRedPutit
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 4
 
 - type: Entity
   id: Elona.CharaRabbit
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 5
 
 - type: Entity
   id: Elona.CharaSnail
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 6
 
 - type: Entity
   id: Elona.CharaFallenSoldier
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 7
 
 - type: Entity
   id: Elona.CharaMercenary
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 8
 
 - type: Entity
   id: Elona.CharaBeggar
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 9
 
 - type: Entity
   id: Elona.CharaWildSheep
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 10
 
 - type: Entity
   id: Elona.CharaFlyingFrog
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 11
 
 - type: Entity
   id: Elona.CharaGangster
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 12
 
 - type: Entity
   id: Elona.CharaKobold
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 13
 
 - type: Entity
   id: Elona.CharaCentipede
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 14
 
 - type: Entity
   id: Elona.CharaMushroom
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 15
 
 - type: Entity
   id: Elona.CharaCitizen
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 16
 
 - type: Entity
   id: Elona.CharaOrc
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 17
 
 - type: Entity
   id: Elona.CharaWarriorOfElea
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 18
 
 - type: Entity
   id: Elona.CharaMandrake
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 19
 
 - type: Entity
   id: Elona.CharaOrcWarrior
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 20
 
 - type: Entity
   id: Elona.CharaZombie
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 21
 
 - type: Entity
   id: Elona.CharaBeetle
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 22
 
 - type: Entity
   id: Elona.CharaOrphe
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 23
 
 - type: Entity
   id: Elona.CharaWizardOfElea
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 24
 
 - type: Entity
   id: Elona.CharaGoda
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 25
 
 - type: Entity
   id: Elona.CharaMadScientist
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 26
 
 - type: Entity
   id: Elona.CharaIsca
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 27
 
 - type: Entity
   id: Elona.CharaWhomDwellInTheVanity
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 28
 
 - type: Entity
   id: Elona.CharaLoyter
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 29
 
 - type: Entity
   id: Elona.CharaMiches
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 30
 
 - type: Entity
   id: Elona.CharaShena
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 31
 
 - type: Entity
   id: Elona.CharaDungeonCleaner
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 32
 
 - type: Entity
   id: Elona.CharaLarnneire
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 33
 
 - type: Entity
   id: Elona.CharaLomias
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 34
 
 - type: Entity
   id: Elona.CharaTownChild
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 35
 
 - type: Entity
   id: Elona.CharaOldPerson
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 36
 
 - type: Entity
   id: Elona.CharaAt
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 37
 
 - type: Entity
   id: Elona.CharaElder
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 38
 
 - type: Entity
   id: Elona.CharaCitizen2
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 39
 
 - type: Entity
   id: Elona.CharaTrainer
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 40
 
 - type: Entity
   id: Elona.CharaWizard
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 41
 
 - type: Entity
   id: Elona.CharaBat
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 42
 
 - type: Entity
   id: Elona.CharaVampireBat
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 43
 
 - type: Entity
   id: Elona.CharaDragonBat
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 44
 
 - type: Entity
   id: Elona.CharaFireEnt
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 45
 
 - type: Entity
   id: Elona.CharaIceEnt
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 46
 
 - type: Entity
   id: Elona.CharaLich
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 47
 
 - type: Entity
   id: Elona.CharaMasterLich
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 48
 
 - type: Entity
   id: Elona.CharaDemiLich
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 49
 
 - type: Entity
   id: Elona.CharaHound
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 50
 
 - type: Entity
   id: Elona.CharaFireHound
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 51
 
 - type: Entity
   id: Elona.CharaIceHound
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 52
 
 - type: Entity
   id: Elona.CharaLightningHound
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 53
 
 - type: Entity
   id: Elona.CharaDarkHound
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 54
 
 - type: Entity
   id: Elona.CharaIllusionHound
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 55
 
 - type: Entity
   id: Elona.CharaNerveHound
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 56
 
 - type: Entity
   id: Elona.CharaPoisonHound
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 57
 
 - type: Entity
   id: Elona.CharaSoundHound
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 58
 
 - type: Entity
   id: Elona.CharaNetherHound
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 59
 
 - type: Entity
   id: Elona.CharaChaosHound
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 60
 
 - type: Entity
   id: Elona.CharaGiantSquirrel
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 61
 
 - type: Entity
   id: Elona.CharaKillerSquirrel
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 62
 
 - type: Entity
   id: Elona.CharaGrudge
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 63
 
 - type: Entity
   id: Elona.CharaHungryDemon
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 64
 
 - type: Entity
   id: Elona.CharaElectricCloud
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 65
 
 - type: Entity
   id: Elona.CharaChaosCloud
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 66
 
 - type: Entity
   id: Elona.CharaFloatingEye
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 67
 
 - type: Entity
   id: Elona.CharaWyvern
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 68
 
 - type: Entity
   id: Elona.CharaInformer
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 69
 
 - type: Entity
   id: Elona.CharaBartender
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 70
 
 - type: Entity
   id: Elona.CharaSailor
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 71
 
 - type: Entity
   id: Elona.CharaCaptain
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 72
 
 - type: Entity
   id: Elona.CharaArenaMaster
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 73
 
 - type: Entity
   id: Elona.CharaHealer
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 74
 
 - type: Entity
   id: Elona.CharaWarrior
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 75
 
 - type: Entity
   id: Elona.CharaGuardPortKapul
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 76
 
 - type: Entity
   id: Elona.CharaGuard
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 77
 
 - type: Entity
   id: Elona.CharaPuppet
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 78
 
 - type: Entity
   id: Elona.CharaStersha
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 79
 
 - type: Entity
   id: Elona.CharaXabi
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 80
 
 - type: Entity
   id: Elona.CharaWasp
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 81
 
 - type: Entity
   id: Elona.CharaRedWasp
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 82
 
 - type: Entity
   id: Elona.CharaCyclops
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 83
 
 - type: Entity
   id: Elona.CharaTitan
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 84
 
 - type: Entity
   id: Elona.CharaImp
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 85
 
 - type: Entity
   id: Elona.CharaNetherImp
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 86
 
 - type: Entity
   id: Elona.CharaChaosImp
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 87
 
 - type: Entity
   id: Elona.CharaHandOfTheDead
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 88
 
 - type: Entity
   id: Elona.CharaHandOfTheChaos
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 89
 
 - type: Entity
   id: Elona.CharaHandOfTheMurderer
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 90
 
 - type: Entity
   id: Elona.CharaGhost
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 91
 
 - type: Entity
   id: Elona.CharaNymph
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 92
 
 - type: Entity
   id: Elona.CharaManEaterFlower
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 93
 
 - type: Entity
   id: Elona.CharaChaosFlower
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 94
 
 - type: Entity
   id: Elona.CharaCobra
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 95
 
 - type: Entity
   id: Elona.CharaKingCobra
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 96
 
 - type: Entity
   id: Elona.CharaFireDrake
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 97
 
 - type: Entity
   id: Elona.CharaIceDrake
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 98
 
 - type: Entity
   id: Elona.CharaLesserMummy
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 99
 
 - type: Entity
   id: Elona.CharaMummy
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 100
 
 - type: Entity
   id: Elona.CharaGreaterMummy
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 101
 
 - type: Entity
   id: Elona.CharaGoblin
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 102
 
 - type: Entity
   id: Elona.CharaGoblinWarrior
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 103
 
 - type: Entity
   id: Elona.CharaGoblinShaman
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 104
 
 - type: Entity
   id: Elona.CharaGoblinWizard
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 105
 
 - type: Entity
   id: Elona.CharaRedBaptist
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 106
 
 - type: Entity
   id: Elona.CharaBlueBaptist
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 107
 
 - type: Entity
   id: Elona.CharaBrownBear
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 108
 
 - type: Entity
   id: Elona.CharaGrizzly
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 109
 
 - type: Entity
   id: Elona.CharaLivingArmor
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 110
 
 - type: Entity
   id: Elona.CharaSteelMass
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 111
 
 - type: Entity
   id: Elona.CharaGoldenArmor
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 112
 
 - type: Entity
   id: Elona.CharaDeathArmor
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 113
 
 - type: Entity
   id: Elona.CharaMedusa
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 114
 
 - type: Entity
   id: Elona.CharaEuryale
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 115
 
 - type: Entity
   id: Elona.CharaStheno
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 116
 
 - type: Entity
   id: Elona.CharaCupidOfLove
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 117
 
 - type: Entity
   id: Elona.CharaLesserPhantom
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 118
 
 - type: Entity
   id: Elona.CharaHarpy
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 119
 
 - type: Entity
   id: Elona.CharaGreenDragon
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 120
 
 - type: Entity
   id: Elona.CharaRedDragon
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 121
 
 - type: Entity
   id: Elona.CharaWhiteDragon
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 122
 
 - type: Entity
   id: Elona.CharaElecDragon
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 123
 
 - type: Entity
   id: Elona.CharaNetherDragon
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 124
 
 - type: Entity
   id: Elona.CharaChaosDragon
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 125
 
 - type: Entity
   id: Elona.CharaCerberus
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 126
 
 - type: Entity
   id: Elona.CharaSpider
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 127
 
 - type: Entity
   id: Elona.CharaBlackWidow
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 128
 
 - type: Entity
   id: Elona.CharaParalyzer
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 129
 
 - type: Entity
   id: Elona.CharaTarantula
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 130
 
 - type: Entity
   id: Elona.CharaBloodSpider
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 131
 
 - type: Entity
   id: Elona.CharaWoodenGolem
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 132
 
 - type: Entity
   id: Elona.CharaStoneGolem
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 133
 
 - type: Entity
   id: Elona.CharaSteelGolem
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 134
 
 - type: Entity
   id: Elona.CharaGoldenGolem
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 135
 
 - type: Entity
   id: Elona.CharaMithrilGolem
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 136
 
 - type: Entity
   id: Elona.CharaSkyGolem
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 137
 
 - type: Entity
   id: Elona.CharaAdamantiumGolem
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 138
 
 - type: Entity
   id: Elona.CharaSlan
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 139
 
 - type: Entity
   id: Elona.CharaVesda
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 140
 
 - type: Entity
   id: Elona.CharaIssizzle
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 141
 
 - type: Entity
   id: Elona.CharaErystia
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 142
 
 - type: Entity
   id: Elona.CharaWynan
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 143
 
 - type: Entity
   id: Elona.CharaQuruiza
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 144
 
 - type: Entity
   id: Elona.CharaCorgon
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 145
 
 - type: Entity
   id: Elona.CharaKaram
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 146
 
 - type: Entity
   id: Elona.CharaFireCrab
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 147
 
 - type: Entity
   id: Elona.CharaFireCentipede
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 148
 
 - type: Entity
   id: Elona.CharaCultistOfFire
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 149
 
 - type: Entity
   id: Elona.CharaSkeletonWarrior
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 150
 
 - type: Entity
   id: Elona.CharaSkeletonBerserker
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 151
 
 - type: Entity
   id: Elona.CharaMissionaryOfDarkness
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 152
 
 - type: Entity
   id: Elona.CharaPawn
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 153
 
 - type: Entity
   id: Elona.CharaRook
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 154
 
 - type: Entity
   id: Elona.CharaBishop
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 155
 
 - type: Entity
   id: Elona.CharaKnight
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 156
 
 - type: Entity
   id: Elona.CharaQueen
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 157
 
 - type: Entity
   id: Elona.CharaKing
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 158
 
 - type: Entity
   id: Elona.CharaMercenaryWarrior
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 159
 
 - type: Entity
   id: Elona.CharaMercenaryArcher
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 160
 
 - type: Entity
   id: Elona.CharaMercenaryWizard
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 161
 
 - type: Entity
   id: Elona.CharaYerlesMachineInfantry
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 162
 
 - type: Entity
   id: Elona.CharaRockThrower
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 163
 
 - type: Entity
   id: Elona.CharaCat
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 164
 
 - type: Entity
   id: Elona.CharaDog
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 165
 
 - type: Entity
   id: Elona.CharaLittleGirl
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 166
 
 - type: Entity
   id: Elona.CharaRat
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 167
 
 - type: Entity
   id: Elona.CharaHermitCrab
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 168
 
 - type: Entity
   id: Elona.CharaSlime
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 169
 
 - type: Entity
   id: Elona.CharaPublicPerformer
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 170
 
 - type: Entity
   id: Elona.CharaCitizenOfCyberDome
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 171
 
 - type: Entity
   id: Elona.CharaCitizenOfCyberDome2
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 172
 
 - type: Entity
   id: Elona.CharaSalesPerson
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 173
 
 - type: Entity
   id: Elona.CharaPunk
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 174
 
 - type: Entity
   id: Elona.CharaFrisia
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 175
 
 - type: Entity
   id: Elona.CharaYoungerSister
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 176
 
 - type: Entity
   id: Elona.CharaUtima
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 177
 
 - type: Entity
   id: Elona.CharaAzzrssil
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 178
 
 - type: Entity
   id: Elona.CharaPetArenaMaster
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 179
 
 - type: Entity
   id: Elona.CharaTwintail
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 180
 
 - type: Entity
   id: Elona.CharaSilverWolf
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 181
 
 - type: Entity
   id: Elona.CharaNurse
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 182
 
 - type: Entity
   id: Elona.CharaRichPerson
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 183
 
 - type: Entity
   id: Elona.CharaNobleChild
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 184
 
 - type: Entity
   id: Elona.CharaTourist
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 185
 
 - type: Entity
   id: Elona.CharaBlade
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 186
 
 - type: Entity
   id: Elona.CharaBladeAlpha
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 187
 
 - type: Entity
   id: Elona.CharaBladeOmega
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 188
 
 - type: Entity
   id: Elona.CharaDeformedEye
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 189
 
 - type: Entity
   id: Elona.CharaImpureEye
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 190
 
 - type: Entity
   id: Elona.CharaWisp
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 191
 
 - type: Entity
   id: Elona.CharaHedgehog
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 192
 
 - type: Entity
   id: Elona.CharaShiningHedgehog
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 193
 
 - type: Entity
   id: Elona.CharaAcidSlime
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 194
 
 - type: Entity
   id: Elona.CharaChicken
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 195
 
 - type: Entity
   id: Elona.CharaPumpkin
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 196
 
 - type: Entity
   id: Elona.CharaGreaterPumpkin
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 197
 
 - type: Entity
   id: Elona.CharaHalloweenNightmare
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 198
 
 - type: Entity
   id: Elona.CharaStalker
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 199
 
 - type: Entity
   id: Elona.CharaShadowStalker
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 200
 
 - type: Entity
   id: Elona.CharaPuppy
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 201
 
 - type: Entity
   id: Elona.CharaEbon
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 202
 
 - type: Entity
   id: Elona.CharaMoyerTheCrooked
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 203
 
 - type: Entity
   id: Elona.CharaPalmianEliteSoldier
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 204
 
 - type: Entity
   id: Elona.CharaMaid
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 205
 
 - type: Entity
   id: Elona.CharaNun
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 206
 
 - type: Entity
   id: Elona.CharaEbon2
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 207
 
 - type: Entity
   id: Elona.CharaGarokk
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 208
 
 - type: Entity
   id: Elona.CharaMiral
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 209
 
 - type: Entity
   id: Elona.CharaYoungerCatSister
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 210
 
 - type: Entity
   id: Elona.CharaYoungLady
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 211
 
 - type: Entity
   id: Elona.CharaTestSubject
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 212
 
 - type: Entity
   id: Elona.CharaGwen
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 213
 
 - type: Entity
   id: Elona.CharaThief
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 214
 
 - type: Entity
   id: Elona.CharaRobber
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 215
 
 - type: Entity
   id: Elona.CharaGreatRaceOfYith
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 216
 
 - type: Entity
   id: Elona.CharaMasterThief
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 217
 
 - type: Entity
   id: Elona.CharaShubNiggurath
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 218
 
 - type: Entity
   id: Elona.CharaGagu
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 219
 
 - type: Entity
   id: Elona.CharaSpiralKing
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 220
 
 - type: Entity
   id: Elona.CharaPael
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 221
 
 - type: Entity
   id: Elona.CharaLily
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 222
 
 - type: Entity
   id: Elona.CharaRaphael
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 223
 
 - type: Entity
   id: Elona.CharaAinc
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 224
 
 - type: Entity
   id: Elona.CharaPoppy
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 225
 
 - type: Entity
   id: Elona.CharaRilian
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 226
 
 - type: Entity
   id: Elona.CharaTam
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 227
 
 - type: Entity
   id: Elona.CharaCarbuncle
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 228
 
 - type: Entity
   id: Elona.CharaLion
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 229
 
 - type: Entity
   id: Elona.CharaCacy
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 230
 
 - type: Entity
   id: Elona.CharaGilbert
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 231
 
 - type: Entity
   id: Elona.CharaYerlesSelfPropelledGun
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 232
 
 - type: Entity
   id: Elona.CharaJuereInfantry
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 233
 
 - type: Entity
   id: Elona.CharaYerlesEliteMachineInfantry
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 234
 
 - type: Entity
   id: Elona.CharaJuereSwordman
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 235
 
 - type: Entity
   id: Elona.CharaYeek
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 236
   components:
@@ -1676,818 +1439,701 @@
 - type: Entity
   id: Elona.CharaKamikazeYeek
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 237
 
 - type: Entity
   id: Elona.CharaYeekWarrior
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 238
 
 - type: Entity
   id: Elona.CharaHotSpringManiac
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 239
 
 - type: Entity
   id: Elona.CharaMasterYeek
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 240
 
 - type: Entity
   id: Elona.CharaYeekArcher
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 241
 
 - type: Entity
   id: Elona.CharaRodlob
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 242
 
 - type: Entity
   id: Elona.CharaArnord
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 243
 
 - type: Entity
   id: Elona.CharaKamikazeSamurai
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 244
 
 - type: Entity
   id: Elona.CharaBombRock
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 245
 
 - type: Entity
   id: Elona.CharaSilverCat
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 246
 
 - type: Entity
   id: Elona.CharaMia
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 247
 
 - type: Entity
   id: Elona.CharaTyrannosaurus
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 248
 
 - type: Entity
   id: Elona.CharaYoungerSisterOfMansion
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 249
 
 - type: Entity
   id: Elona.CharaFairy
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 250
 
 - type: Entity
   id: Elona.CharaTroll
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 251
 
 - type: Entity
   id: Elona.CharaRenton
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 252
 
 - type: Entity
   id: Elona.CharaMarks
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 253
 
 - type: Entity
   id: Elona.CharaAncientCoffin
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 254
 
 - type: Entity
   id: Elona.CharaScorpion
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 255
 
 - type: Entity
   id: Elona.CharaKingScorpion
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 256
 
 - type: Entity
   id: Elona.CharaTuwen
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 257
 
 - type: Entity
   id: Elona.CharaIronMaiden
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 258
 
 - type: Entity
   id: Elona.CharaNoel
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 259
 
 - type: Entity
   id: Elona.CharaBlackCat
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 260
 
 - type: Entity
   id: Elona.CharaCuteFairy
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 261
 
 - type: Entity
   id: Elona.CharaAndroid
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 262
 
 - type: Entity
   id: Elona.CharaBlackAngel
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 263
 
 - type: Entity
   id: Elona.CharaExile
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 264
 
 - type: Entity
   id: Elona.CharaGoldenKnight
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 265
 
 - type: Entity
   id: Elona.CharaDefender
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 266
 
 - type: Entity
   id: Elona.CharaLameHorse
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 267
 
 - type: Entity
   id: Elona.CharaYowynHorse
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 268
 
 - type: Entity
   id: Elona.CharaFarmer
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 269
 
 - type: Entity
   id: Elona.CharaSister
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 270
 
 - type: Entity
   id: Elona.CharaRogue
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 271
 
 - type: Entity
   id: Elona.CharaArtist
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 272
 
 - type: Entity
   id: Elona.CharaMiner
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 273
 
 - type: Entity
   id: Elona.CharaNoble
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 274
 
 - type: Entity
   id: Elona.CharaNoyelHorse
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 275
 
 - type: Entity
   id: Elona.CharaWildHorse
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 276
 
 - type: Entity
   id: Elona.CharaWildHorse2
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 277
 
 - type: Entity
   id: Elona.CharaMutant
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 278
 
 - type: Entity
   id: Elona.CharaIcolle
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 279
 
 - type: Entity
   id: Elona.CharaBalzak
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 280
 
 - type: Entity
   id: Elona.CharaLizardMan
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 281
 
 - type: Entity
   id: Elona.CharaMinotaur
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 282
 
 - type: Entity
   id: Elona.CharaSporeMushroom
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 283
 
 - type: Entity
   id: Elona.CharaChaosMushroom
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 284
 
 - type: Entity
   id: Elona.CharaBlueBubble
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 285
 
 - type: Entity
   id: Elona.CharaBubble
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 286
 
 - type: Entity
   id: Elona.CharaMassMonster
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 287
 
 - type: Entity
   id: Elona.CharaRevlus
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 288
 
 - type: Entity
   id: Elona.CharaMageGuildMember
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 289
 
 - type: Entity
   id: Elona.CharaLexus
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 290
 
 - type: Entity
   id: Elona.CharaFray
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 291
 
 - type: Entity
   id: Elona.CharaSin
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 292
 
 - type: Entity
   id: Elona.CharaThiefGuildMember
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 293
 
 - type: Entity
   id: Elona.CharaAbyss
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 294
 
 - type: Entity
   id: Elona.CharaFighterGuildMember
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 295
 
 - type: Entity
   id: Elona.CharaMinotaurMagician
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 296
 
 - type: Entity
   id: Elona.CharaDoria
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 297
 
 - type: Entity
   id: Elona.CharaMinotaurBoxer
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 298
 
 - type: Entity
   id: Elona.CharaMinotaurKing
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 299
 
 - type: Entity
   id: Elona.CharaUngaga
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 300
 
 - type: Entity
   id: Elona.CharaConery
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 301
 
 - type: Entity
   id: Elona.CharaRogueBoss
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 302
 
 - type: Entity
   id: Elona.CharaRogueWarrior
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 303
 
 - type: Entity
   id: Elona.CharaRogueArcher
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 304
 
 - type: Entity
   id: Elona.CharaRogueWizard
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 305
 
 - type: Entity
   id: Elona.CharaLulwy
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 306
 
 - type: Entity
   id: Elona.CharaExecutioner
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 307
 
 - type: Entity
   id: Elona.CharaMessengerOfDeath
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 308
 
 - type: Entity
   id: Elona.CharaAsura
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 309
 
 - type: Entity
   id: Elona.CharaMitra
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 310
 
 - type: Entity
   id: Elona.CharaVaruna
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 311
 
 - type: Entity
   id: Elona.CharaHungrySeaLion
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 312
 
 - type: Entity
   id: Elona.CharaSuperHungrySeaLion
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 313
 
 - type: Entity
   id: Elona.CharaDeathGaze
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 314
 
 - type: Entity
   id: Elona.CharaChaosEye
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 315
 
 - type: Entity
   id: Elona.CharaMadGaze
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 316
 
 - type: Entity
   id: Elona.CharaSilverEyedWitch
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 317
 
 - type: Entity
   id: Elona.CharaBigDaddy
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 318
 
 - type: Entity
   id: Elona.CharaLittleSister
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 319
 
 - type: Entity
   id: Elona.CharaCleaner
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 320
 
 - type: Entity
   id: Elona.CharaHardGay
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 321
 
 - type: Entity
   id: Elona.CharaStrangeScientist
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 322
 
 - type: Entity
   id: Elona.CharaShade
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 323
 
 - type: Entity
   id: Elona.CharaQuickling
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 324
 
 - type: Entity
   id: Elona.CharaQuicklingArcher
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 325
 
 - type: Entity
   id: Elona.CharaBard
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 326
 
 - type: Entity
   id: Elona.CharaCube
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 327
 
 - type: Entity
   id: Elona.CharaSilverBell
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 328
 
 - type: Entity
   id: Elona.CharaGoldBell
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 329
 
 - type: Entity
   id: Elona.CharaAlien
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 330
 
 - type: Entity
   id: Elona.CharaEhekatl
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 331
 
 - type: Entity
   id: Elona.CharaStrayCat
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 332
 
 - type: Entity
   id: Elona.CharaGuildTrainer
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 333
 
 - type: Entity
   id: Elona.CharaMysteriousProducer
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 334
 
 - type: Entity
   id: Elona.CharaProstitute
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 335
 
 - type: Entity
   id: Elona.CharaGodInsideEhekatl
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 336
 
 - type: Entity
   id: Elona.CharaPrisoner
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 337
 
 - type: Entity
   id: Elona.CharaOpatos
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 338
 
 - type: Entity
   id: Elona.CharaKumiromi
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 339
 
 - type: Entity
   id: Elona.CharaTest
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 340
 
 - type: Entity
   id: Elona.CharaMineDog
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 341
 
 - type: Entity
   id: Elona.CharaMani
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 342
 
 - type: Entity
   id: Elona.CharaUser
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 343
 
 - type: Entity
   id: Elona.CharaMammoth
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 344
 
 - type: Entity
   id: Elona.CharaKanedaBike
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 345
 
 - type: Entity
   id: Elona.CharaCub
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 346
 
 - type: Entity
   id: Elona.CharaFanatic
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 347
 
 - type: Entity
   id: Elona.CharaPartTimeWorker
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 348
 
 - type: Entity
   id: Elona.CharaHolyBeast
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 349
 
 - type: Entity
   id: Elona.CharaFestivalTourist
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 350
 
 - type: Entity
   id: Elona.CharaTheLeopardWarrior
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 351
 
 - type: Entity
   id: Elona.CharaSilvia
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 352
 
 - type: Entity
   id: Elona.CharaCaravanMaster
   parent: BaseChara
-  hspOrigin: 2
   hspIds:
     elona122: 353

@@ -2,6 +2,7 @@
 using OpenNefia.Core.Log;
 using OpenNefia.Core.Maps;
 using OpenNefia.Core.Prototypes;
+using OpenNefia.Core.Timing;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -39,31 +40,34 @@ namespace OpenNefia.Core.Rendering
 
         public void LoadAtlases()
         {
-            // IAtlasRegionProviders return one or more tiles assigned to an atlas,
-            // where they will be packed into.
-            var protos = GetAtlasRegionProviders();
-            var regionsByAtlas = protos.SelectMany(proto => proto.GetAtlasRegions())
-                .GroupBy(region => region.atlasName);
-
-            foreach (var group in regionsByAtlas)
+            using (var sw = new StopwatchLogger(LogLevel.Info, CommonSawmills.ResAtlas, "Loading atlases"))
             {
-                var atlasName = group.Key;
-                Logger.LogS(LogLevel.Info, CommonSawmills.ResAtlas, $"Loading atlas: {atlasName}");
+                // IAtlasRegionProviders return one or more tiles assigned to an atlas,
+                // where they will be packed into.
+                var protos = GetAtlasRegionProviders();
+                var regionsByAtlas = protos.SelectMany(proto => proto.GetAtlasRegions())
+                    .GroupBy(region => region.atlasName);
 
-                // Assign the identifier used to refer to each tile in the atlas
-                // sprite batches.
-                foreach (var region in group)
+                foreach (var group in regionsByAtlas)
                 {
-                    region.spec.AtlasIndex = region.id;
-                    
-                    // True if this tile is a wall, for fancy wall rendering.
-                    region.spec.HasOverhang = region.hasOverhang;
-                }
+                    var atlasName = group.Key;
+                    Logger.LogS(LogLevel.Info, CommonSawmills.ResAtlas, $"Loading atlas: {atlasName}");
 
-                var atlas = new TileAtlasFactory()
-                    .LoadTiles(group.Select(x => x.spec))
-                    .Build();
-                AddAtlas(atlasName, atlas);
+                    // Assign the identifier used to refer to each tile in the atlas
+                    // sprite batches.
+                    foreach (var region in group)
+                    {
+                        region.spec.AtlasIndex = region.id;
+                    
+                        // True if this tile is a wall, for fancy wall rendering.
+                        region.spec.HasOverhang = region.hasOverhang;
+                    }
+
+                    var atlas = new TileAtlasFactory()
+                        .LoadTiles(group.Select(x => x.spec))
+                        .Build();
+                    AddAtlas(atlasName, atlas);
+                }
             }
         }
 

@@ -1,6 +1,6 @@
 ﻿using EntityPrototypeId = OpenNefia.Core.Prototypes.PrototypeId<OpenNefia.Core.Prototypes.EntityPrototype>;
 
-namespace OpenNefia.Content.GameObjects
+namespace OpenNefia.Content.Prototypes
 {
     public static partial class Protos
     {

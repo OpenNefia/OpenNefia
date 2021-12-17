@@ -1,6 +1,7 @@
 - type: Chip
   id: Elona.ItemEmpty
-  elonaId: 0
+  hspIds:
+    elona122: 0
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -8,7 +9,8 @@
 
 - type: Chip
   id: Elona.ItemProjectileArrow
-  elonaId: 1
+  hspIds:
+    elona122: 1
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -16,7 +18,8 @@
 
 - type: Chip
   id: Elona.ItemProjectileBullet
-  elonaId: 2
+  hspIds:
+    elona122: 2
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -24,7 +27,8 @@
 
 - type: Chip
   id: Elona.ItemProjectileBolt
-  elonaId: 3
+  hspIds:
+    elona122: 3
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -32,7 +36,8 @@
 
 - type: Chip
   id: Elona.ItemProjectileBomb1
-  elonaId: 4
+  hspIds:
+    elona122: 4
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -40,7 +45,8 @@
 
 - type: Chip
   id: Elona.ItemProjectileBomb2
-  elonaId: 5
+  hspIds:
+    elona122: 5
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -48,7 +54,8 @@
 
 - type: Chip
   id: Elona.ItemProjectileMagicArrow
-  elonaId: 6
+  hspIds:
+    elona122: 6
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -56,7 +63,8 @@
 
 - type: Chip
   id: Elona.ItemMaterialSpark
-  elonaId: 7
+  hspIds:
+    elona122: 7
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -64,7 +72,8 @@
 
 - type: Chip
   id: Elona.ItemMaterialSkull
-  elonaId: 8
+  hspIds:
+    elona122: 8
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -72,7 +81,8 @@
 
 - type: Chip
   id: Elona.ItemMaterialCandle
-  elonaId: 9
+  hspIds:
+    elona122: 9
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -80,7 +90,8 @@
 
 - type: Chip
   id: Elona.ItemMaterialSweat
-  elonaId: 10
+  hspIds:
+    elona122: 10
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -88,7 +99,8 @@
 
 - type: Chip
   id: Elona.ItemProjectileLaser
-  elonaId: 13
+  hspIds:
+    elona122: 13
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -96,7 +108,8 @@
 
 - type: Chip
   id: Elona.ItemProjectileSpore
-  elonaId: 23
+  hspIds:
+    elona122: 23
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -104,7 +117,8 @@
 
 - type: Chip
   id: Elona.ItemWorthlessFakeGoldBar
-  elonaId: 33
+  hspIds:
+    elona122: 33
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -112,7 +126,8 @@
 
 - type: Chip
   id: Elona.ItemBed
-  elonaId: 66
+  hspIds:
+    elona122: 66
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -120,7 +135,8 @@
 
 - type: Chip
   id: Elona.ItemRagDoll
-  elonaId: 67
+  hspIds:
+    elona122: 67
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -128,7 +144,8 @@
 
 - type: Chip
   id: Elona.ItemNobleToy
-  elonaId: 68
+  hspIds:
+    elona122: 68
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -136,7 +153,8 @@
 
 - type: Chip
   id: Elona.ItemModernTable
-  elonaId: 69
+  hspIds:
+    elona122: 69
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -144,7 +162,8 @@
 
 - type: Chip
   id: Elona.ItemDiningTable
-  elonaId: 70
+  hspIds:
+    elona122: 70
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -152,7 +171,8 @@
 
 - type: Chip
   id: Elona.Item71
-  elonaId: 71
+  hspIds:
+    elona122: 71
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -160,7 +180,8 @@
 
 - type: Chip
   id: Elona.ItemBarrel
-  elonaId: 72
+  hspIds:
+    elona122: 72
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -168,7 +189,8 @@
 
 - type: Chip
   id: Elona.ItemArmor
-  elonaId: 73
+  hspIds:
+    elona122: 73
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -176,7 +198,8 @@
 
 - type: Chip
   id: Elona.ItemLotOfGoods
-  elonaId: 74
+  hspIds:
+    elona122: 74
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -184,7 +207,8 @@
 
 - type: Chip
   id: Elona.ItemLotOfAccessories
-  elonaId: 75
+  hspIds:
+    elona122: 75
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -192,7 +216,8 @@
 
 - type: Chip
   id: Elona.ItemGouldsPiano
-  elonaId: 76
+  hspIds:
+    elona122: 76
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -200,7 +225,8 @@
 
 - type: Chip
   id: Elona.Item77
-  elonaId: 77
+  hspIds:
+    elona122: 77
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -208,7 +234,8 @@
 
 - type: Chip
   id: Elona.ItemBarTableAlpha
-  elonaId: 78
+  hspIds:
+    elona122: 78
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -216,7 +243,8 @@
 
 - type: Chip
   id: Elona.Item79
-  elonaId: 79
+  hspIds:
+    elona122: 79
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -224,7 +252,8 @@
 
 - type: Chip
   id: Elona.ItemBarTableBeta
-  elonaId: 80
+  hspIds:
+    elona122: 80
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -232,7 +261,8 @@
 
 - type: Chip
   id: Elona.ItemPaintingOfMadam
-  elonaId: 81
+  hspIds:
+    elona122: 81
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -240,7 +270,8 @@
 
 - type: Chip
   id: Elona.ItemBrokenPillar
-  elonaId: 82
+  hspIds:
+    elona122: 82
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -248,7 +279,8 @@
 
 - type: Chip
   id: Elona.ItemBigTable
-  elonaId: 83
+  hspIds:
+    elona122: 83
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -256,7 +288,8 @@
 
 - type: Chip
   id: Elona.ItemModernChair
-  elonaId: 84
+  hspIds:
+    elona122: 84
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -264,7 +297,8 @@
 
 - type: Chip
   id: Elona.ItemPick
-  elonaId: 85
+  hspIds:
+    elona122: 85
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -272,7 +306,8 @@
 
 - type: Chip
   id: Elona.ItemLantern
-  elonaId: 86
+  hspIds:
+    elona122: 86
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -280,7 +315,8 @@
 
 - type: Chip
   id: Elona.ItemDecorativeArmor
-  elonaId: 87
+  hspIds:
+    elona122: 87
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -288,7 +324,8 @@
 
 - type: Chip
   id: Elona.ItemAnvil
-  elonaId: 88
+  hspIds:
+    elona122: 88
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -296,7 +333,8 @@
 
 - type: Chip
   id: Elona.ItemClosedPot
-  elonaId: 89
+  hspIds:
+    elona122: 89
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -304,7 +342,8 @@
 
 - type: Chip
   id: Elona.ItemOpenPot
-  elonaId: 90
+  hspIds:
+    elona122: 90
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -312,7 +351,8 @@
 
 - type: Chip
   id: Elona.ItemAcademicTable
-  elonaId: 91
+  hspIds:
+    elona122: 91
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -320,7 +360,8 @@
 
 - type: Chip
   id: Elona.ItemPaintingOfLandscape
-  elonaId: 92
+  hspIds:
+    elona122: 92
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -328,7 +369,8 @@
 
 - type: Chip
   id: Elona.ItemSquareChair
-  elonaId: 93
+  hspIds:
+    elona122: 93
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -336,7 +378,8 @@
 
 - type: Chip
   id: Elona.ItemCheapChair
-  elonaId: 94
+  hspIds:
+    elona122: 94
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -344,7 +387,8 @@
 
 - type: Chip
   id: Elona.ItemCupboard
-  elonaId: 95
+  hspIds:
+    elona122: 95
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -352,7 +396,8 @@
 
 - type: Chip
   id: Elona.ItemBarn
-  elonaId: 96
+  hspIds:
+    elona122: 96
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -360,7 +405,8 @@
 
 - type: Chip
   id: Elona.ItemNeatShelf
-  elonaId: 97
+  hspIds:
+    elona122: 97
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -368,7 +414,8 @@
 
 - type: Chip
   id: Elona.ItemCloset
-  elonaId: 98
+  hspIds:
+    elona122: 98
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -376,7 +423,8 @@
 
 - type: Chip
   id: Elona.ItemVarietyOfTools
-  elonaId: 99
+  hspIds:
+    elona122: 99
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -384,7 +432,8 @@
 
 - type: Chip
   id: Elona.ItemVarietyOfGoods
-  elonaId: 100
+  hspIds:
+    elona122: 100
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -392,7 +441,8 @@
 
 - type: Chip
   id: Elona.ItemWell
-  elonaId: 101
+  hspIds:
+    elona122: 101
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -400,7 +450,8 @@
 
 - type: Chip
   id: Elona.ItemVarietyOfClothes
-  elonaId: 102
+  hspIds:
+    elona122: 102
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -408,7 +459,8 @@
 
 - type: Chip
   id: Elona.ItemFurnace
-  elonaId: 103
+  hspIds:
+    elona122: 103
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -416,7 +468,8 @@
 
 - type: Chip
   id: Elona.ItemOven
-  elonaId: 104
+  hspIds:
+    elona122: 104
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -424,7 +477,8 @@
 
 - type: Chip
   id: Elona.ItemSign
-  elonaId: 105
+  hspIds:
+    elona122: 105
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -432,7 +486,8 @@
 
 - type: Chip
   id: Elona.ItemCrossroadSign
-  elonaId: 106
+  hspIds:
+    elona122: 106
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -440,7 +495,8 @@
 
 - type: Chip
   id: Elona.ItemHouseBoard
-  elonaId: 107
+  hspIds:
+    elona122: 107
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -448,7 +504,8 @@
 
 - type: Chip
   id: Elona.ItemDishSweet3
-  elonaId: 108
+  hspIds:
+    elona122: 108
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -456,7 +513,8 @@
 
 - type: Chip
   id: Elona.ItemEmptyBasket
-  elonaId: 109
+  hspIds:
+    elona122: 109
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -464,7 +522,8 @@
 
 - type: Chip
   id: Elona.ItemDishSweet5
-  elonaId: 110
+  hspIds:
+    elona122: 110
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -472,7 +531,8 @@
 
 - type: Chip
   id: Elona.ItemDishBread9
-  elonaId: 111
+  hspIds:
+    elona122: 111
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -480,7 +540,8 @@
 
 - type: Chip
   id: Elona.ItemDishBread5
-  elonaId: 112
+  hspIds:
+    elona122: 112
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -488,7 +549,8 @@
 
 - type: Chip
   id: Elona.ItemDishBread7
-  elonaId: 113
+  hspIds:
+    elona122: 113
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -496,7 +558,8 @@
 
 - type: Chip
   id: Elona.ItemDishBread6
-  elonaId: 114
+  hspIds:
+    elona122: 114
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -504,7 +567,8 @@
 
 - type: Chip
   id: Elona.ItemDishBread8
-  elonaId: 115
+  hspIds:
+    elona122: 115
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -512,7 +576,8 @@
 
 - type: Chip
   id: Elona.ItemShowCaseOfBreads
-  elonaId: 116
+  hspIds:
+    elona122: 116
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -520,7 +585,8 @@
 
 - type: Chip
   id: Elona.ItemStickBread
-  elonaId: 117
+  hspIds:
+    elona122: 117
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -528,7 +594,8 @@
 
 - type: Chip
   id: Elona.ItemBeaker
-  elonaId: 118
+  hspIds:
+    elona122: 118
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -536,7 +603,8 @@
 
 - type: Chip
   id: Elona.ItemAlchemyKit
-  elonaId: 119
+  hspIds:
+    elona122: 119
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -544,7 +612,8 @@
 
 - type: Chip
   id: Elona.ItemPentagram
-  elonaId: 120
+  hspIds:
+    elona122: 120
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -552,7 +621,8 @@
 
 - type: Chip
   id: Elona.ItemSmallFoliagePlant
-  elonaId: 121
+  hspIds:
+    elona122: 121
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -560,7 +630,8 @@
 
 - type: Chip
   id: Elona.ItemRose
-  elonaId: 122
+  hspIds:
+    elona122: 122
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -568,7 +639,8 @@
 
 - type: Chip
   id: Elona.ItemLargeFoliagePlant
-  elonaId: 123
+  hspIds:
+    elona122: 123
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -576,7 +648,8 @@
 
 - type: Chip
   id: Elona.ItemSage
-  elonaId: 124
+  hspIds:
+    elona122: 124
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -584,7 +657,8 @@
 
 - type: Chip
   id: Elona.ItemGazania
-  elonaId: 125
+  hspIds:
+    elona122: 125
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -592,7 +666,8 @@
 
 - type: Chip
   id: Elona.ItemNerine
-  elonaId: 126
+  hspIds:
+    elona122: 126
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -600,7 +675,8 @@
 
 - type: Chip
   id: Elona.ItemAnemos
-  elonaId: 127
+  hspIds:
+    elona122: 127
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -608,7 +684,8 @@
 
 - type: Chip
   id: Elona.ItemFoxtailGrass
-  elonaId: 128
+  hspIds:
+    elona122: 128
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -616,7 +693,8 @@
 
 - type: Chip
   id: Elona.ItemCarnation
-  elonaId: 129
+  hspIds:
+    elona122: 129
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -624,7 +702,8 @@
 
 - type: Chip
   id: Elona.ItemBlackCrystal
-  elonaId: 130
+  hspIds:
+    elona122: 130
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -632,7 +711,8 @@
 
 - type: Chip
   id: Elona.ItemPaintingOfSunflower
-  elonaId: 131
+  hspIds:
+    elona122: 131
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -640,7 +720,8 @@
 
 - type: Chip
   id: Elona.ItemCanvas
-  elonaId: 132
+  hspIds:
+    elona122: 132
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -648,7 +729,8 @@
 
 - type: Chip
   id: Elona.ItemMap
-  elonaId: 133
+  hspIds:
+    elona122: 133
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -656,7 +738,8 @@
 
 - type: Chip
   id: Elona.ItemSnowMan
-  elonaId: 134
+  hspIds:
+    elona122: 134
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -664,7 +747,8 @@
 
 - type: Chip
   id: Elona.ItemBundleOfBows
-  elonaId: 135
+  hspIds:
+    elona122: 135
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -672,7 +756,8 @@
 
 - type: Chip
   id: Elona.ItemBundleOfWeapons
-  elonaId: 136
+  hspIds:
+    elona122: 136
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -680,7 +765,8 @@
 
 - type: Chip
   id: Elona.ItemDecoratedCloth
-  elonaId: 137
+  hspIds:
+    elona122: 137
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -688,7 +774,8 @@
 
 - type: Chip
   id: Elona.ItemDecoratedArmor
-  elonaId: 138
+  hspIds:
+    elona122: 138
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -696,7 +783,8 @@
 
 - type: Chip
   id: Elona.ItemStatueOfArmor
-  elonaId: 139
+  hspIds:
+    elona122: 139
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -704,7 +792,8 @@
 
 - type: Chip
   id: Elona.ItemDisorderlyBook
-  elonaId: 140
+  hspIds:
+    elona122: 140
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -712,7 +801,8 @@
 
 - type: Chip
   id: Elona.ItemLotOfBooks
-  elonaId: 141
+  hspIds:
+    elona122: 141
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -720,7 +810,8 @@
 
 - type: Chip
   id: Elona.ItemCraftRack
-  elonaId: 142
+  hspIds:
+    elona122: 142
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -728,7 +819,8 @@
 
 - type: Chip
   id: Elona.ItemCraftBookShelf
-  elonaId: 143
+  hspIds:
+    elona122: 143
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -736,7 +828,8 @@
 
 - type: Chip
   id: Elona.ItemLotOfAlcohols
-  elonaId: 144
+  hspIds:
+    elona122: 144
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -744,7 +837,8 @@
 
 - type: Chip
   id: Elona.ItemKitchen
-  elonaId: 145
+  hspIds:
+    elona122: 145
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -752,7 +846,8 @@
 
 - type: Chip
   id: Elona.ItemWashstand
-  elonaId: 146
+  hspIds:
+    elona122: 146
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -760,7 +855,8 @@
 
 - type: Chip
   id: Elona.ItemKitchenOven
-  elonaId: 147
+  hspIds:
+    elona122: 147
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -768,7 +864,8 @@
 
 - type: Chip
   id: Elona.ItemNarrowDiningTable
-  elonaId: 148
+  hspIds:
+    elona122: 148
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -776,7 +873,8 @@
 
 - type: Chip
   id: Elona.ItemElegantTable
-  elonaId: 149
+  hspIds:
+    elona122: 149
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -784,7 +882,8 @@
 
 - type: Chip
   id: Elona.ItemGorgeousCandlestick
-  elonaId: 150
+  hspIds:
+    elona122: 150
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -792,7 +891,8 @@
 
 - type: Chip
   id: Elona.ItemSimpleShelf
-  elonaId: 151
+  hspIds:
+    elona122: 151
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -800,7 +900,8 @@
 
 - type: Chip
   id: Elona.ItemSewingKit
-  elonaId: 152
+  hspIds:
+    elona122: 152
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -808,7 +909,8 @@
 
 - type: Chip
   id: Elona.ItemCarpentersTool
-  elonaId: 153
+  hspIds:
+    elona122: 153
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -816,7 +918,8 @@
 
 - type: Chip
   id: Elona.ItemMessyCloth
-  elonaId: 154
+  hspIds:
+    elona122: 154
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -824,7 +927,8 @@
 
 - type: Chip
   id: Elona.ItemSilkCloth
-  elonaId: 155
+  hspIds:
+    elona122: 155
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -832,7 +936,8 @@
 
 - type: Chip
   id: Elona.ItemCollapsedGrave
-  elonaId: 156
+  hspIds:
+    elona122: 156
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -840,7 +945,8 @@
 
 - type: Chip
   id: Elona.ItemCrumbledGrave
-  elonaId: 157
+  hspIds:
+    elona122: 157
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -848,7 +954,8 @@
 
 - type: Chip
   id: Elona.ItemGraveOfOrnamentedWithFlowers
-  elonaId: 158
+  hspIds:
+    elona122: 158
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -856,7 +963,8 @@
 
 - type: Chip
   id: Elona.ItemBrandNewGrave
-  elonaId: 159
+  hspIds:
+    elona122: 159
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -864,7 +972,8 @@
 
 - type: Chip
   id: Elona.ItemSolemnTomb
-  elonaId: 160
+  hspIds:
+    elona122: 160
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -872,7 +981,8 @@
 
 - type: Chip
   id: Elona.ItemGrave
-  elonaId: 161
+  hspIds:
+    elona122: 161
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -880,7 +990,8 @@
 
 - type: Chip
   id: Elona.ItemOldGrave
-  elonaId: 162
+  hspIds:
+    elona122: 162
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -888,7 +999,8 @@
 
 - type: Chip
   id: Elona.ItemCeremonyAltar
-  elonaId: 163
+  hspIds:
+    elona122: 163
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -896,7 +1008,8 @@
 
 - type: Chip
   id: Elona.ItemGreenPea
-  elonaId: 164
+  hspIds:
+    elona122: 164
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -904,7 +1017,8 @@
 
 - type: Chip
   id: Elona.ItemSmallMedal
-  elonaId: 165
+  hspIds:
+    elona122: 165
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -912,7 +1026,8 @@
 
 - type: Chip
   id: Elona.ItemBunkBed
-  elonaId: 166
+  hspIds:
+    elona122: 166
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -920,7 +1035,8 @@
 
 - type: Chip
   id: Elona.ItemDishMeat5
-  elonaId: 167
+  hspIds:
+    elona122: 167
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -928,7 +1044,8 @@
 
 - type: Chip
   id: Elona.ItemHeroCheese
-  elonaId: 168
+  hspIds:
+    elona122: 168
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -936,7 +1053,8 @@
 
 - type: Chip
   id: Elona.ItemQuwapana
-  elonaId: 169
+  hspIds:
+    elona122: 169
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -944,7 +1062,8 @@
 
 - type: Chip
   id: Elona.ItemStomafillia
-  elonaId: 170
+  hspIds:
+    elona122: 170
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -952,7 +1071,8 @@
 
 - type: Chip
   id: Elona.ItemEdibleWildPlant
-  elonaId: 171
+  hspIds:
+    elona122: 171
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -960,7 +1080,8 @@
 
 - type: Chip
   id: Elona.ItemHappyApple
-  elonaId: 172
+  hspIds:
+    elona122: 172
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -968,7 +1089,8 @@
 
 - type: Chip
   id: Elona.ItemGrape
-  elonaId: 173
+  hspIds:
+    elona122: 173
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -976,7 +1098,8 @@
 
 - type: Chip
   id: Elona.ItemKiwi
-  elonaId: 174
+  hspIds:
+    elona122: 174
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -984,7 +1107,8 @@
 
 - type: Chip
   id: Elona.ItemCherry
-  elonaId: 175
+  hspIds:
+    elona122: 175
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -992,7 +1116,8 @@
 
 - type: Chip
   id: Elona.ItemGuava
-  elonaId: 176
+  hspIds:
+    elona122: 176
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -1000,7 +1125,8 @@
 
 - type: Chip
   id: Elona.ItemCarrot
-  elonaId: 177
+  hspIds:
+    elona122: 177
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -1008,7 +1134,8 @@
 
 - type: Chip
   id: Elona.ItemRadish
-  elonaId: 178
+  hspIds:
+    elona122: 178
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -1016,7 +1143,8 @@
 
 - type: Chip
   id: Elona.ItemSweetPotato
-  elonaId: 179
+  hspIds:
+    elona122: 179
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -1024,7 +1152,8 @@
 
 - type: Chip
   id: Elona.ItemLettuce
-  elonaId: 180
+  hspIds:
+    elona122: 180
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -1032,7 +1161,8 @@
 
 - type: Chip
   id: Elona.ItemStackOfDishes
-  elonaId: 181
+  hspIds:
+    elona122: 181
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -1040,7 +1170,8 @@
 
 - type: Chip
   id: Elona.ItemImo
-  elonaId: 182
+  hspIds:
+    elona122: 182
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -1048,7 +1179,8 @@
 
 - type: Chip
   id: Elona.ItemApiNut
-  elonaId: 183
+  hspIds:
+    elona122: 183
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -1056,7 +1188,8 @@
 
 - type: Chip
   id: Elona.ItemStrawberry
-  elonaId: 184
+  hspIds:
+    elona122: 184
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -1064,7 +1197,8 @@
 
 - type: Chip
   id: Elona.ItemHealthyLeaf
-  elonaId: 185
+  hspIds:
+    elona122: 185
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -1072,7 +1206,8 @@
 
 - type: Chip
   id: Elona.ItemRainbowFruit
-  elonaId: 186
+  hspIds:
+    elona122: 186
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -1080,7 +1215,8 @@
 
 - type: Chip
   id: Elona.ItemQucche
-  elonaId: 187
+  hspIds:
+    elona122: 187
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -1088,7 +1224,8 @@
 
 - type: Chip
   id: Elona.ItemOrange
-  elonaId: 188
+  hspIds:
+    elona122: 188
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -1096,7 +1233,8 @@
 
 - type: Chip
   id: Elona.ItemMagicFruit
-  elonaId: 189
+  hspIds:
+    elona122: 189
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -1104,7 +1242,8 @@
 
 - type: Chip
   id: Elona.ItemDishEgg3
-  elonaId: 190
+  hspIds:
+    elona122: 190
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -1112,7 +1251,8 @@
 
 - type: Chip
   id: Elona.ItemCbocchi
-  elonaId: 191
+  hspIds:
+    elona122: 191
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -1120,7 +1260,8 @@
 
 - type: Chip
   id: Elona.ItemMelon
-  elonaId: 192
+  hspIds:
+    elona122: 192
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -1128,7 +1269,8 @@
 
 - type: Chip
   id: Elona.ItemLeccho
-  elonaId: 193
+  hspIds:
+    elona122: 193
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -1136,7 +1278,8 @@
 
 - type: Chip
   id: Elona.ItemDishMeat7
-  elonaId: 194
+  hspIds:
+    elona122: 194
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -1144,7 +1287,8 @@
 
 - type: Chip
   id: Elona.ItemDishMeat3
-  elonaId: 195
+  hspIds:
+    elona122: 195
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -1152,7 +1296,8 @@
 
 - type: Chip
   id: Elona.ItemCorpse
-  elonaId: 196
+  hspIds:
+    elona122: 196
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -1160,7 +1305,8 @@
 
 - type: Chip
   id: Elona.ItemShopStrongbox
-  elonaId: 197
+  hspIds:
+    elona122: 197
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -1168,7 +1314,8 @@
 
 - type: Chip
   id: Elona.ItemPot
-  elonaId: 198
+  hspIds:
+    elona122: 198
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -1176,7 +1323,8 @@
 
 - type: Chip
   id: Elona.ItemAnimalBone
-  elonaId: 199
+  hspIds:
+    elona122: 199
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -1184,7 +1332,8 @@
 
 - type: Chip
   id: Elona.ItemStraw
-  elonaId: 200
+  hspIds:
+    elona122: 200
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -1192,7 +1341,8 @@
 
 - type: Chip
   id: Elona.ItemBombFish
-  elonaId: 201
+  hspIds:
+    elona122: 201
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -1200,7 +1350,8 @@
 
 - type: Chip
   id: Elona.ItemRope
-  elonaId: 202
+  hspIds:
+    elona122: 202
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -1208,7 +1359,8 @@
 
 - type: Chip
   id: Elona.ItemBowl
-  elonaId: 203
+  hspIds:
+    elona122: 203
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -1216,7 +1368,8 @@
 
 - type: Chip
   id: Elona.ItemWashing
-  elonaId: 204
+  hspIds:
+    elona122: 204
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -1224,7 +1377,8 @@
 
 - type: Chip
   id: Elona.Item205
-  elonaId: 205
+  hspIds:
+    elona122: 205
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -1232,7 +1386,8 @@
 
 - type: Chip
   id: Elona.ItemEmptyBowl
-  elonaId: 206
+  hspIds:
+    elona122: 206
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -1240,7 +1395,8 @@
 
 - type: Chip
   id: Elona.ItemBasket
-  elonaId: 207
+  hspIds:
+    elona122: 207
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -1248,7 +1404,8 @@
 
 - type: Chip
   id: Elona.ItemWhisky
-  elonaId: 208
+  hspIds:
+    elona122: 208
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -1256,7 +1413,8 @@
 
 - type: Chip
   id: Elona.ItemOrePiece
-  elonaId: 209
+  hspIds:
+    elona122: 209
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -1264,7 +1422,8 @@
 
 - type: Chip
   id: Elona.ItemBottleOfWhisky
-  elonaId: 210
+  hspIds:
+    elona122: 210
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -1272,7 +1431,8 @@
 
 - type: Chip
   id: Elona.ItemCrystal
-  elonaId: 211
+  hspIds:
+    elona122: 211
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -1280,7 +1440,8 @@
 
 - type: Chip
   id: Elona.ItemRawOre
-  elonaId: 212
+  hspIds:
+    elona122: 212
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -1288,7 +1449,8 @@
 
 - type: Chip
   id: Elona.ItemRawOreOfDiamond
-  elonaId: 213
+  hspIds:
+    elona122: 213
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -1296,7 +1458,8 @@
 
 - type: Chip
   id: Elona.Item214
-  elonaId: 214
+  hspIds:
+    elona122: 214
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -1304,7 +1467,8 @@
 
 - type: Chip
   id: Elona.Item215
-  elonaId: 215
+  hspIds:
+    elona122: 215
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -1312,7 +1476,8 @@
 
 - type: Chip
   id: Elona.Item216
-  elonaId: 216
+  hspIds:
+    elona122: 216
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -1320,7 +1485,8 @@
 
 - type: Chip
   id: Elona.Item217
-  elonaId: 217
+  hspIds:
+    elona122: 217
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -1328,7 +1494,8 @@
 
 - type: Chip
   id: Elona.Item218
-  elonaId: 218
+  hspIds:
+    elona122: 218
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -1336,7 +1503,8 @@
 
 - type: Chip
   id: Elona.Item219
-  elonaId: 219
+  hspIds:
+    elona122: 219
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -1344,7 +1512,8 @@
 
 - type: Chip
   id: Elona.ItemSmallGambleChest
-  elonaId: 220
+  hspIds:
+    elona122: 220
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -1352,7 +1521,8 @@
 
 - type: Chip
   id: Elona.ItemFigurineOfSword
-  elonaId: 221
+  hspIds:
+    elona122: 221
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -1360,7 +1530,8 @@
 
 - type: Chip
   id: Elona.ItemFigurineOfWarrior
-  elonaId: 222
+  hspIds:
+    elona122: 222
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -1368,7 +1539,8 @@
 
 - type: Chip
   id: Elona.ItemMolotov
-  elonaId: 223
+  hspIds:
+    elona122: 223
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -1376,7 +1548,8 @@
 
 - type: Chip
   id: Elona.ItemHorn
-  elonaId: 224
+  hspIds:
+    elona122: 224
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -1384,7 +1557,8 @@
 
 - type: Chip
   id: Elona.Item225
-  elonaId: 225
+  hspIds:
+    elona122: 225
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -1392,7 +1566,8 @@
 
 - type: Chip
   id: Elona.ItemPortableCookingTool
-  elonaId: 226
+  hspIds:
+    elona122: 226
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -1400,7 +1575,8 @@
 
 - type: Chip
   id: Elona.ItemDishMeat4
-  elonaId: 227
+  hspIds:
+    elona122: 227
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -1408,7 +1584,8 @@
 
 - type: Chip
   id: Elona.ItemDishFish3
-  elonaId: 228
+  hspIds:
+    elona122: 228
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -1416,7 +1593,8 @@
 
 - type: Chip
   id: Elona.ItemDishMeat8
-  elonaId: 229
+  hspIds:
+    elona122: 229
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -1424,7 +1602,8 @@
 
 - type: Chip
   id: Elona.ItemDishCharred
-  elonaId: 230
+  hspIds:
+    elona122: 230
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -1432,7 +1611,8 @@
 
 - type: Chip
   id: Elona.ItemFireWood
-  elonaId: 231
+  hspIds:
+    elona122: 231
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -1440,7 +1620,8 @@
 
 - type: Chip
   id: Elona.ItemScarecrow
-  elonaId: 232
+  hspIds:
+    elona122: 232
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -1448,7 +1629,8 @@
 
 - type: Chip
   id: Elona.ItemSack
-  elonaId: 233
+  hspIds:
+    elona122: 233
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -1456,7 +1638,8 @@
 
 - type: Chip
   id: Elona.ItemLuxuryDrawer
-  elonaId: 234
+  hspIds:
+    elona122: 234
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -1464,7 +1647,8 @@
 
 - type: Chip
   id: Elona.ItemBookshelf
-  elonaId: 235
+  hspIds:
+    elona122: 235
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -1472,7 +1656,8 @@
 
 - type: Chip
   id: Elona.ItemModernRack
-  elonaId: 236
+  hspIds:
+    elona122: 236
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -1480,7 +1665,8 @@
 
 - type: Chip
   id: Elona.ItemRoundChair
-  elonaId: 237
+  hspIds:
+    elona122: 237
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -1488,7 +1674,8 @@
 
 - type: Chip
   id: Elona.ItemJunkStone
-  elonaId: 238
+  hspIds:
+    elona122: 238
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -1496,7 +1683,8 @@
 
 - type: Chip
   id: Elona.ItemWoodPiece
-  elonaId: 239
+  hspIds:
+    elona122: 239
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -1504,7 +1692,8 @@
 
 - type: Chip
   id: Elona.ItemGarbage
-  elonaId: 240
+  hspIds:
+    elona122: 240
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -1512,7 +1701,8 @@
 
 - type: Chip
   id: Elona.ItemBrokenVase
-  elonaId: 241
+  hspIds:
+    elona122: 241
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -1520,7 +1710,8 @@
 
 - type: Chip
   id: Elona.ItemBonfire
-  elonaId: 242
+  hspIds:
+    elona122: 242
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -1528,7 +1719,8 @@
 
 - type: Chip
   id: Elona.ItemFlag
-  elonaId: 243
+  hspIds:
+    elona122: 243
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -1536,7 +1728,8 @@
 
 - type: Chip
   id: Elona.ItemBrokenSword
-  elonaId: 244
+  hspIds:
+    elona122: 244
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -1544,7 +1737,8 @@
 
 - type: Chip
   id: Elona.ItemBoneFragment
-  elonaId: 245
+  hspIds:
+    elona122: 245
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -1552,7 +1746,8 @@
 
 - type: Chip
   id: Elona.ItemSkeleton
-  elonaId: 246
+  hspIds:
+    elona122: 246
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -1560,7 +1755,8 @@
 
 - type: Chip
   id: Elona.ItemTombstone
-  elonaId: 247
+  hspIds:
+    elona122: 247
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -1568,7 +1764,8 @@
 
 - type: Chip
   id: Elona.ItemBroom
-  elonaId: 248
+  hspIds:
+    elona122: 248
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -1576,7 +1773,8 @@
 
 - type: Chip
   id: Elona.ItemWaterTub
-  elonaId: 249
+  hspIds:
+    elona122: 249
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -1584,7 +1782,8 @@
 
 - type: Chip
   id: Elona.ItemComfortableTable
-  elonaId: 250
+  hspIds:
+    elona122: 250
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -1592,7 +1791,8 @@
 
 - type: Chip
   id: Elona.ItemInnerTube
-  elonaId: 251
+  hspIds:
+    elona122: 251
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -1600,7 +1800,8 @@
 
 - type: Chip
   id: Elona.ItemTreasureMap
-  elonaId: 252
+  hspIds:
+    elona122: 252
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -1608,7 +1809,8 @@
 
 - type: Chip
   id: Elona.ItemHeirTrunk
-  elonaId: 253
+  hspIds:
+    elona122: 253
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -1616,7 +1818,8 @@
 
 - type: Chip
   id: Elona.ItemWallet
-  elonaId: 254
+  hspIds:
+    elona122: 254
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -1624,7 +1827,8 @@
 
 - type: Chip
   id: Elona.ItemWellKeptArmor
-  elonaId: 255
+  hspIds:
+    elona122: 255
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -1632,7 +1836,8 @@
 
 - type: Chip
   id: Elona.ItemRackOfGoods
-  elonaId: 256
+  hspIds:
+    elona122: 256
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -1640,7 +1845,8 @@
 
 - type: Chip
   id: Elona.ItemRackOfAccessories
-  elonaId: 257
+  hspIds:
+    elona122: 257
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -1648,7 +1854,8 @@
 
 - type: Chip
   id: Elona.ItemTowel
-  elonaId: 258
+  hspIds:
+    elona122: 258
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -1656,7 +1863,8 @@
 
 - type: Chip
   id: Elona.ItemRaggedTable
-  elonaId: 259
+  hspIds:
+    elona122: 259
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -1664,7 +1872,8 @@
 
 - type: Chip
   id: Elona.ItemCabinet
-  elonaId: 260
+  hspIds:
+    elona122: 260
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -1672,7 +1881,8 @@
 
 - type: Chip
   id: Elona.ItemLuxuryBed
-  elonaId: 261
+  hspIds:
+    elona122: 261
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -1680,7 +1890,8 @@
 
 - type: Chip
   id: Elona.ItemVase
-  elonaId: 262
+  hspIds:
+    elona122: 262
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -1688,7 +1899,8 @@
 
 - type: Chip
   id: Elona.ItemHighGradeDresser
-  elonaId: 263
+  hspIds:
+    elona122: 263
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -1696,7 +1908,8 @@
 
 - type: Chip
   id: Elona.ItemNeatBarTable
-  elonaId: 264
+  hspIds:
+    elona122: 264
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -1704,7 +1917,8 @@
 
 - type: Chip
   id: Elona.ItemLargeBouquet
-  elonaId: 265
+  hspIds:
+    elona122: 265
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -1712,7 +1926,8 @@
 
 - type: Chip
   id: Elona.ItemChestOfClothes
-  elonaId: 266
+  hspIds:
+    elona122: 266
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -1720,7 +1935,8 @@
 
 - type: Chip
   id: Elona.ItemGiantBed
-  elonaId: 267
+  hspIds:
+    elona122: 267
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -1728,7 +1944,8 @@
 
 - type: Chip
   id: Elona.ItemPlainBed
-  elonaId: 268
+  hspIds:
+    elona122: 268
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -1736,7 +1953,8 @@
 
 - type: Chip
   id: Elona.ItemCoffin
-  elonaId: 269
+  hspIds:
+    elona122: 269
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -1744,7 +1962,8 @@
 
 - type: Chip
   id: Elona.ItemFoodProcessor
-  elonaId: 270
+  hspIds:
+    elona122: 270
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -1752,7 +1971,8 @@
 
 - type: Chip
   id: Elona.ItemSoftBed
-  elonaId: 271
+  hspIds:
+    elona122: 271
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -1760,7 +1980,8 @@
 
 - type: Chip
   id: Elona.ItemCheapRack
-  elonaId: 272
+  hspIds:
+    elona122: 272
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -1768,7 +1989,8 @@
 
 - type: Chip
   id: Elona.ItemDresser
-  elonaId: 273
+  hspIds:
+    elona122: 273
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -1776,7 +1998,8 @@
 
 - type: Chip
   id: Elona.ItemCleanBed
-  elonaId: 274
+  hspIds:
+    elona122: 274
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -1784,7 +2007,8 @@
 
 - type: Chip
   id: Elona.ItemBathtub
-  elonaId: 275
+  hspIds:
+    elona122: 275
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -1792,7 +2016,8 @@
 
 - type: Chip
   id: Elona.ItemPachisuroMachine
-  elonaId: 276
+  hspIds:
+    elona122: 276
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -1800,7 +2025,8 @@
 
 - type: Chip
   id: Elona.ItemCasinoTable
-  elonaId: 277
+  hspIds:
+    elona122: 277
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -1808,7 +2034,8 @@
 
 - type: Chip
   id: Elona.ItemSlotMachine
-  elonaId: 278
+  hspIds:
+    elona122: 278
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -1816,7 +2043,8 @@
 
 - type: Chip
   id: Elona.ItemDartsBoard
-  elonaId: 279
+  hspIds:
+    elona122: 279
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -1824,7 +2052,8 @@
 
 - type: Chip
   id: Elona.ItemBigFoliagePlant
-  elonaId: 280
+  hspIds:
+    elona122: 280
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -1832,7 +2061,8 @@
 
 - type: Chip
   id: Elona.ItemOldShelf
-  elonaId: 281
+  hspIds:
+    elona122: 281
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -1840,7 +2070,8 @@
 
 - type: Chip
   id: Elona.ItemOldBookshelf
-  elonaId: 282
+  hspIds:
+    elona122: 282
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -1848,7 +2079,8 @@
 
 - type: Chip
   id: Elona.ItemCheapBed
-  elonaId: 283
+  hspIds:
+    elona122: 283
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -1856,7 +2088,8 @@
 
 - type: Chip
   id: Elona.ItemCheapTable
-  elonaId: 284
+  hspIds:
+    elona122: 284
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -1864,7 +2097,8 @@
 
 - type: Chip
   id: Elona.ItemNeatRack
-  elonaId: 285
+  hspIds:
+    elona122: 285
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -1872,7 +2106,8 @@
 
 - type: Chip
   id: Elona.ItemSimpleDresser
-  elonaId: 286
+  hspIds:
+    elona122: 286
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -1880,7 +2115,8 @@
 
 - type: Chip
   id: Elona.Item287
-  elonaId: 287
+  hspIds:
+    elona122: 287
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -1888,7 +2124,8 @@
 
 - type: Chip
   id: Elona.ItemSacredAltar
-  elonaId: 288
+  hspIds:
+    elona122: 288
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -1896,7 +2133,8 @@
 
 - type: Chip
   id: Elona.ItemComfortableBed
-  elonaId: 289
+  hspIds:
+    elona122: 289
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -1904,7 +2142,8 @@
 
 - type: Chip
   id: Elona.ItemSimpleRack
-  elonaId: 290
+  hspIds:
+    elona122: 290
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -1912,7 +2151,8 @@
 
 - type: Chip
   id: Elona.ItemWideChair
-  elonaId: 291
+  hspIds:
+    elona122: 291
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -1920,7 +2160,8 @@
 
 - type: Chip
   id: Elona.ItemPiano
-  elonaId: 292
+  hspIds:
+    elona122: 292
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -1928,7 +2169,8 @@
 
 - type: Chip
   id: Elona.ItemStatueOfCross
-  elonaId: 293
+  hspIds:
+    elona122: 293
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -1936,7 +2178,8 @@
 
 - type: Chip
   id: Elona.ItemStump
-  elonaId: 294
+  hspIds:
+    elona122: 294
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -1944,7 +2187,8 @@
 
 - type: Chip
   id: Elona.ItemDress
-  elonaId: 295
+  hspIds:
+    elona122: 295
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -1952,7 +2196,8 @@
 
 - type: Chip
   id: Elona.ItemTable
-  elonaId: 296
+  hspIds:
+    elona122: 296
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -1960,7 +2205,8 @@
 
 - type: Chip
   id: Elona.ItemTravelersFood
-  elonaId: 297
+  hspIds:
+    elona122: 297
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -1968,7 +2214,8 @@
 
 - type: Chip
   id: Elona.Item298
-  elonaId: 298
+  hspIds:
+    elona122: 298
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -1976,7 +2223,8 @@
 
 - type: Chip
   id: Elona.ItemGoldenPedestal
-  elonaId: 299
+  hspIds:
+    elona122: 299
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -1984,7 +2232,8 @@
 
 - type: Chip
   id: Elona.ItemGoldenStatue
-  elonaId: 300
+  hspIds:
+    elona122: 300
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -1992,7 +2241,8 @@
 
 - type: Chip
   id: Elona.ItemRabbitsTail
-  elonaId: 301
+  hspIds:
+    elona122: 301
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -2000,7 +2250,8 @@
 
 - type: Chip
   id: Elona.ItemRemainsBlood
-  elonaId: 302
+  hspIds:
+    elona122: 302
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -2008,7 +2259,8 @@
 
 - type: Chip
   id: Elona.ItemRemainsEye
-  elonaId: 303
+  hspIds:
+    elona122: 303
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -2016,7 +2268,8 @@
 
 - type: Chip
   id: Elona.ItemRemainsHeart
-  elonaId: 304
+  hspIds:
+    elona122: 304
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -2024,7 +2277,8 @@
 
 - type: Chip
   id: Elona.ItemRemainsBone
-  elonaId: 305
+  hspIds:
+    elona122: 305
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -2032,7 +2286,8 @@
 
 - type: Chip
   id: Elona.ItemFishingPole
-  elonaId: 306
+  hspIds:
+    elona122: 306
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -2040,7 +2295,8 @@
 
 - type: Chip
   id: Elona.ItemRune
-  elonaId: 307
+  hspIds:
+    elona122: 307
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -2048,7 +2304,8 @@
 
 - type: Chip
   id: Elona.ItemDeed
-  elonaId: 308
+  hspIds:
+    elona122: 308
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -2056,7 +2313,8 @@
 
 - type: Chip
   id: Elona.ItemMoonfish
-  elonaId: 309
+  hspIds:
+    elona122: 309
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -2064,7 +2322,8 @@
 
 - type: Chip
   id: Elona.ItemFish
-  elonaId: 310
+  hspIds:
+    elona122: 310
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -2072,7 +2331,8 @@
 
 - type: Chip
   id: Elona.ItemFlatfish
-  elonaId: 311
+  hspIds:
+    elona122: 311
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -2080,7 +2340,8 @@
 
 - type: Chip
   id: Elona.ItemManboo
-  elonaId: 312
+  hspIds:
+    elona122: 312
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -2088,7 +2349,8 @@
 
 - type: Chip
   id: Elona.ItemSeabream
-  elonaId: 313
+  hspIds:
+    elona122: 313
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -2096,7 +2358,8 @@
 
 - type: Chip
   id: Elona.ItemSalmon
-  elonaId: 314
+  hspIds:
+    elona122: 314
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -2104,7 +2367,8 @@
 
 - type: Chip
   id: Elona.ItemGlobefish
-  elonaId: 315
+  hspIds:
+    elona122: 315
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -2112,7 +2376,8 @@
 
 - type: Chip
   id: Elona.ItemTunaFish
-  elonaId: 316
+  hspIds:
+    elona122: 316
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -2120,7 +2385,8 @@
 
 - type: Chip
   id: Elona.ItemCutlassfish
-  elonaId: 317
+  hspIds:
+    elona122: 317
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -2128,7 +2394,8 @@
 
 - type: Chip
   id: Elona.ItemSandborer
-  elonaId: 318
+  hspIds:
+    elona122: 318
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -2136,7 +2403,8 @@
 
 - type: Chip
   id: Elona.ItemGemCutter
-  elonaId: 319
+  hspIds:
+    elona122: 319
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -2144,7 +2412,8 @@
 
 - type: Chip
   id: Elona.ItemRedTreasureMachine
-  elonaId: 320
+  hspIds:
+    elona122: 320
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -2152,7 +2421,8 @@
 
 - type: Chip
   id: Elona.ItemBlueTreasureMachine
-  elonaId: 321
+  hspIds:
+    elona122: 321
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -2160,7 +2430,8 @@
 
 - type: Chip
   id: Elona.ItemRareTreasureBall
-  elonaId: 322
+  hspIds:
+    elona122: 322
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -2168,7 +2439,8 @@
 
 - type: Chip
   id: Elona.ItemSeed
-  elonaId: 323
+  hspIds:
+    elona122: 323
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -2176,7 +2448,8 @@
 
 - type: Chip
   id: Elona.ItemSleepingBag
-  elonaId: 324
+  hspIds:
+    elona122: 324
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -2184,7 +2457,8 @@
 
 - type: Chip
   id: Elona.ItemSalaryChest
-  elonaId: 325
+  hspIds:
+    elona122: 325
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -2192,7 +2466,8 @@
 
 - type: Chip
   id: Elona.ItemFeather
-  elonaId: 326
+  hspIds:
+    elona122: 326
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -2200,7 +2475,8 @@
 
 - type: Chip
   id: Elona.Item327
-  elonaId: 327
+  hspIds:
+    elona122: 327
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -2208,7 +2484,8 @@
 
 - type: Chip
   id: Elona.Item328
-  elonaId: 328
+  hspIds:
+    elona122: 328
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -2216,7 +2493,8 @@
 
 - type: Chip
   id: Elona.Item329
-  elonaId: 329
+  hspIds:
+    elona122: 329
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -2224,7 +2502,8 @@
 
 - type: Chip
   id: Elona.ItemShelter
-  elonaId: 330
+  hspIds:
+    elona122: 330
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -2232,7 +2511,8 @@
 
 - type: Chip
   id: Elona.ItemMastersDeliveryChest
-  elonaId: 331
+  hspIds:
+    elona122: 331
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -2240,7 +2520,8 @@
 
 - type: Chip
   id: Elona.ItemRegister
-  elonaId: 332
+  hspIds:
+    elona122: 332
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -2248,7 +2529,8 @@
 
 - type: Chip
   id: Elona.ItemBook
-  elonaId: 333
+  hspIds:
+    elona122: 333
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -2256,7 +2538,8 @@
 
 - type: Chip
   id: Elona.ItemTextbook
-  elonaId: 334
+  hspIds:
+    elona122: 334
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -2264,7 +2547,8 @@
 
 - type: Chip
   id: Elona.ItemBlanket
-  elonaId: 335
+  hspIds:
+    elona122: 335
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -2272,7 +2556,8 @@
 
 - type: Chip
   id: Elona.ItemRottenFood
-  elonaId: 336
+  hspIds:
+    elona122: 336
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -2280,7 +2565,8 @@
 
 - type: Chip
   id: Elona.ItemJerky
-  elonaId: 337
+  hspIds:
+    elona122: 337
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -2288,7 +2574,8 @@
 
 - type: Chip
   id: Elona.ItemEgg
-  elonaId: 338
+  hspIds:
+    elona122: 338
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -2296,7 +2583,8 @@
 
 - type: Chip
   id: Elona.ItemBottleOfMilk
-  elonaId: 339
+  hspIds:
+    elona122: 339
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -2304,7 +2592,8 @@
 
 - type: Chip
   id: Elona.ItemShit
-  elonaId: 340
+  hspIds:
+    elona122: 340
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -2312,7 +2601,8 @@
 
 - type: Chip
   id: Elona.ItemDishFish7
-  elonaId: 341
+  hspIds:
+    elona122: 341
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -2320,7 +2610,8 @@
 
 - type: Chip
   id: Elona.ItemDishVegetable4
-  elonaId: 342
+  hspIds:
+    elona122: 342
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -2328,7 +2619,8 @@
 
 - type: Chip
   id: Elona.ItemDishPasta3
-  elonaId: 343
+  hspIds:
+    elona122: 343
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -2336,7 +2628,8 @@
 
 - type: Chip
   id: Elona.ItemDishPasta4
-  elonaId: 344
+  hspIds:
+    elona122: 344
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -2344,7 +2637,8 @@
 
 - type: Chip
   id: Elona.ItemDishFruit6
-  elonaId: 345
+  hspIds:
+    elona122: 345
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -2352,7 +2646,8 @@
 
 - type: Chip
   id: Elona.ItemDishFruit4
-  elonaId: 346
+  hspIds:
+    elona122: 346
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -2360,7 +2655,8 @@
 
 - type: Chip
   id: Elona.ItemDishEgg8
-  elonaId: 347
+  hspIds:
+    elona122: 347
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -2368,7 +2664,8 @@
 
 - type: Chip
   id: Elona.ItemKittyBank
-  elonaId: 348
+  hspIds:
+    elona122: 348
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -2376,7 +2673,8 @@
 
 - type: Chip
   id: Elona.ItemCampfire
-  elonaId: 349
+  hspIds:
+    elona122: 349
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -2385,7 +2683,8 @@
 
 - type: Chip
   id: Elona.Item350
-  elonaId: 350
+  hspIds:
+    elona122: 350
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -2393,7 +2692,8 @@
 
 - type: Chip
   id: Elona.Item351
-  elonaId: 351
+  hspIds:
+    elona122: 351
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -2401,7 +2701,8 @@
 
 - type: Chip
   id: Elona.ItemTorch
-  elonaId: 352
+  hspIds:
+    elona122: 352
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -2409,7 +2710,8 @@
 
 - type: Chip
   id: Elona.ItemCandle
-  elonaId: 353
+  hspIds:
+    elona122: 353
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -2417,7 +2719,8 @@
 
 - type: Chip
   id: Elona.ItemPotion
-  elonaId: 354
+  hspIds:
+    elona122: 354
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -2425,7 +2728,8 @@
 
 - type: Chip
   id: Elona.ItemFountain
-  elonaId: 355
+  hspIds:
+    elona122: 355
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -2434,7 +2738,8 @@
 
 - type: Chip
   id: Elona.Item356
-  elonaId: 356
+  hspIds:
+    elona122: 356
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -2442,7 +2747,8 @@
 
 - type: Chip
   id: Elona.Item357
-  elonaId: 357
+  hspIds:
+    elona122: 357
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -2450,7 +2756,8 @@
 
 - type: Chip
   id: Elona.Item358
-  elonaId: 358
+  hspIds:
+    elona122: 358
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -2458,7 +2765,8 @@
 
 - type: Chip
   id: Elona.Item359
-  elonaId: 359
+  hspIds:
+    elona122: 359
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -2466,7 +2774,8 @@
 
 - type: Chip
   id: Elona.ItemDish
-  elonaId: 360
+  hspIds:
+    elona122: 360
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -2474,7 +2783,8 @@
 
 - type: Chip
   id: Elona.ItemStack
-  elonaId: 363
+  hspIds:
+    elona122: 363
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -2482,7 +2792,8 @@
 
 - type: Chip
   id: Elona.ItemFancyLamp
-  elonaId: 364
+  hspIds:
+    elona122: 364
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -2490,7 +2801,8 @@
 
 - type: Chip
   id: Elona.ItemHandfulOfSnow
-  elonaId: 365
+  hspIds:
+    elona122: 365
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -2498,7 +2810,8 @@
 
 - type: Chip
   id: Elona.ItemMiniSnowMan
-  elonaId: 366
+  hspIds:
+    elona122: 366
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -2506,7 +2819,8 @@
 
 - type: Chip
   id: Elona.ItemSnowScarecrow
-  elonaId: 367
+  hspIds:
+    elona122: 367
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -2514,7 +2828,8 @@
 
 - type: Chip
   id: Elona.ItemSnowBarrel
-  elonaId: 368
+  hspIds:
+    elona122: 368
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -2522,7 +2837,8 @@
 
 - type: Chip
   id: Elona.ItemStainedGlassWindow
-  elonaId: 369
+  hspIds:
+    elona122: 369
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -2530,7 +2846,8 @@
 
 - type: Chip
   id: Elona.ItemGiantsShackle
-  elonaId: 370
+  hspIds:
+    elona122: 370
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -2538,7 +2855,8 @@
 
 - type: Chip
   id: Elona.ItemEmptyBottle
-  elonaId: 371
+  hspIds:
+    elona122: 371
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -2546,7 +2864,8 @@
 
 - type: Chip
   id: Elona.ItemHolyWell
-  elonaId: 372
+  hspIds:
+    elona122: 372
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -2554,7 +2873,8 @@
 
 - type: Chip
   id: Elona.ItemPresidentsChair
-  elonaId: 373
+  hspIds:
+    elona122: 373
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -2562,7 +2882,8 @@
 
 - type: Chip
   id: Elona.ItemGreenPlant
-  elonaId: 374
+  hspIds:
+    elona122: 374
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -2570,7 +2891,8 @@
 
 - type: Chip
   id: Elona.ItemMoneyTree
-  elonaId: 375
+  hspIds:
+    elona122: 375
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -2578,7 +2900,8 @@
 
 - type: Chip
   id: Elona.ItemBarbecueSet
-  elonaId: 376
+  hspIds:
+    elona122: 376
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -2586,7 +2909,8 @@
 
 - type: Chip
   id: Elona.ItemGiantCactus
-  elonaId: 377
+  hspIds:
+    elona122: 377
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -2594,7 +2918,8 @@
 
 - type: Chip
   id: Elona.ItemSquareWindow
-  elonaId: 378
+  hspIds:
+    elona122: 378
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -2602,7 +2927,8 @@
 
 - type: Chip
   id: Elona.ItemWindow
-  elonaId: 379
+  hspIds:
+    elona122: 379
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -2610,7 +2936,8 @@
 
 - type: Chip
   id: Elona.ItemTrianglePlant
-  elonaId: 380
+  hspIds:
+    elona122: 380
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -2618,7 +2945,8 @@
 
 - type: Chip
   id: Elona.ItemBoard
-  elonaId: 381
+  hspIds:
+    elona122: 381
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -2626,7 +2954,8 @@
 
 - type: Chip
   id: Elona.ItemNiceWindow
-  elonaId: 382
+  hspIds:
+    elona122: 382
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -2634,7 +2963,8 @@
 
 - type: Chip
   id: Elona.ItemBill
-  elonaId: 383
+  hspIds:
+    elona122: 383
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -2642,7 +2972,8 @@
 
 - type: Chip
   id: Elona.ItemTaxMastersTaxBox
-  elonaId: 384
+  hspIds:
+    elona122: 384
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -2650,7 +2981,8 @@
 
 - type: Chip
   id: Elona.ItemBaitWaterFlea
-  elonaId: 385
+  hspIds:
+    elona122: 385
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -2658,7 +2990,8 @@
 
 - type: Chip
   id: Elona.ItemBaitGrasshopper
-  elonaId: 386
+  hspIds:
+    elona122: 386
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -2666,7 +2999,8 @@
 
 - type: Chip
   id: Elona.ItemBaitLadybug
-  elonaId: 387
+  hspIds:
+    elona122: 387
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -2674,7 +3008,8 @@
 
 - type: Chip
   id: Elona.ItemBaitDragonfly
-  elonaId: 388
+  hspIds:
+    elona122: 388
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -2682,7 +3017,8 @@
 
 - type: Chip
   id: Elona.ItemBaitLocust
-  elonaId: 389
+  hspIds:
+    elona122: 389
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -2690,7 +3026,8 @@
 
 - type: Chip
   id: Elona.ItemBaitBeetle
-  elonaId: 390
+  hspIds:
+    elona122: 390
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -2698,7 +3035,8 @@
 
 - type: Chip
   id: Elona.ItemGift
-  elonaId: 391
+  hspIds:
+    elona122: 391
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -2706,7 +3044,8 @@
 
 - type: Chip
   id: Elona.ItemPanFlute
-  elonaId: 392
+  hspIds:
+    elona122: 392
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -2714,7 +3053,8 @@
 
 - type: Chip
   id: Elona.ItemAlud
-  elonaId: 393
+  hspIds:
+    elona122: 393
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -2722,7 +3062,8 @@
 
 - type: Chip
   id: Elona.ItemHarmonica
-  elonaId: 394
+  hspIds:
+    elona122: 394
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -2730,7 +3071,8 @@
 
 - type: Chip
   id: Elona.ItemHarp
-  elonaId: 395
+  hspIds:
+    elona122: 395
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -2738,7 +3080,8 @@
 
 - type: Chip
   id: Elona.ItemBreastplate
-  elonaId: 396
+  hspIds:
+    elona122: 396
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -2746,7 +3089,8 @@
 
 - type: Chip
   id: Elona.ItemDecorativeAmulet
-  elonaId: 398
+  hspIds:
+    elona122: 398
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -2754,7 +3098,8 @@
 
 - type: Chip
   id: Elona.ItemBardiche
-  elonaId: 399
+  hspIds:
+    elona122: 399
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -2762,7 +3107,8 @@
 
 - type: Chip
   id: Elona.ItemDagger
-  elonaId: 400
+  hspIds:
+    elona122: 400
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -2770,7 +3116,8 @@
 
 - type: Chip
   id: Elona.ItemSpear
-  elonaId: 401
+  hspIds:
+    elona122: 401
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -2778,7 +3125,8 @@
 
 - type: Chip
   id: Elona.ItemSkullBow
-  elonaId: 402
+  hspIds:
+    elona122: 402
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -2786,7 +3134,8 @@
 
 - type: Chip
   id: Elona.Item403
-  elonaId: 403
+  hspIds:
+    elona122: 403
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -2794,7 +3143,8 @@
 
 - type: Chip
   id: Elona.ItemLongBow
-  elonaId: 404
+  hspIds:
+    elona122: 404
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -2802,7 +3152,8 @@
 
 - type: Chip
   id: Elona.ItemLongSword
-  elonaId: 405
+  hspIds:
+    elona122: 405
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -2810,7 +3161,8 @@
 
 - type: Chip
   id: Elona.Item406
-  elonaId: 406
+  hspIds:
+    elona122: 406
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -2818,7 +3170,8 @@
 
 - type: Chip
   id: Elona.ItemDecorativeRing
-  elonaId: 407
+  hspIds:
+    elona122: 407
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -2826,7 +3179,8 @@
 
 - type: Chip
   id: Elona.ItemRobe
-  elonaId: 408
+  hspIds:
+    elona122: 408
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -2834,7 +3188,8 @@
 
 - type: Chip
   id: Elona.ItemBandedMail
-  elonaId: 409
+  hspIds:
+    elona122: 409
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -2842,7 +3197,8 @@
 
 - type: Chip
   id: Elona.ItemPlateMail
-  elonaId: 410
+  hspIds:
+    elona122: 410
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -2850,7 +3206,8 @@
 
 - type: Chip
   id: Elona.ItemKnightShield
-  elonaId: 411
+  hspIds:
+    elona122: 411
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -2858,7 +3215,8 @@
 
 - type: Chip
   id: Elona.ItemBolt
-  elonaId: 412
+  hspIds:
+    elona122: 412
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -2866,7 +3224,8 @@
 
 - type: Chip
   id: Elona.ItemFeatherHat
-  elonaId: 413
+  hspIds:
+    elona122: 413
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -2874,7 +3233,8 @@
 
 - type: Chip
   id: Elona.ItemPlateGauntlets
-  elonaId: 414
+  hspIds:
+    elona122: 414
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -2882,7 +3242,8 @@
 
 - type: Chip
   id: Elona.ItemHolyLance
-  elonaId: 415
+  hspIds:
+    elona122: 415
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -2890,7 +3251,8 @@
 
 - type: Chip
   id: Elona.Item416
-  elonaId: 416
+  hspIds:
+    elona122: 416
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -2898,7 +3260,8 @@
 
 - type: Chip
   id: Elona.ItemHeavyBoots
-  elonaId: 418
+  hspIds:
+    elona122: 418
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -2906,7 +3269,8 @@
 
 - type: Chip
   id: Elona.ItemPistol
-  elonaId: 419
+  hspIds:
+    elona122: 419
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -2914,7 +3278,8 @@
 
 - type: Chip
   id: Elona.ItemBullet
-  elonaId: 420
+  hspIds:
+    elona122: 420
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -2922,7 +3287,8 @@
 
 - type: Chip
   id: Elona.ItemScythe
-  elonaId: 421
+  hspIds:
+    elona122: 421
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -2930,7 +3296,8 @@
 
 - type: Chip
   id: Elona.ItemLightCloak
-  elonaId: 422
+  hspIds:
+    elona122: 422
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -2938,7 +3305,8 @@
 
 - type: Chip
   id: Elona.ItemGirdle
-  elonaId: 423
+  hspIds:
+    elona122: 423
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -2946,7 +3314,8 @@
 
 - type: Chip
   id: Elona.ItemStone
-  elonaId: 424
+  hspIds:
+    elona122: 424
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -2954,7 +3323,8 @@
 
 - type: Chip
   id: Elona.ItemStaff
-  elonaId: 425
+  hspIds:
+    elona122: 425
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -2962,7 +3332,8 @@
 
 - type: Chip
   id: Elona.ItemHalberd
-  elonaId: 426
+  hspIds:
+    elona122: 426
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -2970,7 +3341,8 @@
 
 - type: Chip
   id: Elona.ItemClub
-  elonaId: 427
+  hspIds:
+    elona122: 427
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -2978,7 +3350,8 @@
 
 - type: Chip
   id: Elona.Item428
-  elonaId: 428
+  hspIds:
+    elona122: 428
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -2986,7 +3359,8 @@
 
 - type: Chip
   id: Elona.ItemSpellbook
-  elonaId: 429
+  hspIds:
+    elona122: 429
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -2994,7 +3368,8 @@
 
 - type: Chip
   id: Elona.Item430
-  elonaId: 430
+  hspIds:
+    elona122: 430
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -3002,7 +3377,8 @@
 
 - type: Chip
   id: Elona.ItemKatana
-  elonaId: 431
+  hspIds:
+    elona122: 431
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -3010,7 +3386,8 @@
 
 - type: Chip
   id: Elona.ItemWakizashi
-  elonaId: 432
+  hspIds:
+    elona122: 432
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -3018,7 +3395,8 @@
 
 - type: Chip
   id: Elona.ItemGoldPiece
-  elonaId: 433
+  hspIds:
+    elona122: 433
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -3026,7 +3404,8 @@
 
 - type: Chip
   id: Elona.ItemCasinoChip
-  elonaId: 434
+  hspIds:
+    elona122: 434
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -3034,7 +3413,8 @@
 
 - type: Chip
   id: Elona.ItemMaterialKey
-  elonaId: 435
+  hspIds:
+    elona122: 435
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -3042,7 +3422,8 @@
 
 - type: Chip
   id: Elona.ItemMaterialFeather
-  elonaId: 436
+  hspIds:
+    elona122: 436
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -3050,7 +3431,8 @@
 
 - type: Chip
   id: Elona.ItemPlatinumCoin
-  elonaId: 437
+  hspIds:
+    elona122: 437
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -3058,7 +3440,8 @@
 
 - type: Chip
   id: Elona.ItemMaterialBox
-  elonaId: 438
+  hspIds:
+    elona122: 438
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -3066,7 +3449,8 @@
 
 - type: Chip
   id: Elona.ItemRingMail
-  elonaId: 440
+  hspIds:
+    elona122: 440
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -3074,7 +3458,8 @@
 
 - type: Chip
   id: Elona.ItemCompositeMail
-  elonaId: 441
+  hspIds:
+    elona122: 441
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -3082,7 +3467,8 @@
 
 - type: Chip
   id: Elona.ItemChainMail
-  elonaId: 442
+  hspIds:
+    elona122: 442
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -3090,7 +3476,8 @@
 
 - type: Chip
   id: Elona.ItemPopeRobe
-  elonaId: 443
+  hspIds:
+    elona122: 443
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -3098,7 +3485,8 @@
 
 - type: Chip
   id: Elona.ItemLightMail
-  elonaId: 444
+  hspIds:
+    elona122: 444
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -3106,7 +3494,8 @@
 
 - type: Chip
   id: Elona.ItemCoat
-  elonaId: 445
+  hspIds:
+    elona122: 445
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -3114,7 +3503,8 @@
 
 - type: Chip
   id: Elona.ItemBreastplate2
-  elonaId: 446
+  hspIds:
+    elona122: 446
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -3122,7 +3512,8 @@
 
 - type: Chip
   id: Elona.ItemBulletproofJacket
-  elonaId: 447
+  hspIds:
+    elona122: 447
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -3130,7 +3521,8 @@
 
 - type: Chip
   id: Elona.ItemGloves
-  elonaId: 448
+  hspIds:
+    elona122: 448
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -3138,7 +3530,8 @@
 
 - type: Chip
   id: Elona.ItemDecoratedGloves
-  elonaId: 449
+  hspIds:
+    elona122: 449
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -3146,7 +3539,8 @@
 
 - type: Chip
   id: Elona.ItemThickGauntlets
-  elonaId: 450
+  hspIds:
+    elona122: 450
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -3154,7 +3548,8 @@
 
 - type: Chip
   id: Elona.ItemLightGloves
-  elonaId: 451
+  hspIds:
+    elona122: 451
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -3162,7 +3557,8 @@
 
 - type: Chip
   id: Elona.ItemCompositeGauntlets
-  elonaId: 452
+  hspIds:
+    elona122: 452
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -3170,7 +3566,8 @@
 
 - type: Chip
   id: Elona.ItemSmallShield
-  elonaId: 453
+  hspIds:
+    elona122: 453
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -3178,7 +3575,8 @@
 
 - type: Chip
   id: Elona.ItemRoundShield
-  elonaId: 454
+  hspIds:
+    elona122: 454
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -3186,7 +3584,8 @@
 
 - type: Chip
   id: Elona.ItemShield
-  elonaId: 455
+  hspIds:
+    elona122: 455
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -3194,7 +3593,8 @@
 
 - type: Chip
   id: Elona.ItemLargeShield
-  elonaId: 456
+  hspIds:
+    elona122: 456
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -3202,7 +3602,8 @@
 
 - type: Chip
   id: Elona.ItemKiteShield
-  elonaId: 457
+  hspIds:
+    elona122: 457
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -3210,7 +3611,8 @@
 
 - type: Chip
   id: Elona.ItemTowerShield
-  elonaId: 458
+  hspIds:
+    elona122: 458
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -3218,7 +3620,8 @@
 
 - type: Chip
   id: Elona.ItemTightBoots
-  elonaId: 459
+  hspIds:
+    elona122: 459
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -3226,7 +3629,8 @@
 
 - type: Chip
   id: Elona.ItemCompositeBoots
-  elonaId: 460
+  hspIds:
+    elona122: 460
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -3234,7 +3638,8 @@
 
 - type: Chip
   id: Elona.ItemArmoredBoots
-  elonaId: 461
+  hspIds:
+    elona122: 461
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -3242,7 +3647,8 @@
 
 - type: Chip
   id: Elona.ItemScroll
-  elonaId: 470
+  hspIds:
+    elona122: 470
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -3250,7 +3656,8 @@
 
 - type: Chip
   id: Elona.ItemRod
-  elonaId: 471
+  hspIds:
+    elona122: 471
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -3258,7 +3665,8 @@
 
 - type: Chip
   id: Elona.Item472
-  elonaId: 472
+  hspIds:
+    elona122: 472
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -3266,7 +3674,8 @@
 
 - type: Chip
   id: Elona.ItemBoots
-  elonaId: 473
+  hspIds:
+    elona122: 473
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -3274,7 +3683,8 @@
 
 - type: Chip
   id: Elona.ItemCompositeGirdle
-  elonaId: 474
+  hspIds:
+    elona122: 474
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -3282,7 +3692,8 @@
 
 - type: Chip
   id: Elona.ItemArmoredCloak
-  elonaId: 475
+  hspIds:
+    elona122: 475
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -3290,7 +3701,8 @@
 
 - type: Chip
   id: Elona.ItemCloak
-  elonaId: 476
+  hspIds:
+    elona122: 476
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -3298,7 +3710,8 @@
 
 - type: Chip
   id: Elona.ItemMagicHat
-  elonaId: 477
+  hspIds:
+    elona122: 477
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -3306,7 +3719,8 @@
 
 - type: Chip
   id: Elona.ItemFairyHat
-  elonaId: 478
+  hspIds:
+    elona122: 478
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -3314,7 +3728,8 @@
 
 - type: Chip
   id: Elona.ItemHelm
-  elonaId: 479
+  hspIds:
+    elona122: 479
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -3322,7 +3737,8 @@
 
 - type: Chip
   id: Elona.ItemKnightHelm
-  elonaId: 480
+  hspIds:
+    elona122: 480
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -3330,7 +3746,8 @@
 
 - type: Chip
   id: Elona.ItemHeavyHelm
-  elonaId: 481
+  hspIds:
+    elona122: 481
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -3338,7 +3755,8 @@
 
 - type: Chip
   id: Elona.ItemCompositeHelm
-  elonaId: 482
+  hspIds:
+    elona122: 482
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -3346,7 +3764,8 @@
 
 - type: Chip
   id: Elona.ItemEngagementAmulet
-  elonaId: 483
+  hspIds:
+    elona122: 483
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -3354,7 +3773,8 @@
 
 - type: Chip
   id: Elona.ItemBejeweledAmulet
-  elonaId: 484
+  hspIds:
+    elona122: 484
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -3362,7 +3782,8 @@
 
 - type: Chip
   id: Elona.ItemCharm
-  elonaId: 485
+  hspIds:
+    elona122: 485
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -3370,7 +3791,8 @@
 
 - type: Chip
   id: Elona.ItemNeckGuard
-  elonaId: 486
+  hspIds:
+    elona122: 486
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -3378,7 +3800,8 @@
 
 - type: Chip
   id: Elona.ItemTalisman
-  elonaId: 487
+  hspIds:
+    elona122: 487
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -3386,7 +3809,8 @@
 
 - type: Chip
   id: Elona.ItemPeridot
-  elonaId: 488
+  hspIds:
+    elona122: 488
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -3394,7 +3818,8 @@
 
 - type: Chip
   id: Elona.ItemEngagementRing
-  elonaId: 489
+  hspIds:
+    elona122: 489
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -3402,7 +3827,8 @@
 
 - type: Chip
   id: Elona.ItemRing
-  elonaId: 490
+  hspIds:
+    elona122: 490
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -3410,7 +3836,8 @@
 
 - type: Chip
   id: Elona.ItemArmoredRing
-  elonaId: 491
+  hspIds:
+    elona122: 491
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -3418,7 +3845,8 @@
 
 - type: Chip
   id: Elona.ItemCompositeRing
-  elonaId: 492
+  hspIds:
+    elona122: 492
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -3426,7 +3854,8 @@
 
 - type: Chip
   id: Elona.ItemStethoscope
-  elonaId: 493
+  hspIds:
+    elona122: 493
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -3434,7 +3863,8 @@
 
 - type: Chip
   id: Elona.ItemTrident
-  elonaId: 494
+  hspIds:
+    elona122: 494
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -3442,7 +3872,8 @@
 
 - type: Chip
   id: Elona.Item495
-  elonaId: 495
+  hspIds:
+    elona122: 495
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -3450,7 +3881,8 @@
 
 - type: Chip
   id: Elona.Item496
-  elonaId: 496
+  hspIds:
+    elona122: 496
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -3458,7 +3890,8 @@
 
 - type: Chip
   id: Elona.Item497
-  elonaId: 497
+  hspIds:
+    elona122: 497
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -3466,7 +3899,8 @@
 
 - type: Chip
   id: Elona.ItemCrossbow
-  elonaId: 498
+  hspIds:
+    elona122: 498
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -3474,7 +3908,8 @@
 
 - type: Chip
   id: Elona.ItemHandAxe
-  elonaId: 499
+  hspIds:
+    elona122: 499
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -3482,7 +3917,8 @@
 
 - type: Chip
   id: Elona.ItemBattleAxe
-  elonaId: 500
+  hspIds:
+    elona122: 500
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -3490,7 +3926,8 @@
 
 - type: Chip
   id: Elona.ItemZantetsu
-  elonaId: 501
+  hspIds:
+    elona122: 501
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -3498,7 +3935,8 @@
 
 - type: Chip
   id: Elona.ItemScimitar
-  elonaId: 502
+  hspIds:
+    elona122: 502
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -3506,7 +3944,8 @@
 
 - type: Chip
   id: Elona.ItemClaymore
-  elonaId: 503
+  hspIds:
+    elona122: 503
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -3514,7 +3953,8 @@
 
 - type: Chip
   id: Elona.ItemHammer
-  elonaId: 504
+  hspIds:
+    elona122: 504
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -3522,7 +3962,8 @@
 
 - type: Chip
   id: Elona.ItemLongStaff
-  elonaId: 505
+  hspIds:
+    elona122: 505
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -3530,7 +3971,8 @@
 
 - type: Chip
   id: Elona.ItemTrainingMachine
-  elonaId: 506
+  hspIds:
+    elona122: 506
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -3538,7 +3980,8 @@
 
 - type: Chip
   id: Elona.ItemMachine
-  elonaId: 507
+  hspIds:
+    elona122: 507
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -3546,7 +3989,8 @@
 
 - type: Chip
   id: Elona.ItemComputer
-  elonaId: 508
+  hspIds:
+    elona122: 508
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -3554,7 +3998,8 @@
 
 - type: Chip
   id: Elona.ItemCamera
-  elonaId: 509
+  hspIds:
+    elona122: 509
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -3562,7 +4007,8 @@
 
 - type: Chip
   id: Elona.ItemMicrowaveOven
-  elonaId: 510
+  hspIds:
+    elona122: 510
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -3570,7 +4016,8 @@
 
 - type: Chip
   id: Elona.ItemServer
-  elonaId: 511
+  hspIds:
+    elona122: 511
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -3578,7 +4025,8 @@
 
 - type: Chip
   id: Elona.ItemStorage
-  elonaId: 512
+  hspIds:
+    elona122: 512
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -3586,7 +4034,8 @@
 
 - type: Chip
   id: Elona.ItemTrashCan
-  elonaId: 513
+  hspIds:
+    elona122: 513
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -3594,7 +4043,8 @@
 
 - type: Chip
   id: Elona.ItemShotGun
-  elonaId: 514
+  hspIds:
+    elona122: 514
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -3602,7 +4052,8 @@
 
 - type: Chip
   id: Elona.ItemChip
-  elonaId: 515
+  hspIds:
+    elona122: 515
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -3610,7 +4061,8 @@
 
 - type: Chip
   id: Elona.ItemPlaybackDisc
-  elonaId: 516
+  hspIds:
+    elona122: 516
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -3618,7 +4070,8 @@
 
 - type: Chip
   id: Elona.ItemPopCorn
-  elonaId: 517
+  hspIds:
+    elona122: 517
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -3626,7 +4079,8 @@
 
 - type: Chip
   id: Elona.ItemFriedPotato
-  elonaId: 518
+  hspIds:
+    elona122: 518
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -3634,7 +4088,8 @@
 
 - type: Chip
   id: Elona.ItemCyberSnack
-  elonaId: 519
+  hspIds:
+    elona122: 519
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -3642,7 +4097,8 @@
 
 - type: Chip
   id: Elona.ItemLaserGun
-  elonaId: 520
+  hspIds:
+    elona122: 520
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -3650,7 +4106,8 @@
 
 - type: Chip
   id: Elona.ItemEnergyCell
-  elonaId: 521
+  hspIds:
+    elona122: 521
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -3658,7 +4115,8 @@
 
 - type: Chip
   id: Elona.ItemWing
-  elonaId: 522
+  hspIds:
+    elona122: 522
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -3666,7 +4124,8 @@
 
 - type: Chip
   id: Elona.ItemFoodMaker
-  elonaId: 523
+  hspIds:
+    elona122: 523
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -3674,7 +4133,8 @@
 
 - type: Chip
   id: Elona.ItemLongPillar
-  elonaId: 524
+  hspIds:
+    elona122: 524
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -3682,7 +4142,8 @@
 
 - type: Chip
   id: Elona.ItemStatueOrnamentedWithPlants
-  elonaId: 525
+  hspIds:
+    elona122: 525
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -3690,7 +4151,8 @@
 
 - type: Chip
   id: Elona.ItemStatueOrnamentedWithFlowers
-  elonaId: 526
+  hspIds:
+    elona122: 526
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -3698,7 +4160,8 @@
 
 - type: Chip
   id: Elona.ItemTreeOfBeech
-  elonaId: 527
+  hspIds:
+    elona122: 527
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -3706,7 +4169,8 @@
 
 - type: Chip
   id: Elona.ItemCard
-  elonaId: 528
+  hspIds:
+    elona122: 528
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -3714,7 +4178,8 @@
 
 - type: Chip
   id: Elona.Item530
-  elonaId: 530
+  hspIds:
+    elona122: 530
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -3722,7 +4187,8 @@
 
 - type: Chip
   id: Elona.ItemFigurine
-  elonaId: 531
+  hspIds:
+    elona122: 531
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -3730,7 +4196,8 @@
 
 - type: Chip
   id: Elona.ItemTownBook
-  elonaId: 532
+  hspIds:
+    elona122: 532
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -3738,7 +4205,8 @@
 
 - type: Chip
   id: Elona.ItemDeck
-  elonaId: 533
+  hspIds:
+    elona122: 533
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -3746,7 +4214,8 @@
 
 - type: Chip
   id: Elona.ItemWhistle
-  elonaId: 534
+  hspIds:
+    elona122: 534
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -3754,7 +4223,8 @@
 
 - type: Chip
   id: Elona.ItemVomit
-  elonaId: 535
+  hspIds:
+    elona122: 535
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -3762,7 +4232,8 @@
 
 - type: Chip
   id: Elona.ItemShuriken
-  elonaId: 536
+  hspIds:
+    elona122: 536
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -3770,7 +4241,8 @@
 
 - type: Chip
   id: Elona.ItemGrenade
-  elonaId: 537
+  hspIds:
+    elona122: 537
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -3778,7 +4250,8 @@
 
 - type: Chip
   id: Elona.ItemTokenOfFriendship
-  elonaId: 538
+  hspIds:
+    elona122: 538
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -3786,7 +4259,8 @@
 
 - type: Chip
   id: Elona.ItemFortuneCookie
-  elonaId: 539
+  hspIds:
+    elona122: 539
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -3794,7 +4268,8 @@
 
 - type: Chip
   id: Elona.ItemTomato
-  elonaId: 540
+  hspIds:
+    elona122: 540
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -3802,7 +4277,8 @@
 
 - type: Chip
   id: Elona.ItemLargeBookshelf
-  elonaId: 541
+  hspIds:
+    elona122: 541
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -3810,7 +4286,8 @@
 
 - type: Chip
   id: Elona.ItemSpecialSteamedMeatBun
-  elonaId: 542
+  hspIds:
+    elona122: 542
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -3818,7 +4295,8 @@
 
 - type: Chip
   id: Elona.ItemLuxurySofa
-  elonaId: 543
+  hspIds:
+    elona122: 543
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -3826,7 +4304,8 @@
 
 - type: Chip
   id: Elona.ItemDeerHead
-  elonaId: 544
+  hspIds:
+    elona122: 544
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -3834,7 +4313,8 @@
 
 - type: Chip
   id: Elona.ItemFurCarpet
-  elonaId: 545
+  hspIds:
+    elona122: 545
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -3842,7 +4322,8 @@
 
 - type: Chip
   id: Elona.ItemKitchenKnife
-  elonaId: 546
+  hspIds:
+    elona122: 546
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -3850,7 +4331,8 @@
 
 - type: Chip
   id: Elona.ItemMachineGun
-  elonaId: 547
+  hspIds:
+    elona122: 547
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -3858,7 +4340,8 @@
 
 - type: Chip
   id: Elona.Item548
-  elonaId: 548
+  hspIds:
+    elona122: 548
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -3866,7 +4349,8 @@
 
 - type: Chip
   id: Elona.ItemRecipeHolder
-  elonaId: 549
+  hspIds:
+    elona122: 549
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -3874,7 +4358,8 @@
 
 - type: Chip
   id: Elona.ItemRecipe
-  elonaId: 550
+  hspIds:
+    elona122: 550
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -3882,7 +4367,8 @@
 
 - type: Chip
   id: Elona.ItemSackOfSugar
-  elonaId: 551
+  hspIds:
+    elona122: 551
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -3890,7 +4376,8 @@
 
 - type: Chip
   id: Elona.ItemPuffPuffBread
-  elonaId: 552
+  hspIds:
+    elona122: 552
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -3898,7 +4385,8 @@
 
 - type: Chip
   id: Elona.ItemBottleOfSalt
-  elonaId: 553
+  hspIds:
+    elona122: 553
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -3906,7 +4394,8 @@
 
 - type: Chip
   id: Elona.ItemPotForTesting
-  elonaId: 554
+  hspIds:
+    elona122: 554
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -3914,7 +4403,8 @@
 
 - type: Chip
   id: Elona.ItemFryingPanForTesting
-  elonaId: 555
+  hspIds:
+    elona122: 555
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -3922,7 +4412,8 @@
 
 - type: Chip
   id: Elona.ItemSandBag
-  elonaId: 563
+  hspIds:
+    elona122: 563
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -3930,7 +4421,8 @@
 
 - type: Chip
   id: Elona.ItemFigurineTall
-  elonaId: 564
+  hspIds:
+    elona122: 564
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -3938,7 +4430,8 @@
 
 - type: Chip
   id: Elona.ItemMoonGate
-  elonaId: 566
+  hspIds:
+    elona122: 566
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -3946,7 +4439,8 @@
 
 - type: Chip
   id: Elona.ItemMoonGateB
-  elonaId: 567
+  hspIds:
+    elona122: 567
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -3954,7 +4448,8 @@
 
 - type: Chip
   id: Elona.ItemFlowerArch
-  elonaId: 568
+  hspIds:
+    elona122: 568
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -3962,7 +4457,8 @@
 
 - type: Chip
   id: Elona.ItemKingsBed
-  elonaId: 569
+  hspIds:
+    elona122: 569
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -3970,7 +4466,8 @@
 
 - type: Chip
   id: Elona.ItemChristmasTree
-  elonaId: 570
+  hspIds:
+    elona122: 570
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -3978,7 +4475,8 @@
 
 - type: Chip
   id: Elona.ItemPillar
-  elonaId: 571
+  hspIds:
+    elona122: 571
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -3986,7 +4484,8 @@
 
 - type: Chip
   id: Elona.ItemStatueOfHolyCross
-  elonaId: 572
+  hspIds:
+    elona122: 572
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -3994,7 +4493,8 @@
 
 - type: Chip
   id: Elona.ItemModernLampB
-  elonaId: 573
+  hspIds:
+    elona122: 573
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -4002,7 +4502,8 @@
 
 - type: Chip
   id: Elona.ItemTreeOfFir
-  elonaId: 574
+  hspIds:
+    elona122: 574
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -4010,7 +4511,8 @@
 
 - type: Chip
   id: Elona.ItemTreeOfNaked
-  elonaId: 575
+  hspIds:
+    elona122: 575
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -4018,7 +4520,8 @@
 
 - type: Chip
   id: Elona.ItemModernLampA
-  elonaId: 576
+  hspIds:
+    elona122: 576
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -4026,7 +4529,8 @@
 
 - type: Chip
   id: Elona.ItemFreezer
-  elonaId: 577
+  hspIds:
+    elona122: 577
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -4034,7 +4538,8 @@
 
 - type: Chip
   id: Elona.ItemStatueOfCat
-  elonaId: 578
+  hspIds:
+    elona122: 578
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -4042,7 +4547,8 @@
 
 - type: Chip
   id: Elona.ItemThrone
-  elonaId: 579
+  hspIds:
+    elona122: 579
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -4050,7 +4556,8 @@
 
 - type: Chip
   id: Elona.ItemRackOfPotions
-  elonaId: 580
+  hspIds:
+    elona122: 580
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -4058,7 +4565,8 @@
 
 - type: Chip
   id: Elona.ItemStove
-  elonaId: 581
+  hspIds:
+    elona122: 581
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -4066,7 +4574,8 @@
 
 - type: Chip
   id: Elona.ItemGiantFoliagePlant
-  elonaId: 582
+  hspIds:
+    elona122: 582
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -4074,7 +4583,8 @@
 
 - type: Chip
   id: Elona.ItemFurnance
-  elonaId: 583
+  hspIds:
+    elona122: 583
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -4082,7 +4592,8 @@
 
 - type: Chip
   id: Elona.ItemFireplace
-  elonaId: 584
+  hspIds:
+    elona122: 584
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -4090,7 +4601,8 @@
 
 - type: Chip
   id: Elona.ItemStreetLamp
-  elonaId: 585
+  hspIds:
+    elona122: 585
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -4098,7 +4610,8 @@
 
 - type: Chip
   id: Elona.ItemBigCupboard
-  elonaId: 586
+  hspIds:
+    elona122: 586
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -4106,7 +4619,8 @@
 
 - type: Chip
   id: Elona.ItemTreeOfAsh
-  elonaId: 587
+  hspIds:
+    elona122: 587
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -4114,7 +4628,8 @@
 
 - type: Chip
   id: Elona.ItemTreeOfPalm
-  elonaId: 588
+  hspIds:
+    elona122: 588
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -4122,7 +4637,8 @@
 
 - type: Chip
   id: Elona.ItemTreeOfZelkova
-  elonaId: 589
+  hspIds:
+    elona122: 589
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -4130,7 +4646,8 @@
 
 - type: Chip
   id: Elona.ItemDeadTree
-  elonaId: 590
+  hspIds:
+    elona122: 590
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -4138,7 +4655,8 @@
 
 - type: Chip
   id: Elona.ItemTreeOfFruits
-  elonaId: 591
+  hspIds:
+    elona122: 591
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -4146,7 +4664,8 @@
 
 - type: Chip
   id: Elona.ItemTreeOfFruitless
-  elonaId: 592
+  hspIds:
+    elona122: 592
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -4154,7 +4673,8 @@
 
 - type: Chip
   id: Elona.ItemTreeOfCedar
-  elonaId: 593
+  hspIds:
+    elona122: 593
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -4162,7 +4682,8 @@
 
 - type: Chip
   id: Elona.ItemShrineGate
-  elonaId: 627
+  hspIds:
+    elona122: 627
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -4170,7 +4691,8 @@
 
 - type: Chip
   id: Elona.ItemDisguiseSet
-  elonaId: 628
+  hspIds:
+    elona122: 628
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -4178,7 +4700,8 @@
 
 - type: Chip
   id: Elona.ItemMaterialKit
-  elonaId: 629
+  hspIds:
+    elona122: 629
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -4186,7 +4709,8 @@
 
 - type: Chip
   id: Elona.ItemPanty
-  elonaId: 630
+  hspIds:
+    elona122: 630
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -4194,7 +4718,8 @@
 
 - type: Chip
   id: Elona.ItemLeash
-  elonaId: 631
+  hspIds:
+    elona122: 631
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -4202,7 +4727,8 @@
 
 - type: Chip
   id: Elona.ItemMine
-  elonaId: 632
+  hspIds:
+    elona122: 632
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -4210,7 +4736,8 @@
 
 - type: Chip
   id: Elona.ItemSkeletonKey
-  elonaId: 633
+  hspIds:
+    elona122: 633
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -4218,7 +4745,8 @@
 
 - type: Chip
   id: Elona.ItemLockpick
-  elonaId: 634
+  hspIds:
+    elona122: 634
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -4226,7 +4754,8 @@
 
 - type: Chip
   id: Elona.ItemUnicornHorn
-  elonaId: 635
+  hspIds:
+    elona122: 635
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -4234,7 +4763,8 @@
 
 - type: Chip
   id: Elona.ItemCoolerBox
-  elonaId: 636
+  hspIds:
+    elona122: 636
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -4242,7 +4772,8 @@
 
 - type: Chip
   id: Elona.ItemRiceBarrel
-  elonaId: 637
+  hspIds:
+    elona122: 637
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -4250,7 +4781,8 @@
 
 - type: Chip
   id: Elona.ItemEasternBed
-  elonaId: 638
+  hspIds:
+    elona122: 638
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -4258,7 +4790,8 @@
 
 - type: Chip
   id: Elona.ItemDecoratedWindow
-  elonaId: 639
+  hspIds:
+    elona122: 639
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -4266,7 +4799,8 @@
 
 - type: Chip
   id: Elona.ItemKingDrawer
-  elonaId: 640
+  hspIds:
+    elona122: 640
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -4274,7 +4808,8 @@
 
 - type: Chip
   id: Elona.ItemMenuBoard
-  elonaId: 641
+  hspIds:
+    elona122: 641
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -4282,7 +4817,8 @@
 
 - type: Chip
   id: Elona.ItemBlackBoard
-  elonaId: 642
+  hspIds:
+    elona122: 642
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -4290,7 +4826,8 @@
 
 - type: Chip
   id: Elona.ItemSofa
-  elonaId: 643
+  hspIds:
+    elona122: 643
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -4298,7 +4835,8 @@
 
 - type: Chip
   id: Elona.ItemFlowerbed
-  elonaId: 644
+  hspIds:
+    elona122: 644
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -4306,7 +4844,8 @@
 
 - type: Chip
   id: Elona.ItemToilet
-  elonaId: 645
+  hspIds:
+    elona122: 645
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -4314,7 +4853,8 @@
 
 - type: Chip
   id: Elona.ItemCraftCupboard
-  elonaId: 646
+  hspIds:
+    elona122: 646
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -4322,7 +4862,8 @@
 
 - type: Chip
   id: Elona.ItemSink
-  elonaId: 647
+  hspIds:
+    elona122: 647
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -4330,7 +4871,8 @@
 
 - type: Chip
   id: Elona.ItemJunk
-  elonaId: 648
+  hspIds:
+    elona122: 648
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -4338,7 +4880,8 @@
 
 - type: Chip
   id: Elona.ItemDoubleBed
-  elonaId: 649
+  hspIds:
+    elona122: 649
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -4346,7 +4889,8 @@
 
 - type: Chip
   id: Elona.ItemEasternLamp
-  elonaId: 650
+  hspIds:
+    elona122: 650
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -4354,7 +4898,8 @@
 
 - type: Chip
   id: Elona.ItemEasternWindow
-  elonaId: 651
+  hspIds:
+    elona122: 651
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -4362,7 +4907,8 @@
 
 - type: Chip
   id: Elona.ItemChochin
-  elonaId: 652
+  hspIds:
+    elona122: 652
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -4370,7 +4916,8 @@
 
 - type: Chip
   id: Elona.ItemPartition
-  elonaId: 653
+  hspIds:
+    elona122: 653
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -4378,7 +4925,8 @@
 
 - type: Chip
   id: Elona.ItemMonsterHeart
-  elonaId: 654
+  hspIds:
+    elona122: 654
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -4386,7 +4934,8 @@
 
 - type: Chip
   id: Elona.Item655
-  elonaId: 655
+  hspIds:
+    elona122: 655
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -4394,7 +4943,8 @@
 
 - type: Chip
   id: Elona.ItemSecretTreasure
-  elonaId: 656
+  hspIds:
+    elona122: 656
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -4402,7 +4952,8 @@
 
 - type: Chip
   id: Elona.ItemGemstone
-  elonaId: 657
+  hspIds:
+    elona122: 657
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -4410,7 +4961,8 @@
 
 - type: Chip
   id: Elona.ItemMonsterBall
-  elonaId: 658
+  hspIds:
+    elona122: 658
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -4418,7 +4970,8 @@
 
 - type: Chip
   id: Elona.ItemEasternPartition
-  elonaId: 659
+  hspIds:
+    elona122: 659
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -4426,7 +4979,8 @@
 
 - type: Chip
   id: Elona.ItemSummoningCrystal
-  elonaId: 662
+  hspIds:
+    elona122: 662
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -4434,7 +4988,8 @@
 
 - type: Chip
   id: Elona.Item663
-  elonaId: 663
+  hspIds:
+    elona122: 663
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -4442,7 +4997,8 @@
 
 - type: Chip
   id: Elona.ItemDownstairs
-  elonaId: 664
+  hspIds:
+    elona122: 664
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -4450,7 +5006,8 @@
 
 - type: Chip
   id: Elona.ItemUpstairs
-  elonaId: 665
+  hspIds:
+    elona122: 665
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -4458,7 +5015,8 @@
 
 - type: Chip
   id: Elona.ItemNewYearsGift
-  elonaId: 666
+  hspIds:
+    elona122: 666
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -4466,7 +5024,8 @@
 
 - type: Chip
   id: Elona.ItemKotatsu
-  elonaId: 667
+  hspIds:
+    elona122: 667
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -4474,7 +5033,8 @@
 
 - type: Chip
   id: Elona.ItemDaruma
-  elonaId: 668
+  hspIds:
+    elona122: 668
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -4482,7 +5042,8 @@
 
 - type: Chip
   id: Elona.ItemKagamiMochi
-  elonaId: 669
+  hspIds:
+    elona122: 669
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -4490,7 +5051,8 @@
 
 - type: Chip
   id: Elona.ItemMochi
-  elonaId: 670
+  hspIds:
+    elona122: 670
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -4498,7 +5060,8 @@
 
 - type: Chip
   id: Elona.ItemLightsabre
-  elonaId: 671
+  hspIds:
+    elona122: 671
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -4506,7 +5069,8 @@
 
 - type: Chip
   id: Elona.ItemFestivalWreath
-  elonaId: 672
+  hspIds:
+    elona122: 672
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -4514,7 +5078,8 @@
 
 - type: Chip
   id: Elona.ItemPedestal
-  elonaId: 673
+  hspIds:
+    elona122: 673
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -4522,7 +5087,8 @@
 
 - type: Chip
   id: Elona.ItemCounter
-  elonaId: 674
+  hspIds:
+    elona122: 674
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -4530,7 +5096,8 @@
 
 - type: Chip
   id: Elona.ItemJuresBodyPillow
-  elonaId: 675
+  hspIds:
+    elona122: 675
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -4538,7 +5105,8 @@
 
 - type: Chip
   id: Elona.ItemNewYearsDecoration
-  elonaId: 676
+  hspIds:
+    elona122: 676
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -4546,7 +5114,8 @@
 
 - type: Chip
   id: Elona.ItemMiniatureTree
-  elonaId: 677
+  hspIds:
+    elona122: 677
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -4554,7 +5123,8 @@
 
 - type: Chip
   id: Elona.ItemBottleOfSoda
-  elonaId: 678
+  hspIds:
+    elona122: 678
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -4562,7 +5132,8 @@
 
 - type: Chip
   id: Elona.ItemBlueCapsuleDrug
-  elonaId: 679
+  hspIds:
+    elona122: 679
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -4570,7 +5141,8 @@
 
 - type: Chip
   id: Elona.ItemStatueOfOpatos
-  elonaId: 680
+  hspIds:
+    elona122: 680
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -4578,7 +5150,8 @@
 
 - type: Chip
   id: Elona.ItemStatueOfKumiromi
-  elonaId: 681
+  hspIds:
+    elona122: 681
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -4586,7 +5159,8 @@
 
 - type: Chip
   id: Elona.ItemStatueOfMani
-  elonaId: 682
+  hspIds:
+    elona122: 682
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -4594,7 +5168,8 @@
 
 - type: Chip
   id: Elona.ItemLuxuryCabinet
-  elonaId: 683
+  hspIds:
+    elona122: 683
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -4602,7 +5177,8 @@
 
 - type: Chip
   id: Elona.ItemBlueStall
-  elonaId: 684
+  hspIds:
+    elona122: 684
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -4610,7 +5186,8 @@
 
 - type: Chip
   id: Elona.ItemRedStall
-  elonaId: 685
+  hspIds:
+    elona122: 685
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -4618,7 +5195,8 @@
 
 - type: Chip
   id: Elona.ItemStatueOfCreator
-  elonaId: 686
+  hspIds:
+    elona122: 686
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -4626,7 +5204,8 @@
 
 - type: Chip
   id: Elona.ItemStatueOfEhekatl
-  elonaId: 687
+  hspIds:
+    elona122: 687
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -4634,7 +5213,8 @@
 
 - type: Chip
   id: Elona.ItemGuillotine
-  elonaId: 688
+  hspIds:
+    elona122: 688
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -4642,7 +5222,8 @@
 
 - type: Chip
   id: Elona.ItemIronMaiden
-  elonaId: 689
+  hspIds:
+    elona122: 689
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -4650,7 +5231,8 @@
 
 - type: Chip
   id: Elona.ItemStatueOfJure
-  elonaId: 690
+  hspIds:
+    elona122: 690
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -4658,7 +5240,8 @@
 
 - type: Chip
   id: Elona.ItemGeneMachine
-  elonaId: 691
+  hspIds:
+    elona122: 691
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -4666,7 +5249,8 @@
 
 - type: Chip
   id: Elona.ItemStatueOfLulwy
-  elonaId: 692
+  hspIds:
+    elona122: 692
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -4674,7 +5258,8 @@
 
 - type: Chip
   id: Elona.ItemPutitoro
-  elonaId: 695
+  hspIds:
+    elona122: 695
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -4682,7 +5267,8 @@
 
 - type: Chip
   id: Elona.Item696
-  elonaId: 696
+  hspIds:
+    elona122: 696
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -4690,7 +5276,8 @@
 
 - type: Chip
   id: Elona.ItemDragonSlayer
-  elonaId: 697
+  hspIds:
+    elona122: 697
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -4698,7 +5285,8 @@
 
 - type: Chip
   id: Elona.ItemClaymoreUnique
-  elonaId: 698
+  hspIds:
+    elona122: 698
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -4706,7 +5294,8 @@
 
 - type: Chip
   id: Elona.ItemStradivarius
-  elonaId: 699
+  hspIds:
+    elona122: 699
   group: Item
   image:
     filepath: /Elona/Graphic/item.bmp

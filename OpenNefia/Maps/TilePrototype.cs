@@ -32,15 +32,11 @@ namespace OpenNefia.Core.Maps
         [DataField("id", required: true)]
         public string ID { get; } = default!;
 
-        [DataField]
-        public string? HspOrigin { get; }
-
         /// <summary>
         /// ID mappings of format (atlasIndex, tileIndex)
         /// </summary>
-        [DataField("hspIds")]
-        private readonly Dictionary<string, Vector2i> _hspIds = new();
-        public IReadOnlyDictionary<string, Vector2i> HspIds => _hspIds;
+        [DataField]
+        public HspIds<Vector2i>? HspIds { get; }
 
         /// <inheritdoc />
         public int TileIndex { get; private set; } = 0;

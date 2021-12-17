@@ -37,7 +37,7 @@ namespace OpenNefia.Content.GameObjects
                 return;
 
             Mes.Display($"{DisplayNameSystem.GetDisplayName(uid)} punches {DisplayNameSystem.GetDisplayName(args.Target)}");
-            Sounds.Play(SoundPrototypeOf.Atk2);
+            Sounds.Play(Protos.Sound.Atk2);
             EntityManager.DeleteEntity(args.Target);
             args.Handled = true;
         }

@@ -1,12 +1,15 @@
 ﻿using EntityPrototypeId = OpenNefia.Core.Prototypes.PrototypeId<OpenNefia.Core.Prototypes.EntityPrototype>;
 
-namespace OpenNefia.Content.GameObjects
+namespace OpenNefia.Content.Prototypes
 {
     public static partial class Protos
     {
         public static class Feat
         {
-            public static readonly EntityPrototypeId Door = new($"Elona.FeatDoor");
+            public static readonly EntityPrototypeId DoorWooden = new($"Elona.FeatDoorWooden");
+            public static readonly EntityPrototypeId DoorSF = new($"Elona.FeatDoorSF");
+            public static readonly EntityPrototypeId DoorEastern = new($"Elona.FeatDoorEastern");
+            public static readonly EntityPrototypeId DoorJail = new($"Elona.FeatDoorJail");
             public static readonly EntityPrototypeId Pot = new($"Elona.FeatPot");
             public static readonly EntityPrototypeId HiddenPath = new($"Elona.FeatHiddenPath");
             public static readonly EntityPrototypeId QuestBoard = new($"Elona.FeatQuestBoard");

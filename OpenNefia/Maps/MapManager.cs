@@ -48,7 +48,7 @@ namespace OpenNefia.Core.Maps
             mapEntityUidField.SetValue(map, mapEntityUid);
         }
 
-        public MapId RegisterMap(IMap map, MapId? mapId = null)
+        public MapId RegisterMap(IMap map, MapId? mapId = null, EntityUid? mapEntityUid = null)
         {
             var actualID = AllocFreeMapId(mapId);
 
@@ -59,8 +59,16 @@ namespace OpenNefia.Core.Maps
 
             this._maps[_highestMapID] = map;
 
-            var entityUid = RebindMapEntity(actualID);
-            SetMapGridIds(map, actualID, entityUid);
+            if (mapEntityUid == null)
+            {
+                mapEntityUid = RebindMapEntity(actualID);
+            }
+            else
+            {
+                SetMapEntity(actualID, mapEntityUid.Value);
+            }
+
+            SetMapGridIds(map, actualID, mapEntityUid.Value);
 
             return actualID;
         }

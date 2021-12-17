@@ -5,6 +5,7 @@ using OpenNefia.Core.Data.Types;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.UI;
 using OpenNefia.Core.UI.Element;
+using OpenNefia.Content.Prototypes;
 using System.Collections;
 using MouseButton = OpenNefia.Core.UI.MouseButton;
 
@@ -125,12 +126,12 @@ namespace OpenNefia.Content.UI.Element.List
 
             Keybinds[CoreKeybinds.UIUp] += (_) =>
             {
-                Sounds.Play(SoundPrototypeOf.Cursor1);
+                Sounds.Play(Protos.Sound.Cursor1);
                 IncrementIndex(-1);
             };
             Keybinds[CoreKeybinds.UIDown] += (_) =>
             {
-                Sounds.Play(SoundPrototypeOf.Cursor1);
+                Sounds.Play(Protos.Sound.Cursor1);
                 IncrementIndex(1);
             };
             Keybinds[CoreKeybinds.Enter] += (_) => Activate(SelectedIndex);
@@ -143,7 +144,7 @@ namespace OpenNefia.Content.UI.Element.List
                     {
                         if (SelectedIndex != index)
                         {
-                            Sounds.Play(SoundPrototypeOf.Cursor1);
+                            Sounds.Play(Protos.Sound.Cursor1);
                             Select(index);
                         }
                         break;

@@ -37,20 +37,15 @@ namespace OpenNefia.Core.Prototypes
 
         /// <inheritdoc/>
         [DataField]
-        public string? HspOrigin { get; }
-
-        /// <inheritdoc/>
-        [DataField("hspIds")]
-        private readonly Dictionary<string, int> _hspIds = new();
-        public IReadOnlyDictionary<string, int> HspIds => _hspIds;
+        public HspIds<int>? HspIds { get; }
 
         /// <summary>
         /// Cell object IDs of this entity for each HSP variant.
         /// This is used during HSP map conversion.
         /// </summary>
         [DataField("hspCellObjIds")]
-        private readonly Dictionary<string, int> _hspCellObjIds = new();
-        public IReadOnlyDictionary<string, int> HspCellObjIds => _hspCellObjIds;
+        private readonly Dictionary<string, HashSet<int>> _hspCellObjIds = new();
+        public IReadOnlyDictionary<string, HashSet<int>> HspCellObjIds => _hspCellObjIds;
 
         /// <summary>
         ///     If true, this object should not show up in the entity spawn panel.

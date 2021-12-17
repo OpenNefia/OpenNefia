@@ -68,7 +68,7 @@ namespace OpenNefia.Content.CommandLine
             private void Build()
             {
                 var groups = _prototypeManager.EnumeratePrototypes<EntityPrototype>()
-                    .Where(proto => proto.HspEntityType != null && proto.HspOrigin != null)
+                    .Where(proto => proto.HspEntityType != null && proto.HspIds != null)
                     .GroupBy(proto => proto.HspEntityType!);
 
                 foreach (var group in groups)
@@ -80,10 +80,13 @@ namespace OpenNefia.Content.CommandLine
                     {
                         var strongId = proto.GetStrongID();
 
-                        ids.Add(proto.GetCanonicalHspId()!.Value, strongId);
+                        ids.Add(proto.HspIds!.GetCanonical(), strongId);
 
-                        if (proto.HspCellObjIds.TryGetValue(proto.HspOrigin!, out var id))
-                            _cellObjIndexToProtoId.Add(id, strongId);
+                        if (proto.HspCellObjIds.TryGetValue(proto.HspIds.HspOrigin!, out var cellObjIds))
+                        {
+                            foreach (var id in cellObjIds)
+                                _cellObjIndexToProtoId.Add(id, strongId);
+                        }
                     }
 
                     _idToProtoId.Add(hspEntityType, ids);
@@ -142,9 +145,9 @@ namespace OpenNefia.Content.CommandLine
         {
             var tileMap = new Dictionary<int, PrototypeId<TilePrototype>>();
 
-            foreach (var tileProto in _tileDefinitionManager.Where(t => t.HspOrigin != null))
+            foreach (var tileProto in _tileDefinitionManager.Where(t => t.HspIds != null))
             {
-                var (_, hspIndex) = tileProto.GetCanonicalHspId()!.Value;
+                var (_, hspIndex) = tileProto.HspIds!.GetCanonical();
                 tileMap[hspIndex] = tileProto.GetStrongID();
             }
 

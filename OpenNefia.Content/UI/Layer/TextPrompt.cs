@@ -6,6 +6,7 @@ using OpenNefia.Core.Rendering;
 using OpenNefia.Core.UI;
 using OpenNefia.Core.UI.Layer;
 using OpenNefia.Core.Utility;
+using OpenNefia.Content.Prototypes;
 
 namespace OpenNefia.Content.UI.Layer
 {
@@ -94,7 +95,7 @@ namespace OpenNefia.Content.UI.Layer
 
         public override void OnQuery()
         {
-            Sounds.Play(SoundPrototypeOf.Pop2);
+            Sounds.Play(Protos.Sound.Pop2);
         }
 
         protected virtual void UpdateText()

@@ -1,5 +1,6 @@
 ﻿using OpenNefia.Core.Audio;
 using OpenNefia.Core.GameObjects;
+using OpenNefia.Content.Prototypes;
 
 namespace OpenNefia.Content.GameObjects
 {
@@ -12,7 +13,7 @@ namespace OpenNefia.Content.GameObjects
 
         private void HandleExitMap(EntityUid uid, PlayerComponent component, ExitMapEventArgs args)
         {
-            Sounds.Play(SoundPrototypeOf.Exitmap1);
+            Sounds.Play(Protos.Sound.Exitmap1);
         }
     }
 }

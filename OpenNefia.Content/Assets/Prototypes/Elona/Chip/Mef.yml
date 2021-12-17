@@ -1,6 +1,7 @@
 - type: Chip
   id: Elona.MefWeb
-  elonaId: 11
+  hspIds:
+    elona122: 11
   group: Mef
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -8,7 +9,8 @@
 
 - type: Chip
   id: Elona.MefAcid
-  elonaId: 19
+  hspIds:
+    elona122: 19
   group: Mef
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -17,7 +19,8 @@
 
 - type: Chip
   id: Elona.MefEther
-  elonaId: 20
+  hspIds:
+    elona122: 20
   group: Mef
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -25,7 +28,8 @@
 
 - type: Chip
   id: Elona.MefWater
-  elonaId: 22
+  hspIds:
+    elona122: 22
   group: Mef
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -33,7 +37,8 @@
 
 - type: Chip
   id: Elona.MefFire
-  elonaId: 24
+  hspIds:
+    elona122: 24
   group: Mef
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -42,7 +47,8 @@
 
 - type: Chip
   id: Elona.MefPotion
-  elonaId: 27
+  hspIds:
+    elona122: 27
   group: Mef
   image:
     filepath: /Elona/Graphic/item.bmp
@@ -51,7 +57,8 @@
 
 - type: Chip
   id: Elona.MefMist
-  elonaId: 30
+  hspIds:
+    elona122: 30
   group: Mef
   image:
     filepath: /Elona/Graphic/item.bmp

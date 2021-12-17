@@ -4,13 +4,8 @@ using OpenNefia.Core.Audio;
 using OpenNefia.Core.Locale;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.UI;
-using OpenNefia.Core.UI.Element;
 using OpenNefia.Core.UI.Layer;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using OpenNefia.Content.Prototypes;
 
 namespace OpenNefia.Content.UI.Layer
 {
@@ -41,7 +36,7 @@ namespace OpenNefia.Content.UI.Layer
 
             UiListEventHandler<string> printIt = (_, evt) =>
             {
-                Sounds.Play(SoundPrototypeOf.Ok1);
+                Sounds.Play(Protos.Sound.Ok1);
                 Console.WriteLine($"Get item: {evt.SelectedCell.Data}");
             };
             List1.EventOnActivate += printIt;
@@ -64,19 +59,19 @@ namespace OpenNefia.Content.UI.Layer
             {
                 if (List1.ContainsPoint(evt.Pos) && Index != 1)
                 {
-                    Sounds.Play(SoundPrototypeOf.Cursor1);
+                    Sounds.Play(Protos.Sound.Cursor1);
                     Index = 1;
                     SelectList(List1);
                 }
                 else if (List2.ContainsPoint(evt.Pos) && Index != 2)
                 {
-                    Sounds.Play(SoundPrototypeOf.Cursor1);
+                    Sounds.Play(Protos.Sound.Cursor1);
                     Index = 2;
                     SelectList(List2);
                 }
                 else if (List3.ContainsPoint(evt.Pos) && Index != 3)
                 {
-                    Sounds.Play(SoundPrototypeOf.Cursor1);
+                    Sounds.Play(Protos.Sound.Cursor1);
                     Index = 3;
                     SelectList(List3);
                 }
@@ -90,12 +85,12 @@ namespace OpenNefia.Content.UI.Layer
 
         public override void OnQuery()
         {
-            Sounds.Play(SoundPrototypeOf.Pop2);
+            Sounds.Play(Protos.Sound.Pop2);
         }
 
         private void NextList(int delta)
         {
-            Sounds.Play(SoundPrototypeOf.Cursor1);
+            Sounds.Play(Protos.Sound.Cursor1);
 
             Index += delta;
             if (Index > 3)

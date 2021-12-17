@@ -3,8 +3,8 @@ using OpenNefia.Core.Audio;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Core.UI;
-using OpenNefia.Core.UI.Element;
 using OpenNefia.Core.UI.Layer;
+using OpenNefia.Content.Prototypes;
 
 namespace OpenNefia.Content.UI.Layer
 {
@@ -96,22 +96,22 @@ namespace OpenNefia.Content.UI.Layer
             Keybinds[CoreKeybinds.UIUp] += (_) =>
             {
                 Value = MaxValue;
-                Sounds.Play(SoundPrototypeOf.Cursor1);
+                Sounds.Play(Protos.Sound.Cursor1);
             };
             Keybinds[CoreKeybinds.UIDown] += (_) =>
             {
                 Value = MinValue;
-                Sounds.Play(SoundPrototypeOf.Cursor1);
+                Sounds.Play(Protos.Sound.Cursor1);
             };
             Keybinds[CoreKeybinds.UILeft] += (_) =>
             {
                 Value = Math.Max(Value - 1, MinValue);
-                Sounds.Play(SoundPrototypeOf.Cursor1);
+                Sounds.Play(Protos.Sound.Cursor1);
             };
             Keybinds[CoreKeybinds.UIRight] += (_) =>
             {
                 Value = Math.Min(Value + 1, MaxValue);
-                Sounds.Play(SoundPrototypeOf.Cursor1);
+                Sounds.Play(Protos.Sound.Cursor1);
             };
             Keybinds[CoreKeybinds.Cancel] += (_) => { if (IsCancellable) Cancel(); };
             Keybinds[CoreKeybinds.Escape] += (_) => { if (IsCancellable) Cancel(); };
@@ -120,7 +120,7 @@ namespace OpenNefia.Content.UI.Layer
 
         public override void OnQuery()
         {
-            Sounds.Play(SoundPrototypeOf.Pop2);
+            Sounds.Play(Protos.Sound.Pop2);
         }
 
         protected virtual void UpdateText()

@@ -3,10 +3,9 @@ using OpenNefia.Content.UI.Element.List;
 using OpenNefia.Core;
 using OpenNefia.Core.Audio;
 using OpenNefia.Core.Locale;
-using OpenNefia.Core.Maths;
 using OpenNefia.Core.Rendering;
-using OpenNefia.Core.UI.Element;
 using OpenNefia.Core.UI.Layer;
+using OpenNefia.Content.Prototypes;
 
 namespace OpenNefia.Content.UI.Layer
 {
@@ -148,7 +147,7 @@ namespace OpenNefia.Content.UI.Layer
         {
             if (selectedChoice != TitleScreenChoice.Generate)
             {
-                Sounds.Play(SoundPrototypeOf.Ok1);
+                Sounds.Play(Protos.Sound.Ok1);
             }
 
             switch (selectedChoice)
@@ -183,7 +182,7 @@ namespace OpenNefia.Content.UI.Layer
 
         public override void OnQuery()
         {
-            Music.Play(MusicPrototypeOf.Opening);
+            Music.Play(Protos.Music.Opening);
         }
 
         public override void Update(float dt)

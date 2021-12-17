@@ -2,7 +2,7 @@
 using OpenNefia.Core.Audio;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Logic;
-using OpenNefia.Core.Maps;
+using OpenNefia.Content.Prototypes;
 
 namespace OpenNefia.Content.GameObjects
 {
@@ -45,7 +45,7 @@ namespace OpenNefia.Content.GameObjects
             if (!EntityManager.TryGetComponent(args.Source, out SpatialComponent sourceSpatial))
                 return;
 
-            Sounds.Play(SoundPrototypeOf.Drink1, sourceSpatial.MapPosition);
+            Sounds.Play(Protos.Sound.Drink1, sourceSpatial.MapPosition);
 
             drinkableComp.Effect?.Apply(args.Source, sourceSpatial.MapPosition, args.Source, drinkableComp.Args);
 
@@ -56,7 +56,7 @@ namespace OpenNefia.Content.GameObjects
         private void HandleImpactOther(EntityUid thrown, DrinkableComponent potionComp, ThrownEntityImpactedOtherEvent args)
         {
             Mes.Display($"{DisplayNameSystem.GetDisplayName(thrown)} hits {DisplayNameSystem.GetDisplayName(args.ImpactedWith)}!");
-            Sounds.Play(SoundPrototypeOf.Crush2, args.Coords);
+            Sounds.Play(Protos.Sound.Crush2, args.Coords);
 
             potionComp.Effect?.Apply(args.Thrower, args.Coords, args.ImpactedWith, potionComp.Args);
 
@@ -66,7 +66,7 @@ namespace OpenNefia.Content.GameObjects
         private void HandleImpactGround(EntityUid thrown, DrinkableComponent potionComp, ThrownEntityImpactedGroundEvent args)
         {
             Mes.Display($"{DisplayNameSystem.GetDisplayName(thrown)} shatters.");
-            Sounds.Play(SoundPrototypeOf.Crush2, args.Coords);
+            Sounds.Play(Protos.Sound.Crush2, args.Coords);
 
             var puddle = EntityManager.SpawnEntity(Protos.Mef.Potion, args.Coords);
 
@@ -86,7 +86,7 @@ namespace OpenNefia.Content.GameObjects
 
         private void HandlePotionPuddleSteppedOn(EntityUid source, PotionPuddleComponent potionComp, EntitySteppedOnEvent args)
         {
-            Sounds.Play(SoundPrototypeOf.Water, args.Coords);
+            Sounds.Play(Protos.Sound.Water, args.Coords);
 
             potionComp.Effect?.Apply(source, args.Coords, args.Stepper, potionComp.Args);
 

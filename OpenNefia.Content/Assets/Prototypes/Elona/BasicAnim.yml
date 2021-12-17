@@ -1,12 +1,14 @@
 - type: BasicAnim
   id: AnimSmoke
-  elonaId: 8
+  hspIds:
+    elona122: 8
   asset: AnimSmoke
   sound: Offer1
 
 - type: BasicAnim
   id: AnimSparkle
-  elonaId: 10
+  hspIds:
+    elona122: 10
   asset: AnimSparkle
   sound: Enc2
   frameCount: 8
@@ -15,7 +17,8 @@
 
 - type: BasicAnim
   id: AnimBuff
-  elonaId: 11
+  hspIds:
+    elona122: 11
   asset: AnimBuff
   sound: Enc
   frameCount: 5
@@ -23,12 +26,14 @@
 
 - type: BasicAnim
   id: AnimCurse
-  elonaId: 14
+  hspIds:
+    elona122: 14
   asset: AnimCurse
   frameCount: 5
   frameDelayMillis: 50
 
 - type: BasicAnim
   id: AnimElec
-  elonaId: 15
+  hspIds:
+    elona122: 15
   asset: AnimElec

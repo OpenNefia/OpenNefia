@@ -13,6 +13,7 @@ using OpenNefia.Content.Logic;
 using OpenNefia.Content.UI.Layer.Repl;
 using OpenNefia.Core.Logic;
 using OpenNefia.Content.GameObjects;
+using OpenNefia.Content.Prototypes;
 
 namespace OpenNefia.Content.UI.Layer
 {
@@ -150,11 +151,11 @@ namespace OpenNefia.Content.UI.Layer
 
                         if (item != null && CharaAction.PickUpItem(player, item))
                         {
-                            Sounds.Play(SoundPrototypeOf.Get1, pos);
+                            Sounds.Play(Protos.Sound.Get1, pos);
 
                             if (item.StackAll())
                             {
-                                Sounds.Play(SoundPrototypeOf.Heal1);
+                                Sounds.Play(Protos.Sound.Heal1);
                             }
                         }
 
@@ -176,11 +177,11 @@ namespace OpenNefia.Content.UI.Layer
 
                         if (item != null && CharaAction.DropItem(player, item))
                         {
-                            Sounds.Play(SoundPrototypeOf.Drop1, player.X, player.Y);
+                            Sounds.Play(Protos.Sound.Drop1, player.X, player.Y);
 
                             if (item.StackAll())
                             {
-                                Sounds.Play(SoundPrototypeOf.AtkChaos);
+                                Sounds.Play(Protos.Sound.AtkChaos);
                             }
                         }
 
@@ -311,7 +312,7 @@ namespace OpenNefia.Content.UI.Layer
 
         public override void OnQuery()
         {
-            Music.Play(MusicPrototypeOf.March1);
+            Music.Play(Protos.Music.March1);
         }
 
         public override void OnQueryFinish()
@@ -345,12 +346,12 @@ namespace OpenNefia.Content.UI.Layer
                 var mouse = Love.Mouse.GetPosition();
                 _coords.ScreenToTile(new Vector2i((int)mouse.X - X, (int)mouse.Y - Y), out var tiledPos);
 
-                if (Map.Tiles[tiledPos.X, tiledPos.Y].ResolvePrototype().GetStrongID() != PlacingTile)
+                if (Map.IsInBounds(tiledPos) && Map.Tiles[tiledPos.X, tiledPos.Y].ResolvePrototype().GetStrongID() != PlacingTile)
                 {
                     var proto = PlacingTile.Value.ResolvePrototype();
                     if (proto.IsSolid)
                     {
-                        Sounds.Play(SoundPrototypeOf.Offer1, Map.AtPos(tiledPos));
+                        Sounds.Play(Protos.Sound.Offer1, Map.AtPos(tiledPos));
                     }
                     Map.SetTile(tiledPos, PlacingTile.Value);
                     Map.MemorizeTile(tiledPos);

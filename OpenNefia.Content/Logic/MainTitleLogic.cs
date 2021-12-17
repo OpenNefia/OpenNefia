@@ -8,6 +8,7 @@ using OpenNefia.Core.Rendering;
 using OpenNefia.Core.UI;
 using OpenNefia.Core.UI.Layer;
 using OpenNefia.Core.Utility;
+using OpenNefia.Content.Prototypes;
 
 namespace OpenNefia.Content.Logic
 {

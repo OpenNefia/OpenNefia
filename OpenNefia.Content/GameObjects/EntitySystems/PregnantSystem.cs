@@ -9,6 +9,7 @@ using OpenNefia.Core.Log;
 using OpenNefia.Core.Maps;
 using OpenNefia.Core.Random;
 using OpenNefia.Core.Utility;
+using OpenNefia.Content.Prototypes;
 
 namespace OpenNefia.Content.GameObjects
 {

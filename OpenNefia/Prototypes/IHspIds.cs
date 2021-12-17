@@ -12,31 +12,30 @@ namespace OpenNefia.Core.Prototypes
     public interface IHspIds<T> where T : struct
     {
         /// <summary>
+        /// Dictionary mapping from variant identifier to the integer ID of the prototype/component
+        /// in that variant's source code.
+        /// </summary>
+        HspIds<T>? HspIds { get; }
+    }
+
+    public class HspIds<T> : Dictionary<string, T> where T : struct
+    {
+        /// <summary>
         /// Identifier of the HSP variant of Elona this prototype first appeared in, if any.
         /// </summary>
         /// <remarks>
         /// There must be an entry in <see cref="HspIds"/> for this variant.
         /// </remarks>
-        string? HspOrigin { get; }
+        public string HspOrigin { get; }
 
-        /// <summary>
-        /// Dictionary mapping from variant identifier to the integer ID of the prototype/component
-        /// in that variant's source code.
-        /// </summary>
-        IReadOnlyDictionary<string, T> HspIds { get; }
-    }
-
-    public static class IHspIdsExt
-    {
-        public static T? GetCanonicalHspId<T>(this IHspIds<T> ids) where T: struct
+        public HspIds(string hspOrigin)
         {
-            if (ids.HspOrigin == null)
-                return null;
+            HspOrigin = hspOrigin;
+        }
 
-            if (!ids.HspIds.TryGetValue(ids.HspOrigin, out var hspId))
-                throw new InvalidOperationException($"This data definition originates from variant '{ids.HspOrigin}', but there is no ID for that variant in hspIds.");
-
-            return hspId;
+        public T GetCanonical()
+        {
+            return this[HspOrigin];
         }
     }
 

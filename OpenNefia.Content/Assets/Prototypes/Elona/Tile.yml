@@ -5,7 +5,6 @@
     region: "0, 0, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 0,0
 
@@ -16,7 +15,6 @@
     region: "48, 0, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 0,1
 
@@ -27,7 +25,6 @@
     region: "96, 0, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 0,2
 
@@ -38,7 +35,6 @@
     region: "144, 0, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 0,3
 
@@ -49,7 +45,6 @@
     region: "192, 0, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 0,4
 
@@ -60,7 +55,6 @@
     region: "240, 0, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 0,5
 
@@ -71,7 +65,6 @@
     region: "288, 0, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 0,6
 
@@ -82,7 +75,6 @@
     region: "336, 0, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 0,7
 
@@ -93,7 +85,6 @@
     region: "384, 0, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 0,8
 
@@ -104,7 +95,6 @@
     region: "432, 0, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 0,9
 
@@ -115,7 +105,6 @@
     region: "480, 0, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 0,10
 
@@ -126,7 +115,6 @@
     region: "528, 0, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 0,11
 
@@ -137,7 +125,6 @@
     region: "576, 0, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 0,12
 
@@ -148,7 +135,6 @@
     region: "624, 0, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 0,13
 
@@ -159,7 +145,6 @@
     region: "672, 0, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 0,14
 
@@ -170,7 +155,6 @@
     region: "720, 0, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 0,15
 
@@ -181,7 +165,6 @@
     region: "768, 0, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 0,16
 
@@ -193,7 +176,6 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 0,26
 
@@ -205,7 +187,6 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 0,27
 
@@ -217,7 +198,6 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 0,29
 
@@ -229,7 +209,6 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 0,30
 
@@ -241,7 +220,6 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 0,31
 
@@ -253,7 +231,6 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 0,32
 
@@ -265,7 +242,6 @@
   isSolid: false
   isOpaque: false
   IsRoad: true
-  hspOrigin: elona122
   hspIds:
     elona122: 0,34
 
@@ -277,7 +253,6 @@
   isSolid: false
   isOpaque: false
   IsRoad: true
-  hspOrigin: elona122
   hspIds:
     elona122: 0,35
 
@@ -289,7 +264,6 @@
   isSolid: false
   isOpaque: false
   IsRoad: true
-  hspOrigin: elona122
   hspIds:
     elona122: 0,36
 
@@ -301,7 +275,6 @@
   isSolid: false
   isOpaque: false
   IsRoad: true
-  hspOrigin: elona122
   hspIds:
     elona122: 0,37
 
@@ -313,7 +286,6 @@
   isSolid: false
   isOpaque: false
   IsRoad: true
-  hspOrigin: elona122
   hspIds:
     elona122: 0,38
 
@@ -325,7 +297,6 @@
   isSolid: false
   isOpaque: false
   IsRoad: true
-  hspOrigin: elona122
   hspIds:
     elona122: 0,39
 
@@ -337,7 +308,6 @@
   isSolid: false
   isOpaque: false
   IsRoad: true
-  hspOrigin: elona122
   hspIds:
     elona122: 0,40
 
@@ -349,7 +319,6 @@
   isSolid: false
   isOpaque: false
   IsRoad: true
-  hspOrigin: elona122
   hspIds:
     elona122: 0,41
 
@@ -361,7 +330,6 @@
   isSolid: false
   isOpaque: false
   IsRoad: true
-  hspOrigin: elona122
   hspIds:
     elona122: 0,42
 
@@ -373,7 +341,6 @@
   isSolid: false
   isOpaque: false
   IsRoad: true
-  hspOrigin: elona122
   hspIds:
     elona122: 0,43
 
@@ -384,7 +351,6 @@
     region: "0, 96, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 0,66
 
@@ -395,7 +361,6 @@
     region: "48, 96, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 0,67
 
@@ -406,7 +371,6 @@
     region: "96, 96, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 0,68
 
@@ -417,7 +381,6 @@
     region: "144, 96, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 0,69
 
@@ -428,7 +391,6 @@
     region: "192, 96, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 0,70
 
@@ -439,7 +401,6 @@
     region: "240, 96, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 0,71
 
@@ -450,7 +411,6 @@
     region: "288, 96, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 0,72
 
@@ -461,7 +421,6 @@
     region: "336, 96, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 0,73
 
@@ -472,7 +431,6 @@
     region: "384, 96, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 0,74
 
@@ -483,7 +441,6 @@
     region: "528, 96, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 0,77
 
@@ -494,7 +451,6 @@
     region: "576, 96, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 0,78
 
@@ -505,7 +461,6 @@
     region: "624, 96, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 0,79
 
@@ -517,7 +472,6 @@
   kind: Sand
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 0,99
 
@@ -529,7 +483,6 @@
   kind: Sand
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 0,100
 
@@ -541,7 +494,6 @@
   kind: Sand
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 0,101
 
@@ -553,7 +505,6 @@
   kind: Sand
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 0,102
 
@@ -565,7 +516,6 @@
   kind: Sand
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 0,103
 
@@ -577,7 +527,6 @@
   kind: Sand
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 0,104
 
@@ -589,7 +538,6 @@
   kind: Sand
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 0,105
 
@@ -601,7 +549,6 @@
   kind: Sand
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 0,106
 
@@ -614,7 +561,6 @@
   kind2: Coast
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 0,107
 
@@ -627,7 +573,6 @@
   kind2: Coast
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 0,110
 
@@ -640,7 +585,6 @@
   kind2: Coast
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 0,114
 
@@ -653,7 +597,6 @@
   kind2: Coast
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 0,115
 
@@ -665,7 +608,6 @@
   kind: Sand
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 0,119
 
@@ -677,7 +619,6 @@
   kind: Sand
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 0,120
 
@@ -689,7 +630,6 @@
   kind: Sand
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 0,121
 
@@ -701,7 +641,6 @@
   kind: Sand
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 0,122
 
@@ -713,7 +652,6 @@
   kind: Sand
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 0,123
 
@@ -725,7 +663,6 @@
   kind: Sand
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 0,124
 
@@ -737,7 +674,6 @@
   kind: Sand
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 0,125
 
@@ -749,7 +685,6 @@
   kind: Sand
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 0,126
 
@@ -761,7 +696,6 @@
   kind: SandHard
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 0,165
 
@@ -773,7 +707,6 @@
   kind: SandHard
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 0,166
 
@@ -785,7 +718,6 @@
   kind: SandHard
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 0,167
 
@@ -797,7 +729,6 @@
   kind: SandHard
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 0,168
 
@@ -809,7 +740,6 @@
   kind: SandHard
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 0,170
 
@@ -821,7 +751,6 @@
   kind: SandHard
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 0,171
 
@@ -833,7 +762,6 @@
   kind: SandHard
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 0,172
 
@@ -846,7 +774,6 @@
   kind2: Coast
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 0,173
 
@@ -859,7 +786,6 @@
   kind2: Coast
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 0,174
 
@@ -872,7 +798,6 @@
   kind2: Coast
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 0,175
 
@@ -885,7 +810,6 @@
   kind2: Coast
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 0,176
 
@@ -898,7 +822,6 @@
   kind2: Coast
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 0,177
 
@@ -911,7 +834,6 @@
   kind2: Coast
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 0,178
 
@@ -924,7 +846,6 @@
   kind2: Coast
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 0,179
 
@@ -937,7 +858,6 @@
   kind2: Coast
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 0,180
 
@@ -950,7 +870,6 @@
   kind2: Coast
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 0,181
 
@@ -963,7 +882,6 @@
   kind2: Coast
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 0,182
 
@@ -976,7 +894,6 @@
   kind2: Coast
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 0,183
 
@@ -989,7 +906,6 @@
   kind2: Coast
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 0,184
 
@@ -1001,7 +917,6 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 0,199
 
@@ -1013,7 +928,6 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 0,200
 
@@ -1025,7 +939,6 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 0,201
 
@@ -1037,7 +950,6 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 0,202
 
@@ -1050,7 +962,6 @@
   kind2: Coast
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 0,206
 
@@ -1063,7 +974,6 @@
   kind2: Coast
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 0,207
 
@@ -1076,7 +986,6 @@
   kind2: Coast
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 0,208
 
@@ -1089,7 +998,6 @@
   kind2: Coast
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 0,209
 
@@ -1102,7 +1010,6 @@
   kind2: Coast
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 0,210
 
@@ -1115,7 +1022,6 @@
   kind2: Coast
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 0,211
 
@@ -1128,7 +1034,6 @@
   kind2: Coast
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 0,212
 
@@ -1141,7 +1046,6 @@
   kind2: Coast
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 0,213
 
@@ -1154,7 +1058,6 @@
   kind2: Coast
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 0,214
 
@@ -1167,7 +1070,6 @@
   kind2: Coast
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 0,215
 
@@ -1180,7 +1082,6 @@
   kind2: Coast
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 0,216
 
@@ -1193,7 +1094,6 @@
   kind2: Coast
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 0,217
 
@@ -1204,7 +1104,6 @@
     region: "0, 384, 48, 48"
   isSolid: true
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 0,264
 
@@ -1215,7 +1114,6 @@
     region: "48, 384, 48, 48"
   isSolid: true
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 0,265
 
@@ -1226,7 +1124,6 @@
     region: "96, 384, 48, 48"
   isSolid: true
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 0,266
 
@@ -1237,7 +1134,6 @@
     region: "144, 384, 48, 48"
   isSolid: true
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 0,267
 
@@ -1248,7 +1144,6 @@
     region: "192, 384, 48, 48"
   isSolid: true
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 0,268
 
@@ -1259,7 +1154,6 @@
     region: "240, 384, 48, 48"
   isSolid: true
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 0,269
 
@@ -1270,7 +1164,6 @@
     region: "288, 384, 48, 48"
   isSolid: true
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 0,270
 
@@ -1281,7 +1174,6 @@
     region: "1008, 384, 48, 48"
   isSolid: true
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 0,285
 
@@ -1292,7 +1184,6 @@
     region: "1056, 384, 48, 48"
   isSolid: true
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 0,286
 
@@ -1303,7 +1194,6 @@
     region: "1104, 384, 48, 48"
   isSolid: true
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 0,287
 
@@ -1314,7 +1204,6 @@
     region: "1152, 384, 48, 48"
   isSolid: true
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 0,288
 
@@ -1325,7 +1214,6 @@
     region: "1200, 384, 48, 48"
   isSolid: true
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 0,289
 
@@ -1336,7 +1224,6 @@
     region: "1248, 384, 48, 48"
   isSolid: true
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 0,290
 
@@ -1347,7 +1234,6 @@
     region: "1296, 384, 48, 48"
   isSolid: true
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 0,291
 
@@ -1358,7 +1244,6 @@
     region: "1344, 384, 48, 48"
   isSolid: true
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 0,292
 
@@ -1369,7 +1254,6 @@
     region: "1392, 384, 48, 48"
   isSolid: true
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 0,293
 
@@ -1380,7 +1264,6 @@
     region: "1440, 384, 48, 48"
   isSolid: true
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 0,294
 
@@ -1391,7 +1274,6 @@
     region: "1488, 384, 48, 48"
   isSolid: true
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 0,295
 
@@ -1402,7 +1284,6 @@
     region: "1536, 384, 48, 48"
   isSolid: true
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 0,296
 
@@ -1413,7 +1294,6 @@
     region: "0, 432, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 0,297
 
@@ -1424,7 +1304,6 @@
     region: "48, 432, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 0,298
 
@@ -1435,7 +1314,6 @@
     region: "96, 432, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 0,299
 
@@ -1446,7 +1324,6 @@
     region: "144, 432, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 0,300
 
@@ -1457,7 +1334,6 @@
     region: "192, 432, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 0,301
 
@@ -1468,7 +1344,6 @@
     region: "240, 432, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 0,302
 
@@ -1479,7 +1354,6 @@
     region: "288, 432, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 0,303
 
@@ -1490,7 +1364,6 @@
     region: "336, 432, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 0,304
 
@@ -1501,7 +1374,6 @@
     region: "384, 432, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 0,305
 
@@ -1512,7 +1384,6 @@
     region: "432, 432, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 0,306
 
@@ -1523,7 +1394,6 @@
     region: "480, 432, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 0,307
 
@@ -1534,7 +1404,6 @@
     region: "528, 432, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 0,308
 
@@ -1545,7 +1414,6 @@
     region: "576, 432, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 0,309
 
@@ -1556,7 +1424,6 @@
     region: "624, 432, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 0,310
 
@@ -1567,7 +1434,6 @@
     region: "672, 432, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 0,311
 
@@ -1578,7 +1444,6 @@
     region: "720, 432, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 0,312
 
@@ -1589,7 +1454,6 @@
     region: "768, 432, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 0,313
 
@@ -1600,7 +1464,6 @@
     region: "816, 432, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 0,314
 
@@ -1611,7 +1474,6 @@
     region: "864, 432, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 0,315
 
@@ -1622,7 +1484,6 @@
     region: "912, 432, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 0,316
 
@@ -1633,7 +1494,6 @@
     region: "960, 432, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 0,317
 
@@ -1644,7 +1504,6 @@
     region: "1008, 432, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 0,318
 
@@ -1655,7 +1514,6 @@
     region: "1056, 432, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 0,319
 
@@ -1666,7 +1524,6 @@
     region: "1104, 432, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 0,320
 
@@ -1677,7 +1534,6 @@
     region: "0, 672, 48, 48"
   isSolid: true
   isOpaque: true
-  hspOrigin: elona122
   hspIds:
     elona122: 0,462
 
@@ -1688,7 +1544,6 @@
     region: "48, 672, 48, 48"
   isSolid: true
   isOpaque: true
-  hspOrigin: elona122
   hspIds:
     elona122: 0,463
 
@@ -1699,7 +1554,6 @@
     region: "96, 672, 48, 48"
   isSolid: true
   isOpaque: true
-  hspOrigin: elona122
   hspIds:
     elona122: 0,464
 
@@ -1710,7 +1564,6 @@
     region: "0, 720, 48, 48"
   isSolid: true
   isOpaque: true
-  hspOrigin: elona122
   hspIds:
     elona122: 0,495
 
@@ -1721,7 +1574,6 @@
     region: "96, 720, 48, 48"
   isSolid: true
   isOpaque: true
-  hspOrigin: elona122
   hspIds:
     elona122: 0,497
 
@@ -1732,7 +1584,6 @@
     region: "144, 720, 48, 48"
   isSolid: true
   isOpaque: true
-  hspOrigin: elona122
   hspIds:
     elona122: 0,498
 
@@ -1743,7 +1594,6 @@
     region: "240, 720, 48, 48"
   isSolid: true
   isOpaque: true
-  hspOrigin: elona122
   hspIds:
     elona122: 0,500
 
@@ -1754,7 +1604,6 @@
     region: "0, 768, 48, 48"
   isSolid: true
   isOpaque: true
-  hspOrigin: elona122
   hspIds:
     elona122: 0,528
 
@@ -1765,7 +1614,6 @@
     region: "48, 768, 48, 48"
   isSolid: true
   isOpaque: true
-  hspOrigin: elona122
   hspIds:
     elona122: 0,529
 
@@ -1776,7 +1624,6 @@
     region: "96, 768, 48, 48"
   isSolid: true
   isOpaque: true
-  hspOrigin: elona122
   hspIds:
     elona122: 0,530
 
@@ -1787,7 +1634,6 @@
     region: "144, 768, 48, 48"
   isSolid: true
   isOpaque: true
-  hspOrigin: elona122
   hspIds:
     elona122: 0,531
 
@@ -1798,7 +1644,6 @@
     region: "240, 768, 48, 48"
   isSolid: true
   isOpaque: true
-  hspOrigin: elona122
   hspIds:
     elona122: 0,533
 
@@ -1809,7 +1654,6 @@
     region: "0, 816, 48, 48"
   isSolid: true
   isOpaque: true
-  hspOrigin: elona122
   hspIds:
     elona122: 0,561
 
@@ -1820,7 +1664,6 @@
     region: "48, 816, 48, 48"
   isSolid: true
   isOpaque: true
-  hspOrigin: elona122
   hspIds:
     elona122: 0,562
 
@@ -1831,7 +1674,6 @@
     region: "144, 816, 48, 48"
   isSolid: true
   isOpaque: true
-  hspOrigin: elona122
   hspIds:
     elona122: 0,564
 
@@ -1842,7 +1684,6 @@
     region: "192, 816, 48, 48"
   isSolid: true
   isOpaque: true
-  hspOrigin: elona122
   hspIds:
     elona122: 0,565
 
@@ -1853,7 +1694,6 @@
     region: "240, 816, 48, 48"
   isSolid: true
   isOpaque: true
-  hspOrigin: elona122
   hspIds:
     elona122: 0,566
 
@@ -1864,7 +1704,6 @@
     region: "288, 816, 48, 48"
   isSolid: true
   isOpaque: true
-  hspOrigin: elona122
   hspIds:
     elona122: 0,567
 
@@ -1876,7 +1715,6 @@
   kind: Snow
   isSolid: true
   isOpaque: true
-  hspOrigin: elona122
   hspIds:
     elona122: 0,568
 
@@ -1888,7 +1726,6 @@
   kind: Snow
   isSolid: true
   isOpaque: true
-  hspOrigin: elona122
   hspIds:
     elona122: 0,569
 
@@ -1900,7 +1737,6 @@
   kind: Snow
   isSolid: true
   isOpaque: true
-  hspOrigin: elona122
   hspIds:
     elona122: 0,570
 
@@ -1912,7 +1748,6 @@
   kind: Sand
   isSolid: true
   isOpaque: true
-  hspOrigin: elona122
   hspIds:
     elona122: 0,594
 
@@ -1924,7 +1759,6 @@
   kind: Sand
   isSolid: true
   isOpaque: true
-  hspOrigin: elona122
   hspIds:
     elona122: 0,595
 
@@ -1936,7 +1770,6 @@
   kind: Sand
   isSolid: true
   isOpaque: true
-  hspOrigin: elona122
   hspIds:
     elona122: 0,596
 
@@ -1948,7 +1781,6 @@
   kind: Sand
   isSolid: true
   isOpaque: true
-  hspOrigin: elona122
   hspIds:
     elona122: 0,597
 
@@ -1960,7 +1792,6 @@
   kind: Sand
   isSolid: true
   isOpaque: true
-  hspOrigin: elona122
   hspIds:
     elona122: 0,598
 
@@ -1972,7 +1803,6 @@
   kind: SandHard
   isSolid: true
   isOpaque: true
-  hspOrigin: elona122
   hspIds:
     elona122: 0,599
 
@@ -1984,7 +1814,6 @@
   kind: SandHard
   isSolid: true
   isOpaque: true
-  hspOrigin: elona122
   hspIds:
     elona122: 0,600
 
@@ -1996,7 +1825,6 @@
   kind: SandWater
   isSolid: true
   isOpaque: true
-  hspOrigin: elona122
   hspIds:
     elona122: 0,604
 
@@ -2009,7 +1837,6 @@
   kind2: Coast
   isSolid: true
   isOpaque: true
-  hspOrigin: elona122
   hspIds:
     elona122: 0,605
 
@@ -2022,7 +1849,6 @@
   kind2: Coast
   isSolid: true
   isOpaque: true
-  hspOrigin: elona122
   hspIds:
     elona122: 0,606
 
@@ -2035,7 +1861,6 @@
   kind2: Coast
   isSolid: true
   isOpaque: true
-  hspOrigin: elona122
   hspIds:
     elona122: 0,607
 
@@ -2048,7 +1873,6 @@
   kind2: Coast
   isSolid: true
   isOpaque: true
-  hspOrigin: elona122
   hspIds:
     elona122: 0,608
 
@@ -2061,7 +1885,6 @@
   kind2: Coast
   isSolid: true
   isOpaque: true
-  hspOrigin: elona122
   hspIds:
     elona122: 0,609
 
@@ -2074,7 +1897,6 @@
   kind2: Coast
   isSolid: true
   isOpaque: true
-  hspOrigin: elona122
   hspIds:
     elona122: 0,610
 
@@ -2087,7 +1909,6 @@
   kind2: Coast
   isSolid: true
   isOpaque: true
-  hspOrigin: elona122
   hspIds:
     elona122: 0,611
 
@@ -2100,7 +1921,6 @@
   kind2: Coast
   isSolid: true
   isOpaque: true
-  hspOrigin: elona122
   hspIds:
     elona122: 0,612
 
@@ -2113,7 +1933,6 @@
   kind2: Coast
   isSolid: true
   isOpaque: true
-  hspOrigin: elona122
   hspIds:
     elona122: 0,613
 
@@ -2126,7 +1945,6 @@
   kind2: Coast
   isSolid: true
   isOpaque: true
-  hspOrigin: elona122
   hspIds:
     elona122: 0,614
 
@@ -2139,7 +1957,6 @@
   kind2: Coast
   isSolid: true
   isOpaque: true
-  hspOrigin: elona122
   hspIds:
     elona122: 0,615
 
@@ -2152,7 +1969,6 @@
   kind2: Coast
   isSolid: true
   isOpaque: true
-  hspOrigin: elona122
   hspIds:
     elona122: 0,616
 
@@ -2163,7 +1979,6 @@
     region: "0, 0, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,0
 
@@ -2174,7 +1989,6 @@
     region: "48, 0, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,1
 
@@ -2185,7 +1999,6 @@
     region: "96, 0, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,2
 
@@ -2196,7 +2009,6 @@
     region: "144, 0, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,3
 
@@ -2207,7 +2019,6 @@
     region: "192, 0, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,4
 
@@ -2218,7 +2029,6 @@
     region: "240, 0, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,5
 
@@ -2229,7 +2039,6 @@
     region: "288, 0, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,6
 
@@ -2240,7 +2049,6 @@
     region: "336, 0, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,7
 
@@ -2251,7 +2059,6 @@
     region: "384, 0, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,8
 
@@ -2262,7 +2069,6 @@
     region: "432, 0, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,9
 
@@ -2273,7 +2079,6 @@
     region: "480, 0, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,10
 
@@ -2284,7 +2089,6 @@
     region: "528, 0, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,11
 
@@ -2295,7 +2099,6 @@
     region: "576, 0, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,12
 
@@ -2306,7 +2109,6 @@
     region: "624, 0, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,13
 
@@ -2317,7 +2119,6 @@
     region: "672, 0, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,14
 
@@ -2328,7 +2129,6 @@
     region: "768, 0, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,16
 
@@ -2339,7 +2139,6 @@
     region: "816, 0, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,17
 
@@ -2350,7 +2149,6 @@
     region: "864, 0, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,18
 
@@ -2361,7 +2159,6 @@
     region: "912, 0, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,19
 
@@ -2372,7 +2169,6 @@
     region: "960, 0, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,20
 
@@ -2383,7 +2179,6 @@
     region: "1008, 0, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,21
 
@@ -2395,7 +2190,6 @@
   kind: Dryground
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,29
 
@@ -2407,7 +2201,6 @@
   kind: Crop
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,30
 
@@ -2419,7 +2212,6 @@
   kind: Crop
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,31
 
@@ -2430,7 +2222,6 @@
     region: "0, 48, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,33
 
@@ -2441,7 +2232,6 @@
     region: "48, 48, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,34
 
@@ -2452,7 +2242,6 @@
     region: "96, 48, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,35
 
@@ -2463,7 +2252,6 @@
     region: "144, 48, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,36
 
@@ -2474,7 +2262,6 @@
     region: "192, 48, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,37
 
@@ -2485,7 +2272,6 @@
     region: "240, 48, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,38
 
@@ -2496,7 +2282,6 @@
     region: "288, 48, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,39
 
@@ -2507,7 +2292,6 @@
     region: "336, 48, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,40
 
@@ -2518,7 +2302,6 @@
     region: "384, 48, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,41
 
@@ -2530,7 +2313,6 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,45
 
@@ -2542,7 +2324,6 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,46
 
@@ -2554,7 +2335,6 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,47
 
@@ -2566,7 +2346,6 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,48
 
@@ -2578,7 +2357,6 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,49
 
@@ -2590,7 +2368,6 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,50
 
@@ -2602,7 +2379,6 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,51
 
@@ -2614,7 +2390,6 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,52
 
@@ -2626,7 +2401,6 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,53
 
@@ -2638,7 +2412,6 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,54
 
@@ -2650,7 +2423,6 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,55
 
@@ -2662,7 +2434,6 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,56
 
@@ -2674,7 +2445,6 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,57
 
@@ -2686,7 +2456,6 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,58
 
@@ -2698,7 +2467,6 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,59
 
@@ -2710,7 +2478,6 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,60
 
@@ -2721,7 +2488,6 @@
     region: "1344, 48, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,61
 
@@ -2732,7 +2498,6 @@
     region: "1392, 48, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,62
 
@@ -2743,7 +2508,6 @@
     region: "1440, 48, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,63
 
@@ -2754,7 +2518,6 @@
     region: "1488, 48, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,64
 
@@ -2765,7 +2528,6 @@
     region: "1536, 48, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,65
 
@@ -2776,7 +2538,6 @@
     region: "0, 96, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,66
 
@@ -2787,7 +2548,6 @@
     region: "48, 96, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,67
 
@@ -2798,7 +2558,6 @@
     region: "96, 96, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,68
 
@@ -2809,7 +2568,6 @@
     region: "144, 96, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,69
 
@@ -2820,7 +2578,6 @@
     region: "192, 96, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,70
 
@@ -2831,7 +2588,6 @@
     region: "240, 96, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,71
 
@@ -2842,7 +2598,6 @@
     region: "288, 96, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,72
 
@@ -2853,7 +2608,6 @@
     region: "336, 96, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,73
 
@@ -2864,7 +2618,6 @@
     region: "384, 96, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,74
 
@@ -2875,7 +2628,6 @@
     region: "432, 96, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,75
 
@@ -2886,7 +2638,6 @@
     region: "480, 96, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,76
 
@@ -2897,7 +2648,6 @@
     region: "528, 96, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,77
 
@@ -2908,7 +2658,6 @@
     region: "576, 96, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,78
 
@@ -2919,7 +2668,6 @@
     region: "720, 96, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,81
 
@@ -2931,7 +2679,6 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,82
 
@@ -2943,7 +2690,6 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,83
 
@@ -2955,7 +2701,6 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,84
 
@@ -2966,7 +2711,6 @@
     region: "912, 96, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,85
 
@@ -2977,7 +2721,6 @@
     region: "960, 96, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,86
 
@@ -2988,7 +2731,6 @@
     region: "1008, 96, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,87
 
@@ -2999,7 +2741,6 @@
     region: "1056, 96, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,88
 
@@ -3010,7 +2751,6 @@
     region: "1104, 96, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,89
 
@@ -3021,7 +2761,6 @@
     region: "1536, 96, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,98
 
@@ -3032,7 +2771,6 @@
     region: "0, 144, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,99
 
@@ -3043,7 +2781,6 @@
     region: "48, 144, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,100
 
@@ -3054,7 +2791,6 @@
     region: "96, 144, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,101
 
@@ -3065,7 +2801,6 @@
     region: "144, 144, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,102
 
@@ -3076,7 +2811,6 @@
     region: "192, 144, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,103
 
@@ -3087,7 +2821,6 @@
     region: "288, 144, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,105
 
@@ -3098,7 +2831,6 @@
     region: "480, 144, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,109
 
@@ -3109,7 +2841,6 @@
     region: "528, 144, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,110
 
@@ -3120,7 +2851,6 @@
     region: "576, 144, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,111
 
@@ -3131,7 +2861,6 @@
     region: "624, 144, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,112
 
@@ -3142,7 +2871,6 @@
     region: "672, 144, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,113
 
@@ -3153,7 +2881,6 @@
     region: "720, 144, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,114
 
@@ -3164,7 +2891,6 @@
     region: "768, 144, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,115
 
@@ -3175,7 +2901,6 @@
     region: "912, 144, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,118
 
@@ -3186,7 +2911,6 @@
     region: "960, 144, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,119
 
@@ -3197,7 +2921,6 @@
     region: "1008, 144, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,120
 
@@ -3208,7 +2931,6 @@
     region: "1056, 144, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,121
 
@@ -3219,7 +2941,6 @@
     region: "1104, 144, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,122
 
@@ -3230,7 +2951,6 @@
     region: "1152, 144, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,123
 
@@ -3241,7 +2961,6 @@
     region: "1296, 144, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,126
 
@@ -3252,7 +2971,6 @@
     region: "1392, 144, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,128
 
@@ -3263,7 +2981,6 @@
     region: "1440, 144, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,129
 
@@ -3274,7 +2991,6 @@
     region: "1488, 144, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,130
 
@@ -3285,7 +3001,6 @@
     region: "1536, 144, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,131
 
@@ -3296,7 +3011,6 @@
     region: "0, 192, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,132
 
@@ -3307,7 +3021,6 @@
     region: "48, 192, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,133
 
@@ -3318,7 +3031,6 @@
     region: "96, 192, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,134
 
@@ -3329,7 +3041,6 @@
     region: "144, 192, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,135
 
@@ -3340,7 +3051,6 @@
     region: "192, 192, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,136
 
@@ -3351,7 +3061,6 @@
     region: "240, 192, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,137
 
@@ -3362,7 +3071,6 @@
     region: "288, 192, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,138
 
@@ -3373,7 +3081,6 @@
     region: "336, 192, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,139
 
@@ -3384,7 +3091,6 @@
     region: "384, 192, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,140
 
@@ -3395,7 +3101,6 @@
     region: "432, 192, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,141
 
@@ -3406,7 +3111,6 @@
     region: "576, 192, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,144
 
@@ -3417,7 +3121,6 @@
     region: "672, 192, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,146
 
@@ -3428,7 +3131,6 @@
     region: "720, 192, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,147
 
@@ -3439,7 +3141,6 @@
     region: "768, 192, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,148
 
@@ -3450,7 +3151,6 @@
     region: "816, 192, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,149
 
@@ -3461,7 +3161,6 @@
     region: "864, 192, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,150
 
@@ -3472,7 +3171,6 @@
     region: "912, 192, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,151
 
@@ -3483,7 +3181,6 @@
     region: "960, 192, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,152
 
@@ -3494,7 +3191,6 @@
     region: "1008, 192, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,153
 
@@ -3505,7 +3201,6 @@
     region: "1152, 192, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,156
 
@@ -3516,7 +3211,6 @@
     region: "1200, 192, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,157
 
@@ -3527,7 +3221,6 @@
     region: "1248, 192, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,158
 
@@ -3538,7 +3231,6 @@
     region: "1296, 192, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,159
 
@@ -3549,7 +3241,6 @@
     region: "1344, 192, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,160
 
@@ -3560,7 +3251,6 @@
     region: "1392, 192, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,161
 
@@ -3571,7 +3261,6 @@
     region: "1488, 192, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,163
 
@@ -3582,7 +3271,6 @@
     region: "1536, 192, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,164
 
@@ -3595,7 +3283,6 @@
   kind: Water
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,165
 
@@ -3608,7 +3295,6 @@
   kind: Water
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,168
 
@@ -3622,7 +3308,6 @@
   kind2: MountainWater
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,171
 
@@ -3633,7 +3318,6 @@
     region: "576, 240, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,177
 
@@ -3644,7 +3328,6 @@
     region: "672, 240, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,179
 
@@ -3655,7 +3338,6 @@
     region: "720, 240, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,180
 
@@ -3666,7 +3348,6 @@
     region: "864, 240, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,183
 
@@ -3677,7 +3358,6 @@
     region: "1008, 240, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,186
 
@@ -3688,7 +3368,6 @@
     region: "1104, 240, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,188
 
@@ -3699,7 +3378,6 @@
     region: "1152, 240, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,189
 
@@ -3710,7 +3388,6 @@
     region: "1200, 240, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,190
 
@@ -3721,7 +3398,6 @@
     region: "1296, 240, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,192
 
@@ -3732,7 +3408,6 @@
     region: "1344, 240, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,193
 
@@ -3743,7 +3418,6 @@
     region: "1488, 240, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,196
 
@@ -3754,7 +3428,6 @@
     region: "0, 288, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,198
 
@@ -3765,7 +3438,6 @@
     region: "48, 288, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,199
 
@@ -3776,7 +3448,6 @@
     region: "144, 288, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,201
 
@@ -3787,7 +3458,6 @@
     region: "192, 288, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,202
 
@@ -3798,7 +3468,6 @@
     region: "240, 288, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,203
 
@@ -3809,7 +3478,6 @@
     region: "288, 288, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,204
 
@@ -3820,7 +3488,6 @@
     region: "336, 288, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,205
 
@@ -3831,7 +3498,6 @@
     region: "384, 288, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,206
 
@@ -3842,7 +3508,6 @@
     region: "480, 288, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,208
 
@@ -3853,7 +3518,6 @@
     region: "528, 288, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,209
 
@@ -3864,7 +3528,6 @@
     region: "624, 288, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,211
 
@@ -3875,7 +3538,6 @@
     region: "672, 288, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,212
 
@@ -3886,7 +3548,6 @@
     region: "720, 288, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,213
 
@@ -3897,7 +3558,6 @@
     region: "768, 288, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,214
 
@@ -3908,7 +3568,6 @@
     region: "864, 288, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,216
 
@@ -3919,7 +3578,6 @@
     region: "960, 288, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,218
 
@@ -3930,7 +3588,6 @@
     region: "1008, 288, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,219
 
@@ -3941,7 +3598,6 @@
     region: "1104, 288, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,221
 
@@ -3952,7 +3608,6 @@
     region: "1152, 288, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,222
 
@@ -3963,7 +3618,6 @@
     region: "1200, 288, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,223
 
@@ -3974,7 +3628,6 @@
     region: "1248, 288, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,224
 
@@ -3985,7 +3638,6 @@
     region: "1296, 288, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,225
 
@@ -3996,7 +3648,6 @@
     region: "1440, 288, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,228
 
@@ -4007,7 +3658,6 @@
     region: "1488, 288, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,229
 
@@ -4018,7 +3668,6 @@
     region: "1536, 288, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,230
 
@@ -4029,7 +3678,6 @@
     region: "0, 480, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,330
 
@@ -4040,7 +3688,6 @@
     region: "48, 480, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,331
 
@@ -4051,7 +3698,6 @@
     region: "96, 480, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,332
 
@@ -4062,7 +3708,6 @@
     region: "144, 480, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,333
 
@@ -4073,7 +3718,6 @@
     region: "192, 480, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,334
 
@@ -4084,7 +3728,6 @@
     region: "240, 480, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,335
 
@@ -4095,7 +3738,6 @@
     region: "288, 480, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,336
 
@@ -4106,7 +3748,6 @@
     region: "336, 480, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,337
 
@@ -4117,7 +3758,6 @@
     region: "384, 480, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,338
 
@@ -4128,7 +3768,6 @@
     region: "432, 480, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,339
 
@@ -4139,7 +3778,6 @@
     region: "480, 480, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,340
 
@@ -4150,7 +3788,6 @@
     region: "528, 480, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,341
 
@@ -4161,7 +3798,6 @@
     region: "576, 480, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,342
 
@@ -4172,7 +3808,6 @@
     region: "624, 480, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,343
 
@@ -4183,7 +3818,6 @@
     region: "768, 480, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,346
 
@@ -4194,7 +3828,6 @@
     region: "816, 480, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,347
 
@@ -4205,7 +3838,6 @@
     region: "864, 480, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,348
 
@@ -4216,7 +3848,6 @@
     region: "912, 480, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,349
 
@@ -4227,7 +3858,6 @@
     region: "1392, 480, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,359
 
@@ -4238,7 +3868,6 @@
     region: "1440, 480, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,360
 
@@ -4249,7 +3878,6 @@
     region: "1488, 480, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,361
 
@@ -4260,7 +3888,6 @@
     region: "1536, 480, 48, 48"
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,362
 
@@ -4274,7 +3901,6 @@
   wallImage:
     filepath: /Elona/Graphic/map1.bmp
     region: "0, 624, 48, 48"
-  hspOrigin: elona122
   hspIds:
     elona122: 1,396
 
@@ -4288,7 +3914,6 @@
   wallImage:
     filepath: /Elona/Graphic/map1.bmp
     region: "48, 624, 48, 48"
-  hspOrigin: elona122
   hspIds:
     elona122: 1,397
 
@@ -4302,7 +3927,6 @@
   wallImage:
     filepath: /Elona/Graphic/map1.bmp
     region: "96, 624, 48, 48"
-  hspOrigin: elona122
   hspIds:
     elona122: 1,398
 
@@ -4316,7 +3940,6 @@
   wallImage:
     filepath: /Elona/Graphic/map1.bmp
     region: "144, 624, 48, 48"
-  hspOrigin: elona122
   hspIds:
     elona122: 1,399
 
@@ -4330,7 +3953,6 @@
   wallImage:
     filepath: /Elona/Graphic/map1.bmp
     region: "192, 624, 48, 48"
-  hspOrigin: elona122
   hspIds:
     elona122: 1,400
 
@@ -4344,7 +3966,6 @@
   wallImage:
     filepath: /Elona/Graphic/map1.bmp
     region: "240, 624, 48, 48"
-  hspOrigin: elona122
   hspIds:
     elona122: 1,401
 
@@ -4358,7 +3979,6 @@
   wallImage:
     filepath: /Elona/Graphic/map1.bmp
     region: "288, 624, 48, 48"
-  hspOrigin: elona122
   hspIds:
     elona122: 1,402
 
@@ -4372,7 +3992,6 @@
   wallImage:
     filepath: /Elona/Graphic/map1.bmp
     region: "336, 624, 48, 48"
-  hspOrigin: elona122
   hspIds:
     elona122: 1,403
 
@@ -4386,7 +4005,6 @@
   wallImage:
     filepath: /Elona/Graphic/map1.bmp
     region: "384, 624, 48, 48"
-  hspOrigin: elona122
   hspIds:
     elona122: 1,404
 
@@ -4400,7 +4018,6 @@
   wallImage:
     filepath: /Elona/Graphic/map1.bmp
     region: "432, 624, 48, 48"
-  hspOrigin: elona122
   hspIds:
     elona122: 1,405
 
@@ -4414,7 +4031,6 @@
   wallImage:
     filepath: /Elona/Graphic/map1.bmp
     region: "480, 624, 48, 48"
-  hspOrigin: elona122
   hspIds:
     elona122: 1,406
 
@@ -4428,7 +4044,6 @@
   wallImage:
     filepath: /Elona/Graphic/map1.bmp
     region: "528, 624, 48, 48"
-  hspOrigin: elona122
   hspIds:
     elona122: 1,407
 
@@ -4442,7 +4057,6 @@
   wallImage:
     filepath: /Elona/Graphic/map1.bmp
     region: "576, 624, 48, 48"
-  hspOrigin: elona122
   hspIds:
     elona122: 1,408
 
@@ -4456,7 +4070,6 @@
   wallImage:
     filepath: /Elona/Graphic/map1.bmp
     region: "624, 624, 48, 48"
-  hspOrigin: elona122
   hspIds:
     elona122: 1,409
 
@@ -4470,7 +4083,6 @@
   wallImage:
     filepath: /Elona/Graphic/map1.bmp
     region: "672, 624, 48, 48"
-  hspOrigin: elona122
   hspIds:
     elona122: 1,410
 
@@ -4484,7 +4096,6 @@
   wallImage:
     filepath: /Elona/Graphic/map1.bmp
     region: "720, 624, 48, 48"
-  hspOrigin: elona122
   hspIds:
     elona122: 1,411
 
@@ -4498,7 +4109,6 @@
   wallImage:
     filepath: /Elona/Graphic/map1.bmp
     region: "768, 624, 48, 48"
-  hspOrigin: elona122
   hspIds:
     elona122: 1,412
 
@@ -4512,7 +4122,6 @@
   wallImage:
     filepath: /Elona/Graphic/map1.bmp
     region: "816, 624, 48, 48"
-  hspOrigin: elona122
   hspIds:
     elona122: 1,413
 
@@ -4526,7 +4135,6 @@
   wallImage:
     filepath: /Elona/Graphic/map1.bmp
     region: "0, 720, 48, 48"
-  hspOrigin: elona122
   hspIds:
     elona122: 1,462
 
@@ -4540,7 +4148,6 @@
   wallImage:
     filepath: /Elona/Graphic/map1.bmp
     region: "48, 720, 48, 48"
-  hspOrigin: elona122
   hspIds:
     elona122: 1,463
 
@@ -4555,7 +4162,6 @@
   wallImage:
     filepath: /Elona/Graphic/map1.bmp
     region: "96, 720, 48, 48"
-  hspOrigin: elona122
   hspIds:
     elona122: 1,464
 
@@ -4569,7 +4175,6 @@
   wallImage:
     filepath: /Elona/Graphic/map1.bmp
     region: "144, 720, 48, 48"
-  hspOrigin: elona122
   hspIds:
     elona122: 1,465
 
@@ -4583,7 +4188,6 @@
   wallImage:
     filepath: /Elona/Graphic/map1.bmp
     region: "192, 720, 48, 48"
-  hspOrigin: elona122
   hspIds:
     elona122: 1,466
 
@@ -4597,7 +4201,6 @@
   wallImage:
     filepath: /Elona/Graphic/map1.bmp
     region: "240, 720, 48, 48"
-  hspOrigin: elona122
   hspIds:
     elona122: 1,467
 
@@ -4611,7 +4214,6 @@
   wallImage:
     filepath: /Elona/Graphic/map1.bmp
     region: "288, 720, 48, 48"
-  hspOrigin: elona122
   hspIds:
     elona122: 1,468
 
@@ -4625,7 +4227,6 @@
   wallImage:
     filepath: /Elona/Graphic/map1.bmp
     region: "336, 720, 48, 48"
-  hspOrigin: elona122
   hspIds:
     elona122: 1,469
 
@@ -4639,7 +4240,6 @@
   wallImage:
     filepath: /Elona/Graphic/map1.bmp
     region: "384, 720, 48, 48"
-  hspOrigin: elona122
   hspIds:
     elona122: 1,470
 
@@ -4653,7 +4253,6 @@
   wallImage:
     filepath: /Elona/Graphic/map1.bmp
     region: "432, 720, 48, 48"
-  hspOrigin: elona122
   hspIds:
     elona122: 1,471
 
@@ -4667,7 +4266,6 @@
   wallImage:
     filepath: /Elona/Graphic/map1.bmp
     region: "480, 720, 48, 48"
-  hspOrigin: elona122
   hspIds:
     elona122: 1,472
 
@@ -4681,7 +4279,6 @@
   wallImage:
     filepath: /Elona/Graphic/map1.bmp
     region: "528, 720, 48, 48"
-  hspOrigin: elona122
   hspIds:
     elona122: 1,473
 
@@ -4695,7 +4292,6 @@
   wallImage:
     filepath: /Elona/Graphic/map1.bmp
     region: "576, 720, 48, 48"
-  hspOrigin: elona122
   hspIds:
     elona122: 1,474
 
@@ -4709,7 +4305,6 @@
   wallImage:
     filepath: /Elona/Graphic/map1.bmp
     region: "624, 720, 48, 48"
-  hspOrigin: elona122
   hspIds:
     elona122: 1,475
 
@@ -4723,7 +4318,6 @@
   wallImage:
     filepath: /Elona/Graphic/map1.bmp
     region: "672, 720, 48, 48"
-  hspOrigin: elona122
   hspIds:
     elona122: 1,476
 
@@ -4737,7 +4331,6 @@
   wallImage:
     filepath: /Elona/Graphic/map1.bmp
     region: "720, 720, 48, 48"
-  hspOrigin: elona122
   hspIds:
     elona122: 1,477
 
@@ -4751,7 +4344,6 @@
   wallImage:
     filepath: /Elona/Graphic/map1.bmp
     region: "768, 720, 48, 48"
-  hspOrigin: elona122
   hspIds:
     elona122: 1,478
 
@@ -4765,7 +4357,6 @@
   wallImage:
     filepath: /Elona/Graphic/map1.bmp
     region: "816, 720, 48, 48"
-  hspOrigin: elona122
   hspIds:
     elona122: 1,479
 
@@ -4779,7 +4370,6 @@
   wallImage:
     filepath: /Elona/Graphic/map1.bmp
     region: "864, 720, 48, 48"
-  hspOrigin: elona122
   hspIds:
     elona122: 1,480
 
@@ -4793,7 +4383,6 @@
   wallImage:
     filepath: /Elona/Graphic/map1.bmp
     region: "912, 720, 48, 48"
-  hspOrigin: elona122
   hspIds:
     elona122: 1,481
 
@@ -4807,7 +4396,6 @@
   wallImage:
     filepath: /Elona/Graphic/map1.bmp
     region: "960, 720, 48, 48"
-  hspOrigin: elona122
   hspIds:
     elona122: 1,482
 
@@ -4821,7 +4409,6 @@
   wallImage:
     filepath: /Elona/Graphic/map1.bmp
     region: "1008, 720, 48, 48"
-  hspOrigin: elona122
   hspIds:
     elona122: 1,483
 
@@ -4835,7 +4422,6 @@
   wallImage:
     filepath: /Elona/Graphic/map1.bmp
     region: "1056, 720, 48, 48"
-  hspOrigin: elona122
   hspIds:
     elona122: 1,484
 
@@ -4849,7 +4435,6 @@
   wallImage:
     filepath: /Elona/Graphic/map1.bmp
     region: "1104, 720, 48, 48"
-  hspOrigin: elona122
   hspIds:
     elona122: 1,485
 
@@ -4863,7 +4448,6 @@
   wallImage:
     filepath: /Elona/Graphic/map1.bmp
     region: "1152, 720, 48, 48"
-  hspOrigin: elona122
   hspIds:
     elona122: 1,486
 
@@ -4877,7 +4461,6 @@
   wallImage:
     filepath: /Elona/Graphic/map1.bmp
     region: "1200, 720, 48, 48"
-  hspOrigin: elona122
   hspIds:
     elona122: 1,487
 
@@ -4891,7 +4474,6 @@
   wallImage:
     filepath: /Elona/Graphic/map1.bmp
     region: "1248, 720, 48, 48"
-  hspOrigin: elona122
   hspIds:
     elona122: 1,488
 
@@ -4905,7 +4487,6 @@
   wallImage:
     filepath: /Elona/Graphic/map1.bmp
     region: "1296, 720, 48, 48"
-  hspOrigin: elona122
   hspIds:
     elona122: 1,489
 
@@ -4919,7 +4500,6 @@
   wallImage:
     filepath: /Elona/Graphic/map1.bmp
     region: "1344, 720, 48, 48"
-  hspOrigin: elona122
   hspIds:
     elona122: 1,490
 
@@ -4933,7 +4513,6 @@
   wallImage:
     filepath: /Elona/Graphic/map1.bmp
     region: "1392, 720, 48, 48"
-  hspOrigin: elona122
   hspIds:
     elona122: 1,491
 
@@ -4947,7 +4526,6 @@
   wallImage:
     filepath: /Elona/Graphic/map1.bmp
     region: "1440, 720, 48, 48"
-  hspOrigin: elona122
   hspIds:
     elona122: 1,492
 
@@ -4961,7 +4539,6 @@
   wallImage:
     filepath: /Elona/Graphic/map1.bmp
     region: "1488, 720, 48, 48"
-  hspOrigin: elona122
   hspIds:
     elona122: 1,493
 
@@ -4975,7 +4552,6 @@
   wallImage:
     filepath: /Elona/Graphic/map1.bmp
     region: "1536, 720, 48, 48"
-  hspOrigin: elona122
   hspIds:
     elona122: 1,494
 
@@ -4986,7 +4562,6 @@
     region: "0, 768, 48, 48"
   isSolid: true
   isOpaque: true
-  hspOrigin: elona122
   hspIds:
     elona122: 1,528
 
@@ -4997,7 +4572,6 @@
     region: "48, 768, 48, 48"
   isSolid: true
   isOpaque: true
-  hspOrigin: elona122
   hspIds:
     elona122: 1,529
 
@@ -5008,7 +4582,6 @@
     region: "96, 768, 48, 48"
   isSolid: true
   isOpaque: true
-  hspOrigin: elona122
   hspIds:
     elona122: 1,530
 
@@ -5019,7 +4592,6 @@
     region: "144, 768, 48, 48"
   isSolid: true
   isOpaque: true
-  hspOrigin: elona122
   hspIds:
     elona122: 1,531
 
@@ -5030,7 +4602,6 @@
     region: "192, 768, 48, 48"
   isSolid: true
   isOpaque: true
-  hspOrigin: elona122
   hspIds:
     elona122: 1,532
 
@@ -5041,7 +4612,6 @@
     region: "240, 768, 48, 48"
   isSolid: true
   isOpaque: true
-  hspOrigin: elona122
   hspIds:
     elona122: 1,533
 
@@ -5052,7 +4622,6 @@
     region: "288, 768, 48, 48"
   isSolid: true
   isOpaque: true
-  hspOrigin: elona122
   hspIds:
     elona122: 1,534
 
@@ -5063,7 +4632,6 @@
     region: "336, 768, 48, 48"
   isSolid: true
   isOpaque: true
-  hspOrigin: elona122
   hspIds:
     elona122: 1,535
 
@@ -5074,7 +4642,6 @@
     region: "384, 768, 48, 48"
   isSolid: true
   isOpaque: true
-  hspOrigin: elona122
   hspIds:
     elona122: 1,536
 
@@ -5085,7 +4652,6 @@
     region: "432, 768, 48, 48"
   isSolid: true
   isOpaque: true
-  hspOrigin: elona122
   hspIds:
     elona122: 1,537
 
@@ -5096,7 +4662,6 @@
     region: "480, 768, 48, 48"
   isSolid: true
   isOpaque: true
-  hspOrigin: elona122
   hspIds:
     elona122: 1,538
 
@@ -5107,7 +4672,6 @@
     region: "528, 768, 48, 48"
   isSolid: true
   isOpaque: true
-  hspOrigin: elona122
   hspIds:
     elona122: 1,539
 
@@ -5118,7 +4682,6 @@
     region: "576, 768, 48, 48"
   isSolid: true
   isOpaque: true
-  hspOrigin: elona122
   hspIds:
     elona122: 1,540
 
@@ -5129,7 +4692,6 @@
     region: "624, 768, 48, 48"
   isSolid: true
   isOpaque: true
-  hspOrigin: elona122
   hspIds:
     elona122: 1,541
 
@@ -5140,7 +4702,6 @@
     region: "672, 768, 48, 48"
   isSolid: true
   isOpaque: true
-  hspOrigin: elona122
   hspIds:
     elona122: 1,542
 
@@ -5151,7 +4712,6 @@
     region: "720, 768, 48, 48"
   isSolid: true
   isOpaque: true
-  hspOrigin: elona122
   hspIds:
     elona122: 1,543
 
@@ -5162,7 +4722,6 @@
     region: "768, 768, 48, 48"
   isSolid: true
   isOpaque: true
-  hspOrigin: elona122
   hspIds:
     elona122: 1,544
 
@@ -5173,7 +4732,6 @@
     region: "816, 768, 48, 48"
   isSolid: true
   isOpaque: true
-  hspOrigin: elona122
   hspIds:
     elona122: 1,545
 
@@ -5185,7 +4743,6 @@
     countX: 2
   isSolid: true
   isOpaque: true
-  hspOrigin: elona122
   hspIds:
     elona122: 1,550
 
@@ -5196,7 +4753,6 @@
     region: "144, 816, 48, 48"
   isSolid: true
   isOpaque: true
-  hspOrigin: elona122
   hspIds:
     elona122: 1,564
 
@@ -5207,7 +4763,6 @@
     region: "192, 816, 48, 48"
   isSolid: true
   isOpaque: true
-  hspOrigin: elona122
   hspIds:
     elona122: 1,565
 
@@ -5218,7 +4773,6 @@
     region: "240, 816, 48, 48"
   isSolid: true
   isOpaque: true
-  hspOrigin: elona122
   hspIds:
     elona122: 1,566
 
@@ -5229,7 +4783,6 @@
     region: "288, 816, 48, 48"
   isSolid: true
   isOpaque: true
-  hspOrigin: elona122
   hspIds:
     elona122: 1,567
 
@@ -5240,7 +4793,6 @@
     region: "336, 816, 48, 48"
   isSolid: true
   isOpaque: true
-  hspOrigin: elona122
   hspIds:
     elona122: 1,568
 
@@ -5251,7 +4803,6 @@
     region: "528, 816, 48, 48"
   isSolid: true
   isOpaque: true
-  hspOrigin: elona122
   hspIds:
     elona122: 1,572
 
@@ -5262,7 +4813,6 @@
     region: "576, 816, 48, 48"
   isSolid: true
   isOpaque: true
-  hspOrigin: elona122
   hspIds:
     elona122: 1,573
 
@@ -5273,7 +4823,6 @@
     region: "624, 816, 48, 48"
   isSolid: true
   isOpaque: true
-  hspOrigin: elona122
   hspIds:
     elona122: 1,574
 
@@ -5284,7 +4833,6 @@
     region: "672, 816, 48, 48"
   isSolid: true
   isOpaque: true
-  hspOrigin: elona122
   hspIds:
     elona122: 1,575
 
@@ -5295,7 +4843,6 @@
     region: "720, 816, 48, 48"
   isSolid: true
   isOpaque: true
-  hspOrigin: elona122
   hspIds:
     elona122: 1,576
 
@@ -5306,7 +4853,6 @@
     region: "768, 816, 48, 48"
   isSolid: true
   isOpaque: true
-  hspOrigin: elona122
   hspIds:
     elona122: 1,577
 
@@ -5319,7 +4865,6 @@
   kind: Water
   isSolid: true
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,594
 
@@ -5330,7 +4875,6 @@
     region: "0, 912, 48, 48"
   isSolid: true
   isOpaque: true
-  hspOrigin: elona122
   hspIds:
     elona122: 1,627
 
@@ -5341,7 +4885,6 @@
     region: "48, 912, 48, 48"
   isSolid: true
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,628
 
@@ -5352,7 +4895,6 @@
     region: "96, 912, 48, 48"
   isSolid: true
   isOpaque: true
-  hspOrigin: elona122
   hspIds:
     elona122: 1,629
 
@@ -5363,7 +4905,6 @@
     region: "144, 912, 48, 48"
   isSolid: true
   isOpaque: true
-  hspOrigin: elona122
   hspIds:
     elona122: 1,630
 
@@ -5374,7 +4915,6 @@
     region: "192, 912, 48, 48"
   isSolid: true
   isOpaque: true
-  hspOrigin: elona122
   hspIds:
     elona122: 1,631
 
@@ -5385,7 +4925,6 @@
     region: "240, 912, 48, 48"
   isSolid: true
   isOpaque: true
-  hspOrigin: elona122
   hspIds:
     elona122: 1,632
 
@@ -5396,7 +4935,6 @@
     region: "288, 912, 48, 48"
   isSolid: true
   isOpaque: true
-  hspOrigin: elona122
   hspIds:
     elona122: 1,633
 
@@ -5407,7 +4945,6 @@
     region: "336, 912, 48, 48"
   isSolid: true
   isOpaque: true
-  hspOrigin: elona122
   hspIds:
     elona122: 1,634
 
@@ -5418,7 +4955,6 @@
     region: "384, 912, 48, 48"
   isSolid: true
   isOpaque: true
-  hspOrigin: elona122
   hspIds:
     elona122: 1,635
 
@@ -5429,7 +4965,6 @@
     region: "432, 912, 48, 48"
   isSolid: true
   isOpaque: true
-  hspOrigin: elona122
   hspIds:
     elona122: 1,636
 
@@ -5440,7 +4975,6 @@
     region: "480, 912, 48, 48"
   isSolid: true
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,637
 
@@ -5451,7 +4985,6 @@
     region: "528, 912, 48, 48"
   isSolid: true
   isOpaque: true
-  hspOrigin: elona122
   hspIds:
     elona122: 1,638
 
@@ -5462,7 +4995,6 @@
     region: "576, 912, 48, 48"
   isSolid: true
   isOpaque: true
-  hspOrigin: elona122
   hspIds:
     elona122: 1,639
 
@@ -5473,7 +5005,6 @@
     region: "672, 912, 48, 48"
   isSolid: true
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 1,641
 
@@ -5484,7 +5015,6 @@
     region: "912, 912, 48, 48"
   isSolid: true
   isOpaque: true
-  hspOrigin: elona122
   hspIds:
     elona122: 1,646
 
@@ -5495,7 +5025,6 @@
     region: "960, 912, 48, 48"
   isSolid: true
   isOpaque: true
-  hspOrigin: elona122
   hspIds:
     elona122: 1,647
 
@@ -5506,7 +5035,6 @@
     region: "1008, 912, 48, 48"
   isSolid: true
   isOpaque: true
-  hspOrigin: elona122
   hspIds:
     elona122: 1,648
 
@@ -5517,7 +5045,6 @@
     region: "1152, 912, 48, 48"
   isSolid: true
   isOpaque: true
-  hspOrigin: elona122
   hspIds:
     elona122: 1,651
 
@@ -5528,7 +5055,6 @@
     region: "1200, 912, 48, 48"
   isSolid: true
   isOpaque: true
-  hspOrigin: elona122
   hspIds:
     elona122: 1,652
 
@@ -5539,7 +5065,6 @@
     region: "1296, 912, 48, 48"
   isSolid: true
   isOpaque: true
-  hspOrigin: elona122
   hspIds:
     elona122: 1,654
 
@@ -5550,7 +5075,6 @@
     region: "1344, 912, 48, 48"
   isSolid: true
   isOpaque: true
-  hspOrigin: elona122
   hspIds:
     elona122: 1,655
 
@@ -5561,7 +5085,6 @@
     region: "1392, 912, 48, 48"
   isSolid: true
   isOpaque: true
-  hspOrigin: elona122
   hspIds:
     elona122: 1,656
 
@@ -5572,7 +5095,6 @@
     region: "1440, 912, 48, 48"
   isSolid: true
   isOpaque: true
-  hspOrigin: elona122
   hspIds:
     elona122: 1,657
 
@@ -5583,7 +5105,6 @@
     region: "1488, 912, 48, 48"
   isSolid: true
   isOpaque: true
-  hspOrigin: elona122
   hspIds:
     elona122: 1,658
 
@@ -5594,7 +5115,6 @@
     region: "1536, 912, 48, 48"
   isSolid: true
   isOpaque: true
-  hspOrigin: elona122
   hspIds:
     elona122: 1,659
 
@@ -5605,7 +5125,6 @@
     region: "96, 960, 48, 48"
   isSolid: true
   isOpaque: true
-  hspOrigin: elona122
   hspIds:
     elona122: 1,662
 
@@ -5616,7 +5135,6 @@
     region: "144, 960, 48, 48"
   isSolid: true
   isOpaque: true
-  hspOrigin: elona122
   hspIds:
     elona122: 1,663
 
@@ -5627,7 +5145,6 @@
     region: "192, 960, 48, 48"
   isSolid: true
   isOpaque: true
-  hspOrigin: elona122
   hspIds:
     elona122: 1,664
 
@@ -5638,7 +5155,6 @@
     region: "240, 960, 48, 48"
   isSolid: true
   isOpaque: true
-  hspOrigin: elona122
   hspIds:
     elona122: 1,665
 
@@ -5649,7 +5165,6 @@
     region: "288, 960, 48, 48"
   isSolid: true
   isOpaque: true
-  hspOrigin: elona122
   hspIds:
     elona122: 1,666
 
@@ -5660,7 +5175,6 @@
     region: "336, 960, 48, 48"
   isSolid: true
   isOpaque: true
-  hspOrigin: elona122
   hspIds:
     elona122: 1,667
 
@@ -5671,7 +5185,6 @@
     region: "384, 960, 48, 48"
   isSolid: true
   isOpaque: true
-  hspOrigin: elona122
   hspIds:
     elona122: 1,668
 
@@ -5682,7 +5195,6 @@
     region: "432, 960, 48, 48"
   isSolid: true
   isOpaque: true
-  hspOrigin: elona122
   hspIds:
     elona122: 1,669
 
@@ -5693,7 +5205,6 @@
     region: "1440, 960, 48, 48"
   isSolid: true
   isOpaque: true
-  hspOrigin: elona122
   hspIds:
     elona122: 1,690
 
@@ -5704,7 +5215,6 @@
     region: "1488, 960, 48, 48"
   isSolid: true
   isOpaque: true
-  hspOrigin: elona122
   hspIds:
     elona122: 1,691
 
@@ -5716,7 +5226,6 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 2,22
 
@@ -5728,7 +5237,6 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 2,23
 
@@ -5740,7 +5248,6 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 2,24
 
@@ -5752,7 +5259,6 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 2,26
 
@@ -5764,7 +5270,6 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 2,27
 
@@ -5776,7 +5281,6 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 2,28
 
@@ -5788,7 +5292,6 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 2,29
 
@@ -5800,7 +5303,6 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 2,30
 
@@ -5812,7 +5314,6 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 2,31
 
@@ -5824,7 +5325,6 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 2,34
 
@@ -5836,7 +5336,6 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 2,36
 
@@ -5848,7 +5347,6 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 2,44
 
@@ -5860,7 +5358,6 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 2,51
 
@@ -5872,7 +5369,6 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 2,53
 
@@ -5884,7 +5380,6 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 2,54
 
@@ -5896,7 +5391,6 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 2,55
 
@@ -5908,7 +5402,6 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 2,56
 
@@ -5920,7 +5413,6 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 2,57
 
@@ -5932,7 +5424,6 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 2,58
 
@@ -5944,7 +5435,6 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 2,60
 
@@ -5956,7 +5446,6 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 2,61
 
@@ -5968,7 +5457,6 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 2,62
 
@@ -5980,7 +5468,6 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 2,63
 
@@ -5992,7 +5479,6 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 2,64
 
@@ -6004,7 +5490,6 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 2,65
 
@@ -6016,7 +5501,6 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 2,86
 
@@ -6028,7 +5512,6 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 2,87
 
@@ -6040,7 +5523,6 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 2,88
 
@@ -6052,7 +5534,6 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 2,89
 
@@ -6064,7 +5545,6 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 2,90
 
@@ -6076,7 +5556,6 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 2,91
 
@@ -6088,7 +5567,6 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 2,92
 
@@ -6100,7 +5578,6 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 2,93
 
@@ -6112,7 +5589,6 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 2,94
 
@@ -6124,7 +5600,6 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 2,95
 
@@ -6136,7 +5611,6 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 2,96
 
@@ -6148,7 +5622,6 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 2,97
 
@@ -6160,7 +5633,6 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 2,98
 
@@ -6172,7 +5644,6 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 2,119
 
@@ -6184,7 +5655,6 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 2,120
 
@@ -6196,7 +5666,6 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 2,121
 
@@ -6208,7 +5677,6 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 2,122
 
@@ -6220,7 +5688,6 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 2,123
 
@@ -6232,7 +5699,6 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 2,124
 
@@ -6244,7 +5710,6 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 2,125
 
@@ -6256,7 +5721,6 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 2,126
 
@@ -6268,7 +5732,6 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 2,127
 
@@ -6280,7 +5743,6 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 2,128
 
@@ -6292,7 +5754,6 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 2,129
 
@@ -6304,7 +5765,6 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 2,130
 
@@ -6316,7 +5776,6 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 2,131
 
@@ -6328,7 +5787,6 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 2,152
 
@@ -6340,7 +5798,6 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 2,153
 
@@ -6352,7 +5809,6 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 2,154
 
@@ -6364,7 +5820,6 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 2,155
 
@@ -6376,7 +5831,6 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 2,156
 
@@ -6388,7 +5842,6 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 2,157
 
@@ -6400,7 +5853,6 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 2,159
 
@@ -6412,7 +5864,6 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 2,160
 
@@ -6424,7 +5875,6 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 2,161
 
@@ -6436,7 +5886,6 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 2,162
 
@@ -6448,7 +5897,6 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 2,163
 
@@ -6460,7 +5908,6 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 2,164
 
@@ -6472,7 +5919,6 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 2,185
 
@@ -6484,7 +5930,6 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 2,186
 
@@ -6496,7 +5941,6 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 2,187
 
@@ -6508,7 +5952,6 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 2,188
 
@@ -6520,7 +5963,6 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 2,189
 
@@ -6532,7 +5974,6 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 2,190
 
@@ -6544,7 +5985,6 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 2,192
 
@@ -6556,7 +5996,6 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 2,193
 
@@ -6568,7 +6007,6 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 2,194
 
@@ -6580,7 +6018,6 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 2,195
 
@@ -6592,7 +6029,6 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 2,196
 
@@ -6604,7 +6040,6 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 2,218
 
@@ -6616,7 +6051,6 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 2,219
 
@@ -6628,7 +6062,6 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 2,220
 
@@ -6640,7 +6073,6 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 2,221
 
@@ -6652,7 +6084,6 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 2,222
 
@@ -6664,7 +6095,6 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 2,223
 
@@ -6676,7 +6106,6 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 2,252
 
@@ -6688,7 +6117,6 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 2,253
 
@@ -6700,7 +6128,6 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 2,254
 
@@ -6712,7 +6139,6 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 2,255
 
@@ -6724,7 +6150,6 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 2,256
 
@@ -6736,7 +6161,6 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 2,285
 
@@ -6748,7 +6172,6 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 2,286
 
@@ -6760,7 +6183,6 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 2,287
 
@@ -6772,7 +6194,6 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 2,288
 
@@ -6784,7 +6205,6 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 2,289
 
@@ -6796,7 +6216,6 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 2,317
 
@@ -6808,7 +6227,6 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 2,318
 
@@ -6820,7 +6238,6 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 2,319
 
@@ -6832,7 +6249,6 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 2,320
 
@@ -6844,7 +6260,6 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 2,321
 
@@ -6856,7 +6271,6 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 2,322
 
@@ -6868,7 +6282,6 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 2,350
 
@@ -6880,7 +6293,6 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 2,351
 
@@ -6892,7 +6304,6 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 2,352
 
@@ -6904,7 +6315,6 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 2,353
 
@@ -6916,7 +6326,6 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 2,354
 
@@ -6928,7 +6337,6 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 2,355
 
@@ -6940,7 +6348,6 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 2,356
 
@@ -6952,7 +6359,6 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 2,357
 
@@ -6964,7 +6370,6 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 2,358
 
@@ -6976,7 +6381,6 @@
   kind: Snow
   isSolid: false
   isOpaque: false
-  hspOrigin: elona122
   hspIds:
     elona122: 2,359
 

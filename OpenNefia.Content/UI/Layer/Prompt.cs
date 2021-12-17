@@ -4,13 +4,8 @@ using OpenNefia.Content.UI.Element.List;
 using OpenNefia.Core.Audio;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.UI;
-using OpenNefia.Core.UI.Element;
 using OpenNefia.Core.UI.Layer;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using OpenNefia.Content.Prototypes;
 
 namespace OpenNefia.Content.UI.Layer
 {
@@ -112,7 +107,7 @@ namespace OpenNefia.Content.UI.Layer
             {
                 Mes.Display(Options.QueryText);
             }
-            Sounds.Play(SoundPrototypeOf.Pop2);
+            Sounds.Play(Protos.Sound.Pop2);
         }
 
         public override void GetPreferredBounds(out UIBox2i bounds)

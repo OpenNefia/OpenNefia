@@ -68,16 +68,9 @@ namespace OpenNefia.Core.Rendering.TileDrawLayers
                     tileIndex = tile.WallImage.AtlasIndex;
                 }
 
-                if (oneTileUp != Tile.Empty && oneTileUp.ResolvePrototype().WallImage != null && _map.IsMemorized(oneDown))
-                {
-                    this._tileAndChipBatch.SetTile(oneUp, oneTileUp.ResolvePrototype().Image.AtlasIndex);
-                }
-            }
-            else if (pos.Y > 0)
-            {
                 if (oneTileUp != Tile.Empty && oneTileUp.ResolvePrototype().WallImage != null && _map.IsMemorized(oneUp))
                 {
-                    this._tileAndChipBatch.SetTile(oneUp, oneTileUp.ResolvePrototype().WallImage!.AtlasIndex);
+                    this._tileAndChipBatch.SetTile(oneUp, oneTileUp.ResolvePrototype().Image.AtlasIndex);
                 }
             }
 
@@ -89,7 +82,7 @@ namespace OpenNefia.Core.Rendering.TileDrawLayers
             var tileIndex = ModifyWalls(pos, tile);
 
             this._wallShadows.SetTile(pos, tile);
-            this._tileAndChipBatch.SetTile(pos, tile.Image.AtlasIndex);
+            this._tileAndChipBatch.SetTile(pos, tileIndex);
         }
 
         public void RedrawMapObjects()

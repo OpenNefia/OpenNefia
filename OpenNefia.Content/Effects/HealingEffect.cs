@@ -8,6 +8,7 @@ using OpenNefia.Core.IoC;
 using OpenNefia.Core.Maps;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Core.Serialization;
+using OpenNefia.Content.Prototypes;
 
 namespace OpenNefia.Content.Effects
 {
@@ -25,7 +26,7 @@ namespace OpenNefia.Content.Effects
         {
             Mes.Display($"{DisplayNameSystem.GetDisplayName(target)} is (supposed to be) healed.", UiColors.MesGreen);
 
-            var drawable = new ParticleMapDrawable(AssetPrototypeOf.HealEffect, SoundPrototypeOf.Heal1, 5f);
+            var drawable = new ParticleMapDrawable(AssetPrototypeOf.HealEffect, Protos.Sound.Heal1, 5f);
             _mapDrawables.Enqueue(drawable, coords);
 
             return EffectResult.Succeeded;
