@@ -80,14 +80,14 @@ namespace OpenNefia.Content.CommandLine
 
                     foreach (var proto in group)
                     {
-                        var strongId = proto.GetStrongID();
+                        var hspId = proto.HspIds!.GetCanonical();
+                        if (!ids.ContainsKey(hspId))
+                            ids.Add(hspId, proto.GetStrongID());
 
-                        ids.Add(proto.HspIds!.GetCanonical(), strongId);
-
-                        if (proto.HspCellObjIds.TryGetValue(proto.HspIds.HspOrigin!, out var cellObjIds))
+                        if (proto.HspCellObjIds.TryGetValue(proto.HspIds!.HspOrigin, out var cellObjIds))
                         {
                             foreach (var id in cellObjIds)
-                                _cellObjIndexToProtoId.Add(id, strongId);
+                                _cellObjIndexToProtoId.Add(id, proto.GetStrongID());
                         }
                     }
 
@@ -147,10 +147,19 @@ namespace OpenNefia.Content.CommandLine
         {
             var tileMap = new Dictionary<int, PrototypeId<TilePrototype>>();
 
-            foreach (var tileProto in _tileDefinitionManager.Where(t => t.HspIds != null))
+            foreach (var tileProto in _tileDefinitionManager.Where(t => t.HspIds != null && t.HspIds.GetCanonical()!.X == 0))
             {
                 var (_, hspIndex) = tileProto.HspIds!.GetCanonical();
                 tileMap[hspIndex] = tileProto.GetStrongID();
+            }
+
+            if (atlasNum > 0)
+            {
+                foreach (var tileProto in _tileDefinitionManager.Where(t => t.HspIds != null && t.HspIds.GetCanonical()!.X == atlasNum))
+                {
+                    var (_, hspIndex) = tileProto.HspIds!.GetCanonical();
+                    tileMap[hspIndex] = tileProto.GetStrongID();
+                }
             }
 
             return tileMap;
@@ -236,14 +245,8 @@ namespace OpenNefia.Content.CommandLine
 
             foreach (var (compType, comp) in comps)
             {
-                var compMapping = _serializationManager.WriteValueAs<MappingDataNode>(comp.GetType(), comp);
 
-                if (_prototypeCompCache[protoId].TryGetValue(compType, out var protoMapping))
-                {
-                    // Only serialize component fields that differ from the prototype.
-                    compMapping = compMapping.Except(protoMapping);
-                    if (compMapping == null) continue;
-                }
+                var compMapping = _serializationManager.WriteValueAs<MappingDataNode>(comp.GetType(), comp);
 
                 // This is necessary since no entities/maps are tracked by the EntityManager during
                 // this process, so it's not possible to set the local position by hand (it tries to
@@ -254,6 +257,14 @@ namespace OpenNefia.Content.CommandLine
                     compMapping["parent"] = new ValueDataNode(MapEntityUid.ToString());
                 }
 
+                if (_prototypeCompCache[protoId].TryGetValue(compType, out var protoMapping))
+                {
+                    // Only serialize component fields that differ from the prototype.
+                    compMapping = compMapping.Except(protoMapping);
+                    if (compMapping == null) continue;
+                }
+
+                compMapping.Insert(0, MapBlueprintLoader.Keys.Entities_Components_Type, new ValueDataNode(comp.Name));
                 entityComps.Add(compMapping.ToYamlNode());
             }
 

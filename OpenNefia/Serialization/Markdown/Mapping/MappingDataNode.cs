@@ -64,6 +64,18 @@ namespace OpenNefia.Core.Serialization.Markdown.Mapping
             return this;
         }
 
+        public MappingDataNode Insert(int index, DataNode key, DataNode node)
+        {
+            _children.Insert(index, key, node);
+            return this;
+        }
+
+        public MappingDataNode RemoveAt(int index)
+        {
+            _children.RemoveAt(index);
+            return this;
+        }
+
         public DataNode Get(DataNode key)
         {
             return _children[key];

@@ -40,6 +40,8 @@
 - type: Entity
   id: Elona.FeatDoorWooden
   parent: Elona.FeatDoor
+  hspIds:
+    elona122: 21
   hspCellObjIds:
     elona122: [0, 1, 2]
   components:
@@ -51,6 +53,8 @@
 - type: Entity
   id: Elona.FeatDoorSF
   parent: Elona.FeatDoor
+  hspIds:
+    elona122: 21
   hspCellObjIds:
     elona122: [7]
   components:
@@ -62,6 +66,8 @@
 - type: Entity
   id: Elona.FeatDoorEastern
   parent: Elona.FeatDoor
+  hspIds:
+    elona122: 21
   hspCellObjIds:
     elona122: [11]
   components:
@@ -73,6 +79,8 @@
 - type: Entity
   id: Elona.FeatDoorJail
   parent: Elona.FeatDoor
+  hspIds:
+    elona122: 21
   hspCellObjIds:
     elona122: [13]
   components:

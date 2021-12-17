@@ -9,7 +9,7 @@
   id: BaseChara
   parent: BaseObject
   abstract: true
-  hspType: chara
+  hspEntityType: chara
   components:
   - type: Spatial
     isSolid: true
@@ -23,7 +23,7 @@
   id: BaseItem
   parent: BaseObject
   abstract: true
-  hspType: item
+  hspEntityType: item
   components:
   - type: Spatial
     isSolid: false
@@ -51,7 +51,7 @@
   id: BaseFeat
   parent: BaseObject
   abstract: true
-  hspType: feat
+  hspEntityType: feat
   components:
   - type: Spatial
     isSolid: true
@@ -61,4 +61,4 @@
   id: BaseMef
   parent: BaseObject
   abstract: true
-  hspType: mef
+  hspEntityType: mef

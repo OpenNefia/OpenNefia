@@ -37,6 +37,7 @@ namespace OpenNefia.Core.Prototypes
 
         /// <inheritdoc/>
         [DataField]
+        [NeverPushInheritance]
         public HspIds<int>? HspIds { get; }
 
         /// <summary>
@@ -44,6 +45,7 @@ namespace OpenNefia.Core.Prototypes
         /// This is used during HSP map conversion.
         /// </summary>
         [DataField("hspCellObjIds")]
+        [NeverPushInheritance]
         private readonly Dictionary<string, HashSet<int>> _hspCellObjIds = new();
         public IReadOnlyDictionary<string, HashSet<int>> HspCellObjIds => _hspCellObjIds;
 

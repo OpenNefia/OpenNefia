@@ -45,9 +45,6 @@ namespace OpenNefia.Core.Maps
         public TileSpecifier Image = null!;
 
         [DataField]
-        public int? ElonaAtlas = null;
-
-        [DataField]
         public bool IsSolid = false;
 
         [DataField]

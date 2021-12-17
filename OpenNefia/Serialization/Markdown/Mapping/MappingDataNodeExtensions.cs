@@ -23,5 +23,23 @@ namespace OpenNefia.Core.Serialization.Markdown.Mapping
             mapping.Add(new ValueDataNode(key), new SequenceDataNode(sequence));
             return mapping;
         }
+
+        public static MappingDataNode Insert(this MappingDataNode mapping, int index, string key, DataNode node)
+        {
+            mapping.Insert(index, new ValueDataNode(key), node);
+            return mapping;
+        }
+
+        public static MappingDataNode Insert(this MappingDataNode mapping, int index, string key, string value)
+        {
+            mapping.Insert(index, new ValueDataNode(key), new ValueDataNode(value));
+            return mapping;
+        }
+
+        public static MappingDataNode Insert(this MappingDataNode mapping, int index, string key, List<string> sequence)
+        {
+            mapping.Insert(index, new ValueDataNode(key), new SequenceDataNode(sequence));
+            return mapping;
+        }
     }
 }
