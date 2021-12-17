@@ -173,6 +173,14 @@ namespace OpenNefia.Core.Utility
             return element != null;
         }
 
+        /// <summary>
+        /// Retrieves an existing value, or constructs a new value and inserts it into the dictionary, returning it.
+        /// </summary>
+        /// <typeparam name="TKey">Type of the dictionary key.</typeparam>
+        /// <typeparam name="TValue">Type of the dictionary value.</typeparam>
+        /// <param name="dict">Dictionary to query/modify.</param>
+        /// <param name="key">Key to index.</param>
+        /// <returns>A value guaranteed to be contained in <paramref name="dict"/>.</returns>
         public static TValue GetOrNew<TKey, TValue>(this IDictionary<TKey, TValue> dict, TKey key) where TValue : new()
             where TKey : notnull
         {
@@ -199,6 +207,24 @@ namespace OpenNefia.Core.Utility
             }
 
             return array;
+        }
+
+        /// <summary>
+        /// Returns a new dictionary with all keys and values swapped.
+        /// </summary>
+        /// <exception cref="ArgumentException"/>
+        public static Dictionary<TValue, TKey> Invert<TKey, TValue>(this IDictionary<TKey, TValue> dict) 
+            where TKey : notnull
+            where TValue : notnull
+        {
+            var result = new Dictionary<TValue, TKey>();
+
+            foreach (TKey key in dict.Keys)
+            {
+                result.Add(dict[key], key);
+            }
+
+            return result;
         }
 
         /// <summary>
@@ -250,6 +276,15 @@ namespace OpenNefia.Core.Utility
             foreach (T item in items)
             {
                 collection.Add(item);
+            }
+        }
+
+        public static IEnumerable<TTo> WhereAssignable<TFrom, TTo>(this IEnumerable<TFrom> iterator)
+        {
+            foreach (var item in iterator)
+            {
+                if (item != null && item is TTo itemTo)
+                    yield return itemTo;
             }
         }
     }

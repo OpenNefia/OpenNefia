@@ -1,6 +1,5 @@
 ﻿using OpenNefia.Core.IoC;
 using OpenNefia.Core.Prototypes;
-using OpenNefia.Core.Rendering;
 
 namespace OpenNefia.Core.Maps
 {

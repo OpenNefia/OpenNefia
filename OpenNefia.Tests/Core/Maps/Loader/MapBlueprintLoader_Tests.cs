@@ -5,7 +5,6 @@ using OpenNefia.Core.IoC;
 using OpenNefia.Core.Maps;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.Prototypes;
-using OpenNefia.Core.Rendering;
 using OpenNefia.Core.Serialization.Manager;
 using OpenNefia.Core.Serialization.Manager.Attributes;
 using OpenNefia.Core.Utility;
@@ -178,6 +177,11 @@ entities:
             var mapEntitySpatial = entMan.GetComponent<SpatialComponent>(map!.MapEntityUid);
 
             Assert.That(mapEntitySpatial.ChildCount, Is.EqualTo(1));
+
+            var mapEntityMap = entMan.GetComponent<MapComponent>(map!.MapEntityUid);
+
+            Assert.That(mapEntityMap.Metadata.Name, Is.EqualTo("test"));
+            Assert.That(mapEntityMap.Metadata.Author, Is.EqualTo("ruin"));
 
             var entity = mapEntitySpatial.Children.Single().OwnerUid;
             var c = entMan.GetComponent<MapDeserializeTestComponent>(entity);

@@ -1,6 +1,9 @@
-﻿namespace OpenNefia.Core.Rendering
+﻿using OpenNefia.Core.Maths;
+using OpenNefia.Core.Prototypes;
+
+namespace OpenNefia.Core.Rendering
 {
-    public interface ITileDefinition
+    public interface ITileDefinition : IHspIds<Vector2i>
     {
         /// <summary>
         /// The in-code name of this tile definition.

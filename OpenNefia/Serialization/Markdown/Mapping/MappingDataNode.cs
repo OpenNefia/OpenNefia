@@ -17,7 +17,7 @@ namespace OpenNefia.Core.Serialization.Markdown.Mapping
         private static readonly ThreadLocal<ValueDataNode> FetchNode =
             new(() => new ValueDataNode(""));
 
-        private readonly Dictionary<DataNode, DataNode> _children = new();
+        private readonly OrderedDictionary<DataNode, DataNode> _children = new();
 
         public IReadOnlyDictionary<DataNode, DataNode> Children => _children;
 

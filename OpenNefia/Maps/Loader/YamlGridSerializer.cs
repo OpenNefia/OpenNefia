@@ -1,6 +1,5 @@
 ﻿using OpenNefia.Core.Maths;
 using OpenNefia.Core.Prototypes;
-using OpenNefia.Core.Rendering;
 using System.Text;
 
 namespace OpenNefia.Core.Maps
@@ -49,8 +48,30 @@ namespace OpenNefia.Core.Maps
             return map;
         }
 
+        public static Dictionary<PrototypeId<TilePrototype>, string> BuildProtoToRuneTileMap(IMap map)
+        {
+            var tilesSeen = new HashSet<PrototypeId<TilePrototype>>();
+            
+            foreach (var tile in map.Tiles)
+            {
+                tilesSeen.Add(tile.ResolvePrototype().GetStrongID());
+            }
+
+            var result = new Dictionary<PrototypeId<TilePrototype>, string>();
+            char c = 'a'; // TODO beautify based on wall/floor
+
+            foreach (var tileId in tilesSeen)
+            {
+                result.Add(tileId, c.ToString());
+                c++;
+            }
+
+            return result;
+        }
+
+
         public static string SerializeGrid(IMap map, 
-            Dictionary<PrototypeId<TilePrototype>, string> tileMapInverse,
+            Dictionary<PrototypeId<TilePrototype>, string> protoToRune,
             ITileDefinitionManager tileDefinitionManager)
         {
             var sb = new StringBuilder();
@@ -61,7 +82,7 @@ namespace OpenNefia.Core.Maps
                 {
                     var tile = map.GetTile(new Vector2i(x, y));
                     var protoId = tileDefinitionManager[tile.Type].GetStrongID();
-                    if (!tileMapInverse.TryGetValue(protoId, out var rune))
+                    if (!protoToRune.TryGetValue(protoId, out var rune))
                     {
                         throw new InvalidDataException($"Tile ID '{protoId}' has no tilemap rune.");
                     }

@@ -16,13 +16,41 @@ namespace OpenNefia.Core.Prototypes
     /// Prototype that represents game entities.
     /// </summary>
     [Prototype("Entity", -1)]
-    public class EntityPrototype : IPrototype, IInheritingPrototype, ISerializationHooks
+    public class EntityPrototype : IPrototype, IInheritingPrototype, ISerializationHooks, IHspIds<int>
     {
         /// <summary>
         /// The "in code name" of the object. Must be unique.
         /// </summary>
         [DataField("id")]
         public string ID { get; private set; } = default!;
+
+        /// <summary>
+        /// Type identifier for the corresponding entity in HSP variants of Elona.
+        /// 
+        /// Since all types of entities (character, item, feat, mef) are consolidated
+        /// under <see cref="EntityPrototype"/>, it becomes necessary to state both what
+        /// the "logical" type ("chara", "item") and the numeric ID in <see cref="HspIds"/> are.
+        /// </summary>
+        /// <seealso cref="HspEntityTypes"/>
+        [DataField]
+        public string? HspEntityType { get; }
+
+        /// <inheritdoc/>
+        [DataField]
+        public string? HspOrigin { get; }
+
+        /// <inheritdoc/>
+        [DataField("hspIds")]
+        private readonly Dictionary<string, int> _hspIds = new();
+        public IReadOnlyDictionary<string, int> HspIds => _hspIds;
+
+        /// <summary>
+        /// Cell object IDs of this entity for each HSP variant.
+        /// This is used during HSP map conversion.
+        /// </summary>
+        [DataField("hspCellObjIds")]
+        private readonly Dictionary<string, int> _hspCellObjIds = new();
+        public IReadOnlyDictionary<string, int> HspCellObjIds => _hspCellObjIds;
 
         /// <summary>
         ///     If true, this object should not show up in the entity spawn panel.

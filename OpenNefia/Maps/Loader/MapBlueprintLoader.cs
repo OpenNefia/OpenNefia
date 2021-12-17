@@ -4,7 +4,6 @@ using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Log;
 using OpenNefia.Core.Prototypes;
-using OpenNefia.Core.Rendering;
 using OpenNefia.Core.Serialization;
 using OpenNefia.Core.Serialization.Manager;
 using OpenNefia.Core.Serialization.Manager.Result;
@@ -101,28 +100,29 @@ namespace OpenNefia.Core.Maps
             return grid;
         }
 
+        public static class Keys
+        {
+            public const string Meta = "meta";
+            public const string Meta_Format = "format";
+            public const string Meta_Name = "name";
+            public const string Meta_Author = "author";
+
+            public const string Tilemap = "tilemap";
+
+            public const string Grid = "grid";
+
+            public const string Entities = "entities";
+            public const string Entities_ProtoId = "protoId";
+            public const string Entities_Uid = "uid";
+
+            public const string Entities_Components = "components";
+            public const string Entities_Components_Type = "type";
+        }
+
         private class MapBlueprintContext : ISerializationContext, IEntityLoadContext,
             ITypeSerializer<EntityUid, ValueDataNode>,
             ITypeReaderWriter<EntityUid, ValueDataNode>
         {
-            private static class Keys
-            {
-                public const string Meta = "meta";
-                public const string Meta_Format = "format";
-                public const string Meta_Name = "name";
-                public const string Meta_Author = "author";
-
-                public const string Tilemap = "tilemap";
-
-                public const string Grid = "grid";
-
-                public const string Entities = "entities";
-                public const string Entities_ProtoId = "protoId";
-                public const string Entities_Uid = "uid";
-
-                public const string Entities_Components = "components";
-                public const string Entities_Components_Type = "type";
-            }
 
             private MapId _targetMapId;
             private IMapManager _mapManager;
@@ -131,6 +131,7 @@ namespace OpenNefia.Core.Maps
             private IPrototypeManager _prototypeManager;
 
             public IMap? MapGrid;
+            private MapMetadata _mapMetadata = new();
             private readonly Dictionary<EntityUid, int> _entityUidMap = new();
             private readonly Dictionary<int, EntityUid> _uidEntityMap = new();
             public readonly List<EntityUid> Entities = new();
@@ -273,6 +274,10 @@ namespace OpenNefia.Core.Maps
                 {
                     throw new InvalidDataException("Cannot handle this map blueprint file version.");
                 }
+
+                var name = meta.GetNode(Keys.Meta_Name).AsString();
+                var author = meta.GetNode(Keys.Meta_Author).AsString();
+                _mapMetadata = new MapMetadata(name, author);
             }
 
             private void ReadTileMapSection()
@@ -382,6 +387,7 @@ namespace OpenNefia.Core.Maps
                 var mapEntity = _mapManager.GetMapEntity(_targetMapId)!;
                 var mapComponent = _entityManager.EnsureComponent<MapComponent>(mapEntity.Uid);
                 mapComponent.MapId = _targetMapId;
+                mapComponent.Metadata = _mapMetadata;
             }
 
             private void FinishEntitiesInitialization()
@@ -419,29 +425,21 @@ namespace OpenNefia.Core.Maps
             private void WriteMetaSection()
             {
                 var mapEntity = _mapManager.GetMapEntity(_targetMapId);
-                var mapMeta = _entityManager.EnsureComponent<MapComponent>(mapEntity.Uid);
+                var mapComp = _entityManager.EnsureComponent<MapComponent>(mapEntity.Uid);
 
                 var meta = new YamlMappingNode();
                 _rootNode.Add(Keys.Meta, meta);
                 meta.Add(Keys.Meta_Format, MapBlueprintFormatVersion.ToString(CultureInfo.InvariantCulture));
-                // TODO: Make these values configurable.
-                meta.Add(Keys.Meta_Name, "test map");
-                meta.Add(Keys.Meta_Author, "putit");
+                meta.Add(Keys.Meta_Name, mapComp.Metadata.Name);
+                meta.Add(Keys.Meta_Author, mapComp.Metadata.Author);
             }
 
             private void WriteTileMapSection()
             {
-                _tileMapInverse = new Dictionary<PrototypeId<TilePrototype>, string>();
+                _tileMapInverse = YamlGridSerializer.BuildProtoToRuneTileMap(MapGrid!);
 
                 var tileMap = new YamlMappingNode();
                 _rootNode.Add(Keys.Tilemap, tileMap);
-                char c = 'a'; // TODO beautify based on wall/floor
-
-                foreach (var tileDefinition in _tileDefinitionManager)
-                {
-                    _tileMapInverse.Add(tileDefinition.GetStrongID(), c.ToString());
-                    c++;
-                }
 
                 foreach (var pair in _tileMapInverse)
                 {
@@ -555,7 +553,7 @@ namespace OpenNefia.Core.Maps
                         // Don't need to write it if nothing was written!
                         if (compMapping.Children.Count != 0)
                         {
-                            compMapping.Add("type", new ValueDataNode(component.Name));
+                            compMapping.Add(Keys.Entities_Components_Type, new ValueDataNode(component.Name));
                             // Something actually got written!
                             components.Add(compMapping.ToYamlNode());
                         }

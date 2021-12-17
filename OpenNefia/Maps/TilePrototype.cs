@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using OpenNefia.Core.Maths;
 using OpenNefia.Core.Prototypes;
+using OpenNefia.Core.Rendering;
 using OpenNefia.Core.Serialization.Manager.Attributes;
 
-namespace OpenNefia.Core.Rendering
+namespace OpenNefia.Core.Maps
 {
     public enum TileKind
     {
@@ -28,6 +31,16 @@ namespace OpenNefia.Core.Rendering
     {
         [DataField("id", required: true)]
         public string ID { get; } = default!;
+
+        [DataField]
+        public string? HspOrigin { get; }
+
+        /// <summary>
+        /// ID mappings of format (atlasIndex, tileIndex)
+        /// </summary>
+        [DataField("hspIds")]
+        private readonly Dictionary<string, Vector2i> _hspIds = new();
+        public IReadOnlyDictionary<string, Vector2i> HspIds => _hspIds;
 
         /// <inheritdoc />
         public int TileIndex { get; private set; } = 0;

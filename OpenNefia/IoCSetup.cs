@@ -1,5 +1,6 @@
 ﻿using OpenNefia.Core.Asynchronous;
 using OpenNefia.Core.Audio;
+using OpenNefia.Core.CommandLine;
 using OpenNefia.Core.ContentPack;
 using OpenNefia.Core.Exceptions;
 using OpenNefia.Core.Game;
@@ -24,9 +25,20 @@ namespace OpenNefia
 {
     public class IoCSetup
     {
-        public static void Register()
+        internal static void Register(GameController.DisplayMode mode)
         {
-            IoCManager.Register<IGraphics, LoveGraphics>();
+            switch (mode)
+            {
+                case GameController.DisplayMode.Headless:
+                    IoCManager.Register<IGraphics, HeadlessGraphics>();
+                    break;
+                case GameController.DisplayMode.Love:
+                    IoCManager.Register<IGraphics, LoveGraphics>();
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+
             IoCManager.Register<IRuntimeLog, RuntimeLog>();
             IoCManager.Register<ILogManager, LogManager>();
             IoCManager.Register<IDynamicTypeFactory, DynamicTypeFactory>();
@@ -65,6 +77,7 @@ namespace OpenNefia
             IoCManager.Register<IInstancedSerializer, InstancedSerializer>();
             IoCManager.Register<ITimerManager, TimerManager>();
             IoCManager.Register<IMapBlueprintLoader, MapBlueprintLoader>();
+            IoCManager.Register<ICommandLineController, CommandLineController>();
         }
     }
 }

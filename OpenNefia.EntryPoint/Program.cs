@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using OpenNefia.Core.CommandLine;
 using OpenNefia.Core.GameController;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Log;
@@ -10,7 +11,19 @@ namespace OpenNefia
     {
         public static void Main(string[] args)
         {
-            InitIoC();
+            if (args.Length == 0)
+            {
+                GameStart();
+            }
+            else
+            {
+                CommandLineStart(args);
+            }
+        }
+
+        private static void GameStart()
+        {
+            InitIoC(GameController.DisplayMode.Love);
 
             var gc = IoCManager.Resolve<IGameController>();
 
@@ -23,10 +36,19 @@ namespace OpenNefia
             gc.Run();
         }
 
-        private static void InitIoC()
+        private static void CommandLineStart(string[] args)
+        {
+            InitIoC(GameController.DisplayMode.Headless);
+
+            var cmh = IoCManager.Resolve<ICommandLineController>();
+
+            cmh.Run(args);
+        }
+
+        private static void InitIoC(GameController.DisplayMode mode)
         {
             IoCManager.InitThread();
-            IoCSetup.Register();
+            IoCSetup.Register(mode);
             IoCManager.BuildGraph();
 
             RegisterReflection();

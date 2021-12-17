@@ -1,5 +1,6 @@
 ﻿using OpenNefia.Core.IoC;
 using OpenNefia.Core.Log;
+using OpenNefia.Core.Maps;
 using OpenNefia.Core.Prototypes;
 using System;
 using System.Collections.Generic;

@@ -1,14 +1,14 @@
 ﻿using OpenNefia.Core.Prototypes;
-using TilePrototypeId = OpenNefia.Core.Prototypes.PrototypeId<OpenNefia.Core.Rendering.TilePrototype>;
+using TilePrototypeId = OpenNefia.Core.Prototypes.PrototypeId<OpenNefia.Core.Maps.TilePrototype>;
 
-namespace OpenNefia.Core.Rendering
+namespace OpenNefia.Core.Maps
 {
     [PrototypeOfEntries]
     public static class TilePrototypeOf
     {
         /// <summary>
         /// This is the tile prototype that should correspond to 
-        /// <see cref="Maps.Tile.Empty" />, i.e. it should be registered
+        /// <see cref="Tile.Empty" />, i.e. it should be registered
         /// first so it gets tile index 0.
         /// </summary>
         public static TilePrototypeId Empty = new(nameof(Empty));

@@ -21,10 +21,24 @@ namespace OpenNefia.Core.GameObjects
             internal set => _mapId = value;
         }
 
+        public MapMetadata Metadata { get; internal set; } = new();
+
         /// <inheritdoc />
         public void ClearMapId()
         {
             _mapId = MapId.Nullspace;
+        }
+    }
+    
+    public class MapMetadata
+    {
+        public readonly string Name;
+        public readonly string Author;
+
+        public MapMetadata(string name = "", string author = "")
+        {
+            Name = name;
+            Author = author;
         }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using Love;
-using OpenNefia.Core.Utility;
 
 namespace OpenNefia.Core.Rendering
 {

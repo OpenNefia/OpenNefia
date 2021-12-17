@@ -1,5 +1,6 @@
 using System;
 using OpenNefia.Core.ContentPack;
+using OpenNefia.Core.GameController;
 using OpenNefia.Core.IoC;
 
 namespace OpenNefia.Tests
@@ -11,7 +12,7 @@ namespace OpenNefia.Tests
         /// </summary>
         private void RegisterIoC()
         {
-            IoCSetup.Register();
+            IoCSetup.Register(GameController.DisplayMode.Headless);
 
             IoCManager.Register<IModLoader, TestingModLoader>(overwrite: true);
             IoCManager.Register<IModLoaderInternal, TestingModLoader>(overwrite: true);

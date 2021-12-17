@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "OpenNefia.EntryPoint": {
+      "commandName": "Project",
+      "commandLineArgs": "convertHspMap C:\\Users\\yuno\\build\\OpenNefia.NET2\\OpenNefia.Content\\Assets\\Elona\\Map\\sqNightmare.map out/ --mapAuthor Noa"
+    }
+  }
+}
