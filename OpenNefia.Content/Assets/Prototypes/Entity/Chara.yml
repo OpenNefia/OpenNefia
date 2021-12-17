@@ -1,0 +1,2493 @@
+- id: Elona.Bug
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 0
+
+- id: Elona.Shopkeeper
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 1
+
+- id: Elona.Zeome
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 2
+
+- id: Elona.Putit
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 3
+  components:
+  - type: MetaData
+    displayName: putit
+  - type: Chara
+    title: The wind
+    class: Slime
+  - type: Chip
+    id: CharaRaceSlime
+
+- id: Elona.RedPutit
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 4
+
+- id: Elona.Rabbit
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 5
+
+- id: Elona.Snail
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 6
+
+- id: Elona.FallenSoldier
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 7
+
+- id: Elona.Mercenary
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 8
+
+- id: Elona.Beggar
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 9
+
+- id: Elona.WildSheep
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 10
+
+- id: Elona.FlyingFrog
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 11
+
+- id: Elona.Gangster
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 12
+
+- id: Elona.Kobold
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 13
+
+- id: Elona.Centipede
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 14
+
+- id: Elona.Mushroom
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 15
+
+- id: Elona.Citizen
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 16
+
+- id: Elona.Orc
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 17
+
+- id: Elona.WarriorOfElea
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 18
+
+- id: Elona.Mandrake
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 19
+
+- id: Elona.OrcWarrior
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 20
+
+- id: Elona.Zombie
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 21
+
+- id: Elona.Beetle
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 22
+
+- id: Elona.Orphe
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 23
+
+- id: Elona.WizardOfElea
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 24
+
+- id: Elona.Goda
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 25
+
+- id: Elona.MadScientist
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 26
+
+- id: Elona.Isca
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 27
+
+- id: Elona.WhomDwellInTheVanity
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 28
+
+- id: Elona.Loyter
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 29
+
+- id: Elona.Miches
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 30
+
+- id: Elona.Shena
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 31
+
+- id: Elona.DungeonCleaner
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 32
+
+- id: Elona.Larnneire
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 33
+
+- id: Elona.Lomias
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 34
+
+- id: Elona.TownChild
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 35
+
+- id: Elona.OldPerson
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 36
+
+- id: Elona.At
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 37
+
+- id: Elona.Elder
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 38
+
+- id: Elona.Citizen2
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 39
+
+- id: Elona.Trainer
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 40
+
+- id: Elona.Wizard
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 41
+
+- id: Elona.Bat
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 42
+
+- id: Elona.VampireBat
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 43
+
+- id: Elona.DragonBat
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 44
+
+- id: Elona.FireEnt
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 45
+
+- id: Elona.IceEnt
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 46
+
+- id: Elona.Lich
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 47
+
+- id: Elona.MasterLich
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 48
+
+- id: Elona.DemiLich
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 49
+
+- id: Elona.Hound
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 50
+
+- id: Elona.FireHound
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 51
+
+- id: Elona.IceHound
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 52
+
+- id: Elona.LightningHound
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 53
+
+- id: Elona.DarkHound
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 54
+
+- id: Elona.IllusionHound
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 55
+
+- id: Elona.NerveHound
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 56
+
+- id: Elona.PoisonHound
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 57
+
+- id: Elona.SoundHound
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 58
+
+- id: Elona.NetherHound
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 59
+
+- id: Elona.ChaosHound
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 60
+
+- id: Elona.GiantSquirrel
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 61
+
+- id: Elona.KillerSquirrel
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 62
+
+- id: Elona.Grudge
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 63
+
+- id: Elona.HungryDemon
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 64
+
+- id: Elona.ElectricCloud
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 65
+
+- id: Elona.ChaosCloud
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 66
+
+- id: Elona.FloatingEye
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 67
+
+- id: Elona.Wyvern
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 68
+
+- id: Elona.Informer
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 69
+
+- id: Elona.Bartender
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 70
+
+- id: Elona.Sailor
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 71
+
+- id: Elona.Captain
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 72
+
+- id: Elona.ArenaMaster
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 73
+
+- id: Elona.Healer
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 74
+
+- id: Elona.Warrior
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 75
+
+- id: Elona.GuardPortKapul
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 76
+
+- id: Elona.Guard
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 77
+
+- id: Elona.Puppet
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 78
+
+- id: Elona.Stersha
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 79
+
+- id: Elona.Xabi
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 80
+
+- id: Elona.Wasp
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 81
+
+- id: Elona.RedWasp
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 82
+
+- id: Elona.Cyclops
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 83
+
+- id: Elona.Titan
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 84
+
+- id: Elona.Imp
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 85
+
+- id: Elona.NetherImp
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 86
+
+- id: Elona.ChaosImp
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 87
+
+- id: Elona.HandOfTheDead
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 88
+
+- id: Elona.HandOfTheChaos
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 89
+
+- id: Elona.HandOfTheMurderer
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 90
+
+- id: Elona.Ghost
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 91
+
+- id: Elona.Nymph
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 92
+
+- id: Elona.ManEaterFlower
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 93
+
+- id: Elona.ChaosFlower
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 94
+
+- id: Elona.Cobra
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 95
+
+- id: Elona.KingCobra
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 96
+
+- id: Elona.FireDrake
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 97
+
+- id: Elona.IceDrake
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 98
+
+- id: Elona.LesserMummy
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 99
+
+- id: Elona.Mummy
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 100
+
+- id: Elona.GreaterMummy
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 101
+
+- id: Elona.Goblin
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 102
+
+- id: Elona.GoblinWarrior
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 103
+
+- id: Elona.GoblinShaman
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 104
+
+- id: Elona.GoblinWizard
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 105
+
+- id: Elona.RedBaptist
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 106
+
+- id: Elona.BlueBaptist
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 107
+
+- id: Elona.BrownBear
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 108
+
+- id: Elona.Grizzly
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 109
+
+- id: Elona.LivingArmor
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 110
+
+- id: Elona.SteelMass
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 111
+
+- id: Elona.GoldenArmor
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 112
+
+- id: Elona.DeathArmor
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 113
+
+- id: Elona.Medusa
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 114
+
+- id: Elona.Euryale
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 115
+
+- id: Elona.Stheno
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 116
+
+- id: Elona.CupidOfLove
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 117
+
+- id: Elona.LesserPhantom
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 118
+
+- id: Elona.Harpy
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 119
+
+- id: Elona.GreenDragon
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 120
+
+- id: Elona.RedDragon
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 121
+
+- id: Elona.WhiteDragon
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 122
+
+- id: Elona.ElecDragon
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 123
+
+- id: Elona.NetherDragon
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 124
+
+- id: Elona.ChaosDragon
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 125
+
+- id: Elona.Cerberus
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 126
+
+- id: Elona.Spider
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 127
+
+- id: Elona.BlackWidow
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 128
+
+- id: Elona.Paralyzer
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 129
+
+- id: Elona.Tarantula
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 130
+
+- id: Elona.BloodSpider
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 131
+
+- id: Elona.WoodenGolem
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 132
+
+- id: Elona.StoneGolem
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 133
+
+- id: Elona.SteelGolem
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 134
+
+- id: Elona.GoldenGolem
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 135
+
+- id: Elona.MithrilGolem
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 136
+
+- id: Elona.SkyGolem
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 137
+
+- id: Elona.AdamantiumGolem
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 138
+
+- id: Elona.Slan
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 139
+
+- id: Elona.Vesda
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 140
+
+- id: Elona.Issizzle
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 141
+
+- id: Elona.Erystia
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 142
+
+- id: Elona.Wynan
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 143
+
+- id: Elona.Quruiza
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 144
+
+- id: Elona.Corgon
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 145
+
+- id: Elona.Karam
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 146
+
+- id: Elona.FireCrab
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 147
+
+- id: Elona.FireCentipede
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 148
+
+- id: Elona.CultistOfFire
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 149
+
+- id: Elona.SkeletonWarrior
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 150
+
+- id: Elona.SkeletonBerserker
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 151
+
+- id: Elona.MissionaryOfDarkness
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 152
+
+- id: Elona.Pawn
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 153
+
+- id: Elona.Rook
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 154
+
+- id: Elona.Bishop
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 155
+
+- id: Elona.Knight
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 156
+
+- id: Elona.Queen
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 157
+
+- id: Elona.King
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 158
+
+- id: Elona.MercenaryWarrior
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 159
+
+- id: Elona.MercenaryArcher
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 160
+
+- id: Elona.MercenaryWizard
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 161
+
+- id: Elona.YerlesMachineInfantry
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 162
+
+- id: Elona.RockThrower
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 163
+
+- id: Elona.Cat
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 164
+
+- id: Elona.Dog
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 165
+
+- id: Elona.LittleGirl
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 166
+
+- id: Elona.Rat
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 167
+
+- id: Elona.HermitCrab
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 168
+
+- id: Elona.Slime
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 169
+
+- id: Elona.PublicPerformer
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 170
+
+- id: Elona.CitizenOfCyberDome
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 171
+
+- id: Elona.CitizenOfCyberDome2
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 172
+
+- id: Elona.SalesPerson
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 173
+
+- id: Elona.Punk
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 174
+
+- id: Elona.Frisia
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 175
+
+- id: Elona.YoungerSister
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 176
+
+- id: Elona.Utima
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 177
+
+- id: Elona.Azzrssil
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 178
+
+- id: Elona.PetArenaMaster
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 179
+
+- id: Elona.Twintail
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 180
+
+- id: Elona.SilverWolf
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 181
+
+- id: Elona.Nurse
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 182
+
+- id: Elona.RichPerson
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 183
+
+- id: Elona.NobleChild
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 184
+
+- id: Elona.Tourist
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 185
+
+- id: Elona.Blade
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 186
+
+- id: Elona.BladeAlpha
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 187
+
+- id: Elona.BladeOmega
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 188
+
+- id: Elona.DeformedEye
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 189
+
+- id: Elona.ImpureEye
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 190
+
+- id: Elona.Wisp
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 191
+
+- id: Elona.Hedgehog
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 192
+
+- id: Elona.ShiningHedgehog
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 193
+
+- id: Elona.AcidSlime
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 194
+
+- id: Elona.Chicken
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 195
+
+- id: Elona.Pumpkin
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 196
+
+- id: Elona.GreaterPumpkin
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 197
+
+- id: Elona.HalloweenNightmare
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 198
+
+- id: Elona.Stalker
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 199
+
+- id: Elona.ShadowStalker
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 200
+
+- id: Elona.Puppy
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 201
+
+- id: Elona.Ebon
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 202
+
+- id: Elona.MoyerTheCrooked
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 203
+
+- id: Elona.PalmianEliteSoldier
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 204
+
+- id: Elona.Maid
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 205
+
+- id: Elona.Nun
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 206
+
+- id: Elona.Ebon2
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 207
+
+- id: Elona.Garokk
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 208
+
+- id: Elona.Miral
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 209
+
+- id: Elona.YoungerCatSister
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 210
+
+- id: Elona.YoungLady
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 211
+
+- id: Elona.TestSubject
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 212
+
+- id: Elona.Gwen
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 213
+
+- id: Elona.Thief
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 214
+
+- id: Elona.Robber
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 215
+
+- id: Elona.GreatRaceOfYith
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 216
+
+- id: Elona.MasterThief
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 217
+
+- id: Elona.ShubNiggurath
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 218
+
+- id: Elona.Gagu
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 219
+
+- id: Elona.SpiralKing
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 220
+
+- id: Elona.Pael
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 221
+
+- id: Elona.Lily
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 222
+
+- id: Elona.Raphael
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 223
+
+- id: Elona.Ainc
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 224
+
+- id: Elona.Poppy
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 225
+
+- id: Elona.Rilian
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 226
+
+- id: Elona.Tam
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 227
+
+- id: Elona.Carbuncle
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 228
+
+- id: Elona.Lion
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 229
+
+- id: Elona.Cacy
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 230
+
+- id: Elona.Gilbert
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 231
+
+- id: Elona.YerlesSelfPropelledGun
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 232
+
+- id: Elona.JuereInfantry
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 233
+
+- id: Elona.YerlesEliteMachineInfantry
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 234
+
+- id: Elona.JuereSwordman
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 235
+
+- id: Elona.Yeek
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 236
+  components:
+  - type: MetaData
+    displayName: yeek
+  - type: Chara
+    title: The wind
+    class: Yeek
+  - type: Chip
+    id: CharaYeek
+
+- id: Elona.KamikazeYeek
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 237
+
+- id: Elona.YeekWarrior
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 238
+
+- id: Elona.HotSpringManiac
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 239
+
+- id: Elona.MasterYeek
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 240
+
+- id: Elona.YeekArcher
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 241
+
+- id: Elona.Rodlob
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 242
+
+- id: Elona.Arnord
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 243
+
+- id: Elona.KamikazeSamurai
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 244
+
+- id: Elona.BombRock
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 245
+
+- id: Elona.SilverCat
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 246
+
+- id: Elona.Mia
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 247
+
+- id: Elona.Tyrannosaurus
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 248
+
+- id: Elona.YoungerSisterOfMansion
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 249
+
+- id: Elona.Fairy
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 250
+
+- id: Elona.Troll
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 251
+
+- id: Elona.Renton
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 252
+
+- id: Elona.Marks
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 253
+
+- id: Elona.AncientCoffin
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 254
+
+- id: Elona.Scorpion
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 255
+
+- id: Elona.KingScorpion
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 256
+
+- id: Elona.Tuwen
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 257
+
+- id: Elona.IronMaiden
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 258
+
+- id: Elona.Noel
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 259
+
+- id: Elona.BlackCat
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 260
+
+- id: Elona.CuteFairy
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 261
+
+- id: Elona.Android
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 262
+
+- id: Elona.BlackAngel
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 263
+
+- id: Elona.Exile
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 264
+
+- id: Elona.GoldenKnight
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 265
+
+- id: Elona.Defender
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 266
+
+- id: Elona.LameHorse
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 267
+
+- id: Elona.YowynHorse
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 268
+
+- id: Elona.Farmer
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 269
+
+- id: Elona.Sister
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 270
+
+- id: Elona.Rogue
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 271
+
+- id: Elona.Artist
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 272
+
+- id: Elona.Miner
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 273
+
+- id: Elona.Noble
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 274
+
+- id: Elona.NoyelHorse
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 275
+
+- id: Elona.WildHorse
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 276
+
+- id: Elona.WildHorse2
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 277
+
+- id: Elona.Mutant
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 278
+
+- id: Elona.Icolle
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 279
+
+- id: Elona.Balzak
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 280
+
+- id: Elona.LizardMan
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 281
+
+- id: Elona.Minotaur
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 282
+
+- id: Elona.SporeMushroom
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 283
+
+- id: Elona.ChaosMushroom
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 284
+
+- id: Elona.BlueBubble
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 285
+
+- id: Elona.Bubble
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 286
+
+- id: Elona.MassMonster
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 287
+
+- id: Elona.Revlus
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 288
+
+- id: Elona.MageGuildMember
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 289
+
+- id: Elona.Lexus
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 290
+
+- id: Elona.Fray
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 291
+
+- id: Elona.Sin
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 292
+
+- id: Elona.ThiefGuildMember
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 293
+
+- id: Elona.Abyss
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 294
+
+- id: Elona.FighterGuildMember
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 295
+
+- id: Elona.MinotaurMagician
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 296
+
+- id: Elona.Doria
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 297
+
+- id: Elona.MinotaurBoxer
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 298
+
+- id: Elona.MinotaurKing
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 299
+
+- id: Elona.Ungaga
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 300
+
+- id: Elona.Conery
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 301
+
+- id: Elona.RogueBoss
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 302
+
+- id: Elona.RogueWarrior
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 303
+
+- id: Elona.RogueArcher
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 304
+
+- id: Elona.RogueWizard
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 305
+
+- id: Elona.Lulwy
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 306
+
+- id: Elona.Executioner
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 307
+
+- id: Elona.MessengerOfDeath
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 308
+
+- id: Elona.Asura
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 309
+
+- id: Elona.Mitra
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 310
+
+- id: Elona.Varuna
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 311
+
+- id: Elona.HungrySeaLion
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 312
+
+- id: Elona.SuperHungrySeaLion
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 313
+
+- id: Elona.DeathGaze
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 314
+
+- id: Elona.ChaosEye
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 315
+
+- id: Elona.MadGaze
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 316
+
+- id: Elona.SilverEyedWitch
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 317
+
+- id: Elona.BigDaddy
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 318
+
+- id: Elona.LittleSister
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 319
+
+- id: Elona.Cleaner
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 320
+
+- id: Elona.HardGay
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 321
+
+- id: Elona.StrangeScientist
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 322
+
+- id: Elona.Shade
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 323
+
+- id: Elona.Quickling
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 324
+
+- id: Elona.QuicklingArcher
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 325
+
+- id: Elona.Bard
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 326
+
+- id: Elona.Cube
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 327
+
+- id: Elona.SilverBell
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 328
+
+- id: Elona.GoldBell
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 329
+
+- id: Elona.Alien
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 330
+
+- id: Elona.Ehekatl
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 331
+
+- id: Elona.StrayCat
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 332
+
+- id: Elona.GuildTrainer
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 333
+
+- id: Elona.MysteriousProducer
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 334
+
+- id: Elona.Prostitute
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 335
+
+- id: Elona.GodInsideEhekatl
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 336
+
+- id: Elona.Prisoner
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 337
+
+- id: Elona.Opatos
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 338
+
+- id: Elona.Kumiromi
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 339
+
+- id: Elona.Test
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 340
+
+- id: Elona.MineDog
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 341
+
+- id: Elona.Mani
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 342
+
+- id: Elona.User
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 343
+
+- id: Elona.Mammoth
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 344
+
+- id: Elona.KanedaBike
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 345
+
+- id: Elona.Cub
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 346
+
+- id: Elona.Fanatic
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 347
+
+- id: Elona.PartTimeWorker
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 348
+
+- id: Elona.HolyBeast
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 349
+
+- id: Elona.FestivalTourist
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 350
+
+- id: Elona.TheLeopardWarrior
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 351
+
+- id: Elona.Silvia
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 352
+
+- id: Elona.CaravanMaster
+  type: Entity
+  parent: BaseChara
+  hspOrigin: 2
+  hspIds:
+    elona122: 353

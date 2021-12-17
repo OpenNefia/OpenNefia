@@ -68,7 +68,7 @@ namespace OpenNefia.Content.CommandLine
             private void Build()
             {
                 var groups = _prototypeManager.EnumeratePrototypes<EntityPrototype>()
-                    .Where(proto => proto.HspEntityType != null)
+                    .Where(proto => proto.HspEntityType != null && proto.HspOrigin != null)
                     .GroupBy(proto => proto.HspEntityType!);
 
                 foreach (var group in groups)

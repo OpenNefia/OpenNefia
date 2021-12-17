@@ -20,25 +20,25 @@ entities:
   components:
   - type: Map
 - uid: 1
-  protoId: Yeek
+  protoId: Elona.Yeek
   components:
   - type: Spatial
     parent: 0
     pos: 2,5
 - uid: 2
-  protoId: Yeek
+  protoId: Elona.Yeek
   components:
   - type: Spatial
     parent: 0
     pos: 3,5
 - uid: 3
-  protoId: Yeek
+  protoId: Elona.Yeek
   components:
   - type: Spatial
     parent: 0
     pos: 4,5
 - uid: 4
-  protoId: Yeek
+  protoId: Elona.Yeek
   components:
   - type: Spatial
     parent: 0

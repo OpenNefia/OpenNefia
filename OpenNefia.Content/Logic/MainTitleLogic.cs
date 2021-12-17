@@ -68,7 +68,7 @@ namespace OpenNefia.Content.Logic
             var mapId = _mapManager.GetFreeMapId();
             var map = _mapBlueprints.LoadBlueprint(mapId, new ResourcePath("/Elona/Map/Test.yml"));
 
-            var player = _entityManager.SpawnEntity(new("Putit"), map.AtPos(2, 2));
+            var player = _entityManager.SpawnEntity(new("Elona.Putit"), map.AtPos(2, 2));
             player.AddComponent<PlayerComponent>();
             _gameSessionManager.Player = player;
             map.MemorizeAllTiles();

@@ -16,6 +16,7 @@
   id: BaseItem
   parent: BaseObject
   abstract: true
+  hspType: item
   components:
   - type: Spatial
     isSolid: false
@@ -50,6 +51,7 @@
   id: BaseChara
   parent: BaseObject
   abstract: true
+  hspType: chara
   components:
   - type: Spatial
     isSolid: true
@@ -59,30 +61,6 @@
     class: Slime
   - type: Skills
 
-- type: Entity
-  id: Putit
-  parent: BaseChara
-  components:
-  - type: MetaData
-    displayName: putit
-  - type: Chara
-    title: The wind
-    class: Slime
-  - type: Chip
-    id: CharaRaceSlime
-
-- type: Entity
-  id: Yeek
-  parent: BaseChara
-  components:
-  - type: MetaData
-    displayName: yeek
-  - type: Chara
-    title: The wind
-    class: Yeek
-  - type: Chip
-    id: CharaYeek
-    
 - type: Entity
   id: BasePotion
   parent: BaseItem
