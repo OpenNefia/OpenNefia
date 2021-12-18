@@ -171,25 +171,65 @@
 - type: Tag
   id: Elona.ItemSpellbook
 - type: Tag
-  id: Elona.ItemTagFest
-- type: Tag
-  id: Elona.ItemTagFish
-- type: Tag
-  id: Elona.ItemTagNeg
-- type: Tag
-  id: Elona.ItemTagNogive
-- type: Tag
-  id: Elona.ItemTagNoshop
-- type: Tag
-  id: Elona.ItemTagSf
-- type: Tag
-  id: Elona.ItemTagSpshop
-- type: Tag
   id: Elona.ItemTree
 - type: Tag
   id: Elona.ItemUniqueItem
 - type: Tag
   id: Elona.ItemUniqueWeapon
+
+# Character Tags
+- type: Tag
+  id: Elona.TagCharaCat
+- type: Tag
+  id: Elona.TagCharaDragon
+- type: Tag
+  id: Elona.TagCharaEther
+- type: Tag
+  id: Elona.TagCharaFire
+- type: Tag
+  id: Elona.TagCharaGod
+- type: Tag
+  id: Elona.TagCharaHorse
+- type: Tag
+  id: Elona.TagCharaMan
+- type: Tag
+  id: Elona.TagCharaMino
+- type: Tag
+  id: Elona.TagCharaPawn
+- type: Tag
+  id: Elona.TagCharaRogue
+- type: Tag
+  id: Elona.TagCharaRogueGuard
+- type: Tag
+  id: Elona.TagCharaSf
+- type: Tag
+  id: Elona.TagCharaShopguard
+- type: Tag
+  id: Elona.TagCharaSlime
+- type: Tag
+  id: Elona.TagCharaUndead
+- type: Tag
+  id: Elona.TagCharaWild
+- type: Tag
+  id: Elona.TagCharaYeek
+
+# Item Tags
+- type: Tag
+  id: Elona.TagItemElonaIsAcid
+- type: Tag
+  id: Elona.TagItemFest
+- type: Tag
+  id: Elona.TagItemFish
+- type: Tag
+  id: Elona.TagItemNeg
+- type: Tag
+  id: Elona.TagItemNogive
+- type: Tag
+  id: Elona.TagItemNoshop
+- type: Tag
+  id: Elona.TagItemSf
+- type: Tag
+  id: Elona.TagItemSpshop
 
 # Misc.
 

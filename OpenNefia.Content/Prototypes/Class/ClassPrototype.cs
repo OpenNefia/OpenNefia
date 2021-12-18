@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using OpenNefia.Content.Prototypes;
 using OpenNefia.Core.Effects;
 using OpenNefia.Core.Serialization.Manager.Attributes;
-using OpenNefia.Core.Serialization.TypeSerializers.Implementations.Custom.Prototype.Dictionary;
 
 namespace OpenNefia.Core.Prototypes
 {
@@ -25,7 +24,7 @@ namespace OpenNefia.Core.Prototypes
         [DataField]
         public PrototypeId<EquipmentTypePrototype>? EquipmentType { get; } = null;
 
-        [DataField(required: true, customTypeSerializer: typeof(PrototypeIdDictionarySerializer<SkillPrototype, int>))]
+        [DataField(required: true)]
         public Dictionary<PrototypeId<SkillPrototype>, int> BaseSkills = new();
     }
 }

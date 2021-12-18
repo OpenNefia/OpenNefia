@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using OpenNefia.Core.Prototypes;
+﻿using OpenNefia.Core.Prototypes;
+using OpenNefia.Core.Rendering;
 using OpenNefia.Core.Serialization.Manager.Attributes;
 
 namespace OpenNefia.Content.Prototypes
 {
-    [Prototype("Skill")]
-    public class SkillPrototype : IPrototype, IHspIds<int>
+    [Prototype("Portrait")]
+    public class PortraitPrototype : IPrototype, IHspIds<int>
     {
         [DataField("id", required: true)]
         public string ID { get; } = default!;
@@ -18,5 +14,8 @@ namespace OpenNefia.Content.Prototypes
         [DataField]
         [NeverPushInheritance]
         public HspIds<int>? HspIds { get; }
+
+        [DataField(required: true)]
+        public TileSpecifier image { get; } = null!;
     }
 }

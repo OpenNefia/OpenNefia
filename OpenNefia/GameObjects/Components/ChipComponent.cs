@@ -11,8 +11,8 @@ namespace OpenNefia.Core.GameObjects
     {
         public override string Name => "Chip";
 
-        [DataField("id", required: true)]
-        public PrototypeId<ChipPrototype> ChipID { get; set; }
+        [DataField("id")]
+        public PrototypeId<ChipPrototype> ChipID { get; set; } = new("Default");
 
         [DataField]
         public Color Color { get; set; } = Color.White;

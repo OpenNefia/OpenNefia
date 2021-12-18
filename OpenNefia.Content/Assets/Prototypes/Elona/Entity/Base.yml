@@ -4,6 +4,7 @@
   components:
   - type: Chip
     id: Default
+  - type: Tag
 
 - type: Entity
   id: BaseChara
@@ -14,10 +15,13 @@
   - type: Spatial
     isSolid: true
     isOpaque: false
+  - type: Level
   - type: Moveable
   - type: Chara
     class: Slime
   - type: Skills
+  - type: Faction
+  - type: Weight
 
 - type: Entity
   id: BaseItem
@@ -30,6 +34,7 @@
     isOpaque: false
   - type: Item
   - type: Stackable
+  - type: Weight
 
 - type: Entity
   id: BasePotion

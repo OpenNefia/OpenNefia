@@ -16,7 +16,13 @@ namespace OpenNefia.Content.GameObjects
         public bool HasFullName { get; set; } = false;
 
         [DataField(required: true)]
-        public PrototypeId<ClassPrototype> Class { get; set; } = default;
+        public PrototypeId<RacePrototype> Race { get; set; } = default!;
+
+        [DataField(required: true)]
+        public PrototypeId<ClassPrototype> Class { get; set; } = default!;
+
+        [DataField]
+        public Gender? Gender { get; set; }
 
         [ComponentDependency]
         private MetaDataComponent? _metaData;
@@ -54,5 +60,11 @@ namespace OpenNefia.Content.GameObjects
         PetDead,
         VillagerDead,
         Dead,
+    }
+
+    public enum Gender : int
+    {
+        Male = 0,
+        Female = 1
     }
 }

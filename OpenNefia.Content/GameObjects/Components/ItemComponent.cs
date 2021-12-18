@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using OpenNefia.Core.GameObjects;
+using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Serialization.Manager.Attributes;
 
 namespace OpenNefia.Content.GameObjects
@@ -20,10 +21,7 @@ namespace OpenNefia.Content.GameObjects
         public int IdentifyDifficulty { get; set; } = 0;
 
         [DataField]
-        public int Weight { get; set; } = 0;
-
-        [DataField]
-        public string? Material { get; set; }
+        public PrototypeId<MaterialPrototype>? Material { get; set; }
 
         [DataField]
         public ItemOwnState OwnState { get; set; }

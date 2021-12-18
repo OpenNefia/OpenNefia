@@ -6,6 +6,8 @@ namespace OpenNefia.Content.Prototypes
     {
         public static class Chip
         {
+            public static readonly ChipPrototypeId Default = new("Default");
+
             public static readonly ChipPrototypeId CharaBlank = new("Elona.CharaBlank");
             public static readonly ChipPrototypeId CharaHumanMale = new("Elona.CharaHumanMale");
             public static readonly ChipPrototypeId CharaHumanFemale = new("Elona.CharaHumanFemale");

@@ -1,0 +1,537 @@
+---
+- type: Race
+  id: Elona.Slug
+  isExtra: true
+- type: Race
+  id: Elona.Kobold
+  hspIds:
+    elona122: 1
+  isExtra: true
+  chipMale: Elona.CharaKobold
+  chipFemale: Elona.CharaKobold
+- type: Race
+  id: Elona.Orc
+  hspIds:
+    elona122: 2
+  isExtra: true
+  chipMale: Elona.CharaOrc
+  chipFemale: Elona.CharaOrc
+- type: Race
+  id: Elona.Troll
+  hspIds:
+    elona122: 3
+  isExtra: true
+  chipMale: Elona.CharaTroll
+  chipFemale: Elona.CharaTroll
+- type: Race
+  id: Elona.Lizardman
+  hspIds:
+    elona122: 4
+  isExtra: true
+  chipMale: Elona.CharaLizardman
+  chipFemale: Elona.CharaLizardman
+- type: Race
+  id: Elona.Minotaur
+  hspIds:
+    elona122: 5
+  isExtra: true
+  chipMale: Elona.CharaMinotaur
+  chipFemale: Elona.CharaMinotaur
+- type: Race
+  id: Elona.Yerles
+  hspIds:
+    elona122: 6
+  isExtra: false
+  chipMale: Elona.CharaHumanMale
+  chipFemale: Elona.CharaHumanFemale
+- type: Race
+  id: Elona.Norland
+  hspIds:
+    elona122: 7
+  isExtra: true
+  chipMale: Elona.CharaHumanMale
+  chipFemale: Elona.CharaHumanFemale
+- type: Race
+  id: Elona.Eulderna
+  hspIds:
+    elona122: 8
+  isExtra: false
+  chipMale: Elona.CharaEuldernaMale
+  chipFemale: Elona.CharaEuldernaFemale
+- type: Race
+  id: Elona.Fairy
+  hspIds:
+    elona122: 9
+  isExtra: false
+  chipMale: Elona.CharaFairy
+  chipFemale: Elona.CharaFairy
+- type: Race
+  id: Elona.Asura
+  hspIds:
+    elona122: 10
+  isExtra: true
+  chipMale: Elona.CharaAsura
+  chipFemale: Elona.CharaAsura
+- type: Race
+  id: Elona.Slime
+  hspIds:
+    elona122: 11
+  isExtra: true
+  chipMale: Elona.CharaRaceSlime
+  chipFemale: Elona.CharaRaceSlime
+- type: Race
+  id: Elona.Wolf
+  hspIds:
+    elona122: 12
+  isExtra: true
+  chipMale: Elona.CharaWolf
+  chipFemale: Elona.CharaWolf
+- type: Race
+  id: Elona.Dwarf
+  hspIds:
+    elona122: 13
+  isExtra: false
+  chipMale: Elona.CharaDwarf
+  chipFemale: Elona.CharaDwarf
+- type: Race
+  id: Elona.Juere
+  hspIds:
+    elona122: 14
+  isExtra: false
+  chipMale: Elona.CharaJuereMale
+  chipFemale: Elona.CharaJuereFemale
+- type: Race
+  id: Elona.Zombie
+  hspIds:
+    elona122: 15
+  isExtra: true
+  chipMale: Elona.CharaZombie
+  chipFemale: Elona.CharaZombie
+- type: Race
+  id: Elona.Elea
+  hspIds:
+    elona122: 16
+  isExtra: false
+  chipMale: Elona.CharaEuldernaMale
+  chipFemale: Elona.CharaEuldernaFemale
+- type: Race
+  id: Elona.Rabbit
+  hspIds:
+    elona122: 17
+  isExtra: true
+  chipMale: Elona.CharaRabbit
+  chipFemale: Elona.CharaRabbit
+- type: Race
+  id: Elona.Sheep
+  hspIds:
+    elona122: 18
+  isExtra: true
+  chipMale: Elona.CharaSheep
+  chipFemale: Elona.CharaSheep
+- type: Race
+  id: Elona.Frog
+  hspIds:
+    elona122: 19
+  isExtra: true
+  chipMale: Elona.CharaFrog
+  chipFemale: Elona.CharaFrog
+- type: Race
+  id: Elona.Centipede
+  hspIds:
+    elona122: 20
+  isExtra: true
+  chipMale: Elona.CharaCentipede
+  chipFemale: Elona.CharaCentipede
+- type: Race
+  id: Elona.Snail
+  hspIds:
+    elona122: 21
+  isExtra: false
+  chipMale: Elona.CharaSnail
+  chipFemale: Elona.CharaSnail
+- type: Race
+  id: Elona.Mandrake
+  hspIds:
+    elona122: 22
+  isExtra: true
+  chipMale: Elona.CharaMandrake
+  chipFemale: Elona.CharaMandrake
+- type: Race
+  id: Elona.Beetle
+  hspIds:
+    elona122: 23
+  isExtra: true
+  chipMale: Elona.CharaBeetle
+  chipFemale: Elona.CharaBeetle
+- type: Race
+  id: Elona.Mushroom
+  hspIds:
+    elona122: 24
+  isExtra: true
+  chipMale: Elona.CharaMushroom
+  chipFemale: Elona.CharaMushroom
+- type: Race
+  id: Elona.Bat
+  hspIds:
+    elona122: 25
+  isExtra: true
+  chipMale: Elona.CharaBat
+  chipFemale: Elona.CharaBat
+- type: Race
+  id: Elona.Ent
+  hspIds:
+    elona122: 26
+  isExtra: true
+  chipMale: Elona.CharaEnt
+  chipFemale: Elona.CharaEnt
+- type: Race
+  id: Elona.Lich
+  hspIds:
+    elona122: 27
+  isExtra: false
+  chipMale: Elona.CharaLich
+  chipFemale: Elona.CharaLich
+- type: Race
+  id: Elona.Hound
+  hspIds:
+    elona122: 28
+  isExtra: true
+  chipMale: Elona.CharaHound
+  chipFemale: Elona.CharaHound
+- type: Race
+  id: Elona.Ghost
+  hspIds:
+    elona122: 29
+  isExtra: true
+  chipMale: Elona.CharaGhost
+  chipFemale: Elona.CharaGhost
+- type: Race
+  id: Elona.Spirit
+  hspIds:
+    elona122: 30
+  isExtra: true
+  chipMale: Elona.CharaSpirit
+  chipFemale: Elona.CharaSpirit
+- type: Race
+  id: Elona.Eye
+  hspIds:
+    elona122: 31
+  isExtra: true
+  chipMale: Elona.CharaEye
+  chipFemale: Elona.CharaEye
+- type: Race
+  id: Elona.Wyvern
+  hspIds:
+    elona122: 32
+  isExtra: true
+  chipMale: Elona.CharaWyvern
+  chipFemale: Elona.CharaWyvern
+- type: Race
+  id: Elona.Wasp
+  hspIds:
+    elona122: 33
+  isExtra: true
+  chipMale: Elona.CharaWasp
+  chipFemale: Elona.CharaWasp
+- type: Race
+  id: Elona.Giant
+  hspIds:
+    elona122: 34
+  isExtra: true
+  chipMale: Elona.CharaGiant
+  chipFemale: Elona.CharaGiant
+- type: Race
+  id: Elona.Imp
+  hspIds:
+    elona122: 35
+  isExtra: true
+  chipMale: Elona.CharaImp
+  chipFemale: Elona.CharaImp
+- type: Race
+  id: Elona.Hand
+  hspIds:
+    elona122: 36
+  isExtra: true
+  chipMale: Elona.CharaHand
+  chipFemale: Elona.CharaHand
+- type: Race
+  id: Elona.Snake
+  hspIds:
+    elona122: 37
+  isExtra: true
+  chipMale: Elona.CharaSnake
+  chipFemale: Elona.CharaSnake
+- type: Race
+  id: Elona.Drake
+  hspIds:
+    elona122: 38
+  isExtra: true
+  chipMale: Elona.CharaDrake
+  chipFemale: Elona.CharaDrake
+- type: Race
+  id: Elona.Goblin
+  hspIds:
+    elona122: 39
+  isExtra: false
+  chipMale: Elona.CharaGoblin
+  chipFemale: Elona.CharaGoblin
+- type: Race
+  id: Elona.Bear
+  hspIds:
+    elona122: 40
+  isExtra: true
+  chipMale: Elona.CharaBear
+  chipFemale: Elona.CharaBear
+- type: Race
+  id: Elona.Armor
+  hspIds:
+    elona122: 41
+  isExtra: true
+  chipMale: Elona.CharaArmor
+  chipFemale: Elona.CharaArmor
+- type: Race
+  id: Elona.Medusa
+  hspIds:
+    elona122: 42
+  isExtra: true
+  chipMale: Elona.CharaMedusa
+  chipFemale: Elona.CharaMedusa
+- type: Race
+  id: Elona.Cupid
+  hspIds:
+    elona122: 43
+  isExtra: true
+  chipMale: Elona.CharaCupid
+  chipFemale: Elona.CharaCupid
+- type: Race
+  id: Elona.Phantom
+  hspIds:
+    elona122: 44
+  isExtra: true
+  chipMale: Elona.CharaPhantom
+  chipFemale: Elona.CharaPhantom
+- type: Race
+  id: Elona.Harpy
+  hspIds:
+    elona122: 45
+  isExtra: true
+  chipMale: Elona.CharaHarpy
+  chipFemale: Elona.CharaHarpy
+- type: Race
+  id: Elona.Dragon
+  hspIds:
+    elona122: 46
+  isExtra: true
+  chipMale: Elona.CharaDragon
+  chipFemale: Elona.CharaDragon
+- type: Race
+  id: Elona.Dinosaur
+  hspIds:
+    elona122: 47
+  isExtra: true
+  chipMale: Elona.CharaDinosaur
+  chipFemale: Elona.CharaDinosaur
+- type: Race
+  id: Elona.Cerberus
+  hspIds:
+    elona122: 48
+  isExtra: true
+  chipMale: Elona.CharaCerberus
+  chipFemale: Elona.CharaCerberus
+- type: Race
+  id: Elona.Spider
+  hspIds:
+    elona122: 49
+  isExtra: true
+  chipMale: Elona.CharaSpider
+  chipFemale: Elona.CharaSpider
+- type: Race
+  id: Elona.Golem
+  hspIds:
+    elona122: 50
+  isExtra: false
+  chipMale: Elona.CharaGolem
+  chipFemale: Elona.CharaGolem
+- type: Race
+  id: Elona.Rock
+  hspIds:
+    elona122: 51
+  isExtra: true
+  chipMale: Elona.CharaRock
+  chipFemale: Elona.CharaRock
+- type: Race
+  id: Elona.Crab
+  hspIds:
+    elona122: 52
+  isExtra: true
+  chipMale: Elona.CharaCrab
+  chipFemale: Elona.CharaCrab
+- type: Race
+  id: Elona.Skeleton
+  hspIds:
+    elona122: 53
+  isExtra: true
+  chipMale: Elona.CharaSkeleton
+  chipFemale: Elona.CharaSkeleton
+- type: Race
+  id: Elona.Piece
+  hspIds:
+    elona122: 54
+  isExtra: true
+  chipMale: Elona.CharaPiece
+  chipFemale: Elona.CharaPiece
+- type: Race
+  id: Elona.Cat
+  hspIds:
+    elona122: 55
+  isExtra: true
+  chipMale: Elona.CharaCat
+  chipFemale: Elona.CharaCat
+- type: Race
+  id: Elona.Dog
+  hspIds:
+    elona122: 56
+  isExtra: true
+  chipMale: Elona.CharaDog
+  chipFemale: Elona.CharaDog
+- type: Race
+  id: Elona.Roran
+  hspIds:
+    elona122: 57
+  isExtra: true
+  chipMale: Elona.CharaRoran
+  chipFemale: Elona.CharaRoran
+- type: Race
+  id: Elona.Rat
+  hspIds:
+    elona122: 58
+  isExtra: true
+  chipMale: Elona.CharaRat
+  chipFemale: Elona.CharaRat
+- type: Race
+  id: Elona.Shell
+  hspIds:
+    elona122: 59
+  isExtra: true
+  chipMale: Elona.CharaShell
+  chipFemale: Elona.CharaShell
+- type: Race
+  id: Elona.Catgod
+  hspIds:
+    elona122: 60
+  isExtra: true
+  chipMale: Elona.CharaCatgod
+  chipFemale: Elona.CharaCatgod
+- type: Race
+  id: Elona.Machinegod
+  hspIds:
+    elona122: 61
+  isExtra: true
+  chipMale: Elona.CharaMachinegod
+  chipFemale: Elona.CharaMachinegod
+- type: Race
+  id: Elona.Undeadgod
+  hspIds:
+    elona122: 62
+  isExtra: true
+  chipMale: Elona.CharaUndeadgod
+  chipFemale: Elona.CharaUndeadgod
+- type: Race
+  id: Elona.Machine
+  hspIds:
+    elona122: 63
+  isExtra: true
+  chipMale: Elona.CharaMachine
+  chipFemale: Elona.CharaMachine
+- type: Race
+  id: Elona.Wisp
+  hspIds:
+    elona122: 64
+  isExtra: true
+  chipMale: Elona.CharaWisp
+  chipFemale: Elona.CharaWisp
+- type: Race
+  id: Elona.Chicken
+  hspIds:
+    elona122: 65
+  isExtra: true
+  chipMale: Elona.CharaChicken
+  chipFemale: Elona.CharaChicken
+- type: Race
+  id: Elona.Stalker
+  hspIds:
+    elona122: 66
+  isExtra: true
+  chipMale: Elona.CharaStalker
+  chipFemale: Elona.CharaStalker
+- type: Race
+  id: Elona.Catsister
+  hspIds:
+    elona122: 67
+  isExtra: true
+  chipMale: Elona.CharaCatsister
+  chipFemale: Elona.CharaCatsister
+- type: Race
+  id: Elona.Mutant
+  hspIds:
+    elona122: 68
+  isExtra: false
+  chipMale: Elona.CharaMutant
+  chipFemale: Elona.CharaMutant
+- type: Race
+  id: Elona.Yeek
+  hspIds:
+    elona122: 69
+  isExtra: true
+  chipMale: Elona.CharaYeek
+  chipFemale: Elona.CharaYeek
+- type: Race
+  id: Elona.Yith
+  hspIds:
+    elona122: 70
+  isExtra: true
+  chipMale: Elona.CharaYith
+  chipFemale: Elona.CharaYith
+- type: Race
+  id: Elona.Servant
+  hspIds:
+    elona122: 71
+  isExtra: true
+  chipMale: Elona.CharaServant
+  chipFemale: Elona.CharaServant
+- type: Race
+  id: Elona.Horse
+  hspIds:
+    elona122: 72
+  isExtra: true
+  chipMale: Elona.CharaHorse
+  chipFemale: Elona.CharaHorse
+- type: Race
+  id: Elona.God
+  hspIds:
+    elona122: 73
+  isExtra: true
+  chipMale: Elona.CharaLulwy
+  chipFemale: Elona.CharaLulwy
+- type: Race
+  id: Elona.Quickling
+  hspIds:
+    elona122: 74
+  isExtra: true
+  chipMale: Elona.CharaQuickling
+  chipFemale: Elona.CharaQuickling
+- type: Race
+  id: Elona.Metal
+  hspIds:
+    elona122: 75
+  isExtra: true
+  chipMale: Elona.CharaMetal
+  chipFemale: Elona.CharaMetal
+- type: Race
+  id: Elona.Bike
+  hspIds:
+    elona122: 76
+  isExtra: true
+  chipMale: Elona.CharaBike
+  chipFemale: Elona.CharaBike
+...

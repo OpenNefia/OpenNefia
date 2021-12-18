@@ -1,2139 +1,9599 @@
+---
+- type: Entity
+  id: Base.CharaPlayer
+  parent: BaseChara
+  components:
+  - type: Chip
+  - type: Level
+    level: 1
+  - type: Chara
+    race: Elona.Slime
+    class: Elona.Predator
+  - type: Faction
+    relation: Neutral
 - type: Entity
   id: Elona.CharaBug
   parent: BaseChara
   hspIds:
     elona122: 0
-
+  components:
+  - type: Chip
+  - type: Level
+    level: 1
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        fltselect: Sp
+        rarity: 100000
+  - type: Chara
+    race: Elona.Slime
+    class: Elona.Predator
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaShopkeeper
   parent: BaseChara
   hspIds:
     elona122: 1
-
+  components:
+  - type: Chip
+  - type: Level
+    level: 35
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        fltselect: Shop
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaMan
+  - type: Chara
+    race: Elona.Norland
+    class: Elona.Gunner
+  - type: Faction
+    relation: Neutral
+  - type: Dialog
+    canTalk: true
+    portrait: Random
+  - type: Tone
+    id: Elona.Shopkeeper
 - type: Entity
   id: Elona.CharaZeome
   parent: BaseChara
   hspIds:
     elona122: 2
-
+  components:
+  - type: Chip
+    id: Elona.CharaZeome
+  - type: Level
+    level: 55
+  - type: Quality
+    quality: Unique
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        fltselect: SpUnique
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaMan
+  - type: Chara
+    race: Elona.Elea
+    class: Elona.Warmage
+    gender: Male
+  - type: Skills
+    skills:
+      Elona.SpellChaosBall: 1
+      Elona.SpellCureOfJure: 1
+      Elona.SpellMagicDart: 1
+      Elona.SpellSummonMonsters: 1
+  - type: Faction
+    relation: Enemy
+  - type: Dialog
+    canTalk: true
+    dialogID: Elona.Zeome
+    portrait: Elona.Zeome
+  - type: Tone
+    id: Elona.Zeome
 - type: Entity
   id: Elona.CharaPutit
   parent: BaseChara
   hspIds:
     elona122: 3
   components:
-  - type: MetaData
-    displayName: putit
-  - type: Chara
-    title: The wind
-    class: Elona.Thief
   - type: Chip
-    id: Elona.CharaRaceSlime
-
+  - type: Level
+    level: 1
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 80000
+  - type: Tag
+    tags:
+    - Elona.TagCharaSlime
+  - type: Chara
+    race: Elona.Slime
+    class: Elona.Tourist
+  - type: Faction
+    relation: Enemy
+  - type: Dialog
+    canTalk: true
 - type: Entity
   id: Elona.CharaRedPutit
   parent: BaseChara
   hspIds:
     elona122: 4
-
+  components:
+  - type: Chip
+    color: '#FF9B9B'
+  - type: Level
+    level: 4
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 70000
+  - type: Tag
+    tags:
+    - Elona.TagCharaFire
+    - Elona.TagCharaSlime
+  - type: Chara
+    race: Elona.Slime
+    class: Elona.Predator
+  - type: Faction
+    relation: Enemy
+  - type: Dialog
+    canTalk: true
 - type: Entity
   id: Elona.CharaRabbit
   parent: BaseChara
   hspIds:
     elona122: 5
-
+  components:
+  - type: Chip
+  - type: Level
+    level: 1
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaWild
+  - type: Chara
+    race: Elona.Rabbit
+    class: Elona.Tourist
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaSnail
   parent: BaseChara
   hspIds:
     elona122: 6
-
+  components:
+  - type: Chip
+  - type: Level
+    level: 1
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaWild
+  - type: Chara
+    race: Elona.Snail
+    class: Elona.Tourist
+  - type: Faction
+    relation: Enemy
+  - type: Dialog
+    canTalk: true
+  - type: Tone
+    id: Elona.Snail
 - type: Entity
   id: Elona.CharaFallenSoldier
   parent: BaseChara
   hspIds:
     elona122: 7
-
+  components:
+  - type: Chip
+    id: Elona.CharaFallenSoldier
+  - type: Level
+    level: 3
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaMan
+  - type: Chara
+    race: Elona.Norland
+    class: Elona.Warrior
+  - type: Faction
+    relation: Dislike
+  - type: Dialog
+    canTalk: true
+    portrait: Random
+  - type: Tone
+    id: Elona.FallenSoldier
 - type: Entity
   id: Elona.CharaMercenary
   parent: BaseChara
   hspIds:
     elona122: 8
-
+  components:
+  - type: Chip
+  - type: Level
+    level: 4
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        fltselect: Town
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaMan
+  - type: Chara
+    race: Elona.Norland
+    class: Elona.Warrior
+  - type: Faction
+    relation: Dislike
+  - type: Dialog
+    canTalk: true
+    portrait: Random
+  - type: Tone
+    id: Elona.FallenSoldier
 - type: Entity
   id: Elona.CharaBeggar
   parent: BaseChara
   hspIds:
     elona122: 9
-
+  components:
+  - type: Chip
+  - type: Level
+    level: 2
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        fltselect: Town
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaMan
+  - type: Chara
+    race: Elona.Norland
+    class: Elona.Tourist
+  - type: Faction
+    relation: Dislike
+  - type: Dialog
+    canTalk: true
+    portrait: Random
+  - type: Tone
+    id: Elona.Beggar
 - type: Entity
   id: Elona.CharaWildSheep
   parent: BaseChara
   hspIds:
     elona122: 10
-
+  components:
+  - type: Chip
+  - type: Level
+    level: 1
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 30000
+  - type: Tag
+    tags:
+    - Elona.TagCharaWild
+  - type: Chara
+    race: Elona.Sheep
+    class: Elona.Tourist
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaFlyingFrog
   parent: BaseChara
   hspIds:
     elona122: 11
-
+  components:
+  - type: Chip
+  - type: Level
+    level: 2
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaWild
+  - type: Chara
+    race: Elona.Frog
+    class: Elona.Tourist
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaGangster
   parent: BaseChara
   hspIds:
     elona122: 12
-
+  components:
+  - type: Chip
+  - type: Level
+    level: 3
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaMan
+  - type: Chara
+    race: Elona.Yerles
+    class: Elona.Predator
+  - type: Faction
+    relation: Enemy
+  - type: Dialog
+    canTalk: true
+    portrait: Random
+  - type: Tone
+    id: Elona.Punk
 - type: Entity
   id: Elona.CharaKobold
   parent: BaseChara
   hspIds:
     elona122: 13
-
+  components:
+  - type: Chip
+  - type: Level
+    level: 3
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 100000
+  - type: Chara
+    race: Elona.Kobold
+    class: Elona.Warrior
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaCentipede
   parent: BaseChara
   hspIds:
     elona122: 14
-
+  components:
+  - type: Chip
+  - type: Level
+    level: 4
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 100000
+  - type: Chara
+    race: Elona.Centipede
+    class: Elona.Predator
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaMushroom
   parent: BaseChara
   hspIds:
     elona122: 15
-
+  components:
+  - type: Chip
+  - type: Level
+    level: 4
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 50000
+  - type: Chara
+    race: Elona.Mushroom
+    class: Elona.Predator
+  - type: Skills
+    skills:
+      Elona.ActionDistantAttack4: 1
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaCitizen
   parent: BaseChara
   hspIds:
     elona122: 16
-
+  components:
+  - type: Chip
+  - type: Level
+    level: 5
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        fltselect: Shop
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaMan
+  - type: Chara
+    race: Elona.Yerles
+    class: Elona.Warrior
+  - type: Faction
+    relation: Neutral
+  - type: Dialog
+    canTalk: true
+    portrait: Random
+  - type: Tone
+    id: Elona.Citizen
 - type: Entity
   id: Elona.CharaOrc
   parent: BaseChara
   hspIds:
     elona122: 17
-
+  components:
+  - type: Chip
+    color: '#E1E1FF'
+  - type: Level
+    level: 5
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 100000
+  - type: Chara
+    race: Elona.Orc
+    class: Elona.Predator
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaWarriorOfElea
   parent: BaseChara
   hspIds:
     elona122: 18
-
+  components:
+  - type: Chip
+  - type: Level
+    level: 5
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaMan
+  - type: Chara
+    race: Elona.Elea
+    class: Elona.Warrior
+  - type: Faction
+    relation: Enemy
+  - type: Dialog
+    portrait: Random
 - type: Entity
   id: Elona.CharaMandrake
   parent: BaseChara
   hspIds:
     elona122: 19
-
+  components:
+  - type: Chip
+  - type: Level
+    level: 5
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 100000
+  - type: Chara
+    race: Elona.Mandrake
+    class: Elona.Predator
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaOrcWarrior
   parent: BaseChara
   hspIds:
     elona122: 20
-
+  components:
+  - type: Chip
+  - type: Level
+    level: 10
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 100000
+  - type: Chara
+    race: Elona.Orc
+    class: Elona.Warrior
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaZombie
   parent: BaseChara
   hspIds:
     elona122: 21
-
+  components:
+  - type: Chip
+  - type: Level
+    level: 8
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaUndead
+  - type: Chara
+    race: Elona.Zombie
+    class: Elona.Predator
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaBeetle
   parent: BaseChara
   hspIds:
     elona122: 22
-
+  components:
+  - type: Chip
+  - type: Level
+    level: 5
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 100000
+  - type: Chara
+    race: Elona.Beetle
+    class: Elona.Predator
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaOrphe
   parent: BaseChara
   hspIds:
     elona122: 23
-
+  components:
+  - type: Chip
+    id: Elona.CharaOrphe
+  - type: Level
+    level: 20
+  - type: Quality
+    quality: Unique
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        fltselect: SpUnique
+        rarity: 1000
+  - type: Tag
+    tags:
+    - Elona.TagCharaMan
+    - Elona.TagCharaGod
+  - type: Chara
+    race: Elona.Juere
+    class: Elona.Warrior
+    gender: Male
+  - type: Faction
+    relation: Neutral
+  - type: Dialog
+    canTalk: true
+    dialogID: Elona.Orphe
+    portrait: Elona.Orphe
+  - type: Tone
+    id: Elona.Orphe
 - type: Entity
   id: Elona.CharaWizardOfElea
   parent: BaseChara
   hspIds:
     elona122: 24
-
+  components:
+  - type: Chip
+  - type: Level
+    level: 5
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaMan
+  - type: Chara
+    race: Elona.Elea
+    class: Elona.Wizard
+  - type: Skills
+    skills:
+      Elona.SpellMagicDart: 1
+      Elona.SpellNerveArrow: 1
+      Elona.SpellShortTeleport: 1
+  - type: Faction
+    relation: Enemy
+  - type: Dialog
+    portrait: Random
 - type: Entity
   id: Elona.CharaGoda
   parent: BaseChara
   hspIds:
     elona122: 25
-
+  components:
+  - type: Chip
+    color: '#FF9B9B'
+  - type: Level
+    level: 25
+  - type: Quality
+    quality: Unique
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        fltselect: Unique
+        rarity: 100000
+  - type: Chara
+    race: Elona.Orc
+    class: Elona.Warrior
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaMadScientist
   parent: BaseChara
   hspIds:
     elona122: 26
-
+  components:
+  - type: Chip
+    id: Elona.CharaMadScientist
+  - type: Level
+    level: 6
+  - type: Quality
+    quality: Unique
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        fltselect: Unique
+        rarity: 1000
+  - type: Tag
+    tags:
+    - Elona.TagCharaMan
+  - type: Chara
+    race: Elona.Norland
+    class: Elona.Wizard
+    gender: Male
+  - type: Faction
+    relation: Enemy
+  - type: Dialog
+    portrait: Elona.Man7
 - type: Entity
   id: Elona.CharaIsca
   parent: BaseChara
   hspIds:
     elona122: 27
-
+  components:
+  - type: Chip
+    id: Elona.CharaIsca
+  - type: Level
+    level: 42
+  - type: Quality
+    quality: Unique
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        fltselect: Unique
+        rarity: 1000
+  - type: Tag
+    tags:
+    - Elona.TagCharaMan
+    - Elona.TagCharaGod
+  - type: Chara
+    race: Elona.Norland
+    class: Elona.Archer
+    gender: Female
+  - type: Faction
+    relation: Enemy
+  - type: Dialog
+    portrait: Elona.Isca
 - type: Entity
   id: Elona.CharaWhomDwellInTheVanity
   parent: BaseChara
   hspIds:
     elona122: 28
-
+  components:
+  - type: Chip
+    id: Elona.CharaWhomDwellInTheVanity
+  - type: Level
+    level: 78
+  - type: Quality
+    quality: Unique
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        fltselect: SpUnique
+        rarity: 1000
+  - type: Tag
+    tags:
+    - Elona.TagCharaMan
+  - type: Chara
+    race: Elona.Juere
+    class: Elona.Warrior
+    gender: Male
+  - type: Faction
+    relation: Neutral
+  - type: Dialog
+    canTalk: true
+    dialogID: Elona.WhomDwellInTheVanity
+    portrait: Elona.Bethel
+  - type: Tone
+    id: Elona.WhomDwellInTheVanity
 - type: Entity
   id: Elona.CharaLoyter
   parent: BaseChara
   hspIds:
     elona122: 29
-
+  components:
+  - type: Chip
+    id: Elona.CharaLoyter
+  - type: Level
+    level: 50
+  - type: Quality
+    quality: Unique
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        fltselect: SpUnique
+        rarity: 1000
+  - type: Tag
+    tags:
+    - Elona.TagCharaMan
+  - type: Chara
+    race: Elona.Juere
+    class: Elona.Warrior
+    gender: Male
+  - type: Faction
+    relation: Neutral
+  - type: Dialog
+    canTalk: true
+    dialogID: Elona.Loyter
+    portrait: Elona.Loyter
+  - type: Tone
+    id: Elona.Loyter
 - type: Entity
   id: Elona.CharaMiches
   parent: BaseChara
   hspIds:
     elona122: 30
-
+  components:
+  - type: Chip
+    id: Elona.CharaMiches
+  - type: Level
+    level: 20
+  - type: Quality
+    quality: Unique
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        fltselect: SpUnique
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaMan
+  - type: Chara
+    race: Elona.Norland
+    class: Elona.Archer
+    gender: Female
+  - type: Faction
+    relation: Neutral
+  - type: Dialog
+    canTalk: true
+    dialogID: Elona.Miches
+    portrait: Elona.Miches
+  - type: Tone
+    id: Elona.Miches
 - type: Entity
   id: Elona.CharaShena
   parent: BaseChara
   hspIds:
     elona122: 31
-
+  components:
+  - type: Chip
+    id: Elona.CharaShena
+  - type: Level
+    level: 20
+  - type: Quality
+    quality: Unique
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        fltselect: SpUnique
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaMan
+  - type: Chara
+    race: Elona.Juere
+    class: Elona.Warrior
+    gender: Female
+  - type: Faction
+    relation: Neutral
+  - type: Dialog
+    canTalk: true
+    dialogID: Elona.Shena
+    portrait: Elona.Shena
+  - type: Tone
+    id: Elona.Shena
 - type: Entity
   id: Elona.CharaDungeonCleaner
   parent: BaseChara
   hspIds:
     elona122: 32
-
+  components:
+  - type: Chip
+    id: Elona.CharaDungeonCleaner
+  - type: Level
+    level: 20
+  - type: Quality
+    quality: Unique
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        fltselect: SpUnique
+        rarity: 100000
+  - type: Chara
+    race: Elona.Norland
+    class: Elona.Warrior
+    gender: Male
+  - type: Faction
+    relation: Neutral
+  - type: Dialog
+    canTalk: true
+  - type: Tone
+    id: Elona.DungeonCleaner
 - type: Entity
   id: Elona.CharaLarnneire
   parent: BaseChara
   hspIds:
     elona122: 33
-
+  components:
+  - type: Chip
+    id: Elona.CharaLarnneire
+  - type: Level
+    level: 20
+  - type: Quality
+    quality: Unique
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        fltselect: SpUnique
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaMan
+  - type: Chara
+    race: Elona.Elea
+    class: Elona.Warmage
+    gender: Female
+  - type: Skills
+    skills:
+      Elona.SpellNerveArrow: 1
+  - type: Faction
+    relation: Neutral
+  - type: Dialog
+    canTalk: true
+    dialogID: Elona.Larnneire
+    portrait: Elona.Larnneire
+  - type: Tone
+    id: Elona.Larnneire
 - type: Entity
   id: Elona.CharaLomias
   parent: BaseChara
   hspIds:
     elona122: 34
-
+  components:
+  - type: Chip
+    id: Elona.CharaLomias
+  - type: Level
+    level: 20
+  - type: Quality
+    quality: Unique
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        fltselect: SpUnique
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaMan
+  - type: Chara
+    race: Elona.Elea
+    class: Elona.Archer
+    gender: Male
+  - type: Skills
+    skills:
+      Elona.BuffSlow: 1
+  - type: Faction
+    relation: Neutral
+  - type: Dialog
+    canTalk: true
+    dialogID: Elona.Lomias
+    portrait: Elona.Lomias
+  - type: Tone
+    id: Elona.Lomias
 - type: Entity
   id: Elona.CharaTownChild
   parent: BaseChara
   hspIds:
     elona122: 35
-
+  components:
+  - type: Chip
+  - type: Level
+    level: 1
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        fltselect: Town
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaMan
+  - type: Chara
+    race: Elona.Norland
+    class: Elona.Tourist
+  - type: Faction
+    relation: Dislike
+  - type: Dialog
+    canTalk: true
+    portrait: Random
+  - type: Tone
+    id: Elona.TownChild
 - type: Entity
   id: Elona.CharaOldPerson
   parent: BaseChara
   hspIds:
     elona122: 36
-
+  components:
+  - type: Chip
+  - type: Level
+    level: 1
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        fltselect: Town
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaMan
+  - type: Chara
+    race: Elona.Norland
+    class: Elona.Tourist
+  - type: Faction
+    relation: Dislike
+  - type: Dialog
+    canTalk: true
+    portrait: Random
+  - type: Tone
+    id: Elona.OldPerson
 - type: Entity
   id: Elona.CharaAt
   parent: BaseChara
   hspIds:
     elona122: 37
-
+  components:
+  - type: Chip
+    id: Elona.CharaAt
+  - type: Level
+    level: 1
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        fltselect: Sp
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaMan
+  - type: Chara
+    race: Elona.Norland
+    class: Elona.Predator
+    gender: Male
+  - type: Faction
+    relation: Enemy
+  - type: Dialog
+    canTalk: true
+    portrait: Elona.Zeome
+  - type: Tone
+    id: Elona.At
 - type: Entity
   id: Elona.CharaElder
   parent: BaseChara
   hspIds:
     elona122: 38
-
+  components:
+  - type: Chip
+  - type: Level
+    level: 20
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        fltselect: Shop
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaMan
+  - type: Chara
+    race: Elona.Norland
+    class: Elona.Gunner
+  - type: Faction
+    relation: Neutral
+  - type: Dialog
+    canTalk: true
+    portrait: Random
+  - type: Tone
+    id: Elona.Citizen2
 - type: Entity
   id: Elona.CharaCitizen2
   parent: BaseChara
   hspIds:
     elona122: 39
-
+  components:
+  - type: Chip
+  - type: Level
+    level: 5
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        fltselect: Shop
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaMan
+  - type: Chara
+    race: Elona.Yerles
+    class: Elona.Warrior
+  - type: Faction
+    relation: Neutral
+  - type: Dialog
+    canTalk: true
+    portrait: Random
+  - type: Tone
+    id: Elona.Citizen
 - type: Entity
   id: Elona.CharaTrainer
   parent: BaseChara
   hspIds:
     elona122: 40
-
+  components:
+  - type: Chip
+  - type: Level
+    level: 40
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        fltselect: Shop
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaMan
+  - type: Chara
+    race: Elona.Norland
+    class: Elona.Warrior
+  - type: Faction
+    relation: Neutral
+  - type: Dialog
+    canTalk: true
+    portrait: Random
+  - type: Tone
+    id: Elona.Trainer
 - type: Entity
   id: Elona.CharaWizard
   parent: BaseChara
   hspIds:
     elona122: 41
-
+  components:
+  - type: Chip
+  - type: Level
+    level: 5
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        fltselect: Shop
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaMan
+  - type: Chara
+    race: Elona.Norland
+    class: Elona.Wizard
+  - type: Skills
+    skills:
+      Elona.BuffHolyVeil: 1
+      Elona.BuffMistOfSilence: 1
+      Elona.BuffSlow: 1
+      Elona.SpellMagicDart: 1
+      Elona.SpellNetherArrow: 1
+  - type: Faction
+    relation: Neutral
+  - type: Dialog
+    portrait: Random
 - type: Entity
   id: Elona.CharaBat
   parent: BaseChara
   hspIds:
     elona122: 42
-
+  components:
+  - type: Chip
+  - type: Level
+    level: 1
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaWild
+  - type: Chara
+    race: Elona.Bat
+    class: Elona.Predator
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaVampireBat
   parent: BaseChara
   hspIds:
     elona122: 43
-
+  components:
+  - type: Chip
+    color: '#FF9B9B'
+  - type: Level
+    level: 10
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 70000
+  - type: Tag
+    tags:
+    - Elona.TagCharaWild
+  - type: Chara
+    race: Elona.Bat
+    class: Elona.Predator
+  - type: Skills
+    skills:
+      Elona.ActionDrainBlood: 1
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaDragonBat
   parent: BaseChara
   hspIds:
     elona122: 44
-
+  components:
+  - type: Chip
+    color: '#AFAFFF'
+  - type: Level
+    level: 30
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 60000
+  - type: Tag
+    tags:
+    - Elona.TagCharaWild
+    - Elona.TagCharaFire
+    - Elona.TagCharaDragon
+  - type: Chara
+    race: Elona.Bat
+    class: Elona.Predator
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaFireEnt
   parent: BaseChara
   hspIds:
     elona122: 45
-
+  components:
+  - type: Chip
+    color: '#FFE1E1'
+  - type: Level
+    level: 15
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaFire
+  - type: Chara
+    race: Elona.Ent
+    class: Elona.Predator
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaIceEnt
   parent: BaseChara
   hspIds:
     elona122: 46
-
+  components:
+  - type: Chip
+    color: '#E1E1FF'
+  - type: Level
+    level: 15
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 100000
+  - type: Chara
+    race: Elona.Ent
+    class: Elona.Predator
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaLich
   parent: BaseChara
   hspIds:
     elona122: 47
-
+  components:
+  - type: Chip
+  - type: Level
+    level: 20
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 60000
+  - type: Tag
+    tags:
+    - Elona.TagCharaUndead
+  - type: Chara
+    race: Elona.Lich
+    class: Elona.Wizard
+  - type: Skills
+    skills:
+      Elona.SpellDarknessBolt: 1
+      Elona.SpellIceBolt: 1
+      Elona.SpellMagicDart: 1
+      Elona.SpellShortTeleport: 1
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaMasterLich
   parent: BaseChara
   hspIds:
     elona122: 48
-
+  components:
+  - type: Chip
+    color: '#FFE1E1'
+  - type: Level
+    level: 30
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 50000
+  - type: Tag
+    tags:
+    - Elona.TagCharaUndead
+  - type: Chara
+    race: Elona.Lich
+    class: Elona.Wizard
+  - type: Skills
+    skills:
+      Elona.BuffElementScar: 1
+      Elona.SpellDarknessBolt: 1
+      Elona.SpellIceBolt: 1
+      Elona.SpellMagicDart: 1
+      Elona.SpellShortTeleport: 1
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaDemiLich
   parent: BaseChara
   hspIds:
     elona122: 49
-
+  components:
+  - type: Chip
+    color: '#E1E1FF'
+  - type: Level
+    level: 45
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 40000
+  - type: Tag
+    tags:
+    - Elona.TagCharaUndead
+  - type: Chara
+    race: Elona.Lich
+    class: Elona.Wizard
+  - type: Skills
+    skills:
+      Elona.SpellDarknessBolt: 1
+      Elona.SpellIceBolt: 1
+      Elona.SpellMagicDart: 1
+      Elona.SpellShortTeleport: 1
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaHound
   parent: BaseChara
   hspIds:
     elona122: 50
-
+  components:
+  - type: Chip
+    color: '#FFFFAF'
+  - type: Level
+    level: 5
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 80000
+  - type: Tag
+    tags:
+    - Elona.TagCharaWild
+  - type: Chara
+    race: Elona.Hound
+    class: Elona.Predator
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaFireHound
   parent: BaseChara
   hspIds:
     elona122: 51
-
+  components:
+  - type: Chip
+    color: '#FF9B9B'
+  - type: Level
+    level: 10
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 70000
+  - type: Tag
+    tags:
+    - Elona.TagCharaWild
+    - Elona.TagCharaFire
+  - type: Chara
+    race: Elona.Hound
+    class: Elona.Predator
+  - type: Skills
+    skills:
+      Elona.ActionFireBreath: 1
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaIceHound
   parent: BaseChara
   hspIds:
     elona122: 52
-
+  components:
+  - type: Chip
+    color: '#FFFFFF'
+  - type: Level
+    level: 10
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 70000
+  - type: Tag
+    tags:
+    - Elona.TagCharaWild
+  - type: Chara
+    race: Elona.Hound
+    class: Elona.Predator
+  - type: Skills
+    skills:
+      Elona.ActionColdBreath: 1
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaLightningHound
   parent: BaseChara
   hspIds:
     elona122: 53
-
+  components:
+  - type: Chip
+    color: '#FFD7AF'
+  - type: Level
+    level: 12
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 70000
+  - type: Tag
+    tags:
+    - Elona.TagCharaWild
+  - type: Chara
+    race: Elona.Hound
+    class: Elona.Predator
+  - type: Skills
+    skills:
+      Elona.ActionLightningBreath: 1
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaDarkHound
   parent: BaseChara
   hspIds:
     elona122: 54
-
+  components:
+  - type: Chip
+    color: '#AFAFFF'
+  - type: Level
+    level: 12
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 70000
+  - type: Tag
+    tags:
+    - Elona.TagCharaWild
+  - type: Chara
+    race: Elona.Hound
+    class: Elona.Predator
+  - type: Skills
+    skills:
+      Elona.ActionDarknessBreath: 1
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaIllusionHound
   parent: BaseChara
   hspIds:
     elona122: 55
-
+  components:
+  - type: Chip
+    color: '#FFC3B9'
+  - type: Level
+    level: 18
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 50000
+  - type: Tag
+    tags:
+    - Elona.TagCharaWild
+  - type: Chara
+    race: Elona.Hound
+    class: Elona.Predator
+  - type: Skills
+    skills:
+      Elona.ActionMindBreath: 1
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaNerveHound
   parent: BaseChara
   hspIds:
     elona122: 56
-
+  components:
+  - type: Chip
+    color: '#9BCDCD'
+  - type: Level
+    level: 18
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 50000
+  - type: Tag
+    tags:
+    - Elona.TagCharaWild
+  - type: Chara
+    race: Elona.Hound
+    class: Elona.Predator
+  - type: Skills
+    skills:
+      Elona.ActionNerveBreath: 1
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaPoisonHound
   parent: BaseChara
   hspIds:
     elona122: 57
-
+  components:
+  - type: Chip
+    color: '#AFFFAF'
+  - type: Level
+    level: 15
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 50000
+  - type: Tag
+    tags:
+    - Elona.TagCharaWild
+  - type: Chara
+    race: Elona.Hound
+    class: Elona.Predator
+  - type: Skills
+    skills:
+      Elona.ActionPoisonBreath: 1
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaSoundHound
   parent: BaseChara
   hspIds:
     elona122: 58
-
+  components:
+  - type: Chip
+    color: '#EBD79B'
+  - type: Level
+    level: 22
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 40000
+  - type: Tag
+    tags:
+    - Elona.TagCharaWild
+  - type: Chara
+    race: Elona.Hound
+    class: Elona.Predator
+  - type: Skills
+    skills:
+      Elona.ActionSoundBreath: 1
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaNetherHound
   parent: BaseChara
   hspIds:
     elona122: 59
-
+  components:
+  - type: Chip
+    color: '#CDCDCD'
+  - type: Level
+    level: 25
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 40000
+  - type: Tag
+    tags:
+    - Elona.TagCharaWild
+  - type: Chara
+    race: Elona.Hound
+    class: Elona.Predator
+  - type: Skills
+    skills:
+      Elona.ActionNetherBreath: 1
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaChaosHound
   parent: BaseChara
   hspIds:
     elona122: 60
-
+  components:
+  - type: Chip
+    color: '#E1C3FF'
+  - type: Level
+    level: 30
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 40000
+  - type: Tag
+    tags:
+    - Elona.TagCharaWild
+  - type: Chara
+    race: Elona.Hound
+    class: Elona.Predator
+  - type: Skills
+    skills:
+      Elona.ActionChaosBreath: 1
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaGiantSquirrel
   parent: BaseChara
   hspIds:
     elona122: 61
-
+  components:
+  - type: Chip
+    id: Elona.CharaGiantSquirrel
+    color: '#FFFFAF'
+  - type: Level
+    level: 4
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaWild
+  - type: Chara
+    race: Elona.Rabbit
+    class: Elona.Predator
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaKillerSquirrel
   parent: BaseChara
   hspIds:
     elona122: 62
-
+  components:
+  - type: Chip
+    id: Elona.CharaGiantSquirrel
+    color: '#FF9B9B'
+  - type: Level
+    level: 10
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaWild
+  - type: Chara
+    race: Elona.Rabbit
+    class: Elona.Predator
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaGrudge
   parent: BaseChara
   hspIds:
     elona122: 63
-
+  components:
+  - type: Chip
+  - type: Level
+    level: 7
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaUndead
+  - type: Chara
+    race: Elona.Ghost
+    class: Elona.Predator
+  - type: Skills
+    skills:
+      Elona.ActionTouchOfWeakness: 1
+      Elona.BuffMistOfFrailness: 1
+      Elona.BuffSlow: 1
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaHungryDemon
   parent: BaseChara
   hspIds:
     elona122: 64
-
+  components:
+  - type: Chip
+    color: '#AFFFAF'
+  - type: Level
+    level: 3
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 70000
+  - type: Tag
+    tags:
+    - Elona.TagCharaUndead
+  - type: Chara
+    race: Elona.Ghost
+    class: Elona.Predator
+  - type: Skills
+    skills:
+      Elona.ActionTouchOfHunger: 1
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaElectricCloud
   parent: BaseChara
   hspIds:
     elona122: 65
-
+  components:
+  - type: Chip
+    color: '#FFD7AF'
+  - type: Level
+    level: 12
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 100000
+  - type: Chara
+    race: Elona.Spirit
+    class: Elona.Predator
+  - type: Skills
+    skills:
+      Elona.ActionLightningBreath: 1
+      Elona.SpellLightningBolt: 1
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaChaosCloud
   parent: BaseChara
   hspIds:
     elona122: 66
-
+  components:
+  - type: Chip
+    color: '#E1C3FF'
+  - type: Level
+    level: 30
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 100000
+  - type: Chara
+    race: Elona.Spirit
+    class: Elona.Predator
+  - type: Skills
+    skills:
+      Elona.SpellChaosBall: 1
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaFloatingEye
   parent: BaseChara
   hspIds:
     elona122: 67
-
+  components:
+  - type: Chip
+  - type: Level
+    level: 2
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 80000
+  - type: Chara
+    race: Elona.Eye
+    class: Elona.Predator
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaWyvern
   parent: BaseChara
   hspIds:
     elona122: 68
-
+  components:
+  - type: Chip
+  - type: Level
+    level: 20
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 50000
+  - type: Tag
+    tags:
+    - Elona.TagCharaDragon
+  - type: Chara
+    race: Elona.Wyvern
+    class: Elona.Predator
+  - type: Skills
+    skills:
+      Elona.ActionFireBreath: 1
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaInformer
   parent: BaseChara
   hspIds:
     elona122: 69
-
+  components:
+  - type: Chip
+  - type: Level
+    level: 20
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        fltselect: Shop
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaMan
+  - type: Chara
+    race: Elona.Norland
+    class: Elona.Warrior
+  - type: Faction
+    relation: Neutral
+  - type: Dialog
+    canTalk: true
+    portrait: Random
+  - type: Tone
+    id: Elona.Citizen2
 - type: Entity
   id: Elona.CharaBartender
   parent: BaseChara
   hspIds:
     elona122: 70
-
+  components:
+  - type: Chip
+  - type: Level
+    level: 20
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        fltselect: Sp
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaMan
+  - type: Chara
+    race: Elona.Norland
+    class: Elona.Gunner
+  - type: Faction
+    relation: Neutral
+  - type: Dialog
+    canTalk: true
+    portrait: Random
+  - type: Tone
+    id: Elona.Bartender
 - type: Entity
   id: Elona.CharaSailor
   parent: BaseChara
   hspIds:
     elona122: 71
-
+  components:
+  - type: Chip
+  - type: Level
+    level: 5
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        fltselect: Shop
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaMan
+  - type: Chara
+    race: Elona.Norland
+    class: Elona.Thief
+  - type: Faction
+    relation: Neutral
+  - type: Dialog
+    canTalk: true
+    portrait: Random
+  - type: Tone
+    id: Elona.Citizen2
 - type: Entity
   id: Elona.CharaCaptain
   parent: BaseChara
   hspIds:
     elona122: 72
-
+  components:
+  - type: Chip
+    id: Elona.CharaCaptain
+  - type: Level
+    level: 5
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        fltselect: Sp
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaMan
+  - type: Chara
+    race: Elona.Norland
+    class: Elona.Warrior
+    gender: Male
+  - type: Faction
+    relation: Neutral
+  - type: Dialog
+    canTalk: true
+    portrait: Elona.Man45
+  - type: Tone
+    id: Elona.Captain
 - type: Entity
   id: Elona.CharaArenaMaster
   parent: BaseChara
   hspIds:
     elona122: 73
-
+  components:
+  - type: Chip
+    id: Elona.CharaArenaMaster
+  - type: Level
+    level: 40
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        fltselect: Shop
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaMan
+  - type: Chara
+    race: Elona.Norland
+    class: Elona.Warrior
+    gender: Male
+  - type: Faction
+    relation: Neutral
+  - type: Dialog
+    canTalk: true
+    portrait: Random
+  - type: Tone
+    id: Elona.Citizen2
 - type: Entity
   id: Elona.CharaHealer
   parent: BaseChara
   hspIds:
     elona122: 74
-
+  components:
+  - type: Chip
+    id: Elona.CharaHealer
+  - type: Level
+    level: 20
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        fltselect: Shop
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaMan
+  - type: Chara
+    race: Elona.Norland
+    class: Elona.Warrior
+    gender: Female
+  - type: Faction
+    relation: Neutral
+  - type: Dialog
+    canTalk: true
+    portrait: Random
 - type: Entity
   id: Elona.CharaWarrior
   parent: BaseChara
   hspIds:
     elona122: 75
-
+  components:
+  - type: Chip
+  - type: Level
+    level: 5
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        fltselect: Shop
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaMan
+  - type: Chara
+    race: Elona.Norland
+    class: Elona.Warrior
+  - type: Faction
+    relation: Neutral
+  - type: Dialog
+    portrait: Random
 - type: Entity
   id: Elona.CharaGuardPortKapul
   parent: BaseChara
   hspIds:
     elona122: 76
-
+  components:
+  - type: Chip
+    id: Elona.CharaGuardPortKapul
+  - type: Level
+    level: 40
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        fltselect: TownSp
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaMan
+  - type: Chara
+    race: Elona.Norland
+    class: Elona.Archer
+  - type: Faction
+    relation: Neutral
+  - type: Dialog
+    canTalk: true
+    portrait: Random
+  - type: Tone
+    id: Elona.Guard
 - type: Entity
   id: Elona.CharaGuard
   parent: BaseChara
   hspIds:
     elona122: 77
-
+  components:
+  - type: Chip
+    id: Elona.CharaGuard
+  - type: Level
+    level: 40
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        fltselect: TownSp
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaMan
+  - type: Chara
+    race: Elona.Yerles
+    class: Elona.Archer
+  - type: Faction
+    relation: Neutral
+  - type: Dialog
+    canTalk: true
+    portrait: Random
+  - type: Tone
+    id: Elona.Guard
 - type: Entity
   id: Elona.CharaPuppet
   parent: BaseChara
   hspIds:
     elona122: 78
-
+  components:
+  - type: Chip
+    id: Elona.CharaPuppet
+  - type: Level
+    level: 15
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 100000
+  - type: Chara
+    race: Elona.Eulderna
+    class: Elona.Predator
+  - type: Skills
+    skills:
+      Elona.BuffElementScar: 1
+      Elona.BuffMistOfFrailness: 1
+      Elona.BuffSlow: 1
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaStersha
   parent: BaseChara
   hspIds:
     elona122: 79
-
+  components:
+  - type: Chip
+    id: Elona.CharaTestSubject
+  - type: Level
+    level: 25
+  - type: Quality
+    quality: Unique
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        fltselect: SpUnique
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaMan
+  - type: Chara
+    race: Elona.Norland
+    class: Elona.Warrior
+    gender: Female
+  - type: Faction
+    relation: Neutral
+  - type: Dialog
+    canTalk: true
+    dialogID: Elona.Stersha
+    portrait: Elona.Stersha
+  - type: Tone
+    id: Elona.Stersha
 - type: Entity
   id: Elona.CharaXabi
   parent: BaseChara
   hspIds:
     elona122: 80
-
+  components:
+  - type: Chip
+    id: Elona.CharaXabi
+  - type: Level
+    level: 35
+  - type: Quality
+    quality: Unique
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        fltselect: SpUnique
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaMan
+  - type: Chara
+    race: Elona.Norland
+    class: Elona.Warrior
+    gender: Male
+  - type: Faction
+    relation: Neutral
+  - type: Dialog
+    canTalk: true
+    dialogID: Elona.Xabi
+    portrait: Elona.Xabi
+  - type: Tone
+    id: Elona.Xabi
 - type: Entity
   id: Elona.CharaWasp
   parent: BaseChara
   hspIds:
     elona122: 81
-
+  components:
+  - type: Chip
+  - type: Level
+    level: 5
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 100000
+  - type: Chara
+    race: Elona.Wasp
+    class: Elona.Predator
+  - type: Skills
+    skills:
+      Elona.ActionTouchOfPoison: 1
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaRedWasp
   parent: BaseChara
   hspIds:
     elona122: 82
-
+  components:
+  - type: Chip
+    color: '#FF9B9B'
+  - type: Level
+    level: 10
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaFire
+  - type: Chara
+    race: Elona.Wasp
+    class: Elona.Predator
+  - type: Skills
+    skills:
+      Elona.ActionTouchOfNerve: 1
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaCyclops
   parent: BaseChara
   hspIds:
     elona122: 83
-
+  components:
+  - type: Chip
+  - type: Level
+    level: 22
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 60000
+  - type: Chara
+    race: Elona.Giant
+    class: Elona.Warrior
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaTitan
   parent: BaseChara
   hspIds:
     elona122: 84
-
+  components:
+  - type: Chip
+    color: '#FFE1E1'
+  - type: Level
+    level: 40
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 50000
+  - type: Chara
+    race: Elona.Giant
+    class: Elona.Warrior
+  - type: Faction
+    relation: Enemy
+  - type: Dialog
+    canTalk: true
+  - type: Tone
+    id: Elona.Titan
 - type: Entity
   id: Elona.CharaImp
   parent: BaseChara
   hspIds:
     elona122: 85
-
+  components:
+  - type: Chip
+    color: '#FFE1E1'
+  - type: Level
+    level: 7
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaFire
+  - type: Chara
+    race: Elona.Imp
+    class: Elona.Predator
+  - type: Skills
+    skills:
+      Elona.BuffElementScar: 1
+      Elona.SpellMagicDart: 1
+      Elona.SpellShortTeleport: 1
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaNetherImp
   parent: BaseChara
   hspIds:
     elona122: 86
-
+  components:
+  - type: Chip
+    color: '#AFAFFF'
+  - type: Level
+    level: 16
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaGod
+  - type: Chara
+    race: Elona.Imp
+    class: Elona.Predator
+  - type: Skills
+    skills:
+      Elona.SpellMagicDart: 1
+      Elona.SpellNetherArrow: 1
+      Elona.SpellShortTeleport: 1
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaChaosImp
   parent: BaseChara
   hspIds:
     elona122: 87
-
+  components:
+  - type: Chip
+    color: '#E1C3FF'
+  - type: Level
+    level: 27
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 100000
+  - type: Chara
+    race: Elona.Imp
+    class: Elona.Predator
+  - type: Skills
+    skills:
+      Elona.SpellChaosEye: 1
+      Elona.SpellMagicDart: 1
+      Elona.SpellShortTeleport: 1
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaHandOfTheDead
   parent: BaseChara
   hspIds:
     elona122: 88
-
+  components:
+  - type: Chip
+  - type: Level
+    level: 4
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaUndead
+  - type: Chara
+    race: Elona.Hand
+    class: Elona.Predator
+  - type: Skills
+    skills:
+      Elona.ActionDrawShadow: 1
+      Elona.ActionTouchOfWeakness: 1
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaHandOfTheChaos
   parent: BaseChara
   hspIds:
     elona122: 89
-
+  components:
+  - type: Chip
+    color: '#E1C3FF'
+  - type: Level
+    level: 11
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaUndead
+  - type: Chara
+    race: Elona.Hand
+    class: Elona.Predator
+  - type: Skills
+    skills:
+      Elona.ActionDrawShadow: 1
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaHandOfTheMurderer
   parent: BaseChara
   hspIds:
     elona122: 90
-
+  components:
+  - type: Chip
+    color: '#FFE1E1'
+  - type: Level
+    level: 15
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaUndead
+  - type: Chara
+    race: Elona.Hand
+    class: Elona.Warrior
+  - type: Skills
+    skills:
+      Elona.ActionDrawShadow: 1
+      Elona.BuffMistOfFrailness: 1
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaGhost
   parent: BaseChara
   hspIds:
     elona122: 91
-
+  components:
+  - type: Chip
+    id: Elona.CharaNymph
+  - type: Level
+    level: 5
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaUndead
+  - type: Chara
+    race: Elona.Ghost
+    class: Elona.Predator
+  - type: Skills
+    skills:
+      Elona.ActionTouchOfFear: 1
+      Elona.ActionTouchOfWeakness: 1
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaNymph
   parent: BaseChara
   hspIds:
     elona122: 92
-
+  components:
+  - type: Chip
+    id: Elona.CharaNymph
+    color: '#FFD7AF'
+  - type: Level
+    level: 13
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaUndead
+  - type: Chara
+    race: Elona.Ghost
+    class: Elona.Predator
+  - type: Skills
+    skills:
+      Elona.ActionColdBreath: 1
+      Elona.ActionTouchOfSleep: 1
+      Elona.SpellIceBolt: 1
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaManEaterFlower
   parent: BaseChara
   hspIds:
     elona122: 93
-
+  components:
+  - type: Chip
+    id: Elona.CharaChaosFlower
+  - type: Level
+    level: 8
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 100000
+  - type: Chara
+    race: Elona.Mandrake
+    class: Elona.Predator
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaChaosFlower
   parent: BaseChara
   hspIds:
     elona122: 94
-
+  components:
+  - type: Chip
+    id: Elona.CharaChaosFlower
+    color: '#FFC3B9'
+  - type: Level
+    level: 19
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 100000
+  - type: Chara
+    race: Elona.Mandrake
+    class: Elona.Predator
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaCobra
   parent: BaseChara
   hspIds:
     elona122: 95
-
+  components:
+  - type: Chip
+    color: '#E1E1FF'
+  - type: Level
+    level: 10
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaWild
+  - type: Chara
+    race: Elona.Snake
+    class: Elona.Predator
+  - type: Skills
+    skills:
+      Elona.ActionTouchOfPoison: 1
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaKingCobra
   parent: BaseChara
   hspIds:
     elona122: 96
-
+  components:
+  - type: Chip
+    color: '#FFE1E1'
+  - type: Level
+    level: 18
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaWild
+  - type: Chara
+    race: Elona.Snake
+    class: Elona.Predator
+  - type: Skills
+    skills:
+      Elona.ActionTouchOfPoison: 1
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaFireDrake
   parent: BaseChara
   hspIds:
     elona122: 97
-
+  components:
+  - type: Chip
+    color: '#FF9B9B'
+  - type: Level
+    level: 16
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaFire
+    - Elona.TagCharaDragon
+  - type: Chara
+    race: Elona.Drake
+    class: Elona.Predator
+  - type: Skills
+    skills:
+      Elona.ActionFireBreath: 1
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaIceDrake
   parent: BaseChara
   hspIds:
     elona122: 98
-
+  components:
+  - type: Chip
+  - type: Level
+    level: 16
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaDragon
+  - type: Chara
+    race: Elona.Drake
+    class: Elona.Predator
+  - type: Skills
+    skills:
+      Elona.ActionColdBreath: 1
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaLesserMummy
   parent: BaseChara
   hspIds:
     elona122: 99
-
+  components:
+  - type: Chip
+    id: Elona.CharaTuwen
+  - type: Level
+    level: 7
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaUndead
+  - type: Chara
+    race: Elona.Zombie
+    class: Elona.Predator
+  - type: Skills
+    skills:
+      Elona.ActionTouchOfFear: 1
+      Elona.ActionTouchOfWeakness: 1
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaMummy
   parent: BaseChara
   hspIds:
     elona122: 100
-
+  components:
+  - type: Chip
+    id: Elona.CharaTuwen
+    color: '#FFC3B9'
+  - type: Level
+    level: 14
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaUndead
+  - type: Chara
+    race: Elona.Zombie
+    class: Elona.Warrior
+  - type: Skills
+    skills:
+      Elona.ActionTouchOfFear: 1
+      Elona.ActionTouchOfWeakness: 1
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaGreaterMummy
   parent: BaseChara
   hspIds:
     elona122: 101
-
+  components:
+  - type: Chip
+    id: Elona.CharaTuwen
+    color: '#FFD7AF'
+  - type: Level
+    level: 22
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaUndead
+  - type: Chara
+    race: Elona.Zombie
+    class: Elona.Warrior
+  - type: Skills
+    skills:
+      Elona.ActionTouchOfFear: 1
+      Elona.ActionTouchOfWeakness: 1
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaGoblin
   parent: BaseChara
   hspIds:
     elona122: 102
-
+  components:
+  - type: Chip
+    color: '#FFE1E1'
+  - type: Level
+    level: 2
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 100000
+  - type: Chara
+    race: Elona.Goblin
+    class: Elona.Predator
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaGoblinWarrior
   parent: BaseChara
   hspIds:
     elona122: 103
-
+  components:
+  - type: Chip
+    color: '#FFD7AF'
+  - type: Level
+    level: 6
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 100000
+  - type: Chara
+    race: Elona.Goblin
+    class: Elona.Warrior
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaGoblinShaman
   parent: BaseChara
   hspIds:
     elona122: 104
-
+  components:
+  - type: Chip
+    color: '#E1C3FF'
+  - type: Level
+    level: 8
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 100000
+  - type: Chara
+    race: Elona.Goblin
+    class: Elona.Warmage
+  - type: Skills
+    skills:
+      Elona.BuffSlow: 1
+      Elona.SpellFireBolt: 1
+      Elona.SpellHealLight: 1
+      Elona.SpellSummonWild: 1
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaGoblinWizard
   parent: BaseChara
   hspIds:
     elona122: 105
-
+  components:
+  - type: Chip
+    color: '#AFAFFF'
+  - type: Level
+    level: 10
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 100000
+  - type: Chara
+    race: Elona.Goblin
+    class: Elona.Wizard
+  - type: Skills
+    skills:
+      Elona.SpellMagicDart: 1
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaRedBaptist
   parent: BaseChara
   hspIds:
     elona122: 106
-
+  components:
+  - type: Chip
+    id: Elona.CharaBaptist
+    color: '#FF9B9B'
+  - type: Level
+    level: 12
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaUndead
+    - Elona.TagCharaFire
+  - type: Chara
+    race: Elona.Ghost
+    class: Elona.Wizard
+  - type: Skills
+    skills:
+      Elona.SpellFireBolt: 1
+      Elona.SpellShortTeleport: 1
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaBlueBaptist
   parent: BaseChara
   hspIds:
     elona122: 107
-
+  components:
+  - type: Chip
+    id: Elona.CharaBaptist
+    color: '#AFAFFF'
+  - type: Level
+    level: 12
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaUndead
+  - type: Chara
+    race: Elona.Ghost
+    class: Elona.Wizard
+  - type: Skills
+    skills:
+      Elona.SpellIceBolt: 1
+      Elona.SpellShortTeleport: 1
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaBrownBear
   parent: BaseChara
   hspIds:
     elona122: 108
-
+  components:
+  - type: Chip
+  - type: Level
+    level: 4
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaWild
+  - type: Chara
+    race: Elona.Bear
+    class: Elona.Predator
+  - type: Faction
+    relation: Enemy
+  - type: Dialog
+    canTalk: true
+  - type: Tone
+    id: Elona.BrownBear
 - type: Entity
   id: Elona.CharaGrizzly
   parent: BaseChara
   hspIds:
     elona122: 109
-
+  components:
+  - type: Chip
+    color: '#FF9B9B'
+  - type: Level
+    level: 10
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaWild
+  - type: Chara
+    race: Elona.Bear
+    class: Elona.Predator
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaLivingArmor
   parent: BaseChara
   hspIds:
     elona122: 110
-
+  components:
+  - type: Chip
+  - type: Level
+    level: 15
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 40000
+  - type: Tag
+    tags:
+    - Elona.TagCharaUndead
+  - type: Chara
+    race: Elona.Armor
+    class: Elona.Warrior
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaSteelMass
   parent: BaseChara
   hspIds:
     elona122: 111
-
+  components:
+  - type: Chip
+    color: '#E1E1FF'
+  - type: Level
+    level: 25
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 30000
+  - type: Tag
+    tags:
+    - Elona.TagCharaUndead
+  - type: Chara
+    race: Elona.Armor
+    class: Elona.Warrior
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaGoldenArmor
   parent: BaseChara
   hspIds:
     elona122: 112
-
+  components:
+  - type: Chip
+    color: '#FFD7AF'
+  - type: Level
+    level: 35
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 30000
+  - type: Tag
+    tags:
+    - Elona.TagCharaUndead
+  - type: Chara
+    race: Elona.Armor
+    class: Elona.Warrior
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaDeathArmor
   parent: BaseChara
   hspIds:
     elona122: 113
-
+  components:
+  - type: Chip
+    color: '#FFE1E1'
+  - type: Level
+    level: 45
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 30000
+  - type: Chara
+    race: Elona.Armor
+    class: Elona.Warrior
+  - type: Skills
+    skills:
+      Elona.ActionTouchOfWeakness: 1
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaMedusa
   parent: BaseChara
   hspIds:
     elona122: 114
-
+  components:
+  - type: Chip
+  - type: Level
+    level: 22
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaGod
+  - type: Chara
+    race: Elona.Medusa
+    class: Elona.Warmage
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaEuryale
   parent: BaseChara
   hspIds:
     elona122: 115
-
+  components:
+  - type: Chip
+    color: '#FFD7AF'
+  - type: Level
+    level: 33
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaGod
+  - type: Chara
+    race: Elona.Medusa
+    class: Elona.Warmage
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaStheno
   parent: BaseChara
   hspIds:
     elona122: 116
-
+  components:
+  - type: Chip
+    color: '#FFE1E1'
+  - type: Level
+    level: 44
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaGod
+  - type: Chara
+    race: Elona.Medusa
+    class: Elona.Warmage
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaCupidOfLove
   parent: BaseChara
   hspIds:
     elona122: 117
-
+  components:
+  - type: Chip
+  - type: Level
+    level: 8
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaGod
+  - type: Chara
+    race: Elona.Cupid
+    class: Elona.Archer
+  - type: Skills
+    skills:
+      Elona.BuffMistOfSilence: 1
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaLesserPhantom
   parent: BaseChara
   hspIds:
     elona122: 118
-
+  components:
+  - type: Chip
+  - type: Level
+    level: 9
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaUndead
+  - type: Chara
+    race: Elona.Phantom
+    class: Elona.Wizard
+  - type: Skills
+    skills:
+      Elona.BuffSlow: 1
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaHarpy
   parent: BaseChara
   hspIds:
     elona122: 119
-
+  components:
+  - type: Chip
+  - type: Level
+    level: 13
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 100000
+  - type: Chara
+    race: Elona.Harpy
+    class: Elona.Predator
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaGreenDragon
   parent: BaseChara
   hspIds:
     elona122: 120
-
+  components:
+  - type: Chip
+    color: '#D7FFD7'
+  - type: Level
+    level: 32
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 30000
+  - type: Tag
+    tags:
+    - Elona.TagCharaDragon
+  - type: Chara
+    race: Elona.Dragon
+    class: Elona.Predator
+  - type: Skills
+    skills:
+      Elona.ActionPowerBreath: 1
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaRedDragon
   parent: BaseChara
   hspIds:
     elona122: 121
-
+  components:
+  - type: Chip
+    color: '#FF9B9B'
+  - type: Level
+    level: 40
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 20000
+  - type: Tag
+    tags:
+    - Elona.TagCharaFire
+    - Elona.TagCharaDragon
+  - type: Chara
+    race: Elona.Dragon
+    class: Elona.Predator
+  - type: Skills
+    skills:
+      Elona.ActionFireBreath: 1
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaWhiteDragon
   parent: BaseChara
   hspIds:
     elona122: 122
-
+  components:
+  - type: Chip
+  - type: Level
+    level: 40
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 20000
+  - type: Tag
+    tags:
+    - Elona.TagCharaDragon
+  - type: Chara
+    race: Elona.Dragon
+    class: Elona.Predator
+  - type: Skills
+    skills:
+      Elona.ActionColdBreath: 1
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaElecDragon
   parent: BaseChara
   hspIds:
     elona122: 123
-
+  components:
+  - type: Chip
+    color: '#FFD7AF'
+  - type: Level
+    level: 40
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 20000
+  - type: Tag
+    tags:
+    - Elona.TagCharaDragon
+  - type: Chara
+    race: Elona.Dragon
+    class: Elona.Predator
+  - type: Skills
+    skills:
+      Elona.ActionLightningBreath: 1
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaNetherDragon
   parent: BaseChara
   hspIds:
     elona122: 124
-
+  components:
+  - type: Chip
+    color: '#AFAFFF'
+  - type: Level
+    level: 45
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 10000
+  - type: Tag
+    tags:
+    - Elona.TagCharaUndead
+    - Elona.TagCharaDragon
+  - type: Chara
+    race: Elona.Dragon
+    class: Elona.Predator
+  - type: Skills
+    skills:
+      Elona.ActionNetherBreath: 1
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaChaosDragon
   parent: BaseChara
   hspIds:
     elona122: 125
-
+  components:
+  - type: Chip
+    color: '#E1C3FF'
+  - type: Level
+    level: 50
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 10000
+  - type: Tag
+    tags:
+    - Elona.TagCharaDragon
+  - type: Chara
+    race: Elona.Dragon
+    class: Elona.Predator
+  - type: Skills
+    skills:
+      Elona.ActionChaosBreath: 1
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaCerberus
   parent: BaseChara
   hspIds:
     elona122: 126
-
+  components:
+  - type: Chip
+  - type: Level
+    level: 23
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 40000
+  - type: Tag
+    tags:
+    - Elona.TagCharaFire
+  - type: Chara
+    race: Elona.Cerberus
+    class: Elona.Predator
+  - type: Skills
+    skills:
+      Elona.ActionFireBreath: 1
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaSpider
   parent: BaseChara
   hspIds:
     elona122: 127
-
+  components:
+  - type: Chip
+  - type: Level
+    level: 3
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaWild
+  - type: Chara
+    race: Elona.Spider
+    class: Elona.Predator
+  - type: Skills
+    skills:
+      Elona.SpellWeb: 1
+  - type: Faction
+    relation: Enemy
+  - type: Dialog
+    canTalk: true
 - type: Entity
   id: Elona.CharaBlackWidow
   parent: BaseChara
   hspIds:
     elona122: 128
-
+  components:
+  - type: Chip
+    color: '#D7FFD7'
+  - type: Level
+    level: 11
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaWild
+  - type: Chara
+    race: Elona.Spider
+    class: Elona.Predator
+  - type: Skills
+    skills:
+      Elona.SpellWeb: 1
+  - type: Faction
+    relation: Enemy
+  - type: Dialog
+    canTalk: true
 - type: Entity
   id: Elona.CharaParalyzer
   parent: BaseChara
   hspIds:
     elona122: 129
-
+  components:
+  - type: Chip
+    color: '#E1E1FF'
+  - type: Level
+    level: 21
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaWild
+  - type: Chara
+    race: Elona.Spider
+    class: Elona.Predator
+  - type: Skills
+    skills:
+      Elona.SpellWeb: 1
+  - type: Faction
+    relation: Enemy
+  - type: Dialog
+    canTalk: true
 - type: Entity
   id: Elona.CharaTarantula
   parent: BaseChara
   hspIds:
     elona122: 130
-
+  components:
+  - type: Chip
+    color: '#FFD7AF'
+  - type: Level
+    level: 15
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaWild
+  - type: Chara
+    race: Elona.Spider
+    class: Elona.Predator
+  - type: Skills
+    skills:
+      Elona.SpellWeb: 1
+  - type: Faction
+    relation: Enemy
+  - type: Dialog
+    canTalk: true
 - type: Entity
   id: Elona.CharaBloodSpider
   parent: BaseChara
   hspIds:
     elona122: 131
-
+  components:
+  - type: Chip
+    color: '#FFE1E1'
+  - type: Level
+    level: 28
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaUndead
+  - type: Chara
+    race: Elona.Spider
+    class: Elona.Predator
+  - type: Skills
+    skills:
+      Elona.SpellWeb: 1
+  - type: Faction
+    relation: Enemy
+  - type: Dialog
+    canTalk: true
 - type: Entity
   id: Elona.CharaWoodenGolem
   parent: BaseChara
   hspIds:
     elona122: 132
-
+  components:
+  - type: Chip
+    color: '#FFFFAF'
+  - type: Level
+    level: 13
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 40000
+  - type: Chara
+    race: Elona.Golem
+    class: Elona.Predator
+  - type: Faction
+    relation: Enemy
+  - type: Dialog
+    canTalk: true
 - type: Entity
   id: Elona.CharaStoneGolem
   parent: BaseChara
   hspIds:
     elona122: 133
-
+  components:
+  - type: Chip
+  - type: Level
+    level: 19
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 40000
+  - type: Tag
+    tags:
+    - Elona.TagCharaFire
+  - type: Chara
+    race: Elona.Golem
+    class: Elona.Predator
+  - type: Faction
+    relation: Enemy
+  - type: Dialog
+    canTalk: true
 - type: Entity
   id: Elona.CharaSteelGolem
   parent: BaseChara
   hspIds:
     elona122: 134
-
+  components:
+  - type: Chip
+    color: '#CDCDCD'
+  - type: Level
+    level: 25
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 40000
+  - type: Tag
+    tags:
+    - Elona.TagCharaFire
+  - type: Chara
+    race: Elona.Golem
+    class: Elona.Predator
+  - type: Faction
+    relation: Enemy
+  - type: Dialog
+    canTalk: true
 - type: Entity
   id: Elona.CharaGoldenGolem
   parent: BaseChara
   hspIds:
     elona122: 135
-
+  components:
+  - type: Chip
+    color: '#FFD7AF'
+  - type: Level
+    level: 30
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 30000
+  - type: Chara
+    race: Elona.Golem
+    class: Elona.Predator
+  - type: Faction
+    relation: Enemy
+  - type: Dialog
+    canTalk: true
 - type: Entity
   id: Elona.CharaMithrilGolem
   parent: BaseChara
   hspIds:
     elona122: 136
-
+  components:
+  - type: Chip
+    color: '#E1E1FF'
+  - type: Level
+    level: 35
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 20000
+  - type: Chara
+    race: Elona.Golem
+    class: Elona.Predator
+  - type: Faction
+    relation: Enemy
+  - type: Dialog
+    canTalk: true
 - type: Entity
   id: Elona.CharaSkyGolem
   parent: BaseChara
   hspIds:
     elona122: 137
-
+  components:
+  - type: Chip
+    color: '#9BCDCD'
+  - type: Level
+    level: 40
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 15000
+  - type: Chara
+    race: Elona.Golem
+    class: Elona.Predator
+  - type: Faction
+    relation: Enemy
+  - type: Dialog
+    canTalk: true
 - type: Entity
   id: Elona.CharaAdamantiumGolem
   parent: BaseChara
   hspIds:
     elona122: 138
-
+  components:
+  - type: Chip
+    color: '#AFFFAF'
+  - type: Level
+    level: 50
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 15000
+  - type: Chara
+    race: Elona.Golem
+    class: Elona.Predator
+  - type: Faction
+    relation: Enemy
+  - type: Dialog
+    canTalk: true
 - type: Entity
   id: Elona.CharaSlan
   parent: BaseChara
   hspIds:
     elona122: 139
-
+  components:
+  - type: Chip
+    id: Elona.CharaKaram
+  - type: Level
+    level: 10
+  - type: Quality
+    quality: Unique
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        fltselect: SpUnique
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaMan
+  - type: Chara
+    race: Elona.Norland
+    class: Elona.Warrior
+    gender: Male
+  - type: Faction
+    relation: Neutral
+  - type: Dialog
+    canTalk: true
+    dialogID: Elona.Slan
+    portrait: Elona.Karam
+  - type: Tone
+    id: Elona.Slan
 - type: Entity
   id: Elona.CharaVesda
   parent: BaseChara
   hspIds:
     elona122: 140
-
+  components:
+  - type: Chip
+    id: Elona.CharaVesda
+  - type: Level
+    level: 25
+  - type: Quality
+    quality: Unique
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        fltselect: SpUnique
+        rarity: 1000
+  - type: Tag
+    tags:
+    - Elona.TagCharaDragon
+  - type: Chara
+    race: Elona.Dragon
+    class: Elona.Predator
+  - type: Skills
+    skills:
+      Elona.ActionFireBreath: 1
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaIssizzle
   parent: BaseChara
   hspIds:
     elona122: 141
-
+  components:
+  - type: Chip
+    id: Elona.CharaIssizzle
+  - type: Level
+    level: 28
+  - type: Quality
+    quality: Unique
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        fltselect: SpUnique
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaUndead
+    - Elona.TagCharaGod
+  - type: Chara
+    race: Elona.Lich
+    class: Elona.Wizard
+  - type: Skills
+    skills:
+      Elona.BuffMistOfSilence: 1
+      Elona.SpellDarknessBolt: 1
+      Elona.SpellIceBolt: 1
+      Elona.SpellMagicDart: 1
+      Elona.SpellShortTeleport: 1
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaErystia
   parent: BaseChara
   hspIds:
     elona122: 142
-
+  components:
+  - type: Chip
+    id: Elona.CharaErystia
+  - type: Level
+    level: 10
+  - type: Quality
+    quality: Unique
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        fltselect: SpUnique
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaMan
+  - type: Chara
+    race: Elona.Norland
+    class: Elona.Wizard
+    gender: Female
+  - type: Faction
+    relation: Neutral
+  - type: Dialog
+    canTalk: true
+    dialogID: Elona.Erystia
+    portrait: Elona.Erystia
+  - type: Tone
+    id: Elona.Erystia
 - type: Entity
   id: Elona.CharaWynan
   parent: BaseChara
   hspIds:
     elona122: 143
-
+  components:
+  - type: Chip
+    id: Elona.CharaWynan
+  - type: Level
+    level: 25
+  - type: Quality
+    quality: Unique
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        fltselect: SpUnique
+        rarity: 100000
+  - type: Chara
+    race: Elona.Norland
+    class: Elona.Warrior
+  - type: Skills
+    skills:
+      Elona.SpellDarknessBolt: 1
+      Elona.SpellIceBolt: 1
+      Elona.SpellMagicDart: 1
+      Elona.SpellShortTeleport: 1
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaQuruiza
   parent: BaseChara
   hspIds:
     elona122: 144
-
+  components:
+  - type: Chip
+    id: Elona.CharaQuruiza
+  - type: Level
+    level: 24
+  - type: Quality
+    quality: Unique
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        fltselect: SpUnique
+        rarity: 100000
+  - type: Chara
+    race: Elona.Norland
+    class: Elona.Wizard
+  - type: Skills
+    skills:
+      Elona.SpellDarknessBolt: 1
+      Elona.SpellIceBolt: 1
+      Elona.SpellMagicDart: 1
+      Elona.SpellShortTeleport: 1
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaCorgon
   parent: BaseChara
   hspIds:
     elona122: 145
-
+  components:
+  - type: Chip
+    id: Elona.CharaCorgon
+  - type: Level
+    level: 16
+  - type: Quality
+    quality: Unique
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        fltselect: SpUnique
+        rarity: 100000
+  - type: Chara
+    race: Elona.Dragon
+    class: Elona.Predator
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaKaram
   parent: BaseChara
   hspIds:
     elona122: 146
-
+  components:
+  - type: Chip
+    id: Elona.CharaKaram
+  - type: Level
+    level: 10
+  - type: Quality
+    quality: Unique
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        fltselect: SpUnique
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaMan
+  - type: Chara
+    race: Elona.Norland
+    class: Elona.Warrior
+    gender: Male
+  - type: Faction
+    relation: Neutral
+  - type: Dialog
+    canTalk: true
+    dialogID: Elona.Karam
+    portrait: Elona.Karam
+  - type: Tone
+    id: Elona.Karam
 - type: Entity
   id: Elona.CharaFireCrab
   parent: BaseChara
   hspIds:
     elona122: 147
-
+  components:
+  - type: Chip
+  - type: Level
+    level: 16
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaFire
+  - type: Chara
+    race: Elona.Crab
+    class: Elona.Predator
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaFireCentipede
   parent: BaseChara
   hspIds:
     elona122: 148
-
+  components:
+  - type: Chip
+    id: Elona.CharaFireCentipede
+  - type: Level
+    level: 18
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaFire
+  - type: Chara
+    race: Elona.Centipede
+    class: Elona.Predator
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaCultistOfFire
   parent: BaseChara
   hspIds:
     elona122: 149
-
+  components:
+  - type: Chip
+    id: Elona.CharaCultistOfFire
+  - type: Level
+    level: 20
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaFire
+  - type: Chara
+    race: Elona.Goblin
+    class: Elona.Warmage
+  - type: Skills
+    skills:
+      Elona.ActionSummonFire: 1
+      Elona.BuffElementScar: 1
+      Elona.SpellHealLight: 1
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaSkeletonWarrior
   parent: BaseChara
   hspIds:
     elona122: 150
-
+  components:
+  - type: Chip
+  - type: Level
+    level: 12
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaUndead
+  - type: Chara
+    race: Elona.Skeleton
+    class: Elona.Warrior
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaSkeletonBerserker
   parent: BaseChara
   hspIds:
     elona122: 151
-
+  components:
+  - type: Chip
+    color: '#FF9B9B'
+  - type: Level
+    level: 20
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaUndead
+  - type: Chara
+    race: Elona.Skeleton
+    class: Elona.Warrior
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaMissionaryOfDarkness
   parent: BaseChara
   hspIds:
     elona122: 152
-
+  components:
+  - type: Chip
+    id: Elona.CharaMissionaryOfDarkness
+  - type: Level
+    level: 20
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaMan
+  - type: Chara
+    race: Elona.Eulderna
+    class: Elona.Predator
+  - type: Skills
+    skills:
+      Elona.ActionTouchOfWeakness: 1
+  - type: Faction
+    relation: Enemy
+  - type: Dialog
+    canTalk: true
+  - type: Tone
+    id: Elona.MissionaryOfDarkness
 - type: Entity
   id: Elona.CharaPawn
   parent: BaseChara
   hspIds:
     elona122: 153
-
+  components:
+  - type: Chip
+  - type: Level
+    level: 12
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaPawn
+  - type: Chara
+    race: Elona.Piece
+    class: Elona.Warrior
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaRook
   parent: BaseChara
   hspIds:
     elona122: 154
-
+  components:
+  - type: Chip
+    id: Elona.CharaRook
+  - type: Level
+    level: 16
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaPawn
+  - type: Chara
+    race: Elona.Piece
+    class: Elona.Predator
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaBishop
   parent: BaseChara
   hspIds:
     elona122: 155
-
+  components:
+  - type: Chip
+    id: Elona.CharaBishop
+  - type: Level
+    level: 18
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaPawn
+  - type: Chara
+    race: Elona.Piece
+    class: Elona.Wizard
+  - type: Skills
+    skills:
+      Elona.BuffSlow: 1
+      Elona.SpellMagicDart: 1
+      Elona.SpellShortTeleport: 1
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaKnight
   parent: BaseChara
   hspIds:
     elona122: 156
-
+  components:
+  - type: Chip
+    id: Elona.CharaKnight
+  - type: Level
+    level: 18
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaPawn
+  - type: Chara
+    race: Elona.Piece
+    class: Elona.Warrior
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaQueen
   parent: BaseChara
   hspIds:
     elona122: 157
-
+  components:
+  - type: Chip
+    id: Elona.CharaQueen
+  - type: Level
+    level: 22
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 100000
+  - type: Chara
+    race: Elona.Piece
+    class: Elona.Wizard
+  - type: Skills
+    skills:
+      Elona.SpellMagicDart: 1
+      Elona.SpellNetherArrow: 1
+      Elona.SpellShortTeleport: 1
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaKing
   parent: BaseChara
   hspIds:
     elona122: 158
-
+  components:
+  - type: Chip
+    id: Elona.CharaKing
+  - type: Level
+    level: 22
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 100000
+  - type: Chara
+    race: Elona.Piece
+    class: Elona.Warrior
+  - type: Skills
+    skills:
+      Elona.ActionSummonPawn: 1
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaMercenaryWarrior
   parent: BaseChara
   hspIds:
     elona122: 159
-
+  components:
+  - type: Chip
+    id: Elona.CharaMercenaryWarrior
+  - type: Level
+    level: 20
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 25000
+  - type: Tag
+    tags:
+    - Elona.TagCharaMan
+    - Elona.TagCharaShopguard
+  - type: Chara
+    race: Elona.Norland
+    class: Elona.Warrior
+  - type: Faction
+    relation: Dislike
+  - type: Dialog
+    canTalk: true
+  - type: Tone
+    id: Elona.Mercenary
 - type: Entity
   id: Elona.CharaMercenaryArcher
   parent: BaseChara
   hspIds:
     elona122: 160
-
+  components:
+  - type: Chip
+    id: Elona.CharaMercenaryArcher
+  - type: Level
+    level: 20
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 25000
+  - type: Tag
+    tags:
+    - Elona.TagCharaMan
+    - Elona.TagCharaShopguard
+  - type: Chara
+    race: Elona.Norland
+    class: Elona.Archer
+  - type: Faction
+    relation: Dislike
+  - type: Dialog
+    canTalk: true
+  - type: Tone
+    id: Elona.Mercenary
 - type: Entity
   id: Elona.CharaMercenaryWizard
   parent: BaseChara
   hspIds:
     elona122: 161
-
+  components:
+  - type: Chip
+    id: Elona.CharaMercenaryWizard
+  - type: Level
+    level: 20
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 25000
+  - type: Tag
+    tags:
+    - Elona.TagCharaMan
+    - Elona.TagCharaShopguard
+  - type: Chara
+    race: Elona.Norland
+    class: Elona.Wizard
+  - type: Skills
+    skills:
+      Elona.SpellMagicDart: 1
+  - type: Faction
+    relation: Dislike
+  - type: Dialog
+    canTalk: true
+  - type: Tone
+    id: Elona.Mercenary
 - type: Entity
   id: Elona.CharaYerlesMachineInfantry
   parent: BaseChara
   hspIds:
     elona122: 162
-
+  components:
+  - type: Chip
+    id: Elona.CharaYerlesMachineInfantry
+  - type: Level
+    level: 5
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaMan
+  - type: Chara
+    race: Elona.Yerles
+    class: Elona.Gunner
+  - type: Faction
+    relation: Enemy
+  - type: Dialog
+    canTalk: true
+  - type: Tone
+    id: Elona.YerlesMachineInfantry
 - type: Entity
   id: Elona.CharaRockThrower
   parent: BaseChara
   hspIds:
     elona122: 163
-
+  components:
+  - type: Chip
+    id: Elona.CharaRockThrower
+  - type: Level
+    level: 9
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaMan
+  - type: Chara
+    race: Elona.Yerles
+    class: Elona.Thief
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaCat
   parent: BaseChara
   hspIds:
     elona122: 164
-
+  components:
+  - type: Chip
+  - type: Level
+    level: 4
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaWild
+    - Elona.TagCharaCat
+  - type: Chara
+    race: Elona.Cat
+    class: Elona.Predator
+  - type: Faction
+    relation: Dislike
+  - type: Dialog
+    canTalk: true
 - type: Entity
   id: Elona.CharaDog
   parent: BaseChara
   hspIds:
     elona122: 165
-
+  components:
+  - type: Chip
+  - type: Level
+    level: 4
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaWild
+  - type: Chara
+    race: Elona.Dog
+    class: Elona.Predator
+  - type: Faction
+    relation: Enemy
+  - type: Dialog
+    canTalk: true
+  - type: Tone
+    id: Elona.Dog
 - type: Entity
   id: Elona.CharaLittleGirl
   parent: BaseChara
   hspIds:
     elona122: 166
-
+  components:
+  - type: Chip
+    id: Elona.CharaEleaFemale
+  - type: Level
+    level: 4
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaMan
+  - type: Chara
+    race: Elona.Roran
+    class: Elona.Warrior
+  - type: Faction
+    relation: Dislike
+  - type: Dialog
+    canTalk: true
+  - type: Tone
+    id: Elona.LittleGirl
 - type: Entity
   id: Elona.CharaRat
   parent: BaseChara
   hspIds:
     elona122: 167
-
+  components:
+  - type: Chip
+    color: '#FFFFAF'
+  - type: Level
+    level: 1
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaWild
+  - type: Chara
+    race: Elona.Rat
+    class: Elona.Predator
+  - type: Faction
+    relation: Enemy
+  - type: Dialog
+    canTalk: true
 - type: Entity
   id: Elona.CharaHermitCrab
   parent: BaseChara
   hspIds:
     elona122: 168
-
+  components:
+  - type: Chip
+  - type: Level
+    level: 1
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaWild
+  - type: Chara
+    race: Elona.Shell
+    class: Elona.Predator
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaSlime
   parent: BaseChara
   hspIds:
     elona122: 169
-
+  components:
+  - type: Chip
+    id: Elona.CharaSlime
+    color: '#AFAFFF'
+  - type: Level
+    level: 10
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 70000
+  - type: Tag
+    tags:
+    - Elona.TagCharaSlime
+  - type: Chara
+    race: Elona.Slime
+    class: Elona.Predator
+  - type: Faction
+    relation: Enemy
+  - type: Dialog
+    canTalk: true
 - type: Entity
   id: Elona.CharaPublicPerformer
   parent: BaseChara
   hspIds:
     elona122: 170
-
+  components:
+  - type: Chip
+    id: Elona.CharaPublicPerformer
+  - type: Level
+    level: 1
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaMan
+  - type: Chara
+    race: Elona.Yerles
+    class: Elona.Thief
+  - type: Faction
+    relation: Enemy
+  - type: Dialog
+    canTalk: true
+  - type: Tone
+    id: Elona.PublicPerformer
 - type: Entity
   id: Elona.CharaCitizenOfCyberDome
   parent: BaseChara
   hspIds:
     elona122: 171
-
+  components:
+  - type: Chip
+  - type: Level
+    level: 5
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        fltselect: Shop
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaMan
+  - type: Chara
+    race: Elona.Yerles
+    class: Elona.Gunner
+  - type: Faction
+    relation: Neutral
+  - type: Dialog
+    canTalk: true
+    portrait: Random
+  - type: Tone
+    id: Elona.Citizen
 - type: Entity
   id: Elona.CharaCitizenOfCyberDome2
   parent: BaseChara
   hspIds:
     elona122: 172
-
+  components:
+  - type: Chip
+  - type: Level
+    level: 5
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        fltselect: Shop
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaMan
+  - type: Chara
+    race: Elona.Yerles
+    class: Elona.Gunner
+  - type: Faction
+    relation: Neutral
+  - type: Dialog
+    canTalk: true
+    portrait: Random
+  - type: Tone
+    id: Elona.Citizen
 - type: Entity
   id: Elona.CharaSalesPerson
   parent: BaseChara
   hspIds:
     elona122: 173
-
+  components:
+  - type: Chip
+  - type: Level
+    level: 20
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        fltselect: Shop
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaMan
+  - type: Chara
+    race: Elona.Yerles
+    class: Elona.Gunner
+  - type: Faction
+    relation: Neutral
+  - type: Dialog
+    canTalk: true
+    portrait: Random
+  - type: Tone
+    id: Elona.SalesPerson
 - type: Entity
   id: Elona.CharaPunk
   parent: BaseChara
   hspIds:
     elona122: 174
-
+  components:
+  - type: Chip
+  - type: Level
+    level: 1
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 60000
+  - type: Tag
+    tags:
+    - Elona.TagCharaMan
+    - Elona.TagCharaSf
+  - type: Chara
+    race: Elona.Norland
+    class: Elona.Gunner
+  - type: Faction
+    relation: Dislike
+  - type: Dialog
+    canTalk: true
+    portrait: Random
+  - type: Tone
+    id: Elona.Punk
 - type: Entity
   id: Elona.CharaFrisia
   parent: BaseChara
   hspIds:
     elona122: 175
-
+  components:
+  - type: Chip
+    id: Elona.CharaFrisia
+  - type: Level
+    level: 80
+  - type: Quality
+    quality: Unique
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        fltselect: SpUnique
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaGod
+  - type: Chara
+    race: Elona.Catgod
+    class: Elona.Predator
+  - type: Faction
+    relation: Enemy
+  - type: Dialog
+    canTalk: true
+  - type: Tone
+    id: Elona.Frisia
 - type: Entity
   id: Elona.CharaYoungerSister
   parent: BaseChara
   hspIds:
     elona122: 176
-
+  components:
+  - type: Chip
+    id: Elona.CharaMaidFemale
+  - type: Level
+    level: 1
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        fltselect: Sp
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaMan
+  - type: Chara
+    race: Elona.Roran
+    class: Elona.Thief
+  - type: Faction
+    relation: Dislike
+  - type: Dialog
+    canTalk: true
+  - type: Tone
+    id: Elona.YoungerSister
 - type: Entity
   id: Elona.CharaUtima
   parent: BaseChara
   hspIds:
     elona122: 177
-
+  components:
+  - type: Chip
+    id: Elona.CharaMachinegod
+  - type: Level
+    level: 80
+  - type: Quality
+    quality: Unique
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        fltselect: SpUnique
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaGod
+  - type: Chara
+    race: Elona.Machinegod
+    class: Elona.Gunner
+  - type: Skills
+    skills:
+      Elona.BuffBoost: 1
+  - type: Faction
+    relation: Enemy
+  - type: Dialog
+    canTalk: true
+  - type: Tone
+    id: Elona.Utima
 - type: Entity
   id: Elona.CharaAzzrssil
   parent: BaseChara
   hspIds:
     elona122: 178
-
+  components:
+  - type: Chip
+    id: Elona.CharaIssizzle
+    color: '#FF9B9B'
+  - type: Level
+    level: 80
+  - type: Quality
+    quality: Unique
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        fltselect: SpUnique
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaUndead
+    - Elona.TagCharaGod
+  - type: Chara
+    race: Elona.Undeadgod
+    class: Elona.Wizard
+    gender: Male
+  - type: Skills
+    skills:
+      Elona.BuffMistOfSilence: 1
+      Elona.SpellDarknessBolt: 1
+      Elona.SpellIceBolt: 1
+      Elona.SpellMagicDart: 1
+      Elona.SpellShortTeleport: 1
+  - type: Faction
+    relation: Enemy
+  - type: Dialog
+    canTalk: true
+  - type: Tone
+    id: Elona.Azzrssil
 - type: Entity
   id: Elona.CharaPetArenaMaster
   parent: BaseChara
   hspIds:
     elona122: 179
-
+  components:
+  - type: Chip
+    id: Elona.CharaUndeadgod
+  - type: Level
+    level: 35
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        fltselect: Sp
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaMan
+  - type: Chara
+    race: Elona.Norland
+    class: Elona.Warrior
+  - type: Faction
+    relation: Neutral
 - type: Entity
   id: Elona.CharaTwintail
   parent: BaseChara
   hspIds:
     elona122: 180
-
+  components:
+  - type: Chip
+    id: Elona.CharaTwintail
+  - type: Level
+    level: 1
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        fltselect: Friend
+        rarity: 100000
+  - type: Chara
+    race: Elona.Cat
+    class: Elona.Predator
+  - type: Faction
+    relation: Neutral
+  - type: Dialog
+    canTalk: true
+  - type: Tone
+    id: Elona.Twintail
 - type: Entity
   id: Elona.CharaSilverWolf
   parent: BaseChara
   hspIds:
     elona122: 181
-
+  components:
+  - type: Chip
+    id: Elona.CharaSilverWolf
+  - type: Level
+    level: 10
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        fltselect: Friend
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaGod
+  - type: Chara
+    race: Elona.Hound
+    class: Elona.Predator
+  - type: Faction
+    relation: Neutral
+  - type: Dialog
+    canTalk: true
+  - type: Tone
+    id: Elona.SilverWolf
 - type: Entity
   id: Elona.CharaNurse
   parent: BaseChara
   hspIds:
     elona122: 182
-
+  components:
+  - type: Chip
+    id: Elona.CharaNurse
+  - type: Level
+    level: 8
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaMan
+  - type: Chara
+    race: Elona.Norland
+    class: Elona.Wizard
+  - type: Skills
+    skills:
+      Elona.SpellHealingTouch: 1
+  - type: Faction
+    relation: Enemy
+  - type: Dialog
+    canTalk: true
+  - type: Tone
+    id: Elona.Nurse
 - type: Entity
   id: Elona.CharaRichPerson
   parent: BaseChara
   hspIds:
     elona122: 183
-
+  components:
+  - type: Chip
+  - type: Level
+    level: 15
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        fltselect: Shop
+        rarity: 20000
+  - type: Tag
+    tags:
+    - Elona.TagCharaMan
+  - type: Chara
+    race: Elona.Norland
+    class: Elona.Predator
+  - type: Faction
+    relation: Neutral
+  - type: Dialog
+    canTalk: true
+    portrait: Random
+  - type: Tone
+    id: Elona.RichPerson
 - type: Entity
   id: Elona.CharaNobleChild
   parent: BaseChara
   hspIds:
     elona122: 184
-
+  components:
+  - type: Chip
+  - type: Level
+    level: 9
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        fltselect: Shop
+        rarity: 40000
+  - type: Tag
+    tags:
+    - Elona.TagCharaMan
+  - type: Chara
+    race: Elona.Norland
+    class: Elona.Predator
+  - type: Faction
+    relation: Neutral
+  - type: Dialog
+    canTalk: true
+    portrait: Random
+  - type: Tone
+    id: Elona.NobleChild
 - type: Entity
   id: Elona.CharaTourist
   parent: BaseChara
   hspIds:
     elona122: 185
-
+  components:
+  - type: Chip
+  - type: Level
+    level: 20
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        fltselect: Shop
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaMan
+  - type: Chara
+    race: Elona.Yerles
+    class: Elona.Gunner
+  - type: Faction
+    relation: Neutral
+  - type: Dialog
+    canTalk: true
+    portrait: Random
+  - type: Tone
+    id: Elona.Tourist
 - type: Entity
   id: Elona.CharaBlade
   parent: BaseChara
   hspIds:
     elona122: 186
-
+  components:
+  - type: Chip
+  - type: Level
+    level: 5
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 100000
+  - type: Chara
+    race: Elona.Machine
+    class: Elona.Predator
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaBladeAlpha
   parent: BaseChara
   hspIds:
     elona122: 187
-
+  components:
+  - type: Chip
+    color: '#E1E1FF'
+  - type: Level
+    level: 13
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 100000
+  - type: Chara
+    race: Elona.Machine
+    class: Elona.Predator
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaBladeOmega
   parent: BaseChara
   hspIds:
     elona122: 188
-
+  components:
+  - type: Chip
+    color: '#FF9B9B'
+  - type: Level
+    level: 30
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 100000
+  - type: Chara
+    race: Elona.Machine
+    class: Elona.Predator
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaDeformedEye
   parent: BaseChara
   hspIds:
     elona122: 189
-
+  components:
+  - type: Chip
+    id: Elona.CharaDeformedEye
+  - type: Level
+    level: 8
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 60000
+  - type: Tag
+    tags:
+    - Elona.TagCharaUndead
+  - type: Chara
+    race: Elona.Eye
+    class: Elona.Predator
+  - type: Skills
+    skills:
+      Elona.ActionEyeOfMutation: 1
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaImpureEye
   parent: BaseChara
   hspIds:
     elona122: 190
-
+  components:
+  - type: Chip
+    id: Elona.CharaDeformedEye
+    color: '#FF9B9B'
+  - type: Level
+    level: 19
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 60000
+  - type: Tag
+    tags:
+    - Elona.TagCharaUndead
+  - type: Chara
+    race: Elona.Eye
+    class: Elona.Predator
+  - type: Skills
+    skills:
+      Elona.ActionEyeOfMutation: 1
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaWisp
   parent: BaseChara
   hspIds:
     elona122: 191
-
+  components:
+  - type: Chip
+  - type: Level
+    level: 14
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 50000
+  - type: Tag
+    tags:
+    - Elona.TagCharaUndead
+    - Elona.TagCharaEther
+  - type: Chara
+    race: Elona.Wisp
+    class: Elona.Predator
+  - type: Skills
+    skills:
+      Elona.ActionEyeOfEther: 1
+      Elona.ActionLightningBreath: 1
+      Elona.SpellLightningBolt: 1
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaHedgehog
   parent: BaseChara
   hspIds:
     elona122: 192
-
+  components:
+  - type: Chip
+    id: Elona.CharaShiningHedgehog
+  - type: Level
+    level: 5
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaWild
+  - type: Chara
+    race: Elona.Crab
+    class: Elona.Predator
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaShiningHedgehog
   parent: BaseChara
   hspIds:
     elona122: 193
-
+  components:
+  - type: Chip
+    id: Elona.CharaShiningHedgehog
+    color: '#E1E1FF'
+  - type: Level
+    level: 15
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 70000
+  - type: Tag
+    tags:
+    - Elona.TagCharaWild
+    - Elona.TagCharaEther
+  - type: Chara
+    race: Elona.Crab
+    class: Elona.Predator
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaAcidSlime
   parent: BaseChara
   hspIds:
     elona122: 194
-
+  components:
+  - type: Chip
+    id: Elona.CharaSlime
+    color: '#AFFFAF'
+  - type: Level
+    level: 16
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 70000
+  - type: Tag
+    tags:
+    - Elona.TagCharaSlime
+  - type: Chara
+    race: Elona.Slime
+    class: Elona.Predator
+  - type: Skills
+    skills:
+      Elona.SpellAcidGround: 1
+  - type: Faction
+    relation: Enemy
+  - type: Dialog
+    canTalk: true
 - type: Entity
   id: Elona.CharaChicken
   parent: BaseChara
   hspIds:
     elona122: 195
-
+  components:
+  - type: Chip
+  - type: Level
+    level: 1
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 30000
+  - type: Tag
+    tags:
+    - Elona.TagCharaWild
+  - type: Chara
+    race: Elona.Chicken
+    class: Elona.Predator
+  - type: Faction
+    relation: Enemy
+  - type: Dialog
+    canTalk: true
+  - type: Tone
+    id: Elona.Chicken
 - type: Entity
   id: Elona.CharaPumpkin
   parent: BaseChara
   hspIds:
     elona122: 196
-
+  components:
+  - type: Chip
+    id: Elona.CharaPumpkin
+  - type: Level
+    level: 7
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 60000
+  - type: Tag
+    tags:
+    - Elona.TagCharaUndead
+  - type: Chara
+    race: Elona.Mandrake
+    class: Elona.Predator
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaGreaterPumpkin
   parent: BaseChara
   hspIds:
     elona122: 197
-
+  components:
+  - type: Chip
+    id: Elona.CharaPumpkin
+    color: '#AFAFFF'
+  - type: Level
+    level: 18
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 60000
+  - type: Tag
+    tags:
+    - Elona.TagCharaUndead
+  - type: Chara
+    race: Elona.Mandrake
+    class: Elona.Predator
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaHalloweenNightmare
   parent: BaseChara
   hspIds:
     elona122: 198
-
+  components:
+  - type: Chip
+    id: Elona.CharaPumpkin
+    color: '#FF9B9B'
+  - type: Level
+    level: 30
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 60000
+  - type: Tag
+    tags:
+    - Elona.TagCharaUndead
+  - type: Chara
+    race: Elona.Mandrake
+    class: Elona.Predator
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaStalker
   parent: BaseChara
   hspIds:
     elona122: 199
-
+  components:
+  - type: Chip
+    id: Elona.CharaStalker
+  - type: Level
+    level: 12
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 30000
+  - type: Tag
+    tags:
+    - Elona.TagCharaUndead
+  - type: Chara
+    race: Elona.Stalker
+    class: Elona.Predator
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaShadowStalker
   parent: BaseChara
   hspIds:
     elona122: 200
-
+  components:
+  - type: Chip
+    id: Elona.CharaStalker
+    color: '#FF9B9B'
+  - type: Level
+    level: 26
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 30000
+  - type: Tag
+    tags:
+    - Elona.TagCharaUndead
+  - type: Chara
+    race: Elona.Stalker
+    class: Elona.Predator
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaPuppy
   parent: BaseChara
   hspIds:
     elona122: 201
-
+  components:
+  - type: Chip
+    id: Elona.CharaPumpkin
+    color: '#FFD7AF'
+  - type: Level
+    level: 5
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 20000
+  - type: Tag
+    tags:
+    - Elona.TagCharaUndead
+  - type: Chara
+    race: Elona.Mandrake
+    class: Elona.Predator
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaEbon
   parent: BaseChara
   hspIds:
     elona122: 202
-
+  components:
+  - type: Chip
+    id: Elona.CharaEbon2
+  - type: Level
+    level: 80
+  - type: Quality
+    quality: Unique
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        fltselect: SpUnique
+        rarity: 100000
+  - type: Chara
+    race: Elona.Giant
+    class: Elona.Predator
+    gender: Male
+  - type: Skills
+    skills:
+      Elona.ActionFireBreath: 1
+  - type: Faction
+    relation: Neutral
+  - type: Dialog
+    canTalk: true
+  - type: Tone
+    id: Elona.Ebon
 - type: Entity
   id: Elona.CharaMoyerTheCrooked
   parent: BaseChara
   hspIds:
     elona122: 203
-
+  components:
+  - type: Chip
+    id: Elona.CharaMoyerTheCrooked
+  - type: Level
+    level: 10
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        fltselect: Sp
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaMan
+  - type: Chara
+    race: Elona.Norland
+    class: Elona.Gunner
+    gender: Male
+  - type: Faction
+    relation: Neutral
+  - type: Dialog
+    canTalk: true
+    portrait: Random
+  - type: Tone
+    id: Elona.MoyerTheCrooked
 - type: Entity
   id: Elona.CharaPalmianEliteSoldier
   parent: BaseChara
   hspIds:
     elona122: 204
-
+  components:
+  - type: Chip
+  - type: Level
+    level: 10
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        fltselect: TownSp
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaMan
+  - type: Chara
+    race: Elona.Norland
+    class: Elona.Gunner
+  - type: Faction
+    relation: Neutral
+  - type: Dialog
+    canTalk: true
+    portrait: Random
+  - type: Tone
+    id: Elona.PalmianEliteSoldier
 - type: Entity
   id: Elona.CharaMaid
   parent: BaseChara
   hspIds:
     elona122: 205
-
+  components:
+  - type: Chip
+  - type: Level
+    level: 1
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        fltselect: Sp
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaMan
+  - type: Chara
+    race: Elona.Yerles
+    class: Elona.Tourist
+  - type: Faction
+    relation: Neutral
+  - type: Dialog
+    canTalk: true
+  - type: Tone
+    id: Elona.Maid
 - type: Entity
   id: Elona.CharaNun
   parent: BaseChara
   hspIds:
     elona122: 206
-
+  components:
+  - type: Chip
+    id: Elona.CharaNun
+  - type: Level
+    level: 50
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        fltselect: Shop
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaMan
+  - type: Chara
+    race: Elona.Norland
+    class: Elona.Wizard
+    gender: Female
+  - type: Faction
+    relation: Neutral
+  - type: Dialog
+    canTalk: true
+    portrait: Random
 - type: Entity
   id: Elona.CharaEbon2
   parent: BaseChara
   hspIds:
     elona122: 207
-
+  components:
+  - type: Chip
+    id: Elona.CharaEbon2
+  - type: Level
+    level: 30
+  - type: Quality
+    quality: Unique
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        fltselect: SpUnique
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaGod
+  - type: Chara
+    race: Elona.Giant
+    class: Elona.Predator
+    gender: Male
+  - type: Skills
+    skills:
+      Elona.ActionFireBreath: 1
+  - type: Faction
+    relation: Enemy
+  - type: Dialog
+    canTalk: true
+  - type: Tone
+    id: Elona.Ebon2
 - type: Entity
   id: Elona.CharaGarokk
   parent: BaseChara
   hspIds:
     elona122: 208
-
+  components:
+  - type: Chip
+    id: Elona.CharaGarokk
+  - type: Level
+    level: 45
+  - type: Quality
+    quality: Unique
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        fltselect: SpUnique
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaMan
+  - type: Chara
+    race: Elona.Dwarf
+    class: Elona.Warrior
+    gender: Male
+  - type: Faction
+    relation: Neutral
+  - type: Dialog
+    canTalk: true
+    dialogID: Elona.Garokk
+  - type: Tone
+    id: Elona.Garokk
 - type: Entity
   id: Elona.CharaMiral
   parent: BaseChara
   hspIds:
     elona122: 209
-
+  components:
+  - type: Chip
+    id: Elona.CharaMiral
+  - type: Level
+    level: 45
+  - type: Quality
+    quality: Unique
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        fltselect: SpUnique
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaMan
+  - type: Chara
+    race: Elona.Dwarf
+    class: Elona.Warrior
+    gender: Male
+  - type: Faction
+    relation: Neutral
+  - type: Dialog
+    canTalk: true
+    dialogID: Elona.Miral
+  - type: Tone
+    id: Elona.Miral
 - type: Entity
   id: Elona.CharaYoungerCatSister
   parent: BaseChara
   hspIds:
     elona122: 210
-
+  components:
+  - type: Chip
+  - type: Level
+    level: 1
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        fltselect: Sp
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaMan
+  - type: Chara
+    race: Elona.Catsister
+    class: Elona.Thief
+  - type: Faction
+    relation: Dislike
+  - type: Dialog
+    canTalk: true
+  - type: Tone
+    id: Elona.YoungerCatSister
 - type: Entity
   id: Elona.CharaYoungLady
   parent: BaseChara
   hspIds:
     elona122: 211
-
+  components:
+  - type: Chip
+    id: Elona.CharaYoungLady
+  - type: Level
+    level: 1
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        fltselect: Sp
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaMan
+  - type: Chara
+    race: Elona.Roran
+    class: Elona.Warmage
+  - type: Skills
+    skills:
+      Elona.BuffMistOfFrailness: 1
+      Elona.BuffSlow: 1
+      Elona.SpellHealingRain: 1
+  - type: Faction
+    relation: Dislike
+  - type: Dialog
+    canTalk: true
+  - type: Tone
+    id: Elona.YoungLady
 - type: Entity
   id: Elona.CharaTestSubject
   parent: BaseChara
   hspIds:
     elona122: 212
-
+  components:
+  - type: Chip
+    id: Elona.CharaTestSubject
+  - type: Level
+    level: 1
+  - type: Quality
+    quality: Unique
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        fltselect: SpUnique
+        rarity: 100000
+  - type: Chara
+    race: Elona.Juere
+    class: Elona.Warrior
+    gender: Female
+  - type: Faction
+    relation: Enemy
+  - type: Dialog
+    portrait: Elona.Stersha
 - type: Entity
   id: Elona.CharaGwen
   parent: BaseChara
   hspIds:
     elona122: 213
-
+  components:
+  - type: Chip
+    id: Elona.CharaGwen
+  - type: Level
+    level: 1
+  - type: Quality
+    quality: Unique
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        fltselect: SpUnique
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaMan
+  - type: Chara
+    race: Elona.Roran
+    class: Elona.Warmage
+    gender: Female
+  - type: Faction
+    relation: Dislike
+  - type: Dialog
+    canTalk: true
+  - type: Tone
+    id: Elona.Gwen
 - type: Entity
   id: Elona.CharaThief
   parent: BaseChara
   hspIds:
     elona122: 214
-
+  components:
+  - type: Chip
+    id: Elona.CharaMasterThief
+  - type: Level
+    level: 2
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 30000
+  - type: Tag
+    tags:
+    - Elona.TagCharaMan
+  - type: Chara
+    race: Elona.Juere
+    class: Elona.Predator
+  - type: Skills
+    skills:
+      Elona.ActionSuspiciousHand: 1
+  - type: Faction
+    relation: Enemy
+  - type: Dialog
+    canTalk: true
+  - type: Tone
+    id: Elona.Thief
 - type: Entity
   id: Elona.CharaRobber
   parent: BaseChara
   hspIds:
     elona122: 215
-
+  components:
+  - type: Chip
+    id: Elona.CharaMasterThief
+    color: '#FF9B9B'
+  - type: Level
+    level: 5
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 30000
+  - type: Tag
+    tags:
+    - Elona.TagCharaMan
+  - type: Chara
+    race: Elona.Juere
+    class: Elona.Thief
+  - type: Skills
+    skills:
+      Elona.ActionSuspiciousHand: 1
+  - type: Faction
+    relation: Enemy
+  - type: Dialog
+    canTalk: true
+  - type: Tone
+    id: Elona.Robber
 - type: Entity
   id: Elona.CharaGreatRaceOfYith
   parent: BaseChara
   hspIds:
     elona122: 216
-
+  components:
+  - type: Chip
+  - type: Level
+    level: 50
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 20000
+  - type: Chara
+    race: Elona.Yith
+    class: Elona.Predator
+  - type: Skills
+    skills:
+      Elona.ActionDrainBlood: 1
+      Elona.ActionEyeOfInsanity: 1
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaMasterThief
   parent: BaseChara
   hspIds:
     elona122: 217
-
+  components:
+  - type: Chip
+    id: Elona.CharaMasterThief
+    color: '#AFAFFF'
+  - type: Level
+    level: 35
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 30000
+  - type: Tag
+    tags:
+    - Elona.TagCharaMan
+  - type: Chara
+    race: Elona.Juere
+    class: Elona.Thief
+  - type: Skills
+    skills:
+      Elona.ActionSuspiciousHand: 1
+  - type: Faction
+    relation: Enemy
+  - type: Dialog
+    canTalk: true
+  - type: Tone
+    id: Elona.MasterThief
 - type: Entity
   id: Elona.CharaShubNiggurath
   parent: BaseChara
   hspIds:
     elona122: 218
-
+  components:
+  - type: Chip
+    id: Elona.CharaShubNiggurath
+  - type: Level
+    level: 45
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 40000
+  - type: Chara
+    race: Elona.Yith
+    class: Elona.Predator
+  - type: Skills
+    skills:
+      Elona.ActionEyeOfInsanity: 1
+      Elona.SpellShortTeleport: 1
+      Elona.SpellSummonMonsters: 1
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaGagu
   parent: BaseChara
   hspIds:
     elona122: 219
-
+  components:
+  - type: Chip
+    id: Elona.CharaGagu
+  - type: Level
+    level: 38
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 80000
+  - type: Chara
+    race: Elona.Orc
+    class: Elona.Warrior
+  - type: Skills
+    skills:
+      Elona.ActionTouchOfWeakness: 1
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaSpiralKing
   parent: BaseChara
   hspIds:
     elona122: 220
-
+  components:
+  - type: Chip
+    id: Elona.CharaSpiralKing
+  - type: Level
+    level: 65
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 30000
+  - type: Tag
+    tags:
+    - Elona.TagCharaGod
+  - type: Chara
+    race: Elona.Yith
+    class: Elona.Wizard
+  - type: Skills
+    skills:
+      Elona.ActionEyeOfInsanity: 1
+      Elona.SpellChaosEye: 1
+      Elona.SpellMutation: 1
+      Elona.SpellNetherArrow: 1
+      Elona.SpellRagingRoar: 1
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaPael
   parent: BaseChara
   hspIds:
     elona122: 221
-
+  components:
+  - type: Chip
+    id: Elona.CharaPael
+  - type: Level
+    level: 10
+  - type: Quality
+    quality: Unique
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        fltselect: SpUnique
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaMan
+  - type: Chara
+    race: Elona.Roran
+    class: Elona.Thief
+    gender: Female
+  - type: Faction
+    relation: Neutral
+  - type: Dialog
+    canTalk: true
+    dialogID: Elona.Pael
+    portrait: Elona.Woman16
+  - type: Tone
+    id: Elona.Pael
 - type: Entity
   id: Elona.CharaLily
   parent: BaseChara
   hspIds:
     elona122: 222
-
+  components:
+  - type: Chip
+    id: Elona.CharaLily
+  - type: Level
+    level: 15
+  - type: Quality
+    quality: Unique
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        fltselect: SpUnique
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaMan
+  - type: Chara
+    race: Elona.Roran
+    class: Elona.Warrior
+    gender: Female
+  - type: Faction
+    relation: Neutral
+  - type: Dialog
+    canTalk: true
+    dialogID: Elona.Lily
+    portrait: Elona.Woman14
+  - type: Tone
+    id: Elona.Lily
 - type: Entity
   id: Elona.CharaRaphael
   parent: BaseChara
   hspIds:
     elona122: 223
-
+  components:
+  - type: Chip
+    id: Elona.CharaRaphael
+  - type: Level
+    level: 10
+  - type: Quality
+    quality: Unique
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        fltselect: SpUnique
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaMan
+  - type: Chara
+    race: Elona.Norland
+    class: Elona.Warrior
+    gender: Male
+  - type: Faction
+    relation: Neutral
+  - type: Dialog
+    canTalk: true
+    dialogID: Elona.Raphael
+    portrait: Elona.Man15
+  - type: Tone
+    id: Elona.Raphael
 - type: Entity
   id: Elona.CharaAinc
   parent: BaseChara
   hspIds:
     elona122: 224
-
+  components:
+  - type: Chip
+    id: Elona.CharaAinc
+  - type: Level
+    level: 7
+  - type: Quality
+    quality: Unique
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        fltselect: SpUnique
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaMan
+  - type: Chara
+    race: Elona.Norland
+    class: Elona.Warrior
+    gender: Male
+  - type: Faction
+    relation: Neutral
+  - type: Dialog
+    canTalk: true
+    dialogID: Elona.Ainc
+    portrait: Elona.Man19
+  - type: Tone
+    id: Elona.Ainc
 - type: Entity
   id: Elona.CharaPoppy
   parent: BaseChara
   hspIds:
     elona122: 225
-
+  components:
+  - type: Chip
+    id: Elona.CharaPoppy
+  - type: Level
+    level: 1
+  - type: Quality
+    quality: Unique
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        fltselect: SpUnique
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaWild
+  - type: Chara
+    race: Elona.Dog
+    class: Elona.Predator
+  - type: Faction
+    relation: Neutral
+  - type: Dialog
+    canTalk: true
+    dialogID: Elona.Poppy
+  - type: Tone
+    id: Elona.Poppy
 - type: Entity
   id: Elona.CharaRilian
   parent: BaseChara
   hspIds:
     elona122: 226
-
+  components:
+  - type: Chip
+    id: Elona.CharaRilian
+  - type: Level
+    level: 4
+  - type: Quality
+    quality: Unique
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        fltselect: SpUnique
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaMan
+  - type: Chara
+    race: Elona.Roran
+    class: Elona.Predator
+  - type: Faction
+    relation: Neutral
+  - type: Dialog
+    canTalk: true
+    dialogID: Elona.Rilian
+    portrait: Elona.Woman17
+  - type: Tone
+    id: Elona.Rilian
 - type: Entity
   id: Elona.CharaTam
   parent: BaseChara
   hspIds:
     elona122: 227
-
+  components:
+  - type: Chip
+    id: Elona.CharaTam
+  - type: Level
+    level: 5
+  - type: Quality
+    quality: Unique
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        fltselect: SpUnique
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaMan
+  - type: Chara
+    race: Elona.Norland
+    class: Elona.Predator
+    gender: Male
+  - type: Faction
+    relation: Neutral
+  - type: Dialog
+    canTalk: true
+    dialogID: Elona.Tam
+    portrait: Elona.Man17
+  - type: Tone
+    id: Elona.Tam
 - type: Entity
   id: Elona.CharaCarbuncle
   parent: BaseChara
   hspIds:
     elona122: 228
-
+  components:
+  - type: Chip
+    id: Elona.CharaCarbuncle
+  - type: Level
+    level: 20
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaWild
+    - Elona.TagCharaCat
+  - type: Chara
+    race: Elona.Cat
+    class: Elona.Wizard
+  - type: Skills
+    skills:
+      Elona.ActionEyeOfDimness: 1
+      Elona.SpellWeb: 1
+  - type: Faction
+    relation: Enemy
+  - type: Dialog
+    canTalk: true
 - type: Entity
   id: Elona.CharaLion
   parent: BaseChara
   hspIds:
     elona122: 229
-
+  components:
+  - type: Chip
+    id: Elona.CharaLion
+  - type: Level
+    level: 18
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaWild
+    - Elona.TagCharaCat
+  - type: Chara
+    race: Elona.Cat
+    class: Elona.Predator
+  - type: Faction
+    relation: Enemy
+  - type: Dialog
+    canTalk: true
+  - type: Tone
+    id: Elona.Lion
 - type: Entity
   id: Elona.CharaCacy
   parent: BaseChara
   hspIds:
     elona122: 230
-
+  components:
+  - type: Chip
+    id: Elona.CharaCacy
+  - type: Level
+    level: 25
+  - type: Quality
+    quality: Unique
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        fltselect: SpUnique
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaWild
+    - Elona.TagCharaCat
+  - type: Chara
+    race: Elona.Catgod
+    class: Elona.Wizard
+  - type: Skills
+    skills:
+      Elona.ActionSummonCats: 1
+  - type: Faction
+    relation: Enemy
+  - type: Dialog
+    canTalk: true
+  - type: Tone
+    id: Elona.Cacy
 - type: Entity
   id: Elona.CharaGilbert
   parent: BaseChara
   hspIds:
     elona122: 231
-
+  components:
+  - type: Chip
+    id: Elona.CharaGilbert
+  - type: Level
+    level: 45
+  - type: Quality
+    quality: Unique
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        fltselect: SpUnique
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaMan
+  - type: Chara
+    race: Elona.Juere
+    class: Elona.Gunner
+    gender: Male
+  - type: Faction
+    relation: Neutral
+  - type: Dialog
+    canTalk: true
+    dialogID: Elona.Gilbert
+    portrait: Elona.Gilbert
+  - type: Tone
+    id: Elona.Gilbert
 - type: Entity
   id: Elona.CharaYerlesSelfPropelledGun
   parent: BaseChara
   hspIds:
     elona122: 232
-
+  components:
+  - type: Chip
+    id: Elona.CharaYerlesSelfPropelledGun
+  - type: Level
+    level: 17
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 100000
+  - type: Chara
+    race: Elona.Yerles
+    class: Elona.Gunner
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaJuereInfantry
   parent: BaseChara
   hspIds:
     elona122: 233
-
+  components:
+  - type: Chip
+    id: Elona.CharaJuereSwordman
+  - type: Level
+    level: 7
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaMan
+  - type: Chara
+    race: Elona.Juere
+    class: Elona.Warrior
+  - type: Faction
+    relation: Enemy
+  - type: Dialog
+    canTalk: true
+  - type: Tone
+    id: Elona.JuereInfantry
 - type: Entity
   id: Elona.CharaYerlesEliteMachineInfantry
   parent: BaseChara
   hspIds:
     elona122: 234
-
+  components:
+  - type: Chip
+    id: Elona.CharaYerlesMachineInfantry
+    color: '#FF9B9B'
+  - type: Level
+    level: 22
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaMan
+  - type: Chara
+    race: Elona.Yerles
+    class: Elona.Gunner
+  - type: Faction
+    relation: Enemy
+  - type: Dialog
+    canTalk: true
+  - type: Tone
+    id: Elona.YerlesMachineInfantry
 - type: Entity
   id: Elona.CharaJuereSwordman
   parent: BaseChara
   hspIds:
     elona122: 235
-
+  components:
+  - type: Chip
+    id: Elona.CharaJuereSwordman
+    color: '#AFAFFF'
+  - type: Level
+    level: 15
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaMan
+  - type: Chara
+    race: Elona.Juere
+    class: Elona.Thief
+  - type: Faction
+    relation: Enemy
+  - type: Dialog
+    canTalk: true
+  - type: Tone
+    id: Elona.JuereInfantry
 - type: Entity
   id: Elona.CharaYeek
   parent: BaseChara
   hspIds:
     elona122: 236
   components:
-  - type: MetaData
-    displayName: yeek
-  - type: Chara
-    title: The wind
-    class: Elona.Warrior
   - type: Chip
-    id: Elona.CharaYeek
-
+  - type: Level
+    level: 2
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaYeek
+  - type: Chara
+    race: Elona.Yeek
+    class: Elona.Predator
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaKamikazeYeek
   parent: BaseChara
   hspIds:
     elona122: 237
-
+  components:
+  - type: Chip
+    color: '#FF9B9B'
+  - type: Level
+    level: 6
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 150000
+  - type: Tag
+    tags:
+    - Elona.TagCharaYeek
+  - type: Chara
+    race: Elona.Yeek
+    class: Elona.Predator
+  - type: Skills
+    skills:
+      Elona.ActionSuicideAttack: 1
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaYeekWarrior
   parent: BaseChara
   hspIds:
     elona122: 238
-
+  components:
+  - type: Chip
+    color: '#FFFFAF'
+  - type: Level
+    level: 6
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaYeek
+  - type: Chara
+    race: Elona.Yeek
+    class: Elona.Predator
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaHotSpringManiac
   parent: BaseChara
   hspIds:
     elona122: 239
-
+  components:
+  - type: Chip
+  - type: Level
+    level: 5
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        fltselect: Shop
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaMan
+  - type: Chara
+    race: Elona.Norland
+    class: Elona.Predator
+  - type: Faction
+    relation: Dislike
+  - type: Dialog
+    canTalk: true
+    portrait: Random
+  - type: Tone
+    id: Elona.Citizen
 - type: Entity
   id: Elona.CharaMasterYeek
   parent: BaseChara
   hspIds:
     elona122: 240
-
+  components:
+  - type: Chip
+    color: '#B99BD7'
+  - type: Level
+    level: 9
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 50000
+  - type: Tag
+    tags:
+    - Elona.TagCharaYeek
+  - type: Chara
+    race: Elona.Yeek
+    class: Elona.Predator
+  - type: Skills
+    skills:
+      Elona.ActionSummonYeek: 1
+      Elona.SpellDarkEye: 1
+      Elona.SpellShortTeleport: 1
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaYeekArcher
   parent: BaseChara
   hspIds:
     elona122: 241
-
+  components:
+  - type: Chip
+    color: '#AFFFAF'
+  - type: Level
+    level: 4
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaYeek
+  - type: Chara
+    race: Elona.Yeek
+    class: Elona.Archer
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaRodlob
   parent: BaseChara
   hspIds:
     elona122: 242
-
+  components:
+  - type: Chip
+    id: Elona.CharaRodlob
+  - type: Level
+    level: 14
+  - type: Quality
+    quality: Unique
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        fltselect: SpUnique
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaYeek
+  - type: Chara
+    race: Elona.Yeek
+    class: Elona.Wizard
+  - type: Skills
+    skills:
+      Elona.ActionCurse: 1
+      Elona.ActionSummonYeek: 1
+      Elona.SpellCureOfEris: 1
+      Elona.SpellDarkEye: 1
+      Elona.SpellShortTeleport: 1
+  - type: Faction
+    relation: Enemy
+  - type: Dialog
+    canTalk: true
+  - type: Tone
+    id: Elona.Rodlob
 - type: Entity
   id: Elona.CharaArnord
   parent: BaseChara
   hspIds:
     elona122: 243
-
+  components:
+  - type: Chip
+    id: Elona.CharaArnord
+  - type: Level
+    level: 15
+  - type: Quality
+    quality: Unique
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        fltselect: SpUnique
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaMan
+  - type: Chara
+    race: Elona.Norland
+    class: Elona.Gunner
+    gender: Male
+  - type: Faction
+    relation: Neutral
+  - type: Dialog
+    canTalk: true
+    dialogID: Elona.Arnord
+    portrait: Elona.Arnord
+  - type: Tone
+    id: Elona.Arnord
 - type: Entity
   id: Elona.CharaKamikazeSamurai
   parent: BaseChara
   hspIds:
     elona122: 244
-
+  components:
+  - type: Chip
+    id: Elona.CharaKamikazeSamurai
+  - type: Level
+    level: 18
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 25000
+  - type: Chara
+    race: Elona.Norland
+    class: Elona.Warrior
+  - type: Skills
+    skills:
+      Elona.ActionSuicideAttack: 1
+  - type: Faction
+    relation: Enemy
+  - type: Dialog
+    canTalk: true
+  - type: Tone
+    id: Elona.KamikazeSamurai
 - type: Entity
   id: Elona.CharaBombRock
   parent: BaseChara
   hspIds:
     elona122: 245
-
+  components:
+  - type: Chip
+    id: Elona.CharaRock
+  - type: Level
+    level: 25
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 20000
+  - type: Chara
+    race: Elona.Rock
+    class: Elona.Predator
+  - type: Skills
+    skills:
+      Elona.ActionSuicideAttack: 1
+      Elona.SpellShortTeleport: 1
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaSilverCat
   parent: BaseChara
   hspIds:
     elona122: 246
-
+  components:
+  - type: Chip
+    id: Elona.CharaStrayCat
+  - type: Level
+    level: 3
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 0
+        rarity: 1000
+  - type: Tag
+    tags:
+    - Elona.TagCharaWild
+    - Elona.TagCharaCat
+  - type: Chara
+    race: Elona.Cat
+    class: Elona.Predator
+  - type: Faction
+    relation: Dislike
+  - type: Dialog
+    canTalk: true
 - type: Entity
   id: Elona.CharaMia
   parent: BaseChara
   hspIds:
     elona122: 247
-
+  components:
+  - type: Chip
+    id: Elona.CharaMia
+  - type: Level
+    level: 4
+  - type: Quality
+    quality: Unique
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        fltselect: SpUnique
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaMan
+  - type: Chara
+    race: Elona.Norland
+    class: Elona.Predator
+    gender: Female
+  - type: Faction
+    relation: Neutral
+  - type: Dialog
+    canTalk: true
+    dialogID: Elona.Mia
+    portrait: Elona.Mia
+  - type: Tone
+    id: Elona.Mia
 - type: Entity
   id: Elona.CharaTyrannosaurus
   parent: BaseChara
   hspIds:
     elona122: 248
-
+  components:
+  - type: Chip
+  - type: Level
+    level: 30
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 50000
+  - type: Tag
+    tags:
+    - Elona.TagCharaDragon
+  - type: Chara
+    race: Elona.Dinosaur
+    class: Elona.Predator
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaYoungerSisterOfMansion
   parent: BaseChara
   hspIds:
     elona122: 249
-
+  components:
+  - type: Chip
+    id: Elona.CharaMaidFemale
+  - type: Level
+    level: 50
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        fltselect: Sp
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaMan
+  - type: Chara
+    race: Elona.Roran
+    class: Elona.Thief
+  - type: Skills
+    skills:
+      Elona.ActionSummonSister: 1
+  - type: Faction
+    relation: Neutral
+  - type: Dialog
+    canTalk: true
+  - type: Tone
+    id: Elona.YoungerSister
 - type: Entity
   id: Elona.CharaFairy
   parent: BaseChara
   hspIds:
     elona122: 250
-
+  components:
+  - type: Chip
+  - type: Level
+    level: 13
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 50000
+  - type: Chara
+    race: Elona.Fairy
+    class: Elona.Predator
+  - type: Skills
+    skills:
+      Elona.ActionSuspiciousHand: 1
+      Elona.SpellMindBolt: 1
+      Elona.SpellShortTeleport: 1
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaTroll
   parent: BaseChara
   hspIds:
     elona122: 251
-
+  components:
+  - type: Chip
+  - type: Level
+    level: 14
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 100000
+  - type: Chara
+    race: Elona.Troll
+    class: Elona.Predator
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaRenton
   parent: BaseChara
   hspIds:
     elona122: 252
-
+  components:
+  - type: Chip
+    id: Elona.CharaRenton
+  - type: Level
+    level: 45
+  - type: Quality
+    quality: Unique
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        fltselect: SpUnique
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaMan
+  - type: Chara
+    race: Elona.Norland
+    class: Elona.Wizard
+    gender: Male
+  - type: Skills
+    skills:
+      Elona.SpellChaosEye: 1
+      Elona.SpellMutation: 1
+      Elona.SpellNetherArrow: 1
+      Elona.SpellRagingRoar: 1
+  - type: Faction
+    relation: Neutral
+  - type: Dialog
+    canTalk: true
+    dialogID: Elona.Renton
+    portrait: Elona.Man6
+  - type: Tone
+    id: Elona.Renton
 - type: Entity
   id: Elona.CharaMarks
   parent: BaseChara
   hspIds:
     elona122: 253
-
+  components:
+  - type: Chip
+    id: Elona.CharaMarks
+  - type: Level
+    level: 25
+  - type: Quality
+    quality: Unique
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        fltselect: SpUnique
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaMan
+  - type: Chara
+    race: Elona.Juere
+    class: Elona.Thief
+    gender: Male
+  - type: Skills
+    skills:
+      Elona.ActionSuspiciousHand: 1
+  - type: Faction
+    relation: Neutral
+  - type: Dialog
+    canTalk: true
+    dialogID: Elona.Marks
+    portrait: Elona.Man2
+  - type: Tone
+    id: Elona.Marks
 - type: Entity
   id: Elona.CharaAncientCoffin
   parent: BaseChara
   hspIds:
     elona122: 254
-
+  components:
+  - type: Chip
+    id: Elona.CharaAncientCoffin
+  - type: Level
+    level: 19
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 50000
+  - type: Tag
+    tags:
+    - Elona.TagCharaUndead
+  - type: Chara
+    race: Elona.Zombie
+    class: Elona.Predator
+  - type: Skills
+    skills:
+      Elona.ActionCurse: 1
+      Elona.ActionEyeOfDimness: 1
+      Elona.BuffMistOfFrailness: 1
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaScorpion
   parent: BaseChara
   hspIds:
     elona122: 255
-
+  components:
+  - type: Chip
+    id: Elona.CharaScorpion
+  - type: Level
+    level: 4
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaWild
+  - type: Chara
+    race: Elona.Centipede
+    class: Elona.Predator
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaKingScorpion
   parent: BaseChara
   hspIds:
     elona122: 256
-
+  components:
+  - type: Chip
+    id: Elona.CharaScorpion
+    color: '#FF9B9B'
+  - type: Level
+    level: 24
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaWild
+  - type: Chara
+    race: Elona.Centipede
+    class: Elona.Predator
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaTuwen
   parent: BaseChara
   hspIds:
     elona122: 257
-
+  components:
+  - type: Chip
+    id: Elona.CharaTuwen
+    color: '#B99BD7'
+  - type: Level
+    level: 28
+  - type: Quality
+    quality: Unique
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        fltselect: SpUnique
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaUndead
+  - type: Chara
+    race: Elona.Zombie
+    class: Elona.Warrior
+  - type: Skills
+    skills:
+      Elona.ActionTouchOfWeakness: 1
+      Elona.BuffDeathWord: 1
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaIronMaiden
   parent: BaseChara
   hspIds:
     elona122: 258
-
+  components:
+  - type: Chip
+    id: Elona.CharaIronMaiden
+  - type: Level
+    level: 25
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 50000
+  - type: Chara
+    race: Elona.Machine
+    class: Elona.Predator
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaNoel
   parent: BaseChara
   hspIds:
     elona122: 259
-
+  components:
+  - type: Chip
+    id: Elona.CharaCatgod
+  - type: Level
+    level: 20
+  - type: Quality
+    quality: Unique
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        fltselect: SpUnique
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaMan
+  - type: Chara
+    race: Elona.Juere
+    class: Elona.Thief
+    gender: Female
+  - type: Skills
+    skills:
+      Elona.ActionSuspiciousHand: 1
+  - type: Faction
+    relation: Neutral
+  - type: Dialog
+    canTalk: true
+    dialogID: Elona.Noel
+    portrait: Elona.Woman16
+  - type: Tone
+    id: Elona.Noel
 - type: Entity
   id: Elona.CharaBlackCat
   parent: BaseChara
   hspIds:
     elona122: 260
-
+  components:
+  - type: Chip
+    id: Elona.CharaBlackCat
+  - type: Level
+    level: 8
+  - type: Quality
+    quality: Unique
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        fltselect: SpUnique
+        rarity: 50000
+  - type: Tag
+    tags:
+    - Elona.TagCharaGod
+  - type: Chara
+    race: Elona.Servant
+    class: Elona.Thief
+  - type: Skills
+    skills:
+      Elona.ActionDrainBlood: 1
+      Elona.ActionEyeOfInsanity: 1
+      Elona.SpellMagicDart: 1
+  - type: Faction
+    relation: Enemy
+  - type: Dialog
+    canTalk: true
+  - type: Tone
+    id: Elona.BlackCat
 - type: Entity
   id: Elona.CharaCuteFairy
   parent: BaseChara
   hspIds:
     elona122: 261
-
+  components:
+  - type: Chip
+    id: Elona.CharaCuteFairy
+  - type: Level
+    level: 8
+  - type: Quality
+    quality: Unique
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        fltselect: SpUnique
+        rarity: 50000
+  - type: Tag
+    tags:
+    - Elona.TagCharaGod
+  - type: Chara
+    race: Elona.Servant
+    class: Elona.Archer
+  - type: Skills
+    skills:
+      Elona.BuffMistOfSilence: 1
+      Elona.BuffSlow: 1
+      Elona.SpellNetherArrow: 1
+  - type: Faction
+    relation: Enemy
+  - type: Dialog
+    canTalk: true
+  - type: Tone
+    id: Elona.CuteFairy
 - type: Entity
   id: Elona.CharaAndroid
   parent: BaseChara
   hspIds:
     elona122: 262
-
+  components:
+  - type: Chip
+    id: Elona.CharaAndroid
+  - type: Level
+    level: 8
+  - type: Quality
+    quality: Unique
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        fltselect: SpUnique
+        rarity: 50000
+  - type: Tag
+    tags:
+    - Elona.TagCharaGod
+  - type: Chara
+    race: Elona.Servant
+    class: Elona.Gunner
+  - type: Skills
+    skills:
+      Elona.BuffBoost: 1
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaBlackAngel
   parent: BaseChara
   hspIds:
     elona122: 263
-
+  components:
+  - type: Chip
+    id: Elona.CharaBlackAngel
+  - type: Level
+    level: 8
+  - type: Quality
+    quality: Unique
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        fltselect: SpUnique
+        rarity: 50000
+  - type: Tag
+    tags:
+    - Elona.TagCharaGod
+  - type: Chara
+    race: Elona.Servant
+    class: Elona.Archer
+    gender: Female
+  - type: Skills
+    skills:
+      Elona.ActionInsult: 1
+      Elona.BuffBoost: 1
+      Elona.BuffSlow: 1
+      Elona.BuffSpeed: 1
+  - type: Faction
+    relation: Enemy
+  - type: Dialog
+    canTalk: true
+  - type: Tone
+    id: Elona.BlackAngel
 - type: Entity
   id: Elona.CharaExile
   parent: BaseChara
   hspIds:
     elona122: 264
-
+  components:
+  - type: Chip
+    id: Elona.CharaExile
+  - type: Level
+    level: 8
+  - type: Quality
+    quality: Unique
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        fltselect: SpUnique
+        rarity: 50000
+  - type: Tag
+    tags:
+    - Elona.TagCharaGod
+  - type: Chara
+    race: Elona.Servant
+    class: Elona.Wizard
+  - type: Skills
+    skills:
+      Elona.SpellDarkEye: 1
+      Elona.SpellMagicDart: 1
+      Elona.SpellNetherArrow: 1
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaGoldenKnight
   parent: BaseChara
   hspIds:
     elona122: 265
-
+  components:
+  - type: Chip
+    id: Elona.CharaGoldenKnight
+  - type: Level
+    level: 8
+  - type: Quality
+    quality: Unique
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        fltselect: SpUnique
+        rarity: 50000
+  - type: Tag
+    tags:
+    - Elona.TagCharaGod
+  - type: Chara
+    race: Elona.Servant
+    class: Elona.Warrior
+    gender: Female
+  - type: Skills
+    skills:
+      Elona.ActionInsult: 1
+      Elona.BuffRegeneration: 1
+      Elona.SpellHealCritical: 1
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaDefender
   parent: BaseChara
   hspIds:
     elona122: 266
-
+  components:
+  - type: Chip
+    id: Elona.CharaDefender
+  - type: Level
+    level: 8
+  - type: Quality
+    quality: Unique
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        fltselect: SpUnique
+        rarity: 50000
+  - type: Tag
+    tags:
+    - Elona.TagCharaGod
+  - type: Chara
+    race: Elona.Servant
+    class: Elona.Warmage
+    gender: Male
+  - type: Skills
+    skills:
+      Elona.BuffHolyShield: 1
+      Elona.BuffRegeneration: 1
+      Elona.SpellHealingRain: 1
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaLameHorse
   parent: BaseChara
   hspIds:
     elona122: 267
-
+  components:
+  - type: Chip
+    color: '#E1E1FF'
+  - type: Level
+    level: 1
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 10000
+  - type: Tag
+    tags:
+    - Elona.TagCharaWild
+    - Elona.TagCharaHorse
+  - type: Chara
+    race: Elona.Horse
+    class: Elona.Predator
+  - type: Faction
+    relation: Dislike
+  - type: Dialog
+    canTalk: true
+  - type: Tone
+    id: Elona.LameHorse
 - type: Entity
   id: Elona.CharaYowynHorse
   parent: BaseChara
   hspIds:
     elona122: 268
-
+  components:
+  - type: Chip
+    color: '#FFE1E1'
+  - type: Level
+    level: 15
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 10000
+  - type: Tag
+    tags:
+    - Elona.TagCharaWild
+    - Elona.TagCharaHorse
+  - type: Chara
+    race: Elona.Horse
+    class: Elona.Predator
+  - type: Faction
+    relation: Dislike
+  - type: Dialog
+    canTalk: true
+  - type: Tone
+    id: Elona.YowynHorse
 - type: Entity
   id: Elona.CharaFarmer
   parent: BaseChara
   hspIds:
     elona122: 269
-
+  components:
+  - type: Chip
+  - type: Level
+    level: 5
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        fltselect: TownSp
+        rarity: 2000
+  - type: Tag
+    tags:
+    - Elona.TagCharaMan
+  - type: Chara
+    race: Elona.Norland
+    class: Elona.Tourist
+  - type: Faction
+    relation: Dislike
+  - type: Dialog
+    canTalk: true
+    portrait: Random
+  - type: Tone
+    id: Elona.Farmer
 - type: Entity
   id: Elona.CharaSister
   parent: BaseChara
   hspIds:
     elona122: 270
-
+  components:
+  - type: Chip
+  - type: Level
+    level: 5
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        fltselect: TownSp
+        rarity: 2000
+  - type: Tag
+    tags:
+    - Elona.TagCharaMan
+  - type: Chara
+    race: Elona.Norland
+    class: Elona.Tourist
+  - type: Faction
+    relation: Dislike
+  - type: Dialog
+    canTalk: true
+    portrait: Random
+  - type: Tone
+    id: Elona.Sister
 - type: Entity
   id: Elona.CharaRogue
   parent: BaseChara
   hspIds:
     elona122: 271
-
+  components:
+  - type: Chip
+  - type: Level
+    level: 8
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        fltselect: TownSp
+        rarity: 2000
+  - type: Tag
+    tags:
+    - Elona.TagCharaMan
+  - type: Chara
+    race: Elona.Norland
+    class: Elona.Thief
+  - type: Skills
+    skills:
+      Elona.ActionSuspiciousHand: 1
+  - type: Faction
+    relation: Dislike
+  - type: Dialog
+    canTalk: true
+    portrait: Random
+  - type: Tone
+    id: Elona.Rogue
 - type: Entity
   id: Elona.CharaArtist
   parent: BaseChara
   hspIds:
     elona122: 272
-
+  components:
+  - type: Chip
+  - type: Level
+    level: 6
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        fltselect: TownSp
+        rarity: 2000
+  - type: Tag
+    tags:
+    - Elona.TagCharaMan
+  - type: Chara
+    race: Elona.Norland
+    class: Elona.Wizard
+  - type: Faction
+    relation: Dislike
+  - type: Dialog
+    canTalk: true
+    portrait: Random
+  - type: Tone
+    id: Elona.Artist
 - type: Entity
   id: Elona.CharaMiner
   parent: BaseChara
   hspIds:
     elona122: 273
-
+  components:
+  - type: Chip
+  - type: Level
+    level: 5
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        fltselect: TownSp
+        rarity: 2000
+  - type: Tag
+    tags:
+    - Elona.TagCharaMan
+  - type: Chara
+    race: Elona.Norland
+    class: Elona.Tourist
+  - type: Faction
+    relation: Dislike
+  - type: Dialog
+    canTalk: true
+    portrait: Random
+  - type: Tone
+    id: Elona.Miner
 - type: Entity
   id: Elona.CharaNoble
   parent: BaseChara
   hspIds:
     elona122: 274
-
+  components:
+  - type: Chip
+  - type: Level
+    level: 10
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        fltselect: TownSp
+        rarity: 2000
+  - type: Tag
+    tags:
+    - Elona.TagCharaMan
+  - type: Chara
+    race: Elona.Norland
+    class: Elona.Warrior
+  - type: Faction
+    relation: Dislike
+  - type: Dialog
+    canTalk: true
+    portrait: Random
+  - type: Tone
+    id: Elona.Noble
 - type: Entity
   id: Elona.CharaNoyelHorse
   parent: BaseChara
   hspIds:
     elona122: 275
-
+  components:
+  - type: Chip
+    color: '#CDCDCD'
+  - type: Level
+    level: 10
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 10000
+  - type: Tag
+    tags:
+    - Elona.TagCharaWild
+    - Elona.TagCharaHorse
+  - type: Chara
+    race: Elona.Horse
+    class: Elona.Predator
+  - type: Faction
+    relation: Dislike
+  - type: Dialog
+    canTalk: true
+  - type: Tone
+    id: Elona.NoyelHorse
 - type: Entity
   id: Elona.CharaWildHorse
   parent: BaseChara
   hspIds:
     elona122: 276
-
+  components:
+  - type: Chip
+    color: '#FFFFAF'
+  - type: Level
+    level: 4
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 10000
+  - type: Tag
+    tags:
+    - Elona.TagCharaWild
+    - Elona.TagCharaHorse
+  - type: Chara
+    race: Elona.Horse
+    class: Elona.Predator
+  - type: Faction
+    relation: Dislike
+  - type: Dialog
+    canTalk: true
+  - type: Tone
+    id: Elona.WildHorse
 - type: Entity
   id: Elona.CharaWildHorse2
   parent: BaseChara
   hspIds:
     elona122: 277
-
+  components:
+  - type: Chip
+    color: '#FFC3B9'
+  - type: Level
+    level: 20
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 10000
+  - type: Tag
+    tags:
+    - Elona.TagCharaWild
+    - Elona.TagCharaHorse
+  - type: Chara
+    race: Elona.Horse
+    class: Elona.Predator
+  - type: Faction
+    relation: Dislike
+  - type: Dialog
+    canTalk: true
+  - type: Tone
+    id: Elona.WildHorse2
 - type: Entity
   id: Elona.CharaMutant
   parent: BaseChara
   hspIds:
     elona122: 278
-
+  components:
+  - type: Chip
+    id: Elona.CharaMutant
+  - type: Level
+    level: 6
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 70000
+  - type: Chara
+    race: Elona.Mutant
+    class: Elona.Warrior
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaIcolle
   parent: BaseChara
   hspIds:
     elona122: 279
-
+  components:
+  - type: Chip
+    id: Elona.CharaIcolle
+  - type: Level
+    level: 15
+  - type: Quality
+    quality: Unique
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        fltselect: SpUnique
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaMan
+  - type: Chara
+    race: Elona.Yerles
+    class: Elona.Gunner
+    gender: Male
+  - type: Faction
+    relation: Neutral
+  - type: Dialog
+    canTalk: true
+    dialogID: Elona.Icolle
+    portrait: Elona.Man18
+  - type: Tone
+    id: Elona.Icolle
 - type: Entity
   id: Elona.CharaBalzak
   parent: BaseChara
   hspIds:
     elona122: 280
-
+  components:
+  - type: Chip
+    id: Elona.CharaBalzak
+  - type: Level
+    level: 10
+  - type: Quality
+    quality: Unique
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        fltselect: SpUnique
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaMan
+  - type: Chara
+    race: Elona.Norland
+    class: Elona.Predator
+    gender: Male
+  - type: Faction
+    relation: Neutral
+  - type: Dialog
+    canTalk: true
+    dialogID: Elona.Balzak
+    portrait: Elona.Balzak
+  - type: Tone
+    id: Elona.Balzak
 - type: Entity
   id: Elona.CharaLizardMan
   parent: BaseChara
   hspIds:
     elona122: 281
-
+  components:
+  - type: Chip
+  - type: Level
+    level: 7
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaDragon
+  - type: Chara
+    race: Elona.Lizardman
+    class: Elona.Warrior
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaMinotaur
   parent: BaseChara
   hspIds:
     elona122: 282
-
+  components:
+  - type: Chip
+  - type: Level
+    level: 18
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 70000
+  - type: Tag
+    tags:
+    - Elona.TagCharaMino
+  - type: Chara
+    race: Elona.Minotaur
+    class: Elona.Warrior
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaSporeMushroom
   parent: BaseChara
   hspIds:
     elona122: 283
-
+  components:
+  - type: Chip
+    id: Elona.CharaSporeMushroom
+  - type: Level
+    level: 8
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 50000
+  - type: Chara
+    race: Elona.Mushroom
+    class: Elona.Predator
+  - type: Skills
+    skills:
+      Elona.ActionDistantAttack7: 1
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaChaosMushroom
   parent: BaseChara
   hspIds:
     elona122: 284
-
+  components:
+  - type: Chip
+    id: Elona.CharaSporeMushroom
+    color: '#B99BD7'
+  - type: Level
+    level: 21
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 50000
+  - type: Chara
+    race: Elona.Mushroom
+    class: Elona.Predator
+  - type: Skills
+    skills:
+      Elona.ActionDistantAttack7: 1
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaBlueBubble
   parent: BaseChara
   hspIds:
     elona122: 285
-
+  components:
+  - type: Chip
+    id: Elona.CharaBubble
+    color: '#E1E1FF'
+  - type: Level
+    level: 22
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 25000
+  - type: Tag
+    tags:
+    - Elona.TagCharaSlime
+  - type: Chara
+    race: Elona.Slime
+    class: Elona.Predator
+  - type: Faction
+    relation: Enemy
+  - type: Dialog
+    canTalk: true
 - type: Entity
   id: Elona.CharaBubble
   parent: BaseChara
   hspIds:
     elona122: 286
-
+  components:
+  - type: Chip
+    id: Elona.CharaBubble
+  - type: Level
+    level: 9
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 25000
+  - type: Tag
+    tags:
+    - Elona.TagCharaSlime
+  - type: Chara
+    race: Elona.Slime
+    class: Elona.Predator
+  - type: Faction
+    relation: Enemy
+  - type: Dialog
+    canTalk: true
 - type: Entity
   id: Elona.CharaMassMonster
   parent: BaseChara
   hspIds:
     elona122: 287
-
+  components:
+  - type: Chip
+    id: Elona.CharaMassMonster
+  - type: Level
+    level: 20
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 25000
+  - type: Chara
+    race: Elona.Drake
+    class: Elona.Predator
+  - type: Skills
+    skills:
+      Elona.ActionTouchOfWeakness: 1
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaRevlus
   parent: BaseChara
   hspIds:
     elona122: 288
-
+  components:
+  - type: Chip
+    id: Elona.CharaRevlus
+  - type: Level
+    level: 55
+  - type: Quality
+    quality: Unique
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        fltselect: SpUnique
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaMan
+  - type: Chara
+    race: Elona.Norland
+    class: Elona.Wizard
+    gender: Male
+  - type: Skills
+    skills:
+      Elona.SpellDarkEye: 1
+      Elona.SpellMagicDart: 1
+      Elona.SpellNetherArrow: 1
+  - type: Faction
+    relation: Neutral
+  - type: Dialog
+    canTalk: true
+    portrait: Elona.Man14
+  - type: Tone
+    id: Elona.Revlus
 - type: Entity
   id: Elona.CharaMageGuildMember
   parent: BaseChara
   hspIds:
     elona122: 289
-
+  components:
+  - type: Chip
+  - type: Level
+    level: 26
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        fltselect: TownSp
+        rarity: 2000
+  - type: Tag
+    tags:
+    - Elona.TagCharaMan
+  - type: Chara
+    race: Elona.Eulderna
+    class: Elona.Wizard
+  - type: Skills
+    skills:
+      Elona.SpellDarknessBolt: 1
+      Elona.SpellIceBolt: 1
+      Elona.SpellMagicDart: 1
+  - type: Faction
+    relation: Dislike
+  - type: Dialog
+    canTalk: true
+    portrait: Random
+  - type: Tone
+    id: Elona.GuildMember
 - type: Entity
   id: Elona.CharaLexus
   parent: BaseChara
   hspIds:
     elona122: 290
-
+  components:
+  - type: Chip
+    id: Elona.CharaDoria
+  - type: Level
+    level: 38
+  - type: Quality
+    quality: Unique
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        fltselect: SpUnique
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaMan
+  - type: Chara
+    race: Elona.Norland
+    class: Elona.Wizard
+    gender: Male
+  - type: Skills
+    skills:
+      Elona.SpellDarkEye: 1
+      Elona.SpellMagicDart: 1
+      Elona.SpellNetherArrow: 1
+  - type: Faction
+    relation: Neutral
+  - type: Dialog
+    canTalk: true
+    dialogID: Elona.Lexus
+    portrait: Elona.Man6
+  - type: Tone
+    id: Elona.Lexus
 - type: Entity
   id: Elona.CharaFray
   parent: BaseChara
   hspIds:
     elona122: 291
-
+  components:
+  - type: Chip
+    id: Elona.CharaFray
+  - type: Level
+    level: 55
+  - type: Quality
+    quality: Unique
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        fltselect: SpUnique
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaMan
+  - type: Chara
+    race: Elona.Norland
+    class: Elona.Warrior
+    gender: Female
+  - type: Faction
+    relation: Neutral
+  - type: Dialog
+    portrait: Elona.Woman18
 - type: Entity
   id: Elona.CharaSin
   parent: BaseChara
   hspIds:
     elona122: 292
-
+  components:
+  - type: Chip
+    id: Elona.CharaSin
+  - type: Level
+    level: 55
+  - type: Quality
+    quality: Unique
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        fltselect: SpUnique
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaMan
+  - type: Chara
+    race: Elona.Juere
+    class: Elona.Thief
+    gender: Male
+  - type: Faction
+    relation: Neutral
+  - type: Dialog
+    portrait: Elona.Man7
 - type: Entity
   id: Elona.CharaThiefGuildMember
   parent: BaseChara
   hspIds:
     elona122: 293
-
+  components:
+  - type: Chip
+  - type: Level
+    level: 26
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        fltselect: TownSp
+        rarity: 2000
+  - type: Tag
+    tags:
+    - Elona.TagCharaMan
+  - type: Chara
+    race: Elona.Juere
+    class: Elona.Thief
+  - type: Faction
+    relation: Dislike
+  - type: Dialog
+    canTalk: true
+    portrait: Random
+  - type: Tone
+    id: Elona.GuildMember
 - type: Entity
   id: Elona.CharaAbyss
   parent: BaseChara
   hspIds:
     elona122: 294
-
+  components:
+  - type: Chip
+    id: Elona.CharaDoria
+  - type: Level
+    level: 38
+  - type: Quality
+    quality: Unique
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        fltselect: SpUnique
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaMan
+  - type: Chara
+    race: Elona.Juere
+    class: Elona.Thief
+    gender: Male
+  - type: Faction
+    relation: Neutral
+  - type: Dialog
+    canTalk: true
+    dialogID: Elona.Abyss
+    portrait: Elona.Man6
+  - type: Tone
+    id: Elona.Abyss
 - type: Entity
   id: Elona.CharaFighterGuildMember
   parent: BaseChara
   hspIds:
     elona122: 295
-
+  components:
+  - type: Chip
+  - type: Level
+    level: 26
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        fltselect: TownSp
+        rarity: 2000
+  - type: Tag
+    tags:
+    - Elona.TagCharaMan
+  - type: Chara
+    race: Elona.Norland
+    class: Elona.Warrior
+  - type: Faction
+    relation: Dislike
+  - type: Dialog
+    canTalk: true
+    portrait: Random
+  - type: Tone
+    id: Elona.GuildMember
 - type: Entity
   id: Elona.CharaMinotaurMagician
   parent: BaseChara
   hspIds:
     elona122: 296
-
+  components:
+  - type: Chip
+    color: '#AFAFFF'
+  - type: Level
+    level: 22
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 70000
+  - type: Tag
+    tags:
+    - Elona.TagCharaMino
+  - type: Chara
+    race: Elona.Minotaur
+    class: Elona.Priest
+  - type: Skills
+    skills:
+      Elona.ActionCurse: 1
+      Elona.SpellFireBolt: 1
+      Elona.SpellIceBolt: 1
+      Elona.SpellNetherArrow: 1
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaDoria
   parent: BaseChara
   hspIds:
     elona122: 297
-
+  components:
+  - type: Chip
+    id: Elona.CharaDoria
+  - type: Level
+    level: 38
+  - type: Quality
+    quality: Unique
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        fltselect: SpUnique
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaMan
+  - type: Chara
+    race: Elona.Norland
+    class: Elona.Warrior
+    gender: Male
+  - type: Faction
+    relation: Neutral
+  - type: Dialog
+    canTalk: true
+    dialogID: Elona.Doria
+    portrait: Elona.Man6
+  - type: Tone
+    id: Elona.Doria
 - type: Entity
   id: Elona.CharaMinotaurBoxer
   parent: BaseChara
   hspIds:
     elona122: 298
-
+  components:
+  - type: Chip
+    color: '#FF9B9B'
+  - type: Level
+    level: 23
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 70000
+  - type: Tag
+    tags:
+    - Elona.TagCharaMino
+  - type: Chara
+    race: Elona.Minotaur
+    class: Elona.Predator
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaMinotaurKing
   parent: BaseChara
   hspIds:
     elona122: 299
-
+  components:
+  - type: Chip
+    color: '#B99BD7'
+  - type: Level
+    level: 25
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 40000
+  - type: Tag
+    tags:
+    - Elona.TagCharaMino
+  - type: Chara
+    race: Elona.Minotaur
+    class: Elona.Warrior
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaUngaga
   parent: BaseChara
   hspIds:
     elona122: 300
-
+  components:
+  - type: Chip
+    color: '#FFC3B9'
+  - type: Level
+    level: 31
+  - type: Quality
+    quality: Unique
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        fltselect: SpUnique
+        rarity: 40000
+  - type: Tag
+    tags:
+    - Elona.TagCharaMino
+  - type: Chara
+    race: Elona.Minotaur
+    class: Elona.Warrior
+  - type: Skills
+    skills:
+      Elona.BuffBoost: 1
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaConery
   parent: BaseChara
   hspIds:
     elona122: 301
-
+  components:
+  - type: Chip
+    id: Elona.CharaConery
+  - type: Level
+    level: 38
+  - type: Quality
+    quality: Unique
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        fltselect: SpUnique
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaMan
+  - type: Chara
+    race: Elona.Norland
+    class: Elona.Warrior
+    gender: Male
+  - type: Faction
+    relation: Neutral
+  - type: Dialog
+    canTalk: true
+    dialogID: Elona.Conery
+    portrait: Elona.Conery
+  - type: Tone
+    id: Elona.Conery
 - type: Entity
   id: Elona.CharaRogueBoss
   parent: BaseChara
   hspIds:
     elona122: 302
-
+  components:
+  - type: Chip
+    id: Elona.CharaRogueBoss
+  - type: Level
+    level: 12
+  - type: Quality
+    quality: Unique
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        fltselect: SpUnique
+        rarity: 25000
+  - type: Tag
+    tags:
+    - Elona.TagCharaMan
+    - Elona.TagCharaRogue
+  - type: Chara
+    race: Elona.Juere
+    class: Elona.Warrior
+  - type: Skills
+    skills:
+      Elona.BuffBoost: 1
+  - type: Faction
+    relation: Enemy
+  - type: Dialog
+    canTalk: true
+    dialogID: Elona.RogueBoss
+    portrait: Elona.Man47
+  - type: Tone
+    id: Elona.RogueParty
 - type: Entity
   id: Elona.CharaRogueWarrior
   parent: BaseChara
   hspIds:
     elona122: 303
-
+  components:
+  - type: Chip
+    id: Elona.CharaGangsterMale
+  - type: Level
+    level: 10
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 25000
+  - type: Tag
+    tags:
+    - Elona.TagCharaMan
+    - Elona.TagCharaRogue
+    - Elona.TagCharaRogueGuard
+  - type: Chara
+    race: Elona.Juere
+    class: Elona.Thief
+  - type: Faction
+    relation: Enemy
+  - type: Dialog
+    canTalk: true
+  - type: Tone
+    id: Elona.RogueParty
 - type: Entity
   id: Elona.CharaRogueArcher
   parent: BaseChara
   hspIds:
     elona122: 304
-
+  components:
+  - type: Chip
+    id: Elona.CharaRogueArcher
+  - type: Level
+    level: 10
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 25000
+  - type: Tag
+    tags:
+    - Elona.TagCharaMan
+    - Elona.TagCharaRogue
+    - Elona.TagCharaRogueGuard
+  - type: Chara
+    race: Elona.Juere
+    class: Elona.Gunner
+  - type: Faction
+    relation: Enemy
+  - type: Dialog
+    canTalk: true
+  - type: Tone
+    id: Elona.RogueParty
 - type: Entity
   id: Elona.CharaRogueWizard
   parent: BaseChara
   hspIds:
     elona122: 305
-
+  components:
+  - type: Chip
+    id: Elona.CharaRogueWizard
+  - type: Level
+    level: 10
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 25000
+  - type: Tag
+    tags:
+    - Elona.TagCharaMan
+    - Elona.TagCharaRogue
+    - Elona.TagCharaRogueGuard
+  - type: Chara
+    race: Elona.Juere
+    class: Elona.Priest
+  - type: Skills
+    skills:
+      Elona.BuffSlow: 1
+      Elona.SpellFireBolt: 1
+      Elona.SpellMagicDart: 1
+  - type: Faction
+    relation: Enemy
+  - type: Dialog
+    canTalk: true
+  - type: Tone
+    id: Elona.RogueParty
 - type: Entity
   id: Elona.CharaLulwy
   parent: BaseChara
   hspIds:
     elona122: 306
-
+  components:
+  - type: Chip
+    id: Elona.CharaLulwy
+  - type: Level
+    level: 350
+  - type: Quality
+    quality: Unique
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        fltselect: SpUnique
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaGod
+  - type: Chara
+    race: Elona.God
+    class: Elona.Archer
+    gender: Female
+  - type: Skills
+    skills:
+      Elona.ActionEyeOfInsanity: 1
+      Elona.ActionInsult: 1
+  - type: Faction
+    relation: Neutral
 - type: Entity
   id: Elona.CharaExecutioner
   parent: BaseChara
   hspIds:
     elona122: 307
-
+  components:
+  - type: Chip
+    id: Elona.CharaExecutioner
+  - type: Level
+    level: 18
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 10000
+  - type: Tag
+    tags:
+    - Elona.TagCharaUndead
+  - type: Chara
+    race: Elona.Lich
+    class: Elona.Warrior
+  - type: Skills
+    skills:
+      Elona.BuffDeathWord: 1
+      Elona.SpellLightningBolt: 1
+      Elona.SpellShortTeleport: 1
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaMessengerOfDeath
   parent: BaseChara
   hspIds:
     elona122: 308
-
+  components:
+  - type: Chip
+    id: Elona.CharaExecutioner
+    color: '#AFAFFF'
+  - type: Level
+    level: 35
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 10000
+  - type: Tag
+    tags:
+    - Elona.TagCharaUndead
+  - type: Chara
+    race: Elona.Lich
+    class: Elona.Warrior
+  - type: Skills
+    skills:
+      Elona.BuffDeathWord: 1
+      Elona.SpellLightningBolt: 1
+      Elona.SpellShortTeleport: 1
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaAsura
   parent: BaseChara
   hspIds:
     elona122: 309
-
+  components:
+  - type: Chip
+  - type: Level
+    level: 12
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaGod
+  - type: Chara
+    race: Elona.Asura
+    class: Elona.Warrior
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaMitra
   parent: BaseChara
   hspIds:
     elona122: 310
-
+  components:
+  - type: Chip
+    color: '#AFFFAF'
+  - type: Level
+    level: 26
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaGod
+  - type: Chara
+    race: Elona.Asura
+    class: Elona.Warrior
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaVaruna
   parent: BaseChara
   hspIds:
     elona122: 311
-
+  components:
+  - type: Chip
+    color: '#FF9B9B'
+  - type: Level
+    level: 37
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaGod
+  - type: Chara
+    race: Elona.Asura
+    class: Elona.Warrior
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaHungrySeaLion
   parent: BaseChara
   hspIds:
     elona122: 312
-
+  components:
+  - type: Chip
+    id: Elona.CharaHungrySeaLion
+  - type: Level
+    level: 8
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 40000
+  - type: Chara
+    race: Elona.Ent
+    class: Elona.Predator
+  - type: Skills
+    skills:
+      Elona.ActionScavenge: 1
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaSuperHungrySeaLion
   parent: BaseChara
   hspIds:
     elona122: 313
-
+  components:
+  - type: Chip
+    id: Elona.CharaHungrySeaLion
+    color: '#FFE1E1'
+  - type: Level
+    level: 19
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 40000
+  - type: Chara
+    race: Elona.Ent
+    class: Elona.Predator
+  - type: Skills
+    skills:
+      Elona.ActionScavenge: 1
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaDeathGaze
   parent: BaseChara
   hspIds:
     elona122: 314
-
+  components:
+  - type: Chip
+    id: Elona.CharaMadGaze
+    color: '#FF9B9B'
+  - type: Level
+    level: 29
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 60000
+  - type: Chara
+    race: Elona.Eye
+    class: Elona.Predator
+  - type: Skills
+    skills:
+      Elona.ActionEyeOfMana: 1
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaChaosEye
   parent: BaseChara
   hspIds:
     elona122: 315
-
+  components:
+  - type: Chip
+    color: '#B99BD7'
+  - type: Level
+    level: 14
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 60000
+  - type: Chara
+    race: Elona.Eye
+    class: Elona.Predator
+  - type: Skills
+    skills:
+      Elona.ActionEyeOfMutation: 1
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaMadGaze
   parent: BaseChara
   hspIds:
     elona122: 316
-
+  components:
+  - type: Chip
+    id: Elona.CharaMadGaze
+    color: '#AFAFFF'
+  - type: Level
+    level: 7
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 60000
+  - type: Chara
+    race: Elona.Eye
+    class: Elona.Predator
+  - type: Skills
+    skills:
+      Elona.ActionEyeOfInsanity: 1
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaSilverEyedWitch
   parent: BaseChara
   hspIds:
     elona122: 317
-
+  components:
+  - type: Chip
+    id: Elona.CharaSilverEyedWitch
+  - type: Level
+    level: 28
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 50000
+  - type: Chara
+    race: Elona.Roran
+    class: Elona.Claymore
+    gender: Female
+  - type: Skills
+    skills:
+      Elona.ActionInsult: 1
+  - type: Faction
+    relation: Enemy
+  - type: Dialog
+    canTalk: true
+  - type: Tone
+    id: Elona.SilverEyedWitch
 - type: Entity
   id: Elona.CharaBigDaddy
   parent: BaseChara
   hspIds:
     elona122: 318
-
+  components:
+  - type: Chip
+    id: Elona.CharaBigDaddy
+  - type: Level
+    level: 30
+  - type: Quality
+    quality: Unique
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        fltselect: SpUnique
+        rarity: 50000
+  - type: Chara
+    race: Elona.Machinegod
+    class: Elona.Gunner
+    gender: Male
+  - type: Faction
+    relation: Neutral
+  - type: Dialog
+    canTalk: true
+  - type: Tone
+    id: Elona.BigDaddy
 - type: Entity
   id: Elona.CharaLittleSister
   parent: BaseChara
   hspIds:
     elona122: 319
-
+  components:
+  - type: Chip
+    id: Elona.CharaLittleSister
+  - type: Level
+    level: 1
+  - type: Quality
+    quality: Unique
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        fltselect: SpUnique
+        rarity: 50000
+  - type: Chara
+    race: Elona.Mutant
+    class: Elona.Tourist
+    gender: Female
+  - type: Faction
+    relation: Neutral
+  - type: Dialog
+    canTalk: true
+  - type: Tone
+    id: Elona.LittleSister
 - type: Entity
   id: Elona.CharaCleaner
   parent: BaseChara
   hspIds:
     elona122: 320
-
+  components:
+  - type: Chip
+    id: Elona.CharaCleaner
+  - type: Level
+    level: 32
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 100
+        fltselect: TownSp
+        rarity: 10000
+  - type: Tag
+    tags:
+    - Elona.TagCharaMan
+  - type: Chara
+    race: Elona.Norland
+    class: Elona.Gunner
+    gender: Male
+  - type: Faction
+    relation: Neutral
+  - type: Dialog
+    canTalk: true
+    portrait: Random
+  - type: Tone
+    id: Elona.Cleaner
 - type: Entity
   id: Elona.CharaHardGay
   parent: BaseChara
   hspIds:
     elona122: 321
-
+  components:
+  - type: Chip
+    id: Elona.CharaHardGay
+  - type: Level
+    level: 10
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 200
+        rarity: 15000
+  - type: Chara
+    race: Elona.Norland
+    class: Elona.Predator
+    gender: Male
+  - type: Skills
+    skills:
+      Elona.ActionSuicideAttack: 1
+  - type: Faction
+    relation: Enemy
+  - type: Dialog
+    canTalk: true
+  - type: Tone
+    id: Elona.HardGay
 - type: Entity
   id: Elona.CharaStrangeScientist
   parent: BaseChara
   hspIds:
     elona122: 322
-
+  components:
+  - type: Chip
+    id: Elona.CharaStrangeScientist
+  - type: Level
+    level: 15
+  - type: Quality
+    quality: Unique
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        fltselect: SpUnique
+        rarity: 50000
+  - type: Tag
+    tags:
+    - Elona.TagCharaMan
+  - type: Chara
+    race: Elona.Roran
+    class: Elona.Gunner
+    gender: Female
+  - type: Faction
+    relation: Neutral
+  - type: Dialog
+    canTalk: true
+    dialogID: Elona.StrangeScientist
+  - type: Tone
+    id: Elona.StrangeScientist
 - type: Entity
   id: Elona.CharaShade
   parent: BaseChara
   hspIds:
     elona122: 323
-
+  components:
+  - type: Chip
+    id: Elona.CharaShade
+  - type: Level
+    level: 12
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 0
+        rarity: 10000
+  - type: Tag
+    tags:
+    - Elona.TagCharaUndead
+  - type: Chara
+    race: Elona.Ghost
+    class: Elona.Predator
+  - type: Skills
+    skills:
+      Elona.ActionTouchOfFear: 1
+      Elona.ActionTouchOfWeakness: 1
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaQuickling
   parent: BaseChara
   hspIds:
     elona122: 324
-
+  components:
+  - type: Chip
+    color: '#D7FFD7'
+  - type: Level
+    level: 10
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 15000
+  - type: Chara
+    race: Elona.Quickling
+    class: Elona.Predator
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaQuicklingArcher
   parent: BaseChara
   hspIds:
     elona122: 325
-
+  components:
+  - type: Chip
+    color: '#FFD7AF'
+  - type: Level
+    level: 17
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 15000
+  - type: Chara
+    race: Elona.Quickling
+    class: Elona.Archer
+  - type: Skills
+    skills:
+      Elona.ActionInsult: 1
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaBard
   parent: BaseChara
   hspIds:
     elona122: 326
-
+  components:
+  - type: Chip
+    id: Elona.CharaBard
+  - type: Level
+    level: 16
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        fltselect: Shop
+        rarity: 2000
+  - type: Tag
+    tags:
+    - Elona.TagCharaMan
+  - type: Chara
+    race: Elona.Juere
+    class: Elona.Pianist
+  - type: Faction
+    relation: Dislike
+  - type: Dialog
+    canTalk: true
+    portrait: Random
+  - type: Tone
+    id: Elona.Bard
 - type: Entity
   id: Elona.CharaCube
   parent: BaseChara
   hspIds:
     elona122: 327
-
+  components:
+  - type: Chip
+    id: Elona.CharaCube
+  - type: Level
+    level: 52
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 15000
+  - type: Chara
+    race: Elona.Machine
+    class: Elona.Predator
+  - type: Skills
+    skills:
+      Elona.ActionEyeOfDimness: 1
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaSilverBell
   parent: BaseChara
   hspIds:
     elona122: 328
-
+  components:
+  - type: Chip
+  - type: Level
+    level: 3
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 0
+        rarity: 2000
+  - type: Chara
+    race: Elona.Metal
+    class: Elona.Predator
+  - type: Skills
+    skills:
+      Elona.ActionVanish: 1
+  - type: Faction
+    relation: Enemy
+  - type: Dialog
+    canTalk: true
 - type: Entity
   id: Elona.CharaGoldBell
   parent: BaseChara
   hspIds:
     elona122: 329
-
+  components:
+  - type: Chip
+    color: '#FFD7AF'
+  - type: Level
+    level: 1
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 0
+        rarity: 5000
+  - type: Chara
+    race: Elona.Metal
+    class: Elona.Predator
+  - type: Skills
+    skills:
+      Elona.ActionVanish: 1
+  - type: Faction
+    relation: Enemy
+  - type: Dialog
+    canTalk: true
 - type: Entity
   id: Elona.CharaAlien
   parent: BaseChara
   hspIds:
     elona122: 330
-
+  components:
+  - type: Chip
+    id: Elona.CharaAlien
+    color: '#E1E1FF'
+  - type: Level
+    level: 19
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 40000
+  - type: Tag
+    tags:
+    - Elona.TagCharaDragon
+  - type: Chara
+    race: Elona.Dinosaur
+    class: Elona.Predator
+  - type: Skills
+    skills:
+      Elona.ActionPregnant: 1
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaEhekatl
   parent: BaseChara
   hspIds:
     elona122: 331
-
+  components:
+  - type: Chip
+    id: Elona.CharaEhekatl
+  - type: Level
+    level: 350
+  - type: Quality
+    quality: Unique
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        fltselect: SpUnique
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaGod
+  - type: Chara
+    race: Elona.God
+    class: Elona.Warmage
+    gender: Female
+  - type: Skills
+    skills:
+      Elona.ActionMewmewmew: 1
+  - type: Faction
+    relation: Neutral
 - type: Entity
   id: Elona.CharaStrayCat
   parent: BaseChara
   hspIds:
     elona122: 332
-
+  components:
+  - type: Chip
+    id: Elona.CharaStrayCat
+    color: '#FFFFAF'
+  - type: Level
+    level: 9
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 0
+        rarity: 10000
+  - type: Tag
+    tags:
+    - Elona.TagCharaWild
+    - Elona.TagCharaCat
+  - type: Chara
+    race: Elona.Cat
+    class: Elona.Predator
+  - type: Faction
+    relation: Dislike
+  - type: Dialog
+    canTalk: true
+  - type: Tone
+    id: Elona.StrayCat
 - type: Entity
   id: Elona.CharaGuildTrainer
   parent: BaseChara
   hspIds:
     elona122: 333
-
+  components:
+  - type: Chip
+  - type: Level
+    level: 69
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        fltselect: Sp
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaMan
+  - type: Chara
+    race: Elona.Norland
+    class: Elona.Warrior
+  - type: Faction
+    relation: Neutral
+  - type: Dialog
+    canTalk: true
+    portrait: Random
+  - type: Tone
+    id: Elona.Trainer
 - type: Entity
   id: Elona.CharaMysteriousProducer
   parent: BaseChara
   hspIds:
     elona122: 334
-
+  components:
+  - type: Chip
+    id: Elona.CharaMysteriousProducer
+  - type: Level
+    level: 7
+  - type: Quality
+    quality: Unique
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        fltselect: SpUnique
+        rarity: 50000
+  - type: Tag
+    tags:
+    - Elona.TagCharaMan
+  - type: Chara
+    race: Elona.Juere
+    class: Elona.Tourist
+    gender: Male
+  - type: Faction
+    relation: Neutral
+  - type: Dialog
+    canTalk: true
+  - type: Tone
+    id: Elona.MysteriousProducer
 - type: Entity
   id: Elona.CharaProstitute
   parent: BaseChara
   hspIds:
     elona122: 335
-
+  components:
+  - type: Chip
+  - type: Level
+    level: 8
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        fltselect: TownSp
+        rarity: 2000
+  - type: Tag
+    tags:
+    - Elona.TagCharaMan
+  - type: Chara
+    race: Elona.Norland
+    class: Elona.Thief
+  - type: Faction
+    relation: Neutral
+  - type: Dialog
+    canTalk: true
+    portrait: Random
+  - type: Tone
+    id: Elona.Rogue
 - type: Entity
   id: Elona.CharaGodInsideEhekatl
   parent: BaseChara
   hspIds:
     elona122: 336
-
+  components:
+  - type: Chip
+    id: Elona.CharaEhekatl
+  - type: Level
+    level: 1200
+  - type: Quality
+    quality: Unique
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        fltselect: SpUnique
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaGod
+  - type: Chara
+    race: Elona.God
+    class: Elona.Warmage
+    gender: Female
+  - type: Skills
+    skills:
+      Elona.ActionDrainBlood: 1
+      Elona.ActionDrawShadow: 1
+      Elona.ActionPowerBreath: 1
+      Elona.SpellCrystalSpear: 1
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaPrisoner
   parent: BaseChara
   hspIds:
     elona122: 337
-
+  components:
+  - type: Chip
+  - type: Level
+    level: 3
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        fltselect: TownSp
+        rarity: 2000
+  - type: Tag
+    tags:
+    - Elona.TagCharaMan
+  - type: Chara
+    race: Elona.Norland
+    class: Elona.Thief
+  - type: Faction
+    relation: Dislike
+  - type: Dialog
+    canTalk: true
+    portrait: Random
+  - type: Tone
+    id: Elona.Prisoner
 - type: Entity
   id: Elona.CharaOpatos
   parent: BaseChara
   hspIds:
     elona122: 338
-
+  components:
+  - type: Chip
+    id: Elona.CharaOpatos
+  - type: Level
+    level: 350
+  - type: Quality
+    quality: Unique
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        fltselect: SpUnique
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaGod
+  - type: Chara
+    race: Elona.God
+    class: Elona.Warrior
+    gender: Male
+  - type: Skills
+    skills:
+      Elona.ActionMewmewmew: 1
+  - type: Faction
+    relation: Neutral
 - type: Entity
   id: Elona.CharaKumiromi
   parent: BaseChara
   hspIds:
     elona122: 339
-
+  components:
+  - type: Chip
+    id: Elona.CharaKumiromi
+  - type: Level
+    level: 350
+  - type: Quality
+    quality: Unique
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        fltselect: SpUnique
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaGod
+  - type: Chara
+    race: Elona.God
+    class: Elona.Farmer
+    gender: Male
+  - type: Skills
+    skills:
+      Elona.ActionMewmewmew: 1
+  - type: Faction
+    relation: Neutral
 - type: Entity
   id: Elona.CharaTest
   parent: BaseChara
   hspIds:
     elona122: 340
-
+  components:
+  - type: Chip
+  - type: Level
+    level: 1200
+  - type: Quality
+    quality: Unique
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        fltselect: SpUnique
+        rarity: 100000
+  - type: Chara
+    race: Elona.God
+    class: Elona.Warmage
+    gender: Male
+  - type: Skills
+    skills:
+      Elona.ActionDrainBlood: 1
+      Elona.ActionDrawShadow: 1
+      Elona.ActionPowerBreath: 1
+      Elona.SpellCrystalSpear: 1
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaMineDog
   parent: BaseChara
   hspIds:
     elona122: 341
-
+  components:
+  - type: Chip
+    id: Elona.CharaMineDog
+  - type: Level
+    level: 15
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 25000
+  - type: Chara
+    race: Elona.Machine
+    class: Elona.Predator
+  - type: Skills
+    skills:
+      Elona.ActionDropMine: 1
+      Elona.SpellGravity: 1
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaMani
   parent: BaseChara
   hspIds:
     elona122: 342
-
+  components:
+  - type: Chip
+    id: Elona.CharaMani
+  - type: Level
+    level: 350
+  - type: Quality
+    quality: Unique
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        fltselect: SpUnique
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaGod
+  - type: Chara
+    race: Elona.God
+    class: Elona.Gunner
+    gender: Male
+  - type: Skills
+    skills:
+      Elona.ActionMewmewmew: 1
+  - type: Faction
+    relation: Neutral
 - type: Entity
   id: Elona.CharaUser
   parent: BaseChara
   hspIds:
     elona122: 343
-
+  components:
+  - type: Chip
+    id: Elona.CharaHumanMale
+  - type: Level
+    level: 1
+  - type: Quality
+    quality: Unique
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        fltselect: SpUnique
+        rarity: 0
+  - type: Chara
+    race: Elona.God
+    class: Elona.Gunner
+    gender: Male
+  - type: Faction
+    relation: Neutral
 - type: Entity
   id: Elona.CharaMammoth
   parent: BaseChara
   hspIds:
     elona122: 344
-
+  components:
+  - type: Chip
+    id: Elona.CharaMammoth
+  - type: Level
+    level: 28
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 50000
+  - type: Tag
+    tags:
+    - Elona.TagCharaWild
+  - type: Chara
+    race: Elona.Bear
+    class: Elona.Predator
+  - type: Faction
+    relation: Enemy
 - type: Entity
   id: Elona.CharaKanedaBike
   parent: BaseChara
   hspIds:
     elona122: 345
-
+  components:
+  - type: Chip
+    id: Elona.CharaKanedaBike
+  - type: Level
+    level: 22
+  - type: Quality
+    quality: Unique
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        fltselect: SpUnique
+        rarity: 100000
+  - type: Chara
+    race: Elona.Bike
+    class: Elona.Predator
+  - type: Faction
+    relation: Neutral
+  - type: Dialog
+    canTalk: true
+    dialogID: Elona.KanedaBike
+  - type: Tone
+    id: Elona.KanedaBike
 - type: Entity
   id: Elona.CharaCub
   parent: BaseChara
   hspIds:
     elona122: 346
-
+  components:
+  - type: Chip
+    id: Elona.CharaBike
+  - type: Level
+    level: 8
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        rarity: 5000
+  - type: Chara
+    race: Elona.Bike
+    class: Elona.Predator
+  - type: Faction
+    relation: Dislike
+  - type: Dialog
+    canTalk: true
+  - type: Tone
+    id: Elona.Cub
 - type: Entity
   id: Elona.CharaFanatic
   parent: BaseChara
   hspIds:
     elona122: 347
-
+  components:
+  - type: Chip
+  - type: Level
+    level: 5
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        fltselect: Sp
+        rarity: 2000
+  - type: Tag
+    tags:
+    - Elona.TagCharaMan
+  - type: Chara
+    race: Elona.Norland
+    class: Elona.Wizard
+  - type: Skills
+    skills:
+      Elona.SpellHealingRain: 1
+  - type: Faction
+    relation: Dislike
+  - type: Dialog
+    canTalk: true
+    portrait: Random
+  - type: Tone
+    id: Elona.Fanatic
 - type: Entity
   id: Elona.CharaPartTimeWorker
   parent: BaseChara
   hspIds:
     elona122: 348
-
+  components:
+  - type: Chip
+    id: Elona.CharaPartTimeWorker
+  - type: Level
+    level: 35
+  - type: Quality
+    quality: Unique
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        fltselect: SpUnique
+        rarity: 2000
+  - type: Tag
+    tags:
+    - Elona.TagCharaMan
+  - type: Chara
+    race: Elona.Norland
+    class: Elona.Pianist
+  - type: Faction
+    relation: Neutral
+  - type: Dialog
+    canTalk: true
+    dialogID: Elona.PartTimeWorker
+  - type: Tone
+    id: Elona.PartTimeWorker
 - type: Entity
   id: Elona.CharaHolyBeast
   parent: BaseChara
   hspIds:
     elona122: 349
-
+  components:
+  - type: Chip
+    id: Elona.CharaHolyBeast
+  - type: Level
+    level: 12
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        fltselect: Sp
+        rarity: 2000
+  - type: Tag
+    tags:
+    - Elona.TagCharaMan
+    - Elona.TagCharaGod
+  - type: Chara
+    race: Elona.Norland
+    class: Elona.Tourist
+  - type: Faction
+    relation: Dislike
+  - type: Dialog
+    canTalk: true
+  - type: Tone
+    id: Elona.HolyBeast
 - type: Entity
   id: Elona.CharaFestivalTourist
   parent: BaseChara
   hspIds:
     elona122: 350
-
+  components:
+  - type: Chip
+    color: '#FFFFFF'
+  - type: Level
+    level: 10
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        fltselect: Sp
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaMan
+  - type: Chara
+    race: Elona.Yerles
+    class: Elona.Gunner
+  - type: Faction
+    relation: Dislike
+  - type: Dialog
+    canTalk: true
+    portrait: Random
+  - type: Tone
+    id: Elona.FestivalTourist
 - type: Entity
   id: Elona.CharaTheLeopardWarrior
   parent: BaseChara
   hspIds:
     elona122: 351
-
+  components:
+  - type: Chip
+    id: Elona.CharaTheLeopardWarrior
+  - type: Level
+    level: 130
+  - type: Quality
+    quality: Unique
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        fltselect: SpUnique
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaMan
+  - type: Chara
+    race: Elona.Cat
+    class: Elona.Warrior
+    gender: Male
+  - type: Skills
+    skills:
+      Elona.BuffBoost: 1
+  - type: Faction
+    relation: Neutral
+  - type: Dialog
+    canTalk: true
+  - type: Tone
+    id: Elona.TheLeopardWarrior
 - type: Entity
   id: Elona.CharaSilvia
   parent: BaseChara
   hspIds:
     elona122: 352
-
+  components:
+  - type: Chip
+    id: Elona.CharaSilvia
+  - type: Level
+    level: 1
+  - type: Quality
+    quality: Unique
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        fltselect: SpUnique
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaMan
+  - type: Chara
+    race: Elona.Norland
+    class: Elona.Tourist
+    gender: Female
+  - type: Faction
+    relation: Neutral
+  - type: Dialog
+    canTalk: true
+  - type: Tone
+    id: Elona.Silvia
 - type: Entity
   id: Elona.CharaCaravanMaster
   parent: BaseChara
   hspIds:
     elona122: 353
+  components:
+  - type: Chip
+    id: Elona.CharaCaravanMaster
+  - type: Level
+    level: 22
+  - type: RandomGen
+    tables:
+      chara:
+        coefficient: 400
+        fltselect: Sp
+        rarity: 100000
+  - type: Tag
+    tags:
+    - Elona.TagCharaMan
+  - type: Chara
+    race: Elona.Juere
+    class: Elona.Gunner
+  - type: Faction
+    relation: Neutral
+  - type: Dialog
+    portrait: Random
+...
