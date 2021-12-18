@@ -35,6 +35,9 @@
   hspIds:
     elona122: 21
   components:
+    - type: Spatial
+      isSolid: true
+      isOpaque: true
     - type: Door
 
 - type: Entity
@@ -102,6 +105,9 @@
     elona122: 23
   hspCellObjIds:
     elona122: [8]
+  components:
+  - type: Spatial
+    isSolid: true
 
 - type: Entity
   id: Elona.FeatPlant
@@ -114,6 +120,9 @@
   parent: BaseFeat
   hspIds:
     elona122: 30
+  components:
+  - type: Spatial
+    isSolid: true
 
 - type: Entity
   id: Elona.FeatVotingBox
@@ -122,6 +131,9 @@
     elona122: 31
   hspCellObjIds:
     elona122: [9]
+  components:
+  - type: Spatial
+    isSolid: true
 
 - type: Entity
   id: Elona.FeatSmallMedal
@@ -138,10 +150,16 @@
     elona122: 33
   hspCellObjIds:
     elona122: [12]
+  components:
+  - type: Spatial
+    isSolid: true
 
 - id: Elona.FeatMapgenBlock
   parent: BaseFeat
   type: Entity
+  components:
+  - type: Spatial
+    isSolid: true
 
 - id: Elona.FeatLockedHatch
   parent: BaseFeat

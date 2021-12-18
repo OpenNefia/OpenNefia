@@ -59,7 +59,7 @@
   hspEntityType: feat
   components:
   - type: Spatial
-    isSolid: true
+    isSolid: false
     isOpaque: false
 
 - type: Entity
