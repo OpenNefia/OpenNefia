@@ -28,7 +28,7 @@
   <Import Project="..\MSBuild\OpenNefia.DefineConstants.targets" />
 
   <ItemGroup>
-    <ProjectReference Include="..\..\OpenNefia.NET\Thirdparty\CSharpRepl\CSharpRepl\CSharpRepl.csproj" />
+    <ProjectReference Include="..\Thirdparty\CSharpRepl\CSharpRepl\CSharpRepl.csproj" />
     <ProjectReference Include="..\OpenNefia.Analyzers\OpenNefia.Analyzers.csproj" />
     <ProjectReference Include="..\Thirdparty\Love2dCS\project_dotnet\project_dotnet.csproj" />
     <ProjectReference Include="..\Thirdparty\odin-serializer\OdinSerializer\OdinSerializerNetCore.csproj" />
