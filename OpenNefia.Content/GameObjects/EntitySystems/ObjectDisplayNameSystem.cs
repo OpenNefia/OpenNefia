@@ -1,4 +1,5 @@
-﻿using OpenNefia.Core.GameObjects;
+﻿using OpenNefia.Analyzers;
+using OpenNefia.Core.GameObjects;
 
 namespace OpenNefia.Content.GameObjects
 {
@@ -29,6 +30,7 @@ namespace OpenNefia.Content.GameObjects
         }
     }
 
+    [EventArgsUsage(EventArgsTargets.ByRef)]
     public struct GetItemNameEvent
     {
         public string ItemName = string.Empty;
