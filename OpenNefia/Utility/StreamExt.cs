@@ -85,21 +85,13 @@ namespace OpenNefia.Core.Utility
             }
         }
 
-        public static IEnumerable<string> ReadLines(this Stream stream, Encoding encoding)
+        public static IEnumerable<string> ReadLines(this StreamReader reader)
         {
-            using (var reader = new StreamReader(stream, encoding))
+            string? line;
+            while ((line = reader.ReadLine()) != null)
             {
-                string? line;
-                while ((line = reader.ReadLine()) != null)
-                {
-                    yield return line;
-                }
+                yield return line;
             }
-        }
-
-        public static IEnumerable<string> ReadLines(this Stream stream)
-        {
-            return ReadLines(stream, EncodingHelpers.UTF8);
         }
     }
 }

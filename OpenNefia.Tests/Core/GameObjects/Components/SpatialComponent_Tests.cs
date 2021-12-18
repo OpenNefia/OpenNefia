@@ -52,7 +52,7 @@ namespace OpenNefia.Tests.Core.GameObjects.Components
 
             IoCManager.Resolve<ISerializationManager>().Initialize();
             var manager = IoCManager.Resolve<IPrototypeManager>();
-            manager.RegisterType(typeof(EntityPrototype));
+            manager.RegisterType<EntityPrototype>();
             manager.LoadFromStream(new StringReader(PROTOTYPES));
             manager.Resync();
 

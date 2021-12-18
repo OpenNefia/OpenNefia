@@ -30,7 +30,7 @@ public class StackableComponent_Tests : OpenNefiaUnitTest
 
         IoCManager.Resolve<ISerializationManager>().Initialize();
         var prototypeManager = IoCManager.Resolve<IPrototypeManager>();
-        prototypeManager.RegisterType(typeof(EntityPrototype));
+        prototypeManager.RegisterType<EntityPrototype>();
         prototypeManager.LoadFromStream(new StringReader(Prototypes));
         prototypeManager.Resync();
     }

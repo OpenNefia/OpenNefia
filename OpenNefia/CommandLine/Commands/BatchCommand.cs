@@ -42,23 +42,26 @@ namespace OpenNefia.Core.CommandLine.Commands
         {
             using (var stream = File.OpenRead(BatchFilePath))
             {
-                foreach (var line in stream.ReadLines())
+                using (var streamReader = new StreamReader(stream, EncodingHelpers.UTF8))
                 {
-                    var args = ParseArguments(line);
-                    if (_commandLineController.TryParseCommand(args, out var cmd))
+                    foreach (var line in streamReader.ReadLines())
                     {
-                        if (cmd.CanRunInBatchMode)
+                        var args = ParseArguments(line);
+                        if (_commandLineController.TryParseCommand(args, out var cmd))
                         {
-                            cmd.Execute();
+                            if (cmd.CanRunInBatchMode)
+                            {
+                                cmd.Execute();
+                            }
+                            else
+                            {
+                                Logger.ErrorS("cli.batch", $"Cannot run command in batch mode: '{line}'");
+                            }
                         }
                         else
                         {
-                            Logger.ErrorS("cli.batch", $"Cannot run command in batch mode: '{line}'");
+                            Logger.ErrorS("cli.batch", $"Could not parse command: '{line}'");
                         }
-                    }
-                    else
-                    {
-                        Logger.ErrorS("cli.batch", $"Could not parse command: '{line}'");
                     }
                 }
             }

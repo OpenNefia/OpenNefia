@@ -168,7 +168,7 @@ namespace OpenNefia.Tests.Core.GameObjects
 
             IoCManager.Resolve<ISerializationManager>().Initialize();
             var prototypeManager = IoCManager.Resolve<IPrototypeManager>();
-            prototypeManager.RegisterType(typeof(EntityPrototype));
+            prototypeManager.RegisterType<EntityPrototype>();
             prototypeManager.LoadFromStream(new StringReader(Prototypes));
             prototypeManager.Resync();
         }

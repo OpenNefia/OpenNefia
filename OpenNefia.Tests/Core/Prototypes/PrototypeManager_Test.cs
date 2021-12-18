@@ -24,7 +24,7 @@ namespace OpenNefia.Tests.Core.Prototypes
 
             IoCManager.Resolve<ISerializationManager>().Initialize();
             manager = IoCManager.Resolve<IPrototypeManager>();
-            manager.RegisterType(typeof(EntityPrototype));
+            manager.RegisterType<EntityPrototype>();
             manager.LoadString(DOCUMENT);
             manager.Resync();
         }

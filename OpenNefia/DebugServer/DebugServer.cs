@@ -10,6 +10,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Serialization;
 using System.Net.Sockets;
+using System.Text.RegularExpressions;
 
 namespace OpenNefia.Core.DebugServer
 {
@@ -20,14 +21,23 @@ namespace OpenNefia.Core.DebugServer
         void Shutdown();
     }
 
+    /// <summary>
+    /// A server for running C# code in debug builds of the game.
+    /// 
+    /// Clients connect via TCP and send JSON messages as a single line, where
+    /// a newline indicates the message is finished. The same convention is used
+    /// by the server.
+    /// 
+    /// This purposely avoids async to be able to access IoC things on the main 
+    /// thread. It is a stop-the-world sort of setup for debugging purposes only.
+    /// </summary>
     internal class DebugServer : IDebugServer
     {
 #if !FULL_RELEASE
         [Dependency] private readonly IReplExecutor _replExecutor = default!;
-        [Dependency] private readonly ITaskManager taskManager = default!;
 
-        private HttpListener? _httpListener;
 #endif
+        private TcpListener? _server;
 
         private readonly JsonSerializerSettings _jsonSettings = new()
         {
@@ -35,164 +45,104 @@ namespace OpenNefia.Core.DebugServer
             ContractResolver = new DefaultContractResolver
             {
                 NamingStrategy = new CamelCaseNamingStrategy()
-            }
+            },
+            Formatting = Formatting.None
         };
 
         public void Startup()
         {
 #if !FULL_RELEASE
-            if (!HttpListener.IsSupported)
+            // Data buffer for incoming data.  
+
+            var ipAddress = IPAddress.Parse("127.0.0.1");
+            var port = 4567;
+            var endpoint = new IPEndPoint(ipAddress, port);
+
+            try
             {
-                Logger.ErrorS("debugserver", $"{nameof(HttpListener)} not supported!");
+                _server = new TcpListener(endpoint);
+                _server.Start();
+                Logger.InfoS(CommonSawmills.DebugServer, $"Listening on {endpoint}");
+            }
+            catch (Exception e)
+            {
+                Logger.ErrorS(CommonSawmills.DebugServer, e, "Failed to start debug server!");
+                _server = null;
                 return;
             }
-
-            var port = 4567;
-
-            // Create a listener.
-            _httpListener = new HttpListener();
-            _httpListener.Prefixes.Add($"http://localhost:{port}/");
-            _httpListener.Start();
-            Logger.InfoS("debugserver", $"Debug server started on port {port}");
 #endif
         }
 
         public void CheckForRequests()
         {
 #if !FULL_RELEASE
-            if (_httpListener == null)
+            if (_server == null)
                 return;
 
-            _httpListener.GetContextAsync();
-            var context = _httpListener.BeginGetContext(new AsyncCallback(ListenerCallback), _httpListener);
-            bool success = context.AsyncWaitHandle.WaitOne(0, true);
+            if (!_server.Pending())
+                return;
+            
+            try
+            {
+                using (var client = _server.AcceptTcpClient())
+                {
+                    Logger.DebugS(CommonSawmills.DebugServer, "client connected");
+
+                    // Get a stream object for reading and writing
+                    using (var stream = client.GetStream())
+                    {
+                        string? json;
+                        var reader = new StreamReader(stream, EncodingHelpers.UTF8);
+                        // NOTE: The client must send all JSON with escaped newlines.
+                        // A newline in the stream means the message is finished.
+                        json = reader.ReadLine();
+
+                        if (json == null)
+                        {
+                            Logger.WarningS(CommonSawmills.DebugServer, "Client did not send data");
+                            return;
+                        }
+
+                        Logger.DebugS(CommonSawmills.DebugServer, $"client request: {json.Length} bytes");
+
+                        var response = Process(json);
+
+                        Logger.DebugS(CommonSawmills.DebugServer, $"server response: {response.Length} bytes");
+
+                        if (stream.CanWrite)
+                        {
+                            using (var writer = new StreamWriter(stream, EncodingHelpers.UTF8))
+                            {
+                                writer.Write(response);
+                            }
+
+                        }
+                        else
+                        {
+                            Logger.WarningS(CommonSawmills.DebugServer, "cannot send response!");
+                        }
+                    }
+
+                    client.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.ErrorS(CommonSawmills.DebugServer, ex, "Failed to connect to debug server client");
+            }
+
 #endif
-        }
+}
 
         public void Shutdown()
         {
 #if !FULL_RELEASE
-            _httpListener?.Stop();
+            _server?.Stop();
+            _server = null;
 #endif
         }
 
-        private void Dood()
-        {
-            // Data buffer for incoming data.  
-            byte[] bytes = new Byte[1024];
-
-            // Establish the local endpoint for the socket.  
-            // Dns.GetHostName returns the name of the
-            // host running the application.  
-            IPHostEntry ipHostInfo = Dns.GetHostEntry(Dns.GetHostName());
-            IPAddress ipAddress = ipHostInfo.AddressList[0];
-            IPEndPoint localEndPoint = new IPEndPoint(ipAddress, 11000);
-
-            // Create a TCP/IP socket.  
-            Socket listener = new Socket(ipAddress.AddressFamily,
-                SocketType.Stream, ProtocolType.Tcp);
-
-            // Bind the socket to the local endpoint and
-            // listen for incoming connections.  
-            try
-            {
-                listener.Bind(localEndPoint);
-                listener.Listen(10);
-
-                // Start listening for connections.  
-                while (true)
-                {
-                    listener.Blocking = false;
-                    Console.WriteLine("Waiting for a connection...");
-                    // Program is suspended while waiting for an incoming connection.  
-                    Socket handler = listener.Accept();
-                    var data = "";
-
-                    // An incoming connection needs to be processed.  
-                    while (true)
-                    {
-                        int bytesRec = handler.Receive(bytes);
-                        data += EncodingHelpers.UTF8.GetString(bytes, 0, bytesRec);
-                        if (data.IndexOf("<EOF>") > -1)
-                        {
-                            break;
-                        }
-                    }
-
-                    // Show the data on the console.  
-                    Console.WriteLine("Text received : {0}", data);
-
-                    // Echo the data back to the client.  
-                    byte[] msg = EncodingHelpers.UTF8.GetBytes(data);
-
-                    handler.Send(msg);
-                    handler.Shutdown(SocketShutdown.Both);
-                    handler.Close();
-                }
-
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.ToString());
-            }
-
-            Console.WriteLine("\nPress ENTER to continue...");
-            Console.Read();
-
-        }
-
-        private void ListenerCallback(IAsyncResult result)
-        {
-            var listener = (HttpListener)result.AsyncState!;
-
-            // Use EndGetContext to complete the asynchronous operation.
-            var context = listener.EndGetContext(result);
-            var request = context.Request;
-
-            var input = request.InputStream.CopyToArray();
-            var json = EncodingHelpers.UTF8.GetString(input);
-            request.InputStream.Close();
-
-            // Get response object.
-            var response = context.Response;
-            response.ContentType = "application/json";
-            response.KeepAlive = false;
-
-            string responseString;
-            ICommandResult commandResult;
-
-            if (request.HttpMethod == HttpMethod.Post.Method)
-            {
-                try
-                {
-                    commandResult = Process(json);
-                }
-                catch (Exception ex)
-                {
-                    commandResult = new SerializedError(ex);
-                    response.StatusCode = 400;
-                }
-            }
-            else
-            {
-                commandResult = new SerializedError("Not found");
-                response.StatusCode = 400;
-            }
-
-            response.StatusCode = (int)(commandResult.Success ? HttpStatusCode.OK : HttpStatusCode.InternalServerError);
-            responseString = JsonConvert.SerializeObject(commandResult, _jsonSettings);
-
-            // Construct a response. 
-            var buffer = EncodingHelpers.UTF8.GetBytes(responseString);
-
-            // Write to response stream.
-            response.ContentLength64 = buffer.Length;
-            var output = response.OutputStream;
-            output.Write(buffer, 0, buffer.Length);
-
-            // Close the output stream.
-            output.Close();
-        }
+        #region Processing
 
         private interface ICommandResult
         {
@@ -203,7 +153,7 @@ namespace OpenNefia.Core.DebugServer
         {
             public bool Success => false;
 
-            public string Message { get; }
+            public string Message { get; set; }
 
             public SerializedError(Exception ex)
             {
@@ -216,7 +166,26 @@ namespace OpenNefia.Core.DebugServer
             }
         }
 
-        private ICommandResult Process(string json)
+        // JSON request -> JSON response
+        private string Process(string json)
+        {
+            string responseString;
+            ICommandResult commandResult;
+          
+            try
+            {
+                commandResult = RunCommand(json);
+            }
+            catch (Exception ex)
+            {
+                commandResult = new SerializedError(ex);
+            }
+          
+            return JsonConvert.SerializeObject(commandResult, _jsonSettings);
+
+        }
+
+        private ICommandResult RunCommand(string json)
         {
             // FIXME: tagged unions please...
             var jobject = JObject.Parse(json);
@@ -226,31 +195,40 @@ namespace OpenNefia.Core.DebugServer
                 throw new InvalidOperationException("No command specified.");
             }
 
+            var args = jobject["args"];
+            if (args == null)
+            {
+                throw new InvalidOperationException("No args specified.");
+            }
+
             var commandStr = command.ToObject<string>();
+            var argsStr = args.ToString();
 
             switch (commandStr)
             {
                 case CommandExecOptions.Name:
-                    var opts = JsonConvert.DeserializeObject<CommandExecOptions>(json, _jsonSettings)!;
+                    var opts = JsonConvert.DeserializeObject<CommandExecOptions>(argsStr, _jsonSettings)!;
                     return CommandExec(opts);
                 default:
                     throw new InvalidOperationException($"Invalid command '{commandStr}'.");
             }
         }
 
+        #endregion
+
+        #region Commands
+
         private class CommandExecOptions
         {
             public const string Name = "exec";
 
-            public string Command { get; } = default!;
-
-            public string Script { get; } = default!;
+            public string Script { get; set; } = string.Empty;
         }
         private class CommandExecResult : ICommandResult
         {
             public bool Success => true;
 
-            public string Result { get; }
+            public string Result { get; set; }
 
             public CommandExecResult(string result)
             {
@@ -261,17 +239,23 @@ namespace OpenNefia.Core.DebugServer
         private CommandExecResult CommandExec(CommandExecOptions opts)
         {
             _replExecutor.Initialize();
-            var result = _replExecutor.Execute(opts.Script);
+            var script = Regex.Unescape(opts.Script);
+            var result = _replExecutor.Execute(script);
+
 
             switch (result)
             {
                 case ReplExecutionResult.Success success:
+                    Logger.InfoS(CommonSawmills.DebugServer, $"Exec result: {success.Result}");
                     return new CommandExecResult(success.Result);
                 case ReplExecutionResult.Error err:
+                    Logger.WarningS(CommonSawmills.DebugServer, $"Exec error: {err.Exception.Message}");
                     throw err.Exception;
                 default:
                     throw new InvalidOperationException("Exec failed");
             }
         }
+
+        #endregion
     }
 }

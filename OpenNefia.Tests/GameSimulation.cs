@@ -26,8 +26,7 @@ using System.Threading.Tasks;
 
 namespace OpenNefia.Tests
 {
-    [PublicAPI]
-    internal interface ISimulationFactory
+    public interface ISimulationFactory
     {
         ISimulationFactory RegisterComponents(CompRegistrationDelegate factory);
         ISimulationFactory RegisterDependencies(DiContainerDelegate factory);
@@ -36,8 +35,7 @@ namespace OpenNefia.Tests
         ISimulation InitializeInstance();
     }
 
-    [PublicAPI]
-    internal interface ISimulation
+    public interface ISimulation
     {
         IDependencyCollection Collection { get; }
 
@@ -56,15 +54,15 @@ namespace OpenNefia.Tests
         IMap? ActiveMap { get; }
     }
 
-    internal delegate void DiContainerDelegate(IDependencyCollection diContainer);
+    public delegate void DiContainerDelegate(IDependencyCollection diContainer);
 
-    internal delegate void CompRegistrationDelegate(IComponentFactory factory);
+    public delegate void CompRegistrationDelegate(IComponentFactory factory);
 
-    internal delegate void EntitySystemRegistrationDelegate(IEntitySystemManager systemMan);
+    public delegate void EntitySystemRegistrationDelegate(IEntitySystemManager systemMan);
 
-    internal delegate void PrototypeRegistrationDelegate(IPrototypeManager protoMan);
+    public delegate void PrototypeRegistrationDelegate(IPrototypeManager protoMan);
 
-    internal class GameSimulation : ISimulation, ISimulationFactory
+    public class GameSimulation : ISimulation, ISimulationFactory
     {
         private DiContainerDelegate? _diFactory;
         private CompRegistrationDelegate? _regDelegate;
@@ -216,7 +214,7 @@ namespace OpenNefia.Tests
             container.Resolve<ISerializationManager>().Initialize();
 
             var protoMan = container.Resolve<IPrototypeManager>();
-            protoMan.RegisterType(typeof(EntityPrototype));
+            protoMan.RegisterType<EntityPrototype>();
             _protoDelegate?.Invoke(protoMan);
             protoMan.Resync();
 

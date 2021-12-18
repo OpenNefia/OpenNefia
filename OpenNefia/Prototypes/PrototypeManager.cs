@@ -155,6 +155,13 @@ namespace OpenNefia.Core.Prototypes
         /// <summary>
         /// Loads a single prototype class type into the manager.
         /// </summary>
+        /// <typeparam name="T">A prototype class type that implements IPrototype. This type also
+        /// requires a <see cref="PrototypeAttribute"/> with a non-empty class string.</typeparam>
+        void RegisterType<T>() where T: IPrototype;
+
+        /// <summary>
+        /// Loads a single prototype class type into the manager.
+        /// </summary>
         /// <param name="protoClass">A prototype class type that implements IPrototype. This type also
         /// requires a <see cref="PrototypeAttribute"/> with a non-empty class string.</param>
         void RegisterType(Type protoClass);
@@ -764,6 +771,11 @@ namespace OpenNefia.Core.Prototypes
         public bool TryGetVariantFrom(IPrototype prototype, [NotNullWhen(true)] out string? variant)
         {
             return TryGetVariantFrom(prototype.GetType(), out variant);
+        }
+
+        public void RegisterType<T>() where T: IPrototype
+        {
+            RegisterType(typeof(T));
         }
 
         /// <inheritdoc />

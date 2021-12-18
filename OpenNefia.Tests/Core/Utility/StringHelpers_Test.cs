@@ -22,8 +22,8 @@ namespace OpenNefia.Tests.Core.Utility
         [Test]
         public void TestWideSub()
         {
-            Assert.That("abcdÆ".WideSubstring(0, 3), Is.EqualTo("abcde".Substring(0, 3)));
-            Assert.That("abcdÆ".WideSubstring(2, 3), Is.EqualTo("abcde".Substring(2, 3)));
+            Assert.That("abcdÆ".WideSubstring(0, 3), Is.EqualTo("abcdÆ".Substring(0, 3)));
+            Assert.That("abcdÆ".WideSubstring(2, 3), Is.EqualTo("abcdÆ".Substring(2, 3)));
             Assert.That("ほげaぴよ".WideSubstring(0, 0), Is.EqualTo(""));
             Assert.That("ほげaぴよ".WideSubstring(0, 1), Is.EqualTo(""));
             Assert.That("ほげaぴよ".WideSubstring(0, 2), Is.EqualTo("ほ"));

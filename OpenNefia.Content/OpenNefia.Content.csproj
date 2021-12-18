@@ -9,6 +9,10 @@
   </PropertyGroup>
 	
   <Import Project="..\MSBuild\OpenNefia.DefineConstants.targets" />
+	
+  <ItemGroup>
+    <Compile Remove="Scratch.cs" />
+  </ItemGroup>
   
 	<ItemGroup>
     <ProjectReference Include="..\OpenNefia\OpenNefia.Core.csproj" />
