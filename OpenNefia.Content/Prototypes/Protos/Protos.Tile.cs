@@ -6,6 +6,8 @@ namespace OpenNefia.Content.Prototypes
     {
         public static class Tile
         {
+            public static readonly TilePrototypeId Empty = new($"Empty");
+
             public static readonly TilePrototypeId WorldGrass = new($"Elona.WorldGrass");
             public static readonly TilePrototypeId WorldSmallTrees1 = new($"Elona.WorldSmallTrees1");
             public static readonly TilePrototypeId WorldSmallTrees2 = new($"Elona.WorldSmallTrees2");

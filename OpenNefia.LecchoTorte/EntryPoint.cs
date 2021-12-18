@@ -4,10 +4,14 @@ using OpenNefia.Core.GameController;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Log;
 
-namespace OpenNefia.Content
+namespace OpenNefia.LecchoTorte
 {
     /// <summary>
-    /// second-system syndrome is now in effect
+    /// LecchoTorte is a mod for OpenNefia containing nonsensical desserts.
+    /// 
+    /// In other words, it is a dumping ground for half-baked ideas
+    /// that should not be a part of the official release, but are
+    /// amusing to work on in themselves.
     /// </summary>
     public class EntryPoint : ModEntryPoint
     {
@@ -17,16 +21,10 @@ namespace OpenNefia.Content
 
         public override void Init()
         {
-            ContentIoC.Register();
-            IoCManager.BuildGraph();
         }
 
         public override void PostInit()
         {
-            var gc = IoCManager.Resolve<IGameController>();
-            var mainTitle = IoCManager.Resolve<IMainTitleLogic>();
-
-            gc.MainCallback += () => mainTitle.RunTitleScreen();
         }
     }
 }

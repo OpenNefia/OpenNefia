@@ -1,0 +1,19 @@
+- type: Chip
+  id: LecchoTorte.Blank
+  image:
+    filepath: /Core/Graphic/Chip/Default.png
+
+- type: Entity
+  id: LecchoTorte.LivingWall
+  parent: BaseChara
+  components:
+  - type: Chip
+    id: LecchoTorte.Blank
+  - type: Level
+    level: 1
+  - type: Chara
+    race: Elona.Golem
+    class: Elona.Predator
+  - type: Faction
+    relation: Enemy
+  - type: LivingWall

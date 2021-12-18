@@ -9,10 +9,12 @@
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <Copy SourceFiles="$(TargetDir)OpenNefia.Content.dll" DestinationFolder="$(TargetDir)Assets/Assemblies" />
+    <Copy SourceFiles="$(TargetDir)OpenNefia.LecchoTorte.dll" DestinationFolder="$(TargetDir)Assets/Assemblies" />
   </Target>
 
   <ItemGroup>
     <ProjectReference Include="..\OpenNefia.Content\OpenNefia.Content.csproj" />
+    <ProjectReference Include="..\OpenNefia.LecchoTorte\OpenNefia.LecchoTorte.csproj" />
     <ProjectReference Include="..\OpenNefia\OpenNefia.Core.csproj" />
   </ItemGroup>
 

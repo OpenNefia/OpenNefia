@@ -226,7 +226,8 @@ namespace OpenNefia.Core.GameObjects
 
             var spatial = GetComponent<SpatialComponent>(uid);
             var metadata = GetComponent<MetaDataComponent>(uid);
-            GetComponent<MetaDataComponent>(uid).EntityLifeStage = EntityLifeStage.Terminating;
+            metadata.EntityLifeStage = EntityLifeStage.Terminating;
+            metadata.Liveness = EntityGameLiveness.DeadAndBuried;
 
             EventBus.RaiseLocalEvent(uid, ref EntityTerminating, false);
 

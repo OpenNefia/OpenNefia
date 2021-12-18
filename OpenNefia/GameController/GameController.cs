@@ -121,6 +121,8 @@ namespace OpenNefia.Core.GameController
         internal static void SetupLogging(ILogManager logManager, Func<ILogHandler> logHandlerFactory)
         {
             logManager.RootSawmill.AddHandler(logHandlerFactory());
+
+            logManager.GetSawmill("repl.exec").Level = LogLevel.Info;
         }
 
         /// <summary>
