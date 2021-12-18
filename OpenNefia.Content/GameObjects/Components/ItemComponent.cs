@@ -14,10 +14,22 @@ namespace OpenNefia.Content.GameObjects
         public override string Name => "Item";
 
         [DataField]
-        public int Value { get; set;  }
+        public int Value { get; set; } = 0;
+
+        [DataField]
+        public int IdentifyDifficulty { get; set; } = 0;
+
+        [DataField]
+        public int Weight { get; set; } = 0;
+
+        [DataField]
+        public string? Material { get; set; }
 
         [DataField]
         public ItemOwnState OwnState { get; set; }
+
+        [DataField("originalnameref2")]
+        public string? OriginalNameRef2 { get; set; }
 
         public void FromHspItem(ItemOwnState ownState)
         {

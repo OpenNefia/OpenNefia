@@ -1,3 +1,4 @@
+---
 - type: Entity
   id: Elona.ItemBug
   parent: BaseItem
@@ -14,8 +15,8 @@
     weight: 1
   - type: Tag
     tags:
-    - category:Elona.Bug
-    - category:Elona.NoGenerate
+    - Elona.ItemBug
+    - Elona.ItemNoGenerate
     - Elona.NoWish
   - type: RandomGen
     tables:
@@ -40,8 +41,8 @@
     material: Elona.Metal
   - type: Tag
     tags:
-    - category:Elona.EquipMeleeLongSword
-    - category:Elona.EquipMelee
+    - Elona.ItemEquipMeleeLongSword
+    - Elona.ItemEquipMelee
 - type: Entity
   id: Elona.ItemDagger
   parent: BaseItem
@@ -59,8 +60,8 @@
     material: Elona.Metal
   - type: Tag
     tags:
-    - category:Elona.EquipMeleeShortSword
-    - category:Elona.EquipMelee
+    - Elona.ItemEquipMeleeShortSword
+    - Elona.ItemEquipMelee
 - type: Entity
   id: Elona.ItemHandAxe
   parent: BaseItem
@@ -78,8 +79,8 @@
     material: Elona.Metal
   - type: Tag
     tags:
-    - category:Elona.EquipMeleeHandAxe
-    - category:Elona.EquipMelee
+    - Elona.ItemEquipMeleeHandAxe
+    - Elona.ItemEquipMelee
 - type: Entity
   id: Elona.ItemClub
   parent: BaseItem
@@ -97,8 +98,8 @@
     material: Elona.Metal
   - type: Tag
     tags:
-    - category:Elona.EquipMeleeClub
-    - category:Elona.EquipMelee
+    - Elona.ItemEquipMeleeClub
+    - Elona.ItemEquipMelee
 - type: Entity
   id: Elona.ItemMagicHat
   parent: BaseItem
@@ -116,8 +117,8 @@
     material: Elona.Soft
   - type: Tag
     tags:
-    - category:Elona.EquipHeadHat
-    - category:Elona.EquipHead
+    - Elona.ItemEquipHeadHat
+    - Elona.ItemEquipHead
 - type: Entity
   id: Elona.ItemFairyHat
   parent: BaseItem
@@ -135,8 +136,8 @@
     material: Elona.Soft
   - type: Tag
     tags:
-    - category:Elona.EquipHeadHat
-    - category:Elona.EquipHead
+    - Elona.ItemEquipHeadHat
+    - Elona.ItemEquipHead
 - type: Entity
   id: Elona.ItemBreastplate
   parent: BaseItem
@@ -154,8 +155,8 @@
     material: Elona.Metal
   - type: Tag
     tags:
-    - category:Elona.EquipBodyMail
-    - category:Elona.EquipBody
+    - Elona.ItemEquipBodyMail
+    - Elona.ItemEquipBody
 - type: Entity
   id: Elona.ItemRobe
   parent: BaseItem
@@ -173,8 +174,8 @@
     material: Elona.Soft
   - type: Tag
     tags:
-    - category:Elona.EquipBodyRobe
-    - category:Elona.EquipBody
+    - Elona.ItemEquipBodyRobe
+    - Elona.ItemEquipBody
 - type: Entity
   id: Elona.ItemDecoratedGloves
   parent: BaseItem
@@ -192,8 +193,8 @@
     material: Elona.Soft
   - type: Tag
     tags:
-    - category:Elona.EquipWristGlove
-    - category:Elona.EquipWrist
+    - Elona.ItemEquipWristGlove
+    - Elona.ItemEquipWrist
 - type: Entity
   id: Elona.ItemThickGauntlets
   parent: BaseItem
@@ -211,8 +212,8 @@
     material: Elona.Metal
   - type: Tag
     tags:
-    - category:Elona.EquipWristGauntlet
-    - category:Elona.EquipWrist
+    - Elona.ItemEquipWristGauntlet
+    - Elona.ItemEquipWrist
 - type: Entity
   id: Elona.ItemHeavyBoots
   parent: BaseItem
@@ -230,8 +231,8 @@
     material: Elona.Metal
   - type: Tag
     tags:
-    - category:Elona.EquipLegHeavyBoots
-    - category:Elona.EquipLeg
+    - Elona.ItemEquipLegHeavyBoots
+    - Elona.ItemEquipLeg
 - type: Entity
   id: Elona.ItemCompositeBoots
   parent: BaseItem
@@ -249,8 +250,8 @@
     material: Elona.Metal
   - type: Tag
     tags:
-    - category:Elona.EquipLegHeavyBoots
-    - category:Elona.EquipLeg
+    - Elona.ItemEquipLegHeavyBoots
+    - Elona.ItemEquipLeg
 - type: Entity
   id: Elona.ItemDecorativeRing
   parent: BaseItem
@@ -268,8 +269,8 @@
     material: Elona.Soft
   - type: Tag
     tags:
-    - category:Elona.EquipRingRing
-    - category:Elona.EquipRing
+    - Elona.ItemEquipRingRing
+    - Elona.ItemEquipRing
 - type: Entity
   id: Elona.ItemScrollOfIdentify
   parent: BaseItem
@@ -287,7 +288,7 @@
     originalnameref2: scroll
   - type: Tag
     tags:
-    - category:Elona.Scroll
+    - Elona.ItemScroll
 - type: Entity
   id: Elona.ItemScrollOfOracle
   parent: BaseItem
@@ -305,7 +306,7 @@
     originalnameref2: scroll
   - type: Tag
     tags:
-    - category:Elona.Scroll
+    - Elona.ItemScroll
 - type: Entity
   id: Elona.ItemScrollOfTeleportation
   parent: BaseItem
@@ -323,7 +324,7 @@
     originalnameref2: scroll
   - type: Tag
     tags:
-    - category:Elona.Scroll
+    - Elona.ItemScroll
     - tag:nogive
 - type: Entity
   id: Elona.ItemScrollOfIncognito
@@ -342,7 +343,7 @@
     originalnameref2: scroll
   - type: Tag
     tags:
-    - category:Elona.Scroll
+    - Elona.ItemScroll
   - type: RandomGen
     tables:
       item:
@@ -365,7 +366,7 @@
     originalnameref2: rod
   - type: Tag
     tags:
-    - category:Elona.Rod
+    - Elona.ItemRod
 - type: Entity
   id: Elona.ItemRodOfTeleportation
   parent: BaseItem
@@ -383,7 +384,7 @@
     originalnameref2: rod
   - type: Tag
     tags:
-    - category:Elona.Rod
+    - Elona.ItemRod
 - type: Entity
   id: Elona.ItemSpellbookOfTeleportation
   parent: BaseItem
@@ -401,7 +402,7 @@
     originalnameref2: spellbook
   - type: Tag
     tags:
-    - category:Elona.Spellbook
+    - Elona.ItemSpellbook
 - type: Entity
   id: Elona.ItemSpellbookOfIdentify
   parent: BaseItem
@@ -419,7 +420,7 @@
     originalnameref2: spellbook
   - type: Tag
     tags:
-    - category:Elona.Spellbook
+    - Elona.ItemSpellbook
 - type: Entity
   id: Elona.ItemSpellbookOfUncurse
   parent: BaseItem
@@ -437,7 +438,7 @@
     originalnameref2: spellbook
   - type: Tag
     tags:
-    - category:Elona.Spellbook
+    - Elona.ItemSpellbook
 - type: Entity
   id: Elona.ItemBookUnreadable
   parent: BaseItem
@@ -454,8 +455,8 @@
     weight: 80
   - type: Tag
     tags:
-    - category:Elona.Book
-    - category:Elona.NoGenerate
+    - Elona.ItemBook
+    - Elona.ItemNoGenerate
     - Elona.NoWish
   - type: RandomGen
     tables:
@@ -479,7 +480,7 @@
     weight: 80
   - type: Tag
     tags:
-    - category:Elona.Book
+    - Elona.ItemBook
   - type: RandomGen
     tables:
       item:
@@ -501,8 +502,8 @@
     weight: 80
   - type: Tag
     tags:
-    - category:Elona.Book
-    - category:Elona.NoGenerate
+    - Elona.ItemBook
+    - Elona.ItemNoGenerate
   - type: RandomGen
     tables:
       item:
@@ -526,7 +527,7 @@
     originalnameref2: bottle
   - type: Tag
     tags:
-    - category:Elona.Drink
+    - Elona.ItemDrink
 - type: Entity
   id: Elona.ItemPotionOfBlindness
   parent: BaseItem
@@ -544,8 +545,8 @@
     originalnameref2: potion
   - type: Tag
     tags:
-    - category:Elona.Drink
-    - category:Elona.TagNeg
+    - Elona.ItemDrink
+    - Elona.ItemTagNeg
     - tag:neg
 - type: Entity
   id: Elona.ItemPotionOfConfusion
@@ -564,8 +565,8 @@
     originalnameref2: potion
   - type: Tag
     tags:
-    - category:Elona.Drink
-    - category:Elona.TagNeg
+    - Elona.ItemDrink
+    - Elona.ItemTagNeg
     - tag:neg
 - type: Entity
   id: Elona.ItemPotionOfParalysis
@@ -584,8 +585,8 @@
     originalnameref2: potion
   - type: Tag
     tags:
-    - category:Elona.Drink
-    - category:Elona.TagNeg
+    - Elona.ItemDrink
+    - Elona.ItemTagNeg
     - tag:neg
 - type: Entity
   id: Elona.ItemSleepingDrug
@@ -603,8 +604,8 @@
     weight: 120
   - type: Tag
     tags:
-    - category:Elona.Drink
-    - category:Elona.TagNogive
+    - Elona.ItemDrink
+    - Elona.ItemTagNogive
     - tag:nogive
 - type: Entity
   id: Elona.ItemBottleOfCrimAle
@@ -623,8 +624,8 @@
     originalnameref2: bottle
   - type: Tag
     tags:
-    - category:Elona.Drink
-    - category:Elona.DrinkAlcohol
+    - Elona.ItemDrink
+    - Elona.ItemDrinkAlcohol
 - type: Entity
   id: Elona.ItemSpellbookOfIceBolt
   parent: BaseItem
@@ -642,7 +643,7 @@
     originalnameref2: spellbook
   - type: Tag
     tags:
-    - category:Elona.Spellbook
+    - Elona.ItemSpellbook
 - type: Entity
   id: Elona.ItemSpellbookOfFireBolt
   parent: BaseItem
@@ -660,7 +661,7 @@
     originalnameref2: spellbook
   - type: Tag
     tags:
-    - category:Elona.Spellbook
+    - Elona.ItemSpellbook
 - type: Entity
   id: Elona.ItemSpellbookOfLightningBolt
   parent: BaseItem
@@ -678,7 +679,7 @@
     originalnameref2: spellbook
   - type: Tag
     tags:
-    - category:Elona.Spellbook
+    - Elona.ItemSpellbook
 - type: Entity
   id: Elona.ItemEarthCrystal
   parent: BaseItem
@@ -696,8 +697,8 @@
     weight: 1600
   - type: Tag
     tags:
-    - category:Elona.Ore
-    - category:Elona.OfferingOre
+    - Elona.ItemOre
+    - Elona.ItemOfferingOre
 - type: Entity
   id: Elona.ItemManaCrystal
   parent: BaseItem
@@ -715,8 +716,8 @@
     weight: 900
   - type: Tag
     tags:
-    - category:Elona.Ore
-    - category:Elona.OfferingOre
+    - Elona.ItemOre
+    - Elona.ItemOfferingOre
 - type: Entity
   id: Elona.ItemSunCrystal
   parent: BaseItem
@@ -734,8 +735,8 @@
     weight: 1200
   - type: Tag
     tags:
-    - category:Elona.Ore
-    - category:Elona.OfferingOre
+    - Elona.ItemOre
+    - Elona.ItemOfferingOre
 - type: Entity
   id: Elona.ItemGoldBar
   parent: BaseItem
@@ -752,8 +753,8 @@
     weight: 1100
   - type: Tag
     tags:
-    - category:Elona.Ore
-    - category:Elona.OfferingOre
+    - Elona.ItemOre
+    - Elona.ItemOfferingOre
   - type: RandomGen
     tables:
       item:
@@ -777,9 +778,9 @@
     originalnameref2: raw ore
   - type: Tag
     tags:
-    - category:Elona.OreValuable
-    - category:Elona.Ore
-    - category:Elona.OfferingOre
+    - Elona.ItemOreValuable
+    - Elona.ItemOre
+    - Elona.ItemOfferingOre
   - type: RandomGen
     tables:
       item:
@@ -802,9 +803,9 @@
     originalnameref2: raw ore
   - type: Tag
     tags:
-    - category:Elona.OreValuable
-    - category:Elona.Ore
-    - category:Elona.OfferingOre
+    - Elona.ItemOreValuable
+    - Elona.ItemOre
+    - Elona.ItemOfferingOre
 - type: Entity
   id: Elona.ItemRawOreOfEmerald
   parent: BaseItem
@@ -823,9 +824,9 @@
     originalnameref2: raw ore
   - type: Tag
     tags:
-    - category:Elona.OreValuable
-    - category:Elona.Ore
-    - category:Elona.OfferingOre
+    - Elona.ItemOreValuable
+    - Elona.ItemOre
+    - Elona.ItemOfferingOre
   - type: RandomGen
     tables:
       item:
@@ -849,9 +850,9 @@
     originalnameref2: raw ore
   - type: Tag
     tags:
-    - category:Elona.OreValuable
-    - category:Elona.Ore
-    - category:Elona.OfferingOre
+    - Elona.ItemOreValuable
+    - Elona.ItemOre
+    - Elona.ItemOfferingOre
   - type: RandomGen
     tables:
       item:
@@ -873,9 +874,9 @@
     weight: 120
   - type: Tag
     tags:
-    - category:Elona.TagFish
-    - category:Elona.Junk
-    - category:Elona.JunkInField
+    - Elona.ItemTagFish
+    - Elona.ItemJunk
+    - Elona.ItemJunkInField
     - tag:fish
 - type: Entity
   id: Elona.ItemJunkStone
@@ -893,9 +894,9 @@
     weight: 450
   - type: Tag
     tags:
-    - category:Elona.JunkInField
-    - category:Elona.Ore
-    - category:Elona.OfferingOre
+    - Elona.ItemJunkInField
+    - Elona.ItemOre
+    - Elona.ItemOfferingOre
 - type: Entity
   id: Elona.ItemGarbage
   parent: BaseItem
@@ -912,9 +913,9 @@
     weight: 80
   - type: Tag
     tags:
-    - category:Elona.TagFish
-    - category:Elona.Junk
-    - category:Elona.JunkInField
+    - Elona.ItemTagFish
+    - Elona.ItemJunk
+    - Elona.ItemJunkInField
     - tag:fish
 - type: Entity
   id: Elona.ItemBrokenVase
@@ -932,8 +933,8 @@
     weight: 800
   - type: Tag
     tags:
-    - category:Elona.Junk
-    - category:Elona.JunkInField
+    - Elona.ItemJunk
+    - Elona.ItemJunkInField
 - type: Entity
   id: Elona.ItemWashing
   parent: BaseItem
@@ -950,8 +951,8 @@
     weight: 250
   - type: Tag
     tags:
-    - category:Elona.JunkTown
-    - category:Elona.Junk
+    - Elona.ItemJunkTown
+    - Elona.ItemJunk
 - type: Entity
   id: Elona.ItemBonfire
   parent: BaseItem
@@ -968,7 +969,7 @@
     weight: 3200
   - type: Tag
     tags:
-    - category:Elona.Junk
+    - Elona.ItemJunk
 - type: Entity
   id: Elona.ItemFlag
   parent: BaseItem
@@ -985,7 +986,7 @@
     weight: 1400
   - type: Tag
     tags:
-    - category:Elona.Junk
+    - Elona.ItemJunk
 - type: Entity
   id: Elona.ItemBrokenSword
   parent: BaseItem
@@ -1002,8 +1003,8 @@
     weight: 1050
   - type: Tag
     tags:
-    - category:Elona.Junk
-    - category:Elona.JunkInField
+    - Elona.ItemJunk
+    - Elona.ItemJunkInField
 - type: Entity
   id: Elona.ItemBoneFragment
   parent: BaseItem
@@ -1020,8 +1021,8 @@
     weight: 80
   - type: Tag
     tags:
-    - category:Elona.Junk
-    - category:Elona.JunkInField
+    - Elona.ItemJunk
+    - Elona.ItemJunkInField
 - type: Entity
   id: Elona.ItemSkeleton
   parent: BaseItem
@@ -1038,7 +1039,7 @@
     weight: 80
   - type: Tag
     tags:
-    - category:Elona.Junk
+    - Elona.ItemJunk
 - type: Entity
   id: Elona.ItemTombstone
   parent: BaseItem
@@ -1055,7 +1056,7 @@
     weight: 12000
   - type: Tag
     tags:
-    - category:Elona.Junk
+    - Elona.ItemJunk
 - type: Entity
   id: Elona.ItemGoldPiece
   parent: BaseItem
@@ -1072,7 +1073,7 @@
     weight: 0
   - type: Tag
     tags:
-    - category:Elona.Gold
+    - Elona.ItemGold
 - type: Entity
   id: Elona.ItemPlatinumCoin
   parent: BaseItem
@@ -1089,8 +1090,8 @@
     weight: 1
   - type: Tag
     tags:
-    - category:Elona.Platinum
-    - category:Elona.TagNoshop
+    - Elona.ItemPlatinum
+    - Elona.ItemTagNoshop
     - tag:noshop
 - type: Entity
   id: Elona.ItemDiablo
@@ -1111,9 +1112,10 @@
     identifyDifficulty: 500
   - type: Tag
     tags:
-    - category:Elona.EquipMeleeLongSword
-    - category:Elona.UniqueItem
-    - category:Elona.EquipMelee
+    - Elona.ItemEquipMeleeLongSword
+    - Elona.ItemUniqueItem
+    - Elona.ItemEquipMelee
+    - Elona.Precious
   - type: RandomGen
     tables:
       item:
@@ -1122,7 +1124,6 @@
         rarity: 0
   - type: Quality
     quality: Unique
-  - type: Precious
 - type: Entity
   id: Elona.ItemZantetsu
   parent: BaseItem
@@ -1142,9 +1143,10 @@
     identifyDifficulty: 500
   - type: Tag
     tags:
-    - category:Elona.EquipMeleeLongSword
-    - category:Elona.UniqueWeapon
-    - category:Elona.EquipMelee
+    - Elona.ItemEquipMeleeLongSword
+    - Elona.ItemUniqueWeapon
+    - Elona.ItemEquipMelee
+    - Elona.Precious
   - type: RandomGen
     tables:
       item:
@@ -1153,7 +1155,6 @@
         rarity: 0
   - type: Quality
     quality: Unique
-  - type: Precious
 - type: Entity
   id: Elona.ItemLongBow
   parent: BaseItem
@@ -1171,8 +1172,8 @@
     material: Elona.Metal
   - type: Tag
     tags:
-    - category:Elona.EquipRangedBow
-    - category:Elona.EquipRanged
+    - Elona.ItemEquipRangedBow
+    - Elona.ItemEquipRanged
 - type: Entity
   id: Elona.ItemKnightShield
   parent: BaseItem
@@ -1190,8 +1191,8 @@
     material: Elona.Metal
   - type: Tag
     tags:
-    - category:Elona.EquipShieldShield
-    - category:Elona.EquipShield
+    - Elona.ItemEquipShieldShield
+    - Elona.ItemEquipShield
 - type: Entity
   id: Elona.ItemPistol
   parent: BaseItem
@@ -1209,9 +1210,9 @@
     material: Elona.Metal
   - type: Tag
     tags:
-    - category:Elona.EquipRangedGun
-    - category:Elona.TagSf
-    - category:Elona.EquipRanged
+    - Elona.ItemEquipRangedGun
+    - Elona.ItemTagSf
+    - Elona.ItemEquipRanged
     - tag:sf
 - type: Entity
   id: Elona.ItemArrow
@@ -1230,8 +1231,8 @@
     material: Elona.Metal
   - type: Tag
     tags:
-    - category:Elona.EquipAmmo
-    - category:Elona.EquipAmmoArrow
+    - Elona.ItemEquipAmmo
+    - Elona.ItemEquipAmmoArrow
 - type: Entity
   id: Elona.ItemBullet
   parent: BaseItem
@@ -1249,9 +1250,9 @@
     material: Elona.Metal
   - type: Tag
     tags:
-    - category:Elona.EquipAmmo
-    - category:Elona.EquipAmmoBullet
-    - category:Elona.TagSf
+    - Elona.ItemEquipAmmo
+    - Elona.ItemEquipAmmoBullet
+    - Elona.ItemTagSf
     - tag:sf
 - type: Entity
   id: Elona.ItemScytheOfVoid
@@ -1272,9 +1273,10 @@
     identifyDifficulty: 500
   - type: Tag
     tags:
-    - category:Elona.EquipMeleeScythe
-    - category:Elona.UniqueItem
-    - category:Elona.EquipMelee
+    - Elona.ItemEquipMeleeScythe
+    - Elona.ItemUniqueItem
+    - Elona.ItemEquipMelee
+    - Elona.Precious
   - type: RandomGen
     tables:
       item:
@@ -1283,7 +1285,6 @@
         rarity: 0
   - type: Quality
     quality: Unique
-  - type: Precious
 - type: Entity
   id: Elona.ItemMournblade
   parent: BaseItem
@@ -1303,9 +1304,10 @@
     identifyDifficulty: 500
   - type: Tag
     tags:
-    - category:Elona.EquipMeleeLongSword
-    - category:Elona.UniqueItem
-    - category:Elona.EquipMelee
+    - Elona.ItemEquipMeleeLongSword
+    - Elona.ItemUniqueItem
+    - Elona.ItemEquipMelee
+    - Elona.Precious
   - type: RandomGen
     tables:
       item:
@@ -1314,7 +1316,6 @@
         rarity: 0
   - type: Quality
     quality: Unique
-  - type: Precious
 - type: Entity
   id: Elona.ItemLightCloak
   parent: BaseItem
@@ -1332,8 +1333,8 @@
     material: Elona.Soft
   - type: Tag
     tags:
-    - category:Elona.EquipBack
-    - category:Elona.EquipBackCloak
+    - Elona.ItemEquipBack
+    - Elona.ItemEquipBackCloak
 - type: Entity
   id: Elona.ItemGirdle
   parent: BaseItem
@@ -1351,8 +1352,8 @@
     material: Elona.Soft
   - type: Tag
     tags:
-    - category:Elona.EquipBackGirdle
-    - category:Elona.EquipCloak
+    - Elona.ItemEquipBackGirdle
+    - Elona.ItemEquipCloak
 - type: Entity
   id: Elona.ItemDecorativeAmulet
   parent: BaseItem
@@ -1370,8 +1371,8 @@
     material: Elona.Soft
   - type: Tag
     tags:
-    - category:Elona.EquipNeckArmor
-    - category:Elona.EquipNeck
+    - Elona.ItemEquipNeckArmor
+    - Elona.ItemEquipNeck
 - type: Entity
   id: Elona.ItemPotionOfCureMinorWound
   parent: BaseItem
@@ -1389,8 +1390,8 @@
     originalnameref2: potion
   - type: Tag
     tags:
-    - category:Elona.Drink
-    - category:Elona.DrinkPotion
+    - Elona.ItemDrink
+    - Elona.ItemDrinkPotion
 - type: Entity
   id: Elona.ItemPotionOfCureMajorWound
   parent: BaseItem
@@ -1408,8 +1409,8 @@
     originalnameref2: potion
   - type: Tag
     tags:
-    - category:Elona.Drink
-    - category:Elona.DrinkPotion
+    - Elona.ItemDrink
+    - Elona.ItemDrinkPotion
 - type: Entity
   id: Elona.ItemPotionOfCureCriticalWound
   parent: BaseItem
@@ -1427,8 +1428,8 @@
     originalnameref2: potion
   - type: Tag
     tags:
-    - category:Elona.Drink
-    - category:Elona.DrinkPotion
+    - Elona.ItemDrink
+    - Elona.ItemDrinkPotion
 - type: Entity
   id: Elona.ItemPotionOfHealing
   parent: BaseItem
@@ -1446,8 +1447,8 @@
     originalnameref2: potion
   - type: Tag
     tags:
-    - category:Elona.Drink
-    - category:Elona.DrinkPotion
+    - Elona.ItemDrink
+    - Elona.ItemDrinkPotion
   - type: RandomGen
     tables:
       item:
@@ -1470,8 +1471,8 @@
     originalnameref2: potion
   - type: Tag
     tags:
-    - category:Elona.Drink
-    - category:Elona.DrinkPotion
+    - Elona.ItemDrink
+    - Elona.ItemDrinkPotion
   - type: RandomGen
     tables:
       item:
@@ -1496,9 +1497,10 @@
     identifyDifficulty: 500
   - type: Tag
     tags:
-    - category:Elona.EquipMeleeLongSword
-    - category:Elona.UniqueItem
-    - category:Elona.EquipMelee
+    - Elona.ItemEquipMeleeLongSword
+    - Elona.ItemUniqueItem
+    - Elona.ItemEquipMelee
+    - Elona.Precious
   - type: RandomGen
     tables:
       item:
@@ -1507,7 +1509,6 @@
         rarity: 0
   - type: Quality
     quality: Unique
-  - type: Precious
 - type: Entity
   id: Elona.ItemPotionOfHealerOdina
   parent: BaseItem
@@ -1525,8 +1526,8 @@
     originalnameref2: potion
   - type: Tag
     tags:
-    - category:Elona.Drink
-    - category:Elona.DrinkPotion
+    - Elona.ItemDrink
+    - Elona.ItemDrinkPotion
   - type: RandomGen
     tables:
       item:
@@ -1549,8 +1550,8 @@
     originalnameref2: potion
   - type: Tag
     tags:
-    - category:Elona.Drink
-    - category:Elona.DrinkPotion
+    - Elona.ItemDrink
+    - Elona.ItemDrinkPotion
   - type: RandomGen
     tables:
       item:
@@ -1573,8 +1574,8 @@
     originalnameref2: potion
   - type: Tag
     tags:
-    - category:Elona.Drink
-    - category:Elona.DrinkPotion
+    - Elona.ItemDrink
+    - Elona.ItemDrinkPotion
   - type: RandomGen
     tables:
       item:
@@ -1596,7 +1597,7 @@
     weight: 900
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
 - type: Entity
   id: Elona.ItemBookshelf
   parent: BaseItem
@@ -1613,7 +1614,7 @@
     weight: 10200
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -1635,7 +1636,7 @@
     weight: 8900
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -1657,8 +1658,8 @@
     weight: 15000
   - type: Tag
     tags:
-    - category:Elona.FurnitureBed
-    - category:Elona.Furniture
+    - Elona.ItemFurnitureBed
+    - Elona.ItemFurniture
 - type: Entity
   id: Elona.ItemRagDoll
   parent: BaseItem
@@ -1675,8 +1676,8 @@
     weight: 350
   - type: Tag
     tags:
-    - category:Elona.TagFest
-    - category:Elona.Furniture
+    - Elona.ItemTagFest
+    - Elona.ItemFurniture
     - tag:fest
 - type: Entity
   id: Elona.ItemToy
@@ -1694,7 +1695,7 @@
     weight: 320
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
 - type: Entity
   id: Elona.ItemModernTable
   parent: BaseItem
@@ -1711,7 +1712,7 @@
     weight: 6800
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -1733,7 +1734,7 @@
     weight: 7000
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -1755,7 +1756,7 @@
     weight: 8400
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -1778,7 +1779,7 @@
     originalnameref2: lot
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
 - type: Entity
   id: Elona.ItemLotOfAccessories
   parent: BaseItem
@@ -1796,7 +1797,7 @@
     originalnameref2: lot
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
 - type: Entity
   id: Elona.ItemGrandPiano
   parent: BaseItem
@@ -1813,8 +1814,8 @@
     weight: 45000
   - type: Tag
     tags:
-    - category:Elona.FurnitureInstrument
-    - category:Elona.Furniture
+    - Elona.ItemFurnitureInstrument
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -1836,7 +1837,7 @@
     weight: 7900
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -1858,7 +1859,7 @@
     weight: 7900
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -1880,7 +1881,7 @@
     weight: 3400
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
 - type: Entity
   id: Elona.ItemModernChair
   parent: BaseItem
@@ -1897,8 +1898,8 @@
     weight: 1100
   - type: Tag
     tags:
-    - category:Elona.TagSf
-    - category:Elona.Furniture
+    - Elona.ItemTagSf
+    - Elona.ItemFurniture
     - tag:sf
   - type: RandomGen
     tables:
@@ -1921,7 +1922,7 @@
     weight: 1200
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
 - type: Entity
   id: Elona.ItemLantern
   parent: BaseItem
@@ -1938,7 +1939,7 @@
     weight: 400
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
 - type: Entity
   id: Elona.ItemDecorativeArmor
   parent: BaseItem
@@ -1955,7 +1956,7 @@
     weight: 3800
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -1977,7 +1978,7 @@
     weight: 9500
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -1999,7 +2000,7 @@
     weight: 420
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
 - type: Entity
   id: Elona.ItemOpenPot
   parent: BaseItem
@@ -2016,7 +2017,7 @@
     weight: 540
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
 - type: Entity
   id: Elona.ItemAcademicTable
   parent: BaseItem
@@ -2033,7 +2034,7 @@
     weight: 4200
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -2056,7 +2057,7 @@
     originalnameref2: rack
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -2078,7 +2079,7 @@
     weight: 1200
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
 - type: Entity
   id: Elona.ItemCheapChair
   parent: BaseItem
@@ -2095,7 +2096,7 @@
     weight: 6800
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
 - type: Entity
   id: Elona.ItemCupboard
   parent: BaseItem
@@ -2112,7 +2113,7 @@
     weight: 7300
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -2134,7 +2135,7 @@
     weight: 8200
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
 - type: Entity
   id: Elona.ItemNeatShelf
   parent: BaseItem
@@ -2151,7 +2152,7 @@
     weight: 7600
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -2173,7 +2174,7 @@
     weight: 6800
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -2196,7 +2197,7 @@
     originalnameref2: variety
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -2219,7 +2220,7 @@
     originalnameref2: variety
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -2241,7 +2242,7 @@
     weight: 350000
   - type: Tag
     tags:
-    - category:Elona.FurnitureWell
+    - Elona.ItemFurnitureWell
 - type: Entity
   id: Elona.ItemVarietyOfClothes
   parent: BaseItem
@@ -2259,7 +2260,7 @@
     originalnameref2: variety
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -2281,7 +2282,7 @@
     weight: 45800
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -2303,8 +2304,8 @@
     weight: 14000
   - type: Tag
     tags:
-    - category:Elona.TagSf
-    - category:Elona.Furniture
+    - Elona.ItemTagSf
+    - Elona.ItemFurniture
     - tag:sf
   - type: RandomGen
     tables:
@@ -2327,7 +2328,7 @@
     weight: 3200
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
 - type: Entity
   id: Elona.ItemCrossroadSign
   parent: BaseItem
@@ -2344,7 +2345,7 @@
     weight: 3500
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
 - type: Entity
   id: Elona.ItemBoard
   parent: BaseItem
@@ -2361,7 +2362,7 @@
     weight: 9500
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
 - type: Entity
   id: Elona.ItemSpellbookOfMinorTeleportation
   parent: BaseItem
@@ -2379,7 +2380,7 @@
     originalnameref2: spellbook
   - type: Tag
     tags:
-    - category:Elona.Spellbook
+    - Elona.ItemSpellbook
 - type: Entity
   id: Elona.ItemEmptyBasket
   parent: BaseItem
@@ -2396,8 +2397,8 @@
     weight: 80
   - type: Tag
     tags:
-    - category:Elona.TagFish
-    - category:Elona.Junk
+    - Elona.ItemTagFish
+    - Elona.ItemJunk
     - tag:fish
 - type: Entity
   id: Elona.ItemSpellbookOfSummonMonsters
@@ -2416,7 +2417,7 @@
     originalnameref2: spellbook
   - type: Tag
     tags:
-    - category:Elona.Spellbook
+    - Elona.ItemSpellbook
 - type: Entity
   id: Elona.ItemRodOfCureMinorWound
   parent: BaseItem
@@ -2434,7 +2435,7 @@
     originalnameref2: rod
   - type: Tag
     tags:
-    - category:Elona.Rod
+    - Elona.ItemRod
 - type: Entity
   id: Elona.ItemRodOfMagicMissile
   parent: BaseItem
@@ -2452,7 +2453,7 @@
     originalnameref2: rod
   - type: Tag
     tags:
-    - category:Elona.Rod
+    - Elona.ItemRod
 - type: Entity
   id: Elona.ItemRodOfSummonMonsters
   parent: BaseItem
@@ -2470,7 +2471,7 @@
     originalnameref2: rod
   - type: Tag
     tags:
-    - category:Elona.Rod
+    - Elona.ItemRod
 - type: Entity
   id: Elona.ItemRodOfIceBolt
   parent: BaseItem
@@ -2488,7 +2489,7 @@
     originalnameref2: rod
   - type: Tag
     tags:
-    - category:Elona.Rod
+    - Elona.ItemRod
 - type: Entity
   id: Elona.ItemRodOfFireBolt
   parent: BaseItem
@@ -2506,7 +2507,7 @@
     originalnameref2: rod
   - type: Tag
     tags:
-    - category:Elona.Rod
+    - Elona.ItemRod
 - type: Entity
   id: Elona.ItemShowCaseOfBreads
   parent: BaseItem
@@ -2524,7 +2525,7 @@
     originalnameref2: show case
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -2547,7 +2548,7 @@
     originalnameref2: rod
   - type: Tag
     tags:
-    - category:Elona.Rod
+    - Elona.ItemRod
   - type: RandomGen
     tables:
       item:
@@ -2569,7 +2570,7 @@
     weight: 210
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
 - type: Entity
   id: Elona.ItemAlchemyKit
   parent: BaseItem
@@ -2586,7 +2587,7 @@
     weight: 900
   - type: Tag
     tags:
-    - category:Elona.MiscItem
+    - Elona.ItemMiscItem
 - type: Entity
   id: Elona.ItemPentagram
   parent: BaseItem
@@ -2603,7 +2604,7 @@
     weight: 1840
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -2625,7 +2626,7 @@
     weight: 420
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -2647,7 +2648,7 @@
     weight: 400
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -2669,7 +2670,7 @@
     weight: 380
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -2691,7 +2692,7 @@
     weight: 320
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
 - type: Entity
   id: Elona.ItemGazania
   parent: BaseItem
@@ -2708,7 +2709,7 @@
     weight: 350
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
 - type: Entity
   id: Elona.ItemNerine
   parent: BaseItem
@@ -2725,7 +2726,7 @@
     weight: 400
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
 - type: Entity
   id: Elona.ItemAnemos
   parent: BaseItem
@@ -2742,7 +2743,7 @@
     weight: 300
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -2764,7 +2765,7 @@
     weight: 240
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -2786,7 +2787,7 @@
     weight: 250
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
 - type: Entity
   id: Elona.ItemStatueOrnamentedWithPlants
   parent: BaseItem
@@ -2803,7 +2804,7 @@
     weight: 32000
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -2825,7 +2826,7 @@
     weight: 32000
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -2847,7 +2848,7 @@
     weight: 1100
   - type: Tag
     tags:
-    - category:Elona.MiscItem
+    - Elona.ItemMiscItem
 - type: Entity
   id: Elona.ItemMap
   parent: BaseItem
@@ -2864,7 +2865,7 @@
     weight: 240
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
 - type: Entity
   id: Elona.ItemFoodMaker
   parent: BaseItem
@@ -2881,7 +2882,7 @@
     weight: 17400
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -2904,7 +2905,7 @@
     originalnameref2: bundle
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
 - type: Entity
   id: Elona.ItemBundleOfWeapons
   parent: BaseItem
@@ -2922,7 +2923,7 @@
     originalnameref2: bundle
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
 - type: Entity
   id: Elona.ItemDecoratedCloth
   parent: BaseItem
@@ -2939,7 +2940,7 @@
     weight: 860
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -2961,7 +2962,7 @@
     weight: 4400
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -2984,7 +2985,7 @@
     originalnameref2: statue
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -3006,7 +3007,7 @@
     weight: 830
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
 - type: Entity
   id: Elona.ItemLotOfBooks
   parent: BaseItem
@@ -3024,7 +3025,7 @@
     originalnameref2: lot
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
 - type: Entity
   id: Elona.ItemCraftRack
   parent: BaseItem
@@ -3041,7 +3042,7 @@
     weight: 8700
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -3063,7 +3064,7 @@
     weight: 8600
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -3086,7 +3087,7 @@
     originalnameref2: lot
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
 - type: Entity
   id: Elona.ItemKitchen
   parent: BaseItem
@@ -3103,7 +3104,7 @@
     weight: 14000
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -3125,7 +3126,7 @@
     weight: 15000
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -3147,7 +3148,7 @@
     weight: 14000
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -3169,7 +3170,7 @@
     weight: 9700
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
 - type: Entity
   id: Elona.ItemElegantTable
   parent: BaseItem
@@ -3186,7 +3187,7 @@
     weight: 8600
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -3208,7 +3209,7 @@
     weight: 860
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
 - type: Entity
   id: Elona.ItemSimpleShelf
   parent: BaseItem
@@ -3225,7 +3226,7 @@
     weight: 11000
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -3247,7 +3248,7 @@
     weight: 500
   - type: Tag
     tags:
-    - category:Elona.MiscItem
+    - Elona.ItemMiscItem
 - type: Entity
   id: Elona.ItemCarpentersTool
   parent: BaseItem
@@ -3264,7 +3265,7 @@
     weight: 500
   - type: Tag
     tags:
-    - category:Elona.MiscItem
+    - Elona.ItemMiscItem
 - type: Entity
   id: Elona.ItemMessyCloth
   parent: BaseItem
@@ -3281,7 +3282,7 @@
     weight: 1200
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
 - type: Entity
   id: Elona.ItemSilkCloth
   parent: BaseItem
@@ -3298,7 +3299,7 @@
     weight: 340
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -3320,8 +3321,8 @@
     weight: 400000
   - type: Tag
     tags:
-    - category:Elona.JunkInField
-    - category:Elona.Furniture
+    - Elona.ItemJunkInField
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -3343,8 +3344,8 @@
     weight: 400000
   - type: Tag
     tags:
-    - category:Elona.JunkInField
-    - category:Elona.Furniture
+    - Elona.ItemJunkInField
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -3367,8 +3368,8 @@
     originalnameref2: grave
   - type: Tag
     tags:
-    - category:Elona.JunkInField
-    - category:Elona.Furniture
+    - Elona.ItemJunkInField
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -3390,7 +3391,7 @@
     weight: 650000
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -3412,7 +3413,7 @@
     weight: 650000
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -3434,7 +3435,7 @@
     weight: 650000
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -3456,7 +3457,7 @@
     weight: 650000
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -3478,8 +3479,8 @@
     weight: 500000
   - type: Tag
     tags:
-    - category:Elona.FurnitureAltar
-    - category:Elona.NoGenerate
+    - Elona.ItemFurnitureAltar
+    - Elona.ItemNoGenerate
   - type: RandomGen
     tables:
       item:
@@ -3502,8 +3503,8 @@
     weight: 500000
   - type: Tag
     tags:
-    - category:Elona.FurnitureAltar
-    - category:Elona.NoGenerate
+    - Elona.ItemFurnitureAltar
+    - Elona.ItemNoGenerate
   - type: RandomGen
     tables:
       item:
@@ -3526,8 +3527,8 @@
     weight: 600000
   - type: Tag
     tags:
-    - category:Elona.FurnitureWell
-    - category:Elona.NoGenerate
+    - Elona.ItemFurnitureWell
+    - Elona.ItemNoGenerate
   - type: RandomGen
     tables:
       item:
@@ -3550,8 +3551,8 @@
     weight: 12400
   - type: Tag
     tags:
-    - category:Elona.FurnitureBed
-    - category:Elona.Furniture
+    - Elona.ItemFurnitureBed
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -3574,7 +3575,7 @@
     originalnameref2: rod
   - type: Tag
     tags:
-    - category:Elona.Rod
+    - Elona.ItemRod
 - type: Entity
   id: Elona.ItemRodOfSlow
   parent: BaseItem
@@ -3592,7 +3593,7 @@
     originalnameref2: rod
   - type: Tag
     tags:
-    - category:Elona.Rod
+    - Elona.ItemRod
 - type: Entity
   id: Elona.ItemQuwapana
   parent: BaseItem
@@ -3610,8 +3611,8 @@
     material: Elona.Fresh
   - type: Tag
     tags:
-    - category:Elona.FoodVegetable
-    - category:Elona.Food
+    - Elona.ItemFoodVegetable
+    - Elona.ItemFood
 - type: Entity
   id: Elona.ItemAloe
   parent: BaseItem
@@ -3629,8 +3630,8 @@
     material: Elona.Fresh
   - type: Tag
     tags:
-    - category:Elona.FoodVegetable
-    - category:Elona.Food
+    - Elona.ItemFoodVegetable
+    - Elona.ItemFood
 - type: Entity
   id: Elona.ItemEdibleWildPlant
   parent: BaseItem
@@ -3648,9 +3649,9 @@
     material: Elona.Fresh
   - type: Tag
     tags:
-    - category:Elona.JunkInField
-    - category:Elona.Food
-    - category:Elona.OfferingVegetable
+    - Elona.ItemJunkInField
+    - Elona.ItemFood
+    - Elona.ItemOfferingVegetable
 - type: Entity
   id: Elona.ItemApple
   parent: BaseItem
@@ -3668,8 +3669,8 @@
     material: Elona.Fresh
   - type: Tag
     tags:
-    - category:Elona.FoodFruit
-    - category:Elona.Food
+    - Elona.ItemFoodFruit
+    - Elona.ItemFood
 - type: Entity
   id: Elona.ItemGrape
   parent: BaseItem
@@ -3687,8 +3688,8 @@
     material: Elona.Fresh
   - type: Tag
     tags:
-    - category:Elona.FoodFruit
-    - category:Elona.Food
+    - Elona.ItemFoodFruit
+    - Elona.ItemFood
 - type: Entity
   id: Elona.ItemKiwi
   parent: BaseItem
@@ -3706,8 +3707,8 @@
     material: Elona.Fresh
   - type: Tag
     tags:
-    - category:Elona.FoodFruit
-    - category:Elona.Food
+    - Elona.ItemFoodFruit
+    - Elona.ItemFood
 - type: Entity
   id: Elona.ItemCherry
   parent: BaseItem
@@ -3725,8 +3726,8 @@
     material: Elona.Fresh
   - type: Tag
     tags:
-    - category:Elona.FoodFruit
-    - category:Elona.Food
+    - Elona.ItemFoodFruit
+    - Elona.ItemFood
 - type: Entity
   id: Elona.ItemGuava
   parent: BaseItem
@@ -3744,8 +3745,8 @@
     material: Elona.Fresh
   - type: Tag
     tags:
-    - category:Elona.FoodVegetable
-    - category:Elona.Food
+    - Elona.ItemFoodVegetable
+    - Elona.ItemFood
 - type: Entity
   id: Elona.ItemCarrot
   parent: BaseItem
@@ -3763,9 +3764,9 @@
     material: Elona.Fresh
   - type: Tag
     tags:
-    - category:Elona.FoodVegetable
-    - category:Elona.Food
-    - category:Elona.OfferingVegetable
+    - Elona.ItemFoodVegetable
+    - Elona.ItemFood
+    - Elona.ItemOfferingVegetable
 - type: Entity
   id: Elona.ItemRadish
   parent: BaseItem
@@ -3783,9 +3784,9 @@
     material: Elona.Fresh
   - type: Tag
     tags:
-    - category:Elona.FoodVegetable
-    - category:Elona.Food
-    - category:Elona.OfferingVegetable
+    - Elona.ItemFoodVegetable
+    - Elona.ItemFood
+    - Elona.ItemOfferingVegetable
 - type: Entity
   id: Elona.ItemSweetPotato
   parent: BaseItem
@@ -3802,10 +3803,10 @@
     weight: 790
   - type: Tag
     tags:
-    - category:Elona.FoodVegetable
-    - category:Elona.TagFest
-    - category:Elona.Food
-    - category:Elona.OfferingVegetable
+    - Elona.ItemFoodVegetable
+    - Elona.ItemTagFest
+    - Elona.ItemFood
+    - Elona.ItemOfferingVegetable
     - tag:fest
 - type: Entity
   id: Elona.ItemLettuce
@@ -3824,9 +3825,9 @@
     material: Elona.Fresh
   - type: Tag
     tags:
-    - category:Elona.FoodVegetable
-    - category:Elona.Food
-    - category:Elona.OfferingVegetable
+    - Elona.ItemFoodVegetable
+    - Elona.ItemFood
+    - Elona.ItemOfferingVegetable
 - type: Entity
   id: Elona.ItemStackOfDishes
   parent: BaseItem
@@ -3843,7 +3844,7 @@
     weight: 450
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
 - type: Entity
   id: Elona.ItemImo
   parent: BaseItem
@@ -3860,9 +3861,9 @@
     weight: 650
   - type: Tag
     tags:
-    - category:Elona.FoodVegetable
-    - category:Elona.Food
-    - category:Elona.OfferingVegetable
+    - Elona.ItemFoodVegetable
+    - Elona.ItemFood
+    - Elona.ItemOfferingVegetable
 - type: Entity
   id: Elona.ItemApiNut
   parent: BaseItem
@@ -3879,8 +3880,8 @@
     weight: 40
   - type: Tag
     tags:
-    - category:Elona.JunkInField
-    - category:Elona.Food
+    - Elona.ItemJunkInField
+    - Elona.ItemFood
 - type: Entity
   id: Elona.ItemStrawberry
   parent: BaseItem
@@ -3898,8 +3899,8 @@
     material: Elona.Fresh
   - type: Tag
     tags:
-    - category:Elona.FoodFruit
-    - category:Elona.Food
+    - Elona.ItemFoodFruit
+    - Elona.ItemFood
 - type: Entity
   id: Elona.ItemHealthyLeaf
   parent: BaseItem
@@ -3916,9 +3917,9 @@
     weight: 90
   - type: Tag
     tags:
-    - category:Elona.JunkInField
-    - category:Elona.Food
-    - category:Elona.OfferingVegetable
+    - Elona.ItemJunkInField
+    - Elona.ItemFood
+    - Elona.ItemOfferingVegetable
 - type: Entity
   id: Elona.ItemRainbowFruit
   parent: BaseItem
@@ -3936,8 +3937,8 @@
     material: Elona.Fresh
   - type: Tag
     tags:
-    - category:Elona.FoodFruit
-    - category:Elona.Food
+    - Elona.ItemFoodFruit
+    - Elona.ItemFood
 - type: Entity
   id: Elona.ItemQucche
   parent: BaseItem
@@ -3955,8 +3956,8 @@
     material: Elona.Fresh
   - type: Tag
     tags:
-    - category:Elona.FoodFruit
-    - category:Elona.Food
+    - Elona.ItemFoodFruit
+    - Elona.ItemFood
 - type: Entity
   id: Elona.ItemOrange
   parent: BaseItem
@@ -3974,8 +3975,8 @@
     material: Elona.Fresh
   - type: Tag
     tags:
-    - category:Elona.FoodFruit
-    - category:Elona.Food
+    - Elona.ItemFoodFruit
+    - Elona.ItemFood
 - type: Entity
   id: Elona.ItemLemon
   parent: BaseItem
@@ -3993,8 +3994,8 @@
     material: Elona.Fresh
   - type: Tag
     tags:
-    - category:Elona.FoodFruit
-    - category:Elona.Food
+    - Elona.ItemFoodFruit
+    - Elona.ItemFood
 - type: Entity
   id: Elona.ItemGreenPea
   parent: BaseItem
@@ -4012,9 +4013,9 @@
     material: Elona.Fresh
   - type: Tag
     tags:
-    - category:Elona.FoodVegetable
-    - category:Elona.Food
-    - category:Elona.OfferingVegetable
+    - Elona.ItemFoodVegetable
+    - Elona.ItemFood
+    - Elona.ItemOfferingVegetable
 - type: Entity
   id: Elona.ItemCbocchi
   parent: BaseItem
@@ -4032,9 +4033,9 @@
     material: Elona.Fresh
   - type: Tag
     tags:
-    - category:Elona.FoodVegetable
-    - category:Elona.Food
-    - category:Elona.OfferingVegetable
+    - Elona.ItemFoodVegetable
+    - Elona.ItemFood
+    - Elona.ItemOfferingVegetable
 - type: Entity
   id: Elona.ItemMelon
   parent: BaseItem
@@ -4052,9 +4053,9 @@
     material: Elona.Fresh
   - type: Tag
     tags:
-    - category:Elona.FoodVegetable
-    - category:Elona.Food
-    - category:Elona.OfferingVegetable
+    - Elona.ItemFoodVegetable
+    - Elona.ItemFood
+    - Elona.ItemOfferingVegetable
 - type: Entity
   id: Elona.ItemLeccho
   parent: BaseItem
@@ -4072,9 +4073,9 @@
     material: Elona.Fresh
   - type: Tag
     tags:
-    - category:Elona.FoodVegetable
-    - category:Elona.Food
-    - category:Elona.OfferingVegetable
+    - Elona.ItemFoodVegetable
+    - Elona.ItemFood
+    - Elona.ItemOfferingVegetable
 - type: Entity
   id: Elona.ItemRodOfMagicMapping
   parent: BaseItem
@@ -4092,7 +4093,7 @@
     originalnameref2: rod
   - type: Tag
     tags:
-    - category:Elona.Rod
+    - Elona.ItemRod
 - type: Entity
   id: Elona.ItemRodOfCure
   parent: BaseItem
@@ -4110,7 +4111,7 @@
     originalnameref2: rod
   - type: Tag
     tags:
-    - category:Elona.Rod
+    - Elona.ItemRod
   - type: RandomGen
     tables:
       item:
@@ -4133,7 +4134,7 @@
     material: Elona.Fresh
   - type: Tag
     tags:
-    - category:Elona.Food
+    - Elona.ItemFood
 - type: Entity
   id: Elona.ItemBottleOfWhisky
   parent: BaseItem
@@ -4151,8 +4152,8 @@
     originalnameref2: bottle
   - type: Tag
     tags:
-    - category:Elona.Drink
-    - category:Elona.DrinkAlcohol
+    - Elona.ItemDrink
+    - Elona.ItemDrinkAlcohol
 - type: Entity
   id: Elona.ItemEtherDagger
   parent: BaseItem
@@ -4172,9 +4173,10 @@
     identifyDifficulty: 500
   - type: Tag
     tags:
-    - category:Elona.EquipMeleeShortSword
-    - category:Elona.UniqueWeapon
-    - category:Elona.EquipMelee
+    - Elona.ItemEquipMeleeShortSword
+    - Elona.ItemUniqueWeapon
+    - Elona.ItemEquipMelee
+    - Elona.Precious
   - type: RandomGen
     tables:
       item:
@@ -4183,7 +4185,6 @@
         rarity: 0
   - type: Quality
     quality: Unique
-  - type: Precious
 - type: Entity
   id: Elona.ItemBowOfVindale
   parent: BaseItem
@@ -4203,9 +4204,10 @@
     identifyDifficulty: 500
   - type: Tag
     tags:
-    - category:Elona.EquipRangedBow
-    - category:Elona.UniqueWeapon
-    - category:Elona.EquipRanged
+    - Elona.ItemEquipRangedBow
+    - Elona.ItemUniqueWeapon
+    - Elona.ItemEquipRanged
+    - Elona.Precious
   - type: RandomGen
     tables:
       item:
@@ -4214,7 +4216,6 @@
         rarity: 0
   - type: Quality
     quality: Unique
-  - type: Precious
 - type: Entity
   id: Elona.ItemWorthlessFakeGoldBar
   parent: BaseItem
@@ -4231,7 +4232,7 @@
     weight: 1
   - type: Tag
     tags:
-    - category:Elona.Ore
+    - Elona.ItemOre
 - type: Entity
   id: Elona.ItemScrollOfUncurse
   parent: BaseItem
@@ -4249,7 +4250,7 @@
     originalnameref2: scroll
   - type: Tag
     tags:
-    - category:Elona.Scroll
+    - Elona.ItemScroll
 - type: Entity
   id: Elona.ItemStone
   parent: BaseItem
@@ -4267,8 +4268,8 @@
     material: Elona.Iron
   - type: Tag
     tags:
-    - category:Elona.EquipRangedThrown
-    - category:Elona.EquipRanged
+    - Elona.ItemEquipRangedThrown
+    - Elona.ItemEquipRanged
 - type: Entity
   id: Elona.ItemSickle
   parent: BaseItem
@@ -4286,8 +4287,8 @@
     material: Elona.Metal
   - type: Tag
     tags:
-    - category:Elona.EquipMeleeScythe
-    - category:Elona.EquipMelee
+    - Elona.ItemEquipMeleeScythe
+    - Elona.ItemEquipMelee
 - type: Entity
   id: Elona.ItemStaff
   parent: BaseItem
@@ -4305,8 +4306,8 @@
     material: Elona.Metal
   - type: Tag
     tags:
-    - category:Elona.EquipMeleeStaff
-    - category:Elona.EquipMelee
+    - Elona.ItemEquipMeleeStaff
+    - Elona.ItemEquipMelee
 - type: Entity
   id: Elona.ItemSpear
   parent: BaseItem
@@ -4324,8 +4325,8 @@
     material: Elona.Metal
   - type: Tag
     tags:
-    - category:Elona.EquipMeleeLance
-    - category:Elona.EquipMelee
+    - Elona.ItemEquipMeleeLance
+    - Elona.ItemEquipMelee
 - type: Entity
   id: Elona.ItemOrePiece
   parent: BaseItem
@@ -4342,8 +4343,8 @@
     weight: 12000
   - type: Tag
     tags:
-    - category:Elona.Junk
-    - category:Elona.JunkInField
+    - Elona.ItemJunk
+    - Elona.ItemJunkInField
 - type: Entity
   id: Elona.ItemLotOfEmptyBottles
   parent: BaseItem
@@ -4361,8 +4362,8 @@
     originalnameref2: lot
   - type: Tag
     tags:
-    - category:Elona.JunkTown
-    - category:Elona.Junk
+    - Elona.ItemJunkTown
+    - Elona.ItemJunk
 - type: Entity
   id: Elona.ItemBasket
   parent: BaseItem
@@ -4379,8 +4380,8 @@
     weight: 80
   - type: Tag
     tags:
-    - category:Elona.TagFest
-    - category:Elona.Junk
+    - Elona.ItemTagFest
+    - Elona.ItemJunk
     - tag:fest
 - type: Entity
   id: Elona.ItemEmptyBowl
@@ -4398,7 +4399,7 @@
     weight: 90
   - type: Tag
     tags:
-    - category:Elona.Junk
+    - Elona.ItemJunk
 - type: Entity
   id: Elona.ItemBowl
   parent: BaseItem
@@ -4415,7 +4416,7 @@
     weight: 80
   - type: Tag
     tags:
-    - category:Elona.Junk
+    - Elona.ItemJunk
 - type: Entity
   id: Elona.ItemTightRope
   parent: BaseItem
@@ -4432,8 +4433,8 @@
     weight: 340
   - type: Tag
     tags:
-    - category:Elona.JunkInField
-    - category:Elona.MiscItem
+    - Elona.ItemJunkInField
+    - Elona.ItemMiscItem
 - type: Entity
   id: Elona.ItemDeadFish
   parent: BaseItem
@@ -4450,9 +4451,9 @@
     weight: 50
   - type: Tag
     tags:
-    - category:Elona.TagFish
-    - category:Elona.Junk
-    - category:Elona.JunkInField
+    - Elona.ItemTagFish
+    - Elona.ItemJunk
+    - Elona.ItemJunkInField
     - tag:fish
 - type: Entity
   id: Elona.ItemStraw
@@ -4470,7 +4471,7 @@
     weight: 70
   - type: Tag
     tags:
-    - category:Elona.Junk
+    - Elona.ItemJunk
 - type: Entity
   id: Elona.ItemAnimalBone
   parent: BaseItem
@@ -4487,8 +4488,8 @@
     weight: 40
   - type: Tag
     tags:
-    - category:Elona.Junk
-    - category:Elona.JunkInField
+    - Elona.ItemJunk
+    - Elona.ItemJunkInField
 - type: Entity
   id: Elona.ItemPot
   parent: BaseItem
@@ -4505,7 +4506,7 @@
     weight: 15000
   - type: Tag
     tags:
-    - category:Elona.MiscItem
+    - Elona.ItemMiscItem
 - type: Entity
   id: Elona.ItemKatana
   parent: BaseItem
@@ -4523,8 +4524,8 @@
     material: Elona.Metal
   - type: Tag
     tags:
-    - category:Elona.EquipMeleeLongSword
-    - category:Elona.EquipMelee
+    - Elona.ItemEquipMeleeLongSword
+    - Elona.ItemEquipMelee
 - type: Entity
   id: Elona.ItemScimitar
   parent: BaseItem
@@ -4542,8 +4543,8 @@
     material: Elona.Metal
   - type: Tag
     tags:
-    - category:Elona.EquipMeleeShortSword
-    - category:Elona.EquipMelee
+    - Elona.ItemEquipMeleeShortSword
+    - Elona.ItemEquipMelee
 - type: Entity
   id: Elona.ItemBattleAxe
   parent: BaseItem
@@ -4561,8 +4562,8 @@
     material: Elona.Metal
   - type: Tag
     tags:
-    - category:Elona.EquipMeleeAxe
-    - category:Elona.EquipMelee
+    - Elona.ItemEquipMeleeAxe
+    - Elona.ItemEquipMelee
 - type: Entity
   id: Elona.ItemHammer
   parent: BaseItem
@@ -4580,8 +4581,8 @@
     material: Elona.Metal
   - type: Tag
     tags:
-    - category:Elona.EquipMeleeHammer
-    - category:Elona.EquipMelee
+    - Elona.ItemEquipMeleeHammer
+    - Elona.ItemEquipMelee
 - type: Entity
   id: Elona.ItemTrident
   parent: BaseItem
@@ -4599,8 +4600,8 @@
     material: Elona.Metal
   - type: Tag
     tags:
-    - category:Elona.EquipMeleeLance
-    - category:Elona.EquipMelee
+    - Elona.ItemEquipMeleeLance
+    - Elona.ItemEquipMelee
 - type: Entity
   id: Elona.ItemLongStaff
   parent: BaseItem
@@ -4618,8 +4619,8 @@
     material: Elona.Metal
   - type: Tag
     tags:
-    - category:Elona.EquipMeleeStaff
-    - category:Elona.EquipMelee
+    - Elona.ItemEquipMeleeStaff
+    - Elona.ItemEquipMelee
 - type: Entity
   id: Elona.ItemShortBow
   parent: BaseItem
@@ -4637,8 +4638,8 @@
     material: Elona.Metal
   - type: Tag
     tags:
-    - category:Elona.EquipRangedBow
-    - category:Elona.EquipRanged
+    - Elona.ItemEquipRangedBow
+    - Elona.ItemEquipRanged
 - type: Entity
   id: Elona.ItemMachineGun
   parent: BaseItem
@@ -4656,9 +4657,9 @@
     material: Elona.Metal
   - type: Tag
     tags:
-    - category:Elona.EquipRangedGun
-    - category:Elona.TagSf
-    - category:Elona.EquipRanged
+    - Elona.ItemEquipRangedGun
+    - Elona.ItemTagSf
+    - Elona.ItemEquipRanged
     - tag:sf
 - type: Entity
   id: Elona.ItemClaymore
@@ -4677,8 +4678,8 @@
     material: Elona.Metal
   - type: Tag
     tags:
-    - category:Elona.EquipMeleeBroadsword
-    - category:Elona.EquipMelee
+    - Elona.ItemEquipMeleeBroadsword
+    - Elona.ItemEquipMelee
 - type: Entity
   id: Elona.ItemRation
   parent: BaseItem
@@ -4695,7 +4696,7 @@
     weight: 400
   - type: Tag
     tags:
-    - category:Elona.Food
+    - Elona.ItemFood
 - type: Entity
   id: Elona.ItemBardiche
   parent: BaseItem
@@ -4713,8 +4714,8 @@
     material: Elona.Metal
   - type: Tag
     tags:
-    - category:Elona.EquipMeleeAxe
-    - category:Elona.EquipMelee
+    - Elona.ItemEquipMeleeAxe
+    - Elona.ItemEquipMelee
 - type: Entity
   id: Elona.ItemHalberd
   parent: BaseItem
@@ -4732,8 +4733,8 @@
     material: Elona.Metal
   - type: Tag
     tags:
-    - category:Elona.EquipMeleeHalberd
-    - category:Elona.EquipMelee
+    - Elona.ItemEquipMeleeHalberd
+    - Elona.ItemEquipMelee
 - type: Entity
   id: Elona.ItemScrollOfReturn
   parent: BaseItem
@@ -4751,7 +4752,7 @@
     originalnameref2: scroll
   - type: Tag
     tags:
-    - category:Elona.Scroll
+    - Elona.ItemScroll
   - type: RandomGen
     tables:
       item:
@@ -4774,7 +4775,7 @@
     originalnameref2: figurine
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -4797,7 +4798,7 @@
     originalnameref2: figurine
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -4819,7 +4820,7 @@
     weight: 3000
   - type: Tag
     tags:
-    - category:Elona.Container
+    - Elona.ItemContainer
   - type: RandomGen
     tables:
       item:
@@ -4841,7 +4842,7 @@
     weight: 300000
   - type: Tag
     tags:
-    - category:Elona.Container
+    - Elona.ItemContainer
   - type: RandomGen
     tables:
       item:
@@ -4863,7 +4864,7 @@
     weight: 300000
   - type: Tag
     tags:
-    - category:Elona.Container
+    - Elona.ItemContainer
   - type: RandomGen
     tables:
       item:
@@ -4886,7 +4887,7 @@
     originalnameref2: scroll
   - type: Tag
     tags:
-    - category:Elona.Scroll
+    - Elona.ItemScroll
 - type: Entity
   id: Elona.ItemScrollOfGainAttribute
   parent: BaseItem
@@ -4904,8 +4905,8 @@
     originalnameref2: scroll
   - type: Tag
     tags:
-    - category:Elona.Scroll
-    - category:Elona.TagNoshop
+    - Elona.ItemScroll
+    - Elona.ItemTagNoshop
     - tag:noshop
   - type: RandomGen
     tables:
@@ -4929,7 +4930,7 @@
     originalnameref2: scroll
   - type: Tag
     tags:
-    - category:Elona.Scroll
+    - Elona.ItemScroll
   - type: RandomGen
     tables:
       item:
@@ -4952,7 +4953,7 @@
     originalnameref2: scroll
   - type: Tag
     tags:
-    - category:Elona.Scroll
+    - Elona.ItemScroll
     - tag:nogive
 - type: Entity
   id: Elona.ItemSpellbookOfMagicMapping
@@ -4971,7 +4972,7 @@
     originalnameref2: spellbook
   - type: Tag
     tags:
-    - category:Elona.Spellbook
+    - Elona.ItemSpellbook
   - type: RandomGen
     tables:
       item:
@@ -4994,7 +4995,7 @@
     originalnameref2: spellbook
   - type: Tag
     tags:
-    - category:Elona.Spellbook
+    - Elona.ItemSpellbook
   - type: RandomGen
     tables:
       item:
@@ -5017,7 +5018,7 @@
     originalnameref2: spellbook
   - type: Tag
     tags:
-    - category:Elona.Spellbook
+    - Elona.ItemSpellbook
   - type: RandomGen
     tables:
       item:
@@ -5040,7 +5041,7 @@
     originalnameref2: spellbook
   - type: Tag
     tags:
-    - category:Elona.Spellbook
+    - Elona.ItemSpellbook
 - type: Entity
   id: Elona.ItemSpellbookOfCureCriticalWound
   parent: BaseItem
@@ -5058,7 +5059,7 @@
     originalnameref2: spellbook
   - type: Tag
     tags:
-    - category:Elona.Spellbook
+    - Elona.ItemSpellbook
 - type: Entity
   id: Elona.ItemSpellbookOfCureEris
   parent: BaseItem
@@ -5076,7 +5077,7 @@
     originalnameref2: spellbook
   - type: Tag
     tags:
-    - category:Elona.Spellbook
+    - Elona.ItemSpellbook
   - type: RandomGen
     tables:
       item:
@@ -5099,7 +5100,7 @@
     originalnameref2: spellbook
   - type: Tag
     tags:
-    - category:Elona.Spellbook
+    - Elona.ItemSpellbook
   - type: RandomGen
     tables:
       item:
@@ -5122,8 +5123,8 @@
     originalnameref2: bottle
   - type: Tag
     tags:
-    - category:Elona.Drink
-    - category:Elona.DrinkAlcohol
+    - Elona.ItemDrink
+    - Elona.ItemDrinkAlcohol
 - type: Entity
   id: Elona.ItemHorn
   parent: BaseItem
@@ -5140,9 +5141,9 @@
     weight: 6500
   - type: Tag
     tags:
-    - category:Elona.FurnitureInstrument
-    - category:Elona.TagFest
-    - category:Elona.Furniture
+    - Elona.ItemFurnitureInstrument
+    - Elona.ItemTagFest
+    - Elona.ItemFurniture
     - tag:fest
   - type: RandomGen
     tables:
@@ -5165,7 +5166,7 @@
     weight: 12000
   - type: Tag
     tags:
-    - category:Elona.MiscItem
+    - Elona.ItemMiscItem
 - type: Entity
   id: Elona.ItemPortableCookingTool
   parent: BaseItem
@@ -5182,7 +5183,7 @@
     weight: 1200
   - type: Tag
     tags:
-    - category:Elona.MiscItem
+    - Elona.ItemMiscItem
 - type: Entity
   id: Elona.ItemSpellbookOfMagicArrow
   parent: BaseItem
@@ -5200,7 +5201,7 @@
     originalnameref2: spellbook
   - type: Tag
     tags:
-    - category:Elona.Spellbook
+    - Elona.ItemSpellbook
 - type: Entity
   id: Elona.ItemStickBread
   parent: BaseItem
@@ -5217,7 +5218,7 @@
     weight: 350
   - type: Tag
     tags:
-    - category:Elona.Food
+    - Elona.ItemFood
 - type: Entity
   id: Elona.ItemRawNoodle
   parent: BaseItem
@@ -5235,8 +5236,8 @@
     material: Elona.Fresh
   - type: Tag
     tags:
-    - category:Elona.FoodNoodle
-    - category:Elona.Food
+    - Elona.ItemFoodNoodle
+    - Elona.ItemFood
   - type: RandomGen
     tables:
       item:
@@ -5259,8 +5260,8 @@
     originalnameref2: sack
   - type: Tag
     tags:
-    - category:Elona.FoodFlour
-    - category:Elona.Food
+    - Elona.ItemFoodFlour
+    - Elona.ItemFood
   - type: RandomGen
     tables:
       item:
@@ -5283,8 +5284,8 @@
     material: Elona.Fresh
   - type: Tag
     tags:
-    - category:Elona.Food
-    - category:Elona.OfferingFish
+    - Elona.ItemFood
+    - Elona.ItemOfferingFish
   - type: RandomGen
     tables:
       item:
@@ -5306,8 +5307,8 @@
     weight: 120
   - type: Tag
     tags:
-    - category:Elona.Drink
-    - category:Elona.TagNogive
+    - Elona.ItemDrink
+    - Elona.ItemTagNogive
     - tag:nogive
     - tag:elona.is_acid
 - type: Entity
@@ -5327,7 +5328,7 @@
     originalnameref2: spellbook
   - type: Tag
     tags:
-    - category:Elona.Spellbook
+    - Elona.ItemSpellbook
 - type: Entity
   id: Elona.ItemSpellbookOfChaosEye
   parent: BaseItem
@@ -5345,7 +5346,7 @@
     originalnameref2: spellbook
   - type: Tag
     tags:
-    - category:Elona.Spellbook
+    - Elona.ItemSpellbook
   - type: RandomGen
     tables:
       item:
@@ -5368,7 +5369,7 @@
     originalnameref2: spellbook
   - type: Tag
     tags:
-    - category:Elona.Spellbook
+    - Elona.ItemSpellbook
 - type: Entity
   id: Elona.ItemWakizashi
   parent: BaseItem
@@ -5386,8 +5387,8 @@
     material: Elona.Metal
   - type: Tag
     tags:
-    - category:Elona.EquipMeleeShortSword
-    - category:Elona.EquipMelee
+    - Elona.ItemEquipMeleeShortSword
+    - Elona.ItemEquipMelee
 - type: Entity
   id: Elona.ItemSpellbookOfDarknessBeam
   parent: BaseItem
@@ -5405,7 +5406,7 @@
     originalnameref2: spellbook
   - type: Tag
     tags:
-    - category:Elona.Spellbook
+    - Elona.ItemSpellbook
 - type: Entity
   id: Elona.ItemSpellbookOfIllusionBeam
   parent: BaseItem
@@ -5423,7 +5424,7 @@
     originalnameref2: spellbook
   - type: Tag
     tags:
-    - category:Elona.Spellbook
+    - Elona.ItemSpellbook
 - type: Entity
   id: Elona.ItemSpellbookOfIceBall
   parent: BaseItem
@@ -5441,7 +5442,7 @@
     originalnameref2: spellbook
   - type: Tag
     tags:
-    - category:Elona.Spellbook
+    - Elona.ItemSpellbook
 - type: Entity
   id: Elona.ItemSpellbookOfFireBall
   parent: BaseItem
@@ -5459,7 +5460,7 @@
     originalnameref2: spellbook
   - type: Tag
     tags:
-    - category:Elona.Spellbook
+    - Elona.ItemSpellbook
 - type: Entity
   id: Elona.ItemSpellbookOfSoundBall
   parent: BaseItem
@@ -5477,7 +5478,7 @@
     originalnameref2: spellbook
   - type: Tag
     tags:
-    - category:Elona.Spellbook
+    - Elona.ItemSpellbook
   - type: RandomGen
     tables:
       item:
@@ -5500,7 +5501,7 @@
     originalnameref2: spellbook
   - type: Tag
     tags:
-    - category:Elona.Spellbook
+    - Elona.ItemSpellbook
   - type: RandomGen
     tables:
       item:
@@ -5522,7 +5523,7 @@
     weight: 1500
   - type: Tag
     tags:
-    - category:Elona.Junk
+    - Elona.ItemJunk
 - type: Entity
   id: Elona.ItemScarecrow
   parent: BaseItem
@@ -5539,7 +5540,7 @@
     weight: 4800
   - type: Tag
     tags:
-    - category:Elona.Junk
+    - Elona.ItemJunk
 - type: Entity
   id: Elona.ItemBroom
   parent: BaseItem
@@ -5556,7 +5557,7 @@
     weight: 800
   - type: Tag
     tags:
-    - category:Elona.Junk
+    - Elona.ItemJunk
 - type: Entity
   id: Elona.ItemLongPillar
   parent: BaseItem
@@ -5573,7 +5574,7 @@
     weight: 350000
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -5595,7 +5596,7 @@
     weight: 300000
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -5617,8 +5618,8 @@
     weight: 300000
   - type: Tag
     tags:
-    - category:Elona.TagSf
-    - category:Elona.Furniture
+    - Elona.ItemTagSf
+    - Elona.ItemFurniture
     - tag:sf
   - type: RandomGen
     tables:
@@ -5641,7 +5642,7 @@
     weight: 300000
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
 - type: Entity
   id: Elona.ItemComfortableTable
   parent: BaseItem
@@ -5658,7 +5659,7 @@
     weight: 9800
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -5680,8 +5681,8 @@
     weight: 1500
   - type: Tag
     tags:
-    - category:Elona.TagFish
-    - category:Elona.Furniture
+    - Elona.ItemTagFish
+    - Elona.ItemFurniture
     - tag:fish
 - type: Entity
   id: Elona.ItemMysteriousMap
@@ -5699,7 +5700,7 @@
     weight: 180
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
 - type: Entity
   id: Elona.ItemSuitcase
   parent: BaseItem
@@ -5716,8 +5717,8 @@
     weight: 1200
   - type: Tag
     tags:
-    - category:Elona.Container
-    - category:Elona.NoGenerate
+    - Elona.ItemContainer
+    - Elona.ItemNoGenerate
   - type: RandomGen
     tables:
       item:
@@ -5740,8 +5741,8 @@
     weight: 250
   - type: Tag
     tags:
-    - category:Elona.Container
-    - category:Elona.NoGenerate
+    - Elona.ItemContainer
+    - Elona.ItemNoGenerate
   - type: RandomGen
     tables:
       item:
@@ -5765,8 +5766,8 @@
     originalnameref2: potion
   - type: Tag
     tags:
-    - category:Elona.Drink
-    - category:Elona.DrinkPotion
+    - Elona.ItemDrink
+    - Elona.ItemDrinkPotion
 - type: Entity
   id: Elona.ItemPotionOfRestoreSpirit
   parent: BaseItem
@@ -5784,8 +5785,8 @@
     originalnameref2: potion
   - type: Tag
     tags:
-    - category:Elona.Drink
-    - category:Elona.DrinkPotion
+    - Elona.ItemDrink
+    - Elona.ItemDrinkPotion
 - type: Entity
   id: Elona.ItemPotionOfPotential
   parent: BaseItem
@@ -5803,8 +5804,8 @@
     originalnameref2: potion
   - type: Tag
     tags:
-    - category:Elona.Drink
-    - category:Elona.TagSpshop
+    - Elona.ItemDrink
+    - Elona.ItemTagSpshop
     - tag:spshop
   - type: RandomGen
     tables:
@@ -5828,8 +5829,8 @@
     originalnameref2: scroll
   - type: Tag
     tags:
-    - category:Elona.Scroll
-    - category:Elona.TagNeg
+    - Elona.ItemScroll
+    - Elona.ItemTagNeg
     - tag:neg
 - type: Entity
   id: Elona.ItemSpellbookOfWishing
@@ -5848,7 +5849,7 @@
     originalnameref2: spellbook
   - type: Tag
     tags:
-    - category:Elona.Spellbook
+    - Elona.ItemSpellbook
     - Elona.NoWish
   - type: RandomGen
     tables:
@@ -5872,8 +5873,8 @@
     originalnameref2: rod
   - type: Tag
     tags:
-    - category:Elona.Rod
-    - category:Elona.TagNoshop
+    - Elona.ItemRod
+    - Elona.ItemTagNoshop
     - tag:noshop
   - type: RandomGen
     tables:
@@ -5896,7 +5897,7 @@
     weight: 12000
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -5919,7 +5920,7 @@
     originalnameref2: rack
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -5942,7 +5943,7 @@
     originalnameref2: rack
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -5964,8 +5965,8 @@
     weight: 1080
   - type: Tag
     tags:
-    - category:Elona.TagFest
-    - category:Elona.Furniture
+    - Elona.ItemTagFest
+    - Elona.ItemFurniture
     - tag:fest
 - type: Entity
   id: Elona.ItemRaggedTable
@@ -5983,7 +5984,7 @@
     weight: 4500
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
 - type: Entity
   id: Elona.ItemCabinet
   parent: BaseItem
@@ -6000,7 +6001,7 @@
     weight: 15000
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -6022,8 +6023,8 @@
     weight: 17500
   - type: Tag
     tags:
-    - category:Elona.FurnitureBed
-    - category:Elona.Furniture
+    - Elona.ItemFurnitureBed
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -6045,7 +6046,7 @@
     weight: 2400
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -6067,7 +6068,7 @@
     weight: 9000
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -6089,7 +6090,7 @@
     weight: 8500
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -6111,7 +6112,7 @@
     weight: 1400
   - type: Tag
     tags:
-    - category:Elona.Junk
+    - Elona.ItemJunk
 - type: Entity
   id: Elona.ItemChestOfClothes
   parent: BaseItem
@@ -6129,7 +6130,7 @@
     originalnameref2: chest
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -6151,8 +6152,8 @@
     weight: 15000
   - type: Tag
     tags:
-    - category:Elona.FurnitureBed
-    - category:Elona.Furniture
+    - Elona.ItemFurnitureBed
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -6174,8 +6175,8 @@
     weight: 13000
   - type: Tag
     tags:
-    - category:Elona.FurnitureBed
-    - category:Elona.Furniture
+    - Elona.ItemFurnitureBed
+    - Elona.ItemFurniture
 - type: Entity
   id: Elona.ItemCoffin
   parent: BaseItem
@@ -6192,8 +6193,8 @@
     weight: 8900
   - type: Tag
     tags:
-    - category:Elona.FurnitureBed
-    - category:Elona.Furniture
+    - Elona.ItemFurnitureBed
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -6215,8 +6216,8 @@
     weight: 34000
   - type: Tag
     tags:
-    - category:Elona.TagSf
-    - category:Elona.Furniture
+    - Elona.ItemTagSf
+    - Elona.ItemFurniture
     - tag:sf
   - type: RandomGen
     tables:
@@ -6239,8 +6240,8 @@
     weight: 12000
   - type: Tag
     tags:
-    - category:Elona.FurnitureBed
-    - category:Elona.Furniture
+    - Elona.ItemFurnitureBed
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -6262,7 +6263,7 @@
     weight: 9000
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -6284,7 +6285,7 @@
     weight: 8000
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -6306,8 +6307,8 @@
     weight: 9500
   - type: Tag
     tags:
-    - category:Elona.FurnitureBed
-    - category:Elona.Furniture
+    - Elona.ItemFurnitureBed
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -6329,7 +6330,7 @@
     weight: 28000
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -6351,8 +6352,8 @@
     weight: 14000
   - type: Tag
     tags:
-    - category:Elona.NoGenerate
-    - category:Elona.Furniture
+    - Elona.ItemNoGenerate
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -6375,8 +6376,8 @@
     weight: 24000
   - type: Tag
     tags:
-    - category:Elona.NoGenerate
-    - category:Elona.Furniture
+    - Elona.ItemNoGenerate
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -6399,8 +6400,8 @@
     weight: 12000
   - type: Tag
     tags:
-    - category:Elona.NoGenerate
-    - category:Elona.Furniture
+    - Elona.ItemNoGenerate
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -6423,8 +6424,8 @@
     weight: 8900
   - type: Tag
     tags:
-    - category:Elona.NoGenerate
-    - category:Elona.Furniture
+    - Elona.ItemNoGenerate
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -6447,7 +6448,7 @@
     weight: 1200
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -6469,7 +6470,7 @@
     weight: 7600
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -6491,7 +6492,7 @@
     weight: 8900
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -6513,8 +6514,8 @@
     weight: 2800
   - type: Tag
     tags:
-    - category:Elona.FurnitureBed
-    - category:Elona.Furniture
+    - Elona.ItemFurnitureBed
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -6536,7 +6537,7 @@
     weight: 6800
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -6558,7 +6559,7 @@
     weight: 8800
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -6580,7 +6581,7 @@
     weight: 12000
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -6602,7 +6603,7 @@
     weight: 8900
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -6624,7 +6625,7 @@
     weight: 15000
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -6646,8 +6647,8 @@
     weight: 10000
   - type: Tag
     tags:
-    - category:Elona.FurnitureBed
-    - category:Elona.Furniture
+    - Elona.ItemFurnitureBed
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -6669,7 +6670,7 @@
     weight: 8900
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -6691,7 +6692,7 @@
     weight: 6400
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -6713,7 +6714,7 @@
     weight: 29000
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -6736,7 +6737,7 @@
     originalnameref2: statue
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
 - type: Entity
   id: Elona.ItemStump
   parent: BaseItem
@@ -6753,7 +6754,7 @@
     weight: 3500
   - type: Tag
     tags:
-    - category:Elona.Junk
+    - Elona.ItemJunk
 - type: Entity
   id: Elona.ItemDress
   parent: BaseItem
@@ -6770,7 +6771,7 @@
     weight: 1050
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -6792,7 +6793,7 @@
     weight: 4900
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -6814,7 +6815,7 @@
     weight: 0
   - type: Tag
     tags:
-    - category:Elona.CargoFood
+    - Elona.ItemCargoFood
 - type: Entity
   id: Elona.ItemThrone
   parent: BaseItem
@@ -6831,7 +6832,7 @@
     weight: 35000
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -6853,7 +6854,7 @@
     weight: 15000
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -6875,7 +6876,7 @@
     weight: 21000
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -6897,7 +6898,7 @@
     weight: 1500
   - type: Tag
     tags:
-    - category:Elona.Remains
+    - Elona.ItemRemains
 - type: Entity
   id: Elona.ItemRemainsBlood
   parent: BaseItem
@@ -6914,7 +6915,7 @@
     weight: 1500
   - type: Tag
     tags:
-    - category:Elona.Remains
+    - Elona.ItemRemains
   - type: RandomGen
     tables:
       item:
@@ -6936,7 +6937,7 @@
     weight: 1500
   - type: Tag
     tags:
-    - category:Elona.Remains
+    - Elona.ItemRemains
   - type: RandomGen
     tables:
       item:
@@ -6958,7 +6959,7 @@
     weight: 1500
   - type: Tag
     tags:
-    - category:Elona.Remains
+    - Elona.ItemRemains
   - type: RandomGen
     tables:
       item:
@@ -6980,7 +6981,7 @@
     weight: 1500
   - type: Tag
     tags:
-    - category:Elona.Remains
+    - Elona.ItemRemains
 - type: Entity
   id: Elona.ItemFishingPole
   parent: BaseItem
@@ -6997,7 +6998,7 @@
     weight: 2400
   - type: Tag
     tags:
-    - category:Elona.MiscItem
+    - Elona.ItemMiscItem
 - type: Entity
   id: Elona.ItemRune
   parent: BaseItem
@@ -7014,7 +7015,7 @@
     weight: 500
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
 - type: Entity
   id: Elona.ItemDeed
   parent: BaseItem
@@ -7032,9 +7033,9 @@
     weight: 500
   - type: Tag
     tags:
-    - category:Elona.Scroll
-    - category:Elona.ScrollDeed
-    - category:Elona.NoGenerate
+    - Elona.ItemScroll
+    - Elona.ItemScrollDeed
+    - Elona.ItemNoGenerate
   - type: RandomGen
     tables:
       item:
@@ -7058,9 +7059,9 @@
     material: Elona.Fresh
   - type: Tag
     tags:
-    - category:Elona.TagFish
-    - category:Elona.Food
-    - category:Elona.OfferingFish
+    - Elona.ItemTagFish
+    - Elona.ItemFood
+    - Elona.ItemOfferingFish
     - tag:fish
   - type: RandomGen
     tables:
@@ -7084,9 +7085,9 @@
     material: Elona.Fresh
   - type: Tag
     tags:
-    - category:Elona.TagFish
-    - category:Elona.Food
-    - category:Elona.OfferingFish
+    - Elona.ItemTagFish
+    - Elona.ItemFood
+    - Elona.ItemOfferingFish
     - tag:fish
   - type: RandomGen
     tables:
@@ -7110,9 +7111,9 @@
     material: Elona.Fresh
   - type: Tag
     tags:
-    - category:Elona.TagFish
-    - category:Elona.Food
-    - category:Elona.OfferingFish
+    - Elona.ItemTagFish
+    - Elona.ItemFood
+    - Elona.ItemOfferingFish
     - tag:fish
   - type: RandomGen
     tables:
@@ -7136,9 +7137,9 @@
     material: Elona.Fresh
   - type: Tag
     tags:
-    - category:Elona.TagFish
-    - category:Elona.Food
-    - category:Elona.OfferingFish
+    - Elona.ItemTagFish
+    - Elona.ItemFood
+    - Elona.ItemOfferingFish
     - tag:fish
   - type: RandomGen
     tables:
@@ -7162,9 +7163,9 @@
     material: Elona.Fresh
   - type: Tag
     tags:
-    - category:Elona.TagFish
-    - category:Elona.Food
-    - category:Elona.OfferingFish
+    - Elona.ItemTagFish
+    - Elona.ItemFood
+    - Elona.ItemOfferingFish
     - tag:fish
 - type: Entity
   id: Elona.ItemSalmon
@@ -7183,9 +7184,9 @@
     material: Elona.Fresh
   - type: Tag
     tags:
-    - category:Elona.TagFish
-    - category:Elona.Food
-    - category:Elona.OfferingFish
+    - Elona.ItemTagFish
+    - Elona.ItemFood
+    - Elona.ItemOfferingFish
     - tag:fish
 - type: Entity
   id: Elona.ItemGlobefish
@@ -7204,9 +7205,9 @@
     material: Elona.Fresh
   - type: Tag
     tags:
-    - category:Elona.TagFish
-    - category:Elona.Food
-    - category:Elona.OfferingFish
+    - Elona.ItemTagFish
+    - Elona.ItemFood
+    - Elona.ItemOfferingFish
     - tag:fish
   - type: RandomGen
     tables:
@@ -7230,9 +7231,9 @@
     material: Elona.Fresh
   - type: Tag
     tags:
-    - category:Elona.TagFish
-    - category:Elona.Food
-    - category:Elona.OfferingFish
+    - Elona.ItemTagFish
+    - Elona.ItemFood
+    - Elona.ItemOfferingFish
     - tag:fish
   - type: RandomGen
     tables:
@@ -7256,9 +7257,9 @@
     material: Elona.Fresh
   - type: Tag
     tags:
-    - category:Elona.TagFish
-    - category:Elona.Food
-    - category:Elona.OfferingFish
+    - Elona.ItemTagFish
+    - Elona.ItemFood
+    - Elona.ItemOfferingFish
     - tag:fish
   - type: RandomGen
     tables:
@@ -7282,9 +7283,9 @@
     material: Elona.Fresh
   - type: Tag
     tags:
-    - category:Elona.TagFish
-    - category:Elona.Food
-    - category:Elona.OfferingFish
+    - Elona.ItemTagFish
+    - Elona.ItemFood
+    - Elona.ItemOfferingFish
     - tag:fish
   - type: RandomGen
     tables:
@@ -7310,9 +7311,10 @@
     identifyDifficulty: 500
   - type: Tag
     tags:
-    - category:Elona.EquipWristGlove
-    - category:Elona.UniqueItem
-    - category:Elona.EquipWrist
+    - Elona.ItemEquipWristGlove
+    - Elona.ItemUniqueItem
+    - Elona.ItemEquipWrist
+    - Elona.Precious
   - type: RandomGen
     tables:
       item:
@@ -7321,7 +7323,6 @@
         rarity: 0
   - type: Quality
     quality: Unique
-  - type: Precious
 - type: Entity
   id: Elona.ItemBloodMoon
   parent: BaseItem
@@ -7341,9 +7342,10 @@
     identifyDifficulty: 500
   - type: Tag
     tags:
-    - category:Elona.EquipMeleeClub
-    - category:Elona.UniqueItem
-    - category:Elona.EquipMelee
+    - Elona.ItemEquipMeleeClub
+    - Elona.ItemUniqueItem
+    - Elona.ItemEquipMelee
+    - Elona.Precious
   - type: RandomGen
     tables:
       item:
@@ -7352,7 +7354,6 @@
         rarity: 0
   - type: Quality
     quality: Unique
-  - type: Precious
 - type: Entity
   id: Elona.ItemRingOfSteelDragon
   parent: BaseItem
@@ -7371,9 +7372,10 @@
     identifyDifficulty: 500
   - type: Tag
     tags:
-    - category:Elona.EquipRingRing
-    - category:Elona.UniqueItem
-    - category:Elona.EquipRing
+    - Elona.ItemEquipRingRing
+    - Elona.ItemUniqueItem
+    - Elona.ItemEquipRing
+    - Elona.Precious
   - type: RandomGen
     tables:
       item:
@@ -7382,7 +7384,6 @@
         rarity: 0
   - type: Quality
     quality: Unique
-  - type: Precious
 - type: Entity
   id: Elona.ItemStaffOfInsanity
   parent: BaseItem
@@ -7401,9 +7402,10 @@
     identifyDifficulty: 500
   - type: Tag
     tags:
-    - category:Elona.EquipMeleeStaff
-    - category:Elona.UniqueItem
-    - category:Elona.EquipMelee
+    - Elona.ItemEquipMeleeStaff
+    - Elona.ItemUniqueItem
+    - Elona.ItemEquipMelee
+    - Elona.Precious
   - type: RandomGen
     tables:
       item:
@@ -7412,7 +7414,6 @@
         rarity: 0
   - type: Quality
     quality: Unique
-  - type: Precious
 - type: Entity
   id: Elona.ItemRankis
   parent: BaseItem
@@ -7432,9 +7433,10 @@
     identifyDifficulty: 500
   - type: Tag
     tags:
-    - category:Elona.EquipMeleeLance
-    - category:Elona.UniqueItem
-    - category:Elona.EquipMelee
+    - Elona.ItemEquipMeleeLance
+    - Elona.ItemUniqueItem
+    - Elona.ItemEquipMelee
+    - Elona.Precious
   - type: RandomGen
     tables:
       item:
@@ -7443,7 +7445,6 @@
         rarity: 0
   - type: Quality
     quality: Unique
-  - type: Precious
 - type: Entity
   id: Elona.ItemPalmiaPride
   parent: BaseItem
@@ -7462,9 +7463,10 @@
     identifyDifficulty: 500
   - type: Tag
     tags:
-    - category:Elona.EquipRingRing
-    - category:Elona.UniqueItem
-    - category:Elona.EquipRing
+    - Elona.ItemEquipRingRing
+    - Elona.ItemUniqueItem
+    - Elona.ItemEquipRing
+    - Elona.Precious
   - type: RandomGen
     tables:
       item:
@@ -7473,7 +7475,6 @@
         rarity: 0
   - type: Quality
     quality: Unique
-  - type: Precious
 - type: Entity
   id: Elona.ItemShopkeepersTrunk
   parent: BaseItem
@@ -7490,8 +7491,8 @@
     weight: 1200
   - type: Tag
     tags:
-    - category:Elona.Container
-    - category:Elona.NoGenerate
+    - Elona.ItemContainer
+    - Elona.ItemNoGenerate
     - Elona.NoWish
   - type: RandomGen
     tables:
@@ -7516,7 +7517,7 @@
     originalnameref2: scroll
   - type: Tag
     tags:
-    - category:Elona.Scroll
+    - Elona.ItemScroll
   - type: RandomGen
     tables:
       item:
@@ -7539,7 +7540,7 @@
     originalnameref2: scroll
   - type: Tag
     tags:
-    - category:Elona.Scroll
+    - Elona.ItemScroll
   - type: RandomGen
     tables:
       item:
@@ -7562,7 +7563,7 @@
     originalnameref2: potion
   - type: Tag
     tags:
-    - category:Elona.Drink
+    - Elona.ItemDrink
 - type: Entity
   id: Elona.ItemSpellbookOfHolyShield
   parent: BaseItem
@@ -7580,7 +7581,7 @@
     originalnameref2: spellbook
   - type: Tag
     tags:
-    - category:Elona.Spellbook
+    - Elona.ItemSpellbook
 - type: Entity
   id: Elona.ItemRodOfSilence
   parent: BaseItem
@@ -7598,7 +7599,7 @@
     originalnameref2: rod
   - type: Tag
     tags:
-    - category:Elona.Rod
+    - Elona.ItemRod
 - type: Entity
   id: Elona.ItemSpellbookOfSilence
   parent: BaseItem
@@ -7616,7 +7617,7 @@
     originalnameref2: spellbook
   - type: Tag
     tags:
-    - category:Elona.Spellbook
+    - Elona.ItemSpellbook
   - type: RandomGen
     tables:
       item:
@@ -7639,8 +7640,8 @@
     originalnameref2: potion
   - type: Tag
     tags:
-    - category:Elona.Drink
-    - category:Elona.TagNeg
+    - Elona.ItemDrink
+    - Elona.ItemTagNeg
     - tag:neg
 - type: Entity
   id: Elona.ItemSpellbookOfRegeneration
@@ -7659,7 +7660,7 @@
     originalnameref2: spellbook
   - type: Tag
     tags:
-    - category:Elona.Spellbook
+    - Elona.ItemSpellbook
   - type: RandomGen
     tables:
       item:
@@ -7682,7 +7683,7 @@
     originalnameref2: potion
   - type: Tag
     tags:
-    - category:Elona.Drink
+    - Elona.ItemDrink
 - type: Entity
   id: Elona.ItemSpellbookOfResistance
   parent: BaseItem
@@ -7700,7 +7701,7 @@
     originalnameref2: spellbook
   - type: Tag
     tags:
-    - category:Elona.Spellbook
+    - Elona.ItemSpellbook
   - type: RandomGen
     tables:
       item:
@@ -7723,7 +7724,7 @@
     originalnameref2: potion
   - type: Tag
     tags:
-    - category:Elona.Drink
+    - Elona.ItemDrink
 - type: Entity
   id: Elona.ItemSpellbookOfSpeed
   parent: BaseItem
@@ -7741,7 +7742,7 @@
     originalnameref2: spellbook
   - type: Tag
     tags:
-    - category:Elona.Spellbook
+    - Elona.ItemSpellbook
   - type: RandomGen
     tables:
       item:
@@ -7764,7 +7765,7 @@
     originalnameref2: spellbook
   - type: Tag
     tags:
-    - category:Elona.Spellbook
+    - Elona.ItemSpellbook
   - type: RandomGen
     tables:
       item:
@@ -7787,7 +7788,7 @@
     originalnameref2: potion
   - type: Tag
     tags:
-    - category:Elona.Drink
+    - Elona.ItemDrink
   - type: RandomGen
     tables:
       item:
@@ -7810,8 +7811,8 @@
     originalnameref2: potion
   - type: Tag
     tags:
-    - category:Elona.Drink
-    - category:Elona.TagNeg
+    - Elona.ItemDrink
+    - Elona.ItemTagNeg
     - tag:neg
 - type: Entity
   id: Elona.ItemRodOfSpeed
@@ -7830,7 +7831,7 @@
     originalnameref2: rod
   - type: Tag
     tags:
-    - category:Elona.Rod
+    - Elona.ItemRod
 - type: Entity
   id: Elona.ItemSpellbookOfHero
   parent: BaseItem
@@ -7848,7 +7849,7 @@
     originalnameref2: spellbook
   - type: Tag
     tags:
-    - category:Elona.Spellbook
+    - Elona.ItemSpellbook
 - type: Entity
   id: Elona.ItemPotionOfHero
   parent: BaseItem
@@ -7866,7 +7867,7 @@
     originalnameref2: potion
   - type: Tag
     tags:
-    - category:Elona.Drink
+    - Elona.ItemDrink
 - type: Entity
   id: Elona.ItemSpellbookOfWeakness
   parent: BaseItem
@@ -7884,7 +7885,7 @@
     originalnameref2: spellbook
   - type: Tag
     tags:
-    - category:Elona.Spellbook
+    - Elona.ItemSpellbook
   - type: RandomGen
     tables:
       item:
@@ -7907,7 +7908,7 @@
     originalnameref2: spellbook
   - type: Tag
     tags:
-    - category:Elona.Spellbook
+    - Elona.ItemSpellbook
   - type: RandomGen
     tables:
       item:
@@ -7930,8 +7931,8 @@
     originalnameref2: potion
   - type: Tag
     tags:
-    - category:Elona.Drink
-    - category:Elona.TagNeg
+    - Elona.ItemDrink
+    - Elona.ItemTagNeg
     - tag:neg
 - type: Entity
   id: Elona.ItemSpellbookOfHolyVeil
@@ -7950,7 +7951,7 @@
     originalnameref2: spellbook
   - type: Tag
     tags:
-    - category:Elona.Spellbook
+    - Elona.ItemSpellbook
   - type: RandomGen
     tables:
       item:
@@ -7973,7 +7974,7 @@
     originalnameref2: scroll
   - type: Tag
     tags:
-    - category:Elona.Scroll
+    - Elona.ItemScroll
   - type: RandomGen
     tables:
       item:
@@ -7996,7 +7997,7 @@
     originalnameref2: rod
   - type: Tag
     tags:
-    - category:Elona.Rod
+    - Elona.ItemRod
   - type: RandomGen
     tables:
       item:
@@ -8019,7 +8020,7 @@
     originalnameref2: spellbook
   - type: Tag
     tags:
-    - category:Elona.Spellbook
+    - Elona.ItemSpellbook
   - type: RandomGen
     tables:
       item:
@@ -8042,7 +8043,7 @@
     originalnameref2: spellbook
   - type: Tag
     tags:
-    - category:Elona.Spellbook
+    - Elona.ItemSpellbook
   - type: RandomGen
     tables:
       item:
@@ -8065,7 +8066,7 @@
     originalnameref2: scroll
   - type: Tag
     tags:
-    - category:Elona.Scroll
+    - Elona.ItemScroll
   - type: RandomGen
     tables:
       item:
@@ -8088,7 +8089,7 @@
     originalnameref2: scroll
   - type: Tag
     tags:
-    - category:Elona.Scroll
+    - Elona.ItemScroll
   - type: RandomGen
     tables:
       item:
@@ -8111,7 +8112,7 @@
     originalnameref2: scroll
   - type: Tag
     tags:
-    - category:Elona.Scroll
+    - Elona.ItemScroll
   - type: RandomGen
     tables:
       item:
@@ -8134,7 +8135,7 @@
     originalnameref2: rod
   - type: Tag
     tags:
-    - category:Elona.Rod
+    - Elona.ItemRod
   - type: RandomGen
     tables:
       item:
@@ -8157,8 +8158,8 @@
     originalnameref2: bottle
   - type: Tag
     tags:
-    - category:Elona.Drink
-    - category:Elona.TagNogive
+    - Elona.ItemDrink
+    - Elona.ItemTagNogive
     - tag:nogive
     - tag:elona.is_acid
 - type: Entity
@@ -8177,7 +8178,7 @@
     weight: 500
   - type: Tag
     tags:
-    - category:Elona.MiscItem
+    - Elona.ItemMiscItem
 - type: Entity
   id: Elona.ItemMaterialBox
   parent: BaseItem
@@ -8194,7 +8195,7 @@
     weight: 1200
   - type: Tag
     tags:
-    - category:Elona.Container
+    - Elona.ItemContainer
 - type: Entity
   id: Elona.ItemScrollOfGainMaterial
   parent: BaseItem
@@ -8212,7 +8213,7 @@
     originalnameref2: scroll
   - type: Tag
     tags:
-    - category:Elona.Scroll
+    - Elona.ItemScroll
   - type: RandomGen
     tables:
       item:
@@ -8235,7 +8236,7 @@
     originalnameref2: spellbook
   - type: Tag
     tags:
-    - category:Elona.Spellbook
+    - Elona.ItemSpellbook
   - type: RandomGen
     tables:
       item:
@@ -8258,7 +8259,7 @@
     originalnameref2: spellbook
   - type: Tag
     tags:
-    - category:Elona.Spellbook
+    - Elona.ItemSpellbook
   - type: RandomGen
     tables:
       item:
@@ -8281,7 +8282,7 @@
     originalnameref2: scroll
   - type: Tag
     tags:
-    - category:Elona.Scroll
+    - Elona.ItemScroll
   - type: RandomGen
     tables:
       item:
@@ -8303,7 +8304,7 @@
     weight: 0
   - type: Tag
     tags:
-    - category:Elona.Cargo
+    - Elona.ItemCargo
 - type: Entity
   id: Elona.ItemCargoBarrel
   parent: BaseItem
@@ -8320,7 +8321,7 @@
     weight: 0
   - type: Tag
     tags:
-    - category:Elona.Cargo
+    - Elona.ItemCargo
 - type: Entity
   id: Elona.ItemCargoPiano
   parent: BaseItem
@@ -8337,7 +8338,7 @@
     weight: 0
   - type: Tag
     tags:
-    - category:Elona.Cargo
+    - Elona.ItemCargo
   - type: RandomGen
     tables:
       item:
@@ -8359,7 +8360,7 @@
     weight: 0
   - type: Tag
     tags:
-    - category:Elona.Cargo
+    - Elona.ItemCargo
 - type: Entity
   id: Elona.ItemCargoCoffin
   parent: BaseItem
@@ -8376,7 +8377,7 @@
     weight: 0
   - type: Tag
     tags:
-    - category:Elona.Cargo
+    - Elona.ItemCargo
   - type: RandomGen
     tables:
       item:
@@ -8398,7 +8399,7 @@
     weight: 0
   - type: Tag
     tags:
-    - category:Elona.Cargo
+    - Elona.ItemCargo
   - type: RandomGen
     tables:
       item:
@@ -8420,7 +8421,7 @@
     weight: 0
   - type: Tag
     tags:
-    - category:Elona.Cargo
+    - Elona.ItemCargo
   - type: RandomGen
     tables:
       item:
@@ -8442,7 +8443,7 @@
     weight: 0
   - type: Tag
     tags:
-    - category:Elona.Cargo
+    - Elona.ItemCargo
   - type: RandomGen
     tables:
       item:
@@ -8464,7 +8465,7 @@
     weight: 0
   - type: Tag
     tags:
-    - category:Elona.Cargo
+    - Elona.ItemCargo
   - type: RandomGen
     tables:
       item:
@@ -8486,7 +8487,7 @@
     weight: 0
   - type: Tag
     tags:
-    - category:Elona.Cargo
+    - Elona.ItemCargo
   - type: RandomGen
     tables:
       item:
@@ -8508,7 +8509,7 @@
     weight: 0
   - type: Tag
     tags:
-    - category:Elona.Cargo
+    - Elona.ItemCargo
   - type: RandomGen
     tables:
       item:
@@ -8531,7 +8532,7 @@
     originalnameref2: spellbook
   - type: Tag
     tags:
-    - category:Elona.Spellbook
+    - Elona.ItemSpellbook
   - type: RandomGen
     tables:
       item:
@@ -8554,7 +8555,7 @@
     originalnameref2: scroll
   - type: Tag
     tags:
-    - category:Elona.Scroll
+    - Elona.ItemScroll
 - type: Entity
   id: Elona.ItemRodOfUncurse
   parent: BaseItem
@@ -8572,7 +8573,7 @@
     originalnameref2: rod
   - type: Tag
     tags:
-    - category:Elona.Rod
+    - Elona.ItemRod
   - type: RandomGen
     tables:
       item:
@@ -8594,8 +8595,8 @@
     weight: 140000
   - type: Tag
     tags:
-    - category:Elona.NoGenerate
-    - category:Elona.Furniture
+    - Elona.ItemNoGenerate
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -8618,8 +8619,8 @@
     weight: 140000
   - type: Tag
     tags:
-    - category:Elona.NoGenerate
-    - category:Elona.Furniture
+    - Elona.ItemNoGenerate
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -8642,7 +8643,7 @@
     weight: 500
   - type: Tag
     tags:
-    - category:Elona.Container
+    - Elona.ItemContainer
   - type: RandomGen
     tables:
       item:
@@ -8664,8 +8665,8 @@
     weight: 500
   - type: Tag
     tags:
-    - category:Elona.Container
-    - category:Elona.TagSpshop
+    - Elona.ItemContainer
+    - Elona.ItemTagSpshop
     - tag:spshop
   - type: RandomGen
     tables:
@@ -8689,8 +8690,8 @@
     weight: 40
   - type: Tag
     tags:
-    - category:Elona.CropSeed
-    - category:Elona.Food
+    - Elona.ItemCropSeed
+    - Elona.ItemFood
 - type: Entity
   id: Elona.ItemFruitSeed
   parent: BaseItem
@@ -8708,8 +8709,8 @@
     weight: 40
   - type: Tag
     tags:
-    - category:Elona.CropSeed
-    - category:Elona.Food
+    - Elona.ItemCropSeed
+    - Elona.ItemFood
   - type: RandomGen
     tables:
       item:
@@ -8732,8 +8733,8 @@
     weight: 40
   - type: Tag
     tags:
-    - category:Elona.CropSeed
-    - category:Elona.Food
+    - Elona.ItemCropSeed
+    - Elona.ItemFood
   - type: RandomGen
     tables:
       item:
@@ -8755,8 +8756,8 @@
     weight: 40
   - type: Tag
     tags:
-    - category:Elona.CropSeed
-    - category:Elona.Food
+    - Elona.ItemCropSeed
+    - Elona.ItemFood
   - type: RandomGen
     tables:
       item:
@@ -8779,10 +8780,10 @@
     weight: 40
   - type: Tag
     tags:
-    - category:Elona.CropSeed
-    - category:Elona.TagNoshop
-    - category:Elona.TagSpshop
-    - category:Elona.Food
+    - Elona.ItemCropSeed
+    - Elona.ItemTagNoshop
+    - Elona.ItemTagSpshop
+    - Elona.ItemFood
     - tag:noshop
     - tag:spshop
   - type: RandomGen
@@ -8806,8 +8807,8 @@
     weight: 250
   - type: Tag
     tags:
-    - category:Elona.CropHerb
-    - category:Elona.Food
+    - Elona.ItemCropHerb
+    - Elona.ItemFood
   - type: RandomGen
     tables:
       item:
@@ -8829,8 +8830,8 @@
     weight: 210
   - type: Tag
     tags:
-    - category:Elona.CropHerb
-    - category:Elona.Food
+    - Elona.ItemCropHerb
+    - Elona.ItemFood
   - type: RandomGen
     tables:
       item:
@@ -8852,8 +8853,8 @@
     weight: 220
   - type: Tag
     tags:
-    - category:Elona.CropHerb
-    - category:Elona.Food
+    - Elona.ItemCropHerb
+    - Elona.ItemFood
   - type: RandomGen
     tables:
       item:
@@ -8875,8 +8876,8 @@
     weight: 260
   - type: Tag
     tags:
-    - category:Elona.CropHerb
-    - category:Elona.Food
+    - Elona.ItemCropHerb
+    - Elona.ItemFood
 - type: Entity
   id: Elona.ItemAlraunia
   parent: BaseItem
@@ -8893,8 +8894,8 @@
     weight: 120
   - type: Tag
     tags:
-    - category:Elona.CropHerb
-    - category:Elona.Food
+    - Elona.ItemCropHerb
+    - Elona.ItemFood
   - type: RandomGen
     tables:
       item:
@@ -8916,8 +8917,8 @@
     weight: 480
   - type: Tag
     tags:
-    - category:Elona.CropHerb
-    - category:Elona.Food
+    - Elona.ItemCropHerb
+    - Elona.ItemFood
 - type: Entity
   id: Elona.ItemSleepingBag
   parent: BaseItem
@@ -8934,8 +8935,8 @@
     weight: 2400
   - type: Tag
     tags:
-    - category:Elona.MiscItem
-    - category:Elona.FurnitureBed
+    - Elona.ItemMiscItem
+    - Elona.ItemFurnitureBed
 - type: Entity
   id: Elona.ItemPotionOfWeakenResistance
   parent: BaseItem
@@ -8953,8 +8954,8 @@
     originalnameref2: potion
   - type: Tag
     tags:
-    - category:Elona.Drink
-    - category:Elona.TagNeg
+    - Elona.ItemDrink
+    - Elona.ItemTagNeg
     - tag:neg
 - type: Entity
   id: Elona.ItemScrollOfGrowth
@@ -8973,8 +8974,8 @@
     originalnameref2: scroll
   - type: Tag
     tags:
-    - category:Elona.Scroll
-    - category:Elona.TagNoshop
+    - Elona.ItemScroll
+    - Elona.ItemTagNoshop
     - tag:noshop
   - type: RandomGen
     tables:
@@ -8998,8 +8999,8 @@
     originalnameref2: scroll
   - type: Tag
     tags:
-    - category:Elona.Scroll
-    - category:Elona.TagNoshop
+    - Elona.ItemScroll
+    - Elona.ItemTagNoshop
     - tag:noshop
   - type: RandomGen
     tables:
@@ -9023,8 +9024,8 @@
     originalnameref2: potion
   - type: Tag
     tags:
-    - category:Elona.Drink
-    - category:Elona.TagNogive
+    - Elona.ItemDrink
+    - Elona.ItemTagNogive
     - tag:nogive
   - type: RandomGen
     tables:
@@ -9048,7 +9049,7 @@
     originalnameref2: potion
   - type: Tag
     tags:
-    - category:Elona.Drink
+    - Elona.ItemDrink
   - type: RandomGen
     tables:
       item:
@@ -9071,7 +9072,7 @@
     originalnameref2: spellbook
   - type: Tag
     tags:
-    - category:Elona.Spellbook
+    - Elona.ItemSpellbook
   - type: RandomGen
     tables:
       item:
@@ -9094,8 +9095,8 @@
     material: Elona.Metal
   - type: Tag
     tags:
-    - category:Elona.EquipBodyMail
-    - category:Elona.EquipBody
+    - Elona.ItemEquipBodyMail
+    - Elona.ItemEquipBody
 - type: Entity
   id: Elona.ItemPlateMail
   parent: BaseItem
@@ -9113,8 +9114,8 @@
     material: Elona.Metal
   - type: Tag
     tags:
-    - category:Elona.EquipBodyMail
-    - category:Elona.EquipBody
+    - Elona.ItemEquipBodyMail
+    - Elona.ItemEquipBody
 - type: Entity
   id: Elona.ItemRingMail
   parent: BaseItem
@@ -9132,8 +9133,8 @@
     material: Elona.Metal
   - type: Tag
     tags:
-    - category:Elona.EquipBodyMail
-    - category:Elona.EquipBody
+    - Elona.ItemEquipBodyMail
+    - Elona.ItemEquipBody
 - type: Entity
   id: Elona.ItemCompositeMail
   parent: BaseItem
@@ -9151,8 +9152,8 @@
     material: Elona.Metal
   - type: Tag
     tags:
-    - category:Elona.EquipBodyMail
-    - category:Elona.EquipBody
+    - Elona.ItemEquipBodyMail
+    - Elona.ItemEquipBody
 - type: Entity
   id: Elona.ItemChainMail
   parent: BaseItem
@@ -9170,8 +9171,8 @@
     material: Elona.Metal
   - type: Tag
     tags:
-    - category:Elona.EquipBodyMail
-    - category:Elona.EquipBody
+    - Elona.ItemEquipBodyMail
+    - Elona.ItemEquipBody
 - type: Entity
   id: Elona.ItemPopeRobe
   parent: BaseItem
@@ -9189,8 +9190,8 @@
     material: Elona.Soft
   - type: Tag
     tags:
-    - category:Elona.EquipBodyRobe
-    - category:Elona.EquipBody
+    - Elona.ItemEquipBodyRobe
+    - Elona.ItemEquipBody
 - type: Entity
   id: Elona.ItemLightMail
   parent: BaseItem
@@ -9208,8 +9209,8 @@
     material: Elona.Soft
   - type: Tag
     tags:
-    - category:Elona.EquipBodyRobe
-    - category:Elona.EquipBody
+    - Elona.ItemEquipBodyRobe
+    - Elona.ItemEquipBody
 - type: Entity
   id: Elona.ItemCoat
   parent: BaseItem
@@ -9227,8 +9228,8 @@
     material: Elona.Soft
   - type: Tag
     tags:
-    - category:Elona.EquipBodyRobe
-    - category:Elona.EquipBody
+    - Elona.ItemEquipBodyRobe
+    - Elona.ItemEquipBody
 - type: Entity
   id: Elona.ItemBreastPlate
   parent: BaseItem
@@ -9246,8 +9247,8 @@
     material: Elona.Soft
   - type: Tag
     tags:
-    - category:Elona.EquipBodyRobe
-    - category:Elona.EquipBody
+    - Elona.ItemEquipBodyRobe
+    - Elona.ItemEquipBody
 - type: Entity
   id: Elona.ItemBulletproofJacket
   parent: BaseItem
@@ -9265,8 +9266,8 @@
     material: Elona.Soft
   - type: Tag
     tags:
-    - category:Elona.EquipBodyRobe
-    - category:Elona.EquipBody
+    - Elona.ItemEquipBodyRobe
+    - Elona.ItemEquipBody
 - type: Entity
   id: Elona.ItemGloves
   parent: BaseItem
@@ -9284,8 +9285,8 @@
     material: Elona.Soft
   - type: Tag
     tags:
-    - category:Elona.EquipWristGlove
-    - category:Elona.EquipWrist
+    - Elona.ItemEquipWristGlove
+    - Elona.ItemEquipWrist
 - type: Entity
   id: Elona.ItemPlateGauntlets
   parent: BaseItem
@@ -9303,8 +9304,8 @@
     material: Elona.Metal
   - type: Tag
     tags:
-    - category:Elona.EquipWristGauntlet
-    - category:Elona.EquipWrist
+    - Elona.ItemEquipWristGauntlet
+    - Elona.ItemEquipWrist
 - type: Entity
   id: Elona.ItemLightGloves
   parent: BaseItem
@@ -9322,8 +9323,8 @@
     material: Elona.Soft
   - type: Tag
     tags:
-    - category:Elona.EquipWristGlove
-    - category:Elona.EquipWrist
+    - Elona.ItemEquipWristGlove
+    - Elona.ItemEquipWrist
 - type: Entity
   id: Elona.ItemCompositeGauntlets
   parent: BaseItem
@@ -9341,8 +9342,8 @@
     material: Elona.Metal
   - type: Tag
     tags:
-    - category:Elona.EquipWristGauntlet
-    - category:Elona.EquipWrist
+    - Elona.ItemEquipWristGauntlet
+    - Elona.ItemEquipWrist
 - type: Entity
   id: Elona.ItemSmallShield
   parent: BaseItem
@@ -9360,8 +9361,8 @@
     material: Elona.Metal
   - type: Tag
     tags:
-    - category:Elona.EquipShieldShield
-    - category:Elona.EquipShield
+    - Elona.ItemEquipShieldShield
+    - Elona.ItemEquipShield
 - type: Entity
   id: Elona.ItemRoundShield
   parent: BaseItem
@@ -9379,8 +9380,8 @@
     material: Elona.Metal
   - type: Tag
     tags:
-    - category:Elona.EquipShieldShield
-    - category:Elona.EquipShield
+    - Elona.ItemEquipShieldShield
+    - Elona.ItemEquipShield
 - type: Entity
   id: Elona.ItemShield
   parent: BaseItem
@@ -9398,8 +9399,8 @@
     material: Elona.Metal
   - type: Tag
     tags:
-    - category:Elona.EquipShieldShield
-    - category:Elona.EquipShield
+    - Elona.ItemEquipShieldShield
+    - Elona.ItemEquipShield
 - type: Entity
   id: Elona.ItemLargeShield
   parent: BaseItem
@@ -9417,8 +9418,8 @@
     material: Elona.Metal
   - type: Tag
     tags:
-    - category:Elona.EquipShieldShield
-    - category:Elona.EquipShield
+    - Elona.ItemEquipShieldShield
+    - Elona.ItemEquipShield
 - type: Entity
   id: Elona.ItemKiteShield
   parent: BaseItem
@@ -9436,8 +9437,8 @@
     material: Elona.Metal
   - type: Tag
     tags:
-    - category:Elona.EquipShieldShield
-    - category:Elona.EquipShield
+    - Elona.ItemEquipShieldShield
+    - Elona.ItemEquipShield
 - type: Entity
   id: Elona.ItemTowerShield
   parent: BaseItem
@@ -9455,8 +9456,8 @@
     material: Elona.Metal
   - type: Tag
     tags:
-    - category:Elona.EquipShieldShield
-    - category:Elona.EquipShield
+    - Elona.ItemEquipShieldShield
+    - Elona.ItemEquipShield
 - type: Entity
   id: Elona.ItemShoes
   parent: BaseItem
@@ -9474,8 +9475,8 @@
     material: Elona.Soft
   - type: Tag
     tags:
-    - category:Elona.EquipLegShoes
-    - category:Elona.EquipLeg
+    - Elona.ItemEquipLegShoes
+    - Elona.ItemEquipLeg
 - type: Entity
   id: Elona.ItemBoots
   parent: BaseItem
@@ -9493,8 +9494,8 @@
     material: Elona.Soft
   - type: Tag
     tags:
-    - category:Elona.EquipLegShoes
-    - category:Elona.EquipLeg
+    - Elona.ItemEquipLegShoes
+    - Elona.ItemEquipLeg
 - type: Entity
   id: Elona.ItemTightBoots
   parent: BaseItem
@@ -9512,8 +9513,8 @@
     material: Elona.Soft
   - type: Tag
     tags:
-    - category:Elona.EquipLegShoes
-    - category:Elona.EquipLeg
+    - Elona.ItemEquipLegShoes
+    - Elona.ItemEquipLeg
 - type: Entity
   id: Elona.ItemArmoredBoots
   parent: BaseItem
@@ -9531,8 +9532,8 @@
     material: Elona.Metal
   - type: Tag
     tags:
-    - category:Elona.EquipLegHeavyBoots
-    - category:Elona.EquipLeg
+    - Elona.ItemEquipLegHeavyBoots
+    - Elona.ItemEquipLeg
 - type: Entity
   id: Elona.ItemCompositeGirdle
   parent: BaseItem
@@ -9550,8 +9551,8 @@
     material: Elona.Metal
   - type: Tag
     tags:
-    - category:Elona.EquipBackGirdle
-    - category:Elona.EquipCloak
+    - Elona.ItemEquipBackGirdle
+    - Elona.ItemEquipCloak
 - type: Entity
   id: Elona.ItemPlateGirdle
   parent: BaseItem
@@ -9569,8 +9570,8 @@
     material: Elona.Metal
   - type: Tag
     tags:
-    - category:Elona.EquipBackGirdle
-    - category:Elona.EquipCloak
+    - Elona.ItemEquipBackGirdle
+    - Elona.ItemEquipCloak
 - type: Entity
   id: Elona.ItemArmoredCloak
   parent: BaseItem
@@ -9588,8 +9589,8 @@
     material: Elona.Soft
   - type: Tag
     tags:
-    - category:Elona.EquipBack
-    - category:Elona.EquipBackCloak
+    - Elona.ItemEquipBack
+    - Elona.ItemEquipBackCloak
 - type: Entity
   id: Elona.ItemCloak
   parent: BaseItem
@@ -9607,8 +9608,8 @@
     material: Elona.Soft
   - type: Tag
     tags:
-    - category:Elona.EquipBack
-    - category:Elona.EquipBackCloak
+    - Elona.ItemEquipBack
+    - Elona.ItemEquipBackCloak
 - type: Entity
   id: Elona.ItemFeatherHat
   parent: BaseItem
@@ -9626,8 +9627,8 @@
     material: Elona.Soft
   - type: Tag
     tags:
-    - category:Elona.EquipHeadHat
-    - category:Elona.EquipHead
+    - Elona.ItemEquipHeadHat
+    - Elona.ItemEquipHead
 - type: Entity
   id: Elona.ItemHeavyHelm
   parent: BaseItem
@@ -9645,8 +9646,8 @@
     material: Elona.Metal
   - type: Tag
     tags:
-    - category:Elona.EquipHeadHelm
-    - category:Elona.EquipHead
+    - Elona.ItemEquipHeadHelm
+    - Elona.ItemEquipHead
 - type: Entity
   id: Elona.ItemKnightHelm
   parent: BaseItem
@@ -9664,8 +9665,8 @@
     material: Elona.Metal
   - type: Tag
     tags:
-    - category:Elona.EquipHeadHelm
-    - category:Elona.EquipHead
+    - Elona.ItemEquipHeadHelm
+    - Elona.ItemEquipHead
 - type: Entity
   id: Elona.ItemHelm
   parent: BaseItem
@@ -9683,8 +9684,8 @@
     material: Elona.Metal
   - type: Tag
     tags:
-    - category:Elona.EquipHeadHelm
-    - category:Elona.EquipHead
+    - Elona.ItemEquipHeadHelm
+    - Elona.ItemEquipHead
 - type: Entity
   id: Elona.ItemCompositeHelm
   parent: BaseItem
@@ -9702,8 +9703,8 @@
     material: Elona.Metal
   - type: Tag
     tags:
-    - category:Elona.EquipHeadHelm
-    - category:Elona.EquipHead
+    - Elona.ItemEquipHeadHelm
+    - Elona.ItemEquipHead
 - type: Entity
   id: Elona.ItemPeridot
   parent: BaseItem
@@ -9721,8 +9722,8 @@
     material: Elona.Metal
   - type: Tag
     tags:
-    - category:Elona.EquipNeckArmor
-    - category:Elona.EquipNeck
+    - Elona.ItemEquipNeckArmor
+    - Elona.ItemEquipNeck
 - type: Entity
   id: Elona.ItemTalisman
   parent: BaseItem
@@ -9740,8 +9741,8 @@
     material: Elona.Soft
   - type: Tag
     tags:
-    - category:Elona.EquipNeckArmor
-    - category:Elona.EquipNeck
+    - Elona.ItemEquipNeckArmor
+    - Elona.ItemEquipNeck
 - type: Entity
   id: Elona.ItemNeckGuard
   parent: BaseItem
@@ -9759,8 +9760,8 @@
     material: Elona.Metal
   - type: Tag
     tags:
-    - category:Elona.EquipNeckArmor
-    - category:Elona.EquipNeck
+    - Elona.ItemEquipNeckArmor
+    - Elona.ItemEquipNeck
 - type: Entity
   id: Elona.ItemCharm
   parent: BaseItem
@@ -9778,9 +9779,9 @@
     material: Elona.Soft
   - type: Tag
     tags:
-    - category:Elona.EquipNeckArmor
-    - category:Elona.TagFest
-    - category:Elona.EquipNeck
+    - Elona.ItemEquipNeckArmor
+    - Elona.ItemTagFest
+    - Elona.ItemEquipNeck
     - tag:fest
 - type: Entity
   id: Elona.ItemBejeweledAmulet
@@ -9799,8 +9800,8 @@
     material: Elona.Metal
   - type: Tag
     tags:
-    - category:Elona.EquipNeckArmor
-    - category:Elona.EquipNeck
+    - Elona.ItemEquipNeckArmor
+    - Elona.ItemEquipNeck
 - type: Entity
   id: Elona.ItemEngagementAmulet
   parent: BaseItem
@@ -9818,8 +9819,8 @@
     material: Elona.Metal
   - type: Tag
     tags:
-    - category:Elona.EquipNeckArmor
-    - category:Elona.EquipNeck
+    - Elona.ItemEquipNeckArmor
+    - Elona.ItemEquipNeck
   - type: RandomGen
     tables:
       item:
@@ -9842,8 +9843,8 @@
     material: Elona.Metal
   - type: Tag
     tags:
-    - category:Elona.EquipRingRing
-    - category:Elona.EquipRing
+    - Elona.ItemEquipRingRing
+    - Elona.ItemEquipRing
 - type: Entity
   id: Elona.ItemArmoredRing
   parent: BaseItem
@@ -9861,8 +9862,8 @@
     material: Elona.Metal
   - type: Tag
     tags:
-    - category:Elona.EquipRingRing
-    - category:Elona.EquipRing
+    - Elona.ItemEquipRingRing
+    - Elona.ItemEquipRing
 - type: Entity
   id: Elona.ItemRing
   parent: BaseItem
@@ -9880,8 +9881,8 @@
     material: Elona.Metal
   - type: Tag
     tags:
-    - category:Elona.EquipRingRing
-    - category:Elona.EquipRing
+    - Elona.ItemEquipRingRing
+    - Elona.ItemEquipRing
 - type: Entity
   id: Elona.ItemEngagementRing
   parent: BaseItem
@@ -9899,8 +9900,8 @@
     material: Elona.Metal
   - type: Tag
     tags:
-    - category:Elona.EquipRingRing
-    - category:Elona.EquipRing
+    - Elona.ItemEquipRingRing
+    - Elona.ItemEquipRing
   - type: RandomGen
     tables:
       item:
@@ -9922,7 +9923,7 @@
     weight: 250
   - type: Tag
     tags:
-    - category:Elona.MiscItem
+    - Elona.ItemMiscItem
 - type: Entity
   id: Elona.ItemScrollOfAlly
   parent: BaseItem
@@ -9940,7 +9941,7 @@
     originalnameref2: scroll
   - type: Tag
     tags:
-    - category:Elona.Scroll
+    - Elona.ItemScroll
   - type: RandomGen
     tables:
       item:
@@ -9963,8 +9964,8 @@
     originalnameref2: rod
   - type: Tag
     tags:
-    - category:Elona.Rod
-    - category:Elona.TagNoshop
+    - Elona.ItemRod
+    - Elona.ItemTagNoshop
     - tag:noshop
   - type: RandomGen
     tables:
@@ -9988,7 +9989,7 @@
     originalnameref2: spellbook
   - type: Tag
     tags:
-    - category:Elona.Spellbook
+    - Elona.ItemSpellbook
   - type: RandomGen
     tables:
       item:
@@ -10011,8 +10012,8 @@
     material: Elona.Metal
   - type: Tag
     tags:
-    - category:Elona.EquipRangedCrossbow
-    - category:Elona.EquipRanged
+    - Elona.ItemEquipRangedCrossbow
+    - Elona.ItemEquipRanged
 - type: Entity
   id: Elona.ItemBolt
   parent: BaseItem
@@ -10030,8 +10031,8 @@
     material: Elona.Metal
   - type: Tag
     tags:
-    - category:Elona.EquipAmmo
-    - category:Elona.EquipAmmoBolt
+    - Elona.ItemEquipAmmo
+    - Elona.ItemEquipAmmoBolt
 - type: Entity
   id: Elona.ItemSpellbookOfWeb
   parent: BaseItem
@@ -10049,7 +10050,7 @@
     originalnameref2: spellbook
   - type: Tag
     tags:
-    - category:Elona.Spellbook
+    - Elona.ItemSpellbook
   - type: RandomGen
     tables:
       item:
@@ -10072,7 +10073,7 @@
     originalnameref2: rod
   - type: Tag
     tags:
-    - category:Elona.Rod
+    - Elona.ItemRod
   - type: RandomGen
     tables:
       item:
@@ -10094,9 +10095,9 @@
     weight: 150000
   - type: Tag
     tags:
-    - category:Elona.TagSf
-    - category:Elona.Furniture
-    - category:Elona.OfferingSf
+    - Elona.ItemTagSf
+    - Elona.ItemFurniture
+    - Elona.ItemOfferingSf
     - tag:sf
   - type: RandomGen
     tables:
@@ -10119,9 +10120,9 @@
     weight: 45000
   - type: Tag
     tags:
-    - category:Elona.TagSf
-    - category:Elona.Furniture
-    - category:Elona.OfferingSf
+    - Elona.ItemTagSf
+    - Elona.ItemFurniture
+    - Elona.ItemOfferingSf
     - tag:sf
   - type: RandomGen
     tables:
@@ -10144,9 +10145,9 @@
     weight: 120000
   - type: Tag
     tags:
-    - category:Elona.TagSf
-    - category:Elona.Furniture
-    - category:Elona.OfferingSf
+    - Elona.ItemTagSf
+    - Elona.ItemFurniture
+    - Elona.ItemOfferingSf
     - tag:sf
   - type: RandomGen
     tables:
@@ -10169,10 +10170,10 @@
     weight: 1500
   - type: Tag
     tags:
-    - category:Elona.TagSf
-    - category:Elona.TagFest
-    - category:Elona.Furniture
-    - category:Elona.OfferingSf
+    - Elona.ItemTagSf
+    - Elona.ItemTagFest
+    - Elona.ItemFurniture
+    - Elona.ItemOfferingSf
     - tag:sf
     - tag:fest
   - type: RandomGen
@@ -10196,9 +10197,9 @@
     weight: 150000
   - type: Tag
     tags:
-    - category:Elona.TagSf
-    - category:Elona.Furniture
-    - category:Elona.OfferingSf
+    - Elona.ItemTagSf
+    - Elona.ItemFurniture
+    - Elona.ItemOfferingSf
     - tag:sf
   - type: RandomGen
     tables:
@@ -10221,9 +10222,9 @@
     weight: 95000
   - type: Tag
     tags:
-    - category:Elona.TagSf
-    - category:Elona.Furniture
-    - category:Elona.OfferingSf
+    - Elona.ItemTagSf
+    - Elona.ItemFurniture
+    - Elona.ItemOfferingSf
     - tag:sf
   - type: RandomGen
     tables:
@@ -10246,9 +10247,9 @@
     weight: 14000
   - type: Tag
     tags:
-    - category:Elona.TagSf
-    - category:Elona.Furniture
-    - category:Elona.OfferingSf
+    - Elona.ItemTagSf
+    - Elona.ItemFurniture
+    - Elona.ItemOfferingSf
     - tag:sf
   - type: RandomGen
     tables:
@@ -10271,8 +10272,8 @@
     weight: 8000
   - type: Tag
     tags:
-    - category:Elona.TagSf
-    - category:Elona.Furniture
+    - Elona.ItemTagSf
+    - Elona.ItemFurniture
     - tag:sf
   - type: RandomGen
     tables:
@@ -10295,9 +10296,9 @@
     weight: 800
   - type: Tag
     tags:
-    - category:Elona.TagSf
-    - category:Elona.Furniture
-    - category:Elona.OfferingSf
+    - Elona.ItemTagSf
+    - Elona.ItemFurniture
+    - Elona.ItemOfferingSf
     - tag:sf
   - type: RandomGen
     tables:
@@ -10320,9 +10321,9 @@
     weight: 500
   - type: Tag
     tags:
-    - category:Elona.TagSf
-    - category:Elona.Furniture
-    - category:Elona.OfferingSf
+    - Elona.ItemTagSf
+    - Elona.ItemFurniture
+    - Elona.ItemOfferingSf
     - tag:sf
   - type: RandomGen
     tables:
@@ -10346,9 +10347,9 @@
     material: Elona.Metal
   - type: Tag
     tags:
-    - category:Elona.EquipRangedGun
-    - category:Elona.TagSf
-    - category:Elona.EquipRanged
+    - Elona.ItemEquipRangedGun
+    - Elona.ItemTagSf
+    - Elona.ItemEquipRanged
     - tag:sf
 - type: Entity
   id: Elona.ItemPopCorn
@@ -10366,9 +10367,9 @@
     weight: 200
   - type: Tag
     tags:
-    - category:Elona.TagSf
-    - category:Elona.TagFest
-    - category:Elona.Food
+    - Elona.ItemTagSf
+    - Elona.ItemTagFest
+    - Elona.ItemFood
     - tag:sf
     - tag:fest
   - type: RandomGen
@@ -10392,9 +10393,9 @@
     weight: 180
   - type: Tag
     tags:
-    - category:Elona.TagSf
-    - category:Elona.TagFest
-    - category:Elona.Food
+    - Elona.ItemTagSf
+    - Elona.ItemTagFest
+    - Elona.ItemFood
     - tag:sf
     - tag:fest
   - type: RandomGen
@@ -10418,9 +10419,9 @@
     weight: 500
   - type: Tag
     tags:
-    - category:Elona.TagSf
-    - category:Elona.TagFest
-    - category:Elona.Food
+    - Elona.ItemTagSf
+    - Elona.ItemTagFest
+    - Elona.ItemFood
     - tag:sf
     - tag:fest
   - type: RandomGen
@@ -10445,8 +10446,8 @@
     originalnameref2: scroll
   - type: Tag
     tags:
-    - category:Elona.Scroll
-    - category:Elona.TagNeg
+    - Elona.ItemScroll
+    - Elona.ItemTagNeg
     - tag:neg
 - type: Entity
   id: Elona.ItemScrollOfChangeMaterial
@@ -10465,7 +10466,7 @@
     originalnameref2: scroll
   - type: Tag
     tags:
-    - category:Elona.Scroll
+    - Elona.ItemScroll
   - type: RandomGen
     tables:
       item:
@@ -10488,8 +10489,8 @@
     originalnameref2: scroll
   - type: Tag
     tags:
-    - category:Elona.Scroll
-    - category:Elona.TagSpshop
+    - Elona.ItemScroll
+    - Elona.ItemTagSpshop
     - tag:spshop
   - type: RandomGen
     tables:
@@ -10512,8 +10513,8 @@
     weight: 2500
   - type: Tag
     tags:
-    - category:Elona.Remains
-    - category:Elona.NoGenerate
+    - Elona.ItemRemains
+    - Elona.ItemNoGenerate
   - type: RandomGen
     tables:
       item:
@@ -10536,8 +10537,8 @@
     weight: 200
   - type: Tag
     tags:
-    - category:Elona.Remains
-    - category:Elona.NoGenerate
+    - Elona.ItemRemains
+    - Elona.ItemNoGenerate
   - type: RandomGen
     tables:
       item:
@@ -10560,13 +10561,13 @@
     weight: 380
   - type: Tag
     tags:
-    - category:Elona.Book
+    - Elona.ItemBook
+    - Elona.Precious
   - type: RandomGen
     tables:
       item:
         coefficient: 0
         rarity: 25000
-  - type: Precious
 - type: Entity
   id: Elona.ItemScrollOfEnchantWeapon
   parent: BaseItem
@@ -10584,7 +10585,7 @@
     originalnameref2: scroll
   - type: Tag
     tags:
-    - category:Elona.Scroll
+    - Elona.ItemScroll
   - type: RandomGen
     tables:
       item:
@@ -10607,7 +10608,7 @@
     originalnameref2: scroll
   - type: Tag
     tags:
-    - category:Elona.Scroll
+    - Elona.ItemScroll
   - type: RandomGen
     tables:
       item:
@@ -10630,7 +10631,7 @@
     originalnameref2: scroll
   - type: Tag
     tags:
-    - category:Elona.Scroll
+    - Elona.ItemScroll
   - type: RandomGen
     tables:
       item:
@@ -10653,7 +10654,7 @@
     originalnameref2: scroll
   - type: Tag
     tags:
-    - category:Elona.Scroll
+    - Elona.ItemScroll
   - type: RandomGen
     tables:
       item:
@@ -10675,8 +10676,8 @@
     weight: 20000
   - type: Tag
     tags:
-    - category:Elona.Container
-    - category:Elona.NoGenerate
+    - Elona.ItemContainer
+    - Elona.ItemNoGenerate
   - type: RandomGen
     tables:
       item:
@@ -10700,7 +10701,7 @@
     originalnameref2: deed
   - type: Tag
     tags:
-    - category:Elona.Scroll
+    - Elona.ItemScroll
   - type: RandomGen
     tables:
       item:
@@ -10723,9 +10724,9 @@
     material: Elona.Metal
   - type: Tag
     tags:
-    - category:Elona.EquipRangedLaserGun
-    - category:Elona.TagSf
-    - category:Elona.EquipRanged
+    - Elona.ItemEquipRangedLaserGun
+    - Elona.ItemTagSf
+    - Elona.ItemEquipRanged
     - tag:sf
   - type: RandomGen
     tables:
@@ -10749,9 +10750,9 @@
     material: Elona.Metal
   - type: Tag
     tags:
-    - category:Elona.EquipAmmo
-    - category:Elona.EquipAmmoEnergyCell
-    - category:Elona.TagSf
+    - Elona.ItemEquipAmmo
+    - Elona.ItemEquipAmmoEnergyCell
+    - Elona.ItemTagSf
     - tag:sf
 - type: Entity
   id: Elona.ItemRailGun
@@ -10771,11 +10772,12 @@
     identifyDifficulty: 500
   - type: Tag
     tags:
-    - category:Elona.EquipRangedLaserGun
-    - category:Elona.TagSf
-    - category:Elona.UniqueItem
-    - category:Elona.EquipRanged
+    - Elona.ItemEquipRangedLaserGun
+    - Elona.ItemTagSf
+    - Elona.ItemUniqueItem
+    - Elona.ItemEquipRanged
     - tag:sf
+    - Elona.Precious
   - type: RandomGen
     tables:
       item:
@@ -10784,7 +10786,6 @@
         rarity: 200000
   - type: Quality
     quality: Unique
-  - type: Precious
 - type: Entity
   id: Elona.ItemScrollOfRecharge
   parent: BaseItem
@@ -10802,7 +10803,7 @@
     originalnameref2: scroll
   - type: Tag
     tags:
-    - category:Elona.Scroll
+    - Elona.ItemScroll
   - type: RandomGen
     tables:
       item:
@@ -10825,7 +10826,7 @@
     originalnameref2: bottle
   - type: Tag
     tags:
-    - category:Elona.Drink
+    - Elona.ItemDrink
   - type: RandomGen
     tables:
       item:
@@ -10848,7 +10849,7 @@
     originalnameref2: rod
   - type: Tag
     tags:
-    - category:Elona.Rod
+    - Elona.ItemRod
   - type: RandomGen
     tables:
       item:
@@ -10871,7 +10872,7 @@
     originalnameref2: rod
   - type: Tag
     tags:
-    - category:Elona.Rod
+    - Elona.ItemRod
   - type: RandomGen
     tables:
       item:
@@ -10894,8 +10895,8 @@
     originalnameref2: bottle
   - type: Tag
     tags:
-    - category:Elona.Drink
-    - category:Elona.TagNogive
+    - Elona.ItemDrink
+    - Elona.ItemTagNogive
     - tag:nogive
     - tag:elona.is_acid
   - type: RandomGen
@@ -10920,8 +10921,8 @@
     material: Elona.Soft
   - type: Tag
     tags:
-    - category:Elona.EquipBackCloak
-    - category:Elona.EquipBack
+    - Elona.ItemEquipBackCloak
+    - Elona.ItemEquipBack
   - type: RandomGen
     tables:
       item:
@@ -10945,9 +10946,9 @@
     originalnameref2: deed
   - type: Tag
     tags:
-    - category:Elona.Scroll
-    - category:Elona.ScrollDeed
-    - category:Elona.NoGenerate
+    - Elona.ItemScroll
+    - Elona.ItemScrollDeed
+    - Elona.ItemNoGenerate
   - type: RandomGen
     tables:
       item:
@@ -10972,9 +10973,9 @@
     originalnameref2: deed
   - type: Tag
     tags:
-    - category:Elona.Scroll
-    - category:Elona.ScrollDeed
-    - category:Elona.NoGenerate
+    - Elona.ItemScroll
+    - Elona.ItemScrollDeed
+    - Elona.ItemNoGenerate
   - type: RandomGen
     tables:
       item:
@@ -10998,7 +10999,7 @@
     originalnameref2: tree
   - type: Tag
     tags:
-    - category:Elona.Tree
+    - Elona.ItemTree
   - type: RandomGen
     tables:
       item:
@@ -11021,7 +11022,7 @@
     originalnameref2: tree
   - type: Tag
     tags:
-    - category:Elona.Tree
+    - Elona.ItemTree
   - type: RandomGen
     tables:
       item:
@@ -11044,8 +11045,8 @@
     originalnameref2: tree
   - type: Tag
     tags:
-    - category:Elona.Tree
-    - category:Elona.NoGenerate
+    - Elona.ItemTree
+    - Elona.ItemNoGenerate
   - type: RandomGen
     tables:
       item:
@@ -11069,7 +11070,7 @@
     originalnameref2: tree
   - type: Tag
     tags:
-    - category:Elona.Tree
+    - Elona.ItemTree
   - type: RandomGen
     tables:
       item:
@@ -11091,7 +11092,7 @@
     weight: 20000
   - type: Tag
     tags:
-    - category:Elona.Tree
+    - Elona.ItemTree
   - type: RandomGen
     tables:
       item:
@@ -11114,7 +11115,7 @@
     originalnameref2: tree
   - type: Tag
     tags:
-    - category:Elona.Tree
+    - Elona.ItemTree
   - type: RandomGen
     tables:
       item:
@@ -11137,7 +11138,7 @@
     originalnameref2: tree
   - type: Tag
     tags:
-    - category:Elona.Tree
+    - Elona.ItemTree
   - type: RandomGen
     tables:
       item:
@@ -11160,7 +11161,7 @@
     originalnameref2: tree
   - type: Tag
     tags:
-    - category:Elona.Tree
+    - Elona.ItemTree
   - type: RandomGen
     tables:
       item:
@@ -11182,7 +11183,7 @@
     weight: 68000
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -11204,7 +11205,7 @@
     weight: 45000
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -11226,7 +11227,7 @@
     weight: 85000
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -11248,7 +11249,7 @@
     weight: 15000
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -11270,7 +11271,7 @@
     weight: 5800
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -11293,7 +11294,7 @@
     originalnameref2: painting
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -11316,7 +11317,7 @@
     originalnameref2: painting
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -11339,7 +11340,7 @@
     originalnameref2: painting
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -11362,7 +11363,7 @@
     originalnameref2: statue
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -11384,7 +11385,7 @@
     weight: 2500
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -11406,7 +11407,7 @@
     weight: 8500
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -11430,9 +11431,9 @@
     originalnameref2: deed
   - type: Tag
     tags:
-    - category:Elona.Scroll
-    - category:Elona.ScrollDeed
-    - category:Elona.NoGenerate
+    - Elona.ItemScroll
+    - Elona.ItemScrollDeed
+    - Elona.ItemNoGenerate
   - type: RandomGen
     tables:
       item:
@@ -11457,9 +11458,9 @@
     originalnameref2: deed
   - type: Tag
     tags:
-    - category:Elona.Scroll
-    - category:Elona.ScrollDeed
-    - category:Elona.NoGenerate
+    - Elona.ItemScroll
+    - Elona.ItemScrollDeed
+    - Elona.ItemNoGenerate
   - type: RandomGen
     tables:
       item:
@@ -11482,8 +11483,8 @@
     weight: 500
   - type: Tag
     tags:
-    - category:Elona.TagSf
-    - category:Elona.MiscItem
+    - Elona.ItemTagSf
+    - Elona.ItemMiscItem
     - tag:sf
   - type: RandomGen
     tables:
@@ -11507,7 +11508,7 @@
     originalnameref2: rod
   - type: Tag
     tags:
-    - category:Elona.Rod
+    - Elona.ItemRod
   - type: RandomGen
     tables:
       item:
@@ -11530,7 +11531,7 @@
     originalnameref2: spellbook
   - type: Tag
     tags:
-    - category:Elona.Spellbook
+    - Elona.ItemSpellbook
   - type: RandomGen
     tables:
       item:
@@ -11552,8 +11553,8 @@
     weight: 20000
   - type: Tag
     tags:
-    - category:Elona.Container
-    - category:Elona.NoGenerate
+    - Elona.ItemContainer
+    - Elona.ItemNoGenerate
   - type: RandomGen
     tables:
       item:
@@ -11577,7 +11578,7 @@
     originalnameref2: spellbook
   - type: Tag
     tags:
-    - category:Elona.Spellbook
+    - Elona.ItemSpellbook
   - type: RandomGen
     tables:
       item:
@@ -11600,8 +11601,8 @@
     originalnameref2: scroll
   - type: Tag
     tags:
-    - category:Elona.Scroll
-    - category:Elona.TagNoshop
+    - Elona.ItemScroll
+    - Elona.ItemTagNoshop
     - tag:noshop
   - type: RandomGen
     tables:
@@ -11625,7 +11626,7 @@
     originalnameref2: spellbook
   - type: Tag
     tags:
-    - category:Elona.Spellbook
+    - Elona.ItemSpellbook
   - type: RandomGen
     tables:
       item:
@@ -11648,7 +11649,7 @@
     originalnameref2: rod
   - type: Tag
     tags:
-    - category:Elona.Rod
+    - Elona.ItemRod
   - type: RandomGen
     tables:
       item:
@@ -11671,8 +11672,8 @@
     material: Elona.Metal
   - type: Tag
     tags:
-    - category:Elona.EquipBack
-    - category:Elona.EquipBackCloak
+    - Elona.ItemEquipBack
+    - Elona.ItemEquipBackCloak
   - type: RandomGen
     tables:
       item:
@@ -11695,8 +11696,8 @@
     weight: 40
   - type: Tag
     tags:
-    - category:Elona.CropSeed
-    - category:Elona.Food
+    - Elona.ItemCropSeed
+    - Elona.ItemFood
   - type: RandomGen
     tables:
       item:
@@ -11719,8 +11720,8 @@
     weight: 40
   - type: Tag
     tags:
-    - category:Elona.CropSeed
-    - category:Elona.Food
+    - Elona.ItemCropSeed
+    - Elona.ItemFood
   - type: RandomGen
     tables:
       item:
@@ -11742,7 +11743,7 @@
     weight: 12500
   - type: Tag
     tags:
-    - category:Elona.MiscItem
+    - Elona.ItemMiscItem
   - type: RandomGen
     tables:
       item:
@@ -11765,8 +11766,8 @@
     material: Elona.Soft
   - type: Tag
     tags:
-    - category:Elona.EquipLegShoes
-    - category:Elona.EquipLeg
+    - Elona.ItemEquipLegShoes
+    - Elona.ItemEquipLeg
   - type: RandomGen
     tables:
       item:
@@ -11789,8 +11790,8 @@
     material: Elona.Soft
   - type: Tag
     tags:
-    - category:Elona.EquipBack
-    - category:Elona.EquipBackCloak
+    - Elona.ItemEquipBack
+    - Elona.ItemEquipBackCloak
   - type: RandomGen
     tables:
       item:
@@ -11813,8 +11814,8 @@
     material: Elona.Metal
   - type: Tag
     tags:
-    - category:Elona.EquipRingRing
-    - category:Elona.EquipRing
+    - Elona.ItemEquipRingRing
+    - Elona.ItemEquipRing
   - type: RandomGen
     tables:
       item:
@@ -11837,7 +11838,7 @@
     originalnameref2: potion
   - type: Tag
     tags:
-    - category:Elona.Drink
+    - Elona.ItemDrink
   - type: RandomGen
     tables:
       item:
@@ -11859,15 +11860,15 @@
     weight: 20000
   - type: Tag
     tags:
-    - category:Elona.Container
-    - category:Elona.NoGenerate
+    - Elona.ItemContainer
+    - Elona.ItemNoGenerate
+    - Elona.Precious
   - type: RandomGen
     tables:
       item:
         coefficient: 100
         fltselect: Sp
         rarity: 0
-  - type: Precious
 - type: Entity
   id: Elona.ItemShopStrongbox
   parent: BaseItem
@@ -11884,8 +11885,8 @@
     weight: 20000
   - type: Tag
     tags:
-    - category:Elona.Container
-    - category:Elona.NoGenerate
+    - Elona.ItemContainer
+    - Elona.ItemNoGenerate
   - type: RandomGen
     tables:
       item:
@@ -11908,8 +11909,8 @@
     weight: 20000
   - type: Tag
     tags:
-    - category:Elona.NoGenerate
-    - category:Elona.MiscItem
+    - Elona.ItemNoGenerate
+    - Elona.ItemMiscItem
   - type: RandomGen
     tables:
       item:
@@ -11932,7 +11933,7 @@
     weight: 80
   - type: Tag
     tags:
-    - category:Elona.Book
+    - Elona.ItemBook
   - type: RandomGen
     tables:
       item:
@@ -11955,7 +11956,7 @@
     originalnameref2: spellbook
   - type: Tag
     tags:
-    - category:Elona.Spellbook
+    - Elona.ItemSpellbook
   - type: RandomGen
     tables:
       item:
@@ -11978,7 +11979,7 @@
     originalnameref2: rod
   - type: Tag
     tags:
-    - category:Elona.Rod
+    - Elona.ItemRod
   - type: RandomGen
     tables:
       item:
@@ -12000,8 +12001,8 @@
     weight: 120
   - type: Tag
     tags:
-    - category:Elona.Drink
-    - category:Elona.TagNogive
+    - Elona.ItemDrink
+    - Elona.ItemTagNogive
     - tag:nogive
   - type: RandomGen
     tables:
@@ -12025,7 +12026,7 @@
     weight: 800
   - type: Tag
     tags:
-    - category:Elona.MiscItem
+    - Elona.ItemMiscItem
   - type: RandomGen
     tables:
       item:
@@ -12048,7 +12049,7 @@
     weight: 800
   - type: Tag
     tags:
-    - category:Elona.MiscItem
+    - Elona.ItemMiscItem
   - type: RandomGen
     tables:
       item:
@@ -12071,7 +12072,7 @@
     originalnameref2: spellbook
   - type: Tag
     tags:
-    - category:Elona.Spellbook
+    - Elona.ItemSpellbook
   - type: RandomGen
     tables:
       item:
@@ -12094,7 +12095,7 @@
     originalnameref2: rod
   - type: Tag
     tags:
-    - category:Elona.Rod
+    - Elona.ItemRod
   - type: RandomGen
     tables:
       item:
@@ -12116,7 +12117,7 @@
     weight: 450
   - type: Tag
     tags:
-    - category:Elona.Food
+    - Elona.ItemFood
   - type: RandomGen
     tables:
       item:
@@ -12140,9 +12141,9 @@
     originalnameref2: deed
   - type: Tag
     tags:
-    - category:Elona.Scroll
-    - category:Elona.ScrollDeed
-    - category:Elona.NoGenerate
+    - Elona.ItemScroll
+    - Elona.ItemScrollDeed
+    - Elona.ItemNoGenerate
   - type: RandomGen
     tables:
       item:
@@ -12165,7 +12166,7 @@
     weight: 300
   - type: Tag
     tags:
-    - category:Elona.Food
+    - Elona.ItemFood
   - type: RandomGen
     tables:
       item:
@@ -12188,7 +12189,7 @@
     originalnameref2: bottle
   - type: Tag
     tags:
-    - category:Elona.Drink
+    - Elona.ItemDrink
   - type: RandomGen
     tables:
       item:
@@ -12210,7 +12211,7 @@
     weight: 80
   - type: Tag
     tags:
-    - category:Elona.Junk
+    - Elona.ItemJunk
   - type: RandomGen
     tables:
       item:
@@ -12233,8 +12234,8 @@
     weight: 500
   - type: Tag
     tags:
-    - category:Elona.TagSf
-    - category:Elona.MiscItem
+    - Elona.ItemTagSf
+    - Elona.ItemMiscItem
     - tag:sf
   - type: RandomGen
     tables:
@@ -12257,8 +12258,8 @@
     weight: 50
   - type: Tag
     tags:
-    - category:Elona.Drink
-    - category:Elona.TagNogive
+    - Elona.ItemDrink
+    - Elona.ItemTagNogive
     - tag:nogive
 - type: Entity
   id: Elona.ItemKittyBank
@@ -12276,7 +12277,7 @@
     weight: 500
   - type: Tag
     tags:
-    - category:Elona.MiscItem
+    - Elona.ItemMiscItem
   - type: RandomGen
     tables:
       item:
@@ -12298,8 +12299,8 @@
     weight: 15000
   - type: Tag
     tags:
-    - category:Elona.Container
-    - category:Elona.NoGenerate
+    - Elona.ItemContainer
+    - Elona.ItemNoGenerate
   - type: RandomGen
     tables:
       item:
@@ -12322,7 +12323,7 @@
     weight: 10200
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -12345,7 +12346,7 @@
     originalnameref2: rod
   - type: Tag
     tags:
-    - category:Elona.Rod
+    - Elona.ItemRod
   - type: RandomGen
     tables:
       item:
@@ -12368,7 +12369,7 @@
     originalnameref2: spellbook
   - type: Tag
     tags:
-    - category:Elona.Spellbook
+    - Elona.ItemSpellbook
   - type: RandomGen
     tables:
       item:
@@ -12390,7 +12391,7 @@
     weight: 150
   - type: Tag
     tags:
-    - category:Elona.MiscItem
+    - Elona.ItemMiscItem
 - type: Entity
   id: Elona.ItemCandle
   parent: BaseItem
@@ -12407,7 +12408,7 @@
     weight: 200
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -12429,7 +12430,7 @@
     weight: 1500
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -12451,8 +12452,8 @@
     weight: 250000
   - type: Tag
     tags:
-    - category:Elona.TagSf
-    - category:Elona.Furniture
+    - Elona.ItemTagSf
+    - Elona.ItemFurniture
     - tag:sf
   - type: RandomGen
     tables:
@@ -12476,7 +12477,7 @@
     originalnameref2: handful
   - type: Tag
     tags:
-    - category:Elona.Drink
+    - Elona.ItemDrink
   - type: RandomGen
     tables:
       item:
@@ -12499,8 +12500,8 @@
     originalnameref2: tree
   - type: Tag
     tags:
-    - category:Elona.Tree
-    - category:Elona.SnowTree
+    - Elona.ItemTree
+    - Elona.ItemSnowTree
   - type: RandomGen
     tables:
       item:
@@ -12524,8 +12525,8 @@
     originalnameref2: tree
   - type: Tag
     tags:
-    - category:Elona.Tree
-    - category:Elona.SnowTree
+    - Elona.ItemTree
+    - Elona.ItemSnowTree
   - type: RandomGen
     tables:
       item:
@@ -12548,7 +12549,7 @@
     weight: 4800
   - type: Tag
     tags:
-    - category:Elona.Junk
+    - Elona.ItemJunk
 - type: Entity
   id: Elona.ItemMiniSnowMan
   parent: BaseItem
@@ -12565,7 +12566,7 @@
     weight: 8500
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -12587,7 +12588,7 @@
     weight: 3400
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -12609,8 +12610,8 @@
     weight: 250000
   - type: Tag
     tags:
-    - category:Elona.TagSf
-    - category:Elona.Furniture
+    - Elona.ItemTagSf
+    - Elona.ItemFurniture
     - tag:sf
   - type: RandomGen
     tables:
@@ -12634,7 +12635,7 @@
     originalnameref2: statue
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -12656,7 +12657,7 @@
     weight: 16000
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -12678,7 +12679,7 @@
     weight: 4800
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -12700,7 +12701,7 @@
     weight: 0
   - type: Tag
     tags:
-    - category:Elona.Cargo
+    - Elona.ItemCargo
 - type: Entity
   id: Elona.ItemCargoSnowMan
   parent: BaseItem
@@ -12717,7 +12718,7 @@
     weight: 0
   - type: Tag
     tags:
-    - category:Elona.Cargo
+    - Elona.ItemCargo
   - type: RandomGen
     tables:
       item:
@@ -12739,8 +12740,8 @@
     weight: 35000
   - type: Tag
     tags:
-    - category:Elona.Tree
-    - category:Elona.SnowTree
+    - Elona.ItemTree
+    - Elona.ItemSnowTree
   - type: RandomGen
     tables:
       item:
@@ -12763,15 +12764,15 @@
     weight: 150000
   - type: Tag
     tags:
-    - category:Elona.Container
-    - category:Elona.NoGenerate
+    - Elona.ItemContainer
+    - Elona.ItemNoGenerate
+    - Elona.Precious
   - type: RandomGen
     tables:
       item:
         coefficient: 100
         fltselect: Sp
         rarity: 100000
-  - type: Precious
 - type: Entity
   id: Elona.ItemEmptyBottle
   parent: BaseItem
@@ -12788,7 +12789,7 @@
     weight: 120
   - type: Tag
     tags:
-    - category:Elona.Drink
+    - Elona.ItemDrink
   - type: RandomGen
     tables:
       item:
@@ -12810,8 +12811,8 @@
     weight: 350000
   - type: Tag
     tags:
-    - category:Elona.FurnitureWell
-    - category:Elona.NoGenerate
+    - Elona.ItemFurnitureWell
+    - Elona.ItemNoGenerate
   - type: RandomGen
     tables:
       item:
@@ -12834,13 +12835,13 @@
     weight: 2400
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
+    - Elona.Precious
   - type: RandomGen
     tables:
       item:
         coefficient: 100
         rarity: 10000
-  - type: Precious
 - type: Entity
   id: Elona.ItemGreenPlant
   parent: BaseItem
@@ -12857,7 +12858,7 @@
     weight: 800
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -12879,7 +12880,7 @@
     weight: 1200
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -12901,7 +12902,7 @@
     weight: 8250
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -12923,7 +12924,7 @@
     weight: 4200
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -12945,7 +12946,7 @@
     weight: 1500
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -12967,7 +12968,7 @@
     weight: 1600
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -12989,7 +12990,7 @@
     weight: 5600
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -13011,7 +13012,7 @@
     weight: 1200
   - type: Tag
     tags:
-    - category:Elona.MiscItem
+    - Elona.ItemMiscItem
   - type: RandomGen
     tables:
       item:
@@ -13033,7 +13034,7 @@
     weight: 2000
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -13055,8 +13056,8 @@
     weight: 24000
   - type: Tag
     tags:
-    - category:Elona.FurnitureBed
-    - category:Elona.Furniture
+    - Elona.ItemFurnitureBed
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -13078,7 +13079,7 @@
     weight: 8000
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -13100,15 +13101,15 @@
     weight: 100
   - type: Tag
     tags:
-    - category:Elona.Scroll
-    - category:Elona.NoGenerate
+    - Elona.ItemScroll
+    - Elona.ItemNoGenerate
+    - Elona.Precious
   - type: RandomGen
     tables:
       item:
         coefficient: 100
         fltselect: Sp
         rarity: 400000
-  - type: Precious
 - type: Entity
   id: Elona.ItemTaxMastersTaxBox
   parent: BaseItem
@@ -13125,15 +13126,15 @@
     weight: 6500
   - type: Tag
     tags:
-    - category:Elona.Container
-    - category:Elona.NoGenerate
+    - Elona.ItemContainer
+    - Elona.ItemNoGenerate
+    - Elona.Precious
   - type: RandomGen
     tables:
       item:
         coefficient: 100
         fltselect: Sp
         rarity: 100000
-  - type: Precious
 - type: Entity
   id: Elona.ItemBait
   parent: BaseItem
@@ -13150,8 +13151,8 @@
     weight: 250
   - type: Tag
     tags:
-    - category:Elona.NoGenerate
-    - category:Elona.Junk
+    - Elona.ItemNoGenerate
+    - Elona.ItemJunk
   - type: RandomGen
     tables:
       item:
@@ -13175,9 +13176,9 @@
     material: Elona.Fresh
   - type: Tag
     tags:
-    - category:Elona.NoGenerate
-    - category:Elona.Food
-    - category:Elona.OfferingFish
+    - Elona.ItemNoGenerate
+    - Elona.ItemFood
+    - Elona.ItemOfferingFish
   - type: RandomGen
     tables:
       item:
@@ -13200,8 +13201,8 @@
     weight: 1250
   - type: Tag
     tags:
-    - category:Elona.NoGenerate
-    - category:Elona.Junk
+    - Elona.ItemNoGenerate
+    - Elona.ItemJunk
   - type: RandomGen
     tables:
       item:
@@ -13224,8 +13225,8 @@
     weight: 50
   - type: Tag
     tags:
-    - category:Elona.Drink
-    - category:Elona.TagNogive
+    - Elona.ItemDrink
+    - Elona.ItemTagNogive
     - tag:nogive
   - type: RandomGen
     tables:
@@ -13248,9 +13249,9 @@
     weight: 20
   - type: Tag
     tags:
-    - category:Elona.Scroll
-    - category:Elona.TagNoshop
-    - category:Elona.TagSpshop
+    - Elona.ItemScroll
+    - Elona.ItemTagNoshop
+    - Elona.ItemTagSpshop
     - tag:noshop
     - tag:spshop
   - type: RandomGen
@@ -13274,15 +13275,15 @@
     weight: 1
   - type: Tag
     tags:
-    - category:Elona.TagNoshop
-    - category:Elona.Ore
+    - Elona.ItemTagNoshop
+    - Elona.ItemOre
     - tag:noshop
+    - Elona.Precious
   - type: RandomGen
     tables:
       item:
         coefficient: 100
         rarity: 10000
-  - type: Precious
 - type: Entity
   id: Elona.ItemCatSistersDiary
   parent: BaseItem
@@ -13299,13 +13300,13 @@
     weight: 380
   - type: Tag
     tags:
-    - category:Elona.Book
+    - Elona.ItemBook
+    - Elona.Precious
   - type: RandomGen
     tables:
       item:
         coefficient: 0
         rarity: 1000
-  - type: Precious
 - type: Entity
   id: Elona.ItemGirlsDiary
   parent: BaseItem
@@ -13322,13 +13323,13 @@
     weight: 380
   - type: Tag
     tags:
-    - category:Elona.Book
+    - Elona.ItemBook
+    - Elona.Precious
   - type: RandomGen
     tables:
       item:
         coefficient: 0
         rarity: 5000
-  - type: Precious
 - type: Entity
   id: Elona.ItemShrineGate
   parent: BaseItem
@@ -13345,15 +13346,15 @@
     weight: 8000
   - type: Tag
     tags:
-    - category:Elona.NoGenerate
-    - category:Elona.Furniture
+    - Elona.ItemNoGenerate
+    - Elona.ItemFurniture
+    - Elona.Precious
   - type: RandomGen
     tables:
       item:
         coefficient: 100
         fltselect: Sp
         rarity: 10000
-  - type: Precious
 - type: Entity
   id: Elona.ItemBottleOfHermesBlood
   parent: BaseItem
@@ -13371,15 +13372,15 @@
     originalnameref2: bottle
   - type: Tag
     tags:
-    - category:Elona.Drink
-    - category:Elona.TagSpshop
+    - Elona.ItemDrink
+    - Elona.ItemTagSpshop
     - tag:spshop
+    - Elona.Precious
   - type: RandomGen
     tables:
       item:
         coefficient: 100
         rarity: 10000
-  - type: Precious
 - type: Entity
   id: Elona.ItemSagesHelm
   parent: BaseItem
@@ -13399,9 +13400,10 @@
     identifyDifficulty: 500
   - type: Tag
     tags:
-    - category:Elona.EquipHeadHelm
-    - category:Elona.UniqueItem
-    - category:Elona.EquipHead
+    - Elona.ItemEquipHeadHelm
+    - Elona.ItemUniqueItem
+    - Elona.ItemEquipHead
+    - Elona.Precious
   - type: RandomGen
     tables:
       item:
@@ -13410,7 +13412,6 @@
         rarity: 0
   - type: Quality
     quality: Unique
-  - type: Precious
 - type: Entity
   id: Elona.ItemSpellbookOfIncognito
   parent: BaseItem
@@ -13428,7 +13429,7 @@
     originalnameref2: spellbook
   - type: Tag
     tags:
-    - category:Elona.Spellbook
+    - Elona.ItemSpellbook
   - type: RandomGen
     tables:
       item:
@@ -13450,7 +13451,7 @@
     weight: 3500
   - type: Tag
     tags:
-    - category:Elona.MiscItem
+    - Elona.ItemMiscItem
   - type: RandomGen
     tables:
       item:
@@ -13472,9 +13473,9 @@
     weight: 5000
   - type: Tag
     tags:
-    - category:Elona.TagNoshop
-    - category:Elona.TagSpshop
-    - category:Elona.MiscItem
+    - Elona.ItemTagNoshop
+    - Elona.ItemTagSpshop
+    - Elona.ItemMiscItem
     - tag:noshop
     - tag:spshop
   - type: RandomGen
@@ -13498,8 +13499,8 @@
     weight: 5000000
   - type: Tag
     tags:
-    - category:Elona.NoGenerate
-    - category:Elona.Furniture
+    - Elona.ItemNoGenerate
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -13522,7 +13523,7 @@
     weight: 5
   - type: Tag
     tags:
-    - category:Elona.Scroll
+    - Elona.ItemScroll
   - type: RandomGen
     tables:
       item:
@@ -13545,8 +13546,8 @@
     material: Elona.Soft
   - type: Tag
     tags:
-    - category:Elona.EquipRangedThrown
-    - category:Elona.EquipRanged
+    - Elona.ItemEquipRangedThrown
+    - Elona.ItemEquipRanged
   - type: RandomGen
     tables:
       item:
@@ -13568,7 +13569,7 @@
     weight: 1200
   - type: Tag
     tags:
-    - category:Elona.MiscItem
+    - Elona.ItemMiscItem
   - type: RandomGen
     tables:
       item:
@@ -13590,8 +13591,8 @@
     weight: 9800
   - type: Tag
     tags:
-    - category:Elona.TagSpshop
-    - category:Elona.MiscItem
+    - Elona.ItemTagSpshop
+    - Elona.ItemMiscItem
     - tag:spshop
   - type: RandomGen
     tables:
@@ -13614,7 +13615,7 @@
     weight: 400
   - type: Tag
     tags:
-    - category:Elona.MiscItem
+    - Elona.ItemMiscItem
   - type: RandomGen
     tables:
       item:
@@ -13636,8 +13637,9 @@
     weight: 400
   - type: Tag
     tags:
-    - category:Elona.UniqueWeapon
-    - category:Elona.MiscItem
+    - Elona.ItemUniqueWeapon
+    - Elona.ItemMiscItem
+    - Elona.Precious
   - type: RandomGen
     tables:
       item:
@@ -13646,7 +13648,6 @@
         rarity: 10000
   - type: Quality
     quality: Unique
-  - type: Precious
 - type: Entity
   id: Elona.ItemScrollOfEscape
   parent: BaseItem
@@ -13664,7 +13665,7 @@
     originalnameref2: scroll
   - type: Tag
     tags:
-    - category:Elona.Scroll
+    - Elona.ItemScroll
   - type: RandomGen
     tables:
       item:
@@ -13687,9 +13688,10 @@
     weight: 720
   - type: Tag
     tags:
-    - category:Elona.FoodFruit
-    - category:Elona.UniqueItem
-    - category:Elona.Food
+    - Elona.ItemFoodFruit
+    - Elona.ItemUniqueItem
+    - Elona.ItemFood
+    - Elona.Precious
   - type: RandomGen
     tables:
       item:
@@ -13698,7 +13700,6 @@
         rarity: 0
   - type: Quality
     quality: Unique
-  - type: Precious
 - type: Entity
   id: Elona.ItemUnicornHorn
   parent: BaseItem
@@ -13715,9 +13716,9 @@
     weight: 2000
   - type: Tag
     tags:
-    - category:Elona.TagNoshop
-    - category:Elona.TagSpshop
-    - category:Elona.MiscItem
+    - Elona.ItemTagNoshop
+    - Elona.ItemTagSpshop
+    - Elona.ItemMiscItem
     - tag:noshop
     - tag:spshop
   - type: RandomGen
@@ -13741,8 +13742,9 @@
     weight: 2500
   - type: Tag
     tags:
-    - category:Elona.Container
-    - category:Elona.UniqueItem
+    - Elona.ItemContainer
+    - Elona.ItemUniqueItem
+    - Elona.Precious
   - type: RandomGen
     tables:
       item:
@@ -13751,7 +13753,6 @@
         rarity: 50000
   - type: Quality
     quality: Unique
-  - type: Precious
 - type: Entity
   id: Elona.ItemRiceBarrel
   parent: BaseItem
@@ -13768,7 +13769,7 @@
     weight: 4800
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
 - type: Entity
   id: Elona.ItemEasternBed
   parent: BaseItem
@@ -13785,8 +13786,8 @@
     weight: 2000
   - type: Tag
     tags:
-    - category:Elona.FurnitureBed
-    - category:Elona.MiscItem
+    - Elona.ItemFurnitureBed
+    - Elona.ItemMiscItem
   - type: RandomGen
     tables:
       item:
@@ -13808,7 +13809,7 @@
     weight: 2000
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -13830,7 +13831,7 @@
     weight: 11000
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -13852,7 +13853,7 @@
     weight: 4500
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -13874,7 +13875,7 @@
     weight: 7800
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -13896,7 +13897,7 @@
     weight: 5000
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -13918,7 +13919,7 @@
     weight: 4000
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -13940,7 +13941,7 @@
     weight: 12000
   - type: Tag
     tags:
-    - category:Elona.FurnitureWell
+    - Elona.ItemFurnitureWell
   - type: RandomGen
     tables:
       item:
@@ -13962,7 +13963,7 @@
     weight: 8400
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -13984,7 +13985,7 @@
     weight: 15000
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -14006,7 +14007,7 @@
     weight: 150000
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -14028,8 +14029,8 @@
     weight: 16000
   - type: Tag
     tags:
-    - category:Elona.FurnitureBed
-    - category:Elona.Furniture
+    - Elona.ItemFurnitureBed
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -14052,8 +14053,9 @@
     weight: 500
   - type: Tag
     tags:
-    - category:Elona.UniqueItem
-    - category:Elona.Food
+    - Elona.ItemUniqueItem
+    - Elona.ItemFood
+    - Elona.Precious
   - type: RandomGen
     tables:
       item:
@@ -14062,7 +14064,6 @@
         rarity: 0
   - type: Quality
     quality: Unique
-  - type: Precious
 - type: Entity
   id: Elona.ItemEasternLamp
   parent: BaseItem
@@ -14079,7 +14080,7 @@
     weight: 7900
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -14101,7 +14102,7 @@
     weight: 1200
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -14123,7 +14124,7 @@
     weight: 500
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -14145,7 +14146,7 @@
     weight: 1000
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -14168,7 +14169,7 @@
     originalnameref2: spellbook
   - type: Tag
     tags:
-    - category:Elona.Spellbook
+    - Elona.ItemSpellbook
 - type: Entity
   id: Elona.ItemDalIThalion
   parent: BaseItem
@@ -14188,9 +14189,10 @@
     identifyDifficulty: 500
   - type: Tag
     tags:
-    - category:Elona.EquipLegShoes
-    - category:Elona.UniqueItem
-    - category:Elona.EquipLeg
+    - Elona.ItemEquipLegShoes
+    - Elona.ItemUniqueItem
+    - Elona.ItemEquipLeg
+    - Elona.Precious
   - type: RandomGen
     tables:
       item:
@@ -14199,7 +14201,6 @@
         rarity: 0
   - type: Quality
     quality: Unique
-  - type: Precious
 - type: Entity
   id: Elona.ItemMagicFruit
   parent: BaseItem
@@ -14217,9 +14218,10 @@
     weight: 440
   - type: Tag
     tags:
-    - category:Elona.FoodFruit
-    - category:Elona.UniqueItem
-    - category:Elona.Food
+    - Elona.ItemFoodFruit
+    - Elona.ItemUniqueItem
+    - Elona.ItemFood
+    - Elona.Precious
   - type: RandomGen
     tables:
       item:
@@ -14228,7 +14230,6 @@
         rarity: 0
   - type: Quality
     quality: Unique
-  - type: Precious
 - type: Entity
   id: Elona.ItemMonsterHeart
   parent: BaseItem
@@ -14245,8 +14246,9 @@
     weight: 2500
   - type: Tag
     tags:
-    - category:Elona.UniqueItem
-    - category:Elona.Junk
+    - Elona.ItemUniqueItem
+    - Elona.ItemJunk
+    - Elona.Precious
   - type: RandomGen
     tables:
       item:
@@ -14255,7 +14257,6 @@
         rarity: 800000
   - type: Quality
     quality: Unique
-  - type: Precious
 - type: Entity
   id: Elona.ItemSpeedRing
   parent: BaseItem
@@ -14273,8 +14274,8 @@
     material: Elona.Metal
   - type: Tag
     tags:
-    - category:Elona.EquipRingRing
-    - category:Elona.EquipRing
+    - Elona.ItemEquipRingRing
+    - Elona.ItemEquipRing
   - type: RandomGen
     tables:
       item:
@@ -14297,8 +14298,9 @@
     originalnameref2: statue
   - type: Tag
     tags:
-    - category:Elona.UniqueItem
-    - category:Elona.MiscItem
+    - Elona.ItemUniqueItem
+    - Elona.ItemMiscItem
+    - Elona.Precious
   - type: RandomGen
     tables:
       item:
@@ -14307,7 +14309,6 @@
         rarity: 800000
   - type: Quality
     quality: Unique
-  - type: Precious
 - type: Entity
   id: Elona.ItemStatueOfLulwy
   parent: BaseItem
@@ -14325,8 +14326,9 @@
     originalnameref2: statue
   - type: Tag
     tags:
-    - category:Elona.UniqueItem
-    - category:Elona.MiscItem
+    - Elona.ItemUniqueItem
+    - Elona.ItemMiscItem
+    - Elona.Precious
   - type: RandomGen
     tables:
       item:
@@ -14335,7 +14337,6 @@
         rarity: 800000
   - type: Quality
     quality: Unique
-  - type: Precious
 - type: Entity
   id: Elona.ItemSistersLoveFueledLunch
   parent: BaseItem
@@ -14352,8 +14353,8 @@
     weight: 500
   - type: Tag
     tags:
-    - category:Elona.NoGenerate
-    - category:Elona.Food
+    - Elona.ItemNoGenerate
+    - Elona.ItemFood
   - type: RandomGen
     tables:
       item:
@@ -14376,8 +14377,8 @@
     weight: 80
   - type: Tag
     tags:
-    - category:Elona.Book
-    - category:Elona.TagNoshop
+    - Elona.ItemBook
+    - Elona.ItemTagNoshop
     - tag:noshop
   - type: RandomGen
     tables:
@@ -14400,7 +14401,7 @@
     weight: 0
   - type: Tag
     tags:
-    - category:Elona.Cargo
+    - Elona.ItemCargo
   - type: RandomGen
     tables:
       item:
@@ -14422,7 +14423,7 @@
     weight: 0
   - type: Tag
     tags:
-    - category:Elona.Cargo
+    - Elona.ItemCargo
 - type: Entity
   id: Elona.ItemNuclearBomb
   parent: BaseItem
@@ -14439,8 +14440,9 @@
     weight: 120000
   - type: Tag
     tags:
-    - category:Elona.UniqueItem
-    - category:Elona.MiscItem
+    - Elona.ItemUniqueItem
+    - Elona.ItemMiscItem
+    - Elona.Precious
   - type: RandomGen
     tables:
       item:
@@ -14449,7 +14451,6 @@
         rarity: 250000
   - type: Quality
     quality: Unique
-  - type: Precious
 - type: Entity
   id: Elona.ItemSecretTreasure
   parent: BaseItem
@@ -14466,8 +14467,9 @@
     weight: 1000
   - type: Tag
     tags:
-    - category:Elona.UniqueItem
-    - category:Elona.MiscItem
+    - Elona.ItemUniqueItem
+    - Elona.ItemMiscItem
+    - Elona.Precious
   - type: RandomGen
     tables:
       item:
@@ -14476,7 +14478,6 @@
         rarity: 800000
   - type: Quality
     quality: Unique
-  - type: Precious
 - type: Entity
   id: Elona.ItemWindBow
   parent: BaseItem
@@ -14496,9 +14497,10 @@
     identifyDifficulty: 500
   - type: Tag
     tags:
-    - category:Elona.EquipRangedBow
-    - category:Elona.UniqueItem
-    - category:Elona.EquipRanged
+    - Elona.ItemEquipRangedBow
+    - Elona.ItemUniqueItem
+    - Elona.ItemEquipRanged
+    - Elona.Precious
   - type: RandomGen
     tables:
       item:
@@ -14507,7 +14509,6 @@
         rarity: 0
   - type: Quality
     quality: Unique
-  - type: Precious
 - type: Entity
   id: Elona.ItemWinchesterPremium
   parent: BaseItem
@@ -14527,9 +14528,10 @@
     identifyDifficulty: 500
   - type: Tag
     tags:
-    - category:Elona.EquipRangedGun
-    - category:Elona.UniqueItem
-    - category:Elona.EquipRanged
+    - Elona.ItemEquipRangedGun
+    - Elona.ItemUniqueItem
+    - Elona.ItemEquipRanged
+    - Elona.Precious
   - type: RandomGen
     tables:
       item:
@@ -14538,7 +14540,6 @@
         rarity: 0
   - type: Quality
     quality: Unique
-  - type: Precious
 - type: Entity
   id: Elona.ItemKumiromiScythe
   parent: BaseItem
@@ -14558,9 +14559,10 @@
     identifyDifficulty: 500
   - type: Tag
     tags:
-    - category:Elona.EquipMeleeScythe
-    - category:Elona.UniqueItem
-    - category:Elona.EquipMelee
+    - Elona.ItemEquipMeleeScythe
+    - Elona.ItemUniqueItem
+    - Elona.ItemEquipMelee
+    - Elona.Precious
   - type: RandomGen
     tables:
       item:
@@ -14569,7 +14571,6 @@
         rarity: 0
   - type: Quality
     quality: Unique
-  - type: Precious
 - type: Entity
   id: Elona.ItemElementalStaff
   parent: BaseItem
@@ -14589,9 +14590,10 @@
     identifyDifficulty: 500
   - type: Tag
     tags:
-    - category:Elona.EquipMeleeStaff
-    - category:Elona.UniqueItem
-    - category:Elona.EquipMelee
+    - Elona.ItemEquipMeleeStaff
+    - Elona.ItemUniqueItem
+    - Elona.ItemEquipMelee
+    - Elona.Precious
   - type: RandomGen
     tables:
       item:
@@ -14600,7 +14602,6 @@
         rarity: 0
   - type: Quality
     quality: Unique
-  - type: Precious
 - type: Entity
   id: Elona.ItemHolyLance
   parent: BaseItem
@@ -14619,9 +14620,10 @@
     identifyDifficulty: 500
   - type: Tag
     tags:
-    - category:Elona.EquipMeleeLance
-    - category:Elona.UniqueItem
-    - category:Elona.EquipMelee
+    - Elona.ItemEquipMeleeLance
+    - Elona.ItemUniqueItem
+    - Elona.ItemEquipMelee
+    - Elona.Precious
   - type: RandomGen
     tables:
       item:
@@ -14630,7 +14632,6 @@
         rarity: 0
   - type: Quality
     quality: Unique
-  - type: Precious
 - type: Entity
   id: Elona.ItemLuckyDagger
   parent: BaseItem
@@ -14650,9 +14651,10 @@
     identifyDifficulty: 500
   - type: Tag
     tags:
-    - category:Elona.EquipMeleeShortSword
-    - category:Elona.UniqueItem
-    - category:Elona.EquipMelee
+    - Elona.ItemEquipMeleeShortSword
+    - Elona.ItemUniqueItem
+    - Elona.ItemEquipMelee
+    - Elona.Precious
   - type: RandomGen
     tables:
       item:
@@ -14661,7 +14663,6 @@
         rarity: 0
   - type: Quality
     quality: Unique
-  - type: Precious
 - type: Entity
   id: Elona.ItemGaiaHammer
   parent: BaseItem
@@ -14681,9 +14682,10 @@
     identifyDifficulty: 500
   - type: Tag
     tags:
-    - category:Elona.EquipMeleeHammer
-    - category:Elona.UniqueItem
-    - category:Elona.EquipMelee
+    - Elona.ItemEquipMeleeHammer
+    - Elona.ItemUniqueItem
+    - Elona.ItemEquipMelee
+    - Elona.Precious
   - type: RandomGen
     tables:
       item:
@@ -14692,7 +14694,6 @@
         rarity: 0
   - type: Quality
     quality: Unique
-  - type: Precious
 - type: Entity
   id: Elona.ItemLulwysGemStoneOfGodSpeed
   parent: BaseItem
@@ -14711,8 +14712,9 @@
     originalnameref2: Lulwy's gem stone
   - type: Tag
     tags:
-    - category:Elona.UniqueItem
-    - category:Elona.MiscItem
+    - Elona.ItemUniqueItem
+    - Elona.ItemMiscItem
+    - Elona.Precious
   - type: RandomGen
     tables:
       item:
@@ -14721,7 +14723,6 @@
         rarity: 800000
   - type: Quality
     quality: Unique
-  - type: Precious
 - type: Entity
   id: Elona.ItemJuresGemStoneOfHolyRain
   parent: BaseItem
@@ -14740,8 +14741,9 @@
     originalnameref2: Jure's gem stone
   - type: Tag
     tags:
-    - category:Elona.UniqueItem
-    - category:Elona.MiscItem
+    - Elona.ItemUniqueItem
+    - Elona.ItemMiscItem
+    - Elona.Precious
   - type: RandomGen
     tables:
       item:
@@ -14750,7 +14752,6 @@
         rarity: 800000
   - type: Quality
     quality: Unique
-  - type: Precious
 - type: Entity
   id: Elona.ItemKumiromisGemStoneOfRejuvenation
   parent: BaseItem
@@ -14769,8 +14770,9 @@
     originalnameref2: Kumiromi's gem stone
   - type: Tag
     tags:
-    - category:Elona.UniqueItem
-    - category:Elona.MiscItem
+    - Elona.ItemUniqueItem
+    - Elona.ItemMiscItem
+    - Elona.Precious
   - type: RandomGen
     tables:
       item:
@@ -14779,7 +14781,6 @@
         rarity: 800000
   - type: Quality
     quality: Unique
-  - type: Precious
 - type: Entity
   id: Elona.ItemGemStoneOfMani
   parent: BaseItem
@@ -14798,8 +14799,9 @@
     originalnameref2: gem stone
   - type: Tag
     tags:
-    - category:Elona.UniqueItem
-    - category:Elona.MiscItem
+    - Elona.ItemUniqueItem
+    - Elona.ItemMiscItem
+    - Elona.Precious
   - type: RandomGen
     tables:
       item:
@@ -14808,7 +14810,6 @@
         rarity: 800000
   - type: Quality
     quality: Unique
-  - type: Precious
 - type: Entity
   id: Elona.ItemGeneMachine
   parent: BaseItem
@@ -14825,13 +14826,13 @@
     weight: 25000
   - type: Tag
     tags:
-    - category:Elona.MiscItem
+    - Elona.ItemMiscItem
+    - Elona.Precious
   - type: RandomGen
     tables:
       item:
         coefficient: 100
         rarity: 10000
-  - type: Precious
 - type: Entity
   id: Elona.ItemMonsterBall
   parent: BaseItem
@@ -14848,7 +14849,7 @@
     weight: 1400
   - type: Tag
     tags:
-    - category:Elona.MiscItem
+    - Elona.ItemMiscItem
   - type: RandomGen
     tables:
       item:
@@ -14871,8 +14872,9 @@
     originalnameref2: statue
   - type: Tag
     tags:
-    - category:Elona.UniqueItem
-    - category:Elona.MiscItem
+    - Elona.ItemUniqueItem
+    - Elona.ItemMiscItem
+    - Elona.Precious
   - type: RandomGen
     tables:
       item:
@@ -14881,7 +14883,6 @@
         rarity: 800000
   - type: Quality
     quality: Unique
-  - type: Precious
 - type: Entity
   id: Elona.ItemAncientBook
   parent: BaseItem
@@ -14898,8 +14899,8 @@
     weight: 380
   - type: Tag
     tags:
-    - category:Elona.Spellbook
-    - category:Elona.TagNoshop
+    - Elona.ItemSpellbook
+    - Elona.ItemTagNoshop
     - tag:noshop
   - type: RandomGen
     tables:
@@ -14922,7 +14923,7 @@
     weight: 26000
   - type: Tag
     tags:
-    - category:Elona.MiscItem
+    - Elona.ItemMiscItem
   - type: RandomGen
     tables:
       item:
@@ -14944,7 +14945,7 @@
     weight: 22000
   - type: Tag
     tags:
-    - category:Elona.MiscItem
+    - Elona.ItemMiscItem
   - type: RandomGen
     tables:
       item:
@@ -14966,9 +14967,9 @@
     weight: 18000
   - type: Tag
     tags:
-    - category:Elona.FurnitureInstrument
-    - category:Elona.TagFest
-    - category:Elona.Furniture
+    - Elona.ItemFurnitureInstrument
+    - Elona.ItemTagFest
+    - Elona.ItemFurniture
     - tag:fest
   - type: RandomGen
     tables:
@@ -14991,9 +14992,9 @@
     weight: 8500
   - type: Tag
     tags:
-    - category:Elona.FurnitureInstrument
-    - category:Elona.TagFest
-    - category:Elona.Furniture
+    - Elona.ItemFurnitureInstrument
+    - Elona.ItemTagFest
+    - Elona.ItemFurniture
     - tag:fest
   - type: RandomGen
     tables:
@@ -15016,9 +15017,9 @@
     weight: 850
   - type: Tag
     tags:
-    - category:Elona.FurnitureInstrument
-    - category:Elona.TagFest
-    - category:Elona.Furniture
+    - Elona.ItemFurnitureInstrument
+    - Elona.ItemTagFest
+    - Elona.ItemFurniture
     - tag:fest
   - type: RandomGen
     tables:
@@ -15041,8 +15042,8 @@
     weight: 30000
   - type: Tag
     tags:
-    - category:Elona.FurnitureInstrument
-    - category:Elona.Furniture
+    - Elona.ItemFurnitureInstrument
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -15064,7 +15065,7 @@
     weight: 1200
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -15089,9 +15090,10 @@
     identifyDifficulty: 500
   - type: Tag
     tags:
-    - category:Elona.EquipMeleeAxe
-    - category:Elona.UniqueItem
-    - category:Elona.EquipMelee
+    - Elona.ItemEquipMeleeAxe
+    - Elona.ItemUniqueItem
+    - Elona.ItemEquipMelee
+    - Elona.Precious
   - type: RandomGen
     tables:
       item:
@@ -15100,7 +15102,6 @@
         rarity: 0
   - type: Quality
     quality: Unique
-  - type: Precious
 - type: Entity
   id: Elona.ItemSpellbookOfMagicBall
   parent: BaseItem
@@ -15118,7 +15119,7 @@
     originalnameref2: spellbook
   - type: Tag
     tags:
-    - category:Elona.Spellbook
+    - Elona.ItemSpellbook
   - type: RandomGen
     tables:
       item:
@@ -15141,7 +15142,7 @@
     originalnameref2: spellbook
   - type: Tag
     tags:
-    - category:Elona.Spellbook
+    - Elona.ItemSpellbook
   - type: RandomGen
     tables:
       item:
@@ -15164,7 +15165,7 @@
     originalnameref2: potion
   - type: Tag
     tags:
-    - category:Elona.Drink
+    - Elona.ItemDrink
   - type: RandomGen
     tables:
       item:
@@ -15187,13 +15188,13 @@
     weight: 3000
   - type: Tag
     tags:
-    - category:Elona.MiscItem
+    - Elona.ItemMiscItem
+    - Elona.Precious
   - type: RandomGen
     tables:
       item:
         coefficient: 100
         rarity: 400000
-  - type: Precious
 - type: Entity
   id: Elona.ItemTownBook
   parent: BaseItem
@@ -15210,7 +15211,7 @@
     weight: 20
   - type: Tag
     tags:
-    - category:Elona.Book
+    - Elona.ItemBook
   - type: RandomGen
     tables:
       item:
@@ -15232,7 +15233,7 @@
     weight: 20
   - type: Tag
     tags:
-    - category:Elona.MiscItem
+    - Elona.ItemMiscItem
   - type: RandomGen
     tables:
       item:
@@ -15255,8 +15256,9 @@
     weight: 150
   - type: Tag
     tags:
-    - category:Elona.UniqueItem
-    - category:Elona.Food
+    - Elona.ItemUniqueItem
+    - Elona.ItemFood
+    - Elona.Precious
   - type: RandomGen
     tables:
       item:
@@ -15265,7 +15267,6 @@
         rarity: 0
   - type: Quality
     quality: Unique
-  - type: Precious
 - type: Entity
   id: Elona.ItemWhistle
   parent: BaseItem
@@ -15282,7 +15283,7 @@
     weight: 20
   - type: Tag
     tags:
-    - category:Elona.MiscItem
+    - Elona.ItemMiscItem
   - type: RandomGen
     tables:
       item:
@@ -15304,7 +15305,7 @@
     weight: 100
   - type: Tag
     tags:
-    - category:Elona.Drink
+    - Elona.ItemDrink
   - type: RandomGen
     tables:
       item:
@@ -15328,9 +15329,10 @@
     identifyDifficulty: 500
   - type: Tag
     tags:
-    - category:Elona.EquipNeckArmor
-    - category:Elona.UniqueItem
-    - category:Elona.EquipNeck
+    - Elona.ItemEquipNeckArmor
+    - Elona.ItemUniqueItem
+    - Elona.ItemEquipNeck
+    - Elona.Precious
   - type: RandomGen
     tables:
       item:
@@ -15339,7 +15341,6 @@
         rarity: 0
   - type: Quality
     quality: Unique
-  - type: Precious
 - type: Entity
   id: Elona.ItemPotionOfDescent
   parent: BaseItem
@@ -15357,7 +15358,7 @@
     originalnameref2: potion
   - type: Tag
     tags:
-    - category:Elona.Drink
+    - Elona.ItemDrink
   - type: RandomGen
     tables:
       item:
@@ -15379,9 +15380,10 @@
     weight: 4500
   - type: Tag
     tags:
-    - category:Elona.FurnitureInstrument
-    - category:Elona.UniqueItem
-    - category:Elona.Furniture
+    - Elona.ItemFurnitureInstrument
+    - Elona.ItemUniqueItem
+    - Elona.ItemFurniture
+    - Elona.Precious
   - type: RandomGen
     tables:
       item:
@@ -15390,7 +15392,6 @@
         rarity: 400000
   - type: Quality
     quality: Unique
-  - type: Precious
 - type: Entity
   id: Elona.ItemBookOfResurrection
   parent: BaseItem
@@ -15408,8 +15409,8 @@
     originalnameref2: book
   - type: Tag
     tags:
-    - category:Elona.Book
-    - category:Elona.TagNoshop
+    - Elona.ItemBook
+    - Elona.ItemTagNoshop
     - tag:noshop
   - type: RandomGen
     tables:
@@ -15433,8 +15434,8 @@
     originalnameref2: scroll
   - type: Tag
     tags:
-    - category:Elona.Scroll
-    - category:Elona.TagNoshop
+    - Elona.ItemScroll
+    - Elona.ItemTagNoshop
     - tag:noshop
   - type: RandomGen
     tables:
@@ -15458,7 +15459,7 @@
     originalnameref2: spellbook
   - type: Tag
     tags:
-    - category:Elona.Spellbook
+    - Elona.ItemSpellbook
   - type: RandomGen
     tables:
       item:
@@ -15481,7 +15482,7 @@
     originalnameref2: potion
   - type: Tag
     tags:
-    - category:Elona.Drink
+    - Elona.ItemDrink
   - type: RandomGen
     tables:
       item:
@@ -15505,9 +15506,9 @@
     originalnameref2: deed
   - type: Tag
     tags:
-    - category:Elona.Scroll
-    - category:Elona.ScrollDeed
-    - category:Elona.NoGenerate
+    - Elona.ItemScroll
+    - Elona.ItemScrollDeed
+    - Elona.ItemNoGenerate
   - type: RandomGen
     tables:
       item:
@@ -15531,8 +15532,8 @@
     material: Elona.Metal
   - type: Tag
     tags:
-    - category:Elona.EquipRangedThrown
-    - category:Elona.EquipRanged
+    - Elona.ItemEquipRangedThrown
+    - Elona.ItemEquipRanged
   - type: RandomGen
     tables:
       item:
@@ -15555,8 +15556,8 @@
     material: Elona.Metal
   - type: Tag
     tags:
-    - category:Elona.EquipRangedThrown
-    - category:Elona.EquipRanged
+    - Elona.ItemEquipRangedThrown
+    - Elona.ItemEquipRanged
   - type: RandomGen
     tables:
       item:
@@ -15580,8 +15581,8 @@
     originalnameref2: secret experience
   - type: Tag
     tags:
-    - category:Elona.TagNoshop
-    - category:Elona.MiscItem
+    - Elona.ItemTagNoshop
+    - Elona.ItemMiscItem
     - tag:noshop
   - type: RandomGen
     tables:
@@ -15606,9 +15607,10 @@
     identifyDifficulty: 500
   - type: Tag
     tags:
-    - category:Elona.EquipRangedThrown
-    - category:Elona.UniqueItem
-    - category:Elona.EquipRanged
+    - Elona.ItemEquipRangedThrown
+    - Elona.ItemUniqueItem
+    - Elona.ItemEquipRanged
+    - Elona.Precious
   - type: RandomGen
     tables:
       item:
@@ -15617,7 +15619,6 @@
         rarity: 0
   - type: Quality
     quality: Unique
-  - type: Precious
 - type: Entity
   id: Elona.ItemSecretExperienceOfLomias
   parent: BaseItem
@@ -15636,8 +15637,8 @@
     originalnameref2: secret experience
   - type: Tag
     tags:
-    - category:Elona.NoGenerate
-    - category:Elona.MiscItem
+    - Elona.ItemNoGenerate
+    - Elona.ItemMiscItem
   - type: RandomGen
     tables:
       item:
@@ -15663,9 +15664,10 @@
     identifyDifficulty: 500
   - type: Tag
     tags:
-    - category:Elona.EquipRangedThrown
-    - category:Elona.UniqueItem
-    - category:Elona.EquipRanged
+    - Elona.ItemEquipRangedThrown
+    - Elona.ItemUniqueItem
+    - Elona.ItemEquipRanged
+    - Elona.Precious
   - type: RandomGen
     tables:
       item:
@@ -15674,7 +15676,6 @@
         rarity: 0
   - type: Quality
     quality: Unique
-  - type: Precious
 - type: Entity
   id: Elona.ItemClaymoreUnique
   parent: BaseItem
@@ -15693,9 +15694,10 @@
     identifyDifficulty: 500
   - type: Tag
     tags:
-    - category:Elona.EquipMeleeBroadsword
-    - category:Elona.UniqueItem
-    - category:Elona.EquipMelee
+    - Elona.ItemEquipMeleeBroadsword
+    - Elona.ItemUniqueItem
+    - Elona.ItemEquipMelee
+    - Elona.Precious
   - type: RandomGen
     tables:
       item:
@@ -15704,7 +15706,6 @@
         rarity: 0
   - type: Quality
     quality: Unique
-  - type: Precious
 - type: Entity
   id: Elona.ItemHappyBed
   parent: BaseItem
@@ -15721,9 +15722,9 @@
     weight: 31000
   - type: Tag
     tags:
-    - category:Elona.FurnitureBed
-    - category:Elona.TagNoshop
-    - category:Elona.Furniture
+    - Elona.ItemFurnitureBed
+    - Elona.ItemTagNoshop
+    - Elona.ItemFurniture
     - tag:noshop
   - type: RandomGen
     tables:
@@ -15747,8 +15748,9 @@
     originalnameref2: statue
   - type: Tag
     tags:
-    - category:Elona.UniqueItem
-    - category:Elona.MiscItem
+    - Elona.ItemUniqueItem
+    - Elona.ItemMiscItem
+    - Elona.Precious
   - type: RandomGen
     tables:
       item:
@@ -15757,7 +15759,6 @@
         rarity: 800000
   - type: Quality
     quality: Unique
-  - type: Precious
 - type: Entity
   id: Elona.ItemArbalest
   parent: BaseItem
@@ -15777,9 +15778,10 @@
     identifyDifficulty: 500
   - type: Tag
     tags:
-    - category:Elona.EquipNeckArmor
-    - category:Elona.UniqueItem
-    - category:Elona.EquipNeck
+    - Elona.ItemEquipNeckArmor
+    - Elona.ItemUniqueItem
+    - Elona.ItemEquipNeck
+    - Elona.Precious
   - type: RandomGen
     tables:
       item:
@@ -15788,7 +15790,6 @@
         rarity: 0
   - type: Quality
     quality: Unique
-  - type: Precious
 - type: Entity
   id: Elona.ItemTwinEdge
   parent: BaseItem
@@ -15808,9 +15809,10 @@
     identifyDifficulty: 500
   - type: Tag
     tags:
-    - category:Elona.EquipNeckArmor
-    - category:Elona.UniqueItem
-    - category:Elona.EquipNeck
+    - Elona.ItemEquipNeckArmor
+    - Elona.ItemUniqueItem
+    - Elona.ItemEquipNeck
+    - Elona.Precious
   - type: RandomGen
     tables:
       item:
@@ -15819,7 +15821,6 @@
         rarity: 0
   - type: Quality
     quality: Unique
-  - type: Precious
 - type: Entity
   id: Elona.ItemMusicTicket
   parent: BaseItem
@@ -15836,17 +15837,17 @@
     weight: 1
   - type: Tag
     tags:
-    - category:Elona.TagNoshop
-    - category:Elona.NoGenerate
-    - category:Elona.Ore
+    - Elona.ItemTagNoshop
+    - Elona.ItemNoGenerate
+    - Elona.ItemOre
     - tag:noshop
+    - Elona.Precious
   - type: RandomGen
     tables:
       item:
         coefficient: 100
         fltselect: Sp
         rarity: 10000
-  - type: Precious
 - type: Entity
   id: Elona.ItemKillKillPiano
   parent: BaseItem
@@ -15866,9 +15867,10 @@
     identifyDifficulty: 500
   - type: Tag
     tags:
-    - category:Elona.EquipRangedThrown
-    - category:Elona.UniqueItem
-    - category:Elona.EquipRanged
+    - Elona.ItemEquipRangedThrown
+    - Elona.ItemUniqueItem
+    - Elona.ItemEquipRanged
+    - Elona.Precious
   - type: RandomGen
     tables:
       item:
@@ -15877,7 +15879,6 @@
         rarity: 0
   - type: Quality
     quality: Unique
-  - type: Precious
 - type: Entity
   id: Elona.ItemAlud
   parent: BaseItem
@@ -15897,9 +15898,10 @@
     identifyDifficulty: 500
   - type: Tag
     tags:
-    - category:Elona.EquipShieldShield
-    - category:Elona.UniqueItem
-    - category:Elona.EquipShield
+    - Elona.ItemEquipShieldShield
+    - Elona.ItemUniqueItem
+    - Elona.ItemEquipShield
+    - Elona.Precious
   - type: RandomGen
     tables:
       item:
@@ -15908,7 +15910,6 @@
         rarity: 0
   - type: Quality
     quality: Unique
-  - type: Precious
 - type: Entity
   id: Elona.ItemShieldOfThorn
   parent: BaseItem
@@ -15928,9 +15929,10 @@
     identifyDifficulty: 500
   - type: Tag
     tags:
-    - category:Elona.EquipShieldShield
-    - category:Elona.UniqueWeapon
-    - category:Elona.EquipShield
+    - Elona.ItemEquipShieldShield
+    - Elona.ItemUniqueWeapon
+    - Elona.ItemEquipShield
+    - Elona.Precious
   - type: RandomGen
     tables:
       item:
@@ -15939,7 +15941,6 @@
         rarity: 0
   - type: Quality
     quality: Unique
-  - type: Precious
 - type: Entity
   id: Elona.ItemCrimsonPlate
   parent: BaseItem
@@ -15959,9 +15960,10 @@
     identifyDifficulty: 500
   - type: Tag
     tags:
-    - category:Elona.EquipBackGirdle
-    - category:Elona.UniqueItem
-    - category:Elona.EquipCloak
+    - Elona.ItemEquipBackGirdle
+    - Elona.ItemUniqueItem
+    - Elona.ItemEquipCloak
+    - Elona.Precious
   - type: RandomGen
     tables:
       item:
@@ -15970,7 +15972,6 @@
         rarity: 0
   - type: Quality
     quality: Unique
-  - type: Precious
 - type: Entity
   id: Elona.ItemGift
   parent: BaseItem
@@ -15987,8 +15988,8 @@
     weight: 1000
   - type: Tag
     tags:
-    - category:Elona.TagSpshop
-    - category:Elona.Furniture
+    - Elona.ItemTagSpshop
+    - Elona.ItemFurniture
     - tag:spshop
   - type: RandomGen
     tables:
@@ -16012,17 +16013,17 @@
     originalnameref2: token
   - type: Tag
     tags:
-    - category:Elona.TagNoshop
-    - category:Elona.NoGenerate
-    - category:Elona.Ore
+    - Elona.ItemTagNoshop
+    - Elona.ItemNoGenerate
+    - Elona.ItemOre
     - tag:noshop
+    - Elona.Precious
   - type: RandomGen
     tables:
       item:
         coefficient: 100
         fltselect: Sp
         rarity: 10000
-  - type: Precious
 - type: Entity
   id: Elona.ItemSpellbookOf4DimensionalPocket
   parent: BaseItem
@@ -16040,7 +16041,7 @@
     originalnameref2: spellbook
   - type: Tag
     tags:
-    - category:Elona.Spellbook
+    - Elona.ItemSpellbook
   - type: RandomGen
     tables:
       item:
@@ -16063,7 +16064,7 @@
     originalnameref2: spellbook
   - type: Tag
     tags:
-    - category:Elona.Spellbook
+    - Elona.ItemSpellbook
   - type: RandomGen
     tables:
       item:
@@ -16085,7 +16086,7 @@
     weight: 8500
   - type: Tag
     tags:
-    - category:Elona.MiscItem
+    - Elona.ItemMiscItem
   - type: RandomGen
     tables:
       item:
@@ -16107,7 +16108,7 @@
     weight: 3400
   - type: Tag
     tags:
-    - category:Elona.Container
+    - Elona.ItemContainer
   - type: RandomGen
     tables:
       item:
@@ -16130,8 +16131,8 @@
     material: Elona.Metal
   - type: Tag
     tags:
-    - category:Elona.EquipMeleeScythe
-    - category:Elona.EquipMelee
+    - Elona.ItemEquipMeleeScythe
+    - Elona.ItemEquipMelee
 - type: Entity
   id: Elona.ItemFireproofLiquid
   parent: BaseItem
@@ -16148,8 +16149,8 @@
     weight: 120
   - type: Tag
     tags:
-    - category:Elona.Drink
-    - category:Elona.TagNogive
+    - Elona.ItemDrink
+    - Elona.ItemTagNogive
     - tag:nogive
   - type: RandomGen
     tables:
@@ -16173,8 +16174,8 @@
     originalnameref2: scroll
   - type: Tag
     tags:
-    - category:Elona.Scroll
-    - category:Elona.TagNoshop
+    - Elona.ItemScroll
+    - Elona.ItemTagNoshop
     - tag:noshop
   - type: RandomGen
     tables:
@@ -16197,8 +16198,8 @@
     weight: 50
   - type: Tag
     tags:
-    - category:Elona.TagFest
-    - category:Elona.Food
+    - Elona.ItemTagFest
+    - Elona.ItemFood
     - tag:fest
   - type: RandomGen
     tables:
@@ -16223,9 +16224,10 @@
     identifyDifficulty: 500
   - type: Tag
     tags:
-    - category:Elona.EquipMeleeScythe
-    - category:Elona.UniqueItem
-    - category:Elona.EquipMelee
+    - Elona.ItemEquipMeleeScythe
+    - Elona.ItemUniqueItem
+    - Elona.ItemEquipMelee
+    - Elona.Precious
   - type: RandomGen
     tables:
       item:
@@ -16234,7 +16236,6 @@
         rarity: 0
   - type: Quality
     quality: Unique
-  - type: Precious
 - type: Entity
   id: Elona.ItemUnknownShell
   parent: BaseItem
@@ -16254,9 +16255,10 @@
     identifyDifficulty: 500
   - type: Tag
     tags:
-    - category:Elona.EquipNeckArmor
-    - category:Elona.UniqueItem
-    - category:Elona.EquipNeck
+    - Elona.ItemEquipNeckArmor
+    - Elona.ItemUniqueItem
+    - Elona.ItemEquipNeck
+    - Elona.Precious
   - type: RandomGen
     tables:
       item:
@@ -16265,7 +16267,6 @@
         rarity: 0
   - type: Quality
     quality: Unique
-  - type: Precious
 - type: Entity
   id: Elona.ItemHiryuTo
   parent: BaseItem
@@ -16285,9 +16286,10 @@
     identifyDifficulty: 500
   - type: Tag
     tags:
-    - category:Elona.EquipMeleeLongSword
-    - category:Elona.UniqueWeapon
-    - category:Elona.EquipMelee
+    - Elona.ItemEquipMeleeLongSword
+    - Elona.ItemUniqueWeapon
+    - Elona.ItemEquipMelee
+    - Elona.Precious
   - type: RandomGen
     tables:
       item:
@@ -16296,7 +16298,6 @@
         rarity: 0
   - type: Quality
     quality: Unique
-  - type: Precious
 - type: Entity
   id: Elona.ItemLicenseOfTheVoidExplorer
   parent: BaseItem
@@ -16314,8 +16315,9 @@
     originalnameref2: license
   - type: Tag
     tags:
-    - category:Elona.Scroll
-    - category:Elona.UniqueItem
+    - Elona.ItemScroll
+    - Elona.ItemUniqueItem
+    - Elona.Precious
   - type: RandomGen
     tables:
       item:
@@ -16324,7 +16326,6 @@
         rarity: 1000
   - type: Quality
     quality: Unique
-  - type: Precious
 - type: Entity
   id: Elona.ItemPlankOfCarneades
   parent: BaseItem
@@ -16343,15 +16344,15 @@
     originalnameref2: plank
   - type: Tag
     tags:
-    - category:Elona.NoGenerate
-    - category:Elona.MiscItem
+    - Elona.ItemNoGenerate
+    - Elona.ItemMiscItem
+    - Elona.Precious
   - type: RandomGen
     tables:
       item:
         coefficient: 100
         fltselect: Sp
         rarity: 800000
-  - type: Precious
 - type: Entity
   id: Elona.ItemSchrodingersCat
   parent: BaseItem
@@ -16369,15 +16370,15 @@
     weight: 1200
   - type: Tag
     tags:
-    - category:Elona.NoGenerate
-    - category:Elona.MiscItem
+    - Elona.ItemNoGenerate
+    - Elona.ItemMiscItem
+    - Elona.Precious
   - type: RandomGen
     tables:
       item:
         coefficient: 100
         fltselect: Sp
         rarity: 800000
-  - type: Precious
 - type: Entity
   id: Elona.ItemHeart
   parent: BaseItem
@@ -16395,15 +16396,15 @@
     weight: 1200
   - type: Tag
     tags:
-    - category:Elona.NoGenerate
-    - category:Elona.MiscItem
+    - Elona.ItemNoGenerate
+    - Elona.ItemMiscItem
+    - Elona.Precious
   - type: RandomGen
     tables:
       item:
         coefficient: 100
         fltselect: Sp
         rarity: 800000
-  - type: Precious
 - type: Entity
   id: Elona.ItemTamersWhip
   parent: BaseItem
@@ -16421,15 +16422,15 @@
     weight: 1200
   - type: Tag
     tags:
-    - category:Elona.NoGenerate
-    - category:Elona.MiscItem
+    - Elona.ItemNoGenerate
+    - Elona.ItemMiscItem
+    - Elona.Precious
   - type: RandomGen
     tables:
       item:
         coefficient: 100
         fltselect: Sp
         rarity: 800000
-  - type: Precious
 - type: Entity
   id: Elona.ItemBookOfBokonon
   parent: BaseItem
@@ -16447,9 +16448,9 @@
     originalnameref2: book
   - type: Tag
     tags:
-    - category:Elona.Book
-    - category:Elona.TagNoshop
-    - category:Elona.NoGenerate
+    - Elona.ItemBook
+    - Elona.ItemTagNoshop
+    - Elona.ItemNoGenerate
     - tag:noshop
   - type: RandomGen
     tables:
@@ -16473,13 +16474,13 @@
     weight: 7500
   - type: Tag
     tags:
-    - category:Elona.MiscItem
+    - Elona.ItemMiscItem
+    - Elona.Precious
   - type: RandomGen
     tables:
       item:
         coefficient: 0
         rarity: 20000
-  - type: Precious
 - type: Entity
   id: Elona.ItemStatueOfCreator
   parent: BaseItem
@@ -16497,13 +16498,13 @@
     originalnameref2: statue
   - type: Tag
     tags:
-    - category:Elona.MiscItem
+    - Elona.ItemMiscItem
+    - Elona.Precious
   - type: RandomGen
     tables:
       item:
         coefficient: 0
         rarity: 800000
-  - type: Precious
 - type: Entity
   id: Elona.ItemUpstairs
   parent: BaseItem
@@ -16520,8 +16521,8 @@
     weight: 7500
   - type: Tag
     tags:
-    - category:Elona.NoGenerate
-    - category:Elona.Furniture
+    - Elona.ItemNoGenerate
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -16544,8 +16545,8 @@
     weight: 7500
   - type: Tag
     tags:
-    - category:Elona.NoGenerate
-    - category:Elona.Furniture
+    - Elona.ItemNoGenerate
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -16568,8 +16569,8 @@
     weight: 80
   - type: Tag
     tags:
-    - category:Elona.Container
-    - category:Elona.NoGenerate
+    - Elona.ItemContainer
+    - Elona.ItemNoGenerate
   - type: RandomGen
     tables:
       item:
@@ -16592,8 +16593,8 @@
     weight: 9800
   - type: Tag
     tags:
-    - category:Elona.NoGenerate
-    - category:Elona.Furniture
+    - Elona.ItemNoGenerate
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -16616,8 +16617,8 @@
     weight: 720
   - type: Tag
     tags:
-    - category:Elona.NoGenerate
-    - category:Elona.Furniture
+    - Elona.ItemNoGenerate
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -16640,8 +16641,8 @@
     weight: 800
   - type: Tag
     tags:
-    - category:Elona.NoGenerate
-    - category:Elona.Food
+    - Elona.ItemNoGenerate
+    - Elona.ItemFood
   - type: RandomGen
     tables:
       item:
@@ -16664,8 +16665,8 @@
     weight: 350
   - type: Tag
     tags:
-    - category:Elona.TagFest
-    - category:Elona.Food
+    - Elona.ItemTagFest
+    - Elona.ItemFood
     - tag:fest
   - type: RandomGen
     tables:
@@ -16691,9 +16692,10 @@
     identifyDifficulty: 500
   - type: Tag
     tags:
-    - category:Elona.EquipHeadHelm
-    - category:Elona.UniqueItem
-    - category:Elona.EquipHead
+    - Elona.ItemEquipHeadHelm
+    - Elona.ItemUniqueItem
+    - Elona.ItemEquipHead
+    - Elona.Precious
   - type: RandomGen
     tables:
       item:
@@ -16702,7 +16704,6 @@
         rarity: 0
   - type: Quality
     quality: Unique
-  - type: Precious
 - type: Entity
   id: Elona.ItemMauserC96Custom
   parent: BaseItem
@@ -16722,11 +16723,12 @@
     identifyDifficulty: 500
   - type: Tag
     tags:
-    - category:Elona.EquipRangedGun
-    - category:Elona.TagSf
-    - category:Elona.UniqueItem
-    - category:Elona.EquipRanged
+    - Elona.ItemEquipRangedGun
+    - Elona.ItemTagSf
+    - Elona.ItemUniqueItem
+    - Elona.ItemEquipRanged
     - tag:sf
+    - Elona.Precious
   - type: RandomGen
     tables:
       item:
@@ -16735,7 +16737,6 @@
         rarity: 0
   - type: Quality
     quality: Unique
-  - type: Precious
 - type: Entity
   id: Elona.ItemLightsabre
   parent: BaseItem
@@ -16753,8 +16754,8 @@
     material: Elona.Ether
   - type: Tag
     tags:
-    - category:Elona.EquipMeleeLongSword
-    - category:Elona.EquipMelee
+    - Elona.ItemEquipMeleeLongSword
+    - Elona.ItemEquipMelee
   - type: RandomGen
     tables:
       item:
@@ -16776,8 +16777,9 @@
     weight: 5000
   - type: Tag
     tags:
-    - category:Elona.UniqueItem
-    - category:Elona.MiscItem
+    - Elona.ItemUniqueItem
+    - Elona.ItemMiscItem
+    - Elona.Precious
   - type: RandomGen
     tables:
       item:
@@ -16786,7 +16788,6 @@
         rarity: 5000
   - type: Quality
     quality: Unique
-  - type: Precious
 - type: Entity
   id: Elona.ItemGouldsPiano
   parent: BaseItem
@@ -16804,9 +16805,10 @@
     weight: 45000
   - type: Tag
     tags:
-    - category:Elona.FurnitureInstrument
-    - category:Elona.UniqueItem
-    - category:Elona.Furniture
+    - Elona.ItemFurnitureInstrument
+    - Elona.ItemUniqueItem
+    - Elona.ItemFurniture
+    - Elona.Precious
   - type: RandomGen
     tables:
       item:
@@ -16815,7 +16817,6 @@
         rarity: 100000
   - type: Quality
     quality: Unique
-  - type: Precious
 - type: Entity
   id: Elona.ItemFestivalWreath
   parent: BaseItem
@@ -16832,9 +16833,9 @@
     weight: 280
   - type: Tag
     tags:
-    - category:Elona.TagFest
-    - category:Elona.NoGenerate
-    - category:Elona.Furniture
+    - Elona.ItemTagFest
+    - Elona.ItemNoGenerate
+    - Elona.ItemFurniture
     - tag:fest
   - type: RandomGen
     tables:
@@ -16858,7 +16859,7 @@
     weight: 85000
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -16880,7 +16881,7 @@
     weight: 9900
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -16902,7 +16903,7 @@
     weight: 48500
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -16924,7 +16925,7 @@
     weight: 48500
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -16946,9 +16947,9 @@
     weight: 800
   - type: Tag
     tags:
-    - category:Elona.FurnitureBed
-    - category:Elona.NoGenerate
-    - category:Elona.Furniture
+    - Elona.ItemFurnitureBed
+    - Elona.ItemNoGenerate
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -16971,9 +16972,9 @@
     weight: 150
   - type: Tag
     tags:
-    - category:Elona.TagFest
-    - category:Elona.NoGenerate
-    - category:Elona.Furniture
+    - Elona.ItemTagFest
+    - Elona.ItemNoGenerate
+    - Elona.ItemFurniture
     - tag:fest
   - type: RandomGen
     tables:
@@ -16997,9 +16998,9 @@
     weight: 530
   - type: Tag
     tags:
-    - category:Elona.TagFest
-    - category:Elona.NoGenerate
-    - category:Elona.Furniture
+    - Elona.ItemTagFest
+    - Elona.ItemNoGenerate
+    - Elona.ItemFurniture
     - tag:fest
   - type: RandomGen
     tables:
@@ -17024,9 +17025,9 @@
     originalnameref2: bottle
   - type: Tag
     tags:
-    - category:Elona.Drink
-    - category:Elona.TagFest
-    - category:Elona.NoGenerate
+    - Elona.ItemDrink
+    - Elona.ItemTagFest
+    - Elona.ItemNoGenerate
     - tag:fest
   - type: RandomGen
     tables:
@@ -17050,8 +17051,8 @@
     weight: 100
   - type: Tag
     tags:
-    - category:Elona.Drink
-    - category:Elona.UniqueItem
+    - Elona.ItemDrink
+    - Elona.ItemUniqueItem
   - type: RandomGen
     tables:
       item:
@@ -17077,8 +17078,8 @@
     material: Elona.Fresh
   - type: Tag
     tags:
-    - category:Elona.FoodFruit
-    - category:Elona.Food
+    - Elona.ItemFoodFruit
+    - Elona.ItemFood
 - type: Entity
   id: Elona.ItemLargeBookshelf
   parent: BaseItem
@@ -17095,7 +17096,7 @@
     weight: 15000
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -17117,7 +17118,7 @@
     weight: 23800
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -17139,13 +17140,13 @@
     weight: 250
   - type: Tag
     tags:
-    - category:Elona.Food
+    - Elona.ItemFood
+    - Elona.Precious
   - type: RandomGen
     tables:
       item:
         coefficient: 100
         rarity: 50000
-  - type: Precious
 - type: Entity
   id: Elona.ItemStatueOfKumiromi
   parent: BaseItem
@@ -17163,8 +17164,9 @@
     originalnameref2: statue
   - type: Tag
     tags:
-    - category:Elona.UniqueItem
-    - category:Elona.MiscItem
+    - Elona.ItemUniqueItem
+    - Elona.ItemMiscItem
+    - Elona.Precious
   - type: RandomGen
     tables:
       item:
@@ -17173,7 +17175,6 @@
         rarity: 800000
   - type: Quality
     quality: Unique
-  - type: Precious
 - type: Entity
   id: Elona.ItemStatueOfMani
   parent: BaseItem
@@ -17191,8 +17192,9 @@
     originalnameref2: statue
   - type: Tag
     tags:
-    - category:Elona.UniqueItem
-    - category:Elona.MiscItem
+    - Elona.ItemUniqueItem
+    - Elona.ItemMiscItem
+    - Elona.Precious
   - type: RandomGen
     tables:
       item:
@@ -17201,7 +17203,6 @@
         rarity: 800000
   - type: Quality
     quality: Unique
-  - type: Precious
 - type: Entity
   id: Elona.ItemLuxurySofa
   parent: BaseItem
@@ -17218,7 +17219,7 @@
     weight: 9000
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -17240,7 +17241,7 @@
     weight: 1800
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -17262,7 +17263,7 @@
     weight: 4200
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -17285,8 +17286,8 @@
     material: Elona.Metal
   - type: Tag
     tags:
-    - category:Elona.EquipMeleeShortSword
-    - category:Elona.EquipMelee
+    - Elona.ItemEquipMeleeShortSword
+    - Elona.ItemEquipMelee
   - type: RandomGen
     tables:
       item:
@@ -17308,7 +17309,7 @@
     weight: 150
   - type: Tag
     tags:
-    - category:Elona.Furniture
+    - Elona.ItemFurniture
   - type: RandomGen
     tables:
       item:
@@ -17330,7 +17331,7 @@
     weight: 50
   - type: Tag
     tags:
-    - category:Elona.Spellbook
+    - Elona.ItemSpellbook
   - type: RandomGen
     tables:
       item:
@@ -17352,7 +17353,7 @@
     weight: 550
   - type: Tag
     tags:
-    - category:Elona.Container
+    - Elona.ItemContainer
   - type: RandomGen
     tables:
       item:
@@ -17375,7 +17376,7 @@
     originalnameref2: bottle
   - type: Tag
     tags:
-    - category:Elona.Food
+    - Elona.ItemFood
   - type: RandomGen
     tables:
       item:
@@ -17398,7 +17399,7 @@
     originalnameref2: sack
   - type: Tag
     tags:
-    - category:Elona.Food
+    - Elona.ItemFood
   - type: RandomGen
     tables:
       item:
@@ -17420,7 +17421,7 @@
     weight: 350
   - type: Tag
     tags:
-    - category:Elona.Food
+    - Elona.ItemFood
   - type: RandomGen
     tables:
       item:
@@ -17443,8 +17444,8 @@
     material: Elona.Metal
   - type: Tag
     tags:
-    - category:Elona.EquipRangedBow
-    - category:Elona.EquipRanged
+    - Elona.ItemEquipRangedBow
+    - Elona.ItemEquipRanged
   - type: RandomGen
     tables:
       item:
@@ -17466,8 +17467,8 @@
     weight: 500
   - type: Tag
     tags:
-    - category:Elona.MiscItemCrafting
-    - category:Elona.MiscItem
+    - Elona.ItemMiscItemCrafting
+    - Elona.ItemMiscItem
 - type: Entity
   id: Elona.ItemFryingPanForTesting
   parent: BaseItem
@@ -17484,8 +17485,8 @@
     weight: 500
   - type: Tag
     tags:
-    - category:Elona.MiscItemCrafting
-    - category:Elona.MiscItem
+    - Elona.ItemMiscItemCrafting
+    - Elona.ItemMiscItem
 - type: Entity
   id: Elona.ItemDragonSlayer
   parent: BaseItem
@@ -17504,9 +17505,10 @@
     identifyDifficulty: 500
   - type: Tag
     tags:
-    - category:Elona.EquipMeleeBroadsword
-    - category:Elona.UniqueItem
-    - category:Elona.EquipMelee
+    - Elona.ItemEquipMeleeBroadsword
+    - Elona.ItemUniqueItem
+    - Elona.ItemEquipMelee
+    - Elona.Precious
   - type: RandomGen
     tables:
       item:
@@ -17515,7 +17517,6 @@
         rarity: 0
   - type: Quality
     quality: Unique
-  - type: Precious
 - type: Entity
   id: Elona.ItemPutitoro
   parent: BaseItem
@@ -17532,11 +17533,13 @@
     weight: 200
   - type: Tag
     tags:
-    - category:Elona.NoGenerate
-    - category:Elona.Food
+    - Elona.ItemNoGenerate
+    - Elona.ItemFood
   - type: RandomGen
     tables:
       item:
         coefficient: 0
         fltselect: Sp
         rarity: 150000
+...
+

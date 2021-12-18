@@ -13,7 +13,7 @@ var player = gameSess.Player!;
 
 var blueprints = IoCManager.Resolve<IMapBlueprintLoader>();
 
-var map = blueprints.LoadBlueprint(null, new ResourcePath("/Elona/Map/fighterguild.yml"));
+var map = blueprints.LoadBlueprint(null, new ResourcePath("/Elona/Map/sqNightmare.yml"));
 
 var spatial = entMan.GetComponent<SpatialComponent>(player.Uid);
-spatial.Coordinates = new EntityCoordinates(map.MapEntityUid, spatial.WorldPosition);
+spatial.Coordinates = new EntityCoordinates(map.MapEntityUid, spatial.WorldPosition.BoundWithin(map.Bounds));

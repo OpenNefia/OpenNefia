@@ -158,6 +158,9 @@ namespace OpenNefia.Core.Maps
 
         public void RefreshTileEntities(Vector2i pos, IEnumerable<Entity> entities)
         {
+            if (!IsInBounds(pos))
+                return;
+
             var isSolid = false;
             var isOpaque = false;
             var flags = TileFlag.None;
