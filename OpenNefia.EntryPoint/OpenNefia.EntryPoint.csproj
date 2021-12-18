@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="mkdir &quot;$(TargetDir)Assets\Assemblies&#xD;&#xA;copy /Y &quot;$(TargetDir)OpenNefia.Content.dll&quot; &quot;$(TargetDir)Assets\Assemblies&quot;" />
+    <Copy SourceFiles="$(TargetDir)OpenNefia.Content.dll" DestinationFolder="$(TargetDir)Assets/Assemblies" />
   </Target>
 
   <ItemGroup>
