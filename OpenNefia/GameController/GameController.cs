@@ -1,6 +1,7 @@
 ﻿using System.Runtime;
 using OpenNefia.Core.Asynchronous;
 using OpenNefia.Core.ContentPack;
+using OpenNefia.Core.DebugServer;
 using OpenNefia.Core.Game;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Graphics;
@@ -37,6 +38,7 @@ namespace OpenNefia.Core.GameController
         [Dependency] private readonly ITaskManager _taskManager = default!;
         [Dependency] private readonly ITimerManager _timerManager = default!;
         [Dependency] private readonly IMapRenderer _mapRenderer = default!;
+        [Dependency] private readonly IDebugServer _debugServer = default!;
 
         public Action? MainCallback { get; set; } = null;
 
@@ -133,6 +135,8 @@ namespace OpenNefia.Core.GameController
             _mapRenderer.RegisterTileLayers();
 
             _entityManager.Startup();
+
+            _debugServer.Startup();
         }
 
         public void Run()
@@ -151,6 +155,7 @@ namespace OpenNefia.Core.GameController
             _entityManager.Shutdown();
             _uiLayers.Shutdown();
             _graphics.Shutdown();
+            _debugServer.Shutdown();
             Logger.Log(LogLevel.Info, "Quitting game.");
             Environment.Exit(0);
         }
@@ -160,6 +165,7 @@ namespace OpenNefia.Core.GameController
             _taskManager.ProcessPendingTasks();
             _timerManager.UpdateTimers(frame);
             _uiLayers.UpdateLayers(frame);
+            _debugServer.CheckForRequests();
         }
 
         public void Draw()

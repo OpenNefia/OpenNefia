@@ -52,6 +52,8 @@ namespace OpenNefia.Core.Maps
         [DataField("pos")]
         public Vector2i Position { get; }
 
+        public SpecificMapLocation() { }
+
         public SpecificMapLocation(Vector2i position)
         {
             Position = position;

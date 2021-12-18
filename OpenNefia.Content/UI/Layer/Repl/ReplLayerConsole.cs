@@ -1,4 +1,5 @@
-﻿using PrettyPrompt.Consoles;
+﻿using OpenNefia.Core.IoC;
+using PrettyPrompt.Consoles;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,22 +8,17 @@ using System.Threading.Tasks;
 
 namespace OpenNefia.Content.UI.Layer.Repl
 {
-    internal class ReplLayerConsoleBridge : IConsole
+    internal class ReplLayerConsole : IConsole
     {
-        private ReplLayer ReplLayer;
+        [Dependency] private readonly IReplLayer _replLayer = default!;
 
-        public ReplLayerConsoleBridge(ReplLayer repl)
-        {
-            ReplLayer = repl;
-        }
+        public int CursorTop => _replLayer.ScrollbackSize;
 
-        public int CursorTop => ReplLayer.ScrollbackSize;
+        public int BufferWidth => _replLayer.Width / _replLayer.FontReplText.LoveFont.GetWidth(" ");
 
-        public int BufferWidth => ReplLayer.Width / ReplLayer.FontReplText.LoveFont.GetWidth(" ");
+        public int WindowHeight => _replLayer.MaxLines;
 
-        public int WindowHeight => ReplLayer.MaxLines;
-
-        public int WindowTop => ReplLayer.ScrollbackSize - ReplLayer.MaxLines;
+        public int WindowTop => _replLayer.ScrollbackSize - _replLayer.MaxLines;
 
         public bool KeyAvailable => true;
 
@@ -42,7 +38,7 @@ namespace OpenNefia.Content.UI.Layer.Repl
 
         public void Clear()
         {
-            ReplLayer.Clear();
+            _replLayer.Clear();
         }
 
         public void HideCursor()
@@ -62,9 +58,9 @@ namespace OpenNefia.Content.UI.Layer.Repl
         {
         }
 
-        public void Write(string value) => ReplLayer.PrintText(value);
-        public void WriteLine(string value) => ReplLayer.PrintText(value);
-        public void WriteError(string value) => ReplLayer.PrintError(value);
-        public void WriteErrorLine(string value) => ReplLayer.PrintError(value);
+        public void Write(string value) => _replLayer.PrintText(value);
+        public void WriteLine(string value) => _replLayer.PrintText(value);
+        public void WriteError(string value) => _replLayer.PrintText(value, UiColors.ReplTextError);
+        public void WriteErrorLine(string value) => _replLayer.PrintText(value, UiColors.ReplTextError);
     }
 }

@@ -2,6 +2,7 @@
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Tags;
 using OpenNefia.Content.UI.Element;
+using OpenNefia.Core.DebugServer;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.Reflection;
@@ -17,12 +18,19 @@ namespace OpenNefia.Content.UI.Layer.Repl
 {
     public interface IReplLayer : IUiLayerWithResult<UiNoResult>
     {
+        int ScrollbackSize { get; }
+        FontSpec FontReplText { get; }
+        int MaxLines { get; }
+
+        void Clear();
+        void PrintText(string text, Color? color = null);
     }
 
     public class ReplLayer : BaseUiLayer<UiNoResult>, IReplLayer
     {
         [Dependency] private readonly IFieldLayer _field = default!;
         [Dependency] private readonly IReflectionManager _reflectionManager = default!;
+        [Dependency] private readonly IReplExecutor _executor = default!;
 
         protected class ReplTextLine
         {
@@ -90,7 +98,6 @@ namespace OpenNefia.Content.UI.Layer.Repl
         private IUiText _textScrollbackCounter;
         private IUiText[] _textScrollback;
 
-        private IReplExecutor _executor;
         private CompletionsPane _completionsPane;
 
         protected float Dt = 0f;
@@ -132,7 +139,6 @@ namespace OpenNefia.Content.UI.Layer.Repl
             _textScrollback = new IUiText[0];
             
             _scrollbackBuffer = new CircularBuffer<ReplTextLine>(10000);
-            _executor = new CSharpReplExecutor(this, _reflectionManager);
             _completionsPane = new CompletionsPane((input, caret) => _executor.Complete(input, caret));
 
             BindKeys();
@@ -404,7 +410,7 @@ namespace OpenNefia.Content.UI.Layer.Repl
                     break;
                 case ReplExecutionResult.Error error:
                     var text = $"Error: {error.Exception.Message}";
-                    PrintError(text);
+                    PrintText(text, ColorReplTextError);
                     break;
                 default:
                     break;
@@ -412,8 +418,6 @@ namespace OpenNefia.Content.UI.Layer.Repl
 
             _field.RefreshScreen();
         }
-
-        public void PrintError(string text) => PrintText(text, ColorReplTextError);
 
         public void PrintText(string text, Color? color = null)
         {

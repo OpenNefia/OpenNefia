@@ -3,6 +3,7 @@ using OpenNefia.Content.UI.Hud;
 using OpenNefia.Content.UI.Layer;
 using OpenNefia.Content.UI.Layer.Repl;
 using OpenNefia.Core.IoC;
+using PrettyPrompt.Consoles;
 
 namespace OpenNefia.Content
 {

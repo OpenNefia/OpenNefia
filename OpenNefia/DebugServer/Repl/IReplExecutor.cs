@@ -1,6 +1,6 @@
 ﻿using CSharpRepl.Services.Completion;
 
-namespace OpenNefia.Content.UI.Layer.Repl
+namespace OpenNefia.Core.DebugServer
 {
     public interface IReplExecutor
     {

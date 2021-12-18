@@ -2,6 +2,7 @@
 using OpenNefia.Core.Audio;
 using OpenNefia.Core.CommandLine;
 using OpenNefia.Core.ContentPack;
+using OpenNefia.Core.DebugServer;
 using OpenNefia.Core.Exceptions;
 using OpenNefia.Core.Game;
 using OpenNefia.Core.GameController;
@@ -20,6 +21,7 @@ using OpenNefia.Core.Serialization.Instanced;
 using OpenNefia.Core.Serialization.Manager;
 using OpenNefia.Core.Timing;
 using OpenNefia.Core.UI.Layer;
+using PrettyPrompt.Consoles;
 
 namespace OpenNefia
 {
@@ -78,6 +80,9 @@ namespace OpenNefia
             IoCManager.Register<ITimerManager, TimerManager>();
             IoCManager.Register<IMapBlueprintLoader, MapBlueprintLoader>();
             IoCManager.Register<ICommandLineController, CommandLineController>();
+            IoCManager.Register<IReplExecutor, CSharpReplExecutor>();
+            IoCManager.Register<IConsole, DummyConsole>();
+            IoCManager.Register<IDebugServer, DebugServer>();
         }
     }
 }
