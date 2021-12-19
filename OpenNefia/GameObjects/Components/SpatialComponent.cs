@@ -416,10 +416,10 @@ namespace OpenNefia.Core.GameObjects
             oldConcrete._children.Remove(uid);
 
             _parent = EntityUid.Invalid;
-            var entParentChangedMessage = new EntParentChangedEvent(OwnerUid, oldParent?.OwnerUid);
-            _entityManager.EventBus.RaiseLocalEvent(OwnerUid, ref entParentChangedMessage);
             var oldMapId = MapID;
             MapID = MapId.Nullspace;
+            var entParentChangedMessage = new EntParentChangedEvent(OwnerUid, oldParent?.OwnerUid);
+            _entityManager.EventBus.RaiseLocalEvent(OwnerUid, ref entParentChangedMessage);
 
             // Does it even make sense to call these since this is called purely from OnRemove right now?
             RebuildMatrices();
