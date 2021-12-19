@@ -52,7 +52,6 @@ namespace OpenNefia.Content.GameObjects
         public void FromHspFeat(int cellObjId, int param1, int param2)
         {
             UnlockDifficulty = param1;
-            OpenNefia.Core.Log.Logger.Warning($"DOOR {param1} {param2}");
         }
     }
 }

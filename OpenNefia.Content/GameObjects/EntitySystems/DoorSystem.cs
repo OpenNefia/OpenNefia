@@ -19,23 +19,30 @@ namespace OpenNefia.Content.GameObjects
 
         private void HandleInitialize(EntityUid uid, DoorComponent door, ref MapInitEvent args)
         {
-            ChipComponent? chip = null;
-            SpatialComponent? spatial = null;
-
-            if (!Resolve(uid, ref chip, ref spatial))
-                return;
-
-            if (door.IsOpen)
+            if (EntityManager.TryGetComponent<SpatialComponent>(uid, out var spatial))
             {
-                spatial.IsSolid = false;
-                spatial.IsOpaque = false;
-                chip.ChipID = door.ChipOpen;
+                if (door.IsOpen)
+                {
+                    spatial.IsSolid = false;
+                    spatial.IsOpaque = false;
+                }
+                else
+                {
+                    spatial.IsSolid = true;
+                    spatial.IsOpaque = true;
+                }
             }
-            else
+
+            if (EntityManager.TryGetComponent<ChipComponent>(uid, out var chip))
             {
-                spatial.IsSolid = true;
-                spatial.IsOpaque = true;
-                chip.ChipID = door.ChipClosed;
+                if (door.IsOpen)
+                {
+                    chip.ChipID = door.ChipOpen;
+                }
+                else
+                {
+                    chip.ChipID = door.ChipClosed;
+                }
             }
         }
 

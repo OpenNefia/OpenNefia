@@ -10,11 +10,6 @@ namespace OpenNefia.Core.Maps
 
         public event Action<IMap>? ActiveMapChanged;
 
-        // TODO: Whatever map the current player is in == active map.
-        // That way you can just do player.Coords.MapId = mapId and everything
-        // is supposed to magically work.
-        // It never really made sense to have the active and player maps be different
-        // anyway, it was a source of bugs and general annoyance.
         void SetActiveMap(MapId mapId);
 
         bool IsMapInitialized(MapId mapId);

@@ -40,7 +40,7 @@ namespace OpenNefia.Content.UI.Layer
         }
     }
 
-    public struct PromptOptions
+    public class PromptOptions
     {
         public int Width = 160;
         public bool IsCancellable = true;

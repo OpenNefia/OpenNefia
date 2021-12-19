@@ -165,7 +165,6 @@ namespace OpenNefia.Core.DebugServer
         // JSON request -> JSON response
         private string Process(string json)
         {
-            string responseString;
             ICommandResult commandResult;
           
             try

@@ -113,7 +113,7 @@ namespace OpenNefia.Core.Utility.Markup
 
         public FormattedMessage Render(Section? defStyle = default) => Build(defStyle).Build();
 
-        public FormattedMessage.Builder Build(Section? defStyle = default)
+        private FormattedMessage.Builder Build(Section? defStyle = default)
         {
             FormattedMessage.Builder b;
             if (defStyle != null)
@@ -136,15 +136,6 @@ namespace OpenNefia.Core.Utility.Markup
             return b;
         }
 
-        public static FormattedMessage.Builder BuildMarkup(string text, Section? defStyle = default)
-        {
-            var nb = new Basic();
-            nb.AddMarkup(text);
-            return nb.Build(defStyle);
-        }
-
-        public static FormattedMessage RenderMarkup(string text, Section? defStyle = default) => BuildMarkup(text, defStyle).Build();
-
         /// <summary>
         ///     Escape a string of text to be able to be formatted into markup.
         /// </summary>
@@ -152,16 +143,5 @@ namespace OpenNefia.Core.Utility.Markup
         {
             return text.Replace("\\", "\\\\").Replace("[", "\\[");
         }
-    }
-
-    public static class FormattedMessageExtensions
-    {
-        public static void AddMarkup(this FormattedMessage.Builder bld, string text) => bld.AddMessage(Basic.BuildMarkup(text));
-
-        [Obsolete("Use Basic.EscapeText instead.")]
-        public static void EscapeText(this FormattedMessage _, string text) => Basic.EscapeText(text);
-
-        [Obsolete("Use Basic.EscapeText instead.")]
-        public static void EscapeText(this FormattedMessage.Builder _, string text) => Basic.EscapeText(text);
     }
 }

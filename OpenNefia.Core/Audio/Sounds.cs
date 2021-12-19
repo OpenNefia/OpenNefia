@@ -7,7 +7,9 @@ namespace OpenNefia.Core.Audio
 {  
     /// <summary>
     /// A static proxy class for interfacing with the <see cref="IAudioSystem"/>.
+    /// TODO remove
     /// </summary>
+    [Obsolete]
     public static class Sounds
     {
         /// <summary>
