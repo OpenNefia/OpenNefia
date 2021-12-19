@@ -4,7 +4,7 @@ using NUnit.Framework;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.IoC.Exceptions;
 
-namespace OpenNefia.Tests.Core.IoC
+namespace Robust.UnitTesting.Shared.IoC
 {
     /// <remarks>
     /// This fixture CAN NOT be parallelized, because <see cref="IoCManager"/> is a static singleton.
@@ -91,7 +91,7 @@ namespace OpenNefia.Tests.Core.IoC
         [Test]
         public void IoCTestUnregisteredDirectInject()
         {
-            Assert.That(()=>IoCManager.InjectDependencies(new TestUnregisteredInjection()), Throws.TypeOf<UnregisteredDependencyException>());
+            Assert.That(() => IoCManager.InjectDependencies(new TestUnregisteredInjection()), Throws.TypeOf<UnregisteredDependencyException>());
         }
 
         [Test]
@@ -99,13 +99,13 @@ namespace OpenNefia.Tests.Core.IoC
         {
             IoCManager.Register<IIoCFailInterface, TestFailImplementation>();
             // we *forgot* to call BuildGraph
-            Assert.That(()=>IoCManager.Resolve<IIoCFailInterface>(), Throws.TypeOf<InvalidOperationException>());
+            Assert.That(() => IoCManager.Resolve<IIoCFailInterface>(), Throws.TypeOf<InvalidOperationException>());
         }
 
         [Test]
         public void IoCTestResolveThrowsUnregisteredType()
         {
-            Assert.That(()=>IoCManager.Resolve<IIoCFailInterface>(), Throws.TypeOf<UnregisteredTypeException>());
+            Assert.That(() => IoCManager.Resolve<IIoCFailInterface>(), Throws.TypeOf<UnregisteredTypeException>());
         }
 
         [Test]
@@ -115,7 +115,7 @@ namespace OpenNefia.Tests.Core.IoC
             IoCManager.BuildGraph();
 
             // cannot overwrite an already built implementation.
-            Assert.That(()=> IoCManager.Register<IIoCFailInterface, TestFailImplementation>(true), Throws.TypeOf<InvalidOperationException>());
+            Assert.That(() => IoCManager.Register<IIoCFailInterface, TestFailImplementation>(true), Throws.TypeOf<InvalidOperationException>());
         }
 
         [Test]
@@ -135,6 +135,71 @@ namespace OpenNefia.Tests.Core.IoC
             IoCManager.RegisterInstance<IIoCTestPriorities>(obj);
 
             Assert.That(IoCManager.Resolve<IIoCTestPriorities>(), Is.EqualTo(obj));
+        }
+
+        private class DependencyA
+        {
+            [Dependency] public readonly DependencyB _depB = default!;
+        }
+        private class DependencyB
+        {
+            [Dependency] public readonly DependencyA _depA = default!;
+        }
+
+        [Test]
+        public void IoCRegInstancesBeforeBuildGraph()
+        {
+            var instanceA = new DependencyA();
+            IoCManager.RegisterInstance<DependencyA>(instanceA, deferInject: true);
+
+            var instanceB = new DependencyB();
+            IoCManager.RegisterInstance<DependencyB>(instanceB, deferInject: true);
+
+            IoCManager.BuildGraph();
+
+            var resolveA = IoCManager.Resolve<DependencyA>();
+            var resolveB = IoCManager.Resolve<DependencyB>();
+
+            Assert.That(instanceA, Is.EqualTo(resolveA));
+            Assert.That(instanceB, Is.EqualTo(resolveB));
+            Assert.That(resolveA._depB, Is.EqualTo(resolveB));
+            Assert.That(resolveB._depA, Is.EqualTo(resolveA));
+        }
+
+        [Test]
+        public void IoCRegInstanceBeforeBuildGraph()
+        {
+            IoCManager.Register<DependencyA, DependencyA>();
+
+            var instanceB = new DependencyB();
+            IoCManager.RegisterInstance<DependencyB>(instanceB, deferInject: true);
+
+            IoCManager.BuildGraph();
+
+            var resolveA = IoCManager.Resolve<DependencyA>();
+            var resolveB = IoCManager.Resolve<DependencyB>();
+
+            Assert.That(instanceB, Is.EqualTo(resolveB));
+            Assert.That(resolveA._depB, Is.EqualTo(resolveB));
+            Assert.That(resolveB._depA, Is.EqualTo(resolveA));
+        }
+
+        [Test]
+        public void IoCRegInstanceDepBeforeBuildGraph()
+        {
+            var instanceB = new DependencyB();
+            IoCManager.RegisterInstance<DependencyB>(instanceB, deferInject: true);
+
+            IoCManager.Register<DependencyA, DependencyA>();
+
+            IoCManager.BuildGraph();
+
+            var resolveA = IoCManager.Resolve<DependencyA>();
+            var resolveB = IoCManager.Resolve<DependencyB>();
+
+            Assert.That(instanceB, Is.EqualTo(resolveB));
+            Assert.That(resolveA._depB, Is.EqualTo(resolveB));
+            Assert.That(resolveB._depA, Is.EqualTo(resolveA));
         }
 
         [Test]
