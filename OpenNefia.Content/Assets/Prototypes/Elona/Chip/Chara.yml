@@ -4,7 +4,7 @@
     elona122: 0
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "0, 0, 48, 48"
 
 - type: Chip
@@ -13,7 +13,7 @@
     elona122: 1
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "48, 0, 48, 48"
 
 - type: Chip
@@ -22,7 +22,7 @@
     elona122: 2
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "96, 0, 48, 48"
 
 - type: Chip
@@ -31,7 +31,7 @@
     elona122: 3
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "144, 0, 48, 48"
 
 - type: Chip
@@ -40,7 +40,7 @@
     elona122: 4
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "192, 0, 48, 48"
 
 - type: Chip
@@ -49,7 +49,7 @@
     elona122: 5
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "240, 0, 48, 48"
 
 - type: Chip
@@ -58,7 +58,7 @@
     elona122: 6
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "288, 0, 48, 48"
 
 - type: Chip
@@ -67,7 +67,7 @@
     elona122: 7
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "336, 0, 48, 48"
 
 - type: Chip
@@ -76,7 +76,7 @@
     elona122: 8
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "384, 0, 48, 48"
 
 - type: Chip
@@ -85,7 +85,7 @@
     elona122: 9
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "432, 0, 48, 48"
 
 - type: Chip
@@ -94,7 +94,7 @@
     elona122: 10
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "480, 0, 48, 48"
 
 - type: Chip
@@ -103,7 +103,7 @@
     elona122: 11
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "528, 0, 48, 48"
 
 - type: Chip
@@ -112,7 +112,7 @@
     elona122: 12
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "576, 0, 48, 48"
 
 - type: Chip
@@ -121,7 +121,7 @@
     elona122: 13
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "624, 0, 48, 48"
 
 - type: Chip
@@ -130,7 +130,7 @@
     elona122: 14
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "672, 0, 48, 48"
 
 - type: Chip
@@ -139,7 +139,7 @@
     elona122: 15
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "720, 0, 48, 48"
 
 - type: Chip
@@ -148,7 +148,7 @@
     elona122: 16
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "768, 0, 48, 48"
 
 - type: Chip
@@ -157,7 +157,7 @@
     elona122: 17
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "816, 0, 48, 48"
 
 - type: Chip
@@ -166,7 +166,7 @@
     elona122: 18
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "864, 0, 48, 48"
 
 - type: Chip
@@ -175,7 +175,7 @@
     elona122: 19
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "912, 0, 48, 48"
 
 - type: Chip
@@ -184,7 +184,7 @@
     elona122: 20
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "960, 0, 48, 48"
 
 - type: Chip
@@ -193,7 +193,7 @@
     elona122: 21
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "1008, 0, 48, 48"
 
 - type: Chip
@@ -202,7 +202,7 @@
     elona122: 22
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "1056, 0, 48, 48"
 
 - type: Chip
@@ -211,7 +211,7 @@
     elona122: 23
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "1104, 0, 48, 48"
 
 - type: Chip
@@ -220,7 +220,7 @@
     elona122: 24
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "1152, 0, 48, 48"
 
 - type: Chip
@@ -229,7 +229,7 @@
     elona122: 25
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "1200, 0, 48, 48"
 
 - type: Chip
@@ -238,7 +238,7 @@
     elona122: 26
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "1248, 0, 48, 48"
 
 - type: Chip
@@ -247,7 +247,7 @@
     elona122: 27
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "1296, 0, 48, 48"
 
 - type: Chip
@@ -256,7 +256,7 @@
     elona122: 28
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "1344, 0, 48, 48"
 
 - type: Chip
@@ -265,7 +265,7 @@
     elona122: 29
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "1392, 0, 48, 48"
 
 - type: Chip
@@ -274,7 +274,7 @@
     elona122: 30
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "1440, 0, 48, 48"
 
 - type: Chip
@@ -283,7 +283,7 @@
     elona122: 31
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "1488, 0, 48, 48"
 
 - type: Chip
@@ -292,7 +292,7 @@
     elona122: 32
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "1536, 0, 48, 48"
 
 - type: Chip
@@ -301,7 +301,7 @@
     elona122: 33
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "0, 48, 48, 48"
 
 - type: Chip
@@ -310,7 +310,7 @@
     elona122: 34
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "48, 48, 48, 48"
 
 - type: Chip
@@ -319,7 +319,7 @@
     elona122: 35
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "96, 48, 48, 48"
 
 - type: Chip
@@ -328,7 +328,7 @@
     elona122: 36
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "144, 48, 48, 48"
 
 - type: Chip
@@ -337,7 +337,7 @@
     elona122: 37
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "192, 48, 48, 48"
 
 - type: Chip
@@ -346,7 +346,7 @@
     elona122: 38
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "240, 48, 48, 48"
 
 - type: Chip
@@ -355,7 +355,7 @@
     elona122: 39
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "288, 48, 48, 48"
 
 - type: Chip
@@ -364,7 +364,7 @@
     elona122: 40
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "336, 48, 48, 48"
 
 - type: Chip
@@ -373,7 +373,7 @@
     elona122: 41
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "384, 48, 48, 48"
 
 - type: Chip
@@ -382,7 +382,7 @@
     elona122: 42
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "432, 48, 48, 48"
 
 - type: Chip
@@ -391,7 +391,7 @@
     elona122: 43
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "480, 48, 48, 48"
 
 - type: Chip
@@ -400,7 +400,7 @@
     elona122: 44
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "528, 48, 48, 48"
 
 - type: Chip
@@ -409,7 +409,7 @@
     elona122: 45
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "576, 48, 48, 48"
 
 - type: Chip
@@ -418,7 +418,7 @@
     elona122: 46
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "624, 48, 48, 48"
 
 - type: Chip
@@ -427,7 +427,7 @@
     elona122: 47
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "672, 48, 48, 48"
 
 - type: Chip
@@ -436,7 +436,7 @@
     elona122: 48
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "720, 48, 48, 48"
 
 - type: Chip
@@ -445,7 +445,7 @@
     elona122: 49
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "768, 48, 48, 48"
 
 - type: Chip
@@ -454,7 +454,7 @@
     elona122: 50
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "816, 48, 48, 48"
 
 - type: Chip
@@ -463,7 +463,7 @@
     elona122: 51
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "864, 48, 48, 48"
 
 - type: Chip
@@ -472,7 +472,7 @@
     elona122: 52
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "912, 48, 48, 48"
 
 - type: Chip
@@ -481,7 +481,7 @@
     elona122: 53
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "960, 48, 48, 48"
 
 - type: Chip
@@ -490,7 +490,7 @@
     elona122: 54
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "1008, 48, 48, 48"
 
 - type: Chip
@@ -499,7 +499,7 @@
     elona122: 55
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "1056, 48, 48, 48"
 
 - type: Chip
@@ -508,7 +508,7 @@
     elona122: 56
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "1104, 48, 48, 48"
 
 - type: Chip
@@ -517,7 +517,7 @@
     elona122: 57
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "1152, 48, 48, 48"
 
 - type: Chip
@@ -526,7 +526,7 @@
     elona122: 58
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "1200, 48, 48, 48"
 
 - type: Chip
@@ -535,7 +535,7 @@
     elona122: 59
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "1248, 48, 48, 48"
 
 - type: Chip
@@ -544,7 +544,7 @@
     elona122: 60
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "1296, 48, 48, 48"
 
 - type: Chip
@@ -553,7 +553,7 @@
     elona122: 61
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "1344, 48, 48, 48"
 
 - type: Chip
@@ -562,7 +562,7 @@
     elona122: 62
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "1392, 48, 48, 48"
 
 - type: Chip
@@ -571,7 +571,7 @@
     elona122: 63
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "1440, 48, 48, 48"
 
 - type: Chip
@@ -580,7 +580,7 @@
     elona122: 64
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "1488, 48, 48, 48"
 
 - type: Chip
@@ -589,7 +589,7 @@
     elona122: 65
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "1536, 48, 48, 48"
 
 - type: Chip
@@ -598,7 +598,7 @@
     elona122: 66
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "0, 96, 48, 48"
 
 - type: Chip
@@ -607,7 +607,7 @@
     elona122: 67
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "48, 96, 48, 48"
 
 - type: Chip
@@ -616,7 +616,7 @@
     elona122: 68
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "96, 96, 48, 48"
 
 - type: Chip
@@ -625,7 +625,7 @@
     elona122: 69
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "144, 96, 48, 48"
 
 - type: Chip
@@ -634,7 +634,7 @@
     elona122: 70
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "192, 96, 48, 48"
 
 - type: Chip
@@ -643,7 +643,7 @@
     elona122: 71
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "240, 96, 48, 48"
 
 - type: Chip
@@ -652,7 +652,7 @@
     elona122: 72
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "288, 96, 48, 48"
 
 - type: Chip
@@ -661,7 +661,7 @@
     elona122: 73
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "336, 96, 48, 48"
 
 - type: Chip
@@ -670,7 +670,7 @@
     elona122: 74
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "384, 96, 48, 48"
 
 - type: Chip
@@ -679,7 +679,7 @@
     elona122: 75
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "432, 96, 48, 48"
 
 - type: Chip
@@ -688,7 +688,7 @@
     elona122: 76
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "480, 96, 48, 48"
 
 - type: Chip
@@ -697,7 +697,7 @@
     elona122: 77
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "528, 96, 48, 48"
 
 - type: Chip
@@ -706,7 +706,7 @@
     elona122: 78
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "576, 96, 48, 48"
 
 - type: Chip
@@ -715,7 +715,7 @@
     elona122: 79
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "624, 96, 48, 48"
 
 - type: Chip
@@ -724,7 +724,7 @@
     elona122: 80
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "672, 96, 48, 48"
 
 - type: Chip
@@ -733,7 +733,7 @@
     elona122: 81
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "720, 96, 48, 48"
 
 - type: Chip
@@ -742,7 +742,7 @@
     elona122: 82
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "768, 96, 48, 48"
 
 - type: Chip
@@ -751,7 +751,7 @@
     elona122: 83
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "816, 96, 48, 48"
 
 - type: Chip
@@ -760,7 +760,7 @@
     elona122: 84
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "864, 96, 48, 48"
 
 - type: Chip
@@ -769,7 +769,7 @@
     elona122: 85
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "912, 96, 48, 48"
 
 - type: Chip
@@ -778,7 +778,7 @@
     elona122: 86
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "960, 96, 48, 48"
 
 - type: Chip
@@ -787,7 +787,7 @@
     elona122: 87
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "1008, 96, 48, 48"
 
 - type: Chip
@@ -796,7 +796,7 @@
     elona122: 88
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "1056, 96, 48, 48"
 
 - type: Chip
@@ -805,7 +805,7 @@
     elona122: 89
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "1104, 96, 48, 48"
 
 - type: Chip
@@ -814,7 +814,7 @@
     elona122: 90
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "1152, 96, 48, 48"
 
 - type: Chip
@@ -823,7 +823,7 @@
     elona122: 91
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "1200, 96, 48, 48"
 
 - type: Chip
@@ -832,7 +832,7 @@
     elona122: 92
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "1248, 96, 48, 48"
 
 - type: Chip
@@ -841,7 +841,7 @@
     elona122: 93
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "1296, 96, 48, 48"
 
 - type: Chip
@@ -850,7 +850,7 @@
     elona122: 94
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "1344, 96, 48, 48"
 
 - type: Chip
@@ -859,7 +859,7 @@
     elona122: 95
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "1392, 96, 48, 48"
 
 - type: Chip
@@ -868,7 +868,7 @@
     elona122: 96
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "1440, 96, 48, 48"
 
 - type: Chip
@@ -877,7 +877,7 @@
     elona122: 97
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "1488, 96, 48, 48"
 
 - type: Chip
@@ -886,7 +886,7 @@
     elona122: 98
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "1536, 96, 48, 48"
 
 - type: Chip
@@ -895,7 +895,7 @@
     elona122: 99
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "0, 144, 48, 48"
 
 - type: Chip
@@ -904,7 +904,7 @@
     elona122: 100
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "48, 144, 48, 48"
 
 - type: Chip
@@ -913,7 +913,7 @@
     elona122: 101
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "96, 144, 48, 48"
 
 - type: Chip
@@ -922,7 +922,7 @@
     elona122: 102
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "144, 144, 48, 48"
 
 - type: Chip
@@ -931,7 +931,7 @@
     elona122: 103
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "192, 144, 48, 48"
 
 - type: Chip
@@ -940,7 +940,7 @@
     elona122: 104
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "240, 144, 48, 48"
 
 - type: Chip
@@ -949,7 +949,7 @@
     elona122: 105
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "288, 144, 48, 48"
 
 - type: Chip
@@ -958,7 +958,7 @@
     elona122: 106
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "336, 144, 48, 48"
 
 - type: Chip
@@ -967,7 +967,7 @@
     elona122: 107
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "384, 144, 48, 48"
 
 - type: Chip
@@ -976,7 +976,7 @@
     elona122: 108
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "432, 144, 48, 48"
 
 - type: Chip
@@ -985,7 +985,7 @@
     elona122: 109
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "480, 144, 48, 48"
 
 - type: Chip
@@ -994,7 +994,7 @@
     elona122: 110
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "528, 144, 48, 48"
 
 - type: Chip
@@ -1003,7 +1003,7 @@
     elona122: 111
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "576, 144, 48, 48"
 
 - type: Chip
@@ -1012,7 +1012,7 @@
     elona122: 112
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "624, 144, 48, 48"
 
 - type: Chip
@@ -1021,7 +1021,7 @@
     elona122: 113
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "672, 144, 48, 48"
 
 - type: Chip
@@ -1030,7 +1030,7 @@
     elona122: 114
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "720, 144, 48, 48"
 
 - type: Chip
@@ -1039,7 +1039,7 @@
     elona122: 115
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "768, 144, 48, 48"
 
 - type: Chip
@@ -1048,7 +1048,7 @@
     elona122: 116
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "816, 144, 48, 48"
 
 - type: Chip
@@ -1057,7 +1057,7 @@
     elona122: 117
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "864, 144, 48, 48"
 
 - type: Chip
@@ -1066,7 +1066,7 @@
     elona122: 118
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "912, 144, 48, 48"
 
 - type: Chip
@@ -1075,7 +1075,7 @@
     elona122: 119
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "960, 144, 48, 48"
 
 - type: Chip
@@ -1084,7 +1084,7 @@
     elona122: 120
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "1008, 144, 48, 48"
 
 - type: Chip
@@ -1093,7 +1093,7 @@
     elona122: 121
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "1056, 144, 48, 48"
 
 - type: Chip
@@ -1102,7 +1102,7 @@
     elona122: 122
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "1104, 144, 48, 48"
 
 - type: Chip
@@ -1111,7 +1111,7 @@
     elona122: 123
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "1152, 144, 48, 48"
 
 - type: Chip
@@ -1120,7 +1120,7 @@
     elona122: 124
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "1200, 144, 48, 48"
 
 - type: Chip
@@ -1129,7 +1129,7 @@
     elona122: 125
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "1248, 144, 48, 48"
 
 - type: Chip
@@ -1138,7 +1138,7 @@
     elona122: 126
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "1296, 144, 48, 48"
 
 - type: Chip
@@ -1147,7 +1147,7 @@
     elona122: 127
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "1344, 144, 48, 48"
 
 - type: Chip
@@ -1156,7 +1156,7 @@
     elona122: 128
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "1392, 144, 48, 48"
 
 - type: Chip
@@ -1165,7 +1165,7 @@
     elona122: 129
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "1440, 144, 48, 48"
 
 - type: Chip
@@ -1174,7 +1174,7 @@
     elona122: 130
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "1488, 144, 48, 48"
 
 - type: Chip
@@ -1183,7 +1183,7 @@
     elona122: 131
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "1536, 144, 48, 48"
 
 - type: Chip
@@ -1192,7 +1192,7 @@
     elona122: 132
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "0, 192, 48, 48"
 
 - type: Chip
@@ -1201,7 +1201,7 @@
     elona122: 133
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "48, 192, 48, 48"
 
 - type: Chip
@@ -1210,7 +1210,7 @@
     elona122: 134
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "96, 192, 48, 48"
 
 - type: Chip
@@ -1219,7 +1219,7 @@
     elona122: 135
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "144, 192, 48, 48"
 
 - type: Chip
@@ -1228,7 +1228,7 @@
     elona122: 136
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "192, 192, 48, 48"
 
 - type: Chip
@@ -1237,7 +1237,7 @@
     elona122: 137
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "240, 192, 48, 48"
 
 - type: Chip
@@ -1246,7 +1246,7 @@
     elona122: 138
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "288, 192, 48, 48"
 
 - type: Chip
@@ -1255,7 +1255,7 @@
     elona122: 139
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "336, 192, 48, 48"
 
 - type: Chip
@@ -1264,7 +1264,7 @@
     elona122: 140
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "384, 192, 48, 48"
 
 - type: Chip
@@ -1273,7 +1273,7 @@
     elona122: 141
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "432, 192, 48, 48"
 
 - type: Chip
@@ -1282,7 +1282,7 @@
     elona122: 142
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "480, 192, 48, 48"
 
 - type: Chip
@@ -1291,7 +1291,7 @@
     elona122: 143
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "528, 192, 48, 48"
 
 - type: Chip
@@ -1300,7 +1300,7 @@
     elona122: 144
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "576, 192, 48, 48"
 
 - type: Chip
@@ -1309,7 +1309,7 @@
     elona122: 145
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "624, 192, 48, 48"
 
 - type: Chip
@@ -1318,7 +1318,7 @@
     elona122: 146
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "672, 192, 48, 48"
 
 - type: Chip
@@ -1327,7 +1327,7 @@
     elona122: 147
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "720, 192, 48, 48"
 
 - type: Chip
@@ -1336,7 +1336,7 @@
     elona122: 148
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "768, 192, 48, 48"
 
 - type: Chip
@@ -1345,7 +1345,7 @@
     elona122: 149
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "816, 192, 48, 48"
 
 - type: Chip
@@ -1354,7 +1354,7 @@
     elona122: 150
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "864, 192, 48, 48"
 
 - type: Chip
@@ -1363,7 +1363,7 @@
     elona122: 151
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "912, 192, 48, 48"
 
 - type: Chip
@@ -1372,7 +1372,7 @@
     elona122: 152
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "960, 192, 48, 48"
 
 - type: Chip
@@ -1381,7 +1381,7 @@
     elona122: 153
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "1008, 192, 48, 48"
 
 - type: Chip
@@ -1390,7 +1390,7 @@
     elona122: 154
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "1056, 192, 48, 48"
 
 - type: Chip
@@ -1399,7 +1399,7 @@
     elona122: 155
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "1104, 192, 48, 48"
 
 - type: Chip
@@ -1408,7 +1408,7 @@
     elona122: 156
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "1152, 192, 48, 48"
 
 - type: Chip
@@ -1417,7 +1417,7 @@
     elona122: 157
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "1200, 192, 48, 48"
 
 - type: Chip
@@ -1426,7 +1426,7 @@
     elona122: 158
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "1248, 192, 48, 48"
 
 - type: Chip
@@ -1435,7 +1435,7 @@
     elona122: 159
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "1296, 192, 48, 48"
 
 - type: Chip
@@ -1444,7 +1444,7 @@
     elona122: 160
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "1344, 192, 48, 48"
 
 - type: Chip
@@ -1453,7 +1453,7 @@
     elona122: 161
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "1392, 192, 48, 48"
 
 - type: Chip
@@ -1462,7 +1462,7 @@
     elona122: 162
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "1440, 192, 48, 48"
 
 - type: Chip
@@ -1471,7 +1471,7 @@
     elona122: 163
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "1488, 192, 48, 48"
 
 - type: Chip
@@ -1480,7 +1480,7 @@
     elona122: 164
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "1536, 192, 48, 48"
 
 - type: Chip
@@ -1489,7 +1489,7 @@
     elona122: 165
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "0, 240, 48, 48"
 
 - type: Chip
@@ -1498,7 +1498,7 @@
     elona122: 166
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "48, 240, 48, 48"
 
 - type: Chip
@@ -1507,7 +1507,7 @@
     elona122: 167
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "96, 240, 48, 48"
 
 - type: Chip
@@ -1516,7 +1516,7 @@
     elona122: 168
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "144, 240, 48, 48"
 
 - type: Chip
@@ -1525,7 +1525,7 @@
     elona122: 169
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "192, 240, 48, 48"
 
 - type: Chip
@@ -1534,7 +1534,7 @@
     elona122: 170
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "240, 240, 48, 48"
 
 - type: Chip
@@ -1543,7 +1543,7 @@
     elona122: 171
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "288, 240, 48, 48"
 
 - type: Chip
@@ -1552,7 +1552,7 @@
     elona122: 172
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "336, 240, 48, 48"
 
 - type: Chip
@@ -1561,7 +1561,7 @@
     elona122: 173
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "384, 240, 48, 48"
 
 - type: Chip
@@ -1570,7 +1570,7 @@
     elona122: 174
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "432, 240, 48, 48"
 
 - type: Chip
@@ -1579,7 +1579,7 @@
     elona122: 175
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "480, 240, 48, 48"
 
 - type: Chip
@@ -1588,7 +1588,7 @@
     elona122: 176
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "528, 240, 48, 48"
 
 - type: Chip
@@ -1597,7 +1597,7 @@
     elona122: 177
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "576, 240, 48, 48"
 
 - type: Chip
@@ -1606,7 +1606,7 @@
     elona122: 178
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "624, 240, 48, 48"
 
 - type: Chip
@@ -1615,7 +1615,7 @@
     elona122: 179
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "672, 240, 48, 48"
 
 - type: Chip
@@ -1624,7 +1624,7 @@
     elona122: 180
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "720, 240, 48, 48"
 
 - type: Chip
@@ -1633,7 +1633,7 @@
     elona122: 181
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "768, 240, 48, 48"
 
 - type: Chip
@@ -1642,7 +1642,7 @@
     elona122: 182
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "816, 240, 48, 48"
 
 - type: Chip
@@ -1651,7 +1651,7 @@
     elona122: 183
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "864, 240, 48, 48"
 
 - type: Chip
@@ -1660,7 +1660,7 @@
     elona122: 184
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "912, 240, 48, 48"
 
 - type: Chip
@@ -1669,7 +1669,7 @@
     elona122: 185
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "960, 240, 48, 48"
 
 - type: Chip
@@ -1678,7 +1678,7 @@
     elona122: 186
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "1008, 240, 48, 48"
 
 - type: Chip
@@ -1687,7 +1687,7 @@
     elona122: 187
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "1056, 240, 48, 48"
 
 - type: Chip
@@ -1696,7 +1696,7 @@
     elona122: 188
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "1104, 240, 48, 48"
 
 - type: Chip
@@ -1705,7 +1705,7 @@
     elona122: 189
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "1152, 240, 48, 48"
 
 - type: Chip
@@ -1714,7 +1714,7 @@
     elona122: 190
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "1200, 240, 48, 48"
 
 - type: Chip
@@ -1723,7 +1723,7 @@
     elona122: 191
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "1248, 240, 48, 48"
 
 - type: Chip
@@ -1732,7 +1732,7 @@
     elona122: 192
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "1296, 240, 48, 48"
 
 - type: Chip
@@ -1741,7 +1741,7 @@
     elona122: 193
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "1344, 240, 48, 48"
 
 - type: Chip
@@ -1750,7 +1750,7 @@
     elona122: 194
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "1392, 240, 48, 48"
 
 - type: Chip
@@ -1759,7 +1759,7 @@
     elona122: 195
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "1440, 240, 48, 48"
 
 - type: Chip
@@ -1768,7 +1768,7 @@
     elona122: 196
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "1488, 240, 48, 48"
 
 - type: Chip
@@ -1777,7 +1777,7 @@
     elona122: 197
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "1536, 240, 48, 48"
 
 - type: Chip
@@ -1786,7 +1786,7 @@
     elona122: 198
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "0, 288, 48, 48"
 
 - type: Chip
@@ -1795,7 +1795,7 @@
     elona122: 199
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "48, 288, 48, 48"
 
 - type: Chip
@@ -1804,7 +1804,7 @@
     elona122: 200
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "96, 288, 48, 48"
 
 - type: Chip
@@ -1813,7 +1813,7 @@
     elona122: 201
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "144, 288, 48, 96"
 
 - type: Chip
@@ -1822,7 +1822,7 @@
     elona122: 202
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "192, 288, 48, 48"
 
 - type: Chip
@@ -1831,7 +1831,7 @@
     elona122: 203
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "240, 288, 48, 48"
 
 - type: Chip
@@ -1840,7 +1840,7 @@
     elona122: 204
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "288, 288, 48, 48"
 
 - type: Chip
@@ -1849,7 +1849,7 @@
     elona122: 205
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "336, 288, 48, 48"
 
 - type: Chip
@@ -1858,7 +1858,7 @@
     elona122: 206
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "384, 288, 48, 48"
 
 - type: Chip
@@ -1867,7 +1867,7 @@
     elona122: 207
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "432, 288, 48, 48"
 
 - type: Chip
@@ -1876,7 +1876,7 @@
     elona122: 208
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "480, 288, 48, 48"
 
 - type: Chip
@@ -1885,7 +1885,7 @@
     elona122: 209
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "528, 288, 48, 48"
 
 - type: Chip
@@ -1894,7 +1894,7 @@
     elona122: 210
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "576, 288, 48, 48"
 
 - type: Chip
@@ -1903,7 +1903,7 @@
     elona122: 211
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "624, 288, 48, 48"
 
 - type: Chip
@@ -1912,7 +1912,7 @@
     elona122: 212
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "672, 288, 48, 48"
 
 - type: Chip
@@ -1921,7 +1921,7 @@
     elona122: 213
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "720, 288, 48, 48"
 
 - type: Chip
@@ -1930,7 +1930,7 @@
     elona122: 214
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "768, 288, 48, 48"
 
 - type: Chip
@@ -1939,7 +1939,7 @@
     elona122: 215
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "816, 288, 48, 48"
 
 - type: Chip
@@ -1948,7 +1948,7 @@
     elona122: 216
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "864, 288, 48, 48"
 
 - type: Chip
@@ -1957,7 +1957,7 @@
     elona122: 217
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "912, 288, 48, 48"
 
 - type: Chip
@@ -1966,7 +1966,7 @@
     elona122: 218
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "960, 288, 48, 48"
 
 - type: Chip
@@ -1975,7 +1975,7 @@
     elona122: 219
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "1008, 288, 48, 48"
 
 - type: Chip
@@ -1984,7 +1984,7 @@
     elona122: 220
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "1056, 288, 48, 48"
 
 - type: Chip
@@ -1993,7 +1993,7 @@
     elona122: 221
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "1104, 288, 48, 48"
 
 - type: Chip
@@ -2002,7 +2002,7 @@
     elona122: 222
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "1152, 288, 48, 48"
 
 - type: Chip
@@ -2011,7 +2011,7 @@
     elona122: 223
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "1200, 288, 48, 48"
 
 - type: Chip
@@ -2020,7 +2020,7 @@
     elona122: 224
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "1248, 288, 48, 48"
 
 - type: Chip
@@ -2029,7 +2029,7 @@
     elona122: 225
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "1296, 288, 48, 48"
 
 - type: Chip
@@ -2038,7 +2038,7 @@
     elona122: 226
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "1344, 288, 48, 48"
 
 - type: Chip
@@ -2047,7 +2047,7 @@
     elona122: 227
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "1392, 288, 48, 48"
 
 - type: Chip
@@ -2056,7 +2056,7 @@
     elona122: 228
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "1440, 288, 48, 96"
 
 - type: Chip
@@ -2065,7 +2065,7 @@
     elona122: 229
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "1488, 288, 48, 48"
 
 - type: Chip
@@ -2074,7 +2074,7 @@
     elona122: 230
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "1536, 288, 48, 48"
 
 - type: Chip
@@ -2083,7 +2083,7 @@
     elona122: 231
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "0, 336, 48, 96"
 
 - type: Chip
@@ -2092,7 +2092,7 @@
     elona122: 232
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "48, 336, 48, 96"
 
 - type: Chip
@@ -2101,7 +2101,7 @@
     elona122: 233
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "96, 336, 48, 96"
 
 - type: Chip
@@ -2110,7 +2110,7 @@
     elona122: 235
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "192, 336, 48, 96"
 
 - type: Chip
@@ -2119,7 +2119,7 @@
     elona122: 236
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "240, 336, 48, 48"
 
 - type: Chip
@@ -2128,7 +2128,7 @@
     elona122: 237
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "288, 336, 48, 48"
 
 - type: Chip
@@ -2137,7 +2137,7 @@
     elona122: 238
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "336, 336, 48, 48"
 
 - type: Chip
@@ -2146,7 +2146,7 @@
     elona122: 239
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "384, 336, 48, 48"
 
 - type: Chip
@@ -2155,7 +2155,7 @@
     elona122: 240
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "432, 336, 48, 48"
 
 - type: Chip
@@ -2164,7 +2164,7 @@
     elona122: 241
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "480, 336, 48, 48"
 
 - type: Chip
@@ -2173,7 +2173,7 @@
     elona122: 242
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "528, 336, 48, 48"
 
 - type: Chip
@@ -2182,7 +2182,7 @@
     elona122: 243
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "576, 336, 48, 48"
 
 - type: Chip
@@ -2191,7 +2191,7 @@
     elona122: 244
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "624, 336, 48, 48"
 
 - type: Chip
@@ -2200,7 +2200,7 @@
     elona122: 245
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "672, 336, 48, 48"
 
 - type: Chip
@@ -2209,7 +2209,7 @@
     elona122: 246
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "720, 336, 48, 48"
 
 - type: Chip
@@ -2218,7 +2218,7 @@
     elona122: 247
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "768, 336, 48, 48"
 
 - type: Chip
@@ -2227,7 +2227,7 @@
     elona122: 248
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "816, 336, 48, 48"
 
 - type: Chip
@@ -2236,7 +2236,7 @@
     elona122: 249
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "864, 336, 48, 48"
 
 - type: Chip
@@ -2245,7 +2245,7 @@
     elona122: 250
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "912, 336, 48, 48"
 
 - type: Chip
@@ -2254,7 +2254,7 @@
     elona122: 251
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "960, 336, 48, 48"
 
 - type: Chip
@@ -2263,7 +2263,7 @@
     elona122: 252
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "1008, 336, 48, 48"
 
 - type: Chip
@@ -2272,7 +2272,7 @@
     elona122: 253
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "1056, 336, 48, 48"
 
 - type: Chip
@@ -2281,7 +2281,7 @@
     elona122: 254
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "1104, 336, 48, 48"
 
 - type: Chip
@@ -2290,7 +2290,7 @@
     elona122: 255
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "1152, 336, 48, 48"
 
 - type: Chip
@@ -2299,7 +2299,7 @@
     elona122: 256
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "1200, 336, 48, 48"
 
 - type: Chip
@@ -2308,7 +2308,7 @@
     elona122: 257
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "1248, 336, 48, 48"
 
 - type: Chip
@@ -2317,7 +2317,7 @@
     elona122: 258
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "1296, 336, 48, 48"
 
 - type: Chip
@@ -2326,7 +2326,7 @@
     elona122: 259
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "1344, 336, 48, 48"
 
 - type: Chip
@@ -2335,7 +2335,7 @@
     elona122: 260
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "1392, 336, 48, 48"
 
 - type: Chip
@@ -2344,7 +2344,7 @@
     elona122: 262
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "1488, 336, 48, 48"
 
 - type: Chip
@@ -2353,7 +2353,7 @@
     elona122: 263
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "1536, 336, 48, 48"
 
 - type: Chip
@@ -2362,7 +2362,7 @@
     elona122: 267
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "144, 384, 48, 48"
 
 - type: Chip
@@ -2371,7 +2371,7 @@
     elona122: 268
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "192, 384, 48, 48"
 
 - type: Chip
@@ -2380,7 +2380,7 @@
     elona122: 269
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "240, 384, 48, 48"
 
 - type: Chip
@@ -2389,7 +2389,7 @@
     elona122: 270
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "288, 384, 48, 48"
 
 - type: Chip
@@ -2398,7 +2398,7 @@
     elona122: 271
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "336, 384, 48, 48"
 
 - type: Chip
@@ -2407,7 +2407,7 @@
     elona122: 272
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "384, 384, 48, 48"
 
 - type: Chip
@@ -2416,7 +2416,7 @@
     elona122: 273
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "432, 384, 48, 48"
 
 - type: Chip
@@ -2425,7 +2425,7 @@
     elona122: 274
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "480, 384, 48, 48"
 
 - type: Chip
@@ -2434,7 +2434,7 @@
     elona122: 275
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "528, 384, 48, 48"
 
 - type: Chip
@@ -2443,7 +2443,7 @@
     elona122: 276
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "576, 384, 48, 48"
 
 - type: Chip
@@ -2452,7 +2452,7 @@
     elona122: 277
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "624, 384, 48, 48"
 
 - type: Chip
@@ -2461,7 +2461,7 @@
     elona122: 278
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "672, 384, 48, 48"
 
 - type: Chip
@@ -2470,7 +2470,7 @@
     elona122: 279
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "720, 384, 48, 48"
 
 - type: Chip
@@ -2479,7 +2479,7 @@
     elona122: 280
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "768, 384, 48, 96"
 
 - type: Chip
@@ -2488,7 +2488,7 @@
     elona122: 281
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "816, 384, 48, 48"
 
 - type: Chip
@@ -2497,7 +2497,7 @@
     elona122: 282
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "864, 384, 48, 48"
 
 - type: Chip
@@ -2506,7 +2506,7 @@
     elona122: 283
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "912, 384, 48, 48"
 
 - type: Chip
@@ -2515,7 +2515,7 @@
     elona122: 284
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "960, 384, 48, 48"
 
 - type: Chip
@@ -2524,7 +2524,7 @@
     elona122: 285
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "1008, 384, 48, 48"
 
 - type: Chip
@@ -2533,7 +2533,7 @@
     elona122: 286
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "1056, 384, 48, 48"
 
 - type: Chip
@@ -2542,7 +2542,7 @@
     elona122: 287
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "1104, 384, 48, 48"
 
 - type: Chip
@@ -2551,7 +2551,7 @@
     elona122: 288
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "1152, 384, 48, 48"
 
 - type: Chip
@@ -2560,7 +2560,7 @@
     elona122: 289
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "1200, 384, 48, 48"
 
 - type: Chip
@@ -2569,7 +2569,7 @@
     elona122: 290
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "1248, 384, 48, 48"
 
 - type: Chip
@@ -2578,7 +2578,7 @@
     elona122: 291
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "1296, 384, 48, 48"
 
 - type: Chip
@@ -2587,7 +2587,7 @@
     elona122: 292
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "1344, 384, 48, 48"
 
 - type: Chip
@@ -2596,7 +2596,7 @@
     elona122: 293
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "1392, 384, 48, 48"
 
 - type: Chip
@@ -2605,7 +2605,7 @@
     elona122: 294
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "1440, 384, 48, 48"
 
 - type: Chip
@@ -2614,7 +2614,7 @@
     elona122: 295
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "1488, 384, 48, 48"
 
 - type: Chip
@@ -2623,7 +2623,7 @@
     elona122: 296
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "1536, 384, 48, 48"
 
 - type: Chip
@@ -2632,7 +2632,7 @@
     elona122: 297
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "0, 432, 48, 96"
 
 - type: Chip
@@ -2641,7 +2641,7 @@
     elona122: 307
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "480, 432, 48, 48"
 
 - type: Chip
@@ -2650,7 +2650,7 @@
     elona122: 331
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "48, 480, 48, 48"
 
 - type: Chip
@@ -2659,7 +2659,7 @@
     elona122: 332
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "96, 480, 48, 48"
 
 - type: Chip
@@ -2668,7 +2668,7 @@
     elona122: 333
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "144, 480, 48, 48"
 
 - type: Chip
@@ -2677,7 +2677,7 @@
     elona122: 334
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "192, 480, 48, 48"
 
 - type: Chip
@@ -2686,7 +2686,7 @@
     elona122: 335
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "240, 480, 48, 48"
 
 - type: Chip
@@ -2695,7 +2695,7 @@
     elona122: 336
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "288, 480, 48, 48"
 
 - type: Chip
@@ -2704,7 +2704,7 @@
     elona122: 337
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "336, 480, 48, 48"
 
 - type: Chip
@@ -2713,7 +2713,7 @@
     elona122: 338
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "384, 480, 48, 96"
 
 - type: Chip
@@ -2722,7 +2722,7 @@
     elona122: 339
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "432, 480, 48, 96"
 
 - type: Chip
@@ -2731,7 +2731,7 @@
     elona122: 340
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "480, 480, 48, 48"
 
 - type: Chip
@@ -2740,7 +2740,7 @@
     elona122: 341
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "528, 480, 48, 96"
 
 - type: Chip
@@ -2749,7 +2749,7 @@
     elona122: 342
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "576, 480, 48, 96"
 
 - type: Chip
@@ -2758,7 +2758,7 @@
     elona122: 343
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "624, 480, 48, 96"
 
 - type: Chip
@@ -2767,7 +2767,7 @@
     elona122: 344
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "672, 480, 48, 48"
 
 - type: Chip
@@ -2776,7 +2776,7 @@
     elona122: 345
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "720, 480, 48, 48"
 
 - type: Chip
@@ -2785,7 +2785,7 @@
     elona122: 346
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "768, 480, 48, 48"
 
 - type: Chip
@@ -2794,7 +2794,7 @@
     elona122: 347
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "816, 480, 48, 48"
 
 - type: Chip
@@ -2803,7 +2803,7 @@
     elona122: 348
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "864, 480, 48, 48"
 
 - type: Chip
@@ -2812,7 +2812,7 @@
     elona122: 349
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "912, 480, 48, 96"
 
 - type: Chip
@@ -2821,7 +2821,7 @@
     elona122: 350
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "960, 480, 48, 48"
 
 - type: Chip
@@ -2830,7 +2830,7 @@
     elona122: 351
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "1008, 480, 48, 96"
 
 - type: Chip
@@ -2839,7 +2839,7 @@
     elona122: 352
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "1056, 480, 48, 48"
 
 - type: Chip
@@ -2848,7 +2848,7 @@
     elona122: 353
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "1104, 480, 48, 48"
 
 - type: Chip
@@ -2857,7 +2857,7 @@
     elona122: 354
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "1152, 480, 48, 48"
 
 - type: Chip
@@ -2866,7 +2866,7 @@
     elona122: 355
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "1200, 480, 48, 48"
 
 - type: Chip
@@ -2875,7 +2875,7 @@
     elona122: 356
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "1248, 480, 48, 48"
 
 - type: Chip
@@ -2884,7 +2884,7 @@
     elona122: 357
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "1296, 480, 48, 48"
 
 - type: Chip
@@ -2893,7 +2893,7 @@
     elona122: 358
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "1344, 480, 48, 48"
 
 - type: Chip
@@ -2902,7 +2902,7 @@
     elona122: 359
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "1392, 480, 48, 48"
 
 - type: Chip
@@ -2911,7 +2911,7 @@
     elona122: 360
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "1440, 480, 48, 48"
 
 - type: Chip
@@ -2920,7 +2920,7 @@
     elona122: 361
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "1488, 480, 48, 48"
 
 - type: Chip
@@ -2929,7 +2929,7 @@
     elona122: 362
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "1536, 480, 48, 48"
 
 - type: Chip
@@ -2938,7 +2938,7 @@
     elona122: 363
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "0, 528, 48, 48"
 
 - type: Chip
@@ -2947,7 +2947,7 @@
     elona122: 364
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "48, 528, 48, 48"
 
 - type: Chip
@@ -2956,7 +2956,7 @@
     elona122: 365
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "96, 528, 48, 48"
 
 - type: Chip
@@ -2965,7 +2965,7 @@
     elona122: 366
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "144, 528, 48, 48"
 
 - type: Chip
@@ -2974,7 +2974,7 @@
     elona122: 367
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "192, 528, 48, 48"
 
 - type: Chip
@@ -2983,7 +2983,7 @@
     elona122: 368
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "240, 528, 48, 48"
 
 - type: Chip
@@ -2992,7 +2992,7 @@
     elona122: 369
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "288, 528, 48, 48"
 
 - type: Chip
@@ -3001,7 +3001,7 @@
     elona122: 370
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "336, 528, 48, 48"
 
 - type: Chip
@@ -3010,7 +3010,7 @@
     elona122: 373
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "480, 528, 48, 48"
 
 - type: Chip
@@ -3019,7 +3019,7 @@
     elona122: 377
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "672, 528, 48, 48"
 
 - type: Chip
@@ -3028,7 +3028,7 @@
     elona122: 378
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "720, 528, 48, 48"
 
 - type: Chip
@@ -3037,7 +3037,7 @@
     elona122: 379
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "768, 528, 48, 48"
 
 - type: Chip
@@ -3046,7 +3046,7 @@
     elona122: 380
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "816, 528, 48, 48"
 
 - type: Chip
@@ -3055,7 +3055,7 @@
     elona122: 381
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "864, 528, 48, 48"
 
 - type: Chip
@@ -3064,7 +3064,7 @@
     elona122: 383
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "960, 528, 48, 48"
 
 - type: Chip
@@ -3073,7 +3073,7 @@
     elona122: 385
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "1056, 528, 48, 48"
 
 - type: Chip
@@ -3082,7 +3082,7 @@
     elona122: 386
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "1104, 528, 48, 48"
 
 - type: Chip
@@ -3091,7 +3091,7 @@
     elona122: 387
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "1152, 528, 48, 48"
 
 - type: Chip
@@ -3100,7 +3100,7 @@
     elona122: 388
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "1200, 528, 48, 48"
 
 - type: Chip
@@ -3109,7 +3109,7 @@
     elona122: 389
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "1248, 528, 48, 96"
 
 - type: Chip
@@ -3118,7 +3118,7 @@
     elona122: 390
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "1296, 528, 48, 48"
 
 - type: Chip
@@ -3127,7 +3127,7 @@
     elona122: 391
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "1344, 528, 48, 96"
 
 - type: Chip
@@ -3136,7 +3136,7 @@
     elona122: 392
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "1392, 528, 48, 48"
 
 - type: Chip
@@ -3145,7 +3145,7 @@
     elona122: 393
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "1440, 528, 48, 96"
 
 - type: Chip
@@ -3154,7 +3154,7 @@
     elona122: 394
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "1488, 528, 48, 48"
 
 - type: Chip
@@ -3163,7 +3163,7 @@
     elona122: 395
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "1536, 528, 48, 48"
 
 - type: Chip
@@ -3172,7 +3172,7 @@
     elona122: 396
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "0, 576, 48, 48"
 
 - type: Chip
@@ -3181,7 +3181,7 @@
     elona122: 397
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "48, 576, 48, 48"
 
 - type: Chip
@@ -3190,7 +3190,7 @@
     elona122: 398
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "96, 576, 48, 96"
 
 - type: Chip
@@ -3199,7 +3199,7 @@
     elona122: 399
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "144, 576, 48, 48"
 
 - type: Chip
@@ -3208,7 +3208,7 @@
     elona122: 400
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "192, 576, 48, 48"
 
 - type: Chip
@@ -3217,7 +3217,7 @@
     elona122: 401
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "240, 576, 48, 48"
 
 - type: Chip
@@ -3226,7 +3226,7 @@
     elona122: 402
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "288, 576, 48, 48"
 
 - type: Chip
@@ -3235,7 +3235,7 @@
     elona122: 403
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "336, 576, 48, 48"
 
 - type: Chip
@@ -3244,7 +3244,7 @@
     elona122: 404
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "384, 576, 48, 96"
 
 - type: Chip
@@ -3253,7 +3253,7 @@
     elona122: 405
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "432, 576, 48, 96"
 
 - type: Chip
@@ -3262,7 +3262,7 @@
     elona122: 406
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "480, 576, 48, 48"
 
 - type: Chip
@@ -3271,7 +3271,7 @@
     elona122: 407
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "528, 576, 48, 48"
 
 - type: Chip
@@ -3280,7 +3280,7 @@
     elona122: 408
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "576, 576, 48, 96"
 
 - type: Chip
@@ -3289,7 +3289,7 @@
     elona122: 409
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "624, 576, 48, 48"
 
 - type: Chip
@@ -3298,7 +3298,7 @@
     elona122: 410
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "672, 576, 48, 48"
 
 - type: Chip
@@ -3307,7 +3307,7 @@
     elona122: 411
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "720, 576, 48, 48"
 
 - type: Chip
@@ -3316,7 +3316,7 @@
     elona122: 412
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "768, 576, 48, 48"
 
 - type: Chip
@@ -3325,7 +3325,7 @@
     elona122: 413
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "816, 576, 48, 96"
 
 - type: Chip
@@ -3334,7 +3334,7 @@
     elona122: 414
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "864, 576, 48, 48"
 
 - type: Chip
@@ -3343,7 +3343,7 @@
     elona122: 415
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "912, 576, 48, 48"
 
 - type: Chip
@@ -3352,7 +3352,7 @@
     elona122: 416
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "960, 576, 48, 48"
 
 - type: Chip
@@ -3361,7 +3361,7 @@
     elona122: 417
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "1008, 576, 48, 48"
 
 - type: Chip
@@ -3370,7 +3370,7 @@
     elona122: 418
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "1056, 576, 48, 48"
 
 - type: Chip
@@ -3379,7 +3379,7 @@
     elona122: 419
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "1104, 576, 48, 48"
 
 - type: Chip
@@ -3388,7 +3388,7 @@
     elona122: 420
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "1152, 576, 48, 48"
 
 - type: Chip
@@ -3397,7 +3397,7 @@
     elona122: 429
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "0, 624, 48, 96"
 
 - type: Chip
@@ -3406,7 +3406,7 @@
     elona122: 430
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "48, 624, 48, 96"
 
 - type: Chip
@@ -3415,7 +3415,7 @@
     elona122: 432
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "144, 624, 48, 96"
 
 - type: Chip
@@ -3424,7 +3424,7 @@
     elona122: 433
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "192, 624, 48, 96"
 
 - type: Chip
@@ -3433,7 +3433,7 @@
     elona122: 434
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "240, 624, 48, 48"
 
 - type: Chip
@@ -3442,7 +3442,7 @@
     elona122: 436
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "336, 624, 48, 48"
 
 - type: Chip
@@ -3451,7 +3451,7 @@
     elona122: 439
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "480, 624, 48, 96"
 
 - type: Chip
@@ -3460,7 +3460,7 @@
     elona122: 442
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "624, 624, 48, 96"
 
 - type: Chip
@@ -3469,7 +3469,7 @@
     elona122: 443
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "672, 624, 48, 48"
 
 - type: Chip
@@ -3478,7 +3478,7 @@
     elona122: 446
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "816, 624, 48, 48"
 
 - type: Chip
@@ -3487,7 +3487,7 @@
     elona122: 447
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "864, 624, 48, 96"
 
 - type: Chip
@@ -3496,7 +3496,7 @@
     elona122: 448
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "912, 624, 48, 48"
 
 - type: Chip
@@ -3505,7 +3505,7 @@
     elona122: 449
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "960, 624, 48, 48"
 
 - type: Chip
@@ -3514,7 +3514,7 @@
     elona122: 450
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "1008, 624, 48, 48"
 
 - type: Chip
@@ -3523,7 +3523,7 @@
     elona122: 451
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "1056, 624, 48, 48"
 
 - type: Chip
@@ -3532,7 +3532,7 @@
     elona122: 452
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "1104, 624, 48, 48"
 
 - type: Chip
@@ -3541,7 +3541,7 @@
     elona122: 467
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "240, 672, 48, 48"
 
 - type: Chip
@@ -3550,7 +3550,7 @@
     elona122: 468
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "288, 672, 48, 48"
 
 - type: Chip
@@ -3559,7 +3559,7 @@
     elona122: 470
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "384, 672, 48, 48"
 
 - type: Chip
@@ -3568,7 +3568,7 @@
     elona122: 471
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "432, 672, 48, 48"
 
 - type: Chip
@@ -3577,7 +3577,7 @@
     elona122: 473
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "528, 672, 48, 48"
 
 - type: Chip
@@ -3586,7 +3586,7 @@
     elona122: 476
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "672, 672, 48, 48"
 
 - type: Chip
@@ -3595,7 +3595,7 @@
     elona122: 477
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "720, 672, 48, 48"
 
 - type: Chip
@@ -3604,7 +3604,7 @@
     elona122: 478
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "768, 672, 48, 48"
 
 - type: Chip
@@ -3613,7 +3613,7 @@
     elona122: 479
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "816, 672, 48, 48"
 
 - type: Chip
@@ -3622,5 +3622,5 @@
     elona122: 660
   group: Chara
   image:
-    filepath: /Elona/Graphic/character.bmp
+    filepath: /Graphic/Elona/character.bmp
     region: "0, 960, 48, 48"

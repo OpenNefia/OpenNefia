@@ -53,10 +53,10 @@ namespace OpenNefia.Core.Locale
             var opts = new EnumerationOptions() { RecurseSubdirectories = true };
             _Lua["_LANGUAGE_CODE"] = (string)language;
 
-            var chunk = _resourceManager.ContentFileReadAllText("/Core/Lua/LocaleEnv.lua");
+            var chunk = _resourceManager.ContentFileReadAllText("/Lua/Core/LocaleEnv.lua");
             _Lua.DoString(chunk);
 
-            var path = new ResourcePath("/Elona/Locale") / language.ToString();
+            var path = new ResourcePath("/Locale") / language.ToString();
 
             var files = _resourceManager.ContentFindFiles(path).ToList().AsParallel()
                 .Where(filePath => filePath.Extension == "lua");

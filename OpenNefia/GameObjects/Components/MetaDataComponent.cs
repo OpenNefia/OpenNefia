@@ -1,4 +1,5 @@
 using System;
+using OpenNefia.Analyzers;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Locale;
 using OpenNefia.Core.Prototypes;
@@ -96,6 +97,7 @@ namespace OpenNefia.Core.GameObjects
         DeadAndBuried
     }
 
+    [EventArgsUsage(EventArgsTargets.ByRef)]
     public struct EntityLivenessChangedEvent
     {
         public readonly EntityUid EntityUid;

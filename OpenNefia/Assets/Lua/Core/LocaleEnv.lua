@@ -47,7 +47,7 @@ _Root = {}
 
 _Finalize = function() finalize(_Root, {}); end
 
-_ = require("Core.Lua.LocaleFuncs." .. _LANGUAGE_CODE)
+_ = require("Lua.Core.LocaleFuncs." .. _LANGUAGE_CODE)
 
 local _G_mt = {}
 

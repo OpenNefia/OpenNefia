@@ -39,7 +39,7 @@ namespace OpenNefia.Core.Graphics
             Love.Boot.Init(bootConfig);
             Love.Timer.Step();
 
-            var data = _resourceCache.GetResource<LoveFileDataResource>("/Core/Icon/icon.png");
+            var data = _resourceCache.GetResource<LoveFileDataResource>("/Icon/Core/icon.png");
             var iconData = Love.Image.NewImageData(data);
             Love.Window.SetIcon(iconData);
 

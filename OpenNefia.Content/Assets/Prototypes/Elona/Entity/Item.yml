@@ -541,7 +541,7 @@
   - type: Tag
     tags:
     - Elona.ItemDrink
-    - Elona.ItemTagNeg
+    - Elona.TagItemNeg
     - Elona.TagItemNeg
   - type: Item
     value: 20
@@ -561,7 +561,7 @@
   - type: Tag
     tags:
     - Elona.ItemDrink
-    - Elona.ItemTagNeg
+    - Elona.TagItemNeg
     - Elona.TagItemNeg
   - type: Item
     value: 30
@@ -581,7 +581,7 @@
   - type: Tag
     tags:
     - Elona.ItemDrink
-    - Elona.ItemTagNeg
+    - Elona.TagItemNeg
     - Elona.TagItemNeg
   - type: Item
     value: 40
@@ -601,7 +601,7 @@
   - type: Tag
     tags:
     - Elona.ItemDrink
-    - Elona.ItemTagNogive
+    - Elona.TagItemNogive
     - Elona.TagItemNogive
   - type: Item
     value: 120
@@ -870,7 +870,7 @@
     level: 1
   - type: Tag
     tags:
-    - Elona.ItemTagFish
+    - Elona.TagItemFish
     - Elona.ItemJunk
     - Elona.ItemJunkInField
     - Elona.TagItemFish
@@ -909,7 +909,7 @@
     level: 1
   - type: Tag
     tags:
-    - Elona.ItemTagFish
+    - Elona.TagItemFish
     - Elona.ItemJunk
     - Elona.ItemJunkInField
     - Elona.TagItemFish
@@ -1085,7 +1085,7 @@
   - type: Tag
     tags:
     - Elona.ItemPlatinum
-    - Elona.ItemTagNoshop
+    - Elona.TagItemNoshop
     - Elona.TagItemNoshop
   - type: Item
     value: 1
@@ -1204,7 +1204,7 @@
   - type: Tag
     tags:
     - Elona.ItemEquipRangedGun
-    - Elona.ItemTagSf
+    - Elona.TagItemSf
     - Elona.ItemEquipRanged
     - Elona.TagItemSf
   - type: Item
@@ -1245,7 +1245,7 @@
     tags:
     - Elona.ItemEquipAmmo
     - Elona.ItemEquipAmmoBullet
-    - Elona.ItemTagSf
+    - Elona.TagItemSf
     - Elona.TagItemSf
   - type: Item
     value: 150
@@ -1670,7 +1670,7 @@
     level: 1
   - type: Tag
     tags:
-    - Elona.ItemTagFest
+    - Elona.TagItemFest
     - Elona.ItemFurniture
     - Elona.TagItemFest
   - type: Item
@@ -1897,7 +1897,7 @@
         rarity: 600000
   - type: Tag
     tags:
-    - Elona.ItemTagSf
+    - Elona.TagItemSf
     - Elona.ItemFurniture
     - Elona.TagItemSf
   - type: Item
@@ -2303,7 +2303,7 @@
         rarity: 150000
   - type: Tag
     tags:
-    - Elona.ItemTagSf
+    - Elona.TagItemSf
     - Elona.ItemFurniture
     - Elona.TagItemSf
   - type: Item
@@ -2391,7 +2391,7 @@
     level: 1
   - type: Tag
     tags:
-    - Elona.ItemTagFish
+    - Elona.TagItemFish
     - Elona.ItemJunk
     - Elona.TagItemFish
   - type: Item
@@ -3798,7 +3798,7 @@
   - type: Tag
     tags:
     - Elona.ItemFoodVegetable
-    - Elona.ItemTagFest
+    - Elona.TagItemFest
     - Elona.ItemFood
     - Elona.ItemOfferingVegetable
     - Elona.TagItemFest
@@ -4374,7 +4374,7 @@
     level: 1
   - type: Tag
     tags:
-    - Elona.ItemTagFest
+    - Elona.TagItemFest
     - Elona.ItemJunk
     - Elona.TagItemFest
   - type: Item
@@ -4445,7 +4445,7 @@
     level: 1
   - type: Tag
     tags:
-    - Elona.ItemTagFish
+    - Elona.TagItemFish
     - Elona.ItemJunk
     - Elona.ItemJunkInField
     - Elona.TagItemFish
@@ -4651,7 +4651,7 @@
   - type: Tag
     tags:
     - Elona.ItemEquipRangedGun
-    - Elona.ItemTagSf
+    - Elona.TagItemSf
     - Elona.ItemEquipRanged
     - Elona.TagItemSf
   - type: Item
@@ -4904,7 +4904,7 @@
   - type: Tag
     tags:
     - Elona.ItemScroll
-    - Elona.ItemTagNoshop
+    - Elona.TagItemNoshop
     - Elona.TagItemNoshop
   - type: Item
     value: 240000
@@ -5141,7 +5141,7 @@
   - type: Tag
     tags:
     - Elona.ItemFurnitureInstrument
-    - Elona.ItemTagFest
+    - Elona.TagItemFest
     - Elona.ItemFurniture
     - Elona.TagItemFest
   - type: Item
@@ -5302,7 +5302,7 @@
   - type: Tag
     tags:
     - Elona.ItemDrink
-    - Elona.ItemTagNogive
+    - Elona.TagItemNogive
     - Elona.TagItemNogive
     - Elona.TagItemElonaIsAcid
   - type: Item
@@ -5617,7 +5617,7 @@
         rarity: 200000
   - type: Tag
     tags:
-    - Elona.ItemTagSf
+    - Elona.TagItemSf
     - Elona.ItemFurniture
     - Elona.TagItemSf
   - type: Item
@@ -5675,7 +5675,7 @@
     level: 1
   - type: Tag
     tags:
-    - Elona.ItemTagFish
+    - Elona.TagItemFish
     - Elona.ItemFurniture
     - Elona.TagItemFish
   - type: Item
@@ -5803,7 +5803,7 @@
   - type: Tag
     tags:
     - Elona.ItemDrink
-    - Elona.ItemTagSpshop
+    - Elona.TagItemSpshop
     - Elona.TagItemSpshop
   - type: Item
     value: 50000
@@ -5823,7 +5823,7 @@
   - type: Tag
     tags:
     - Elona.ItemScroll
-    - Elona.ItemTagNeg
+    - Elona.TagItemNeg
     - Elona.TagItemNeg
   - type: Item
     value: 150
@@ -5872,7 +5872,7 @@
   - type: Tag
     tags:
     - Elona.ItemRod
-    - Elona.ItemTagNoshop
+    - Elona.TagItemNoshop
     - Elona.TagItemNoshop
   - type: Item
     value: 300000
@@ -5959,7 +5959,7 @@
     level: 1
   - type: Tag
     tags:
-    - Elona.ItemTagFest
+    - Elona.TagItemFest
     - Elona.ItemFurniture
     - Elona.TagItemFest
   - type: Item
@@ -6215,7 +6215,7 @@
         rarity: 200000
   - type: Tag
     tags:
-    - Elona.ItemTagSf
+    - Elona.TagItemSf
     - Elona.ItemFurniture
     - Elona.TagItemSf
   - type: Item
@@ -7055,7 +7055,7 @@
         rarity: 500000
   - type: Tag
     tags:
-    - Elona.ItemTagFish
+    - Elona.TagItemFish
     - Elona.ItemFood
     - Elona.ItemOfferingFish
     - Elona.TagItemFish
@@ -7081,7 +7081,7 @@
         rarity: 300000
   - type: Tag
     tags:
-    - Elona.ItemTagFish
+    - Elona.TagItemFish
     - Elona.ItemFood
     - Elona.ItemOfferingFish
     - Elona.TagItemFish
@@ -7107,7 +7107,7 @@
         rarity: 400000
   - type: Tag
     tags:
-    - Elona.ItemTagFish
+    - Elona.TagItemFish
     - Elona.ItemFood
     - Elona.ItemOfferingFish
     - Elona.TagItemFish
@@ -7133,7 +7133,7 @@
         rarity: 200000
   - type: Tag
     tags:
-    - Elona.ItemTagFish
+    - Elona.TagItemFish
     - Elona.ItemFood
     - Elona.ItemOfferingFish
     - Elona.TagItemFish
@@ -7154,7 +7154,7 @@
     level: 3
   - type: Tag
     tags:
-    - Elona.ItemTagFish
+    - Elona.TagItemFish
     - Elona.ItemFood
     - Elona.ItemOfferingFish
     - Elona.TagItemFish
@@ -7175,7 +7175,7 @@
     level: 3
   - type: Tag
     tags:
-    - Elona.ItemTagFish
+    - Elona.TagItemFish
     - Elona.ItemFood
     - Elona.ItemOfferingFish
     - Elona.TagItemFish
@@ -7201,7 +7201,7 @@
         rarity: 600000
   - type: Tag
     tags:
-    - Elona.ItemTagFish
+    - Elona.TagItemFish
     - Elona.ItemFood
     - Elona.ItemOfferingFish
     - Elona.TagItemFish
@@ -7227,7 +7227,7 @@
         rarity: 500000
   - type: Tag
     tags:
-    - Elona.ItemTagFish
+    - Elona.TagItemFish
     - Elona.ItemFood
     - Elona.ItemOfferingFish
     - Elona.TagItemFish
@@ -7253,7 +7253,7 @@
         rarity: 500000
   - type: Tag
     tags:
-    - Elona.ItemTagFish
+    - Elona.TagItemFish
     - Elona.ItemFood
     - Elona.ItemOfferingFish
     - Elona.TagItemFish
@@ -7279,7 +7279,7 @@
         rarity: 600000
   - type: Tag
     tags:
-    - Elona.ItemTagFish
+    - Elona.TagItemFish
     - Elona.ItemFood
     - Elona.ItemOfferingFish
     - Elona.TagItemFish
@@ -7632,7 +7632,7 @@
   - type: Tag
     tags:
     - Elona.ItemDrink
-    - Elona.ItemTagNeg
+    - Elona.TagItemNeg
     - Elona.TagItemNeg
   - type: Item
     value: 40
@@ -7803,7 +7803,7 @@
   - type: Tag
     tags:
     - Elona.ItemDrink
-    - Elona.ItemTagNeg
+    - Elona.TagItemNeg
     - Elona.TagItemNeg
   - type: Item
     value: 30
@@ -7923,7 +7923,7 @@
   - type: Tag
     tags:
     - Elona.ItemDrink
-    - Elona.ItemTagNeg
+    - Elona.TagItemNeg
     - Elona.TagItemNeg
   - type: Item
     value: 30
@@ -8150,7 +8150,7 @@
   - type: Tag
     tags:
     - Elona.ItemDrink
-    - Elona.ItemTagNogive
+    - Elona.TagItemNogive
     - Elona.TagItemNogive
     - Elona.TagItemElonaIsAcid
   - type: Item
@@ -8641,7 +8641,7 @@
   - type: Tag
     tags:
     - Elona.ItemContainer
-    - Elona.ItemTagSpshop
+    - Elona.TagItemSpshop
     - Elona.TagItemSpshop
   - type: Item
     value: 12000
@@ -8756,8 +8756,8 @@
   - type: Tag
     tags:
     - Elona.ItemCropSeed
-    - Elona.ItemTagNoshop
-    - Elona.ItemTagSpshop
+    - Elona.TagItemNoshop
+    - Elona.TagItemSpshop
     - Elona.ItemFood
     - Elona.TagItemNoshop
     - Elona.TagItemSpshop
@@ -8924,7 +8924,7 @@
   - type: Tag
     tags:
     - Elona.ItemDrink
-    - Elona.ItemTagNeg
+    - Elona.TagItemNeg
     - Elona.TagItemNeg
   - type: Item
     value: 150
@@ -8949,7 +8949,7 @@
   - type: Tag
     tags:
     - Elona.ItemScroll
-    - Elona.ItemTagNoshop
+    - Elona.TagItemNoshop
     - Elona.TagItemNoshop
   - type: Item
     value: 15000
@@ -8974,7 +8974,7 @@
   - type: Tag
     tags:
     - Elona.ItemScroll
-    - Elona.ItemTagNoshop
+    - Elona.TagItemNoshop
     - Elona.TagItemNoshop
   - type: Item
     value: 12000
@@ -8999,7 +8999,7 @@
   - type: Tag
     tags:
     - Elona.ItemDrink
-    - Elona.ItemTagNogive
+    - Elona.TagItemNogive
     - Elona.TagItemNogive
   - type: Item
     value: 5000
@@ -9749,7 +9749,7 @@
   - type: Tag
     tags:
     - Elona.ItemEquipNeckArmor
-    - Elona.ItemTagFest
+    - Elona.TagItemFest
     - Elona.ItemEquipNeck
     - Elona.TagItemFest
   - type: Item
@@ -9939,7 +9939,7 @@
   - type: Tag
     tags:
     - Elona.ItemRod
-    - Elona.ItemTagNoshop
+    - Elona.TagItemNoshop
     - Elona.TagItemNoshop
   - type: Item
     value: 16000
@@ -10070,7 +10070,7 @@
         rarity: 200000
   - type: Tag
     tags:
-    - Elona.ItemTagSf
+    - Elona.TagItemSf
     - Elona.ItemFurniture
     - Elona.ItemOfferingSf
     - Elona.TagItemSf
@@ -10095,7 +10095,7 @@
         rarity: 300000
   - type: Tag
     tags:
-    - Elona.ItemTagSf
+    - Elona.TagItemSf
     - Elona.ItemFurniture
     - Elona.ItemOfferingSf
     - Elona.TagItemSf
@@ -10120,7 +10120,7 @@
         rarity: 200000
   - type: Tag
     tags:
-    - Elona.ItemTagSf
+    - Elona.TagItemSf
     - Elona.ItemFurniture
     - Elona.ItemOfferingSf
     - Elona.TagItemSf
@@ -10145,8 +10145,8 @@
         rarity: 100000
   - type: Tag
     tags:
-    - Elona.ItemTagSf
-    - Elona.ItemTagFest
+    - Elona.TagItemSf
+    - Elona.TagItemFest
     - Elona.ItemFurniture
     - Elona.ItemOfferingSf
     - Elona.TagItemSf
@@ -10172,7 +10172,7 @@
         rarity: 100000
   - type: Tag
     tags:
-    - Elona.ItemTagSf
+    - Elona.TagItemSf
     - Elona.ItemFurniture
     - Elona.ItemOfferingSf
     - Elona.TagItemSf
@@ -10197,7 +10197,7 @@
         rarity: 100000
   - type: Tag
     tags:
-    - Elona.ItemTagSf
+    - Elona.TagItemSf
     - Elona.ItemFurniture
     - Elona.ItemOfferingSf
     - Elona.TagItemSf
@@ -10222,7 +10222,7 @@
         rarity: 100000
   - type: Tag
     tags:
-    - Elona.ItemTagSf
+    - Elona.TagItemSf
     - Elona.ItemFurniture
     - Elona.ItemOfferingSf
     - Elona.TagItemSf
@@ -10247,7 +10247,7 @@
         rarity: 100000
   - type: Tag
     tags:
-    - Elona.ItemTagSf
+    - Elona.TagItemSf
     - Elona.ItemFurniture
     - Elona.TagItemSf
   - type: Item
@@ -10271,7 +10271,7 @@
         rarity: 500000
   - type: Tag
     tags:
-    - Elona.ItemTagSf
+    - Elona.TagItemSf
     - Elona.ItemFurniture
     - Elona.ItemOfferingSf
     - Elona.TagItemSf
@@ -10296,7 +10296,7 @@
         rarity: 500000
   - type: Tag
     tags:
-    - Elona.ItemTagSf
+    - Elona.TagItemSf
     - Elona.ItemFurniture
     - Elona.ItemOfferingSf
     - Elona.TagItemSf
@@ -10317,7 +10317,7 @@
   - type: Tag
     tags:
     - Elona.ItemEquipRangedGun
-    - Elona.ItemTagSf
+    - Elona.TagItemSf
     - Elona.ItemEquipRanged
     - Elona.TagItemSf
   - type: Item
@@ -10342,8 +10342,8 @@
         rarity: 250000
   - type: Tag
     tags:
-    - Elona.ItemTagSf
-    - Elona.ItemTagFest
+    - Elona.TagItemSf
+    - Elona.TagItemFest
     - Elona.ItemFood
     - Elona.TagItemSf
     - Elona.TagItemFest
@@ -10368,8 +10368,8 @@
         rarity: 250000
   - type: Tag
     tags:
-    - Elona.ItemTagSf
-    - Elona.ItemTagFest
+    - Elona.TagItemSf
+    - Elona.TagItemFest
     - Elona.ItemFood
     - Elona.TagItemSf
     - Elona.TagItemFest
@@ -10394,8 +10394,8 @@
         rarity: 250000
   - type: Tag
     tags:
-    - Elona.ItemTagSf
-    - Elona.ItemTagFest
+    - Elona.TagItemSf
+    - Elona.TagItemFest
     - Elona.ItemFood
     - Elona.TagItemSf
     - Elona.TagItemFest
@@ -10416,7 +10416,7 @@
   - type: Tag
     tags:
     - Elona.ItemScroll
-    - Elona.ItemTagNeg
+    - Elona.TagItemNeg
     - Elona.TagItemNeg
   - type: Item
     value: 600
@@ -10464,7 +10464,7 @@
   - type: Tag
     tags:
     - Elona.ItemScroll
-    - Elona.ItemTagSpshop
+    - Elona.TagItemSpshop
     - Elona.TagItemSpshop
   - type: Item
     value: 20000
@@ -10699,7 +10699,7 @@
   - type: Tag
     tags:
     - Elona.ItemEquipRangedLaserGun
-    - Elona.ItemTagSf
+    - Elona.TagItemSf
     - Elona.ItemEquipRanged
     - Elona.TagItemSf
   - type: Item
@@ -10721,7 +10721,7 @@
     tags:
     - Elona.ItemEquipAmmo
     - Elona.ItemEquipAmmoEnergyCell
-    - Elona.ItemTagSf
+    - Elona.TagItemSf
     - Elona.TagItemSf
   - type: Item
     value: 150
@@ -10749,7 +10749,7 @@
   - type: Tag
     tags:
     - Elona.ItemEquipRangedLaserGun
-    - Elona.ItemTagSf
+    - Elona.TagItemSf
     - Elona.ItemUniqueItem
     - Elona.ItemEquipRanged
     - Elona.TagItemSf
@@ -10870,7 +10870,7 @@
   - type: Tag
     tags:
     - Elona.ItemDrink
-    - Elona.ItemTagNogive
+    - Elona.TagItemNogive
     - Elona.TagItemNogive
     - Elona.TagItemElonaIsAcid
   - type: Item
@@ -11458,7 +11458,7 @@
         rarity: 1500000
   - type: Tag
     tags:
-    - Elona.ItemTagSf
+    - Elona.TagItemSf
     - Elona.ItemMiscItem
     - Elona.TagItemSf
   - type: Item
@@ -11576,7 +11576,7 @@
   - type: Tag
     tags:
     - Elona.ItemScroll
-    - Elona.ItemTagNoshop
+    - Elona.TagItemNoshop
     - Elona.TagItemNoshop
   - type: Item
     value: 3500
@@ -11977,7 +11977,7 @@
   - type: Tag
     tags:
     - Elona.ItemDrink
-    - Elona.ItemTagNogive
+    - Elona.TagItemNogive
     - Elona.TagItemNogive
   - type: Item
     value: 1900
@@ -12209,7 +12209,7 @@
         rarity: 200000
   - type: Tag
     tags:
-    - Elona.ItemTagSf
+    - Elona.TagItemSf
     - Elona.ItemMiscItem
     - Elona.TagItemSf
   - type: Item
@@ -12229,7 +12229,7 @@
   - type: Tag
     tags:
     - Elona.ItemDrink
-    - Elona.ItemTagNogive
+    - Elona.TagItemNogive
     - Elona.TagItemNogive
   - type: Item
     value: 400
@@ -12427,7 +12427,7 @@
         rarity: 200000
   - type: Tag
     tags:
-    - Elona.ItemTagSf
+    - Elona.TagItemSf
     - Elona.ItemFurniture
     - Elona.TagItemSf
   - type: Item
@@ -12585,7 +12585,7 @@
         rarity: 100000
   - type: Tag
     tags:
-    - Elona.ItemTagSf
+    - Elona.TagItemSf
     - Elona.ItemFurniture
     - Elona.TagItemSf
   - type: Item
@@ -13197,7 +13197,7 @@
   - type: Tag
     tags:
     - Elona.ItemDrink
-    - Elona.ItemTagNogive
+    - Elona.TagItemNogive
     - Elona.TagItemNogive
   - type: Item
     value: 4500
@@ -13221,8 +13221,8 @@
   - type: Tag
     tags:
     - Elona.ItemScroll
-    - Elona.ItemTagNoshop
-    - Elona.ItemTagSpshop
+    - Elona.TagItemNoshop
+    - Elona.TagItemSpshop
     - Elona.TagItemNoshop
     - Elona.TagItemSpshop
   - type: Item
@@ -13246,7 +13246,7 @@
         rarity: 10000
   - type: Tag
     tags:
-    - Elona.ItemTagNoshop
+    - Elona.TagItemNoshop
     - Elona.ItemOre
     - Elona.TagItemNoshop
     - Elona.Precious
@@ -13343,7 +13343,7 @@
   - type: Tag
     tags:
     - Elona.ItemDrink
-    - Elona.ItemTagSpshop
+    - Elona.TagItemSpshop
     - Elona.TagItemSpshop
     - Elona.Precious
   - type: Item
@@ -13444,8 +13444,8 @@
         rarity: 5000
   - type: Tag
     tags:
-    - Elona.ItemTagNoshop
-    - Elona.ItemTagSpshop
+    - Elona.TagItemNoshop
+    - Elona.TagItemSpshop
     - Elona.ItemMiscItem
     - Elona.TagItemNoshop
     - Elona.TagItemSpshop
@@ -13562,7 +13562,7 @@
         rarity: 250000
   - type: Tag
     tags:
-    - Elona.ItemTagSpshop
+    - Elona.TagItemSpshop
     - Elona.ItemMiscItem
     - Elona.TagItemSpshop
   - type: Item
@@ -13687,8 +13687,8 @@
         rarity: 40000
   - type: Tag
     tags:
-    - Elona.ItemTagNoshop
-    - Elona.ItemTagSpshop
+    - Elona.TagItemNoshop
+    - Elona.TagItemSpshop
     - Elona.ItemMiscItem
     - Elona.TagItemNoshop
     - Elona.TagItemSpshop
@@ -14349,7 +14349,7 @@
   - type: Tag
     tags:
     - Elona.ItemBook
-    - Elona.ItemTagNoshop
+    - Elona.TagItemNoshop
     - Elona.TagItemNoshop
   - type: Item
     value: 4000
@@ -14867,7 +14867,7 @@
   - type: Tag
     tags:
     - Elona.ItemSpellbook
-    - Elona.ItemTagNoshop
+    - Elona.TagItemNoshop
     - Elona.TagItemNoshop
   - type: Item
     value: 2000
@@ -14935,7 +14935,7 @@
   - type: Tag
     tags:
     - Elona.ItemFurnitureInstrument
-    - Elona.ItemTagFest
+    - Elona.TagItemFest
     - Elona.ItemFurniture
     - Elona.TagItemFest
   - type: Item
@@ -14960,7 +14960,7 @@
   - type: Tag
     tags:
     - Elona.ItemFurnitureInstrument
-    - Elona.ItemTagFest
+    - Elona.TagItemFest
     - Elona.ItemFurniture
     - Elona.TagItemFest
   - type: Item
@@ -14985,7 +14985,7 @@
   - type: Tag
     tags:
     - Elona.ItemFurnitureInstrument
-    - Elona.ItemTagFest
+    - Elona.TagItemFest
     - Elona.ItemFurniture
     - Elona.TagItemFest
   - type: Item
@@ -15376,7 +15376,7 @@
   - type: Tag
     tags:
     - Elona.ItemBook
-    - Elona.ItemTagNoshop
+    - Elona.TagItemNoshop
     - Elona.TagItemNoshop
   - type: Item
     value: 6000
@@ -15401,7 +15401,7 @@
   - type: Tag
     tags:
     - Elona.ItemScroll
-    - Elona.ItemTagNoshop
+    - Elona.TagItemNoshop
     - Elona.TagItemNoshop
   - type: Item
     value: 3500
@@ -15547,7 +15547,7 @@
         rarity: 1000
   - type: Tag
     tags:
-    - Elona.ItemTagNoshop
+    - Elona.TagItemNoshop
     - Elona.ItemMiscItem
     - Elona.TagItemNoshop
   - type: Item
@@ -15690,7 +15690,7 @@
   - type: Tag
     tags:
     - Elona.ItemFurnitureBed
-    - Elona.ItemTagNoshop
+    - Elona.TagItemNoshop
     - Elona.ItemFurniture
     - Elona.TagItemNoshop
   - type: Item
@@ -15805,7 +15805,7 @@
         rarity: 10000
   - type: Tag
     tags:
-    - Elona.ItemTagNoshop
+    - Elona.TagItemNoshop
     - Elona.ItemNoGenerate
     - Elona.ItemOre
     - Elona.TagItemNoshop
@@ -15955,7 +15955,7 @@
         rarity: 5000
   - type: Tag
     tags:
-    - Elona.ItemTagSpshop
+    - Elona.TagItemSpshop
     - Elona.ItemFurniture
     - Elona.TagItemSpshop
   - type: Item
@@ -15980,7 +15980,7 @@
         rarity: 10000
   - type: Tag
     tags:
-    - Elona.ItemTagNoshop
+    - Elona.TagItemNoshop
     - Elona.ItemNoGenerate
     - Elona.ItemOre
     - Elona.TagItemNoshop
@@ -16117,7 +16117,7 @@
   - type: Tag
     tags:
     - Elona.ItemDrink
-    - Elona.ItemTagNogive
+    - Elona.TagItemNogive
     - Elona.TagItemNogive
   - type: Item
     value: 1500
@@ -16141,7 +16141,7 @@
   - type: Tag
     tags:
     - Elona.ItemScroll
-    - Elona.ItemTagNoshop
+    - Elona.TagItemNoshop
     - Elona.TagItemNoshop
   - type: Item
     value: 7500
@@ -16165,7 +16165,7 @@
         rarity: 400000
   - type: Tag
     tags:
-    - Elona.ItemTagFest
+    - Elona.TagItemFest
     - Elona.ItemFood
     - Elona.TagItemFest
   - type: Item
@@ -16416,7 +16416,7 @@
   - type: Tag
     tags:
     - Elona.ItemBook
-    - Elona.ItemTagNoshop
+    - Elona.TagItemNoshop
     - Elona.ItemNoGenerate
     - Elona.TagItemNoshop
   - type: Item
@@ -16632,7 +16632,7 @@
         rarity: 150000
   - type: Tag
     tags:
-    - Elona.ItemTagFest
+    - Elona.TagItemFest
     - Elona.ItemFood
     - Elona.TagItemFest
   - type: Item
@@ -16692,7 +16692,7 @@
   - type: Tag
     tags:
     - Elona.ItemEquipRangedGun
-    - Elona.ItemTagSf
+    - Elona.TagItemSf
     - Elona.ItemUniqueItem
     - Elona.ItemEquipRanged
     - Elona.TagItemSf
@@ -16801,7 +16801,7 @@
         rarity: 5000
   - type: Tag
     tags:
-    - Elona.ItemTagFest
+    - Elona.TagItemFest
     - Elona.ItemNoGenerate
     - Elona.ItemFurniture
     - Elona.TagItemFest
@@ -16940,7 +16940,7 @@
         rarity: 5000
   - type: Tag
     tags:
-    - Elona.ItemTagFest
+    - Elona.TagItemFest
     - Elona.ItemNoGenerate
     - Elona.ItemFurniture
     - Elona.TagItemFest
@@ -16966,7 +16966,7 @@
         rarity: 5000
   - type: Tag
     tags:
-    - Elona.ItemTagFest
+    - Elona.TagItemFest
     - Elona.ItemNoGenerate
     - Elona.ItemFurniture
     - Elona.TagItemFest
@@ -16993,7 +16993,7 @@
   - type: Tag
     tags:
     - Elona.ItemDrink
-    - Elona.ItemTagFest
+    - Elona.TagItemFest
     - Elona.ItemNoGenerate
     - Elona.TagItemFest
   - type: Item

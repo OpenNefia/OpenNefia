@@ -12,7 +12,7 @@ namespace OpenNefia.Core.Rendering
         [Dependency] private readonly IResourceCache _resourceCache = default!;
 
         private static Dictionary<int, Love.Font> _fontCache = new();
-        private static ResourcePath _fallbackFontPath = new ResourcePath("/Core/Font/kochi-gothic-subst.ttf");
+        private static ResourcePath _fallbackFontPath = new ResourcePath("/Font/Core/kochi-gothic-subst.ttf");
 
         public Love.Font GetFont(FontSpec spec)
         {

@@ -1,7 +1,7 @@
 - type: Chip
   id: LecchoTorte.Blank
   image:
-    filepath: /Core/Graphic/Chip/Default.png
+    filepath: /Graphic/Core/Chip/Default.png
 
 - type: Entity
   id: LecchoTorte.LivingWall
@@ -16,4 +16,4 @@
     class: Elona.Predator
   - type: Faction
     relation: Enemy
-  - type: LivingWall
+  - type: LecchoTorte.LivingWall

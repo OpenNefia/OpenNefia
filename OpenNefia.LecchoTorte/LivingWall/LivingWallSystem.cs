@@ -20,7 +20,7 @@ namespace OpenNefia.LecchoTorte.LivingWall
             SubscribeLocalEvent<LivingWallComponent, EntityLivenessChangedEvent>(HandleLivenessChanged, nameof(HandleLivenessChanged));
         }
 
-        private void HandleMapInit(EntityUid uid, LivingWallComponent component, MapInitEvent args)
+        private void HandleMapInit(EntityUid uid, LivingWallComponent component, ref MapInitEvent args)
         {
             SpatialComponent? spatial = null;
 
@@ -30,7 +30,7 @@ namespace OpenNefia.LecchoTorte.LivingWall
             UpdateLivingWall(uid, spatial.MapPosition, spatial.MapPosition, component, spatial);
         }
 
-        private void HandleLivenessChanged(EntityUid uid, LivingWallComponent component, EntityLivenessChangedEvent args)
+        private void HandleLivenessChanged(EntityUid uid, LivingWallComponent component, ref EntityLivenessChangedEvent args)
         {
             SpatialComponent? spatial = null;
 
@@ -40,7 +40,7 @@ namespace OpenNefia.LecchoTorte.LivingWall
             UpdateLivingWall(uid, spatial.MapPosition, spatial.MapPosition, component, spatial);
         }
 
-        private void HandlePositionChanged(EntityUid uid, LivingWallComponent component, EntityPositionChangedEvent args)
+        private void HandlePositionChanged(EntityUid uid, LivingWallComponent component, ref EntityPositionChangedEvent args)
         {
             var oldCoords = args.OldPosition.ToMap(EntityManager);
             var newCoords = args.NewPosition.ToMap(EntityManager);

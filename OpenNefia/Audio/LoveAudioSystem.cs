@@ -8,6 +8,7 @@ using OpenNefia.Core.ResourceManagement;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Core.Utility;
+using OpenNefia.Analyzers;
 
 namespace OpenNefia.Core.Audio
 {
@@ -116,6 +117,7 @@ namespace OpenNefia.Core.Audio
         }
     }
 
+    [EventArgsUsage(EventArgsTargets.ByRef)]
     public struct FrameUpdateEventArgs
     {
         public float Dt;

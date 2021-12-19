@@ -1,0 +1,165 @@
+meta:
+  format: 1
+  name: test
+  author: ruin
+grid: |
+  @@@@@@@@@@@
+  @.........@
+  @.........@
+  @.........@
+  @.........@
+  @.........@
+  @.........@
+  @.........@
+  @@@@@@@@@@@
+tilemap:
+  '@': Elona.WallBrick
+  '.': Elona.Tile1
+entities:
+- uid: 0
+  components:
+  - type: Map
+- uid: 1
+  protoId: Elona.CharaYeek
+  components:
+  - type: Spatial
+    parent: 0
+    pos: 2,5
+- uid: 2
+  protoId: Elona.CharaYeek
+  components:
+  - type: Spatial
+    parent: 0
+    pos: 3,5
+- uid: 3
+  protoId: Elona.CharaYeek
+  components:
+  - type: Spatial
+    parent: 0
+    pos: 4,5
+- uid: 4
+  protoId: Elona.CharaYeek
+  components:
+  - type: Spatial
+    parent: 0
+    pos: 5,5
+- uid: 5
+  protoId: Elona.ItemPotionOfCureMinorWound
+  components:
+  - type: Spatial
+    parent: 0
+    pos: 2,2
+- uid: 6
+  protoId: Elona.ItemPotionOfCureMinorWound
+  components:
+  - type: Spatial
+    parent: 0
+    pos: 3,2
+- uid: 7
+  protoId: Elona.ItemPotionOfCureMinorWound
+  components:
+  - type: Spatial
+    parent: 0
+    pos: 4,2
+- uid: 8
+  protoId: Elona.ItemPotionOfCureMinorWound
+  components:
+  - type: Spatial
+    parent: 0
+    pos: 5,2
+- uid: 9
+  protoId: Elona.ItemComputer
+  components:
+  - type: Spatial
+    parent: 0
+    pos: 2,3
+- uid: 10
+  protoId: Elona.ItemComputer
+  components:
+  - type: Spatial
+    parent: 0
+    pos: 3,3
+- uid: 11
+  protoId: Elona.ItemComputer
+  components:
+  - type: Spatial
+    parent: 0
+    pos: 4,3
+- uid: 12
+  protoId: Elona.ItemComputer
+  components:
+  - type: Spatial
+    parent: 0
+    pos: 5,3
+- uid: 13
+  protoId: PotionOfTest
+  components:
+  - type: Spatial
+    parent: 0
+    pos: 2,4
+- uid: 14
+  protoId: PotionOfTest
+  components:
+  - type: Spatial
+    parent: 0
+    pos: 3,4
+- uid: 15
+  protoId: PotionOfTest
+  components:
+  - type: Spatial
+    parent: 0
+    pos: 4,4
+- uid: 16
+  protoId: PotionOfTest
+  components:
+  - type: Spatial
+    parent: 0
+    pos: 5,4
+- uid: 17
+  protoId: Elona.FeatDoorWooden
+  components:
+  - type: Spatial
+    parent: 0
+    pos: 6,2
+- uid: 18
+  protoId: Elona.FeatDoorSF
+  components:
+  - type: Spatial
+    parent: 0
+    pos: 6,3
+- uid: 19
+  protoId: Elona.FeatDoorEastern
+  components:
+  - type: Spatial
+    parent: 0
+    pos: 6,4
+- uid: 20
+  protoId: Elona.FeatDoorJail
+  components:
+  - type: Spatial
+    parent: 0
+    pos: 6,5
+- uid: 21
+  protoId: LecchoTorte.LivingWall
+  components:
+  - type: Spatial
+    parent: 0
+    pos: 7,2
+- uid: 22
+  protoId: LecchoTorte.LivingWall
+  components:
+  - type: Spatial
+    parent: 0
+    pos: 7,3
+- uid: 23
+  protoId: LecchoTorte.LivingWall
+  components:
+  - type: Spatial
+    parent: 0
+    pos: 7,4
+- uid: 24
+  protoId: LecchoTorte.LivingWall
+  components:
+  - type: Spatial
+    parent: 0
+    pos: 7,5

@@ -1,4 +1,4 @@
 - type: Chip
   id: Default
   image:
-    filepath: /Core/Graphic/Chip/Default.png
+    filepath: /Graphic/Core/Chip/Default.png

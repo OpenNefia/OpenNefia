@@ -16,8 +16,10 @@ namespace OpenNefia.Core.Game
         private const string URL_YLVANIA_ELONA122 = "http://ylvania.style.coocan.jp/file/elona122.zip";
         private const string ELONA122_ZIP_SHA256 = "6880f616f34be608435977dd3725d2cc76eaf6d2ad3f40e2d14b36f8f7a802d8";
 
-        private static readonly ResourcePath _assetsGraphicPath = new ResourcePath("/Assets/Elona/Graphic");
-        private static readonly ResourcePath _assetsSoundPath = new ResourcePath("/Assets/Elona/Sound");
+        private static readonly ResourcePath _assetsGraphicPath = new ResourcePath("/Assets/Graphic/Elona");
+        private static readonly ResourcePath _assetsSoundPath = new ResourcePath("/Assets/Sound/Elona");
+
+        // NOTE: this is relative to the executable path, not UserData
         private static readonly ResourcePath _elona122ZipPath = new ResourcePath("/Cache/Deps/elona122.zip");
 
         private readonly WritableDirProvider _assetsDir;
@@ -34,7 +36,8 @@ namespace OpenNefia.Core.Game
 
         public bool NeedsDownload()
         {
-            return !_assetsDir.IsDirectory(_assetsGraphicPath)
+            return !_resourceManager.UserData.Exists(_elona122ZipPath)
+                || !_assetsDir.IsDirectory(_assetsGraphicPath)
                 || !_assetsDir.IsDirectory(_assetsSoundPath);
         }
 

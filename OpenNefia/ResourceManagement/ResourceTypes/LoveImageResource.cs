@@ -6,7 +6,7 @@ namespace OpenNefia.Core.ResourceManagement
     {
         private Love.ImageData _imageData = default!;
         private Love.Image _image = default!;
-        public override ResourcePath Fallback => new("/Core/Graphic/Chip/Default.png");
+        public override ResourcePath Fallback => new("/Graphic/Core/Chip/Default.png");
 
         public Love.ImageData ImageData => _imageData;
         public Love.Image Image => _image;

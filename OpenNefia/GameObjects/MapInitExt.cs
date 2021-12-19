@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using OpenNefia.Analyzers;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Utility;
 
@@ -7,6 +8,7 @@ namespace OpenNefia.Core.GameObjects
     /// <summary>
     ///     Raised directed on an entity when the map is initialized.
     /// </summary>
+    [EventArgsUsage(EventArgsTargets.ByRef)]
     public struct MapInitEvent
     {
     }
