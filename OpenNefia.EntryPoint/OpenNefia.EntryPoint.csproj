@@ -8,8 +8,8 @@
   </PropertyGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Copy SourceFiles="$(TargetDir)OpenNefia.Content.dll" DestinationFolder="$(TargetDir)Assets/Assemblies" />
-    <Copy SourceFiles="$(TargetDir)OpenNefia.LecchoTorte.dll" DestinationFolder="$(TargetDir)Assets/Assemblies" />
+    <Copy SourceFiles="$(TargetDir)OpenNefia.Content.dll" DestinationFolder="$(TargetDir)Resources/Assemblies" />
+    <Copy SourceFiles="$(TargetDir)OpenNefia.LecchoTorte.dll" DestinationFolder="$(TargetDir)Resources/Assemblies" />
   </Target>
 
   <ItemGroup>
