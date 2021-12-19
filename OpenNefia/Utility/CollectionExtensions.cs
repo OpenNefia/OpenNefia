@@ -6,7 +6,7 @@ using JetBrains.Annotations;
 
 namespace OpenNefia.Core.Utility
 {
-    public static class Extensions
+    public static class CollectionExtensions
     {
         public static IList<T> Clone<T>(this IList<T> listToClone) where T : ICloneable
         {
