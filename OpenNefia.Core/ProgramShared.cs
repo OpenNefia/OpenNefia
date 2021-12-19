@@ -9,10 +9,18 @@ namespace OpenNefia.Core
             res.Initialize("UserData");
 
 #if FULL_RELEASE
+            // TODO: I don't want one single content root since
+            // it prevents mods from being drop-in. Instead I want something like:
+            //
+            // Core/Resources/Prototypes/Core
+            // Elona/Resources/Prototypes/Elona
+            // Autopickup/Resources/Prototypes/Autopickup
+            // 
+            // ...And so on.
             res.MountContentDirectory("Resources/");
 #else
             // Assets directory in OpenNefia.Core
-            res.MountContentDirectory("../../../../OpenNefia/Resources");
+            res.MountContentDirectory("../../../../OpenNefia.Core/Resources");
 
             // Assets directory in OpenNefia.Content
             res.MountContentDirectory("../../../../OpenNefia.Content/Resources");
