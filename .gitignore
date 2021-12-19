@@ -81,4 +81,4 @@ StyleCopReport.xml
 /OpenNefia.Content/Assets/Graphic/Elona
 /OpenNefia.Content/Assets/Sound/Elona
 /packages/Cake.Core.*
-/out
+/dist

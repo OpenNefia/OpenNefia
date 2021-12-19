@@ -31,9 +31,14 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{56ECDAC6-A5E2-4C19-8C4C-B4F33EAC700A}"
 	ProjectSection(SolutionItems) = preProject
 		.gitignore = .gitignore
+		MSBuild\OpenNefia.Analyzers.targets = MSBuild\OpenNefia.Analyzers.targets
+		MSBuild\OpenNefia.DefineConstants.targets = MSBuild\OpenNefia.DefineConstants.targets
+		MSBuild\OpenNefia.Engine.props = MSBuild\OpenNefia.Engine.props
+		MSBuild\OpenNefia.Engine.Version.props = MSBuild\OpenNefia.Engine.Version.props
+		MSBuild\OpenNefia.Properties.targets = MSBuild\OpenNefia.Properties.targets
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenNefia.Packaging", "OpenNefia.Packaging\OpenNefia.Packaging.csproj", "{A7C8D50F-6CB4-4DDF-9E01-1EBDCD77BE39}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenNefia.Packaging", "OpenNefia.Packaging\OpenNefia.Packaging.csproj", "{A7C8D50F-6CB4-4DDF-9E01-1EBDCD77BE39}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

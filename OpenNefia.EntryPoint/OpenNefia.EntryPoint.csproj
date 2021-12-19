@@ -1,18 +1,18 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="..\MSBuild\OpenNefia.Properties.targets" />
+  <Import Project="..\MSBuild\OpenNefia.Engine.props" />
+  <Import Project="..\MSBuild\OpenNefia.DefineConstants.targets" />
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>net6.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
     <TargetName>OpenNefia</TargetName>
     <AssemblyName>OpenNefia</AssemblyName>
-    <ApplicationIcon>$(SolutionDir)OpenNefia.Core\Resources\Icon\Core\icon.ico</ApplicationIcon>
+    <ApplicationIcon>..\OpenNefia.Core\Resources\Icon\Core\icon.ico</ApplicationIcon>
   </PropertyGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Copy SourceFiles="$(TargetDir)OpenNefia.Content.dll" DestinationFolder="$(TargetDir)Resources/Assemblies" />
-    <Copy SourceFiles="$(TargetDir)OpenNefia.LecchoTorte.dll" DestinationFolder="$(TargetDir)Resources/Assemblies" />
+    <Move SourceFiles="$(TargetDir)OpenNefia.Content.dll" DestinationFolder="$(TargetDir)Resources/Assemblies" />
+    <Move SourceFiles="$(TargetDir)OpenNefia.LecchoTorte.dll" DestinationFolder="$(TargetDir)Resources/Assemblies" />
   </Target>
 
   <ItemGroup>

@@ -1,48 +1,14 @@
 ﻿using Cake.Core.Diagnostics;
 using Cake.Frosting;
-using Cake.Common.Build;
-using Cake.Common.Tools.DotNet;
-using System.Collections.Generic;
-using System.IO;
 using System.IO.Compression;
-using System.Linq;
-using Cake.Common.Tools.DotNet.MSBuild;
-using Cake.Common.Tools.DotNet.Build;
 using System.Diagnostics;
 using Cake.Git;
 
 namespace OpenNefia.Packaging.Tasks
 {
-    [TaskName("Build")]
-    public sealed class BuildTask : FrostingTask<BuildContext>
-    {
-        public override void Run(BuildContext context)
-        {
-            var dotNetSettings = new DotNetMSBuildSettings()
-            {
-                NoLogo = true,
-                ContinuousIntegrationBuild = context.BuildSystem().IsLocalBuild,
-                MaxCpuCount = 0 // Use all cores
-            };
-
-            dotNetSettings.Targets.Add("Publish");
-            dotNetSettings.Properties["FullRelease"] = new List<string> { "True" };
-
-            var settings = new DotNetBuildSettings
-            {
-                Configuration = context.BuildConfig,
-                NoRestore = true,
-                NoIncremental = false,
-                MSBuildSettings = dotNetSettings
-            };
-
-            context.DotNetBuild("./OpenNefia.EntryPoint/OpenNefia.EntryPoint.csproj", settings);
-        }
-    }
-
-    [TaskName("Package")]
-    [IsDependentOn(typeof(BuildTask))]
-    public sealed class PackageTask : FrostingTask<BuildContext>
+    [TaskName("PackageFullRelease")]
+    [IsDependentOn(typeof(BuildFullReleaseTask))]
+    public sealed class PackageFullReleaseTask : FrostingTask<BuildContext>
     {
         /// <summary>
         /// Projects with a Resources/ directory that should be merged into the zip archive's.
@@ -75,11 +41,6 @@ namespace OpenNefia.Packaging.Tasks
             ".keep"
         };
 
-        private string GetProjectOutputDir(string project, BuildContext context)
-        {
-            return $"{project}/bin/{context.BuildConfig}/net6.0/";
-        }
-
         public override void Run(BuildContext context)
         {
             if (Directory.Exists(Constants.OutputDir))
@@ -90,17 +51,13 @@ namespace OpenNefia.Packaging.Tasks
 
             Directory.CreateDirectory(Constants.OutputDir);
 
-            var entryPointOutput = Path.Combine(GetProjectOutputDir("OpenNefia.EntryPoint", context), "publish");
-            var coreAssemblyPath = Path.Combine(entryPointOutput, "OpenNefia.Core.dll");
+            var entryPointOutput = Utility.GetProjectOutputDir("OpenNefia.EntryPoint", context);
 
-            var assemblyInfo = FileVersionInfo.GetVersionInfo(coreAssemblyPath);
+            var commitHash = context.GitCommitHash(context.Environment.WorkingDirectory);
 
-            var commitHash = context.GitLogTip(context.Environment.WorkingDirectory).Sha.Substring(0, 7);
-
-            var distribName = $"OpenNefia-{assemblyInfo.ProductVersion}-{commitHash}";
+            var distribName = $"OpenNefia-{context.Environment.Platform.Family}-{commitHash}";
             var zipName = $"{distribName}.zip";
             var zipPath = Path.Combine(Constants.OutputDir, zipName);
-
 
             using (var stream = File.OpenWrite(zipPath))
             {
@@ -108,9 +65,6 @@ namespace OpenNefia.Packaging.Tasks
                 {
                     context.Log.Information($"Copying resources...");
                     CopyResources(entryPointOutput);
-
-                    context.Log.Information($"Moving content assemblies...");
-                    MoveContentAssemblies(entryPointOutput, context);
 
                     context.Log.Information($"Packing files...");
                     ZipAllFiles(zipArchive, distribName, entryPointOutput);
@@ -149,35 +103,6 @@ namespace OpenNefia.Packaging.Tasks
 
                     if (!File.Exists(outputFile))
                         File.Copy(file, outputFile);
-                }
-            }
-        }
-
-        private void MoveContentAssemblies(string entryPointOutput, BuildContext context)
-        {
-            var assembliesDir = Path.Combine(entryPointOutput, "Resources", "Assemblies");
-            Directory.CreateDirectory(assembliesDir);
-
-            foreach (var projectName in ProjectsWithResources)
-            {
-                // Core is loaded internally by the engine.
-                if (projectName == "OpenNefia.Core")
-                    continue;
-
-                var binOutput = GetProjectOutputDir(projectName, context);
-                var contentAssemblyName = $"{projectName}.dll";
-                var contentAssemblyFile = Path.Combine(binOutput, contentAssemblyName);
-                var assemblyPath = Path.Combine(assembliesDir, contentAssemblyName);
-
-                // Content assemblies should be moved into Resources/Assemblies/
-                // and not be duplicated.
-                if (!File.Exists(assemblyPath))
-                {
-                    File.Move(contentAssemblyFile, assemblyPath);
-                }
-                else if (File.Exists(contentAssemblyFile))
-                {
-                    File.Delete(contentAssemblyFile);
                 }
             }
         }

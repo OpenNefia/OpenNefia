@@ -2,6 +2,7 @@
   <Import Project="..\MSBuild\OpenNefia.Properties.targets" />
   <Import Project="..\MSBuild\OpenNefia.Engine.props" />
   <Import Project="..\MSBuild\OpenNefia.DefineConstants.targets" />
+  
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <RunWorkingDirectory>$(SolutionDir)</RunWorkingDirectory>

@@ -3,7 +3,7 @@
 namespace OpenNefia.Packaging.Tasks
 {
     [TaskName("Default")]
-    [IsDependentOn(typeof(PackageTask))]
+    [IsDependentOn(typeof(PackageFullReleaseTask))]
     public class DefaultTask : FrostingTask
     {
     }
