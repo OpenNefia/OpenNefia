@@ -33,10 +33,13 @@ namespace OpenNefia.Core.DebugServer
     /// </summary>
     internal class DebugServer : IDebugServer
     {
-#if !FULL_RELEASE
+#if FULL_RELEASE
+        public void Startup() { }
+        public void CheckForRequests() { }
+        public void Shutdown() { }
+#else
         [Dependency] private readonly IReplExecutor _replExecutor = default!;
 
-#endif
         private TcpListener? _server;
 
         private readonly JsonSerializerSettings _jsonSettings = new()
@@ -51,7 +54,6 @@ namespace OpenNefia.Core.DebugServer
 
         public void Startup()
         {
-#if !FULL_RELEASE
             // Data buffer for incoming data.  
 
             var ipAddress = IPAddress.Parse("127.0.0.1");
@@ -70,12 +72,10 @@ namespace OpenNefia.Core.DebugServer
                 _server = null;
                 return;
             }
-#endif
         }
 
         public void CheckForRequests()
         {
-#if !FULL_RELEASE
             if (_server == null)
                 return;
 
@@ -130,16 +130,12 @@ namespace OpenNefia.Core.DebugServer
             {
                 Logger.ErrorS(CommonSawmills.DebugServer, ex, "Failed to connect to debug server client");
             }
-
-#endif
-}
+        }
 
         public void Shutdown()
         {
-#if !FULL_RELEASE
             _server?.Stop();
             _server = null;
-#endif
         }
 
         #region Processing
@@ -257,5 +253,6 @@ namespace OpenNefia.Core.DebugServer
         }
 
         #endregion
+#endif
     }
 }

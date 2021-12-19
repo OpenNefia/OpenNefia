@@ -7,6 +7,9 @@ using OpenNefia.Core.Reflection;
 
 namespace OpenNefia
 {
+    /// <summary>
+    /// Separate entry point to allow adding mods as build dependencies.
+    /// </summary>
     public class Program
     {
         public static void Main(string[] args)

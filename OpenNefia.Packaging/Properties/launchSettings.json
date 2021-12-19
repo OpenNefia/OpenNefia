@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "OpenNefia.Packaging": {
+      "commandName": "Project",
+      "workingDirectory": "$(SolutionDir)"
+    }
+  }
+}

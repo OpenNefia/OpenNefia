@@ -26,12 +26,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenNefia.Content.Tests", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OdinSerializerNetCore", "Thirdparty\odin-serializer\OdinSerializer\OdinSerializerNetCore.csproj", "{A9B3CF0C-47FF-4FC0-B9A7-377F0BAC0C7E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenNefia.LecchoTorte", "OpenNefia.LecchoTorte\OpenNefia.LecchoTorte.csproj", "{4BE01788-D0A0-43C6-A932-24C591A9DE91}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenNefia.LecchoTorte", "OpenNefia.LecchoTorte\OpenNefia.LecchoTorte.csproj", "{4BE01788-D0A0-43C6-A932-24C591A9DE91}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{56ECDAC6-A5E2-4C19-8C4C-B4F33EAC700A}"
 	ProjectSection(SolutionItems) = preProject
 		.gitignore = .gitignore
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenNefia.Packaging", "OpenNefia.Packaging\OpenNefia.Packaging.csproj", "{A7C8D50F-6CB4-4DDF-9E01-1EBDCD77BE39}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -83,6 +85,10 @@ Global
 		{4BE01788-D0A0-43C6-A932-24C591A9DE91}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4BE01788-D0A0-43C6-A932-24C591A9DE91}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4BE01788-D0A0-43C6-A932-24C591A9DE91}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A7C8D50F-6CB4-4DDF-9E01-1EBDCD77BE39}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A7C8D50F-6CB4-4DDF-9E01-1EBDCD77BE39}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A7C8D50F-6CB4-4DDF-9E01-1EBDCD77BE39}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A7C8D50F-6CB4-4DDF-9E01-1EBDCD77BE39}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
