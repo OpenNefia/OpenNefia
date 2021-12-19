@@ -1,12 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-	<Import Project="..\MSBuild\OpenNefia.Properties.targets" />
-
-  <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
-    <Nullable>enable</Nullable>
-    <IsPackable>false</IsPackable>
-	<CodeAnalysisRuleSet>$(SolutionDir)OpenNefia.ruleset</CodeAnalysisRuleSet>
-  </PropertyGroup>
+  <Import Project="..\MSBuild\OpenNefia.Properties.targets" />
+  <Import Project="..\MSBuild\OpenNefia.Engine.props" />
 
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.11.0" />
@@ -18,7 +12,7 @@
   <ItemGroup>
     <ProjectReference Include="..\OpenNefia.Content\OpenNefia.Content.csproj" />
     <ProjectReference Include="..\OpenNefia.Tests\OpenNefia.Tests.csproj" />
-    <ProjectReference Include="..\OpenNefia\OpenNefia.Core.csproj" />
+    <ProjectReference Include="..\OpenNefia.Core\OpenNefia.Core.csproj" />
   </ItemGroup>
 	
   <Import Project="..\MSBuild\OpenNefia.DefineConstants.targets" />

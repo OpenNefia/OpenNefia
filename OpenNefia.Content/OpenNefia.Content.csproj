@@ -1,13 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <Import Project="..\MSBuild\OpenNefia.Properties.targets" />
-
-  <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-	<CodeAnalysisRuleSet>$(SolutionDir)OpenNefia.ruleset</CodeAnalysisRuleSet>
-  </PropertyGroup>
-	
+  <Import Project="..\MSBuild\OpenNefia.Engine.props" />
   <Import Project="..\MSBuild\OpenNefia.DefineConstants.targets" />
 	
   <ItemGroup>
@@ -15,7 +8,7 @@
   </ItemGroup>
   
 	<ItemGroup>
-    <ProjectReference Include="..\OpenNefia\OpenNefia.Core.csproj" />
+    <ProjectReference Include="..\OpenNefia.Core\OpenNefia.Core.csproj" />
   </ItemGroup>
 
   <Import Project="..\MSBuild\OpenNefia.Analyzers.targets" />

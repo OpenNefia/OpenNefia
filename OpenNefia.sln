@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31912.275
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenNefia.Core", "OpenNefia\OpenNefia.Core.csproj", "{F186E14E-D351-40D4-9A0E-0D176003C36D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenNefia.Core", "OpenNefia.Core\OpenNefia.Core.csproj", "{F186E14E-D351-40D4-9A0E-0D176003C36D}"
 	ProjectSection(ProjectDependencies) = postProject
 		{6719921A-7085-47BE-90FD-A0A0435943C2} = {6719921A-7085-47BE-90FD-A0A0435943C2}
 	EndProjectSection

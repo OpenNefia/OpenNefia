@@ -1,0 +1,11 @@
+﻿<Project>
+    <!-- Engine-specific properties. Content should not use this file. -->
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <LangVersion>10</LangVersion>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+	    <CodeAnalysisRuleSet>$(SolutionDir)OpenNefia.ruleset</CodeAnalysisRuleSet>
+    </PropertyGroup>
+    <Import Project="OpenNefia.Engine.Version.props" />
+</Project>

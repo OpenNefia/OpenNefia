@@ -6,6 +6,8 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <TargetName>OpenNefia</TargetName>
+    <AssemblyName>OpenNefia</AssemblyName>
+    <ApplicationIcon>$(SolutionDir)OpenNefia.Core\Resources\Icon\Core\icon.ico</ApplicationIcon>
   </PropertyGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
@@ -16,7 +18,7 @@
   <ItemGroup>
     <ProjectReference Include="..\OpenNefia.Content\OpenNefia.Content.csproj" />
     <ProjectReference Include="..\OpenNefia.LecchoTorte\OpenNefia.LecchoTorte.csproj" />
-    <ProjectReference Include="..\OpenNefia\OpenNefia.Core.csproj" />
+    <ProjectReference Include="..\OpenNefia.Core\OpenNefia.Core.csproj" />
   </ItemGroup>
 
 </Project>
