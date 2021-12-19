@@ -1,14 +1,15 @@
 ﻿using Cake.Core.Diagnostics;
 using Cake.Frosting;
-using Cake.Common.Tools.DotNet.Build;
-using Cake.Common.Tools.DotNet.MSBuild;
-using Cake.Common.Tools.DotNetCore.Build;
 using Cake.Common.Build;
 using Cake.Common.Tools.DotNet;
 using System.Collections.Generic;
 using System.IO;
-using Cake.Common.IO;
 using System.IO.Compression;
+using System.Linq;
+using Cake.Common.Tools.DotNet.MSBuild;
+using Cake.Common.Tools.DotNet.Build;
+using System.Diagnostics;
+using Cake.Git;
 
 namespace OpenNefia.Packaging.Tasks
 {
@@ -24,7 +25,8 @@ namespace OpenNefia.Packaging.Tasks
                 MaxCpuCount = 0 // Use all cores
             };
 
-            dotNetSettings.Properties[BuildProperties.FullRelease] = new List<string> { "True" };
+            dotNetSettings.Targets.Add("Publish");
+            dotNetSettings.Properties["FullRelease"] = new List<string> { "True" };
 
             var settings = new DotNetBuildSettings
             {
@@ -39,7 +41,7 @@ namespace OpenNefia.Packaging.Tasks
     }
 
     [TaskName("Package")]
-    // [IsDependentOn(typeof(BuildTask))]
+    [IsDependentOn(typeof(BuildTask))]
     public sealed class PackageTask : FrostingTask<BuildContext>
     {
         /// <summary>
@@ -57,14 +59,26 @@ namespace OpenNefia.Packaging.Tasks
         };
 
         /// <summary>
-        /// File extensions to add to the zip.
+        /// Resource directories that should not be redistributed.
         /// </summary>
-        private static readonly string[] BinaryFilePatterns = new string[]
+        private static readonly string[] IgnoredResourceDirs = new string[]
         {
-            "*.exe",
-            "*.dll",
-            "*.pdb"
+            "Resources/Graphic/Elona/",
+            "Resources/Sound/Elona/"
         };
+
+        /// <summary>
+        /// Resource files that should not be redistributed.
+        /// </summary>
+        private static readonly HashSet<string> IgnoredResourceFiles = new()
+        {
+            ".keep"
+        };
+
+        private string GetProjectOutputDir(string project, BuildContext context)
+        {
+            return $"{project}/bin/{context.BuildConfig}/net6.0/";
+        }
 
         public override void Run(BuildContext context)
         {
@@ -76,39 +90,37 @@ namespace OpenNefia.Packaging.Tasks
 
             Directory.CreateDirectory(Constants.OutputDir);
 
-            var distribName = "OpenNefia";
+            var entryPointOutput = Path.Combine(GetProjectOutputDir("OpenNefia.EntryPoint", context), "publish");
+            var coreAssemblyPath = Path.Combine(entryPointOutput, "OpenNefia.Core.dll");
+
+            var assemblyInfo = FileVersionInfo.GetVersionInfo(coreAssemblyPath);
+
+            var commitHash = context.GitLogTip(context.Environment.WorkingDirectory).Sha.Substring(0, 7);
+
+            var distribName = $"OpenNefia-{assemblyInfo.ProductVersion}-{commitHash}";
             var zipName = $"{distribName}.zip";
             var zipPath = Path.Combine(Constants.OutputDir, zipName);
 
-            var entryPointOutput = $"OpenNefia.EntryPoint/bin/{context.BuildConfig}/net6.0/";
 
             using (var stream = File.OpenWrite(zipPath))
             {
                 using (var zipArchive = new ZipArchive(stream, ZipArchiveMode.Create))
                 {
-                    context.Log.Information($"Packing binaries...");
-                    ZipBinaryFiles(zipArchive, distribName, entryPointOutput);
+                    context.Log.Information($"Copying resources...");
+                    CopyResources(entryPointOutput);
 
-                    context.Log.Information($"Packing resources...");
-                    ZipResources(zipArchive, distribName);
+                    context.Log.Information($"Moving content assemblies...");
+                    MoveContentAssemblies(entryPointOutput, context);
+
+                    context.Log.Information($"Packing files...");
+                    ZipAllFiles(zipArchive, distribName, entryPointOutput);
                 }
             }
 
             context.Log.Information($"Wrote .zip to {zipPath}");
         }
 
-        private void ZipBinaryFiles(ZipArchive zipArchive, string distribName, string entryPointOutput)
-        {
-            foreach (var pattern in BinaryFilePatterns)
-            {
-                foreach (var file in Directory.EnumerateFiles(entryPointOutput, pattern))
-                {
-                    zipArchive.CreateEntryFromFile(file, $"{distribName}/{Path.GetRelativePath(entryPointOutput, file)}");
-                }
-            }
-        }
-
-        private void ZipResources(ZipArchive zipArchive, string distribName)
+        private void CopyResources(string entryPointOutput)
         {
             var enumOptions = new EnumerationOptions()
             {
@@ -121,8 +133,65 @@ namespace OpenNefia.Packaging.Tasks
                 
                 foreach (var file in Directory.EnumerateFiles(resourcesDir, "*", enumOptions))
                 {
-                    zipArchive.CreateEntryFromFile(file, $"{distribName}/{Path.GetRelativePath(projectDir, file)}");
+                    var filename = Path.GetFileName(file);
+                    if (IgnoredResourceFiles.Contains(filename))
+                        continue;
+
+                    var relFile = Path.GetRelativePath(projectDir, file);
+                    if (IgnoredResourceDirs.Any(ignoredDir => Utility.PathStartsWith(relFile, ignoredDir)))
+                        continue;
+
+                    var outputFile = Path.Join(entryPointOutput, relFile);
+
+                    var dir = Path.GetDirectoryName(outputFile)!;
+                    if (!Directory.Exists(dir))
+                        Directory.CreateDirectory(dir);
+
+                    if (!File.Exists(outputFile))
+                        File.Copy(file, outputFile);
                 }
+            }
+        }
+
+        private void MoveContentAssemblies(string entryPointOutput, BuildContext context)
+        {
+            var assembliesDir = Path.Combine(entryPointOutput, "Resources", "Assemblies");
+            Directory.CreateDirectory(assembliesDir);
+
+            foreach (var projectName in ProjectsWithResources)
+            {
+                // Core is loaded internally by the engine.
+                if (projectName == "OpenNefia.Core")
+                    continue;
+
+                var binOutput = GetProjectOutputDir(projectName, context);
+                var contentAssemblyName = $"{projectName}.dll";
+                var contentAssemblyFile = Path.Combine(binOutput, contentAssemblyName);
+                var assemblyPath = Path.Combine(assembliesDir, contentAssemblyName);
+
+                // Content assemblies should be moved into Resources/Assemblies/
+                // and not be duplicated.
+                if (!File.Exists(assemblyPath))
+                {
+                    File.Move(contentAssemblyFile, assemblyPath);
+                }
+                else if (File.Exists(contentAssemblyFile))
+                {
+                    File.Delete(contentAssemblyFile);
+                }
+            }
+        }
+
+        private void ZipAllFiles(ZipArchive zipArchive, string distribName, string entryPointOutput)
+        {
+            var enumOptions = new EnumerationOptions()
+            {
+                RecurseSubdirectories = true
+            };
+
+            foreach (var file in Directory.EnumerateFiles(entryPointOutput, "*", enumOptions))
+            {
+                zipArchive.CreateEntryFromFile(file, Path.Join(distribName, Path.GetRelativePath(entryPointOutput, file)));
             }
         }
     }
