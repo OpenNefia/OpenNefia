@@ -8,6 +8,6 @@ namespace OpenNefia.Packaging
 {
     internal static class Constants
     {
-        public const string OutputDir = "dist";
+        public const string OutputDir = "release";
     }
 }

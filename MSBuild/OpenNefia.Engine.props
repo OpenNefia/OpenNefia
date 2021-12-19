@@ -4,7 +4,7 @@
         <LangVersion>10</LangVersion>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
-	    <CodeAnalysisRuleSet>..\OpenNefia.ruleset</CodeAnalysisRuleSet>
+	    <CodeAnalysisRuleSet>..\MSBuild\OpenNefia.ruleset</CodeAnalysisRuleSet>
     </PropertyGroup>
     <Import Project="OpenNefia.Engine.Version.props" />
 </Project>

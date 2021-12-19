@@ -4,7 +4,7 @@ using Cake.Frosting;
 namespace OpenNefia.Packaging
 {
     /// <summary>
-    /// "I prefer cakes and candies to alcoholic drinks. You want [build artifacts]? Gimme [Cake.Frosting]!"
+    /// "I prefer cakes and candies to alcoholic drinks. You want [build artifacts]? Gimme [<see cref="ICakeContext"/>]!"
     /// </summary>
     public static class Program
     {
