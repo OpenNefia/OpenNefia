@@ -17,6 +17,7 @@ using OpenNefia.Core.Random;
 using OpenNefia.Core.Reflection;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Core.ResourceManagement;
+using OpenNefia.Core.SaveGames;
 using OpenNefia.Core.Serialization.Instanced;
 using OpenNefia.Core.Serialization.Manager;
 using OpenNefia.Core.Timing;
@@ -83,6 +84,7 @@ namespace OpenNefia
             IoCManager.Register<IReplExecutor, CSharpReplExecutor>();
             IoCManager.Register<IConsole, DummyConsole>();
             IoCManager.Register<IDebugServer, DebugServer>();
+            IoCManager.Register<ISaveGameManager, SaveGameManager>();
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using JetBrains.Annotations;
 using OpenNefia.Core.Utility;
+using YamlDotNet.RepresentationModel;
 
 namespace OpenNefia.Core.ContentPack
 {
@@ -125,6 +126,25 @@ namespace OpenNefia.Core.ContentPack
         }
 
         /// <summary>
+        /// Reads the entire contents of a path as YAML.
+        /// </summary>
+        /// <param name="provider">The writable directory to look for the path in.</param>
+        /// <param name="path">The path to read the contents from.</param>
+        /// <returns>The contents of the path as a <see cref="YamlStream"/>.</returns>
+        /// <exception cref="FileNotFoundException">
+        ///     Thrown if the file does not exist.
+        /// </exception>
+        public static YamlStream ReadAllYaml(this IWritableDirProvider provider, ResourcePath path)
+        {
+            var reader = provider.OpenText(path);
+
+            var yamlStream = new YamlStream();
+            yamlStream.Load(reader);
+
+            return yamlStream;
+        }
+
+        /// <summary>
         /// Writes the content string to a file. If the file exists, its existing contents will
         /// be replaced.
         /// </summary>
@@ -150,6 +170,23 @@ namespace OpenNefia.Core.ContentPack
             using var stream = provider.OpenWrite(path);
 
             stream.Write(content);
+        }
+
+        /// <summary>
+        /// Writes the YAML node to a file. If the file exists, its existing contents will
+        /// be replaced.
+        /// </summary>
+        /// <param name="provider">The writable directory provider</param>
+        /// <param name="path">Path of the file to write to.</param>
+        /// <param name="content">YAML node to write to the file.</param>
+        public static void WriteAllYaml(this IWritableDirProvider provider, ResourcePath path, YamlNode node)
+        {
+            using var stream = provider.OpenWriteText(path);
+
+            var document = new YamlDocument(node);
+            var yamlStream = new YamlStream(document);
+
+            yamlStream.Save(stream);
         }
     }
 }

@@ -9,6 +9,7 @@ using OpenNefia.Core.UI;
 using OpenNefia.Core.UI.Layer;
 using OpenNefia.Core.Utility;
 using OpenNefia.Content.Prototypes;
+using OpenNefia.Core.SaveGames;
 
 namespace OpenNefia.Content.Logic
 {
@@ -24,6 +25,7 @@ namespace OpenNefia.Content.Logic
         [Dependency] private readonly IGameSessionManager _gameSessionManager = default!;
         [Dependency] private readonly IFieldLayer _fieldLayer = default!;
         [Dependency] private readonly IMapBlueprintLoader _mapBlueprints = default!;
+        [Dependency] private readonly ISaveGameManager _saveGameManager = default!;
 
         private void Startup()
         {
@@ -51,13 +53,7 @@ namespace OpenNefia.Content.Logic
                             case TitleScreenAction.ReturnToTitle:
                                 break;
                             case TitleScreenAction.StartGame:
-                                var map = InitMap();
-
-                                _mapManager.SetActiveMap(map.Id);
-
-                                _fieldLayer.Query();
-
-                                _mapManager.UnloadMap(map.Id);
+                                StartGame();
                                 break;
                             case TitleScreenAction.Quit:
                                 break;
@@ -69,6 +65,22 @@ namespace OpenNefia.Content.Logic
                     }
                 }
             }
+        }
+
+        private void StartGame()
+        {
+            var saveHeader = new SaveGameHeader("ruin");
+            var savePath = ResourcePath.Root / Guid.NewGuid().ToString();
+            var save = _saveGameManager.CreateSave(savePath, saveHeader);
+            _saveGameManager.SetCurrentSave(save);
+
+            var map = InitMap();
+
+            _mapManager.SetActiveMap(map.Id);
+
+            _fieldLayer.Query();
+
+            _mapManager.UnloadMap(map.Id);
         }
 
         private IMap InitMap()

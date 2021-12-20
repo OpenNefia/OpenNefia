@@ -12,6 +12,7 @@ using OpenNefia.Core.Maps;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Core.ResourceManagement;
+using OpenNefia.Core.SaveGames;
 using OpenNefia.Core.Serialization.Manager;
 using OpenNefia.Core.Timing;
 using OpenNefia.Core.UI;
@@ -39,6 +40,7 @@ namespace OpenNefia.Core.GameController
         [Dependency] private readonly ITimerManager _timerManager = default!;
         [Dependency] private readonly IMapRenderer _mapRenderer = default!;
         [Dependency] private readonly IDebugServer _debugServer = default!;
+        [Dependency] private readonly ISaveGameManager _saveGameManager = default!;
 
         public Action? MainCallback { get; set; } = null;
 
@@ -49,6 +51,10 @@ namespace OpenNefia.Core.GameController
             _taskManager.Initialize();
 
             _modLoader.SetUseLoadContext(true);
+
+            var userDataDir = "UserData";
+            _resourceCache.Initialize(userDataDir);
+            _saveGameManager.Initialize(userDataDir);
 
             ProgramShared.DoMounts(_resourceCache);
 

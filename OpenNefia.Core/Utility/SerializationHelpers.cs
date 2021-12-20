@@ -8,6 +8,7 @@ using YamlDotNet.RepresentationModel;
 
 namespace OpenNefia.Core.Utility
 {
+    [Obsolete]
     public static class SerializationHelpers
     {
         /// <summary>

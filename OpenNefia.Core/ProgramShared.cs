@@ -6,8 +6,6 @@ namespace OpenNefia.Core
     {
         internal static void DoMounts(IResourceManagerInternal res)
         {
-            res.Initialize("UserData");
-
 #if FULL_RELEASE
             // TODO: I don't want one single content root since
             // it prevents mods from being drop-in. Instead I want something like:

@@ -1,6 +1,4 @@
-using System;
 using JetBrains.Annotations;
-using Love;
 
 namespace OpenNefia.Core.Maths
 {

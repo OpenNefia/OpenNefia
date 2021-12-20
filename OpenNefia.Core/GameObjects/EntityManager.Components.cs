@@ -86,11 +86,18 @@ namespace OpenNefia.Core.GameObjects
             DebugTools.Assert(metadata.EntityLifeStage == EntityLifeStage.PreInit);
             metadata.EntityLifeStage = EntityLifeStage.Initializing;
 
-            var components = GetComponents(uid);
+            // Initialize() can modify the collection of components.
+            var components = GetComponents(uid)
+                         .OrderBy(x => x switch
+                          {
+
+                              SpatialComponent _ => 0,
+                              _ => int.MaxValue
+                          });
 
             foreach (var component in components)
             {
-                var comp = (Component) component;
+                var comp = (Component)component;
                 if (comp.Initialized)
                     continue;
 
@@ -115,11 +122,20 @@ namespace OpenNefia.Core.GameObjects
 
         public void StartComponents(EntityUid uid)
         {
-            var comps = GetComponents(uid);
+            // TODO: Move this to EntityManager.
+            // Startup() can modify _components
+            // This code can only handle additions to the list. Is there a better way? Probably not.
+            var comps = GetComponents(uid)
+                     .OrderBy(x => x switch
+                       {
+
+                           SpatialComponent _ => 0,
+                           _ => int.MaxValue
+                       });
 
             foreach (var component in comps)
             {
-                var comp = (Component) component;
+                var comp = (Component)component;
                 if (comp.LifeStage == ComponentLifeStage.Initialized)
                 {
                     comp.LifeStartup();

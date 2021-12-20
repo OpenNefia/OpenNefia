@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using OpenNefia.Core.Utility;
 
 namespace OpenNefia.Core.ContentPack
@@ -75,7 +76,46 @@ namespace OpenNefia.Core.ContentPack
         public (IEnumerable<ResourcePath> files, IEnumerable<ResourcePath> directories) Find(string pattern,
             bool recursive = true)
         {
-            throw new NotImplementedException();
+            if (pattern != "*")
+                throw new NotImplementedException();
+
+            var option = recursive ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly;
+
+            var resFiles = new List<ResourcePath>();
+            var resDirs = new List<ResourcePath>();
+
+            void Search(DirectoryNode node, ResourcePath path)
+            {
+                foreach (var (name, child) in node.Children)
+                {
+                    var newPath = path / new ResourcePath(name);
+
+                    if (child is DirectoryNode dirNode)
+                    {
+                        //if (Regex.IsMatch(path.ToRelativeSystemPath(), pattern))
+                        //{
+                        //    resDirs.Add(newPath);
+                        //}
+                        resDirs.Add(newPath.ToRelativePath());
+                        if (recursive)
+                        {
+                            Search(dirNode, newPath);
+                        }
+                    }
+                    else if (child is FileNode fileNode)
+                    {
+                        //if (Regex.IsMatch(path.ToRelativeSystemPath(), pattern))
+                        //{
+                        //    resFiles.Add(newPath);
+                        //}
+                        resFiles.Add(newPath.ToRelativePath());
+                    }
+                }
+            }
+
+            Search(_rootDirectoryNode, ResourcePath.Root);
+
+            return (resFiles, resDirs);
         }
 
         public bool IsDirectory(ResourcePath path)
