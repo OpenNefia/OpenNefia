@@ -4140,6 +4140,15 @@
   isSolid: true
   isOpaque: true
 - type: Tile
+  id: Elona.PalaceFountain
+  hspIds:
+    elona122: 1,550
+  image:
+    filepath: /Graphic/Elona/map1.bmp
+    region: 1056, 768, 48, 48
+  isSolid: true
+  isOpaque: true
+- type: Tile
   id: Elona.LightGrassCarts
   hspIds:
     elona122: 1,564

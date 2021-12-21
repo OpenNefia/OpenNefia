@@ -53,7 +53,7 @@ tilemap:
   i: Elona.Carpet5
   j: Elona.CobblePillar
   k: Elona.Cobble10
-  l: Empty
+  l: Elona.PalaceFountain
   m: Elona.SignPub
   n: Elona.RedFloor
   o: Elona.RedStairs
