@@ -37,22 +37,6 @@
   - type: Weight
 
 - type: Entity
-  id: BasePotion
-  parent: BaseItem
-  abstract: true
-  components:
-  - type: MetaData
-    displayName: potion
-  - type: Item
-    value: 5
-  - type: Chip
-    id: Elona.ItemPotion
-  - type: Throwable
-  - type: Drinkable
-    args:
-      power: 100
-
-- type: Entity
   id: BaseFeat
   parent: BaseObject
   abstract: true

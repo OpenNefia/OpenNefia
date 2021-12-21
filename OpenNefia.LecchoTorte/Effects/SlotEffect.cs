@@ -13,19 +13,12 @@ namespace OpenNefia.Content.Effects
 {
     public class SlotEffect : Effect, ISerializationHooks
     {       
-        // TODO flyweight this
-        [Dependency] private readonly ISlotSystem _slotSystem = default!;
-
         [DataField]
         public ComponentRegistry Components { get; set; } = new();
 
-        void ISerializationHooks.AfterDeserialization() 
-        {
-            IoCManager.InjectDependencies(this);
-        }
-
         public override EffectResult Apply(EntityUid source, MapCoordinates coords, EntityUid target, EffectArgs args)
         {
+            EntitySystem.Get<ISlotSystem>().AddSlot(target, Components);
 
             return EffectResult.Succeeded;
         }

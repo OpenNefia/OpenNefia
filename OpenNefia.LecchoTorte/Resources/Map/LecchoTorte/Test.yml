@@ -92,25 +92,25 @@ entities:
     parent: 0
     pos: 5,3
 - uid: 13
-  protoId: PotionOfTest
+  protoId: LecchoTorte.PotionOfTest
   components:
   - type: Spatial
     parent: 0
     pos: 2,4
 - uid: 14
-  protoId: PotionOfTest
+  protoId: LecchoTorte.PotionOfTest
   components:
   - type: Spatial
     parent: 0
     pos: 3,4
 - uid: 15
-  protoId: PotionOfTest
+  protoId: LecchoTorte.PotionOfTest
   components:
   - type: Spatial
     parent: 0
     pos: 4,4
 - uid: 16
-  protoId: PotionOfTest
+  protoId: LecchoTorte.PotionOfTest
   components:
   - type: Spatial
     parent: 0

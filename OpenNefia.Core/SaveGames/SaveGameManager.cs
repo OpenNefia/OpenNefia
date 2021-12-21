@@ -112,7 +112,7 @@ namespace OpenNefia.Core.SaveGames
             CurrentSave = null;
             _saves.Clear();
 
-            foreach (var dir in SavesDir.Find("*").directories)
+            foreach (var dir in SavesDir.Find("*", recursive: false).directories)
             {
                 TryRegisterSave(dir);
             }

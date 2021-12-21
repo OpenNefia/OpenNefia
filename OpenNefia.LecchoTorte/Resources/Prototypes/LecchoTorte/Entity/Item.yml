@@ -1,0 +1,29 @@
+﻿- type: Entity
+  id: Elona.BasePotion
+  parent: BaseItem
+  abstract: true
+  components:
+  - type: MetaData
+    displayName: potion
+  - type: Item
+    value: 5
+  - type: Chip
+    id: Elona.ItemPotion
+  - type: Throwable
+  - type: Drinkable
+    args:
+      power: 100
+
+- type: Entity
+  id: LecchoTorte.PotionOfTest
+  parent: Elona.BasePotion
+  components:
+  - type: MetaData
+    displayName: potion of test
+  - type: Chip
+    color: yellow
+  - type: Drinkable
+    effect: !type:SlotEffect
+      components:
+      - type: LecchoTorte.TurnColor
+        color: "#11AA11"
