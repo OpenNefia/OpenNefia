@@ -24,6 +24,7 @@ namespace OpenNefia.Content.GameObjects
         {
             SubscribeLocalEvent<StairsComponent, GetVerbsEventArgs>(HandleGetVerbs, nameof(HandleGetVerbs));
             SubscribeLocalEvent<ExecuteVerbEventArgs>(HandleExecuteVerb, nameof(HandleExecuteVerb));
+            SubscribeLocalEvent<StairsComponent, UseStairsEventArgs>(HandleUseStairs, nameof(HandleUseStairs));
         }
 
         private void HandleGetVerbs(EntityUid uid, StairsComponent component, GetVerbsEventArgs args)
@@ -51,9 +52,14 @@ namespace OpenNefia.Content.GameObjects
                 case VerbIDAscend:
                 case VerbIDDescend:
                 case VerbIDActivate:
-                    args.Handle(UseStairs(args.Target, args.Source));
+                    Raise(args.Target, new UseStairsEventArgs(args.Source), args);
                     break;
             }
+        }
+
+        private void HandleUseStairs(EntityUid stairsEntity, StairsComponent stairs, UseStairsEventArgs args)
+        {
+            args.Handle(UseStairs(stairsEntity, args.User, stairs));
         }
 
         private TurnResult UseStairs(EntityUid entrance, EntityUid user,
@@ -66,6 +72,16 @@ namespace OpenNefia.Content.GameObjects
             _sounds.Play(Protos.Sound.Exitmap1);
 
             return _mapEntrances.UseMapEntrance(entrance, user, mapEntrance);
+        }
+    }
+
+    public class UseStairsEventArgs : TurnResultEntityEventArgs
+    {
+        public readonly EntityUid User;
+
+        public UseStairsEventArgs(EntityUid user)
+        {
+            User = user;
         }
     }
 }

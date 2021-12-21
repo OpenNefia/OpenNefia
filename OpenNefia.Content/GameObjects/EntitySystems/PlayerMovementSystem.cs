@@ -32,11 +32,12 @@ namespace OpenNefia.Content.GameObjects
 
             if (_mapManager.TryGetMap(mapId, out var map) && !map.IsInBounds(pos))
             {
-                if (_playerQuery.YesOrNo("Do you want to exit the map?"))
+                if (EntityManager.TryGetComponent<MapEntranceComponent>(map.MapEntityUid, out var mapEntrance))
                 {
-                    RaiseLocalEvent(uid, new ExitMapEventArgs());
-                    args.Handle(TurnResult.Succeeded);
-                    return;
+                    if (_playerQuery.YesOrNo("Do you want to exit the map?"))
+                    {
+                        Raise(uid, new ExitMapEventArgs(map, mapEntrance.Entrance), args);
+                    }
                 }
             }
         }
@@ -68,10 +69,15 @@ namespace OpenNefia.Content.GameObjects
         }
     }
 
-    public class ExitMapEventArgs
+    public class ExitMapEventArgs : TurnResultEntityEventArgs
     {
-        public ExitMapEventArgs()
+        public readonly IMap Map;
+        public readonly MapEntrance Entrance;
+
+        public ExitMapEventArgs(IMap map, MapEntrance entrance)
         {
+            Map = map;
+            Entrance = entrance;
         }
     }
 

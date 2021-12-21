@@ -3,6 +3,8 @@ using OpenNefia.Core.Audio;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Logic;
 using OpenNefia.Content.Prototypes;
+using OpenNefia.Core.Effects;
+using OpenNefia.Core.IoC;
 
 namespace OpenNefia.Content.GameObjects
 {
@@ -10,10 +12,13 @@ namespace OpenNefia.Content.GameObjects
     {
         public const string VerbIDDrink = "Elona.Drink";
 
+        [Dependency] private readonly IAudioSystem _sounds = default!;
+
         public override void Initialize()
         {
             SubscribeLocalEvent<DrinkableComponent, GetVerbsEventArgs>(HandleGetVerbs, nameof(HandleGetVerbs));
             SubscribeLocalEvent<ExecuteVerbEventArgs>(HandleExecuteVerb, nameof(HandleExecuteVerb));
+            SubscribeLocalEvent<DrinkableComponent, DoDrinkEventArgs>(HandleDoDrink, nameof(HandleDoDrink));
             SubscribeLocalEvent<DrinkableComponent, ThrownEntityImpactedOtherEvent>(HandleImpactOther, nameof(HandleImpactOther));
             SubscribeLocalEvent<DrinkableComponent, ThrownEntityImpactedGroundEvent>(HandleImpactGround, nameof(HandleImpactGround));
             SubscribeLocalEvent<PotionPuddleComponent, EntitySteppedOnEvent>(HandlePotionPuddleSteppedOn, nameof(HandlePotionPuddleSteppedOn));
@@ -32,34 +37,42 @@ namespace OpenNefia.Content.GameObjects
             switch (args.Verb.ID)
             {
                 case VerbIDDrink:
-                    ExecuteVerbDrink(args.Target, args);
+                    Raise(args.Target, new DoDrinkEventArgs(args.Source), args);
                     break;
             }
         }
 
-        private void ExecuteVerbDrink(EntityUid potion, ExecuteVerbEventArgs args, 
-            DrinkableComponent? drinkableComp = null)
+        private void HandleDoDrink(EntityUid target, DrinkableComponent drinkable, DoDrinkEventArgs args)
         {
-            Mes.Display($"{DisplayNameSystem.GetDisplayName(args.Source)} drinks {DisplayNameSystem.GetDisplayName(potion)}.");
+            args.Handle(Drink(target, args.Drinker, drinkable));
+        }
 
-            if (!Resolve(potion, ref drinkableComp))
-                return;
+        private TurnResult Drink(EntityUid target, EntityUid drinker,
+            DrinkableComponent? drinkable = null)
+        {
+            Mes.Display($"{DisplayNameSystem.GetDisplayName(drinker)} drinks {DisplayNameSystem.GetDisplayName(target)}.");
 
-            if (!EntityManager.TryGetComponent(args.Source, out SpatialComponent sourceSpatial))
-                return;
+            if (!Resolve(target, ref drinkable))
+                return TurnResult.Failed;
 
-            Sounds.Play(Protos.Sound.Drink1, sourceSpatial.MapPosition);
+            if (!EntityManager.TryGetComponent(drinker, out SpatialComponent sourceSpatial))
+                return TurnResult.Failed;
 
-            drinkableComp.Effect?.Apply(args.Source, sourceSpatial.MapPosition, args.Source, drinkableComp.Args);
+            _sounds.Play(Protos.Sound.Drink1, sourceSpatial.MapPosition);
+
+            var result = drinkable.Effect?.Apply(drinker, sourceSpatial.MapPosition, drinker, drinkable.Args)
+                ?? EffectResult.Succeeded;
 
             // TODO stacking
-            EntityManager.DeleteEntity(potion);
+            EntityManager.DeleteEntity(target);
+
+            return result.ToTurnResult();
         }
 
         private void HandleImpactOther(EntityUid thrown, DrinkableComponent potionComp, ThrownEntityImpactedOtherEvent args)
         {
             Mes.Display($"{DisplayNameSystem.GetDisplayName(thrown)} hits {DisplayNameSystem.GetDisplayName(args.ImpactedWith)}!");
-            Sounds.Play(Protos.Sound.Crush2, args.Coords);
+            _sounds.Play(Protos.Sound.Crush2, args.Coords);
 
             potionComp.Effect?.Apply(args.Thrower, args.Coords, args.ImpactedWith, potionComp.Args);
 
@@ -69,7 +82,7 @@ namespace OpenNefia.Content.GameObjects
         private void HandleImpactGround(EntityUid thrown, DrinkableComponent potionComp, ThrownEntityImpactedGroundEvent args)
         {
             Mes.Display($"{DisplayNameSystem.GetDisplayName(thrown)} shatters.");
-            Sounds.Play(Protos.Sound.Crush2, args.Coords);
+            _sounds.Play(Protos.Sound.Crush2, args.Coords);
 
             var puddle = EntityManager.SpawnEntity(Protos.Mef.Potion, args.Coords);
 
@@ -89,11 +102,21 @@ namespace OpenNefia.Content.GameObjects
 
         private void HandlePotionPuddleSteppedOn(EntityUid source, PotionPuddleComponent potionComp, EntitySteppedOnEvent args)
         {
-            Sounds.Play(Protos.Sound.Water, args.Coords);
+            _sounds.Play(Protos.Sound.Water, args.Coords);
 
             potionComp.Effect?.Apply(source, args.Coords, args.Stepper, potionComp.Args);
 
             EntityManager.DeleteEntity(source);
+        }
+    }
+
+    public class DoDrinkEventArgs : TurnResultEntityEventArgs
+    {
+        public readonly EntityUid Drinker;
+
+        public DoDrinkEventArgs(EntityUid drinker)
+        {
+            Drinker = drinker;
         }
     }
 }

@@ -12,6 +12,8 @@ namespace OpenNefia.Content.GameObjects
     {
         [Dependency] private readonly IMapBlueprintLoader _mapBlueprints = default!;
         [Dependency] private readonly IMapManager _mapManager = default!;
+        [Dependency] private readonly MapEntranceSystem _mapEntrances = default!;
+        [Dependency] private readonly IAudioSystem _sounds = default!;
 
         public override void Initialize()
         {
@@ -19,17 +21,16 @@ namespace OpenNefia.Content.GameObjects
             SubscribeLocalEvent<PlayerComponent, EntParentChangedEvent>(HandleEntityParentChanged, nameof(HandleEntityParentChanged));
         }
 
-        private void HandleExitMap(EntityUid uid, PlayerComponent component, ExitMapEventArgs args)
+        private void HandleExitMap(EntityUid playerUid, PlayerComponent component, ExitMapEventArgs args)
         {
             SpatialComponent? spatial = null;
             
-            if (!Resolve(uid, ref spatial))
+            if (!Resolve(playerUid, ref spatial))
                 return;
 
-            Sounds.Play(Protos.Sound.Exitmap1);
-            var map = _mapBlueprints.LoadBlueprint(null, new ResourcePath("/Maps/Elona/sqNightmare.yml"));
+            _sounds.Play(Protos.Sound.Exitmap1);
 
-            spatial.Coordinates = new EntityCoordinates(map.MapEntityUid, map.Size / 2);
+            args.Handle(_mapEntrances.UseMapEntrance(playerUid, args.Entrance));
         }
 
         private void HandleEntityParentChanged(EntityUid uid, PlayerComponent component, ref EntParentChangedEvent evt)
