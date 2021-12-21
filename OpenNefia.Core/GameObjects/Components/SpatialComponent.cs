@@ -441,7 +441,7 @@ namespace OpenNefia.Core.GameObjects
                 $"Can't parent a {nameof(SpatialComponent)} to itself.");
 
             // offset position from world to parent, and set
-            Coordinates = new EntityCoordinates(newParent.OwnerUid, (Vector2i)newParent.InvWorldMatrix.Transform(WorldPosition));
+            SetCoordinates(new EntityCoordinates(newParent.OwnerUid, (Vector2i)newParent.InvWorldMatrix.Transform(WorldPosition)), noEvents: true);
         }
 
         internal void ChangeMapId(MapId newMapId)
