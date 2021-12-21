@@ -149,10 +149,7 @@ namespace OpenNefia.Tests.Core.GameObjects.Systems
             var ent = entMan.SpawnEntity(null, map.AtPos(Vector2i.Zero)).Uid;
 
             var comps = new ComponentRegistry();
-            var slotTest = new SlotTestComponent()
-            {
-                Field = 42
-            };
+            var slotTest = new SlotTestComponent();
             comps[slotTest.Name] = slotTest;
 
             var slotId = slotSys.AddSlot(ent, comps);
@@ -178,10 +175,7 @@ namespace OpenNefia.Tests.Core.GameObjects.Systems
             var ent = entMan.SpawnEntity(null, map.AtPos(Vector2i.Zero)).Uid;
 
             var comps = new ComponentRegistry();
-            var slotTest = new SlotTestComponent()
-            {
-                Field = 42
-            };
+            var slotTest = new SlotTestComponent();
             comps[slotTest.Name] = slotTest;
 
             var slotId1 = slotSys.AddSlot(ent, comps);
@@ -215,10 +209,7 @@ namespace OpenNefia.Tests.Core.GameObjects.Systems
             var ent = entMan.SpawnEntity(null, map.AtPos(Vector2i.Zero)).Uid;
 
             var comps = new ComponentRegistry();
-            var slotTest = new SlotTestComponent()
-            {
-                Field = 42
-            };
+            var slotTest = new SlotTestComponent();
             comps[slotTest.Name] = slotTest;
 
             var slotId1 = slotSys.AddSlot(ent, comps);
@@ -231,6 +222,29 @@ namespace OpenNefia.Tests.Core.GameObjects.Systems
             slotSys.RemoveSlot(ent, slotId1);
 
             Assert.That(entMan.HasComponent<SlotTestComponent>(ent), Is.False);
+        }
+
+        [Test]
+        public void TestSlotWithComponent()
+        {
+            var sim = SimulationFactory();
+            var entMan = sim.Resolve<IEntityManager>();
+            var entSysMan = sim.Resolve<IEntitySystemManager>();
+            var map = sim.ActiveMap!;
+
+            var slotSys = entSysMan.GetEntitySystem<SlotSystem>();
+
+            var ent = entMan.SpawnEntity(null, map.AtPos(Vector2i.Zero)).Uid;
+
+            Assert.That(slotSys.SlotWithComponent<SlotTestComponent>(ent), Is.EqualTo(null));
+
+            var comps = new ComponentRegistry();
+            var slotTest = new SlotTestComponent();
+            comps[slotTest.Name] = slotTest;
+
+            var slotId = slotSys.AddSlot(ent, comps);
+
+            Assert.That(slotSys.SlotWithComponent<SlotTestComponent>(ent), Is.EqualTo(slotId));
         }
 
         private class SlotTestComponent : Component

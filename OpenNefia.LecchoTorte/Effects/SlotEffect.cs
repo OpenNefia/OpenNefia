@@ -5,14 +5,19 @@ using OpenNefia.Core.IoC;
 using OpenNefia.Core.Maps;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Core.Serialization;
+using OpenNefia.Core.Serialization.Manager.Attributes;
 using OpenNefia.Core.UI.Layer;
+using static OpenNefia.Core.Prototypes.EntityPrototype;
 
 namespace OpenNefia.Content.Effects
 {
-    public class TestEffect : Effect, ISerializationHooks
+    public class SlotEffect : Effect, ISerializationHooks
     {       
         // TODO flyweight this
-        [Dependency] private readonly IMapDrawables _mapDrawables = default!;
+        [Dependency] private readonly ISlotSystem _slotSystem = default!;
+
+        [DataField]
+        public ComponentRegistry Components { get; set; } = new();
 
         void ISerializationHooks.AfterDeserialization() 
         {
@@ -21,8 +26,6 @@ namespace OpenNefia.Content.Effects
 
         public override EffectResult Apply(EntityUid source, MapCoordinates coords, EntityUid target, EffectArgs args)
         {
-            var drawable = new BasicAnimMapDrawable(BasicAnimPrototypeOf.AnimCurse);
-            _mapDrawables.Enqueue(drawable, coords);
 
             return EffectResult.Succeeded;
         }
