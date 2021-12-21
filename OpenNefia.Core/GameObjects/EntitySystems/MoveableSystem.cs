@@ -38,20 +38,14 @@ namespace OpenNefia.Core.GameObjects
             spatial.Direction = (args.NewPosition.Position - args.OldPosition.Position).GetDir();
 
             var evBefore = new BeforeMoveEventArgs(args.OldPosition, args.NewPosition);
-            RaiseLocalEvent(uid, evBefore);
 
-            if (evBefore.Handled || !EntityManager.IsAlive(uid))
-            {
-                args.Handled = true;
-                args.TurnResult = evBefore.TurnResult;
+            if (!Raise(uid, evBefore, args))
                 return;
-            }
 
             if (!_mapManager.TryGetMap(args.NewPosition.MapId, out var map)
                 || !map.CanAccess(args.NewPosition.Position))
             {
-                args.Handled = true;
-                args.TurnResult = TurnResult.Failed;
+                args.Handle(TurnResult.Failed);
                 return;
             }
 
@@ -60,8 +54,7 @@ namespace OpenNefia.Core.GameObjects
             var evAfter = new AfterMoveEventArgs(args.OldPosition, args.NewPosition);
             RaiseLocalEvent(uid, evAfter);
 
-            args.Handled = true;
-            args.TurnResult = TurnResult.Succeeded;
+            args.Handle(TurnResult.Succeeded);
         }
     }
 

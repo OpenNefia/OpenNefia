@@ -225,7 +225,7 @@ namespace OpenNefia.Tests.Core.GameObjects.Systems
         }
 
         [Test]
-        public void TestSlotWithComponent()
+        public void TestFindSlotWithComponent()
         {
             var sim = SimulationFactory();
             var entMan = sim.Resolve<IEntityManager>();
@@ -236,7 +236,7 @@ namespace OpenNefia.Tests.Core.GameObjects.Systems
 
             var ent = entMan.SpawnEntity(null, map.AtPos(Vector2i.Zero)).Uid;
 
-            Assert.That(slotSys.SlotWithComponent<SlotTestComponent>(ent), Is.EqualTo(null));
+            Assert.That(slotSys.FindSlotWithComponent<SlotTestComponent>(ent), Is.EqualTo(null));
 
             var comps = new ComponentRegistry();
             var slotTest = new SlotTestComponent();
@@ -244,7 +244,7 @@ namespace OpenNefia.Tests.Core.GameObjects.Systems
 
             var slotId = slotSys.AddSlot(ent, comps);
 
-            Assert.That(slotSys.SlotWithComponent<SlotTestComponent>(ent), Is.EqualTo(slotId));
+            Assert.That(slotSys.FindSlotWithComponent<SlotTestComponent>(ent), Is.EqualTo(slotId));
         }
 
         private class SlotTestComponent : Component

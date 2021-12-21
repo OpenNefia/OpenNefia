@@ -10,7 +10,7 @@ using static OpenNefia.Core.Prototypes.EntityPrototype;
 namespace OpenNefia.Core.GameObjects
 {
     /// <summary>
-    /// System for managing groups of components temporarily added to entities.
+    /// A system for managing groups of components temporarily added to entities.
     /// </summary>
     /// <remarks>
     /// <para>
@@ -18,7 +18,7 @@ namespace OpenNefia.Core.GameObjects
     /// and bound on-demand by a parent component to an entity, and then unbound at a later time.
     /// </para>
     /// <para>
-    /// Slots are supposed to solve three problems:
+    /// Slots are meant to solve three problems:
     /// </para>
     /// <para>
     /// 1. Components that can transiently add other components. An
@@ -38,10 +38,10 @@ namespace OpenNefia.Core.GameObjects
     /// 2. Allowing for one component type to have multiple instances 
     ///    or "stacks". Item enchantments that enhance skills can be stacked by
     ///    wearing more than one piece of equipment that offers the enchantment.
-    ///    If these enchantments used the slots system to implement their logic,
-    ///    there's no way to account for enchantments with the same child component
+    ///    If these enchantments used the component system alone to implement their logic,
+    ///    there would be no way to account for enchantments with the same child component
     ///    types but different power levels, because the entity system only allows
-    ///    for a single component type instance per entity. A <see cref="SlottableComponent{T}"/>
+    ///    for a single component type instance per entity. A <see cref="SlottableComponent"/>
     ///    in particular is a generalization of the "merging" logic found in HSP Elona for 
     ///    calculating the final power of the enchantment/status effect from its multiple 
     ///    "instances".
@@ -100,7 +100,7 @@ namespace OpenNefia.Core.GameObjects
         /// <param name="uid">Entity to check on.</param>
         /// <param name="slots">Slots component to use.</param>
         /// <returns>The slot ID, if found.</returns>
-        SlotId? SlotWithComponent<T>(EntityUid uid, SlotsComponent? slots = null) where T : IComponent;
+        SlotId? FindSlotWithComponent<T>(EntityUid uid, SlotsComponent? slots = null) where T : IComponent;
     }
 
     public class SlotSystem : EntitySystem, ISlotSystem
@@ -120,12 +120,6 @@ namespace OpenNefia.Core.GameObjects
             foreach (var (name, comp) in comps)
             {
                 var compType = comp.GetType();
-
-                // because AddComponent() requires Component, not IComponent
-                if (!typeof(Component).IsAssignableFrom(compType))
-                {
-                    throw new InvalidDataException($"Passed component was not derived from Component: {compType}");
-                }
 
                 if (!EntityManager.HasComponent(uid, compType))
                 {
@@ -199,7 +193,7 @@ namespace OpenNefia.Core.GameObjects
                 EntityManager.RemoveComponent<SlotsComponent>(uid);
         }
 
-        public SlotId? SlotWithComponent<T>(EntityUid uid, SlotsComponent? slots = null)
+        public SlotId? FindSlotWithComponent<T>(EntityUid uid, SlotsComponent? slots = null)
             where T : IComponent
         {
             if (!EntityManager.HasComponent<T>(uid))

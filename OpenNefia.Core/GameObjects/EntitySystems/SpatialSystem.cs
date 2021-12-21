@@ -18,6 +18,9 @@ namespace OpenNefia.Core.GameObjects
             SubscribeLocalEvent<SpatialComponent, EntityTangibilityChangedEvent>(HandleTangibilityChanged, nameof(HandleTangibilityChanged));
         }
 
+        /// <summary>
+        /// Refreshes the solidity/opacity of the tiles this entity moved between.
+        /// </summary>
         private void HandlePositionChanged(EntityUid uid, SpatialComponent spatial, ref EntityPositionChangedEvent args)
         {
             var (oldMap, oldMapCoords) = args.OldPosition.ToMap(_mapManager, _entityManager);
@@ -29,6 +32,9 @@ namespace OpenNefia.Core.GameObjects
                 newMap.RefreshTileEntities(newMapCoords.Position, _lookup.GetLiveEntitiesAtPos(newMapCoords));
         }
 
+        /// <summary>
+        /// Refreshes the solidity/opacity of the tiles this entity is standing on.
+        /// </summary>
         private void RefreshTileOfEntity(EntityUid uid, SpatialComponent spatial)
         {
             if (!_mapManager.TryGetMap(spatial.MapID, out var map))
