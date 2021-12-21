@@ -935,19 +935,19 @@ entities:
 - uid: 152
   protoId: Elona.FeatDoorWooden
   components:
-  - type: Door
-    unlockDifficulty: 15
   - type: Spatial
     pos: 7,8
     parent: 0
+  - type: Door
+    unlockDifficulty: 15
 - uid: 153
   protoId: Elona.FeatDoorWooden
   components:
-  - type: Door
-    unlockDifficulty: 10
   - type: Spatial
     pos: 22,6
     parent: 0
+  - type: Door
+    unlockDifficulty: 10
 - uid: 154
   protoId: Elona.FeatDoorWooden
   components:
@@ -957,19 +957,19 @@ entities:
 - uid: 155
   protoId: Elona.FeatDoorWooden
   components:
-  - type: Door
-    unlockDifficulty: 15
   - type: Spatial
     pos: 31,7
     parent: 0
+  - type: Door
+    unlockDifficulty: 15
 - uid: 156
   protoId: Elona.FeatDoorWooden
   components:
-  - type: Door
-    unlockDifficulty: 15
   - type: Spatial
     pos: 70,7
     parent: 0
+  - type: Door
+    unlockDifficulty: 15
 - uid: 157
   protoId: Elona.CharaBubble
   components:

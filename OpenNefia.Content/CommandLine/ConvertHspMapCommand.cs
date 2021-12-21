@@ -148,15 +148,15 @@ namespace OpenNefia.Content.CommandLine
         {
             var tileMap = new Dictionary<int, PrototypeId<TilePrototype>>();
 
-            foreach (var tileProto in _tileDefinitionManager.Where(t => t.HspIds != null && t.HspIds.GetCanonical()!.X == 0))
+            foreach (var tileProto in _tileDefinitionManager.Where(t => t.HspIds != null && t.HspIds.GetCanonical()!.X == atlasNum))
             {
                 var (_, hspIndex) = tileProto.HspIds!.GetCanonical();
                 tileMap[hspIndex] = tileProto.GetStrongID();
             }
 
-            if (atlasNum > 0)
+            if (atlasNum == 2)
             {
-                foreach (var tileProto in _tileDefinitionManager.Where(t => t.HspIds != null && t.HspIds.GetCanonical()!.X == atlasNum))
+                foreach (var tileProto in _tileDefinitionManager.Where(t => t.HspIds != null && t.HspIds.GetCanonical()!.X == 1))
                 {
                     var (_, hspIndex) = tileProto.HspIds!.GetCanonical();
                     tileMap[hspIndex] = tileProto.GetStrongID();
@@ -274,6 +274,8 @@ namespace OpenNefia.Content.CommandLine
                 compMapping.Insert(0, MapBlueprintLoader.Keys.Entities_Components_Type, new ValueDataNode(comp.Name));
                 entityComps.Add(compMapping.ToYamlNode());
             }
+
+            entityComps.Children.MoveElementWhere((i) => i[MapBlueprintLoader.Keys.Entities_Components_Type].AsString() == "Spatial", 0);
 
             _maxEntityUid = new EntityUid((int)_maxEntityUid + 1);
 

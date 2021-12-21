@@ -33,43 +33,43 @@ entities:
 - uid: 1
   protoId: Elona.FeatDoorWooden
   components:
-  - type: Door
-    unlockDifficulty: 20
   - type: Spatial
     pos: 6,3
     parent: 0
+  - type: Door
+    unlockDifficulty: 20
 - uid: 2
   protoId: Elona.FeatDoorWooden
   components:
-  - type: Door
-    unlockDifficulty: 20
   - type: Spatial
     pos: 16,3
     parent: 0
+  - type: Door
+    unlockDifficulty: 20
 - uid: 3
   protoId: Elona.FeatDoorWooden
   components:
-  - type: Door
-    unlockDifficulty: 20
   - type: Spatial
     pos: 16,7
     parent: 0
+  - type: Door
+    unlockDifficulty: 20
 - uid: 4
   protoId: Elona.FeatDoorWooden
   components:
-  - type: Door
-    unlockDifficulty: 20
   - type: Spatial
     pos: 12,9
     parent: 0
+  - type: Door
+    unlockDifficulty: 20
 - uid: 5
   protoId: Elona.FeatDoorWooden
   components:
-  - type: Door
-    unlockDifficulty: 20
   - type: Spatial
     pos: 8,11
     parent: 0
+  - type: Door
+    unlockDifficulty: 20
 - uid: 6
   protoId: Elona.FeatStairsUp
   components:

@@ -93,27 +93,27 @@ entities:
 - uid: 12
   protoId: Elona.FeatDoorWooden
   components:
-  - type: Door
-    unlockDifficulty: 10
   - type: Spatial
     pos: 6,9
     parent: 0
+  - type: Door
+    unlockDifficulty: 10
 - uid: 13
   protoId: Elona.FeatDoorWooden
   components:
-  - type: Door
-    unlockDifficulty: 10
   - type: Spatial
     pos: 6,6
     parent: 0
+  - type: Door
+    unlockDifficulty: 10
 - uid: 14
   protoId: Elona.FeatDoorWooden
   components:
-  - type: Door
-    unlockDifficulty: 10
   - type: Spatial
     pos: 11,2
     parent: 0
+  - type: Door
+    unlockDifficulty: 10
 - uid: 15
   protoId: Elona.CharaThief
   components:

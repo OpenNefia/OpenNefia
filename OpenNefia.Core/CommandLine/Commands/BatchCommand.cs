@@ -40,7 +40,7 @@ namespace OpenNefia.Core.CommandLine.Commands
 
         public override void Execute()
         {
-            using (var stream = File.OpenRead(BatchFilePath))
+            using (var stream = File.Open(BatchFilePath, FileMode.Open, FileAccess.ReadWrite))
             {
                 using (var streamReader = new StreamReader(stream, EncodingHelpers.UTF8))
                 {

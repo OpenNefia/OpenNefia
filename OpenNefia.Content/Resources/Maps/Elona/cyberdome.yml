@@ -60,67 +60,67 @@ entities:
 - uid: 2
   protoId: Elona.ItemComputer
   components:
-  - type: Item
-    ownState: NPC
   - type: Spatial
     pos: 20,12
     parent: 0
+  - type: Item
+    ownState: NPC
 - uid: 3
   protoId: Elona.ItemComputer
   components:
-  - type: Item
-    ownState: NPC
   - type: Spatial
     pos: 18,12
     parent: 0
+  - type: Item
+    ownState: NPC
 - uid: 4
   protoId: Elona.ItemComputer
   components:
-  - type: Item
-    ownState: NPC
   - type: Spatial
     pos: 18,15
     parent: 0
+  - type: Item
+    ownState: NPC
 - uid: 5
   protoId: Elona.ItemComputer
   components:
-  - type: Item
-    ownState: NPC
   - type: Spatial
     pos: 20,15
     parent: 0
+  - type: Item
+    ownState: NPC
 - uid: 6
   protoId: Elona.ItemComputer
   components:
-  - type: Item
-    ownState: NPC
   - type: Spatial
     pos: 30,9
     parent: 0
+  - type: Item
+    ownState: NPC
 - uid: 7
   protoId: Elona.ItemComputer
   components:
-  - type: Item
-    ownState: NPC
   - type: Spatial
     pos: 11,5
     parent: 0
+  - type: Item
+    ownState: NPC
 - uid: 8
   protoId: Elona.ItemComputer
   components:
-  - type: Item
-    ownState: NPC
   - type: Spatial
     pos: 2,11
     parent: 0
+  - type: Item
+    ownState: NPC
 - uid: 9
   protoId: Elona.ItemComputer
   components:
-  - type: Item
-    ownState: NPC
   - type: Spatial
     pos: 7,3
     parent: 0
+  - type: Item
+    ownState: NPC
 - uid: 10
   protoId: Elona.ItemServer
   components:
@@ -668,11 +668,11 @@ entities:
 - uid: 78
   protoId: Elona.ItemComputer
   components:
-  - type: Item
-    ownState: NPC
   - type: Spatial
     pos: 11,14
     parent: 0
+  - type: Item
+    ownState: NPC
 - uid: 79
   protoId: Elona.ItemServer
   components:

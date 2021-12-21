@@ -112,6 +112,9 @@ namespace OpenNefia.Core.Rendering
 
         private void OnThemeSwitched()
         {
+            if (this._map == null)
+                return;
+
             foreach (var layer in _tileLayers)
             {
                 layer.OnThemeSwitched();

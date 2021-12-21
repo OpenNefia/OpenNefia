@@ -37,83 +37,83 @@ entities:
 - uid: 2
   protoId: Elona.FeatDoorJail
   components:
-  - type: Door
-    unlockDifficulty: 90
   - type: Spatial
     pos: 11,10
     parent: 0
+  - type: Door
+    unlockDifficulty: 90
 - uid: 3
   protoId: Elona.FeatDoorJail
   components:
-  - type: Door
-    unlockDifficulty: 90
   - type: Spatial
     pos: 11,6
     parent: 0
+  - type: Door
+    unlockDifficulty: 90
 - uid: 4
   protoId: Elona.FeatDoorJail
   components:
-  - type: Door
-    unlockDifficulty: 90
   - type: Spatial
     pos: 17,10
     parent: 0
+  - type: Door
+    unlockDifficulty: 90
 - uid: 5
   protoId: Elona.FeatDoorJail
   components:
-  - type: Door
-    unlockDifficulty: 90
   - type: Spatial
     pos: 17,6
     parent: 0
+  - type: Door
+    unlockDifficulty: 90
 - uid: 6
   protoId: Elona.FeatDoorJail
   components:
-  - type: Door
-    unlockDifficulty: 90
   - type: Spatial
     pos: 23,10
     parent: 0
+  - type: Door
+    unlockDifficulty: 90
 - uid: 7
   protoId: Elona.FeatDoorJail
   components:
-  - type: Door
-    unlockDifficulty: 90
   - type: Spatial
     pos: 23,6
     parent: 0
+  - type: Door
+    unlockDifficulty: 90
 - uid: 8
   protoId: Elona.FeatDoorJail
   components:
-  - type: Door
-    unlockDifficulty: 90
   - type: Spatial
     pos: 29,10
     parent: 0
+  - type: Door
+    unlockDifficulty: 90
 - uid: 9
   protoId: Elona.FeatDoorJail
   components:
-  - type: Door
-    unlockDifficulty: 90
   - type: Spatial
     pos: 29,6
     parent: 0
+  - type: Door
+    unlockDifficulty: 90
 - uid: 10
   protoId: Elona.FeatDoorJail
   components:
-  - type: Door
-    unlockDifficulty: 90
   - type: Spatial
     pos: 35,10
     parent: 0
+  - type: Door
+    unlockDifficulty: 90
 - uid: 11
   protoId: Elona.FeatDoorJail
   components:
-  - type: Door
-    unlockDifficulty: 90
   - type: Spatial
     pos: 35,6
     parent: 0
+  - type: Door
+    unlockDifficulty: 90
 - uid: 12
   protoId: Elona.ItemBigTable
   components:

@@ -50,6 +50,63 @@ namespace OpenNefia.Core.Utility
             return false;
         }
 
+        public static int FindIndex<T>(this IList<T> list, Predicate<T> match)
+        {
+            return list.FindIndex(0, list.Count, match);
+        }
+
+        public static int FindIndex<T>(this IList<T> list, int startIndex, Predicate<T> match)
+        {
+            return list.FindIndex(startIndex, list.Count - startIndex, match);
+        }
+
+        public static int FindIndex<T>(this IList<T> list, int startIndex, int count, Predicate<T> match)
+        {
+            if (startIndex > list.Count)
+            {
+                throw new ArgumentOutOfRangeException(nameof(startIndex));
+            }
+
+            if (count < 0 || startIndex > list.Count - count)
+            {
+                throw new ArgumentOutOfRangeException(nameof(count));
+            }
+
+            int endIndex = startIndex + count;
+            for (int i = startIndex; i < endIndex; i++)
+            {
+                if (match(list[i])) return i;
+            }
+            return -1;
+        }
+
+        /// <summary>
+        /// Moves the element in this list at <c>oldIndex</c> to <c>newIndex</c>.
+        /// </summary>
+        /// <param name="oldIndex">Index of the element to move.</param>
+        /// <param name="newIndex">Index to move element to.</param>
+        public static void MoveElement<T>(this IList<T> list, int oldIndex, int newIndex)
+        {
+            var removedItem = list[oldIndex];
+            list.RemoveAt(oldIndex);
+            list.Insert(newIndex, removedItem);
+        }
+
+        /// <summary>
+        /// Moves the element that satisfies the predicate to <c>newIndex</c>.
+        /// </summary>
+        /// <param name="oldIndex">Index of the element to move.</param>
+        /// <param name="newIndex">Index to move element to.</param>
+        public static void MoveElementWhere<T>(this IList<T> list, Predicate<T> pred, int newIndex)
+        {
+            var oldIndex = list.FindIndex(pred);
+            
+            if (oldIndex == -1)
+                throw new InvalidOperationException("Predicate did not match any element in the list.");
+
+            list.MoveElement(oldIndex, newIndex);
+        }
+
         /// <summary>
         ///     Remove an item from the list, replacing it with the one at the very end of the list.
         ///     This means that the order will not be preserved, but it should be an O(1) operation.

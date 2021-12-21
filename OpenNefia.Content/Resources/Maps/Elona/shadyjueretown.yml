@@ -3,41 +3,41 @@ meta:
   name: shadyjueretown
   author: Noa
 grid: |
-  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaav
-  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaavv
-  aaaaaaaaaaaaaaammmmmmmaaaaooooooooooaaaaaaaaaaavvv
-  aaaaaaaaaaaaaaamcccccmaaaaocqcccpccoaaaaaaaaaavvvv
-  aaaaaaaaaaaaakkccccccmaaaaocdcccccpoaaaaatttttttvv
-  aaaaaabbbbbbbkammmmmmmaaaaocccqcpccoaaaattuwuutvvv
-  aaaaaabcccccbkaaaaaaaaaaaaopcccccccoaaattuuuwuwvvv
-  aaaaaabcccccbkbbbbkaaaaaaaocccsccccoaattuuuuuuuvvv
-  aaaaaabcccccbkbccbkaaaaaaaooooddooooaatuuwwuwuvvvv
-  aaaaaabbbcbbbkbccbkaaaaaaaaaaaaaaaaaattuuuuuuuuvvv
-  aaaaaaaakkkkkkbccbkaaaaaaaaaaaaaaaaaauuuwuuuuuvvvv
-  aaaabbbbbbbklkbcbbkaaaaaaaaaaaaaaaaaauuuuuwuwuuvvv
-  aaaabcccccbkkkkkkkkaaaaaaaaaaaaaaaaaatttuuuuuuuuvv
-  aaaabcccccbkbbbbbbaaaaaaaaaaaaaaaaaaaaatttuuuuwuvv
-  aaaabcccccckbccccbaaaaaaaaaaaaaaaaaaaaaaatttttuuuv
-  aaaabdddddbkbccccbaaaaaaaaaaaaaaaaaaaaaaaaaaattttv
-  aaaaaeeeeekkbccccbaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaav
-  aaaaaefffekkcccccbaaaannnnnnnnnnnaaaaaaaaaaaaaavvv
-  aaaaaefffekkbbbbbbaaaancncncncncnaaaaaaaaaaaavvvvv
-  aaaaaefffekkkkkkaaaaaandndndndndnaaaaaaaaaaaaavvvv
-  aaaaaeejeeeeeeekaaaaaancccccccccnaaaaaaaaaaaaaavvv
-  aaaaaeggghghghekaaaaaandndndncccnaaaaaaaaaaaavvvvv
-  aaaaaehgggggggekaaaaaancncncncccnaaaaaaaaaaavvvvvv
-  aaaaaeggghhhhggkaaaaaannnnnnnndnnaaaaaaaaavvvvvvvv
-  aaaaaehggggggggkaaaaaaaaaaaaararaaaaaaaaavvvvvvvvv
-  aaaaaeggghghggeaaaaaaaaaaaaaaaaaaaaaaaaaavvvvvvvvv
-  aaaaaeeeeeeeeeeaaaaaaaaaaaaaaaaaaaaaaaaaavvvvvvvvv
-  aaaaaaiaaaaaaiaaaaaaaaaaaaaaaaaaaaaaaaaaaavvvvvvvv
-  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaavvvvvvvvv
-  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaavvvvvvvvvv
-  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaavvvvvvvvvvv
-  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaavvvvvvvvvvv
-  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaavvvvvvvvvvvv
-  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaavvvvvvvvvvvvv
-  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaavvvvvvvvvvvvv
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaad
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaadd
+  aaaaaaaaaaaaaaammmmmmmaaaaooooooooooaaaaaaaaaaaddd
+  aaaaaaaaaaaaaaamcccccmaaaaocqcccpccoaaaaaaaaaadddd
+  aaaaaaaaaaaaakkccccccmaaaaocdcccccpoaaaaatttttttdd
+  aaaaaabbbbbbbkammmmmmmaaaaocccqcpccoaaaattuvuutddd
+  aaaaaabcccccbkaaaaaaaaaaaaopcccccccoaaattuuuvuvddd
+  aaaaaabcccccbkbbbbkaaaaaaaocccsccccoaattuuuuuuuddd
+  aaaaaabcccccbkbccbkaaaaaaaooooddooooaatuuvvuvudddd
+  aaaaaabbbcbbbkbccbkaaaaaaaaaaaaaaaaaattuuuuuuuuddd
+  aaaaaaaakkkkkkbccbkaaaaaaaaaaaaaaaaaauuuvuuuuudddd
+  aaaabbbbbbbklkbcbbkaaaaaaaaaaaaaaaaaauuuuuvuvuuddd
+  aaaabcccccbkkkkkkkkaaaaaaaaaaaaaaaaaatttuuuuuuuudd
+  aaaabcccccbkbbbbbbaaaaaaaaaaaaaaaaaaaaatttuuuuvudd
+  aaaabcccccckbccccbaaaaaaaaaaaaaaaaaaaaaaatttttuuud
+  aaaabdddddbkbccccbaaaaaaaaaaaaaaaaaaaaaaaaaaattttd
+  aaaaaeeeeekkbccccbaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaad
+  aaaaaefffekkcccccbaaaannnnnnnnnnnaaaaaaaaaaaaaaddd
+  aaaaaefffekkbbbbbbaaaancncncncncnaaaaaaaaaaaaddddd
+  aaaaaefffekkkkkkaaaaaandndndndndnaaaaaaaaaaaaadddd
+  aaaaaeejeeeeeeekaaaaaancccccccccnaaaaaaaaaaaaaaddd
+  aaaaaeggghghghekaaaaaandndndncccnaaaaaaaaaaaaddddd
+  aaaaaehgggggggekaaaaaancncncncccnaaaaaaaaaaadddddd
+  aaaaaeggghhhhggkaaaaaannnnnnnndnnaaaaaaaaadddddddd
+  aaaaaehggggggggkaaaaaaaaaaaaararaaaaaaaaaddddddddd
+  aaaaaeggghghggeaaaaaaaaaaaaaaaaaaaaaaaaaaddddddddd
+  aaaaaeeeeeeeeeeaaaaaaaaaaaaaaaaaaaaaaaaaaddddddddd
+  aaaaaaiaaaaaaiaaaaaaaaaaaaaaaaaaaaaaaaaaaadddddddd
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaddddddddd
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaadddddddddd
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaddddddddddd
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaddddddddddd
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaadddddddddddd
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaddddddddddddd
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaddddddddddddd
 tilemap:
   a: Elona.Grass
   b: Elona.WallStone5
@@ -45,7 +45,7 @@ tilemap:
   d: Empty
   e: Elona.WallWooden
   f: Elona.CobbleWallRoof
-  g: Elona.WorldSnowBorderCornerNe
+  g: Elona.CobbleWallBottom
   h: Elona.CarpetRed
   i: Elona.SignPub
   j: Elona.WoodStair
@@ -60,8 +60,7 @@ tilemap:
   s: Elona.CobbleDark4
   t: Elona.WallDirtDark
   u: Elona.Dirt
-  v: Elona.WorldDesertMountain2
-  w: Elona.DirtPatch
+  v: Elona.DirtPatch
 entities:
 - uid: 0
   components:

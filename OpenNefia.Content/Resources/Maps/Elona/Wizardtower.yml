@@ -29,9 +29,9 @@ grid: |
   bbcbdbcccbeeeeeeeebddbeeeeeeeebcccbdbcbb
   abdcdceeecbeeeeeebbddbbeeeeeebceeecdcdba
   abddddeeeebbeeeebbddddbbeeeebbeeeeddddba
-  abdbdbeeebcccccccddffddcccccccbeeebdbdba
-  abbcdbeebcddddddddffffddddddddcbeebdcbba
-  aabddccccddbdccdbddffddbdccdbddccccddbaa
+  abdbdbeeebcccccccddddddcccccccbeeebdbdba
+  abbcdbeebcddddddddddddddddddddcbeebdcbba
+  aabddccccddbdccdbddddddbdccdbddccccddbaa
   aabbddddddbceeeecbddddbceeeecbddddddbbaa
   aaabbccdcbceeeeeecbddbceeeeeecbcdccbbaaa
   aaaabeeeebeeeeeeeebddbeeeeeeeebeeeebaaaa
@@ -49,7 +49,6 @@ tilemap:
   c: Elona.WallConcreteDark2
   d: Empty
   e: Elona.Marble
-  f: Elona.WorldDirtRocks1
 entities:
 - uid: 0
   components:

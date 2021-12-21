@@ -5,31 +5,31 @@ meta:
 grid: |
   aaacaaaaaaaaaaaaaabcaaada
   aaaaaaadaaaaaaaaaaaaaaaaa
-  aaaaaaaaaaaaaaaaaaaaaaaaa
-  baaeeeeeaffffffffaÕÕÕÕaaa
-  caaeeeeeaffaaaaafaÕÕÕÕaab
-  aaaeeeeeaffaaaaafaaeaaaac
-  aaaaaeaaaffaaaaaffffffaaa
-  aaafffffffffffffffffffaaa
-  aaaffffffffffffffaaeaaaad
-  aaafffaaaafffffaaaeeeeaaa
-  adafffaaaafffffaaaeeeeaaa
-  aaaaaaaaaaaafaaaaaaaaaaaa
+  aaeeeeeeeeeeeeeeeeeeeeeaa
+  baefffffeggggggggeØØØØeaa
+  caefffffegg)))))geØØØØeab
+  aaefffffegg)))))geefeeeac
+  aaeeefeeegg)))))ggggggeaa
+  aaegggggggggggggggggggeaa
+  aaeggggggggggggggeefeeead
+  aaegggeeeegggggeeeffffeaa
+  adegggeeeegggggeeeffffeaa
+  aaeeeeeeeeeegeeeeeeeeeeaa
   aaacaaaaaaaaaaaaaaaaaabaa
-  abaaacgdaag(acgaaagcaaaaa
+  abaaachdaah*achaaahcaaaaa
   aaaaaaaaaaaaaaaaaacaaaaaa
   aaaaaaaaaaaaaaaaaaaaadaaa
-  aadaaaaazKVaa6?ÂÉÏaaaaaaa
-  aaaaaahpALW)a7@ÃÊÐÖacaaaa
-  aaaaaaiqBMX*38^ÄËÑØaaaaaa
-  aaaaaajrCNY+49_ÅÌÒÙaaaaaa
-  aaaaaaksDOZ,a:~ÆÍÓÚaadaaa
-  aacaaaltEP!-a;ÀÇÎÔaaaabaa
-  aaaaaamuFQ#.aaaaaaaaaaaaa
-  aabaaaavGR$/aaaaaaaaaadaa
-  aaaaaaawHS%0aaaaaaaaaaaaa
-  aaaaaanxIT&1aaaaaaaaaaaaa
-  abaaaaoyJU'25=ÁÈaaaaaaaaa
+  aadaaaaaALWaa8^ÄËÑaaaaaaa
+  aaaaaaiqBMX+a9_ÅÌÒÙacaÝaa
+  aaaaaajrCNY,5:~ÆÍÓÚaaaaaa
+  aaaaaaksDOZ-6;ÀÇÎÔÛaaaaaa
+  aaaaaaltEP!.a=ÁÈÏÕÜaadaaa
+  aacaaamuFQ#/a?ÂÉÐÖaaaabaa
+  aaaaaanvGR$0aaaaaaaaaaaaa
+  aabaaaawHS%1aaaaaaaaaadaa
+  aaaaaaaxIT&2aaaaaaaaaaaaa
+  aaaaaaoyJU'3aaaaaaaaaaaaa
+  abaaaapzKV(47@ÃÊaaaaaaaaa
   aaaaaaaaaaaaaaaaaaaaaadaa
   aaaaaaaaaaaaaaaaaaaaaacaa
   aadaaaaaaaaaaaaaabaaaaaaa
@@ -37,116 +37,119 @@ grid: |
   aaacaaaaaabaaaaaacaaaaaaa
   aaaaaaaaaaaaaaaaaaaaaaaaa
 tilemap:
-  a: Empty
-  b: Elona.SnowGrassAtlas2
-  c: Elona.SnowCracksAtlas2
-  d: Elona.SnowPlantsAtlas2
-  e: Elona.WorldSnowBorderW
-  f: Elona.WorldFlower6
-  g: Elona.SnowPillarAtlas2
-  h: Elona.Onii10
-  i: Elona.Onii22
-  j: Elona.Onii35
-  k: Elona.Onii48
-  l: Elona.Onii60
-  m: Elona.Onii71
-  n: Elona.Onii87
-  o: Elona.Onii93
-  p: Elona.Onii11
-  q: Elona.Onii23
-  r: Elona.Onii36
-  s: Elona.Onii49
-  t: Elona.Onii61
-  u: Elona.Onii72
-  v: Elona.Onii77
-  w: Elona.Onii82
-  x: Elona.Onii88
-  y: Elona.Onii94
-  z: Elona.Onii1
-  A: Elona.Onii12
-  B: Elona.Onii24
-  C: Elona.Onii37
-  D: Elona.Onii50
-  E: Elona.Onii62
-  F: Elona.Onii73
-  G: Elona.Onii78
-  H: Elona.Onii83
-  I: Elona.Onii89
-  J: Elona.Onii95
-  K: Elona.Onii2
-  L: Elona.Onii13
-  M: Elona.Onii25
-  N: Elona.Onii38
-  O: Elona.Onii51
-  P: Elona.Onii63
-  Q: Elona.Onii74
-  R: Elona.Onii79
-  S: Elona.Onii84
-  T: Elona.Onii90
-  U: Elona.Onii96
-  V: Elona.Onii3
-  W: Elona.Onii14
-  X: Elona.Onii26
-  Y: Elona.Onii39
-  Z: Elona.Onii52
-  '!': Elona.Onii64
-  '#': Elona.Onii75
-  $: Elona.Onii80
-  '%': Elona.Onii85
-  '&': Elona.Onii91
-  "'": Elona.Onii97
-  (: Elona.Onii4
-  ): Elona.Onii15
-  '*': Elona.Onii27
-  +: Elona.Onii40
-  ',': Elona.Onii53
-  '-': Elona.Onii65
-  .: Elona.Onii76
-  /: Elona.Onii81
-  0: Elona.Onii86
-  1: Elona.Onii92
-  2: Elona.Onii98
-  3: Elona.Onii28
-  4: Elona.Onii41
-  5: Elona.Onii99
-  6: Elona.Onii5
-  7: Elona.Onii16
-  8: Elona.Onii29
-  9: Elona.Onii42
-  ':': Elona.Onii54
-  ;: Elona.Onii66
-  =: Elona.Onii100
-  '?': Elona.Onii6
-  '@': Elona.Onii17
-  ^: Elona.Onii30
-  _: Elona.Onii43
-  ~: Elona.Onii55
-  À: Elona.Onii67
-  Á: Elona.Onii101
-  Â: Elona.Onii7
-  Ã: Elona.Onii18
-  Ä: Elona.Onii31
-  Å: Elona.Onii44
-  Æ: Elona.Onii56
-  Ç: Elona.Onii68
-  È: Elona.Onii102
-  É: Elona.Onii8
-  Ê: Elona.Onii19
-  Ë: Elona.Onii32
-  Ì: Elona.Onii45
-  Í: Elona.Onii57
-  Î: Elona.Onii69
-  Ï: Elona.Onii9
-  Ð: Elona.Onii20
-  Ñ: Elona.Onii33
-  Ò: Elona.Onii46
-  Ó: Elona.Onii58
-  Ô: Elona.Onii70
-  Õ: Elona.WorldFlower7
-  Ö: Elona.Onii21
-  Ø: Elona.Onii34
-  Ù: Elona.Onii47
-  Ú: Elona.Onii59
+  a: Elona.Snow
+  b: Elona.DarkDirt4
+  c: Elona.DarkDirt2
+  d: Elona.SnowFlowers2
+  e: Elona.WallRegal
+  f: Elona.WoodFloor2
+  g: Elona.HardwoodFloor2
+  h: Elona.SnowPillarAtlas2
+  i: Elona.SnowField1
+  j: Elona.SnowBushes2
+  k: Elona.CobbleDark1
+  l: Elona.Cyber3
+  m: Elona.Onii60
+  n: Elona.WoodFloor5
+  o: Elona.Onii87
+  p: Elona.Onii93
+  q: Elona.SnowField2
+  r: Elona.SnowBushes3
+  s: Elona.CobbleDark2
+  t: Elona.Cyber4
+  u: Elona.IceStairs2
+  v: Elona.WoodFloor6
+  w: Elona.Onii77
+  x: Elona.Onii82
+  y: Elona.Onii88
+  z: Elona.Onii94
+  A: Elona.Onii1
+  B: Elona.SnowIce
+  C: Elona.SnowBush
+  D: Elona.CobbleDark3
+  E: Elona.Onii50
+  F: Elona.Onii62
+  G: Elona.Onii73
+  H: Elona.Onii78
+  I: Elona.Onii83
+  J: Elona.Onii89
+  K: Elona.Onii95
+  L: Elona.Onii2
+  M: Elona.SnowClumps1
+  N: Elona.SnowBoulder
+  O: Elona.CobbleDark4
+  P: Elona.Onii51
+  Q: Elona.BridgeWe
+  R: Elona.WoodFloor8
+  S: Elona.Onii79
+  T: Elona.Onii84
+  U: Elona.Onii90
+  V: Elona.Onii96
+  W: Elona.Onii3
+  X: Elona.SnowClumps2
+  Y: Elona.Onii26
+  Z: Elona.Rough1
+  '!': Elona.CarpetNw
+  '#': Elona.RedStairs
+  $: Elona.RedFloor
+  '%': Elona.Onii80
+  '&': Elona.Onii85
+  "'": Elona.Onii91
+  (: Elona.Onii97
+  ): Elona.Carpet1
+  '*': Elona.Onii4
+  +: Elona.SnowStalks
+  ',': Elona.Onii27
+  '-': Elona.Onii40
+  .: Elona.CarpetN
+  /: Elona.CobbleStairs
+  0: Elona.BlackFloor
+  1: Elona.Onii81
+  2: Elona.Onii86
+  3: Elona.Onii92
+  4: Elona.Onii98
+  5: Elona.Onii28
+  6: Elona.Onii41
+  7: Elona.Onii99
+  8: Elona.Onii5
+  9: Elona.SnowBlueTile
+  ':': Elona.Onii29
+  ;: Elona.Rough4
+  =: Elona.CarpetSw
+  '?': Elona.BridgeNs
+  '@': Elona.Onii100
+  ^: Elona.Onii6
+  _: Elona.SnowCobble1
+  ~: Elona.Onii30
+  À: Elona.Onii43
+  Á: Elona.CarpetS
+  Â: Elona.CobbleRaised2
+  Ã: Elona.Onii101
+  Ä: Elona.Dryground
+  Å: Elona.SnowCobble2
+  Æ: Elona.Onii31
+  Ç: Elona.Rough6
+  È: Elona.CarpetSe
+  É: Elona.Onii68
+  Ê: Elona.LightGrassWheel
+  Ë: Elona.Field1
+  Ì: Elona.SnowCobble3
+  Í: Elona.Onii32
+  Î: Elona.Rough7
+  Ï: Elona.Onii57
+  Ð: Elona.Onii69
+  Ñ: Elona.Field2
+  Ò: Elona.SnowCobble4
+  Ó: Elona.Onii33
+  Ô: Elona.Rough8
+  Õ: Elona.Rough11
+  Ö: Elona.CobbleRaised3
+  Ø: Elona.HardwoodFloor3
+  Ù: Elona.SnowStairs
+  Ú: Elona.SnowPillar
+  Û: Elona.Rough9
+  Ü: Elona.Rough12
+  Ý: Elona.SnowStump
 entities:
 - uid: 0
   components:

@@ -69,7 +69,7 @@ tilemap:
   h: Elona.HardwoodFloor2
   i: Elona.WallPillar
   j: Elona.WoodFloor9
-  k: Elona.WorldSnowBorderCornerNe
+  k: Elona.CobbleWallBottom
   l: Elona.CobbleRaised4
   m: Elona.GrassRocks
   n: Elona.GrassRocks2
@@ -78,7 +78,7 @@ tilemap:
   q: Elona.SignMagic
   r: Elona.GrassBush2
   s: Elona.GrassTall1
-  t: Elona.CobbleWall
+  t: Elona.CobbleWallTop
   u: Elona.SignInn
   v: Elona.WallRegal
   w: Elona.WoodFloor8

@@ -21,10 +21,10 @@ grid: |
   aadjjjjjllllllllnnlllllllljjjjjda
   aadjjjjjdddddddlllldddddddjjjjjda
   aadjjjjjdchcccddggddccchcdjjjjjda
-  aadddddddccchcdlooldcheccdddddddq
-  aaabdedccchhccccoocccccecccdhdqgp
-  aaecccchchccbcchoochchcccccbgqpqq
-  abbhccccccbcccecoocecchcchcpqpqgp
+  aadddddddccchcdlooldcheccdddddddp
+  aaabdedccchhccccoocccccecccdhdpgg
+  aaecccchchccbcchoochchcccccbgpgpp
+  abbhccccccbcccecoocecchcchcgpgpgg
 tilemap:
   a: Elona.WallDirtDark
   b: Elona.DarkDirt4
@@ -41,8 +41,7 @@ tilemap:
   m: Elona.CobbleDark3
   n: Elona.CarpetRed
   o: Elona.WallConcreteFog
-  p: Elona.WorldDirtDeadTrees1
-  q: Elona.AnimeWaterSea
+  p: Elona.AnimeWaterSea
 entities:
 - uid: 0
   components:

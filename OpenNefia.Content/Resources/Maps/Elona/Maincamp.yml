@@ -75,7 +75,7 @@ tilemap:
   i: Elona.WallLog
   j: Elona.HardwoodFloor2
   k: Elona.WallStone10
-  l: Elona.WorldSnowBorderCornerNe
+  l: Elona.CobbleWallBottom
   m: Elona.HardwoodFloor1
   n: Elona.WallStone7Fog
   o: Elona.StableBottom
