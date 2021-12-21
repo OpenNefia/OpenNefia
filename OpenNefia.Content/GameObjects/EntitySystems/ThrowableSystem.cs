@@ -113,30 +113,31 @@ namespace OpenNefia.Content.GameObjects
             DoEntityThrown(target, args);
         }
 
-        private void DoEntityThrown(EntityUid target, 
+        private void DoEntityThrown(EntityUid thrown, 
             EntityThrownEventArgs args,
             SpatialComponent? sourceSpatial = null,
             SpatialComponent? targetSpatial = null)
         {
             if (!Resolve(args.Thrower, ref sourceSpatial))
                 return;
-            if (!Resolve(target, ref targetSpatial))
+            if (!Resolve(thrown, ref targetSpatial))
                 return;
             if (sourceSpatial.MapPosition.MapId != args.Coords.MapId)
                 return;
 
             args.Handled = true;
 
-            foreach (var entity in _lookup.GetLiveEntitiesAtPos(args.Coords))
+            foreach (var onMap in _lookup.GetLiveEntitiesAtPos(args.Coords))
             {
-                var ev = new HitByThrownEntityEventArgs(args.Thrower, target, entity.Spatial.MapPosition);
-                RaiseLocalEvent(entity.Uid, ev);
-                if (ev.WasHit)
-                {
-                    var ev2 = new ThrownEntityImpactedOtherEvent(args.Thrower, entity.Uid, entity.Spatial.MapPosition);
-                    RaiseLocalEvent(target, ev2);
+                if (onMap.Uid == thrown)
+                    continue;
 
-                    if (!ev2.Handled && EntityManager.IsAlive(target))
+                var ev = new HitByThrownEntityEventArgs(args.Thrower, thrown, onMap.Spatial.MapPosition);
+                if (Raise(onMap.Uid, ev) && EntityManager.IsAlive(thrown))
+                {
+                    var ev2 = new ThrownEntityImpactedOtherEvent(args.Thrower, onMap.Uid, onMap.Spatial.MapPosition);
+
+                    if (Raise(thrown, ev2))
                     {
                         // Place the entity on the map.
                         targetSpatial.WorldPosition = args.Coords.Position;
@@ -144,12 +145,16 @@ namespace OpenNefia.Content.GameObjects
 
                     return;
                 }
+                if (!EntityManager.IsAlive(thrown))
+                {
+                    return;
+                }    
             }
 
             var ev3 = new ThrownEntityImpactedGroundEvent(args.Thrower, args.Coords);
-            RaiseLocalEvent(target, ev3);
+            RaiseLocalEvent(thrown, ev3);
 
-            if (!ev3.Handled && EntityManager.IsAlive(target))
+            if (Raise(thrown, ev3))
             {
                 // Place the entity on the map.
                 targetSpatial.WorldPosition = args.Coords.Position;
