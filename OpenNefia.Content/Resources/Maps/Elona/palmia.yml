@@ -2306,4 +2306,18 @@ entities:
   - type: Spatial
     pos: 14,18
     parent: 0
+- uid: 284
+  components:
+  - type: Spatial
+    pos: 1,22
+    parent: 0
+  - type: MapEdgesLocation
+    targetDirection: East
+- uid: 285
+  components:
+  - type: Spatial
+    pos: 30,36
+    parent: 0
+  - type: MapEdgesLocation
+    targetDirection: North
 ...
