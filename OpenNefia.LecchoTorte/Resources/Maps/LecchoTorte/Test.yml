@@ -170,4 +170,4 @@ entities:
     parent: 0
     pos: 8,5
   - type: MapEntrance
-    mapPrototype: Elona.Ntyris
+    mapPrototype: Elona.NorthTyris

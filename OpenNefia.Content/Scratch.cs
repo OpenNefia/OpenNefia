@@ -11,9 +11,6 @@ var gameSess = IoCManager.Resolve<IGameSessionManager>();
 
 var player = gameSess.Player!;
 
-var blueprints = IoCManager.Resolve<IMapBlueprintLoader>();
-
-var map = blueprints.LoadBlueprint(null, new ResourcePath("/Map/Elona/sqkamikaze.yml"));
-
 var spatial = entMan.GetComponent<SpatialComponent>(player.Uid);
-spatial.Coordinates = new EntityCoordinates(map.MapEntityUid, spatial.WorldPosition.BoundWithin(map.Bounds));
+
+return spatial.Coordinates;

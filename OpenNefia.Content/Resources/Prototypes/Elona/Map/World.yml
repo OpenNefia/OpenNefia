@@ -1,0 +1,20 @@
+- type: Map
+  id: Elona.NorthTyris
+  hspOrigin: elona122
+  hspIds:
+    elona122: 4
+  blueprintPath: /Maps/Elona/ntyris.yml
+
+- type: Map
+  id: Elona.SouthTyris
+  hspOrigin: elona122
+  hspIds:
+    elona122: 44
+  blueprintPath: /Maps/Elona/styris.yml
+
+- type: Map
+  id: Elona.TestWorld
+  hspOrigin: elona122
+  hspIds:
+    elona122: 47
+  blueprintPath: /Maps/Elona/test.yml

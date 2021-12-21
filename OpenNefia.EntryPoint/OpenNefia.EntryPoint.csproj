@@ -5,8 +5,6 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetName>OpenNefia</TargetName>
-    <AssemblyName>OpenNefia</AssemblyName>
     <ApplicationIcon>..\OpenNefia.Core\Resources\Icon\Core\icon.ico</ApplicationIcon>
   </PropertyGroup>
 

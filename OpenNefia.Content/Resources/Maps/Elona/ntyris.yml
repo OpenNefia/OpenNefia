@@ -172,4 +172,74 @@ entities:
 - uid: 0
   components:
   - type: Map
+- uid: 1
+  protoId: Elona.FeatMapEntrance
+  components:
+  - type: Spatial
+    parent: 0
+    pos: 26,23
+  - type: Chip
+    id: Elona.FeatAreaCity
+  - type: MapEntrance
+    mapPrototype: Elona.Vernis
+- uid: 2
+  protoId: Elona.FeatMapEntrance
+  components:
+  - type: Spatial
+    parent: 0
+    pos: 3,15
+  - type: Chip
+    id: Elona.FeatAreaCity
+  - type: MapEntrance
+    mapPrototype: Elona.PortKapul
+- uid: 3
+  protoId: Elona.FeatMapEntrance
+  components:
+  - type: Spatial
+    parent: 0
+    pos: 43,32
+  - type: Chip
+    id: Elona.FeatAreaVillage
+  - type: MapEntrance
+    mapPrototype: Elona.Yowyn
+- uid: 4
+  protoId: Elona.FeatMapEntrance
+  components:
+  - type: Spatial
+    parent: 0
+    pos: 14,35
+  - type: Chip
+    id: Elona.FeatAreaVillage
+  - type: MapEntrance
+    mapPrototype: Elona.Derphy
+- uid: 5
+  protoId: Elona.FeatMapEntrance
+  components:
+  - type: Spatial
+    parent: 0
+    pos: 53,24
+  - type: Chip
+    id: Elona.FeatAreaPalace
+  - type: MapEntrance
+    mapPrototype: Elona.Palmia
+- uid: 6
+  protoId: Elona.FeatMapEntrance
+  components:
+  - type: Spatial
+    parent: 0
+    pos: 89,14
+  - type: Chip
+    id: Elona.FeatAreaVillageSnow
+  - type: MapEntrance
+    mapPrototype: Elona.Noyel
+- uid: 7
+  protoId: Elona.FeatMapEntrance
+  components:
+  - type: Spatial
+    parent: 0
+    pos: 61,32
+  - type: Chip
+    id: Elona.FeatAreaCity
+  - type: MapEntrance
+    mapPrototype: Elona.Lumiest
 ...

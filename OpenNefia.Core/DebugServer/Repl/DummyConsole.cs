@@ -1,4 +1,5 @@
-﻿using PrettyPrompt.Consoles;
+﻿using OpenNefia.Core.Log;
+using PrettyPrompt.Consoles;
 
 namespace OpenNefia.Core.DebugServer
 {
@@ -36,18 +37,22 @@ namespace OpenNefia.Core.DebugServer
 
         public void Write(string value)
         {
-        }
-
-        public void WriteError(string value)
-        {
-        }
-
-        public void WriteErrorLine(string value)
-        {
+            Logger.InfoS("repl.exec", value);
         }
 
         public void WriteLine(string value)
         {
+            Logger.InfoS("repl.exec", value);
+        }
+
+        public void WriteError(string value)
+        {
+            Logger.ErrorS("repl.exec", value);
+        }
+
+        public void WriteErrorLine(string value)
+        {
+            Logger.ErrorS("repl.exec", value);
         }
     }
 }

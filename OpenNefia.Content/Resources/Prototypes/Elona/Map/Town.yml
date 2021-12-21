@@ -1,0 +1,41 @@
+- type: Map
+  id: Elona.Vernis
+  hspIds:
+    elona122: 5
+  blueprintPath: /Maps/Elona/ntyris.yml
+
+- type: Map
+  id: Elona.PortKapul
+  hspIds:
+    elona122: 11
+  blueprintPath: /Maps/Elona/kapul.yml
+
+- type: Map
+  id: Elona.Yowyn
+  hspIds:
+    elona122: 12
+  blueprintPath: /Maps/Elona/yowyn.yml
+
+- type: Map
+  id: Elona.Derphy
+  hspIds:
+    elona122: 14
+  blueprintPath: /Maps/Elona/rogueden.yml
+
+- type: Map
+  id: Elona.Palmia
+  hspIds:
+    elona122: 15
+  blueprintPath: /Maps/Elona/palmia.yml
+
+- type: Map
+  id: Elona.Noyel
+  hspIds:
+    elona122: 33
+  blueprintPath: /Maps/Elona/noyel.yml
+
+- type: Map
+  id: Elona.Lumiest
+  hspIds:
+    elona122: 36
+  blueprintPath: /Maps/Elona/lumiest.yml

@@ -4,6 +4,7 @@ using OpenNefia.Core.Maths;
 
 namespace OpenNefia.Content.Logic
 {
+    [Obsolete]
     public static class Mes
     {
         public static void Display(string text, Color? color = null)

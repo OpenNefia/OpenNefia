@@ -31,4 +31,21 @@ namespace OpenNefia.Core.Effects
         Aborted = 1,
         Failed = 2
     }
+
+    public static class EffectResultExt
+    {
+        public static TurnResult ToTurnResult(this EffectResult result)
+        {
+            switch (result)
+            {
+                case EffectResult.Succeeded:
+                    return TurnResult.Succeeded;
+                case EffectResult.Aborted:
+                    return TurnResult.Aborted;
+                case EffectResult.Failed:
+                default:
+                    return TurnResult.Failed;
+            }
+        }
+    }
 }

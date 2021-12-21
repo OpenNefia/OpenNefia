@@ -38,6 +38,11 @@
   parent: BaseFeat
   hspIds:
     elona122: 15
+  components:
+    - type: Chip
+      id: Elona.FeatAreaCave
+    - type: WorldMapEntrance
+    - type: MapEntrance
 
 - type: Entity
   id: Elona.FeatDoor
