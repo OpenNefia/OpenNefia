@@ -30,6 +30,8 @@ namespace OpenNefia.Core.GameObjects
     ///    as an intrinsic buff/debuff to a character type. It also means that nearly
     ///    any arbitrary component can be turned into a status effect/enchantment/etc. by
     ///    simply adding it to the slot prototype.
+    /// </para>
+    /// <para>
     /// 2. Allowing for one component type to have multiple instances 
     ///    or "stacks". Item enchantments that enhance skills can be stacked by
     ///    wearing more than one piece of equipment that offers the enchantment.
@@ -37,8 +39,11 @@ namespace OpenNefia.Core.GameObjects
     ///    there's no way to account for enchantments with the same child component
     ///    types but different power levels, because the entity system only allows
     ///    for a single component type instance per entity. A <see cref="SlottableComponent{T}"/>
-    ///    in particular would need to have some kind of "merging" mechanism for 
-    ///    calculating the final power of the enchantment/effect from its multiple "instances".
+    ///    in particular is a generalization of the "merging" logic found in HSP Elona for 
+    ///    calculating the final power of the enchantment/status effect from its multiple 
+    ///    "instances".
+    /// </para>
+    /// <para>
     /// 3. Enabling all of these components to be hooked up to the
     ///    event bus system, *which is the important part*, because the dominating
     ///    paradigm for adding new game logic is to add new components and systems.
@@ -49,18 +54,19 @@ namespace OpenNefia.Core.GameObjects
     ///    "ListEnchantments()" and other methods for every such "instance list" system as well,
     ///    whereas keeping everything in terms of components is simpler. In other words, if
     ///    an enchantment can cause some sort of effect, then there ought to be no reason that
-    ///    the effect can't be implemented purely in terms of standard <see cref="Component"/>s.
+    ///    the effect can't be implemented purely in terms of standard <see cref="Component"/>s
+    ///    if they *didn't* need to support stacking/transience.
     /// </para>
     /// <para>
     /// The basic idea was adapted from the talk "There Be Dragons: Entity Component Systems 
     /// for Roguelikes" by Thomas Biskup. (https://www.youtube.com/watch?v=fGLJC5UY2o4)
     /// </para>
     /// </remarks>
-    public abstract class SlottableComponent<T> : Component where T : struct
+    public abstract class SlottableComponent : Component
     {
         /// <summary>
         /// Merged power level of this component.
         /// </summary>
-        public T MergedPower { get; set; }
+        public int MergedPower { get; set; }
     }
 }
