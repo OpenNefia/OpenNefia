@@ -31,7 +31,7 @@ namespace OpenNefia.Core.SaveGames
         DateTime LastSaveDate { get; }
         SaveGameHeader Header { get; }
         ResourcePath? ScreenshotFile { get; }
-        IWritableDirProvider Files { get; }
+        ISaveGameDirProvider Files { get; }
     }
 
     public class SaveGameHandle : ISaveGameHandle
@@ -40,7 +40,7 @@ namespace OpenNefia.Core.SaveGames
         public DateTime LastSaveDate { get; internal set; }
         public SaveGameHeader Header { get; }
         public ResourcePath? ScreenshotFile { get; }
-        public IWritableDirProvider Files { get; }
+        public ISaveGameDirProvider Files { get; }
 
         internal SaveGameHandle(string? rootSavesDirectory, ResourcePath saveDirectory, SaveGameHeader header, ResourcePath? screenshotFile)
         {
@@ -50,12 +50,12 @@ namespace OpenNefia.Core.SaveGames
 
             if (rootSavesDirectory != null)
             {
-                var realDirectory = Path.Join(rootSavesDirectory, (saveDirectory / "Data").ToRelativeSystemPath());
-                Files = new WritableDirProvider(Directory.CreateDirectory(realDirectory));
+                var realDirectory = Path.Join(rootSavesDirectory, saveDirectory.ToRelativeSystemPath());
+                Files = new SaveGameDirProvider(Directory.CreateDirectory(realDirectory));
             }
             else
             {
-                Files = new VirtualWritableDirProvider();
+                Files = new VirtualSaveGameDirProvider();
             }
         }
     }
@@ -82,8 +82,6 @@ namespace OpenNefia.Core.SaveGames
 
         public const string SawmillName = "save";
 
-        private const string SavesFolderName = "/Save";
-
         private string? _savesDirectory;
 
         private IWritableDirProvider SavesDir { get; set; } = default!;
@@ -94,12 +92,12 @@ namespace OpenNefia.Core.SaveGames
 
         public ISaveGameHandle? CurrentSave { get; private set; }
 
-        public void Initialize(string? userData)
+        public void Initialize(string? savesDir)
         {
-            if (userData != null)
+            if (savesDir != null)
             {
-                _savesDirectory = Path.Join(userData, SavesFolderName);
-                SavesDir = new WritableDirProvider(Directory.CreateDirectory(_savesDirectory));
+                _savesDirectory = savesDir;
+                SavesDir = new WritableDirProvider(Directory.CreateDirectory(savesDir));
             }
             else
             {

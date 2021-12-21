@@ -54,7 +54,6 @@ namespace OpenNefia.Core.GameController
 
             var userDataDir = "UserData";
             _resourceCache.Initialize(userDataDir);
-            _saveGameManager.Initialize(userDataDir);
 
             ProgramShared.DoMounts(_resourceCache);
 
@@ -94,6 +93,9 @@ namespace OpenNefia.Core.GameController
             _tileDefinitionManager.RegisterAll();
 
             _localizationManager.Initialize();
+
+            _saveGameManager.Initialize(userDataDir);
+
             _modLoader.BroadcastRunLevel(ModRunLevel.PostInit);
 
             GCSettings.LargeObjectHeapCompactionMode = GCLargeObjectHeapCompactionMode.CompactOnce;
