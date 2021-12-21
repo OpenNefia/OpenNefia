@@ -86,7 +86,7 @@ namespace OpenNefia.Content.Logic
         private IMap InitMap()
         {
             var mapId = _mapManager.GetFreeMapId();
-            var map = _mapBlueprints.LoadBlueprint(mapId, new ResourcePath("/Map/LecchoTorte/Test.yml"));
+            var map = _mapBlueprints.LoadBlueprint(mapId, new ResourcePath("/Maps/LecchoTorte/Test.yml"));
 
             var player = _entityManager.SpawnEntity(Protos.Chara.Putit, map.AtPos(2, 2));
             player.AddComponent<PlayerComponent>();

@@ -27,7 +27,7 @@ namespace OpenNefia.Content.GameObjects
                 return;
 
             Sounds.Play(Protos.Sound.Exitmap1);
-            var map = _mapBlueprints.LoadBlueprint(null, new ResourcePath("/Map/Elona/sqNightmare.yml"));
+            var map = _mapBlueprints.LoadBlueprint(null, new ResourcePath("/Maps/Elona/sqNightmare.yml"));
 
             spatial.Coordinates = new EntityCoordinates(map.MapEntityUid, map.Size / 2);
         }
