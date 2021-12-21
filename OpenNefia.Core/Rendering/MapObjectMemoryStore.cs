@@ -144,6 +144,7 @@ namespace OpenNefia.Core.Rendering
             {
                 // Index is not changed, to support reuse.
                 memory = this.Removed.Pop();
+                memory.AtlasIndex = "Default:Default";
             }
             else
             {

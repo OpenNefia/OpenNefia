@@ -1,4 +1,5 @@
 using OpenNefia.Core.Log;
+using OpenNefia.Core.Maths;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Maps;
 using OpenNefia.Core.Game;
@@ -14,9 +15,9 @@ var player = gameSess.Player!;
 
 var spatial = entMan.GetComponent<SpatialComponent>(player.Uid);
 
-var mapComp = entMan.GetComponent<MapComponent>(theCoords.EntityId);
+var coords = new MapCoordinates(new Vector2i(1, 22), spatial.MapID);
 
-var map = mapMan.GetMap(mapComp.MapId);
-map.RefreshTileEntities(theCoords.Position, entityLookup.GetLiveEntitiesAtPos(theCoords.ToMap(entMan)));
+var map = mapMan.GetMap(spatial.MapID);
+map.MapObjectMemory.RevealObjects(coords.Position);
 
-return map.CanAccess(theCoords.Position);
+return player.Spatial.Direction;
