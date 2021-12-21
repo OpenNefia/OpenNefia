@@ -26,6 +26,9 @@ namespace OpenNefia.Content.GameObjects
 
         private void HandleExecuteVerb(ExecuteVerbEventArgs args)
         {
+            if (args.Handled)
+                return;
+
             switch (args.Verb.ID)
             {
                 case VerbIDDrink:

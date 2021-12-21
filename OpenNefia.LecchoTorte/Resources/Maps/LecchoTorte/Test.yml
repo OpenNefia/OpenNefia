@@ -163,3 +163,11 @@ entities:
   - type: Spatial
     parent: 0
     pos: 7,5
+- uid: 25
+  protoId: Elona.FeatStairsUp
+  components:
+  - type: Spatial
+    parent: 0
+    pos: 8,5
+  - type: MapEntrance
+    mapPrototype: Elona.Ntyris

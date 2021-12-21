@@ -21,6 +21,11 @@
         public static Keybind Southwest = nameof(Southwest);
         public static Keybind Southeast = nameof(Southeast);
 
+        public static Keybind Ascend = nameof(Ascend);
+        public static Keybind Descend = nameof(Descend);
+
+        public static Keybind Activate = nameof(Activate);
+
         public static Keybind Wait = nameof(Wait);
         public static Keybind Identify = nameof(Identify);
         public static Keybind Mode = nameof(Mode);

@@ -65,14 +65,12 @@ namespace OpenNefia.Core.GameObjects
     /// 
     /// This means opening the UI and asking the player for input.
     /// </summary>
-    public class ExecuteVerbEventArgs : HandledEntityEventArgs
+    public class ExecuteVerbEventArgs : TurnResultEntityEventArgs
     {
         public readonly EntityUid Source;
         public readonly EntityUid Target;
 
         public readonly Verb Verb;
-
-        public TurnResult TurnResult;
 
         public ExecuteVerbEventArgs(EntityUid source, EntityUid target, Verb verb)
         {

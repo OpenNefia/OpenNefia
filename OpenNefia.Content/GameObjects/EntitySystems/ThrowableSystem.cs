@@ -50,6 +50,9 @@ namespace OpenNefia.Content.GameObjects
 
         private void HandleExecuteVerb(ExecuteVerbEventArgs args)
         {
+            if (args.Handled)
+                return;
+
             switch (args.Verb.ID)
             {
                 case VerbIDThrow:
@@ -152,7 +155,6 @@ namespace OpenNefia.Content.GameObjects
             }
 
             var ev3 = new ThrownEntityImpactedGroundEvent(args.Thrower, args.Coords);
-            RaiseLocalEvent(thrown, ev3);
 
             if (Raise(thrown, ev3))
             {

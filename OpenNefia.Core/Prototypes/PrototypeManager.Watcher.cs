@@ -51,7 +51,7 @@ namespace OpenNefia.Core.Prototypes
         {
 #if !FULL_RELEASE
             foreach (var path in Resources.GetContentRoots().Select(r => r.ToString())
-                .Where(r => Directory.Exists(r + "/Prototypes")).Select(p => p + "/Prototypes"))
+                .Where(r => Directory.Exists(Path.Join(r, "Prototypes"))).Select(p => Path.Join(p, "Prototypes")))
             {
                 var watcher = new FileSystemWatcher(path, "*.yml")
                 {

@@ -1,0 +1,364 @@
+- type: Map
+  id: Elona.Arena1
+  hspOrigin: elona122
+  blueprintPath: /Maps/Elona/arena_1.yml
+
+- type: Map
+  id: Elona.Arena2
+  hspOrigin: elona122
+  blueprintPath: /Maps/Elona/arena_2.yml
+
+- type: Map
+  id: Elona.Black
+  hspOrigin: elona122
+  blueprintPath: /Maps/Elona/black.yml
+
+- type: Map
+  id: Elona.Crop1
+  hspOrigin: elona122
+  blueprintPath: /Maps/Elona/crop_1.yml
+
+- type: Map
+  id: Elona.Cyberdome
+  hspOrigin: elona122
+  blueprintPath: /Maps/Elona/cyberdome.yml
+
+- type: Map
+  id: Elona.Dungeon1
+  hspOrigin: elona122
+  blueprintPath: /Maps/Elona/dungeon1.yml
+
+- type: Map
+  id: Elona.D1
+  hspOrigin: elona122
+  blueprintPath: /Maps/Elona/d_1.yml
+
+- type: Map
+  id: Elona.Fighterguild
+  hspOrigin: elona122
+  blueprintPath: /Maps/Elona/fighterguild.yml
+
+- type: Map
+  id: Elona.Firet1
+  hspOrigin: elona122
+  blueprintPath: /Maps/Elona/firet1.yml
+
+- type: Map
+  id: Elona.God
+  hspOrigin: elona122
+  blueprintPath: /Maps/Elona/god.yml
+
+- type: Map
+  id: Elona.Grave1
+  hspOrigin: elona122
+  blueprintPath: /Maps/Elona/grave_1.yml
+
+- type: Map
+  id: Elona.Highmountain
+  hspOrigin: elona122
+  blueprintPath: /Maps/Elona/highmountain.yml
+
+- type: Map
+  id: Elona.Home0
+  hspOrigin: elona122
+  blueprintPath: /Maps/Elona/home0.yml
+
+- type: Map
+  id: Elona.Home1
+  hspOrigin: elona122
+  blueprintPath: /Maps/Elona/home1.yml
+
+- type: Map
+  id: Elona.Home2
+  hspOrigin: elona122
+  blueprintPath: /Maps/Elona/home2.yml
+
+- type: Map
+  id: Elona.Home3
+  hspOrigin: elona122
+  blueprintPath: /Maps/Elona/home3.yml
+
+- type: Map
+  id: Elona.Home4
+  hspOrigin: elona122
+  blueprintPath: /Maps/Elona/home4.yml
+
+- type: Map
+  id: Elona.Home5
+  hspOrigin: elona122
+  blueprintPath: /Maps/Elona/home5.yml
+
+- type: Map
+  id: Elona.I
+  hspOrigin: elona122
+  blueprintPath: /Maps/Elona/i.yml
+
+- type: Map
+  id: Elona.Inn1
+  hspOrigin: elona122
+  blueprintPath: /Maps/Elona/inn1.yml
+
+- type: Map
+  id: Elona.Jail1
+  hspOrigin: elona122
+  blueprintPath: /Maps/Elona/jail1.yml
+
+- type: Map
+  id: Elona.Juerefarm1
+  hspOrigin: elona122
+  blueprintPath: /Maps/Elona/Juerefarm1.yml
+
+- type: Map
+  id: Elona.Juerefarm2
+  hspOrigin: elona122
+  blueprintPath: /Maps/Elona/Juerefarm2.yml
+
+- type: Map
+  id: Elona.Kapul
+  hspOrigin: elona122
+  blueprintPath: /Maps/Elona/kapul.yml
+
+- type: Map
+  id: Elona.Lesimas1
+  hspOrigin: elona122
+  blueprintPath: /Maps/Elona/lesimas_1.yml
+
+- type: Map
+  id: Elona.Lumiest
+  hspOrigin: elona122
+  blueprintPath: /Maps/Elona/lumiest.yml
+
+- type: Map
+  id: Elona.Mageguild
+  hspOrigin: elona122
+  blueprintPath: /Maps/Elona/mageguild.yml
+
+- type: Map
+  id: Elona.Maincamp
+  hspOrigin: elona122
+  blueprintPath: /Maps/Elona/Maincamp.yml
+
+- type: Map
+  id: Elona.Museum1
+  hspOrigin: elona122
+  blueprintPath: /Maps/Elona/museum_1.yml
+
+- type: Map
+  id: Elona.N
+  hspOrigin: elona122
+  blueprintPath: /Maps/Elona/n.yml
+
+- type: Map
+  id: Elona.Noyel
+  hspOrigin: elona122
+  blueprintPath: /Maps/Elona/noyel.yml
+
+- type: Map
+  id: Elona.NoyelFest
+  hspOrigin: elona122
+  blueprintPath: /Maps/Elona/noyel_fest.yml
+
+- type: Map
+  id: Elona.Ntyris
+  hspOrigin: elona122
+  blueprintPath: /Maps/Elona/ntyris.yml
+
+- type: Map
+  id: Elona.Ntyris2
+  hspOrigin: elona122
+  blueprintPath: /Maps/Elona/ntyris2.yml
+
+- type: Map
+  id: Elona.Office1
+  hspOrigin: elona122
+  blueprintPath: /Maps/Elona/office_1.yml
+
+- type: Map
+  id: Elona.Outpost1
+  hspOrigin: elona122
+  blueprintPath: /Maps/Elona/Outpost1.yml
+
+- type: Map
+  id: Elona.Outpost2
+  hspOrigin: elona122
+  blueprintPath: /Maps/Elona/outpost2.yml
+
+- type: Map
+  id: Elona.Outpost3
+  hspOrigin: elona122
+  blueprintPath: /Maps/Elona/outpost3.yml
+
+- type: Map
+  id: Elona.Palmia
+  hspOrigin: elona122
+  blueprintPath: /Maps/Elona/palmia.yml
+
+- type: Map
+  id: Elona.Puti
+  hspOrigin: elona122
+  blueprintPath: /Maps/Elona/puti.yml
+
+- type: Map
+  id: Elona.Ranch1
+  hspOrigin: elona122
+  blueprintPath: /Maps/Elona/ranch_1.yml
+
+- type: Map
+  id: Elona.Rogueden
+  hspOrigin: elona122
+  blueprintPath: /Maps/Elona/rogueden.yml
+
+- type: Map
+  id: Elona.Roguet1
+  hspOrigin: elona122
+  blueprintPath: /Maps/Elona/roguet1.yml
+
+- type: Map
+  id: Elona.S
+  hspOrigin: elona122
+  blueprintPath: /Maps/Elona/s.yml
+
+- type: Map
+  id: Elona.Shadyjueretown
+  hspOrigin: elona122
+  blueprintPath: /Maps/Elona/shadyjueretown.yml
+
+- type: Map
+  id: Elona.Shelter1
+  hspOrigin: elona122
+  blueprintPath: /Maps/Elona/shelter_1.yml
+
+- type: Map
+  id: Elona.Shelter2
+  hspOrigin: elona122
+  blueprintPath: /Maps/Elona/shelter_2.yml
+
+- type: Map
+  id: Elona.Shop1
+  hspOrigin: elona122
+  blueprintPath: /Maps/Elona/shop_1.yml
+
+- type: Map
+  id: Elona.Shrine1
+  hspOrigin: elona122
+  blueprintPath: /Maps/Elona/shrine_1.yml
+
+- type: Map
+  id: Elona.Sister
+  hspOrigin: elona122
+  blueprintPath: /Maps/Elona/sister.yml
+
+- type: Map
+  id: Elona.Smith0
+  hspOrigin: elona122
+  blueprintPath: /Maps/Elona/smith0.yml
+
+- type: Map
+  id: Elona.Sqcat
+  hspOrigin: elona122
+  blueprintPath: /Maps/Elona/sqcat.yml
+
+- type: Map
+  id: Elona.Sqkamikaze
+  hspOrigin: elona122
+  blueprintPath: /Maps/Elona/sqkamikaze.yml
+
+- type: Map
+  id: Elona.SqNightmare
+  hspOrigin: elona122
+  blueprintPath: /Maps/Elona/sqNightmare.yml
+
+- type: Map
+  id: Elona.SqPyramid
+  hspOrigin: elona122
+  blueprintPath: /Maps/Elona/sqPyramid.yml
+
+- type: Map
+  id: Elona.SqPyramid2
+  hspOrigin: elona122
+  blueprintPath: /Maps/Elona/sqPyramid2.yml
+
+- type: Map
+  id: Elona.SqRogue
+  hspOrigin: elona122
+  blueprintPath: /Maps/Elona/sqRogue.yml
+
+- type: Map
+  id: Elona.SqSewer
+  hspOrigin: elona122
+  blueprintPath: /Maps/Elona/sqSewer.yml
+
+- type: Map
+  id: Elona.Sqwar
+  hspOrigin: elona122
+  blueprintPath: /Maps/Elona/sqwar.yml
+
+- type: Map
+  id: Elona.Stati
+  hspOrigin: elona122
+  blueprintPath: /Maps/Elona/stati.yml
+
+- type: Map
+  id: Elona.Statio
+  hspOrigin: elona122
+  blueprintPath: /Maps/Elona/statio.yml
+
+- type: Map
+  id: Elona.StationNt1
+  hspOrigin: elona122
+  blueprintPath: /Maps/Elona/station-nt1.yml
+
+- type: Map
+  id: Elona.Storage1
+  hspOrigin: elona122
+  blueprintPath: /Maps/Elona/storage_1.yml
+
+- type: Map
+  id: Elona.Styris
+  hspOrigin: elona122
+  blueprintPath: /Maps/Elona/styris.yml
+
+- type: Map
+  id: Elona.T
+  hspOrigin: elona122
+  blueprintPath: /Maps/Elona/t.yml
+
+- type: Map
+  id: Elona.Test
+  hspOrigin: elona122
+  blueprintPath: /Maps/Elona/test.yml
+
+- type: Map
+  id: Elona.Test2
+  hspOrigin: elona122
+  blueprintPath: /Maps/Elona/test2.yml
+
+- type: Map
+  id: Elona.Thiefguild
+  hspOrigin: elona122
+  blueprintPath: /Maps/Elona/thiefguild.yml
+
+- type: Map
+  id: Elona.Undeadt1
+  hspOrigin: elona122
+  blueprintPath: /Maps/Elona/undeadt1.yml
+
+- type: Map
+  id: Elona.Unfinishedkeep
+  hspOrigin: elona122
+  blueprintPath: /Maps/Elona/unfinishedkeep.yml
+
+- type: Map
+  id: Elona.Vernis
+  hspOrigin: elona122
+  blueprintPath: /Maps/Elona/vernis.yml
+
+- type: Map
+  id: Elona.Wizardtower
+  hspOrigin: elona122
+  blueprintPath: /Maps/Elona/Wizardtower.yml
+
+- type: Map
+  id: Elona.Yowyn
+  hspOrigin: elona122
+  blueprintPath: /Maps/Elona/yowyn.yml

@@ -86,6 +86,9 @@ namespace OpenNefia.Content.UI.Layer
             Keybinds[CoreKeybinds.South] += (_) => MovePlayer(Direction.South);
             Keybinds[CoreKeybinds.West] += (_) => MovePlayer(Direction.West);
             Keybinds[CoreKeybinds.East] += (_) => MovePlayer(Direction.East);
+            Keybinds[CoreKeybinds.Ascend] += Ascend;
+            Keybinds[CoreKeybinds.Descend] += Descend;
+            Keybinds[CoreKeybinds.Enter] += Activate;
             Keybinds[CoreKeybinds.Repl] += QueryRepl;
             //Keybinds[Keys.G] += (_) => GetItem();
             //Keybinds[Keys.D] += (_) => DropItem();
@@ -198,13 +201,13 @@ namespace OpenNefia.Content.UI.Layer
                 }
         
         */
-        private void DrinkItem(UiKeyInputEventArgs args)
+
+        private void RunVerbCommand(Verb verb)
         {
             var player = _gameSession.Player;
 
             if (player != null)
             {
-                var drinkVerb = new Verb(DrinkableSystem.VerbIDDrink);
                 var verbSystem = EntitySystem.Get<VerbSystem>();
                 var lookup = EntitySystem.Get<IEntityLookup>();
 
@@ -213,9 +216,9 @@ namespace OpenNefia.Content.UI.Layer
                     if (target.Uid != player.Uid)
                     {
                         var verbs = verbSystem.GetLocalVerbs(target.Uid, player.Uid);
-                        if (verbs.Contains(drinkVerb))
+                        if (verbs.Contains(verb))
                         {
-                            verbSystem.ExecuteVerb(player.Uid, target.Uid, drinkVerb);
+                            verbSystem.ExecuteVerb(player.Uid, target.Uid, verb);
                             break;
                         }
                     }
@@ -223,45 +226,32 @@ namespace OpenNefia.Content.UI.Layer
 
                 RefreshScreen();
             }
+        }
+
+        private void DrinkItem(UiKeyInputEventArgs args)
+        {
+            RunVerbCommand(new Verb(DrinkableSystem.VerbIDDrink));
         }
 
         private void ThrowItem(UiKeyInputEventArgs args)
         {
-            var player = _gameSession.Player;
-
-            if (player != null)
-            {
-                var throwVerb = new Verb(ThrowableSystem.VerbIDThrow);
-                var verbSystem = EntitySystem.Get<VerbSystem>();
-                var lookup = EntitySystem.Get<IEntityLookup>();
-
-                foreach (var target in lookup.GetLiveEntitiesAtPos(player.Spatial.MapPosition))
-                {
-                    if (target.Uid != player.Uid)
-                    {
-                        var verbs = verbSystem.GetLocalVerbs(target.Uid, player.Uid);
-                        if (verbs.Contains(throwVerb))
-                        {
-                            verbSystem.ExecuteVerb(player.Uid, target.Uid, throwVerb);
-                            break;
-                        }
-                    }
-                }
-
-                RefreshScreen();
-            }
+            RunVerbCommand(new Verb(ThrowableSystem.VerbIDThrow));
         }
-        /*
-                private void CastSpell()
-                {
-                    var prompt = new Prompt<CastableDef>(DefStore<CastableDef>.Enumerate());
-                    var result = prompt.Query();
-                    if (result.HasValue)
-                    {
-                        Spell.CastSpell(result.Value.ChoiceData, _gameSession.Player!);
-                        RefreshScreen();
-                    }
-                }*/
+
+        public void Ascend(UiKeyInputEventArgs args)
+        {
+            RunVerbCommand(new Verb(StairsSystem.VerbIDAscend));
+        }
+
+        public void Descend(UiKeyInputEventArgs args)
+        {
+            RunVerbCommand(new Verb(StairsSystem.VerbIDDescend));
+        }
+
+        public void Activate(UiKeyInputEventArgs args)
+        {
+            RunVerbCommand(new Verb(StairsSystem.VerbIDActivate));
+        }
 
         public void PromptToCancel(UiKeyInputEventArgs args)
         {

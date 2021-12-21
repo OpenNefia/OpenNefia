@@ -38,6 +38,11 @@ namespace OpenNefia.Core.UI
             this.BindKey(Keys.Left, CoreKeybinds.West);
             this.BindKey(Keys.Right, CoreKeybinds.East);
 
+            this.BindKey(Keys.Shift | Keys.Comma, CoreKeybinds.Ascend); // <
+            this.BindKey(Keys.Shift | Keys.Period, CoreKeybinds.Descend); // >
+
+            this.BindKey(Keys.Enter, CoreKeybinds.Activate);
+
             this.BindKey(Keys.Period, CoreKeybinds.Wait);
             this.BindKey(Keys.X, CoreKeybinds.Identify);
             this.BindKey(Keys.Z, CoreKeybinds.Mode);
