@@ -78,7 +78,12 @@ StyleCopReport.xml
 *.pidb
 *.svclog
 *.scc
+
 /OpenNefia.Content/Assets/Graphic/Elona
 /OpenNefia.Content/Assets/Sound/Elona
 /packages/Cake.Core.*
 /dist
+/obj
+/docs/api
+/docs/obj
+/docs/_site

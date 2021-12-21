@@ -1,7 +1,18 @@
 {
   "profiles": {
-    "OpenNefia.Packaging": {
+    "PackageFullRelease": {
       "commandName": "Project",
+      "commandLineArgs": "-t PackageFullRelease",
+      "workingDirectory": "$(SolutionDir)"
+    },
+    "DocFxServe": {
+      "commandName": "Project",
+      "commandLineArgs": "-t DocFxServe",
+      "workingDirectory": "$(SolutionDir)"
+    },
+    "DocFxBuild": {
+      "commandName": "Project",
+      "commandLineArgs": "-t DocFxBuild",
       "workingDirectory": "$(SolutionDir)"
     }
   }
