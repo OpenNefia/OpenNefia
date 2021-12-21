@@ -7,6 +7,7 @@ using OpenNefia.Core.IoC;
 using OpenNefia.Core.Log;
 using OpenNefia.Core.Reflection;
 using OpenNefia.Core.Util;
+using OpenNefia.Core.Utility;
 using PrettyPrompt.Consoles;
 
 namespace OpenNefia.Core.DebugServer
@@ -50,9 +51,18 @@ namespace OpenNefia.Core.DebugServer
         {
             var references = new HashSet<string>();
 
+            // Modules might be located under Resources/Assemblies, so be
+            // sure to use an executable directory-relative path to reference
+            // them.
+            var exeDir = ResourcePath.FromRelativeSystemPath(AppDomain.CurrentDomain.BaseDirectory);
+
             foreach (var assembly in reflectionManager.Assemblies)
             {
-                references.Add(assembly.FullName!);
+                var exeRelativePath = ResourcePath.FromRelativeSystemPath(assembly.Location)
+                    .RelativeTo(exeDir)
+                    .ToRelativeSystemPath();
+
+                references.Add(exeRelativePath);
             }
 
             return new Configuration()
