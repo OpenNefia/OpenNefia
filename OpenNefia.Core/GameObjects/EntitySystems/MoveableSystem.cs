@@ -9,11 +9,12 @@ using System.Threading.Tasks;
 
 namespace OpenNefia.Core.GameObjects
 {
+    /// <summary>
+    /// Handles moving moveable entities.
+    /// </summary>
     public class MoveableSystem : EntitySystem
     {
         [Dependency] private readonly IMapManager _mapManager = default!;
-        [Dependency] private readonly IEntityManager _entityManager = default!;
-        [Dependency] private readonly IEntityLookup _lookup = default!;
 
         public override void Initialize()
         {

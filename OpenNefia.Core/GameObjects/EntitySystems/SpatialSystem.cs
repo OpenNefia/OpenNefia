@@ -4,6 +4,10 @@ using OpenNefia.Core.Maths;
 
 namespace OpenNefia.Core.GameObjects
 {
+    /// <summary>
+    /// Handles updating the solidity/opacity of tiles on the map when an entity's
+    /// state changes.
+    /// </summary>
     public class SpatialSystem : EntitySystem
     {
         [Dependency] private readonly IMapManager _mapManager = default!;

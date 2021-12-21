@@ -10,6 +10,9 @@ using Dependency = OpenNefia.Core.IoC.DependencyAttribute;
 
 namespace OpenNefia.Core.GameObjects
 {
+    /// <summary>
+    /// Defines an entity system for querying a list of entities in a map.
+    /// </summary>
     public interface IEntityLookup : IEntitySystem
     {
         /// <summary>
@@ -68,7 +71,7 @@ namespace OpenNefia.Core.GameObjects
             where TComp2 : IComponent;
 
         /// <summary>
-        /// Returns the relevant components from all entities that contain the three required components.
+        /// Returns the relevant components from all entities in the map that contain the three required components.
         /// </summary>
         /// <typeparam name="TComp1">First required component.</typeparam>
         /// <typeparam name="TComp2">Second required component.</typeparam>
@@ -82,7 +85,7 @@ namespace OpenNefia.Core.GameObjects
             where TComp3 : IComponent;
 
         /// <summary>
-        /// Returns the relevant components from all entities that contain the four required components.
+        /// Returns the relevant components from all entities in the map that contain the four required components.
         /// </summary>
         /// <typeparam name="TComp1">First required component.</typeparam>
         /// <typeparam name="TComp2">Second required component.</typeparam>

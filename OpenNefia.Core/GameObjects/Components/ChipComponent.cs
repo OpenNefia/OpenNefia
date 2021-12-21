@@ -6,6 +6,9 @@ using OpenNefia.Core.Serialization.Manager.Attributes;
 
 namespace OpenNefia.Core.GameObjects
 {
+    /// <summary>
+    /// A component for displaying a colored sprite.
+    /// </summary>
     [RegisterComponent]
     public class ChipComponent : Component
     {

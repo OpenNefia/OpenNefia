@@ -1,8 +1,13 @@
 ﻿using OpenNefia.Core.Maths;
+using OpenNefia.Core.Maps;
 using OpenNefia.Core.Serialization.Manager.Attributes;
 
 namespace OpenNefia.Core.GameObjects.Components
 {
+    /// <summary>
+    /// Indicates a location that can be used by <see cref="MapEdgesLocation"/>
+    /// to place a character in the map based on their facing direction.
+    /// </summary>
     [RegisterComponent]
     public class MapEdgesLocationComponent : Component
     {

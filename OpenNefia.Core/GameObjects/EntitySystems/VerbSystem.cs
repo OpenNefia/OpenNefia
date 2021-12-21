@@ -8,6 +8,10 @@ using System.Threading.Tasks;
 
 namespace OpenNefia.Core.GameObjects
 {
+    /// <summary>
+    /// System for querying and executing <see cref="Verb"/>s, which are 
+    /// player-initated actions targeting an entity.
+    /// </summary>
     public class VerbSystem : EntitySystem
     {
         /// <summary>

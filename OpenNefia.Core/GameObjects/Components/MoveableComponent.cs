@@ -6,6 +6,12 @@ using OpenNefia.Core.Serialization.Manager.Attributes;
 
 namespace OpenNefia.Core.GameObjects
 {
+    /// <summary>
+    /// Indicates an entity that can move around and be bumped into.
+    /// </summary>
+    /// <remarks>
+    /// This is meant to replicate some of the logic of characters.
+    /// </remarks>
     [RegisterComponent]
     public class MoveableComponent : Component
     {

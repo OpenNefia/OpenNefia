@@ -4,6 +4,7 @@ using OpenNefia.Core.Prototypes;
 
 namespace OpenNefia.Core.Rendering
 {
+    [Obsolete]
     public static class Assets
     {
         public static IAssetDrawable Get(PrototypeId<AssetPrototype> id)

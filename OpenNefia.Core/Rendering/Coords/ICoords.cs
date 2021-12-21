@@ -2,6 +2,12 @@
 
 namespace OpenNefia.Core.Rendering
 {
+    /// <summary>
+    /// Defines a coordinate projection system for displaying a tilemap on the screen.
+    /// </summary>
+    /// <remarks>
+    /// This is mainly for supporting an isometric mode in the future.
+    /// </remarks>
     public interface ICoords
     {
         public Vector2i TileSize { get; }

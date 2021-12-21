@@ -1,6 +1,7 @@
 ﻿using OpenNefia.Content.Logic;
 using OpenNefia.Core.Audio;
 using OpenNefia.Core.GameObjects;
+using OpenNefia.Core.IoC;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,8 @@ namespace OpenNefia.Content.GameObjects
 {
     public class DoorSystem : EntitySystem
     {
+        [Dependency] private readonly IAudioSystem _sounds = default!;
+
         public override void Initialize()
         {
             SubscribeLocalEvent<DoorComponent, MapInitEvent>(HandleInitialize, nameof(HandleInitialize));
@@ -52,7 +55,7 @@ namespace OpenNefia.Content.GameObjects
 
             if (door.SoundOpen != null)
             {
-                Sounds.Play(door.SoundOpen.Value, uid);
+                _sounds.Play(door.SoundOpen.Value, uid);
             }
 
             door.IsOpen = true;

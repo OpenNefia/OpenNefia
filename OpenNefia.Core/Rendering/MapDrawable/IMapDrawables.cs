@@ -3,6 +3,9 @@ using OpenNefia.Core.UI.Element;
 
 namespace OpenNefia.Core.Rendering
 {
+    /// <summary>
+    /// Displays and updates animatable graphics in worldspace.
+    /// </summary>
     public interface IMapDrawables : IDrawable
     {
         void Clear();

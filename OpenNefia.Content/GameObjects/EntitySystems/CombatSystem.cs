@@ -2,6 +2,7 @@
 using OpenNefia.Content.Prototypes;
 using OpenNefia.Core.Audio;
 using OpenNefia.Core.GameObjects;
+using OpenNefia.Core.IoC;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Utility;
 using System;
@@ -14,6 +15,8 @@ namespace OpenNefia.Content.GameObjects
 {
     public class CombatSystem : EntitySystem
     {
+        [Dependency] private readonly IAudioSystem _sounds = default!;
+
         public override void Initialize()
         {
             SubscribeLocalEvent<MoveableComponent, CollideWithEventArgs>(HandleCollideWith, nameof(HandleCollideWith));
@@ -37,7 +40,7 @@ namespace OpenNefia.Content.GameObjects
                 return;
 
             Mes.Display($"{DisplayNameSystem.GetDisplayName(uid)} punches {DisplayNameSystem.GetDisplayName(args.Target)}");
-            Sounds.Play(Protos.Sound.Atk2);
+            _sounds.Play(Protos.Sound.Atk2, args.Target);
             EntityManager.DeleteEntity(args.Target);
             args.Handled = true;
         }

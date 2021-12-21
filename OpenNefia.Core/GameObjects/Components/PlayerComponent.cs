@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace OpenNefia.Core.GameObjects
 {
+    /// <summary>
+    /// Indicates this entity is the player.
+    /// </summary>
     [RegisterComponent]
     public class PlayerComponent : Component
     {

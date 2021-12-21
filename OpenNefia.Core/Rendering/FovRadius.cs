@@ -4,10 +4,18 @@ using System.Collections.Generic;
 
 namespace OpenNefia.Core.Rendering
 {
+    /// <summary>
+    /// Generates tile boundries for calculating FOV.
+    /// </summary>
     public static class FovRadius
     {
-        private static Dictionary<int, int[,]> Cache = new Dictionary<int, int[,]>();
+        private static Dictionary<int, int[,]> Cache = new();
 
+        /// <summary>
+        /// Gets a set of tile boundaries representing a circle with the given radius.
+        /// </summary>
+        /// <param name="fovMax">Radius of the circle.</param>
+        /// <returns>An Nx2 array with the start and end positions of the radius.</returns>
         public static int[,] Get(int fovMax)
         {
             if (Cache.TryGetValue(fovMax, out var fovList))

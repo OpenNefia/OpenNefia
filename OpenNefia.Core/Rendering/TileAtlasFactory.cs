@@ -9,6 +9,10 @@ using System.Text;
 
 namespace OpenNefia.Core.Rendering
 {
+    /// <summary>
+    /// Dynamically generates tile atlases by aggregating a series of
+    /// <see cref="TileSpecifier"/>s and packing them into a single image.
+    /// </summary>
     public class TileAtlasFactory : IDisposable
     {
         private readonly IResourceCache _resourceCache = default!;
@@ -94,6 +98,7 @@ namespace OpenNefia.Core.Rendering
             this._atlasTiles.Add(tile.AtlasIndex, atlasTile);
         }
 
+        [Obsolete]
         public TileAtlasFactory LoadTiles(IEnumerable<TileSpecifier> tiles)
         {
             _tileSpecs.AddRange(tiles);
