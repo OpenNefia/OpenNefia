@@ -18,7 +18,7 @@ namespace OpenNefia.Content.GameObjects
         public override void Initialize()
         {
             SubscribeLocalEvent<PlayerComponent, ExitMapEventArgs>(HandleExitMap, nameof(HandleExitMap));
-            SubscribeLocalEvent<PlayerComponent, EntParentChangedEvent>(HandleEntityParentChanged, nameof(HandleEntityParentChanged));
+            SubscribeLocalEvent<PlayerComponent, EntityParentChangedEvent>(HandleEntityParentChanged, nameof(HandleEntityParentChanged));
         }
 
         private void HandleExitMap(EntityUid playerUid, PlayerComponent component, ExitMapEventArgs args)
@@ -33,7 +33,7 @@ namespace OpenNefia.Content.GameObjects
             args.Handle(_mapEntrances.UseMapEntrance(playerUid, args.Entrance));
         }
 
-        private void HandleEntityParentChanged(EntityUid uid, PlayerComponent component, ref EntParentChangedEvent evt)
+        private void HandleEntityParentChanged(EntityUid uid, PlayerComponent component, ref EntityParentChangedEvent evt)
         {
             SpatialComponent? spatial = null;
 

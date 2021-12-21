@@ -13,4 +13,8 @@ var player = gameSess.Player!;
 
 var spatial = entMan.GetComponent<SpatialComponent>(player.Uid);
 
-return spatial.Coordinates;
+var mapComp = entMan.GetComponent<MapComponent>(theCoords.EntityId);
+
+var map = mapMan.GetMap(mapComp.MapId);
+
+return theCoords;

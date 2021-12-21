@@ -85,6 +85,23 @@ namespace OpenNefia.Core.Maps
         }
 
         /// <summary>
+        ///     Transforms this set of coordinates from the entity's local space to the map space.
+        /// </summary>
+        /// <param name="entityManager">Entity Manager containing the entity Id.</param>
+        /// <returns></returns>
+        public (IMap?, MapCoordinates) ToMap(IMapManager mapManager, IEntityManager entityManager)
+        {
+            if (!IsValid(entityManager))
+                return (null, MapCoordinates.Nullspace);
+
+            var mapEntity = entityManager.GetEntity(EntityId);
+            var transform = mapEntity.Spatial;
+            var mapGrid = mapManager.GetMap(transform.MapID);
+            var worldPos = (Vector2i)transform.WorldMatrix.Transform(Position);
+            return (mapGrid, new MapCoordinates(worldPos, transform.MapID));
+        }
+
+        /// <summary>
         ///    Transform this set of coordinates from the entity's local space to the map space.
         /// </summary>
         /// <param name="entityManager">Entity Manager containing the entity Id.</param>

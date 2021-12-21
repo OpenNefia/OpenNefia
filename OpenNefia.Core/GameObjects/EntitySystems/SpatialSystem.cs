@@ -15,19 +15,18 @@ namespace OpenNefia.Core.GameObjects
             SubscribeLocalEvent<SpatialComponent, EntityPositionChangedEvent>(HandlePositionChanged, nameof(HandlePositionChanged));
             SubscribeLocalEvent<SpatialComponent, MapInitEvent>(HandleMapInit, nameof(HandleMapInit));
             SubscribeLocalEvent<SpatialComponent, EntityLivenessChangedEvent>(HandleLivenessChanged, nameof(HandleLivenessChanged));
-            SubscribeLocalEvent<SpatialComponent, EntTangibilityChangedEvent>(HandleTangibilityChanged, nameof(HandleTangibilityChanged));
+            SubscribeLocalEvent<SpatialComponent, EntityTangibilityChangedEvent>(HandleTangibilityChanged, nameof(HandleTangibilityChanged));
         }
 
         private void HandlePositionChanged(EntityUid uid, SpatialComponent spatial, ref EntityPositionChangedEvent args)
         {
-            if (!_mapManager.TryGetMap(spatial.MapID, out var map))
-                return;
+            var (oldMap, oldMapCoords) = args.OldPosition.ToMap(_mapManager, _entityManager);
+            var (newMap, newMapCoords) = args.NewPosition.ToMap(_mapManager, _entityManager);
 
-            var oldMap = args.OldPosition.ToMap(_entityManager);
-            var newMap = args.NewPosition.ToMap(_entityManager);
-
-            map.RefreshTileEntities(args.OldPosition.Position, _lookup.GetLiveEntitiesAtPos(oldMap));
-            map.RefreshTileEntities(args.NewPosition.Position, _lookup.GetLiveEntitiesAtPos(newMap));
+            if (oldMap != null)
+                oldMap.RefreshTileEntities(oldMapCoords.Position, _lookup.GetLiveEntitiesAtPos(oldMapCoords));
+            if (newMap != null)
+                newMap.RefreshTileEntities(newMapCoords.Position, _lookup.GetLiveEntitiesAtPos(newMapCoords));
         }
 
         private void RefreshTileOfEntity(EntityUid uid, SpatialComponent spatial)
@@ -55,7 +54,7 @@ namespace OpenNefia.Core.GameObjects
             RefreshTileOfEntity(uid, spatial);
         }
 
-        private void HandleTangibilityChanged(EntityUid uid, SpatialComponent spatial, ref EntTangibilityChangedEvent args)
+        private void HandleTangibilityChanged(EntityUid uid, SpatialComponent spatial, ref EntityTangibilityChangedEvent args)
         {
             RefreshTileOfEntity(uid, spatial);
         }

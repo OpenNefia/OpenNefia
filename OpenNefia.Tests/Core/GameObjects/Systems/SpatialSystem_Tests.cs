@@ -2,6 +2,7 @@ using NUnit.Framework;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Maps;
 using OpenNefia.Core.Maths;
+using OpenNefia.Core.Prototypes;
 
 namespace OpenNefia.Tests.Core.GameObjects.Systems
 {
@@ -9,9 +10,11 @@ namespace OpenNefia.Tests.Core.GameObjects.Systems
     [TestOf(typeof(SpatialSystem))]
     class SpatialSystem_Tests
     {
+        private static readonly PrototypeId<EntityPrototype> IdDummySolidOpaque = new("dummySolidOpaque");
+
         private static readonly string Prototypes = $@"
 - type: Entity
-  id: dummySolidOpaque
+  id: {IdDummySolidOpaque}
   components:
   - type: Spatial
     isSolid: true
@@ -72,7 +75,7 @@ namespace OpenNefia.Tests.Core.GameObjects.Systems
             Assert.That(map.CanAccess(pos), Is.True);
             Assert.That(map.CanSeeThrough(pos), Is.True);
 
-            entMan.SpawnEntity(new("dummySolidOpaque"), map.AtPos(pos));
+            entMan.SpawnEntity(IdDummySolidOpaque, map.AtPos(pos));
 
             Assert.That(map.CanAccess(pos), Is.False);
             Assert.That(map.CanSeeThrough(pos), Is.False);
@@ -92,7 +95,7 @@ namespace OpenNefia.Tests.Core.GameObjects.Systems
             var pos1 = Vector2i.One;
             var pos2 = pos1 + Vector2i.One;
 
-            var ent = entMan.SpawnEntity(new("dummySolidOpaque"), map.AtPos(pos1));
+            var ent = entMan.SpawnEntity(IdDummySolidOpaque, map.AtPos(pos1));
 
             Assert.That(map.CanAccess(pos1), Is.False);
             Assert.That(map.CanSeeThrough(pos1), Is.False);
@@ -127,7 +130,7 @@ namespace OpenNefia.Tests.Core.GameObjects.Systems
 
             var pos = Vector2i.One;
 
-            var ent = entMan.SpawnEntity(new("dummySolidOpaque"), map.AtPos(pos));
+            var ent = entMan.SpawnEntity(IdDummySolidOpaque, map.AtPos(pos));
 
             Assert.That(map.CanAccess(pos), Is.False);
             Assert.That(map.CanSeeThrough(pos), Is.False);
@@ -151,7 +154,7 @@ namespace OpenNefia.Tests.Core.GameObjects.Systems
 
             var pos = Vector2i.One;
 
-            var ent = entMan.SpawnEntity(new("dummySolidOpaque"), map.AtPos(pos));
+            var ent = entMan.SpawnEntity(IdDummySolidOpaque, map.AtPos(pos));
 
             Assert.That(map.CanAccess(pos), Is.False);
             Assert.That(map.CanSeeThrough(pos), Is.False);
@@ -184,7 +187,7 @@ namespace OpenNefia.Tests.Core.GameObjects.Systems
 
             var pos = Vector2i.One;
 
-            var ent = entMan.SpawnEntity(new("dummySolidOpaque"), map.AtPos(pos));
+            var ent = entMan.SpawnEntity(IdDummySolidOpaque, map.AtPos(pos));
             var entSpatial = entMan.GetComponent<SpatialComponent>(ent.Uid);
 
             Assert.That(map.CanSeeThrough(entSpatial.WorldPosition), Is.False);
@@ -195,6 +198,41 @@ namespace OpenNefia.Tests.Core.GameObjects.Systems
 
             Assert.That(map.CanSeeThrough(entSpatial.WorldPosition), Is.True);
             Assert.That(map.CanAccess(entSpatial.WorldPosition), Is.True);
+        }
+
+        [Test]
+        public void TestMoveBetweenMapsRefresh()
+        {
+            var sim = SimulationFactory();
+            var entMan = sim.Resolve<IEntityManager>();
+            
+            var map1 = sim.ActiveMap!;
+            var map2 = sim.Resolve<IMapManager>().CreateMap(50, 50);
+
+            var coords1 = new EntityCoordinates(map1.MapEntityUid, Vector2i.Zero);
+            var coords2 = new EntityCoordinates(map2.MapEntityUid, Vector2i.Zero);
+
+            var ent = entMan.SpawnEntity(IdDummySolidOpaque, coords1).Uid;
+
+            var spatial = entMan.GetComponent<SpatialComponent>(ent);
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(map1.CanSeeThrough(coords1.Position), Is.False);
+                Assert.That(map1.CanAccess(coords2.Position), Is.False);
+                Assert.That(map2.CanSeeThrough(coords1.Position), Is.True);
+                Assert.That(map2.CanAccess(coords2.Position), Is.True);
+            });
+
+            spatial.Coordinates = coords2;
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(map1.CanSeeThrough(coords1.Position), Is.True);
+                Assert.That(map1.CanAccess(coords2.Position), Is.True);
+                Assert.That(map2.CanSeeThrough(coords1.Position), Is.False);
+                Assert.That(map2.CanAccess(coords2.Position), Is.False);
+            });
         }
 
         private class Subscriber : IEntityEventSubscriber { }
