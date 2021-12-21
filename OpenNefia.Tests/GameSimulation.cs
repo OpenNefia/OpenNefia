@@ -32,6 +32,7 @@ namespace OpenNefia.Tests
         ISimulationFactory RegisterDependencies(DiContainerDelegate factory);
         ISimulationFactory RegisterEntitySystems(EntitySystemRegistrationDelegate factory);
         ISimulationFactory RegisterPrototypes(PrototypeRegistrationDelegate factory);
+        ISimulationFactory RegisterDataDefinitionTypes(DataDefinitionTypesRegistrationDelegate factory);
         ISimulation InitializeInstance();
     }
 
@@ -62,12 +63,15 @@ namespace OpenNefia.Tests
 
     public delegate void PrototypeRegistrationDelegate(IPrototypeManager protoMan);
 
+    public delegate void DataDefinitionTypesRegistrationDelegate(List<Type> types);
+
     public class GameSimulation : ISimulation, ISimulationFactory
     {
         private DiContainerDelegate? _diFactory;
         private CompRegistrationDelegate? _regDelegate;
         private EntitySystemRegistrationDelegate? _systemDelegate;
         private PrototypeRegistrationDelegate? _protoDelegate;
+        private DataDefinitionTypesRegistrationDelegate? _dataDefnTypesDelegate;
 
         public IDependencyCollection Collection { get; private set; } = default!;
 
@@ -118,6 +122,12 @@ namespace OpenNefia.Tests
             return this;
         }
 
+        public ISimulationFactory RegisterDataDefinitionTypes(DataDefinitionTypesRegistrationDelegate factory)
+        {
+            _dataDefnTypesDelegate += factory;
+            return this;
+        }
+
         public ISimulation InitializeInstance()
         {
             var container = new DependencyCollection();
@@ -152,14 +162,17 @@ namespace OpenNefia.Tests
                     typeof(DataDefinitionAttribute)
                 });
 
+            var dataDefinitionTypes = new List<Type>()
+            {
+                typeof(EntityPrototype),
+                typeof(SpatialComponent),
+                typeof(MetaDataComponent)
+            };
+            _dataDefnTypesDelegate?.Invoke(dataDefinitionTypes);
+
             reflectionManager
                 .Setup(x => x.FindTypesWithAttribute(typeof(DataDefinitionAttribute)))
-                .Returns(() => new[]
-                {
-                    typeof(EntityPrototype),
-                    typeof(SpatialComponent),
-                    typeof(MetaDataComponent)
-                });
+                .Returns(() => dataDefinitionTypes);
 
             reflectionManager
                 .Setup(x => x.FindTypesWithAttribute<TypeSerializerAttribute>())
@@ -167,7 +180,7 @@ namespace OpenNefia.Tests
 
             reflectionManager
                 .Setup(x => x.FindAllTypes())
-                .Returns(() => realReflection.FindAllTypes());
+                .Returns(() => realReflection.FindAllTypes().Concat(dataDefinitionTypes));
 
             container.RegisterInstance<IReflectionManager>(reflectionManager.Object); // tests should not be searching for types
             container.RegisterInstance<IResourceManager>(new Mock<IResourceManager>().Object); // no disk access for tests
