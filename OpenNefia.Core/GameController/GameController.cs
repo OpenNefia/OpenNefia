@@ -175,6 +175,7 @@ namespace OpenNefia.Core.GameController
             _taskManager.ProcessPendingTasks();
             _timerManager.UpdateTimers(frame);
             _uiLayers.UpdateLayers(frame);
+            _taskManager.ProcessPendingTasks();
             _debugServer.CheckForRequests();
         }
 
