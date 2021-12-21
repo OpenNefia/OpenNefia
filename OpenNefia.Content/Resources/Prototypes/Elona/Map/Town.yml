@@ -2,7 +2,7 @@
   id: Elona.Vernis
   hspIds:
     elona122: 5
-  blueprintPath: /Maps/Elona/ntyris.yml
+  blueprintPath: /Maps/Elona/vernis.yml
 
 - type: Map
   id: Elona.PortKapul
