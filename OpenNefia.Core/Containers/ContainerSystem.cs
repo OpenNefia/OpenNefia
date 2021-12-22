@@ -45,7 +45,7 @@ namespace OpenNefia.Core.Containers
             container.ID = id;
             container.Manager = containerManager;
 
-            containerManager.Containers[id] = container;
+            containerManager._containers[id] = container;
             return container;
         }
 

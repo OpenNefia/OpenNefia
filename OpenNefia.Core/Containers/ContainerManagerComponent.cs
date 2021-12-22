@@ -18,11 +18,12 @@ namespace OpenNefia.Core.Containers
     [RegisterComponent]
     public class ContainerManagerComponent : Component, IContainerManager, ISerializationHooks
     {
-        [Dependency] private readonly IDynamicTypeFactoryInternal _dynFactory = default!;
         [Dependency] private readonly IEntityManager _entityManager = default!;
 
-        [DataField]
-        public Dictionary<ContainerId, IContainer> Containers = new();
+        [DataField("containers")]
+        internal readonly Dictionary<ContainerId, IContainer> _containers = new();
+
+        public IReadOnlyDictionary<ContainerId, IContainer> Containers => _containers;
 
         /// <inheritdoc />
         public sealed override string Name => "ContainerContainer";
@@ -47,7 +48,7 @@ namespace OpenNefia.Core.Containers
                 container.Shutdown();
             }
 
-            Containers.Clear();
+            _containers.Clear();
         }
 
         /// <inheritdoc />
@@ -66,7 +67,7 @@ namespace OpenNefia.Core.Containers
         /// <inheritdoc />
         public void InternalContainerShutdown(IContainer container)
         {
-            Containers.Remove(container.ID);
+            _containers.Remove(container.ID);
         }
 
         /// <inheritdoc />
@@ -121,7 +122,7 @@ namespace OpenNefia.Core.Containers
 
             public AllContainersEnumerator(ContainerManagerComponent? manager)
             {
-                _enumerator = manager?.Containers.Values.GetEnumerator() ?? new();
+                _enumerator = manager?._containers.Values.GetEnumerator() ?? new();
                 Current = default;
             }
 
