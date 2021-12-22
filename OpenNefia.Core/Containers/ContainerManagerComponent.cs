@@ -26,7 +26,7 @@ namespace OpenNefia.Core.Containers
         public IReadOnlyDictionary<ContainerId, IContainer> Containers => _containers;
 
         /// <inheritdoc />
-        public sealed override string Name => "ContainerContainer";
+        public sealed override string Name => "Containers";
 
         void ISerializationHooks.AfterDeserialization()
         {
