@@ -100,6 +100,16 @@ namespace OpenNefia.Core.GameObjects
         /// </summary>
         bool EntityExists(EntityUid uid);
 
+        /// <summary>
+        /// Checks whether an entity with the specified ID has been deleted or is nonexistent.
+        /// </summary>
+        bool Deleted(EntityUid uid);
+
+        /// <summary>
+        /// Checks whether an entity with the specified ID has been deleted or is nonexistent.
+        /// </summary>
+        bool Deleted([NotNullWhen(false)] EntityUid? uid);
+
         #endregion Entity Management
     }
 }

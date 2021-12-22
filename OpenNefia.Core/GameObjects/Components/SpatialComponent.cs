@@ -299,7 +299,7 @@ namespace OpenNefia.Core.GameObjects
         public IEnumerable<SpatialComponent> Children =>
             _children.Select(u => _entityManager.GetEntity(u).Spatial);
 
-        public IEnumerable<EntityUid> ChildEntityUids => _children;
+        public IEnumerable<EntityUid> ChildEntities => _children;
 
         public int ChildCount => _children.Count;
 

@@ -31,7 +31,7 @@ namespace OpenNefia.Tests.Core.GameObjects
         }
 
         /// <summary>
-        /// The entity prototype can define field on the TransformComponent, just like any other component.
+        /// The entity prototype can define field on the SpatialComponent, just like any other component.
         /// </summary>
         [Test]
         public void SpawnEntity_PrototypeTransform_Works()
