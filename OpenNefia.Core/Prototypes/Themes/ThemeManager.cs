@@ -93,8 +93,8 @@ namespace OpenNefia.Core.Prototypes
         private readonly Dictionary<string, ITheme> _themes = new();
         private readonly List<ITheme> _activeThemes = new();
 
-        // { type -> { id -> override YAML } }
-        private readonly Dictionary<string, Dictionary<string, MappingDataNode>> _allOverrides = new();
+        // { themeid -> { type -> { id -> override YAML } } }
+        private readonly Dictionary<string, Dictionary<string, Dictionary<string, MappingDataNode>>> _allOverrides = new();
 
         // ( type, id )
         private readonly HashSet<StructMultiKey<string, string>> _affectedPrototypes = new();
@@ -131,13 +131,18 @@ namespace OpenNefia.Core.Prototypes
             var type = ((ValueDataNode)prototypeYaml.Get("type")).Value;
             var id = ((ValueDataNode)prototypeYaml.Get("id")).Value;
 
-            if (!_allOverrides.TryGetValue(type, out var byId))
-                return;
-
-            if (byId.TryGetValue(id, out var overrideNode))
+            foreach (var theme in _activeThemes)
             {
-                DeepMerge(overrideNode, prototypeYaml);
-                _affectedPrototypes.Add(new(type, id));
+                var forTheme = _allOverrides[theme.ID];
+
+                if (!forTheme.TryGetValue(type, out var byId))
+                    return;
+
+                if (byId.TryGetValue(id, out var overrideNode))
+                {
+                    DeepMerge(overrideNode, prototypeYaml);
+                    _affectedPrototypes.Add(new(type, id));
+                }
             }
         }
 
@@ -249,6 +254,8 @@ namespace OpenNefia.Core.Prototypes
 
                 res.CallAfterDeserializationHook();
 
+                var forTheme = _allOverrides.GetOrNew(theme.ID);
+
                 foreach (var entry in theme.Overrides.Cast<MappingDataNode>())
                 {
                     if (!entry.TryGet("type", out var typeNode))
@@ -265,7 +272,7 @@ namespace OpenNefia.Core.Prototypes
 
                     var id = ((ValueDataNode)idNode).Value;
 
-                    _allOverrides.GetOrNew(type).Add(id, entry);
+                    forTheme.GetOrNew(type).Add(id, entry);
                 }
 
                 _themes[theme.ID] = theme;

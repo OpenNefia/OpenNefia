@@ -30,7 +30,7 @@ namespace OpenNefia.Content.UI.Hud
         public SimpleMessageWindow()
         {
             Messages = new CircularBuffer<ColoredString>(50);
-            TextMessages = new IUiText[6];
+            TextMessages = new IUiText[10];
             for (int i = 0; i < TextMessages.Length; i++)
             {
                 TextMessages[i] = new UiTextOutlined(FontTargetText);
