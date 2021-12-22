@@ -19,7 +19,10 @@ namespace OpenNefia.Core.GameObjects
         {
             var entMan = IoCManager.Resolve<IEntityManager>();
             var meta = entMan.GetComponent<MetaDataComponent>(entity);
-            DebugTools.Assert(meta.EntityLifeStage == EntityLifeStage.Initialized);
+
+            if (meta.EntityLifeStage == EntityLifeStage.MapInitialized)
+                return; // Already map initialized, do nothing.
+
             meta.EntityLifeStage = EntityLifeStage.MapInitialized;
 
             var ev = new MapInitEvent();

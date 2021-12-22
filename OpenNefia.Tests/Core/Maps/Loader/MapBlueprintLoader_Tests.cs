@@ -67,7 +67,8 @@ namespace OpenNefia.Tests.Core.Maps.Loader
             var protoMan = IoCManager.Resolve<IPrototypeManager>();
             protoMan.RegisterType<EntityPrototype>();
             protoMan.RegisterType<TilePrototype>();
-            protoMan.LoadDirectory(new ResourcePath("/Prototypes"));
+            protoMan.LoadDirectory(new ResourcePath("/Prototypes")); 
+            protoMan.Resync();
 
             var tileDefMan = IoCManager.Resolve<ITileDefinitionManagerInternal>();
             tileDefMan.RegisterAll();

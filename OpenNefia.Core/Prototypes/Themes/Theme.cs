@@ -18,7 +18,7 @@ namespace OpenNefia.Core.Prototypes
     }
 
     /// <summary>
-    /// Defines a set of YAML overrides for changing the values  of existing prototypes.
+    /// Defines a set of YAML overrides for modifying a set of prototypes.
     /// </summary>
     /// <remarks>
     /// <para>
