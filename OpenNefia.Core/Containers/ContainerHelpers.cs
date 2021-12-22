@@ -1,7 +1,4 @@
-using System;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using JetBrains.Annotations;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Maps;
@@ -12,26 +9,23 @@ namespace OpenNefia.Core.Containers
     /// <summary>
     /// Helper functions for the container system.
     /// </summary>
-    [PublicAPI]
-    [Obsolete("move to system")]
-    public static class ContainerHelpers
+    public sealed partial class ContainerSystem : EntitySystem
     {
         /// <summary>
         /// Am I inside a container?
         /// </summary>
         /// <param name="entity">Entity that might be inside a container.</param>
         /// <returns>If the entity is inside of a container.</returns>
-        public static bool IsInContainer(this EntityUid entity)
+        public bool IsInContainer(EntityUid entity)
         {
-            var entMan = IoCManager.Resolve<IEntityManager>();
-            DebugTools.Assert(entMan.EntityExists(entity));
+            DebugTools.Assert(EntityManager.EntityExists(entity));
 
             // Notice the recursion starts at the Owner of the passed in entity, this
             // allows containers inside containers (toolboxes in lockers).
-            if (entMan.GetComponent<SpatialComponent>(entity).Parent == null)
+            if (EntityManager.GetComponent<SpatialComponent>(entity).Parent == null)
                 return false;
 
-            if (TryGetManagerComp(entMan.GetComponent<SpatialComponent>(entity).ParentUid, out var containerComp))
+            if (TryGetManagerComp(EntityManager.GetComponent<SpatialComponent>(entity).ParentUid, out var containerComp))
                 return containerComp.ContainsEntity(entity);
 
             return false;
@@ -43,12 +37,11 @@ namespace OpenNefia.Core.Containers
         /// <param name="entity">Entity that might be inside a container.</param>
         /// <param name="manager">The container manager that this entity is inside of.</param>
         /// <returns>If a container manager was found.</returns>
-        public static bool TryGetContainerMan(this EntityUid entity, [NotNullWhen(true)] out IContainerManager? manager)
+        public bool TryGetContainerMan(EntityUid entity, [NotNullWhen(true)] out IContainerManager? manager)
         {
-            var entMan = IoCManager.Resolve<IEntityManager>();
-            DebugTools.Assert(entMan.EntityExists(entity));
+            DebugTools.Assert(EntityManager.EntityExists(entity));
 
-            var parentTransform = entMan.GetComponent<SpatialComponent>(entity).Parent;
+            var parentTransform = EntityManager.GetComponent<SpatialComponent>(entity).Parent;
             if (parentTransform != null && TryGetManagerComp(parentTransform.OwnerUid, out manager) && manager.ContainsEntity(entity))
                 return true;
 
@@ -62,10 +55,9 @@ namespace OpenNefia.Core.Containers
         /// <param name="entity">Entity that might be inside a container.</param>
         /// <param name="container">The container that this entity is inside of.</param>
         /// <returns>If a container was found.</returns>
-        public static bool TryGetContainer(this EntityUid entity, [NotNullWhen(true)] out IContainer? container)
+        public bool TryGetContainer(EntityUid entity, [NotNullWhen(true)] out IContainer? container)
         {
-            var entMan = IoCManager.Resolve<IEntityManager>();
-            DebugTools.Assert(entMan.EntityExists(entity));
+            DebugTools.Assert(EntityManager.EntityExists(entity));
 
             if (TryGetContainerMan(entity, out var manager))
                 return manager.TryGetContainer(entity, out container);
@@ -81,10 +73,9 @@ namespace OpenNefia.Core.Containers
         /// <param name="force">Whether to forcibly remove the entity from the container.</param>
         /// <param name="wasInContainer">Whether the entity was actually inside a container or not.</param>
         /// <returns>If the entity could be removed. Also returns false if it wasn't inside a container.</returns>
-        public static bool TryRemoveFromContainer(this EntityUid entity, bool force, out bool wasInContainer)
+        public bool TryRemoveFromContainer(EntityUid entity, bool force, out bool wasInContainer)
         {
-            var entMan = IoCManager.Resolve<IEntityManager>();
-            DebugTools.Assert(entMan.EntityExists(entity));
+            DebugTools.Assert(EntityManager.EntityExists(entity));
 
             if (TryGetContainer(entity, out var container))
             {
@@ -107,7 +98,7 @@ namespace OpenNefia.Core.Containers
         /// <param name="entity">Entity that might be inside a container.</param>
         /// <param name="force">Whether to forcibly remove the entity from the container.</param>
         /// <returns>If the entity could be removed. Also returns false if it wasn't inside a container.</returns>
-        public static bool TryRemoveFromContainer(this EntityUid entity, bool force = false)
+        public bool TryRemoveFromContainer(EntityUid entity, bool force = false)
         {
             return TryRemoveFromContainer(entity, force, out _);
         }
@@ -115,7 +106,7 @@ namespace OpenNefia.Core.Containers
         /// <summary>
         /// Attempts to remove all entities in a container.
         /// </summary>
-        public static void EmptyContainer(this IContainer container, bool force = false, EntityCoordinates? moveTo = null, bool attachToMap = false)
+        public void EmptyContainer(IContainer container, bool force = false, EntityCoordinates? moveTo = null, bool attachToMap = false)
         {
             var entMan = IoCManager.Resolve<IEntityManager>();
             foreach (var entity in container.ContainedEntities.ToArray())
@@ -139,18 +130,17 @@ namespace OpenNefia.Core.Containers
         /// <summary>
         /// Attempts to remove and delete all entities in a container.
         /// </summary>
-        public static void CleanContainer(this IContainer container)
+        public void CleanContainer(IContainer container)
         {
-            var entMan = IoCManager.Resolve<IEntityManager>();
             foreach (var ent in container.ContainedEntities.ToArray())
             {
-                if (entMan.Deleted(ent)) continue;
+                if (EntityManager.Deleted(ent)) continue;
                 container.ForceRemove(ent);
-                entMan.DeleteEntity(ent);
+                EntityManager.DeleteEntity(ent);
             }
         }
 
-        public static void AttachParentToContainerOrGrid(this SpatialComponent transform)
+        public void AttachParentToContainerOrGrid(SpatialComponent transform)
         {
             if (transform.Parent == null
                 || !TryGetContainer(transform.Parent.OwnerUid, out var container)
@@ -158,7 +148,7 @@ namespace OpenNefia.Core.Containers
                 transform.AttachToMap();
         }
 
-        private static bool TryInsertIntoContainer(this SpatialComponent transform, IContainer container)
+        private bool TryInsertIntoContainer(SpatialComponent transform, IContainer container)
         {
             if (container.Insert(transform.OwnerUid)) return true;
 
@@ -170,7 +160,7 @@ namespace OpenNefia.Core.Containers
             return false;
         }
 
-        private static bool TryGetManagerComp(this EntityUid entity, [NotNullWhen(true)] out IContainerManager? manager)
+        private bool TryGetManagerComp(EntityUid entity, [NotNullWhen(true)] out IContainerManager? manager)
         {
             var entMan = IoCManager.Resolve<IEntityManager>();
             DebugTools.Assert(entMan.EntityExists(entity));
@@ -185,7 +175,7 @@ namespace OpenNefia.Core.Containers
             return false;
         }
 
-        public static bool IsInSameOrNoContainer(this EntityUid user, EntityUid other)
+        public bool IsInSameOrNoContainer(EntityUid user, EntityUid other)
         {
             var isUserContained = TryGetContainer(user, out var userContainer);
             var isOtherContained = TryGetContainer(other, out var otherContainer);
@@ -200,7 +190,7 @@ namespace OpenNefia.Core.Containers
             return userContainer == otherContainer;
         }
 
-        public static bool IsInSameOrParentContainer(this EntityUid user, EntityUid other)
+        public bool IsInSameOrParentContainer(EntityUid user, EntityUid other)
         {
             var isUserContained = TryGetContainer(user, out var userContainer);
             var isOtherContained = TryGetContainer(other, out var otherContainer);
@@ -228,7 +218,7 @@ namespace OpenNefia.Core.Containers
         ///     see the locker and other items in that locker, but the human cannot see their own organs.  Note that
         ///     this means that the two entity arguments are NOT interchangeable.
         /// </remarks>
-        public static bool IsInSameOrTransparentContainer(this EntityUid user, EntityUid other, bool userSeeInsideSelf = false)
+        public bool IsInSameOrTransparentContainer(EntityUid user, EntityUid other, bool userSeeInsideSelf = false)
         {
             DebugTools.AssertNotNull(user);
             DebugTools.AssertNotNull(other);
@@ -268,7 +258,7 @@ namespace OpenNefia.Core.Containers
         /// <returns>The new container.</returns>
         /// <exception cref="ArgumentException">Thrown if there already is a container with the specified ID.</exception>
         /// <seealso cref="IContainerManager.MakeContainer{T}(string)" />
-        public static T CreateContainer<T>(this EntityUid entity, string containerId)
+        public T CreateContainer<T>(EntityUid entity, string containerId)
             where T : IContainer
         {
             var entMan = IoCManager.Resolve<IEntityManager>();
@@ -278,13 +268,13 @@ namespace OpenNefia.Core.Containers
             return containermanager.MakeContainer<T>(containerId);
         }
 
-        public static T EnsureContainer<T>(this EntityUid entity, string containerId)
+        public T EnsureContainer<T>(EntityUid entity, string containerId)
             where T : IContainer
         {
             return EnsureContainer<T>(entity, containerId, out _);
         }
 
-        public static T EnsureContainer<T>(this EntityUid entity, string containerId, out bool alreadyExisted)
+        public T EnsureContainer<T>(EntityUid entity, string containerId, out bool alreadyExisted)
             where T : IContainer
         {
             var entMan = IoCManager.Resolve<IEntityManager>();
@@ -304,6 +294,25 @@ namespace OpenNefia.Core.Containers
 
             alreadyExisted = true;
             return container;
+        }
+    }
+
+    public class ContainerHelpers
+    {
+        /// <summary>
+        /// Tries to find the container manager that this entity is inside (if any).
+        /// </summary>
+        /// <param name="entity">Entity that might be inside a container.</param>
+        /// <param name="manager">The container manager that this entity is inside of.</param>
+        /// <returns>If a container manager was found.</returns>
+        public static bool TryGetContainerMan(EntityUid entity, [NotNullWhen(true)] out IContainerManager? manager)
+        {
+            return EntitySystem.Get<ContainerSystem>().TryGetContainerMan(entity, out manager);
+        }
+
+        public static void AttachParentToContainerOrGrid(SpatialComponent transform)
+        {
+            EntitySystem.Get<ContainerSystem>().AttachParentToContainerOrGrid(transform);
         }
     }
 }

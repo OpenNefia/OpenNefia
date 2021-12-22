@@ -16,10 +16,10 @@ namespace OpenNefia.Core.Containers
     /// </summary>
     [ComponentReference(typeof(IContainerManager))]
     [RegisterComponent]
-    [Obsolete("make ECS")]
     public class ContainerManagerComponent : Component, IContainerManager, ISerializationHooks
     {
         [Dependency] private readonly IDynamicTypeFactoryInternal _dynFactory = default!;
+        [Dependency] private readonly IEntityManager _entityManager = default!;
 
         [DataField]
         public Dictionary<string, IContainer> Containers = new();
@@ -149,12 +149,11 @@ namespace OpenNefia.Core.Containers
             base.Shutdown();
 
             // On shutdown we won't get to process remove events in the containers so this has to be manually done.
-            var entMan = IoCManager.Resolve<IEntityManager>();
             foreach (var container in Containers.Values)
             {
                 foreach (var containerEntity in container.ContainedEntities)
                 {
-                    entMan.EventBus.RaiseEvent(EventSource.Local,
+                    _entityManager.EventBus.RaiseEvent(EventSource.Local,
                         new UpdateContainerOcclusionEvent(containerEntity));
                 }
             }

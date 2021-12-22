@@ -1,6 +1,7 @@
 ﻿using JetBrains.Annotations;
 using Moq;
 using OpenNefia.Core.Asynchronous;
+using OpenNefia.Core.Containers;
 using OpenNefia.Core.ContentPack;
 using OpenNefia.Core.Exceptions;
 using OpenNefia.Core.Game;
@@ -225,6 +226,7 @@ namespace OpenNefia.Tests
 
             entitySystemMan.LoadExtraSystemType<SpatialSystem>();
             entitySystemMan.LoadExtraSystemType<EntityLookup>();
+            entitySystemMan.LoadExtraSystemType<ContainerSystem>();
 
             _systemDelegate?.Invoke(entitySystemMan);
 
