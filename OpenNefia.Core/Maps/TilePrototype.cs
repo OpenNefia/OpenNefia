@@ -59,6 +59,9 @@ namespace OpenNefia.Core.Maps
         [DataField]
         public TileKind Kind2 = TileKind.None;
 
+        [DataField]
+        public bool HasOverhang = false;
+
         /// <inheritdoc />
         public void AssignTileIndex(int id)
         {
@@ -67,7 +70,7 @@ namespace OpenNefia.Core.Maps
 
         public IEnumerable<AtlasRegion> GetAtlasRegions()
         {
-            var hasOverhang = WallImage != null;
+            var hasOverhang = WallImage != null || HasOverhang;
 
             yield return new(AtlasNames.Tile, $"{ID}:Tile", Image, hasOverhang);
 

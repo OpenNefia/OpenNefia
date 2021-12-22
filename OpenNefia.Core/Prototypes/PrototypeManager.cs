@@ -175,6 +175,11 @@ namespace OpenNefia.Core.Prototypes
         ///     This does NOT fire on initial prototype load.
         /// </remarks>
         event Action<PrototypesReloadedEventArgs> PrototypesReloaded;
+
+        /// <summary>
+        ///     Fired before each prototype node is loaded, to allow transforming it.
+        /// </summary>
+        event Action<MappingDataNode> BeforePrototypeLoad;
     }
 
     /// <summary>
@@ -666,8 +671,11 @@ namespace OpenNefia.Core.Prototypes
                     throw new PrototypeLoadException($"Unknown prototype type: '{type}'", filename, node);
                 }
 
+                var dataNode = node.ToDataNodeCast<MappingDataNode>();
+                BeforePrototypeLoad?.Invoke(dataNode);
+
                 var prototypeType = _prototypeTypes[type];
-                var res = _serializationManager.Read(prototypeType, node.ToDataNode(), skipHook: true);
+                var res = _serializationManager.Read(prototypeType, dataNode, skipHook: true);
                 var prototype = (IPrototype) res.RawValue!;
 
                 if (!overwrite && _prototypes[prototypeType].ContainsKey(prototype.ID))
@@ -814,6 +822,7 @@ namespace OpenNefia.Core.Prototypes
 
         public event Action<YamlStream, string>? LoadedData;
         public event Action<PrototypesReloadedEventArgs>? PrototypesReloaded;
+        public event Action<MappingDataNode>? BeforePrototypeLoad;
     }
 
     [Serializable]

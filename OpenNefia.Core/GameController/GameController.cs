@@ -41,6 +41,7 @@ namespace OpenNefia.Core.GameController
         [Dependency] private readonly IMapRenderer _mapRenderer = default!;
         [Dependency] private readonly IDebugServer _debugServer = default!;
         [Dependency] private readonly ISaveGameManager _saveGameManager = default!;
+        [Dependency] private readonly IThemeManager _themeManager = default!;
 
         public Action? MainCallback { get; set; } = null;
 
@@ -82,6 +83,10 @@ namespace OpenNefia.Core.GameController
             _components.FinishRegistration();
 
             _resourceCache.PreloadTextures();
+
+            _themeManager.Initialize();
+            _themeManager.LoadDirectory(ResourcePath.Root / "Themes");
+            // _themeManager.SetActiveTheme("Beautify.Beautify");
 
             _prototypeManager.Initialize();
             _prototypeManager.LoadDirectory(ResourcePath.Root / "Prototypes");
@@ -166,6 +171,7 @@ namespace OpenNefia.Core.GameController
             _uiLayers.Shutdown();
             _graphics.Shutdown();
             _debugServer.Shutdown();
+            _themeManager.Shutdown();
             Logger.Log(LogLevel.Info, "Quitting game.");
             Environment.Exit(0);
         }

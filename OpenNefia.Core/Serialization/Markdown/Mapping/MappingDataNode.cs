@@ -123,6 +123,11 @@ namespace OpenNefia.Core.Serialization.Markdown.Mapping
             return Remove(GetFetchNode(key));
         }
 
+        public void Clear()
+        {
+            _children.Clear();
+        }
+
         public T Cast<T>(string index) where T : DataNode
         {
             return (T) this[index];

@@ -670,7 +670,7 @@
     filepath: /Graphic/Elona/interface.bmp
     region: "0, 656, 192, 144"
   countX: 8
-  CountY: '6'
+  countY: 6
 
 - type: Asset
   id: ShadowEdges
@@ -717,7 +717,7 @@
     filepath: /Graphic/Elona/interface.bmp
     region: "0, 600, 32, 48"
   countX: 4
-  CountY: '6'
+  countY: 6
 
 - type: Asset
   id: FailureToCastEffect
@@ -798,7 +798,7 @@
   image:
     filepath: /Graphic/Elona/anime12.bmp
   countX: 10
-  CountY: '2'
+  countY: 2
 
 - type: Asset
   id: AnimSpotMine
@@ -906,7 +906,7 @@
   image:
     filepath: /Graphic/Elona/anime13.bmp
   countX: 5
-  CountY: '2'
+  countY: 2
 
 - type: Asset
   id: AnimCritical

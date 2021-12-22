@@ -4148,6 +4148,7 @@
     region: 1056, 768, 48, 48
   isSolid: true
   isOpaque: true
+  hasOverhang: true
 - type: Tile
   id: Elona.LightGrassCarts
   hspIds:

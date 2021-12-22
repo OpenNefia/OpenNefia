@@ -77,6 +77,11 @@ namespace OpenNefia.Core.Serialization.Markdown.Sequence
             _nodes.Remove(node);
         }
 
+        public void Clear()
+        {
+            _nodes.Clear();
+        }
+
         public T Cast<T>(int index) where T : DataNode
         {
             return (T) this[index];
