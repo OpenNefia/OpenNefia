@@ -18,10 +18,16 @@ namespace OpenNefia.Core.Containers
             SubscribeLocalEvent<EntityParentChangedEvent>(HandleParentChanged, nameof(HandleParentChanged));
         }
 
-        // TODO: Make ContainerManagerComponent ECS and make these proxy methods the real deal.
+        #region Container Management
 
-        #region Proxy Methods
-
+        /// <summary>
+        /// Makes a new container of the specified type.
+        /// </summary>
+        /// <param name="uid">The container entity.</param>
+        /// <param name="id">The ID for the new container.</param>
+        /// <typeparam name="T">The type of the new container</typeparam>
+        /// <returns>The new container.</returns>
+        /// <exception cref="ArgumentException">Thrown if there already is a container with the specified ID</exception>
         public T MakeContainer<T>(EntityUid uid, string id, ContainerManagerComponent? containerManager = null)
             where T : IContainer
         {
@@ -43,6 +49,12 @@ namespace OpenNefia.Core.Containers
             return container;
         }
 
+        /// <summary>
+        /// Ensures the container with the specified ID exists, creating it if necessary.
+        /// </summary>
+        /// <param name="uid">The container entity.</param>
+        /// <param name="id">The ID to look up.</param>
+        /// <returns>The container.</returns>
         public T EnsureContainer<T>(EntityUid uid, string id, ContainerManagerComponent? containerManager = null)
             where T : IContainer
         {
@@ -55,6 +67,13 @@ namespace OpenNefia.Core.Containers
             return MakeContainer<T>(uid, id, containerManager);
         }
 
+        /// <summary>
+        /// Gets the container with the specified ID.
+        /// </summary>
+        /// <param name="uid">The container entity.</param>
+        /// <param name="id">The ID to look up.</param>
+        /// <returns>The container.</returns>
+        /// <exception cref="KeyNotFoundException">Thrown if the container does not exist.</exception>
         public IContainer GetContainer(EntityUid uid, string id, ContainerManagerComponent? containerManager = null)
         {
             if (!Resolve(uid, ref containerManager))
@@ -63,7 +82,12 @@ namespace OpenNefia.Core.Containers
             return containerManager.Containers[id];
         }
 
-        /// <inheritdoc />
+        /// <summary>
+        /// Checks whether we have a container with the specified ID.
+        /// </summary>
+        /// <param name="uid">The container entity.</param>
+        /// <param name="id">The entity ID to check.</param>
+        /// <returns>True if we already have a container, false otherwise.</returns>
         public bool HasContainer(EntityUid uid, string id, ContainerManagerComponent? containerManager = null)
         {
             if (!Resolve(uid, ref containerManager))
@@ -72,6 +96,13 @@ namespace OpenNefia.Core.Containers
             return containerManager.Containers.ContainsKey(id);
         }
 
+        /// <summary>
+        /// Tries to get the container with the specified ID.
+        /// </summary>
+        /// <param name="uid">The container entity.</param>
+        /// <param name="id">The ID to look up.</param>
+        /// <returns>The container.</returns>
+        /// <exception cref="KeyNotFoundException">Thrown if the container does not exist.</exception>
         public bool TryGetContainer(EntityUid uid, string id, [NotNullWhen(true)] out IContainer? container, ContainerManagerComponent? containerManager = null)
         {
             if (!Resolve(uid, ref containerManager, false))
@@ -85,6 +116,13 @@ namespace OpenNefia.Core.Containers
             return ret;
         }
 
+        /// <summary>
+        /// Attempt to retrieve a container that contains a specific entity.
+        /// </summary>
+        /// <param name="uid">The container entity.</param>
+        /// <param name="containedUid">The entity that is inside the container.</param>
+        /// <param name="container">The container if it was found, <c>null</c> if not found.</param>
+        /// <returns>True if the container was found, false otherwise.</returns>
         public bool TryGetContainingContainer(EntityUid uid, EntityUid containedUid, [NotNullWhen(true)] out IContainer? container, ContainerManagerComponent? containerManager = null)
         {
             if (!(Resolve(uid, ref containerManager, false) && EntityManager.EntityExists(containedUid)))
@@ -106,6 +144,12 @@ namespace OpenNefia.Core.Containers
             return false;
         }
 
+        /// <summary>
+        /// Attempts to retrieve a container that contains a specific entity.
+        /// </summary>
+        /// <param name="uid">The entity that is inside the container.</param>
+        /// <param name="container">The container if it was found, <c>null</c> if not found.</param>
+        /// <returns>True if the container was found, false otherwise.</returns>
         public bool TryGetContainingContainer(EntityUid uid, [NotNullWhen(true)] out IContainer? container, SpatialComponent? transform = null)
         {
             container = null;
@@ -118,11 +162,22 @@ namespace OpenNefia.Core.Containers
             return TryGetContainingContainer(transform.ParentUid, uid, out container);
         }
 
+        /// <summary>
+        /// Checks if this entity is in a container.
+        /// </summary>
+        /// <param name="uid">The entity to check for containment.</param>
+        /// <returns>True if the entity is contained in a container.</returns>
         public bool IsEntityInContainer(EntityUid uid, SpatialComponent? transform = null)
         {
             return TryGetContainingContainer(uid, out _, transform);
         }
 
+        /// <summary>
+        /// Checks if this entity contains the specified entity.
+        /// </summary>
+        /// <param name="uid">The container entity.</param>
+        /// <param name="containedUid">The entity to check for containment.</param>
+        /// <returns>True if the entity is contained in the container.</returns>
         public bool ContainsEntity(EntityUid uid, EntityUid containedUid, ContainerManagerComponent? containerManager = null)
         {
             if (!Resolve(uid, ref containerManager, false) || !EntityManager.EntityExists(containedUid))
@@ -136,15 +191,28 @@ namespace OpenNefia.Core.Containers
             return false;
         }
 
-        public void RemoveEntity(EntityUid uid, EntityUid containedUid, bool force = false, ContainerManagerComponent? containerManager = null)
+        /// <summary>
+        /// Attempts to remove <paramref name="entity" /> contained inside the owning entity,
+        /// finding the container containing it automatically, if it is actually contained.
+        /// </summary>
+        /// <param name="uid">The owning container entity.</param>
+        /// <param name="containedUid">The entity to remove.</param>
+        /// <param name="force">Whether to forcefully remove the entity. Avoid using this if possible.</param>
+        /// <returns>True if the entity was successfuly removed.</returns>
+        public bool RemoveEntity(EntityUid uid, EntityUid containedUid, bool force = false, ContainerManagerComponent? containerManager = null)
         {
             if (!Resolve(uid, ref containerManager) || !EntityManager.EntityExists(containedUid))
-                return;
+                return false;
 
             if (force)
+            {
                 ForceRemove(containedUid, containerManager);
+                return true;
+            }
             else
-                Remove(containedUid, containerManager);
+            {
+                return Remove(containedUid, containerManager);
+            }
         }
 
         private void ForceRemove(EntityUid containedUid, ContainerManagerComponent containerManager)
@@ -165,6 +233,11 @@ namespace OpenNefia.Core.Containers
             return true; // If we don't contain the entity, it will always be removed
         }
 
+        /// <summary>
+        /// Enumerates all containers on this entity.
+        /// </summary>
+        /// <param name="uid">The container entity.</param>
+        /// <returns>A container enumerable.</returns>
         public ContainerManagerComponent.AllContainersEnumerable GetAllContainers(EntityUid uid, ContainerManagerComponent? containerManager = null)
         {
             if (!Resolve(uid, ref containerManager))
@@ -175,6 +248,8 @@ namespace OpenNefia.Core.Containers
 
         #endregion
 
+        #region Event Handlers
+
         // Eject entities from their parent container if the parent change is done by the transform only.
         private void HandleParentChanged(ref EntityParentChangedEvent message)
         {
@@ -183,8 +258,10 @@ namespace OpenNefia.Core.Containers
             if (oldParentEntity == null || !EntityManager.EntityExists(oldParentEntity!.Value))
                 return;
 
-            if (EntityManager.TryGetComponent(oldParentEntity!.Value, out IContainerManager? containerManager))
-                containerManager.ForceRemove(message.EntityUid);
+            if (EntityManager.TryGetComponent(oldParentEntity!.Value, out ContainerManagerComponent? containerManager))
+                ForceRemove(message.EntityUid, containerManager);
         }
+
+        #endregion
     }
 }

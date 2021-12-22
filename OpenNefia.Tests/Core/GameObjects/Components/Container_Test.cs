@@ -47,20 +47,20 @@ namespace OpenNefia.Tests.Core.GameObjects.Components
             Assert.That(container.Manager, Is.EqualTo(manager));
             Assert.That(() => contSys.CreateContainer<Container>(entity, "dummy"), Throws.ArgumentException);
 
-            Assert.That(manager.HasContainer("dummy2"), Is.False);
+            Assert.That(contSys.HasContainer(entity, "dummy2"), Is.False);
             var container2 = contSys.CreateContainer<Container>(entity, "dummy2");
 
             Assert.That(container2.Manager, Is.EqualTo(manager));
             Assert.That(container2.Owner, Is.EqualTo(entity));
             Assert.That(container2.ID, Is.EqualTo("dummy2"));
 
-            Assert.That(manager.HasContainer("dummy"), Is.True);
-            Assert.That(manager.HasContainer("dummy2"), Is.True);
-            Assert.That(manager.HasContainer("dummy3"), Is.False);
+            Assert.That(contSys.HasContainer(entity, "dummy"), Is.True);
+            Assert.That(contSys.HasContainer(entity, "dummy2"), Is.True);
+            Assert.That(contSys.HasContainer(entity, "dummy3"), Is.False);
 
-            Assert.That(manager.GetContainer("dummy"), Is.EqualTo(container));
-            Assert.That(manager.GetContainer("dummy2"), Is.EqualTo(container2));
-            Assert.That(() => manager.GetContainer("dummy3"), Throws.TypeOf<KeyNotFoundException>());
+            Assert.That(contSys.GetContainer(entity, "dummy"), Is.EqualTo(container));
+            Assert.That(contSys.GetContainer(entity, "dummy2"), Is.EqualTo(container2));
+            Assert.That(() => contSys.GetContainer(entity, "dummy3"), Throws.TypeOf<KeyNotFoundException>());
 
             IoCManager.Resolve<IEntityManager>().DeleteEntity(entity);
 
