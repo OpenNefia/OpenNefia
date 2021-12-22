@@ -22,7 +22,7 @@ namespace OpenNefia.Core.Containers
         [Dependency] private readonly IEntityManager _entityManager = default!;
 
         [DataField]
-        public Dictionary<string, IContainer> Containers = new();
+        public Dictionary<ContainerId, IContainer> Containers = new();
 
         /// <inheritdoc />
         public sealed override string Name => "ContainerContainer";
@@ -117,7 +117,7 @@ namespace OpenNefia.Core.Containers
 
         public struct AllContainersEnumerator : IEnumerator<IContainer>
         {
-            private Dictionary<string, IContainer>.ValueCollection.Enumerator _enumerator;
+            private Dictionary<ContainerId, IContainer>.ValueCollection.Enumerator _enumerator;
 
             public AllContainersEnumerator(ContainerManagerComponent? manager)
             {

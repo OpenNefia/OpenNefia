@@ -28,7 +28,7 @@ namespace OpenNefia.Core.Containers
         /// <typeparam name="T">The type of the new container</typeparam>
         /// <returns>The new container.</returns>
         /// <exception cref="ArgumentException">Thrown if there already is a container with the specified ID</exception>
-        public T MakeContainer<T>(EntityUid uid, string id, ContainerManagerComponent? containerManager = null)
+        public T MakeContainer<T>(EntityUid uid, ContainerId id, ContainerManagerComponent? containerManager = null)
             where T : IContainer
         {
             if (!Resolve(uid, ref containerManager, false))
@@ -37,7 +37,7 @@ namespace OpenNefia.Core.Containers
             return (T)MakeContainer(uid, id, typeof(T), containerManager);
         }
 
-        private IContainer MakeContainer(EntityUid uid, string id, Type type, ContainerManagerComponent containerManager)
+        private IContainer MakeContainer(EntityUid uid, ContainerId id, Type type, ContainerManagerComponent containerManager)
         {
             if (HasContainer(uid, id, containerManager)) throw new ArgumentException($"Container with specified ID already exists: '{id}'");
 
@@ -55,7 +55,7 @@ namespace OpenNefia.Core.Containers
         /// <param name="uid">The container entity.</param>
         /// <param name="id">The ID to look up.</param>
         /// <returns>The container.</returns>
-        public T EnsureContainer<T>(EntityUid uid, string id, ContainerManagerComponent? containerManager = null)
+        public T EnsureContainer<T>(EntityUid uid, ContainerId id, ContainerManagerComponent? containerManager = null)
             where T : IContainer
         {
             if (!Resolve(uid, ref containerManager, false))
@@ -74,7 +74,7 @@ namespace OpenNefia.Core.Containers
         /// <param name="id">The ID to look up.</param>
         /// <returns>The container.</returns>
         /// <exception cref="KeyNotFoundException">Thrown if the container does not exist.</exception>
-        public IContainer GetContainer(EntityUid uid, string id, ContainerManagerComponent? containerManager = null)
+        public IContainer GetContainer(EntityUid uid, ContainerId id, ContainerManagerComponent? containerManager = null)
         {
             if (!Resolve(uid, ref containerManager))
                 throw new ArgumentException("Entity does not have a ContainerManagerComponent!", nameof(uid));
@@ -88,7 +88,7 @@ namespace OpenNefia.Core.Containers
         /// <param name="uid">The container entity.</param>
         /// <param name="id">The entity ID to check.</param>
         /// <returns>True if we already have a container, false otherwise.</returns>
-        public bool HasContainer(EntityUid uid, string id, ContainerManagerComponent? containerManager = null)
+        public bool HasContainer(EntityUid uid, ContainerId id, ContainerManagerComponent? containerManager = null)
         {
             if (!Resolve(uid, ref containerManager))
                 return false;
@@ -103,7 +103,7 @@ namespace OpenNefia.Core.Containers
         /// <param name="id">The ID to look up.</param>
         /// <returns>The container.</returns>
         /// <exception cref="KeyNotFoundException">Thrown if the container does not exist.</exception>
-        public bool TryGetContainer(EntityUid uid, string id, [NotNullWhen(true)] out IContainer? container, ContainerManagerComponent? containerManager = null)
+        public bool TryGetContainer(EntityUid uid, ContainerId id, [NotNullWhen(true)] out IContainer? container, ContainerManagerComponent? containerManager = null)
         {
             if (!Resolve(uid, ref containerManager, false))
             {

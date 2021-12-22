@@ -48,7 +48,7 @@ namespace OpenNefia.Core.Containers
         /// <summary>
         /// The ID of this container.
         /// </summary>
-        string ID { get; }
+        ContainerId ID { get; }
 
         /// <summary>
         /// The container manager owning this container.

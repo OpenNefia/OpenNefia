@@ -12,6 +12,10 @@ namespace OpenNefia.Tests.Core.GameObjects.Components
     {
         private static readonly PrototypeId<EntityPrototype> DummyId = new("dummy");
 
+        private static readonly ContainerId DummyContId = new("dummy");
+        private static readonly ContainerId DummyCont2Id = new("dummy2");
+        private static readonly ContainerId DummyCont3Id = new("dummy3");
+
         private static ISimulation SimulationFactory()
         {
             var sim = GameSimulation
@@ -37,30 +41,30 @@ namespace OpenNefia.Tests.Core.GameObjects.Components
 
             var entity = sim.SpawnEntity(DummyId, new EntityCoordinates(new EntityUid(1), (0, 0))).Uid;
 
-            var container = contSys.CreateContainer<Container>(entity, "dummy");
+            var container = contSys.CreateContainer<Container>(entity, DummyContId);
 
-            Assert.That(container.ID, Is.EqualTo("dummy"));
+            Assert.That(container.ID, Is.EqualTo(DummyContId));
             Assert.That(container.Owner, Is.EqualTo(entity));
 
             var manager = IoCManager.Resolve<IEntityManager>().GetComponent<IContainerManager>(entity);
 
             Assert.That(container.Manager, Is.EqualTo(manager));
-            Assert.That(() => contSys.CreateContainer<Container>(entity, "dummy"), Throws.ArgumentException);
+            Assert.That(() => contSys.CreateContainer<Container>(entity, DummyContId), Throws.ArgumentException);
 
-            Assert.That(contSys.HasContainer(entity, "dummy2"), Is.False);
-            var container2 = contSys.CreateContainer<Container>(entity, "dummy2");
+            Assert.That(contSys.HasContainer(entity, DummyCont2Id), Is.False);
+            var container2 = contSys.CreateContainer<Container>(entity, DummyCont2Id);
 
             Assert.That(container2.Manager, Is.EqualTo(manager));
             Assert.That(container2.Owner, Is.EqualTo(entity));
-            Assert.That(container2.ID, Is.EqualTo("dummy2"));
+            Assert.That(container2.ID, Is.EqualTo(DummyCont2Id));
 
-            Assert.That(contSys.HasContainer(entity, "dummy"), Is.True);
-            Assert.That(contSys.HasContainer(entity, "dummy2"), Is.True);
-            Assert.That(contSys.HasContainer(entity, "dummy3"), Is.False);
+            Assert.That(contSys.HasContainer(entity, DummyContId), Is.True);
+            Assert.That(contSys.HasContainer(entity, DummyCont2Id), Is.True);
+            Assert.That(contSys.HasContainer(entity, DummyCont3Id), Is.False);
 
-            Assert.That(contSys.GetContainer(entity, "dummy"), Is.EqualTo(container));
-            Assert.That(contSys.GetContainer(entity, "dummy2"), Is.EqualTo(container2));
-            Assert.That(() => contSys.GetContainer(entity, "dummy3"), Throws.TypeOf<KeyNotFoundException>());
+            Assert.That(contSys.GetContainer(entity, DummyContId), Is.EqualTo(container));
+            Assert.That(contSys.GetContainer(entity, DummyCont2Id), Is.EqualTo(container2));
+            Assert.That(() => contSys.GetContainer(entity, DummyCont3Id), Throws.TypeOf<KeyNotFoundException>());
 
             IoCManager.Resolve<IEntityManager>().DeleteEntity(entity);
 
@@ -79,11 +83,11 @@ namespace OpenNefia.Tests.Core.GameObjects.Components
             var inserted = sim.SpawnEntity(DummyId, new EntityCoordinates(new EntityUid(1), (0, 0))).Uid;
             var transform = IoCManager.Resolve<IEntityManager>().GetComponent<SpatialComponent>(inserted);
 
-            var container = contSys.CreateContainer<Container>(owner, "dummy");
+            var container = contSys.CreateContainer<Container>(owner, DummyContId);
             Assert.That(container.Insert(inserted), Is.True);
             Assert.That(transform.Parent!.OwnerUid, Is.EqualTo(owner));
 
-            var container2 = contSys.CreateContainer<Container>(inserted, "dummy");
+            var container2 = contSys.CreateContainer<Container>(inserted, DummyContId);
             Assert.That(container2.Insert(owner), Is.False);
 
             var success = container.Remove(inserted);
@@ -109,11 +113,11 @@ namespace OpenNefia.Tests.Core.GameObjects.Components
             var transform = IoCManager.Resolve<IEntityManager>().GetComponent<SpatialComponent>(inserted);
             var entity = sim.SpawnEntity(DummyId, new EntityCoordinates(new EntityUid(1), (0, 0))).Uid;
 
-            var container = contSys.CreateContainer<Container>(owner, "dummy");
+            var container = contSys.CreateContainer<Container>(owner, DummyContId);
             Assert.That(container.Insert(inserted), Is.True);
             Assert.That(transform.Parent!.OwnerUid, Is.EqualTo(owner));
 
-            var container2 = contSys.CreateContainer<Container>(inserted, "dummy");
+            var container2 = contSys.CreateContainer<Container>(inserted, DummyContId);
             Assert.That(container2.Insert(entity), Is.True);
             Assert.That(IoCManager.Resolve<IEntityManager>().GetComponent<SpatialComponent>(entity).Parent!.OwnerUid, Is.EqualTo(inserted));
 
@@ -137,9 +141,9 @@ namespace OpenNefia.Tests.Core.GameObjects.Components
             var entityThree = sim.SpawnEntity(DummyId, coordinates).Uid;
             var entityItem = sim.SpawnEntity(DummyId, coordinates).Uid;
 
-            var container = contSys.CreateContainer<Container>(entityOne, "dummy");
-            var container2 = contSys.CreateContainer<ContainerOnlyContainer>(entityTwo, "dummy");
-            var container3 = contSys.CreateContainer<Container>(entityThree, "dummy");
+            var container = contSys.CreateContainer<Container>(entityOne, DummyContId);
+            var container2 = contSys.CreateContainer<ContainerOnlyContainer>(entityTwo, DummyContId);
+            var container3 = contSys.CreateContainer<Container>(entityThree, DummyContId);
 
             var entMan = IoCManager.Resolve<IEntityManager>();
 
@@ -167,7 +171,7 @@ namespace OpenNefia.Tests.Core.GameObjects.Components
             var contSys = sim.Resolve<IEntitySystemManager>().GetEntitySystem<ContainerSystem>();
 
             var entity = sim.SpawnEntity(DummyId, new EntityCoordinates(new EntityUid(1), (0, 0))).Uid;
-            var container = contSys.CreateContainer<Container>(entity, "dummy");
+            var container = contSys.CreateContainer<Container>(entity, DummyContId);
 
             Assert.That(container.Insert(entity), Is.False);
             Assert.That(container.CanInsert(entity), Is.False);
@@ -181,7 +185,7 @@ namespace OpenNefia.Tests.Core.GameObjects.Components
 
             var mapEnt = new EntityUid(1);
             var entity = sim.SpawnEntity(DummyId, new EntityCoordinates(new EntityUid(1), (0, 0))).Uid;
-            var container = contSys.CreateContainer<Container>(entity, "dummy");
+            var container = contSys.CreateContainer<Container>(entity, DummyContId);
 
             Assert.That(container.Insert(mapEnt), Is.False);
             Assert.That(container.CanInsert(mapEnt), Is.False);
@@ -195,7 +199,7 @@ namespace OpenNefia.Tests.Core.GameObjects.Components
 
             var map = sim.Resolve<IMapManager>().ActiveMap!.MapEntityUid;
             var entity = sim.SpawnEntity(DummyId, new EntityCoordinates(new EntityUid(1), (0, 0))).Uid;
-            var container = contSys.CreateContainer<Container>(entity, "dummy");
+            var container = contSys.CreateContainer<Container>(entity, DummyContId);
 
             Assert.That(container.Insert(map), Is.False);
             Assert.That(container.CanInsert(map), Is.False);
@@ -208,7 +212,7 @@ namespace OpenNefia.Tests.Core.GameObjects.Components
             var contSys = sim.Resolve<IEntitySystemManager>().GetEntitySystem<ContainerSystem>();
 
             var containerEntity = sim.SpawnEntity(DummyId, new EntityCoordinates(new EntityUid(1), (0, 0))).Uid;
-            var container = contSys.CreateContainer<Container>(containerEntity, "dummy");
+            var container = contSys.CreateContainer<Container>(containerEntity, DummyContId);
             var insertEntity = sim.SpawnEntity(DummyId, new EntityCoordinates(new EntityUid(1), (0, 0))).Uid;
 
             var result = container.Insert(insertEntity);
@@ -231,7 +235,7 @@ namespace OpenNefia.Tests.Core.GameObjects.Components
             var contSys = sim.Resolve<IEntitySystemManager>().GetEntitySystem<ContainerSystem>();
 
             var containerEntity = sim.SpawnEntity(DummyId, new EntityCoordinates(new EntityUid(1), (0, 0))).Uid;
-            var container = contSys.CreateContainer<Container>(containerEntity, "dummy");
+            var container = contSys.CreateContainer<Container>(containerEntity, DummyContId);
             var insertEntity = sim.SpawnEntity(DummyId, new EntityCoordinates(new EntityUid(1), (0, 0))).Uid;
 
             var result = container.Remove(insertEntity);
@@ -246,9 +250,9 @@ namespace OpenNefia.Tests.Core.GameObjects.Components
             var contSys = sim.Resolve<IEntitySystemManager>().GetEntitySystem<ContainerSystem>();
 
             var entity1 = sim.SpawnEntity(DummyId, new EntityCoordinates(new EntityUid(1), (0, 0))).Uid;
-            var container1 = contSys.CreateContainer<Container>(entity1, "dummy");
+            var container1 = contSys.CreateContainer<Container>(entity1, DummyContId);
             var entity2 = sim.SpawnEntity(DummyId, new EntityCoordinates(new EntityUid(1), (0, 0))).Uid;
-            var container2 = contSys.CreateContainer<Container>(entity2, "dummy");
+            var container2 = contSys.CreateContainer<Container>(entity2, DummyContId);
             var transferEntity = sim.SpawnEntity(DummyId, new EntityCoordinates(new EntityUid(1), (0, 0))).Uid;
             container1.Insert(transferEntity);
 

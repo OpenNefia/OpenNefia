@@ -24,7 +24,7 @@ namespace OpenNefia.Core.Containers
         public bool Deleted { get; private set; }
 
         /// <inheritdoc />
-        public string ID { get; internal set; } = default!; // Make sure you set me in init
+        public ContainerId ID { get; internal set; } = default!; // Make sure you set me in init
 
         /// <inheritdoc />
         public IContainerManager Manager { get; internal set; } = default!; // Make sure you set me in init
