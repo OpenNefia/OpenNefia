@@ -170,8 +170,7 @@ tilemap:
   Ù: Elona.WorldSnowWaterBorderS
 entities:
 - uid: 0
-  components:
-  - type: Map
+  protoId: Elona.MapWorld
 - uid: 1
   protoId: Elona.FeatMapEntrance
   components:

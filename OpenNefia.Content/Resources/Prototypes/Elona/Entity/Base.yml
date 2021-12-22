@@ -53,3 +53,9 @@
   parent: BaseObject
   abstract: true
   hspEntityType: mef
+
+- type: Entity
+  id: BaseMap
+  abstract: true
+  components:
+  - type: Map

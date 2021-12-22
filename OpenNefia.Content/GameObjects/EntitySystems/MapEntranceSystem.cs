@@ -48,5 +48,22 @@ namespace OpenNefia.Content.GameObjects
 
             return TurnResult.Succeeded;
         }
+
+        /// <summary>
+        /// Set the map to travel to when exiting the destination map via the edges.
+        /// </summary>
+        /// <param name="mapTravellingTo">Map that is being travelled to.</param>
+        /// <param name="prevCoords">Location that exiting the given map from the edges should lead to.</param>
+        public void SetPreviousMap(MapId mapTravellingTo, MapCoordinates prevCoords)
+        {
+            if (!_mapManager.TryGetMapEntity(mapTravellingTo, out var mapEntity))
+            {
+                return;
+            }
+
+            var mapMapEntrance = EntityManager.EnsureComponent<MapEntranceComponent>(mapEntity.Uid);
+            mapMapEntrance.Entrance.DestinationMapId = prevCoords.MapId;
+            mapMapEntrance.Entrance.StartLocation = new SpecificMapLocation(prevCoords.Position);
+        }
     }
 }

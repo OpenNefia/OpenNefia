@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using OpenNefia.Core.Maths;
 using OpenNefia.Core.Utility;
 
 namespace OpenNefia.Core.Random
@@ -72,6 +73,12 @@ namespace OpenNefia.Core.Random
             return random.Next() * 4.6566128752458E-10f;
         }
 
+        public static Vector2i NextPoint(this IRandom random, UIBox2i bounds)
+        {
+            return new Vector2i(random.Next(bounds.Left, bounds.Right),
+                                random.Next(bounds.Top, bounds.Bottom));
+        }
+
         /// <summary>
         ///     Have a certain chance to return a boolean.
         /// </summary>
@@ -95,7 +102,7 @@ namespace OpenNefia.Core.Random
 
             return random.Next(chance) == 0;
         }
-        
+
         /// <summary>
         /// Randomly shuffles a list.
         /// </summary>

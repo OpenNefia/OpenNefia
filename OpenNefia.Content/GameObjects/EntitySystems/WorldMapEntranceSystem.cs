@@ -4,6 +4,7 @@ using OpenNefia.Core.IoC;
 using OpenNefia.Core.Logic;
 using OpenNefia.Content.Prototypes;
 using OpenNefia.Core.Maps;
+using OpenNefia.Core.Log;
 
 namespace OpenNefia.Content.GameObjects
 {
@@ -57,16 +58,14 @@ namespace OpenNefia.Content.GameObjects
 
             var turnResult = _mapEntrances.UseMapEntrance(entrance, user, mapEntrance);
 
-            // Set the map to travel to when exiting the destination map via the edges.
             var mapId = mapEntrance.Entrance.DestinationMapId;
             if (mapId != null)
             {
-                if (_mapManager.TryGetMapEntity(mapId.Value, out var mapEntity))
-                {
-                    var mapMapEntrance = EntityManager.EnsureComponent<MapEntranceComponent>(mapEntity.Uid);
-                    mapMapEntrance.Entrance.DestinationMapId = prevCoords.MapId;
-                    mapMapEntrance.Entrance.StartLocation = new SpecificMapLocation(prevCoords.Position);
-                }
+                _mapEntrances.SetPreviousMap(mapId.Value, prevCoords);
+            }
+            else
+            {
+                Logger.WarningS("sys.worldMapEntrance", "No map to travel to on this entrance!");
             }
 
             return turnResult;

@@ -1,0 +1,92 @@
+---
+- type: Elona.FieldType
+  id: Elona.Plains
+  defaultTile: Elona.Grass
+  fogTile: Elona.WallStone1Fog
+  tiles:
+  - density: 10
+    id: Elona.GrassViolets
+  - density: 2
+    id: Elona.GrassRocks
+  - density: 2
+    id: Elona.GrassTall1
+  - density: 2
+    id: Elona.GrassTall2
+  - density: 2
+    id: Elona.GrassPatch1
+  - density: 2
+    id: Elona.GrassPatch2
+- type: Elona.FieldType
+  id: Elona.Grassland
+  defaultTile: Elona.GrassTall1
+  fogTile: Elona.WallStone1Fog
+  tiles:
+  - density: 10
+    id: Elona.GrassBush3
+  - density: 10
+    id: Elona.GrassPatch3
+  - density: 30
+    id: Elona.Grass
+  - density: 4
+    id: Elona.GrassViolets
+  - density: 2
+    id: Elona.GrassTall2
+  - density: 2
+    id: Elona.GrassTall1
+  - density: 2
+    id: Elona.GrassTall2
+  - density: 2
+    id: Elona.GrassPatch1
+- type: Elona.FieldType
+  id: Elona.Desert
+  defaultTile: Elona.Desert
+  fogTile: Elona.WallStone4Fog
+  tiles:
+  - density: 25
+    id: Elona.DesertRocks3
+  - density: 10
+    id: Elona.DesertRocks2
+  - density: 2
+    id: Elona.Desert
+  - density: 4
+    id: Elona.DesertFlowers1
+  - density: 2
+    id: Elona.DesertFlowers2
+- type: Elona.FieldType
+  id: Elona.Sea
+  defaultTile: Elona.CrackedDirt1
+  fogTile: Elona.WallStone1Fog
+  tiles: []
+- type: Elona.FieldType
+  id: Elona.Forest
+  defaultTile: Elona.GrassBush1
+  fogTile: Elona.WallStone1Fog
+  tiles:
+  - density: 25
+    id: Elona.GrassBush2
+  - density: 10
+    id: Elona.Grass
+  - density: 4
+    id: Elona.GrassViolets
+  - density: 2
+    id: Elona.GrassTall2
+- type: Elona.FieldType
+  id: Elona.SnowField
+  defaultTile: Elona.Snow
+  fogTile: Elona.WallStone5Fog
+  tiles:
+  - density: 4
+    id: Elona.SnowClumps2
+  - density: 4
+    id: Elona.SnowClumps1
+  - density: 2
+    id: Elona.SnowStump
+  - density: 1
+    id: Elona.SnowMound
+  - density: 1
+    id: Elona.SnowPlants
+  - density: 1
+    id: Elona.SnowRock
+  - density: 1
+    id: Elona.SnowFlowers2
+...

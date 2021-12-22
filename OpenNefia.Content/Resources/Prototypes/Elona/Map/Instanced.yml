@@ -1,0 +1,4 @@
+- type: Map
+  id: Elona.TheMine
+  hspOrigin: elona122
+  blueprintPath: /Maps/Elona/puti.yml

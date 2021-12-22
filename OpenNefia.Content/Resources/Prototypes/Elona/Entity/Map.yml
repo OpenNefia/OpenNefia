@@ -1,0 +1,5 @@
+- type: Entity
+  id: Elona.MapWorld
+  parent: BaseMap
+  components:
+  - type: WorldMapFields

@@ -112,7 +112,8 @@ namespace OpenNefia.Core.GameObjects
             if (!_mapManager.TryGetMapEntity(mapId, out var mapEntity))
                 return Enumerable.Empty<Entity>();
 
-            return _entityManager.GetEntities().Where(ent => ent.Spatial.MapID == mapId && ent.Uid != mapEntity.Uid);
+            return _entityManager.GetEntities().Where(ent => ent.Spatial.MapID == mapId && ent.Uid != mapEntity.Uid)
+                .Append(mapEntity);
         }
 
         /// <inheritdoc />
@@ -121,14 +122,16 @@ namespace OpenNefia.Core.GameObjects
             if (!_mapManager.TryGetMapEntity(mapId, out var mapEntity))
                 return Enumerable.Empty<Entity>();
 
-            return mapEntity.Spatial.Children.Select(spatial => spatial.Owner);
+            return mapEntity.Spatial.Children.Select(spatial => spatial.Owner)
+                .Append(mapEntity);
         }
 
         /// <inheritdoc />
         public IEnumerable<Entity> GetLiveEntitiesAtPos(MapCoordinates coords)
         {
             return GetEntitiesDirectlyInMap(coords.MapId)
-                 .Where(entity => entity.Spatial.MapPosition == coords
+                 .Where(entity => (entity.Spatial.MapPosition == coords 
+                                   || entity.Spatial.Parent == null) // is map entity?
                                && entity.MetaData.IsAlive);
         }
 
