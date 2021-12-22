@@ -15,8 +15,6 @@ namespace OpenNefia.Core.Containers
         /// <inheritdoc />
         public abstract IReadOnlyList<EntityUid> ContainedEntities { get; }
 
-        public abstract List<EntityUid> ExpectedEntities { get; }
-
         /// <inheritdoc />
         public abstract string ContainerType { get; }
 

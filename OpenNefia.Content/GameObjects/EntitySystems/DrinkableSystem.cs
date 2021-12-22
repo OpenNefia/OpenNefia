@@ -50,13 +50,13 @@ namespace OpenNefia.Content.GameObjects
         private TurnResult Drink(EntityUid target, EntityUid drinker,
             DrinkableComponent? drinkable = null)
         {
-            Mes.Display($"{DisplayNameSystem.GetDisplayName(drinker)} drinks {DisplayNameSystem.GetDisplayName(target)}.");
-
             if (!Resolve(target, ref drinkable))
                 return TurnResult.Failed;
 
             if (!EntityManager.TryGetComponent(drinker, out SpatialComponent sourceSpatial))
                 return TurnResult.Failed;
+
+            Mes.Display($"{DisplayNameSystem.GetDisplayName(drinker)} drinks {DisplayNameSystem.GetDisplayName(target)}.");
 
             _sounds.Play(Protos.Sound.Drink1, sourceSpatial.MapPosition);
 

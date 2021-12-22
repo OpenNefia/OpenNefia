@@ -39,10 +39,10 @@ namespace OpenNefia.Core.GameObjects
         /// ID of this registration.
         /// </summary>
         [DataField]
-        public SlotId Id { get; }
+        public SlotId Id { get; } = default!;
 
         [DataField("compTypes")]
-        internal readonly HashSet<Type> _compTypes;
+        internal readonly HashSet<Type> _compTypes = new();
 
         /// <summary>
         /// The types of components this registration initially added.

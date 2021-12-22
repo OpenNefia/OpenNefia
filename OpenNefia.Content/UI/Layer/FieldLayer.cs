@@ -22,6 +22,7 @@ namespace OpenNefia.Content.UI.Layer
     {
         [Dependency] private readonly IMapRenderer _mapRenderer = default!;
         [Dependency] private readonly IMapManager _mapManager = default!;
+        [Dependency] private readonly IEntityManager _entityManager = default!;
         [Dependency] private readonly IHudLayer _hud = default!;
         [Dependency] private readonly ICoords _coords = default!;
         [Dependency] private readonly IPlayerQuery _playerQuery = default!;
@@ -90,8 +91,8 @@ namespace OpenNefia.Content.UI.Layer
             Keybinds[CoreKeybinds.Descend] += Descend;
             Keybinds[CoreKeybinds.Enter] += Activate;
             Keybinds[CoreKeybinds.Repl] += QueryRepl;
-            //Keybinds[Keys.G] += (_) => GetItem();
-            //Keybinds[Keys.D] += (_) => DropItem();
+            Keybinds[Keys.G] += PickUpItem;
+            Keybinds[Keys.D] += DropItem;
             //Keybinds[Keys.C] += (_) => CastSpell();
             Keybinds[Keys.Q] += DrinkItem;
             Keybinds[Keys.T] += ThrowItem;
@@ -151,106 +152,75 @@ namespace OpenNefia.Content.UI.Layer
             }
         }
 
-        /*
-                private void GetItem()
-                {
-                    var player = _gameSession.Player;
-
-                    if (player != null)
-                    {
-                        var item = player.Coords.GetEntities().FirstOrDefault();
-
-                        if (item != null && CharaAction.PickUpItem(player, item))
-                        {
-                            Sounds.Play(Protos.Sound.Get1, pos);
-
-                            if (item.StackAll())
-                            {
-                                Sounds.Play(Protos.Sound.Heal1);
-                            }
-                        }
-
-                        var drawable = new BasicAnimMapDrawable(BasicAnimDefOf.AnimSmoke);
-                        drawable.SetPosition(Rand.NextInt(Love.Graphics.GetWidth()), Rand.NextInt(Love.Graphics.GetHeight()));
-                        MapDrawables.Enqueue(drawable, player.GetTilePos());
-
-                        RefreshScreen();
-                    }
-                }
-
-                private void DropItem()
-                {
-                    var player = _gameSession.Player;
-
-                    if (player != null)
-                    {
-                        var item = player.Inventory.FirstOrDefault();
-
-                        if (item != null && CharaAction.DropItem(player, item))
-                        {
-                            Sounds.Play(Protos.Sound.Drop1, player.X, player.Y);
-
-                            if (item.StackAll())
-                            {
-                                Sounds.Play(Protos.Sound.AtkChaos);
-                            }
-                        }
-
-                        RefreshScreen();
-                    }
-                }
-        
-        */
-
-        private void RunVerbCommand(Verb verb)
+        private void RunVerbCommand(Verb verb, IEnumerable<Entity> ents)
         {
-            var player = _gameSession.Player;
+            var player = _gameSession.Player!;
 
-            if (player != null)
+            var verbSystem = EntitySystem.Get<VerbSystem>();
+
+            foreach (var target in ents)
             {
-                var verbSystem = EntitySystem.Get<VerbSystem>();
-                var lookup = EntitySystem.Get<IEntityLookup>();
-
-                foreach (var target in lookup.GetLiveEntitiesAtPos(player.Spatial.MapPosition))
+                if (target.Uid != player.Uid)
                 {
-                    if (target.Uid != player.Uid)
+                    var verbs = verbSystem.GetLocalVerbs(target.Uid, player.Uid);
+                    if (verbs.Contains(verb))
                     {
-                        var verbs = verbSystem.GetLocalVerbs(target.Uid, player.Uid);
-                        if (verbs.Contains(verb))
-                        {
-                            verbSystem.ExecuteVerb(player.Uid, target.Uid, verb);
-                            break;
-                        }
+                        verbSystem.ExecuteVerb(player.Uid, target.Uid, verb);
+                        break;
                     }
                 }
-
-                RefreshScreen();
             }
+
+            RefreshScreen();
+        }
+
+        private IEnumerable<Entity> EntitiesUnderneath()
+        {
+            var player = _gameSession.Player!;
+            var lookup = EntitySystem.Get<IEntityLookup>();
+            return lookup.GetLiveEntitiesAtPos(player.Spatial.MapPosition);
+        }
+
+        private IEnumerable<Entity> EntitiesInInventory()
+        {
+            var player = _gameSession.Player!;
+            var inv = _entityManager.EnsureComponent<InventoryComponent>(player.Uid);
+            return inv.Container.ContainedEntities.Select(uid => _entityManager.GetEntity(uid));
         }
 
         private void DrinkItem(UiKeyInputEventArgs args)
         {
-            RunVerbCommand(new Verb(DrinkableSystem.VerbIDDrink));
+            RunVerbCommand(new Verb(DrinkableSystem.VerbIDDrink), EntitiesUnderneath());
         }
 
         private void ThrowItem(UiKeyInputEventArgs args)
         {
-            RunVerbCommand(new Verb(ThrowableSystem.VerbIDThrow));
+            RunVerbCommand(new Verb(ThrowableSystem.VerbIDThrow), EntitiesUnderneath());
         }
 
         public void Ascend(UiKeyInputEventArgs args)
         {
-            RunVerbCommand(new Verb(StairsSystem.VerbIDAscend));
+            RunVerbCommand(new Verb(StairsSystem.VerbIDAscend), EntitiesUnderneath());
         }
 
         public void Descend(UiKeyInputEventArgs args)
         {
-            RunVerbCommand(new Verb(StairsSystem.VerbIDDescend));
+            RunVerbCommand(new Verb(StairsSystem.VerbIDDescend), EntitiesUnderneath());
         }
 
         public void Activate(UiKeyInputEventArgs args)
         {
-            RunVerbCommand(new Verb(StairsSystem.VerbIDActivate));
+            RunVerbCommand(new Verb(StairsSystem.VerbIDActivate), EntitiesUnderneath());
+        }
+
+        private void PickUpItem(UiKeyInputEventArgs args)
+        {
+            RunVerbCommand(new Verb(PickableSystem.VerbIDPickUp), EntitiesUnderneath());
+        }
+
+        private void DropItem(UiKeyInputEventArgs args)
+        {
+            RunVerbCommand(new Verb(PickableSystem.VerbIDDrop), EntitiesInInventory());
         }
 
         public void PromptToCancel(UiKeyInputEventArgs args)

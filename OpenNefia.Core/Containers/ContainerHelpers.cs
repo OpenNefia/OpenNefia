@@ -32,5 +32,17 @@ namespace OpenNefia.Core.Containers
         {
             return EntitySystem.Get<ContainerSystem>().RemoveEntity(uid, containedUid, force, containerManager);
         }
+
+        public static T EnsureContainer<T>(EntityUid uid, ContainerId id, out bool alreadyExisted)
+            where T : IContainer
+        {
+            return EntitySystem.Get<ContainerSystem>().EnsureContainer<T>(uid, id, out alreadyExisted);
+        }
+
+        public static T EnsureContainer<T>(EntityUid uid, ContainerId id)
+            where T : IContainer
+        {
+            return EnsureContainer<T>(uid, id, out _);
+        }
     }
 }

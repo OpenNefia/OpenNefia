@@ -8,6 +8,6 @@ namespace OpenNefia.Content.GameObjects
 {
     public interface IFromHspItem
     {
-        void FromHspItem(ItemOwnState ownState);
+        void FromHspItem(OwnState ownState);
     }
 }

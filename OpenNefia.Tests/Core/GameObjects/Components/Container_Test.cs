@@ -276,8 +276,6 @@ namespace OpenNefia.Tests.Core.GameObjects.Components
             /// <inheritdoc />
             public override IReadOnlyList<EntityUid> ContainedEntities => _containerList;
 
-            public override List<EntityUid> ExpectedEntities => _expectedEntities;
-
             /// <inheritdoc />
             protected override void InternalInsert(EntityUid toinsert, IEntityManager? entMan = null)
             {

@@ -184,7 +184,7 @@ entities:
   - type: Spatial
     pos: 13,5
     parent: 0
-  - type: Item
+  - type: Pickable
     ownState: NPC
 - uid: 6
   protoId: Elona.ItemFireplace
@@ -192,7 +192,7 @@ entities:
   - type: Spatial
     pos: 11,3
     parent: 0
-  - type: Item
+  - type: Pickable
     ownState: NPC
 - uid: 7
   protoId: Elona.ItemWashstand
@@ -200,7 +200,7 @@ entities:
   - type: Spatial
     pos: 14,3
     parent: 0
-  - type: Item
+  - type: Pickable
     ownState: NPC
 - uid: 8
   protoId: Elona.ItemKitchenOven
@@ -208,7 +208,7 @@ entities:
   - type: Spatial
     pos: 15,3
     parent: 0
-  - type: Item
+  - type: Pickable
     ownState: NPC
 - uid: 9
   protoId: Elona.ItemKitchen
@@ -216,7 +216,7 @@ entities:
   - type: Spatial
     pos: 13,3
     parent: 0
-  - type: Item
+  - type: Pickable
     ownState: NPC
 - uid: 10
   protoId: Elona.ItemLargeBouquet
@@ -224,7 +224,7 @@ entities:
   - type: Spatial
     pos: 11,10
     parent: 0
-  - type: Item
+  - type: Pickable
     ownState: NPC
 - uid: 11
   protoId: Elona.ItemLargeBouquet
@@ -232,7 +232,7 @@ entities:
   - type: Spatial
     pos: 13,10
     parent: 0
-  - type: Item
+  - type: Pickable
     ownState: NPC
 - uid: 12
   protoId: Elona.ItemNiceWindow
@@ -240,7 +240,7 @@ entities:
   - type: Spatial
     pos: 5,12
     parent: 0
-  - type: Item
+  - type: Pickable
     ownState: NPC
 - uid: 13
   protoId: Elona.ItemNiceWindow
@@ -248,7 +248,7 @@ entities:
   - type: Spatial
     pos: 9,12
     parent: 0
-  - type: Item
+  - type: Pickable
     ownState: NPC
 - uid: 14
   protoId: Elona.ItemNiceWindow
@@ -256,7 +256,7 @@ entities:
   - type: Spatial
     pos: 19,12
     parent: 0
-  - type: Item
+  - type: Pickable
     ownState: NPC
 - uid: 15
   protoId: Elona.ItemNiceWindow
@@ -264,7 +264,7 @@ entities:
   - type: Spatial
     pos: 15,12
     parent: 0
-  - type: Item
+  - type: Pickable
     ownState: NPC
 - uid: 16
   protoId: Elona.ItemNiceWindow
@@ -272,7 +272,7 @@ entities:
   - type: Spatial
     pos: 20,3
     parent: 0
-  - type: Item
+  - type: Pickable
     ownState: NPC
 - uid: 17
   protoId: Elona.ItemNiceWindow
@@ -280,7 +280,7 @@ entities:
   - type: Spatial
     pos: 12,3
     parent: 0
-  - type: Item
+  - type: Pickable
     ownState: NPC
 - uid: 18
   protoId: Elona.ItemNiceWindow
@@ -288,7 +288,7 @@ entities:
   - type: Spatial
     pos: 4,3
     parent: 0
-  - type: Item
+  - type: Pickable
     ownState: NPC
 - uid: 19
   protoId: Elona.ItemBoringBed
@@ -296,7 +296,7 @@ entities:
   - type: Spatial
     pos: 4,4
     parent: 0
-  - type: Item
+  - type: Pickable
     ownState: NPC
 - uid: 20
   protoId: Elona.ItemRagDoll
@@ -304,7 +304,7 @@ entities:
   - type: Spatial
     pos: 6,3
     parent: 0
-  - type: Item
+  - type: Pickable
     ownState: NPC
 - uid: 21
   protoId: Elona.ItemRagDoll
@@ -312,7 +312,7 @@ entities:
   - type: Spatial
     pos: 7,3
     parent: 0
-  - type: Item
+  - type: Pickable
     ownState: NPC
 - uid: 22
   protoId: Elona.ItemRagDoll
@@ -320,7 +320,7 @@ entities:
   - type: Spatial
     pos: 3,3
     parent: 0
-  - type: Item
+  - type: Pickable
     ownState: NPC
 - uid: 23
   protoId: Elona.ItemToy
@@ -328,7 +328,7 @@ entities:
   - type: Spatial
     pos: 5,3
     parent: 0
-  - type: Item
+  - type: Pickable
     ownState: NPC
 - uid: 24
   protoId: Elona.ItemMoneyTree
@@ -336,7 +336,7 @@ entities:
   - type: Spatial
     pos: 3,5
     parent: 0
-  - type: Item
+  - type: Pickable
     ownState: NPC
 - uid: 25
   protoId: Elona.ItemLotOfEmptyBottles
@@ -344,7 +344,7 @@ entities:
   - type: Spatial
     pos: 7,4
     parent: 0
-  - type: Item
+  - type: Pickable
     ownState: NPC
 - uid: 26
   protoId: Elona.ItemBottleOfBeer
@@ -352,7 +352,7 @@ entities:
   - type: Spatial
     pos: 6,5
     parent: 0
-  - type: Item
+  - type: Pickable
     ownState: NPC
 - uid: 27
   protoId: Elona.ItemBathtub
@@ -360,7 +360,7 @@ entities:
   - type: Spatial
     pos: 19,3
     parent: 0
-  - type: Item
+  - type: Pickable
     ownState: NPC
 - uid: 28
   protoId: Elona.ItemGiantCactus
@@ -368,7 +368,7 @@ entities:
   - type: Spatial
     pos: 18,3
     parent: 0
-  - type: Item
+  - type: Pickable
     ownState: NPC
 - uid: 29
   protoId: Elona.ItemToilet
@@ -376,7 +376,7 @@ entities:
   - type: Spatial
     pos: 21,3
     parent: 0
-  - type: Item
+  - type: Pickable
     ownState: NPC
 - uid: 30
   protoId: Elona.ItemSafe
@@ -384,7 +384,7 @@ entities:
   - type: Spatial
     pos: 9,3
     parent: 0
-  - type: Item
+  - type: Pickable
     ownState: NPC
 - uid: 31
   protoId: Elona.ItemTowel
@@ -392,7 +392,7 @@ entities:
   - type: Spatial
     pos: 21,4
     parent: 0
-  - type: Item
+  - type: Pickable
     ownState: NPC
 - uid: 32
   protoId: Elona.FeatSmallMedal
@@ -436,7 +436,7 @@ entities:
   - type: Spatial
     pos: 19,10
     parent: 0
-  - type: Item
+  - type: Pickable
     ownState: NPC
 - uid: 39
   protoId: Elona.ItemAnimalBone
@@ -444,7 +444,7 @@ entities:
   - type: Spatial
     pos: 21,9
     parent: 0
-  - type: Item
+  - type: Pickable
     ownState: NPC
 - uid: 40
   protoId: Elona.ItemCraftBookShelf
@@ -452,7 +452,7 @@ entities:
   - type: Spatial
     pos: 20,9
     parent: 0
-  - type: Item
+  - type: Pickable
     ownState: NPC
 - uid: 41
   protoId: Elona.ItemCraftBookShelf
@@ -460,7 +460,7 @@ entities:
   - type: Spatial
     pos: 18,9
     parent: 0
-  - type: Item
+  - type: Pickable
     ownState: NPC
 - uid: 42
   protoId: Elona.ItemPentagram
@@ -468,7 +468,7 @@ entities:
   - type: Spatial
     pos: 20,10
     parent: 0
-  - type: Item
+  - type: Pickable
     ownState: NPC
 - uid: 43
   protoId: Elona.ItemAnemos
@@ -476,7 +476,7 @@ entities:
   - type: Spatial
     pos: 6,7
     parent: 0
-  - type: Item
+  - type: Pickable
     ownState: NPC
 - uid: 44
   protoId: Elona.ItemAnemos
@@ -484,7 +484,7 @@ entities:
   - type: Spatial
     pos: 4,7
     parent: 0
-  - type: Item
+  - type: Pickable
     ownState: NPC
 - uid: 45
   protoId: Elona.ItemNerine
@@ -492,7 +492,7 @@ entities:
   - type: Spatial
     pos: 3,7
     parent: 0
-  - type: Item
+  - type: Pickable
     ownState: NPC
 - uid: 46
   protoId: Elona.ItemNerine
@@ -500,7 +500,7 @@ entities:
   - type: Spatial
     pos: 3,10
     parent: 0
-  - type: Item
+  - type: Pickable
     ownState: NPC
 - uid: 47
   protoId: Elona.ItemLotOfAlcohols
@@ -508,7 +508,7 @@ entities:
   - type: Spatial
     pos: 7,5
     parent: 0
-  - type: Item
+  - type: Pickable
     ownState: NPC
 - uid: 48
   protoId: Elona.ItemMessyCloth
@@ -516,7 +516,7 @@ entities:
   - type: Spatial
     pos: 5,4
     parent: 0
-  - type: Item
+  - type: Pickable
     ownState: NPC
 - uid: 49
   protoId: Elona.ItemFoodProcessor
@@ -524,7 +524,7 @@ entities:
   - type: Spatial
     pos: 16,3
     parent: 0
-  - type: Item
+  - type: Pickable
     ownState: NPC
 - uid: 50
   protoId: Elona.ItemSage
@@ -532,7 +532,7 @@ entities:
   - type: Spatial
     pos: 9,5
     parent: 0
-  - type: Item
+  - type: Pickable
     ownState: NPC
 - uid: 51
   protoId: Elona.ItemSage
@@ -540,7 +540,7 @@ entities:
   - type: Spatial
     pos: 9,6
     parent: 0
-  - type: Item
+  - type: Pickable
     ownState: NPC
 - uid: 52
   protoId: Elona.ItemCarnation
@@ -548,7 +548,7 @@ entities:
   - type: Spatial
     pos: 21,6
     parent: 0
-  - type: Item
+  - type: Pickable
     ownState: NPC
 - uid: 53
   protoId: Elona.ItemCarnation
@@ -556,7 +556,7 @@ entities:
   - type: Spatial
     pos: 21,7
     parent: 0
-  - type: Item
+  - type: Pickable
     ownState: NPC
 - uid: 54
   protoId: Elona.ItemDresser
@@ -564,7 +564,7 @@ entities:
   - type: Spatial
     pos: 10,3
     parent: 0
-  - type: Item
+  - type: Pickable
     ownState: NPC
 - uid: 55
   protoId: Elona.ItemBarrel
@@ -572,7 +572,7 @@ entities:
   - type: Spatial
     pos: 3,9
     parent: 0
-  - type: Item
+  - type: Pickable
     ownState: NPC
 - uid: 56
   protoId: Elona.ItemBarrel
@@ -580,7 +580,7 @@ entities:
   - type: Spatial
     pos: 3,8
     parent: 0
-  - type: Item
+  - type: Pickable
     ownState: NPC
 - uid: 57
   protoId: Elona.ItemFancyLamp
@@ -588,7 +588,7 @@ entities:
   - type: Spatial
     pos: 11,6
     parent: 0
-  - type: Item
+  - type: Pickable
     ownState: NPC
 - uid: 58
   protoId: Elona.ItemCandle
@@ -596,7 +596,7 @@ entities:
   - type: Spatial
     pos: 7,7
     parent: 0
-  - type: Item
+  - type: Pickable
     ownState: NPC
 - uid: 59
   protoId: Elona.ItemCandle
@@ -604,7 +604,7 @@ entities:
   - type: Spatial
     pos: 18,6
     parent: 0
-  - type: Item
+  - type: Pickable
     ownState: NPC
 - uid: 60
   protoId: Elona.ItemCandle
@@ -612,6 +612,6 @@ entities:
   - type: Spatial
     pos: 20,6
     parent: 0
-  - type: Item
+  - type: Pickable
     ownState: NPC
 ...

@@ -49,7 +49,7 @@ entities:
   - type: Spatial
     pos: 10,14
     parent: 0
-  - type: Item
+  - type: Pickable
     ownState: NPC
 - uid: 3
   protoId: Elona.ItemBunkBed
@@ -57,7 +57,7 @@ entities:
   - type: Spatial
     pos: 12,14
     parent: 0
-  - type: Item
+  - type: Pickable
     ownState: NPC
 - uid: 4
   protoId: Elona.ItemBunkBed
@@ -65,7 +65,7 @@ entities:
   - type: Spatial
     pos: 14,14
     parent: 0
-  - type: Item
+  - type: Pickable
     ownState: NPC
 - uid: 5
   protoId: Elona.ItemFoodMaker
@@ -73,7 +73,7 @@ entities:
   - type: Spatial
     pos: 17,8
     parent: 0
-  - type: Item
+  - type: Pickable
     ownState: NPC
 - uid: 6
   protoId: Elona.ItemFoodProcessor
@@ -81,7 +81,7 @@ entities:
   - type: Spatial
     pos: 16,8
     parent: 0
-  - type: Item
+  - type: Pickable
     ownState: NPC
 - uid: 7
   protoId: Elona.ItemTowel
@@ -89,7 +89,7 @@ entities:
   - type: Spatial
     pos: 15,14
     parent: 0
-  - type: Item
+  - type: Pickable
     ownState: NPC
 - uid: 8
   protoId: Elona.ItemTowel
@@ -97,7 +97,7 @@ entities:
   - type: Spatial
     pos: 13,14
     parent: 0
-  - type: Item
+  - type: Pickable
     ownState: NPC
 - uid: 9
   protoId: Elona.ItemTowel
@@ -105,7 +105,7 @@ entities:
   - type: Spatial
     pos: 11,14
     parent: 0
-  - type: Item
+  - type: Pickable
     ownState: NPC
 - uid: 10
   protoId: Elona.ItemTowel
@@ -113,7 +113,7 @@ entities:
   - type: Spatial
     pos: 9,14
     parent: 0
-  - type: Item
+  - type: Pickable
     ownState: NPC
 - uid: 11
   protoId: Elona.ItemBigCupboard
@@ -121,7 +121,7 @@ entities:
   - type: Spatial
     pos: 15,8
     parent: 0
-  - type: Item
+  - type: Pickable
     ownState: NPC
 - uid: 12
   protoId: Elona.ItemRackOfPotions
@@ -129,7 +129,7 @@ entities:
   - type: Spatial
     pos: 14,8
     parent: 0
-  - type: Item
+  - type: Pickable
     ownState: NPC
 - uid: 13
   protoId: Elona.ItemFireplace
@@ -137,7 +137,7 @@ entities:
   - type: Spatial
     pos: 12,8
     parent: 0
-  - type: Item
+  - type: Pickable
     ownState: NPC
 - uid: 14
   protoId: Elona.ItemNarrowDiningTable
@@ -145,7 +145,7 @@ entities:
   - type: Spatial
     pos: 13,9
     parent: 0
-  - type: Item
+  - type: Pickable
     ownState: NPC
 - uid: 15
   protoId: Elona.ItemNarrowDiningTable
@@ -153,7 +153,7 @@ entities:
   - type: Spatial
     pos: 15,9
     parent: 0
-  - type: Item
+  - type: Pickable
     ownState: NPC
 - uid: 16
   protoId: Elona.ItemKitchenOven
@@ -161,7 +161,7 @@ entities:
   - type: Spatial
     pos: 13,8
     parent: 0
-  - type: Item
+  - type: Pickable
     ownState: NPC
 - uid: 17
   protoId: Elona.CharaCitizen
@@ -241,7 +241,7 @@ entities:
   - type: Spatial
     pos: 10,9
     parent: 0
-  - type: Item
+  - type: Pickable
     ownState: NPC
 - uid: 30
   protoId: Elona.ItemTrainingMachine
@@ -249,7 +249,7 @@ entities:
   - type: Spatial
     pos: 17,14
     parent: 0
-  - type: Item
+  - type: Pickable
     ownState: NPC
 - uid: 31
   protoId: Elona.ItemNeatShelf
@@ -257,7 +257,7 @@ entities:
   - type: Spatial
     pos: 9,8
     parent: 0
-  - type: Item
+  - type: Pickable
     ownState: NPC
 - uid: 32
   protoId: Elona.ItemNeatShelf
@@ -265,7 +265,7 @@ entities:
   - type: Spatial
     pos: 10,8
     parent: 0
-  - type: Item
+  - type: Pickable
     ownState: NPC
 - uid: 33
   protoId: Elona.ItemShowCaseOfBreads
@@ -273,6 +273,6 @@ entities:
   - type: Spatial
     pos: 11,8
     parent: 0
-  - type: Item
+  - type: Pickable
     ownState: NPC
 ...

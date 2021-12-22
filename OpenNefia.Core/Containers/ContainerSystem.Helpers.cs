@@ -9,26 +9,6 @@ namespace OpenNefia.Core.Containers
     public sealed partial class ContainerSystem : EntitySystem
     {    
         /// <summary>
-        /// Am I inside a container?
-        /// </summary>
-        /// <param name="entity">Entity that might be inside a container.</param>
-        /// <returns>If the entity is inside of a container.</returns>
-        public bool IsInContainer(EntityUid entity)
-        {
-            DebugTools.Assert(EntityManager.EntityExists(entity));
-
-            // Notice the recursion starts at the Owner of the passed in entity, this
-            // allows containers inside containers (toolboxes in lockers).
-            if (EntityManager.GetComponent<SpatialComponent>(entity).Parent == null)
-                return false;
-
-            if (TryGetManagerComp(EntityManager.GetComponent<SpatialComponent>(entity).ParentUid, out var containerComp))
-                return ContainsEntity(containerComp.OwnerUid, entity, containerComp);
-
-            return false;
-        }
-
-        /// <summary>
         /// Tries to find the container manager that this entity is inside (if any).
         /// </summary>
         /// <param name="entity">Entity that might be inside a container.</param>

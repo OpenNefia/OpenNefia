@@ -15,7 +15,6 @@ namespace OpenNefia.Core.Containers
     /// Holds data about a set of entity containers on this entity.
     /// </summary>
     [ComponentReference(typeof(IContainerManager))]
-    [RegisterComponent]
     public class ContainerManagerComponent : Component, IContainerManager, ISerializationHooks
     {
         [Dependency] private readonly IEntityManager _entityManager = default!;

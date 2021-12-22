@@ -284,7 +284,7 @@ namespace OpenNefia.Content.CommandLine
 
         private YamlMappingNode ConvertItemObj(Obj obj, HspEntityPrototypeIndex index)
         {
-            var ownState = (ItemOwnState)obj.Param;
+            var ownState = (OwnState)obj.Param;
 
             var protoId = index.GetValueOrThrow(HspEntityTypes.Item, obj.Id);
             var comps = MakeEntityComponentsBase(protoId);

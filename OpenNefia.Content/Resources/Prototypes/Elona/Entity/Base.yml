@@ -22,6 +22,7 @@
   - type: Skills
   - type: Faction
   - type: Weight
+  - type: Inventory
 
 - type: Entity
   id: BaseItem
@@ -35,6 +36,7 @@
   - type: Item
   - type: Stackable
   - type: Weight
+  - type: Pickable
 
 - type: Entity
   id: BaseFeat

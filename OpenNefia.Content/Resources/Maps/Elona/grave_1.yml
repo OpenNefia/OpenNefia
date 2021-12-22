@@ -258,7 +258,7 @@ entities:
   - type: Spatial
     pos: 15,10
     parent: 0
-  - type: Item
+  - type: Pickable
     ownState: NPC
 - uid: 37
   protoId: Elona.ItemDeadTree
@@ -266,7 +266,7 @@ entities:
   - type: Spatial
     pos: 3,15
     parent: 0
-  - type: Item
+  - type: Pickable
     ownState: NPC
 - uid: 38
   protoId: Elona.ItemDeadTree
@@ -274,7 +274,7 @@ entities:
   - type: Spatial
     pos: 6,9
     parent: 0
-  - type: Item
+  - type: Pickable
     ownState: NPC
 - uid: 39
   protoId: Elona.ItemDeadTree
@@ -282,7 +282,7 @@ entities:
   - type: Spatial
     pos: 2,5
     parent: 0
-  - type: Item
+  - type: Pickable
     ownState: NPC
 - uid: 40
   protoId: Elona.ItemDeadTree
@@ -290,7 +290,7 @@ entities:
   - type: Spatial
     pos: 10,3
     parent: 0
-  - type: Item
+  - type: Pickable
     ownState: NPC
 - uid: 41
   protoId: Elona.ItemDeadTree
@@ -298,7 +298,7 @@ entities:
   - type: Spatial
     pos: 15,20
     parent: 0
-  - type: Item
+  - type: Pickable
     ownState: NPC
 - uid: 42
   protoId: Elona.ItemDeadTree
@@ -306,7 +306,7 @@ entities:
   - type: Spatial
     pos: 20,17
     parent: 0
-  - type: Item
+  - type: Pickable
     ownState: NPC
 - uid: 43
   protoId: Elona.ItemDeadTree
@@ -314,7 +314,7 @@ entities:
   - type: Spatial
     pos: 27,19
     parent: 0
-  - type: Item
+  - type: Pickable
     ownState: NPC
 - uid: 44
   protoId: Elona.ItemDeadTree
@@ -322,7 +322,7 @@ entities:
   - type: Spatial
     pos: 29,17
     parent: 0
-  - type: Item
+  - type: Pickable
     ownState: NPC
 - uid: 45
   protoId: Elona.ItemDeadTree
@@ -330,7 +330,7 @@ entities:
   - type: Spatial
     pos: 26,16
     parent: 0
-  - type: Item
+  - type: Pickable
     ownState: NPC
 - uid: 46
   protoId: Elona.ItemDeadTree
@@ -338,7 +338,7 @@ entities:
   - type: Spatial
     pos: 26,10
     parent: 0
-  - type: Item
+  - type: Pickable
     ownState: NPC
 - uid: 47
   protoId: Elona.ItemDeadTree
@@ -346,7 +346,7 @@ entities:
   - type: Spatial
     pos: 31,6
     parent: 0
-  - type: Item
+  - type: Pickable
     ownState: NPC
 - uid: 48
   protoId: Elona.ItemDeadTree
@@ -354,7 +354,7 @@ entities:
   - type: Spatial
     pos: 26,3
     parent: 0
-  - type: Item
+  - type: Pickable
     ownState: NPC
 - uid: 49
   protoId: Elona.ItemDeadTree
@@ -362,7 +362,7 @@ entities:
   - type: Spatial
     pos: 16,2
     parent: 0
-  - type: Item
+  - type: Pickable
     ownState: NPC
 - uid: 50
   protoId: Elona.ItemDeadTree
@@ -370,7 +370,7 @@ entities:
   - type: Spatial
     pos: 19,5
     parent: 0
-  - type: Item
+  - type: Pickable
     ownState: NPC
 - uid: 51
   protoId: Elona.ItemDeadTree
@@ -378,7 +378,7 @@ entities:
   - type: Spatial
     pos: 13,9
     parent: 0
-  - type: Item
+  - type: Pickable
     ownState: NPC
 - uid: 52
   protoId: Elona.ItemDeadTree
@@ -386,7 +386,7 @@ entities:
   - type: Spatial
     pos: 17,11
     parent: 0
-  - type: Item
+  - type: Pickable
     ownState: NPC
 - uid: 53
   protoId: Elona.ItemDeadTree
@@ -394,7 +394,7 @@ entities:
   - type: Spatial
     pos: 13,18
     parent: 0
-  - type: Item
+  - type: Pickable
     ownState: NPC
 - uid: 54
   protoId: Elona.ItemDeadTree
@@ -402,7 +402,7 @@ entities:
   - type: Spatial
     pos: 30,11
     parent: 0
-  - type: Item
+  - type: Pickable
     ownState: NPC
 - uid: 55
   protoId: Elona.ItemDeadTree
@@ -410,7 +410,7 @@ entities:
   - type: Spatial
     pos: 28,8
     parent: 0
-  - type: Item
+  - type: Pickable
     ownState: NPC
 - uid: 56
   protoId: Elona.ItemDeadTree
@@ -418,7 +418,7 @@ entities:
   - type: Spatial
     pos: 32,14
     parent: 0
-  - type: Item
+  - type: Pickable
     ownState: NPC
 - uid: 57
   protoId: Elona.ItemDeadTree
@@ -426,7 +426,7 @@ entities:
   - type: Spatial
     pos: 3,1
     parent: 0
-  - type: Item
+  - type: Pickable
     ownState: NPC
 - uid: 58
   protoId: Elona.ItemDeadTree
@@ -434,7 +434,7 @@ entities:
   - type: Spatial
     pos: 6,21
     parent: 0
-  - type: Item
+  - type: Pickable
     ownState: NPC
 - uid: 59
   protoId: Elona.ItemDeadTree
@@ -442,7 +442,7 @@ entities:
   - type: Spatial
     pos: 32,19
     parent: 0
-  - type: Item
+  - type: Pickable
     ownState: NPC
 - uid: 60
   protoId: Elona.ItemDeadTree
@@ -450,7 +450,7 @@ entities:
   - type: Spatial
     pos: 22,1
     parent: 0
-  - type: Item
+  - type: Pickable
     ownState: NPC
 - uid: 61
   protoId: Elona.ItemSpellbookOfWeb

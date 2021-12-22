@@ -10,7 +10,7 @@ using OpenNefia.Core.Serialization.Manager.Attributes;
 namespace OpenNefia.Content.GameObjects
 {
     [RegisterComponent]
-    public class ItemComponent : Component, IFromHspItem
+    public class ItemComponent : Component
     {
         public override string Name => "Item";
 
@@ -23,15 +23,7 @@ namespace OpenNefia.Content.GameObjects
         [DataField]
         public PrototypeId<MaterialPrototype>? Material { get; set; }
 
-        [DataField]
-        public ItemOwnState OwnState { get; set; }
-
         [DataField("originalnameref2")]
         public string? OriginalNameRef2 { get; set; }
-
-        public void FromHspItem(ItemOwnState ownState)
-        {
-            OwnState = ownState;
-        }
     }
 }

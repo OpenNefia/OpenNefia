@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace OpenNefia.Content.GameObjects
 {
-    public enum ItemOwnState : int
+    public enum OwnState : int
     {
         None = 0,
         NPC = 1,

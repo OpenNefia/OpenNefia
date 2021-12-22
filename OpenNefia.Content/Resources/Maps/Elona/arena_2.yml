@@ -242,7 +242,7 @@ entities:
   - type: Spatial
     pos: 2,5
     parent: 0
-  - type: Item
+  - type: Pickable
     ownState: NPC
 - uid: 37
   protoId: Elona.ItemBonfire
@@ -250,7 +250,7 @@ entities:
   - type: Spatial
     pos: 2,11
     parent: 0
-  - type: Item
+  - type: Pickable
     ownState: NPC
 - uid: 38
   protoId: Elona.ItemBonfire
@@ -258,7 +258,7 @@ entities:
   - type: Spatial
     pos: 22,5
     parent: 0
-  - type: Item
+  - type: Pickable
     ownState: NPC
 - uid: 39
   protoId: Elona.ItemBonfire
@@ -266,7 +266,7 @@ entities:
   - type: Spatial
     pos: 22,11
     parent: 0
-  - type: Item
+  - type: Pickable
     ownState: NPC
 - uid: 40
   protoId: Elona.ItemStatueOfArmor
@@ -274,7 +274,7 @@ entities:
   - type: Spatial
     pos: 1,4
     parent: 0
-  - type: Item
+  - type: Pickable
     ownState: NPC
 - uid: 41
   protoId: Elona.ItemStatueOfArmor
@@ -282,7 +282,7 @@ entities:
   - type: Spatial
     pos: 1,12
     parent: 0
-  - type: Item
+  - type: Pickable
     ownState: NPC
 - uid: 42
   protoId: Elona.ItemStatueOfArmor
@@ -290,7 +290,7 @@ entities:
   - type: Spatial
     pos: 23,4
     parent: 0
-  - type: Item
+  - type: Pickable
     ownState: NPC
 - uid: 43
   protoId: Elona.ItemStatueOfArmor
@@ -298,7 +298,7 @@ entities:
   - type: Spatial
     pos: 23,12
     parent: 0
-  - type: Item
+  - type: Pickable
     ownState: NPC
 - uid: 44
   protoId: Elona.ItemGorgeousCandlestick
@@ -306,7 +306,7 @@ entities:
   - type: Spatial
     pos: 3,1
     parent: 0
-  - type: Item
+  - type: Pickable
     ownState: NPC
 - uid: 45
   protoId: Elona.ItemGorgeousCandlestick
@@ -314,7 +314,7 @@ entities:
   - type: Spatial
     pos: 21,1
     parent: 0
-  - type: Item
+  - type: Pickable
     ownState: NPC
 - uid: 46
   protoId: Elona.ItemBrokenSword
