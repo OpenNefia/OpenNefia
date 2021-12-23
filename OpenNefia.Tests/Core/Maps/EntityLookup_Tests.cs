@@ -30,6 +30,8 @@ namespace OpenNefia.Tests.Core.Maps
 
             var pos = Vector2i.Zero;
 
+            var entMap = entMan.GetEntity(simulation.ActiveMap!.MapEntityUid);
+
             // "Alive" means the entity is considered the primary entity on the tile.
             // In HSP Elona, each map tile can only hold a single character ID for
             // positional querying purposes; this emulates that behavior.
@@ -60,7 +62,8 @@ namespace OpenNefia.Tests.Core.Maps
                 entAlive,
                 entChild,
                 entHidden,
-                entDead
+                entDead,
+                entMap
             }));
 
             ents = lookup.GetEntitiesDirectlyInMap(map.Id);
@@ -69,7 +72,8 @@ namespace OpenNefia.Tests.Core.Maps
             {
                 entAlive,
                 entHidden,
-                entDead
+                entDead,
+                entMap
             }));
 
             ents = lookup.GetLiveEntitiesAtPos(map.AtPos(pos));
@@ -77,6 +81,7 @@ namespace OpenNefia.Tests.Core.Maps
             Assert.That(ents, Is.EquivalentTo(new[]
             {
                 entAlive,
+                entMap
             }));
         }
     }

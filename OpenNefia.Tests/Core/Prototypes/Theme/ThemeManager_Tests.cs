@@ -18,6 +18,8 @@ namespace OpenNefia.Tests.Core.Prototypes.Theme
     [TestOf(typeof(ThemeManager))]
     public class ThemeManager_Tests : OpenNefiaUnitTest
     {
+        private const string TestThemeID = "TestTheme";
+
         [Test]
         public void TestThemePrototypeOverrides()
         {
@@ -26,8 +28,8 @@ namespace OpenNefia.Tests.Core.Prototypes.Theme
             var themeManager = IoCManager.Resolve<IThemeManager>();
             themeManager.Initialize();
 
-            var theme = @"
-- id: TestTheme
+            var theme = @$"
+- id: {TestThemeID}
   overrides:
   - type: ThemeTest
     id: Dummy
@@ -38,6 +40,7 @@ namespace OpenNefia.Tests.Core.Prototypes.Theme
 ";
 
             themeManager.LoadString(theme);
+            themeManager.SetActiveTheme(TestThemeID);
 
             var prototypeManager = IoCManager.Resolve<IPrototypeManager>();
             prototypeManager.Initialize();
@@ -56,9 +59,12 @@ namespace OpenNefia.Tests.Core.Prototypes.Theme
 
             var result = (ThemeTestPrototype)prototypes[0];
 
-            Assert.That(result.First, Is.EqualTo(42));
-            Assert.That(result.Second, Is.EquivalentTo(new List<int> { 4, 5, 6 }));
-            Assert.That(result.Third, Is.EquivalentTo(new Dictionary<string, int>() { { "a", 123 }, { "b", 999 } }));
+            Assert.Multiple(() =>
+            {
+                Assert.That(result.First, Is.EqualTo(42));
+                Assert.That(result.Second, Is.EquivalentTo(new List<int> { 4, 5, 6 }));
+                Assert.That(result.Third, Is.EquivalentTo(new Dictionary<string, int>() { { "a", 123 }, { "b", 999 } }));
+            });
         }
     }
 
