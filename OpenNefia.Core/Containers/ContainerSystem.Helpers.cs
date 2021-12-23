@@ -207,24 +207,6 @@ namespace OpenNefia.Core.Containers
             return false;
         }
 
-        /// <summary>
-        /// Shortcut method to make creation of containers easier.
-        /// Creates a new container on the entity and gives it back to you.
-        /// </summary>
-        /// <param name="entity">The entity to create the container for.</param>
-        /// <param name="containerId"></param>
-        /// <returns>The new container.</returns>
-        /// <exception cref="ArgumentException">Thrown if there already is a container with the specified ID.</exception>
-        /// <seealso cref="IContainerManager.MakeContainer{T}(string)" />
-        public T CreateContainer<T>(EntityUid entity, ContainerId containerId)
-            where T : IContainer
-        {
-            if (!EntityManager.TryGetComponent<IContainerManager?>(entity, out var containerManager))
-                containerManager = EntityManager.AddComponent<ContainerManagerComponent>(entity);
-
-            return MakeContainer<T>(entity, containerId, (ContainerManagerComponent)containerManager);
-        }
-
         public T EnsureContainer<T>(EntityUid entity, ContainerId containerId)
             where T : IContainer
         {
