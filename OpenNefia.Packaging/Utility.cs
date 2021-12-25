@@ -19,7 +19,7 @@ namespace OpenNefia.Packaging
 
         internal static string GetProjectOutputDir(string project, BuildContext context)
         {
-            return $"{project}/bin/{context.BuildConfig}/net6.0/";
+            return $"{project}/bin/{context.BuildConfig}/net6.0/{context.Runtime}/";
         }
     }
 }

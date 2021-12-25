@@ -19,6 +19,11 @@ namespace OpenNefia.Packaging.Tasks
                 MaxCpuCount = 0, // Use all cores
             };
 
+            // whyyyyyyy does 'dotnet clean' not clean everything...
+            var outputDir = Utility.GetProjectOutputDir("OpenNefia.EntryPoint", context);
+            if (Directory.Exists(outputDir))
+                Directory.Delete(outputDir, true);
+
             dotNetSettings.Targets.Add("Rebuild");
             dotNetSettings.Properties["FullRelease"] = new List<string> { "True" };
 
