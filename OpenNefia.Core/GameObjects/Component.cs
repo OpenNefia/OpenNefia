@@ -198,6 +198,21 @@ namespace OpenNefia.Core.GameObjects
             GetBus().RaiseComponentEvent(this, CompRemoveInstance);
             LifeStage = ComponentLifeStage.Deleted;
         }
+
+        /// <inheritdoc/>
+        public virtual bool IsSameAs(IComponent other)
+        {
+            // why isn't this an ECS event? mostly because the current
+            // ECS system doesn't support short-circuiting event subscriptions
+            // yet. also, because the stacking logic *has* to involve deep comparison
+            // to maintain backwards compatibility with vanilla, the stacking check
+            // becomes a part of pretty much anything that can act as a component.
+            //
+            // what might actually be needed is deep comparison support in serv3,
+            // the same way it already supports deep copying, and using that as a
+            // fallback for this function.
+            return true;
+        }
     }
 
     /// <summary>

@@ -25,7 +25,7 @@ public class StackableComponent_Tests : OpenNefiaUnitTest
     public void Setup()
     {
         var componentFactory = IoCManager.Resolve<IComponentFactory>();
-        componentFactory.RegisterClass<StackableComponent>();
+        componentFactory.RegisterClass<StackComponent>();
         componentFactory.FinishRegistration();
 
         IoCManager.Resolve<ISerializationManager>().Initialize();
@@ -46,19 +46,19 @@ public class StackableComponent_Tests : OpenNefiaUnitTest
         Assert.That(entityManager.IsAlive(dummy.Uid), Is.True);
         Assert.That(entityManager.IsDeadAndBuried(dummy.Uid), Is.False);
 
-        var stackableComp = entityManager.GetComponent<StackableComponent>(dummy.Uid);
+        var stackableComp = entityManager.GetComponent<StackComponent>(dummy.Uid);
 
-        Assert.That(stackableComp.Amount, Is.EqualTo(1));
+        Assert.That(stackableComp.Count, Is.EqualTo(1));
 
-        stackableComp.Amount = 0;
+        stackableComp.Count = 0;
 
-        Assert.That(stackableComp.Amount, Is.EqualTo(0));
+        Assert.That(stackableComp.Count, Is.EqualTo(0));
         Assert.That(entityManager.IsAlive(dummy.Uid), Is.False);
         Assert.That(entityManager.IsDeadAndBuried(dummy.Uid), Is.True);
 
-        stackableComp.Amount = 1;
+        stackableComp.Count = 1;
 
-        Assert.That(stackableComp.Amount, Is.EqualTo(1));
+        Assert.That(stackableComp.Count, Is.EqualTo(1));
         Assert.That(entityManager.IsAlive(dummy.Uid), Is.True);
         Assert.That(entityManager.IsDeadAndBuried(dummy.Uid), Is.False);
     }
@@ -72,14 +72,14 @@ public class StackableComponent_Tests : OpenNefiaUnitTest
 
         Assert.That(dummy, Is.Not.Null);
 
-        var stackableComp = entityManager.GetComponent<StackableComponent>(dummy.Uid);
+        var stackableComp = entityManager.GetComponent<StackComponent>(dummy.Uid);
 
-        Assert.That(stackableComp.Amount, Is.EqualTo(1));
+        Assert.That(stackableComp.Count, Is.EqualTo(1));
 
-        stackableComp.Amount = -5;
-        Assert.That(stackableComp.Amount, Is.EqualTo(0));
+        stackableComp.Count = -5;
+        Assert.That(stackableComp.Count, Is.EqualTo(0));
 
-        stackableComp.Amount = 5;
-        Assert.That(stackableComp.Amount, Is.EqualTo(5));
+        stackableComp.Count = 5;
+        Assert.That(stackableComp.Count, Is.EqualTo(5));
     }
 }

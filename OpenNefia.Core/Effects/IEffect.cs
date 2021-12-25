@@ -11,10 +11,23 @@ namespace OpenNefia.Core.Effects
     }
 
     [DataDefinition]
-    public struct EffectArgs
+    public class EffectArgs
     {
         public int Power = 1;
         public CurseState CurseState;
+
+        public override bool Equals(object? obj)
+        {
+            if (obj is not EffectArgs objArgs)
+                return false;
+
+            return Power == objArgs.Power && CurseState == objArgs.CurseState;
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(Power, CurseState);
+        }
     }
 
     public enum CurseState

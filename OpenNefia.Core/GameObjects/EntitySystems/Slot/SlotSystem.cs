@@ -43,7 +43,7 @@ namespace OpenNefia.Core.GameObjects
     ///    types but different power levels, because the entity system only allows
     ///    for a single component type instance per entity. A <see cref="SlottableComponent"/>
     ///    in particular is a generalization of the "merging" logic found in HSP Elona for 
-    ///    calculating the final power of the enchantment/status effect from its multiple 
+    ///    calculating the final power of enchantments/status effects from their multiple 
     ///    "instances".
     /// </para>
     /// <para>
@@ -181,7 +181,7 @@ namespace OpenNefia.Core.GameObjects
                 // If all slots that manage this component type have been removed,
                 // remove the component from the entity.
                 // 
-                // (A component type can only show up here if a slot is managing it,
+                // (A component type should only show up here if a slot is managing it,
                 // such that the entity's original components won't get removed.)
                 if (!slots.HasAnySlotsWithComp(compType) && EntityManager.HasComponent(uid, compType))
                 {
@@ -193,6 +193,7 @@ namespace OpenNefia.Core.GameObjects
                 EntityManager.RemoveComponent<SlotsComponent>(uid);
         }
 
+        /// <inheritdoc/>
         public SlotId? FindSlotWithComponent<T>(EntityUid uid, SlotsComponent? slots = null)
             where T : IComponent
         {

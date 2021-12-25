@@ -7,6 +7,10 @@ using System.Threading.Tasks;
 
 namespace OpenNefia.Core.GameObjects
 {
+    /// <summary>
+    /// Manages the active slots on this entity.
+    /// </summary>
+    /// <seealso cref="SlotSystem"/>
     [RegisterComponent]
     public class SlotsComponent : Component
     {
@@ -32,6 +36,9 @@ namespace OpenNefia.Core.GameObjects
         }
     }
 
+    /// <summary>
+    /// Data associated with each slot.
+    /// </summary>
     [DataDefinition]
     public class SlotRegistration
     {

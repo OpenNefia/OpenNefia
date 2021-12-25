@@ -32,29 +32,29 @@ namespace OpenNefia.Content.GameObjects
         public string BasicNameJP(EntityUid uid,
             ItemComponent? item = null,
             MetaDataComponent? meta = null,
-            StackableComponent? stack = null)
+            StackComponent? stack = null)
         {
             if (!Resolve(uid, ref item, ref meta, ref stack))
                 return string.Empty;
 
-            if (stack.Amount == 1)
+            if (stack.Count == 1)
                 return $"{meta.DisplayName}";
 
-            return $"{stack.Amount}個の{meta.DisplayName}";
+            return $"{stack.Count}個の{meta.DisplayName}";
         }
 
         public string BasicNameEN(EntityUid uid,
             ItemComponent? item = null,
             MetaDataComponent? meta = null,
-            StackableComponent? stack = null)
+            StackComponent? stack = null)
         {
             if (!Resolve(uid, ref item, ref meta, ref stack))
                 return string.Empty;
 
-            if (stack.Amount == 1)
+            if (stack.Count == 1)
                 return $"a {meta.DisplayName}";
 
-            return $"{stack.Amount} {meta.DisplayName}s";
+            return $"{stack.Count} {meta.DisplayName}s";
         }
     }
 }
