@@ -55,7 +55,7 @@ namespace OpenNefia.Packaging.Tasks
 
             var commitHash = context.GitCommitHash(context.Environment.WorkingDirectory);
 
-            var distribName = $"OpenNefia-{context.Environment.Platform.Family}-{commitHash}";
+            var distribName = $"OpenNefia-{commitHash}-{context.Runtime}";
             var zipName = $"{distribName}.zip";
             var zipPath = Path.Combine(Constants.OutputDir, zipName);
 

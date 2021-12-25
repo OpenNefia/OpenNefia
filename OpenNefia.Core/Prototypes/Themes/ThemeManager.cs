@@ -72,6 +72,9 @@ namespace OpenNefia.Core.Prototypes
         /// <summary>
         /// Sets the active theme.
         /// </summary>
+        /// <remarks>
+        /// NOTE: This needs to be called before loading any prototypes.
+        /// </remarks>
         void SetActiveTheme(string id);
 
         /// <summary>

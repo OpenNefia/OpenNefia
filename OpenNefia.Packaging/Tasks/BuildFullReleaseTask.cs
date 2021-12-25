@@ -3,6 +3,7 @@ using Cake.Common.Build;
 using Cake.Common.Tools.DotNet;
 using Cake.Common.Tools.DotNet.MSBuild;
 using Cake.Common.Tools.DotNet.Build;
+using Cake.Core.IO.Arguments;
 
 namespace OpenNefia.Packaging.Tasks
 {
@@ -25,7 +26,9 @@ namespace OpenNefia.Packaging.Tasks
             {
                 Configuration = context.BuildConfig,
                 NoIncremental = false,
-                MSBuildSettings = dotNetSettings
+                MSBuildSettings = dotNetSettings,
+                Runtime = context.Runtime,
+                ArgumentCustomization = (args) => { args.Append(new TextArgument("--no-self-contained")); return args; }
             };
 
             context.DotNetBuild("./OpenNefia.EntryPoint/OpenNefia.EntryPoint.csproj", settings);

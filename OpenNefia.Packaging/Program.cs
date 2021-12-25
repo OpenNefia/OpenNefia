@@ -23,10 +23,16 @@ namespace OpenNefia.Packaging
         /// </summary>
         public string BuildConfig { get; set; } = "Release";
 
+        /// <summary>
+        /// RID of the .NET runtime to build for.
+        /// </summary>
+        public string Runtime { get; set; } = "win-x64";
+
         public BuildContext(ICakeContext context)
             : base(context)
         {
             BuildConfig = context.Arguments.GetArgument("config") ?? BuildConfig;
+            Runtime = context.Arguments.GetArgument("runtime") ?? Runtime;
         }
     }
 }
