@@ -94,6 +94,18 @@ namespace OpenNefia.Core.Maps
             return true;
         }
 
+        public bool TryToEntity(IMapManager mapManager, out EntityCoordinates entityCoords)
+        {
+            if (!mapManager.TryGetMapEntity(MapId, out var entity))
+            {
+                entityCoords = EntityCoordinates.Invalid;
+                return false;
+            }
+
+            entityCoords = new EntityCoordinates(entity.Uid, Position);
+            return true;
+        }
+
         /// <inheritdoc />
         public bool Equals(MapCoordinates other)
         {

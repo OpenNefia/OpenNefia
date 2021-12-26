@@ -77,23 +77,33 @@ namespace OpenNefia.Core.GameObjects
             StackComponent? stackTarget = null);
 
         /// <summary>
-        /// Tries to clone this entity.
+        /// Clones this entity.
         /// </summary>
         /// <param name="target">Entity to clone.</param>
         /// <param name="spawnPosition">Position to spawn the newly cloned entity.</param>
         /// <returns>A non-null <see cref="EntityUid"/> if successful.</returns>
-        EntityUid? Clone(EntityUid target, EntityCoordinates spawnPosition);
+        EntityUid Clone(EntityUid target, EntityCoordinates spawnPosition);
 
         /// <summary>
         /// Tries to split this stack into two.
         /// </summary>
         /// <returns>A non-null <see cref="EntityUid"/> if successful.</returns>
-        EntityUid? Split(EntityUid uid, int amount, EntityCoordinates spawnPosition, 
+        bool TrySplit(EntityUid uid, int amount, EntityCoordinates spawnPosition,
+            out EntityUid split,
+            StackComponent? stack = null);
+
+        /// <summary>
+        /// Tries to split this stack into two.
+        /// </summary>
+        /// <returns>A non-null <see cref="EntityUid"/> if successful.</returns>
+        bool TrySplit(EntityUid uid, int amount, MapCoordinates spawnPosition,
+            out EntityUid split,
             StackComponent? stack = null);
     }
 
     public class StackSystem : EntitySystem, IStackSystem
     {
+        [Dependency] private readonly IMapManager _mapManager = default!;
         [Dependency] private readonly IEntityLookup _lookup = default!;
         [Dependency] private readonly ISerializationManager _serializationManager = default!;
 
@@ -149,15 +159,15 @@ namespace OpenNefia.Core.GameObjects
             if (!Resolve(uid, ref stack))
                 return;
 
+            // Clamp the value.
+            amount = Math.Max(amount, 0);
+
             // Do nothing if amount is already the same.
             if (amount == stack.Count)
                 return;
 
             // Store old value for event-raising purposes...
             var old = stack.Count;
-
-            // Clamp the value.
-            amount = Math.Max(amount, 0);
 
             stack.Count = amount;
 
@@ -298,7 +308,7 @@ namespace OpenNefia.Core.GameObjects
         }
         
         /// <inheritdoc/>
-        public EntityUid? Clone(EntityUid target, EntityCoordinates spawnPosition)
+        public EntityUid Clone(EntityUid target, EntityCoordinates spawnPosition)
         {
             var newEntity = EntityManager.SpawnEntity(null, spawnPosition).Uid;
 
@@ -315,7 +325,6 @@ namespace OpenNefia.Core.GameObjects
             var newSpatial = EntityManager.EnsureComponent<MetaDataComponent>(args.NewEntity);
 
             newSpatial.EntityPrototype = spatial.EntityPrototype;
-            newSpatial.Liveness = spatial.Liveness;
 
             args.Handle<MetaDataComponent>();
         }
@@ -332,7 +341,11 @@ namespace OpenNefia.Core.GameObjects
 
         private void HandleCloneStack(EntityUid source, StackComponent spatial, EntityClonedEventArgs args)
         {
+            var newStack = EntityManager.EnsureComponent<StackComponent>(args.NewEntity);
+
             // Don't copy anything.
+            newStack.Count = 1;
+            
             args.Handle<StackComponent>();
         }
 
@@ -341,34 +354,43 @@ namespace OpenNefia.Core.GameObjects
         #region Splitting
 
         /// <inheritdoc/>
-        public EntityUid? Split(EntityUid uid, int amount, EntityCoordinates spawnPosition, StackComponent? stack = null)
+        public bool TrySplit(EntityUid uid, int amount, EntityCoordinates spawnPosition, out EntityUid split, StackComponent? stack = null)
         {
-            if (!Resolve(uid, ref stack))
-                return default;
+            split = EntityUid.Invalid;
 
-            // Get a prototype ID to spawn the new entity. Null is also valid, although it should rarely be picked...
-            PrototypeId<EntityPrototype>? prototype = null;
-            if (EntityManager.TryGetComponent(uid, out MetaDataComponent metaData))
-                prototype = metaData.EntityPrototype?.GetStrongID();
+            if (amount <= 0)
+                return false;
+
+            if (!Resolve(uid, ref stack))
+                return false;
 
             // Try to remove the amount of things we want to split from the original stack...
             if (!Use(uid, amount, stack))
-                return null;
+                return false;
 
             // Try to clone the entity.
-            var newEntity = Clone(uid, spawnPosition);
-            if (newEntity == null)
-                return null;
+            split = Clone(uid, spawnPosition);
 
-            if (EntityManager.TryGetComponent(newEntity.Value, out StackComponent? stackComp))
+            if (EntityManager.TryGetComponent(split, out StackComponent? stackComp))
             {
                 // Set the split stack's count.
-                SetCount(newEntity.Value, amount, stackComp);
+                SetCount(split, amount, stackComp);
                 // Don't let people dupe unlimited stacks
                 stackComp.Unlimited = false;
             }
 
-            return newEntity;
+            return true;
+        }
+
+        /// <inheritdoc/>
+        public bool TrySplit(EntityUid uid, int amount, MapCoordinates spawnPosition, out EntityUid split, StackComponent? stack = null)
+        {
+            split = EntityUid.Invalid;
+
+            if (!spawnPosition.TryToEntity(_mapManager, out var entityCoords))
+                return false;
+
+            return TrySplit(uid, amount, entityCoords, out split, stack);
         }
 
         #endregion

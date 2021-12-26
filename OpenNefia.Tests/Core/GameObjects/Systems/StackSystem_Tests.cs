@@ -3,8 +3,10 @@ using System.IO;
 using NUnit.Framework;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
+using OpenNefia.Core.Maths;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Serialization.Manager;
+using OpenNefia.Core.Serialization.Manager.Attributes;
 
 // ReSharper disable AccessToStaticMemberViaDerivedType
 
@@ -22,12 +24,25 @@ namespace OpenNefia.Tests.Core.GameObjects.Systems
   id: {DummyID}
   components:
   - type: Stack
+  - type: StackTest
+    A: 42
+    B: [1, 2, 3]
+    C:
+      foo: bar
+      hoge: true
 ";
 
         private static ISimulation SimulationFactory()
         {
             var sim = GameSimulation
                 .NewSimulation()
+                .RegisterComponents(compFac => {
+                    compFac.RegisterClass<StackTestComponent>();
+                })
+                .RegisterDataDefinitionTypes(types => {
+                    types.Add(typeof(StackTestComponent));
+                    types.Add(typeof(StackTestNested));
+                })
                 .RegisterPrototypes(protoMan => protoMan.LoadString(Prototypes))
                 .InitializeInstance();
 
@@ -37,7 +52,7 @@ namespace OpenNefia.Tests.Core.GameObjects.Systems
         }
 
         [Test]
-        public void StackComponentLivenessTest()
+        public void TestStackCountLiveness()
         {
             var sim = SimulationFactory();
             var entityManager = sim.Resolve<IEntityManager>();
@@ -49,25 +64,25 @@ namespace OpenNefia.Tests.Core.GameObjects.Systems
             Assert.That(entityManager.IsAlive(dummy.Uid), Is.True);
             Assert.That(entityManager.IsDeadAndBuried(dummy.Uid), Is.False);
 
-            var stackableComp = entityManager.GetComponent<StackComponent>(dummy.Uid);
+            var stack = entityManager.GetComponent<StackComponent>(dummy.Uid);
 
-            Assert.That(stackableComp.Count, Is.EqualTo(1));
+            Assert.That(stack.Count, Is.EqualTo(1));
 
             stackSys.SetCount(dummy.Uid, 0);
 
-            Assert.That(stackableComp.Count, Is.EqualTo(0));
+            Assert.That(stack.Count, Is.EqualTo(0));
             Assert.That(entityManager.IsAlive(dummy.Uid), Is.False);
             Assert.That(entityManager.IsDeadAndBuried(dummy.Uid), Is.True);
 
             stackSys.SetCount(dummy.Uid, 1);
 
-            Assert.That(stackableComp.Count, Is.EqualTo(1));
+            Assert.That(stack.Count, Is.EqualTo(1));
             Assert.That(entityManager.IsAlive(dummy.Uid), Is.True);
             Assert.That(entityManager.IsDeadAndBuried(dummy.Uid), Is.False);
         }
 
         [Test]
-        public void StackComponentBoundingTest()
+        public void TestStackCountClamping()
         {
             var sim = SimulationFactory();
             var entityManager = sim.Resolve<IEntityManager>();
@@ -75,17 +90,119 @@ namespace OpenNefia.Tests.Core.GameObjects.Systems
 
             var dummy = entityManager.CreateEntityUninitialized(DummyID);
 
-            Assert.That(dummy, Is.Not.Null);
+            var stack = entityManager.GetComponent<StackComponent>(dummy.Uid);
 
-            var stackableComp = entityManager.GetComponent<StackComponent>(dummy.Uid);
-
-            Assert.That(stackableComp.Count, Is.EqualTo(1));
+            Assert.That(stack.Count, Is.EqualTo(1));
 
             stackSys.SetCount(dummy.Uid, -5);
-            Assert.That(stackableComp.Count, Is.EqualTo(0));
+            Assert.That(stack.Count, Is.EqualTo(0));
 
-            stackSys.SetCount(dummy.Uid, 5);
-            Assert.That(stackableComp.Count, Is.EqualTo(5));
+            stackSys.SetCount(dummy.Uid, 101);
+            Assert.That(stack.Count, Is.EqualTo(101));
         }
+
+        [Test]
+        public void TestStackSplit_None()
+        {
+            var sim = SimulationFactory();
+            var entityManager = sim.Resolve<IEntityManager>();
+            var stackSys = sim.GetEntitySystem<IStackSystem>();
+            var map = sim.ActiveMap!;
+
+            var dummy = entityManager.CreateEntityUninitialized(DummyID);
+
+            var stack = entityManager.GetComponent<StackComponent>(dummy.Uid);
+
+            stack.Count = 0;
+            var mapCoords = map.AtPos(Vector2i.Zero);
+
+            Assert.That(stackSys.TrySplit(dummy.Uid, 0, mapCoords, out var _), Is.False);
+            Assert.That(stackSys.TrySplit(dummy.Uid, 1, mapCoords, out var _), Is.False);
+        }
+
+        [Test]
+        public void TestStackSplit_One()
+        {
+            var sim = SimulationFactory();
+            var entityManager = sim.Resolve<IEntityManager>();
+            var stackSys = sim.GetEntitySystem<IStackSystem>();
+            var map = sim.ActiveMap!;
+
+            var dummy = entityManager.CreateEntityUninitialized(DummyID);
+
+            var stack = entityManager.GetComponent<StackComponent>(dummy.Uid);
+
+            stack.Count = 1;
+            var mapCoords = map.AtPos(Vector2i.Zero);
+            var result = stackSys.TrySplit(dummy.Uid, 1, mapCoords, out var split);
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(result, Is.True, "Result");
+                Assert.That(split.IsValid(), Is.True, "Split entity IsValid()");
+                Assert.That(entityManager.IsAlive(split), Is.True, "Split entity IsAlive()");
+                Assert.That(entityManager.IsAlive(dummy.Uid), Is.False, "Original entity IsAlive()");
+            });
+        }
+
+        [Test]
+        public void TestStackSplit_Multiple()
+        {
+            var sim = SimulationFactory();
+            var entityManager = sim.Resolve<IEntityManager>();
+            var stackSys = sim.GetEntitySystem<IStackSystem>();
+            var map = sim.ActiveMap!;
+
+            var dummy = entityManager.CreateEntityUninitialized(DummyID);
+
+            var stack = entityManager.GetComponent<StackComponent>(dummy.Uid);
+
+            stack.Count = 5;
+            var mapCoords = map.AtPos(Vector2i.Zero);
+            var result = stackSys.TrySplit(dummy.Uid, 3, mapCoords, out var split);
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(result, Is.True);
+                Assert.That(split.IsValid(), Is.True);
+
+                var splitSpatial = entityManager.GetComponent<SpatialComponent>(split);
+                Assert.That(splitSpatial.MapPosition, Is.EqualTo(mapCoords));
+
+                var splitStack = entityManager.GetComponent<StackComponent>(split);
+                Assert.That(splitStack.Count, Is.EqualTo(3));
+                Assert.That(stack.Count, Is.EqualTo(2));
+
+                var splitStackTest = entityManager.GetComponent<StackTestComponent>(split);
+                Assert.That(splitStackTest.A, Is.EqualTo(42));
+                Assert.That(splitStackTest.B, Is.EquivalentTo(new List<int> { 1, 2, 3 }));
+                Assert.That(splitStackTest.C.Foo, Is.EqualTo("bar"));
+                Assert.That(splitStackTest.C.Hoge, Is.EqualTo(true));
+            });
+        }
+    }
+
+    public class StackTestComponent : Component
+    {
+        public override string Name => "StackTest";
+
+        [DataField("A")]
+        public int A { get; set; }
+
+        [DataField("B")]
+        public List<int> B { get; set; } = new();
+
+        [DataField("C")]
+        public StackTestNested C { get; set; } = new();
+    }
+
+    [DataDefinition]
+    public class StackTestNested 
+    {
+        [DataField]
+        public string Foo { get; set; } = string.Empty;
+
+        [DataField]
+        public bool Hoge { get; set; }
     }
 }
