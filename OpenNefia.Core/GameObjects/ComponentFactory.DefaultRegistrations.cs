@@ -19,6 +19,7 @@ namespace OpenNefia.Core.GameObjects
             RegisterClass<MapComponent>();
             RegisterClass<MapSaveIdComponent>();
             RegisterClass<ContainerManagerComponent>();
+            RegisterClass<StackComponent>();
         }
     }
 }

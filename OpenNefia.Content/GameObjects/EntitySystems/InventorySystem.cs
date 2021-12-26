@@ -9,6 +9,16 @@ namespace OpenNefia.Content.GameObjects
 {
     public class InventorySystem : EntitySystem
     {
+        public override void Initialize()
+        {
+            SubscribeLocalEvent<InventoryComponent, EntityClonedEventArgs>(HandleCloned, nameof(HandleCloned));
+        }
+
+        private void HandleCloned(EntityUid source, InventoryComponent sourceInv, EntityClonedEventArgs args)
+        {
+            // TODO containers
+        }
+
         public IEnumerable<EntityUid> EnumerateItems(EntityUid entity, InventoryComponent? inv = null)
         {
             if (!Resolve(entity, ref inv))

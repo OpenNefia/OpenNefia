@@ -194,8 +194,9 @@ namespace OpenNefia.Core.GameObjects
                 .FirstOrDefault();
         }
 
+        /// <inheritdoc />
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private bool IsInMap(MapId mapId, SpatialComponent spatial, bool includeChildren)
+        private bool EntityIsInMap(MapId mapId, SpatialComponent spatial, bool includeChildren)
         {
             return spatial.MapID == mapId
                 && spatial.Parent != null // is this a non-map entity?
@@ -209,7 +210,7 @@ namespace OpenNefia.Core.GameObjects
             foreach (var ent in _entityManager.EntityQuery<TComp>())
             {
                 if (_entityManager.TryGetComponent(ent.OwnerUid, out SpatialComponent? spatial) 
-                    && IsInMap(mapId, spatial, includeChildren))
+                    && EntityIsInMap(mapId, spatial, includeChildren))
                 {
                     yield return ent;
                 }
@@ -224,7 +225,7 @@ namespace OpenNefia.Core.GameObjects
             foreach (var ent in _entityManager.EntityQuery<TComp1, TComp2>())
             {
                 if (_entityManager.TryGetComponent(ent.Item1.OwnerUid, out SpatialComponent? spatial)
-                    && IsInMap(mapId, spatial, includeChildren))
+                    && EntityIsInMap(mapId, spatial, includeChildren))
                 {
                     yield return ent;
                 }
@@ -240,7 +241,7 @@ namespace OpenNefia.Core.GameObjects
             foreach (var ent in _entityManager.EntityQuery<TComp1, TComp2, TComp3>())
             {
                 if (_entityManager.TryGetComponent(ent.Item1.OwnerUid, out SpatialComponent? spatial)
-                    && IsInMap(mapId, spatial, includeChildren))
+                    && EntityIsInMap(mapId, spatial, includeChildren))
                 {
                     yield return ent;
                 }
@@ -257,7 +258,7 @@ namespace OpenNefia.Core.GameObjects
             foreach (var ent in _entityManager.EntityQuery<TComp1, TComp2, TComp3, TComp4>())
             {
                 if (_entityManager.TryGetComponent(ent.Item1.OwnerUid, out SpatialComponent? spatial)
-                    && IsInMap(mapId, spatial, includeChildren))
+                    && EntityIsInMap(mapId, spatial, includeChildren))
                 {
                     yield return ent;
                 }

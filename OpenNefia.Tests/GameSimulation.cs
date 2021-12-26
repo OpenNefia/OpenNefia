@@ -46,6 +46,8 @@ namespace OpenNefia.Tests
         /// </summary>
         T Resolve<T>();
 
+        T GetEntitySystem<T>() where T: IEntitySystem;
+
         /// <summary>
         /// Creates a map and sets it as active.
         /// </summary>
@@ -83,6 +85,12 @@ namespace OpenNefia.Tests
         public T Resolve<T>()
         {
             return Collection.Resolve<T>();
+        }
+
+        public T GetEntitySystem<T>()
+            where T : IEntitySystem
+        {
+            return Resolve<IEntitySystemManager>().GetEntitySystem<T>();
         }
 
         public IMap CreateMapAndSetActive(int width, int height)
@@ -227,6 +235,7 @@ namespace OpenNefia.Tests
             entitySystemMan.LoadExtraSystemType<SpatialSystem>();
             entitySystemMan.LoadExtraSystemType<EntityLookup>();
             entitySystemMan.LoadExtraSystemType<ContainerSystem>();
+            entitySystemMan.LoadExtraSystemType<StackSystem>();
 
             _systemDelegate?.Invoke(entitySystemMan);
 

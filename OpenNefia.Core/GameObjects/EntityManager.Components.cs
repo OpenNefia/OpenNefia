@@ -143,6 +143,29 @@ namespace OpenNefia.Core.GameObjects
             }
         }
 
+        /// <inheritdoc/>
+        public IComponent AddComponent(Entity entity, Type type)
+        {
+            if (entity == null) throw new ArgumentNullException(nameof(entity));
+
+            var newComponent = (Component)_componentFactory.GetComponent(type);
+
+            newComponent.Owner = entity;
+
+            AddComponent(entity, newComponent);
+
+            return newComponent;
+        }
+
+        /// <inheritdoc/>
+        public IComponent AddComponent(EntityUid uid, Type type)
+        {
+            if (!TryGetEntity(uid, out var entity)) throw new ArgumentException("Entity is not valid or deleted.", nameof(uid));
+
+            return AddComponent(entity, type);
+        }
+
+        /// <inheritdoc/>
         public T AddComponent<T>(Entity entity) where T : Component, new()
         {
             if (entity == null) throw new ArgumentNullException(nameof(entity));
@@ -156,6 +179,7 @@ namespace OpenNefia.Core.GameObjects
             return newComponent;
         }
 
+        /// <inheritdoc/>
         public T AddComponent<T>(EntityUid uid) where T : Component, new()
         {
             if (!TryGetEntity(uid, out var entity)) throw new ArgumentException("Entity is not valid or deleted.", nameof(uid));
@@ -163,11 +187,13 @@ namespace OpenNefia.Core.GameObjects
             return AddComponent<T>(entity);
         }
 
+        /// <inheritdoc/>
         public void AddComponent<T>(Entity entity, T component, bool overwrite = false) where T : Component
         {
             AddComponent(entity.Uid, component, overwrite);
         }
 
+        /// <inheritdoc/>
         public void AddComponent<T>(EntityUid uid, T component, bool overwrite = false) where T : Component
         {
             if (!uid.IsValid() || !EntityExists(uid))
@@ -426,6 +452,15 @@ namespace OpenNefia.Core.GameObjects
                 return component;
 
             return AddComponent<T>(uid);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public IComponent EnsureComponent(EntityUid uid, Type type)
+        {
+            if (TryGetComponent(uid, type, out var component))
+                return component;
+
+            return AddComponent(uid, type);
         }
 
         /// <inheritdoc />

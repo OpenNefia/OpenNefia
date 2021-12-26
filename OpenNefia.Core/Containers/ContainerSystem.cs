@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
+using OpenNefia.Core.Maps;
+using OpenNefia.Core.Maths;
 
 namespace OpenNefia.Core.Containers
 {
     public sealed partial class ContainerSystem : EntitySystem
     {
         [Dependency] private readonly IDynamicTypeFactoryInternal _dynFactory = default!;
+        [Dependency] private readonly IStackSystem _stackSystem = default!;
 
         /// <inheritdoc />
         public override void Initialize()

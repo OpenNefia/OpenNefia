@@ -50,6 +50,22 @@ namespace OpenNefia.Core.GameObjects
         T AddComponent<T>(EntityUid uid) where T : Component, new();
 
         /// <summary>
+        ///     Adds a Component type to an entity. If the entity is already Initialized, the component will
+        ///     automatically be Initialized and Started.
+        /// </summary>
+        /// <param name="type">Concrete component type to add.</typeparam>
+        /// <returns>The newly added component.</returns>
+        IComponent AddComponent(Entity entity, Type type);
+
+        /// <summary>
+        ///     Adds a Component type to an entity. If the entity is already Initialized, the component will
+        ///     automatically be Initialized and Started.
+        /// </summary>
+        /// <param name="type">Concrete component type to add.</typeparam>
+        /// <returns>The newly added component.</returns>
+        IComponent AddComponent(EntityUid uid, Type type);
+
+        /// <summary>
         ///     Adds a Component to an entity. If the entity is already Initialized, the component will
         ///     automatically be Initialized and Started.
         /// </summary>
@@ -134,6 +150,14 @@ namespace OpenNefia.Core.GameObjects
         /// <typeparam name="T">Component to add.</typeparam>
         /// <returns>The component in question</returns>
         T EnsureComponent<T>(EntityUid uid) where T : Component, new();
+
+        /// <summary>
+        ///     This method will always return a component for a certain entity, adding it if it's not there already.
+        /// </summary>
+        /// <param name="uid">Entity to modify.</param>
+        /// <param name="type">Component to add.</typeparam>
+        /// <returns>The component in question</returns>
+        IComponent EnsureComponent(EntityUid uid, Type type);
 
         /// <summary>
         ///     Returns the component of a specific type.
