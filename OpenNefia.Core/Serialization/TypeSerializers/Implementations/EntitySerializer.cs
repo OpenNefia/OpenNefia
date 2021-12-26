@@ -46,5 +46,11 @@ namespace OpenNefia.Core.Serialization.TypeSerializers.Implementations
         {
             return new ValueDataNode(value.Uid.ToString());
         }
+
+        public bool Compare(ISerializationManager serializationManager, Entity left, Entity right, bool skipHook,
+            ISerializationContext? context = null)
+        {
+            return left.Uid == right.Uid;
+        }
     }
 }

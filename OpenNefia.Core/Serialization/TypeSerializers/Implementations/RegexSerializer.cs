@@ -52,5 +52,11 @@ namespace OpenNefia.Core.Serialization.TypeSerializers.Implementations
         {
             return new(source.ToString(), source.Options, source.MatchTimeout);
         }
+
+        public bool Compare(ISerializationManager serializationManager, Regex left, Regex right, bool skipHook,
+            ISerializationContext? context = null)
+        {
+            return left == right;
+        }
     }
 }

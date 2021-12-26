@@ -63,5 +63,11 @@ namespace OpenNefia.Core.Serialization.TypeSerializers.Implementations
         {
             return new(source.X, source.Y, source.Z);
         }
+
+        public bool Compare(ISerializationManager serializationManager, Vector3 left, Vector3 right, bool skipHook,
+            ISerializationContext? context = null)
+        {
+            return left == right;
+        }
     }
 }

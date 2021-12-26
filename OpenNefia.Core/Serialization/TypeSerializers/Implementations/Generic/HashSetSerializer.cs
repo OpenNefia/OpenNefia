@@ -135,5 +135,39 @@ namespace OpenNefia.Core.Serialization.TypeSerializers.Implementations.Generic
 
             return builder.ToImmutable();
         }
+
+        public bool Compare(ISerializationManager serializationManager, HashSet<T> left, HashSet<T> right,
+            bool skipHook, 
+            ISerializationContext? context = null)
+        {
+            if (left.Count != right.Count)
+                return false;
+
+            foreach (var elem in left)
+            {
+                // TODO: is this correct? it will bypass the serialization manager for complex types.
+                if (!right.Contains(elem))
+                    return false;
+            }
+
+            return true;
+        }
+
+        public bool Compare(ISerializationManager serializationManager, ImmutableHashSet<T> left, ImmutableHashSet<T> right, 
+            bool skipHook, 
+            ISerializationContext? context = null)
+        {
+            if (left.Count != right.Count)
+                return false;
+
+            foreach (var elem in left)
+            {
+                // TODO: is this correct? it will bypass the serialization manager for complex types.
+                if (!right.Contains(elem))
+                    return false;
+            }
+
+            return true;
+        }
     }
 }

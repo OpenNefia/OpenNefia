@@ -164,5 +164,23 @@ namespace OpenNefia.Core.Serialization.TypeSerializers.Implementations
 
             return target;
         }
+
+        public bool Compare(ISerializationManager serializationManager, ComponentRegistry left, ComponentRegistry right, bool skipHook,
+            ISerializationContext? context = null)
+        {
+            if (left.Count != right.Count)
+                return false;
+
+            foreach (var (id, compLeft) in left)
+            {
+                if (!right.TryGetValue(id, out var compRight))
+                    return false;
+
+                if (!serializationManager.Compare(compLeft, compRight))
+                    return false;
+            }
+
+            return true;
+        }
     }
 }

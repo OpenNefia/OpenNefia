@@ -4,7 +4,8 @@ namespace OpenNefia.Core.Serialization.TypeSerializers.Interfaces
 {
     public interface ITypeSerializer<TType, TNode> :
         ITypeReaderWriter<TType, TNode>,
-        ITypeCopier<TType>
+        ITypeCopier<TType>,
+        ITypeComparer<TType>
         where TNode : DataNode
     {
     }

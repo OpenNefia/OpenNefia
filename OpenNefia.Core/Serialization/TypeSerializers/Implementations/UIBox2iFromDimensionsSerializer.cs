@@ -73,5 +73,11 @@ namespace OpenNefia.Core.Serialization.TypeSerializers.Implementations
         {
             return new(source.Left, source.Bottom, source.Right, source.Top);
         }
+
+        public bool Compare(ISerializationManager serializationManager, UIBox2i left, UIBox2i right, bool skipHook,
+            ISerializationContext? context = null)
+        {
+            return left == right;
+        }
     }
 }

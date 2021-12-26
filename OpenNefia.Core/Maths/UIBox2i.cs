@@ -114,6 +114,30 @@ namespace OpenNefia.Core.Maths
             return other.Left == Left && other.Right == Right && other.Bottom == Bottom && other.Top == Top;
         }
 
+        /// <summary>
+        /// Compares two instances for equality.
+        /// </summary>
+        /// <param name="left">The first instance.</param>
+        /// <param name="right">The second instance.</param>
+        /// <returns>True, if left equals right; false otherwise.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool operator ==(UIBox2i left, UIBox2i right)
+        {
+            return left.Equals(right);
+        }
+
+        /// <summary>
+        /// Compares two instances for inequality.
+        /// </summary>
+        /// <param name="left">The first instance.</param>
+        /// <param name="right">The second instance.</param>
+        /// <returns>True, if left does not equal right; false otherwise.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool operator !=(UIBox2i left, UIBox2i right)
+        {
+            return !left.Equals(right);
+        }
+
         // override object.GetHashCode
         public override readonly int GetHashCode()
         {

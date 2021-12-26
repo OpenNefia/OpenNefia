@@ -247,5 +247,60 @@ namespace OpenNefia.Core.Serialization.TypeSerializers.Implementations.Generic
 
             return builder.ToImmutable();
         }
+
+        private bool CompareInternal(ISerializationManager serializationManager, IReadOnlyList<T> left,
+            IReadOnlyList<T> right, bool skipHook, ISerializationContext? context = null)
+        {
+            if (left.Count != right.Count)
+                return false;
+
+            for (int i = 0; i < left.Count; i++)
+            {
+                if (!serializationManager.Compare(left[i], right[i], context, skipHook))
+                    return false;
+            }
+
+            return true;
+        }
+
+        public bool Compare(ISerializationManager serializationManager, List<T> left, List<T> right,
+            bool skipHook,
+            ISerializationContext? context = null)
+        {
+            return CompareInternal(serializationManager, left, right, skipHook, context);
+        }
+
+        public bool Compare(ISerializationManager serializationManager, IReadOnlyList<T> left,
+            IReadOnlyList<T> right, bool skipHook, ISerializationContext? context = null)
+        {
+            return CompareInternal(serializationManager, left, right, skipHook, context);
+        }
+
+        public bool Compare(ISerializationManager serializationManager, IReadOnlyCollection<T> left,
+            IReadOnlyCollection<T> right, bool skipHook, ISerializationContext? context = null)
+        {
+            if (left.Count != right.Count)
+                return false;
+
+            var enumLeft = left.GetEnumerator();
+            var enumRight = right.GetEnumerator();
+
+            for (int i = 0; i < left.Count; i++)
+            {
+                if (!serializationManager.Compare(enumLeft.Current, enumRight.Current, context, skipHook))
+                    return false;
+
+                enumLeft.MoveNext();
+                enumRight.MoveNext();
+            }
+
+            return true;
+        }
+
+        public bool Compare(ISerializationManager serializationManager, ImmutableList<T> left,
+            ImmutableList<T> right, bool skipHook, ISerializationContext? context = null)
+        {
+            return CompareInternal(serializationManager, left, right, skipHook, context);
+        }
     }
 }

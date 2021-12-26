@@ -53,5 +53,11 @@ namespace OpenNefia.Core.Serialization.TypeSerializers.Implementations
         {
             return new(source);
         }
+
+        public bool Compare(ISerializationManager serializationManager, Angle objA, Angle objB, bool skipHook,
+            ISerializationContext? context = null)
+        {
+            return objA == objB;
+        }
     }
 }

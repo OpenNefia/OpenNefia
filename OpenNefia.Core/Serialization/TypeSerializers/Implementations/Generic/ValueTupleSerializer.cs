@@ -68,5 +68,13 @@ namespace OpenNefia.Core.Serialization.TypeSerializers.Implementations.Generic
             return (serializationManager.Copy(source.Item1, target.Item1)!,
                 serializationManager.Copy(source.Item2, source.Item2)!);
         }
+
+        public bool Compare(ISerializationManager serializationManager, (T1, T2) left, (T1, T2) right,
+            bool skipHook,
+            ISerializationContext? context = null)
+        {
+            return serializationManager.Compare(left.Item1, right.Item1, context, skipHook)
+                && serializationManager.Compare(left.Item2, right.Item2, context, skipHook);
+        }
     }
 }

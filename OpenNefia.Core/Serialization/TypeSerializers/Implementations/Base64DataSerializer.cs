@@ -41,5 +41,20 @@ namespace OpenNefia.Core.Serialization.TypeSerializers.Implementations
         {
             return source;
         }
+
+        public bool Compare(ISerializationManager serializationManager, byte[] left, byte[] right, bool skipHook,
+            ISerializationContext? context = null)
+        {
+            if (left.Length != right.Length)
+                return false;
+
+            for (int i = 0; i < left.Length; i++)
+            {
+                if (left[i] != right[i])
+                    return false;
+            }
+
+            return true;
+        }
     }
 }

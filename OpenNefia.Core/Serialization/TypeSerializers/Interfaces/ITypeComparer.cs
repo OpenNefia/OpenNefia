@@ -5,7 +5,7 @@ namespace OpenNefia.Core.Serialization.TypeSerializers.Interfaces
 {
     public interface ITypeComparer<TType>
     {
-        bool Compare(ISerializationManager serializationManager, TType objA, TType objB,
+        bool Compare(ISerializationManager serializationManager, TType left, TType right,
             bool skipHook,
             ISerializationContext? context = null);
     }

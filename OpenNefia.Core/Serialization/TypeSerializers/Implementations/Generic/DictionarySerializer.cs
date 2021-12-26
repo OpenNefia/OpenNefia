@@ -206,5 +206,45 @@ namespace OpenNefia.Core.Serialization.TypeSerializers.Implementations.Generic
         {
             return CopyInternal(serializationManager, source, target, context);
         }
+
+        public bool CompareInternal(ISerializationManager serializationManager, IReadOnlyDictionary<TKey, TValue> left, IReadOnlyDictionary<TKey, TValue> right,
+            bool skipHook,
+            ISerializationContext? context = null)
+        {
+            if (left.Count != right.Count)
+                return false;
+
+            foreach (var (key, valueLeft) in left)
+            {
+                if (!right.TryGetValue(key, out var compRight))
+                    return false;
+
+                if (!serializationManager.Compare(valueLeft, compRight))
+                    return false;
+            }
+
+            return true;
+        }
+
+        public bool Compare(ISerializationManager serializationManager, Dictionary<TKey, TValue> left, Dictionary<TKey, TValue> right, 
+            bool skipHook, 
+            ISerializationContext? context = null)
+        {
+            return CompareInternal(serializationManager, left, right, skipHook, context);
+        }
+
+        public bool Compare(ISerializationManager serializationManager, IReadOnlyDictionary<TKey, TValue> left, IReadOnlyDictionary<TKey, TValue> right, 
+            bool skipHook, 
+            ISerializationContext? context = null)
+        {
+            return CompareInternal(serializationManager, left, right, skipHook, context);
+        }
+
+        public bool Compare(ISerializationManager serializationManager, SortedDictionary<TKey, TValue> left, SortedDictionary<TKey, TValue> right, 
+            bool skipHook, 
+            ISerializationContext? context = null)
+        {
+            return CompareInternal(serializationManager, left, right, skipHook, context);
+        }
     }
 }

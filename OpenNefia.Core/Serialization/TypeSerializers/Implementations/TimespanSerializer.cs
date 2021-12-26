@@ -46,5 +46,11 @@ namespace OpenNefia.Core.Serialization.TypeSerializers.Implementations
         {
             return source;
         }
+
+        public bool Compare(ISerializationManager serializationManager, TimeSpan left, TimeSpan right, bool skipHook,
+            ISerializationContext? context = null)
+        {
+            return left == right;
+        }
     }
 }
