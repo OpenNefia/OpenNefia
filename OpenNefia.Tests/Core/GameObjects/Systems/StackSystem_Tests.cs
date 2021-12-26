@@ -17,6 +17,7 @@ namespace OpenNefia.Tests.Core.GameObjects.Systems
     public class StackSystem_Tests : OpenNefiaUnitTest
     {
         private static readonly PrototypeId<EntityPrototype> DummyID = new("dummy");
+        private static readonly PrototypeId<EntityPrototype> DummyNonStackedID = new("dummyNonStacked");
 
         private static readonly string Prototypes = @$"
 - type: Entity
@@ -30,6 +31,12 @@ namespace OpenNefia.Tests.Core.GameObjects.Systems
     C:
       foo: bar
       hoge: true
+
+- type: Entity
+  name: dummy
+  id: {DummyNonStackedID}
+  components:
+  - type: StackTest
 ";
 
         private static ISimulation SimulationFactory()
@@ -222,6 +229,35 @@ namespace OpenNefia.Tests.Core.GameObjects.Systems
             entityManager.DeleteEntity(dummy2);
 
             Assert.That(stackSys.TryStack(dummy1.Uid, dummy2.Uid), Is.False);
+        }
+
+        /// <summary>
+        /// If an entity doesn't have a StackComponent, allow splitting off the
+        /// stack if and only if a stack of size 1 is requested.
+        /// </summary>
+        [Test]
+        public void TestSplit_NonStacked()
+        {
+            var sim = SimulationFactory();
+            var entityManager = sim.Resolve<IEntityManager>();
+            var stackSys = sim.GetEntitySystem<IStackSystem>();
+            var map = sim.ActiveMap!;
+
+            var dummy = entityManager.CreateEntityUninitialized(DummyNonStackedID);
+            var mapCoords = map.AtPos(Vector2i.Zero);
+
+            Assert.That(stackSys.TrySplit(dummy.Uid, 2, mapCoords, out var _), Is.False);
+
+            var result = stackSys.TrySplit(dummy.Uid, 1, mapCoords, out var split);
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(result, Is.True, "Result");
+                Assert.That(split.IsValid(), Is.True, "Split entity IsValid()");
+                Assert.That(entityManager.IsAlive(split), Is.True, "Split entity IsAlive()");
+                Assert.That(entityManager.IsAlive(dummy.Uid), Is.True, "Original entity IsAlive()");
+                Assert.That(dummy.Uid, Is.EqualTo(split), "Original entity is equal to split entity");
+            });
         }
 
         [Test]

@@ -1,9 +1,11 @@
 ﻿using OpenNefia.Analyzers;
 using OpenNefia.Core.IoC;
+using OpenNefia.Core.Log;
 using OpenNefia.Core.Maps;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Serialization.Manager;
 using OpenNefia.Core.Utility;
+using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 
 namespace OpenNefia.Core.GameObjects
@@ -103,6 +105,13 @@ namespace OpenNefia.Core.GameObjects
         /// <returns>A non-null <see cref="EntityUid"/> if successful.</returns>
         bool TrySplit(EntityUid uid, int amount, MapCoordinates spawnPosition,
             out EntityUid split,
+            StackComponent? stack = null);
+
+        /// <summary>
+        /// Tries to split this stack into two.
+        /// </summary>
+        /// <returns>A non-null <see cref="EntityUid"/> if successful.</returns>
+        bool TrySplit(EntityUid uid, int amount, out EntityUid split,
             StackComponent? stack = null);
     }
 
@@ -372,7 +381,18 @@ namespace OpenNefia.Core.GameObjects
                 return false;
 
             if (!Resolve(uid, ref stack))
+            {
+                // Special case: If this entity doesn't support stacking, but we're only
+                // requesting a stack size of 1, just return the entity itself.
+                if (amount == 1)
+                {
+                    split = uid;
+                    return true;
+                }
+
+                Logger.ErrorS("resolve", $"Can't resolve \"{typeof(StackComponent)}\" on entity {uid}!\n{new StackTrace(1, true)}");
                 return false;
+            }
 
             // Try to remove the amount of things we want to split from the original stack...
             if (!Use(uid, amount, stack))
@@ -404,6 +424,17 @@ namespace OpenNefia.Core.GameObjects
                 return false;
 
             return TrySplit(uid, amount, entityCoords, out split, stack);
+        }
+
+        /// <inheritdoc/>
+        public bool TrySplit(EntityUid uid, int amount, out EntityUid split, StackComponent? stack = null)
+        {
+            split = EntityUid.Invalid;
+
+            if (!EntityManager.TryGetComponent<SpatialComponent>(uid, out var spatial))
+                return false;
+
+            return TrySplit(uid, amount, spatial.MapPosition, out split, stack);
         }
 
         #endregion

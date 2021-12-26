@@ -216,32 +216,11 @@ namespace OpenNefia.Content.UI.Layer
         private void PickUpItem(UiKeyInputEventArgs args)
         {
             RunVerbCommand(new Verb(PickableSystem.VerbIDPickUp), EntitiesUnderneath());
-
-            var stackSystem = EntitySystem.Get<IStackSystem>();
-
-            var inv = _entityManager.GetComponent<InventoryComponent>(_gameSession.Player!.Uid);
-            foreach (var ent in inv.Container.ContainedEntities.ToList())
-            {
-                if (!_entityManager.IsAlive(ent))
-                    continue;
-
-                stackSystem.TryStackAtSamePos(ent);
-            }
         }
 
         private void DropItem(UiKeyInputEventArgs args)
         {
             RunVerbCommand(new Verb(PickableSystem.VerbIDDrop), EntitiesInInventory());
-
-            var stackSystem = EntitySystem.Get<IStackSystem>();
-
-            foreach (var ent in EntitiesUnderneath().ToList())
-            {
-                if (!_entityManager.IsAlive(ent.Uid))
-                    continue;
-
-                stackSystem.TryStackAtSamePos(ent.Uid);
-            }
         }
 
         public void PromptToCancel(UiKeyInputEventArgs args)

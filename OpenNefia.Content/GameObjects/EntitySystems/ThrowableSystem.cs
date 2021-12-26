@@ -16,6 +16,7 @@ namespace OpenNefia.Content.GameObjects
         [Dependency] private readonly IUiLayerManager _uiLayers = default!;
         [Dependency] private readonly IMapManager _mapManager = default!;
         [Dependency] private readonly IEntityLookup _lookup = default!;
+        [Dependency] private readonly IStackSystem _stackSystem = default!;
 
         public const string VerbIDThrow = "Elona.Throw";
 
@@ -63,12 +64,11 @@ namespace OpenNefia.Content.GameObjects
 
         private void ExecuteVerbThrow(ExecuteVerbEventArgs args)
         {
-            var source = args.Source;
+            var thrower = args.Source;
+            var throwing = args.Target;
 
-            if (args.Handled || !EntityManager.TryGetEntity(source, out var sourceEntity))
+            if (!EntityManager.TryGetEntity(thrower, out var sourceEntity))
                 return;
-
-            args.Handled = true;
 
             if (!_mapManager.TryGetMap(sourceEntity.Spatial.MapID, out var map))
                 return;
@@ -77,23 +77,24 @@ namespace OpenNefia.Content.GameObjects
             var posResult = _uiLayers.Query(prompt);
             if (!posResult.HasValue)
             {
-                args.TurnResult = TurnResult.Aborted;
+                args.Handle(TurnResult.Aborted);
                 return;
             }
 
             if (!posResult.Value.CanSee)
             {
                 Mes.Display("You can't see the location.");
-                args.TurnResult = TurnResult.Failed;
+                args.Handle(TurnResult.Failed);
                 return;
             }
 
-            // TODO stacking
+            if (!_stackSystem.TrySplit(throwing, 1, posResult.Value.Coords, out var split))
+                args.Handle(TurnResult.Failed);
 
-            if (ThrowEntity(source, args.Target, posResult.Value.Coords))
-            {
-                args.TurnResult = TurnResult.Succeeded;
-            }
+            if (!ThrowEntity(thrower, split, posResult.Value.Coords))
+                args.Handle(TurnResult.Failed);
+
+            args.Handle(TurnResult.Succeeded);
         }
 
         public bool ThrowEntity(EntityUid source, EntityUid throwing, MapCoordinates coords)
