@@ -11,8 +11,8 @@ namespace OpenNefia.Core.Serialization.Manager
     public partial class SerializationManager
     {
         private delegate bool CompareDelegate(
-            object objA,
-            object objB,
+            object left,
+            object right,
             out bool areSame,
             bool skipHook,
             ISerializationContext? context);
@@ -26,41 +26,41 @@ namespace OpenNefia.Core.Serialization.Manager
                 .GetOrAdd(type, (_, t) =>
                 {
                     var instanceParam = Expression.Constant(this);
-                    var objAParam = Expression.Parameter(typeof(object), "objA");
-                    var objBParam = Expression.Parameter(typeof(object), "objB");
-                    var areSameParam = Expression.Parameter(typeof(DataNode).MakeByRefType(), "areSame");
-                    var skipHook = Expression.Parameter(typeof(bool), "skipHook");
+                    var leftParam = Expression.Parameter(typeof(object), "left");
+                    var rightParam = Expression.Parameter(typeof(object), "right");
+                    var areSameParam = Expression.Parameter(typeof(bool).MakeByRefType(), "areSame");
+                    var skipHookParam = Expression.Parameter(typeof(bool), "skipHook");
                     var contextParam = Expression.Parameter(typeof(ISerializationContext), "context");
 
                     var call = Expression.Call(
                         instanceParam,
                         nameof(TryCompare),
                         new[] { t },
-                        Expression.Convert(objAParam, t),
-                        Expression.Convert(objBParam, t),
+                        Expression.Convert(leftParam, t),
+                        Expression.Convert(rightParam, t),
                         areSameParam,
-                        skipHook,
+                        skipHookParam,
                         contextParam);
 
                     return Expression.Lambda<CompareDelegate>(
                         call,
-                        objAParam,
-                        objBParam,
+                        leftParam,
+                        rightParam,
                         areSameParam,
-                        skipHook,
+                        skipHookParam,
                         contextParam).Compile();
                 }, type);
         }
 
         private bool TryCompareRaw(
             Type type,
-            object objA,
-            object objB,
+            object left,
+            object right,
             out bool areSame,
             bool skipHook = false,
             ISerializationContext? context = null)
         {
-            return GetOrCreateCompareDelegate(type)(objA, objB, out areSame, skipHook, context);
+            return GetOrCreateCompareDelegate(type)(left, right, out areSame, skipHook, context);
         }
 
         private bool TryGetComparer<T>(

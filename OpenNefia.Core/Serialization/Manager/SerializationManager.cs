@@ -574,70 +574,64 @@ namespace OpenNefia.Core.Serialization.Manager
             return (T?) copy;
         }
 
-        public bool Compare(object? objA, object? objB, ISerializationContext? context = null, bool skipHook = false)
+        public bool Compare(object? left, object? right, ISerializationContext? context = null, bool skipHook = false)
         {
-            if (objA == null && objB == null)
+            if (left == null && right == null)
                 return true;
 
-            if (objA != null || objB != null)
+            if (left == null || right == null)
                 return false;
 
-            var objAType = objA!.GetType();
-            var objBType = objB!.GetType();
+            var leftType = left.GetType();
+            var rightType = right.GetType();
 
-            if (objAType.IsValueType != objBType.IsValueType)
+            if (leftType != rightType)
             {
                 return false;
             }
 
-            if (objAType.IsArray && objBType.IsArray)
+            if (leftType.IsArray != rightType.IsArray)
             {
-                var objAArray = (Array)objA;
-                var objBArray = (Array)objB;
+                return false;
+            }
 
-                if (objAArray.Length != objBArray.Length)
+            if (leftType.IsArray && rightType.IsArray)
+            {
+                var leftArray = (Array)left;
+                var rightArray = (Array)right;
+
+                if (leftArray.Length != rightArray.Length)
                 {
                     return false;
                 }
 
-                for (var i = 0; i < objAArray.Length; i++)
+                for (var i = 0; i < leftArray.Length; i++)
                 {
-                    if (!Compare(objAArray.GetValue(i), objBArray.GetValue(i), context, skipHook))
+                    if (!Compare(leftArray.GetValue(i), rightArray.GetValue(i), context, skipHook))
                         return false;
                 }
 
                 return true;
             }
 
-            if (objAType.IsArray != objBType.IsArray)
+            if (leftType.IsEnum)
             {
-                return false;
+                return left.Equals(right);
             }
 
-            var commonType = TypeHelpers.SelectCommonType(objAType, objBType);
-            if (commonType == null)
-            {
-                return false;
-            }
-
-            if (_copyByRefRegistrations.Contains(commonType) || commonType.IsEnum)
-            {
-                return objA == objB;
-            }
-
-            if (TryCompareRaw(commonType, objA, objB, out var result, skipHook, context))
+            if (TryCompareRaw(leftType, left, right, out var result, skipHook, context))
             {
                 return result;
             }
 
-            if (!TryGetDefinition(commonType, out var dataDef))
+            if (!TryGetDefinition(leftType, out var dataDef))
             {
-                throw new InvalidOperationException($"No data definition found for type {commonType} when copying");
+                throw new InvalidOperationException($"No data definition found for type {leftType} when comparing");
             }
 
-            var areSame = dataDef.Compare(objA, objB, this, context);
+            var areSame = dataDef.Compare(left, right, this, context);
 
-            if (!skipHook && objB is ISerializationHooks afterHooks)
+            if (!skipHook && right is ISerializationHooks afterHooks)
             {
                 areSame &= afterHooks.AfterCompare();
             }

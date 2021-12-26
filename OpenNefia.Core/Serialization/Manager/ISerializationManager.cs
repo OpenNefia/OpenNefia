@@ -249,14 +249,14 @@ namespace OpenNefia.Core.Serialization.Manager
         /// <summary>
         ///     Compares two objects for equality.
         /// </summary>
-        /// <param name="objA">The first object to compare.</param>
-        /// <param name="objB">The second object to compare.</param>
+        /// <param name="left">The first object to compare.</param>
+        /// <param name="right">The second object to compare.</param>
         /// <param name="context">The context to use, if any.</param>
         /// <param name="skipHook">Whether or not to skip running <see cref="ISerializationHooks"/></param>
         /// <returns>
         ///     True if all non-excluded serializable fields on both objects are equivalent.
         /// </returns>
-        bool Compare(object? objA, object? objB, ISerializationContext? context = null, bool skipHook = false);
+        bool Compare(object? left, object? right, ISerializationContext? context = null, bool skipHook = false);
 
         #endregion
 

@@ -35,22 +35,24 @@ namespace OpenNefia.Core.Serialization.Manager.Attributes
         public readonly bool Required;
 
         /// <summary>
-        /// Whether to exclude this field from being compared against during IsSameAs() calls.
-        /// </summary>
-        public readonly bool NoCompare;
-
-        /// <summary>
         /// Type of an <see cref="ITypeSerializer"/> to (de)serialize this field with.
         /// </summary>
         public readonly Type? CustomTypeSerializer;
 
-        public DataFieldAttribute(string? tag = null, bool readOnly = false, int priority = 1, bool required = false, Type? customTypeSerializer = null)
+        /// <summary>
+        /// Whether to exclude this field from being compared against during IsSameAs() calls.
+        /// </summary>
+        public readonly bool NoCompare;
+
+        public DataFieldAttribute(string? tag = null, bool readOnly = false, int priority = 1, bool required = false, Type? customTypeSerializer = null,
+            bool noCompare = false)
         {
             Tag = tag;
             Priority = priority;
             ReadOnly = readOnly;
             Required = required;
             CustomTypeSerializer = customTypeSerializer;
+            NoCompare = noCompare;
         }
     }
 }
