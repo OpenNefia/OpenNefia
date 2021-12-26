@@ -549,7 +549,7 @@ namespace OpenNefia.Core.GameObjects
         public bool AfterCompare()
         {
             // Don't stack entities with children (for now).
-            if (_children.Count >= 0)
+            if (_children.Count > 0)
             {
                 return false;
             }

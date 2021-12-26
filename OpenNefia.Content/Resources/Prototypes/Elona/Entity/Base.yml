@@ -34,7 +34,7 @@
     isSolid: false
     isOpaque: false
   - type: Item
-  - type: Stackable
+  - type: Stack
   - type: Weight
   - type: Pickable
 

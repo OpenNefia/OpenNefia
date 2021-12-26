@@ -102,7 +102,7 @@ namespace OpenNefia.Tests.Core.GameObjects.Systems
         }
 
         [Test]
-        public void TestStackSplit_None()
+        public void TestSplit_None()
         {
             var sim = SimulationFactory();
             var entityManager = sim.Resolve<IEntityManager>();
@@ -121,7 +121,7 @@ namespace OpenNefia.Tests.Core.GameObjects.Systems
         }
 
         [Test]
-        public void TestStackSplit_One()
+        public void TestSplit_One()
         {
             var sim = SimulationFactory();
             var entityManager = sim.Resolve<IEntityManager>();
@@ -146,7 +146,7 @@ namespace OpenNefia.Tests.Core.GameObjects.Systems
         }
 
         [Test]
-        public void TestStackSplit_Multiple()
+        public void TestSplit_Multiple()
         {
             var sim = SimulationFactory();
             var entityManager = sim.Resolve<IEntityManager>();
@@ -179,6 +179,65 @@ namespace OpenNefia.Tests.Core.GameObjects.Systems
                 Assert.That(splitStackTest.C.Foo, Is.EqualTo("bar"));
                 Assert.That(splitStackTest.C.Hoge, Is.EqualTo(true));
             });
+        }
+
+        [Test]
+        public void TestStack_Success()
+        {
+            var sim = SimulationFactory();
+            var entityManager = sim.Resolve<IEntityManager>();
+            var stackSys = sim.GetEntitySystem<IStackSystem>();
+            var map = sim.ActiveMap!;
+
+            var dummy1 = entityManager.CreateEntityUninitialized(DummyID);
+            var dummy2 = entityManager.CreateEntityUninitialized(DummyID);
+
+            var stack = entityManager.GetComponent<StackComponent>(dummy1.Uid);
+
+            stack.Count = 5;
+            var result = stackSys.TryStack(dummy1.Uid, dummy2.Uid);
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(result, Is.True);
+                Assert.That(entityManager.IsAlive(dummy1.Uid), Is.True);
+                Assert.That(entityManager.IsAlive(dummy2.Uid), Is.False);
+                Assert.That(stack.Count, Is.EqualTo(6));
+            });
+        }
+
+        [Test]
+        public void TestStack_Invalid()
+        {
+            var sim = SimulationFactory();
+            var entityManager = sim.Resolve<IEntityManager>();
+            var stackSys = sim.GetEntitySystem<IStackSystem>();
+
+            var dummy1 = entityManager.CreateEntityUninitialized(DummyID);
+            var dummy2 = entityManager.CreateEntityUninitialized(DummyID);
+
+            Assert.That(stackSys.TryStack(dummy1.Uid, EntityUid.Invalid), Is.False);
+            Assert.That(stackSys.TryStack(dummy1.Uid, dummy1.Uid), Is.False);
+
+            entityManager.DeleteEntity(dummy2);
+
+            Assert.That(stackSys.TryStack(dummy1.Uid, dummy2.Uid), Is.False);
+        }
+
+        [Test]
+        public void TestStack_NotSame()
+        {
+            var sim = SimulationFactory();
+            var entityManager = sim.Resolve<IEntityManager>();
+            var stackSys = sim.GetEntitySystem<IStackSystem>();
+
+            var dummy1 = entityManager.CreateEntityUninitialized(DummyID);
+            var dummy2 = entityManager.CreateEntityUninitialized(DummyID);
+
+            var stackTest = entityManager.GetComponent<StackTestComponent>(dummy2.Uid);
+            stackTest.A = 9999;
+
+            Assert.That(stackSys.TryStack(dummy1.Uid, dummy2.Uid), Is.False);
         }
     }
 

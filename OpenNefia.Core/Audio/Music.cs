@@ -9,6 +9,7 @@ namespace OpenNefia.Core.Audio
     /// <summary>
     /// A static proxy class for interfacing with the <see cref="IMusicManager"/>.
     /// </summary>
+    [Obsolete]
     public static class Music
     {
         /// <summary>

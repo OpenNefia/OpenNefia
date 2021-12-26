@@ -4,6 +4,7 @@ using OpenNefia.Core.Maps;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Serialization.Manager;
 using OpenNefia.Core.Utility;
+using System.Diagnostics.CodeAnalysis;
 
 namespace OpenNefia.Core.GameObjects
 {
@@ -51,8 +52,8 @@ namespace OpenNefia.Core.GameObjects
         /// Returns true if the provided entities can be stacked together.
         /// </summary>
         bool CanStack(EntityUid ent1, EntityUid ent2, 
-            StackComponent? stackEnt1 = null, 
-            StackComponent? stackEnt2 = null);
+            ref StackComponent? stackEnt1, 
+            ref StackComponent? stackEnt2);
 
         /// <summary>
         /// Tries to stack the provided entities.
@@ -202,14 +203,17 @@ namespace OpenNefia.Core.GameObjects
 
         /// <inheritdoc/>
         public bool CanStack(EntityUid ent1, EntityUid ent2,
-            StackComponent? stackEnt1 = null,
-            StackComponent? stackEnt2 = null)
+            [NotNullWhen(true)] ref StackComponent? stackEnt1,
+            [NotNullWhen(true)] ref StackComponent? stackEnt2)
         {
             if (!EntityManager.IsAlive(ent1) || !EntityManager.IsAlive(ent2))
                 return false;
 
+            if (ent1 == ent2)
+                return false;
+
             // Both entities must at least have StackComponents.
-            if (!Resolve(ent1, ref stackEnt1) || !Resolve(ent2, ref stackEnt2))
+            if (!Resolve(ent1, ref stackEnt1, logMissing: false) || !Resolve(ent2, ref stackEnt2, logMissing: false))
                 return false;
 
             foreach (var comp1 in EntityManager.GetComponents(ent1))
@@ -227,7 +231,7 @@ namespace OpenNefia.Core.GameObjects
                 }
             }
 
-            return false;
+            return true;
         }
 
         /// <inheritdoc/>
@@ -235,19 +239,18 @@ namespace OpenNefia.Core.GameObjects
             StackComponent? stackTarget = null,
             StackComponent? stackWith = null)
         {
-            if (!Resolve(target, ref stackTarget) || !Resolve(with, ref stackWith))
-                return false;
-
-            if (!CanStack(target, with, stackTarget, stackWith))
+            if (!CanStack(target, with, ref stackTarget, ref stackWith))
                 return false;
 
             DebugTools.Assert(stackWith.Count > 0);
 
-            var ev = new EntityStackedEvent(with);
+            var newCount = stackTarget.Count + stackWith.Count;
+
+            var ev = new EntityStackedEvent(with, stackTarget.Count, newCount);
             RaiseLocalEvent(target, ref ev);
 
-            stackTarget.Count += stackWith.Count;
-            stackWith.Count = 0;
+            SetCount(target, newCount, stackTarget);
+            SetCount(with, 0, stackWith);
             EntityManager.DeleteEntity(with);
 
             return true;
@@ -258,7 +261,10 @@ namespace OpenNefia.Core.GameObjects
             SpatialComponent? spatialTarget = null,
             StackComponent? stackTarget = null)
         {
-            if (!Resolve(target, ref spatialTarget, ref stackTarget))
+            if (!Resolve(target, ref spatialTarget))
+                return false;
+
+            if (!Resolve(target, ref stackTarget, logMissing: false))
                 return false;
 
             if (spatialTarget.Parent == null)
@@ -279,7 +285,7 @@ namespace OpenNefia.Core.GameObjects
 
             var stackedSomething = false;
 
-            foreach (var ent in ents)
+            foreach (var ent in ents.ToList())
             {
                 stackedSomething &= TryStack(target, ent.Uid, stackTarget);
             }
@@ -379,6 +385,9 @@ namespace OpenNefia.Core.GameObjects
                 stackComp.Unlimited = false;
             }
 
+            var ev = new EntitySplitEvent(split);
+            RaiseLocalEvent(uid, ref ev);
+
             return true;
         }
 
@@ -418,10 +427,25 @@ namespace OpenNefia.Core.GameObjects
     public struct EntityStackedEvent
     {
         public EntityUid StackedWith { get; }
+        public int OldCount { get; }
+        public int NewCount { get; }
 
-        public EntityStackedEvent(EntityUid stackingWith)
+        public EntityStackedEvent(EntityUid stackedWith, int oldCount, int newCount)
         {
-            StackedWith = stackingWith;
+            StackedWith = stackedWith;
+            OldCount = oldCount;
+            NewCount = newCount;
+        }
+    }
+
+    [EventArgsUsage(EventArgsTargets.ByRef)]
+    public struct EntitySplitEvent
+    {
+        public EntityUid SplitInto { get; }
+
+        public EntitySplitEvent(EntityUid splitInto)
+        {
+            SplitInto = splitInto;
         }
     }
 

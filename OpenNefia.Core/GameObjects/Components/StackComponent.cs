@@ -4,7 +4,6 @@ using OpenNefia.Core.Serialization.Manager.Attributes;
 
 namespace OpenNefia.Core.GameObjects
 {
-    [RegisterComponent]
     public class StackComponent : Component
     {
         public override string Name => "Stack";
