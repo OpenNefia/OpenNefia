@@ -2,10 +2,6 @@
   "profiles": {
     "OpenNefia": {
       "commandName": "Project"
-    },
-    "HspMap": {
-      "commandName": "Project",
-      "commandLineArgs": "batch $(SolutionDir)script.txt"
     }
   }
 }
