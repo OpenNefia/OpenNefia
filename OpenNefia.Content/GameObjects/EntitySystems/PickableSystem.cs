@@ -19,6 +19,7 @@ namespace OpenNefia.Content.GameObjects
         [Dependency] private readonly ContainerSystem _containerSystem = default!;
         [Dependency] private readonly IAudioSystem _sounds = default!;
         [Dependency] private readonly IRandom _random = default!;
+        [Dependency] private readonly IStackSystem _stackSystem = default!;
 
         private readonly PrototypeId<SoundPrototype>[] GetSounds = new[]
         {
@@ -107,6 +108,8 @@ namespace OpenNefia.Content.GameObjects
 
                 var sound = _random.Pick(GetSounds);
                 _sounds.Play(sound, picker);
+
+                _stackSystem.TryStackAtSamePos(target);
 
                 return TurnResult.Succeeded;
             }

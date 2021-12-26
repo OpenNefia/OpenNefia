@@ -13,6 +13,7 @@ namespace OpenNefia.Content.GameObjects
         public const string VerbIDDrink = "Elona.Drink";
 
         [Dependency] private readonly IAudioSystem _sounds = default!;
+        [Dependency] private readonly IStackSystem _stackSystem = default!;
 
         public override void Initialize()
         {
@@ -56,15 +57,17 @@ namespace OpenNefia.Content.GameObjects
             if (!EntityManager.TryGetComponent(drinker, out SpatialComponent sourceSpatial))
                 return TurnResult.Failed;
 
-            Mes.Display($"{DisplayNameSystem.GetDisplayName(drinker)} drinks {DisplayNameSystem.GetDisplayName(target)}.");
+            if (!_stackSystem.TrySplit(target, 1, out var split))
+                return TurnResult.Failed;
+
+            Mes.Display($"{DisplayNameSystem.GetDisplayName(drinker)} drinks {DisplayNameSystem.GetDisplayName(split)}.");
 
             _sounds.Play(Protos.Sound.Drink1, sourceSpatial.MapPosition);
 
             var result = drinkable.Effect?.Apply(drinker, sourceSpatial.MapPosition, drinker, drinkable.Args)
                 ?? EffectResult.Succeeded;
 
-            // TODO stacking
-            EntityManager.DeleteEntity(target);
+            EntityManager.DeleteEntity(split);
 
             return result.ToTurnResult();
         }
