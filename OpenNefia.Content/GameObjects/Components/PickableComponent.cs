@@ -17,4 +17,25 @@ namespace OpenNefia.Content.GameObjects
             OwnState = ownState;
         }
     }
+
+    /// <summary>
+    /// Possible ownership states for entities with a <see cref="PickableComponent"/>.
+    /// </summary>
+    public enum OwnState : int
+    {
+        /// <summary>
+        /// Nothing claims ownership of this item, and the player can pick it up.
+        /// </summary>
+        None = 0,
+
+        /// <summary>
+        /// This item cannot be picked up by the player. ("It's not yours.")
+        /// </summary>
+        NPC = 1,
+
+        Shop = 2,
+        Construct = 3,
+        Quest = 4,
+        Special = 5
+    }
 }

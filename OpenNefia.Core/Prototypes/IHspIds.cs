@@ -37,6 +37,18 @@ namespace OpenNefia.Core.Prototypes
         {
             return this[HspOrigin];
         }
+
+        public static HspIds<T> FromCanonical(string origin, T id)
+        {
+            var ids = new HspIds<T>(origin);
+            ids[origin] = id;
+            return ids;
+        }
+
+        public static HspIds<T> From122(T id)
+        {
+            return HspIds<T>.FromCanonical(ElonaVariants.Elona122, id);
+        }
     }
 
     /// <summary>

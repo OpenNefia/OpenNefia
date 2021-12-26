@@ -189,6 +189,41 @@ namespace OpenNefia.Tests.Core.GameObjects.Systems
         }
 
         [Test]
+        public void TestStack_Invalid()
+        {
+            var sim = SimulationFactory();
+            var entityManager = sim.Resolve<IEntityManager>();
+            var stackSys = sim.GetEntitySystem<IStackSystem>();
+
+            var dummy1 = entityManager.CreateEntityUninitialized(DummyID);
+            var dummy2 = entityManager.CreateEntityUninitialized(DummyID);
+
+            Assert.That(stackSys.TryStack(EntityUid.Invalid, EntityUid.Invalid), Is.False);
+            Assert.That(stackSys.TryStack(dummy1.Uid, EntityUid.Invalid), Is.False);
+            Assert.That(stackSys.TryStack(dummy1.Uid, dummy1.Uid), Is.False);
+
+            entityManager.DeleteEntity(dummy2);
+
+            Assert.That(stackSys.TryStack(dummy1.Uid, dummy2.Uid), Is.False);
+        }
+
+        [Test]
+        public void TestStack_NotSame()
+        {
+            var sim = SimulationFactory();
+            var entityManager = sim.Resolve<IEntityManager>();
+            var stackSys = sim.GetEntitySystem<IStackSystem>();
+
+            var dummy1 = entityManager.CreateEntityUninitialized(DummyID);
+            var dummy2 = entityManager.CreateEntityUninitialized(DummyID);
+
+            var stackTest = entityManager.GetComponent<StackTestComponent>(dummy2.Uid);
+            stackTest.A = 9999;
+
+            Assert.That(stackSys.TryStack(dummy1.Uid, dummy2.Uid), Is.False);
+        }
+
+        [Test]
         public void TestStack_Success()
         {
             var sim = SimulationFactory();
@@ -213,27 +248,10 @@ namespace OpenNefia.Tests.Core.GameObjects.Systems
             });
         }
 
-        [Test]
-        public void TestStack_Invalid()
-        {
-            var sim = SimulationFactory();
-            var entityManager = sim.Resolve<IEntityManager>();
-            var stackSys = sim.GetEntitySystem<IStackSystem>();
-
-            var dummy1 = entityManager.CreateEntityUninitialized(DummyID);
-            var dummy2 = entityManager.CreateEntityUninitialized(DummyID);
-
-            Assert.That(stackSys.TryStack(dummy1.Uid, EntityUid.Invalid), Is.False);
-            Assert.That(stackSys.TryStack(dummy1.Uid, dummy1.Uid), Is.False);
-
-            entityManager.DeleteEntity(dummy2);
-
-            Assert.That(stackSys.TryStack(dummy1.Uid, dummy2.Uid), Is.False);
-        }
-
         /// <summary>
         /// If an entity doesn't have a StackComponent, allow splitting off the
-        /// stack if and only if a stack of size 1 is requested.
+        /// stack if and only if a stack of size 1 is requested. In this case, 
+        /// the split entity is the same as the input entity.
         /// </summary>
         [Test]
         public void TestSplit_NonStacked()
@@ -258,22 +276,6 @@ namespace OpenNefia.Tests.Core.GameObjects.Systems
                 Assert.That(entityManager.IsAlive(dummy.Uid), Is.True, "Original entity IsAlive()");
                 Assert.That(dummy.Uid, Is.EqualTo(split), "Original entity is equal to split entity");
             });
-        }
-
-        [Test]
-        public void TestStack_NotSame()
-        {
-            var sim = SimulationFactory();
-            var entityManager = sim.Resolve<IEntityManager>();
-            var stackSys = sim.GetEntitySystem<IStackSystem>();
-
-            var dummy1 = entityManager.CreateEntityUninitialized(DummyID);
-            var dummy2 = entityManager.CreateEntityUninitialized(DummyID);
-
-            var stackTest = entityManager.GetComponent<StackTestComponent>(dummy2.Uid);
-            stackTest.A = 9999;
-
-            Assert.That(stackSys.TryStack(dummy1.Uid, dummy2.Uid), Is.False);
         }
     }
 

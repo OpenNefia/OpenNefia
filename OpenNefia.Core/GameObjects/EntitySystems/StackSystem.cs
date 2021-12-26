@@ -95,6 +95,11 @@ namespace OpenNefia.Core.GameObjects
         /// Tries to split this stack into two.
         /// </summary>
         /// <returns>A non-null <see cref="EntityUid"/> if successful.</returns>
+        /// <remarks>
+        /// You can also call this method on entities without a <see cref="StackComponent"/>,
+        /// as long as <c>amount</c> is 1. In that case, the entity returned will
+        /// be the same as the input entity.
+        /// </remarks>
         bool TrySplit(EntityUid uid, int amount, EntityCoordinates spawnPosition,
             out EntityUid split,
             StackComponent? stack = null);
@@ -380,7 +385,7 @@ namespace OpenNefia.Core.GameObjects
             if (amount <= 0)
                 return false;
 
-            if (!Resolve(uid, ref stack))
+            if (!Resolve(uid, ref stack, logMissing: false))
             {
                 // Special case: If this entity doesn't support stacking, but we're only
                 // requesting a stack size of 1, just return the entity itself.

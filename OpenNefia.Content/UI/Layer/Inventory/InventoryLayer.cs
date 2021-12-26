@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace OpenNefia.Content.UI.Layer
 {
-    public class InventoryLayer : BaseUiLayer<UiNoResult>
+    public sealed class InventoryLayer : BaseUiLayer<UiNoResult>
     {
         public override void Update(float dt)
         {
