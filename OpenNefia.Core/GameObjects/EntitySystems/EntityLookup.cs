@@ -18,19 +18,39 @@ namespace OpenNefia.Core.GameObjects
         /// <summary>
         /// Gets all entities in this map, including children nested in containers.
         /// </summary>
-        IEnumerable<Entity> GetAllEntitiesInMap(MapId mapId);
+        /// <param name="includeMapEntity">If true, include the map entity as the last in the enumerable.</param>
+        IEnumerable<Entity> GetAllEntitiesIn(MapId mapId, bool includeMapEntity = false);
 
         /// <summary>
         /// Returns all entities that are direct children of the map,
         /// excluding entities in containers.
         /// </summary>
-        IEnumerable<Entity> GetEntitiesDirectlyInMap(MapId mapId);
+        /// <param name="mapId">The map to query in.</param>
+        /// <param name="includeMapEntity">If true, include the map entity as the last in the enumerable.</param>
+        IEnumerable<Entity> GetEntitiesDirectlyIn(MapId mapId, bool includeMapEntity = false);
+
+        /// <summary>
+        /// Returns all entities that are direct children of the entity.
+        /// </summary>
+        /// <param name="entity">Entity to query in.</param>
+        /// <param name="includeParent">If true, include the passed entity as the last in the enumerable.</param>
+        IEnumerable<Entity> GetEntitiesDirectlyIn(Entity entity, bool includeParent = false);
 
         /// <summary>
         /// Gets the live entities at the position in the map, excluding
         /// entities in containers.
         /// </summary>
-        IEnumerable<Entity> GetLiveEntitiesAtPos(MapCoordinates coords);
+        /// <param name="coords">The coordinates to query at.</param>
+        /// <param name="includeMapEntity">If true, include the map entity as the last in the enumerable.</param>
+        IEnumerable<Entity> GetLiveEntitiesAtCoords(MapCoordinates coords, bool includeMapEntity = false);
+
+        /// <summary>
+        /// Gets the live entities at the position. This is used in case
+        /// the entity is in a container or similar.
+        /// </summary>
+        /// <param name="coords">The coordinates to query at.</param>
+        /// <param name="includeParent">If true, include the parent entity as the last in the enumerable.</param>
+        IEnumerable<Entity> GetLiveEntitiesAtCoords(EntityCoordinates coords, bool includeParent = false);
 
         /// <summary>
         /// Gets the primary character on this tile.
@@ -107,38 +127,69 @@ namespace OpenNefia.Core.GameObjects
         [Dependency] private readonly IEntityManager _entityManager = default!;
 
         /// <inheritdoc />
-        public IEnumerable<Entity> GetAllEntitiesInMap(MapId mapId)
+        public IEnumerable<Entity> GetAllEntitiesIn(MapId mapId, bool includeMapEntity = false)
         {
             if (!_mapManager.TryGetMapEntity(mapId, out var mapEntity))
                 return Enumerable.Empty<Entity>();
 
-            return _entityManager.GetEntities().Where(ent => ent.Spatial.MapID == mapId && ent.Uid != mapEntity.Uid)
-                .Append(mapEntity);
+            var ents = _entityManager.GetEntities()
+                .Where(ent => ent.Spatial.MapID == mapId && ent.Uid != mapEntity.Uid);
+
+            if (includeMapEntity)
+            {
+                ents = ents.Append(mapEntity);
+            }
+
+            return ents;
         }
 
         /// <inheritdoc />
-        public IEnumerable<Entity> GetEntitiesDirectlyInMap(MapId mapId)
+        public IEnumerable<Entity> GetEntitiesDirectlyIn(Entity entity, bool includeParent = false)
+        {
+            var ents = entity.Spatial.Children.Select(spatial => spatial.Owner);
+
+            if (includeParent)
+            {
+                ents = ents.Append(entity);
+            }
+
+            return ents;
+        }
+
+        /// <inheritdoc />
+        public IEnumerable<Entity> GetEntitiesDirectlyIn(MapId mapId, bool includeParent = false)
         {
             if (!_mapManager.TryGetMapEntity(mapId, out var mapEntity))
                 return Enumerable.Empty<Entity>();
 
-            return mapEntity.Spatial.Children.Select(spatial => spatial.Owner)
-                .Append(mapEntity);
+            return GetEntitiesDirectlyIn(mapEntity, includeParent);
         }
 
         /// <inheritdoc />
-        public IEnumerable<Entity> GetLiveEntitiesAtPos(MapCoordinates coords)
+        public IEnumerable<Entity> GetLiveEntitiesAtCoords(MapCoordinates coords, bool includeMapEntity = false)
         {
-            return GetEntitiesDirectlyInMap(coords.MapId)
-                 .Where(entity => (entity.Spatial.MapPosition == coords 
-                                   || entity.Spatial.Parent == null) // is map entity?
-                               && entity.MetaData.IsAlive);
+            if (!_mapManager.TryGetMapEntity(coords.MapId, out var mapEntity))
+                return Enumerable.Empty<Entity>();
+
+            var entityCoords = new EntityCoordinates(mapEntity.Uid, coords.Position);
+            return GetLiveEntitiesAtCoords(entityCoords, includeMapEntity);
+        }
+
+        /// <inheritdoc />
+        public IEnumerable<Entity> GetLiveEntitiesAtCoords(EntityCoordinates coords, bool includeParent = false)
+        {
+            if (!EntityManager.TryGetEntity(coords.EntityId, out var entity))
+                return Enumerable.Empty<Entity>();
+
+            return GetEntitiesDirectlyIn(entity, includeParent)
+                 .Where(child => (child == entity || (child.Spatial.Coordinates == coords))
+                               && child.MetaData.IsAlive);
         }
 
         /// <inheritdoc />
         public Entity? GetPrimaryEntity(MapCoordinates coords)
         {
-            return GetLiveEntitiesAtPos(coords)
+            return GetLiveEntitiesAtCoords(coords)
                 .Where(ent => ent.MetaData.IsAlive)
                 .FirstOrDefault();
         }

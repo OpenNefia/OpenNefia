@@ -31,9 +31,9 @@ namespace OpenNefia.Core.GameObjects
             var (newMap, newMapCoords) = args.NewPosition.ToMap(_mapManager, _entityManager);
 
             if (oldMap != null)
-                oldMap.RefreshTileEntities(oldMapCoords.Position, _lookup.GetLiveEntitiesAtPos(oldMapCoords));
+                oldMap.RefreshTileEntities(oldMapCoords.Position, _lookup.GetLiveEntitiesAtCoords(oldMapCoords));
             if (newMap != null)
-                newMap.RefreshTileEntities(newMapCoords.Position, _lookup.GetLiveEntitiesAtPos(newMapCoords));
+                newMap.RefreshTileEntities(newMapCoords.Position, _lookup.GetLiveEntitiesAtCoords(newMapCoords));
         }
 
         /// <summary>
@@ -46,7 +46,7 @@ namespace OpenNefia.Core.GameObjects
 
             var mapPos = spatial.MapPosition;
 
-            map.RefreshTileEntities(mapPos.Position, _lookup.GetLiveEntitiesAtPos(mapPos));
+            map.RefreshTileEntities(mapPos.Position, _lookup.GetLiveEntitiesAtCoords(mapPos));
         }
 
         private void HandleMapInit(EntityUid uid, SpatialComponent spatial, ref MapInitEvent args)

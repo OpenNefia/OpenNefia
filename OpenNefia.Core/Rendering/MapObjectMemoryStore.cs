@@ -108,7 +108,7 @@ namespace OpenNefia.Core.Rendering
             }
 
             int i = 0;
-            foreach (var obj in EntitySystem.Get<IEntityLookup>().GetLiveEntitiesAtPos(Map.AtPos(pos)))
+            foreach (var obj in EntitySystem.Get<IEntityLookup>().GetLiveEntitiesAtCoords(Map.AtPos(pos)))
             {
                 if (at == null)
                 {

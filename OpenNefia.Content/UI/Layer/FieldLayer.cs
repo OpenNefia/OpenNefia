@@ -178,7 +178,7 @@ namespace OpenNefia.Content.UI.Layer
         {
             var player = _gameSession.Player!;
             var lookup = EntitySystem.Get<IEntityLookup>();
-            return lookup.GetLiveEntitiesAtPos(player.Spatial.MapPosition);
+            return lookup.GetLiveEntitiesAtCoords(player.Spatial.MapPosition);
         }
 
         private IEnumerable<Entity> EntitiesInInventory()

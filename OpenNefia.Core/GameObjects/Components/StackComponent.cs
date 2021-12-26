@@ -11,7 +11,7 @@ namespace OpenNefia.Core.GameObjects
         [ComponentDependency]
         private MetaDataComponent? _metaData;
 
-        [DataField("count")]
+        [DataField("count", noCompare: true)]
         private int _count = 1;
 
         /// <summary>

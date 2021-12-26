@@ -53,7 +53,7 @@ namespace OpenNefia.Content.GameObjects
             if (args.Handled || !Resolve(source, ref moveable))
                 return;
 
-            var entities = _lookup.GetLiveEntitiesAtPos(args.NewPosition)
+            var entities = _lookup.GetLiveEntitiesAtCoords(args.NewPosition)
                 .Where(x => x.Spatial.IsSolid);
 
             foreach (var collided in entities.ToList())

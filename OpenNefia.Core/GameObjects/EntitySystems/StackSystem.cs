@@ -1,4 +1,7 @@
-﻿using OpenNefia.Core.IoC;
+﻿using OpenNefia.Analyzers;
+using OpenNefia.Core.IoC;
+using OpenNefia.Core.Maps;
+using OpenNefia.Core.Serialization.Manager;
 using OpenNefia.Core.Utility;
 
 namespace OpenNefia.Core.GameObjects
@@ -31,6 +34,7 @@ namespace OpenNefia.Core.GameObjects
     {
         [Dependency] private readonly IEntityManager _entityManager = default!;
         [Dependency] private readonly IEntityLookup _lookup = default!;
+        [Dependency] private readonly ISerializationManager _serializationManager = default!;
 
         public override void Initialize()
         {
@@ -78,7 +82,7 @@ namespace OpenNefia.Core.GameObjects
                     return false;
                 }
 
-                if (!comp1.IsSameAs(comp2))
+                if (!_serializationManager.Compare(comp1, comp2))
                 {
                     return false;
                 }
@@ -93,7 +97,7 @@ namespace OpenNefia.Core.GameObjects
         /// <param name="target">Entity to stack into. This entity's stack count could be incremented.</param>
         /// <param name="with">Entity to stack with. This entity will be deleted if the stack succeeds.</param>
         /// <returns>True if the stack succeeded.</returns>
-        public bool Stack(EntityUid target, EntityUid with,
+        public bool TryStack(EntityUid target, EntityUid with,
             StackComponent? stackTarget = null,
             StackComponent? stackWith = null)
         {
@@ -105,11 +109,49 @@ namespace OpenNefia.Core.GameObjects
 
             DebugTools.Assert(stackWith.Count > 0);
 
+            var ev = new EntityStackedEvent(with);
+            RaiseLocalEvent(target, ref ev);
+
             stackTarget.Count += stackWith.Count;
             stackWith.Count = 0;
             EntityManager.DeleteEntity(with);
 
             return true;
+        }
+
+        /// <summary>
+        /// Tries to stack this entity with all entities on the same tile.
+        /// </summary>
+        /// <param name="target">Entity to stack.</param>
+        /// <param name="stackTarget">Stackable component of the entity.</param>
+        /// <returns>True if any stacking occurred.</returns>
+        public bool TryStackOnSameTile(EntityUid target,
+            SpatialComponent? spatialTarget = null,
+            StackComponent? stackTarget = null)
+        {
+            if (!Resolve(target, ref spatialTarget, ref stackTarget))
+                return false;
+
+            var coords = spatialTarget.Coordinates;
+            var stackedSomething = false;
+
+            foreach (var ent in _lookup.GetLiveEntitiesAtCoords(coords))
+            {
+                stackedSomething &= TryStack(target, ent.Uid, stackTarget);
+            }
+
+            return stackedSomething;
+        }
+    }
+
+    [EventArgsUsage(EventArgsTargets.ByRef)]
+    public struct EntityStackedEvent
+    {
+        public EntityUid StackedWith { get; }
+
+        public EntityStackedEvent(EntityUid stackingWith)
+        {
+            StackedWith = stackingWith;
         }
     }
 }

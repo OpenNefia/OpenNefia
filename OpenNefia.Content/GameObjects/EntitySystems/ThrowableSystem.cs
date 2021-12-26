@@ -130,7 +130,7 @@ namespace OpenNefia.Content.GameObjects
 
             args.Handled = true;
 
-            foreach (var onMap in _lookup.GetLiveEntitiesAtPos(args.Coords))
+            foreach (var onMap in _lookup.GetLiveEntitiesAtCoords(args.Coords))
             {
                 if (onMap.Uid == thrown)
                     continue;

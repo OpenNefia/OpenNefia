@@ -1,12 +1,13 @@
 ﻿using OpenNefia.Core.Containers;
 using OpenNefia.Core.GameObjects;
+using OpenNefia.Core.Serialization;
 using OpenNefia.Core.Serialization.Manager.Attributes;
 using System;
 
 namespace OpenNefia.Content.GameObjects
 {
     [RegisterComponent]
-    public class InventoryComponent : Component
+    public class InventoryComponent : Component, ISerializationHooks
     {
         public static readonly ContainerId ContainerIdInventory = new("Elona.Inventory");
 
@@ -25,6 +26,15 @@ namespace OpenNefia.Content.GameObjects
             Container = ContainerHelpers.EnsureContainer<Container>(OwnerUid, ContainerIdInventory);
         }
 
+        public bool AfterCompare()
+        {
+            // Don't stack if either inventory is full.
+            if (Container.ContainedEntities.Count >= 0)
+            {
+                return false;
+            }
 
+            return true;
+        }
     }
 }

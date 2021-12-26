@@ -2,6 +2,7 @@
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Maps;
 using OpenNefia.Core.Maths;
+using OpenNefia.Core.Serialization;
 using OpenNefia.Core.Serialization.Manager.Attributes;
 using OpenNefia.Core.Utility;
 using System;
@@ -13,14 +14,14 @@ namespace OpenNefia.Core.GameObjects
     /// <summary>
     ///     Stores the position and orientation of the entity.
     /// </summary>
-    public sealed class SpatialComponent : Component
+    public sealed class SpatialComponent : Component, ISerializationHooks
     {
         [Dependency] private readonly IEntityManager _entityManager = default!;
         [Dependency] private readonly IMapManager _mapManager = default!;
 
-        [DataField("parent")]
+        [DataField("parent", noCompare: true)]
         private EntityUid _parent;
-        [DataField("pos")]
+        [DataField("pos", noCompare: true)]
         private Vector2i _localPosition = Vector2i.Zero; // holds offset from grid, or offset from parent
 
         private Matrix3 _localMatrix = Matrix3.Identity;
@@ -212,7 +213,7 @@ namespace OpenNefia.Core.GameObjects
             }
         }
 
-        [DataField]
+        [DataField(noCompare: true)]
         public Direction Direction { get; set; } = Direction.North;
 
         public void SetCoordinates(EntityCoordinates value, bool noEvents = false)
@@ -542,6 +543,18 @@ namespace OpenNefia.Core.GameObjects
             var posImat = Matrix3.Invert(posMat);
 
             _invLocalMatrix = posImat;
+        }
+        
+        /// <inheritdoc/>
+        public bool AfterCompare()
+        {
+            // Don't stack entities with children (for now).
+            if (_children.Count >= 0)
+            {
+                return false;
+            }
+
+            return true;
         }
     }
 

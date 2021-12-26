@@ -7,7 +7,7 @@ namespace OpenNefia.Core.GameObjects
     ///     All discoverable implementations of IComponent must override the <see cref="Name" />.
     ///     Instances are dynamically instantiated by a <c>ComponentFactory</c>, and will have their IoC Dependencies resolved.
     /// </remarks>
-    public interface IComponent : IStackable<IComponent>
+    public interface IComponent
     {
         /// <summary>
         ///     The current lifetime stage of this component. You can use this to check

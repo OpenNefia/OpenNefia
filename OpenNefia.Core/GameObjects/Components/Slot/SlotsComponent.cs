@@ -19,10 +19,10 @@ namespace OpenNefia.Core.GameObjects
         /// <summary>
         /// Maximum free slot ID for adding new slots.
         /// </summary>
-        [DataField]
+        [DataField(noCompare: true)]
         public SlotId MaxSlotId { get; internal set; } = new SlotId(1);
 
-        [DataField("registrations")]
+        [DataField("registrations", noCompare: true)]
         internal readonly Dictionary<SlotId, SlotRegistration> _registrations = new();
 
         /// <summary>

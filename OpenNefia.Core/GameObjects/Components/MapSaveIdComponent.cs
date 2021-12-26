@@ -1,4 +1,6 @@
-﻿namespace OpenNefia.Core.GameObjects
+﻿using OpenNefia.Core.Serialization.Manager.Attributes;
+
+namespace OpenNefia.Core.GameObjects
 {
     /// <summary>
     ///     Metadata component used to keep consistent UIDs inside map files cross saving.
@@ -11,6 +13,7 @@
     {
         public override string Name => "MapSaveId";
 
+        [DataField(noCompare: true)]
         public int Uid { get; set; }
     }
 }

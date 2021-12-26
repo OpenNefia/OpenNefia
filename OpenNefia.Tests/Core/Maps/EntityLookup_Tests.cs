@@ -55,34 +55,66 @@ namespace OpenNefia.Tests.Core.Maps
             var metaDead = entMan.GetComponent<MetaDataComponent>(entDead.Uid);
             metaDead.Liveness = EntityGameLiveness.DeadAndBuried;
 
-            var ents = lookup.GetAllEntitiesInMap(map.Id);
-
-            Assert.That(ents, Is.EquivalentTo(new[]
+            Assert.Multiple(() =>
             {
-                entAlive,
-                entChild,
-                entHidden,
-                entDead,
-                entMap
-            }));
+                var ents = lookup.GetAllEntitiesIn(map.Id);
 
-            ents = lookup.GetEntitiesDirectlyInMap(map.Id);
+                Assert.That(ents, Is.EquivalentTo(new[]
+                {
+                    entAlive,
+                    entChild,
+                    entHidden,
+                    entDead
+                }), "All Entities");
 
-            Assert.That(ents, Is.EquivalentTo(new[]
+                ents = lookup.GetEntitiesDirectlyIn(map.Id);
+
+                Assert.That(ents, Is.EquivalentTo(new[]
+                {
+                    entAlive,
+                    entHidden,
+                    entDead
+                }), "Entities Directly In Map");
+
+                ents = lookup.GetLiveEntitiesAtCoords(map.AtPos(pos));
+
+                Assert.That(ents, Is.EquivalentTo(new[]
+                {
+                    entAlive
+                }), "Entities At Coords");
+            });
+
+            Assert.Multiple(() =>
             {
-                entAlive,
-                entHidden,
-                entDead,
-                entMap
-            }));
+                var ents = lookup.GetAllEntitiesIn(map.Id, includeMapEntity: true);
 
-            ents = lookup.GetLiveEntitiesAtPos(map.AtPos(pos));
+                Assert.That(ents, Is.EquivalentTo(new[]
+                {
+                    entAlive,
+                    entChild,
+                    entHidden,
+                    entDead,
+                    entMap
+                }), "All Entities (including parent)");
 
-            Assert.That(ents, Is.EquivalentTo(new[]
-            {
-                entAlive,
-                entMap
-            }));
+                ents = lookup.GetEntitiesDirectlyIn(map.Id, includeMapEntity: true);
+
+                Assert.That(ents, Is.EquivalentTo(new[]
+                {
+                    entAlive,
+                    entHidden,
+                    entDead,
+                    entMap
+                }), "Entities Directly In Map (including parent)");
+
+                ents = lookup.GetLiveEntitiesAtCoords(map.AtPos(pos), includeMapEntity: true);
+
+                Assert.That(ents, Is.EquivalentTo(new[]
+                {
+                    entAlive,
+                    entMap
+                }), "Entities At Coords (including parent)");
+            });
         }
     }
 }
