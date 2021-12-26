@@ -19,6 +19,6 @@ namespace OpenNefia.Core.Serialization
         /// Gets executed after deep comparison.
         /// </summary>
         /// <returns></returns>
-        bool AfterCompare() { return true; }
+        bool AfterCompare(object? other) { return true; }
     }
 }

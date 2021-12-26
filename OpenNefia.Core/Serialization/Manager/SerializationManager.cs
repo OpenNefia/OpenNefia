@@ -631,9 +631,9 @@ namespace OpenNefia.Core.Serialization.Manager
 
             var areSame = dataDef.Compare(left, right, this, context);
 
-            if (!skipHook && right is ISerializationHooks afterHooks)
+            if (!skipHook && left is ISerializationHooks leftAfterHooks)
             {
-                areSame &= afterHooks.AfterCompare();
+                areSame &= leftAfterHooks.AfterCompare(right);
             }
 
             return areSame;

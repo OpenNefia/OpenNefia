@@ -26,10 +26,13 @@ namespace OpenNefia.Content.GameObjects
             Container = ContainerHelpers.EnsureContainer<Container>(OwnerUid, ContainerIdInventory);
         }
 
-        public bool AfterCompare()
+        bool ISerializationHooks.AfterCompare(object? other)
         {
+            if (other is not InventoryComponent otherInv)
+                return false;
+
             // Don't stack if either inventory is full.
-            if (Container.ContainedEntities.Count >= 0)
+            if (Container.ContainedEntities.Count >= 0 || otherInv.Container.ContainedEntities.Count > 0)
             {
                 return false;
             }

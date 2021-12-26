@@ -546,10 +546,13 @@ namespace OpenNefia.Core.GameObjects
         }
         
         /// <inheritdoc/>
-        public bool AfterCompare()
+        bool ISerializationHooks.AfterCompare(object? other)
         {
+            if (other is not SpatialComponent otherSpatial)
+                return false;
+
             // Don't stack entities with children (for now).
-            if (_children.Count > 0)
+            if (ChildCount > 0 || otherSpatial.ChildCount > 0)
             {
                 return false;
             }
