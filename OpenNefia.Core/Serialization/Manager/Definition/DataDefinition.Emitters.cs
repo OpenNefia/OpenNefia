@@ -179,6 +179,57 @@ namespace OpenNefia.Core.Serialization.Manager.Definition
             return CopyDelegate;
         }
 
+        // TODO Serialization: add skipHook
+        private CompareDelegateSignature EmitCompareDelegate()
+        {
+            bool CompareDelegate(
+                object objA,
+                object objB,
+                ISerializationManager manager,
+                ISerializationContext? context)
+            {
+                for (var i = 0; i < BaseFieldDefinitions.Length; i++)
+                {
+                    var field = BaseFieldDefinitions[i];
+
+                    if (field.Attribute.NoCompare)
+                    {
+                        continue;
+                    }
+
+                    var accessor = FieldAccessors[i];
+                    var objAValue = accessor(ref objA);
+                    var objBValue = accessor(ref objB);
+
+                    if (objAValue == null && objBValue == null)
+                    {
+                        continue;
+                    }
+
+                    if (objAValue == null || objBValue == null)
+                    {
+                        return false;
+                    }
+
+                    var commonType = TypeHelpers.SelectCommonType(objAValue.GetType(), objBValue.GetType());
+                    if (commonType == null)
+                    {
+                        return false;
+                    }
+
+                    var areSame = manager.Compare(objAValue, objBValue, context);
+                    if (!areSame)
+                    {
+                        return false;
+                    }
+                }
+
+                return true;
+            }
+
+            return CompareDelegate;
+        }
+
         private void EmitSetField(RobustILGenerator rGenerator, AbstractFieldInfo info)
         {
             switch (info)

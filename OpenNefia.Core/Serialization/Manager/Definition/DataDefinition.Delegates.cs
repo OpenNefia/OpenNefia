@@ -29,6 +29,12 @@ namespace OpenNefia.Core.Serialization.Manager.Definition
             ISerializationManager serializationManager,
             ISerializationContext? context);
 
+        private delegate bool CompareDelegateSignature(
+            object objA,
+            object objB,
+            ISerializationManager serializationManager,
+            ISerializationContext? context);
+
         private delegate DeserializationResult CreateDefinitionDelegate(
             object value,
             DeserializedFieldEntry[] mappings);

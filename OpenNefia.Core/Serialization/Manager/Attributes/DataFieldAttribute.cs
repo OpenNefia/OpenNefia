@@ -35,6 +35,11 @@ namespace OpenNefia.Core.Serialization.Manager.Attributes
         public readonly bool Required;
 
         /// <summary>
+        /// Whether to exclude this field from being compared against during IsSameAs() calls.
+        /// </summary>
+        public readonly bool NoCompare;
+
+        /// <summary>
         /// Type of an <see cref="ITypeSerializer"/> to (de)serialize this field with.
         /// </summary>
         public readonly Type? CustomTypeSerializer;

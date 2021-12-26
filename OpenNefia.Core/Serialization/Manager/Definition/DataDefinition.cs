@@ -20,6 +20,7 @@ namespace OpenNefia.Core.Serialization.Manager.Definition
         private readonly PopulateDelegateSignature _populate;
         private readonly SerializeDelegateSignature _serialize;
         private readonly CopyDelegateSignature _copy;
+        private readonly CompareDelegateSignature _compare;
 
         public DataDefinition(Type type)
         {
@@ -45,6 +46,7 @@ namespace OpenNefia.Core.Serialization.Manager.Definition
             _populate = EmitPopulateDelegate();
             _serialize = EmitSerializeDelegate();
             _copy = EmitCopyDelegate();
+            _compare = EmitCompareDelegate();
 
             var fieldAccessors = new AccessField<object, object?>[BaseFieldDefinitions.Length];
             var fieldAssigners = new AssignField<object, object?>[BaseFieldDefinitions.Length];
@@ -142,6 +144,15 @@ namespace OpenNefia.Core.Serialization.Manager.Definition
             }
 
             return new ValidatedMappingNode(validatedMapping);
+        }
+
+        public bool Compare(
+            object objA,
+            object objB,
+            ISerializationManager serialization,
+            ISerializationContext? context)
+        {
+            return _compare(objA, objB, serialization, context);
         }
 
         public bool CanCallWith(object obj) => Type.IsInstanceOfType(obj);

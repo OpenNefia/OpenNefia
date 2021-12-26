@@ -574,6 +574,77 @@ namespace OpenNefia.Core.Serialization.Manager
             return (T?) copy;
         }
 
+        public bool Compare(object? objA, object? objB, ISerializationContext? context = null, bool skipHook = false)
+        {
+            if (objA == null && objB == null)
+                return true;
+
+            if (objA != null || objB != null)
+                return false;
+
+            var objAType = objA!.GetType();
+            var objBType = objB!.GetType();
+
+            if (objAType.IsValueType != objBType.IsValueType)
+            {
+                return false;
+            }
+
+            if (objAType.IsArray && objBType.IsArray)
+            {
+                var objAArray = (Array)objA;
+                var objBArray = (Array)objB;
+
+                if (objAArray.Length != objBArray.Length)
+                {
+                    return false;
+                }
+
+                for (var i = 0; i < objAArray.Length; i++)
+                {
+                    if (!Compare(objAArray.GetValue(i), objBArray.GetValue(i), context, skipHook))
+                        return false;
+                }
+
+                return true;
+            }
+
+            if (objAType.IsArray != objBType.IsArray)
+            {
+                return false;
+            }
+
+            var commonType = TypeHelpers.SelectCommonType(objAType, objBType);
+            if (commonType == null)
+            {
+                return false;
+            }
+
+            if (_copyByRefRegistrations.Contains(commonType) || commonType.IsEnum)
+            {
+                return objA == objB;
+            }
+
+            if (TryCompareRaw(commonType, objA, objB, out var result, skipHook, context))
+            {
+                return result;
+            }
+
+            if (!TryGetDefinition(commonType, out var dataDef))
+            {
+                throw new InvalidOperationException($"No data definition found for type {commonType} when copying");
+            }
+
+            var areSame = dataDef.Compare(objA, objB, this, context);
+
+            if (!skipHook && objB is ISerializationHooks afterHooks)
+            {
+                areSame &= afterHooks.AfterCompare();
+            }
+
+            return areSame;
+        }
+
         private static Type ResolveConcreteType(Type baseType, string typeName)
         {
             var reflection = IoCManager.Resolve<IReflectionManager>();

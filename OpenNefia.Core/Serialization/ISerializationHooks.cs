@@ -14,5 +14,11 @@ namespace OpenNefia.Core.Serialization
         /// Gets executed before serialization
         /// </summary>
         void BeforeSerialization() {}
+
+        /// <summary>
+        /// Gets executed after deep comparison.
+        /// </summary>
+        /// <returns></returns>
+        bool AfterCompare() { return true; }
     }
 }

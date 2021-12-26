@@ -153,6 +153,7 @@ namespace OpenNefia.Core.Maps
             public Dictionary<Type, object> TypeWriters { get; }
             public Dictionary<Type, object> TypeCopiers => TypeWriters;
             public Dictionary<(Type, Type), object> TypeValidators => TypeReaders;
+            public Dictionary<Type, object> TypeComparers => TypeWriters;
 
             private readonly List<(EntityUid, YamlMappingNode)> _entitiesToDeserialize
                 = new();

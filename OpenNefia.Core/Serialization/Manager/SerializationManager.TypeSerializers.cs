@@ -12,6 +12,7 @@ namespace OpenNefia.Core.Serialization.Manager
         private readonly Dictionary<(Type Type, Type DataNodeType), Type> _genericReaderTypes = new();
         private readonly Dictionary<Type, Type> _genericWriterTypes = new();
         private readonly Dictionary<Type, Type> _genericCopierTypes = new();
+        private readonly Dictionary<Type, Type> _genericComparerTypes = new();
         private readonly Dictionary<(Type Type, Type DataNodeType), Type> _genericValidatorTypes = new();
 
         private void InitializeTypeSerializers(IEnumerable<Type> typeSerializers)
@@ -44,11 +45,14 @@ namespace OpenNefia.Core.Serialization.Manager
                 .Where(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(ITypeCopier<>)).ToArray();
             var validatorInterfaces = type.GetInterfaces()
                 .Where(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(ITypeValidator<,>)).ToArray();
+            var comparerInterfaces = type.GetInterfaces()
+                .Where(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(ITypeComparer<>)).ToArray();
 
             if (readerInterfaces.Length == 0 &&
                 writerInterfaces.Length == 0 &&
                 copierInterfaces.Length == 0 &&
-                validatorInterfaces.Length == 0)
+                validatorInterfaces.Length == 0 &&
+                comparerInterfaces.Length == 0)
             {
                 throw new InvalidOperationException(
                     "Tried to register TypeReader/Writer/Copier that had none of the interfaces inherited.");
@@ -84,6 +88,12 @@ namespace OpenNefia.Core.Serialization.Manager
                         Logger.ErrorS(LogCategory, $"Tried registering generic reader for type {validatorInterface.GetGenericArguments()[0]} and node {validatorInterface.GetGenericArguments()[1]} twice");
                 }
 
+                foreach (var comparerInterface in comparerInterfaces)
+                {
+                    if (!_genericComparerTypes.TryAdd(comparerInterface.GetGenericArguments()[0], type))
+                        Logger.ErrorS(LogCategory, $"Tried registering generic comparer for type {comparerInterface.GetGenericArguments()[0]} twice");
+                }
+
                 return null;
             }
             else
@@ -112,6 +122,12 @@ namespace OpenNefia.Core.Serialization.Manager
                 {
                     if (!_typeValidators.TryAdd((validatorInterface.GetGenericArguments()[0], validatorInterface.GetGenericArguments()[1]), serializer))
                         Logger.ErrorS(LogCategory, $"Tried registering reader for type {validatorInterface.GetGenericArguments()[0]} and node {validatorInterface.GetGenericArguments()[1]} twice");
+                }
+
+                foreach (var comparerInterface in comparerInterfaces)
+                {
+                    if (!_typeComparers.TryAdd(comparerInterface.GetGenericArguments()[0], serializer))
+                        Logger.ErrorS(LogCategory, $"Tried registering comparer for type {comparerInterface.GetGenericArguments()[0]} twice");
                 }
 
                 return serializer;

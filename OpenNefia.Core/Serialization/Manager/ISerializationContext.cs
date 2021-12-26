@@ -10,5 +10,6 @@ namespace OpenNefia.Core.Serialization.Manager
         Dictionary<Type, object> TypeWriters { get; }
         Dictionary<Type, object> TypeCopiers { get; }
         Dictionary<(Type, Type), object> TypeValidators { get; }
+        Dictionary<Type, object> TypeComparers { get; }
     }
 }

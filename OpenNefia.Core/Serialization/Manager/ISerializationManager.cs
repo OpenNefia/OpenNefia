@@ -244,6 +244,22 @@ namespace OpenNefia.Core.Serialization.Manager
 
         #endregion
 
+        #region Equality Comparison
+
+        /// <summary>
+        ///     Compares two objects for equality.
+        /// </summary>
+        /// <param name="objA">The first object to compare.</param>
+        /// <param name="objB">The second object to compare.</param>
+        /// <param name="context">The context to use, if any.</param>
+        /// <param name="skipHook">Whether or not to skip running <see cref="ISerializationHooks"/></param>
+        /// <returns>
+        ///     True if all non-excluded serializable fields on both objects are equivalent.
+        /// </returns>
+        bool Compare(object? objA, object? objB, ISerializationContext? context = null, bool skipHook = false);
+
+        #endregion
+
         #region Flags And Constants
 
         Type GetFlagTypeFromTag(Type tagType);
