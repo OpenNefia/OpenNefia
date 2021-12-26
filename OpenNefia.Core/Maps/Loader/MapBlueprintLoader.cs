@@ -681,6 +681,12 @@ namespace OpenNefia.Core.Maps
                 return new((int)source);
             }
 
+            public bool Compare(ISerializationManager serializationManager, EntityUid left, EntityUid right,
+                bool skipHook, ISerializationContext? context = null)
+            {
+                return left == right;
+            }
+
             #endregion
         }
 

@@ -77,5 +77,21 @@ namespace OpenNefia.Core.Serialization.TypeSerializers.Implementations.Custom.Pr
         {
             return new DeserializedValue<PrototypeFlags<T>>(new PrototypeFlags<T>(new PrototypeId<T>(node.Value)));
         }
+
+        public bool Compare(ISerializationManager serializationManager, PrototypeFlags<T> left, PrototypeFlags<T> right,
+            bool skipHook,
+            ISerializationContext? context = null)
+        {
+            if (left.Count != right.Count)
+                return false;
+
+            foreach (var elem in left)
+            {
+                if (!right.Contains(elem))
+                    return false;
+            }
+
+            return true;
+        }
     }
 }

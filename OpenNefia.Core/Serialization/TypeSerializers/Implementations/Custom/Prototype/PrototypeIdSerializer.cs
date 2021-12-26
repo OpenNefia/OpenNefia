@@ -38,5 +38,12 @@ namespace OpenNefia.Core.Serialization.TypeSerializers.Implementations.Custom.Pr
         {
             return source;
         }
+
+        public bool Compare(ISerializationManager serializationManager, PrototypeId<TPrototype> left, PrototypeId<TPrototype> right,
+            bool skipHook,
+            ISerializationContext? context = null)
+        {
+            return left == right;
+        }
     }
 }
