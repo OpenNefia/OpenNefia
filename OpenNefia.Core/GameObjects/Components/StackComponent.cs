@@ -9,7 +9,7 @@ namespace OpenNefia.Core.GameObjects
         public override string Name => "Stack";
 
         /// <summary>
-        /// Stack count of this entity. Should not be set to a quantity below zero.
+        /// Stack count of this entity. Should not be manually set to a quantity below zero.
         /// </summary>
         [DataField(noCompare: true)]
         public int Count { get; internal set; } = 1;

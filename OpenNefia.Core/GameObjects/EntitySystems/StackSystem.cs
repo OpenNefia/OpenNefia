@@ -18,7 +18,8 @@ namespace OpenNefia.Core.GameObjects
     /// <para>
     /// 1. Robust's stacking system spawns a new entity when the stack is split.
     ///    In contrast, Elona's item_separate copies every property of the original
-    ///    item to the split item.
+    ///    item to the split item. In OpenNefia, an empty entity is spawned, then all
+    ///    component data from the source entity is copied to the new entity.
     /// </para>
     /// <para>
     /// 2. Robust uses a "stackType" property to check if two entities can be
@@ -27,6 +28,8 @@ namespace OpenNefia.Core.GameObjects
     ///    property to check for stackability, with special exceptions for some properties 
     ///    like quantity and quality. Naturally, this makes things way harder, especially
     ///    considering that some components were never meant to be stacked as part of an item.
+    ///    OpenNefia adds a new comparison feature to the serialization manager to check for
+    ///    equality of component fields without the need to use interfaces.
     /// </para>
     /// <para>
     /// 3. Robust has an enforced maximum entity count per stack, while Elona lacks one.
@@ -66,8 +69,9 @@ namespace OpenNefia.Core.GameObjects
             StackComponent? stackWith = null);
 
         /// <summary>
-        /// If this entity is in the map, tries to stack this entity with all entities on the same tile. 
-        /// If this entity is not in the map, tries to stack it with all other entities in the entity's parent.
+        /// If this entity is in a map, tries to stack this entity with all entities on the same tile. 
+        /// If this entity is not in a map, tries to stack it with all other entities in the entity's parent,
+        /// if it has one.
         /// </summary>
         /// <param name="target">Entity to stack.</param>
         /// <param name="stackTarget">Stackable component of the entity.</param>
@@ -405,11 +409,25 @@ namespace OpenNefia.Core.GameObjects
         #endregion
     }
 
+    /// <summary>
+    /// Raised when this entity is cloned, for example when an entity with
+    /// a <see cref="StackComponent"/> is split off. Use this event to
+    /// run custom deep copying logic per component.
+    /// </summary>
     [EventArgsUsage(EventArgsTargets.ByValue)]
     public class EntityClonedEventArgs
     {
+        /// <summary>
+        /// The UID of the newly created entity.
+        /// </summary>
         public EntityUid NewEntity { get; }
 
+        /// <summary>
+        /// Component types that this event has modified. By adding
+        /// a type to this set, the cloning system is instructed not to
+        /// attempt to deepcopy the component after the other event
+        /// handlers have finished running.
+        /// </summary>
         public HashSet<Type> HandledTypes { get; } = new();
 
         public EntityClonedEventArgs(EntityUid newEntity)
@@ -417,12 +435,21 @@ namespace OpenNefia.Core.GameObjects
             NewEntity = newEntity;
         }
 
+        /// <summary>
+        /// Marks this component type as being fully ready for use 
+        /// on this entity.
+        /// </summary>
+        /// <typeparam name="T">Type of component that the calling event handler added/set up.</typeparam>
         public void Handle<T>() where T: IComponent
         {
             HandledTypes.Add(ComponentTypeCache<T>.Type);
         }
     }
 
+    /// <summary>
+    /// Raised when this entity has been successfully stacked with another
+    /// entity, but before their stack counts have been updated.
+    /// </summary>
     [EventArgsUsage(EventArgsTargets.ByRef)]
     public struct EntityStackedEvent
     {
@@ -438,9 +465,16 @@ namespace OpenNefia.Core.GameObjects
         }
     }
 
+    /// <summary>
+    /// Raised after this entity has been successfully split into two stacks.
+    /// </summary>
     [EventArgsUsage(EventArgsTargets.ByRef)]
     public struct EntitySplitEvent
     {
+        /// <summary>
+        /// The newly created entity that has been split off from 
+        /// this entity.
+        /// </summary>
         public EntityUid SplitInto { get; }
 
         public EntitySplitEvent(EntityUid splitInto)
