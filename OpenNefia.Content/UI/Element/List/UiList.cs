@@ -8,6 +8,7 @@ using OpenNefia.Core.UI.Element;
 using OpenNefia.Content.Prototypes;
 using System.Collections;
 using MouseButton = OpenNefia.Core.UI.MouseButton;
+using OpenNefia.Core.Utility;
 
 namespace OpenNefia.Content.UI.Element.List
 {
@@ -56,6 +57,7 @@ namespace OpenNefia.Content.UI.Element.List
             for (var i = 0; i < Cells.Count; i++)
             {
                 var cell = Cells[i];
+                cell.IndexInList = i;
                 if (cell.Key == null)
                 {
                     cell.Key = UiListChoiceKey.MakeDefault(i);
@@ -321,6 +323,7 @@ namespace OpenNefia.Content.UI.Element.List
         public void RemoveAt(int index) => Cells.RemoveAt(index);
         public void Add(IUiListCell<T> item) => Cells.Add(item);
         public void Clear() => Cells.Clear();
+        public void AddRange(IEnumerable<IUiListCell<T>> items) => Cells.AddRange(items);
         public bool Contains(IUiListCell<T> item) => Cells.Contains(item);
         public void CopyTo(IUiListCell<T>[] array, int arrayIndex) => Cells.CopyTo(array, arrayIndex);
         public bool Remove(IUiListCell<T> item) => Cells.Remove(item);

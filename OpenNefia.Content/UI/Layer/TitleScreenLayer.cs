@@ -11,7 +11,7 @@ namespace OpenNefia.Content.UI.Layer
 {
     public class TitleScreenLayer : BaseUiLayer<TitleScreenResult>, ITitleScreenLayer
     {
-        private enum TitleScreenChoice
+        public enum TitleScreenChoice
         {
             Restore,
             Generate,
@@ -22,21 +22,18 @@ namespace OpenNefia.Content.UI.Layer
             Exit
         }
 
-        private class TitleScreenCell : UiListCell<TitleScreenChoice>
+        public class TitleScreenCell : UiListCell<TitleScreenChoice>
         {
             private const int ITEM_HEIGHT = 35;
-
-            public TitleScreenChoice Submenu;
 
             [Localize("Subtext")]
             public IUiText TextSubtext;
 
-            public override string? LocalizeKey => Enum.GetName(Submenu);
+            public override string? LocalizeKey => Enum.GetName(Data);
 
             public TitleScreenCell(TitleScreenChoice submenu)
                 : base(submenu, new UiText())
             {
-                Submenu = submenu;
                 TextSubtext = new UiText();
             }
 

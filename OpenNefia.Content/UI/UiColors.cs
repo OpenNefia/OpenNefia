@@ -9,6 +9,7 @@ namespace OpenNefia.Content.UI
 
         public static readonly Color ListSelectedAdd = new(50, 50, 50, 255);
         public static readonly Color ListSelectedSub = new(30, 10, 0, 255);
+        public static readonly Color ListEntryAccent = new(12, 14, 16, 16);
 
         public static readonly Color WindowBottomLine1 = new(194, 170, 146, 255);
         public static readonly Color WindowBottomLine2 = new(234, 220, 188, 255);
@@ -50,6 +51,5 @@ namespace OpenNefia.Content.UI
         public static readonly Color MesLightPurple = new(225, 195, 255, 255);
         public static readonly Color MesLightGreen = new(215, 255, 215, 255);
         public static readonly Color MesTalk = new(210, 250, 160, 255);
-
     }
 }

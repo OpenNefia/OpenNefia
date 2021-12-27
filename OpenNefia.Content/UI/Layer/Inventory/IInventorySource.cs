@@ -2,5 +2,6 @@
 {
     public interface IInventorySource
     {
+        void OnDraw();
     }
 }

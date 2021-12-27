@@ -10,5 +10,9 @@ namespace OpenNefia.Content.UI.Layer.Inventory
         {
             Entity = entity;
         }
+
+        public void OnDraw()
+        {
+        }
     }
 }

@@ -34,6 +34,8 @@ namespace OpenNefia.Content.UI.Element.List
             set => UiText.Text = value;
         }
 
+        public int IndexInList { get; set; }
+
         [Localize("Text")]
         protected IUiText UiText;
 

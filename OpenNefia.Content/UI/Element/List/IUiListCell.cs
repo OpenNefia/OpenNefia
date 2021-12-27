@@ -10,6 +10,7 @@ namespace OpenNefia.Content.UI.Element.List
         public UiListChoiceKey? Key { get; set; }
         public int XOffset { get; set; }
         public string? LocalizeKey { get; }
+        public int IndexInList { get; set; }
 
         public void DrawHighlight();
     }
