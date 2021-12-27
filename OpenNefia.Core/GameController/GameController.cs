@@ -114,21 +114,7 @@ namespace OpenNefia.Core.GameController
 
         private void ShowSplashScreen()
         {
-            // TODO
-
-            _graphics.BeginDraw();
-
-            var text = Love.Graphics.NewText(new FontSpec(20, 20).LoveFont, "Now Loading...");
-            var x = Love.Graphics.GetWidth() / 2;
-            var y = Love.Graphics.GetHeight() / 2;
-            Love.Graphics.Clear(Color.Black);
-            Love.Graphics.SetColor(Color.White);
-            Love.Graphics.Draw(text, x - text.GetWidth() / 2, y - text.GetHeight() / 2);
-
-            _graphics.EndDraw();
-
-            Love.Graphics.Present();
-
+            _graphics.ShowSplashScreen();
             SystemStep();
         }
 

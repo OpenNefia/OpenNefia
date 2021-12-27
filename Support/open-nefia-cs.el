@@ -179,4 +179,20 @@ removed.  Return the new string.  If STRING is nil, return nil."
   (let ((root (projectile-project-root)))
     (projectile-locate-dominating-file root "OpenNefia.sln")))
 
+(defun open-nefia-cs--executable-name ()
+  (if (eq system-type 'windows-nt) "OpenNefia.EntryPoint.exe" "OpenNefia.EntryPoint"))
+
+(defun open-nefia-cs--executable-path ()
+  (concat (file-name-as-directory (open-nefia-cs--project-root))
+          "OpenNefia.EntryPoint/bin/Debug/net6.0/"
+          (open-nefia-cs--executable-name)))
+
+(defun open-nefia-cs-run-headlessly (arg)
+  (interactive "P")
+  (let* ((script-file (buffer-file-name))
+         (exe (open-nefia-cs--executable-path))
+         (cmd (format "%s exec %s" exe script-file))
+         (default-directory (file-name-directory exe)))
+    (compile cmd)))
+
 (provide 'open-nefia-cs)

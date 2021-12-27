@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 
 namespace OpenNefia.Core.Timing
 {
-    public sealed class StopwatchLogger : IDisposable
+    public sealed class ProfilerLogger : IDisposable
     {
         private readonly ISawmill? _sawmill;
         private readonly string _message;
         private readonly LogLevel _level;
         private readonly IStopwatch _stopwatch;
 
-        public StopwatchLogger(LogLevel level, string sawmill, string message)
+        public ProfilerLogger(LogLevel level, string sawmill, string message)
         {
             _message = message;
             _level = level;
@@ -24,7 +24,7 @@ namespace OpenNefia.Core.Timing
             _stopwatch.Start();
         }
 
-        public StopwatchLogger(LogLevel level, string message)
+        public ProfilerLogger(LogLevel level, string message)
         {
             _message = message;
             _level = level;
@@ -34,10 +34,8 @@ namespace OpenNefia.Core.Timing
             _stopwatch.Start();
         }
 
-        public void Dispose()
+        private void Log(string mes)
         {
-            var mes = $"'{_message}' finished in {_stopwatch.Elapsed.ToString("s\\.ff")}s.";
-
             if (_sawmill != null)
             {
                 _sawmill.Log(_level, mes);
@@ -46,6 +44,11 @@ namespace OpenNefia.Core.Timing
             {
                 Logger.Log(_level, mes);
             }
+        }
+
+        public void Dispose()
+        {
+            Log($"'{_message}' finished in {_stopwatch.Elapsed.ToString("s\\.ff")}s.");
         }
     }
 }

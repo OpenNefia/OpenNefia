@@ -3,10 +3,11 @@ using CSharpRepl.Services.Completion;
 using CSharpRepl.Services.Logging;
 using CSharpRepl.Services.Roslyn;
 using CSharpRepl.Services.Roslyn.Scripting;
+using OpenNefia.Core.Asynchronous;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Log;
 using OpenNefia.Core.Reflection;
-using OpenNefia.Core.Util;
+using OpenNefia.Core.Timing;
 using OpenNefia.Core.Utility;
 using PrettyPrompt.Consoles;
 
@@ -14,9 +15,12 @@ namespace OpenNefia.Core.DebugServer
 {
     public class CSharpReplExecutor : IReplExecutor
     {
+        public const string SawmillName = "exec.repl";
+
         [Dependency] private readonly IReflectionManager _reflectionManager = default!;
         [Dependency] private readonly IConsole _console = default!;
         [Dependency] private readonly ILogManager _logManager = default!;
+        [Dependency] private readonly ITaskRunner _taskRunner = default!; 
 
         private Configuration _config = default!;
         private RoslynServices _roslyn = default!;
@@ -91,15 +95,20 @@ namespace OpenNefia.Core.DebugServer
             if (IsInitialized)
                 return;
 
-            var logger = new OpenNefiaLogger(_logManager.GetSawmill("exec.repl"));
-            _config = BuildDefaultConfig(_reflectionManager);
-            _roslyn = new RoslynServices(_console, _config, logger);
+            Logger.DebugS(SawmillName, "Initializing REPL executor...");
 
-            TaskRunnerLayer.Run(_roslyn.WarmUpAsync(_config.LoadScriptArgs));
-            var loadReferenceScript = string.Join("\r\n", _config.References.Select(reference => $@"#r ""{reference}"""));
-            var loadReferenceScriptResult = TaskRunnerLayer.Run(_roslyn.EvaluateAsync(loadReferenceScript));
+            using (var profiler = new ProfilerLogger(LogLevel.Debug, SawmillName, "REPL executor initialization"))
+            {
+                var logger = new OpenNefiaLogger(_logManager.GetSawmill(SawmillName));
+                _config = BuildDefaultConfig(_reflectionManager);
+                _roslyn = new RoslynServices(_console, _config, logger);
 
-            IsInitialized = true;
+                _taskRunner.Run(_roslyn.WarmUpAsync(_config.LoadScriptArgs));
+                var loadReferenceScript = string.Join("\r\n", _config.References.Select(reference => $@"#r ""{reference}"""));
+                var loadReferenceScriptResult = _taskRunner.Run(_roslyn.EvaluateAsync(loadReferenceScript));
+
+                IsInitialized = true;
+            }
         }
 
         public IReadOnlyCollection<CompletionItemWithDescription> Complete(string text, int caret)

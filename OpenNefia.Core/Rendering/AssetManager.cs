@@ -100,7 +100,7 @@ namespace OpenNefia.Core.Rendering
         {
             Logger.InfoS("boot.asset", "Preloading assets...");
 
-            using (var sw = new StopwatchLogger(LogLevel.Info, "boot.asset", "Preloading assets"))
+            using (var sw = new ProfilerLogger(LogLevel.Info, "boot.asset", "Preloading assets"))
             {
                 foreach (var assetProto in _prototypes.EnumeratePrototypes<AssetPrototype>())
                 {

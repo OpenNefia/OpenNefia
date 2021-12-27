@@ -108,6 +108,25 @@ namespace OpenNefia.Core.Utility
         }
 
         /// <summary>
+        /// Tries to call <see cref="List{T}.AddRange(IEnumerable{T})"/>, otherwise
+        /// adds the elements in sequence.
+        /// </summary>
+        public static void AddRange<T>(this IList<T> list, IEnumerable<T> items)
+        {
+            if (list is List<T> asList)
+            {
+                asList.AddRange(items);
+            }
+            else
+            {
+                foreach (var item in items)
+                {
+                    list.Add(item);
+                }
+            }
+        }
+
+        /// <summary>
         ///     Remove an item from the list, replacing it with the one at the very end of the list.
         ///     This means that the order will not be preserved, but it should be an O(1) operation.
         /// </summary>

@@ -19,8 +19,6 @@ namespace OpenNefia.Core.Graphics
         public new event Action<MousePressedEventArgs>? OnMousePressed;
         public new event Action<MousePressedEventArgs>? OnMouseReleased;
 
-        private Love.Canvas TargetCanvas = default!;
-
         public void Initialize()
         {
             // TODO: Much of Love.Graphics requires the window to be initialized
@@ -42,6 +40,10 @@ namespace OpenNefia.Core.Graphics
         }
 
         public void Shutdown()
+        {
+        }
+
+        public void ShowSplashScreen()
         {
         }
 

@@ -14,6 +14,10 @@
   </Target>
 
   <ItemGroup>
+    <Compile Remove="Scratch.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\OpenNefia.Content\OpenNefia.Content.csproj" />
     <ProjectReference Include="..\OpenNefia.LecchoTorte\OpenNefia.LecchoTorte.csproj" />
     <ProjectReference Include="..\OpenNefia.Core\OpenNefia.Core.csproj" />

@@ -40,7 +40,7 @@ namespace OpenNefia.Core.Rendering
 
         public void LoadAtlases()
         {
-            using (var sw = new StopwatchLogger(LogLevel.Info, CommonSawmills.ResAtlas, "Loading atlases"))
+            using (var sw = new ProfilerLogger(LogLevel.Info, CommonSawmills.ResAtlas, "Loading atlases"))
             {
                 // IAtlasRegionProviders return one or more tiles assigned to an atlas,
                 // where they will be packed into.
