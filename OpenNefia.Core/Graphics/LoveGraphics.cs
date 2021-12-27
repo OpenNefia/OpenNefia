@@ -1,6 +1,7 @@
 ﻿using Love;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Maths;
+using OpenNefia.Core.Rendering;
 using OpenNefia.Core.ResourceManagement;
 using OpenNefia.Core.UI;
 using Vector2 = OpenNefia.Core.Maths.Vector2;
@@ -55,6 +56,23 @@ namespace OpenNefia.Core.Graphics
         public void Shutdown()
         {
             OnWindowResized -= HandleWindowResized;
+        }
+
+        public void ShowSplashScreen()
+        {
+            // TODO
+            BeginDraw();
+
+            var text = Love.Graphics.NewText(new FontSpec(20, 20).LoveFont, "Now Loading...");
+            var x = Love.Graphics.GetWidth() / 2;
+            var y = Love.Graphics.GetHeight() / 2;
+            Love.Graphics.Clear(Love.Color.Black);
+            Love.Graphics.SetColor(Love.Color.White);
+            Love.Graphics.Draw(text, x - text.GetWidth() / 2, y - text.GetHeight() / 2);
+
+            EndDraw();
+
+            Love.Graphics.Present();
         }
 
         private void InitializeGraphicsDefaults()

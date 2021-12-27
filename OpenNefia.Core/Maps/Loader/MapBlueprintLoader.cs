@@ -12,6 +12,7 @@ using OpenNefia.Core.Serialization.Markdown.Mapping;
 using OpenNefia.Core.Serialization.Markdown.Validation;
 using OpenNefia.Core.Serialization.Markdown.Value;
 using OpenNefia.Core.Serialization.TypeSerializers.Interfaces;
+using OpenNefia.Core.Timing;
 using OpenNefia.Core.Utility;
 using System.Globalization;
 using YamlDotNet.Core;
@@ -26,6 +27,8 @@ namespace OpenNefia.Core.Maps
     /// <seealso cref="SerialMapLoader"/>
     public class MapBlueprintLoader : IMapBlueprintLoader
     {
+        public const string SawmillName = "map.load";
+
         private const int MapBlueprintFormatVersion = 1;
 
         [Dependency] private readonly IResourceManager _resourceManager = default!;
@@ -40,17 +43,21 @@ namespace OpenNefia.Core.Maps
             if (mapId == null)
                 mapId = _mapManager.GetFreeMapId();
 
+            using var profiler = new ProfilerLogger(LogLevel.Debug, SawmillName, $"Map blueprint save: {resPath}");
+            Logger.InfoS(SawmillName, $"Saving map {mapId} to {resPath}...");
+
             var context = new MapBlueprintContext(mapId.Value, _mapManager, _tileDefinitionManager, _entityManager, _prototypeManager);
             var root = context.Serialize();
             var document = new YamlDocument(root);
 
             _resourceManager.UserData.CreateDirectory(resPath.Directory);
 
-            using var writer = _resourceManager.UserData.OpenWriteText(resPath);
-
-            var stream = new YamlStream();
-            stream.Add(document);
-            stream.Save(new YamlMappingFix(new Emitter(writer)), false);
+            using (var writer = _resourceManager.UserData.OpenWriteText(resPath))
+            {
+                var stream = new YamlStream();
+                stream.Add(document);
+                stream.Save(new YamlMappingFix(new Emitter(writer)), false);
+            }
         }
 
         public IMap LoadBlueprint(MapId? mapId, ResourcePath yamlPath)
@@ -60,7 +67,7 @@ namespace OpenNefia.Core.Maps
             // try user
             if (!_resourceManager.UserData.Exists(yamlPath))
             {
-                Logger.DebugS("map", $"No user blueprint path: {yamlPath}");
+                Logger.DebugS(SawmillName, $"No user blueprint path: {yamlPath}");
 
                 // fallback to content
                 if (_resourceManager.TryContentFileRead(yamlPath, out var contentReader))
@@ -80,7 +87,9 @@ namespace OpenNefia.Core.Maps
             IMap grid;
             using (reader)
             {
-                Logger.InfoS("map", $"Loading Grid: {yamlPath}");
+                using var profiler = new ProfilerLogger(LogLevel.Debug, SawmillName, $"Map blueprint load: {yamlPath}");
+
+                Logger.InfoS(SawmillName, $"Loading map: {yamlPath}");
 
                 if (mapId == null)
                     mapId = _mapManager.GetFreeMapId();
@@ -254,7 +263,7 @@ namespace OpenNefia.Core.Maps
                         var protoId = new PrototypeId<EntityPrototype>(typeNode.AsString());
                         if (!_prototypeManager.HasIndex(protoId) && !reportedError.Contains(protoId))
                         {
-                            Logger.Error("Missing prototype for map: {0}", protoId);
+                            Logger.ErrorS(MapBlueprintLoader.SawmillName, "Missing prototype for map: {0}", protoId);
                             fail = true;
                             reportedError.Add(protoId);
                         }
@@ -410,6 +419,8 @@ namespace OpenNefia.Core.Maps
 
             public YamlNode Serialize()
             {
+                MapGrid = _mapManager.GetMap(_targetMapId);
+
                 WriteMetaSection();
                 WriteTileMapSection();
                 WriteGridSection();
@@ -448,6 +459,7 @@ namespace OpenNefia.Core.Maps
             private void WriteGridSection()
             {
                 var grid = new YamlScalarNode(YamlGridSerializer.SerializeGrid(MapGrid!, _tileMapInverse!, _tileDefinitionManager));
+                grid.Style = ScalarStyle.Literal;
                 _rootNode.Add(Keys.Grid, grid);
             }
 
@@ -640,7 +652,7 @@ namespace OpenNefia.Core.Maps
             {
                 if (!_entityUidMap.TryGetValue(value, out var _entityUidMapped))
                 {
-                    Logger.WarningS("map", "Cannot write entity UID '{0}'.", value);
+                    Logger.WarningS(MapBlueprintLoader.SawmillName, "Cannot write entity UID '{0}'.", value);
                     return new ValueDataNode("null");
                 }
                 else
@@ -664,7 +676,7 @@ namespace OpenNefia.Core.Maps
 
                 if (val >= Entities.Count || !_uidEntityMap.ContainsKey(val) || !Entities.TryFirstOrNull(e => e == _uidEntityMap[val], out var entity))
                 {
-                    Logger.ErrorS("map", "Error in map file: found local entity UID '{0}' which does not exist.", val);
+                    Logger.ErrorS(MapBlueprintLoader.SawmillName, "Error in map file: found local entity UID '{0}' which does not exist.", val);
                     return null!;
                 }
                 else

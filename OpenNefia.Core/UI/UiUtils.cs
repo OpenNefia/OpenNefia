@@ -43,5 +43,12 @@ namespace OpenNefia.Core.UI
             Love.Graphics.SetColor(Love.Color.Blue);
             Love.Graphics.Line(elem.X, elem.Y, elem.X + elem.Width, elem.Y + elem.Height);
         }
+
+        public static string DisplayWeight(int weight)
+        {
+            var integer = Math.Abs(weight / 1000);
+            var fractional = Math.Abs((weight % 1000) / 100);
+            return $"{integer}.{fractional}s";
+        }
     }
 }

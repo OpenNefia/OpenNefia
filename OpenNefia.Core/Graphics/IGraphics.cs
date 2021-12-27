@@ -18,10 +18,11 @@ namespace OpenNefia.Core.Graphics
         event Action<MousePressedEventArgs>? OnMousePressed;
         event Action<MousePressedEventArgs>? OnMouseReleased;
 
-        public void Initialize();
-        public void Shutdown();
+        void Initialize();
+        void Shutdown();
+        void ShowSplashScreen();
 
-        public void BeginDraw();
-        public void EndDraw();
+        void BeginDraw();
+        void EndDraw();
     }
 }

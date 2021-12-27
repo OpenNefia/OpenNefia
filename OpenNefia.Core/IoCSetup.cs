@@ -34,9 +34,11 @@ namespace OpenNefia
             {
                 case GameController.DisplayMode.Headless:
                     IoCManager.Register<IGraphics, HeadlessGraphics>();
+                    IoCManager.Register<ITaskRunner, HeadlessTaskRunner>();
                     break;
                 case GameController.DisplayMode.Love:
                     IoCManager.Register<IGraphics, LoveGraphics>();
+                    IoCManager.Register<ITaskRunner, LoveTaskRunner>();
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();

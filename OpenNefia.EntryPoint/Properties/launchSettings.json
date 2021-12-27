@@ -2,6 +2,10 @@
   "profiles": {
     "OpenNefia": {
       "commandName": "Project"
+    },
+    "Scratch": {
+      "commandName": "Project",
+      "commandLineArgs": "exec $(SolutionDir)OpenNefia.EntryPoint\\Scratch.cs --logLevel Debug"
     }
   }
 }

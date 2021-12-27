@@ -99,7 +99,7 @@ namespace OpenNefia.Core.Maps
                     }
                     sb.Append(rune[0]);
                 }
-                sb.Append('\n');
+                sb.Append("\n");
             }
 
             return sb.ToString();

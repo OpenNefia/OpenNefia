@@ -59,6 +59,10 @@ namespace OpenNefia.Core.GameObjects
         /// </remarks>
         public IReadOnlySet<Type> CompTypes => _compTypes;
 
+        public SlotRegistration()
+        {
+        }
+
         public SlotRegistration(SlotId id, HashSet<Type> compTypes)
         {
             Id = id;
