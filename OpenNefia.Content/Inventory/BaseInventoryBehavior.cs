@@ -8,11 +8,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OpenNefia.Content.UI.Layer.Inventory
+namespace OpenNefia.Content.Inventory
 {
     public abstract class BaseInventoryBehavior : IInventoryBehavior
     {
-        [Dependency] protected readonly IEntityManager EntityManager = default!; 
+        [Dependency] protected readonly IEntityManager EntityManager = default!;
 
         public abstract HspIds<InvElonaId>? HspIds { get; }
         public abstract string WindowTitle { get; }
@@ -20,11 +20,12 @@ namespace OpenNefia.Content.UI.Layer.Inventory
         public virtual bool EnableShortcuts => false;
         public virtual PrototypeId<AssetPrototype>? Icon => null;
         public virtual bool QueryAmount => false;
+        public virtual bool ShowTotalWeight => true;
         public virtual bool ShowMoney => false;
         public virtual bool ShowTargetEquip => false;
         public virtual int DefaultAmount => 1;
         public virtual bool AllowSpecialOwned => false;
-        
+
         /// <inheritdoc/>
         public abstract IEnumerable<IInventorySource> GetSources(InventoryContext context);
 
@@ -37,6 +38,10 @@ namespace OpenNefia.Content.UI.Layer.Inventory
         public virtual string GetQueryText(InventoryContext context)
         {
             return string.Empty;
+        }
+
+        public virtual void OnQuery(InventoryContext context)
+        {
         }
 
         public virtual InventoryResult OnSelect(InventoryContext context, EntityUid item, int amount)

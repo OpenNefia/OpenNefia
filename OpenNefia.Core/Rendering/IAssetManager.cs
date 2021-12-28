@@ -6,8 +6,8 @@ namespace OpenNefia.Core.Rendering
     public interface IAssetManager
     {
         void LoadAsset(PrototypeId<AssetPrototype> id);
-        IAssetDrawable GetSizedAsset(PrototypeId<AssetPrototype> id, Vector2i size);
-        IAssetDrawable GetAsset(PrototypeId<AssetPrototype> id);
+        IAssetInstance GetSizedAsset(PrototypeId<AssetPrototype> id, Vector2i size);
+        IAssetInstance GetAsset(PrototypeId<AssetPrototype> id);
         void PreloadAssets();
     }
 }

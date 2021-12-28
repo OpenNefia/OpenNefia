@@ -48,8 +48,8 @@ namespace OpenNefia.Core.Rendering
         private static readonly int[] SHADOW_MAP = { -1, 8, 9, 4, 11, 6, -1, 0, 10, -1, 5, 2, 7, 3, 1, -1, -1 };
 
         private IAssetManager _assetManager = default!;
-        private IAssetDrawable _assetShadow = default!;
-        private IAssetDrawable _assetShadowEdges = default!;
+        private IAssetInstance _assetShadow = default!;
+        private IAssetInstance _assetShadowEdges = default!;
         private SpriteBatch _batchShadow = default!;
         private SpriteBatch _batchShadowEdges = default!;
         private ICoords _coords = default!;

@@ -626,7 +626,7 @@ namespace OpenNefia.Content.UI.Layer.Repl
         public CompletionItemWithDescription? SelectedItem { get => FilteredView.SelectedItem?.Completion; }
 
         private record CompletionPaneEntry(IUiText Text,
-                                           IAssetDrawable Icon,
+                                           IAssetInstance Icon,
                                            CompletionItemWithDescription Completion);
 
         private List<CompletionPaneEntry> Entries;

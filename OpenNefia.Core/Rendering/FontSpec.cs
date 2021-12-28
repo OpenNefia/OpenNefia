@@ -8,7 +8,7 @@ namespace OpenNefia.Core.Rendering
     [DataDefinition]
     public class FontSpec
     {
-        public FontSpec(int size = 14, int smallSize = 12, Maths.Color? color = null, Maths.Color? bgColor = null)
+        public FontSpec(int size = 14, int smallSize = 12, Maths.Color? color = null, Maths.Color? bgColor = null, FontStyle style = FontStyle.None)
         {
             Size = size;
             SmallSize = smallSize;
@@ -16,6 +16,7 @@ namespace OpenNefia.Core.Rendering
                 Color = color.Value;
             if (bgColor != null)
                 BgColor = bgColor.Value;
+            Style = style;
         }
 
         public FontSpec()

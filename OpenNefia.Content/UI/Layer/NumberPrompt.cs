@@ -58,9 +58,9 @@ namespace OpenNefia.Content.UI.Layer
 
         protected UiTopicWindow TopicWindow;
 
-        protected IAssetDrawable AssetLabelInput;
-        protected IAssetDrawable AssetArrowLeft;
-        protected IAssetDrawable AssetArrowRight;
+        protected IAssetInstance AssetLabelInput;
+        protected IAssetInstance AssetArrowLeft;
+        protected IAssetInstance AssetArrowRight;
 
         protected Color ColorPromptBackground = UiColors.PromptBackground;
         protected FontSpec FontPromptText = UiFonts.PromptText;

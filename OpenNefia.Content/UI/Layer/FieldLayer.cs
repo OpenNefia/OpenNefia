@@ -15,6 +15,7 @@ using OpenNefia.Core.Logic;
 using OpenNefia.Content.GameObjects;
 using OpenNefia.Content.Prototypes;
 using OpenNefia.Core.Graphics;
+using OpenNefia.Content.Inventory;
 
 namespace OpenNefia.Content.UI.Layer
 {
@@ -78,8 +79,8 @@ namespace OpenNefia.Content.UI.Layer
 
         protected virtual void BindKeys()
         {
-            Keybinds[CoreKeybinds.Identify] += QueryLayer;
-            Keybinds[CoreKeybinds.Escape] += PromptToCancel;
+            Keybinds[CoreKeybinds.Identify] += Examine;
+            Keybinds[CoreKeybinds.Escape] += PromptToQuit;
             //Keybinds[Keys.Ctrl | Keys.S] += (_) => Save();
             //Keybinds[Keys.Ctrl | Keys.O] += (_) => Load();
             Keybinds[Keys.Ctrl | Keys.T] += QueryAtlas;
@@ -96,6 +97,7 @@ namespace OpenNefia.Content.UI.Layer
             //Keybinds[Keys.C] += (_) => CastSpell();
             Keybinds[Keys.Q] += DrinkItem;
             Keybinds[Keys.T] += ThrowItem;
+            Keybinds[Keys.W] += QueryLayer;
             //Keybinds[Keys.Ctrl | Keys.B] += (_) => ActivateBeautify();
             //Keybinds[Keys.Period] += (_) => MovePlayer(0, 0);
 
@@ -162,7 +164,7 @@ namespace OpenNefia.Content.UI.Layer
             {
                 if (target.Uid != player.Uid)
                 {
-                    var verbs = verbSystem.GetLocalVerbs(target.Uid, player.Uid);
+                    var verbs = verbSystem.GetLocalVerbs(player.Uid, target.Uid);
                     if (verbs.Contains(verb))
                     {
                         verbSystem.ExecuteVerb(player.Uid, target.Uid, verb);
@@ -223,7 +225,14 @@ namespace OpenNefia.Content.UI.Layer
             RunVerbCommand(new Verb(PickableSystem.VerbIDDrop), EntitiesInInventory());
         }
 
-        public void PromptToCancel(UiKeyInputEventArgs args)
+        private void Examine(UiKeyInputEventArgs args)
+        {
+            var context = new InventoryContext(_gameSession.Player!.Uid, new GetInventoryBehavior());
+            var layer = new InventoryLayer(context);
+            layer.Query();
+        }
+
+        public void PromptToQuit(UiKeyInputEventArgs args)
         {
             if (_playerQuery.YesOrNo("Quit to title screen?"))
                 Cancel();

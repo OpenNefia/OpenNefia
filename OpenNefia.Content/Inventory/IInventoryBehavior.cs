@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using OpenNefia.Content.GameObjects;
 using OpenNefia.Core.GameObjects;
 
-namespace OpenNefia.Content.UI.Layer.Inventory
+namespace OpenNefia.Content.Inventory
 {
     /// <summary>
     /// Defines the filtering/selection logic for a single inventory screen.
@@ -29,6 +29,11 @@ namespace OpenNefia.Content.UI.Layer.Inventory
         /// Whether the player should be queried for an item count after selecting an item.
         /// </summary>
         bool QueryAmount { get; }
+
+        /// <summary>
+        /// Whether to show the user's total weight in the inventory screen.
+        /// </summary>
+        bool ShowTotalWeight { get; }
 
         /// <summary>
         /// Whether to show the total amount of gold in the inventory screen.
@@ -60,6 +65,8 @@ namespace OpenNefia.Content.UI.Layer.Inventory
         string GetQueryText(InventoryContext context);
 
         bool IsAccepted(InventoryContext context, EntityUid item);
+
+        void OnQuery(InventoryContext inventoryContext);
 
         InventoryResult OnSelect(InventoryContext context, EntityUid item, int amount);
 

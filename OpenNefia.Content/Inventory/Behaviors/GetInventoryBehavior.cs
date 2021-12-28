@@ -8,9 +8,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using HspIdsInv = OpenNefia.Core.Prototypes.HspIds<OpenNefia.Content.UI.Layer.Inventory.InvElonaId>;
+using HspIdsInv = OpenNefia.Core.Prototypes.HspIds<OpenNefia.Content.Inventory.InvElonaId>;
 
-namespace OpenNefia.Content.UI.Layer.Inventory
+namespace OpenNefia.Content.Inventory
 {
     public class GetInventoryBehavior : BaseInventoryBehavior
     {

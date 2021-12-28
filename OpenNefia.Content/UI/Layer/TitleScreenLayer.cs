@@ -93,8 +93,8 @@ namespace OpenNefia.Content.UI.Layer
         }
 
         private FontSpec FontTitleText = UiFonts.TitleScreenText;
-        private IAssetDrawable AssetTitle;
-        private IAssetDrawable AssetG4;
+        private IAssetInstance AssetTitle;
+        private IAssetInstance AssetG4;
 
         private IUiText[] TextInfo;
 

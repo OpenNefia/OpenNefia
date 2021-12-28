@@ -50,5 +50,11 @@ namespace OpenNefia.Core.UI
             var fractional = Math.Abs((weight % 1000) / 100);
             return $"{integer}.{fractional}s";
         }
+
+        public static Vector2i NotePosition(UIBox2i bounds, IDrawable text, int xOffset = 0)
+        {
+            return new(bounds.Right - text.Width - 140 - xOffset,
+                       bounds.Bottom - 65 - bounds.Height % 8);
+        }
     }
 }

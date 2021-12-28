@@ -19,6 +19,8 @@ namespace OpenNefia.Content.UI
         public static readonly FontSpec WindowTitle = new(15, 14, color: UiColors.TextWhite, bgColor: UiColors.TextBlack);
         public static readonly FontSpec WindowKeyHints = new(12, 10);
 
+        public static readonly FontSpec TextNote = new(12, 10, style: FontStyle.Bold); // 12 + sizefix - en * 2
+
         public static readonly FontSpec PromptText = new(16, 14, color: UiColors.TextWhite, bgColor: UiColors.TextBlack);
         public static readonly FontSpec TargetText = new(14, 12, color: UiColors.TextWhite, bgColor: UiColors.TextBlack);
 
@@ -26,5 +28,7 @@ namespace OpenNefia.Content.UI
         public static readonly FontSpec ReplCompletion = new(13, 13, color: UiColors.ReplText);
 
         public static readonly FontSpec FpsCounter = new(14, 14, color: UiColors.TextWhite, bgColor: UiColors.TextBlack);
+
+        public static readonly FontSpec InventoryGoldCount = new(13, 11);
     }
 }

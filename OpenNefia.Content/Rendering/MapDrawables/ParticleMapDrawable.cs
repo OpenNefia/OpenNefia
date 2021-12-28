@@ -23,7 +23,7 @@ namespace OpenNefia.Content.Rendering
             }
         }
 
-        private IAssetDrawable AssetParticle;
+        private IAssetInstance AssetParticle;
         private PrototypeId<SoundPrototype>? Sound;
         private float RotationVariance;
         private float AnimeWait;
