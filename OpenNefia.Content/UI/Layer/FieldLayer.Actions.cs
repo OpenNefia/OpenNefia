@@ -138,7 +138,9 @@ namespace OpenNefia.Content.UI.Layer
 
         private void DropItem(UiKeyInputEventArgs args)
         {
-            RunVerbCommand(new Verb(PickableSystem.VerbIDDrop), EntitiesInInventory());
+            var context = new InventoryContext(_gameSession.Player!.Uid, new DropInventoryBehavior());
+            var layer = new InventoryLayer(context);
+            layer.Query();
         }
 
         private void Examine(UiKeyInputEventArgs args)

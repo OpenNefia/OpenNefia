@@ -174,6 +174,11 @@ namespace OpenNefia.Content.Inventory
             // TODO smarter list rebuilding
             UpdateFiltering();
             _field.RefreshScreen();
+
+            if (List.Count == 0)
+            {
+                this.Finish(new InventoryResult.Finished(TurnResult.Succeeded));
+            }
         }
 
         public override void OnQuery()
