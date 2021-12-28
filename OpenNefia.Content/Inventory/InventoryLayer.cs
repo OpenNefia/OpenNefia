@@ -105,6 +105,7 @@ namespace OpenNefia.Content.Inventory
 
         [Dependency] private readonly IEntityManager _entityManager = default!;
         [Dependency] private readonly IFieldLayer _field = default!;
+        [Dependency] private readonly IUiLayerManager _uiLayerManager = default!;
 
         public bool PlaySounds { get; set; } = false;
 
@@ -150,10 +151,22 @@ namespace OpenNefia.Content.Inventory
         {
             Keybinds[CoreKeybinds.Cancel] += (_) => Cancel();
             Keybinds[CoreKeybinds.Escape] += (_) => Cancel();
+            Keybinds[CoreKeybinds.Identify] += ShowItemDescription;
 
             Forwards += List;
 
             List.EventOnActivate += OnSelect;
+        }
+
+        private void ShowItemDescription(UiKeyInputEventArgs args)
+        {
+            var selected = List.SelectedCell;
+
+            if (selected == null)
+                return;
+
+            var layer = new ItemDescriptionLayer(selected.Data.Item);
+            _uiLayerManager.Query(layer);
         }
 
         public void OnSelect(object? sender, UiListEventArgs<InventoryEntry> e)

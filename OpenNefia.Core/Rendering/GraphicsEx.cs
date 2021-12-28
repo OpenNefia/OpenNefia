@@ -121,6 +121,7 @@ namespace OpenNefia.Core.Rendering
 
         public static void SetFont(FontSpec spec)
         {
+            Love.Graphics.SetColor(spec.Color);
             Love.Graphics.SetFont(spec.LoveFont);
         }
     }

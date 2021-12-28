@@ -20,7 +20,7 @@ namespace OpenNefia.Core.Rendering
         Love.SpriteBatch MakeBatch(List<AssetInstance.AssetBatchPart> parts, int maxSprites = 2048);
         Love.SpriteBatch MakeSpriteBatch(int count, Love.SpriteBatchUsage usage);
 
-        void Draw(float x = 0, float y = 0, float width = 0, float height = 0, bool centered = false, float rotation = 0);
+        void Draw(float x, float y, float width = 0, float height = 0, bool centered = false, float rotation = 0);
         void DrawRegion(string regionId, float x = 0, float y = 0, float width = 0, float height = 0, bool centered = false, float rotation = 0);
     }
 
@@ -129,12 +129,12 @@ namespace OpenNefia.Core.Rendering
             return Love.Graphics.NewSpriteBatch(Image, count, usage);
         }
 
-        public void Draw(float x = 0, float y = 0, float width = 0, float height = 0, bool centered = false, float rotation = 0)
+        public void Draw(float x, float y, float width = 0, float height = 0, bool centered = false, float rotation = 0)
         {
             GraphicsEx.DrawImage(this.Image, x, y, width, height, centered, rotation);
         }
 
-        public void DrawRegion(string regionId, float x = 0, float y = 0, float width = 0, float height = 0, bool centered = false, float rotation = 0)
+        public void DrawRegion(string regionId, float x, float y, float width = 0, float height = 0, bool centered = false, float rotation = 0)
         {
             var quad = this.Quads[regionId];
             if (quad == null)

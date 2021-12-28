@@ -46,6 +46,9 @@ namespace OpenNefia.Content.Inventory
 
         public override InventoryResult OnSelect(InventoryContext context, EntityUid item, int amount)
         {
+            var layer = new ItemDescriptionLayer(item);
+            _uiLayerManager.Query(layer);
+
             return new InventoryResult.Continuing();
         }
     }
