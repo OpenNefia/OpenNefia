@@ -350,7 +350,7 @@ namespace OpenNefia.Core.GameObjects
 
             newSpatial.EntityPrototype = spatial.EntityPrototype;
 
-            args.Handle<MetaDataComponent>();
+            args.MarkAsCloned<MetaDataComponent>();
         }
 
         private void HandleCloneSpatial(EntityUid source, SpatialComponent spatial, EntityClonedEventArgs args)
@@ -360,17 +360,17 @@ namespace OpenNefia.Core.GameObjects
             newSpatial.IsSolid = spatial.IsSolid;
             newSpatial.IsOpaque = spatial.IsOpaque;
 
-            args.Handle<SpatialComponent>();
+            args.MarkAsCloned<SpatialComponent>();
         }
 
-        private void HandleCloneStack(EntityUid source, StackComponent spatial, EntityClonedEventArgs args)
+        private void HandleCloneStack(EntityUid source, StackComponent stack, EntityClonedEventArgs args)
         {
             var newStack = EntityManager.EnsureComponent<StackComponent>(args.NewEntity);
 
-            // Don't copy anything.
-            newStack.Count = 1;
+            newStack.Count = stack.Count;
+            newStack.Unlimited = stack.Unlimited;
             
-            args.Handle<StackComponent>();
+            args.MarkAsCloned<StackComponent>();
         }
 
         #endregion
@@ -476,7 +476,7 @@ namespace OpenNefia.Core.GameObjects
         /// on this entity.
         /// </summary>
         /// <typeparam name="T">Type of component that the calling event handler added/set up.</typeparam>
-        public void Handle<T>() where T: IComponent
+        public void MarkAsCloned<T>() where T: IComponent
         {
             HandledTypes.Add(ComponentTypeCache<T>.Type);
         }
