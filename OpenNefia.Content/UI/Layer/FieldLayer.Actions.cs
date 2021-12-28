@@ -128,7 +128,7 @@ namespace OpenNefia.Content.UI.Layer
             }
             else
             {
-                var context = new InventoryContext(_gameSession.Player!.Uid, new GetInventoryBehavior());
+                var context = new InventoryContext(_gameSession.Player!.Uid, new PickUpInventoryBehavior());
                 var layer = new InventoryLayer(context);
                 layer.Query();
             }

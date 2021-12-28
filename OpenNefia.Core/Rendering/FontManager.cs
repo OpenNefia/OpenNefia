@@ -11,8 +11,17 @@ namespace OpenNefia.Core.Rendering
         [Dependency] private readonly ILocalizationManager _localization = default!;
         [Dependency] private readonly IResourceCache _resourceCache = default!;
 
+        private ResourcePath _fallbackFontPath = new("/Font/Core/kochi-gothic-subst.ttf");
         private static Dictionary<int, Love.Font> _fontCache = new();
-        private static ResourcePath _fallbackFontPath = new ResourcePath("/Font/Core/kochi-gothic-subst.ttf");
+
+        public void Initialize()
+        {
+            // Use MS Gothic if it's available.
+            // This is so I can test compatibility with vanilla.
+            var msGothic = new ResourcePath("/Font/Core/MS-Gothic.ttf");
+            if (_resourceCache.ContentFileExists(msGothic))
+                _fallbackFontPath = msGothic;
+        }
 
         public Love.Font GetFont(FontSpec spec)
         {

@@ -1,4 +1,4 @@
-Elona.UI.Layer.TitleScreen =
+Elona.TitleScreen.Layer =
 {
    Window = {
       Title = "冒険の道標",

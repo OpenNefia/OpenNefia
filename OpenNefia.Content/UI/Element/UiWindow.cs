@@ -14,7 +14,17 @@ namespace OpenNefia.Content.UI.Element
         public int XOffset { get; }
         public int YOffset { get; }
         public bool HasTitle => TextTitle.Text != string.Empty;
-        public string Title { get => TextTitle.Text; set => TextTitle.Text = value; }
+        public string Title { 
+            get => TextTitle.Text;
+            set
+            {
+                TextTitle.Text = value;
+
+                // Update topic window position/size
+                SetSize(Width, Height);
+                SetPosition(X, Y);
+            }
+        }
 
         protected Color ColorBottomLine1 = UiColors.WindowBottomLine1;
         protected Color ColorBottomLine2 = UiColors.WindowBottomLine2;
@@ -63,8 +73,9 @@ namespace OpenNefia.Content.UI.Element
 
             if (this.HasTitle)
             {
+                this.TextTitle.SetPosition(x + 45 * this.Width / 200 + 34 - this.TextTitle.Width / 2 
+                    + Math.Clamp(this.TextTitle.Width - 120, 0, 200) / 2, this.Y + 4);
                 this.TopicWindow.SetPosition(x + 34, y - 4);
-                this.TextTitle.SetPosition(x + 45 * this.Width / 200 + 34 - this.TextTitle.Width / 2 + Math.Clamp(this.TextTitle.Width - 120, 0, 200), this.Y + 4);
             }
 
             this.TextKeyHint.SetPosition(x + 58 + this.XOffset, y + this.Height - 43 - this.Height % 8);
@@ -81,8 +92,8 @@ namespace OpenNefia.Content.UI.Element
 
             if (this.HasTitle)
             {
-                this.TopicWindow.SetSize(45 * this.Width / 100 + Math.Clamp(this.TextTitle.Width - 120, 0, 200), 32);
                 this.TextTitle.SetPreferredSize();
+                this.TopicWindow.SetSize(45 * this.Width / 100 + Math.Clamp(this.TextTitle.Width - 120, 0, 200), 32);
             }
 
             this.TextKeyHint.SetPreferredSize();

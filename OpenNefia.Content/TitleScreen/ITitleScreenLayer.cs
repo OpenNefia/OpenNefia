@@ -1,6 +1,6 @@
 ﻿using OpenNefia.Core.UI.Layer;
 
-namespace OpenNefia.Content.UI.Layer
+namespace OpenNefia.Content.TitleScreen
 {
     public enum TitleScreenAction
     {
