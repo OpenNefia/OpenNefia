@@ -10,6 +10,8 @@ using OpenNefia.Core.UI.Layer;
 using System.Buffers;
 using OpenNefia.Core.Random;
 using OpenNefia.Core.Log;
+using OpenNefia.Core.Reflection;
+using OpenNefia.Core.Graphics;
 
 namespace OpenNefia.Core.Locale
 {
@@ -68,6 +70,8 @@ namespace OpenNefia.Core.Locale
     {
         [Dependency] private readonly IUiLayerManager _uiLayers = default!;
         [Dependency] private readonly IResourceManager _resourceManager = default!;
+        [Dependency] private readonly IReflectionManager _reflectionManager = default!;
+        [Dependency] private readonly IGraphics _graphics = default!;
         [Dependency] private readonly IRandom _random = default!;
 
         private readonly ResourcePath LocalePath = new ResourcePath("/Locale");
@@ -76,9 +80,13 @@ namespace OpenNefia.Core.Locale
 
         public void Initialize(PrototypeId<LanguagePrototype> language)
         {
-            _env = new LocalizationEnv(_resourceManager);
+            _env = new LocalizationEnv(_resourceManager, _reflectionManager);
 
             SwitchLanguage(language);
+
+            _graphics.OnWindowFocused += WindowFocusedChanged;
+
+            WatchResources();
         }
 
         public PrototypeId<LanguagePrototype> Language { get; private set; } = LanguagePrototypeOf.English;
@@ -120,7 +128,7 @@ namespace OpenNefia.Core.Locale
                 }
                 catch (Exception ex)
                 {
-                    Logger.ErrorS("loc", ex, "Error in locale function");
+                    Logger.ErrorS("loc", ex, $"Error in locale function: {ex}");
                     resultStr = $"<exception: {ex.Message} ({key})>";
                 }
 

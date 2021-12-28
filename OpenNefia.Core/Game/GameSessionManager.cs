@@ -10,6 +10,11 @@ namespace OpenNefia.Core.Game
     {
         public Entity? _player;
         public Entity Player { get => _player!; set => _player = value; }
+
+        public bool IsPlayer(EntityUid ent)
+        {
+            return _player != null && ent == Player.Uid;
+        }
     }
 
     public static class GameSession
