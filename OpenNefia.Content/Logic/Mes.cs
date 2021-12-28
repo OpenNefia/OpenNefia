@@ -11,5 +11,10 @@ namespace OpenNefia.Content.Logic
         {
             IoCManager.Resolve<IHudLayer>().MessageWindow.Print(text, color);
         }
+
+        public static void Newline()
+        {
+            // TODO
+        }
     }
 }

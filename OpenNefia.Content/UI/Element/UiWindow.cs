@@ -9,7 +9,6 @@ namespace OpenNefia.Content.UI.Element
 {
     public class UiWindow : BaseUiElement
     {
-        public string? Title { get; }
         public bool HasShadow { get; }
         public List<UiKeyHint> KeyHints { get; }
         public int XOffset { get; }
@@ -21,7 +20,7 @@ namespace OpenNefia.Content.UI.Element
         protected FontSpec FontWindowTitle = UiFonts.WindowTitle;
         protected FontSpec FontWindowKeyHints = UiFonts.WindowKeyHints;
 
-        protected IAssetDrawable AssetTipIcons;
+        protected IAssetInstance AssetTipIcons;
 
         [Localize("Title")]
         protected IUiText TextTitle;
@@ -45,7 +44,7 @@ namespace OpenNefia.Content.UI.Element
             this.AssetTipIcons = Assets.Get(AssetPrototypeOf.TipIcons);
 
             this.TextTitle = new UiTextOutlined(this.FontWindowTitle);
-            this.TextKeyHint = new UiText(this.FontWindowKeyHints, "hogepiyo");
+            this.TextKeyHint = new UiText(this.FontWindowKeyHints, "(key hints)");
 
             this.Window = new UiWindowBacking();
             this.WindowShadow = new UiWindowBacking(UiWindowBacking.WindowBackingType.Shadow);

@@ -18,7 +18,7 @@ namespace OpenNefia.Core.GameObjects
         /// Gets the set of verbs applicable to this entity from sending
         /// a "get verbs" event to it.
         /// </summary>
-        public SortedSet<Verb> GetLocalVerbs(EntityUid target, EntityUid source)
+        public SortedSet<Verb> GetLocalVerbs(EntityUid source, EntityUid target)
         {
             var verbs = new SortedSet<Verb>();
 

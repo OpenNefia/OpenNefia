@@ -12,7 +12,7 @@ namespace OpenNefia.Core.Rendering
         [Dependency] private readonly IPrototypeManager _prototypes = default!;
         [Dependency] private readonly IResourceCache _resourceCache = default!;
 
-        private readonly Dictionary<PrototypeId<AssetPrototype>, AssetDrawable> _assets = new();
+        private readonly Dictionary<PrototypeId<AssetPrototype>, AssetInstance> _assets = new();
 
         private Love.Image LoadImageSource(AssetSpecifier spec)
         {
@@ -93,7 +93,7 @@ namespace OpenNefia.Core.Rendering
             var image = LoadImage(prototype);
             var regions = GetRegions(prototype, Vector2i.One);
 
-            _assets[id] = new AssetDrawable(prototype, image, regions);
+            _assets[id] = new AssetInstance(prototype, image, regions);
         }
 
         public void PreloadAssets()
@@ -109,17 +109,17 @@ namespace OpenNefia.Core.Rendering
             }
         }
 
-        public IAssetDrawable GetSizedAsset(PrototypeId<AssetPrototype> id, Vector2i size)
+        public IAssetInstance GetSizedAsset(PrototypeId<AssetPrototype> id, Vector2i size)
         {
             var prototype = id.ResolvePrototype();
 
             var image = LoadImage(prototype);
             var regions = GetRegions(prototype, size);
 
-            return new AssetDrawable(prototype, image, regions);
+            return new AssetInstance(prototype, image, regions);
         }
 
-        public IAssetDrawable GetAsset(PrototypeId<AssetPrototype> id)
+        public IAssetInstance GetAsset(PrototypeId<AssetPrototype> id)
         {
             return _assets[id];
         }

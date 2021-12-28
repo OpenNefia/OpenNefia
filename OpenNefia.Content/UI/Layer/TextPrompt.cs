@@ -35,11 +35,11 @@ namespace OpenNefia.Content.UI.Layer
         protected UiTopicWindow TopicWindow;
         protected IUiText Text;
 
-        protected IAssetDrawable AssetLabelInput;
-        protected IAssetDrawable AssetImeStatusJapanese;
-        protected IAssetDrawable AssetImeStatusEnglish;
-        protected IAssetDrawable AssetImeStatusNone;
-        protected IAssetDrawable AssetInputCaret;
+        protected IAssetInstance AssetLabelInput;
+        protected IAssetInstance AssetImeStatusJapanese;
+        protected IAssetInstance AssetImeStatusEnglish;
+        protected IAssetInstance AssetImeStatusNone;
+        protected IAssetInstance AssetInputCaret;
 
         protected Color ColorPromptBackground = UiColors.PromptBackground;
         protected FontSpec FontPromptText = UiFonts.PromptText;

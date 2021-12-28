@@ -1,6 +1,6 @@
 ﻿using OpenNefia.Core.GameObjects;
 
-namespace OpenNefia.Content.UI.Layer.Inventory
+namespace OpenNefia.Content.Inventory
 {
     public abstract record InventoryResult
     {

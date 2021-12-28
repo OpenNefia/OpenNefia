@@ -1,150 +1,67 @@
-﻿using Love;
+﻿using OpenNefia.Core.Maths;
+using OpenNefia.Core.Prototypes;
+using OpenNefia.Core.UI.Element;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace OpenNefia.Core.Rendering
 {
-    public interface IAssetDrawable : IDisposable
+    /// <summary>
+    /// A UI element wrapper around an <see cref="IAssetInstance"/> with its own
+    /// position, color, and other properties.
+    /// </summary>
+    public interface IAssetDrawable : IUiElement
     {
-        int Width { get; }
-        int Height { get; }
-
-        AssetPrototype Asset { get; }
-        uint CountX { get; }
-        uint CountY { get; }
-
-        Love.SpriteBatch MakeBatch(List<AssetDrawable.AssetBatchPart> parts, int maxSprites = 2048);
-        Love.SpriteBatch MakeSpriteBatch(int count, Love.SpriteBatchUsage usage);
-
-        void Draw(float x = 0, float y = 0, float width = 0, float height = 0, bool centered = false, float rotation = 0);
-        void DrawRegion(string regionId, float x = 0, float y = 0, float width = 0, float height = 0, bool centered = false, float rotation = 0);
+        IAssetInstance Instance { get; set; }
+        Color Color { get; set; }
+        bool Centered { get; set; }
+        float Rotation { get; set; }
+        string? RegionId { get; set; }
     }
 
-    public class AssetDrawable : IAssetDrawable
+    public class AssetDrawable : BaseUiElement, IAssetDrawable
     {
-        /// <summary>
-        /// Data to submit to <see cref="MakeBatch(List{AssetBatchPart}, int, SpriteBatchUsage)"/>
-        /// </summary>
-        public class AssetBatchPart
+        public IAssetInstance Instance { get; set; }
+        public Color Color { get; set; } = Color.White;
+        public bool Centered { get; set; }
+        public float Rotation { get; set; }
+        public string? RegionId { get; set; }
+
+
+        public AssetDrawable(PrototypeId<AssetPrototype> proto, Color? color = null, bool centered = false, float rotation = 0f, string? regionId = null)
         {
-            public string RegionId { get; set; } = string.Empty;
-            public int X { get; set; } = 0;
-            public int Y { get; set; } = 0;
-
-            public AssetBatchPart(string id, int x, int y)
-            {
-                RegionId = id;
-                X = x;
-                Y = y;
-            }
-
-            public override string ToString()
-            {
-                return $"{RegionId}: ({X}, {Y})";
-            }
+            Instance = Assets.Get(proto);
+            if (color != null)
+                Color = color.Value;
+            Centered = centered;
+            Rotation = rotation;
+            RegionId = regionId;
         }
 
-        public AssetPrototype Asset { get; }
-        private Love.Image Image { get; }
-
-        private Dictionary<string, Love.Quad> Quads;
-        private AssetRegions Regions;
-
-        public uint CountX { get; }
-        public uint CountY { get; }
-
-        public int Width { get => this.Image.GetWidth(); }
-        public int Height { get => this.Image.GetHeight(); }
-
-        public AssetDrawable(AssetPrototype asset, Love.Image image, AssetRegions regions)
+        public override void GetPreferredSize(out Vector2i size)
         {
-            this.Asset = asset;
-            this.Image = image;
-            this.Quads = new Dictionary<string, Quad>();
-            this.CountX = this.Asset.CountX;
-            this.CountY = this.Asset.CountY;
-            this.Regions = regions;
-
-            this.SetupQuads();
+            size = Instance.Size;
         }
 
-        private void SetupQuads()
+        public override void Update(float dt)
         {
-            var countX = this.CountX;
-            var countY = this.CountY;
+        }
 
-            var imageWidth = this.Image.GetWidth();
-            var imageHeight = this.Image.GetHeight();
+        public override void Draw()
+        {
+            Love.Graphics.SetColor(Color);
 
-            if (countX > 1 || countY > 1)
+            if (RegionId != null)
             {
-                var width = imageWidth / countX;
-                var height = imageHeight / countY;
-
-                uint quadId = 0;
-                for (int j = 0; j < countY; j++)
-                {
-                    for (int i = 0; i < countX; i++)
-                    {
-                        this.Quads[quadId.ToString()] = Love.Graphics.NewQuad(width * i, height * j, width, height, imageWidth, imageHeight);
-                        quadId++;
-                    }
-                }
+                Instance.DrawRegion(RegionId, X, Y, Width, Height, Centered, Rotation);
             }
             else
             {
-                this.Quads["0"] = Love.Graphics.NewQuad(0, 0, imageWidth, imageHeight, imageWidth, imageHeight);
+                Instance.Draw(X, Y, Width, Height, Centered, Rotation);
             }
-
-            foreach (var pair in this.Regions)
-            {
-                var key = pair.Key;
-                var region = pair.Value;
-                this.Quads[key] = Love.Graphics.NewQuad(region.Left, region.Top, region.Width, region.Height, imageWidth, imageHeight);
-            }
-        }
-
-        public Love.SpriteBatch MakeBatch(List<AssetBatchPart> parts, int maxSprites = 2048)
-        {
-            var batch = Love.Graphics.NewSpriteBatch(this.Image, maxSprites, Love.SpriteBatchUsage.Static);
-            batch.Clear();
-
-            foreach (var part in parts)
-            {
-                batch.Add(this.Quads[part.RegionId], part.X, part.Y);
-            }
-
-            batch.Flush();
-
-            return batch;
-        }
-
-        public SpriteBatch MakeSpriteBatch(int count, SpriteBatchUsage usage)
-        {
-            return Love.Graphics.NewSpriteBatch(Image, count, usage);
-        }
-
-        public void Draw(float x = 0, float y = 0, float width = 0, float height = 0, bool centered = false, float rotation = 0)
-        {
-            GraphicsEx.DrawImage(this.Image, x, y, width, height, centered, rotation);
-        }
-
-        public void DrawRegion(string regionId, float x = 0, float y = 0, float width = 0, float height = 0, bool centered = false, float rotation = 0)
-        {
-            var quad = this.Quads[regionId];
-            if (quad == null)
-            {
-                throw new ArgumentException($"Invalid region ID {regionId}");
-            }
-
-            GraphicsEx.DrawImageRegion(this.Image, quad, x, y, width, height, centered, rotation);
-        }
-
-        public void Dispose()
-        {
-            foreach (var quad in this.Quads.Values)
-            {
-                quad.Dispose();
-            }
-            this.Quads.Clear();
         }
     }
 }

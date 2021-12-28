@@ -1,7 +1,7 @@
 ﻿using OpenNefia.Core.Maths;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Core.UI.Element;
-using static OpenNefia.Core.Rendering.AssetDrawable;
+using static OpenNefia.Core.Rendering.AssetInstance;
 
 namespace OpenNefia.Content.UI.Element
 {
@@ -39,12 +39,12 @@ namespace OpenNefia.Content.UI.Element
         private readonly Color ColorStyle5 = UiColors.TopicWindowStyle5;
         private readonly Color ColorStyle6 = UiColors.TopicWindowStyle6;
 
-        protected IAssetDrawable AssetTopicWindow;
-        protected IAssetDrawable AssetWindow;
+        protected IAssetInstance AssetTopicWindow;
+        protected IAssetInstance AssetWindow;
 
         protected Love.SpriteBatch TopicWindowBatch;
 
-        private IAssetDrawable GetTopicWindowAsset(FrameStyleKind frameStyle)
+        private IAssetInstance GetTopicWindowAsset(FrameStyleKind frameStyle)
         {
             switch (frameStyle)
             {

@@ -34,7 +34,16 @@ namespace OpenNefia.Content.UI.Element.List
                 _SelectedIndex = value;
             }
         }
-        public IUiListCell<T> SelectedCell { get => Cells[SelectedIndex]!; }
+
+        public IUiListCell<T>? SelectedCell { 
+            get
+            {
+                if (Cells.Count == 0)
+                    return null;
+
+                return Cells[SelectedIndex];
+            }
+        }
 
         protected Dictionary<int, UiListChoiceKey> ChoiceKeys;
 
@@ -57,7 +66,6 @@ namespace OpenNefia.Content.UI.Element.List
             for (var i = 0; i < Cells.Count; i++)
             {
                 var cell = Cells[i];
-                cell.IndexInList = i;
                 if (cell.Key == null)
                 {
                     cell.Key = UiListChoiceKey.MakeDefault(i);
@@ -156,7 +164,7 @@ namespace OpenNefia.Content.UI.Element.List
 
             this.MouseButtons[MouseButton.Mouse1] += (evt) =>
             {
-                if (this.SelectedCell.ContainsPoint(evt.Pos))
+                if (this.SelectedCell != null && this.SelectedCell.ContainsPoint(evt.Pos))
                 {
                     this.Activate(this.SelectedIndex);
                 }
@@ -193,6 +201,9 @@ namespace OpenNefia.Content.UI.Element.List
 
         public void IncrementIndex(int delta)
         {
+            if (Count == 0)
+                return;
+
             var newIndex = SelectedIndex + delta;
             var sign = Math.Sign(delta);
 
@@ -284,8 +295,12 @@ namespace OpenNefia.Content.UI.Element.List
 
         public override void Update(float dt)
         {
-            foreach (var cell in Cells)
+            for (int i = 0; i < Count; i++)
+            {
+                var cell = Cells[i];
+                cell.IndexInList = i;
                 cell.Update(dt);
+            }
         }
 
         public override void Draw()

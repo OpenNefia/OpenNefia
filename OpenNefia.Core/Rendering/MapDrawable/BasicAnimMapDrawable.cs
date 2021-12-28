@@ -11,7 +11,7 @@ namespace OpenNefia.Core.Rendering
         public BasicAnimPrototype BasicAnim { get; }
 
         private FrameCounter Counter;
-        private IAssetDrawable AssetDrawable;
+        private IAssetInstance AssetDrawable;
 
         public BasicAnimMapDrawable(PrototypeId<BasicAnimPrototype> basicAnimId)
         {

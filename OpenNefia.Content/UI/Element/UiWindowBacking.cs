@@ -1,7 +1,7 @@
 ﻿using OpenNefia.Core.Maths;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Core.UI.Element;
-using static OpenNefia.Core.Rendering.AssetDrawable;
+using static OpenNefia.Core.Rendering.AssetInstance;
 
 namespace OpenNefia.Content.UI.Element
 {
@@ -13,7 +13,7 @@ namespace OpenNefia.Content.UI.Element
             Shadow
         }
 
-        private IAssetDrawable? AssetWindow;
+        private IAssetInstance? AssetWindow;
         private Love.SpriteBatch? Batch;
         private WindowBackingType Type;
 

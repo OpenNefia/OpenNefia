@@ -117,4 +117,37 @@ namespace OpenNefia.Content.UI.Element
             Love.Graphics.Draw(this.BakedText, this.X, this.Y);
         }
     }
+
+    public class UiTextTopic : UiText
+    {
+        private IAssetInstance AssetTipIcons;
+
+        public UiTextTopic(string text = "") 
+            : base(new FontSpec(12, 12, style: FontStyle.Bold), text)
+        {
+            AssetTipIcons = Assets.Get(AssetPrototypeOf.TipIcons);
+        }
+
+        public UiTextTopic(FontSpec font, string text = "") : base(font, text)
+        {
+            AssetTipIcons = Assets.Get(AssetPrototypeOf.TipIcons);
+        }
+
+        public override void GetPreferredSize(out Vector2i size)
+        {
+            base.GetPreferredSize(out size);
+            size.X += 26;
+            size.Y += 8;
+        }
+
+        public override void Draw()
+        {
+            Love.Graphics.SetColor(Color.White);
+            AssetTipIcons.DrawRegion("1", X, Y + 7);
+            Love.Graphics.SetColor(Color);
+            Love.Graphics.Draw(BakedText, X + 26, Y + 8); // y + vfix + 8
+            Love.Graphics.SetColor(Color.Black);
+            Love.Graphics.Line(X + 22, Y + 21, X + BakedText.GetWidth() + 36, Y + 21);
+        }
+    }
 }

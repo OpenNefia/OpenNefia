@@ -18,11 +18,16 @@
             args.Handled = true;
         }
 
-        public static string GetDisplayName(EntityUid uid)
+        public string GetDisplayNameInner(EntityUid uid)
         {
             var ev = new GetDisplayNameEventArgs();
-            Get<DisplayNameSystem>().EntityManager.EventBus.RaiseLocalEvent(uid, ref ev);
+            EntityManager.EventBus.RaiseLocalEvent(uid, ref ev);
             return ev.Name;
+        }
+
+        public static string GetDisplayName(EntityUid uid)
+        {
+            return Get<DisplayNameSystem>().GetDisplayNameInner(uid);
         }
     }
 
