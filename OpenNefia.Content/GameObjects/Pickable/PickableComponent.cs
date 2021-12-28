@@ -1,8 +1,9 @@
-﻿using OpenNefia.Core.Effects;
+﻿using OpenNefia.Content.GameObjects;
+using OpenNefia.Core.Effects;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Serialization.Manager.Attributes;
 
-namespace OpenNefia.Content.GameObjects
+namespace OpenNefia.Content.GameObjects.Pickable
 {
     [RegisterComponent]
     public class PickableComponent : Component, IFromHspItem
