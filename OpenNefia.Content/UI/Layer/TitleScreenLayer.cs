@@ -9,6 +9,7 @@ using OpenNefia.Content.Prototypes;
 
 namespace OpenNefia.Content.UI.Layer
 {
+    [Localize("Elona.UI.Layer.TitleScreen")]
     public class TitleScreenLayer : BaseUiLayer<TitleScreenResult>, ITitleScreenLayer
     {
         public enum TitleScreenChoice

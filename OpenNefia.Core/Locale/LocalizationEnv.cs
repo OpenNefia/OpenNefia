@@ -1,5 +1,4 @@
-﻿using System.Text;
-using OpenNefia.Core.Prototypes;
+﻿using OpenNefia.Core.Prototypes;
 using NLua;
 using OpenNefia.Core.Utility;
 using OpenNefia.Core.ContentPack;
@@ -33,7 +32,7 @@ namespace OpenNefia.Core.Locale
         private Lua SetupLua()
         {
             var lua = new Lua();
-            lua.State.Encoding = Encoding.UTF8;
+            lua.State.Encoding = EncodingHelpers.UTF8;
             AddContentRootsToSearchPath(lua);
             return lua;
         }
@@ -48,25 +47,41 @@ namespace OpenNefia.Core.Locale
             lua["package.path"] = path;
         }
 
-        public void LoadAll(PrototypeId<LanguagePrototype> language)
+        public void SetLanguage(PrototypeId<LanguagePrototype> language)
         {
-            var opts = new EnumerationOptions() { RecurseSubdirectories = true };
+            Clear();
+
             _Lua["_LANGUAGE_CODE"] = (string)language;
 
             var chunk = _resourceManager.ContentFileReadAllText("/Lua/Core/LocaleEnv.lua");
             _Lua.DoString(chunk);
+        }
 
-            var path = new ResourcePath("/Locale") / language.ToString();
-
+        public void LoadAll(PrototypeId<LanguagePrototype> language, ResourcePath rootInContent)
+        {
+            var path = rootInContent / language.ToString();
             var files = _resourceManager.ContentFindFiles(path).ToList().AsParallel()
                 .Where(filePath => filePath.Extension == "lua");
 
             foreach (var file in files)
             {
-                var str = _resourceManager.ContentFileReadAllText(file);
-                _Lua.DoString(str);
+                LoadContentFile(file);
             }
+        }
 
+        public void LoadContentFile(ResourcePath luaFile)
+        {
+            var str = _resourceManager.ContentFileReadAllText(luaFile);
+            _Lua.DoString(str);
+        }
+
+        public void LoadString(string luaScript)
+        {
+            _Lua.DoString(luaScript);
+        }
+
+        public void Resync()
+        {
             _Lua.DoString("_Finalize()");
             foreach (KeyValuePair<object, object> pair in _FinalizedKeys)
             {

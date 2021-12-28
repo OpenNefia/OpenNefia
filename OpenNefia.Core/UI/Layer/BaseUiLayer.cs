@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Love;
 using OpenNefia.Core.IoC;
+using OpenNefia.Core.Locale;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.UI.Element;
 
@@ -20,6 +21,8 @@ namespace OpenNefia.Core.UI.Layer
         public bool WasCancelled { get; private set; }
         public T? Result { get; private set; }
         public Exception? Exception { get; private set; }
+
+        private LocaleScope LocaleScope = default!;
 
         public override sealed void GetPreferredSize(out Vector2i size)
         {
@@ -86,7 +89,11 @@ namespace OpenNefia.Core.UI.Layer
 
         public override void Localize(LocaleKey key)
         {
-            base.Localize(key);
+            var manager = IoCManager.Resolve<ILocalizationManager>();
+            LocaleScope = new LocaleScope(manager, key);
+
+            manager.DoLocalize(this, key);
+
             IsLocalized = true;
         }
     }

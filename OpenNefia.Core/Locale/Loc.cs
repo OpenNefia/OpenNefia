@@ -22,19 +22,9 @@ namespace OpenNefia.Core.Locale
             _localization.SwitchLanguage(language);
         }
 
-        public static LocaleFunc<T> GetFunction<T>(LocaleKey key)
+        public static string Get(LocaleKey key, params LocaleArg[] args)
         {
-            return _localization.GetFunction<T>(key);
-        }
-
-        public static LocaleFunc<T1, T2> GetFunction<T1, T2>(LocaleKey key)
-        {
-            return _localization.GetFunction<T1, T2>(key);
-        }
-
-        public static string GetString(LocaleKey key)
-        {
-            return _localization.GetString(key);
+            return _localization.Get(key, args);
         }
 
         public static bool IsFullwidth()

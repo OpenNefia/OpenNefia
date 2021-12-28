@@ -11,6 +11,7 @@ namespace OpenNefia.Core.UI.Layer
     {
         [Dependency] private readonly IGraphics _graphics = default!;
         [Dependency] private readonly IGameController _gameController = default!;
+        [Dependency] private readonly ILocalizationManager _localizationManager = default!;
 
         internal List<IUiLayer> Layers { get; private set; } = new();
         private List<IUiLayer> _layersByZOrder = new List<IUiLayer>();

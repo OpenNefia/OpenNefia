@@ -4,12 +4,12 @@ namespace OpenNefia.Core.Locale
 {
     public class LocalizeAttribute : Attribute
     {
-        public string? Key { get; }
+        public string? RootLocaleKey { get; }
         public readonly bool Required;
 
-        public LocalizeAttribute(string? key = null, bool required = false)
+        public LocalizeAttribute(string? rootLocaleKey = null, bool required = false)
         {
-            Key = key;
+            RootLocaleKey = rootLocaleKey;
             Required = required;
         }
     }

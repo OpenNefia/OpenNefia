@@ -67,7 +67,7 @@ namespace OpenNefia.Content.UI.Element
 
         public override void Localize(LocaleKey key)
         {
-            this.Text = Loc.GetString(key);
+            this.Text = Loc.Get(key);
         }
 
         public override void Update(float dt)
