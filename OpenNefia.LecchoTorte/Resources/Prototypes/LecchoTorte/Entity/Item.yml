@@ -27,3 +27,15 @@
       components:
       - type: LecchoTorte.TurnColor
         color: "#11AA11"
+  - type: ItemDescription
+    entries:
+    - text: "Test description"
+      textColor: "#115511"
+      icon: Icon3
+    - text: "Test description 2"
+      textColor: "#00BB00"
+      icon: Icon4
+    - text: "Test description 3"
+      type: Flavor
+    - text: "Test description 4"
+      type: FlavorItalic

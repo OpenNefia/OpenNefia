@@ -113,6 +113,7 @@ namespace OpenNefia.Core.Utility
         /// </summary>
         public static void AddRange<T>(this IList<T> list, IEnumerable<T> items)
         {
+            // List<T>.AddRange() has special optimizations.
             if (list is List<T> asList)
             {
                 asList.AddRange(items);
