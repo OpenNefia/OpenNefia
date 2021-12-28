@@ -111,6 +111,9 @@ namespace OpenNefia.Content.UI.Layer
 
         public void RefreshScreen()
         {
+            if (Map == null)
+                return;
+
             Map.RefreshVisibility();
 
             var player = _gameSession.Player;

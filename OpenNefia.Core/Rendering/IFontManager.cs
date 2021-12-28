@@ -8,6 +8,7 @@ namespace OpenNefia.Core.Rendering
 {
     public interface IFontManager
     {
+        public void Initialize();
         public Love.Font GetFont(FontSpec spec);
         public void Clear();
     }

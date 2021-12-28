@@ -1,6 +1,7 @@
 ﻿using OpenNefia.Content.GameObjects;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
+using OpenNefia.Core.Locale;
 using OpenNefia.Core.Logic;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.UI.Layer;
@@ -22,7 +23,7 @@ namespace OpenNefia.Content.Inventory
 
         public override bool EnableShortcuts => true;
 
-        public override string WindowTitle => nameof(ExamineInventoryBehavior);
+        public override string WindowTitle => Loc.Get("Elona.Inventory.Behavior.Drop.WindowTitle");
 
         public override IEnumerable<IInventorySource> GetSources(InventoryContext context)
         {
@@ -32,7 +33,7 @@ namespace OpenNefia.Content.Inventory
 
         public override string GetQueryText(InventoryContext context)
         {
-            return "Examine what?";
+            return Loc.Get("Elona.Inventory.Behavior.Examine.QueryText");
         }
 
         public override bool IsAccepted(InventoryContext context, EntityUid item)

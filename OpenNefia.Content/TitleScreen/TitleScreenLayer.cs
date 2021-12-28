@@ -6,10 +6,11 @@ using OpenNefia.Core.Locale;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Core.UI.Layer;
 using OpenNefia.Content.Prototypes;
+using OpenNefia.Content.UI;
 
-namespace OpenNefia.Content.UI.Layer
+namespace OpenNefia.Content.TitleScreen
 {
-    [Localize("Elona.UI.Layer.TitleScreen")]
+    [Localize("Elona.TitleScreen.Layer")]
     public class TitleScreenLayer : BaseUiLayer<TitleScreenResult>, ITitleScreenLayer
     {
         public enum TitleScreenChoice
@@ -33,9 +34,9 @@ namespace OpenNefia.Content.UI.Layer
             public override string? LocalizeKey => Enum.GetName(Data);
 
             public TitleScreenCell(TitleScreenChoice submenu)
-                : base(submenu, new UiText())
+                : base(submenu, new UiText(UiFonts.ListTitleScreenText))
             {
-                TextSubtext = new UiText();
+                TextSubtext = new UiText(UiFonts.ListTitleScreenSubtext);
             }
 
             public override void Localize(LocaleKey key)
@@ -49,7 +50,7 @@ namespace OpenNefia.Content.UI.Layer
                 base.SetPosition(x, y);
                 if (TextSubtext.Text != string.Empty)
                 {
-                    TextSubtext.SetPosition(y + 40, y - 4);
+                    TextSubtext.SetPosition(x + 40, y - 4);
                     UiText.SetPosition(x + 40 + XOffset + 4, y + 8);
                 }
                 else

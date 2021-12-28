@@ -1,6 +1,7 @@
 ﻿using OpenNefia.Content.GameObjects;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
+using OpenNefia.Core.Locale;
 using OpenNefia.Core.Logic;
 using OpenNefia.Core.Prototypes;
 using System;
@@ -16,9 +17,9 @@ namespace OpenNefia.Content.Inventory
     {
         [Dependency] private readonly VerbSystem _verbSystem = default!;
 
-        public override HspIdsInv HspIds { get; } = HspIdsInv.From122(new(id: 3));
+        public override HspIdsInv HspIds { get; } = HspIdsInv.From122(new(id: 2));
 
-        public override string WindowTitle => nameof(DropInventoryBehavior);
+        public override string WindowTitle => Loc.Get("Elona.Inventory.Behavior.Drop.WindowTitle");
 
         public override IEnumerable<IInventorySource> GetSources(InventoryContext context)
         {
@@ -27,7 +28,7 @@ namespace OpenNefia.Content.Inventory
 
         public override string GetQueryText(InventoryContext context)
         {
-            return "Drop what?";
+            return Loc.Get("Elona.Inventory.Behavior.Drop.QueryText");
         }
 
         public override bool IsAccepted(InventoryContext context, EntityUid item)

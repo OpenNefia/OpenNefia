@@ -1,6 +1,7 @@
 ﻿using OpenNefia.Content.GameObjects;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
+using OpenNefia.Core.Locale;
 using OpenNefia.Core.Logic;
 using OpenNefia.Core.Prototypes;
 using System;
@@ -12,13 +13,13 @@ using HspIdsInv = OpenNefia.Core.Prototypes.HspIds<OpenNefia.Content.Inventory.I
 
 namespace OpenNefia.Content.Inventory
 {
-    public class GetInventoryBehavior : BaseInventoryBehavior
+    public class PickUpInventoryBehavior : BaseInventoryBehavior
     {
         [Dependency] private readonly VerbSystem _verbSystem = default!;
 
         public override HspIdsInv HspIds { get; } = HspIdsInv.From122(new(id: 3));
 
-        public override string WindowTitle => nameof(GetInventoryBehavior);
+        public override string WindowTitle => Loc.Get("Elona.Inventory.Behavior.PickUp.WindowTitle");
 
         public override IEnumerable<IInventorySource> GetSources(InventoryContext context)
         {
@@ -27,7 +28,7 @@ namespace OpenNefia.Content.Inventory
 
         public override string GetQueryText(InventoryContext context)
         {
-            return "Pick up what?";
+            return Loc.Get("Elona.Inventory.Behavior.PickUp.QueryText");
         }
 
         public override bool IsAccepted(InventoryContext context, EntityUid item)

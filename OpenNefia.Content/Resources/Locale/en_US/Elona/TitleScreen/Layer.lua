@@ -1,4 +1,4 @@
-﻿Elona.UI.Layer.TitleScreen =
+﻿Elona.TitleScreen.Layer =
 {
    Window = {
       Title = "Starting Menu",
