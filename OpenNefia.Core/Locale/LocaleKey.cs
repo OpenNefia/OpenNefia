@@ -4,6 +4,8 @@
     {
         public string Key = string.Empty;
 
+        public static readonly LocaleKey Empty = new("");
+
         public LocaleKey(string key)
         {
             Key = key;

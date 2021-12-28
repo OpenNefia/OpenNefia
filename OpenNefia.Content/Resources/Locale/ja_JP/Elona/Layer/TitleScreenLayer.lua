@@ -1,4 +1,4 @@
-OpenNefia.Content.UI.Layer.TitleScreenLayer =
+Elona.UI.Layer.TitleScreen =
 {
    Window = {
       Title = "冒険の道標",

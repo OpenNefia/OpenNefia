@@ -100,7 +100,7 @@ namespace OpenNefia.Core.GameController
             _tileDefinitionManager.Initialize();
             _tileDefinitionManager.RegisterAll();
 
-            _localizationManager.Initialize();
+            _localizationManager.Initialize(LanguagePrototypeOf.English);
 
             _saveGameManager.Initialize(userDataDir);
 
