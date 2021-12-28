@@ -90,7 +90,7 @@ namespace OpenNefia.Content.Rendering
             if (UiUtils.IsPointInVisibleScreen(this.Position + new Vector2i(cx, cy)))
             {
                 this._chipBatch.Clear();
-                this._chipBatch.Add(this._chip.Image, 
+                this._chipBatch.Add(this._chip.Image.AtlasIndex, 
                     cx + coords.TileSize.X / 2, 
                     cy + coords.TileSize.Y / 2, 
                     coords.TileSize.X,

@@ -2,8 +2,9 @@
 {
     public enum TurnResult
     {
-        Failed = 0,
-        Aborted = 1,
-        Succeeded = 2
+        NoResult = 0,
+        Failed = 1,
+        Aborted = 2,
+        Succeeded = 3
     }
 }

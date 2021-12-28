@@ -1,5 +1,6 @@
 ﻿using Love;
 using OpenNefia.Core.IoC;
+using OpenNefia.Core.Log;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,12 +32,13 @@ namespace OpenNefia.Core.Rendering
             _batch = Love.Graphics.NewSpriteBatch(_atlas.Image, 2048, SpriteBatchUsage.Dynamic);
         }
 
-        public void Add(TileSpecifier spec, int x, int y, int? width = null, int? height = null, Love.Color? color = null, bool centered = false, float rotation = 0f)
+        public void Add(string tileId, int x, int y, int? width = null, int? height = null, Love.Color? color = null, bool centered = false, float rotation = 0f)
         {
-            var tile = this._atlas.GetTile(spec);
-
-            if (tile == null)
-                throw new ArgumentException($"Unknown tile {spec.AtlasIndex}", nameof(spec));
+            if (!this._atlas.TryGetTile(tileId, out var tile))
+            {
+                Logger.ErrorS("tile.batch", $"Unknown tile {tileId} in atlas {_atlasName}");
+                return;
+            }
 
             var quadRect = tile.Quad.GetViewport();
             var sx = 1f;

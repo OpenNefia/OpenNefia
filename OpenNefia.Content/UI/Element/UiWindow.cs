@@ -14,6 +14,7 @@ namespace OpenNefia.Content.UI.Element
         public int XOffset { get; }
         public int YOffset { get; }
         public bool HasTitle => TextTitle.Text != string.Empty;
+        public string Title { get => TextTitle.Text; set => TextTitle.Text = value; }
 
         protected Color ColorBottomLine1 = UiColors.WindowBottomLine1;
         protected Color ColorBottomLine2 = UiColors.WindowBottomLine2;
