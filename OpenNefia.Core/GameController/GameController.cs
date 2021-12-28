@@ -1,4 +1,5 @@
-﻿using System.Runtime;
+﻿using System.Globalization;
+using System.Runtime;
 using OpenNefia.Core.Asynchronous;
 using OpenNefia.Core.ContentPack;
 using OpenNefia.Core.DebugServer;
@@ -43,6 +44,7 @@ namespace OpenNefia.Core.GameController
         [Dependency] private readonly IDebugServer _debugServer = default!;
         [Dependency] private readonly ISaveGameManager _saveGameManager = default!;
         [Dependency] private readonly IThemeManager _themeManager = default!;
+        [Dependency] private readonly IFontManager _fontManager = default!;
 
         public Action? MainCallback { get; set; } = null;
 
@@ -58,6 +60,8 @@ namespace OpenNefia.Core.GameController
             _resourceCache.Initialize(userDataDir);
 
             ProgramShared.DoMounts(_resourceCache);
+
+            _fontManager.Initialize();
 
             _graphics.Initialize();
             ShowSplashScreen();
@@ -100,7 +104,9 @@ namespace OpenNefia.Core.GameController
             _tileDefinitionManager.Initialize();
             _tileDefinitionManager.RegisterAll();
 
-            _localizationManager.Initialize(LanguagePrototypeOf.English);
+            // TODO replace with config system
+            var language = GetSystemLanguage();
+            _localizationManager.Initialize(language);
 
             _saveGameManager.Initialize(userDataDir);
 
@@ -110,6 +116,17 @@ namespace OpenNefia.Core.GameController
             GC.Collect();
 
             return true;
+        }
+
+        private PrototypeId<LanguagePrototype> GetSystemLanguage()
+        {
+            var ci = CultureInfo.InstalledUICulture;
+            var code = ci.Name.Replace('-', '_');
+
+            if (code == "ja_JP")
+                return LanguagePrototypeOf.Japanese;
+
+            return LanguagePrototypeOf.English;
         }
 
         private void ShowSplashScreen()
