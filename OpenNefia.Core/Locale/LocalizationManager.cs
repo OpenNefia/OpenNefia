@@ -8,6 +8,8 @@ using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.ContentPack;
 using OpenNefia.Core.UI.Layer;
 using System.Buffers;
+using OpenNefia.Core.Random;
+using OpenNefia.Core.Log;
 
 namespace OpenNefia.Core.Locale
 {
@@ -66,6 +68,7 @@ namespace OpenNefia.Core.Locale
     {
         [Dependency] private readonly IUiLayerManager _uiLayers = default!;
         [Dependency] private readonly IResourceManager _resourceManager = default!;
+        [Dependency] private readonly IRandom _random = default!;
 
         private readonly ResourcePath LocalePath = new ResourcePath("/Locale");
         
@@ -108,11 +111,28 @@ namespace OpenNefia.Core.Locale
                 for (int i = 0; i < args.Length; i++)
                     rented[i] = args[i].Value;
 
-                var result = func.Call(args)[0];
+                string resultStr;
+
+                try
+                {
+                    var result = func.Call(rented)[0];
+                    resultStr = $"{result}";
+                }
+                catch (Exception ex)
+                {
+                    Logger.ErrorS("loc", ex, "Error in locale function");
+                    resultStr = $"<exception: {ex.Message} ({key})>";
+                }
 
                 shared.Return(rented);
 
-                return $"{result}";
+                return resultStr;
+            }
+
+            if (_env._ListStore.TryGetValue(key, out var list))
+            {
+                // This is meant to emulate the `txt` function in the HSP source.
+                return _random.Pick(list);
             }
 
             return $"<Missing key: {key}>";

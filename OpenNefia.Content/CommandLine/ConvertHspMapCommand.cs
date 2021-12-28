@@ -1,5 +1,6 @@
 ﻿using CommandLine;
 using OpenNefia.Content.GameObjects;
+using OpenNefia.Content.GameObjects.Pickable;
 using OpenNefia.Core.CommandLine;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;

@@ -10,8 +10,9 @@ namespace OpenNefia.Core.Locale
         private readonly IResourceManager _resourceManager;
 
         internal Lua _Lua;
-        internal Dictionary<string, string> _StringStore = new Dictionary<string, string>();
-        internal Dictionary<string, LuaFunction> _FunctionStore = new Dictionary<string, LuaFunction>();
+        internal Dictionary<string, string> _StringStore = new();
+        internal Dictionary<string, List<string>> _ListStore = new();
+        internal Dictionary<string, LuaFunction> _FunctionStore = new();
 
         private LuaTable _FinalizedKeys => (LuaTable)_Lua["_FinalizedKeys"];
 
@@ -83,18 +84,30 @@ namespace OpenNefia.Core.Locale
         public void Resync()
         {
             _Lua.DoString("_Finalize()");
+
             foreach (KeyValuePair<object, object> pair in _FinalizedKeys)
             {
-                var key = pair.Key;
+                var key = pair.Key.ToString()!;
                 var value = pair.Value;
 
-                if (value.GetType() == typeof(LuaFunction))
+                var ty = value.GetType();
+
+                if (ty == typeof(LuaFunction))
                 {
-                    _FunctionStore[key.ToString()!] = (LuaFunction)value;
+                    _FunctionStore[key] = (LuaFunction)value;
+                }
+                else if (ty == typeof(LuaTable))
+                {
+                    var list = new List<string>();
+                    foreach (KeyValuePair<object, object> subpair in (LuaTable)value)
+                    {
+                        list.Add(subpair.Value.ToString()!);
+                    }
+                    _ListStore[key] = list;
                 }
                 else
                 {
-                    _StringStore[key.ToString()!] = value!.ToString()!;
+                    _StringStore[key] = value!.ToString()!;
                 }
             }
         }

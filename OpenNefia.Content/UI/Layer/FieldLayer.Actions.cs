@@ -8,6 +8,8 @@ using OpenNefia.Core.Logic;
 using OpenNefia.Content.GameObjects;
 using OpenNefia.Content.Inventory;
 using OpenNefia.Content.Logic;
+using OpenNefia.Content.GameObjects.Pickable;
+using OpenNefia.Core.Locale;
 
 namespace OpenNefia.Content.UI.Layer
 {
@@ -123,7 +125,7 @@ namespace OpenNefia.Content.UI.Layer
                 }
                 if (result == TurnResult.NoResult)
                 {
-                    Mes.Display("You grasp at the air.");
+                    Mes.Display(Loc.Get("Elona.GameObjects.Pickable.GraspAtAir"));
                 }
             }
             else
