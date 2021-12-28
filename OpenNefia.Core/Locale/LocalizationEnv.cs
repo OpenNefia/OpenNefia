@@ -2,23 +2,35 @@
 using NLua;
 using OpenNefia.Core.Utility;
 using OpenNefia.Core.ContentPack;
+using OpenNefia.Core.Reflection;
+using System.Reflection;
+using System.Linq.Expressions;
+using OpenNefia.Core.Log;
 
 namespace OpenNefia.Core.Locale
 {
     internal class LocalizationEnv : IDisposable
     {
         private readonly IResourceManager _resourceManager;
+        private readonly IReflectionManager _reflectionManager;
+
+        private PrototypeId<LanguagePrototype> _currentLanguage;
 
         internal Lua _Lua;
         internal Dictionary<string, string> _StringStore = new();
         internal Dictionary<string, List<string>> _ListStore = new();
         internal Dictionary<string, LuaFunction> _FunctionStore = new();
 
+        private Dictionary<string, MethodInfo> _builtInFunctions = new();
+
         private LuaTable _FinalizedKeys => (LuaTable)_Lua["_FinalizedKeys"];
 
-        public LocalizationEnv(IResourceManager resourceManager)
+        public LocalizationEnv(IResourceManager resourceManager, IReflectionManager reflectionManager)
         {
             _resourceManager = resourceManager;
+            _reflectionManager = reflectionManager;
+
+            ScanBuiltInFunctions();
 
             _Lua = SetupLua();
         }
@@ -50,12 +62,72 @@ namespace OpenNefia.Core.Locale
 
         public void SetLanguage(PrototypeId<LanguagePrototype> language)
         {
+            _currentLanguage = language;
+
             Clear();
 
             _Lua["_LANGUAGE_CODE"] = (string)language;
 
             var chunk = _resourceManager.ContentFileReadAllText("/Lua/Core/LocaleEnv.lua");
             _Lua.DoString(chunk);
+
+            LoadBuiltinFunctions();
+        }
+
+        private void ScanBuiltInFunctions()
+        {
+            _builtInFunctions.Clear();
+
+            foreach (var ty in _reflectionManager.FindTypesWithAttribute<RegisterLocaleFunctionsAttribute>())
+            {
+                var regAttr = ty.GetCustomAttribute<RegisterLocaleFunctionsAttribute>()!;
+
+                if (regAttr.Language == null || regAttr.Language == _currentLanguage)
+                {
+                    foreach (var func in ty.GetMethods().Where(m => m.IsPublic && m.IsStatic))
+                    {
+                        if (func.TryGetCustomAttribute(out LocaleFunctionAttribute? funcAttr))
+                        {
+                            _builtInFunctions.Add(funcAttr.Name, func);
+                        }
+                    }
+                }
+            }
+        }
+
+        // https://stackoverflow.com/a/40579063
+        private static Delegate CreateDelegate(MethodInfo methodInfo, object? target)
+        {
+            Func<Type[], Type> getType;
+            var isAction = methodInfo.ReturnType.Equals((typeof(void)));
+            var types = methodInfo.GetParameters().Select(p => p.ParameterType);
+
+            if (isAction)
+            {
+                getType = Expression.GetActionType;
+            }
+            else
+            {
+                getType = Expression.GetFuncType;
+                types = types.Concat(new[] { methodInfo.ReturnType });
+            }
+
+            if (methodInfo.IsStatic)
+            {
+                return Delegate.CreateDelegate(getType(types.ToArray()), methodInfo);
+            }
+
+            return Delegate.CreateDelegate(getType(types.ToArray()), target!, methodInfo.Name);
+        }
+
+        private void LoadBuiltinFunctions()
+        {
+            var table = (LuaTable)_Lua["_"];
+
+            foreach (var (funcName, func) in _builtInFunctions)
+            {
+                table[funcName] = CreateDelegate(func, null);
+            }
         }
 
         public void LoadAll(PrototypeId<LanguagePrototype> language, ResourcePath rootInContent)
@@ -73,12 +145,26 @@ namespace OpenNefia.Core.Locale
         public void LoadContentFile(ResourcePath luaFile)
         {
             var str = _resourceManager.ContentFileReadAllText(luaFile);
-            _Lua.DoString(str);
+            try
+            {
+                _Lua.DoString(str);
+            }
+            catch (Exception ex)
+            {
+                Logger.ErrorS("loc", ex, $"Failed to load Lua file {luaFile}: {ex}");
+            }
         }
 
         public void LoadString(string luaScript)
         {
-            _Lua.DoString(luaScript);
+            try
+            {
+                _Lua.DoString(luaScript);
+            }
+            catch (Exception ex)
+            {
+                Logger.ErrorS("loc", ex, $"Failed to load Lua string: {ex}");
+            }
         }
 
         public void Resync()

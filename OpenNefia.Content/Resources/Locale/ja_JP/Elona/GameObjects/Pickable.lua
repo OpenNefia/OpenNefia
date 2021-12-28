@@ -5,8 +5,8 @@ Elona.GameObjects.Pickable =
    GraspAtAir = "あなたは空気をつかんだ。",
 
    PicksUp = function(entity, target)
-      return ("%s pick%s up %s.")
-         :format(_.name(entity), _.s(entity), target)
+      return ("%sは%sを拾った。")
+         :format(_.name(entity), target)
    end,
    Drops = function(_entity, target)
       return ("%sを地面に置いた。")
