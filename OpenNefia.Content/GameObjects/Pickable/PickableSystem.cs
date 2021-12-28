@@ -10,6 +10,7 @@ using OpenNefia.Core.Random;
 using OpenNefia.Core.Log;
 using OpenNefia.Content.GameObjects;
 using OpenNefia.Core.Locale;
+using OpenNefia.Core.Game;
 
 namespace OpenNefia.Content.GameObjects.Pickable
 {
@@ -22,6 +23,7 @@ namespace OpenNefia.Content.GameObjects.Pickable
         [Dependency] private readonly IAudioSystem _sounds = default!;
         [Dependency] private readonly IRandom _random = default!;
         [Dependency] private readonly IStackSystem _stackSystem = default!;
+        [Dependency] private readonly IGameSessionManager _gameSession = default!;
 
         private readonly PrototypeId<SoundPrototype>[] GetSounds = new[]
         {
@@ -111,7 +113,8 @@ namespace OpenNefia.Content.GameObjects.Pickable
                 var sound = _random.Pick(GetSounds);
                 _sounds.Play(sound, picker);
 
-                _stackSystem.TryStackAtSamePos(target);
+                var showMessage = _gameSession.IsPlayer(picker);
+                _stackSystem.TryStackAtSamePos(target, showMessage: showMessage);
 
                 return TurnResult.Succeeded;
             }

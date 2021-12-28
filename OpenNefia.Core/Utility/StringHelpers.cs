@@ -22,6 +22,15 @@ namespace OpenNefia.Core.Utility
             return char.ToLower(fieldName[0]) + fieldName.Substring(1);
         }
 
+        public static string FirstCharToUpper(this string input)
+        {
+            return input switch
+            {
+                "" => "",
+                _ => string.Concat(input[0].ToString().ToUpper(), input.AsSpan(1))
+            };
+        }
+
         /// <summary>
         /// Removes a leading substring from a string, if it exists.
         /// </summary>

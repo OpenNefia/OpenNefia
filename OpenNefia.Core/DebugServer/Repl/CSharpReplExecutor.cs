@@ -82,6 +82,7 @@ namespace OpenNefia.Core.DebugServer
                     "OpenNefia.Core.IoC",
                     "OpenNefia.Core.Game",
                     "OpenNefia.Core.Maps",
+                    "OpenNefia.Core.Locale",
                     "OpenNefia.Content.GameObjects",
                     "OpenNefia.Content.UI",
                     "OpenNefia.Content.Logic",

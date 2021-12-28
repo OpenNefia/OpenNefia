@@ -1,7 +1,9 @@
 ﻿using OpenNefia.Core.IoC;
 using OpenNefia.Core.Prototypes;
+using OpenNefia.Core.Utility;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -30,6 +32,15 @@ namespace OpenNefia.Core.Locale
         public static bool IsFullwidth()
         {
             return _localization.IsFullwidth();
+        }
+
+        public static string Capitalize(string text)
+        {
+            // TODO
+            if (Language == LanguagePrototypeOf.English)
+                return text.FirstCharToUpper();
+
+            return text;
         }
     }
 }

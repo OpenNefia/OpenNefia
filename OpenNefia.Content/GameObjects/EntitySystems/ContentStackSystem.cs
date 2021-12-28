@@ -1,5 +1,6 @@
 ﻿using OpenNefia.Content.Logic;
 using OpenNefia.Core.GameObjects;
+using OpenNefia.Core.Locale;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +18,12 @@ namespace OpenNefia.Content.GameObjects
 
         private void HandleStacked(EntityUid uid, SpatialComponent component, ref EntityStackedEvent args)
         {
-            Mes.Display($"{DisplayNameSystem.GetDisplayName(uid)} has been stacked (total: {args.NewCount})");
+            if (args.ShowMessage)
+            {
+                Mes.Display(Loc.Get("Elona.GameObjects.Stack.HasBeenStacked",
+                    ("entity", uid),
+                    ("totalCount", args.NewCount)));
+            }
         }
     }
 }
