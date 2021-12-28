@@ -3,7 +3,6 @@ using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Logic;
 using OpenNefia.Core.Prototypes;
-using OpenNefia.Core.UI.Layer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,39 +12,38 @@ using HspIdsInv = OpenNefia.Core.Prototypes.HspIds<OpenNefia.Content.Inventory.I
 
 namespace OpenNefia.Content.Inventory
 {
-    public class ExamineInventoryBehavior : BaseInventoryBehavior
+    public class DropInventoryBehavior : BaseInventoryBehavior
     {
         [Dependency] private readonly VerbSystem _verbSystem = default!;
-        [Dependency] private readonly IUiLayerManager _uiLayerManager = default!;
 
-        public override HspIdsInv HspIds { get; } = HspIdsInv.From122(new(id: 1));
+        public override HspIdsInv HspIds { get; } = HspIdsInv.From122(new(id: 3));
 
-        public override bool EnableShortcuts => true;
-
-        public override string WindowTitle => nameof(ExamineInventoryBehavior);
+        public override string WindowTitle => nameof(DropInventoryBehavior);
 
         public override IEnumerable<IInventorySource> GetSources(InventoryContext context)
         {
-            yield return new GroundInvSource(context.User);
             yield return new EntityInvSource(context.User);
         }
 
         public override string GetQueryText(InventoryContext context)
         {
-            return "Examine what?";
+            return "Drop what?";
         }
 
         public override bool IsAccepted(InventoryContext context, EntityUid item)
         {
-            var verbPickUp = new Verb(PickableSystem.VerbIDPickUp);
-            var verbDrop = new Verb(PickableSystem.VerbIDDrop);
-
-            var verbs = _verbSystem.GetLocalVerbs(context.User, item);
-            return verbs.Contains(verbPickUp) || verbs.Contains(verbDrop);
+            var verb = new Verb(PickableSystem.VerbIDDrop);
+            return _verbSystem.GetLocalVerbs(context.User, item).Contains(verb);
         }
 
         public override InventoryResult OnSelect(InventoryContext context, EntityUid item, int amount)
         {
+            var verb = new Verb(PickableSystem.VerbIDDrop);
+            var result = _verbSystem.ExecuteVerb(context.User, item, verb);
+            
+            if (result == TurnResult.Succeeded)
+                return new InventoryResult.Finished(result);
+
             return new InventoryResult.Continuing();
         }
     }
