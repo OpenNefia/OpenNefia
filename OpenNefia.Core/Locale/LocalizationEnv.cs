@@ -21,7 +21,8 @@ namespace OpenNefia.Core.Locale
         internal Dictionary<string, List<string>> _ListStore = new();
         internal Dictionary<string, LuaFunction> _FunctionStore = new();
 
-        private Dictionary<string, MethodInfo> _builtInFunctions = new();
+        private Dictionary<string, MethodInfo> _sharedBuiltInFunctions = new();
+        private Dictionary<PrototypeId<LanguagePrototype>, Dictionary<string, MethodInfo>> _builtInFunctions = new();
 
         private LuaTable _FinalizedKeys => (LuaTable)_Lua["_FinalizedKeys"];
 
@@ -77,18 +78,23 @@ namespace OpenNefia.Core.Locale
         private void ScanBuiltInFunctions()
         {
             _builtInFunctions.Clear();
+            _sharedBuiltInFunctions.Clear();
 
             foreach (var ty in _reflectionManager.FindTypesWithAttribute<RegisterLocaleFunctionsAttribute>())
             {
                 var regAttr = ty.GetCustomAttribute<RegisterLocaleFunctionsAttribute>()!;
 
-                if (regAttr.Language == null || regAttr.Language == _currentLanguage)
+                foreach (var func in ty.GetMethods().Where(m => m.IsPublic && m.IsStatic))
                 {
-                    foreach (var func in ty.GetMethods().Where(m => m.IsPublic && m.IsStatic))
+                    if (func.TryGetCustomAttribute(out LocaleFunctionAttribute? funcAttr))
                     {
-                        if (func.TryGetCustomAttribute(out LocaleFunctionAttribute? funcAttr))
+                        if (regAttr.Language != null)
                         {
-                            _builtInFunctions.Add(funcAttr.Name, func);
+                            _builtInFunctions.GetOrNew(regAttr.Language.Value).Add(funcAttr.Name, func);
+                        }
+                        else
+                        {
+                            _sharedBuiltInFunctions.Add(funcAttr.Name, func);
                         }
                     }
                 }
@@ -124,9 +130,17 @@ namespace OpenNefia.Core.Locale
         {
             var table = (LuaTable)_Lua["_"];
 
-            foreach (var (funcName, func) in _builtInFunctions)
+            foreach (var (funcName, func) in _sharedBuiltInFunctions)
             {
                 table[funcName] = CreateDelegate(func, null);
+            }
+
+            if (_builtInFunctions.TryGetValue(_currentLanguage, out var funcs))
+            {
+                foreach (var (funcName, func) in funcs)
+                {
+                    table[funcName] = CreateDelegate(func, null);
+                }
             }
         }
 

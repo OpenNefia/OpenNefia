@@ -65,8 +65,10 @@ namespace OpenNefia.Core.GameObjects
         /// </summary>
         /// <param name="target">Entity to stack into.</param>
         /// <param name="with">Entity to stack with. This entity will be deleted if the stack succeeds.</param>
+        /// <param name="showMessage">Whether to show a message to the player if the stack succeeds.</param>
         /// <returns>True if the stack succeeded.</returns>
         bool TryStack(EntityUid target, EntityUid with,
+            bool showMessage = false,
             StackComponent? stackTarget = null,
             StackComponent? stackWith = null);
 
@@ -76,10 +78,11 @@ namespace OpenNefia.Core.GameObjects
         /// if it has one.
         /// </summary>
         /// <param name="target">Entity to stack.</param>
-        /// <param name="stackTarget">Stackable component of the entity.</param>
+        /// <param name="showMessage">Whether to show a message to the player if the stack succeeds.</param>
         /// <returns>True if any stacking occurred.</returns>
         /// <hsp>item_stack</hsp>
         bool TryStackAtSamePos(EntityUid target,
+            bool showMessage = false,
             SpatialComponent? spatialTarget = null,
             StackComponent? stackTarget = null);
 
@@ -254,6 +257,7 @@ namespace OpenNefia.Core.GameObjects
 
         /// <inheritdoc/>
         public bool TryStack(EntityUid target, EntityUid with,
+            bool showMessage = false,
             StackComponent? stackTarget = null,
             StackComponent? stackWith = null)
         {
@@ -264,7 +268,7 @@ namespace OpenNefia.Core.GameObjects
 
             var newCount = stackTarget.Count + stackWith.Count;
 
-            var ev = new EntityStackedEvent(with, stackTarget.Count, newCount);
+            var ev = new EntityStackedEvent(with, stackTarget.Count, newCount, showMessage);
             RaiseLocalEvent(target, ref ev);
 
             SetCount(target, newCount, stackTarget);
@@ -276,6 +280,7 @@ namespace OpenNefia.Core.GameObjects
 
         /// <inheritdoc/>
         public bool TryStackAtSamePos(EntityUid target,
+            bool showMessage = false,
             SpatialComponent? spatialTarget = null,
             StackComponent? stackTarget = null)
         {
@@ -305,7 +310,7 @@ namespace OpenNefia.Core.GameObjects
 
             foreach (var ent in ents.ToList())
             {
-                stackedSomething &= TryStack(target, ent.Uid, stackTarget);
+                stackedSomething &= TryStack(target, ent.Uid, showMessage, stackTarget);
             }
 
             return stackedSomething;
@@ -492,12 +497,14 @@ namespace OpenNefia.Core.GameObjects
         public EntityUid StackedWith { get; }
         public int OldCount { get; }
         public int NewCount { get; }
+        public bool ShowMessage { get; }
 
-        public EntityStackedEvent(EntityUid stackedWith, int oldCount, int newCount)
+        public EntityStackedEvent(EntityUid stackedWith, int oldCount, int newCount, bool showMessage)
         {
             StackedWith = stackedWith;
             OldCount = oldCount;
             NewCount = newCount;
+            ShowMessage = showMessage;
         }
     }
 
