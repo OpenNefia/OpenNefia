@@ -1,6 +1,6 @@
 # OpenNefia
 
-![GitHub Actions](https://github.com/OpenNefia/OpenNefia/actions/workflows/build-test.yml/badge.svg)
+![GitHub Actions](https://github.com/OpenNefia/OpenNefia/actions/workflows/build-test.yml/badge.svg) [![Discord Chat](https://img.shields.io/discord/815674706559762442?style=plastic)](https://discord.gg/cFq452yFQa)
 
 > *Welcome traveler!*
 
