@@ -24,14 +24,14 @@ namespace OpenNefia.Content.UI.Element.List
         public bool SelectOnActivate { get; set; }
 
         private int _SelectedIndex;
+        private bool _needsUpdate;
+
         public int SelectedIndex
         {
             get => _SelectedIndex;
             set
             {
-                if (value < 0 || value >= Cells.Count)
-                    throw new ArgumentException($"Index {value} is out of bounds (count: {Cells.Count})");
-                _SelectedIndex = value;
+                _SelectedIndex = Math.Clamp(value, 0, Cells.Count);
             }
         }
 
@@ -45,7 +45,7 @@ namespace OpenNefia.Content.UI.Element.List
             }
         }
 
-        protected Dictionary<int, UiListChoiceKey> ChoiceKeys;
+        protected readonly Dictionary<int, UiListChoiceKey> ChoiceKeys = new();
 
         public event UiListEventHandler<T>? EventOnSelect;
         public event UiListEventHandler<T>? EventOnActivate;
@@ -62,10 +62,16 @@ namespace OpenNefia.Content.UI.Element.List
 
             Cells = cells.ToList();
 
-            ChoiceKeys = new Dictionary<int, UiListChoiceKey>();
+            RefreshCellPositionsAndKeys();
+        }
+
+        public void RefreshCellPositionsAndKeys()
+        {
+            ChoiceKeys.Clear();
             for (var i = 0; i < Cells.Count; i++)
             {
                 var cell = Cells[i];
+                cell.IndexInList = i;
                 if (cell.Key == null)
                 {
                     cell.Key = UiListChoiceKey.MakeDefault(i);
@@ -74,6 +80,10 @@ namespace OpenNefia.Content.UI.Element.List
             }
 
             BindKeys();
+
+            // Set the size/position of the child list cells.
+            SetSize(Width, Height);
+            SetPosition(X, Y);
         }
 
         public UiList(IEnumerable<T> items, int itemOffsetX = 0)
@@ -295,10 +305,15 @@ namespace OpenNefia.Content.UI.Element.List
 
         public override void Update(float dt)
         {
+            if (_needsUpdate)
+            {
+                RefreshCellPositionsAndKeys();
+                _needsUpdate = false;
+            }
+
             for (int i = 0; i < Count; i++)
             {
                 var cell = Cells[i];
-                cell.IndexInList = i;
                 cell.Update(dt);
             }
         }
@@ -332,16 +347,57 @@ namespace OpenNefia.Content.UI.Element.List
         public int Count => Cells.Count;
         public bool IsReadOnly => Cells.IsReadOnly;
 
-        public IUiListCell<T> this[int index] { get => Cells[index]; set => Cells[index] = value; }
-        public int IndexOf(IUiListCell<T> item) => Cells.IndexOf(item);
-        public void Insert(int index, IUiListCell<T> item) => Cells.Insert(index, item);
-        public void RemoveAt(int index) => Cells.RemoveAt(index);
-        public void Add(IUiListCell<T> item) => Cells.Add(item);
-        public void Clear() => Cells.Clear();
-        public void AddRange(IEnumerable<IUiListCell<T>> items) => Cells.AddRange(items);
+        public IUiListCell<T> this[int index]
+        {
+            get => Cells[index];
+            set
+            {
+                Cells[index] = value;
+                _needsUpdate = true;
+            }
+        }
+        public int IndexOf(IUiListCell<T> item)
+        {
+            return Cells.IndexOf(item);
+        }
+
+        public void Insert(int index, IUiListCell<T> item)
+        {
+            Cells.Insert(index, item);
+            _needsUpdate = true;
+        }
+
+        public void RemoveAt(int index)
+        {
+            Cells.RemoveAt(index);
+            _needsUpdate = true;
+        }
+
+        public void Add(IUiListCell<T> item)
+        {
+            Cells.Add(item);
+            _needsUpdate = true;
+        }
+
+        public void Clear()
+        {
+            Cells.Clear();
+            _needsUpdate = true;
+        }
+
+        public void AddRange(IEnumerable<IUiListCell<T>> items)
+        {
+            Cells.AddRange(items);
+            _needsUpdate = true;
+        }
+
         public bool Contains(IUiListCell<T> item) => Cells.Contains(item);
         public void CopyTo(IUiListCell<T>[] array, int arrayIndex) => Cells.CopyTo(array, arrayIndex);
-        public bool Remove(IUiListCell<T> item) => Cells.Remove(item);
+        public bool Remove(IUiListCell<T> item)
+        {
+            _needsUpdate = true;
+            return Cells.Remove(item);
+        }
 
         public bool IsFixedSize => false;
         public bool IsSynchronized => false;

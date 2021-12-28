@@ -4,6 +4,7 @@ using OpenNefia.Core.Serialization.Manager.Attributes;
 using OpenNefia.Core.Utility;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -51,19 +52,17 @@ namespace OpenNefia.Core.Rendering
             this._tiles = atlasTiles;
         }
 
-        public AtlasTile? GetTile(string tileId)
+        public bool TryGetTile(string tileId, [NotNullWhen(true)] out AtlasTile? tile)
         {
-            if (_tiles.TryGetValue(tileId, out var tile))
-                return tile;
-            return null;
+            return _tiles.TryGetValue(tileId, out tile);
         }
 
-        public AtlasTile? GetTile(TileSpecifier spec) => GetTile(spec.AtlasIndex);
+        public bool TryGetTile(TileSpecifier spec, [NotNullWhen(true)] out AtlasTile? tile)
+            => TryGetTile(spec.AtlasIndex, out tile);
 
         public bool GetTileSize(TileSpecifier spec, out int width, out int height)
         {
-            var tile = GetTile(spec);
-            if (tile == null)
+            if (!TryGetTile(spec, out var tile))
             {
                 width = 0;
                 height = 0;

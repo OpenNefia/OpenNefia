@@ -5,7 +5,12 @@ using OpenNefia.Core.Rendering;
 
 namespace OpenNefia.Content.GameObjects
 {
-    public class EntityMemorySystem : EntitySystem
+    public interface IEntityMemorySystem : IEntitySystem
+    {
+        MapObjectMemory GetEntityMemory(EntityUid entity);
+    }
+
+    public class EntityMemorySystem : EntitySystem, IEntityMemorySystem
     {
         public override void Initialize()
         {
@@ -27,6 +32,14 @@ namespace OpenNefia.Content.GameObjects
             memory.ScreenOffset = Vector2i.Zero;
             memory.IsVisible = EntityManager.IsAlive(uid);
             memory.HideWhenOutOfSight = false;
+        }
+
+        public MapObjectMemory GetEntityMemory(EntityUid entity)
+        {
+            var memory = new MapObjectMemory();
+            var ev = new GetMapObjectMemoryEventArgs(memory);
+            RaiseLocalEvent(entity, ev);
+            return memory;
         }
     }
 }

@@ -73,9 +73,11 @@ namespace OpenNefia.Core.Rendering
         {
             ChipBatchEntry? entry;
 
-            var tile = _chipAtlas.GetTile(memory.AtlasIndex);
-            if (tile == null)
-                throw new Exception($"Missing chip {memory.AtlasIndex}");
+            if (!_chipAtlas.TryGetTile(memory.AtlasIndex, out var tile))
+            {
+                Logger.ErrorS("tile.chipBatch", $"Missing chip {memory.AtlasIndex}");
+                return;
+            }
 
             // Allocate a new chip batch entry.
             entry = new ChipBatchEntry(tile, memory);
@@ -188,12 +190,7 @@ namespace OpenNefia.Core.Rendering
             for (int x = 0; x < widthInTiles; x++)
             {
                 var tileId = tiles[x, y];
-                var tile = TileAtlas.GetTile(tileId);
-                if (tile == null)
-                {
-                    Logger.Log(LogLevel.Error, $"Missing tile {tileId}");
-                }
-                else
+                if (TileAtlas.TryGetTile(tileId, out var tile))
                 {
                     Coords.TileToScreen(new Vector2i(x, RowYIndex), out var screenPos);
                     TileBatch.Add(tile.Quad, screenPos.X, screenPos.Y);
@@ -203,6 +200,10 @@ namespace OpenNefia.Core.Rendering
                         HasOverhang = true;
                         TileOverhangBatch.Add(tile.Quad, screenPos.X, screenPos.Y);
                     }
+                }
+                else
+                {
+                    Logger.ErrorS("tile.chipBatch", $"Missing tile {tileId}");
                 }
             }
 

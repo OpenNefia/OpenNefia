@@ -19,7 +19,7 @@ using OpenNefia.Content.Inventory;
 
 namespace OpenNefia.Content.UI.Layer
 {
-    public class FieldLayer : BaseUiLayer<UiNoResult>, IFieldLayer
+    public partial class FieldLayer : BaseUiLayer<UiNoResult>, IFieldLayer
     {
         [Dependency] private readonly IMapRenderer _mapRenderer = default!;
         [Dependency] private readonly IMapManager _mapManager = default!;
@@ -58,6 +58,38 @@ namespace OpenNefia.Content.UI.Layer
             BindKeys();
         }
 
+        protected virtual void BindKeys()
+        {
+            Keybinds[CoreKeybinds.Identify] += Examine;
+            Keybinds[CoreKeybinds.Escape] += PromptToQuit;
+            Keybinds[Keys.Ctrl | Keys.T] += QueryAtlas;
+            Keybinds[CoreKeybinds.North] += (_) => MovePlayer(Direction.North);
+            Keybinds[CoreKeybinds.South] += (_) => MovePlayer(Direction.South);
+            Keybinds[CoreKeybinds.West] += (_) => MovePlayer(Direction.West);
+            Keybinds[CoreKeybinds.East] += (_) => MovePlayer(Direction.East);
+            Keybinds[CoreKeybinds.Ascend] += Ascend;
+            Keybinds[CoreKeybinds.Descend] += Descend;
+            Keybinds[CoreKeybinds.Enter] += Activate;
+            Keybinds[CoreKeybinds.Repl] += QueryRepl;
+            Keybinds[Keys.G] += PickUpItem;
+            Keybinds[Keys.D] += DropItem;
+            Keybinds[Keys.Q] += DrinkItem;
+            Keybinds[Keys.T] += ThrowItem;
+            Keybinds[Keys.W] += QueryLayer;
+
+            _scroller.BindKeys(this);
+
+            MouseMoved.Callback += (evt) =>
+            {
+                MouseText = $"{evt.Pos}";
+            };
+
+            MouseButtons[MouseButton.Mouse1].Bind((evt) => PlaceTile(evt), trackReleased: true);
+            MouseButtons[MouseButton.Mouse2].Bind((evt) => PlaceTile(evt), trackReleased: true);
+            MouseButtons[MouseButton.Mouse3].Bind((evt) => PlaceTile(evt), trackReleased: true);
+        }
+
+
         public void Startup()
         {
             _mapManager.ActiveMapChanged += SetMap;
@@ -77,58 +109,6 @@ namespace OpenNefia.Content.UI.Layer
             RefreshScreen();
         }
 
-        protected virtual void BindKeys()
-        {
-            Keybinds[CoreKeybinds.Identify] += Examine;
-            Keybinds[CoreKeybinds.Escape] += PromptToQuit;
-            //Keybinds[Keys.Ctrl | Keys.S] += (_) => Save();
-            //Keybinds[Keys.Ctrl | Keys.O] += (_) => Load();
-            Keybinds[Keys.Ctrl | Keys.T] += QueryAtlas;
-            Keybinds[CoreKeybinds.North] += (_) => MovePlayer(Direction.North);
-            Keybinds[CoreKeybinds.South] += (_) => MovePlayer(Direction.South);
-            Keybinds[CoreKeybinds.West] += (_) => MovePlayer(Direction.West);
-            Keybinds[CoreKeybinds.East] += (_) => MovePlayer(Direction.East);
-            Keybinds[CoreKeybinds.Ascend] += Ascend;
-            Keybinds[CoreKeybinds.Descend] += Descend;
-            Keybinds[CoreKeybinds.Enter] += Activate;
-            Keybinds[CoreKeybinds.Repl] += QueryRepl;
-            Keybinds[Keys.G] += PickUpItem;
-            Keybinds[Keys.D] += DropItem;
-            //Keybinds[Keys.C] += (_) => CastSpell();
-            Keybinds[Keys.Q] += DrinkItem;
-            Keybinds[Keys.T] += ThrowItem;
-            Keybinds[Keys.W] += QueryLayer;
-            //Keybinds[Keys.Ctrl | Keys.B] += (_) => ActivateBeautify();
-            //Keybinds[Keys.Period] += (_) => MovePlayer(0, 0);
-
-            _scroller.BindKeys(this);
-
-            MouseMoved.Callback += (evt) =>
-            {
-                MouseText = $"{evt.Pos}";
-            };
-
-            MouseButtons[MouseButton.Mouse1].Bind((evt) => PlaceTile(evt), trackReleased: true);
-            MouseButtons[MouseButton.Mouse2].Bind((evt) => PlaceTile(evt), trackReleased: true);
-            MouseButtons[MouseButton.Mouse3].Bind((evt) => PlaceTile(evt), trackReleased: true);
-        }
-
-        private void QueryAtlas(UiKeyInputEventArgs args)
-        {
-            var prompt = new Prompt<string>(new List<string>() { AtlasNames.Tile, AtlasNames.Chip });
-            var result = prompt.Query();
-            if (result.HasValue)
-            {
-                var atlas = IoCManager.Resolve<ITileAtlasManager>().GetAtlas(result.Value.ChoiceData);
-                new PicViewLayer(atlas.Image).Query();
-            }
-        }
-
-        private void QueryRepl(UiKeyInputEventArgs args)
-        {
-            _repl.Query();
-        }
-
         public void RefreshScreen()
         {
             Map.RefreshVisibility();
@@ -139,103 +119,6 @@ namespace OpenNefia.Content.UI.Layer
             {
                 Camera.CenterOnTilePos(player);
             }
-        }
-
-        private void MovePlayer(Direction dir)
-        {
-            var player = _gameSession.Player;
-
-            if (player != null)
-            {
-                var oldPosition = player.Spatial.MapPosition;
-                var newPosition = player.Spatial.MapPosition.Offset(dir.ToIntVec());
-                var ev = new MoveEventArgs(oldPosition, newPosition);
-                player.EntityManager.EventBus.RaiseLocalEvent(player.Uid, ev);
-            }
-        }
-
-        private void RunVerbCommand(Verb verb, IEnumerable<Entity> ents)
-        {
-            var player = _gameSession.Player!;
-
-            var verbSystem = EntitySystem.Get<VerbSystem>();
-
-            foreach (var target in ents)
-            {
-                if (target.Uid != player.Uid)
-                {
-                    var verbs = verbSystem.GetLocalVerbs(player.Uid, target.Uid);
-                    if (verbs.Contains(verb))
-                    {
-                        verbSystem.ExecuteVerb(player.Uid, target.Uid, verb);
-                        break;
-                    }
-                }
-            }
-
-            RefreshScreen();
-        }
-
-        private IEnumerable<Entity> EntitiesUnderneath()
-        {
-            var player = _gameSession.Player!;
-            var lookup = EntitySystem.Get<IEntityLookup>();
-            return lookup.GetLiveEntitiesAtCoords(player.Spatial.MapPosition);
-        }
-
-        private IEnumerable<Entity> EntitiesInInventory()
-        {
-            var player = _gameSession.Player!;
-            var inv = _entityManager.EnsureComponent<InventoryComponent>(player.Uid);
-            return inv.Container.ContainedEntities.Select(uid => _entityManager.GetEntity(uid));
-        }
-
-        private void DrinkItem(UiKeyInputEventArgs args)
-        {
-            RunVerbCommand(new Verb(DrinkableSystem.VerbIDDrink), EntitiesUnderneath());
-        }
-
-        private void ThrowItem(UiKeyInputEventArgs args)
-        {
-            RunVerbCommand(new Verb(ThrowableSystem.VerbIDThrow), EntitiesUnderneath());
-        }
-
-        public void Ascend(UiKeyInputEventArgs args)
-        {
-            RunVerbCommand(new Verb(StairsSystem.VerbIDAscend), EntitiesUnderneath());
-        }
-
-        public void Descend(UiKeyInputEventArgs args)
-        {
-            RunVerbCommand(new Verb(StairsSystem.VerbIDDescend), EntitiesUnderneath());
-        }
-
-        public void Activate(UiKeyInputEventArgs args)
-        {
-            RunVerbCommand(new Verb(StairsSystem.VerbIDActivate), EntitiesUnderneath());
-        }
-
-        private void PickUpItem(UiKeyInputEventArgs args)
-        {
-            RunVerbCommand(new Verb(PickableSystem.VerbIDPickUp), EntitiesUnderneath());
-        }
-
-        private void DropItem(UiKeyInputEventArgs args)
-        {
-            RunVerbCommand(new Verb(PickableSystem.VerbIDDrop), EntitiesInInventory());
-        }
-
-        private void Examine(UiKeyInputEventArgs args)
-        {
-            var context = new InventoryContext(_gameSession.Player!.Uid, new GetInventoryBehavior());
-            var layer = new InventoryLayer(context);
-            layer.Query();
-        }
-
-        public void PromptToQuit(UiKeyInputEventArgs args)
-        {
-            if (_playerQuery.YesOrNo("Quit to title screen?"))
-                Cancel();
         }
 
         private void PlaceTile(UiMousePressedEventArgs evt)
