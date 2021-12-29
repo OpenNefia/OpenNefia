@@ -37,15 +37,15 @@ namespace OpenNefia.Tests.Core.UserInterface
             };
             var control2 = new UiElement
             {
-                MouseFilter = MouseFilterMode.Stop
+                EventFilter = UIEventFilterMode.Stop
             };
             var control3 = new UiElement
             {
-                MouseFilter = MouseFilterMode.Pass
+                EventFilter = UIEventFilterMode.Pass
             };
             var control4 = new UiElement
             {
-                MouseFilter = MouseFilterMode.Ignore
+                EventFilter = UIEventFilterMode.Ignore
             };
 
             control1.SetSize(50, 50);
@@ -65,7 +65,7 @@ namespace OpenNefia.Tests.Core.UserInterface
             control3.AddChild(control4);
             control4.SetPosition(15, 15);
 
-            var mouseEvent = new BoundKeyEventArgs(EngineKeyFunctions.Use, BoundKeyState.Down,
+            var mouseEvent = new BoundKeyEventArgs(EngineKeyFunctions.UISelect, BoundKeyState.Down,
                 new ScreenCoordinates(30, 30), true);
 
             var control2Fired = false;
@@ -122,7 +122,7 @@ namespace OpenNefia.Tests.Core.UserInterface
                 control2Fired = true;
                 ev.Handle();
             };
-            control2.MouseFilter = MouseFilterMode.Pass;
+            control2.EventFilter = UIEventFilterMode.Pass;
 
             _userInterfaceManager.KeyBindDown(mouseEvent);
 
@@ -211,7 +211,7 @@ namespace OpenNefia.Tests.Core.UserInterface
             {
                 CanKeyboardFocus = true,
                 KeyboardFocusOnClick = true,
-                MouseFilter = MouseFilterMode.Stop
+                EventFilter = UIEventFilterMode.Stop
             };
 
             control.SetSize(50, 50);
@@ -238,7 +238,7 @@ namespace OpenNefia.Tests.Core.UserInterface
         {
             var control = new UiElement
             {
-                MouseFilter = MouseFilterMode.Stop
+                EventFilter = UIEventFilterMode.Stop
             };
 
             control.SetSize(50, 50);
@@ -250,7 +250,7 @@ namespace OpenNefia.Tests.Core.UserInterface
 
             var pos = new ScreenCoordinates(30, 30);
 
-            var mouseEvent = new GUIBoundKeyEventArgs(EngineKeyFunctions.Use, BoundKeyState.Down,
+            var mouseEvent = new GUIBoundKeyEventArgs(EngineKeyFunctions.UISelect, BoundKeyState.Down,
                 pos, true, pos.Position - control.GlobalPixelPosition);
 
             _userInterfaceManager.KeyBindDown(mouseEvent);

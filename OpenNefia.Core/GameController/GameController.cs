@@ -145,6 +145,8 @@ namespace OpenNefia.Core.GameController
         {
             _graphics.OnTextEditing += TextEditing;
             _graphics.OnMouseMoved += MouseMoved;
+            _graphics.OnMousePressed += MousePressed;
+            _graphics.OnMouseReleased += MouseReleased;
             _graphics.OnKeyReleased += KeyUp;
             _graphics.OnKeyPressed += KeyDown;
             _graphics.OnMouseWheel += MouseWheel;

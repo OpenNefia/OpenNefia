@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 namespace OpenNefia.Core.UserInterface
 {
     /// <summary>
-    ///     Mode that will be tested when testing controls to invoke mouse button events on.
+    ///     Mode that will be tested when testing controls to invoke mouse button and bound key events on.
     /// </summary>
-    public enum MouseFilterMode : byte
+    public enum UIEventFilterMode : byte
     {
         /// <summary>
-        ///     The control will be able to receive mouse buttons events.
+        ///     The control will be able to receive mouse button and bound key events.
         ///     Furthermore, if a control with this mode does get clicked,
         ///     the event automatically gets marked as handled after every other candidate has been tried,
         ///     so that the rest of the game does not receive it.
@@ -20,7 +20,7 @@ namespace OpenNefia.Core.UserInterface
         Pass = 1,
 
         /// <summary>
-        ///     The control will be able to receive mouse button events like <see cref="Pass" />,
+        ///     The control will be able to receive mouse button/bound key events like <see cref="Pass" />,
         ///     but the event will be stopped and handled even if the relevant events do not handle it.
         /// </summary>
         Stop = 0,

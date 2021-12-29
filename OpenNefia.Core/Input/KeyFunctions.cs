@@ -16,30 +16,20 @@ namespace OpenNefia.Core.Input
         public static readonly BoundKeyFunction MoveDown = "MoveDown";
         public static readonly BoundKeyFunction MoveLeft = "MoveLeft";
         public static readonly BoundKeyFunction MoveRight = "MoveRight";
-        public static readonly BoundKeyFunction Walk = "Walk";
 
-        public static readonly BoundKeyFunction CameraRotateRight = "CameraRotateRight";
-        public static readonly BoundKeyFunction CameraRotateLeft = "CameraRotateLeft";
-
-        public static readonly BoundKeyFunction Use = "Use";
         public static readonly BoundKeyFunction UIClick = "UIClick";
         public static readonly BoundKeyFunction UIRightClick = "UIRightClick";
 
-        public static readonly BoundKeyFunction CloseModals = "CloseModals";
+        public static readonly BoundKeyFunction UIUp = "UIUp";
+        public static readonly BoundKeyFunction UIDown = "UIDown";
+        public static readonly BoundKeyFunction UILeft = "UILeft";
+        public static readonly BoundKeyFunction UIRight = "UIRight";
+        public static readonly BoundKeyFunction UISelect = "UISelect";
+        public static readonly BoundKeyFunction UICancel = "UICancel";
+
         public static readonly BoundKeyFunction ShowDebugConsole = "ShowDebugConsole";
         public static readonly BoundKeyFunction ShowDebugMonitors = "ShowDebugMonitors";
-        public static readonly BoundKeyFunction HideUI = "HideUI";
-        public static readonly BoundKeyFunction EscapeMenu = "ShowEscapeMenu";
-
-        public static readonly BoundKeyFunction EditorLinePlace = "EditorLinePlace";
-        public static readonly BoundKeyFunction EditorGridPlace = "EditorGridPlace";
-        public static readonly BoundKeyFunction EditorPlaceObject = "EditorPlaceObject";
-        public static readonly BoundKeyFunction EditorCancelPlace = "EditorCancelPlace";
-        public static readonly BoundKeyFunction EditorRotateObject = "EditorRotateObject";
-
-        // Buttons to navigate between UI controls.
-        public static readonly BoundKeyFunction GuiTabNavigateNext = "GuiTabNavigateNext";
-        public static readonly BoundKeyFunction GuiTabNavigatePrev = "GuiTabNavigatePrev";
+        public static readonly BoundKeyFunction ShowEscapeMenu = "ShowEscapeMenu";
 
         // Cursor keys in LineEdit and such.
         public static readonly BoundKeyFunction TextCursorLeft = "TextCursorLeft";

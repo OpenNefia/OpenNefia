@@ -26,10 +26,26 @@ namespace OpenNefia.Core.GameController
 
         private void MouseMoved(MouseMoveEventArgs args)
         {
+            _uiManager.MouseMove(args);
+        }
+
+        private void MousePressed(MouseButtonEventArgs args)
+        {
+            var key = Mouse.MouseButtonToKey(args.Button);
+            var ev = new KeyEventArgs(key, false, false, false, false, false, Love.Scancode.Unknow);
+            _inputManager.KeyDown(ev);
+        }
+
+        private void MouseReleased(MouseButtonEventArgs args)
+        {
+            var key = Mouse.MouseButtonToKey(args.Button);
+            var ev = new KeyEventArgs(key, false, false, false, false, false, Love.Scancode.Unknow);
+            _inputManager.KeyUp(ev);
         }
 
         private void MouseWheel(MouseWheelEventArgs args)
         {
+            _uiManager.MouseWheel(args);
         }
     }
 }

@@ -50,9 +50,9 @@ namespace OpenNefia.Core.UI.Element
         public virtual float UIScale => 1;
 
         /// <summary>
-        ///     The mode that controls how mouse filtering works. See the enum for how it functions.
+        ///     The mode that controls how mouse *and* bound key filtering works. See the enum for how it functions.
         /// </summary>
-        public MouseFilterMode MouseFilter { get; set; } = MouseFilterMode.Ignore;
+        public UIEventFilterMode EventFilter { get; set; } = UIEventFilterMode.Ignore;
 
         private bool _canKeyboardFocus;
 

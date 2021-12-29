@@ -12,25 +12,23 @@
         public static void SetupContexts(IInputContextContainer contexts)
         {
             var common = contexts.GetContext(InputContextContainer.DefaultContextName);
-            common.AddFunction(EngineKeyFunctions.Use);
             common.AddFunction(EngineKeyFunctions.UIClick);
             common.AddFunction(EngineKeyFunctions.UIRightClick);
 
-            common.AddFunction(EngineKeyFunctions.CloseModals);
-            common.AddFunction(EngineKeyFunctions.EscapeMenu);
-            common.AddFunction(EngineKeyFunctions.HideUI);
+            common.AddFunction(EngineKeyFunctions.ShowEscapeMenu);
             common.AddFunction(EngineKeyFunctions.ShowDebugConsole);
             common.AddFunction(EngineKeyFunctions.ShowDebugMonitors);
             common.AddFunction(EngineKeyFunctions.MoveUp);
             common.AddFunction(EngineKeyFunctions.MoveDown);
             common.AddFunction(EngineKeyFunctions.MoveLeft);
             common.AddFunction(EngineKeyFunctions.MoveRight);
-            common.AddFunction(EngineKeyFunctions.Walk);
-            common.AddFunction(EngineKeyFunctions.CameraRotateRight);
-            common.AddFunction(EngineKeyFunctions.CameraRotateLeft);
+            common.AddFunction(EngineKeyFunctions.UISelect);
+            common.AddFunction(EngineKeyFunctions.UICancel);
 
-            common.AddFunction(EngineKeyFunctions.GuiTabNavigateNext);
-            common.AddFunction(EngineKeyFunctions.GuiTabNavigatePrev);
+            common.AddFunction(EngineKeyFunctions.UIUp);
+            common.AddFunction(EngineKeyFunctions.UIDown);
+            common.AddFunction(EngineKeyFunctions.UILeft);
+            common.AddFunction(EngineKeyFunctions.UIRight);
 
             common.AddFunction(EngineKeyFunctions.TextCursorLeft);
             common.AddFunction(EngineKeyFunctions.TextCursorRight);
@@ -59,15 +57,6 @@
             common.AddFunction(EngineKeyFunctions.TextScrollToBottom);
             common.AddFunction(EngineKeyFunctions.TextDelete);
             common.AddFunction(EngineKeyFunctions.TextTabComplete);
-
-            var editor = contexts.New("editor", common);
-            editor.AddFunction(EngineKeyFunctions.EditorLinePlace);
-            editor.AddFunction(EngineKeyFunctions.EditorGridPlace);
-            editor.AddFunction(EngineKeyFunctions.EditorPlaceObject);
-            editor.AddFunction(EngineKeyFunctions.EditorCancelPlace);
-            editor.AddFunction(EngineKeyFunctions.EditorRotateObject);
-
-            var human = contexts.New("human", common);
         }
     }
 }
