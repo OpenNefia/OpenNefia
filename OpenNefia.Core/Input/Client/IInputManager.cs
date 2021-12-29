@@ -4,6 +4,7 @@ using System.Diagnostics.CodeAnalysis;
 using OpenNefia.Core.Input;
 using OpenNefia.Core.Input.Binding;
 using OpenNefia.Core.Maps;
+using OpenNefia.Core.Timing;
 using OpenNefia.Core.UI.Element;
 
 namespace OpenNefia.Core.Input
@@ -139,5 +140,7 @@ namespace OpenNefia.Core.Input
         bool IsKeyDown(Keyboard.Key key);
 
         void InputModeChanged();
+
+        void UpdateKeyRepeats(FrameEventArgs frame);
     }
 }

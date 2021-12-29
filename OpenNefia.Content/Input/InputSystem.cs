@@ -2,6 +2,7 @@
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Input;
 using OpenNefia.Core.IoC;
+using OpenNefia.Core.Log;
 using OpenNefia.Core.Maps;
 using OpenNefia.Core.Utility;
 using System;
@@ -69,10 +70,10 @@ namespace OpenNefia.Content.Input
             DebugTools.Assert(funcId == message.InputFunctionId, "Function ID in message does not match function.");
 #endif
 
-            if (_cmdStates.GetState(function) == message.State)
-            {
-                return false;
-            }
+            //if (_cmdStates.GetState(function) == message.State)
+            //{
+            //    return false;
+            //}
             _cmdStates.SetState(function, message.State);
 
             foreach (var handler in _inputManager.BindRegistry.GetHandlers(function))
