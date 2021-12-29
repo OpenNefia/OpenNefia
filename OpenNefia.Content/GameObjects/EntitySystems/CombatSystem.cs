@@ -20,18 +20,7 @@ namespace OpenNefia.Content.GameObjects
         public override void Initialize()
         {
             SubscribeLocalEvent<MoveableComponent, CollideWithEventArgs>(HandleCollideWith, nameof(HandleCollideWith));
-            SubscribeLocalEvent<StatusFearComponent, PhysicalAttackEventArgs>(HandlePhysicalAttackFear, nameof(HandlePhysicalAttackFear), 
-                before: new[] { new SubId(typeof(CombatSystem), nameof(HandlePhysicalAttackMain))});
             SubscribeLocalEvent<SkillsComponent, PhysicalAttackEventArgs>(HandlePhysicalAttackMain, nameof(HandlePhysicalAttackMain));
-        }
-
-        private void HandlePhysicalAttackFear(EntityUid uid, StatusFearComponent component, PhysicalAttackEventArgs args)
-        {
-            if (args.Handled)
-                return;
-
-            Mes.Display(DisplayNameSystem.GetDisplayName(uid) + " runs away in fear.");
-            args.Handled = true;
         }
 
         private void HandlePhysicalAttackMain(EntityUid uid, SkillsComponent component, PhysicalAttackEventArgs args)
