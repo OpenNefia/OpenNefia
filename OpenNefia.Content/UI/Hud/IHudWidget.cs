@@ -2,7 +2,7 @@
 
 namespace OpenNefia.Content.UI.Hud
 {
-    public interface IHudWidget : IUiElement
+    public interface IHudWidget : IDrawable
     {
     }
 }

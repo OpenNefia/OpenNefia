@@ -5,6 +5,7 @@ using OpenNefia.Core.Locale;
 using OpenNefia.Core.Logic;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.UI.Layer;
+using OpenNefia.Core.UserInterface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,13 +18,13 @@ namespace OpenNefia.Content.Inventory
     public class ExamineInventoryBehavior : BaseInventoryBehavior
     {
         [Dependency] private readonly VerbSystem _verbSystem = default!;
-        [Dependency] private readonly IUiLayerManager _uiLayerManager = default!;
+        [Dependency] private readonly IUserInterfaceManager _uiManager = default!;
 
         public override HspIdsInv HspIds { get; } = HspIdsInv.From122(new(id: 1));
 
         public override bool EnableShortcuts => true;
 
-        public override string WindowTitle => Loc.Get("Elona.Inventory.Behavior.Drop.WindowTitle");
+        public override string WindowTitle => Loc.GetString("Elona.Inventory.Behavior.Drop.WindowTitle");
 
         public override IEnumerable<IInventorySource> GetSources(InventoryContext context)
         {
@@ -33,7 +34,7 @@ namespace OpenNefia.Content.Inventory
 
         public override string GetQueryText(InventoryContext context)
         {
-            return Loc.Get("Elona.Inventory.Behavior.Examine.QueryText");
+            return Loc.GetString("Elona.Inventory.Behavior.Examine.QueryText");
         }
 
         public override bool IsAccepted(InventoryContext context, EntityUid item)
@@ -48,7 +49,7 @@ namespace OpenNefia.Content.Inventory
         public override InventoryResult OnSelect(InventoryContext context, EntityUid item, int amount)
         {
             var layer = new ItemDescriptionLayer(item);
-            _uiLayerManager.Query(layer);
+            _uiManager.Query(layer);
 
             return new InventoryResult.Continuing();
         }

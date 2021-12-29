@@ -4,7 +4,7 @@ using OpenNefia.Core.UI.Layer;
 
 namespace OpenNefia.Content.UI.Hud
 {
-    public class HudLayer : BaseUiLayer<UiNoResult>, IHudLayer
+    public class HudLayer : UiLayerWithResult<UiNoResult>, IHudLayer
     {
         public IHudMessageWindow MessageWindow { get; }
         private UiFpsCounter FpsCounter;

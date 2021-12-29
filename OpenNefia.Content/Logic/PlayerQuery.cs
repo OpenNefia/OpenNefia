@@ -1,6 +1,9 @@
 ﻿using OpenNefia.Content.UI.Layer;
+using OpenNefia.Core.IoC;
 using OpenNefia.Core.UI;
 using OpenNefia.Core.UI.Layer;
+using OpenNefia.Core.UserInterface;
+using static OpenNefia.Core.Input.Keyboard;
 
 namespace OpenNefia.Content.Logic
 {
@@ -21,6 +24,8 @@ namespace OpenNefia.Content.Logic
 
     public class PlayerQuery : IPlayerQuery
     {
+        [Dependency] private readonly IUserInterfaceManager _uiManager = default!;
+
         private enum YesNo
         {
             Yes,
@@ -36,15 +41,17 @@ namespace OpenNefia.Content.Logic
         {
             var items = new List<PromptChoice<YesNo>>()
             {
-                new PromptChoice<YesNo>(YesNo.Yes, text: "Yes", key: Keys.Y),
-                new PromptChoice<YesNo>(YesNo.No, text: "No..", key: Keys.N),
+                new PromptChoice<YesNo>(YesNo.Yes, text: "Yes", key: Key.Y),
+                new PromptChoice<YesNo>(YesNo.No, text: "No..", key: Key.N),
             };
             if (opts.Invert)
             {
                 items.Reverse();
             }
 
-            var result = new Prompt<YesNo>(items, new PromptOptions() { QueryText = opts.QueryText, IsCancellable = opts.IsCancellable }).Query();
+            var prompt = new Prompt<YesNo>(items, new PromptOptions() { QueryText = opts.QueryText, IsCancellable = opts.IsCancellable });
+
+            var result = _uiManager.Query(prompt);
 
             if (result.HasValue)
             {

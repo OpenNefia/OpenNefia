@@ -7,9 +7,9 @@ namespace OpenNefia.Core.UI
 {
     public static class UiUtils
     {
-        public static string GetKeyName(Keys keyAndModifiers)
+        public static string GetKeyName(Input.Keyboard.Key key)
         {
-            return Enum.GetName(typeof(Keys), keyAndModifiers)!.ToLowerInvariant();
+            return Enum.GetName(typeof(Input.Keyboard.Key), key)!.ToLowerInvariant();
         }
 
         public static bool IsPointInVisibleScreen(Vector2i screenPos)

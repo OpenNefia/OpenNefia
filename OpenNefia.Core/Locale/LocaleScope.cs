@@ -1,4 +1,6 @@
-﻿namespace OpenNefia.Core.Locale
+﻿using System.Diagnostics.CodeAnalysis;
+
+namespace OpenNefia.Core.Locale
 {
     /// <summary>
     /// <para>
@@ -32,9 +34,14 @@
             KeyPrefix = keyPrefix;
         }
 
-        public string Get(LocaleKey key, params LocaleArg[] args)
+        public string GetString(LocaleKey key, params LocaleArg[] args)
         {
-            return _localizationManager.Get(key.With(key), args);
+            return _localizationManager.GetString(key.With(key), args);
+        }
+
+        public bool TryGetString(LocaleKey key, [NotNullWhen(true)] out string? str, params LocaleArg[] args)
+        {
+            return _localizationManager.TryGetString(key.With(key), out str, args);
         }
     }
 }

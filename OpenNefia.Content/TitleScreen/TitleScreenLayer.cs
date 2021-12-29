@@ -11,7 +11,7 @@ using OpenNefia.Content.UI;
 namespace OpenNefia.Content.TitleScreen
 {
     [Localize("Elona.TitleScreen.Layer")]
-    public class TitleScreenLayer : BaseUiLayer<TitleScreenResult>, ITitleScreenLayer
+    public class TitleScreenLayer : UiLayerWithResult<TitleScreenResult>, ITitleScreenLayer
     {
         public enum TitleScreenChoice
         {
@@ -139,7 +139,7 @@ namespace OpenNefia.Content.TitleScreen
             List = new UiList<TitleScreenChoice>(items);
             List.EventOnActivate += (_, evt) => RunTitleScreenAction(evt.SelectedCell.Data);
 
-            Forwards += List;
+            //Forwards += List;
         }
 
         private void RunTitleScreenAction(TitleScreenChoice selectedChoice)

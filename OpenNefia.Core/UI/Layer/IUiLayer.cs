@@ -3,7 +3,7 @@ using OpenNefia.Core.UI.Element;
 
 namespace OpenNefia.Core.UI.Layer
 {
-    public interface IUiLayer : IUiInputElement, ILocalizable
+    public interface IUiLayer : IDrawable, IUiDefaultSizeable, ILocalizable
     {
         int ZOrder { get; set; }
 

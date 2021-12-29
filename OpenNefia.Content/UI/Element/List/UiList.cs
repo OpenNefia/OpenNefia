@@ -1,18 +1,16 @@
 ﻿using Love;
 using OpenNefia.Core;
 using OpenNefia.Core.Audio;
-using OpenNefia.Core.Data.Types;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.UI;
 using OpenNefia.Core.UI.Element;
 using OpenNefia.Content.Prototypes;
 using System.Collections;
-using MouseButton = OpenNefia.Core.UI.MouseButton;
 using OpenNefia.Core.Utility;
 
 namespace OpenNefia.Content.UI.Element.List
 {
-    public class UiList<T> : BaseInputUiElement, IUiList<T>
+    public class UiList<T> : UiElement, IUiList<T>
     {
         public const int DEFAULT_ITEM_HEIGHT = 19;
 
@@ -119,66 +117,66 @@ namespace OpenNefia.Content.UI.Element.List
 
         protected virtual void BindKeys()
         {
-            for (int i = 0; i < ChoiceKeys.Count; i++)
-            {
-                var choiceKey = ChoiceKeys[i];
-                IKeybind keybind;
-                if (choiceKey.UseKeybind)
-                {
-                    if (CoreKeybinds.SelectionKeys.ContainsKey(choiceKey.Key))
-                    {
-                        keybind = CoreKeybinds.SelectionKeys[choiceKey.Key];
-                    }
-                    else
-                    {
-                        keybind = new RawKey(choiceKey.Key);
-                    }
-                }
-                else
-                {
-                    keybind = new RawKey(choiceKey.Key);
-                }
+            //for (int i = 0; i < ChoiceKeys.Count; i++)
+            //{
+            //    var choiceKey = ChoiceKeys[i];
+            //    IKeybind keybind;
+            //    if (choiceKey.UseKeybind)
+            //    {
+            //        if (CoreKeybinds.SelectionKeys.ContainsKey(choiceKey.Key))
+            //        {
+            //            keybind = CoreKeybinds.SelectionKeys[choiceKey.Key];
+            //        }
+            //        else
+            //        {
+            //            keybind = new RawKey(choiceKey.Key);
+            //        }
+            //    }
+            //    else
+            //    {
+            //        keybind = new RawKey(choiceKey.Key);
+            //    }
 
-                // C# doesn't capture locals in closures like Lua does with upvalues.
-                var indexCopy = i;
-                Keybinds[keybind] += (_) => Activate(indexCopy);
-            }
+            //    // C# doesn't capture locals in closures like Lua does with upvalues.
+            //    var indexCopy = i;
+            //    Keybinds[keybind] += (_) => Activate(indexCopy);
+            //}
 
-            Keybinds[CoreKeybinds.UIUp] += (_) =>
-            {
-                Sounds.Play(Protos.Sound.Cursor1);
-                IncrementIndex(-1);
-            };
-            Keybinds[CoreKeybinds.UIDown] += (_) =>
-            {
-                Sounds.Play(Protos.Sound.Cursor1);
-                IncrementIndex(1);
-            };
-            Keybinds[CoreKeybinds.Enter] += (_) => Activate(SelectedIndex);
+            //Keybinds[CoreKeybinds.UIUp] += (_) =>
+            //{
+            //    Sounds.Play(Protos.Sound.Cursor1);
+            //    IncrementIndex(-1);
+            //};
+            //Keybinds[CoreKeybinds.UIDown] += (_) =>
+            //{
+            //    Sounds.Play(Protos.Sound.Cursor1);
+            //    IncrementIndex(1);
+            //};
+            //Keybinds[CoreKeybinds.Enter] += (_) => Activate(SelectedIndex);
 
-            MouseMoved.Callback += (evt) =>
-            {
-                for (var index = 0; index < Cells.Count; index++)
-                {
-                    if (Cells[index].ContainsPoint(evt.Pos))
-                    {
-                        if (SelectedIndex != index)
-                        {
-                            Sounds.Play(Protos.Sound.Cursor1);
-                            Select(index);
-                        }
-                        break;
-                    }
-                }
-            };
+            //MouseMoved.Callback += (evt) =>
+            //{
+            //    for (var index = 0; index < Cells.Count; index++)
+            //    {
+            //        if (Cells[index].ContainsPoint(evt.Pos))
+            //        {
+            //            if (SelectedIndex != index)
+            //            {
+            //                Sounds.Play(Protos.Sound.Cursor1);
+            //                Select(index);
+            //            }
+            //            break;
+            //        }
+            //    }
+            //};
 
-            this.MouseButtons[MouseButton.Mouse1] += (evt) =>
-            {
-                if (this.SelectedCell != null && this.SelectedCell.ContainsPoint(evt.Pos))
-                {
-                    this.Activate(this.SelectedIndex);
-                }
-            };
+            //this.MouseButtons[MouseButton.Mouse1] += (evt) =>
+            //{
+            //    if (this.SelectedCell != null && this.SelectedCell.ContainsPoint(evt.Pos))
+            //    {
+            //        this.Activate(this.SelectedIndex);
+            //    }
+            //};
         }
 
         #region Data Creation

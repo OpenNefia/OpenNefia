@@ -6,6 +6,7 @@ using OpenNefia.Core.DebugServer;
 using OpenNefia.Core.Game;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Graphics;
+using OpenNefia.Core.Input;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Locale;
 using OpenNefia.Core.Log;
@@ -19,11 +20,12 @@ using OpenNefia.Core.Serialization.Manager;
 using OpenNefia.Core.Timing;
 using OpenNefia.Core.UI;
 using OpenNefia.Core.UI.Layer;
+using OpenNefia.Core.UserInterface;
 using OpenNefia.Core.Utility;
 
 namespace OpenNefia.Core.GameController
 {
-    public sealed class GameController : IGameController
+    public sealed partial class GameController : IGameController
     {
         [Dependency] private readonly IGraphics _graphics = default!;
         [Dependency] private readonly IResourceCacheInternal _resourceCache = default!;
@@ -36,7 +38,7 @@ namespace OpenNefia.Core.GameController
         [Dependency] private readonly ISerializationManager _serialization = default!;
         [Dependency] private readonly IComponentFactory _components = default!;
         [Dependency] private readonly ITileDefinitionManagerInternal _tileDefinitionManager = default!;
-        [Dependency] private readonly IUiLayerManager _uiLayers = default!;
+        [Dependency] private readonly IUserInterfaceManager _uiManager = default!;
         [Dependency] private readonly ILocalizationManager _localizationManager = default!;
         [Dependency] private readonly ITaskManager _taskManager = default!;
         [Dependency] private readonly ITimerManager _timerManager = default!;
@@ -45,6 +47,7 @@ namespace OpenNefia.Core.GameController
         [Dependency] private readonly ISaveGameManager _saveGameManager = default!;
         [Dependency] private readonly IThemeManager _themeManager = default!;
         [Dependency] private readonly IFontManager _fontManager = default!;
+        [Dependency] private readonly IInputManager _inputManager = default!;
 
         public Action? MainCallback { get; set; } = null;
 
@@ -65,6 +68,7 @@ namespace OpenNefia.Core.GameController
 
             _graphics.Initialize();
             ShowSplashScreen();
+            BindWindowEvents();
 
             if (!_modLoader.TryLoadModulesFrom(new ResourcePath("/Assemblies"), string.Empty))
             {
@@ -74,9 +78,11 @@ namespace OpenNefia.Core.GameController
 
             _serialization.Initialize();
 
-            _uiLayers.Initialize();
+            _uiManager.Initialize();
             _modLoader.BroadcastRunLevel(ModRunLevel.PreInit);
             _modLoader.BroadcastRunLevel(ModRunLevel.Init);
+
+            _inputManager.Initialize();
 
             _entityManager.Initialize();
 
@@ -135,13 +141,27 @@ namespace OpenNefia.Core.GameController
             SystemStep();
         }
 
+        private void BindWindowEvents()
+        {
+            _graphics.OnTextEditing += TextEditing;
+            _graphics.OnMouseMoved += MouseMoved;
+            _graphics.OnKeyReleased += KeyUp;
+            _graphics.OnKeyPressed += KeyDown;
+            _graphics.OnMouseWheel += MouseWheel;
+            _graphics.OnQuit += (_) =>
+            {
+                Shutdown();
+                return false;
+            };
+        }
+
         private bool TryDownloadVanillaAssets()
         {
             var downloader = new VanillaAssetsDownloader(_resourceCache);
 
             if (downloader.NeedsDownload())
             {
-                var result = new MinimalProgressBarLayer(downloader).Query();
+                var result = _uiManager.Query(new MinimalProgressBarLayer(downloader));
                 if (!result.HasValue)
                 {
                     Exception? ex = null;
@@ -186,15 +206,13 @@ namespace OpenNefia.Core.GameController
 
             MainCallback?.Invoke();
 
-            Cleanup();
-
-            IoCManager.Clear();
+            Shutdown();
         }
 
-        private void Cleanup()
+        private void Shutdown()
         {
             _entityManager.Shutdown();
-            _uiLayers.Shutdown();
+            _uiManager.Shutdown();
             _graphics.Shutdown();
             _debugServer.Shutdown();
             _themeManager.Shutdown();
@@ -206,7 +224,7 @@ namespace OpenNefia.Core.GameController
         {
             _taskManager.ProcessPendingTasks();
             _timerManager.UpdateTimers(frame);
-            _uiLayers.UpdateLayers(frame);
+            _uiManager.UpdateLayers(frame);
             _taskManager.ProcessPendingTasks();
             _debugServer.CheckForRequests();
         }
@@ -236,7 +254,7 @@ namespace OpenNefia.Core.GameController
         {
             _graphics.BeginDraw();
 
-            _uiLayers.DrawLayers();
+            _uiManager.DrawLayers();
 
             _graphics.EndDraw();
         }
@@ -245,7 +263,7 @@ namespace OpenNefia.Core.GameController
         {
             if (Love.Boot.QuitFlag)
             {
-                Cleanup();
+                Shutdown();
             }
 
             Love.Boot.SystemStep((Love.Scene)_graphics);

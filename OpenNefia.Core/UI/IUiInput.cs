@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace OpenNefia.Core.UI
 {
-    public interface IUiInput : IInputHandler
+    public interface IUiInput
     {
         List<UiKeyHint> MakeKeyHints();
     }

@@ -12,12 +12,15 @@ using OpenNefia.Core.Random;
 using OpenNefia.Core.Log;
 using OpenNefia.Core.Reflection;
 using OpenNefia.Core.Graphics;
+using System.Diagnostics.CodeAnalysis;
+using OpenNefia.Core.UserInterface;
 
 namespace OpenNefia.Core.Locale
 {
     public interface ILocalizationFetcher
     {
-        string Get(LocaleKey key, params LocaleArg[] args);
+        bool TryGetString(LocaleKey key, [NotNullWhen(true)] out string? str, params LocaleArg[] args);
+        string GetString(LocaleKey key, params LocaleArg[] args);
     }
 
     public interface ILocalizationManager : ILocalizationFetcher
@@ -68,7 +71,7 @@ namespace OpenNefia.Core.Locale
 
     public sealed partial class LocalizationManager : ILocalizationManager
     {
-        [Dependency] private readonly IUiLayerManager _uiLayers = default!;
+        [Dependency] private readonly IUserInterfaceManager _uiManager = default!;
         [Dependency] private readonly IResourceManager _resourceManager = default!;
         [Dependency] private readonly IReflectionManager _reflectionManager = default!;
         [Dependency] private readonly IGraphics _graphics = default!;
@@ -98,17 +101,19 @@ namespace OpenNefia.Core.Locale
             _env.LoadAll(language, LocalePath);
             _env.Resync();
 
-            foreach (var layer in _uiLayers.ActiveLayers)
+            foreach (var layer in _uiManager.ActiveLayers)
             {
                 layer.Localize(layer.GetType()!.FullName!);
             }
         }
 
-        public string Get(LocaleKey key, params LocaleArg[] args)
+        public bool TryGetString(LocaleKey key, [NotNullWhen(true)] out string? str, params LocaleArg[] args)
         {
-            if (_env._StringStore.TryGetValue(key, out var str))
+            str = null;
+
+            if (_env._StringStore.TryGetValue(key, out str))
             {
-                return str;
+                return true;
             }
 
             if (_env._FunctionStore.TryGetValue(key, out var func))
@@ -119,29 +124,36 @@ namespace OpenNefia.Core.Locale
                 for (int i = 0; i < args.Length; i++)
                     rented[i] = args[i].Value;
 
-                string resultStr;
-
                 try
                 {
                     var result = func.Call(rented)[0];
-                    resultStr = $"{result}";
+                    str = $"{result}";
                 }
                 catch (Exception ex)
                 {
                     Logger.ErrorS("loc", ex, $"Error in locale function: {ex}");
-                    resultStr = $"<exception: {ex.Message} ({key})>";
+                    str = $"<exception: {ex.Message} ({key})>";
                 }
 
                 shared.Return(rented);
 
-                return resultStr;
+                return true;
             }
 
             if (_env._ListStore.TryGetValue(key, out var list))
             {
                 // This is meant to emulate the `txt` function in the HSP source.
-                return _random.Pick(list);
+                str = _random.Pick(list);
+                return true;
             }
+
+            return false;
+        }
+
+        public string GetString(LocaleKey key, params LocaleArg[] args)
+        {
+            if (TryGetString(key, out var str))
+                return str;
 
             return $"<Missing key: {key}>";
         }

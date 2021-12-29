@@ -15,7 +15,7 @@ namespace OpenNefia.Content.UI.Layer
         Failed
     }
 
-    public class ProgressBarLayer : BaseUiLayer<UiNoResult>
+    public class ProgressBarLayer : UiLayerWithResult<UiNoResult>
     {
         public IProgressableJob Job { get; }
         private IEnumerator<ProgressStep> Steps;

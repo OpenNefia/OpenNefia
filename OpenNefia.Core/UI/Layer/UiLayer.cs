@@ -9,20 +9,21 @@ using OpenNefia.Core.IoC;
 using OpenNefia.Core.Locale;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.UI.Element;
+using OpenNefia.Core.UserInterface;
 
 namespace OpenNefia.Core.UI.Layer
 {
-    public abstract class BaseUiLayer<T> : BaseInputUiElement, IUiLayerWithResult<T> where T : class
+    public abstract class UiLayer : UiElement, IUiLayer
     {
         public virtual int? DefaultZOrder => null;
         public int ZOrder { get; set; }
 
-        public bool WasFinished { get => Result != null; }
-        public bool WasCancelled { get; private set; }
-        public T? Result { get; private set; }
-        public Exception? Exception { get; private set; }
+        public override UiLayer? Root { get => this; internal set => throw new InvalidOperationException(); }
 
-        private LocaleScope LocaleScope = default!;
+        public virtual void GetPreferredBounds(out UIBox2i bounds)
+        {
+            bounds = UIBox2i.FromDimensions(0, 0, Love.Graphics.GetWidth(), Love.Graphics.GetHeight());
+        }
 
         public override sealed void GetPreferredSize(out Vector2i size)
         {
@@ -30,20 +31,33 @@ namespace OpenNefia.Core.UI.Layer
             size = bounds.Size;
         }
 
-        public virtual void GetPreferredBounds(out UIBox2i bounds)
-        {
-            bounds = UIBox2i.FromDimensions(0, 0, Love.Graphics.GetWidth(), Love.Graphics.GetHeight());
-        }
-
         public bool IsInActiveLayerList()
         {
-            return IoCManager.Resolve<IUiLayerManager>().IsInActiveLayerList(this);
+            return IoCManager.Resolve<IUserInterfaceManager>().IsInActiveLayerList(this);
         }
 
         public bool IsQuerying()
         {
-            return IoCManager.Resolve<IUiLayerManager>().IsQuerying(this);
+            return IoCManager.Resolve<IUserInterfaceManager>().IsQuerying(this);
         }
+
+        public virtual void OnQuery()
+        {
+        }
+
+        public virtual void OnQueryFinish()
+        {
+        }
+    }
+
+    public abstract class UiLayerWithResult<T> : UiLayer, IUiLayerWithResult<T> where T : class
+    {
+        public bool WasFinished { get => Result != null; }
+        public bool WasCancelled { get; private set; }
+        public T? Result { get; private set; }
+        public Exception? Exception { get; private set; }
+
+        private LocaleScope LocaleScope = default!;
 
         public virtual void Cancel()
         {
@@ -76,15 +90,6 @@ namespace OpenNefia.Core.UI.Layer
                 return new UiResult<T>.Error(Exception);
 
             return null;
-        }
-
-        public virtual void OnQuery()
-        {
-        }
-
-        public virtual void OnQueryFinish()
-        {
-
         }
 
         public override void Localize(LocaleKey key)

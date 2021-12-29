@@ -8,7 +8,7 @@ using Color = OpenNefia.Core.Maths.Color;
 
 namespace OpenNefia.Content.UI.Element.List
 {
-    public class UiListCell<T> : BaseUiElement, IUiListCell<T>
+    public class UiListCell<T> : UiElement, IUiListCell<T>
     {
         public T Data { get; set; }
 
@@ -20,7 +20,7 @@ namespace OpenNefia.Content.UI.Element.List
             {
                 _Key = value;
                 var keyName = string.Empty;
-                if (Key != null && Key.Key != Keys.None)
+                if (Key != null && Key.Key != Core.Input.Keyboard.Key.Unknown)
                 {
                     keyName = UiUtils.GetKeyName(Key.Key);
                 }

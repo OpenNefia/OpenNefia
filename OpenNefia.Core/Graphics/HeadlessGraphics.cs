@@ -1,4 +1,5 @@
 ﻿using Love;
+using OpenNefia.Core.Input;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.ResourceManagement;
@@ -10,14 +11,16 @@ namespace OpenNefia.Core.Graphics
     public class HeadlessGraphics : Love.Scene, IGraphics
     {
         public event Action<WindowResizedEventArgs>? OnWindowResized;
-        public event Action<WindowFocusedEventArgs>? OnWindowFocused;
-        public new event Action<KeyPressedEventArgs>? OnKeyPressed;
-        public new event Action<KeyPressedEventArgs>? OnKeyReleased;
+        public new event Action<WindowFocusedEventArgs>? OnWindowFocused;
+        public new event Action<KeyEventArgs>? OnKeyPressed;
+        public new event Action<KeyEventArgs>? OnKeyReleased;
         public new event Action<TextEditingEventArgs>? OnTextEditing;
-        public new event Action<TextInputEventArgs>? OnTextInput;
-        public new event Action<MouseMovedEventArgs>? OnMouseMoved;
-        public new event Action<MousePressedEventArgs>? OnMousePressed;
-        public new event Action<MousePressedEventArgs>? OnMouseReleased;
+        public new event Action<TextEventArgs>? OnTextInput;
+        public new event Action<MouseMoveEventArgs>? OnMouseMoved;
+        public new event Action<MouseButtonEventArgs>? OnMousePressed;
+        public new event Action<MouseButtonEventArgs>? OnMouseReleased;
+        public new event Action<MouseWheelEventArgs>? OnMouseWheel;
+        public new event Func<QuitEventArgs, bool>? OnQuit;
 
         public void Initialize()
         {

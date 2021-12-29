@@ -19,7 +19,7 @@ namespace OpenNefia.Content.Inventory
 
         public override HspIdsInv HspIds { get; } = HspIdsInv.From122(new(id: 2));
 
-        public override string WindowTitle => Loc.Get("Elona.Inventory.Behavior.Drop.WindowTitle");
+        public override string WindowTitle => Loc.GetString("Elona.Inventory.Behavior.Drop.WindowTitle");
 
         public override IEnumerable<IInventorySource> GetSources(InventoryContext context)
         {
@@ -28,7 +28,7 @@ namespace OpenNefia.Content.Inventory
 
         public override string GetQueryText(InventoryContext context)
         {
-            return Loc.Get("Elona.Inventory.Behavior.Drop.QueryText");
+            return Loc.GetString("Elona.Inventory.Behavior.Drop.QueryText");
         }
 
         public override bool IsAccepted(InventoryContext context, EntityUid item)

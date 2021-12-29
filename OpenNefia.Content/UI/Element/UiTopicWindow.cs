@@ -50,17 +50,17 @@ namespace OpenNefia.Content.UI.Element
             {
                 case FrameStyleKind.Zero:
                 default:
-                    return Assets.GetSized(AssetPrototypeOf.TopicWindow0, this.Size);
+                    return Assets.GetSized(AssetPrototypeOf.TopicWindow0, this.PixelSize);
                 case FrameStyleKind.One:
-                    return Assets.GetSized(AssetPrototypeOf.TopicWindow1, this.Size);
+                    return Assets.GetSized(AssetPrototypeOf.TopicWindow1, this.PixelSize);
                 case FrameStyleKind.Two:
-                    return Assets.GetSized(AssetPrototypeOf.TopicWindow2, this.Size);
+                    return Assets.GetSized(AssetPrototypeOf.TopicWindow2, this.PixelSize);
                 case FrameStyleKind.Three:
-                    return Assets.GetSized(AssetPrototypeOf.TopicWindow3, this.Size);
+                    return Assets.GetSized(AssetPrototypeOf.TopicWindow3, this.PixelSize);
                 case FrameStyleKind.Four:
-                    return Assets.GetSized(AssetPrototypeOf.TopicWindow4, this.Size);
+                    return Assets.GetSized(AssetPrototypeOf.TopicWindow4, this.PixelSize);
                 case FrameStyleKind.Five:
-                    return Assets.GetSized(AssetPrototypeOf.TopicWindow5, this.Size);
+                    return Assets.GetSized(AssetPrototypeOf.TopicWindow5, this.PixelSize);
             }
         }
 

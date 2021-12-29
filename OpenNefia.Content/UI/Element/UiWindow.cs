@@ -7,7 +7,7 @@ using Color = OpenNefia.Core.Maths.Color;
 
 namespace OpenNefia.Content.UI.Element
 {
-    public class UiWindow : BaseUiElement
+    public class UiWindow : UiElement
     {
         public bool HasShadow { get; }
         public List<UiKeyHint> KeyHints { get; }

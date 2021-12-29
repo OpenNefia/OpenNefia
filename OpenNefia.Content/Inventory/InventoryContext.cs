@@ -4,6 +4,7 @@ using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.UI;
 using OpenNefia.Core.UI.Layer;
+using OpenNefia.Core.UserInterface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,7 +22,7 @@ namespace OpenNefia.Content.Inventory
     public sealed class InventoryContext
     {
         [Dependency] private readonly IEntityManager _entityManager = default!;
-        [Dependency] private readonly IUiLayerManager _uiLayerManager = default!;
+        [Dependency] private readonly IUserInterfaceManager _uiManager = default!;
 
         public EntityUid User { get; }
         public IInventoryBehavior Behavior { get; internal set; }
@@ -83,7 +84,7 @@ namespace OpenNefia.Content.Inventory
                 {
                     Mes.Display($"How many? ({1} ~ {stack.Count})");
 
-                    var result = _uiLayerManager.Query(new NumberPrompt(stack.Count, 1, isCancellable: true));
+                    var result = _uiManager.Query(new NumberPrompt(stack.Count, 1, isCancellable: true));
                     if (!result.HasValue)
                     {
                         return new InventoryResult.Continuing();

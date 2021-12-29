@@ -1,5 +1,4 @@
-﻿using OpenNefia.Core.Data.Types;
-using OpenNefia.Core.Log;
+﻿using OpenNefia.Core.Log;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Core.UI;
@@ -16,7 +15,7 @@ namespace OpenNefia.Core.UI.Layer
     /// <summary>
     /// This progress bar can be shown before defs are loaded.
     /// </summary>
-    public class MinimalProgressBarLayer : BaseUiLayer<UiNoResult>
+    public class MinimalProgressBarLayer : UiLayerWithResult<UiNoResult>
     {
         public IProgressableJob Job { get; }
         private IEnumerator<ProgressStep> Steps;
