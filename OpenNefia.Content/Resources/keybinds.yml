@@ -3,40 +3,64 @@ binds:
 - function: North
   type: State
   key: Up
+  canRepeat: true
+  repeatMode: None
 - function: South
   type: State
   key: Down
+  canRepeat: true
+  repeatMode: None
 - function: West
   type: State
   key: Left
+  canRepeat: true
+  repeatMode: None
 - function: East
   type: State
   key: Right
+  canRepeat: true
+  repeatMode: None
 
 - function: North
   type: State
   key: Numpad8
+  canRepeat: true
+  repeatMode: None
 - function: South
   type: State
   key: Numpad2
+  canRepeat: true
+  repeatMode: None
 - function: West
   type: State
   key: Numpad4
+  canRepeat: true
+  repeatMode: None
 - function: East
   type: State
   key: Numpad6
+  canRepeat: true
+  repeatMode: None
 - function: Northwest
   type: State
   key: Numpad7
+  canRepeat: true
+  repeatMode: None
 - function: Southwest
   type: State
   key: Numpad1
+  canRepeat: true
+  repeatMode: None
 - function: Northeast
   type: State
   key: Numpad9
+  canRepeat: true
+  repeatMode: None
 - function: Southeast
   type: State
   key: Numpad3
+  canRepeat: true
+  repeatMode: None
 
 - function: Elona.Ascend
   type: State
@@ -64,18 +88,26 @@ binds:
   type: State
   key: Up
   canFocus: true
+  canRepeat: true
+  repeatMode: UserInterface
 - function: UIDown
   type: State
   key: Down
   canFocus: true
+  canRepeat: true
+  repeatMode: UserInterface
 - function: UILeft
   type: State
   key: Left
   canFocus: true
+  canRepeat: true
+  repeatMode: UserInterface
 - function: UIRight
   type: State
   key: Right
   canFocus: true
+  canRepeat: true
+  repeatMode: UserInterface
 - function: UISelect
   type: State
   key: Enter

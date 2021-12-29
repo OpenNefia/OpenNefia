@@ -22,6 +22,7 @@ using OpenNefia.Core.Serialization.Manager;
 using OpenNefia.Core.Serialization.Markdown;
 using OpenNefia.Core.Serialization.Markdown.Mapping;
 using OpenNefia.Core.Serialization.Markdown.Value;
+using OpenNefia.Core.Timing;
 using OpenNefia.Core.UI.Element;
 using OpenNefia.Core.UserInterface;
 using OpenNefia.Core.Utility;
@@ -31,7 +32,7 @@ using static OpenNefia.Core.Input.Keyboard;
 
 namespace OpenNefia.Core.Input
 {
-    public class InputManager : IInputManager
+    public partial class InputManager : IInputManager
     {
         // This is for both userdata and resources.
         private const string KeybindsPath = "/keybinds.yml";
@@ -379,6 +380,15 @@ namespace OpenNefia.Core.Input
                 // And this stops context switches from causing crashes
                 Contexts.DeferringEnabled = true;
 
+                if (state == BoundKeyState.Down)
+                {
+                    binding.KeyRepeat?.OnPress();
+                }
+                else if (state == BoundKeyState.Up)
+                {
+                    binding.KeyRepeat?.OnRelease();
+                }
+
                 binding.State = state;
 
                 var eventArgs = new BoundKeyEventArgs(binding.Function, binding.State,
@@ -561,7 +571,7 @@ namespace OpenNefia.Core.Input
         public IKeyBinding RegisterBinding(in KeyBindingRegistration reg, bool markModified = true)
         {
             var binding = new KeyBinding(this, reg.Function.FunctionName, reg.Type, reg.BaseKey, reg.CanFocus, reg.CanRepeat,
-                reg.AllowSubCombs, reg.Priority, reg.Mod1, reg.Mod2, reg.Mod3);
+                reg.AllowSubCombs, reg.Priority, reg.Mod1, reg.Mod2, reg.Mod3, reg.RepeatMode);
 
             RegisterBinding(binding, markModified);
 
@@ -696,6 +706,29 @@ namespace OpenNefia.Core.Input
             }
         }
 
+        /// <inheritdoc/>
+        public void UpdateKeyRepeats(FrameEventArgs frame)
+        {
+            foreach (var binding in _bindings)
+            {
+                if (binding.State == BoundKeyState.Down)
+                {
+                    if (binding.KeyRepeat != null)
+                    {
+                        var repeat = binding.KeyRepeat;
+
+                        var isShiftPressed = _keysPressed[(int)Key.Shift] == true;
+                        repeat.Update(frame, isShiftPressed);
+
+                        if (repeat.IsPressed)
+                        {
+                            DownBind(binding, false, true);
+                        }
+                    }
+                }
+            }
+        }
+
         [DebuggerDisplay("KeyBinding {" + nameof(Function) + "}")]
         private class KeyBinding : IKeyBinding
         {
@@ -706,6 +739,8 @@ namespace OpenNefia.Core.Input
             public BoundKeyFunction Function { get; }
             public string FunctionCommand => Function.FunctionName;
             public KeyBindingType BindingType { get; }
+            public KeyRepeatMode DelayMode { get; }
+            public KeyRepeatDelay? KeyRepeat { get; } 
 
             public Key BaseKey => PackedKeyCombo.BaseKey;
             public Key Mod1 => PackedKeyCombo.Mod1;
@@ -736,7 +771,8 @@ namespace OpenNefia.Core.Input
                 Key baseKey,
                 bool canFocus, bool canRepeat, bool allowSubCombs, int priority, Key mod1 = Key.Unknown,
                 Key mod2 = Key.Unknown,
-                Key mod3 = Key.Unknown)
+                Key mod3 = Key.Unknown,
+                KeyRepeatMode? keyRepeatMode = null)
             {
                 Function = function;
                 BindingType = bindingType;
@@ -745,6 +781,11 @@ namespace OpenNefia.Core.Input
                 AllowSubCombs = allowSubCombs;
                 Priority = priority;
                 _inputManager = inputManager;
+
+                if (keyRepeatMode != null)
+                {
+                    KeyRepeat = new KeyRepeatDelay(keyRepeatMode.Value);
+                }
 
                 PackedKeyCombo = new PackedKeyCombo(baseKey, mod1, mod2, mod3);
             }
@@ -810,6 +851,118 @@ namespace OpenNefia.Core.Input
 
             public static IComparer<KeyBinding> ProcessPriorityComparer { get; } =
                 new ProcessPriorityRelationalComparer();
+        }
+
+        /// <summary>
+        /// Handles software-generated key repeats. This is used to emulate the idiosyncratic 
+        /// key repeat behavior of vanilla Elona.
+        /// </summary>
+        private class KeyRepeatDelay
+        {
+            public bool IsActive = false;
+            public int WaitRemain = 0;
+            public float Delay = 0.0f;
+            public bool IsPressed = false;
+            public bool IsRepeating = false;
+            public bool IsFast = false;
+            public bool FirstPress = true;
+            public readonly KeyRepeatMode Mode;
+
+            public KeyRepeatDelay(KeyRepeatMode mode)
+            {
+                Mode = mode;
+            }
+
+            public void OnRelease()
+            {
+                this.IsActive = false;
+                this.WaitRemain = 0;
+                this.Delay = 0.0f;
+                this.IsPressed = false;
+                this.IsRepeating = false;
+                this.IsFast = false;
+                this.FirstPress = true;
+            }
+
+            public bool OnPress()
+            {
+                if (FirstPress)
+                {
+                    FirstPress = false;
+
+                    if (Mode == KeyRepeatMode.Movement)
+                    {
+                        WaitRemain = 0;
+                        Delay = 0.4f;
+                    }
+                    else if (Mode == KeyRepeatMode.UserInterface)
+                    {
+                        WaitRemain = 3;
+                        Delay = 2f;
+                    }
+                    else
+                    {
+                        WaitRemain = 0;
+                        Delay = 0.6f;
+                    }
+                }
+
+                WaitRemain--;
+                if (WaitRemain <= 0)
+                {
+                    if (Mode == KeyRepeatMode.Movement)
+                    {
+                        Delay = 0.1f;
+                    }
+                    else if (Mode == KeyRepeatMode.UserInterface)
+                    {
+                        Delay = 0.02f;
+                    }
+                    if (IsFast)
+                    {
+                        IsRepeating = true;
+                    }
+                    IsFast = true;
+                }
+                else if (IsFast)
+                {
+                    // TODO
+                    if (Mode == KeyRepeatMode.Movement)
+                    {
+                        Delay = 0.1f;
+                    }
+                    else if (Mode == KeyRepeatMode.UserInterface)
+                    {
+                        Delay = 0.02f;
+                    }
+                    else
+                    {
+                        Delay = 0.1f;
+                    }
+                }
+                else
+                {
+                    Delay = 0.2f;
+                }
+                IsPressed = false;
+
+                return IsRepeating;
+            }
+
+            public void Update(FrameEventArgs frame, bool isShiftPressed)
+            {
+                Logger.Info($"WAIT {Delay}");
+                Delay -= frame.DeltaSeconds;
+                if (Delay <= 0.0f)
+                {
+                    IsPressed = true;
+                }
+
+                if (Mode != KeyRepeatMode.None && isShiftPressed)
+                {
+                    Delay = 0.01f;
+                }
+            }
         }
 
         [StructLayout(LayoutKind.Explicit)]

@@ -56,6 +56,8 @@ namespace OpenNefia.Content.GameObjects
                     return false;
                 }
 
+                // TODO: Generate "key repeats" here.
+
                 if (full.State == BoundKeyState.Down)
                 {
                     Get<MovementCommandSystem>().HandleMove(session, _dir);

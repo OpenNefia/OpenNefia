@@ -26,5 +26,7 @@ namespace OpenNefia.Core.Input
         public bool CanRepeat;
         [DataField("allowSubCombs")]
         public bool AllowSubCombs;
+        [DataField("repeatMode")]
+        public KeyRepeatMode? RepeatMode;
     }
 }
