@@ -104,6 +104,13 @@ namespace OpenNefia.Content.UI.Element.List
             {
                 Activate(SelectedIndex);
             }
+            else if (args.Function == EngineKeyFunctions.UIClick)
+            {
+                if (UserInterfaceManager.CurrentlyHovered == SelectedCell)
+                {
+                    Activate(SelectedIndex);
+                }
+            }
             else if (args.Function == EngineKeyFunctions.UIUp)
             {
                 Sounds.Play(Protos.Sound.Cursor1);
