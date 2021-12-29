@@ -34,7 +34,7 @@ namespace OpenNefia.Core.Locale
 
             if (field.FieldType == typeof(string))
             {
-                field.SetValue(o, Get(nextKey));
+                field.SetValue(o, GetString(nextKey));
             }
             else if (field.FieldType.IsGenericType)
             {

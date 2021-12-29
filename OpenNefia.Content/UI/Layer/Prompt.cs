@@ -6,17 +6,18 @@ using OpenNefia.Core.Maths;
 using OpenNefia.Core.UI;
 using OpenNefia.Core.UI.Layer;
 using OpenNefia.Content.Prototypes;
+using OpenNefia.Core.Input;
 
 namespace OpenNefia.Content.UI.Layer
 {
     public class PromptChoice<T> : IUiListItem
     {
         public T ChoiceData;
-        public string? ChoiceText = null;
-        public uint? ChoiceIndex = null;
-        public Keys Key = Keys.None;
+        public string? ChoiceText;
+        public uint? ChoiceIndex;
+        public Keyboard.Key Key;
 
-        public PromptChoice(T result, string? text = null, Keys key = Keys.None)
+        public PromptChoice(T result, string? text = null, Keyboard.Key key = Keyboard.Key.Unknown)
         {
             ChoiceData = result;
             ChoiceText = text;
@@ -33,7 +34,7 @@ namespace OpenNefia.Content.UI.Layer
 
         public UiListChoiceKey? GetChoiceKey(int index)
         {
-            if (Key != Keys.None)
+            if (Key != Keyboard.Key.Unknown)
                 return new UiListChoiceKey(Key, useKeybind: false);
 
             return UiListChoiceKey.MakeDefault(index);
@@ -47,7 +48,7 @@ namespace OpenNefia.Content.UI.Layer
         public string? QueryText = null;
     }
 
-    public class Prompt<T> : BaseUiLayer<PromptChoice<T>>
+    public class Prompt<T> : UiLayerWithResult<PromptChoice<T>>
     {
         private PromptOptions Options;
 
@@ -84,16 +85,16 @@ namespace OpenNefia.Content.UI.Layer
 
         protected virtual void BindKeys()
         {
-            Action<UiKeyInputEventArgs> cancel = (_) =>
-            {
-                if (Options.IsCancellable)
-                    Cancel();
-            };
+            //Action<UiKeyInputEventArgs> cancel = (_) =>
+            //{
+            //    if (Options.IsCancellable)
+            //        Cancel();
+            //};
 
-            Keybinds[CoreKeybinds.Cancel] += cancel;
-            Keybinds[CoreKeybinds.Escape] += cancel;
+            //Keybinds[CoreKeybinds.Cancel] += cancel;
+            //Keybinds[CoreKeybinds.Escape] += cancel;
 
-            Forwards += List;
+            //Forwards += List;
 
             List.EventOnActivate += (o, e) =>
             {

@@ -1,5 +1,4 @@
-﻿using OpenNefia.Core.Data.Types;
-using OpenNefia.Core.Effects;
+﻿using OpenNefia.Core.Effects;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Maps;

@@ -1,6 +1,5 @@
 ﻿using Love;
 using OpenNefia.Content.GameObjects;
-using OpenNefia.Content.Logic;
 using OpenNefia.Content.UI.Element;
 using OpenNefia.Core.Game;
 using OpenNefia.Core.GameObjects;
@@ -9,14 +8,14 @@ using OpenNefia.Core.Maps;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Core.UI;
+using OpenNefia.Core.UI.Element;
 using OpenNefia.Core.UI.Layer;
 using OpenNefia.Core.Utility;
 using Color = OpenNefia.Core.Maths.Color;
-using MouseButton = OpenNefia.Core.UI.MouseButton;
 
 namespace OpenNefia.Content.UI.Layer
 {
-    public class PositionPrompt : BaseUiLayer<PositionPrompt.Result>
+    public class PositionPrompt : UiLayerWithResult<PositionPrompt.Result>
     {
         [Dependency] private readonly IFieldLayer _field = default!;
         [Dependency] private readonly IMapManager _mapManager = default!;
@@ -73,34 +72,34 @@ namespace OpenNefia.Content.UI.Layer
 
         protected virtual void BindKeys()
         {
-            Keybinds[CoreKeybinds.Enter] += (_) => Finish(new Result(_targetPos, _canSee));
-            Keybinds[CoreKeybinds.North] += (_) => MoveTargetPos(0, -1);
-            Keybinds[CoreKeybinds.South] += (_) => MoveTargetPos(0, 1);
-            Keybinds[CoreKeybinds.West] += (_) => MoveTargetPos(-1, 0);
-            Keybinds[CoreKeybinds.East] += (_) => MoveTargetPos(1, 0);
-            Keybinds[CoreKeybinds.Northwest] += (_) => MoveTargetPos(-1, -1);
-            Keybinds[CoreKeybinds.Southwest] += (_) => MoveTargetPos(-1, 1);
-            Keybinds[CoreKeybinds.Northeast] += (_) => MoveTargetPos(1, -1);
-            Keybinds[CoreKeybinds.Southeast] += (_) => MoveTargetPos(1, 1);
-            Keybinds[CoreKeybinds.Escape] += (_) => Cancel();
-            Keybinds[CoreKeybinds.Cancel] += (_) => Cancel();
-            Keybinds[CoreKeybinds.NextPage] += (_) => NextTarget();
-            Keybinds[CoreKeybinds.PreviousPage] += (_) => PreviousTarget();
+            //Keybinds[CoreKeybinds.Enter] += (_) => Finish(new Result(_targetPos, _canSee));
+            //Keybinds[CoreKeybinds.North] += (_) => MoveTargetPos(0, -1);
+            //Keybinds[CoreKeybinds.South] += (_) => MoveTargetPos(0, 1);
+            //Keybinds[CoreKeybinds.West] += (_) => MoveTargetPos(-1, 0);
+            //Keybinds[CoreKeybinds.East] += (_) => MoveTargetPos(1, 0);
+            //Keybinds[CoreKeybinds.Northwest] += (_) => MoveTargetPos(-1, -1);
+            //Keybinds[CoreKeybinds.Southwest] += (_) => MoveTargetPos(-1, 1);
+            //Keybinds[CoreKeybinds.Northeast] += (_) => MoveTargetPos(1, -1);
+            //Keybinds[CoreKeybinds.Southeast] += (_) => MoveTargetPos(1, 1);
+            //Keybinds[CoreKeybinds.Escape] += (_) => Cancel();
+            //Keybinds[CoreKeybinds.Cancel] += (_) => Cancel();
+            //Keybinds[CoreKeybinds.NextPage] += (_) => NextTarget();
+            //Keybinds[CoreKeybinds.PreviousPage] += (_) => PreviousTarget();
 
-            MouseMoved.Callback += (evt) =>
-            {
-                if (_isPanning)
-                    PanWithMouse(evt);
-                else
-                    MouseToTargetPos(evt.Pos);
-            };
-            MouseButtons[MouseButton.Mouse1] += (evt) => this.Finish(new Result(this._targetPos, this._canSee));
-            MouseButtons[MouseButton.Mouse2].Bind((evt) => _isPanning = evt.State == KeyPressState.Pressed, trackReleased: true);
+            //MouseMoved.Callback += (evt) =>
+            //{
+            //    if (_isPanning)
+            //        PanWithMouse(evt);
+            //    else
+            //        MouseToTargetPos(evt.Pos);
+            //};
+            //MouseButtons[MouseButton.Mouse1] += (evt) => this.Finish(new Result(this._targetPos, this._canSee));
+            //MouseButtons[MouseButton.Mouse2].Bind((evt) => _isPanning = evt.State == KeyPressState.Pressed, trackReleased: true);
         }
 
-        private void PanWithMouse(UiMouseMovedEventArgs evt)
+        private void PanWithMouse(GUIMouseMoveEventArgs evt)
         {
-            _field.Camera.Pan(evt.DPos);
+            _field.Camera.Pan(evt.Relative);
         }
 
         private void MouseToTargetPos(Vector2i screenPos)

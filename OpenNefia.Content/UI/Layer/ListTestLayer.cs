@@ -9,7 +9,7 @@ using OpenNefia.Content.Prototypes;
 
 namespace OpenNefia.Content.UI.Layer
 {
-    internal class ListTestLayer : BaseUiLayer<string>
+    internal class ListTestLayer : UiLayerWithResult<string>
     {
         [Localize]
         public UiWindow Window { get; }
@@ -29,55 +29,55 @@ namespace OpenNefia.Content.UI.Layer
 
             SelectList(List1);
 
-            Keybinds[CoreKeybinds.Escape] += (_) => Cancel();
-            Keybinds[CoreKeybinds.Cancel] += (_) => Cancel();
-            Keybinds[CoreKeybinds.UILeft] += (_) => NextList(-1);
-            Keybinds[CoreKeybinds.UIRight] += (_) => NextList(1);
+            //Keybinds[CoreKeybinds.Escape] += (_) => Cancel();
+            //Keybinds[CoreKeybinds.Cancel] += (_) => Cancel();
+            //Keybinds[CoreKeybinds.UILeft] += (_) => NextList(-1);
+            //Keybinds[CoreKeybinds.UIRight] += (_) => NextList(1);
 
-            UiListEventHandler<string> printIt = (_, evt) =>
-            {
-                Sounds.Play(Protos.Sound.Ok1);
-                Console.WriteLine($"Get item: {evt.SelectedCell.Data}");
-            };
-            List1.EventOnActivate += printIt;
-            List2.EventOnActivate += printIt;
-            List3.EventOnActivate += printIt;
+            //UiListEventHandler<string> printIt = (_, evt) =>
+            //{
+            //    Sounds.Play(Protos.Sound.Ok1);
+            //    Console.WriteLine($"Get item: {evt.SelectedCell.Data}");
+            //};
+            //List1.EventOnActivate += printIt;
+            //List2.EventOnActivate += printIt;
+            //List3.EventOnActivate += printIt;
 
-            UiListEventHandler<string> selectIt = (_, evt) =>
-            {
-                List1.SelectedIndex = evt.SelectedIndex;
-                List2.SelectedIndex = evt.SelectedIndex;
-                List3.SelectedIndex = evt.SelectedIndex;
-            };
-            List1.EventOnSelect += selectIt;
-            List2.EventOnSelect += selectIt;
-            List3.EventOnSelect += selectIt;
+            //UiListEventHandler<string> selectIt = (_, evt) =>
+            //{
+            //    List1.SelectedIndex = evt.SelectedIndex;
+            //    List2.SelectedIndex = evt.SelectedIndex;
+            //    List3.SelectedIndex = evt.SelectedIndex;
+            //};
+            //List1.EventOnSelect += selectIt;
+            //List2.EventOnSelect += selectIt;
+            //List3.EventOnSelect += selectIt;
 
-            List2.Keybinds[CoreKeybinds.Mode] += (_) => Console.WriteLine("Dood!");
+            //List2.Keybinds[CoreKeybinds.Mode] += (_) => Console.WriteLine("Dood!");
 
-            MouseMoved.Callback += (evt) =>
-            {
-                if (List1.ContainsPoint(evt.Pos) && Index != 1)
-                {
-                    Sounds.Play(Protos.Sound.Cursor1);
-                    Index = 1;
-                    SelectList(List1);
-                }
-                else if (List2.ContainsPoint(evt.Pos) && Index != 2)
-                {
-                    Sounds.Play(Protos.Sound.Cursor1);
-                    Index = 2;
-                    SelectList(List2);
-                }
-                else if (List3.ContainsPoint(evt.Pos) && Index != 3)
-                {
-                    Sounds.Play(Protos.Sound.Cursor1);
-                    Index = 3;
-                    SelectList(List3);
-                }
+            //MouseMoved.Callback += (evt) =>
+            //{
+            //    if (List1.ContainsPoint(evt.Pos) && Index != 1)
+            //    {
+            //        Sounds.Play(Protos.Sound.Cursor1);
+            //        Index = 1;
+            //        SelectList(List1);
+            //    }
+            //    else if (List2.ContainsPoint(evt.Pos) && Index != 2)
+            //    {
+            //        Sounds.Play(Protos.Sound.Cursor1);
+            //        Index = 2;
+            //        SelectList(List2);
+            //    }
+            //    else if (List3.ContainsPoint(evt.Pos) && Index != 3)
+            //    {
+            //        Sounds.Play(Protos.Sound.Cursor1);
+            //        Index = 3;
+            //        SelectList(List3);
+            //    }
 
-                evt.Pass();
-            };
+            //    evt.Pass();
+            //};
 
             Index = 1;
             SelectList(List1);
@@ -115,13 +115,13 @@ namespace OpenNefia.Content.UI.Layer
 
         private void SelectList(IUiList<string> list)
         {
-            ClearAllForwards();
+            //ClearAllForwards();
             List1.HighlightSelected = false;
             List2.HighlightSelected = false;
             List3.HighlightSelected = false;
 
             list.HighlightSelected = true;
-            Forwards += list;
+            //Forwards += list;
         }
 
         public override void GetPreferredBounds(out UIBox2i bounds)

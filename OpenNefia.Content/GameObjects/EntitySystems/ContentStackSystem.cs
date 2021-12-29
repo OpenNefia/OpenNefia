@@ -20,7 +20,7 @@ namespace OpenNefia.Content.GameObjects
         {
             if (args.ShowMessage)
             {
-                Mes.Display(Loc.Get("Elona.GameObjects.Stack.HasBeenStacked",
+                Mes.Display(Loc.GetString("Elona.GameObjects.Stack.HasBeenStacked",
                     ("entity", uid),
                     ("totalCount", args.NewCount)));
             }

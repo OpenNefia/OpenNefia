@@ -8,6 +8,8 @@ using OpenNefia.Core.Game;
 using OpenNefia.Core.GameController;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Graphics;
+using OpenNefia.Core.Input;
+using OpenNefia.Core.Input.Client;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Locale;
 using OpenNefia.Core.Log;
@@ -22,6 +24,7 @@ using OpenNefia.Core.Serialization.Instanced;
 using OpenNefia.Core.Serialization.Manager;
 using OpenNefia.Core.Timing;
 using OpenNefia.Core.UI.Layer;
+using OpenNefia.Core.UserInterface;
 using PrettyPrompt.Consoles;
 
 namespace OpenNefia
@@ -34,10 +37,12 @@ namespace OpenNefia
             {
                 case GameController.DisplayMode.Headless:
                     IoCManager.Register<IGraphics, HeadlessGraphics>();
+                    IoCManager.Register<IInputManager, InputManager>();
                     IoCManager.Register<ITaskRunner, HeadlessTaskRunner>();
                     break;
                 case GameController.DisplayMode.Love:
                     IoCManager.Register<IGraphics, LoveGraphics>();
+                    IoCManager.Register<IInputManager, LoveInputManager>();
                     IoCManager.Register<ITaskRunner, LoveTaskRunner>();
                     break;
                 default:
@@ -67,7 +72,8 @@ namespace OpenNefia
             IoCManager.Register<ISerializationManager, SerializationManager>();
             IoCManager.Register<IAssetManager, AssetManager>();
             IoCManager.Register<ITileAtlasManager, TileAtlasManager>();
-            IoCManager.Register<IUiLayerManager, UiLayerManager>();
+            IoCManager.Register<IUserInterfaceManager, UserInterfaceManager>();
+            IoCManager.Register<IUserInterfaceManagerInternal, UserInterfaceManager>();
             IoCManager.Register<IRandom, SysRandom>();
             IoCManager.Register<IFontManager, FontManager>();
             IoCManager.Register<ILocalizationManager, LocalizationManager>();

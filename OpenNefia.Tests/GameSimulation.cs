@@ -18,6 +18,7 @@ using OpenNefia.Core.Serialization.Manager;
 using OpenNefia.Core.Serialization.Manager.Attributes;
 using OpenNefia.Core.UI;
 using OpenNefia.Core.UI.Layer;
+using OpenNefia.Core.UserInterface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -162,7 +163,7 @@ namespace OpenNefia.Tests
             container.Register<IModLoaderInternal, TestingModLoader>();
             container.Register<ITaskManager, TaskManager>();
 
-            container.RegisterInstance<IUiLayerManager>(new Mock<IUiLayerManager>().Object);
+            container.RegisterInstance<IUserInterfaceManager>(new Mock<IUserInterfaceManager>().Object);
             container.RegisterInstance<IGraphics>(new Mock<IGraphics>().Object);
 
             var realReflection = new ReflectionManager();

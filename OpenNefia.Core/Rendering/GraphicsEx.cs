@@ -1,6 +1,4 @@
 ﻿using Love;
-using OpenNefia.Core.Data;
-using OpenNefia.Core.Data.Types;
 using OpenNefia.Core.Game;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Maths;

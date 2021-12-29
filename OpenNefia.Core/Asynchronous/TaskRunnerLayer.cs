@@ -2,23 +2,24 @@
 using OpenNefia.Core.Rendering;
 using OpenNefia.Core.UI;
 using OpenNefia.Core.UI.Layer;
+using OpenNefia.Core.UserInterface;
 
 namespace OpenNefia.Core.Asynchronous
 {
     public class LoveTaskRunner : ITaskRunner
     {
-        [Dependency] private readonly IUiLayerManager _layerManager = default!;
+        [Dependency] private readonly IUserInterfaceManager _uiMgr = default!;
 
         public void Run(Task task)
         {
             var layer = new TaskRunnerLayer(task);
-            _layerManager.Query(layer);
+            _uiMgr.Query(layer);
         }
 
         public T Run<T>(Task<T> task)
         {
             var layer = new TaskRunnerLayer(task);
-            _layerManager.Query(layer);
+            _uiMgr.Query(layer);
             return task.Result;
         }
     }
@@ -27,7 +28,7 @@ namespace OpenNefia.Core.Asynchronous
     /// Layer for running an async task synchronously, by displaying a temporary
     /// loading screen until the task is finished.
     /// </summary>
-    public class TaskRunnerLayer : BaseUiLayer<UiNoResult>
+    public class TaskRunnerLayer : UiLayerWithResult<UiNoResult>
     {
         private Task ActiveTask;
         private float Dt;
