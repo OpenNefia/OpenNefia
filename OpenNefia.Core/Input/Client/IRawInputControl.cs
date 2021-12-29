@@ -11,7 +11,7 @@ namespace OpenNefia.Core.Input
     /// but before key bind events are actually raised.
     /// This is necessary to allow UI system stuff to actually work correctly.
     /// </remarks>
-    internal interface IRawInputControl
+    public interface IRawInputControl
     {
         /// <param name="guiRawEvent"></param>
         /// <returns>If true: all further key bind events should be blocked.</returns>
@@ -29,7 +29,7 @@ namespace OpenNefia.Core.Input
     }
     */
 
-    internal readonly struct GuiRawKeyEvent
+    public readonly struct GuiRawKeyEvent
     {
         public readonly Keyboard.Key Key;
         public readonly Scancode ScanCode;

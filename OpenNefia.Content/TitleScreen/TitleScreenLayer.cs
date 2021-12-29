@@ -7,6 +7,7 @@ using OpenNefia.Core.Rendering;
 using OpenNefia.Core.UI.Layer;
 using OpenNefia.Content.Prototypes;
 using OpenNefia.Content.UI;
+using OpenNefia.Core.UI;
 
 namespace OpenNefia.Content.TitleScreen
 {
@@ -78,6 +79,7 @@ namespace OpenNefia.Content.TitleScreen
                 {
                     TextSubtext.Draw();
                 }
+                UiUtils.DebugDraw(this);
             }
 
             public override void Update(float dt)
@@ -139,9 +141,9 @@ namespace OpenNefia.Content.TitleScreen
             List = new UiList<TitleScreenChoice>(items);
             List.EventOnActivate += (_, evt) => RunTitleScreenAction(evt.SelectedCell.Data);
 
-            //Forwards += List;
-
             AddChildren();
+
+            List.GrabKeyboardFocus();
         }
 
         public void AddChildren()

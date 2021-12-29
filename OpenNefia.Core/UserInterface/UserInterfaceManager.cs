@@ -54,6 +54,7 @@ namespace OpenNefia.Core.UserInterface
 
         public void Initialize()
         {
+            _inputManager.UIKeyBindStateChanged += OnUIKeyBindStateChanged;
         }
 
         public void InitializeTesting()
@@ -63,6 +64,8 @@ namespace OpenNefia.Core.UserInterface
         public void Shutdown()
         {
         }
+
+        #region Control Management
 
         /// <inheritdoc/>
         public Vector2? CalcRelativeMousePositionFor(UiElement control, ScreenCoordinates mousePos)
@@ -150,20 +153,45 @@ namespace OpenNefia.Core.UserInterface
                     continue;
                 }
 
-                var maybeFoundOnChild = MouseFindControlAtPos(child, position - child.GlobalPixelPosition);
+                var maybeFoundOnChild = MouseFindControlAtPos(child, position);
                 if (maybeFoundOnChild != null)
                 {
                     return maybeFoundOnChild;
                 }
             }
 
-            if (control.MouseFilter != MouseFilterMode.Ignore && control.ContainsPoint(position / control.UIScale))
+            if (control.EventFilter != UIEventFilterMode.Ignore && control.ContainsPoint(position / control.UIScale))
             {
                 return (control, position);
             }
 
             return null;
         }
+
+        private bool OnUIKeyBindStateChanged(BoundKeyEventArgs args)
+        {
+            if (args.State == BoundKeyState.Down)
+            {
+                KeyBindDown(args);
+            }
+            else
+            {
+                KeyBindUp(args);
+            }
+
+            // If we are in a focused control or doing a CanFocus, return true
+            // So that InputManager doesn't propagate events to simulation.
+            if (!args.CanFocus && KeyboardFocused != null)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        #endregion
+
+        #region Layer Management
 
         public bool IsInActiveLayerList(UiLayer layer) => this.Layers.Contains(layer);
 
@@ -267,4 +295,6 @@ namespace OpenNefia.Core.UserInterface
             return result;
         }
     }
+
+    #endregion
 }
