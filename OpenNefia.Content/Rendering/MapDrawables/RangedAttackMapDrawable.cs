@@ -3,6 +3,8 @@ using OpenNefia.Core.Audio;
 using OpenNefia.Core.Config;
 using OpenNefia.Core.Game;
 using OpenNefia.Core.GameObjects;
+using OpenNefia.Core.Graphics;
+using OpenNefia.Core.IoC;
 using OpenNefia.Core.Maps;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.Prototypes;
@@ -15,6 +17,8 @@ namespace OpenNefia.Content.Rendering
 {
     public class RangedAttackMapDrawable : BaseMapDrawable
     {
+        [Dependency] private readonly IGraphics _graphics = default!;
+
         private MapCoordinates _startPos;
         private MapCoordinates _endPos;
         private ChipPrototype _chip;
@@ -30,6 +34,8 @@ namespace OpenNefia.Content.Rendering
             PrototypeId<SoundPrototype>? sound = null, 
             PrototypeId<SoundPrototype>? impactSound = null)
         {
+            IoCManager.InjectDependencies(this);
+
             this._startPos = startPos;
             this._endPos = endPos;
             this._chip = chip.ResolvePrototype();
@@ -87,7 +93,7 @@ namespace OpenNefia.Content.Rendering
             var cx = (int)(this._counter.Frame * (screenPos.X) / this._counter.MaxFrames);
             var cy = (int)(this._counter.Frame * (screenPos.Y) / this._counter.MaxFrames);
 
-            if (UiUtils.IsPointInVisibleScreen(this.PixelPosition + new Vector2i(cx, cy)))
+            if (_graphics.IsPointInVisibleScreen(this.GlobalPixelPosition + new Vector2i(cx, cy)))
             {
                 this._chipBatch.Clear();
                 this._chipBatch.Add(this._chip.Image.AtlasIndex, 

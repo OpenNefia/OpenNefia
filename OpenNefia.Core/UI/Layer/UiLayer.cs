@@ -5,6 +5,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using Love;
+using OpenNefia.Core.Graphics;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Locale;
 using OpenNefia.Core.Maths;
@@ -13,7 +14,7 @@ using OpenNefia.Core.UserInterface;
 
 namespace OpenNefia.Core.UI.Layer
 {
-    public abstract class UiLayer : UiElement, IUiLayer
+    public class UiLayer : UiElement, IUiLayer
     {
         public virtual int? DefaultZOrder => null;
         public int ZOrder { get; set; }
@@ -22,7 +23,8 @@ namespace OpenNefia.Core.UI.Layer
 
         public virtual void GetPreferredBounds(out UIBox2i bounds)
         {
-            bounds = UIBox2i.FromDimensions(0, 0, Love.Graphics.GetWidth(), Love.Graphics.GetHeight());
+            var graphics = IoCManager.Resolve<IGraphics>();
+            bounds = UIBox2i.FromDimensions(Vector2i.Zero, graphics.WindowSize);
         }
 
         public override sealed void GetPreferredSize(out Vector2i size)
@@ -50,7 +52,7 @@ namespace OpenNefia.Core.UI.Layer
         }
     }
 
-    public abstract class UiLayerWithResult<T> : UiLayer, IUiLayerWithResult<T> where T : class
+    public class UiLayerWithResult<T> : UiLayer, IUiLayerWithResult<T> where T : class
     {
         public bool WasFinished { get => Result != null; }
         public bool WasCancelled { get; private set; }

@@ -38,7 +38,7 @@ namespace OpenNefia.Core.GameController
         [Dependency] private readonly ISerializationManager _serialization = default!;
         [Dependency] private readonly IComponentFactory _components = default!;
         [Dependency] private readonly ITileDefinitionManagerInternal _tileDefinitionManager = default!;
-        [Dependency] private readonly IUserInterfaceManager _uiManager = default!;
+        [Dependency] private readonly IUserInterfaceManagerInternal _uiManager = default!;
         [Dependency] private readonly ILocalizationManager _localizationManager = default!;
         [Dependency] private readonly ITaskManager _taskManager = default!;
         [Dependency] private readonly ITimerManager _timerManager = default!;

@@ -14,6 +14,8 @@ namespace OpenNefia.Core.Graphics
     {
         [Dependency] private readonly IResourceCache _resourceCache = default!;
 
+        public Vector2i WindowSize => new(Love.Graphics.GetWidth(), Love.Graphics.GetHeight());
+
         public event Action<WindowResizedEventArgs>? OnWindowResized;
         public new event Action<WindowFocusedEventArgs>? OnWindowFocused;
         public new event Action<KeyEventArgs>? OnKeyPressed;

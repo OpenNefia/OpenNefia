@@ -9,25 +9,32 @@ namespace OpenNefia.Core.UI.Element
 {
     public abstract class BaseDrawable : IDrawable
     {
-        private UIBox2i _pixelBounds;
-        public UIBox2i PixelBounds { get => _pixelBounds; }
+        private UIBox2i _globalPixelBounds;
+        public UIBox2i GlobalPixelBounds { get => _globalPixelBounds; }
+        
+        /// <summary>
+        /// Size of the drawable element.
+        /// </summary>
+        public Vector2i PixelSize { get => GlobalPixelBounds.Size; }
 
-        public Vector2i PixelSize { get => PixelBounds.Size; }
-        public Vector2i PixelPosition { get => PixelBounds.TopLeft; }
+        /// <summary>
+        /// Absolute position of the drawable element.
+        /// </summary>
+        public Vector2i GlobalPixelPosition { get => GlobalPixelBounds.TopLeft; }
 
-        public int Width { get => PixelBounds.Width; }
-        public int Height { get => PixelBounds.Height; }
-        public int X { get => PixelBounds.Left; }
-        public int Y { get => PixelBounds.Top; }
+        public int Width { get => GlobalPixelBounds.Width; }
+        public int Height { get => GlobalPixelBounds.Height; }
+        public int X { get => GlobalPixelBounds.Left; }
+        public int Y { get => GlobalPixelBounds.Top; }
 
         public virtual void SetSize(int width, int height)
         {
-            _pixelBounds = UIBox2i.FromDimensions(X, Y, width, height);
+            _globalPixelBounds = UIBox2i.FromDimensions(X, Y, width, height);
         }
 
         public virtual void SetPosition(int x, int y)
         {
-            _pixelBounds = UIBox2i.FromDimensions(x, y, Width, Height);
+            _globalPixelBounds = UIBox2i.FromDimensions(x, y, Width, Height);
         }
 
         public bool ContainsPoint(int x, int y)
@@ -37,7 +44,7 @@ namespace OpenNefia.Core.UI.Element
 
         public bool ContainsPoint(Vector2 point)
         {
-            return PixelBounds.Contains((Vector2i)point);
+            return GlobalPixelBounds.Contains((Vector2i)point);
         }
 
         public abstract void Update(float dt);

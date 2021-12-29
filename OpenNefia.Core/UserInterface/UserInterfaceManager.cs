@@ -1,6 +1,7 @@
 ﻿using OpenNefia.Core.GameController;
 using OpenNefia.Core.Input;
 using OpenNefia.Core.IoC;
+using OpenNefia.Core.Locale;
 using OpenNefia.Core.Log;
 using OpenNefia.Core.Maps;
 using OpenNefia.Core.Maths;
@@ -17,7 +18,7 @@ using System.Threading.Tasks;
 
 namespace OpenNefia.Core.UserInterface
 {
-    public sealed class UserInterfaceManager : IUserInterfaceManagerInternal
+    public sealed partial class UserInterfaceManager : IUserInterfaceManagerInternal
     {
         [Dependency] private readonly IGameController _gameController = default!;
         [Dependency] private readonly IInputManager _inputManager = default!;
@@ -55,6 +56,10 @@ namespace OpenNefia.Core.UserInterface
         {
         }
 
+        public void InitializeTesting()
+        {
+        }
+
         public void Shutdown()
         {
         }
@@ -62,40 +67,31 @@ namespace OpenNefia.Core.UserInterface
         /// <inheritdoc/>
         public Vector2? CalcRelativeMousePositionFor(UiElement control, ScreenCoordinates mousePos)
         {
-            return mousePos.Position - control.PixelPosition;
+            return mousePos.Position - control.GlobalPixelPosition;
         }
 
-        /// <inheritdoc/>
-        public bool HandleCanFocusDown(ScreenCoordinates pointerPosition, [NotNullWhen(true)] out (UiElement control, Vector2i rel)? hitData)
+        public void GrabKeyboardFocus(UiElement control)
         {
-            var hit = MouseGetControlAndRel(pointerPosition);
-            var pos = pointerPosition.Position;
+            if (control == null)
+            {
+                throw new ArgumentNullException(nameof(control));
+            }
+
+            if (!control.CanKeyboardFocus)
+            {
+                throw new ArgumentException("Control cannot get keyboard focus.", nameof(control));
+            }
+
+            if (control == KeyboardFocused)
+            {
+                return;
+            }
 
             ReleaseKeyboardFocus();
 
-            if (hit == null)
-            {
-                hitData = null;
-                return false;
-            }
+            KeyboardFocused = control;
 
-            var (control, rel) = hit.Value;
-
-            ControlFocused = control;
-
-            if (ControlFocused.CanKeyboardFocus && ControlFocused.KeyboardFocusOnClick)
-            {
-                ControlFocused.GrabKeyboardFocus();
-            }
-
-            hitData = (control, (Vector2i)rel);
-            return true;
-        }
-
-        /// <inheritdoc/>
-        public void HandleCanFocusUp()
-        {
-            ControlFocused = null;
+            KeyboardFocused.KeyboardFocusEntered();
         }
 
         public void ReleaseKeyboardFocus()
@@ -131,6 +127,11 @@ namespace OpenNefia.Core.UserInterface
             ControlFocused = null;
         }
 
+        public UiElement? MouseGetControl(ScreenCoordinates coordinates)
+        {
+            return MouseGetControlAndRel(coordinates)?.control;
+        }
+
         private (UiElement control, Vector2 rel)? MouseGetControlAndRel(ScreenCoordinates coordinates)
         {
             if (CurrentLayer == null)
@@ -144,12 +145,12 @@ namespace OpenNefia.Core.UserInterface
             for (var i = control.ChildCount - 1; i >= 0; i--)
             {
                 var child = control.GetChild(i);
-                if (!child.Visible || !child.PixelBounds.Contains((Vector2i)position))
+                if (!child.Visible || !child.GlobalPixelBounds.Contains((Vector2i)position))
                 {
                     continue;
                 }
 
-                var maybeFoundOnChild = MouseFindControlAtPos(child, position - child.PixelPosition);
+                var maybeFoundOnChild = MouseFindControlAtPos(child, position - child.GlobalPixelPosition);
                 if (maybeFoundOnChild != null)
                 {
                     return maybeFoundOnChild;
@@ -207,11 +208,6 @@ namespace OpenNefia.Core.UserInterface
             _layersByZOrder = this.Layers.OrderBy(x => x.ZOrder).ToList();
         }
 
-        public void GrabKeyboardFocus(UiElement control)
-        {
-            throw new NotImplementedException();
-        }
-
         public UiResult<T> Query<T>(IUiLayerWithResult<T> layer) where T : class
         {
             if (layer.DefaultZOrder != null)
@@ -225,10 +221,10 @@ namespace OpenNefia.Core.UserInterface
 
             // CurrentLayer?.HaltInput();
 
-            //if (!layer.IsLocalized)
-            //{
-            //    layer.Localize(layer.GetType().GetBaseLocaleKey());
-            //}
+            if (!layer.IsLocalized)
+            {
+                layer.Localize(layer.GetType().GetBaseLocaleKey());
+            }
 
             PushLayer((UiLayer)layer);
 

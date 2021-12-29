@@ -7,7 +7,7 @@ using OpenNefia.Core.Utility;
 
 namespace OpenNefia.Core.UI.Element
 {
-    public abstract partial class UiElement : BaseDrawable, IUiDefaultSizeable, ILocalizable, IUiInput
+    public partial class UiElement : BaseDrawable, IUiDefaultSizeable, ILocalizable, IUiInput
     {
         private readonly List<UiElement> _orderedChildren = new();
 
@@ -92,12 +92,20 @@ namespace OpenNefia.Core.UI.Element
         ///     Whether or not this control and its children are visible.
         /// </summary>
         /// <remarks>TODO implement</remarks>
-        public bool Visible { get; set; }
+        public bool Visible { get; set; } = true;
 
         public UiElement()
         {
             UserInterfaceManagerInternal = IoCManager.Resolve<IUserInterfaceManagerInternal>();
             Children = new OrderedChildCollection(this);
+        }
+
+        public override void Update(float dt)
+        {
+        }
+
+        public override void Draw()
+        {
         }
 
         /// <summary>

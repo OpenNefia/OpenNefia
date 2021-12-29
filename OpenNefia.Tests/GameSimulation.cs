@@ -12,6 +12,7 @@ using OpenNefia.Core.Locale;
 using OpenNefia.Core.Log;
 using OpenNefia.Core.Maps;
 using OpenNefia.Core.Prototypes;
+using OpenNefia.Core.Random;
 using OpenNefia.Core.Reflection;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Core.Serialization.Manager;
@@ -214,6 +215,7 @@ namespace OpenNefia.Tests
             container.Register<IEntitySystemManager, EntitySystemManager>();
             container.Register<IGameSessionManager, GameSessionManager>();
             container.Register<ICoords, OrthographicCoords>();
+            container.Register<IRandom, SysRandom>();
 
             _diFactory?.Invoke(container);
             container.BuildGraph();
