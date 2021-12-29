@@ -8,6 +8,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using JetBrains.Annotations;
 using OpenNefia.Core.ContentPack;
+using OpenNefia.Core.Game;
 using OpenNefia.Core.Input;
 using OpenNefia.Core.Input.Binding;
 using OpenNefia.Core.IoC;
@@ -42,6 +43,7 @@ namespace OpenNefia.Core.Input
         [Dependency] private readonly IResourceManager _resourceMan = default!;
         [Dependency] private readonly IReflectionManager _reflectionManager = default!;
         [Dependency] private readonly IUserInterfaceManagerInternal _uiMgr = default!;
+        [Dependency] private readonly IGameSessionManager _sessionManager = default!;
 
         private bool _currentlyFindingViewport;
 
@@ -410,11 +412,11 @@ namespace OpenNefia.Core.Input
                 // Out-of-simulation input event
                 if (eventArgs.State == BoundKeyState.Up)
                 {
-                    cmd.Disabled();
+                    cmd.Disabled(_sessionManager);
                 }
                 else
                 {
-                    cmd.Enabled();
+                    cmd.Enabled(_sessionManager);
                 }
             }
             else

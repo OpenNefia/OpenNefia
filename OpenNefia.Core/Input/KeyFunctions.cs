@@ -12,10 +12,14 @@ namespace OpenNefia.Core.Input
     [KeyFunctions]
     public static class EngineKeyFunctions
     {
-        public static readonly BoundKeyFunction MoveUp = "MoveUp";
-        public static readonly BoundKeyFunction MoveDown = "MoveDown";
-        public static readonly BoundKeyFunction MoveLeft = "MoveLeft";
-        public static readonly BoundKeyFunction MoveRight = "MoveRight";
+        public static readonly BoundKeyFunction North = "North";
+        public static readonly BoundKeyFunction South = "South";
+        public static readonly BoundKeyFunction West = "West";
+        public static readonly BoundKeyFunction East = "East";
+        public static readonly BoundKeyFunction Southeast = "Southeast";
+        public static readonly BoundKeyFunction Northeast = "Northeast";
+        public static readonly BoundKeyFunction Northwest = "Northwest";
+        public static readonly BoundKeyFunction Southwest = "Southwest";
 
         public static readonly BoundKeyFunction UIClick = "UIClick";
         public static readonly BoundKeyFunction UIRightClick = "UIRightClick";
