@@ -1,4 +1,5 @@
 ﻿using OpenNefia.Core.GameController;
+using OpenNefia.Core.Graphics;
 using OpenNefia.Core.Input;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Locale;
@@ -22,6 +23,7 @@ namespace OpenNefia.Core.UserInterface
     {
         [Dependency] private readonly IGameController _gameController = default!;
         [Dependency] private readonly IInputManager _inputManager = default!;
+        [Dependency] private readonly IGraphics _graphics = default!;
 
         /// <inheritdoc/>
         public UiElement? KeyboardFocused { get; private set; }
@@ -55,6 +57,7 @@ namespace OpenNefia.Core.UserInterface
         public void Initialize()
         {
             _inputManager.UIKeyBindStateChanged += OnUIKeyBindStateChanged;
+            _graphics.OnWindowResized += HandleWindowResized;
         }
 
         public void InitializeTesting()
@@ -234,6 +237,16 @@ namespace OpenNefia.Core.UserInterface
         private void SortLayers()
         {
             _layersByZOrder = this.Layers.OrderBy(x => x.ZOrder).ToList();
+        }
+
+        private void HandleWindowResized(WindowResizedEventArgs args)
+        {
+            foreach (var layer in this.Layers)
+            {
+                layer.GetPreferredBounds(out var bounds);
+                layer.SetSize(bounds.Width, bounds.Height);
+                layer.SetPosition(bounds.Left, bounds.Top);
+            }
         }
 
         public UiResult<T> Query<T>(IUiLayerWithResult<T> layer) where T : class
