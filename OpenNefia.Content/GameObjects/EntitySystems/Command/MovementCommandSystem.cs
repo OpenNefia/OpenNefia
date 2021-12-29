@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace OpenNefia.Content.GameObjects
 {
-    public class ContentMovementSystem : EntitySystem
+    public class MovementCommandSystem : EntitySystem
     {
         public override void Initialize()
         {
@@ -25,7 +25,7 @@ namespace OpenNefia.Content.GameObjects
                 .Bind(EngineKeyFunctions.West, moveWestCmdHandler)
                 .Bind(EngineKeyFunctions.East, moveEastCmdHandler)
                 .Bind(EngineKeyFunctions.South, moveSouthCmdHandler)
-                .Register<ContentMovementSystem>();
+                .Register<MovementCommandSystem>();
         }
 
         private void HandleMove(IGameSessionManager? session, Direction dir)
@@ -58,7 +58,7 @@ namespace OpenNefia.Content.GameObjects
 
                 if (full.State == BoundKeyState.Down)
                 {
-                    Get<ContentMovementSystem>().HandleMove(session, _dir);
+                    Get<MovementCommandSystem>().HandleMove(session, _dir);
                 }
                 return false;
             }

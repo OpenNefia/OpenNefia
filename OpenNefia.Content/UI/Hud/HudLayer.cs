@@ -15,6 +15,8 @@ namespace OpenNefia.Content.UI.Hud
 
         public HudLayer()
         {
+            IoCManager.InjectDependencies(this);
+
             MessageWindow = new SimpleMessageWindow();
             FpsCounter = new UiFpsCounter();
         }

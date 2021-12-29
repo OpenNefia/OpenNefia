@@ -9,6 +9,8 @@ using OpenNefia.Content.Prototypes;
 using OpenNefia.Core.Input;
 using OpenNefia.Core.Graphics;
 using OpenNefia.Core.IoC;
+using OpenNefia.Core.UI.Element;
+using OpenNefia.Core.UserInterface;
 
 namespace OpenNefia.Content.UI.Layer
 {
@@ -63,13 +65,26 @@ namespace OpenNefia.Content.UI.Layer
 
         public Prompt(IEnumerable<PromptChoice<T>> choices, PromptOptions options)
         {
+            IoCManager.InjectDependencies(this);
+
             List = new UiList<PromptChoice<T>>(choices);
             Window = new UiTopicWindow(UiTopicWindow.FrameStyleKind.Zero, UiTopicWindow.WindowStyleKind.Zero);
             Options = options;
 
             DefaultWidth = Options.Width;
 
-            BindKeys();
+            AddChild(List);
+
+            OnKeyBindDown += HandleKeyBindDown;
+
+            List.EventOnActivate += (o, e) =>
+            {
+                Finish(e.SelectedCell.Data);
+            };
+
+            List.GrabKeyboardFocus();
+
+            EventFilter = UIEventFilterMode.Pass;
         }
 
         public Prompt(IEnumerable<PromptChoice<T>> choices)
@@ -87,23 +102,13 @@ namespace OpenNefia.Content.UI.Layer
         {
         }
 
-        protected virtual void BindKeys()
+        private void HandleKeyBindDown(GUIBoundKeyEventArgs args)
         {
-            //Action<UiKeyInputEventArgs> cancel = (_) =>
-            //{
-            //    if (Options.IsCancellable)
-            //        Cancel();
-            //};
-
-            //Keybinds[CoreKeybinds.Cancel] += cancel;
-            //Keybinds[CoreKeybinds.Escape] += cancel;
-
-            //Forwards += List;
-
-            List.EventOnActivate += (o, e) =>
+            if (args.Function == EngineKeyFunctions.UICancel)
             {
-                Finish(e.SelectedCell.Data);
-            };
+                if (Options.IsCancellable)
+                    Cancel();
+            }
         }
 
         public override void OnQuery()

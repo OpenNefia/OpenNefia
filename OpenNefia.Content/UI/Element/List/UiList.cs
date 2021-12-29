@@ -275,15 +275,19 @@ namespace OpenNefia.Content.UI.Element.List
 
         public override void SetSize(int width, int height)
         {
+            var totalHeight = 0;
+
             for (int index = 0; index < Count; index++)
             {
                 var cell = Cells[index];
                 cell.GetPreferredSize(out var cellSize);
-                cell.SetSize(width, Math.Max(cellSize.Y, ItemHeight));
+                var cellHeight = Math.Max(cellSize.Y, ItemHeight);
+                cell.SetSize(width, cellHeight);
                 width = Math.Max(width, cell.Width);
+                totalHeight += cell.Height;
             }
 
-            base.SetSize(width, height);
+            base.SetSize(width, Math.Max(height, totalHeight));
         }
 
         public override void Update(float dt)

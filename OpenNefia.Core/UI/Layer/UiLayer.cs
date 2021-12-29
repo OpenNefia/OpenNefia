@@ -51,6 +51,11 @@ namespace OpenNefia.Core.UI.Layer
             return IoCManager.Resolve<IUserInterfaceManager>().IsQuerying(this);
         }
 
+        public virtual void OnFocused()
+        {
+            _inputManager.Contexts.SetActiveContext(InputContextContainer.DefaultContextName);
+        }
+
         public virtual void OnQuery()
         {
         }
