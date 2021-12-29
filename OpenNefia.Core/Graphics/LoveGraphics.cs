@@ -1,5 +1,7 @@
 ﻿using Love;
+using OpenNefia.Core.Input;
 using OpenNefia.Core.IoC;
+using OpenNefia.Core.Maps;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Core.ResourceManagement;
@@ -12,17 +14,26 @@ namespace OpenNefia.Core.Graphics
     {
         [Dependency] private readonly IResourceCache _resourceCache = default!;
 
+        public Vector2i WindowSize => new(Love.Graphics.GetWidth(), Love.Graphics.GetHeight());
+
         public event Action<WindowResizedEventArgs>? OnWindowResized;
-        public event Action<WindowFocusedEventArgs>? OnWindowFocused;
-        public new event Action<KeyPressedEventArgs>? OnKeyPressed;
-        public new event Action<KeyPressedEventArgs>? OnKeyReleased;
+        public new event Action<WindowFocusedEventArgs>? OnWindowFocused;
+        public new event Action<KeyEventArgs>? OnKeyPressed;
+        public new event Action<KeyEventArgs>? OnKeyReleased;
         public new event Action<TextEditingEventArgs>? OnTextEditing;
-        public new event Action<TextInputEventArgs>? OnTextInput;
-        public new event Action<MouseMovedEventArgs>? OnMouseMoved;
-        public new event Action<MousePressedEventArgs>? OnMousePressed;
-        public new event Action<MousePressedEventArgs>? OnMouseReleased;
+        public new event Action<TextEventArgs>? OnTextInput;
+        public new event Action<MouseMoveEventArgs>? OnMouseMoved;
+        public new event Action<MouseButtonEventArgs>? OnMousePressed;
+        public new event Action<MouseButtonEventArgs>? OnMouseReleased;
+        public new event Action<MouseWheelEventArgs>? OnMouseWheel;
+        public new event Func<QuitEventArgs, bool>? OnQuit;
 
         private Love.Canvas TargetCanvas = default!;
+
+        private int _modControl;
+        private int _modAlt;
+        private int _modShift;
+        private int _modSystem;
 
         public void Initialize()
         {
@@ -118,14 +129,102 @@ namespace OpenNefia.Core.Graphics
             OnWindowFocused?.Invoke(new WindowFocusedEventArgs(focus));
         }
 
+        private bool PressModifiers(Love.KeyConstant key)
+        {
+            switch (key)
+            {
+                case KeyConstant.LCtrl:
+                case KeyConstant.RCtrl:
+                    _modControl++;
+                    return true;
+                case KeyConstant.LAlt:
+                case KeyConstant.RAlt:
+                    _modAlt++;
+                    return true;
+                case KeyConstant.LShift:
+                case KeyConstant.RShift:
+                    _modShift++;
+                    return true;
+                case KeyConstant.LGUI:
+                case KeyConstant.RGUI:
+                    _modSystem++;
+                    return true;
+                default:
+                    return false;
+            }
+        }
+
+        private bool ReleaseModifiers(Love.KeyConstant key)
+        {
+            switch (key)
+            {
+                case KeyConstant.LCtrl:
+                case KeyConstant.RCtrl:
+                    _modControl--;
+                    return true;
+                case KeyConstant.LAlt:
+                case KeyConstant.RAlt:
+                    _modAlt--;
+                    return true;
+                case KeyConstant.LShift:
+                case KeyConstant.RShift:
+                    _modShift--;
+                    return true;
+                case KeyConstant.LGUI:
+                case KeyConstant.RGUI:
+                    _modSystem--;
+                    return true;
+                default:
+                    return false;
+            }
+        }
+
         public override void KeyPressed(Love.KeyConstant key, Love.Scancode scancode, bool isRepeat)
         {
-            OnKeyPressed?.Invoke(new KeyPressedEventArgs(key, scancode, isRepeat, true));
+            var shift = false;
+            var alt = false;
+            var control = false;
+            var system = false;
+
+            if (!PressModifiers(key)) 
+            {
+                shift = _modShift != 0;
+                alt = _modAlt != 0;
+                control = _modControl != 0;
+                system = _modSystem != 0;
+            }
+
+            var ev = new KeyEventArgs(
+                (Input.Keyboard.Key)key,
+                isRepeat,
+                alt, control, shift, system,
+                scancode);
+
+            OnKeyPressed?.Invoke(ev);
         }
 
         public override void KeyReleased(Love.KeyConstant key, Love.Scancode scancode)
         {
-            OnKeyReleased?.Invoke(new KeyPressedEventArgs(key, scancode, false, false));
+            var shift = false;
+            var alt = false;
+            var control = false;
+            var system = false;
+
+            if (!ReleaseModifiers(key))
+            {
+                shift = _modShift != 0;
+                alt = _modAlt != 0;
+                control = _modControl != 0;
+                system = _modSystem != 0;
+            }
+
+            var ev = new KeyEventArgs(
+                (Input.Keyboard.Key)key,
+                false,
+                alt, control, shift, system,
+                scancode);
+
+            OnKeyReleased?.Invoke(ev);
         }
 
         public override void TextEditing(string text, int start, int end)
@@ -135,22 +234,32 @@ namespace OpenNefia.Core.Graphics
 
         public override void TextInput(string text)
         {
-            OnTextInput?.Invoke(new TextInputEventArgs(text));
+            OnTextInput?.Invoke(new TextEventArgs(text));
         }
 
         public override void MouseMoved(float x, float y, float dx, float dy, bool isTouch)
         {
-            OnMouseMoved?.Invoke(new MouseMovedEventArgs(new Vector2(x, y), new Vector2(dx, dy), isTouch));
+            OnMouseMoved?.Invoke(new MouseMoveEventArgs(new ScreenCoordinates(x, y), new Vector2(dx, dy), isTouch));
         }
 
         public override void MousePressed(float x, float y, int button, bool isTouch)
         {
-            OnMousePressed?.Invoke(new MousePressedEventArgs(new Vector2(x, y), (UI.MouseButton)button, isTouch, true));
+            OnMousePressed?.Invoke(new MouseButtonEventArgs(new ScreenCoordinates(x, y), (Input.Mouse.Button)button, isTouch));
         }
 
         public override void MouseReleased(float x, float y, int button, bool isTouch)
         {
-            OnMouseReleased?.Invoke(new MousePressedEventArgs(new Vector2(x, y), (UI.MouseButton)button, isTouch, false));
+            OnMouseReleased?.Invoke(new MouseButtonEventArgs(new ScreenCoordinates(x, y), (Input.Mouse.Button)button, isTouch));
+        }
+
+        public override void WheelMoved(int x, int y)
+        {
+            OnMouseWheel?.Invoke(new MouseWheelEventArgs(new(Love.Mouse.GetPosition()), new Vector2i(x, y)));
+        }
+
+        public override bool Quit()
+        {
+            return OnQuit?.Invoke(new QuitEventArgs()) ?? false;
         }
 
         #endregion

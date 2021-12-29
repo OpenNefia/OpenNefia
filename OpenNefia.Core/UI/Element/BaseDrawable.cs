@@ -1,5 +1,4 @@
-﻿using Love;
-using OpenNefia.Core.Maths;
+﻿using OpenNefia.Core.Maths;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,35 +9,42 @@ namespace OpenNefia.Core.UI.Element
 {
     public abstract class BaseDrawable : IDrawable
     {
-        private UIBox2i _bounds;
-        public UIBox2i Bounds { get => _bounds; }
+        private UIBox2i _globalPixelBounds;
+        public UIBox2i GlobalPixelBounds { get => _globalPixelBounds; }
+        
+        /// <summary>
+        /// Size of the drawable element.
+        /// </summary>
+        public Vector2i PixelSize { get => GlobalPixelBounds.Size; }
 
-        public Vector2i Size { get => Bounds.Size; }
-        public Vector2i Position { get => Bounds.TopLeft; }
+        /// <summary>
+        /// Absolute position of the drawable element.
+        /// </summary>
+        public Vector2i GlobalPixelPosition { get => GlobalPixelBounds.TopLeft; }
 
-        public int Width { get => Bounds.Width; }
-        public int Height { get => Bounds.Height; }
-        public int X { get => Bounds.Left; }
-        public int Y { get => Bounds.Top; }
+        public int Width { get => GlobalPixelBounds.Width; }
+        public int Height { get => GlobalPixelBounds.Height; }
+        public int X { get => GlobalPixelBounds.Left; }
+        public int Y { get => GlobalPixelBounds.Top; }
 
         public virtual void SetSize(int width, int height)
         {
-            _bounds = UIBox2i.FromDimensions(X, Y, width, height);
+            _globalPixelBounds = UIBox2i.FromDimensions(X, Y, width, height);
         }
 
         public virtual void SetPosition(int x, int y)
         {
-            _bounds = UIBox2i.FromDimensions(x, y, Width, Height);
+            _globalPixelBounds = UIBox2i.FromDimensions(x, y, Width, Height);
         }
 
         public bool ContainsPoint(int x, int y)
         {
-            return ContainsPoint(new Vector2i(x, y));
+            return ContainsPoint(new Vector2(x, y));
         }
 
-        public bool ContainsPoint(Vector2i point)
+        public bool ContainsPoint(Vector2 point)
         {
-            return Bounds.Contains(point);
+            return GlobalPixelBounds.Contains((Vector2i)point);
         }
 
         public abstract void Update(float dt);

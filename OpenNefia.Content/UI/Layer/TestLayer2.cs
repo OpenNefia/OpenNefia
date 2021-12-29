@@ -5,7 +5,7 @@ using OpenNefia.Core.UI.Layer;
 
 namespace OpenNefia.Content.UI.Layer
 {
-    public class TestLayer2 : BaseUiLayer<string>
+    public class TestLayer2 : UiLayerWithResult<string>
     {
         public TestLayer2()
         {

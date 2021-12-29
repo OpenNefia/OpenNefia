@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
+using OpenNefia.Core.Game;
 using OpenNefia.Core.Input;
 using OpenNefia.Core.Input.Binding;
 
@@ -32,7 +33,7 @@ namespace OpenNefia.Tests.Core.Input.Binding
                 return name;
             }
 
-            public override bool HandleCmdMessage(InputCmdMessage message)
+            public override bool HandleCmdMessage(IGameSessionManager? session, InputCmdMessage message)
             {
                 return false;
             }

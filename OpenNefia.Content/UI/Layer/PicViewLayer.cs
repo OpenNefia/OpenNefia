@@ -1,5 +1,4 @@
 ﻿using Love;
-using OpenNefia.Core.Data.Types;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Core.UI;
@@ -12,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace OpenNefia.Content.UI.Layer
 {
-    internal partial class PicViewLayer : BaseUiLayer<UiNoResult>
+    internal partial class PicViewLayer : UiLayerWithResult<UiNoResult>
     {
         public Image Image { get; private set; }
         public bool DrawBorder { get; set; }
@@ -26,9 +25,9 @@ namespace OpenNefia.Content.UI.Layer
 
             Scroller = new UiScroller();
 
-            Scroller.BindKeys(this);
-            Keybinds[CoreKeybinds.Escape] += (_) => Cancel();
-            Keybinds[CoreKeybinds.Cancel] += (_) => Cancel();
+            //Scroller.BindKeys(this);
+            //Keybinds[CoreKeybinds.Escape] += (_) => Cancel();
+            //Keybinds[CoreKeybinds.Cancel] += (_) => Cancel();
         }
 
         public override void GetPreferredBounds(out UIBox2i bounds)

@@ -23,19 +23,19 @@ namespace OpenNefia.Content.Locale.Funcs
         {
             if (obj is not EntityUid entity)
             {
-                return Loc.Get("Elona.GameObjects.Chara.Something");
+                return Loc.GetString("Elona.GameObjects.Common.Something");
             }
 
             var gameSession = IoCManager.Resolve<IGameSessionManager>();
 
             if (gameSession.IsPlayer(entity))
-                return Loc.Get("Elona.GameObjects.Chara.You");
+                return Loc.GetString("Elona.GameObjects.Common.You");
 
             var visibilitySys = EntitySystem.Get<VisibilitySystem>();
 
             if (!visibilitySys.CanSeeEntity(entity, GameSession.Player.Uid))
             {
-                return Loc.Get("Elona.GameObjects.Chara.Something");
+                return Loc.GetString("Elona.GameObjects.Common.Something");
             }
 
             return DisplayNameSystem.GetDisplayName(entity);

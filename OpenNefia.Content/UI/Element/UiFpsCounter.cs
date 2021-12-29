@@ -1,5 +1,4 @@
 ﻿using Love;
-using OpenNefia.Core.Data.Types;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Core.UI.Element;
@@ -11,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace OpenNefia.Content.UI.Element
 {
-    public class UiFpsCounter : BaseUiElement
+    public class UiFpsCounter : UiElement
     {
         float Ms = 0f;
         uint Frames = 0;

@@ -11,6 +11,7 @@ using OpenNefia.Core.Utility;
 using OpenNefia.Content.Prototypes;
 using OpenNefia.Core.SaveGames;
 using OpenNefia.Content.TitleScreen;
+using OpenNefia.Core.UserInterface;
 
 namespace OpenNefia.Content.Logic
 {
@@ -27,6 +28,7 @@ namespace OpenNefia.Content.Logic
         [Dependency] private readonly IFieldLayer _fieldLayer = default!;
         [Dependency] private readonly IMapBlueprintLoader _mapBlueprints = default!;
         [Dependency] private readonly ISaveGameManager _saveGameManager = default!;
+        [Dependency] private readonly IUserInterfaceManager _uiManager = default!;
 
         private void Startup()
         {
@@ -43,7 +45,7 @@ namespace OpenNefia.Content.Logic
             {
                 using (ITitleScreenLayer titleScreen = new TitleScreenLayer())
                 {
-                    var result = titleScreen.Query();
+                    var result = _uiManager.Query(titleScreen);
                     Console.WriteLine(result);
 
                     if (result.HasValue)
@@ -79,7 +81,7 @@ namespace OpenNefia.Content.Logic
 
             _mapManager.SetActiveMap(map.Id);
 
-            _fieldLayer.Query();
+            _uiManager.Query(_fieldLayer);
 
             _mapManager.UnloadMap(map.Id);
         }

@@ -10,7 +10,7 @@ using OpenNefia.Content.Prototypes;
 
 namespace OpenNefia.Content.UI.Layer
 {
-    public class TextPrompt : BaseUiLayer<string>
+    public class TextPrompt : UiLayerWithResult<string>
     {
         private string _Value;
         public string Value
@@ -71,26 +71,26 @@ namespace OpenNefia.Content.UI.Layer
 
         protected virtual void BindKeys()
         {
-            TextInput.Enabled = true;
-            TextInput.Callback += (evt) =>
-            {
-                Value = Value + evt.Text;
-                UpdateText();
-            };
-            Keybinds[CoreKeybinds.Enter] += (_) => Finish(Value);
-            Keybinds[CoreKeybinds.Escape] += (_) =>
-            {
-                if (IsCancellable)
-                    Cancel();
-            };
-            Keybinds[Keys.Backspace] += (_) =>
-            {
-                if (Value.Length > 0)
-                {
-                    Value = Value.Remove(Value.Length - 1, 1);
-                    UpdateText();
-                }
-            };
+            //TextInput.Enabled = true;
+            //TextInput.Callback += (evt) =>
+            //{
+            //    Value = Value + evt.Text;
+            //    UpdateText();
+            //};
+            //Keybinds[CoreKeybinds.Enter] += (_) => Finish(Value);
+            //Keybinds[CoreKeybinds.Escape] += (_) =>
+            //{
+            //    if (IsCancellable)
+            //        Cancel();
+            //};
+            //Keybinds[Keys.Backspace] += (_) =>
+            //{
+            //    if (Value.Length > 0)
+            //    {
+            //        Value = Value.Remove(Value.Length - 1, 1);
+            //        UpdateText();
+            //    }
+            //};
         }
 
         public override void OnQuery()

@@ -12,12 +12,14 @@ using OpenNefia.Core.Locale;
 using OpenNefia.Core.Log;
 using OpenNefia.Core.Maps;
 using OpenNefia.Core.Prototypes;
+using OpenNefia.Core.Random;
 using OpenNefia.Core.Reflection;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Core.Serialization.Manager;
 using OpenNefia.Core.Serialization.Manager.Attributes;
 using OpenNefia.Core.UI;
 using OpenNefia.Core.UI.Layer;
+using OpenNefia.Core.UserInterface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -162,7 +164,7 @@ namespace OpenNefia.Tests
             container.Register<IModLoaderInternal, TestingModLoader>();
             container.Register<ITaskManager, TaskManager>();
 
-            container.RegisterInstance<IUiLayerManager>(new Mock<IUiLayerManager>().Object);
+            container.RegisterInstance<IUserInterfaceManager>(new Mock<IUserInterfaceManager>().Object);
             container.RegisterInstance<IGraphics>(new Mock<IGraphics>().Object);
 
             var realReflection = new ReflectionManager();
@@ -213,6 +215,7 @@ namespace OpenNefia.Tests
             container.Register<IEntitySystemManager, EntitySystemManager>();
             container.Register<IGameSessionManager, GameSessionManager>();
             container.Register<ICoords, OrthographicCoords>();
+            container.Register<IRandom, SysRandom>();
 
             _diFactory?.Invoke(container);
             container.BuildGraph();

@@ -24,9 +24,9 @@ namespace OpenNefia.Core.Locale
             _localization.SwitchLanguage(language);
         }
 
-        public static string Get(LocaleKey key, params LocaleArg[] args)
+        public static string GetString(LocaleKey key, params LocaleArg[] args)
         {
-            return _localization.Get(key, args);
+            return _localization.GetString(key, args);
         }
 
         public static bool IsFullwidth()

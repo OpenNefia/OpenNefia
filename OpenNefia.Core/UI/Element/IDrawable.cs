@@ -5,10 +5,10 @@ namespace OpenNefia.Core.UI.Element
 {
     public interface IDrawable : IDisposable
     {
-        UIBox2i Bounds { get; }
+        UIBox2i GlobalPixelBounds { get; }
 
-        public Vector2i Position { get; }
-        public Vector2i Size { get; }
+        public Vector2i GlobalPixelPosition { get; }
+        public Vector2i PixelSize { get; }
 
         int Width { get; }
         int Height { get; }
@@ -19,7 +19,7 @@ namespace OpenNefia.Core.UI.Element
         void SetSize(int width, int height);
         void SetPosition(int x, int y);
 
-        bool ContainsPoint(Vector2i point);
+        bool ContainsPoint(Vector2 point);
 
         void Update(float dt);
         void Draw();

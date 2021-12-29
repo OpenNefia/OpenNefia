@@ -1,4 +1,5 @@
-﻿using OpenNefia.Core.UI;
+﻿using OpenNefia.Core.Input;
+using OpenNefia.Core.UI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,10 +10,10 @@ namespace OpenNefia.Content.UI.Element.List
 {
     public class UiListChoiceKey
     {
-        public Keys Key { get; set; } = Keys.None;
+        public Keyboard.Key Key { get; set; } = Keyboard.Key.Unknown;
         public bool UseKeybind = true;
 
-        public UiListChoiceKey(Keys key = Keys.None, bool useKeybind = true)
+        public UiListChoiceKey(Keyboard.Key key = Keyboard.Key.Unknown, bool useKeybind = true)
         {
             Key = key;
             UseKeybind = useKeybind;
@@ -20,11 +21,11 @@ namespace OpenNefia.Content.UI.Element.List
 
         public static UiListChoiceKey MakeDefault(int index)
         {
-            var key = Keys.A + index;
-            if (key >= Keys.A && key <= Keys.R)
+            var key = Keyboard.Key.A + (byte)index;
+            if (key >= Keyboard.Key.A && key <= Keyboard.Key.R)
                 return new UiListChoiceKey(key, true);
 
-            return new UiListChoiceKey(Keys.None, false);
+            return new UiListChoiceKey(Keyboard.Key.Unknown, false);
         }
     }
 }

@@ -6,14 +6,14 @@ using OpenNefia.Core.IoC;
 using OpenNefia.Core.Logic;
 using OpenNefia.Core.Maps;
 using OpenNefia.Core.Rendering;
-using OpenNefia.Core.UI.Layer;
+using OpenNefia.Core.UserInterface;
 
 namespace OpenNefia.Content.GameObjects
 {
     public class ThrowableSystem : EntitySystem
     {
         [Dependency] private readonly IMapDrawables _mapDrawables = default!;
-        [Dependency] private readonly IUiLayerManager _uiLayers = default!;
+        [Dependency] private readonly IUserInterfaceManager _uiManager = default!;
         [Dependency] private readonly IMapManager _mapManager = default!;
         [Dependency] private readonly IEntityLookup _lookup = default!;
         [Dependency] private readonly IStackSystem _stackSystem = default!;
@@ -74,7 +74,7 @@ namespace OpenNefia.Content.GameObjects
                 return;
 
             var prompt = new PositionPrompt(sourceEntity);
-            var posResult = _uiLayers.Query(prompt);
+            var posResult = _uiManager.Query(prompt);
             if (!posResult.HasValue)
             {
                 args.Handle(TurnResult.Aborted);

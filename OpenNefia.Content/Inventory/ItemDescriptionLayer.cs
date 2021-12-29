@@ -13,7 +13,7 @@ using OpenNefia.Core.Serialization.Manager.Attributes;
 
 namespace OpenNefia.Content.Inventory
 {
-    public class ItemDescriptionLayer : BaseUiLayer<UiNoResult>
+    public class ItemDescriptionLayer : UiLayerWithResult<UiNoResult>
     {
         [Dependency] private readonly IEntityManager _entityManager = default!;
         [Dependency] private readonly ItemDescriptionSystem _itemDescSystem = default!;
@@ -47,9 +47,9 @@ namespace OpenNefia.Content.Inventory
 
         private void BindKeys()
         {
-            Keybinds[CoreKeybinds.Cancel] += (_) => Cancel();
-            Keybinds[CoreKeybinds.Escape] += (_) => Cancel();
-            Keybinds[CoreKeybinds.Enter] += (_) => Finish(new UiNoResult());
+            //Keybinds[CoreKeybinds.Cancel] += (_) => Cancel();
+            //Keybinds[CoreKeybinds.Escape] += (_) => Cancel();
+            //Keybinds[CoreKeybinds.Enter] += (_) => Finish(new UiNoResult());
         }
 
         private void BuildDescription()
@@ -113,7 +113,7 @@ namespace OpenNefia.Content.Inventory
                         break;
                     case ItemDescriptionType.FlavorItalic:
                         font = new FontSpec(13, 11, color: entry.TextColor, style: FontStyle.Italic);
-                        x = Bounds.Right - font.LoveFont.GetWidth(entry.Text) - 80;
+                        x = GlobalPixelBounds.Right - font.LoveFont.GetWidth(entry.Text) - 80;
                         break;
                     case ItemDescriptionType.Normal:
                     default:

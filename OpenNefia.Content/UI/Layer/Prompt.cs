@@ -6,17 +6,22 @@ using OpenNefia.Core.Maths;
 using OpenNefia.Core.UI;
 using OpenNefia.Core.UI.Layer;
 using OpenNefia.Content.Prototypes;
+using OpenNefia.Core.Input;
+using OpenNefia.Core.Graphics;
+using OpenNefia.Core.IoC;
+using OpenNefia.Core.UI.Element;
+using OpenNefia.Core.UserInterface;
 
 namespace OpenNefia.Content.UI.Layer
 {
     public class PromptChoice<T> : IUiListItem
     {
         public T ChoiceData;
-        public string? ChoiceText = null;
-        public uint? ChoiceIndex = null;
-        public Keys Key = Keys.None;
+        public string? ChoiceText;
+        public uint? ChoiceIndex;
+        public Keyboard.Key Key;
 
-        public PromptChoice(T result, string? text = null, Keys key = Keys.None)
+        public PromptChoice(T result, string? text = null, Keyboard.Key key = Keyboard.Key.Unknown)
         {
             ChoiceData = result;
             ChoiceText = text;
@@ -33,7 +38,7 @@ namespace OpenNefia.Content.UI.Layer
 
         public UiListChoiceKey? GetChoiceKey(int index)
         {
-            if (Key != Keys.None)
+            if (Key != Keyboard.Key.Unknown)
                 return new UiListChoiceKey(Key, useKeybind: false);
 
             return UiListChoiceKey.MakeDefault(index);
@@ -47,8 +52,10 @@ namespace OpenNefia.Content.UI.Layer
         public string? QueryText = null;
     }
 
-    public class Prompt<T> : BaseUiLayer<PromptChoice<T>>
+    public class Prompt<T> : UiLayerWithResult<PromptChoice<T>>
     {
+        [Dependency] private readonly IGraphics _graphics = default!;
+
         private PromptOptions Options;
 
         public UiList<PromptChoice<T>> List { get; }
@@ -58,13 +65,26 @@ namespace OpenNefia.Content.UI.Layer
 
         public Prompt(IEnumerable<PromptChoice<T>> choices, PromptOptions options)
         {
+            IoCManager.InjectDependencies(this);
+
             List = new UiList<PromptChoice<T>>(choices);
             Window = new UiTopicWindow(UiTopicWindow.FrameStyleKind.Zero, UiTopicWindow.WindowStyleKind.Zero);
             Options = options;
 
             DefaultWidth = Options.Width;
 
-            BindKeys();
+            AddChild(List);
+
+            OnKeyBindDown += HandleKeyBindDown;
+
+            List.EventOnActivate += (o, e) =>
+            {
+                Finish(e.SelectedCell.Data);
+            };
+
+            List.GrabKeyboardFocus();
+
+            EventFilter = UIEventFilterMode.Pass;
         }
 
         public Prompt(IEnumerable<PromptChoice<T>> choices)
@@ -82,23 +102,13 @@ namespace OpenNefia.Content.UI.Layer
         {
         }
 
-        protected virtual void BindKeys()
+        private void HandleKeyBindDown(GUIBoundKeyEventArgs args)
         {
-            Action<UiKeyInputEventArgs> cancel = (_) =>
+            if (args.Function == EngineKeyFunctions.UICancel)
             {
                 if (Options.IsCancellable)
                     Cancel();
-            };
-
-            Keybinds[CoreKeybinds.Cancel] += cancel;
-            Keybinds[CoreKeybinds.Escape] += cancel;
-
-            Forwards += List;
-
-            List.EventOnActivate += (o, e) =>
-            {
-                Finish(e.SelectedCell.Data);
-            };
+            }
         }
 
         public override void OnQuery()
@@ -116,8 +126,8 @@ namespace OpenNefia.Content.UI.Layer
             var width = Math.Max(DefaultWidth, listSize.X + 26 + 44);
             var height = listSize.Y;
 
-            var promptX = (Love.Graphics.GetWidth() - 10) / 2 + 3;
-            var promptY = (Love.Graphics.GetHeight() - Constants.INF_VERH - 30) / 2 - 4;
+            var promptX = (_graphics.WindowSize.X - 10) / 2 + 3;
+            var promptY = (_graphics.WindowSize.Y - Constants.INF_VERH - 30) / 2 - 4;
 
             var x = promptX - width / 2;
             var y = promptY - height / 2;

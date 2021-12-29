@@ -128,7 +128,6 @@ namespace OpenNefia.Core.Rendering
                     this.Added.Add(memory);
                     memory.ObjectUid = obj.Uid;
                     memory.Coords = obj.Spatial.MapPosition;
-                    memory.ZOrder = i;
                     at.Add(memory);
                 }
 

@@ -15,11 +15,11 @@ namespace OpenNefia.Content.Inventory
 {
     public class PickUpInventoryBehavior : BaseInventoryBehavior
     {
-        [Dependency] private readonly VerbSystem _verbSystem = default!;
+        [Dependency] private readonly IVerbSystem _verbSystem = default!;
 
         public override HspIdsInv HspIds { get; } = HspIdsInv.From122(new(id: 3));
 
-        public override string WindowTitle => Loc.Get("Elona.Inventory.Behavior.PickUp.WindowTitle");
+        public override string WindowTitle => Loc.GetString("Elona.Inventory.Behavior.PickUp.WindowTitle");
 
         public override IEnumerable<IInventorySource> GetSources(InventoryContext context)
         {
@@ -28,7 +28,7 @@ namespace OpenNefia.Content.Inventory
 
         public override string GetQueryText(InventoryContext context)
         {
-            return Loc.Get("Elona.Inventory.Behavior.PickUp.QueryText");
+            return Loc.GetString("Elona.Inventory.Behavior.PickUp.QueryText");
         }
 
         public override bool IsAccepted(InventoryContext context, EntityUid item)

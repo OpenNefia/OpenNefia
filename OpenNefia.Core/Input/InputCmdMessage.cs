@@ -150,7 +150,7 @@ namespace OpenNefia.Core.Input
         /// <summary>
         ///     Entity that was under the pointer when the command was created (if any).
         /// </summary>
-        public EntityUid Uid { get; }
+        public EntityUid? Uid { get; }
 
         /// <summary>
         ///     Creates an instance of <see cref="FullInputCmdMessage"/>.
@@ -161,7 +161,7 @@ namespace OpenNefia.Core.Input
         /// <param name="coordinates">Local Coordinates of the pointer when the command was created.</param>
         /// <param name="screenCoordinates"></param>
         public FullInputCmdMessage(int inputSequence, KeyFunctionId inputFunctionId, BoundKeyState state, EntityCoordinates coordinates, ScreenCoordinates screenCoordinates)
-            : this(inputFunctionId, state, coordinates, screenCoordinates, EntityUid.Invalid) { }
+            : this(inputFunctionId, state, coordinates, screenCoordinates, null) { }
 
         /// <summary>
         ///     Creates an instance of <see cref="FullInputCmdMessage"/> with an optional Entity reference.
@@ -171,7 +171,7 @@ namespace OpenNefia.Core.Input
         /// <param name="coordinates">Local Coordinates of the pointer when the command was created.</param>
         /// <param name="screenCoordinates"></param>
         /// <param name="uid">Entity that was under the pointer when the command was created.</param>
-        public FullInputCmdMessage(KeyFunctionId inputFunctionId, BoundKeyState state, EntityCoordinates coordinates, ScreenCoordinates screenCoordinates, EntityUid uid)
+        public FullInputCmdMessage(KeyFunctionId inputFunctionId, BoundKeyState state, EntityCoordinates coordinates, ScreenCoordinates screenCoordinates, EntityUid? uid)
             : base(inputFunctionId)
         {
             State = state;

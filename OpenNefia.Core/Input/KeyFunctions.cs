@@ -9,69 +9,6 @@ namespace OpenNefia.Core.Input
         Down = 1
     }
 
-    [KeyFunctions]
-    public static class EngineKeyFunctions
-    {
-        public static readonly BoundKeyFunction MoveUp = "MoveUp";
-        public static readonly BoundKeyFunction MoveDown = "MoveDown";
-        public static readonly BoundKeyFunction MoveLeft = "MoveLeft";
-        public static readonly BoundKeyFunction MoveRight = "MoveRight";
-        public static readonly BoundKeyFunction Walk = "Walk";
-
-        public static readonly BoundKeyFunction CameraRotateRight = "CameraRotateRight";
-        public static readonly BoundKeyFunction CameraRotateLeft = "CameraRotateLeft";
-
-        public static readonly BoundKeyFunction Use = "Use";
-        public static readonly BoundKeyFunction UIClick = "UIClick";
-        public static readonly BoundKeyFunction UIRightClick = "UIRightClick";
-
-        public static readonly BoundKeyFunction CloseModals = "CloseModals";
-        public static readonly BoundKeyFunction ShowDebugConsole = "ShowDebugConsole";
-        public static readonly BoundKeyFunction ShowDebugMonitors = "ShowDebugMonitors";
-        public static readonly BoundKeyFunction HideUI = "HideUI";
-        public static readonly BoundKeyFunction EscapeMenu = "ShowEscapeMenu";
-
-        public static readonly BoundKeyFunction EditorLinePlace = "EditorLinePlace";
-        public static readonly BoundKeyFunction EditorGridPlace = "EditorGridPlace";
-        public static readonly BoundKeyFunction EditorPlaceObject = "EditorPlaceObject";
-        public static readonly BoundKeyFunction EditorCancelPlace = "EditorCancelPlace";
-        public static readonly BoundKeyFunction EditorRotateObject = "EditorRotateObject";
-
-        // Buttons to navigate between UI controls.
-        public static readonly BoundKeyFunction GuiTabNavigateNext = "GuiTabNavigateNext";
-        public static readonly BoundKeyFunction GuiTabNavigatePrev = "GuiTabNavigatePrev";
-
-        // Cursor keys in LineEdit and such.
-        public static readonly BoundKeyFunction TextCursorLeft = "TextCursorLeft";
-        public static readonly BoundKeyFunction TextCursorRight = "TextCursorRight";
-        public static readonly BoundKeyFunction TextCursorWordLeft = "TextCursorWordLeft";
-        public static readonly BoundKeyFunction TextCursorWordRight = "TextCursorWordRight";
-        public static readonly BoundKeyFunction TextCursorBegin = "TextCursorBegin";
-        public static readonly BoundKeyFunction TextCursorEnd = "TextCursorEnd";
-
-        // Cursor keys for also selecting text.
-        public static readonly BoundKeyFunction TextCursorSelect = "TextCursorSelect";
-        public static readonly BoundKeyFunction TextCursorSelectLeft = "TextCursorSelectLeft";
-        public static readonly BoundKeyFunction TextCursorSelectRight = "TextCursorSelectRight";
-        public static readonly BoundKeyFunction TextCursorSelectWordLeft = "TextCursorSelectWordLeft";
-        public static readonly BoundKeyFunction TextCursorSelectWordRight = "TextCursorSelectWordRight";
-        public static readonly BoundKeyFunction TextCursorSelectBegin = "TextCursorSelectBegin";
-        public static readonly BoundKeyFunction TextCursorSelectEnd = "TextCursorSelectEnd";
-
-        public static readonly BoundKeyFunction TextBackspace = "TextBackspace";
-        public static readonly BoundKeyFunction TextSubmit = "TextSubmit";
-        public static readonly BoundKeyFunction TextSelectAll = "TextSelectAll";
-        public static readonly BoundKeyFunction TextCopy = "TextCopy";
-        public static readonly BoundKeyFunction TextCut = "TextCut";
-        public static readonly BoundKeyFunction TextPaste = "TextPaste";
-        public static readonly BoundKeyFunction TextHistoryPrev = "TextHistoryPrev";
-        public static readonly BoundKeyFunction TextHistoryNext = "TextHistoryNext";
-        public static readonly BoundKeyFunction TextReleaseFocus = "TextReleaseFocus";
-        public static readonly BoundKeyFunction TextScrollToBottom = "TextScrollToBottom";
-        public static readonly BoundKeyFunction TextDelete = "TextDelete";
-        public static readonly BoundKeyFunction TextTabComplete = "TextTabComplete";
-    }
-
     [Serializable]
     public struct BoundKeyFunction : IComparable, IComparable<BoundKeyFunction>, IEquatable<BoundKeyFunction>, ISelfSerialize
     {
