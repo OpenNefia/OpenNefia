@@ -5,9 +5,9 @@ namespace OpenNefia.Core.UI.Element
 {
     public interface IDrawable : IDisposable
     {
-        UIBox2i PixelBounds { get; }
+        UIBox2i GlobalPixelBounds { get; }
 
-        public Vector2i PixelPosition { get; }
+        public Vector2i GlobalPixelPosition { get; }
         public Vector2i PixelSize { get; }
 
         int Width { get; }

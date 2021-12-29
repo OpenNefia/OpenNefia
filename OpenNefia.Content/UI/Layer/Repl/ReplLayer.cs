@@ -3,6 +3,7 @@ using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Tags;
 using OpenNefia.Content.UI.Element;
 using OpenNefia.Core.DebugServer;
+using OpenNefia.Core.Graphics;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.Reflection;
@@ -31,6 +32,7 @@ namespace OpenNefia.Content.UI.Layer.Repl
         [Dependency] private readonly IFieldLayer _field = default!;
         [Dependency] private readonly IReflectionManager _reflectionManager = default!;
         [Dependency] private readonly IReplExecutor _executor = default!;
+        [Dependency] private readonly IGraphics _graphics = default!;
 
         protected class ReplTextLine
         {
@@ -436,9 +438,9 @@ namespace OpenNefia.Content.UI.Layer.Repl
 
         public override void GetPreferredBounds(out UIBox2i bounds)
         {
-            var viewportHeight = Love.Graphics.GetHeight();
+            var viewportHeight = _graphics.WindowSize.Y;
 
-            bounds = UIBox2i.FromDimensions(0, 0, Love.Graphics.GetWidth(), (int)Math.Clamp(viewportHeight * HeightPercentage, 0, viewportHeight - 1));
+            bounds = UIBox2i.FromDimensions(0, 0, _graphics.WindowSize.X, (int)Math.Clamp(viewportHeight * HeightPercentage, 0, viewportHeight - 1));
         }
 
         public override void SetSize(int width, int height)

@@ -10,6 +10,8 @@ namespace OpenNefia.Core.Graphics
 {
     public class HeadlessGraphics : Love.Scene, IGraphics
     {
+        public Vector2i WindowSize => new(800, 600);
+
         public event Action<WindowResizedEventArgs>? OnWindowResized;
         public new event Action<WindowFocusedEventArgs>? OnWindowFocused;
         public new event Action<KeyEventArgs>? OnKeyPressed;

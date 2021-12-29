@@ -7,6 +7,8 @@ using OpenNefia.Core.UI;
 using OpenNefia.Core.UI.Layer;
 using OpenNefia.Content.Prototypes;
 using OpenNefia.Core.Input;
+using OpenNefia.Core.Graphics;
+using OpenNefia.Core.IoC;
 
 namespace OpenNefia.Content.UI.Layer
 {
@@ -50,6 +52,8 @@ namespace OpenNefia.Content.UI.Layer
 
     public class Prompt<T> : UiLayerWithResult<PromptChoice<T>>
     {
+        [Dependency] private readonly IGraphics _graphics = default!;
+
         private PromptOptions Options;
 
         public UiList<PromptChoice<T>> List { get; }
@@ -117,8 +121,8 @@ namespace OpenNefia.Content.UI.Layer
             var width = Math.Max(DefaultWidth, listSize.X + 26 + 44);
             var height = listSize.Y;
 
-            var promptX = (Love.Graphics.GetWidth() - 10) / 2 + 3;
-            var promptY = (Love.Graphics.GetHeight() - Constants.INF_VERH - 30) / 2 - 4;
+            var promptX = (_graphics.WindowSize.X - 10) / 2 + 3;
+            var promptY = (_graphics.WindowSize.Y - Constants.INF_VERH - 30) / 2 - 4;
 
             var x = promptX - width / 2;
             var y = promptY - height / 2;

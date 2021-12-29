@@ -14,7 +14,7 @@ namespace OpenNefia.Content.UI.Element.List
     {
         public const int DEFAULT_ITEM_HEIGHT = 19;
 
-        protected IList<IUiListCell<T>> Cells { get; }
+        protected IList<UiListCell<T>> Cells { get; }
         public int ItemHeight { get; }
         public int ItemOffsetX { get; }
 
@@ -48,10 +48,10 @@ namespace OpenNefia.Content.UI.Element.List
         public event UiListEventHandler<T>? EventOnSelect;
         public event UiListEventHandler<T>? EventOnActivate;
 
-        public UiList(IEnumerable<IUiListCell<T>>? cells = null, int itemOffsetX = 0)
+        public UiList(IEnumerable<UiListCell<T>>? cells = null, int itemOffsetX = 0)
         {
             if (cells == null)
-                cells = new List<IUiListCell<T>>();
+                cells = new List<UiListCell<T>>();
 
             ItemHeight = DEFAULT_ITEM_HEIGHT;
             ItemOffsetX = 0;
@@ -65,6 +65,8 @@ namespace OpenNefia.Content.UI.Element.List
 
         public void RefreshCellPositionsAndKeys()
         {
+            RemoveAllChildren();
+
             ChoiceKeys.Clear();
             for (var i = 0; i < Cells.Count; i++)
             {
@@ -75,6 +77,7 @@ namespace OpenNefia.Content.UI.Element.List
                     cell.Key = UiListChoiceKey.MakeDefault(i);
                 }
                 ChoiceKeys[i] = cell.Key;
+                AddChild(cell);
             }
 
             BindKeys();
@@ -98,9 +101,9 @@ namespace OpenNefia.Content.UI.Element.List
             }
         }
 
-        private static IEnumerable<IUiListCell<TItem>> MakeDefaultList<TItem>(IEnumerable<TItem> items)
+        private static IEnumerable<UiListCell<TItem>> MakeDefaultList<TItem>(IEnumerable<TItem> items)
         {
-            IUiListCell<TItem> MakeListCell(TItem item, int index)
+            UiListCell<TItem> MakeListCell(TItem item, int index)
             {
                 if (item is IUiListItem)
                 {
@@ -345,7 +348,7 @@ namespace OpenNefia.Content.UI.Element.List
         public int Count => Cells.Count;
         public bool IsReadOnly => Cells.IsReadOnly;
 
-        public IUiListCell<T> this[int index]
+        public UiListCell<T> this[int index]
         {
             get => Cells[index];
             set
@@ -354,12 +357,12 @@ namespace OpenNefia.Content.UI.Element.List
                 _needsUpdate = true;
             }
         }
-        public int IndexOf(IUiListCell<T> item)
+        public int IndexOf(UiListCell<T> item)
         {
             return Cells.IndexOf(item);
         }
 
-        public void Insert(int index, IUiListCell<T> item)
+        public void Insert(int index, UiListCell<T> item)
         {
             Cells.Insert(index, item);
             _needsUpdate = true;
@@ -371,7 +374,7 @@ namespace OpenNefia.Content.UI.Element.List
             _needsUpdate = true;
         }
 
-        public void Add(IUiListCell<T> item)
+        public void Add(UiListCell<T> item)
         {
             Cells.Add(item);
             _needsUpdate = true;
@@ -383,15 +386,15 @@ namespace OpenNefia.Content.UI.Element.List
             _needsUpdate = true;
         }
 
-        public void AddRange(IEnumerable<IUiListCell<T>> items)
+        public void AddRange(IEnumerable<UiListCell<T>> items)
         {
             Cells.AddRange(items);
             _needsUpdate = true;
         }
 
-        public bool Contains(IUiListCell<T> item) => Cells.Contains(item);
-        public void CopyTo(IUiListCell<T>[] array, int arrayIndex) => Cells.CopyTo(array, arrayIndex);
-        public bool Remove(IUiListCell<T> item)
+        public bool Contains(UiListCell<T> item) => Cells.Contains(item);
+        public void CopyTo(UiListCell<T>[] array, int arrayIndex) => Cells.CopyTo(array, arrayIndex);
+        public bool Remove(UiListCell<T> item)
         {
             _needsUpdate = true;
             return Cells.Remove(item);
@@ -401,7 +404,7 @@ namespace OpenNefia.Content.UI.Element.List
         public bool IsSynchronized => false;
         public object SyncRoot => this;
 
-        public IEnumerator<IUiListCell<T>> GetEnumerator() => Cells.GetEnumerator();
+        public IEnumerator<UiListCell<T>> GetEnumerator() => Cells.GetEnumerator();
         IEnumerator IEnumerable.GetEnumerator() => Cells.GetEnumerator();
 
         #endregion

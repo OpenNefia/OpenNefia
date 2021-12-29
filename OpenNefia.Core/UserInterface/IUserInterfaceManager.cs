@@ -38,9 +38,6 @@ namespace OpenNefia.Core.UserInterface
         void GrabKeyboardFocus(UiElement control);
         void ReleaseKeyboardFocus(UiElement control);
 
-        void Initialize();
-        void Shutdown();
-
         void DrawLayers();
         bool IsQuerying(UiLayer layer);
         void PopLayer(UiLayer layer);

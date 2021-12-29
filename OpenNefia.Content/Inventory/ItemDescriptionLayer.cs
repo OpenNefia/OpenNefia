@@ -113,7 +113,7 @@ namespace OpenNefia.Content.Inventory
                         break;
                     case ItemDescriptionType.FlavorItalic:
                         font = new FontSpec(13, 11, color: entry.TextColor, style: FontStyle.Italic);
-                        x = PixelBounds.Right - font.LoveFont.GetWidth(entry.Text) - 80;
+                        x = GlobalPixelBounds.Right - font.LoveFont.GetWidth(entry.Text) - 80;
                         break;
                     case ItemDescriptionType.Normal:
                     default:

@@ -1,4 +1,5 @@
 ﻿using OpenNefia.Core.Input;
+using OpenNefia.Core.Maths;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,8 @@ namespace OpenNefia.Core.Graphics
 {
     public interface IGraphics
     {
+        Vector2i WindowSize { get; }
+
         event Action<WindowResizedEventArgs>? OnWindowResized;
         event Action<WindowFocusedEventArgs>? OnWindowFocused;
         event Action<KeyEventArgs>? OnKeyPressed;

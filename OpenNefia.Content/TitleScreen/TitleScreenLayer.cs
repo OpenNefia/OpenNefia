@@ -98,7 +98,7 @@ namespace OpenNefia.Content.TitleScreen
         private IAssetInstance AssetTitle;
         private IAssetInstance AssetG4;
 
-        private IUiText[] TextInfo;
+        private UiText[] TextInfo;
 
         [Localize]
         private UiWindow Window;
@@ -112,7 +112,7 @@ namespace OpenNefia.Content.TitleScreen
             AssetG4 = Assets.Get(AssetPrototypeOf.G4);
 
             var version = "1.22";
-            TextInfo = new IUiText[3];
+            TextInfo = new UiText[3];
 
             TextInfo[0] = new UiText(FontTitleText, $"Elona version {version}  Developed by Noa");
             if (Loc.Language == LanguagePrototypeOf.Japanese)
@@ -127,7 +127,7 @@ namespace OpenNefia.Content.TitleScreen
 
             Window = new UiWindow();
 
-            var items = new List<TitleScreenCell>() {
+            var items = new TitleScreenCell[] {
                 new TitleScreenCell(TitleScreenChoice.Restore),
                 new TitleScreenCell(TitleScreenChoice.Generate),
                 new TitleScreenCell(TitleScreenChoice.Incarnate),
@@ -140,6 +140,18 @@ namespace OpenNefia.Content.TitleScreen
             List.EventOnActivate += (_, evt) => RunTitleScreenAction(evt.SelectedCell.Data);
 
             //Forwards += List;
+
+            AddChildren();
+        }
+
+        public void AddChildren()
+        {
+            foreach (var text in TextInfo)
+            {
+                AddChild(text);
+            }
+            AddChild(Window);
+            AddChild(List);
         }
 
         private void RunTitleScreenAction(TitleScreenChoice selectedChoice)
