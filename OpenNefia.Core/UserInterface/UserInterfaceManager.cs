@@ -221,12 +221,14 @@ namespace OpenNefia.Core.UserInterface
             layer.SetPosition(bounds.Left, bounds.Top);
             Layers.Add(layer);
             SortLayers();
+            CurrentLayer?.OnFocused();
         }
 
         public void PopLayer(UiLayer layer)
         {
             Layers.Remove(layer);
             SortLayers();
+            CurrentLayer?.OnFocused();
         }
 
         public bool IsQuerying(UiLayer layer)

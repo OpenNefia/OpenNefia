@@ -15,7 +15,7 @@ namespace OpenNefia.Content.Inventory
 {
     public class DropInventoryBehavior : BaseInventoryBehavior
     {
-        [Dependency] private readonly VerbSystem _verbSystem = default!;
+        [Dependency] private readonly IVerbSystem _verbSystem = default!;
 
         public override HspIdsInv HspIds { get; } = HspIdsInv.From122(new(id: 2));
 

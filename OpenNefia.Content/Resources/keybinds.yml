@@ -38,6 +38,18 @@ binds:
   type: State
   key: Numpad3
 
+- function: Elona.Ascend
+  type: State
+  key: Comma
+  mod1: Shift
+- function: Elona.Descend
+  type: State
+  key: Period
+  mod1: Shift
+- function: Elona.Activate
+  type: State
+  key: Enter
+
 - function: UIClick
   type: State
   key: MouseLeft
@@ -187,3 +199,7 @@ binds:
 - function: TextTabComplete
   type: State
   key: Tab
+
+- function: ShowEscapeMenu
+  type: State
+  key: Escape

@@ -15,13 +15,9 @@
             common.AddFunction(EngineKeyFunctions.UIClick);
             common.AddFunction(EngineKeyFunctions.UIRightClick);
 
-            common.AddFunction(EngineKeyFunctions.ShowEscapeMenu);
             common.AddFunction(EngineKeyFunctions.ShowDebugConsole);
             common.AddFunction(EngineKeyFunctions.ShowDebugMonitors);
-            common.AddFunction(EngineKeyFunctions.North);
-            common.AddFunction(EngineKeyFunctions.South);
-            common.AddFunction(EngineKeyFunctions.West);
-            common.AddFunction(EngineKeyFunctions.East);
+
             common.AddFunction(EngineKeyFunctions.UISelect);
             common.AddFunction(EngineKeyFunctions.UICancel);
 
@@ -57,6 +53,18 @@
             common.AddFunction(EngineKeyFunctions.TextScrollToBottom);
             common.AddFunction(EngineKeyFunctions.TextDelete);
             common.AddFunction(EngineKeyFunctions.TextTabComplete);
+
+            var field = contexts.New("field", common);
+            field.AddFunction(EngineKeyFunctions.North);
+            field.AddFunction(EngineKeyFunctions.South);
+            field.AddFunction(EngineKeyFunctions.West);
+            field.AddFunction(EngineKeyFunctions.East);
+            field.AddFunction(EngineKeyFunctions.Southeast);
+            field.AddFunction(EngineKeyFunctions.Northeast);
+            field.AddFunction(EngineKeyFunctions.Northwest);
+            field.AddFunction(EngineKeyFunctions.Southwest);
+
+            field.AddFunction(EngineKeyFunctions.ShowEscapeMenu);
         }
     }
 }

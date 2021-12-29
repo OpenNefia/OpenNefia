@@ -17,7 +17,7 @@ namespace OpenNefia.Content.Inventory
 {
     public class ExamineInventoryBehavior : BaseInventoryBehavior
     {
-        [Dependency] private readonly VerbSystem _verbSystem = default!;
+        [Dependency] private readonly IVerbSystem _verbSystem = default!;
         [Dependency] private readonly IUserInterfaceManager _uiManager = default!;
 
         public override HspIdsInv HspIds { get; } = HspIdsInv.From122(new(id: 1));

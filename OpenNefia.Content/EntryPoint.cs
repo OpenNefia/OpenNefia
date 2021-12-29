@@ -1,6 +1,8 @@
-﻿using OpenNefia.Content.Logic;
+﻿using OpenNefia.Content.Input;
+using OpenNefia.Content.Logic;
 using OpenNefia.Core.ContentPack;
 using OpenNefia.Core.GameController;
+using OpenNefia.Core.Input;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Log;
 
@@ -23,6 +25,10 @@ namespace OpenNefia.Content
 
         public override void PostInit()
         {
+            // Setup key contexts
+            var inputMan = IoCManager.Resolve<IInputManager>();
+            ContentContexts.SetupContexts(inputMan.Contexts);
+
             var gc = IoCManager.Resolve<IGameController>();
             var mainTitle = IoCManager.Resolve<IMainTitleLogic>();
 
