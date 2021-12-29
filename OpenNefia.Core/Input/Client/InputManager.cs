@@ -951,7 +951,6 @@ namespace OpenNefia.Core.Input
 
             public void Update(FrameEventArgs frame, bool isShiftPressed)
             {
-                Logger.Info($"WAIT {Delay}");
                 Delay -= frame.DeltaSeconds;
                 if (Delay <= 0.0f)
                 {
