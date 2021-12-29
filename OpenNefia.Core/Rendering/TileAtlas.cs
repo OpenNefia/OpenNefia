@@ -1,5 +1,4 @@
 ﻿using Love;
-using OpenNefia.Core.Data.Types;
 using OpenNefia.Core.Serialization.Manager.Attributes;
 using OpenNefia.Core.Utility;
 using System;

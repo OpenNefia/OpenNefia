@@ -70,7 +70,7 @@ namespace OpenNefia.Content.UI.Element
                 parts.Add(new AssetBatchPart($"mid_right_{tile_y}", x_inner, dy * 8 + y + 48));
             }
 
-            this.AssetWindow = Assets.GetSized(AssetPrototypeOf.Window, this.Size);
+            this.AssetWindow = Assets.GetSized(AssetPrototypeOf.Window, this.PixelSize);
             this.Batch = this.AssetWindow.MakeBatch(parts);
         }
 

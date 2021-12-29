@@ -7,7 +7,7 @@ using System.Collections;
 
 namespace OpenNefia.Content.UI.Layer
 {
-    public class TestLayer : BaseUiLayer<string>
+    public class TestLayer : UiLayerWithResult<string>
     {
         private UiWindowBacking WindowBacking;
 
@@ -22,45 +22,45 @@ namespace OpenNefia.Content.UI.Layer
 
         protected virtual void BindKeys()
         {
-            Keybinds[CoreKeybinds.Escape] += (_) => Cancel();
-            Keybinds[CoreKeybinds.Cancel] += (_) => Cancel();
+            //Keybinds[CoreKeybinds.Escape] += (_) => Cancel();
+            //Keybinds[CoreKeybinds.Cancel] += (_) => Cancel();
 
-            Keybinds[CoreKeybinds.Identify] += (_) =>
-            {
-                var choices = new List<PromptChoice<int>>()
-                {
-                    new PromptChoice<int>(0),
-                    new PromptChoice<int>(24),
-                    new PromptChoice<int>(42142132)
-                };
-                var prompt = new Prompt<int>(choices);
-                Console.WriteLine($"Prompt start");
-                var result = prompt.Query();
-                Console.WriteLine($"Prompt result: {result}");
-            };
+            //Keybinds[CoreKeybinds.Identify] += (_) =>
+            //{
+            //    var choices = new List<PromptChoice<int>>()
+            //    {
+            //        new PromptChoice<int>(0),
+            //        new PromptChoice<int>(24),
+            //        new PromptChoice<int>(42142132)
+            //    };
+            //    var prompt = new Prompt<int>(choices);
+            //    Console.WriteLine($"Prompt start");
+            //    var result = prompt.Query();
+            //    Console.WriteLine($"Prompt result: {result}");
+            //};
 
-            Keybinds[CoreKeybinds.Mode] += (_) =>
-            {
-                var numberPrompt = new NumberPrompt(minValue: 2, maxValue: 100, initialValue: 50);
-                var result = numberPrompt.Query();
-                Console.WriteLine($"Number prompt result: {result}");
-            };
+            //Keybinds[CoreKeybinds.Mode] += (_) =>
+            //{
+            //    var numberPrompt = new NumberPrompt(minValue: 2, maxValue: 100, initialValue: 50);
+            //    var result = numberPrompt.Query();
+            //    Console.WriteLine($"Number prompt result: {result}");
+            //};
 
-            Keybinds[Keys.Ctrl | Keys.C] += (_) =>
-            {
-                new ListTestLayer().Query();
-            };
+            //Keybinds[Keys.Ctrl | Keys.C] += (_) =>
+            //{
+            //    new ListTestLayer().Query();
+            //};
 
-            Keybinds[Keys.Ctrl | Keys.D] += (_) =>
-            {
-                var text = new TextPrompt().Query();
-                Console.WriteLine($"Get: {text}");
-            };
+            //Keybinds[Keys.Ctrl | Keys.D] += (_) =>
+            //{
+            //    var text = new TextPrompt().Query();
+            //    Console.WriteLine($"Get: {text}");
+            //};
 
-            Keybinds[Keys.Ctrl | Keys.E] += (_) =>
-            {
-                new ProgressBarLayer(new TestProgressJob()).Query();
-            };
+            //Keybinds[Keys.Ctrl | Keys.E] += (_) =>
+            //{
+            //    new ProgressBarLayer(new TestProgressJob()).Query();
+            //};
         }
 
         private class TestProgressJob : IProgressableJob

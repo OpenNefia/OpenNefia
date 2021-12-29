@@ -82,11 +82,11 @@ namespace OpenNefia.Content.GameObjects.Pickable
             {
                 case OwnState.NPC:
                     _sounds.Play(Protos.Sound.Fail1);
-                    Mes.Display(Loc.Get("Elona.GameObjects.Pickable.NotOwned"));
+                    Mes.Display(Loc.GetString("Elona.GameObjects.Pickable.NotOwned"));
                     return false;
                 case OwnState.Shop:
                     _sounds.Play(Protos.Sound.Fail1);
-                    Mes.Display(Loc.Get("Elona.GameObjects.Pickable.CannotCarry"));
+                    Mes.Display(Loc.GetString("Elona.GameObjects.Pickable.CannotCarry"));
                     return false;
                 default:
                     return true;
@@ -108,7 +108,7 @@ namespace OpenNefia.Content.GameObjects.Pickable
 
             if (success)
             {
-                Mes.Display(Loc.Get("Elona.GameObjects.Pickable.PicksUp", ("entity", picker), ("target", target)));
+                Mes.Display(Loc.GetString("Elona.GameObjects.Pickable.PicksUp", ("entity", picker), ("target", target)));
 
                 var sound = _random.Pick(GetSounds);
                 _sounds.Play(sound, picker);
@@ -137,7 +137,7 @@ namespace OpenNefia.Content.GameObjects.Pickable
 
             if (success)
             {
-                Mes.Display(Loc.Get("Elona.GameObjects.Pickable.Drops", ("entity", picker), ("target", target)));
+                Mes.Display(Loc.GetString("Elona.GameObjects.Pickable.Drops", ("entity", picker), ("target", target)));
 
                 _sounds.Play(Protos.Sound.Drop1, picker);
 

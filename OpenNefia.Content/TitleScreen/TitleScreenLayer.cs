@@ -7,11 +7,12 @@ using OpenNefia.Core.Rendering;
 using OpenNefia.Core.UI.Layer;
 using OpenNefia.Content.Prototypes;
 using OpenNefia.Content.UI;
+using OpenNefia.Core.UI;
 
 namespace OpenNefia.Content.TitleScreen
 {
     [Localize("Elona.TitleScreen.Layer")]
-    public class TitleScreenLayer : BaseUiLayer<TitleScreenResult>, ITitleScreenLayer
+    public class TitleScreenLayer : UiLayerWithResult<TitleScreenResult>, ITitleScreenLayer
     {
         public enum TitleScreenChoice
         {
@@ -78,6 +79,7 @@ namespace OpenNefia.Content.TitleScreen
                 {
                     TextSubtext.Draw();
                 }
+                UiUtils.DebugDraw(this);
             }
 
             public override void Update(float dt)
@@ -98,7 +100,7 @@ namespace OpenNefia.Content.TitleScreen
         private IAssetInstance AssetTitle;
         private IAssetInstance AssetG4;
 
-        private IUiText[] TextInfo;
+        private UiText[] TextInfo;
 
         [Localize]
         private UiWindow Window;
@@ -112,7 +114,7 @@ namespace OpenNefia.Content.TitleScreen
             AssetG4 = Assets.Get(AssetPrototypeOf.G4);
 
             var version = "1.22";
-            TextInfo = new IUiText[3];
+            TextInfo = new UiText[3];
 
             TextInfo[0] = new UiText(FontTitleText, $"Elona version {version}  Developed by Noa");
             if (Loc.Language == LanguagePrototypeOf.Japanese)
@@ -127,7 +129,7 @@ namespace OpenNefia.Content.TitleScreen
 
             Window = new UiWindow();
 
-            var items = new List<TitleScreenCell>() {
+            var items = new TitleScreenCell[] {
                 new TitleScreenCell(TitleScreenChoice.Restore),
                 new TitleScreenCell(TitleScreenChoice.Generate),
                 new TitleScreenCell(TitleScreenChoice.Incarnate),
@@ -139,7 +141,19 @@ namespace OpenNefia.Content.TitleScreen
             List = new UiList<TitleScreenChoice>(items);
             List.EventOnActivate += (_, evt) => RunTitleScreenAction(evt.SelectedCell.Data);
 
-            Forwards += List;
+            AddChildren();
+
+            List.GrabKeyboardFocus();
+        }
+
+        public void AddChildren()
+        {
+            foreach (var text in TextInfo)
+            {
+                AddChild(text);
+            }
+            AddChild(Window);
+            AddChild(List);
         }
 
         private void RunTitleScreenAction(TitleScreenChoice selectedChoice)
@@ -211,6 +225,8 @@ namespace OpenNefia.Content.TitleScreen
                               Window.Y + Window.Height / 2 - bgPicHeight / 2,
                               bgPicWidth,
                               bgPicHeight);
+
+            UiUtils.DebugDraw(List);
         }
 
         public override void Dispose()

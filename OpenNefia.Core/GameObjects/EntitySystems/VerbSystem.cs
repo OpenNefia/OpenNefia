@@ -12,7 +12,14 @@ namespace OpenNefia.Core.GameObjects
     /// System for querying and executing <see cref="Verb"/>s, which are 
     /// player-initated actions targeting an entity.
     /// </summary>
-    public class VerbSystem : EntitySystem
+    public interface IVerbSystem : IEntitySystem
+    {
+        TurnResult ExecuteVerb(EntityUid source, EntityUid target, Verb verb);
+
+        SortedSet<Verb> GetLocalVerbs(EntityUid source, EntityUid target);
+    }
+
+    public class VerbSystem : EntitySystem, IVerbSystem
     {
         /// <summary>
         /// Gets the set of verbs applicable to this entity from sending

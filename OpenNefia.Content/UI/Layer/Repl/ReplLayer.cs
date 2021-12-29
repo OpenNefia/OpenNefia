@@ -3,6 +3,7 @@ using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Tags;
 using OpenNefia.Content.UI.Element;
 using OpenNefia.Core.DebugServer;
+using OpenNefia.Core.Graphics;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.Reflection;
@@ -26,11 +27,12 @@ namespace OpenNefia.Content.UI.Layer.Repl
         void PrintText(string text, Color? color = null);
     }
 
-    public class ReplLayer : BaseUiLayer<UiNoResult>, IReplLayer
+    public class ReplLayer : UiLayerWithResult<UiNoResult>, IReplLayer
     {
         [Dependency] private readonly IFieldLayer _field = default!;
         [Dependency] private readonly IReflectionManager _reflectionManager = default!;
         [Dependency] private readonly IReplExecutor _executor = default!;
+        [Dependency] private readonly IGraphics _graphics = default!;
 
         protected class ReplTextLine
         {
@@ -146,79 +148,79 @@ namespace OpenNefia.Content.UI.Layer.Repl
 
         protected virtual void BindKeys()
         {
-            TextInput.Enabled = true;
-            TextInput.Callback += (evt) => InsertText(evt.Text);
+            //TextInput.Enabled = true;
+            //TextInput.Callback += (evt) => InsertText(evt.Text);
 
-            Keybinds[Keys.Up] += (_) =>
-            {
-                if (_completionsPane.IsVisible)
-                    _completionsPane.Decrement();
-                else
-                    PreviousHistoryEntry();
-            };
-            Keybinds[Keys.Down] += (_) =>
-            {
-                if (_completionsPane.IsVisible)
-                    _completionsPane.Increment();
-                else
-                    NextHistoryEntry();
-            };
-            Keybinds[Keys.Left] += (_) =>
-            {
-                CaretPos -= 1;
-                UpdateCompletions();
-            };
-            Keybinds[Keys.Right] += (_) =>
-            {
-                CaretPos += 1;
-                UpdateCompletions();
-            };
-            Keybinds[Keys.Backspace] += (_) => DeleteCharAtCursor();
-            Keybinds[Keys.PageUp] += (_) => SetScrollbackPos(ScrollbackPos + MaxLines / 2);
-            Keybinds[Keys.PageDown] += (_) => SetScrollbackPos(ScrollbackPos - MaxLines / 2);
-            Keybinds[Keys.Ctrl | Keys.A] += (_) =>
-            {
-                CaretPos = 0;
-                UpdateCompletions();
-            };
-            Keybinds[Keys.Ctrl | Keys.E] += (_) =>
-            {
-                CaretPos = EditingLine.Length;
-                UpdateCompletions();
-            };
-            Keybinds[Keys.Ctrl | Keys.F] += (_) => IsFullscreen = !IsFullscreen;
-            Keybinds[Keys.Ctrl | Keys.X] += (_) => CutText();
-            Keybinds[Keys.Ctrl | Keys.C] += (_) => CopyText();
-            Keybinds[Keys.Ctrl | Keys.V] += (_) => PasteText();
-            Keybinds[Keys.Ctrl | Keys.N] += (_) =>
-            {
-                if (!_completionsPane.IsOpen)
-                    _completionsPane.Open(CaretPos);
-                else
-                    _completionsPane.Increment();
-            };
-            Keybinds[Keys.Ctrl | Keys.P] += (_) =>
-            {
-                if (!_completionsPane.IsOpen)
-                    _completionsPane.Open(CaretPos);
-                else
-                    _completionsPane.Decrement();
-            };
-            Keybinds[Keys.Tab] += (_) => InsertCompletion();
-            Keybinds[Keys.Enter] += (_) =>
-            {
-                if (_completionsPane.IsVisible)
-                    InsertCompletion();
-                else
-                    SubmitText();
-            };
-            Keybinds[Keys.Escape] += (_) =>
-            {
-                if (_completionsPane.IsVisible)
-                    _completionsPane.Close();
-                else
-                    Cancel();
-            };
+            //Keybinds[Keys.Up] += (_) =>
+            //{
+            //    if (_completionsPane.IsVisible)
+            //        _completionsPane.Decrement();
+            //    else
+            //        PreviousHistoryEntry();
+            //};
+            //Keybinds[Keys.Down] += (_) =>
+            //{
+            //    if (_completionsPane.IsVisible)
+            //        _completionsPane.Increment();
+            //    else
+            //        NextHistoryEntry();
+            //};
+            //Keybinds[Keys.Left] += (_) =>
+            //{
+            //    CaretPos -= 1;
+            //    UpdateCompletions();
+            //};
+            //Keybinds[Keys.Right] += (_) =>
+            //{
+            //    CaretPos += 1;
+            //    UpdateCompletions();
+            //};
+            //Keybinds[Keys.Backspace] += (_) => DeleteCharAtCursor();
+            //Keybinds[Keys.PageUp] += (_) => SetScrollbackPos(ScrollbackPos + MaxLines / 2);
+            //Keybinds[Keys.PageDown] += (_) => SetScrollbackPos(ScrollbackPos - MaxLines / 2);
+            //Keybinds[Keys.Ctrl | Keys.A] += (_) =>
+            //{
+            //    CaretPos = 0;
+            //    UpdateCompletions();
+            //};
+            //Keybinds[Keys.Ctrl | Keys.E] += (_) =>
+            //{
+            //    CaretPos = EditingLine.Length;
+            //    UpdateCompletions();
+            //};
+            //Keybinds[Keys.Ctrl | Keys.F] += (_) => IsFullscreen = !IsFullscreen;
+            //Keybinds[Keys.Ctrl | Keys.X] += (_) => CutText();
+            //Keybinds[Keys.Ctrl | Keys.C] += (_) => CopyText();
+            //Keybinds[Keys.Ctrl | Keys.V] += (_) => PasteText();
+            //Keybinds[Keys.Ctrl | Keys.N] += (_) =>
+            //{
+            //    if (!_completionsPane.IsOpen)
+            //        _completionsPane.Open(CaretPos);
+            //    else
+            //        _completionsPane.Increment();
+            //};
+            //Keybinds[Keys.Ctrl | Keys.P] += (_) =>
+            //{
+            //    if (!_completionsPane.IsOpen)
+            //        _completionsPane.Open(CaretPos);
+            //    else
+            //        _completionsPane.Decrement();
+            //};
+            //Keybinds[Keys.Tab] += (_) => InsertCompletion();
+            //Keybinds[Keys.Enter] += (_) =>
+            //{
+            //    if (_completionsPane.IsVisible)
+            //        InsertCompletion();
+            //    else
+            //        SubmitText();
+            //};
+            //Keybinds[Keys.Escape] += (_) =>
+            //{
+            //    if (_completionsPane.IsVisible)
+            //        _completionsPane.Close();
+            //    else
+            //        Cancel();
+            //};
         }
 
         public void InsertText(string inserted)
@@ -436,9 +438,9 @@ namespace OpenNefia.Content.UI.Layer.Repl
 
         public override void GetPreferredBounds(out UIBox2i bounds)
         {
-            var viewportHeight = Love.Graphics.GetHeight();
+            var viewportHeight = _graphics.WindowSize.Y;
 
-            bounds = UIBox2i.FromDimensions(0, 0, Love.Graphics.GetWidth(), (int)Math.Clamp(viewportHeight * HeightPercentage, 0, viewportHeight - 1));
+            bounds = UIBox2i.FromDimensions(0, 0, _graphics.WindowSize.X, (int)Math.Clamp(viewportHeight * HeightPercentage, 0, viewportHeight - 1));
         }
 
         public override void SetSize(int width, int height)
@@ -615,7 +617,7 @@ namespace OpenNefia.Content.UI.Layer.Repl
 
     public delegate IReadOnlyCollection<CompletionItemWithDescription> CompletionCallback(string input, int caret);
 
-    public class CompletionsPane : BaseUiElement
+    public class CompletionsPane : UiElement
     {
         public int Padding { get; set; } = 5;
         public int BorderPadding { get; set; } = 4;

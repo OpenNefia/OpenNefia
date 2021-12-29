@@ -18,7 +18,7 @@ namespace OpenNefia.Content.UI.Hud
         }
     }
 
-    public class SimpleMessageWindow : BaseUiElement, IHudMessageWindow
+    public class SimpleMessageWindow : UiElement, IHudMessageWindow
     {
         CircularBuffer<ColoredString> Messages;
 

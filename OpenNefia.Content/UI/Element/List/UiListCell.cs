@@ -1,14 +1,18 @@
 ﻿using Love;
+using OpenNefia.Core.Audio;
 using OpenNefia.Core.Locale;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Core.UI;
 using OpenNefia.Core.UI.Element;
+using OpenNefia.Content.Prototypes;
 using Color = OpenNefia.Core.Maths.Color;
+using OpenNefia.Core.UserInterface;
+using OpenNefia.Core.Input;
 
 namespace OpenNefia.Content.UI.Element.List
 {
-    public class UiListCell<T> : BaseUiElement, IUiListCell<T>
+    public class UiListCell<T> : UiElement, IUiListCell<T>
     {
         public T Data { get; set; }
 
@@ -20,7 +24,7 @@ namespace OpenNefia.Content.UI.Element.List
             {
                 _Key = value;
                 var keyName = string.Empty;
-                if (Key != null && Key.Key != Keys.None)
+                if (Key != null && Key.Key != Core.Input.Keyboard.Key.Unknown)
                 {
                     keyName = UiUtils.GetKeyName(Key.Key);
                 }
@@ -61,6 +65,21 @@ namespace OpenNefia.Content.UI.Element.List
             AssetListBullet = Assets.Get(AssetPrototypeOf.ListBullet);
 
             Key = key;
+
+            OnMouseEntered += HandleMouseEntered;
+            EventFilter = UIEventFilterMode.Pass;
+        }
+
+        private void HandleMouseEntered(GUIMouseHoverEventArgs args)
+        {
+            if (Parent is not UiList<T> list)
+                return;
+
+            if (list.SelectedIndex != IndexInList)
+            {
+                Sounds.Play(Protos.Sound.Cursor1);
+                list.Select(this.IndexInList);
+            }
         }
 
         public UiListCell(T data, string text, UiListChoiceKey? key = null) : this(data, new UiText(UiFonts.ListText, text), key) { }

@@ -1,22 +1,22 @@
 ﻿using Love;
 using OpenNefia.Core;
 using OpenNefia.Core.Audio;
-using OpenNefia.Core.Data.Types;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.UI;
 using OpenNefia.Core.UI.Element;
 using OpenNefia.Content.Prototypes;
 using System.Collections;
-using MouseButton = OpenNefia.Core.UI.MouseButton;
 using OpenNefia.Core.Utility;
+using OpenNefia.Core.Input;
+using OpenNefia.Core.UserInterface;
 
 namespace OpenNefia.Content.UI.Element.List
 {
-    public class UiList<T> : BaseInputUiElement, IUiList<T>
+    public class UiList<T> : UiElement, IUiList<T>, IRawInputControl
     {
         public const int DEFAULT_ITEM_HEIGHT = 19;
 
-        protected IList<IUiListCell<T>> Cells { get; }
+        protected IList<UiListCell<T>> Cells { get; }
         public int ItemHeight { get; }
         public int ItemOffsetX { get; }
 
@@ -35,7 +35,8 @@ namespace OpenNefia.Content.UI.Element.List
             }
         }
 
-        public IUiListCell<T>? SelectedCell { 
+        public IUiListCell<T>? SelectedCell
+        {
             get
             {
                 if (Cells.Count == 0)
@@ -50,10 +51,10 @@ namespace OpenNefia.Content.UI.Element.List
         public event UiListEventHandler<T>? EventOnSelect;
         public event UiListEventHandler<T>? EventOnActivate;
 
-        public UiList(IEnumerable<IUiListCell<T>>? cells = null, int itemOffsetX = 0)
+        public UiList(IEnumerable<UiListCell<T>>? cells = null, int itemOffsetX = 0)
         {
             if (cells == null)
-                cells = new List<IUiListCell<T>>();
+                cells = new List<UiListCell<T>>();
 
             ItemHeight = DEFAULT_ITEM_HEIGHT;
             ItemOffsetX = 0;
@@ -63,10 +64,14 @@ namespace OpenNefia.Content.UI.Element.List
             Cells = cells.ToList();
 
             RefreshCellPositionsAndKeys();
+
+            CanKeyboardFocus = true;
         }
 
         public void RefreshCellPositionsAndKeys()
         {
+            RemoveAllChildren();
+
             ChoiceKeys.Clear();
             for (var i = 0; i < Cells.Count; i++)
             {
@@ -77,9 +82,11 @@ namespace OpenNefia.Content.UI.Element.List
                     cell.Key = UiListChoiceKey.MakeDefault(i);
                 }
                 ChoiceKeys[i] = cell.Key;
+                AddChild(cell);
             }
 
-            BindKeys();
+            OnKeyBindDown += HandleKeyBindDown;
+            EventFilter = UIEventFilterMode.Pass;
 
             // Set the size/position of the child list cells.
             SetSize(Width, Height);
@@ -91,6 +98,46 @@ namespace OpenNefia.Content.UI.Element.List
         {
         }
 
+        private void HandleKeyBindDown(GUIBoundKeyEventArgs args)
+        {
+            if (args.Function == EngineKeyFunctions.UISelect)
+            {
+                Activate(SelectedIndex);
+            }
+            else if (args.Function == EngineKeyFunctions.UIClick)
+            {
+                if (UserInterfaceManager.CurrentlyHovered == SelectedCell)
+                {
+                    Activate(SelectedIndex);
+                }
+            }
+            else if (args.Function == EngineKeyFunctions.UIUp)
+            {
+                Sounds.Play(Protos.Sound.Cursor1);
+                IncrementIndex(-1);
+            }
+            else if (args.Function == EngineKeyFunctions.UIDown)
+            {
+                Sounds.Play(Protos.Sound.Cursor1);
+                IncrementIndex(1);
+            }
+        }
+
+        public bool RawKeyEvent(in GuiRawKeyEvent guiRawEvent)
+        {
+            for (int index = 0; index < ChoiceKeys.Count; index++)
+            {
+                var choiceKey = ChoiceKeys[index];
+                if (choiceKey.Key == guiRawEvent.Key)
+                {
+                    Activate(index);
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
         public override void Localize(LocaleKey key)
         {
             for (int i = 0; i < Cells.Count; i++)
@@ -100,9 +147,9 @@ namespace OpenNefia.Content.UI.Element.List
             }
         }
 
-        private static IEnumerable<IUiListCell<TItem>> MakeDefaultList<TItem>(IEnumerable<TItem> items)
+        private static IEnumerable<UiListCell<TItem>> MakeDefaultList<TItem>(IEnumerable<TItem> items)
         {
-            IUiListCell<TItem> MakeListCell(TItem item, int index)
+            UiListCell<TItem> MakeListCell(TItem item, int index)
             {
                 if (item is IUiListItem)
                 {
@@ -115,70 +162,6 @@ namespace OpenNefia.Content.UI.Element.List
                 }
             }
             return items.Select(MakeListCell);
-        }
-
-        protected virtual void BindKeys()
-        {
-            for (int i = 0; i < ChoiceKeys.Count; i++)
-            {
-                var choiceKey = ChoiceKeys[i];
-                IKeybind keybind;
-                if (choiceKey.UseKeybind)
-                {
-                    if (CoreKeybinds.SelectionKeys.ContainsKey(choiceKey.Key))
-                    {
-                        keybind = CoreKeybinds.SelectionKeys[choiceKey.Key];
-                    }
-                    else
-                    {
-                        keybind = new RawKey(choiceKey.Key);
-                    }
-                }
-                else
-                {
-                    keybind = new RawKey(choiceKey.Key);
-                }
-
-                // C# doesn't capture locals in closures like Lua does with upvalues.
-                var indexCopy = i;
-                Keybinds[keybind] += (_) => Activate(indexCopy);
-            }
-
-            Keybinds[CoreKeybinds.UIUp] += (_) =>
-            {
-                Sounds.Play(Protos.Sound.Cursor1);
-                IncrementIndex(-1);
-            };
-            Keybinds[CoreKeybinds.UIDown] += (_) =>
-            {
-                Sounds.Play(Protos.Sound.Cursor1);
-                IncrementIndex(1);
-            };
-            Keybinds[CoreKeybinds.Enter] += (_) => Activate(SelectedIndex);
-
-            MouseMoved.Callback += (evt) =>
-            {
-                for (var index = 0; index < Cells.Count; index++)
-                {
-                    if (Cells[index].ContainsPoint(evt.Pos))
-                    {
-                        if (SelectedIndex != index)
-                        {
-                            Sounds.Play(Protos.Sound.Cursor1);
-                            Select(index);
-                        }
-                        break;
-                    }
-                }
-            };
-
-            this.MouseButtons[MouseButton.Mouse1] += (evt) =>
-            {
-                if (this.SelectedCell != null && this.SelectedCell.ContainsPoint(evt.Pos))
-                {
-                    this.Activate(this.SelectedIndex);
-                }
-            };
         }
 
         #region Data Creation
@@ -292,15 +275,19 @@ namespace OpenNefia.Content.UI.Element.List
 
         public override void SetSize(int width, int height)
         {
+            var totalHeight = 0;
+
             for (int index = 0; index < Count; index++)
             {
                 var cell = Cells[index];
                 cell.GetPreferredSize(out var cellSize);
-                cell.SetSize(width, Math.Max(cellSize.Y, ItemHeight));
+                var cellHeight = Math.Max(cellSize.Y, ItemHeight);
+                cell.SetSize(width, cellHeight);
                 width = Math.Max(width, cell.Width);
+                totalHeight += cell.Height;
             }
 
-            base.SetSize(width, height);
+            base.SetSize(width, Math.Max(height, totalHeight));
         }
 
         public override void Update(float dt)
@@ -347,7 +334,7 @@ namespace OpenNefia.Content.UI.Element.List
         public int Count => Cells.Count;
         public bool IsReadOnly => Cells.IsReadOnly;
 
-        public IUiListCell<T> this[int index]
+        public UiListCell<T> this[int index]
         {
             get => Cells[index];
             set
@@ -356,12 +343,12 @@ namespace OpenNefia.Content.UI.Element.List
                 _needsUpdate = true;
             }
         }
-        public int IndexOf(IUiListCell<T> item)
+        public int IndexOf(UiListCell<T> item)
         {
             return Cells.IndexOf(item);
         }
 
-        public void Insert(int index, IUiListCell<T> item)
+        public void Insert(int index, UiListCell<T> item)
         {
             Cells.Insert(index, item);
             _needsUpdate = true;
@@ -373,7 +360,7 @@ namespace OpenNefia.Content.UI.Element.List
             _needsUpdate = true;
         }
 
-        public void Add(IUiListCell<T> item)
+        public void Add(UiListCell<T> item)
         {
             Cells.Add(item);
             _needsUpdate = true;
@@ -385,15 +372,15 @@ namespace OpenNefia.Content.UI.Element.List
             _needsUpdate = true;
         }
 
-        public void AddRange(IEnumerable<IUiListCell<T>> items)
+        public void AddRange(IEnumerable<UiListCell<T>> items)
         {
             Cells.AddRange(items);
             _needsUpdate = true;
         }
 
-        public bool Contains(IUiListCell<T> item) => Cells.Contains(item);
-        public void CopyTo(IUiListCell<T>[] array, int arrayIndex) => Cells.CopyTo(array, arrayIndex);
-        public bool Remove(IUiListCell<T> item)
+        public bool Contains(UiListCell<T> item) => Cells.Contains(item);
+        public void CopyTo(UiListCell<T>[] array, int arrayIndex) => Cells.CopyTo(array, arrayIndex);
+        public bool Remove(UiListCell<T> item)
         {
             _needsUpdate = true;
             return Cells.Remove(item);
@@ -403,7 +390,7 @@ namespace OpenNefia.Content.UI.Element.List
         public bool IsSynchronized => false;
         public object SyncRoot => this;
 
-        public IEnumerator<IUiListCell<T>> GetEnumerator() => Cells.GetEnumerator();
+        public IEnumerator<UiListCell<T>> GetEnumerator() => Cells.GetEnumerator();
         IEnumerator IEnumerable.GetEnumerator() => Cells.GetEnumerator();
 
         #endregion

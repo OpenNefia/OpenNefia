@@ -18,7 +18,7 @@ namespace OpenNefia.Content.UI.Layer
         }
     }
 
-    public class NumberPrompt : BaseUiLayer<NumberPromptResult>
+    public class NumberPrompt : UiLayerWithResult<NumberPromptResult>
     {
         private int _MinValue;
         public int MinValue
@@ -93,29 +93,29 @@ namespace OpenNefia.Content.UI.Layer
 
         protected virtual void BindKeys()
         {
-            Keybinds[CoreKeybinds.UIUp] += (_) =>
-            {
-                Value = MaxValue;
-                Sounds.Play(Protos.Sound.Cursor1);
-            };
-            Keybinds[CoreKeybinds.UIDown] += (_) =>
-            {
-                Value = MinValue;
-                Sounds.Play(Protos.Sound.Cursor1);
-            };
-            Keybinds[CoreKeybinds.UILeft] += (_) =>
-            {
-                Value = Math.Max(Value - 1, MinValue);
-                Sounds.Play(Protos.Sound.Cursor1);
-            };
-            Keybinds[CoreKeybinds.UIRight] += (_) =>
-            {
-                Value = Math.Min(Value + 1, MaxValue);
-                Sounds.Play(Protos.Sound.Cursor1);
-            };
-            Keybinds[CoreKeybinds.Cancel] += (_) => { if (IsCancellable) Cancel(); };
-            Keybinds[CoreKeybinds.Escape] += (_) => { if (IsCancellable) Cancel(); };
-            Keybinds[CoreKeybinds.Enter] += (_) => Finish(new NumberPromptResult(Value));
+            //Keybinds[CoreKeybinds.UIUp] += (_) =>
+            //{
+            //    Value = MaxValue;
+            //    Sounds.Play(Protos.Sound.Cursor1);
+            //};
+            //Keybinds[CoreKeybinds.UIDown] += (_) =>
+            //{
+            //    Value = MinValue;
+            //    Sounds.Play(Protos.Sound.Cursor1);
+            //};
+            //Keybinds[CoreKeybinds.UILeft] += (_) =>
+            //{
+            //    Value = Math.Max(Value - 1, MinValue);
+            //    Sounds.Play(Protos.Sound.Cursor1);
+            //};
+            //Keybinds[CoreKeybinds.UIRight] += (_) =>
+            //{
+            //    Value = Math.Min(Value + 1, MaxValue);
+            //    Sounds.Play(Protos.Sound.Cursor1);
+            //};
+            //Keybinds[CoreKeybinds.Cancel] += (_) => { if (IsCancellable) Cancel(); };
+            //Keybinds[CoreKeybinds.Escape] += (_) => { if (IsCancellable) Cancel(); };
+            //Keybinds[CoreKeybinds.Enter] += (_) => Finish(new NumberPromptResult(Value));
         }
 
         public override void OnQuery()

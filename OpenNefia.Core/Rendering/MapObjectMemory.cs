@@ -28,11 +28,11 @@ namespace OpenNefia.Core.Rendering
         public float Rotation;
         public Color Color;
         public ShadowType ShadowType;
+        public int ZOrder;
         public bool HideWhenOutOfSight;
 
         internal int Index;
         internal MapCoordinates Coords;
-        internal int ZOrder;
         internal MemoryState State;
     }
 }

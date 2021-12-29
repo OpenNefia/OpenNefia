@@ -6,7 +6,7 @@ using OpenNefia.Core.UI.Element;
 
 namespace OpenNefia.Content.UI.Element
 {
-    public class UiText : BaseUiElement, IUiText
+    public class UiText : UiElement, IUiText
     {
         protected Love.Text BakedText;
 
@@ -67,7 +67,7 @@ namespace OpenNefia.Content.UI.Element
 
         public override void Localize(LocaleKey key)
         {
-            this.Text = Loc.Get(key);
+            this.Text = Loc.GetString(key);
         }
 
         public override void Update(float dt)

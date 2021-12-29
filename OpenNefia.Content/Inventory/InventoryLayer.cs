@@ -17,10 +17,12 @@ using OpenNefia.Core.IoC;
 using OpenNefia.Content.GameObjects;
 using OpenNefia.Content.UI;
 using OpenNefia.Content.UI.Layer;
+using OpenNefia.Core.UserInterface;
+using OpenNefia.Core.UI.Element;
 
 namespace OpenNefia.Content.Inventory
 {
-    public sealed class InventoryLayer : BaseUiLayer<InventoryResult>
+    public sealed class InventoryLayer : UiLayerWithResult<InventoryResult>
     {
         public class InventoryEntry
         {
@@ -105,7 +107,7 @@ namespace OpenNefia.Content.Inventory
 
         [Dependency] private readonly IEntityManager _entityManager = default!;
         [Dependency] private readonly IFieldLayer _field = default!;
-        [Dependency] private readonly IUiLayerManager _uiLayerManager = default!;
+        [Dependency] private readonly IUserInterfaceManager _uiMgr = default!;
 
         public bool PlaySounds { get; set; } = false;
 
@@ -149,16 +151,16 @@ namespace OpenNefia.Content.Inventory
 
         private void BindKeys()
         {
-            Keybinds[CoreKeybinds.Cancel] += (_) => Cancel();
-            Keybinds[CoreKeybinds.Escape] += (_) => Cancel();
-            Keybinds[CoreKeybinds.Identify] += ShowItemDescription;
+            //Keybinds[CoreKeybinds.Cancel] += (_) => Cancel();
+            //Keybinds[CoreKeybinds.Escape] += (_) => Cancel();
+            //Keybinds[CoreKeybinds.Identify] += ShowItemDescription;
 
-            Forwards += List;
+            //Forwards += List;
 
             List.EventOnActivate += OnSelect;
         }
 
-        private void ShowItemDescription(UiKeyInputEventArgs args)
+        private void ShowItemDescription(GUIBoundKeyEventArgs args)
         {
             var selected = List.SelectedCell;
 
@@ -166,7 +168,7 @@ namespace OpenNefia.Content.Inventory
                 return;
 
             var layer = new ItemDescriptionLayer(selected.Data.Item);
-            _uiLayerManager.Query(layer);
+            //_uiLayerManager.Query(layer);
         }
 
         public void OnSelect(object? sender, UiListEventArgs<InventoryEntry> e)
@@ -322,7 +324,7 @@ namespace OpenNefia.Content.Inventory
 
             TextTopicWindowName.SetPosition(X + 28, Y + 30);
             TextTopicDetailHeader.SetPosition(X + 526, Y + 30);
-            var notePos = UiUtils.NotePosition(Bounds, TextTotalWeight);
+            var notePos = UiUtils.NotePosition(GlobalPixelBounds, TextTotalWeight);
             TextTotalWeight.SetPosition(notePos.X, notePos.Y);
             TextGoldCount.SetPosition(X + 368, Y + 37);
         }

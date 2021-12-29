@@ -3,7 +3,7 @@ using OpenNefia.Core.UI;
 
 namespace OpenNefia.Content.UI.Element.List
 {
-    public interface IUiList<T> : IList<IUiListCell<T>>, IUiInput, ILocalizable
+    public interface IUiList<T> : IList<UiListCell<T>>, IUiInput, ILocalizable
     {
         public bool HighlightSelected { get; set; }
         public bool SelectOnActivate { get; set; }

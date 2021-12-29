@@ -7,7 +7,7 @@ using Color = OpenNefia.Core.Maths.Color;
 
 namespace OpenNefia.Content.UI.Element
 {
-    public class UiWindow : BaseUiElement
+    public class UiWindow : UiElement
     {
         public bool HasShadow { get; }
         public List<UiKeyHint> KeyHints { get; }
@@ -34,9 +34,9 @@ namespace OpenNefia.Content.UI.Element
         protected IAssetInstance AssetTipIcons;
 
         [Localize("Title")]
-        protected IUiText TextTitle;
+        protected UiText TextTitle;
 
-        protected IUiText TextKeyHint;
+        protected UiText TextKeyHint;
 
         protected UiWindowBacking Window;
         protected UiWindowBacking WindowShadow;
@@ -60,6 +60,9 @@ namespace OpenNefia.Content.UI.Element
             this.Window = new UiWindowBacking();
             this.WindowShadow = new UiWindowBacking(UiWindowBacking.WindowBackingType.Shadow);
             this.TopicWindow = new UiTopicWindow();
+
+            AddChild(TextTitle);
+            AddChild(TextKeyHint);
         }
 
         public override void SetPosition(int x, int y)

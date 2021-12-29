@@ -28,9 +28,9 @@ namespace OpenNefia.Content.GameObjects
             var memory = args.Memory;
             memory.AtlasIndex = chip.ChipID.ResolvePrototype().Image.AtlasIndex;
             memory.Color = chip.Color;
-            memory.IsVisible = true;
             memory.ScreenOffset = Vector2i.Zero;
             memory.IsVisible = EntityManager.IsAlive(uid);
+            memory.ZOrder = chip.DrawDepth;
             memory.HideWhenOutOfSight = false;
         }
 

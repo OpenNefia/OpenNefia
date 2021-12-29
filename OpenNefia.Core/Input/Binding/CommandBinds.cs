@@ -36,7 +36,7 @@ namespace OpenNefia.Core.Input.Binding
         /// should usually be typeof(this) - same type as the calling class.</typeparam>
         public static void Unregister<TOwner>()
         {
-            Unregister<TOwner>(IoCManager.Resolve<InputManager>().BindRegistry);
+            Unregister<TOwner>(IoCManager.Resolve<IInputManager>().BindRegistry);
         }
 
         /// <summary>
@@ -163,7 +163,7 @@ namespace OpenNefia.Core.Input.Binding
             /// should usually be typeof(this) - same type as the calling class.</typeparam>
             public CommandBinds Register<TOwner>()
             {
-                return Register<TOwner>(IoCManager.Resolve<InputManager>().BindRegistry);
+                return Register<TOwner>(IoCManager.Resolve<IInputManager>().BindRegistry);
             }
         }
     }
