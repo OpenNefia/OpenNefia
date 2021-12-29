@@ -18,10 +18,10 @@
             common.AddFunction(EngineKeyFunctions.ShowEscapeMenu);
             common.AddFunction(EngineKeyFunctions.ShowDebugConsole);
             common.AddFunction(EngineKeyFunctions.ShowDebugMonitors);
-            common.AddFunction(EngineKeyFunctions.MoveUp);
-            common.AddFunction(EngineKeyFunctions.MoveDown);
-            common.AddFunction(EngineKeyFunctions.MoveLeft);
-            common.AddFunction(EngineKeyFunctions.MoveRight);
+            common.AddFunction(EngineKeyFunctions.North);
+            common.AddFunction(EngineKeyFunctions.South);
+            common.AddFunction(EngineKeyFunctions.West);
+            common.AddFunction(EngineKeyFunctions.East);
             common.AddFunction(EngineKeyFunctions.UISelect);
             common.AddFunction(EngineKeyFunctions.UICancel);
 

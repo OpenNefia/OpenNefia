@@ -1,5 +1,43 @@
 version: 1 # Not used right now, whatever.
 binds:
+- function: North
+  type: State
+  key: Up
+- function: South
+  type: State
+  key: Down
+- function: West
+  type: State
+  key: Left
+- function: East
+  type: State
+  key: Right
+
+- function: North
+  type: State
+  key: Numpad8
+- function: South
+  type: State
+  key: Numpad2
+- function: West
+  type: State
+  key: Numpad4
+- function: East
+  type: State
+  key: Numpad6
+- function: Northwest
+  type: State
+  key: Numpad7
+- function: Southwest
+  type: State
+  key: Numpad1
+- function: Northeast
+  type: State
+  key: Numpad9
+- function: Southeast
+  type: State
+  key: Numpad3
+
 - function: UIClick
   type: State
   key: MouseLeft
