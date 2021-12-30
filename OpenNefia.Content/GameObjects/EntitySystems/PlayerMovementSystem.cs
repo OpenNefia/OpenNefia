@@ -41,7 +41,7 @@ namespace OpenNefia.Content.GameObjects
             {
                 if (EntityManager.TryGetComponent<MapEntranceComponent>(map.MapEntityUid, out var mapEntrance))
                 {
-                    if (_playerQuery.YesOrNo("Do you want to exit the map?"))
+                    if (_playerQuery.YesOrNo(Loc.GetString("Elona.PlayerMovement.PromptLeaveMap", ("map", map.MapEntityUid))))
                     {
                         Raise(uid, new ExitMapEventArgs(map, mapEntrance.Entrance), args);
                     }
