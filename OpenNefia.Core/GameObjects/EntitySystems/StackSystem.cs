@@ -128,6 +128,7 @@ namespace OpenNefia.Core.GameObjects
         [Dependency] private readonly IMapManager _mapManager = default!;
         [Dependency] private readonly IEntityLookup _lookup = default!;
         [Dependency] private readonly ISerializationManager _serializationManager = default!;
+        [Dependency] private readonly IEntityFactory _entityFactory = default!;
 
         public override void Initialize()
         {
@@ -345,6 +346,8 @@ namespace OpenNefia.Core.GameObjects
             RaiseLocalEvent(target, args);
 
             CopyComponents(newEntity, target, args);
+
+            _entityFactory.LocalizeComponents(newEntity);
 
             return newEntity;
         }

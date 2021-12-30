@@ -38,6 +38,7 @@
   - type: Chip
     drawDepth: Items
   - type: Item
+  - type: ItemDescription
   - type: Stack
   - type: Weight
   - type: Pickable

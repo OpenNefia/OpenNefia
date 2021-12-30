@@ -3,6 +3,7 @@ using OpenNefia.Content.Rendering;
 using OpenNefia.Content.UI.Layer;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
+using OpenNefia.Core.Locale;
 using OpenNefia.Core.Logic;
 using OpenNefia.Core.Maps;
 using OpenNefia.Core.Rendering;
@@ -32,6 +33,8 @@ namespace OpenNefia.Content.GameObjects
 
         private void HandleCharaHitByThrown(EntityUid uid, CharaComponent component, HitByThrownEntityEventArgs args)
         {
+            Mes.Display(Loc.GetString("Elona.Throwable.Hits", ("entity", uid)));
+
             args.WasHit = true;
         }
 
@@ -103,6 +106,8 @@ namespace OpenNefia.Content.GameObjects
                 || !EntityManager.IsAlive(source) 
                 || !EntityManager.IsAlive(throwing))
                 return false;
+
+            Mes.Display(Loc.GetString("Elona.Throwable.Throws", ("entity", source), ("item", throwing)));
 
             var ev = new EntityThrownEventArgs(source, coords);
             RaiseLocalEvent(throwing, ev);

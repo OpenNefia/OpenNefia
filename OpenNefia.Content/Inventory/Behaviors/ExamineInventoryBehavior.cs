@@ -24,7 +24,7 @@ namespace OpenNefia.Content.Inventory
 
         public override bool EnableShortcuts => true;
 
-        public override string WindowTitle => Loc.GetString("Elona.Inventory.Behavior.Drop.WindowTitle");
+        public override string WindowTitle => Loc.GetString("Elona.Inventory.Behavior.Examine.WindowTitle");
 
         public override IEnumerable<IInventorySource> GetSources(InventoryContext context)
         {

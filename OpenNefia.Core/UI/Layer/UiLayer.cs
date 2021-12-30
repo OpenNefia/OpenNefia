@@ -27,6 +27,8 @@ namespace OpenNefia.Core.UI.Layer
         public UiLayer()
         {
             _inputManager = IoCManager.Resolve<IInputManager>();
+
+            EventFilter = UIEventFilterMode.Stop;
         }
 
         public virtual void GetPreferredBounds(out UIBox2i bounds)
@@ -53,6 +55,7 @@ namespace OpenNefia.Core.UI.Layer
 
         public virtual void OnFocused()
         {
+            GrabFocus();
             _inputManager.Contexts.SetActiveContext(InputContextContainer.DefaultContextName);
         }
 

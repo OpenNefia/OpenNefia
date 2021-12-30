@@ -19,8 +19,21 @@ namespace OpenNefia.Core.Rendering
             Style = style;
         }
 
+        public FontSpec(FontSpec other)
+            : this(other.Size, other.SmallSize, other.Color, other.BgColor, other.Style)
+        {
+        }
+
         public FontSpec()
         {
+        }
+
+        public FontSpec WithColor(Color color)
+        {
+            return new FontSpec(this)
+            {
+                Color = color
+            };
         }
 
         [DataField(required: true)]
@@ -33,7 +46,7 @@ namespace OpenNefia.Core.Rendering
         public FontStyle Style { get; } = FontStyle.None;
 
         [DataField]
-        public Maths.Color Color { get; } = Color.Black;
+        public Maths.Color Color { get; private set; } = Color.Black;
 
         [DataField]
         public Maths.Color BgColor { get; } = Color.Black;

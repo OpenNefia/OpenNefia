@@ -274,14 +274,15 @@ namespace OpenNefia.Core.UserInterface
                 layer.ZOrder = (CurrentLayer?.ZOrder ?? 0) + 1000;
             }
 
-            // CurrentLayer?.HaltInput();
-
             if (!layer.IsLocalized)
             {
                 layer.Localize(layer.GetType().GetBaseLocaleKey());
             }
 
-            PushLayer((UiLayer)layer);
+
+            var baseLayer = (UiLayer)layer;
+
+            PushLayer(baseLayer);
 
             UiResult<T>? result;
 

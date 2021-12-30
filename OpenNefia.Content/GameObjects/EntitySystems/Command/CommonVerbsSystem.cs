@@ -40,7 +40,7 @@ namespace OpenNefia.Content.GameObjects
             if (player == null)
                 return;
 
-            foreach (var target in _lookup.EntitiesUnderneath(player.Uid).ToList())
+            foreach (var target in _lookup.EntitiesUnderneath(player.Uid, includeMapEntity: true).ToList())
             {
                 if (target.Uid != player.Uid)
                 {
