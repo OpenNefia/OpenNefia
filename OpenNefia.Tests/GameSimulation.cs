@@ -159,7 +159,7 @@ namespace OpenNefia.Tests
             container.Register<IRuntimeLog, RuntimeLog>();
             container.Register<IDynamicTypeFactory, DynamicTypeFactory>();
             container.Register<IDynamicTypeFactoryInternal, DynamicTypeFactory>();
-            container.Register<ILocalizationManager, LocalizationManager>();
+            container.Register<ILocalizationManager, TestingLocalizationManager>();
             container.Register<IModLoader, TestingModLoader>();
             container.Register<IModLoaderInternal, TestingModLoader>();
             container.Register<ITaskManager, TaskManager>();
@@ -207,6 +207,8 @@ namespace OpenNefia.Tests
             //Tier 2: Simulation
             container.Register<IEntityManager, EntityManagerInternal>();
             container.Register<IEntityManagerInternal, EntityManagerInternal>();
+            container.Register<IEntityFactory, EntityFactory>();
+            container.Register<IEntityFactoryInternal, EntityFactory>();
             container.Register<IMapManager, MapManager>();
             container.Register<ISerializationManager, SerializationManager>();
             container.Register<IPrototypeManager, PrototypeManager>();
