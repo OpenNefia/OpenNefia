@@ -131,6 +131,10 @@ binds:
   type: State
   key: Escape
   canFocus: true
+- function: UICancel
+  type: State
+  key: Shift
+  canFocus: true
 - function: UINextPage
   type: State
   key: NumpadPlus

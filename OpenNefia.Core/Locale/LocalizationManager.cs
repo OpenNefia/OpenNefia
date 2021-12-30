@@ -15,6 +15,7 @@ using OpenNefia.Core.Graphics;
 using System.Diagnostics.CodeAnalysis;
 using OpenNefia.Core.UserInterface;
 using OpenNefia.Core.GameObjects;
+using OpenNefia.Core.Timing;
 
 namespace OpenNefia.Core.Locale
 {
@@ -80,6 +81,7 @@ namespace OpenNefia.Core.Locale
         [Dependency] private readonly IGraphics _graphics = default!;
         [Dependency] private readonly IRandom _random = default!;
         [Dependency] private readonly IEntityManager _entityManager = default!;
+        [Dependency] private readonly IEntityFactory _entityFactory = default!;
 
         private readonly ResourcePath LocalePath = new ResourcePath("/Locale");
         
@@ -100,6 +102,8 @@ namespace OpenNefia.Core.Locale
         
         public void SwitchLanguage(PrototypeId<LanguagePrototype> language)
         {
+            using var profiler = new ProfilerLogger(LogLevel.Info, "loc", $"Switching language to {language}");
+
             Language = language;
             _env.SetLanguage(language);
             _env.LoadAll(language, LocalePath);
@@ -108,6 +112,11 @@ namespace OpenNefia.Core.Locale
             foreach (var layer in _uiManager.ActiveLayers)
             {
                 layer.Localize(layer.GetType()!.FullName!);
+            }
+
+            foreach (var ent in _entityManager.GetEntities())
+            {
+                _entityFactory.LocalizeComponents(ent);
             }
         }
 

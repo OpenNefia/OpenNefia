@@ -41,6 +41,8 @@ namespace OpenNefia.Content.Inventory
 
         public override InventoryResult OnSelect(InventoryContext context, EntityUid item, int amount)
         {
+            context.ShowInventoryWindow = false;
+
             var verb = new Verb(DrinkableSystem.VerbIDDrink);
             var result = _verbSystem.ExecuteVerb(context.User, item, verb);
             

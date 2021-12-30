@@ -30,5 +30,9 @@ namespace OpenNefia.Content.UI
         public static readonly FontSpec FpsCounter = new(14, 14, color: UiColors.TextWhite, bgColor: UiColors.TextBlack);
 
         public static readonly FontSpec InventoryGoldCount = new(13, 11);
+
+        public static readonly FontSpec ItemDescNormal = new(14, 12);
+        public static readonly FontSpec ItemDescFlavor = new(13, 11);
+        public static readonly FontSpec ItemDescFlavorItalic = new(13, 11, style: FontStyle.Italic);
     }
 }

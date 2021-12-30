@@ -189,8 +189,6 @@ namespace OpenNefia.Content.Inventory
 
         public void OnSelect(object? sender, UiListEventArgs<InventoryEntry> e)
         {
-            Context.ShowInventoryWindow = false;
-            Logger.Info("ACTIVATE", e.SelectedIndex);
             var entry = e.SelectedCell.Data;
             var result = Context.OnSelect(entry.Item);
 

@@ -22,7 +22,7 @@ namespace OpenNefia.Content.GameObjects.EntitySystems
         {
             if (table.TryGetTable(nameof(Primary), out var primaryTbl))
             {
-                Primary = ItemDescriptionEntry.FromLua(primaryTbl).First();
+                Primary = ItemDescriptionEntry.FromLua(primaryTbl, ItemDescriptionType.Normal).First();
             }
             else
             {
@@ -37,7 +37,7 @@ namespace OpenNefia.Content.GameObjects.EntitySystems
                 {
                     if (obj is NLua.LuaTable extraDescTbl)
                     {
-                        foreach (var desc in ItemDescriptionEntry.FromLua(extraDescTbl))
+                        foreach (var desc in ItemDescriptionEntry.FromLua(extraDescTbl, ItemDescriptionType.Flavor))
                         {
                             _extra.Add(desc);
                         }
@@ -65,11 +65,13 @@ namespace OpenNefia.Content.GameObjects.EntitySystems
         [DataField]
         public bool IsInheritable { get; set; }
 
-        public static IEnumerable<ItemDescriptionEntry> FromLua(NLua.LuaTable table)
+        public static IEnumerable<ItemDescriptionEntry> FromLua(NLua.LuaTable table, ItemDescriptionType type)
         {
             yield return new ItemDescriptionEntry()
             {
                 Text = table.GetStringOrEmpty(nameof(Text)),
+                Icon = ItemDescriptionIcon.Icon1,
+                Type = type
             };
 
             if (table.TryGetString("Footnote", out var footnote))
@@ -92,7 +94,7 @@ namespace OpenNefia.Content.GameObjects.EntitySystems
 
     public enum ItemDescriptionIcon : int
     {
-        Icon0 = 0,
+        None = 0,
         Icon1 = 1,
         Icon2 = 2,
         Icon3 = 3,

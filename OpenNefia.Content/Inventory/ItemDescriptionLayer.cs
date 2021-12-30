@@ -10,7 +10,10 @@ using OpenNefia.Core.UI.Layer;
 using OpenNefia.Content.Prototypes;
 using OpenNefia.Content.GameObjects.EntitySystems;
 using OpenNefia.Content.DisplayName;
-using static OpenNefia.Content.GameObjects.EntitySystems.ItemDescriptionEntry;
+using OpenNefia.Core.UI.Element;
+using OpenNefia.Core.Input;
+using OpenNefia.Core.Locale;
+using OpenNefia.Content.UI;
 
 namespace OpenNefia.Content.Inventory
 {
@@ -27,7 +30,8 @@ namespace OpenNefia.Content.Inventory
 
         private UiWindow Window = new();
 
-        private readonly List<ItemDescriptionEntry> _entries = new();
+        private readonly List<ItemDescriptionEntry> _rawEntries = new();
+        private readonly List<ItemDescriptionEntry> _wrappedEntries = new();
 
         public ItemDescriptionLayer(EntityUid item)
         {
@@ -40,23 +44,56 @@ namespace OpenNefia.Content.Inventory
 
             TextTopicItemName.Text = DisplayNameSystem.GetDisplayName(_item);
 
-            BindKeys();
+            CanControlFocus = true;
+            OnKeyBindDown += HandleKeyBindDown;
 
-            BuildDescription();
+            GetDescription();
         }
 
-        private void BindKeys()
+        private void HandleKeyBindDown(GUIBoundKeyEventArgs obj)
         {
-            //Keybinds[CoreKeybinds.Cancel] += (_) => Cancel();
-            //Keybinds[CoreKeybinds.Escape] += (_) => Cancel();
-            //Keybinds[CoreKeybinds.Enter] += (_) => Finish(new UiNoResult());
+            if (obj.Function == EngineKeyFunctions.UICancel)
+            {
+                Cancel();
+            }
+            else if (obj.Function == EngineKeyFunctions.UISelect)
+            {
+                Finish(new UiNoResult());
+            }
+        }
+        
+        private void GetDescription()
+        {
+            Window.Title = Loc.GetString("Elona.Inventory.ItemDescriptionLayer.WindowTitle");
+
+            _rawEntries.Clear();
+            _itemDescSystem.GetItemDescription(_item, _rawEntries);
         }
 
-        private void BuildDescription()
+        private void WrapDescription(int maxWidth)
         {
-            Window.Title = "Known Information";
+            _wrappedEntries.Clear();
 
-            _itemDescSystem.GetItemDescription(_item, _entries);
+            foreach (var entry in _rawEntries)
+            {
+                if (entry.Type == ItemDescriptionType.Flavor)
+                {
+                    var (_, wrapped) = UiFonts.ItemDescFlavor.LoveFont.GetWrap(entry.Text, maxWidth);
+                    foreach (var text in wrapped)
+                    {
+                        _wrappedEntries.Add(new ItemDescriptionEntry()
+                        {
+                            Text = text,
+                            TextColor = entry.TextColor,
+                            Type = entry.Type,
+                        });
+                    }
+                }
+                else
+                {
+                    _wrappedEntries.Add(entry);
+                }
+            }
         }
 
         public override void SetSize(int width, int height)
@@ -65,6 +102,9 @@ namespace OpenNefia.Content.Inventory
 
             Window.SetSize(Width, Height);
             TextTopicItemName.SetPreferredSize();
+
+            var maxWidth = Width - (68 * 2) - UiFonts.ItemDescNormal.LoveFont.GetWidth(" ");
+            WrapDescription(maxWidth);
         }
 
         public override void SetPosition(int x, int y)
@@ -97,9 +137,9 @@ namespace OpenNefia.Content.Inventory
 
             TextTopicItemName.Draw();
 
-            for (int i = 0; i < _entries.Count; i++)
+            for (int i = 0; i < _wrappedEntries.Count; i++)
             {
-                var entry = _entries[i];
+                var entry = _wrappedEntries[i];
                 var x = X + 68;
                 var y = Y + 68 + i * 18;
                 ItemDescriptionIcon? icon = null;
@@ -109,15 +149,15 @@ namespace OpenNefia.Content.Inventory
                 switch (entry.Type)
                 {
                     case ItemDescriptionType.Flavor:
-                        font = new FontSpec(13, 11, color: entry.TextColor, style: FontStyle.Italic);
+                        font = UiFonts.ItemDescFlavor.WithColor(entry.TextColor);
                         break;
                     case ItemDescriptionType.FlavorItalic:
-                        font = new FontSpec(13, 11, color: entry.TextColor, style: FontStyle.Italic);
+                        font = UiFonts.ItemDescFlavorItalic.WithColor(entry.TextColor);
                         x = GlobalPixelBounds.Right - font.LoveFont.GetWidth(entry.Text) - 80;
                         break;
                     case ItemDescriptionType.Normal:
                     default:
-                        font = new FontSpec(14, 12, color: entry.TextColor);
+                        font = UiFonts.ItemDescNormal.WithColor(entry.TextColor);
                         icon = entry.Icon;
                         break;
                 }

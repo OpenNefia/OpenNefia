@@ -1,4 +1,5 @@
-﻿using OpenNefia.Core.Game;
+﻿using OpenNefia.Content.UI.Layer;
+using OpenNefia.Core.Game;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Input;
 using OpenNefia.Core.IoC;
@@ -21,6 +22,7 @@ namespace OpenNefia.Content.Input
         [Dependency] protected readonly IInputManager _inputManager = default!;
         [Dependency] protected readonly IEntitySystemManager _entitySystemManager = default!;
         [Dependency] protected readonly IGameSessionManager _gameSession = default!;
+        [Dependency] protected readonly IFieldLayer _field = default!;
 
         private readonly IPlayerCommandStates _cmdStates = new PlayerCommandStates();
 
@@ -40,6 +42,12 @@ namespace OpenNefia.Content.Input
         /// <param name="args">Event data values for a bound key state change.</param>
         private void OnKeyBindStateChanged(ViewportBoundKeyEventArgs args)
         {
+            // Doesn't make sense to run simulation keybinds if there's an active modal.
+            if (!_field.IsQuerying())
+            {
+                return;
+            }
+
             var kArgs = args.KeyEventArgs;
             var func = kArgs.Function;
             var funcId = _inputManager.NetworkBindMap.KeyFunctionID(func);

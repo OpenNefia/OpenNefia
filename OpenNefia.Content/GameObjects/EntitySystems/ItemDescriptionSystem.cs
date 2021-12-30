@@ -1,5 +1,6 @@
 ﻿using OpenNefia.Content.Inventory;
 using OpenNefia.Core.GameObjects;
+using OpenNefia.Core.Locale;
 using OpenNefia.Core.Utility;
 
 namespace OpenNefia.Content.GameObjects.EntitySystems
@@ -23,7 +24,7 @@ namespace OpenNefia.Content.GameObjects.EntitySystems
             {
                 var entry = new ItemDescriptionEntry()
                 {
-                    Text = $"It is made of {item.Material}"
+                    Text = Loc.GetString("Elona.ItemDescription.ItIsMadeOf", ("materialName", item.Material.ToString()))
                 };
                 args.Entries.Add(entry);
             }
@@ -31,6 +32,11 @@ namespace OpenNefia.Content.GameObjects.EntitySystems
 
         private void GetDescItemDesc(EntityUid uid, ItemDescriptionComponent itemDesc, GetItemDescriptionEventArgs args)
         {
+            if (itemDesc.Primary != null)
+            {
+                args.Entries.Add(itemDesc.Primary);
+            }
+
             args.Entries.AddRange(itemDesc.Extra);
         }
 
@@ -41,7 +47,7 @@ namespace OpenNefia.Content.GameObjects.EntitySystems
          
             if (entries.Count == 0)
             {
-                entries.Add(new ItemDescriptionEntry() { Text = "There is no information about this object." });
+                entries.Add(new ItemDescriptionEntry() { Text = Loc.GetString("Elona.ItemDescription.NoInformation") });
             }
         }
     }
