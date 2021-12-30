@@ -222,6 +222,7 @@ namespace OpenNefia.Core.UserInterface
             Layers.Add(layer);
             SortLayers();
 
+            _inputManager.HaltInput();
             ControlFocused = null;
             KeyboardFocused = null;
             CurrentlyHovered = null;
@@ -234,6 +235,7 @@ namespace OpenNefia.Core.UserInterface
             Layers.Remove(layer);
             SortLayers();
 
+            _inputManager.HaltInput();
             ControlFocused = null;
             KeyboardFocused = null;
             CurrentlyHovered = null;

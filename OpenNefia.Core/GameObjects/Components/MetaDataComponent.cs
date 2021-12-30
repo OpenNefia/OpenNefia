@@ -21,8 +21,7 @@ namespace OpenNefia.Core.GameObjects
         /// <summary>
         ///     The in-game name of this entity.
         /// </summary>
-        [DataField]
-        [Localize]
+        [Localize("Name")]
         public string? DisplayName;
 
         private EntityPrototype? _entityPrototype;
@@ -81,7 +80,7 @@ namespace OpenNefia.Core.GameObjects
 
         void IComponentLocalizable.LocalizeFromLua(LuaTable table)
         {
-            DisplayName = $"{table.TryGetValue("Name")}";
+            DisplayName = table.GetStringOrNull("Name");
         }
     }
 

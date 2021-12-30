@@ -159,7 +159,7 @@ namespace OpenNefia.Core.Input
 
             var path = new ResourcePath(KeybindsPath);
             using var writer = _resourceMan.UserData.OpenWriteText(path);
-            var stream = new YamlStream {new(mapping.ToYaml())};
+            var stream = new YamlStream { new(mapping.ToYaml()) };
             stream.Save(new YamlMappingFix(new Emitter(writer)), false);
         }
 
@@ -192,6 +192,17 @@ namespace OpenNefia.Core.Input
             }
         }
 
+        public void HaltInput()
+        {
+            foreach (var bind in _bindings)
+            {
+                if (bind.State == BoundKeyState.Down)
+                {
+                    SetBindState(bind, BoundKeyState.Up);
+                }
+            }
+        }
+
         /// <inheritdoc />
         public void KeyDown(KeyEventArgs args)
         {
@@ -207,7 +218,7 @@ namespace OpenNefia.Core.Input
                 return;
             }
 
-            _keysPressed[(int) args.Key] = true;
+            _keysPressed[(int)args.Key] = true;
 
             Logger.Info($"Bind: {args.Key} S: {_keysPressed[(int)Key.Shift]} C: {_keysPressed[(int)Key.Control]}");
 
@@ -267,6 +278,14 @@ namespace OpenNefia.Core.Input
                 if (block)
                     return;
             }
+            else if (_uiMgr.ControlFocused is IRawInputControl ctrlRawInput)
+            {
+                // HACK: This is to support arbitrary keys in list elements...
+                var block = RaiseRawKeyInput(args, ctrlRawInput, args.IsRepeat ? RawKeyAction.Repeat : RawKeyAction.Down);
+
+                if (block)
+                    return;
+            }
 
             foreach (var binding in bindsDown)
             {
@@ -279,14 +298,12 @@ namespace OpenNefia.Core.Input
 
         private bool RaiseRawKeyInput(KeyEventArgs args, IRawInputControl rawInput, RawKeyAction action)
         {
-            DebugTools.AssertNotNull(_uiMgr.KeyboardFocused);
-
-            var mousePos = _uiMgr.CalcRelativeMousePositionFor(_uiMgr.KeyboardFocused!, _uiMgr.MousePositionScaled);
+            var mousePos = _uiMgr.CalcRelativeMousePositionFor((UiElement)rawInput, _uiMgr.MousePositionScaled);
             var keyEvent = new GuiRawKeyEvent(
                 args.Key,
                 args.ScanCode,
                 action,
-                (Vector2i) (mousePos ?? Vector2.Zero));
+                (Vector2i)(mousePos ?? Vector2.Zero));
 
             var block = rawInput.RawKeyEvent(keyEvent);
             return block;
@@ -317,7 +334,7 @@ namespace OpenNefia.Core.Input
                 }
             }
 
-            _keysPressed[(int) args.Key] = false;
+            _keysPressed[(int)args.Key] = false;
 
             if (hasCanFocus)
             {
@@ -370,16 +387,10 @@ namespace OpenNefia.Core.Input
             // christ this crap *is* re-entrant thanks to PlacementManager and
             // I honestly have no idea what the best solution here is.
             // note from the future: context switches won't cause re-entrancy anymore because InputContextContainer defers context switches
-            DebugTools.Assert(!_currentlyFindingViewport, "Re-entrant key events??");
+            // DebugTools.Assert(!_currentlyFindingViewport, "Re-entrant key events??");
 
             try
             {
-                // This is terrible but anyways.
-                // This flag keeps track of "did a viewport fire the key up for us" so we know we don't do it again.
-                _currentlyFindingViewport = true;
-                // And this stops context switches from causing crashes
-                Contexts.DeferringEnabled = true;
-
                 if (state == BoundKeyState.Down)
                 {
                     binding.KeyRepeat?.OnPress();
@@ -390,6 +401,17 @@ namespace OpenNefia.Core.Input
                 }
 
                 binding.State = state;
+
+                if (_currentlyFindingViewport)
+                {
+                    return false;
+                }
+
+                // This is terrible but anyways.
+                // This flag keeps track of "did a viewport fire the key up for us" so we know we don't do it again.
+                _currentlyFindingViewport = true;
+                // And this stops context switches from causing crashes
+                Contexts.DeferringEnabled = true;
 
                 var eventArgs = new BoundKeyEventArgs(binding.Function, binding.State,
                     MouseScreenPosition, binding.CanFocus);
@@ -448,10 +470,10 @@ namespace OpenNefia.Core.Input
         {
             var (baseKey, mod1, mod2, mod3) = packed;
 
-            if (!_keysPressed[(int) baseKey]) return false;
-            if (mod1 != Key.Unknown && !_keysPressed[(int) mod1]) return false;
-            if (mod2 != Key.Unknown && !_keysPressed[(int) mod2]) return false;
-            if (mod3 != Key.Unknown && !_keysPressed[(int) mod3]) return false;
+            if (!_keysPressed[(int)baseKey]) return false;
+            if (mod1 != Key.Unknown && !_keysPressed[(int)mod1]) return false;
+            if (mod2 != Key.Unknown && !_keysPressed[(int)mod2]) return false;
+            if (mod3 != Key.Unknown && !_keysPressed[(int)mod3]) return false;
 
             return true;
         }
@@ -472,7 +494,7 @@ namespace OpenNefia.Core.Input
         {
             for (var i = 0; i < 32; i += 8)
             {
-                var key = (Key) ((subPackedCombo.Packed >> i) & 0b_1111_1111);
+                var key = (Key)((subPackedCombo.Packed >> i) & 0b_1111_1111);
                 if (key != Key.Unknown && !PackedContainsKey(packedCombo, key))
                 {
                     return false;
@@ -497,7 +519,7 @@ namespace OpenNefia.Core.Input
             var yamlStream = new YamlStream();
             yamlStream.Load(reader);
 
-            var mapping = (YamlMappingNode) yamlStream.Documents[0].RootNode;
+            var mapping = (YamlMappingNode)yamlStream.Documents[0].RootNode;
 
             var serializationManager = IoCManager.Resolve<ISerializationManager>();
             var robustMapping = mapping.ToDataNode() as MappingDataNode;
@@ -581,7 +603,7 @@ namespace OpenNefia.Core.Input
         public void RemoveBinding(IKeyBinding binding, bool markModified = true)
         {
             var bindings = _bindingsByFunction[binding.Function];
-            var cast = (KeyBinding) binding;
+            var cast = (KeyBinding)binding;
             if (!bindings.Remove(cast))
             {
                 // Keybind does not exist.
@@ -666,7 +688,7 @@ namespace OpenNefia.Core.Input
 
         public bool IsKeyDown(Key key)
         {
-            return _keysPressed[(int) key];
+            return _keysPressed[(int)key];
         }
 
         /// <inheritdoc />
@@ -740,7 +762,7 @@ namespace OpenNefia.Core.Input
             public string FunctionCommand => Function.FunctionName;
             public KeyBindingType BindingType { get; }
             public KeyRepeatMode DelayMode { get; }
-            public KeyRepeatDelay? KeyRepeat { get; } 
+            public KeyRepeatDelay? KeyRepeat { get; }
 
             public Key BaseKey => PackedKeyCombo.BaseKey;
             public Key Mod1 => PackedKeyCombo.Mod1;

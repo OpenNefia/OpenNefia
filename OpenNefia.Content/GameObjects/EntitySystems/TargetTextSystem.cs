@@ -1,6 +1,8 @@
 ﻿using OpenNefia.Content.DisplayName;
+using OpenNefia.Content.GameObjects.Pickable;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
+using OpenNefia.Core.Locale;
 using OpenNefia.Core.Maps;
 using System.Text;
 
@@ -9,6 +11,7 @@ namespace OpenNefia.Content.GameObjects
     public class TargetTextSystem : EntitySystem
     {
         [Dependency] private readonly IEntityLookup _lookup = default!;
+        [Dependency] private readonly DisplayNameSystem _displayNames = default!;
 
         public override void Initialize()
         {
@@ -63,7 +66,7 @@ namespace OpenNefia.Content.GameObjects
             {
                 onlookerSpatial.MapPosition.TryDistance(spatial.MapPosition, out var dist);
                 var targetLevelText = GetTargetDangerText(args.Onlooker, target);
-                args.TargetTexts.Add("You are targeting " + DisplayNameSystem.GetDisplayName(target) + " (distance " + (int)dist + ")");
+                args.TargetTexts.Add("You are targeting " + _displayNames.GetDisplayNameInner(target) + " (distance " + (int)dist + ")");
                 args.TargetTexts.Add(targetLevelText);
             }
         }
@@ -71,6 +74,47 @@ namespace OpenNefia.Content.GameObjects
         public string GetTargetDangerText(EntityUid onlooker, EntityUid target)
         {
             return "(danger text)";
+        }
+
+        /// <hsp>txtItemOnCell(x, y)</hsp>
+        public string? GetItemOnCellText(EntityUid player, MapCoordinates newPosition)
+        {
+            var ents = _lookup.GetLiveEntitiesAtCoords(newPosition).ToList();
+
+            var items = ents.Where(ent => EntityManager.HasComponent<PickableComponent>(ent.Uid)).ToList();
+
+            if (items.Count == 0)
+                return null;
+
+            if (items.Count > 3)
+                return Loc.GetString("Elona.TargetText.ItemOnCell.MoreThanThree", ("itemCount", items.Count));
+
+            var mes = new StringBuilder();
+            for (int i = 0; i < items.Count; i++)
+            {
+                if (i > 0)
+                {
+                    mes.Append(Loc.GetString("Elona.TargetText.ItemOnCell.And"));
+                }
+                var item = items[i];
+                mes.Append(_displayNames.GetDisplayNameInner(item.Uid));
+            }
+
+            var ownState = OwnState.None;
+            if (EntityManager.TryGetComponent(items.First().Uid, out PickableComponent? pickable))
+                ownState = pickable.OwnState;
+
+            var itemNames = mes.ToString();
+
+            switch (ownState)
+            {
+                case OwnState.None:
+                    return Loc.GetString("Elona.TargetText.ItemOnCell.Item", ("itemNames", itemNames));
+                case OwnState.Construct:
+                    return Loc.GetString("Elona.TargetText.ItemOnCell.Construct", ("itemNames", itemNames));
+                default:
+                    return Loc.GetString("Elona.TargetText.ItemOnCell.NotOwned", ("itemNames", itemNames));
+            }
         }
     }
 

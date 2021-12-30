@@ -31,7 +31,7 @@ namespace OpenNefia.Content.GameObjects.EntitySystems
 
         private void GetDescItemDesc(EntityUid uid, ItemDescriptionComponent itemDesc, GetItemDescriptionEventArgs args)
         {
-            args.Entries.AddRange(itemDesc.Entries);
+            args.Entries.AddRange(itemDesc.Extra);
         }
 
         public void GetItemDescription(EntityUid entity, IList<ItemDescriptionEntry> entries)

@@ -1,7 +1,11 @@
-﻿using OpenNefia.Content.Logic;
+﻿using OpenNefia.Content.DisplayName;
+using OpenNefia.Content.GameObjects.Pickable;
+using OpenNefia.Content.Logic;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
+using OpenNefia.Core.Locale;
 using OpenNefia.Core.Maps;
+using System.Text;
 
 namespace OpenNefia.Content.GameObjects
 {
@@ -10,11 +14,14 @@ namespace OpenNefia.Content.GameObjects
         [Dependency] private readonly IPlayerQuery _playerQuery = default!;
         [Dependency] private readonly IMapManager _mapManager = default!;
         [Dependency] private readonly IEntityLookup _lookup = default!;
+        [Dependency] private readonly DisplayNameSystem _displayNames = default!;
+        [Dependency] private readonly TargetTextSystem _targetText = default!;
 
         public override void Initialize()
         {
             SubscribeLocalEvent<MoveableComponent, BeforeMoveEventArgs>(HandleBeforeMove, nameof(HandleBeforeMove));
             SubscribeLocalEvent<PlayerComponent, BeforeMoveEventArgs>(HandleBeforeMovePlayer, nameof(HandleBeforeMovePlayer));
+            SubscribeLocalEvent<PlayerComponent, AfterMoveEventArgs>(HandleAfterMovePlayer, nameof(HandleAfterMovePlayer));
         }
 
         private void HandleBeforeMovePlayer(EntityUid uid, PlayerComponent player, BeforeMoveEventArgs args)
@@ -65,6 +72,31 @@ namespace OpenNefia.Content.GameObjects
                 var ev2 = new WasCollidedWithEventArgs(source);
                 if (!Raise(collided.Uid, ev2, args))
                     return;
+            }
+        }
+
+        private void HandleAfterMovePlayer(EntityUid uid, PlayerComponent player, AfterMoveEventArgs args)
+        {
+            // TODO blindness
+            var blind = false;
+
+            if (!blind)
+            {
+                var text = _targetText.GetItemOnCellText(uid, args.NewPosition);
+                if (text != null)
+                {
+                    Mes.Display(text);
+                }
+            }
+            else
+            {
+                var items = _lookup.EntitiesUnderneath(uid)
+                    .Where(e => EntityManager.HasComponent<PickableComponent>(e.Uid));
+
+                if (items.Any())
+                {
+                    Mes.Display(Loc.GetString("Elona.PlayerMovement.SenseSomething"));
+                }
             }
         }
     }

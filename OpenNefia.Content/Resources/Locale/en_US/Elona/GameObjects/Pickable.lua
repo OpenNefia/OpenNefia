@@ -6,10 +6,10 @@ Elona.GameObjects.Pickable =
 
    PicksUp = function(entity, target)
       return ("%s pick%s up %s.")
-         :format(_.name(entity), _.s(entity), target)
+         :format(_.name(entity), _.s(entity), _.name(target))
    end,
    Drops = function(entity, target)
       return ("%s drop%s %s.")
-         :format(_.name(entity), _.s(entity), target)
+         :format(_.name(entity), _.s(entity), _.name(target))
    end,
 }

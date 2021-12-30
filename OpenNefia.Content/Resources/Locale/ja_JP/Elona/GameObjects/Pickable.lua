@@ -6,10 +6,10 @@ Elona.GameObjects.Pickable =
 
    PicksUp = function(entity, target)
       return ("%sは%sを拾った。")
-         :format(_.name(entity), target)
+         :format(_.name(entity), _.name(target))
    end,
    Drops = function(_entity, target)
       return ("%sを地面に置いた。")
-         :format(target)
+         :format(_.name(target))
    end,
 }

@@ -54,6 +54,31 @@ namespace OpenNefia.Core.UI.Element
         /// </summary>
         public UIEventFilterMode EventFilter { get; set; } = UIEventFilterMode.Ignore;
 
+        private bool _canControlFocus;
+
+        /// <summary>
+        ///     Whether this control can take control focus.
+        ///     Keyboard focus is necessary for the control to receive key binding events.
+        /// </summary>
+        public bool CanControlFocus
+        {
+            get => _canControlFocus;
+            set
+            {
+                if (_canControlFocus == value)
+                {
+                    return;
+                }
+
+                _canControlFocus = value;
+
+                if (!value)
+                {
+                    ReleaseControlFocus();
+                }
+            }
+        }
+
         private bool _canKeyboardFocus;
 
         /// <summary>
@@ -121,12 +146,30 @@ namespace OpenNefia.Core.UI.Element
         /// </summary>
         public virtual void GrabControlFocus()
         {
-            UserInterfaceManager.ControlFocused = this;
+            if (CanControlFocus)
+            {
+                UserInterfaceManager.ControlFocused = this;
+            }
+        }
+
+        /// <summary>
+        ///     Release control focus from this control if it has it.
+        ///     If a different control has control focus, nothing happens.
+        /// </summary>
+        public void ReleaseControlFocus()
+        {
+            if (HasControlFocus())
+            {
+                UserInterfaceManager.ControlFocused = null;
+            }
         }
 
         public void GrabFocus()
         {
-            GrabControlFocus();
+            if (CanControlFocus)
+            {
+                GrabControlFocus();
+            }
             if (CanKeyboardFocus)
             {
                 GrabKeyboardFocus();

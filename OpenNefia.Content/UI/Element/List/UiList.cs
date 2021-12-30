@@ -68,6 +68,7 @@ namespace OpenNefia.Content.UI.Element.List
 
             OnKeyBindDown += HandleKeyBindDown;
             EventFilter = UIEventFilterMode.Pass;
+            CanControlFocus = true;
             CanKeyboardFocus = true;
         }
 
@@ -126,6 +127,9 @@ namespace OpenNefia.Content.UI.Element.List
 
         public bool RawKeyEvent(in GuiRawKeyEvent guiRawEvent)
         {
+            if (guiRawEvent.Action != RawKeyAction.Down)
+                return false;
+
             for (int index = 0; index < ChoiceKeys.Count; index++)
             {
                 var choiceKey = ChoiceKeys[index];

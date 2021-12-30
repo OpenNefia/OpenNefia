@@ -28,11 +28,14 @@ namespace OpenNefia.Core.UserInterface
 
             var (control, rel) = hit.Value;
 
-            ControlFocused = control;
-
-            if (ControlFocused.CanKeyboardFocus && ControlFocused.KeyboardFocusOnClick)
+            if (control.CanControlFocus)
             {
-                ControlFocused.GrabKeyboardFocus();
+                ControlFocused = control;
+            }
+
+            if (control.CanKeyboardFocus && control.KeyboardFocusOnClick)
+            {
+                control.GrabKeyboardFocus();
             }
 
             hitData = (control, (Vector2i)rel);
