@@ -27,6 +27,8 @@ namespace OpenNefia.Content.Inventory
         public EntityUid User { get; }
         public IInventoryBehavior Behavior { get; internal set; }
 
+        public bool ShowInventoryWindow { get; set; } = true;
+
         public InventoryContext(EntityUid user, IInventoryBehavior behavior)
         {
             EntitySystem.InjectDependencies(this);
@@ -44,13 +46,16 @@ namespace OpenNefia.Content.Inventory
 
         public IEnumerable<(EntityUid, IInventorySource)> GetFilteredEntities()
         {
+            var seen = new HashSet<EntityUid>();
+
             foreach (var source in GetSources())
             {
                 foreach (var ent in source.GetEntities())
                 {
-                    if (IsAccepted(ent))
+                    if (IsAccepted(ent) && !seen.Contains(ent))
                     {
                         yield return (ent, source);
+                        seen.Add(ent);
                     }
                 }
             }

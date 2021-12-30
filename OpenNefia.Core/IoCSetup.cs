@@ -69,6 +69,8 @@ namespace OpenNefia
             IoCManager.Register<ITileDefinitionManagerInternal, TileDefinitionManager>();
             IoCManager.Register<IEntityManager, EntityManagerInternal>();
             IoCManager.Register<IEntityManagerInternal, EntityManagerInternal>();
+            IoCManager.Register<IEntityFactory, EntityFactory>();
+            IoCManager.Register<IEntityFactoryInternal, EntityFactory>();
             IoCManager.Register<ISerializationManager, SerializationManager>();
             IoCManager.Register<IAssetManager, AssetManager>();
             IoCManager.Register<ITileAtlasManager, TileAtlasManager>();

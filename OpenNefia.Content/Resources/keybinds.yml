@@ -73,6 +73,21 @@ binds:
 - function: Elona.Activate
   type: State
   key: Enter
+- function: Elona.PickUp
+  type: State
+  key: G
+- function: Elona.Drop
+  type: State
+  key: D
+- function: Elona.Drink
+  type: State
+  key: Q
+- function: Elona.Throw
+  type: State
+  key: T
+- function: Elona.Examine
+  type: State
+  key: X
 
 - function: UIClick
   type: State
@@ -115,6 +130,18 @@ binds:
 - function: UICancel
   type: State
   key: Escape
+  canFocus: true
+- function: UINextPage
+  type: State
+  key: NumpadPlus
+  canFocus: true
+- function: UIPreviousPage
+  type: State
+  key: NumpadMinus
+  canFocus: true
+- function: Elona.UIIdentify
+  type: State
+  key: X
   canFocus: true
 
 - function: TextCursorLeft

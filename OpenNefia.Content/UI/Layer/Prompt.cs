@@ -82,9 +82,13 @@ namespace OpenNefia.Content.UI.Layer
                 Finish(e.SelectedCell.Data);
             };
 
-            List.GrabKeyboardFocus();
-
             EventFilter = UIEventFilterMode.Pass;
+        }
+
+        public override void OnFocused()
+        {
+            base.OnFocused();
+            List.GrabFocus();
         }
 
         public Prompt(IEnumerable<PromptChoice<T>> choices)

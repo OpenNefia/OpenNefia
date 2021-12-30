@@ -1,11 +1,14 @@
-﻿using OpenNefia.Core.GameObjects;
+﻿using OpenNefia.Content.GameObjects;
+using OpenNefia.Core.GameObjects;
+using OpenNefia.Core.IoC;
+using OpenNefia.Core.Locale;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OpenNefia.Content.GameObjects
+namespace OpenNefia.Content.DisplayName
 {
     public class ItemNameSystem : EntitySystem
     {
@@ -18,8 +21,7 @@ namespace OpenNefia.Content.GameObjects
 
         public void BasicName(EntityUid uid, ItemComponent component, ref GetItemNameEvent args)
         {
-            var jp = false;
-            if (jp)
+            if (Loc.Language == LanguagePrototypeOf.Japanese)
             {
                 args.ItemName += BasicNameJP(uid, component);
             }
@@ -37,10 +39,12 @@ namespace OpenNefia.Content.GameObjects
             if (!Resolve(uid, ref item, ref meta, ref stack))
                 return string.Empty;
 
-            if (stack.Count == 1)
-                return $"{meta.DisplayName}";
+            var basename = meta.DisplayName;
 
-            return $"{stack.Count}個の{meta.DisplayName}";
+            if (stack.Count == 1)
+                return $"{basename}";
+
+            return $"{stack.Count}個の{basename}";
         }
 
         public string BasicNameEN(EntityUid uid,
@@ -51,10 +55,12 @@ namespace OpenNefia.Content.GameObjects
             if (!Resolve(uid, ref item, ref meta, ref stack))
                 return string.Empty;
 
-            if (stack.Count == 1)
-                return $"a {meta.DisplayName}";
+            var basename = meta.DisplayName;
 
-            return $"{stack.Count} {meta.DisplayName}s";
+            if (stack.Count == 1)
+                return $"a {basename}";
+
+            return $"{stack.Count} {basename}s";
         }
     }
 }

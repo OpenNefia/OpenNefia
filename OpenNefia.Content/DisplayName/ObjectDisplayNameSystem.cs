@@ -1,7 +1,8 @@
 ﻿using OpenNefia.Analyzers;
+using OpenNefia.Content.GameObjects;
 using OpenNefia.Core.GameObjects;
 
-namespace OpenNefia.Content.GameObjects
+namespace OpenNefia.Content.DisplayName
 {
     public class ObjectDisplayNameSystem : EntitySystem
     {

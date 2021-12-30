@@ -10,6 +10,7 @@ using OpenNefia.Core.UI.Layer;
 using OpenNefia.Content.Prototypes;
 using OpenNefia.Content.GameObjects.EntitySystems;
 using OpenNefia.Core.Serialization.Manager.Attributes;
+using OpenNefia.Content.DisplayName;
 
 namespace OpenNefia.Content.Inventory
 {

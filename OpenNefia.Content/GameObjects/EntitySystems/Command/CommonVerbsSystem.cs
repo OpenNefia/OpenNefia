@@ -1,4 +1,5 @@
-﻿using OpenNefia.Content.Input;
+﻿using OpenNefia.Content.GameObjects.Pickable;
+using OpenNefia.Content.Input;
 using OpenNefia.Content.UI.Layer;
 using OpenNefia.Core.Game;
 using OpenNefia.Core.GameObjects;
@@ -33,22 +34,13 @@ namespace OpenNefia.Content.GameObjects
                 .Register<CommonVerbsSystem>();
         }
 
-        private IEnumerable<Entity> EntitiesUnderneath(EntityUid player, SpatialComponent? spatial = null)
-        {
-            if (!Resolve(player, ref spatial))
-                return Enumerable.Empty<Entity>();
-
-            return _lookup.GetLiveEntitiesAtCoords(spatial.MapPosition, includeMapEntity: true)
-                .Where(e => e.Uid != player);
-        }
-
         private void HandleVerb(IGameSessionManager? session, Verb verb)
         {
             var player = session?.Player;
             if (player == null)
                 return;
 
-            foreach (var target in EntitiesUnderneath(player.Uid))
+            foreach (var target in _lookup.EntitiesUnderneath(player.Uid).ToList())
             {
                 if (target.Uid != player.Uid)
                 {

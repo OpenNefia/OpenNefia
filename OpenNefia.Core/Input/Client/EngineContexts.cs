@@ -18,13 +18,15 @@
             common.AddFunction(EngineKeyFunctions.ShowDebugConsole);
             common.AddFunction(EngineKeyFunctions.ShowDebugMonitors);
 
-            common.AddFunction(EngineKeyFunctions.UISelect);
-            common.AddFunction(EngineKeyFunctions.UICancel);
-
             common.AddFunction(EngineKeyFunctions.UIUp);
             common.AddFunction(EngineKeyFunctions.UIDown);
             common.AddFunction(EngineKeyFunctions.UILeft);
             common.AddFunction(EngineKeyFunctions.UIRight);
+            common.AddFunction(EngineKeyFunctions.UISelect);
+            common.AddFunction(EngineKeyFunctions.UICancel);
+
+            common.AddFunction(EngineKeyFunctions.UINextPage);
+            common.AddFunction(EngineKeyFunctions.UIPreviousPage);
 
             common.AddFunction(EngineKeyFunctions.TextCursorLeft);
             common.AddFunction(EngineKeyFunctions.TextCursorRight);

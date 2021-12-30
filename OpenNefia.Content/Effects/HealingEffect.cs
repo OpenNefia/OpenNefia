@@ -9,6 +9,7 @@ using OpenNefia.Core.Maps;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Core.Serialization;
 using OpenNefia.Content.Prototypes;
+using OpenNefia.Content.DisplayName;
 
 namespace OpenNefia.Content.Effects
 {

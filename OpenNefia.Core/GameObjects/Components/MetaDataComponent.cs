@@ -1,16 +1,18 @@
 using System;
+using NLua;
 using OpenNefia.Analyzers;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Locale;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Serialization.Manager.Attributes;
+using OpenNefia.Core.Utility;
 
 namespace OpenNefia.Core.GameObjects
 {
     /// <summary>
     ///     Contains meta data about this entity that isn't component specific.
     /// </summary>
-    public class MetaDataComponent : Component
+    public class MetaDataComponent : Component, IComponentLocalizable
     {
         [Dependency] private readonly IEntityManager _entityManager = default!;
 
@@ -76,6 +78,11 @@ namespace OpenNefia.Core.GameObjects
 
         public bool IsAlive => (Liveness == EntityGameLiveness.Alive) && !EntityTerminating;
         public bool IsDeadAndBuried => Liveness == EntityGameLiveness.DeadAndBuried || EntityTerminating;
+
+        void IComponentLocalizable.LocalizeFromLua(LuaTable table)
+        {
+            DisplayName = $"{table.TryGetValue("Name")}";
+        }
     }
 
     public enum EntityGameLiveness

@@ -142,8 +142,12 @@ namespace OpenNefia.Content.TitleScreen
             List.EventOnActivate += (_, evt) => RunTitleScreenAction(evt.SelectedCell.Data);
 
             AddChildren();
+        }
 
-            List.GrabKeyboardFocus();
+        public override void OnFocused()
+        {
+            base.OnFocused();
+            List.GrabFocus();
         }
 
         public void AddChildren()

@@ -119,6 +119,8 @@ namespace OpenNefia.Core.GameObjects
             where TComp2 : IComponent
             where TComp3 : IComponent
             where TComp4 : IComponent;
+
+        IEnumerable<Entity> EntitiesUnderneath(EntityUid player, bool includeMapEntity = false, SpatialComponent? spatial = null);
     }
 
     public class EntityLookup : EntitySystem, IEntityLookup
@@ -192,6 +194,16 @@ namespace OpenNefia.Core.GameObjects
             return GetLiveEntitiesAtCoords(coords)
                 .Where(ent => ent.MetaData.IsAlive)
                 .FirstOrDefault();
+        }
+        
+        /// <inheritdoc/>
+        public IEnumerable<Entity> EntitiesUnderneath(EntityUid player, bool includeMapEntity = false, SpatialComponent? spatial = null)
+        {
+            if (!Resolve(player, ref spatial))
+                return Enumerable.Empty<Entity>();
+
+            return GetLiveEntitiesAtCoords(spatial.MapPosition, includeMapEntity: includeMapEntity)
+                .Where(e => e.Uid != player);
         }
 
         /// <inheritdoc />

@@ -1,4 +1,5 @@
-﻿using OpenNefia.Content.Logic;
+﻿using OpenNefia.Content.DisplayName;
+using OpenNefia.Content.Logic;
 using OpenNefia.Core.Audio;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;

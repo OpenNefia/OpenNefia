@@ -9,6 +9,7 @@ using System.Collections;
 using OpenNefia.Core.Utility;
 using OpenNefia.Core.Input;
 using OpenNefia.Core.UserInterface;
+using OpenNefia.Core.Log;
 
 namespace OpenNefia.Content.UI.Element.List
 {
@@ -65,6 +66,8 @@ namespace OpenNefia.Content.UI.Element.List
 
             RefreshCellPositionsAndKeys();
 
+            OnKeyBindDown += HandleKeyBindDown;
+            EventFilter = UIEventFilterMode.Pass;
             CanKeyboardFocus = true;
         }
 
@@ -85,9 +88,6 @@ namespace OpenNefia.Content.UI.Element.List
                 AddChild(cell);
             }
 
-            OnKeyBindDown += HandleKeyBindDown;
-            EventFilter = UIEventFilterMode.Pass;
-
             // Set the size/position of the child list cells.
             SetSize(Width, Height);
             SetPosition(X, Y);
@@ -100,6 +100,7 @@ namespace OpenNefia.Content.UI.Element.List
 
         private void HandleKeyBindDown(GUIBoundKeyEventArgs args)
         {
+            Logger.Info($"BIND {args.Function} {args.State}");
             if (args.Function == EngineKeyFunctions.UISelect)
             {
                 Activate(SelectedIndex);
@@ -177,14 +178,12 @@ namespace OpenNefia.Content.UI.Element.List
 
         protected virtual void OnSelect(UiListEventArgs<T> e)
         {
-            UiListEventHandler<T>? handler = EventOnSelect;
-            handler?.Invoke(this, e);
+            EventOnSelect?.Invoke(this, e);
         }
 
         protected virtual void OnActivate(UiListEventArgs<T> e)
         {
-            UiListEventHandler<T>? handler = EventOnActivate;
-            handler?.Invoke(this, e);
+            EventOnActivate?.Invoke(this, e);
         }
 
         public virtual bool CanSelect(int index)

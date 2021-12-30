@@ -6,6 +6,7 @@ using NUnit.Framework;
 using OpenNefia.Core.ContentPack;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
+using OpenNefia.Core.Locale;
 using OpenNefia.Core.Maps;
 using OpenNefia.Core.Reflection;
 using OpenNefia.Core.Utility;
@@ -50,6 +51,9 @@ namespace OpenNefia.Tests
             var modLoader = IoCManager.Resolve<TestingModLoader>();
             modLoader.Assemblies = contentAssemblies;
             modLoader.TryLoadModulesFrom(ResourcePath.Root, "");
+
+            // Required since localization hooks into entity creation.
+            IoCManager.Resolve<ILocalizationManager>().Initialize(LanguagePrototypeOf.English);
 
             // Required components for the engine to work
             var compFactory = IoCManager.Resolve<IComponentFactory>();
