@@ -209,6 +209,7 @@ namespace OpenNefia.Tests.Core.UserInterface
         {
             var control = new UiElement
             {
+                CanControlFocus = true,
                 CanKeyboardFocus = true,
                 KeyboardFocusOnClick = true,
                 EventFilter = UIEventFilterMode.Stop

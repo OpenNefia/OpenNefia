@@ -9,14 +9,13 @@ using OpenNefia.Core.UI;
 using OpenNefia.Core.UI.Layer;
 using OpenNefia.Content.Prototypes;
 using OpenNefia.Content.GameObjects.EntitySystems;
-using OpenNefia.Core.Serialization.Manager.Attributes;
 using OpenNefia.Content.DisplayName;
+using static OpenNefia.Content.GameObjects.EntitySystems.ItemDescriptionEntry;
 
 namespace OpenNefia.Content.Inventory
 {
     public class ItemDescriptionLayer : UiLayerWithResult<UiNoResult>
     {
-        [Dependency] private readonly IEntityManager _entityManager = default!;
         [Dependency] private readonly ItemDescriptionSystem _itemDescSystem = default!;
 
         private EntityUid _item;
@@ -139,45 +138,5 @@ namespace OpenNefia.Content.Inventory
                 }
             }
         }
-    }
-
-    [DataDefinition]
-    public class ItemDescriptionEntry
-    {
-        [DataField]
-        public string Text { get; set; } = string.Empty;
-        
-        [DataField]
-        public Color TextColor { get; set; } = Color.Black;
-        
-        [DataField]
-        public ItemDescriptionType Type { get; set; }
-        
-        [DataField]
-        public ItemDescriptionIcon? Icon { get; set; }
-        
-        [DataField]
-        public bool IsInheritable { get; set; }
-    }
-
-    public enum ItemDescriptionType
-    {
-        Normal,
-        Flavor,
-        FlavorItalic
-    }
-
-    public enum ItemDescriptionIcon : int
-    {
-        Icon0 = 0,
-        Icon1 = 1,
-        Icon2 = 2,
-        Icon3 = 3,
-        Icon4 = 4,
-        Icon5 = 5,
-        Icon6 = 6,
-        Icon7 = 7,
-        Icon8 = 8,
-        Icon9 = 9,
     }
 }

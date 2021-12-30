@@ -3,6 +3,7 @@ using OpenNefia.Content.Logic;
 using OpenNefia.Core.Audio;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
+using OpenNefia.Core.Locale;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -52,7 +53,7 @@ namespace OpenNefia.Content.GameObjects
 
         private void HandleCollidedWith(EntityUid uid, DoorComponent door, WasCollidedWithEventArgs args)
         {
-            Mes.Display($"{DisplayNameSystem.GetDisplayName(args.Source)} opens {DisplayNameSystem.GetDisplayName(uid)}");
+            Mes.Display(Loc.GetString("Elona.Door.Open.Succeeds", ("entity", args.Source)));
 
             if (door.SoundOpen != null)
             {

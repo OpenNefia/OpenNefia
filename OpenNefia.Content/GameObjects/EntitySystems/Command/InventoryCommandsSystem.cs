@@ -36,6 +36,8 @@ namespace OpenNefia.Content.GameObjects
         {
             CommandBinds.Builder
                 .Bind(ContentKeyFunctions.PickUp, InputCmdHandler.FromDelegate(HandlePickUp))
+                .Bind(ContentKeyFunctions.Examine,
+                    new InventoryInputCmdHandler(_uiMgr, new ExamineInventoryBehavior()))
                 .Bind(ContentKeyFunctions.Drop,
                     new InventoryInputCmdHandler(_uiMgr, new DropInventoryBehavior()))
                 .Bind(ContentKeyFunctions.Drink,

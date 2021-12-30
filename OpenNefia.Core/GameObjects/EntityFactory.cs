@@ -15,6 +15,8 @@ namespace OpenNefia.Core.GameObjects
     public interface IEntityFactory
     {
         void UpdateEntity(Entity entity, EntityPrototype prototype);
+        void LocalizeComponents(Entity entity);
+        void LocalizeComponents(EntityUid entityUid);
     }
 
     internal interface IEntityFactoryInternal : IEntityFactory
@@ -79,6 +81,8 @@ namespace OpenNefia.Core.GameObjects
 
             // Update entity metadata
             entity.MetaData.EntityPrototype = prototype;
+
+            LocalizeComponents(entity);
         }
 
         public void LoadEntity(EntityPrototype? prototype, Entity entity, IComponentFactory factory,
@@ -125,7 +129,15 @@ namespace OpenNefia.Core.GameObjects
             LocalizeComponents(entity);
         }
 
-        private void LocalizeComponents(Entity entity)
+        public void LocalizeComponents(EntityUid entityUid)
+        {
+            if (!_entityManager.TryGetEntity(entityUid, out var entity))
+                return;
+
+            LocalizeComponents(entity);
+        }
+
+        public void LocalizeComponents(Entity entity)
         {
             if (!_localizationManager.TryGetLocalizationData(entity.Uid, out var table))
                 return;

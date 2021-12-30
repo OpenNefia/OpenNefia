@@ -5,7 +5,7 @@ using OpenNefia.Core.Maths;
 
 namespace OpenNefia.Content.Logic
 {
-    [Obsolete]
+    [Obsolete("Convert to IoC dependency")]
     public static class Mes
     {
         public static void Display(string text, Color? color = null, bool noCapitalize = false)

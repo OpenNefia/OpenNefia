@@ -33,7 +33,12 @@ function finalize(t, trail)
       if type(k) ~= "string" or k:sub(1, 1) ~= "_" then
          trail[#trail+1] = k
          if type(v) == "table" then
-            finalize(v, trail)
+            if type(v[1]) == "string" then
+               local key = table.concat(trail, ".")
+               _FinalizedKeys[key] = v
+            else
+               finalize(v, trail)
+            end
          else
             local key = table.concat(trail, ".")
             _FinalizedKeys[key] = v

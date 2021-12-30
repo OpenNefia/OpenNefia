@@ -142,5 +142,6 @@ namespace OpenNefia.Core.Input
         void InputModeChanged();
 
         void UpdateKeyRepeats(FrameEventArgs frame);
+        void HaltInput();
     }
 }
