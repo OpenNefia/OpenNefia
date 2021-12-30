@@ -21,6 +21,7 @@ namespace OpenNefia.Core.GameObjects
         [IoC.Dependency] private readonly IPrototypeManager PrototypeManager = default!;
         [IoC.Dependency] private readonly IEntitySystemManager EntitySystemManager = default!;
         [IoC.Dependency] private readonly IMapManager _mapManager = default!;
+        [IoC.Dependency] private readonly IEntityFactoryInternal _entityFactory = default!;
 
         #endregion Dependencies
 
@@ -373,7 +374,7 @@ namespace OpenNefia.Core.GameObjects
             var entity = AllocEntity(prototypeName, uid);
             try
             {
-                EntityPrototype.LoadEntity(entity.Prototype, entity, ComponentFactory, null);
+                _entityFactory.LoadEntity(entity.Prototype, entity, ComponentFactory, null);
                 return entity;
             }
             catch (Exception e)
@@ -387,7 +388,7 @@ namespace OpenNefia.Core.GameObjects
 
         private protected void LoadEntity(Entity entity, IEntityLoadContext? context)
         {
-            EntityPrototype.LoadEntity(entity.Prototype, entity, ComponentFactory, context);
+            _entityFactory.LoadEntity(entity.Prototype, entity, ComponentFactory, context);
         }
 
         private void InitializeAndStartEntity(Entity entity, MapId mapId)

@@ -221,6 +221,11 @@ namespace OpenNefia.Core.UserInterface
             layer.SetPosition(bounds.Left, bounds.Top);
             Layers.Add(layer);
             SortLayers();
+
+            ControlFocused = null;
+            KeyboardFocused = null;
+            CurrentlyHovered = null;
+
             CurrentLayer?.OnFocused();
         }
 
@@ -228,6 +233,11 @@ namespace OpenNefia.Core.UserInterface
         {
             Layers.Remove(layer);
             SortLayers();
+
+            ControlFocused = null;
+            KeyboardFocused = null;
+            CurrentlyHovered = null;
+
             CurrentLayer?.OnFocused();
         }
 

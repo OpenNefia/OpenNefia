@@ -42,7 +42,9 @@ namespace OpenNefia.Core.UserInterface
         /// <inheritdoc/>
         public void HandleCanFocusUp()
         {
-            ControlFocused = null;
+            // NOTE: Since Elona is a keyboard-focused game, it doesn't make sense
+            // to detatch focus if the mouse is moved outside a control.
+            // ControlFocused = null;
         }
 
         public void KeyBindDown(BoundKeyEventArgs args)

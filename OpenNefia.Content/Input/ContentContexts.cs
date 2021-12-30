@@ -10,10 +10,19 @@ namespace OpenNefia.Content.Input
     {
         public static void SetupContexts(IInputContextContainer contexts)
         {
+            var common = contexts.GetContext("common");
+            common.AddFunction(ContentKeyFunctions.UIIdentify);
+
             var field = contexts.GetContext("field");
             field.AddFunction(ContentKeyFunctions.Ascend);
             field.AddFunction(ContentKeyFunctions.Descend);
             field.AddFunction(ContentKeyFunctions.Activate);
+
+            field.AddFunction(ContentKeyFunctions.PickUp);
+            field.AddFunction(ContentKeyFunctions.Drop);
+            field.AddFunction(ContentKeyFunctions.Drink);
+            field.AddFunction(ContentKeyFunctions.Throw);
+            field.AddFunction(ContentKeyFunctions.Examine);
         }
     }
 }

@@ -1,8 +1,8 @@
-﻿using Love;
-using OpenNefia.Content.GameObjects;
+﻿using OpenNefia.Content.GameObjects;
 using OpenNefia.Content.UI.Element;
 using OpenNefia.Core.Game;
 using OpenNefia.Core.GameObjects;
+using OpenNefia.Core.Input;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Maps;
 using OpenNefia.Core.Maths;
@@ -10,6 +10,7 @@ using OpenNefia.Core.Rendering;
 using OpenNefia.Core.UI;
 using OpenNefia.Core.UI.Element;
 using OpenNefia.Core.UI.Layer;
+using OpenNefia.Core.UserInterface;
 using OpenNefia.Core.Utility;
 using Color = OpenNefia.Core.Maths.Color;
 
@@ -61,7 +62,9 @@ namespace OpenNefia.Content.UI.Layer
 
             TextTarget = new UiTextOutlined(FontTargetText);
 
-            BindKeys();
+            OnKeyBindDown += HandleKeyBindDown;
+            OnKeyBindUp += HandleKeyBindUp;
+            EventFilter = UIEventFilterMode.Pass;
         }
 
         public PositionPrompt(Entity onlooker, MapCoordinates? target)
@@ -70,36 +73,53 @@ namespace OpenNefia.Content.UI.Layer
         public PositionPrompt(Entity onlooker) 
             : this(onlooker.Spatial.MapPosition, onlooker: onlooker) { }
 
-        protected virtual void BindKeys()
+        private void HandleKeyBindDown(GUIBoundKeyEventArgs args)
         {
-            //Keybinds[CoreKeybinds.Enter] += (_) => Finish(new Result(_targetPos, _canSee));
-            //Keybinds[CoreKeybinds.North] += (_) => MoveTargetPos(0, -1);
-            //Keybinds[CoreKeybinds.South] += (_) => MoveTargetPos(0, 1);
-            //Keybinds[CoreKeybinds.West] += (_) => MoveTargetPos(-1, 0);
-            //Keybinds[CoreKeybinds.East] += (_) => MoveTargetPos(1, 0);
-            //Keybinds[CoreKeybinds.Northwest] += (_) => MoveTargetPos(-1, -1);
-            //Keybinds[CoreKeybinds.Southwest] += (_) => MoveTargetPos(-1, 1);
-            //Keybinds[CoreKeybinds.Northeast] += (_) => MoveTargetPos(1, -1);
-            //Keybinds[CoreKeybinds.Southeast] += (_) => MoveTargetPos(1, 1);
-            //Keybinds[CoreKeybinds.Escape] += (_) => Cancel();
-            //Keybinds[CoreKeybinds.Cancel] += (_) => Cancel();
-            //Keybinds[CoreKeybinds.NextPage] += (_) => NextTarget();
-            //Keybinds[CoreKeybinds.PreviousPage] += (_) => PreviousTarget();
-
-            //MouseMoved.Callback += (evt) =>
-            //{
-            //    if (_isPanning)
-            //        PanWithMouse(evt);
-            //    else
-            //        MouseToTargetPos(evt.Pos);
-            //};
-            //MouseButtons[MouseButton.Mouse1] += (evt) => this.Finish(new Result(this._targetPos, this._canSee));
-            //MouseButtons[MouseButton.Mouse2].Bind((evt) => _isPanning = evt.State == KeyPressState.Pressed, trackReleased: true);
+            if (args.Function == EngineKeyFunctions.UISelect || args.Function == EngineKeyFunctions.UIClick)
+            {
+                Finish(new Result(_targetPos, _canSee));
+            }
+            else if (args.Function.TryToDirection(out var dir))
+            {
+                MoveTargetPos(dir.ToIntVec());
+            }
+            else if (args.Function == EngineKeyFunctions.UICancel)
+            {
+                Cancel();
+            }
+            else if (args.Function == EngineKeyFunctions.UINextPage)
+            {
+                NextTarget();
+            }
+            else if (args.Function == EngineKeyFunctions.UIPreviousPage)
+            {
+                PreviousTarget();
+            }
+            else if (args.Function == EngineKeyFunctions.UIRightClick)
+            {
+                _isPanning = true;
+            }
         }
 
-        private void PanWithMouse(GUIMouseMoveEventArgs evt)
+        private void HandleKeyBindUp(GUIBoundKeyEventArgs args)
         {
-            _field.Camera.Pan(evt.Relative);
+            if (args.Function == EngineKeyFunctions.UIRightClick)
+            {
+                _isPanning = false;
+            }
+        }
+
+        protected override void MouseMove(GUIMouseMoveEventArgs args)
+        {
+            if (_isPanning)
+                PanWithMouse(args.Relative);
+            else
+                MouseToTargetPos((Vector2i)args.GlobalPixelPosition.Position);
+        }
+
+        private void PanWithMouse(Vector2 delta)
+        {
+            _field.Camera.Pan(delta);
         }
 
         private void MouseToTargetPos(Vector2i screenPos)
@@ -108,10 +128,10 @@ namespace OpenNefia.Content.UI.Layer
             this.SetTargetPos(_mapManager.ActiveMap!.AtPos(tilePos));
         }
 
-        protected void MoveTargetPos(int dx, int dy)
+        protected void MoveTargetPos(Vector2i delta)
         {
-            var tilePos = new Vector2i(Math.Clamp(_targetPos.X + dx, 0, _map.Width - 1),
-                                       Math.Clamp(_targetPos.Y + dy, 0, _map.Height - 1));
+            var tilePos = new Vector2i(Math.Clamp(_targetPos.X + delta.X, 0, _map.Width - 1),
+                                       Math.Clamp(_targetPos.Y + delta.Y, 0, _map.Height - 1));
 
             SetTargetPos(_map.AtPos(tilePos));
             UpdateCamera();
@@ -175,7 +195,7 @@ namespace OpenNefia.Content.UI.Layer
         {
             var targetChara = _lookup.GetPrimaryEntity(_targetPos);
 
-            if (targetChara == null || !_visibility.CanSeeEntity(targetChara.Uid) 
+            if (targetChara == null || !_visibility.CanSeeEntity(targetChara.Uid, _onlooker.Uid) 
                 || !_map.HasLos(targetChara.Spatial.WorldPosition, _originPos.Position))
             {
                 return false;
@@ -187,20 +207,20 @@ namespace OpenNefia.Content.UI.Layer
         public override void Draw()
         {
             _field.Camera.TileToVisibleScreen(_targetPos, out var screenPos);
-            Graphics.SetBlendMode(BlendMode.Add);
+            Love.Graphics.SetBlendMode(Love.BlendMode.Add);
             GraphicsEx.SetColor(ColorTargetedTile);
-            Graphics.Rectangle(DrawMode.Fill, screenPos.X, screenPos.Y, GameSession.Coords.TileSize.X, GameSession.Coords.TileSize.Y);
+            Love.Graphics.Rectangle(Love.DrawMode.Fill, screenPos.X, screenPos.Y, GameSession.Coords.TileSize.X, GameSession.Coords.TileSize.Y);
 
             if (ShouldDrawLine())
             {
                 foreach (var coords in PosHelpers.EnumerateLine(_originPos, _targetPos))
                 {
                     _field.Camera.TileToVisibleScreen(coords, out screenPos);
-                    Graphics.Rectangle(DrawMode.Fill, screenPos.X, screenPos.Y, GameSession.Coords.TileSize.X, GameSession.Coords.TileSize.Y);
+                    Love.Graphics.Rectangle(Love.DrawMode.Fill, screenPos.X, screenPos.Y, GameSession.Coords.TileSize.X, GameSession.Coords.TileSize.Y);
                 }
             }
 
-            Graphics.SetBlendMode(BlendMode.Alpha);
+            Love.Graphics.SetBlendMode(Love.BlendMode.Alpha);
 
             TextTarget.Draw();
         }

@@ -1,4 +1,6 @@
-﻿namespace OpenNefia.Core.GameObjects
+﻿using OpenNefia.Core.GameObjects;
+
+namespace OpenNefia.Content.DisplayName
 {
     public class DisplayNameSystem : EntitySystem
     {

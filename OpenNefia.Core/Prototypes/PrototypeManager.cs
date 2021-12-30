@@ -210,6 +210,7 @@ namespace OpenNefia.Core.Prototypes
         [Dependency] private readonly IEntityManager _entityManager = default!;
         [Dependency] private readonly ISerializationManager _serializationManager = default!;
         [Dependency] private readonly IGraphics _graphics = default!;
+        [Dependency] private readonly IEntityFactory _entityFactory = default!;
 
         private readonly Dictionary<string, Type> _prototypeTypes = new();
         private readonly Dictionary<Type, int> _prototypePriorities = new();
@@ -374,7 +375,7 @@ namespace OpenNefia.Core.Prototypes
                 foreach (var entity in _entityManager.GetEntities()
                     .Where(e => e.Prototype != null && e.Prototype.ID == prototype))
                 {
-                    ((EntityPrototype) entityPrototypes[prototype]).UpdateEntity((Entity) entity);
+                    _entityFactory.UpdateEntity(entity, (EntityPrototype)entityPrototypes[prototype]);
                 }
             }
 #endif

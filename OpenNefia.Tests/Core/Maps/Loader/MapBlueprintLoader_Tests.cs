@@ -74,6 +74,9 @@ namespace OpenNefia.Tests.Core.Maps.Loader
             tileDefMan.RegisterAll();
         }
 
+        /// <summary>
+        /// A map blueprint must have exactly one entity with a <see cref="MapComponent"/>.
+        /// </summary>
         [Test]
         public void TestMapEntityCheckNone()
         {
@@ -99,6 +102,9 @@ entities: []
             Assert.Throws<InvalidDataException>(() => mapLoad.LoadBlueprint(mapId, new ResourcePath("/TestMap1.yml")));
         }
 
+        /// <summary>
+        /// A map blueprint must have exactly one entity with a <see cref="MapComponent"/>.
+        /// </summary>
         [Test]
         public void TestMapEntityCheck()
         {

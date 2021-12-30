@@ -10,6 +10,7 @@ using OpenNefia.Core.Maps;
 using OpenNefia.Core.Random;
 using OpenNefia.Core.Utility;
 using OpenNefia.Content.Prototypes;
+using OpenNefia.Content.DisplayName;
 
 namespace OpenNefia.Content.GameObjects
 {

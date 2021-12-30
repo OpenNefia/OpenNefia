@@ -14,6 +14,7 @@ using OpenNefia.Core.Reflection;
 using OpenNefia.Core.Graphics;
 using System.Diagnostics.CodeAnalysis;
 using OpenNefia.Core.UserInterface;
+using OpenNefia.Core.GameObjects;
 
 namespace OpenNefia.Core.Locale
 {
@@ -37,6 +38,8 @@ namespace OpenNefia.Core.Locale
         void LoadContentFile(ResourcePath luaFile);
         void LoadString(string luaScript);
         void Resync();
+
+        bool TryGetLocalizationData(EntityUid uid, [NotNullWhen(true)] out LuaTable? table);
     }
 
     /// <summary>
@@ -76,6 +79,7 @@ namespace OpenNefia.Core.Locale
         [Dependency] private readonly IReflectionManager _reflectionManager = default!;
         [Dependency] private readonly IGraphics _graphics = default!;
         [Dependency] private readonly IRandom _random = default!;
+        [Dependency] private readonly IEntityManager _entityManager = default!;
 
         private readonly ResourcePath LocalePath = new ResourcePath("/Locale");
         
@@ -152,7 +156,7 @@ namespace OpenNefia.Core.Locale
 
         public string GetString(LocaleKey key, params LocaleArg[] args)
         {
-            if (TryGetString(key, out var str))
+            if (TryGetString(key, out var str, args))
                 return str;
 
             return $"<Missing key: {key}>";
@@ -161,6 +165,19 @@ namespace OpenNefia.Core.Locale
         public bool IsFullwidth()
         {
             return Language == LanguagePrototypeOf.Japanese;
+        }
+
+        public bool TryGetLocalizationData(EntityUid uid, [NotNullWhen(true)] out LuaTable? table)
+        {
+            if (!_entityManager.TryGetComponent(uid, out MetaDataComponent? metadata)
+                || metadata.EntityPrototype == null)
+            {
+                table = null;
+                return false;
+            }
+
+            table = _env._Lua.GetTable($"OpenNefia.Entities.{metadata.EntityPrototype.ID}");
+            return table != null;
         }
 
         public void LoadContentFile(ResourcePath luaFile)

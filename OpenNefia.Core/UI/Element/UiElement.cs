@@ -109,6 +109,31 @@ namespace OpenNefia.Core.UI.Element
         }
 
         /// <summary>
+        ///     Check if this control currently has control focus.
+        /// </summary>
+        public virtual bool HasControlFocus()
+        {
+            return UserInterfaceManager.ControlFocused == this;
+        }
+
+        /// <summary>
+        ///     Grab control focus if this control doesn't already have it.
+        /// </summary>
+        public virtual void GrabControlFocus()
+        {
+            UserInterfaceManager.ControlFocused = this;
+        }
+
+        public void GrabFocus()
+        {
+            GrabControlFocus();
+            if (CanKeyboardFocus)
+            {
+                GrabKeyboardFocus();
+            }
+        }
+
+        /// <summary>
         ///     Check if this control currently has keyboard focus.
         /// </summary>
         /// <returns></returns>

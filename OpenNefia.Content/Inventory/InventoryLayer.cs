@@ -19,6 +19,10 @@ using OpenNefia.Content.UI;
 using OpenNefia.Content.UI.Layer;
 using OpenNefia.Core.UserInterface;
 using OpenNefia.Core.UI.Element;
+using OpenNefia.Core.Input;
+using OpenNefia.Content.Input;
+using OpenNefia.Core.Log;
+using OpenNefia.Content.DisplayName;
 
 namespace OpenNefia.Content.Inventory
 {
@@ -144,23 +148,35 @@ namespace OpenNefia.Content.Inventory
             AssetDecoInvD = new AssetDrawable(AssetPrototypeOf.DecoInvD);
             AssetGoldCoin = new AssetDrawable(AssetPrototypeOf.GoldCoin);
 
-            BindKeys();
-
             UpdateFiltering();
-        }
 
-        private void BindKeys()
-        {
-            //Keybinds[CoreKeybinds.Cancel] += (_) => Cancel();
-            //Keybinds[CoreKeybinds.Escape] += (_) => Cancel();
-            //Keybinds[CoreKeybinds.Identify] += ShowItemDescription;
+            AddChild(Window);
+            AddChild(List);
 
-            //Forwards += List;
-
+            OnKeyBindDown += HandleKeyBindDown;
             List.EventOnActivate += OnSelect;
+            EventFilter = UIEventFilterMode.Pass;        
         }
 
-        private void ShowItemDescription(GUIBoundKeyEventArgs args)
+        public override void OnFocused()
+        {
+            base.OnFocused();
+            List.GrabFocus();
+        }
+
+        private void HandleKeyBindDown(GUIBoundKeyEventArgs args)
+        {
+            if (args.Function == EngineKeyFunctions.UICancel)
+            {
+                Cancel();
+            }
+            else if (args.Function == ContentKeyFunctions.UIIdentify)
+            {
+                ShowItemDescription();
+            }
+        }
+
+        private void ShowItemDescription()
         {
             var selected = List.SelectedCell;
 
@@ -168,11 +184,13 @@ namespace OpenNefia.Content.Inventory
                 return;
 
             var layer = new ItemDescriptionLayer(selected.Data.Item);
-            //_uiLayerManager.Query(layer);
+            UserInterfaceManager.Query(layer);
         }
 
         public void OnSelect(object? sender, UiListEventArgs<InventoryEntry> e)
         {
+            Context.ShowInventoryWindow = false;
+            Logger.Info("ACTIVATE", e.SelectedIndex);
             var entry = e.SelectedCell.Data;
             var result = Context.OnSelect(entry.Item);
 
@@ -194,6 +212,8 @@ namespace OpenNefia.Content.Inventory
             {
                 this.Finish(new InventoryResult.Finished(TurnResult.Succeeded));
             }
+
+            Context.ShowInventoryWindow = true;
         }
 
         public override void OnQuery()
@@ -349,6 +369,9 @@ namespace OpenNefia.Content.Inventory
 
         public override void Draw()
         {
+            if (!Context.ShowInventoryWindow)
+                return;
+
             Window.Draw();
 
             AssetDecoInvA.Draw();

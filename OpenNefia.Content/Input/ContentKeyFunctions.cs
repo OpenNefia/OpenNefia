@@ -8,8 +8,16 @@ namespace OpenNefia.Content.Input
     [KeyFunctions]
     public static class ContentKeyFunctions
     {
+        public static readonly BoundKeyFunction UIIdentify = "Elona.UIIdentify";
+
         public static readonly BoundKeyFunction Ascend = "Elona.Ascend";
         public static readonly BoundKeyFunction Descend = "Elona.Descend";
         public static readonly BoundKeyFunction Activate = "Elona.Activate";
+
+        public static readonly BoundKeyFunction PickUp = "Elona.PickUp";
+        public static readonly BoundKeyFunction Drop = "Elona.Drop";
+        public static readonly BoundKeyFunction Drink = "Elona.Drink";
+        public static readonly BoundKeyFunction Throw = "Elona.Throw";
+        public static readonly BoundKeyFunction Examine = "Elona.Examine";
     }
 }

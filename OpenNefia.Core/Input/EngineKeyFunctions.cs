@@ -1,7 +1,10 @@
-﻿namespace OpenNefia.Core.Input
+﻿using OpenNefia.Core.Maths;
+using System.Diagnostics.CodeAnalysis;
+
+namespace OpenNefia.Core.Input
 {
     /// <summary>
-    /// NOTE: When adding a new key function here, be sure to register it in <see cref="EngineContexts"/> also.
+    /// NOTE: If you add a new key function here, be sure to register it in <see cref="EngineContexts"/> also.
     /// </summary>
     [KeyFunctions]
     public static class EngineKeyFunctions
@@ -10,9 +13,9 @@
         public static readonly BoundKeyFunction South = "South";
         public static readonly BoundKeyFunction West = "West";
         public static readonly BoundKeyFunction East = "East";
-        public static readonly BoundKeyFunction Southeast = "Southeast";
         public static readonly BoundKeyFunction Northeast = "Northeast";
         public static readonly BoundKeyFunction Northwest = "Northwest";
+        public static readonly BoundKeyFunction Southeast = "Southeast";
         public static readonly BoundKeyFunction Southwest = "Southwest";
 
         public static readonly BoundKeyFunction UIClick = "UIClick";
@@ -24,6 +27,9 @@
         public static readonly BoundKeyFunction UIRight = "UIRight";
         public static readonly BoundKeyFunction UISelect = "UISelect";
         public static readonly BoundKeyFunction UICancel = "UICancel";
+
+        public static readonly BoundKeyFunction UINextPage = "UINextPage";
+        public static readonly BoundKeyFunction UIPreviousPage = "UIPreviousPage";
 
         public static readonly BoundKeyFunction ShowDebugConsole = "ShowDebugConsole";
         public static readonly BoundKeyFunction ShowDebugMonitors = "ShowDebugMonitors";
@@ -58,5 +64,25 @@
         public static readonly BoundKeyFunction TextScrollToBottom = "TextScrollToBottom";
         public static readonly BoundKeyFunction TextDelete = "TextDelete";
         public static readonly BoundKeyFunction TextTabComplete = "TextTabComplete";
+    }
+
+    public static class BoundKeyFunctionExt
+    {
+        private static readonly Dictionary<BoundKeyFunction, Direction> _functionToDir = new()
+        {
+            { EngineKeyFunctions.North, Direction.North },
+            { EngineKeyFunctions.South, Direction.South },
+            { EngineKeyFunctions.East, Direction.East },
+            { EngineKeyFunctions.West, Direction.West },
+            { EngineKeyFunctions.Northeast, Direction.NorthEast },
+            { EngineKeyFunctions.Northwest, Direction.NorthWest },
+            { EngineKeyFunctions.Southeast, Direction.SouthEast },
+            { EngineKeyFunctions.Southwest, Direction.SouthWest },
+        };
+
+        public static bool TryToDirection(this BoundKeyFunction func, [NotNullWhen(true)] out Direction dir)
+        {
+            return _functionToDir.TryGetValue(func, out dir);
+        }
     }
 }

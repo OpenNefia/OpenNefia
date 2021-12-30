@@ -27,6 +27,9 @@ namespace OpenNefia.Content.GameObjects
 
         private void ShowEscapeMenu(IGameSessionManager? session)
         {
+            if (!_field.IsQuerying())
+                return;
+
             if (_playerQuery.YesOrNo("Quit to title screen?"))
                 _field.Cancel();
         }

@@ -5,6 +5,7 @@ using OpenNefia.Core.Logic;
 using OpenNefia.Content.Prototypes;
 using OpenNefia.Core.Effects;
 using OpenNefia.Core.IoC;
+using OpenNefia.Content.DisplayName;
 
 namespace OpenNefia.Content.GameObjects
 {

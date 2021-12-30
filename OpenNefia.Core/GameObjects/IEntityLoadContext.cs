@@ -3,7 +3,7 @@ namespace OpenNefia.Core.GameObjects
     /// <summary>
     ///     Interface used to allow the map loader to override prototype data with map data.
     /// </summary>
-    internal interface IEntityLoadContext
+    public interface IEntityLoadContext
     {
         /// <summary>
         ///     Gets the serializer used to ExposeData a specific component.
