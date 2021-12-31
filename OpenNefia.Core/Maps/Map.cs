@@ -286,7 +286,23 @@ namespace OpenNefia.Core.Maps
             return IsInBounds(pos) && (_tileFlags[pos.X, pos.Y] & TileFlag.IsOpaque) == TileFlag.None;
         }
 
-        public bool HasLos(Vector2i from, Vector2i to)
+        public bool CanAccess(MapCoordinates coords)
+        {
+            if (coords.MapId != Id)
+                return false;
+
+            return CanAccess(coords.Position);
+        }
+
+        public bool CanSeeThrough(MapCoordinates coords)
+        {
+            if (coords.MapId != Id)
+                return false;
+
+            return CanSeeThrough(coords.Position);
+        }
+
+        public bool HasLineOfSight(Vector2i from, Vector2i to)
         {
             if (!IsInBounds(from) || !IsInBounds(to))
                 return false;

@@ -1,15 +1,18 @@
 ﻿using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Serialization.Manager.Attributes;
 
-namespace OpenNefia.Content.GameObjects
+namespace OpenNefia.Content.Factions
 {
     [RegisterComponent]
     public class FactionComponent : Component
     {
         public override string Name => "Faction";
 
+        /// <summary>
+        /// The hostility of this entity from the standpoint of the player.
+        /// </summary>
         [DataField]
-        public Relation Relation { get; set; } = Relation.Neutral;
+        public Relation RelationToPlayer { get; set; } = Relation.Neutral;
     }
 
     public enum Relation : int

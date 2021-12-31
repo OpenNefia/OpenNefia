@@ -16,14 +16,16 @@ namespace OpenNefia.Content.Maps
         /// <summary>
         ///     Gets tiles in random directions from the given one.
         /// </summary>
+        /// <param name="onlyAccessible">If true, only return tiles where <see cref="IMap.CanAccess"/> returns true.</param>
         /// <returns>An enumerable of the adjacent tiles.</returns>
-        IEnumerable<TileRef> GetRandomAdjacentTiles(TileRef tile);
+        IEnumerable<TileRef> GetRandomAdjacentTiles(TileRef tile, bool onlyAccessible = false);
 
         /// <summary>
         ///     Gets tiles in random directions from the given one.
         /// </summary>
+        /// <param name="onlyAccessible">If true, only return tiles where <see cref="IMap.CanAccess"/> returns true.</param>
         /// <returns>An enumerable of the adjacent tiles.</returns>
-        IEnumerable<TileRef> GetRandomAdjacentTiles(MapCoordinates coords);
+        IEnumerable<TileRef> GetRandomAdjacentTiles(MapCoordinates coords, bool onlyAccessible = false);
     }
 
     public class MapRandom : EntitySystem, IMapRandom
@@ -38,25 +40,31 @@ namespace OpenNefia.Content.Maps
         }
 
         /// <inheritdoc/>
-        public IEnumerable<TileRef> GetRandomAdjacentTiles(TileRef tile)
+        public IEnumerable<TileRef> GetRandomAdjacentTiles(TileRef tile, bool onlyAccessible = false)
         {
             if (!_mapManager.TryGetMap(tile.MapId, out var map))
                 return Enumerable.Empty<TileRef>();
 
-            return GetRandomAdjacentTiles(map.AtPos(tile.Position));
+            return GetRandomAdjacentTiles(map.AtPos(tile.Position), onlyAccessible);
         }
 
         /// <inheritdoc/>
-        public IEnumerable<TileRef> GetRandomAdjacentTiles(MapCoordinates coords)
+        public IEnumerable<TileRef> GetRandomAdjacentTiles(MapCoordinates coords, bool onlyAccessible = false)
         {
             if (!_mapManager.TryGetMap(coords.MapId, out var map))
                 yield break;
 
             foreach (var direction in DirectionUtility.RandomDirections())
             {
-                var adjacent = map.GetTile(coords.Offset(direction));
+                var newCoords = coords.Offset(direction);
+                var adjacent = map.GetTile(newCoords);
 
                 if (adjacent == null)
+                {
+                    continue;
+                }
+
+                if (onlyAccessible && !map.CanAccess(newCoords))
                 {
                     continue;
                 }

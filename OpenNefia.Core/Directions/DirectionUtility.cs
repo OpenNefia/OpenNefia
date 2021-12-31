@@ -54,5 +54,21 @@ namespace OpenNefia.Core.Directions
         {
             return coordinates.Offset(direction.ToIntVec());
         }
+
+        public static bool TryDirectionTowards(this MapCoordinates from, MapCoordinates to, out Direction dir)
+        {
+            if (from.MapId != to.MapId)
+            {
+                dir = Direction.North;
+                return false;
+            } 
+            dir = (to.Position - from.Position).GetDir();
+            return true;
+        }
+
+        public static Direction DirectionTowards(this Vector2i from, Vector2i to)
+        {
+            return (to - from).GetDir();
+        }
     }
 }

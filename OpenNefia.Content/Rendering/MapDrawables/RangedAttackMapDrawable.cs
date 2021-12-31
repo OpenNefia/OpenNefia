@@ -61,8 +61,8 @@ namespace OpenNefia.Content.Rendering
         public override bool CanEnqueue()
         {
             return _startPos.MapId == _endPos.MapId 
-                && (Map.HasLos(GameSession.Player.Spatial.WorldPosition, this._startPos.Position) 
-                || Map.HasLos(GameSession.Player.Spatial.WorldPosition, this._endPos.Position));
+                && (Map.HasLineOfSight(GameSession.Player.Spatial.WorldPosition, this._startPos.Position) 
+                || Map.HasLineOfSight(GameSession.Player.Spatial.WorldPosition, this._endPos.Position));
         }
 
         public override void OnEnqueue()
