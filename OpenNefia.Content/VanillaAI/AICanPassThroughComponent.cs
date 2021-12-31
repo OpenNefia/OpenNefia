@@ -1,6 +1,6 @@
 ﻿using OpenNefia.Core.GameObjects;
 
-namespace OpenNefia.Content.ElonaAI
+namespace OpenNefia.Content.VanillaAI
 {
     /// <summary>
     /// Indicates that the AI should attempt to move into this entity even if

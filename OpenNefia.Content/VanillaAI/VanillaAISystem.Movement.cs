@@ -14,9 +14,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OpenNefia.Content.ElonaAI
+namespace OpenNefia.Content.VanillaAI
 {
-    public sealed partial class ElonaAISystem
+    public sealed partial class VanillaAISystem
     {
         [Dependency] private readonly IEntityLookup _lookup = default!;
 
@@ -27,7 +27,7 @@ namespace OpenNefia.Content.ElonaAI
                 .FirstOrDefault();
         }
 
-        public bool StayNearPosition(EntityUid entity, MapCoordinates anchor, ElonaAIComponent ai, 
+        public bool StayNearPosition(EntityUid entity, MapCoordinates anchor, VanillaAIComponent ai, 
             int maxDistance = 2, 
             SpatialComponent? spatial = null)
         {
@@ -88,7 +88,7 @@ namespace OpenNefia.Content.ElonaAI
         /// Tries to move towards the current target.
         /// </summary>
         /// <returns>True if the entity moved towards its target.</returns>
-        public bool MoveTowardsTarget(EntityUid entity, ElonaAIComponent ai, SpatialComponent? spatial = null, bool retreat = false)
+        public bool MoveTowardsTarget(EntityUid entity, VanillaAIComponent ai, SpatialComponent? spatial = null, bool retreat = false)
         {
             if (!EntityManager.IsAlive(ai.CurrentTarget))
                 return false;
@@ -156,7 +156,7 @@ namespace OpenNefia.Content.ElonaAI
                     LevelComponent? targetLevel = null;
                     LevelComponent? onCellLevel = null;
                     QualityComponent? onCellQuality = null;
-                    ElonaAIComponent? onCellAi = null;
+                    VanillaAIComponent? onCellAi = null;
 
                     if (Resolve(target, ref targetLevel) && Resolve(onCellUid, ref onCellLevel, ref onCellQuality, ref onCellAi))
                     {
@@ -226,7 +226,7 @@ namespace OpenNefia.Content.ElonaAI
             return false;
         }
 
-        private MovementResult FindPositionForMovement(EntityUid entity, IMap map, ElonaAIComponent ai, SpatialComponent spatial)
+        private MovementResult FindPositionForMovement(EntityUid entity, IMap map, VanillaAIComponent ai, SpatialComponent spatial)
         {
             var dir = spatial.WorldPosition.DirectionTowards(ai.DesiredMovePosition);
             var dirVec = dir.ToIntVec();
@@ -262,7 +262,7 @@ namespace OpenNefia.Content.ElonaAI
             return result;
         }
 
-        private MovementResult DirCheckEastWest(EntityUid entity, IMap map, ElonaAIComponent ai, SpatialComponent spatial)
+        private MovementResult DirCheckEastWest(EntityUid entity, IMap map, VanillaAIComponent ai, SpatialComponent spatial)
         {
             var reverse = false;
             Direction dir = Direction.East;
@@ -288,7 +288,7 @@ namespace OpenNefia.Content.ElonaAI
             return new MovementResult(pos, blocked, new List<Direction> { Direction.East, Direction.West });
         }
 
-        private MovementResult DirCheckNorthSouth(EntityUid entity, IMap map, ElonaAIComponent ai, SpatialComponent spatial)
+        private MovementResult DirCheckNorthSouth(EntityUid entity, IMap map, VanillaAIComponent ai, SpatialComponent spatial)
         {
             var reverse = false;
             Direction dir = Direction.South;
@@ -315,7 +315,7 @@ namespace OpenNefia.Content.ElonaAI
         }
 
         private (MapCoordinates?, bool) DirCheck(EntityUid entity, IMap map, Direction dir, bool reverse, 
-            ElonaAIComponent ai, 
+            VanillaAIComponent ai, 
             SpatialComponent spatial)
         {
             var pos = Vector2i.Zero;

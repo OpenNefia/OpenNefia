@@ -1,6 +1,6 @@
 ﻿using OpenNefia.Core.GameObjects;
 
-namespace OpenNefia.Content.ElonaAI
+namespace OpenNefia.Content.VanillaAI
 {
     /// <summary>
     /// Indicates the AI should not try to target this entity, even

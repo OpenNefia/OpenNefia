@@ -7,15 +7,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OpenNefia.Content.ElonaAI
+namespace OpenNefia.Content.VanillaAI
 {
     /// <summary>
     /// State relevant to vanilla Elona's AI logic.
     /// </summary>
     [RegisterComponent]
-    public class ElonaAIComponent : Component
+    public class VanillaAIComponent : Component
     {
-        public override string Name => "ElonaAI";
+        public override string Name => "VanillaAI";
 
         /// <summary>
         /// Current hostile target.
@@ -68,10 +68,10 @@ namespace OpenNefia.Content.ElonaAI
         /// </summary>
         // TODO make this support ECS
         [DataField]
-        public ElonaAICalmAction CalmAction { get; set; } = ElonaAICalmAction.Roam;
+        public VanillaAICalmAction CalmAction { get; set; } = VanillaAICalmAction.Roam;
     }
 
-    public enum ElonaAICalmAction
+    public enum VanillaAICalmAction
     {
         None = 0,
         Roam = 1,

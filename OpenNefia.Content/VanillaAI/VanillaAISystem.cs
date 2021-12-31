@@ -17,14 +17,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OpenNefia.Content.ElonaAI
+namespace OpenNefia.Content.VanillaAI
 {
     /// <summary>
     /// Handles Elona's vanilla AI. The idea is that this can be replaced with whatever
-    /// AI system you want by simply removing the <see cref="ElonaAIComponent"/> on the 
+    /// AI system you want by simply removing the <see cref="VanillaAIComponent"/> on the 
     /// entity prototype and writing another entity system that handles <see cref="NPCTurnStartedEvent"/>.
     /// </summary>
-    public sealed partial class ElonaAISystem : EntitySystem
+    public sealed partial class VanillaAISystem : EntitySystem
     {
         [Dependency] private readonly IMapRandom _mapRandom = default!;
         [Dependency] private readonly IMapManager _mapManager = default!;
@@ -37,15 +37,15 @@ namespace OpenNefia.Content.ElonaAI
 
         public override void Initialize()
         {
-            SubscribeLocalEvent<ElonaAIComponent, NPCTurnStartedEvent>(HandleNPCTurnStarted, nameof(HandleNPCTurnStarted));
+            SubscribeLocalEvent<VanillaAIComponent, NPCTurnStartedEvent>(HandleNPCTurnStarted, nameof(HandleNPCTurnStarted));
         }
 
-        private void HandleNPCTurnStarted(EntityUid uid, ElonaAIComponent ai, ref NPCTurnStartedEvent args)
+        private void HandleNPCTurnStarted(EntityUid uid, VanillaAIComponent ai, ref NPCTurnStartedEvent args)
         {
-            args.Handle(RunElonaAI(uid, ai));
+            args.Handle(RunVanillaAI(uid, ai));
         }
 
-        public TurnResult RunElonaAI(EntityUid entity, ElonaAIComponent? ai = null,
+        public TurnResult RunVanillaAI(EntityUid entity, VanillaAIComponent? ai = null,
             SpatialComponent? spatial = null)
         {
             if (!Resolve(entity, ref ai, ref spatial))
@@ -105,7 +105,7 @@ namespace OpenNefia.Content.ElonaAI
 
         private bool SearchForTarget(EntityUid entity,
             IMap map,
-            ElonaAIComponent ai, SpatialComponent spatial,
+            VanillaAIComponent ai, SpatialComponent spatial,
             int searchRadius = 5)
         {
             if (EntityManager.HasComponent<AINoTargetComponent>(entity))
@@ -159,12 +159,12 @@ namespace OpenNefia.Content.ElonaAI
             return _factions.GetRelationTowards(entity, _gameSession.Player!.Uid) >= Relation.Ally;
         }
 
-        private void DecrementAggro(ElonaAIComponent ai)
+        private void DecrementAggro(VanillaAIComponent ai)
         {
             ai.Aggro = Math.Max(ai.Aggro - 1, 0);
         }
 
-        private EntityUid? GetTarget(EntityUid entity, ElonaAIComponent? ai = null)
+        private EntityUid? GetTarget(EntityUid entity, VanillaAIComponent? ai = null)
         {
             if (!Resolve(entity, ref ai))
                 return null;
@@ -172,7 +172,7 @@ namespace OpenNefia.Content.ElonaAI
             return ai.CurrentTarget;
         }
 
-        private void SetTarget(EntityUid entity, EntityUid? target, int aggro, ElonaAIComponent? ai = null)
+        private void SetTarget(EntityUid entity, EntityUid? target, int aggro, VanillaAIComponent? ai = null)
         {
             if (!Resolve(entity, ref ai))
                 return;
@@ -184,7 +184,7 @@ namespace OpenNefia.Content.ElonaAI
             ai.Aggro = aggro;
         }
 
-        private void DoTargetedAction(EntityUid entity, ElonaAIComponent ai, SpatialComponent spatial)
+        private void DoTargetedAction(EntityUid entity, VanillaAIComponent ai, SpatialComponent spatial)
         {
             if (EntityManager.HasComponent<StatusBlindComponent>(entity))
             {
@@ -238,7 +238,7 @@ namespace OpenNefia.Content.ElonaAI
             DoBasicAction(entity, ai);
         }
 
-        private void DoIdleAction(EntityUid entity, ElonaAIComponent ai)
+        private void DoIdleAction(EntityUid entity, VanillaAIComponent ai)
         {
             if (FollowPlayer(entity, ai))
                 return;
@@ -252,9 +252,9 @@ namespace OpenNefia.Content.ElonaAI
             Wander(entity, ai);
         }
 
-        private bool FollowPlayer(EntityUid entity, ElonaAIComponent ai)
+        private bool FollowPlayer(EntityUid entity, VanillaAIComponent ai)
         {
-            if (ai.CalmAction != ElonaAICalmAction.FollowPlayer)
+            if (ai.CalmAction != VanillaAICalmAction.FollowPlayer)
                 return false;
 
             var player = _gameSession.Player?.Uid;
@@ -266,7 +266,7 @@ namespace OpenNefia.Content.ElonaAI
             return false;
         }
 
-        private bool DoAICalmAction(EntityUid entity, ElonaAIComponent ai)
+        private bool DoAICalmAction(EntityUid entity, VanillaAIComponent ai)
         {
             if (_random.OneIn(5))
                 return true;
@@ -276,7 +276,7 @@ namespace OpenNefia.Content.ElonaAI
             return false;
         }
 
-        private bool GoToPresetAnchor(EntityUid entity, ElonaAIComponent ai,
+        private bool GoToPresetAnchor(EntityUid entity, VanillaAIComponent ai,
             SpatialComponent? spatial = null,
             AIAnchorComponent? aiAnchor = null)
         {
@@ -286,7 +286,7 @@ namespace OpenNefia.Content.ElonaAI
             return StayNearPosition(entity, new MapCoordinates(spatial.MapID, aiAnchor.Anchor), ai);
         }
 
-        private void Wander(EntityUid entity, ElonaAIComponent ai,
+        private void Wander(EntityUid entity, VanillaAIComponent ai,
             SpatialComponent? spatial = null)
         {
             if (!Resolve(entity, ref spatial))
@@ -295,11 +295,11 @@ namespace OpenNefia.Content.ElonaAI
             if (!_mapManager.TryGetMap(spatial.MapID, out var map))
                 return;
 
-            if (ai.CalmAction == ElonaAICalmAction.Roam)
+            if (ai.CalmAction == VanillaAICalmAction.Roam)
             {
                 DoWander(entity, ai, spatial);
             }
-            else if (ai.CalmAction == ElonaAICalmAction.Dull)
+            else if (ai.CalmAction == VanillaAICalmAction.Dull)
             {
                 if (EntityManager.TryGetComponent(entity, out AIAnchorComponent aiAnchor))
                 {
@@ -312,7 +312,7 @@ namespace OpenNefia.Content.ElonaAI
             }
         }
 
-        private void DoWander(EntityUid entity, ElonaAIComponent ai, SpatialComponent spatial)
+        private void DoWander(EntityUid entity, VanillaAIComponent ai, SpatialComponent spatial)
         {
             var tile = _mapRandom.GetRandomAdjacentTiles(spatial.MapPosition, onlyAccessible: true).FirstOrDefault();
             if (tile != TileRef.Empty)
@@ -321,17 +321,17 @@ namespace OpenNefia.Content.ElonaAI
             }
         }
 
-        private void DoAllyIdleAction(EntityUid entity, ElonaAIComponent ai)
+        private void DoAllyIdleAction(EntityUid entity, VanillaAIComponent ai)
         {
             // TODO
         }
 
-        private void DoBasicAction(EntityUid entity, ElonaAIComponent ai)
+        private void DoBasicAction(EntityUid entity, VanillaAIComponent ai)
         {
             // TODO
         }
 
-        private void DecideAllyTarget(EntityUid ally, ElonaAIComponent ai, SpatialComponent spatial)
+        private void DecideAllyTarget(EntityUid ally, VanillaAIComponent ai, SpatialComponent spatial)
         {
             DecrementAggro(ai);
 
@@ -366,7 +366,7 @@ namespace OpenNefia.Content.ElonaAI
 
             var map = _mapManager.GetMap(spatial.MapID);
 
-            if (leader != null && EntityManager.TryGetComponent(leader.OwnerUid, out ElonaAIComponent? leaderAi))
+            if (leader != null && EntityManager.TryGetComponent(leader.OwnerUid, out VanillaAIComponent? leaderAi))
             {
                 // If a party leader was attacked by something, make their allies target the attacker.
                 var leaderAttacker = leaderAi.LastAttacker;
