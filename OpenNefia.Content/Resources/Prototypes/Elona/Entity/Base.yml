@@ -17,8 +17,9 @@
     isOpaque: false
   - type: Chip
     drawDepth: Characters
-  - type: Level
+  - type: TurnOrder
   - type: Moveable
+  - type: Level
   - type: Chara
     class: Slime
   - type: Skills

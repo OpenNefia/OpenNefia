@@ -5,6 +5,7 @@ using OpenNefia.Core.Maps;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Utility;
 using OpenNefia.Core.Log;
+using OpenNefia.Core.Game;
 
 namespace OpenNefia.Content.GameObjects
 {
@@ -14,6 +15,7 @@ namespace OpenNefia.Content.GameObjects
         [Dependency] private readonly IMapManager _mapManager = default!;
         [Dependency] private readonly MapEntranceSystem _mapEntrances = default!;
         [Dependency] private readonly IAudioSystem _sounds = default!;
+        [Dependency] private readonly IGameSessionManager _gameSession = default!;
 
         public override void Initialize()
         {
@@ -43,13 +45,10 @@ namespace OpenNefia.Content.GameObjects
             if (spatial.MapID == _mapManager.ActiveMap?.Id)
                 return;
 
-            if (!_mapManager.TryGetMap(spatial.MapID, out var map))
+            if (_gameSession.IsPlayer(uid))
             {
-                Logger.WarningS("map", "Could not find map to set active map to!");
-                return;
+                _mapManager.SetActiveMap(spatial.MapID);
             }
-
-            _mapManager.SetActiveMap(spatial.MapID);
         }
     }
 }

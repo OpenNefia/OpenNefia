@@ -4,11 +4,13 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace OpenNefia.Core.Maps
 {
+    public delegate void ActiveMapChangedDelegate(IMap newMap, IMap? oldMap);
+
     public interface IMapManager
     {
         IMap? ActiveMap { get; }
 
-        public event Action<IMap>? ActiveMapChanged;
+        public event ActiveMapChangedDelegate? ActiveMapChanged;
 
         void SetActiveMap(MapId mapId);
 

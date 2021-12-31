@@ -1,4 +1,4 @@
-﻿using OpenNefia.Content.Logic;
+﻿using OpenNefia.Content.GameObjects;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Serialization.Manager.Attributes;

@@ -16,7 +16,11 @@ using System.Threading.Tasks;
 
 namespace OpenNefia.Content.GameObjects
 {
-    public class CommonVerbsSystem : EntitySystem
+    /// <summary>
+    /// Concerns verbs that can have effects on the simulation, but don't
+    /// operate on the player's inventory.
+    /// </summary>
+    public class VerbCommandsSystem : EntitySystem
     {
         [Dependency] private readonly IEntityLookup _lookup = default!;
         [Dependency] private readonly IVerbSystem _verbSystem = default!;
@@ -31,14 +35,14 @@ namespace OpenNefia.Content.GameObjects
                     new VerbInputCmdHandler(new Verb(StairsSystem.VerbIDDescend)))
                 .Bind(ContentKeyFunctions.Activate,
                     new VerbInputCmdHandler(new Verb(StairsSystem.VerbIDActivate)))
-                .Register<CommonVerbsSystem>();
+                .Register<VerbCommandsSystem>();
         }
 
-        private void HandleVerb(IGameSessionManager? session, Verb verb)
+        private TurnResult? HandleVerb(IGameSessionManager? session, Verb verb)
         {
             var player = session?.Player;
             if (player == null)
-                return;
+                return null;
 
             foreach (var target in _lookup.EntitiesUnderneath(player.Uid, includeMapEntity: true).ToList())
             {
@@ -47,13 +51,12 @@ namespace OpenNefia.Content.GameObjects
                     var verbs = _verbSystem.GetLocalVerbs(player.Uid, target.Uid);
                     if (verbs.Contains(verb))
                     {
-                        _verbSystem.ExecuteVerb(player.Uid, target.Uid, verb);
-                        break;
+                       return _verbSystem.ExecuteVerb(player.Uid, target.Uid, verb);
                     }
                 }
             }
 
-            _field.RefreshScreen();
+            return null;
         }
 
         private sealed class VerbInputCmdHandler : InputCmdHandler
@@ -65,18 +68,18 @@ namespace OpenNefia.Content.GameObjects
                 _verb = verb;
             }
 
-            public override bool HandleCmdMessage(IGameSessionManager? session, InputCmdMessage message)
+            public override TurnResult? HandleCmdMessage(IGameSessionManager? session, InputCmdMessage message)
             {
                 if (message is not FullInputCmdMessage full)
                 {
-                    return false;
+                    return null;
                 }
 
                 if (full.State == BoundKeyState.Down)
                 {
-                    Get<CommonVerbsSystem>().HandleVerb(session, _verb);
+                    return Get<VerbCommandsSystem>().HandleVerb(session, _verb);
                 }
-                return false;
+                return null;
             }
         }
     }

@@ -1,5 +1,5 @@
 ﻿using OpenNefia.Content.Input;
-using OpenNefia.Content.Logic;
+using OpenNefia.Content.TitleScreen;
 using OpenNefia.Core.ContentPack;
 using OpenNefia.Core.GameController;
 using OpenNefia.Core.Input;

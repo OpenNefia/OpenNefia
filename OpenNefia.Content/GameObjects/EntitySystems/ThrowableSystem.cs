@@ -136,20 +136,21 @@ namespace OpenNefia.Content.GameObjects
 
             args.Handled = true;
 
+            // Place the entity on the map.
+            targetSpatial.WorldPosition = args.Coords.Position;
+
             foreach (var onMap in _lookup.GetLiveEntitiesAtCoords(args.Coords))
             {
                 if (onMap.Uid == thrown)
                     continue;
 
                 var ev = new HitByThrownEntityEventArgs(args.Thrower, thrown, onMap.Spatial.MapPosition);
-                if (Raise(onMap.Uid, ev) && EntityManager.IsAlive(thrown))
+                if (!Raise(onMap.Uid, ev) && EntityManager.IsAlive(thrown))
                 {
                     var ev2 = new ThrownEntityImpactedOtherEvent(args.Thrower, onMap.Uid, onMap.Spatial.MapPosition);
 
-                    if (Raise(thrown, ev2))
+                    if (!Raise(thrown, ev2))
                     {
-                        // Place the entity on the map.
-                        targetSpatial.WorldPosition = args.Coords.Position;
                     }
 
                     return;
@@ -162,7 +163,7 @@ namespace OpenNefia.Content.GameObjects
 
             var ev3 = new ThrownEntityImpactedGroundEvent(args.Thrower, args.Coords);
 
-            if (Raise(thrown, ev3))
+            if (!Raise(thrown, ev3))
             {
                 // Place the entity on the map.
                 targetSpatial.WorldPosition = args.Coords.Position;

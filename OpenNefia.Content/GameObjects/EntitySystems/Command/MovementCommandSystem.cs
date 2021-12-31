@@ -28,16 +28,17 @@ namespace OpenNefia.Content.GameObjects
                 .Register<MovementCommandSystem>();
         }
 
-        private void HandleMove(IGameSessionManager? session, Direction dir)
+        private TurnResult? HandleMove(IGameSessionManager? session, Direction dir)
         {
             var player = session?.Player;
             if (player == null)
-                return;
+                return null;
 
             var oldPosition = player.Spatial.MapPosition;
             var newPosition = player.Spatial.MapPosition.Offset(dir.ToIntVec());
             var ev = new MoveEventArgs(oldPosition, newPosition);
             player.EntityManager.EventBus.RaiseLocalEvent(player.Uid, ev);
+            return ev.TurnResult;
         }
 
         private sealed class MoverDirInputCmdHandler : InputCmdHandler
@@ -49,20 +50,18 @@ namespace OpenNefia.Content.GameObjects
                 _dir = dir;
             }
 
-            public override bool HandleCmdMessage(IGameSessionManager? session, InputCmdMessage message)
+            public override TurnResult? HandleCmdMessage(IGameSessionManager? session, InputCmdMessage message)
             {
                 if (message is not FullInputCmdMessage full)
                 {
-                    return false;
+                    return null;
                 }
-
-                // TODO: Generate "key repeats" here.
 
                 if (full.State == BoundKeyState.Down)
                 {
-                    Get<MovementCommandSystem>().HandleMove(session, _dir);
+                    return Get<MovementCommandSystem>().HandleMove(session, _dir);
                 }
-                return false;
+                return null;
             }
         }
     }

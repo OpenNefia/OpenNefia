@@ -13,7 +13,7 @@ namespace OpenNefia.Core.Maps
         private protected readonly Dictionary<MapId, IMap> _maps = new();
         private protected readonly Dictionary<MapId, EntityUid> _mapEntities = new();
 
-        public event Action<IMap>? ActiveMapChanged;
+        public event ActiveMapChangedDelegate? ActiveMapChanged;
 
         public IMap? ActiveMap { get; private set; } = default!;
 
@@ -242,14 +242,20 @@ namespace OpenNefia.Core.Maps
             if (mapId == ActiveMap?.Id)
                 return;
 
+            if (!_maps.ContainsKey(mapId))
+            {
+                throw new ArgumentException($"Cannot find map {mapId}!", nameof(mapId));
+            }
+
+            var oldMap = ActiveMap;
             var map = _maps[mapId];
-            this.ActiveMap = map;
-            ActiveMapChanged?.Invoke(map);
+            ActiveMap = map;
+            ActiveMapChanged?.Invoke(map, oldMap);
         }
 
         public bool IsMapInitialized(MapId mapId)
         {
-            return this._maps.ContainsKey(mapId);
+            return _maps.ContainsKey(mapId);
         }
     }
 }

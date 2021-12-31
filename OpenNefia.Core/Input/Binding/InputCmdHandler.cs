@@ -4,19 +4,21 @@ using OpenNefia.Core.Maps;
 
 namespace OpenNefia.Core.Input.Binding
 {
-    public delegate void StateInputCmdDelegate(IGameSessionManager? session);
+    public delegate TurnResult? StateInputCmdDelegate(IGameSessionManager? session);
 
     public abstract class InputCmdHandler
     {
-        public virtual void Enabled(IGameSessionManager? session)
+        public virtual TurnResult? Enabled(IGameSessionManager? session)
         {
+            return null;
         }
 
-        public virtual void Disabled(IGameSessionManager? session)
+        public virtual TurnResult? Disabled(IGameSessionManager? session)
         {
+            return null;
         }
 
-        public abstract bool HandleCmdMessage(IGameSessionManager? session, InputCmdMessage message);
+        public abstract TurnResult? HandleCmdMessage(IGameSessionManager? session, InputCmdMessage message);
 
         /// <summary>
         ///     Makes a quick input command from enabled and disabled delegates.
@@ -25,13 +27,12 @@ namespace OpenNefia.Core.Input.Binding
         /// <param name="disabled">The delegate to be ran when this command is disabled.</param>
         /// <returns>The new input command.</returns>
         public static InputCmdHandler FromDelegate(StateInputCmdDelegate? enabled = null,
-            StateInputCmdDelegate? disabled = null, bool handle=true)
+            StateInputCmdDelegate? disabled = null)
         {
             return new StateInputCmdHandler
             {
                 EnabledDelegate = enabled,
                 DisabledDelegate = disabled,
-                Handle = handle,
             };
         }
 
@@ -39,42 +40,39 @@ namespace OpenNefia.Core.Input.Binding
         {
             public StateInputCmdDelegate? EnabledDelegate;
             public StateInputCmdDelegate? DisabledDelegate;
-            public bool Handle { get; set; }
 
-            public override void Enabled(IGameSessionManager? session)
+            public override TurnResult? Enabled(IGameSessionManager? session)
             {
-                EnabledDelegate?.Invoke(session);
+                return EnabledDelegate?.Invoke(session);
             }
 
-            public override void Disabled(IGameSessionManager? session)
+            public override TurnResult? Disabled(IGameSessionManager? session)
             {
-                DisabledDelegate?.Invoke(session);
+                return DisabledDelegate?.Invoke(session);
             }
 
-            public override bool HandleCmdMessage(IGameSessionManager? session, InputCmdMessage message)
+            public override TurnResult? HandleCmdMessage(IGameSessionManager? session, InputCmdMessage message)
             {
                 if (!(message is FullInputCmdMessage msg))
-                    return false;
+                    return null;
 
                 switch (msg.State)
                 {
                     case BoundKeyState.Up:
-                        Disabled(session);
-                        return Handle;
+                        return Disabled(session);
                     case BoundKeyState.Down:
-                        Enabled(session);
-                        return Handle;
+                        return Enabled(session);
                 }
 
                 //Client Sanitization: unknown key state, just ignore
-                return false;
+                return null;
             }
         }
     }
 
-    public delegate bool PointerInputCmdDelegate(IGameSessionManager? session, EntityCoordinates coords, EntityUid? uid);
+    public delegate TurnResult? PointerInputCmdDelegate(IGameSessionManager? session, EntityCoordinates coords, EntityUid? uid);
 
-    public delegate bool PointerInputCmdDelegate2(in PointerInputCmdHandler.PointerInputCmdArgs args);
+    public delegate TurnResult? PointerInputCmdDelegate2(in PointerInputCmdHandler.PointerInputCmdArgs args);
 
     public class PointerInputCmdHandler : InputCmdHandler
     {
@@ -104,14 +102,13 @@ namespace OpenNefia.Core.Input.Binding
 
         }
 
-        public override bool HandleCmdMessage(IGameSessionManager? session, InputCmdMessage message)
+        public override TurnResult? HandleCmdMessage(IGameSessionManager? session, InputCmdMessage message)
         {
             if (!(message is FullInputCmdMessage msg) || (_ignoreUp && msg.State != BoundKeyState.Down))
-                return false;
+                return null;
 
-            var handled = _callback?.Invoke(new PointerInputCmdArgs(session, msg.Coordinates,
+            return _callback?.Invoke(new PointerInputCmdArgs(session, msg.Coordinates,
                 msg.ScreenCoordinates, msg.Uid, msg.State, msg));
-            return handled.HasValue && handled.Value;
         }
 
         public readonly struct PointerInputCmdArgs
@@ -149,34 +146,21 @@ namespace OpenNefia.Core.Input.Binding
         }
 
         /// <inheritdoc />
-        public override bool HandleCmdMessage(IGameSessionManager? session, InputCmdMessage message)
+        public override TurnResult? HandleCmdMessage(IGameSessionManager? session, InputCmdMessage message)
         {
             if (!(message is FullInputCmdMessage msg))
-                return false;
+                return null;
 
             switch (msg.State)
             {
                 case BoundKeyState.Up:
-                    return _disabled?.Invoke(session, msg.Coordinates, msg.Uid) == true;
+                    return _disabled?.Invoke(session, msg.Coordinates, msg.Uid);
                 case BoundKeyState.Down:
-                    return _enabled?.Invoke(session, msg.Coordinates, msg.Uid) == true;
+                    return _enabled?.Invoke(session, msg.Coordinates, msg.Uid);
             }
 
             //Client Sanitization: unknown key state, just ignore
-            return false;
-        }
-    }
-
-    /// <summary>
-    /// Consumes both up and down states without calling any handler delegates. Primarily used on the client to
-    /// prevent an input message from being sent to the server.
-    /// </summary>
-    public class NullInputCmdHandler : InputCmdHandler
-    {
-        /// <inheritdoc />
-        public override bool HandleCmdMessage(IGameSessionManager? session, InputCmdMessage message)
-        {
-            return true;
+            return null;
         }
     }
 }

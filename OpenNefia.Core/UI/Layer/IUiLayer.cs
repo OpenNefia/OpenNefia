@@ -11,5 +11,6 @@ namespace OpenNefia.Core.UI.Layer
         void OnQuery();
         void OnQueryFinish();
         bool IsQuerying();
+        bool IsInActiveLayerList();
     }
 }
