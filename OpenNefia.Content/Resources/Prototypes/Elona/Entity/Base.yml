@@ -26,7 +26,7 @@
   - type: Faction
   - type: Weight
   - type: Inventory
-  - type: ElonaAI
+  - type: VanillaAI
 
 - type: Entity
   id: BaseItem
