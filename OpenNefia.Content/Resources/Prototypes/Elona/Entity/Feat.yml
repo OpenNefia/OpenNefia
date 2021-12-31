@@ -57,6 +57,7 @@
       isSolid: true
       isOpaque: true
     - type: Door
+    - type: AICanPassThrough
 
 - type: Entity
   id: Elona.FeatDoorWooden

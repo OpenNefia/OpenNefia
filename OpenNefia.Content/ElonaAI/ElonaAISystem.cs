@@ -1,7 +1,11 @@
-﻿using OpenNefia.Content.GameObjects;
+﻿using OpenNefia.Content.Factions;
+using OpenNefia.Content.GameObjects;
 using OpenNefia.Content.Maps;
+using OpenNefia.Content.Parties;
+using OpenNefia.Content.StatusEffects;
 using OpenNefia.Content.TurnOrder;
 using OpenNefia.Core.Directions;
+using OpenNefia.Core.Game;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Maps;
@@ -20,11 +24,16 @@ namespace OpenNefia.Content.ElonaAI
     /// AI system you want by simply removing the <see cref="ElonaAIComponent"/> on the 
     /// entity prototype and writing another entity system that handles <see cref="NPCTurnStartedEvent"/>.
     /// </summary>
-    public class ElonaAISystem : EntitySystem
+    public sealed partial class ElonaAISystem : EntitySystem
     {
         [Dependency] private readonly IMapRandom _mapRandom = default!;
         [Dependency] private readonly IMapManager _mapManager = default!;
         [Dependency] private readonly MoveableSystem _movement = default!;
+        [Dependency] private readonly IFactionSystem _factions = default!;
+        [Dependency] private readonly IPartySystem _parties = default!;
+        [Dependency] private readonly IGameSessionManager _gameSession = default!;
+        [Dependency] private readonly IVisibilitySystem _vision = default!;
+        [Dependency] private readonly IRandom _random = default!;
 
         public override void Initialize()
         {
@@ -36,20 +45,42 @@ namespace OpenNefia.Content.ElonaAI
             args.Handle(RunElonaAI(uid, ai));
         }
 
-        public TurnResult RunElonaAI(EntityUid uid, ElonaAIComponent? ai = null,
+        public TurnResult RunElonaAI(EntityUid entity, ElonaAIComponent? ai = null,
             SpatialComponent? spatial = null)
         {
-            if (!Resolve(uid, ref ai, ref spatial))
+            if (!Resolve(entity, ref ai, ref spatial))
                 return TurnResult.Failed;
 
             if (!_mapManager.TryGetMap(spatial.MapID, out var map))
                 return TurnResult.Failed;
 
+            var relation = _factions.GetRelationTowards(entity, _gameSession.Player.Uid);
+            if (relation >= Relation.Ally)
+            {
+                DecideAllyTarget(entity, ai, spatial);
+            }
+
+            if (!EntityManager.IsAlive(ai.CurrentTarget))
+            {
+                SetTarget(entity, GetDefaultTarget(entity), 0, ai);
+            }
+
+            // TODO choking
+            // TODO healing
+            // TODO items
+
+            var target = ai.CurrentTarget;
+            if (EntityManager.IsAlive(target) 
+                && (ai.Aggro > 0 || IsAlliedWithPlayer(entity)))
+            {
+                DoTargetedAction(entity, ai, spatial);
+            }
+
             foreach (var tile in _mapRandom.GetRandomAdjacentTiles(spatial.MapPosition))
             {
                 if (map.CanAccess(tile.Position))
                 {
-                    var result = _movement.MoveEntity(uid, tile.MapPosition, spatial: spatial);
+                    var result = _movement.MoveEntity(entity, tile.MapPosition, spatial: spatial);
                     if (result != null)
                     {
                         return result.Value;
@@ -57,7 +88,320 @@ namespace OpenNefia.Content.ElonaAI
                 }
             }
 
-            return TurnResult.Failed;
+            if (EntityManager.TryGetComponent(entity, out TurnOrderComponent turnOrder))
+            {
+                if (turnOrder.TurnsAlive % 10 == 0)
+                {
+                    SearchForTarget(entity, map, ai, spatial);
+                }
+            }
+
+            // TODO try to perceive
+
+            DoIdleAction(entity, ai);
+
+            return TurnResult.Succeeded;
+        }
+
+        private bool SearchForTarget(EntityUid entity,
+            IMap map,
+            ElonaAIComponent ai, SpatialComponent spatial,
+            int searchRadius = 5)
+        {
+            if (EntityManager.HasComponent<AINoTargetComponent>(entity))
+                return true;
+
+            for (int j = 0; j < searchRadius; j++)
+            {
+                var y = spatial.WorldPosition.Y - 2 + j;
+
+                if (y >= 0 && y < map.Height)
+                {
+                    for (int i = 0; i < searchRadius; i++)
+                    {
+                        var x = spatial.WorldPosition.X - 2 + i;
+
+                        if (x >= 0 && x < map.Width)
+                        {
+                            var onCell = GetBlockingEntity(map, new Vector2i(x, y));
+
+                            if (onCell != null)
+                            {
+                                var (onCellSpatial, onCellMoveable, onCellFaction) = onCell.Value;
+                                var onCellUid = onCellSpatial.OwnerUid;
+
+                                if (!_gameSession.IsPlayer(onCellUid)
+                                    && !EntityManager.HasComponent<AINoTargetComponent>(onCellUid)
+                                    && _factions.GetRelationTowards(entity, onCellUid) <= Relation.Enemy)
+                                {
+                                    SetTarget(entity, onCellUid, 30, ai);
+                                    // TODO emotion icon
+                                    return true;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            // TODO stealth
+
+            return false;
+        }
+
+        private EntityUid GetDefaultTarget(EntityUid entity)
+        {
+            return _parties.GetSupremeCommander(entity)?.OwnerUid ?? _gameSession.Player!.Uid;
+        }
+
+        private bool IsAlliedWithPlayer(EntityUid entity)
+        {
+            return _factions.GetRelationTowards(entity, _gameSession.Player!.Uid) >= Relation.Ally;
+        }
+
+        private void DecrementAggro(ElonaAIComponent ai)
+        {
+            ai.Aggro = Math.Max(ai.Aggro - 1, 0);
+        }
+
+        private EntityUid? GetTarget(EntityUid entity, ElonaAIComponent? ai = null)
+        {
+            if (!Resolve(entity, ref ai))
+                return null;
+
+            return ai.CurrentTarget;
+        }
+
+        private void SetTarget(EntityUid entity, EntityUid? target, int aggro, ElonaAIComponent? ai = null)
+        {
+            if (!Resolve(entity, ref ai))
+                return;
+
+            if (target == null)
+                aggro = 0;
+
+            ai.CurrentTarget = target;
+            ai.Aggro = aggro;
+        }
+
+        private void DoTargetedAction(EntityUid entity, ElonaAIComponent ai, SpatialComponent spatial)
+        {
+            if (EntityManager.HasComponent<StatusBlindComponent>(entity))
+            {
+                if (_random.Next(10) > 2)
+                {
+                    DoIdleAction(entity, ai);
+                    return;
+                }
+            }
+            if (EntityManager.HasComponent<StatusConfusionComponent>(entity))
+            {
+                if (_random.Next(10) > 3)
+                {
+                    DoIdleAction(entity, ai);
+                    return;
+                }
+            }
+
+            if (IsAlliedWithPlayer(entity) && _gameSession.IsPlayer(ai.CurrentTarget!.Value))
+            {
+                DoAllyIdleAction(entity, ai);
+                return;
+            }
+
+            if (EntityManager.HasComponent<StatusFearComponent>(entity))
+            {
+                MoveTowardsTarget(entity, ai, spatial, retreat: true);
+                return;
+            }
+
+            if (EntityManager.HasComponent<StatusBlindComponent>(entity))
+            {
+                if (_random.OneIn(3))
+                {
+                    DoIdleAction(entity, ai);
+                    return;
+                }
+            }
+
+            if (EntityManager.TryGetComponent(ai.CurrentTarget!.Value, out SpatialComponent targetSpatial))
+            {
+                if (spatial.MapPosition.TryDistance(targetSpatial.MapPosition, out var dist)
+                    && dist != ai.TargetDistance
+                    && _random.Prob(ai.MoveChance))
+                {
+                    MoveTowardsTarget(entity, ai, spatial);
+                    return;
+                }
+            }
+
+            DoBasicAction(entity, ai);
+        }
+
+        private void DoIdleAction(EntityUid entity, ElonaAIComponent ai)
+        {
+            if (FollowPlayer(entity, ai))
+                return;
+
+            if (DoAICalmAction(entity, ai))
+                return;
+
+            if (GoToPresetAnchor(entity, ai))
+                return;
+
+            Wander(entity, ai);
+        }
+
+        private bool FollowPlayer(EntityUid entity, ElonaAIComponent ai)
+        {
+            if (ai.CalmAction != ElonaAICalmAction.FollowPlayer)
+                return false;
+
+            var player = _gameSession.Player?.Uid;
+            if (EntityManager.IsAlive(player))
+            {
+                ai.CurrentTarget = player;
+                return MoveTowardsTarget(entity, ai);
+            }
+            return false;
+        }
+
+        private bool DoAICalmAction(EntityUid entity, ElonaAIComponent ai)
+        {
+            if (_random.OneIn(5))
+                return true;
+
+            // TODO
+
+            return false;
+        }
+
+        private bool GoToPresetAnchor(EntityUid entity, ElonaAIComponent ai,
+            SpatialComponent? spatial = null,
+            AIAnchorComponent? aiAnchor = null)
+        {
+            if (!Resolve(entity, ref spatial, ref aiAnchor))
+                return false;
+
+            return StayNearPosition(entity, new MapCoordinates(spatial.MapID, aiAnchor.Anchor), ai);
+        }
+
+        private void Wander(EntityUid entity, ElonaAIComponent ai,
+            SpatialComponent? spatial = null)
+        {
+            if (!Resolve(entity, ref spatial))
+                return;
+
+            if (!_mapManager.TryGetMap(spatial.MapID, out var map))
+                return;
+
+            if (ai.CalmAction == ElonaAICalmAction.Roam)
+            {
+                DoWander(entity, ai, spatial);
+            }
+            else if (ai.CalmAction == ElonaAICalmAction.Dull)
+            {
+                if (EntityManager.TryGetComponent(entity, out AIAnchorComponent aiAnchor))
+                {
+                    GoToPresetAnchor(entity, ai, spatial, aiAnchor);
+                }
+                else
+                {
+                    DoWander(entity, ai, spatial);
+                }
+            }
+        }
+
+        private void DoWander(EntityUid entity, ElonaAIComponent ai, SpatialComponent spatial)
+        {
+            var tile = _mapRandom.GetRandomAdjacentTiles(spatial.MapPosition, onlyAccessible: true).FirstOrDefault();
+            if (tile != TileRef.Empty)
+            {
+                _movement.MoveEntity(entity, tile.MapPosition, spatial: spatial);
+            }
+        }
+
+        private void DoAllyIdleAction(EntityUid entity, ElonaAIComponent ai)
+        {
+            // TODO
+        }
+
+        private void DoBasicAction(EntityUid entity, ElonaAIComponent ai)
+        {
+            // TODO
+        }
+
+        private void DecideAllyTarget(EntityUid ally, ElonaAIComponent ai, SpatialComponent spatial)
+        {
+            DecrementAggro(ai);
+
+            var currentTarget = ai.CurrentTarget;
+
+            bool updateTarget;
+            if (!EntityManager.IsAlive(currentTarget))
+            {
+                updateTarget = true;
+            }
+            else
+            {
+                var relationToTarget = _factions.GetRelationTowards(ally, currentTarget.Value);
+                var beingTargeted = GetTarget(currentTarget.Value) == ally;
+                var targetNotImportant = currentTarget != null
+                    && relationToTarget >= Relation.Hate
+                    && !beingTargeted;
+
+                updateTarget = !targetNotImportant || ai.Aggro <= 0;
+            }
+
+            if (!updateTarget)
+                return;
+
+            var leader = _parties.GetSupremeCommander(ally);
+            
+            if (leader == null && currentTarget != null
+                && _factions.GetRelationTowards(ally, currentTarget.Value) >= Relation.Ally)
+            {
+                leader = EntityManager.EnsureComponent<PartyComponent>(currentTarget.Value);
+            }
+
+            var map = _mapManager.GetMap(spatial.MapID);
+
+            if (leader != null && EntityManager.TryGetComponent(leader.OwnerUid, out ElonaAIComponent? leaderAi))
+            {
+                // If a party leader was attacked by something, make their allies target the attacker.
+                var leaderAttacker = leaderAi.LastAttacker;
+
+                if (EntityManager.IsAlive(leaderAttacker) 
+                    && _factions.GetRelationTowards(ally, leaderAttacker.Value) <= Relation.Enemy
+                    && _vision.HasLineOfSight(ally, leaderAttacker.Value))
+                {
+                    SetTarget(ally, leaderAttacker.Value, 5, ai);
+                }
+                else
+                {
+                    leaderAi.LastAttacker = null;
+                }
+
+                // If the ally has no target at this point, make them target the same thing as the leader.
+                if ((ai.CurrentTarget == null || ai.CurrentTarget == leader.OwnerUid)
+                    && EntityManager.IsAlive(leader.OwnerUid))
+                {
+                    var leaderTarget = leaderAi.CurrentTarget;
+                    if (EntityManager.IsAlive(leaderTarget)
+                        && _factions.GetRelationTowards(leader.OwnerUid, leaderTarget.Value) <= Relation.Enemy
+                        && _vision.HasLineOfSight(ally, leaderTarget.Value))
+                    {
+                        SetTarget(ally, leaderTarget.Value, 5, ai);
+                    }
+                }
+            }
+
+            // The AI will occasionally lose sight of invisible targets.
+            var target = ai.CurrentTarget;
+            if (EntityManager.IsAlive(target) && !_vision.CanSeeEntity(ally, target.Value) && !_random.OneIn(5))
+            {
+                ai.CurrentTarget = leader?.OwnerUid;
+            }
         }
     }
 }

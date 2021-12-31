@@ -195,8 +195,8 @@ namespace OpenNefia.Content.UI.Layer
         {
             var targetChara = _lookup.GetPrimaryEntity(_targetPos);
 
-            if (targetChara == null || !_visibility.CanSeeEntity(targetChara.Uid, _onlooker.Uid) 
-                || !_map.HasLos(targetChara.Spatial.WorldPosition, _originPos.Position))
+            if (targetChara == null || !_visibility.CanSeeEntity(_onlooker.Uid, targetChara.Uid)
+                || !_map.HasLineOfSight(targetChara.Spatial.WorldPosition, _originPos.Position))
             {
                 return false;
             }

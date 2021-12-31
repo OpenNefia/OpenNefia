@@ -1,4 +1,5 @@
-﻿using OpenNefia.Core.IoC;
+﻿using OpenNefia.Core.Directions;
+using OpenNefia.Core.IoC;
 using OpenNefia.Core.Maps;
 using OpenNefia.Core.Maths;
 using System;
@@ -63,7 +64,8 @@ namespace OpenNefia.Core.GameObjects
             if (newCoords == oldCoords)
                 return TurnResult.Succeeded;
 
-            spatial.Direction = (newCoords.Position - oldCoords.Position).GetDir();
+            if (oldCoords.TryDirectionTowards(newCoords, out var newDir))
+                spatial.Direction = newDir;
 
             var evBefore = new BeforeMoveEventArgs(oldCoords, newCoords);
 
@@ -82,6 +84,20 @@ namespace OpenNefia.Core.GameObjects
             RaiseLocalEvent(uid, evAfter);
 
             return TurnResult.Succeeded;
+        }
+
+        public bool SwapPlaces(EntityUid entity, EntityUid with,
+            SpatialComponent? spatial = null,
+            SpatialComponent? withSpatial = null)
+        {
+            if (!Resolve(entity, ref spatial) || !Resolve(with, ref withSpatial))
+                return false;
+
+            var temp = spatial.WorldPosition;
+            spatial.WorldPosition = withSpatial.WorldPosition;
+            withSpatial.WorldPosition = temp;
+
+            return true;
         }
 
         #endregion

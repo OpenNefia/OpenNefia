@@ -48,8 +48,12 @@ namespace OpenNefia.Core.Maps
         void MemorizeAllTiles();
         bool IsInBounds(Vector2i position);
         void MemorizeTile(Vector2i position);
+
         bool CanAccess(Vector2i position);
         bool CanSeeThrough(Vector2i position);
-        bool HasLos(Vector2i worldPosition, Vector2i pos);
+        bool CanAccess(MapCoordinates newPos);
+        bool CanSeeThrough(MapCoordinates position);
+
+        bool HasLineOfSight(Vector2i worldPosition, Vector2i pos);
     }
 }

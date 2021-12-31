@@ -1,4 +1,5 @@
 ﻿using OpenNefia.Content.DisplayName;
+using OpenNefia.Content.Factions;
 using OpenNefia.Content.Logic;
 using OpenNefia.Content.Prototypes;
 using OpenNefia.Core.Audio;
@@ -17,6 +18,7 @@ namespace OpenNefia.Content.GameObjects
     public class CombatSystem : EntitySystem
     {
         [Dependency] private readonly IAudioSystem _sounds = default!;
+        [Dependency] private readonly IFactionSystem _factions = default!;
 
         public override void Initialize()
         {
@@ -38,6 +40,10 @@ namespace OpenNefia.Content.GameObjects
         private void HandleCollideWith(EntityUid uid, MoveableComponent _, CollideWithEventArgs args)
         {
             if (!EntityManager.HasComponent<MoveableComponent>(args.Target))
+                return;
+
+            var relation = _factions.GetRelationTowards(uid, args.Target);
+            if (relation >= Relation.Dislike)
                 return;
 
             var turnResult = MeleeAttack(uid, args.Target);

@@ -20,7 +20,7 @@ namespace OpenNefia.Content.GameObjects
 
         public bool GetTargetText(EntityUid onlooker, MapCoordinates targetPos, out string text, bool visibleOnly)
         {
-            if (!Get<VisibilitySystem>().CanSeePosition(onlooker, targetPos))
+            if (!Get<VisibilitySystem>().HasLineOfSight(onlooker, targetPos))
             {
                 text = "You can't see this position.";
                 return false;
@@ -61,7 +61,7 @@ namespace OpenNefia.Content.GameObjects
             if (!meta.IsAlive)
                 return;
 
-            if (Get<VisibilitySystem>().CanSeeEntity(args.Onlooker, target)
+            if (Get<VisibilitySystem>().CanSeeEntity(target, args.Onlooker)
                 && EntityManager.TryGetComponent(args.Onlooker, out SpatialComponent? onlookerSpatial))
             {
                 onlookerSpatial.MapPosition.TryDistance(spatial.MapPosition, out var dist);

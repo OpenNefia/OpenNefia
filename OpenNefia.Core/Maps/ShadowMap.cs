@@ -128,7 +128,7 @@ namespace OpenNefia.Core.Maps
                                 if (i >= fovRadius[j + cy, 0] + cx && i < fovRadius[j + cy, 1] + cx)
                                 {
                                     var pos = new Vector2i(i, j);
-                                    if (_map.HasLos(player.Spatial.WorldPosition, pos))
+                                    if (_map.HasLineOfSight(player.Spatial.WorldPosition, pos))
                                     {
                                         _map.MemorizeTile(pos);
                                         shadow = false;

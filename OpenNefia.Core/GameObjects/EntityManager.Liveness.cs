@@ -15,18 +15,18 @@ namespace OpenNefia.Core.GameObjects
     public partial class EntityManager
     {
         /// <inheritdoc />
-        public bool IsAlive(EntityUid uid)
+        public bool IsAlive([NotNullWhen(true)] EntityUid? uid)
         {
-            if (!EntityExists(uid) || !TryGetComponent<MetaDataComponent>(uid, out var metadata))
+            if (uid == null || !EntityExists(uid.Value) || !TryGetComponent<MetaDataComponent>(uid.Value, out var metadata))
                 return false;
 
             return metadata.IsAlive;
         }
 
         /// <inheritdoc />
-        public bool IsDeadAndBuried(EntityUid uid)
+        public bool IsDeadAndBuried(EntityUid? uid)
         {
-            if (!EntityExists(uid) || !TryGetComponent<MetaDataComponent>(uid, out var metadata))
+            if (uid == null || !EntityExists(uid.Value) || !TryGetComponent<MetaDataComponent>(uid.Value, out var metadata))
                 return true;
 
             return metadata.IsDeadAndBuried;
