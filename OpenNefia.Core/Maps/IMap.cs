@@ -21,7 +21,7 @@ namespace OpenNefia.Core.Maps
         ShadowMap ShadowMap { get; }
         bool NeedsRedraw { get; }
 
-        IEnumerable<MapCoordinates> AllTiles { get; }
+        IEnumerable<TileRef> AllTiles { get; }
         HashSet<Vector2i> DirtyTilesThisTurn { get; }
         bool RedrawAllThisTurn { get; set; }
 
@@ -35,8 +35,12 @@ namespace OpenNefia.Core.Maps
 
         MapCoordinates AtPos(Vector2i pos);
         MapCoordinates AtPos(int x, int y);
-        public Tile GetTile(Vector2i pos);
-        public Tile GetTileMemory(Vector2i pos);
+        EntityCoordinates AtPosEntity(Vector2i pos);
+        EntityCoordinates AtPosEntity(int x, int y);
+        public TileRef? GetTile(Vector2i pos);
+        public TileRef? GetTileMemory(Vector2i pos);
+        public TileRef? GetTile(MapCoordinates coords);
+        public TileRef? GetTileMemory(MapCoordinates coords);
 
         bool IsInWindowFov(Vector2i pos);
         bool IsMemorized(Vector2i pos);

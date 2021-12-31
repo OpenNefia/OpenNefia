@@ -81,7 +81,7 @@ namespace OpenNefia.Core.Maps
 
             var transform = entityManager.GetEntity(EntityId).Spatial;
             var worldPos = (Vector2i)transform.WorldMatrix.Transform(Position);
-            return new MapCoordinates(worldPos, transform.MapID);
+            return new MapCoordinates(transform.MapID, worldPos);
         }
 
         /// <summary>
@@ -98,7 +98,7 @@ namespace OpenNefia.Core.Maps
             var transform = mapEntity.Spatial;
             var mapGrid = mapManager.GetMap(transform.MapID);
             var worldPos = (Vector2i)transform.WorldMatrix.Transform(Position);
-            return (mapGrid, new MapCoordinates(worldPos, transform.MapID));
+            return (mapGrid, new MapCoordinates(transform.MapID, worldPos));
         }
 
         /// <summary>

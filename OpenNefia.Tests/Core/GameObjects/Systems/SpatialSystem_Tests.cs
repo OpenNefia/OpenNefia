@@ -46,7 +46,7 @@ namespace OpenNefia.Tests.Core.GameObjects.Systems
             var subscriber = new Subscriber();
             int calledCount = 0;
             entMan.EventBus.SubscribeEvent<EntityPositionChangedEvent>(EventSource.Local, subscriber, MoveEventHandler);
-            var ent1 = entMan.SpawnEntity(null, new MapCoordinates(Vector2i.Zero, map.Id));
+            var ent1 = entMan.SpawnEntity(null, new MapCoordinates(map.Id, Vector2i.Zero));
 
             ent1.Spatial.WorldPosition = Vector2i.One;
 

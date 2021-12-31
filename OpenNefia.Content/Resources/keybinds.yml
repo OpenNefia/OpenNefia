@@ -20,6 +20,11 @@ binds:
   key: Right
   canRepeat: true
   repeatMode: None
+- function: Wait
+  type: State
+  key: Period
+  canRepeat: true
+  repeatMode: None
 
 - function: North
   type: State
@@ -59,6 +64,11 @@ binds:
 - function: Southeast
   type: State
   key: Numpad3
+  canRepeat: true
+  repeatMode: None
+- function: Wait
+  type: State
+  key: NumpadPeriod
   canRepeat: true
   repeatMode: None
 

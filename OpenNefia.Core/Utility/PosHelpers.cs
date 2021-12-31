@@ -62,7 +62,7 @@ namespace OpenNefia.Core.Utility
             if (a.MapId != b.MapId)
                 return Enumerable.Empty<MapCoordinates>();
 
-            return EnumerateLine(a.Position, b.Position).Select(pos => new MapCoordinates(pos, a.MapId));
+            return EnumerateLine(a.Position, b.Position).Select(pos => new MapCoordinates(a.MapId, pos));
         }
 
         public static IEnumerable<MapCoordinates> GetSurroundingCoords(MapCoordinates coords)

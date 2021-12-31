@@ -23,7 +23,6 @@ namespace OpenNefia.Core.Maps
         {
             return _maps.ContainsKey(mapId);
         }
-
         public MapId GetFreeMapId()
         {
             return new MapId(_highestMapID.Value + 1);
@@ -225,6 +224,17 @@ namespace OpenNefia.Core.Maps
         public bool TryGetMap(MapId mapId, [NotNullWhen(true)] out IMap? map)
         {
             return _maps.TryGetValue(mapId, out map);
+        }
+
+        public bool TryGetMap(EntityUid mapEntityUid, [NotNullWhen(true)] out IMap? map)
+        {
+            if (!_entityManager.TryGetComponent(mapEntityUid, out MapComponent? mapComp))
+            {
+                map = null;
+                return false;
+            }
+
+            return TryGetMap(mapComp.MapId, out map);
         }
 
         public bool TryGetMapEntity(MapId mapId, [NotNullWhen(true)] out Entity? mapEntity)

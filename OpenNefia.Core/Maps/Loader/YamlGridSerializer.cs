@@ -91,7 +91,7 @@ namespace OpenNefia.Core.Maps
             {
                 for (int x = 0; x < map.Width; x++)
                 {
-                    var tile = map.GetTile(new Vector2i(x, y));
+                    var tile = map.GetTile(new Vector2i(x, y))!.Value.Tile;
                     var protoId = tileDefinitionManager[tile.Type].GetStrongID();
                     if (!protoToRune.TryGetValue(protoId, out var rune))
                     {

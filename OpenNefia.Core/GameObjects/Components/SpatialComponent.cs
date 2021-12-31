@@ -266,7 +266,7 @@ namespace OpenNefia.Core.GameObjects
         ///     Current position offset of the entity relative to the world.
         ///     This is effectively a more complete version of <see cref="WorldPosition"/>
         /// </summary>
-        public MapCoordinates MapPosition => new(WorldPosition, MapID);
+        public MapCoordinates MapPosition => new(MapID, WorldPosition);
 
         /// <summary>
         ///     Local offset of this entity relative to its parent

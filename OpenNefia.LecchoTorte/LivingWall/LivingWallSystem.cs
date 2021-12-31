@@ -70,8 +70,8 @@ namespace OpenNefia.LecchoTorte.LivingWall
             {
                 if (metaData.IsAlive)
                 {
-                    var newTile = newMap.GetTile(newCoords.Position).ResolvePrototype().GetStrongID();
-                    if (newTile != Protos.Tile.Empty)
+                    var newTile = newMap.GetTile(newCoords.Position)?.Tile.ResolvePrototype().GetStrongID();
+                    if (newTile != null)
                     {
                         livingWall.TileStandingOn = newTile;
                         newMap.SetTile(newCoords.Position, livingWall.TileID);

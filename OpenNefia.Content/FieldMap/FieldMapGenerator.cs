@@ -9,6 +9,8 @@ using OpenNefia.Content.Prototypes;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Serialization.Manager.Attributes;
 using OpenNefia.Core.Random;
+using OpenNefia.Core.GameObjects;
+using OpenNefia.Core.Locale;
 
 namespace OpenNefia.Content.FieldMap
 {
@@ -30,9 +32,6 @@ namespace OpenNefia.Content.FieldMap
         /// <inheritdoc />
         [DataField("id", required: true)]
         public string ID { get; } = default!;
-
-        [DataField]
-        public string MapName { get; set; } = string.Empty;
 
         [DataField]
         public PrototypeId<TilePrototype> DefaultTile { get; set; } = Protos.Tile.Grass;
@@ -59,6 +58,7 @@ namespace OpenNefia.Content.FieldMap
         [Dependency] private readonly IMapManager _mapManager = default!;
         [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
         [Dependency] private readonly IRandom _random = default!;
+        [Dependency] private readonly IEntityManager _entMan = default!;
 
         /// <summary>
         /// The type of field map to generate.
@@ -78,7 +78,9 @@ namespace OpenNefia.Content.FieldMap
                 SprayTile(map, tile.ID, tile.Density, _random);
             }
 
-            // TODO map name
+            var metaData = _entMan.EnsureComponent<MetaDataComponent>(map.MapEntityUid);
+            metaData.DisplayName = Loc.GetPrototypeString(FieldMap, "Name");
+
             // TODO create_junk_items()
 
             return map.Id;
@@ -107,6 +109,11 @@ namespace OpenNefia.Content.Prototypes
         public static class FieldMap
         {
             public static readonly FieldMapPrototypeId Plains = new("Elona.Plains");
+            public static readonly FieldMapPrototypeId Grassland = new("Elona.Grassland");
+            public static readonly FieldMapPrototypeId Desert = new("Elona.Desert");
+            public static readonly FieldMapPrototypeId Sea = new("Elona.Sea");
+            public static readonly FieldMapPrototypeId Forest = new("Elona.Forest");
+            public static readonly FieldMapPrototypeId SnowField = new("Elona.SnowField");
         }
     }
 }

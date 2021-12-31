@@ -45,7 +45,7 @@ namespace OpenNefia.Content.GameObjects
             if (spatial.MapID == _mapManager.ActiveMap?.Id)
                 return;
 
-            if (_gameSession.IsPlayer(uid))
+            if (_gameSession.IsPlayer(uid) && spatial.MapID != MapId.Nullspace)
             {
                 _mapManager.SetActiveMap(spatial.MapID);
             }

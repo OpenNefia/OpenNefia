@@ -63,14 +63,14 @@ namespace OpenNefia.Core.Rendering.TileDrawLayers
 
             if (tile.WallImage != null)
             {
-                if (oneTileDown != Tile.Empty && oneTileDown.ResolvePrototype().WallImage == null && _map.IsMemorized(oneDown))
+                if (oneTileDown != null && oneTileDown.Value.Tile.ResolvePrototype().WallImage == null && _map.IsMemorized(oneDown))
                 {
                     tileIndex = tile.WallImage.AtlasIndex;
                 }
 
-                if (oneTileUp != Tile.Empty && oneTileUp.ResolvePrototype().WallImage != null && _map.IsMemorized(oneUp))
+                if (oneTileUp != null && oneTileUp.Value.Tile.ResolvePrototype().WallImage != null && _map.IsMemorized(oneUp))
                 {
-                    this._tileAndChipBatch.SetTile(oneUp, oneTileUp.ResolvePrototype().Image.AtlasIndex);
+                    this._tileAndChipBatch.SetTile(oneUp, oneTileUp.Value.Tile.ResolvePrototype().Image.AtlasIndex);
                 }
             }
 
