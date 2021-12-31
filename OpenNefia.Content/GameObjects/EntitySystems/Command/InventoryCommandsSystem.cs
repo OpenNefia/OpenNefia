@@ -47,15 +47,15 @@ namespace OpenNefia.Content.GameObjects
                 .Register<InventoryCommandsSystem>();
         }
 
-        private void HandlePickUp(IGameSessionManager? session)
+        private TurnResult? HandlePickUp(IGameSessionManager? session)
         {
             if (session?.Player == null)
-                return;
+                return null;
 
             var player = session.Player.Uid;
 
             if (!EntityManager.TryGetComponent(player, out SpatialComponent? spatial))
-                return;
+                return null;
 
             var verb = new Verb(PickableSystem.VerbIDPickUp);
             var ents = _lookup.EntitiesUnderneath(session.Player.Uid).ToList();
@@ -63,6 +63,7 @@ namespace OpenNefia.Content.GameObjects
             if (ents.Count == 0)
             {
                 Mes.Display(Loc.GetString("Elona.GameObjects.Pickable.GraspAtAir"));
+                return TurnResult.Failed;
             }
             else if (ents.Count == 1)
             {
@@ -79,16 +80,24 @@ namespace OpenNefia.Content.GameObjects
                 if (result == TurnResult.NoResult)
                 {
                     Mes.Display(Loc.GetString("Elona.GameObjects.Pickable.GraspAtAir"));
+                    result = TurnResult.Failed;
                 }
+
+                return result;
             }
             else
             {
                 var context = new InventoryContext(player, new PickUpInventoryBehavior());
                 var layer = new InventoryLayer(context);
-                _uiMgr.Query(layer);
-            }
+                var result = _uiMgr.Query(layer);
+                
+                if (result.HasValue && result.Value is InventoryResult.Finished finished)
+                {
+                    return finished.TurnResult;
+                }
 
-            _field.RefreshScreen();
+                return TurnResult.Aborted;
+            }
         }
 
         private sealed class InventoryInputCmdHandler : InputCmdHandler
@@ -102,20 +111,35 @@ namespace OpenNefia.Content.GameObjects
                 _uiMgr = uiMgr;
             }
 
-            public override bool HandleCmdMessage(IGameSessionManager? session, InputCmdMessage message)
+            public override TurnResult? HandleCmdMessage(IGameSessionManager? session, InputCmdMessage message)
             {
                 if (message is not FullInputCmdMessage full)
                 {
-                    return false;
+                    return null;
                 }
 
                 if (full.State == BoundKeyState.Down && session?.Player != null)
                 {
                     var context = new InventoryContext(session.Player.Uid, _behavior);
                     var layer = new InventoryLayer(context);
-                    _uiMgr.Query(layer);
+                    var result = _uiMgr.Query(layer);
+
+                    if (result.HasValue)
+                    {
+                        switch (result.Value)
+                        {
+                            case InventoryResult.Finished finished:
+                                return finished.TurnResult;
+                            default:
+                                return TurnResult.Aborted;
+                        }
+                    }
+                    else
+                    {
+                        return TurnResult.Aborted;
+                    }
                 }
-                return false;
+                return null;
             }
         }
     }

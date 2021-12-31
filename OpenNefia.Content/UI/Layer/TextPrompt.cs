@@ -7,6 +7,7 @@ using OpenNefia.Core.UI;
 using OpenNefia.Core.UI.Layer;
 using OpenNefia.Core.Utility;
 using OpenNefia.Content.Prototypes;
+using OpenNefia.Content.Logic;
 
 namespace OpenNefia.Content.UI.Layer
 {
@@ -27,6 +28,7 @@ namespace OpenNefia.Content.UI.Layer
         public bool LimitLength { get; set; }
         public int? MaxLength { get; set; }
         public bool HasShadow { get; set; }
+        private string? _prompt;
 
         protected bool IsCutOff = false;
         protected float Dt = 0f;
@@ -44,7 +46,7 @@ namespace OpenNefia.Content.UI.Layer
         protected Color ColorPromptBackground = UiColors.PromptBackground;
         protected FontSpec FontPromptText = UiFonts.PromptText;
 
-        public TextPrompt(int? maxLength = 16, bool limitLength = false, string? initialValue = null, bool isCancellable = true, bool hasShadow = true)
+        public TextPrompt(int? maxLength = 16, bool limitLength = false, string? initialValue = null, bool isCancellable = true, bool hasShadow = true, string? prompt = null)
         {
             if (initialValue == null)
                 initialValue = string.Empty;
@@ -54,6 +56,8 @@ namespace OpenNefia.Content.UI.Layer
             _Value = initialValue;
             IsCancellable = isCancellable;
             HasShadow = hasShadow;
+
+            _prompt = prompt;
 
             AssetLabelInput = Assets.Get(AssetPrototypeOf.LabelInput);
             AssetImeStatusJapanese = Assets.Get(AssetPrototypeOf.ImeStatusJapanese);
@@ -96,6 +100,10 @@ namespace OpenNefia.Content.UI.Layer
         public override void OnQuery()
         {
             Sounds.Play(Protos.Sound.Pop2);
+            if (_prompt != null)
+            {
+                Mes.Display(_prompt);
+            }
         }
 
         protected virtual void UpdateText()

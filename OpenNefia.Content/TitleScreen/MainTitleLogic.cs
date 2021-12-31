@@ -10,10 +10,9 @@ using OpenNefia.Core.UI.Layer;
 using OpenNefia.Core.Utility;
 using OpenNefia.Content.Prototypes;
 using OpenNefia.Core.SaveGames;
-using OpenNefia.Content.TitleScreen;
 using OpenNefia.Core.UserInterface;
 
-namespace OpenNefia.Content.Logic
+namespace OpenNefia.Content.TitleScreen
 {
     public interface IMainTitleLogic
     {

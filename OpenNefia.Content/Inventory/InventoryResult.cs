@@ -4,9 +4,9 @@ namespace OpenNefia.Content.Inventory
 {
     public abstract record InventoryResult
     {
-        public sealed record Finished(TurnResult InnerValue) : InventoryResult
+        public sealed record Finished(TurnResult TurnResult) : InventoryResult
         {
-            public override string ToString() => $"{nameof(Finished)}({InnerValue})";
+            public override string ToString() => $"{nameof(Finished)}({TurnResult})";
         }
         public sealed record Continuing() : InventoryResult
         {

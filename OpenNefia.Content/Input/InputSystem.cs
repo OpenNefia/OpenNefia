@@ -1,4 +1,5 @@
-﻿using OpenNefia.Content.UI.Layer;
+﻿using OpenNefia.Content.TurnOrder;
+using OpenNefia.Content.UI.Layer;
 using OpenNefia.Core.Game;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Input;
@@ -22,7 +23,7 @@ namespace OpenNefia.Content.Input
         [Dependency] protected readonly IInputManager _inputManager = default!;
         [Dependency] protected readonly IEntitySystemManager _entitySystemManager = default!;
         [Dependency] protected readonly IGameSessionManager _gameSession = default!;
-        [Dependency] protected readonly IFieldLayer _field = default!;
+        [Dependency] protected readonly ITurnOrderSystem _turnOrder = default!;
 
         private readonly IPlayerCommandStates _cmdStates = new PlayerCommandStates();
 
@@ -43,7 +44,7 @@ namespace OpenNefia.Content.Input
         private void OnKeyBindStateChanged(ViewportBoundKeyEventArgs args)
         {
             // Doesn't make sense to run simulation keybinds if there's an active modal.
-            if (!_field.IsQuerying())
+            if (!_turnOrder.IsInGame())
             {
                 return;
             }
@@ -86,8 +87,10 @@ namespace OpenNefia.Content.Input
 
             foreach (var handler in _inputManager.BindRegistry.GetHandlers(function))
             {
-                if (handler.HandleCmdMessage(session, message))
+                var result = handler.HandleCmdMessage(session, message);
+                if (result != null)
                 {
+                    _turnOrder.AdvanceStateFromPlayer(result.Value);
                     return true;
                 }
             }

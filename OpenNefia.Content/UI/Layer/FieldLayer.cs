@@ -92,13 +92,18 @@ namespace OpenNefia.Content.UI.Layer
 
         public void Startup()
         {
-            _mapManager.ActiveMapChanged += SetMap;
+            _mapManager.ActiveMapChanged += OnActiveMapChanged;
             _graphics.OnWindowResized += (_) => RefreshScreen();
         }
 
         public override void OnFocused()
         {
             _inputManager.Contexts.SetActiveContext("field");
+        }
+
+        private void OnActiveMapChanged(IMap newMap, IMap? oldMap)
+        {
+            SetMap(newMap);
         }
 
         public void SetMap(IMap map)

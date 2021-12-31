@@ -21,6 +21,8 @@ namespace OpenNefia.Core.GameObjects
             SubscribeLocalEvent<MoveableComponent, MoveEventArgs>(HandleMove, nameof(HandleMove));
         }
 
+        #region Event Handlers
+
         private void HandleMove(EntityUid uid, MoveableComponent moveable, MoveEventArgs args)
         {
             if (args.Handled || !EntityManager.IsAlive(uid))
@@ -57,6 +59,8 @@ namespace OpenNefia.Core.GameObjects
 
             args.Handle(TurnResult.Succeeded);
         }
+
+        #endregion
     }
 
     public class MoveEventArgs : TurnResultEntityEventArgs

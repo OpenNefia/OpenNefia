@@ -23,6 +23,7 @@ namespace OpenNefia.Core.GameObjects
 
         public MapMetadata Metadata { get; internal set; } = new();
 
+        [DataField]
         public IMapStartLocation StartLocation { get; set; } = new CenterMapLocation();
 
         /// <inheritdoc />
