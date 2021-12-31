@@ -23,6 +23,7 @@
             common.AddFunction(EngineKeyFunctions.Northeast);
             common.AddFunction(EngineKeyFunctions.Northwest);
             common.AddFunction(EngineKeyFunctions.Southwest);
+            common.AddFunction(EngineKeyFunctions.Wait);
 
             common.AddFunction(EngineKeyFunctions.ShowDebugConsole);
             common.AddFunction(EngineKeyFunctions.ShowDebugMonitors);

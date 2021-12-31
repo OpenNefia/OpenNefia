@@ -33,7 +33,7 @@ namespace OpenNefia.Core.Rendering
             if (tile.WallImage != null)
             {
                 var oneTileDown = _map.GetTile(oneDown);
-                if (oneTileDown != Tile.Empty && oneTileDown.ResolvePrototype().WallImage == null && _map.IsMemorized(oneDown))
+                if (oneTileDown != null && oneTileDown.Value.Tile.ResolvePrototype().WallImage == null && _map.IsMemorized(oneDown))
                 {
                     BottomShadows.Add(coords);
                 }
@@ -43,7 +43,7 @@ namespace OpenNefia.Core.Rendering
                     TopShadows.Remove(oneDown);
                 }
 
-                if (oneTileUp != Tile.Empty && oneTileUp.ResolvePrototype().WallImage != null && _map.IsMemorized(oneUp))
+                if (oneTileUp != null && oneTileUp.Value.Tile.ResolvePrototype().WallImage != null && _map.IsMemorized(oneUp))
                 {
                     TopShadows.Remove(coords);
                     BottomShadows.Remove(oneUp);
@@ -56,7 +56,7 @@ namespace OpenNefia.Core.Rendering
             else
             {
                 TopShadows.Remove(coords);
-                if (oneTileUp != Tile.Empty && oneTileUp.ResolvePrototype().WallImage != null && _map.IsMemorized(oneUp))
+                if (oneTileUp != null && oneTileUp.Value.Tile.ResolvePrototype().WallImage != null && _map.IsMemorized(oneUp))
                 {
                     BottomShadows.Add(oneUp);
                 }

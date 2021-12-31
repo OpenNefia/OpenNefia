@@ -22,7 +22,7 @@ namespace OpenNefia.Core.GameObjects
         ///     The in-game name of this entity.
         /// </summary>
         [Localize("Name")]
-        public string? DisplayName;
+        public string? DisplayName { get; set; }
 
         private EntityPrototype? _entityPrototype;
 

@@ -17,6 +17,7 @@ namespace OpenNefia.Core.Input
         public static readonly BoundKeyFunction Northwest = "Northwest";
         public static readonly BoundKeyFunction Southeast = "Southeast";
         public static readonly BoundKeyFunction Southwest = "Southwest";
+        public static readonly BoundKeyFunction Wait = "Wait";
 
         public static readonly BoundKeyFunction UIClick = "UIClick";
         public static readonly BoundKeyFunction UIRightClick = "UIRightClick";

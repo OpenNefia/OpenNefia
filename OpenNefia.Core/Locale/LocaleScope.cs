@@ -1,4 +1,5 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using OpenNefia.Core.Prototypes;
+using System.Diagnostics.CodeAnalysis;
 
 namespace OpenNefia.Core.Locale
 {
@@ -24,7 +25,8 @@ namespace OpenNefia.Core.Locale
 
         public LocaleKey KeyPrefix { get; }
 
-        public LocaleScope(ILocalizationManager localizationManager) : this(localizationManager, new(""))
+        public LocaleScope(ILocalizationManager localizationManager)
+            : this(localizationManager, LocaleKey.Empty)
         {
         }
 
@@ -36,12 +38,18 @@ namespace OpenNefia.Core.Locale
 
         public string GetString(LocaleKey key, params LocaleArg[] args)
         {
-            return _localizationManager.GetString(key.With(key), args);
+            return _localizationManager.GetString(KeyPrefix.With(key), args);
         }
 
         public bool TryGetString(LocaleKey key, [NotNullWhen(true)] out string? str, params LocaleArg[] args)
         {
-            return _localizationManager.TryGetString(key.With(key), out str, args);
+            return _localizationManager.TryGetString(KeyPrefix.With(key), out str, args);
+        }
+
+        public string GetPrototypeString<T>(PrototypeId<T> protoId, LocaleKey key, params LocaleArg[] args)
+            where T : class, IPrototype
+        {
+            return _localizationManager.GetPrototypeString(protoId, KeyPrefix.With(key), args);
         }
     }
 }

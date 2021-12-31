@@ -23,6 +23,8 @@ namespace OpenNefia.Core.Locale
     {
         bool TryGetString(LocaleKey key, [NotNullWhen(true)] out string? str, params LocaleArg[] args);
         string GetString(LocaleKey key, params LocaleArg[] args);
+        string GetPrototypeString<T>(PrototypeId<T> protoId, LocaleKey key, params LocaleArg[] args)
+            where T: class, IPrototype;
     }
 
     public interface ILocalizationManager : ILocalizationFetcher
@@ -169,6 +171,13 @@ namespace OpenNefia.Core.Locale
                 return str;
 
             return $"<Missing key: {key}>";
+        }
+
+        public string GetPrototypeString<T>(PrototypeId<T> protoId, LocaleKey key, params LocaleArg[] args)
+            where T : class, IPrototype
+        {
+            var protoTypeId = typeof(T).GetCustomAttribute<PrototypeAttribute>()!.Type;
+            return GetString(new LocaleKey($"OpenNefia.Prototypes.{protoTypeId}.{protoId}").With(key), args);
         }
 
         public bool IsFullwidth()

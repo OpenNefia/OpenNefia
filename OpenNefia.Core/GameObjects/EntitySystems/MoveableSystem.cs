@@ -21,6 +21,23 @@ namespace OpenNefia.Core.GameObjects
             SubscribeLocalEvent<MoveableComponent, MoveEventArgs>(HandleMove, nameof(HandleMove));
         }
 
+        #region Methods
+
+        public TurnResult? MoveEntity(EntityUid entity, MapCoordinates newPosition, 
+            MoveableComponent? moveable = null,
+            SpatialComponent? spatial = null)
+        {
+            if (!Resolve(entity, ref moveable, ref spatial))
+                return null;
+
+            var oldPosition = spatial.MapPosition;
+            var ev = new MoveEventArgs(oldPosition, newPosition);
+            RaiseLocalEvent(entity, ev);
+            return ev.TurnResult;
+        }
+
+        #endregion
+
         #region Event Handlers
 
         private void HandleMove(EntityUid uid, MoveableComponent moveable, MoveEventArgs args)
@@ -28,36 +45,43 @@ namespace OpenNefia.Core.GameObjects
             if (args.Handled || !EntityManager.IsAlive(uid))
                 return;
 
-            HandleMove(uid, args, moveable);
+            var result = HandleMove(uid, args.NewPosition, args.OldPosition, moveable);
+
+            if (result != null)
+                args.Handle(result.Value);
         }
 
-        private void HandleMove(EntityUid uid, MoveEventArgs args,
+        private TurnResult? HandleMove(EntityUid uid, 
+            MapCoordinates newCoords,
+            MapCoordinates oldCoords,
             MoveableComponent? moveable = null,
             SpatialComponent? spatial = null)
         {
             if (!Resolve(uid, ref moveable, ref spatial))
-                return;
+                return null;
 
-            spatial.Direction = (args.NewPosition.Position - args.OldPosition.Position).GetDir();
+            if (newCoords == oldCoords)
+                return TurnResult.Succeeded;
 
-            var evBefore = new BeforeMoveEventArgs(args.OldPosition, args.NewPosition);
+            spatial.Direction = (newCoords.Position - oldCoords.Position).GetDir();
 
-            if (!Raise(uid, evBefore, args))
-                return;
+            var evBefore = new BeforeMoveEventArgs(oldCoords, newCoords);
 
-            if (!_mapManager.TryGetMap(args.NewPosition.MapId, out var map)
-                || !map.CanAccess(args.NewPosition.Position))
+            if (Raise(uid, evBefore))
+                return evBefore.TurnResult;
+
+            if (!_mapManager.TryGetMap(newCoords.MapId, out var map)
+                || !map.CanAccess(newCoords.Position))
             {
-                args.Handle(TurnResult.Failed);
-                return;
+                return TurnResult.Failed;
             }
 
-            spatial.WorldPosition = args.NewPosition.Position;
+            spatial.WorldPosition = newCoords.Position;
 
-            var evAfter = new AfterMoveEventArgs(args.OldPosition, args.NewPosition);
+            var evAfter = new AfterMoveEventArgs(oldCoords, newCoords);
             RaiseLocalEvent(uid, evAfter);
 
-            args.Handle(TurnResult.Succeeded);
+            return TurnResult.Succeeded;
         }
 
         #endregion

@@ -182,7 +182,7 @@ namespace OpenNefia.Core.Maps
             this.DirtyTilesThisTurn.Add(pos);
         }
 
-        public IEnumerable<MapCoordinates> AllTiles
+        public IEnumerable<TileRef> AllTiles
         {
             get
             {
@@ -190,36 +190,62 @@ namespace OpenNefia.Core.Maps
                 {
                     for (var y = 0; y < Height; y++)
                     {
-                        yield return new MapCoordinates(x, y, Id);
+                        yield return new TileRef(Id, x, y, Tiles[x, y]);
                     }
                 }
             }
         }
 
-        public Tile GetTile(Vector2i pos)
-        {
-            if (!IsInBounds(pos))
-                return Tile.Empty;
-
-            return Tiles[pos.X, pos.Y];
-        }
-
-        public Tile GetTileMemory(Vector2i pos)
-        {
-            if (!IsInBounds(pos))
-                return Tile.Empty;
-
-            return TileMemory[pos.X, pos.Y];
-        }
-
         public MapCoordinates AtPos(Vector2i pos)
         {
-            return new MapCoordinates(pos, this.Id);
+            return new MapCoordinates(Id, pos);
         }
 
         public MapCoordinates AtPos(int x, int y)
         {
-            return new MapCoordinates(x, y, this.Id);
+            return new MapCoordinates(Id, x, y);
+        }
+
+        public EntityCoordinates AtPosEntity(Vector2i pos)
+        {
+            return new EntityCoordinates(MapEntityUid, pos);
+        }
+
+        public EntityCoordinates AtPosEntity(int x, int y)
+        {
+            return new EntityCoordinates(MapEntityUid, x, y);
+        }
+
+        public TileRef? GetTile(Vector2i pos)
+        {
+            if (!IsInBounds(pos))
+                return null;
+
+            return new TileRef(Id, pos, Tiles[pos.X, pos.Y]);
+        }
+
+        public TileRef? GetTileMemory(Vector2i pos)
+        {
+            if (!IsInBounds(pos))
+                return null;
+
+            return new TileRef(Id, pos, TileMemory[pos.X, pos.Y]);
+        }
+
+        public TileRef? GetTile(MapCoordinates coords)
+        {
+            if (coords.MapId != Id)
+                return null;
+
+            return GetTile(coords.Position);
+        }
+
+        public TileRef? GetTileMemory(MapCoordinates coords)
+        {
+            if (coords.MapId != Id)
+                return null;
+
+            return GetTileMemory(coords.Position);
         }
 
         public void RefreshVisibility()

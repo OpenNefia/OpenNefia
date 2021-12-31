@@ -383,7 +383,7 @@ namespace OpenNefia.Content.TurnOrder
         {
             _field.RefreshScreen();
 
-            var ev = new OnPlayerTurnEvent();
+            var ev = new PlayerTurnStartedEvent();
             RaiseLocalEvent(turnOrder.OwnerUid, ref ev);
             if (ev.Handled)
             {
@@ -396,7 +396,7 @@ namespace OpenNefia.Content.TurnOrder
 
         private TurnOrderState HandleNPCTurn(TurnOrderComponent turnOrder)
         {
-            var ev = new OnNPCTurnEvent();
+            var ev = new NPCTurnStartedEvent();
             RaiseLocalEvent(turnOrder.OwnerUid, ref ev);
             return ev.TurnResult.ToTurnOrderState();
         }
@@ -518,7 +518,7 @@ namespace OpenNefia.Content.TurnOrder
     }
 
     [EventArgsUsage(EventArgsTargets.ByRef)]
-    public struct OnPlayerTurnEvent
+    public struct PlayerTurnStartedEvent
     {
         /// <summary>
         ///     If this message has already been "handled" by a previous system.
@@ -538,7 +538,7 @@ namespace OpenNefia.Content.TurnOrder
     }
 
     [EventArgsUsage(EventArgsTargets.ByRef)]
-    public struct OnNPCTurnEvent
+    public struct NPCTurnStartedEvent
     {
         /// <summary>
         ///     If this message has already been "handled" by a previous system.
