@@ -9,7 +9,3 @@
 	path = Thirdparty/megasource
 	url = git@github.com:Ruin0x11/megasource.git
 	branch = opennefia-net
-[submodule "Thirdparty/odin-serializer"]
-	path = Thirdparty/odin-serializer
-	url = git@github.com:Ruin0x11/odin-serializer.git
-	branch = ruin0x11/standalone-fixes

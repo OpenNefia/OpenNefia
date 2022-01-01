@@ -1,6 +1,7 @@
 ﻿using OpenNefia.Content.Prototypes;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Prototypes;
+using OpenNefia.Core.Serialization.Manager.Attributes;
 
 namespace OpenNefia.Content.GameObjects
 {
@@ -18,48 +19,56 @@ namespace OpenNefia.Content.GameObjects
         /// <summary>
         /// Current hitpoints.
         /// </summary>
-        public int HP;
+        [DataField]
+        public int HP { get; set; }
 
         /// <summary>
         /// Maximum hitpoints.
         /// </summary>
-        public int MaxHP;
+        [DataField]
+        public int MaxHP { get; set; }
 
         /// <summary>
         /// Current magic points.
         /// </summary>
+        [DataField]
         public int MP;
 
         /// <summary>
         /// Maximum magic points.
         /// </summary>
+        [DataField]
         public int MaxMP;
 
         /// <summary>
         /// Current stamina.
         /// </summary>
+        [DataField]
         public int Stamina;
 
         /// <summary>
         /// Maximum stamina.
         /// </summary>
+        [DataField]
         public int MaxStamina;
 
         /// <summary>
         /// Level, potential and experience for skills and stats.
         /// </summary>
+        [DataField]
         public Dictionary<PrototypeId<SkillPrototype>, LevelAndPotential> Skills = new();
 
         /// <summary>
         /// Level, potential, experience and spell stock for spells.
         /// </summary>
+        [DataField]
         public Dictionary<PrototypeId<SkillPrototype>, LevelPotentialAndStock> Spells = new();
     }
 
     /// <summary>
     /// The level, potential and experience associated with a skill.
     /// </summary>
-    [Serializable]
+    [DataDefinition]
     public class LevelAndPotential
     {
         public const int DEFAULT_POTENTIAL = 100;
@@ -72,11 +81,13 @@ namespace OpenNefia.Content.GameObjects
         /// <summary>
         /// Level of the skill.
         /// </summary>
+        [DataField]
         public int Level { get; set; } = 1;
 
         /// <summary>
         /// Potential of the skill, specified as a percentage. 100 is the baseline.
         /// </summary>
+        [DataField]
         public int Potential { get; set; } = DEFAULT_POTENTIAL;
 
         /// <summary>
@@ -85,6 +96,7 @@ namespace OpenNefia.Content.GameObjects
         /// <remarks>
         /// In Elona, a new skill level is gained per 1000 experience.
         /// </remarks>
+        [DataField]
         public int Experience { get; set; } = 0;
 
         public override string ToString()
@@ -96,17 +108,19 @@ namespace OpenNefia.Content.GameObjects
     /// <summary>
     /// The level, potential and experience associated with a spell.
     /// </summary>
-    [Serializable]
+    [DataDefinition]
     public class LevelPotentialAndStock
     {
         /// <summary>
         /// Level of the spell.
         /// </summary>
+        [DataField]
         public int Level { get; set; } = 1;
 
         /// <summary>
         /// Potential of the spell, specified as a percentage. 100 is the baseline.
         /// </summary>
+        [DataField]
         public int Potential { get; set; } = LevelAndPotential.DEFAULT_POTENTIAL;
 
         /// <summary>
@@ -115,11 +129,13 @@ namespace OpenNefia.Content.GameObjects
         /// <remarks>
         /// In Elona, a new spell level is gained per 1000 experience.
         /// </remarks>
+        [DataField]
         public int Experience { get; set; } = 0;
 
         /// <summary>
         /// Current spell stock.
         /// </summary>
+        [DataField]
         public int SpellStock { get; set; } = 0;
 
         public override string ToString()
