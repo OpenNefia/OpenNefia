@@ -66,7 +66,7 @@ namespace OpenNefia.Core.GameObjects
         /// It's necessary to keep track of the non-primary characters on the same tile because they are 
         /// still affected by things like area of effect magic.
         /// </summary>
-        Entity? GetPrimaryEntity(MapCoordinates coords);
+        Entity? GetBlockingEntity(MapCoordinates coords);
 
         /// <summary>
         ///     Returns ALL component instances of a specified type in the given map.
@@ -207,10 +207,10 @@ namespace OpenNefia.Core.GameObjects
         }
 
         /// <inheritdoc />
-        public Entity? GetPrimaryEntity(MapCoordinates coords)
+        public Entity? GetBlockingEntity(MapCoordinates coords)
         {
             return GetLiveEntitiesAtCoords(coords)
-                .Where(ent => ent.MetaData.IsAlive)
+                .Where(ent => ent.Spatial.IsSolid)
                 .FirstOrDefault();
         }
         

@@ -114,16 +114,14 @@ namespace OpenNefia.Content.VanillaAI
 
                         if (x >= 0 && x < map.Width)
                         {
-                            var onCellSpatial = GetBlockingEntity(map, new Vector2i(x, y));
+                            var onCell = _lookup.GetBlockingEntity(map.AtPos(x, y));
 
-                            if (onCellSpatial != null)
+                            if (onCell != null)
                             {
-                                var onCellUid = onCellSpatial.OwnerUid;
-
-                                if (!EntityManager.HasComponent<AINoTargetComponent>(onCellUid)
-                                    && _factions.GetRelationTowards(entity, onCellUid) <= Relation.Enemy)
+                                if (!EntityManager.HasComponent<AINoTargetComponent>(onCell.Uid)
+                                    && _factions.GetRelationTowards(entity, onCell.Uid) <= Relation.Enemy)
                                 {
-                                    SetTarget(entity, onCellUid, 30, ai);
+                                    SetTarget(entity, onCell.Uid, 30, ai);
                                     // TODO emotion icon
                                     return true;
                                 }
@@ -239,9 +237,6 @@ namespace OpenNefia.Content.VanillaAI
                 return;
 
             if (DoAICalmAction(entity, ai))
-                return;
-
-            if (GoToPresetAnchor(entity, ai))
                 return;
 
             Wander(entity, ai);

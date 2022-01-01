@@ -35,7 +35,7 @@ namespace OpenNefia.Content.EntityGen
 
         public override void Initialize()
         {
-            _blueprintLoader.OnBlueprintEntityLoaded += HandleBlueprintEntityLoaded;
+            _blueprintLoader.OnBlueprintEntityStartup += HandleBlueprintEntityStartup;
 
             SubscribeLocalEvent<SpatialComponent, EntityCloneFinishedEventArgs>(HandleClone, nameof(HandleClone));
         }
@@ -49,7 +49,7 @@ namespace OpenNefia.Content.EntityGen
         /// <summary>
         /// Runs entity generation events for entities loaded from blueprints.
         /// </summary>
-        private void HandleBlueprintEntityLoaded(EntityUid entity)
+        private void HandleBlueprintEntityStartup(EntityUid entity)
         {
             FireGeneratedEvent(entity);
         }

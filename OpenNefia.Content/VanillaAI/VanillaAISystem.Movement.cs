@@ -22,13 +22,6 @@ namespace OpenNefia.Content.VanillaAI
     {
         [Dependency] private readonly IEntityLookup _lookup = default!;
 
-        private SpatialComponent? GetBlockingEntity(IMap map, Vector2i pos)
-        {
-            return _lookup.EntityQueryInMap<SpatialComponent>(map.Id)
-                .Where(s => s.WorldPosition == pos && s.IsSolid)
-                .FirstOrDefault();
-        }
-
         public bool StayNearPosition(EntityUid entity, MapCoordinates anchor, VanillaAIComponent ai, 
             int maxDistance = 2, 
             SpatialComponent? spatial = null)
@@ -111,25 +104,14 @@ namespace OpenNefia.Content.VanillaAI
             }
         }
 
-        private Vector2i DriftTowardsPos(Vector2i pos, Vector2i initialPos)
+        private Vector2i DriftTowardsPos(Vector2i pos, Vector2i towards)
         {
-            var offset = Vector2i.Zero;
+            var offset = pos.DirectionTowards(towards).ToIntVec();
 
             if (_random.OneIn(2))
-            {
-                if (pos.X > initialPos.X)
-                    offset.X = -1;
-                else if (pos.X < initialPos.X)
-                    offset.X = 1;
-            }
-
+                offset.X = 0;
             if (_random.OneIn(2))
-            {
-                if (pos.Y > initialPos.Y)
-                    offset.Y = -1;
-                else if (pos.Y < initialPos.Y)
-                    offset.Y = 1;
-            }
+                offset.Y = 0;
 
             return pos + offset;
         }
@@ -185,14 +167,12 @@ namespace OpenNefia.Content.VanillaAI
             var direction = spatial.WorldPosition.DirectionTowards(ai.DestinationCoords);
             var newCoords = spatial.MapPosition.Offset(direction);
 
-            var onCellSpatial = GetBlockingEntity(map, newCoords.Position);
-            if (onCellSpatial != null)
+            var onCell = _lookup.GetBlockingEntity(newCoords);
+            if (onCell != null)
             {
-                var onCellUid = onCellSpatial.OwnerUid;
-
-                if (_factions.GetRelationTowards(entity, onCellUid) <= Relation.Enemy)
+                if (_factions.GetRelationTowards(entity, onCell.Uid) <= Relation.Enemy)
                 {
-                    SetTarget(entity, onCellUid, ai.Aggro + 4);
+                    SetTarget(entity, onCell.Uid, ai.Aggro + 4);
                     DoBasicAction(entity, ai);
                     return false;
                 }
@@ -203,15 +183,15 @@ namespace OpenNefia.Content.VanillaAI
                     QualityComponent? onCellQuality = null;
                     VanillaAIComponent? onCellAi = null;
 
-                    if (Resolve(target, ref targetLevel) && Resolve(onCellUid, ref onCellLevel, ref onCellQuality, ref onCellAi, logMissing: false))
+                    if (Resolve(target, ref targetLevel) && Resolve(onCell.Uid, ref onCellLevel, ref onCellQuality, ref onCellAi, logMissing: false))
                     {
                         if (onCellQuality.Quality.Buffed > Quality.Good 
                             && onCellLevel.Level > targetLevel.Level
                             && onCellAi.CurrentTarget != ai.CurrentTarget)
                         {
-                            if (_movement.SwapPlaces(entity, onCellUid))
+                            if (_movement.SwapPlaces(entity, onCell.Uid))
                             {
-                                Mes.DisplayIfLos(entity, Loc.GetString("Elona.AI.Swap.Displace", ("chara", entity), ("onCell", onCellUid)));
+                                Mes.DisplayIfLos(entity, Loc.GetString("Elona.AI.Swap.Displace", ("chara", entity), ("onCell", onCell.Uid)));
                                 // TODO activity
                             }
                         }
@@ -407,20 +387,21 @@ namespace OpenNefia.Content.VanillaAI
                         pos = spatial.WorldPosition + (step, 1);
                         break;
                 }
-                Logger.Debug($"check -> {pos}");
-                if (map.CanAccess(pos))
+
+                var coords = map.AtPos(pos);
+
+                if (map.CanAccess(coords))
                 {
-                    Logger.Debug("GET");
-                    return (map.AtPos(pos), blocked);
+                    return (coords, blocked);
                 }
 
-                var onCellSpatial = GetBlockingEntity(map, pos);
+                var onCell = _lookup.GetBlockingEntity(coords);
 
-                if (onCellSpatial != null)
+                if (onCell != null)
                 {
-                    if (_factions.GetRelationTowards(entity, onCellSpatial!.OwnerUid) <= Relation.Enemy)
+                    if (_factions.GetRelationTowards(entity, onCell.Uid) <= Relation.Enemy)
                     {
-                        ai.CurrentTarget = onCellSpatial.OwnerUid;
+                        ai.CurrentTarget = onCell.Uid;
                     }
                     else
                     {
@@ -428,7 +409,7 @@ namespace OpenNefia.Content.VanillaAI
                     }
                 }
 
-                if (CanAccessInDirCheck(map, pos, onCellSpatial?.OwnerUid, ai))
+                if (CanAccessInDirCheck(map, pos, onCell?.Uid, ai))
                 {
                     Logger.Debug("GETENT");
                     return (map.AtPos(pos), blocked);

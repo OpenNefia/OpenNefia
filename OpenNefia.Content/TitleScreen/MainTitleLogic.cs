@@ -93,7 +93,7 @@ namespace OpenNefia.Content.TitleScreen
             var mapId = _mapManager.GetFreeMapId();
             var map = _mapBlueprints.LoadBlueprint(mapId, new ResourcePath("/Maps/LecchoTorte/Test.yml"));
 
-            var player = EntitySystem.Get<IEntityGen>().SpawnEntity(Protos.Chara.Sailor, map.AtPos(2, 2))!;
+            var player = EntitySystem.Get<IEntityGen>().SpawnEntity(Chara.Sailor, map.AtPos(2, 2))!;
             player.AddComponent<PlayerComponent>();
             _gameSessionManager.Player = player;
 

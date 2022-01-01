@@ -32,8 +32,6 @@ namespace OpenNefia.Core.GameObjects
             var (oldMap, oldMapCoords) = args.OldPosition.ToMap(_mapManager, _entityManager);
             var (newMap, newMapCoords) = args.NewPosition.ToMap(_mapManager, _entityManager);
 
-            Logger.Warning($"Move {uid} {oldMapCoords} {newMapCoords}");
-
             if (oldMap != null)
             {
                 RemoveEntityIndex(uid, oldMapCoords);
@@ -60,8 +58,6 @@ namespace OpenNefia.Core.GameObjects
 
         private void AddEntityIndex(EntityUid entity, MapCoordinates coords, SpatialComponent spatial)
         {
-            Logger.Warning($"ADDIND {entity}");
-
             if (!_mapManager.TryGetMap(coords.MapId, out var map))
                 return;
 
@@ -79,8 +75,6 @@ namespace OpenNefia.Core.GameObjects
 
         private void RemoveEntityIndex(EntityUid entity, MapCoordinates coords, SpatialComponent? spatial = null)
         {
-            Logger.Warning($"REMIND {entity}");
-
             if (!_mapManager.TryGetMap(coords.MapId, out var map))
                 return;
 
@@ -98,8 +92,7 @@ namespace OpenNefia.Core.GameObjects
 
         private void HandleMapInit(EntityUid uid, SpatialComponent spatial, ref EntityMapInitEvent args)
         {
-            // NOTE: we do not call AddEntityIndex() here because that is handled by
-            // HandlePositionChanged, which is fired on entity spawn.
+            AddEntityIndex(uid, spatial.MapPosition, spatial);
             RefreshTileOfEntity(uid, spatial);
         }
 
