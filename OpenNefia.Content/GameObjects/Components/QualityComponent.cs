@@ -15,7 +15,7 @@ namespace OpenNefia.Content.GameObjects
     {
         public override string Name => "Quality";
 
-        // [DataField(required: true)]
+        [DataField(required: true)]
         public Stat<Quality> Quality { get; set; }
     }
 

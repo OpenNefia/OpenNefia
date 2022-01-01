@@ -9,7 +9,7 @@ namespace OpenNefia.Content.GameObjects
         public override string Name => "Level";
 
         [DataField(required: true)]
-        public int Level { get; set; }
+        public int Level { get; set; } = 1;
 
         [DataField]
         public int Experience { get; set; }
