@@ -181,22 +181,29 @@ namespace OpenNefia.Core.GameObjects
         /// <inheritdoc />
         public IEnumerable<Entity> GetLiveEntitiesAtCoords(MapCoordinates coords, bool includeMapEntity = false)
         {
-            if (!_mapManager.TryGetMapEntity(coords.MapId, out var mapEntity))
+            if (!_mapManager.TryGetMap(coords.MapId, out var map))
                 return Enumerable.Empty<Entity>();
 
-            var entityCoords = new EntityCoordinates(mapEntity.Uid, coords.Position);
-            return GetLiveEntitiesAtCoords(entityCoords, includeMapEntity);
+            if (!map.IsInBounds(coords))
+                return Enumerable.Empty<Entity>();
+
+            var mapLookupComp = EntityManager.EnsureComponent<MapEntityLookupComponent>(map.MapEntityUid);
+
+            var ents = mapLookupComp.EntitySpatial[coords.X, coords.Y]
+                .Where(uid => EntityManager.IsAlive(uid));
+        
+            if (includeMapEntity)
+            {
+                ents = ents.Append(map.MapEntityUid);
+            }
+
+            return ents.Select(uid => EntityManager.GetEntity(uid));
         }
 
         /// <inheritdoc />
         public IEnumerable<Entity> GetLiveEntitiesAtCoords(EntityCoordinates coords, bool includeParent = false)
         {
-            if (!EntityManager.TryGetEntity(coords.EntityId, out var entity))
-                return Enumerable.Empty<Entity>();
-
-            return GetEntitiesDirectlyIn(entity, includeParent)
-                 .Where(child => (child == entity || (child.Spatial.Coordinates == coords))
-                               && child.MetaData.IsAlive);
+            return GetLiveEntitiesAtCoords(coords.ToMap(EntityManager), includeParent);
         }
 
         /// <inheritdoc />

@@ -33,6 +33,35 @@ namespace OpenNefia.Tests.Core.GameObjects.Systems
         }
 
         /// <summary>
+        /// When an entity is spawned, a PositionChangedEvent is raised.
+        /// </summary>
+        [Test]
+        public void TestRaiseMoveOnSpawnEvent()
+        {
+            var sim = SimulationFactory();
+            var entMan = sim.Resolve<IEntityManager>();
+            var map = sim.ActiveMap!;
+            var mapEnt = sim.Resolve<IMapManager>().GetMapEntity(map.Id);
+
+            var subscriber = new Subscriber();
+            int calledCount = 0;
+            var entUid = new { Uid = EntityUid.Invalid };
+            entMan.EventBus.SubscribeEvent<EntityPositionChangedEvent>(EventSource.Local, subscriber, MoveEventHandler);
+            var ent1 = entMan.SpawnEntity(null, new MapCoordinates(map.Id, Vector2i.Zero));
+
+            Assert.That(calledCount, Is.EqualTo(1));
+            Assert.That(entUid.Uid, Is.EqualTo(ent1.Uid));
+            void MoveEventHandler(ref EntityPositionChangedEvent ev)
+            {
+                calledCount++;
+                // OldPosition has the entity UID of the newly created entity.
+                entUid = entUid with { Uid = ev.OldPosition.EntityId };
+                Assert.That(ev.OldPosition.Position, Is.EqualTo(Vector2i.Zero));
+                Assert.That(ev.NewPosition, Is.EqualTo(new EntityCoordinates(mapEnt.Uid, Vector2i.Zero)));
+            }
+        }
+
+        /// <summary>
         /// When the local position of the spatial component changes, a PositionChangedEvent is raised.
         /// </summary>
         [Test]
@@ -45,8 +74,9 @@ namespace OpenNefia.Tests.Core.GameObjects.Systems
 
             var subscriber = new Subscriber();
             int calledCount = 0;
-            entMan.EventBus.SubscribeEvent<EntityPositionChangedEvent>(EventSource.Local, subscriber, MoveEventHandler);
             var ent1 = entMan.SpawnEntity(null, new MapCoordinates(map.Id, Vector2i.Zero));
+
+            entMan.EventBus.SubscribeEvent<EntityPositionChangedEvent>(EventSource.Local, subscriber, MoveEventHandler);
 
             ent1.Spatial.WorldPosition = Vector2i.One;
 

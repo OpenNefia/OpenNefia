@@ -1,4 +1,5 @@
 ﻿using OpenNefia.Core.IoC;
+using OpenNefia.Core.Log;
 using OpenNefia.Core.Maps;
 using OpenNefia.Core.Maths;
 
@@ -19,6 +20,7 @@ namespace OpenNefia.Core.GameObjects
             SubscribeLocalEvent<SpatialComponent, EntityPositionChangedEvent>(HandlePositionChanged, nameof(HandlePositionChanged));
             SubscribeLocalEvent<SpatialComponent, EntityMapInitEvent>(HandleMapInit, nameof(HandleMapInit));
             SubscribeLocalEvent<SpatialComponent, EntityLivenessChangedEvent>(HandleLivenessChanged, nameof(HandleLivenessChanged));
+            SubscribeLocalEvent<SpatialComponent, EntityTerminatingEvent>(HandleEntityTerminating, nameof(HandleEntityTerminating));
             SubscribeLocalEvent<SpatialComponent, EntityTangibilityChangedEvent>(HandleTangibilityChanged, nameof(HandleTangibilityChanged));
         }
 
@@ -30,6 +32,8 @@ namespace OpenNefia.Core.GameObjects
             var (oldMap, oldMapCoords) = args.OldPosition.ToMap(_mapManager, _entityManager);
             var (newMap, newMapCoords) = args.NewPosition.ToMap(_mapManager, _entityManager);
 
+            Logger.Warning($"Move {uid} {oldMapCoords} {newMapCoords}");
+
             if (oldMap != null)
             {
                 RemoveEntityIndex(uid, oldMapCoords);
@@ -37,7 +41,7 @@ namespace OpenNefia.Core.GameObjects
             }
             if (newMap != null)
             {
-                AddEntityIndex(uid, newMapCoords);
+                AddEntityIndex(uid, newMapCoords, spatial);
                 newMap.RefreshTileEntities(newMapCoords.Position, _lookup.GetLiveEntitiesAtCoords(newMapCoords));
             }
         }
@@ -54,9 +58,16 @@ namespace OpenNefia.Core.GameObjects
             map.RefreshTileEntities(mapPos.Position, _lookup.GetLiveEntitiesAtCoords(mapPos));
         }
 
-        private void AddEntityIndex(EntityUid entity, MapCoordinates coords)
+        private void AddEntityIndex(EntityUid entity, MapCoordinates coords, SpatialComponent spatial)
         {
+            Logger.Warning($"ADDIND {entity}");
+
             if (!_mapManager.TryGetMap(coords.MapId, out var map))
+                return;
+
+            // NOTE: Only track entities directly in the map for now.
+            // This does not track children in containers.
+            if (spatial.ParentUid != map.MapEntityUid)
                 return;
 
             if (!map.IsInBounds(coords.Position))
@@ -66,9 +77,16 @@ namespace OpenNefia.Core.GameObjects
             lookup.EntitySpatial[coords.Position.X, coords.Position.Y].Add(entity);
         }
 
-        private void RemoveEntityIndex(EntityUid entity, MapCoordinates coords)
+        private void RemoveEntityIndex(EntityUid entity, MapCoordinates coords, SpatialComponent? spatial = null)
         {
+            Logger.Warning($"REMIND {entity}");
+
             if (!_mapManager.TryGetMap(coords.MapId, out var map))
+                return;
+
+            // NOTE: Only track entities directly in the map for now.
+            // This does not track children in containers.
+            if (spatial != null && spatial.ParentUid != map.MapEntityUid)
                 return;
 
             if (!map.IsInBounds(coords.Position))
@@ -80,13 +98,15 @@ namespace OpenNefia.Core.GameObjects
 
         private void HandleMapInit(EntityUid uid, SpatialComponent spatial, ref EntityMapInitEvent args)
         {
-            AddEntityIndex(uid, spatial.MapPosition);
+            // NOTE: we do not call AddEntityIndex() here because that is handled by
+            // HandlePositionChanged, which is fired on entity spawn.
             RefreshTileOfEntity(uid, spatial);
         }
 
         private void HandleEntityTerminating(EntityUid uid, SpatialComponent spatial, ref EntityTerminatingEvent args)
         {
-            RemoveEntityIndex(uid, spatial.MapPosition);
+            Logger.Info($"TERM {uid}");
+            RemoveEntityIndex(uid, spatial.MapPosition, spatial);
             RefreshTileOfEntity(uid, spatial);
         }
 
