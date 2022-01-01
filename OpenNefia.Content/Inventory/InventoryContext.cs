@@ -89,7 +89,7 @@ namespace OpenNefia.Content.Inventory
                 {
                     Mes.Display($"How many? ({1} ~ {stack.Count})");
 
-                    var result = _uiManager.Query(new NumberPrompt(stack.Count, 1, isCancellable: true));
+                    var result = _uiManager.Query<NumberPrompt, NumberPrompt.Args, NumberPrompt.Result>(new(stack.Count, 1, isCancellable: true));
                     if (!result.HasValue)
                     {
                         return new InventoryResult.Continuing();

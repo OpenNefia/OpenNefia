@@ -26,7 +26,7 @@ namespace OpenNefia.Content.GameObjects
             SubscribeLocalEvent<DoorComponent, GetVerbsEventArgs>(HandleGetVerbs, nameof(HandleGetVerbs));
             SubscribeLocalEvent<ExecuteVerbEventArgs>(HandleExecuteVerb, nameof(HandleExecuteVerb));
             SubscribeLocalEvent<DoorComponent, DoCloseEventArgs>(HandleClose, nameof(HandleClose));
-            SubscribeLocalEvent<DoorComponent, MapInitEvent>(HandleInitialize, nameof(HandleInitialize));
+            SubscribeLocalEvent<DoorComponent, EntityMapInitEvent>(HandleInitialize, nameof(HandleInitialize));
             SubscribeLocalEvent<DoorComponent, WasCollidedWithEventArgs>(HandleCollidedWith, nameof(HandleCollidedWith));
         }
 
@@ -104,7 +104,7 @@ namespace OpenNefia.Content.GameObjects
             }
         }
 
-        private void HandleInitialize(EntityUid uid, DoorComponent door, ref MapInitEvent args)
+        private void HandleInitialize(EntityUid uid, DoorComponent door, ref EntityMapInitEvent args)
         {
             SetOpen(uid, door.IsOpen, door);
         }

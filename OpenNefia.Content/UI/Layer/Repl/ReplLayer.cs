@@ -17,7 +17,7 @@ using Color = OpenNefia.Core.Maths.Color;
 
 namespace OpenNefia.Content.UI.Layer.Repl
 {
-    public interface IReplLayer : IUiLayerWithResult<UiNoResult>
+    public interface IReplLayer : IUiLayerWithResult<UINone, UINone>
     {
         int ScrollbackSize { get; }
         FontSpec FontReplText { get; }
@@ -27,7 +27,7 @@ namespace OpenNefia.Content.UI.Layer.Repl
         void PrintText(string text, Color? color = null);
     }
 
-    public class ReplLayer : UiLayerWithResult<UiNoResult>, IReplLayer
+    public class ReplLayer : UiLayerWithResult<UINone, UINone>, IReplLayer
     {
         [Dependency] private readonly IFieldLayer _field = default!;
         [Dependency] private readonly IReflectionManager _reflectionManager = default!;
@@ -511,7 +511,7 @@ namespace OpenNefia.Content.UI.Layer.Repl
             }
         }
 
-        public override UiResult<UiNoResult>? GetResult()
+        public override UiResult<UINone>? GetResult()
         {
             if (!UsePullDownAnimation)
                 return base.GetResult();

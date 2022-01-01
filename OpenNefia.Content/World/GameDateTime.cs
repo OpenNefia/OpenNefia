@@ -24,6 +24,11 @@ namespace OpenNefia.Content.World
         public const long SecondsPerMonth  = 60 * 60 * 24 * 31;
         public const long SecondsPerYear   = 60 * 60 * 24 * 31 * 12;
 
+        public GameDateTime()
+        {
+            TotalSeconds = 0;
+        }
+
         public GameDateTime(int year, int month, int day, int hour = 0, int minute = 0, int second = 0)
         {
             Set(year, month, day, hour, minute, second);

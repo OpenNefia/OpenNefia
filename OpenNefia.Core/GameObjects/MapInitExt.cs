@@ -9,7 +9,7 @@ namespace OpenNefia.Core.GameObjects
     ///     Raised directed on an entity when the map is initialized.
     /// </summary>
     [EventArgsUsage(EventArgsTargets.ByRef)]
-    public struct MapInitEvent
+    public struct EntityMapInitEvent
     {
     }
 
@@ -25,7 +25,7 @@ namespace OpenNefia.Core.GameObjects
 
             meta.EntityLifeStage = EntityLifeStage.MapInitialized;
 
-            var ev = new MapInitEvent();
+            var ev = new EntityMapInitEvent();
             entMan.EventBus.RaiseLocalEvent(entity, ref ev, false);
         }
     }

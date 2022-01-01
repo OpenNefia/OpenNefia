@@ -252,6 +252,7 @@ namespace OpenNefia.Tests
             entitySystemMan.LoadExtraSystemType<EntityLookup>();
             entitySystemMan.LoadExtraSystemType<ContainerSystem>();
             entitySystemMan.LoadExtraSystemType<StackSystem>();
+            entitySystemMan.LoadExtraSystemType<MapSystem>();
 
             _systemDelegate?.Invoke(entitySystemMan);
 

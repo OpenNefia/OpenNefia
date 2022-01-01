@@ -15,10 +15,10 @@ namespace OpenNefia.Content.UI.Layer
         Failed
     }
 
-    public class ProgressBarLayer : UiLayerWithResult<UiNoResult>
+    public class ProgressBarLayer : UiLayerWithResult<IProgressableJob, UINone>
     {
-        public IProgressableJob Job { get; }
-        private IEnumerator<ProgressStep> Steps;
+        public IProgressableJob Job { get; private set; } = default!;
+        private IEnumerator<ProgressStep> Steps = default!;
         private int StepNumber = 0;
 
         private ProgressOperation _currentOperation = new();
@@ -31,13 +31,16 @@ namespace OpenNefia.Content.UI.Layer
         private IUiText TextStatus;
         private UiWindow Window;
 
-        public ProgressBarLayer(IProgressableJob job)
+        public ProgressBarLayer()
+        {
+            TextStatus = new UiText(FontListText);
+            Window = new UiWindow();
+        }
+
+        public override void Initialize(IProgressableJob job)
         {
             Job = job;
             Steps = job.GetEnumerator();
-
-            TextStatus = new UiText(FontListText);
-            Window = new UiWindow();
 
             if (AdvanceStep())
             {
@@ -91,7 +94,7 @@ namespace OpenNefia.Content.UI.Layer
         {
             if (_currentTask == null)
             {
-                Finish(new UiNoResult());
+                Finish(new UINone());
             }
             else if (_currentTask.IsCompletedSuccessfully)
             {

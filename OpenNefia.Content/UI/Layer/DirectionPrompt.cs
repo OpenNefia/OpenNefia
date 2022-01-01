@@ -20,16 +20,24 @@ using Color = OpenNefia.Core.Maths.Color;
 
 namespace OpenNefia.Content.UI.Layer
 {
-    public class DirectionPrompt : UiLayerWithResult<DirectionPrompt.Result>
+    public class DirectionPrompt : UiLayerWithResult<DirectionPrompt.Args, DirectionPrompt.Result>
     {
         [Dependency] private readonly IFieldLayer _field = default!;
-        [Dependency] private readonly IMapManager _mapManager = default!;
-        [Dependency] private readonly VisibilitySystem _visibility = default!;
-        [Dependency] private readonly TargetTextSystem _targetText = default!;
-        [Dependency] private readonly IEntityLookup _lookup = default!;
-        [Dependency] private readonly IEntityManager _entityManager = default!;
         [Dependency] private readonly ICoords _coords = default!;
 
+        public new class Args
+        {
+            public MapCoordinates Origin { get; set; }
+
+            public Args(MapCoordinates origin)
+            {
+                Origin = origin;
+            }
+
+            public Args(Entity onlooker) : this(onlooker.Spatial.MapPosition) 
+            { 
+            }
+        }
         public new class Result
         {
             public Direction Direction;
@@ -49,12 +57,8 @@ namespace OpenNefia.Content.UI.Layer
 
         private IAssetInstance AssetDirectionArrow;
 
-        public DirectionPrompt(MapCoordinates origin)
+        public DirectionPrompt()
         {
-            EntitySystem.InjectDependencies(this);
-
-            _centerCoords = origin;
-
             AssetDirectionArrow = Assets.Get(AssetPrototypeOf.DirectionArrow);
 
             OnKeyBindDown += HandleKeyBindDown;
@@ -62,8 +66,10 @@ namespace OpenNefia.Content.UI.Layer
             EventFilter = UIEventFilterMode.Pass;
         }
 
-        public DirectionPrompt(Entity onlooker) 
-            : this(onlooker.Spatial.MapPosition) { }
+        public override void Initialize(Args args)
+        {
+            _centerCoords = args.Origin;
+        }
 
         private void HandleKeyBindDown(GUIBoundKeyEventArgs args)
         {

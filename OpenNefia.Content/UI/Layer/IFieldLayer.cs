@@ -4,7 +4,7 @@ using OpenNefia.Core.UI.Layer;
 
 namespace OpenNefia.Content.UI.Layer
 {
-    public interface IFieldLayer : IUiLayerWithResult<UiNoResult>
+    public interface IFieldLayer : IUiLayerWithResult<UINone, UINone>
     {
         Camera Camera { get; }
 

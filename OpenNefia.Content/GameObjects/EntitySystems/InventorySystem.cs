@@ -1,4 +1,5 @@
-﻿using OpenNefia.Core.GameObjects;
+﻿using OpenNefia.Content.Inventory;
+using OpenNefia.Core.GameObjects;
 using System;
 using System.Collections.Generic;
 using System.Linq;

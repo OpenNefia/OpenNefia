@@ -35,7 +35,7 @@ namespace OpenNefia.Core.Maps
             var map = new Map(width, height);
             this._maps[_highestMapID] = map;
             map.Id = actualID;
-            map.MapEntityUid = RebindMapEntity(actualID);
+            RebindMapEntity(actualID, map);
 
             return map;
         }
@@ -62,14 +62,12 @@ namespace OpenNefia.Core.Maps
 
             if (mapEntityUid == null)
             {
-                mapEntityUid = RebindMapEntity(actualID);
+                RebindMapEntity(actualID, map);
             }
             else
             {
                 SetMapEntity(actualID, mapEntityUid.Value);
             }
-
-            SetMapGridIds(map, actualID, mapEntityUid.Value);
 
             return actualID;
         }
@@ -104,7 +102,7 @@ namespace OpenNefia.Core.Maps
             return actualID;
         }
 
-        private EntityUid RebindMapEntity(MapId actualID)
+        private EntityUid RebindMapEntity(MapId actualID, IMap map)
         {
             var mapComps = _entityManager.EntityQuery<MapComponent>();
 
@@ -128,9 +126,14 @@ namespace OpenNefia.Core.Maps
             {
                 var newEnt = _entityManager.CreateEntityUninitialized(null);
                 _mapEntities.Add(actualID, newEnt.Uid);
+                
+                // Make sure the map IDs are set on the map object before map component
+                // events are fired.
+                SetMapGridIds(map, actualID, newEnt.Uid);
 
                 var mapComp = newEnt.AddComponent<MapComponent>();
                 mapComp.MapId = actualID;
+
                 _entityManager.InitializeComponents(newEnt.Uid);
                 _entityManager.StartComponents(newEnt.Uid);
                 Logger.DebugS("map", $"Binding map {actualID} to entity {newEnt.Uid}");

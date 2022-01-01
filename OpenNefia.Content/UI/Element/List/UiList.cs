@@ -381,6 +381,12 @@ namespace OpenNefia.Content.UI.Element.List
             _needsUpdate = true;
         }
 
+        public void SetFrom(IEnumerable<T> items)
+        {
+            Clear();
+            AddRange(MakeDefaultList(items));
+        }
+
         public bool Contains(UiListCell<T> item) => Cells.Contains(item);
         public void CopyTo(UiListCell<T>[] array, int arrayIndex) => Cells.CopyTo(array, arrayIndex);
         public bool Remove(UiListCell<T> item)

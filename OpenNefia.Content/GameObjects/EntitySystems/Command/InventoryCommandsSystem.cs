@@ -88,8 +88,7 @@ namespace OpenNefia.Content.GameObjects
             else
             {
                 var context = new InventoryContext(player, new PickUpInventoryBehavior());
-                var layer = new InventoryLayer(context);
-                var result = _uiMgr.Query(layer);
+                var result = _uiMgr.Query<InventoryLayer, InventoryContext, InventoryResult>(context);
                 
                 if (result.HasValue && result.Value is InventoryResult.Finished finished)
                 {
@@ -121,8 +120,7 @@ namespace OpenNefia.Content.GameObjects
                 if (full.State == BoundKeyState.Down && session?.Player != null)
                 {
                     var context = new InventoryContext(session.Player.Uid, _behavior);
-                    var layer = new InventoryLayer(context);
-                    var result = _uiMgr.Query(layer);
+                    var result = _uiMgr.Query<InventoryLayer, InventoryContext, InventoryResult>(context);
 
                     if (result.HasValue)
                     {

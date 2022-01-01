@@ -45,33 +45,39 @@ namespace OpenNefia.Content.UI.Layer
         }
     }
 
-    public class PromptOptions
-    {
-        public int Width = 160;
-        public bool IsCancellable = true;
-        public string? QueryText = null;
-    }
-
-    public class Prompt<T> : UiLayerWithResult<PromptChoice<T>>
+    public class Prompt<T> : UiLayerWithResult<Prompt<T>.Args, PromptChoice<T>>
     {
         [Dependency] private readonly IGraphics _graphics = default!;
 
-        private PromptOptions Options;
+        public class Args
+        {
+            public IEnumerable<PromptChoice<T>> Choices = Enumerable.Empty<PromptChoice<T>>();
+            public int Width = 160;
+            public bool IsCancellable = true;
+            public string? QueryText = null;
+
+            public Args(IEnumerable<PromptChoice<T>> choices)
+            {
+                Choices = choices;
+            }
+
+            public Args(IEnumerable<T> choices)
+                : this(choices.Select(x => new PromptChoice<T>(x)))
+            {
+            }
+        }
 
         public UiList<PromptChoice<T>> List { get; }
         public UiTopicWindow Window { get; }
 
-        private int DefaultWidth;
+        public bool IsCancellable { get; private set; }
+        public string? QueryText { get; private set; }
+        private int DefaultWidth { get; set; }
 
-        public Prompt(IEnumerable<PromptChoice<T>> choices, PromptOptions options)
+        public Prompt()
         {
-            IoCManager.InjectDependencies(this);
-
-            List = new UiList<PromptChoice<T>>(choices);
+            List = new UiList<PromptChoice<T>>();
             Window = new UiTopicWindow(UiTopicWindow.FrameStyleKind.Zero, UiTopicWindow.WindowStyleKind.Zero);
-            Options = options;
-
-            DefaultWidth = Options.Width;
 
             AddChild(List);
 
@@ -85,41 +91,34 @@ namespace OpenNefia.Content.UI.Layer
             EventFilter = UIEventFilterMode.Pass;
         }
 
+        public override void Initialize(Args args)
+        {
+            List.SetFrom(args.Choices);
+            DefaultWidth = args.Width;
+            IsCancellable = args.IsCancellable;
+            QueryText = args.QueryText;
+        }
+
         public override void OnFocused()
         {
             base.OnFocused();
             List.GrabFocus();
         }
 
-        public Prompt(IEnumerable<PromptChoice<T>> choices)
-            : this(choices, new PromptOptions())
-        {
-        }
-
-        public Prompt(IEnumerable<T> choices, PromptOptions options)
-            : this(choices.Select(x => new PromptChoice<T>(x)), options)
-        {
-        }
-
-        public Prompt(IEnumerable<T> choices)
-            : this(choices, new PromptOptions())
-        {
-        }
-
         private void HandleKeyBindDown(GUIBoundKeyEventArgs args)
         {
             if (args.Function == EngineKeyFunctions.UICancel)
             {
-                if (Options.IsCancellable)
+                if (IsCancellable)
                     Cancel();
             }
         }
 
         public override void OnQuery()
         {
-            if (Options.QueryText != null)
+            if (QueryText != null)
             {
-                Mes.Display(Options.QueryText);
+                Mes.Display(QueryText);
             }
             Sounds.Play(Protos.Sound.Pop2);
         }

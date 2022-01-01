@@ -45,6 +45,20 @@ namespace OpenNefia.Core.UserInterface
         void UpdateLayers(FrameEventArgs frame);
         bool IsInActiveLayerList(UiLayer layer);
 
-        UiResult<T> Query<T>(IUiLayerWithResult<T> layer) where T : class;
+        UiResult<TResult> Query<TLayer, TArgs, TResult>(TArgs args)
+            where TLayer : IUiLayerWithResult<TArgs, TResult>, new()
+            where TResult : class;
+
+        UiResult<TResult> Query<TLayer, TResult>()
+            where TLayer : IUiLayerWithResult<UINone, TResult>, new()
+            where TResult : class;
+
+        UiResult<UINone> Query<TLayer, TArgs>(TArgs args)
+            where TLayer : IUiLayerWithResult<TArgs, UINone>, new();
+
+        UiResult<UINone> Query<TLayer>()
+            where TLayer : IUiLayerWithResult<UINone, UINone>, new();
+
+        UiResult<TResult> Query<TArgs, TResult>(IUiLayerWithResult<TArgs, TResult> layer) where TResult : class;
     }
 }

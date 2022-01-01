@@ -1,4 +1,5 @@
-﻿using OpenNefia.Core.UI.Layer;
+﻿using OpenNefia.Core.UI;
+using OpenNefia.Core.UI.Layer;
 
 namespace OpenNefia.Content.TitleScreen
 {
@@ -11,7 +12,7 @@ namespace OpenNefia.Content.TitleScreen
 
     public record TitleScreenResult(TitleScreenAction Action);
 
-    public interface ITitleScreenLayer : IUiLayerWithResult<TitleScreenResult>
+    public interface ITitleScreenLayer : IUiLayerWithResult<UINone, TitleScreenResult>
     {
     }
 }

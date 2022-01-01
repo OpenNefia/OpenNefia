@@ -74,8 +74,7 @@ namespace OpenNefia.Content.GameObjects
             if (!_mapManager.TryGetMap(sourceEntity.Spatial.MapID, out var map))
                 return;
 
-            var prompt = new PositionPrompt(sourceEntity);
-            var posResult = _uiManager.Query(prompt);
+            var posResult = _uiManager.Query<PositionPrompt, PositionPrompt.Args, PositionPrompt.Result>(new(sourceEntity));
             if (!posResult.HasValue)
             {
                 args.Handle(TurnResult.Aborted);

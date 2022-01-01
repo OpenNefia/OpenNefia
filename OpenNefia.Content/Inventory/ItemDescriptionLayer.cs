@@ -17,9 +17,10 @@ using OpenNefia.Content.UI;
 
 namespace OpenNefia.Content.Inventory
 {
-    public class ItemDescriptionLayer : UiLayerWithResult<UiNoResult>
+    public class ItemDescriptionLayer : UiLayerWithResult<EntityUid, UINone>
     {
         [Dependency] private readonly ItemDescriptionSystem _itemDescSystem = default!;
+        [Dependency] private readonly DisplayNameSystem _displayNames = default!;
 
         private EntityUid _item;
 
@@ -33,21 +34,21 @@ namespace OpenNefia.Content.Inventory
         private readonly List<ItemDescriptionEntry> _rawEntries = new();
         private readonly List<ItemDescriptionEntry> _wrappedEntries = new();
 
-        public ItemDescriptionLayer(EntityUid item)
+        public ItemDescriptionLayer()
         {
-            EntitySystem.InjectDependencies(this);
-
             AssetEnchantmentIcons = Assets.Get(AssetPrototypeOf.EnchantmentIcons);
             AssetInheritanceIcon = Assets.Get(AssetPrototypeOf.InheritanceIcon);
-
-            _item = item;
-
-            TextTopicItemName.Text = DisplayNameSystem.GetDisplayName(_item);
 
             CanControlFocus = true;
             OnKeyBindDown += HandleKeyBindDown;
 
             GetDescription();
+        }
+
+        public override void Initialize(EntityUid item)
+        {
+            _item = item;
+            TextTopicItemName.Text = _displayNames.GetDisplayNameInner(_item);
         }
 
         private void HandleKeyBindDown(GUIBoundKeyEventArgs obj)
@@ -58,7 +59,7 @@ namespace OpenNefia.Content.Inventory
             }
             else if (obj.Function == EngineKeyFunctions.UISelect)
             {
-                Finish(new UiNoResult());
+                Finish(new UINone());
             }
         }
         
