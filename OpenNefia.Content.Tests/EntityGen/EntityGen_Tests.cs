@@ -24,14 +24,6 @@ public class EntityGen_Tests : ContentUnitTest
   components:
   - type: Spatial
   - type: EntityGenTest
-
-# Required by the engine.
-- type: Tile
-  id: Empty
-  image:
-    filepath: /Default.png
-  isSolid: false
-  isOpaque: false
 ";
     
     private static ISimulation SimulationFactory()

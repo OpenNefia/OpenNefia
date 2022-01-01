@@ -74,6 +74,14 @@ namespace OpenNefia.Tests
 
     public class GameSimulation : ISimulation, ISimulationFactory
     {
+        // Required by the engine.
+        private const string EmptyTile = @"
+- type: Tile
+  id: Empty
+  isSolid: false
+  isOpaque: false
+";
+
         private DiContainerDelegate? _diFactory;
         private CompRegistrationDelegate? _regDelegate;
         private EntitySystemRegistrationDelegate? _systemDelegate;
@@ -256,6 +264,7 @@ namespace OpenNefia.Tests
             var protoMan = container.Resolve<IPrototypeManager>();
             protoMan.RegisterType<EntityPrototype>();
             protoMan.RegisterType<TilePrototype>();
+            protoMan.LoadString(EmptyTile);
             _protoDelegate?.Invoke(protoMan);
             protoMan.Resync();
 
