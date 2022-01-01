@@ -97,7 +97,6 @@ entities:
     isIndoors: false
   - type: MapVanillaAI
     anchorCitizens: true
-    defaultCalmAction: Roam
   - type: MapCharaGen
     maxCharaCount: 45
     charaFilter: !type:CharaFilterPalmia {}

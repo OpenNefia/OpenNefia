@@ -44,8 +44,6 @@ namespace OpenNefia.Tests
                 entMan.Startup();
             }
 
-            var mapMan = IoCManager.Resolve<IMapManager>();
-
             IoCManager.Resolve<IReflectionManager>().LoadAssemblies(assemblies);
 
             var modLoader = IoCManager.Resolve<TestingModLoader>();

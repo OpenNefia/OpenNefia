@@ -37,7 +37,7 @@ namespace OpenNefia.Core.Maps
         [Dependency] private readonly IEntityManagerInternal _entityManager = default!;
         [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
 
-        public event BlueprintEntityLoadedDelegate? OnBlueprintEntityLoaded;
+        public event BlueprintEntityStartupDelegate? OnBlueprintEntityStartup;
 
         /// <inheritdoc />
         public void SaveBlueprint(MapId? mapId, ResourcePath resPath)
@@ -102,7 +102,7 @@ namespace OpenNefia.Core.Maps
             var data = new MapData(reader);
 
             var context = new MapBlueprintContext(mapId.Value, _mapManager, _tileDefinitionManager, _entityManager,
-                _prototypeManager, (YamlMappingNode)data.RootNode, OnBlueprintEntityLoaded);
+                _prototypeManager, (YamlMappingNode)data.RootNode, OnBlueprintEntityStartup);
             context.Deserialize();
             var grid = context.MapGrid!;
 
@@ -144,7 +144,7 @@ namespace OpenNefia.Core.Maps
             private IEntityManagerInternal _entityManager;
             private IPrototypeManager _prototypeManager;
 
-            private readonly BlueprintEntityLoadedDelegate? _onBlueprintEntityLoaded;
+            private readonly BlueprintEntityStartupDelegate? _onBlueprintEntityStartup;
 
             public IMap? MapGrid;
             private MapMetadata _mapMetadata = new();
@@ -208,14 +208,14 @@ namespace OpenNefia.Core.Maps
                 IEntityManagerInternal serverEntityManager,
                 IPrototypeManager prototypeManager,
                 YamlMappingNode node,
-                BlueprintEntityLoadedDelegate? onLoaded)
+                BlueprintEntityStartupDelegate? onLoaded)
             {
                 _targetMapId = targetMapId;
                 _mapManager = mapManager;
                 _tileDefinitionManager = tileDefinitionManager;
                 _entityManager = serverEntityManager;
                 _prototypeManager = prototypeManager;
-                _onBlueprintEntityLoaded = onLoaded;
+                _onBlueprintEntityStartup = onLoaded;
 
                 _rootNode = node;
                 _prototypeManager = prototypeManager;
@@ -368,8 +368,6 @@ namespace OpenNefia.Core.Maps
                     }
 
                     _entityManager.FinishEntityLoad(_entityManager.GetEntity(entity), this);
-
-                    _onBlueprintEntityLoaded?.Invoke(entity);
                 }
             }
 
@@ -420,6 +418,8 @@ namespace OpenNefia.Core.Maps
                 foreach (var entity in Entities)
                 {
                     _entityManager.FinishEntityStartup(_entityManager.GetEntity(entity));
+
+                    _onBlueprintEntityStartup?.Invoke(entity);
                 }
             }
 

@@ -25,6 +25,7 @@ namespace OpenNefia.Content.VanillaAI
         private Color ColorLineEnemy = Color.Red;
         private Color ColorLineAlly = Color.Blue;
         private Color ColorLineOther = Color.LimeGreen;
+        private Color ColorLineAnchor = Color.Yellow;
 
         private IMap? _map;
         private List<DrawEntry> _entries = new();
@@ -62,17 +63,23 @@ namespace OpenNefia.Content.VanillaAI
                     || !_visibility.CanSeeEntity(_gameSession.Player.Uid!, spatial.OwnerUid))
                     continue;
 
-                var screenEntity = spatial.WorldPosition;
-                var screenDesired = ai.DestinationCoords;
+                var tileEntity = spatial.WorldPosition;
+                var tileDesired = ai.DestinationCoords;
 
-                Vector2i? screenTarget = null;
+                Vector2i? tileTarget = null;
                 if (ai.CurrentTarget != null)
                 {
                     var spatialTarget = EntityManager.GetComponent<SpatialComponent>(ai.CurrentTarget.Value);
-                    screenTarget = spatialTarget.WorldPosition;
+                    tileTarget = spatialTarget.WorldPosition;
                 }
 
-                var entry = new DrawEntry(screenEntity, screenDesired, screenTarget);
+                Vector2i? tileAnchor = null;
+                if (EntityManager.TryGetComponent<AIAnchorComponent>(spatial.OwnerUid, out var anchor)) 
+                {
+                    tileAnchor = anchor.Anchor;
+                }
+
+                var entry = new DrawEntry(tileEntity, tileDesired, tileTarget, tileAnchor);
                 _entries.Add(entry);
             }
         }
@@ -105,6 +112,17 @@ namespace OpenNefia.Content.VanillaAI
 
                     DrawTileOutline(targetOutline, ColorLineEnemy);
                 }
+
+                if (entry.AnchorPos != null)
+                {
+                    Love.Graphics.SetColor(ColorLineAnchor);
+                    var targetOutline = GetTileOutline(entry.AnchorPos.Value);
+
+                    Love.Graphics.Line((Love.Vector2)GlobalPixelPosition + entityScreenPos,
+                                       targetOutline[0] + (Love.Vector2)_coords.TileSize / 2);
+
+                    DrawTileOutline(targetOutline, ColorLineAnchor);
+                }
             }
         }
 
@@ -133,16 +151,18 @@ namespace OpenNefia.Content.VanillaAI
 
         private class DrawEntry
         {
-            public DrawEntry(Vector2i entityPos, Vector2i desiredPos, Vector2i? targetPos)
+            public DrawEntry(Vector2i entityPos, Vector2i desiredPos, Vector2i? targetPos, Vector2i? anchorPos)
             {
                 EntityPos = entityPos;
                 DesiredPos = desiredPos;
                 TargetPos = targetPos;
+                AnchorPos = anchorPos;
             }
 
             public Vector2i EntityPos { get; }
             public Vector2i DesiredPos { get; }
             public Vector2i? TargetPos { get; }
+            public Vector2i? AnchorPos { get; }
         }
     }
 }

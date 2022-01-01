@@ -13,10 +13,11 @@ namespace OpenNefia.Content.VanillaAI
     {
         public override string Name => "MapVanillaAI";
 
+        /// <summary>
+        /// If true, automatically anchors characters generated in this map 
+        /// that have the calm AI action <see cref="VanillaAICalmAction.Dull"/>.
+        /// </summary>
         [DataField]
         public bool AnchorCitizens { get; set; } = false;
-
-        [DataField]
-        public VanillaAICalmAction DefaultCalmAction { get; set; } = VanillaAICalmAction.None;
     }
 }

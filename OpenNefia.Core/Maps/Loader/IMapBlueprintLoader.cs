@@ -3,7 +3,7 @@ using OpenNefia.Core.Utility;
 
 namespace OpenNefia.Core.Maps
 {
-    public delegate void BlueprintEntityLoadedDelegate(EntityUid entity);
+    public delegate void BlueprintEntityStartupDelegate(EntityUid entity);
 
     /// <summary>
     /// Interface for loading and saving map blueprints, which are human-readable
@@ -11,7 +11,7 @@ namespace OpenNefia.Core.Maps
     /// </summary>
     public interface IMapBlueprintLoader
     {
-        public event BlueprintEntityLoadedDelegate OnBlueprintEntityLoaded;
+        public event BlueprintEntityStartupDelegate OnBlueprintEntityStartup;
 
         IMap LoadBlueprint(MapId? mapId, ResourcePath filepath);
         IMap LoadBlueprint(MapId? mapId, TextReader yamlStream);
