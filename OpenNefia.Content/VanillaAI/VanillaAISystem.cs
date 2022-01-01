@@ -235,6 +235,9 @@ namespace OpenNefia.Content.VanillaAI
         {
             if (FollowPlayer(entity, ai))
                 return;
+            
+            if (!_random.OneIn(5))
+                return;
 
             if (DoAICalmAction(entity, ai))
                 return;
@@ -258,9 +261,6 @@ namespace OpenNefia.Content.VanillaAI
 
         private bool DoAICalmAction(EntityUid entity, VanillaAIComponent ai)
         {
-            if (_random.OneIn(5))
-                return true;
-
             // TODO
 
             return false;
