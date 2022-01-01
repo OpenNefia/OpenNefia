@@ -12,11 +12,13 @@ namespace OpenNefia.Content.Input
         {
             var common = contexts.GetContext("common");
             common.AddFunction(ContentKeyFunctions.UIIdentify);
+            common.AddFunction(ContentKeyFunctions.DiagonalOnly);
 
             var field = contexts.GetContext("field");
             field.AddFunction(ContentKeyFunctions.Ascend);
             field.AddFunction(ContentKeyFunctions.Descend);
             field.AddFunction(ContentKeyFunctions.Activate);
+            field.AddFunction(ContentKeyFunctions.Close);
 
             field.AddFunction(ContentKeyFunctions.PickUp);
             field.AddFunction(ContentKeyFunctions.Drop);
