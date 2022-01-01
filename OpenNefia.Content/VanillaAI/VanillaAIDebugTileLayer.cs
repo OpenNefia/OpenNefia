@@ -60,7 +60,7 @@ namespace OpenNefia.Content.VanillaAI
                     continue;
 
                 var screenEntity = spatial.WorldPosition;
-                var screenDesired = ai.DesiredMovePosition;
+                var screenDesired = ai.DestinationCoords;
 
                 Vector2i? screenTarget = null;
                 if (ai.CurrentTarget != null)

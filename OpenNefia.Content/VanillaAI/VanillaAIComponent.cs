@@ -38,8 +38,11 @@ namespace OpenNefia.Content.VanillaAI
         /// <summary>
         /// Distance the AI will try to maintain when engaging a target.
         /// </summary>
+        /// <remarks>
+        /// Distance 1 should be used for melee range.
+        /// </remarks>
         [DataField("targetDistance")]
-        public int TargetDistance { get; set; }
+        public int TargetDistance { get; set; } = 1;
 
         /// <summary>
         /// Chance the AI will move towards/away from the target if it's outside 
@@ -57,12 +60,12 @@ namespace OpenNefia.Content.VanillaAI
         public int TurnsUntilMovement { get; set; }
 
         /// <summary>
-        /// Position in the current map this entity wants to move to. This position is not
-        /// necessarily adjacent to the entity.
+        /// Position in the current map this entity generally wants to move towards. 
+        /// This position is not necessarily adjacent to the entity.
         /// </summary>
         // TODO can't serialize MapCoordinates...
         [DataField]
-        public Vector2i DesiredMovePosition { get; set; }
+        public Vector2i DestinationCoords { get; set; }
 
         /// <summary>
         /// Action this entity will take if there are no hostiles.

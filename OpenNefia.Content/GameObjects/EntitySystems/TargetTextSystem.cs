@@ -64,7 +64,7 @@ namespace OpenNefia.Content.GameObjects
             if (Get<VisibilitySystem>().CanSeeEntity(target, args.Onlooker)
                 && EntityManager.TryGetComponent(args.Onlooker, out SpatialComponent? onlookerSpatial))
             {
-                onlookerSpatial.MapPosition.TryDistance(spatial.MapPosition, out var dist);
+                onlookerSpatial.MapPosition.TryDistanceTiled(spatial.MapPosition, out var dist);
                 var targetLevelText = GetTargetDangerText(args.Onlooker, target);
                 args.TargetTexts.Add("You are targeting " + _displayNames.GetDisplayNameInner(target) + " (distance " + (int)dist + ")");
                 args.TargetTexts.Add(targetLevelText);

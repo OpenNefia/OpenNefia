@@ -45,7 +45,7 @@ namespace OpenNefia.Content.Rendering
             this._chipBatch = new TileAtlasBatch(AtlasNames.Chip);
 
             var maxFrames = 0; 
-            if (_startPos.TryDistance(_endPos, out var dist)) {
+            if (_startPos.TryDistanceTiled(_endPos, out var dist)) {
                 maxFrames = (int)dist / 2 + 1;
             }
             this._counter = new FrameCounter(ConfigVars.AnimeWait, (uint)maxFrames);

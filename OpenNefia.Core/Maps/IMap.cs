@@ -47,6 +47,7 @@ namespace OpenNefia.Core.Maps
         void RefreshVisibility();
         void MemorizeAllTiles();
         bool IsInBounds(Vector2i position);
+        bool IsInBounds(MapCoordinates newCoords);
         void MemorizeTile(Vector2i position);
 
         bool CanAccess(Vector2i position);

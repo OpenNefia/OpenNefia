@@ -242,7 +242,26 @@ namespace OpenNefia.Core.Maps
         /// <param name="otherCoordinates"></param>
         /// <param name="distance"></param>
         /// <returns>True if it was possible to calculate the distance</returns>
-        public bool TryDistance(IEntityManager entityManager, EntityCoordinates otherCoordinates, out float distance)
+        public bool TryDistanceTiled(IEntityManager entityManager, EntityCoordinates otherCoordinates, out int distance)
+        {
+            if (!TryDistanceFractional(entityManager, otherCoordinates, out var distanceFractional))
+            {
+                distance = 0;
+                return false;
+            }
+
+            distance = (int)distanceFractional;
+            return true;
+        }
+
+        /// <summary>
+        ///     Tries to calculate the distance between two sets of coordinates.
+        /// </summary>
+        /// <param name="entityManager"></param>
+        /// <param name="otherCoordinates"></param>
+        /// <param name="distance"></param>
+        /// <returns>True if it was possible to calculate the distance</returns>
+        public bool TryDistanceFractional(IEntityManager entityManager, EntityCoordinates otherCoordinates, out float distance)
         {
             distance = 0f;
 
@@ -258,7 +277,7 @@ namespace OpenNefia.Core.Maps
             var mapCoordinates = ToMap(entityManager);
             var otherMapCoordinates = otherCoordinates.ToMap(entityManager);
 
-            return mapCoordinates.TryDistance(otherMapCoordinates, out distance);
+            return mapCoordinates.TryDistanceFractional(otherMapCoordinates, out distance);
         }
 
         #region IEquatable
