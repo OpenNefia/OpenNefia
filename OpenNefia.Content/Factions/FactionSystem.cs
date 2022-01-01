@@ -78,25 +78,28 @@ namespace OpenNefia.Content.Factions
             us = _partySystem.GetSupremeCommander(us)?.OwnerUid ?? us;
             them = _partySystem.GetSupremeCommander(them)?.OwnerUid ?? them;
 
-            var ourRelation = GetBaseRelation(us);
-            var theirRelation = GetBaseRelation(them);
+            // If either entity lacks a faction component, then they should be treated as neutral.
+            // This prevents the AI from targeting inanimate things like doors.
+            if (!Resolve(us, ref ourFaction, logMissing: false) || !Resolve(them, ref theirFaction, logMissing: false))
+            {
+                return Relation.Neutral;
+            }
+
+            var ourRelation = GetBaseRelation(us, ourFaction);
+            var theirRelation = GetBaseRelation(them, theirFaction);
 
             return CompareRelations(ourRelation, theirRelation);
         }
 
-        private Relation GetBaseRelation(EntityUid entity)
+        private Relation GetBaseRelation(EntityUid entity, FactionComponent faction)
         {
             if (_gameSession.IsPlayer(entity))
             {
                 return Relation.Ally;
             }
-            else if (EntityManager.TryGetComponent(entity, out FactionComponent faction))
-            {
-                return faction.RelationToPlayer;
-            }
             else
             {
-                return Relation.Neutral;
+                return faction.RelationToPlayer;
             }
         }
     }

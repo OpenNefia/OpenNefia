@@ -22,11 +22,10 @@ namespace OpenNefia.Content.VanillaAI
     {
         [Dependency] private readonly IEntityLookup _lookup = default!;
 
-        private (SpatialComponent, MoveableComponent, FactionComponent)? GetBlockingEntity(IMap map, Vector2i pos)
+        private SpatialComponent? GetBlockingEntity(IMap map, Vector2i pos)
         {
-            return _lookup.EntityQueryInMap<SpatialComponent, MoveableComponent, FactionComponent>(map.Id)
-                .Where(t => t.Item1.WorldPosition == pos)
-                .AsNullable()
+            return _lookup.EntityQueryInMap<SpatialComponent>(map.Id)
+                .Where(s => s.WorldPosition == pos && s.IsSolid)
                 .FirstOrDefault();
         }
 
@@ -54,6 +53,8 @@ namespace OpenNefia.Content.VanillaAI
                 var dir = DirectionUtility.RandomDirections().First();
                 newPos = spatial.MapPosition.Offset(dir);
             }
+
+            ai.DesiredMovePosition = newPos.Position;
 
             if (map.CanAccess(newPos))
             {
@@ -135,18 +136,11 @@ namespace OpenNefia.Content.VanillaAI
                 ai.TurnsUntilMovement--;
             }
 
-            if (map.CanAccess(ai.DesiredMovePosition))
-            {
-                _movement.MoveEntity(entity, map.AtPos(ai.DesiredMovePosition), spatial: spatial);
-                return true;
-            }
-
             var newPos = spatial.WorldPosition.Offset(spatial.WorldPosition.DirectionTowards(ai.DesiredMovePosition));
 
-            var onCell = GetBlockingEntity(map, newPos);
-            if (onCell != null)
+            var onCellSpatial = GetBlockingEntity(map, newPos);
+            if (onCellSpatial != null)
             {
-                var (onCellSpatial, onCellMoveable, onCellFaction) = onCell.Value;
                 var onCellUid = onCellSpatial.OwnerUid;
 
                 if (_factions.GetRelationTowards(entity, onCellUid) <= Relation.Enemy)
@@ -170,7 +164,7 @@ namespace OpenNefia.Content.VanillaAI
                         {
                             if (_movement.SwapPlaces(entity, onCellUid))
                             {
-                                Mes.DisplayIfLos(entity, Loc.GetString("Elona.AI.Swap.Displace", ("chara", entity), ("onCell", onCell)));
+                                Mes.DisplayIfLos(entity, Loc.GetString("Elona.AI.Swap.Displace", ("chara", entity), ("onCell", onCellUid)));
                                 // TODO activity
                             }
                         }
@@ -363,10 +357,9 @@ namespace OpenNefia.Content.VanillaAI
                     return (map.AtPos(pos), blocked);
                 }
 
-                var onCell = GetBlockingEntity(map, pos);
-                var onCellSpatial = onCell?.Item1;
+                var onCellSpatial = GetBlockingEntity(map, pos);
 
-                if (onCell != null)
+                if (onCellSpatial != null)
                 {
                     if (_factions.GetRelationTowards(entity, onCellSpatial!.OwnerUid) <= Relation.Enemy)
                     {
@@ -378,7 +371,7 @@ namespace OpenNefia.Content.VanillaAI
                     }
                 }
 
-                if (CanAccessInDirCheck(map, pos, onCellSpatial?.OwnerUid))
+                if (CanAccessInDirCheck(map, pos, onCellSpatial?.OwnerUid, ai))
                 {
                     return (map.AtPos(pos), blocked);
                 }
@@ -387,12 +380,16 @@ namespace OpenNefia.Content.VanillaAI
             return (null, blocked);
         }
 
-        private bool CanAccessInDirCheck(IMap map, Vector2i pos, EntityUid? onCell)
+        private bool CanAccessInDirCheck(IMap map, Vector2i pos, EntityUid? onCell, VanillaAIComponent ai)
         {
             // If the tile is solid, it's a no-go.
             var tile = map.GetTile(pos);
             if (tile == null || tile.Value.Tile.ResolvePrototype().IsSolid)
                 return false;
+
+            // If the thing on the cell is the target, then move towards it.
+            if (onCell != null && ai.CurrentTarget == onCell)
+                return true;
 
             // Count things like doors as passable even though they're solid.
             if (onCell != null && EntityManager.HasComponent<AICanPassThroughComponent>(onCell.Value))
