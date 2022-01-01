@@ -8,6 +8,8 @@ using OpenNefia.Core.UI.Layer;
 using OpenNefia.Core.Utility;
 using OpenNefia.Content.Prototypes;
 using OpenNefia.Content.Logic;
+using OpenNefia.Core.UI.Element;
+using OpenNefia.Core.Input;
 
 namespace OpenNefia.Content.UI.Layer
 {
@@ -68,33 +70,44 @@ namespace OpenNefia.Content.UI.Layer
             TopicWindow = new UiTopicWindow(UiTopicWindow.FrameStyleKind.Zero, UiTopicWindow.WindowStyleKind.Two);
             Text = new UiText(FontPromptText);
 
-            UpdateText();
+            OnKeyBindDown += HandleKeyBindDown;
+            CanControlFocus = true;
+            CanKeyboardFocus = true;
 
-            BindKeys();
+            UpdateText();
         }
 
-        protected virtual void BindKeys()
+        public override void OnFocused()
         {
-            //TextInput.Enabled = true;
-            //TextInput.Callback += (evt) =>
-            //{
-            //    Value = Value + evt.Text;
-            //    UpdateText();
-            //};
-            //Keybinds[CoreKeybinds.Enter] += (_) => Finish(Value);
-            //Keybinds[CoreKeybinds.Escape] += (_) =>
-            //{
-            //    if (IsCancellable)
-            //        Cancel();
-            //};
-            //Keybinds[Keys.Backspace] += (_) =>
-            //{
-            //    if (Value.Length > 0)
-            //    {
-            //        Value = Value.Remove(Value.Length - 1, 1);
-            //        UpdateText();
-            //    }
-            //};
+            base.OnFocused();
+            GrabFocus();
+        }
+
+        private void HandleKeyBindDown(GUIBoundKeyEventArgs args)
+        {
+            if (args.Function == EngineKeyFunctions.TextSubmit)
+            {
+                Finish(Value);
+            }
+            else if (args.Function == EngineKeyFunctions.TextReleaseFocus)
+            {
+                if (IsCancellable)
+                    Cancel();
+            }
+            else if (args.Function == EngineKeyFunctions.TextBackspace)
+            {
+                if (Value.Length > 0)
+                {
+                    Value = Value.Remove(Value.Length - 1, 1);
+                    UpdateText();
+                }
+            }
+        }
+
+        protected override void TextEntered(GUITextEventArgs args)
+        {
+            Value += args.AsRune;
+            UpdateText();
         }
 
         public override void OnQuery()

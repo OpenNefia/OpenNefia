@@ -56,7 +56,7 @@ namespace OpenNefia.Content.VanillaAI
 
             foreach (var (spatial, ai) in _lookup.EntityQueryInMap<SpatialComponent, VanillaAIComponent>(_map.Id))
             {
-                if (_gameSession.IsPlayer(spatial.OwnerUid))
+                if (!_entMan.IsAlive(spatial.OwnerUid) || _gameSession.IsPlayer(spatial.OwnerUid))
                     continue;
 
                 var screenEntity = spatial.WorldPosition;
@@ -121,7 +121,7 @@ namespace OpenNefia.Content.VanillaAI
 
         private void DrawTileOutline(Love.Vector2[] outline, Color color)
         {
-            Love.Graphics.SetColor(color.Lighten(0.5f).WithAlpha(128));
+            Love.Graphics.SetColor(color.Lighten(0.5f).WithAlpha(5));
             Love.Graphics.Polygon(Love.DrawMode.Fill, outline);
 
             Love.Graphics.SetColor(color);

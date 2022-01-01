@@ -53,6 +53,7 @@ namespace OpenNefia.Core.GameController
 
         public bool Startup()
         {
+            Console.OutputEncoding = EncodingHelpers.UTF8;
             SetupLogging(_logManager, () => new ConsoleLogHandler());
 
             _taskManager.Initialize();
@@ -144,6 +145,7 @@ namespace OpenNefia.Core.GameController
         private void BindWindowEvents()
         {
             _graphics.OnTextEditing += TextEditing;
+            _graphics.OnTextInput += TextInput;
             _graphics.OnMouseMoved += MouseMoved;
             _graphics.OnMousePressed += MousePressed;
             _graphics.OnMouseReleased += MouseReleased;
