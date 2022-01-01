@@ -416,7 +416,7 @@ namespace OpenNefia.Content.TurnOrder
 
         private TurnOrderState DoPlayerDied()
         {
-            //_sounds.Play(Protos.Sound.Dead1);
+            _sounds.Play(Protos.Sound.Dead1);
             _field.RefreshScreen();
 
             var ev = new PlayerDiedEventArgs();

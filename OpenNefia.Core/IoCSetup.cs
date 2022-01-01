@@ -20,7 +20,6 @@ using OpenNefia.Core.Reflection;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Core.ResourceManagement;
 using OpenNefia.Core.SaveGames;
-using OpenNefia.Core.Serialization.Instanced;
 using OpenNefia.Core.Serialization.Manager;
 using OpenNefia.Core.Timing;
 using OpenNefia.Core.UI.Layer;
@@ -86,8 +85,6 @@ namespace OpenNefia
             IoCManager.Register<IMapRenderer, MapRenderer>();
             IoCManager.Register<IMapDrawables, MapDrawables>();
             IoCManager.Register<IMusicManager, LoveMusicManager>();
-            IoCManager.Register<ISerialMapLoader, SerialMapLoader>();
-            IoCManager.Register<IInstancedSerializer, InstancedSerializer>();
             IoCManager.Register<ITimerManager, TimerManager>();
             IoCManager.Register<IMapBlueprintLoader, MapBlueprintLoader>();
             IoCManager.Register<ICommandLineController, CommandLineController>();
