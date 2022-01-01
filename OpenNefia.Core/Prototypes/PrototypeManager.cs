@@ -406,6 +406,8 @@ namespace OpenNefia.Core.Prototypes
                     }
                 }
             }
+
+            _hasEverBeenReloaded = true;
         }
 
         public void PushInheritance(Type type, string id, string child, DeserializationResult? baseResult,
