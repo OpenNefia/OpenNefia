@@ -368,6 +368,12 @@ namespace OpenNefia.Core.Maths
             return new Vector2(loveVector.X, loveVector.Y);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static implicit operator Love.Vector2(Vector2 vector)
+        {
+            return new Love.Vector2(vector.X, vector.Y);
+        }
+
         /// <summary>
         ///     Returns a string that represents the current Vector2.
         /// </summary>

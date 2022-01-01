@@ -217,7 +217,7 @@ namespace OpenNefia.Content.UI.Layer
             if (PlacingTile != null)
             {
                 var mouse = Love.Mouse.GetPosition();
-                _coords.ScreenToTile(new Vector2i((int)mouse.X - X, (int)mouse.Y - Y), out var tiledPos);
+                var tiledPos = _coords.ScreenToTile(new Vector2i((int)mouse.X - X, (int)mouse.Y - Y));
 
                 if (Map.IsInBounds(tiledPos) && Map.Tiles[tiledPos.X, tiledPos.Y].ResolvePrototype().GetStrongID() != PlacingTile)
                 {

@@ -76,7 +76,7 @@ namespace OpenNefia.Core.Audio
             if (coordinates.MapId != GameSession.ActiveMap?.Id)
                 return;
 
-            _coords.TileToScreen(coordinates.Position, out var screenPosition);
+            var screenPosition = _coords.TileToScreen(coordinates.Position);
 
             Play(prototype, screenPosition, audioParams);
         }
@@ -111,8 +111,7 @@ namespace OpenNefia.Core.Audio
             if (!Resolve(uid, ref spatial))
                 return;
 
-            _coords.TileToScreen(spatial.MapPosition.Position, out var listenerPos);
-            listenerPos += _coords.TileSize / 2;
+            var listenerPos = _coords.TileToScreen(spatial.MapPosition.Position) + _coords.TileSize / 2;
             Love.Audio.SetPosition(listenerPos.X, listenerPos.Y, 0f);
         }
     }

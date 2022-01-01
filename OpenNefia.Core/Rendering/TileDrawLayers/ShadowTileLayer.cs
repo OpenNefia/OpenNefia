@@ -5,7 +5,7 @@ using OpenNefia.Core.Maths;
 
 namespace OpenNefia.Core.Rendering.TileDrawLayers
 {
-    [RegisterTileLayer(renderAfter: new Type[1] { typeof(TileAndChipTileLayer) })]
+    [RegisterTileLayer(renderAfter: new[] { typeof(TileAndChipTileLayer) })]
     public sealed class ShadowTileLayer : BaseTileLayer
     {
         [Dependency] private readonly IAssetManager _assetManager = default!;

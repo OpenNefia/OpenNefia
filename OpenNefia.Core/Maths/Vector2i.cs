@@ -186,6 +186,11 @@ namespace OpenNefia.Core.Maths
             return new((int)vector.X, (int)vector.Y);
         }
 
+        public static explicit operator Love.Vector2(Vector2i vector)
+        {
+            return new Love.Vector2((float)vector.X, (float)vector.Y);
+        }
+
         public static implicit operator Vector2i((int x, int y) tuple)
         {
             var (x, y) = tuple;

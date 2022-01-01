@@ -15,6 +15,7 @@ namespace OpenNefia.Core.GameObjects
     /// <seealso cref="IEntitySystem"/>
     public interface IEntitySystemManager
     {
+
         /// <summary>
         /// A new entity system has been loaded into the manager.
         /// </summary>
@@ -24,6 +25,11 @@ namespace OpenNefia.Core.GameObjects
         /// An existing entity system has been unloaded from the manager.
         /// </summary>
         event EventHandler<SystemChangedArgs> SystemUnloaded;
+
+        /// <summary>
+        /// The IoC depenendencies of the entity system manager.
+        /// </summary>
+        IDependencyCollection DependencyCollection { get; }
 
         /// <summary>
         /// Get an entity system of the specified type.

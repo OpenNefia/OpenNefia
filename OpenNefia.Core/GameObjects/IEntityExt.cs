@@ -13,7 +13,7 @@ namespace OpenNefia.Core.GameObjects
     {
         public static void GetScreenPos(this Entity entity, out Vector2i screenPos)
         {
-            GameSession.Coords.TileToScreen(entity.Spatial.WorldPosition, out screenPos);
+            screenPos = GameSession.Coords.TileToScreen(entity.Spatial.WorldPosition);
         }
     }
 }

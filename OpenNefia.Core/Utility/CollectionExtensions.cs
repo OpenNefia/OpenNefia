@@ -364,5 +364,10 @@ namespace OpenNefia.Core.Utility
                     yield return itemTo;
             }
         }
+
+        public static IEnumerable<T?> AsNullable<T>(this IEnumerable<T> source) where T : struct
+        {
+            return source.Cast<T?>();
+        }
     }
 }

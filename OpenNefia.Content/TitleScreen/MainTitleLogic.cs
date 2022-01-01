@@ -11,6 +11,7 @@ using OpenNefia.Core.Utility;
 using OpenNefia.Content.Prototypes;
 using OpenNefia.Core.SaveGames;
 using OpenNefia.Core.UserInterface;
+using OpenNefia.Content.Factions;
 
 namespace OpenNefia.Content.TitleScreen
 {

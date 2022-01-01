@@ -194,10 +194,10 @@ namespace OpenNefia.Core.GameController
             _atlasManager.Initialize();
             _atlasManager.LoadAtlases();
 
+            _entityManager.Startup();
+
             _mapRenderer.Initialize();
             _mapRenderer.RegisterTileLayers();
-
-            _entityManager.Startup();
 
             _debugServer.Startup();
         }

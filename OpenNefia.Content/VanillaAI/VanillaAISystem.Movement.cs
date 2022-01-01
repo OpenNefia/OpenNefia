@@ -5,9 +5,11 @@ using OpenNefia.Core.Directions;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Locale;
+using OpenNefia.Core.Log;
 using OpenNefia.Core.Maps;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.Random;
+using OpenNefia.Core.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,6 +26,7 @@ namespace OpenNefia.Content.VanillaAI
         {
             return _lookup.EntityQueryInMap<SpatialComponent, MoveableComponent, FactionComponent>(map.Id)
                 .Where(t => t.Item1.WorldPosition == pos)
+                .AsNullable()
                 .FirstOrDefault();
         }
 
@@ -119,7 +122,7 @@ namespace OpenNefia.Content.VanillaAI
 
                 if (spatial.MapPosition.TryDistance(targetSpatial.MapPosition, out var dist))
                 {
-                    if (retreat || dist > ai.TargetDistance)
+                    if (retreat || dist < ai.TargetDistance)
                     {
                         // Move away from the target.
                         var dir = spatial.WorldPosition.DirectionTowards(targetSpatial.WorldPosition).GetOpposite();
@@ -138,8 +141,9 @@ namespace OpenNefia.Content.VanillaAI
                 return true;
             }
 
-            var onCell = GetBlockingEntity(map, ai.DesiredMovePosition);
+            var newPos = spatial.WorldPosition.Offset(spatial.WorldPosition.DirectionTowards(ai.DesiredMovePosition));
 
+            var onCell = GetBlockingEntity(map, newPos);
             if (onCell != null)
             {
                 var (onCellSpatial, onCellMoveable, onCellFaction) = onCell.Value;
@@ -179,7 +183,7 @@ namespace OpenNefia.Content.VanillaAI
                 if (EntityManager.TryGetComponent(entity, out QualityComponent? quality)
                     && quality.Quality.Buffed > Quality.Good
                     && _factions.GetRelationTowards(entity, ai.CurrentTarget!.Value) <= Relation.Hate
-                    && map.IsInBounds(ai.DesiredMovePosition))
+                    && map.IsInBounds(newPos))
                 {
                     if (_random.OneIn(4))
                     {
@@ -193,17 +197,19 @@ namespace OpenNefia.Content.VanillaAI
 
             if (result.Coords != null)
             {
+                Logger.Info($"GET MOVE {result.Coords}");
                 _movement.MoveEntity(entity, result.Coords.Value, spatial: spatial);
                 return true;
             }
 
             if (ai.TurnsUntilMovement > 0)
             {
+                Logger.Warning($"wait until movement {ai.TurnsUntilMovement}");
                 var dir = DirectionUtility.RandomDirections().First();
-                var newPos = spatial.MapPosition.Offset(dir);
-                if (map.CanAccess(newPos))
+                var newCoords = spatial.MapPosition.Offset(dir);
+                if (map.CanAccess(newCoords))
                 {
-                    _movement.MoveEntity(entity, newPos, spatial: spatial);
+                    _movement.MoveEntity(entity, newCoords, spatial: spatial);
                     return true;
                 }
             }
@@ -217,6 +223,7 @@ namespace OpenNefia.Content.VanillaAI
                 {
                     ai.TurnsUntilMovement = 6;
                 }
+                Logger.Info($"no MOVE {ai.TurnsUntilMovement}");
 
                 var dir = _random.Pick(result.AvailableDirs);
                 var offset = dir.ToIntVec() * 6;

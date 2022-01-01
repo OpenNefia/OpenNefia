@@ -39,7 +39,7 @@ namespace OpenNefia.Core.Rendering
             if (pos.MapId != GameSession.ActiveMap?.Id)
                 return;
 
-            GameSession.Coords.TileToScreen(pos.Position, out var screenPos);
+            var screenPos = GameSession.Coords.TileToScreen(pos.Position);
             drawable.ScreenLocalPos = screenPos;
             drawable.OnEnqueue();
             Active.Add(new Entry(drawable, zOrder));

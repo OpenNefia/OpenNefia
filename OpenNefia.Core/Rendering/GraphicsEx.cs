@@ -45,7 +45,7 @@ namespace OpenNefia.Core.Rendering
         public static void GetWindowTiledSize(this ICoords coords, out Vector2i windowTiledSize)
         {
             var graphics = IoCManager.Resolve<IGraphics>();
-            coords.GetTiledSize(graphics.WindowSize, out windowTiledSize);
+            windowTiledSize = coords.GetTiledSize(graphics.WindowSize);
         }
 
         public static void DrawSpriteBatch(Love.SpriteBatch batch, float x, float y, float width, float height, float rotation = 0)

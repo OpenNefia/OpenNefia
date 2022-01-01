@@ -29,6 +29,9 @@ namespace OpenNefia.Core.GameObjects
         private DependencyCollection _systemDependencyCollection = default!;
         private List<Type> _systemTypes = new();
 
+        /// <inheritdoc/>
+        public IDependencyCollection DependencyCollection => _systemDependencyCollection;
+
         private readonly List<Type> _extraLoadedTypes = new();
 
         private readonly Stopwatch _stopwatch = new();
