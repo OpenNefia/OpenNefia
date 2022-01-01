@@ -19,7 +19,7 @@ namespace OpenNefia.Core.Stats
             Buffed = buffedValue;
         }
 
-        public void Refresh()
+        public void Reset()
         {
             Buffed = Base;
         }
@@ -27,6 +27,11 @@ namespace OpenNefia.Core.Stats
         public static implicit operator T(Stat<T> stat)
         {
             return stat.Base;
+        }
+
+        public static implicit operator Stat<T>(T value)
+        {
+            return new(value);
         }
     }
 }

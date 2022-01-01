@@ -23,6 +23,7 @@
   - type: Chara
     class: Slime
   - type: Skills
+  - type: Spells
   - type: Faction
   - type: Weight
   - type: Inventory
