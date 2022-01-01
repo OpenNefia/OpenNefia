@@ -35,7 +35,7 @@ namespace OpenNefia.Content.TurnOrder
         /// How many in-game turns this entity has taken across its entire lifetime.
         /// </summary>
         [DataField]
-        public int TurnsAlive { get; set; }
+        public int TotalTurnsTaken { get; set; }
 
         /// <summary>
         /// The entity's current speed.

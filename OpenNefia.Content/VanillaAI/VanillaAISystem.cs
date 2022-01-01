@@ -54,8 +54,7 @@ namespace OpenNefia.Content.VanillaAI
             if (!_mapManager.TryGetMap(spatial.MapID, out var map))
                 return TurnResult.Failed;
 
-            var relation = _factions.GetRelationTowards(entity, _gameSession.Player.Uid);
-            if (relation >= Relation.Ally)
+            if (IsAlliedWithPlayer(entity))
             {
                 DecideAllyTarget(entity, ai, spatial);
             }
@@ -76,21 +75,9 @@ namespace OpenNefia.Content.VanillaAI
                 DoTargetedAction(entity, ai, spatial);
             }
 
-            foreach (var tile in _mapRandom.GetRandomAdjacentTiles(spatial.MapPosition))
-            {
-                if (map.CanAccess(tile.Position))
-                {
-                    var result = _movement.MoveEntity(entity, tile.MapPosition, spatial: spatial);
-                    if (result != null)
-                    {
-                        return result.Value;
-                    }
-                }
-            }
-
             if (EntityManager.TryGetComponent(entity, out TurnOrderComponent turnOrder))
             {
-                if (turnOrder.TurnsAlive % 10 == 0)
+                if (turnOrder.TotalTurnsTaken % 10 == 1)
                 {
                     SearchForTarget(entity, map, ai, spatial);
                 }
@@ -130,8 +117,7 @@ namespace OpenNefia.Content.VanillaAI
                                 var (onCellSpatial, onCellMoveable, onCellFaction) = onCell.Value;
                                 var onCellUid = onCellSpatial.OwnerUid;
 
-                                if (!_gameSession.IsPlayer(onCellUid)
-                                    && !EntityManager.HasComponent<AINoTargetComponent>(onCellUid)
+                                if (!EntityManager.HasComponent<AINoTargetComponent>(onCellUid)
                                     && _factions.GetRelationTowards(entity, onCellUid) <= Relation.Enemy)
                                 {
                                     SetTarget(entity, onCellUid, 30, ai);
@@ -280,7 +266,7 @@ namespace OpenNefia.Content.VanillaAI
             SpatialComponent? spatial = null,
             AIAnchorComponent? aiAnchor = null)
         {
-            if (!Resolve(entity, ref spatial, ref aiAnchor))
+            if (!Resolve(entity, ref spatial, ref aiAnchor, logMissing: false))
                 return false;
 
             return StayNearPosition(entity, new MapCoordinates(spatial.MapID, aiAnchor.Anchor), ai);

@@ -345,7 +345,7 @@ namespace OpenNefia.Content.TurnOrder
             mapTurnComp.IsFirstTurn = false;
 
             nextInOrder.TimeThisTurn -= mapTurnComp.TurnCost;
-            nextInOrder.TurnsAlive++;
+            nextInOrder.TotalTurnsTaken++;
 
             _activeEntity = nextInOrder;
 

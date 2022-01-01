@@ -26,7 +26,7 @@ namespace OpenNefia.Content.UI.Layer
 
         public void CenterOnScreenPos(Vector2i screenPos)
         {
-            GameSession.Coords.BoundDrawPosition(screenPos, _mapSize, _parent.PixelSize, out _screenPos);
+            _screenPos = GameSession.Coords.BoundDrawPosition(screenPos, _mapSize, _parent.PixelSize);
         }
 
         public void CenterOnTilePos(Entity obj)
@@ -36,7 +36,7 @@ namespace OpenNefia.Content.UI.Layer
 
         public void CenterOnTilePos(MapCoordinates coords)
         {
-            GameSession.Coords.TileToScreen(coords.Position, out var screenPos);
+            var screenPos = GameSession.Coords.TileToScreen(coords.Position);
             CenterOnScreenPos(screenPos);
         }
 
@@ -47,13 +47,12 @@ namespace OpenNefia.Content.UI.Layer
 
         public void TileToVisibleScreen(MapCoordinates coords, out Vector2i screenPos)
         {
-            GameSession.Coords.TileToScreen(coords.Position, out screenPos);
-            screenPos += _screenPos;
+            screenPos = GameSession.Coords.TileToScreen(coords.Position) + _screenPos;
         }
 
         public void VisibleScreenToTile(Vector2i screenPos, out Vector2i tilePos)
         {
-            GameSession.Coords.ScreenToTile(screenPos - _screenPos, out tilePos);
+            tilePos = GameSession.Coords.ScreenToTile(screenPos - _screenPos);
         }
     }
 }

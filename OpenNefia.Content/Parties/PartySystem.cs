@@ -44,7 +44,7 @@ namespace OpenNefia.Content.Parties
 
         public bool IsInPlayerParty(EntityUid entity, PartyComponent? party = null)
         {
-            if (!Resolve(entity, ref party))
+            if (!Resolve(entity, ref party, logMissing: false))
                 return false;
 
             return party.Leader != null && party.Leader == _gameSession.Player?.Uid;

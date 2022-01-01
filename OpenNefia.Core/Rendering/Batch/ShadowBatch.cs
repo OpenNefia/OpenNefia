@@ -151,7 +151,7 @@ namespace OpenNefia.Core.Rendering
 
         private void UpdateTileShadow(Vector2i tilePos, ShadowTile shadow)
         {
-            _coords.TileToScreen(tilePos, out var screenPos);
+            var screenPos = _coords.TileToScreen(tilePos);
 
             if (shadow == ShadowTile.None)
                 return;

@@ -57,5 +57,10 @@ namespace OpenNefia.Tests
             str = null;
             return false;
         }
+
+        string ILocalizationFetcher.GetPrototypeString<T>(PrototypeId<T> protoId, LocaleKey key, params LocaleArg[] args)
+        {
+            return string.Empty;
+        }
     }
 }

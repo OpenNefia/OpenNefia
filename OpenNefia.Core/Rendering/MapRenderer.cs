@@ -1,4 +1,5 @@
-﻿using OpenNefia.Core.IoC;
+﻿using OpenNefia.Core.GameObjects;
+using OpenNefia.Core.IoC;
 using OpenNefia.Core.Log;
 using OpenNefia.Core.Maps;
 using OpenNefia.Core.Reflection;
@@ -16,6 +17,7 @@ namespace OpenNefia.Core.Rendering
         [Dependency] private readonly IMapDrawables _mapDrawables = default!;
         [Dependency] private readonly IReflectionManager _reflectionManager = default!;
         [Dependency] private readonly ITileAtlasManager _tileAtlasManager = default!;
+        [Dependency] private readonly IEntitySystemManager _entitySystemManager = default!;
 
         private ISawmill _sawmill = default!;
         private DependencyCollection _layerDependencyCollection = default!;
@@ -36,7 +38,7 @@ namespace OpenNefia.Core.Rendering
             _tileLayers.Clear();
             _types.Clear();
 
-            _layerDependencyCollection = new(IoCManager.Instance!);
+            _layerDependencyCollection = new(_entitySystemManager.DependencyCollection);
 
             foreach (var type in _reflectionManager.FindTypesWithAttribute<RegisterTileLayerAttribute>())
             {

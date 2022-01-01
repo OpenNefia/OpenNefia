@@ -14,29 +14,26 @@ namespace OpenNefia.Core.Rendering
         private static Vector2i _tileSize = new Vector2i(TILE_SIZE, TILE_SIZE);
         public Vector2i TileSize => _tileSize;
 
-        public void GetTiledSize(Vector2i screenSize, out Vector2i tiledSize)
+        public Vector2i GetTiledSize(Vector2i screenSize)
         {
-            tiledSize.X = (screenSize.X / TileSize.X);
-            tiledSize.Y = (screenSize.Y / TileSize.Y);
+            return screenSize / TileSize;
         }
 
-        public void TileToScreen(Vector2i tilePos, out Vector2i screenPos)
+        public Vector2i TileToScreen(Vector2i tilePos)
         {
-            screenPos.X = ((tilePos.X - tilePos.Y) * (TILE_SIZE / 2) - 1) + (TILE_SIZE / 4);
-            screenPos.Y = ((tilePos.X + tilePos.Y) * (TILE_SIZE / 4) - 1);
+            return new(((tilePos.X - tilePos.Y) * (TILE_SIZE / 2) - 1) + (TILE_SIZE / 4),
+                       ((tilePos.X + tilePos.Y) * (TILE_SIZE / 4) - 1));
         }
 
-        public void ScreenToTile(Vector2i screenPos, out Vector2i tilePos)
+        public Vector2i ScreenToTile(Vector2i screenPos)
         {
             // TODO
-            tilePos.X = screenPos.X / TileSize.X;
-            tilePos.Y = screenPos.Y / TileSize.Y;
+            return screenPos / TileSize;
         }
 
-        public void BoundDrawPosition(Vector2i screenPos, Vector2i tiledSize, Vector2i viewportSize, out Vector2i drawPos)
+        public Vector2i BoundDrawPosition(Vector2i screenPos, Vector2i tiledSize, Vector2i viewportSize)
         {
-            drawPos.X = screenPos.X;
-            drawPos.Y = screenPos.Y;
+            return screenPos;
         }
     }
 }

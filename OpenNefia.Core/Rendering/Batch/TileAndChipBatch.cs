@@ -192,7 +192,7 @@ namespace OpenNefia.Core.Rendering
                 var tileId = tiles[x, y];
                 if (TileAtlas.TryGetTile(tileId, out var tile))
                 {
-                    Coords.TileToScreen(new Vector2i(x, RowYIndex), out var screenPos);
+                    var screenPos = Coords.TileToScreen(new Vector2i(x, RowYIndex));
                     TileBatch.Add(tile.Quad, screenPos.X, screenPos.Y);
 
                     if (tile.HasOverhang)

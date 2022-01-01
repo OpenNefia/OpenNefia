@@ -11,7 +11,7 @@ namespace OpenNefia.Content.Factions
         /// <summary>
         /// The hostility of this entity from the standpoint of the player.
         /// </summary>
-        [DataField]
+        [DataField("relation")]
         public Relation RelationToPlayer { get; set; } = Relation.Neutral;
     }
 

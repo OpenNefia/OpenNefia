@@ -59,8 +59,8 @@ namespace OpenNefia.Core.Maps
                                     Math.Clamp(playerPos.Y - windowTiledH / 2 - 2, 0, _map.Height - windowTiledH));
             var end = new Vector2i(start.X + windowTiledW + 4, start.Y + windowTiledH + 4);
 
-            _coords.TileToScreen(start, out _ShadowPos);
-            _coords.TileToScreen(end - 1, out var shadowEnd);
+            _ShadowPos = _coords.TileToScreen(start);
+            var shadowEnd = _coords.TileToScreen(end - 1);
             _ShadowSize = shadowEnd - _ShadowPos;
 
             var fovSize = 15;

@@ -1,5 +1,6 @@
-﻿using OpenNefia.Analyzers;
+﻿using OpenNefia.Analyzers;  
 using OpenNefia.Content.Parties;
+using OpenNefia.Core.Game;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 
@@ -13,6 +14,7 @@ namespace OpenNefia.Content.Factions
     public class FactionSystem : EntitySystem, IFactionSystem
     {
         [Dependency] private readonly IPartySystem _partySystem = default!;
+        [Dependency] private readonly IGameSessionManager _gameSession = default!;
 
         public override void Initialize()
         {
@@ -76,15 +78,26 @@ namespace OpenNefia.Content.Factions
             us = _partySystem.GetSupremeCommander(us)?.OwnerUid ?? us;
             them = _partySystem.GetSupremeCommander(them)?.OwnerUid ?? them;
 
-            var ourRelation = Relation.Neutral;
-            if (Resolve(us, ref ourFaction))
-                ourRelation = ourFaction.RelationToPlayer;
-
-            var theirRelation = Relation.Neutral;
-            if (Resolve(them, ref theirFaction))
-                theirRelation = theirFaction.RelationToPlayer;
+            var ourRelation = GetBaseRelation(us);
+            var theirRelation = GetBaseRelation(them);
 
             return CompareRelations(ourRelation, theirRelation);
+        }
+
+        private Relation GetBaseRelation(EntityUid entity)
+        {
+            if (_gameSession.IsPlayer(entity))
+            {
+                return Relation.Ally;
+            }
+            else if (EntityManager.TryGetComponent(entity, out FactionComponent faction))
+            {
+                return faction.RelationToPlayer;
+            }
+            else
+            {
+                return Relation.Neutral;
+            }
         }
     }
 

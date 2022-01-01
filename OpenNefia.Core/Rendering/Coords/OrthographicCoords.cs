@@ -15,25 +15,22 @@ namespace OpenNefia.Core.Rendering
         private static Vector2i _tileSize = new Vector2i(TILE_SIZE, TILE_SIZE);
         public Vector2i TileSize => _tileSize;
 
-        public void GetTiledSize(Vector2i screenSize, out Vector2i tiledSize)
+        public Vector2i GetTiledSize(Vector2i screenSize)
         {
-            tiledSize.X = (screenSize.X / TileSize.X) + 1;
-            tiledSize.Y = (screenSize.Y / TileSize.Y) + 1;
+            return screenSize / TileSize + Vector2i.One;
         }
 
-        public void TileToScreen(Vector2i tilePos, out Vector2i screenPos)
+        public Vector2i TileToScreen(Vector2i tilePos)
         {
-            screenPos.X = tilePos.X * TileSize.X;
-            screenPos.Y = tilePos.Y * TileSize.Y;
+            return tilePos * TileSize;
         }
 
-        public void ScreenToTile(Vector2i screenPos, out Vector2i tilePos)
+        public Vector2i ScreenToTile(Vector2i screenPos)
         {
-            tilePos.X = screenPos.X / TileSize.X;
-            tilePos.Y = screenPos.Y / TileSize.Y;
+            return screenPos / TileSize;
         }
 
-        public void BoundDrawPosition(Vector2i screenPos, Vector2i tiledSize, Vector2i viewportSize, out Vector2i drawPos)
+        public Vector2i BoundDrawPosition(Vector2i screenPos, Vector2i tiledSize, Vector2i viewportSize)
         {
             var mapScreenWidth = tiledSize.X * TileSize.X;
             var mapScreenHeight = tiledSize.Y * TileSize.Y;
@@ -41,8 +38,8 @@ namespace OpenNefia.Core.Rendering
             var maxX = Math.Max(mapScreenWidth - viewportSize.X, 0);
             var maxY = Math.Max(mapScreenHeight - viewportSize.Y, 0);
 
-            drawPos.X = Math.Clamp(-screenPos.X + viewportSize.X / 2, -maxX, 0);
-            drawPos.Y = Math.Clamp(-screenPos.Y + viewportSize.Y / 2, -maxY, 0);
+            return new(Math.Clamp(-screenPos.X + viewportSize.X / 2, -maxX, 0),
+                       Math.Clamp(-screenPos.Y + viewportSize.Y / 2, -maxY, 0));
         }
     }
 }

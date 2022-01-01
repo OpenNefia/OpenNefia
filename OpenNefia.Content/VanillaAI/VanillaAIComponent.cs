@@ -46,7 +46,7 @@ namespace OpenNefia.Content.VanillaAI
         /// the <see cref="TargetDistance"/>.
         /// </summary>
         [DataField("moveChance")]
-        public float MoveChance { get; set; }
+        public float MoveChance { get; set; } = 1f;
 
         /// <summary>
         /// How many turns this entity will wait before moving again. Typically
@@ -57,7 +57,8 @@ namespace OpenNefia.Content.VanillaAI
         public int TurnsUntilMovement { get; set; }
 
         /// <summary>
-        /// Position in the current map this entity wants to move to.
+        /// Position in the current map this entity wants to move to. This position is not
+        /// necessarily adjacent to the entity.
         /// </summary>
         // TODO can't serialize MapCoordinates...
         [DataField]

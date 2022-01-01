@@ -288,6 +288,12 @@ namespace OpenNefia.Core.Maths
             return new(R, G, B, (float) newA / byte.MaxValue);
         }
 
+        public Color Lighten(float mult)
+        {
+            var (h, s, l, a) = ToHsl(this);
+            return FromHsl(new(h, s, l*mult, a));
+        }
+
         /// <summary>
         ///     Converts sRGB color values to linear RGB color values.
         /// </summary>

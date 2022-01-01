@@ -84,7 +84,7 @@ namespace OpenNefia.Core.Rendering
                         ToDraw.Add(currentBatch);
                     }
 
-                    this.Coords.TileToScreen(memory.Coords.Position, out var screenPos);
+                    var screenPos = Coords.TileToScreen(memory.Coords.Position);
 
                     var p = screenPos + memory.ScreenOffset + entry.ScrollOffset;
 
