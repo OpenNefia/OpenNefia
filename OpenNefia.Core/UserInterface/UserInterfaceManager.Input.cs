@@ -18,8 +18,6 @@ namespace OpenNefia.Core.UserInterface
         {
             var hit = MouseGetControlAndRel(pointerPosition);
 
-            ReleaseKeyboardFocus();
-
             if (hit == null)
             {
                 hitData = null;

@@ -12,6 +12,8 @@ using OpenNefia.Content.Prototypes;
 using OpenNefia.Core.SaveGames;
 using OpenNefia.Core.UserInterface;
 using OpenNefia.Content.Factions;
+using OpenNefia.Content.EntityGen;
+using static OpenNefia.Content.Prototypes.Protos;
 
 namespace OpenNefia.Content.TitleScreen
 {
@@ -91,9 +93,16 @@ namespace OpenNefia.Content.TitleScreen
             var mapId = _mapManager.GetFreeMapId();
             var map = _mapBlueprints.LoadBlueprint(mapId, new ResourcePath("/Maps/LecchoTorte/Test.yml"));
 
-            var player = _entityManager.SpawnEntity(Protos.Chara.Sailor, map.AtPos(2, 2));
+            var player = EntitySystem.Get<IEntityGen>().SpawnEntity(Protos.Chara.Sailor, map.AtPos(2, 2))!;
             player.AddComponent<PlayerComponent>();
             _gameSessionManager.Player = player;
+
+            var skills = _entityManager.EnsureComponent<SkillsComponent>(player.Uid);
+            skills.Skills[Skill.StatConstitution].Level = 100;
+            skills.Skills[Skill.StatLife].Level = 100;
+            EntitySystem.Get<IRefreshSystem>().Refresh(player.Uid);
+            EntitySystem.Get<SkillsSystem>().HealToMax(player.Uid);
+
             map.MemorizeAllTiles();
 
             return map;

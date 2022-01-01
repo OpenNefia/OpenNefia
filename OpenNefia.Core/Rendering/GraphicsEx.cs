@@ -40,6 +40,34 @@ namespace OpenNefia.Core.Rendering
             Love.Graphics.Draw(image, x, y, rotation, sx, sy, ox, oy);
         }
 
+        public static void DrawImage(Love.Quad quad, Love.Image image, float x = 0, float y = 0, float width = 0, float height = 0, bool centered = false, float rotation = 0)
+        {
+            var sx = 1f;
+            var sy = 1f;
+
+            var quadRect = quad.GetViewport();
+
+            if (width > 0)
+            {
+                sx = width / quadRect.Width;
+            }
+            if (height > 0)
+            {
+                sy = height / quadRect.Height;
+            }
+
+            var ox = 0f;
+            var oy = 0f;
+
+            if (centered)
+            {
+                ox = quadRect.Width / 2f;
+                oy = quadRect.Height / 2f;
+            }
+
+            Love.Graphics.Draw(quad, image, x, y, rotation, sx, sy, ox, oy);
+        }
+
         public static Vector2i GetViewportSize() => new Vector2i(Love.Graphics.GetWidth(), Love.Graphics.GetHeight());
 
         public static void GetWindowTiledSize(this ICoords coords, out Vector2i windowTiledSize)

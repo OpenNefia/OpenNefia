@@ -226,6 +226,7 @@ binds:
   type: State
   key: BackSpace
   canRepeat: true
+  repeatMode: None
 - function: TextSubmit
   type: State
   key: Return

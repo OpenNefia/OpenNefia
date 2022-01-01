@@ -1,4 +1,5 @@
-﻿using OpenNefia.Core.GameObjects;
+﻿using OpenNefia.Core.Game;
+using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Maps;
 
@@ -29,6 +30,7 @@ namespace OpenNefia.Content.GameObjects
     public class VisibilitySystem : EntitySystem, IVisibilitySystem
     {
         [Dependency] private readonly IMapManager _mapManager = default!;
+        [Dependency] private readonly IGameSessionManager _gameSession = default!;
 
         public bool HasLineOfSight(EntityUid onlooker, EntityUid target,
             SpatialComponent? onlookerSpatial = null,
@@ -57,7 +59,7 @@ namespace OpenNefia.Content.GameObjects
 
             // The player can't see positions that aren't in the game window
             // (same as vanilla).
-            if (EntityManager.HasComponent<PlayerComponent>(onlooker) && !map.IsInWindowFov(targetPos.Position))
+            if (_gameSession.IsPlayer(onlooker) && !map.IsInWindowFov(targetPos.Position))
                 return false;
 
             return true;
@@ -65,12 +67,18 @@ namespace OpenNefia.Content.GameObjects
 
         public bool CanSeeEntity(EntityUid onlooker, EntityUid target)
         {
-            if (!EntityManager.TryGetComponent(target, out SpatialComponent spatial))
+            if (!EntityManager.TryGetComponent(target, out SpatialComponent targetSpatial))
                 return false;
+
+            if (EntityManager.TryGetComponent(target, out MapComponent? map)
+                || EntityManager.TryGetComponent(onlooker, out map))
+            {
+                return _mapManager.ActiveMap?.Id == map.MapId;
+            }
 
             // TODO
 
-            return HasLineOfSight(target, spatial.MapPosition);
+            return HasLineOfSight(onlooker, targetSpatial.MapPosition);
         }
     }
 }

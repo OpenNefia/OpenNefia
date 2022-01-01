@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OpenNefia.Content.GameObjects.EntitySystems
+namespace OpenNefia.Content.GameObjects
 {
-    public interface IRefreshSystem
+    public interface IRefreshSystem : IEntitySystem
     {
         void Refresh(EntityUid entity);
     }

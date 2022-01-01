@@ -171,6 +171,12 @@ namespace OpenNefia.Content.VanillaAI
 
             ai.CurrentTarget = target;
             ai.Aggro = aggro;
+
+            if (target != null && EntityManager.TryGetComponent(target.Value, out SpatialComponent targetSpatial))
+            {
+                ai.TurnsUntilMovement = 0;
+                ai.DestinationCoords = targetSpatial.WorldPosition;
+            }
         }
 
         private void DoTargetedAction(EntityUid entity, VanillaAIComponent ai, SpatialComponent spatial)

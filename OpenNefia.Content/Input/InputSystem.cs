@@ -23,6 +23,7 @@ namespace OpenNefia.Content.Input
         [Dependency] protected readonly IInputManager _inputManager = default!;
         [Dependency] protected readonly IEntitySystemManager _entitySystemManager = default!;
         [Dependency] protected readonly IGameSessionManager _gameSession = default!;
+        [Dependency] protected readonly IFieldLayer _field = default!;
         [Dependency] protected readonly ITurnOrderSystem _turnOrder = default!;
 
         private readonly IPlayerCommandStates _cmdStates = new PlayerCommandStates();
@@ -44,7 +45,7 @@ namespace OpenNefia.Content.Input
         private void OnKeyBindStateChanged(ViewportBoundKeyEventArgs args)
         {
             // Doesn't make sense to run simulation keybinds if there's an active modal.
-            if (!_turnOrder.IsInGame())
+            if (!_field.IsQuerying())
             {
                 return;
             }

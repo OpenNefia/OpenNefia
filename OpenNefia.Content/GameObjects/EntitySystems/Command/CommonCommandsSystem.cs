@@ -36,7 +36,7 @@ namespace OpenNefia.Content.GameObjects
             if (_playerQuery.YesOrNo(Loc.GetString("Elona.UserInterface.Exit.Prompt.Text")))
                 _field.Cancel();
 
-            return TurnResult.Succeeded;
+            return TurnResult.Aborted;
         }
     }
 }

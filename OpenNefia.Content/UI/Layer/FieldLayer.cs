@@ -244,7 +244,7 @@ namespace OpenNefia.Content.UI.Layer
             Love.Graphics.SetColor(255, 0, 0);
 
             var player = _gameSession.Player!;
-            player.GetScreenPos(out var screenPos);
+            var screenPos = player.GetScreenPos();
             Love.Graphics.Rectangle(Love.DrawMode.Line, X + screenPos.X, Y + screenPos.Y, _coords.TileSize.X, _coords.TileSize.Y);
 
             GraphicsEx.SetFont(FontText);
