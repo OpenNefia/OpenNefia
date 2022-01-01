@@ -1,4 +1,5 @@
-﻿using OpenNefia.Core.Game;
+﻿using OpenNefia.Content.GameObjects;
+using OpenNefia.Core.Game;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Maps;
@@ -18,8 +19,8 @@ namespace OpenNefia.Content.VanillaAI
     {
         [Dependency] private readonly IEntityLookup _lookup = default!;
         [Dependency] private readonly ICoords _coords = default!;
-        [Dependency] private readonly IEntityManager _entMan = default!;
         [Dependency] private readonly IGameSessionManager _gameSession = default!;
+        [Dependency] private readonly IVisibilitySystem _visibility = default!;
 
         private Color ColorLineEnemy = Color.Red;
         private Color ColorLineAlly = Color.Blue;
@@ -56,7 +57,9 @@ namespace OpenNefia.Content.VanillaAI
 
             foreach (var (spatial, ai) in _lookup.EntityQueryInMap<SpatialComponent, VanillaAIComponent>(_map.Id))
             {
-                if (!_entMan.IsAlive(spatial.OwnerUid) || _gameSession.IsPlayer(spatial.OwnerUid))
+                if (!EntityManager.IsAlive(spatial.OwnerUid) 
+                    || _gameSession.IsPlayer(spatial.OwnerUid)
+                    || !_visibility.CanSeeEntity(_gameSession.Player.Uid!, spatial.OwnerUid))
                     continue;
 
                 var screenEntity = spatial.WorldPosition;
@@ -65,7 +68,7 @@ namespace OpenNefia.Content.VanillaAI
                 Vector2i? screenTarget = null;
                 if (ai.CurrentTarget != null)
                 {
-                    var spatialTarget = _entMan.GetComponent<SpatialComponent>(ai.CurrentTarget.Value);
+                    var spatialTarget = EntityManager.GetComponent<SpatialComponent>(ai.CurrentTarget.Value);
                     screenTarget = spatialTarget.WorldPosition;
                 }
 

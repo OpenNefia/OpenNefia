@@ -26,6 +26,7 @@ namespace OpenNefia.Content.EntityGen
     public interface IEntityGen : IEntitySystem
     {
         Entity? SpawnEntity(PrototypeId<EntityPrototype>? protoId, EntityCoordinates coordinates);
+        Entity? SpawnEntity(PrototypeId<EntityPrototype>? protoId, MapCoordinates coordinates);
     }
 
     public class EntityGenSystem : EntitySystem, IEntityGen
@@ -62,6 +63,14 @@ namespace OpenNefia.Content.EntityGen
         }
 
         public Entity? SpawnEntity(PrototypeId<EntityPrototype>? protoId, EntityCoordinates coordinates)
+        {
+            if (!coordinates.IsValid(EntityManager))
+                return null;
+
+            return SpawnEntity(protoId, coordinates.ToMap(EntityManager));
+        }
+
+        public Entity? SpawnEntity(PrototypeId<EntityPrototype>? protoId, MapCoordinates coordinates)
         {
             var ent = EntityManager.SpawnEntity(protoId, coordinates);
             if (ent == null)

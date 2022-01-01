@@ -6,6 +6,7 @@ using OpenNefia.Core.Audio;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Prototypes;
+using OpenNefia.Core.Random;
 using OpenNefia.Core.Utility;
 using System;
 using System.Collections.Generic;
@@ -19,6 +20,7 @@ namespace OpenNefia.Content.GameObjects
     {
         [Dependency] private readonly IAudioSystem _sounds = default!;
         [Dependency] private readonly IFactionSystem _factions = default!;
+        [Dependency] private readonly IRandom _random = default!;
 
         public override void Initialize()
         {
@@ -26,21 +28,39 @@ namespace OpenNefia.Content.GameObjects
             SubscribeLocalEvent<SkillsComponent, PhysicalAttackEventArgs>(HandlePhysicalAttackMain, nameof(HandlePhysicalAttackMain));
         }
 
-        private void HandlePhysicalAttackMain(EntityUid uid, SkillsComponent component, PhysicalAttackEventArgs args)
+        private void HandlePhysicalAttackMain(EntityUid uid, SkillsComponent skills, PhysicalAttackEventArgs args)
         {
             if (args.Handled)
                 return;
 
+            if (!EntityManager.TryGetComponent(args.Target, out SkillsComponent targetSkills))
+                return;
+
             Mes.Display($"{DisplayNameSystem.GetDisplayName(uid)} punches {DisplayNameSystem.GetDisplayName(args.Target)}");
-            _sounds.Play(Protos.Sound.Atk2, args.Target);
-            KillEntity(args.Target);
+
+            _sounds.Play(Protos.Sound.Atk1, args.Target);
+            targetSkills.HP--;
+            if (targetSkills.HP < 0)
+            {
+                Mes.Display($"{DisplayNameSystem.GetDisplayName(uid)} kills {DisplayNameSystem.GetDisplayName(args.Target)}!");
+                KillEntity(args.Target);
+            }
+
             args.Handled = true;
         }
+
+        private readonly PrototypeId<SoundPrototype>[] KillSounds = new[]
+        {
+            Protos.Sound.Kill1,
+            Protos.Sound.Kill2,
+        };
 
         private void KillEntity(EntityUid target, MetaDataComponent? metaData = null)
         {
             if (!Resolve(target, ref metaData))
                 return;
+
+            _sounds.Play(_random.Pick(KillSounds), target);
 
             metaData.Liveness = EntityGameLiveness.DeadAndBuried;
         }

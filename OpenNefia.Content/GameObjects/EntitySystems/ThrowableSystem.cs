@@ -33,8 +33,6 @@ namespace OpenNefia.Content.GameObjects
 
         private void HandleCharaHitByThrown(EntityUid uid, CharaComponent component, HitByThrownEntityEventArgs args)
         {
-            Mes.Display(Loc.GetString("Elona.Throwable.Hits", ("entity", uid)));
-
             args.WasHit = true;
         }
 

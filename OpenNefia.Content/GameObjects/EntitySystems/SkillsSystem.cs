@@ -1,6 +1,5 @@
 ﻿using System;
 using OpenNefia.Content.EntityGen;
-using OpenNefia.Content.GameObjects.EntitySystems;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Prototypes;
@@ -8,21 +7,39 @@ using static OpenNefia.Content.Prototypes.Protos;
 
 namespace OpenNefia.Content.GameObjects
 {
-    public class SkillsSystem : EntitySystem
+    public interface ISkillsSystem
+    {
+        void HealToMax(EntityUid uid, SkillsComponent? skills = null);
+    }
+
+    public class SkillsSystem : EntitySystem, ISkillsSystem
     {
         [Dependency] private readonly IPrototypeManager _protos = default!;
+        [Dependency] private readonly IRefreshSystem _refresh = default!;
 
         public override void Initialize()
         {
-            SubscribeLocalEvent<CharaComponent, EntityGeneratedEvent>(OnStartup, nameof(OnStartup));
-            SubscribeLocalEvent<CharaComponent, EntityGeneratedEvent>(OnStartup, nameof(OnStartup));
+            SubscribeLocalEvent<CharaComponent, EntityGeneratedEvent>(OnGenerated, nameof(OnGenerated));
             SubscribeLocalEvent<SkillsComponent, EntityRefreshEvent>(OnRefresh, nameof(OnRefresh));
         }
 
-        private void OnStartup(EntityUid uid, CharaComponent component, ref EntityGeneratedEvent args)
+        private void OnGenerated(EntityUid uid, CharaComponent chara, ref EntityGeneratedEvent args)
         {
-            InitRaceSkills(uid, component);
-            InitClassSkills(uid, component);
+            InitRaceSkills(uid, chara);
+            InitClassSkills(uid, chara);
+
+            _refresh.Refresh(uid);
+            HealToMax(uid);
+        }
+
+        public void HealToMax(EntityUid uid, SkillsComponent? skills = null)
+        {
+            if (!Resolve(uid, ref skills))
+                return;
+
+            skills.HP = skills.MaxHP;
+            skills.MP = skills.MaxHP;
+            skills.Stamina = skills.MaxStamina;
         }
 
         private void InitRaceSkills(EntityUid uid, CharaComponent chara,

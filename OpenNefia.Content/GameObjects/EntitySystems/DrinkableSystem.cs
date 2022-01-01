@@ -6,6 +6,7 @@ using OpenNefia.Content.Prototypes;
 using OpenNefia.Core.Effects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Content.DisplayName;
+using OpenNefia.Core.Locale;
 
 namespace OpenNefia.Content.GameObjects
 {
@@ -75,7 +76,7 @@ namespace OpenNefia.Content.GameObjects
 
         private void HandleImpactOther(EntityUid thrown, DrinkableComponent potionComp, ThrownEntityImpactedOtherEvent args)
         {
-            Mes.Display($"{DisplayNameSystem.GetDisplayName(thrown)} hits {DisplayNameSystem.GetDisplayName(args.ImpactedWith)}!");
+            Mes.Display(Loc.GetString("Elona.Throwable.Hits", ("entity", args.ImpactedWith)));
             _sounds.Play(Protos.Sound.Crush2, args.Coords);
 
             potionComp.Effect?.Apply(args.Thrower, args.Coords, args.ImpactedWith, potionComp.Args);

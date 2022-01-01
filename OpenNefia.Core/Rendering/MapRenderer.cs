@@ -54,8 +54,6 @@ namespace OpenNefia.Core.Rendering
                 _tileLayers.Add(layer);
             }
 
-            GetSortedLayers();
-
             if (_map != null)
             {
                 foreach (var layer in _tileLayers)

@@ -32,8 +32,13 @@ namespace OpenNefia.Core.Rendering
 
 
         public AssetDrawable(PrototypeId<AssetPrototype> proto, Color? color = null, bool centered = false, float rotation = 0f, string? regionId = null)
+            : this(Assets.Get(proto), color, centered, rotation, regionId)
         {
-            Instance = Assets.Get(proto);
+        }
+
+        public AssetDrawable(IAssetInstance instance, Color? color = null, bool centered = false, float rotation = 0f, string? regionId = null)
+        {
+            Instance = instance;
             if (color != null)
                 Color = color.Value;
             Centered = centered;
