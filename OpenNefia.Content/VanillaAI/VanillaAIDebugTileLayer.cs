@@ -1,5 +1,4 @@
-﻿using OpenNefia.Content.VanillaAI;
-using OpenNefia.Core.Game;
+﻿using OpenNefia.Core.Game;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Maps;
@@ -12,7 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OpenNefia.Content.Rendering.TileDrawLayers
+namespace OpenNefia.Content.VanillaAI
 {
     [RegisterTileLayer(renderAfter: new[] { typeof(TileAndChipTileLayer) })]
     public class VanillaAIDebugTileLayer : BaseTileLayer
@@ -84,11 +83,11 @@ namespace OpenNefia.Content.Rendering.TileDrawLayers
             foreach (var entry in _entries)
             {
                 Love.Graphics.SetColor(ColorLineOther);
-                
+
                 var entityScreenPos = (Love.Vector2)(_coords.TileToScreen(entry.EntityPos) + _coords.TileSize / 2);
                 var desiredOutline = GetTileOutline(entry.DesiredPos);
 
-                Love.Graphics.Line((Love.Vector2)GlobalPixelPosition + entityScreenPos, 
+                Love.Graphics.Line((Love.Vector2)GlobalPixelPosition + entityScreenPos,
                                    desiredOutline[0] + (Love.Vector2)_coords.TileSize / 2);
 
                 DrawTileOutline(desiredOutline, ColorLineAlly);

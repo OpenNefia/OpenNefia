@@ -110,11 +110,10 @@ namespace OpenNefia.Content.VanillaAI
 
                         if (x >= 0 && x < map.Width)
                         {
-                            var onCell = GetBlockingEntity(map, new Vector2i(x, y));
+                            var onCellSpatial = GetBlockingEntity(map, new Vector2i(x, y));
 
-                            if (onCell != null)
+                            if (onCellSpatial != null)
                             {
-                                var (onCellSpatial, onCellMoveable, onCellFaction) = onCell.Value;
                                 var onCellUid = onCellSpatial.OwnerUid;
 
                                 if (!EntityManager.HasComponent<AINoTargetComponent>(onCellUid)
@@ -303,6 +302,7 @@ namespace OpenNefia.Content.VanillaAI
             var tile = _mapRandom.GetRandomAdjacentTiles(spatial.MapPosition, onlyAccessible: true).FirstOrDefault();
             if (tile != TileRef.Empty)
             {
+                ai.DesiredMovePosition = tile.Position;
                 _movement.MoveEntity(entity, tile.MapPosition, spatial: spatial);
             }
         }
