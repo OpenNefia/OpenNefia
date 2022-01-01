@@ -118,6 +118,11 @@ namespace OpenNefia.Core.Maths
             return Angle.FromWorldVec(vec).GetCardinalDir();
         }
 
+        public static bool IsCardinal(this Direction direction)
+        {
+            return direction.ToIntVec().GetCardinalDir() == direction;
+        }
+
         public static Direction GetOpposite(this Direction direction)
         {
             return direction switch

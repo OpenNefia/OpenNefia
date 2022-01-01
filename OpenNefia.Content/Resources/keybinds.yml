@@ -83,6 +83,11 @@ binds:
 - function: Elona.Activate
   type: State
   key: Enter
+- function: Elona.Close
+  type: State
+  key: C
+  mod1: Shift
+
 - function: Elona.PickUp
   type: State
   key: G
@@ -157,6 +162,10 @@ binds:
   type: State
   key: X
   canFocus: true
+
+- function: Elona.DiagonalOnly
+  type: State
+  key: Alt
 
 - function: TextCursorLeft
   type: State

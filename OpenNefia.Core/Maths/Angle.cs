@@ -261,6 +261,15 @@ namespace OpenNefia.Core.Maths
         }
 
         /// <summary>
+        ///     Implicit conversion from Angle to float.
+        /// </summary>
+        /// <param name="angle"></param>
+        public static implicit operator float(Angle angle)
+        {
+            return (float)angle.Theta;
+        }
+
+        /// <summary>
         ///     Implicit conversion from double to Angle.
         /// </summary>
         /// <param name="theta"></param>

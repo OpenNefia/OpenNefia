@@ -1,5 +1,6 @@
 ﻿using OpenNefia.Content.GameObjects;
 using OpenNefia.Content.UI.Element;
+using OpenNefia.Core.Audio;
 using OpenNefia.Core.Game;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Input;
@@ -12,6 +13,7 @@ using OpenNefia.Core.UI.Element;
 using OpenNefia.Core.UI.Layer;
 using OpenNefia.Core.UserInterface;
 using OpenNefia.Core.Utility;
+using static OpenNefia.Content.Prototypes.Protos;
 using Color = OpenNefia.Core.Maths.Color;
 
 namespace OpenNefia.Content.UI.Layer
@@ -177,6 +179,8 @@ namespace OpenNefia.Content.UI.Layer
 
         public override void OnQuery()
         {
+            Sounds.Play(Sound.Pop2);
+
             UpdateCamera();
             UpdateTargetText();
         }

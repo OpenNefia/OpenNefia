@@ -28,26 +28,7 @@ namespace OpenNefia.Content.GameObjects
         public int UnlockDifficulty { get; set; } = 0;
 
         [DataField]
-        private bool _isOpen = false;
-        public bool IsOpen
-        {
-            get => _isOpen;
-            set
-            {
-                _isOpen = value;
-
-                if (_spatial != null)
-                {
-                    _spatial.IsSolid = !_isOpen;
-                    _spatial.IsOpaque = !_isOpen;
-                }
-
-                if (_chip != null)
-                {
-                    _chip.ChipID = _isOpen ? ChipOpen : ChipClosed;
-                }
-            }
-        }
+        public bool IsOpen { get; set; }
 
         public void FromHspFeat(int cellObjId, int param1, int param2)
         {
