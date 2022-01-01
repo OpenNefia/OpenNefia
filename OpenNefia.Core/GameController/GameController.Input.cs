@@ -24,6 +24,11 @@ namespace OpenNefia.Core.GameController
         {
         }
 
+        private void TextInput(TextEventArgs args)
+        {
+            _uiManager.TextEntered(args);
+        }
+
         private void MouseMoved(MouseMoveEventArgs args)
         {
             _uiManager.MouseMove(args);

@@ -33,8 +33,16 @@ namespace OpenNefia.Content.GameObjects
 
             Mes.Display($"{DisplayNameSystem.GetDisplayName(uid)} punches {DisplayNameSystem.GetDisplayName(args.Target)}");
             _sounds.Play(Protos.Sound.Atk2, args.Target);
-            // EntityManager.DeleteEntity(args.Target);
+            KillEntity(args.Target);
             args.Handled = true;
+        }
+
+        private void KillEntity(EntityUid target, MetaDataComponent? metaData = null)
+        {
+            if (!Resolve(target, ref metaData))
+                return;
+
+            metaData.Liveness = EntityGameLiveness.DeadAndBuried;
         }
 
         private void HandleCollideWith(EntityUid uid, MoveableComponent _, CollideWithEventArgs args)
