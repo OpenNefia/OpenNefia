@@ -44,7 +44,7 @@ namespace OpenNefia.Content.VanillaAI
 
             MapCoordinates newPos;
 
-            if (spatial.MapPosition.TryDistance(anchor, out var distance) && distance > maxDistance)
+            if (spatial.MapPosition.TryDistanceTiled(anchor, out var distance) && distance > maxDistance)
             {
                 newPos = map.AtPos(DriftTowardsPos(spatial.WorldPosition, anchor.Position));
             }
@@ -54,8 +54,6 @@ namespace OpenNefia.Content.VanillaAI
                 newPos = spatial.MapPosition.Offset(dir);
             }
 
-            ai.DesiredMovePosition = newPos.Position;
-
             if (map.CanAccess(newPos))
             {
                 _movement.MoveEntity(entity, newPos);
@@ -63,6 +61,54 @@ namespace OpenNefia.Content.VanillaAI
             }
 
             return false;
+        }
+
+        private bool GoToPresetAnchor(EntityUid entity, VanillaAIComponent ai,
+            SpatialComponent? spatial = null,
+            AIAnchorComponent? aiAnchor = null)
+        {
+            if (!Resolve(entity, ref spatial, ref aiAnchor, logMissing: false))
+                return false;
+
+            return StayNearPosition(entity, new MapCoordinates(spatial.MapID, aiAnchor.Anchor), ai);
+        }
+
+        private void Wander(EntityUid entity, VanillaAIComponent ai,
+            SpatialComponent? spatial = null)
+        {
+            if (!Resolve(entity, ref spatial))
+                return;
+
+            if (!_mapManager.TryGetMap(spatial.MapID, out var map))
+                return;
+
+            if (ai.CalmAction == VanillaAICalmAction.Roam)
+            {
+                DoWander(entity, map, ai, spatial);
+            }
+            else if (ai.CalmAction == VanillaAICalmAction.Dull)
+            {
+                if (EntityManager.TryGetComponent(entity, out AIAnchorComponent aiAnchor))
+                {
+                    GoToPresetAnchor(entity, ai, spatial, aiAnchor);
+                }
+                else
+                {
+                    DoWander(entity, map, ai, spatial);
+                }
+            }
+        }
+
+        private void DoWander(EntityUid entity, IMap map, VanillaAIComponent ai, SpatialComponent spatial)
+        {
+            foreach (var tile in _mapRandom.GetRandomAdjacentTiles(spatial.MapPosition))
+            {
+                if (tile != TileRef.Empty && map.CanAccess(tile.MapPosition))
+                {
+                    _movement.MoveEntity(entity, tile.MapPosition, spatial: spatial);
+                    return;
+                }
+            }
         }
 
         private Vector2i DriftTowardsPos(Vector2i pos, Vector2i initialPos)
@@ -119,15 +165,15 @@ namespace OpenNefia.Content.VanillaAI
 
             if (ai.TurnsUntilMovement <= 0)
             {
-                ai.DesiredMovePosition = targetSpatial.WorldPosition;
+                ai.DestinationCoords = targetSpatial.WorldPosition;
 
-                if (spatial.MapPosition.TryDistance(targetSpatial.MapPosition, out var dist))
+                if (spatial.MapPosition.TryDistanceTiled(targetSpatial.MapPosition, out var dist))
                 {
                     if (retreat || dist < ai.TargetDistance)
                     {
                         // Move away from the target.
                         var dir = spatial.WorldPosition.DirectionTowards(targetSpatial.WorldPosition).GetOpposite();
-                        ai.DesiredMovePosition = spatial.WorldPosition.Offset(dir);
+                        ai.DestinationCoords = spatial.WorldPosition.Offset(dir);
                     }
                 }
             }
@@ -136,9 +182,10 @@ namespace OpenNefia.Content.VanillaAI
                 ai.TurnsUntilMovement--;
             }
 
-            var newPos = spatial.WorldPosition.Offset(spatial.WorldPosition.DirectionTowards(ai.DesiredMovePosition));
+            var direction = spatial.WorldPosition.DirectionTowards(ai.DestinationCoords);
+            var newCoords = spatial.MapPosition.Offset(direction);
 
-            var onCellSpatial = GetBlockingEntity(map, newPos);
+            var onCellSpatial = GetBlockingEntity(map, newCoords.Position);
             if (onCellSpatial != null)
             {
                 var onCellUid = onCellSpatial.OwnerUid;
@@ -156,7 +203,7 @@ namespace OpenNefia.Content.VanillaAI
                     QualityComponent? onCellQuality = null;
                     VanillaAIComponent? onCellAi = null;
 
-                    if (Resolve(target, ref targetLevel) && Resolve(onCellUid, ref onCellLevel, ref onCellQuality, ref onCellAi))
+                    if (Resolve(target, ref targetLevel) && Resolve(onCellUid, ref onCellLevel, ref onCellQuality, ref onCellAi, logMissing: false))
                     {
                         if (onCellQuality.Quality.Buffed > Quality.Good 
                             && onCellLevel.Level > targetLevel.Level
@@ -177,7 +224,7 @@ namespace OpenNefia.Content.VanillaAI
                 if (EntityManager.TryGetComponent(entity, out QualityComponent? quality)
                     && quality.Quality.Buffed > Quality.Good
                     && _factions.GetRelationTowards(entity, ai.CurrentTarget!.Value) <= Relation.Hate
-                    && map.IsInBounds(newPos))
+                    && map.IsInBounds(newCoords))
                 {
                     if (_random.OneIn(4))
                     {
@@ -191,19 +238,22 @@ namespace OpenNefia.Content.VanillaAI
 
             if (result.Coords != null)
             {
-                Logger.Info($"GET MOVE {result.Coords}");
-                _movement.MoveEntity(entity, result.Coords.Value, spatial: spatial);
-                return true;
+                if (map.CanAccess(result.Coords.Value))
+                {
+                    Logger.Info($"GET MOVE {result.Coords}");
+                    _movement.MoveEntity(entity, result.Coords.Value, spatial: spatial);
+                    return true;
+                }
             }
 
             if (ai.TurnsUntilMovement > 0)
             {
                 Logger.Warning($"wait until movement {ai.TurnsUntilMovement}");
                 var dir = DirectionUtility.RandomDirections().First();
-                var newCoords = spatial.MapPosition.Offset(dir);
-                if (map.CanAccess(newCoords))
+                var randCoords = spatial.MapPosition.Offset(dir);
+                if (map.CanAccess(randCoords))
                 {
-                    _movement.MoveEntity(entity, newCoords, spatial: spatial);
+                    _movement.MoveEntity(entity, randCoords, spatial: spatial);
                     return true;
                 }
             }
@@ -221,7 +271,7 @@ namespace OpenNefia.Content.VanillaAI
 
                 var dir = _random.Pick(result.AvailableDirs);
                 var offset = dir.ToIntVec() * 6;
-                ai.DesiredMovePosition = spatial.WorldPosition + offset;
+                ai.DestinationCoords = spatial.WorldPosition + offset;
             }
 
             return false;
@@ -229,7 +279,7 @@ namespace OpenNefia.Content.VanillaAI
 
         private MovementResult FindPositionForMovement(EntityUid entity, IMap map, VanillaAIComponent ai, SpatialComponent spatial)
         {
-            var dir = spatial.WorldPosition.DirectionTowards(ai.DesiredMovePosition);
+            var dir = spatial.WorldPosition.DirectionTowards(ai.DestinationCoords);
             var dirVec = dir.ToIntVec();
 
             MovementResult result;
@@ -267,7 +317,7 @@ namespace OpenNefia.Content.VanillaAI
         {
             var reverse = false;
             Direction dir = Direction.East;
-            var desired = ai.DesiredMovePosition;
+            var desired = ai.DestinationCoords;
             if (desired.X > spatial.WorldPosition.X)
             {
                 if (desired.Y > spatial.WorldPosition.Y)
@@ -293,7 +343,7 @@ namespace OpenNefia.Content.VanillaAI
         {
             var reverse = false;
             Direction dir = Direction.South;
-            var desired = ai.DesiredMovePosition;
+            var desired = ai.DestinationCoords;
             if (desired.Y > spatial.WorldPosition.Y)
             {
                 if (desired.X > spatial.WorldPosition.X)
@@ -322,6 +372,8 @@ namespace OpenNefia.Content.VanillaAI
             var pos = Vector2i.Zero;
             var blocked = false;
 
+            Logger.Warning($"START {spatial.WorldPosition} {dir}");
+
             int start;
             int finish;
             if (reverse)
@@ -335,7 +387,7 @@ namespace OpenNefia.Content.VanillaAI
                 finish = 1;
             }
 
-            for (int step = start; step <= finish; step += finish)
+            for (int step = start; step != finish; step += finish)
             {
                 switch (dir)
                 {
@@ -352,8 +404,10 @@ namespace OpenNefia.Content.VanillaAI
                         pos = spatial.WorldPosition + (step, 1);
                         break;
                 }
+                Logger.Debug($"check -> {pos}");
                 if (map.CanAccess(pos))
                 {
+                    Logger.Debug("GET");
                     return (map.AtPos(pos), blocked);
                 }
 
@@ -373,10 +427,12 @@ namespace OpenNefia.Content.VanillaAI
 
                 if (CanAccessInDirCheck(map, pos, onCellSpatial?.OwnerUid, ai))
                 {
+                    Logger.Debug("GETENT");
                     return (map.AtPos(pos), blocked);
                 }
             }
 
+            Logger.Warning("none");
             return (null, blocked);
         }
 

@@ -101,6 +101,14 @@ namespace OpenNefia.Core.Maps
             return pos.X >= 0 && pos.Y >= 0 && pos.X < Width && pos.Y < Height;
         }
 
+        public bool IsInBounds(MapCoordinates coords)
+        {
+            if (coords.MapId != Id)
+                return false;
+
+            return IsInBounds(coords.Position);
+        }
+
         public void SetTile(Vector2i pos, PrototypeId<TilePrototype> tileId)
         {
             if (!IsInBounds(pos))

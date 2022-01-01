@@ -38,10 +38,14 @@ namespace OpenNefia.Content.VanillaAI
         public override void Initialize()
         {
             SubscribeLocalEvent<VanillaAIComponent, NPCTurnStartedEvent>(HandleNPCTurnStarted, nameof(HandleNPCTurnStarted));
+            SubscribeAIActions();
         }
 
         private void HandleNPCTurnStarted(EntityUid uid, VanillaAIComponent ai, ref NPCTurnStartedEvent args)
         {
+            if (args.Handled)
+                return;
+
             args.Handle(RunVanillaAI(uid, ai));
         }
 
@@ -211,7 +215,7 @@ namespace OpenNefia.Content.VanillaAI
 
             if (EntityManager.TryGetComponent(ai.CurrentTarget!.Value, out SpatialComponent targetSpatial))
             {
-                if (spatial.MapPosition.TryDistance(targetSpatial.MapPosition, out var dist)
+                if (spatial.MapPosition.TryDistanceTiled(targetSpatial.MapPosition, out var dist)
                     && dist != ai.TargetDistance
                     && _random.Prob(ai.MoveChance))
                 {
@@ -261,52 +265,6 @@ namespace OpenNefia.Content.VanillaAI
             return false;
         }
 
-        private bool GoToPresetAnchor(EntityUid entity, VanillaAIComponent ai,
-            SpatialComponent? spatial = null,
-            AIAnchorComponent? aiAnchor = null)
-        {
-            if (!Resolve(entity, ref spatial, ref aiAnchor, logMissing: false))
-                return false;
-
-            return StayNearPosition(entity, new MapCoordinates(spatial.MapID, aiAnchor.Anchor), ai);
-        }
-
-        private void Wander(EntityUid entity, VanillaAIComponent ai,
-            SpatialComponent? spatial = null)
-        {
-            if (!Resolve(entity, ref spatial))
-                return;
-
-            if (!_mapManager.TryGetMap(spatial.MapID, out var map))
-                return;
-
-            if (ai.CalmAction == VanillaAICalmAction.Roam)
-            {
-                DoWander(entity, ai, spatial);
-            }
-            else if (ai.CalmAction == VanillaAICalmAction.Dull)
-            {
-                if (EntityManager.TryGetComponent(entity, out AIAnchorComponent aiAnchor))
-                {
-                    GoToPresetAnchor(entity, ai, spatial, aiAnchor);
-                }
-                else
-                {
-                    DoWander(entity, ai, spatial);
-                }
-            }
-        }
-
-        private void DoWander(EntityUid entity, VanillaAIComponent ai, SpatialComponent spatial)
-        {
-            var tile = _mapRandom.GetRandomAdjacentTiles(spatial.MapPosition, onlyAccessible: true).FirstOrDefault();
-            if (tile != TileRef.Empty)
-            {
-                ai.DesiredMovePosition = tile.Position;
-                _movement.MoveEntity(entity, tile.MapPosition, spatial: spatial);
-            }
-        }
-
         private void DoAllyIdleAction(EntityUid entity, VanillaAIComponent ai)
         {
             // TODO
@@ -314,7 +272,31 @@ namespace OpenNefia.Content.VanillaAI
 
         private void DoBasicAction(EntityUid entity, VanillaAIComponent ai)
         {
-            // TODO
+            if (ai.CurrentTarget == null)
+            {
+                return;
+            }
+
+            var target = _parties.GetSupremeCommander(ai.CurrentTarget.Value)?.OwnerUid ?? ai.CurrentTarget.Value;
+
+            RunMeleeAction(entity, target);
+        }
+
+        private void RunMeleeAction(EntityUid entity, EntityUid target)
+        {
+            var action = EntityManager.SpawnEntity(null, new EntityCoordinates(target, Vector2i.Zero));
+            action.AddComponent<AIActionMeleeComponent>();
+
+            RunAIAction(entity, action.Uid);
+
+            EntityManager.DeleteEntity(action);
+        }
+
+        private TurnResult RunAIAction(EntityUid entity, EntityUid action)
+        {
+            var ev = new RunAIActionEvent(entity);
+            RaiseLocalEvent(action, ev);
+            return ev.TurnResult;
         }
 
         private void DecideAllyTarget(EntityUid ally, VanillaAIComponent ai, SpatialComponent spatial)

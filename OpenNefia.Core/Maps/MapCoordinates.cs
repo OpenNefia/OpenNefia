@@ -83,7 +83,25 @@ namespace OpenNefia.Core.Maps
         /// <param name="otherCoordinates"></param>
         /// <param name="distance"></param>
         /// <returns>True if it was possible to calculate the distance</returns>
-        public bool TryDistance(MapCoordinates otherCoordinates, out float distance)
+        public bool TryDistanceTiled(MapCoordinates otherCoordinates, out int distance)
+        {
+            if (!TryDistanceFractional(otherCoordinates, out var distanceFractional))
+            {
+                distance = 0;
+                return false;
+            }
+
+            distance = (int)distanceFractional;
+            return true;
+        }
+
+        /// <summary>
+        ///     Tries to calculate the distance between two sets of coordinates.
+        /// </summary>
+        /// <param name="otherCoordinates"></param>
+        /// <param name="distance"></param>
+        /// <returns>True if it was possible to calculate the distance</returns>
+        public bool TryDistanceFractional(MapCoordinates otherCoordinates, out float distance)
         {
             distance = 0f;
 
