@@ -1,6 +1,7 @@
 ﻿using CommandLine;
 using OpenNefia.Content.GameObjects;
 using OpenNefia.Content.GameObjects.Pickable;
+using OpenNefia.Content.Maps;
 using OpenNefia.Core.CommandLine;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
@@ -336,16 +337,20 @@ namespace OpenNefia.Content.CommandLine
             var mapEntityComps = new YamlSequenceNode();
             mapEntity.Add(MapBlueprintLoader.Keys.Entities_Components, mapEntityComps);
 
+            var comps = new ComponentRegistry();
             var mapComp = new MapComponent();
+
+            comps.Add(mapComp.Name, mapComp);
 
             if (idx.StairUpPos != 0)
             {
                 var pos = new Vector2i(idx.StairUpPos % 1000, idx.StairUpPos / 1000);
-                mapComp.StartLocation = new SpecificMapLocation(pos);
+                var mapStartComp = new MapStartLocationComponent()
+                {
+                    StartLocation = new SpecificMapLocation(pos)
+                };
+                comps.Add(mapStartComp.Name, mapStartComp);
             }
-
-            var comps = new ComponentRegistry();
-            comps.Add(mapComp.Name, mapComp);
 
             foreach (var (_, comp) in comps)
             {

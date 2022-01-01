@@ -1,8 +1,8 @@
 ﻿using OpenNefia.Core.Maths;
-using OpenNefia.Core.Maps;
 using OpenNefia.Core.Serialization.Manager.Attributes;
+using OpenNefia.Core.GameObjects;
 
-namespace OpenNefia.Core.GameObjects.Components
+namespace OpenNefia.Content.Maps
 {
     /// <summary>
     /// Indicates a location that can be used by <see cref="MapEdgesLocation"/>

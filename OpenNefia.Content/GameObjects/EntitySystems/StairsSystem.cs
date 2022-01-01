@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using OpenNefia.Content.Prototypes;
+using OpenNefia.Content.Maps;
 
 namespace OpenNefia.Content.GameObjects
 {

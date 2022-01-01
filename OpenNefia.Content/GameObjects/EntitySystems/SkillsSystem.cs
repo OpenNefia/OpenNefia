@@ -1,6 +1,8 @@
 ﻿using System;
+using OpenNefia.Content.EntityGen;
 using OpenNefia.Content.GameObjects.EntitySystems;
 using OpenNefia.Core.GameObjects;
+using OpenNefia.Core.IoC;
 using OpenNefia.Core.Prototypes;
 using static OpenNefia.Content.Prototypes.Protos;
 
@@ -8,15 +10,35 @@ namespace OpenNefia.Content.GameObjects
 {
     public class SkillsSystem : EntitySystem
     {
+        [Dependency] private readonly IPrototypeManager _protos = default!;
+
         public override void Initialize()
         {
-            SubscribeLocalEvent<CharaComponent, ComponentStartup>(OnStartup, nameof(OnStartup));
+            SubscribeLocalEvent<CharaComponent, EntityGeneratedEvent>(OnStartup, nameof(OnStartup));
+            SubscribeLocalEvent<CharaComponent, EntityGeneratedEvent>(OnStartup, nameof(OnStartup));
             SubscribeLocalEvent<SkillsComponent, EntityRefreshEvent>(OnRefresh, nameof(OnRefresh));
         }
 
-        private void OnStartup(EntityUid uid, CharaComponent component, ComponentStartup args)
+        private void OnStartup(EntityUid uid, CharaComponent component, ref EntityGeneratedEvent args)
         {
+            InitRaceSkills(uid, component);
             InitClassSkills(uid, component);
+        }
+
+        private void InitRaceSkills(EntityUid uid, CharaComponent chara,
+            SkillsComponent? skills = null)
+        {
+            if (!Resolve(uid, ref skills))
+                return;
+
+            foreach (var pair in _protos.Index(chara.Race).BaseSkills)
+            {
+                skills.Skills[pair.Key] = new LevelAndPotential()
+                {
+                    Level = pair.Value,
+                    Experience = 0
+                };
+            }
         }
 
         private void InitClassSkills(EntityUid uid, CharaComponent chara,
@@ -25,7 +47,7 @@ namespace OpenNefia.Content.GameObjects
             if (!Resolve(uid, ref skills))
                 return;
 
-            foreach (var pair in chara.Class.ResolvePrototype().BaseSkills)
+            foreach (var pair in _protos.Index(chara.Class).BaseSkills)
             {
                 skills.Skills[pair.Key] = new LevelAndPotential()
                 { 
@@ -74,9 +96,5 @@ namespace OpenNefia.Content.GameObjects
             // TODO traits
             skills.MaxStamina = 100 + (skills.Level(Skill.StatConstitution) + skills.Level(Skill.StatStrength)) / 5;
         }
-    }
-
-    public class CharaInitEvent : EntityEventArgs
-    {
     }
 }

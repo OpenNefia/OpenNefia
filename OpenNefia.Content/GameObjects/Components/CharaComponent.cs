@@ -15,9 +15,21 @@ namespace OpenNefia.Content.GameObjects
         [DataField]
         public bool HasFullName { get; set; } = false;
 
+        /// <summary>
+        /// Race of this character.
+        /// </summary>
+        /// <remarks>
+        /// NOTE: Do not set this manually, skills/stats/components won't be updated.
+        /// </remarks>
         [DataField(required: true)]
         public PrototypeId<RacePrototype> Race { get; set; } = default!;
 
+        /// <summary>
+        /// Class of this character.
+        /// </summary>
+        /// <remarks>
+        /// NOTE: Do not set this manually, skills/stats/components won't be updated.
+        /// </remarks>
         [DataField(required: true)]
         public PrototypeId<ClassPrototype> Class { get; set; } = default!;
 
