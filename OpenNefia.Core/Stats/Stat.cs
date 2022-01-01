@@ -4,17 +4,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OpenNefia.Content.Stats
+namespace OpenNefia.Core.Stats
 {
-    public struct ValueStat<T> where T : notnull
+    public struct Stat<T>
     {
         public T Base { get; set; }
         public T Buffed { get; set; }
 
-        public ValueStat(T @base)
+        public Stat(T baseValue) : this (baseValue, baseValue) {}
+
+        public Stat(T baseValue, T buffedValue)
         {
-            Base = @base;
-            Buffed = @base;
+            Base = baseValue;
+            Buffed = buffedValue;
         }
 
         public void Refresh()
@@ -22,7 +24,7 @@ namespace OpenNefia.Content.Stats
             Buffed = Base;
         }
 
-        public static implicit operator T(ValueStat<T> stat)
+        public static implicit operator T(Stat<T> stat)
         {
             return stat.Base;
         }

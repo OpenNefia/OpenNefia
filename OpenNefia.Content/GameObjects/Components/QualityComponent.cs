@@ -1,7 +1,7 @@
 ﻿using OpenNefia.Content.Logic;
-using OpenNefia.Content.Stats;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Serialization.Manager.Attributes;
+using OpenNefia.Core.Stats;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +16,7 @@ namespace OpenNefia.Content.GameObjects
         public override string Name => "Quality";
 
         // [DataField(required: true)]
-        public ValueStat<Quality> Quality { get; set; }
+        public Stat<Quality> Quality { get; set; }
     }
 
     public enum Quality
