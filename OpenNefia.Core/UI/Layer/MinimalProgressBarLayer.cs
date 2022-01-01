@@ -15,10 +15,10 @@ namespace OpenNefia.Core.UI.Layer
     /// <summary>
     /// This progress bar can be shown before defs are loaded.
     /// </summary>
-    public class MinimalProgressBarLayer : UiLayerWithResult<UiNoResult>
+    public class MinimalProgressBarLayer : UiLayerWithResult<IProgressableJob, UINone>
     {
-        public IProgressableJob Job { get; }
-        private IEnumerator<ProgressStep> Steps;
+        public IProgressableJob Job { get; private set; } = default!;
+        private IEnumerator<ProgressStep> Steps = default!;
 
         private Love.Text LoadingText;
         private Love.Text StatusText;
@@ -33,15 +33,18 @@ namespace OpenNefia.Core.UI.Layer
         private FontSpec FontTextLarge = new(20, 20);
         private FontSpec FontTextSmall = new(14, 14);
 
-        public MinimalProgressBarLayer(IProgressableJob job)
+        public MinimalProgressBarLayer()
+        {
+            LoadingText = Love.Graphics.NewText(FontTextLarge.LoveFont, "Now Loading...");
+            StatusText = Love.Graphics.NewText(FontTextSmall.LoveFont, string.Empty);
+        }
+
+        public override void Initialize(IProgressableJob job)
         {
             Job = job;
             Steps = job.GetEnumerator();
-            LoadingText = Love.Graphics.NewText(FontTextLarge.LoveFont, "Now Loading...");
-            StatusText = Love.Graphics.NewText(FontTextSmall.LoveFont, string.Empty);
 
             AdvanceStep();
-
         }
 
         private bool AdvanceStep()
@@ -76,7 +79,7 @@ namespace OpenNefia.Core.UI.Layer
         {
             if (_currentTask == null)
             {
-                Finish(new UiNoResult());
+                Finish(new UINone());
             }
             else if (_currentTask.IsCompletedSuccessfully)
             {

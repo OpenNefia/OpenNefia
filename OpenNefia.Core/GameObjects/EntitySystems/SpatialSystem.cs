@@ -17,7 +17,7 @@ namespace OpenNefia.Core.GameObjects
         public override void Initialize()
         {
             SubscribeLocalEvent<SpatialComponent, EntityPositionChangedEvent>(HandlePositionChanged, nameof(HandlePositionChanged));
-            SubscribeLocalEvent<SpatialComponent, MapInitEvent>(HandleMapInit, nameof(HandleMapInit));
+            SubscribeLocalEvent<SpatialComponent, EntityMapInitEvent>(HandleMapInit, nameof(HandleMapInit));
             SubscribeLocalEvent<SpatialComponent, EntityLivenessChangedEvent>(HandleLivenessChanged, nameof(HandleLivenessChanged));
             SubscribeLocalEvent<SpatialComponent, EntityTangibilityChangedEvent>(HandleTangibilityChanged, nameof(HandleTangibilityChanged));
         }
@@ -31,9 +31,15 @@ namespace OpenNefia.Core.GameObjects
             var (newMap, newMapCoords) = args.NewPosition.ToMap(_mapManager, _entityManager);
 
             if (oldMap != null)
+            {
+                RemoveEntityIndex(uid, oldMapCoords);
                 oldMap.RefreshTileEntities(oldMapCoords.Position, _lookup.GetLiveEntitiesAtCoords(oldMapCoords));
+            }
             if (newMap != null)
+            {
+                AddEntityIndex(uid, newMapCoords);
                 newMap.RefreshTileEntities(newMapCoords.Position, _lookup.GetLiveEntitiesAtCoords(newMapCoords));
+            }
         }
 
         /// <summary>
@@ -45,17 +51,42 @@ namespace OpenNefia.Core.GameObjects
                 return;
 
             var mapPos = spatial.MapPosition;
-
             map.RefreshTileEntities(mapPos.Position, _lookup.GetLiveEntitiesAtCoords(mapPos));
         }
 
-        private void HandleMapInit(EntityUid uid, SpatialComponent spatial, ref MapInitEvent args)
+        private void AddEntityIndex(EntityUid entity, MapCoordinates coords)
         {
+            if (!_mapManager.TryGetMap(coords.MapId, out var map))
+                return;
+
+            if (!map.IsInBounds(coords.Position))
+                return;
+
+            var lookup = EntityManager.EnsureComponent<MapEntityLookupComponent>(map.MapEntityUid);
+            lookup.EntitySpatial[coords.Position.X, coords.Position.Y].Add(entity);
+        }
+
+        private void RemoveEntityIndex(EntityUid entity, MapCoordinates coords)
+        {
+            if (!_mapManager.TryGetMap(coords.MapId, out var map))
+                return;
+
+            if (!map.IsInBounds(coords.Position))
+                return;
+
+            var lookup = EntityManager.EnsureComponent<MapEntityLookupComponent>(map.MapEntityUid);
+            lookup.EntitySpatial[coords.Position.X, coords.Position.Y].Remove(entity);
+        }
+
+        private void HandleMapInit(EntityUid uid, SpatialComponent spatial, ref EntityMapInitEvent args)
+        {
+            AddEntityIndex(uid, spatial.MapPosition);
             RefreshTileOfEntity(uid, spatial);
         }
 
         private void HandleEntityTerminating(EntityUid uid, SpatialComponent spatial, ref EntityTerminatingEvent args)
         {
+            RemoveEntityIndex(uid, spatial.MapPosition);
             RefreshTileOfEntity(uid, spatial);
         }
 

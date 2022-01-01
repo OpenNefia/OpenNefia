@@ -1,4 +1,5 @@
-﻿using OpenNefia.Core.UI.Element;
+﻿using OpenNefia.Core.Input;
+using OpenNefia.Core.UI.Element;
 
 namespace OpenNefia.Core.UI
 {
@@ -16,32 +17,44 @@ namespace OpenNefia.Core.UI
         {
         }
 
-        public void BindKeys(UiElement parent)
+        public void HandleKeyBindDown(GUIBoundKeyEventArgs evt)
         {
-            //parent.Keybinds[CoreKeybinds.UIUp].BindKey((state) => this.MoveUp(state), trackReleased: true);
-            //parent.Keybinds[CoreKeybinds.UIDown].BindKey((state) => this.MoveDown(state), trackReleased: true);
-            //parent.Keybinds[CoreKeybinds.UILeft].BindKey((state) => this.MoveLeft(state), trackReleased: true);
-            //parent.Keybinds[CoreKeybinds.UIRight].BindKey((state) => this.MoveRight(state), trackReleased: true);
+            if (evt.Function == EngineKeyFunctions.UIUp)
+            {
+                Up = true;
+            }
+            else if (evt.Function == EngineKeyFunctions.UIDown)
+            {
+                Down = true;
+            }
+            else if (evt.Function == EngineKeyFunctions.UILeft)
+            {
+                Left = true;
+            }
+            else if (evt.Function == EngineKeyFunctions.UIRight)
+            {
+                Right = true;
+            }
         }
 
-        private void MoveUp(GUIBoundKeyEventArgs evt)
+        public void HandleKeyBindUp(GUIBoundKeyEventArgs evt)
         {
-            this.Up = (evt.State == Input.BoundKeyState.Down);
-        }
-
-        private void MoveDown(GUIBoundKeyEventArgs evt)
-        {
-            this.Down = (evt.State == Input.BoundKeyState.Down);
-        }
-
-        private void MoveLeft(GUIBoundKeyEventArgs evt)
-        {
-            this.Left = (evt.State == Input.BoundKeyState.Down);
-        }
-
-        private void MoveRight(GUIBoundKeyEventArgs evt)
-        {
-            this.Right = (evt.State == Input.BoundKeyState.Down);
+            if (evt.Function == EngineKeyFunctions.UIUp)
+            {
+                Up = false;
+            }
+            else if (evt.Function == EngineKeyFunctions.UIDown)
+            {
+                Down = false;
+            }
+            else if (evt.Function == EngineKeyFunctions.UILeft)
+            {
+                Left = false;
+            }
+            else if (evt.Function == EngineKeyFunctions.UIRight)
+            {
+                Right = false;
+            }
         }
 
         public void GetPositionDiff(float dt, out int outDx, out int outDy)

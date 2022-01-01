@@ -4,7 +4,7 @@ using OpenNefia.Core.Serialization;
 using OpenNefia.Core.Serialization.Manager.Attributes;
 using System;
 
-namespace OpenNefia.Content.GameObjects
+namespace OpenNefia.Content.Inventory
 {
     [RegisterComponent]
     public class InventoryComponent : Component, ISerializationHooks
@@ -18,7 +18,7 @@ namespace OpenNefia.Content.GameObjects
 
         [DataField]
         public int? MaxWeight { get; set; }
-        
+
         protected override void Initialize()
         {
             base.Initialize();

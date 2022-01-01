@@ -9,19 +9,14 @@ using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.UI;
 using OpenNefia.Core.UI.Layer;
 using OpenNefia.Content.UI.Hud;
-using OpenNefia.Content.Logic;
-using OpenNefia.Content.UI.Layer.Repl;
-using OpenNefia.Core.Logic;
-using OpenNefia.Content.GameObjects;
 using OpenNefia.Content.Prototypes;
 using OpenNefia.Core.Graphics;
-using OpenNefia.Content.Inventory;
 using OpenNefia.Core.UI.Element;
 using OpenNefia.Core.Input;
 
 namespace OpenNefia.Content.UI.Layer
 {
-    public partial class FieldLayer : UiLayerWithResult<UiNoResult>, IFieldLayer
+    public partial class FieldLayer : UiLayerWithResult<UINone, UINone>, IFieldLayer
     {
         [Dependency] private readonly IMapRenderer _mapRenderer = default!;
         [Dependency] private readonly IMapManager _mapManager = default!;

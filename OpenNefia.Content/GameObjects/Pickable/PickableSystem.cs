@@ -8,9 +8,9 @@ using OpenNefia.Content.Prototypes;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Random;
 using OpenNefia.Core.Log;
-using OpenNefia.Content.GameObjects;
 using OpenNefia.Core.Locale;
 using OpenNefia.Core.Game;
+using OpenNefia.Content.Inventory;
 
 namespace OpenNefia.Content.GameObjects.Pickable
 {

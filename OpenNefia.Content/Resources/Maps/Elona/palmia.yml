@@ -88,6 +88,44 @@ entities:
 - uid: 0
   components:
   - type: Map
+  - type: Level
+    level: 1
+  - type: MapCommon
+    hspIds:
+      elona122: 15
+    music: Elona.Town4
+    isIndoors: false
+  - type: MapVanillaAI
+    anchorCitizens: true
+    defaultCalmAction: Roam
+  - type: MapCharaGen
+    maxCharaCount: 45
+    charaFilter: !type:CharaFilterPalmia {}
+  - type: MapAutogenCharas
+    amount: 25
+  - type: MapAutogenEntities
+    specs:
+    - protoId: Elona.CharaCitizen
+      amount: 5
+      components:
+      - type: RoleCitizen
+    - protoId: Elona.CharaCitizen2
+      amount: 5
+      components:
+      - type: RoleCitizen
+  - type: MapTypeTown
+    townId: 3
+  - type: MapTrainers
+    trainedSkills:
+      - Elona.GeneEngineer
+      - Elona.Literacy
+      - Elona.Anatomy
+      - Elona.Jeweler
+      - Elona.Riding
+      - Elona.Negotiation
+      - Elona.Investing
+      - Elona.Casting
+      - Elona.Alchemy
 - uid: 1
   protoId: Elona.ItemFountain
   components:
@@ -2306,6 +2344,7 @@ entities:
   - type: Spatial
     pos: 14,18
     parent: 0
+
 - uid: 284
   components:
   - type: Spatial
@@ -2320,4 +2359,283 @@ entities:
     parent: 0
   - type: MapEdgesLocation
     targetDirection: North
-...
+
+- uid: 286
+  protoId: Elona.CharaBartender
+  components:
+  - type: Spatial
+    pos: 42,27
+    parent: 0
+  - type: RoleBartender
+- uid: 287
+  protoId: Elona.CharaHealer
+  components:
+  - type: Spatial
+    pos: 34,3
+    parent: 0
+  - type: RoleHealer
+- uid: 288
+  protoId: Elona.CharaArenaMaster
+  components:
+  - type: Spatial
+    pos: 22,31
+    parent: 0
+  - type: RoleArenaMaster
+- uid: 289
+  protoId: Elona.CharaErystia
+  components:
+  - type: Spatial
+    pos: 5,15
+    parent: 0
+  - type: RoleSpecial
+- uid: 290
+  protoId: Elona.CharaMia
+  components:
+  - type: Spatial
+    pos: 41,11
+    parent: 0
+  - type: RoleSpecial
+- uid: 291
+  protoId: Elona.CharaConery
+  components:
+  - type: Spatial
+    pos: 5,6
+    parent: 0
+  - type: RoleSpecial
+- uid: 292
+  protoId: Elona.CharaCleaner
+  components:
+  - type: Spatial
+    pos: 24,6
+    parent: 0
+  - type: RoleSpecial
+- uid: 293
+  protoId: Elona.CharaCleaner
+  components:
+  - type: Spatial
+    pos: 15,22
+    parent: 0
+  - type: RoleSpecial
+- uid: 294
+  protoId: Elona.CharaBard
+  components:
+  - type: Spatial
+    pos: 15,22
+    parent: 0
+  - type: RoleSpecial
+- uid: 295 # TODO
+  protoId: Elona.CharaSilverCat
+  components:
+  - type: Spatial
+    pos: 42,11
+    parent: 0
+  - type: RoleSpecial
+- uid: 296
+  protoId: Elona.CharaShopkeeper
+  components:
+  - type: Spatial
+    pos: 48,18
+    parent: 0
+  - type: RoleShopkeeper
+    inventoryId: Elona.GeneralVendor
+    shopRank: 10
+  - type: CustomName
+    name: Elona.Chara.Job.GeneralVendor
+- uid: 297
+  protoId: Elona.CharaShopkeeper
+  components:
+  - type: Spatial
+    pos: 30,17
+    parent: 0
+  - type: RoleInnkeeper
+  - type: RoleShopkeeper
+    inventoryId: Elona.Innkeeper
+    shopRank: 8
+  - type: CustomName
+    name: Elona.Chara.Job.Innkeeper
+- uid: 298
+  protoId: Elona.CharaShopkeeper
+  components:
+  - type: Spatial
+    pos: 48,3
+    parent: 0
+  - type: RoleShopkeeper
+    inventoryId: Elona.GoodsVendor
+    shopRank: 8
+  - type: CustomName
+    name: Elona.Chara.Job.GoodsVendor
+- uid: 299
+  protoId: Elona.CharaShopkeeper
+  components:
+  - type: Spatial
+    pos: 42,17
+    parent: 0
+  - type: RoleShopkeeper
+    inventoryId: Elona.Blacksmith
+    shopRank: 12
+  - type: CustomName
+    name: Elona.Chara.Job.Blacksmith
+- uid: 300
+  protoId: Elona.CharaShopkeeper
+  components:
+  - type: Spatial
+    pos: 11,14
+    parent: 0
+  - type: RoleShopkeeper
+    inventoryId: Elona.Baker
+    shopRank: 9
+  - type: CustomName
+    name: Elona.Chara.Job.Baker
+- uid: 301
+  protoId: Elona.CharaWizard
+  components:
+  - type: Spatial
+    pos: 41,3
+    parent: 0
+  - type: RoleShopkeeper
+    inventoryId: Elona.MagicVendor
+    shopRank: 11
+  - type: CustomName
+    name: Elona.Chara.Job.MagicVendor
+- uid: 302
+  protoId: Elona.CharaShopkeeper
+  components:
+  - type: Spatial
+    pos: 41,28
+    parent: 0
+  - type: RoleShopkeeper
+    inventoryId: Elona.Trader
+    shopRank: 12
+  - type: CustomName
+    name: Elona.Chara.Job.Trader
+- uid: 303
+  protoId: Elona.CharaStersha
+  components:
+  - type: Spatial
+    pos: 7,2
+    parent: 0
+  - type: RoleRoyalFamily
+  - type: VanillaAI
+    calmAction: Stand
+- uid: 304
+  protoId: Elona.CharaXabi
+  components:
+  - type: Spatial
+    pos: 6,2
+    parent: 0
+  - type: RoleRoyalFamily
+  - type: VanillaAI
+    calmAction: Stand
+- uid: 305
+  protoId: Elona.CharaElder
+  components:
+  - type: Spatial
+    pos: 49,11
+    parent: 0
+  - type: RoleElder
+  - type: CustomName
+    name: Elona.Chara.Job.OfPalmia
+- uid: 306
+  protoId: Elona.CharaTrainer
+  components:
+  - type: Spatial
+    pos: 30,27
+    parent: 0
+  - type: RoleTrainer
+  - type: CustomName
+    name: Elona.Chara.Job.Trainer
+- uid: 307
+  protoId: Elona.CharaWizard
+  components:
+  - type: Spatial
+    pos: 32,27
+    parent: 0
+  - type: RoleIdentifier
+- uid: 308
+  protoId: Elona.CharaInformer
+  components:
+  - type: Spatial
+    pos: 29,28
+    parent: 0
+  - type: RoleInformer
+- uid: 309
+  protoId: Elona.CharaGuard
+  components:
+  - type: Spatial
+    pos: 16,5
+    parent: 0
+  - type: RoleGuard
+  - type: VanillaAI
+    calmAction: Stand
+- uid: 310
+  protoId: Elona.CharaGuard
+  components:
+  - type: Spatial
+    pos: 16,9
+    parent: 0
+  - type: RoleGuard
+  - type: VanillaAI
+    calmAction: Stand
+- uid: 311
+  protoId: Elona.CharaGuard
+  components:
+  - type: Spatial
+    pos: 5,3
+    parent: 0
+  - type: RoleGuard
+  - type: VanillaAI
+    calmAction: Stand
+- uid: 312
+  protoId: Elona.CharaGuard
+  components:
+  - type: Spatial
+    pos: 8,3
+    parent: 0
+  - type: RoleGuard
+  - type: VanillaAI
+    calmAction: Stand
+- uid: 313
+  protoId: Elona.CharaGuard
+  components:
+  - type: Spatial
+    pos: 35,14
+    parent: 0
+  - type: RoleGuard
+  - type: VanillaAI
+    calmAction: Stand
+- uid: 314
+  protoId: Elona.CharaGuard
+  components:
+  - type: Spatial
+    pos: 38,14
+    parent: 0
+  - type: RoleGuard
+  - type: VanillaAI
+    calmAction: Stand
+- uid: 315
+  protoId: Elona.CharaGuard
+  components:
+  - type: Spatial
+    pos: 29,2
+    parent: 0
+  - type: RoleGuard
+  - type: VanillaAI
+    calmAction: Stand
+- uid: 316
+  protoId: Elona.CharaGuard
+  components:
+  - type: Spatial
+    pos: 19,18
+    parent: 0
+  - type: RoleGuard
+  - type: VanillaAI
+    calmAction: Stand
+- uid: 317
+  protoId: Elona.CharaGuard
+  components:
+  - type: Spatial
+    pos: 22,18
+    parent: 0
+  - type: RoleGuard
+  - type: VanillaAI
+    calmAction: Stand

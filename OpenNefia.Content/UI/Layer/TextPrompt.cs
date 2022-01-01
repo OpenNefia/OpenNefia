@@ -13,8 +13,28 @@ using OpenNefia.Core.Input;
 
 namespace OpenNefia.Content.UI.Layer
 {
-    public class TextPrompt : UiLayerWithResult<string>
+    public class TextPrompt : UiLayerWithResult<TextPrompt.Args, string>
     {
+        public class Args
+        {
+            public bool IsCancellable { get; set; }
+            public bool LimitLength { get; set; }
+            public string? InitialValue { get; set; }
+            public int? MaxLength { get; set; }
+            public bool HasShadow { get; set; }
+            public string? Prompt { get; set; }
+
+            public Args(int? maxLength = 16, bool limitLength = false, string? initialValue = null, bool isCancellable = true, 
+                bool hasShadow = true, string? prompt = null)
+            {
+                MaxLength = maxLength;
+                LimitLength = limitLength;
+                InitialValue = initialValue;
+                IsCancellable = isCancellable;
+                HasShadow = hasShadow;
+            }
+        }
+
         private string _Value;
         public string Value
         {
@@ -48,18 +68,9 @@ namespace OpenNefia.Content.UI.Layer
         protected Color ColorPromptBackground = UiColors.PromptBackground;
         protected FontSpec FontPromptText = UiFonts.PromptText;
 
-        public TextPrompt(int? maxLength = 16, bool limitLength = false, string? initialValue = null, bool isCancellable = true, bool hasShadow = true, string? prompt = null)
+        public TextPrompt()
         {
-            if (initialValue == null)
-                initialValue = string.Empty;
-
-            MaxLength = maxLength;
-            LimitLength = limitLength;
-            _Value = initialValue;
-            IsCancellable = isCancellable;
-            HasShadow = hasShadow;
-
-            _prompt = prompt;
+            _Value = String.Empty;
 
             AssetLabelInput = Assets.Get(AssetPrototypeOf.LabelInput);
             AssetImeStatusJapanese = Assets.Get(AssetPrototypeOf.ImeStatusJapanese);
@@ -75,6 +86,17 @@ namespace OpenNefia.Content.UI.Layer
             CanKeyboardFocus = true;
 
             UpdateText();
+        }
+
+        public override void Initialize(Args args)
+        {
+            MaxLength = args.MaxLength;
+            LimitLength = args.LimitLength;
+            _Value = args.InitialValue ?? string.Empty;
+            IsCancellable = args.IsCancellable;
+            HasShadow = args.HasShadow;
+            _prompt = args.Prompt;
+
         }
 
         public override void OnFocused()

@@ -16,6 +16,13 @@ namespace OpenNefia.Content.VanillaAI
         public override string Name => "AIAnchor";
 
         /// <summary>
+        /// The initial position this entity was spawned at.
+        /// </summary>
+        // TODO can't serialize MapCoordinates...
+        [DataField]
+        public Vector2i InitialPosition { get; set; }
+
+        /// <summary>
         /// Position in the map this entity should stay near.
         /// </summary>
         [DataField]

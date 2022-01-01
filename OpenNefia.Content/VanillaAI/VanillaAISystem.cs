@@ -249,7 +249,7 @@ namespace OpenNefia.Content.VanillaAI
 
         private bool FollowPlayer(EntityUid entity, VanillaAIComponent ai)
         {
-            if (ai.CalmAction != VanillaAICalmAction.FollowPlayer)
+            if (ai.CalmAction != VanillaAICalmAction.Follow)
                 return false;
 
             var player = _gameSession.Player?.Uid;

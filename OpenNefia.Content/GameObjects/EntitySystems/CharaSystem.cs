@@ -11,10 +11,10 @@ namespace OpenNefia.Content.GameObjects
 
         public override void Initialize()
         {
-            SubscribeLocalEvent<CharaComponent, MapInitEvent>(HandleInitialize, nameof(HandleInitialize));
+            SubscribeLocalEvent<CharaComponent, ComponentStartup>(HandleStartup, nameof(HandleStartup));
         }
 
-        private void HandleInitialize(EntityUid uid, CharaComponent chara, ref MapInitEvent args)
+        private void HandleStartup(EntityUid uid, CharaComponent chara, ComponentStartup args)
         {
             SetRaceDefaultChip(uid, chara);
         }

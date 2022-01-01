@@ -26,7 +26,7 @@ using OpenNefia.Content.DisplayName;
 
 namespace OpenNefia.Content.Inventory
 {
-    public sealed class InventoryLayer : UiLayerWithResult<InventoryResult>
+    public sealed class InventoryLayer : UiLayerWithResult<InventoryContext, InventoryResult>
     {
         public class InventoryEntry
         {
@@ -132,23 +132,16 @@ namespace OpenNefia.Content.Inventory
         private IAssetDrawable AssetGoldCoin;
 
         private EntitySpriteBatch SpriteBatch = new();
-        private InventoryContext Context;
 
-        public InventoryLayer(InventoryContext context)
+        private InventoryContext Context = default!;
+
+        public InventoryLayer()
         {
-            EntitySystem.InjectDependencies(this);
-
-            Context = context;
-            
-            Window.Title = Context.Behavior.WindowTitle;
-
             AssetDecoInvA = new AssetDrawable(AssetPrototypeOf.DecoInvA);
             AssetDecoInvB = new AssetDrawable(AssetPrototypeOf.DecoInvB);
             AssetDecoInvC = new AssetDrawable(AssetPrototypeOf.DecoInvC);
             AssetDecoInvD = new AssetDrawable(AssetPrototypeOf.DecoInvD);
             AssetGoldCoin = new AssetDrawable(AssetPrototypeOf.GoldCoin);
-
-            UpdateFiltering();
 
             AddChild(Window);
             AddChild(List);
@@ -156,6 +149,14 @@ namespace OpenNefia.Content.Inventory
             OnKeyBindDown += HandleKeyBindDown;
             List.EventOnActivate += OnSelect;
             EventFilter = UIEventFilterMode.Pass;        
+        }
+
+        public override void Initialize(InventoryContext context)
+        {
+            Context = context;
+            Window.Title = Context.Behavior.WindowTitle;
+
+            UpdateFiltering();
         }
 
         public override void OnFocused()
@@ -183,8 +184,7 @@ namespace OpenNefia.Content.Inventory
             if (selected == null)
                 return;
 
-            var layer = new ItemDescriptionLayer(selected.Data.Item);
-            UserInterfaceManager.Query(layer);
+            UserInterfaceManager.Query<ItemDescriptionLayer, EntityUid>(selected.Data.Item);
         }
 
         public void OnSelect(object? sender, UiListEventArgs<InventoryEntry> e)

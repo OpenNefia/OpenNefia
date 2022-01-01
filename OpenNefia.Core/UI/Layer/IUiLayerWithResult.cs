@@ -3,17 +3,16 @@ using OpenNefia.Core.UI.Element;
 
 namespace OpenNefia.Core.UI.Layer
 {
-    public interface IUiLayerWithResult<T> : IUiLayer where T: class
+    public interface IUiLayerWithResult<TArgs, TResult> : IUiLayer where TResult: class
     {
         int? DefaultZOrder { get; }
 
-        bool WasFinished { get; }
-        bool WasCancelled { get; }
-        T? Result { get; }
+        bool WasCancelled { get; set; }
+        TResult? Result { get; set; }
 
-        void Initialize();
+        void Initialize(TArgs args);
         void Cancel();
-        void Finish(T result);
-        UiResult<T>? GetResult();
+        void Finish(TResult result);
+        UiResult<TResult>? GetResult();
     }
 }

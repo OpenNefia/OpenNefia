@@ -5,21 +5,40 @@ using OpenNefia.Core.Rendering;
 using OpenNefia.Core.UI;
 using OpenNefia.Core.UI.Layer;
 using OpenNefia.Content.Prototypes;
+using OpenNefia.Core.UI.Element;
+using OpenNefia.Core.Input;
+using static OpenNefia.Content.Prototypes.Protos;
 
 namespace OpenNefia.Content.UI.Layer
 {
-    public class NumberPromptResult
+    public class NumberPrompt : UiLayerWithResult<NumberPrompt.Args, NumberPrompt.Result>
     {
-        public int Value = 0;
-
-        public NumberPromptResult(int value)
+        public new class Args
         {
-            Value = value;
-        }
-    }
+            public Args(int maxValue = 1, int minValue = 1, int? initialValue = null, bool isCancellable = true)
+            {
+                MaxValue = maxValue;
+                MinValue = minValue;
+                InitialValue = initialValue;
+                IsCancellable = isCancellable;
+            }
 
-    public class NumberPrompt : UiLayerWithResult<NumberPromptResult>
-    {
+            public int MaxValue { get; set; }
+            public int MinValue { get; set; }
+            public int? InitialValue { get; set; }
+            public bool IsCancellable { get; set; }
+        }
+
+        public new class Result
+        {
+            public int Value = 0;
+
+            public Result(int value)
+            {
+                Value = value;
+            }
+        }
+
         private int _MinValue;
         public int MinValue
         {
@@ -66,18 +85,8 @@ namespace OpenNefia.Content.UI.Layer
         protected FontSpec FontPromptText = UiFonts.PromptText;
         protected IUiText Text;
 
-        public NumberPrompt(int maxValue = 1, int minValue = 1, int? initialValue = null, bool isCancellable = true)
+        public NumberPrompt()
         {
-            _MinValue = minValue;
-            _MaxValue = maxValue;
-            if (initialValue == null)
-                initialValue = MaxValue;
-
-            initialValue = Math.Clamp(initialValue.Value, MinValue, MaxValue);
-
-            _Value = initialValue.Value;
-            IsCancellable = isCancellable;
-
             Text = new UiText(FontPromptText);
 
             AssetLabelInput = Assets.Get(AssetPrototypeOf.LabelInput);
@@ -86,41 +95,57 @@ namespace OpenNefia.Content.UI.Layer
 
             TopicWindow = new UiTopicWindow(UiTopicWindow.FrameStyleKind.Zero, UiTopicWindow.WindowStyleKind.Two);
 
-            UpdateText();
-
-            BindKeys();
+            OnKeyBindDown += HandleKeyBindDown;
         }
 
-        protected virtual void BindKeys()
+        public override void Initialize(Args args)
         {
-            //Keybinds[CoreKeybinds.UIUp] += (_) =>
-            //{
-            //    Value = MaxValue;
-            //    Sounds.Play(Protos.Sound.Cursor1);
-            //};
-            //Keybinds[CoreKeybinds.UIDown] += (_) =>
-            //{
-            //    Value = MinValue;
-            //    Sounds.Play(Protos.Sound.Cursor1);
-            //};
-            //Keybinds[CoreKeybinds.UILeft] += (_) =>
-            //{
-            //    Value = Math.Max(Value - 1, MinValue);
-            //    Sounds.Play(Protos.Sound.Cursor1);
-            //};
-            //Keybinds[CoreKeybinds.UIRight] += (_) =>
-            //{
-            //    Value = Math.Min(Value + 1, MaxValue);
-            //    Sounds.Play(Protos.Sound.Cursor1);
-            //};
-            //Keybinds[CoreKeybinds.Cancel] += (_) => { if (IsCancellable) Cancel(); };
-            //Keybinds[CoreKeybinds.Escape] += (_) => { if (IsCancellable) Cancel(); };
-            //Keybinds[CoreKeybinds.Enter] += (_) => Finish(new NumberPromptResult(Value));
+            base.Initialize(args);
+
+            _MinValue = args.MinValue;
+            _MaxValue = args.MaxValue;
+            _Value = Math.Clamp(args.InitialValue ?? MaxValue, MinValue, MaxValue);
+            IsCancellable = args.IsCancellable;
+
+            UpdateText();
+        }
+
+        private void HandleKeyBindDown(GUIBoundKeyEventArgs args)
+        {
+            if (args.Function == EngineKeyFunctions.UIUp)
+            {
+                Value = MaxValue;
+                Sounds.Play(Sound.Cursor1);
+            }
+            else if (args.Function == EngineKeyFunctions.UIDown)
+            {
+                Value = MinValue;
+                Sounds.Play(Sound.Cursor1);
+            }
+            else if (args.Function == EngineKeyFunctions.UILeft)
+            {
+                Value = Math.Max(Value - 1, MinValue);
+                Sounds.Play(Sound.Cursor1);
+            }
+            else if (args.Function == EngineKeyFunctions.UIRight)
+            {
+                Value = Math.Min(Value + 1, MaxValue);
+                Sounds.Play(Sound.Cursor1);
+            }
+            else if (args.Function == EngineKeyFunctions.UICancel)
+            {
+                if (IsCancellable)
+                    Cancel();
+            }
+            else if (args.Function == EngineKeyFunctions.UISelect)
+            {
+                Finish(new Result(Value));
+            }
         }
 
         public override void OnQuery()
         {
-            Sounds.Play(Protos.Sound.Pop2);
+            Sounds.Play(Sound.Pop2);
         }
 
         protected virtual void UpdateText()

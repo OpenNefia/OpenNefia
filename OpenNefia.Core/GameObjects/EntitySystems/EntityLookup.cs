@@ -126,7 +126,18 @@ namespace OpenNefia.Core.GameObjects
     public class EntityLookup : EntitySystem, IEntityLookup
     {
         [Dependency] private readonly IMapManager _mapManager = default!;
-        [Dependency] private readonly IEntityManager _entityManager = default!;
+
+        public override void Initialize()
+        {
+            SubscribeLocalEvent<MapComponent, MapInitializeEvent>(HandleMapInitialize, nameof(HandleMapInitialize));
+        }
+
+        private void HandleMapInitialize(EntityUid uid, MapComponent component, MapInitializeEvent args)
+        {
+            var lookup = EntityManager.EnsureComponent<MapEntityLookupComponent>(uid);
+            var map = _mapManager.GetMap(component.MapId);
+            lookup.InitializeFromMap(map);
+        }
 
         /// <inheritdoc />
         public IEnumerable<Entity> GetAllEntitiesIn(MapId mapId, bool includeMapEntity = false)
@@ -134,7 +145,7 @@ namespace OpenNefia.Core.GameObjects
             if (!_mapManager.TryGetMapEntity(mapId, out var mapEntity))
                 return Enumerable.Empty<Entity>();
 
-            var ents = _entityManager.GetEntities()
+            var ents = EntityManager.GetEntities()
                 .Where(ent => ent.Spatial.MapID == mapId && ent.Uid != mapEntity.Uid);
 
             if (includeMapEntity)
@@ -219,9 +230,9 @@ namespace OpenNefia.Core.GameObjects
         public IEnumerable<TComp> EntityQueryInMap<TComp>(MapId mapId, bool includeChildren = false)
             where TComp : IComponent
         {
-            foreach (var ent in _entityManager.EntityQuery<TComp>())
+            foreach (var ent in EntityManager.EntityQuery<TComp>())
             {
-                if (_entityManager.TryGetComponent(ent.OwnerUid, out SpatialComponent? spatial) 
+                if (EntityManager.TryGetComponent(ent.OwnerUid, out SpatialComponent? spatial) 
                     && EntityIsInMap(mapId, spatial, includeChildren))
                 {
                     yield return ent;
@@ -234,9 +245,9 @@ namespace OpenNefia.Core.GameObjects
             where TComp1 : IComponent
             where TComp2 : IComponent
         {
-            foreach (var ent in _entityManager.EntityQuery<TComp1, TComp2>())
+            foreach (var ent in EntityManager.EntityQuery<TComp1, TComp2>())
             {
-                if (_entityManager.TryGetComponent(ent.Item1.OwnerUid, out SpatialComponent? spatial)
+                if (EntityManager.TryGetComponent(ent.Item1.OwnerUid, out SpatialComponent? spatial)
                     && EntityIsInMap(mapId, spatial, includeChildren))
                 {
                     yield return ent;
@@ -250,9 +261,9 @@ namespace OpenNefia.Core.GameObjects
             where TComp2 : IComponent
             where TComp3 : IComponent
         {
-            foreach (var ent in _entityManager.EntityQuery<TComp1, TComp2, TComp3>())
+            foreach (var ent in EntityManager.EntityQuery<TComp1, TComp2, TComp3>())
             {
-                if (_entityManager.TryGetComponent(ent.Item1.OwnerUid, out SpatialComponent? spatial)
+                if (EntityManager.TryGetComponent(ent.Item1.OwnerUid, out SpatialComponent? spatial)
                     && EntityIsInMap(mapId, spatial, includeChildren))
                 {
                     yield return ent;
@@ -267,9 +278,9 @@ namespace OpenNefia.Core.GameObjects
             where TComp3 : IComponent
             where TComp4 : IComponent
         {
-            foreach (var ent in _entityManager.EntityQuery<TComp1, TComp2, TComp3, TComp4>())
+            foreach (var ent in EntityManager.EntityQuery<TComp1, TComp2, TComp3, TComp4>())
             {
-                if (_entityManager.TryGetComponent(ent.Item1.OwnerUid, out SpatialComponent? spatial)
+                if (EntityManager.TryGetComponent(ent.Item1.OwnerUid, out SpatialComponent? spatial)
                     && EntityIsInMap(mapId, spatial, includeChildren))
                 {
                     yield return ent;

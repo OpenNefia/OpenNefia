@@ -6,7 +6,7 @@ using OpenNefia.Core.UI.Layer;
 
 namespace OpenNefia.Content.UI.Hud
 {
-    public class HudLayer : UiLayerWithResult<UiNoResult>, IHudLayer
+    public class HudLayer : UiLayerWithResult<UINone, UINone>, IHudLayer
     {
         [Dependency] private readonly IGraphics _graphics = default!;
 

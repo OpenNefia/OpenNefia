@@ -80,6 +80,8 @@ namespace OpenNefia.Content.VanillaAI
         None = 0,
         Roam = 1,
         Dull = 2,
-        FollowPlayer = 4
+        Stand = 3,
+        Follow = 4,
+        Special = 5
     }
 }

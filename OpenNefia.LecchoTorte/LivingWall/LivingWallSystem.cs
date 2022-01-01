@@ -16,11 +16,11 @@ namespace OpenNefia.LecchoTorte.LivingWall
         public override void Initialize()
         {
             SubscribeLocalEvent<LivingWallComponent, EntityPositionChangedEvent>(HandlePositionChanged, nameof(HandlePositionChanged));
-            SubscribeLocalEvent<LivingWallComponent, MapInitEvent>(HandleMapInit, nameof(HandleMapInit));
+            SubscribeLocalEvent<LivingWallComponent, EntityMapInitEvent>(HandleMapInit, nameof(HandleMapInit));
             SubscribeLocalEvent<LivingWallComponent, EntityLivenessChangedEvent>(HandleLivenessChanged, nameof(HandleLivenessChanged));
         }
 
-        private void HandleMapInit(EntityUid uid, LivingWallComponent component, ref MapInitEvent args)
+        private void HandleMapInit(EntityUid uid, LivingWallComponent component, ref EntityMapInitEvent args)
         {
             SpatialComponent? spatial = null;
 

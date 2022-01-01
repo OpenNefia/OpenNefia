@@ -3,8 +3,8 @@
     /// <summary>
     /// Used to indicate a <see cref="IUiLayerWithResult{T}"/> does not return a result.
     /// </summary>
-    public class UiNoResult
+    public class UINone
     {
-        public UiNoResult() { }
+        public UINone() { }
     }
 }

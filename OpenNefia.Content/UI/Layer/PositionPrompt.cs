@@ -18,7 +18,7 @@ using Color = OpenNefia.Core.Maths.Color;
 
 namespace OpenNefia.Content.UI.Layer
 {
-    public class PositionPrompt : UiLayerWithResult<PositionPrompt.Result>
+    public class PositionPrompt : UiLayerWithResult<PositionPrompt.Args, PositionPrompt.Result>
     {
         [Dependency] private readonly IFieldLayer _field = default!;
         [Dependency] private readonly IMapManager _mapManager = default!;
@@ -26,6 +26,30 @@ namespace OpenNefia.Content.UI.Layer
         [Dependency] private readonly TargetTextSystem _targetText = default!;
         [Dependency] private readonly IEntityLookup _lookup = default!;
         [Dependency] private readonly IEntityManager _entityManager = default!;
+        [Dependency] private readonly IGameSessionManager _gameSession = default!;
+
+        public class Args
+        {
+            public Args(MapCoordinates origin, MapCoordinates? target = null, Entity? onlooker = null)
+            {
+                if (target != null && origin.MapId != target.Value.MapId)
+                    target = origin;
+
+                OriginPos = origin;
+                TargetPos = target ?? origin;
+                Onlooker = onlooker;
+            }
+
+            public Args(Entity onlooker, MapCoordinates? target)
+                : this(onlooker.Spatial.MapPosition, target, onlooker) { }
+
+            public Args(Entity onlooker)
+                : this(onlooker.Spatial.MapPosition, onlooker: onlooker) { }
+
+            public MapCoordinates OriginPos { get; set; }
+            public MapCoordinates TargetPos { get; set; }
+            public Entity? Onlooker { get; set; }
+        }
 
         public new class Result
         {
@@ -41,27 +65,18 @@ namespace OpenNefia.Content.UI.Layer
 
         private MapCoordinates _originPos;
         private MapCoordinates _targetPos;
-        private Entity _onlooker;
         private bool _canSee = false;
         private bool _isPanning = false;
-        private IMap _map;
+
+        private Entity _onlooker = default!;
+        private IMap _map = default!;
 
         protected Color ColorTargetedTile = UiColors.PromptTargetedTile;
         protected FontSpec FontTargetText = UiFonts.TargetText;
         protected IUiText TextTarget;
 
-        public PositionPrompt(MapCoordinates origin, MapCoordinates? target = null, Entity? onlooker = null)
+        public PositionPrompt()
         {
-            EntitySystem.InjectDependencies(this);
-
-            if (target != null && origin.MapId != target.Value.MapId)
-                target = origin;
-
-            _originPos = origin;
-            _targetPos = target ?? origin;
-            _onlooker = onlooker ?? GameSession.Player!;
-            _map = _mapManager.GetMap(origin.MapId);
-
             TextTarget = new UiTextOutlined(FontTargetText);
 
             OnKeyBindDown += HandleKeyBindDown;
@@ -69,11 +84,13 @@ namespace OpenNefia.Content.UI.Layer
             EventFilter = UIEventFilterMode.Pass;
         }
 
-        public PositionPrompt(Entity onlooker, MapCoordinates? target)
-            : this(onlooker.Spatial.MapPosition, target, onlooker) { }
-
-        public PositionPrompt(Entity onlooker) 
-            : this(onlooker.Spatial.MapPosition, onlooker: onlooker) { }
+        public override void Initialize(Args args)
+        {
+            _originPos = args.OriginPos;
+            _targetPos = args.TargetPos;
+            _onlooker = args.Onlooker ?? _gameSession.Player!;
+            _map = _mapManager.GetMap(args.OriginPos.MapId);
+        }
 
         private void HandleKeyBindDown(GUIBoundKeyEventArgs args)
         {

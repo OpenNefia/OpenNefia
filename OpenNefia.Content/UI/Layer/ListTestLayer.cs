@@ -9,7 +9,7 @@ using OpenNefia.Content.Prototypes;
 
 namespace OpenNefia.Content.UI.Layer
 {
-    internal class ListTestLayer : UiLayerWithResult<string>
+    internal class ListTestLayer : UiLayerWithResult<UINone, string>
     {
         [Localize]
         public UiWindow Window { get; }

@@ -165,11 +165,13 @@ namespace OpenNefia.Core.GameController
 
             if (downloader.NeedsDownload())
             {
-                var result = _uiManager.Query(new MinimalProgressBarLayer(downloader));
+                var layer = new MinimalProgressBarLayer();
+                layer.Initialize(downloader);
+                var result = _uiManager.Query(layer);
                 if (!result.HasValue)
                 {
                     Exception? ex = null;
-                    if (result is UiResult<UiNoResult>.Error err)
+                    if (result is UiResult<UINone>.Error err)
                     {
                         ex = err.Exception;
                     }

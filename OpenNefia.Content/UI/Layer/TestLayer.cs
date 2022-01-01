@@ -7,7 +7,7 @@ using System.Collections;
 
 namespace OpenNefia.Content.UI.Layer
 {
-    public class TestLayer : UiLayerWithResult<string>
+    public class TestLayer : UiLayerWithResult<UINone, string>
     {
         private UiWindowBacking WindowBacking;
 

@@ -12,14 +12,12 @@ namespace OpenNefia.Core.Asynchronous
 
         public void Run(Task task)
         {
-            var layer = new TaskRunnerLayer(task);
-            _uiMgr.Query(layer);
+            _uiMgr.Query<TaskRunnerLayer, Task>(task);
         }
 
         public T Run<T>(Task<T> task)
         {
-            var layer = new TaskRunnerLayer(task);
-            _uiMgr.Query(layer);
+            _uiMgr.Query<TaskRunnerLayer, Task>(task);
             return task.Result;
         }
     }
@@ -28,12 +26,12 @@ namespace OpenNefia.Core.Asynchronous
     /// Layer for running an async task synchronously, by displaying a temporary
     /// loading screen until the task is finished.
     /// </summary>
-    public class TaskRunnerLayer : UiLayerWithResult<UiNoResult>
+    public class TaskRunnerLayer : UiLayerWithResult<Task, UINone>
     {
-        private Task ActiveTask;
+        private Task ActiveTask = default!;
         private float Dt;
 
-        public TaskRunnerLayer(Task task)
+        public override void Initialize(Task task)
         {
             ActiveTask = task;
         }
@@ -44,7 +42,7 @@ namespace OpenNefia.Core.Asynchronous
 
             if (ActiveTask.IsCompleted)
             {
-                Finish(new UiNoResult());
+                Finish(new UINone());
             }
         }
 

@@ -37,23 +37,6 @@ namespace OpenNefia.Core.UserInterface
         /// <inheritdoc/>
         public ScreenCoordinates MousePositionScaled => _inputManager.MouseScreenPosition;
 
-        internal List<UiLayer> Layers { get; private set; } = new();
-        private List<UiLayer> _layersByZOrder = new List<UiLayer>();
-
-        public UiLayer? CurrentLayer
-        {
-            get
-            {
-                if (ActiveLayers.Count == 0)
-                {
-                    return null;
-                }
-                return ActiveLayers.Last();
-            }
-        }
-
-        public IList<UiLayer> ActiveLayers => Layers;
-
         public void Initialize()
         {
             _inputManager.UIKeyBindStateChanged += OnUIKeyBindStateChanged;
@@ -67,8 +50,6 @@ namespace OpenNefia.Core.UserInterface
         public void Shutdown()
         {
         }
-
-        #region Control Management
 
         /// <inheritdoc/>
         public Vector2? CalcRelativeMousePositionFor(UiElement control, ScreenCoordinates mousePos)
@@ -191,138 +172,5 @@ namespace OpenNefia.Core.UserInterface
 
             return false;
         }
-
-        #endregion
-
-        #region Layer Management
-
-        public bool IsInActiveLayerList(UiLayer layer) => this.Layers.Contains(layer);
-
-        public void UpdateLayers(FrameEventArgs frame)
-        {
-            for (int i = 0; i < this.Layers.Count; i++)
-            {
-                this.Layers[i].Update(frame.DeltaSeconds);
-            }
-        }
-
-        public void DrawLayers()
-        {
-            for (int i = 0; i < _layersByZOrder.Count; i++)
-            {
-                _layersByZOrder[i].Draw();
-            }
-        }
-
-        public void PushLayer(UiLayer layer)
-        {
-            layer.GetPreferredBounds(out var bounds);
-            layer.SetSize(bounds.Width, bounds.Height);
-            layer.SetPosition(bounds.Left, bounds.Top);
-            Layers.Add(layer);
-            SortLayers();
-
-            _inputManager.HaltInput();
-            ControlFocused = null;
-            KeyboardFocused = null;
-            CurrentlyHovered = null;
-
-            CurrentLayer?.OnFocused();
-        }
-
-        public void PopLayer(UiLayer layer)
-        {
-            Layers.Remove(layer);
-            SortLayers();
-
-            _inputManager.HaltInput();
-            ControlFocused = null;
-            KeyboardFocused = null;
-            CurrentlyHovered = null;
-
-            CurrentLayer?.OnFocused();
-        }
-
-        public bool IsQuerying(UiLayer layer)
-        {
-            return Layers.Count() != 0 && CurrentLayer == layer;
-        }
-
-        private void SortLayers()
-        {
-            _layersByZOrder = this.Layers.OrderBy(x => x.ZOrder).ToList();
-        }
-
-        private void HandleWindowResized(WindowResizedEventArgs args)
-        {
-            foreach (var layer in this.Layers)
-            {
-                layer.GetPreferredBounds(out var bounds);
-                layer.SetSize(bounds.Width, bounds.Height);
-                layer.SetPosition(bounds.Left, bounds.Top);
-            }
-        }
-
-        public UiResult<T> Query<T>(IUiLayerWithResult<T> layer) where T : class
-        {
-            if (layer.DefaultZOrder != null)
-            {
-                layer.ZOrder = layer.DefaultZOrder.Value;
-            }
-            else
-            {
-                layer.ZOrder = (CurrentLayer?.ZOrder ?? 0) + 1000;
-            }
-
-            if (!layer.IsLocalized)
-            {
-                layer.Localize(layer.GetType().GetBaseLocaleKey());
-            }
-
-
-            var baseLayer = (UiLayer)layer;
-
-            PushLayer(baseLayer);
-
-            UiResult<T>? result;
-
-            try
-            {
-                layer.Initialize();
-                layer.OnQuery();
-
-                while (true)
-                {
-                    var dt = Love.Timer.GetDelta();
-                    var frameArgs = new FrameEventArgs(dt);
-                    // layer.RunKeyActions(frameArgs);
-                    _gameController.Update(frameArgs);
-                    result = layer.GetResult();
-                    if (result != null)
-                    {
-                        break;
-                    }
-
-                    _gameController.Draw();
-                    _gameController.SystemStep();
-                }
-            }
-            catch (Exception ex)
-            {
-                Logger.ErrorS("ui.layer", ex, $"Error during {this.GetType().Name}.Query()");
-                result = new UiResult<T>.Error(ex);
-            }
-            finally
-            {
-                PopLayer((UiLayer)layer);
-            }
-
-            // layer.HaltInput();
-            layer.OnQueryFinish();
-
-            return result;
-        }
     }
-
-    #endregion
 }

@@ -88,11 +88,12 @@ namespace OpenNefia.Core.UI.Layer
         }
     }
 
-    public class UiLayerWithResult<T> : UiLayer, IUiLayerWithResult<T> where T : class
+    public class UiLayerWithResult<TArgs, TResult> : UiLayer, IUiLayerWithResult<TArgs, TResult> 
+        where TResult : class
     {
-        public bool WasFinished { get => Result != null; }
-        public bool WasCancelled { get; private set; }
-        public T? Result { get; private set; }
+        public bool WasCancelled { get; set; }
+        public bool WasFinished => Result != null;
+        public TResult? Result { get; set; }
         public Exception? Exception { get; private set; }
 
         private LocaleScope LocaleScope = default!;
@@ -102,7 +103,7 @@ namespace OpenNefia.Core.UI.Layer
             WasCancelled = true;
         }
 
-        public virtual void Finish(T result)
+        public virtual void Finish(TResult result)
         {
             Result = result;
         }
@@ -112,20 +113,18 @@ namespace OpenNefia.Core.UI.Layer
             Exception = ex;
         }
 
-        public void Initialize()
+        public virtual void Initialize(TArgs args)
         {
-            Result = null;
-            WasCancelled = false;
         }
 
-        public virtual UiResult<T>? GetResult()
+        public virtual UiResult<TResult>? GetResult()
         {
             if (Result != null)
-                return new UiResult<T>.Finished(Result);
+                return new UiResult<TResult>.Finished(Result);
             if (WasCancelled)
-                return new UiResult<T>.Cancelled();
+                return new UiResult<TResult>.Cancelled();
             if (Exception != null)
-                return new UiResult<T>.Error(Exception);
+                return new UiResult<TResult>.Error(Exception);
 
             return null;
         }

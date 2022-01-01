@@ -47,7 +47,7 @@ namespace OpenNefia.Content.GameObjects
         {
             Mes.Display(Loc.GetString("Elona.Door.QueryClose"));
 
-            var dir = _uiMgr.Query(new DirectionPrompt(session!.Player));
+            var dir = _uiMgr.Query<DirectionPrompt, DirectionPrompt.Args, DirectionPrompt.Result>(new(session!.Player));
             if (!dir.HasValue)
             {
                 Mes.Display(Loc.GetString("Elona.Common.ItIsImpossible"));

@@ -313,6 +313,9 @@ namespace OpenNefia.Content.VanillaAI
             return result;
         }
 
+        private readonly Direction[] EastWest = new[] { Direction.East, Direction.West };
+        private readonly Direction[] SouthNorth = new[] { Direction.South, Direction.North };
+
         private MovementResult DirCheckEastWest(EntityUid entity, IMap map, VanillaAIComponent ai, SpatialComponent spatial)
         {
             var reverse = false;
@@ -336,7 +339,7 @@ namespace OpenNefia.Content.VanillaAI
             }
 
             var (pos, blocked) = DirCheck(entity, map, dir, reverse, ai, spatial);
-            return new MovementResult(pos, blocked, new List<Direction> { Direction.East, Direction.West });
+            return new MovementResult(pos, blocked, EastWest);
         }
 
         private MovementResult DirCheckNorthSouth(EntityUid entity, IMap map, VanillaAIComponent ai, SpatialComponent spatial)
@@ -362,7 +365,7 @@ namespace OpenNefia.Content.VanillaAI
             }
 
             var (pos, blocked) = DirCheck(entity, map, dir, reverse, ai, spatial);
-            return new MovementResult(pos, blocked, new List<Direction> { Direction.South, Direction.North });
+            return new MovementResult(pos, blocked, SouthNorth);
         }
 
         private (MapCoordinates?, bool) DirCheck(EntityUid entity, IMap map, Direction dir, bool reverse, 
@@ -458,9 +461,9 @@ namespace OpenNefia.Content.VanillaAI
         {
             public readonly MapCoordinates? Coords;
             public readonly bool BlockedByChara;
-            public readonly IReadOnlyList<Direction> AvailableDirs;
+            public readonly Direction[] AvailableDirs;
 
-            public MovementResult(MapCoordinates? coords, bool blockedByChara, IReadOnlyList<Direction> availableDirs)
+            public MovementResult(MapCoordinates? coords, bool blockedByChara, Direction[] availableDirs)
             {
                 Coords = coords;
                 BlockedByChara = blockedByChara;
