@@ -23,6 +23,21 @@ namespace OpenNefia.Core.Prototypes
         public PrototypeId<ChipPrototype> ChipFemale { get; } = default!;
 
         [DataField]
+        public float MaleRatio { get; } = 0.5f;
+
+        [DataField]
+        public int BaseHeight { get; } = 10;
+
+        [DataField]
+        public int MinAge { get; } = 1;
+
+        [DataField]
+        public int MaxAge { get; } = 100;
+
+        [DataField]
+        public int? BreedPower { get; }
+
+        [DataField]
         public bool IsExtra { get; } = false;
 
         [DataField]

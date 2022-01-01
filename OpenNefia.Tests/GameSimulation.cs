@@ -184,6 +184,7 @@ namespace OpenNefia.Tests
             var dataDefinitionTypes = new List<Type>()
             {
                 typeof(EntityPrototype),
+                typeof(TilePrototype),
                 typeof(SpatialComponent),
                 typeof(MetaDataComponent)
             };
@@ -218,6 +219,8 @@ namespace OpenNefia.Tests
             container.Register<IGameSessionManager, GameSessionManager>();
             container.Register<ICoords, OrthographicCoords>();
             container.Register<IRandom, SysRandom>();
+            container.Register<ITileDefinitionManager, TileDefinitionManager>();
+            container.Register<ITileDefinitionManagerInternal, TileDefinitionManager>();
 
             _diFactory?.Invoke(container);
             container.BuildGraph();
@@ -252,8 +255,12 @@ namespace OpenNefia.Tests
 
             var protoMan = container.Resolve<IPrototypeManager>();
             protoMan.RegisterType<EntityPrototype>();
+            protoMan.RegisterType<TilePrototype>();
             _protoDelegate?.Invoke(protoMan);
             protoMan.Resync();
+
+            var tileMan = container.Resolve<ITileDefinitionManagerInternal>();
+            tileMan.RegisterAll();
 
             return this;
         }

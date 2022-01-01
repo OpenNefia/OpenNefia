@@ -1,4 +1,5 @@
-﻿using OpenNefia.Core.Maps;
+﻿using OpenNefia.Core.GameObjects;
+using OpenNefia.Core.Maps;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Serialization.Manager.Attributes;
 using OpenNefia.Core.Utility;
@@ -8,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OpenNefia.Core.GameObjects
+namespace OpenNefia.Content.Maps
 {
     [RegisterComponent]
     public class MapEntranceComponent : Component

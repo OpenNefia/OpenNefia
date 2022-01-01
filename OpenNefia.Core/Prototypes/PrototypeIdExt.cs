@@ -14,6 +14,10 @@ namespace OpenNefia.Core.Prototypes
         /// </summary>
         /// <remarks>
         /// <para>
+        /// NOTE: Try to avoid using this method when possible. If you can inject IoC dependencies,
+        /// prefer using <see cref="IPrototypeManager.Index{T}(PrototypeId{T})"/> instead.
+        /// </para>
+        /// <para>
         /// The reason Robust does not encourage having references to prototypes as data fields
         /// is because it makes prototype hotloading infeasible.
         /// </para>

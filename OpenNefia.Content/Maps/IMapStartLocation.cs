@@ -1,6 +1,6 @@
 ﻿using OpenNefia.Core.GameObjects;
-using OpenNefia.Core.GameObjects.Components;
 using OpenNefia.Core.IoC;
+using OpenNefia.Core.Maps;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.Serialization;
 using OpenNefia.Core.Serialization.Manager.Attributes;
@@ -10,7 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OpenNefia.Core.Maps
+namespace OpenNefia.Content.Maps
 {
     /// <summary>
     /// A location on a map to place the player/allies when

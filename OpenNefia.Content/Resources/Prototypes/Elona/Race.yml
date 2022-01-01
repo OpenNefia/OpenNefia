@@ -2,536 +2,2101 @@
 - type: Race
   id: Elona.Slug
   isExtra: true
+  maleRatio: 0.5
+  baseHeight: 10
+  baseSkills:
+    Elona.Mining: 100
+    Elona.StatCharisma: 100
+    Elona.StatConstitution: 100
+    Elona.StatDexterity: 100
+    Elona.StatLearning: 100
+    Elona.StatLife: 1000
+    Elona.StatMagic: 100
+    Elona.StatMana: 1000
+    Elona.StatPerception: 100
+    Elona.StatSpeed: 500
+    Elona.StatStrength: 100
+    Elona.StatWill: 100
 - type: Race
   id: Elona.Kobold
   hspIds:
     elona122: 1
   isExtra: true
+  breedPower: 250
   chipMale: Elona.CharaKobold
   chipFemale: Elona.CharaKobold
+  maleRatio: 0.5
+  baseHeight: 150
+  minAge: 15
+  maxAge: 44
+  baseSkills:
+    Elona.MagicDevice: 3
+    Elona.MartialArts: 2
+    Elona.Pickpocket: 3
+    Elona.StatCharisma: 2
+    Elona.StatConstitution: 6
+    Elona.StatDexterity: 5
+    Elona.StatLearning: 2
+    Elona.StatLife: 90
+    Elona.StatMagic: 4
+    Elona.StatMana: 80
+    Elona.StatPerception: 3
+    Elona.StatSpeed: 70
+    Elona.StatStrength: 8
+    Elona.StatWill: 2
+    Elona.Stealth: 2
 - type: Race
   id: Elona.Orc
   hspIds:
     elona122: 2
   isExtra: true
+  breedPower: 300
   chipMale: Elona.CharaOrc
   chipFemale: Elona.CharaOrc
+  maleRatio: 0.51
+  baseHeight: 150
+  minAge: 15
+  maxAge: 44
+  baseSkills:
+    Elona.Healing: 3
+    Elona.HeavyArmor: 3
+    Elona.MartialArts: 1
+    Elona.Shield: 3
+    Elona.StatCharisma: 2
+    Elona.StatConstitution: 6
+    Elona.StatDexterity: 3
+    Elona.StatLearning: 2
+    Elona.StatLife: 130
+    Elona.StatMagic: 4
+    Elona.StatMana: 80
+    Elona.StatPerception: 2
+    Elona.StatSpeed: 70
+    Elona.StatStrength: 5
+    Elona.StatWill: 3
 - type: Race
   id: Elona.Troll
   hspIds:
     elona122: 3
   isExtra: true
+  breedPower: 250
   chipMale: Elona.CharaTroll
   chipFemale: Elona.CharaTroll
+  maleRatio: 0.51
+  baseHeight: 400
+  minAge: 15
+  maxAge: 44
+  baseSkills:
+    Elona.Healing: 40
+    Elona.MartialArts: 3
+    Elona.StatCharisma: 3
+    Elona.StatConstitution: 9
+    Elona.StatDexterity: 1
+    Elona.StatLearning: 2
+    Elona.StatLife: 90
+    Elona.StatMagic: 3
+    Elona.StatMana: 80
+    Elona.StatPerception: 2
+    Elona.StatSpeed: 60
+    Elona.StatStrength: 10
+    Elona.StatWill: 2
 - type: Race
   id: Elona.Lizardman
   hspIds:
     elona122: 4
   isExtra: true
+  breedPower: 300
   chipMale: Elona.CharaLizardman
   chipFemale: Elona.CharaLizardman
+  maleRatio: 0.51
+  baseHeight: 240
+  minAge: 15
+  maxAge: 44
+  baseSkills:
+    Elona.Evasion: 2
+    Elona.MartialArts: 2
+    Elona.Polearm: 3
+    Elona.Shield: 3
+    Elona.StatCharisma: 3
+    Elona.StatConstitution: 5
+    Elona.StatDexterity: 6
+    Elona.StatLearning: 4
+    Elona.StatLife: 120
+    Elona.StatMagic: 5
+    Elona.StatMana: 70
+    Elona.StatPerception: 7
+    Elona.StatSpeed: 80
+    Elona.StatStrength: 7
+    Elona.StatWill: 4
 - type: Race
   id: Elona.Minotaur
   hspIds:
     elona122: 5
   isExtra: true
+  breedPower: 300
   chipMale: Elona.CharaMinotaur
   chipFemale: Elona.CharaMinotaur
+  maleRatio: 0.51
+  baseHeight: 350
+  minAge: 15
+  maxAge: 44
+  baseSkills:
+    Elona.EyeOfMind: 3
+    Elona.MartialArts: 3
+    Elona.StatCharisma: 4
+    Elona.StatConstitution: 8
+    Elona.StatDexterity: 3
+    Elona.StatLearning: 3
+    Elona.StatLife: 160
+    Elona.StatMagic: 7
+    Elona.StatMana: 60
+    Elona.StatPerception: 4
+    Elona.StatSpeed: 65
+    Elona.StatStrength: 12
+    Elona.StatWill: 4
+    Elona.Tactics: 4
 - type: Race
   id: Elona.Yerles
   hspIds:
     elona122: 6
   isExtra: false
+  breedPower: 220
   chipMale: Elona.CharaHumanMale
   chipFemale: Elona.CharaHumanFemale
+  maleRatio: 0.52
+  baseHeight: 165
+  minAge: 15
+  maxAge: 34
+  baseSkills:
+    Elona.Firearm: 5
+    Elona.Literacy: 3
+    Elona.MartialArts: 2
+    Elona.Negotiation: 2
+    Elona.StatCharisma: 7
+    Elona.StatConstitution: 8
+    Elona.StatDexterity: 8
+    Elona.StatLearning: 12
+    Elona.StatLife: 110
+    Elona.StatMagic: 8
+    Elona.StatMana: 90
+    Elona.StatPerception: 8
+    Elona.StatSpeed: 70
+    Elona.StatStrength: 7
+    Elona.StatWill: 8
+    Elona.Throwing: 3
 - type: Race
   id: Elona.Norland
   hspIds:
     elona122: 7
   isExtra: true
+  breedPower: 220
   chipMale: Elona.CharaHumanMale
   chipFemale: Elona.CharaHumanFemale
+  maleRatio: 0.52
+  baseHeight: 170
+  minAge: 15
+  maxAge: 34
+  baseSkills:
+    Elona.Casting: 3
+    Elona.ControlMagic: 3
+    Elona.MartialArts: 2
+    Elona.StatCharisma: 6
+    Elona.StatConstitution: 8
+    Elona.StatDexterity: 6
+    Elona.StatLearning: 7
+    Elona.StatLife: 100
+    Elona.StatMagic: 7
+    Elona.StatMana: 90
+    Elona.StatPerception: 6
+    Elona.StatSpeed: 70
+    Elona.StatStrength: 8
+    Elona.StatWill: 9
+    Elona.Tactics: 3
+    Elona.TwoHand: 3
 - type: Race
   id: Elona.Eulderna
   hspIds:
     elona122: 8
   isExtra: false
+  breedPower: 180
   chipMale: Elona.CharaEuldernaMale
   chipFemale: Elona.CharaEuldernaFemale
+  maleRatio: 0.52
+  baseHeight: 175
+  minAge: 16
+  maxAge: 35
+  baseSkills:
+    Elona.Casting: 5
+    Elona.Literacy: 3
+    Elona.MagicDevice: 3
+    Elona.MartialArts: 2
+    Elona.StatCharisma: 8
+    Elona.StatConstitution: 7
+    Elona.StatDexterity: 7
+    Elona.StatLearning: 8
+    Elona.StatLife: 100
+    Elona.StatMagic: 12
+    Elona.StatMana: 100
+    Elona.StatPerception: 10
+    Elona.StatSpeed: 70
+    Elona.StatStrength: 6
+    Elona.StatWill: 10
 - type: Race
   id: Elona.Fairy
   hspIds:
     elona122: 9
   isExtra: false
+  breedPower: 180
   chipMale: Elona.CharaFairy
   chipFemale: Elona.CharaFairy
+  maleRatio: 0.52
+  baseHeight: 50
+  minAge: 5
+  maxAge: 104
+  baseSkills:
+    Elona.Casting: 5
+    Elona.LightArmor: 3
+    Elona.MartialArts: 1
+    Elona.Pickpocket: 3
+    Elona.StatCharisma: 12
+    Elona.StatConstitution: 4
+    Elona.StatDexterity: 9
+    Elona.StatLearning: 8
+    Elona.StatLife: 40
+    Elona.StatMagic: 13
+    Elona.StatMana: 130
+    Elona.StatPerception: 10
+    Elona.StatSpeed: 120
+    Elona.StatStrength: 3
+    Elona.StatWill: 8
 - type: Race
   id: Elona.Asura
   hspIds:
     elona122: 10
   isExtra: true
+  breedPower: 100
   chipMale: Elona.CharaAsura
   chipFemale: Elona.CharaAsura
+  maleRatio: 0.52
+  baseHeight: 220
+  minAge: 15
+  maxAge: 34
+  baseSkills:
+    Elona.Anatomy: 4
+    Elona.DualWield: 30
+    Elona.GreaterEvasion: 6
+    Elona.MartialArts: 2
+    Elona.StatCharisma: 5
+    Elona.StatConstitution: 9
+    Elona.StatDexterity: 14
+    Elona.StatLearning: 4
+    Elona.StatLife: 90
+    Elona.StatMagic: 5
+    Elona.StatMana: 70
+    Elona.StatPerception: 6
+    Elona.StatSpeed: 70
+    Elona.StatStrength: 11
+    Elona.StatWill: 4
 - type: Race
   id: Elona.Slime
   hspIds:
     elona122: 11
   isExtra: true
+  breedPower: 700
   chipMale: Elona.CharaRaceSlime
   chipFemale: Elona.CharaRaceSlime
+  maleRatio: 0.54
+  baseHeight: 40
+  minAge: 1
+  maxAge: 10
+  baseSkills:
+    Elona.Evasion: 2
+    Elona.MartialArts: 2
+    Elona.Performer: 3
+    Elona.StatCharisma: 13
+    Elona.StatConstitution: 5
+    Elona.StatDexterity: 7
+    Elona.StatLearning: 6
+    Elona.StatLife: 80
+    Elona.StatMagic: 4
+    Elona.StatMana: 100
+    Elona.StatPerception: 5
+    Elona.StatSpeed: 55
+    Elona.StatStrength: 4
+    Elona.StatWill: 8
 - type: Race
   id: Elona.Wolf
   hspIds:
     elona122: 12
   isExtra: true
+  breedPower: 800
   chipMale: Elona.CharaWolf
   chipFemale: Elona.CharaWolf
+  maleRatio: 0.55
+  baseHeight: 100
+  minAge: 2
+  maxAge: 11
+  baseSkills:
+    Elona.Evasion: 2
+    Elona.GreaterEvasion: 2
+    Elona.MartialArts: 2
+    Elona.StatCharisma: 6
+    Elona.StatConstitution: 8
+    Elona.StatDexterity: 6
+    Elona.StatLearning: 7
+    Elona.StatLife: 100
+    Elona.StatMagic: 4
+    Elona.StatMana: 80
+    Elona.StatPerception: 11
+    Elona.StatSpeed: 80
+    Elona.StatStrength: 8
+    Elona.StatWill: 8
 - type: Race
   id: Elona.Dwarf
   hspIds:
     elona122: 13
   isExtra: false
+  breedPower: 150
   chipMale: Elona.CharaDwarf
   chipFemale: Elona.CharaDwarf
+  maleRatio: 0.56
+  baseHeight: 100
+  minAge: 20
+  maxAge: 79
+  baseSkills:
+    Elona.Cooking: 4
+    Elona.Jeweler: 3
+    Elona.MartialArts: 2
+    Elona.Mining: 4
+    Elona.StatCharisma: 6
+    Elona.StatConstitution: 11
+    Elona.StatDexterity: 8
+    Elona.StatLearning: 6
+    Elona.StatLife: 100
+    Elona.StatMagic: 6
+    Elona.StatMana: 100
+    Elona.StatPerception: 6
+    Elona.StatSpeed: 70
+    Elona.StatStrength: 10
+    Elona.StatWill: 7
 - type: Race
   id: Elona.Juere
   hspIds:
     elona122: 14
   isExtra: false
+  breedPower: 210
   chipMale: Elona.CharaJuereMale
   chipFemale: Elona.CharaJuereFemale
+  maleRatio: 0.5
+  baseHeight: 165
+  minAge: 15
+  maxAge: 44
+  baseSkills:
+    Elona.LockPicking: 2
+    Elona.MartialArts: 2
+    Elona.Negotiation: 2
+    Elona.Performer: 4
+    Elona.StatCharisma: 11
+    Elona.StatConstitution: 8
+    Elona.StatDexterity: 12
+    Elona.StatLearning: 10
+    Elona.StatLife: 100
+    Elona.StatMagic: 8
+    Elona.StatMana: 100
+    Elona.StatPerception: 10
+    Elona.StatSpeed: 70
+    Elona.StatStrength: 7
+    Elona.StatWill: 8
+    Elona.Throwing: 3
 - type: Race
   id: Elona.Zombie
   hspIds:
     elona122: 15
   isExtra: true
+  breedPower: 100
   chipMale: Elona.CharaZombie
   chipFemale: Elona.CharaZombie
+  maleRatio: 0.5
+  baseHeight: 160
+  minAge: 10
+  maxAge: 209
+  baseSkills:
+    Elona.Cooking: 3
+    Elona.Fishing: 3
+    Elona.MartialArts: 3
+    Elona.StatCharisma: 2
+    Elona.StatConstitution: 8
+    Elona.StatDexterity: 2
+    Elona.StatLearning: 1
+    Elona.StatLife: 120
+    Elona.StatMagic: 6
+    Elona.StatMana: 100
+    Elona.StatPerception: 2
+    Elona.StatSpeed: 45
+    Elona.StatStrength: 10
+    Elona.StatWill: 6
 - type: Race
   id: Elona.Elea
   hspIds:
     elona122: 16
   isExtra: false
+  breedPower: 120
   chipMale: Elona.CharaEuldernaMale
   chipFemale: Elona.CharaEuldernaFemale
+  maleRatio: 0.53
+  baseHeight: 180
+  minAge: 10
+  maxAge: 209
+  baseSkills:
+    Elona.Casting: 2
+    Elona.MagicCapacity: 5
+    Elona.MartialArts: 2
+    Elona.Memorization: 3
+    Elona.StatCharisma: 10
+    Elona.StatConstitution: 6
+    Elona.StatDexterity: 8
+    Elona.StatLearning: 8
+    Elona.StatLife: 90
+    Elona.StatMagic: 13
+    Elona.StatMana: 110
+    Elona.StatPerception: 8
+    Elona.StatSpeed: 70
+    Elona.StatStrength: 6
+    Elona.StatWill: 12
 - type: Race
   id: Elona.Rabbit
   hspIds:
     elona122: 17
   isExtra: true
+  breedPower: 800
   chipMale: Elona.CharaRabbit
   chipFemale: Elona.CharaRabbit
+  maleRatio: 0.53
+  baseHeight: 40
+  minAge: 2
+  maxAge: 6
+  baseSkills:
+    Elona.MartialArts: 1
+    Elona.Riding: 3
+    Elona.StatCharisma: 10
+    Elona.StatConstitution: 4
+    Elona.StatDexterity: 6
+    Elona.StatLearning: 5
+    Elona.StatLife: 90
+    Elona.StatMagic: 4
+    Elona.StatMana: 80
+    Elona.StatPerception: 11
+    Elona.StatSpeed: 100
+    Elona.StatStrength: 5
+    Elona.StatWill: 4
 - type: Race
   id: Elona.Sheep
   hspIds:
     elona122: 18
   isExtra: true
+  breedPower: 1000
   chipMale: Elona.CharaSheep
   chipFemale: Elona.CharaSheep
+  maleRatio: 0.53
+  baseHeight: 150
+  minAge: 2
+  maxAge: 6
+  baseSkills:
+    Elona.Anatomy: 3
+    Elona.Healing: 3
+    Elona.MartialArts: 1
+    Elona.StatCharisma: 8
+    Elona.StatConstitution: 6
+    Elona.StatDexterity: 5
+    Elona.StatLearning: 4
+    Elona.StatLife: 130
+    Elona.StatMagic: 4
+    Elona.StatMana: 80
+    Elona.StatPerception: 6
+    Elona.StatSpeed: 60
+    Elona.StatStrength: 6
+    Elona.StatWill: 5
 - type: Race
   id: Elona.Frog
   hspIds:
     elona122: 19
   isExtra: true
+  breedPower: 600
   chipMale: Elona.CharaFrog
   chipFemale: Elona.CharaFrog
+  maleRatio: 0.53
+  baseHeight: 10
+  minAge: 2
+  maxAge: 6
+  baseSkills:
+    Elona.Investing: 2
+    Elona.MartialArts: 1
+    Elona.Performer: 3
+    Elona.StatCharisma: 6
+    Elona.StatConstitution: 6
+    Elona.StatDexterity: 6
+    Elona.StatLearning: 5
+    Elona.StatLife: 80
+    Elona.StatMagic: 5
+    Elona.StatMana: 80
+    Elona.StatPerception: 8
+    Elona.StatSpeed: 60
+    Elona.StatStrength: 6
+    Elona.StatWill: 5
 - type: Race
   id: Elona.Centipede
   hspIds:
     elona122: 20
   isExtra: true
+  breedPower: 400
   chipMale: Elona.CharaCentipede
   chipFemale: Elona.CharaCentipede
+  maleRatio: 0.53
+  baseHeight: 10
+  minAge: 10
+  maxAge: 19
+  baseSkills:
+    Elona.EyeOfMind: 3
+    Elona.MartialArts: 1
+    Elona.StatCharisma: 2
+    Elona.StatConstitution: 5
+    Elona.StatDexterity: 5
+    Elona.StatLearning: 3
+    Elona.StatLife: 90
+    Elona.StatMagic: 2
+    Elona.StatMana: 80
+    Elona.StatPerception: 6
+    Elona.StatSpeed: 70
+    Elona.StatStrength: 6
+    Elona.StatWill: 2
 - type: Race
   id: Elona.Snail
   hspIds:
     elona122: 21
   isExtra: false
+  breedPower: 500
   chipMale: Elona.CharaSnail
   chipFemale: Elona.CharaSnail
+  maleRatio: 0.53
+  baseHeight: 8
+  minAge: 10
+  maxAge: 19
+  baseSkills:
+    Elona.MartialArts: 1
+    Elona.StatCharisma: 4
+    Elona.StatConstitution: 5
+    Elona.StatDexterity: 3
+    Elona.StatLearning: 3
+    Elona.StatLife: 100
+    Elona.StatMagic: 2
+    Elona.StatMana: 80
+    Elona.StatPerception: 6
+    Elona.StatSpeed: 25
+    Elona.StatStrength: 4
+    Elona.StatWill: 4
+    Elona.Throwing: 5
 - type: Race
   id: Elona.Mandrake
   hspIds:
     elona122: 22
   isExtra: true
+  breedPower: 80
   chipMale: Elona.CharaMandrake
   chipFemale: Elona.CharaMandrake
+  maleRatio: 0.53
+  baseHeight: 25
+  minAge: 10
+  maxAge: 19
+  baseSkills:
+    Elona.Literacy: 2
+    Elona.MagicCapacity: 3
+    Elona.MartialArts: 2
+    Elona.Memorization: 3
+    Elona.StatCharisma: 4
+    Elona.StatConstitution: 6
+    Elona.StatDexterity: 5
+    Elona.StatLearning: 8
+    Elona.StatLife: 70
+    Elona.StatMagic: 10
+    Elona.StatMana: 80
+    Elona.StatPerception: 10
+    Elona.StatSpeed: 60
+    Elona.StatStrength: 5
+    Elona.StatWill: 8
 - type: Race
   id: Elona.Beetle
   hspIds:
     elona122: 23
   isExtra: true
+  breedPower: 750
   chipMale: Elona.CharaBeetle
   chipFemale: Elona.CharaBeetle
+  maleRatio: 0.53
+  baseHeight: 10
+  minAge: 10
+  maxAge: 19
+  baseSkills:
+    Elona.Detection: 3
+    Elona.MartialArts: 2
+    Elona.StatCharisma: 3
+    Elona.StatConstitution: 6
+    Elona.StatDexterity: 5
+    Elona.StatLearning: 4
+    Elona.StatLife: 80
+    Elona.StatMagic: 4
+    Elona.StatMana: 80
+    Elona.StatPerception: 7
+    Elona.StatSpeed: 75
+    Elona.StatStrength: 5
+    Elona.StatWill: 5
+    Elona.Stealth: 3
 - type: Race
   id: Elona.Mushroom
   hspIds:
     elona122: 24
   isExtra: true
+  breedPower: 440
   chipMale: Elona.CharaMushroom
   chipFemale: Elona.CharaMushroom
+  maleRatio: 0.53
+  baseHeight: 20
+  minAge: 10
+  maxAge: 19
+  baseSkills:
+    Elona.Alchemy: 2
+    Elona.MartialArts: 1
+    Elona.StatCharisma: 4
+    Elona.StatConstitution: 7
+    Elona.StatDexterity: 4
+    Elona.StatLearning: 4
+    Elona.StatLife: 50
+    Elona.StatMagic: 10
+    Elona.StatMana: 80
+    Elona.StatPerception: 8
+    Elona.StatSpeed: 60
+    Elona.StatStrength: 5
+    Elona.StatWill: 8
+    Elona.Tailoring: 3
 - type: Race
   id: Elona.Bat
   hspIds:
     elona122: 25
   isExtra: true
+  breedPower: 350
   chipMale: Elona.CharaBat
   chipFemale: Elona.CharaBat
+  maleRatio: 0.53
+  baseHeight: 70
+  minAge: 10
+  maxAge: 19
+  baseSkills:
+    Elona.GreaterEvasion: 3
+    Elona.MartialArts: 2
+    Elona.StatCharisma: 2
+    Elona.StatConstitution: 5
+    Elona.StatDexterity: 9
+    Elona.StatLearning: 4
+    Elona.StatLife: 10
+    Elona.StatMagic: 6
+    Elona.StatMana: 80
+    Elona.StatPerception: 9
+    Elona.StatSpeed: 140
+    Elona.StatStrength: 3
+    Elona.StatWill: 3
 - type: Race
   id: Elona.Ent
   hspIds:
     elona122: 26
   isExtra: true
+  breedPower: 35
   chipMale: Elona.CharaEnt
   chipFemale: Elona.CharaEnt
+  maleRatio: 0.53
+  baseHeight: 1500
+  minAge: 10
+  maxAge: 19
+  baseSkills:
+    Elona.Carpentry: 4
+    Elona.Healing: 2
+    Elona.MartialArts: 3
+    Elona.StatCharisma: 2
+    Elona.StatConstitution: 12
+    Elona.StatDexterity: 4
+    Elona.StatLearning: 2
+    Elona.StatLife: 170
+    Elona.StatMagic: 6
+    Elona.StatMana: 80
+    Elona.StatPerception: 6
+    Elona.StatSpeed: 50
+    Elona.StatStrength: 9
+    Elona.StatWill: 3
 - type: Race
   id: Elona.Lich
   hspIds:
     elona122: 27
   isExtra: false
+  breedPower: 25
   chipMale: Elona.CharaLich
   chipFemale: Elona.CharaLich
+  maleRatio: 0.53
+  baseHeight: 180
+  minAge: 10
+  maxAge: 19
+  baseSkills:
+    Elona.Casting: 3
+    Elona.MagicDevice: 3
+    Elona.MartialArts: 3
+    Elona.Meditation: 5
+    Elona.StatCharisma: 4
+    Elona.StatConstitution: 8
+    Elona.StatDexterity: 7
+    Elona.StatLearning: 10
+    Elona.StatLife: 80
+    Elona.StatMagic: 15
+    Elona.StatMana: 140
+    Elona.StatPerception: 10
+    Elona.StatSpeed: 70
+    Elona.StatStrength: 5
+    Elona.StatWill: 13
 - type: Race
   id: Elona.Hound
   hspIds:
     elona122: 28
   isExtra: true
+  breedPower: 540
   chipMale: Elona.CharaHound
   chipFemale: Elona.CharaHound
+  maleRatio: 0.53
+  baseHeight: 160
+  minAge: 10
+  maxAge: 19
+  baseSkills:
+    Elona.Detection: 4
+    Elona.MartialArts: 2
+    Elona.Performer: 2
+    Elona.StatCharisma: 3
+    Elona.StatConstitution: 9
+    Elona.StatDexterity: 11
+    Elona.StatLearning: 5
+    Elona.StatLife: 100
+    Elona.StatMagic: 3
+    Elona.StatMana: 80
+    Elona.StatPerception: 10
+    Elona.StatSpeed: 90
+    Elona.StatStrength: 8
+    Elona.StatWill: 4
 - type: Race
   id: Elona.Ghost
   hspIds:
     elona122: 29
   isExtra: true
+  breedPower: 30
   chipMale: Elona.CharaGhost
   chipFemale: Elona.CharaGhost
+  maleRatio: 0.53
+  baseHeight: 180
+  minAge: 10
+  maxAge: 19
+  baseSkills:
+    Elona.MagicCapacity: 4
+    Elona.MagicDevice: 2
+    Elona.MartialArts: 2
+    Elona.StatCharisma: 11
+    Elona.StatConstitution: 8
+    Elona.StatDexterity: 6
+    Elona.StatLearning: 7
+    Elona.StatLife: 60
+    Elona.StatMagic: 11
+    Elona.StatMana: 80
+    Elona.StatPerception: 14
+    Elona.StatSpeed: 60
+    Elona.StatStrength: 4
+    Elona.StatWill: 6
 - type: Race
   id: Elona.Spirit
   hspIds:
     elona122: 30
   isExtra: true
+  breedPower: 25
   chipMale: Elona.CharaSpirit
   chipFemale: Elona.CharaSpirit
+  maleRatio: 0.53
+  baseHeight: 100
+  minAge: 10
+  maxAge: 19
+  baseSkills:
+    Elona.Casting: 3
+    Elona.ControlMagic: 2
+    Elona.MartialArts: 2
+    Elona.StatCharisma: 4
+    Elona.StatConstitution: 9
+    Elona.StatDexterity: 5
+    Elona.StatLearning: 8
+    Elona.StatLife: 100
+    Elona.StatMagic: 13
+    Elona.StatMana: 80
+    Elona.StatPerception: 7
+    Elona.StatSpeed: 60
+    Elona.StatStrength: 5
+    Elona.StatWill: 10
 - type: Race
   id: Elona.Eye
   hspIds:
     elona122: 31
   isExtra: true
+  breedPower: 50
   chipMale: Elona.CharaEye
   chipFemale: Elona.CharaEye
+  maleRatio: 0.53
+  baseHeight: 40
+  minAge: 10
+  maxAge: 19
+  baseSkills:
+    Elona.Anatomy: 3
+    Elona.Detection: 3
+    Elona.MartialArts: 2
+    Elona.StatCharisma: 4
+    Elona.StatConstitution: 9
+    Elona.StatDexterity: 4
+    Elona.StatLearning: 4
+    Elona.StatLife: 100
+    Elona.StatMagic: 10
+    Elona.StatMana: 80
+    Elona.StatPerception: 6
+    Elona.StatSpeed: 25
+    Elona.StatStrength: 3
+    Elona.StatWill: 7
 - type: Race
   id: Elona.Wyvern
   hspIds:
     elona122: 32
   isExtra: true
+  breedPower: 100
   chipMale: Elona.CharaWyvern
   chipFemale: Elona.CharaWyvern
+  maleRatio: 0.53
+  baseHeight: 1600
+  minAge: 10
+  maxAge: 19
+  baseSkills:
+    Elona.Literacy: 3
+    Elona.MartialArts: 3
+    Elona.StatCharisma: 4
+    Elona.StatConstitution: 13
+    Elona.StatDexterity: 8
+    Elona.StatLearning: 5
+    Elona.StatLife: 190
+    Elona.StatMagic: 8
+    Elona.StatMana: 80
+    Elona.StatPerception: 9
+    Elona.StatSpeed: 70
+    Elona.StatStrength: 11
+    Elona.StatWill: 7
+    Elona.Traveling: 3
 - type: Race
   id: Elona.Wasp
   hspIds:
     elona122: 33
   isExtra: true
+  breedPower: 580
   chipMale: Elona.CharaWasp
   chipFemale: Elona.CharaWasp
+  maleRatio: 0.53
+  baseHeight: 80
+  minAge: 10
+  maxAge: 19
+  baseSkills:
+    Elona.GreaterEvasion: 2
+    Elona.MartialArts: 2
+    Elona.StatCharisma: 2
+    Elona.StatConstitution: 6
+    Elona.StatDexterity: 13
+    Elona.StatLearning: 4
+    Elona.StatLife: 50
+    Elona.StatMagic: 3
+    Elona.StatMana: 80
+    Elona.StatPerception: 11
+    Elona.StatSpeed: 100
+    Elona.StatStrength: 7
+    Elona.StatWill: 6
 - type: Race
   id: Elona.Giant
   hspIds:
     elona122: 34
   isExtra: true
+  breedPower: 60
   chipMale: Elona.CharaGiant
   chipFemale: Elona.CharaGiant
+  maleRatio: 0.53
+  baseHeight: 1800
+  minAge: 10
+  maxAge: 19
+  baseSkills:
+    Elona.Anatomy: 3
+    Elona.Carpentry: 3
+    Elona.MagicDevice: 2
+    Elona.MartialArts: 4
+    Elona.StatCharisma: 3
+    Elona.StatConstitution: 14
+    Elona.StatDexterity: 9
+    Elona.StatLearning: 8
+    Elona.StatLife: 200
+    Elona.StatMagic: 6
+    Elona.StatMana: 80
+    Elona.StatPerception: 4
+    Elona.StatSpeed: 60
+    Elona.StatStrength: 12
+    Elona.StatWill: 5
 - type: Race
   id: Elona.Imp
   hspIds:
     elona122: 35
   isExtra: true
+  breedPower: 240
   chipMale: Elona.CharaImp
   chipFemale: Elona.CharaImp
+  maleRatio: 0.53
+  baseHeight: 80
+  minAge: 10
+  maxAge: 19
+  baseSkills:
+    Elona.ControlMagic: 3
+    Elona.MartialArts: 2
+    Elona.Memorization: 3
+    Elona.StatCharisma: 3
+    Elona.StatConstitution: 6
+    Elona.StatDexterity: 8
+    Elona.StatLearning: 8
+    Elona.StatLife: 70
+    Elona.StatMagic: 7
+    Elona.StatMana: 80
+    Elona.StatPerception: 8
+    Elona.StatSpeed: 70
+    Elona.StatStrength: 5
+    Elona.StatWill: 4
 - type: Race
   id: Elona.Hand
   hspIds:
     elona122: 36
   isExtra: true
+  breedPower: 160
   chipMale: Elona.CharaHand
   chipFemale: Elona.CharaHand
+  maleRatio: 0.53
+  baseHeight: 70
+  minAge: 10
+  maxAge: 19
+  baseSkills:
+    Elona.EyeOfMind: 4
+    Elona.MartialArts: 2
+    Elona.StatCharisma: 2
+    Elona.StatConstitution: 9
+    Elona.StatDexterity: 9
+    Elona.StatLearning: 8
+    Elona.StatLife: 100
+    Elona.StatMagic: 5
+    Elona.StatMana: 80
+    Elona.StatPerception: 4
+    Elona.StatSpeed: 70
+    Elona.StatStrength: 8
+    Elona.StatWill: 6
 - type: Race
   id: Elona.Snake
   hspIds:
     elona122: 37
   isExtra: true
+  breedPower: 430
   chipMale: Elona.CharaSnake
   chipFemale: Elona.CharaSnake
+  maleRatio: 0.53
+  baseHeight: 50
+  minAge: 10
+  maxAge: 19
+  baseSkills:
+    Elona.MartialArts: 2
+    Elona.StatCharisma: 4
+    Elona.StatConstitution: 9
+    Elona.StatDexterity: 8
+    Elona.StatLearning: 4
+    Elona.StatLife: 100
+    Elona.StatMagic: 6
+    Elona.StatMana: 80
+    Elona.StatPerception: 10
+    Elona.StatSpeed: 70
+    Elona.StatStrength: 6
+    Elona.StatWill: 6
+    Elona.Stealth: 4
 - type: Race
   id: Elona.Drake
   hspIds:
     elona122: 38
   isExtra: true
+  breedPower: 120
   chipMale: Elona.CharaDrake
   chipFemale: Elona.CharaDrake
+  maleRatio: 0.53
+  baseHeight: 1400
+  minAge: 10
+  maxAge: 19
+  baseSkills:
+    Elona.Fishing: 2
+    Elona.MartialArts: 3
+    Elona.StatCharisma: 7
+    Elona.StatConstitution: 12
+    Elona.StatDexterity: 11
+    Elona.StatLearning: 6
+    Elona.StatLife: 160
+    Elona.StatMagic: 8
+    Elona.StatMana: 80
+    Elona.StatPerception: 8
+    Elona.StatSpeed: 85
+    Elona.StatStrength: 11
+    Elona.StatWill: 9
+    Elona.Traveling: 3
 - type: Race
   id: Elona.Goblin
   hspIds:
     elona122: 39
   isExtra: false
+  breedPower: 290
   chipMale: Elona.CharaGoblin
   chipFemale: Elona.CharaGoblin
+  maleRatio: 0.53
+  baseHeight: 140
+  minAge: 10
+  maxAge: 19
+  baseSkills:
+    Elona.EyeOfMind: 3
+    Elona.Fishing: 2
+    Elona.Healing: 5
+    Elona.MartialArts: 2
+    Elona.Mining: 2
+    Elona.StatCharisma: 4
+    Elona.StatConstitution: 8
+    Elona.StatDexterity: 5
+    Elona.StatLearning: 8
+    Elona.StatLife: 110
+    Elona.StatMagic: 7
+    Elona.StatMana: 90
+    Elona.StatPerception: 5
+    Elona.StatSpeed: 70
+    Elona.StatStrength: 8
+    Elona.StatWill: 7
 - type: Race
   id: Elona.Bear
   hspIds:
     elona122: 40
   isExtra: true
+  breedPower: 350
   chipMale: Elona.CharaBear
   chipFemale: Elona.CharaBear
+  maleRatio: 0.53
+  baseHeight: 280
+  minAge: 10
+  maxAge: 19
+  baseSkills:
+    Elona.EyeOfMind: 3
+    Elona.Healing: 3
+    Elona.MartialArts: 2
+    Elona.Performer: 2
+    Elona.StatCharisma: 5
+    Elona.StatConstitution: 10
+    Elona.StatDexterity: 5
+    Elona.StatLearning: 6
+    Elona.StatLife: 160
+    Elona.StatMagic: 3
+    Elona.StatMana: 80
+    Elona.StatPerception: 6
+    Elona.StatSpeed: 70
+    Elona.StatStrength: 9
+    Elona.StatWill: 6
 - type: Race
   id: Elona.Armor
   hspIds:
     elona122: 41
   isExtra: true
+  breedPower: 40
   chipMale: Elona.CharaArmor
   chipFemale: Elona.CharaArmor
+  maleRatio: 0.53
+  baseHeight: 550
+  minAge: 10
+  maxAge: 19
+  baseSkills:
+    Elona.LockPicking: 3
+    Elona.MagicDevice: 2
+    Elona.MartialArts: 2
+    Elona.StatCharisma: 4
+    Elona.StatConstitution: 4
+    Elona.StatDexterity: 7
+    Elona.StatLearning: 6
+    Elona.StatLife: 40
+    Elona.StatMagic: 7
+    Elona.StatMana: 80
+    Elona.StatPerception: 5
+    Elona.StatSpeed: 50
+    Elona.StatStrength: 8
+    Elona.StatWill: 6
 - type: Race
   id: Elona.Medusa
   hspIds:
     elona122: 42
   isExtra: true
+  breedPower: 180
   chipMale: Elona.CharaMedusa
   chipFemale: Elona.CharaMedusa
+  maleRatio: 0.53
+  baseHeight: 160
+  minAge: 10
+  maxAge: 19
+  baseSkills:
+    Elona.ControlMagic: 3
+    Elona.MagicCapacity: 3
+    Elona.MartialArts: 3
+    Elona.StatCharisma: 5
+    Elona.StatConstitution: 6
+    Elona.StatDexterity: 8
+    Elona.StatLearning: 7
+    Elona.StatLife: 100
+    Elona.StatMagic: 11
+    Elona.StatMana: 110
+    Elona.StatPerception: 7
+    Elona.StatSpeed: 70
+    Elona.StatStrength: 7
+    Elona.StatWill: 9
 - type: Race
   id: Elona.Cupid
   hspIds:
     elona122: 43
   isExtra: true
+  breedPower: 350
   chipMale: Elona.CharaCupid
   chipFemale: Elona.CharaCupid
+  maleRatio: 0.53
+  baseHeight: 120
+  minAge: 10
+  maxAge: 19
+  baseSkills:
+    Elona.ControlMagic: 3
+    Elona.Literacy: 4
+    Elona.MartialArts: 2
+    Elona.StatCharisma: 8
+    Elona.StatConstitution: 7
+    Elona.StatDexterity: 9
+    Elona.StatLearning: 8
+    Elona.StatLife: 80
+    Elona.StatMagic: 12
+    Elona.StatMana: 130
+    Elona.StatPerception: 8
+    Elona.StatSpeed: 80
+    Elona.StatStrength: 6
+    Elona.StatWill: 7
 - type: Race
   id: Elona.Phantom
   hspIds:
     elona122: 44
   isExtra: true
+  breedPower: 35
   chipMale: Elona.CharaPhantom
   chipFemale: Elona.CharaPhantom
+  maleRatio: 0.53
+  baseHeight: 450
+  minAge: 10
+  maxAge: 19
+  baseSkills:
+    Elona.DisarmTrap: 3
+    Elona.MartialArts: 2
+    Elona.StatCharisma: 4
+    Elona.StatConstitution: 6
+    Elona.StatDexterity: 8
+    Elona.StatLearning: 6
+    Elona.StatLife: 60
+    Elona.StatMagic: 9
+    Elona.StatMana: 90
+    Elona.StatPerception: 7
+    Elona.StatSpeed: 85
+    Elona.StatStrength: 6
+    Elona.StatWill: 6
+    Elona.Stealth: 3
 - type: Race
   id: Elona.Harpy
   hspIds:
     elona122: 45
   isExtra: true
+  breedPower: 420
   chipMale: Elona.CharaHarpy
   chipFemale: Elona.CharaHarpy
+  maleRatio: 0.53
+  baseHeight: 140
+  minAge: 10
+  maxAge: 19
+  baseSkills:
+    Elona.MagicCapacity: 3
+    Elona.MagicDevice: 2
+    Elona.MartialArts: 2
+    Elona.StatCharisma: 4
+    Elona.StatConstitution: 6
+    Elona.StatDexterity: 9
+    Elona.StatLearning: 6
+    Elona.StatLife: 90
+    Elona.StatMagic: 9
+    Elona.StatMana: 100
+    Elona.StatPerception: 9
+    Elona.StatSpeed: 80
+    Elona.StatStrength: 8
+    Elona.StatWill: 8
 - type: Race
   id: Elona.Dragon
   hspIds:
     elona122: 46
   isExtra: true
+  breedPower: 20
   chipMale: Elona.CharaDragon
   chipFemale: Elona.CharaDragon
+  maleRatio: 0.53
+  baseHeight: 2400
+  minAge: 10
+  maxAge: 19
+  baseSkills:
+    Elona.Jeweler: 3
+    Elona.MartialArts: 3
+    Elona.StatCharisma: 9
+    Elona.StatConstitution: 15
+    Elona.StatDexterity: 10
+    Elona.StatLearning: 10
+    Elona.StatLife: 220
+    Elona.StatMagic: 13
+    Elona.StatMana: 80
+    Elona.StatPerception: 9
+    Elona.StatSpeed: 70
+    Elona.StatStrength: 13
+    Elona.StatWill: 9
+    Elona.Traveling: 3
 - type: Race
   id: Elona.Dinosaur
   hspIds:
     elona122: 47
   isExtra: true
+  breedPower: 100
   chipMale: Elona.CharaDinosaur
   chipFemale: Elona.CharaDinosaur
+  maleRatio: 0.53
+  baseHeight: 2000
+  minAge: 10
+  maxAge: 19
+  baseSkills:
+    Elona.GreaterEvasion: 2
+    Elona.MartialArts: 4
+    Elona.StatCharisma: 5
+    Elona.StatConstitution: 10
+    Elona.StatDexterity: 6
+    Elona.StatLearning: 4
+    Elona.StatLife: 140
+    Elona.StatMagic: 6
+    Elona.StatMana: 80
+    Elona.StatPerception: 5
+    Elona.StatSpeed: 120
+    Elona.StatStrength: 8
+    Elona.StatWill: 5
+    Elona.Traveling: 3
 - type: Race
   id: Elona.Cerberus
   hspIds:
     elona122: 48
   isExtra: true
+  breedPower: 80
   chipMale: Elona.CharaCerberus
   chipFemale: Elona.CharaCerberus
+  maleRatio: 0.53
+  baseHeight: 1200
+  minAge: 10
+  maxAge: 19
+  baseSkills:
+    Elona.Detection: 3
+    Elona.MartialArts: 3
+    Elona.StatCharisma: 4
+    Elona.StatConstitution: 9
+    Elona.StatDexterity: 10
+    Elona.StatLearning: 6
+    Elona.StatLife: 160
+    Elona.StatMagic: 7
+    Elona.StatMana: 80
+    Elona.StatPerception: 11
+    Elona.StatSpeed: 85
+    Elona.StatStrength: 11
+    Elona.StatWill: 8
+    Elona.Tailoring: 3
 - type: Race
   id: Elona.Spider
   hspIds:
     elona122: 49
   isExtra: true
+  breedPower: 560
   chipMale: Elona.CharaSpider
   chipFemale: Elona.CharaSpider
+  maleRatio: 0.53
+  baseHeight: 60
+  minAge: 10
+  maxAge: 19
+  baseSkills:
+    Elona.Anatomy: 5
+    Elona.MartialArts: 2
+    Elona.StatCharisma: 4
+    Elona.StatConstitution: 5
+    Elona.StatDexterity: 9
+    Elona.StatLearning: 5
+    Elona.StatLife: 50
+    Elona.StatMagic: 8
+    Elona.StatMana: 80
+    Elona.StatPerception: 12
+    Elona.StatSpeed: 120
+    Elona.StatStrength: 5
+    Elona.StatWill: 6
+    Elona.Stealth: 3
 - type: Race
   id: Elona.Golem
   hspIds:
     elona122: 50
   isExtra: false
+  breedPower: 40
   chipMale: Elona.CharaGolem
   chipFemale: Elona.CharaGolem
+  maleRatio: 0.53
+  baseHeight: 700
+  minAge: 10
+  maxAge: 19
+  baseSkills:
+    Elona.MartialArts: 4
+    Elona.Mining: 3
+    Elona.StatCharisma: 3
+    Elona.StatConstitution: 14
+    Elona.StatDexterity: 4
+    Elona.StatLearning: 4
+    Elona.StatLife: 150
+    Elona.StatMagic: 6
+    Elona.StatMana: 70
+    Elona.StatPerception: 5
+    Elona.StatSpeed: 45
+    Elona.StatStrength: 10
+    Elona.StatWill: 9
+    Elona.WeightLifting: 5
 - type: Race
   id: Elona.Rock
   hspIds:
     elona122: 51
   isExtra: true
+  breedPower: 200
   chipMale: Elona.CharaRock
   chipFemale: Elona.CharaRock
+  maleRatio: 0.53
+  baseHeight: 500
+  minAge: 10
+  maxAge: 19
+  baseSkills:
+    Elona.MartialArts: 1
+    Elona.Mining: 3
+    Elona.StatCharisma: 10
+    Elona.StatConstitution: 22
+    Elona.StatDexterity: 3
+    Elona.StatLearning: 2
+    Elona.StatLife: 40
+    Elona.StatMagic: 4
+    Elona.StatMana: 50
+    Elona.StatPerception: 8
+    Elona.StatSpeed: 70
+    Elona.StatStrength: 8
+    Elona.StatWill: 3
+    Elona.WeightLifting: 3
 - type: Race
   id: Elona.Crab
   hspIds:
     elona122: 52
   isExtra: true
+  breedPower: 420
   chipMale: Elona.CharaCrab
   chipFemale: Elona.CharaCrab
+  maleRatio: 0.53
+  baseHeight: 50
+  minAge: 10
+  maxAge: 19
+  baseSkills:
+    Elona.DisarmTrap: 2
+    Elona.MartialArts: 2
+    Elona.Shield: 3
+    Elona.StatCharisma: 3
+    Elona.StatConstitution: 6
+    Elona.StatDexterity: 7
+    Elona.StatLearning: 3
+    Elona.StatLife: 60
+    Elona.StatMagic: 4
+    Elona.StatMana: 80
+    Elona.StatPerception: 7
+    Elona.StatSpeed: 70
+    Elona.StatStrength: 6
+    Elona.StatWill: 4
 - type: Race
   id: Elona.Skeleton
   hspIds:
     elona122: 53
   isExtra: true
+  breedPower: 30
   chipMale: Elona.CharaSkeleton
   chipFemale: Elona.CharaSkeleton
+  maleRatio: 0.53
+  baseHeight: 160
+  minAge: 10
+  maxAge: 19
+  baseSkills:
+    Elona.LockPicking: 3
+    Elona.LongSword: 3
+    Elona.MartialArts: 2
+    Elona.Shield: 2
+    Elona.StatCharisma: 4
+    Elona.StatConstitution: 7
+    Elona.StatDexterity: 8
+    Elona.StatLearning: 4
+    Elona.StatLife: 100
+    Elona.StatMagic: 9
+    Elona.StatMana: 80
+    Elona.StatPerception: 6
+    Elona.StatSpeed: 70
+    Elona.StatStrength: 8
+    Elona.StatWill: 6
 - type: Race
   id: Elona.Piece
   hspIds:
     elona122: 54
   isExtra: true
+  breedPower: 25
   chipMale: Elona.CharaPiece
   chipFemale: Elona.CharaPiece
+  maleRatio: 0.53
+  baseHeight: 750
+  minAge: 10
+  maxAge: 19
+  baseSkills:
+    Elona.Literacy: 3
+    Elona.MagicCapacity: 2
+    Elona.MartialArts: 2
+    Elona.StatCharisma: 4
+    Elona.StatConstitution: 7
+    Elona.StatDexterity: 6
+    Elona.StatLearning: 5
+    Elona.StatLife: 120
+    Elona.StatMagic: 10
+    Elona.StatMana: 80
+    Elona.StatPerception: 4
+    Elona.StatSpeed: 70
+    Elona.StatStrength: 9
+    Elona.StatWill: 9
 - type: Race
   id: Elona.Cat
   hspIds:
     elona122: 55
   isExtra: true
+  breedPower: 950
   chipMale: Elona.CharaCat
   chipFemale: Elona.CharaCat
+  maleRatio: 0.53
+  baseHeight: 60
+  minAge: 10
+  maxAge: 19
+  baseSkills:
+    Elona.Evasion: 2
+    Elona.GreaterEvasion: 3
+    Elona.MartialArts: 2
+    Elona.Performer: 2
+    Elona.StatCharisma: 12
+    Elona.StatConstitution: 7
+    Elona.StatDexterity: 7
+    Elona.StatLearning: 4
+    Elona.StatLife: 120
+    Elona.StatMagic: 7
+    Elona.StatMana: 120
+    Elona.StatPerception: 7
+    Elona.StatSpeed: 110
+    Elona.StatStrength: 6
+    Elona.StatWill: 4
 - type: Race
   id: Elona.Dog
   hspIds:
     elona122: 56
   isExtra: true
+  breedPower: 920
   chipMale: Elona.CharaDog
   chipFemale: Elona.CharaDog
+  maleRatio: 0.53
+  baseHeight: 80
+  minAge: 10
+  maxAge: 19
+  baseSkills:
+    Elona.Detection: 3
+    Elona.MartialArts: 2
+    Elona.Performer: 2
+    Elona.StatCharisma: 7
+    Elona.StatConstitution: 8
+    Elona.StatDexterity: 7
+    Elona.StatLearning: 8
+    Elona.StatLife: 120
+    Elona.StatMagic: 7
+    Elona.StatMana: 80
+    Elona.StatPerception: 7
+    Elona.StatSpeed: 85
+    Elona.StatStrength: 7
+    Elona.StatWill: 7
+    Elona.WeightLifting: 3
 - type: Race
   id: Elona.Roran
   hspIds:
     elona122: 57
   isExtra: true
+  breedPower: 220
   chipMale: Elona.CharaRoran
   chipFemale: Elona.CharaRoran
+  maleRatio: 0
+  baseHeight: 150
+  minAge: 10
+  maxAge: 19
+  baseSkills:
+    Elona.Investing: 2
+    Elona.Literacy: 4
+    Elona.MartialArts: 2
+    Elona.Meditation: 3
+    Elona.StatCharisma: 10
+    Elona.StatConstitution: 6
+    Elona.StatDexterity: 5
+    Elona.StatLearning: 7
+    Elona.StatLife: 100
+    Elona.StatMagic: 7
+    Elona.StatMana: 80
+    Elona.StatPerception: 7
+    Elona.StatSpeed: 95
+    Elona.StatStrength: 4
+    Elona.StatWill: 6
 - type: Race
   id: Elona.Rat
   hspIds:
     elona122: 58
   isExtra: true
+  breedPower: 1100
   chipMale: Elona.CharaRat
   chipFemale: Elona.CharaRat
+  maleRatio: 0.53
+  baseHeight: 30
+  minAge: 10
+  maxAge: 19
+  baseSkills:
+    Elona.Anatomy: 2
+    Elona.MartialArts: 1
+    Elona.StatCharisma: 3
+    Elona.StatConstitution: 4
+    Elona.StatDexterity: 8
+    Elona.StatLearning: 3
+    Elona.StatLife: 80
+    Elona.StatMagic: 2
+    Elona.StatMana: 80
+    Elona.StatPerception: 10
+    Elona.StatSpeed: 75
+    Elona.StatStrength: 5
+    Elona.StatWill: 3
+    Elona.Stealth: 3
 - type: Race
   id: Elona.Shell
   hspIds:
     elona122: 59
   isExtra: true
+  breedPower: 450
   chipMale: Elona.CharaShell
   chipFemale: Elona.CharaShell
+  maleRatio: 0.53
+  baseHeight: 120
+  minAge: 10
+  maxAge: 19
+  baseSkills:
+    Elona.MartialArts: 1
+    Elona.Meditation: 3
+    Elona.SenseQuality: 3
+    Elona.StatCharisma: 4
+    Elona.StatConstitution: 7
+    Elona.StatDexterity: 5
+    Elona.StatLearning: 4
+    Elona.StatLife: 100
+    Elona.StatMagic: 3
+    Elona.StatMana: 80
+    Elona.StatPerception: 4
+    Elona.StatSpeed: 20
+    Elona.StatStrength: 7
+    Elona.StatWill: 5
 - type: Race
   id: Elona.Catgod
   hspIds:
     elona122: 60
   isExtra: true
+  breedPower: 5
   chipMale: Elona.CharaCatgod
   chipFemale: Elona.CharaCatgod
+  maleRatio: 0
+  baseHeight: 120
+  minAge: 10
+  maxAge: 19
+  baseSkills:
+    Elona.Evasion: 3
+    Elona.EyeOfMind: 2
+    Elona.GreaterEvasion: 3
+    Elona.MartialArts: 3
+    Elona.StatCharisma: 25
+    Elona.StatConstitution: 13
+    Elona.StatDexterity: 21
+    Elona.StatLearning: 8
+    Elona.StatLife: 120
+    Elona.StatMagic: 12
+    Elona.StatMana: 80
+    Elona.StatPerception: 28
+    Elona.StatSpeed: 500
+    Elona.StatStrength: 12
+    Elona.StatWill: 13
 - type: Race
   id: Elona.Machinegod
   hspIds:
     elona122: 61
   isExtra: true
+  breedPower: 5
   chipMale: Elona.CharaMachinegod
   chipFemale: Elona.CharaMachinegod
+  maleRatio: 0.53
+  baseHeight: 3000
+  minAge: 10
+  maxAge: 19
+  baseSkills:
+    Elona.Firearm: 30
+    Elona.MartialArts: 5
+    Elona.StatCharisma: 10
+    Elona.StatConstitution: 14
+    Elona.StatDexterity: 11
+    Elona.StatLearning: 12
+    Elona.StatLife: 200
+    Elona.StatMagic: 8
+    Elona.StatMana: 80
+    Elona.StatPerception: 24
+    Elona.StatSpeed: 70
+    Elona.StatStrength: 15
+    Elona.StatWill: 15
 - type: Race
   id: Elona.Undeadgod
   hspIds:
     elona122: 62
   isExtra: true
+  breedPower: 5
   chipMale: Elona.CharaUndeadgod
   chipFemale: Elona.CharaUndeadgod
+  maleRatio: 0.53
+  baseHeight: 1500
+  minAge: 10
+  maxAge: 19
+  baseSkills:
+    Elona.ControlMagic: 3
+    Elona.MagicCapacity: 5
+    Elona.MartialArts: 4
+    Elona.StatCharisma: 7
+    Elona.StatConstitution: 13
+    Elona.StatDexterity: 14
+    Elona.StatLearning: 16
+    Elona.StatLife: 150
+    Elona.StatMagic: 28
+    Elona.StatMana: 500
+    Elona.StatPerception: 18
+    Elona.StatSpeed: 110
+    Elona.StatStrength: 10
+    Elona.StatWill: 18
 - type: Race
   id: Elona.Machine
   hspIds:
     elona122: 63
   isExtra: true
+  breedPower: 15
   chipMale: Elona.CharaMachine
   chipFemale: Elona.CharaMachine
+  maleRatio: 0.53
+  baseHeight: 240
+  minAge: 10
+  maxAge: 19
+  baseSkills:
+    Elona.DisarmTrap: 3
+    Elona.LockPicking: 3
+    Elona.MartialArts: 2
+    Elona.Meditation: 3
+    Elona.StatCharisma: 6
+    Elona.StatConstitution: 10
+    Elona.StatDexterity: 7
+    Elona.StatLearning: 5
+    Elona.StatLife: 100
+    Elona.StatMagic: 5
+    Elona.StatMana: 80
+    Elona.StatPerception: 9
+    Elona.StatSpeed: 65
+    Elona.StatStrength: 7
+    Elona.StatWill: 12
 - type: Race
   id: Elona.Wisp
   hspIds:
     elona122: 64
   isExtra: true
+  breedPower: 25
   chipMale: Elona.CharaWisp
   chipFemale: Elona.CharaWisp
+  maleRatio: 0.53
+  baseHeight: 40
+  minAge: 10
+  maxAge: 19
+  baseSkills:
+    Elona.ControlMagic: 3
+    Elona.MagicCapacity: 5
+    Elona.MartialArts: 1
+    Elona.StatCharisma: 4
+    Elona.StatConstitution: 10
+    Elona.StatDexterity: 10
+    Elona.StatLearning: 10
+    Elona.StatLife: 150
+    Elona.StatMagic: 15
+    Elona.StatMana: 150
+    Elona.StatPerception: 20
+    Elona.StatSpeed: 35
+    Elona.StatStrength: 5
+    Elona.StatWill: 15
 - type: Race
   id: Elona.Chicken
   hspIds:
     elona122: 65
   isExtra: true
+  breedPower: 1000
   chipMale: Elona.CharaChicken
   chipFemale: Elona.CharaChicken
+  maleRatio: 0.53
+  baseHeight: 40
+  minAge: 10
+  maxAge: 19
+  baseSkills:
+    Elona.Anatomy: 3
+    Elona.MartialArts: 1
+    Elona.Meditation: 3
+    Elona.StatCharisma: 7
+    Elona.StatConstitution: 8
+    Elona.StatDexterity: 10
+    Elona.StatLearning: 4
+    Elona.StatLife: 80
+    Elona.StatMagic: 5
+    Elona.StatMana: 80
+    Elona.StatPerception: 11
+    Elona.StatSpeed: 60
+    Elona.StatStrength: 5
+    Elona.StatWill: 4
 - type: Race
   id: Elona.Stalker
   hspIds:
     elona122: 66
   isExtra: true
+  breedPower: 25
   chipMale: Elona.CharaStalker
   chipFemale: Elona.CharaStalker
+  maleRatio: 0.53
+  baseHeight: 180
+  minAge: 10
+  maxAge: 19
+  baseSkills:
+    Elona.EyeOfMind: 3
+    Elona.MartialArts: 2
+    Elona.StatCharisma: 3
+    Elona.StatConstitution: 8
+    Elona.StatDexterity: 5
+    Elona.StatLearning: 7
+    Elona.StatLife: 120
+    Elona.StatMagic: 9
+    Elona.StatMana: 140
+    Elona.StatPerception: 11
+    Elona.StatSpeed: 100
+    Elona.StatStrength: 9
+    Elona.StatWill: 6
+    Elona.Stealth: 4
 - type: Race
   id: Elona.Catsister
   hspIds:
     elona122: 67
   isExtra: true
+  breedPower: 5
   chipMale: Elona.CharaCatsister
   chipFemale: Elona.CharaCatsister
+  maleRatio: 0
+  baseHeight: 140
+  minAge: 10
+  maxAge: 13
+  baseSkills:
+    Elona.MartialArts: 4
+    Elona.StatCharisma: 22
+    Elona.StatConstitution: 5
+    Elona.StatDexterity: 13
+    Elona.StatLearning: 8
+    Elona.StatLife: 30
+    Elona.StatMagic: 13
+    Elona.StatMana: 100
+    Elona.StatPerception: 15
+    Elona.StatSpeed: 200
+    Elona.StatStrength: 7
+    Elona.StatWill: 10
+    Elona.Tactics: 4
+    Elona.TwoHand: 6
 - type: Race
   id: Elona.Mutant
   hspIds:
     elona122: 68
   isExtra: false
+  breedPower: 50
   chipMale: Elona.CharaMutant
   chipFemale: Elona.CharaMutant
+  maleRatio: 0.53
+  baseHeight: 180
+  minAge: 25
+  maxAge: 74
+  baseSkills:
+    Elona.Healing: 4
+    Elona.MagicCapacity: 3
+    Elona.MartialArts: 2
+    Elona.StatCharisma: 1
+    Elona.StatConstitution: 5
+    Elona.StatDexterity: 5
+    Elona.StatLearning: 7
+    Elona.StatLife: 100
+    Elona.StatMagic: 7
+    Elona.StatMana: 100
+    Elona.StatPerception: 7
+    Elona.StatSpeed: 70
+    Elona.StatStrength: 9
+    Elona.StatWill: 9
 - type: Race
   id: Elona.Yeek
   hspIds:
     elona122: 69
   isExtra: true
+  breedPower: 500
   chipMale: Elona.CharaYeek
   chipFemale: Elona.CharaYeek
+  maleRatio: 0.5
+  baseHeight: 90
+  minAge: 15
+  maxAge: 44
+  baseSkills:
+    Elona.MartialArts: 1
+    Elona.Meditation: 3
+    Elona.Negotiation: 4
+    Elona.StatCharisma: 6
+    Elona.StatConstitution: 7
+    Elona.StatDexterity: 6
+    Elona.StatLearning: 6
+    Elona.StatLife: 80
+    Elona.StatMagic: 6
+    Elona.StatMana: 90
+    Elona.StatPerception: 7
+    Elona.StatSpeed: 90
+    Elona.StatStrength: 4
+    Elona.StatWill: 4
 - type: Race
   id: Elona.Yith
   hspIds:
     elona122: 70
   isExtra: true
+  breedPower: 25
   chipMale: Elona.CharaYith
   chipFemale: Elona.CharaYith
+  maleRatio: 0.53
+  baseHeight: 950
+  minAge: 10
+  maxAge: 19
+  baseSkills:
+    Elona.ControlMagic: 4
+    Elona.Faith: 4
+    Elona.MartialArts: 3
+    Elona.Meditation: 3
+    Elona.StatCharisma: 11
+    Elona.StatConstitution: 14
+    Elona.StatDexterity: 9
+    Elona.StatLearning: 6
+    Elona.StatLife: 150
+    Elona.StatMagic: 11
+    Elona.StatMana: 200
+    Elona.StatPerception: 15
+    Elona.StatSpeed: 70
+    Elona.StatStrength: 13
+    Elona.StatWill: 5
 - type: Race
   id: Elona.Servant
   hspIds:
     elona122: 71
   isExtra: true
+  breedPower: 5
   chipMale: Elona.CharaServant
   chipFemale: Elona.CharaServant
+  maleRatio: 0.52
+  baseHeight: 165
+  minAge: 100
+  maxAge: 299
+  baseSkills:
+    Elona.Casting: 4
+    Elona.DualWield: 4
+    Elona.Firearm: 4
+    Elona.MartialArts: 3
+    Elona.Negotiation: 3
+    Elona.StatCharisma: 6
+    Elona.StatConstitution: 6
+    Elona.StatDexterity: 6
+    Elona.StatLearning: 6
+    Elona.StatLife: 90
+    Elona.StatMagic: 6
+    Elona.StatMana: 150
+    Elona.StatPerception: 6
+    Elona.StatSpeed: 100
+    Elona.StatStrength: 6
+    Elona.StatWill: 6
+    Elona.Tactics: 3
+    Elona.Throwing: 3
+    Elona.TwoHand: 3
 - type: Race
   id: Elona.Horse
   hspIds:
     elona122: 72
   isExtra: true
+  breedPower: 1000
   chipMale: Elona.CharaHorse
   chipFemale: Elona.CharaHorse
+  maleRatio: 0.53
+  baseHeight: 250
+  minAge: 10
+  maxAge: 19
+  baseSkills:
+    Elona.Healing: 4
+    Elona.MartialArts: 1
+    Elona.StatCharisma: 6
+    Elona.StatConstitution: 8
+    Elona.StatDexterity: 4
+    Elona.StatLearning: 4
+    Elona.StatLife: 150
+    Elona.StatMagic: 3
+    Elona.StatMana: 50
+    Elona.StatPerception: 5
+    Elona.StatSpeed: 125
+    Elona.StatStrength: 9
+    Elona.StatWill: 4
 - type: Race
   id: Elona.God
   hspIds:
     elona122: 73
   isExtra: true
+  breedPower: 1
   chipMale: Elona.CharaLulwy
   chipFemale: Elona.CharaLulwy
+  maleRatio: 0
+  baseHeight: 180
+  minAge: 999999
+  maxAge: 999999
+  baseSkills:
+    Elona.Bow: 7
+    Elona.DualWield: 7
+    Elona.Evasion: 3
+    Elona.EyeOfMind: 2
+    Elona.Firearm: 8
+    Elona.GreaterEvasion: 3
+    Elona.MartialArts: 6
+    Elona.StatCharisma: 21
+    Elona.StatConstitution: 13
+    Elona.StatDexterity: 19
+    Elona.StatLearning: 16
+    Elona.StatLife: 200
+    Elona.StatMagic: 24
+    Elona.StatMana: 100
+    Elona.StatPerception: 17
+    Elona.StatSpeed: 150
+    Elona.StatStrength: 17
+    Elona.StatWill: 25
+    Elona.Tactics: 7
+    Elona.TwoHand: 5
 - type: Race
   id: Elona.Quickling
   hspIds:
     elona122: 74
   isExtra: true
+  breedPower: 1
   chipMale: Elona.CharaQuickling
   chipFemale: Elona.CharaQuickling
+  maleRatio: 0.53
+  baseHeight: 25
+  minAge: 10
+  maxAge: 19
+  baseSkills:
+    Elona.Evasion: 7
+    Elona.GreaterEvasion: 6
+    Elona.MartialArts: 1
+    Elona.StatCharisma: 7
+    Elona.StatConstitution: 4
+    Elona.StatDexterity: 18
+    Elona.StatLearning: 5
+    Elona.StatLife: 3
+    Elona.StatMagic: 9
+    Elona.StatMana: 40
+    Elona.StatPerception: 16
+    Elona.StatSpeed: 750
+    Elona.StatStrength: 2
+    Elona.StatWill: 8
+    Elona.Stealth: 3
 - type: Race
   id: Elona.Metal
   hspIds:
     elona122: 75
   isExtra: true
+  breedPower: 1
   chipMale: Elona.CharaMetal
   chipFemale: Elona.CharaMetal
+  maleRatio: 0.53
+  baseHeight: 12
+  minAge: 10
+  maxAge: 19
+  baseSkills:
+    Elona.GreaterEvasion: 6
+    Elona.MagicCapacity: 4
+    Elona.MartialArts: 1
+    Elona.StatCharisma: 16
+    Elona.StatConstitution: 1
+    Elona.StatDexterity: 3
+    Elona.StatLearning: 2
+    Elona.StatLife: 1
+    Elona.StatMagic: 4
+    Elona.StatMana: 100
+    Elona.StatPerception: 32
+    Elona.StatSpeed: 640
+    Elona.StatStrength: 4
+    Elona.StatWill: 4
 - type: Race
   id: Elona.Bike
   hspIds:
     elona122: 76
   isExtra: true
+  breedPower: 15
   chipMale: Elona.CharaBike
   chipFemale: Elona.CharaBike
+  maleRatio: 0.53
+  baseHeight: 240
+  minAge: 10
+  maxAge: 19
+  baseSkills:
+    Elona.DisarmTrap: 3
+    Elona.Evasion: 11
+    Elona.LockPicking: 3
+    Elona.MartialArts: 2
+    Elona.StatCharisma: 11
+    Elona.StatConstitution: 13
+    Elona.StatDexterity: 4
+    Elona.StatLearning: 4
+    Elona.StatLife: 170
+    Elona.StatMagic: 3
+    Elona.StatMana: 60
+    Elona.StatPerception: 3
+    Elona.StatSpeed: 155
+    Elona.StatStrength: 11
+    Elona.StatWill: 5
 ...

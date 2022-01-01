@@ -349,6 +349,9 @@ namespace OpenNefia.Core.GameObjects
 
             _entityFactory.LocalizeComponents(newEntity);
 
+            var ev = new EntityCloneFinishedEventArgs(target);
+            RaiseLocalEvent(newEntity, ev);
+
             return newEntity;
         }
 
@@ -487,6 +490,22 @@ namespace OpenNefia.Core.GameObjects
         public void MarkAsCloned<T>() where T: IComponent
         {
             HandledTypes.Add(ComponentTypeCache<T>.Type);
+        }
+    }
+
+    /// <summary>
+    /// Raised on a cloned entity after all its components have been finalized.
+    /// </summary>
+    public class EntityCloneFinishedEventArgs
+    {
+        /// <summary>
+        /// The UID of the entity this entity was cloned from.
+        /// </summary>
+        public EntityUid ClonedFrom { get; }
+
+        public EntityCloneFinishedEventArgs(EntityUid clonedFrom)
+        {
+            ClonedFrom = clonedFrom;
         }
     }
 

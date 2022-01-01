@@ -7,6 +7,7 @@ using OpenNefia.Core.Maps;
 using OpenNefia.Content.FieldMap;
 using OpenNefia.Core.Log;
 using OpenNefia.Core.Prototypes;
+using OpenNefia.Content.Maps;
 
 namespace OpenNefia.Content.GameObjects
 {
