@@ -23,7 +23,10 @@ namespace OpenNefia.Core.Rendering
         {
             ByIndex.Clear();
             ToDraw.Clear();
-            SpriteBatches.Clear();
+            foreach (var batch in SpriteBatches)
+            {
+                batch.Clear();
+            }
             NeedsRedraw = true;
         }
 
