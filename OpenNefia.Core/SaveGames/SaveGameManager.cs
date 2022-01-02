@@ -11,7 +11,9 @@ using YamlDotNet.RepresentationModel;
 namespace OpenNefia.Core.SaveGames
 {
     /// <summary>
-    /// Manages reading and writing data to the user's save game folders.
+    /// Manages reading and writing data to the user's save game folders. This
+    /// interface is solely concerned with file management, and has no logic for the
+    /// actual game save format.
     /// </summary>
     public interface ISaveGameManager
     {
@@ -105,17 +107,21 @@ namespace OpenNefia.Core.SaveGames
 
         private void TryRegisterSave(ResourcePath saveDirectory)
         {
-            var headerFile = saveDirectory / "header.yml";
+            var saveDirectoryReader = SavesRootDir.GetChild(saveDirectory);
 
-            if (!SavesRootDir.Exists(headerFile))
+            if (!saveDirectoryReader.Exists(new ResourcePath("/header.yml")))
             {
                 Logger.WarningS(SawmillName, $"Missing header.yml in save folder: {saveDirectory}");
+                return;
+            }
+            if (!saveDirectoryReader.IsDirectory(new ResourcePath("/Files")))
+            {
+                Logger.WarningS(SawmillName, $"Missing /Files folder in save folder: {saveDirectory}");
                 return;
             }
 
             try
             {
-                var saveDirectoryReader = SavesRootDir.GetChild(saveDirectory);
                 RegisterSave(saveDirectoryReader, saveDirectory);
             }
             catch (Exception ex)
@@ -173,7 +179,7 @@ namespace OpenNefia.Core.SaveGames
             var node = _serializationManager.WriteValue(header, true);
             saveDirectoryReader.WriteAllYaml(headerFile, node.ToYamlNode());
 
-            Logger.InfoS(SawmillName, $"Created save '{header.Name}' at {saveDirectoryReader.RootDir}.");
+            Logger.InfoS(SawmillName, $"Creating save '{header.Name}' at {saveDirectoryReader.RootDir}.");
 
             return RegisterSave(saveDirectoryReader, saveDirectory);
         }
