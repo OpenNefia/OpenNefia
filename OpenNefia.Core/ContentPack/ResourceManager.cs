@@ -34,16 +34,15 @@ namespace OpenNefia.Core.ContentPack
         public IWritableDirProvider UserData { get; private set; } = default!;
 
         /// <inheritdoc />
-        public void Initialize(string? userData)
+        public void Initialize(string userData)
         {
-            if (userData != null)
-            {
-                UserData = new WritableDirProvider(Directory.CreateDirectory(userData));
-            }
-            else
-            {
-                UserData = new VirtualWritableDirProvider();
-            }
+            Initialize(new WritableDirProvider(Directory.CreateDirectory(userData)));
+        }
+
+        /// <inheritdoc/>
+        public void Initialize(IWritableDirProvider userData)
+        {
+            UserData = userData;
         }
 
         /// <inheritdoc />

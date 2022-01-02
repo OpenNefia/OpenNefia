@@ -136,7 +136,7 @@ namespace OpenNefia.Core.ContentPack
         /// </exception>
         public static YamlStream ReadAllYaml(this IWritableDirProvider provider, ResourcePath path)
         {
-            var reader = provider.OpenText(path);
+            using var reader = provider.OpenText(path);
 
             var yamlStream = new YamlStream();
             yamlStream.Load(reader);

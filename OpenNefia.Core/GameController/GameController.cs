@@ -115,7 +115,7 @@ namespace OpenNefia.Core.GameController
             var language = GetSystemLanguage();
             _localizationManager.Initialize(language);
 
-            _saveGameManager.Initialize(userDataDir);
+            _saveGameManager.Initialize();
 
             _modLoader.BroadcastRunLevel(ModRunLevel.PostInit);
 
