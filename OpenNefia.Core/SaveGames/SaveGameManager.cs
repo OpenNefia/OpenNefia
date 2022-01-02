@@ -48,15 +48,18 @@ namespace OpenNefia.Core.SaveGames
             Header = header;
             ScreenshotFile = screenshotFile;
 
+            IWritableDirProvider committed;
             if (rootSavesDirectory != null)
             {
-                var realDirectory = Path.Join(rootSavesDirectory, saveDirectory.ToRelativeSystemPath());
-                Files = new SaveGameDirProvider(Directory.CreateDirectory(realDirectory));
+                var realSaveDirectory = Path.Join(rootSavesDirectory, saveDirectory.ToRelativeSystemPath());
+                committed = new WritableDirProvider(Directory.CreateDirectory(realSaveDirectory));
             }
             else
             {
-                Files = new VirtualSaveGameDirProvider();
+                committed = new VirtualWritableDirProvider();
             }
+
+            Files = new SaveGameDirProvider(committed, new VirtualWritableDirProvider());
         }
     }
 

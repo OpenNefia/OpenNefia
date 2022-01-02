@@ -18,6 +18,11 @@ namespace OpenNefia.Core.ContentPack
         string? RootDir { get; }
 
         /// <summary>
+        /// Gets a dir provider rooted at the given child path.
+        /// </summary>
+        IWritableDirProvider GetChild(ResourcePath path);
+
+        /// <summary>
         /// Creates a directory. If the directory exists, does nothing.
         /// </summary>
         /// <param name="path">Path of directory to create.</param>
