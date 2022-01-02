@@ -75,12 +75,14 @@ namespace OpenNefia.Tests.Core.SaveGames
 
             Assert.That(saveMan.AllSaves.Count(), Is.EqualTo(0));
 
-            var testSavePath = new ResourcePath("/testSave");
-            var save = saveMan.CreateSave(testSavePath, header);
+            var testSaveDir = new ResourcePath("/testSave");
+            var save = saveMan.CreateSave(testSaveDir, header);
 
             Assert.Multiple(() =>
             {
                 Assert.That(save.Header.Name, Is.EqualTo(header.Name));
+                Assert.That(save.SaveDirectory, Is.EqualTo(testSaveDir));
+                Assert.That(save.Files.Exists(new ResourcePath("/header.yml")));
                 Assert.That(saveMan.AllSaves.Count(), Is.EqualTo(1));
                 Assert.That(saveMan.ContainsSave(save), Is.True);
             });
