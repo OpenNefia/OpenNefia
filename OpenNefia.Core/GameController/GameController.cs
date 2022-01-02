@@ -12,6 +12,7 @@ using OpenNefia.Core.Locale;
 using OpenNefia.Core.Log;
 using OpenNefia.Core.Maps;
 using OpenNefia.Core.Maths;
+using OpenNefia.Core.Profiles;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Core.ResourceManagement;
@@ -48,6 +49,9 @@ namespace OpenNefia.Core.GameController
         [Dependency] private readonly IThemeManager _themeManager = default!;
         [Dependency] private readonly IFontManager _fontManager = default!;
         [Dependency] private readonly IInputManager _inputManager = default!;
+        [Dependency] private readonly IProfileManager _profileManager = default!;
+
+        private const string UserDataDir = "UserData";
 
         public Action? MainCallback { get; set; } = null;
 
@@ -60,8 +64,10 @@ namespace OpenNefia.Core.GameController
 
             _modLoader.SetUseLoadContext(true);
 
-            var userDataDir = "UserData";
+            var userDataDir = UserDataDir;
             _resourceCache.Initialize(userDataDir);
+            
+            _profileManager.Initialize();
 
             ProgramShared.DoMounts(_resourceCache);
 

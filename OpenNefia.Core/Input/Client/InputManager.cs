@@ -16,6 +16,7 @@ using OpenNefia.Core.Locale;
 using OpenNefia.Core.Log;
 using OpenNefia.Core.Maps;
 using OpenNefia.Core.Maths;
+using OpenNefia.Core.Profiles;
 using OpenNefia.Core.Reflection;
 using OpenNefia.Core.Serialization;
 using OpenNefia.Core.Serialization.Manager;
@@ -45,6 +46,7 @@ namespace OpenNefia.Core.Input
         [Dependency] private readonly IReflectionManager _reflectionManager = default!;
         [Dependency] private readonly IUserInterfaceManagerInternal _uiMgr = default!;
         [Dependency] private readonly IGameSessionManager _sessionManager = default!;
+        [Dependency] private readonly IProfileManager _profileMan = default!;
 
         private bool _currentlyFindingViewport;
 
@@ -116,6 +118,11 @@ namespace OpenNefia.Core.Input
             Contexts.ContextChanged += OnContextChanged;
 
             var path = new ResourcePath(KeybindsPath);
+            if (_profileMan.CurrentProfile.Exists(path))
+            {
+                LoadKeyFile(path, true);
+            }
+
             if (_resourceMan.UserData.Exists(path))
             {
                 LoadKeyFile(path, true);
