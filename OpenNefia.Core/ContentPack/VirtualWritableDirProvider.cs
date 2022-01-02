@@ -20,6 +20,11 @@ namespace OpenNefia.Core.ContentPack
         /// <inheritdoc />
         public string? RootDir => null;
 
+        public IWritableDirProvider GetChild(ResourcePath path)
+        {
+            return new VirtualWritableDirProvider();
+        }
+
         public void CreateDirectory(ResourcePath path)
         {
             if (!path.IsRooted)

@@ -21,6 +21,12 @@ namespace OpenNefia.Core.ContentPack
             RootDir = rootDir.FullName + Path.DirectorySeparatorChar.ToString();
         }
 
+        public IWritableDirProvider GetChild(ResourcePath path)
+        {
+            var newRootPath = (new ResourcePath(RootDir) / path).ToRelativeSystemPath();
+            return new WritableDirProvider(Directory.CreateDirectory(newRootPath));
+        }
+
         #region File Access
 
         /// <inheritdoc />
