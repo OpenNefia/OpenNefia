@@ -23,7 +23,12 @@ namespace OpenNefia.Core.ContentPack
 
         public IWritableDirProvider GetChild(ResourcePath path)
         {
-            var newRootPath = (new ResourcePath(RootDir) / path).ToRelativeSystemPath();
+            if (!path.IsRooted)
+            {
+                throw new ArgumentException("Path must be rooted.", nameof(path));
+            }
+
+            var newRootPath = Path.Combine(RootDir, path.ToRelativeSystemPath());
             return new WritableDirProvider(Directory.CreateDirectory(newRootPath));
         }
 

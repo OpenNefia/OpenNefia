@@ -1,6 +1,7 @@
 ﻿using OpenNefia.Core.ContentPack;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Log;
+using OpenNefia.Core.Profiles;
 using OpenNefia.Core.Serialization.Manager;
 using OpenNefia.Core.Serialization.Manager.Attributes;
 using OpenNefia.Core.Serialization.Markdown;
@@ -17,7 +18,7 @@ namespace OpenNefia.Core.SaveGames
         ISaveGameHandle? CurrentSave { get; }
         IEnumerable<ISaveGameHandle> AllSaves { get; }
 
-        void Initialize(string? userData);
+        void Initialize();
 
         ISaveGameHandle CreateSave(ResourcePath saveDirectory, SaveGameHeader header);
         bool ContainsSave(ISaveGameHandle save);
@@ -82,6 +83,9 @@ namespace OpenNefia.Core.SaveGames
     public class SaveGameManager : ISaveGameManager
     {
         [Dependency] private readonly ISerializationManager _serializationManager = default!;
+        [Dependency] private readonly IProfileManager _profileManager = default!;
+
+        private readonly ResourcePath SavesPath = new("/Save");
 
         public const string SawmillName = "save";
 
@@ -95,17 +99,9 @@ namespace OpenNefia.Core.SaveGames
 
         public ISaveGameHandle? CurrentSave { get; private set; }
 
-        public void Initialize(string? savesDir)
+        public void Initialize()
         {
-            if (savesDir != null)
-            {
-                _savesDirectory = savesDir;
-                SavesDir = new WritableDirProvider(Directory.CreateDirectory(savesDir));
-            }
-            else
-            {
-                SavesDir = new VirtualWritableDirProvider();
-            }
+            SavesDir = _profileManager.CurrentProfile.GetChild(SavesPath);
 
             RescanSaves();
         }

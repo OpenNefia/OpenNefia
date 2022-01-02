@@ -12,9 +12,16 @@ namespace OpenNefia.Core.ContentPack
         /// </summary>
         /// <param name="userData">
         /// The directory to use for user data.
-        /// If null, a virtual temporary file system is used instead.
         /// </param>
-        void Initialize(string? userData);
+        void Initialize(string userData);
+
+        /// <summary>
+        ///     Sets the manager up so that the base game can run.
+        /// </summary>
+        /// <param name="userData">
+        /// The directory to use for user data.
+        /// </param>
+        void Initialize(IWritableDirProvider userData);
 
         /// <summary>
         ///     Mounts a single stream as a content file. Useful for unit testing.

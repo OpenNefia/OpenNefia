@@ -61,7 +61,7 @@ namespace OpenNefia.Tests.Core.Maps.Loader
             IoCManager.Resolve<ISerializationManager>().Initialize();
 
             var resourceManager = IoCManager.Resolve<IResourceManagerInternal>();
-            resourceManager.Initialize(null);
+            resourceManager.Initialize(new VirtualWritableDirProvider());
             resourceManager.MountString("/Prototypes/All.yml", Prototypes);
 
             var protoMan = IoCManager.Resolve<IPrototypeManager>();
