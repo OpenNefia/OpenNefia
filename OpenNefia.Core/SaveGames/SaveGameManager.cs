@@ -31,7 +31,6 @@ namespace OpenNefia.Core.SaveGames
         ResourcePath SaveDirectory { get; }
         DateTime LastSaveDate { get; }
         SaveGameHeader Header { get; }
-        ResourcePath? ScreenshotFile { get; }
         ISaveGameDirProvider Files { get; }
     }
 
@@ -40,27 +39,14 @@ namespace OpenNefia.Core.SaveGames
         public ResourcePath SaveDirectory { get; }
         public DateTime LastSaveDate { get; internal set; }
         public SaveGameHeader Header { get; }
-        public ResourcePath? ScreenshotFile { get; }
         public ISaveGameDirProvider Files { get; }
 
-        internal SaveGameHandle(string? rootSavesDirectory, ResourcePath saveDirectory, SaveGameHeader header, ResourcePath? screenshotFile)
+        internal SaveGameHandle(IWritableDirProvider saveDir, ResourcePath savePath, SaveGameHeader header)
         {
-            SaveDirectory = saveDirectory;
+            SaveDirectory = savePath;
             Header = header;
-            ScreenshotFile = screenshotFile;
 
-            IWritableDirProvider committed;
-            if (rootSavesDirectory != null)
-            {
-                var realSaveDirectory = Path.Join(rootSavesDirectory, saveDirectory.ToRelativeSystemPath());
-                committed = new WritableDirProvider(Directory.CreateDirectory(realSaveDirectory));
-            }
-            else
-            {
-                committed = new VirtualWritableDirProvider();
-            }
-
-            Files = new SaveGameDirProvider(committed, new VirtualWritableDirProvider());
+            Files = new SaveGameDirProvider(saveDir, new VirtualWritableDirProvider());
         }
     }
 
@@ -85,13 +71,11 @@ namespace OpenNefia.Core.SaveGames
         [Dependency] private readonly ISerializationManager _serializationManager = default!;
         [Dependency] private readonly IProfileManager _profileManager = default!;
 
-        private readonly ResourcePath SavesPath = new("/Save");
-
         public const string SawmillName = "save";
 
-        private string? _savesDirectory;
+        private const string SavesPath = "/Save";
 
-        private IWritableDirProvider SavesDir { get; set; } = default!;
+        private IWritableDirProvider SavesRootDir { get; set; } = default!;
 
         private List<ISaveGameHandle> _saves = new();
 
@@ -101,7 +85,7 @@ namespace OpenNefia.Core.SaveGames
 
         public void Initialize()
         {
-            SavesDir = _profileManager.CurrentProfile.GetChild(SavesPath);
+            SavesRootDir = _profileManager.CurrentProfile.GetChild(new ResourcePath(SavesPath));
 
             RescanSaves();
         }
@@ -111,7 +95,7 @@ namespace OpenNefia.Core.SaveGames
             CurrentSave = null;
             _saves.Clear();
 
-            foreach (var dir in SavesDir.Find("*", recursive: false).directories)
+            foreach (var dir in SavesRootDir.Find("*", recursive: false).directories)
             {
                 TryRegisterSave(dir);
             }
@@ -123,7 +107,7 @@ namespace OpenNefia.Core.SaveGames
         {
             var headerFile = saveDirectory / "header.yml";
 
-            if (!SavesDir.Exists(headerFile))
+            if (!SavesRootDir.Exists(headerFile))
             {
                 Logger.WarningS(SawmillName, $"Missing header.yml in save folder: {saveDirectory}");
                 return;
@@ -131,7 +115,8 @@ namespace OpenNefia.Core.SaveGames
 
             try
             {
-                RegisterSave(saveDirectory);
+                var saveDirectoryReader = SavesRootDir.GetChild(saveDirectory);
+                RegisterSave(saveDirectoryReader, saveDirectory);
             }
             catch (Exception ex)
             {
@@ -140,19 +125,13 @@ namespace OpenNefia.Core.SaveGames
             }
         }
 
-        private ISaveGameHandle RegisterSave(ResourcePath saveDirectory)
+        private ISaveGameHandle RegisterSave(IWritableDirProvider saveDirectoryReader, ResourcePath saveDirectory)
         {
-            var headerFile = saveDirectory / "header.yml";
-
-            var yaml = SavesDir.ReadAllYaml(headerFile);
+            var yaml = saveDirectoryReader.ReadAllYaml(new ResourcePath("/header.yml"));
             var node = yaml.Documents[0].RootNode;
             var header = _serializationManager.ReadValue<SaveGameHeader>(node.ToDataNode(), skipHook: true)!;
 
-            ResourcePath? screenshotFile = saveDirectory / "screenshot.png";
-            if (!SavesDir.Exists(screenshotFile))
-                screenshotFile = null;
-
-            var save = new SaveGameHandle(_savesDirectory, saveDirectory, header, screenshotFile);
+            var save = new SaveGameHandle(saveDirectoryReader, saveDirectory, header);
             _saves.Add(save);
 
             return save;
@@ -167,7 +146,7 @@ namespace OpenNefia.Core.SaveGames
         {
             if (!ContainsSave(save))
             {
-                throw new ArgumentException($"Save is not registered: {save.SaveDirectory}");
+                throw new ArgumentException($"Save is not registered: {save.Files.RootDir}");
             }
 
             CurrentSave = save;
@@ -183,34 +162,38 @@ namespace OpenNefia.Core.SaveGames
             {
                 throw new ArgumentException($"Save path must consist of a single directory.", nameof(saveDirectory));
             }
-            if (SavesDir.Exists(saveDirectory))
+            if (SavesRootDir.Exists(saveDirectory))
             {
                 throw new InvalidOperationException($"Save path already exists: {saveDirectory}");
             }
 
-            SavesDir.CreateDirectory(saveDirectory);
+            var saveDirectoryReader = SavesRootDir.GetChild(saveDirectory);
 
-            var headerFile = saveDirectory / "header.yml";
+            var headerFile = new ResourcePath("/header.yml");
             var node = _serializationManager.WriteValue(header, true);
-            SavesDir.WriteAllYaml(headerFile, node.ToYamlNode());
+            saveDirectoryReader.WriteAllYaml(headerFile, node.ToYamlNode());
 
-            Logger.InfoS(SawmillName, $"Created save '{header.Name}' at {SavesDir.RootDir}/{saveDirectory}.");
+            Logger.InfoS(SawmillName, $"Created save '{header.Name}' at {saveDirectoryReader.RootDir}.");
 
-            return RegisterSave(saveDirectory);
+            return RegisterSave(saveDirectoryReader, saveDirectory);
         }
 
         public void DeleteSave(ISaveGameHandle save)
         {
-            if (!ContainsSave(save))
+            if (!ContainsSave(save) )
             {
-                throw new ArgumentException($"Save is not registered: {save.SaveDirectory}");
+                throw new ArgumentException($"Save is not registered: {save.Files.RootDir}");
             }
             if (CurrentSave == save)
             {
                 throw new ArgumentException($"Cannot delete the active save.", nameof(save));
             }
 
-            SavesDir.Delete(save.SaveDirectory);
+            if (save.Files.RootDir != null)
+            {
+                SavesRootDir.Delete(save.SaveDirectory);
+            }
+
             _saves.Remove(save);
         }
     }

@@ -81,8 +81,6 @@ namespace OpenNefia.Tests.Core.SaveGames
             Assert.Multiple(() =>
             {
                 Assert.That(save.Header.Name, Is.EqualTo(header.Name));
-                Assert.That(save.ScreenshotFile, Is.Null);
-                Assert.That(save.SaveDirectory, Is.EqualTo(testSavePath));
                 Assert.That(saveMan.AllSaves.Count(), Is.EqualTo(1));
                 Assert.That(saveMan.ContainsSave(save), Is.True);
             });
