@@ -51,6 +51,33 @@ namespace OpenNefia.Core.SaveGames
 
         public bool Exists(ResourcePath path)
         {
+            if (!path.IsRooted)
+            {
+                throw new ArgumentException("Path must be rooted.");
+            }
+
+            foreach (var deletion in _pendingDeletions)
+            {
+                if (path == deletion || path.TryRelativeTo(deletion, out _))
+                    return false;
+            }
+
+            return _committedDir.Exists(path) || _tempDir.Exists(path);
+        }
+
+        public bool IsDirectory(ResourcePath path)
+        {
+            if (!path.IsRooted)
+            {
+                throw new ArgumentException("Path must be rooted.");
+            }
+
+            foreach (var deletion in _pendingDeletions)
+            {
+                if (path == deletion || path.TryRelativeTo(deletion, out _))
+                    return false;
+            }
+
             return _committedDir.Exists(path) || _tempDir.Exists(path);
         }
 
@@ -65,29 +92,13 @@ namespace OpenNefia.Core.SaveGames
             return (allFiles, allDirs);
         }
 
-        public bool IsDirectory(ResourcePath path)
-        {
-            return _committedDir.Exists(path) || _tempDir.Exists(path);
-        }
-
-        private static bool IsCreateMode(FileMode fileMode)
-        {
-            return fileMode switch
-            {
-                FileMode.Create => true,
-                FileMode.CreateNew => true,
-                FileMode.OpenOrCreate => true,
-                _ => false
-            };
-        }
-
         public Stream Open(ResourcePath path, FileMode fileMode, FileAccess access, FileShare share)
         {
             if (!_tempDir.Exists(path) && _committedDir.Exists(path))
             {
                 Logger.DebugS("save.writer", $"Copying file as uncommitted: {path}");
                 CopyBetweenDirWriters(_committedDir, _tempDir, fileMode, path);
-                _pendingDeletions.Remove(path);
+                RemoveDeletion(path);
             }
 
             return _tempDir.Open(path, fileMode, access, share);
@@ -95,9 +106,9 @@ namespace OpenNefia.Core.SaveGames
 
         private void CopyBetweenDirWriters(IWritableDirProvider from, IWritableDirProvider to, FileMode fileMode, ResourcePath path)
         {
-            var dir = path.Directory;
-            if (dir.IsRooted)
-                to.CreateDirectory(dir);
+            var dir = path.Directory.ToRootedPath();
+            to.CreateDirectory(dir);
+            from.CreateDirectory(dir);
 
             using var reader = from.OpenRead(path);
             using var writer = to.Open(path, fileMode, FileAccess.ReadWrite, FileShare.None);
@@ -106,27 +117,23 @@ namespace OpenNefia.Core.SaveGames
 
         public void Rename(ResourcePath oldPath, ResourcePath newPath)
         {
-            if (_tempDir.Exists(oldPath))
+            if (!_tempDir.Exists(oldPath) && _committedDir.Exists(oldPath))
             {
-                _tempDir.Rename(oldPath, newPath);
+                Logger.DebugS("save.writer", $"Renaming file as uncommitted: {oldPath}");
+                CopyBetweenDirWriters(_committedDir, _tempDir, FileMode.Create, oldPath);
             }
-            else
-            {
-                if (_committedDir.IsDirectory(oldPath))
-                {
-                    _tempDir.CreateDirectory(newPath);
-                }
-                else if (_committedDir.Exists(oldPath))
-                {
-                    _tempDir.CreateDirectory(newPath.Directory);
-                }
-                else
-                {
-                    throw new FileNotFoundException($"File {oldPath} does not exist in the save's directory. ({_committedDir.RootDir})");
-                }
 
-                _pendingDeletions.Add(oldPath);
-                _pendingDeletions.Remove(newPath);
+            _tempDir.Rename(oldPath, newPath);
+            _pendingDeletions.Add(oldPath);
+            RemoveDeletion(newPath);
+        }
+
+        private void RemoveDeletion(ResourcePath path)
+        {
+            foreach (var deletion in _pendingDeletions.ToList())
+            {
+                if (path == deletion || path.TryRelativeTo(deletion, out _))
+                    _pendingDeletions.Remove(deletion);
             }
         }
 
