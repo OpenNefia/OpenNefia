@@ -14,6 +14,7 @@ using OpenNefia.Core.UserInterface;
 using OpenNefia.Content.Factions;
 using OpenNefia.Content.EntityGen;
 using static OpenNefia.Content.Prototypes.Protos;
+using OpenNefia.Core.ContentPack;
 
 namespace OpenNefia.Content.TitleScreen
 {
@@ -31,6 +32,7 @@ namespace OpenNefia.Content.TitleScreen
         [Dependency] private readonly IMapBlueprintLoader _mapBlueprints = default!;
         [Dependency] private readonly ISaveGameManager _saveGameManager = default!;
         [Dependency] private readonly IUserInterfaceManager _uiManager = default!;
+        [Dependency] private readonly IModLoader _modLoader = default!;
 
         private void Startup()
         {
@@ -72,9 +74,27 @@ namespace OpenNefia.Content.TitleScreen
             }
         }
 
+        private SaveGameHeader MakeSaveGameHeader()
+        {
+            var engineVersion = Core.Engine.Version;
+            var engineCommitHash = "??????";
+            var assemblyVersions = new Dictionary<string, Version>();
+
+            foreach (var assembly in _modLoader.LoadedModules)
+            {
+                if (assembly == typeof(Core.Engine).Assembly)
+                    continue;
+
+                var name = assembly.GetName()!;
+                assemblyVersions.Add(name.FullName, name.Version!);
+            }
+
+            return new SaveGameHeader("ruin", engineVersion, engineCommitHash, assemblyVersions);
+        }
+
         private void StartGame()
         {
-            var saveHeader = new SaveGameHeader("ruin");
+            var saveHeader = MakeSaveGameHeader();
             var savePath = ResourcePath.Root / Guid.NewGuid().ToString();
             var save = _saveGameManager.CreateSave(savePath, saveHeader);
             _saveGameManager.SetCurrentSave(save);

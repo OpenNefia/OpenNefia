@@ -22,14 +22,9 @@ namespace OpenNefia.Content.World
     public class WorldSystem : EntitySystem, IWorldSystem
     {
         [Dependency] private readonly IMapManager _mapManager = default!;
-        [Dependency] private readonly ISaveGameSerializer _saveGameSerializer = default!;
 
         [RegisterSaveData("Elona.WorldSystem.State")]
         public WorldState State { get; } = new();
-
-        public override void Initialize()
-        {
-        }
 
         public void PassTime(TimeSpan time, bool noEvents = false)
         {

@@ -118,8 +118,6 @@ namespace OpenNefia.Core.GameController
             _tileDefinitionManager.Initialize();
             _tileDefinitionManager.RegisterAll();
 
-            _saveGameSerializer.Initialize();
-
             // TODO replace with config system
             var language = GetSystemLanguage();
             _localizationManager.Initialize(language);
@@ -132,6 +130,24 @@ namespace OpenNefia.Core.GameController
             GC.Collect();
 
             return true;
+        }
+
+        /// <summary>
+        /// This startup logic is heavier and only needed by the non-headless entry point.
+        /// </summary>
+        private void Stage2Startup()
+        {
+            _atlasManager.Initialize();
+            _atlasManager.LoadAtlases();
+
+            _entityManager.Startup();
+
+            _saveGameSerializer.Initialize();
+
+            _mapRenderer.Initialize();
+            _mapRenderer.RegisterTileLayers();
+
+            _debugServer.Startup();
         }
 
         private PrototypeId<LanguagePrototype> GetSystemLanguage()
@@ -197,22 +213,6 @@ namespace OpenNefia.Core.GameController
             logManager.RootSawmill.AddHandler(logHandlerFactory());
 
             logManager.GetSawmill("repl.exec").Level = LogLevel.Info;
-        }
-
-        /// <summary>
-        /// This startup logic is heavier and only needed by the non-headless entry point.
-        /// </summary>
-        private void Stage2Startup()
-        {
-            _atlasManager.Initialize();
-            _atlasManager.LoadAtlases();
-
-            _entityManager.Startup();
-
-            _mapRenderer.Initialize();
-            _mapRenderer.RegisterTileLayers();
-
-            _debugServer.Startup();
         }
 
         public void Run()
