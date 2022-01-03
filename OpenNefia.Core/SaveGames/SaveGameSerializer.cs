@@ -12,6 +12,7 @@ using OpenNefia.Core.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -39,25 +40,6 @@ namespace OpenNefia.Core.SaveGames
         /// Loads the global game state from the currently active save.
         /// </summary>
         void LoadGlobalData(ISaveGameHandle save);
-
-        /// <summary>
-        /// Registers a reference to global save data that should be tracked by the
-        /// save game serializer. When the game is loaded, the reference will be automatically
-        /// populated from the save file.
-        /// </summary>
-        /// <param name="key">Globally unique key to identify this save data.</param>
-        /// <param name="dataReference">Reference to the data.</param>
-        void RegisterSaveData<T>(string key, T dataReference) where T : class;
-
-        /// <summary>
-        /// Registers a reference to global save data that should be tracked by the
-        /// save game serializer. When the game is loaded, the reference will be automatically
-        /// populated from the save file.
-        /// </summary>
-        /// <param name="key">Globally unique key to identify this save data.</param>
-        /// <param name="ty">Type of the data. <paramref name="dataReference"/> must be assignable to this type.</param>
-        /// <param name="dataReference">Reference to the data.</param>
-        void RegisterSaveData(string key, Type ty, object dataReference);
     }
 
     public interface ISaveGameSerializerInternal : ISaveGameSerializer
@@ -77,13 +59,15 @@ namespace OpenNefia.Core.SaveGames
 
         private class SaveDataRegistration
         {
-            public Type Type { get; }
-            public object Data { get; }
+            public AbstractFieldInfo FieldInfo { get; }
+            public object Parent { get; }
 
-            public SaveDataRegistration(Type type, object data)
+            public Type Type => FieldInfo.FieldType;
+
+            public SaveDataRegistration(AbstractFieldInfo propertyInfo, object parent)
             {
-                Type = type;
-                Data = data;
+                FieldInfo = propertyInfo;
+                Parent = parent;
             }
         }
 
@@ -95,31 +79,38 @@ namespace OpenNefia.Core.SaveGames
             {
                 if (_entitySystemManager.TryGetEntitySystem(type, out var sys))
                 {
-                    foreach (var prop in sys.GetType().GetProperties())
+                    foreach (var info in sys.GetType().GetAllPropertiesAndFields())
                     {
-                        if (prop.TryGetCustomAttribute(out RegisterSaveDataAttribute? attr))
+                        if (info.TryGetAttribute(out RegisterSaveDataAttribute? attr))
                         {
-                            var value = prop.GetValue(sys);
+                            var value = info.GetValue(sys);
                             if (value == null)
                                 throw new InvalidDataException($"Expected non-nullable reference for save data '{attr.Key}', got null.");
 
-                            RegisterSaveData(attr.Key, prop.PropertyType, value);
+                            RegisterSaveData(attr.Key, info, sys);
                         }
                     }
                 }
             }
         }
 
-        public void RegisterSaveData<T>(string key, T dataReference) where T : class
+        private void RegisterSaveData(string key, AbstractFieldInfo field, object parent)
         {
-            RegisterSaveData(key, typeof(T), dataReference);
-        }
+            var ty = field.FieldType;
 
-        public void RegisterSaveData(string key, Type ty, object dataReference)
-        {
-            if (!dataReference.GetType().IsAssignableTo(ty))
+            if (field is SpecificPropertyInfo propertyInfo)
             {
-                throw new ArgumentException($"Expected save data of type '{ty}', got '{dataReference.GetType()}'", nameof(dataReference));
+                if (propertyInfo.PropertyInfo.GetMethod == null)
+                {
+                    throw new ArgumentException($"Property {propertyInfo} is annotated with {nameof(RegisterSaveDataAttribute)} but has no getter");
+                }
+                else if (propertyInfo.PropertyInfo.SetMethod == null)
+                {
+                    if (!propertyInfo.HasBackingField())
+                    {
+                        throw new ArgumentException($"Property {propertyInfo} in type {propertyInfo.DeclaringType} is annotated with {nameof(RegisterSaveDataAttribute)} as non-readonly but has no auto-setter");
+                    }
+                }
             }
             if (_trackedSaveData.ContainsKey(key))
             {
@@ -131,7 +122,7 @@ namespace OpenNefia.Core.SaveGames
             }
 
             Logger.DebugS(SawmillName, $"Registering global save data: {key} ({ty})");
-            _trackedSaveData.Add(key, new SaveDataRegistration(ty, dataReference));
+            _trackedSaveData.Add(key, new SaveDataRegistration(field, parent));
         }
 
         public void SaveGlobalData(ISaveGameHandle save)
@@ -143,7 +134,9 @@ namespace OpenNefia.Core.SaveGames
             {
                 Logger.DebugS(SawmillName, $"Saving global data: {key} ({reg.Type})");
 
-                var node = _serializationManager.WriteValue(reg.Type, reg.Data, alwaysWrite: true);
+                var data = reg.FieldInfo.GetValue(reg.Parent);
+
+                var node = _serializationManager.WriteValue(reg.Type, data, alwaysWrite: true);
                 mapping.Add(key, node);
             }
 
@@ -176,8 +169,16 @@ namespace OpenNefia.Core.SaveGames
 
                 Logger.DebugS(SawmillName, $"Loading global data: {key} ({reg.Type})");
 
-                var raw = _serializationManager.ReadValue(reg.Type, rawNode, skipHook: true);
-                _serializationManager.Copy(raw, reg.Data, skipHook: false);
+                var value = _serializationManager.ReadValue(reg.Type, rawNode, skipHook: true);
+
+                if (reg.FieldInfo.TryGetBackingField(out var backingField))
+                {
+                    backingField.SetValue(reg.Parent, value);
+                }
+                else
+                {
+                    reg.FieldInfo.SetValue(reg.Parent, value);
+                }
             }
 
             OnGameLoaded?.Invoke(save);

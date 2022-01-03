@@ -25,6 +25,7 @@ namespace OpenNefia.Tests.Core.SaveGames
                 {
                     factory.LoadExtraSystemType<SaveGameTestSystem>();
                 })
+                .RegisterDataDefinitionTypes(types => types.Add(typeof(TestSaveData)))
                 .InitializeInstance();
 
             var save = new TempSaveGameHandle();
@@ -34,15 +35,18 @@ namespace OpenNefia.Tests.Core.SaveGames
             var sys = sim.GetEntitySystem<SaveGameTestSystem>();
 
             sys.Data.Foo = 42;
+            sys.Data.Bar = new List<string> { "hoge" };
             saveSerMan.SaveGlobalData(save);
 
             Assert.That(save.Files.Exists(new ResourcePath("/global.yml")), Is.True);
 
             sys.Data.Foo = 999;
+            sys.Data.Bar.Clear();
             saveSerMan.LoadGlobalData(save);
 
             // Check that the save data was loaded into the entity system
             Assert.That(sys.Data.Foo, Is.EqualTo(42));
+            Assert.That(sys.Data.Bar, Is.EquivalentTo(new[] { "hoge" }));
         }
     }
 
@@ -57,5 +61,8 @@ namespace OpenNefia.Tests.Core.SaveGames
     {
         [DataField(required: true)]
         public int Foo { get; set; } = -1;
+
+        [DataField(required: true)]
+        public List<string> Bar = new() { "baz", "quux" };
     }
 }
