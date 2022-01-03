@@ -25,7 +25,6 @@ namespace OpenNefia.Tests.Core.GameObjects.Systems
                     compFac.RegisterClass<SlotsComponent>();
                     compFac.RegisterClass<SlotTestComponent>();
                 })
-                .RegisterDataDefinitionTypes(types => types.Add(typeof(SlotTestComponent)))
                 .RegisterEntitySystems(entSysMan => entSysMan.LoadExtraSystemType<SlotSystem>())
                 .InitializeInstance();
 

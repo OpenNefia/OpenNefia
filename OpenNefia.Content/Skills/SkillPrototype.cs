@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Serialization.Manager.Attributes;
 
-namespace OpenNefia.Content.Prototypes
+namespace OpenNefia.Content.Skills
 {
     [Prototype("Skill")]
     public class SkillPrototype : IPrototype, IHspIds<int>

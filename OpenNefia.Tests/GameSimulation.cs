@@ -201,10 +201,6 @@ namespace OpenNefia.Tests
             _dataDefnTypesDelegate?.Invoke(dataDefinitionTypes);
 
             reflectionManager
-                .Setup(x => x.FindTypesWithAttribute(typeof(DataDefinitionAttribute)))
-                .Returns(() => dataDefinitionTypes);
-
-            reflectionManager
                 .Setup(x => x.FindTypesWithAttribute<TypeSerializerAttribute>())
                 .Returns(() => realReflection.FindTypesWithAttribute<TypeSerializerAttribute>());
 
@@ -245,6 +241,10 @@ namespace OpenNefia.Tests
 
             compFactory.FinishRegistration();
 
+            reflectionManager
+                .Setup(x => x.FindTypesWithAttribute(typeof(DataDefinitionAttribute)))
+                .Returns(() => dataDefinitionTypes.Union(compFactory.AllRegisteredTypes));
+
             var entityMan = container.Resolve<IEntityManager>();
             entityMan.Initialize();
 
@@ -263,9 +263,10 @@ namespace OpenNefia.Tests
                 .Returns(() => realReflection.FindAllTypes()
 
                 // This is to support IGameSaveSerializer.
-                .Concat(entitySystemMan.SystemTypes)
+                .Union(entitySystemMan.SystemTypes)
 
-                .Concat(dataDefinitionTypes));
+                .Union(dataDefinitionTypes)
+                .Union(compFactory.AllRegisteredTypes));
 
             var mapManager = container.Resolve<IMapManager>();
 

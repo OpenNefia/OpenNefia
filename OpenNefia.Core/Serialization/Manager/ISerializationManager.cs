@@ -1,5 +1,7 @@
 using System;
+using System.Diagnostics.CodeAnalysis;
 using JetBrains.Annotations;
+using OpenNefia.Core.Serialization.Manager.Definition;
 using OpenNefia.Core.Serialization.Manager.Result;
 using OpenNefia.Core.Serialization.Markdown;
 using OpenNefia.Core.Serialization.Markdown.Validation;
@@ -19,12 +21,43 @@ namespace OpenNefia.Core.Serialization.Manager
         /// </summary>
         void Shutdown();
 
+        #region Data Definitions
+
         /// <summary>
         ///     Checks if a type has a data definition defined for it.
         /// </summary>
         /// <param name="type">The type to check for.</param>
         /// <returns>True if it does, false otherwise.</returns>
         bool HasDataDefinition(Type type);
+
+        /// <summary>
+        /// Gets a data definition.
+        /// </summary>
+        /// <param name="type">The type to get for.</param>
+        /// <returns>The data definition, or null if it was not found.</returns>
+        DataDefinition? GetDefinition(Type type);
+
+        /// <summary>
+        /// Gets a data definition.
+        /// </summary>
+        /// <typeparam name="T">The type to get for.</param>
+        /// <returns>The data definition, or null if it was not found.</returns>
+        DataDefinition? GetDefinition<T>();
+
+        /// <summary>
+        /// Tries to get a data definition.
+        /// </summary>
+        /// <remarks>
+        /// This is used inside <see cref="ITypeWriter{TType}"/> if you want multiple deserializers
+        /// for different node types on the same type, but want to fall back to the data definition's 
+        /// writer for all of the corresponding serializers.
+        /// </remarks>
+        /// <param name="type">The type to get for.</param>
+        /// <param name="dataDefinition">The data definition.</param>
+        /// <returns>True if the data definition was found.</returns>
+        bool TryGetDefinition(Type type, [NotNullWhen(true)] out DataDefinition? dataDefinition);
+
+        #endregion
 
         #region Validation
 

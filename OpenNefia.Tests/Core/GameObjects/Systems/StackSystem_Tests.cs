@@ -47,7 +47,6 @@ namespace OpenNefia.Tests.Core.GameObjects.Systems
                     compFac.RegisterClass<StackTestComponent>();
                 })
                 .RegisterDataDefinitionTypes(types => {
-                    types.Add(typeof(StackTestComponent));
                     types.Add(typeof(StackTestNested));
                 })
                 .RegisterPrototypes(protoMan => protoMan.LoadString(Prototypes))

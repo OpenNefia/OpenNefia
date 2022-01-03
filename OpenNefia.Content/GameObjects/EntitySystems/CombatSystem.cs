@@ -2,6 +2,7 @@
 using OpenNefia.Content.Factions;
 using OpenNefia.Content.Logic;
 using OpenNefia.Content.Prototypes;
+using OpenNefia.Content.Skills;
 using OpenNefia.Core.Audio;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;

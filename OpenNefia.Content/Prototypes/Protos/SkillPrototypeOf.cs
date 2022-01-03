@@ -1,4 +1,5 @@
-﻿using OpenNefia.Core.Prototypes;
+﻿using OpenNefia.Content.Skills;
+using OpenNefia.Core.Prototypes;
 
 namespace OpenNefia.Content.Prototypes
 {

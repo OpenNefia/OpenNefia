@@ -13,50 +13,45 @@ using OpenNefia.Tests;
 
 // ReSharper disable AccessToStaticMemberViaDerivedType
 
-namespace OpenNefia.Content.Tests.EntityGen;
-
-[TestFixture]
-public class EntityGen_Tests : ContentUnitTest
+namespace OpenNefia.Content.Tests.EntityGen
 {
-    private const string Prototypes = @"
+    [TestFixture]
+    public class EntityGen_Tests : ContentUnitTest
+    {
+        private const string Prototypes = @"
 - type: Entity
   id: EntityGenTest
   components:
   - type: Spatial
   - type: EntityGenTest
 ";
-    
-    private static ISimulation SimulationFactory()
-    {
-        var sim = GameSimulation
-           .NewSimulation()
-           .RegisterComponents(factory =>
-           {
-               factory.RegisterClass<EntityGenTestComponent>();
-           })
-           .RegisterDataDefinitionTypes(types =>
-           {
-               types.Add(typeof(EntityGenTestComponent));
-           })
-           .RegisterPrototypes(protoMan => protoMan.LoadString(Prototypes))
-           .RegisterEntitySystems(factory =>
-           {
-               factory.LoadExtraSystemType<EntityGenSystem>();
-               factory.LoadExtraSystemType<EntityGenTestSystem>();
-           })
-           .InitializeInstance();
 
-        sim.CreateMapAndSetActive(50, 50);
+        private static ISimulation SimulationFactory()
+        {
+            var sim = ContentGameSimulation
+               .NewSimulation()
+               .RegisterComponents(factory =>
+               {
+                   factory.RegisterClass<EntityGenTestComponent>();
+               })
+               .RegisterPrototypes(protoMan => protoMan.LoadString(Prototypes))
+               .RegisterEntitySystems(factory =>
+               {
+                   factory.LoadExtraSystemType<EntityGenTestSystem>();
+               })
+               .InitializeInstance();
 
-        return sim;
-    }
+            sim.CreateMapAndSetActive(50, 50);
 
-    [Test]
-    public void EntityGenEventsTest()
-    {
-        var sim = SimulationFactory();
+            return sim;
+        }
 
-        var mapBlueprint = @"
+        [Test]
+        public void EntityGenEventsTest()
+        {
+            var sim = SimulationFactory();
+
+            var mapBlueprint = @"
 meta:
   format: 1
   name: test
@@ -77,36 +72,37 @@ entities:
     pos: 0,0
 ";
 
-        var map = sim.Resolve<IMapBlueprintLoader>().LoadBlueprint(null, new StringReader(mapBlueprint));
+            var map = sim.Resolve<IMapBlueprintLoader>().LoadBlueprint(null, new StringReader(mapBlueprint));
 
-        var testComp = sim.GetEntitySystem<IEntityLookup>()
-            .EntityQueryInMap<EntityGenTestComponent>(map.Id).First();
+            var testComp = sim.GetEntitySystem<IEntityLookup>()
+                .EntityQueryInMap<EntityGenTestComponent>(map.Id).First();
 
-        Assert.That(testComp.Foo, Is.EqualTo(42));
-    }
-
-    [Reflect(false)]
-    private class EntityGenTestSystem : EntitySystem
-    {
-        public override void Initialize()
-        {
-            base.Initialize();
-
-            SubscribeLocalEvent<EntityGenTestComponent, EntityGeneratedEvent>(OnGen, "OnGen");
+            Assert.That(testComp.Foo, Is.EqualTo(42));
         }
 
-        private void OnGen(EntityUid uid, EntityGenTestComponent component, ref EntityGeneratedEvent args)
+        [Reflect(false)]
+        private class EntityGenTestSystem : EntitySystem
         {
-            component.Foo = 42;
+            public override void Initialize()
+            {
+                base.Initialize();
+
+                SubscribeLocalEvent<EntityGenTestComponent, EntityGeneratedEvent>(OnGen, "OnGen");
+            }
+
+            private void OnGen(EntityUid uid, EntityGenTestComponent component, ref EntityGeneratedEvent args)
+            {
+                component.Foo = 42;
+            }
         }
-    }
 
-    [DataDefinition]
-    private sealed class EntityGenTestComponent : Component
-    {
-        public override string Name => "EntityGenTest";
+        [DataDefinition]
+        private sealed class EntityGenTestComponent : Component
+        {
+            public override string Name => "EntityGenTest";
 
-        [DataField("foo")]
-        public int Foo { get; set; } = -1;
+            [DataField("foo")]
+            public int Foo { get; set; } = -1;
+        }
     }
 }

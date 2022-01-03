@@ -337,14 +337,19 @@ namespace OpenNefia.Core.Serialization.Manager
             return res;
         }
 
-        internal DataDefinition? GetDefinition(Type type)
+        public DataDefinition? GetDefinition<T>()
+        {
+            return GetDefinition(typeof(T));
+        }
+
+        public DataDefinition? GetDefinition(Type type)
         {
             return DataDefinitions.TryGetValue(type, out var dataDefinition)
                 ? dataDefinition
                 : null;
         }
 
-        private bool TryGetDefinition(Type type, [NotNullWhen(true)] out DataDefinition? dataDefinition)
+        public bool TryGetDefinition(Type type, [NotNullWhen(true)] out DataDefinition? dataDefinition)
         {
             dataDefinition = GetDefinition(type);
             return dataDefinition != null;
