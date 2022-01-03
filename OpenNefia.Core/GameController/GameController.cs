@@ -45,7 +45,7 @@ namespace OpenNefia.Core.GameController
         [Dependency] private readonly ITimerManager _timerManager = default!;
         [Dependency] private readonly IMapRenderer _mapRenderer = default!;
         [Dependency] private readonly IDebugServer _debugServer = default!;
-        [Dependency] private readonly ISaveGameManager _saveGameManager = default!;
+        [Dependency] private readonly ISaveGameManagerInternal _saveGameManager = default!;
         [Dependency] private readonly IThemeManager _themeManager = default!;
         [Dependency] private readonly IFontManager _fontManager = default!;
         [Dependency] private readonly IInputManager _inputManager = default!;

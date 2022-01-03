@@ -2,6 +2,8 @@
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using JetBrains.Annotations;
+using OpenNefia.Core.Serialization.Manager;
+using OpenNefia.Core.Serialization.Markdown;
 using OpenNefia.Core.Utility;
 using YamlDotNet.RepresentationModel;
 
@@ -145,6 +147,23 @@ namespace OpenNefia.Core.ContentPack
         }
 
         /// <summary>
+        /// Reads the entire contents of a path a serialized YAML file.
+        /// </summary>
+        /// <param name="provider">The writable directory to look for the path in.</param>
+        /// <param name="path">The path to read the contents from.</param>
+        /// <returns>The serialized object, or null.</returns>
+        /// <exception cref="FileNotFoundException">
+        ///     Thrown if the file does not exist.
+        /// </exception>
+        public static T? ReadSerializedData<T>(this IWritableDirProvider provider, ResourcePath path, ISerializationManager serMan,
+            bool skipHook = false)
+        {
+            var yaml = provider.ReadAllYaml(path);
+            var node = yaml.Documents[0].RootNode;
+            return serMan.ReadValue<T>(node.ToDataNode(), skipHook: skipHook);
+        }
+
+        /// <summary>
         /// Writes the content string to a file. If the file exists, its existing contents will
         /// be replaced.
         /// </summary>
@@ -178,7 +197,7 @@ namespace OpenNefia.Core.ContentPack
         /// </summary>
         /// <param name="provider">The writable directory provider</param>
         /// <param name="path">Path of the file to write to.</param>
-        /// <param name="content">YAML node to write to the file.</param>
+        /// <param name="node">YAML node to write to the file.</param>
         public static void WriteAllYaml(this IWritableDirProvider provider, ResourcePath path, YamlNode node)
         {
             using var stream = provider.OpenWriteText(path);
@@ -187,6 +206,21 @@ namespace OpenNefia.Core.ContentPack
             var yamlStream = new YamlStream(document);
 
             yamlStream.Save(stream);
+        }
+
+        /// <summary>
+        /// Writes the entire contents of a path a serialized YAML file.
+        /// </summary>
+        /// <param name="provider">The writable directory provider</param>
+        /// <param name="path">Path of the file to write to.</param>
+        /// <param name="data">Data to serialize to the file as YAML.</param>
+        public static void WriteSerializedData<T>(this IWritableDirProvider provider, ResourcePath path, T data,
+            ISerializationManager serMan,
+            bool alwaysWrite = false,
+            ISerializationContext? context = null)
+        {
+            var node = serMan.WriteValue(data, alwaysWrite, context);
+            provider.WriteAllYaml(path, node.ToYamlNode());
         }
     }
 }
