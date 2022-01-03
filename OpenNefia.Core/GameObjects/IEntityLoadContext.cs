@@ -6,12 +6,6 @@ namespace OpenNefia.Core.GameObjects
     public interface IEntityLoadContext
     {
         /// <summary>
-        /// If true, the serializer will always try to load prototype components.
-        /// If false, the context can remove entity components.
-        /// </summary>
-        bool EnsurePrototypeComponents { get; }
-
-        /// <summary>
         ///     Gets the serializer used to ExposeData a specific component.
         /// </summary>
         IComponent GetComponentData(string componentName, IComponent? protoData);
@@ -21,5 +15,10 @@ namespace OpenNefia.Core.GameObjects
         ///     (and then deserialized with <see cref="GetComponentData"/>)
         /// </summary>
         IEnumerable<string> GetExtraComponentTypes();
+
+        /// <summary>
+        /// If false, don't load this component during entity load.
+        /// </summary>
+        bool ShouldLoadComponent(string componentName);
     }
 }

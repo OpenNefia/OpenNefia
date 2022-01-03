@@ -200,6 +200,9 @@ namespace OpenNefia.Core.Maps
             }
         }
 
+        /// <summary>
+        /// { entityPrototypeId -> { compName, prototypeCompData } ]
+        /// </summary>
         private class PrototypeCompCache : Dictionary<string, Dictionary<string, MappingDataNode>>
         {
         }

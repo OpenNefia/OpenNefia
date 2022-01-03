@@ -22,6 +22,7 @@ namespace OpenNefia.Core.Maps
         private readonly ISerializationManager _serializationManager;
 
         public Dictionary<string, MappingDataNode>? CurrentReadingEntityComponents;
+        public HashSet<string>? CurrentDeletedEntityComponents;
 
         public readonly Dictionary<EntityUid, int> EntityUidMap = new();
         public readonly Dictionary<int, EntityUid> UidEntityMap = new();
@@ -82,6 +83,11 @@ namespace OpenNefia.Core.Maps
             return CurrentReadingEntityComponents!.Keys;
         }
 
+        bool IEntityLoadContext.ShouldLoadComponent(string componentName)
+        {
+            return !CurrentDeletedEntityComponents!.Contains(componentName);
+        }
+
         ValidationNode ITypeValidator<EntityUid, ValueDataNode>.Validate(ISerializationManager serializationManager,
             ValueDataNode node, IDependencyCollection dependencies, ISerializationContext? context)
         {
@@ -125,7 +131,9 @@ namespace OpenNefia.Core.Maps
 
             var val = int.Parse(node.Value);
 
-            if (val >= Entities.Count || !UidEntityMap.ContainsKey(val) || !Entities.TryFirstOrNull(e => e == UidEntityMap[val], out var entity))
+            if ((_mode == MapSerializeMode.Blueprint && val >= Entities.Count) 
+                || !UidEntityMap.ContainsKey(val)
+                || !Entities.TryFirstOrNull(e => e == UidEntityMap[val], out var entity))
             {
                 Logger.ErrorS(MapBlueprintLoader.SawmillName, "Error in map file: found local entity UID '{0}' which does not exist.", val);
                 return null!;
