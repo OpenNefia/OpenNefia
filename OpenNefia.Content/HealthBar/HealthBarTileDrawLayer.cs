@@ -1,6 +1,7 @@
 ﻿using OpenNefia.Content.Factions;
 using OpenNefia.Content.GameObjects;
 using OpenNefia.Content.Parties;
+using OpenNefia.Content.Skills;
 using OpenNefia.Core.Game;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;

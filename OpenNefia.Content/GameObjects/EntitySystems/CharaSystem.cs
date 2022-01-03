@@ -2,6 +2,7 @@
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Content.Prototypes;
+using OpenNefia.Content.EntityGen;
 
 namespace OpenNefia.Content.GameObjects
 {

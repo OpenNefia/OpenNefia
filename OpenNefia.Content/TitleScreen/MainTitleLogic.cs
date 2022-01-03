@@ -15,6 +15,7 @@ using OpenNefia.Content.Factions;
 using OpenNefia.Content.EntityGen;
 using static OpenNefia.Content.Prototypes.Protos;
 using OpenNefia.Core.ContentPack;
+using OpenNefia.Content.Skills;
 
 namespace OpenNefia.Content.TitleScreen
 {

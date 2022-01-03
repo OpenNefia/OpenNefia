@@ -1,4 +1,4 @@
-﻿using SkillPrototypeId = OpenNefia.Core.Prototypes.PrototypeId<OpenNefia.Content.Prototypes.SkillPrototype>;
+﻿using SkillPrototypeId = OpenNefia.Core.Prototypes.PrototypeId<OpenNefia.Content.Skills.SkillPrototype>;
 
 namespace OpenNefia.Content.Prototypes
 {

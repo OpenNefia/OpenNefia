@@ -1,4 +1,4 @@
-﻿using OpenNefia.Content.Prototypes;
+﻿using OpenNefia.Content.Skills;
 using OpenNefia.Core.Effects;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Core.Serialization.Manager.Attributes;

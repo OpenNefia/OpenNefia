@@ -88,8 +88,8 @@
     race: Elona.Elea
     class: Elona.Warmage
     gender: Male
-  - type: Skills
-    skills:
+  - type: Spells
+    spells:
       Elona.SpellChaosBall: 1
       Elona.SpellCureOfJure: 1
       Elona.SpellMagicDart: 1
@@ -624,8 +624,8 @@
   - type: Chara
     race: Elona.Elea
     class: Elona.Wizard
-  - type: Skills
-    skills:
+  - type: Spells
+    spells:
       Elona.SpellMagicDart: 1
       Elona.SpellNerveArrow: 1
       Elona.SpellShortTeleport: 1
@@ -900,8 +900,8 @@
     race: Elona.Elea
     class: Elona.Warmage
     gender: Female
-  - type: Skills
-    skills:
+  - type: Spells
+    spells:
       Elona.SpellNerveArrow: 1
   - type: Faction
     relation: Neutral
@@ -936,8 +936,8 @@
     race: Elona.Elea
     class: Elona.Archer
     gender: Male
-  - type: Skills
-    skills:
+  - type: Spells
+    spells:
       Elona.BuffSlow: 1
   - type: Faction
     relation: Neutral
@@ -1145,8 +1145,8 @@
   - type: Chara
     race: Elona.Norland
     class: Elona.Wizard
-  - type: Skills
-    skills:
+  - type: Spells
+    spells:
       Elona.BuffHolyVeil: 1
       Elona.BuffMistOfSilence: 1
       Elona.BuffSlow: 1
@@ -1304,8 +1304,8 @@
   - type: Chara
     race: Elona.Lich
     class: Elona.Wizard
-  - type: Skills
-    skills:
+  - type: Spells
+    spells:
       Elona.SpellDarknessBolt: 1
       Elona.SpellIceBolt: 1
       Elona.SpellMagicDart: 1
@@ -1335,8 +1335,8 @@
   - type: Chara
     race: Elona.Lich
     class: Elona.Wizard
-  - type: Skills
-    skills:
+  - type: Spells
+    spells:
       Elona.BuffElementScar: 1
       Elona.SpellDarknessBolt: 1
       Elona.SpellIceBolt: 1
@@ -1367,8 +1367,8 @@
   - type: Chara
     race: Elona.Lich
     class: Elona.Wizard
-  - type: Skills
-    skills:
+  - type: Spells
+    spells:
       Elona.SpellDarknessBolt: 1
       Elona.SpellIceBolt: 1
       Elona.SpellMagicDart: 1
@@ -1765,6 +1765,8 @@
   - type: Skills
     skills:
       Elona.ActionTouchOfWeakness: 1
+  - type: Spells
+    spells:
       Elona.BuffMistOfFrailness: 1
       Elona.BuffSlow: 1
   - type: Faction
@@ -1813,10 +1815,12 @@
   - type: Chara
     race: Elona.Spirit
     class: Elona.Predator
+  - type: Spells
+    spells:
+      Elona.SpellLightningBolt: 1
   - type: Skills
     skills:
       Elona.ActionLightningBreath: 1
-      Elona.SpellLightningBolt: 1
   - type: Faction
     relation: Enemy
   - type: VanillaAI
@@ -1839,8 +1843,8 @@
   - type: Chara
     race: Elona.Spirit
     class: Elona.Predator
-  - type: Skills
-    skills:
+  - type: Spells
+    spells:
       Elona.SpellChaosBall: 1
   - type: Faction
     relation: Enemy
@@ -2180,8 +2184,8 @@
   - type: Chara
     race: Elona.Eulderna
     class: Elona.Predator
-  - type: Skills
-    skills:
+  - type: Spells
+    spells:
       Elona.BuffElementScar: 1
       Elona.BuffMistOfFrailness: 1
       Elona.BuffSlow: 1
@@ -2378,8 +2382,8 @@
   - type: Chara
     race: Elona.Imp
     class: Elona.Predator
-  - type: Skills
-    skills:
+  - type: Spells
+    spells:
       Elona.BuffElementScar: 1
       Elona.SpellMagicDart: 1
       Elona.SpellShortTeleport: 1
@@ -2409,8 +2413,8 @@
   - type: Chara
     race: Elona.Imp
     class: Elona.Predator
-  - type: Skills
-    skills:
+  - type: Spells
+    spells:
       Elona.SpellMagicDart: 1
       Elona.SpellNetherArrow: 1
       Elona.SpellShortTeleport: 1
@@ -2437,8 +2441,8 @@
   - type: Chara
     race: Elona.Imp
     class: Elona.Predator
-  - type: Skills
-    skills:
+  - type: Spells
+    spells:
       Elona.SpellChaosEye: 1
       Elona.SpellMagicDart: 1
       Elona.SpellShortTeleport: 1
@@ -2531,6 +2535,8 @@
   - type: Skills
     skills:
       Elona.ActionDrawShadow: 1
+  - type: Spells
+    spells:
       Elona.BuffMistOfFrailness: 1
   - type: Faction
     relation: Enemy
@@ -2591,6 +2597,8 @@
     skills:
       Elona.ActionColdBreath: 1
       Elona.ActionTouchOfSleep: 1
+  - type: Spells
+    spells:
       Elona.SpellIceBolt: 1
   - type: Faction
     relation: Enemy
@@ -2888,8 +2896,8 @@
   - type: Chara
     race: Elona.Goblin
     class: Elona.Warmage
-  - type: Skills
-    skills:
+  - type: Spells
+    spells:
       Elona.BuffSlow: 1
       Elona.SpellFireBolt: 1
       Elona.SpellHealLight: 1
@@ -2916,8 +2924,8 @@
   - type: Chara
     race: Elona.Goblin
     class: Elona.Wizard
-  - type: Skills
-    skills:
+  - type: Spells
+    spells:
       Elona.SpellMagicDart: 1
   - type: Faction
     relation: Enemy
@@ -2946,8 +2954,8 @@
   - type: Chara
     race: Elona.Ghost
     class: Elona.Wizard
-  - type: Skills
-    skills:
+  - type: Spells
+    spells:
       Elona.SpellFireBolt: 1
       Elona.SpellShortTeleport: 1
   - type: Faction
@@ -2977,8 +2985,8 @@
   - type: Chara
     race: Elona.Ghost
     class: Elona.Wizard
-  - type: Skills
-    skills:
+  - type: Spells
+    spells:
       Elona.SpellIceBolt: 1
       Elona.SpellShortTeleport: 1
   - type: Faction
@@ -3214,8 +3222,8 @@
   - type: Chara
     race: Elona.Cupid
     class: Elona.Archer
-  - type: Skills
-    skills:
+  - type: Spells
+    spells:
       Elona.BuffMistOfSilence: 1
   - type: Faction
     relation: Enemy
@@ -3242,8 +3250,8 @@
   - type: Chara
     race: Elona.Phantom
     class: Elona.Wizard
-  - type: Skills
-    skills:
+  - type: Spells
+    spells:
       Elona.BuffSlow: 1
   - type: Faction
     relation: Enemy
@@ -3482,8 +3490,8 @@
   - type: Chara
     race: Elona.Spider
     class: Elona.Predator
-  - type: Skills
-    skills:
+  - type: Spells
+    spells:
       Elona.SpellWeb: 1
   - type: Faction
     relation: Enemy
@@ -3512,8 +3520,8 @@
   - type: Chara
     race: Elona.Spider
     class: Elona.Predator
-  - type: Skills
-    skills:
+  - type: Spells
+    spells:
       Elona.SpellWeb: 1
   - type: Faction
     relation: Enemy
@@ -3542,8 +3550,8 @@
   - type: Chara
     race: Elona.Spider
     class: Elona.Predator
-  - type: Skills
-    skills:
+  - type: Spells
+    spells:
       Elona.SpellWeb: 1
   - type: Faction
     relation: Enemy
@@ -3572,8 +3580,8 @@
   - type: Chara
     race: Elona.Spider
     class: Elona.Predator
-  - type: Skills
-    skills:
+  - type: Spells
+    spells:
       Elona.SpellWeb: 1
   - type: Faction
     relation: Enemy
@@ -3602,8 +3610,8 @@
   - type: Chara
     race: Elona.Spider
     class: Elona.Predator
-  - type: Skills
-    skills:
+  - type: Spells
+    spells:
       Elona.SpellWeb: 1
   - type: Faction
     relation: Enemy
@@ -3859,8 +3867,8 @@
   - type: Chara
     race: Elona.Lich
     class: Elona.Wizard
-  - type: Skills
-    skills:
+  - type: Spells
+    spells:
       Elona.BuffMistOfSilence: 1
       Elona.SpellDarknessBolt: 1
       Elona.SpellIceBolt: 1
@@ -3924,8 +3932,8 @@
   - type: Chara
     race: Elona.Norland
     class: Elona.Warrior
-  - type: Skills
-    skills:
+  - type: Spells
+    spells:
       Elona.SpellDarknessBolt: 1
       Elona.SpellIceBolt: 1
       Elona.SpellMagicDart: 1
@@ -3955,8 +3963,8 @@
   - type: Chara
     race: Elona.Norland
     class: Elona.Wizard
-  - type: Skills
-    skills:
+  - type: Spells
+    spells:
       Elona.SpellDarknessBolt: 1
       Elona.SpellIceBolt: 1
       Elona.SpellMagicDart: 1
@@ -4089,11 +4097,13 @@
   - type: Chara
     race: Elona.Goblin
     class: Elona.Warmage
+  - type: Spells
+    spells:
+      Elona.BuffElementScar: 1
+      Elona.SpellHealLight: 1
   - type: Skills
     skills:
       Elona.ActionSummonFire: 1
-      Elona.BuffElementScar: 1
-      Elona.SpellHealLight: 1
   - type: Faction
     relation: Enemy
   - type: VanillaAI
@@ -4241,8 +4251,8 @@
   - type: Chara
     race: Elona.Piece
     class: Elona.Wizard
-  - type: Skills
-    skills:
+  - type: Spells
+    spells:
       Elona.BuffSlow: 1
       Elona.SpellMagicDart: 1
       Elona.SpellShortTeleport: 1
@@ -4295,8 +4305,8 @@
   - type: Chara
     race: Elona.Piece
     class: Elona.Wizard
-  - type: Skills
-    skills:
+  - type: Spells
+    spells:
       Elona.SpellMagicDart: 1
       Elona.SpellNetherArrow: 1
       Elona.SpellShortTeleport: 1
@@ -4412,8 +4422,8 @@
   - type: Chara
     race: Elona.Norland
     class: Elona.Wizard
-  - type: Skills
-    skills:
+  - type: Spells
+    spells:
       Elona.SpellMagicDart: 1
   - type: Faction
     relation: Dislike
@@ -4898,8 +4908,8 @@
     race: Elona.Undeadgod
     class: Elona.Wizard
     gender: Male
-  - type: Skills
-    skills:
+  - type: Spells
+    spells:
       Elona.BuffMistOfSilence: 1
       Elona.SpellDarknessBolt: 1
       Elona.SpellIceBolt: 1
@@ -5011,8 +5021,8 @@
   - type: Chara
     race: Elona.Norland
     class: Elona.Wizard
-  - type: Skills
-    skills:
+  - type: Spells
+    spells:
       Elona.SpellHealingTouch: 1
   - type: Faction
     relation: Enemy
@@ -5245,11 +5255,13 @@
   - type: Chara
     race: Elona.Wisp
     class: Elona.Predator
+  - type: Spells
+    spells:
+      Elona.SpellLightningBolt: 1
   - type: Skills
     skills:
       Elona.ActionEyeOfEther: 1
       Elona.ActionLightningBreath: 1
-      Elona.SpellLightningBolt: 1
   - type: Faction
     relation: Enemy
   - type: VanillaAI
@@ -5325,8 +5337,8 @@
   - type: Chara
     race: Elona.Slime
     class: Elona.Predator
-  - type: Skills
-    skills:
+  - type: Spells
+    spells:
       Elona.SpellAcidGround: 1
   - type: Faction
     relation: Enemy
@@ -5827,8 +5839,8 @@
   - type: Chara
     race: Elona.Roran
     class: Elona.Warmage
-  - type: Skills
-    skills:
+  - type: Spells
+    spells:
       Elona.BuffMistOfFrailness: 1
       Elona.BuffSlow: 1
       Elona.SpellHealingRain: 1
@@ -6038,11 +6050,13 @@
   - type: Chara
     race: Elona.Yith
     class: Elona.Predator
+  - type: Spells
+    spells:
+      Elona.SpellShortTeleport: 1
+      Elona.SpellSummonMonsters: 1
   - type: Skills
     skills:
       Elona.ActionEyeOfInsanity: 1
-      Elona.SpellShortTeleport: 1
-      Elona.SpellSummonMonsters: 1
   - type: Faction
     relation: Enemy
   - type: VanillaAI
@@ -6095,13 +6109,15 @@
   - type: Chara
     race: Elona.Yith
     class: Elona.Wizard
-  - type: Skills
-    skills:
-      Elona.ActionEyeOfInsanity: 1
+  - type: Spells
+    spells:
       Elona.SpellChaosEye: 1
       Elona.SpellMutation: 1
       Elona.SpellNetherArrow: 1
       Elona.SpellRagingRoar: 1
+  - type: Skills
+    skills:
+      Elona.ActionEyeOfInsanity: 1
   - type: Faction
     relation: Enemy
   - type: VanillaAI
@@ -6369,10 +6385,12 @@
   - type: Chara
     race: Elona.Cat
     class: Elona.Wizard
+  - type: Spells
+    spells:
+      Elona.SpellWeb: 1
   - type: Skills
     skills:
       Elona.ActionEyeOfDimness: 1
-      Elona.SpellWeb: 1
   - type: Faction
     relation: Enemy
   - type: Dialog
@@ -6713,11 +6731,13 @@
   - type: Chara
     race: Elona.Yeek
     class: Elona.Predator
+  - type: Spells
+    spells:
+      Elona.SpellDarkEye: 1
+      Elona.SpellShortTeleport: 1
   - type: Skills
     skills:
       Elona.ActionSummonYeek: 1
-      Elona.SpellDarkEye: 1
-      Elona.SpellShortTeleport: 1
   - type: Faction
     relation: Enemy
   - type: VanillaAI
@@ -6773,13 +6793,15 @@
   - type: Chara
     race: Elona.Yeek
     class: Elona.Wizard
+  - type: Spells
+    spells:
+      Elona.SpellCureOfEris: 1
+      Elona.SpellDarkEye: 1
+      Elona.SpellShortTeleport: 1
   - type: Skills
     skills:
       Elona.ActionCurse: 1
       Elona.ActionSummonYeek: 1
-      Elona.SpellCureOfEris: 1
-      Elona.SpellDarkEye: 1
-      Elona.SpellShortTeleport: 1
   - type: Faction
     relation: Enemy
   - type: Dialog
@@ -6871,6 +6893,8 @@
   - type: Skills
     skills:
       Elona.ActionSuicideAttack: 1
+  - type: Spells
+    spells:
       Elona.SpellShortTeleport: 1
   - type: Faction
     relation: Enemy
@@ -7006,11 +7030,13 @@
   - type: Chara
     race: Elona.Fairy
     class: Elona.Predator
+  - type: Spells
+    spells:
+      Elona.SpellMindBolt: 1
+      Elona.SpellShortTeleport: 1
   - type: Skills
     skills:
       Elona.ActionSuspiciousHand: 1
-      Elona.SpellMindBolt: 1
-      Elona.SpellShortTeleport: 1
   - type: Faction
     relation: Enemy
   - type: VanillaAI
@@ -7059,8 +7085,8 @@
     race: Elona.Norland
     class: Elona.Wizard
     gender: Male
-  - type: Skills
-    skills:
+  - type: Spells
+    spells:
       Elona.SpellChaosEye: 1
       Elona.SpellMutation: 1
       Elona.SpellNetherArrow: 1
@@ -7139,6 +7165,8 @@
     skills:
       Elona.ActionCurse: 1
       Elona.ActionEyeOfDimness: 1
+  - type: Spells
+    spells:
       Elona.BuffMistOfFrailness: 1
   - type: Faction
     relation: Enemy
@@ -7304,11 +7332,13 @@
   - type: Chara
     race: Elona.Servant
     class: Elona.Thief
+  - type: Spells
+    spells:
+      Elona.SpellMagicDart: 1
   - type: Skills
     skills:
       Elona.ActionDrainBlood: 1
       Elona.ActionEyeOfInsanity: 1
-      Elona.SpellMagicDart: 1
   - type: Faction
     relation: Enemy
   - type: Dialog
@@ -7341,8 +7371,8 @@
   - type: Chara
     race: Elona.Servant
     class: Elona.Archer
-  - type: Skills
-    skills:
+  - type: Spells
+    spells:
       Elona.BuffMistOfSilence: 1
       Elona.BuffSlow: 1
       Elona.SpellNetherArrow: 1
@@ -7416,6 +7446,8 @@
     skills:
       Elona.ActionInsult: 1
       Elona.BuffBoost: 1
+  - type: Spells
+    spells:
       Elona.BuffSlow: 1
       Elona.BuffSpeed: 1
   - type: Faction
@@ -7450,8 +7482,8 @@
   - type: Chara
     race: Elona.Servant
     class: Elona.Wizard
-  - type: Skills
-    skills:
+  - type: Spells
+    spells:
       Elona.SpellDarkEye: 1
       Elona.SpellMagicDart: 1
       Elona.SpellNetherArrow: 1
@@ -7485,11 +7517,13 @@
     race: Elona.Servant
     class: Elona.Warrior
     gender: Female
+  - type: Spells
+    spells:
+      Elona.BuffRegeneration: 1
+      Elona.SpellHealCritical: 1
   - type: Skills
     skills:
       Elona.ActionInsult: 1
-      Elona.BuffRegeneration: 1
-      Elona.SpellHealCritical: 1
   - type: Faction
     relation: Enemy
 - type: Entity
@@ -7517,8 +7551,8 @@
     race: Elona.Servant
     class: Elona.Warmage
     gender: Male
-  - type: Skills
-    skills:
+  - type: Spells
+    spells:
       Elona.BuffHolyShield: 1
       Elona.BuffRegeneration: 1
       Elona.SpellHealingRain: 1
@@ -8127,8 +8161,8 @@
     race: Elona.Norland
     class: Elona.Wizard
     gender: Male
-  - type: Skills
-    skills:
+  - type: Spells
+    spells:
       Elona.SpellDarkEye: 1
       Elona.SpellMagicDart: 1
       Elona.SpellNetherArrow: 1
@@ -8163,8 +8197,8 @@
   - type: Chara
     race: Elona.Eulderna
     class: Elona.Wizard
-  - type: Skills
-    skills:
+  - type: Spells
+    spells:
       Elona.SpellDarknessBolt: 1
       Elona.SpellIceBolt: 1
       Elona.SpellMagicDart: 1
@@ -8203,8 +8237,8 @@
     race: Elona.Norland
     class: Elona.Wizard
     gender: Male
-  - type: Skills
-    skills:
+  - type: Spells
+    spells:
       Elona.SpellDarkEye: 1
       Elona.SpellMagicDart: 1
       Elona.SpellNetherArrow: 1
@@ -8399,12 +8433,14 @@
   - type: Chara
     race: Elona.Minotaur
     class: Elona.Priest
-  - type: Skills
-    skills:
-      Elona.ActionCurse: 1
+  - type: Spells
+    spells:
       Elona.SpellFireBolt: 1
       Elona.SpellIceBolt: 1
       Elona.SpellNetherArrow: 1
+  - type: Skills
+    skills:
+      Elona.ActionCurse: 1
   - type: Faction
     relation: Enemy
   - type: VanillaAI
@@ -8676,8 +8712,8 @@
   - type: Chara
     race: Elona.Juere
     class: Elona.Priest
-  - type: Skills
-    skills:
+  - type: Spells
+    spells:
       Elona.BuffSlow: 1
       Elona.SpellFireBolt: 1
       Elona.SpellMagicDart: 1
@@ -8745,11 +8781,13 @@
   - type: Chara
     race: Elona.Lich
     class: Elona.Warrior
+  - type: Spells
+    spells:
+      Elona.SpellLightningBolt: 1
+      Elona.SpellShortTeleport: 1
   - type: Skills
     skills:
       Elona.BuffDeathWord: 1
-      Elona.SpellLightningBolt: 1
-      Elona.SpellShortTeleport: 1
   - type: Faction
     relation: Enemy
   - type: VanillaAI
@@ -8776,11 +8814,13 @@
   - type: Chara
     race: Elona.Lich
     class: Elona.Warrior
+  - type: Spells
+    spells:
+      Elona.SpellLightningBolt: 1
+      Elona.SpellShortTeleport: 1
   - type: Skills
     skills:
       Elona.BuffDeathWord: 1
-      Elona.SpellLightningBolt: 1
-      Elona.SpellShortTeleport: 1
   - type: Faction
     relation: Enemy
   - type: VanillaAI
@@ -9573,6 +9613,8 @@
       Elona.ActionDrainBlood: 1
       Elona.ActionDrawShadow: 1
       Elona.ActionPowerBreath: 1
+  - type: Spells
+    spells:
       Elona.SpellCrystalSpear: 1
   - type: Faction
     relation: Enemy
@@ -9693,6 +9735,8 @@
       Elona.ActionDrainBlood: 1
       Elona.ActionDrawShadow: 1
       Elona.ActionPowerBreath: 1
+  - type: Spells
+    spells:
       Elona.SpellCrystalSpear: 1
   - type: Faction
     relation: Enemy
@@ -9720,6 +9764,8 @@
   - type: Skills
     skills:
       Elona.ActionDropMine: 1
+  - type: Spells
+    spells:
       Elona.SpellGravity: 1
   - type: Faction
     relation: Enemy
@@ -9882,8 +9928,8 @@
   - type: Chara
     race: Elona.Norland
     class: Elona.Wizard
-  - type: Skills
-    skills:
+  - type: Spells
+    spells:
       Elona.SpellHealingRain: 1
   - type: Faction
     relation: Dislike

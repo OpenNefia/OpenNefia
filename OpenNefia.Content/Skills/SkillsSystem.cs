@@ -1,11 +1,12 @@
 ﻿using System;
 using OpenNefia.Content.EntityGen;
+using OpenNefia.Content.GameObjects;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Prototypes;
 using static OpenNefia.Content.Prototypes.Protos;
 
-namespace OpenNefia.Content.GameObjects
+namespace OpenNefia.Content.Skills
 {
     public interface ISkillsSystem
     {
@@ -50,11 +51,10 @@ namespace OpenNefia.Content.GameObjects
 
             foreach (var pair in _protos.Index(chara.Race).BaseSkills)
             {
-                skills.Skills[pair.Key] = new LevelAndPotential()
+                if (!skills.Skills.ContainsKey(pair.Key))
                 {
-                    Level = pair.Value,
-                    Experience = 0
-                };
+                    skills.Skills.Add(pair.Key, new LevelAndPotential() { Level = pair.Value });
+                }
             }
         }
 
@@ -66,11 +66,14 @@ namespace OpenNefia.Content.GameObjects
 
             foreach (var pair in _protos.Index(chara.Class).BaseSkills)
             {
-                skills.Skills[pair.Key] = new LevelAndPotential()
-                { 
-                    Level = pair.Value,
-                    Experience = 0
-                };
+                if (!skills.Skills.ContainsKey(pair.Key))
+                {
+                    skills.Skills.Add(pair.Key, new LevelAndPotential() { Level = pair.Value });
+                }
+                else
+                {
+                    skills.Skills[pair.Key].Level += pair.Value;
+                }
             }
         }
 
@@ -94,7 +97,7 @@ namespace OpenNefia.Content.GameObjects
         {
             var maxMPRaw = (skills.Level(Skill.StatMagic) * 2
                          + skills.Level(Skill.StatWill)
-                         + (skills.Level(Skill.StatLearning) / 3))
+                         + skills.Level(Skill.StatLearning) / 3)
                          * (level.Level / 25)
                          + skills.Level(Skill.StatMagic);
 
@@ -103,7 +106,7 @@ namespace OpenNefia.Content.GameObjects
 
             var maxHPRaw = (skills.Level(Skill.StatConstitution) * 2
                          + skills.Level(Skill.StatStrength)
-                         + (skills.Level(Skill.StatWill) / 3))
+                         + skills.Level(Skill.StatWill) / 3)
                          * (level.Level / 25)
                          + skills.Level(Skill.StatConstitution);
 
