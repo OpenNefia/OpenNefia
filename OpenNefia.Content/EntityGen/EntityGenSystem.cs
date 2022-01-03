@@ -31,11 +31,11 @@ namespace OpenNefia.Content.EntityGen
 
     public class EntityGenSystem : EntitySystem, IEntityGen
     {
-        [Dependency] private readonly IMapBlueprintLoader _blueprintLoader = default!;
+        [Dependency] private readonly IMapLoader _mapLoader = default!;
 
         public override void Initialize()
         {
-            _blueprintLoader.OnBlueprintEntityStartup += HandleBlueprintEntityStartup;
+            _mapLoader.OnBlueprintEntityStartup += HandleBlueprintEntityStartup;
 
             SubscribeLocalEvent<SpatialComponent, EntityCloneFinishedEventArgs>(HandleClone, nameof(HandleClone));
         }

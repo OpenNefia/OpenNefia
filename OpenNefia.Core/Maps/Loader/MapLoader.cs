@@ -22,11 +22,10 @@ using YamlDotNet.RepresentationModel;
 namespace OpenNefia.Core.Maps
 {
     /// <summary>
-    /// Class for loading and saving map blueprints, which are human-readable
-    /// YAML files containing map and entity data.
+    /// Class for loading and saving maps, whether from a blueprint or a saved game.
     /// </summary>
     /// <seealso cref="SerialMapLoader"/>
-    public class MapBlueprintLoader : IMapBlueprintLoader
+    public class MapLoader : IMapLoader
     {
         public const string SawmillName = "map.load";
 

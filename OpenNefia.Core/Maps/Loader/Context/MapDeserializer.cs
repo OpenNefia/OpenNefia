@@ -92,7 +92,7 @@ namespace OpenNefia.Core.Maps
                     var protoId = new PrototypeId<EntityPrototype>(typeNode.AsString());
                     if (!_prototypeManager.HasIndex(protoId) && !reportedError.Contains(protoId))
                     {
-                        Logger.ErrorS(MapBlueprintLoader.SawmillName, "Missing prototype for map: {0}", protoId);
+                        Logger.ErrorS(MapLoader.SawmillName, "Missing prototype for map: {0}", protoId);
                         fail = true;
                         reportedError.Add(protoId);
                     }

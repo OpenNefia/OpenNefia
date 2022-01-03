@@ -11,7 +11,7 @@ namespace OpenNefia.Content.GameObjects
 {
     public class MapTransferSystem : EntitySystem
     {
-        [Dependency] private readonly IMapBlueprintLoader _mapBlueprints = default!;
+        [Dependency] private readonly IMapLoader _mapLoader = default!;
         [Dependency] private readonly IMapManager _mapManager = default!;
         [Dependency] private readonly MapEntranceSystem _mapEntrances = default!;
         [Dependency] private readonly IAudioSystem _sounds = default!;

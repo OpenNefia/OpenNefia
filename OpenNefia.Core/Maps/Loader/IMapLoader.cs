@@ -6,10 +6,7 @@ namespace OpenNefia.Core.Maps
 {
     public delegate void BlueprintEntityStartupDelegate(EntityUid entity);
 
-    /// <summary>
-    /// Interface for loading and saving maps.
-    /// </summary>
-    public interface IMapBlueprintLoader
+    public interface IMapLoader
     {
         public event BlueprintEntityStartupDelegate OnBlueprintEntityStartup;
 

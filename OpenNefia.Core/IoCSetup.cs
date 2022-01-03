@@ -88,7 +88,7 @@ namespace OpenNefia
             IoCManager.Register<IMapDrawables, MapDrawables>();
             IoCManager.Register<IMusicManager, LoveMusicManager>();
             IoCManager.Register<ITimerManager, TimerManager>();
-            IoCManager.Register<IMapBlueprintLoader, MapBlueprintLoader>();
+            IoCManager.Register<IMapLoader, MapLoader>();
             IoCManager.Register<ICommandLineController, CommandLineController>();
             IoCManager.Register<IReplExecutor, CSharpReplExecutor>();
             IoCManager.Register<IConsole, DummyConsole>();
