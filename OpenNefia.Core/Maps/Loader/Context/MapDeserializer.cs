@@ -189,11 +189,21 @@ namespace OpenNefia.Core.Maps
             }
         }
 
+        /// <summary>
+        /// { entityPrototypeId -> [compName] }
+        /// </summary>
+        private class PrototypeCompTypeCache : Dictionary<string, List<string>>
+        {
+        }
+
         private void FinishEntitiesLoad()
         {
+            var prototypeCompTypeCache = new PrototypeCompTypeCache();
+
             foreach (var (entity, data) in _entitiesToDeserialize)
             {
                 _context.CurrentReadingEntityComponents = new Dictionary<string, MappingDataNode>();
+                _context.CurrentDeletedEntityComponents = new HashSet<string>();
                 if (data.TryGetNode(MapLoadConstants.Entities_Components, out YamlSequenceNode? componentList))
                 {
                     foreach (var compData in componentList.Cast<YamlMappingNode>())
@@ -203,16 +213,24 @@ namespace OpenNefia.Core.Maps
                         copy.Remove(MapLoadConstants.Entities_Components_Type);
                         _context.CurrentReadingEntityComponents[compData[MapLoadConstants.Entities_Components_Type].AsString()] = copy;
                     }
+                }
 
-                    if (_mode == MapSerializeMode.Full)
+                if (_mode == MapSerializeMode.Full)
+                {
+                    if (_entityManager.GetComponent<MetaDataComponent>(entity).EntityPrototype is { } prototype)
                     {
+                        if (!prototypeCompTypeCache.ContainsKey(prototype.ID))
+                        {
+                            prototypeCompTypeCache[prototype.ID] = prototype.Components.Keys.ToList();
+                        }
+
                         // Remove extra components found in the prototype that were not present on the
                         // entity at the time of saving.
-                        foreach (var comp in _entityManager.GetComponents(entity).ToList())
+                        foreach (var compName in prototypeCompTypeCache[prototype.ID])
                         {
-                            if (!_context.CurrentReadingEntityComponents.ContainsKey(comp.Name))
+                            if (!_context.CurrentReadingEntityComponents.ContainsKey(compName))
                             {
-                                _entityManager.RemoveComponent(entity, comp);
+                                _context.CurrentDeletedEntityComponents.Add(compName);
                             }
                         }
                     }

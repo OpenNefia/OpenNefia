@@ -29,6 +29,7 @@ namespace OpenNefia.Tests.Core.Maps.Loader
   - type: MapDeserializeTest
     foo: 1
     bar: 2
+  - type: MapDeserializeTestRemove
 
 # Required by the engine.
 - type: Tile
@@ -57,6 +58,8 @@ namespace OpenNefia.Tests.Core.Maps.Loader
         {
             var compFactory = IoCManager.Resolve<IComponentFactory>();
             compFactory.RegisterClass<MapDeserializeTestComponent>();
+            compFactory.RegisterClass<MapDeserializeTestAddComponent>();
+            compFactory.RegisterClass<MapDeserializeTestRemoveComponent>();
             compFactory.FinishRegistration();
             IoCManager.Resolve<ISerializationManager>().Initialize();
 
@@ -202,8 +205,12 @@ entities:
             Assert.That(entitySpatial.WorldPosition, Is.EqualTo(new Vector2i(3, 3)));
         }
 
+        /// <summary>
+        /// Test that added/removed/changed components are accounted for when loading
+        /// with full map serialization.
+        /// </summary>
         [Test]
-        public void TestMapLoadRemovedComponents()
+        public void TestMapLoadComponents()
         {
             var mapMan = IoCManager.Resolve<IMapManager>();
             var entMan = IoCManager.Resolve<IEntityManager>();
@@ -211,8 +218,39 @@ entities:
             var mapLoader = IoCManager.Resolve<IMapBlueprintLoader>();
 
             var map = mapMan.CreateMap(50, 50);
+            var mapEntId = map.MapEntityUid;
 
             var entity = entMan.SpawnEntity(new("MapDeserializeTest"), map.AtPos(Vector2i.One));
+            var entityUid = entity.Uid;
+
+            var c = entMan.GetComponent<MapDeserializeTestComponent>(entity.Uid);
+            c.Foo = 999;
+            c.Bar = 9999;
+            c.Baz = 99999;
+
+            entMan.RemoveComponent<MapDeserializeTestRemoveComponent>(entity.Uid);
+            entMan.EnsureComponent<MapDeserializeTestAddComponent>(entity.Uid);
+
+            using var save = new TempSaveGameHandle();
+
+            mapLoader.SaveMap(map.Id, save);
+            map = mapLoader.LoadMap(map.Id, save);
+
+            Assert.That(map.MapEntityUid, Is.EqualTo(mapEntId));
+            Assert.That(entMan.EntityExists(entityUid), Is.True);
+
+            entity = entMan.GetEntity(entityUid);
+
+            Assert.That(entity.Uid, Is.EqualTo(entityUid));
+
+            c = entMan.GetComponent<MapDeserializeTestComponent>(entity.Uid);
+
+            Assert.That(c.Foo, Is.EqualTo(999));
+            Assert.That(c.Bar, Is.EqualTo(9999));
+            Assert.That(c.Baz, Is.EqualTo(99999));
+
+            Assert.That(entMan.HasComponent<MapDeserializeTestAddComponent>(entity.Uid), Is.True);
+            Assert.That(entMan.HasComponent<MapDeserializeTestRemoveComponent>(entity.Uid), Is.False);
         }
 
         [DataDefinition]
@@ -223,6 +261,18 @@ entities:
             [DataField("foo")] public int Foo { get; set; } = -1;
             [DataField("bar")] public int Bar { get; set; } = -1;
             [DataField("baz")] public int Baz { get; set; } = -1;
+        }
+
+        [DataDefinition]
+        private sealed class MapDeserializeTestAddComponent : Component
+        {
+            public override string Name => "MapDeserializeTestAdd";
+        }
+
+        [DataDefinition]
+        private sealed class MapDeserializeTestRemoveComponent : Component
+        {
+            public override string Name => "MapDeserializeTestRemove";
         }
     }
 }

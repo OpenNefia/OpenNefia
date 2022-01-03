@@ -102,11 +102,9 @@ namespace OpenNefia.Core.GameObjects
 
                     if (context != null)
                     {
-                        if (!context.EnsurePrototypeComponents)
+                        if (!context.ShouldLoadComponent(name))
                         {
-                            var compType = factory.GetRegistration(name).Type;
-                            if (!_entityManager.HasComponent(entity.Uid, compType))
-                                continue;
+                            continue;
                         }
 
                         fullData = context.GetComponentData(name, data);

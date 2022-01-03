@@ -108,7 +108,13 @@ namespace OpenNefia.Core.Maps
         private IMap DoMapLoad(MapId? mapId, TextReader reader, MapSerializeMode mode)
         {
             if (mapId == null)
+            {
                 mapId = _mapManager.GetFreeMapId();
+            }
+            else if (_mapManager.MapExists(mapId.Value))
+            {
+                _mapManager.UnloadMap(mapId.Value);
+            }
 
             var data = new MapData(reader);
 
