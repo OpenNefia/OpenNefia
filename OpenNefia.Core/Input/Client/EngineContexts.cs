@@ -68,6 +68,8 @@
 
             var field = contexts.New("field", common);
             field.AddFunction(EngineKeyFunctions.ShowEscapeMenu);
+            field.AddFunction(EngineKeyFunctions.QuickSaveGame);
+            field.AddFunction(EngineKeyFunctions.QuickLoadGame);
         }
     }
 }

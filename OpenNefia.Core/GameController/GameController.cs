@@ -45,11 +45,12 @@ namespace OpenNefia.Core.GameController
         [Dependency] private readonly ITimerManager _timerManager = default!;
         [Dependency] private readonly IMapRenderer _mapRenderer = default!;
         [Dependency] private readonly IDebugServer _debugServer = default!;
-        [Dependency] private readonly ISaveGameManagerInternal _saveGameManager = default!;
         [Dependency] private readonly IThemeManager _themeManager = default!;
         [Dependency] private readonly IFontManager _fontManager = default!;
         [Dependency] private readonly IInputManager _inputManager = default!;
         [Dependency] private readonly IProfileManager _profileManager = default!;
+        [Dependency] private readonly ISaveGameManagerInternal _saveGameManager = default!;
+        [Dependency] private readonly ISaveGameSerializerInternal _saveGameSerializer = default!;
 
         private const string UserDataDir = "UserData";
 
@@ -116,6 +117,8 @@ namespace OpenNefia.Core.GameController
 
             _tileDefinitionManager.Initialize();
             _tileDefinitionManager.RegisterAll();
+
+            _saveGameSerializer.Initialize();
 
             // TODO replace with config system
             var language = GetSystemLanguage();

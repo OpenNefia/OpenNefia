@@ -4,6 +4,9 @@ Elona.UserInterface =
       Yes = "Yes",
       No = "No..",
    },
+   Save = {
+      QuickSave = " *Save* "
+   },
    Exit = {
       Prompt = {
          Text = "Do you want to save the game and exit?",

@@ -30,6 +30,9 @@ namespace OpenNefia.Core.GameObjects
         private List<Type> _systemTypes = new();
 
         /// <inheritdoc/>
+        public IEnumerable<Type> SystemTypes => _systemTypes;
+
+        /// <inheritdoc/>
         public IDependencyCollection DependencyCollection => _systemDependencyCollection;
 
         private readonly List<Type> _extraLoadedTypes = new();
@@ -92,6 +95,19 @@ namespace OpenNefia.Core.GameObjects
             where T : IEntitySystem
         {
             return _systemDependencyCollection.TryResolveType<T>(out entitySystem);
+        }
+
+        /// <inheritdoc />
+        public bool TryGetEntitySystem(Type type, [NotNullWhen(true)] out IEntitySystem? entitySystem)
+        {
+            if (!typeof(IEntitySystem).IsAssignableFrom(type))
+            {
+                throw new ArgumentException($"Type '{type}' does not implement {nameof(IEntitySystem)}");
+            }
+
+            var result = _systemDependencyCollection.TryResolveType(type, out var obj);
+            entitySystem = obj as IEntitySystem;
+            return result;
         }
 
         /// <inheritdoc />

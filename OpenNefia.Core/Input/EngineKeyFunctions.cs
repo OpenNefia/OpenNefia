@@ -34,7 +34,6 @@ namespace OpenNefia.Core.Input
 
         public static readonly BoundKeyFunction ShowDebugConsole = "ShowDebugConsole";
         public static readonly BoundKeyFunction ShowDebugMonitors = "ShowDebugMonitors";
-        public static readonly BoundKeyFunction ShowEscapeMenu = "ShowEscapeMenu";
 
         // Cursor keys in LineEdit and such.
         public static readonly BoundKeyFunction TextCursorLeft = "TextCursorLeft";
@@ -65,6 +64,11 @@ namespace OpenNefia.Core.Input
         public static readonly BoundKeyFunction TextScrollToBottom = "TextScrollToBottom";
         public static readonly BoundKeyFunction TextDelete = "TextDelete";
         public static readonly BoundKeyFunction TextTabComplete = "TextTabComplete";
+
+        // Field-only key functions.
+        public static readonly BoundKeyFunction ShowEscapeMenu = "ShowEscapeMenu";
+        public static readonly BoundKeyFunction QuickSaveGame = "QuickSaveGame";
+        public static readonly BoundKeyFunction QuickLoadGame = "QuickLoadGame";
     }
 
     public static class BoundKeyFunctionExt

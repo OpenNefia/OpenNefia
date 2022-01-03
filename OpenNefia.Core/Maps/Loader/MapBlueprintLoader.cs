@@ -4,6 +4,7 @@ using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Log;
 using OpenNefia.Core.Prototypes;
+using OpenNefia.Core.SaveGames;
 using OpenNefia.Core.Serialization;
 using OpenNefia.Core.Serialization.Manager;
 using OpenNefia.Core.Serialization.Manager.Result;
@@ -40,28 +41,32 @@ namespace OpenNefia.Core.Maps
         public event BlueprintEntityStartupDelegate? OnBlueprintEntityStartup;
 
         /// <inheritdoc />
-        public void SaveBlueprint(MapId? mapId, ResourcePath resPath)
+        public void SaveBlueprint(MapId mapId, ResourcePath resPath)
         {
-            if (mapId == null)
-                mapId = _mapManager.GetFreeMapId();
-
-            using var profiler = new ProfilerLogger(LogLevel.Debug, SawmillName, $"Map blueprint save: {resPath}");
-            Logger.InfoS(SawmillName, $"Saving map {mapId} to {resPath}...");
-
-            var context = new MapBlueprintContext(mapId.Value, _mapManager, _tileDefinitionManager, _entityManager, _prototypeManager);
-            var root = context.Serialize();
-            var document = new YamlDocument(root);
+            Logger.InfoS(SawmillName, $"Saving map blueprint {mapId} to {resPath}...");
 
             _resourceManager.UserData.CreateDirectory(resPath.Directory);
 
             using (var writer = _resourceManager.UserData.OpenWriteText(resPath))
             {
-                var stream = new YamlStream();
-                stream.Add(document);
-                stream.Save(new YamlMappingFix(new Emitter(writer)), false);
+                using var profiler = new ProfilerLogger(LogLevel.Debug, SawmillName, $"Map blueprint save: {resPath}");
+                SaveBlueprint(mapId, writer);
             }
         }
 
+        /// <inheritdoc />
+        public void SaveBlueprint(MapId mapId, TextWriter writer)
+        {
+            var context = new MapBlueprintContext(mapId, _mapManager, _tileDefinitionManager, _entityManager, _prototypeManager);
+            var root = context.Serialize();
+            var document = new YamlDocument(root);
+
+            var stream = new YamlStream();
+            stream.Add(document);
+            stream.Save(new YamlMappingFix(new Emitter(writer)), false);
+        }
+
+        /// <inheritdoc />
         public IMap LoadBlueprint(MapId? mapId, ResourcePath yamlPath)
         {
             TextReader reader;
@@ -89,11 +94,12 @@ namespace OpenNefia.Core.Maps
             using (reader)
             {
                 using var profiler = new ProfilerLogger(LogLevel.Debug, SawmillName, $"Map blueprint load: {yamlPath}");
-                Logger.InfoS(SawmillName, $"Loading map: {yamlPath}");
+                Logger.InfoS(SawmillName, $"Loading map blueprint: {yamlPath}");
                 return LoadBlueprint(mapId, reader);
             }
         }
 
+        /// <inheritdoc />
         public IMap LoadBlueprint(MapId? mapId, TextReader reader)
         {
             if (mapId == null)
@@ -112,6 +118,39 @@ namespace OpenNefia.Core.Maps
             }
 
             return grid;
+        }
+
+        private ResourcePath GetMapFilePath(MapId mapId)
+        {
+            return new ResourcePath($"/Maps/{mapId}.yml");
+        }
+
+        /// <inheritdoc/>
+        public void SaveMap(MapId mapId, ISaveGameHandle save)
+        {
+            var filepath = GetMapFilePath(mapId);
+
+            Logger.InfoS(SawmillName, $"Saving map {mapId} to {filepath}...");
+
+            save.Files.CreateDirectory(filepath.Directory);
+
+            using (var writer = save.Files.OpenWriteText(filepath))
+            {
+                SaveBlueprint(mapId, writer);
+            }
+        }
+
+        /// <inheritdoc/>
+        public void LoadMap(MapId mapId, ISaveGameHandle save)
+        {
+            var filepath = GetMapFilePath(mapId);
+
+            Logger.InfoS(SawmillName, $"Loading map {mapId} from {filepath}...");
+
+            using (var reader = save.Files.OpenText(filepath))
+            {
+                LoadBlueprint(mapId, reader);
+            }
         }
 
         public static class Keys

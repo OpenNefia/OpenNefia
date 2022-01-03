@@ -289,3 +289,9 @@ binds:
 - function: ShowEscapeMenu
   type: State
   key: Escape
+- function: QuickSaveGame
+  type: State
+  key: F1
+- function: QuickLoadGame
+  type: State
+  key: F2
