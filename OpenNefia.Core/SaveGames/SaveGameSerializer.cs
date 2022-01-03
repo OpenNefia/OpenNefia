@@ -1,10 +1,12 @@
 ﻿using OpenNefia.Core.ContentPack;
+using OpenNefia.Core.Game;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Log;
 using OpenNefia.Core.Maps;
 using OpenNefia.Core.Reflection;
 using OpenNefia.Core.Serialization.Manager;
+using OpenNefia.Core.Serialization.Manager.Attributes;
 using OpenNefia.Core.Serialization.Markdown;
 using OpenNefia.Core.Serialization.Markdown.Mapping;
 using OpenNefia.Core.Serialization.Markdown.Value;
@@ -32,25 +34,62 @@ namespace OpenNefia.Core.SaveGames
         event GameLoadedDelegate OnGameLoaded;
 
         /// <summary>
-        /// Saves the global game state to the currently active save.
+        /// Saves the game state to the currently active save.
         /// </summary>
-        void SaveGlobalData(ISaveGameHandle save);
+        void SaveGame(ISaveGameHandle save);
 
         /// <summary>
-        /// Loads the global game state from the currently active save.
+        /// Loads the game state from the currently active save.
         /// </summary>
+        void LoadGame(ISaveGameHandle save);
+    }
+
+    internal interface ISaveGameSerializerInternal : ISaveGameSerializer
+    {
+        void Initialize();
+
+        void SaveGlobalData(ISaveGameHandle save);
         void LoadGlobalData(ISaveGameHandle save);
     }
 
-    public interface ISaveGameSerializerInternal : ISaveGameSerializer
+    /// <summary>
+    /// Global, engine-internal data that isn't part of either a map or an entity system.
+    /// These are spread across various IoC dependencies and manually set up on save/load.
+    /// </summary>
+    [DataDefinition]
+    internal class SessionData
     {
-        void Initialize();
+        /// <summary>
+        /// Current player at the time of saving.
+        /// </summary>
+        /// <see cref="IGameSessionManager"/>
+        // TODO: no EntityUid serializer...
+        [DataField(required: true)]
+        public int PlayerUid { get; set; }
+
+        /// <summary>
+        /// Current map at the time of saving.
+        /// </summary>
+        /// <see cref="IMapManager"/>
+        [DataField(required: true)]
+        public MapId ActiveMapId { get; set; }
+
+        /// <summary>
+        /// Highest free map ID at the time of saving.
+        /// </summary>
+        /// <see cref="IMapManagerInternal"/>
+        [DataField(required: true)]
+        public MapId HighestMapId { get; set; }
     }
 
-    public class SaveGameSerializer : ISaveGameSerializerInternal
+    public sealed class SaveGameSerializer : ISaveGameSerializerInternal
     {
+        [Dependency] private readonly IEntityManagerInternal _entityManager = default!;
         [Dependency] private readonly IEntitySystemManager _entitySystemManager = default!;
         [Dependency] private readonly ISerializationManager _serializationManager = default!;
+        [Dependency] private readonly IMapManagerInternal _mapManager = default!;
+        [Dependency] private readonly IGameSessionManager _gameSessionManager = default!;
+        [Dependency] private readonly IMapBlueprintLoader _mapBlueprintLoader = default!;
 
         public const string SawmillName = "save.game";
 
@@ -125,6 +164,54 @@ namespace OpenNefia.Core.SaveGames
             _trackedSaveData.Add(key, new SaveDataRegistration(field, parent));
         }
 
+        /// <inheritdoc/>
+        public void SaveGame(ISaveGameHandle save)
+        {
+            SaveGlobalData(save);
+            SaveSession(save);
+            SaveActiveMap(save);
+
+            OnGameSaved?.Invoke(save);
+
+            save.Files.Commit();
+        }
+
+        private void SaveSession(ISaveGameHandle save)
+        {
+            var activeMap = _mapManager.ActiveMap;
+
+            if (activeMap == null)
+            {
+                throw new InvalidOperationException("No active map to save");
+            }
+
+            var player = _gameSessionManager.Player;
+            if (player == null)
+            {
+                throw new InvalidOperationException("No active player");
+            }
+
+            if (player.Spatial.MapID != activeMap.Id)
+            {
+                throw new InvalidOperationException($"Player was not in the active map ({activeMap.Id}) at the time of saving!");
+            }
+
+            var sessionData = new SessionData()
+            {
+                ActiveMapId = activeMap.Id,
+                PlayerUid = (int)player.Uid,
+                HighestMapId = _mapManager.HighestMapId
+            };
+
+            var session = new ResourcePath("/session.yml");
+            save.Files.WriteSerializedData(session, sessionData, _serializationManager, alwaysWrite: true);
+        }
+
+        public void SaveActiveMap(ISaveGameHandle save)
+        {
+            _mapBlueprintLoader.SaveMap(_mapManager.ActiveMap!.Id, save);
+        }
+
         public void SaveGlobalData(ISaveGameHandle save)
         {
             // Save all the global data not tied to maps.
@@ -145,8 +232,45 @@ namespace OpenNefia.Core.SaveGames
             root.Add("data", mapping);
 
             save.Files.WriteAllYaml(global, root.ToYaml());
+        }
 
-            OnGameSaved?.Invoke(save);
+        /// <inheritdoc/>
+        public void LoadGame(ISaveGameHandle save)
+        {
+            save.Files.ClearTemp();
+
+            ResetGameState();
+            LoadSession(save);
+            LoadGlobalData(save);
+
+            OnGameLoaded?.Invoke(save);
+        }
+
+        /// <summary>
+        /// Unloads absolutely everything from the entity/map managers.
+        /// </summary>
+        private void ResetGameState()
+        {
+            _entityManager.FlushEntities();
+            _mapManager.FlushMaps();
+        }
+
+        private void LoadSession(ISaveGameHandle save)
+        {
+            var session = new ResourcePath("/session.yml");
+            var sessionData = save.Files.ReadSerializedData<SessionData>(session, _serializationManager, skipHook: true)!;
+
+            _mapManager.HighestMapId = sessionData.HighestMapId;
+            var map = _mapBlueprintLoader.LoadMap(sessionData.ActiveMapId, save);
+            _mapManager.SetActiveMap(map.Id);
+
+            var playerUid = new EntityUid(sessionData.PlayerUid);
+            if (!_entityManager.TryGetEntity(playerUid, out var player))
+            {
+                throw new InvalidDataException($"Active player '{sessionData.PlayerUid}' was not in saved active map {map.Id}!");
+            }
+
+            _gameSessionManager.Player = player;
         }
 
         public void LoadGlobalData(ISaveGameHandle save)
@@ -180,8 +304,6 @@ namespace OpenNefia.Core.SaveGames
                     reg.FieldInfo.SetValue(reg.Parent, value);
                 }
             }
-
-            OnGameLoaded?.Invoke(save);
         }
     }
 }

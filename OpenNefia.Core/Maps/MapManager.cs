@@ -6,34 +6,69 @@ using System.Reflection;
 
 namespace OpenNefia.Core.Maps
 {
-    public class MapManager : IMapManager
+    public interface IMapManagerInternal : IMapManager
+    { 
+        /// <summary>
+        /// The next free map ID to use when generating new maps.
+        /// </summary>
+        /// <remarks>
+        /// This should **only** be set when handling game saving/loading.
+        /// </remarks>
+        MapId HighestMapId { get; set; }
+
+        /// <summary>
+        /// Clears the active map list.
+        /// </summary>
+        /// <remarks>
+        /// This should **only** be called when handling game saving/loading.
+        /// </remarks>
+        void FlushMaps();
+    }
+
+    public class MapManager : IMapManagerInternal
     {
         [Dependency] private readonly IEntityManager _entityManager = default!;
 
         private protected readonly Dictionary<MapId, IMap> _maps = new();
         private protected readonly Dictionary<MapId, EntityUid> _mapEntities = new();
 
+        /// <inheritdoc/>
         public event ActiveMapChangedDelegate? ActiveMapChanged;
 
-        public IMap? ActiveMap { get; private set; } = default!;
+        /// <inheritdoc/>
+        public IMap? ActiveMap { get; private set; } = null;
 
-        private MapId _highestMapID = MapId.Nullspace;
+        /// <inheritdoc/>
+        public MapId HighestMapId { get; set; } = MapId.Nullspace;
 
+        /// <inheritdoc/>
         public bool MapExists(MapId mapId)
         {
             return _maps.ContainsKey(mapId);
         }
+
+        /// <inheritdoc/>
         public MapId GetFreeMapId()
         {
-            return new MapId(_highestMapID.Value + 1);
+            return new MapId(HighestMapId.Value + 1);
         }
 
+        /// <inheritdoc/>
+        public void FlushMaps()
+        {
+            _maps.Clear();
+            _mapEntities.Clear();
+            ActiveMap = null;
+            HighestMapId = MapId.Nullspace;
+    }
+
+        /// <inheritdoc/>
         public IMap CreateMap(int width, int height, MapId? mapId = null)
         {
             var actualID = AllocFreeMapId(mapId);
 
             var map = new Map(width, height);
-            this._maps[_highestMapID] = map;
+            this._maps[HighestMapId] = map;
             map.Id = actualID;
             RebindMapEntity(actualID, map);
 
@@ -49,6 +84,7 @@ namespace OpenNefia.Core.Maps
             mapEntityUidField.SetValue(map, mapEntityUid);
         }
 
+        /// <inheritdoc/>
         public MapId RegisterMap(IMap map, MapId? mapId = null, EntityUid? mapEntityUid = null)
         {
             var actualID = AllocFreeMapId(mapId);
@@ -58,7 +94,7 @@ namespace OpenNefia.Core.Maps
                 throw new ArgumentException("Map is already in use.", nameof(map));
             }
 
-            this._maps[_highestMapID] = map;
+            _maps[HighestMapId] = map;
 
             if (mapEntityUid == null)
             {
@@ -94,9 +130,9 @@ namespace OpenNefia.Core.Maps
                 throw new InvalidOperationException($"A map with ID {actualID} already exists");
             }
 
-            if (_highestMapID.Value < actualID.Value)
+            if (HighestMapId.Value < actualID.Value)
             {
-                _highestMapID = actualID;
+                HighestMapId = actualID;
             }
 
             return actualID;
@@ -141,6 +177,7 @@ namespace OpenNefia.Core.Maps
             }
         }
 
+        /// <inheritdoc/>
         public void SetMapEntity(MapId mapId, EntityUid newMapEntity)
         {
             if (!_maps.TryGetValue(mapId, out var mapGrid))
@@ -186,6 +223,7 @@ namespace OpenNefia.Core.Maps
             SetMapGridIds(mapGrid, mapId, newMapEntity);
         }
 
+        /// <inheritdoc/>
         public void UnloadMap(MapId mapID)
         {
             if (mapID == ActiveMap?.Id)
@@ -211,11 +249,13 @@ namespace OpenNefia.Core.Maps
             Logger.InfoS("map", $"Deleting map {mapID}");
         }
 
+        /// <inheritdoc/>
         public IMap GetMap(MapId mapId)
         {
             return _maps[mapId];
         }
 
+        /// <inheritdoc/>
         public Entity GetMapEntity(MapId mapId)
         {
             if (!_mapEntities.ContainsKey(mapId))
@@ -224,11 +264,13 @@ namespace OpenNefia.Core.Maps
             return _entityManager.GetEntity(_mapEntities[mapId]);
         }
 
+        /// <inheritdoc/>
         public bool TryGetMap(MapId mapId, [NotNullWhen(true)] out IMap? map)
         {
             return _maps.TryGetValue(mapId, out map);
         }
 
+        /// <inheritdoc/>
         public bool TryGetMap(EntityUid mapEntityUid, [NotNullWhen(true)] out IMap? map)
         {
             if (!_entityManager.TryGetComponent(mapEntityUid, out MapComponent? mapComp))
@@ -240,6 +282,7 @@ namespace OpenNefia.Core.Maps
             return TryGetMap(mapComp.MapId, out map);
         }
 
+        /// <inheritdoc/>
         public bool TryGetMapEntity(MapId mapId, [NotNullWhen(true)] out Entity? mapEntity)
         {
             mapEntity = null;
@@ -250,6 +293,7 @@ namespace OpenNefia.Core.Maps
             return _entityManager.TryGetEntity(mapEntityUid, out mapEntity);
         }
 
+        /// <inheritdoc/>
         public void SetActiveMap(MapId mapId)
         {
             if (mapId == ActiveMap?.Id)
@@ -266,6 +310,7 @@ namespace OpenNefia.Core.Maps
             ActiveMapChanged?.Invoke(map, oldMap);
         }
 
+        /// <inheritdoc/>
         public bool IsMapInitialized(MapId mapId)
         {
             return _maps.ContainsKey(mapId);

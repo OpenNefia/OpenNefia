@@ -31,6 +31,7 @@ namespace OpenNefia.Content.TitleScreen
         [Dependency] private readonly IFieldLayer _fieldLayer = default!;
         [Dependency] private readonly IMapBlueprintLoader _mapBlueprints = default!;
         [Dependency] private readonly ISaveGameManager _saveGameManager = default!;
+        [Dependency] private readonly ISaveGameSerializer _saveGameSerializer = default!;
         [Dependency] private readonly IUserInterfaceManager _uiManager = default!;
         [Dependency] private readonly IModLoader _modLoader = default!;
 
@@ -102,6 +103,8 @@ namespace OpenNefia.Content.TitleScreen
             var map = InitMap();
 
             _mapManager.SetActiveMap(map.Id);
+
+            _saveGameSerializer.SaveGame(save);
 
             _uiManager.Query(_fieldLayer);
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,20 +9,6 @@ namespace OpenNefia.Core.Utility
 {
     public static class StringHelpers
     {
-        /// <summary>
-        /// Converts an UpperCamelCase C# identifier to its default name in YAML.
-        /// </summary>
-        /// <remarks>
-        /// "BaseSkills" -> "baseSkills"
-        /// "ID" -> "iD"
-        /// </remarks>
-        /// <param name="fieldName"></param>
-        /// <returns></returns>
-        public static string GetPrototypeFieldName(this string fieldName)
-        {
-            return char.ToLower(fieldName[0]) + fieldName.Substring(1);
-        }
-
         public static string FirstCharToUpper(this string input)
         {
             return input switch
@@ -51,6 +38,64 @@ namespace OpenNefia.Core.Utility
             }
 
             return str;
+        }
+
+        /// <summary>
+        /// Converts a string to lowerCamelCase, accounting for successive leading capitals.
+        /// </summary>
+        /// <remarks>
+        /// <para>
+        /// "URLValue" -> "urlValue"
+        /// </para>
+        /// <para>
+        /// "ID" -> "id"
+        /// </para>
+        /// <para>
+        /// "SOME PROPERTY" -> "some PROPERTY"
+        /// </para>
+        /// </remarks>
+        /// <param name="s"></param>
+        /// <returns></returns>
+        // https://github.com/JamesNK/Newtonsoft.Json/blob/52190a3a3de6ef9a556583cbcb2381073e7197bc/Src/Newtonsoft.Json/Utilities/StringUtils.cs#L155
+        public static string ToLowerCamelCase(this string s)
+        {
+            if (string.IsNullOrEmpty(s) || !char.IsUpper(s[0]))
+            {
+                return s;
+            }
+
+            char[] chars = s.ToCharArray();
+
+            for (int i = 0; i < chars.Length; i++)
+            {
+                if (i == 1 && !char.IsUpper(chars[i]))
+                {
+                    break;
+                }
+
+                bool hasNext = (i + 1 < chars.Length);
+                if (i > 0 && hasNext && !char.IsUpper(chars[i + 1]))
+                {
+                    // if the next character is a space, which is not considered uppercase 
+                    // (otherwise we wouldn't be here...)
+                    // we want to ensure that the following:
+                    // 'FOO bar' is rewritten as 'foo bar', and not as 'foO bar'
+                    // The code was written in such a way that the first word in uppercase
+                    // ends when if finds an uppercase letter followed by a lowercase letter.
+                    // now a ' ' (space, (char)32) is considered not upper
+                    // but in that case we still want our current character to become lowercase
+                    if (char.IsSeparator(chars[i + 1]))
+                    {
+                        chars[i] = char.ToLower(chars[i], CultureInfo.InvariantCulture);
+                    }
+
+                    break;
+                }
+
+                chars[i] = char.ToLower(chars[i], CultureInfo.InvariantCulture);
+            }
+
+            return new string(chars);
         }
 
         /// <summary>

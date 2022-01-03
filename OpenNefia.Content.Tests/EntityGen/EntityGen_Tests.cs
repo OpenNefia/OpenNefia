@@ -38,7 +38,6 @@ public class EntityGen_Tests : ContentUnitTest
            {
                types.Add(typeof(EntityGenTestComponent));
            })
-           .RegisterDependencies(deps => deps.Register<IMapBlueprintLoader, MapBlueprintLoader>())
            .RegisterPrototypes(protoMan => protoMan.LoadString(Prototypes))
            .RegisterEntitySystems(factory =>
            {

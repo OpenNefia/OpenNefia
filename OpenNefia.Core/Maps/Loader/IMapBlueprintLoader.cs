@@ -7,8 +7,7 @@ namespace OpenNefia.Core.Maps
     public delegate void BlueprintEntityStartupDelegate(EntityUid entity);
 
     /// <summary>
-    /// Interface for loading and saving map blueprints, which are human-readable
-    /// YAML files containing map and entity data.
+    /// Interface for loading and saving maps.
     /// </summary>
     public interface IMapBlueprintLoader
     {
@@ -58,6 +57,6 @@ namespace OpenNefia.Core.Maps
         /// <param name="mapId">ID of the map to load.</param>
         /// <param name="save">The save file to load from.</param>
         /// <exception cref="FileNotFoundException">If the map does not exist in the save.</exception>
-        void LoadMap(MapId mapId, ISaveGameHandle save);
+        IMap LoadMap(MapId mapId, ISaveGameHandle save);
     }
 }

@@ -14,5 +14,7 @@ namespace OpenNefia.Core.GameObjects
         void FinishEntityInitialization(Entity entity);
 
         void FinishEntityStartup(Entity entity);
+
+        void FlushEntities();
     }
 }

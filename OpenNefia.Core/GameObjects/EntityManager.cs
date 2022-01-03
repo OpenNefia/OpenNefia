@@ -400,7 +400,7 @@ namespace OpenNefia.Core.GameObjects
 
                 // If the map we're initializing the entity on is initialized, run map init on it.
                 if (_mapManager.IsMapInitialized(mapId))
-                    entity.Uid.RunMapInit();
+                    MapInitExt.RunMapInit(entity.Uid);
             }
             catch (Exception e)
             {

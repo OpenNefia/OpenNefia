@@ -1,5 +1,7 @@
 ﻿using NUnit.Framework;
 using OpenNefia.Core.GameObjects;
+using OpenNefia.Core.Maps;
+using OpenNefia.Core.Reflection;
 using OpenNefia.Core.SaveGames;
 using OpenNefia.Core.Serialization.Manager.Attributes;
 using OpenNefia.Core.Utility;
@@ -29,7 +31,7 @@ namespace OpenNefia.Tests.Core.SaveGames
                 .InitializeInstance();
 
             var save = new TempSaveGameHandle();
-            var saveSerMan = sim.Resolve<ISaveGameSerializer>();
+            var saveSerMan = sim.Resolve<ISaveGameSerializerInternal>();
 
             // Act.
             var sys = sim.GetEntitySystem<SaveGameTestSystem>();
@@ -50,6 +52,7 @@ namespace OpenNefia.Tests.Core.SaveGames
         }
     }
 
+    [Reflect(false)]
     public class SaveGameTestSystem : EntitySystem
     {
         [RegisterSaveData("SaveGameTestSystem.Data")]

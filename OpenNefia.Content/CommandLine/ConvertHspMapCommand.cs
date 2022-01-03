@@ -235,11 +235,11 @@ namespace OpenNefia.Content.CommandLine
             var prototype = _prototypeManager.Index(protoId);
 
             var entityNode = new YamlMappingNode();
-            entityNode.Add(MapBlueprintLoader.Keys.Entities_Uid, _maxEntityUid.ToString());
-            entityNode.Add(MapBlueprintLoader.Keys.Entities_ProtoId, protoId.ToString());
+            entityNode.Add(MapLoadConstants.Entities_Uid, _maxEntityUid.ToString());
+            entityNode.Add(MapLoadConstants.Entities_ProtoId, protoId.ToString());
 
             var entityComps = new YamlSequenceNode();
-            entityNode.Add(MapBlueprintLoader.Keys.Entities_Components, entityComps);
+            entityNode.Add(MapLoadConstants.Entities_Components, entityComps);
 
             // Precompute YAML to diff against each entity instance.
             // The fields that are the same as those in the prototype are omitted.
@@ -273,11 +273,11 @@ namespace OpenNefia.Content.CommandLine
                     if (compMapping == null) continue;
                 }
 
-                compMapping.Insert(0, MapBlueprintLoader.Keys.Entities_Components_Type, new ValueDataNode(comp.Name));
+                compMapping.Insert(0, MapLoadConstants.Entities_Components_Type, new ValueDataNode(comp.Name));
                 entityComps.Add(compMapping.ToYamlNode());
             }
 
-            entityComps.Children.MoveElementWhere((i) => i[MapBlueprintLoader.Keys.Entities_Components_Type].AsString() == "Spatial", 0);
+            entityComps.Children.MoveElementWhere((i) => i[MapLoadConstants.Entities_Components_Type].AsString() == "Spatial", 0);
 
             _maxEntityUid = new EntityUid((int)_maxEntityUid + 1);
 
@@ -332,10 +332,10 @@ namespace OpenNefia.Content.CommandLine
         {
 
             var mapEntity = new YamlMappingNode();
-            mapEntity.Add(MapBlueprintLoader.Keys.Entities_Uid, MapEntityUid.ToString());
+            mapEntity.Add(MapLoadConstants.Entities_Uid, MapEntityUid.ToString());
 
             var mapEntityComps = new YamlSequenceNode();
-            mapEntity.Add(MapBlueprintLoader.Keys.Entities_Components, mapEntityComps);
+            mapEntity.Add(MapLoadConstants.Entities_Components, mapEntityComps);
 
             var comps = new ComponentRegistry();
             var mapComp = new MapComponent();
@@ -356,7 +356,7 @@ namespace OpenNefia.Content.CommandLine
             {
                 var compMapping = _serializationManager.WriteValueAs<MappingDataNode>(comp.GetType(), comp);
 
-                compMapping.Insert(0, MapBlueprintLoader.Keys.Entities_Components_Type, new ValueDataNode(comp.Name));
+                compMapping.Insert(0, MapLoadConstants.Entities_Components_Type, new ValueDataNode(comp.Name));
                 mapEntityComps.Add(compMapping.ToYamlNode());
             }
 
@@ -457,9 +457,9 @@ namespace OpenNefia.Content.CommandLine
             }
 
             var meta = new YamlMappingNode();
-            meta.Add(MapBlueprintLoader.Keys.Meta_Format, "1");
-            meta.Add(MapBlueprintLoader.Keys.Meta_Name, MapName);
-            meta.Add(MapBlueprintLoader.Keys.Meta_Author, MapAuthor);
+            meta.Add(MapLoadConstants.Meta_Format, "1");
+            meta.Add(MapLoadConstants.Meta_Name, MapName);
+            meta.Add(MapLoadConstants.Meta_Author, MapAuthor);
 
             return meta;
         }
@@ -492,10 +492,10 @@ namespace OpenNefia.Content.CommandLine
             var meta = BuildMapMetadata();
 
             var root = new YamlMappingNode();
-            root.Add(MapBlueprintLoader.Keys.Meta, meta);
-            root.Add(MapBlueprintLoader.Keys.Grid, new YamlScalarNode(grid) { Style = ScalarStyle.Literal });
-            root.Add(MapBlueprintLoader.Keys.Tilemap, tileMap);
-            root.Add(MapBlueprintLoader.Keys.Entities, entities);
+            root.Add(MapLoadConstants.Meta, meta);
+            root.Add(MapLoadConstants.Grid, new YamlScalarNode(grid) { Style = ScalarStyle.Literal });
+            root.Add(MapLoadConstants.Tilemap, tileMap);
+            root.Add(MapLoadConstants.Entities, entities);
 
             var document = new YamlDocument(root);
             var outputPath = Path.Join(OutputDirectory, $"{fileBaseName}.yml");

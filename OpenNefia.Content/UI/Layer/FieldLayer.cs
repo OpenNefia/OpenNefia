@@ -3,7 +3,6 @@ using OpenNefia.Core.IoC;
 using OpenNefia.Core.Maps;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Game;
-using OpenNefia.Core.Audio;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.UI;
@@ -13,6 +12,9 @@ using OpenNefia.Content.Prototypes;
 using OpenNefia.Core.Graphics;
 using OpenNefia.Core.UI.Element;
 using OpenNefia.Core.Input;
+using OpenNefia.Content.TurnOrder;
+using static OpenNefia.Content.Prototypes.Protos;
+using OpenNefia.Core.Audio;
 
 namespace OpenNefia.Content.UI.Layer
 {
@@ -25,6 +27,7 @@ namespace OpenNefia.Content.UI.Layer
         [Dependency] private readonly IGameSessionManager _gameSession = default!;
         [Dependency] private readonly IGraphics _graphics = default!;
         [Dependency] private readonly IInputManager _inputManager = default!;
+        [Dependency] private readonly IMusicManager _music = default!;
 
         public static FieldLayer? Instance = null;
 
@@ -180,7 +183,9 @@ namespace OpenNefia.Content.UI.Layer
 
         public override void OnQuery()
         {
-            Music.Play(Protos.Music.March1);
+            _music.Play(Protos.Music.March1);
+
+            EntitySystem.Get<ITurnOrderSystem>().AdvanceState();
         }
 
         public override void OnQueryFinish()
@@ -219,7 +224,7 @@ namespace OpenNefia.Content.UI.Layer
                     var proto = PlacingTile.Value.ResolvePrototype();
                     if (proto.IsSolid)
                     {
-                        Sounds.Play(Protos.Sound.Offer1, Map.AtPos(tiledPos));
+                        Sounds.Play(Sound.Offer1, Map.AtPos(tiledPos));
                     }
                     Map.SetTile(tiledPos, PlacingTile.Value);
                     Map.MemorizeTile(tiledPos);
