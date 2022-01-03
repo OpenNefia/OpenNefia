@@ -93,6 +93,7 @@ namespace OpenNefia
             IoCManager.Register<IConsole, DummyConsole>();
             IoCManager.Register<IDebugServer, DebugServer>();
             IoCManager.Register<ISaveGameManager, SaveGameManager>();
+            IoCManager.Register<ISaveGameManagerInternal, SaveGameManager>();
             IoCManager.Register<IThemeManager, ThemeManager>();
             IoCManager.Register<IProfileManager, ProfileManager>();
         }

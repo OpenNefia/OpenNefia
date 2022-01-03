@@ -36,7 +36,7 @@ namespace OpenNefia.Tests.Core.SaveGames
             var profileManager = IoCManager.Resolve<IProfileManager>();
             profileManager.Initialize();
 
-            var saveGameManager = IoCManager.Resolve<ISaveGameManager>();
+            var saveGameManager = IoCManager.Resolve<ISaveGameManagerInternal>();
             saveGameManager.Initialize();
         }
 
@@ -63,6 +63,45 @@ namespace OpenNefia.Tests.Core.SaveGames
                 Assert.Throws<ArgumentException>(() => saveMan.CreateSave(new ResourcePath("..\\a"), header));
                 Assert.Throws<ArgumentException>(() => saveMan.CreateSave(new ResourcePath("a/b"), header));
                 Assert.Throws<ArgumentException>(() => saveMan.CreateSave(new ResourcePath("a"), header));
+            });
+        }
+
+        [Test]
+        public void TestRegisterSave()
+        {
+            var profMan = IoCManager.Resolve<IProfileManager>();
+            var saveMan = IoCManager.Resolve<ISaveGameManagerInternal>();
+            var serMan = IoCManager.Resolve<ISerializationManager>();
+
+            Assert.That(saveMan.AllSaves.Count(), Is.EqualTo(0));
+
+            var versions = new Dictionary<string, Version>()
+            {
+                { "OpenNefia.Content", new Version(0, 30, 0) }
+            };
+            var header = new SaveGameHeader("ruin", new Version(0, 42, 0), "deadbeef", versions);
+
+            var headerPath = new ResourcePath("/Saves") / "testSave" / "header.yml";
+
+            profMan.CurrentProfile.CreateDirectory(headerPath.Directory);
+            profMan.CurrentProfile.WriteSerializedData(headerPath, header, serMan, alwaysWrite: true);
+
+            saveMan.RescanSaves();
+
+            Assert.That(saveMan.AllSaves.Count(), Is.EqualTo(1));
+
+            var save = saveMan.AllSaves.First();
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(save.Header.Name, Is.EqualTo("ruin"));
+                Assert.That(save.Header.EngineVersion, Is.EqualTo(new Version(0, 42, 0)));
+                Assert.That(save.Header.EngineCommitHash, Is.EqualTo("deadbeef"));
+                Assert.That(save.Header.AssemblyVersions, Is.EquivalentTo(versions));
+                Assert.That(save.SaveDirectory, Is.EqualTo(new ResourcePath("/testSave")));
+                Assert.That(save.Files.Exists(new ResourcePath("/header.yml")));
+                Assert.That(saveMan.AllSaves.Count(), Is.EqualTo(1));
+                Assert.That(saveMan.ContainsSave(save), Is.True);
             });
         }
 

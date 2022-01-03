@@ -20,12 +20,16 @@ namespace OpenNefia.Core.SaveGames
         ISaveGameHandle? CurrentSave { get; }
         IEnumerable<ISaveGameHandle> AllSaves { get; }
 
-        void Initialize();
-
         ISaveGameHandle CreateSave(ResourcePath saveDirectory, SaveGameHeader header);
         bool ContainsSave(ISaveGameHandle save);
         void DeleteSave(ISaveGameHandle save);
         void SetCurrentSave(ISaveGameHandle save);
+    }
+
+    internal interface ISaveGameManagerInternal : ISaveGameManager
+    {
+        void Initialize();
+        void RescanSaves();
     }
 
     public interface ISaveGameHandle
@@ -55,27 +59,59 @@ namespace OpenNefia.Core.SaveGames
     [DataDefinition]
     public class SaveGameHeader
     {
+        /// <summary>
+        /// Name of this save.
+        /// </summary>
         [DataField(required: true)]
         public string Name { get; } = default!;
+
+        /// <summary>
+        /// Assembly version of the engine.
+        /// </summary>
+        [DataField(required: true)]
+        public Version EngineVersion { get; } = new();
+
+        /// <summary>
+        /// Full Git commit hash of the engine.
+        /// </summary>
+        [DataField(required: true)]
+        public string EngineCommitHash { get; } = default!;
+
+        [DataField("assemblyVersions", required: true)]
+        private readonly Dictionary<string, Version> _assemblyVersions = new();
+
+        /// <summary>
+        /// Versions of loaded content assemblies. 
+        /// This is a mapping from { strongAssemblyName -> version }.
+        /// </summary>
+        public IReadOnlyDictionary<string, Version> AssemblyVersions => _assemblyVersions;
 
         public SaveGameHeader()
         {
         }
-        
-        public SaveGameHeader(string saveName)
+
+        public SaveGameHeader(string name)
         {
-            Name = saveName;
+            Name = name;
+        }
+
+        public SaveGameHeader(string name, Version engineVersion, string engineCommitHash, Dictionary<string, Version> assemblyVersions)
+        {
+            Name = name;
+            EngineVersion = engineVersion;
+            EngineCommitHash = engineCommitHash;
+            _assemblyVersions = assemblyVersions;
         }
     }
 
-    public class SaveGameManager : ISaveGameManager
+    public class SaveGameManager : ISaveGameManagerInternal
     {
         [Dependency] private readonly ISerializationManager _serializationManager = default!;
         [Dependency] private readonly IProfileManager _profileManager = default!;
 
         public const string SawmillName = "save";
 
-        private const string SavesPath = "/Save";
+        public const string SavesPath = "/Saves";
 
         private IWritableDirProvider SavesRootDir { get; set; } = default!;
 
@@ -92,14 +128,14 @@ namespace OpenNefia.Core.SaveGames
             RescanSaves();
         }
 
-        private void RescanSaves()
+        public void RescanSaves()
         {
             CurrentSave = null;
             _saves.Clear();
 
             foreach (var dir in SavesRootDir.Find("*", recursive: false).directories)
             {
-                TryRegisterSave(dir);
+                TryRegisterSave(dir.ChangeSeparator("/"));
             }
 
             _saves = _saves.OrderBy(save => save.LastSaveDate).ToList();
@@ -112,11 +148,6 @@ namespace OpenNefia.Core.SaveGames
             if (!saveDirectoryReader.Exists(new ResourcePath("/header.yml")))
             {
                 Logger.WarningS(SawmillName, $"Missing header.yml in save folder: {saveDirectory}");
-                return;
-            }
-            if (!saveDirectoryReader.IsDirectory(new ResourcePath("/Files")))
-            {
-                Logger.WarningS(SawmillName, $"Missing /Files folder in save folder: {saveDirectory}");
                 return;
             }
 
@@ -133,9 +164,8 @@ namespace OpenNefia.Core.SaveGames
 
         private ISaveGameHandle RegisterSave(IWritableDirProvider saveDirectoryReader, ResourcePath saveDirectory)
         {
-            var yaml = saveDirectoryReader.ReadAllYaml(new ResourcePath("/header.yml"));
-            var node = yaml.Documents[0].RootNode;
-            var header = _serializationManager.ReadValue<SaveGameHeader>(node.ToDataNode(), skipHook: true)!;
+            var header = saveDirectoryReader.ReadSerializedData<SaveGameHeader>(
+                new ResourcePath("/header.yml"), _serializationManager, skipHook: true)!;
 
             var save = new SaveGameHandle(saveDirectoryReader, saveDirectory, header);
             _saves.Add(save);
@@ -175,9 +205,8 @@ namespace OpenNefia.Core.SaveGames
 
             var saveDirectoryReader = SavesRootDir.GetChild(saveDirectory);
 
-            var headerFile = new ResourcePath("/header.yml");
-            var node = _serializationManager.WriteValue(header, true);
-            saveDirectoryReader.WriteAllYaml(headerFile, node.ToYamlNode());
+            saveDirectoryReader.WriteSerializedData(
+                new ResourcePath("/header.yml"), header, _serializationManager, alwaysWrite: true);
 
             Logger.InfoS(SawmillName, $"Creating save '{header.Name}' at {saveDirectoryReader.RootDir}.");
 
