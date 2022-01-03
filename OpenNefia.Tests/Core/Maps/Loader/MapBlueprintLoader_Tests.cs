@@ -18,7 +18,7 @@ using System.Threading.Tasks;
 namespace OpenNefia.Tests.Core.Maps.Loader
 {
     [TestFixture]
-    [TestOf(typeof(MapBlueprintLoader))]
+    [TestOf(typeof(MapLoader))]
     public class MapBlueprintLoader_Tests : OpenNefiaUnitTest
     {
 
@@ -100,7 +100,7 @@ entities: []
             var resourceManager = IoCManager.Resolve<IResourceManagerInternal>();
             resourceManager.MountString("/TestMap1.yml", mapData1);
 
-            var mapLoad = IoCManager.Resolve<IMapBlueprintLoader>();
+            var mapLoad = IoCManager.Resolve<IMapLoader>();
             var mapId = mapMan.GetFreeMapId();
             Assert.Throws<InvalidDataException>(() => mapLoad.LoadBlueprint(mapId, new ResourcePath("/TestMap1.yml")));
         }
@@ -134,7 +134,7 @@ entities:
             var resourceManager = IoCManager.Resolve<IResourceManagerInternal>();
             resourceManager.MountString("/TestMap2.yml", mapData2);
 
-            var mapLoad = IoCManager.Resolve<IMapBlueprintLoader>();
+            var mapLoad = IoCManager.Resolve<IMapLoader>();
             var mapId = mapMan.GetFreeMapId();
             Assert.Throws<InvalidDataException>(() => mapLoad.LoadBlueprint(mapId, new ResourcePath("/TestMap2.yml")));
         }
@@ -178,7 +178,7 @@ entities:
             var resourceManager = IoCManager.Resolve<IResourceManagerInternal>();
             resourceManager.MountString("/TestMap.yml", mapData);
 
-            var mapLoad = IoCManager.Resolve<IMapBlueprintLoader>();
+            var mapLoad = IoCManager.Resolve<IMapLoader>();
             var mapId = mapMan.GetFreeMapId();
             var map = mapLoad.LoadBlueprint(mapId, new ResourcePath("/TestMap.yml"));
 
@@ -215,7 +215,7 @@ entities:
             var mapMan = IoCManager.Resolve<IMapManager>();
             var entMan = IoCManager.Resolve<IEntityManager>();
 
-            var mapLoader = IoCManager.Resolve<IMapBlueprintLoader>();
+            var mapLoader = IoCManager.Resolve<IMapLoader>();
 
             var map = mapMan.CreateMap(50, 50);
             var mapEntId = map.MapEntityUid;

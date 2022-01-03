@@ -10,7 +10,7 @@ namespace OpenNefia.Content.GameObjects
 {
     public class MapEntranceSystem : EntitySystem
     {
-        [Dependency] private readonly IMapBlueprintLoader _mapBlueprints = default!;
+        [Dependency] private readonly IMapLoader _mapLoader = default!;
         [Dependency] private readonly IMapManager _mapManager = default!;
 
         public TurnResult UseMapEntrance(EntityUid entranceUid, EntityUid user, MapEntranceComponent? mapEntrance = null)
@@ -21,7 +21,7 @@ namespace OpenNefia.Content.GameObjects
             if (mapEntrance.Entrance.DestinationMapId == null)
             {
                 var proto = mapEntrance.MapPrototype.ResolvePrototype();
-                mapEntrance.Entrance.DestinationMapId = _mapBlueprints.LoadBlueprint(null, proto.BlueprintPath).Id;
+                mapEntrance.Entrance.DestinationMapId = _mapLoader.LoadBlueprint(null, proto.BlueprintPath).Id;
             }
 
             return UseMapEntrance(user, mapEntrance.Entrance);

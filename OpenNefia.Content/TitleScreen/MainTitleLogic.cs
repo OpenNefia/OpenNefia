@@ -30,7 +30,7 @@ namespace OpenNefia.Content.TitleScreen
         [Dependency] private readonly IEntityManager _entityManager = default!;
         [Dependency] private readonly IGameSessionManager _gameSessionManager = default!;
         [Dependency] private readonly IFieldLayer _fieldLayer = default!;
-        [Dependency] private readonly IMapBlueprintLoader _mapBlueprints = default!;
+        [Dependency] private readonly IMapLoader _mapLoader = default!;
         [Dependency] private readonly ISaveGameManager _saveGameManager = default!;
         [Dependency] private readonly ISaveGameSerializer _saveGameSerializer = default!;
         [Dependency] private readonly IUserInterfaceManager _uiManager = default!;
@@ -115,7 +115,7 @@ namespace OpenNefia.Content.TitleScreen
         private IMap InitMap()
         {
             var mapId = _mapManager.GetFreeMapId();
-            var map = _mapBlueprints.LoadBlueprint(mapId, new ResourcePath("/Maps/LecchoTorte/Test.yml"));
+            var map = _mapLoader.LoadBlueprint(mapId, new ResourcePath("/Maps/LecchoTorte/Test.yml"));
 
             var player = EntitySystem.Get<IEntityGen>().SpawnEntity(Chara.Sailor, map.AtPos(2, 2))!;
             player.AddComponent<PlayerComponent>();

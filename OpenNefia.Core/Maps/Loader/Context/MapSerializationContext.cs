@@ -109,7 +109,7 @@ namespace OpenNefia.Core.Maps
         {
             if (!EntityUidMap.TryGetValue(value, out var _entityUidMapped))
             {
-                Logger.WarningS(MapBlueprintLoader.SawmillName, "Cannot write entity UID '{0}'.", value);
+                Logger.WarningS(MapLoader.SawmillName, "Cannot write entity UID '{0}'.", value);
                 return new ValueDataNode("null");
             }
             else
@@ -135,7 +135,7 @@ namespace OpenNefia.Core.Maps
                 || !UidEntityMap.ContainsKey(val)
                 || !Entities.TryFirstOrNull(e => e == UidEntityMap[val], out var entity))
             {
-                Logger.ErrorS(MapBlueprintLoader.SawmillName, "Error in map file: found local entity UID '{0}' which does not exist.", val);
+                Logger.ErrorS(MapLoader.SawmillName, "Error in map file: found local entity UID '{0}' which does not exist.", val);
                 return null!;
             }
             else

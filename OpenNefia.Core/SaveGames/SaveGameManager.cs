@@ -126,7 +126,10 @@ namespace OpenNefia.Core.SaveGames
         public void Initialize()
         {
             SavesRootDir = _profileManager.CurrentProfile.GetChild(new ResourcePath(SavesPath));
-            TempRootDir = _profileManager.CurrentProfile.GetChild(new ResourcePath(TempPath));
+
+            var tempResPath = new ResourcePath(TempPath);
+            _profileManager.CurrentProfile.Delete(tempResPath);
+            TempRootDir = _profileManager.CurrentProfile.GetChild(tempResPath);
 
             RescanSaves();
         }

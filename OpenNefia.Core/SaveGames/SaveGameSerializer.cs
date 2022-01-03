@@ -89,7 +89,7 @@ namespace OpenNefia.Core.SaveGames
         [Dependency] private readonly ISerializationManager _serializationManager = default!;
         [Dependency] private readonly IMapManagerInternal _mapManager = default!;
         [Dependency] private readonly IGameSessionManager _gameSessionManager = default!;
-        [Dependency] private readonly IMapBlueprintLoader _mapBlueprintLoader = default!;
+        [Dependency] private readonly IMapLoader _mapLoader = default!;
 
         public const string SawmillName = "save.game";
 
@@ -209,7 +209,7 @@ namespace OpenNefia.Core.SaveGames
 
         public void SaveActiveMap(ISaveGameHandle save)
         {
-            _mapBlueprintLoader.SaveMap(_mapManager.ActiveMap!.Id, save);
+            _mapLoader.SaveMap(_mapManager.ActiveMap!.Id, save);
         }
 
         public void SaveGlobalData(ISaveGameHandle save)
@@ -261,7 +261,7 @@ namespace OpenNefia.Core.SaveGames
             var sessionData = save.Files.ReadSerializedData<SessionData>(session, _serializationManager, skipHook: true)!;
 
             _mapManager.HighestMapId = sessionData.HighestMapId;
-            var map = _mapBlueprintLoader.LoadMap(sessionData.ActiveMapId, save);
+            var map = _mapLoader.LoadMap(sessionData.ActiveMapId, save);
             _mapManager.SetActiveMap(map.Id);
 
             var playerUid = new EntityUid(sessionData.PlayerUid);

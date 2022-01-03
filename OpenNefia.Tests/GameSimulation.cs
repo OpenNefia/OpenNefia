@@ -226,7 +226,7 @@ namespace OpenNefia.Tests
             container.Register<ITileDefinitionManagerInternal, TileDefinitionManager>();
             container.Register<ISaveGameSerializer, SaveGameSerializer>();
             container.Register<ISaveGameSerializerInternal, SaveGameSerializer>();
-            container.Register<IMapBlueprintLoader, MapBlueprintLoader>();
+            container.Register<IMapLoader, MapLoader>();
 
             _diFactory?.Invoke(container);
             container.BuildGraph();
