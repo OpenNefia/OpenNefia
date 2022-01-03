@@ -217,6 +217,7 @@ namespace OpenNefia.Tests
             container.Register<IEntityFactory, EntityFactory>();
             container.Register<IEntityFactoryInternal, EntityFactory>();
             container.Register<IMapManager, MapManager>();
+            container.Register<IMapManagerInternal, MapManager>();
             container.Register<ISerializationManager, SerializationManager>();
             container.Register<IPrototypeManager, PrototypeManager>();
             container.Register<IComponentFactory, ComponentFactory>();
@@ -229,6 +230,7 @@ namespace OpenNefia.Tests
             container.Register<ITileDefinitionManagerInternal, TileDefinitionManager>();
             container.Register<ISaveGameSerializer, SaveGameSerializer>();
             container.Register<ISaveGameSerializerInternal, SaveGameSerializer>();
+            container.Register<IMapBlueprintLoader, MapBlueprintLoader>();
 
             _diFactory?.Invoke(container);
             container.BuildGraph();

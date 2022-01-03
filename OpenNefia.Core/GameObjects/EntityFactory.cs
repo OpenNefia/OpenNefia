@@ -99,8 +99,16 @@ namespace OpenNefia.Core.GameObjects
                 foreach (var (name, data) in prototype.Components)
                 {
                     var fullData = data;
+
                     if (context != null)
                     {
+                        if (!context.EnsurePrototypeComponents)
+                        {
+                            var compType = factory.GetRegistration(name).Type;
+                            if (!_entityManager.HasComponent(entity.Uid, compType))
+                                continue;
+                        }
+
                         fullData = context.GetComponentData(name, data);
                     }
 

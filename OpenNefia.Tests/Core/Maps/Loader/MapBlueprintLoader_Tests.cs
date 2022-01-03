@@ -202,6 +202,19 @@ entities:
             Assert.That(entitySpatial.WorldPosition, Is.EqualTo(new Vector2i(3, 3)));
         }
 
+        [Test]
+        public void TestMapLoadRemovedComponents()
+        {
+            var mapMan = IoCManager.Resolve<IMapManager>();
+            var entMan = IoCManager.Resolve<IEntityManager>();
+
+            var mapLoader = IoCManager.Resolve<IMapBlueprintLoader>();
+
+            var map = mapMan.CreateMap(50, 50);
+
+            var entity = entMan.SpawnEntity(new("MapDeserializeTest"), map.AtPos(Vector2i.One));
+        }
+
         [DataDefinition]
         private sealed class MapDeserializeTestComponent : Component
         {

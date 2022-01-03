@@ -17,13 +17,15 @@ using OpenNefia.Core.Audio;
 using OpenNefia.Content.Logic;
 using OpenNefia.Core.Locale;
 using OpenNefia.Core.UserInterface;
+using OpenNefia.Core.SaveGames;
 
 namespace OpenNefia.Content.TurnOrder
 {
-    public interface ITurnOrderSystem
+    public interface ITurnOrderSystem : IEntitySystem
     {
         /// <summary>
-        /// Returns true if the simulation is active (map is being displayed, etc.)
+        /// Returns true if the simulation is active (map is being displayed, etc.). This
+        /// will also return true if there is an active modal being displayed over the map.
         /// </summary>
         bool IsInGame();
 
@@ -36,6 +38,11 @@ namespace OpenNefia.Content.TurnOrder
         /// Resets the state and starts a new turn.
         /// </summary>
         void InitializeState();
+
+        /// <summary>
+        /// Advances the state of the simulation until additional input or exiting are needed.
+        /// </summary>
+        void AdvanceState();
 
         /// <summary>
         /// Advances the state of the simulation until additional input or exiting are needed.
@@ -61,7 +68,7 @@ namespace OpenNefia.Content.TurnOrder
     /// When a turn begins, each character's turn budget is replenished based on their speed. Each turn, every
     /// character in the map is iterated. if a character has a greater budget than the cost per action for the map,
     /// they can take an action and subtract the cost from their budget. Otherwise, their turn is skipped until their 
-    /// turn budget is replenished from waiting enough consecutive turns to make a move.
+    /// turn budget is replenished from waiting enough consecutive turns.
     /// </para>
     /// </remarks>
     public class TurnOrderSystem : EntitySystem, ITurnOrderSystem
@@ -73,16 +80,19 @@ namespace OpenNefia.Content.TurnOrder
         [Dependency] private readonly IWorldSystem _world = default!;
         [Dependency] private readonly IAudioSystem _sounds = default!;
         [Dependency] private readonly IUserInterfaceManager _uiManager = default!;
+        [Dependency] private readonly ISaveGameSerializer _saveGameSerializer = default!;
 
         private TurnOrderState _state = TurnOrderState.TurnBegin;
 
         private List<TurnOrderComponent> _entityOrder = new();
         private IEnumerator<TurnOrderComponent>? _currentTurnOrder;
         private TurnOrderComponent? _activeEntity;
+        private bool _saveWasLoaded;
 
         public override void Initialize()
         {
             _mapManager.ActiveMapChanged += OnActiveMapChanged;
+            _saveGameSerializer.OnGameLoaded += OnGameLoaded;
 
             SubscribeLocalEvent<MapTurnOrderComponent, MapChangedEventArgs>(HandleMapChangedTurnOrder, nameof(HandleMapChangedTurnOrder));
         }
@@ -95,6 +105,11 @@ namespace OpenNefia.Content.TurnOrder
 
             var ev = new MapChangedEventArgs(map, oldMap);
             RaiseLocalEvent(map.MapEntityUid, ev);
+        }
+
+        private void OnGameLoaded(ISaveGameHandle save)
+        {
+            _saveWasLoaded = true;
         }
 
         private void HandleMapChangedTurnOrder(EntityUid uid, MapTurnOrderComponent mapTurnOrder, MapChangedEventArgs args)
@@ -142,23 +157,29 @@ namespace OpenNefia.Content.TurnOrder
             _entityOrder.Clear();
             _currentTurnOrder = null;
             _activeEntity = null;
-
-            DoAdvanceState();
+            _saveWasLoaded = false;
         }
 
         /// <inheritdoc/>
         public void AdvanceStateFromPlayer(TurnResult turnResult)
         {
             _state = turnResult.ToTurnOrderState(isPlayerTurn: true);
-            DoAdvanceState();
+            AdvanceState();
         }
 
-        private void DoAdvanceState()
+        /// <inheritdoc/>
+        public void AdvanceState()
         {
             while (true)
             {
-                var old = _state;
                 _state = RunStateChange(_state);
+
+                if (_saveWasLoaded)
+                {
+                    InitializeState();
+                    _field.RefreshScreen();
+                    break;
+                }
 
                 switch (_state)
                 {

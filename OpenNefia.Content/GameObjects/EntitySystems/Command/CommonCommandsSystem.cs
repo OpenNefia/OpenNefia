@@ -40,9 +40,7 @@ namespace OpenNefia.Content.GameObjects
         {
             var save = _saveGameManager.CurrentSave!;
 
-            _saveGameSerializer.SaveGlobalData(save);
-
-            save.Files.Commit();
+            _saveGameSerializer.SaveGame(save);
 
             _sounds.Play(Sound.Write1);
             Mes.Display(Loc.GetString("Elona.UserInterface.Save.QuickSave"));
@@ -54,9 +52,7 @@ namespace OpenNefia.Content.GameObjects
         {
             var save = _saveGameManager.CurrentSave!;
 
-            save.Files.ClearTemp();
-
-            _saveGameSerializer.LoadGlobalData(save);
+            _saveGameSerializer.LoadGame(save);
 
             return TurnResult.Aborted;
         }

@@ -182,8 +182,7 @@ namespace OpenNefia.Core.Serialization.Manager.Definition
 
                 // Default to lowercased field name from C# if no tag name is provided.
                 // Tag names will be lowerCamelCase.
-                // This doesn't handle things like "ID".
-                var tag = dataField.Tag ?? abstractFieldInfo.MemberInfo.Name.GetPrototypeFieldName();
+                var tag = dataField.Tag ?? abstractFieldInfo.MemberInfo.Name.ToLowerCamelCase();
 
                 var backingField = abstractFieldInfo;
 

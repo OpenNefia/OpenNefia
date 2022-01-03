@@ -15,7 +15,7 @@ namespace OpenNefia.Core.GameObjects
 
     public static class MapInitExt
     {
-        public static void RunMapInit(this EntityUid entity)
+        public static void RunMapInit(EntityUid entity)
         {
             var entMan = IoCManager.Resolve<IEntityManager>();
             var meta = entMan.GetComponent<MetaDataComponent>(entity);
