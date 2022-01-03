@@ -47,12 +47,12 @@ namespace OpenNefia.Core.SaveGames
         public SaveGameHeader Header { get; }
         public ISaveGameDirProvider Files { get; }
 
-        internal SaveGameHandle(IWritableDirProvider saveDir, ResourcePath savePath, SaveGameHeader header)
+        internal SaveGameHandle(IWritableDirProvider tempDir, IWritableDirProvider saveDir, ResourcePath savePath, SaveGameHeader header)
         {
             SaveDirectory = savePath;
             Header = header;
 
-            Files = new SaveGameDirProvider(saveDir, new VirtualWritableDirProvider());
+            Files = new SaveGameDirProvider(tempDir, saveDir);
         }
     }
 
@@ -112,8 +112,10 @@ namespace OpenNefia.Core.SaveGames
         public const string SawmillName = "save";
 
         public const string SavesPath = "/Saves";
+        public const string TempPath = "/Temp";
 
         private IWritableDirProvider SavesRootDir { get; set; } = default!;
+        private IWritableDirProvider TempRootDir { get; set; } = default!;
 
         private List<ISaveGameHandle> _saves = new();
 
@@ -124,6 +126,7 @@ namespace OpenNefia.Core.SaveGames
         public void Initialize()
         {
             SavesRootDir = _profileManager.CurrentProfile.GetChild(new ResourcePath(SavesPath));
+            TempRootDir = _profileManager.CurrentProfile.GetChild(new ResourcePath(TempPath));
 
             RescanSaves();
         }
@@ -162,12 +165,14 @@ namespace OpenNefia.Core.SaveGames
             }
         }
 
-        private ISaveGameHandle RegisterSave(IWritableDirProvider saveDirectoryReader, ResourcePath saveDirectory)
+        private ISaveGameHandle RegisterSave(IWritableDirProvider saveDirReader, ResourcePath saveDirectory)
         {
-            var header = saveDirectoryReader.ReadSerializedData<SaveGameHeader>(
+            var header = saveDirReader.ReadSerializedData<SaveGameHeader>(
                 new ResourcePath("/header.yml"), _serializationManager, skipHook: true)!;
 
-            var save = new SaveGameHandle(saveDirectoryReader, saveDirectory, header);
+            var tempDirReader = TempRootDir.GetChild(saveDirectory);
+
+            var save = new SaveGameHandle(tempDirReader, saveDirReader, saveDirectory, header);
             _saves.Add(save);
 
             return save;
@@ -186,6 +191,7 @@ namespace OpenNefia.Core.SaveGames
             }
 
             CurrentSave = save;
+            save.Files.ClearTemp();
         }
 
         public ISaveGameHandle CreateSave(ResourcePath saveDirectory, SaveGameHeader header)
@@ -227,6 +233,7 @@ namespace OpenNefia.Core.SaveGames
             if (save.Files.RootDir != null)
             {
                 SavesRootDir.Delete(save.SaveDirectory);
+                TempRootDir.Delete(save.SaveDirectory);
             }
 
             _saves.Remove(save);

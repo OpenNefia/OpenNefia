@@ -100,6 +100,44 @@ namespace OpenNefia.Tests.Core.SaveGames
         }
 
         [Test]
+        public void TestClearTemp()
+        {
+            using var temp = new TempWritableDirProvider();
+            using var committed = new TempWritableDirProvider();
+            var save = new SaveGameDirProvider(temp, committed);
+
+            var file = new ResourcePath("/Hoge/Piyo.txt");
+            var dir = file.Directory;
+
+            save.CreateDirectory(file.Directory);
+            save.WriteAllText(file, "Piyo");
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(save.Exists(file), Is.True, "Save");
+                Assert.That(temp.Exists(file), Is.True, "Temp");
+                Assert.That(committed.Exists(file), Is.False, "Committed");
+
+                Assert.That(save.IsDirectory(dir), Is.True, "Save");
+                Assert.That(temp.IsDirectory(dir), Is.True, "Temp");
+                Assert.That(committed.IsDirectory(dir), Is.False, "Committed");
+            });
+
+            save.ClearTemp();
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(save.Exists(file), Is.False, "Save");
+                Assert.That(temp.Exists(file), Is.False, "Temp");
+                Assert.That(committed.Exists(file), Is.False, "Committed");
+
+                Assert.That(save.IsDirectory(dir), Is.False, "Save");
+                Assert.That(temp.IsDirectory(dir), Is.False, "Temp");
+                Assert.That(committed.IsDirectory(dir), Is.False, "Committed");
+            });
+        }
+
+        [Test]
         public void TestDeleteCommittedFile()
         {
             using var temp = new TempWritableDirProvider();
@@ -222,6 +260,85 @@ namespace OpenNefia.Tests.Core.SaveGames
                 Assert.That(save.Exists(newFile), Is.True, "Save (new)");
                 Assert.That(temp.Exists(newFile), Is.False, "Temp (new)");
                 Assert.That(committed.Exists(newFile), Is.True, "Committed (new)");
+            });
+        }
+
+        [Test]
+        public void TestReadCommittedFile()
+        {
+            using var temp = new TempWritableDirProvider();
+            using var committed = new TempWritableDirProvider();
+            var save = new SaveGameDirProvider(temp, committed);
+
+            var file = new ResourcePath("/Dood.txt");
+
+            committed.WriteAllText(file, "Dood");
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(save.Exists(file), Is.True, "Save");
+                Assert.That(temp.Exists(file), Is.False, "Temp");
+                Assert.That(committed.Exists(file), Is.True, "Committed");
+            });
+
+            // This file does not exist in the temporary folder; it should get
+            // copied transparently.
+            var text = save.ReadAllText(file);
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(save.Exists(file), Is.True, "Save");
+                Assert.That(temp.Exists(file), Is.True, "Temp");
+                Assert.That(committed.Exists(file), Is.True, "Committed");
+                Assert.That(text, Is.EqualTo("Dood"), "Content Equality");
+            });
+        }
+
+        [Test]
+        public void TestWriteFile()
+        {
+            using var temp = new TempWritableDirProvider();
+            using var committed = new TempWritableDirProvider();
+            var save = new SaveGameDirProvider(temp, committed);
+
+            var file = new ResourcePath("/Dood.txt");
+
+            // The save already contains a file when it's first loaded.
+            committed.WriteAllText(file, "Dood");
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(save.Exists(file), Is.True, "Save");
+                Assert.That(temp.Exists(file), Is.False, "Temp");
+                Assert.That(committed.Exists(file), Is.True, "Committed");
+            });
+
+            // This file does not exist in the temporary folder; it should get
+            // copied transparently.
+            save.WriteAllText(file, "Sardines");
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(save.Exists(file), Is.True, "Save");
+                Assert.That(temp.Exists(file), Is.True, "Temp");
+                Assert.That(committed.Exists(file), Is.True, "Committed");
+
+                Assert.That(save.ReadAllText(file), Is.EqualTo("Sardines"), "Save (content)");
+                Assert.That(temp.ReadAllText(file), Is.EqualTo("Sardines"), "Temp (content)");
+                Assert.That(committed.ReadAllText(file), Is.EqualTo("Dood"), "Committed (content)");
+            });
+
+            // Now the new content should get written to the save.
+            save.Commit();
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(save.Exists(file), Is.True, "Save");
+                Assert.That(temp.Exists(file), Is.False, "Temp");
+                Assert.That(committed.Exists(file), Is.True, "Committed");
+
+                Assert.That(save.ReadAllText(file), Is.EqualTo("Sardines"), "Save (content)");
+                Assert.That(committed.ReadAllText(file), Is.EqualTo("Sardines"), "Committed (content)");
             });
         }
     }

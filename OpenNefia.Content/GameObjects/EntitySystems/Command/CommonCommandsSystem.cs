@@ -54,9 +54,9 @@ namespace OpenNefia.Content.GameObjects
         {
             var save = _saveGameManager.CurrentSave!;
 
-            _saveGameSerializer.LoadGlobalData(save);
-
             save.Files.ClearTemp();
+
+            _saveGameSerializer.LoadGlobalData(save);
 
             return TurnResult.Aborted;
         }

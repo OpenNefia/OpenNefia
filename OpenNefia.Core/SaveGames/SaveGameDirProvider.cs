@@ -97,18 +97,22 @@ namespace OpenNefia.Core.SaveGames
             if (!_tempDir.Exists(path) && _committedDir.Exists(path))
             {
                 Logger.DebugS("save.writer", $"Copying file as uncommitted: {path}");
-                CopyBetweenDirWriters(_committedDir, _tempDir, fileMode, path);
+                CopyBetweenDirProviders(_committedDir, _tempDir, FileMode.CreateNew, path);
                 RemoveDeletion(path);
             }
 
             return _tempDir.Open(path, fileMode, access, share);
         }
 
-        private void CopyBetweenDirWriters(IWritableDirProvider from, IWritableDirProvider to, FileMode fileMode, ResourcePath path)
+        private void CopyBetweenDirProviders(IWritableDirProvider from, IWritableDirProvider to, FileMode fileMode, ResourcePath path)
         {
             var dir = path.Directory.ToRootedPath();
-            to.CreateDirectory(dir);
-            from.CreateDirectory(dir);
+
+            if (dir != ResourcePath.Root)
+            {
+                to.CreateDirectory(dir);
+                from.CreateDirectory(dir);
+            }
 
             using var reader = from.OpenRead(path);
             using var writer = to.Open(path, fileMode, FileAccess.ReadWrite, FileShare.None);
@@ -120,7 +124,7 @@ namespace OpenNefia.Core.SaveGames
             if (!_tempDir.Exists(oldPath) && _committedDir.Exists(oldPath))
             {
                 Logger.DebugS("save.writer", $"Renaming file as uncommitted: {oldPath}");
-                CopyBetweenDirWriters(_committedDir, _tempDir, FileMode.Create, oldPath);
+                CopyBetweenDirProviders(_committedDir, _tempDir, FileMode.CreateNew, oldPath);
             }
 
             _tempDir.Rename(oldPath, newPath);
@@ -163,7 +167,7 @@ namespace OpenNefia.Core.SaveGames
 
             foreach (var file in files)
             {
-                CopyBetweenDirWriters(_tempDir, _committedDir, FileMode.OpenOrCreate, file.ToRootedPath());
+                CopyBetweenDirProviders(_tempDir, _committedDir, FileMode.OpenOrCreate, file.ToRootedPath());
             }
 
             foreach (var dir in dirs)

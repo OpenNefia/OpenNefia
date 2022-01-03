@@ -130,6 +130,7 @@ namespace OpenNefia.Core.SaveGames
                 throw new ArgumentException($"Type '{ty}' does not have a data definition.", nameof(ty));
             }
 
+            Logger.DebugS(SawmillName, $"Registering global save data: {key} ({ty})");
             _trackedSaveData.Add(key, new SaveDataRegistration(ty, dataReference));
         }
 
