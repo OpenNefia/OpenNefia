@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="..\MSBuild\OpenNefia.Properties.targets" />
+  <Import Project="..\MSBuild\OpenNefia.Engine.props" />
+  <Import Project="..\MSBuild\OpenNefia.DefineConstants.targets" />
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <OutputType>Exe</OutputType>
+    <OutputPath>../bin/Benchmarks</OutputPath>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <IsPackable>false</IsPackable>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+  </PropertyGroup>
+  
+  <ItemGroup>
+    <PackageReference Include="BenchmarkDotNet" Version="0.12.1" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <ProjectReference Include="..\OpenNefia.Core\OpenNefia.Core.csproj" />
+  </ItemGroup>
+
+</Project>
