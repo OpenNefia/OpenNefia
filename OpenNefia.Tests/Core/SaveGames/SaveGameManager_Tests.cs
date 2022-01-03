@@ -100,7 +100,6 @@ namespace OpenNefia.Tests.Core.SaveGames
                 Assert.That(save.Header.AssemblyVersions, Is.EquivalentTo(versions));
                 Assert.That(save.SaveDirectory, Is.EqualTo(new ResourcePath("/testSave")));
                 Assert.That(save.Files.Exists(new ResourcePath("/header.yml")));
-                Assert.That(saveMan.AllSaves.Count(), Is.EqualTo(1));
                 Assert.That(saveMan.ContainsSave(save), Is.True);
             });
         }

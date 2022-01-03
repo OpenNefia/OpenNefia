@@ -2,6 +2,7 @@
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Maps;
+using OpenNefia.Core.SaveGames;
 using OpenNefia.Core.Serialization.Manager.Attributes;
 using System;
 using System.Collections.Generic;
@@ -21,10 +22,14 @@ namespace OpenNefia.Content.World
     public class WorldSystem : EntitySystem, IWorldSystem
     {
         [Dependency] private readonly IMapManager _mapManager = default!;
+        [Dependency] private readonly ISaveGameSerializer _saveGameSerializer = default!;
 
-        // TODO: where to put global saved state not tied to any map?
-        // it should be kept out of entity systems.
+        [RegisterSaveData("Elona.WorldSystem.State")]
         public WorldState State { get; } = new();
+
+        public override void Initialize()
+        {
+        }
 
         public void PassTime(TimeSpan time, bool noEvents = false)
         {

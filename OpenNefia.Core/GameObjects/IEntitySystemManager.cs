@@ -27,6 +27,11 @@ namespace OpenNefia.Core.GameObjects
         event EventHandler<SystemChangedArgs> SystemUnloaded;
 
         /// <summary>
+        /// All entity system types loaded into the manager.
+        /// </summary>
+        IEnumerable<Type> SystemTypes { get; }
+
+        /// <summary>
         /// The IoC depenendencies of the entity system manager.
         /// </summary>
         IDependencyCollection DependencyCollection { get; }
@@ -56,6 +61,14 @@ namespace OpenNefia.Core.GameObjects
         /// <param name="entitySystem">instance matching the specified type (if exists).</param>
         /// <returns>If an instance of the specified entity system type exists.</returns>
         bool TryGetEntitySystem<T>([NotNullWhen(true)] out T? entitySystem) where T : IEntitySystem;
+
+        /// <summary>
+        /// Tries to get an entity system of the specified type.
+        /// </summary>
+        /// <param name="type">Type of entity system to find.</typeparam>
+        /// <param name="entitySystem">instance matching the specified type (if exists).</param>
+        /// <returns>If an instance of the specified entity system type exists.</returns>
+        bool TryGetEntitySystem(Type type, [NotNullWhen(true)] out IEntitySystem? entitySystem);
 
         /// <summary>
         /// Initialize, discover systems and initialize them through <see cref="IEntitySystem.Initialize"/>.

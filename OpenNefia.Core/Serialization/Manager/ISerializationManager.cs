@@ -110,7 +110,7 @@ namespace OpenNefia.Core.Serialization.Manager
         /// </summary>
         /// <param name="type">The type of object to deserialize into.</param>
         /// <param name="node">The node to deserialize.</param>
-        /// <param name="context">The context to use, if any.</param>
+        /// <param name=ReadValue"context">The context to use, if any.</param>
         /// <param name="skipHook">Whether or not to skip running <see cref="ISerializationHooks"/></param>
         /// <returns>The deserialized object or null.</returns>
         public object? ReadValue(Type type, DataNode node, ISerializationContext? context = null, bool skipHook = false);

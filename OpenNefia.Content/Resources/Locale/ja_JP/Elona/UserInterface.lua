@@ -4,6 +4,9 @@ Elona.UserInterface =
       Yes = "ああ",
       No = "いや…",
    },
+   Save = {
+      QuickSave = " *保存* "
+   },
    Exit = {
       Prompt = {
          Text = "これまでの冒険を記録して終了する？",

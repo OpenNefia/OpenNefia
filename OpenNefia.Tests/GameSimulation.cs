@@ -16,6 +16,7 @@ using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Random;
 using OpenNefia.Core.Reflection;
 using OpenNefia.Core.Rendering;
+using OpenNefia.Core.SaveGames;
 using OpenNefia.Core.Serialization.Manager;
 using OpenNefia.Core.Serialization.Manager.Attributes;
 using OpenNefia.Core.UI;
@@ -207,10 +208,6 @@ namespace OpenNefia.Tests
                 .Setup(x => x.FindTypesWithAttribute<TypeSerializerAttribute>())
                 .Returns(() => realReflection.FindTypesWithAttribute<TypeSerializerAttribute>());
 
-            reflectionManager
-                .Setup(x => x.FindAllTypes())
-                .Returns(() => realReflection.FindAllTypes().Concat(dataDefinitionTypes));
-
             container.RegisterInstance<IReflectionManager>(reflectionManager.Object); // tests should not be searching for types
             container.RegisterInstance<IResourceManager>(new Mock<IResourceManager>().Object); // no disk access for tests
 
@@ -230,6 +227,8 @@ namespace OpenNefia.Tests
             container.Register<IRandom, SysRandom>();
             container.Register<ITileDefinitionManager, TileDefinitionManager>();
             container.Register<ITileDefinitionManagerInternal, TileDefinitionManager>();
+            container.Register<ISaveGameSerializer, SaveGameSerializer>();
+            container.Register<ISaveGameSerializerInternal, SaveGameSerializer>();
 
             _diFactory?.Invoke(container);
             container.BuildGraph();
@@ -257,6 +256,15 @@ namespace OpenNefia.Tests
 
             _systemDelegate?.Invoke(entitySystemMan);
 
+            reflectionManager
+                .Setup(x => x.FindAllTypes())
+                .Returns(() => realReflection.FindAllTypes()
+
+                // This is to support IGameSaveSerializer.
+                .Concat(entitySystemMan.SystemTypes)
+
+                .Concat(dataDefinitionTypes));
+
             var mapManager = container.Resolve<IMapManager>();
 
             entityMan.Startup();
@@ -272,6 +280,9 @@ namespace OpenNefia.Tests
 
             var tileMan = container.Resolve<ITileDefinitionManagerInternal>();
             tileMan.RegisterAll();
+
+            var saveGameSer = container.Resolve<ISaveGameSerializerInternal>();
+            saveGameSer.Initialize();
 
             return this;
         }
