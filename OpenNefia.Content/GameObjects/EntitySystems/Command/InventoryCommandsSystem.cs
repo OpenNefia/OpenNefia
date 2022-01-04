@@ -44,6 +44,8 @@ namespace OpenNefia.Content.GameObjects
                     new InventoryInputCmdHandler(_uiMgr, new DrinkInventoryBehavior()))
                 .Bind(ContentKeyFunctions.Throw,
                     new InventoryInputCmdHandler(_uiMgr, new ThrowInventoryBehavior()))
+                .Bind(ContentKeyFunctions.Eat,
+                    new InventoryInputCmdHandler(_uiMgr, new EatInventoryBehavior()))
                 .Register<InventoryCommandsSystem>();
         }
 

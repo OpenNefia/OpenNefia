@@ -19,6 +19,7 @@ namespace OpenNefia.Content.Input
         public static readonly BoundKeyFunction PickUp = "Elona.PickUp";
         public static readonly BoundKeyFunction Drop = "Elona.Drop";
         public static readonly BoundKeyFunction Drink = "Elona.Drink";
+        public static readonly BoundKeyFunction Eat = "Elona.Eat";
         public static readonly BoundKeyFunction Throw = "Elona.Throw";
         public static readonly BoundKeyFunction Examine = "Elona.Examine";
     }
