@@ -308,6 +308,11 @@ namespace OpenNefia.Core.Maps
                 var md = _entityManager.GetComponent<MetaDataComponent>(entity);
                 if (md.EntityPrototype != null && prototypeCompCache[md.EntityPrototype.ID].TryGetValue(component.Name, out var protMapping))
                 {
+                    // NOTE: I think this is buggy. Except() seems to not work well with complex mapping nodes
+                    // and dynamically instantiated types. (Sometimes the the constructor default gets output instead of
+                    // the prototype's specified value.)
+                    //
+                    // If map blueprint serialization becomes desirable, this *will* need to be revisited.
                     compMapping = compMapping.Except(protMapping);
                     if (compMapping == null) continue;
                 }
