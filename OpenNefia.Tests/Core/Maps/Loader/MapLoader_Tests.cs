@@ -19,7 +19,7 @@ namespace OpenNefia.Tests.Core.Maps.Loader
 {
     [TestFixture]
     [TestOf(typeof(MapLoader))]
-    public class MapBlueprintLoader_Tests : OpenNefiaUnitTest
+    public class MapLoader_Tests : OpenNefiaUnitTest
     {
 
         private const string Prototypes = @"
@@ -30,6 +30,12 @@ namespace OpenNefia.Tests.Core.Maps.Loader
     foo: 1
     bar: 2
   - type: MapDeserializeTestRemove
+
+- type: Entity
+  id: MapDeserializeTestOverride
+  components:
+  - type: MapDeserializeTestOverride
+    bar: !type:TestDataProto {}
 
 # Required by the engine.
 - type: Tile
@@ -60,6 +66,7 @@ namespace OpenNefia.Tests.Core.Maps.Loader
             compFactory.RegisterClass<MapDeserializeTestComponent>();
             compFactory.RegisterClass<MapDeserializeTestAddComponent>();
             compFactory.RegisterClass<MapDeserializeTestRemoveComponent>();
+            compFactory.RegisterClass<MapDeserializeTestOverrideComponent>();
             compFactory.FinishRegistration();
             IoCManager.Resolve<ISerializationManager>().Initialize();
 
@@ -268,6 +275,45 @@ entities:
             Assert.That(entMan.HasComponent<MapDeserializeTestRemoveComponent>(entity.Uid), Is.False);
         }
 
+        /// <summary>
+        /// Tests that the full state of data definition properties are captured on map save
+        /// , including defaults set by the prototype/constructors.
+        /// </summary>
+        [Test]
+        public void TestMapLoadDataDefinitions()
+        {
+            var mapMan = IoCManager.Resolve<IMapManager>();
+            var entMan = IoCManager.Resolve<IEntityManager>();
+
+            var mapLoader = IoCManager.Resolve<IMapLoader>();
+
+            var map = mapMan.CreateMap(50, 50);
+            var mapId = map.Id;
+
+            var entity = entMan.SpawnEntity(new("MapDeserializeTestOverride"), map.AtPos(Vector2i.One));
+            var entityUid = entity.Uid;
+
+            var c = entMan.GetComponent<MapDeserializeTestOverrideComponent>(entity.Uid);
+            c.Foo = new TestDataRuntime();
+
+            using var save = new TempSaveGameHandle();
+
+            mapLoader.SaveMap(mapId, save);
+            mapMan.UnloadMap(mapId);
+            map = mapLoader.LoadMap(mapId, save);
+
+            entity = entMan.GetEntity(entityUid);
+
+            c = entMan.GetComponent<MapDeserializeTestOverrideComponent>(entity.Uid);
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(c.Foo, Is.TypeOf(typeof(TestDataRuntime)));
+                Assert.That(c.Bar, Is.TypeOf(typeof(TestDataProto)));
+                Assert.That(c.Baz, Is.TypeOf(typeof(TestDataCtor)));
+            });
+        }
+
         [DataDefinition]
         private sealed class MapDeserializeTestComponent : Component
         {
@@ -289,5 +335,40 @@ entities:
         {
             public override string Name => "MapDeserializeTestRemove";
         }
+
+        [DataDefinition]
+        private sealed class MapDeserializeTestOverrideComponent : Component
+        {
+            public override string Name => "MapDeserializeTestOverride";
+
+            [DataField]
+            public ITestData Foo { get; set; } = new TestDataCtor();
+
+            [DataField]
+            public ITestData Bar { get; set; } = new TestDataCtor();
+
+            [DataField]
+            public ITestData Baz { get; set; } = new TestDataCtor();
+        }
+    }
+
+    [ImplicitDataDefinitionForInheritors]
+    public interface ITestData
+    {
+    }
+
+    [DataDefinition]
+    public class TestDataProto : ITestData
+    {
+    }
+
+    [DataDefinition]
+    public class TestDataCtor : ITestData
+    {
+    }
+
+    [DataDefinition]
+    public class TestDataRuntime : ITestData
+    {
     }
 }

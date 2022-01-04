@@ -58,7 +58,7 @@ namespace OpenNefia.Content.GameObjects
         }
 
         /// <summary>
-        /// Loads the map from memory or disk, in order to ensure there is a map entity for the
+        /// Loads the map from memory or disk. This will ensure that there is a map entity for the
         /// travelling entity to be parented to.
         /// </summary>
         private bool TryMapLoad(MapId mapToLoad, [NotNullWhen(true)] out IMap? map)

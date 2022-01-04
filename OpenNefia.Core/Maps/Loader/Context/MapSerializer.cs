@@ -284,6 +284,7 @@ namespace OpenNefia.Core.Maps
 
                 if (compMapping == null)
                 {
+                    // Still want a '- type: XXX' node for tracking deletions
                     compMapping = new MappingDataNode();
                 }
 
@@ -295,8 +296,8 @@ namespace OpenNefia.Core.Maps
         }
 
         /// <summary>
-        /// Saves the entity's components, omitting component fields that aren't different 
-        /// than the entity prototype's.
+        /// Saves the entity's components, omitting components that are completely the same
+        /// as the prototype's.
         /// </summary>
         private YamlSequenceNode SerializeComponentsPartial(EntityUid entity, PrototypeCompCache prototypeCompCache)
         {

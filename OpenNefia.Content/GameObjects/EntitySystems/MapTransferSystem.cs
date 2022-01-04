@@ -6,6 +6,7 @@ using OpenNefia.Core.IoC;
 using OpenNefia.Core.Utility;
 using OpenNefia.Core.Log;
 using OpenNefia.Core.Game;
+using OpenNefia.Core.SaveGames;
 
 namespace OpenNefia.Content.GameObjects
 {
@@ -16,6 +17,7 @@ namespace OpenNefia.Content.GameObjects
         [Dependency] private readonly MapEntranceSystem _mapEntrances = default!;
         [Dependency] private readonly IAudioSystem _sounds = default!;
         [Dependency] private readonly IGameSessionManager _gameSession = default!;
+        [Dependency] private readonly ISaveGameManager _saveGameManager = default!;
 
         public override void Initialize()
         {
@@ -58,17 +60,22 @@ namespace OpenNefia.Content.GameObjects
             // TODO
         }
 
-        private void FlushOtherMaps()
-        {
-        }
-
         private void DoMapTransfer(EntityUid player, SpatialComponent spatial)
         {
+            var oldMap = _mapManager.ActiveMap;
+
             _mapManager.SetActiveMap(spatial.MapID);
 
             RunMapInitializeEvents();
 
-            FlushOtherMaps();
+            // TODO move allies over and do other things before the old map gets unloaded.
+
+            if (oldMap != null)
+            {
+                var save = _saveGameManager.CurrentSave!;
+                _mapLoader.SaveMap(oldMap.Id, save);
+                _mapManager.UnloadMap(oldMap.Id);
+            }
         }
     }
 }

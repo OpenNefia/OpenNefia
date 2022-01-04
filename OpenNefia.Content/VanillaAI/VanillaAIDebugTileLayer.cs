@@ -67,7 +67,8 @@ namespace OpenNefia.Content.VanillaAI
                 var tileDesired = ai.DestinationCoords;
 
                 Vector2i? tileTarget = null;
-                if (ai.CurrentTarget != null)
+                if (EntityManager.IsAlive(ai.CurrentTarget)
+                    && EntityManager.TryGetComponent(ai.CurrentTarget.Value, out SpatialComponent targetSpatial))
                 {
                     var spatialTarget = EntityManager.GetComponent<SpatialComponent>(ai.CurrentTarget.Value);
                     tileTarget = spatialTarget.WorldPosition;
