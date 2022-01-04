@@ -7,7 +7,7 @@ using System.Reflection;
 
 namespace OpenNefia.Core.Maps
 {
-    public interface IMapManagerInternal : IMapManager
+    internal interface IMapManagerInternal : IMapManager
     { 
         /// <summary>
         /// The next free map ID to use when generating new maps.
@@ -51,6 +51,9 @@ namespace OpenNefia.Core.Maps
 
         /// <inheritdoc/>
         public IMap? ActiveMap { get; private set; } = null;
+
+        /// <inheritdoc/>
+        public IReadOnlyDictionary<MapId, IMap> LoadedMaps => _maps;
 
         /// <inheritdoc/>
         public MapId HighestMapId { get; set; } = MapId.Nullspace;
@@ -120,7 +123,7 @@ namespace OpenNefia.Core.Maps
             _maps[mapId] = map;
 
             SetMapEntity(mapId, mapEntityUid);
-            //HighestMapId = 99999;
+            SetMapGridIds(map, mapId, mapEntityUid);
         }
 
         private EntityUid RebindMapEntity(MapId actualID, IMap map)
@@ -218,10 +221,11 @@ namespace OpenNefia.Core.Maps
 
             if (!_maps.ContainsKey(mapID))
             {
-                throw new InvalidOperationException($"Attempted to delete nonexistant map '{mapID}'");
+                Logger.WarningS("map", $"Attempted to unload nonexistent map '{mapID}'");
+                return;
             }
 
-            Logger.InfoS("map", $"Unloading map {mapID}");
+            Logger.InfoS("map", $"Unloading map {mapID}.");
 
             _maps.Remove(mapID);
             UnloadEntitiesInMap(mapID);

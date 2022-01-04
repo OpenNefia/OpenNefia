@@ -33,7 +33,7 @@ namespace OpenNefia.Content.VanillaAI
 
             if (mapAi.AnchorCitizens)
             {
-                EntityManager.AddComponent<AIAnchorComponent>(uid);
+                EntityManager.EnsureComponent<AIAnchorComponent>(uid);
             }
         }
 

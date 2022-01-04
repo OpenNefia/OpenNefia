@@ -110,6 +110,9 @@ namespace OpenNefia.Content.TitleScreen
             _uiManager.Query(_fieldLayer);
 
             _mapManager.UnloadMap(map.Id);
+            
+            // TODO: flush maps, reset max map/entity IDs here
+            // new saves should always start from entity 0
         }
 
         private IMap InitMap()

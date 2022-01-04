@@ -11,6 +11,11 @@ namespace OpenNefia.Core.Maps
     {
         IMap? ActiveMap { get; }
 
+        /// <summary>
+        /// All maps that are currently loaded in memory.
+        /// </summary>
+        public IReadOnlyDictionary<MapId, IMap> LoadedMaps { get; }
+
         public event ActiveMapChangedDelegate? ActiveMapChanged;
 
         void SetActiveMap(MapId mapId);
