@@ -117,6 +117,7 @@ namespace OpenNefia.Content.TurnOrder
             mapTurnOrder.IsFirstTurn = true;
 
             InitializeMap(args.NewMap);
+            _saveWasLoaded = true;
         }
 
         private void InitializeMap(IMap map)
@@ -170,6 +171,13 @@ namespace OpenNefia.Content.TurnOrder
         /// <inheritdoc/>
         public void AdvanceState()
         {
+            if (_saveWasLoaded)
+            {
+                InitializeState();
+                _field.RefreshScreen();
+                return;
+            }
+
             while (true)
             {
                 _state = RunStateChange(_state);

@@ -73,8 +73,7 @@ entities:
     pos: 0,0
 ";
 
-            var mapId = mapMan.GetFreeMapId();
-            var map = sim.Resolve<IMapLoader>().LoadBlueprint(mapId, new StringReader(mapBlueprint));
+            var map = sim.Resolve<IMapLoader>().LoadBlueprint(new StringReader(mapBlueprint));
 
             var testComp = sim.GetEntitySystem<IEntityLookup>()
                 .EntityQueryInMap<EntityGenTestComponent>(map.Id).First();

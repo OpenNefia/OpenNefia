@@ -114,8 +114,7 @@ namespace OpenNefia.Content.TitleScreen
 
         private IMap InitMap()
         {
-            var mapId = _mapManager.GetFreeMapId();
-            var map = _mapLoader.LoadBlueprint(mapId, new ResourcePath("/Maps/LecchoTorte/Test.yml"));
+            var map = _mapLoader.LoadBlueprint(new ResourcePath("/Maps/LecchoTorte/Test.yml"));
             var entGen = EntitySystem.Get<IEntityGen>();
 
             var player = entGen.SpawnEntity(Chara.Sailor, map.AtPos(2, 2))!;

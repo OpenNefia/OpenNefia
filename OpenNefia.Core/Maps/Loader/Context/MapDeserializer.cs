@@ -14,7 +14,7 @@ namespace OpenNefia.Core.Maps
     internal sealed class MapDeserializer
     {
         [Dependency] private readonly IResourceManager _resourceManager = default!;
-        [Dependency] private readonly IMapManager _mapManager = default!;
+        [Dependency] private readonly IMapManagerInternal _mapManager = default!;
         [Dependency] private readonly ITileDefinitionManager _tileDefinitionManager = default!;
         [Dependency] private readonly IEntityManagerInternal _entityManager = default!;
         [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
@@ -271,7 +271,7 @@ namespace OpenNefia.Core.Maps
             var mapComponent = _entityManager.EnsureComponent<MapComponent>(mapEntityInBlueprint);
             mapComponent.MapId = _targetMapId;
             mapComponent.Metadata = _mapMetadata;
-            _targetMapId = _mapManager.RegisterMap(MapGrid!, _targetMapId, mapEntityInBlueprint);
+            _mapManager.RegisterMap(MapGrid!, _targetMapId, mapEntityInBlueprint);
             
             // TODO this is pretty hackish. Should there be an IMapInternal?
             MapManager.SetMapGridIds(MapGrid!, _targetMapId, mapEntityInBlueprint);

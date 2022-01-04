@@ -29,6 +29,7 @@ namespace OpenNefia.Core.Maps
     {
         public const string SawmillName = "map.load";
 
+        [Dependency] private readonly IMapManager _mapManager = default!;
         [Dependency] private readonly IResourceManager _resourceManager = default!;
 
         public event BlueprintEntityStartupDelegate? OnBlueprintEntityStartup;
@@ -65,7 +66,7 @@ namespace OpenNefia.Core.Maps
         }
 
         /// <inheritdoc />
-        public IMap LoadBlueprint(MapId mapId, ResourcePath yamlPath)
+        public IMap LoadBlueprint(ResourcePath yamlPath)
         {
             TextReader reader;
 
@@ -93,13 +94,14 @@ namespace OpenNefia.Core.Maps
             {
                 using var profiler = new ProfilerLogger(LogLevel.Debug, SawmillName, $"Map blueprint load: {yamlPath}");
                 Logger.InfoS(SawmillName, $"Loading map blueprint: {yamlPath}");
-                return LoadBlueprint(mapId, reader);
+                return LoadBlueprint(reader);
             }
         }
 
         /// <inheritdoc />
-        public IMap LoadBlueprint(MapId mapId, TextReader reader)
+        public IMap LoadBlueprint(TextReader reader)
         {
+            var mapId = _mapManager.GetFreeMapIdAndIncrement();
             return DoMapLoad(mapId, reader, MapSerializeMode.Blueprint);
         }
 
