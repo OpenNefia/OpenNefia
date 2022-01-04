@@ -23,6 +23,7 @@ namespace OpenNefia.Content.Input
             field.AddFunction(ContentKeyFunctions.PickUp);
             field.AddFunction(ContentKeyFunctions.Drop);
             field.AddFunction(ContentKeyFunctions.Drink);
+            field.AddFunction(ContentKeyFunctions.Eat);
             field.AddFunction(ContentKeyFunctions.Throw);
             field.AddFunction(ContentKeyFunctions.Examine);
         }
