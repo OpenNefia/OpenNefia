@@ -75,11 +75,11 @@ namespace OpenNefia.Tests.Core.SaveGames
 
             Assert.That(saveMan.AllSaves.Count(), Is.EqualTo(0));
 
-            var versions = new Dictionary<string, Version>()
+            var assemblyMeta = new List<AssemblyMetaData>()
             {
-                { "OpenNefia.Content", new Version(0, 30, 0) }
+                new() { FullName = "OpenNefia.Core", Version = new Version(0, 30, 0), InformationalVersion = "0.30.0-git-1234567" }
             };
-            var header = new SaveGameHeader("ruin", new Version(0, 42, 0), "deadbeef", versions);
+            var header = new SaveGameHeader("ruin", assemblyMeta);
 
             var headerPath = new ResourcePath("/Saves") / "testSave" / "header.yml";
 
@@ -95,9 +95,7 @@ namespace OpenNefia.Tests.Core.SaveGames
             Assert.Multiple(() =>
             {
                 Assert.That(save.Header.Name, Is.EqualTo("ruin"));
-                Assert.That(save.Header.EngineVersion, Is.EqualTo(new Version(0, 42, 0)));
-                Assert.That(save.Header.EngineCommitHash, Is.EqualTo("deadbeef"));
-                Assert.That(save.Header.AssemblyVersions, Is.EquivalentTo(versions));
+                Assert.That(save.Header.AssemblyMetaData[0].FullName, Is.EqualTo("OpenNefia.Core"));
                 Assert.That(save.SaveDirectory, Is.EqualTo(new ResourcePath("/testSave")));
                 Assert.That(save.Files.Exists(new ResourcePath("/header.yml")));
                 Assert.That(saveMan.ContainsSave(save), Is.True);

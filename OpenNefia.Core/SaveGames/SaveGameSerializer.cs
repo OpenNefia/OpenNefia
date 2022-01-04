@@ -72,14 +72,21 @@ namespace OpenNefia.Core.SaveGames
         /// </summary>
         /// <see cref="IMapManager"/>
         [DataField(required: true)]
-        public MapId ActiveMapId { get; set; }
+        public int ActiveMapId { get; set; }
 
         /// <summary>
-        /// Highest free map ID at the time of saving.
+        /// Next free entity UID at the time of saving.
+        /// </summary>
+        /// <see cref="IEntityManager"/>
+        [DataField(required: true)]
+        public int NextEntityUid { get; set; }
+
+        /// <summary>
+        /// Next free map ID at the time of saving.
         /// </summary>
         /// <see cref="IMapManagerInternal"/>
         [DataField(required: true)]
-        public MapId HighestMapId { get; set; }
+        public int NextMapId { get; set; }
     }
 
     public sealed class SaveGameSerializer : ISaveGameSerializerInternal
@@ -198,9 +205,10 @@ namespace OpenNefia.Core.SaveGames
 
             var sessionData = new SessionData()
             {
-                ActiveMapId = activeMap.Id,
+                ActiveMapId = (int)activeMap.Id,
                 PlayerUid = (int)player.Uid,
-                HighestMapId = _mapManager.HighestMapId
+                NextEntityUid = _entityManager.NextEntityUid,
+                NextMapId = _mapManager.NextMapId,
             };
 
             var session = new ResourcePath("/session.yml");
@@ -260,8 +268,20 @@ namespace OpenNefia.Core.SaveGames
             var session = new ResourcePath("/session.yml");
             var sessionData = save.Files.ReadSerializedData<SessionData>(session, _serializationManager, skipHook: true)!;
 
-            _mapManager.HighestMapId = sessionData.HighestMapId;
-            var map = _mapLoader.LoadMap(sessionData.ActiveMapId, save);
+            if (sessionData.NextEntityUid <= (int)EntityUid.Invalid)
+                throw new InvalidOperationException($"Invalid NextEntityUid in save!");
+            if (sessionData.NextMapId <= (int)MapId.Nullspace)
+                throw new InvalidOperationException($"Invalid NextMapId in save!");
+            if (sessionData.PlayerUid <= (int)EntityUid.Invalid)
+                throw new InvalidOperationException($"Invalid player UID in save!");
+            if (sessionData.ActiveMapId <= (int)MapId.Nullspace)
+                throw new InvalidOperationException($"Invalid active map ID in save!");
+
+            // Set the next entity UID first since the map loader depends on it.
+            _entityManager.NextEntityUid = sessionData.NextEntityUid;
+
+            _mapManager.NextMapId = sessionData.NextMapId;
+            var map = _mapLoader.LoadMap(new MapId(sessionData.ActiveMapId), save);
             _mapManager.SetActiveMap(map.Id);
 
             var playerUid = new EntityUid(sessionData.PlayerUid);

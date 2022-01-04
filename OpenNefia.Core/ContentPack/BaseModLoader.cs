@@ -29,6 +29,11 @@ namespace OpenNefia.Core.ContentPack
 
         protected void InitMod(Assembly assembly)
         {
+            if (assembly.GetName()?.Version == null)
+            {
+                throw new ArgumentException($"Content assembly {assembly} must have a version declared.", nameof(assembly));
+            }
+
             var mod = new ModInfo(assembly);
 
             ReflectionManager.LoadAssemblies(mod.GameAssembly);

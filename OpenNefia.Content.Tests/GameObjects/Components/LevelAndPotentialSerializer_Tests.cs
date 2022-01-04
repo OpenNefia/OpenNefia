@@ -27,7 +27,7 @@ namespace OpenNefia.Content.Tests.GameObjects.Components
             };
             var node = Serialization.WriteValueAs<MappingDataNode>(level);
 
-            Assert.That(node.Cast<MappingDataNode>("level").Cast<ValueDataNode>("base").Value, Is.EqualTo("42"));
+            Assert.That(node.Cast<ValueDataNode>("level").Value, Is.EqualTo("42"));
             Assert.That(node.Cast<ValueDataNode>("potential").Value, Is.EqualTo("150"));
             Assert.That(node.Cast<ValueDataNode>("experience").Value, Is.EqualTo("500"));
         }

@@ -40,7 +40,8 @@ namespace OpenNefia.Core.GameObjects
 
         private EntityEventBus _eventBus = null!;
 
-        private int NextEntityUid { get; set; } = (int)EntityUid.FirstUid;
+        /// <inheritdoc/>
+        public int NextEntityUid { get; set; } = (int)EntityUid.FirstUid;
 
         /// <inheritdoc />
         public IEventBus EventBus => _eventBus;
@@ -305,6 +306,10 @@ namespace OpenNefia.Core.GameObjects
             {
                 DeleteEntity(e);
             }
+
+            // I would like the new entity UID to start from 0 when
+            // going back to the title screen.
+            NextEntityUid = (int)EntityUid.FirstUid;
         }
 
         /// <summary>
