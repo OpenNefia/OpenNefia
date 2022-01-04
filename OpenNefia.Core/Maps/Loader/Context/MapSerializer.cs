@@ -249,7 +249,7 @@ namespace OpenNefia.Core.Maps
                     break;
                 case MapSerializeMode.Full:
                 default:
-                    components = SerializeComponentsFull(entity, prototypeCompCache);
+                    components = SerializeComponentsFull(entity);
                     break;
             }
 
@@ -263,9 +263,10 @@ namespace OpenNefia.Core.Maps
 
         /// <summary>
         /// Serializes the exact list of components on this entity, accounting for addded/deleted 
-        /// components that differ from the prototype.
+        /// components that differ from the prototype. There is no compression accounting for
+        /// unchanged prototype fields with this method.
         /// </summary>
-        private YamlSequenceNode SerializeComponentsFull(EntityUid entity, PrototypeCompCache prototypeCompCache)
+        private YamlSequenceNode SerializeComponentsFull(EntityUid entity)
         {
             var components = new YamlSequenceNode();
 
@@ -275,12 +276,6 @@ namespace OpenNefia.Core.Maps
                     continue;
 
                 var compMapping = _serializationManager.WriteValueAs<MappingDataNode>(component.GetType(), component, context: _context);
-
-                var md = _entityManager.GetComponent<MetaDataComponent>(entity);
-                if (md.EntityPrototype != null && prototypeCompCache[md.EntityPrototype.ID].TryGetValue(component.Name, out var protMapping))
-                {
-                    compMapping = compMapping.Except(protMapping);
-                }
 
                 if (compMapping == null)
                 {
