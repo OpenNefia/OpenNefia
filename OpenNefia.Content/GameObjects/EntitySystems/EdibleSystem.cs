@@ -60,7 +60,8 @@ namespace OpenNefia.Content.GameObjects
             if (!_stackSystem.TrySplit(target, 1, out var split))
                 return TurnResult.Failed;
 
-            Mes.Display(Loc.GetString("Elona.Edible.Eats", ("entity", eater), ("edible", split)));
+            Mes.Display(Loc.GetString("Elona.Edible.Starts", ("entity", eater), ("edible", split)));
+            Mes.Display(Loc.GetString("Elona.Edible.Finishes", ("entity", eater), ("edible", split)));
 
             _sounds.Play(Protos.Sound.Eat1, sourceSpatial.MapPosition);
 
