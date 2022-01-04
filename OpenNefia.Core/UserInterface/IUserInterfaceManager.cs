@@ -60,5 +60,9 @@ namespace OpenNefia.Core.UserInterface
             where TLayer : IUiLayerWithResult<UINone, UINone>, new();
 
         UiResult<TResult> Query<TArgs, TResult>(IUiLayerWithResult<TArgs, TResult> layer) where TResult : class;
+
+        UiResult<TResult> Query<TResult, TLayer, TArgs>(IUiLayerWithResult<TArgs, TResult> layer, TArgs args)
+            where TLayer : IUiLayerWithResult<TArgs, TResult>
+            where TResult : class;
     }
 }

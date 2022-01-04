@@ -162,10 +162,7 @@ namespace OpenNefia.Content.TitleScreen
 
         private void RunTitleScreenAction(TitleScreenChoice selectedChoice)
         {
-            if (selectedChoice != TitleScreenChoice.Generate)
-            {
-                Sounds.Play(Protos.Sound.Ok1);
-            }
+            Sounds.Play(Protos.Sound.Ok1);
 
             switch (selectedChoice)
             {
@@ -174,6 +171,9 @@ namespace OpenNefia.Content.TitleScreen
                     break;
                 case TitleScreenChoice.Exit:
                     Finish(new TitleScreenResult(TitleScreenAction.Quit));
+                    break;
+                case TitleScreenChoice.Generate:
+                    Finish(new TitleScreenResult(TitleScreenAction.Generate));
                     break;
                 default:
                     break;
