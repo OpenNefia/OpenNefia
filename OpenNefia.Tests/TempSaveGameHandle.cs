@@ -13,6 +13,7 @@ namespace OpenNefia.Tests
         private readonly TempWritableDirProvider _temp;
         private readonly TempWritableDirProvider _committed;
 
+        public int SaveFormatVersion => SaveGameManager.SaveFormatVersion;
         public ResourcePath SaveDirectory { get; }
         public DateTime LastSaveDate { get; }
         public SaveGameHeader Header { get; }

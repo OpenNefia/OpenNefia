@@ -1,6 +1,8 @@
 ﻿using NUnit.Framework;
+using OpenNefia.Core.Game;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Maps;
+using OpenNefia.Core.Maths;
 using OpenNefia.Core.Reflection;
 using OpenNefia.Core.SaveGames;
 using OpenNefia.Core.Serialization.Manager.Attributes;
@@ -49,6 +51,54 @@ namespace OpenNefia.Tests.Core.SaveGames
             // Check that the save data was loaded into the entity system
             Assert.That(sys.Data.Foo, Is.EqualTo(42));
             Assert.That(sys.Data.Bar, Is.EquivalentTo(new[] { "hoge" }));
+        }
+
+        /// <summary>
+        /// Tests that engine-critical things like the active player/map are
+        /// saved and restored properly.
+        /// </summary>
+        [Test]
+        public void TestSerializeGameSession()
+        {
+            // Arrange.
+            var sim = GameSimulation
+                .NewSimulation()
+                .InitializeInstance();
+
+            var save = new TempSaveGameHandle();
+            var saveSerMan = sim.Resolve<ISaveGameSerializerInternal>();
+            var entMan = sim.Resolve<IEntityManagerInternal>();
+            var mapMan = sim.Resolve<IMapManagerInternal>();
+            var sessMan = sim.Resolve<IGameSessionManager>();
+
+            var map = sim.CreateMapAndSetActive(50, 50);
+
+            // Act.
+            mapMan.CreateMap(50, 50);
+            var player = entMan.SpawnEntity(null, map.AtPos(Vector2i.One));
+            sessMan.Player = player;
+
+            // Save these values.
+            var nextMapId = mapMan.NextMapId;
+            var nextEntId = entMan.NextEntityUid;
+            var activeMapId = sim.ActiveMap!.Id;
+            var playerUid = sessMan.Player.Uid;
+
+            saveSerMan.SaveGame(save);
+
+            // Allocate some more IDs.
+            var nextMap = mapMan.CreateMap(50, 50);
+            var nextPlayer = entMan.SpawnEntity(null, map.AtPos(Vector2i.One));
+            mapMan.SetActiveMap(nextMap.Id);
+            sessMan.Player = nextPlayer;
+
+            saveSerMan.LoadGame(save);
+
+            // Check that the highest free entity/map IDs were restored.
+            Assert.That(mapMan.NextMapId, Is.EqualTo(nextMapId));
+            Assert.That(entMan.NextEntityUid, Is.EqualTo(nextEntId));
+            Assert.That(mapMan.ActiveMap?.Id, Is.EqualTo(activeMapId));
+            Assert.That(sessMan.Player.Uid, Is.EqualTo(playerUid));
         }
     }
 

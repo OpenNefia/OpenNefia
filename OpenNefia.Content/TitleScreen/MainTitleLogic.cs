@@ -80,18 +80,18 @@ namespace OpenNefia.Content.TitleScreen
         {
             var engineVersion = Core.Engine.Version;
             var engineCommitHash = "??????";
-            var assemblyVersions = new Dictionary<string, Version>();
+            var assemblyVersions = new List<AssemblyMetaData>();
 
             foreach (var assembly in _modLoader.LoadedModules)
             {
                 if (assembly == typeof(Core.Engine).Assembly)
                     continue;
 
-                var name = assembly.GetName()!;
-                assemblyVersions.Add(name.FullName, name.Version!);
+                var meta = AssemblyMetaData.FromAssembly(assembly);
+                assemblyVersions.Add(meta);
             }
 
-            return new SaveGameHeader("ruin", engineVersion, engineCommitHash, assemblyVersions);
+            return new SaveGameHeader("ruin", assemblyVersions);
         }
 
         private void StartGame()

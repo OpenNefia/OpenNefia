@@ -31,7 +31,6 @@ namespace OpenNefia.Core.Maps
         /// </summary>
         void SetMapEntity(MapId mapId, EntityUid newMapEntityId);
 
-        MapId GetFreeMapIdAndIncrement();
         IMap GetMap(MapId mapId);
         Entity GetMapEntity(MapId mapId);
 

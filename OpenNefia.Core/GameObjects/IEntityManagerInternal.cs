@@ -16,5 +16,13 @@ namespace OpenNefia.Core.GameObjects
         void FinishEntityStartup(Entity entity);
 
         void FlushEntities();
+
+        /// <summary>
+        /// The next valid entity UID to generate.
+        /// </summary>
+        /// <remarks>
+        /// This should **only** be set when handling game saving/loading.
+        /// </remarks>
+        public int NextEntityUid { get; set; }
     }
 }

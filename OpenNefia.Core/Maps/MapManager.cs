@@ -15,7 +15,7 @@ namespace OpenNefia.Core.Maps
         /// <remarks>
         /// This should **only** be set when handling game saving/loading.
         /// </remarks>
-        MapId HighestMapId { get; set; }
+        int NextMapId { get; set; }
 
         /// <summary>
         /// Registers a map loaded from a save.
@@ -37,6 +37,12 @@ namespace OpenNefia.Core.Maps
         /// This should **only** be called when handling game saving/loading.
         /// </remarks>
         void FlushMaps();
+
+        /// <summary>
+        /// Allocates a new MapID, incrementing the highest ID counter.
+        /// </summary>
+        /// <returns></returns>
+        MapId GenerateMapId();
     }
 
     public sealed partial class MapManager : IMapManagerInternal
@@ -56,7 +62,7 @@ namespace OpenNefia.Core.Maps
         public IReadOnlyDictionary<MapId, IMap> LoadedMaps => _maps;
 
         /// <inheritdoc/>
-        public MapId HighestMapId { get; set; } = MapId.Nullspace;
+        public int NextMapId { get; set; } = (int)MapId.FirstId;
 
         /// <inheritdoc/>
         public bool MapIsLoaded(MapId mapId)
@@ -65,11 +71,9 @@ namespace OpenNefia.Core.Maps
         }
 
         /// <inheritdoc/>
-        public MapId GetFreeMapIdAndIncrement()
+        public MapId GenerateMapId()
         {
-            var newId = new MapId(HighestMapId.Value + 1);
-            HighestMapId = newId;
-            return newId;
+            return new(NextMapId++);
         }
 
         /// <inheritdoc/>
@@ -78,13 +82,13 @@ namespace OpenNefia.Core.Maps
             _maps.Clear();
             _mapEntities.Clear();
             ActiveMap = null;
-            HighestMapId = MapId.Nullspace;
+            NextMapId = (int)MapId.FirstId;
         }
 
         /// <inheritdoc/>
         public IMap CreateMap(int width, int height)
         {
-            var actualID = GetFreeMapIdAndIncrement();
+            var actualID = GenerateMapId();
 
             var map = new Map(width, height);
             _maps.Add(actualID, map);

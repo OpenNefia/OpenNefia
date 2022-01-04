@@ -5,6 +5,8 @@ namespace OpenNefia.Core.Maps
     {
         public static readonly MapId Nullspace = new(0);
 
+        public static readonly MapId FirstId = new(1);
+
         internal readonly int Value;
 
         public MapId(int value)

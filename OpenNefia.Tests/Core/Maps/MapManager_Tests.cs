@@ -28,7 +28,7 @@ namespace OpenNefia.Tests.Core.Maps
             var mapMan = IoCManager.Resolve<IMapManagerInternal>();
             var entMan = IoCManager.Resolve<IEntityManager>();
 
-            mapMan.HighestMapId = new MapId(2);
+            mapMan.NextMapId = 2;
 
             var map = new Map(12, 34);
             var mapId = new MapId(42);
@@ -44,7 +44,7 @@ namespace OpenNefia.Tests.Core.Maps
             // an internal function for game save purposes only. It is
             // assumed that HighestMapId is saved as part of the global
             // session data (see IGameSaveSerializer).
-            Assert.That(mapMan.HighestMapId, Is.EqualTo(new MapId(2)));
+            Assert.That(mapMan.NextMapId, Is.EqualTo(2));
         }
 
         [Test]
@@ -67,7 +67,7 @@ namespace OpenNefia.Tests.Core.Maps
             mapMan.CreateMap(12, 34);
             var map2 = mapMan.CreateMap(12, 34);
 
-            Assert.That(mapMan.HighestMapId == map2.Id);
+            Assert.That(mapMan.NextMapId == (int)map2.Id + 1);
         }
 
         [Test]

@@ -6,6 +6,8 @@ using OpenNefia.Core.Serialization.Manager;
 using OpenNefia.Core.Serialization.Manager.Attributes;
 using OpenNefia.Core.Serialization.Markdown;
 using OpenNefia.Core.Utility;
+using System.Diagnostics;
+using System.Reflection;
 using YamlDotNet.RepresentationModel;
 
 namespace OpenNefia.Core.SaveGames
@@ -34,6 +36,7 @@ namespace OpenNefia.Core.SaveGames
 
     public interface ISaveGameHandle
     {
+        int SaveFormatVersion { get; }
         ResourcePath SaveDirectory { get; }
         DateTime LastSaveDate { get; }
         SaveGameHeader Header { get; }
@@ -42,6 +45,7 @@ namespace OpenNefia.Core.SaveGames
 
     public class SaveGameHandle : ISaveGameHandle
     {
+        public int SaveFormatVersion => SaveGameManager.SaveFormatVersion;
         public ResourcePath SaveDirectory { get; }
         public DateTime LastSaveDate { get; internal set; }
         public SaveGameHeader Header { get; }
@@ -57,7 +61,51 @@ namespace OpenNefia.Core.SaveGames
     }
 
     [DataDefinition]
-    public class SaveGameHeader
+    public sealed class AssemblyMetaData
+    {
+        /// <summary>
+        /// Full name the assembly from <see cref="AssemblyName.FullName"/>.
+        /// </summary>
+        [DataField]
+        public string FullName { get; set; } = string.Empty;
+
+        /// <summary>
+        /// Version of the assembly from <see cref="AssemblyName.Version"/>.
+        /// </summary>
+        [DataField]
+        public Version Version { get; set; } = new();
+
+        /// <summary>
+        /// Assembly informational version, which would include the Git commit hash.
+        /// </summary>
+        [DataField]
+        public string? InformationalVersion { get; set; } = null;
+
+        public static AssemblyMetaData FromAssembly(Assembly assembly)
+        {
+            var name = assembly.GetName();
+
+            if (name == null)
+                throw new InvalidOperationException($"Assembly {assembly} lacks a name!");
+
+            if (name.Version == null)
+                throw new InvalidOperationException($"Assembly {assembly} lacks a version!");
+
+            var infoVersion = assembly
+                .GetCustomAttribute<AssemblyInformationalVersionAttribute>()
+                ?.InformationalVersion;
+
+            return new()
+            {
+                FullName = name.FullName,
+                Version = name.Version,
+                InformationalVersion = infoVersion
+            };
+        }
+    }
+
+    [DataDefinition]
+    public sealed class SaveGameHeader
     {
         /// <summary>
         /// Name of this save.
@@ -65,26 +113,13 @@ namespace OpenNefia.Core.SaveGames
         [DataField(required: true)]
         public string Name { get; } = default!;
 
-        /// <summary>
-        /// Assembly version of the engine.
-        /// </summary>
-        [DataField(required: true)]
-        public Version EngineVersion { get; } = new();
-
-        /// <summary>
-        /// Full Git commit hash of the engine.
-        /// </summary>
-        [DataField(required: true)]
-        public string EngineCommitHash { get; } = default!;
-
-        [DataField("assemblyVersions", required: true)]
-        private readonly Dictionary<string, Version> _assemblyVersions = new();
+        [DataField("assemblyMetaData", required: true)]
+        private readonly List<AssemblyMetaData> _assemblyMetaData = new();
 
         /// <summary>
         /// Versions of loaded content assemblies. 
-        /// This is a mapping of { strongAssemblyName -> version }.
         /// </summary>
-        public IReadOnlyDictionary<string, Version> AssemblyVersions => _assemblyVersions;
+        public IReadOnlyList<AssemblyMetaData> AssemblyMetaData => _assemblyMetaData;
 
         public SaveGameHeader()
         {
@@ -95,12 +130,10 @@ namespace OpenNefia.Core.SaveGames
             Name = name;
         }
 
-        public SaveGameHeader(string name, Version engineVersion, string engineCommitHash, Dictionary<string, Version> assemblyVersions)
+        public SaveGameHeader(string name, List<AssemblyMetaData> assemblyVersions)
         {
             Name = name;
-            EngineVersion = engineVersion;
-            EngineCommitHash = engineCommitHash;
-            _assemblyVersions = assemblyVersions;
+            _assemblyMetaData = assemblyVersions;
         }
     }
 
@@ -108,6 +141,8 @@ namespace OpenNefia.Core.SaveGames
     {
         [Dependency] private readonly ISerializationManager _serializationManager = default!;
         [Dependency] private readonly IProfileManager _profileManager = default!;
+
+        public const int SaveFormatVersion = 1;
 
         public const string SawmillName = "save";
 

@@ -29,7 +29,7 @@ namespace OpenNefia.Core.Maps
     {
         public const string SawmillName = "map.load";
 
-        [Dependency] private readonly IMapManager _mapManager = default!;
+        [Dependency] private readonly IMapManagerInternal _mapManager = default!;
         [Dependency] private readonly IResourceManager _resourceManager = default!;
 
         public event BlueprintEntityStartupDelegate? OnBlueprintEntityStartup;
@@ -101,7 +101,7 @@ namespace OpenNefia.Core.Maps
         /// <inheritdoc />
         public IMap LoadBlueprint(TextReader reader)
         {
-            var mapId = _mapManager.GetFreeMapIdAndIncrement();
+            var mapId = _mapManager.GenerateMapId();
             return DoMapLoad(mapId, reader, MapSerializeMode.Blueprint);
         }
 
