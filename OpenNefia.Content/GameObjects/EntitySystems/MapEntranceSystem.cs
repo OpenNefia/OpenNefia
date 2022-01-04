@@ -63,17 +63,18 @@ namespace OpenNefia.Content.GameObjects
         /// </summary>
         private bool TryMapLoad(MapId mapToLoad, [NotNullWhen(true)] out IMap? map)
         {
-            Logger.InfoS("map.entrance", $"Attempting to load map {mapToLoad} from map entrance.");
-
             // See if this map is still in memory and hasn't been flushed yet.
             if (_mapManager.TryGetMap(mapToLoad, out map))
+            {
+                Logger.WarningS("map.entrance", $"Travelling to cached map {map.Id}");
                 return true;
+            }
 
             // Let's try to load the map from disk, using the current save.
             var save = _saveGameManager.CurrentSave;
             if (save == null)
             {
-                Logger.ErrorS("map.entrance", $"No active save game!");
+                Logger.ErrorS("map.entrance", "No active save game!");
                 return false;
             }
 
@@ -82,6 +83,8 @@ namespace OpenNefia.Content.GameObjects
                 Logger.ErrorS("map.entrance", $"Failed to load map {mapToLoad} from disk!");
                 return false;
             }
+
+            Logger.InfoS("map.entrance", $"Loaded map {mapToLoad} from disk.");
 
             return true;
         }

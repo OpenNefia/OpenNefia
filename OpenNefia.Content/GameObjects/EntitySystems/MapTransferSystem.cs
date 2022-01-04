@@ -60,7 +60,6 @@ namespace OpenNefia.Content.GameObjects
 
         private void FlushOtherMaps()
         {
-            throw new NotImplementedException();
         }
 
         private void DoMapTransfer(EntityUid player, SpatialComponent spatial)
