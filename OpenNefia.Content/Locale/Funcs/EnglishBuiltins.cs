@@ -53,5 +53,29 @@ namespace OpenNefia.Content.Locale.Funcs
                     return "s";
             }
         }
+
+        /// <summary>
+        /// Function: have(entity, needE)
+        /// </summary>
+        /// <hsp>#defcfunc have int have_charid</hsp>
+        [LocaleFunction("have")]
+        public static string BuiltIn_have(object? obj, bool needE = false)
+        {
+            switch (obj)
+            {
+                case EntityUid objEntity:
+                    var gameSession = IoCManager.Resolve<IGameSessionManager>();
+
+                    if (gameSession.IsPlayer(objEntity))
+                        return "have";
+                    else if (needE)
+                        return "has";
+                    else
+                        return "has";
+
+                default:
+                    return "has";
+            }
+        }
     }
 }
