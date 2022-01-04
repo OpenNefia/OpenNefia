@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
+using System.IO.Compression;
 using JetBrains.Annotations;
 using OpenNefia.Core.Serialization.Manager;
 using OpenNefia.Core.Serialization.Markdown;
@@ -42,6 +43,22 @@ namespace OpenNefia.Core.ContentPack
         }
 
         /// <summary>
+        ///     Opens a file for reading, with compression.
+        /// </summary>
+        /// <param name="provider">The writable directory provider</param>
+        /// <param name="path">The path of the file to open.</param>
+        /// <returns>A valid stream reader.</returns>
+        /// <exception cref="FileNotFoundException">
+        ///     Thrown if the file does not exist.
+        /// </exception>
+        public static StreamReader OpenTextCompressed(this IWritableDirProvider provider, ResourcePath path)
+        {
+            var stream = provider.OpenRead(path);
+            var compress = new GZipStream(stream, CompressionMode.Decompress);
+            return new StreamReader(compress, EncodingHelpers.UTF8);
+        }
+
+        /// <summary>
         ///     Opens a file for writing. If the file already exists, it will be overwritten.
         /// </summary>
         /// <param name="provider">The writable directory provider</param>
@@ -62,6 +79,20 @@ namespace OpenNefia.Core.ContentPack
         {
             var stream = provider.OpenWrite(path);
             return new StreamWriter(stream, EncodingHelpers.UTF8);
+        }
+
+        /// <summary>
+        ///     Opens a file for writing, with compression. If the file already exists, it will be overwritten.
+        /// </summary>
+        /// <param name="provider">The writable directory provider</param>
+        /// <param name="path">The path of the file to open.</param>
+        /// <returns>A valid file stream writer.</returns>
+        public static StreamWriter OpenWriteTextCompressed(this IWritableDirProvider provider, ResourcePath path,
+            CompressionLevel compressionLevel = CompressionLevel.Optimal)
+        {
+            var stream = provider.OpenWrite(path);
+            var compress = new GZipStream(stream, compressionLevel);
+            return new StreamWriter(compress, EncodingHelpers.UTF8);
         }
 
         /// <summary>

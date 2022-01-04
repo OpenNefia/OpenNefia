@@ -1,4 +1,5 @@
-﻿using OpenNefia.Core.Log;
+﻿using OpenNefia.Core.ContentPack;
+using OpenNefia.Core.Log;
 using OpenNefia.Core.SaveGames;
 using OpenNefia.Core.Utility;
 using System;
@@ -36,12 +37,40 @@ namespace OpenNefia.Core.Maps
             return true;
         }
 
+        /// <inheritdoc/>
+        public void SaveMap(MapId mapId, ISaveGameHandle save)
+        {
+            var filepath = GetMapFilePath(mapId);
+
+            Logger.InfoS(SawmillName, $"Saving map {mapId} to {filepath}...");
+
+            save.Files.CreateDirectory(filepath.Directory);
+
+            using (var writer = save.Files.OpenWriteTextCompressed(filepath))
+            {
+                DoMapSave(mapId, writer, MapSerializeMode.Full);
+            }
+        }
+
+        /// <inheritdoc/>
+        public IMap LoadMap(MapId mapId, ISaveGameHandle save)
+        {
+            var filepath = GetMapFilePath(mapId);
+
+            Logger.InfoS(SawmillName, $"Loading map {mapId} from {filepath}...");
+
+            using (var reader = save.Files.OpenTextCompressed(filepath))
+            {
+                return DoMapLoad(mapId, reader, MapSerializeMode.Full);
+            }
+        }
+
         /// <summary>
         /// Returns the resource path for a saved map, scoped to an individual save folder.
         /// </summary>
         public static ResourcePath GetMapFilePath(MapId mapId)
         {
-            return new ResourcePath($"/Maps/{mapId}.yml");
+            return new ResourcePath($"/Maps/{mapId}.yml.gz");
         }
     }
 }
