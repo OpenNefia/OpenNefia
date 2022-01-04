@@ -122,34 +122,6 @@ namespace OpenNefia.Core.Maps
             return grid;
         }
 
-        /// <inheritdoc/>
-        public void SaveMap(MapId mapId, ISaveGameHandle save)
-        {
-            var filepath = GetMapFilePath(mapId);
-
-            Logger.InfoS(SawmillName, $"Saving map {mapId} to {filepath}...");
-
-            save.Files.CreateDirectory(filepath.Directory);
-
-            using (var writer = save.Files.OpenWriteText(filepath))
-            {
-                DoMapSave(mapId, writer, MapSerializeMode.Full);
-            }
-        }
-
-        /// <inheritdoc/>
-        public IMap LoadMap(MapId mapId, ISaveGameHandle save)
-        {
-            var filepath = GetMapFilePath(mapId);
-
-            Logger.InfoS(SawmillName, $"Loading map {mapId} from {filepath}...");
-
-            using (var reader = save.Files.OpenText(filepath))
-            {
-                return DoMapLoad(mapId, reader, MapSerializeMode.Full);
-            }
-        }
-
         /// <summary>
         ///     Does basic pre-deserialization checks on map file load.
         /// </summary>
