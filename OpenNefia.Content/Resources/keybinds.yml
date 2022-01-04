@@ -97,6 +97,9 @@ binds:
 - function: Elona.Drink
   type: State
   key: Q
+- function: Elona.Eat
+  type: State
+  key: E
 - function: Elona.Throw
   type: State
   key: T
