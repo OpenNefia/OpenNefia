@@ -124,15 +124,6 @@ namespace OpenNefia.Content.TitleScreen
             player.AddComponent<PlayerComponent>();
             _gameSessionManager.Player = player;
 
-            foreach (var tile in map.AllTiles)
-            {
-                for (int i = 0; i < 30; i++)
-                {
-                    entGen.SpawnEntity(Item.Aloe, tile.MapPosition);
-                }
-                EntitySystem.Get<IStackSystem>().TryStackAtPos(tile.MapPosition);
-            }
-
             var skills = _entityManager.EnsureComponent<SkillsComponent>(player.Uid);
             skills.Ensure(Skill.StatConstitution).Level = 200;
             skills.Ensure(Skill.StatLife).Level = 200;
