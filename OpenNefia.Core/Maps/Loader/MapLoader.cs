@@ -25,12 +25,11 @@ namespace OpenNefia.Core.Maps
     /// Class for loading and saving maps, whether from a blueprint or a saved game.
     /// </summary>
     /// <seealso cref="SerialMapLoader"/>
-    public class MapLoader : IMapLoader
+    public sealed partial class MapLoader : IMapLoader
     {
         public const string SawmillName = "map.load";
 
         [Dependency] private readonly IResourceManager _resourceManager = default!;
-        [Dependency] private readonly IMapManager _mapManager = default!;
 
         public event BlueprintEntityStartupDelegate? OnBlueprintEntityStartup;
 
@@ -66,7 +65,7 @@ namespace OpenNefia.Core.Maps
         }
 
         /// <inheritdoc />
-        public IMap LoadBlueprint(MapId? mapId, ResourcePath yamlPath)
+        public IMap LoadBlueprint(MapId mapId, ResourcePath yamlPath)
         {
             TextReader reader;
 
@@ -99,25 +98,16 @@ namespace OpenNefia.Core.Maps
         }
 
         /// <inheritdoc />
-        public IMap LoadBlueprint(MapId? mapId, TextReader reader)
+        public IMap LoadBlueprint(MapId mapId, TextReader reader)
         {
             return DoMapLoad(mapId, reader, MapSerializeMode.Blueprint);
         }
 
-        private IMap DoMapLoad(MapId? mapId, TextReader reader, MapSerializeMode mode)
+        private IMap DoMapLoad(MapId mapId, TextReader reader, MapSerializeMode mode)
         {
-            if (mapId == null)
-            {
-                mapId = _mapManager.GetFreeMapId();
-            }
-            else if (_mapManager.MapExists(mapId.Value))
-            {
-                _mapManager.UnloadMap(mapId.Value);
-            }
-
             var data = new MapData(reader);
 
-            var deserializer = new MapDeserializer(mapId.Value, mode,
+            var deserializer = new MapDeserializer(mapId, mode,
                 (YamlMappingNode)data.RootNode, OnBlueprintEntityStartup);
             deserializer.Deserialize();
             var grid = deserializer.MapGrid!;
@@ -128,11 +118,6 @@ namespace OpenNefia.Core.Maps
             }
 
             return grid;
-        }
-
-        private ResourcePath GetMapFilePath(MapId mapId)
-        {
-            return new ResourcePath($"/Maps/{mapId}.yml");
         }
 
         /// <inheritdoc/>

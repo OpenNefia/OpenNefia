@@ -5,6 +5,9 @@ using OpenNefia.Core.IoC;
 using OpenNefia.Core.Log;
 using OpenNefia.Core.Maps;
 using OpenNefia.Core.Prototypes;
+using OpenNefia.Core.SaveGames;
+using OpenNefia.Core.Utility;
+using System.Diagnostics.CodeAnalysis;
 
 namespace OpenNefia.Content.GameObjects
 {
@@ -12,16 +15,21 @@ namespace OpenNefia.Content.GameObjects
     {
         [Dependency] private readonly IMapLoader _mapLoader = default!;
         [Dependency] private readonly IMapManager _mapManager = default!;
+        [Dependency] private readonly ISaveGameManager _saveGameManager = default!;
 
         public TurnResult UseMapEntrance(EntityUid entranceUid, EntityUid user, MapEntranceComponent? mapEntrance = null)
         {
             if (!Resolve(entranceUid, ref mapEntrance))
                 return TurnResult.Failed;
 
+            // TODO: This will be replaced with the 'area' system at some point.
+            // Instead of map prototypes, there will be "area prototypes" with more than one floor
+            // where the area will generate/store a map for each floor.
             if (mapEntrance.Entrance.DestinationMapId == null)
             {
+                var freeMapId = _mapManager.GetFreeMapId();
                 var proto = mapEntrance.MapPrototype.ResolvePrototype();
-                mapEntrance.Entrance.DestinationMapId = _mapLoader.LoadBlueprint(null, proto.BlueprintPath).Id;
+                mapEntrance.Entrance.DestinationMapId = _mapLoader.LoadBlueprint(freeMapId, proto.BlueprintPath).Id;
             }
 
             return UseMapEntrance(user, mapEntrance.Entrance);
@@ -39,7 +47,7 @@ namespace OpenNefia.Content.GameObjects
                 return TurnResult.Failed;
             }
 
-            if (!_mapManager.TryGetMap(entrance.DestinationMapId.Value, out var map))
+            if (!TryMapLoad(entrance.DestinationMapId.Value, out var map))
                 return TurnResult.Failed;
 
             var newPos = entrance.StartLocation.GetStartPosition(user, map)
@@ -48,6 +56,33 @@ namespace OpenNefia.Content.GameObjects
             spatial.Coordinates = new EntityCoordinates(map.MapEntityUid, newPos);
 
             return TurnResult.Succeeded;
+        }
+
+        /// <summary>
+        /// Loads the map from memory or disk, in order to ensure there is a map entity for the
+        /// travelling entity to be parented to.
+        /// </summary>
+        private bool TryMapLoad(MapId mapToLoad, [NotNullWhen(true)] out IMap? map)
+        {
+            // See if this map is still in memory and hasn't been flushed yet.
+            if (_mapManager.TryGetMap(mapToLoad, out map))
+                return true;
+
+            // Let's try to load the map from disk, using the current save.
+            var save = _saveGameManager.CurrentSave;
+            if (save == null)
+            {
+                Logger.ErrorS("map.entrance", $"No active save game!");
+                return false;
+            }
+
+            if (!_mapLoader.TryLoadMap(mapToLoad, save, out map))
+            {
+                Logger.ErrorS("map.entrance", $"Failed to load map {mapToLoad} from disk!");
+                return false;
+            }
+
+            return true;
         }
 
         /// <summary>

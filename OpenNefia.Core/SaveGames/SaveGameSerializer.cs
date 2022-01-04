@@ -34,12 +34,12 @@ namespace OpenNefia.Core.SaveGames
         event GameLoadedDelegate OnGameLoaded;
 
         /// <summary>
-        /// Saves the game state to the currently active save.
+        /// Saves the game state to the provided save.
         /// </summary>
         void SaveGame(ISaveGameHandle save);
 
         /// <summary>
-        /// Loads the game state from the currently active save.
+        /// Loads the game state from the provided save.
         /// </summary>
         void LoadGame(ISaveGameHandle save);
     }

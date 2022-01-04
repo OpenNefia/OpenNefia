@@ -45,10 +45,31 @@ namespace OpenNefia.Content.GameObjects
             if (spatial.MapID == _mapManager.ActiveMap?.Id)
                 return;
 
+            // TODO: dunno if the potential for an expensive map load on property setting
+            // is desirable...
             if (_gameSession.IsPlayer(uid) && spatial.MapID != MapId.Nullspace)
             {
-                _mapManager.SetActiveMap(spatial.MapID);
+                DoMapTransfer(uid, spatial);
             }
+        }
+
+        private void RunMapInitializeEvents()
+        {
+            // TODO
+        }
+
+        private void FlushOtherMaps()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void DoMapTransfer(EntityUid player, SpatialComponent spatial)
+        {
+            _mapManager.SetActiveMap(spatial.MapID);
+
+            RunMapInitializeEvents();
+
+            FlushOtherMaps();
         }
     }
 }

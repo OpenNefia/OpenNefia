@@ -147,7 +147,7 @@ namespace OpenNefia.Core.ContentPack
         }
 
         /// <summary>
-        /// Reads the entire contents of a path a serialized YAML file.
+        /// Reads the entire contents of a serialized YAML file.
         /// </summary>
         /// <param name="provider">The writable directory to look for the path in.</param>
         /// <param name="path">The path to read the contents from.</param>
@@ -209,7 +209,7 @@ namespace OpenNefia.Core.ContentPack
         }
 
         /// <summary>
-        /// Writes the entire contents of a path a serialized YAML file.
+        /// Writes the entire contents of a path to a serialized YAML file.
         /// </summary>
         /// <param name="provider">The writable directory provider</param>
         /// <param name="path">Path of the file to write to.</param>

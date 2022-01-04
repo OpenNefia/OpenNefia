@@ -1,6 +1,7 @@
 ﻿using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Log;
+using OpenNefia.Core.SaveGames;
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 
@@ -25,7 +26,7 @@ namespace OpenNefia.Core.Maps
         void FlushMaps();
     }
 
-    public class MapManager : IMapManagerInternal
+    public sealed partial class MapManager : IMapManagerInternal
     {
         [Dependency] private readonly IEntityManager _entityManager = default!;
 
@@ -42,7 +43,7 @@ namespace OpenNefia.Core.Maps
         public MapId HighestMapId { get; set; } = MapId.Nullspace;
 
         /// <inheritdoc/>
-        public bool MapExists(MapId mapId)
+        public bool MapIsLoaded(MapId mapId)
         {
             return _maps.ContainsKey(mapId);
         }
@@ -60,22 +61,22 @@ namespace OpenNefia.Core.Maps
             _mapEntities.Clear();
             ActiveMap = null;
             HighestMapId = MapId.Nullspace;
-    }
+        }
 
         /// <inheritdoc/>
-        public IMap CreateMap(int width, int height, MapId? mapId = null)
+        public IMap CreateMap(int width, int height)
         {
-            var actualID = AllocFreeMapId(mapId);
+            var actualID = AllocFreeMapId(null);
 
             var map = new Map(width, height);
-            this._maps[HighestMapId] = map;
+            _maps.Add(actualID, map);
             map.Id = actualID;
             RebindMapEntity(actualID, map);
 
             return map;
         }
 
-        private void SetMapGridIds(IMap map, MapId mapId, EntityUid mapEntityUid)
+        internal static void SetMapGridIds(IMap map, MapId mapId, EntityUid mapEntityUid)
         {
             var flags = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic;
             var idField = map.GetType().GetProperty("Id", flags)!;
@@ -85,27 +86,27 @@ namespace OpenNefia.Core.Maps
         }
 
         /// <inheritdoc/>
-        public MapId RegisterMap(IMap map, MapId? mapId = null, EntityUid? mapEntityUid = null)
+        public MapId RegisterMap(IMap map, MapId mapId, EntityUid mapEntityUid)
         {
-            var actualID = AllocFreeMapId(mapId);
-
+            if (mapId == MapId.Nullspace)
+            {
+                throw new ArgumentException("Can't register null map.", nameof(mapId));
+            }
+            if (!_entityManager.EntityExists(mapEntityUid))
+            {
+                throw new ArgumentException($"Map entity {mapEntityUid} doesn't exist.", nameof(mapEntityUid));
+            }
+            // Check to see if the IDs on the passed map were already set elsewhere.
             if (map.MapEntityUid.IsValid() || map.Id != MapId.Nullspace)
             {
-                throw new ArgumentException("Map is already in use.", nameof(map));
+                throw new ArgumentException("Map is already in use.", nameof(map)); 
             }
 
-            _maps[HighestMapId] = map;
+            _maps[mapId] = map;
 
-            if (mapEntityUid == null)
-            {
-                RebindMapEntity(actualID, map);
-            }
-            else
-            {
-                SetMapEntity(actualID, mapEntityUid.Value);
-            }
+            SetMapEntity(mapId, mapEntityUid);
 
-            return actualID;
+            return mapId;
         }
 
         private MapId AllocFreeMapId(MapId? mapId)
@@ -125,7 +126,7 @@ namespace OpenNefia.Core.Maps
                 actualID = GetFreeMapId();
             }
 
-            if (MapExists(actualID))
+            if (actualID.Value <= HighestMapId.Value)
             {
                 throw new InvalidOperationException($"A map with ID {actualID} already exists");
             }
@@ -236,17 +237,25 @@ namespace OpenNefia.Core.Maps
                 throw new InvalidOperationException($"Attempted to delete nonexistant map '{mapID}'");
             }
 
+            Logger.InfoS("map", $"Unloading map {mapID}");
+
             _maps.Remove(mapID);
+            UnloadEntitiesInMap(mapID);
 
-            if (_mapEntities.TryGetValue(mapID, out var ent))
+            var mapEnt = _mapEntities[mapID];
+            _entityManager.DeleteEntity(mapEnt);
+            _mapEntities.Remove(mapID);
+        }
+
+        private void UnloadEntitiesInMap(MapId mapID)
+        {
+            foreach (var entity in _entityManager.GetEntities().ToList())
             {
-                if (_entityManager.TryGetEntity(ent, out var mapEnt))
-                    mapEnt.Delete();
-
-                _mapEntities.Remove(mapID);
+                if (entity.Spatial.MapID == mapID)
+                {
+                    _entityManager.DeleteEntity(entity.Uid);
+                }
             }
-
-            Logger.InfoS("map", $"Deleting map {mapID}");
         }
 
         /// <inheritdoc/>

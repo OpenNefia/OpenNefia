@@ -87,6 +87,14 @@ namespace OpenNefia.Core.GameObjects
             StackComponent? stackTarget = null);
 
         /// <summary>
+        /// Tries to stack all entities at the given coordinates.
+        /// </summary>
+        /// <param name="coords">Coordinates to stack at.</param>
+        /// <param name="showMessage">Whether to show a message to the player if the stack succeeds.</param>
+        /// <returns>True if any stacking occurred.</returns>
+        bool TryStackAtPos(MapCoordinates coords, bool showMessage = false);
+
+        /// <summary>
         /// Clones this entity.
         /// </summary>
         /// <param name="target">Entity to clone.</param>
@@ -312,6 +320,22 @@ namespace OpenNefia.Core.GameObjects
             foreach (var ent in ents.ToList())
             {
                 stackedSomething &= TryStack(target, ent.Uid, showMessage, stackTarget);
+            }
+
+            return stackedSomething;
+        }
+
+        /// <inheritdoc/>
+        public bool TryStackAtPos(MapCoordinates coords, bool showMessage = false)
+        {
+            var stackedSomething = false;
+
+            foreach (var entity in _lookup.GetLiveEntitiesAtCoords(coords).ToList())
+            {
+                if (!EntityManager.IsAlive(entity.Uid))
+                    continue;
+
+                stackedSomething &= TryStackAtSamePos(entity.Uid, showMessage);
             }
 
             return stackedSomething;
