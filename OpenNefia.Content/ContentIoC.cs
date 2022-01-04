@@ -1,4 +1,5 @@
-﻿using OpenNefia.Content.Logic;
+﻿using OpenNefia.Content.CharaMake;
+using OpenNefia.Content.Logic;
 using OpenNefia.Content.TitleScreen;
 using OpenNefia.Content.UI.Hud;
 using OpenNefia.Content.UI.Layer;
@@ -14,6 +15,7 @@ namespace OpenNefia.Content
         {
             IoCManager.Register<IPlayerQuery, PlayerQuery>();
             IoCManager.Register<IMainTitleLogic, MainTitleLogic>();
+            IoCManager.Register<ICharaMakeLogic, CharaMakeLogic>();
             IoCManager.Register<IFieldLayer, FieldLayer>();
             IoCManager.Register<IHudLayer, HudLayer>();
             IoCManager.Register<IReplLayer, ReplLayer>();

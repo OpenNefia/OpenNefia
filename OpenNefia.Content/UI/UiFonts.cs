@@ -18,6 +18,7 @@ namespace OpenNefia.Content.UI
 
         public static readonly FontSpec WindowTitle = new(15, 14, color: UiColors.TextWhite, bgColor: UiColors.TextBlack);
         public static readonly FontSpec WindowKeyHints = new(12, 10);
+        public static readonly FontSpec WindowPage = new(14, 12);
 
         public static readonly FontSpec TextNote = new(12, 10, style: FontStyle.Bold); // 12 + sizefix - en * 2
 

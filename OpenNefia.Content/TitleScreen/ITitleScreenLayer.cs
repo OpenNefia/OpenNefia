@@ -7,6 +7,7 @@ namespace OpenNefia.Content.TitleScreen
     {
         ReturnToTitle,
         StartGame,
+        Generate,
         Quit
     }
 

@@ -133,6 +133,15 @@ namespace OpenNefia.Core.UserInterface
             }
         }
 
+        public UiResult<TResult> Query<TResult, TLayer, TArgs>(IUiLayerWithResult<TArgs, TResult> layer, TArgs args)
+            where TLayer : IUiLayerWithResult<TArgs, TResult>
+            where TResult : class
+        {
+                EntitySystem.InjectDependencies(layer);
+                layer.Initialize(args);
+                return Query(layer);
+        }
+
         public UiResult<TResult> Query<TArgs, TResult>(IUiLayerWithResult<TArgs, TResult> layer) 
             where TResult : class
         {

@@ -16,6 +16,7 @@ using OpenNefia.Content.EntityGen;
 using static OpenNefia.Content.Prototypes.Protos;
 using OpenNefia.Core.ContentPack;
 using OpenNefia.Content.Skills;
+using OpenNefia.Content.CharaMake;
 
 namespace OpenNefia.Content.TitleScreen
 {
@@ -63,6 +64,9 @@ namespace OpenNefia.Content.TitleScreen
                                 break;
                             case TitleScreenAction.StartGame:
                                 StartGame();
+                                break;
+                            case TitleScreenAction.Generate:
+                                CreateChar();
                                 break;
                             case TitleScreenAction.Quit:
                                 break;
@@ -113,6 +117,12 @@ namespace OpenNefia.Content.TitleScreen
             
             // TODO: flush maps, reset max map/entity IDs here
             // new saves should always start from entity 0
+        }
+
+        private void CreateChar()
+        {
+            var creatChar = IoCManager.Resolve<ICharaMakeLogic>();
+            creatChar.RunCreateChar();
         }
 
         private IMap InitMap()
