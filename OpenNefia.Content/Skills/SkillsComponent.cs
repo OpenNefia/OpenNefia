@@ -60,6 +60,17 @@ namespace OpenNefia.Content.Skills
         [DataField]
         public Dictionary<PrototypeId<SkillPrototype>, LevelAndPotential> Skills { get; } = new();
 
+        public LevelAndPotential Ensure(PrototypeId<SkillPrototype> protoId)
+        {
+            if (Skills.TryGetValue(protoId, out var level))
+                return level;
+
+            return new LevelAndPotential()
+            {
+                Level = 0
+            };
+        }
+
         public bool TryGetKnown(PrototypeId<SkillPrototype> protoId, [NotNullWhen(true)] out LevelAndPotential? level)
         {
             if (!Skills.TryGetValue(protoId, out level))

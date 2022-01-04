@@ -330,7 +330,6 @@ namespace OpenNefia.Content.CommandLine
 
         private YamlMappingNode MakeMapEntity(HspMapIdx idx)
         {
-
             var mapEntity = new YamlMappingNode();
             mapEntity.Add(MapLoadConstants.Entities_Uid, MapEntityUid.ToString());
 

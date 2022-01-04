@@ -99,7 +99,7 @@ namespace OpenNefia.Content.GameObjects
 
         public bool ThrowEntity(EntityUid source, EntityUid throwing, MapCoordinates coords)
         {
-            if (!_mapManager.MapExists(coords.MapId) 
+            if (!_mapManager.MapIsLoaded(coords.MapId) 
                 || !EntityManager.IsAlive(source) 
                 || !EntityManager.IsAlive(throwing))
                 return false;

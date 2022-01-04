@@ -17,7 +17,7 @@ namespace OpenNefia.Content.FieldMap
     [ImplicitDataDefinitionForInheritors]
     public interface IMapGenerator
     {
-        MapId? Generate(MapId? mapId, MapGeneratorOptions opts);
+        IMap? Generate(MapGeneratorOptions opts);
     }
 
     public class MapGeneratorOptions
@@ -66,11 +66,11 @@ namespace OpenNefia.Content.FieldMap
         [DataField]
         public PrototypeId<FieldTypePrototype> FieldMap { get; set; } = Protos.FieldMap.Plains;
 
-        public MapId? Generate(MapId? mapId, MapGeneratorOptions opts)
+        public IMap? Generate(MapGeneratorOptions opts)
         {
             var proto = _prototypeManager.Index(FieldMap);
 
-            var map = _mapManager.CreateMap(opts.Width, opts.Height, mapId);
+            var map = _mapManager.CreateMap(opts.Width, opts.Height);
             map.Clear(proto.DefaultTile);
 
             foreach (var tile in proto.Tiles)
@@ -83,7 +83,7 @@ namespace OpenNefia.Content.FieldMap
 
             // TODO create_junk_items()
 
-            return map.Id;
+            return map;
         }
 
         public static void SprayTile(IMap map, PrototypeId<TilePrototype> tile, int density,

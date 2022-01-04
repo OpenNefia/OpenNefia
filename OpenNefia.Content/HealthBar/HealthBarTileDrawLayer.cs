@@ -19,7 +19,6 @@ namespace OpenNefia.Content.VanillaAI
         [Dependency] private readonly ICoords _coords = default!;
         [Dependency] private readonly IEntityManager _entMan = default!;
         [Dependency] private readonly IGameSessionManager _gameSession = default!;
-        [Dependency] private readonly IPartySystem _parties = default!;
         [Dependency] private readonly IVisibilitySystem _visibility = default!;
 
         private IAssetInstance AssetHPBarAlly = default!;

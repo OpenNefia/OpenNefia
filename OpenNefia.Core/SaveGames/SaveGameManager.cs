@@ -82,7 +82,7 @@ namespace OpenNefia.Core.SaveGames
 
         /// <summary>
         /// Versions of loaded content assemblies. 
-        /// This is a mapping from { strongAssemblyName -> version }.
+        /// This is a mapping of { strongAssemblyName -> version }.
         /// </summary>
         public IReadOnlyDictionary<string, Version> AssemblyVersions => _assemblyVersions;
 

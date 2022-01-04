@@ -116,14 +116,24 @@ namespace OpenNefia.Content.TitleScreen
         {
             var mapId = _mapManager.GetFreeMapId();
             var map = _mapLoader.LoadBlueprint(mapId, new ResourcePath("/Maps/LecchoTorte/Test.yml"));
+            var entGen = EntitySystem.Get<IEntityGen>();
 
-            var player = EntitySystem.Get<IEntityGen>().SpawnEntity(Chara.Sailor, map.AtPos(2, 2))!;
+            var player = entGen.SpawnEntity(Chara.Sailor, map.AtPos(2, 2))!;
             player.AddComponent<PlayerComponent>();
             _gameSessionManager.Player = player;
 
+            foreach (var tile in map.AllTiles)
+            {
+                for (int i = 0; i < 30; i++)
+                {
+                    entGen.SpawnEntity(Item.Aloe, tile.MapPosition);
+                }
+                EntitySystem.Get<IStackSystem>().TryStackAtPos(tile.MapPosition);
+            }
+
             var skills = _entityManager.EnsureComponent<SkillsComponent>(player.Uid);
-            skills.Skills[Skill.StatConstitution].Level = 200;
-            skills.Skills[Skill.StatLife].Level = 200;
+            skills.Ensure(Skill.StatConstitution).Level = 200;
+            skills.Ensure(Skill.StatLife).Level = 200;
             EntitySystem.Get<IRefreshSystem>().Refresh(player.Uid);
             EntitySystem.Get<SkillsSystem>().HealToMax(player.Uid);
 

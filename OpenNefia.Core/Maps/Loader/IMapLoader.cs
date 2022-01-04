@@ -1,6 +1,7 @@
 ﻿using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.SaveGames;
 using OpenNefia.Core.Utility;
+using System.Diagnostics.CodeAnalysis;
 
 namespace OpenNefia.Core.Maps
 {
@@ -31,7 +32,7 @@ namespace OpenNefia.Core.Maps
         /// <param name="mapId">ID of the map to create and load into.</param>
         /// <param name="filepath">Path of the blueprint YAML file under /UserData or a resource root.</param>
         /// <returns></returns>
-        IMap LoadBlueprint(MapId? mapId, ResourcePath filepath);
+        IMap LoadBlueprint(MapId mapId, ResourcePath filepath);
 
         /// <summary>
         /// Loads a blueprint from a YAML stream.
@@ -39,7 +40,7 @@ namespace OpenNefia.Core.Maps
         /// <param name="mapId">ID of the map to create and load into.</param>
         /// <param name="yamlStream">Text stream containing YAML content.</param>
         /// <returns></returns>
-        IMap LoadBlueprint(MapId? mapId, TextReader yamlStream);
+        IMap LoadBlueprint(MapId mapId, TextReader yamlStream);
 
         /// <summary>
         /// Saves a map to a save file.
@@ -55,5 +56,12 @@ namespace OpenNefia.Core.Maps
         /// <param name="save">The save file to load from.</param>
         /// <exception cref="FileNotFoundException">If the map does not exist in the save.</exception>
         IMap LoadMap(MapId mapId, ISaveGameHandle save);
+
+        bool TryLoadMap(MapId mapId, ISaveGameHandle save, [NotNullWhen(true)] out IMap? map);
+
+        /// <summary>
+        /// Returns true if the map with this ID exists in the save file.
+        /// </summary>
+        bool MapExistsInSave(MapId id, ISaveGameHandle save);
     }
 }

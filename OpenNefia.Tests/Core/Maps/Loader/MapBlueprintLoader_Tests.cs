@@ -54,7 +54,7 @@ namespace OpenNefia.Tests.Core.Maps.Loader
 ";
 
         [OneTimeSetUp]
-        public void Setup()
+        public void OneTimeSetup()
         {
             var compFactory = IoCManager.Resolve<IComponentFactory>();
             compFactory.RegisterClass<MapDeserializeTestComponent>();
@@ -75,6 +75,16 @@ namespace OpenNefia.Tests.Core.Maps.Loader
 
             var tileDefMan = IoCManager.Resolve<ITileDefinitionManagerInternal>();
             tileDefMan.RegisterAll();
+        }
+
+        [SetUp]
+        public void Setup()
+        {
+            var mapMan = IoCManager.Resolve<IMapManagerInternal>();
+            mapMan.FlushMaps();
+
+            var entMan = IoCManager.Resolve<IEntityManagerInternal>();
+            entMan.FlushEntities();
         }
 
         /// <summary>
@@ -218,6 +228,7 @@ entities:
             var mapLoader = IoCManager.Resolve<IMapLoader>();
 
             var map = mapMan.CreateMap(50, 50);
+            var mapId = map.Id;
             var mapEntId = map.MapEntityUid;
 
             var entity = entMan.SpawnEntity(new("MapDeserializeTest"), map.AtPos(Vector2i.One));
@@ -233,11 +244,18 @@ entities:
 
             using var save = new TempSaveGameHandle();
 
-            mapLoader.SaveMap(map.Id, save);
-            map = mapLoader.LoadMap(map.Id, save);
+            mapLoader.SaveMap(mapId, save);
+            mapMan.UnloadMap(mapId);
+            map = mapLoader.LoadMap(mapId, save);
 
-            Assert.That(map.MapEntityUid, Is.EqualTo(mapEntId));
-            Assert.That(entMan.EntityExists(entityUid), Is.True);
+            Assert.Multiple(() =>
+            {
+                Assert.That(map.Id, Is.EqualTo(mapId));
+                Assert.That(map.MapEntityUid, Is.EqualTo(mapEntId));
+                Assert.That(mapMan.MapIsLoaded(map.Id), Is.True);
+                Assert.That(mapMan.GetMap(mapId), Is.EqualTo(map));
+                Assert.That(entMan.EntityExists(entityUid), Is.True);
+            });
 
             entity = entMan.GetEntity(entityUid);
 

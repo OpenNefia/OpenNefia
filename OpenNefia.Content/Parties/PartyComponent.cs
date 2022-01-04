@@ -29,7 +29,7 @@ namespace OpenNefia.Content.Parties
         /// Party leader entity that is leading this entity, if any.
         /// </summary>
         /// <remarks>
-        /// The leader themselves also count.
+        /// The leader counts as leading themselves.
         /// </remarks>
         [DataField]
         public EntityUid? Leader { get; set; }

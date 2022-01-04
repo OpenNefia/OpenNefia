@@ -272,6 +272,9 @@ namespace OpenNefia.Core.Maps
             mapComponent.MapId = _targetMapId;
             mapComponent.Metadata = _mapMetadata;
             _targetMapId = _mapManager.RegisterMap(MapGrid!, _targetMapId, mapEntityInBlueprint);
+            
+            // TODO this is pretty hackish. Should there be an IMapInternal?
+            MapManager.SetMapGridIds(MapGrid!, _targetMapId, mapEntityInBlueprint);
         }
 
         private void FinishEntitiesInitialization()

@@ -72,13 +72,13 @@ namespace OpenNefia.Content.GameObjects
                 FieldMap = GetFieldMapFromStoodTile(stoodTile)
             };
             IoCManager.InjectDependencies(gen);
-            var fieldMapId = gen.Generate(null, new MapGeneratorOptions()
+            var fieldMap = gen.Generate(new MapGeneratorOptions()
             {
                 Width = 34,
                 Height = 22
             });
 
-            if (fieldMapId == null)
+            if (fieldMap == null)
             {
                 Logger.WarningS("sys.field", "Map generation failed");
                 return TurnResult.Failed;
@@ -86,12 +86,12 @@ namespace OpenNefia.Content.GameObjects
 
             var entrance = new MapEntrance()
             {
-                DestinationMapId = fieldMapId.Value,
+                DestinationMapId = fieldMap.Id,
                 StartLocation = new CenterMapLocation()
             };
 
             var turnResult = _mapEntrances.UseMapEntrance(user, entrance);
-            _mapEntrances.SetPreviousMap(fieldMapId.Value, prevCoords);
+            _mapEntrances.SetPreviousMap(fieldMap.Id, prevCoords);
 
             return turnResult;
         }

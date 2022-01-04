@@ -380,7 +380,7 @@ namespace OpenNefia.Core.GameObjects
             var mapPos = MapPosition;
 
             Entity newMapEntity;
-            if (_mapManager.MapExists(mapPos.MapId))
+            if (_mapManager.MapIsLoaded(mapPos.MapId))
             {
                 newMapEntity = _mapManager.GetMapEntity(mapPos.MapId);
             }
