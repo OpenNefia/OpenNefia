@@ -47,6 +47,7 @@ namespace OpenNefia.Content.UI.Element
             this._font = font ?? throw new ArgumentNullException(nameof(font));
             this.Color = font.Color;
             this.BgColor = font.BgColor;
+            this.BakedText = Love.Graphics.NewText(Font.LoveFont, string.Empty);
             this.RebakeText();
         }
 
@@ -54,8 +55,7 @@ namespace OpenNefia.Content.UI.Element
 
         public void RebakeText()
         {
-            GraphicsEx.SetColor(this.Color);
-            this.BakedText = Love.Graphics.NewText(this.Font.LoveFont, this.Text);
+            this.BakedText.Set(this._text, this.Color);
             this.SetPreferredSize();
         }
 
