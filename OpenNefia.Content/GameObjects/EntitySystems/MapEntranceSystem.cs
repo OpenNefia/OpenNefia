@@ -27,9 +27,8 @@ namespace OpenNefia.Content.GameObjects
             // where the area will generate/store a map for each floor.
             if (mapEntrance.Entrance.DestinationMapId == null)
             {
-                var freeMapId = _mapManager.GetFreeMapId();
                 var proto = mapEntrance.MapPrototype.ResolvePrototype();
-                mapEntrance.Entrance.DestinationMapId = _mapLoader.LoadBlueprint(freeMapId, proto.BlueprintPath).Id;
+                mapEntrance.Entrance.DestinationMapId = _mapLoader.LoadBlueprint(proto.BlueprintPath).Id;
             }
 
             return UseMapEntrance(user, mapEntrance.Entrance);
@@ -64,6 +63,8 @@ namespace OpenNefia.Content.GameObjects
         /// </summary>
         private bool TryMapLoad(MapId mapToLoad, [NotNullWhen(true)] out IMap? map)
         {
+            Logger.InfoS("map.entrance", $"Attempting to load map {mapToLoad} from map entrance.");
+
             // See if this map is still in memory and hasn't been flushed yet.
             if (_mapManager.TryGetMap(mapToLoad, out map))
                 return true;

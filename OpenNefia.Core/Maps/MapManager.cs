@@ -18,6 +18,19 @@ namespace OpenNefia.Core.Maps
         MapId HighestMapId { get; set; }
 
         /// <summary>
+        /// Registers a map loaded from a save.
+        /// </summary>
+        /// <remarks>
+        /// Do **NOT** use this function to manually register new maps! This bypasses 
+        /// the tracking for free map IDs, since the assumption is that the passed map
+        /// previously existed in memory at some point but was unloaded.
+        /// </remarks>
+        /// <param name="map">The map loaded from a save.</param>
+        /// <param name="mapId">The map ID this map was registered with at the time of saving.</param>
+        /// <param name="mapEntityUid">The map entity UID to associate with this map, also loaded from a save.</param>
+        void RegisterMap(IMap map, MapId mapId, EntityUid mapEntityUid);
+
+        /// <summary>
         /// Clears the active map list.
         /// </summary>
         /// <remarks>
@@ -49,9 +62,11 @@ namespace OpenNefia.Core.Maps
         }
 
         /// <inheritdoc/>
-        public MapId GetFreeMapId()
+        public MapId GetFreeMapIdAndIncrement()
         {
-            return new MapId(HighestMapId.Value + 1);
+            var newId = new MapId(HighestMapId.Value + 1);
+            HighestMapId = newId;
+            return newId;
         }
 
         /// <inheritdoc/>
@@ -66,7 +81,7 @@ namespace OpenNefia.Core.Maps
         /// <inheritdoc/>
         public IMap CreateMap(int width, int height)
         {
-            var actualID = AllocFreeMapId(null);
+            var actualID = GetFreeMapIdAndIncrement();
 
             var map = new Map(width, height);
             _maps.Add(actualID, map);
@@ -86,7 +101,7 @@ namespace OpenNefia.Core.Maps
         }
 
         /// <inheritdoc/>
-        public MapId RegisterMap(IMap map, MapId mapId, EntityUid mapEntityUid)
+        public void RegisterMap(IMap map, MapId mapId, EntityUid mapEntityUid)
         {
             if (mapId == MapId.Nullspace)
             {
@@ -105,38 +120,7 @@ namespace OpenNefia.Core.Maps
             _maps[mapId] = map;
 
             SetMapEntity(mapId, mapEntityUid);
-
-            return mapId;
-        }
-
-        private MapId AllocFreeMapId(MapId? mapId)
-        {
-            if (mapId == MapId.Nullspace)
-            {
-                throw new ArgumentException("Null map cannot be created.", nameof(mapId));
-            }
-
-            MapId actualID;
-            if (mapId != null)
-            {
-                actualID = mapId.Value;
-            }
-            else
-            {
-                actualID = GetFreeMapId();
-            }
-
-            if (actualID.Value <= HighestMapId.Value)
-            {
-                throw new InvalidOperationException($"A map with ID {actualID} already exists");
-            }
-
-            if (HighestMapId.Value < actualID.Value)
-            {
-                HighestMapId = actualID;
-            }
-
-            return actualID;
+            //HighestMapId = 99999;
         }
 
         private EntityUid RebindMapEntity(MapId actualID, IMap map)

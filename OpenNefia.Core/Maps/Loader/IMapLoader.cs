@@ -32,7 +32,7 @@ namespace OpenNefia.Core.Maps
         /// <param name="mapId">ID of the map to create and load into.</param>
         /// <param name="filepath">Path of the blueprint YAML file under /UserData or a resource root.</param>
         /// <returns></returns>
-        IMap LoadBlueprint(MapId mapId, ResourcePath filepath);
+        IMap LoadBlueprint(ResourcePath filepath);
 
         /// <summary>
         /// Loads a blueprint from a YAML stream.
@@ -40,7 +40,7 @@ namespace OpenNefia.Core.Maps
         /// <param name="mapId">ID of the map to create and load into.</param>
         /// <param name="yamlStream">Text stream containing YAML content.</param>
         /// <returns></returns>
-        IMap LoadBlueprint(MapId mapId, TextReader yamlStream);
+        IMap LoadBlueprint(TextReader yamlStream);
 
         /// <summary>
         /// Saves a map to a save file.

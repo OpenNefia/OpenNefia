@@ -111,8 +111,7 @@ entities: []
             resourceManager.MountString("/TestMap1.yml", mapData1);
 
             var mapLoad = IoCManager.Resolve<IMapLoader>();
-            var mapId = mapMan.GetFreeMapId();
-            Assert.Throws<InvalidDataException>(() => mapLoad.LoadBlueprint(mapId, new ResourcePath("/TestMap1.yml")));
+            Assert.Throws<InvalidDataException>(() => mapLoad.LoadBlueprint(new ResourcePath("/TestMap1.yml")));
         }
 
         /// <summary>
@@ -145,8 +144,7 @@ entities:
             resourceManager.MountString("/TestMap2.yml", mapData2);
 
             var mapLoad = IoCManager.Resolve<IMapLoader>();
-            var mapId = mapMan.GetFreeMapId();
-            Assert.Throws<InvalidDataException>(() => mapLoad.LoadBlueprint(mapId, new ResourcePath("/TestMap2.yml")));
+            Assert.Throws<InvalidDataException>(() => mapLoad.LoadBlueprint(new ResourcePath("/TestMap2.yml")));
         }
 
         [Test]
@@ -189,8 +187,7 @@ entities:
             resourceManager.MountString("/TestMap.yml", mapData);
 
             var mapLoad = IoCManager.Resolve<IMapLoader>();
-            var mapId = mapMan.GetFreeMapId();
-            var map = mapLoad.LoadBlueprint(mapId, new ResourcePath("/TestMap.yml"));
+            var map = mapLoad.LoadBlueprint(new ResourcePath("/TestMap.yml"));
 
             Assert.That(map, Is.Not.Null);
 

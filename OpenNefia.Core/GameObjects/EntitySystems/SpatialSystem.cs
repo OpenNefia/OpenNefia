@@ -61,6 +61,10 @@ namespace OpenNefia.Core.GameObjects
             if (!_mapManager.TryGetMap(coords.MapId, out var map))
                 return;
 
+            // The map entity shouldn't be spatially tracked.
+            if (entity == map.MapEntityUid)
+                return;
+
             // NOTE: Only track entities directly in the map for now.
             // This does not track children in containers.
             if (spatial.ParentUid != map.MapEntityUid)
@@ -76,6 +80,15 @@ namespace OpenNefia.Core.GameObjects
         private void RemoveEntityIndex(EntityUid entity, MapCoordinates coords, SpatialComponent? spatial = null)
         {
             if (!_mapManager.TryGetMap(coords.MapId, out var map))
+                return;
+
+            // We might be trying to delete the map/map entity itself from the entity
+            // terminating event, so don't proceed if the map is dead.
+            if (!EntityManager.IsAlive(map.MapEntityUid))
+                return;
+
+            // The map entity shouldn't be spatially tracked.
+            if (entity == map.MapEntityUid)
                 return;
 
             // NOTE: Only track entities directly in the map for now.
@@ -98,7 +111,6 @@ namespace OpenNefia.Core.GameObjects
 
         private void HandleEntityTerminating(EntityUid uid, SpatialComponent spatial, ref EntityTerminatingEvent args)
         {
-            Logger.Info($"TERM {uid}");
             RemoveEntityIndex(uid, spatial.MapPosition, spatial);
             RefreshTileOfEntity(uid, spatial);
         }
