@@ -7,6 +7,7 @@ using OpenNefia.Core.Utility;
 using OpenNefia.Core.Log;
 using OpenNefia.Core.Game;
 using OpenNefia.Core.SaveGames;
+using OpenNefia.Content.GameObjects;
 
 namespace OpenNefia.Content.Maps
 {

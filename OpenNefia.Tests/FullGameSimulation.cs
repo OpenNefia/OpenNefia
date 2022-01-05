@@ -152,6 +152,7 @@ namespace OpenNefia.Tests
 
             var compFactory = container.Resolve<IComponentFactory>();
             compFactory.DoDefaultRegistrations();
+            compFactory.DoAutoRegistrations();
 
             _regDelegate?.Invoke(compFactory);
 
