@@ -8,7 +8,7 @@ using OpenNefia.Core.Log;
 using OpenNefia.Core.Game;
 using OpenNefia.Core.SaveGames;
 
-namespace OpenNefia.Content.GameObjects
+namespace OpenNefia.Content.Maps
 {
     public class MapTransferSystem : EntitySystem
     {

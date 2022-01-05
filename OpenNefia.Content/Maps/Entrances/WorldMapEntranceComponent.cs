@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OpenNefia.Content.GameObjects
+namespace OpenNefia.Content.Maps
 {
     [RegisterComponent]
     public class WorldMapEntranceComponent : Component
