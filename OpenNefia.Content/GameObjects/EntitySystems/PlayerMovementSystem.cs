@@ -1,14 +1,14 @@
 ﻿using OpenNefia.Content.DisplayName;
-using OpenNefia.Content.GameObjects;
 using OpenNefia.Content.GameObjects.Pickable;
 using OpenNefia.Content.Logic;
+using OpenNefia.Content.Maps;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Locale;
 using OpenNefia.Core.Maps;
 using System.Text;
 
-namespace OpenNefia.Content.Maps
+namespace OpenNefia.Content.GameObjects
 {
     public class PlayerMovementSystem : EntitySystem
     {

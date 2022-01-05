@@ -1,7 +1,6 @@
 ﻿using OpenNefia.Content.DisplayName;
 using OpenNefia.Content.Factions;
 using OpenNefia.Content.Logic;
-using OpenNefia.Content.Maps;
 using OpenNefia.Content.Prototypes;
 using OpenNefia.Content.Skills;
 using OpenNefia.Core.Audio;
