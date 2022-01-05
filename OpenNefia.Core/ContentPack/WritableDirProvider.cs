@@ -76,12 +76,12 @@ namespace OpenNefia.Core.ContentPack
 
             foreach (var file in files)
             {
-                resFiles.Add(new ResourcePath(file.Substring(rootLen), "\\"));
+                resFiles.Add(new ResourcePath(file.Substring(rootLen), ResourcePath.SYSTEM_SEPARATOR));
             }
 
             foreach (var dir in dirs)
             {
-                resDirs.Add(new ResourcePath(dir.Substring(rootLen), "\\"));
+                resDirs.Add(new ResourcePath(dir.Substring(rootLen), ResourcePath.SYSTEM_SEPARATOR));
             }
 
             return (resFiles, resDirs);
