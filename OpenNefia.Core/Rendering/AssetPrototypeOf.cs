@@ -10,7 +10,7 @@ namespace OpenNefia.Core.Rendering
         public static AssetPrototypeId MinimapMarkerPlayer = new(nameof(MinimapMarkerPlayer));
         public static AssetPrototypeId MapNameIcon = new(nameof(MapNameIcon));
         public static AssetPrototypeId HudBar = new(nameof(HudBar));
-        public static AssetPrototypeId SkillIcons = new(nameof(SkillIcons));
+        public static AssetPrototypeId AttributeIcons = new(nameof(AttributeIcons));
         public static AssetPrototypeId HudSkillIcons = new(nameof(HudSkillIcons));
         public static AssetPrototypeId MessageWindow = new(nameof(MessageWindow));
         public static AssetPrototypeId GoldCoin = new(nameof(GoldCoin));

@@ -23,7 +23,7 @@
     region: "0, 440, 192, 24"
 
 - type: Asset
-  id: SkillIcons
+  id: AttributeIcons
   image:
     filepath: /Graphic/Elona/item.bmp
     region: "0, 672, 528, 48"

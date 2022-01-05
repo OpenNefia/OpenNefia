@@ -23,8 +23,8 @@ namespace OpenNefia.Content.UI.Element
             }
         }
 
-        private string _text;
-        public string Text
+        protected string _text;
+        public virtual string Text
         {
             get => _text;
             set

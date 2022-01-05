@@ -14,6 +14,9 @@ namespace OpenNefia.Content.Skills
         [DataField("id", required: true)]
         public string ID { get; } = default!;
 
+        [DataField]
+        public PrototypeId<SkillPrototype>? RelatedSkill { get; }
+
         /// <inheritdoc/>
         [DataField]
         [NeverPushInheritance]
