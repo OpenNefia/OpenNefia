@@ -157,9 +157,17 @@ binds:
   type: State
   key: NumpadPlus
   canFocus: true
+- function: UINextPage
+  type: State
+  key: Right
+  canFocus: true
 - function: UIPreviousPage
   type: State
   key: NumpadMinus
+  canFocus: true
+- function: UIPreviousPage
+  type: State
+  key: Left
   canFocus: true
 - function: Elona.UIIdentify
   type: State

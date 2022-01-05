@@ -14,13 +14,14 @@ namespace OpenNefia.Content.UI.Element
         public UiWrapText(int maxWidth, FontSpec font, string text = "") : base(font, text)
         {
             MaxWidth = maxWidth;
+            Text = text;
         }
 
-        public void Wrap()
-        {
-            var width = Font.LoveFont.GetWidth(Text);
-            Text = WordWrap(Text, MaxWidth);
-            SetPreferredSize();
+
+        public override string Text 
+        { 
+            get => base.Text; 
+            set => base.Text = WordWrap(value, MaxWidth); 
         }
 
 
@@ -28,6 +29,9 @@ namespace OpenNefia.Content.UI.Element
 
         private string WordWrap(string str, int width)
         {
+            if (width <= 0)
+                return base.Text;
+
             string[] words = Explode(str, splitChars);
 
             int curLineLength = 0;

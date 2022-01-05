@@ -53,6 +53,15 @@ namespace OpenNefia.Content.UI.Element.Containers
                         if (elem.Element.Height + YSpace > yMax)
                             yMax = elem.Element.Height + YSpace;
                         break;
+
+                    case LayoutType.XMin:
+                        if (xMax < elem.Offset)
+                            xMax = elem.Offset + XSpace;
+                        break;
+                    case LayoutType.YMin:
+                        if (yMax < elem.Offset)
+                            yMax = elem.Offset + YSpace;
+                        break;
                 }
             }
             foreach (var elem in UiElements)

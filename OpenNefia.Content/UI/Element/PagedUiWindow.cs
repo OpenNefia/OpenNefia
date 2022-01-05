@@ -1,4 +1,5 @@
 ﻿using OpenNefia.Content.UI.Element.List;
+using OpenNefia.Core.Audio;
 using OpenNefia.Core.Locale;
 using OpenNefia.Core.UI.Element;
 using System;
@@ -16,7 +17,7 @@ namespace OpenNefia.Content.UI.Element
         private IEnumerable<UiElement> PagedElements;
         private int ItemsPerPage;
         private int CurrentPage;
-        public int PageCount => (PagedElements.Count() / Math.Max(1, ItemsPerPage)) + 1;
+        public int PageCount => (PagedElements.Count() / Math.Max(1, ItemsPerPage));
 
         public delegate void PageChanged();
         public event PageChanged? OnPageChanged;
@@ -31,7 +32,7 @@ namespace OpenNefia.Content.UI.Element
         {
             PagedElements = elements;
             ItemsPerPage = itemsPerPage;
-            ChangePage(1);
+            ChangePage(0);
         }
 
         public IEnumerable<UiElement> GetCurrentElements()
@@ -58,6 +59,7 @@ namespace OpenNefia.Content.UI.Element
 
         public void ChangePage(int page)
         {
+            Sounds.Play(Prototypes.Protos.Sound.Pop1);
             CurrentPage = page;
             UpdatePageText();
             OnPageChanged?.Invoke();
@@ -66,7 +68,7 @@ namespace OpenNefia.Content.UI.Element
         private void UpdatePageText()
         {
             //Loc.GetString("WindowPage")
-            PageText.Text = PageCount > 1 ? $"Page.{CurrentPage}/{PageCount}" : string.Empty;
+            PageText.Text = PageCount > 1 ? $"Page.{CurrentPage + 1}/{PageCount + 1}" : string.Empty;
         }
 
         public override void SetPosition(int x, int y)
