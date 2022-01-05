@@ -25,7 +25,7 @@ namespace OpenNefia.Tests
 
             RegisterIoC();
 
-            var assemblies = new List<Assembly>(4);
+            var assemblies = new List<Assembly>();
 
             assemblies.Add(typeof(OpenNefia.Core.Engine).Assembly);
             assemblies.Add(Assembly.GetExecutingAssembly());

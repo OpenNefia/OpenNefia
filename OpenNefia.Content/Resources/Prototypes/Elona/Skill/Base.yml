@@ -57,6 +57,7 @@
 - id: Elona.Axe
   ordering: 115000
   type: Skill
+  relatedAttribute: Elona.StatStrength
 
 - id: Elona.Blunt
   ordering: 116000

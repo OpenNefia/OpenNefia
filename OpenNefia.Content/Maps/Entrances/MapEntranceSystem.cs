@@ -9,7 +9,7 @@ using OpenNefia.Core.SaveGames;
 using OpenNefia.Core.Utility;
 using System.Diagnostics.CodeAnalysis;
 
-namespace OpenNefia.Content.GameObjects
+namespace OpenNefia.Content.Maps
 {
     public class MapEntranceSystem : EntitySystem
     {

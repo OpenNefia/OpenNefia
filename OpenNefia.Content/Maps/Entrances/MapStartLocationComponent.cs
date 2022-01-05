@@ -1,8 +1,7 @@
-﻿using OpenNefia.Content.Maps;
-using OpenNefia.Core.GameObjects;
+﻿using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Serialization.Manager.Attributes;
 
-namespace OpenNefia.Content.CommandLine
+namespace OpenNefia.Content.Maps
 {
     [RegisterComponent]
     public class MapStartLocationComponent : Component

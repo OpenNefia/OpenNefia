@@ -8,17 +8,13 @@ using System.Reflection;
 
 namespace OpenNefia.Content.Tests
 {
-    public class ContentUnitTest : OpenNefiaUnitTest
+    public partial class ContentUnitTest : OpenNefiaUnitTest
     {
         protected override void OverrideIoC()
         {
             base.OverrideIoC();
 
-            ContentIoC.Register();
-
-            IoCManager.RegisterInstance<IFieldLayer>(new Mock<IFieldLayer>().Object, true);
-            IoCManager.RegisterInstance<IHudLayer>(new Mock<IHudLayer>().Object, true);
-            IoCManager.RegisterInstance<IReplLayer>(new Mock<IReplLayer>().Object, true);
+            RegisterIoC();
         }
 
         protected override Assembly[] GetContentAssemblies()

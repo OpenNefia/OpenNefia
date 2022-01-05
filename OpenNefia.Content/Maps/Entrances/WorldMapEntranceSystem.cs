@@ -5,9 +5,9 @@ using OpenNefia.Core.Logic;
 using OpenNefia.Content.Prototypes;
 using OpenNefia.Core.Maps;
 using OpenNefia.Core.Log;
-using OpenNefia.Content.Maps;
+using OpenNefia.Content.GameObjects;
 
-namespace OpenNefia.Content.GameObjects
+namespace OpenNefia.Content.Maps
 {
     public class WorldMapEntranceSystem : EntitySystem
     {
