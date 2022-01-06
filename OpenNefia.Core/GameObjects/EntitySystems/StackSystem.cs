@@ -513,7 +513,7 @@ namespace OpenNefia.Core.GameObjects
         /// <typeparam name="T">Type of component that the calling event handler added/set up.</typeparam>
         public void MarkAsCloned<T>() where T: IComponent
         {
-            HandledTypes.Add(ComponentTypeCache<T>.Type);
+            HandledTypes.Add(typeof(T));
         }
     }
 

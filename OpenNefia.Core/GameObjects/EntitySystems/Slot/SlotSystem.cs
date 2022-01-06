@@ -205,7 +205,7 @@ namespace OpenNefia.Core.GameObjects
 
             foreach (var (slotId, reg) in slots.Registrations)
             {
-                if (reg.CompTypes.Contains(ComponentTypeCache<T>.Type))
+                if (reg.CompTypes.Contains(typeof(T)))
                     return slotId;
             }
 
