@@ -11,6 +11,11 @@ using System.Threading.Tasks;
 
 namespace OpenNefia.Content.Maps
 {
+    /// <summary>
+    /// General-purpose map entrance component, shared between world map entrances
+    /// and entities like stairs.
+    /// </summary>
+    [Obsolete("After areas are implemented, replace with world map entrances/stairs with their own MapEntrance")]
     [RegisterComponent]
     public class MapEntranceComponent : Component
     {
