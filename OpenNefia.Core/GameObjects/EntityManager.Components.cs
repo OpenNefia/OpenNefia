@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
+using OpenNefia.Core.Maths;
 using OpenNefia.Core.Utility;
 #if EXCEPTION_TOLERANCE
 using OpenNefia.Core.Exceptions;
@@ -106,10 +107,11 @@ namespace OpenNefia.Core.GameObjects
             if (curLength > index)
                 return;
 
-            var newLength = Math.Max(2, curLength) * 2;
-            DebugTools.Assert(index < newLength,
-                "After resize, _entTraitDictIndex was still too small. " +
-                "This can only happen if EnsureEntTraitIndexCapacity was not called with single increments.");
+            // The array indices are static across all EntityManager instances so they
+            // won't get reset between test runs. So it's possible for a test to suddenly
+            // request a component type with large index like 88 without any array capacity
+            // being allocated yet. That's why "index" has to be used instead of "curLength".
+            var newLength = MathHelper.NextPowerOfTwo(Math.Max(8, index));
             Array.Resize(ref _entTraitArray, newLength);
         }
 
@@ -125,7 +127,6 @@ namespace OpenNefia.Core.GameObjects
             var components = GetComponents(uid)
                          .OrderBy(x => x switch
                           {
-
                               SpatialComponent _ => 0,
                               _ => int.MaxValue
                           });
