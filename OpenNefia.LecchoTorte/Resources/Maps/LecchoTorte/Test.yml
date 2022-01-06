@@ -49,24 +49,40 @@ entities:
   - type: Spatial
     parent: 0
     pos: 2,2
+  - type: CurseState
+    curseState: Doomed
+  - type: Identify
+    identifyState: Full
 - uid: 6
   protoId: Elona.ItemPotionOfCureMinorWound
   components:
   - type: Spatial
     parent: 0
     pos: 3,2
+  - type: CurseState
+    curseState: Cursed
+  - type: Identify
+    identifyState: Full
 - uid: 7
   protoId: Elona.ItemPotionOfCureMinorWound
   components:
   - type: Spatial
     parent: 0
     pos: 4,2
+  - type: CurseState
+    curseState: Normal
+  - type: Identify
+    identifyState: Full
 - uid: 8
   protoId: Elona.ItemPotionOfCureMinorWound
   components:
   - type: Spatial
     parent: 0
     pos: 5,2
+  - type: CurseState
+    curseState: Blessed
+  - type: Identify
+    identifyState: Full
 - uid: 9
   protoId: Elona.ItemComputer
   components:
