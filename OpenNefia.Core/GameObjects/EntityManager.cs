@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using Microsoft.Web.XmlTransform;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Maps;
 using OpenNefia.Core.Maths;
@@ -203,10 +204,10 @@ namespace OpenNefia.Core.GameObjects
             EventBus.RaiseLocalEvent(uid, ref EntityTerminating, false);
 
             // DeleteEntity modifies our _children collection, we must cache the collection to iterate properly
-            foreach (var childTransform in spatial.Children.ToArray())
+            foreach (var child in spatial._children.ToArray())
             {
                 // Recursion Alert
-                RecursiveDeleteEntity(childTransform.Owner);
+                RecursiveDeleteEntity(child);
             }
 
             // Shut down all components.
