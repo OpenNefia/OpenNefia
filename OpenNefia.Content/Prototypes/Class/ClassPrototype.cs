@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using OpenNefia.Content.Effects;
-using OpenNefia.Content.Prototypes;
+using OpenNefia.Content.Equipment;
 using OpenNefia.Content.Skills;
 using OpenNefia.Core.Serialization.Manager.Attributes;
 

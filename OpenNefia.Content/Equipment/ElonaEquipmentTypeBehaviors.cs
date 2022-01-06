@@ -1,6 +1,6 @@
 ﻿using OpenNefia.Core.GameObjects;
 
-namespace OpenNefia.Content.Prototypes
+namespace OpenNefia.Content.Equipment
 {
     public class WarriorEquipmentTypeBehavior : IEquipmentTypeBehavior
     {
