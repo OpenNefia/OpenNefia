@@ -21,10 +21,14 @@ namespace OpenNefia.Content.CharaMake
         {
             return new List<ICharaMakeLayer>
             {
-                new CharaMakeRaceClassLayer(),
+                new CharaMakeRaceSelectLayer(),
+                new CharaMakeGenderSelectLayer(),
+                new CharaMakeClassSelectLayer(),
+                new CharaMakeAttributeRerollLayer(),
+                // TODO add feat selection
                 new CharaMakeAliasLayer(),
-                new CharaMakeBackgroundLayer(), //forgot past/background was elona+ stuff
-                
+                // TODO add appearance
+                // TODO add character sheet
             };
         }
 
@@ -41,7 +45,7 @@ namespace OpenNefia.Content.CharaMake
                 if (stepIndex >= steps.Count)
                 {
                     //just for testing
-                    Logger.Warning($"Character creation complete, values:" + Environment.NewLine 
+                    Logger.Debug($"Character creation complete, values:" + Environment.NewLine 
                         + string.Join(Environment.NewLine, data.CharData.SelectMany(x => x.Value.Select(y => $"{y.Key}: {y.Value}"))));
 
                     foreach(var creationStep in steps)
@@ -77,7 +81,6 @@ namespace OpenNefia.Content.CharaMake
                         data.CharData[type] = result.Value.Added;
                         stepIndex++;
                         break;
-                        
                 }
             }
         }

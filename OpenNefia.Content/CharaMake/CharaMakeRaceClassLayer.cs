@@ -10,6 +10,7 @@ using OpenNefia.Core.Maths;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Core.UI.Element;
+using OpenNefia.Core.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,11 +20,43 @@ using System.Threading.Tasks;
 namespace OpenNefia.Content.CharaMake
 {
     [Localize("Elona.CharaMake.RaceSelect")]
-    public class CharaMakeRaceClassLayer : CharaMakeLayer
+    public class CharaMakeRaceSelectLayer : CharaMakeRaceClassLayer
+    {
+        public override IEnumerable<RaceClass> GetData()
+        {
+            return _prototypeManager.EnumeratePrototypes<RacePrototype>().Select(x => new RaceClass(x));
+        }
+
+        protected override void Select(RaceClass item)
+        {
+            Finish(new CharaMakeResult(new Dictionary<string, object>
+            {
+                { "race", item.Data }
+            }));
+        }
+    }
+    [Localize("Elona.CharaMake.ClassSelect")]
+    public class CharaMakeClassSelectLayer : CharaMakeRaceClassLayer
+    {
+        public override IEnumerable<RaceClass> GetData()
+        {
+            return _prototypeManager.EnumeratePrototypes<ClassPrototype>().Select(x => new RaceClass(x));
+        }
+
+        protected override void Select(RaceClass item)
+        {
+            Finish(new CharaMakeResult(new Dictionary<string, object>
+            {
+                { "class", item.Data }
+            }));
+        }
+    }
+
+    public abstract class CharaMakeRaceClassLayer : CharaMakeLayer
     {
         public class RaceClass
         {
-            private IPrototype Data;
+            public IPrototype Data;
 
             public RaceClass(IPrototype data)
             {
@@ -59,83 +92,45 @@ namespace OpenNefia.Content.CharaMake
         {
             
             public RaceClassCell(RaceClass wrapper) 
-                : base(wrapper, new UiText(UiFonts.ListTitleScreenText))
+                : base(wrapper, new UiText(UiFonts.ListText))
             {
                 Text = Data.GetString("Name");
             }
         }
 
+        [Dependency] protected readonly IPrototypeManager _prototypeManager = default!;
 
-
-        public class AttributeIcon : UiElement
-        {
-            private readonly Dictionary<string, string> _attributes = new Dictionary<string, string>
-            {
-                { "Elona.StatStrength", "0" },
-                { "Elona.StatConstitution", "1" },
-                { "Elona.StatDexterity", "2" },
-                { "Elona.StatPerception", "3" },
-                { "Elona.StatLearning", "4" },
-                { "Elona.StatWill", "5" },
-                { "Elona.StatMagic", "6" },
-                { "Elona.StatCharisma", "7" }
-
-            };
-            private IAssetInstance AssetAttributeIcons;
-            private string Type;
-
-            public AttributeIcon(string type)
-            {
-                AssetAttributeIcons = Assets.Get(AssetPrototypeOf.AttributeIcons);
-                Type = type;
-            }
-
-            public override void Draw()
-            {
-                base.Draw();
-                GraphicsEx.SetColor(Color.White);
-                _attributes.TryGetValue(Type, out var iconId);
-                AssetAttributeIcons.DrawRegion($"{iconId ?? "2"}", X, Y, centered: true);
-            }
-
-            public override void GetPreferredSize(out Vector2i size)
-            {
-                size = new Vector2i(10, 10);
-            }
-        }
-
-        [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-
-        [Localize] private PagedUiWindow Window;
-        [Localize] private UiTextTopic RaceTopic;
-        [Localize] private UiTextTopic DetailTopic;
-        [Localize] private UiTextTopic AttributeTopic;
-        [Localize] private UiTextTopic SkillTopic;
+        [Localize] protected UiWindow Window;
+        [Localize] protected UiTextTopic RaceTopic;
+        [Localize] protected UiTextTopic DetailTopic;
+        [Localize] protected UiTextTopic AttributeTopic;
+        [Localize] protected UiTextTopic SkillTopic;
         private UiVerticalContainer DetailContainer;
         private UiVerticalContainer SkillContainer;
+        private UiVerticalContainer TrainedSkillContainer;
         private UiWrapText DetailText;
+
+        private UiPageModel<RaceClassCell> PageModel;
 
         private UiGridContainer AttributeContainer;
         private UiList<RaceClass> List;
         private RaceClassCell[] AllData;
 
-        private readonly string[] AttributeIds = new[]
+        //skills that shouldn't show up on the screen at all
+        private readonly string[] SpecialSkillIds = new[]
         {
-            "Elona.StatStrength",
-            "Elona.StatConstitution",
-            "Elona.StatDexterity",
-            "Elona.StatPerception",
-            "Elona.StatLearning",
-            "Elona.StatWill",
-            "Elona.StatMagic",
-            "Elona.StatCharisma"
+            "Elona.StatLife",
+            "Elona.StatMana",
+            "Elona.StatLuck",
+            "Elona.StatSpeed"
         };
         
 
         public CharaMakeRaceClassLayer()
         {
-            Window = new PagedUiWindow();
+            Window = new UiWindow();
             AllData = Array.Empty<RaceClassCell>();
+            PageModel = new UiPageModel<RaceClassCell>();
 
             RaceTopic = new UiTextTopic();
             DetailTopic = new UiTextTopic();
@@ -146,26 +141,32 @@ namespace OpenNefia.Content.CharaMake
 
             DetailText = new UiWrapText(450, UiFonts.ListTitleScreenText);
             DetailContainer.AddElement(DetailText);
-            DetailContainer.AddElement(LayoutType.YMin, 110);
-            DetailContainer.AddElement(AttributeTopic, LayoutType.XOffset, -10);
+            DetailContainer.AddLayout(LayoutType.YMin, 110);
 
-            DetailContainer.AddElement(LayoutType.Spacer, 18);
+            DetailContainer.AddLayout(LayoutType.XOffset, -3);
+            DetailContainer.AddElement(AttributeTopic, LayoutType.XOffset, -7);
+
+            DetailContainer.AddLayout(LayoutType.Spacer, 18);
 
             AttributeContainer = new UiGridContainer(GridType.Horizontal, 3, xCentered: false, xSpace: 50, ySpace: 3);
             DetailContainer.AddElement(AttributeContainer);
 
-            DetailContainer.AddElement(LayoutType.Spacer, 5);
+            DetailContainer.AddLayout(LayoutType.Spacer, 5);
 
-            DetailContainer.AddElement(SkillTopic, LayoutType.XOffset, -10);
+            DetailContainer.AddElement(SkillTopic, LayoutType.XOffset, -7);
             SkillContainer = new UiVerticalContainer();
             DetailContainer.AddElement(SkillContainer);
+
+            TrainedSkillContainer = new UiVerticalContainer();
+            DetailContainer.AddLayout(LayoutType.Spacer, 18);
+            DetailContainer.AddElement(TrainedSkillContainer);
 
             OnKeyBindDown += CharaMakeRaceClassLayer_OnKeyBindDown;
 
             List = new UiList<RaceClass>();
             List.EventOnActivate += (_, args) =>
             {
-                
+                Select(args.SelectedCell.Data);
             };
             List.EventOnSelect += (_, args) =>
             {
@@ -179,18 +180,21 @@ namespace OpenNefia.Content.CharaMake
         public override void Initialize(CharaMakeData args)
         {
             base.Initialize(args);
-            AllData = _prototypeManager.EnumeratePrototypes<RacePrototype>().Select(x => new RaceClassCell(new RaceClass(x))).ToArray();
+            AllData = GetData().Select(x => new RaceClassCell(x)).ToArray();
 
-            Window.OnPageChanged += Window_OnPageChanged;
-            Window.Initialize(AllData);
+            PageModel.OnPageChanged += Window_OnPageChanged;
+            PageModel.Initialize(AllData);
+            PageModel.SetWindow(Window);
 
             SelectData(AllData.First().Data);
         }
 
+        public abstract IEnumerable<RaceClass> GetData();
+
         private void Window_OnPageChanged()
         {
             List.Clear();
-            List.AddRange(Window.GetCurrentElements().Cast<RaceClassCell>() ?? Enumerable.Empty<RaceClassCell>());
+            List.AddRange(PageModel.GetCurrentElements());
             List.Select(List.SelectedIndex);
         }
 
@@ -204,94 +208,124 @@ namespace OpenNefia.Content.CharaMake
         {
             if (args.Function == EngineKeyFunctions.UINextPage)
             {
-                Window.PageForward();
+                PageModel.PageForward();
             }
             if (args.Function == EngineKeyFunctions.UIPreviousPage)
             {
-                Window.PageBackward();
+                PageModel.PageBackward();
             }
         }
 
-        protected virtual void Select()
-        {
-
-        }
+        protected abstract void Select(RaceClass item);
 
         private void SelectData(RaceClass data)
         {
             SetAttributes(data.GetSkills());
+            SetTrainedSkills(data.GetSkills());
+            DetailContainer.Resolve();
             DetailText.Text = data.GetString("Description");
         }
 
         private void SetAttributes(Dictionary<PrototypeId<SkillPrototype>, int> skills)
         {
             AttributeContainer.Clear();
-            AttributeContainer.AddElement(LayoutType.XMin, 100);
+            AttributeContainer.AddLayout(LayoutType.XMin, 100);
             
             foreach (var attr in MakeDetailAttribute(skills))
             {
                 AttributeContainer.AddElement(attr);
             }
-            DetailContainer.Resolve();
+        }
+
+        private void SetTrainedSkills(Dictionary<PrototypeId<SkillPrototype>, int> skills)
+        {
+            TrainedSkillContainer.Clear();
+            foreach (var attr in MakeTrainedSKills(skills))
+            {
+                TrainedSkillContainer.AddElement(attr);
+            }
         }
 
         private IEnumerable<UiElement> MakeDetailAttribute(Dictionary<PrototypeId<SkillPrototype>, int> skills)
         {
             foreach(var attrId in AttributeIds)
             {
-                var cont = new UiHorizontalContainer();
-                cont.AddElement(LayoutType.XOffset, 7);
-                cont.AddElement(new AttributeIcon(attrId), LayoutType.YOffset, 3);
-                cont.AddElement(LayoutType.XOffset, -7);
-
-
-                skills.TryGetValue(new PrototypeId<SkillPrototype>(attrId), out var amt);
+                var arrtProtId = new PrototypeId<SkillPrototype>(attrId);
+                skills.TryGetValue(arrtProtId, out var amt);
                 GetAttributeAmountDesc(amt, out var desc, out var clr);
-                var text = new UiText
-                {
-                    Text = $"{Loc.GetString($"SkillShort.{attrId}")}: {desc}",
-                    Color = clr
-                };
-                cont.AddElement(text);
-                yield return cont;
+                yield return MakeSkillContainer(attrId, $"{Loc.GetPrototypeString(arrtProtId, "ShortName")?.Trim().ToLower().FirstCharToUpper()}: {desc}", clr);
             }
         }
 
+        //cant actually yield here sadly because the weapon proficiencies need to be collected and be on the first position
+        private IEnumerable<UiElement> MakeTrainedSKills(Dictionary<PrototypeId<SkillPrototype>, int> skills)
+        {
+            var list = new List<UiElement>();
+
+            var profs = new List<string>();
+            foreach (var skillId in skills.Keys)
+            {
+                if (AttributeIds.Any(x => x == skillId.ToString() || SpecialSkillIds.Any(x => x == skillId.ToString())))
+                    continue;
+
+                var skill = _prototypeManager.Index(skillId);
+                switch (skill.SkillType)
+                {
+                    case SkillType.WeaponProficiency:
+                        profs.Add(Loc.GetPrototypeString(skillId, "Name")!);
+                        break;
+                    default:
+                        var related = _prototypeManager.Index(skill.RelatedSkill ?? default!);
+                        var skillName = Loc.GetPrototypeString(skillId, "Name") ?? string.Empty;
+                        var skillDesc = $"{skillName}{new string(' ', 16 - skillName.Length)}{Loc.GetPrototypeString(skillId, "Description") ?? string.Empty}";
+                        var cont = MakeSkillContainer(related.ID, skillDesc);
+                        list.Add(cont);
+                        break;
+                }
+            }
+            if (profs.Count > 0)
+            {
+                var profDesc = $"{Loc.GetString("Elona.CharaMake.WeaponProf")} {string.Join(',', profs)}";
+                list.Insert(0, MakeSkillContainer("Elona.StatStrength", profDesc));
+            }
+
+            return list;
+        }
 
         private void GetAttributeAmountDesc(int amount, out string text, out Color color)
         {
             switch (amount)
             {
                 case <= 0:
-                    text = Loc.GetString("Skill.Amt.None");
+                    text = Loc.GetString("Elona.CharaMake.Skill.Amt.None");
                     color = UiColors.CharaMakeStatLevelNone;
                     break;
                 case <= 2:
-                    text = Loc.GetString("Skill.Amt.Slight");
+                    text = Loc.GetString("Elona.CharaMake.Skill.Amt.Slight");
                     color = UiColors.CharaMakeStatLevelSlight;
                     break;
                 case <= 4:
-                    text = Loc.GetString("Skill.Amt.Little");
+                    text = Loc.GetString("Elona.CharaMake.Skill.Amt.Little");
                     color = UiColors.CharaMakeStatLevelLittle;
                     break;
                 case <= 6:
-                    text = Loc.GetString("Skill.Amt.Normal");
+                    text = Loc.GetString("Elona.CharaMake.Skill.Amt.Normal");
                     color = UiColors.CharaMakeStatLevelNormal;
                     break;
                 case <= 8:
-                    text = Loc.GetString("Skill.Amt.NotBad");
+                    text = Loc.GetString("Elona.CharaMake.Skill.Amt.NotBad");
                     color = UiColors.CharaMakeStatLevelNotBad;
                     break;
                 case <= 10:
-                    text = Loc.GetString("Skill.Amt.Good");
+                    text = Loc.GetString("Elona.CharaMake.Skill.Amt.Good");
                     color = UiColors.CharaMakeStatLevelGood;
                     break;
                 case <= 12:
-                    text = Loc.GetString("Skill.Amt.Great");
+                    text = Loc.GetString("Elona.CharaMake.Skill.Amt.Great");
                     color = UiColors.CharaMakeStatLevelGreat;
                     break;
                 default:
-                    text = Loc.GetString("Skill.Amt.Best");
+                    text = Loc.GetString("Elona.CharaMake.Skill.Amt.Best");
                     color = UiColors.CharaMakeStatLevelBest;
                     break;
             }
@@ -311,6 +345,7 @@ namespace OpenNefia.Content.CharaMake
             List.SetPosition(Window.X + 35, Window.Y + 60);
             RaceTopic.SetPosition(Window.X + 30, Window.Y + 30);
             DetailTopic.SetPosition(Window.X + 190, RaceTopic.Y);
+            PageModel.SetPosition(x, y);
             DetailContainer.SetPosition(Window.X + 210, Window.Y + 60);
             DetailContainer.Resolve();
         }
@@ -324,7 +359,7 @@ namespace OpenNefia.Content.CharaMake
             RaceTopic.Draw();
             DetailTopic.Draw();
             DetailContainer.Draw();
-
+            PageModel.Draw();
         }
 
         public override void Update(float dt)
@@ -337,6 +372,7 @@ namespace OpenNefia.Content.CharaMake
             DetailTopic.Update(dt);
             DetailText.Update(dt);
             DetailContainer.Update(dt);
+            PageModel.Update(dt);
         }
     }
 }

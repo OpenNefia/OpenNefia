@@ -10,32 +10,33 @@ using System.Threading.Tasks;
 
 namespace OpenNefia.Content.UI.Element
 {
-    public class PagedUiWindow : UiWindow
+    public class UiPageModel<T> : UiElement
     {
         private UiText PageText;
 
-        private IEnumerable<UiElement> PagedElements;
+        private IEnumerable<T> PagedElements;
         private int ItemsPerPage;
         private int CurrentPage;
+        private UiWindow? Window = default!;
         public int PageCount => (PagedElements.Count() / Math.Max(1, ItemsPerPage));
 
         public delegate void PageChanged();
         public event PageChanged? OnPageChanged;
 
-        public PagedUiWindow()
+        public UiPageModel()
         {
-            PagedElements = Enumerable.Empty<UiElement>();
+            PagedElements = Enumerable.Empty<T>();
             PageText = new UiText(UiFonts.WindowPage);
         }
 
-        public void Initialize(IEnumerable<UiElement> elements, int itemsPerPage = 15)
+        public void Initialize(IEnumerable<T> elements, int itemsPerPage = 15)
         {
             PagedElements = elements;
             ItemsPerPage = itemsPerPage;
             ChangePage(0);
         }
 
-        public IEnumerable<UiElement> GetCurrentElements()
+        public IEnumerable<T> GetCurrentElements()
         {
             var en = PagedElements.Skip(ItemsPerPage * CurrentPage);
             return en.Take(ItemsPerPage);
@@ -65,27 +66,29 @@ namespace OpenNefia.Content.UI.Element
             OnPageChanged?.Invoke();
         }
 
+        public void SetWindow(UiWindow window)
+        {
+            Window = window;
+            SetPosition(window.X, window.Y);
+        }
+
         private void UpdatePageText()
         {
-            //Loc.GetString("WindowPage")
             PageText.Text = PageCount > 1 ? $"Page.{CurrentPage + 1}/{PageCount + 1}" : string.Empty;
         }
 
         public override void SetPosition(int x, int y)
         {
             base.SetPosition(x, y);
-            PageText.SetPosition(X + Width - 85, y + Height - 68);
-        }
-
-        public override void SetSize(int width, int height)
-        {
-            base.SetSize(width, height);
+            if (Window != null)
+                PageText.SetPosition(Window.X + Window.Width - 85, Window.Y + Window.Height - 68);
         }
 
         public override void Draw()
         {
             base.Draw();
-            PageText.Draw();
+            if (Window != null)
+                PageText.Draw();
         }
 
         public override void Update(float dt)

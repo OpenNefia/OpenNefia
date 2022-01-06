@@ -308,7 +308,7 @@
   
 - type: Skill
   id: Elona.Pickpocket
-  relatedSkill: Elona.StatPickPocket
+  relatedSkill: Elona.StatDexterity
   skillType: SkillAction
   
 - type: Skill

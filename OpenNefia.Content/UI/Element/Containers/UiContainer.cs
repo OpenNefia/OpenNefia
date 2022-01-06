@@ -52,9 +52,9 @@ namespace OpenNefia.Content.UI.Element.Containers
         {
             if (extraType != LayoutType.None)
             {
-                AddElement(extraType, extraAmount);
+                AddLayout(extraType, extraAmount);
                 UiElements.Add(element);
-                AddElement(extraType, -extraAmount);
+                AddLayout(extraType, -extraAmount);
             }
             else
             {
@@ -62,7 +62,13 @@ namespace OpenNefia.Content.UI.Element.Containers
             }
         }
 
-        public virtual void AddElement(LayoutType type, int offset)
+        public virtual void AddLayout(params (LayoutType type, int offset)[] layouts)
+        {
+            foreach(var layout in layouts)
+                UiElements.Add(new UiContainerEntry(layout.type, layout.offset));
+        }
+
+        public virtual void AddLayout(LayoutType type, int offset)
         {
             UiElements.Add(new UiContainerEntry(type, offset));
         }
@@ -112,7 +118,15 @@ namespace OpenNefia.Content.UI.Element.Containers
 
         public virtual void Clear()
         {
+            foreach (var element in UiElements)
+                element.Element?.Dispose();
             UiElements.Clear();
+        }
+
+        public override void Dispose()
+        {
+            Clear();
+            base.Dispose();
         }
 
         public override void Localize(LocaleKey key)
