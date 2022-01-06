@@ -62,14 +62,14 @@ namespace OpenNefia.Core.Containers
         }
 
         /// <inheritdoc />
-        protected override void InternalInsert(EntityUid toinsert, IEntityManager? entMan = null)
+        protected override void InternalInsert(EntityUid toinsert, IEntityManager entMan)
         {
             ContainedEntity = toinsert;
             base.InternalInsert(toinsert, entMan);
         }
 
         /// <inheritdoc />
-        protected override void InternalRemove(EntityUid toremove, IEntityManager? entMan = null)
+        protected override void InternalRemove(EntityUid toremove, IEntityManager entMan)
         {
             ContainedEntity = null;
             base.InternalRemove(toremove, entMan);
