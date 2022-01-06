@@ -169,22 +169,23 @@ namespace OpenNefia.Core.GameObjects
         /// Shuts-down and removes given Entity. This is also broadcast to all clients.
         /// </summary>
         /// <param name="uid">Entity to remove</param>
-        public void DeleteEntity(EntityUid uid)
+        public void DeleteEntity(EntityUid e)
         {
             // Networking blindly spams entities at this function, they can already be
             // deleted from being a child of a previously deleted entity
             // TODO: Why does networking need to send deletes for child entities?
-            if (!TryGetComponent(uid, out MetaDataComponent metaData))
+            if (!_entTraitArray[ArrayIndexFor<MetaDataComponent>()].TryGetValue(e, out var comp)
+                || comp is not MetaDataComponent meta || meta.EntityDeleted)
                 return;
 
-            if (metaData.EntityLifeStage >= EntityLifeStage.Terminating)
+            if (meta.EntityLifeStage >= EntityLifeStage.Terminating)
 #if !EXCEPTION_TOLERANCE
                 throw new InvalidOperationException("Called Delete on an entity already being deleted.");
 #else
                 return;
 #endif
 
-            RecursiveDeleteEntity(uid);
+            RecursiveDeleteEntity(e);
         }
 
         private EntityTerminatingEvent EntityTerminating = new();
@@ -239,7 +240,7 @@ namespace OpenNefia.Core.GameObjects
 
         public bool EntityExists(EntityUid uid)
         {
-            return _entTraitDict[typeof(MetaDataComponent)].ContainsKey(uid);
+            return _entTraitArray[ArrayIndexFor<MetaDataComponent>()].ContainsKey(uid);
         }
 
         public bool EntityExists(EntityUid? uid)
@@ -249,12 +250,12 @@ namespace OpenNefia.Core.GameObjects
 
         public bool Deleted(EntityUid uid)
         {
-            return !_entTraitDict[typeof(MetaDataComponent)].TryGetValue(uid, out var comp) || ((MetaDataComponent)comp).EntityDeleted;
+            return !_entTraitArray[ArrayIndexFor<MetaDataComponent>()].TryGetValue(uid, out var comp) || ((MetaDataComponent)comp).EntityDeleted;
         }
 
         public bool Deleted(EntityUid? uid)
         {
-            return !uid.HasValue || !_entTraitDict[typeof(MetaDataComponent)].TryGetValue(uid.Value, out var comp) || ((MetaDataComponent)comp).EntityDeleted;
+            return !uid.HasValue || !_entTraitArray[ArrayIndexFor<MetaDataComponent>()].TryGetValue(uid.Value, out var comp) || ((MetaDataComponent)comp).EntityDeleted;
         }
 
         /// <summary>
