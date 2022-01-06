@@ -1,4 +1,4 @@
-OpenNefia.Prototypes.Elona.BodyPart.Elona =
+OpenNefia.Prototypes.Elona.EquipSlot.Elona =
 {
     Head = {
        Name = "Head"
