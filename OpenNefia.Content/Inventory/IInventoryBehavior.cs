@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Content.GameObjects.Pickable;
+using OpenNefia.Core.UI.Element;
 
 namespace OpenNefia.Content.Inventory
 {
@@ -71,6 +72,8 @@ namespace OpenNefia.Content.Inventory
         InventoryResult OnSelect(InventoryContext context, EntityUid item, int amount);
 
         InventoryResult AfterFilter(InventoryContext context, IReadOnlyList<EntityUid> filteredItems);
+
+        void OnKeyBindDown(IInventoryLayer layer, GUIBoundKeyEventArgs args);
     }
 
     public struct InvElonaId

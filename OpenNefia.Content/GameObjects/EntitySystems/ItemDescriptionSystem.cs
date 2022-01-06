@@ -20,6 +20,28 @@ namespace OpenNefia.Content.GameObjects.EntitySystems
 
         private void GetDescItem(EntityUid uid, ItemComponent item, GetItemDescriptionEventArgs args)
         {
+            var identifyState = IdentifyState.Full;
+
+            if (EntityManager.TryGetComponent(uid, out IdentifyComponent identify))
+            {
+                identifyState = identify.State;
+            }
+
+            if (identifyState >= IdentifyState.Quality)
+            {
+                AddQualityInfo(item, args);
+            }
+            else
+            {
+                args.Entries.Add(new ItemDescriptionEntry()
+                {
+                    Text = Loc.GetString("Elona.ItemDescription.HaveToIdentify")
+                });
+            }
+        }
+
+        private static void AddQualityInfo(ItemComponent item, GetItemDescriptionEventArgs args)
+        {
             if (item.Material != null)
             {
                 var entry = new ItemDescriptionEntry()
@@ -32,6 +54,12 @@ namespace OpenNefia.Content.GameObjects.EntitySystems
 
         private void GetDescItemDesc(EntityUid uid, ItemDescriptionComponent itemDesc, GetItemDescriptionEventArgs args)
         {
+            if (EntityManager.TryGetComponent(uid, out IdentifyComponent identify)
+                && identify.State < IdentifyState.Full)
+            {
+                return;
+            }
+
             if (itemDesc.Primary != null)
             {
                 args.Entries.Add(itemDesc.Primary);

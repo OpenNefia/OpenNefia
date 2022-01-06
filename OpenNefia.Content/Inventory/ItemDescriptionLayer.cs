@@ -41,14 +41,14 @@ namespace OpenNefia.Content.Inventory
 
             CanControlFocus = true;
             OnKeyBindDown += HandleKeyBindDown;
-
-            GetDescription();
         }
 
         public override void Initialize(EntityUid item)
         {
             _item = item;
             TextTopicItemName.Text = _displayNames.GetDisplayNameInner(_item);
+
+            GetDescription();
         }
 
         private void HandleKeyBindDown(GUIBoundKeyEventArgs obj)

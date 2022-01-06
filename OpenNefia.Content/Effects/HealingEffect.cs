@@ -2,7 +2,6 @@
 using OpenNefia.Content.Rendering;
 using OpenNefia.Content.UI;
 using OpenNefia.Core.Audio;
-using OpenNefia.Core.Effects;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Maps;

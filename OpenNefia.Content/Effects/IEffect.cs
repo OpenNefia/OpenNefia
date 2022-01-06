@@ -1,8 +1,9 @@
-﻿using OpenNefia.Core.GameObjects;
+﻿using OpenNefia.Content.GameObjects;
+using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Maps;
 using OpenNefia.Core.Serialization.Manager.Attributes;
 
-namespace OpenNefia.Core.Effects
+namespace OpenNefia.Content.Effects
 {
     [ImplicitDataDefinitionForInheritors]
     public interface IEffect
@@ -28,14 +29,6 @@ namespace OpenNefia.Core.Effects
         {
             return HashCode.Combine(Power, CurseState);
         }
-    }
-
-    public enum CurseState
-    {
-        Blessed = 1,
-        Normal = 0,
-        Cursed = -1,
-        Doomed = -2
     }
 
     public enum EffectResult

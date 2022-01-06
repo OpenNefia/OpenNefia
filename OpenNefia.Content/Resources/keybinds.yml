@@ -165,6 +165,14 @@ binds:
   type: State
   key: X
   canFocus: true
+- function: Elona.UIMode2
+  type: State
+  key: NumpadMultiply
+  canFocus: true
+- function: Elona.UIMode2
+  type: State
+  key: Backslash
+  canFocus: true
 
 - function: Elona.DiagonalOnly
   type: State

@@ -207,9 +207,11 @@ removed.  Return the new string.  If STRING is nil, return nil."
                      (else "en_US")))
              (suffix (match-string 3 file))
              (new-file (concat prefix "/" lang "/" suffix))
-             (new-dir (file-name-directory new-file)))
+             (new-dir (file-name-directory new-file))
+             (old-line (line-number-at-pos (point))))
         (when (not (file-directory-p new-dir))
           (make-directory new-dir))
-        (find-file new-file)))))
+        (find-file new-file)
+        (goto-line old-line)))))
 
 (provide 'open-nefia-cs)

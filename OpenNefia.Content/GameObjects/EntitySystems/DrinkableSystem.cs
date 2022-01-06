@@ -3,11 +3,12 @@ using OpenNefia.Core.Audio;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Logic;
 using OpenNefia.Content.Prototypes;
-using OpenNefia.Core.Effects;
+using OpenNefia.Content.Effects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Content.DisplayName;
 using OpenNefia.Core.Locale;
 using OpenNefia.Content.EntityGen;
+using OpenNefia.Content.Effects;
 
 namespace OpenNefia.Content.GameObjects
 {

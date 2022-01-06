@@ -2,7 +2,7 @@
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Maps;
 
-namespace OpenNefia.Core.Effects
+namespace OpenNefia.Content.Effects
 {
     public abstract class Effect : IEffect
     {
@@ -12,6 +12,6 @@ namespace OpenNefia.Core.Effects
             get => _entityManager ??= IoCManager.Resolve<IEntityManager>();
         }
 
-        public abstract EffectResult Apply(EntityUid source,MapCoordinates coords, EntityUid target, EffectArgs args);
+        public abstract EffectResult Apply(EntityUid source, MapCoordinates coords, EntityUid target, EffectArgs args);
     }
 }

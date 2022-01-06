@@ -1,5 +1,5 @@
 ﻿using OpenNefia.Content.GameObjects;
-using OpenNefia.Core.Effects;
+using OpenNefia.Content.Effects;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Serialization.Manager.Attributes;
 
@@ -10,8 +10,19 @@ namespace OpenNefia.Content.GameObjects.Pickable
     {
         public override string Name => "Pickable";
 
+        /// <summary>
+        /// Ownership state of this entity. Determines if it's possible
+        /// for the player to pick it up.
+        /// </summary>
         [DataField]
         public OwnState OwnState { get; set; }
+
+        /// <summary>
+        /// If true, the inventory UI should prevent the player from dropping
+        /// this entity.
+        /// </summary>
+        [DataField]
+        public bool IsNoDrop { get; set; }
 
         public void FromHspItem(OwnState ownState)
         {

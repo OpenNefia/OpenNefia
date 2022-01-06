@@ -2,7 +2,23 @@ Elona.Inventory.Behavior =
 {
    Examine = {
       WindowTitle = "Examine",
-      QueryText = "Examine what?"
+      QueryText = "Examine what?",
+
+      KeyHints = {
+         MultiDrop = "Multi Drop",
+         NoDrop = "Tag No-Drop"
+      },
+
+      NoDrop = {
+         Set = function(entity)
+            return ("You set %s as no-drop.")
+               :format(_.name(entity))
+         end,
+         Unset = function(entity)
+            return ("%s is no longer set as no-drop.")
+               :format(_.name(entity))
+         end
+      }
    },
 
    Drop = {

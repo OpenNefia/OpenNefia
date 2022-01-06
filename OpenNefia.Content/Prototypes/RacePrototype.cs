@@ -1,5 +1,5 @@
-﻿using OpenNefia.Content.Skills;
-using OpenNefia.Core.Effects;
+﻿using OpenNefia.Content.Effects;
+using OpenNefia.Content.Skills;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Core.Serialization.Manager.Attributes;
 
