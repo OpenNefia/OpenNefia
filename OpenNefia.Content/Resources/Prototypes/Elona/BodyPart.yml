@@ -1,0 +1,55 @@
+- type: Elona.BodyPart
+  id: Elona.Head
+  hspIds:
+    elona122: 1
+  icon: 1
+- type: Elona.BodyPart
+  id: Elona.Neck
+  hspIds:
+    elona122: 2
+  icon: 2
+- type: Elona.BodyPart
+  id: Elona.Back
+  hspIds:
+    elona122: 3
+  icon: 3
+- type: Elona.BodyPart
+  id: Elona.Body
+  hspIds:
+    elona122: 4
+  icon: 4
+- type: Elona.BodyPart
+  id: Elona.Hand
+  hspIds:
+    elona122: 5
+  icon: 5
+- type: Elona.BodyPart
+  id: Elona.Ring
+  hspIds:
+    elona122: 6
+  icon: 6
+- type: Elona.BodyPart
+  id: Elona.Arm
+  hspIds:
+    elona122: 7
+  icon: 7
+- type: Elona.BodyPart
+  id: Elona.Waist
+  hspIds:
+    elona122: 8
+  icon: 8
+- type: Elona.BodyPart
+  id: Elona.Leg
+  hspIds:
+    elona122: 9
+  icon: 9
+- type: Elona.BodyPart
+  id: Elona.Ranged
+  hspIds:
+    elona122: 10
+  icon: 10
+- type: Elona.BodyPart
+  id: Elona.Ammo
+  hspIds:
+    elona122: 11
+  icon: 11
