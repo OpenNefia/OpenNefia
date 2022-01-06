@@ -42,8 +42,10 @@
     drawDepth: Items
   - type: Item
   - type: ItemDescription
+  - type: Identify
   - type: Stack
   - type: Weight
+  - type: CurseState
   - type: Pickable
 
 - type: Entity

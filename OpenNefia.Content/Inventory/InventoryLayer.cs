@@ -23,29 +23,45 @@ using OpenNefia.Core.Input;
 using OpenNefia.Content.Input;
 using OpenNefia.Core.Log;
 using OpenNefia.Content.DisplayName;
+using OpenNefia.Content.GameObjects.Pickable;
 
 namespace OpenNefia.Content.Inventory
 {
-    public sealed class InventoryLayer : UiLayerWithResult<InventoryContext, InventoryResult>
+    public interface IInventoryLayer
     {
-        public class InventoryEntry
-        {
-            public InventoryEntry(EntityUid item, IInventorySource origin, string itemNameText, string itemDetailText, Color chipColor)
-            {
-                Item = item;
-                Origin = origin;
-                ItemNameText = itemNameText;
-                ItemDetailText = itemDetailText;
-                ChipColor = chipColor;
-            }
+        int SelectedIndex { get; }
+        InventoryEntry? SelectedEntry { get; }
+        InventoryContext Context { get; }
 
-            public EntityUid Item { get; set; }
-            public IInventorySource Origin { get; set; }
-            public string ItemNameText { get; set; }
-            public string ItemDetailText { get; set; }
-            public Color ChipColor { get; set; }
+        void RefreshList(InventoryRefreshListKind kind);
+    }
+
+    public enum InventoryRefreshListKind
+    {
+        Redisplay,
+        RebuildList
+    }
+
+    public class InventoryEntry
+    {
+        public InventoryEntry(EntityUid item, IInventorySource origin, string itemNameText, string itemDetailText, Color chipColor)
+        {
+            Item = item;
+            Origin = origin;
+            ItemNameText = itemNameText;
+            ItemDetailText = itemDetailText;
+            ChipColor = chipColor;
         }
 
+        public EntityUid Item { get; set; }
+        public IInventorySource Origin { get; set; }
+        public string ItemNameText { get; set; }
+        public string ItemDetailText { get; set; }
+        public Color ChipColor { get; set; }
+    }
+    
+    public sealed class InventoryLayer : UiLayerWithResult<InventoryContext, InventoryResult>, IInventoryLayer
+    {
         public class InventoryEntryCell : UiListCell<InventoryEntry>
         {
             private readonly IUiText UiSubtext;
@@ -103,9 +119,49 @@ namespace OpenNefia.Content.Inventory
                 UiSubtext.Update(dt);
             }
 
+            private static Color GetTextColor(IEntityManager entityManager, EntityUid uid)
+            {
+                var pickable = entityManager.EnsureComponent<PickableComponent>(uid);
+
+                if (pickable.IsNoDrop)
+                {
+                    return UiColors.InventoryItemNoDrop;
+                }
+
+                var identified = true;
+                if (entityManager.TryGetComponent(uid, out IdentifyComponent identify))
+                {
+                    identified = identify.State == IdentifyState.Full;
+                }
+
+                if (identified && entityManager.TryGetComponent(uid, out CurseStateComponent curse))
+                {
+                    switch (curse.CurseState)
+                    {
+                        case CurseState.Doomed:
+                            return UiColors.InventoryItemDoomed;
+                        case CurseState.Cursed:
+                            return UiColors.InventoryItemCursed;
+                        case CurseState.Normal:
+                            return UiColors.InventoryItemNormal;
+                        case CurseState.Blessed:
+                            return UiColors.InventoryItemBlessed;
+                    }
+                }
+
+                return UiColors.TextBlack;
+            }
+
+            public void RefreshFromItem(IEntityManager entityManager)
+            {
+                UiText.Color = GetTextColor(entityManager, Data.Item);
+            }
+
             public override void Dispose()
             {
                 base.Dispose();
+                UiSubtext.Dispose();
+                SpriteBatch.Dispose();
             }
         }
 
@@ -117,6 +173,9 @@ namespace OpenNefia.Content.Inventory
 
         private UiWindow Window = new();
         private UiList<InventoryEntry> List = new();
+
+        public int SelectedIndex => List.SelectedIndex;
+        public InventoryEntry? SelectedEntry => List.SelectedCell?.Data;
 
         private IUiText TextTopicWindowName = new UiTextTopic("Item");
         private IUiText TextTopicDetailHeader = new UiTextTopic("Detail");
@@ -133,7 +192,7 @@ namespace OpenNefia.Content.Inventory
 
         private EntitySpriteBatch SpriteBatch = new();
 
-        private InventoryContext Context = default!;
+        public InventoryContext Context { get; private set; } = default!;
 
         public InventoryLayer()
         {
@@ -174,6 +233,10 @@ namespace OpenNefia.Content.Inventory
             else if (args.Function == ContentKeyFunctions.UIIdentify)
             {
                 ShowItemDescription();
+            }
+            else
+            {
+                Context.Behavior.OnKeyBindDown(this, args);
             }
         }
 
@@ -298,6 +361,29 @@ namespace OpenNefia.Content.Inventory
             else
             {
                 TextTotalWeight.Text = string.Empty;
+            }
+
+            RedisplayList();
+        }
+
+        private void RedisplayList()
+        {
+            foreach (var cell in List.Cast<InventoryEntryCell>())
+            {
+                cell.RefreshFromItem(_entityManager);
+            }
+        }
+
+        public void RefreshList(InventoryRefreshListKind kind)
+        {
+            switch (kind)
+            {
+                case InventoryRefreshListKind.RebuildList:
+                    UpdateFiltering();
+                    break;
+                case InventoryRefreshListKind.Redisplay:
+                    RedisplayList();
+                    break;
             }
         }
 

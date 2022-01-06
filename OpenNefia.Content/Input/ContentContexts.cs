@@ -12,6 +12,7 @@ namespace OpenNefia.Content.Input
         {
             var common = contexts.GetContext("common");
             common.AddFunction(ContentKeyFunctions.UIIdentify);
+            common.AddFunction(ContentKeyFunctions.UIMode2);
             common.AddFunction(ContentKeyFunctions.DiagonalOnly);
 
             var field = contexts.GetContext("field");

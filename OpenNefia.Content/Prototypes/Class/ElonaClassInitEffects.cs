@@ -1,7 +1,8 @@
-﻿using OpenNefia.Core.GameObjects;
+﻿using OpenNefia.Content.Effects;
+using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Maps;
 
-namespace OpenNefia.Core.Effects.Content
+namespace OpenNefia.Content.Prototypes
 {
     public class InitWizardEffect : IEffect
     {

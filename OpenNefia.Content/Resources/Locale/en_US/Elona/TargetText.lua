@@ -4,7 +4,7 @@ Elona.TargetText =
       And = " and ",
 
       MoreThanThree = function(itemCount)
-         return ("ここには%s種類のアイテムがある。"):format(itemCount)
+         return ("There are %s items lying here."):format(itemCount)
       end,
 
       Item = function(itemNames)

@@ -2,7 +2,23 @@ Elona.Inventory.Behavior =
 {
    Examine = {
       WindowTitle = "調べる",
-      QueryText = "どのアイテムを調べる？"
+      QueryText = "どのアイテムを調べる？",
+
+      KeyHints = {
+         MultiDrop = "連続で置く",
+         NoDrop = "保持指定"
+      },
+
+      NoDrop = {
+         Set = function(entity)
+            return ("%sを大事なものに指定した。")
+               :format(_.name(entity))
+         end,
+         Unset = function(entity)
+            return ("%sはもう大事なものではない。")
+               :format(_.name(entity))
+         end
+      }
    },
 
    Drop = {

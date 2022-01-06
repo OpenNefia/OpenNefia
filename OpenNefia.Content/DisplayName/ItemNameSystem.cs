@@ -37,7 +37,7 @@ namespace OpenNefia.Content.DisplayName
             StackComponent? stack = null)
         {
             if (!Resolve(uid, ref item, ref meta, ref stack))
-                return string.Empty;
+                return $"<item {uid}>";
 
             var basename = meta.DisplayName;
 
@@ -53,7 +53,7 @@ namespace OpenNefia.Content.DisplayName
             StackComponent? stack = null)
         {
             if (!Resolve(uid, ref item, ref meta, ref stack))
-                return string.Empty;
+                return $"<item {uid}>";
 
             var basename = meta.DisplayName;
 

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using OpenNefia.Content.Effects;
 using OpenNefia.Content.Prototypes;
 using OpenNefia.Content.Skills;
-using OpenNefia.Core.Effects;
 using OpenNefia.Core.Serialization.Manager.Attributes;
 
 namespace OpenNefia.Core.Prototypes

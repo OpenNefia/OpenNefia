@@ -1,16 +1,14 @@
 ﻿using OpenNefia.Content.GameObjects.Pickable;
+using OpenNefia.Content.Input;
+using OpenNefia.Content.Logic;
+using OpenNefia.Core.Audio;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Locale;
 using OpenNefia.Core.Logic;
-using OpenNefia.Core.Prototypes;
-using OpenNefia.Core.UI.Layer;
+using OpenNefia.Core.UI.Element;
 using OpenNefia.Core.UserInterface;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using static OpenNefia.Content.Prototypes.Protos;
 using HspIdsInv = OpenNefia.Core.Prototypes.HspIds<OpenNefia.Content.Inventory.InvElonaId>;
 
 namespace OpenNefia.Content.Inventory
@@ -51,6 +49,38 @@ namespace OpenNefia.Content.Inventory
             _uiManager.Query<ItemDescriptionLayer, EntityUid>(item);
 
             return new InventoryResult.Continuing();
+        }
+
+        private void ToggleNoDrop(IInventoryLayer layer, EntityUid item)
+        {
+            if (!EntityManager.TryGetComponent(item, out PickableComponent pickable))
+                return;
+
+            Sounds.Play(Sound.Ok1);
+
+            if (pickable.IsNoDrop)
+            {
+                pickable.IsNoDrop = false;
+                Mes.Display(Loc.GetString("Elona.Inventory.Behavior.Examine.NoDrop.Unset", ("entity", item)));
+            }
+            else
+            {
+                pickable.IsNoDrop = true;
+                Mes.Display(Loc.GetString("Elona.Inventory.Behavior.Examine.NoDrop.Set", ("entity", item)));
+            }
+
+            layer.RefreshList(InventoryRefreshListKind.Redisplay);
+        }
+
+        public override void OnKeyBindDown(IInventoryLayer layer, GUIBoundKeyEventArgs args)
+        {
+            if (args.Function == ContentKeyFunctions.UIMode2)
+            {
+                if (layer.SelectedEntry != null)
+                    ToggleNoDrop(layer, layer.SelectedEntry.Item);
+
+                args.Handle();
+            }
         }
     }
 }

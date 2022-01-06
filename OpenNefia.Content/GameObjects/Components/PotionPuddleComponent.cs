@@ -1,4 +1,5 @@
-﻿using OpenNefia.Core.Effects;
+﻿using OpenNefia.Content.Effects;
+using OpenNefia.Content.Effects;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Serialization.Manager.Attributes;
 

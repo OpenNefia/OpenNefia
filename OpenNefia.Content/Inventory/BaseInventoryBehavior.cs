@@ -1,12 +1,18 @@
-﻿using OpenNefia.Core.GameObjects;
+﻿using OpenNefia.Content.GameObjects.Pickable;
+using OpenNefia.Content.Logic;
+using OpenNefia.Core.Audio;
+using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
+using OpenNefia.Core.Locale;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Rendering;
+using OpenNefia.Core.UI.Element;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static OpenNefia.Content.Prototypes.Protos;
 
 namespace OpenNefia.Content.Inventory
 {
@@ -52,6 +58,22 @@ namespace OpenNefia.Content.Inventory
         public virtual InventoryResult AfterFilter(InventoryContext context, IReadOnlyList<EntityUid> filteredItems)
         {
             return new InventoryResult.Continuing();
+        }
+
+        public virtual void OnKeyBindDown(IInventoryLayer layer, GUIBoundKeyEventArgs args)
+        {
+        }
+
+        public bool CheckNoDropAndMessage(EntityUid item)
+        {
+            if (EntityManager.TryGetComponent(item, out PickableComponent pickable) && pickable.IsNoDrop)
+            {
+                Sounds.Play(Sound.Fail1);
+                Mes.Display(Loc.GetString("Elona.Inventory.Common.SetAsNoDrop"));
+                return true;
+            }
+
+            return false;
         }
     }
 }

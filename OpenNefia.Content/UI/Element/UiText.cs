@@ -55,7 +55,7 @@ namespace OpenNefia.Content.UI.Element
 
         public void RebakeText()
         {
-            this.BakedText.Set(this._text, this.Color);
+            this.BakedText.Set(this._text, Color.White);
             this.SetPreferredSize();
         }
 

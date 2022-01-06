@@ -51,5 +51,11 @@ namespace OpenNefia.Content.UI
         public static readonly Color MesLightPurple = new(225, 195, 255, 255);
         public static readonly Color MesLightGreen = new(215, 255, 215, 255);
         public static readonly Color MesTalk = new(210, 250, 160, 255);
+
+        public static readonly Color InventoryItemNoDrop = new(120, 80, 0, 255);
+        public static readonly Color InventoryItemDoomed = new(100, 10, 100, 255);
+        public static readonly Color InventoryItemCursed = new(150, 10, 10, 255);
+        public static readonly Color InventoryItemNormal = new(10, 40, 120, 255);
+        public static readonly Color InventoryItemBlessed = new(10, 110, 30, 255);
     }
 }
