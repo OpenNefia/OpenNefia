@@ -16,7 +16,7 @@ namespace OpenNefia.Content.GameObjects
         public int IdentifyDifficulty { get; set; } = 0;
 
         [DataField]
-        public IdentifyState State { get; set; } = IdentifyState.None;
+        public IdentifyState IdentifyState { get; set; } = IdentifyState.None;
 
         void IComponentLocalizable.LocalizeFromLua(NLua.LuaTable table)
         {

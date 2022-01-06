@@ -131,7 +131,7 @@ namespace OpenNefia.Content.Inventory
                 var identified = true;
                 if (entityManager.TryGetComponent(uid, out IdentifyComponent identify))
                 {
-                    identified = identify.State == IdentifyState.Full;
+                    identified = identify.IdentifyState == IdentifyState.Full;
                 }
 
                 if (identified && entityManager.TryGetComponent(uid, out CurseStateComponent curse))

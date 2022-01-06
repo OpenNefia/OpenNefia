@@ -24,7 +24,7 @@ namespace OpenNefia.Content.GameObjects.EntitySystems
 
             if (EntityManager.TryGetComponent(uid, out IdentifyComponent identify))
             {
-                identifyState = identify.State;
+                identifyState = identify.IdentifyState;
             }
 
             if (identifyState >= IdentifyState.Quality)
@@ -55,7 +55,7 @@ namespace OpenNefia.Content.GameObjects.EntitySystems
         private void GetDescItemDesc(EntityUid uid, ItemDescriptionComponent itemDesc, GetItemDescriptionEventArgs args)
         {
             if (EntityManager.TryGetComponent(uid, out IdentifyComponent identify)
-                && identify.State < IdentifyState.Full)
+                && identify.IdentifyState < IdentifyState.Full)
             {
                 return;
             }
