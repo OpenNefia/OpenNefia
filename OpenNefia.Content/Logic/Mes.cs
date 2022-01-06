@@ -30,8 +30,8 @@ namespace OpenNefia.Content.Logic
             var visibility = EntitySystem.Get<IVisibilitySystem>();
             var gameSession = IoCManager.Resolve<IGameSessionManager>();
             var entMan = IoCManager.Resolve<IEntityManager>();
-            if (entMan.IsAlive(gameSession.Player?.Uid) 
-                && visibility.HasLineOfSight(gameSession.Player!.Uid, entity))
+            if (entMan.IsAlive(gameSession.Player) 
+                && visibility.HasLineOfSight(gameSession.Player, entity))
             {
                 Mes.Display(mes, color, noCapitalize);
             }

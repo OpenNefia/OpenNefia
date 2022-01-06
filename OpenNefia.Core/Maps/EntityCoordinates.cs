@@ -79,7 +79,7 @@ namespace OpenNefia.Core.Maps
             if(!IsValid(entityManager))
                 return MapCoordinates.Nullspace;
 
-            var transform = entityManager.GetEntity(EntityId).Spatial;
+            var transform = entityManager.GetComponent<SpatialComponent>(EntityId);
             var worldPos = (Vector2i)transform.WorldMatrix.Transform(Position);
             return new MapCoordinates(transform.MapID, worldPos);
         }
@@ -94,11 +94,10 @@ namespace OpenNefia.Core.Maps
             if (!IsValid(entityManager))
                 return (null, MapCoordinates.Nullspace);
 
-            var mapEntity = entityManager.GetEntity(EntityId);
-            var transform = mapEntity.Spatial;
-            var mapGrid = mapManager.GetMap(transform.MapID);
-            var worldPos = (Vector2i)transform.WorldMatrix.Transform(Position);
-            return (mapGrid, new MapCoordinates(transform.MapID, worldPos));
+            var mapSpatial = entityManager.GetComponent<SpatialComponent>(EntityId);
+            var mapGrid = mapManager.GetMap(mapSpatial.MapID);
+            var worldPos = (Vector2i)mapSpatial.WorldMatrix.Transform(Position);
+            return (mapGrid, new MapCoordinates(mapSpatial.MapID, worldPos));
         }
 
         /// <summary>
@@ -112,22 +111,6 @@ namespace OpenNefia.Core.Maps
         }
 
         /// <summary>
-        ///    Creates EntityCoordinates given an entity and some MapCoordinates.
-        /// </summary>
-        /// <param name="entity"></param>
-        /// <param name="coordinates"></param>
-        /// <returns></returns>
-        /// <exception cref="InvalidOperationException">If <see cref="entity"/> is not on the same map as the <see cref="coordinates"/>.</exception>
-        public static EntityCoordinates FromMap(Entity entity, MapCoordinates coordinates)
-        {
-            if(entity.Spatial.MapID != coordinates.MapId)
-                throw new InvalidOperationException("Entity is not on the same map!");
-
-            var localPos = (Vector2i)entity.Spatial.InvWorldMatrix.Transform(coordinates.Position);
-            return new EntityCoordinates(entity.Uid, localPos);
-        }
-
-        /// <summary>
         ///    Creates EntityCoordinates given an entity Uid and some MapCoordinates.
         /// </summary>
         /// <param name="entityManager">Entity Manager containing the entity Id.</param>
@@ -137,9 +120,13 @@ namespace OpenNefia.Core.Maps
         /// <exception cref="InvalidOperationException">If <see cref="entityUid"/> is not on the same map as the <see cref="coordinates"/>.</exception>
         public static EntityCoordinates FromMap(IEntityManager entityManager, EntityUid entityUid, MapCoordinates coordinates)
         {
-            var entity = entityManager.GetEntity(entityUid);
+            var spatial = entityManager.GetComponent<SpatialComponent>(entityUid);
 
-            return FromMap(entity, coordinates);
+            if (spatial.MapID != coordinates.MapId)
+                throw new InvalidOperationException("Entity is not on the same map!");
+
+            var localPos = (Vector2i)spatial.InvWorldMatrix.Transform(coordinates.Position);
+            return new EntityCoordinates(entityUid, localPos);
         }
 
         /// <summary>
@@ -150,9 +137,9 @@ namespace OpenNefia.Core.Maps
         public static EntityCoordinates FromMap(IMapManager mapManager, MapCoordinates coordinates)
         {
             var mapId = coordinates.MapId;
-            var mapEntity = mapManager.GetMapEntity(mapId);
+            var map = mapManager.GetMap(mapId);
 
-            return new EntityCoordinates(mapEntity.Uid, coordinates.Position);
+            return new EntityCoordinates(map.MapEntityUid, coordinates.Position);
         }
 
         /// <summary>
@@ -179,29 +166,7 @@ namespace OpenNefia.Core.Maps
         /// <returns>Map Id these coordinates are on or <see cref="MapId.Nullspace"/></returns>
         public MapId GetMapId(IEntityManager entityManager)
         {
-            return !IsValid(entityManager) ? MapId.Nullspace : GetEntity(entityManager).Spatial.MapID;
-        }
-
-        /// <summary>
-        ///     Returns a reference to the relative entity.
-        /// </summary>
-        /// <param name="entityManager"></param>
-        /// <returns>Relative entity or throws if entity id doesn't exist</returns>
-        public Entity GetEntity(IEntityManager entityManager)
-        {
-            return entityManager.GetEntity(EntityId);
-        }
-
-        /// <summary>
-        ///     Attempt to get the relative entity, returning whether or not the entity was gotten.
-        /// </summary>
-        /// <param name="entityManager"></param>
-        /// <param name="entity">The relative entity or null if not valid</param>
-        /// <returns>True if a value was returned, false otherwise.</returns>
-        public bool TryGetEntity(IEntityManager entityManager, [NotNullWhen(true)] out Entity? entity)
-        {
-            entity = null;
-            return IsValid(entityManager) && entityManager.TryGetEntity(EntityId, out entity);
+            return !IsValid(entityManager) ? MapId.Nullspace : entityManager.GetComponent<SpatialComponent>(EntityId).MapID;
         }
 
         /// <summary>

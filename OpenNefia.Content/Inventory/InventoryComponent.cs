@@ -23,7 +23,7 @@ namespace OpenNefia.Content.Inventory
         {
             base.Initialize();
 
-            Container = ContainerHelpers.EnsureContainer<Container>(OwnerUid, ContainerIdInventory);
+            Container = ContainerHelpers.EnsureContainer<Container>(Owner, ContainerIdInventory);
         }
 
         bool ISerializationHooks.AfterCompare(object? other)

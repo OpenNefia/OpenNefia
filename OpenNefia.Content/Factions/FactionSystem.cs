@@ -75,8 +75,8 @@ namespace OpenNefia.Content.Factions
                 return Relation.Ally;
             }
 
-            us = _partySystem.GetSupremeCommander(us)?.OwnerUid ?? us;
-            them = _partySystem.GetSupremeCommander(them)?.OwnerUid ?? them;
+            us = _partySystem.GetSupremeCommander(us)?.Owner ?? us;
+            them = _partySystem.GetSupremeCommander(them)?.Owner ?? them;
 
             // If either entity lacks a faction component, then they should be treated as neutral.
             // This prevents the AI from targeting inanimate things like doors.

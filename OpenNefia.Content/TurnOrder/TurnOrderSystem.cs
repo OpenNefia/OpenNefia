@@ -239,21 +239,23 @@ namespace OpenNefia.Content.TurnOrder
         private List<TurnOrderComponent> CalculateTurnOrder(IMap map)
         {
             // No logic is run for maps besides the one the player is in.
-            if (_gameSession.Player?.Spatial.MapID != map.Id)
+            if (!EntityManager.TryGetComponent(_gameSession.Player, out SpatialComponent spatial))
+                return new();
+            if (spatial.MapID != map.Id)
                 return new();
 
             // Order the player to always go first.
             // TODO: Order allies to go after the player.
             int TurnOrderComparer(TurnOrderComponent arg)
             {
-                if (_gameSession.IsPlayer(arg.OwnerUid))
+                if (_gameSession.IsPlayer(arg.Owner))
                     return -1;
 
-                return (int)arg.OwnerUid;
+                return (int)arg.Owner;
             }
 
             return _lookup.EntityQueryInMap<TurnOrderComponent>(map.Id, includeChildren: false)
-                .Where(ent => EntityManager.IsAlive(ent.OwnerUid))
+                .Where(ent => EntityManager.IsAlive(ent.Owner))
                 .OrderBy(TurnOrderComparer)
                 .ToList();
         }
@@ -268,7 +270,7 @@ namespace OpenNefia.Content.TurnOrder
         {
             foreach (var turnOrder in entityOrder)
             {
-                turnOrder.TimeThisTurn += CalculateSpeed(turnOrder.OwnerUid, turnOrder) * playerTimeThisTurn;
+                turnOrder.TimeThisTurn += CalculateSpeed(turnOrder.Owner, turnOrder) * playerTimeThisTurn;
             }
         }
 
@@ -282,7 +284,7 @@ namespace OpenNefia.Content.TurnOrder
             _activeEntity = null;
 
             var map = _mapManager.ActiveMap!;
-            var player = _gameSession.Player.Uid;
+            var player = _gameSession.Player;
 
             var ev = new BeforeTurnBeginEventArgs();
             if (Raise(map.MapEntityUid, ev))
@@ -331,7 +333,7 @@ namespace OpenNefia.Content.TurnOrder
             {
                 while (found == null && current != null)
                 {
-                    if (EntityManager.IsAlive(current.OwnerUid))
+                    if (EntityManager.IsAlive(current.Owner))
                     {
                         if (current.TimeThisTurn >= mapTurnOrder.TurnCost)
                         {
@@ -379,14 +381,14 @@ namespace OpenNefia.Content.TurnOrder
             _activeEntity = nextInOrder;
 
             var ev = new EntityTurnStartingEventArgs(isFirstTurn);
-            if (Raise(nextInOrder.OwnerUid, ev))
+            if (Raise(nextInOrder.Owner, ev))
             {
                 return ev.TurnResult.ToTurnOrderState();
             }
 
-            if (_gameSession.IsPlayer(nextInOrder.OwnerUid))
+            if (_gameSession.IsPlayer(nextInOrder.Owner))
             {
-                if (EntityManager.IsAlive(nextInOrder.OwnerUid))
+                if (EntityManager.IsAlive(nextInOrder.Owner))
                 {
                     return HandlePlayerTurn(nextInOrder);
                 }
@@ -397,7 +399,7 @@ namespace OpenNefia.Content.TurnOrder
             }
             else
             {
-                if (EntityManager.IsAlive(nextInOrder.OwnerUid))
+                if (EntityManager.IsAlive(nextInOrder.Owner))
                 {
                     return HandleNPCTurn(nextInOrder);
                 }
@@ -413,7 +415,7 @@ namespace OpenNefia.Content.TurnOrder
             _field.RefreshScreen();
 
             var ev = new PlayerTurnStartedEvent();
-            RaiseLocalEvent(turnOrder.OwnerUid, ref ev);
+            RaiseLocalEvent(turnOrder.Owner, ref ev);
             if (ev.Handled)
             {
                 return ev.TurnResult.ToTurnOrderState();
@@ -426,19 +428,19 @@ namespace OpenNefia.Content.TurnOrder
         private TurnOrderState HandleNPCTurn(TurnOrderComponent turnOrder)
         {
             var ev = new NPCTurnStartedEvent();
-            RaiseLocalEvent(turnOrder.OwnerUid, ref ev);
+            RaiseLocalEvent(turnOrder.Owner, ref ev);
             return ev.TurnResult.ToTurnOrderState();
         }
 
         private TurnOrderState DoTurnEnd()
         {
-            if (_activeEntity == null || !EntityManager.IsAlive(_activeEntity.OwnerUid))
+            if (_activeEntity == null || !EntityManager.IsAlive(_activeEntity.Owner))
             {
                 return TurnOrderState.PassTurns;
             }
 
             var ev = new EntityTurnEndingEventArgs();
-            RaiseLocalEvent(_activeEntity.OwnerUid, ev);
+            RaiseLocalEvent(_activeEntity.Owner, ev);
 
             return TurnOrderState.PassTurns;
         }
@@ -449,7 +451,7 @@ namespace OpenNefia.Content.TurnOrder
             _field.RefreshScreen();
 
             var ev = new PlayerDiedEventArgs();
-            RaiseLocalEvent(_gameSession.Player.Uid, ev);
+            RaiseLocalEvent(_gameSession.Player, ev);
             if (ev.Handled) 
             {
                 return ev.TurnResult.ToTurnOrderState();

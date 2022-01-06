@@ -22,20 +22,21 @@ namespace OpenNefia.Content.UI.Layer
 {
     public class DirectionPrompt : UiLayerWithResult<DirectionPrompt.Args, DirectionPrompt.Result>
     {
+        [Dependency] private readonly IEntityManager _entityManager = default!;
         [Dependency] private readonly IFieldLayer _field = default!;
         [Dependency] private readonly ICoords _coords = default!;
 
-        public new class Args
+        public class Args
         {
-            public MapCoordinates Origin { get; set; }
+            public EntityCoordinates Origin { get; set; }
 
-            public Args(MapCoordinates origin)
+            public Args(EntityCoordinates origin)
             {
                 Origin = origin;
             }
 
-            public Args(Entity onlooker) : this(onlooker.Spatial.MapPosition) 
-            { 
+            public Args(EntityUid uid) : this(new EntityCoordinates(uid, Vector2i.Zero))
+            {
             }
         }
         public new class Result
@@ -50,7 +51,7 @@ namespace OpenNefia.Content.UI.Layer
             }
         }
 
-        private MapCoordinates _centerCoords;
+        private EntityCoordinates _centerCoords;
         private bool _isPanning = false;
         private float _dt;
         private bool _diagonalOnly = false;
@@ -78,7 +79,8 @@ namespace OpenNefia.Content.UI.Layer
                 if (_diagonalOnly && dir.IsCardinal())
                     return;
 
-                Finish(new Result(dir, _centerCoords.Offset(dir)));
+                var mapCoords = _centerCoords.Offset(dir).ToMap(_entityManager);
+                Finish(new Result(dir, mapCoords));
             }
             else if (args.Function == EngineKeyFunctions.UICancel)
             {
@@ -147,7 +149,7 @@ namespace OpenNefia.Content.UI.Layer
 
         public override void Draw()
         {
-            _field.Camera.TileToVisibleScreen(_centerCoords, out var screenPos);
+            var screenPos = _field.Camera.TileToVisibleScreen(_centerCoords);
             var (tileWidth, tileHeight) = _coords.TileSize;
 
             var frame = _dt * 50;

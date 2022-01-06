@@ -27,7 +27,7 @@ namespace OpenNefia.Content.Shopkeeper
         {
             base.Initialize();
 
-            Container = ContainerHelpers.EnsureContainer<Container>(OwnerUid, ContainerIdShopInventory);
+            Container = ContainerHelpers.EnsureContainer<Container>(Owner, ContainerIdShopInventory);
         }
     }
 }

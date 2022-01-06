@@ -146,26 +146,26 @@ namespace OpenNefia.Core.Maps
 
             if (result != null)
             {
-                _mapEntities.Add(actualID, result.OwnerUid);
-                Logger.DebugS("map", $"Rebinding map {actualID} to entity {result.OwnerUid}");
-                return result.OwnerUid;
+                _mapEntities.Add(actualID, result.Owner);
+                Logger.DebugS("map", $"Rebinding map {actualID} to entity {result.Owner}");
+                return result.Owner;
             }
             else
             {
                 var newEnt = _entityManager.CreateEntityUninitialized(null);
-                _mapEntities.Add(actualID, newEnt.Uid);
+                _mapEntities.Add(actualID, newEnt);
                 
                 // Make sure the map IDs are set on the map object before map component
                 // events are fired.
-                SetMapGridIds(map, actualID, newEnt.Uid);
+                SetMapGridIds(map, actualID, newEnt);
 
-                var mapComp = newEnt.AddComponent<MapComponent>();
+                var mapComp = _entityManager.AddComponent<MapComponent>(newEnt);
                 mapComp.MapId = actualID;
 
-                _entityManager.InitializeComponents(newEnt.Uid);
-                _entityManager.StartComponents(newEnt.Uid);
-                Logger.DebugS("map", $"Binding map {actualID} to entity {newEnt.Uid}");
-                return newEnt.Uid;
+                _entityManager.InitializeComponents(newEnt);
+                _entityManager.StartComponents(newEnt);
+                Logger.DebugS("map", $"Binding map {actualID} to entity {newEnt}");
+                return newEnt;
             }
         }
 
@@ -241,11 +241,11 @@ namespace OpenNefia.Core.Maps
 
         private void UnloadEntitiesInMap(MapId mapID)
         {
-            foreach (var entity in _entityManager.GetEntities().ToList())
+            foreach (var spatial in _entityManager.GetAllComponents<SpatialComponent>().ToList())
             {
-                if (entity.Spatial.MapID == mapID)
+                if (spatial.MapID == mapID)
                 {
-                    _entityManager.DeleteEntity(entity.Uid);
+                    _entityManager.DeleteEntity(spatial.Owner);
                 }
             }
         }
@@ -254,15 +254,6 @@ namespace OpenNefia.Core.Maps
         public IMap GetMap(MapId mapId)
         {
             return _maps[mapId];
-        }
-
-        /// <inheritdoc/>
-        public Entity GetMapEntity(MapId mapId)
-        {
-            if (!_mapEntities.ContainsKey(mapId))
-                throw new InvalidOperationException($"Map {mapId} does not have a set map entity.");
-
-            return _entityManager.GetEntity(_mapEntities[mapId]);
         }
 
         /// <inheritdoc/>
@@ -281,17 +272,6 @@ namespace OpenNefia.Core.Maps
             }
 
             return TryGetMap(mapComp.MapId, out map);
-        }
-
-        /// <inheritdoc/>
-        public bool TryGetMapEntity(MapId mapId, [NotNullWhen(true)] out Entity? mapEntity)
-        {
-            mapEntity = null;
-
-            if (!_mapEntities.TryGetValue(mapId, out var mapEntityUid))
-                return false;
-
-            return _entityManager.TryGetEntity(mapEntityUid, out mapEntity);
         }
 
         /// <inheritdoc/>

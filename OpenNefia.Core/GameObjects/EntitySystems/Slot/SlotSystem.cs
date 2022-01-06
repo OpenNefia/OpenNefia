@@ -149,7 +149,7 @@ namespace OpenNefia.Core.GameObjects
                 var newCompInstance = (Component)_componentFactory.GetComponent(compType);
                 var compCopy = (Component)_serializationManager.Copy(compProto, newCompInstance)!;
 
-                compCopy.Owner = _entityManager.GetEntity(uid);
+                compCopy.Owner = uid;
 
                 EntityManager.AddComponent(uid, compCopy);
                 slotRegCompTypes.Add(compType);

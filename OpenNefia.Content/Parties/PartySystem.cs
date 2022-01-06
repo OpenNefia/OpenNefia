@@ -47,7 +47,7 @@ namespace OpenNefia.Content.Parties
             if (!Resolve(entity, ref party, logMissing: false))
                 return false;
 
-            return party.Leader != null && party.Leader == _gameSession.Player?.Uid;
+            return party.Leader != null && party.Leader == _gameSession.Player;
         }
     }
 }

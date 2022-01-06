@@ -28,7 +28,7 @@ namespace OpenNefia.LecchoTorte.TurnColor
             if (args.Component is not TurnColorComponent turnColor)
                 return;
 
-            var uid = args.OwnerUid;
+            var uid = args.Owner;
             ChipComponent? chip = null;
 
             if (!Resolve(uid, ref chip))

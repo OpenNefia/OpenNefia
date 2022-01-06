@@ -41,7 +41,7 @@ namespace OpenNefia.Tests.Core.GameObjects.Systems
             var sim = SimulationFactory();
             var entMan = sim.Resolve<IEntityManager>();
             var map = sim.ActiveMap!;
-            var mapEnt = sim.Resolve<IMapManager>().GetMapEntity(map.Id);
+            var mapEnt = sim.Resolve<IMapManager>().GetMap(map.Id).MapEntityUid;
 
             var subscriber = new Subscriber();
             int calledCount = 0;
@@ -50,14 +50,14 @@ namespace OpenNefia.Tests.Core.GameObjects.Systems
             var ent1 = entMan.SpawnEntity(null, new MapCoordinates(map.Id, Vector2i.Zero));
 
             Assert.That(calledCount, Is.EqualTo(1));
-            Assert.That(entUid.Uid, Is.EqualTo(ent1.Uid));
+            Assert.That(entUid.Uid, Is.EqualTo(ent1));
             void MoveEventHandler(ref EntityPositionChangedEvent ev)
             {
                 calledCount++;
                 // OldPosition has the entity UID of the newly created entity.
                 entUid = entUid with { Uid = ev.OldPosition.EntityId };
                 Assert.That(ev.OldPosition.Position, Is.EqualTo(Vector2i.Zero));
-                Assert.That(ev.NewPosition, Is.EqualTo(new EntityCoordinates(mapEnt.Uid, Vector2i.Zero)));
+                Assert.That(ev.NewPosition, Is.EqualTo(new EntityCoordinates(mapEnt, Vector2i.Zero)));
             }
         }
 
@@ -70,22 +70,23 @@ namespace OpenNefia.Tests.Core.GameObjects.Systems
             var sim = SimulationFactory();
             var entMan = sim.Resolve<IEntityManager>();
             var map = sim.ActiveMap!;
-            var mapEnt = sim.Resolve<IMapManager>().GetMapEntity(map.Id);
+            var mapEnt = sim.Resolve<IMapManager>().GetMap(map.Id).MapEntityUid;
 
             var subscriber = new Subscriber();
             int calledCount = 0;
-            var ent1 = entMan.SpawnEntity(null, new MapCoordinates(map.Id, Vector2i.Zero));
+            var ent = entMan.SpawnEntity(null, new MapCoordinates(map.Id, Vector2i.Zero));
+            var spatial = entMan.GetComponent<SpatialComponent>(ent);
 
             entMan.EventBus.SubscribeEvent<EntityPositionChangedEvent>(EventSource.Local, subscriber, MoveEventHandler);
 
-            ent1.Spatial.WorldPosition = Vector2i.One;
+            spatial.WorldPosition = Vector2i.One;
 
             Assert.That(calledCount, Is.EqualTo(1));
             void MoveEventHandler(ref EntityPositionChangedEvent ev)
             {
                 calledCount++;
-                Assert.That(ev.OldPosition, Is.EqualTo(new EntityCoordinates(mapEnt.Uid, Vector2i.Zero)));
-                Assert.That(ev.NewPosition, Is.EqualTo(new EntityCoordinates(mapEnt.Uid, Vector2i.One)));
+                Assert.That(ev.OldPosition, Is.EqualTo(new EntityCoordinates(mapEnt, Vector2i.Zero)));
+                Assert.That(ev.NewPosition, Is.EqualTo(new EntityCoordinates(mapEnt, Vector2i.One)));
             }
         }
 
@@ -98,7 +99,7 @@ namespace OpenNefia.Tests.Core.GameObjects.Systems
             var sim = SimulationFactory();
             var entMan = sim.Resolve<IEntityManager>();
             var map = sim.ActiveMap!;
-            var mapEnt = sim.Resolve<IMapManager>().GetMapEntity(map.Id);
+            var mapEnt = sim.Resolve<IMapManager>().GetMap(map.Id).MapEntityUid;
 
             var pos = Vector2i.One;
 
@@ -120,26 +121,27 @@ namespace OpenNefia.Tests.Core.GameObjects.Systems
             var sim = SimulationFactory();
             var entMan = sim.Resolve<IEntityManager>();
             var map = sim.ActiveMap!;
-            var mapEnt = sim.Resolve<IMapManager>().GetMapEntity(map.Id);
+            var mapEnt = sim.Resolve<IMapManager>().GetMap(map.Id).MapEntityUid;
 
             var pos1 = Vector2i.One;
             var pos2 = pos1 + Vector2i.One;
 
             var ent = entMan.SpawnEntity(IdDummySolidOpaque, map.AtPos(pos1));
+            var spatial = entMan.GetComponent<SpatialComponent>(ent);
 
             Assert.That(map.CanAccess(pos1), Is.False);
             Assert.That(map.CanSeeThrough(pos1), Is.False);
             Assert.That(map.CanAccess(pos2), Is.True);
             Assert.That(map.CanSeeThrough(pos2), Is.True);
 
-            ent.Spatial.WorldPosition = pos2;
+            spatial.WorldPosition = pos2;
 
             Assert.That(map.CanAccess(pos1), Is.True);
             Assert.That(map.CanSeeThrough(pos1), Is.True);
             Assert.That(map.CanAccess(pos2), Is.False);
             Assert.That(map.CanSeeThrough(pos2), Is.False);
 
-            ent.Spatial.WorldPosition = pos1;
+            spatial.WorldPosition = pos1;
 
             Assert.That(map.CanAccess(pos1), Is.False);
             Assert.That(map.CanSeeThrough(pos1), Is.False);
@@ -156,7 +158,7 @@ namespace OpenNefia.Tests.Core.GameObjects.Systems
             var sim = SimulationFactory();
             var entMan = sim.Resolve<IEntityManager>();
             var map = sim.ActiveMap!;
-            var mapEnt = sim.Resolve<IMapManager>().GetMapEntity(map.Id);
+            var mapEnt = sim.Resolve<IMapManager>().GetMap(map.Id).MapEntityUid;
 
             var pos = Vector2i.One;
 
@@ -165,7 +167,7 @@ namespace OpenNefia.Tests.Core.GameObjects.Systems
             Assert.That(map.CanAccess(pos), Is.False);
             Assert.That(map.CanSeeThrough(pos), Is.False);
 
-            ent.Delete();
+            entMan.DeleteEntity(ent);
 
             Assert.That(map.CanAccess(pos), Is.True);
             Assert.That(map.CanSeeThrough(pos), Is.True);
@@ -180,26 +182,27 @@ namespace OpenNefia.Tests.Core.GameObjects.Systems
             var sim = SimulationFactory();
             var entMan = sim.Resolve<IEntityManager>();
             var map = sim.ActiveMap!;
-            var mapEnt = sim.Resolve<IMapManager>().GetMapEntity(map.Id);
+            var mapEnt = sim.Resolve<IMapManager>().GetMap(map.Id).MapEntityUid;
 
             var pos = Vector2i.One;
 
             var ent = entMan.SpawnEntity(IdDummySolidOpaque, map.AtPos(pos));
+            var metaData = entMan.GetComponent<MetaDataComponent>(ent);
 
             Assert.That(map.CanAccess(pos), Is.False);
             Assert.That(map.CanSeeThrough(pos), Is.False);
 
-            ent.MetaData.Liveness = EntityGameLiveness.Hidden;
+            metaData.Liveness = EntityGameLiveness.Hidden;
 
             Assert.That(map.CanAccess(pos), Is.True);
             Assert.That(map.CanSeeThrough(pos), Is.True);
 
-            ent.MetaData.Liveness = EntityGameLiveness.Alive;
+            metaData.Liveness = EntityGameLiveness.Alive;
 
             Assert.That(map.CanAccess(pos), Is.False);
             Assert.That(map.CanSeeThrough(pos), Is.False);
 
-            ent.MetaData.Liveness = EntityGameLiveness.DeadAndBuried;
+            metaData.Liveness = EntityGameLiveness.DeadAndBuried;
 
             Assert.That(map.CanAccess(pos), Is.True);
             Assert.That(map.CanSeeThrough(pos), Is.True);
@@ -218,7 +221,7 @@ namespace OpenNefia.Tests.Core.GameObjects.Systems
             var pos = Vector2i.One;
 
             var ent = entMan.SpawnEntity(IdDummySolidOpaque, map.AtPos(pos));
-            var entSpatial = entMan.GetComponent<SpatialComponent>(ent.Uid);
+            var entSpatial = entMan.GetComponent<SpatialComponent>(ent);
 
             Assert.That(map.CanSeeThrough(entSpatial.WorldPosition), Is.False);
             Assert.That(map.CanAccess(entSpatial.WorldPosition), Is.False);
@@ -242,7 +245,7 @@ namespace OpenNefia.Tests.Core.GameObjects.Systems
             var coords1 = new EntityCoordinates(map1.MapEntityUid, Vector2i.Zero);
             var coords2 = new EntityCoordinates(map2.MapEntityUid, Vector2i.Zero);
 
-            var ent = entMan.SpawnEntity(IdDummySolidOpaque, coords1).Uid;
+            var ent = entMan.SpawnEntity(IdDummySolidOpaque, coords1);
 
             var spatial = entMan.GetComponent<SpatialComponent>(ent);
 

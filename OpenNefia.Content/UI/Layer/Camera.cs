@@ -1,5 +1,6 @@
 ﻿using OpenNefia.Core.Game;
 using OpenNefia.Core.GameObjects;
+using OpenNefia.Core.IoC;
 using OpenNefia.Core.Maps;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.Rendering;
@@ -9,14 +10,22 @@ namespace OpenNefia.Content.UI.Layer
 {
     public class Camera
     {
+        [Dependency] private readonly IEntityManager _entityManager = default!;
+        [Dependency] private readonly ICoords _coords = default!;
+
         private Vector2i _mapSize;
         private IDrawable _parent;
-        private Vector2i _screenPos;
-        public Vector2i ScreenPos { get => _screenPos; set => _screenPos = value; }
+        private Vector2 _screenPos;
+        public Vector2 ScreenPos { get => _screenPos; set => _screenPos = value; }
 
         public Camera(IDrawable parent)
         {
             _parent = parent;
+        }
+
+        public void Initialize()
+        {
+            IoCManager.InjectDependencies(this);
         }
 
         public void SetMapSize(Vector2i mapSize)
@@ -26,17 +35,25 @@ namespace OpenNefia.Content.UI.Layer
 
         public void CenterOnScreenPos(Vector2i screenPos)
         {
-            _screenPos = GameSession.Coords.BoundDrawPosition(screenPos, _mapSize, _parent.PixelSize);
+            _screenPos = _coords.BoundDrawPosition(screenPos, _mapSize, _parent.PixelSize);
         }
 
-        public void CenterOnTilePos(Entity obj)
+        public void CenterOnTilePos(EntityCoordinates coords)
         {
-            CenterOnTilePos(obj.Spatial.MapPosition);
+            CenterOnTilePos(coords.ToMap(_entityManager));
+        }
+
+        public void CenterOnTilePos(EntityUid uid)
+        {
+            if (!_entityManager.TryGetComponent(uid, out SpatialComponent? spatial))
+                return;
+
+            CenterOnTilePos(spatial.MapPosition);
         }
 
         public void CenterOnTilePos(MapCoordinates coords)
         {
-            var screenPos = GameSession.Coords.TileToScreen(coords.Position);
+            var screenPos = _coords.TileToScreen(coords.Position);
             CenterOnScreenPos(screenPos);
         }
 
@@ -45,14 +62,19 @@ namespace OpenNefia.Content.UI.Layer
             _screenPos += (Vector2i)screenDPos;
         }
 
-        public void TileToVisibleScreen(MapCoordinates coords, out Vector2i screenPos)
+        public Vector2 TileToVisibleScreen(MapCoordinates coords)
         {
-            screenPos = GameSession.Coords.TileToScreen(coords.Position) + _screenPos;
+            return _coords.TileToScreen(coords.Position) + _screenPos;
         }
 
-        public void VisibleScreenToTile(Vector2i screenPos, out Vector2i tilePos)
+        public Vector2 TileToVisibleScreen(EntityCoordinates coords)
         {
-            tilePos = GameSession.Coords.ScreenToTile(screenPos - _screenPos);
+            return TileToVisibleScreen(coords.ToMap(_entityManager));
+        }
+
+        public Vector2i VisibleScreenToTile(Vector2 screenPos)
+        {
+            return _coords.ScreenToTile((Vector2i)(screenPos - _screenPos));
         }
     }
 }

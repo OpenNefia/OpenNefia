@@ -96,12 +96,8 @@ namespace OpenNefia.Content.Maps
         /// <param name="prevCoords">Location that exiting the given map from the edges should lead to.</param>
         public void SetPreviousMap(MapId mapTravellingTo, MapCoordinates prevCoords)
         {
-            if (!_mapManager.TryGetMapEntity(mapTravellingTo, out var mapEntity))
-            {
-                return;
-            }
-
-            var mapMapEntrance = EntityManager.EnsureComponent<MapEntranceComponent>(mapEntity.Uid);
+            var mapEntityUid = _mapManager.GetMap(mapTravellingTo).MapEntityUid;
+            var mapMapEntrance = EntityManager.EnsureComponent<MapEntranceComponent>(mapEntityUid);
             mapMapEntrance.Entrance.DestinationMapId = prevCoords.MapId;
             mapMapEntrance.Entrance.StartLocation = new SpecificMapLocation(prevCoords.Position);
         }

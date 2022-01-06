@@ -43,10 +43,10 @@ namespace OpenNefia.Tests.Core.GameObjects
             var dummy = entityManager.CreateEntityUninitialized(new("dummy"));
 
             Assert.That(dummy, Is.Not.Null);
-            Assert.That(entityManager.IsAlive(dummy.Uid), Is.True);
-            Assert.That(entityManager.IsDeadAndBuried(dummy.Uid), Is.False);
+            Assert.That(entityManager.IsAlive(dummy), Is.True);
+            Assert.That(entityManager.IsDeadAndBuried(dummy), Is.False);
 
-            var metaDataComp = entityManager.GetComponent<MetaDataComponent>(dummy.Uid);
+            var metaDataComp = entityManager.GetComponent<MetaDataComponent>(dummy);
 
             Assert.That(metaDataComp.Liveness, Is.EqualTo(EntityGameLiveness.Alive));
             Assert.That(metaDataComp.IsAlive, Is.EqualTo(true));

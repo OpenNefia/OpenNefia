@@ -39,7 +39,8 @@ namespace OpenNefia.Content.Tests.Maps.Entrances
 
             var player = entMan.SpawnEntity(null, map1.AtPos(Vector2i.One));
             gameSess.Player = player;
-            entMan.EnsureComponent<PlayerComponent>(player.Uid);
+            entMan.EnsureComponent<PlayerComponent>(player);
+            var playerSpatial = entMan.GetComponent<SpatialComponent>(player);
 
             Assert.Multiple(() =>
             {
@@ -48,7 +49,7 @@ namespace OpenNefia.Content.Tests.Maps.Entrances
             });
 
             var expectedPos = new Vector2i(3, 4);
-            player.Spatial.Coordinates = map2.AtPosEntity(expectedPos);
+            playerSpatial.Coordinates = map2.AtPosEntity(expectedPos);
 
             Assert.Multiple(() =>
             {
@@ -57,7 +58,7 @@ namespace OpenNefia.Content.Tests.Maps.Entrances
                 Assert.That(mapMan.MapIsLoaded(map1.Id), Is.False, "Map 1 is not loaded");
                 Assert.That(mapMan.MapIsLoaded(map2.Id), Is.True, "Map 2 is loaded");
                 Assert.That(mapMan.ActiveMap?.Id, Is.EqualTo(map2.Id), "Map 2 is active");
-                Assert.That(player.Spatial.MapPosition, Is.EqualTo(map2.AtPos(expectedPos)), "Position was updated");
+                Assert.That(playerSpatial.MapPosition, Is.EqualTo(map2.AtPos(expectedPos)), "Position was updated");
             });
         }
     }

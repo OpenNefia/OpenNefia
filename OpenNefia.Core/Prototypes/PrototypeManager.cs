@@ -372,10 +372,10 @@ namespace OpenNefia.Core.Prototypes
 
             foreach (var prototype in pushed[typeof(EntityPrototype)])
             {
-                foreach (var entity in _entityManager.GetEntities()
-                    .Where(e => e.Prototype != null && e.Prototype.ID == prototype))
+                foreach (var metaData in _entityManager.GetAllComponents<MetaDataComponent>()
+                    .Where(m => m.EntityPrototype?.ID == prototype))
                 {
-                    _entityFactory.UpdateEntity(entity, (EntityPrototype)entityPrototypes[prototype]);
+                    _entityFactory.UpdateEntity(metaData, (EntityPrototype)entityPrototypes[prototype]);
                 }
             }
 #endif

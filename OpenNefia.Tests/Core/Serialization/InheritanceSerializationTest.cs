@@ -73,18 +73,18 @@ namespace OpenNefia.Tests.Core.Serialization
 
             var baseEntity = entityManager.SpawnEntity(new(BaseEntityId), coordinates);
 
-            Assert.That(baseEntity.TryGetComponent(out BaseComponent? baseComponent));
+            Assert.That(entityManager.TryGetComponent(baseEntity, out BaseComponent? baseComponent), Is.True);
             Assert.That(baseComponent!.BaseField, Is.EqualTo(BaseComponentFieldValue));
 
             var inheritorEntity = entityManager.SpawnEntity(new(InheritorEntityId), coordinates);
 
-            Assert.That(inheritorEntity.TryGetComponent(out InheritorComponent? inheritorComponent));
+            Assert.That(entityManager.TryGetComponent(inheritorEntity, out InheritorComponent? inheritorComponent), Is.True);
             Assert.That(inheritorComponent!.BaseField, Is.EqualTo(BaseComponentFieldValue));
             Assert.That(inheritorComponent!.InheritorField, Is.EqualTo(InheritorComponentFieldValue));
 
             var finalEntity = entityManager.SpawnEntity(new(FinalEntityId), coordinates);
 
-            Assert.That(finalEntity.TryGetComponent(out FinalComponent? finalComponent));
+            Assert.That(entityManager.TryGetComponent(finalEntity, out FinalComponent ? finalComponent), Is.True);
             Assert.That(finalComponent!.BaseField, Is.EqualTo(BaseComponentFieldValue));
             Assert.That(finalComponent!.InheritorField, Is.EqualTo(InheritorComponentFieldValue));
             Assert.That(finalComponent!.FinalField, Is.EqualTo(FinalComponentFieldValue));

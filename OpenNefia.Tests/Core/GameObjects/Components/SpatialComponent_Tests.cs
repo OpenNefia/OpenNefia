@@ -57,17 +57,17 @@ namespace OpenNefia.Tests.Core.GameObjects.Components
             manager.Resync();
 
             MapA = MapManager.CreateMap(50, 50);
-            MapEntityAId = MapManager.GetMapEntity(MapA.Id).Uid;
+            MapEntityAId = MapManager.GetMap(MapA.Id).MapEntityUid;
             MapB = MapManager.CreateMap(50, 50);
-            MapEntityBId = MapManager.GetMapEntity(MapB.Id).Uid;
+            MapEntityBId = MapManager.GetMap(MapB.Id).MapEntityUid;
         }
 
         [Test]
         public void ParentMapSwitchTest()
         {
             // two entities
-            var parent = EntityManager.SpawnEntity(IdDummy, InitialPos).Uid;
-            var child = EntityManager.SpawnEntity(IdDummy, InitialPos).Uid;
+            var parent = EntityManager.SpawnEntity(IdDummy, InitialPos);
+            var child = EntityManager.SpawnEntity(IdDummy, InitialPos);
 
             var parentTrans = IoCManager.Resolve<IEntityManager>().GetComponent<SpatialComponent>(parent);
             var childTrans = IoCManager.Resolve<IEntityManager>().GetComponent<SpatialComponent>(child);
@@ -83,7 +83,7 @@ namespace OpenNefia.Tests.Core.GameObjects.Components
             Assert.Multiple(() =>
             {
                 Assert.That(childTrans.MapID, Is.EqualTo(parentTrans.MapID));
-                Assert.That(childTrans.Coordinates, Is.EqualTo(new EntityCoordinates(parentTrans.OwnerUid, (-1, -1))));
+                Assert.That(childTrans.Coordinates, Is.EqualTo(new EntityCoordinates(parentTrans.Owner, (-1, -1))));
                 Assert.That(childTrans.WorldPosition, Is.EqualTo(new Vector2i(4, 4)));
             });
 
@@ -115,8 +115,8 @@ namespace OpenNefia.Tests.Core.GameObjects.Components
         public void ParentAttachMoveTest()
         {
             // Arrange
-            var parent = EntityManager.SpawnEntity(IdDummy, InitialPos).Uid;
-            var child = EntityManager.SpawnEntity(IdDummy, InitialPos).Uid;
+            var parent = EntityManager.SpawnEntity(IdDummy, InitialPos);
+            var child = EntityManager.SpawnEntity(IdDummy, InitialPos);
             var parentTrans = IoCManager.Resolve<IEntityManager>().GetComponent<SpatialComponent>(parent);
             var childTrans = IoCManager.Resolve<IEntityManager>().GetComponent<SpatialComponent>(child);
             parentTrans.WorldPosition = new Vector2i(5, 5);
@@ -138,9 +138,9 @@ namespace OpenNefia.Tests.Core.GameObjects.Components
         public void ParentDoubleAttachMoveTest()
         {
             // Arrange
-            var parent = EntityManager.SpawnEntity(IdDummy, InitialPos).Uid;
-            var childOne = EntityManager.SpawnEntity(IdDummy, InitialPos).Uid;
-            var childTwo = EntityManager.SpawnEntity(IdDummy, InitialPos).Uid;
+            var parent = EntityManager.SpawnEntity(IdDummy, InitialPos);
+            var childOne = EntityManager.SpawnEntity(IdDummy, InitialPos);
+            var childTwo = EntityManager.SpawnEntity(IdDummy, InitialPos);
             var parentTrans = IoCManager.Resolve<IEntityManager>().GetComponent<SpatialComponent>(parent);
             var childOneTrans = IoCManager.Resolve<IEntityManager>().GetComponent<SpatialComponent>(childOne);
             var childTwoTrans = IoCManager.Resolve<IEntityManager>().GetComponent<SpatialComponent>(childTwo);
@@ -172,10 +172,10 @@ namespace OpenNefia.Tests.Core.GameObjects.Components
         public void PositionCompositionTest()
         {
             // Arrange
-            var node1 = EntityManager.SpawnEntity(IdDummy, InitialPos).Uid;
-            var node2 = EntityManager.SpawnEntity(IdDummy, InitialPos).Uid;
-            var node3 = EntityManager.SpawnEntity(IdDummy, InitialPos).Uid;
-            var node4 = EntityManager.SpawnEntity(IdDummy, InitialPos).Uid;
+            var node1 = EntityManager.SpawnEntity(IdDummy, InitialPos);
+            var node2 = EntityManager.SpawnEntity(IdDummy, InitialPos);
+            var node3 = EntityManager.SpawnEntity(IdDummy, InitialPos);
+            var node4 = EntityManager.SpawnEntity(IdDummy, InitialPos);
 
             var node1Trans = IoCManager.Resolve<IEntityManager>().GetComponent<SpatialComponent>(node1);
             var node2Trans = IoCManager.Resolve<IEntityManager>().GetComponent<SpatialComponent>(node2);
@@ -207,9 +207,9 @@ namespace OpenNefia.Tests.Core.GameObjects.Components
         public void ParentLocalPositionRoundingErrorTest()
         {
             // Arrange
-            var node1 = EntityManager.SpawnEntity(IdDummy, InitialPos).Uid;
-            var node2 = EntityManager.SpawnEntity(IdDummy, InitialPos).Uid;
-            var node3 = EntityManager.SpawnEntity(IdDummy, InitialPos).Uid;
+            var node1 = EntityManager.SpawnEntity(IdDummy, InitialPos);
+            var node2 = EntityManager.SpawnEntity(IdDummy, InitialPos);
+            var node3 = EntityManager.SpawnEntity(IdDummy, InitialPos);
 
             var node1Trans = IoCManager.Resolve<IEntityManager>().GetComponent<SpatialComponent>(node1);
             var node2Trans = IoCManager.Resolve<IEntityManager>().GetComponent<SpatialComponent>(node2);
@@ -252,10 +252,10 @@ namespace OpenNefia.Tests.Core.GameObjects.Components
             // Arrange
             var control = Matrix3.Identity;
 
-            var node1 = EntityManager.SpawnEntity(IdDummy, InitialPos).Uid;
-            var node2 = EntityManager.SpawnEntity(IdDummy, InitialPos).Uid;
-            var node3 = EntityManager.SpawnEntity(IdDummy, InitialPos).Uid;
-            var node4 = EntityManager.SpawnEntity(IdDummy, InitialPos).Uid;
+            var node1 = EntityManager.SpawnEntity(IdDummy, InitialPos);
+            var node2 = EntityManager.SpawnEntity(IdDummy, InitialPos);
+            var node3 = EntityManager.SpawnEntity(IdDummy, InitialPos);
+            var node4 = EntityManager.SpawnEntity(IdDummy, InitialPos);
 
             var node1Trans = IoCManager.Resolve<IEntityManager>().GetComponent<SpatialComponent>(node1);
             var node2Trans = IoCManager.Resolve<IEntityManager>().GetComponent<SpatialComponent>(node2);
@@ -298,9 +298,9 @@ namespace OpenNefia.Tests.Core.GameObjects.Components
         [Test]
         public void MatrixUpdateTest()
         {
-            var node1 = EntityManager.SpawnEntity(IdDummy, InitialPos).Uid;
-            var node2 = EntityManager.SpawnEntity(IdDummy, InitialPos).Uid;
-            var node3 = EntityManager.SpawnEntity(IdDummy, InitialPos).Uid;
+            var node1 = EntityManager.SpawnEntity(IdDummy, InitialPos);
+            var node2 = EntityManager.SpawnEntity(IdDummy, InitialPos);
+            var node3 = EntityManager.SpawnEntity(IdDummy, InitialPos);
 
             var node1Trans = IoCManager.Resolve<IEntityManager>().GetComponent<SpatialComponent>(node1);
             var node2Trans = IoCManager.Resolve<IEntityManager>().GetComponent<SpatialComponent>(node2);
@@ -328,16 +328,16 @@ namespace OpenNefia.Tests.Core.GameObjects.Components
             var child1 = EntityManager.CreateEntityUninitialized(IdDummy);
             var child2 = EntityManager.CreateEntityUninitialized(IdDummy);
 
-            field.SetValue(IoCManager.Resolve<IEntityManager>().GetComponent<SpatialComponent>(child1.Uid), parent.Uid);
-            field.SetValue(IoCManager.Resolve<IEntityManager>().GetComponent<SpatialComponent>(child2.Uid), child1.Uid);
+            field.SetValue(IoCManager.Resolve<IEntityManager>().GetComponent<SpatialComponent>(child1), parent);
+            field.SetValue(IoCManager.Resolve<IEntityManager>().GetComponent<SpatialComponent>(child2), child1);
 
             EntityManager.FinishEntityInitialization(child2);
             EntityManager.FinishEntityInitialization(child1);
             EntityManager.FinishEntityInitialization(parent);
 
-            Assert.That(IoCManager.Resolve<IEntityManager>().GetComponent<SpatialComponent>(child2.Uid).MapID, Is.EqualTo(new MapId(123)));
-            Assert.That(IoCManager.Resolve<IEntityManager>().GetComponent<SpatialComponent>(child1.Uid).MapID, Is.EqualTo(new MapId(123)));
-            Assert.That(IoCManager.Resolve<IEntityManager>().GetComponent<SpatialComponent>(parent.Uid).MapID, Is.EqualTo(new MapId(123)));
+            Assert.That(IoCManager.Resolve<IEntityManager>().GetComponent<SpatialComponent>(child2).MapID, Is.EqualTo(new MapId(123)));
+            Assert.That(IoCManager.Resolve<IEntityManager>().GetComponent<SpatialComponent>(child1).MapID, Is.EqualTo(new MapId(123)));
+            Assert.That(IoCManager.Resolve<IEntityManager>().GetComponent<SpatialComponent>(parent).MapID, Is.EqualTo(new MapId(123)));
         }
     }
 }

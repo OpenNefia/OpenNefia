@@ -82,7 +82,7 @@ namespace OpenNefia.Tests.Core.SaveGames
             var nextMapId = mapMan.NextMapId;
             var nextEntId = entMan.NextEntityUid;
             var activeMapId = sim.ActiveMap!.Id;
-            var playerUid = sessMan.Player.Uid;
+            var playerUid = sessMan.Player;
 
             saveSerMan.SaveGame(save);
 
@@ -98,7 +98,7 @@ namespace OpenNefia.Tests.Core.SaveGames
             Assert.That(mapMan.NextMapId, Is.EqualTo(nextMapId));
             Assert.That(entMan.NextEntityUid, Is.EqualTo(nextEntId));
             Assert.That(mapMan.ActiveMap?.Id, Is.EqualTo(activeMapId));
-            Assert.That(sessMan.Player.Uid, Is.EqualTo(playerUid));
+            Assert.That(sessMan.Player, Is.EqualTo(playerUid));
         }
     }
 

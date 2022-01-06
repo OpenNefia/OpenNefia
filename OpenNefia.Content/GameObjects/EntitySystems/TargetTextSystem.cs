@@ -28,10 +28,10 @@ namespace OpenNefia.Content.GameObjects
 
             var sb = new StringBuilder();
 
-            foreach (var entity in _lookup.GetLiveEntitiesAtCoords(targetPos))
+            foreach (var spatial in _lookup.GetLiveEntitiesAtCoords(targetPos))
             {
                 var ev = new GetTargetTextEventArgs(onlooker, visibleOnly);
-                RaiseLocalEvent(entity.Uid, ev);
+                RaiseLocalEvent(spatial.Owner, ev);
                 foreach (var line in ev.TargetTexts)
                 {
                     sb.AppendLine(line);
@@ -81,7 +81,7 @@ namespace OpenNefia.Content.GameObjects
         {
             var ents = _lookup.GetLiveEntitiesAtCoords(newPosition).ToList();
 
-            var items = ents.Where(ent => EntityManager.HasComponent<PickableComponent>(ent.Uid)).ToList();
+            var items = ents.Where(ent => EntityManager.HasComponent<PickableComponent>(ent.Owner)).ToList();
 
             if (items.Count == 0)
                 return null;
@@ -97,11 +97,11 @@ namespace OpenNefia.Content.GameObjects
                     mes.Append(Loc.GetString("Elona.TargetText.ItemOnCell.And"));
                 }
                 var item = items[i];
-                mes.Append(_displayNames.GetDisplayNameInner(item.Uid));
+                mes.Append(_displayNames.GetDisplayNameInner(item.Owner));
             }
 
             var ownState = OwnState.None;
-            if (EntityManager.TryGetComponent(items.First().Uid, out PickableComponent? pickable))
+            if (EntityManager.TryGetComponent(items.First().Owner, out PickableComponent? pickable))
                 ownState = pickable.OwnState;
 
             var itemNames = mes.ToString();

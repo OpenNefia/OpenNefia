@@ -31,7 +31,7 @@ namespace OpenNefia.Core.Maps
         void SetTileMemory(Vector2i pos, PrototypeId<TilePrototype> tile);
 
         void RefreshTile(Vector2i pos);
-        void RefreshTileEntities(Vector2i pos, IEnumerable<Entity> entities);
+        void RefreshTileEntities(Vector2i pos, IEnumerable<SpatialComponent> entities);
 
         MapCoordinates AtPos(Vector2i pos);
         MapCoordinates AtPos(int x, int y);

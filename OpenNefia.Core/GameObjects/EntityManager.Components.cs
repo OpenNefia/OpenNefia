@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Security.Cryptography;
 using OpenNefia.Core.Utility;
 #if EXCEPTION_TOLERANCE
 using OpenNefia.Core.Exceptions;
@@ -144,37 +145,16 @@ namespace OpenNefia.Core.GameObjects
         }
 
         /// <inheritdoc/>
-        public IComponent AddComponent(Entity entity, Type type)
+        public IComponent AddComponent(EntityUid uid, Type type)
         {
-            if (entity == null) throw new ArgumentNullException(nameof(entity));
+            if (!uid.IsValid() || !EntityExists(uid))
+                throw new ArgumentException("Entity is not valid or deleted.", nameof(uid));
 
             var newComponent = (Component)_componentFactory.GetComponent(type);
 
-            newComponent.Owner = entity;
+            newComponent.Owner = uid;
 
-            AddComponent(entity, newComponent);
-
-            return newComponent;
-        }
-
-        /// <inheritdoc/>
-        public IComponent AddComponent(EntityUid uid, Type type)
-        {
-            if (!TryGetEntity(uid, out var entity)) throw new ArgumentException("Entity is not valid or deleted.", nameof(uid));
-
-            return AddComponent(entity, type);
-        }
-
-        /// <inheritdoc/>
-        public T AddComponent<T>(Entity entity) where T : Component, new()
-        {
-            if (entity == null) throw new ArgumentNullException(nameof(entity));
-
-            var newComponent = _componentFactory.GetComponent<T>();
-
-            newComponent.Owner = entity;
-
-            AddComponent(entity, newComponent);
+            AddComponent(uid, newComponent);
 
             return newComponent;
         }
@@ -182,15 +162,16 @@ namespace OpenNefia.Core.GameObjects
         /// <inheritdoc/>
         public T AddComponent<T>(EntityUid uid) where T : Component, new()
         {
-            if (!TryGetEntity(uid, out var entity)) throw new ArgumentException("Entity is not valid or deleted.", nameof(uid));
+            if (!uid.IsValid() || !EntityExists(uid))
+                throw new ArgumentException("Entity is not valid or deleted.", nameof(uid));
 
-            return AddComponent<T>(entity);
-        }
+            var newComponent = _componentFactory.GetComponent<T>();
 
-        /// <inheritdoc/>
-        public void AddComponent<T>(Entity entity, T component, bool overwrite = false) where T : Component
-        {
-            AddComponent(entity.Uid, component, overwrite);
+            newComponent.Owner = uid;
+
+            AddComponent(uid, newComponent);
+
+            return newComponent;
         }
 
         /// <inheritdoc/>
@@ -201,7 +182,7 @@ namespace OpenNefia.Core.GameObjects
 
             if (component == null) throw new ArgumentNullException(nameof(component));
 
-            if (component.OwnerUid != uid) throw new InvalidOperationException("Component is not owned by entity.");
+            if (component.Owner != uid) throw new InvalidOperationException("Component is not owned by entity.");
 
             AddComponentInternal(uid, component, overwrite);
         }
@@ -273,7 +254,7 @@ namespace OpenNefia.Core.GameObjects
         {
             if (component == null) throw new ArgumentNullException(nameof(component));
 
-            if (component.OwnerUid != uid)
+            if (component.Owner != uid)
                 throw new InvalidOperationException("Component is not owned by entity.");
 
             RemoveComponentImmediate((Component)component, uid, false);
@@ -408,7 +389,7 @@ namespace OpenNefia.Core.GameObjects
         {
             var reg = _componentFactory.GetRegistration(component.GetType());
 
-            var entityUid = component.OwnerUid;
+            var entityUid = component.Owner;
 
             foreach (var refType in reg.References)
             {
@@ -432,17 +413,6 @@ namespace OpenNefia.Core.GameObjects
         {
             var dict = _entTraitDict[type];
             return dict.TryGetValue(uid, out var comp) && !comp.Deleted;
-        }
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public T EnsureComponent<T>(Entity entity) where T : Component, new()
-        {
-            if (TryGetComponent<T>(entity.Uid, out var component))
-            {
-                return component;
-            }
-
-            return AddComponent<T>(entity);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -648,6 +618,13 @@ namespace OpenNefia.Core.GameObjects
 
                 yield return comp;
             }
+        }
+
+        /// <inheritdoc />
+        public IEnumerable<T> GetAllComponents<T>()
+            where T: IComponent
+        {
+            return GetAllComponents(typeof(T)).Cast<T>();
         }
 
         #endregion

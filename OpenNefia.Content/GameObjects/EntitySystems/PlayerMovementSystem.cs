@@ -62,16 +62,16 @@ namespace OpenNefia.Content.GameObjects
                 return;
 
             var entities = _lookup.GetLiveEntitiesAtCoords(args.NewPosition)
-                .Where(x => x.Spatial.IsSolid);
+                .Where(spatial => spatial.IsSolid);
 
-            foreach (var collided in entities.ToList())
+            foreach (var collidedSpatial in entities.ToList())
             {
-                var ev = new CollideWithEventArgs(collided.Uid);
+                var ev = new CollideWithEventArgs(collidedSpatial.Owner);
                 if (!Raise(source, ev, args))
                     return;
 
                 var ev2 = new WasCollidedWithEventArgs(source);
-                if (!Raise(collided.Uid, ev2, args))
+                if (!Raise(collidedSpatial.Owner, ev2, args))
                     return;
             }
         }
@@ -92,7 +92,7 @@ namespace OpenNefia.Content.GameObjects
             else
             {
                 var items = _lookup.EntitiesUnderneath(uid)
-                    .Where(e => EntityManager.HasComponent<PickableComponent>(e.Uid));
+                    .Where(spatial => EntityManager.HasComponent<PickableComponent>(spatial.Owner));
 
                 if (items.Any())
                 {

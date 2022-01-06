@@ -19,8 +19,8 @@ namespace OpenNefia.Core.Containers
             DebugTools.Assert(EntityManager.EntityExists(entity));
 
             var parentTransform = EntityManager.GetComponent<SpatialComponent>(entity).Parent;
-            if (parentTransform != null && TryGetManagerComp(parentTransform.OwnerUid, out manager)
-                && ContainsEntity(manager.OwnerUid, entity, manager))
+            if (parentTransform != null && TryGetManagerComp(parentTransform.Owner, out manager)
+                && ContainsEntity(manager.Owner, entity, manager))
                 return true;
 
             manager = default;
@@ -103,14 +103,14 @@ namespace OpenNefia.Core.Containers
         public void AttachParentToContainerOrGrid(SpatialComponent transform)
         {
             if (transform.Parent == null
-                || !TryGetContainingContainer(transform.Parent.OwnerUid, out var container)
+                || !TryGetContainingContainer(transform.Parent.Owner, out var container)
                 || !TryInsertIntoContainer(transform, container))
                 transform.AttachToMap();
         }
 
         private bool TryInsertIntoContainer(SpatialComponent transform, IContainer container)
         {
-            if (container.Insert(transform.OwnerUid)) return true;
+            if (container.Insert(transform.Owner)) return true;
 
             if (EntityManager.GetComponent<SpatialComponent>(container.Owner).Parent != null
                 && TryGetContainingContainer(container.Owner, out var newContainer))

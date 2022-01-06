@@ -39,7 +39,7 @@ namespace OpenNefia.Content.Tests.Maps.StartLocation
             var entMan = sim.Resolve<IEntityManager>();
 
             var map = sim.CreateMapAndSetActive(mapSize.X, mapSize.Y);
-            var ent = entMan.SpawnEntity(null, map.AtPos(Vector2i.One)).Uid;
+            var ent = entMan.SpawnEntity(null, map.AtPos(Vector2i.One));
 
             var entSpatial = entMan.GetComponent<SpatialComponent>(ent);
 
@@ -64,12 +64,12 @@ namespace OpenNefia.Content.Tests.Maps.StartLocation
             var entMan = sim.Resolve<IEntityManager>();
 
             var map = sim.CreateMapAndSetActive(10, 10);
-            var ent = entMan.SpawnEntity(null, map.AtPos(Vector2i.One)).Uid;
+            var ent = entMan.SpawnEntity(null, map.AtPos(Vector2i.One));
 
             var direction = Direction.North;
             var expectedPos = new Vector2i(3, 4);
 
-            var posEnt = entMan.SpawnEntity(null, map.AtPos(expectedPos)).Uid;
+            var posEnt = entMan.SpawnEntity(null, map.AtPos(expectedPos));
             var posComp = entMan.EnsureComponent<MapEdgesLocationComponent>(posEnt);
             posComp.TargetDirection = direction;
 

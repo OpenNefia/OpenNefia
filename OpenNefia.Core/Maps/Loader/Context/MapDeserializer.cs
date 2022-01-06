@@ -177,9 +177,9 @@ namespace OpenNefia.Core.Maps
                 }
 
                 var entity = _entityManager.AllocEntity(protoId, realUid);
-                _context.Entities.Add(entity.Uid);
-                _context.UidEntityMap.Add(uid, entity.Uid);
-                _entitiesToDeserialize.Add((entity.Uid, entityDef));
+                _context.Entities.Add(entity);
+                _context.UidEntityMap.Add(uid, entity);
+                _entitiesToDeserialize.Add((entity, entityDef));
 
                 if (_mode == MapSerializeMode.Blueprint)
                 {
@@ -236,7 +236,7 @@ namespace OpenNefia.Core.Maps
                     }
                 }
 
-                _entityManager.FinishEntityLoad(_entityManager.GetEntity(entity), _context);
+                _entityManager.FinishEntityLoad(entity, _context);
             }
         }
 
@@ -278,7 +278,7 @@ namespace OpenNefia.Core.Maps
         {
             foreach (var entity in _context.Entities)
             {
-                _entityManager.FinishEntityInitialization(_entityManager.GetEntity(entity));
+                _entityManager.FinishEntityInitialization(entity);
             }
         }
 
@@ -286,7 +286,7 @@ namespace OpenNefia.Core.Maps
         {
             foreach (var entity in _context.Entities)
             {
-                _entityManager.FinishEntityStartup(_entityManager.GetEntity(entity));
+                _entityManager.FinishEntityStartup(entity);
 
                 _onBlueprintEntityStartup?.Invoke(entity);
             }

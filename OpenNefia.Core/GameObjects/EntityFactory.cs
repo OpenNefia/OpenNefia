@@ -14,14 +14,13 @@ namespace OpenNefia.Core.GameObjects
 {
     public interface IEntityFactory
     {
-        void UpdateEntity(Entity entity, EntityPrototype prototype);
-        void LocalizeComponents(Entity entity);
+        void UpdateEntity(MetaDataComponent metaData, EntityPrototype prototype);
         void LocalizeComponents(EntityUid entityUid);
     }
 
     internal interface IEntityFactoryInternal : IEntityFactory
     {
-        void LoadEntity(EntityPrototype? prototype, Entity entity, IComponentFactory factory, IEntityLoadContext? context);
+        void LoadEntity(EntityPrototype? prototype, EntityUid entity, IComponentFactory factory, IEntityLoadContext? context);
     }
 
     public class EntityFactory : IEntityFactoryInternal
@@ -32,16 +31,16 @@ namespace OpenNefia.Core.GameObjects
         [Dependency] private readonly IComponentDependencyManager _componentDependencyManager = default!;
         [Dependency] private readonly ISerializationManager _serializationManager = default!;
 
-        public void UpdateEntity(Entity entity, EntityPrototype prototype)
+        public void UpdateEntity(MetaDataComponent metaData, EntityPrototype prototype)
         {
-            if (prototype.ID != entity.Prototype?.ID)
+            if (prototype.ID != metaData.EntityPrototype?.ID)
             {
                 Logger.Error(
-                    $"Reloaded prototype used to update entity did not match entity's existing prototype: Expected '{prototype.ID}', got '{entity.Prototype?.ID}'");
+                    $"Reloaded prototype used to update entity did not match entity's existing prototype: Expected '{prototype.ID}', got '{metaData.EntityPrototype?.ID}'");
                 return;
             }
 
-            var oldPrototype = entity.Prototype;
+            var oldPrototype = metaData.EntityPrototype;
 
             var oldPrototypeComponents = oldPrototype.Components.Keys
                 .Where(n => n != "MetaData")
@@ -51,6 +50,8 @@ namespace OpenNefia.Core.GameObjects
                 .Where(n => n != "MetaData")
                 .Select(name => (name, _componentFactory.GetRegistration(name).Type))
                 .ToList();
+
+            var entity = metaData.Owner;
 
             var ignoredComponents = new List<string>();
 
@@ -63,7 +64,7 @@ namespace OpenNefia.Core.GameObjects
                     continue;
                 }
 
-                _entityManager.RemoveComponent(entity.Uid, type);
+                _entityManager.RemoveComponent(entity, type);
             }
 
             _entityManager.CullRemovedComponents();
@@ -75,17 +76,17 @@ namespace OpenNefia.Core.GameObjects
                 var data = prototype.Components[name];
                 var component = (Component)_componentFactory.GetComponent(name);
                 component.Owner = entity;
-                _componentDependencyManager.OnComponentAdd(entity.Uid, component);
-                entity.AddComponent(component);
+                _componentDependencyManager.OnComponentAdd(entity, component);
+                _entityManager.AddComponent(entity, component);
             }
 
             // Update entity metadata
-            entity.MetaData.EntityPrototype = prototype;
+            metaData.EntityPrototype = prototype;
 
             LocalizeComponents(entity);
         }
 
-        public void LoadEntity(EntityPrototype? prototype, Entity entity, IComponentFactory factory,
+        public void LoadEntity(EntityPrototype? prototype, EntityUid entity, IComponentFactory factory,
             IEntityLoadContext? context) //yeah officer this method right here
         {
             /*YamlObjectSerializer.Context? defaultContext = null;
@@ -135,20 +136,12 @@ namespace OpenNefia.Core.GameObjects
             LocalizeComponents(entity);
         }
 
-        public void LocalizeComponents(EntityUid entityUid)
+        public void LocalizeComponents(EntityUid entity)
         {
-            if (!_entityManager.TryGetEntity(entityUid, out var entity))
+            if (!_localizationManager.TryGetLocalizationData(entity, out var table))
                 return;
 
-            LocalizeComponents(entity);
-        }
-
-        public void LocalizeComponents(Entity entity)
-        {
-            if (!_localizationManager.TryGetLocalizationData(entity.Uid, out var table))
-                return;
-
-            foreach (var comp in entity.GetAllComponents())
+            foreach (var comp in _entityManager.GetComponents(entity))
             {
                 if (comp is IComponentLocalizable compLocalizable)
                 {
@@ -161,24 +154,28 @@ namespace OpenNefia.Core.GameObjects
                         }
                         catch (Exception ex)
                         {
-                            var proto = entity.MetaData.EntityPrototype;
-                            Logger.ErrorS("entity.localize", ex, $"Failed to localize component {comp.Name} ({proto}): {ex}");
+                            EntityPrototype? protoId = null;
+                            if (_entityManager.TryGetComponent(entity, out MetaDataComponent metaData))
+                            {
+                                protoId = metaData.EntityPrototype;
+                            }
+                            Logger.ErrorS("entity.localize", ex, $"Failed to localize component {comp.Name} ({protoId}): {ex}");
                         }
                     }
                 }
             }
         }
 
-        private void EnsureCompExistsAndDeserialize(Entity entity, IComponentFactory factory, string compName,
+        private void EnsureCompExistsAndDeserialize(EntityUid entity, IComponentFactory factory, string compName,
             IComponent data, ISerializationContext? context)
         {
             var compType = factory.GetRegistration(compName).Type;
 
-            if (!entity.TryGetComponent(compType, out var component))
+            if (!_entityManager.TryGetComponent(entity, compType, out var component))
             {
                 var newComponent = (Component)factory.GetComponent(compName);
                 newComponent.Owner = entity;
-                entity.AddComponent(newComponent);
+                _entityManager.AddComponent(entity, newComponent);
                 component = newComponent;
             }
 

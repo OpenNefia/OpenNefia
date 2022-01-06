@@ -57,9 +57,9 @@ namespace OpenNefia.Tests
         /// </summary>
         IMap CreateMapAndSetActive(int width, int height);
 
-        Entity SpawnEntity(PrototypeId<EntityPrototype>? protoId, MapCoordinates coordinates);
+        EntityUid SpawnEntity(PrototypeId<EntityPrototype>? protoId, MapCoordinates coordinates);
 
-        Entity SpawnEntity(PrototypeId<EntityPrototype>? protoId, EntityCoordinates coordinates);
+        EntityUid SpawnEntity(PrototypeId<EntityPrototype>? protoId, EntityCoordinates coordinates);
 
         IMap? ActiveMap { get; }
     }
@@ -117,13 +117,13 @@ namespace OpenNefia.Tests
             return map;
         }
 
-        public Entity SpawnEntity(PrototypeId<EntityPrototype>? protoId, MapCoordinates coordinates)
+        public EntityUid SpawnEntity(PrototypeId<EntityPrototype>? protoId, MapCoordinates coordinates)
         {
             var entMan = Collection.Resolve<IEntityManager>();
             return entMan.SpawnEntity(protoId, coordinates);
         }
 
-        public Entity SpawnEntity(PrototypeId<EntityPrototype>? protoId, EntityCoordinates coordinates)
+        public EntityUid SpawnEntity(PrototypeId<EntityPrototype>? protoId, EntityCoordinates coordinates)
         {
             var entMan = Collection.Resolve<IEntityManager>();
             return entMan.SpawnEntity(protoId, coordinates);

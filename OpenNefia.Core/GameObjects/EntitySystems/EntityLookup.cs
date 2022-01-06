@@ -19,7 +19,7 @@ namespace OpenNefia.Core.GameObjects
         /// Gets all entities in this map, including children nested in containers.
         /// </summary>
         /// <param name="includeMapEntity">If true, include the map entity as the last in the enumerable.</param>
-        IEnumerable<Entity> GetAllEntitiesIn(MapId mapId, bool includeMapEntity = false);
+        IEnumerable<SpatialComponent> GetAllEntitiesIn(MapId mapId, bool includeMapEntity = false);
 
         /// <summary>
         /// Returns all entities that are direct children of the map,
@@ -27,14 +27,14 @@ namespace OpenNefia.Core.GameObjects
         /// </summary>
         /// <param name="mapId">The map to query in.</param>
         /// <param name="includeMapEntity">If true, include the map entity as the last in the enumerable.</param>
-        IEnumerable<Entity> GetEntitiesDirectlyIn(MapId mapId, bool includeMapEntity = false);
+        IEnumerable<SpatialComponent> GetEntitiesDirectlyIn(MapId mapId, bool includeMapEntity = false);
 
         /// <summary>
         /// Returns all entities that are direct children of the entity.
         /// </summary>
         /// <param name="entity">Entity to query in.</param>
         /// <param name="includeParent">If true, include the passed entity as the last in the enumerable.</param>
-        IEnumerable<Entity> GetEntitiesDirectlyIn(Entity entity, bool includeParent = false);
+        IEnumerable<SpatialComponent> GetEntitiesDirectlyIn(EntityUid entity, bool includeParent = false);
 
         /// <summary>
         /// Gets the live entities at the position in the map, excluding
@@ -42,7 +42,7 @@ namespace OpenNefia.Core.GameObjects
         /// </summary>
         /// <param name="coords">The coordinates to query at.</param>
         /// <param name="includeMapEntity">If true, include the map entity as the last in the enumerable.</param>
-        IEnumerable<Entity> GetLiveEntitiesAtCoords(MapCoordinates coords, bool includeMapEntity = false);
+        IEnumerable<SpatialComponent> GetLiveEntitiesAtCoords(MapCoordinates coords, bool includeMapEntity = false);
 
         /// <summary>
         /// Gets the live entities at the position. This is used in case
@@ -50,7 +50,7 @@ namespace OpenNefia.Core.GameObjects
         /// </summary>
         /// <param name="coords">The coordinates to query at.</param>
         /// <param name="includeParent">If true, include the parent entity as the last in the enumerable.</param>
-        IEnumerable<Entity> GetLiveEntitiesAtCoords(EntityCoordinates coords, bool includeParent = false);
+        IEnumerable<SpatialComponent> GetLiveEntitiesAtCoords(EntityCoordinates coords, bool includeParent = false);
 
         /// <summary>
         /// Gets the primary character on this tile.
@@ -66,7 +66,9 @@ namespace OpenNefia.Core.GameObjects
         /// It's necessary to keep track of the non-primary characters on the same tile because they are 
         /// still affected by things like area of effect magic.
         /// </summary>
-        Entity? GetBlockingEntity(MapCoordinates coords);
+        SpatialComponent? GetBlockingEntity(MapCoordinates coords);
+
+        IEnumerable<SpatialComponent> EntitiesUnderneath(EntityUid player, bool includeMapEntity = false, SpatialComponent? spatial = null);
 
         /// <summary>
         ///     Returns ALL component instances of a specified type in the given map.
@@ -119,8 +121,6 @@ namespace OpenNefia.Core.GameObjects
             where TComp2 : IComponent
             where TComp3 : IComponent
             where TComp4 : IComponent;
-
-        IEnumerable<Entity> EntitiesUnderneath(EntityUid player, bool includeMapEntity = false, SpatialComponent? spatial = null);
     }
 
     public class EntityLookup : EntitySystem, IEntityLookup
@@ -140,52 +140,58 @@ namespace OpenNefia.Core.GameObjects
         }
 
         /// <inheritdoc />
-        public IEnumerable<Entity> GetAllEntitiesIn(MapId mapId, bool includeMapEntity = false)
+        public IEnumerable<SpatialComponent> GetAllEntitiesIn(MapId mapId, bool includeMapEntity = false)
         {
-            if (!_mapManager.TryGetMapEntity(mapId, out var mapEntity))
-                return Enumerable.Empty<Entity>();
-
-            var ents = EntityManager.GetEntities()
-                .Where(ent => ent.Spatial.MapID == mapId && ent.Uid != mapEntity.Uid);
+            if (!_mapManager.TryGetMap(mapId, out var map))
+                yield break;
+            if (!EntityManager.TryGetComponent(map.MapEntityUid, out SpatialComponent mapEntitySpatial))
+                yield break;
+            
+            foreach (var spatial in EntityManager.GetAllComponents<SpatialComponent>())
+            {
+                if (spatial.MapID == mapId && spatial.Owner != mapEntitySpatial.Owner)
+                    yield return spatial;
+            }
 
             if (includeMapEntity)
             {
-                ents = ents.Append(mapEntity);
+                yield return mapEntitySpatial;
             }
-
-            return ents;
         }
 
         /// <inheritdoc />
-        public IEnumerable<Entity> GetEntitiesDirectlyIn(Entity entity, bool includeParent = false)
+        public IEnumerable<SpatialComponent> GetEntitiesDirectlyIn(EntityUid entity, bool includeParent = false)
         {
-            var ents = entity.Spatial.Children.Select(spatial => spatial.Owner);
+            if (!EntityManager.TryGetComponent(entity, out SpatialComponent spatial))
+                return Enumerable.Empty<SpatialComponent>();
+
+            var spatials = spatial.Children;
 
             if (includeParent)
             {
-                ents = ents.Append(entity);
+                spatials = spatials.Append(spatial);
             }
 
-            return ents;
+            return spatials;
         }
 
         /// <inheritdoc />
-        public IEnumerable<Entity> GetEntitiesDirectlyIn(MapId mapId, bool includeParent = false)
+        public IEnumerable<SpatialComponent> GetEntitiesDirectlyIn(MapId mapId, bool includeParent = false)
         {
-            if (!_mapManager.TryGetMapEntity(mapId, out var mapEntity))
-                return Enumerable.Empty<Entity>();
+            if (!_mapManager.TryGetMap(mapId, out var map))
+                return Enumerable.Empty<SpatialComponent>();
 
-            return GetEntitiesDirectlyIn(mapEntity, includeParent);
+            return GetEntitiesDirectlyIn(map.MapEntityUid, includeParent);
         }
 
         /// <inheritdoc />
-        public IEnumerable<Entity> GetLiveEntitiesAtCoords(MapCoordinates coords, bool includeMapEntity = false)
+        public IEnumerable<SpatialComponent> GetLiveEntitiesAtCoords(MapCoordinates coords, bool includeMapEntity = false)
         {
             if (!_mapManager.TryGetMap(coords.MapId, out var map))
-                return Enumerable.Empty<Entity>();
+                return Enumerable.Empty<SpatialComponent>();
 
             if (!map.IsInBounds(coords))
-                return Enumerable.Empty<Entity>();
+                return Enumerable.Empty<SpatialComponent>();
 
             var mapLookupComp = EntityManager.EnsureComponent<MapEntityLookupComponent>(map.MapEntityUid);
 
@@ -197,31 +203,35 @@ namespace OpenNefia.Core.GameObjects
                 ents = ents.Append(map.MapEntityUid);
             }
 
-            return ents.Select(uid => EntityManager.GetEntity(uid));
+            return ents.Select(uid => EntityManager.GetComponent<SpatialComponent>(uid));
         }
 
         /// <inheritdoc />
-        public IEnumerable<Entity> GetLiveEntitiesAtCoords(EntityCoordinates coords, bool includeParent = false)
+        public IEnumerable<SpatialComponent> GetLiveEntitiesAtCoords(EntityCoordinates coords, bool includeParent = false)
         {
             return GetLiveEntitiesAtCoords(coords.ToMap(EntityManager), includeParent);
         }
 
         /// <inheritdoc />
-        public Entity? GetBlockingEntity(MapCoordinates coords)
+        public SpatialComponent? GetBlockingEntity(MapCoordinates coords)
         {
-            return GetLiveEntitiesAtCoords(coords)
-                .Where(ent => ent.Spatial.IsSolid)
-                .FirstOrDefault();
+            foreach (var spatial in GetLiveEntitiesAtCoords(coords))
+            {
+                if (spatial.IsSolid)
+                    return spatial;
+            }
+
+            return null;
         }
         
         /// <inheritdoc/>
-        public IEnumerable<Entity> EntitiesUnderneath(EntityUid player, bool includeMapEntity = false, SpatialComponent? spatial = null)
+        public IEnumerable<SpatialComponent> EntitiesUnderneath(EntityUid player, bool includeMapEntity = false, SpatialComponent? spatial = null)
         {
             if (!Resolve(player, ref spatial))
-                return Enumerable.Empty<Entity>();
+                return Enumerable.Empty<SpatialComponent>();
 
             return GetLiveEntitiesAtCoords(spatial.MapPosition, includeMapEntity: includeMapEntity)
-                .Where(e => e.Uid != player);
+                .Where(s => s.Owner != player);
         }
 
         /// <inheritdoc />
@@ -239,7 +249,7 @@ namespace OpenNefia.Core.GameObjects
         {
             foreach (var ent in EntityManager.EntityQuery<TComp>())
             {
-                if (EntityManager.TryGetComponent(ent.OwnerUid, out SpatialComponent? spatial) 
+                if (EntityManager.TryGetComponent(ent.Owner, out SpatialComponent? spatial) 
                     && EntityIsInMap(mapId, spatial, includeChildren))
                 {
                     yield return ent;
@@ -254,7 +264,7 @@ namespace OpenNefia.Core.GameObjects
         {
             foreach (var ent in EntityManager.EntityQuery<TComp1, TComp2>())
             {
-                if (EntityManager.TryGetComponent(ent.Item1.OwnerUid, out SpatialComponent? spatial)
+                if (EntityManager.TryGetComponent(ent.Item1.Owner, out SpatialComponent? spatial)
                     && EntityIsInMap(mapId, spatial, includeChildren))
                 {
                     yield return ent;
@@ -270,7 +280,7 @@ namespace OpenNefia.Core.GameObjects
         {
             foreach (var ent in EntityManager.EntityQuery<TComp1, TComp2, TComp3>())
             {
-                if (EntityManager.TryGetComponent(ent.Item1.OwnerUid, out SpatialComponent? spatial)
+                if (EntityManager.TryGetComponent(ent.Item1.Owner, out SpatialComponent? spatial)
                     && EntityIsInMap(mapId, spatial, includeChildren))
                 {
                     yield return ent;
@@ -287,7 +297,7 @@ namespace OpenNefia.Core.GameObjects
         {
             foreach (var ent in EntityManager.EntityQuery<TComp1, TComp2, TComp3, TComp4>())
             {
-                if (EntityManager.TryGetComponent(ent.Item1.OwnerUid, out SpatialComponent? spatial)
+                if (EntityManager.TryGetComponent(ent.Item1.Owner, out SpatialComponent? spatial)
                     && EntityIsInMap(mapId, spatial, includeChildren))
                 {
                     yield return ent;

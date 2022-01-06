@@ -32,7 +32,7 @@ namespace OpenNefia.Content.Tests.Maps.Entrances
 
             mapMan.SetActiveMap(map1.Id);
 
-            var ent = entMan.SpawnEntity(null, map1.AtPos(Vector2i.One)).Uid;
+            var ent = entMan.SpawnEntity(null, map1.AtPos(Vector2i.One));
 
             var startPos = new Vector2i(12, 34);
 

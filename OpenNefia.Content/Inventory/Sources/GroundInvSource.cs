@@ -21,7 +21,7 @@ namespace OpenNefia.Content.Inventory
                 return Enumerable.Empty<EntityUid>();
 
             return _lookup.GetLiveEntitiesAtCoords(spatial.MapPosition)
-                .Select(ent => ent.Uid);
+                .Select(spatial => spatial.Owner);
         }
 
         public void OnDraw()

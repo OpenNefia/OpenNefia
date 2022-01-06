@@ -43,29 +43,29 @@ public class CharaComponent_Tests : ContentUnitTest
         var dummy = entityManager.CreateEntityUninitialized(new("dummy"));
 
         Assert.That(dummy, Is.Not.Null);
-        Assert.That(entityManager.IsAlive(dummy.Uid), Is.True);
-        Assert.That(entityManager.IsDeadAndBuried(dummy.Uid), Is.False);
+        Assert.That(entityManager.IsAlive(dummy), Is.True);
+        Assert.That(entityManager.IsDeadAndBuried(dummy), Is.False);
 
-        var charaComp = entityManager.GetComponent<CharaComponent>(dummy.Uid);
+        var charaComp = entityManager.GetComponent<CharaComponent>(dummy);
 
         Assert.That(charaComp.Liveness, Is.EqualTo(CharaLivenessState.Alive));
 
         charaComp.Liveness = CharaLivenessState.PetDead;
 
         Assert.That(charaComp.Liveness, Is.EqualTo(CharaLivenessState.PetDead));
-        Assert.That(entityManager.IsAlive(dummy.Uid), Is.False);
-        Assert.That(entityManager.IsDeadAndBuried(dummy.Uid), Is.False);
+        Assert.That(entityManager.IsAlive(dummy), Is.False);
+        Assert.That(entityManager.IsDeadAndBuried(dummy), Is.False);
 
         charaComp.Liveness = CharaLivenessState.Dead;
 
         Assert.That(charaComp.Liveness, Is.EqualTo(CharaLivenessState.Dead));
-        Assert.That(entityManager.IsAlive(dummy.Uid), Is.False);
-        Assert.That(entityManager.IsDeadAndBuried(dummy.Uid), Is.True);
+        Assert.That(entityManager.IsAlive(dummy), Is.False);
+        Assert.That(entityManager.IsDeadAndBuried(dummy), Is.True);
 
         charaComp.Liveness = CharaLivenessState.Alive;
 
         Assert.That(charaComp.Liveness, Is.EqualTo(CharaLivenessState.Alive));
-        Assert.That(entityManager.IsAlive(dummy.Uid), Is.True);
-        Assert.That(entityManager.IsDeadAndBuried(dummy.Uid), Is.False);
+        Assert.That(entityManager.IsAlive(dummy), Is.True);
+        Assert.That(entityManager.IsDeadAndBuried(dummy), Is.False);
     }
 }

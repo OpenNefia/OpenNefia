@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace OpenNefia.Core.GameObjects
 {
-    public static class IEntityExt
+    public static class SpatialComponentExt
     {
-        public static Vector2 GetScreenPos(this Entity entity)
+        public static Vector2 GetScreenPos(this SpatialComponent spatial)
         {
-            return GameSession.Coords.TileToScreen(entity.Spatial.WorldPosition);
+            return GameSession.Coords.TileToScreen(spatial.WorldPosition);
         }
     }
 }

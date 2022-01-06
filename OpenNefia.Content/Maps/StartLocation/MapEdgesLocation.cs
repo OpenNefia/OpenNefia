@@ -29,7 +29,7 @@ namespace OpenNefia.Content.Maps
             {
                 if (comp.TargetDirection == spatial.Direction)
                 {
-                    targetPos = _entityManager.GetComponent<SpatialComponent>(comp.OwnerUid).WorldPosition;
+                    targetPos = _entityManager.GetComponent<SpatialComponent>(comp.Owner).WorldPosition;
                     break;
                 }
             }

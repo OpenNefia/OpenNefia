@@ -34,10 +34,10 @@ namespace OpenNefia.Tests.Core.Maps
             var mapId = new MapId(42);
             var mapEnt = entMan.CreateEntityUninitialized(null);
 
-            mapMan.RegisterMap(map, mapId, mapEnt.Uid);
+            mapMan.RegisterMap(map, mapId, mapEnt);
 
             Assert.That(mapMan.MapIsLoaded(map.Id), Is.True);
-            Assert.That(map.MapEntityUid, Is.EqualTo(mapEnt.Uid));
+            Assert.That(map.MapEntityUid, Is.EqualTo(mapEnt));
             Assert.That(map.Id, Is.EqualTo(mapId));
             
             // RegisterMap() will not affect the highest map ID. This is
@@ -90,8 +90,8 @@ namespace OpenNefia.Tests.Core.Maps
             Assert.That(entMan.EntityExists(map1.MapEntityUid), Is.False);
             Assert.That(entMan.EntityExists(map2.MapEntityUid), Is.True);
 
-            Assert.That(entMan.EntityExists(map1ent.Uid), Is.False);
-            Assert.That(entMan.EntityExists(map2ent.Uid), Is.True);
+            Assert.That(entMan.EntityExists(map1ent), Is.False);
+            Assert.That(entMan.EntityExists(map2ent), Is.True);
 
             Assert.That(mapMan.MapIsLoaded(map1.Id), Is.False);
             Assert.That(mapMan.MapIsLoaded(map2.Id), Is.True);

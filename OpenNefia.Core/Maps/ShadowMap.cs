@@ -1,4 +1,5 @@
 ﻿using OpenNefia.Core.Game;
+using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.Rendering;
@@ -7,6 +8,7 @@ namespace OpenNefia.Core.Maps
 {
     public sealed class ShadowMap
     {
+        private readonly IEntityManager _entityManager;
         private readonly ICoords _coords;
 
         private IMap _map;
@@ -15,9 +17,10 @@ namespace OpenNefia.Core.Maps
         internal Vector2i _ShadowSize;
         internal UIBox2i _ShadowBounds { get => UIBox2i.FromDimensions(_ShadowPos, _ShadowSize); }
 
-        public ShadowMap(IMap map, ICoords coords)
+        public ShadowMap(IMap map, IEntityManager entityManager, ICoords coords)
         {
             _map = map;
+            _entityManager = entityManager; ;
             _coords = coords;
             _ShadowTiles = new ShadowTile[map.Width, map.Height];
         }
@@ -45,9 +48,10 @@ namespace OpenNefia.Core.Maps
             Array.Clear(_ShadowTiles, 0, _ShadowTiles.Length);
 
             var player = GameSession.Player!;
-            var playerPos = player.Spatial.MapPosition.Position;
+            var playerSpatial = _entityManager.GetComponent<SpatialComponent>(player);
+            var playerPos = playerSpatial.MapPosition.Position;
 
-            if (_map.Id != player.Spatial.MapID)
+            if (_map.Id != playerSpatial.MapID)
                 return;
 
             _coords.GetWindowTiledSize(out var windowTiledSize);
@@ -128,7 +132,7 @@ namespace OpenNefia.Core.Maps
                                 if (i >= fovRadius[j + cy, 0] + cx && i < fovRadius[j + cy, 1] + cx)
                                 {
                                     var pos = new Vector2i(i, j);
-                                    if (_map.HasLineOfSight(player.Spatial.WorldPosition, pos))
+                                    if (_map.HasLineOfSight(playerSpatial.WorldPosition, pos))
                                     {
                                         _map.MemorizeTile(pos);
                                         shadow = false;

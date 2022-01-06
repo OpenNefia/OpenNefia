@@ -30,7 +30,11 @@ namespace OpenNefia.Content.UI.Layer
 
         public class Args
         {
-            public Args(MapCoordinates origin, MapCoordinates? target = null, Entity? onlooker = null)
+            public MapCoordinates OriginPos { get; set; }
+            public MapCoordinates TargetPos { get; set; }
+            public EntityUid? Onlooker { get; set; }
+
+            public Args(MapCoordinates origin, MapCoordinates? target = null, EntityUid? onlooker = null)
             {
                 if (target != null && origin.MapId != target.Value.MapId)
                     target = origin;
@@ -39,16 +43,6 @@ namespace OpenNefia.Content.UI.Layer
                 TargetPos = target ?? origin;
                 Onlooker = onlooker;
             }
-
-            public Args(Entity onlooker, MapCoordinates? target)
-                : this(onlooker.Spatial.MapPosition, target, onlooker) { }
-
-            public Args(Entity onlooker)
-                : this(onlooker.Spatial.MapPosition, onlooker: onlooker) { }
-
-            public MapCoordinates OriginPos { get; set; }
-            public MapCoordinates TargetPos { get; set; }
-            public Entity? Onlooker { get; set; }
         }
 
         public new class Result
@@ -68,7 +62,7 @@ namespace OpenNefia.Content.UI.Layer
         private bool _canSee = false;
         private bool _isPanning = false;
 
-        private Entity _onlooker = default!;
+        private EntityUid _onlooker = default!;
         private IMap _map = default!;
 
         protected Color ColorTargetedTile = UiColors.PromptTargetedTile;
@@ -88,7 +82,7 @@ namespace OpenNefia.Content.UI.Layer
         {
             _originPos = args.OriginPos;
             _targetPos = args.TargetPos;
-            _onlooker = args.Onlooker ?? _gameSession.Player!;
+            _onlooker = args.Onlooker ?? _gameSession.Player;
             _map = _mapManager.GetMap(args.OriginPos.MapId);
         }
 
@@ -143,7 +137,7 @@ namespace OpenNefia.Content.UI.Layer
 
         private void MouseToTargetPos(Vector2i screenPos)
         {
-            _field.Camera.VisibleScreenToTile(screenPos, out var tilePos);
+            var tilePos = _field.Camera.VisibleScreenToTile(screenPos);
             this.SetTargetPos(_mapManager.ActiveMap!.AtPos(tilePos));
         }
 
@@ -174,7 +168,7 @@ namespace OpenNefia.Content.UI.Layer
 
         private void UpdateTargetText()
         {
-            _canSee = _targetText.GetTargetText(this._onlooker.Uid, this._targetPos, out var text, visibleOnly: true);
+            _canSee = _targetText.GetTargetText(this._onlooker, this._targetPos, out var text, visibleOnly: true);
             TextTarget.Text = text;
         }
 
@@ -214,20 +208,20 @@ namespace OpenNefia.Content.UI.Layer
 
         private bool ShouldDrawLine()
         {
-            var targetChara = _lookup.GetBlockingEntity(_targetPos);
+            var targetSpatial = _lookup.GetBlockingEntity(_targetPos);
 
-            if (targetChara == null || !_visibility.CanSeeEntity(_onlooker.Uid, targetChara.Uid)
-                || !_map.HasLineOfSight(targetChara.Spatial.WorldPosition, _originPos.Position))
+            if (targetSpatial == null || !_visibility.CanSeeEntity(_onlooker, targetSpatial.Owner)
+                || !_map.HasLineOfSight(targetSpatial.WorldPosition, _originPos.Position))
             {
                 return false;
             }
 
-            return _entityManager.HasComponent<MoveableComponent>(targetChara.Uid);
+            return _entityManager.HasComponent<MoveableComponent>(targetSpatial.Owner);
         }
 
         public override void Draw()
         {
-            _field.Camera.TileToVisibleScreen(_targetPos, out var screenPos);
+            var screenPos = _field.Camera.TileToVisibleScreen(_targetPos);
             Love.Graphics.SetBlendMode(Love.BlendMode.Add);
             GraphicsEx.SetColor(ColorTargetedTile);
             Love.Graphics.Rectangle(Love.DrawMode.Fill, screenPos.X, screenPos.Y, GameSession.Coords.TileSize.X, GameSession.Coords.TileSize.Y);
@@ -236,7 +230,7 @@ namespace OpenNefia.Content.UI.Layer
             {
                 foreach (var coords in PosHelpers.EnumerateLine(_originPos, _targetPos))
                 {
-                    _field.Camera.TileToVisibleScreen(coords, out screenPos);
+                    screenPos = _field.Camera.TileToVisibleScreen(coords);
                     Love.Graphics.Rectangle(Love.DrawMode.Fill, screenPos.X, screenPos.Y, GameSession.Coords.TileSize.X, GameSession.Coords.TileSize.Y);
                 }
             }

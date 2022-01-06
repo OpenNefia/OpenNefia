@@ -114,14 +114,14 @@ namespace OpenNefia.Content.VanillaAI
 
                         if (x >= 0 && x < map.Width)
                         {
-                            var onCell = _lookup.GetBlockingEntity(map.AtPos(x, y));
+                            var onCellSpatial = _lookup.GetBlockingEntity(map.AtPos(x, y));
 
-                            if (onCell != null)
+                            if (onCellSpatial != null)
                             {
-                                if (!EntityManager.HasComponent<AINoTargetComponent>(onCell.Uid)
-                                    && _factions.GetRelationTowards(entity, onCell.Uid) <= Relation.Enemy)
+                                if (!EntityManager.HasComponent<AINoTargetComponent>(onCellSpatial.Owner)
+                                    && _factions.GetRelationTowards(entity, onCellSpatial.Owner) <= Relation.Enemy)
                                 {
-                                    SetTarget(entity, onCell.Uid, 30, ai);
+                                    SetTarget(entity, onCellSpatial.Owner, 30, ai);
                                     // TODO emotion icon
                                     return true;
                                 }
@@ -138,12 +138,12 @@ namespace OpenNefia.Content.VanillaAI
 
         private EntityUid GetDefaultTarget(EntityUid entity)
         {
-            return _parties.GetSupremeCommander(entity)?.OwnerUid ?? _gameSession.Player!.Uid;
+            return _parties.GetSupremeCommander(entity)?.Owner ?? _gameSession.Player;
         }
 
         private bool IsAlliedWithPlayer(EntityUid entity)
         {
-            return _factions.GetRelationTowards(entity, _gameSession.Player!.Uid) >= Relation.Ally;
+            return _factions.GetRelationTowards(entity, _gameSession.Player) >= Relation.Ally;
         }
 
         private void DecrementAggro(VanillaAIComponent ai)
@@ -250,7 +250,7 @@ namespace OpenNefia.Content.VanillaAI
             if (ai.CalmAction != VanillaAICalmAction.Follow)
                 return false;
 
-            var player = _gameSession.Player?.Uid;
+            var player = _gameSession.Player;
             if (EntityManager.IsAlive(player))
             {
                 ai.CurrentTarget = player;
@@ -278,17 +278,19 @@ namespace OpenNefia.Content.VanillaAI
                 return;
             }
 
-            var target = _parties.GetSupremeCommander(ai.CurrentTarget.Value)?.OwnerUid ?? ai.CurrentTarget.Value;
+            var target = _parties.GetSupremeCommander(ai.CurrentTarget.Value)?.Owner ?? ai.CurrentTarget.Value;
 
             RunMeleeAction(entity, target);
         }
 
         private void RunMeleeAction(EntityUid entity, EntityUid target)
         {
+            // TODO: is spawning temporary entities here a good idea?
+            // maybe reserve a range of UIDs as temporary and always wipe them?
             var action = EntityManager.SpawnEntity(null, new EntityCoordinates(target, Vector2i.Zero));
-            action.AddComponent<AIActionMeleeComponent>();
+            EntityManager.AddComponent<AIActionMeleeComponent>(action);
 
-            RunAIAction(entity, action.Uid);
+            RunAIAction(entity, action);
 
             EntityManager.DeleteEntity(action);
         }
@@ -335,7 +337,7 @@ namespace OpenNefia.Content.VanillaAI
 
             var map = _mapManager.GetMap(spatial.MapID);
 
-            if (leader != null && EntityManager.TryGetComponent(leader.OwnerUid, out VanillaAIComponent? leaderAi))
+            if (leader != null && EntityManager.TryGetComponent(leader.Owner, out VanillaAIComponent? leaderAi))
             {
                 // If a party leader was attacked by something, make their allies target the attacker.
                 var leaderAttacker = leaderAi.LastAttacker;
@@ -352,12 +354,12 @@ namespace OpenNefia.Content.VanillaAI
                 }
 
                 // If the ally has no target at this point, make them target the same thing as the leader.
-                if ((ai.CurrentTarget == null || ai.CurrentTarget == leader.OwnerUid)
-                    && EntityManager.IsAlive(leader.OwnerUid))
+                if ((ai.CurrentTarget == null || ai.CurrentTarget == leader.Owner)
+                    && EntityManager.IsAlive(leader.Owner))
                 {
                     var leaderTarget = leaderAi.CurrentTarget;
                     if (EntityManager.IsAlive(leaderTarget)
-                        && _factions.GetRelationTowards(leader.OwnerUid, leaderTarget.Value) <= Relation.Enemy
+                        && _factions.GetRelationTowards(leader.Owner, leaderTarget.Value) <= Relation.Enemy
                         && _vision.HasLineOfSight(ally, leaderTarget.Value))
                     {
                         SetTarget(ally, leaderTarget.Value, 5, ai);
@@ -369,7 +371,7 @@ namespace OpenNefia.Content.VanillaAI
             var target = ai.CurrentTarget;
             if (EntityManager.IsAlive(target) && !_vision.CanSeeEntity(ally, target.Value) && !_random.OneIn(5))
             {
-                ai.CurrentTarget = leader?.OwnerUid;
+                ai.CurrentTarget = leader?.Owner;
             }
         }
     }

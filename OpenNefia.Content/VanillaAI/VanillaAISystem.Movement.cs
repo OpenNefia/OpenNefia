@@ -167,12 +167,14 @@ namespace OpenNefia.Content.VanillaAI
             var direction = spatial.WorldPosition.DirectionTowards(ai.DestinationCoords);
             var newCoords = spatial.MapPosition.Offset(direction);
 
-            var onCell = _lookup.GetBlockingEntity(newCoords);
-            if (onCell != null)
+            var onCellSpatial = _lookup.GetBlockingEntity(newCoords);
+            if (onCellSpatial != null)
             {
-                if (_factions.GetRelationTowards(entity, onCell.Uid) <= Relation.Enemy)
+                var onCell = onCellSpatial.Owner;
+
+                if (_factions.GetRelationTowards(entity, onCell) <= Relation.Enemy)
                 {
-                    SetTarget(entity, onCell.Uid, ai.Aggro + 4);
+                    SetTarget(entity, onCell, ai.Aggro + 4);
                     DoBasicAction(entity, ai);
                     return false;
                 }
@@ -183,15 +185,15 @@ namespace OpenNefia.Content.VanillaAI
                     QualityComponent? onCellQuality = null;
                     VanillaAIComponent? onCellAi = null;
 
-                    if (Resolve(target, ref targetLevel) && Resolve(onCell.Uid, ref onCellLevel, ref onCellQuality, ref onCellAi, logMissing: false))
+                    if (Resolve(target, ref targetLevel) && Resolve(onCell, ref onCellLevel, ref onCellQuality, ref onCellAi, logMissing: false))
                     {
                         if (onCellQuality.Quality.Buffed > Quality.Good 
                             && onCellLevel.Level > targetLevel.Level
                             && onCellAi.CurrentTarget != ai.CurrentTarget)
                         {
-                            if (_movement.SwapPlaces(entity, onCell.Uid))
+                            if (_movement.SwapPlaces(entity, onCell))
                             {
-                                Mes.DisplayIfLos(entity, Loc.GetString("Elona.AI.Swap.Displace", ("chara", entity), ("onCell", onCell.Uid)));
+                                Mes.DisplayIfLos(entity, Loc.GetString("Elona.AI.Swap.Displace", ("chara", entity), ("onCell", onCell)));
                                 // TODO activity
                             }
                         }
@@ -395,13 +397,13 @@ namespace OpenNefia.Content.VanillaAI
                     return (coords, blocked);
                 }
 
-                var onCell = _lookup.GetBlockingEntity(coords);
+                var onCellSpatial = _lookup.GetBlockingEntity(coords);
 
-                if (onCell != null)
+                if (onCellSpatial != null)
                 {
-                    if (_factions.GetRelationTowards(entity, onCell.Uid) <= Relation.Enemy)
+                    if (_factions.GetRelationTowards(entity, onCellSpatial.Owner) <= Relation.Enemy)
                     {
-                        ai.CurrentTarget = onCell.Uid;
+                        ai.CurrentTarget = onCellSpatial.Owner;
                     }
                     else
                     {
@@ -409,7 +411,7 @@ namespace OpenNefia.Content.VanillaAI
                     }
                 }
 
-                if (CanAccessInDirCheck(map, pos, onCell?.Uid, ai))
+                if (CanAccessInDirCheck(map, pos, onCellSpatial?.Owner, ai))
                 {
                     Logger.Debug("GETENT");
                     return (map.AtPos(pos), blocked);

@@ -58,23 +58,23 @@ namespace OpenNefia.Content.VanillaAI
 
             _entries.Clear();
 
-            var playerParty = EntityManager.EnsureComponent<PartyComponent>(_gameSession.Player!.Uid);
+            var playerParty = EntityManager.EnsureComponent<PartyComponent>(_gameSession.Player!);
 
             foreach (var (spatial, skills) in _lookup.EntityQueryInMap<SpatialComponent, SkillsComponent>(_map.Id))
             {
-                if (!_entMan.IsAlive(spatial.OwnerUid) || !_visibility.CanSeeEntity(_gameSession.Player.Uid!, spatial.OwnerUid))
+                if (!_entMan.IsAlive(spatial.Owner) || !_visibility.CanSeeEntity(_gameSession.Player!, spatial.Owner))
                     continue;
 
                 IAssetInstance assetInstance;
 
-                if (playerParty.Members.Contains(spatial.OwnerUid))
+                if (playerParty.Members.Contains(spatial.Owner))
                     assetInstance = AssetHPBarAlly;
                 else
                     assetInstance = AssetHPBarOther;
 
                 var hpRatio = Math.Clamp((float)skills.HP / skills.MaxHP, 0.0f, 1.0f);
 
-                var screenPos = spatial.Owner.GetScreenPos();
+                var screenPos = spatial.GetScreenPos();
 
                 var entry = new DrawEntry(assetInstance, hpRatio, screenPos);
                 _entries.Add(entry);
