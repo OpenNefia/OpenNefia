@@ -4,7 +4,7 @@ using NUnit.Framework;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.IoC.Exceptions;
 
-namespace Robust.UnitTesting.Shared.IoC
+namespace OpenNefia.Tests.Core.IoC
 {
     /// <remarks>
     /// This fixture CAN NOT be parallelized, because <see cref="IoCManager"/> is a static singleton.
@@ -45,7 +45,7 @@ namespace Robust.UnitTesting.Shared.IoC
 
             var tester = IoCManager.Resolve<TestConstructorInjection>();
 
-            Assert.That(tester.FieldInjection, Is.Not.Null);
+            Assert.That(tester.FieldInjection, NUnit.Framework.Is.Not.Null);
         }
 
         [Test]
@@ -54,9 +54,9 @@ namespace Robust.UnitTesting.Shared.IoC
             IoCManager.Register<TestFieldInjection, TestFieldInjection>();
             IoCManager.BuildGraph();
 
-            Assert.That(IoCManager.Resolve<TestFieldInjection>(), Is.Not.Null);
+            Assert.That(IoCManager.Resolve<TestFieldInjection>(), NUnit.Framework.Is.Not.Null);
 
-            Assert.That(IoCManager.ResolveType(typeof(TestFieldInjection)), Is.Not.Null);
+            Assert.That(IoCManager.ResolveType(typeof(TestFieldInjection)), NUnit.Framework.Is.Not.Null);
         }
 
         [Test]
@@ -68,7 +68,7 @@ namespace Robust.UnitTesting.Shared.IoC
             IoCManager.BuildGraph(); // Actually calls the factory
 
             var result = IoCManager.Resolve<TestFieldInjection>();
-            Assert.That(result, Is.EqualTo(newInstance));
+            Assert.That(result, NUnit.Framework.Is.EqualTo(newInstance));
         }
 
         [Test]
@@ -78,7 +78,7 @@ namespace Robust.UnitTesting.Shared.IoC
             IoCManager.Register<IIoCTestPriorities, IoCTestPriorities1>(true);
             IoCManager.BuildGraph();
 
-            Assert.That(IoCManager.Resolve<IIoCTestPriorities>(), Is.TypeOf<IoCTestPriorities1>());
+            Assert.That(IoCManager.Resolve<IIoCTestPriorities>(), NUnit.Framework.Is.TypeOf<IoCTestPriorities1>());
         }
 
         [Test]
@@ -134,7 +134,7 @@ namespace Robust.UnitTesting.Shared.IoC
 
             IoCManager.RegisterInstance<IIoCTestPriorities>(obj);
 
-            Assert.That(IoCManager.Resolve<IIoCTestPriorities>(), Is.EqualTo(obj));
+            Assert.That(IoCManager.Resolve<IIoCTestPriorities>(), NUnit.Framework.Is.EqualTo(obj));
         }
 
         private class DependencyA
@@ -160,10 +160,10 @@ namespace Robust.UnitTesting.Shared.IoC
             var resolveA = IoCManager.Resolve<DependencyA>();
             var resolveB = IoCManager.Resolve<DependencyB>();
 
-            Assert.That(instanceA, Is.EqualTo(resolveA));
-            Assert.That(instanceB, Is.EqualTo(resolveB));
-            Assert.That(resolveA._depB, Is.EqualTo(resolveB));
-            Assert.That(resolveB._depA, Is.EqualTo(resolveA));
+            Assert.That(instanceA, NUnit.Framework.Is.EqualTo(resolveA));
+            Assert.That(instanceB, NUnit.Framework.Is.EqualTo(resolveB));
+            Assert.That(resolveA._depB, NUnit.Framework.Is.EqualTo(resolveB));
+            Assert.That(resolveB._depA, NUnit.Framework.Is.EqualTo(resolveA));
         }
 
         [Test]
@@ -179,9 +179,9 @@ namespace Robust.UnitTesting.Shared.IoC
             var resolveA = IoCManager.Resolve<DependencyA>();
             var resolveB = IoCManager.Resolve<DependencyB>();
 
-            Assert.That(instanceB, Is.EqualTo(resolveB));
-            Assert.That(resolveA._depB, Is.EqualTo(resolveB));
-            Assert.That(resolveB._depA, Is.EqualTo(resolveA));
+            Assert.That(instanceB, NUnit.Framework.Is.EqualTo(resolveB));
+            Assert.That(resolveA._depB, NUnit.Framework.Is.EqualTo(resolveB));
+            Assert.That(resolveB._depA, NUnit.Framework.Is.EqualTo(resolveA));
         }
 
         [Test]
@@ -197,9 +197,9 @@ namespace Robust.UnitTesting.Shared.IoC
             var resolveA = IoCManager.Resolve<DependencyA>();
             var resolveB = IoCManager.Resolve<DependencyB>();
 
-            Assert.That(instanceB, Is.EqualTo(resolveB));
-            Assert.That(resolveA._depB, Is.EqualTo(resolveB));
-            Assert.That(resolveB._depA, Is.EqualTo(resolveA));
+            Assert.That(instanceB, NUnit.Framework.Is.EqualTo(resolveB));
+            Assert.That(resolveA._depB, NUnit.Framework.Is.EqualTo(resolveB));
+            Assert.That(resolveB._depA, NUnit.Framework.Is.EqualTo(resolveA));
         }
 
         [Test]
@@ -209,7 +209,7 @@ namespace Robust.UnitTesting.Shared.IoC
             // To ensure that works.
             var test = new ExplicitInjectionTest();
             IoCManager.InjectDependencies(test);
-            Assert.That(test.DependencyCollection, Is.Not.Null);
+            Assert.That(test.DependencyCollection, NUnit.Framework.Is.Not.Null);
         }
     }
 
@@ -246,8 +246,8 @@ namespace Robust.UnitTesting.Shared.IoC
 
         public virtual void Test()
         {
-            Assert.That(myself, Is.EqualTo(this));
-            Assert.That(myotherself, Is.EqualTo(this));
+            Assert.That(myself, NUnit.Framework.Is.EqualTo(this));
+            Assert.That(myotherself, NUnit.Framework.Is.EqualTo(this));
         }
     }
 
@@ -264,8 +264,8 @@ namespace Robust.UnitTesting.Shared.IoC
         public override void Test()
         {
             base.Test();
-            Assert.That(myuniqueself, Is.EqualTo(this));
-            Assert.That(mydifferentself, Is.EqualTo(this));
+            Assert.That(myuniqueself, NUnit.Framework.Is.EqualTo(this));
+            Assert.That(mydifferentself, NUnit.Framework.Is.EqualTo(this));
         }
     }
 
