@@ -9,6 +9,7 @@ namespace OpenNefia.Core.GameObjects
     /// <summary>
     /// Indicates this entity is the player.
     /// </summary>
+    [Obsolete("Replace this with IGameSession.IsPlayer()")]
     [RegisterComponent]
     public class PlayerComponent : Component
     {

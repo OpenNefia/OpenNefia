@@ -26,7 +26,7 @@ namespace OpenNefia
 
         private static void GameStart()
         {
-            InitIoC(GameController.DisplayMode.Love);
+            InitIoC(DisplayMode.Love);
 
             var gc = IoCManager.Resolve<IGameController>();
 
@@ -41,14 +41,14 @@ namespace OpenNefia
 
         private static void CommandLineStart(string[] args)
         {
-            InitIoC(GameController.DisplayMode.Headless);
+            InitIoC(DisplayMode.Headless);
 
             var cmh = IoCManager.Resolve<ICommandLineController>();
 
             cmh.Run(args);
         }
 
-        private static void InitIoC(GameController.DisplayMode mode)
+        private static void InitIoC(DisplayMode mode)
         {
             IoCManager.InitThread();
             IoCSetup.Register(mode);

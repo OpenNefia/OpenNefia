@@ -1,20 +1,24 @@
-﻿using OpenNefia.Core.GameObjects;
-using OpenNefia.Core.Maps;
-using OpenNefia.Core.Config;
-using OpenNefia.Core.Prototypes;
-using OpenNefia.Core.Maths;
-using OpenNefia.Core.Game;
-using OpenNefia.Core.ResourceManagement;
+﻿using OpenNefia.Core.Config;
+using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
+using OpenNefia.Core.Maps;
+using OpenNefia.Core.Maths;
+using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Rendering;
-using OpenNefia.Core.Utility;
-using OpenNefia.Analyzers;
+using OpenNefia.Core.ResourceManagement;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace OpenNefia.Core.Audio
 {
-    public class LoveAudioSystem : EntitySystem, IAudioSystem
+    public sealed class LoveAudioManager : IAudioManager
     {
         [Dependency] private readonly IResourceCache _resourceCache = default!;
+        [Dependency] private readonly IEntityManager _entityManager = default!;
+        [Dependency] private readonly IMapManager _mapManager = default!;
         [Dependency] private readonly ICoords _coords = default!;
 
         private class PlayingSource
@@ -28,11 +32,6 @@ namespace OpenNefia.Core.Audio
         }
 
         private List<PlayingSource> _playingSources = new();
-
-        public override void Initialize()
-        {
-            SubscribeLocalEvent<PlayerComponent, EntityPositionChangedEvent>(OnPlayerPositionChanged, nameof(OnPlayerPositionChanged));
-        }
 
         private Love.Source GetLoveSource(PrototypeId<SoundPrototype> prototype)
         {
@@ -64,7 +63,7 @@ namespace OpenNefia.Core.Audio
         /// <inheritdoc />
         public void Play(PrototypeId<SoundPrototype> prototype, EntityUid entity, AudioParams? audioParams = null)
         {
-            if (EntityManager.TryGetComponent<SpatialComponent>(entity, out var spatial))
+            if (_entityManager.TryGetComponent<SpatialComponent>(entity, out var spatial))
                 Play(prototype, spatial.MapPosition, audioParams);
             else
                 Play(prototype);
@@ -73,7 +72,7 @@ namespace OpenNefia.Core.Audio
         /// <inheritdoc />
         public void Play(PrototypeId<SoundPrototype> prototype, MapCoordinates coordinates, AudioParams? audioParams = null)
         {
-            if (coordinates.MapId != GameSession.ActiveMap?.Id)
+            if (coordinates.MapId != _mapManager.ActiveMap?.Id)
                 return;
 
             var screenPosition = _coords.TileToScreen(coordinates.Position);
@@ -103,22 +102,9 @@ namespace OpenNefia.Core.Audio
             _playingSources.Add(new PlayingSource(source));
         }
 
-        // TODO: when implementing scrolling, run this every frame to account for sub-tile positioning.
-        private void OnPlayerPositionChanged(EntityUid uid, PlayerComponent player, ref EntityPositionChangedEvent evt)
+        public void SetListenerPosition(Vector2 listenerPos)
         {
-            SpatialComponent? spatial = null;
-
-            if (!Resolve(uid, ref spatial))
-                return;
-
-            var listenerPos = _coords.TileToScreen(spatial.MapPosition.Position) + _coords.TileSize / 2;
             Love.Audio.SetPosition(listenerPos.X, listenerPos.Y, 0f);
         }
-    }
-
-    [EventArgsUsage(EventArgsTargets.ByRef)]
-    public struct FrameUpdateEventArgs
-    {
-        public float Dt;
     }
 }

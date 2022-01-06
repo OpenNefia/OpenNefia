@@ -5,7 +5,7 @@ using OpenNefia.Core.Prototypes;
 
 namespace OpenNefia.Core.Audio
 {
-    public class LoveMusicManager : IMusicManager
+    public sealed class LoveMusicManager : IMusicManager
     {
         private static Playback? MidiPlayback = null;
         private static OutputDevice? MidiDevice = null;

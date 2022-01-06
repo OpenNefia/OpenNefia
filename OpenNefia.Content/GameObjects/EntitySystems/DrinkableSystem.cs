@@ -14,7 +14,7 @@ namespace OpenNefia.Content.GameObjects
     {
         public const string VerbIDDrink = "Elona.Drink";
 
-        [Dependency] private readonly IAudioSystem _sounds = default!;
+        [Dependency] private readonly IAudioManager _sounds = default!;
         [Dependency] private readonly IStackSystem _stackSystem = default!;
 
         public override void Initialize()

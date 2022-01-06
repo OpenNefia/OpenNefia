@@ -16,7 +16,7 @@ namespace OpenNefia.Content.Maps
         [Dependency] private readonly IMapLoader _mapLoader = default!;
         [Dependency] private readonly IMapManager _mapManager = default!;
         [Dependency] private readonly MapEntranceSystem _mapEntrances = default!;
-        [Dependency] private readonly IAudioSystem _sounds = default!;
+        [Dependency] private readonly IAudioManager _sounds = default!;
         [Dependency] private readonly IGameSessionManager _gameSession = default!;
         [Dependency] private readonly ISaveGameManager _saveGameManager = default!;
 

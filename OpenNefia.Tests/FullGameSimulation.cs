@@ -27,6 +27,15 @@ namespace OpenNefia.Tests
 
     public delegate void AssemblyLoadDelegate(IList<Assembly> assemblies);
 
+    /// <summary>
+    /// Game simulation that loads all content types with reflection.
+    /// Used for testing complex interactions between lots of components/systems
+    /// without the need to guess which ones need to be specified.
+    /// </summary>
+    /// <remarks>
+    /// For now, this is the closest analog to an integration test harness.
+    /// </remarks>
+    /// <seealso cref="GameSimulation"/>
     public class FullGameSimulation : ISimulation, IFullSimulationFactory
     {
         // Required by the engine.
@@ -123,7 +132,7 @@ namespace OpenNefia.Tests
             Collection = container;
 
             IoCManager.InitThread(container, true);
-            IoCSetup.Register(GameController.DisplayMode.Headless);
+            IoCSetup.Register(DisplayMode.Headless);
 
             IoCManager.Register<IModLoader, TestingModLoader>(overwrite: true);
             IoCManager.Register<IModLoaderInternal, TestingModLoader>(overwrite: true);

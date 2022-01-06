@@ -31,19 +31,23 @@ namespace OpenNefia
 {
     public class IoCSetup
     {
-        internal static void Register(GameController.DisplayMode mode)
+        internal static void Register(DisplayMode mode)
         {
             switch (mode)
             {
-                case GameController.DisplayMode.Headless:
+                case DisplayMode.Headless:
                     IoCManager.Register<IGraphics, HeadlessGraphics>();
                     IoCManager.Register<IInputManager, InputManager>();
                     IoCManager.Register<ITaskRunner, HeadlessTaskRunner>();
+                    IoCManager.Register<IAudioManager, HeadlessAudioManager>();
+                    IoCManager.Register<IMusicManager, HeadlessMusicManager>();
                     break;
-                case GameController.DisplayMode.Love:
+                case DisplayMode.Love:
                     IoCManager.Register<IGraphics, LoveGraphics>();
                     IoCManager.Register<IInputManager, LoveInputManager>();
                     IoCManager.Register<ITaskRunner, LoveTaskRunner>();
+                    IoCManager.Register<IAudioManager, LoveAudioManager>();
+                    IoCManager.Register<IMusicManager, LoveMusicManager>();
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -86,7 +90,6 @@ namespace OpenNefia
             IoCManager.Register<ICoords, OrthographicCoords>();
             IoCManager.Register<IMapRenderer, MapRenderer>();
             IoCManager.Register<IMapDrawables, MapDrawables>();
-            IoCManager.Register<IMusicManager, LoveMusicManager>();
             IoCManager.Register<ITimerManager, TimerManager>();
             IoCManager.Register<IMapLoader, MapLoader>();
             IoCManager.Register<ICommandLineController, CommandLineController>();

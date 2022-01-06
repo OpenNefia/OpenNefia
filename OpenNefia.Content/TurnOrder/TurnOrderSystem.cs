@@ -78,7 +78,7 @@ namespace OpenNefia.Content.TurnOrder
         [Dependency] private readonly IMapManager _mapManager = default!;
         [Dependency] private readonly IEntityLookup _lookup = default!;
         [Dependency] private readonly IWorldSystem _world = default!;
-        [Dependency] private readonly IAudioSystem _sounds = default!;
+        [Dependency] private readonly IAudioManager _sounds = default!;
         [Dependency] private readonly IUserInterfaceManager _uiManager = default!;
         [Dependency] private readonly ISaveGameSerializer _saveGameSerializer = default!;
 

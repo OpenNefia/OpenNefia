@@ -23,7 +23,7 @@ namespace OpenNefia.Content.GameObjects
         [Dependency] private readonly IPlayerQuery _playerQuery = default!;
         [Dependency] private readonly ITurnOrderSystem _turnOrderSystem = default!;
         [Dependency] private readonly IFieldLayer _field = default!;
-        [Dependency] private readonly IAudioSystem _sounds = default!;
+        [Dependency] private readonly IAudioManager _sounds = default!;
         [Dependency] private readonly ISaveGameManager _saveGameManager = default!;
         [Dependency] private readonly ISaveGameSerializer _saveGameSerializer = default!;
 

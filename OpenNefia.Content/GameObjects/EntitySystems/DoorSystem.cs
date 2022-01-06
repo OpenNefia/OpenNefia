@@ -18,7 +18,7 @@ namespace OpenNefia.Content.GameObjects
     {
         public const string VerbIDClose = "Elona.Close";
 
-        [Dependency] private readonly IAudioSystem _sounds = default!;
+        [Dependency] private readonly IAudioManager _sounds = default!;
         [Dependency] private readonly IMapManager _mapManager = default!;
 
         public override void Initialize()

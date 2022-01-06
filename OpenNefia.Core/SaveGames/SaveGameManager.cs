@@ -19,13 +19,12 @@ namespace OpenNefia.Core.SaveGames
     /// </summary>
     public interface ISaveGameManager
     {
-        ISaveGameHandle? CurrentSave { get; }
+        ISaveGameHandle? CurrentSave { get; set; }
         IEnumerable<ISaveGameHandle> AllSaves { get; }
 
         ISaveGameHandle CreateSave(ResourcePath saveDirectory, SaveGameHeader header);
         bool ContainsSave(ISaveGameHandle save);
         void DeleteSave(ISaveGameHandle save);
-        void SetCurrentSave(ISaveGameHandle save);
     }
 
     internal interface ISaveGameManagerInternal : ISaveGameManager
@@ -156,7 +155,7 @@ namespace OpenNefia.Core.SaveGames
 
         public IEnumerable<ISaveGameHandle> AllSaves => _saves;
 
-        public ISaveGameHandle? CurrentSave { get; private set; }
+        public ISaveGameHandle? CurrentSave { get; set; }
 
         public void Initialize()
         {
@@ -219,17 +218,6 @@ namespace OpenNefia.Core.SaveGames
         public bool ContainsSave(ISaveGameHandle save)
         {
             return _saves.Contains(save);
-        }
-
-        public void SetCurrentSave(ISaveGameHandle save)
-        {
-            if (!ContainsSave(save))
-            {
-                throw new ArgumentException($"Save is not registered: {save.Files.RootDir}");
-            }
-
-            CurrentSave = save;
-            save.Files.ClearTemp();
         }
 
         public ISaveGameHandle CreateSave(ResourcePath saveDirectory, SaveGameHeader header)

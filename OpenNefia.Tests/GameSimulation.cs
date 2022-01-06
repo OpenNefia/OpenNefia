@@ -74,6 +74,10 @@ namespace OpenNefia.Tests
 
     public delegate void DataDefinitionTypesRegistrationDelegate(List<Type> types);
 
+    /// <summary>
+    /// Game simulation for minimal testing. All components/prototypes must
+    /// be loaded manually with this class.
+    /// </summary>
     public class GameSimulation : ISimulation, ISimulationFactory
     {
         // Required by the engine.
