@@ -99,7 +99,7 @@ namespace OpenNefia.Content.TitleScreen
             var saveHeader = MakeSaveGameHeader();
             var savePath = ResourcePath.Root / Guid.NewGuid().ToString();
             var save = _saveGameManager.CreateSave(savePath, saveHeader);
-            _saveGameManager.SetCurrentSave(save);
+            _saveGameManager.CurrentSave = save;
 
             var map = InitMap();
 

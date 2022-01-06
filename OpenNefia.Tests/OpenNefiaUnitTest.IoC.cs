@@ -13,7 +13,7 @@ namespace OpenNefia.Tests
         /// </summary>
         private void RegisterIoC()
         {
-            IoCSetup.Register(GameController.DisplayMode.Headless);
+            IoCSetup.Register(DisplayMode.Headless);
 
             IoCManager.Register<IModLoader, TestingModLoader>(overwrite: true);
             IoCManager.Register<IModLoaderInternal, TestingModLoader>(overwrite: true);

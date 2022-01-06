@@ -37,7 +37,6 @@ namespace OpenNefia.Content.Tests.Maps.StartLocation
                 .InitializeInstance();
 
             var entMan = sim.Resolve<IEntityManager>();
-            var mapMan = sim.Resolve<IMapManager>();
 
             var map = sim.CreateMapAndSetActive(mapSize.X, mapSize.Y);
             var ent = entMan.SpawnEntity(null, map.AtPos(Vector2i.One)).Uid;
@@ -63,7 +62,6 @@ namespace OpenNefia.Content.Tests.Maps.StartLocation
                 .InitializeInstance();
 
             var entMan = sim.Resolve<IEntityManager>();
-            var mapMan = sim.Resolve<IMapManager>();
 
             var map = sim.CreateMapAndSetActive(10, 10);
             var ent = entMan.SpawnEntity(null, map.AtPos(Vector2i.One)).Uid;

@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace OpenNefia.Content.Tests
 {
+    /// <summary>
+    /// Game simulation that will load all content classes/resources with reflection.
+    /// </summary>
     public class ContentFullGameSimulation
     {
         public static IFullSimulationFactory NewSimulation()

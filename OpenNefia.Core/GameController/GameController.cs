@@ -284,11 +284,5 @@ namespace OpenNefia.Core.GameController
 
             Love.Boot.SystemStep((Love.Scene)_graphics);
         }
-
-        internal enum DisplayMode : byte
-        {
-            Headless,
-            Love,
-        }
     }
 }

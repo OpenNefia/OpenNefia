@@ -1,6 +1,4 @@
-﻿using System;
-using OpenNefia.Core.ContentPack;
-using OpenNefia.Core.GameController;
+﻿using OpenNefia.Core.GameController;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Reflection;
 using OpenNefia.Core.Serialization.Manager;
@@ -12,13 +10,13 @@ namespace OpenNefia.Benchmarks.Serialization
         public SerializationBenchmark()
         {
             IoCManager.InitThread();
-            IoCSetup.Register(GameController.DisplayMode.Headless);
+            IoCSetup.Register(DisplayMode.Headless);
             IoCManager.BuildGraph();
 
             var assemblies = new[]
             {
-                AppDomain.CurrentDomain.GetAssemblyByName("OpenNefia.Core"),
-                AppDomain.CurrentDomain.GetAssemblyByName("OpenNefia.Benchmarks")
+                typeof(OpenNefia.Core.Engine).Assembly,
+                typeof(SerializationBenchmark).Assembly
             };
 
             IoCManager.Resolve<IReflectionManager>().LoadAssemblies(assemblies);

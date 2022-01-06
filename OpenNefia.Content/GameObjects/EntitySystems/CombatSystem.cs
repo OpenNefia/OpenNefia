@@ -19,7 +19,7 @@ namespace OpenNefia.Content.GameObjects
 {
     public class CombatSystem : EntitySystem
     {
-        [Dependency] private readonly IAudioSystem _sounds = default!;
+        [Dependency] private readonly IAudioManager _sounds = default!;
         [Dependency] private readonly IFactionSystem _factions = default!;
         [Dependency] private readonly IRandom _random = default!;
 
