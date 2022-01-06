@@ -1,6 +1,7 @@
 ﻿using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Serialization.Manager.Attributes;
 using OpenNefia.Core.Rendering;
+using OpenNefia.Core.Containers;
 
 namespace OpenNefia.Content.Equipment
 {

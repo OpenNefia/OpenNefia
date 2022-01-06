@@ -1,14 +1,19 @@
-﻿using OpenNefia.Content.Inventory;
-using OpenNefia.Core.GameObjects;
+﻿using OpenNefia.Core.GameObjects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OpenNefia.Content.GameObjects
+namespace OpenNefia.Content.Inventory
 {
-    public class InventorySystem : EntitySystem
+    /// <summary>
+    /// Handles character items and equipment.
+    /// </summary>
+    /// <remarks>
+    /// Based off of Robust's <c>InventorySystem</c>.
+    /// </remarks>
+    public sealed partial class InventorySystem : EntitySystem
     {
         public override void Initialize()
         {
@@ -17,7 +22,6 @@ namespace OpenNefia.Content.GameObjects
 
         private void HandleCloned(EntityUid source, InventoryComponent sourceInv, EntityClonedEventArgs args)
         {
-            // TODO containers
         }
 
         public IEnumerable<EntityUid> EnumerateItems(EntityUid entity, InventoryComponent? inv = null)
