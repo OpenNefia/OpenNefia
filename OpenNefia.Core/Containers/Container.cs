@@ -32,14 +32,14 @@ namespace OpenNefia.Core.Containers
         public override string ContainerType => ClassName;
 
         /// <inheritdoc />
-        protected override void InternalInsert(EntityUid toinsert, IEntityManager? entMan = null)
+        protected override void InternalInsert(EntityUid toinsert, IEntityManager entMan)
         {
             _containerList.Add(toinsert);
             base.InternalInsert(toinsert, entMan);
         }
 
         /// <inheritdoc />
-        protected override void InternalRemove(EntityUid toremove, IEntityManager? entMan = null)
+        protected override void InternalRemove(EntityUid toremove, IEntityManager entMan)
         {
             _containerList.Remove(toremove);
             base.InternalRemove(toremove, entMan);

@@ -63,7 +63,7 @@ namespace OpenNefia.Core.Containers
 
             // Attach to parent first so we can check IsInContainer more easily.
             transform.AttachParent(Owner);
-            InternalInsert(toinsert);
+            InternalInsert(toinsert, entMan);
 
             // spatially move the object to the location of the container. If you don't want this functionality, the
             // calling code can save the local position before calling this function, and apply it afterwords.
@@ -88,9 +88,24 @@ namespace OpenNefia.Core.Containers
                 return false;
 
             // Crucial, prevent circular insertion.
-            return !entMan.GetComponent<SpatialComponent>(toinsert).ContainsEntity(entMan.GetComponent<SpatialComponent>(Owner));
+            if (entMan.GetComponent<SpatialComponent>(toinsert)
+                    .ContainsEntity(entMan.GetComponent<SpatialComponent>(Owner)))
+                return false;
 
             //Improvement: Traverse the entire tree to make sure we are not creating a loop.
+
+            //raise events
+            var insertAttemptEvent = new ContainerIsInsertingAttemptEvent(this, toinsert);
+            entMan.EventBus.RaiseLocalEvent(Owner, insertAttemptEvent);
+            if (insertAttemptEvent.Cancelled)
+                return false;
+
+            var gettingInsertedAttemptEvent = new ContainerGettingInsertedAttemptEvent(this, toinsert);
+            entMan.EventBus.RaiseLocalEvent(toinsert, gettingInsertedAttemptEvent);
+            if (gettingInsertedAttemptEvent.Cancelled)
+                return false;
+
+            return true;
         }
 
         /// <inheritdoc />
@@ -102,8 +117,8 @@ namespace OpenNefia.Core.Containers
             IoCManager.Resolve(ref entMan);
             DebugTools.Assert(entMan.EntityExists(toremove));
 
-            if (!CanRemove(toremove)) return false;
-            InternalRemove(toremove);
+            if (!CanRemove(toremove, entMan)) return false;
+            InternalRemove(toremove, entMan);
 
             ContainerHelpers.AttachParentToContainerOrGrid(entMan.GetComponent<SpatialComponent>(toremove));
             return true;
@@ -118,14 +133,31 @@ namespace OpenNefia.Core.Containers
             IoCManager.Resolve(ref entMan);
             DebugTools.Assert(entMan.EntityExists(toRemove));
 
-            InternalRemove(toRemove);
+            InternalRemove(toRemove, entMan);
         }
 
         /// <inheritdoc />
-        public virtual bool CanRemove(EntityUid toremove)
+        public virtual bool CanRemove(EntityUid toremove, IEntityManager? entMan = null)
         {
             DebugTools.Assert(!Deleted);
-            return Contains(toremove);
+
+            if (!Contains(toremove))
+                return false;
+
+            IoCManager.Resolve(ref entMan);
+
+            //raise events
+            var removeAttemptEvent = new ContainerIsRemovingAttemptEvent(this, toremove);
+            entMan.EventBus.RaiseLocalEvent(Owner, removeAttemptEvent);
+            if (removeAttemptEvent.Cancelled)
+                return false;
+
+            var gettingRemovedAttemptEvent = new ContainerGettingRemovedAttemptEvent(this, toremove);
+            entMan.EventBus.RaiseLocalEvent(toremove, gettingRemovedAttemptEvent);
+            if (gettingRemovedAttemptEvent.Cancelled)
+                return false;
+
+            return true;
         }
 
         /// <inheritdoc />
@@ -142,29 +174,27 @@ namespace OpenNefia.Core.Containers
         /// Implement to store the reference in whatever form you want
         /// </summary>
         /// <param name="toinsert"></param>
-        protected virtual void InternalInsert(EntityUid toinsert, IEntityManager? entMan = null)
+        /// <param name="entMan"></param>
+        protected virtual void InternalInsert(EntityUid toinsert, IEntityManager entMan)
         {
             DebugTools.Assert(!Deleted);
-            IoCManager.Resolve(ref entMan);
 
-            entMan.EventBus.RaiseLocalEvent(Owner, new EntInsertedIntoContainerEventArgs(toinsert, this));
-            entMan.EventBus.RaiseEvent(EventSource.Local, new UpdateContainerOcclusionEvent(toinsert));
+            entMan.EventBus.RaiseLocalEvent(Owner, new EntInsertedIntoContainerMessage(toinsert, this));
         }
 
         /// <summary>
         /// Implement to remove the reference you used to store the entity
         /// </summary>
         /// <param name="toremove"></param>
-        protected virtual void InternalRemove(EntityUid toremove, IEntityManager? entMan = null)
+        /// <param name="entMan"></param>
+        protected virtual void InternalRemove(EntityUid toremove, IEntityManager entMan)
         {
             DebugTools.Assert(!Deleted);
             DebugTools.AssertNotNull(Manager);
             DebugTools.AssertNotNull(toremove);
-            IoCManager.Resolve(ref entMan);
             DebugTools.Assert(entMan.EntityExists(toremove));
 
-            entMan.EventBus.RaiseLocalEvent(Owner, new EntRemovedFromContainerEventArgs(toremove, this));
-            entMan.EventBus.RaiseEvent(EventSource.Local, new UpdateContainerOcclusionEvent(toremove));
+            entMan.EventBus.RaiseLocalEvent(Owner, new EntRemovedFromContainerMessage(toremove, this));
         }
     }
 }
