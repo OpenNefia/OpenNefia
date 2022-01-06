@@ -188,7 +188,7 @@ namespace OpenNefia.Core.GameObjects
         /// </summary>
         /// <typeparam name="T">A trait or type of a component to retrieve.</typeparam>
         /// <returns>All components that have the specified type.</returns>
-        IEnumerable<T> EntityQuery<T>();
+        IEnumerable<T> EntityQuery<T>() where T: IComponent;
 
         /// <summary>
         /// Returns the relevant components from all entities that contain the two required components.
