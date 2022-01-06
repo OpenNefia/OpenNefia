@@ -3,9 +3,9 @@ using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Serialization.Manager.Attributes;
 
-namespace OpenNefia.Content.Prototypes
+namespace OpenNefia.Content.Equipment
 {
-    [Prototype("EquipmentType")]
+    [Prototype("Elona.EquipmentType")]
     public class EquipmentTypePrototype : IPrototype
     {
         [DataField("id", required: true)]
