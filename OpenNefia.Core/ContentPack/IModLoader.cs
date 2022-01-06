@@ -27,6 +27,8 @@ namespace OpenNefia.Core.ContentPack
         bool IsContentAssembly(Assembly typeAssembly);
     }
 
+    internal delegate Assembly? ExtraModuleLoad(AssemblyName name);
+
     internal interface IModLoaderInternal : IModLoader
     {
         /// <summary>
@@ -70,5 +72,6 @@ namespace OpenNefia.Core.ContentPack
         Func<string, Stream?>? VerifierExtraLoadHandler { get; set; }
 
         void Shutdown();
+        event ExtraModuleLoad ExtraModuleLoaders;
     }
 }
