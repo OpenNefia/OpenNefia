@@ -52,9 +52,9 @@ namespace OpenNefia.Content.Tests.Maps.Entrances
 
             Assert.Multiple(() =>
             {
-                Assert.That(mapLoader.MapExistsInSave(map1.Id, save), Is.True, "Map 1 exists");
-                Assert.That(mapLoader.MapExistsInSave(map2.Id, save), Is.False, "Map 2 exists");
-                Assert.That(mapMan.MapIsLoaded(map1.Id), Is.False, "Map 1 is loaded");
+                Assert.That(mapLoader.MapExistsInSave(map1.Id, save), Is.True, "Map 1 is saved");
+                Assert.That(mapLoader.MapExistsInSave(map2.Id, save), Is.False, "Map 2 is not saved");
+                Assert.That(mapMan.MapIsLoaded(map1.Id), Is.False, "Map 1 is not loaded");
                 Assert.That(mapMan.MapIsLoaded(map2.Id), Is.True, "Map 2 is loaded");
                 Assert.That(mapMan.ActiveMap?.Id, Is.EqualTo(map2.Id), "Map 2 is active");
                 Assert.That(player.Spatial.MapPosition, Is.EqualTo(map2.AtPos(expectedPos)), "Position was updated");
