@@ -8,6 +8,18 @@ using OpenNefia.Core.Serialization.Manager.Attributes;
 
 namespace OpenNefia.Content.Skills
 {
+    public enum SkillType
+    {
+        Undefined,
+
+        StatSpecial,
+        Stat,
+        WeaponProficiency,
+        Skill,
+        SkillMagic,
+        SkillAction,
+        SkillEffect
+    }
     [Prototype("Skill")]
     public class SkillPrototype : IPrototype, IHspIds<int>
     {
@@ -16,6 +28,9 @@ namespace OpenNefia.Content.Skills
 
         [DataField]
         public PrototypeId<SkillPrototype>? RelatedSkill { get; }
+
+        [DataField]
+        public SkillType SkillType { get; }
 
         /// <inheritdoc/>
         [DataField]

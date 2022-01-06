@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace OpenNefia.Content.CharaMake
 {
+    [Localize("Elona.CharaMake.AliasSelect")]
     public class CharaMakeAliasLayer : CharaMakeLayer
     {
         public class CreateCharAlias
@@ -36,13 +37,13 @@ namespace OpenNefia.Content.CharaMake
         [Localize]
         private IUiText AliasTopic;
 
-        private UiList<CreateCharAlias> AliasList;
+        private UiList<CreateCharAlias> List;
 
         public CharaMakeAliasLayer()
         {
             Window = new UiWindow();
             var items = new CreateCharAliasCell[17];
-            items[0] = new CreateCharAliasCell(new CreateCharAlias(string.Empty, true), Loc.GetString("AliasReroll"));
+            items[0] = new CreateCharAliasCell(new CreateCharAlias(string.Empty, true), Loc.GetString("Elona.CharaMake.AliasSelect.Reroll"));
 
             for (int i = 1; i < items.Length; i++)
             {
@@ -51,8 +52,8 @@ namespace OpenNefia.Content.CharaMake
                 items[i] = new CreateCharAliasCell(new CreateCharAlias(alias, false), alias);
             }
 
-            AliasList = new UiList<CreateCharAlias>(items);
-            AliasList.EventOnActivate += (_, args) =>
+            List = new UiList<CreateCharAlias>(items);
+            List.EventOnActivate += (_, args) =>
             {
                 if (args.SelectedCell.Data.IsReroll)
                 {
@@ -71,7 +72,13 @@ namespace OpenNefia.Content.CharaMake
             AliasTopic = new UiTextTopic();
 
             AddChild(Window);
-            AddChild(AliasList);
+            AddChild(List);
+        }
+
+        public override void OnFocused()
+        {
+            base.OnFocused();
+            List.GrabFocus();
         }
 
         public override void SetSize(int width, int height)
@@ -79,7 +86,7 @@ namespace OpenNefia.Content.CharaMake
             base.SetSize(width, height);
             Window.SetSize(400, 470);
             AliasTopic.SetPreferredSize();
-            AliasList.SetPreferredSize();
+            List.SetPreferredSize();
         }
 
         public override void SetPosition(int x, int y)
@@ -87,14 +94,14 @@ namespace OpenNefia.Content.CharaMake
             base.SetPosition(x, y);
             Center(Window);
             AliasTopic.SetPosition(Window.X + 25, Window.Y + 30);
-            AliasList.SetPosition(Window.X + 40, Window.Y + 68);
+            List.SetPosition(Window.X + 40, Window.Y + 68);
         }
 
         public override void Draw()
         {
             base.Draw();
             Window.Draw();
-            AliasList.Draw();
+            List.Draw();
             AliasTopic.Draw();
         }
 
@@ -103,7 +110,7 @@ namespace OpenNefia.Content.CharaMake
             base.Update(dt);
             Window.Update(dt);
             AliasTopic.Update(dt);
-            AliasList.Update(dt);
+            List.Update(dt);
         }
     }
 }
