@@ -1,4 +1,4 @@
-p p- type: Elona.EquipSlot
+- type: Elona.EquipSlot
   id: Elona.Head
   hspIds:
     elona122: 1
