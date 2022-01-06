@@ -272,7 +272,7 @@ namespace OpenNefia.Core.GameObjects
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void RemoveComponent<T>(EntityUid uid)
         {
-            RemoveComponent(uid, ComponentTypeCache<T>.Type);
+            RemoveComponent(uid, typeof(T));
         }
 
         /// <inheritdoc />
