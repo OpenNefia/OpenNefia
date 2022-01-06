@@ -4,8 +4,13 @@ using OpenNefia.Core.Rendering;
 
 namespace OpenNefia.Content.Equipment
 {
-    [Prototype("Elona.BodyPart")]
-    public class BodyPartPrototype : IPrototype
+    /// <summary>
+    /// Defines an equipment slot type on an entity. An entity can have multiple
+    /// EquipSlots of the same type, and and arbitrary number of parts.
+    /// </summary>
+    /// <remarks>The closest equivalent in Robust is their <c>SlotDefinition</c>.</remarks>
+    [Prototype("Elona.EquipSlot")]
+    public class EquipSlotPrototype : IPrototype
     {
         /// <inheritdoc />
         [DataField("id", required: true)]
