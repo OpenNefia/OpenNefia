@@ -35,6 +35,14 @@ namespace OpenNefia.Core.ContentPack
 
         private bool _useLoadContext = true;
 
+        private readonly List<ExtraModuleLoad> _extraModuleLoads = new();
+
+        public event ExtraModuleLoad ExtraModuleLoaders
+        {
+            add => _extraModuleLoads.Add(value);
+            remove => _extraModuleLoads.Remove(value);
+        }
+
         public ModLoader()
         {
             var id = Interlocked.Increment(ref _modLoaderId);
@@ -241,6 +249,9 @@ namespace OpenNefia.Core.ContentPack
                         }
                     }
 
+                    if (TryLoadExtra(name) is { } asm)
+                        return asm;
+
                     foreach (var assembly in _sideModules)
                     {
                         if (assembly.FullName == name.FullName)
@@ -295,6 +306,20 @@ namespace OpenNefia.Core.ContentPack
                         return module;
                     }
                 }
+
+                if (TryLoadExtra(name) is { } asm)
+                    return asm;
+            }
+
+            return null;
+        }
+
+        private Assembly? TryLoadExtra(AssemblyName name)
+        {
+            foreach (var extra in _extraModuleLoads)
+            {
+                if (extra(name) is { } asm)
+                    return asm;
             }
 
             return null;

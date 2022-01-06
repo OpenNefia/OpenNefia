@@ -46,5 +46,7 @@ namespace OpenNefia.Tests
         }
 
         public Func<string, Stream?>? VerifierExtraLoadHandler { get; set; }
+
+        public event ExtraModuleLoad? ExtraModuleLoaders;
     }
 }
