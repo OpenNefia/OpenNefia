@@ -33,7 +33,7 @@ namespace OpenNefia.Core.GameObjects
         private Vector2 _prevPosition;
         private Angle _prevRotation;
 
-        private readonly SortedSet<EntityUid> _children = new();
+        internal readonly SortedSet<EntityUid> _children = new();
 
         public override string Name => "Spatial";
 
