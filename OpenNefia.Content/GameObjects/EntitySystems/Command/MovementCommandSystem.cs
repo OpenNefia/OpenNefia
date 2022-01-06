@@ -55,7 +55,7 @@ namespace OpenNefia.Content.GameObjects
             if (session?.Player == null)
                 return null;
 
-            return HandleWait(session.Player.Uid);
+            return HandleWait(session.Player);
         }
 
         private TurnResult? HandleWait(EntityUid entity,
@@ -86,7 +86,7 @@ namespace OpenNefia.Content.GameObjects
 
                 if (full.State == BoundKeyState.Down)
                 {
-                    return Get<MovementCommandSystem>().HandleMove(session.Player.Uid, _dir);
+                    return Get<MovementCommandSystem>().HandleMove(session.Player, _dir);
                 }
                 return null;
             }

@@ -302,24 +302,24 @@ namespace OpenNefia.Core.GameObjects
             if (spatialTarget.Parent == null)
                 return false;
 
-            IEnumerable<Entity> ents;
+            IEnumerable<SpatialComponent> spatials;
 
-            if (EntityManager.HasComponent<MapComponent>(spatialTarget.Parent.OwnerUid))
+            if (EntityManager.HasComponent<MapComponent>(spatialTarget.Parent.Owner))
             {
                 DebugTools.Assert(spatialTarget.Parent.Parent == null, "Map entity should be the root entity.");
                 var coords = spatialTarget.Coordinates;
-                ents = _lookup.GetLiveEntitiesAtCoords(coords);
+                spatials = _lookup.GetLiveEntitiesAtCoords(coords);
             }
             else
             {
-                ents = _lookup.GetEntitiesDirectlyIn(spatialTarget.Parent.Owner);
+                spatials = _lookup.GetEntitiesDirectlyIn(spatialTarget.Parent.Owner);
             }
 
             var stackedSomething = false;
 
-            foreach (var ent in ents.ToList())
+            foreach (var spatial in spatials.ToList())
             {
-                stackedSomething &= TryStack(target, ent.Uid, showMessage, stackTarget);
+                stackedSomething &= TryStack(target, spatial.Owner, showMessage, stackTarget);
             }
 
             return stackedSomething;
@@ -330,12 +330,12 @@ namespace OpenNefia.Core.GameObjects
         {
             var stackedSomething = false;
 
-            foreach (var entity in _lookup.GetLiveEntitiesAtCoords(coords).ToList())
+            foreach (var spatial in _lookup.GetLiveEntitiesAtCoords(coords).ToList())
             {
-                if (!EntityManager.IsAlive(entity.Uid))
+                if (!EntityManager.IsAlive(spatial.Owner))
                     continue;
 
-                stackedSomething &= TryStackAtSamePos(entity.Uid, showMessage);
+                stackedSomething &= TryStackAtSamePos(spatial.Owner, showMessage);
             }
 
             return stackedSomething;
@@ -364,7 +364,7 @@ namespace OpenNefia.Core.GameObjects
         /// <inheritdoc/>
         public EntityUid Clone(EntityUid target, EntityCoordinates spawnPosition)
         {
-            var newEntity = EntityManager.SpawnEntity(null, spawnPosition).Uid;
+            var newEntity = EntityManager.SpawnEntity(null, spawnPosition);
 
             var args = new EntityClonedEventArgs(newEntity);
             RaiseLocalEvent(target, args);

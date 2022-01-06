@@ -21,13 +21,14 @@ namespace OpenNefia.Tests.Core.GameObjects
 
             var map = simulation.CreateMapAndSetActive(50, 50);
 
+            var entMan = simulation.Resolve<IEntityManager>();
             var entity = simulation.SpawnEntity(null, map.AtPos(0, 0));
-            entity.AddComponent<DummyComponent>();
+            entMan.AddComponent<DummyComponent>(entity);
 
             // Act.
             var testEvent = new TestStructEvent {TestNumber = 5};
             var eventBus = simulation.Resolve<IEntityManager>().EventBus;
-            eventBus.RaiseLocalEvent(entity.Uid, ref testEvent);
+            eventBus.RaiseLocalEvent(entity, ref testEvent);
 
             // Check that the entity system changed the value correctly
             Assert.That(testEvent.TestNumber, Is.EqualTo(10));
@@ -103,16 +104,17 @@ namespace OpenNefia.Tests.Core.GameObjects
 
             var map = simulation.CreateMapAndSetActive(50, 50);
 
+            var entMan = simulation.Resolve<IEntityManager>();
             var entity = simulation.SpawnEntity(null, map.AtPos(0, 0));
-            entity.AddComponent<OrderComponentA>();
-            entity.AddComponent<OrderComponentB>();
-            entity.AddComponent<OrderComponentC>();
-            entity.AddComponent<OrderComponentC2>();
+            entMan.AddComponent<OrderComponentA>(entity);
+            entMan.AddComponent<OrderComponentB>(entity);
+            entMan.AddComponent<OrderComponentC>(entity);
+            entMan.AddComponent<OrderComponentC2>(entity);
 
             // Act.
             var testEvent = new TestStructEvent {TestNumber = 5};
             var eventBus = simulation.Resolve<IEntityManager>().EventBus;
-            eventBus.RaiseLocalEvent(entity.Uid, ref testEvent);
+            eventBus.RaiseLocalEvent(entity, ref testEvent);
 
             // Check that the entity systems changed the value correctly
             Assert.That(testEvent.TestNumber, Is.EqualTo(20));

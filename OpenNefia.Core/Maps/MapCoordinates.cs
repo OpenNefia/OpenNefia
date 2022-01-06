@@ -2,6 +2,7 @@
 using System.Diagnostics.CodeAnalysis;
 using JetBrains.Annotations;
 using Love;
+using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Maths;
 
 namespace OpenNefia.Core.Maps
@@ -114,13 +115,13 @@ namespace OpenNefia.Core.Maps
 
         public bool TryToEntity(IMapManager mapManager, out EntityCoordinates entityCoords)
         {
-            if (!mapManager.TryGetMapEntity(MapId, out var entity))
+            if (!mapManager.TryGetMap(MapId, out var map))
             {
                 entityCoords = EntityCoordinates.Invalid;
                 return false;
             }
 
-            entityCoords = new EntityCoordinates(entity.Uid, Position);
+            entityCoords = new EntityCoordinates(map.MapEntityUid, Position);
             return true;
         }
 

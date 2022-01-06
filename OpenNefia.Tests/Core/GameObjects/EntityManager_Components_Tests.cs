@@ -27,7 +27,7 @@ namespace OpenNefia.Tests.Core.GameObjects
             entMan.AddComponent(entity, component);
 
             // Assert
-            var result = entMan.GetComponent<DummyComponent>(entity.Uid);
+            var result = entMan.GetComponent<DummyComponent>(entity);
             Assert.That(result, Is.EqualTo(component));
         }
 
@@ -47,7 +47,7 @@ namespace OpenNefia.Tests.Core.GameObjects
             entMan.AddComponent(entity, component, true);
 
             // Assert
-            var result = entMan.GetComponent<DummyComponent>(entity.Uid);
+            var result = entMan.GetComponent<DummyComponent>(entity);
             Assert.That(result, Is.EqualTo(component));
         }
 
@@ -60,14 +60,14 @@ namespace OpenNefia.Tests.Core.GameObjects
             var entity = entMan.SpawnEntity(null, sim.ActiveMap!.AtPos(DefaultCoords));
             var firstComp = new DummyComponent {Owner = entity};
             entMan.AddComponent(entity, firstComp);
-            entMan.RemoveComponent<DummyComponent>(entity.Uid);
+            entMan.RemoveComponent<DummyComponent>(entity);
             var secondComp = new DummyComponent { Owner = entity };
 
             // Act
             entMan.AddComponent(entity, secondComp);
 
             // Assert
-            var result = entMan.GetComponent<DummyComponent>(entity.Uid);
+            var result = entMan.GetComponent<DummyComponent>(entity);
             Assert.That(result, Is.EqualTo(secondComp));
         }
 
@@ -78,10 +78,10 @@ namespace OpenNefia.Tests.Core.GameObjects
             var sim = SimulationFactory();
             var entMan = sim.Resolve<IEntityManager>();
             var entity = entMan.SpawnEntity(null, sim.ActiveMap!.AtPos(DefaultCoords));
-            entity.AddComponent<DummyComponent>();
+            entMan.AddComponent<DummyComponent>(entity);
 
             // Act
-            var result = entMan.HasComponent<DummyComponent>(entity.Uid);
+            var result = entMan.HasComponent<DummyComponent>(entity);
 
             // Assert
             Assert.That(result, Is.True);
@@ -94,10 +94,10 @@ namespace OpenNefia.Tests.Core.GameObjects
             var sim = SimulationFactory();
             var entMan = sim.Resolve<IEntityManager>();
             var entity = entMan.SpawnEntity(null, sim.ActiveMap!.AtPos(DefaultCoords));
-            var component = entity.AddComponent<DummyComponent>();
+            var component = entMan.AddComponent<DummyComponent>(entity);
 
             // Act
-            var result = entMan.TryGetComponent<DummyComponent>(entity.Uid, out var comp);
+            var result = entMan.TryGetComponent<DummyComponent>(entity, out var comp);
 
             // Assert
             Assert.That(result, Is.True);
@@ -111,14 +111,14 @@ namespace OpenNefia.Tests.Core.GameObjects
             var sim = SimulationFactory();
             var entMan = sim.Resolve<IEntityManager>();
             var entity = entMan.SpawnEntity(null, sim.ActiveMap!.AtPos(DefaultCoords));
-            var component = entity.AddComponent<DummyComponent>();
+            var component = entMan.AddComponent<DummyComponent>(entity);
 
             // Act
-            entMan.RemoveComponent<DummyComponent>(entity.Uid);
+            entMan.RemoveComponent<DummyComponent>(entity);
             entMan.CullRemovedComponents();
 
             // Assert
-            Assert.That(entMan.HasComponent(entity.Uid, component.GetType()), Is.False);
+            Assert.That(entMan.HasComponent(entity, component.GetType()), Is.False);
         }
 
         [Test]
@@ -128,10 +128,10 @@ namespace OpenNefia.Tests.Core.GameObjects
             var sim = SimulationFactory();
             var entMan = sim.Resolve<IEntityManager>();
             var entity = entMan.SpawnEntity(null, sim.ActiveMap!.AtPos(DefaultCoords));
-            var component = entity.AddComponent<DummyComponent>();
+            var component = entMan.AddComponent<DummyComponent>(entity);
 
             // Act
-            var result = entMan.GetComponents<DummyComponent>(entity.Uid);
+            var result = entMan.GetComponents<DummyComponent>(entity);
 
             // Assert
             var list = result.ToList();
@@ -146,7 +146,7 @@ namespace OpenNefia.Tests.Core.GameObjects
             var sim = SimulationFactory();
             var entMan = sim.Resolve<IEntityManager>();
             var entity = entMan.SpawnEntity(null, sim.ActiveMap!.AtPos(DefaultCoords));
-            var component = entity.AddComponent<DummyComponent>();
+            var component = entMan.AddComponent<DummyComponent>(entity);
 
             // Act
             var result = entMan.EntityQuery<DummyComponent>();
@@ -164,10 +164,10 @@ namespace OpenNefia.Tests.Core.GameObjects
             var sim = SimulationFactory();
             var entMan = sim.Resolve<IEntityManager>();
             var entity = entMan.SpawnEntity(null, sim.ActiveMap!.AtPos(DefaultCoords));
-            var component = entity.AddComponent<DummyComponent>();
+            var component = entMan.AddComponent<DummyComponent>(entity);
 
             // Act
-            var result = entMan.GetComponents(entity.Uid);
+            var result = entMan.GetComponents(entity);
 
             // Assert
             var list = result.Where(c=>c.Name == "Dummy").ToList();

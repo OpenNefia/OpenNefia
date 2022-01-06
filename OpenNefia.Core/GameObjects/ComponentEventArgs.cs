@@ -18,7 +18,7 @@ namespace OpenNefia.Core.GameObjects
         /// <summary>
         /// EntityUid of the entity this component belongs to.
         /// </summary>
-        public EntityUid OwnerUid { get; }
+        public EntityUid Owner { get; }
 
         /// <summary>
         /// Constructs a new instance of <see cref="ComponentEventArgs"/>.
@@ -28,7 +28,7 @@ namespace OpenNefia.Core.GameObjects
         protected ComponentEventArgs(IComponent component, EntityUid ownerUid)
         {
             Component = component;
-            OwnerUid = ownerUid;
+            Owner = ownerUid;
         }
     }
 

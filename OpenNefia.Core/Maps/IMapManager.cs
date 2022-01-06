@@ -32,11 +32,9 @@ namespace OpenNefia.Core.Maps
         void SetMapEntity(MapId mapId, EntityUid newMapEntityId);
 
         IMap GetMap(MapId mapId);
-        Entity GetMapEntity(MapId mapId);
 
         bool TryGetMap(MapId mapId, [NotNullWhen(true)] out IMap? map);
         bool TryGetMap(EntityUid mapEntityUid, [NotNullWhen(true)] out IMap? map);
-        bool TryGetMapEntity(MapId mapId, [NotNullWhen(true)] out Entity? mapEntity);
 
         void UnloadMap(MapId mapId);
     }

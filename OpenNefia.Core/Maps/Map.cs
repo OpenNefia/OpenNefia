@@ -40,9 +40,6 @@ namespace OpenNefia.Core.Maps
         public bool RedrawAllThisTurn { get; set; }
         public bool NeedsRedraw { get => DirtyTilesThisTurn.Count > 0 || RedrawAllThisTurn; }
 
-        private readonly List<Entity> _entities = new List<Entity>();
-        public IEnumerable<Entity> Entities => _entities.ToList();
-
         public Map(int width, int height)
         {
             MapEntityUid = EntityUid.Invalid;
@@ -57,7 +54,7 @@ namespace OpenNefia.Core.Maps
             _tileFlags = new TileFlag[width, height];
             MapObjectMemory = new MapObjectMemoryStore(this);
             _InSight = new int[width, height];
-            ShadowMap = new ShadowMap(this, IoCManager.Resolve<ICoords>());
+            ShadowMap = new ShadowMap(this, IoCManager.Resolve<IEntityManager>(), IoCManager.Resolve<ICoords>());
         }
 
         public void Clear(PrototypeId<TilePrototype> tile)
@@ -164,7 +161,7 @@ namespace OpenNefia.Core.Maps
             this.DirtyTilesThisTurn.Add(pos);
         }
 
-        public void RefreshTileEntities(Vector2i pos, IEnumerable<Entity> entities)
+        public void RefreshTileEntities(Vector2i pos, IEnumerable<SpatialComponent> entities)
         {
             if (!IsInBounds(pos))
                 return;
@@ -173,9 +170,8 @@ namespace OpenNefia.Core.Maps
             var isOpaque = false;
             var flags = TileFlag.None;
 
-            foreach (var obj in entities)
+            foreach (var spatial in entities)
             {
-                var spatial = obj.Spatial;
                 isSolid |= spatial.IsSolid;
                 isOpaque |= spatial.IsOpaque;
             }

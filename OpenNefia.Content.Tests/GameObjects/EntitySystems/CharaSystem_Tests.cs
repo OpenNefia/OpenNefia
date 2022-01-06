@@ -96,8 +96,8 @@ namespace OpenNefia.Content.Tests.GameObjects.EntitySystems
             var entMan = sim.Resolve<IEntityManager>();
             var protoMan = sim.Resolve<IPrototypeManager>();
 
-            var entMale = entMan.SpawnEntity(CharaEntityMaleId, map.AtPos(Vector2i.Zero)).Uid;
-            var entFemale = entMan.SpawnEntity(CharaEntityFemaleId, map.AtPos(Vector2i.One)).Uid;
+            var entMale = entMan.SpawnEntity(CharaEntityMaleId, map.AtPos(Vector2i.Zero));
+            var entFemale = entMan.SpawnEntity(CharaEntityFemaleId, map.AtPos(Vector2i.One));
             var chipCompMale = entMan.GetComponent<ChipComponent>(entMale);
             var chipCompFemale = entMan.GetComponent<ChipComponent>(entFemale);
 

@@ -46,7 +46,7 @@ namespace OpenNefia.Tests.Core.GameObjects.Systems
 
             var slotSys = entSysMan.GetEntitySystem<SlotSystem>();
 
-            var ent = entMan.SpawnEntity(null, map.AtPos(Vector2i.Zero)).Uid;
+            var ent = entMan.SpawnEntity(null, map.AtPos(Vector2i.Zero));
 
             var comps = new ComponentRegistry();
             var slotId = slotSys.AddSlot(ent, comps);
@@ -75,7 +75,7 @@ namespace OpenNefia.Tests.Core.GameObjects.Systems
 
             var slotSys = entSysMan.GetEntitySystem<SlotSystem>();
 
-            var ent = entMan.SpawnEntity(null, map.AtPos(Vector2i.Zero)).Uid;
+            var ent = entMan.SpawnEntity(null, map.AtPos(Vector2i.Zero));
 
             var comps = new ComponentRegistry();
             var spatial = new SpatialComponent();
@@ -107,7 +107,7 @@ namespace OpenNefia.Tests.Core.GameObjects.Systems
 
             var slotSys = entSysMan.GetEntitySystem<SlotSystem>();
 
-            var ent = entMan.SpawnEntity(null, map.AtPos(Vector2i.Zero)).Uid;
+            var ent = entMan.SpawnEntity(null, map.AtPos(Vector2i.Zero));
 
             var comps = new ComponentRegistry();
             var slotTest = new SlotTestComponent()
@@ -145,7 +145,7 @@ namespace OpenNefia.Tests.Core.GameObjects.Systems
 
             var slotSys = entSysMan.GetEntitySystem<SlotSystem>();
 
-            var ent = entMan.SpawnEntity(null, map.AtPos(Vector2i.Zero)).Uid;
+            var ent = entMan.SpawnEntity(null, map.AtPos(Vector2i.Zero));
 
             var comps = new ComponentRegistry();
             var slotTest = new SlotTestComponent();
@@ -171,7 +171,7 @@ namespace OpenNefia.Tests.Core.GameObjects.Systems
 
             var slotSys = entSysMan.GetEntitySystem<SlotSystem>();
 
-            var ent = entMan.SpawnEntity(null, map.AtPos(Vector2i.Zero)).Uid;
+            var ent = entMan.SpawnEntity(null, map.AtPos(Vector2i.Zero));
 
             var comps = new ComponentRegistry();
             var slotTest = new SlotTestComponent();
@@ -205,7 +205,7 @@ namespace OpenNefia.Tests.Core.GameObjects.Systems
 
             var slotSys = entSysMan.GetEntitySystem<SlotSystem>();
 
-            var ent = entMan.SpawnEntity(null, map.AtPos(Vector2i.Zero)).Uid;
+            var ent = entMan.SpawnEntity(null, map.AtPos(Vector2i.Zero));
 
             var comps = new ComponentRegistry();
             var slotTest = new SlotTestComponent();
@@ -233,7 +233,7 @@ namespace OpenNefia.Tests.Core.GameObjects.Systems
 
             var slotSys = entSysMan.GetEntitySystem<SlotSystem>();
 
-            var ent = entMan.SpawnEntity(null, map.AtPos(Vector2i.Zero)).Uid;
+            var ent = entMan.SpawnEntity(null, map.AtPos(Vector2i.Zero));
 
             Assert.That(slotSys.FindSlotWithComponent<SlotTestComponent>(ent), Is.EqualTo(null));
 

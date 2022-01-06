@@ -43,7 +43,7 @@ namespace OpenNefia.Content.VanillaAI
 
             if (dist <= 1)
             {
-                return AttemptToMelee(attacker, targetSpatial.OwnerUid);
+                return AttemptToMelee(attacker, targetSpatial.Owner);
             }
             
             // TODO ranged

@@ -76,7 +76,7 @@ namespace Content.IntegrationTests.Tests.Tag
             EntityUid sTagDummy = default;
             TagComponent sTagComponent = null!;
 
-            sTagDummy = sEntityManager.SpawnEntity(TagEntityId, map.AtPos(Vector2i.Zero)).Uid;
+            sTagDummy = sEntityManager.SpawnEntity(TagEntityId, map.AtPos(Vector2i.Zero));
             sTagComponent = sEntityManager.GetComponent<TagComponent>(sTagDummy);
 
             // Has one tag, the starting tag

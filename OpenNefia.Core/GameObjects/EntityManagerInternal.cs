@@ -9,22 +9,22 @@ namespace OpenNefia.Core.GameObjects
 {
     internal class EntityManagerInternal : EntityManager, IEntityManagerInternal
     {
-        Entity IEntityManagerInternal.AllocEntity(PrototypeId<EntityPrototype>? prototypeName, EntityUid? uid)
+        EntityUid IEntityManagerInternal.AllocEntity(PrototypeId<EntityPrototype>? prototypeName, EntityUid? uid)
         {
             return AllocEntity(prototypeName, uid);
         }
 
-        void IEntityManagerInternal.FinishEntityLoad(Entity entity, IEntityLoadContext? context)
+        void IEntityManagerInternal.FinishEntityLoad(EntityUid entity, IEntityLoadContext? context)
         {
             LoadEntity(entity, context);
         }
 
-        void IEntityManagerInternal.FinishEntityInitialization(Entity entity)
+        void IEntityManagerInternal.FinishEntityInitialization(EntityUid entity)
         {
             InitializeEntity(entity);
         }
 
-        void IEntityManagerInternal.FinishEntityStartup(Entity entity)
+        void IEntityManagerInternal.FinishEntityStartup(EntityUid entity)
         {
             StartEntity(entity);
         }

@@ -193,12 +193,13 @@ namespace OpenNefia.Core.SaveGames
             }
 
             var player = _gameSessionManager.Player;
-            if (player == null)
+            if (!_entityManager.IsAlive(player))
             {
                 throw new InvalidOperationException("No active player");
             }
 
-            if (player.Spatial.MapID != activeMap.Id)
+            var playerSpatial = _entityManager.GetComponent<SpatialComponent>(player);
+            if (playerSpatial.MapID != activeMap.Id)
             {
                 throw new InvalidOperationException($"Player was not in the active map ({activeMap.Id}) at the time of saving!");
             }
@@ -206,7 +207,7 @@ namespace OpenNefia.Core.SaveGames
             var sessionData = new SessionData()
             {
                 ActiveMapId = (int)activeMap.Id,
-                PlayerUid = (int)player.Uid,
+                PlayerUid = (int)player,
                 NextEntityUid = _entityManager.NextEntityUid,
                 NextMapId = _mapManager.NextMapId,
             };
@@ -285,12 +286,12 @@ namespace OpenNefia.Core.SaveGames
             _mapManager.SetActiveMap(map.Id);
 
             var playerUid = new EntityUid(sessionData.PlayerUid);
-            if (!_entityManager.TryGetEntity(playerUid, out var player))
+            if (!_entityManager.TryGetComponent(playerUid, out SpatialComponent player) || player.MapID != map.Id)
             {
                 throw new InvalidDataException($"Active player '{sessionData.PlayerUid}' was not in saved active map {map.Id}!");
             }
 
-            _gameSessionManager.Player = player;
+            _gameSessionManager.Player = playerUid;
         }
 
         public void LoadGlobalData(ISaveGameHandle save)

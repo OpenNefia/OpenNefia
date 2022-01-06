@@ -11,7 +11,7 @@ namespace OpenNefia.Core.Game
 {
     public interface IGameSessionManager
     {
-        public Entity Player { get; set; }
+        public EntityUid Player { get; set; }
 
         bool IsPlayer(EntityUid objEntity);
     }

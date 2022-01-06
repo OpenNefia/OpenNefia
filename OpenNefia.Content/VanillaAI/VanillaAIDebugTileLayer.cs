@@ -58,9 +58,9 @@ namespace OpenNefia.Content.VanillaAI
 
             foreach (var (spatial, ai) in _lookup.EntityQueryInMap<SpatialComponent, VanillaAIComponent>(_map.Id))
             {
-                if (!EntityManager.IsAlive(spatial.OwnerUid) 
-                    || _gameSession.IsPlayer(spatial.OwnerUid)
-                    || !_visibility.CanSeeEntity(_gameSession.Player.Uid!, spatial.OwnerUid))
+                if (!EntityManager.IsAlive(spatial.Owner) 
+                    || _gameSession.IsPlayer(spatial.Owner)
+                    || !_visibility.CanSeeEntity(_gameSession.Player, spatial.Owner))
                     continue;
 
                 var tileEntity = spatial.WorldPosition;
@@ -75,7 +75,7 @@ namespace OpenNefia.Content.VanillaAI
                 }
 
                 Vector2i? tileAnchor = null;
-                if (EntityManager.TryGetComponent<AIAnchorComponent>(spatial.OwnerUid, out var anchor)) 
+                if (EntityManager.TryGetComponent<AIAnchorComponent>(spatial.Owner, out var anchor)) 
                 {
                     tileAnchor = anchor.Anchor;
                 }

@@ -115,8 +115,7 @@ namespace OpenNefia.Tests.Core.GameObjects
 
             var entManMock = new Mock<IEntityManager>();
 
-            var ent = new Entity(entManMock.Object, entUid);
-            compInstance.Owner = ent;
+            compInstance.Owner = entUid;
 
             var compRegistration = new Mock<IComponentRegistration>();
 

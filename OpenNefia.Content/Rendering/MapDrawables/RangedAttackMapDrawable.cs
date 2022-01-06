@@ -36,19 +36,19 @@ namespace OpenNefia.Content.Rendering
         {
             IoCManager.InjectDependencies(this);
 
-            this._startPos = startPos;
-            this._endPos = endPos;
-            this._chip = chip.ResolvePrototype();
-            this._color = color ?? Color.White;
-            this._sound = sound?.ResolvePrototype();
-            this._impactSound = sound?.ResolvePrototype();
-            this._chipBatch = new TileAtlasBatch(AtlasNames.Chip);
+            _startPos = startPos;
+            _endPos = endPos;
+            _chip = chip.ResolvePrototype();
+            _color = color ?? Color.White;
+            _sound = sound?.ResolvePrototype();
+            _impactSound = sound?.ResolvePrototype();
+            _chipBatch = new TileAtlasBatch(AtlasNames.Chip);
 
             var maxFrames = 0; 
             if (_startPos.TryDistanceTiled(_endPos, out var dist)) {
                 maxFrames = (int)dist / 2 + 1;
             }
-            this._counter = new FrameCounter(ConfigVars.AnimeWait, (uint)maxFrames);
+            _counter = new FrameCounter(ConfigVars.AnimeWait, (uint)maxFrames);
         }
 
         public override void OnThemeSwitched()
@@ -60,9 +60,12 @@ namespace OpenNefia.Content.Rendering
 
         public override bool CanEnqueue()
         {
+            var playerSpatial = IoCManager.Resolve<IEntityManager>()
+                .GetComponent<SpatialComponent>(GameSession.Player);
+
             return _startPos.MapId == _endPos.MapId 
-                && (Map.HasLineOfSight(GameSession.Player.Spatial.WorldPosition, this._startPos.Position) 
-                || Map.HasLineOfSight(GameSession.Player.Spatial.WorldPosition, this._endPos.Position));
+                && (Map.HasLineOfSight(playerSpatial.WorldPosition, _startPos.Position) 
+                || Map.HasLineOfSight(playerSpatial.WorldPosition, _endPos.Position));
         }
 
         public override void OnEnqueue()
@@ -75,14 +78,14 @@ namespace OpenNefia.Content.Rendering
 
         public override void Update(float dt)
         {
-            this._counter.Update(dt);
-            if (this._counter.IsFinished)
+            _counter.Update(dt);
+            if (_counter.IsFinished)
             {
-                if (this._impactSound != null)
+                if (_impactSound != null)
                 {
                     Sounds.Play(_impactSound.GetStrongID(), _endPos);
                 }
-                this.Finish();
+                Finish();
             }
         }
 
@@ -90,28 +93,28 @@ namespace OpenNefia.Content.Rendering
         {
             var coords = GameSession.Coords;
             var screenPos = coords.TileToScreen(_endPos.Position - _startPos.Position);
-            var cx = (int)(this._counter.Frame * (screenPos.X) / this._counter.MaxFrames);
-            var cy = (int)(this._counter.Frame * (screenPos.Y) / this._counter.MaxFrames);
+            var cx = (int)(_counter.Frame * (screenPos.X) / _counter.MaxFrames);
+            var cy = (int)(_counter.Frame * (screenPos.Y) / _counter.MaxFrames);
 
-            if (_graphics.IsPointInVisibleScreen(this.GlobalPixelPosition + new Vector2i(cx, cy)))
+            if (_graphics.IsPointInVisibleScreen(GlobalPixelPosition + new Vector2i(cx, cy)))
             {
-                this._chipBatch.Clear();
-                this._chipBatch.Add(this._chip.Image.AtlasIndex, 
+                _chipBatch.Clear();
+                _chipBatch.Add(_chip.Image.AtlasIndex, 
                     cx + coords.TileSize.X / 2, 
                     cy + coords.TileSize.Y / 2, 
                     coords.TileSize.X,
                     coords.TileSize.Y,
-                    color: this._color, 
+                    color: _color, 
                     centered: true, 
-                    rotation: (float)Angle.BetweenPoints(this._startPos.Position, this._endPos.Position).Degrees);
-                this._chipBatch.Flush();
-                this._chipBatch.Draw(this.X, this.Y, this.Width, this.Height);
+                    rotation: (float)Angle.BetweenPoints(_startPos.Position, _endPos.Position).Degrees);
+                _chipBatch.Flush();
+                _chipBatch.Draw(X, Y, Width, Height);
             }
         }
 
         public override void Dispose()
         {
-            this._chipBatch.Dispose();
+            _chipBatch.Dispose();
         }
     }
 }

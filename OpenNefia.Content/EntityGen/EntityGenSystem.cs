@@ -25,8 +25,8 @@ namespace OpenNefia.Content.EntityGen
     /// </remarks>
     public interface IEntityGen : IEntitySystem
     {
-        Entity? SpawnEntity(PrototypeId<EntityPrototype>? protoId, EntityCoordinates coordinates);
-        Entity? SpawnEntity(PrototypeId<EntityPrototype>? protoId, MapCoordinates coordinates);
+        EntityUid? SpawnEntity(PrototypeId<EntityPrototype>? protoId, EntityCoordinates coordinates);
+        EntityUid? SpawnEntity(PrototypeId<EntityPrototype>? protoId, MapCoordinates coordinates);
     }
 
     public class EntityGenSystem : EntitySystem, IEntityGen
@@ -62,7 +62,7 @@ namespace OpenNefia.Content.EntityGen
             FireGeneratedEvent(entity);
         }
 
-        public Entity? SpawnEntity(PrototypeId<EntityPrototype>? protoId, EntityCoordinates coordinates)
+        public EntityUid? SpawnEntity(PrototypeId<EntityPrototype>? protoId, EntityCoordinates coordinates)
         {
             if (!coordinates.IsValid(EntityManager))
                 return null;
@@ -70,19 +70,15 @@ namespace OpenNefia.Content.EntityGen
             return SpawnEntity(protoId, coordinates.ToMap(EntityManager));
         }
 
-        public Entity? SpawnEntity(PrototypeId<EntityPrototype>? protoId, MapCoordinates coordinates)
+        public EntityUid? SpawnEntity(PrototypeId<EntityPrototype>? protoId, MapCoordinates coordinates)
         {
             var ent = EntityManager.SpawnEntity(protoId, coordinates);
-            if (ent == null)
-            {
-                return null;
-            }
 
-            FireGeneratedEvent(ent.Uid);
+            FireGeneratedEvent(ent);
 
-            if (!EntityManager.IsAlive(ent.Uid))
+            if (!EntityManager.IsAlive(ent))
             {
-                Logger.WarningS("entity.gen", $"Entity {ent.Uid} became invalid after {nameof(EntityGeneratedEvent)} was fired.");
+                Logger.WarningS("entity.gen", $"Entity {ent} became invalid after {nameof(EntityGeneratedEvent)} was fired.");
                 return null;
             }
 

@@ -40,11 +40,12 @@ namespace OpenNefia.Tests.Core.Maps
 
             var coords = map.AtPos(Vector2i.One);
 
-            Assert.That(lookup.GetLiveEntitiesAtCoords(coords), Is.EquivalentTo(new Entity[0]));
+            Assert.That(lookup.GetLiveEntitiesAtCoords(coords), Is.EquivalentTo(new SpatialComponent[0]));
 
             var ent = entMan.SpawnEntity(null, coords);
+            var spatial = entMan.GetComponent<SpatialComponent>(ent);
 
-            Assert.That(lookup.GetLiveEntitiesAtCoords(coords), Is.EquivalentTo(new Entity[] { ent }));
+            Assert.That(lookup.GetLiveEntitiesAtCoords(coords), Is.EquivalentTo(new SpatialComponent[] { spatial }));
         }
 
         /// <summary>
@@ -62,27 +63,28 @@ namespace OpenNefia.Tests.Core.Maps
             var coords1 = map.AtPos(Vector2i.One);
             var coords2 = coords1.Offset(Vector2i.One);
             var ent = entMan.SpawnEntity(null, coords1);
+            var spatial = entMan.GetComponent<SpatialComponent>(ent);
 
             Assert.Multiple(() =>
             {
-                Assert.That(lookup.GetLiveEntitiesAtCoords(coords1), Is.EquivalentTo(new Entity[] { ent }));
-                Assert.That(lookup.GetLiveEntitiesAtCoords(coords2), Is.EquivalentTo(new Entity[0]));
+                Assert.That(lookup.GetLiveEntitiesAtCoords(coords1), Is.EquivalentTo(new SpatialComponent[] { spatial }));
+                Assert.That(lookup.GetLiveEntitiesAtCoords(coords2), Is.EquivalentTo(new SpatialComponent[0]));
             });
 
-            ent.Spatial.WorldPosition = coords2.Position;
+            spatial.WorldPosition = coords2.Position;
 
             Assert.Multiple(() =>
             {
-                Assert.That(lookup.GetLiveEntitiesAtCoords(coords1), Is.EquivalentTo(new Entity[0]));
-                Assert.That(lookup.GetLiveEntitiesAtCoords(coords2), Is.EquivalentTo(new Entity[] { ent }));
+                Assert.That(lookup.GetLiveEntitiesAtCoords(coords1), Is.EquivalentTo(new SpatialComponent[0]));
+                Assert.That(lookup.GetLiveEntitiesAtCoords(coords2), Is.EquivalentTo(new SpatialComponent[] { spatial }));
             });
 
-            ent.Spatial.WorldPosition = coords1.Position;
+            spatial.WorldPosition = coords1.Position;
 
             Assert.Multiple(() =>
             {
-                Assert.That(lookup.GetLiveEntitiesAtCoords(coords1), Is.EquivalentTo(new Entity[] { ent }));
-                Assert.That(lookup.GetLiveEntitiesAtCoords(coords2), Is.EquivalentTo(new Entity[0]));
+                Assert.That(lookup.GetLiveEntitiesAtCoords(coords1), Is.EquivalentTo(new SpatialComponent[] { spatial }));
+                Assert.That(lookup.GetLiveEntitiesAtCoords(coords2), Is.EquivalentTo(new SpatialComponent[0]));
             });
         }
 
@@ -100,12 +102,13 @@ namespace OpenNefia.Tests.Core.Maps
 
             var coords = map.AtPos(Vector2i.One);
             var ent = entMan.SpawnEntity(null, coords);
+            var spatial = entMan.GetComponent<SpatialComponent>(ent);
 
-            Assert.That(lookup.GetLiveEntitiesAtCoords(coords), Is.EquivalentTo(new Entity[] { ent }));
+            Assert.That(lookup.GetLiveEntitiesAtCoords(coords), Is.EquivalentTo(new SpatialComponent[] { spatial }));
 
-            ent.Delete();
+            entMan.DeleteEntity(ent);
 
-            Assert.That(lookup.GetLiveEntitiesAtCoords(coords), Is.EquivalentTo(new Entity[0]));
+            Assert.That(lookup.GetLiveEntitiesAtCoords(coords), Is.EquivalentTo(new SpatialComponent[0]));
         }
 
         [Test]
@@ -123,21 +126,20 @@ namespace OpenNefia.Tests.Core.Maps
             var coords2 = new EntityCoordinates(map2.MapEntityUid, Vector2i.Zero);
 
             var ent = entMan.SpawnEntity(null, coords1);
-
-            var spatial = entMan.GetComponent<SpatialComponent>(ent.Uid);
+            var spatial = entMan.GetComponent<SpatialComponent>(ent);
 
             Assert.Multiple(() =>
             {
-                Assert.That(lookup.GetLiveEntitiesAtCoords(coords1), Is.EquivalentTo(new Entity[] { ent }));
-                Assert.That(lookup.GetLiveEntitiesAtCoords(coords2), Is.EquivalentTo(new Entity[0]));
+                Assert.That(lookup.GetLiveEntitiesAtCoords(coords1), Is.EquivalentTo(new SpatialComponent[] { spatial }));
+                Assert.That(lookup.GetLiveEntitiesAtCoords(coords2), Is.EquivalentTo(new SpatialComponent[0]));
             });
 
             spatial.Coordinates = coords2;
 
             Assert.Multiple(() =>
             {
-                Assert.That(lookup.GetLiveEntitiesAtCoords(coords1), Is.EquivalentTo(new Entity[0]));
-                Assert.That(lookup.GetLiveEntitiesAtCoords(coords2), Is.EquivalentTo(new Entity[] { ent }));
+                Assert.That(lookup.GetLiveEntitiesAtCoords(coords1), Is.EquivalentTo(new SpatialComponent[0]));
+                Assert.That(lookup.GetLiveEntitiesAtCoords(coords2), Is.EquivalentTo(new SpatialComponent[] { spatial }));
             });
         }
 
@@ -152,36 +154,37 @@ namespace OpenNefia.Tests.Core.Maps
             var pos = Vector2i.Zero;
 
             var map = simulation.ActiveMap!;
-            var entMap = entMan.GetEntity(map.MapEntityUid);
+            var entMap = map.MapEntityUid;
 
             // "Alive" means the entity is considered the primary entity on the tile.
             // In HSP Elona, each map tile can only hold a single character ID for
             // positional querying purposes; this emulates that behavior.
             var entAlive = entMan.SpawnEntity(null, map.AtPos(pos));
-            var metaAlive = entMan.GetComponent<MetaDataComponent>(entAlive.Uid);
+            var metaAlive = entMan.GetComponent<MetaDataComponent>(entAlive);
             metaAlive.Liveness = EntityGameLiveness.Alive;
 
             // Child entities don't count as being in the map.
-            var entChild = entMan.SpawnEntity(null, new EntityCoordinates(entAlive.Uid, Vector2i.Zero));
-            var metaChild = entMan.GetComponent<MetaDataComponent>(entChild.Uid);
+            var entChild = entMan.SpawnEntity(null, new EntityCoordinates(entAlive, Vector2i.Zero));
+            var metaChild = entMan.GetComponent<MetaDataComponent>(entChild);
             metaChild.Liveness = EntityGameLiveness.Alive;
 
             // "Hidden" means the entity is not visible in the map and cannot be targeted,
             // but should not be removed from the map, such as for dead allies.
             var entHidden = entMan.SpawnEntity(null, map.AtPos(pos));
-            var metaHidden = entMan.GetComponent<MetaDataComponent>(entHidden.Uid);
+            var metaHidden = entMan.GetComponent<MetaDataComponent>(entHidden);
             metaHidden.Liveness = EntityGameLiveness.Hidden;
 
             // "DeadAndBuried" means the entity can be removed at any time.
             var entDead = entMan.SpawnEntity(null, map.AtPos(pos));
-            var metaDead = entMan.GetComponent<MetaDataComponent>(entDead.Uid);
+            var metaDead = entMan.GetComponent<MetaDataComponent>(entDead);
             metaDead.Liveness = EntityGameLiveness.DeadAndBuried;
 
             Assert.Multiple(() =>
             {
-                var ents = lookup.GetAllEntitiesIn(map.Id);
+                var ents = lookup.GetAllEntitiesIn(map.Id)
+                                 .Select(spatial => spatial.Owner);
 
-                Assert.That(ents, Is.EquivalentTo(new[]
+                Assert.That(ents, Is.EquivalentTo(new EntityUid[]
                 {
                     entAlive,
                     entChild,
@@ -189,18 +192,20 @@ namespace OpenNefia.Tests.Core.Maps
                     entDead
                 }), "All Entities");
 
-                ents = lookup.GetEntitiesDirectlyIn(map.Id);
+                ents = lookup.GetEntitiesDirectlyIn(map.Id)
+                             .Select(spatial => spatial.Owner);
 
-                Assert.That(ents, Is.EquivalentTo(new[]
+                Assert.That(ents, Is.EquivalentTo(new EntityUid[]
                 {
                     entAlive,
                     entHidden,
                     entDead
                 }), "Entities Directly In Map");
 
-                ents = lookup.GetLiveEntitiesAtCoords(map.AtPos(pos));
+                ents = lookup.GetLiveEntitiesAtCoords(map.AtPos(pos))
+                             .Select(spatial => spatial.Owner);
 
-                Assert.That(ents, Is.EquivalentTo(new[]
+                Assert.That(ents, Is.EquivalentTo(new EntityUid[]
                 {
                     entAlive
                 }), "Entities At Coords");
@@ -208,9 +213,10 @@ namespace OpenNefia.Tests.Core.Maps
 
             Assert.Multiple(() =>
             {
-                var ents = lookup.GetAllEntitiesIn(map.Id, includeMapEntity: true);
+                var ents = lookup.GetAllEntitiesIn(map.Id, includeMapEntity: true)
+                                 .Select(spatial => spatial.Owner);
 
-                Assert.That(ents, Is.EquivalentTo(new[]
+                Assert.That(ents, Is.EquivalentTo(new EntityUid[]
                 {
                     entAlive,
                     entChild,
@@ -219,9 +225,10 @@ namespace OpenNefia.Tests.Core.Maps
                     entMap
                 }), "All Entities (including parent)");
 
-                ents = lookup.GetEntitiesDirectlyIn(map.Id, includeMapEntity: true);
+                ents = lookup.GetEntitiesDirectlyIn(map.Id, includeMapEntity: true)
+                             .Select(spatial => spatial.Owner);
 
-                Assert.That(ents, Is.EquivalentTo(new[]
+                Assert.That(ents, Is.EquivalentTo(new EntityUid[]
                 {
                     entAlive,
                     entHidden,
@@ -229,9 +236,10 @@ namespace OpenNefia.Tests.Core.Maps
                     entMap
                 }), "Entities Directly In Map (including parent)");
 
-                ents = lookup.GetLiveEntitiesAtCoords(map.AtPos(pos), includeMapEntity: true);
+                ents = lookup.GetLiveEntitiesAtCoords(map.AtPos(pos), includeMapEntity: true)
+                             .Select(spatial => spatial.Owner);
 
-                Assert.That(ents, Is.EquivalentTo(new[]
+                Assert.That(ents, Is.EquivalentTo(new EntityUid[]
                 {
                     entAlive,
                     entMap

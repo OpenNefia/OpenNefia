@@ -57,7 +57,7 @@ namespace OpenNefia.Content.GameObjects
             var verb = new Verb(DoorSystem.VerbIDClose);
 
             var targets = _lookup.GetLiveEntitiesAtCoords(dir.Value.Coords)
-                .Where(ent => _verbSystem.GetLocalVerbs(session.Player.Uid, ent.Uid).Contains(verb));
+                .Where(spatial => _verbSystem.GetLocalVerbs(session.Player, spatial.Owner).Contains(verb));
 
             if (!targets.Any())
             {
@@ -65,24 +65,25 @@ namespace OpenNefia.Content.GameObjects
                 return TurnResult.Aborted;
             }
 
-            var target = targets.First()!;
-            return _verbSystem.ExecuteVerb(session.Player.Uid, target.Uid, verb);
+            var targetSpatial = targets.First()!;
+            return _verbSystem.ExecuteVerb(session.Player, targetSpatial.Owner, verb);
         }
 
         private TurnResult? HandleVerb(IGameSessionManager? session, Verb verb)
         {
-            var player = session?.Player;
-            if (player == null)
+            if (session == null)
                 return null;
 
-            foreach (var target in _lookup.EntitiesUnderneath(player.Uid, includeMapEntity: true).ToList())
+            var player = session.Player;
+
+            foreach (var targetSpatial in _lookup.EntitiesUnderneath(player, includeMapEntity: true).ToList())
             {
-                if (target.Uid != player.Uid)
+                if (targetSpatial.Owner != player)
                 {
-                    var verbs = _verbSystem.GetLocalVerbs(player.Uid, target.Uid);
+                    var verbs = _verbSystem.GetLocalVerbs(player, targetSpatial.Owner);
                     if (verbs.Contains(verb))
                     {
-                       return _verbSystem.ExecuteVerb(player.Uid, target.Uid, verb);
+                       return _verbSystem.ExecuteVerb(player, targetSpatial.Owner, verb);
                     }
                 }
             }

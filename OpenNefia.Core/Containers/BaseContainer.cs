@@ -32,7 +32,7 @@ namespace OpenNefia.Core.Containers
         public bool OccludesLight { get; set; } = true;
 
         /// <inheritdoc />
-        public EntityUid Owner => Manager.OwnerUid;
+        public EntityUid Owner => Manager.Owner;
 
         /// <inheritdoc />
         [DataField]
@@ -58,11 +58,11 @@ namespace OpenNefia.Core.Containers
 
             // CanInsert already checks nullability of Parent (or container forgot to call base that does)
             if (ContainerHelpers.TryGetContainerMan(toinsert, out var containerManager) 
-                && !ContainerHelpers.RemoveEntity(containerManager.OwnerUid, toinsert, containerManager: containerManager))
+                && !ContainerHelpers.RemoveEntity(containerManager.Owner, toinsert, containerManager: containerManager))
                 return false; // Can't remove from existing container, can't insert.
 
             // Attach to parent first so we can check IsInContainer more easily.
-            transform.AttachParent(entMan.GetComponent<SpatialComponent>(Owner));
+            transform.AttachParent(Owner);
             InternalInsert(toinsert);
 
             // spatially move the object to the location of the container. If you don't want this functionality, the

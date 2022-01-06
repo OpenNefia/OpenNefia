@@ -68,13 +68,10 @@ namespace OpenNefia.Content.GameObjects
             var thrower = args.Source;
             var throwing = args.Target;
 
-            if (!EntityManager.TryGetEntity(thrower, out var sourceEntity))
+            if (!EntityManager.TryGetComponent(thrower, out SpatialComponent sourceSpatial))
                 return;
 
-            if (!_mapManager.TryGetMap(sourceEntity.Spatial.MapID, out var map))
-                return;
-
-            var posResult = _uiManager.Query<PositionPrompt, PositionPrompt.Args, PositionPrompt.Result>(new(sourceEntity));
+            var posResult = _uiManager.Query<PositionPrompt, PositionPrompt.Args, PositionPrompt.Result>(new(sourceSpatial.MapPosition));
             if (!posResult.HasValue)
             {
                 args.Handle(TurnResult.Aborted);
@@ -136,15 +133,15 @@ namespace OpenNefia.Content.GameObjects
             // Place the entity on the map.
             targetSpatial.WorldPosition = args.Coords.Position;
 
-            foreach (var onMap in _lookup.GetLiveEntitiesAtCoords(args.Coords))
+            foreach (var onMapSpatial in _lookup.GetLiveEntitiesAtCoords(args.Coords))
             {
-                if (onMap.Uid == thrown)
+                if (onMapSpatial.Owner == thrown)
                     continue;
 
-                var ev = new HitByThrownEntityEventArgs(args.Thrower, thrown, onMap.Spatial.MapPosition);
-                if (!Raise(onMap.Uid, ev) && EntityManager.IsAlive(thrown))
+                var ev = new HitByThrownEntityEventArgs(args.Thrower, thrown, onMapSpatial.MapPosition);
+                if (!Raise(onMapSpatial.Owner, ev) && EntityManager.IsAlive(thrown) && ev.WasHit)
                 {
-                    var ev2 = new ThrownEntityImpactedOtherEvent(args.Thrower, onMap.Uid, onMap.Spatial.MapPosition);
+                    var ev2 = new ThrownEntityImpactedOtherEvent(args.Thrower, onMapSpatial.Owner, onMapSpatial.MapPosition);
 
                     if (!Raise(thrown, ev2))
                     {

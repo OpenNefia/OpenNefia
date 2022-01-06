@@ -170,7 +170,7 @@ namespace OpenNefia.Core.GameObjects
             get
             {
                 var valid = _parent.IsValid();
-                return new EntityCoordinates(valid ? _parent : OwnerUid, valid ? LocalPosition : Vector2i.Zero);
+                return new EntityCoordinates(valid ? _parent : Owner, valid ? LocalPosition : Vector2i.Zero);
             }
             // NOTE: This setter must be callable from before initialize (inheriting from AttachParent's note)
             set => SetCoordinates(value, false);
@@ -191,7 +191,7 @@ namespace OpenNefia.Core.GameObjects
                 _isSolid = value;
 
                 var ev = new EntityTangibilityChangedEvent();
-                _entityManager.EventBus.RaiseLocalEvent(OwnerUid, ref ev);
+                _entityManager.EventBus.RaiseLocalEvent(Owner, ref ev);
             } 
         }
 
@@ -209,7 +209,7 @@ namespace OpenNefia.Core.GameObjects
                 _isOpaque = value;
 
                 var ev = new EntityTangibilityChangedEvent();
-                _entityManager.EventBus.RaiseLocalEvent(OwnerUid, ref ev);
+                _entityManager.EventBus.RaiseLocalEvent(Owner, ref ev);
             }
         }
 
@@ -237,7 +237,7 @@ namespace OpenNefia.Core.GameObjects
 
                 // That's already our parent, don't bother attaching again.
                 var oldParent = Parent;
-                var uid = OwnerUid;
+                var uid = Owner;
                 oldParent?._children.Remove(uid);
                 newParent._children.Add(uid);
 
@@ -245,8 +245,8 @@ namespace OpenNefia.Core.GameObjects
                 _parent = value.EntityId;
                 ChangeMapId(newParent.MapID);
 
-                var entParentChangedMessage = new EntityParentChangedEvent(OwnerUid, oldParent?.OwnerUid);
-                _entityManager.EventBus.RaiseLocalEvent(OwnerUid, ref entParentChangedMessage);
+                var entParentChangedMessage = new EntityParentChangedEvent(Owner, oldParent?.Owner);
+                _entityManager.EventBus.RaiseLocalEvent(Owner, ref entParentChangedMessage);
             }
 
             // These conditions roughly emulate the effects of the code before I changed things,
@@ -257,8 +257,8 @@ namespace OpenNefia.Core.GameObjects
 
             if (!noEvents)
             {
-                var moveEvent = new EntityPositionChangedEvent(OwnerUid, oldPosition, Coordinates, this);
-                _entityManager.EventBus.RaiseLocalEvent(OwnerUid, ref moveEvent);
+                var moveEvent = new EntityPositionChangedEvent(Owner, oldPosition, Coordinates, this);
+                _entityManager.EventBus.RaiseLocalEvent(Owner, ref moveEvent);
             }
         }
 
@@ -292,13 +292,13 @@ namespace OpenNefia.Core.GameObjects
 
             if (!noEvents)
             {
-                var moveEvent = new EntityPositionChangedEvent(OwnerUid, oldPos, Coordinates, this);
-                _entityManager.EventBus.RaiseLocalEvent(OwnerUid, ref moveEvent);
+                var moveEvent = new EntityPositionChangedEvent(Owner, oldPos, Coordinates, this);
+                _entityManager.EventBus.RaiseLocalEvent(Owner, ref moveEvent);
             }
         }
 
         public IEnumerable<SpatialComponent> Children =>
-            _children.Select(u => _entityManager.GetEntity(u).Spatial);
+            _children.Select(u => _entityManager.GetComponent<SpatialComponent>(u));
 
         public IEnumerable<EntityUid> ChildEntities => _children;
 
@@ -326,7 +326,7 @@ namespace OpenNefia.Core.GameObjects
                 else
                 {
                     // second level node, terminates recursion up the branch of the tree
-                    if (_entityManager.TryGetComponent(p.OwnerUid, out MapComponent? mapComp))
+                    if (_entityManager.TryGetComponent(p.Owner, out MapComponent? mapComp))
                     {
                         value = mapComp.MapId;
                     }
@@ -353,7 +353,7 @@ namespace OpenNefia.Core.GameObjects
             {
                 // Note that _children is a SortedSet<EntityUid>,
                 // so duplicate additions (which will happen) don't matter.
-                ((SpatialComponent)Parent!)._children.Add(OwnerUid);
+                ((SpatialComponent)Parent!)._children.Add(Owner);
             }
         }
 
@@ -379,10 +379,10 @@ namespace OpenNefia.Core.GameObjects
 
             var mapPos = MapPosition;
 
-            Entity newMapEntity;
+            EntityUid newMapEntUid;
             if (_mapManager.MapIsLoaded(mapPos.MapId))
             {
-                newMapEntity = _mapManager.GetMapEntity(mapPos.MapId);
+                newMapEntUid = _mapManager.GetMap(mapPos.MapId).MapEntityUid;
             }
             else
             {
@@ -391,13 +391,13 @@ namespace OpenNefia.Core.GameObjects
             }
 
             // this would be a no-op
-            var oldParentEntUid = oldParent.OwnerUid;
-            if (newMapEntity.Uid == oldParentEntUid)
+            var oldParentEntUid = oldParent.Owner;
+            if (newMapEntUid == oldParentEntUid)
             {
                 return;
             }
 
-            AttachParent(newMapEntity);
+            AttachParent(newMapEntUid);
 
             // Technically we're not moving, just changing parent.
             SetWorldPosition(mapPos.Position, noEvents: true);
@@ -412,14 +412,14 @@ namespace OpenNefia.Core.GameObjects
             }
 
             var oldConcrete = (SpatialComponent)oldParent;
-            var uid = OwnerUid;
+            var uid = Owner;
             oldConcrete._children.Remove(uid);
 
             _parent = EntityUid.Invalid;
             var oldMapId = MapID;
             MapID = MapId.Nullspace;
-            var entParentChangedMessage = new EntityParentChangedEvent(OwnerUid, oldParent?.OwnerUid);
-            _entityManager.EventBus.RaiseLocalEvent(OwnerUid, ref entParentChangedMessage);
+            var entParentChangedMessage = new EntityParentChangedEvent(Owner, oldParent?.Owner);
+            _entityManager.EventBus.RaiseLocalEvent(Owner, ref entParentChangedMessage);
 
             // Does it even make sense to call these since this is called purely from OnRemove right now?
             RebuildMatrices();
@@ -435,14 +435,14 @@ namespace OpenNefia.Core.GameObjects
             //NOTE: This function must be callable from before initialize
 
             // don't attach to something we're already attached to
-            if (ParentUid == newParent.OwnerUid)
+            if (ParentUid == newParent.Owner)
                 return;
 
             DebugTools.Assert(newParent != this,
                 $"Can't parent a {nameof(SpatialComponent)} to itself.");
 
             // offset position from world to parent, and set
-            SetCoordinates(new EntityCoordinates(newParent.OwnerUid, (Vector2i)newParent.InvWorldMatrix.Transform(WorldPosition)));
+            SetCoordinates(new EntityCoordinates(newParent.Owner, (Vector2i)newParent.InvWorldMatrix.Transform(WorldPosition)));
         }
 
         internal void ChangeMapId(MapId newMapId)
@@ -476,12 +476,12 @@ namespace OpenNefia.Core.GameObjects
 
         private void MapIdChanged(MapId oldId)
         {
-            _entityManager.EventBus.RaiseLocalEvent(OwnerUid, new EntMapIdChangedEvent(OwnerUid, oldId));
+            _entityManager.EventBus.RaiseLocalEvent(Owner, new EntMapIdChangedEvent(Owner, oldId));
         }
 
-        public void AttachParent(Entity parent)
+        public void AttachParent(EntityUid parent)
         {
-            var transform = parent.Spatial;
+            var transform = _entityManager.GetComponent<SpatialComponent>(parent);
             AttachParent(transform);
         }
 

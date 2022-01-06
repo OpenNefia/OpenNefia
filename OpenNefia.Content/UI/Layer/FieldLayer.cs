@@ -20,6 +20,7 @@ namespace OpenNefia.Content.UI.Layer
 {
     public partial class FieldLayer : UiLayerWithResult<UINone, UINone>, IFieldLayer
     {
+        [Dependency] private readonly IEntityManager _entityManager = default!;
         [Dependency] private readonly IMapRenderer _mapRenderer = default!;
         [Dependency] private readonly IMapManager _mapManager = default!;
         [Dependency] private readonly IHudLayer _hud = default!;
@@ -92,6 +93,8 @@ namespace OpenNefia.Content.UI.Layer
         {
             _mapManager.ActiveMapChanged += OnActiveMapChanged;
             _graphics.OnWindowResized += (_) => RefreshScreen();
+
+            Camera.Initialize();
         }
 
         public override void OnFocused()
@@ -126,7 +129,7 @@ namespace OpenNefia.Content.UI.Layer
 
             var player = _gameSession.Player;
 
-            if (player != null)
+            if (_entityManager.IsAlive(player))
             {
                 Camera.CenterOnTilePos(player);
             }
@@ -168,7 +171,7 @@ namespace OpenNefia.Content.UI.Layer
             _hud.SetSize(width, height);
 
             var player = _gameSession.Player;
-            if (player != null)
+            if (_entityManager.IsAlive(player))
             {
                 Camera.CenterOnTilePos(player);
             }
@@ -212,7 +215,7 @@ namespace OpenNefia.Content.UI.Layer
 
             _scroller.GetPositionDiff(dt, out var dx, out var dy);
 
-            SetPosition(Camera.ScreenPos.X, Camera.ScreenPos.Y);
+            SetPosition((int)Camera.ScreenPos.X, (int)Camera.ScreenPos.Y);
 
             if (PlacingTile != null)
             {
@@ -244,14 +247,15 @@ namespace OpenNefia.Content.UI.Layer
             Love.Graphics.SetColor(255, 0, 0);
 
             var player = _gameSession.Player!;
-            var screenPos = player.GetScreenPos();
+            var playerSpatial = _entityManager.GetComponent<SpatialComponent>(player);
+            var screenPos = playerSpatial.GetScreenPos();
             Love.Graphics.Rectangle(Love.DrawMode.Line, X + screenPos.X, Y + screenPos.Y, _coords.TileSize.X, _coords.TileSize.Y);
 
             GraphicsEx.SetFont(FontText);
             GraphicsEx.SetColor(Color.White);
             Love.Graphics.Print(Message, 5, 5);
             Love.Graphics.Print(MouseText, 5, 20);
-            Love.Graphics.Print($"Player: ({player.Spatial.MapPosition})", 5, 35);
+            Love.Graphics.Print($"Player: ({playerSpatial.MapPosition})", 5, 35);
 
             _hud.Draw();
         }

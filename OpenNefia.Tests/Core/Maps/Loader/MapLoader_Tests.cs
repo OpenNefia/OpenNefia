@@ -207,7 +207,7 @@ entities:
             Assert.That(mapEntityMap.Metadata.Name, Is.EqualTo("test"));
             Assert.That(mapEntityMap.Metadata.Author, Is.EqualTo("ruin"));
 
-            var entity = mapEntitySpatial.Children.Single().OwnerUid;
+            var entity = mapEntitySpatial.Children.Single().Owner;
             var c = entMan.GetComponent<MapDeserializeTestComponent>(entity);
 
             Assert.That(c.Bar, Is.EqualTo(2));
@@ -235,16 +235,15 @@ entities:
             var mapId = map.Id;
             var mapEntId = map.MapEntityUid;
 
-            var entity = entMan.SpawnEntity(new("MapDeserializeTest"), map.AtPos(Vector2i.One));
-            var entityUid = entity.Uid;
+            var entityUid = entMan.SpawnEntity(new("MapDeserializeTest"), map.AtPos(Vector2i.One));
 
-            var c = entMan.GetComponent<MapDeserializeTestComponent>(entity.Uid);
+            var c = entMan.GetComponent<MapDeserializeTestComponent>(entityUid);
             c.Foo = 999;
             c.Bar = 9999;
             c.Baz = 99999;
 
-            entMan.RemoveComponent<MapDeserializeTestRemoveComponent>(entity.Uid);
-            entMan.EnsureComponent<MapDeserializeTestAddComponent>(entity.Uid);
+            entMan.RemoveComponent<MapDeserializeTestRemoveComponent>(entityUid);
+            entMan.EnsureComponent<MapDeserializeTestAddComponent>(entityUid);
 
             using var save = new TempSaveGameHandle();
 
@@ -261,18 +260,14 @@ entities:
                 Assert.That(entMan.EntityExists(entityUid), Is.True);
             });
 
-            entity = entMan.GetEntity(entityUid);
-
-            Assert.That(entity.Uid, Is.EqualTo(entityUid));
-
-            c = entMan.GetComponent<MapDeserializeTestComponent>(entity.Uid);
+            c = entMan.GetComponent<MapDeserializeTestComponent>(entityUid);
 
             Assert.That(c.Foo, Is.EqualTo(999));
             Assert.That(c.Bar, Is.EqualTo(9999));
             Assert.That(c.Baz, Is.EqualTo(99999));
 
-            Assert.That(entMan.HasComponent<MapDeserializeTestAddComponent>(entity.Uid), Is.True);
-            Assert.That(entMan.HasComponent<MapDeserializeTestRemoveComponent>(entity.Uid), Is.False);
+            Assert.That(entMan.HasComponent<MapDeserializeTestAddComponent>(entityUid), Is.True);
+            Assert.That(entMan.HasComponent<MapDeserializeTestRemoveComponent>(entityUid), Is.False);
         }
 
         /// <summary>
@@ -290,10 +285,9 @@ entities:
             var map = mapMan.CreateMap(50, 50);
             var mapId = map.Id;
 
-            var entity = entMan.SpawnEntity(new("MapDeserializeTestOverride"), map.AtPos(Vector2i.One));
-            var entityUid = entity.Uid;
+            var entityUid = entMan.SpawnEntity(new("MapDeserializeTestOverride"), map.AtPos(Vector2i.One));
 
-            var c = entMan.GetComponent<MapDeserializeTestOverrideComponent>(entity.Uid);
+            var c = entMan.GetComponent<MapDeserializeTestOverrideComponent>(entityUid);
             c.Foo = new TestDataRuntime();
 
             using var save = new TempSaveGameHandle();
@@ -302,9 +296,7 @@ entities:
             mapMan.UnloadMap(mapId);
             map = mapLoader.LoadMap(mapId, save);
 
-            entity = entMan.GetEntity(entityUid);
-
-            c = entMan.GetComponent<MapDeserializeTestOverrideComponent>(entity.Uid);
+            c = entMan.GetComponent<MapDeserializeTestOverrideComponent>(entityUid);
 
             Assert.Multiple(() =>
             {

@@ -8,19 +8,19 @@ namespace OpenNefia.Core.Game
 {
     public class GameSessionManager : IGameSessionManager
     {
-        private Entity? _player;
-        public Entity Player { get => _player!; set => _player = value; }
+        private EntityUid? _player;
+        public EntityUid Player { get => _player!.Value; set => _player = value; }
 
         public bool IsPlayer(EntityUid ent)
         {
-            return _player != null && ent == Player.Uid;
+            return ent == Player;
         }
     }
 
     [Obsolete("Move to dependency injection wherever possible")]
     public static class GameSession
     {
-        public static Entity Player { get => IoCManager.Resolve<IGameSessionManager>().Player; }
+        public static EntityUid Player { get => IoCManager.Resolve<IGameSessionManager>().Player; }
 
         public static IMap? ActiveMap { get => IoCManager.Resolve<IMapManager>().ActiveMap; }
 

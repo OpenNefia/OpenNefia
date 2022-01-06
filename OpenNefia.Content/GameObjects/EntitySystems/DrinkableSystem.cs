@@ -7,6 +7,7 @@ using OpenNefia.Core.Effects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Content.DisplayName;
 using OpenNefia.Core.Locale;
+using OpenNefia.Content.EntityGen;
 
 namespace OpenNefia.Content.GameObjects
 {
@@ -16,6 +17,7 @@ namespace OpenNefia.Content.GameObjects
 
         [Dependency] private readonly IAudioManager _sounds = default!;
         [Dependency] private readonly IStackSystem _stackSystem = default!;
+        [Dependency] private readonly IEntityGen _entityGen = default!;
 
         public override void Initialize()
         {
@@ -89,14 +91,17 @@ namespace OpenNefia.Content.GameObjects
             Mes.Display($"{DisplayNameSystem.GetDisplayName(thrown)} shatters.");
             _sounds.Play(Protos.Sound.Crush2, args.Coords);
 
-            var puddle = EntityManager.SpawnEntity(Protos.Mef.Potion, args.Coords);
+            var puddle = _entityGen.SpawnEntity(Protos.Mef.Potion, args.Coords);
 
-            if (EntityManager.TryGetComponent(puddle.Uid, out ChipComponent chipCompPuddle)
+            if (puddle == null)
+                return;
+
+            if (EntityManager.TryGetComponent(puddle.Value, out ChipComponent chipCompPuddle)
                 && EntityManager.TryGetComponent(thrown, out ChipComponent chipCompPotion))
             {
                 chipCompPuddle.Color = chipCompPotion.Color;
             }
-            if (EntityManager.TryGetComponent(puddle.Uid, out PotionPuddleComponent puddleComp))
+            if (EntityManager.TryGetComponent(puddle.Value, out PotionPuddleComponent puddleComp))
             {
                 puddleComp.Effect = potionComp.Effect;
                 puddleComp.Args = potionComp.Args;

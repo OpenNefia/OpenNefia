@@ -51,26 +51,23 @@ namespace OpenNefia.Content.GameObjects
 
         private TurnResult? HandlePickUp(IGameSessionManager? session)
         {
-            if (session?.Player == null)
+            if (session == null)
                 return null;
 
-            var player = session.Player.Uid;
-
-            if (!EntityManager.TryGetComponent(player, out SpatialComponent? spatial))
-                return null;
+            var player = session.Player;
 
             var verb = new Verb(PickableSystem.VerbIDPickUp);
-            var ents = _lookup.EntitiesUnderneath(session.Player.Uid).ToList();
+            var spatials = _lookup.EntitiesUnderneath(session.Player).ToList();
 
-            if (ents.Count == 0)
+            if (spatials.Count == 0)
             {
                 Mes.Display(Loc.GetString("Elona.GameObjects.Pickable.GraspAtAir"));
                 return TurnResult.Failed;
             }
-            else if (ents.Count == 1)
+            else if (spatials.Count == 1)
             {
-                var ent = ents.First();
-                var result = _verbSystem.ExecuteVerb(player, ent.Uid, verb);
+                var spatial = spatials.First();
+                var result = _verbSystem.ExecuteVerb(player, spatial.Owner, verb);
 
                 if (result == TurnResult.NoResult)
                 {
@@ -121,7 +118,7 @@ namespace OpenNefia.Content.GameObjects
 
                 if (full.State == BoundKeyState.Down && session?.Player != null)
                 {
-                    var context = new InventoryContext(session.Player.Uid, _behavior);
+                    var context = new InventoryContext(session.Player, _behavior);
                     var result = _uiMgr.Query<InventoryLayer, InventoryContext, InventoryResult>(context);
 
                     if (result.HasValue)

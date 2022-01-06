@@ -116,9 +116,9 @@ namespace OpenNefia.Core.Locale
                 layer.Localize(layer.GetType()!.FullName!);
             }
 
-            foreach (var ent in _entityManager.GetEntities())
+            foreach (var uid in _entityManager.GetEntityUids())
             {
-                _entityFactory.LocalizeComponents(ent);
+                _entityFactory.LocalizeComponents(uid);
             }
         }
 

@@ -18,12 +18,7 @@ namespace OpenNefia.Core.GameObjects
         /// <summary>
         ///     Entity that this component is attached to.
         /// </summary>
-        Entity Owner { get; }
-
-        /// <summary>
-        ///     Entity Uid that this component is attached to.
-        /// </summary>
-        EntityUid OwnerUid => Owner.Uid;
+        EntityUid Owner { get; }
 
         /// <summary>
         /// Name of this component.

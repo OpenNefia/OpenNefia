@@ -39,14 +39,6 @@ namespace OpenNefia.Core.GameObjects
         /// </summary>
         /// <typeparam name="T">Concrete component type to add.</typeparam>
         /// <returns>The newly added component.</returns>
-        T AddComponent<T>(Entity entity) where T : Component, new();
-
-        /// <summary>
-        ///     Adds a Component type to an entity. If the entity is already Initialized, the component will
-        ///     automatically be Initialized and Started.
-        /// </summary>
-        /// <typeparam name="T">Concrete component type to add.</typeparam>
-        /// <returns>The newly added component.</returns>
         T AddComponent<T>(EntityUid uid) where T : Component, new();
 
         /// <summary>
@@ -55,24 +47,7 @@ namespace OpenNefia.Core.GameObjects
         /// </summary>
         /// <param name="type">Concrete component type to add.</typeparam>
         /// <returns>The newly added component.</returns>
-        IComponent AddComponent(Entity entity, Type type);
-
-        /// <summary>
-        ///     Adds a Component type to an entity. If the entity is already Initialized, the component will
-        ///     automatically be Initialized and Started.
-        /// </summary>
-        /// <param name="type">Concrete component type to add.</typeparam>
-        /// <returns>The newly added component.</returns>
         IComponent AddComponent(EntityUid uid, Type type);
-
-        /// <summary>
-        ///     Adds a Component to an entity. If the entity is already Initialized, the component will
-        ///     automatically be Initialized and Started.
-        /// </summary>
-        /// <param name="entity">Entity being modified.</param>
-        /// <param name="component">Component to add.</param>
-        /// <param name="overwrite">Should it overwrite existing components?</param>
-        void AddComponent<T>(Entity entity, T component, bool overwrite = false) where T : Component;
 
         /// <summary>
         ///     Adds a Component to an entity. If the entity is already Initialized, the component will
@@ -138,14 +113,6 @@ namespace OpenNefia.Core.GameObjects
         /// <summary>
         ///     This method will always return a component for a certain entity, adding it if it's not there already.
         /// </summary>
-        /// <param name="entity">Entity to modify.</param>
-        /// <typeparam name="T">Component to add.</typeparam>
-        /// <returns>The component in question</returns>
-        T EnsureComponent<T>(Entity entity) where T : Component, new();
-
-        /// <summary>
-        ///     This method will always return a component for a certain entity, adding it if it's not there already.
-        /// </summary>
         /// <param name="uid">Entity to modify.</param>
         /// <typeparam name="T">Component to add.</typeparam>
         /// <returns>The component in question</returns>
@@ -162,6 +129,9 @@ namespace OpenNefia.Core.GameObjects
         /// <summary>
         ///     Returns the component of a specific type.
         /// </summary>
+        /// <remarks>
+        /// *Strongly prefer* <see cref="TryGetComponent{T}(EntityUid, out T)"/>.
+        /// </remarks>
         /// <typeparam name="T">A trait or type of a component to retrieve.</typeparam>
         /// <param name="uid">Entity UID to look on.</param>
         /// <returns>The component of Type from the Entity.</returns>
@@ -170,6 +140,9 @@ namespace OpenNefia.Core.GameObjects
         /// <summary>
         ///     Returns the component of a specific type.
         /// </summary>
+        /// <remarks>
+        /// *Strongly prefer* <see cref="TryGetComponent(EntityUid, Type, out IComponent?)"/>
+        /// </remarks>
         /// <param name="uid">Entity UID to look on.</param>
         /// <param name="type">A trait or component type to check for.</param>
         /// <returns>The component of Type from the Entity.</returns>
@@ -260,6 +233,14 @@ namespace OpenNefia.Core.GameObjects
         /// <param name="includePaused"></param>
         /// <returns>All components that are the specified type.</returns>
         IEnumerable<IComponent> GetAllComponents(Type type);
+
+        /// <summary>
+        ///      Returns ALL component instances of a specified type.
+        /// </summary>
+        /// <param name="type">A trait or component type to check for.</param>
+        /// <param name="includePaused"></param>
+        /// <returns>All components that are the specified type.</returns>
+        IEnumerable<T> GetAllComponents<T>() where T : IComponent;
 
         /// <summary>
         ///     Culls all components from the collection that are marked as deleted. This needs to be called often.

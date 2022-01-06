@@ -1,4 +1,5 @@
 ﻿using OpenNefia.Core.GameObjects;
+using OpenNefia.Core.IoC;
 using OpenNefia.Core.Maps;
 using OpenNefia.Core.Maths;
 using System;
@@ -13,6 +14,8 @@ namespace OpenNefia.Core.Rendering
     [Serializable]
     public sealed class MapObjectMemoryStore : IEnumerable<MapObjectMemory>
     {
+        [Dependency] private readonly IEntityManager _entityManager = default!;
+
         internal IMap Map;
         internal int CurrentIndex;
         internal Dictionary<int, MapObjectMemory> AllMemory;
@@ -24,6 +27,8 @@ namespace OpenNefia.Core.Rendering
 
         public MapObjectMemoryStore(IMap map)
         {
+            IoCManager.InjectDependencies(this);
+
             this.Map = map;
             CurrentIndex = 0;
             this.AllMemory = new Dictionary<int, MapObjectMemory>();
@@ -108,7 +113,7 @@ namespace OpenNefia.Core.Rendering
             }
 
             int i = 0;
-            foreach (var obj in EntitySystem.Get<IEntityLookup>().GetLiveEntitiesAtCoords(Map.AtPos(pos)))
+            foreach (var spatial in EntitySystem.Get<IEntityLookup>().GetLiveEntitiesAtCoords(Map.AtPos(pos)))
             {
                 if (at == null)
                 {
@@ -119,15 +124,15 @@ namespace OpenNefia.Core.Rendering
                 var memory = GetOrCreateMemory();
 
                 _event.Memory = memory;
-                obj.EntityManager.EventBus.RaiseLocalEvent(obj.Uid, _event);
+                _entityManager.EventBus.RaiseLocalEvent(spatial.Owner, _event);
                 memory = _event.Memory;
 
                 if (memory.IsVisible)
                 {
                     this.AllMemory[memory.Index] = memory;
                     this.Added.Add(memory);
-                    memory.ObjectUid = obj.Uid;
-                    memory.Coords = obj.Spatial.MapPosition;
+                    memory.ObjectUid = spatial.Owner;
+                    memory.Coords = spatial.MapPosition;
                     at.Add(memory);
                 }
 

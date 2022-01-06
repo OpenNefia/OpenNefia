@@ -183,7 +183,8 @@ namespace OpenNefia.Tests.Core.GameObjects
 
             Assert.That(dummyOne, Is.Not.Null);
 
-            var dummyComp = dummyOne.GetComponent<TestOneComponent>();
+            var dummyComp = entityManager.GetComponent<TestOneComponent>(dummyOne);
+            var dummySpatial = entityManager.GetComponent<SpatialComponent>(dummyOne);
 
             Assert.That(dummyComp.TestTwo, Is.Not.Null);
             Assert.That(dummyComp.TestThree, Is.Not.Null);
@@ -194,7 +195,7 @@ namespace OpenNefia.Tests.Core.GameObjects
 
             // Test two's dependency on Spatial should be correct.
             Assert.That(dummyComp.TestTwo!.Spatial, Is.Not.Null);
-            Assert.That(dummyComp.TestTwo!.Spatial, Is.EqualTo(dummyOne.Spatial));
+            Assert.That(dummyComp.TestTwo!.Spatial, Is.EqualTo(dummySpatial));
 
             // Test three's dependency on test one should be correct.
             Assert.That(dummyComp.TestThree!.TestOne, Is.Not.Null);
@@ -205,7 +206,7 @@ namespace OpenNefia.Tests.Core.GameObjects
 
             Assert.That(dummyTwo, Is.Not.Null);
 
-            var dummyTwoComp = dummyTwo.GetComponent<TestTwoComponent>();
+            var dummyTwoComp = entityManager.GetComponent<TestTwoComponent>(dummyTwo);
 
             // This dependency should be resolved.
             Assert.That(dummyTwoComp.TestTwo, Is.Not.Null);
@@ -216,7 +217,7 @@ namespace OpenNefia.Tests.Core.GameObjects
 
             Assert.That(dummyThree, Is.Not.Null);
 
-            var dummyThreeComp = dummyThree.GetComponent<TestThreeComponent>();
+            var dummyThreeComp = entityManager.GetComponent<TestThreeComponent>(dummyThree);
 
             // This dependency should be unresolved.
             Assert.That(dummyThreeComp.TestOne, Is.Null);
@@ -226,7 +227,7 @@ namespace OpenNefia.Tests.Core.GameObjects
 
             Assert.That(dummyFour, Is.Not.Null);
 
-            var dummyFourComp = dummyFour.GetComponent<TestFourComponent>();
+            var dummyFourComp = entityManager.GetComponent<TestFourComponent>(dummyFour);
 
             // This dependency should be resolved.
             Assert.That(dummyFourComp.TestInterface, Is.Not.Null);
@@ -242,13 +243,13 @@ namespace OpenNefia.Tests.Core.GameObjects
 
             Assert.That(dummyThree, Is.Not.Null);
 
-            var dummyThreeComp = dummyThree.GetComponent<TestThreeComponent>();
+            var dummyThreeComp = entityManager.GetComponent<TestThreeComponent>(dummyThree);
 
             // This dependency should be unresolved at first.
             Assert.That(dummyThreeComp.TestOne, Is.Null);
 
             // We add the TestOne component...
-            dummyThree.AddComponent<TestOneComponent>();
+            entityManager.AddComponent<TestOneComponent>(dummyThree);
 
             // This dependency should be resolved now!
             Assert.That(dummyThreeComp.TestOne, Is.Not.Null);
@@ -261,7 +262,7 @@ namespace OpenNefia.Tests.Core.GameObjects
             // This dependency should still be unresolved.
             Assert.That(dummyOneComp.TestTwo, Is.Null);
 
-            dummyThree.AddComponent<TestTwoComponent>();
+            entityManager.AddComponent<TestTwoComponent>(dummyThree);
 
             // And now it is resolved!
             Assert.That(dummyOneComp.TestTwo, Is.Not.Null);
@@ -269,14 +270,14 @@ namespace OpenNefia.Tests.Core.GameObjects
             // TestFour should not be resolved.
             Assert.That(dummyOneComp.TestFour, Is.Null);
 
-            dummyThree.AddComponent<TestFourComponent>();
+            entityManager.AddComponent<TestFourComponent>(dummyThree);
 
             // TestFour should now be resolved
             Assert.That(dummyOneComp.TestFour, Is.Not.Null);
 
             var dummyFourComp = dummyOneComp.TestFour;
 
-            dummyThree.AddComponent<TestInterfaceComponent>();
+            entityManager.AddComponent<TestInterfaceComponent>(dummyThree);
 
             // This dependency should now be resolved.
             Assert.That(dummyFourComp!.TestInterface, Is.Not.Null);
@@ -292,14 +293,14 @@ namespace OpenNefia.Tests.Core.GameObjects
 
             Assert.That(dummyOne, Is.Not.Null);
 
-            var dummyComp = dummyOne.GetComponent<TestOneComponent>();
+            var dummyComp = entityManager.GetComponent<TestOneComponent>(dummyOne);
 
             // They must be resolved.
             Assert.That(dummyComp.TestTwo, Is.Not.Null);
             Assert.That(dummyComp.TestThree, Is.Not.Null);
 
             // And now, we remove TestTwo.
-            dummyOne.RemoveComponent<TestTwoComponent>();
+            entityManager.RemoveComponent<TestTwoComponent>(dummyOne);
 
             // It has become null!
             Assert.That(dummyComp.TestTwo, Is.Null);
@@ -308,7 +309,7 @@ namespace OpenNefia.Tests.Core.GameObjects
             Assert.That(dummyComp.TestThree, Is.Not.Null);
 
             // But not for long.
-            dummyOne.RemoveComponent<TestThreeComponent>();
+            entityManager.RemoveComponent<TestThreeComponent>(dummyOne);
 
             // It should now be null!
             Assert.That(dummyComp.TestThree, Is.Null);
@@ -318,14 +319,14 @@ namespace OpenNefia.Tests.Core.GameObjects
             Assert.That(dummyComp.TestFour!.TestInterface, Is.Not.Null);
 
             // Remove the interface.
-            dummyOne.RemoveComponent<TestInterfaceComponent>();
+            entityManager.RemoveComponent<TestInterfaceComponent>(dummyOne);
 
             // TestInterface should now be null, but TestFour should not be.
             Assert.That(dummyComp.TestFour, Is.Not.Null);
             Assert.That(dummyComp.TestFour.TestInterface, Is.Null);
 
             // Remove TestFour.
-            dummyOne.RemoveComponent<TestFourComponent>();
+            entityManager.RemoveComponent<TestFourComponent>(dummyOne);
 
             // TestFour should now be null.
             Assert.That(dummyComp.TestFour, Is.Null);
@@ -340,14 +341,14 @@ namespace OpenNefia.Tests.Core.GameObjects
             var dummy = entityManager.CreateEntityUninitialized(new("dummy"));
 
             // First we add test one.
-            var testOne = dummy.AddComponent<TestOneComponent>();
+            var testOne = entityManager.AddComponent<TestOneComponent>(dummy);
 
             // We check the dependencies are null.
             Assert.That(testOne.TestTwo, Is.Null);
             Assert.That(testOne.TestThree, Is.Null);
 
             // We add test two.
-            var testTwo = dummy.AddComponent<TestTwoComponent>();
+            var testTwo = entityManager.AddComponent<TestTwoComponent>(dummy);
 
             // Check that everything is in order.
             Assert.That(testOne.TestTwo, Is.Not.Null);
@@ -355,13 +356,13 @@ namespace OpenNefia.Tests.Core.GameObjects
 
             // Remove test two...
             testTwo = null;
-            dummy.RemoveComponent<TestTwoComponent>();
+            entityManager.RemoveComponent<TestTwoComponent>(dummy);
 
             // The dependency should be null now.
             Assert.That(testOne.TestTwo, Is.Null);
 
             // We add test three.
-            var testThree = dummy.AddComponent<TestThreeComponent>();
+            var testThree = entityManager.AddComponent<TestThreeComponent>(dummy);
 
             // All should be in order again.
             Assert.That(testOne.TestThree, Is.Not.Null);
@@ -372,17 +373,17 @@ namespace OpenNefia.Tests.Core.GameObjects
 
             // Remove test one.
             testOne = null;
-            dummy.RemoveComponent<TestOneComponent>();
+            entityManager.RemoveComponent<TestOneComponent>(dummy);
 
             // Now the dependency is null.
             Assert.That(testThree.TestOne, Is.Null);
 
             // Let's actually remove the removed components first.
-            dummy.EntityManager.CullRemovedComponents();
+            entityManager.CullRemovedComponents();
 
             // Re-add test one and two.
-            testOne = dummy.AddComponent<TestOneComponent>();
-            testTwo = dummy.AddComponent<TestTwoComponent>();
+            testOne = entityManager.AddComponent<TestOneComponent>(dummy);
+            testTwo = entityManager.AddComponent<TestTwoComponent>(dummy);
 
             // All should be fine again!
             Assert.That(testThree.TestOne, Is.Not.Null);
@@ -395,14 +396,14 @@ namespace OpenNefia.Tests.Core.GameObjects
             Assert.That(testTwo.TestTwo, Is.EqualTo(testTwo));
 
             // Add test four.
-            dummy.AddComponent<TestFourComponent>();
+            entityManager.AddComponent<TestFourComponent>(dummy);
 
             // TestFour should not be null, but TestInterface should be.
             Assert.That(testOne.TestFour, Is.Not.Null);
             Assert.That(testOne.TestFour!.TestInterface, Is.Null);
 
             // Remove test four
-            dummy.RemoveComponent<TestFourComponent>();
+            entityManager.RemoveComponent<TestFourComponent>(dummy);
 
             // Now the dependency is null.
             Assert.That(testOne.TestFour, Is.Null);
@@ -418,7 +419,7 @@ namespace OpenNefia.Tests.Core.GameObjects
 
             Assert.That(dummyFour, Is.Not.Null);
 
-            var dummyComp = dummyFour.GetComponent<TestFourComponent>();
+            var dummyComp = entityManager.GetComponent<TestFourComponent>(dummyFour);
 
             // TestInterface must be resolved.
             Assert.That(dummyComp.TestInterface, Is.Not.Null);
@@ -437,13 +438,13 @@ namespace OpenNefia.Tests.Core.GameObjects
 
             Assert.That(dummyFour, Is.Not.Null);
 
-            var dummyComp = dummyFour.GetComponent<TestFourComponent>();
+            var dummyComp = entityManager.GetComponent<TestFourComponent>(dummyFour);
 
             // TestInterface must be resolved.
             Assert.That(dummyComp.TestInterface, Is.Not.Null);
 
             // Remove TestInterface through its referenced interface.
-            dummyFour.RemoveComponent<ITestInterfaceInterface>();
+            entityManager.RemoveComponent<ITestInterfaceInterface>(dummyFour);
 
             // TestInterface must be null.
             Assert.That(dummyComp.TestInterface, Is.Null);
@@ -482,15 +483,15 @@ namespace OpenNefia.Tests.Core.GameObjects
         {
             var entityManager = IoCManager.Resolve<IEntityManager>();
             var entity = entityManager.CreateEntityUninitialized(new("dummy"));
-            var t1Comp = entity.AddComponent<TestOneComponent>();
+            var t1Comp = entityManager.AddComponent<TestOneComponent>(entity);
 
             Assert.That(t1Comp.TestTwoIsAdded, Is.False);
 
-            entity.AddComponent<TestTwoComponent>();
+            entityManager.AddComponent<TestTwoComponent>(entity);
 
             Assert.That(t1Comp.TestTwoIsAdded, Is.True);
 
-            entity.RemoveComponent<TestTwoComponent>();
+            entityManager.RemoveComponent<TestTwoComponent>(entity);
 
             Assert.That(t1Comp.TestTwoIsAdded, Is.False);
         }
@@ -502,7 +503,7 @@ namespace OpenNefia.Tests.Core.GameObjects
             var entity = entityManager.CreateEntityUninitialized(new("dummy"));
             try
             {
-                var t7Comp = entity.AddComponent<TestSevenComponent>();
+                var t7Comp = entityManager.AddComponent<TestSevenComponent>(entity);
             }
             catch (ComponentDependencyInvalidMethodNameException invEx)
             {

@@ -77,8 +77,8 @@ namespace OpenNefia.Core.Maps
 
         private void WriteMetaSection()
         {
-            var mapEntity = _mapManager.GetMapEntity(_targetMapId);
-            var mapComp = _entityManager.EnsureComponent<MapComponent>(mapEntity.Uid);
+            var mapEntity = _mapManager.GetMap(_targetMapId).MapEntityUid;
+            var mapComp = _entityManager.EnsureComponent<MapComponent>(mapEntity);
 
             var meta = new YamlMappingNode();
             _rootNode.Add(MapLoadConstants.Meta, meta);
@@ -109,9 +109,9 @@ namespace OpenNefia.Core.Maps
 
         private IEnumerable<EntityUid> GetAllEntitiesInMap(MapId mapId)
         {
-            return _entityManager.GetEntities()
-                .Where(ent => ent.Spatial.MapID == mapId)
-                .Select(ent => ent.Uid);
+            return _entityManager.GetAllComponents<SpatialComponent>()
+                .Where(spatial => spatial.MapID == mapId)
+                .Select(spatial => spatial.Owner);
         }
 
         private void PopulateEntityList()
@@ -161,11 +161,11 @@ namespace OpenNefia.Core.Maps
                 if (takenIds.Contains(uid))
                 {
                     // Duplicate ID. Just pretend it doesn't have an ID and use the without path.
-                    withoutUid.Add(mapIdComp.OwnerUid);
+                    withoutUid.Add(mapIdComp.Owner);
                 }
                 else
                 {
-                    _context.EntityUidMap.Add(mapIdComp.OwnerUid, uid);
+                    _context.EntityUidMap.Add(mapIdComp.Owner, uid);
                     takenIds.Add(uid);
                 }
             }
@@ -340,7 +340,7 @@ namespace OpenNefia.Core.Maps
             var current = _entityManager.GetComponent<SpatialComponent>(entity);
             foreach (var parent in current.Parents)
             {
-                if (_entityManager.GetComponent<MetaDataComponent>(parent.OwnerUid).EntityPrototype?.MapSavable == false)
+                if (_entityManager.GetComponent<MetaDataComponent>(parent.Owner).EntityPrototype?.MapSavable == false)
                 {
                     return false;
                 }

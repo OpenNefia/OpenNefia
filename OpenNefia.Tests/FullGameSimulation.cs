@@ -76,13 +76,13 @@ namespace OpenNefia.Tests
             return map;
         }
 
-        public Entity SpawnEntity(PrototypeId<EntityPrototype>? protoId, MapCoordinates coordinates)
+        public EntityUid SpawnEntity(PrototypeId<EntityPrototype>? protoId, MapCoordinates coordinates)
         {
             var entMan = Collection.Resolve<IEntityManager>();
             return entMan.SpawnEntity(protoId, coordinates);
         }
 
-        public Entity SpawnEntity(PrototypeId<EntityPrototype>? protoId, EntityCoordinates coordinates)
+        public EntityUid SpawnEntity(PrototypeId<EntityPrototype>? protoId, EntityCoordinates coordinates)
         {
             var entMan = Collection.Resolve<IEntityManager>();
             return entMan.SpawnEntity(protoId, coordinates);

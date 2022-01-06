@@ -60,10 +60,10 @@ namespace OpenNefia.Tests.Core.Prototypes
         {
             var map = _maps.CreateMap(25, 25);
             var entity = _entities.SpawnEntity(new(DummyId), map.AtPos(Vector2i.Zero));
-            var entityComponent = entity.GetComponent<HotReloadTestComponentOne>();
+            var entityComponent = _entities.GetComponent<HotReloadTestComponentOne>(entity);
 
             Assert.That(entityComponent.Value, Is.EqualTo(5));
-            Assert.False(entity.HasComponent<HotReloadTestComponentTwo>());
+            Assert.False(_entities.HasComponent<HotReloadTestComponentTwo>(entity));
 
             var reloaded = false;
             _prototypes.PrototypesReloaded += _ => reloaded = true;
@@ -74,7 +74,7 @@ namespace OpenNefia.Tests.Core.Prototypes
             reloaded = false;
 
             Assert.That(entityComponent.Value, Is.EqualTo(5));
-            Assert.False(entity.HasComponent<HotReloadTestComponentTwo>());
+            Assert.False(_entities.HasComponent<HotReloadTestComponentTwo>(entity));
 
             var changedPrototypes = _prototypes.LoadString(ReloadedPrototypes, true);
             _prototypes.ReloadPrototypes(changedPrototypes);
@@ -86,7 +86,7 @@ namespace OpenNefia.Tests.Core.Prototypes
             Assert.That(entityComponent.Value, Is.EqualTo(5));
 
             // New components are added
-            Assert.True(entity.HasComponent<HotReloadTestComponentTwo>());
+            Assert.True(_entities.HasComponent<HotReloadTestComponentTwo>(entity));
 
             changedPrototypes = _prototypes.LoadString(InitialPrototypes, true);
             _prototypes.ReloadPrototypes(changedPrototypes);
@@ -98,7 +98,7 @@ namespace OpenNefia.Tests.Core.Prototypes
             Assert.That(entityComponent.Value, Is.EqualTo(5));
 
             // Old components are removed
-            Assert.False(entity.HasComponent<HotReloadTestComponentTwo>());
+            Assert.False(_entities.HasComponent<HotReloadTestComponentTwo>(entity));
         }
     }
 

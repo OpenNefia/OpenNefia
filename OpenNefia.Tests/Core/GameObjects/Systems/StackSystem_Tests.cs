@@ -67,24 +67,24 @@ namespace OpenNefia.Tests.Core.GameObjects.Systems
             var dummy = entityManager.CreateEntityUninitialized(DummyID);
 
             Assert.That(dummy, Is.Not.Null);
-            Assert.That(entityManager.IsAlive(dummy.Uid), Is.True);
-            Assert.That(entityManager.IsDeadAndBuried(dummy.Uid), Is.False);
+            Assert.That(entityManager.IsAlive(dummy), Is.True);
+            Assert.That(entityManager.IsDeadAndBuried(dummy), Is.False);
 
-            var stack = entityManager.GetComponent<StackComponent>(dummy.Uid);
+            var stack = entityManager.GetComponent<StackComponent>(dummy);
 
             Assert.That(stack.Count, Is.EqualTo(1));
 
-            stackSys.SetCount(dummy.Uid, 0);
+            stackSys.SetCount(dummy, 0);
 
             Assert.That(stack.Count, Is.EqualTo(0));
-            Assert.That(entityManager.IsAlive(dummy.Uid), Is.False);
-            Assert.That(entityManager.IsDeadAndBuried(dummy.Uid), Is.True);
+            Assert.That(entityManager.IsAlive(dummy), Is.False);
+            Assert.That(entityManager.IsDeadAndBuried(dummy), Is.True);
 
-            stackSys.SetCount(dummy.Uid, 1);
+            stackSys.SetCount(dummy, 1);
 
             Assert.That(stack.Count, Is.EqualTo(1));
-            Assert.That(entityManager.IsAlive(dummy.Uid), Is.True);
-            Assert.That(entityManager.IsDeadAndBuried(dummy.Uid), Is.False);
+            Assert.That(entityManager.IsAlive(dummy), Is.True);
+            Assert.That(entityManager.IsDeadAndBuried(dummy), Is.False);
         }
 
         [Test]
@@ -96,14 +96,14 @@ namespace OpenNefia.Tests.Core.GameObjects.Systems
 
             var dummy = entityManager.CreateEntityUninitialized(DummyID);
 
-            var stack = entityManager.GetComponent<StackComponent>(dummy.Uid);
+            var stack = entityManager.GetComponent<StackComponent>(dummy);
 
             Assert.That(stack.Count, Is.EqualTo(1));
 
-            stackSys.SetCount(dummy.Uid, -5);
+            stackSys.SetCount(dummy, -5);
             Assert.That(stack.Count, Is.EqualTo(0));
 
-            stackSys.SetCount(dummy.Uid, 101);
+            stackSys.SetCount(dummy, 101);
             Assert.That(stack.Count, Is.EqualTo(101));
         }
 
@@ -117,13 +117,13 @@ namespace OpenNefia.Tests.Core.GameObjects.Systems
 
             var dummy = entityManager.CreateEntityUninitialized(DummyID);
 
-            var stack = entityManager.GetComponent<StackComponent>(dummy.Uid);
+            var stack = entityManager.GetComponent<StackComponent>(dummy);
 
             stack.Count = 0;
             var mapCoords = map.AtPos(Vector2i.Zero);
 
-            Assert.That(stackSys.TrySplit(dummy.Uid, 0, mapCoords, out var _), Is.False);
-            Assert.That(stackSys.TrySplit(dummy.Uid, 1, mapCoords, out var _), Is.False);
+            Assert.That(stackSys.TrySplit(dummy, 0, mapCoords, out var _), Is.False);
+            Assert.That(stackSys.TrySplit(dummy, 1, mapCoords, out var _), Is.False);
         }
 
         [Test]
@@ -136,18 +136,18 @@ namespace OpenNefia.Tests.Core.GameObjects.Systems
 
             var dummy = entityManager.CreateEntityUninitialized(DummyID);
 
-            var stack = entityManager.GetComponent<StackComponent>(dummy.Uid);
+            var stack = entityManager.GetComponent<StackComponent>(dummy);
 
             stack.Count = 1;
             var mapCoords = map.AtPos(Vector2i.Zero);
-            var result = stackSys.TrySplit(dummy.Uid, 1, mapCoords, out var split);
+            var result = stackSys.TrySplit(dummy, 1, mapCoords, out var split);
 
             Assert.Multiple(() =>
             {
                 Assert.That(result, Is.True, "Result");
                 Assert.That(split.IsValid(), Is.True, "Split entity IsValid()");
                 Assert.That(entityManager.IsAlive(split), Is.True, "Split entity IsAlive()");
-                Assert.That(entityManager.IsAlive(dummy.Uid), Is.False, "Original entity IsAlive()");
+                Assert.That(entityManager.IsAlive(dummy), Is.False, "Original entity IsAlive()");
             });
         }
 
@@ -161,11 +161,11 @@ namespace OpenNefia.Tests.Core.GameObjects.Systems
 
             var dummy = entityManager.CreateEntityUninitialized(DummyID);
 
-            var stack = entityManager.GetComponent<StackComponent>(dummy.Uid);
+            var stack = entityManager.GetComponent<StackComponent>(dummy);
 
             stack.Count = 5;
             var mapCoords = map.AtPos(Vector2i.Zero);
-            var result = stackSys.TrySplit(dummy.Uid, 3, mapCoords, out var split);
+            var result = stackSys.TrySplit(dummy, 3, mapCoords, out var split);
 
             Assert.Multiple(() =>
             {
@@ -198,12 +198,12 @@ namespace OpenNefia.Tests.Core.GameObjects.Systems
             var dummy2 = entityManager.CreateEntityUninitialized(DummyID);
 
             Assert.That(stackSys.TryStack(EntityUid.Invalid, EntityUid.Invalid), Is.False);
-            Assert.That(stackSys.TryStack(dummy1.Uid, EntityUid.Invalid), Is.False);
-            Assert.That(stackSys.TryStack(dummy1.Uid, dummy1.Uid), Is.False);
+            Assert.That(stackSys.TryStack(dummy1, EntityUid.Invalid), Is.False);
+            Assert.That(stackSys.TryStack(dummy1, dummy1), Is.False);
 
             entityManager.DeleteEntity(dummy2);
 
-            Assert.That(stackSys.TryStack(dummy1.Uid, dummy2.Uid), Is.False);
+            Assert.That(stackSys.TryStack(dummy1, dummy2), Is.False);
         }
 
         [Test]
@@ -216,10 +216,10 @@ namespace OpenNefia.Tests.Core.GameObjects.Systems
             var dummy1 = entityManager.CreateEntityUninitialized(DummyID);
             var dummy2 = entityManager.CreateEntityUninitialized(DummyID);
 
-            var stackTest = entityManager.GetComponent<StackTestComponent>(dummy2.Uid);
+            var stackTest = entityManager.GetComponent<StackTestComponent>(dummy2);
             stackTest.A = 9999;
 
-            Assert.That(stackSys.TryStack(dummy1.Uid, dummy2.Uid), Is.False);
+            Assert.That(stackSys.TryStack(dummy1, dummy2), Is.False);
         }
 
         [Test]
@@ -233,16 +233,16 @@ namespace OpenNefia.Tests.Core.GameObjects.Systems
             var dummy1 = entityManager.CreateEntityUninitialized(DummyID);
             var dummy2 = entityManager.CreateEntityUninitialized(DummyID);
 
-            var stack = entityManager.GetComponent<StackComponent>(dummy1.Uid);
+            var stack = entityManager.GetComponent<StackComponent>(dummy1);
 
             stack.Count = 5;
-            var result = stackSys.TryStack(dummy1.Uid, dummy2.Uid);
+            var result = stackSys.TryStack(dummy1, dummy2);
 
             Assert.Multiple(() =>
             {
                 Assert.That(result, Is.True);
-                Assert.That(entityManager.IsAlive(dummy1.Uid), Is.True);
-                Assert.That(entityManager.IsAlive(dummy2.Uid), Is.False);
+                Assert.That(entityManager.IsAlive(dummy1), Is.True);
+                Assert.That(entityManager.IsAlive(dummy2), Is.False);
                 Assert.That(stack.Count, Is.EqualTo(6));
             });
         }
@@ -263,17 +263,17 @@ namespace OpenNefia.Tests.Core.GameObjects.Systems
             var dummy = entityManager.CreateEntityUninitialized(DummyNonStackedID);
             var mapCoords = map.AtPos(Vector2i.Zero);
 
-            Assert.That(stackSys.TrySplit(dummy.Uid, 2, mapCoords, out var _), Is.False);
+            Assert.That(stackSys.TrySplit(dummy, 2, mapCoords, out var _), Is.False);
 
-            var result = stackSys.TrySplit(dummy.Uid, 1, mapCoords, out var split);
+            var result = stackSys.TrySplit(dummy, 1, mapCoords, out var split);
 
             Assert.Multiple(() =>
             {
                 Assert.That(result, Is.True, "Result");
                 Assert.That(split.IsValid(), Is.True, "Split entity IsValid()");
                 Assert.That(entityManager.IsAlive(split), Is.True, "Split entity IsAlive()");
-                Assert.That(entityManager.IsAlive(dummy.Uid), Is.True, "Original entity IsAlive()");
-                Assert.That(dummy.Uid, Is.EqualTo(split), "Original entity is equal to split entity");
+                Assert.That(entityManager.IsAlive(dummy), Is.True, "Original entity IsAlive()");
+                Assert.That(dummy, Is.EqualTo(split), "Original entity is equal to split entity");
             });
         }
     }
