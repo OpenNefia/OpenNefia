@@ -77,8 +77,6 @@ namespace OpenNefia.Content.UI.Element.List
 
             OnMouseEntered += HandleMouseEntered;
             EventFilter = UIEventFilterMode.Pass;
-
-            OnCellDataChanged();
         }
 
         private void HandleMouseEntered(GUIMouseHoverEventArgs args)
@@ -128,13 +126,13 @@ namespace OpenNefia.Content.UI.Element.List
             var width = Math.Clamp(UiText.TextWidth + AssetSelectKey.Width + 8 + XOffset, 10, 480);
             Graphics.SetBlendMode(BlendMode.Subtract);
             GraphicsEx.SetColor(ColorSelectedSub);
-            Graphics.Rectangle(DrawMode.Fill, UiText.X - 4, UiText.Y - 2, width, 19);
+            Graphics.Rectangle(DrawMode.Fill, UiText.X - XOffset - 4, UiText.Y - 2, width, 19);
             Graphics.SetBlendMode(BlendMode.Add);
             GraphicsEx.SetColor(ColorSelectedAdd);
-            Graphics.Rectangle(DrawMode.Fill, UiText.X - 3, UiText.Y - 1, width - 2, 17);
+            Graphics.Rectangle(DrawMode.Fill, UiText.X - XOffset - 3, UiText.Y - 1, width - 2, 17);
             Graphics.SetBlendMode(BlendMode.Alpha);
             GraphicsEx.SetColor(Love.Color.White);
-            AssetListBullet.Draw(UiText.X - 5 + width - 20, UiText.Y + 2);
+            AssetListBullet.Draw(UiText.X - XOffset - 5 + width - 20, UiText.Y + 2);
         }
 
         public override void Draw()

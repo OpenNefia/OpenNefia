@@ -100,6 +100,8 @@ namespace OpenNefia.Content.Equipment
                 AssetEquipSlotIcons = new AssetDrawable(AssetPrototypeOf.EquipSlotIcons);
 
                 SpriteBatch = spriteBatch;
+
+                OnCellDataChanged();
             }
 
             protected override void OnCellDataChanged()
@@ -114,11 +116,11 @@ namespace OpenNefia.Content.Equipment
 
             public override void SetPosition(int x, int y)
             {
+                XOffset = 30;
                 base.SetPosition(x, y);
                 AssetEquipSlotIcons.SetPosition(X - 66, Y - 2);
                 TextEquipSlotName.SetPosition(X - 42, Y + 3);
                 TextSubtext.SetPosition(X + Width - 44 - TextSubtext.TextWidth, Y + 2);
-                XOffset = 30;
             }
 
             public override void SetSize(int width, int height)
@@ -303,6 +305,8 @@ namespace OpenNefia.Content.Equipment
                         containerSlot.ForceRemove(containerSlot.ContainedEntity.Value);
                     }
                 }
+
+                yield return cellData;
             }
         }
 
@@ -358,8 +362,8 @@ namespace OpenNefia.Content.Equipment
         public override void SetSize(int width, int height)
         {
             base.SetSize(width, height);
-            Window.SetSize(width, height);
-            List.SetPreferredSize();
+            Window.SetSize(Width, Height);
+            List.SetSize(Window.Width - 96, Window.Height - 60);
             _spriteBatch.SetSize(0, 0);
 
             TextTopicCategoryName.SetPreferredSize();
