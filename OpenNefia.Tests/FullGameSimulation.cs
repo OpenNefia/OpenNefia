@@ -1,4 +1,5 @@
-﻿using OpenNefia.Core.Containers;
+﻿using OpenNefia.Core;
+using OpenNefia.Core.Containers;
 using OpenNefia.Core.ContentPack;
 using OpenNefia.Core.GameController;
 using OpenNefia.Core.GameObjects;
@@ -9,6 +10,7 @@ using OpenNefia.Core.Maps;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Reflection;
 using OpenNefia.Core.Serialization.Manager;
+using OpenNefia.Core.Serialization.Manager.Result;
 using OpenNefia.Core.Utility;
 using System.Reflection;
 
@@ -38,13 +40,7 @@ namespace OpenNefia.Tests
     /// <seealso cref="GameSimulation"/>
     public class FullGameSimulation : ISimulation, IFullSimulationFactory
     {
-        // Required by the engine.
-        private const string EmptyTile = @"
-- type: Tile
-  id: Empty
-  isSolid: false
-  isOpaque: false
-";
+        private static ThreadLocal<Dictionary<Type, Dictionary<string, DeserializationResult>>> _cachedPrototypes = new();
 
         private AssemblyLoadDelegate? _assemblyLoadDelegate;
         private DiContainerDelegate? _diFactory;
@@ -152,6 +148,10 @@ namespace OpenNefia.Tests
 
             IoCManager.Resolve<IReflectionManager>().LoadAssemblies(assemblies);
 
+            var resMan = IoCManager.Resolve<IResourceManagerInternal>();
+            Directory.CreateDirectory("Resources/");
+            ProgramShared.DoMounts(resMan);
+
             var modLoader = IoCManager.Resolve<TestingModLoader>();
             modLoader.Assemblies = contentAssemblies.ToArray();
             modLoader.TryLoadModulesFrom(ResourcePath.Root, "");
@@ -180,9 +180,20 @@ namespace OpenNefia.Tests
 
             container.Resolve<ISerializationManager>().Initialize();
 
-            var protoMan = container.Resolve<IPrototypeManager>();
+            var protoMan = container.Resolve<IPrototypeManagerInternal>();
             protoMan.Initialize();
-            protoMan.LoadString(EmptyTile);
+
+            // Don't reparse prototypes from disk every run.
+            if (_cachedPrototypes.IsValueCreated)
+            {
+                protoMan.LoadFromResults(_cachedPrototypes.Value!);
+            }
+            else
+            {
+                protoMan.LoadDirectory(ResourcePath.Root / "Prototypes");
+                _cachedPrototypes.Value = protoMan.PrototypeResults.ShallowClone();
+            }
+
             _protoDelegate?.Invoke(protoMan);
             protoMan.Resync();
 
