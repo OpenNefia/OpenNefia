@@ -258,10 +258,7 @@ namespace OpenNefia.Content.EquipSlots
             if ((containerSlot == null || equipSlot == null) && !TryGetEquipSlotAndContainer(target, slot, out equipSlot, out containerSlot, equipSlots))
                 return false;
 
-            if (containerSlot.ContainedEntity == null)
-                return false;
-
-            if (!containerSlot.ContainedEntity.HasValue || !containerSlot.CanRemove(containerSlot.ContainedEntity.Value))
+            if (containerSlot.ContainedEntity == null || !containerSlot.CanRemove(containerSlot.ContainedEntity.Value))
                 return false;
 
             var itemUid = containerSlot.ContainedEntity.Value;
