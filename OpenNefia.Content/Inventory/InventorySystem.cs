@@ -8,12 +8,9 @@ using System.Threading.Tasks;
 namespace OpenNefia.Content.Inventory
 {
     /// <summary>
-    /// Handles character items and equipment.
+    /// Handles character items.
     /// </summary>
-    /// <remarks>
-    /// Based off of Robust's <c>InventorySystem</c>.
-    /// </remarks>
-    public sealed partial class InventorySystem : EntitySystem, IInventorySystem
+    public sealed class InventorySystem : EntitySystem
     {
         public override void Initialize()
         {

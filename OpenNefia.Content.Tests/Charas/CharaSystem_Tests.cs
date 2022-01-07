@@ -1,8 +1,7 @@
 ﻿using NUnit.Framework;
 using OpenNefia.Content.Charas;
 using OpenNefia.Content.EntityGen;
-using OpenNefia.Content.Equipment;
-using OpenNefia.Content.Inventory;
+using OpenNefia.Content.EquipSlots;
 using OpenNefia.Core.Containers;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Maps;
@@ -71,7 +70,7 @@ namespace OpenNefia.Content.Tests.Charas
             var mapMan = sim.Resolve<IMapManager>();
 
             var entGen = sim.GetEntitySystem<IEntityGen>();
-            var invSys = sim.GetEntitySystem<InventorySystem>();
+            var equipSlotSys = sim.GetEntitySystem<EquipSlotsSystem>();
 
             var map = sim.CreateMapAndSetActive(10, 10);
 
@@ -79,21 +78,21 @@ namespace OpenNefia.Content.Tests.Charas
 
             Assert.Multiple(() =>
             {
-                Assert.That(invSys.HasEquipSlot(ent, TestSlot1ID), Is.True, "Has equip slot 1");
-                Assert.That(invSys.HasEquipSlot(ent, TestSlot2ID), Is.True, "Has equip slot 2");
-                Assert.That(invSys.HasEquipSlot(ent, EquipSlot.Ranged), Is.True, "Has ranged slot");
-                Assert.That(invSys.HasEquipSlot(ent, EquipSlot.Ammo), Is.True, "Has ammo slot");
+                Assert.That(equipSlotSys.HasEquipSlot(ent, TestSlot1ID), Is.True, "Has equip slot 1");
+                Assert.That(equipSlotSys.HasEquipSlot(ent, TestSlot2ID), Is.True, "Has equip slot 2");
+                Assert.That(equipSlotSys.HasEquipSlot(ent, EquipSlot.Ranged), Is.True, "Has ranged slot");
+                Assert.That(equipSlotSys.HasEquipSlot(ent, EquipSlot.Ammo), Is.True, "Has ammo slot");
 
-                Assert.That(entMan.TryGetComponent(ent, out InventoryComponent inventory), Is.True, "Has inventory component");
+                Assert.That(entMan.TryGetComponent(ent, out EquipSlotsComponent equipSlots), Is.True, "Has inventory component");
 
                 // 3 slots for the race, plus 2 more for ranged/ammo.
-                Assert.That(inventory.EquipSlots.Count, Is.EqualTo(5), "Equip slots count");
+                Assert.That(equipSlots.EquipSlots.Count, Is.EqualTo(5), "Equip slots count");
 
-                Assert.That(inventory.EquipSlots[0].ID, Is.EqualTo(TestSlot1ID), "Equip slot 1 ID");
-                Assert.That(inventory.EquipSlots[1].ID, Is.EqualTo(TestSlot2ID), "Equip slot 2 ID");
-                Assert.That(inventory.EquipSlots[2].ID, Is.EqualTo(TestSlot1ID), "Equip slot 3 ID");
-                Assert.That(inventory.EquipSlots[3].ID, Is.EqualTo(EquipSlot.Ranged), "Equip slot 4 ID (ranged)");
-                Assert.That(inventory.EquipSlots[4].ID, Is.EqualTo(EquipSlot.Ammo), "Equip slot 5 ID (ammo)");
+                Assert.That(equipSlots.EquipSlots[0].ID, Is.EqualTo(TestSlot1ID), "Equip slot 1 ID");
+                Assert.That(equipSlots.EquipSlots[1].ID, Is.EqualTo(TestSlot2ID), "Equip slot 2 ID");
+                Assert.That(equipSlots.EquipSlots[2].ID, Is.EqualTo(TestSlot1ID), "Equip slot 3 ID");
+                Assert.That(equipSlots.EquipSlots[3].ID, Is.EqualTo(EquipSlot.Ranged), "Equip slot 4 ID (ranged)");
+                Assert.That(equipSlots.EquipSlots[4].ID, Is.EqualTo(EquipSlot.Ammo), "Equip slot 5 ID (ammo)");
             });
         }
     }

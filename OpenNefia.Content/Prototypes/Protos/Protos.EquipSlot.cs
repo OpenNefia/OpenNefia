@@ -1,4 +1,4 @@
-﻿using EquipSlotPrototypeId = OpenNefia.Core.Prototypes.PrototypeId<OpenNefia.Content.Equipment.EquipSlotPrototype>;
+﻿using EquipSlotPrototypeId = OpenNefia.Core.Prototypes.PrototypeId<OpenNefia.Content.EquipSlots.EquipSlotPrototype>;
 
 namespace OpenNefia.Content.Prototypes
 {

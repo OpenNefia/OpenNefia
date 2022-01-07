@@ -3,7 +3,7 @@ using OpenNefia.Core.Serialization.Manager.Attributes;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Core.Containers;
 
-namespace OpenNefia.Content.Equipment
+namespace OpenNefia.Content.EquipSlots
 {
     /// <summary>
     /// Defines an equipment slot type on an entity. An entity can have multiple
