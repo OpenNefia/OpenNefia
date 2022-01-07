@@ -4,7 +4,6 @@ using OpenNefia.Core.Prototypes;
 using OpenNefia.Content.Prototypes;
 using OpenNefia.Content.EntityGen;
 using OpenNefia.Content.Skills;
-using OpenNefia.Content.Inventory;
 using static OpenNefia.Content.Prototypes.Protos;
 using OpenNefia.Content.EquipSlots;
 

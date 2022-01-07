@@ -1,10 +1,15 @@
-﻿using OpenNefia.Content.Inventory;
+﻿using Content.Shared.Inventory.Events;
+using OpenNefia.Content.Equipment;
+using OpenNefia.Content.EquipSlots.Events;
+using OpenNefia.Content.Inventory;
+using OpenNefia.Content.Logic;
+using OpenNefia.Core.Audio;
 using OpenNefia.Core.Containers;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
-using OpenNefia.Core.Log;
-using OpenNefia.Core.Prototypes;
+using OpenNefia.Core.Locale;
 using System.Diagnostics.CodeAnalysis;
+using static OpenNefia.Content.Prototypes.Protos;
 using EquipSlotPrototypeId = OpenNefia.Core.Prototypes.PrototypeId<OpenNefia.Content.EquipSlots.EquipSlotPrototype>;
 
 namespace OpenNefia.Content.EquipSlots
@@ -13,267 +18,296 @@ namespace OpenNefia.Content.EquipSlots
     /// Handles character equipment.
     /// </summary>
     /// <remarks>
-    /// Based off of Robust's <c>InventorySystem</c>.
+    /// Based off of SS14's <c>InventorySystem</c>.
     /// </remarks>
-    public sealed class EquipSlotsSystem : EntitySystem, IEquipSlotsSystem
+    public sealed partial class EquipSlotsSystem : EntitySystem, IEquipSlotsSystem
     {
-        [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-        [Dependency] private readonly ContainerSystem _containerSys = default!;
+        [Dependency] private readonly IAudioManager _sounds = default!;
 
-        // That's one beefy mutant.
-        private const int MaxContainerSlotsPerEquipSlot = 1024;
-
-        /// <inheritdoc/>
-        public void InitializeEquipSlots(EntityUid uid, IEnumerable<EquipSlotPrototypeId> equipSlotProtoIds,
-            EquipSlotsComponent? equipSlotsComp = null,
-            ContainerManagerComponent? containerComp = null)
+        public override void Initialize()
         {
-            if (!Resolve(uid, ref equipSlotsComp, logMissing: false))
-                equipSlotsComp = EntityManager.AddComponent<EquipSlotsComponent>(uid);
-            if (!Resolve(uid, ref containerComp, logMissing: false))
-                containerComp = EntityManager.AddComponent<ContainerManagerComponent>(uid);
-
-            ClearEquipSlots(uid, equipSlotsComp, containerComp);
-
-            foreach (var slotId in equipSlotProtoIds)
-            {
-                TryAddEquipSlot(uid, slotId, out _, out _, equipSlotsComp, containerComp);
-            }
+            //these events ensure that the client also gets its proper events raised when getting its containerstate updated
+            SubscribeLocalEvent<EquipSlotsComponent, EntInsertedIntoContainerMessage>(OnEntInserted, nameof(OnEntInserted));
+            SubscribeLocalEvent<EquipSlotsComponent, EntRemovedFromContainerMessage>(OnEntRemoved, nameof(OnEntRemoved));
         }
 
-        /// <inheritdoc/>
-        public bool TryAddEquipSlot(EntityUid uid, EquipSlotPrototypeId slotId,
-            [NotNullWhen(true)] out ContainerSlot? containerSlot, [NotNullWhen(true)] out EquipSlotInstance? equipSlotInstance,
-            EquipSlotsComponent? equipSlotsComp = null,
-            ContainerManagerComponent? containerComp = null)
+        private void OnEntRemoved(EntityUid uid, EquipSlotsComponent equipSlots, EntRemovedFromContainerMessage args)
+{
+            if (!TryGetEquipSlotForContainer(uid, args.Container.ID, out var equipSlot, equipSlotsComp: equipSlots))
+                return;
+
+            var unequippedEvent = new DidUnequipEvent(uid, args.Entity, equipSlot);
+            RaiseLocalEvent(uid, unequippedEvent);
+
+            var gotUnequippedEvent = new GotUnequippedEvent(uid, args.Entity, equipSlot);
+            RaiseLocalEvent(args.Entity, gotUnequippedEvent);
+        }
+
+        private void OnEntInserted(EntityUid uid, EquipSlotsComponent equipSlots, EntInsertedIntoContainerMessage args)
         {
-            containerSlot = null;
-            equipSlotInstance = null;
-            if (!Resolve(uid, ref equipSlotsComp, ref containerComp))
+            if (!TryGetEquipSlotForContainer(uid, args.Container.ID, out var equipSlot, equipSlotsComp: equipSlots))
+                return;
+
+            var equippedEvent = new DidEquipEvent(uid, args.Entity, equipSlot);
+            RaiseLocalEvent(uid, equippedEvent);
+
+            var gotEquippedEvent = new GotEquippedEvent(uid, args.Entity, equipSlot);
+            RaiseLocalEvent(args.Entity, gotEquippedEvent);
+        }
+
+        public bool TryEquip(EntityUid uid, EntityUid itemUid, EquipSlotPrototypeId slot, 
+            bool silent = false, bool force = false,
+            EquipSlotsComponent? equipSlots = null,
+            EquipmentComponent? item = null) =>
+            TryEquip(uid, uid, itemUid, slot, silent, force, equipSlots, item);
+
+        public bool TryEquip(EntityUid actor, EntityUid target, EntityUid itemUid, EquipSlotPrototypeId slot, 
+            bool silent = false, bool force = false, 
+            EquipSlotsComponent? equipSlots = null, 
+            EquipmentComponent? item = null)
+        {
+            if (!Resolve(target, ref equipSlots, false) || !Resolve(itemUid, ref item, false))
+            {
+                if (!silent) Mes.Display(Loc.GetString("Elona.EquipSlots.CannotEquip",
+                    ("actor", actor),
+                    ("target", target),
+                    ("item", itemUid)));
                 return false;
+            }
 
-            if (!_prototypeManager.HasIndex(slotId))
+            if (!TryGetEquipSlotAndContainer(target, slot, out var slotDefinition, out var slotContainer, equipSlots))
+            {
+                if (!silent) Mes.Display(Loc.GetString("Elona.EquipSlots.CannotEquip",
+                    ("actor", actor),
+                    ("target", target),
+                    ("item", itemUid)));
                 return false;
+            }
 
-            var containerId = FindFreeContainerIdForSlot(uid, slotId, equipSlotsComp, containerComp);
-            if (containerId == null)
+            if (!force && !CanEquip(actor, target, itemUid, slot, out var reason, slotDefinition, equipSlots, item))
+            {
+                if (!silent) Mes.Display(Loc.GetString(reason,
+                    ("actor", actor),
+                    ("target", target),
+                    ("item", itemUid)));
                 return false;
+            }
 
-            equipSlotInstance = new EquipSlotInstance(slotId, containerId.Value);
-            equipSlotsComp.EquipSlots.Add(equipSlotInstance);
+            if (!slotContainer.Insert(itemUid))
+            {
+                if (!silent) Mes.Display(Loc.GetString("Elona.EquipSlots.CannotUnequip",
+                    ("actor", actor),
+                    ("target", target),
+                    ("item", itemUid)));
+                return false;
+            }
 
-            containerSlot = _containerSys.MakeContainer<ContainerSlot>(uid, equipSlotInstance.ContainerID, containerManager: containerComp);
-            containerSlot.OccludesLight = false;
+            if (!silent && item.EquipSound != null)
+            {
+                var sound = item.EquipSound.GetSound();
+                if (sound != null)
+                    _sounds.Play(sound.Value, target);
+            }
 
             return true;
         }
 
-        /// <inheritdoc/>
-        public bool TryRemoveEquipSlot(EntityUid uid, EquipSlotInstance instance,
-            EquipSlotsComponent? equipSlotsComp = null,
-            ContainerManagerComponent? containerComp = null)
+        public bool CanEquip(EntityUid uid, EntityUid itemUid, EquipSlotPrototypeId slot, 
+            [NotNullWhen(false)] out string? reason,
+            EquipSlotInstance? equipSlot = null, EquipSlotsComponent? inventory = null,
+            EquipmentComponent? item = null) =>
+            CanEquip(uid, uid, itemUid, slot, out reason, equipSlot, inventory, item);
+
+        public bool CanEquip(EntityUid actor, EntityUid target, EntityUid itemUid, EquipSlotPrototypeId slot, 
+            [NotNullWhen(false)] out string? reason, 
+            EquipSlotInstance? equipSlot = null, 
+            EquipSlotsComponent? equipSlots = null,
+            EquipmentComponent? item = null)
         {
-            if (!Resolve(uid, ref equipSlotsComp, ref containerComp))
+            reason = "Elona.EquipSlots.CannotEquip";
+            if (!Resolve(target, ref equipSlots, false) || !Resolve(itemUid, ref item, false))
                 return false;
 
-            if (!equipSlotsComp.EquipSlots.Contains(instance))
+            if (!item.ValidEquipSlots.Contains(slot))
+                return false;
+
+            if (equipSlot == null && !TryGetEquipSlot(target, slot, out equipSlot, equipSlotsComp: equipSlots))
+                return false;
+           
+            var attemptEvent = new IsEquippingAttemptEvent(actor, target, itemUid, equipSlot);
+            RaiseLocalEvent(target, attemptEvent);
+            if (attemptEvent.Cancelled)
             {
-                Logger.WarningS("inv.equip", $"Tried to remove equip slot {instance}, but it wasn't owned by entity {uid}!");
+                reason = attemptEvent.Reason ?? reason;
                 return false;
             }
 
-            if (_containerSys.TryGetContainer(uid, instance.ContainerID, out var container))
+            if (actor != target)
             {
-                // Wipe the equipment item in this slot.
-                _containerSys.CleanContainer(container);
-                container.Shutdown();
+                //reuse the event. this is gucci, right?
+                attemptEvent.Reason = null;
+                RaiseLocalEvent(actor, attemptEvent);
+                if (attemptEvent.Cancelled)
+                {
+                    reason = attemptEvent.Reason ?? reason;
+                    return false;
+                }
+            }
+
+            var itemAttemptEvent = new BeingEquippedAttemptEvent(actor, target, itemUid, equipSlot);
+            RaiseLocalEvent(itemUid, itemAttemptEvent);
+            if (itemAttemptEvent.Cancelled)
+            {
+                reason = itemAttemptEvent.Reason ?? reason;
+                return false;
+            }
+
+            return true;
+        }
+
+        public bool TryUnequip(EntityUid uid, EquipSlotPrototypeId slot, 
+            bool silent = false, bool force = false,
+            EquipSlotsComponent? inventory = null) => 
+            TryUnequip(uid, uid, slot, silent, force, inventory);
+
+        public bool TryUnequip(EntityUid actor, EntityUid target, EquipSlotPrototypeId slot,
+            bool silent = false, bool force = false, 
+            EquipSlotsComponent? equipSlots = null) =>
+            TryUnequip(actor, target, slot, out _, silent, force, equipSlots);
+
+        public bool TryUnequip(EntityUid uid, EquipSlotPrototypeId slot, [NotNullWhen(true)] out EntityUid? removedItem, 
+            bool silent = false, bool force = false,
+            EquipSlotsComponent? equipSlots = null) 
+            => TryUnequip(uid, uid, slot, out removedItem, silent, force, equipSlots);
+
+        public bool TryUnequip(EntityUid actor, EntityUid target, EquipSlotPrototypeId slot, 
+            [NotNullWhen(true)] out EntityUid? removedItem, 
+            bool silent = false, bool force = false, 
+            EquipSlotsComponent? equipSlots = null)
+        {
+            removedItem = null;
+            if (!Resolve(target, ref equipSlots, false))
+            {
+                if (!silent) Mes.Display(Loc.GetString("Elona.EquipSlots.CannotUnequip",
+                    ("actor", actor),
+                    ("target", target),
+                    ("item", EntityUid.Invalid)));
+                return false;
+            }
+
+            if (!TryGetEquipSlotAndContainer(target, slot, out var slotDefinition, out var slotContainer, equipSlots))
+            {
+                if (!silent) Mes.Display(Loc.GetString("Elona.EquipSlots.CannotUnequip",
+                    ("actor", actor),
+                    ("target", target),
+                    ("item", EntityUid.Invalid)));
+                return false;
+            }
+
+            removedItem = slotContainer.ContainedEntity;
+
+            if (!removedItem.HasValue) return false;
+
+            if (!force && !CanUnequip(actor, target, slot, out var reason, slotContainer, slotDefinition, equipSlots))
+            {
+                if (!silent) Mes.Display(Loc.GetString(reason, 
+                    ("actor", actor),
+                    ("target", target), 
+                    ("item", slotContainer.ContainedEntity)));
+                return false;
+            }
+
+            //we need to do this to make sure we are 100% removing this entity, since we are now dropping dependant slots
+            if (!force && !slotContainer.CanRemove(removedItem.Value))
+                return false;
+
+            if (force)
+            {
+                slotContainer.ForceRemove(removedItem.Value);
             }
             else
             {
-                Logger.WarningS("inv.equip", $"Tried to remove equip slot {instance} from entity {uid}, but its container was not found.");
-            }
-
-            equipSlotsComp.EquipSlots.Remove(instance);
-            return true;
-        }
-
-        /// <inheritdoc/>
-        public void ClearEquipSlots(EntityUid uid,
-            EquipSlotsComponent? equipSlotsComp = null,
-            ContainerManagerComponent? containerComp = null)
-        {
-            if (!Resolve(uid, ref equipSlotsComp, ref containerComp))
-                return;
-
-            foreach (var slot in GetEquipSlots(uid))
-            {
-                TryRemoveEquipSlot(uid, slot, equipSlotsComp, containerComp);
-            }
-
-            // In case any errors occurred.
-            equipSlotsComp.EquipSlots.Clear();
-        }
-
-        private static ContainerId MakeContainerId(EquipSlotPrototypeId slotId, int index)
-        {
-            return new($"Elona.EquipSlot:{slotId}:{index}");
-        }
-
-        private ContainerId? FindFreeContainerIdForSlot(EntityUid uid, EquipSlotPrototypeId slotId,
-            EquipSlotsComponent? equipSlotsComp = null,
-            ContainerManagerComponent? containerComp = null)
-        {
-            if (!Resolve(uid, ref equipSlotsComp, ref containerComp))
-                return null;
-
-            var index = 0;
-
-            while (index < MaxContainerSlotsPerEquipSlot)
-            {
-                var containerId = MakeContainerId(slotId, index);
-
-                if (!_containerSys.HasContainer(uid, containerId, containerComp))
+                if (!slotContainer.Remove(removedItem.Value))
                 {
-                    return containerId;
+                    //should never happen bc of the canremove lets just keep in just in case
+                    return false;
                 }
-
-                index++;
             }
 
-            Logger.WarningS("inv.equip", $"Could not find free container ID for equipment slot {slotId} (entity {uid}) after {index} tries!");
+            EntityManager.GetComponent<SpatialComponent>(removedItem.Value).Coordinates =
+                EntityManager.GetComponent<SpatialComponent>(target).Coordinates;
 
-            return null;
-        }
-
-        /// <inheritdoc/>
-        public bool TryGetEquipSlotAndContainer(EntityUid uid, EquipSlotPrototypeId slotId,
-            [NotNullWhen(true)] out EquipSlotInstance? equipSlotInstance, [NotNullWhen(true)] out ContainerSlot? containerSlot,
-            EquipSlotsComponent? equipSlotsComp = null,
-            ContainerManagerComponent? containerComp = null)
-        {
-            containerSlot = null;
-            equipSlotInstance = null;
-            if (!Resolve(uid, ref equipSlotsComp, ref containerComp, false))
-                return false;
-
-            if (!TryGetEquipSlot(uid, slotId, out equipSlotInstance, equipSlotsComp: equipSlotsComp))
-                return false;
-
-            return TryGetContainerForEquipSlot(uid, equipSlotInstance, out containerSlot, equipSlotsComp, containerComp);
-        }
-
-        /// <inheritdoc/>
-        public bool TryGetContainerForEquipSlot(EntityUid uid, EquipSlotInstance equipSlotInstance,
-            [NotNullWhen(true)] out ContainerSlot? containerSlot,
-            EquipSlotsComponent? equipSlotsComp = null,
-            ContainerManagerComponent? containerComp = null)
-        {
-            containerSlot = null;
-            if (!Resolve(uid, ref equipSlotsComp, ref containerComp, false))
-                return false;
-
-            if (!_containerSys.TryGetContainer(uid, equipSlotInstance.ContainerID, out var container))
-            {
-                Logger.WarningS("inv.equip", $"EquipSlot declared container ID {equipSlotInstance.ContainerID}, but it wasn't allocated yet.");
-                containerSlot = _containerSys.MakeContainer<ContainerSlot>(uid, equipSlotInstance.ContainerID, containerManager: containerComp);
-                containerSlot.OccludesLight = false;
-                return true;
-            }
-
-            if (container is not ContainerSlot containerSlotChecked) return false;
-
-            containerSlot = containerSlotChecked;
             return true;
         }
 
-        /// <inheritdoc/>
-        public bool TryGetEquipSlotForContainer(EntityUid uid, ContainerId containerId,
-            [NotNullWhen(true)] out EquipSlotInstance? equipSlotInstance,
-            EquipSlotsComponent? equipSlotsComp = null,
-            ContainerManagerComponent? containerComp = null)
+        public bool CanUnequip(EntityUid uid, EquipSlotPrototypeId slot, [NotNullWhen(false)] out string? reason,
+            ContainerSlot? containerSlot = null, EquipSlotInstance? equipSlot = null,
+            EquipSlotsComponent? equipSlots = null) =>
+            CanUnequip(uid, uid, slot, out reason, containerSlot, equipSlot, equipSlots);
+
+        public bool CanUnequip(EntityUid actor, EntityUid target, EquipSlotPrototypeId slot, 
+            [NotNullWhen(false)] out string? reason, 
+            ContainerSlot? containerSlot = null,
+            EquipSlotInstance? equipSlot = null, 
+            EquipSlotsComponent? equipSlots = null)
         {
-            equipSlotInstance = null;
-            if (!Resolve(uid, ref equipSlotsComp, ref containerComp, false))
+            reason = "Elona.EquipSlots.CannotUnequip";
+            if (!Resolve(target, ref equipSlots, false))
                 return false;
 
-            equipSlotInstance = equipSlotsComp.EquipSlots.FirstOrDefault(x => x.ContainerID == containerId);
-            return equipSlotInstance != default;
-        }
-
-        /// <inheritdoc/>
-        public bool HasEquipSlot(EntityUid uid, EquipSlotPrototypeId slotId, EquipSlotsComponent? equipSlotsComp = null) =>
-            TryGetEquipSlot(uid, slotId, out _, equipSlotsComp);
-
-
-        /// <inheritdoc/>
-        public bool TryGetEquipSlot(EntityUid uid, EquipSlotPrototypeId slotId, [NotNullWhen(true)] out EquipSlotInstance? equipSlotInstance,
-            EquipSlotsComponent? equipSlotsComp = null)
-        {
-            equipSlotInstance = null;
-            if (!Resolve(uid, ref equipSlotsComp, false))
+            if ((containerSlot == null || equipSlot == null) && !TryGetEquipSlotAndContainer(target, slot, out equipSlot, out containerSlot, equipSlots))
                 return false;
 
-            if (!_prototypeManager.HasIndex(slotId))
+            if (containerSlot.ContainedEntity == null)
                 return false;
 
-            equipSlotInstance = equipSlotsComp.EquipSlots.FirstOrDefault(x => x.ID == slotId);
-            return equipSlotInstance != default;
-        }
-
-        /// <inheritdoc/>
-        public bool TryGetContainerSlotEnumerator(EntityUid uid, out ContainerSlotEnumerator containerSlotEnumerator,
-            EquipSlotsComponent? equipSlotsComp = null)
-        {
-            containerSlotEnumerator = default;
-            if (!Resolve(uid, ref equipSlotsComp, false))
+            if (!containerSlot.ContainedEntity.HasValue || !containerSlot.CanRemove(containerSlot.ContainedEntity.Value))
                 return false;
 
-            containerSlotEnumerator = new ContainerSlotEnumerator(uid, equipSlotsComp.EquipSlots, this);
+            var itemUid = containerSlot.ContainedEntity.Value;
+
+            var attemptEvent = new IsUnequippingAttemptEvent(actor, target, itemUid, equipSlot);
+            RaiseLocalEvent(target, attemptEvent);
+            if (attemptEvent.Cancelled)
+            {
+                reason = attemptEvent.Reason ?? reason;
+                return false;
+            }
+
+            if (actor != target)
+            {
+                //reuse the event. this is gucci, right?
+                attemptEvent.Reason = null;
+                RaiseLocalEvent(actor, attemptEvent);
+                if (attemptEvent.Cancelled)
+                {
+                    reason = attemptEvent.Reason ?? reason;
+                    return false;
+                }
+            }
+
+            var itemAttemptEvent = new BeingUnequippedAttemptEvent(actor, target, itemUid, equipSlot);
+            RaiseLocalEvent(itemUid, itemAttemptEvent);
+            if (itemAttemptEvent.Cancelled)
+            {
+                reason = attemptEvent.Reason ?? reason;
+                return false;
+            }
+
             return true;
         }
 
-        /// <inheritdoc/>
-        public bool TryGetEquipSlots(EntityUid uid, [NotNullWhen(true)] out IList<EquipSlotInstance>? slotDefinitions,
-            EquipSlotsComponent? equipSlotsComp = null)
+        public bool TryGetSlotEntity(EntityUid uid, EquipSlotPrototypeId slot, [NotNullWhen(true)] out EntityUid? entityUid, 
+            EquipSlotsComponent? equipSlotsComponent = null, 
+            ContainerManagerComponent? containerManagerComponent = null)
         {
-            slotDefinitions = null;
-            if (!Resolve(uid, ref equipSlotsComp, false))
+            entityUid = null;
+            if (!Resolve(uid, ref equipSlotsComponent, ref containerManagerComponent, false)
+                || !TryGetEquipSlotAndContainer(uid, slot, out _, out var container, equipSlotsComponent, containerManagerComponent))
                 return false;
 
-            slotDefinitions = equipSlotsComp.EquipSlots;
-            return true;
-        }
-
-        /// <inheritdoc/>
-        public IList<EquipSlotInstance> GetEquipSlots(EntityUid uid, EquipSlotsComponent? equipSlotsComp = null)
-        {
-            if (!Resolve(uid, ref equipSlotsComp)) throw new InvalidOperationException();
-            return equipSlotsComp.EquipSlots;
-        }
-
-        public struct ContainerSlotEnumerator
-        {
-            private readonly EquipSlotsSystem _inventorySystem;
-            private readonly EntityUid _uid;
-            private readonly IList<EquipSlotInstance> _slots;
-            private int _nextIdx = int.MaxValue;
-
-            public ContainerSlotEnumerator(EntityUid uid, IList<EquipSlotInstance> slots, EquipSlotsSystem inventorySystem)
-            {
-                _uid = uid;
-                _inventorySystem = inventorySystem;
-                _slots = slots;
-            }
-
-            public bool MoveNext([NotNullWhen(true)] out ContainerSlot? container)
-            {
-                container = null;
-                if (_nextIdx >= _slots.Count) return false;
-
-                while (_nextIdx < _slots.Count && !_inventorySystem.TryGetEquipSlotAndContainer(_uid, _slots[_nextIdx++].ID, out _, out container)) { }
-
-                return container != null;
-            }
+            entityUid = container.ContainedEntity;
+            return entityUid != null;
         }
     }
 }

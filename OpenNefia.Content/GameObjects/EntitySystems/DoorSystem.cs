@@ -115,7 +115,9 @@ namespace OpenNefia.Content.GameObjects
 
             if (door.SoundOpen != null)
             {
-                _sounds.Play(door.SoundOpen.Value, uid);
+                var sound = door.SoundOpen.GetSound();
+                if (sound != null)
+                    _sounds.Play(sound.Value, uid);
             }
 
             SetOpen(uid, true, door);

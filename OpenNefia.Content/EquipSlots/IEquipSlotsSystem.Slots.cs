@@ -1,12 +1,11 @@
-﻿using OpenNefia.Content.EquipSlots;
-using OpenNefia.Core.Containers;
+﻿using OpenNefia.Core.Containers;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Prototypes;
 using System.Diagnostics.CodeAnalysis;
 
-namespace OpenNefia.Content.Inventory
+namespace OpenNefia.Content.EquipSlots
 {
-    public interface IEquipSlotsSystem : IEntitySystem
+    public partial interface IEquipSlotsSystem : IEntitySystem
     {
         /// <summary>
         /// Clears and initializes equipment slots on this entity, adding an <see cref="EquipSlotsComponent"/>
@@ -14,8 +13,8 @@ namespace OpenNefia.Content.Inventory
         /// </summary>
         /// <param name="uid">Entity UID.</param>
         /// <param name="equipSlotProtoIds">Equip slots for this entity.</param>
-        void InitializeEquipSlots(EntityUid uid, IEnumerable<PrototypeId<EquipSlotPrototype>> equipSlotProtoIds, 
-            EquipSlotsComponent? equipSlots = null, 
+        void InitializeEquipSlots(EntityUid uid, IEnumerable<PrototypeId<EquipSlotPrototype>> equipSlotProtoIds,
+            EquipSlotsComponent? equipSlots = null,
             ContainerManagerComponent? containerComp = null);
 
         /// <summary>
@@ -28,9 +27,9 @@ namespace OpenNefia.Content.Inventory
         /// <param name="equipSlotsComp"></param>
         /// <param name="containerComp"></param>
         /// <returns></returns>
-        bool TryAddEquipSlot(EntityUid uid, PrototypeId<EquipSlotPrototype> slotId, 
-            [NotNullWhen(true)] out ContainerSlot? containerSlot, [NotNullWhen(true)] out EquipSlotInstance? equipSlotInstance, 
-            EquipSlotsComponent? equipSlotsComp = null, 
+        bool TryAddEquipSlot(EntityUid uid, PrototypeId<EquipSlotPrototype> slotId,
+            [NotNullWhen(true)] out ContainerSlot? containerSlot, [NotNullWhen(true)] out EquipSlotInstance? equipSlotInstance,
+            EquipSlotsComponent? equipSlotsComp = null,
             ContainerManagerComponent? containerComp = null);
 
         /// <summary>
@@ -41,8 +40,8 @@ namespace OpenNefia.Content.Inventory
         /// <param name="equipSlotsComp"></param>
         /// <param name="containerComp"></param>
         /// <returns></returns>
-        bool TryRemoveEquipSlot(EntityUid uid, EquipSlotInstance instance, 
-            EquipSlotsComponent? equipSlotsComp = null, 
+        bool TryRemoveEquipSlot(EntityUid uid, EquipSlotInstance instance,
+            EquipSlotsComponent? equipSlotsComp = null,
             ContainerManagerComponent? containerComp = null);
 
         /// <summary>
@@ -51,8 +50,8 @@ namespace OpenNefia.Content.Inventory
         /// <param name="uid"></param>
         /// <param name="equipSlotsComp"></param>
         /// <param name="containerComp"></param>
-        void ClearEquipSlots(EntityUid uid, 
-            EquipSlotsComponent? equipSlotsComp = null, 
+        void ClearEquipSlots(EntityUid uid,
+            EquipSlotsComponent? equipSlotsComp = null,
             ContainerManagerComponent? containerComp = null);
 
         /// <summary>
@@ -63,8 +62,8 @@ namespace OpenNefia.Content.Inventory
         /// <param name="equipSlotInstance"></param>
         /// <param name="equipSlotsComp"></param>
         /// <returns></returns>
-        bool TryGetEquipSlot(EntityUid uid, PrototypeId<EquipSlotPrototype> slotId, 
-            [NotNullWhen(true)] out EquipSlotInstance? equipSlotInstance, 
+        bool TryGetEquipSlot(EntityUid uid, PrototypeId<EquipSlotPrototype> slotId,
+            [NotNullWhen(true)] out EquipSlotInstance? equipSlotInstance,
             EquipSlotsComponent? equipSlotsComp = null);
 
         /// <summary>
@@ -74,43 +73,43 @@ namespace OpenNefia.Content.Inventory
         /// <param name="slotId"></param>
         /// <param name="equipSlotsComp"></param>
         /// <returns></returns>
-        bool HasEquipSlot(EntityUid uid, PrototypeId<EquipSlotPrototype> slotId, 
+        bool HasEquipSlot(EntityUid uid, PrototypeId<EquipSlotPrototype> slotId,
             EquipSlotsComponent? equipSlotsComp = null);
 
         /// <summary>
         /// Returns an equip slot with the given prototype ID, if any.
         /// </summary>
-        bool TryGetEquipSlotAndContainer(EntityUid uid, PrototypeId<EquipSlotPrototype> slotId, 
-            [NotNullWhen(true)] out EquipSlotInstance? equipSlotInstance, 
-            [NotNullWhen(true)] out ContainerSlot? containerSlot, 
-            EquipSlotsComponent? equipSlotsComp = null, 
+        bool TryGetEquipSlotAndContainer(EntityUid uid, PrototypeId<EquipSlotPrototype> slotId,
+            [NotNullWhen(true)] out EquipSlotInstance? equipSlotInstance,
+            [NotNullWhen(true)] out ContainerSlot? containerSlot,
+            EquipSlotsComponent? equipSlotsComp = null,
             ContainerManagerComponent? containerComp = null);
 
         /// <summary>
         /// Returns the container for the given equip slot instance, creating it if necessary.
         /// </summary>
-        bool TryGetContainerForEquipSlot(EntityUid uid, EquipSlotInstance equipSlotInstance, 
-            [NotNullWhen(true)] out ContainerSlot? containerSlot, 
-            EquipSlotsComponent? equipSlotsComp = null, 
+        bool TryGetContainerForEquipSlot(EntityUid uid, EquipSlotInstance equipSlotInstance,
+            [NotNullWhen(true)] out ContainerSlot? containerSlot,
+            EquipSlotsComponent? equipSlotsComp = null,
             ContainerManagerComponent? containerComp = null);
 
         /// <summary>
         /// Returns the equipment slot instance for this container, if it exists.
         /// </summary>
-        bool TryGetEquipSlotForContainer(EntityUid uid, ContainerId containerId, 
-            [NotNullWhen(true)] out EquipSlotInstance? equipSlotInstance, 
-            EquipSlotsComponent? equipSlotsComp = null, 
+        bool TryGetEquipSlotForContainer(EntityUid uid, ContainerId containerId,
+            [NotNullWhen(true)] out EquipSlotInstance? equipSlotInstance,
+            EquipSlotsComponent? equipSlotsComp = null,
             ContainerManagerComponent? containerComp = null);
 
-        bool TryGetContainerSlotEnumerator(EntityUid uid, 
-            out EquipSlotsSystem.ContainerSlotEnumerator containerSlotEnumerator, 
+        bool TryGetContainerSlotEnumerator(EntityUid uid,
+            out EquipSlotsSystem.ContainerSlotEnumerator containerSlotEnumerator,
             EquipSlotsComponent? equipSlotsComp = null);
 
-        bool TryGetEquipSlots(EntityUid uid, 
-            [NotNullWhen(true)] out IList<EquipSlotInstance>? slotDefinitions, 
+        bool TryGetEquipSlots(EntityUid uid,
+            [NotNullWhen(true)] out IList<EquipSlotInstance>? slotDefinitions,
             EquipSlotsComponent? equipSlotsComp = null);
 
-        IList<EquipSlotInstance> GetEquipSlots(EntityUid uid, 
+        IList<EquipSlotInstance> GetEquipSlots(EntityUid uid,
             EquipSlotsComponent? equipSlotsComp = null);
     }
 }

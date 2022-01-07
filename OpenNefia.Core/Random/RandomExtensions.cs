@@ -30,6 +30,15 @@ namespace OpenNefia.Core.Random
             return list[index];
         }
 
+        public static T? PickOrDefault<T>(this IRandom random, IReadOnlyList<T> list)
+        {
+            if (list.Count == 0)
+                return default;
+
+            var index = random.Next(list.Count);
+            return list[index];
+        }
+
         /// <summary>Picks a random element from a collection.</summary>
         /// <remarks>
         ///     This is O(n).
