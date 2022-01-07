@@ -3,6 +3,7 @@ using OpenNefia.Content.UI;
 using OpenNefia.Content.UI.Element;
 using OpenNefia.Content.UI.Element.List;
 using OpenNefia.Core.Locale;
+using OpenNefia.Core.Rendering;
 using OpenNefia.Core.Utility;
 using System;
 using System.Collections.Generic;
@@ -78,6 +79,8 @@ namespace OpenNefia.Content.CharaMake
         {
             base.Draw();
             Window.Draw();
+            GraphicsEx.SetColor(255, 255, 255, 40);
+            AssetWindows[0].Draw(Window.X + 100, Window.Y + 30, 180, 110);
             GenderTopic.Draw();
             List.Draw();
         }

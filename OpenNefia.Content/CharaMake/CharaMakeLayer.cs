@@ -59,12 +59,14 @@ namespace OpenNefia.Content.CharaMake
         }
 
         protected IAssetInstance AssetBG;
-        private IAssetInstance[] AssetWindows;
+        protected IAssetInstance[] AssetWindows;
+        protected IAssetInstance CurrentWindowBG;
 
         protected CharaMakeData Data = default!;
         private UiTopicWindow CaptionWindow;
         [Localize]
         protected UiText Caption;
+        private int UiMoveCount;
 
         protected readonly string[] AttributeIds = new[]
         {
@@ -89,6 +91,7 @@ namespace OpenNefia.Content.CharaMake
                 Assets.Get(AssetPrototypeOf.G3),
                 Assets.Get(AssetPrototypeOf.G4)
             };
+            CurrentWindowBG = AssetWindows[0];
 
             CaptionWindow = new UiTopicWindow(UiTopicWindow.FrameStyleKind.Five, UiTopicWindow.WindowStyleKind.One);
             Caption = new UiTextOutlined(UiFonts.WindowTitle);
@@ -101,6 +104,11 @@ namespace OpenNefia.Content.CharaMake
             if (args.Function == EngineKeyFunctions.UICancel)
             {
                 Finish(new CharaMakeResult(new Dictionary<string, object>(), CharaMakeStep.GoBack));
+            }
+            else if (args.Function == EngineKeyFunctions.UIDown || args.Function == EngineKeyFunctions.UIUp)
+            {
+                UiMoveCount++;
+                CurrentWindowBG = AssetWindows[(UiMoveCount / 4) % 4];
             }
         }
 

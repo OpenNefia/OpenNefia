@@ -1,5 +1,6 @@
 ﻿Elona.CharaMake = {
 	ProficientIn = "Proficient in",
+	Extra = "(extra)",
 	Skill = {
 		Amount = {
 			None = "None",
@@ -35,7 +36,8 @@
 
 		AttributeTopic = "Attribute Bonus",
 		SkillTopic = "Trained Skill",
-		Caption = "Your class and race determine the growth rate of your skills and attributes."
+		Caption = "Your class and race determine the growth rate of your skills and attributes.",
+		RaceLabel = "Race"
 	},
 
 	AliasSelect = {

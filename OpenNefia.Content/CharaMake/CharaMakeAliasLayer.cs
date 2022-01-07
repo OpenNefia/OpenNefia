@@ -3,6 +3,7 @@ using OpenNefia.Content.UI.Element;
 using OpenNefia.Content.UI.Element.List;
 using OpenNefia.Core.Audio;
 using OpenNefia.Core.Locale;
+using OpenNefia.Core.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -102,6 +103,8 @@ namespace OpenNefia.Content.CharaMake
         {
             base.Draw();
             Window.Draw();
+            GraphicsEx.SetColor(255, 255, 255, 30);
+            CurrentWindowBG.Draw(Window.X + 40, Window.Y + 30, 300, 405);
             List.Draw();
             AliasTopic.Draw();
         }

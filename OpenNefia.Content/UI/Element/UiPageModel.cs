@@ -29,7 +29,7 @@ namespace OpenNefia.Content.UI.Element
             PageText = new UiText(UiFonts.WindowPage);
         }
 
-        public void Initialize(IEnumerable<T> elements, int itemsPerPage = 15)
+        public void Initialize(IEnumerable<T> elements, int itemsPerPage = 16)
         {
             PagedElements = elements;
             ItemsPerPage = itemsPerPage;
