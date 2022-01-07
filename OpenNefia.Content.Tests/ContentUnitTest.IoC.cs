@@ -3,6 +3,7 @@ using OpenNefia.Content.UI.Hud;
 using OpenNefia.Content.UI.Layer;
 using OpenNefia.Content.UI.Layer.Repl;
 using OpenNefia.Core.IoC;
+using OpenNefia.Core.Maths;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,8 +19,20 @@ namespace OpenNefia.Content.Tests
             ContentIoC.Register();
 
             IoCManager.RegisterInstance<IFieldLayer>(new Mock<IFieldLayer>().Object, true);
-            IoCManager.RegisterInstance<IHudLayer>(new Mock<IHudLayer>().Object, true);
+            IoCManager.RegisterInstance<IHudLayer>(new TestingHudLayer(), true);
             IoCManager.RegisterInstance<IReplLayer>(new Mock<IReplLayer>().Object, true);
+        }
+    }
+
+    public class TestingHudLayer : DummyLayer, IHudLayer
+    {
+        public IHudMessageWindow MessageWindow { get; } = new DummyMessageWindow();
+    }
+
+    public class DummyMessageWindow : DummyDrawable, IHudMessageWindow
+    {
+        public void Print(string queryText, Color? color = null)
+        {
         }
     }
 }
