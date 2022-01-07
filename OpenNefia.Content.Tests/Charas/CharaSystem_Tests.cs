@@ -14,6 +14,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static OpenNefia.Content.Prototypes.Protos;
 
 namespace OpenNefia.Content.Tests.Charas
 {
@@ -36,8 +37,8 @@ namespace OpenNefia.Content.Tests.Charas
   id: TestRace
   initialEquipSlots:
   - {TestSlot1ID}
-  - {TestSlot1ID}
   - {TestSlot2ID}
+  - {TestSlot1ID}
 
 - type: Elona.Class
   id: TestClass
@@ -80,13 +81,19 @@ namespace OpenNefia.Content.Tests.Charas
             {
                 Assert.That(invSys.HasEquipSlot(ent, TestSlot1ID), Is.True, "Has equip slot 1");
                 Assert.That(invSys.HasEquipSlot(ent, TestSlot2ID), Is.True, "Has equip slot 2");
+                Assert.That(invSys.HasEquipSlot(ent, EquipSlot.Ranged), Is.True, "Has ranged slot");
+                Assert.That(invSys.HasEquipSlot(ent, EquipSlot.Ammo), Is.True, "Has ammo slot");
 
                 Assert.That(entMan.TryGetComponent(ent, out InventoryComponent inventory), Is.True, "Has inventory component");
 
-                Assert.That(inventory.EquipSlots.Count, Is.EqualTo(3), "Equip slots count");
+                // 3 slots for the race, plus 2 more for ranged/ammo.
+                Assert.That(inventory.EquipSlots.Count, Is.EqualTo(5), "Equip slots count");
+
                 Assert.That(inventory.EquipSlots[0].ID, Is.EqualTo(TestSlot1ID), "Equip slot 1 ID");
                 Assert.That(inventory.EquipSlots[1].ID, Is.EqualTo(TestSlot2ID), "Equip slot 2 ID");
-                Assert.That(inventory.EquipSlots[2].ID, Is.EqualTo(TestSlot2ID), "Equip slot 3 ID");
+                Assert.That(inventory.EquipSlots[2].ID, Is.EqualTo(TestSlot1ID), "Equip slot 3 ID");
+                Assert.That(inventory.EquipSlots[3].ID, Is.EqualTo(EquipSlot.Ranged), "Equip slot 4 ID (ranged)");
+                Assert.That(inventory.EquipSlots[4].ID, Is.EqualTo(EquipSlot.Ammo), "Equip slot 5 ID (ammo)");
             });
         }
     }
