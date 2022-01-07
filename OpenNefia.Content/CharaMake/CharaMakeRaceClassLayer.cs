@@ -278,7 +278,7 @@ namespace OpenNefia.Content.CharaMake
                     default:
                         var related = _prototypeManager.Index(skill.RelatedSkill ?? default!);
                         var skillName = Loc.GetPrototypeString(skillId, "Name") ?? string.Empty;
-                        var skillDesc = $"{skillName}{new string(' ', 16 - skillName.Length)}{Loc.GetPrototypeString(skillId, "Description") ?? string.Empty}";
+                        var skillDesc = $"{skillName}{new string(' ', Math.Max(16 - skillName.Length, 0))}{Loc.GetPrototypeString(skillId, "Description") ?? string.Empty}";
                         var cont = MakeSkillContainer(related.ID, skillDesc);
                         list.Add(cont);
                         break;
@@ -374,6 +374,12 @@ namespace OpenNefia.Content.CharaMake
             DetailText.Update(dt);
             DetailContainer.Update(dt);
             PageModel.Update(dt);
+        }
+
+        public override void Dispose()
+        {
+            base.Dispose();
+            OnKeyBindDown -= CharaMakeRaceClassLayer_OnKeyBindDown;
         }
     }
 }

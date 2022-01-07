@@ -3,6 +3,7 @@ using OpenNefia.Content.UI.Element;
 using OpenNefia.Content.UI.Element.Containers;
 using OpenNefia.Content.UI.Element.List;
 using OpenNefia.Core.Audio;
+using OpenNefia.Core.Input;
 using OpenNefia.Core.Locale;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.Rendering;
@@ -90,7 +91,18 @@ namespace OpenNefia.Content.CharaMake
 
             CaptionWindow = new UiTopicWindow(UiTopicWindow.FrameStyleKind.Five, UiTopicWindow.WindowStyleKind.One);
             Caption = new UiTextOutlined(UiFonts.WindowTitle);
+
+            OnKeyBindDown += OnKeyDown;
         }
+
+        private void OnKeyDown(GUIBoundKeyEventArgs args)
+        {
+            if (args.Function == EngineKeyFunctions.UICancel)
+            {
+                Finish(new CharaMakeResult(new Dictionary<string, object>(), CharaMakeStep.GoBack));
+            }
+        }
+
         protected UiContainer MakeSkillContainer(string attr, string text, Color? color = null)
             => MakeSkillContainer(attr, new UiText { Text = text, Color = color ?? Color.Black });
         protected UiContainer MakeSkillContainer(string attr, UiText text)
@@ -140,6 +152,11 @@ namespace OpenNefia.Content.CharaMake
         public virtual void ApplyStep()
         {
 
+        }
+
+        public override void Dispose()
+        {
+            OnKeyBindDown -= OnKeyDown;
         }
     }
 }
