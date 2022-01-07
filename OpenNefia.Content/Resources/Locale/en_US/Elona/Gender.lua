@@ -1,5 +1,5 @@
 ﻿Elona.Gender = {
-	Sex = {
+	Names = {
 		Male = {
 			Normal = "male",
 			Polite = "male"

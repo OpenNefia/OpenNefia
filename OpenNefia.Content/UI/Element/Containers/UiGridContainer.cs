@@ -39,7 +39,7 @@ namespace OpenNefia.Content.UI.Element.Containers
             int xMax = 0, yMax = 0;
             int xOffset = 0, yOffset = 0;
             int elemIndex = 0;
-            foreach (var elem in UiElements)
+            foreach (var elem in Entries)
             {
                 switch (elem.Type)
                 {
@@ -64,7 +64,7 @@ namespace OpenNefia.Content.UI.Element.Containers
                         break;
                 }
             }
-            foreach (var elem in UiElements)
+            foreach (var elem in Entries)
             {
                 switch (elem.Type)
                 {

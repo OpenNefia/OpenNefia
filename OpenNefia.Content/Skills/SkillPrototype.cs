@@ -10,8 +10,6 @@ namespace OpenNefia.Content.Skills
 {
     public enum SkillType
     {
-        Undefined,
-
         StatSpecial,
         Stat,
         WeaponProficiency,
@@ -29,8 +27,8 @@ namespace OpenNefia.Content.Skills
         [DataField]
         public PrototypeId<SkillPrototype>? RelatedSkill { get; }
 
-        [DataField]
-        public SkillType SkillType { get; }
+        [DataField(required: true)]
+        public SkillType SkillType { get; } = SkillType.Skill;
 
         /// <inheritdoc/>
         [DataField]

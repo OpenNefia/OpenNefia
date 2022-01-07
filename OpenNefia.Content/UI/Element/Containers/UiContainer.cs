@@ -46,31 +46,31 @@ namespace OpenNefia.Content.UI.Element.Containers
 
     public abstract class UiContainer : UiElement, ILocalizable
     {
-        protected readonly List<UiContainerEntry> UiElements = new List<UiContainerEntry>();
+        protected readonly List<UiContainerEntry> Entries = new List<UiContainerEntry>();
 
         public virtual void AddElement(UiContainerEntry element, LayoutType extraType = LayoutType.None, int extraAmount = 0)
         {
             if (extraType != LayoutType.None)
             {
                 AddLayout(extraType, extraAmount);
-                UiElements.Add(element);
+                Entries.Add(element);
                 AddLayout(extraType, -extraAmount);
             }
             else
             {
-                UiElements.Add(element);
+                Entries.Add(element);
             }
         }
 
         public virtual void AddLayout(params (LayoutType type, int offset)[] layouts)
         {
             foreach(var layout in layouts)
-                UiElements.Add(new UiContainerEntry(layout.type, layout.offset));
+                Entries.Add(new UiContainerEntry(layout.type, layout.offset));
         }
 
         public virtual void AddLayout(LayoutType type, int offset)
         {
-            UiElements.Add(new UiContainerEntry(type, offset));
+            Entries.Add(new UiContainerEntry(type, offset));
         }
 
         public virtual void Resolve()
@@ -91,36 +91,36 @@ namespace OpenNefia.Content.UI.Element.Containers
             base.SetPosition(x, y);
             xDiff = X - xDiff;
             yDiff = Y - yDiff;
-            foreach (var element in UiElements)
+            foreach (var entry in Entries)
             {
-                if (element.Element != null)
-                    element.Element.SetPosition(element.Element.X + xDiff, element.Element.Y + yDiff);
+                if (entry.Element != null)
+                    entry.Element.SetPosition(entry.Element.X + xDiff, entry.Element.Y + yDiff);
             }
         }
 
         public override void Draw()
         {
-            foreach (var element in UiElements)
+            foreach (var entry in Entries)
             {
-                if (element.Element != null)
-                    element.Element.Draw();
+                if (entry.Element != null)
+                    entry.Element.Draw();
             }
         }
 
         public override void Update(float dt)
         {
-            foreach (var element in UiElements)
+            foreach (var entry in Entries)
             {
-                if (element.Element != null)
-                    element.Element.Update(dt);
+                if (entry.Element != null)
+                    entry.Element.Update(dt);
             }
         }
 
         public virtual void Clear()
         {
-            foreach (var element in UiElements)
-                element.Element?.Dispose();
-            UiElements.Clear();
+            foreach (var entry in Entries)
+                entry.Element?.Dispose();
+            Entries.Clear();
         }
 
         public override void Dispose()
@@ -132,10 +132,10 @@ namespace OpenNefia.Content.UI.Element.Containers
         public override void Localize(LocaleKey key)
         {
             base.Localize(key);
-            foreach (var element in UiElements)
+            foreach (var entry in Entries)
             {
-                if (element.Element != null)
-                    element.Element.Localize(key);
+                if (entry.Element != null)
+                    entry.Element.Localize(key);
             }
         }
     }

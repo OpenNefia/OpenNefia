@@ -19,8 +19,8 @@ namespace OpenNefia.Content.CharaMake
         {
             public override string? LocalizeKey => Data switch
             {
-                Gender.Male => "Elona.Gender.Sex.Male.Polite",
-                _ => "Elona.Gender.Sex.Female.Polite",
+                Gender.Male => "Elona.Gender.Names.Male.Polite",
+                _ => "Elona.Gender.Names.Female.Polite",
             };
             public GenderCell(Gender data) 
                 : base(data, new UiText(UiFonts.ListText))
@@ -31,6 +31,8 @@ namespace OpenNefia.Content.CharaMake
 
         [Localize] private UiWindow Window = new();
         [Localize] private UiTextTopic GenderTopic = new();
+
+        private const string ResultName = "gender";
 
         private UiList<Gender> List = new();
 
@@ -45,7 +47,7 @@ namespace OpenNefia.Content.CharaMake
             {
                 Finish(new CharaMakeResult(new Dictionary<string, object>
                 {
-                    { "gender", args.SelectedCell.Data }
+                    { ResultName, args.SelectedCell.Data }
                 }));
             };
             

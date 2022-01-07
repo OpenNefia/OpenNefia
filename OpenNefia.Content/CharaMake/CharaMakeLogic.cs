@@ -11,7 +11,7 @@ namespace OpenNefia.Content.CharaMake
 {
     public interface ICharaMakeLogic
     {
-        void RunCreateChar();
+        void RunCreateChara();
     }
     public class CharaMakeLogic : ICharaMakeLogic
     {
@@ -33,7 +33,7 @@ namespace OpenNefia.Content.CharaMake
         }
 
 
-        public void RunCreateChar()
+        public void RunCreateChara()
         {
             var steps = GetDefaultCreationSteps();
             var data = new CharaMakeData();
@@ -45,8 +45,8 @@ namespace OpenNefia.Content.CharaMake
                 if (stepIndex >= steps.Count)
                 {
                     //just for testing
-                    Logger.Debug($"Character creation complete, values:" + Environment.NewLine 
-                        + string.Join(Environment.NewLine, data.CharData.SelectMany(x => x.Value.Select(y => $"{y.Key}: {y.Value}"))));
+                    Logger.DebugS("charamake", $"Character creation complete, values:" + Environment.NewLine 
+                        + string.Join(Environment.NewLine, data.CharaData.SelectMany(x => x.Value.Select(y => $"{y.Key}: {y.Value}"))));
 
                     foreach(var creationStep in steps)
                     {
@@ -63,7 +63,7 @@ namespace OpenNefia.Content.CharaMake
 
                 if (!result.HasValue)
                 {
-                    Logger.Warning($"Create char step for type {type} didn't set a result, aborting.");
+                    Logger.WarningS("charamake", $"Create char step for type {type} didn't set a result, aborting.");
                     step = CharaMakeStep.Cancel;
                 }
 
@@ -71,14 +71,16 @@ namespace OpenNefia.Content.CharaMake
                 switch(step)
                 {
                     case CharaMakeStep.GoBack:
-                        if (data.CharData.ContainsKey(type))
-                            data.CharData.Remove(type);
+                        if (data.CharaData.ContainsKey(type))
+                            data.CharaData.Remove(type);
                         stepIndex--;
+                        if (stepIndex < 0)
+                            step = CharaMakeStep.Cancel;
                         break;
                     case CharaMakeStep.Cancel:
                         break;
                     default:
-                        data.CharData[type] = result.Value.Added;
+                        data.CharaData[type] = result.Value.Added;
                         stepIndex++;
                         break;
                 }

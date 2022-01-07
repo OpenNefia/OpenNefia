@@ -69,8 +69,8 @@ namespace OpenNefia.Content.CharaMake
             {
                 Text = Data.GetText();
 
-                LockedText = new UiText(UiFonts.RerollLocked);
-                AmountText = new UiText(UiFonts.RerollAttrAmount);
+                LockedText = new UiText(UiFonts.CharaMakeRerollLocked);
+                AmountText = new UiText(UiFonts.CharaMakeRerollAttrAmount);
                 LockedText.Text = Loc.GetString("Elona.CharaMake.AttributeReroll.Locked");
 
                 switch (Data.Data)
@@ -119,12 +119,13 @@ namespace OpenNefia.Content.CharaMake
 
         private int LockCount = 2;
         private bool IsInitialized;
+        private const string ResultName = "attributes";
 
         public CharaMakeAttributeRerollLayer()
         {
-            AttrInfo = new UiWrapText(115, UiFonts.LockInfo);
+            AttrInfo = new UiWrapText(115, UiFonts.CharaMakeLockInfo);
             List = new UiList<AttributeRerollData>();
-            LockAmt = new UiText(UiFonts.LockInfo);
+            LockAmt = new UiText(UiFonts.CharaMakeLockInfo);
             AttrInfo.Text = Loc.GetString("Elona.CharaMake.AttributeReroll.AttrInfo");
             SetLockCountText();
             AddChild(List);
@@ -154,7 +155,7 @@ namespace OpenNefia.Content.CharaMake
                             case AttributeRerollChoice.Proceed:
                                 Finish(new CharaMakeResult(new Dictionary<string, object>
                                 {
-                                    { "attributes", List.Select(x => x.Data)
+                                    { ResultName, List.Select(x => x.Data)
                                         .Where(x => x.Data is PrototypeId<SkillPrototype>)
                                         .ToDictionary(x => (PrototypeId<SkillPrototype>)x.Data, y => y.Amount)}
                                 }));

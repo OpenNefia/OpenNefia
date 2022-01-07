@@ -22,6 +22,7 @@ namespace OpenNefia.Content.CharaMake
     {
         protected class AttributeIcon : UiElement
         {
+            private const string FallbackIcon = "2";
             private readonly Dictionary<string, string> _attributes = new Dictionary<string, string>
             {
                 { "Elona.StatStrength", "0" },
@@ -48,7 +49,7 @@ namespace OpenNefia.Content.CharaMake
                 base.Draw();
                 GraphicsEx.SetColor(Color.White);
                 if (_attributes.TryGetValue(Type, out var iconId))
-                    AssetAttributeIcons.DrawRegion($"{iconId ?? "2"}", X, Y, centered: true);
+                    AssetAttributeIcons.DrawRegion($"{iconId ?? FallbackIcon}", X, Y, centered: true);
             }
 
             public override void GetPreferredSize(out Vector2i size)

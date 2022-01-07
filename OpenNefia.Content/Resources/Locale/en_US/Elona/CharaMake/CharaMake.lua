@@ -1,7 +1,7 @@
 ﻿Elona.CharaMake = {
-	WeaponProf = "Proficient in",
+	ProficientIn = "Proficient in",
 	Skill = {
-		Amt = {
+		Amount = {
 			None = "None",
 			Slight = "Slight",
 			Little = "Little",
