@@ -106,6 +106,9 @@ binds:
 - function: Elona.Examine
   type: State
   key: X
+- function: Elona.Wear
+  type: State
+  key: W
 
 - function: UIClick
   type: State
@@ -172,6 +175,10 @@ binds:
 - function: Elona.UIIdentify
   type: State
   key: X
+  canFocus: true
+- function: Elona.UIMode
+  type: State
+  key: Z
   canFocus: true
 - function: Elona.UIMode2
   type: State

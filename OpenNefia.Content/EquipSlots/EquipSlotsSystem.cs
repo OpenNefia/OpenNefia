@@ -1,6 +1,7 @@
 ﻿using Content.Shared.Inventory.Events;
 using OpenNefia.Content.Equipment;
 using OpenNefia.Content.EquipSlots.Events;
+using OpenNefia.Content.GameObjects;
 using OpenNefia.Content.Inventory;
 using OpenNefia.Content.Logic;
 using OpenNefia.Core.Audio;
@@ -8,6 +9,7 @@ using OpenNefia.Core.Containers;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Locale;
+using OpenNefia.Core.Log;
 using System.Diagnostics.CodeAnalysis;
 using static OpenNefia.Content.Prototypes.Protos;
 using EquipSlotPrototypeId = OpenNefia.Core.Prototypes.PrototypeId<OpenNefia.Content.EquipSlots.EquipSlotPrototype>;
@@ -23,6 +25,7 @@ namespace OpenNefia.Content.EquipSlots
     public sealed partial class EquipSlotsSystem : EntitySystem, IEquipSlotsSystem
     {
         [Dependency] private readonly IAudioManager _sounds = default!;
+        [Dependency] private readonly IRefreshSystem _refresh = default!;
 
         public override void Initialize()
         {
@@ -108,6 +111,9 @@ namespace OpenNefia.Content.EquipSlots
                 if (sound != null)
                     _sounds.Play(sound.Value, target);
             }
+
+            _refresh.Refresh(itemUid);
+            _refresh.Refresh(target);
 
             return true;
         }
@@ -230,12 +236,16 @@ namespace OpenNefia.Content.EquipSlots
                 if (!slotContainer.Remove(removedItem.Value))
                 {
                     //should never happen bc of the canremove lets just keep in just in case
+                    Logger.WarningS("equip", $"Could not remove unequipped entity {removedItem.Value} from container {slotContainer.ID}!");
                     return false;
                 }
             }
 
             EntityManager.GetComponent<SpatialComponent>(removedItem.Value).Coordinates =
                 EntityManager.GetComponent<SpatialComponent>(target).Coordinates;
+
+            _refresh.Refresh(removedItem.Value);
+            _refresh.Refresh(target);
 
             return true;
         }

@@ -77,7 +77,7 @@ namespace OpenNefia.Content.Inventory
             if (args.Function == ContentKeyFunctions.UIMode2)
             {
                 if (layer.SelectedEntry != null)
-                    ToggleNoDrop(layer, layer.SelectedEntry.Item);
+                    ToggleNoDrop(layer, layer.SelectedEntry.ItemEntityUid);
 
                 args.Handle();
             }

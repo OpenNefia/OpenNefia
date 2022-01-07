@@ -43,7 +43,13 @@ namespace OpenNefia.Core.Locale
             return text;
         }
 
-        public static string? GetPrototypeString<T>(PrototypeId<T> protoId, LocaleKey keySuffix, params LocaleArg[] args)
+        public static string? GetPrototypeStringOpt<T>(PrototypeId<T> protoId, LocaleKey keySuffix, params LocaleArg[] args)
+            where T : class, IPrototype
+        {
+            return _localization.GetPrototypeString(protoId, keySuffix, args);
+        }
+
+        public static string GetPrototypeString<T>(PrototypeId<T> protoId, LocaleKey keySuffix, params LocaleArg[] args)
             where T : class, IPrototype
         {
             return _localization.GetPrototypeString(protoId, keySuffix, args);

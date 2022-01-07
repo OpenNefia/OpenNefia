@@ -1,4 +1,5 @@
-﻿using OpenNefia.Content.GameObjects.Pickable;
+﻿using OpenNefia.Content.Equipment;
+using OpenNefia.Content.GameObjects.Pickable;
 using OpenNefia.Content.Input;
 using OpenNefia.Content.Inventory;
 using OpenNefia.Content.Logic;
@@ -46,6 +47,7 @@ namespace OpenNefia.Content.GameObjects
                     new InventoryInputCmdHandler(_uiMgr, new ThrowInventoryBehavior()))
                 .Bind(ContentKeyFunctions.Eat,
                     new InventoryInputCmdHandler(_uiMgr, new EatInventoryBehavior()))
+                .Bind(ContentKeyFunctions.Wear, InputCmdHandler.FromDelegate(HandleWear))
                 .Register<InventoryCommandsSystem>();
         }
 
@@ -96,6 +98,18 @@ namespace OpenNefia.Content.GameObjects
 
                 return TurnResult.Aborted;
             }
+        }
+
+        private TurnResult? HandleWear(IGameSessionManager? session)
+        {
+            if (session == null)
+                return null;
+
+            var player = session.Player;
+
+            _uiMgr.Query<EquipmentLayer, EquipmentLayer.Args, EquipmentLayer.Result>(new(player));
+
+            return TurnResult.Aborted;
         }
 
         private sealed class InventoryInputCmdHandler : InputCmdHandler

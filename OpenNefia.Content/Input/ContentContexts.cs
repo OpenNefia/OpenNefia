@@ -12,6 +12,7 @@ namespace OpenNefia.Content.Input
         {
             var common = contexts.GetContext("common");
             common.AddFunction(ContentKeyFunctions.UIIdentify);
+            common.AddFunction(ContentKeyFunctions.UIMode);
             common.AddFunction(ContentKeyFunctions.UIMode2);
             common.AddFunction(ContentKeyFunctions.DiagonalOnly);
 
@@ -27,6 +28,7 @@ namespace OpenNefia.Content.Input
             field.AddFunction(ContentKeyFunctions.Eat);
             field.AddFunction(ContentKeyFunctions.Throw);
             field.AddFunction(ContentKeyFunctions.Examine);
+            field.AddFunction(ContentKeyFunctions.Wear);
         }
     }
 }

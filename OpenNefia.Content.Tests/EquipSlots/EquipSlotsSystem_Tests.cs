@@ -274,6 +274,9 @@ namespace OpenNefia.Content.Tests.EquipSlots
                 Assert.That(equipSlotSys.TryUnequip(ent, TestSlot1ID), Is.False, "Try unequip 1 twice");
 
                 Assert.That(equipSlotSys.TryGetSlotEntity(ent, TestSlot1ID, out _), Is.False, "Try get slot entity");
+
+                var entItem1Spatial = entMan.GetComponent<SpatialComponent>(entItem1);
+                Assert.That(entItem1Spatial.Coordinates, Is.EqualTo(new EntityCoordinates(ent, Vector2i.Zero)));
             });
         }
     }

@@ -158,9 +158,9 @@ namespace OpenNefia.Core.Locale
 
         public void LoadContentFile(ResourcePath luaFile)
         {
-            var str = _resourceManager.ContentFileReadAllText(luaFile);
             try
             {
+                var str = _resourceManager.ContentFileReadAllText(luaFile);
                 _Lua.DoString(str);
             }
             catch (Exception ex)

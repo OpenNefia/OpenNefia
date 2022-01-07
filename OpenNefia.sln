@@ -34,11 +34,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		MSBuild\OpenNefia.Engine.props = MSBuild\OpenNefia.Engine.props
 		MSBuild\OpenNefia.Engine.Version.props = MSBuild\OpenNefia.Engine.Version.props
 		MSBuild\OpenNefia.Properties.targets = MSBuild\OpenNefia.Properties.targets
+		MSBuild\OpenNefia.ruleset = MSBuild\OpenNefia.ruleset
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenNefia.Packaging", "OpenNefia.Packaging\OpenNefia.Packaging.csproj", "{A7C8D50F-6CB4-4DDF-9E01-1EBDCD77BE39}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenNefia.Benchmarks", "OpenNefia.Benchmarks\OpenNefia.Benchmarks.csproj", "{0389FFD0-9953-4203-AC6B-022E77B7C7EC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenNefia.Benchmarks", "OpenNefia.Benchmarks\OpenNefia.Benchmarks.csproj", "{0389FFD0-9953-4203-AC6B-022E77B7C7EC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -14,7 +14,16 @@ namespace OpenNefia.Content.UI.Element.List
 {
     public class UiListCell<T> : UiElement, IUiListCell<T>
     {
-        public T Data { get; set; }
+        private T _data;
+
+        public T Data { 
+            get => _data; 
+            set
+            {
+                _data = value;
+                OnCellDataChanged();
+            }
+        }
 
         private UiListChoiceKey? _Key;
         public UiListChoiceKey? Key
@@ -58,7 +67,7 @@ namespace OpenNefia.Content.UI.Element.List
 
         public UiListCell(T data, IUiText text, UiListChoiceKey? key = null)
         {
-            Data = data;
+            _data = data;
             UiText = text;
 
             AssetSelectKey = Assets.Get(AssetPrototypeOf.SelectKey);
@@ -68,6 +77,8 @@ namespace OpenNefia.Content.UI.Element.List
 
             OnMouseEntered += HandleMouseEntered;
             EventFilter = UIEventFilterMode.Pass;
+
+            OnCellDataChanged();
         }
 
         private void HandleMouseEntered(GUIMouseHoverEventArgs args)
@@ -83,6 +94,10 @@ namespace OpenNefia.Content.UI.Element.List
         }
 
         public UiListCell(T data, string text, UiListChoiceKey? key = null) : this(data, new UiText(UiFonts.ListText, text), key) { }
+
+        protected virtual void OnCellDataChanged()
+        {
+        }
 
         public override void GetPreferredSize(out Vector2i size)
         {

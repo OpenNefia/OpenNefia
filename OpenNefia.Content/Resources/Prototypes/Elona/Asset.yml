@@ -306,7 +306,7 @@
     region: "384, 360, 24, 24"
 
 - type: Asset
-  id: BodyPartIcons
+  id: EquipSlotIcons
   image:
     filepath: /Graphic/Elona/interface.bmp
     region: "600, 336, 264, 24"
