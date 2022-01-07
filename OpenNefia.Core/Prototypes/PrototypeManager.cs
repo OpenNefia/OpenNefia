@@ -7,6 +7,7 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Threading;
 using JetBrains.Annotations;
+using NLua;
 using OpenNefia.Core.ContentPack;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Graphics;
@@ -157,7 +158,7 @@ namespace OpenNefia.Core.Prototypes
         /// </summary>
         /// <typeparam name="T">A prototype class type that implements IPrototype. This type also
         /// requires a <see cref="PrototypeAttribute"/> with a non-empty class string.</typeparam>
-        void RegisterType<T>() where T: IPrototype;
+        void RegisterType<T>() where T : IPrototype;
 
         /// <summary>
         /// Loads a single prototype class type into the manager.
@@ -203,7 +204,17 @@ namespace OpenNefia.Core.Prototypes
         }
     }
 
-    public sealed partial class PrototypeManager : IPrototypeManager
+    internal interface IPrototypeManagerInternal : IPrototypeManager
+    {
+        Dictionary<Type, Dictionary<string, DeserializationResult>> PrototypeResults { get; }
+
+        /// <summary>
+        /// Loads from set of previously cached parsing results.
+        /// </summary>
+        List<IPrototype> LoadFromResults(Dictionary<Type, Dictionary<string, DeserializationResult>> results);
+    }
+
+    public sealed partial class PrototypeManager : IPrototypeManagerInternal
     {
         [Dependency] private readonly IReflectionManager _reflectionManager = default!;
         [Dependency] private readonly IResourceManager Resources = default!;
@@ -223,6 +234,8 @@ namespace OpenNefia.Core.Prototypes
         private readonly Dictionary<Type, Dictionary<string, IPrototype>> _prototypes = new();
         private readonly Dictionary<Type, Dictionary<string, DeserializationResult>> _prototypeResults = new();
         private readonly Dictionary<Type, PrototypeInheritanceTree> _inheritanceTrees = new();
+
+        public Dictionary<Type, Dictionary<string, DeserializationResult>> PrototypeResults => _prototypeResults;
 
         public void Initialize()
         {
@@ -246,7 +259,7 @@ namespace OpenNefia.Core.Prototypes
                 throw new InvalidOperationException("No prototypes have been loaded yet.");
             }
 
-            return _prototypes[typeof(T)].Values.Select(p => (T) p);
+            return _prototypes[typeof(T)].Values.Select(p => (T)p);
         }
 
         public IEnumerable<IPrototype> EnumeratePrototypes(Type type)
@@ -273,7 +286,7 @@ namespace OpenNefia.Core.Prototypes
 
             try
             {
-                return (T) _prototypes[typeof(T)][(string)id];
+                return (T)_prototypes[typeof(T)][(string)id];
             }
             catch (KeyNotFoundException)
             {
@@ -397,7 +410,7 @@ namespace OpenNefia.Core.Prototypes
                 var typePrototypes = _prototypes[type];
                 foreach (var (id, proto) in typePrototypes)
                 {
-                    var iProto = (IInheritingPrototype) proto;
+                    var iProto = (IInheritingPrototype)proto;
 
                     var parent = iProto.Parent;
                     if (parent != null && !typePrototypes.ContainsKey(parent!))
@@ -422,8 +435,8 @@ namespace OpenNefia.Core.Prototypes
 
             newResult.CallAfterDeserializationHook();
             var populatedRes =
-                _serializationManager.PopulateDataDefinition(_prototypes[type][id], (IDeserializedDefinition) newResult);
-            _prototypes[type][id] = (IPrototype) populatedRes.RawValue!;
+                _serializationManager.PopulateDataDefinition(_prototypes[type][id], (IDeserializedDefinition)newResult);
+            _prototypes[type][id] = (IPrototype)populatedRes.RawValue!;
         }
 
         public void PushInheritance(Type type, string id, DeserializationResult? baseResult, HashSet<string> changed)
@@ -447,8 +460,8 @@ namespace OpenNefia.Core.Prototypes
             if (!inheritingPrototype.Abstract)
                 newResult.CallAfterDeserializationHook();
             var populatedRes =
-                _serializationManager.PopulateDataDefinition(_prototypes[type][id], (IDeserializedDefinition) newResult);
-            _prototypes[type][id] = (IPrototype) populatedRes.RawValue!;
+                _serializationManager.PopulateDataDefinition(_prototypes[type][id], (IDeserializedDefinition)newResult);
+            _prototypes[type][id] = (IPrototype)populatedRes.RawValue!;
         }
 
         /// <inheritdoc />
@@ -625,7 +638,7 @@ namespace OpenNefia.Core.Prototypes
 
             foreach (var document in yaml.Documents)
             {
-                var root = (YamlSequenceNode) document.RootNode;
+                var root = (YamlSequenceNode)document.RootNode;
                 foreach (var node in root.Cast<YamlMappingNode>())
                 {
                     var typeString = node.GetNode("type").AsString();
@@ -657,7 +670,7 @@ namespace OpenNefia.Core.Prototypes
         private HashSet<IPrototype> LoadFromDocument(YamlDocument document, bool overwrite = false, string? filename = null)
         {
             var changedPrototypes = new HashSet<IPrototype>();
-            var rootNode = (YamlSequenceNode) document.RootNode;
+            var rootNode = (YamlSequenceNode)document.RootNode;
             filename ??= "[anonymous]";
 
             foreach (YamlMappingNode node in rootNode.Cast<YamlMappingNode>())
@@ -679,7 +692,7 @@ namespace OpenNefia.Core.Prototypes
 
                 var prototypeType = _prototypeTypes[type];
                 var res = _serializationManager.Read(prototypeType, dataNode, skipHook: true);
-                var prototype = (IPrototype) res.RawValue!;
+                var prototype = (IPrototype)res.RawValue!;
 
                 if (!overwrite && _prototypes[prototypeType].ContainsKey(prototype.ID))
                 {
@@ -699,6 +712,38 @@ namespace OpenNefia.Core.Prototypes
 
                 _prototypes[prototypeType][prototype.ID] = prototype;
                 changedPrototypes.Add(prototype);
+            }
+
+            return changedPrototypes;
+        }
+
+        /// <inheritdoc />
+        public List<IPrototype> LoadFromResults(Dictionary<Type, Dictionary<string, DeserializationResult>> results)
+        {
+            var changedPrototypes = new List<IPrototype>();
+
+            _hasEverBeenReloaded = true;
+
+            foreach (var (prototypeType, protos) in results)
+            {
+                foreach (var (prototypeId, res) in protos)
+                {
+                    var prototype = (IPrototype)res.RawValue!;
+
+                    _prototypeResults[prototypeType][prototype.ID] = res;
+                    if (prototype is IInheritingPrototype inheritingPrototype)
+                    {
+                        _inheritanceTrees[prototypeType].AddId(prototype.ID, inheritingPrototype.Parent, true);
+                    }
+                    else
+                    {
+                        //we call it here since it wont get called when pushing inheritance
+                        res.CallAfterDeserializationHook();
+                    }
+
+                    _prototypes[prototypeType][prototype.ID] = prototype;
+                    changedPrototypes.Add(prototype);
+                }
             }
 
             return changedPrototypes;
@@ -758,7 +803,7 @@ namespace OpenNefia.Core.Prototypes
             if (!(typeof(IPrototype).IsAssignableFrom(type)))
                 return false;
 
-            var attribute = (PrototypeAttribute?) Attribute.GetCustomAttribute(type, typeof(PrototypeAttribute));
+            var attribute = (PrototypeAttribute?)Attribute.GetCustomAttribute(type, typeof(PrototypeAttribute));
 
             // If the prototype type doesn't have the attribute, this fails.
             if (attribute == null)
@@ -784,7 +829,7 @@ namespace OpenNefia.Core.Prototypes
             return TryGetVariantFrom(prototype.GetType(), out variant);
         }
 
-        public void RegisterType<T>() where T: IPrototype
+        public void RegisterType<T>() where T : IPrototype
         {
             RegisterType(typeof(T));
         }
@@ -795,7 +840,7 @@ namespace OpenNefia.Core.Prototypes
             if (!(typeof(IPrototype).IsAssignableFrom(type)))
                 throw new InvalidOperationException("Type must implement IPrototype.");
 
-            var attribute = (PrototypeAttribute?) Attribute.GetCustomAttribute(type, typeof(PrototypeAttribute));
+            var attribute = (PrototypeAttribute?)Attribute.GetCustomAttribute(type, typeof(PrototypeAttribute));
 
             if (attribute == null)
             {
@@ -837,7 +882,7 @@ namespace OpenNefia.Core.Prototypes
             {
                 var sb = new StringBuilder();
                 sb.Append(base.Message);
-                
+
                 if (Filename != null)
                 {
                     sb.Append($" at {Filename}");
@@ -897,7 +942,7 @@ namespace OpenNefia.Core.Prototypes
 
         public UnknownPrototypeException(SerializationInfo info, StreamingContext context) : base(info, context)
         {
-            Prototype = (string?) info.GetValue("prototype", typeof(string));
+            Prototype = (string?)info.GetValue("prototype", typeof(string));
         }
 
         public override void GetObjectData(SerializationInfo info, StreamingContext context)

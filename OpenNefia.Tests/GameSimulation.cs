@@ -220,6 +220,7 @@ namespace OpenNefia.Tests
             container.Register<IMapManagerInternal, MapManager>();
             container.Register<ISerializationManager, SerializationManager>();
             container.Register<IPrototypeManager, PrototypeManager>();
+            container.Register<IPrototypeManagerInternal, PrototypeManager>();
             container.Register<IComponentFactory, ComponentFactory>();
             container.Register<IComponentDependencyManager, ComponentDependencyManager>();
             container.Register<IEntitySystemManager, EntitySystemManager>();
