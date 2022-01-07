@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using NUnit.Framework;
-using OpenNefia.Content.GameObjects;
+using OpenNefia.Content.Charas;
 using OpenNefia.Content.Tests;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
@@ -33,11 +33,12 @@ namespace OpenNefia.Content.Tests.GameObjects.EntitySystems
   id: {ChipFemaleId}
   filepath: /Test/ChipFemale.png
 
-- type: Race
+- type: Elona.Race
   id: CharaTestRace
   chipMale: {ChipMaleId}
   chipFemale: {ChipFemaleId}
-- type: Class
+
+- type: Elona.Class
   id: CharaTestClass
 
 - type: Entity
@@ -74,18 +75,10 @@ namespace OpenNefia.Content.Tests.GameObjects.EntitySystems
         [Test]
         public void TestDefaultRaceChip()
         {
-            var sim = GameSimulation
+            var sim = ContentFullGameSimulation
                 .NewSimulation()
-                .RegisterEntitySystems(entitySystems => entitySystems.LoadExtraSystemType<CharaSystem>())
-                .RegisterComponents(compMan => {
-                    compMan.RegisterClass<ChipComponent>();
-                    compMan.RegisterClass<CharaComponent>();
-                })
                 .RegisterPrototypes(protoMan =>
                 {
-                    protoMan.RegisterType<ChipPrototype>();
-                    protoMan.RegisterType<RacePrototype>();
-                    protoMan.RegisterType<ClassPrototype>();
                     protoMan.LoadString(Prototypes);
                 })
                 .InitializeInstance();

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Security.Cryptography;
 using OpenNefia.Content.EntityGen;
 using OpenNefia.Content.GameObjects;
 using OpenNefia.Core.GameObjects;
@@ -8,7 +9,7 @@ using static OpenNefia.Content.Prototypes.Protos;
 
 namespace OpenNefia.Content.Skills
 {
-    public interface ISkillsSystem
+    public interface ISkillsSystem : IEntitySystem
     {
         void HealToMax(EntityUid uid, SkillsComponent? skills = null);
     }
@@ -20,15 +21,12 @@ namespace OpenNefia.Content.Skills
 
         public override void Initialize()
         {
-            SubscribeLocalEvent<CharaComponent, EntityGeneratedEvent>(OnGenerated, nameof(OnGenerated));
-            SubscribeLocalEvent<SkillsComponent, EntityRefreshEvent>(OnRefresh, nameof(OnRefresh));
+            SubscribeLocalEvent<SkillsComponent, EntityRefreshEvent>(HandleRefresh, nameof(HandleRefresh));
+            SubscribeLocalEvent<SkillsComponent, EntityGeneratedEvent>(HandleGenerated, nameof(HandleGenerated));
         }
 
-        private void OnGenerated(EntityUid uid, CharaComponent chara, ref EntityGeneratedEvent args)
+        private void HandleGenerated(EntityUid uid, SkillsComponent component, ref EntityGeneratedEvent args)
         {
-            InitRaceSkills(uid, chara);
-            InitClassSkills(uid, chara);
-
             _refresh.Refresh(uid);
             HealToMax(uid);
         }
@@ -43,41 +41,7 @@ namespace OpenNefia.Content.Skills
             skills.Stamina = skills.MaxStamina;
         }
 
-        private void InitRaceSkills(EntityUid uid, CharaComponent chara,
-            SkillsComponent? skills = null)
-        {
-            if (!Resolve(uid, ref skills))
-                return;
-
-            foreach (var pair in _protos.Index(chara.Race).BaseSkills)
-            {
-                if (!skills.Skills.ContainsKey(pair.Key))
-                {
-                    skills.Skills.Add(pair.Key, new LevelAndPotential() { Level = pair.Value });
-                }
-            }
-        }
-
-        private void InitClassSkills(EntityUid uid, CharaComponent chara,
-            SkillsComponent? skills = null)
-        {
-            if (!Resolve(uid, ref skills))
-                return;
-
-            foreach (var pair in _protos.Index(chara.Class).BaseSkills)
-            {
-                if (!skills.Skills.ContainsKey(pair.Key))
-                {
-                    skills.Skills.Add(pair.Key, new LevelAndPotential() { Level = pair.Value });
-                }
-                else
-                {
-                    skills.Skills[pair.Key].Level += pair.Value;
-                }
-            }
-        }
-
-        private void OnRefresh(EntityUid uid, SkillsComponent skills, ref EntityRefreshEvent args)
+        private void HandleRefresh(EntityUid uid, SkillsComponent skills, ref EntityRefreshEvent args)
         {
             var level = EntityManager.EnsureComponent<LevelComponent>(uid);
 

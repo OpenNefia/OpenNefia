@@ -2,7 +2,7 @@
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Serialization.Manager.Attributes;
 
-namespace OpenNefia.Content.GameObjects
+namespace OpenNefia.Content.Charas
 {
     [RegisterComponent]
     public class CharaComponent : Component
@@ -64,7 +64,7 @@ namespace OpenNefia.Content.GameObjects
                     return EntityGameLiveness.DeadAndBuried;
             }
         }
-    } 
+    }
 
     public enum CharaLivenessState
     {

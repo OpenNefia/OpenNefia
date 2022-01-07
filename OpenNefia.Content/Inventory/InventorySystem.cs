@@ -13,7 +13,7 @@ namespace OpenNefia.Content.Inventory
     /// <remarks>
     /// Based off of Robust's <c>InventorySystem</c>.
     /// </remarks>
-    public sealed partial class InventorySystem : EntitySystem
+    public sealed partial class InventorySystem : EntitySystem, IInventorySystem
     {
         public override void Initialize()
         {

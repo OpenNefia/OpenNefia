@@ -11,6 +11,7 @@ using OpenNefia.Core.Random;
 using OpenNefia.Core.Utility;
 using OpenNefia.Content.Prototypes;
 using OpenNefia.Content.DisplayName;
+using OpenNefia.Content.Charas;
 
 namespace OpenNefia.Content.GameObjects
 {

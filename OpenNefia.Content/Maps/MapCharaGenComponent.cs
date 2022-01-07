@@ -1,11 +1,11 @@
 ﻿using OpenNefia.Core.GameObjects;
-using OpenNefia.Content.GameObjects;
 using OpenNefia.Core.Serialization.Manager.Attributes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using OpenNefia.Content.Charas;
 
 namespace OpenNefia.Content.Maps
 {
