@@ -10,7 +10,7 @@ namespace OpenNefia.Tests
 {
     public class TestingLocalizationManager : ILocalizationManager
     {
-        public PrototypeId<LanguagePrototype> Language => throw new NotImplementedException();
+        public PrototypeId<LanguagePrototype> Language => LanguagePrototypeOf.English;
 
         public void DoLocalize(object o, LocaleKey key)
         {

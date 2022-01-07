@@ -25,6 +25,7 @@ namespace OpenNefia.Content.Logic
             // TODO
         }
 
+        [Obsolete("Maybe move `entity` into a named param for Display()?")]
         public static void DisplayIfLos(EntityUid entity, string mes, Color? color = null, bool noCapitalize = false)
         {
             var visibility = EntitySystem.Get<IVisibilitySystem>();

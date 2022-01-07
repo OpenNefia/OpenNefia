@@ -4,6 +4,7 @@ using OpenNefia.Core.Serialization.Manager.Attributes;
 
 namespace OpenNefia.Core.Rendering
 {
+    [Obsolete("TODO move to content")]
     [Prototype("BasicAnim", -1)]
     public class BasicAnimPrototype : IPrototype
     {

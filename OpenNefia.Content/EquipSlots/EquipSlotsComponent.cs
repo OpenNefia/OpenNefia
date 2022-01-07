@@ -19,7 +19,7 @@ namespace OpenNefia.Content.EquipSlots
         /// **Do NOT update this manually!** Please go through <see cref="EquipSlotsSystem"/> instead.
         /// </summary>
         /// <remarks>
-        /// Contrast with Robust's <c>InventoryTemplatePrototype</c>. This needs to be mutable
+        /// Contrast with SS14's <c>InventoryTemplatePrototype</c>. This needs to be mutable
         /// because you can add and remove body parts during the game.
         /// </remarks>
         [DataField]
@@ -32,7 +32,7 @@ namespace OpenNefia.Content.EquipSlots
     /// and you can also add and remove body parts at runtime.
     /// </summary>
     /// <remarks>
-    /// Contrast with Robust's <c>SlotDefinition.</c>
+    /// Contrast with SS14's <c>SlotDefinition.</c>
     /// </remarks>
     [DataDefinition]
     public class EquipSlotInstance
