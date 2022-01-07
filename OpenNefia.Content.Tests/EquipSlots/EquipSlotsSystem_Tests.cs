@@ -1,6 +1,5 @@
 ﻿using NUnit.Framework;
-using OpenNefia.Content.Equipment;
-using OpenNefia.Content.Inventory;
+using OpenNefia.Content.EquipSlots;
 using OpenNefia.Core.Containers;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Maps;
@@ -13,11 +12,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OpenNefia.Content.Tests.Inventory
+namespace OpenNefia.Content.Tests.EquipSlots
 {
     [TestFixture]
-    [TestOf(typeof(InventorySystem))]
-    public class InventorySystem_Tests
+    [TestOf(typeof(EquipSlotsSystem))]
+    public class EquipSlotsSystem_Tests
     {
         private static readonly PrototypeId<EquipSlotPrototype> TestSlot1ID = new("TestSlot1");
         private static readonly PrototypeId<EquipSlotPrototype> TestSlot2ID = new("TestSlot2");
@@ -48,13 +47,13 @@ namespace OpenNefia.Content.Tests.Inventory
             var entMan = sim.Resolve<IEntityManager>();
             var mapMan = sim.Resolve<IMapManager>();
 
-            var invSys = sim.GetEntitySystem<InventorySystem>();
+            var invSys = sim.GetEntitySystem<EquipSlotsSystem>();
 
             var map = sim.CreateMapAndSetActive(10, 10);
 
             var ent = entMan.SpawnEntity(null, map.AtPos(Vector2i.One));
 
-            Assert.That(entMan.HasComponent<InventoryComponent>(ent), Is.False);
+            Assert.That(entMan.HasComponent<EquipSlotsComponent>(ent), Is.False);
             Assert.That(entMan.HasComponent<ContainerManagerComponent>(ent), Is.False);
 
             List<PrototypeId<EquipSlotPrototype>> equipSlotProtos = new() 
@@ -69,7 +68,7 @@ namespace OpenNefia.Content.Tests.Inventory
 
             Assert.Multiple(() =>
             {
-                Assert.That(entMan.HasComponent<InventoryComponent>(ent), Is.True);
+                Assert.That(entMan.HasComponent<EquipSlotsComponent>(ent), Is.True);
                 Assert.That(entMan.HasComponent<ContainerManagerComponent>(ent), Is.True);
 
                 Assert.That(invSys.TryGetEquipSlots(ent, out var equipSlots), Is.True);
@@ -101,15 +100,15 @@ namespace OpenNefia.Content.Tests.Inventory
             var mapMan = sim.Resolve<IMapManager>();
 
             var containerSys = sim.GetEntitySystem<ContainerSystem>();
-            var invSys = sim.GetEntitySystem<InventorySystem>();
+            var invSys = sim.GetEntitySystem<EquipSlotsSystem>();
 
              var map = sim.CreateMapAndSetActive(10, 10);
 
             var ent = entMan.SpawnEntity(null, map.AtPos(Vector2i.One));
 
-            Assert.That(entMan.HasComponent<InventoryComponent>(ent), Is.False);
+            Assert.That(entMan.HasComponent<EquipSlotsComponent>(ent), Is.False);
             Assert.That(entMan.HasComponent<ContainerManagerComponent>(ent), Is.False);
-            var inventory = entMan.EnsureComponent<InventoryComponent>(ent);
+            var equipSlots = entMan.EnsureComponent<EquipSlotsComponent>(ent);
             var containers = entMan.EnsureComponent<ContainerManagerComponent>(ent);
 
             Assert.Multiple(() =>
@@ -121,7 +120,7 @@ namespace OpenNefia.Content.Tests.Inventory
                 Assert.That(invSys.TryAddEquipSlot(ent, TestSlot1ID, out var containerSlot, out var equipSlot), Is.True);
                 Assert.That(invSys.HasEquipSlot(ent, TestSlot1ID), Is.True);
 
-                Assert.That(inventory.EquipSlots!.Count, Is.EqualTo(1), "Equip slot count");
+                Assert.That(equipSlots.EquipSlots!.Count, Is.EqualTo(1), "Equip slot count");
                 Assert.That(containers.Containers.Count, Is.EqualTo(oldContainerCount + 1), "Container count");
 
                 Assert.That(equipSlot!.ID, Is.EqualTo(TestSlot1ID));
@@ -139,14 +138,14 @@ namespace OpenNefia.Content.Tests.Inventory
             var mapMan = sim.Resolve<IMapManager>();
 
             var containerSys = sim.GetEntitySystem<ContainerSystem>();
-            var invSys = sim.GetEntitySystem<InventorySystem>();
+            var invSys = sim.GetEntitySystem<EquipSlotsSystem>();
 
             var map = sim.CreateMapAndSetActive(10, 10);
 
             var ent = entMan.SpawnEntity(null, map.AtPos(Vector2i.One));
             var entItem = entMan.SpawnEntity(null, map.AtPos(Vector2i.One));
 
-            Assert.That(entMan.HasComponent<InventoryComponent>(ent), Is.False);
+            Assert.That(entMan.HasComponent<EquipSlotsComponent>(ent), Is.False);
             Assert.That(entMan.HasComponent<ContainerManagerComponent>(ent), Is.False);
 
             List<PrototypeId<EquipSlotPrototype>> equipSlotProtos = new()
@@ -156,12 +155,12 @@ namespace OpenNefia.Content.Tests.Inventory
                 TestSlot2ID,
             };
 
-            var inventory = entMan.EnsureComponent<InventoryComponent>(ent);
+            var equipSlots = entMan.EnsureComponent<EquipSlotsComponent>(ent);
             var containers = entMan.EnsureComponent<ContainerManagerComponent>(ent);
 
             invSys.InitializeEquipSlots(ent, equipSlotProtos);
 
-            var equipSlot = inventory.EquipSlots[0];
+            var equipSlot = equipSlots.EquipSlots[0];
             Assert.That(invSys.TryGetContainerForEquipSlot(ent, equipSlot, out var container), Is.True);
 
             container!.Insert(entItem);
@@ -176,7 +175,7 @@ namespace OpenNefia.Content.Tests.Inventory
                 // Equipment in the slot should be deleted.
                 Assert.That(entMan.EntityExists(entItem), Is.False);
 
-                Assert.That(inventory.EquipSlots!.Count, Is.EqualTo(2), "Equip slot count");
+                Assert.That(equipSlots.EquipSlots!.Count, Is.EqualTo(2), "Equip slot count");
                 Assert.That(containers.Containers.Count, Is.EqualTo(oldContainerCount - 1), "Container count");
 
                 Assert.That(invSys.TryRemoveEquipSlot(ent, equipSlot), Is.False);

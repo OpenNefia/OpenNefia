@@ -21,12 +21,12 @@
   - type: Moveable
   - type: Level
   - type: Chara
-    class: Slime
   - type: Skills
   - type: Spells
   - type: Faction
   - type: Weight
   - type: Inventory
+  - type: EquipSlots
   - type: VanillaAI
 
 - type: Entity

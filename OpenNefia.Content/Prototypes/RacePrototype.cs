@@ -3,7 +3,7 @@ using OpenNefia.Content.Skills;
 using OpenNefia.Content.Inventory;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Core.Serialization.Manager.Attributes;
-using OpenNefia.Content.Equipment;
+using OpenNefia.Content.EquipSlots;
 
 namespace OpenNefia.Core.Prototypes
 {

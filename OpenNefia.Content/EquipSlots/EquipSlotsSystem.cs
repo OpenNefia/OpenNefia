@@ -1,20 +1,21 @@
-﻿using OpenNefia.Content.Equipment;
+﻿using OpenNefia.Content.Inventory;
 using OpenNefia.Core.Containers;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Log;
 using OpenNefia.Core.Prototypes;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using EquipSlotPrototypeId = OpenNefia.Core.Prototypes.PrototypeId<OpenNefia.Content.Equipment.EquipSlotPrototype>;
+using EquipSlotPrototypeId = OpenNefia.Core.Prototypes.PrototypeId<OpenNefia.Content.EquipSlots.EquipSlotPrototype>;
 
-namespace OpenNefia.Content.Inventory
+namespace OpenNefia.Content.EquipSlots
 {
-    public sealed partial class InventorySystem : EntitySystem
+    /// <summary>
+    /// Handles character equipment.
+    /// </summary>
+    /// <remarks>
+    /// Based off of Robust's <c>InventorySystem</c>.
+    /// </remarks>
+    public sealed class EquipSlotsSystem : EntitySystem, IEquipSlotsSystem
     {
         [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
         [Dependency] private readonly ContainerSystem _containerSys = default!;
@@ -24,42 +25,42 @@ namespace OpenNefia.Content.Inventory
 
         /// <inheritdoc/>
         public void InitializeEquipSlots(EntityUid uid, IEnumerable<EquipSlotPrototypeId> equipSlotProtoIds,
-            InventoryComponent? inventory = null,
+            EquipSlotsComponent? equipSlotsComp = null,
             ContainerManagerComponent? containerComp = null)
         {
-            if (!Resolve(uid, ref inventory, logMissing: false))
-                inventory = EntityManager.AddComponent<InventoryComponent>(uid);
+            if (!Resolve(uid, ref equipSlotsComp, logMissing: false))
+                equipSlotsComp = EntityManager.AddComponent<EquipSlotsComponent>(uid);
             if (!Resolve(uid, ref containerComp, logMissing: false))
                 containerComp = EntityManager.AddComponent<ContainerManagerComponent>(uid);
 
-            ClearEquipSlots(uid, inventory, containerComp);
-            
+            ClearEquipSlots(uid, equipSlotsComp, containerComp);
+
             foreach (var slotId in equipSlotProtoIds)
             {
-                TryAddEquipSlot(uid, slotId, out _, out _, inventory, containerComp);
+                TryAddEquipSlot(uid, slotId, out _, out _, equipSlotsComp, containerComp);
             }
         }
 
         /// <inheritdoc/>
         public bool TryAddEquipSlot(EntityUid uid, EquipSlotPrototypeId slotId,
             [NotNullWhen(true)] out ContainerSlot? containerSlot, [NotNullWhen(true)] out EquipSlotInstance? equipSlotInstance,
-            InventoryComponent? inventory = null,
+            EquipSlotsComponent? equipSlotsComp = null,
             ContainerManagerComponent? containerComp = null)
         {
             containerSlot = null;
             equipSlotInstance = null;
-            if (!Resolve(uid, ref inventory, ref containerComp))
+            if (!Resolve(uid, ref equipSlotsComp, ref containerComp))
                 return false;
 
             if (!_prototypeManager.HasIndex(slotId))
                 return false;
 
-            var containerId = FindFreeContainerIdForSlot(uid, slotId, inventory, containerComp);
+            var containerId = FindFreeContainerIdForSlot(uid, slotId, equipSlotsComp, containerComp);
             if (containerId == null)
                 return false;
 
             equipSlotInstance = new EquipSlotInstance(slotId, containerId.Value);
-            inventory.EquipSlots.Add(equipSlotInstance);
+            equipSlotsComp.EquipSlots.Add(equipSlotInstance);
 
             containerSlot = _containerSys.MakeContainer<ContainerSlot>(uid, equipSlotInstance.ContainerID, containerManager: containerComp);
             containerSlot.OccludesLight = false;
@@ -69,18 +70,18 @@ namespace OpenNefia.Content.Inventory
 
         /// <inheritdoc/>
         public bool TryRemoveEquipSlot(EntityUid uid, EquipSlotInstance instance,
-            InventoryComponent? inventory = null,
+            EquipSlotsComponent? equipSlotsComp = null,
             ContainerManagerComponent? containerComp = null)
         {
-            if (!Resolve(uid, ref inventory, ref containerComp))
+            if (!Resolve(uid, ref equipSlotsComp, ref containerComp))
                 return false;
 
-            if (!inventory.EquipSlots.Contains(instance))
+            if (!equipSlotsComp.EquipSlots.Contains(instance))
             {
                 Logger.WarningS("inv.equip", $"Tried to remove equip slot {instance}, but it wasn't owned by entity {uid}!");
                 return false;
             }
-            
+
             if (_containerSys.TryGetContainer(uid, instance.ContainerID, out var container))
             {
                 // Wipe the equipment item in this slot.
@@ -92,25 +93,25 @@ namespace OpenNefia.Content.Inventory
                 Logger.WarningS("inv.equip", $"Tried to remove equip slot {instance} from entity {uid}, but its container was not found.");
             }
 
-            inventory.EquipSlots.Remove(instance);
+            equipSlotsComp.EquipSlots.Remove(instance);
             return true;
         }
 
         /// <inheritdoc/>
         public void ClearEquipSlots(EntityUid uid,
-            InventoryComponent? inventory = null,
+            EquipSlotsComponent? equipSlotsComp = null,
             ContainerManagerComponent? containerComp = null)
         {
-            if (!Resolve(uid, ref inventory, ref containerComp))
+            if (!Resolve(uid, ref equipSlotsComp, ref containerComp))
                 return;
 
             foreach (var slot in GetEquipSlots(uid))
             {
-                TryRemoveEquipSlot(uid, slot, inventory, containerComp);
+                TryRemoveEquipSlot(uid, slot, equipSlotsComp, containerComp);
             }
 
             // In case any errors occurred.
-            inventory.EquipSlots.Clear();
+            equipSlotsComp.EquipSlots.Clear();
         }
 
         private static ContainerId MakeContainerId(EquipSlotPrototypeId slotId, int index)
@@ -118,11 +119,11 @@ namespace OpenNefia.Content.Inventory
             return new($"Elona.EquipSlot:{slotId}:{index}");
         }
 
-        private ContainerId? FindFreeContainerIdForSlot(EntityUid uid, EquipSlotPrototypeId slotId, 
-            InventoryComponent? inventory = null,
+        private ContainerId? FindFreeContainerIdForSlot(EntityUid uid, EquipSlotPrototypeId slotId,
+            EquipSlotsComponent? equipSlotsComp = null,
             ContainerManagerComponent? containerComp = null)
         {
-            if (!Resolve(uid, ref inventory, ref containerComp))
+            if (!Resolve(uid, ref equipSlotsComp, ref containerComp))
                 return null;
 
             var index = 0;
@@ -130,12 +131,12 @@ namespace OpenNefia.Content.Inventory
             while (index < MaxContainerSlotsPerEquipSlot)
             {
                 var containerId = MakeContainerId(slotId, index);
-                
+
                 if (!_containerSys.HasContainer(uid, containerId, containerComp))
                 {
                     return containerId;
                 }
-                
+
                 index++;
             }
 
@@ -143,32 +144,32 @@ namespace OpenNefia.Content.Inventory
 
             return null;
         }
-        
+
         /// <inheritdoc/>
         public bool TryGetEquipSlotAndContainer(EntityUid uid, EquipSlotPrototypeId slotId,
             [NotNullWhen(true)] out EquipSlotInstance? equipSlotInstance, [NotNullWhen(true)] out ContainerSlot? containerSlot,
-            InventoryComponent? inventory = null, 
+            EquipSlotsComponent? equipSlotsComp = null,
             ContainerManagerComponent? containerComp = null)
         {
             containerSlot = null;
             equipSlotInstance = null;
-            if (!Resolve(uid, ref inventory, ref containerComp, false))
+            if (!Resolve(uid, ref equipSlotsComp, ref containerComp, false))
                 return false;
 
-            if (!TryGetEquipSlot(uid, slotId, out equipSlotInstance, inventory: inventory))
+            if (!TryGetEquipSlot(uid, slotId, out equipSlotInstance, equipSlotsComp: equipSlotsComp))
                 return false;
 
-            return TryGetContainerForEquipSlot(uid, equipSlotInstance, out containerSlot, inventory, containerComp);
+            return TryGetContainerForEquipSlot(uid, equipSlotInstance, out containerSlot, equipSlotsComp, containerComp);
         }
 
         /// <inheritdoc/>
         public bool TryGetContainerForEquipSlot(EntityUid uid, EquipSlotInstance equipSlotInstance,
             [NotNullWhen(true)] out ContainerSlot? containerSlot,
-            InventoryComponent? inventory = null,
+            EquipSlotsComponent? equipSlotsComp = null,
             ContainerManagerComponent? containerComp = null)
         {
             containerSlot = null;
-            if (!Resolve(uid, ref inventory, ref containerComp, false))
+            if (!Resolve(uid, ref equipSlotsComp, ref containerComp, false))
                 return false;
 
             if (!_containerSys.TryGetContainer(uid, equipSlotInstance.ContainerID, out var container))
@@ -188,76 +189,76 @@ namespace OpenNefia.Content.Inventory
         /// <inheritdoc/>
         public bool TryGetEquipSlotForContainer(EntityUid uid, ContainerId containerId,
             [NotNullWhen(true)] out EquipSlotInstance? equipSlotInstance,
-            InventoryComponent? inventory = null,
+            EquipSlotsComponent? equipSlotsComp = null,
             ContainerManagerComponent? containerComp = null)
         {
             equipSlotInstance = null;
-            if (!Resolve(uid, ref inventory, ref containerComp, false))
+            if (!Resolve(uid, ref equipSlotsComp, ref containerComp, false))
                 return false;
 
-            equipSlotInstance = inventory.EquipSlots.FirstOrDefault(x => x.ContainerID == containerId);
+            equipSlotInstance = equipSlotsComp.EquipSlots.FirstOrDefault(x => x.ContainerID == containerId);
             return equipSlotInstance != default;
         }
 
         /// <inheritdoc/>
-        public bool HasEquipSlot(EntityUid uid, EquipSlotPrototypeId slotId, InventoryComponent? inventory = null) =>
-            TryGetEquipSlot(uid, slotId, out _, inventory);
+        public bool HasEquipSlot(EntityUid uid, EquipSlotPrototypeId slotId, EquipSlotsComponent? equipSlotsComp = null) =>
+            TryGetEquipSlot(uid, slotId, out _, equipSlotsComp);
 
 
         /// <inheritdoc/>
         public bool TryGetEquipSlot(EntityUid uid, EquipSlotPrototypeId slotId, [NotNullWhen(true)] out EquipSlotInstance? equipSlotInstance,
-            InventoryComponent? inventory = null)
+            EquipSlotsComponent? equipSlotsComp = null)
         {
             equipSlotInstance = null;
-            if (!Resolve(uid, ref inventory, false))
+            if (!Resolve(uid, ref equipSlotsComp, false))
                 return false;
 
             if (!_prototypeManager.HasIndex(slotId))
                 return false;
 
-            equipSlotInstance = inventory.EquipSlots.FirstOrDefault(x => x.ID == slotId);
+            equipSlotInstance = equipSlotsComp.EquipSlots.FirstOrDefault(x => x.ID == slotId);
             return equipSlotInstance != default;
         }
 
         /// <inheritdoc/>
-        public bool TryGetContainerSlotEnumerator(EntityUid uid, out ContainerSlotEnumerator containerSlotEnumerator, 
-            InventoryComponent? inventory = null)
+        public bool TryGetContainerSlotEnumerator(EntityUid uid, out ContainerSlotEnumerator containerSlotEnumerator,
+            EquipSlotsComponent? equipSlotsComp = null)
         {
             containerSlotEnumerator = default;
-            if (!Resolve(uid, ref inventory, false))
+            if (!Resolve(uid, ref equipSlotsComp, false))
                 return false;
 
-            containerSlotEnumerator = new ContainerSlotEnumerator(uid, inventory.EquipSlots, this);
+            containerSlotEnumerator = new ContainerSlotEnumerator(uid, equipSlotsComp.EquipSlots, this);
             return true;
         }
 
         /// <inheritdoc/>
         public bool TryGetEquipSlots(EntityUid uid, [NotNullWhen(true)] out IList<EquipSlotInstance>? slotDefinitions,
-            InventoryComponent? inventory = null)
+            EquipSlotsComponent? equipSlotsComp = null)
         {
             slotDefinitions = null;
-            if (!Resolve(uid, ref inventory, false))
+            if (!Resolve(uid, ref equipSlotsComp, false))
                 return false;
 
-            slotDefinitions = inventory.EquipSlots;
+            slotDefinitions = equipSlotsComp.EquipSlots;
             return true;
         }
 
         /// <inheritdoc/>
-        public IList<EquipSlotInstance> GetEquipSlots(EntityUid uid, InventoryComponent? inventory = null)
+        public IList<EquipSlotInstance> GetEquipSlots(EntityUid uid, EquipSlotsComponent? equipSlotsComp = null)
         {
-            if (!Resolve(uid, ref inventory)) throw new InvalidOperationException();
-            return inventory.EquipSlots;
+            if (!Resolve(uid, ref equipSlotsComp)) throw new InvalidOperationException();
+            return equipSlotsComp.EquipSlots;
         }
 
         public struct ContainerSlotEnumerator
         {
-            private readonly InventorySystem _inventorySystem;
+            private readonly EquipSlotsSystem _inventorySystem;
             private readonly EntityUid _uid;
             private readonly IList<EquipSlotInstance> _slots;
             private int _nextIdx = int.MaxValue;
 
-            public ContainerSlotEnumerator(EntityUid uid, IList<EquipSlotInstance> slots, InventorySystem inventorySystem)
+            public ContainerSlotEnumerator(EntityUid uid, IList<EquipSlotInstance> slots, EquipSlotsSystem inventorySystem)
             {
                 _uid = uid;
                 _inventorySystem = inventorySystem;

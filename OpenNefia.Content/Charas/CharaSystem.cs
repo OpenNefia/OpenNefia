@@ -6,6 +6,7 @@ using OpenNefia.Content.EntityGen;
 using OpenNefia.Content.Skills;
 using OpenNefia.Content.Inventory;
 using static OpenNefia.Content.Prototypes.Protos;
+using OpenNefia.Content.EquipSlots;
 
 namespace OpenNefia.Content.Charas
 {
@@ -13,7 +14,7 @@ namespace OpenNefia.Content.Charas
     {
         [Dependency] private readonly IPrototypeManager _protos = default!;
         [Dependency] private readonly ISkillsSystem _skills = default!;
-        [Dependency] private readonly IInventorySystem _inventories = default!;
+        [Dependency] private readonly IEquipSlotsSystem _equipSlots = default!;
 
         public override void Initialize()
         {
@@ -46,9 +47,9 @@ namespace OpenNefia.Content.Charas
         }
 
         private void InitRaceEquipSlots(EntityUid uid, CharaComponent chara,
-            InventoryComponent? inventory = null)
+            EquipSlotsComponent? equipSlots = null)
         {
-            if (!Resolve(uid, ref inventory))
+            if (!Resolve(uid, ref equipSlots))
                 return;
 
             var race = _protos.Index(chara.Race);
@@ -58,7 +59,7 @@ namespace OpenNefia.Content.Charas
                 .Append(EquipSlot.Ranged)
                 .Append(EquipSlot.Ammo);
 
-            _inventories.InitializeEquipSlots(uid, initialEquipSlots, inventory: inventory);
+            _equipSlots.InitializeEquipSlots(uid, initialEquipSlots, equipSlots: equipSlots);
         }
 
         private void InitClassSkills(EntityUid uid, CharaComponent chara,
