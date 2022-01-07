@@ -38,6 +38,7 @@ namespace OpenNefia.Content.CharaMake
         private IUiText AliasTopic;
 
         private UiList<CreateCharAlias> List;
+        private const string ResultName = "alias";
 
         public CharaMakeAliasLayer()
         {
@@ -64,7 +65,7 @@ namespace OpenNefia.Content.CharaMake
                 {
                     Result = new CharaMakeResult(new Dictionary<string, object>
                     {
-                        { "alias", args.SelectedCell.Data.Alias }
+                        { ResultName, args.SelectedCell.Data.Alias }
                     });
                     Finish(Result);
                 }

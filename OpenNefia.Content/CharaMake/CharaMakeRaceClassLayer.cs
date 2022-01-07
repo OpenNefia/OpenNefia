@@ -23,6 +23,7 @@ namespace OpenNefia.Content.CharaMake
     [Localize("Elona.CharaMake.RaceSelect")]
     public class CharaMakeRaceSelectLayer : CharaMakeRaceClassLayer
     {
+        private const string ResultName = "race";
         public override IEnumerable<RaceClass> GetData()
         {
             return _prototypeManager.EnumeratePrototypes<RacePrototype>().Select(x => new RaceClass(x));
@@ -32,13 +33,14 @@ namespace OpenNefia.Content.CharaMake
         {
             Finish(new CharaMakeResult(new Dictionary<string, object>
             {
-                { "race", item.Data }
+                { ResultName, item.Data }
             }));
         }
     }
     [Localize("Elona.CharaMake.ClassSelect")]
     public class CharaMakeClassSelectLayer : CharaMakeRaceClassLayer
     {
+        private const string ResultName = "class";
         public override IEnumerable<RaceClass> GetData()
         {
             return _prototypeManager.EnumeratePrototypes<ClassPrototype>().Select(x => new RaceClass(x));
@@ -48,7 +50,7 @@ namespace OpenNefia.Content.CharaMake
         {
             Finish(new CharaMakeResult(new Dictionary<string, object>
             {
-                { "class", item.Data }
+                { ResultName, item.Data }
             }));
         }
     }
@@ -69,8 +71,8 @@ namespace OpenNefia.Content.CharaMake
                 {
                     case RacePrototype race:
                         return Loc.GetPrototypeString<RacePrototype>(new(race.ID), suffix)!;
-                    case ClassPrototype classP:
-                        return Loc.GetPrototypeString<ClassPrototype>(new(classP.ID), suffix)!;
+                    case ClassPrototype @class:
+                        return Loc.GetPrototypeString<ClassPrototype>(new(@class.ID), suffix)!;
                     default:
                         return string.Empty;
                 }
@@ -82,10 +84,10 @@ namespace OpenNefia.Content.CharaMake
                 {
                     case RacePrototype race:
                         return race.BaseSkills;
-                    case ClassPrototype classP:
-                        return classP.BaseSkills;
+                    case ClassPrototype @class:
+                        return @class.BaseSkills;
                     default:
-                        return new()!;
+                        return new();
                 }
             }
         }
@@ -132,6 +134,7 @@ namespace OpenNefia.Content.CharaMake
             Window = new UiWindow();
             AllData = Array.Empty<RaceClassCell>();
             PageModel = new UiPageModel<RaceClassCell>();
+            PageModel.OnPageChanged += Window_OnPageChanged;
 
             RaceTopic = new UiTextTopic();
             DetailTopic = new UiTextTopic();
@@ -182,8 +185,6 @@ namespace OpenNefia.Content.CharaMake
         {
             base.Initialize(args);
             AllData = GetData().Select(x => new RaceClassCell(x)).ToArray();
-
-            PageModel.OnPageChanged += Window_OnPageChanged;
             PageModel.Initialize(AllData);
             PageModel.SetWindow(Window);
 
@@ -241,7 +242,7 @@ namespace OpenNefia.Content.CharaMake
         private void SetTrainedSkills(Dictionary<PrototypeId<SkillPrototype>, int> skills)
         {
             TrainedSkillContainer.Clear();
-            foreach (var attr in MakeTrainedSKills(skills))
+            foreach (var attr in MakeTrainedSkills(skills))
             {
                 TrainedSkillContainer.AddElement(attr);
             }
@@ -259,7 +260,7 @@ namespace OpenNefia.Content.CharaMake
         }
 
         //cant actually yield here sadly because the weapon proficiencies need to be collected and be on the first position
-        private IEnumerable<UiElement> MakeTrainedSKills(Dictionary<PrototypeId<SkillPrototype>, int> skills)
+        private IEnumerable<UiElement> MakeTrainedSkills(Dictionary<PrototypeId<SkillPrototype>, int> skills)
         {
             var list = new List<UiElement>();
 
@@ -286,7 +287,7 @@ namespace OpenNefia.Content.CharaMake
             }
             if (profs.Count > 0)
             {
-                var profDesc = $"{Loc.GetString("Elona.CharaMake.WeaponProf")} {string.Join(',', profs)}";
+                var profDesc = $"{Loc.GetString("Elona.CharaMake.ProficientIn")} {string.Join(',', profs)}";
                 list.Insert(0, MakeSkillContainer("Elona.StatStrength", profDesc));
             }
 
@@ -298,35 +299,35 @@ namespace OpenNefia.Content.CharaMake
             switch (amount)
             {
                 case <= 0:
-                    text = Loc.GetString("Elona.CharaMake.Skill.Amt.None");
+                    text = Loc.GetString("Elona.CharaMake.Skill.Amount.None");
                     color = UiColors.CharaMakeStatLevelNone;
                     break;
                 case <= 2:
-                    text = Loc.GetString("Elona.CharaMake.Skill.Amt.Slight");
+                    text = Loc.GetString("Elona.CharaMake.Skill.Amount.Slight");
                     color = UiColors.CharaMakeStatLevelSlight;
                     break;
                 case <= 4:
-                    text = Loc.GetString("Elona.CharaMake.Skill.Amt.Little");
+                    text = Loc.GetString("Elona.CharaMake.Skill.Amount.Little");
                     color = UiColors.CharaMakeStatLevelLittle;
                     break;
                 case <= 6:
-                    text = Loc.GetString("Elona.CharaMake.Skill.Amt.Normal");
+                    text = Loc.GetString("Elona.CharaMake.Skill.Amount.Normal");
                     color = UiColors.CharaMakeStatLevelNormal;
                     break;
                 case <= 8:
-                    text = Loc.GetString("Elona.CharaMake.Skill.Amt.NotBad");
+                    text = Loc.GetString("Elona.CharaMake.Skill.Amount.NotBad");
                     color = UiColors.CharaMakeStatLevelNotBad;
                     break;
                 case <= 10:
-                    text = Loc.GetString("Elona.CharaMake.Skill.Amt.Good");
+                    text = Loc.GetString("Elona.CharaMake.Skill.Amount.Good");
                     color = UiColors.CharaMakeStatLevelGood;
                     break;
                 case <= 12:
-                    text = Loc.GetString("Elona.CharaMake.Skill.Amt.Great");
+                    text = Loc.GetString("Elona.CharaMake.Skill.Amount.Great");
                     color = UiColors.CharaMakeStatLevelGreat;
                     break;
                 default:
-                    text = Loc.GetString("Elona.CharaMake.Skill.Amt.Best");
+                    text = Loc.GetString("Elona.CharaMake.Skill.Amount.Best");
                     color = UiColors.CharaMakeStatLevelBest;
                     break;
             }

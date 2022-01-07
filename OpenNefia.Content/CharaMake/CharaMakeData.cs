@@ -8,11 +8,11 @@ namespace OpenNefia.Content.CharaMake
 {
     public class CharaMakeData
     {
-        public Dictionary<Type, Dictionary<string, object>> CharData { get; set; }
+        public Dictionary<Type, Dictionary<string, object>> CharaData { get; set; }
 
         public CharaMakeData()
         {
-            CharData = new Dictionary<Type, Dictionary<string, object>>();
+            CharaData = new Dictionary<Type, Dictionary<string, object>>();
         }
     }
 }

@@ -36,6 +36,7 @@ namespace OpenNefia.Content.TitleScreen
         [Dependency] private readonly ISaveGameSerializer _saveGameSerializer = default!;
         [Dependency] private readonly IUserInterfaceManager _uiManager = default!;
         [Dependency] private readonly IModLoader _modLoader = default!;
+        [Dependency] private readonly ICharaMakeLogic _charaMakeLogic = default!;
 
         private void Startup()
         {
@@ -66,7 +67,7 @@ namespace OpenNefia.Content.TitleScreen
                                 StartGame();
                                 break;
                             case TitleScreenAction.Generate:
-                                CreateChar();
+                                CreateChara();
                                 break;
                             case TitleScreenAction.Quit:
                                 break;
@@ -119,10 +120,9 @@ namespace OpenNefia.Content.TitleScreen
             // new saves should always start from entity 0
         }
 
-        private void CreateChar()
+        private void CreateChara()
         {
-            var creatChar = IoCManager.Resolve<ICharaMakeLogic>();
-            creatChar.RunCreateChar();
+            _charaMakeLogic.RunCreateChara();
         }
 
         private IMap InitMap()

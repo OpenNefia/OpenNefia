@@ -16,8 +16,8 @@ namespace OpenNefia.Content.UI.Element
 
         private IEnumerable<T> PagedElements;
         private int ItemsPerPage;
-        private int CurrentPage;
-        private UiWindow? Window = default!;
+        private int? CurrentPage;
+        private UiWindow? Window;
         public int PageCount => (PagedElements.Count() / Math.Max(1, ItemsPerPage));
 
         public delegate void PageChanged();
@@ -38,29 +38,34 @@ namespace OpenNefia.Content.UI.Element
 
         public IEnumerable<T> GetCurrentElements()
         {
-            var en = PagedElements.Skip(ItemsPerPage * CurrentPage);
+            var en = PagedElements.Skip(ItemsPerPage * CurrentPage ?? 0);
             return en.Take(ItemsPerPage);
         }
 
         public void PageForward()
         {
+            if (!CurrentPage.HasValue)
+                return;
             if (PageCount > CurrentPage)
             {
-                ChangePage(CurrentPage + 1);
+                ChangePage((CurrentPage ?? 0) + 1);
             }
         }
 
         public void PageBackward()
         {
-            if (CurrentPage >= 1)
+            if (!CurrentPage.HasValue)
+                return;
+            if (CurrentPage > 0)
             {
-                ChangePage(CurrentPage - 1);
+                ChangePage((CurrentPage ?? 0) - 1);
             }
         }
 
         public void ChangePage(int page)
         {
-            Sounds.Play(Prototypes.Protos.Sound.Pop1);
+            if (CurrentPage.HasValue)
+                Sounds.Play(Prototypes.Protos.Sound.Pop1);
             CurrentPage = page;
             UpdatePageText();
             OnPageChanged?.Invoke();

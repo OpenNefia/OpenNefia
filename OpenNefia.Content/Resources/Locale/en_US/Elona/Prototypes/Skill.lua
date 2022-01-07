@@ -5,11 +5,11 @@
 
         OnDecrease = function(entity)
             return ("%s%s muscles soften.")
-                :format(name(entity), his_owned(entity))
+                :format(_.name(entity), _.his_owned(entity))
         end,
         InIncrease = function(entity)
             return ("%s%s muscles feel stronger.")
-                :format(name(entity), his_owned(entity))
+                :format(_.name(entity), _.his_owned(entity))
         end
     },
     StatConstitution = {
@@ -18,11 +18,11 @@
 
         OnDecrease = function(entity)
             return ("%s lose%s patience.")
-                :format(name(entity), s(entity))
+                :format(_.name(entity), s(entity))
         end,
         OnIncrease = function(entity)
             return ("%s begin%s to feel good when being hit hard.")
-                :format(name(entity), s(entity))
+                :format(_.name(entity), s(entity))
         end
     },
     StatDexterity = {
@@ -31,11 +31,11 @@
 
         OnDecrease = function(entity)
             return ("%s become%s clumsy.")
-                :format(name(entity), s(entity))
+                :format(_.name(entity), s(entity))
         end,
         OnIncrease = function(entity)
             return ("%s become%s dexterous.")
-                :format(name(entity), s(entity))
+                :format(_.name(entity), s(entity))
         end
     },
     StatPerception = {
@@ -44,11 +44,11 @@
 
         OnDecrease = function(entity)
             return ("%s %s getting out of touch with the world.")
-                :format(name(entity), is(entity))
+                :format(_.name(entity), is(entity))
         end,
         OnIncrease = function(entity)
             return ("%s feel%s more in touch with the world.")
-                :format(name(entity), s(entity))
+                :format(_.name(entity), s(entity))
         end
     },
     StatLearning = {
@@ -57,11 +57,11 @@
 
         OnDecrease = function(entity)
             return ("%s lose%s curiosity.")
-                :format(name(entity), s(entity))
+                :format(_.name(entity), s(entity))
         end,
         OnIncrease = function(entity)
             return ("%s feel%s studious.")
-                :format(name(entity), s(entity))
+                :format(_.name(entity), s(entity))
         end
     },
     StatWill = {
@@ -70,11 +70,11 @@
 
         OnDecrease = function(entity)
             return ("%s%s will softens.")
-                :format(name(entity), his_owned(entity))
+                :format(_.name(entity), _.his_owned(entity))
         end,
         OnIncrease = function(entity)
             return ("%s%s will hardens.")
-                :format(name(entity), his_owned(entity))
+                :format(_.name(entity), _.his_owned(entity))
         end
     },
     StatMagic = {
@@ -83,11 +83,11 @@
 
         OnDecrease = function(entity)
             return ("%s%s magic degrades.")
-                :format(name(entity), his_owned(entity))
+                :format(_.name(entity), _.his_owned(entity))
         end,
         OnIncrease = function(entity)
             return ("%s%s magic improves.")
-                :format(name(entity), his_owned(entity))
+                :format(_.name(entity), _.his_owned(entity))
         end
     },
     StatCharisma = {
@@ -96,11 +96,11 @@
 
         OnDecrease = function(entity)
             return ("%s start%s to avoid eyes of people.")
-                :format(name(entity), s(entity))
+                :format(_.name(entity), s(entity))
         end,
         OnIncrease = function(entity)
             return ("%s enjoy%s showing off %s body.")
-                :format(name(entity), s(entity), his(entity))
+                :format(_.name(entity), s(entity), his(entity))
         end
     },
     StatSpeed = {
@@ -108,11 +108,11 @@
 
         OnDecrease = function(entity)
             return ("%s%s speed decreases.")
-                :format(name(entity), his_owned(entity))
+                :format(_.name(entity), _.his_owned(entity))
         end,
         OnIncrease = function(entity)
             return ("%s%s speed increases.")
-                :format(name(entity), his_owned(entity))
+                :format(_.name(entity), _.his_owned(entity))
         end
     },
     StatLuck = {
@@ -120,11 +120,11 @@
 
         OnDecrease = function(entity)
             return ("%s become%s unlucky.")
-                :format(name(entity), s(entity))
+                :format(_.name(entity), s(entity))
         end,
         OnIncrease = function(entity)
             return ("%s become%s lucky.")
-                :format(name(entity), s(entity))
+                :format(_.name(entity), s(entity))
         end
     },
     StatLife = {
@@ -132,11 +132,11 @@
 
         OnDecrease = function(entity)
             return ("%s%s life force decreases.")
-                :format(name(entity), his_owned(entity))
+                :format(_.name(entity), _.his_owned(entity))
         end,
         OnIncrease = function(entity)
             return ("%s%s life force increases.")
-                :format(name(entity), his_owned(entity))
+                :format(_.name(entity), _.his_owned(entity))
         end
     },
     StatMana = {
@@ -144,11 +144,11 @@
 
         OnDecrease = function(entity)
             return ("%s%s mana decreases.")
-                :format(name(entity), his_owned(entity))
+                :format(_.name(entity), _.his_owned(entity))
         end,
         OnIncrease = function(entity)
             return ("%s%s mana increases.")
-                :format(name(entity), his_owned(entity))
+                :format(_.name(entity), _.his_owned(entity))
         end
     },
 
@@ -160,11 +160,11 @@
     Default = {
         OnDecrease = function(entity, skill)
             return ("%s%s %s skill falls off.")
-                :format(name(entity), his_owned(entity), skill)
+                :format(_.name(entity), _.his_owned(entity), skill)
         end,
         OnIncrease = function(entity, skill)
             return ("%s%s %s skill increases.")
-                :format(name(entity), his_owned(entity), skill)
+                :format(_.name(entity), _.his_owned(entity), skill)
         end
     },
 

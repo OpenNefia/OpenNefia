@@ -17,22 +17,21 @@ namespace OpenNefia.Content.UI.Element
             Text = text;
         }
 
-
         public override string Text 
         { 
             get => base.Text; 
             set => base.Text = WordWrap(value, MaxWidth); 
         }
 
-
         static char[] splitChars = new char[] { ' ' };
 
+        // function from https://stackoverflow.com/questions/17586/best-word-wrap-algorithm
         private string WordWrap(string str, int width)
         {
             if (width <= 0)
                 return base.Text;
 
-            string[] words = Explode(str, splitChars);
+            string[] words = SplitString(str, splitChars);
 
             int curLineLength = 0;
             StringBuilder strBuilder = new StringBuilder();
@@ -71,7 +70,8 @@ namespace OpenNefia.Content.UI.Element
             return strBuilder.ToString();
         }
 
-        private static string[] Explode(string str, char[] splitChars)
+        // function from https://stackoverflow.com/questions/17586/best-word-wrap-algorithm
+        private static string[] SplitString(string str, char[] splitChars)
         {
             List<string> parts = new List<string>();
             int startIndex = 0;

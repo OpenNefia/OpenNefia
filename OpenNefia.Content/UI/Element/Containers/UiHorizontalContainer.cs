@@ -16,14 +16,14 @@ namespace OpenNefia.Content.UI.Element.Containers
         {
             int yOffset = 0, xOffset = 0;
             int yMax = 0, xTotal = 0;
-            foreach (var child in UiElements)
+            foreach (var child in Entries)
             {
                 switch (child.Type)
                 {
                     case LayoutType.Element:
                         if (child.Element == null)
                         {
-                            Logger.Warning("UiElement in container was null");
+                            Logger.WarningS("ui.layout", "UiElement in container was null");
                             break;
                         }
                         child.Element.SetPreferredSize();
