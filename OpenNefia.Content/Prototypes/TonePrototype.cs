@@ -2,7 +2,7 @@
 
 namespace OpenNefia.Core.Prototypes
 {
-    [Prototype("Tone")]
+    [Prototype("Elona.Tone")]
     public class TonePrototype : IPrototype
     {
         [DataField("id", required: true)]

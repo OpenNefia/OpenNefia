@@ -1,270 +1,270 @@
 ---
-- type: Tone
+- type: Elona.Tone
   id: Base.Example
-- type: Tone
+- type: Elona.Tone
   id: Elona.Nurse
-- type: Tone
+- type: Elona.Tone
   id: Elona.RichPerson
-- type: Tone
+- type: Elona.Tone
   id: Elona.NobleChild
-- type: Tone
+- type: Elona.Tone
   id: Elona.SilverWolf
-- type: Tone
+- type: Elona.Tone
   id: Elona.Miral
-- type: Tone
+- type: Elona.Tone
   id: Elona.Twintail
-- type: Tone
+- type: Elona.Tone
   id: Elona.Garokk
-- type: Tone
+- type: Elona.Tone
   id: Elona.Tourist
-- type: Tone
+- type: Elona.Tone
   id: Elona.KanedaBike
-- type: Tone
+- type: Elona.Tone
   id: Elona.MoyerTheCrooked
-- type: Tone
+- type: Elona.Tone
   id: Elona.FestivalTourist
-- type: Tone
+- type: Elona.Tone
   id: Elona.Ebon
-- type: Tone
+- type: Elona.Tone
   id: Elona.Cub
-- type: Tone
+- type: Elona.Tone
   id: Elona.Chicken
-- type: Tone
+- type: Elona.Tone
   id: Elona.Maid
-- type: Tone
+- type: Elona.Tone
   id: Elona.Azzrssil
-- type: Tone
+- type: Elona.Tone
   id: Elona.YoungLady
-- type: Tone
+- type: Elona.Tone
   id: Elona.Dog
-- type: Tone
+- type: Elona.Tone
   id: Elona.Poppy
-- type: Tone
+- type: Elona.Tone
   id: Elona.Rilian
-- type: Tone
+- type: Elona.Tone
   id: Elona.Carbuncle
-- type: Tone
+- type: Elona.Tone
   id: Elona.Lion
-- type: Tone
+- type: Elona.Tone
   id: Elona.Cacy
-- type: Tone
+- type: Elona.Tone
   id: Elona.Utima
-- type: Tone
+- type: Elona.Tone
   id: Elona.Tam
-- type: Tone
+- type: Elona.Tone
   id: Elona.Rat
-- type: Tone
+- type: Elona.Tone
   id: Elona.YoungerCatSister
-- type: Tone
+- type: Elona.Tone
   id: Elona.LittleGirl
-- type: Tone
+- type: Elona.Tone
   id: Elona.YoungerSister
-- type: Tone
+- type: Elona.Tone
   id: Elona.PublicPerformer
-- type: Tone
+- type: Elona.Tone
   id: Elona.Frisia
-- type: Tone
+- type: Elona.Tone
   id: Elona.StrayCat
-- type: Tone
+- type: Elona.Tone
   id: Elona.Ebon2
-- type: Tone
+- type: Elona.Tone
   id: Elona.Pael
-- type: Tone
+- type: Elona.Tone
   id: Elona.Icolle
-- type: Tone
+- type: Elona.Tone
   id: Elona.Balzak
-- type: Tone
+- type: Elona.Tone
   id: Elona.Revlus
-- type: Tone
+- type: Elona.Tone
   id: Elona.WildHorse2
-- type: Tone
+- type: Elona.Tone
   id: Elona.NoyelHorse
-- type: Tone
+- type: Elona.Tone
   id: Elona.YowynHorse
-- type: Tone
+- type: Elona.Tone
   id: Elona.WildHorse
-- type: Tone
+- type: Elona.Tone
   id: Elona.Lexus
-- type: Tone
+- type: Elona.Tone
   id: Elona.Doria
-- type: Tone
+- type: Elona.Tone
   id: Elona.StrangeScientist
-- type: Tone
+- type: Elona.Tone
   id: Elona.Abyss
-- type: Tone
+- type: Elona.Tone
   id: Elona.LittleSister
-- type: Tone
+- type: Elona.Tone
   id: Elona.SilverEyedWitch
-- type: Tone
+- type: Elona.Tone
   id: Elona.BigDaddy
-- type: Tone
+- type: Elona.Tone
   id: Elona.Gwen
-- type: Tone
+- type: Elona.Tone
   id: Elona.LameHorse
-- type: Tone
+- type: Elona.Tone
   id: Elona.CuteFairy
-- type: Tone
+- type: Elona.Tone
   id: Elona.Arnord
-- type: Tone
+- type: Elona.Tone
   id: Elona.Mia
-- type: Tone
+- type: Elona.Tone
   id: Elona.Renton
-- type: Tone
+- type: Elona.Tone
   id: Elona.Ainc
-- type: Tone
+- type: Elona.Tone
   id: Elona.Lily
-- type: Tone
+- type: Elona.Tone
   id: Elona.Raphael
-- type: Tone
+- type: Elona.Tone
   id: Elona.BlackAngel
-- type: Tone
+- type: Elona.Tone
   id: Elona.Marks
-- type: Tone
+- type: Elona.Tone
   id: Elona.Conery
-- type: Tone
+- type: Elona.Tone
   id: Elona.BlackCat
-- type: Tone
+- type: Elona.Tone
   id: Elona.Noel
-- type: Tone
+- type: Elona.Tone
   id: Elona.MasterThief
-- type: Tone
+- type: Elona.Tone
   id: Elona.Thief
-- type: Tone
+- type: Elona.Tone
   id: Elona.Robber
-- type: Tone
+- type: Elona.Tone
   id: Elona.MysteriousProducer
-- type: Tone
+- type: Elona.Tone
   id: Elona.SilverCat
-- type: Tone
+- type: Elona.Tone
   id: Elona.JuereInfantry
-- type: Tone
+- type: Elona.Tone
   id: Elona.Slan
-- type: Tone
+- type: Elona.Tone
   id: Elona.Karam
-- type: Tone
+- type: Elona.Tone
   id: Elona.Erystia
-- type: Tone
+- type: Elona.Tone
   id: Elona.Lomias
-- type: Tone
+- type: Elona.Tone
   id: Elona.DungeonCleaner
-- type: Tone
+- type: Elona.Tone
   id: Elona.Larnneire
-- type: Tone
+- type: Elona.Tone
   id: Elona.Silvia
-- type: Tone
+- type: Elona.Tone
   id: Elona.Slime
-- type: Tone
+- type: Elona.Tone
   id: Elona.FallenSoldier
-- type: Tone
+- type: Elona.Tone
   id: Elona.Miner
-- type: Tone
+- type: Elona.Tone
   id: Elona.Snail
-- type: Tone
+- type: Elona.Tone
   id: Elona.Cleaner
-- type: Tone
+- type: Elona.Tone
   id: Elona.Beggar
-- type: Tone
+- type: Elona.Tone
   id: Elona.Farmer
-- type: Tone
+- type: Elona.Tone
   id: Elona.Bard
-- type: Tone
+- type: Elona.Tone
   id: Elona.TheLeopardWarrior
-- type: Tone
+- type: Elona.Tone
   id: Elona.Miches
-- type: Tone
+- type: Elona.Tone
   id: Elona.Healer
-- type: Tone
+- type: Elona.Tone
   id: Elona.Nun
-- type: Tone
+- type: Elona.Tone
   id: Elona.Trainer
-- type: Tone
+- type: Elona.Tone
   id: Elona.Citizen2
-- type: Tone
+- type: Elona.Tone
   id: Elona.Shopkeeper
-- type: Tone
+- type: Elona.Tone
   id: Elona.Bartender
-- type: Tone
+- type: Elona.Tone
   id: Elona.Shena
-- type: Tone
+- type: Elona.Tone
   id: Elona.Guard
-- type: Tone
+- type: Elona.Tone
   id: Elona.Zeome
-- type: Tone
+- type: Elona.Tone
   id: Elona.Loyter
-- type: Tone
+- type: Elona.Tone
   id: Elona.PalmianEliteSoldier
-- type: Tone
+- type: Elona.Tone
   id: Elona.WhomDwellInTheVanity
-- type: Tone
+- type: Elona.Tone
   id: Elona.At
-- type: Tone
+- type: Elona.Tone
   id: Elona.Orphe
-- type: Tone
+- type: Elona.Tone
   id: Elona.Cat
-- type: Tone
+- type: Elona.Tone
   id: Elona.Sister
-- type: Tone
+- type: Elona.Tone
   id: Elona.PartTimeWorker
-- type: Tone
+- type: Elona.Tone
   id: Elona.Xabi
-- type: Tone
+- type: Elona.Tone
   id: Elona.Titan
-- type: Tone
+- type: Elona.Tone
   id: Elona.BrownBear
-- type: Tone
+- type: Elona.Tone
   id: Elona.Stersha
-- type: Tone
+- type: Elona.Tone
   id: Elona.Sailor
-- type: Tone
+- type: Elona.Tone
   id: Elona.Captain
-- type: Tone
+- type: Elona.Tone
   id: Elona.SalesPerson
-- type: Tone
+- type: Elona.Tone
   id: Elona.Spider
-- type: Tone
+- type: Elona.Tone
   id: Elona.MissionaryOfDarkness
-- type: Tone
+- type: Elona.Tone
   id: Elona.Gilbert
-- type: Tone
+- type: Elona.Tone
   id: Elona.Golem
-- type: Tone
+- type: Elona.Tone
   id: Elona.YerlesMachineInfantry
-- type: Tone
+- type: Elona.Tone
   id: Elona.Mercenary
-- type: Tone
+- type: Elona.Tone
   id: Elona.RogueParty
-- type: Tone
+- type: Elona.Tone
   id: Elona.HolyBeast
-- type: Tone
+- type: Elona.Tone
   id: Elona.Citizen
-- type: Tone
+- type: Elona.Tone
   id: Elona.Rodlob
-- type: Tone
+- type: Elona.Tone
   id: Elona.Prisoner
-- type: Tone
+- type: Elona.Tone
   id: Elona.Artist
-- type: Tone
+- type: Elona.Tone
   id: Elona.Prostitute
-- type: Tone
+- type: Elona.Tone
   id: Elona.Fanatic
-- type: Tone
+- type: Elona.Tone
   id: Elona.Rogue
-- type: Tone
+- type: Elona.Tone
   id: Elona.HotSpringManiac
-- type: Tone
+- type: Elona.Tone
   id: Elona.Noble
-- type: Tone
+- type: Elona.Tone
   id: Elona.TownChild
-- type: Tone
+- type: Elona.Tone
   id: Elona.HardGay
-- type: Tone
+- type: Elona.Tone
   id: Elona.GuildMember
-- type: Tone
+- type: Elona.Tone
   id: Elona.KamikazeSamurai
-- type: Tone
+- type: Elona.Tone
   id: Elona.OldPerson
-- type: Tone
+- type: Elona.Tone
   id: Elona.Punk
-- type: Tone
+- type: Elona.Tone
   id: Elona.Metal
 ...

@@ -10,7 +10,7 @@ using OpenNefia.Core.Serialization.Manager.Attributes;
 
 namespace OpenNefia.Core.Prototypes
 {
-    [Prototype("Class")]
+    [Prototype("Elona.Class")]
     public class ClassPrototype : IPrototype
     {
         [DataField("id", required: true)]

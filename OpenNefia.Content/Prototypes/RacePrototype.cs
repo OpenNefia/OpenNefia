@@ -1,11 +1,13 @@
 ﻿using OpenNefia.Content.Effects;
 using OpenNefia.Content.Skills;
+using OpenNefia.Content.Inventory;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Core.Serialization.Manager.Attributes;
+using OpenNefia.Content.Equipment;
 
 namespace OpenNefia.Core.Prototypes
 {
-    [Prototype("Race")]
+    [Prototype("Elona.Race")]
     public class RacePrototype : IPrototype, IHspIds<int>
     {
         [DataField("id", required: true)]
@@ -43,7 +45,21 @@ namespace OpenNefia.Core.Prototypes
         [DataField]
         public IEffect? OnInitPlayer { get; } = null;
 
-        [DataField(required: true)]
-        public Dictionary<PrototypeId<SkillPrototype>, int> BaseSkills = new();
+        [DataField("baseSkills", required: true)]
+        private Dictionary<PrototypeId<SkillPrototype>, int> _baseSkills = new();
+
+        public IReadOnlyDictionary<PrototypeId<SkillPrototype>, int> BaseSkills => _baseSkills;
+
+        [DataField("initialEquipSlots", required: true)]
+        private List<PrototypeId<EquipSlotPrototype>> _initialEquipSlots = new();
+
+        /// <summary>
+        /// Equipment slots to generate this character with.
+        /// </summary>
+        /// <remarks>
+        /// NOTE: This isn't declared on <see cref="InventoryComponent"/> in the entity
+        /// prototype since it's indirectly set up during race initialization.
+        /// </remarks>
+        public IReadOnlyList<PrototypeId<EquipSlotPrototype>> InitialEquipSlots => _initialEquipSlots;
     }
 }

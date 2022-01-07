@@ -2,7 +2,7 @@
 
 namespace OpenNefia.Core.Prototypes
 {
-    [Prototype("Material")]
+    [Prototype("Elona.Material")]
     public class MaterialPrototype : IPrototype, IHspIds<int>
     {
         [DataField("id", required: true)]
