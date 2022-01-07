@@ -1,4 +1,5 @@
 ﻿using OpenNefia.Analyzers;
+using OpenNefia.Content.Charas;
 using OpenNefia.Content.GameObjects;
 using OpenNefia.Core.GameObjects;
 

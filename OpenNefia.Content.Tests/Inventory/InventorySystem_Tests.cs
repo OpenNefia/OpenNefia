@@ -21,6 +21,7 @@ namespace OpenNefia.Content.Tests.Inventory
     {
         private static readonly PrototypeId<EquipSlotPrototype> TestSlot1ID = new("TestSlot1");
         private static readonly PrototypeId<EquipSlotPrototype> TestSlot2ID = new("TestSlot2");
+        private static readonly PrototypeId<EquipSlotPrototype> InvalidID = new("Invalid");
 
         private static readonly string Prototypes = @$"
 - type: Elona.EquipSlot
@@ -28,7 +29,6 @@ namespace OpenNefia.Content.Tests.Inventory
 - type: Elona.EquipSlot
   id: {TestSlot2ID}
 ";
-
 
         private ISimulation SimulationFactory()
         {
@@ -61,6 +61,7 @@ namespace OpenNefia.Content.Tests.Inventory
             { 
                 TestSlot1ID,
                 TestSlot2ID,
+                InvalidID,
                 TestSlot2ID,
             };
 
@@ -81,6 +82,13 @@ namespace OpenNefia.Content.Tests.Inventory
                 Assert.That((string)equipSlots[0].ContainerID, Is.EqualTo($"Elona.EquipSlot:TestSlot1:0"));
                 Assert.That((string)equipSlots[1].ContainerID, Is.EqualTo($"Elona.EquipSlot:TestSlot2:0"));
                 Assert.That((string)equipSlots[2].ContainerID, Is.EqualTo($"Elona.EquipSlot:TestSlot2:1"));
+
+                Assert.That(invSys.TryGetEquipSlotAndContainer(ent, TestSlot1ID, out var equipSlot1, out var containerSlot1), Is.True);
+                Assert.That(invSys.TryGetEquipSlotAndContainer(ent, TestSlot2ID, out var equipSlot2, out var containerSlot2), Is.True);
+                Assert.That(equipSlot1, Is.EqualTo(equipSlots[0]));
+                Assert.That(equipSlot2, Is.EqualTo(equipSlots[1]));
+                Assert.That(containerSlot1!.ID, Is.EqualTo(equipSlot1!.ContainerID));
+                Assert.That(containerSlot2!.ID, Is.EqualTo(equipSlot2!.ContainerID));
             });
         }
 
@@ -107,6 +115,8 @@ namespace OpenNefia.Content.Tests.Inventory
             Assert.Multiple(() =>
             {
                 var oldContainerCount = containers.Containers.Count;
+
+                Assert.That(invSys.TryAddEquipSlot(ent, InvalidID, out _, out _), Is.False);
 
                 Assert.That(invSys.TryAddEquipSlot(ent, TestSlot1ID, out var containerSlot, out var equipSlot), Is.True);
                 Assert.That(invSys.HasEquipSlot(ent, TestSlot1ID), Is.True);

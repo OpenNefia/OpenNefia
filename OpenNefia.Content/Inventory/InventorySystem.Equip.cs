@@ -22,12 +22,7 @@ namespace OpenNefia.Content.Inventory
         // That's one beefy mutant.
         private const int MaxContainerSlotsPerEquipSlot = 1024;
 
-        /// <summary>
-        /// Clears and initializes equipment slots on this entity, adding an <see cref="InventoryComponent"/>
-        /// and a <see cref="ContainerManagerComponent"/> if needed.
-        /// </summary>
-        /// <param name="uid">Entity UID.</param>
-        /// <param name="equipSlotProtoIds">Equip slots for this entity.</param>
+        /// <inheritdoc/>
         public void InitializeEquipSlots(EntityUid uid, IEnumerable<EquipSlotPrototypeId> equipSlotProtoIds,
             InventoryComponent? inventory = null,
             ContainerManagerComponent? containerComp = null)
@@ -45,6 +40,7 @@ namespace OpenNefia.Content.Inventory
             }
         }
 
+        /// <inheritdoc/>
         public bool TryAddEquipSlot(EntityUid uid, EquipSlotPrototypeId slotId,
             [NotNullWhen(true)] out ContainerSlot? containerSlot, [NotNullWhen(true)] out EquipSlotInstance? equipSlotInstance,
             InventoryComponent? inventory = null,
@@ -53,6 +49,9 @@ namespace OpenNefia.Content.Inventory
             containerSlot = null;
             equipSlotInstance = null;
             if (!Resolve(uid, ref inventory, ref containerComp))
+                return false;
+
+            if (!_prototypeManager.HasIndex(slotId))
                 return false;
 
             var containerId = FindFreeContainerIdForSlot(uid, slotId, inventory, containerComp);
@@ -68,6 +67,7 @@ namespace OpenNefia.Content.Inventory
             return true;
         }
 
+        /// <inheritdoc/>
         public bool TryRemoveEquipSlot(EntityUid uid, EquipSlotInstance instance,
             InventoryComponent? inventory = null,
             ContainerManagerComponent? containerComp = null)
@@ -96,6 +96,7 @@ namespace OpenNefia.Content.Inventory
             return true;
         }
 
+        /// <inheritdoc/>
         public void ClearEquipSlots(EntityUid uid,
             InventoryComponent? inventory = null,
             ContainerManagerComponent? containerComp = null)
@@ -143,9 +144,7 @@ namespace OpenNefia.Content.Inventory
             return null;
         }
         
-        /// <summary>
-        /// Returns an equip slot with the given prototype ID, if any.
-        /// </summary>
+        /// <inheritdoc/>
         public bool TryGetEquipSlotAndContainer(EntityUid uid, EquipSlotPrototypeId slotId,
             [NotNullWhen(true)] out EquipSlotInstance? equipSlotInstance, [NotNullWhen(true)] out ContainerSlot? containerSlot,
             InventoryComponent? inventory = null, 
@@ -162,9 +161,7 @@ namespace OpenNefia.Content.Inventory
             return TryGetContainerForEquipSlot(uid, equipSlotInstance, out containerSlot, inventory, containerComp);
         }
 
-        /// <summary>
-        /// Returns the container for the given equip slot instance, creating it if necessary.
-        /// </summary>
+        /// <inheritdoc/>
         public bool TryGetContainerForEquipSlot(EntityUid uid, EquipSlotInstance equipSlotInstance,
             [NotNullWhen(true)] out ContainerSlot? containerSlot,
             InventoryComponent? inventory = null,
@@ -188,9 +185,7 @@ namespace OpenNefia.Content.Inventory
             return true;
         }
 
-        /// <summary>
-        /// Returns the equipment slot instance for this container, if it exists.
-        /// </summary>
+        /// <inheritdoc/>
         public bool TryGetEquipSlotForContainer(EntityUid uid, ContainerId containerId,
             [NotNullWhen(true)] out EquipSlotInstance? equipSlotInstance,
             InventoryComponent? inventory = null,
@@ -204,18 +199,13 @@ namespace OpenNefia.Content.Inventory
             return equipSlotInstance != default;
         }
 
+        /// <inheritdoc/>
         public bool HasEquipSlot(EntityUid uid, EquipSlotPrototypeId slotId, InventoryComponent? inventory = null) =>
             TryGetEquipSlot(uid, slotId, out _, inventory);
 
-        /// <summary>
-        /// Returns an equipment slot with the given ID on this entity, if any.
-        /// </summary>
-        /// <param name="uid"></param>
-        /// <param name="slotId"></param>
-        /// <param name="equipSlotInstance"></param>
-        /// <param name="inventory"></param>
-        /// <returns></returns>
-        public bool TryGetEquipSlot(EntityUid uid, EquipSlotPrototypeId slotId, [NotNullWhen(true)] out EquipSlotInstance? equipSlotInstance, 
+
+        /// <inheritdoc/>
+        public bool TryGetEquipSlot(EntityUid uid, EquipSlotPrototypeId slotId, [NotNullWhen(true)] out EquipSlotInstance? equipSlotInstance,
             InventoryComponent? inventory = null)
         {
             equipSlotInstance = null;
@@ -229,6 +219,7 @@ namespace OpenNefia.Content.Inventory
             return equipSlotInstance != default;
         }
 
+        /// <inheritdoc/>
         public bool TryGetContainerSlotEnumerator(EntityUid uid, out ContainerSlotEnumerator containerSlotEnumerator, 
             InventoryComponent? inventory = null)
         {
@@ -240,6 +231,7 @@ namespace OpenNefia.Content.Inventory
             return true;
         }
 
+        /// <inheritdoc/>
         public bool TryGetEquipSlots(EntityUid uid, [NotNullWhen(true)] out IList<EquipSlotInstance>? slotDefinitions,
             InventoryComponent? inventory = null)
         {
@@ -251,6 +243,7 @@ namespace OpenNefia.Content.Inventory
             return true;
         }
 
+        /// <inheritdoc/>
         public IList<EquipSlotInstance> GetEquipSlots(EntityUid uid, InventoryComponent? inventory = null)
         {
             if (!Resolve(uid, ref inventory)) throw new InvalidOperationException();

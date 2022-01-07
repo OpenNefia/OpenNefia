@@ -1,4 +1,5 @@
-﻿using OpenNefia.Core.GameObjects;
+﻿using OpenNefia.Content.Charas;
+using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Rendering;

@@ -8,6 +8,9 @@ using OpenNefia.Core.Serialization.Manager.Attributes;
 
 namespace OpenNefia.Core.Containers
 {
+    /// <summary>
+    /// A container that can only hold a single entity. Used for equipment slots.
+    /// </summary>
     [UsedImplicitly]
     [SerializedType(ClassName)]
     public class ContainerSlot : BaseContainer
