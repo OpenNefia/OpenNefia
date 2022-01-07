@@ -46,14 +46,14 @@ namespace OpenNefia.Content.Inventory
     {
         public InventoryEntry(EntityUid item, IInventorySource origin, string itemNameText, string itemDetailText, Color chipColor)
         {
-            Item = item;
+            ItemEntityUid = item;
             Origin = origin;
             ItemNameText = itemNameText;
             ItemDetailText = itemDetailText;
             ChipColor = chipColor;
         }
 
-        public EntityUid Item { get; set; }
+        public EntityUid ItemEntityUid { get; set; }
         public IInventorySource Origin { get; set; }
         public string ItemNameText { get; set; }
         public string ItemDetailText { get; set; }
@@ -109,7 +109,7 @@ namespace OpenNefia.Content.Inventory
                 UiText.Draw();
                 UiSubtext.Draw();
 
-                SpriteBatch.Add(Data.Item, X - 21, Y + 11, color: Data.ChipColor, centered: true);
+                SpriteBatch.Add(Data.ItemEntityUid, X - 21, Y + 11, color: Data.ChipColor, centered: true);
             }
 
             public override void Update(float dt)
@@ -119,49 +119,15 @@ namespace OpenNefia.Content.Inventory
                 UiSubtext.Update(dt);
             }
 
-            private static Color GetTextColor(IEntityManager entityManager, EntityUid uid)
-            {
-                var pickable = entityManager.EnsureComponent<PickableComponent>(uid);
-
-                if (pickable.IsNoDrop)
-                {
-                    return UiColors.InventoryItemNoDrop;
-                }
-
-                var identified = true;
-                if (entityManager.TryGetComponent(uid, out IdentifyComponent identify))
-                {
-                    identified = identify.IdentifyState == IdentifyState.Full;
-                }
-
-                if (identified && entityManager.TryGetComponent(uid, out CurseStateComponent curse))
-                {
-                    switch (curse.CurseState)
-                    {
-                        case CurseState.Doomed:
-                            return UiColors.InventoryItemDoomed;
-                        case CurseState.Cursed:
-                            return UiColors.InventoryItemCursed;
-                        case CurseState.Normal:
-                            return UiColors.InventoryItemNormal;
-                        case CurseState.Blessed:
-                            return UiColors.InventoryItemBlessed;
-                    }
-                }
-
-                return UiColors.TextBlack;
-            }
-
             public void RefreshFromItem(IEntityManager entityManager)
             {
-                UiText.Color = GetTextColor(entityManager, Data.Item);
+                UiText.Color = InventoryHelpers.GetItemTextColor(Data.ItemEntityUid, entityManager);
             }
 
             public override void Dispose()
             {
                 base.Dispose();
                 UiSubtext.Dispose();
-                SpriteBatch.Dispose();
             }
         }
 
@@ -177,9 +143,9 @@ namespace OpenNefia.Content.Inventory
         public int SelectedIndex => List.SelectedIndex;
         public InventoryEntry? SelectedEntry => List.SelectedCell?.Data;
 
-        private IUiText TextTopicWindowName = new UiTextTopic("Item");
-        private IUiText TextTopicDetailHeader = new UiTextTopic("Detail");
-        private IUiText TextTotalWeight = new UiText(UiFonts.TextNote);
+        private IUiText TextTopicWindowName = new UiTextTopic("item");
+        private IUiText TextTopicDetailHeader = new UiTextTopic("detail");
+        private IUiText TextNoteTotalWeight = new UiText(UiFonts.TextNote);
         private IUiText TextGoldCount = new UiText(UiFonts.InventoryGoldCount);
 
         private IAssetDrawable? CurrentIcon;
@@ -190,7 +156,7 @@ namespace OpenNefia.Content.Inventory
         private IAssetDrawable AssetDecoInvD;
         private IAssetDrawable AssetGoldCoin;
 
-        private EntitySpriteBatch SpriteBatch = new();
+        private EntitySpriteBatch _spriteBatch = new();
 
         public InventoryContext Context { get; private set; } = default!;
 
@@ -247,13 +213,13 @@ namespace OpenNefia.Content.Inventory
             if (selected == null)
                 return;
 
-            UserInterfaceManager.Query<ItemDescriptionLayer, EntityUid>(selected.Data.Item);
+            UserInterfaceManager.Query<ItemDescriptionLayer, EntityUid>(selected.Data.ItemEntityUid);
         }
 
         public void OnSelect(object? sender, UiListEventArgs<InventoryEntry> e)
         {
             var entry = e.SelectedCell.Data;
-            var result = Context.OnSelect(entry.Item);
+            var result = Context.OnSelect(entry.ItemEntityUid);
 
             switch (result)
             {
@@ -345,7 +311,7 @@ namespace OpenNefia.Content.Inventory
             var index = List.SelectedIndex;
 
             List.Clear();
-            List.AddRange(filtered.Select(e => new InventoryEntryCell(e, SpriteBatch)));
+            List.AddRange(filtered.Select(e => new InventoryEntryCell(e, _spriteBatch)));
 
             List.SelectedIndex = index;
 
@@ -356,11 +322,11 @@ namespace OpenNefia.Content.Inventory
             if (Context.Behavior.ShowTotalWeight)
             {
                 var weightText = totalWeight;
-                TextTotalWeight.Text = $"{List.Count} items  ({weightText})";
+                TextNoteTotalWeight.Text = $"{List.Count} items  ({weightText})";
             }
             else
             {
-                TextTotalWeight.Text = string.Empty;
+                TextNoteTotalWeight.Text = string.Empty;
             }
 
             RedisplayList();
@@ -398,7 +364,7 @@ namespace OpenNefia.Content.Inventory
 
             Window.SetSize(Width, Height);
             List.SetSize(Width - 58, Height - 60);
-            SpriteBatch.SetSize(0, 0);
+            _spriteBatch.SetSize(0, 0);
 
             AssetDecoInvA.SetPreferredSize();
             AssetDecoInvB.SetPreferredSize();
@@ -408,7 +374,7 @@ namespace OpenNefia.Content.Inventory
 
             TextTopicWindowName.SetPreferredSize();
             TextTopicDetailHeader.SetPreferredSize();
-            TextTotalWeight.SetPreferredSize();
+            TextNoteTotalWeight.SetPreferredSize();
             TextGoldCount.SetPreferredSize();
         }
 
@@ -418,7 +384,7 @@ namespace OpenNefia.Content.Inventory
 
             Window.SetPosition(X, Y);
             List.SetPosition(X + 58, Y + 60);
-            SpriteBatch.SetPosition(0, 0);
+            _spriteBatch.SetPosition(0, 0);
 
             AssetDecoInvA.SetPosition(X + Width - 136, Y - 6);
             AssetDecoInvB.SetPosition(X + Width - 186, Y - 6);
@@ -428,8 +394,8 @@ namespace OpenNefia.Content.Inventory
 
             TextTopicWindowName.SetPosition(X + 28, Y + 30);
             TextTopicDetailHeader.SetPosition(X + 526, Y + 30);
-            var notePos = UiUtils.NotePosition(GlobalPixelBounds, TextTotalWeight);
-            TextTotalWeight.SetPosition(notePos.X, notePos.Y);
+            var notePos = UiUtils.NotePosition(GlobalPixelBounds, TextNoteTotalWeight);
+            TextNoteTotalWeight.SetPosition(notePos.X, notePos.Y);
             TextGoldCount.SetPosition(X + 368, Y + 37);
         }
 
@@ -437,7 +403,7 @@ namespace OpenNefia.Content.Inventory
         {
             Window.Update(dt);
             List.Update(dt);
-            SpriteBatch.Update(dt);
+            _spriteBatch.Update(dt);
 
             AssetDecoInvA.Update(dt);
             AssetDecoInvB.Update(dt);
@@ -447,7 +413,7 @@ namespace OpenNefia.Content.Inventory
 
             TextTopicWindowName.Update(dt);
             TextTopicDetailHeader.Update(dt);
-            TextTotalWeight.Update(dt);
+            TextNoteTotalWeight.Update(dt);
             TextGoldCount.Update(dt);
         }
 
@@ -465,14 +431,12 @@ namespace OpenNefia.Content.Inventory
 
             TextTopicWindowName.Draw();
             TextTopicDetailHeader.Draw();
-            TextTotalWeight.Draw();
+            TextNoteTotalWeight.Draw();
 
             // List will update the sprite batch.
-            SpriteBatch.Clear();
-
+            _spriteBatch.Clear();
             List.Draw();
-
-            SpriteBatch.Draw();
+            _spriteBatch.Draw();
 
             if (Context.Behavior.ShowMoney)
             {

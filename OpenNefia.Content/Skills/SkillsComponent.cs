@@ -2,6 +2,7 @@
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Serialization.Manager.Attributes;
 using OpenNefia.Core.Serialization.Markdown.Mapping;
+using OpenNefia.Core.Stats;
 using System.Collections;
 using System.Diagnostics.CodeAnalysis;
 
@@ -53,6 +54,30 @@ namespace OpenNefia.Content.Skills
         /// </summary>
         [DataField]
         public int MaxStamina { get; set; }
+
+        /// <summary>
+        /// Current Defense Value.
+        /// </summary>
+        [DataField]
+        public Stat<int> DV { get; set; }
+
+        /// <summary>
+        /// Current Protection Value.
+        /// </summary>
+        [DataField]
+        public Stat<int> PV { get; set; }
+
+        /// <summary>
+        /// Current hit bonus.
+        /// </summary>
+        [DataField]
+        public Stat<int> HitBonus { get; set; }
+
+        /// <summary>
+        /// Current damage bonus.
+        /// </summary>
+        [DataField]
+        public Stat<int> DamageBonus { get; set; }
 
         /// <summary>
         /// Level, potential and experience for skills and stats.

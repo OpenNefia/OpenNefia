@@ -8669,7 +8669,7 @@
       filepath: /Graphic/Beautify/interface.bmp
   
   - type: Asset
-    id: BodyPartIcons
+    id: EquipSlotIcons
     image:
       filepath: /Graphic/Beautify/interface.bmp
   

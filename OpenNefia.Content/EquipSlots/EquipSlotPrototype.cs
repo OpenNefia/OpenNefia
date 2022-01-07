@@ -21,7 +21,7 @@ namespace OpenNefia.Content.EquipSlots
         /// Icon index for this body part.
         /// </summary>
         /// <remarks>
-        /// This is a region ID in <see cref="AssetPrototypeOf.BodyPartIcons"/>. 
+        /// This is a region ID in <see cref="AssetPrototypeOf.EquipSlotIcons"/>. 
         /// </remarks>
         [DataField]
         public string Icon { get; } = "1";

@@ -14,6 +14,7 @@ namespace OpenNefia.Core.Rendering
         Vector2i Size { get; }
 
         AssetPrototype Asset { get; }
+        IReadOnlyDictionary<string, UIBox2i> Regions { get; }
         uint CountX { get; }
         uint CountY { get; }
 
@@ -53,7 +54,9 @@ namespace OpenNefia.Core.Rendering
         private Love.Image Image { get; }
 
         private Dictionary<string, Love.Quad> Quads;
-        private AssetRegions Regions;
+        private AssetRegions _regions;
+
+        public IReadOnlyDictionary<string, UIBox2i> Regions => _regions;
 
         public uint CountX { get; }
         public uint CountY { get; }
@@ -69,7 +72,7 @@ namespace OpenNefia.Core.Rendering
             this.Quads = new Dictionary<string, Quad>();
             this.CountX = this.Asset.CountX;
             this.CountY = this.Asset.CountY;
-            this.Regions = regions;
+            this._regions = regions;
 
             this.SetupQuads();
         }
@@ -102,7 +105,7 @@ namespace OpenNefia.Core.Rendering
                 this.Quads["0"] = Love.Graphics.NewQuad(0, 0, imageWidth, imageHeight, imageWidth, imageHeight);
             }
 
-            foreach (var pair in this.Regions)
+            foreach (var pair in this._regions)
             {
                 var key = pair.Key;
                 var region = pair.Value;

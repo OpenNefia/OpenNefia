@@ -45,8 +45,17 @@ namespace OpenNefia.Content.Skills
         {
             var level = EntityManager.EnsureComponent<LevelComponent>(uid);
 
+            ResetStatBuffs(skills);
             ResetSkillBuffs(skills);
             RefreshHPMPAndStamina(skills, level);
+        }
+
+        private void ResetStatBuffs(SkillsComponent skills)
+        {
+            skills.DV.Reset();
+            skills.PV.Reset();
+            skills.HitBonus.Reset();
+            skills.DamageBonus.Reset();
         }
 
         private void ResetSkillBuffs(SkillsComponent skills)

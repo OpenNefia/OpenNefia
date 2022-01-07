@@ -9,6 +9,7 @@ namespace OpenNefia.Content.Input
     public static class ContentKeyFunctions
     {
         public static readonly BoundKeyFunction UIIdentify = "Elona.UIIdentify";
+        public static readonly BoundKeyFunction UIMode = "Elona.UIMode";
         public static readonly BoundKeyFunction UIMode2 = "Elona.UIMode2";
         public static readonly BoundKeyFunction DiagonalOnly = "Elona.DiagonalOnly";
 
@@ -23,5 +24,6 @@ namespace OpenNefia.Content.Input
         public static readonly BoundKeyFunction Eat = "Elona.Eat";
         public static readonly BoundKeyFunction Throw = "Elona.Throw";
         public static readonly BoundKeyFunction Examine = "Elona.Examine";
+        public static readonly BoundKeyFunction Wear = "Elona.Wear";
     }
 }

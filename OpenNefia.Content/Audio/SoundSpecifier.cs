@@ -13,9 +13,9 @@ namespace OpenNefia.Content.Audio
 
     public sealed class SoundPathSpecifier : SoundSpecifier
     {
-        public const string Node = "path";
+        public const string Node = "soundID";
 
-        [DataField(Node, customTypeSerializer: typeof(ResourcePathSerializer), required: true)]
+        [DataField(Node, required: true)]
         public PrototypeId<SoundPrototype>? SoundID { get; }
 
         public SoundPathSpecifier()

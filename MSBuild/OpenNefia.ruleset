@@ -48,5 +48,6 @@
     <Rule Id="CS8767" Action="Error" />
     <Rule Id="CS8768" Action="Error" />
     <Rule Id="CS8769" Action="Error" />
+    <Rule Id="IDE0043" Action="Error" />
   </Rules>
 </RuleSet>

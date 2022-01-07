@@ -56,7 +56,7 @@ namespace OpenNefia.Core.Rendering
         public static AssetPrototypeId Caption = new(nameof(Caption));
         public static AssetPrototypeId EnchantmentIcons = new(nameof(EnchantmentIcons));
         public static AssetPrototypeId InheritanceIcon = new(nameof(InheritanceIcon));
-        public static AssetPrototypeId BodyPartIcons = new(nameof(BodyPartIcons));
+        public static AssetPrototypeId EquipSlotIcons = new(nameof(EquipSlotIcons));
         public static AssetPrototypeId TipIcons = new(nameof(TipIcons));
         public static AssetPrototypeId QuickMenuItem = new(nameof(QuickMenuItem));
         public static AssetPrototypeId QuickMenuItemSpecial = new(nameof(QuickMenuItemSpecial));

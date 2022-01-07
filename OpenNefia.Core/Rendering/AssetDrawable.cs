@@ -48,7 +48,22 @@ namespace OpenNefia.Core.Rendering
 
         public override void GetPreferredSize(out Vector2i size)
         {
-            size = Instance.Size;
+            if (RegionId != null)
+            {
+                if (Instance.Regions.TryGetValue(RegionId, out var region))
+                {
+                    size = region.Size;
+                }
+                else
+                {
+                    // This draws at the default size.
+                    size = Vector2i.Zero;
+                }
+            }
+            else
+            {
+                size = Instance.Size;
+            }
         }
 
         public override void Update(float dt)

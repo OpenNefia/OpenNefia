@@ -72,7 +72,7 @@ namespace OpenNefia.Content.EquipSlots
 
             if (!equipSlotsComp.EquipSlots.Contains(instance))
             {
-                Logger.WarningS("inv.equip", $"Tried to remove equip slot {instance}, but it wasn't owned by entity {uid}!");
+                Logger.WarningS("equip", $"Tried to remove equip slot {instance}, but it wasn't owned by entity {uid}!");
                 return false;
             }
 
@@ -84,7 +84,7 @@ namespace OpenNefia.Content.EquipSlots
             }
             else
             {
-                Logger.WarningS("inv.equip", $"Tried to remove equip slot {instance} from entity {uid}, but its container was not found.");
+                Logger.WarningS("equip", $"Tried to remove equip slot {instance} from entity {uid}, but its container was not found.");
             }
 
             equipSlotsComp.EquipSlots.Remove(instance);
@@ -134,7 +134,7 @@ namespace OpenNefia.Content.EquipSlots
                 index++;
             }
 
-            Logger.WarningS("inv.equip", $"Could not find free container ID for equipment slot {slotId} (entity {uid}) after {index} tries!");
+            Logger.WarningS("equip", $"Could not find free container ID for equipment slot {slotId} (entity {uid}) after {index} tries!");
 
             return null;
         }
@@ -168,7 +168,7 @@ namespace OpenNefia.Content.EquipSlots
 
             if (!_containerSys.TryGetContainer(uid, equipSlotInstance.ContainerID, out var container))
             {
-                Logger.WarningS("inv.equip", $"EquipSlot declared container ID {equipSlotInstance.ContainerID}, but it wasn't allocated yet.");
+                Logger.WarningS("equip", $"EquipSlot declared container ID {equipSlotInstance.ContainerID}, but it wasn't allocated yet.");
                 containerSlot = _containerSys.MakeContainer<ContainerSlot>(uid, equipSlotInstance.ContainerID, containerManager: containerComp);
                 containerSlot.OccludesLight = false;
                 return true;

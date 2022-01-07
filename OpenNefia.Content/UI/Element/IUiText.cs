@@ -11,6 +11,10 @@ namespace OpenNefia.Content.UI.Element
         public Color Color { get; set; }
         public Color BgColor { get; set; }
         public FontSpec Font { get; set; }
+
+        /// <summary>
+        /// Width of the text contained inside of the UI element, in pixels.
+        /// </summary>
         public int TextWidth { get; }
     }
 }
