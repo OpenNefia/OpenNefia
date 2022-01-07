@@ -118,6 +118,7 @@ namespace OpenNefia.Content.CharaMake
         private UiList<AttributeRerollData> List;
 
         private int LockCount = 2;
+        private bool IsInitialized;
 
         public CharaMakeAttributeRerollLayer()
         {
@@ -131,6 +132,10 @@ namespace OpenNefia.Content.CharaMake
 
         public override void Initialize(CharaMakeData args)
         {
+            // gets called when the ui is loaded, so this could potentially run multiple times 
+            //      if the user backtracks in creation
+            if (IsInitialized) 
+                return;
             base.Initialize(args);
             var data = AttributeIds.Select(x => new AttributeRerollCell(new PrototypeId<SkillPrototype>(x))).ToList();
             data.InsertRange(0, new[]
@@ -164,6 +169,7 @@ namespace OpenNefia.Content.CharaMake
                         break;
                 }
             };
+            IsInitialized = true;
         }
 
         private void Reroll()
