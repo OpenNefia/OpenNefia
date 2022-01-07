@@ -25,65 +25,58 @@ namespace OpenNefia.Content.CharaMake
             Reroll,
             Proceed
         }
-        public class AttributeRerollData
+        public abstract record AttributeRerollData
         {
-            public object Data;
-            public IUiText AmountText = default!;
+            public abstract string Text { get; }
 
-            public bool Locked;
-            private int _amount;
-            public int Amount
+            public sealed record ListChoice(AttributeRerollChoice Choice) : AttributeRerollData
             {
-                get => _amount;
-                set
+                public override string Text => Loc.GetString($"Elona.CharaMake.AttributeReroll.{Choice}");
+            }
+            public sealed record Attribute(PrototypeId<SkillPrototype> Id) : AttributeRerollData
+            {
+                public override string Text => Loc.GetPrototypeString(Id, "Name")!;
+
+                public IUiText AmountText = default!;
+                public bool Locked;
+                private int _amount;
+                public int Amount
                 {
-                    _amount = value;
-                    AmountText.Text = $"{value}";
+                    get => _amount;
+                    set
+                    {
+                        _amount = value;
+                        AmountText.Text = $"{value}";
+                    }
                 }
             }
-            public AttributeRerollData(PrototypeId<SkillPrototype> id)
-            {
-                Data = id;
-            }
-            public AttributeRerollData(AttributeRerollChoice choice)
-            {
-                Data = choice;
-            }
-
-            public string GetText() => Data switch
-            {
-                AttributeRerollChoice choice => Loc.GetString($"Elona.CharaMake.AttributeReroll.{choice}"),
-                PrototypeId<SkillPrototype> id => Loc.GetPrototypeString(id, "Name")!,
-                _ => string.Empty,
-            };
         }
+
         public class AttributeRerollCell : UiListCell<AttributeRerollData>
         {
             private UiText LockedText;
             private UiText AmountText;
             private AttributeIcon Icon;
 
-            public AttributeRerollCell(PrototypeId<SkillPrototype> id) : this(new AttributeRerollData(id)) { }
-            public AttributeRerollCell(AttributeRerollChoice choice) : this(new AttributeRerollData(choice)) { }
             public AttributeRerollCell(AttributeRerollData data) 
                 : base(data, new UiText(UiFonts.ListText))
             {
-                Text = Data.GetText();
+                Text = Data.Text;
 
                 LockedText = new UiText(UiFonts.CharaMakeRerollLocked);
                 AmountText = new UiText(UiFonts.CharaMakeRerollAttrAmount);
                 LockedText.Text = Loc.GetString("Elona.CharaMake.AttributeReroll.Locked");
 
-                switch (Data.Data)
+                switch (data)
                 {
                     default:
-                    case AttributeRerollChoice choice:
+                    case AttributeRerollData.ListChoice choice:
                         Icon = new AttributeIcon("");
                         break;
-                    case PrototypeId<SkillPrototype> id:
-                        Data.AmountText = AmountText;
-                        Icon = new AttributeIcon(id.ToString());
-                        Data.Amount = new System.Random().Next(1, 14);
+                    case AttributeRerollData.Attribute attr:
+                        attr.AmountText = AmountText;
+                        attr.Amount = new System.Random().Next(1, 14);
+                        Icon = new AttributeIcon(attr.Id.ToString());
                         break;
                 }
             }
@@ -105,7 +98,7 @@ namespace OpenNefia.Content.CharaMake
             public override void Draw()
             {
                 base.Draw();
-                if (Data.Locked)
+                if (Data is AttributeRerollData.Attribute attr && attr.Locked)
                     LockedText.Draw();
                 Icon.Draw();
                 AmountText.Draw();
@@ -139,26 +132,27 @@ namespace OpenNefia.Content.CharaMake
             if (IsInitialized) 
                 return;
             base.Initialize(args);
-            var data = AttributeIds.Select(x => new AttributeRerollCell(new PrototypeId<SkillPrototype>(x))).ToList();
+            var data = AttributeIds.Select(x => new AttributeRerollCell(new AttributeRerollData.Attribute(new PrototypeId<SkillPrototype>(x)))).ToList();
             data.InsertRange(0, new[]
             {
-                new AttributeRerollCell(AttributeRerollChoice.Reroll),
-                new AttributeRerollCell(AttributeRerollChoice.Proceed)
+                new AttributeRerollCell(new AttributeRerollData.ListChoice(AttributeRerollChoice.Reroll)),
+                new AttributeRerollCell(new AttributeRerollData.ListChoice(AttributeRerollChoice.Proceed)),
             });
             List.AddRange(data);
             List.EventOnActivate += (_, args) =>
             {
-                switch(args.SelectedCell.Data.Data)
+                switch(args.SelectedCell.Data)
                 {
-                    case AttributeRerollChoice choice:
-                        switch (choice)
+                    case AttributeRerollData.ListChoice choice:
+                        switch (choice.Choice)
                         {
                             case AttributeRerollChoice.Proceed:
                                 Finish(new CharaMakeResult(new Dictionary<string, object>
                                 {
                                     { ResultName, List.Select(x => x.Data)
-                                        .Where(x => x.Data is PrototypeId<SkillPrototype>)
-                                        .ToDictionary(x => (PrototypeId<SkillPrototype>)x.Data, y => y.Amount)}
+                                        .Where(x => x is AttributeRerollData.Attribute)
+                                        .Cast<AttributeRerollData.Attribute>()
+                                        .ToDictionary(x => x.Id, y => y.Amount) }
                                 }));
                                 break;
                             default:
@@ -166,8 +160,8 @@ namespace OpenNefia.Content.CharaMake
                                 break;
                         }
                         break;
-                    case PrototypeId<SkillPrototype> id:
-                        SetLock(args.SelectedCell.Data);
+                    case AttributeRerollData.Attribute attr:
+                        SetLock(attr);
                         break;
                 }
             };
@@ -180,7 +174,7 @@ namespace OpenNefia.Content.CharaMake
             //TODO add rerolling
         }
 
-        private void SetLock(AttributeRerollData data)
+        private void SetLock(AttributeRerollData.Attribute data)
         {
             Sounds.Play(Protos.Sound.Ok1);
             if (data.Locked)
