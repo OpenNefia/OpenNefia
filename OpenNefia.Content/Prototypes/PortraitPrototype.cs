@@ -4,7 +4,7 @@ using OpenNefia.Core.Serialization.Manager.Attributes;
 
 namespace OpenNefia.Content.Prototypes
 {
-    [Prototype("Portrait")]
+    [Prototype("Elona.Portrait")]
     public class PortraitPrototype : IPrototype, IHspIds<int>
     {
         [DataField("id", required: true)]

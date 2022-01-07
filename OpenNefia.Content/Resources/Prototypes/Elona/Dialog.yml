@@ -1,148 +1,148 @@
 ---
-- type: Dialog
+- type: Elona.Dialog
   id: ElonaSys.IgnoresYou
-- type: Dialog
+- type: Elona.Dialog
   id: Elona.PartTimeWorker
-- type: Dialog
+- type: Elona.Dialog
   id: Elona.Pael
-- type: Dialog
+- type: Elona.Dialog
   id: Elona.Orphe
-- type: Dialog
+- type: Elona.Dialog
   id: Elona.Poppy
-- type: Dialog
+- type: Elona.Dialog
   id: Elona.Renton
-- type: Dialog
+- type: Elona.Dialog
   id: Elona.Raphael
-- type: Dialog
+- type: Elona.Dialog
   id: Elona.Rilian
-- type: Dialog
+- type: Elona.Dialog
   id: Elona.RogueBoss
-- type: Dialog
+- type: Elona.Dialog
   id: Elona.Noel
-- type: Dialog
+- type: Elona.Dialog
   id: Elona.Miches
-- type: Dialog
+- type: Elona.Dialog
   id: Elona.Lomias
-- type: Dialog
+- type: Elona.Dialog
   id: Elona.LomiasGameBegin
-- type: Dialog
+- type: Elona.Dialog
   id: Elona.Miral
-- type: Dialog
+- type: Elona.Dialog
   id: Elona.Loyter
-- type: Dialog
+- type: Elona.Dialog
   id: Elona.Mia
-- type: Dialog
+- type: Elona.Dialog
   id: Elona.Marks
-- type: Dialog
+- type: Elona.Dialog
   id: Elona.Lily
-- type: Dialog
+- type: Elona.Dialog
   id: Elona.Shena
-- type: Dialog
+- type: Elona.Dialog
   id: Elona.Stersha
-- type: Dialog
+- type: Elona.Dialog
   id: Elona.QuestHarvest
-- type: Dialog
+- type: Elona.Dialog
   id: Elona.QuestEscort
-- type: Dialog
+- type: Elona.Dialog
   id: Elona.QuestDeliver
-- type: Dialog
+- type: Elona.Dialog
   id: Elona.QuestHuntex
-- type: Dialog
+- type: Elona.Dialog
   id: Elona.QuestParty
-- type: Dialog
+- type: Elona.Dialog
   id: Elona.QuestHunt
-- type: Dialog
+- type: Elona.Dialog
   id: Elona.Slan
-- type: Dialog
+- type: Elona.Dialog
   id: Elona.QuestCook
-- type: Dialog
+- type: Elona.Dialog
   id: Elona.QuestCollect
-- type: Dialog
+- type: Elona.Dialog
   id: Elona.Tam
-- type: Dialog
+- type: Elona.Dialog
   id: Elona.StrangeScientist
-- type: Dialog
+- type: Elona.Dialog
   id: Elona.QuestConquer
-- type: Dialog
+- type: Elona.Dialog
   id: Elona.WhomDwellInTheVanity
-- type: Dialog
+- type: Elona.Dialog
   id: Elona.Zeome
-- type: Dialog
+- type: Elona.Dialog
   id: Elona.Xabi
-- type: Dialog
+- type: Elona.Dialog
   id: Elona.QuestSupply
-- type: Dialog
+- type: Elona.Dialog
   id: Elona.Lexus
-- type: Dialog
+- type: Elona.Dialog
   id: Elona.Karam
-- type: Dialog
+- type: Elona.Dialog
   id: Elona.Shopkeeper
-- type: Dialog
+- type: Elona.Dialog
   id: Elona.Trainer
-- type: Dialog
+- type: Elona.Dialog
   id: Elona.Prostitute
-- type: Dialog
+- type: Elona.Dialog
   id: Elona.Innkeeper
-- type: Dialog
+- type: Elona.Dialog
   id: Elona.Informer
-- type: Dialog
+- type: Elona.Dialog
   id: Elona.SpellWriter
-- type: Dialog
+- type: Elona.Dialog
   id: Elona.Adventurer
-- type: Dialog
+- type: Elona.Dialog
   id: Elona.Maid
-- type: Dialog
+- type: Elona.Dialog
   id: Elona.Guard
-- type: Dialog
+- type: Elona.Dialog
   id: Elona.Servant
-- type: Dialog
+- type: Elona.Dialog
   id: Elona.IsBusy
-- type: Dialog
+- type: Elona.Dialog
   id: Elona.IsSleeping
-- type: Dialog
+- type: Elona.Dialog
   id: Elona.Ally
-- type: Dialog
+- type: Elona.Dialog
   id: Elona.Default
-- type: Dialog
+- type: Elona.Dialog
   id: Elona.Sex
-- type: Dialog
+- type: Elona.Dialog
   id: Elona.QuestGiver
-- type: Dialog
+- type: Elona.Dialog
   id: Elona.Larnneire
-- type: Dialog
+- type: Elona.Dialog
   id: Elona.GuestCitizen
-- type: Dialog
+- type: Elona.Dialog
   id: Elona.GuestBeggar
-- type: Dialog
+- type: Elona.Dialog
   id: Elona.Garokk
-- type: Dialog
+- type: Elona.Dialog
   id: Elona.Erystia
-- type: Dialog
+- type: Elona.Dialog
   id: Elona.Doria
-- type: Dialog
+- type: Elona.Dialog
   id: Elona.Gilbert
-- type: Dialog
+- type: Elona.Dialog
   id: Elona.KanedaBike
-- type: Dialog
+- type: Elona.Dialog
   id: Elona.Icolle
-- type: Dialog
+- type: Elona.Dialog
   id: Elona.GuestTrainer
-- type: Dialog
+- type: Elona.Dialog
   id: Elona.Conery
-- type: Dialog
+- type: Elona.Dialog
   id: Elona.Arnord
-- type: Dialog
+- type: Elona.Dialog
   id: Elona.GuestProducer
-- type: Dialog
+- type: Elona.Dialog
   id: Elona.GuestPunk
-- type: Dialog
+- type: Elona.Dialog
   id: Elona.Balzak
-- type: Dialog
+- type: Elona.Dialog
   id: Elona.GuestMerchant
-- type: Dialog
+- type: Elona.Dialog
   id: Elona.Ainc
-- type: Dialog
+- type: Elona.Dialog
   id: Elona.Abyss
-- type: Dialog
+- type: Elona.Dialog
   id: Elona.WanderingMerchant
 ...

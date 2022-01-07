@@ -1,817 +1,817 @@
 ---
-- type: Portrait
+- type: Elona.Portrait
   id: Elona.Man1
   hspIds:
     elona122: 0
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 0, 0, 48, 72
-- type: Portrait
+- type: Elona.Portrait
   id: Elona.Man2
   hspIds:
     elona122: 1
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 48, 0, 48, 72
-- type: Portrait
+- type: Elona.Portrait
   id: Elona.Man3
   hspIds:
     elona122: 2
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 96, 0, 48, 72
-- type: Portrait
+- type: Elona.Portrait
   id: Elona.Man4
   hspIds:
     elona122: 3
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 144, 0, 48, 72
-- type: Portrait
+- type: Elona.Portrait
   id: Elona.Man5
   hspIds:
     elona122: 4
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 192, 0, 48, 72
-- type: Portrait
+- type: Elona.Portrait
   id: Elona.Man6
   hspIds:
     elona122: 5
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 240, 0, 48, 72
-- type: Portrait
+- type: Elona.Portrait
   id: Elona.Man7
   hspIds:
     elona122: 6
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 288, 0, 48, 72
-- type: Portrait
+- type: Elona.Portrait
   id: Elona.Man8
   hspIds:
     elona122: 7
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 336, 0, 48, 72
-- type: Portrait
+- type: Elona.Portrait
   id: Elona.Man9
   hspIds:
     elona122: 8
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 384, 0, 48, 72
-- type: Portrait
+- type: Elona.Portrait
   id: Elona.Man10
   hspIds:
     elona122: 9
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 432, 0, 48, 72
-- type: Portrait
+- type: Elona.Portrait
   id: Elona.Man11
   hspIds:
     elona122: 10
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 480, 0, 48, 72
-- type: Portrait
+- type: Elona.Portrait
   id: Elona.Man12
   hspIds:
     elona122: 11
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 528, 0, 48, 72
-- type: Portrait
+- type: Elona.Portrait
   id: Elona.Man13
   hspIds:
     elona122: 12
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 576, 0, 48, 72
-- type: Portrait
+- type: Elona.Portrait
   id: Elona.Man14
   hspIds:
     elona122: 13
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 624, 0, 48, 72
-- type: Portrait
+- type: Elona.Portrait
   id: Elona.Man15
   hspIds:
     elona122: 14
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 672, 0, 48, 72
-- type: Portrait
+- type: Elona.Portrait
   id: Elona.Man16
   hspIds:
     elona122: 15
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 720, 0, 48, 72
-- type: Portrait
+- type: Elona.Portrait
   id: Elona.Man17
   hspIds:
     elona122: 16
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 0, 72, 48, 72
-- type: Portrait
+- type: Elona.Portrait
   id: Elona.Man18
   hspIds:
     elona122: 17
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 48, 72, 48, 72
-- type: Portrait
+- type: Elona.Portrait
   id: Elona.Man19
   hspIds:
     elona122: 18
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 96, 72, 48, 72
-- type: Portrait
+- type: Elona.Portrait
   id: Elona.Man20
   hspIds:
     elona122: 19
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 144, 72, 48, 72
-- type: Portrait
+- type: Elona.Portrait
   id: Elona.Man21
   hspIds:
     elona122: 20
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 192, 72, 48, 72
-- type: Portrait
+- type: Elona.Portrait
   id: Elona.Man22
   hspIds:
     elona122: 21
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 240, 72, 48, 72
-- type: Portrait
+- type: Elona.Portrait
   id: Elona.Man23
   hspIds:
     elona122: 22
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 288, 72, 48, 72
-- type: Portrait
+- type: Elona.Portrait
   id: Elona.Man24
   hspIds:
     elona122: 23
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 336, 72, 48, 72
-- type: Portrait
+- type: Elona.Portrait
   id: Elona.Man25
   hspIds:
     elona122: 24
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 384, 72, 48, 72
-- type: Portrait
+- type: Elona.Portrait
   id: Elona.Man26
   hspIds:
     elona122: 25
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 432, 72, 48, 72
-- type: Portrait
+- type: Elona.Portrait
   id: Elona.Man27
   hspIds:
     elona122: 26
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 480, 72, 48, 72
-- type: Portrait
+- type: Elona.Portrait
   id: Elona.Man28
   hspIds:
     elona122: 27
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 528, 72, 48, 72
-- type: Portrait
+- type: Elona.Portrait
   id: Elona.Man29
   hspIds:
     elona122: 28
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 576, 72, 48, 72
-- type: Portrait
+- type: Elona.Portrait
   id: Elona.Man30
   hspIds:
     elona122: 29
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 624, 72, 48, 72
-- type: Portrait
+- type: Elona.Portrait
   id: Elona.Man31
   hspIds:
     elona122: 30
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 672, 72, 48, 72
-- type: Portrait
+- type: Elona.Portrait
   id: Elona.Man32
   hspIds:
     elona122: 31
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 720, 72, 48, 72
-- type: Portrait
+- type: Elona.Portrait
   id: Elona.Man33
   hspIds:
     elona122: 32
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 0, 144, 48, 72
-- type: Portrait
+- type: Elona.Portrait
   id: Elona.Gilbert
   hspIds:
     elona122: 33
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 48, 144, 48, 72
-- type: Portrait
+- type: Elona.Portrait
   id: Elona.Man34
   hspIds:
     elona122: 34
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 96, 144, 48, 72
-- type: Portrait
+- type: Elona.Portrait
   id: Elona.Man35
   hspIds:
     elona122: 35
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 144, 144, 48, 72
-- type: Portrait
+- type: Elona.Portrait
   id: Elona.Arnord
   hspIds:
     elona122: 36
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 192, 144, 48, 72
-- type: Portrait
+- type: Elona.Portrait
   id: Elona.Man36
   hspIds:
     elona122: 37
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 240, 144, 48, 72
-- type: Portrait
+- type: Elona.Portrait
   id: Elona.Balzak
   hspIds:
     elona122: 38
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 288, 144, 48, 72
-- type: Portrait
+- type: Elona.Portrait
   id: Elona.Conery
   hspIds:
     elona122: 39
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 336, 144, 48, 72
-- type: Portrait
+- type: Elona.Portrait
   id: Elona.Man39
   hspIds:
     elona122: 40
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 384, 144, 48, 72
-- type: Portrait
+- type: Elona.Portrait
   id: Elona.Man40
   hspIds:
     elona122: 41
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 432, 144, 48, 72
-- type: Portrait
+- type: Elona.Portrait
   id: Elona.Man41
   hspIds:
     elona122: 42
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 480, 144, 48, 72
-- type: Portrait
+- type: Elona.Portrait
   id: Elona.Man42
   hspIds:
     elona122: 43
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 528, 144, 48, 72
-- type: Portrait
+- type: Elona.Portrait
   id: Elona.Man43
   hspIds:
     elona122: 44
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 576, 144, 48, 72
-- type: Portrait
+- type: Elona.Portrait
   id: Elona.Man44
   hspIds:
     elona122: 45
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 624, 144, 48, 72
-- type: Portrait
+- type: Elona.Portrait
   id: Elona.Barius
   hspIds:
     elona122: 48
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 0, 216, 48, 72
-- type: Portrait
+- type: Elona.Portrait
   id: Elona.Loyter
   hspIds:
     elona122: 49
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 48, 216, 48, 72
-- type: Portrait
+- type: Elona.Portrait
   id: Elona.Bethel
   hspIds:
     elona122: 50
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 96, 216, 48, 72
-- type: Portrait
+- type: Elona.Portrait
   id: Elona.Orphe
   hspIds:
     elona122: 51
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 144, 216, 48, 72
-- type: Portrait
+- type: Elona.Portrait
   id: Elona.Norne
   hspIds:
     elona122: 52
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 192, 216, 48, 72
-- type: Portrait
+- type: Elona.Portrait
   id: Elona.Zeome
   hspIds:
     elona122: 53
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 240, 216, 48, 72
-- type: Portrait
+- type: Elona.Portrait
   id: Elona.Saimore
   hspIds:
     elona122: 54
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 288, 216, 48, 72
-- type: Portrait
+- type: Elona.Portrait
   id: Elona.Xabi
   hspIds:
     elona122: 55
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 336, 216, 48, 72
-- type: Portrait
+- type: Elona.Portrait
   id: Elona.Karam
   hspIds:
     elona122: 56
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 384, 216, 48, 72
-- type: Portrait
+- type: Elona.Portrait
   id: Elona.Lomias
   hspIds:
     elona122: 57
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 432, 216, 48, 72
-- type: Portrait
+- type: Elona.Portrait
   id: Elona.Man45
   hspIds:
     elona122: 58
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 480, 216, 48, 72
-- type: Portrait
+- type: Elona.Portrait
   id: Elona.Sevilis
   hspIds:
     elona122: 59
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 528, 216, 48, 72
-- type: Portrait
+- type: Elona.Portrait
   id: Elona.Man46
   hspIds:
     elona122: 60
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 576, 216, 48, 72
-- type: Portrait
+- type: Elona.Portrait
   id: Elona.Man47
   hspIds:
     elona122: 61
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 624, 216, 48, 72
-- type: Portrait
+- type: Elona.Portrait
   id: Elona.Man48
   hspIds:
     elona122: 62
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 672, 216, 48, 72
-- type: Portrait
+- type: Elona.Portrait
   id: Elona.Woman1
   hspIds:
     elona122: 64
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 0, 288, 48, 72
-- type: Portrait
+- type: Elona.Portrait
   id: Elona.Woman2
   hspIds:
     elona122: 65
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 48, 288, 48, 72
-- type: Portrait
+- type: Elona.Portrait
   id: Elona.Woman3
   hspIds:
     elona122: 66
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 96, 288, 48, 72
-- type: Portrait
+- type: Elona.Portrait
   id: Elona.Woman4
   hspIds:
     elona122: 67
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 144, 288, 48, 72
-- type: Portrait
+- type: Elona.Portrait
   id: Elona.Woman5
   hspIds:
     elona122: 68
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 192, 288, 48, 72
-- type: Portrait
+- type: Elona.Portrait
   id: Elona.Woman6
   hspIds:
     elona122: 69
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 240, 288, 48, 72
-- type: Portrait
+- type: Elona.Portrait
   id: Elona.Woman7
   hspIds:
     elona122: 70
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 288, 288, 48, 72
-- type: Portrait
+- type: Elona.Portrait
   id: Elona.Woman8
   hspIds:
     elona122: 71
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 336, 288, 48, 72
-- type: Portrait
+- type: Elona.Portrait
   id: Elona.Woman9
   hspIds:
     elona122: 72
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 384, 288, 48, 72
-- type: Portrait
+- type: Elona.Portrait
   id: Elona.Woman10
   hspIds:
     elona122: 73
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 432, 288, 48, 72
-- type: Portrait
+- type: Elona.Portrait
   id: Elona.Woman11
   hspIds:
     elona122: 74
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 480, 288, 48, 72
-- type: Portrait
+- type: Elona.Portrait
   id: Elona.Woman12
   hspIds:
     elona122: 75
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 528, 288, 48, 72
-- type: Portrait
+- type: Elona.Portrait
   id: Elona.Woman13
   hspIds:
     elona122: 76
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 576, 288, 48, 72
-- type: Portrait
+- type: Elona.Portrait
   id: Elona.Woman14
   hspIds:
     elona122: 77
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 624, 288, 48, 72
-- type: Portrait
+- type: Elona.Portrait
   id: Elona.Woman15
   hspIds:
     elona122: 78
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 672, 288, 48, 72
-- type: Portrait
+- type: Elona.Portrait
   id: Elona.Woman16
   hspIds:
     elona122: 79
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 720, 288, 48, 72
-- type: Portrait
+- type: Elona.Portrait
   id: Elona.Woman17
   hspIds:
     elona122: 80
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 0, 360, 48, 72
-- type: Portrait
+- type: Elona.Portrait
   id: Elona.Woman18
   hspIds:
     elona122: 81
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 48, 360, 48, 72
-- type: Portrait
+- type: Elona.Portrait
   id: Elona.Woman19
   hspIds:
     elona122: 82
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 96, 360, 48, 72
-- type: Portrait
+- type: Elona.Portrait
   id: Elona.Woman20
   hspIds:
     elona122: 83
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 144, 360, 48, 72
-- type: Portrait
+- type: Elona.Portrait
   id: Elona.Woman21
   hspIds:
     elona122: 84
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 192, 360, 48, 72
-- type: Portrait
+- type: Elona.Portrait
   id: Elona.Woman22
   hspIds:
     elona122: 85
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 240, 360, 48, 72
-- type: Portrait
+- type: Elona.Portrait
   id: Elona.Woman23
   hspIds:
     elona122: 86
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 288, 360, 48, 72
-- type: Portrait
+- type: Elona.Portrait
   id: Elona.Woman24
   hspIds:
     elona122: 87
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 336, 360, 48, 72
-- type: Portrait
+- type: Elona.Portrait
   id: Elona.Woman25
   hspIds:
     elona122: 88
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 384, 360, 48, 72
-- type: Portrait
+- type: Elona.Portrait
   id: Elona.Woman26
   hspIds:
     elona122: 89
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 432, 360, 48, 72
-- type: Portrait
+- type: Elona.Portrait
   id: Elona.Woman27
   hspIds:
     elona122: 90
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 480, 360, 48, 72
-- type: Portrait
+- type: Elona.Portrait
   id: Elona.Woman28
   hspIds:
     elona122: 91
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 528, 360, 48, 72
-- type: Portrait
+- type: Elona.Portrait
   id: Elona.Woman29
   hspIds:
     elona122: 92
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 576, 360, 48, 72
-- type: Portrait
+- type: Elona.Portrait
   id: Elona.Woman30
   hspIds:
     elona122: 93
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 624, 360, 48, 72
-- type: Portrait
+- type: Elona.Portrait
   id: Elona.Woman31
   hspIds:
     elona122: 94
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 672, 360, 48, 72
-- type: Portrait
+- type: Elona.Portrait
   id: Elona.Woman32
   hspIds:
     elona122: 95
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 720, 360, 48, 72
-- type: Portrait
+- type: Elona.Portrait
   id: Elona.Woman34
   hspIds:
     elona122: 96
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 0, 432, 48, 72
-- type: Portrait
+- type: Elona.Portrait
   id: Elona.Woman35
   hspIds:
     elona122: 97
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 48, 432, 48, 72
-- type: Portrait
+- type: Elona.Portrait
   id: Elona.Mia
   hspIds:
     elona122: 98
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 96, 432, 48, 72
-- type: Portrait
+- type: Elona.Portrait
   id: Elona.Woman36
   hspIds:
     elona122: 99
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 144, 432, 48, 72
-- type: Portrait
+- type: Elona.Portrait
   id: Elona.Woman37
   hspIds:
     elona122: 100
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 192, 432, 48, 72
-- type: Portrait
+- type: Elona.Portrait
   id: Elona.Woman38
   hspIds:
     elona122: 101
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 240, 432, 48, 72
-- type: Portrait
+- type: Elona.Portrait
   id: Elona.Woman39
   hspIds:
     elona122: 102
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 288, 432, 48, 72
-- type: Portrait
+- type: Elona.Portrait
   id: Elona.Woman40
   hspIds:
     elona122: 103
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 336, 432, 48, 72
-- type: Portrait
+- type: Elona.Portrait
   id: Elona.Woman41
   hspIds:
     elona122: 104
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 384, 432, 48, 72
-- type: Portrait
+- type: Elona.Portrait
   id: Elona.Woman42
   hspIds:
     elona122: 105
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 432, 432, 48, 72
-- type: Portrait
+- type: Elona.Portrait
   id: Elona.Woman43
   hspIds:
     elona122: 106
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 480, 432, 48, 72
-- type: Portrait
+- type: Elona.Portrait
   id: Elona.Woman44
   hspIds:
     elona122: 107
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 528, 432, 48, 72
-- type: Portrait
+- type: Elona.Portrait
   id: Elona.Woman45
   hspIds:
     elona122: 108
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 576, 432, 48, 72
-- type: Portrait
+- type: Elona.Portrait
   id: Elona.Woman46
   hspIds:
     elona122: 109
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 624, 432, 48, 72
-- type: Portrait
+- type: Elona.Portrait
   id: Elona.Larnneire
   hspIds:
     elona122: 112
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 0, 504, 48, 72
-- type: Portrait
+- type: Elona.Portrait
   id: Elona.Shena
   hspIds:
     elona122: 113
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 48, 504, 48, 72
-- type: Portrait
+- type: Elona.Portrait
   id: Elona.Miches
   hspIds:
     elona122: 114
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 96, 504, 48, 72
-- type: Portrait
+- type: Elona.Portrait
   id: Elona.Isca
   hspIds:
     elona122: 115
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 144, 504, 48, 72
-- type: Portrait
+- type: Elona.Portrait
   id: Elona.Woman47
   hspIds:
     elona122: 116
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 192, 504, 48, 72
-- type: Portrait
+- type: Elona.Portrait
   id: Elona.Woman48
   hspIds:
     elona122: 117
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 240, 504, 48, 72
-- type: Portrait
+- type: Elona.Portrait
   id: Elona.Stersha
   hspIds:
     elona122: 118
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 288, 504, 48, 72
-- type: Portrait
+- type: Elona.Portrait
   id: Elona.Erystia
   hspIds:
     elona122: 119
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 336, 504, 48, 72
-- type: Portrait
+- type: Elona.Portrait
   id: Elona.Liana
   hspIds:
     elona122: 120
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 384, 504, 48, 72
-- type: Portrait
+- type: Elona.Portrait
   id: Elona.Woman49
   hspIds:
     elona122: 121

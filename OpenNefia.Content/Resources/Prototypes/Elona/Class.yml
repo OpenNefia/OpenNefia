@@ -1,5 +1,5 @@
 ---
-- type: Class
+- type: Elona.Class
   id: Elona.Warrior
   isExtra: false
   equipmentType: Elona.Warrior
@@ -26,7 +26,7 @@
     Elona.StatWill: 3
     Elona.Tactics: 4
     Elona.TwoHand: 6
-- type: Class
+- type: Elona.Class
   id: Elona.Pianist
   isExtra: false
   equipmentType: Elona.Archer
@@ -49,7 +49,7 @@
     Elona.StatStrength: 6
     Elona.StatWill: 0
     Elona.WeightLifting: 19
-- type: Class
+- type: Elona.Class
   id: Elona.Tourist
   isExtra: false
   baseSkills:
@@ -64,7 +64,7 @@
     Elona.StatStrength: 0
     Elona.StatWill: 0
     Elona.Traveling: 3
-- type: Class
+- type: Elona.Class
   id: Elona.Priest
   isExtra: false
   equipmentType: Elona.Priest
@@ -88,7 +88,7 @@
     Elona.StatSpeed: 0
     Elona.StatStrength: 2
     Elona.StatWill: 10
-- type: Class
+- type: Elona.Class
   id: Elona.Claymore
   isExtra: false
   equipmentType: Elona.Claymore
@@ -110,7 +110,7 @@
     Elona.StatWill: 0
     Elona.Tactics: 5
     Elona.TwoHand: 7
-- type: Class
+- type: Elona.Class
   id: Elona.Predator
   isExtra: true
   baseSkills:
@@ -124,7 +124,7 @@
     Elona.StatStrength: 8
     Elona.StatWill: 0
     Elona.Tactics: 4
-- type: Class
+- type: Elona.Class
   id: Elona.Warmage
   isExtra: false
   equipmentType: Elona.WarMage
@@ -148,7 +148,7 @@
     Elona.StatSpeed: 0
     Elona.StatStrength: 6
     Elona.StatWill: 4
-- type: Class
+- type: Elona.Class
   id: Elona.Farmer
   isExtra: false
   equipmentType: Elona.Warrior
@@ -172,7 +172,7 @@
     Elona.StatStrength: 5
     Elona.StatWill: 5
     Elona.Tailoring: 5
-- type: Class
+- type: Elona.Class
   id: Elona.Archer
   isExtra: false
   equipmentType: Elona.Archer
@@ -196,7 +196,7 @@
     Elona.StatStrength: 6
     Elona.StatWill: 0
     Elona.Tailoring: 4
-- type: Class
+- type: Elona.Class
   id: Elona.Thief
   isExtra: false
   equipmentType: Elona.Thief
@@ -220,7 +220,7 @@
     Elona.StatStrength: 4
     Elona.StatWill: 0
     Elona.Tactics: 3
-- type: Class
+- type: Elona.Class
   id: Elona.Wizard
   isExtra: false
   equipmentType: Elona.Mage
@@ -244,7 +244,7 @@
     Elona.StatStrength: 0
     Elona.StatWill: 8
     Elona.Stave: 3
-- type: Class
+- type: Elona.Class
   id: Elona.Gunner
   isExtra: true
   equipmentType: Elona.Gunner

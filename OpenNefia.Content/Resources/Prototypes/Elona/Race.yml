@@ -1,5 +1,5 @@
 ---
-- type: Race
+- type: Elona.Race
   id: Elona.Slug
   isExtra: true
   maleRatio: 0.5
@@ -17,7 +17,19 @@
     Elona.StatSpeed: 500
     Elona.StatStrength: 100
     Elona.StatWill: 100
-- type: Race
+  initialEquipSlots:
+  - Elona.Head
+  - Elona.Neck
+  - Elona.Body
+  - Elona.Back
+  - Elona.Hand
+  - Elona.Hand
+  - Elona.Ring
+  - Elona.Ring
+  - Elona.Ring
+  - Elona.Waist
+  - Elona.Leg
+- type: Elona.Race
   id: Elona.Kobold
   hspIds:
     elona122: 1
@@ -45,7 +57,18 @@
     Elona.StatStrength: 8
     Elona.StatWill: 2
     Elona.Stealth: 2
-- type: Race
+  initialEquipSlots:
+  - Elona.Head
+  - Elona.Body
+  - Elona.Back
+  - Elona.Hand
+  - Elona.Hand
+  - Elona.Ring
+  - Elona.Ring
+  - Elona.Arm
+  - Elona.Waist
+  - Elona.Leg
+- type: Elona.Race
   id: Elona.Orc
   hspIds:
     elona122: 2
@@ -73,7 +96,17 @@
     Elona.StatSpeed: 70
     Elona.StatStrength: 5
     Elona.StatWill: 3
-- type: Race
+  initialEquipSlots:
+  - Elona.Head
+  - Elona.Body
+  - Elona.Back
+  - Elona.Hand
+  - Elona.Hand
+  - Elona.Ring
+  - Elona.Arm
+  - Elona.Waist
+  - Elona.Leg
+- type: Elona.Race
   id: Elona.Troll
   hspIds:
     elona122: 3
@@ -99,7 +132,15 @@
     Elona.StatSpeed: 60
     Elona.StatStrength: 10
     Elona.StatWill: 2
-- type: Race
+  initialEquipSlots:
+  - Elona.Head
+  - Elona.Body
+  - Elona.Back
+  - Elona.Hand
+  - Elona.Hand
+  - Elona.Arm
+  - Elona.Waist
+- type: Elona.Race
   id: Elona.Lizardman
   hspIds:
     elona122: 4
@@ -127,7 +168,17 @@
     Elona.StatSpeed: 80
     Elona.StatStrength: 7
     Elona.StatWill: 4
-- type: Race
+  initialEquipSlots:
+  - Elona.Head
+  - Elona.Body
+  - Elona.Back
+  - Elona.Hand
+  - Elona.Hand
+  - Elona.Ring
+  - Elona.Arm
+  - Elona.Waist
+  - Elona.Leg
+- type: Elona.Race
   id: Elona.Minotaur
   hspIds:
     elona122: 5
@@ -154,7 +205,15 @@
     Elona.StatStrength: 12
     Elona.StatWill: 4
     Elona.Tactics: 4
-- type: Race
+  initialEquipSlots:
+  - Elona.Head
+  - Elona.Body
+  - Elona.Hand
+  - Elona.Hand
+  - Elona.Ring
+  - Elona.Waist
+  - Elona.Leg
+- type: Elona.Race
   id: Elona.Yerles
   hspIds:
     elona122: 6
@@ -183,7 +242,19 @@
     Elona.StatStrength: 7
     Elona.StatWill: 8
     Elona.Throwing: 3
-- type: Race
+  initialEquipSlots:
+  - Elona.Head
+  - Elona.Neck
+  - Elona.Body
+  - Elona.Back
+  - Elona.Hand
+  - Elona.Hand
+  - Elona.Ring
+  - Elona.Ring
+  - Elona.Arm
+  - Elona.Waist
+  - Elona.Leg
+- type: Elona.Race
   id: Elona.Norland
   hspIds:
     elona122: 7
@@ -212,7 +283,19 @@
     Elona.StatWill: 9
     Elona.Tactics: 3
     Elona.TwoHand: 3
-- type: Race
+  initialEquipSlots:
+  - Elona.Head
+  - Elona.Neck
+  - Elona.Body
+  - Elona.Back
+  - Elona.Hand
+  - Elona.Hand
+  - Elona.Ring
+  - Elona.Ring
+  - Elona.Arm
+  - Elona.Waist
+  - Elona.Leg
+- type: Elona.Race
   id: Elona.Eulderna
   hspIds:
     elona122: 8
@@ -240,7 +323,19 @@
     Elona.StatSpeed: 70
     Elona.StatStrength: 6
     Elona.StatWill: 10
-- type: Race
+  initialEquipSlots:
+  - Elona.Head
+  - Elona.Neck
+  - Elona.Body
+  - Elona.Back
+  - Elona.Hand
+  - Elona.Hand
+  - Elona.Ring
+  - Elona.Ring
+  - Elona.Arm
+  - Elona.Waist
+  - Elona.Leg
+- type: Elona.Race
   id: Elona.Fairy
   hspIds:
     elona122: 9
@@ -268,7 +363,19 @@
     Elona.StatSpeed: 120
     Elona.StatStrength: 3
     Elona.StatWill: 8
-- type: Race
+  initialEquipSlots:
+  - Elona.Head
+  - Elona.Neck
+  - Elona.Body
+  - Elona.Back
+  - Elona.Hand
+  - Elona.Hand
+  - Elona.Ring
+  - Elona.Ring
+  - Elona.Arm
+  - Elona.Waist
+  - Elona.Leg
+- type: Elona.Race
   id: Elona.Asura
   hspIds:
     elona122: 10
@@ -296,7 +403,13 @@
     Elona.StatSpeed: 70
     Elona.StatStrength: 11
     Elona.StatWill: 4
-- type: Race
+  initialEquipSlots:
+  - Elona.Hand
+  - Elona.Hand
+  - Elona.Hand
+  - Elona.Hand
+  - Elona.Neck
+- type: Elona.Race
   id: Elona.Slime
   hspIds:
     elona122: 11
@@ -323,7 +436,9 @@
     Elona.StatSpeed: 55
     Elona.StatStrength: 4
     Elona.StatWill: 8
-- type: Race
+  initialEquipSlots:
+  - Elona.Head
+- type: Elona.Race
   id: Elona.Wolf
   hspIds:
     elona122: 12
@@ -350,7 +465,14 @@
     Elona.StatSpeed: 80
     Elona.StatStrength: 8
     Elona.StatWill: 8
-- type: Race
+  initialEquipSlots:
+  - Elona.Head
+  - Elona.Neck
+  - Elona.Body
+  - Elona.Back
+  - Elona.Arm
+  - Elona.Leg
+- type: Elona.Race
   id: Elona.Dwarf
   hspIds:
     elona122: 13
@@ -378,7 +500,19 @@
     Elona.StatSpeed: 70
     Elona.StatStrength: 10
     Elona.StatWill: 7
-- type: Race
+  initialEquipSlots:
+  - Elona.Head
+  - Elona.Neck
+  - Elona.Body
+  - Elona.Back
+  - Elona.Hand
+  - Elona.Hand
+  - Elona.Ring
+  - Elona.Ring
+  - Elona.Arm
+  - Elona.Waist
+  - Elona.Leg
+- type: Elona.Race
   id: Elona.Juere
   hspIds:
     elona122: 14
@@ -407,7 +541,19 @@
     Elona.StatStrength: 7
     Elona.StatWill: 8
     Elona.Throwing: 3
-- type: Race
+  initialEquipSlots:
+  - Elona.Head
+  - Elona.Neck
+  - Elona.Body
+  - Elona.Back
+  - Elona.Hand
+  - Elona.Hand
+  - Elona.Ring
+  - Elona.Ring
+  - Elona.Arm
+  - Elona.Waist
+  - Elona.Leg
+- type: Elona.Race
   id: Elona.Zombie
   hspIds:
     elona122: 15
@@ -434,7 +580,16 @@
     Elona.StatSpeed: 45
     Elona.StatStrength: 10
     Elona.StatWill: 6
-- type: Race
+  initialEquipSlots:
+  - Elona.Head
+  - Elona.Neck
+  - Elona.Body
+  - Elona.Back
+  - Elona.Hand
+  - Elona.Ring
+  - Elona.Arm
+  - Elona.Waist
+- type: Elona.Race
   id: Elona.Elea
   hspIds:
     elona122: 16
@@ -462,7 +617,19 @@
     Elona.StatSpeed: 70
     Elona.StatStrength: 6
     Elona.StatWill: 12
-- type: Race
+  initialEquipSlots:
+  - Elona.Head
+  - Elona.Neck
+  - Elona.Body
+  - Elona.Back
+  - Elona.Hand
+  - Elona.Hand
+  - Elona.Ring
+  - Elona.Ring
+  - Elona.Arm
+  - Elona.Waist
+  - Elona.Leg
+- type: Elona.Race
   id: Elona.Rabbit
   hspIds:
     elona122: 17
@@ -488,7 +655,13 @@
     Elona.StatSpeed: 100
     Elona.StatStrength: 5
     Elona.StatWill: 4
-- type: Race
+  initialEquipSlots:
+  - Elona.Head
+  - Elona.Neck
+  - Elona.Body
+  - Elona.Back
+  - Elona.Arm
+- type: Elona.Race
   id: Elona.Sheep
   hspIds:
     elona122: 18
@@ -515,7 +688,14 @@
     Elona.StatSpeed: 60
     Elona.StatStrength: 6
     Elona.StatWill: 5
-- type: Race
+  initialEquipSlots:
+  - Elona.Head
+  - Elona.Neck
+  - Elona.Body
+  - Elona.Back
+  - Elona.Arm
+  - Elona.Leg
+- type: Elona.Race
   id: Elona.Frog
   hspIds:
     elona122: 19
@@ -542,7 +722,9 @@
     Elona.StatSpeed: 60
     Elona.StatStrength: 6
     Elona.StatWill: 5
-- type: Race
+  initialEquipSlots:
+  - Elona.Body
+- type: Elona.Race
   id: Elona.Centipede
   hspIds:
     elona122: 20
@@ -568,7 +750,11 @@
     Elona.StatSpeed: 70
     Elona.StatStrength: 6
     Elona.StatWill: 2
-- type: Race
+  initialEquipSlots:
+  - Elona.Back
+  - Elona.Ring
+  - Elona.Ring
+- type: Elona.Race
   id: Elona.Snail
   hspIds:
     elona122: 21
@@ -594,7 +780,9 @@
     Elona.StatStrength: 4
     Elona.StatWill: 4
     Elona.Throwing: 5
-- type: Race
+  initialEquipSlots:
+  - Elona.Back
+- type: Elona.Race
   id: Elona.Mandrake
   hspIds:
     elona122: 22
@@ -622,7 +810,10 @@
     Elona.StatSpeed: 60
     Elona.StatStrength: 5
     Elona.StatWill: 8
-- type: Race
+  initialEquipSlots:
+  - Elona.Head
+  - Elona.Back
+- type: Elona.Race
   id: Elona.Beetle
   hspIds:
     elona122: 23
@@ -649,7 +840,9 @@
     Elona.StatStrength: 5
     Elona.StatWill: 5
     Elona.Stealth: 3
-- type: Race
+  initialEquipSlots:
+  - Elona.Neck
+- type: Elona.Race
   id: Elona.Mushroom
   hspIds:
     elona122: 24
@@ -676,7 +869,10 @@
     Elona.StatStrength: 5
     Elona.StatWill: 8
     Elona.Tailoring: 3
-- type: Race
+  initialEquipSlots:
+  - Elona.Head
+  - Elona.Neck
+- type: Elona.Race
   id: Elona.Bat
   hspIds:
     elona122: 25
@@ -702,7 +898,9 @@
     Elona.StatSpeed: 140
     Elona.StatStrength: 3
     Elona.StatWill: 3
-- type: Race
+  initialEquipSlots:
+  - Elona.Head
+- type: Elona.Race
   id: Elona.Ent
   hspIds:
     elona122: 26
@@ -729,7 +927,13 @@
     Elona.StatSpeed: 50
     Elona.StatStrength: 9
     Elona.StatWill: 3
-- type: Race
+  initialEquipSlots:
+  - Elona.Hand
+  - Elona.Ring
+  - Elona.Ring
+  - Elona.Arm
+  - Elona.Leg
+- type: Elona.Race
   id: Elona.Lich
   hspIds:
     elona122: 27
@@ -757,7 +961,19 @@
     Elona.StatSpeed: 70
     Elona.StatStrength: 5
     Elona.StatWill: 13
-- type: Race
+  initialEquipSlots:
+  - Elona.Head
+  - Elona.Neck
+  - Elona.Body
+  - Elona.Back
+  - Elona.Hand
+  - Elona.Hand
+  - Elona.Ring
+  - Elona.Ring
+  - Elona.Arm
+  - Elona.Waist
+  - Elona.Leg
+- type: Elona.Race
   id: Elona.Hound
   hspIds:
     elona122: 28
@@ -784,7 +1000,13 @@
     Elona.StatSpeed: 90
     Elona.StatStrength: 8
     Elona.StatWill: 4
-- type: Race
+  initialEquipSlots:
+  - Elona.Head
+  - Elona.Neck
+  - Elona.Body
+  - Elona.Back
+  - Elona.Leg
+- type: Elona.Race
   id: Elona.Ghost
   hspIds:
     elona122: 29
@@ -811,7 +1033,16 @@
     Elona.StatSpeed: 60
     Elona.StatStrength: 4
     Elona.StatWill: 6
-- type: Race
+  initialEquipSlots:
+  - Elona.Head
+  - Elona.Neck
+  - Elona.Body
+  - Elona.Back
+  - Elona.Hand
+  - Elona.Hand
+  - Elona.Ring
+  - Elona.Ring
+- type: Elona.Race
   id: Elona.Spirit
   hspIds:
     elona122: 30
@@ -838,7 +1069,16 @@
     Elona.StatSpeed: 60
     Elona.StatStrength: 5
     Elona.StatWill: 10
-- type: Race
+  initialEquipSlots:
+  - Elona.Head
+  - Elona.Neck
+  - Elona.Body
+  - Elona.Back
+  - Elona.Hand
+  - Elona.Hand
+  - Elona.Ring
+  - Elona.Ring
+- type: Elona.Race
   id: Elona.Eye
   hspIds:
     elona122: 31
@@ -865,7 +1105,9 @@
     Elona.StatSpeed: 25
     Elona.StatStrength: 3
     Elona.StatWill: 7
-- type: Race
+  initialEquipSlots:
+  - Elona.Head
+- type: Elona.Race
   id: Elona.Wyvern
   hspIds:
     elona122: 32
@@ -892,7 +1134,12 @@
     Elona.StatStrength: 11
     Elona.StatWill: 7
     Elona.Traveling: 3
-- type: Race
+  initialEquipSlots:
+  - Elona.Neck
+  - Elona.Body
+  - Elona.Ring
+  - Elona.Ring
+- type: Elona.Race
   id: Elona.Wasp
   hspIds:
     elona122: 33
@@ -918,7 +1165,9 @@
     Elona.StatSpeed: 100
     Elona.StatStrength: 7
     Elona.StatWill: 6
-- type: Race
+  initialEquipSlots:
+  - Elona.Head
+- type: Elona.Race
   id: Elona.Giant
   hspIds:
     elona122: 34
@@ -946,7 +1195,14 @@
     Elona.StatSpeed: 60
     Elona.StatStrength: 12
     Elona.StatWill: 5
-- type: Race
+  initialEquipSlots:
+  - Elona.Body
+  - Elona.Back
+  - Elona.Hand
+  - Elona.Hand
+  - Elona.Arm
+  - Elona.Leg
+- type: Elona.Race
   id: Elona.Imp
   hspIds:
     elona122: 35
@@ -973,7 +1229,15 @@
     Elona.StatSpeed: 70
     Elona.StatStrength: 5
     Elona.StatWill: 4
-- type: Race
+  initialEquipSlots:
+  - Elona.Neck
+  - Elona.Body
+  - Elona.Hand
+  - Elona.Hand
+  - Elona.Ring
+  - Elona.Ring
+  - Elona.Ring
+- type: Elona.Race
   id: Elona.Hand
   hspIds:
     elona122: 36
@@ -999,7 +1263,13 @@
     Elona.StatSpeed: 70
     Elona.StatStrength: 8
     Elona.StatWill: 6
-- type: Race
+  initialEquipSlots:
+  - Elona.Hand
+  - Elona.Hand
+  - Elona.Ring
+  - Elona.Ring
+  - Elona.Arm
+- type: Elona.Race
   id: Elona.Snake
   hspIds:
     elona122: 37
@@ -1025,7 +1295,9 @@
     Elona.StatStrength: 6
     Elona.StatWill: 6
     Elona.Stealth: 4
-- type: Race
+  initialEquipSlots:
+  - Elona.Body
+- type: Elona.Race
   id: Elona.Drake
   hspIds:
     elona122: 38
@@ -1052,7 +1324,12 @@
     Elona.StatStrength: 11
     Elona.StatWill: 9
     Elona.Traveling: 3
-- type: Race
+  initialEquipSlots:
+  - Elona.Neck
+  - Elona.Body
+  - Elona.Ring
+  - Elona.Ring
+- type: Elona.Race
   id: Elona.Goblin
   hspIds:
     elona122: 39
@@ -1081,7 +1358,19 @@
     Elona.StatSpeed: 70
     Elona.StatStrength: 8
     Elona.StatWill: 7
-- type: Race
+  initialEquipSlots:
+  - Elona.Head
+  - Elona.Neck
+  - Elona.Body
+  - Elona.Back
+  - Elona.Hand
+  - Elona.Hand
+  - Elona.Ring
+  - Elona.Ring
+  - Elona.Arm
+  - Elona.Waist
+  - Elona.Leg
+- type: Elona.Race
   id: Elona.Bear
   hspIds:
     elona122: 40
@@ -1109,7 +1398,15 @@
     Elona.StatSpeed: 70
     Elona.StatStrength: 9
     Elona.StatWill: 6
-- type: Race
+  initialEquipSlots:
+  - Elona.Hand
+  - Elona.Hand
+  - Elona.Ring
+  - Elona.Ring
+  - Elona.Arm
+  - Elona.Waist
+  - Elona.Leg
+- type: Elona.Race
   id: Elona.Armor
   hspIds:
     elona122: 41
@@ -1136,7 +1433,16 @@
     Elona.StatSpeed: 50
     Elona.StatStrength: 8
     Elona.StatWill: 6
-- type: Race
+  initialEquipSlots:
+  - Elona.Head
+  - Elona.Neck
+  - Elona.Body
+  - Elona.Back
+  - Elona.Hand
+  - Elona.Hand
+  - Elona.Arm
+  - Elona.Waist
+- type: Elona.Race
   id: Elona.Medusa
   hspIds:
     elona122: 42
@@ -1163,7 +1469,15 @@
     Elona.StatSpeed: 70
     Elona.StatStrength: 7
     Elona.StatWill: 9
-- type: Race
+  initialEquipSlots:
+  - Elona.Body
+  - Elona.Hand
+  - Elona.Hand
+  - Elona.Ring
+  - Elona.Ring
+  - Elona.Arm
+  - Elona.Leg
+- type: Elona.Race
   id: Elona.Cupid
   hspIds:
     elona122: 43
@@ -1190,7 +1504,15 @@
     Elona.StatSpeed: 80
     Elona.StatStrength: 6
     Elona.StatWill: 7
-- type: Race
+  initialEquipSlots:
+  - Elona.Neck
+  - Elona.Body
+  - Elona.Hand
+  - Elona.Hand
+  - Elona.Ring
+  - Elona.Ring
+  - Elona.Arm
+- type: Elona.Race
   id: Elona.Phantom
   hspIds:
     elona122: 44
@@ -1217,7 +1539,15 @@
     Elona.StatStrength: 6
     Elona.StatWill: 6
     Elona.Stealth: 3
-- type: Race
+  initialEquipSlots:
+  - Elona.Neck
+  - Elona.Body
+  - Elona.Hand
+  - Elona.Hand
+  - Elona.Ring
+  - Elona.Ring
+  - Elona.Arm
+- type: Elona.Race
   id: Elona.Harpy
   hspIds:
     elona122: 45
@@ -1244,7 +1574,16 @@
     Elona.StatSpeed: 80
     Elona.StatStrength: 8
     Elona.StatWill: 8
-- type: Race
+  initialEquipSlots:
+  - Elona.Neck
+  - Elona.Hand
+  - Elona.Hand
+  - Elona.Ring
+  - Elona.Ring
+  - Elona.Arm
+  - Elona.Leg
+  - Elona.Leg
+- type: Elona.Race
   id: Elona.Dragon
   hspIds:
     elona122: 46
@@ -1271,7 +1610,12 @@
     Elona.StatStrength: 13
     Elona.StatWill: 9
     Elona.Traveling: 3
-- type: Race
+  initialEquipSlots:
+  - Elona.Neck
+  - Elona.Body
+  - Elona.Ring
+  - Elona.Ring
+- type: Elona.Race
   id: Elona.Dinosaur
   hspIds:
     elona122: 47
@@ -1298,7 +1642,12 @@
     Elona.StatStrength: 8
     Elona.StatWill: 5
     Elona.Traveling: 3
-- type: Race
+  initialEquipSlots:
+  - Elona.Neck
+  - Elona.Body
+  - Elona.Ring
+  - Elona.Ring
+- type: Elona.Race
   id: Elona.Cerberus
   hspIds:
     elona122: 48
@@ -1325,7 +1674,15 @@
     Elona.StatStrength: 11
     Elona.StatWill: 8
     Elona.Tailoring: 3
-- type: Race
+  initialEquipSlots:
+  - Elona.Head
+  - Elona.Neck
+  - Elona.Body
+  - Elona.Back
+  - Elona.Arm
+  - Elona.Leg
+  - Elona.Leg
+- type: Elona.Race
   id: Elona.Spider
   hspIds:
     elona122: 49
@@ -1352,7 +1709,10 @@
     Elona.StatStrength: 5
     Elona.StatWill: 6
     Elona.Stealth: 3
-- type: Race
+  initialEquipSlots:
+  - Elona.Ring
+  - Elona.Ring
+- type: Elona.Race
   id: Elona.Golem
   hspIds:
     elona122: 50
@@ -1379,7 +1739,19 @@
     Elona.StatStrength: 10
     Elona.StatWill: 9
     Elona.WeightLifting: 5
-- type: Race
+  initialEquipSlots:
+  - Elona.Head
+  - Elona.Neck
+  - Elona.Body
+  - Elona.Back
+  - Elona.Hand
+  - Elona.Hand
+  - Elona.Ring
+  - Elona.Ring
+  - Elona.Arm
+  - Elona.Waist
+  - Elona.Leg
+- type: Elona.Race
   id: Elona.Rock
   hspIds:
     elona122: 51
@@ -1406,7 +1778,9 @@
     Elona.StatStrength: 8
     Elona.StatWill: 3
     Elona.WeightLifting: 3
-- type: Race
+  initialEquipSlots:
+  - Elona.Head
+- type: Elona.Race
   id: Elona.Crab
   hspIds:
     elona122: 52
@@ -1433,7 +1807,14 @@
     Elona.StatSpeed: 70
     Elona.StatStrength: 6
     Elona.StatWill: 4
-- type: Race
+  initialEquipSlots:
+  - Elona.Back
+  - Elona.Hand
+  - Elona.Hand
+  - Elona.Ring
+  - Elona.Ring
+  - Elona.Leg
+- type: Elona.Race
   id: Elona.Skeleton
   hspIds:
     elona122: 53
@@ -1461,7 +1842,19 @@
     Elona.StatSpeed: 70
     Elona.StatStrength: 8
     Elona.StatWill: 6
-- type: Race
+  initialEquipSlots:
+  - Elona.Head
+  - Elona.Neck
+  - Elona.Body
+  - Elona.Back
+  - Elona.Hand
+  - Elona.Hand
+  - Elona.Ring
+  - Elona.Ring
+  - Elona.Arm
+  - Elona.Waist
+  - Elona.Leg
+- type: Elona.Race
   id: Elona.Piece
   hspIds:
     elona122: 54
@@ -1488,7 +1881,18 @@
     Elona.StatSpeed: 70
     Elona.StatStrength: 9
     Elona.StatWill: 9
-- type: Race
+  initialEquipSlots:
+  - Elona.Head
+  - Elona.Neck
+  - Elona.Body
+  - Elona.Back
+  - Elona.Hand
+  - Elona.Hand
+  - Elona.Ring
+  - Elona.Ring
+  - Elona.Arm
+  - Elona.Waist
+- type: Elona.Race
   id: Elona.Cat
   hspIds:
     elona122: 55
@@ -1516,7 +1920,15 @@
     Elona.StatSpeed: 110
     Elona.StatStrength: 6
     Elona.StatWill: 4
-- type: Race
+  initialEquipSlots:
+  - Elona.Head
+  - Elona.Neck
+  - Elona.Body
+  - Elona.Back
+  - Elona.Hand
+  - Elona.Leg
+  - Elona.Leg
+- type: Elona.Race
   id: Elona.Dog
   hspIds:
     elona122: 56
@@ -1544,7 +1956,15 @@
     Elona.StatStrength: 7
     Elona.StatWill: 7
     Elona.WeightLifting: 3
-- type: Race
+  initialEquipSlots:
+  - Elona.Head
+  - Elona.Neck
+  - Elona.Body
+  - Elona.Back
+  - Elona.Hand
+  - Elona.Leg
+  - Elona.Leg
+- type: Elona.Race
   id: Elona.Roran
   hspIds:
     elona122: 57
@@ -1572,7 +1992,19 @@
     Elona.StatSpeed: 95
     Elona.StatStrength: 4
     Elona.StatWill: 6
-- type: Race
+  initialEquipSlots:
+  - Elona.Head
+  - Elona.Neck
+  - Elona.Body
+  - Elona.Back
+  - Elona.Hand
+  - Elona.Hand
+  - Elona.Ring
+  - Elona.Ring
+  - Elona.Arm
+  - Elona.Waist
+  - Elona.Leg
+- type: Elona.Race
   id: Elona.Rat
   hspIds:
     elona122: 58
@@ -1599,7 +2031,12 @@
     Elona.StatStrength: 5
     Elona.StatWill: 3
     Elona.Stealth: 3
-- type: Race
+  initialEquipSlots:
+  - Elona.Back
+  - Elona.Arm
+  - Elona.Waist
+  - Elona.Leg
+- type: Elona.Race
   id: Elona.Shell
   hspIds:
     elona122: 59
@@ -1626,7 +2063,9 @@
     Elona.StatSpeed: 20
     Elona.StatStrength: 7
     Elona.StatWill: 5
-- type: Race
+  initialEquipSlots:
+  - Elona.Leg
+- type: Elona.Race
   id: Elona.Catgod
   hspIds:
     elona122: 60
@@ -1654,7 +2093,15 @@
     Elona.StatSpeed: 500
     Elona.StatStrength: 12
     Elona.StatWill: 13
-- type: Race
+  initialEquipSlots:
+  - Elona.Head
+  - Elona.Neck
+  - Elona.Body
+  - Elona.Hand
+  - Elona.Ring
+  - Elona.Arm
+  - Elona.Leg
+- type: Elona.Race
   id: Elona.Machinegod
   hspIds:
     elona122: 61
@@ -1680,7 +2127,16 @@
     Elona.StatSpeed: 70
     Elona.StatStrength: 15
     Elona.StatWill: 15
-- type: Race
+  initialEquipSlots:
+  - Elona.Head
+  - Elona.Body
+  - Elona.Back
+  - Elona.Hand
+  - Elona.Hand
+  - Elona.Arm
+  - Elona.Waist
+  - Elona.Leg
+- type: Elona.Race
   id: Elona.Undeadgod
   hspIds:
     elona122: 62
@@ -1707,7 +2163,15 @@
     Elona.StatSpeed: 110
     Elona.StatStrength: 10
     Elona.StatWill: 18
-- type: Race
+  initialEquipSlots:
+  - Elona.Neck
+  - Elona.Body
+  - Elona.Back
+  - Elona.Hand
+  - Elona.Hand
+  - Elona.Ring
+  - Elona.Ring
+- type: Elona.Race
   id: Elona.Machine
   hspIds:
     elona122: 63
@@ -1735,7 +2199,19 @@
     Elona.StatSpeed: 65
     Elona.StatStrength: 7
     Elona.StatWill: 12
-- type: Race
+  initialEquipSlots:
+  - Elona.Head
+  - Elona.Neck
+  - Elona.Body
+  - Elona.Back
+  - Elona.Hand
+  - Elona.Hand
+  - Elona.Ring
+  - Elona.Ring
+  - Elona.Arm
+  - Elona.Waist
+  - Elona.Leg
+- type: Elona.Race
   id: Elona.Wisp
   hspIds:
     elona122: 64
@@ -1762,7 +2238,9 @@
     Elona.StatSpeed: 35
     Elona.StatStrength: 5
     Elona.StatWill: 15
-- type: Race
+  initialEquipSlots:
+  - Elona.Head
+- type: Elona.Race
   id: Elona.Chicken
   hspIds:
     elona122: 65
@@ -1789,7 +2267,9 @@
     Elona.StatSpeed: 60
     Elona.StatStrength: 5
     Elona.StatWill: 4
-- type: Race
+  initialEquipSlots:
+  - Elona.Head
+- type: Elona.Race
   id: Elona.Stalker
   hspIds:
     elona122: 66
@@ -1816,7 +2296,14 @@
     Elona.StatStrength: 9
     Elona.StatWill: 6
     Elona.Stealth: 4
-- type: Race
+  initialEquipSlots:
+  - Elona.Neck
+  - Elona.Hand
+  - Elona.Hand
+  - Elona.Ring
+  - Elona.Ring
+  - Elona.Arm
+- type: Elona.Race
   id: Elona.Catsister
   hspIds:
     elona122: 67
@@ -1843,7 +2330,19 @@
     Elona.StatWill: 10
     Elona.Tactics: 4
     Elona.TwoHand: 6
-- type: Race
+  initialEquipSlots:
+  - Elona.Head
+  - Elona.Neck
+  - Elona.Body
+  - Elona.Back
+  - Elona.Hand
+  - Elona.Hand
+  - Elona.Ring
+  - Elona.Ring
+  - Elona.Arm
+  - Elona.Waist
+  - Elona.Leg
+- type: Elona.Race
   id: Elona.Mutant
   hspIds:
     elona122: 68
@@ -1870,7 +2369,10 @@
     Elona.StatSpeed: 70
     Elona.StatStrength: 9
     Elona.StatWill: 9
-- type: Race
+  initialEquipSlots:
+  - Elona.Body
+  - Elona.Hand
+- type: Elona.Race
   id: Elona.Yeek
   hspIds:
     elona122: 69
@@ -1897,7 +2399,19 @@
     Elona.StatSpeed: 90
     Elona.StatStrength: 4
     Elona.StatWill: 4
-- type: Race
+  initialEquipSlots:
+  - Elona.Head
+  - Elona.Neck
+  - Elona.Body
+  - Elona.Back
+  - Elona.Hand
+  - Elona.Hand
+  - Elona.Ring
+  - Elona.Ring
+  - Elona.Arm
+  - Elona.Waist
+  - Elona.Leg
+- type: Elona.Race
   id: Elona.Yith
   hspIds:
     elona122: 70
@@ -1925,7 +2439,16 @@
     Elona.StatSpeed: 70
     Elona.StatStrength: 13
     Elona.StatWill: 5
-- type: Race
+  initialEquipSlots:
+  - Elona.Hand
+  - Elona.Hand
+  - Elona.Hand
+  - Elona.Hand
+  - Elona.Ring
+  - Elona.Ring
+  - Elona.Ring
+  - Elona.Ring
+- type: Elona.Race
   id: Elona.Servant
   hspIds:
     elona122: 71
@@ -1957,7 +2480,19 @@
     Elona.Tactics: 3
     Elona.Throwing: 3
     Elona.TwoHand: 3
-- type: Race
+  initialEquipSlots:
+  - Elona.Head
+  - Elona.Neck
+  - Elona.Body
+  - Elona.Back
+  - Elona.Hand
+  - Elona.Hand
+  - Elona.Ring
+  - Elona.Ring
+  - Elona.Arm
+  - Elona.Waist
+  - Elona.Leg
+- type: Elona.Race
   id: Elona.Horse
   hspIds:
     elona122: 72
@@ -1983,7 +2518,11 @@
     Elona.StatSpeed: 125
     Elona.StatStrength: 9
     Elona.StatWill: 4
-- type: Race
+  initialEquipSlots:
+  - Elona.Body
+  - Elona.Leg
+  - Elona.Leg
+- type: Elona.Race
   id: Elona.God
   hspIds:
     elona122: 73
@@ -2016,7 +2555,10 @@
     Elona.StatWill: 25
     Elona.Tactics: 7
     Elona.TwoHand: 5
-- type: Race
+  initialEquipSlots:
+  - Elona.Hand
+  - Elona.Hand
+- type: Elona.Race
   id: Elona.Quickling
   hspIds:
     elona122: 74
@@ -2044,7 +2586,17 @@
     Elona.StatStrength: 2
     Elona.StatWill: 8
     Elona.Stealth: 3
-- type: Race
+  initialEquipSlots:
+  - Elona.Head
+  - Elona.Body
+  - Elona.Back
+  - Elona.Hand
+  - Elona.Hand
+  - Elona.Ring
+  - Elona.Ring
+  - Elona.Arm
+  - Elona.Leg
+- type: Elona.Race
   id: Elona.Metal
   hspIds:
     elona122: 75
@@ -2071,7 +2623,11 @@
     Elona.StatSpeed: 640
     Elona.StatStrength: 4
     Elona.StatWill: 4
-- type: Race
+  initialEquipSlots:
+  - Elona.Head
+  - Elona.Body
+  - Elona.Back
+- type: Elona.Race
   id: Elona.Bike
   hspIds:
     elona122: 76
@@ -2099,4 +2655,13 @@
     Elona.StatSpeed: 155
     Elona.StatStrength: 11
     Elona.StatWill: 5
+  initialEquipSlots:
+  - Elona.Head
+  - Elona.Body
+  - Elona.Back
+  - Elona.Hand
+  - Elona.Hand
+  - Elona.Waist
+  - Elona.Leg
+  - Elona.Leg
 ...

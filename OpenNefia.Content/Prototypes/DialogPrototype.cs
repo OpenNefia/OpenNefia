@@ -2,7 +2,7 @@
 
 namespace OpenNefia.Core.Prototypes
 {
-    [Prototype("Dialog")]
+    [Prototype("Elona.Dialog")]
     public class DialogPrototype : IPrototype
     {
         [DataField("id", required: true)]
