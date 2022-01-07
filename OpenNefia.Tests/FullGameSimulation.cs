@@ -184,14 +184,30 @@ namespace OpenNefia.Tests
             protoMan.Initialize();
 
             // Don't reparse prototypes from disk every run.
-            if (_cachedPrototypes.IsValueCreated)
+            lock (_cachedPrototypes)
             {
-                protoMan.LoadFromResults(_cachedPrototypes.Value!);
-            }
-            else
-            {
-                protoMan.LoadDirectory(ResourcePath.Root / "Prototypes");
-                _cachedPrototypes.Value = protoMan.PrototypeResults.ShallowClone();
+                if (_cachedPrototypes.IsValueCreated)
+                {
+                    protoMan.LoadFromResults(_cachedPrototypes.Value!);
+                }
+                else
+                {
+                    protoMan.LoadDirectory(ResourcePath.Root / "Prototypes");
+
+                    // Deepcopy two layers worth of dictionaries.
+                    var cachedResults = new Dictionary<Type, Dictionary<string, DeserializationResult>>();
+                    foreach (var (prototypeType, protos) in protoMan.PrototypeResults)
+                    {
+                        var cachedProtos = new Dictionary<string, DeserializationResult>();
+                        foreach (var (prototypeId, res) in protos)
+                        {
+                            cachedProtos.Add(prototypeId, res);
+                        }
+                        cachedResults.Add(prototypeType, cachedProtos);
+                    }
+
+                    _cachedPrototypes.Value = cachedResults;
+                }
             }
 
             _protoDelegate?.Invoke(protoMan);
