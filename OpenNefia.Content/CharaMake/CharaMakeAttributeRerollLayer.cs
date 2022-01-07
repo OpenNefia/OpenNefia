@@ -8,6 +8,7 @@ using OpenNefia.Core;
 using OpenNefia.Core.Audio;
 using OpenNefia.Core.Locale;
 using OpenNefia.Core.Prototypes;
+using OpenNefia.Core.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -227,6 +228,8 @@ namespace OpenNefia.Content.CharaMake
         {
             base.Draw();
             Window.Draw();
+            GraphicsEx.SetColor(255, 255, 255, 30);
+            AssetWindows[0].Draw(Window.X + 15, Window.Y + 50, 150, 265);
             AttrTopic.Draw();
             List.Draw();
             LockAmt.Draw();

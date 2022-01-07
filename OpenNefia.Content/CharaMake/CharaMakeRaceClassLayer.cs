@@ -7,6 +7,7 @@ using OpenNefia.Content.UI.Element.List;
 using OpenNefia.Core.Input;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Locale;
+using OpenNefia.Core.Log;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Rendering;
@@ -23,35 +24,91 @@ namespace OpenNefia.Content.CharaMake
     [Localize("Elona.CharaMake.RaceSelect")]
     public class CharaMakeRaceSelectLayer : CharaMakeRaceClassLayer
     {
-        private const string ResultName = "race";
+        
         public override IEnumerable<RaceClass> GetData()
         {
-            return _prototypeManager.EnumeratePrototypes<RacePrototype>().Select(x => new RaceClass(x));
+            return _prototypeManager.EnumeratePrototypes<RacePrototype>().OrderBy(x => x.IsExtra).Select(x => new RaceClass(x));
         }
 
         protected override void Select(RaceClass item)
         {
             Finish(new CharaMakeResult(new Dictionary<string, object>
             {
-                { ResultName, item.Data }
+                { RaceResultName, item.Data }
             }));
         }
     }
     [Localize("Elona.CharaMake.ClassSelect")]
     public class CharaMakeClassSelectLayer : CharaMakeRaceClassLayer
     {
-        private const string ResultName = "class";
+        private UiText RaceText;
+        private TileAtlasBatch Atlas = default!;
+        private ChipPrototype MaleChip = default!;
+        private ChipPrototype FemaleChip = default!;
+
+        public CharaMakeClassSelectLayer()
+        {
+            RaceText = new UiText();
+            Atlas = new TileAtlasBatch(AtlasNames.Chip);
+        }
+
+        public override void Initialize(CharaMakeData args)
+        {
+            base.Initialize(args);
+            
+            if (Data.CharaData.TryGetValue(typeof(CharaMakeRaceSelectLayer), out var vals))
+            {
+                if (vals.TryGetValue(RaceResultName, out var raceObj) && raceObj is RacePrototype race)
+                {
+                    RaceText.Text = $"{Loc.GetString("Elona.CharaMake.ClassSelect.RaceLabel")}: {Loc.GetPrototypeString(race.GetStrongID(), "Name")}";
+                    try
+                    {
+                        MaleChip = race.ChipMale.ResolvePrototype();
+                    }
+                    catch (Exception ex)
+                    {
+                        Logger.ErrorS("charamake", ex, $"error resolving prototype for male race chip for race {race.ID}");
+                    }
+                    try
+                    {
+                        FemaleChip = race.ChipFemale.ResolvePrototype();
+                    }
+                    catch (Exception ex)
+                    {
+                        Logger.ErrorS("charamake", ex, $"error resolving prototype for female race chip for race {race.ID}");
+                    }
+                }
+            }
+        }
+
         public override IEnumerable<RaceClass> GetData()
         {
-            return _prototypeManager.EnumeratePrototypes<ClassPrototype>().Select(x => new RaceClass(x));
+            return _prototypeManager.EnumeratePrototypes<ClassPrototype>().OrderBy(x => x.IsExtra).Select(x => new RaceClass(x));
         }
 
         protected override void Select(RaceClass item)
         {
             Finish(new CharaMakeResult(new Dictionary<string, object>
             {
-                { ResultName, item.Data }
+                { ClassResultName, item.Data }
             }));
+        }
+
+        public override void SetPosition(int x, int y)
+        {
+            base.SetPosition(x, y);
+            RaceText.SetPosition(Window.X + 470, Window.Y + 35);
+        }
+
+        public override void Draw()
+        {
+            base.Draw();
+            RaceText.Draw();
+            Atlas.Clear();
+            Atlas.Add(FemaleChip.Image.AtlasIndex, Window.X + 375, Window.Y + 35, centered: true);
+            Atlas.Add(MaleChip.Image.AtlasIndex, Window.X + 405, Window.Y + 35, centered: true);
+            Atlas.Flush();
+            Atlas.Draw(0, 0, Width, Height);
         }
     }
 
@@ -60,12 +117,33 @@ namespace OpenNefia.Content.CharaMake
         public class RaceClass
         {
             public IPrototype Data;
+            private bool IsExtra;
 
             public RaceClass(IPrototype data)
             {
                 Data = data;
+                IsExtra = Data switch
+                {
+                    RacePrototype race => race.IsExtra,
+                    ClassPrototype @class => @class.IsExtra,
+                    _ => false
+                };
             }
-            public string GetString(string suffix = "")
+            public bool TryGetString(out string result, string suffix = "")
+            {
+                result = EnsureString(suffix);
+                if (result.StartsWith('<'))
+                {
+                    result = string.Empty;
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+
+            public string EnsureString(string suffix = "")
             {
                 switch (Data)
                 {
@@ -76,6 +154,11 @@ namespace OpenNefia.Content.CharaMake
                     default:
                         return string.Empty;
                 }
+            }
+
+            public string GetName()
+            {
+                return (IsExtra ? $"{Loc.GetString("Elona.CharaMake.Extra")} " : string.Empty) + EnsureString("Name");
             }
 
             public Dictionary<PrototypeId<SkillPrototype>, int> GetSkills()
@@ -97,11 +180,14 @@ namespace OpenNefia.Content.CharaMake
             public RaceClassCell(RaceClass wrapper) 
                 : base(wrapper, new UiText(UiFonts.ListText))
             {
-                Text = Data.GetString("Name");
+                Text = Data.GetName();
             }
         }
 
         [Dependency] protected readonly IPrototypeManager _prototypeManager = default!;
+
+        protected const string ClassResultName = "class";
+        protected const string RaceResultName = "race";
 
         [Localize] protected UiWindow Window;
         [Localize] protected UiTextTopic RaceTopic;
@@ -128,7 +214,6 @@ namespace OpenNefia.Content.CharaMake
             "Elona.StatSpeed"
         };
         
-
         public CharaMakeRaceClassLayer()
         {
             Window = new UiWindow();
@@ -225,7 +310,9 @@ namespace OpenNefia.Content.CharaMake
             SetAttributes(data.GetSkills());
             SetTrainedSkills(data.GetSkills());
             DetailContainer.Resolve();
-            DetailText.Text = data.GetString("Description");
+
+            data.TryGetString(out var desc, "Description");
+            DetailText.Text = desc;
         }
 
         private void SetAttributes(Dictionary<PrototypeId<SkillPrototype>, int> skills)
@@ -356,6 +443,8 @@ namespace OpenNefia.Content.CharaMake
         {
             base.Draw();
             Window.Draw();
+            GraphicsEx.SetColor(255, 255, 255, 50);
+            CurrentWindowBG.Draw(Window.X + 15, Window.Y + 40, 270, 420);
             List.Draw();
 
             RaceTopic.Draw();
