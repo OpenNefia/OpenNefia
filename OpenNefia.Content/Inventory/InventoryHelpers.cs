@@ -60,7 +60,7 @@ namespace OpenNefia.Content.Inventory
                 icon = InventoryIcon.Drink;
             }
 
-            return new AssetDrawable(AssetPrototypeOf.InventoryIcons, regionId: icon.ToString());
+            return new AssetDrawable(AssetPrototypeOf.InventoryIcons, regionId: ((int)icon).ToString());
         }
     }
 }

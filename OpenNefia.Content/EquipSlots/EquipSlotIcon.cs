@@ -10,7 +10,7 @@ namespace OpenNefia.Content.EquipSlots
     /// <summary>
     /// Region IDs for use with <see cref="AssetPrototypeOf.EquipSlotIcons"/>.
     /// </summary>
-    public enum EquipSlotIcons
+    public enum EquipSlotIcon : int
     {
         Head = 0,
         Neck = 1,

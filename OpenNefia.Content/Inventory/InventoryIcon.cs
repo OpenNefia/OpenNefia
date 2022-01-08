@@ -10,7 +10,7 @@ namespace OpenNefia.Content.Inventory
     /// <summary>
     /// Asset region IDs for <see cref="AssetPrototypeOf.InventoryIcons"/>.
     /// </summary>
-    public enum InventoryIcon
+    public enum InventoryIcon : int
     {
         Drink = 0,
         Zap = 1,

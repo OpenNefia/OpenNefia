@@ -1,7 +1,10 @@
 ﻿using OpenNefia.Content.EquipSlots;
 using OpenNefia.Content.GameObjects;
+using OpenNefia.Content.Inventory;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Locale;
+using OpenNefia.Core.Log;
+using OpenNefia.Core.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -52,6 +55,17 @@ namespace OpenNefia.Content.Equipment
             {
                 return Loc.GetString("Elona.Equipment.ArmorClass.Light");
             }
+        }
+
+        public static IAssetDrawable MakeEquipSlotIcon(EquipSlotIcon icon)
+        {
+            if (!Enum.IsDefined(typeof(EquipSlotIcon), icon))
+            {
+                Logger.WarningS("inv", $"Missing equip slot icon {icon}");
+                icon = EquipSlotIcon.Head;
+            }
+
+            return new AssetDrawable(AssetPrototypeOf.EquipSlotIcons, regionId: ((int)icon).ToString());
         }
     }
 }
