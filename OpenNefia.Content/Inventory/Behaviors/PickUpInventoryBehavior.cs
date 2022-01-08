@@ -4,6 +4,7 @@ using OpenNefia.Core.IoC;
 using OpenNefia.Core.Locale;
 using OpenNefia.Core.Logic;
 using OpenNefia.Core.Prototypes;
+using OpenNefia.Core.UI.Element;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,6 +21,7 @@ namespace OpenNefia.Content.Inventory
         public override HspIdsInv HspIds { get; } = HspIdsInv.From122(new(id: 3));
 
         public override string WindowTitle => Loc.GetString("Elona.Inventory.Behavior.PickUp.WindowTitle");
+        public override IUiElement MakeIcon() => InventoryHelpers.MakeIcon(InventoryIcon.PickUp);
 
         public override IEnumerable<IInventorySource> GetSources(InventoryContext context)
         {

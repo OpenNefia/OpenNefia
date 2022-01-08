@@ -6,6 +6,8 @@ using OpenNefia.Core.Maths;
 using OpenNefia.Content.EquipSlots;
 using OpenNefia.Content.Equipment;
 using OpenNefia.Core.Locale;
+using OpenNefia.Core.Rendering;
+using OpenNefia.Core.Log;
 
 namespace OpenNefia.Content.Inventory
 {
@@ -48,6 +50,17 @@ namespace OpenNefia.Content.Inventory
             }
 
             return UiColors.TextBlack;
+        }
+
+        public static IAssetDrawable MakeIcon(InventoryIcon icon)
+        {
+            if (!Enum.IsDefined(typeof(InventoryIcon), icon))
+            {
+                Logger.WarningS("inv", $"Missing inventory icon {icon}");
+                icon = InventoryIcon.Drink;
+            }
+
+            return new AssetDrawable(AssetPrototypeOf.InventoryIcons, regionId: icon.ToString());
         }
     }
 }

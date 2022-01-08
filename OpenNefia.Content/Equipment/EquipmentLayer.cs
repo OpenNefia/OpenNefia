@@ -73,7 +73,7 @@ namespace OpenNefia.Content.Equipment
 
         public class CellData
         {
-            private const string DefaultEquipSlotIcon = "1";
+            private const string DefaultEquipSlotIcon = "0";
 
             public EquipSlotInstance EquipSlot { get; set; }
             public string EquipSlotText { get; set; } = string.Empty;
@@ -161,7 +161,7 @@ namespace OpenNefia.Content.Equipment
                 TextSubtext.Draw();
 
                 if (Data.ItemEntityUid != null)
-                    SpriteBatch.Add(Data.ItemEntityUid.Value, X + 12, Y + 10, centered: true);
+                    SpriteBatch.Add(Data.ItemEntityUid.Value, X + 12 + 28, Y + 10, centered: true);
             }
 
             public override void Dispose()
@@ -214,7 +214,7 @@ namespace OpenNefia.Content.Equipment
         {
             AssetInventoryIcons = new AssetDrawable(AssetPrototypeOf.InventoryIcons) 
             {
-                RegionId = "10",
+                RegionId = InventoryIcon.Equip
             };
             AssetDecoWearA = new AssetDrawable(AssetPrototypeOf.DecoWearA);
             AssetDecoWearB = new AssetDrawable(AssetPrototypeOf.DecoWearB);

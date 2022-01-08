@@ -5,7 +5,7 @@ using OpenNefia.Core.UI.Element;
 
 namespace OpenNefia.Content.UI.Element
 {
-    public interface IUiText : IDrawable, IUiDefaultSizeable, IDisposable, ILocalizable
+    public interface IUiText : IDrawable, IUiElement, IDisposable, ILocalizable
     {
         public string Text { get; set; }
         public Color Color { get; set; }

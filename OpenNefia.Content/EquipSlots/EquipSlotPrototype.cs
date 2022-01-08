@@ -23,7 +23,8 @@ namespace OpenNefia.Content.EquipSlots
         /// <remarks>
         /// This is a region ID in <see cref="AssetPrototypeOf.EquipSlotIcons"/>. 
         /// </remarks>
+        /// <seealso cref="EquipSlotIcons"/>
         [DataField]
-        public string Icon { get; } = "1";
+        public string Icon { get; } = EquipSlotIcons.Head;
     }
 }

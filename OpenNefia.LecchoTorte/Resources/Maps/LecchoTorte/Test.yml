@@ -44,7 +44,7 @@ entities:
     parent: 0
     pos: 5,5
 - uid: 5
-  protoId: Elona.ItemPotionOfCureMinorWound
+  protoId: Elona.ItemDagger
   components:
   - type: Spatial
     parent: 0
@@ -54,7 +54,7 @@ entities:
   - type: Identify
     identifyState: Full
 - uid: 6
-  protoId: Elona.ItemPotionOfCureMinorWound
+  protoId: Elona.ItemDagger
   components:
   - type: Spatial
     parent: 0
@@ -64,7 +64,7 @@ entities:
   - type: Identify
     identifyState: Full
 - uid: 7
-  protoId: Elona.ItemPotionOfCureMinorWound
+  protoId: Elona.ItemDagger
   components:
   - type: Spatial
     parent: 0
@@ -74,7 +74,7 @@ entities:
   - type: Identify
     identifyState: Full
 - uid: 8
-  protoId: Elona.ItemPotionOfCureMinorWound
+  protoId: Elona.ItemDagger
   components:
   - type: Spatial
     parent: 0

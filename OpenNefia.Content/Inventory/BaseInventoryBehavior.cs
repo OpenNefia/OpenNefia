@@ -24,7 +24,6 @@ namespace OpenNefia.Content.Inventory
         public abstract string WindowTitle { get; }
 
         public virtual bool EnableShortcuts => false;
-        public virtual PrototypeId<AssetPrototype>? Icon => null;
         public virtual bool QueryAmount => false;
         public virtual bool ShowTotalWeight => true;
         public virtual bool ShowMoney => false;
@@ -34,6 +33,11 @@ namespace OpenNefia.Content.Inventory
 
         /// <inheritdoc/>
         public abstract IEnumerable<IInventorySource> GetSources(InventoryContext context);
+
+        public virtual IUiElement? MakeIcon()
+        {
+            return null;
+        }
 
         /// <inheritdoc/>
         public virtual bool IsAccepted(InventoryContext context, EntityUid item)
