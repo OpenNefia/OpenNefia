@@ -5,15 +5,28 @@ using OpenNefia.Content.GameObjects;
 using OpenNefia.Core.Containers;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
+using OpenNefia.Core.Prototypes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using EquipSlotPrototypeId = OpenNefia.Core.Prototypes.PrototypeId<OpenNefia.Content.EquipSlots.EquipSlotPrototype>;
 
 namespace OpenNefia.Content.Equipment
 {
-    public class EquipmentSystem : EntitySystem
+    public interface IEquipmentSystem : IEntitySystem
+    {
+        /// <summary>
+        /// Returns true if this entity can be equipped to the given equipment slot type.
+        /// </summary>
+        /// <param name="item">Entity to check.</param>
+        /// <param name="equipSlotId">Equipment slot equipping to.</param>
+        bool CanEquipItemInSlot(EntityUid item, EquipSlotPrototypeId equipSlotId, 
+            EquipmentComponent? itemEquipment = null);
+    }
+
+    public class EquipmentSystem : EntitySystem, IEquipmentSystem
     {
         [Dependency] private readonly IRefreshSystem _refresh = default!;
         [Dependency] private readonly IEquipSlotsSystem _equipSlotsSystem = default!;
@@ -27,6 +40,8 @@ namespace OpenNefia.Content.Equipment
             SubscribeLocalEvent<EquipSlotsComponent, DidUnequipEvent>(HandleDidUnequip, nameof(HandleDidUnequip));
             SubscribeLocalEvent<EquipSlotsComponent, EntityRefreshEvent>(HandleRefresh, nameof(HandleRefresh));
         }
+
+        #region Event Handlers
 
         private void HandleGotEquipped(EntityUid uid, EquipmentComponent component, GotEquippedEvent args)
         {
@@ -63,6 +78,22 @@ namespace OpenNefia.Content.Equipment
                 }
             }
         }
+
+        #endregion
+
+        #region Querying
+
+        /// <inheritdoc/>
+        public bool CanEquipItemInSlot(EntityUid item, EquipSlotPrototypeId equipSlotId,
+            EquipmentComponent? itemEquipment = null)
+        {
+            if (!Resolve(item, ref itemEquipment, logMissing: false))
+                return false;
+
+            return itemEquipment.EquipSlots.Contains(equipSlotId);
+        }
+
+        #endregion
     }
 
     public struct ApplyEquipmentToEquipperEvent

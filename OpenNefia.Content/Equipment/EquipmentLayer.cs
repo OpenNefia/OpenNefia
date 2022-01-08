@@ -1,13 +1,16 @@
-﻿using OpenNefia.Content.DisplayName;
+﻿using NetVips;
+using OpenNefia.Content.DisplayName;
 using OpenNefia.Content.EquipSlots;
 using OpenNefia.Content.GameObjects;
 using OpenNefia.Content.Input;
 using OpenNefia.Content.Inventory;
+using OpenNefia.Content.Logic;
 using OpenNefia.Content.Skills;
 using OpenNefia.Content.UI;
 using OpenNefia.Content.UI.Element;
 using OpenNefia.Content.UI.Element.List;
 using OpenNefia.Core.Audio;
+using OpenNefia.Core.Containers;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Input;
 using OpenNefia.Core.IoC;
@@ -174,6 +177,7 @@ namespace OpenNefia.Content.Equipment
         [Dependency] private readonly IEntityManager _entityManager = default!;
         [Dependency] private readonly IEquipSlotsSystem _equipSlots = default!;
         [Dependency] private readonly DisplayNameSystem _displayNames = default!;
+        [Dependency] private readonly IStackSystem _stackSystem = default!;
 
         protected IAssetDrawable AssetInventoryIcons;
         protected IAssetDrawable AssetDecoWearA;
@@ -236,7 +240,7 @@ namespace OpenNefia.Content.Equipment
             if (args.Function == EngineKeyFunctions.UICancel)
             {
                 // Need to finish instead of cancel in case equipment was changed.
-                Finish(new Result(changedEquipment: false));
+                Finish(new Result(_changedEquipment));
             }
             else if (args.Function == ContentKeyFunctions.UIIdentify)
             {
@@ -270,7 +274,12 @@ namespace OpenNefia.Content.Equipment
 
         private void DoUnequip(EquipSlotInstance equipSlot)
         {
-            if (_equipSlots.TryUnequip(_equipee, _equipTarget, equipSlot, out var unequippedItem, silent: false))
+            // Move the unequipped item to the target's inventory, if possible.
+            IContainer? container = null;
+            if (_entityManager.TryGetComponent(_equipTarget, out InventoryComponent inventory))
+                container = inventory.Container;
+
+            if (_equipSlots.TryUnequip(_equipee, _equipTarget, equipSlot, out var unequippedItem, placeInto: container, silent: false))
             {
                 Sounds.Play(Sound.Equip1);
                 UpdateFromEquipTarget();
@@ -283,6 +292,32 @@ namespace OpenNefia.Content.Equipment
 
         private void DoEquip(EquipSlotInstance equipSlot)
         {
+            var equipBehavior = new EquipInventoryBehavior(equipSlot.ID);
+            var invContext = new InventoryContext(_equipTarget, equipBehavior);
+            var result = UserInterfaceManager.Query<InventoryLayer, InventoryContext, InventoryLayer.Result>(invContext);
+
+            if (result.HasValue && _entityManager.IsAlive(result.Value.SelectedItem))
+            {
+                var item = result.Value.SelectedItem.Value;
+
+                if (!_stackSystem.TrySplit(item, 1, out var splitItem))
+                    return;
+
+                if (!_equipSlots.TryEquip(_equipee, _equipTarget, splitItem, equipSlot, silent: false))
+                {
+                    Sounds.Play(Sound.Fail1);
+                    return;
+                }
+
+                Sounds.Play(Sound.Equip1);
+                _changedEquipment = true;
+
+                // Display messages relating to curse state, weapon suitability, etc.
+                var ev = new GotEquippedInMenuEvent(_equipee, _equipTarget, equipSlot);
+                _entityManager.EventBus.RaiseLocalEvent(splitItem, ref ev);
+
+                UpdateFromEquipTarget();
+            }
         }
 
         public override void Initialize(Args args)
@@ -459,6 +494,20 @@ namespace OpenNefia.Content.Equipment
 
             _spriteBatch.Dispose();
             List.Dispose();
+        }
+    }
+
+    public class GotEquippedInMenuEvent : EntityEventArgs
+    {
+        public EntityUid Equipee { get; }
+        public EntityUid EquipTarget { get; }
+        public EquipSlotInstance EquipSlot { get; }
+
+        public GotEquippedInMenuEvent(EntityUid equipee, EntityUid equipTarget, EquipSlotInstance equipSlot)
+        {
+            Equipee = equipee;
+            EquipTarget = equipTarget;
+            EquipSlot = equipSlot;
         }
     }
 }

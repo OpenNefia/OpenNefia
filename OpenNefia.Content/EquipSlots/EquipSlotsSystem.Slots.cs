@@ -140,23 +140,6 @@ namespace OpenNefia.Content.EquipSlots
         }
 
         /// <inheritdoc/>
-        public bool TryGetEquipSlotAndContainer(EntityUid uid, EquipSlotPrototypeId slotId,
-            [NotNullWhen(true)] out EquipSlotInstance? equipSlotInstance, [NotNullWhen(true)] out ContainerSlot? containerSlot,
-            EquipSlotsComponent? equipSlotsComp = null,
-            ContainerManagerComponent? containerComp = null)
-        {
-            containerSlot = null;
-            equipSlotInstance = null;
-            if (!Resolve(uid, ref equipSlotsComp, ref containerComp, false))
-                return false;
-
-            if (!TryGetEquipSlot(uid, slotId, out equipSlotInstance, equipSlotsComp: equipSlotsComp))
-                return false;
-
-            return TryGetContainerForEquipSlot(uid, equipSlotInstance, out containerSlot, equipSlotsComp, containerComp);
-        }
-
-        /// <inheritdoc/>
         public bool TryGetContainerForEquipSlot(EntityUid uid, EquipSlotInstance equipSlotInstance,
             [NotNullWhen(true)] out ContainerSlot? containerSlot,
             EquipSlotsComponent? equipSlotsComp = null,
@@ -211,6 +194,37 @@ namespace OpenNefia.Content.EquipSlots
                 return false;
 
             equipSlotInstance = equipSlotsComp.EquipSlots.FirstOrDefault(x => x.ID == slotId);
+            return equipSlotInstance != default;
+        }
+
+        /// <inheritdoc/>
+        public bool HasEmptyEquipSlot(EntityUid uid, EquipSlotPrototypeId slotId, EquipSlotsComponent? equipSlotsComp = null) =>
+            TryGetEmptyEquipSlot(uid, slotId, out _, equipSlotsComp);
+
+
+        /// <inheritdoc/>
+        public bool TryGetEmptyEquipSlot(EntityUid uid, EquipSlotPrototypeId slotId, [NotNullWhen(true)] out EquipSlotInstance? equipSlotInstance,
+            EquipSlotsComponent? equipSlotsComp = null)
+        {
+            equipSlotInstance = null;
+            if (!Resolve(uid, ref equipSlotsComp, false))
+                return false;
+
+            if (!_prototypeManager.HasIndex(slotId))
+                return false;
+
+            bool IsEmptyEquipSlotWithType(EquipSlotInstance equipSlot, EquipSlotPrototypeId slotId)
+            {
+                if (equipSlot.ID != slotId)
+                    return false;
+
+                if (!TryGetContainerForEquipSlot(uid, equipSlot, out var containerSlot))
+                    return false;
+
+                return containerSlot.ContainedEntity == null;
+            }
+
+            equipSlotInstance = equipSlotsComp.EquipSlots.FirstOrDefault(x => IsEmptyEquipSlotWithType(x, slotId));
             return equipSlotInstance != default;
         }
 

@@ -6,6 +6,8 @@ Elona.Equipment =
       Heavy = "(Heavy)"
    },
 
+   YouChangeYourEquipment = "You change your equipment.",
+
    Layer = {
       Window = {
          Title = "Equipment",

@@ -6,6 +6,8 @@ Elona.Equipment =
       Heavy = "(重装備)"
    },
 
+   YouChangeYourEquipment = "装備を変更した。",
+
    Layer = {
       Window = {
          Title = "装備品",

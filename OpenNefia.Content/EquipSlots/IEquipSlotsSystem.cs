@@ -8,26 +8,22 @@ namespace OpenNefia.Content.EquipSlots
 {
     public partial interface IEquipSlotsSystem : IEntitySystem
     {
-        bool CanEquip(EntityUid uid, EntityUid itemUid, PrototypeId<EquipSlotPrototype> slot, 
+        bool CanEquip(EntityUid uid, EntityUid itemUid, EquipSlotInstance equipSlot,
             [NotNullWhen(false)] out string? reason, 
-            EquipSlotInstance? equipSlot = null,
             EquipSlotsComponent? inventory = null, 
             EquipmentComponent? item = null);
 
-        bool CanEquip(EntityUid actor, EntityUid target, EntityUid itemUid, PrototypeId<EquipSlotPrototype> slot,
+        bool CanEquip(EntityUid actor, EntityUid target, EntityUid itemUid, EquipSlotInstance equipSlot,
             [NotNullWhen(false)] out string? reason,
-            EquipSlotInstance? equipSlot = null, 
             EquipSlotsComponent? equipSlots = null, 
             EquipmentComponent? item = null);
 
-        bool TryEquip(EntityUid uid, EntityUid itemUid, PrototypeId<EquipSlotPrototype> slot,
-            [NotNullWhen(true)] out EquipSlotInstance? equipSlot,
+        bool TryEquip(EntityUid uid, EntityUid itemUid, EquipSlotInstance equipSlot,
             bool silent = false, bool force = false, 
             EquipSlotsComponent? equipSlots = null,
             EquipmentComponent? item = null);
 
-        bool TryEquip(EntityUid actor, EntityUid target, EntityUid itemUid, PrototypeId<EquipSlotPrototype> slot,
-            [NotNullWhen(true)] out EquipSlotInstance? equipSlot,
+        bool TryEquip(EntityUid actor, EntityUid target, EntityUid itemUid, EquipSlotInstance equipSlot,
             bool silent = false, bool force = false, 
             EquipSlotsComponent? equipSlots = null, 
             EquipmentComponent? item = null);

@@ -39,7 +39,7 @@ namespace OpenNefia.Content.Inventory
             var verb = new Verb(PickableSystem.VerbIDDrop);
             var result = _verbSystem.ExecuteVerb(context.User, item, verb);
             
-            if (result == TurnResult.Succeeded)
+            if (result != TurnResult.NoResult)
                 return new InventoryResult.Finished(result);
 
             return new InventoryResult.Continuing();

@@ -126,6 +126,10 @@ namespace OpenNefia.Tests.Core.GameObjects.Systems
             Assert.That(stackSys.TrySplit(dummy, 1, mapCoords, out var _), Is.False);
         }
 
+        /// <summary>
+        /// Splitting a stack size of one should just return the original entity, to prevent
+        /// unneeded entity allocation.
+        /// </summary>
         [Test]
         public void TestSplit_One()
         {
@@ -145,9 +149,9 @@ namespace OpenNefia.Tests.Core.GameObjects.Systems
             Assert.Multiple(() =>
             {
                 Assert.That(result, Is.True, "Result");
-                Assert.That(split.IsValid(), Is.True, "Split entity IsValid()");
                 Assert.That(entityManager.IsAlive(split), Is.True, "Split entity IsAlive()");
-                Assert.That(entityManager.IsAlive(dummy), Is.False, "Original entity IsAlive()");
+                Assert.That(entityManager.IsAlive(dummy), Is.True, "Original entity IsAlive()");
+                Assert.That(split, Is.EqualTo(dummy), "Split entity equal to original entity");
             });
         }
 
@@ -184,6 +188,30 @@ namespace OpenNefia.Tests.Core.GameObjects.Systems
                 Assert.That(splitStackTest.B, Is.EquivalentTo(new List<int> { 1, 2, 3 }));
                 Assert.That(splitStackTest.C.Foo, Is.EqualTo("bar"));
                 Assert.That(splitStackTest.C.Hoge, Is.EqualTo(true));
+            });
+        }
+
+        [Test]
+        public void TestSplit_SameAmount()
+        {
+            var sim = SimulationFactory();
+            var entityManager = sim.Resolve<IEntityManager>();
+            var stackSys = sim.GetEntitySystem<IStackSystem>();
+            var map = sim.ActiveMap!;
+
+            var dummy = entityManager.CreateEntityUninitialized(DummyID);
+
+            var stack = entityManager.GetComponent<StackComponent>(dummy);
+
+            stack.Count = 5;
+            var mapCoords = map.AtPos(Vector2i.Zero);
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(stackSys.TrySplit(dummy, 5, mapCoords, out var split), Is.True);
+                Assert.That(split, Is.EqualTo(dummy));
+
+                Assert.That(stackSys.TrySplit(dummy, 6, mapCoords, out _), Is.False);
             });
         }
 

@@ -89,9 +89,9 @@ namespace OpenNefia.Content.GameObjects
             else
             {
                 var context = new InventoryContext(player, new PickUpInventoryBehavior());
-                var result = _uiMgr.Query<InventoryLayer, InventoryContext, InventoryResult>(context);
+                var result = _uiMgr.Query<InventoryLayer, InventoryContext, InventoryLayer.Result>(context);
                 
-                if (result.HasValue && result.Value is InventoryResult.Finished finished)
+                if (result.HasValue && result.Value.Data is InventoryResult.Finished finished)
                 {
                     return finished.TurnResult;
                 }
@@ -107,7 +107,13 @@ namespace OpenNefia.Content.GameObjects
 
             var player = session.Player;
 
-            _uiMgr.Query<EquipmentLayer, EquipmentLayer.Args, EquipmentLayer.Result>(new(player));
+            var result = _uiMgr.Query<EquipmentLayer, EquipmentLayer.Args, EquipmentLayer.Result>(new(player));
+
+            if (result.HasValue && result.Value.ChangedEquipment)
+            {
+                Mes.Display(Loc.GetString("Elona.Equipment.YouChangeYourEquipment"));
+                return TurnResult.Succeeded;
+            }
 
             return TurnResult.Aborted;
         }
@@ -133,11 +139,11 @@ namespace OpenNefia.Content.GameObjects
                 if (full.State == BoundKeyState.Down && session?.Player != null)
                 {
                     var context = new InventoryContext(session.Player, _behavior);
-                    var result = _uiMgr.Query<InventoryLayer, InventoryContext, InventoryResult>(context);
+                    var result = _uiMgr.Query<InventoryLayer, InventoryContext, InventoryLayer.Result>(context);
 
                     if (result.HasValue)
                     {
-                        switch (result.Value)
+                        switch (result.Value.Data)
                         {
                             case InventoryResult.Finished finished:
                                 return finished.TurnResult;

@@ -107,9 +107,15 @@ namespace OpenNefia.Core.GameObjects
         /// </summary>
         /// <returns>A non-null <see cref="EntityUid"/> if successful.</returns>
         /// <remarks>
+        /// <para>
+        /// If the input amount is exactly the same as the entity's stack amount, then
+        /// the input entity will be returned unchanged as the split entity.
+        /// </para>
+        /// <para>
         /// You can also call this method on entities without a <see cref="StackComponent"/>,
         /// as long as <c>amount</c> is 1. In that case, the entity returned will
         /// be the same as the input entity.
+        /// </para>
         /// </remarks>
         bool TrySplit(EntityUid uid, int amount, EntityCoordinates spawnPosition,
             out EntityUid split,
@@ -432,6 +438,14 @@ namespace OpenNefia.Core.GameObjects
 
                 Logger.ErrorS("resolve", $"Can't resolve \"{typeof(StackComponent)}\" on entity {uid}!\n{new StackTrace(1, true)}");
                 return false;
+            }
+
+            // Special case: If the requested amount is the same as the input count, 
+            // just return the entity.
+            if (stack.Count == amount)
+            {
+                split = uid;
+                return true;
             }
 
             // Try to remove the amount of things we want to split from the original stack...
