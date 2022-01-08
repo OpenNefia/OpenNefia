@@ -241,10 +241,28 @@ namespace OpenNefia.Content.EquipSlots
                 }
             }
 
-            EntityManager.GetComponent<SpatialComponent>(removedItem.Value).Coordinates =
-                EntityManager.GetComponent<SpatialComponent>(target).Coordinates;
+            ReparentUnequippedEntity(target, removedItem.Value);
 
             return true;
+        }
+
+        private void ReparentUnequippedEntity(EntityUid target, EntityUid unequipped,
+            SpatialComponent? targetSpatial = null,
+            SpatialComponent? unequippedSpatial = null)
+        {
+            if (!Resolve(target, ref targetSpatial) || !Resolve(unequipped, ref unequippedSpatial))
+                return;
+
+            // Move the item to the equipper's inventory, if they have one.
+            if (EntityManager.TryGetComponent(target, out InventoryComponent targetInventory))
+            {
+                if (targetInventory.Container.Insert(unequipped))
+                    return;
+            }
+
+            // Place the item in the parent of the equipper (usually the map, but could be inside
+            // a nested container).
+            _containerSys.AttachParentToContainerOrMap(unequippedSpatial);
         }
 
         public bool CanUnequip(EntityUid uid, EquipSlotInstance equipSlot,

@@ -1,5 +1,6 @@
 ﻿using NUnit.Framework;
 using OpenNefia.Content.EquipSlots;
+using OpenNefia.Content.Inventory;
 using OpenNefia.Core.Containers;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Maps;
@@ -212,9 +213,6 @@ namespace OpenNefia.Content.Tests.EquipSlots
                 TestSlot1ID,
             };
 
-            var equipSlots = entMan.EnsureComponent<EquipSlotsComponent>(ent);
-            var containers = entMan.EnsureComponent<ContainerManagerComponent>(ent);
-
             equipSlotSys.InitializeEquipSlots(ent, equipSlotProtos);
 
             Assert.Multiple(() =>
@@ -253,31 +251,98 @@ namespace OpenNefia.Content.Tests.EquipSlots
                 TestSlot1ID,
             };
 
-            var equipSlots = entMan.EnsureComponent<EquipSlotsComponent>(ent);
-            var containers = entMan.EnsureComponent<ContainerManagerComponent>(ent);
-
             equipSlotSys.InitializeEquipSlots(ent, equipSlotProtos);
 
             Assert.Multiple(() =>
             {
                 Assert.That(equipSlotSys.TryGetEquipSlot(ent, TestSlot1ID, out var equipSlot), Is.True, "Try get equip slot");
                 Assert.That(equipSlotSys.CanUnequip(ent, equipSlot!, out var reason), Is.False, "Can unequip 1");
-                Assert.That(reason, Is.EqualTo("Elona.EquipSlots.Equip.Fails"));
-                Assert.That(equipSlotSys.CanUnequip(ent, equipSlot!, out reason), Is.False, "Can unequip 2");
-                Assert.That(reason, Is.EqualTo("Elona.EquipSlots.Equip.Fails"));
+                Assert.That(reason, Is.EqualTo("Elona.EquipSlots.Unequip.Fails"));
 
                 Assert.That(equipSlotSys.TryEquip(ent, entItem1, TestSlot1ID, out _), Is.True);
 
                 Assert.That(equipSlotSys.CanUnequip(ent, equipSlot!, out _), Is.True, "Can unequip 1 after equip");
 
-                Assert.That(equipSlotSys.TryUnequip(ent, equipSlot!), Is.False, "Try unequip 2");
                 Assert.That(equipSlotSys.TryUnequip(ent, equipSlot!), Is.True, "Try unequip 1");
                 Assert.That(equipSlotSys.TryUnequip(ent, equipSlot!), Is.False, "Try unequip 1 twice");
 
                 Assert.That(equipSlotSys.TryGetSlotEntity(ent, equipSlot!, out _), Is.False, "Try get slot entity");
+            });
+        }
+
+        /// <summary>
+        /// Tests that an unequipped item is moved to the equipper's InventoryComponent if they have one.
+        /// </summary>
+        [Test]
+        public void TestTryUnequipPlacement_Inventory()
+        {
+            var sim = SimulationFactory();
+
+            var entMan = sim.Resolve<IEntityManager>();
+            var mapMan = sim.Resolve<IMapManager>();
+
+            var containerSys = sim.GetEntitySystem<ContainerSystem>();
+            var equipSlotSys = sim.GetEntitySystem<EquipSlotsSystem>();
+
+            var map = sim.CreateMapAndSetActive(10, 10);
+
+            var ent = entMan.SpawnEntity(null, map.AtPos(Vector2i.One));
+            var entItem1 = entMan.SpawnEntity(TestEquipment1ID, map.AtPos(Vector2i.One));
+
+            List<PrototypeId<EquipSlotPrototype>> equipSlotProtos = new()
+            {
+                TestSlot1ID,
+            };
+
+            // If the entity has an inventory, unequipping the item will make it be placed there.
+            var inventory = entMan.EnsureComponent<InventoryComponent>(ent);
+
+            equipSlotSys.InitializeEquipSlots(ent, equipSlotProtos);
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(equipSlotSys.TryEquip(ent, entItem1, TestSlot1ID, out var equipSlot), Is.True, "Try equip 1");
+                Assert.That(equipSlotSys.TryUnequip(ent, equipSlot!), Is.True, "Try unequip 1");
 
                 var entItem1Spatial = entMan.GetComponent<SpatialComponent>(entItem1);
                 Assert.That(entItem1Spatial.Coordinates, Is.EqualTo(new EntityCoordinates(ent, Vector2i.Zero)));
+                Assert.That(inventory.Container.ContainedEntities.Contains(entItem1), Is.True);
+            });
+        }
+
+        /// <summary>
+        /// Tests that an unequipped item is moved to the parent map if the equipper has no InventoryComponent.
+        /// </summary>
+        [Test]
+        public void TestTryUnequipPlacement_NoInventory()
+        {
+            var sim = SimulationFactory();
+
+            var entMan = sim.Resolve<IEntityManager>();
+            var mapMan = sim.Resolve<IMapManager>();
+
+            var containerSys = sim.GetEntitySystem<ContainerSystem>();
+            var equipSlotSys = sim.GetEntitySystem<EquipSlotsSystem>();
+
+            var map = sim.CreateMapAndSetActive(10, 10);
+
+            var ent = entMan.SpawnEntity(null, map.AtPos(Vector2i.One));
+            var entItem1 = entMan.SpawnEntity(TestEquipment1ID, map.AtPos(Vector2i.One));
+
+            List<PrototypeId<EquipSlotPrototype>> equipSlotProtos = new()
+            {
+                TestSlot1ID,
+            };
+
+            equipSlotSys.InitializeEquipSlots(ent, equipSlotProtos);
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(equipSlotSys.TryEquip(ent, entItem1, TestSlot1ID, out var equipSlot), Is.True, "Try equip 1");
+                Assert.That(equipSlotSys.TryUnequip(ent, equipSlot!), Is.True, "Try unequip 1");
+
+                var entItem1Spatial = entMan.GetComponent<SpatialComponent>(entItem1);
+                Assert.That(entItem1Spatial.Coordinates, Is.EqualTo(map.AtPosEntity(Vector2i.One)), "New coordinates");
             });
         }
 
@@ -303,9 +368,6 @@ namespace OpenNefia.Content.Tests.EquipSlots
                 TestSlot1ID,
                 TestSlot2ID,
             };
-
-            var equipSlots = entMan.EnsureComponent<EquipSlotsComponent>(ent);
-            var containers = entMan.EnsureComponent<ContainerManagerComponent>(ent);
 
             equipSlotSys.InitializeEquipSlots(ent, equipSlotProtos);
 

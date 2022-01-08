@@ -17,7 +17,6 @@ namespace OpenNefia.Content.Charas
 
         public override void Initialize()
         {
-            SubscribeLocalEvent<CharaComponent, ComponentStartup>(HandleStartup, nameof(HandleStartup));
             SubscribeLocalEvent<CharaComponent, EntityGeneratedEvent>(HandleGenerated, nameof(HandleGenerated),
                 before: new[] { new SubId(typeof(SkillsSystem), "HandleGenerated") });
         }
@@ -26,6 +25,7 @@ namespace OpenNefia.Content.Charas
         {
             InitRaceSkills(uid, chara);
             InitRaceEquipSlots(uid, chara);
+            SetRaceDefaultChip(uid, chara);
 
             InitClassSkills(uid, chara);
         }
@@ -61,28 +61,6 @@ namespace OpenNefia.Content.Charas
             _equipSlots.InitializeEquipSlots(uid, initialEquipSlots, equipSlots: equipSlots);
         }
 
-        private void InitClassSkills(EntityUid uid, CharaComponent chara,
-            SkillsComponent? skills = null)
-        {
-            if (!Resolve(uid, ref skills))
-                return;
-
-            foreach (var pair in _protos.Index(chara.Class).BaseSkills)
-            {
-                if (!skills.Skills.ContainsKey(pair.Key))
-                {
-                    skills.Skills.Add(pair.Key, new LevelAndPotential() { Level = 0 });
-                }
-
-                skills.Skills[pair.Key].Level += pair.Value;
-            }
-        }
-
-        private void HandleStartup(EntityUid uid, CharaComponent chara, ComponentStartup args)
-        {
-            SetRaceDefaultChip(uid, chara);
-        }
-
         private void SetRaceDefaultChip(EntityUid uid, CharaComponent chara, ChipComponent? chip = null)
         {
             if (!Resolve(uid, ref chip))
@@ -102,6 +80,23 @@ namespace OpenNefia.Content.Charas
                         chip.ChipID = race.ChipFemale;
                         break;
                 }
+            }
+        }
+
+        private void InitClassSkills(EntityUid uid, CharaComponent chara,
+            SkillsComponent? skills = null)
+        {
+            if (!Resolve(uid, ref skills))
+                return;
+
+            foreach (var pair in _protos.Index(chara.Class).BaseSkills)
+            {
+                if (!skills.Skills.ContainsKey(pair.Key))
+                {
+                    skills.Skills.Add(pair.Key, new LevelAndPotential() { Level = 0 });
+                }
+
+                skills.Skills[pair.Key].Level += pair.Value;
             }
         }
     }

@@ -100,7 +100,7 @@ namespace OpenNefia.Core.Containers
             }
         }
 
-        public void AttachParentToContainerOrGrid(SpatialComponent transform)
+        public void AttachParentToContainerOrMap(SpatialComponent transform)
         {
             if (transform.Parent == null
                 || !TryGetContainingContainer(transform.Parent.Owner, out var container)
