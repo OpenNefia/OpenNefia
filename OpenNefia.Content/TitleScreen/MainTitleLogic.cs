@@ -17,6 +17,7 @@ using static OpenNefia.Content.Prototypes.Protos;
 using OpenNefia.Core.ContentPack;
 using OpenNefia.Content.Skills;
 using OpenNefia.Content.CharaMake;
+using OpenNefia.Content.EquipSlots;
 
 namespace OpenNefia.Content.TitleScreen
 {
@@ -115,9 +116,6 @@ namespace OpenNefia.Content.TitleScreen
             _uiManager.Query(_fieldLayer);
 
             _mapManager.UnloadMap(map.Id);
-            
-            // TODO: flush maps, reset max map/entity IDs here
-            // new saves should always start from entity 0
         }
 
         private void CreateChara()
@@ -139,6 +137,10 @@ namespace OpenNefia.Content.TitleScreen
             skills.Ensure(Skill.StatLife).Level = 200;
             EntitySystem.Get<IRefreshSystem>().Refresh(player);
             EntitySystem.Get<SkillsSystem>().HealToMax(player);
+
+            var equipSlotSys = EntitySystem.Get<IEquipSlotsSystem>();
+            for (int i = 0; i < 64; i++)
+                equipSlotSys.TryAddEquipSlot(player, EquipSlot.Hand, out _, out _);
 
             map.MemorizeAllTiles();
 

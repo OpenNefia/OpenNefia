@@ -121,7 +121,7 @@ namespace OpenNefia.Content.Tests.EquipSlots
 
                 Assert.That(equipSlotSys.TryAddEquipSlot(ent, InvalidID, out _, out _), Is.False);
 
-                Assert.That(equipSlotSys.TryAddEquipSlot(ent, TestSlot1ID, out var containerSlot, out var equipSlot), Is.True);
+                Assert.That(equipSlotSys.TryAddEquipSlot(ent, TestSlot1ID, out var equipSlot, out var containerSlot), Is.True);
                 Assert.That(equipSlotSys.HasEquipSlot(ent, TestSlot1ID), Is.True);
 
                 Assert.That(equipSlots.EquipSlots!.Count, Is.EqualTo(1), "Equip slot count");
