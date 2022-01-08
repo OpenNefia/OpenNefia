@@ -1,0 +1,96 @@
+﻿using OpenNefia.Core.Audio;
+using OpenNefia.Core.UI;
+using OpenNefia.Core.UI.Element;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using static OpenNefia.Content.Prototypes.Protos;
+
+namespace OpenNefia.Content.UI.Element.List
+{
+    public class UiPagedList<T> : UiList<T>, IUiPaged
+    {
+        private UiPageModel<UiListCell<T>> _pageModel = new();
+
+        public override IReadOnlyList<UiListCell<T>> DisplayedCells => _pageModel.CurrentElements;
+
+        public int CurrentPage => _pageModel.CurrentPage;
+        public int PageCount => _pageModel.PageCount;
+
+        private IUiElement? _elementForPageText;
+        private UiPageText PageText;
+
+        public event PageChangedDelegate? OnPageChanged
+        {
+            add => _pageModel.OnPageChanged += value;
+            remove => _pageModel.OnPageChanged -= value;
+        }
+
+        public UiPagedList(IUiElement? elementForPageText = null) : base()
+        {
+            _pageModel.Initialize(AllCells);
+            PageText = new UiPageText(_elementForPageText);
+
+            OnPageChanged += PageText.UpdatePageText;
+        }
+
+        protected override void UpdateDisplayedCells(bool setSize)
+        {
+            var oldPage = _pageModel.CurrentPage;
+            _pageModel.Initialize(AllCells);
+            _pageModel.SetPage(oldPage);
+
+            base.UpdateDisplayedCells(setSize);
+        }
+
+        public bool SetPage(int page)
+        {
+            var changed = _pageModel.SetPage(page);
+            if (changed)
+            {
+                Sounds.Play(Sound.Pop1);
+                UpdateAllCells();
+            }
+
+            return changed;
+        }
+
+        /// <inheritdoc/>
+        public bool PageForward()
+        {
+            return SetPage(CurrentPage + 1);
+        }
+
+        /// <inheritdoc/>
+        public bool PageBackward()
+        {
+            return SetPage(CurrentPage - 1);
+        }
+
+        public override void SetSize(int width, int height)
+        {
+            base.SetSize(width, height);
+            PageText.SetSize(width, height);
+        }
+
+        public override void SetPosition(int x, int y)
+        {
+            base.SetPosition(x, y);
+            PageText.SetPosition(x, y);
+        }
+
+        public override void Draw()
+        {
+            base.Draw();
+            PageText.Draw();
+        }
+
+        public override void Update(float dt)
+        {
+            base.Update(dt);
+            PageText.Update(dt);
+        }
+    }
+}
