@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using NUnit.Framework;
 using OpenNefia.Content.Charas;
+using OpenNefia.Content.EntityGen;
 using OpenNefia.Content.Tests;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
@@ -89,8 +90,10 @@ namespace OpenNefia.Content.Tests.GameObjects.EntitySystems
             var entMan = sim.Resolve<IEntityManager>();
             var protoMan = sim.Resolve<IPrototypeManager>();
 
-            var entMale = entMan.SpawnEntity(CharaEntityMaleId, map.AtPos(Vector2i.Zero));
-            var entFemale = entMan.SpawnEntity(CharaEntityFemaleId, map.AtPos(Vector2i.One));
+            var entGen = sim.GetEntitySystem<IEntityGen>();
+
+            var entMale = entGen.SpawnEntity(CharaEntityMaleId, map.AtPos(Vector2i.Zero))!.Value;
+            var entFemale = entGen.SpawnEntity(CharaEntityFemaleId, map.AtPos(Vector2i.One))!.Value;
             var chipCompMale = entMan.GetComponent<ChipComponent>(entMale);
             var chipCompFemale = entMan.GetComponent<ChipComponent>(entFemale);
 

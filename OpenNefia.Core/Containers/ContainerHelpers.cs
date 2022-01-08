@@ -25,7 +25,7 @@ namespace OpenNefia.Core.Containers
 
         public static void AttachParentToContainerOrGrid(SpatialComponent transform)
         {
-            EntitySystem.Get<ContainerSystem>().AttachParentToContainerOrGrid(transform);
+            EntitySystem.Get<ContainerSystem>().AttachParentToContainerOrMap(transform);
         }
 
         public static bool RemoveEntity(EntityUid uid, EntityUid containedUid, bool force = false, ContainerManagerComponent? containerManager = null)
