@@ -12,6 +12,7 @@ namespace OpenNefia.Content.Cargo
     /// <summary>
     /// Indicates an entity that can hold cargo items in an <see cref="InventoryComponent"/>
     /// </summary>
+    [RegisterComponent]
     public class CargoHolderComponent : Component
     {
         public override string Name => "CargoHolder";
@@ -20,6 +21,6 @@ namespace OpenNefia.Content.Cargo
         /// Maximum cargo weight this entity can hold. Null means "unlimited".
         /// </summary>
         [DataField]
-        public int? MaxCargoWeight { get; set; }
+        public int? MaxCargoWeight { get; set; } = 0;
     }
 }

@@ -11,7 +11,7 @@ namespace OpenNefia.Content.UI.Element
     {
         public bool HasShadow { get; }
         public List<UiKeyHint> KeyHints { get; }
-        public int XOffset { get; }
+        public int KeyHintXOffset { get; set; }
         public int YOffset { get; }
         public bool HasTitle => TextTitle.Text != string.Empty;
         public string Title { 
@@ -42,14 +42,14 @@ namespace OpenNefia.Content.UI.Element
         protected UiWindowBacking WindowShadow;
         protected UiTopicWindow TopicWindow;
 
-        public UiWindow(bool hasShadow = true, List<UiKeyHint>? keyHints = null, int xOffset = 0, int yOffset = 0)
+        public UiWindow(bool hasShadow = true, List<UiKeyHint>? keyHints = null, int keyHintXOffset = 0, int yOffset = 0)
         {
             if (keyHints == null)
                 keyHints = new List<UiKeyHint>();
 
             this.HasShadow = hasShadow;
             this.KeyHints = keyHints;
-            this.XOffset = xOffset;
+            this.KeyHintXOffset = keyHintXOffset;
             this.YOffset = yOffset;
 
             this.AssetTipIcons = Assets.Get(AssetPrototypeOf.TipIcons);
@@ -81,7 +81,7 @@ namespace OpenNefia.Content.UI.Element
                 this.TopicWindow.SetPosition(x + 34, y - 4);
             }
 
-            this.TextKeyHint.SetPosition(x + 58 + this.XOffset, y + this.Height - 43 - this.Height % 8);
+            this.TextKeyHint.SetPosition(x + 58 + this.KeyHintXOffset, y + this.Height - 43 - this.Height % 8);
         }
 
         public override void SetSize(int width, int height)
@@ -124,7 +124,7 @@ namespace OpenNefia.Content.UI.Element
             GraphicsEx.SetColor(Color.White);
             this.Window.Draw();
 
-            this.AssetTipIcons.DrawRegion("1", this.X + 30 + this.XOffset, this.Y + this.Height - 47 - this.Height % 8);
+            this.AssetTipIcons.DrawRegion("1", this.X + 30 + this.KeyHintXOffset, this.Y + this.Height - 47 - this.Height % 8);
 
             if (this.HasTitle)
             {
@@ -134,14 +134,14 @@ namespace OpenNefia.Content.UI.Element
 
             GraphicsEx.SetColor(this.ColorBottomLine1);
             Love.Graphics.Line(
-                this.X + 50 + this.XOffset,
+                this.X + 50 + this.KeyHintXOffset,
                 this.Y + this.Height - 48 - this.Height % 8,
                 this.X + this.Width - 40,
                 this.Y + this.Height - 48 - this.Height % 8);
 
             GraphicsEx.SetColor(this.ColorBottomLine2);
             Love.Graphics.Line(
-                this.X + 50 + this.XOffset,
+                this.X + 50 + this.KeyHintXOffset,
                 this.Y + this.Height - 49 - this.Height % 8,
                 this.X + this.Width - 40,
                 this.Y + this.Height - 49 - this.Height % 8);

@@ -200,7 +200,7 @@ namespace OpenNefia.Content.Equipment
         /// </summary>
         protected IUiText TextNoteEquipStats = new UiText(UiFonts.TextNote);
 
-        [Localize] protected UiWindow Window = new();
+        [Localize] protected UiWindow Window = new(keyHintXOffset: 64);
         protected UiList<CellData> List = new();
 
         private EntitySpriteBatch _spriteBatch = new();
