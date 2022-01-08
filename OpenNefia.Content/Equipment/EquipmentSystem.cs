@@ -20,34 +20,35 @@ namespace OpenNefia.Content.Equipment
 
         public override void Initialize()
         {
-            SubscribeLocalEvent<EquipmentComponent, GotEquippedEvent>(OnGotEquipped, nameof(OnGotEquipped));
-            SubscribeLocalEvent<EquipmentComponent, GotUnequippedEvent>(OnGotUnequipped, nameof(OnGotUnequipped));
-            SubscribeLocalEvent<EquipSlotsComponent, DidEquipEvent>(OnDidEquip, nameof(OnDidEquip));
-            SubscribeLocalEvent<EquipSlotsComponent, DidUnequipEvent>(OnDidUnequip, nameof(OnDidUnequip));
-            SubscribeLocalEvent<EquipSlotsComponent, EntityRefreshEvent>(OnRefresh, nameof(OnRefresh));
+            SubscribeLocalEvent<EquipmentComponent, GotEquippedEvent>(HandleGotEquipped, nameof(HandleGotEquipped));
+            SubscribeLocalEvent<EquipmentComponent, GotUnequippedEvent>(HandleGotUnequipped, nameof(HandleGotUnequipped));
+
+            SubscribeLocalEvent<EquipSlotsComponent, DidEquipEvent>(HandleDidEquip, nameof(HandleDidEquip));
+            SubscribeLocalEvent<EquipSlotsComponent, DidUnequipEvent>(HandleDidUnequip, nameof(HandleDidUnequip));
+            SubscribeLocalEvent<EquipSlotsComponent, EntityRefreshEvent>(HandleRefresh, nameof(HandleRefresh));
         }
 
-        private void OnGotEquipped(EntityUid uid, EquipmentComponent component, GotEquippedEvent args)
+        private void HandleGotEquipped(EntityUid uid, EquipmentComponent component, GotEquippedEvent args)
         {
             _refresh.Refresh(uid);
         }
 
-        private void OnGotUnequipped(EntityUid uid, EquipmentComponent component, GotUnequippedEvent args)
+        private void HandleGotUnequipped(EntityUid uid, EquipmentComponent component, GotUnequippedEvent args)
         {
             _refresh.Refresh(uid);
         }
 
-        private void OnDidEquip(EntityUid uid, EquipSlotsComponent component, DidEquipEvent args)
+        private void HandleDidEquip(EntityUid uid, EquipSlotsComponent component, DidEquipEvent args)
         {
             _refresh.Refresh(uid);
         }
 
-        private void OnDidUnequip(EntityUid uid, EquipSlotsComponent component, DidUnequipEvent args)
+        private void HandleDidUnequip(EntityUid uid, EquipSlotsComponent component, DidUnequipEvent args)
         {
             _refresh.Refresh(uid);
         }
 
-        private void OnRefresh(EntityUid equipper, EquipSlotsComponent component, ref EntityRefreshEvent args)
+        private void HandleRefresh(EntityUid equipper, EquipSlotsComponent component, ref EntityRefreshEvent args)
         {
             if (_equipSlotsSystem.TryGetContainerSlotEnumerator(equipper, out var enumerator))
             {

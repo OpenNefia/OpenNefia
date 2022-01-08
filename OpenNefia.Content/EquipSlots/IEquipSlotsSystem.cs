@@ -20,47 +20,47 @@ namespace OpenNefia.Content.EquipSlots
             EquipSlotsComponent? equipSlots = null, 
             EquipmentComponent? item = null);
 
-        bool TryEquip(EntityUid uid, EntityUid itemUid, PrototypeId<EquipSlotPrototype> slot, 
+        bool TryEquip(EntityUid uid, EntityUid itemUid, PrototypeId<EquipSlotPrototype> slot,
+            [NotNullWhen(true)] out EquipSlotInstance? equipSlot,
             bool silent = false, bool force = false, 
             EquipSlotsComponent? equipSlots = null,
             EquipmentComponent? item = null);
 
         bool TryEquip(EntityUid actor, EntityUid target, EntityUid itemUid, PrototypeId<EquipSlotPrototype> slot,
+            [NotNullWhen(true)] out EquipSlotInstance? equipSlot,
             bool silent = false, bool force = false, 
             EquipSlotsComponent? equipSlots = null, 
             EquipmentComponent? item = null);
 
-        bool CanUnequip(EntityUid uid, PrototypeId<EquipSlotPrototype> slot, 
+        bool CanUnequip(EntityUid uid, EquipSlotInstance equipSlot,
             [NotNullWhen(false)] out string? reason, 
             ContainerSlot? containerSlot = null, 
-            EquipSlotInstance? equipSlot = null, 
             EquipSlotsComponent? equipSlots = null);
 
-        bool CanUnequip(EntityUid actor, EntityUid target, PrototypeId<EquipSlotPrototype> slot, 
+        bool CanUnequip(EntityUid actor, EntityUid target, EquipSlotInstance equipSlot,
             [NotNullWhen(false)] out string? reason,
             ContainerSlot? containerSlot = null,
-            EquipSlotInstance? equipSlot = null, 
             EquipSlotsComponent? equipSlots = null);
 
-        bool TryUnequip(EntityUid uid, PrototypeId<EquipSlotPrototype> slot,
+        bool TryUnequip(EntityUid uid, EquipSlotInstance equipSlot,
             bool silent = false, bool force = false, 
             EquipSlotsComponent? inventory = null);
 
-        bool TryUnequip(EntityUid actor, EntityUid target, PrototypeId<EquipSlotPrototype> slot,
+        bool TryUnequip(EntityUid actor, EntityUid target, EquipSlotInstance equipSlot,
             bool silent = false, bool force = false, 
             EquipSlotsComponent? equipSlots = null);
 
-        bool TryUnequip(EntityUid uid, PrototypeId<EquipSlotPrototype> slot, 
+        bool TryUnequip(EntityUid uid, EquipSlotInstance equipSlot,
             [NotNullWhen(true)] out EntityUid? removedItem, 
             bool silent = false, bool force = false, 
             EquipSlotsComponent? equipSlots = null);
 
-        bool TryUnequip(EntityUid actor, EntityUid target, PrototypeId<EquipSlotPrototype> slot, 
+        bool TryUnequip(EntityUid actor, EntityUid target, EquipSlotInstance equipSlot,
             [NotNullWhen(true)] out EntityUid? removedItem, 
             bool silent = false, bool force = false, 
             EquipSlotsComponent? equipSlots = null);
 
-        bool TryGetSlotEntity(EntityUid uid, PrototypeId<EquipSlotPrototype> slot, 
+        bool TryGetSlotEntity(EntityUid uid, EquipSlotInstance equipSlot,
             [NotNullWhen(true)] out EntityUid? entityUid,
             EquipSlotsComponent? equipSlotsComponent = null,
             ContainerManagerComponent? containerManagerComponent = null);

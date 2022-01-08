@@ -1,11 +1,23 @@
 Elona.EquipSlots =
 {
-    CannotEquip = function(actor, target, item)
-       return ("%sは%sを装備できない。")
-          :format(_.name(actor), _.name(item))
-    end,
-    CannotUnequip = function(actor, target, item)
-       return ("%sは%sを外せない。")
-          :format(_.name(actor), _.name(item))
-    end
+   Equip = {
+      Succeeded = function(actor, target, item)
+         return ("%sを装備した。")
+            :format(_.name(item))
+      end,
+      Failed = function(actor, target, item)
+         return ("%sは装備できない。")
+            :format(_.name(item))
+      end,
+   },
+   Unequip = {
+      Succeeded = function(actor, target, item)
+         return ("%sを外した。")
+            :format(_.name(item))
+      end,
+      Failed = function(actor, target, item)
+         return ("%sは外せない。")
+            :format(_.name(item))
+      end
+   }
 }

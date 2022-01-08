@@ -247,15 +247,15 @@ namespace OpenNefia.Content.EquipSlots
 
         public struct ContainerSlotEnumerator
         {
-            private readonly EquipSlotsSystem _inventorySystem;
+            private readonly EquipSlotsSystem _equipSlotsSystem;
             private readonly EntityUid _uid;
             private readonly IList<EquipSlotInstance> _slots;
-            private int _nextIdx = int.MaxValue;
+            private int _nextIdx = 0;
 
             public ContainerSlotEnumerator(EntityUid uid, IList<EquipSlotInstance> slots, EquipSlotsSystem inventorySystem)
             {
                 _uid = uid;
-                _inventorySystem = inventorySystem;
+                _equipSlotsSystem = inventorySystem;
                 _slots = slots;
             }
 
@@ -264,7 +264,7 @@ namespace OpenNefia.Content.EquipSlots
                 container = null;
                 if (_nextIdx >= _slots.Count) return false;
 
-                while (_nextIdx < _slots.Count && !_inventorySystem.TryGetEquipSlotAndContainer(_uid, _slots[_nextIdx++].ID, out _, out container)) { }
+                while (_nextIdx < _slots.Count && !_equipSlotsSystem.TryGetContainerForEquipSlot(_uid, _slots[_nextIdx++], out container)) { }
 
                 return container != null;
             }
