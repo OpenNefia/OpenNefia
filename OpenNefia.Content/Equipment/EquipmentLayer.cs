@@ -17,6 +17,7 @@ using OpenNefia.Core.IoC;
 using OpenNefia.Core.Locale;
 using OpenNefia.Core.Log;
 using OpenNefia.Core.Maths;
+using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Core.UI;
 using OpenNefia.Core.UI.Element;
@@ -77,7 +78,7 @@ namespace OpenNefia.Content.Equipment
 
             public EquipSlotInstance EquipSlot { get; set; }
             public string EquipSlotText { get; set; } = string.Empty;
-            public string EquipSlotIcon { get; set; } = DefaultEquipSlotIcon;
+            public IUiElement? EquipSlotIcon { get; set; }
             public EntityUid? ItemEntityUid { get; set; }
             public Color ItemTextColor { get; set; }
             public string ItemNameText { get; set; } = string.Empty;
@@ -91,7 +92,7 @@ namespace OpenNefia.Content.Equipment
 
         public class ListCell : UiListCell<CellData>
         {
-            private readonly IAssetDrawable AssetEquipSlotIcons;
+            private IUiElement? Icon;
             private readonly IUiText TextEquipSlotName = new UiText(UiFonts.EquipmentEquipSlotName);
             private readonly IUiText TextSubtext = new UiText();
 
@@ -100,8 +101,6 @@ namespace OpenNefia.Content.Equipment
             public ListCell(CellData data, EntitySpriteBatch spriteBatch) 
                 : base(data, new UiText())
             {
-                AssetEquipSlotIcons = new AssetDrawable(AssetPrototypeOf.EquipSlotIcons);
-
                 SpriteBatch = spriteBatch;
 
                 OnCellDataChanged();
@@ -114,14 +113,14 @@ namespace OpenNefia.Content.Equipment
                 TextSubtext.Text = Data.ItemSubnameText;
                 TextEquipSlotName.Text = Data.EquipSlotText;
 
-                AssetEquipSlotIcons.RegionId = Data.EquipSlotIcon;
+                Icon = Data.EquipSlotIcon;
             }
 
             public override void SetPosition(int x, int y)
             {
                 XOffset = 30;
                 base.SetPosition(x, y);
-                AssetEquipSlotIcons.SetPosition(X - 66, Y - 2);
+                Icon?.SetPosition(X - 66, Y - 2);
                 TextEquipSlotName.SetPosition(X - 42, Y + 3);
                 TextSubtext.SetPosition(X + Width - 44 - TextSubtext.TextWidth, Y + 2);
             }
@@ -129,14 +128,14 @@ namespace OpenNefia.Content.Equipment
             public override void SetSize(int width, int height)
             {
                 base.SetSize(width, height);
-                AssetEquipSlotIcons.SetPreferredSize();
+                Icon?.SetPreferredSize();
                 TextEquipSlotName.SetPreferredSize();
                 TextSubtext.SetPreferredSize();
             }
 
             public override void Update(float dt)
             {
-                AssetEquipSlotIcons.Update(dt);
+                Icon?.Update(dt);
                 TextEquipSlotName.Update(dt);
                 TextSubtext.Update(dt);
             }
@@ -153,7 +152,7 @@ namespace OpenNefia.Content.Equipment
                 AssetSelectKey.Draw(X, Y - 1);
                 KeyNameText.Draw();
 
-                AssetEquipSlotIcons.Draw();
+                Icon?.Draw();
                 TextEquipSlotName.Draw();
 
                 TextEquipSlotName.Draw();
@@ -168,7 +167,7 @@ namespace OpenNefia.Content.Equipment
             {
                 base.Dispose();
 
-                AssetEquipSlotIcons.Dispose();
+                Icon?.Dispose();
                 TextEquipSlotName.Dispose();
                 TextSubtext.Dispose();
             }
@@ -178,6 +177,7 @@ namespace OpenNefia.Content.Equipment
         [Dependency] private readonly IEquipSlotsSystem _equipSlots = default!;
         [Dependency] private readonly DisplayNameSystem _displayNames = default!;
         [Dependency] private readonly IStackSystem _stackSystem = default!;
+        [Dependency] private readonly IPrototypeManager _protos = default!;
 
         protected IAssetDrawable AssetInventoryIcons;
         protected IAssetDrawable AssetDecoWearA;
@@ -212,10 +212,7 @@ namespace OpenNefia.Content.Equipment
 
         public EquipmentLayer()
         {
-            AssetInventoryIcons = new AssetDrawable(AssetPrototypeOf.InventoryIcons) 
-            {
-                RegionId = InventoryIcon.Equip
-            };
+            AssetInventoryIcons = InventoryHelpers.MakeIcon(InventoryIcon.Equip);
             AssetDecoWearA = new AssetDrawable(AssetPrototypeOf.DecoWearA);
             AssetDecoWearB = new AssetDrawable(AssetPrototypeOf.DecoWearB);
 
@@ -314,7 +311,7 @@ namespace OpenNefia.Content.Equipment
 
                 // Display messages relating to curse state, weapon suitability, etc.
                 var ev = new GotEquippedInMenuEvent(_equipee, _equipTarget, equipSlot);
-                _entityManager.EventBus.RaiseLocalEvent(splitItem, ref ev);
+                _entityManager.EventBus.RaiseLocalEvent(splitItem, ev);
 
                 UpdateFromEquipTarget();
             }
@@ -328,6 +325,16 @@ namespace OpenNefia.Content.Equipment
             UpdateFromEquipTarget();
         }
 
+        private void UpdateFromEquipTarget()
+        {
+            var listData = BuildListData(_equipTarget);
+
+            List.Clear();
+            List.AddRange(listData.Select(d => new ListCell(d, _spriteBatch)));
+
+            TextNoteEquipStats.Text = MakeEquipStatsText(_equipTarget);
+        }
+
         private IEnumerable<CellData> BuildListData(EntityUid equipTarget)
         {
             if (!_equipSlots.TryGetEquipSlots(equipTarget, out var equipSlots))
@@ -335,9 +342,12 @@ namespace OpenNefia.Content.Equipment
 
             foreach (var equipSlot in equipSlots)
             {
+                var equipSlotProto = _protos.Index(equipSlot.ID);
+
                 var cellData = new CellData(equipSlot)
                 {
                     EquipSlotText = Loc.GetPrototypeString(equipSlot.ID, "Name"),
+                    EquipSlotIcon = EquipmentHelpers.MakeEquipSlotIcon(equipSlotProto.Icon),
                     ItemEntityUid = null,
                     ItemTextColor = UiColors.EquipmentItemTextDefault,
                     ItemNameText = "-    ",
@@ -398,16 +408,6 @@ namespace OpenNefia.Content.Equipment
                 damageBonus,
                 dv,
                 pv);
-        }
-
-        private void UpdateFromEquipTarget()
-        {
-            var listData = BuildListData(_equipTarget);
-
-            List.Clear();
-            List.AddRange(listData.Select(d => new ListCell(d, _spriteBatch)));
-
-            TextNoteEquipStats.Text = MakeEquipStatsText(_equipTarget);
         }
 
         public override void OnQuery()

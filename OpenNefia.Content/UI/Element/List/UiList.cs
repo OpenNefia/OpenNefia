@@ -359,6 +359,8 @@ namespace OpenNefia.Content.UI.Element.List
 
         public void RemoveAt(int index)
         {
+            var cell = Cells[index];
+            cell.Dispose();
             Cells.RemoveAt(index);
             _needsUpdate = true;
         }
@@ -371,6 +373,9 @@ namespace OpenNefia.Content.UI.Element.List
 
         public void Clear()
         {
+            foreach (var cell in Cells)
+                cell.Dispose();
+
             Cells.Clear();
             _needsUpdate = true;
         }
