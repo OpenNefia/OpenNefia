@@ -127,6 +127,10 @@ namespace OpenNefia.Content.CharaMake
 
         public override void Initialize(CharaMakeData args)
         {
+            if (args.LastStep != CharaMakeStep.GoBack)
+                Reset();
+
+            base.Initialize(args);
             // gets called when the ui is loaded, so this could potentially run multiple times 
             //      if the user backtracks in creation
             if (IsInitialized)
@@ -134,14 +138,7 @@ namespace OpenNefia.Content.CharaMake
                 Reroll(false);
                 return;
             }
-            base.Initialize(args);
-            var data = AttributeIds.Select(x => new AttributeRerollCell(new AttributeRerollData.Attribute(new PrototypeId<SkillPrototype>(x)))).ToList();
-            data.InsertRange(0, new[]
-            {
-                new AttributeRerollCell(new AttributeRerollData.ListChoice(AttributeRerollChoice.Reroll)),
-                new AttributeRerollCell(new AttributeRerollData.ListChoice(AttributeRerollChoice.Proceed)),
-            });
-            List.AddRange(data);
+            Reset();
             Reroll(false);
             List.EventOnActivate += (_, args) =>
             {
@@ -170,6 +167,19 @@ namespace OpenNefia.Content.CharaMake
                 }
             };
             IsInitialized = true;
+        }
+
+        private void Reset()
+        {
+            LockCount = 2;
+            List.Clear();
+            var data = AttributeIds.Select(x => new AttributeRerollCell(new AttributeRerollData.Attribute(new PrototypeId<SkillPrototype>(x)))).ToList();
+            data.InsertRange(0, new[]
+            {
+                new AttributeRerollCell(new AttributeRerollData.ListChoice(AttributeRerollChoice.Reroll)),
+                new AttributeRerollCell(new AttributeRerollData.ListChoice(AttributeRerollChoice.Proceed)),
+            });
+            List.AddRange(data);
         }
 
         private void Reroll(bool playSound = true)

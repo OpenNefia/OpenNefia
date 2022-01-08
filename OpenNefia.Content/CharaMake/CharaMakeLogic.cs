@@ -68,6 +68,7 @@ namespace OpenNefia.Content.CharaMake
                 }
 
                 step = result.Value.Step;
+                data.LastStep = step;
                 switch(step)
                 {
                     case CharaMakeStep.GoBack:
