@@ -25,7 +25,9 @@ namespace OpenNefia.Core.Prototypes
         [DataField]
         public PrototypeId<EquipmentTypePrototype>? EquipmentType { get; } = null;
 
-        [DataField(required: true)]
-        public Dictionary<PrototypeId<SkillPrototype>, int> BaseSkills = new();
+        [DataField("baseSkills", required: true)]
+        private Dictionary<PrototypeId<SkillPrototype>, int> _baseSkills = new();
+
+        public IReadOnlyDictionary<PrototypeId<SkillPrototype>, int> BaseSkills => _baseSkills;
     }
 }

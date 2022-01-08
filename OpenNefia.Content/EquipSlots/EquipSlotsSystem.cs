@@ -25,7 +25,6 @@ namespace OpenNefia.Content.EquipSlots
     public sealed partial class EquipSlotsSystem : EntitySystem, IEquipSlotsSystem
     {
         [Dependency] private readonly IAudioManager _sounds = default!;
-        [Dependency] private readonly IRefreshSystem _refresh = default!;
 
         public override void Initialize()
         {
@@ -39,11 +38,11 @@ namespace OpenNefia.Content.EquipSlots
             if (!TryGetEquipSlotForContainer(uid, args.Container.ID, out var equipSlot, equipSlotsComp: equipSlots))
                 return;
 
-            var unequippedEvent = new DidUnequipEvent(uid, args.Entity, equipSlot);
-            RaiseLocalEvent(uid, unequippedEvent);
-
             var gotUnequippedEvent = new GotUnequippedEvent(uid, args.Entity, equipSlot);
             RaiseLocalEvent(args.Entity, gotUnequippedEvent);
+
+            var unequippedEvent = new DidUnequipEvent(uid, args.Entity, equipSlot);
+            RaiseLocalEvent(uid, unequippedEvent);
         }
 
         private void OnEntInserted(EntityUid uid, EquipSlotsComponent equipSlots, EntInsertedIntoContainerMessage args)
@@ -51,11 +50,11 @@ namespace OpenNefia.Content.EquipSlots
             if (!TryGetEquipSlotForContainer(uid, args.Container.ID, out var equipSlot, equipSlotsComp: equipSlots))
                 return;
 
-            var equippedEvent = new DidEquipEvent(uid, args.Entity, equipSlot);
-            RaiseLocalEvent(uid, equippedEvent);
-
             var gotEquippedEvent = new GotEquippedEvent(uid, args.Entity, equipSlot);
             RaiseLocalEvent(args.Entity, gotEquippedEvent);
+
+            var equippedEvent = new DidEquipEvent(uid, args.Entity, equipSlot);
+            RaiseLocalEvent(uid, equippedEvent);
         }
 
         public bool TryEquip(EntityUid uid, EntityUid itemUid, EquipSlotPrototypeId slot, 
@@ -112,9 +111,6 @@ namespace OpenNefia.Content.EquipSlots
                     _sounds.Play(sound.Value, target);
             }
 
-            _refresh.Refresh(itemUid);
-            _refresh.Refresh(target);
-
             return true;
         }
 
@@ -134,7 +130,7 @@ namespace OpenNefia.Content.EquipSlots
             if (!Resolve(target, ref equipSlots, false) || !Resolve(itemUid, ref item, false))
                 return false;
 
-            if (!item.ValidEquipSlots.Contains(slot))
+            if (!item.EquipSlots.Contains(slot))
                 return false;
 
             if (equipSlot == null && !TryGetEquipSlot(target, slot, out equipSlot, equipSlotsComp: equipSlots))
@@ -243,9 +239,6 @@ namespace OpenNefia.Content.EquipSlots
 
             EntityManager.GetComponent<SpatialComponent>(removedItem.Value).Coordinates =
                 EntityManager.GetComponent<SpatialComponent>(target).Coordinates;
-
-            _refresh.Refresh(removedItem.Value);
-            _refresh.Refresh(target);
 
             return true;
         }

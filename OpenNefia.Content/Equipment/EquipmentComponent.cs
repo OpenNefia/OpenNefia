@@ -11,10 +11,10 @@ namespace OpenNefia.Content.Equipment
     {
         public override string Name => "Equipment";
 
-        [DataField("validEquipSlots", required: true)]
-        private HashSet<PrototypeId<EquipSlotPrototype>> _validEquipSlots = new();
+        [DataField("equipSlots", required: true)]
+        private HashSet<PrototypeId<EquipSlotPrototype>> _equipSlots = new();
 
-        public IReadOnlySet<PrototypeId<EquipSlotPrototype>> ValidEquipSlots => _validEquipSlots;
+        public IReadOnlySet<PrototypeId<EquipSlotPrototype>> EquipSlots => _equipSlots;
 
         [DataField]
         public SoundSpecifier? EquipSound { get; set; } = default!;

@@ -43,6 +43,12 @@
     material: Elona.Metal
   - type: Weight
     weight: 1500
+  - type: Equipment
+    equipSlots:
+    - Elona.Hand
+  - type: EquipBonus
+    hitBonus: 5
+    damageBonus: 4
 - type: Entity
   id: Elona.ItemDagger
   parent: BaseItem
@@ -62,6 +68,13 @@
     material: Elona.Metal
   - type: Weight
     weight: 600
+  - type: Equipment
+    equipSlots:
+    - Elona.Hand
+  - type: EquipBonus
+    dv: 4
+    hitBonus: 9
+    damageBonus: 4
 - type: Entity
   id: Elona.ItemHandAxe
   parent: BaseItem
@@ -81,6 +94,12 @@
     material: Elona.Metal
   - type: Weight
     weight: 900
+  - type: Equipment
+    equipSlots:
+    - Elona.Hand
+  - type: EquipBonus
+    hitBonus: 4
+    damageBonus: 5
 - type: Entity
   id: Elona.ItemClub
   parent: BaseItem
@@ -100,6 +119,12 @@
     material: Elona.Metal
   - type: Weight
     weight: 1000
+  - type: Equipment
+    equipSlots:
+    - Elona.Hand
+  - type: EquipBonus
+    hitBonus: 4
+    damageBonus: 7
 - type: Entity
   id: Elona.ItemMagicHat
   parent: BaseItem
@@ -119,6 +144,12 @@
     material: Elona.Soft
   - type: Weight
     weight: 600
+  - type: Equipment
+    equipSlots:
+    - Elona.Head
+  - type: EquipBonus
+    dv: 6
+    pv: 4
 - type: Entity
   id: Elona.ItemFairyHat
   parent: BaseItem
@@ -138,6 +169,12 @@
     material: Elona.Soft
   - type: Weight
     weight: 400
+  - type: Equipment
+    equipSlots:
+    - Elona.Head
+  - type: EquipBonus
+    dv: 7
+    pv: 5
 - type: Entity
   id: Elona.ItemBreastplate
   parent: BaseItem
@@ -157,6 +194,12 @@
     material: Elona.Metal
   - type: Weight
     weight: 4500
+  - type: Equipment
+    equipSlots:
+    - Elona.Body
+  - type: EquipBonus
+    dv: 6
+    pv: 10
 - type: Entity
   id: Elona.ItemRobe
   parent: BaseItem
@@ -176,6 +219,12 @@
     material: Elona.Soft
   - type: Weight
     weight: 800
+  - type: Equipment
+    equipSlots:
+    - Elona.Body
+  - type: EquipBonus
+    dv: 11
+    pv: 3
 - type: Entity
   id: Elona.ItemDecoratedGloves
   parent: BaseItem
@@ -195,6 +244,14 @@
     material: Elona.Soft
   - type: Weight
     weight: 700
+  - type: Equipment
+    equipSlots:
+    - Elona.Arm
+  - type: EquipBonus
+    dv: 7
+    pv: 5
+    hitBonus: 6
+    damageBonus: 2
 - type: Entity
   id: Elona.ItemThickGauntlets
   parent: BaseItem
@@ -214,6 +271,14 @@
     material: Elona.Metal
   - type: Weight
     weight: 1100
+  - type: Equipment
+    equipSlots:
+    - Elona.Arm
+  - type: EquipBonus
+    dv: 2
+    pv: 4
+    hitBonus: 2
+    damageBonus: 1
 - type: Entity
   id: Elona.ItemHeavyBoots
   parent: BaseItem
@@ -233,6 +298,12 @@
     material: Elona.Metal
   - type: Weight
     weight: 950
+  - type: Equipment
+    equipSlots:
+    - Elona.Leg
+  - type: EquipBonus
+    dv: 1
+    pv: 3
 - type: Entity
   id: Elona.ItemCompositeBoots
   parent: BaseItem
@@ -252,6 +323,12 @@
     material: Elona.Metal
   - type: Weight
     weight: 720
+  - type: Equipment
+    equipSlots:
+    - Elona.Leg
+  - type: EquipBonus
+    dv: 1
+    pv: 5
 - type: Entity
   id: Elona.ItemDecorativeRing
   parent: BaseItem
@@ -271,6 +348,10 @@
     material: Elona.Soft
   - type: Weight
     weight: 50
+  - type: Equipment
+    equipSlots:
+    - Elona.Ring
+  - type: EquipBonus
 - type: Entity
   id: Elona.ItemScrollOfIdentify
   parent: BaseItem
@@ -1115,6 +1196,14 @@
     identifyDifficulty: 500
   - type: Weight
     weight: 2200
+  - type: Equipment
+    equipSlots:
+    - Elona.Hand
+  - type: EquipBonus
+    dv: -3
+    pv: 2
+    hitBonus: 2
+    damageBonus: 8
 - type: Entity
   id: Elona.ItemZantetsu
   parent: BaseItem
@@ -1146,6 +1235,11 @@
     identifyDifficulty: 500
   - type: Weight
     weight: 1400
+  - type: Equipment
+    equipSlots:
+    - Elona.Hand
+  - type: EquipBonus
+    hitBonus: 4
 - type: Entity
   id: Elona.ItemLongBow
   parent: BaseItem
@@ -1165,6 +1259,12 @@
     material: Elona.Metal
   - type: Weight
     weight: 1200
+  - type: Equipment
+    equipSlots:
+    - Elona.Ranged
+  - type: EquipBonus
+    hitBonus: 4
+    damageBonus: 8
 - type: Entity
   id: Elona.ItemKnightShield
   parent: BaseItem
@@ -1184,6 +1284,12 @@
     material: Elona.Metal
   - type: Weight
     weight: 2200
+  - type: Equipment
+    equipSlots:
+    - Elona.Hand
+  - type: EquipBonus
+    dv: -2
+    pv: 8
 - type: Entity
   id: Elona.ItemPistol
   parent: BaseItem
@@ -1204,6 +1310,12 @@
     material: Elona.Metal
   - type: Weight
     weight: 800
+  - type: Equipment
+    equipSlots:
+    - Elona.Ranged
+  - type: EquipBonus
+    hitBonus: 7
+    damageBonus: 1
 - type: Entity
   id: Elona.ItemArrow
   parent: BaseItem
@@ -1223,6 +1335,12 @@
     material: Elona.Metal
   - type: Weight
     weight: 1200
+  - type: Equipment
+    equipSlots:
+    - Elona.Ammo
+  - type: EquipBonus
+    hitBonus: 2
+    damageBonus: 1
 - type: Entity
   id: Elona.ItemBullet
   parent: BaseItem
@@ -1243,6 +1361,12 @@
     material: Elona.Metal
   - type: Weight
     weight: 2400
+  - type: Equipment
+    equipSlots:
+    - Elona.Ammo
+  - type: EquipBonus
+    hitBonus: 4
+    damageBonus: 1
 - type: Entity
   id: Elona.ItemScytheOfVoid
   parent: BaseItem
@@ -1274,6 +1398,11 @@
     identifyDifficulty: 500
   - type: Weight
     weight: 9000
+  - type: Equipment
+    equipSlots:
+    - Elona.Hand
+  - type: EquipBonus
+    damageBonus: 4
 - type: Entity
   id: Elona.ItemMournblade
   parent: BaseItem
@@ -1305,6 +1434,14 @@
     identifyDifficulty: 500
   - type: Weight
     weight: 4000
+  - type: Equipment
+    equipSlots:
+    - Elona.Hand
+  - type: EquipBonus
+    dv: -4
+    pv: 4
+    hitBonus: 8
+    damageBonus: 5
 - type: Entity
   id: Elona.ItemLightCloak
   parent: BaseItem
@@ -1324,6 +1461,12 @@
     material: Elona.Soft
   - type: Weight
     weight: 700
+  - type: Equipment
+    equipSlots:
+    - Elona.Back
+  - type: EquipBonus
+    dv: 4
+    pv: 3
 - type: Entity
   id: Elona.ItemGirdle
   parent: BaseItem
@@ -1343,6 +1486,12 @@
     material: Elona.Soft
   - type: Weight
     weight: 900
+  - type: Equipment
+    equipSlots:
+    - Elona.Waist
+  - type: EquipBonus
+    dv: 3
+    pv: 3
 - type: Entity
   id: Elona.ItemDecorativeAmulet
   parent: BaseItem
@@ -1362,6 +1511,10 @@
     material: Elona.Soft
   - type: Weight
     weight: 50
+  - type: Equipment
+    equipSlots:
+    - Elona.Neck
+  - type: EquipBonus
 - type: Entity
   id: Elona.ItemPotionOfCureMinorWound
   parent: BaseItem
@@ -1498,6 +1651,14 @@
     identifyDifficulty: 500
   - type: Weight
     weight: 4200
+  - type: Equipment
+    equipSlots:
+    - Elona.Hand
+  - type: EquipBonus
+    dv: -1
+    pv: 1
+    hitBonus: 4
+    damageBonus: 3
 - type: Entity
   id: Elona.ItemPotionOfHealerOdina
   parent: BaseItem
@@ -4169,6 +4330,14 @@
     identifyDifficulty: 500
   - type: Weight
     weight: 600
+  - type: Equipment
+    equipSlots:
+    - Elona.Hand
+  - type: EquipBonus
+    dv: 4
+    pv: 6
+    hitBonus: 16
+    damageBonus: 8
 - type: Entity
   id: Elona.ItemBowOfVindale
   parent: BaseItem
@@ -4200,6 +4369,12 @@
     identifyDifficulty: 500
   - type: Weight
     weight: 1200
+  - type: Equipment
+    equipSlots:
+    - Elona.Ranged
+  - type: EquipBonus
+    hitBonus: 5
+    damageBonus: 7
 - type: Entity
   id: Elona.ItemWorthlessFakeGoldBar
   parent: BaseItem
@@ -4254,6 +4429,10 @@
     material: Elona.Iron
   - type: Weight
     weight: 2000
+  - type: Equipment
+    equipSlots:
+    - Elona.Ranged
+  - type: EquipBonus
 - type: Entity
   id: Elona.ItemSickle
   parent: BaseItem
@@ -4273,6 +4452,12 @@
     material: Elona.Metal
   - type: Weight
     weight: 1400
+  - type: Equipment
+    equipSlots:
+    - Elona.Hand
+  - type: EquipBonus
+    hitBonus: 2
+    damageBonus: 10
 - type: Entity
   id: Elona.ItemStaff
   parent: BaseItem
@@ -4292,6 +4477,13 @@
     material: Elona.Metal
   - type: Weight
     weight: 900
+  - type: Equipment
+    equipSlots:
+    - Elona.Hand
+  - type: EquipBonus
+    dv: 4
+    hitBonus: 4
+    damageBonus: 3
 - type: Entity
   id: Elona.ItemSpear
   parent: BaseItem
@@ -4311,6 +4503,13 @@
     material: Elona.Metal
   - type: Weight
     weight: 2500
+  - type: Equipment
+    equipSlots:
+    - Elona.Hand
+  - type: EquipBonus
+    dv: 3
+    hitBonus: 2
+    damageBonus: 4
 - type: Entity
   id: Elona.ItemOrePiece
   parent: BaseItem
@@ -4508,6 +4707,11 @@
     material: Elona.Metal
   - type: Weight
     weight: 1200
+  - type: Equipment
+    equipSlots:
+    - Elona.Hand
+  - type: EquipBonus
+    damageBonus: 6
 - type: Entity
   id: Elona.ItemScimitar
   parent: BaseItem
@@ -4527,6 +4731,13 @@
     material: Elona.Metal
   - type: Weight
     weight: 900
+  - type: Equipment
+    equipSlots:
+    - Elona.Hand
+  - type: EquipBonus
+    dv: 2
+    hitBonus: 7
+    damageBonus: 3
 - type: Entity
   id: Elona.ItemBattleAxe
   parent: BaseItem
@@ -4546,6 +4757,12 @@
     material: Elona.Metal
   - type: Weight
     weight: 3700
+  - type: Equipment
+    equipSlots:
+    - Elona.Hand
+  - type: EquipBonus
+    hitBonus: -1
+    damageBonus: 3
 - type: Entity
   id: Elona.ItemHammer
   parent: BaseItem
@@ -4565,6 +4782,12 @@
     material: Elona.Metal
   - type: Weight
     weight: 4200
+  - type: Equipment
+    equipSlots:
+    - Elona.Hand
+  - type: EquipBonus
+    hitBonus: -3
+    damageBonus: 4
 - type: Entity
   id: Elona.ItemTrident
   parent: BaseItem
@@ -4584,6 +4807,13 @@
     material: Elona.Metal
   - type: Weight
     weight: 1800
+  - type: Equipment
+    equipSlots:
+    - Elona.Hand
+  - type: EquipBonus
+    dv: 3
+    hitBonus: 1
+    damageBonus: 3
 - type: Entity
   id: Elona.ItemLongStaff
   parent: BaseItem
@@ -4603,6 +4833,13 @@
     material: Elona.Metal
   - type: Weight
     weight: 800
+  - type: Equipment
+    equipSlots:
+    - Elona.Hand
+  - type: EquipBonus
+    dv: 4
+    hitBonus: 3
+    damageBonus: 4
 - type: Entity
   id: Elona.ItemShortBow
   parent: BaseItem
@@ -4622,6 +4859,12 @@
     material: Elona.Metal
   - type: Weight
     weight: 800
+  - type: Equipment
+    equipSlots:
+    - Elona.Ranged
+  - type: EquipBonus
+    hitBonus: 8
+    damageBonus: 3
 - type: Entity
   id: Elona.ItemMachineGun
   parent: BaseItem
@@ -4642,6 +4885,12 @@
     material: Elona.Metal
   - type: Weight
     weight: 1800
+  - type: Equipment
+    equipSlots:
+    - Elona.Ranged
+  - type: EquipBonus
+    hitBonus: 10
+    damageBonus: 1
 - type: Entity
   id: Elona.ItemClaymore
   parent: BaseItem
@@ -4661,6 +4910,12 @@
     material: Elona.Metal
   - type: Weight
     weight: 4000
+  - type: Equipment
+    equipSlots:
+    - Elona.Hand
+  - type: EquipBonus
+    hitBonus: 1
+    damageBonus: 8
 - type: Entity
   id: Elona.ItemRation
   parent: BaseItem
@@ -4697,6 +4952,12 @@
     material: Elona.Metal
   - type: Weight
     weight: 3500
+  - type: Equipment
+    equipSlots:
+    - Elona.Hand
+  - type: EquipBonus
+    hitBonus: -1
+    damageBonus: 5
 - type: Entity
   id: Elona.ItemHalberd
   parent: BaseItem
@@ -4716,6 +4977,12 @@
     material: Elona.Metal
   - type: Weight
     weight: 3800
+  - type: Equipment
+    equipSlots:
+    - Elona.Hand
+  - type: EquipBonus
+    hitBonus: -2
+    damageBonus: 1
 - type: Entity
   id: Elona.ItemScrollOfReturn
   parent: BaseItem
@@ -5367,6 +5634,13 @@
     material: Elona.Metal
   - type: Weight
     weight: 700
+  - type: Equipment
+    equipSlots:
+    - Elona.Hand
+  - type: EquipBonus
+    dv: 1
+    hitBonus: 6
+    damageBonus: 5
 - type: Entity
   id: Elona.ItemSpellbookOfDarknessBeam
   parent: BaseItem
@@ -7282,6 +7556,12 @@
     identifyDifficulty: 500
   - type: Weight
     weight: 1200
+  - type: Equipment
+    equipSlots:
+    - Elona.Arm
+  - type: EquipBonus
+    dv: 5
+    pv: 30
 - type: Entity
   id: Elona.ItemBloodMoon
   parent: BaseItem
@@ -7313,6 +7593,12 @@
     identifyDifficulty: 500
   - type: Weight
     weight: 1800
+  - type: Equipment
+    equipSlots:
+    - Elona.Hand
+  - type: EquipBonus
+    hitBonus: 8
+    damageBonus: 22
 - type: Entity
   id: Elona.ItemRingOfSteelDragon
   parent: BaseItem
@@ -7343,6 +7629,11 @@
     identifyDifficulty: 500
   - type: Weight
     weight: 1200
+  - type: Equipment
+    equipSlots:
+    - Elona.Ring
+  - type: EquipBonus
+    pv: 50
 - type: Entity
   id: Elona.ItemStaffOfInsanity
   parent: BaseItem
@@ -7373,6 +7664,14 @@
     identifyDifficulty: 500
   - type: Weight
     weight: 2500
+  - type: Equipment
+    equipSlots:
+    - Elona.Hand
+  - type: EquipBonus
+    dv: 15
+    pv: 3
+    hitBonus: -5
+    damageBonus: 2
 - type: Entity
   id: Elona.ItemRankis
   parent: BaseItem
@@ -7404,6 +7703,13 @@
     identifyDifficulty: 500
   - type: Weight
     weight: 2000
+  - type: Equipment
+    equipSlots:
+    - Elona.Hand
+  - type: EquipBonus
+    dv: 6
+    hitBonus: 2
+    damageBonus: 11
 - type: Entity
   id: Elona.ItemPalmiaPride
   parent: BaseItem
@@ -7434,6 +7740,12 @@
     identifyDifficulty: 500
   - type: Weight
     weight: 500
+  - type: Equipment
+    equipSlots:
+    - Elona.Ring
+  - type: EquipBonus
+    dv: 15
+    pv: 5
 - type: Entity
   id: Elona.ItemShopkeepersTrunk
   parent: BaseItem
@@ -9023,6 +9335,12 @@
     material: Elona.Metal
   - type: Weight
     weight: 6500
+  - type: Equipment
+    equipSlots:
+    - Elona.Body
+  - type: EquipBonus
+    dv: 5
+    pv: 12
 - type: Entity
   id: Elona.ItemPlateMail
   parent: BaseItem
@@ -9042,6 +9360,12 @@
     material: Elona.Metal
   - type: Weight
     weight: 7500
+  - type: Equipment
+    equipSlots:
+    - Elona.Body
+  - type: EquipBonus
+    dv: 6
+    pv: 21
 - type: Entity
   id: Elona.ItemRingMail
   parent: BaseItem
@@ -9061,6 +9385,12 @@
     material: Elona.Metal
   - type: Weight
     weight: 5000
+  - type: Equipment
+    equipSlots:
+    - Elona.Body
+  - type: EquipBonus
+    dv: 6
+    pv: 14
 - type: Entity
   id: Elona.ItemCompositeMail
   parent: BaseItem
@@ -9080,6 +9410,12 @@
     material: Elona.Metal
   - type: Weight
     weight: 5500
+  - type: Equipment
+    equipSlots:
+    - Elona.Body
+  - type: EquipBonus
+    dv: 7
+    pv: 17
 - type: Entity
   id: Elona.ItemChainMail
   parent: BaseItem
@@ -9099,6 +9435,12 @@
     material: Elona.Metal
   - type: Weight
     weight: 5200
+  - type: Equipment
+    equipSlots:
+    - Elona.Body
+  - type: EquipBonus
+    dv: 7
+    pv: 19
 - type: Entity
   id: Elona.ItemPopeRobe
   parent: BaseItem
@@ -9118,6 +9460,12 @@
     material: Elona.Soft
   - type: Weight
     weight: 1200
+  - type: Equipment
+    equipSlots:
+    - Elona.Body
+  - type: EquipBonus
+    dv: 18
+    pv: 8
 - type: Entity
   id: Elona.ItemLightMail
   parent: BaseItem
@@ -9137,6 +9485,12 @@
     material: Elona.Soft
   - type: Weight
     weight: 1800
+  - type: Equipment
+    equipSlots:
+    - Elona.Body
+  - type: EquipBonus
+    dv: 10
+    pv: 8
 - type: Entity
   id: Elona.ItemCoat
   parent: BaseItem
@@ -9156,6 +9510,12 @@
     material: Elona.Soft
   - type: Weight
     weight: 1500
+  - type: Equipment
+    equipSlots:
+    - Elona.Body
+  - type: EquipBonus
+    dv: 13
+    pv: 9
 - type: Entity
   id: Elona.ItemBreastPlate
   parent: BaseItem
@@ -9175,6 +9535,12 @@
     material: Elona.Soft
   - type: Weight
     weight: 2800
+  - type: Equipment
+    equipSlots:
+    - Elona.Body
+  - type: EquipBonus
+    dv: 15
+    pv: 11
 - type: Entity
   id: Elona.ItemBulletproofJacket
   parent: BaseItem
@@ -9194,6 +9560,12 @@
     material: Elona.Soft
   - type: Weight
     weight: 1600
+  - type: Equipment
+    equipSlots:
+    - Elona.Body
+  - type: EquipBonus
+    dv: 14
+    pv: 15
 - type: Entity
   id: Elona.ItemGloves
   parent: BaseItem
@@ -9213,6 +9585,14 @@
     material: Elona.Soft
   - type: Weight
     weight: 450
+  - type: Equipment
+    equipSlots:
+    - Elona.Arm
+  - type: EquipBonus
+    dv: 5
+    pv: 4
+    hitBonus: 5
+    damageBonus: 1
 - type: Entity
   id: Elona.ItemPlateGauntlets
   parent: BaseItem
@@ -9232,6 +9612,14 @@
     material: Elona.Metal
   - type: Weight
     weight: 1800
+  - type: Equipment
+    equipSlots:
+    - Elona.Arm
+  - type: EquipBonus
+    dv: 3
+    pv: 7
+    hitBonus: 3
+    damageBonus: 3
 - type: Entity
   id: Elona.ItemLightGloves
   parent: BaseItem
@@ -9251,6 +9639,13 @@
     material: Elona.Soft
   - type: Weight
     weight: 200
+  - type: Equipment
+    equipSlots:
+    - Elona.Arm
+  - type: EquipBonus
+    dv: 3
+    pv: 3
+    hitBonus: 3
 - type: Entity
   id: Elona.ItemCompositeGauntlets
   parent: BaseItem
@@ -9270,6 +9665,14 @@
     material: Elona.Metal
   - type: Weight
     weight: 1300
+  - type: Equipment
+    equipSlots:
+    - Elona.Arm
+  - type: EquipBonus
+    dv: 3
+    pv: 5
+    hitBonus: 4
+    damageBonus: 2
 - type: Entity
   id: Elona.ItemSmallShield
   parent: BaseItem
@@ -9289,6 +9692,12 @@
     material: Elona.Metal
   - type: Weight
     weight: 1200
+  - type: Equipment
+    equipSlots:
+    - Elona.Hand
+  - type: EquipBonus
+    dv: 3
+    pv: 4
 - type: Entity
   id: Elona.ItemRoundShield
   parent: BaseItem
@@ -9308,6 +9717,12 @@
     material: Elona.Metal
   - type: Weight
     weight: 1500
+  - type: Equipment
+    equipSlots:
+    - Elona.Hand
+  - type: EquipBonus
+    dv: 4
+    pv: 5
 - type: Entity
   id: Elona.ItemShield
   parent: BaseItem
@@ -9327,6 +9742,12 @@
     material: Elona.Metal
   - type: Weight
     weight: 1000
+  - type: Equipment
+    equipSlots:
+    - Elona.Hand
+  - type: EquipBonus
+    dv: 3
+    pv: 6
 - type: Entity
   id: Elona.ItemLargeShield
   parent: BaseItem
@@ -9346,6 +9767,12 @@
     material: Elona.Metal
   - type: Weight
     weight: 1400
+  - type: Equipment
+    equipSlots:
+    - Elona.Hand
+  - type: EquipBonus
+    dv: 2
+    pv: 8
 - type: Entity
   id: Elona.ItemKiteShield
   parent: BaseItem
@@ -9365,6 +9792,12 @@
     material: Elona.Metal
   - type: Weight
     weight: 3500
+  - type: Equipment
+    equipSlots:
+    - Elona.Hand
+  - type: EquipBonus
+    dv: -3
+    pv: 13
 - type: Entity
   id: Elona.ItemTowerShield
   parent: BaseItem
@@ -9384,6 +9817,12 @@
     material: Elona.Metal
   - type: Weight
     weight: 2400
+  - type: Equipment
+    equipSlots:
+    - Elona.Hand
+  - type: EquipBonus
+    dv: -1
+    pv: 10
 - type: Entity
   id: Elona.ItemShoes
   parent: BaseItem
@@ -9403,6 +9842,12 @@
     material: Elona.Soft
   - type: Weight
     weight: 250
+  - type: Equipment
+    equipSlots:
+    - Elona.Leg
+  - type: EquipBonus
+    dv: 3
+    pv: 1
 - type: Entity
   id: Elona.ItemBoots
   parent: BaseItem
@@ -9422,6 +9867,12 @@
     material: Elona.Soft
   - type: Weight
     weight: 450
+  - type: Equipment
+    equipSlots:
+    - Elona.Leg
+  - type: EquipBonus
+    dv: 5
+    pv: 2
 - type: Entity
   id: Elona.ItemTightBoots
   parent: BaseItem
@@ -9441,6 +9892,12 @@
     material: Elona.Soft
   - type: Weight
     weight: 650
+  - type: Equipment
+    equipSlots:
+    - Elona.Leg
+  - type: EquipBonus
+    dv: 6
+    pv: 3
 - type: Entity
   id: Elona.ItemArmoredBoots
   parent: BaseItem
@@ -9460,6 +9917,11 @@
     material: Elona.Metal
   - type: Weight
     weight: 1400
+  - type: Equipment
+    equipSlots:
+    - Elona.Leg
+  - type: EquipBonus
+    pv: 6
 - type: Entity
   id: Elona.ItemCompositeGirdle
   parent: BaseItem
@@ -9479,6 +9941,12 @@
     material: Elona.Metal
   - type: Weight
     weight: 650
+  - type: Equipment
+    equipSlots:
+    - Elona.Waist
+  - type: EquipBonus
+    dv: 5
+    pv: 3
 - type: Entity
   id: Elona.ItemPlateGirdle
   parent: BaseItem
@@ -9498,6 +9966,12 @@
     material: Elona.Metal
   - type: Weight
     weight: 1400
+  - type: Equipment
+    equipSlots:
+    - Elona.Waist
+  - type: EquipBonus
+    dv: 3
+    pv: 6
 - type: Entity
   id: Elona.ItemArmoredCloak
   parent: BaseItem
@@ -9517,6 +9991,12 @@
     material: Elona.Soft
   - type: Weight
     weight: 1800
+  - type: Equipment
+    equipSlots:
+    - Elona.Back
+  - type: EquipBonus
+    dv: 5
+    pv: 4
 - type: Entity
   id: Elona.ItemCloak
   parent: BaseItem
@@ -9536,6 +10016,12 @@
     material: Elona.Soft
   - type: Weight
     weight: 1500
+  - type: Equipment
+    equipSlots:
+    - Elona.Back
+  - type: EquipBonus
+    dv: 7
+    pv: 3
 - type: Entity
   id: Elona.ItemFeatherHat
   parent: BaseItem
@@ -9555,6 +10041,12 @@
     material: Elona.Soft
   - type: Weight
     weight: 500
+  - type: Equipment
+    equipSlots:
+    - Elona.Head
+  - type: EquipBonus
+    dv: 5
+    pv: 1
 - type: Entity
   id: Elona.ItemHeavyHelm
   parent: BaseItem
@@ -9574,6 +10066,12 @@
     material: Elona.Metal
   - type: Weight
     weight: 2400
+  - type: Equipment
+    equipSlots:
+    - Elona.Head
+  - type: EquipBonus
+    dv: 4
+    pv: 7
 - type: Entity
   id: Elona.ItemKnightHelm
   parent: BaseItem
@@ -9593,6 +10091,12 @@
     material: Elona.Metal
   - type: Weight
     weight: 2000
+  - type: Equipment
+    equipSlots:
+    - Elona.Head
+  - type: EquipBonus
+    dv: 1
+    pv: 7
 - type: Entity
   id: Elona.ItemHelm
   parent: BaseItem
@@ -9612,6 +10116,12 @@
     material: Elona.Metal
   - type: Weight
     weight: 1600
+  - type: Equipment
+    equipSlots:
+    - Elona.Head
+  - type: EquipBonus
+    dv: 3
+    pv: 5
 - type: Entity
   id: Elona.ItemCompositeHelm
   parent: BaseItem
@@ -9631,6 +10141,12 @@
     material: Elona.Metal
   - type: Weight
     weight: 1800
+  - type: Equipment
+    equipSlots:
+    - Elona.Head
+  - type: EquipBonus
+    dv: 5
+    pv: 8
 - type: Entity
   id: Elona.ItemPeridot
   parent: BaseItem
@@ -9650,6 +10166,11 @@
     material: Elona.Metal
   - type: Weight
     weight: 50
+  - type: Equipment
+    equipSlots:
+    - Elona.Neck
+  - type: EquipBonus
+    hitBonus: 4
 - type: Entity
   id: Elona.ItemTalisman
   parent: BaseItem
@@ -9669,6 +10190,11 @@
     material: Elona.Soft
   - type: Weight
     weight: 50
+  - type: Equipment
+    equipSlots:
+    - Elona.Neck
+  - type: EquipBonus
+    dv: 4
 - type: Entity
   id: Elona.ItemNeckGuard
   parent: BaseItem
@@ -9688,6 +10214,11 @@
     material: Elona.Metal
   - type: Weight
     weight: 50
+  - type: Equipment
+    equipSlots:
+    - Elona.Neck
+  - type: EquipBonus
+    pv: 3
 - type: Entity
   id: Elona.ItemCharm
   parent: BaseItem
@@ -9708,6 +10239,11 @@
     material: Elona.Soft
   - type: Weight
     weight: 50
+  - type: Equipment
+    equipSlots:
+    - Elona.Neck
+  - type: EquipBonus
+    damageBonus: 3
 - type: Entity
   id: Elona.ItemBejeweledAmulet
   parent: BaseItem
@@ -9727,6 +10263,10 @@
     material: Elona.Metal
   - type: Weight
     weight: 50
+  - type: Equipment
+    equipSlots:
+    - Elona.Neck
+  - type: EquipBonus
 - type: Entity
   id: Elona.ItemEngagementAmulet
   parent: BaseItem
@@ -9751,6 +10291,10 @@
     material: Elona.Metal
   - type: Weight
     weight: 50
+  - type: Equipment
+    equipSlots:
+    - Elona.Neck
+  - type: EquipBonus
 - type: Entity
   id: Elona.ItemCompositeRing
   parent: BaseItem
@@ -9770,6 +10314,11 @@
     material: Elona.Metal
   - type: Weight
     weight: 50
+  - type: Equipment
+    equipSlots:
+    - Elona.Ring
+  - type: EquipBonus
+    damageBonus: 2
 - type: Entity
   id: Elona.ItemArmoredRing
   parent: BaseItem
@@ -9789,6 +10338,11 @@
     material: Elona.Metal
   - type: Weight
     weight: 50
+  - type: Equipment
+    equipSlots:
+    - Elona.Ring
+  - type: EquipBonus
+    pv: 2
 - type: Entity
   id: Elona.ItemRing
   parent: BaseItem
@@ -9808,6 +10362,10 @@
     material: Elona.Metal
   - type: Weight
     weight: 50
+  - type: Equipment
+    equipSlots:
+    - Elona.Ring
+  - type: EquipBonus
 - type: Entity
   id: Elona.ItemEngagementRing
   parent: BaseItem
@@ -9832,6 +10390,10 @@
     material: Elona.Metal
   - type: Weight
     weight: 50
+  - type: Equipment
+    equipSlots:
+    - Elona.Ring
+  - type: EquipBonus
 - type: Entity
   id: Elona.ItemStethoscope
   parent: BaseItem
@@ -9938,6 +10500,12 @@
     material: Elona.Metal
   - type: Weight
     weight: 2800
+  - type: Equipment
+    equipSlots:
+    - Elona.Ranged
+  - type: EquipBonus
+    hitBonus: 4
+    damageBonus: 6
 - type: Entity
   id: Elona.ItemBolt
   parent: BaseItem
@@ -9957,6 +10525,12 @@
     material: Elona.Metal
   - type: Weight
     weight: 3500
+  - type: Equipment
+    equipSlots:
+    - Elona.Ammo
+  - type: EquipBonus
+    hitBonus: 2
+    damageBonus: 1
 - type: Entity
   id: Elona.ItemSpellbookOfWeb
   parent: BaseItem
@@ -10263,6 +10837,12 @@
     material: Elona.Metal
   - type: Weight
     weight: 1500
+  - type: Equipment
+    equipSlots:
+    - Elona.Ranged
+  - type: EquipBonus
+    hitBonus: 4
+    damageBonus: 6
 - type: Entity
   id: Elona.ItemPopCorn
   parent: BaseItem
@@ -10636,6 +11216,12 @@
     material: Elona.Metal
   - type: Weight
     weight: 1200
+  - type: Equipment
+    equipSlots:
+    - Elona.Ranged
+  - type: EquipBonus
+    hitBonus: 5
+    damageBonus: 5
 - type: Entity
   id: Elona.ItemEnergyCell
   parent: BaseItem
@@ -10656,6 +11242,11 @@
     material: Elona.Metal
   - type: Weight
     weight: 800
+  - type: Equipment
+    equipSlots:
+    - Elona.Ammo
+  - type: EquipBonus
+    damageBonus: 1
 - type: Entity
   id: Elona.ItemRailGun
   parent: BaseItem
@@ -10687,6 +11278,12 @@
     identifyDifficulty: 500
   - type: Weight
     weight: 8500
+  - type: Equipment
+    equipSlots:
+    - Elona.Ranged
+  - type: EquipBonus
+    hitBonus: -20
+    damageBonus: 15
 - type: Entity
   id: Elona.ItemScrollOfRecharge
   parent: BaseItem
@@ -10828,6 +11425,11 @@
     material: Elona.Soft
   - type: Weight
     weight: 500
+  - type: Equipment
+    equipSlots:
+    - Elona.Back
+  - type: EquipBonus
+    dv: 9
 - type: Entity
   id: Elona.ItemDeedOfMuseum
   parent: BaseItem
@@ -11577,6 +12179,12 @@
     material: Elona.Metal
   - type: Weight
     weight: 500
+  - type: Equipment
+    equipSlots:
+    - Elona.Back
+  - type: EquipBonus
+    dv: 4
+    pv: 6
 - type: Entity
   id: Elona.ItemGemSeed
   parent: BaseItem
@@ -11671,6 +12279,12 @@
     material: Elona.Soft
   - type: Weight
     weight: 300
+  - type: Equipment
+    equipSlots:
+    - Elona.Leg
+  - type: EquipBonus
+    dv: 7
+    pv: 2
 - type: Entity
   id: Elona.ItemVindaleCloak
   parent: BaseItem
@@ -11695,6 +12309,12 @@
     material: Elona.Soft
   - type: Weight
     weight: 400
+  - type: Equipment
+    equipSlots:
+    - Elona.Back
+  - type: EquipBonus
+    dv: 7
+    pv: 3
 - type: Entity
   id: Elona.ItemAuroraRing
   parent: BaseItem
@@ -11719,6 +12339,12 @@
     material: Elona.Metal
   - type: Weight
     weight: 50
+  - type: Equipment
+    equipSlots:
+    - Elona.Ring
+  - type: EquipBonus
+    dv: 2
+    pv: 2
 - type: Entity
   id: Elona.ItemPotionOfCureCorruption
   parent: BaseItem
@@ -13296,6 +13922,12 @@
     identifyDifficulty: 500
   - type: Weight
     weight: 1500
+  - type: Equipment
+    equipSlots:
+    - Elona.Head
+  - type: EquipBonus
+    dv: 4
+    pv: 15
 - type: Entity
   id: Elona.ItemSpellbookOfIncognito
   parent: BaseItem
@@ -13435,6 +14067,10 @@
     material: Elona.Soft
   - type: Weight
     weight: 500
+  - type: Equipment
+    equipSlots:
+    - Elona.Ranged
+  - type: EquipBonus
 - type: Entity
   id: Elona.ItemLeash
   parent: BaseItem
@@ -14080,6 +14716,12 @@
     identifyDifficulty: 500
   - type: Weight
     weight: 650
+  - type: Equipment
+    equipSlots:
+    - Elona.Leg
+  - type: EquipBonus
+    dv: 16
+    pv: 7
 - type: Entity
   id: Elona.ItemMagicFruit
   parent: BaseItem
@@ -14160,6 +14802,10 @@
     material: Elona.Metal
   - type: Weight
     weight: 50
+  - type: Equipment
+    equipSlots:
+    - Elona.Ring
+  - type: EquipBonus
 - type: Entity
   id: Elona.ItemStatueOfOpatos
   parent: BaseItem
@@ -14383,6 +15029,12 @@
     identifyDifficulty: 500
   - type: Weight
     weight: 800
+  - type: Equipment
+    equipSlots:
+    - Elona.Ranged
+  - type: EquipBonus
+    hitBonus: 4
+    damageBonus: 11
 - type: Entity
   id: Elona.ItemWinchesterPremium
   parent: BaseItem
@@ -14414,6 +15066,12 @@
     identifyDifficulty: 500
   - type: Weight
     weight: 2800
+  - type: Equipment
+    equipSlots:
+    - Elona.Ranged
+  - type: EquipBonus
+    hitBonus: 7
+    damageBonus: 2
 - type: Entity
   id: Elona.ItemKumiromiScythe
   parent: BaseItem
@@ -14445,6 +15103,12 @@
     identifyDifficulty: 500
   - type: Weight
     weight: 850
+  - type: Equipment
+    equipSlots:
+    - Elona.Hand
+  - type: EquipBonus
+    hitBonus: 5
+    damageBonus: 2
 - type: Entity
   id: Elona.ItemElementalStaff
   parent: BaseItem
@@ -14476,6 +15140,14 @@
     identifyDifficulty: 500
   - type: Weight
     weight: 900
+  - type: Equipment
+    equipSlots:
+    - Elona.Hand
+  - type: EquipBonus
+    dv: 11
+    pv: 4
+    hitBonus: 6
+    damageBonus: 2
 - type: Entity
   id: Elona.ItemHolyLance
   parent: BaseItem
@@ -14506,6 +15178,13 @@
     identifyDifficulty: 500
   - type: Weight
     weight: 4400
+  - type: Equipment
+    equipSlots:
+    - Elona.Hand
+  - type: EquipBonus
+    dv: 4
+    hitBonus: 12
+    damageBonus: 11
 - type: Entity
   id: Elona.ItemLuckyDagger
   parent: BaseItem
@@ -14537,6 +15216,14 @@
     identifyDifficulty: 500
   - type: Weight
     weight: 400
+  - type: Equipment
+    equipSlots:
+    - Elona.Hand
+  - type: EquipBonus
+    dv: 18
+    pv: 13
+    hitBonus: 13
+    damageBonus: 18
 - type: Entity
   id: Elona.ItemGaiaHammer
   parent: BaseItem
@@ -14568,6 +15255,12 @@
     identifyDifficulty: 500
   - type: Weight
     weight: 6500
+  - type: Equipment
+    equipSlots:
+    - Elona.Hand
+  - type: EquipBonus
+    hitBonus: -3
+    damageBonus: 2
 - type: Entity
   id: Elona.ItemLulwysGemStoneOfGodSpeed
   parent: BaseItem
@@ -14972,6 +15665,11 @@
     identifyDifficulty: 500
   - type: Weight
     weight: 14000
+  - type: Equipment
+    equipSlots:
+    - Elona.Hand
+  - type: EquipBonus
+    hitBonus: -35
 - type: Entity
   id: Elona.ItemSpellbookOfMagicBall
   parent: BaseItem
@@ -15211,6 +15909,11 @@
     identifyDifficulty: 500
   - type: Weight
     weight: 250
+  - type: Equipment
+    equipSlots:
+    - Elona.Neck
+  - type: EquipBonus
+    dv: 8
 - type: Entity
   id: Elona.ItemPotionOfDescent
   parent: BaseItem
@@ -15407,6 +16110,11 @@
     material: Elona.Metal
   - type: Weight
     weight: 400
+  - type: Equipment
+    equipSlots:
+    - Elona.Ranged
+  - type: EquipBonus
+    hitBonus: 4
 - type: Entity
   id: Elona.ItemGrenade
   parent: BaseItem
@@ -15431,6 +16139,10 @@
     material: Elona.Metal
   - type: Weight
     weight: 850
+  - type: Equipment
+    equipSlots:
+    - Elona.Ranged
+  - type: EquipBonus
 - type: Entity
   id: Elona.ItemSecretExperienceOfKumiromi
   parent: BaseItem
@@ -15486,6 +16198,10 @@
     identifyDifficulty: 500
   - type: Weight
     weight: 7500
+  - type: Equipment
+    equipSlots:
+    - Elona.Ranged
+  - type: EquipBonus
 - type: Entity
   id: Elona.ItemSecretExperienceOfLomias
   parent: BaseItem
@@ -15543,6 +16259,12 @@
     identifyDifficulty: 500
   - type: Weight
     weight: 250
+  - type: Equipment
+    equipSlots:
+    - Elona.Ranged
+  - type: EquipBonus
+    hitBonus: 7
+    damageBonus: 4
 - type: Entity
   id: Elona.ItemClaymoreUnique
   parent: BaseItem
@@ -15573,6 +16295,12 @@
     identifyDifficulty: 500
   - type: Weight
     weight: 6500
+  - type: Equipment
+    equipSlots:
+    - Elona.Hand
+  - type: EquipBonus
+    hitBonus: 1
+    damageBonus: 16
 - type: Entity
   id: Elona.ItemHappyBed
   parent: BaseItem
@@ -15656,6 +16384,11 @@
     identifyDifficulty: 500
   - type: Weight
     weight: 400
+  - type: Equipment
+    equipSlots:
+    - Elona.Neck
+  - type: EquipBonus
+    hitBonus: 12
 - type: Entity
   id: Elona.ItemTwinEdge
   parent: BaseItem
@@ -15687,6 +16420,11 @@
     identifyDifficulty: 500
   - type: Weight
     weight: 400
+  - type: Equipment
+    equipSlots:
+    - Elona.Neck
+  - type: EquipBonus
+    damageBonus: 4
 - type: Entity
   id: Elona.ItemMusicTicket
   parent: BaseItem
@@ -15744,6 +16482,11 @@
     identifyDifficulty: 500
   - type: Weight
     weight: 75000
+  - type: Equipment
+    equipSlots:
+    - Elona.Ranged
+  - type: EquipBonus
+    hitBonus: -28
 - type: Entity
   id: Elona.ItemAlud
   parent: BaseItem
@@ -15775,6 +16518,12 @@
     identifyDifficulty: 500
   - type: Weight
     weight: 2850
+  - type: Equipment
+    equipSlots:
+    - Elona.Hand
+  - type: EquipBonus
+    dv: -1
+    pv: 35
 - type: Entity
   id: Elona.ItemShieldOfThorn
   parent: BaseItem
@@ -15806,6 +16555,12 @@
     identifyDifficulty: 500
   - type: Weight
     weight: 950
+  - type: Equipment
+    equipSlots:
+    - Elona.Hand
+  - type: EquipBonus
+    pv: 1
+    damageBonus: 14
 - type: Entity
   id: Elona.ItemCrimsonPlate
   parent: BaseItem
@@ -15837,6 +16592,12 @@
     identifyDifficulty: 500
   - type: Weight
     weight: 1250
+  - type: Equipment
+    equipSlots:
+    - Elona.Waist
+  - type: EquipBonus
+    dv: 2
+    pv: 15
 - type: Entity
   id: Elona.ItemGift
   parent: BaseItem
@@ -15996,6 +16757,12 @@
     material: Elona.Metal
   - type: Weight
     weight: 4000
+  - type: Equipment
+    equipSlots:
+    - Elona.Hand
+  - type: EquipBonus
+    hitBonus: 3
+    damageBonus: 4
 - type: Entity
   id: Elona.ItemFireproofLiquid
   parent: BaseItem
@@ -16096,6 +16863,12 @@
     identifyDifficulty: 500
   - type: Weight
     weight: 376500
+  - type: Equipment
+    equipSlots:
+    - Elona.Hand
+  - type: EquipBonus
+    hitBonus: -460
+    damageBonus: 32
 - type: Entity
   id: Elona.ItemUnknownShell
   parent: BaseItem
@@ -16127,6 +16900,12 @@
     identifyDifficulty: 500
   - type: Weight
     weight: 150
+  - type: Equipment
+    equipSlots:
+    - Elona.Neck
+  - type: EquipBonus
+    dv: 2
+    pv: 14
 - type: Entity
   id: Elona.ItemHiryuTo
   parent: BaseItem
@@ -16158,6 +16937,12 @@
     identifyDifficulty: 500
   - type: Weight
     weight: 2500
+  - type: Equipment
+    equipSlots:
+    - Elona.Hand
+  - type: EquipBonus
+    hitBonus: 3
+    damageBonus: 2
 - type: Entity
   id: Elona.ItemLicenseOfTheVoidExplorer
   parent: BaseItem
@@ -16562,6 +17347,13 @@
     identifyDifficulty: 500
   - type: Weight
     weight: 2400
+  - type: Equipment
+    equipSlots:
+    - Elona.Head
+  - type: EquipBonus
+    dv: 2
+    pv: 7
+    damageBonus: 8
 - type: Entity
   id: Elona.ItemMauserC96Custom
   parent: BaseItem
@@ -16594,6 +17386,12 @@
     identifyDifficulty: 500
   - type: Weight
     weight: 950
+  - type: Equipment
+    equipSlots:
+    - Elona.Ranged
+  - type: EquipBonus
+    hitBonus: 14
+    damageBonus: 26
 - type: Entity
   id: Elona.ItemLightsabre
   parent: BaseItem
@@ -16618,6 +17416,10 @@
     material: Elona.Ether
   - type: Weight
     weight: 600
+  - type: Equipment
+    equipSlots:
+    - Elona.Hand
+  - type: EquipBonus
 - type: Entity
   id: Elona.ItemGaroksHammer
   parent: BaseItem
@@ -17146,6 +17948,12 @@
     material: Elona.Metal
   - type: Weight
     weight: 400
+  - type: Equipment
+    equipSlots:
+    - Elona.Hand
+  - type: EquipBonus
+    hitBonus: 5
+    damageBonus: 1
 - type: Entity
   id: Elona.ItemDish
   parent: BaseItem
@@ -17304,6 +18112,12 @@
     material: Elona.Metal
   - type: Weight
     weight: 700
+  - type: Equipment
+    equipSlots:
+    - Elona.Ranged
+  - type: EquipBonus
+    hitBonus: -18
+    damageBonus: 10
 - type: Entity
   id: Elona.ItemPotForTesting
   parent: BaseItem
@@ -17370,6 +18184,14 @@
     identifyDifficulty: 500
   - type: Weight
     weight: 22500
+  - type: Equipment
+    equipSlots:
+    - Elona.Hand
+  - type: EquipBonus
+    dv: -42
+    pv: 30
+    hitBonus: -25
+    damageBonus: 20
 - type: Entity
   id: Elona.ItemPutitoro
   parent: BaseItem

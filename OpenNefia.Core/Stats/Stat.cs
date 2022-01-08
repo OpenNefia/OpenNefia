@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace OpenNefia.Core.Stats
 {
-    public struct Stat<T>
+    public class Stat<T> : IEquatable<Stat<T>>
     {
         public T Base { get; set; }
         public T Buffed { get; set; }
@@ -22,6 +22,42 @@ namespace OpenNefia.Core.Stats
         public void Reset()
         {
             Buffed = Base;
+        }
+
+        public bool Equals(Stat<T>? other)
+        {
+            if (other is null)
+                return false;
+
+            if (Base is IEquatable<T>)
+            {
+                return Base.Equals(other.Base);
+            }
+
+            return false;
+        }
+
+        public override bool Equals(object? other)
+        {
+            if (other is not Stat<T> otherStat)
+                return false;
+
+            return this.Equals(otherStat);
+        }
+
+        public override int GetHashCode()
+        {
+            return Base?.GetHashCode() ?? 0;
+        }
+
+        public static bool operator ==(Stat<T>? left, Stat<T>? right)
+        {
+            return left?.Equals(right) ?? false;
+        }
+
+        public static bool operator !=(Stat<T>? left, Stat<T>? right)
+        {
+            return !(left == right);
         }
 
         public static implicit operator T(Stat<T> stat)
