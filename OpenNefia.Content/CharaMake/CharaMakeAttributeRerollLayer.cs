@@ -7,6 +7,7 @@ using OpenNefia.Content.UI.Element.List;
 using OpenNefia.Core;
 using OpenNefia.Core.Audio;
 using OpenNefia.Core.Locale;
+using OpenNefia.Core.Log;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Rendering;
 using System;
@@ -75,7 +76,6 @@ namespace OpenNefia.Content.CharaMake
                         break;
                     case AttributeRerollData.Attribute attr:
                         attr.AmountText = AmountText;
-                        attr.Amount = new System.Random().Next(1, 14);
                         Icon = new AttributeIcon(attr.Id.ToString());
                         break;
                 }
@@ -129,8 +129,11 @@ namespace OpenNefia.Content.CharaMake
         {
             // gets called when the ui is loaded, so this could potentially run multiple times 
             //      if the user backtracks in creation
-            if (IsInitialized) 
+            if (IsInitialized)
+            {
+                Reroll(false);
                 return;
+            }
             base.Initialize(args);
             var data = AttributeIds.Select(x => new AttributeRerollCell(new AttributeRerollData.Attribute(new PrototypeId<SkillPrototype>(x)))).ToList();
             data.InsertRange(0, new[]
@@ -139,6 +142,7 @@ namespace OpenNefia.Content.CharaMake
                 new AttributeRerollCell(new AttributeRerollData.ListChoice(AttributeRerollChoice.Proceed)),
             });
             List.AddRange(data);
+            Reroll(false);
             List.EventOnActivate += (_, args) =>
             {
                 switch(args.SelectedCell.Data)
@@ -168,10 +172,35 @@ namespace OpenNefia.Content.CharaMake
             IsInitialized = true;
         }
 
-        private void Reroll()
+        private void Reroll(bool playSound = true)
         {
-            Sounds.Play(Protos.Sound.Dice);
-            //TODO add rerolling
+            if (playSound)
+                Sounds.Play(Protos.Sound.Dice);
+
+            if (!Data.TryGetValue("race", out RacePrototype race))
+            {
+                Logger.WarningS("charamake", "no race prototype in charmake data");
+                return;
+            }
+            if (!Data.TryGetValue("class", out ClassPrototype @class))
+            {
+                Logger.WarningS("charamake", "no class prototype in charmake data");
+                return;
+            }
+
+            foreach (var item in List)
+            {
+                if (item.Data is not AttributeRerollData.Attribute attr)
+                    continue;
+                if (attr.Locked)
+                    continue;
+
+                race.BaseSkills.TryGetValue(attr.Id, out var level);
+                if (@class.BaseSkills.TryGetValue(attr.Id, out var classLevel))
+                    level += classLevel;
+
+                attr.Amount = new Random().Next((level / 2) + 1, level + 1);
+            }
         }
 
         private void SetLock(AttributeRerollData.Attribute data)
