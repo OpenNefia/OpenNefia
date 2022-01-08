@@ -8,10 +8,4 @@ using OpenNefia.Core.Utility;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Content.Prototypes;
 
-var entMan = IoCManager.Resolve<IEntityManager>();
-
-var mapMan = IoCManager.Resolve<IMapManager>();
-var gameSess = IoCManager.Resolve<IGameSessionManager>();
-var mapLoad = IoCManager.Resolve<IMapBlueprintLoader>();
-
-Loc.SwitchLanguage(LanguagePrototypeOf.Japanese);
+Loc.SwitchLanguage(LanguagePrototypeOf.English);
