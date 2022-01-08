@@ -22,7 +22,7 @@ namespace OpenNefia.Content.Cargo
 
         public int GetCargoWeight(EntityUid item, CargoComponent? cargo = null)
         {
-            if (!Resolve(item, ref cargo))
+            if (!Resolve(item, ref cargo, logMissing: false))
                 return 0;
 
             // TODO sum container item weights here too.
@@ -43,7 +43,7 @@ namespace OpenNefia.Content.Cargo
         public int? GetMaxCargoWeight(EntityUid ent, CargoHolderComponent? cargoHolder = null)
         {
             if (!Resolve(ent, ref cargoHolder))
-                return null;
+                return 0;
 
             return cargoHolder.MaxCargoWeight;
         }

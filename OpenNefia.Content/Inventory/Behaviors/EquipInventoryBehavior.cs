@@ -38,7 +38,6 @@ namespace OpenNefia.Content.Inventory
 
         public override IEnumerable<IInventorySource> GetSources(InventoryContext context)
         {
-            yield return new GroundInvSource(context.User);
             yield return new EntityInvSource(context.User);
         }
 
@@ -55,6 +54,7 @@ namespace OpenNefia.Content.Inventory
         public override InventoryResult OnSelect(InventoryContext context, EntityUid item, int amount)
         {
             // TODO fairy trait
+            // That will probably be a hook on IsEquippingAttemptEvent.
 
             return new InventoryResult.Finished(TurnResult.Succeeded);
         }

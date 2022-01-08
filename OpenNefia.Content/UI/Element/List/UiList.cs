@@ -101,7 +101,6 @@ namespace OpenNefia.Content.UI.Element.List
 
         private void HandleKeyBindDown(GUIBoundKeyEventArgs args)
         {
-            Logger.Info($"BIND {args.Function} {args.State}");
             if (args.Function == EngineKeyFunctions.UISelect)
             {
                 Activate(SelectedIndex);
