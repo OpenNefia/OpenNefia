@@ -6,9 +6,9 @@ Elona.Inventory.Layer =
    },
 
    Note = {
-      TotalWeight = function(totalWeight, maxWeight, cargoWeight)
-         return ("重さ合計 %s/%s  荷車 %s")
-            :format(totalWeight, maxWeight, cargoWeight)
+      TotalWeight = function(totalWeight, maxWeight, cargoWeight, maxCargoWeight)
+         return ("重さ合計 %s/%s  荷車 %s/%s")
+            :format(totalWeight, maxWeight, cargoWeight, maxCargoWeight)
       end,
    }
 }
