@@ -13,7 +13,7 @@ namespace OpenNefia.Content.Cargo
     public interface ICargoSystem : IEntitySystem
     {
         int GetTotalCargoWeight(EntityUid ent, InventoryComponent? inv = null);
-        int? GetMaxCargoWeight(EntityUid ent, CargoHolderComponent? inv = null);
+        int? GetMaxCargoWeight(EntityUid ent, CargoHolderComponent? cargoHolder = null);
     }
 
     public class CargoSystem : EntitySystem, ICargoSystem
