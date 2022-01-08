@@ -34,7 +34,7 @@ namespace OpenNefia.Content.Tests.EquipSlots
   id: {TestEquipment1ID}
   components:
   - type: Equipment
-    validEquipSlots:
+    equipSlots:
     - {TestSlot1ID}
 ";
 
@@ -178,16 +178,16 @@ namespace OpenNefia.Content.Tests.EquipSlots
             {
                 var oldContainerCount = containers.Containers.Count;
 
-                Assert.That(equipSlotSys.TryRemoveEquipSlot(ent, equipSlot), Is.True);
-                Assert.That(equipSlotSys.HasEquipSlot(ent, TestSlot1ID), Is.False);
+                Assert.That(equipSlotSys.TryRemoveEquipSlot(ent, equipSlot), Is.True, "Try remove equip slot");
+                Assert.That(equipSlotSys.HasEquipSlot(ent, TestSlot1ID), Is.False, "Has equip slot");
 
                 // Equipment in the slot should be deleted.
-                Assert.That(entMan.EntityExists(entItem), Is.False);
+                Assert.That(entMan.EntityExists(entItem), Is.False, "Entity exists");
 
                 Assert.That(equipSlots.EquipSlots!.Count, Is.EqualTo(2), "Equip slot count");
                 Assert.That(containers.Containers.Count, Is.EqualTo(oldContainerCount - 1), "Container count");
 
-                Assert.That(equipSlotSys.TryRemoveEquipSlot(ent, equipSlot), Is.False);
+                Assert.That(equipSlotSys.TryRemoveEquipSlot(ent, equipSlot), Is.False, "Try remove equip slot (again)");
             });
         }
 
@@ -261,11 +261,11 @@ namespace OpenNefia.Content.Tests.EquipSlots
             Assert.Multiple(() =>
             {
                 Assert.That(equipSlotSys.CanUnequip(ent, TestSlot1ID, out var reason), Is.False, "Can unequip 1");
-                Assert.That(reason, Is.EqualTo("Elona.EquipSlots.CannotUnequip"));
+                Assert.That(reason, Is.EqualTo("Elona.EquipSlots.CannotUnequip"), "Equip fail reason 1");
                 Assert.That(equipSlotSys.CanUnequip(ent, TestSlot2ID, out reason), Is.False, "Can unequip 2");
-                Assert.That(reason, Is.EqualTo("Elona.EquipSlots.CannotUnequip"));
+                Assert.That(reason, Is.EqualTo("Elona.EquipSlots.CannotUnequip"), "Equip fali reason 2");
 
-                Assert.That(equipSlotSys.TryEquip(ent, entItem1, TestSlot1ID), Is.True);
+                Assert.That(equipSlotSys.TryEquip(ent, entItem1, TestSlot1ID), Is.True, "Try equip");
 
                 Assert.That(equipSlotSys.CanUnequip(ent, TestSlot1ID, out _), Is.True, "Can unequip 1 after equip");
 
@@ -276,7 +276,7 @@ namespace OpenNefia.Content.Tests.EquipSlots
                 Assert.That(equipSlotSys.TryGetSlotEntity(ent, TestSlot1ID, out _), Is.False, "Try get slot entity");
 
                 var entItem1Spatial = entMan.GetComponent<SpatialComponent>(entItem1);
-                Assert.That(entItem1Spatial.Coordinates, Is.EqualTo(new EntityCoordinates(ent, Vector2i.Zero)));
+                Assert.That(entItem1Spatial.Coordinates, Is.EqualTo(new EntityCoordinates(ent, Vector2i.Zero)), "Unequipped entity coordinates");
             });
         }
     }
