@@ -160,13 +160,13 @@ namespace OpenNefia.Content.Inventory
         private IUiText TextNoteTotalWeight = new UiText(UiFonts.TextNote);
         private IUiText TextGoldCount = new UiText(UiFonts.InventoryGoldCount);
 
-        private IAssetDrawable? CurrentIcon;
-
         private IAssetDrawable AssetDecoInvA;
         private IAssetDrawable AssetDecoInvB;
         private IAssetDrawable AssetDecoInvC;
         private IAssetDrawable AssetDecoInvD;
         private IAssetDrawable AssetGoldCoin;
+
+        private IUiElement? CurrentIcon;
 
         private EntitySpriteBatch _spriteBatch = new();
 
@@ -192,6 +192,7 @@ namespace OpenNefia.Content.Inventory
         {
             Context = context;
             Window.Title = Context.Behavior.WindowTitle;
+            CurrentIcon = Context.Behavior.MakeIcon();
 
             UpdateFiltering();
         }
@@ -384,6 +385,8 @@ namespace OpenNefia.Content.Inventory
             AssetDecoInvD.SetPreferredSize();
             AssetGoldCoin.SetPreferredSize();
 
+            CurrentIcon?.SetPreferredSize();
+
             TextTopicWindowName.SetPreferredSize();
             TextTopicDetailHeader.SetPreferredSize();
             TextNoteTotalWeight.SetPreferredSize();
@@ -395,20 +398,22 @@ namespace OpenNefia.Content.Inventory
             base.SetPosition(x, y);
 
             Window.SetPosition(X, Y);
-            List.SetPosition(X + 58, Y + 60);
+            List.SetPosition(Window.X + 58, Window.Y + 60);
             _spriteBatch.SetPosition(0, 0);
 
-            AssetDecoInvA.SetPosition(X + Width - 136, Y - 6);
-            AssetDecoInvB.SetPosition(X + Width - 186, Y - 6);
-            AssetDecoInvC.SetPosition(X + Width - 246, Y - 6);
-            AssetDecoInvD.SetPosition(X - 6, Y - 6);
-            AssetGoldCoin.SetPosition(X + 340, Y + 32);
+            AssetDecoInvA.SetPosition(Window.X + Window.Width - 136, Y - 6);
+            AssetDecoInvB.SetPosition(Window.X + Window.Width - 186, Y - 6);
+            AssetDecoInvC.SetPosition(Window.X + Window.Width - 246, Y - 6);
+            AssetDecoInvD.SetPosition(Window.X - 6, Window.Y - 6);
+            AssetGoldCoin.SetPosition(Window.X + 340, Window.Y + 32);
 
-            TextTopicWindowName.SetPosition(X + 28, Y + 30);
-            TextTopicDetailHeader.SetPosition(X + 526, Y + 30);
+            CurrentIcon?.SetPosition(Window.X + 46, Window.Y - 16);
+
+            TextTopicWindowName.SetPosition(Window.X + 28, Window.Y + 30);
+            TextTopicDetailHeader.SetPosition(Window.X + 526, Window.Y + 30);
             var notePos = UiUtils.NotePosition(GlobalPixelBounds, TextNoteTotalWeight);
             TextNoteTotalWeight.SetPosition(notePos.X, notePos.Y);
-            TextGoldCount.SetPosition(X + 368, Y + 37);
+            TextGoldCount.SetPosition(Window.X + 368, Window.Y + 37);
         }
 
         public override void Update(float dt)
@@ -422,6 +427,8 @@ namespace OpenNefia.Content.Inventory
             AssetDecoInvC.Update(dt);
             AssetDecoInvD.Update(dt);
             AssetGoldCoin.Update(dt);
+
+            CurrentIcon?.Update(dt);
 
             TextTopicWindowName.Update(dt);
             TextTopicDetailHeader.Update(dt);
@@ -441,6 +448,8 @@ namespace OpenNefia.Content.Inventory
             AssetDecoInvC.Draw();
             AssetDecoInvD.Draw();
 
+            CurrentIcon?.Draw();
+
             TextTopicWindowName.Draw();
             TextTopicDetailHeader.Draw();
             TextNoteTotalWeight.Draw();
@@ -455,6 +464,28 @@ namespace OpenNefia.Content.Inventory
                 AssetGoldCoin.Draw();
                 TextGoldCount.Draw();
             }
+        }
+
+        public override void Dispose()
+        {
+            Window.Dispose();
+
+            AssetDecoInvA.Dispose();
+            AssetDecoInvB.Dispose();
+            AssetDecoInvC.Dispose();
+            AssetDecoInvD.Dispose();
+
+            CurrentIcon?.Dispose();
+
+            TextTopicWindowName.Dispose();
+            TextTopicDetailHeader.Dispose();
+            TextNoteTotalWeight.Dispose();
+
+            List.Dispose();
+            _spriteBatch.Dispose();
+
+            AssetGoldCoin.Dispose();
+            TextGoldCount.Dispose();
         }
     }
 }

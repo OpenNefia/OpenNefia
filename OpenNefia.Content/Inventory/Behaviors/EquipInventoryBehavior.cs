@@ -13,6 +13,7 @@ using System.Text;
 using System.Threading.Tasks;
 using HspIdsInv = OpenNefia.Core.Prototypes.HspIds<OpenNefia.Content.Inventory.InvElonaId>;
 using EquipSlotPrototypeId = OpenNefia.Core.Prototypes.PrototypeId<OpenNefia.Content.EquipSlots.EquipSlotPrototype>;
+using OpenNefia.Core.UI.Element;
 
 namespace OpenNefia.Content.Inventory
 {
@@ -28,6 +29,7 @@ namespace OpenNefia.Content.Inventory
         public override HspIdsInv HspIds { get; } = HspIdsInv.From122(new(id: 6));
 
         public override string WindowTitle => Loc.GetString("Elona.Inventory.Behavior.Equip.WindowTitle");
+        public override IUiElement MakeIcon() => InventoryHelpers.MakeIcon(InventoryIcon.Equip);
 
         public EquipInventoryBehavior(EquipSlotPrototypeId equipSlotId)
         {

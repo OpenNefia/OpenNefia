@@ -22,11 +22,6 @@ namespace OpenNefia.Content.Inventory
         bool EnableShortcuts { get; }
 
         /// <summary>
-        /// Icon this behavior will display in the icon bar.
-        /// </summary>
-        PrototypeId<AssetPrototype>? Icon { get; }
-
-        /// <summary>
         /// Whether the player should be queried for an item count after selecting an item.
         /// </summary>
         bool QueryAmount { get; }
@@ -60,6 +55,11 @@ namespace OpenNefia.Content.Inventory
         /// Whether to include items with a <see cref="OwnState.Special"/> own state in the filtered list.
         /// </summary>
         bool AllowSpecialOwned { get; }
+
+        /// <summary>
+        /// Allocates the icon that this behavior will display in the icon bar.
+        /// </summary>
+        IUiElement? MakeIcon();
 
         IEnumerable<IInventorySource> GetSources(InventoryContext context);
 

@@ -13,7 +13,7 @@ namespace OpenNefia.Core.Rendering
     /// A UI element wrapper around an <see cref="IAssetInstance"/> with its own
     /// position, color, and other properties.
     /// </summary>
-    public interface IAssetDrawable : IDrawable, IUiDefaultSizeable
+    public interface IAssetDrawable : IUiElement
     {
         IAssetInstance Instance { get; set; }
         Color Color { get; set; }

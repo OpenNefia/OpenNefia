@@ -7,7 +7,7 @@ using OpenNefia.Core.Utility;
 
 namespace OpenNefia.Core.UI.Element
 {
-    public partial class UiElement : BaseDrawable, IUiDefaultSizeable, ILocalizable, IUiInput
+    public partial class UiElement : BaseDrawable, IUiElement, ILocalizable, IUiInput
     {
         private readonly List<UiElement> _orderedChildren = new();
 

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace OpenNefia.Core.UI.Element
 {
-    public interface IUiDefaultSizeable : IDrawable
+    public interface IUiElement : IDrawable
     {
         void GetPreferredSize(out Vector2i size);
         void SetPreferredSize();
