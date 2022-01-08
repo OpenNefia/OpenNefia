@@ -1,7 +1,7 @@
 ﻿using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Serialization.Manager.Attributes;
 
-namespace OpenNefia.Content.GameObjects
+namespace OpenNefia.Content.Cargo
 {
     [RegisterComponent]
     public class CargoComponent : Component
