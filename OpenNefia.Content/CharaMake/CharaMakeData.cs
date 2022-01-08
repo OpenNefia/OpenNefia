@@ -9,6 +9,7 @@ namespace OpenNefia.Content.CharaMake
     public class CharaMakeData
     {
         public Dictionary<Type, Dictionary<string, object>> CharaData { get; set; }
+        public CharaMakeStep LastStep { get; set; }
 
         public CharaMakeData()
         {
