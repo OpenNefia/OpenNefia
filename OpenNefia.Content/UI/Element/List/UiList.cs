@@ -17,7 +17,9 @@ namespace OpenNefia.Content.UI.Element.List
     {
         public const int DEFAULT_ITEM_HEIGHT = 19;
 
-        protected IList<UiListCell<T>> Cells { get; }
+        protected IList<UiListCell<T>> AllCells { get; }
+        public virtual IReadOnlyList<UiListCell<T>> DisplayedCells => (IReadOnlyList<UiListCell<T>>)AllCells;
+
         public int ItemHeight { get; }
         public int ItemOffsetX { get; }
 
@@ -32,7 +34,7 @@ namespace OpenNefia.Content.UI.Element.List
             get => _SelectedIndex;
             set
             {
-                _SelectedIndex = Math.Clamp(value, 0, Cells.Count);
+                _SelectedIndex = Math.Clamp(value, 0, DisplayedCells.Count());
             }
         }
 
@@ -40,10 +42,10 @@ namespace OpenNefia.Content.UI.Element.List
         {
             get
             {
-                if (Cells.Count == 0)
+                if (DisplayedCells.Count == 0)
                     return null;
 
-                return Cells[SelectedIndex];
+                return DisplayedCells[SelectedIndex];
             }
         }
 
@@ -62,9 +64,9 @@ namespace OpenNefia.Content.UI.Element.List
             HighlightSelected = true;
             SelectOnActivate = true;
 
-            Cells = cells.ToList();
+            AllCells = cells.ToList();
 
-            RefreshCellPositionsAndKeys();
+            UpdateDisplayedCells(setSize: false);
 
             OnKeyBindDown += HandleKeyBindDown;
             EventFilter = UIEventFilterMode.Pass;
@@ -72,14 +74,14 @@ namespace OpenNefia.Content.UI.Element.List
             CanKeyboardFocus = true;
         }
 
-        public void RefreshCellPositionsAndKeys()
+        protected virtual void UpdateDisplayedCells(bool setSize)
         {
             RemoveAllChildren();
 
             ChoiceKeys.Clear();
-            for (var i = 0; i < Cells.Count; i++)
+            for (var i = 0; i < DisplayedCells.Count; i++)
             {
-                var cell = Cells[i];
+                var cell = DisplayedCells[i];
                 cell.IndexInList = i;
                 if (cell.Key == null)
                 {
@@ -89,9 +91,12 @@ namespace OpenNefia.Content.UI.Element.List
                 AddChild(cell);
             }
 
-            // Set the size/position of the child list cells.
-            SetSize(Width, Height);
-            SetPosition(X, Y);
+            if (setSize)
+            {
+                // Set the size/position of the child list cells.
+                SetSize(Width, Height);
+                SetPosition(X, Y);
+            }
         }
 
         public UiList(IEnumerable<T> items, int itemOffsetX = 0)
@@ -144,9 +149,9 @@ namespace OpenNefia.Content.UI.Element.List
 
         public override void Localize(LocaleKey key)
         {
-            for (int i = 0; i < Cells.Count; i++)
+            for (int i = 0; i < AllCells.Count; i++)
             {
-                var cell = Cells[i];
+                var cell = AllCells[i];
                 cell.Localize(key.With(cell.LocalizeKey ?? i.ToString()));
             }
         }
@@ -191,12 +196,12 @@ namespace OpenNefia.Content.UI.Element.List
 
         public virtual bool CanSelect(int index)
         {
-            return index >= 0 && index < Cells.Count;
+            return index >= 0 && index < DisplayedCells.Count;
         }
 
         public void IncrementIndex(int delta)
         {
-            if (Count == 0)
+            if (DisplayedCells.Count == 0)
                 return;
 
             var newIndex = SelectedIndex + delta;
@@ -206,8 +211,8 @@ namespace OpenNefia.Content.UI.Element.List
             {
                 newIndex += sign;
                 if (newIndex < 0)
-                    newIndex = Count - 1;
-                else if (newIndex >= Count)
+                    newIndex = DisplayedCells.Count - 1;
+                else if (newIndex >= DisplayedCells.Count)
                     newIndex = 0;
             }
             Select(newIndex);
@@ -226,7 +231,7 @@ namespace OpenNefia.Content.UI.Element.List
 
         public virtual bool CanActivate(int index)
         {
-            return index >= 0 && index < Cells.Count;
+            return index >= 0 && index < DisplayedCells.Count;
         }
 
         public void Activate(int index)
@@ -252,9 +257,9 @@ namespace OpenNefia.Content.UI.Element.List
 
             var iy = Y;
 
-            for (int index = 0; index < Count; index++)
+            for (int index = 0; index < DisplayedCells.Count; index++)
             {
-                var cell = Cells[index];
+                var cell = DisplayedCells[index];
                 cell.XOffset = ItemOffsetX;
                 cell.SetPosition(X, iy);
 
@@ -266,9 +271,9 @@ namespace OpenNefia.Content.UI.Element.List
         {
             size = Vector2i.Zero;
 
-            for (int index = 0; index < Count; index++)
+            for (int index = 0; index < DisplayedCells.Count; index++)
             {
-                var cell = Cells[index];
+                var cell = DisplayedCells[index];
                 cell.GetPreferredSize(out var cellSize);
                 size.X = Math.Max(size.X, cellSize.X);
                 size.Y += Math.Max(cellSize.Y, ItemHeight);
@@ -279,9 +284,9 @@ namespace OpenNefia.Content.UI.Element.List
         {
             var totalHeight = 0;
 
-            for (int index = 0; index < Count; index++)
+            for (int index = 0; index < DisplayedCells.Count; index++)
             {
-                var cell = Cells[index];
+                var cell = DisplayedCells[index];
                 cell.GetPreferredSize(out var cellSize);
                 var cellHeight = Math.Max(cellSize.Y, ItemHeight);
                 cell.SetSize(width, cellHeight);
@@ -292,26 +297,31 @@ namespace OpenNefia.Content.UI.Element.List
             base.SetSize(width, Math.Max(height, totalHeight));
         }
 
+        protected void UpdateAllCells()
+        {
+            UpdateDisplayedCells(setSize: true);
+            _needsUpdate = false;
+        }
+
         public override void Update(float dt)
         {
             if (_needsUpdate)
             {
-                RefreshCellPositionsAndKeys();
-                _needsUpdate = false;
+                UpdateAllCells();
             }
 
-            for (int i = 0; i < Count; i++)
+            for (int i = 0; i < DisplayedCells.Count; i++)
             {
-                var cell = Cells[i];
+                var cell = DisplayedCells[i];
                 cell.Update(dt);
             }
         }
 
         public override void Draw()
         {
-            for (int index = 0; index < Count; index++)
+            for (int index = 0; index < DisplayedCells.Count; index++)
             {
-                var cell = Cells[index];
+                var cell = DisplayedCells[index];
                 cell.Draw();
 
                 if (HighlightSelected && index == SelectedIndex)
@@ -323,7 +333,7 @@ namespace OpenNefia.Content.UI.Element.List
 
         public override void Dispose()
         {
-            foreach (var cell in Cells)
+            foreach (var cell in AllCells)
             {
                 cell.Dispose();
             }
@@ -333,55 +343,55 @@ namespace OpenNefia.Content.UI.Element.List
 
         #region IList implementation
 
-        public int Count => Cells.Count;
-        public bool IsReadOnly => Cells.IsReadOnly;
+        public int Count => AllCells.Count;
+        public bool IsReadOnly => AllCells.IsReadOnly;
 
         public UiListCell<T> this[int index]
         {
-            get => Cells[index];
+            get => AllCells[index];
             set
             {
-                Cells[index] = value;
+                AllCells[index] = value;
                 _needsUpdate = true;
             }
         }
         public int IndexOf(UiListCell<T> item)
         {
-            return Cells.IndexOf(item);
+            return AllCells.IndexOf(item);
         }
 
         public void Insert(int index, UiListCell<T> item)
         {
-            Cells.Insert(index, item);
+            AllCells.Insert(index, item);
             _needsUpdate = true;
         }
 
         public void RemoveAt(int index)
         {
-            var cell = Cells[index];
+            var cell = AllCells[index];
             cell.Dispose();
-            Cells.RemoveAt(index);
+            AllCells.RemoveAt(index);
             _needsUpdate = true;
         }
 
         public void Add(UiListCell<T> item)
         {
-            Cells.Add(item);
+            AllCells.Add(item);
             _needsUpdate = true;
         }
 
         public void Clear()
         {
-            foreach (var cell in Cells)
+            foreach (var cell in AllCells)
                 cell.Dispose();
 
-            Cells.Clear();
+            AllCells.Clear();
             _needsUpdate = true;
         }
 
         public void AddRange(IEnumerable<UiListCell<T>> items)
         {
-            Cells.AddRange(items);
+            AllCells.AddRange(items);
             _needsUpdate = true;
         }
 
@@ -391,20 +401,20 @@ namespace OpenNefia.Content.UI.Element.List
             AddRange(MakeDefaultList(items));
         }
 
-        public bool Contains(UiListCell<T> item) => Cells.Contains(item);
-        public void CopyTo(UiListCell<T>[] array, int arrayIndex) => Cells.CopyTo(array, arrayIndex);
+        public bool Contains(UiListCell<T> item) => AllCells.Contains(item);
+        public void CopyTo(UiListCell<T>[] array, int arrayIndex) => AllCells.CopyTo(array, arrayIndex);
         public bool Remove(UiListCell<T> item)
         {
             _needsUpdate = true;
-            return Cells.Remove(item);
+            return AllCells.Remove(item);
         }
 
         public bool IsFixedSize => false;
         public bool IsSynchronized => false;
         public object SyncRoot => this;
 
-        public IEnumerator<UiListCell<T>> GetEnumerator() => Cells.GetEnumerator();
-        IEnumerator IEnumerable.GetEnumerator() => Cells.GetEnumerator();
+        public IEnumerator<UiListCell<T>> GetEnumerator() => AllCells.GetEnumerator();
+        IEnumerator IEnumerable.GetEnumerator() => AllCells.GetEnumerator();
 
         #endregion
     }

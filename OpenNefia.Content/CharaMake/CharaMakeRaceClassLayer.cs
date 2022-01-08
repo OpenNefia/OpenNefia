@@ -11,6 +11,7 @@ using OpenNefia.Core.Log;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Rendering;
+using OpenNefia.Core.UI;
 using OpenNefia.Core.UI.Element;
 using OpenNefia.Core.Utility;
 using System;
@@ -197,10 +198,8 @@ namespace OpenNefia.Content.CharaMake
         private UiVerticalContainer TrainedSkillContainer;
         private UiWrapText DetailText;
 
-        private UiPageModel<RaceClassCell> PageModel;
-
         private UiGridContainer AttributeContainer;
-        private UiList<RaceClass> List;
+        private UiPagedList<RaceClass> List;
         private RaceClassCell[] AllData;
 
         //skills that shouldn't show up on the screen at all
@@ -216,8 +215,6 @@ namespace OpenNefia.Content.CharaMake
         {
             Window = new UiWindow();
             AllData = Array.Empty<RaceClassCell>();
-            PageModel = new UiPageModel<RaceClassCell>();
-            PageModel.OnPageChanged += PageModel_OnPageChanged;
 
             RaceTopic = new UiTextTopic();
             DetailTopic = new UiTextTopic();
@@ -250,7 +247,7 @@ namespace OpenNefia.Content.CharaMake
 
             OnKeyBindDown += CharaMakeRaceClassLayer_OnKeyBindDown;
 
-            List = new UiList<RaceClass>();
+            List = new UiPagedList<RaceClass>(elementForPageText: Window);
             List.EventOnActivate += (_, args) =>
             {
                 Select(args.SelectedCell.Data);
@@ -268,20 +265,13 @@ namespace OpenNefia.Content.CharaMake
         {
             base.Initialize(args);
             AllData = GetData().Select(x => new RaceClassCell(x)).ToArray();
-            PageModel.Initialize(AllData);
-            PageModel.SetWindow(Window);
+            List.Clear();
+            List.AddRange(AllData);
 
             SelectData(AllData.First().Data);
         }
 
         public abstract IEnumerable<RaceClass> GetData();
-
-        private void PageModel_OnPageChanged()
-        {
-            List.Clear();
-            List.AddRange(PageModel.GetCurrentElements());
-            List.Select(List.SelectedIndex);
-        }
 
         public override void OnFocused()
         {
@@ -293,11 +283,11 @@ namespace OpenNefia.Content.CharaMake
         {
             if (args.Function == EngineKeyFunctions.UINextPage)
             {
-                PageModel.PageForward();
+                List.PageForward();
             }
             if (args.Function == EngineKeyFunctions.UIPreviousPage)
             {
-                PageModel.PageBackward();
+                List.PageBackward();
             }
         }
 
@@ -432,7 +422,6 @@ namespace OpenNefia.Content.CharaMake
             List.SetPosition(Window.X + 35, Window.Y + 60);
             RaceTopic.SetPosition(Window.X + 30, Window.Y + 30);
             DetailTopic.SetPosition(Window.X + 190, RaceTopic.Y);
-            PageModel.SetPosition(x, y);
             DetailContainer.SetPosition(Window.X + 210, Window.Y + 60);
             DetailContainer.Resolve();
         }
@@ -448,7 +437,6 @@ namespace OpenNefia.Content.CharaMake
             RaceTopic.Draw();
             DetailTopic.Draw();
             DetailContainer.Draw();
-            PageModel.Draw();
         }
 
         public override void Update(float dt)
@@ -461,7 +449,6 @@ namespace OpenNefia.Content.CharaMake
             DetailTopic.Update(dt);
             DetailText.Update(dt);
             DetailContainer.Update(dt);
-            PageModel.Update(dt);
         }
 
         public override void Dispose()
