@@ -60,8 +60,20 @@ namespace OpenNefia.Content.Inventory
         public Color ChipColor { get; set; }
     }
     
-    public sealed class InventoryLayer : UiLayerWithResult<InventoryContext, InventoryResult>, IInventoryLayer
+    public sealed class InventoryLayer : UiLayerWithResult<InventoryContext, InventoryLayer.Result>, IInventoryLayer
     {
+        public new class Result
+        {
+            public InventoryResult Data;
+            public EntityUid? SelectedItem;
+
+            public Result(InventoryResult data, EntityUid? selectedItem)
+            {
+                Data = data;
+                SelectedItem = selectedItem;
+            }
+        }
+
         public class InventoryEntryCell : UiListCell<InventoryEntry>
         {
             private readonly IUiText UiSubtext;
@@ -224,7 +236,7 @@ namespace OpenNefia.Content.Inventory
             switch (result)
             {
                 case InventoryResult.Finished:
-                    this.Finish(result);
+                    this.Finish(new(result, entry.ItemEntityUid));
                     break;
                 case InventoryResult.Continuing:
                 default:
@@ -237,7 +249,7 @@ namespace OpenNefia.Content.Inventory
 
             if (List.Count == 0)
             {
-                this.Finish(new InventoryResult.Finished(TurnResult.Succeeded));
+                this.Finish(new(new InventoryResult.Finished(TurnResult.Succeeded), null));
             }
 
             Context.ShowInventoryWindow = true;

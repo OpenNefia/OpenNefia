@@ -55,6 +55,16 @@ namespace OpenNefia.Content.EquipSlots
             ContainerManagerComponent? containerComp = null);
 
         /// <summary>
+        /// Returns true if this entity has an equip slot of the given type.
+        /// </summary>
+        /// <param name="uid"></param>
+        /// <param name="slotId"></param>
+        /// <param name="equipSlotsComp"></param>
+        /// <returns></returns>
+        bool HasEquipSlot(EntityUid uid, PrototypeId<EquipSlotPrototype> slotId,
+            EquipSlotsComponent? equipSlotsComp = null);
+
+        /// <summary>
         /// Returns an equipment slot with the given ID on this entity, if any.
         /// </summary>
         /// <param name="uid"></param>
@@ -67,23 +77,26 @@ namespace OpenNefia.Content.EquipSlots
             EquipSlotsComponent? equipSlotsComp = null);
 
         /// <summary>
-        /// Returns true if this entity has an equip slot of the given type.
+        /// Returns true if this entity has an empty equip slot of the given type.
         /// </summary>
         /// <param name="uid"></param>
         /// <param name="slotId"></param>
         /// <param name="equipSlotsComp"></param>
         /// <returns></returns>
-        bool HasEquipSlot(EntityUid uid, PrototypeId<EquipSlotPrototype> slotId,
+        bool HasEmptyEquipSlot(EntityUid uid, PrototypeId<EquipSlotPrototype> slotId,
             EquipSlotsComponent? equipSlotsComp = null);
 
         /// <summary>
-        /// Returns an equip slot with the given prototype ID, if any.
+        /// Returns an empty equipment slot with the given ID on this entity, if any.
         /// </summary>
-        bool TryGetEquipSlotAndContainer(EntityUid uid, PrototypeId<EquipSlotPrototype> slotId,
+        /// <param name="uid"></param>
+        /// <param name="slotId"></param>
+        /// <param name="equipSlotInstance"></param>
+        /// <param name="equipSlotsComp"></param>
+        /// <returns></returns>
+        bool TryGetEmptyEquipSlot(EntityUid uid, PrototypeId<EquipSlotPrototype> slotId,
             [NotNullWhen(true)] out EquipSlotInstance? equipSlotInstance,
-            [NotNullWhen(true)] out ContainerSlot? containerSlot,
-            EquipSlotsComponent? equipSlotsComp = null,
-            ContainerManagerComponent? containerComp = null);
+            EquipSlotsComponent? equipSlotsComp = null);
 
         /// <summary>
         /// Returns the container for the given equip slot instance, creating it if necessary.

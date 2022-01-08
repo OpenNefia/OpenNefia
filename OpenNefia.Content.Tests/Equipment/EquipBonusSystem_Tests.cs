@@ -95,7 +95,8 @@ namespace OpenNefia.Content.Tests.Equipment
                 Assert.That(skills.DamageBonus.Buffed, Is.EqualTo(13));
             });
 
-            Assert.That(equipSlotSys.TryEquip(entChara, entEquipment, EquipSlot.Hand, out var equipSlot), Is.True);
+            Assert.That(equipSlotSys.TryGetEmptyEquipSlot(entChara, EquipSlot.Hand, out var equipSlot), Is.True);
+            Assert.That(equipSlotSys.TryEquip(entChara, entEquipment, equipSlot!), Is.True);
 
             Assert.Multiple(() =>
             {

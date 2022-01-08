@@ -19,12 +19,12 @@ namespace OpenNefia.Core.Stats
             Buffed = buffedValue;
         }
 
-        public void Reset()
+        public virtual void Reset()
         {
             Buffed = Base;
         }
 
-        public bool Equals(Stat<T>? other)
+        public virtual bool Equals(Stat<T>? other)
         {
             if (other is null)
                 return false;
