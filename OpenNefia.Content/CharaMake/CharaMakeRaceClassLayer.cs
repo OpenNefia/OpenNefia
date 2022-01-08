@@ -162,7 +162,7 @@ namespace OpenNefia.Content.CharaMake
                 return (IsExtra ? $"{Loc.GetString("Elona.CharaMake.Extra")} " : string.Empty) + EnsureString("Name");
             }
 
-            public Dictionary<PrototypeId<SkillPrototype>, int> GetSkills()
+            public IReadOnlyDictionary<PrototypeId<SkillPrototype>, int> GetSkills()
             {
                 switch (Data)
                 {
@@ -171,7 +171,7 @@ namespace OpenNefia.Content.CharaMake
                     case ClassPrototype @class:
                         return @class.BaseSkills;
                     default:
-                        return new();
+                        return new Dictionary<PrototypeId<SkillPrototype>, int>();
                 }
             }
         }
@@ -313,7 +313,7 @@ namespace OpenNefia.Content.CharaMake
             DetailText.Text = desc;
         }
 
-        private void SetAttributes(Dictionary<PrototypeId<SkillPrototype>, int> skills)
+        private void SetAttributes(IReadOnlyDictionary<PrototypeId<SkillPrototype>, int> skills)
         {
             AttributeContainer.Clear();
             AttributeContainer.AddLayout(LayoutType.XMin, 100);
@@ -324,7 +324,7 @@ namespace OpenNefia.Content.CharaMake
             }
         }
 
-        private void SetTrainedSkills(Dictionary<PrototypeId<SkillPrototype>, int> skills)
+        private void SetTrainedSkills(IReadOnlyDictionary<PrototypeId<SkillPrototype>, int> skills)
         {
             TrainedSkillContainer.Clear();
             foreach (var attr in MakeTrainedSkills(skills))
@@ -333,7 +333,7 @@ namespace OpenNefia.Content.CharaMake
             }
         }
 
-        private IEnumerable<UiElement> MakeDetailAttribute(Dictionary<PrototypeId<SkillPrototype>, int> skills)
+        private IEnumerable<UiElement> MakeDetailAttribute(IReadOnlyDictionary<PrototypeId<SkillPrototype>, int> skills)
         {
             foreach(var attrId in AttributeIds)
             {
@@ -345,7 +345,7 @@ namespace OpenNefia.Content.CharaMake
         }
 
         //cant actually yield here sadly because the weapon proficiencies need to be collected and be on the first position
-        private IEnumerable<UiElement> MakeTrainedSkills(Dictionary<PrototypeId<SkillPrototype>, int> skills)
+        private IEnumerable<UiElement> MakeTrainedSkills(IReadOnlyDictionary<PrototypeId<SkillPrototype>, int> skills)
         {
             var list = new List<UiElement>();
 
