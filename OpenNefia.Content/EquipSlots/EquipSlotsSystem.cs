@@ -172,22 +172,27 @@ namespace OpenNefia.Content.EquipSlots
         }
 
         public bool TryUnequip(EntityUid uid, EquipSlotInstance equipSlot,
+            IContainer? placeInto = null,
             bool silent = false, bool force = false,
             EquipSlotsComponent? inventory = null) => 
-            TryUnequip(uid, uid, equipSlot, silent, force, inventory);
+            TryUnequip(uid, uid, equipSlot, placeInto, silent, force, inventory);
 
-        public bool TryUnequip(EntityUid actor, EntityUid target, EquipSlotInstance equipSlot,
+        public bool TryUnequip(EntityUid actor, EntityUid target, EquipSlotInstance equipSlot, 
+            IContainer? placeInto = null,
             bool silent = false, bool force = false, 
             EquipSlotsComponent? equipSlots = null) =>
-            TryUnequip(actor, target, equipSlot, out _, silent, force, equipSlots);
+            TryUnequip(actor, target, equipSlot, out _, placeInto, silent, force, equipSlots);
 
-        public bool TryUnequip(EntityUid uid, EquipSlotInstance equipSlot, [NotNullWhen(true)] out EntityUid? removedItem, 
+        public bool TryUnequip(EntityUid uid, EquipSlotInstance equipSlot,
+            [NotNullWhen(true)] out EntityUid? removedItem,
+            IContainer? placeInto = null,
             bool silent = false, bool force = false,
             EquipSlotsComponent? equipSlots = null) 
-            => TryUnequip(uid, uid, equipSlot, out removedItem, silent, force, equipSlots);
+            => TryUnequip(uid, uid, equipSlot, out removedItem, placeInto, silent, force, equipSlots);
 
         public bool TryUnequip(EntityUid actor, EntityUid target, EquipSlotInstance equipSlot,
-            [NotNullWhen(true)] out EntityUid? removedItem, 
+            [NotNullWhen(true)] out EntityUid? removedItem,
+            IContainer? placeInto = null,
             bool silent = false, bool force = false, 
             EquipSlotsComponent? equipSlots = null)
         {
@@ -241,24 +246,22 @@ namespace OpenNefia.Content.EquipSlots
                 }
             }
 
-            ReparentUnequippedEntity(target, removedItem.Value);
+            ReparentUnequippedEntity(target, removedItem.Value, placeInto);
 
             return true;
         }
 
         private void ReparentUnequippedEntity(EntityUid target, EntityUid unequipped,
+            IContainer? placeInto,
             SpatialComponent? targetSpatial = null,
             SpatialComponent? unequippedSpatial = null)
         {
             if (!Resolve(target, ref targetSpatial) || !Resolve(unequipped, ref unequippedSpatial))
                 return;
 
-            // Move the item to the equipper's inventory, if they have one.
-            if (EntityManager.TryGetComponent(target, out InventoryComponent targetInventory))
-            {
-                if (targetInventory.Container.Insert(unequipped))
-                    return;
-            }
+            // Move the item to the container, if it was passed.
+            if (placeInto != null && placeInto.Insert(unequipped))
+                return;
 
             // Place the item in the parent of the equipper (usually the map, but could be inside
             // a nested container).
