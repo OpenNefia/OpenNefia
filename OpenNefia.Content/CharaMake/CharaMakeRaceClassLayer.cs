@@ -217,7 +217,7 @@ namespace OpenNefia.Content.CharaMake
             Window = new UiWindow();
             AllData = Array.Empty<RaceClassCell>();
             PageModel = new UiPageModel<RaceClassCell>();
-            PageModel.OnPageChanged += Window_OnPageChanged;
+            PageModel.OnPageChanged += PageModel_OnPageChanged;
 
             RaceTopic = new UiTextTopic();
             DetailTopic = new UiTextTopic();
@@ -276,7 +276,7 @@ namespace OpenNefia.Content.CharaMake
 
         public abstract IEnumerable<RaceClass> GetData();
 
-        private void Window_OnPageChanged()
+        private void PageModel_OnPageChanged()
         {
             List.Clear();
             List.AddRange(PageModel.GetCurrentElements());

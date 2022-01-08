@@ -22,13 +22,13 @@ namespace OpenNefia.Content.EquipSlots
         /// </summary>
         /// <param name="uid"></param>
         /// <param name="slotId"></param>
-        /// <param name="containerSlot"></param>
         /// <param name="equipSlotInstance"></param>
+        /// <param name="containerSlot"></param>
         /// <param name="equipSlotsComp"></param>
         /// <param name="containerComp"></param>
         /// <returns></returns>
         bool TryAddEquipSlot(EntityUid uid, PrototypeId<EquipSlotPrototype> slotId,
-            [NotNullWhen(true)] out ContainerSlot? containerSlot, [NotNullWhen(true)] out EquipSlotInstance? equipSlotInstance,
+            [NotNullWhen(true)] out EquipSlotInstance? equipSlotInstance, [NotNullWhen(true)] out ContainerSlot? containerSlot,
             EquipSlotsComponent? equipSlotsComp = null,
             ContainerManagerComponent? containerComp = null);
 

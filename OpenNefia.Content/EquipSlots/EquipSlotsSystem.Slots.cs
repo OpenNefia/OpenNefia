@@ -37,7 +37,7 @@ namespace OpenNefia.Content.EquipSlots
 
         /// <inheritdoc/>
         public bool TryAddEquipSlot(EntityUid uid, EquipSlotPrototypeId slotId,
-            [NotNullWhen(true)] out ContainerSlot? containerSlot, [NotNullWhen(true)] out EquipSlotInstance? equipSlotInstance,
+            [NotNullWhen(true)] out EquipSlotInstance? equipSlotInstance, [NotNullWhen(true)] out ContainerSlot? containerSlot,
             EquipSlotsComponent? equipSlotsComp = null,
             ContainerManagerComponent? containerComp = null)
         {
