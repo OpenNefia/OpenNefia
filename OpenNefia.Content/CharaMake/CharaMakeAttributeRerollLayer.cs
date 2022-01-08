@@ -6,9 +6,11 @@ using OpenNefia.Content.UI.Element.Containers;
 using OpenNefia.Content.UI.Element.List;
 using OpenNefia.Core;
 using OpenNefia.Core.Audio;
+using OpenNefia.Core.IoC;
 using OpenNefia.Core.Locale;
 using OpenNefia.Core.Log;
 using OpenNefia.Core.Prototypes;
+using OpenNefia.Core.Random;
 using OpenNefia.Core.Rendering;
 using System;
 using System.Collections.Generic;
@@ -105,6 +107,8 @@ namespace OpenNefia.Content.CharaMake
             }
         }
 
+        [Dependency] private readonly IRandom _random = default!;
+
         [Localize] private UiWindow Window = new();
         [Localize] private UiTextTopic AttrTopic = new();
         [Localize] private UiWrapText AttrInfo;
@@ -187,14 +191,14 @@ namespace OpenNefia.Content.CharaMake
             if (playSound)
                 Sounds.Play(Protos.Sound.Dice);
 
-            if (!Data.TryGetValue("race", out RacePrototype race))
+            if (!Data.TryGetValue("race", out RacePrototype? race))
             {
-                Logger.WarningS("charamake", "no race prototype in charmake data");
+                Logger.WarningS("charamake", "no race prototype in charamake data");
                 return;
             }
-            if (!Data.TryGetValue("class", out ClassPrototype @class))
+            if (!Data.TryGetValue("class", out ClassPrototype? @class))
             {
-                Logger.WarningS("charamake", "no class prototype in charmake data");
+                Logger.WarningS("charamake", "no class prototype in charamake data");
                 return;
             }
 
@@ -209,7 +213,7 @@ namespace OpenNefia.Content.CharaMake
                 if (@class.BaseSkills.TryGetValue(attr.Id, out var classLevel))
                     level += classLevel;
 
-                attr.Amount = new Random().Next((level / 2) + 1, level + 1);
+                attr.Amount = _random.Next((level / 2) + 1, level + 1);
             }
         }
 
