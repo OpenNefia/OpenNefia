@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,7 +26,7 @@ namespace OpenNefia.Content.CharaMake
         /// <summary>
         /// Returns the first object with the correct type in the data
         /// </summary>
-        public bool TryGetValue<T>(string key, out T val)
+        public bool TryGetValue<T>(string key, [NotNullWhen(true)] out T? val)
         {
             val = default!;
             if (TryGetValues(key, out var vals))
