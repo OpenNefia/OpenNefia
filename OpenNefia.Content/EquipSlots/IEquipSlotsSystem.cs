@@ -42,21 +42,25 @@ namespace OpenNefia.Content.EquipSlots
             ContainerSlot? containerSlot = null,
             EquipSlotsComponent? equipSlots = null);
 
-        bool TryUnequip(EntityUid uid, EquipSlotInstance equipSlot,
+        bool TryUnequip(EntityUid uid, EquipSlotInstance equipSlot, 
+            IContainer? placeInto = null,
             bool silent = false, bool force = false, 
             EquipSlotsComponent? inventory = null);
 
         bool TryUnequip(EntityUid actor, EntityUid target, EquipSlotInstance equipSlot,
+            IContainer? placeInto = null,
             bool silent = false, bool force = false, 
             EquipSlotsComponent? equipSlots = null);
 
         bool TryUnequip(EntityUid uid, EquipSlotInstance equipSlot,
-            [NotNullWhen(true)] out EntityUid? removedItem, 
+            [NotNullWhen(true)] out EntityUid? removedItem,
+            IContainer? placeInto = null,
             bool silent = false, bool force = false, 
             EquipSlotsComponent? equipSlots = null);
 
         bool TryUnequip(EntityUid actor, EntityUid target, EquipSlotInstance equipSlot,
-            [NotNullWhen(true)] out EntityUid? removedItem, 
+            [NotNullWhen(true)] out EntityUid? removedItem,
+            IContainer? placeInto = null,
             bool silent = false, bool force = false, 
             EquipSlotsComponent? equipSlots = null);
 

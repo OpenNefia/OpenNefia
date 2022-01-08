@@ -271,10 +271,10 @@ namespace OpenNefia.Content.Tests.EquipSlots
         }
 
         /// <summary>
-        /// Tests that an unequipped item is moved to the equipper's InventoryComponent if they have one.
+        /// Tests that an unequipped item is moved to the specified container.
         /// </summary>
         [Test]
-        public void TestTryUnequipPlacement_Inventory()
+        public void TestTryUnequipPlacement_WithContainer()
         {
             var sim = SimulationFactory();
 
@@ -294,7 +294,7 @@ namespace OpenNefia.Content.Tests.EquipSlots
                 TestSlot1ID,
             };
 
-            // If the entity has an inventory, unequipping the item will make it be placed there.
+            // If the enti, unequipping the item will make it be placed there.
             var inventory = entMan.EnsureComponent<InventoryComponent>(ent);
 
             equipSlotSys.InitializeEquipSlots(ent, equipSlotProtos);
@@ -302,7 +302,7 @@ namespace OpenNefia.Content.Tests.EquipSlots
             Assert.Multiple(() =>
             {
                 Assert.That(equipSlotSys.TryEquip(ent, entItem1, TestSlot1ID, out var equipSlot), Is.True, "Try equip 1");
-                Assert.That(equipSlotSys.TryUnequip(ent, equipSlot!), Is.True, "Try unequip 1");
+                Assert.That(equipSlotSys.TryUnequip(ent, equipSlot!, placeInto: inventory.Container), Is.True, "Try unequip 1");
 
                 var entItem1Spatial = entMan.GetComponent<SpatialComponent>(entItem1);
                 Assert.That(entItem1Spatial.Coordinates, Is.EqualTo(new EntityCoordinates(ent, Vector2i.Zero)));
@@ -311,10 +311,10 @@ namespace OpenNefia.Content.Tests.EquipSlots
         }
 
         /// <summary>
-        /// Tests that an unequipped item is moved to the parent map if the equipper has no InventoryComponent.
+        /// Tests that an unequipped item is moved to the parent map if no container is specified.
         /// </summary>
         [Test]
-        public void TestTryUnequipPlacement_NoInventory()
+        public void TestTryUnequipPlacement_NoContainer()
         {
             var sim = SimulationFactory();
 
