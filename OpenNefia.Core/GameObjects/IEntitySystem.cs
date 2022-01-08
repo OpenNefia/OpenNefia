@@ -10,8 +10,6 @@ namespace OpenNefia.Core.GameObjects
     [UsedImplicitly(ImplicitUseTargetFlags.WithInheritors)]
     public interface IEntitySystem : IEntityEventSubscriber
     {
-        int? GetTotalInventoryWeight(EntityUid ent, OpenNefia.Content.Inventory.InventoryComponent? inv = null);
-
         /// <summary>
         ///     Called once when the system is created to initialize its state.
         /// </summary>
