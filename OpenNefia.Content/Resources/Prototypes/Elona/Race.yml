@@ -629,6 +629,8 @@
   - Elona.Arm
   - Elona.Waist
   - Elona.Leg
+  baseFeats:
+  - Elona.PermResEther
 - type: Elona.Race
   id: Elona.Rabbit
   hspIds:
