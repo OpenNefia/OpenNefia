@@ -213,6 +213,7 @@ namespace OpenNefia.Core.GameController
             logManager.RootSawmill.AddHandler(logHandlerFactory());
 
             logManager.GetSawmill("repl.exec").Level = LogLevel.Info;
+            logManager.GetSawmill("go.sys").Level = LogLevel.Info;
         }
 
         public void Run()

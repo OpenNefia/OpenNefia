@@ -57,36 +57,40 @@ namespace OpenNefia.Content.EquipSlots
             RaiseLocalEvent(uid, equippedEvent);
         }
 
-        public bool TryEquip(EntityUid uid, EntityUid itemUid, EquipSlotPrototypeId slot, 
+        public bool TryEquip(EntityUid uid, EntityUid itemUid, EquipSlotPrototypeId slot,
+            [NotNullWhen(true)] out EquipSlotInstance? equipSlot,
             bool silent = false, bool force = false,
             EquipSlotsComponent? equipSlots = null,
             EquipmentComponent? item = null) =>
-            TryEquip(uid, uid, itemUid, slot, silent, force, equipSlots, item);
+            TryEquip(uid, uid, itemUid, slot, out equipSlot, silent, force, equipSlots, item);
 
-        public bool TryEquip(EntityUid actor, EntityUid target, EntityUid itemUid, EquipSlotPrototypeId slot, 
+        public bool TryEquip(EntityUid actor, EntityUid target, EntityUid itemUid, EquipSlotPrototypeId slot,
+            [NotNullWhen(true)] out EquipSlotInstance? equipSlot,
             bool silent = false, bool force = false, 
             EquipSlotsComponent? equipSlots = null, 
             EquipmentComponent? item = null)
         {
+            equipSlot = null;
+
             if (!Resolve(target, ref equipSlots, false) || !Resolve(itemUid, ref item, false))
             {
-                if (!silent) Mes.Display(Loc.GetString("Elona.EquipSlots.CannotEquip",
+                if (!silent) Mes.Display(Loc.GetString("Elona.EquipSlots.Equip.Fails",
                     ("actor", actor),
                     ("target", target),
                     ("item", itemUid)));
                 return false;
             }
 
-            if (!TryGetEquipSlotAndContainer(target, slot, out var slotDefinition, out var slotContainer, equipSlots))
+            if (!TryGetEquipSlotAndContainer(target, slot, out equipSlot, out var slotContainer, equipSlots))
             {
-                if (!silent) Mes.Display(Loc.GetString("Elona.EquipSlots.CannotEquip",
+                if (!silent) Mes.Display(Loc.GetString("Elona.EquipSlots.Equip.Fails",
                     ("actor", actor),
                     ("target", target),
                     ("item", itemUid)));
                 return false;
             }
 
-            if (!force && !CanEquip(actor, target, itemUid, slot, out var reason, slotDefinition, equipSlots, item))
+            if (!force && !CanEquip(actor, target, itemUid, slot, out var reason, equipSlot, equipSlots, item))
             {
                 if (!silent) Mes.Display(Loc.GetString(reason,
                     ("actor", actor),
@@ -97,7 +101,7 @@ namespace OpenNefia.Content.EquipSlots
 
             if (!slotContainer.Insert(itemUid))
             {
-                if (!silent) Mes.Display(Loc.GetString("Elona.EquipSlots.CannotUnequip",
+                if (!silent) Mes.Display(Loc.GetString("Elona.EquipSlots.Unequip.Fails",
                     ("actor", actor),
                     ("target", target),
                     ("item", itemUid)));
@@ -126,7 +130,7 @@ namespace OpenNefia.Content.EquipSlots
             EquipSlotsComponent? equipSlots = null,
             EquipmentComponent? item = null)
         {
-            reason = "Elona.EquipSlots.CannotEquip";
+            reason = "Elona.EquipSlots.Equip.Fails";
             if (!Resolve(target, ref equipSlots, false) || !Resolve(itemUid, ref item, false))
                 return false;
 
@@ -167,22 +171,22 @@ namespace OpenNefia.Content.EquipSlots
             return true;
         }
 
-        public bool TryUnequip(EntityUid uid, EquipSlotPrototypeId slot, 
+        public bool TryUnequip(EntityUid uid, EquipSlotInstance equipSlot,
             bool silent = false, bool force = false,
             EquipSlotsComponent? inventory = null) => 
-            TryUnequip(uid, uid, slot, silent, force, inventory);
+            TryUnequip(uid, uid, equipSlot, silent, force, inventory);
 
-        public bool TryUnequip(EntityUid actor, EntityUid target, EquipSlotPrototypeId slot,
+        public bool TryUnequip(EntityUid actor, EntityUid target, EquipSlotInstance equipSlot,
             bool silent = false, bool force = false, 
             EquipSlotsComponent? equipSlots = null) =>
-            TryUnequip(actor, target, slot, out _, silent, force, equipSlots);
+            TryUnequip(actor, target, equipSlot, out _, silent, force, equipSlots);
 
-        public bool TryUnequip(EntityUid uid, EquipSlotPrototypeId slot, [NotNullWhen(true)] out EntityUid? removedItem, 
+        public bool TryUnequip(EntityUid uid, EquipSlotInstance equipSlot, [NotNullWhen(true)] out EntityUid? removedItem, 
             bool silent = false, bool force = false,
             EquipSlotsComponent? equipSlots = null) 
-            => TryUnequip(uid, uid, slot, out removedItem, silent, force, equipSlots);
+            => TryUnequip(uid, uid, equipSlot, out removedItem, silent, force, equipSlots);
 
-        public bool TryUnequip(EntityUid actor, EntityUid target, EquipSlotPrototypeId slot, 
+        public bool TryUnequip(EntityUid actor, EntityUid target, EquipSlotInstance equipSlot,
             [NotNullWhen(true)] out EntityUid? removedItem, 
             bool silent = false, bool force = false, 
             EquipSlotsComponent? equipSlots = null)
@@ -190,16 +194,16 @@ namespace OpenNefia.Content.EquipSlots
             removedItem = null;
             if (!Resolve(target, ref equipSlots, false))
             {
-                if (!silent) Mes.Display(Loc.GetString("Elona.EquipSlots.CannotUnequip",
+                if (!silent) Mes.Display(Loc.GetString("Elona.EquipSlots.Unequip.Fails",
                     ("actor", actor),
                     ("target", target),
                     ("item", EntityUid.Invalid)));
                 return false;
             }
 
-            if (!TryGetEquipSlotAndContainer(target, slot, out var slotDefinition, out var slotContainer, equipSlots))
+            if (!TryGetContainerForEquipSlot(target, equipSlot, out var slotContainer, equipSlots))
             {
-                if (!silent) Mes.Display(Loc.GetString("Elona.EquipSlots.CannotUnequip",
+                if (!silent) Mes.Display(Loc.GetString("Elona.EquipSlots.Unequip.Fails",
                     ("actor", actor),
                     ("target", target),
                     ("item", EntityUid.Invalid)));
@@ -210,7 +214,7 @@ namespace OpenNefia.Content.EquipSlots
 
             if (!removedItem.HasValue) return false;
 
-            if (!force && !CanUnequip(actor, target, slot, out var reason, slotContainer, slotDefinition, equipSlots))
+            if (!force && !CanUnequip(actor, target, equipSlot, out var reason, slotContainer, equipSlots))
             {
                 if (!silent) Mes.Display(Loc.GetString(reason, 
                     ("actor", actor),
@@ -243,22 +247,22 @@ namespace OpenNefia.Content.EquipSlots
             return true;
         }
 
-        public bool CanUnequip(EntityUid uid, EquipSlotPrototypeId slot, [NotNullWhen(false)] out string? reason,
-            ContainerSlot? containerSlot = null, EquipSlotInstance? equipSlot = null,
+        public bool CanUnequip(EntityUid uid, EquipSlotInstance equipSlot,
+            [NotNullWhen(false)] out string? reason,
+            ContainerSlot? containerSlot = null,
             EquipSlotsComponent? equipSlots = null) =>
-            CanUnequip(uid, uid, slot, out reason, containerSlot, equipSlot, equipSlots);
+            CanUnequip(uid, uid, equipSlot, out reason, containerSlot, equipSlots);
 
-        public bool CanUnequip(EntityUid actor, EntityUid target, EquipSlotPrototypeId slot, 
+        public bool CanUnequip(EntityUid actor, EntityUid target, EquipSlotInstance equipSlot,
             [NotNullWhen(false)] out string? reason, 
             ContainerSlot? containerSlot = null,
-            EquipSlotInstance? equipSlot = null, 
             EquipSlotsComponent? equipSlots = null)
         {
-            reason = "Elona.EquipSlots.CannotUnequip";
+            reason = "Elona.EquipSlots.Unequip.Fails";
             if (!Resolve(target, ref equipSlots, false))
                 return false;
 
-            if ((containerSlot == null || equipSlot == null) && !TryGetEquipSlotAndContainer(target, slot, out equipSlot, out containerSlot, equipSlots))
+            if (containerSlot == null && !TryGetContainerForEquipSlot(target, equipSlot, out containerSlot, equipSlots))
                 return false;
 
             if (containerSlot.ContainedEntity == null || !containerSlot.CanRemove(containerSlot.ContainedEntity.Value))
@@ -297,13 +301,13 @@ namespace OpenNefia.Content.EquipSlots
             return true;
         }
 
-        public bool TryGetSlotEntity(EntityUid uid, EquipSlotPrototypeId slot, [NotNullWhen(true)] out EntityUid? entityUid, 
+        public bool TryGetSlotEntity(EntityUid uid, EquipSlotInstance equipSlot, [NotNullWhen(true)] out EntityUid? entityUid, 
             EquipSlotsComponent? equipSlotsComponent = null, 
             ContainerManagerComponent? containerManagerComponent = null)
         {
             entityUid = null;
             if (!Resolve(uid, ref equipSlotsComponent, ref containerManagerComponent, false)
-                || !TryGetEquipSlotAndContainer(uid, slot, out _, out var container, equipSlotsComponent, containerManagerComponent))
+                || !TryGetContainerForEquipSlot(uid, equipSlot, out var container, equipSlotsComponent, containerManagerComponent))
                 return false;
 
             entityUid = container.ContainedEntity;

@@ -6,6 +6,8 @@ namespace OpenNefia.Content.Prototypes
     {
         public static class Chara
         {
+            public static readonly EntityPrototypeId Player = new($"Elona.CharaPlayer");
+
             public static readonly EntityPrototypeId Bug = new($"Elona.CharaBug");
             public static readonly EntityPrototypeId Shopkeeper = new($"Elona.CharaShopkeeper");
             public static readonly EntityPrototypeId Zeome = new($"Elona.CharaZeome");

@@ -256,7 +256,33 @@ namespace OpenNefia.Content.Equipment
 
         private void HandleListOnActivate(object? sender, UiListEventArgs<CellData> e)
         {
-            Sounds.Play(Sound.Equip1);
+            var cellData = e.SelectedCell.Data;
+
+            if (cellData.ItemEntityUid != null)
+            {
+                DoUnequip(cellData.EquipSlot);
+            }
+            else
+            {
+                DoEquip(cellData.EquipSlot);
+            }
+        }
+
+        private void DoUnequip(EquipSlotInstance equipSlot)
+        {
+            if (_equipSlots.TryUnequip(_equipee, _equipTarget, equipSlot, out var unequippedItem, silent: false))
+            {
+                Sounds.Play(Sound.Equip1);
+                UpdateFromEquipTarget();
+            }
+            else
+            {
+                Sounds.Play(Sound.Fail1);
+            }
+        }
+
+        private void DoEquip(EquipSlotInstance equipSlot)
+        {
         }
 
         public override void Initialize(Args args)

@@ -178,16 +178,16 @@ namespace OpenNefia.Content.Tests.EquipSlots
             {
                 var oldContainerCount = containers.Containers.Count;
 
-                Assert.That(equipSlotSys.TryRemoveEquipSlot(ent, equipSlot), Is.True, "Try remove equip slot");
-                Assert.That(equipSlotSys.HasEquipSlot(ent, TestSlot1ID), Is.False, "Has equip slot");
+                Assert.That(equipSlotSys.TryRemoveEquipSlot(ent, equipSlot), Is.True);
+                Assert.That(equipSlotSys.HasEquipSlot(ent, TestSlot1ID), Is.False);
 
                 // Equipment in the slot should be deleted.
-                Assert.That(entMan.EntityExists(entItem), Is.False, "Entity exists");
+                Assert.That(entMan.EntityExists(entItem), Is.False);
 
                 Assert.That(equipSlots.EquipSlots!.Count, Is.EqualTo(2), "Equip slot count");
                 Assert.That(containers.Containers.Count, Is.EqualTo(oldContainerCount - 1), "Container count");
 
-                Assert.That(equipSlotSys.TryRemoveEquipSlot(ent, equipSlot), Is.False, "Try remove equip slot (again)");
+                Assert.That(equipSlotSys.TryRemoveEquipSlot(ent, equipSlot), Is.False);
             });
         }
 
@@ -221,13 +221,13 @@ namespace OpenNefia.Content.Tests.EquipSlots
             {
                 Assert.That(equipSlotSys.CanEquip(ent, entItem1, TestSlot1ID, out _), Is.True, "Can equip 1");
                 Assert.That(equipSlotSys.CanEquip(ent, entItem1, TestSlot2ID, out var reason), Is.False, "Can equip 2");
-                Assert.That(reason, Is.EqualTo("Elona.EquipSlots.CannotEquip"));
+                Assert.That(reason, Is.EqualTo("Elona.EquipSlots.Equip.Fails"));
 
-                Assert.That(equipSlotSys.TryEquip(ent, entItem1, TestSlot2ID), Is.False, "Try equip 2");
-                Assert.That(equipSlotSys.TryEquip(ent, entItem1, TestSlot1ID), Is.True, "Try equip 1");
-                Assert.That(equipSlotSys.TryEquip(ent, entItem1, TestSlot1ID), Is.False, "Try equip 1 twice");
+                Assert.That(equipSlotSys.TryEquip(ent, entItem1, TestSlot2ID, out _), Is.False, "Try equip 2");
+                Assert.That(equipSlotSys.TryEquip(ent, entItem1, TestSlot1ID, out var equipSlot), Is.True, "Try equip 1");
+                Assert.That(equipSlotSys.TryEquip(ent, entItem1, TestSlot1ID, out _), Is.False, "Try equip 1 twice");
 
-                Assert.That(equipSlotSys.TryGetSlotEntity(ent, TestSlot1ID, out var entEquipped), Is.True, "Try get slot entity");
+                Assert.That(equipSlotSys.TryGetSlotEntity(ent, equipSlot!, out var entEquipped), Is.True, "Try get slot entity");
                 Assert.That(entEquipped, Is.EqualTo(entItem1), "Slot entity equality");
             });
         }
@@ -260,23 +260,68 @@ namespace OpenNefia.Content.Tests.EquipSlots
 
             Assert.Multiple(() =>
             {
-                Assert.That(equipSlotSys.CanUnequip(ent, TestSlot1ID, out var reason), Is.False, "Can unequip 1");
-                Assert.That(reason, Is.EqualTo("Elona.EquipSlots.CannotUnequip"), "Equip fail reason 1");
-                Assert.That(equipSlotSys.CanUnequip(ent, TestSlot2ID, out reason), Is.False, "Can unequip 2");
-                Assert.That(reason, Is.EqualTo("Elona.EquipSlots.CannotUnequip"), "Equip fali reason 2");
+                Assert.That(equipSlotSys.TryGetEquipSlot(ent, TestSlot1ID, out var equipSlot), Is.True, "Try get equip slot");
+                Assert.That(equipSlotSys.CanUnequip(ent, equipSlot!, out var reason), Is.False, "Can unequip 1");
+                Assert.That(reason, Is.EqualTo("Elona.EquipSlots.Equip.Fails"));
+                Assert.That(equipSlotSys.CanUnequip(ent, equipSlot!, out reason), Is.False, "Can unequip 2");
+                Assert.That(reason, Is.EqualTo("Elona.EquipSlots.Equip.Fails"));
 
-                Assert.That(equipSlotSys.TryEquip(ent, entItem1, TestSlot1ID), Is.True, "Try equip");
+                Assert.That(equipSlotSys.TryEquip(ent, entItem1, TestSlot1ID, out _), Is.True);
 
-                Assert.That(equipSlotSys.CanUnequip(ent, TestSlot1ID, out _), Is.True, "Can unequip 1 after equip");
+                Assert.That(equipSlotSys.CanUnequip(ent, equipSlot!, out _), Is.True, "Can unequip 1 after equip");
 
-                Assert.That(equipSlotSys.TryUnequip(ent, TestSlot2ID), Is.False, "Try unequip 2");
-                Assert.That(equipSlotSys.TryUnequip(ent, TestSlot1ID), Is.True, "Try unequip 1");
-                Assert.That(equipSlotSys.TryUnequip(ent, TestSlot1ID), Is.False, "Try unequip 1 twice");
+                Assert.That(equipSlotSys.TryUnequip(ent, equipSlot!), Is.False, "Try unequip 2");
+                Assert.That(equipSlotSys.TryUnequip(ent, equipSlot!), Is.True, "Try unequip 1");
+                Assert.That(equipSlotSys.TryUnequip(ent, equipSlot!), Is.False, "Try unequip 1 twice");
 
-                Assert.That(equipSlotSys.TryGetSlotEntity(ent, TestSlot1ID, out _), Is.False, "Try get slot entity");
+                Assert.That(equipSlotSys.TryGetSlotEntity(ent, equipSlot!, out _), Is.False, "Try get slot entity");
 
                 var entItem1Spatial = entMan.GetComponent<SpatialComponent>(entItem1);
-                Assert.That(entItem1Spatial.Coordinates, Is.EqualTo(new EntityCoordinates(ent, Vector2i.Zero)), "Unequipped entity coordinates");
+                Assert.That(entItem1Spatial.Coordinates, Is.EqualTo(new EntityCoordinates(ent, Vector2i.Zero)));
+            });
+        }
+
+        [Test]
+        public void TestTryGetContainerEnumerator()
+        {
+            var sim = SimulationFactory();
+
+            var entMan = sim.Resolve<IEntityManager>();
+            var mapMan = sim.Resolve<IMapManager>();
+
+            var containerSys = sim.GetEntitySystem<ContainerSystem>();
+            var equipSlotSys = sim.GetEntitySystem<EquipSlotsSystem>();
+
+            var map = sim.CreateMapAndSetActive(10, 10);
+
+            var ent = entMan.SpawnEntity(null, map.AtPos(Vector2i.One));
+            var entItem1 = entMan.SpawnEntity(TestEquipment1ID, map.AtPos(Vector2i.One));
+
+            List<PrototypeId<EquipSlotPrototype>> equipSlotProtos = new()
+            {
+                TestSlot1ID,
+                TestSlot1ID,
+                TestSlot2ID,
+            };
+
+            var equipSlots = entMan.EnsureComponent<EquipSlotsComponent>(ent);
+            var containers = entMan.EnsureComponent<ContainerManagerComponent>(ent);
+
+            equipSlotSys.InitializeEquipSlots(ent, equipSlotProtos);
+
+            Assert.That(equipSlotSys.TryEquip(ent, entItem1, TestSlot1ID, out var equipSlot), Is.True);
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(equipSlotSys.TryGetContainerSlotEnumerator(ent, out var enumerator), Is.True, "Try get enumerator");
+                Assert.That(enumerator.MoveNext(out var containerSlot), Is.True, "MoveNext 1");
+                Assert.That(containerSlot?.ContainedEntity.HasValue, Is.True, "HasValue 1");
+                Assert.That(containerSlot!.ContainedEntity!.Value, Is.EqualTo(entItem1), "Value 1");
+                Assert.That(enumerator.MoveNext(out containerSlot), Is.True, "MoveNext 2");
+                Assert.That(containerSlot!.ContainedEntity.HasValue, Is.False, "HasValue 2");
+                Assert.That(enumerator.MoveNext(out containerSlot), Is.True, "MoveNext 3");
+                Assert.That(containerSlot!.ContainedEntity.HasValue, Is.False, "HasValue 3");
+                Assert.That(enumerator.MoveNext(out _), Is.False, "MoveNext 4");
             });
         }
     }

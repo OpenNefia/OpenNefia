@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Security.Cryptography;
 using OpenNefia.Content.EntityGen;
+using OpenNefia.Content.Equipment;
 using OpenNefia.Content.GameObjects;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
@@ -21,7 +22,8 @@ namespace OpenNefia.Content.Skills
 
         public override void Initialize()
         {
-            SubscribeLocalEvent<SkillsComponent, EntityRefreshEvent>(HandleRefresh, nameof(HandleRefresh));
+            SubscribeLocalEvent<SkillsComponent, EntityRefreshEvent>(HandleRefresh, nameof(HandleRefresh),
+                before: new[] { new SubId(typeof(EquipmentSystem), "HandleRefresh") });
             SubscribeLocalEvent<SkillsComponent, EntityGeneratedEvent>(HandleGenerated, nameof(HandleGenerated));
         }
 
