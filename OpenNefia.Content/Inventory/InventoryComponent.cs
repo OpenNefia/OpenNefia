@@ -21,6 +21,9 @@ namespace OpenNefia.Content.Inventory
 
         public Container Container { get; private set; } = default!;
 
+        /// <summary>
+        /// Maximum item weight this entity can hold. Null means "unlimited".
+        /// </summary>
         [DataField]
         public int? MaxWeight { get; set; }
 

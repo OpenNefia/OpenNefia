@@ -24,6 +24,8 @@ using OpenNefia.Content.Input;
 using OpenNefia.Core.Log;
 using OpenNefia.Content.DisplayName;
 using OpenNefia.Content.GameObjects.Pickable;
+using OpenNefia.Core.Locale;
+using OpenNefia.Content.Cargo;
 
 namespace OpenNefia.Content.Inventory
 {
@@ -146,6 +148,8 @@ namespace OpenNefia.Content.Inventory
         [Dependency] private readonly IEntityManager _entityManager = default!;
         [Dependency] private readonly IFieldLayer _field = default!;
         [Dependency] private readonly IUserInterfaceManager _uiMgr = default!;
+        [Dependency] private readonly IInventorySystem _invSys = default!;
+        [Dependency] private readonly ICargoSystem _cargoSys = default!;
 
         public bool PlaySounds { get; set; } = false;
 
@@ -155,8 +159,8 @@ namespace OpenNefia.Content.Inventory
         public int SelectedIndex => List.SelectedIndex;
         public InventoryEntry? SelectedEntry => List.SelectedCell?.Data;
 
-        private IUiText TextTopicWindowName = new UiTextTopic("item");
-        private IUiText TextTopicDetailHeader = new UiTextTopic("detail");
+        private IUiText TextTopicItemName = new UiTextTopic();
+        private IUiText TextTopicItemDetail = new UiTextTopic();
         private IUiText TextNoteTotalWeight = new UiText(UiFonts.TextNote);
         private IUiText TextGoldCount = new UiText(UiFonts.InventoryGoldCount);
 
@@ -179,6 +183,12 @@ namespace OpenNefia.Content.Inventory
             AssetDecoInvC = new AssetDrawable(AssetPrototypeOf.DecoInvC);
             AssetDecoInvD = new AssetDrawable(AssetPrototypeOf.DecoInvD);
             AssetGoldCoin = new AssetDrawable(AssetPrototypeOf.GoldCoin);
+
+            TextTopicItemName.Text = Loc.GetString("Elona.Inventory.Layer.Topic.ItemName"); 
+
+            // TODO IInventoryBehavior can set this.
+            var topicText = Loc.GetString("Elona.Inventory.Layer.Topic.ItemWeight");
+            TextTopicItemDetail.Text = topicText;
 
             AddChild(Window);
             AddChild(List);
@@ -328,13 +338,21 @@ namespace OpenNefia.Content.Inventory
 
             List.SelectedIndex = index;
 
-            var totalWeight = UiUtils.DisplayWeight(1500);
-            var maxWeight = UiUtils.DisplayWeight(2500);
-            var cargoWeight = UiUtils.DisplayWeight(3500);
+            var totalWeight = _invSys.GetTotalInventoryWeight(Context.User);
+            var totalWeightStr = UiUtils.DisplayWeight(1500);
+
+            var maxWeight = _invSys.GetMaxInventoryWeight(Context.User);
+            var maxWeightStr = maxWeight != null ? UiUtils.DisplayWeight(maxWeight.Value) : "-";
+
+            var cargoWeight = _cargoSys.GetTotalCargoWeight(Context.User);
+            var cargoWeightStr = UiUtils.DisplayWeight(cargoWeight);
 
             if (Context.Behavior.ShowTotalWeight)
             {
-                var weightText = totalWeight;
+                var weightText = Loc.GetString("Elona.Inventory.Layer.Note.TotalWeight", 
+                    ("totalWeight", totalWeightStr),
+                    ("maxWeight", maxWeightStr),
+                    ("cargoWeight", cargoWeightStr));
                 TextNoteTotalWeight.Text = $"{List.Count} items  ({weightText})";
             }
             else
@@ -387,8 +405,8 @@ namespace OpenNefia.Content.Inventory
 
             CurrentIcon?.SetPreferredSize();
 
-            TextTopicWindowName.SetPreferredSize();
-            TextTopicDetailHeader.SetPreferredSize();
+            TextTopicItemName.SetPreferredSize();
+            TextTopicItemDetail.SetPreferredSize();
             TextNoteTotalWeight.SetPreferredSize();
             TextGoldCount.SetPreferredSize();
         }
@@ -409,8 +427,8 @@ namespace OpenNefia.Content.Inventory
 
             CurrentIcon?.SetPosition(Window.X + 46, Window.Y - 16);
 
-            TextTopicWindowName.SetPosition(Window.X + 28, Window.Y + 30);
-            TextTopicDetailHeader.SetPosition(Window.X + 526, Window.Y + 30);
+            TextTopicItemName.SetPosition(Window.X + 28, Window.Y + 30);
+            TextTopicItemDetail.SetPosition(Window.X + 526, Window.Y + 30);
             var notePos = UiUtils.NotePosition(GlobalPixelBounds, TextNoteTotalWeight);
             TextNoteTotalWeight.SetPosition(notePos.X, notePos.Y);
             TextGoldCount.SetPosition(Window.X + 368, Window.Y + 37);
@@ -430,8 +448,8 @@ namespace OpenNefia.Content.Inventory
 
             CurrentIcon?.Update(dt);
 
-            TextTopicWindowName.Update(dt);
-            TextTopicDetailHeader.Update(dt);
+            TextTopicItemName.Update(dt);
+            TextTopicItemDetail.Update(dt);
             TextNoteTotalWeight.Update(dt);
             TextGoldCount.Update(dt);
         }
@@ -450,8 +468,8 @@ namespace OpenNefia.Content.Inventory
 
             CurrentIcon?.Draw();
 
-            TextTopicWindowName.Draw();
-            TextTopicDetailHeader.Draw();
+            TextTopicItemName.Draw();
+            TextTopicItemDetail.Draw();
             TextNoteTotalWeight.Draw();
 
             // List will update the sprite batch.
@@ -477,8 +495,8 @@ namespace OpenNefia.Content.Inventory
 
             CurrentIcon?.Dispose();
 
-            TextTopicWindowName.Dispose();
-            TextTopicDetailHeader.Dispose();
+            TextTopicItemName.Dispose();
+            TextTopicItemDetail.Dispose();
             TextNoteTotalWeight.Dispose();
 
             List.Dispose();
