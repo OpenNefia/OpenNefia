@@ -122,42 +122,40 @@ namespace OpenNefia.Content.Locale.Funcs
         [LocaleFunction("is")]
         public static string BuiltIn_is(object? obj)
         {
-            if (obj is int i)
+            switch (obj)
             {
-                if (i == 1)
+                case int objInt:
+                    if (objInt == 1)
+                        return "is";
+                    else
+                        return "are";
+
+                case long objLong:
+                    if (objLong == 1L)
+                        return "is";
+                    else
+                        return "are";
+
+                case EntityUid objEntity:
+                    var gameSession = IoCManager.Resolve<IGameSessionManager>();
+                    if (gameSession.IsPlayer(objEntity))
+                    {
+                        return "are";
+                    }
+
+                    var entMan = IoCManager.Resolve<IEntityManager>();
+
+                    if (entMan.TryGetComponent(objEntity, out StackComponent stack))
+                    {
+                        if (stack.Count != 1)
+                            return "are";
+                    }
+
                     return "is";
-                else
-                    return "are";
-            }
 
-            if (obj is long l)
-            {
-                if (l == 1L)
+                default:
                     return "is";
-                else
-                    return "are";
             }
-
-            if (obj is not EntityUid entity)
-                return "is";
-
-            var gameSession = IoCManager.Resolve<IGameSessionManager>();
-            if (gameSession.IsPlayer(entity))
-            {
-                return "are";
-            }
-
-            var entMan = IoCManager.Resolve<IEntityManager>();
-
-            if (entMan.TryGetComponent(entity, out StackComponent stack))
-            {
-                if (stack.Count == 1)
-                    return "is";
-                else
-                    return "are";
-            }
-
-            return "is";
         }
 
         /// <summary>
@@ -172,37 +170,53 @@ namespace OpenNefia.Content.Locale.Funcs
         [LocaleFunction("him")]
         public static string BuiltIn_him(object? obj)
         {
-            if (obj is not EntityUid entity)
-                return "it";
-
-            var gameSession = IoCManager.Resolve<IGameSessionManager>();
-            if (gameSession.IsPlayer(entity))
+            switch (obj)
             {
-                return "you";
-            }
-
-            var entMan = IoCManager.Resolve<IEntityManager>();
-
-            if (entMan.TryGetComponent(entity, out CharaComponent chara))
-            {
-                switch (chara.Gender)
-                {
-                    case Gender.Female:
-                        return "her";
-                    case Gender.Male:
-                        return "him";
-                    default:
+                case int objInt:
+                    if (objInt == 1)
+                        return "it";
+                    else
                         return "them";
-                }
-            }
 
-            if (entMan.TryGetComponent(entity, out StackComponent stack))
-            {
-                if (stack.Count != 1)
-                    return "them";
-            }
+                case long objLong:
+                    if (objLong == 1L)
+                        return "it";
+                    else
+                        return "them";
 
-            return "it";
+                case EntityUid objEntity:
+                    var gameSession = IoCManager.Resolve<IGameSessionManager>();
+                    if (gameSession.IsPlayer(objEntity))
+                    {
+                        return "you";
+                    }
+
+                    var entMan = IoCManager.Resolve<IEntityManager>();
+
+                    if (entMan.TryGetComponent(objEntity, out CharaComponent chara))
+                    {
+                        switch (chara.Gender)
+                        {
+                            case Gender.Female:
+                                return "her";
+                            case Gender.Male:
+                                return "him";
+                            default:
+                                return "them";
+                        }
+                    }
+
+                    if (entMan.TryGetComponent(objEntity, out StackComponent stack))
+                    {
+                        if (stack.Count != 1)
+                            return "them";
+                    }
+
+                    return "it";
+
+                default:
+                    return "it";
+            }
         }
 
         /// <summary>
