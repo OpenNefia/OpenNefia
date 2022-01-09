@@ -38,6 +38,7 @@ namespace OpenNefia.Tests
         ISimulationFactory RegisterEntitySystems(EntitySystemRegistrationDelegate factory);
         ISimulationFactory RegisterPrototypes(PrototypeRegistrationDelegate factory);
         ISimulationFactory RegisterDataDefinitionTypes(DataDefinitionTypesRegistrationDelegate factory);
+        ISimulationFactory LoadLocalizations(LocalizationLoadDelegate factory);
         ISimulation InitializeInstance();
     }
 
@@ -74,6 +75,8 @@ namespace OpenNefia.Tests
 
     public delegate void DataDefinitionTypesRegistrationDelegate(List<Type> types);
 
+    public delegate void LocalizationLoadDelegate(ILocalizationManager locMan);
+
     /// <summary>
     /// Game simulation for minimal testing. All components/prototypes must
     /// be loaded manually with this class.
@@ -93,6 +96,7 @@ namespace OpenNefia.Tests
         private EntitySystemRegistrationDelegate? _systemDelegate;
         private PrototypeRegistrationDelegate? _protoDelegate;
         private DataDefinitionTypesRegistrationDelegate? _dataDefnTypesDelegate;
+        private LocalizationLoadDelegate? _localizationLoadDelegate;
 
         public IDependencyCollection Collection { get; private set; } = default!;
 
@@ -161,6 +165,12 @@ namespace OpenNefia.Tests
             return this;
         }
 
+        public ISimulationFactory LoadLocalizations(LocalizationLoadDelegate factory)
+        {
+            _localizationLoadDelegate += factory;
+            return this;
+        }
+
         public ISimulation InitializeInstance()
         {
             var container = new DependencyCollection();
@@ -173,7 +183,7 @@ namespace OpenNefia.Tests
             container.Register<IRuntimeLog, RuntimeLog>();
             container.Register<IDynamicTypeFactory, DynamicTypeFactory>();
             container.Register<IDynamicTypeFactoryInternal, DynamicTypeFactory>();
-            container.Register<ILocalizationManager, TestingLocalizationManager>();
+            container.Register<ILocalizationManager, DummyLocalizationManager>();
             container.Register<IModLoader, TestingModLoader>();
             container.Register<IModLoaderInternal, TestingModLoader>();
             container.Register<ITaskManager, TaskManager>();
@@ -291,6 +301,10 @@ namespace OpenNefia.Tests
 
             var saveGameSer = container.Resolve<ISaveGameSerializerInternal>();
             saveGameSer.Initialize();
+
+            var locMan = container.Resolve<ILocalizationManager>();
+            _localizationLoadDelegate?.Invoke(locMan);
+            locMan.Resync();
 
             return this;
         }

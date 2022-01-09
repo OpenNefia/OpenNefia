@@ -8,6 +8,7 @@ using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Locale;
 using OpenNefia.Core.Maps;
+using OpenNefia.Core.Random;
 using OpenNefia.Core.Reflection;
 using OpenNefia.Core.Utility;
 
@@ -61,6 +62,10 @@ namespace OpenNefia.Tests
             {
                 entMan.Startup();
             }
+
+            // Make randomness deterministic.
+            var random = IoCManager.Resolve<IRandom>();
+            random.PushSeed(0);
         }
 
         [OneTimeTearDown]
