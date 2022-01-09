@@ -90,4 +90,11 @@ function _G_mt:__index(key)
    return val
 end
 
+function _G_mt:__newindex(key, val)
+   assert(type(val) == "table", "value was not table")
+   local blank = auto(_Root, key)
+   local mt = getmetatable(blank)
+   _Root[key] = setmetatable(val, mt)
+end
+
 setmetatable(_G, _G_mt)

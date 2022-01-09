@@ -180,5 +180,23 @@ Test.Core = {
             Assert.That(locMan.GetString("Test.Core.Foo.Bar"), Is.EqualTo("bar"));
             Assert.That(locMan.GetString("Test.Core.Foo.Baz"), Is.EqualTo("baz"));
         }
+
+        [Test]
+        public void TestRootedTable()
+        {
+            var locMan = IoCManager.Resolve<ILocalizationManager>();
+
+            locMan.LoadString(@"
+Test = {
+    Core = {
+        String = 'foo',
+    }
+}
+");
+
+            locMan.Resync();
+
+            Assert.That(locMan.GetString("Test.Core.String"), Is.EqualTo("foo"));
+        }
     }
 }
