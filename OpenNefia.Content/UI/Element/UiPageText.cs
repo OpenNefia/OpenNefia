@@ -16,6 +16,7 @@ namespace OpenNefia.Content.UI.Element
     {
         public IUiElement? PageTextParent { get; set; }
         private UiText PageText;
+        public Vector2i TextOffset;
 
         public UiPageText(IUiElement? parent = null)
         {
@@ -60,7 +61,7 @@ namespace OpenNefia.Content.UI.Element
             }
 
             base.SetPosition(x, y);
-            PageText.SetPosition(X + Width - 85, Y + Height - 68);
+            PageText.SetPosition(X + Width - 85 + TextOffset.X, Y + Height - 68 + TextOffset.Y);
         }
 
         public override void Draw()

@@ -21,8 +21,6 @@ namespace OpenNefia.Content.CharaMake
         {
             return new List<ICharaMakeLayer>
             {
-                //new CharaMakeFeatWindowLayer(),
-
                 new CharaMakeRaceSelectLayer(),
                 new CharaMakeGenderSelectLayer(),
                 new CharaMakeClassSelectLayer(),

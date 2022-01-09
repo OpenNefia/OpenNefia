@@ -8604,7 +8604,7 @@
       filepath: /Graphic/Beautify/interface.bmp
   
   - type: Asset
-    id: Elona.TraitIcons
+    id: Elona.FeatIcons
     image:
       filepath: /Graphic/Beautify/interface.bmp
   

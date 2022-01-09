@@ -5,6 +5,7 @@
 	FeatMax = "MAX",
 	NameTopic = "Name",
 	DetailTopic = "Detail",
+	FeatCount = "You can acquire {0} feats",
 
 	FeatType = {
 		Feat = "Feat",

@@ -23,6 +23,7 @@ namespace OpenNefia.Content.Inventory
         Drop = 8,
         Tome = 9, // Unused.
         Equip = 10,
+        Feat = 11,
         PickUp = 17,
         Throw = 18,
     }
