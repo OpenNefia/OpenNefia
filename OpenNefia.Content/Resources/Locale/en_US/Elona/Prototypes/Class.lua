@@ -1,5 +1,6 @@
-﻿OpenNefia.Prototypes.Class.Elona = {
-	Archer = {
+﻿OpenNefia.Prototypes.Elona.Class.Elona =
+{
+    Archer = {
         Description = "The Archer. Skilled in the ways of the forest and hunting, they are master marksmen, and don't see why one should hunt monster any different than a deer. Skilled with the Short Sword, the axe, and of course all types of bows, plus a few skills they picked up on their long trips in the woods. Firm believers that Anything dead over THERE will not be bothering me HERE.",
         Name = "Archer"
     },

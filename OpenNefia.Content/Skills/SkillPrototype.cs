@@ -18,7 +18,7 @@ namespace OpenNefia.Content.Skills
         SkillAction,
         SkillEffect
     }
-    [Prototype("Skill")]
+    [Prototype("Elona.Skill")]
     public class SkillPrototype : IPrototype, IHspIds<int>
     {
         [DataField("id", required: true)]
