@@ -6,6 +6,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading;
+using ICSharpCode.Decompiler.TypeSystem;
 using JetBrains.Annotations;
 using NLua;
 using OpenNefia.Core.ContentPack;
@@ -223,6 +224,8 @@ namespace OpenNefia.Core.Prototypes
         [Dependency] private readonly IGraphics _graphics = default!;
         [Dependency] private readonly IEntityFactory _entityFactory = default!;
 
+        private record PrototypeOrderingData(string[] Before, string[] After);
+
         private readonly Dictionary<string, Type> _prototypeTypes = new();
         private readonly Dictionary<Type, int> _prototypePriorities = new();
 
@@ -234,6 +237,8 @@ namespace OpenNefia.Core.Prototypes
         private readonly Dictionary<Type, Dictionary<string, IPrototype>> _prototypes = new();
         private readonly Dictionary<Type, Dictionary<string, DeserializationResult>> _prototypeResults = new();
         private readonly Dictionary<Type, PrototypeInheritanceTree> _inheritanceTrees = new();
+        private readonly Dictionary<Type, Dictionary<string, PrototypeOrderingData>> _prototypeOrdering = new();
+        private readonly Dictionary<Type, List<IPrototype>> _sortedPrototypes = new();
 
         public Dictionary<Type, Dictionary<string, DeserializationResult>> PrototypeResults => _prototypeResults;
 
@@ -259,7 +264,7 @@ namespace OpenNefia.Core.Prototypes
                 throw new InvalidOperationException("No prototypes have been loaded yet.");
             }
 
-            return _prototypes[typeof(T)].Values.Select(p => (T)p);
+            return _sortedPrototypes[typeof(T)].Select(p => (T)p);
         }
 
         public IEnumerable<IPrototype> EnumeratePrototypes(Type type)
@@ -269,7 +274,7 @@ namespace OpenNefia.Core.Prototypes
                 throw new InvalidOperationException("No prototypes have been loaded yet.");
             }
 
-            return _prototypes[type].Values;
+            return _sortedPrototypes[type];
         }
 
         public IEnumerable<IPrototype> EnumeratePrototypes(string variant)
@@ -309,6 +314,7 @@ namespace OpenNefia.Core.Prototypes
             _prototypeTypes.Clear();
             _prototypes.Clear();
             _prototypeResults.Clear();
+            _sortedPrototypes.Clear();
             _inheritanceTrees.Clear();
         }
 
@@ -418,6 +424,21 @@ namespace OpenNefia.Core.Prototypes
                         Logger.ErrorS("Serv3", $"{iProto.GetType().Name} '{id}' has invalid parent: {parent}");
                     }
                 }
+            }
+
+            // Sort all prototypes according to topological sort order.
+            _sortedPrototypes.Clear();
+            foreach (var (prototypeType, protos) in _prototypes)
+            {
+                var nodes = TopologicalSort.FromBeforeAfter(
+                    protos.Values,
+                    p => p.ID,
+                    p => p,
+                    p => _prototypeOrdering[prototypeType].GetValueOrDefault(p.ID)?.Before ?? Array.Empty<string>(),
+                    p => _prototypeOrdering[prototypeType].GetValueOrDefault(p.ID)?.After ?? Array.Empty<string>(),
+                    allowMissing: true);
+
+                _sortedPrototypes[prototypeType] = TopologicalSort.Sort(nodes).ToList();
             }
 
             _hasEverBeenReloaded = true;
@@ -672,6 +693,7 @@ namespace OpenNefia.Core.Prototypes
             var changedPrototypes = new HashSet<IPrototype>();
             var rootNode = (YamlSequenceNode)document.RootNode;
             filename ??= "[anonymous]";
+            string? previousProtoID = null;
 
             foreach (YamlMappingNode node in rootNode.Cast<YamlMappingNode>())
             {
@@ -712,6 +734,30 @@ namespace OpenNefia.Core.Prototypes
 
                 _prototypes[prototypeType][prototype.ID] = prototype;
                 changedPrototypes.Add(prototype);
+
+                if (node.TryGetNode("ordering", out var orderingNode) && orderingNode is YamlMappingNode orderingMappingNode)
+                {
+                    string[]? before = null;
+                    string[]? after = null;
+                    if (orderingMappingNode.TryGetNode("before", out var orderBeforeNode))
+                    {
+                        before = new[] { orderBeforeNode.AsString() };
+                    }
+                    if (orderingMappingNode.TryGetNode("after", out var orderAfterNode))
+                    {
+                        after = new[] { orderAfterNode.AsString() };
+                    }
+
+                    // Order prototypes sequentially based on their order in the document
+                    // if no other ordering is specified.
+                    if (before == null && after == null && previousProtoID != null)
+                        after = new[] { previousProtoID };
+
+                    var ordering = new PrototypeOrderingData(Before: before ?? Array.Empty<string>(), After: after ?? Array.Empty<string>());
+                    _prototypeOrdering[prototypeType][prototype.ID] = ordering;
+                }
+
+                previousProtoID = prototype.ID;
             }
 
             return changedPrototypes;
@@ -865,6 +911,7 @@ namespace OpenNefia.Core.Prototypes
                 _prototypeResults[type] = new Dictionary<string, DeserializationResult>();
                 if (typeof(IInheritingPrototype).IsAssignableFrom(type))
                     _inheritanceTrees[type] = new PrototypeInheritanceTree();
+                _prototypeOrdering[type] = new Dictionary<string, PrototypeOrderingData>();
             }
         }
 
