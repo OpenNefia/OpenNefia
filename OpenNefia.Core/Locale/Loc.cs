@@ -3,6 +3,7 @@ using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Utility;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Linq;
 using System.Text;
@@ -22,6 +23,11 @@ namespace OpenNefia.Core.Locale
         public static void SwitchLanguage(PrototypeId<LanguagePrototype> language)
         {
             _localization.SwitchLanguage(language);
+        }
+
+        public static bool TryGetString(LocaleKey key, [NotNullWhen(true)] out string? str, params LocaleArg[] args)
+        {
+            return _localization.TryGetString(key, out str, args);
         }
 
         public static string GetString(LocaleKey key, params LocaleArg[] args)
