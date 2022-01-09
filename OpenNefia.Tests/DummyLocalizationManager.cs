@@ -12,6 +12,8 @@ namespace OpenNefia.Tests
     {
         public PrototypeId<LanguagePrototype> Language => LanguagePrototypeOf.English;
 
+        public event LanguageSwitchedDelegate? OnLanguageSwitched;
+
         public void DoLocalize(object o, LocaleKey key)
         {
         }
