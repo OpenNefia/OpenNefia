@@ -99,7 +99,7 @@ namespace OpenNefia.Content.RandomText
             _allAliasData.Clear();
 
             var csvPaths = _resourceManager
-                .ContentFindFiles(new ResourcePath("/Aliases") / (string)newLanguage)
+                .ContentFindFiles(new ResourcePath("/Text/RandomAliases") / (string)newLanguage)
                 .Where(path => path.Extension == "csv");
 
             foreach (var csvPath in csvPaths)
@@ -145,22 +145,6 @@ namespace OpenNefia.Content.RandomText
             while (string.IsNullOrEmpty(choice));
 
             return (data, column, choice);
-        }
-
-        private string CapitalizeTitleText(string text)
-        {
-            if (_localeMan.Language != LanguagePrototypeOf.English || string.IsNullOrEmpty(text))
-                return text;
-
-            if (text[0] == '*')
-            {
-                if (text.Length == 1)
-                    return text;
-
-                text = text.Substring(1);
-            }
-
-            return text.FirstCharToUpper();
         }
 
         private const int MaxTitleLength = 28;
@@ -270,7 +254,7 @@ namespace OpenNefia.Content.RandomText
                 if (!noSecondPart)
                     result += " ";
 
-                result = CapitalizeTitleText(result);
+                result = RandomTextHelpers.CapitalizeTitleText(result, _localeMan);
             }
 
             if (!noSecondPart)
@@ -306,7 +290,7 @@ namespace OpenNefia.Content.RandomText
                 if (found == null)
                     return false;
 
-                found = CapitalizeTitleText(found);
+                found = RandomTextHelpers.CapitalizeTitleText(found, _localeMan);
 
                 result += found;
 

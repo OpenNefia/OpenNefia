@@ -35,7 +35,7 @@ namespace OpenNefia.Content.RandomText
             _allNameData.Clear();
 
             var csvPaths = _resourceManager
-                .ContentFindFiles(new ResourcePath("/Names") / (string)newLanguage)
+                .ContentFindFiles(new ResourcePath("/Text/RandomNames") / (string)newLanguage)
                 .Where(path => path.Extension == "csv");
 
             foreach (var csvPath in csvPaths)
@@ -93,7 +93,7 @@ namespace OpenNefia.Content.RandomText
                     return false;
             }
 
-            name = result;
+            name = RandomTextHelpers.CapitalizeTitleText(result, _localeMan);
             return true;
         }
 
