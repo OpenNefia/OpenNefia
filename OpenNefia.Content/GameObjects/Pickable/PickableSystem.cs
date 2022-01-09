@@ -101,8 +101,8 @@ namespace OpenNefia.Content.GameObjects.Pickable
             if (!EntityManager.TryGetComponent<InventoryComponent>(picker, out var pickerInv))
                 return TurnResult.Failed;
 
-            if (!CheckPickableOwnState(pickable))
-                return TurnResult.Failed;
+            //if (!CheckPickableOwnState(pickable))
+            //    return TurnResult.Failed;
 
             var success = pickerInv.Container.Insert(target);
 

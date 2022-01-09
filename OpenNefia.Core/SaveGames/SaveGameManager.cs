@@ -162,8 +162,16 @@ namespace OpenNefia.Core.SaveGames
             SavesRootDir = _profileManager.CurrentProfile.GetChild(new ResourcePath(SavesPath));
 
             var tempResPath = new ResourcePath(TempPath);
-            _profileManager.CurrentProfile.Delete(tempResPath);
             TempRootDir = _profileManager.CurrentProfile.GetChild(tempResPath);
+
+            try
+            {
+                _profileManager.CurrentProfile.Delete(tempResPath);
+            }
+            catch (Exception ex)
+            {
+                Logger.ErrorS("save", ex, $"Failed to clear save temporary directory: {ex}");
+            }
 
             RescanSaves();
         }

@@ -79,7 +79,6 @@ namespace OpenNefia.Content.TitleScreen
                 {
                     TextSubtext.Draw();
                 }
-                UiUtils.DebugDraw(this);
             }
 
             public override void Update(float dt)
@@ -229,8 +228,6 @@ namespace OpenNefia.Content.TitleScreen
                               Window.Y + Window.Height / 2 - bgPicHeight / 2,
                               bgPicWidth,
                               bgPicHeight);
-
-            UiUtils.DebugDraw(List);
         }
 
         public override void Dispose()

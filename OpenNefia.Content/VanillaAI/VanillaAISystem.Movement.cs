@@ -222,7 +222,6 @@ namespace OpenNefia.Content.VanillaAI
             {
                 if (map.CanAccess(result.Coords.Value))
                 {
-                    Logger.Info($"GET MOVE {result.Coords}");
                     _movement.MoveEntity(entity, result.Coords.Value, spatial: spatial);
                     return true;
                 }
@@ -230,7 +229,7 @@ namespace OpenNefia.Content.VanillaAI
 
             if (ai.TurnsUntilMovement > 0)
             {
-                Logger.Warning($"wait until movement {ai.TurnsUntilMovement}");
+                Logger.DebugS("ai.vanilla", $"wait until movement {ai.TurnsUntilMovement}");
                 var dir = DirectionUtility.RandomDirections().First();
                 var randCoords = spatial.MapPosition.Offset(dir);
                 if (map.CanAccess(randCoords))
@@ -249,7 +248,6 @@ namespace OpenNefia.Content.VanillaAI
                 {
                     ai.TurnsUntilMovement = 6;
                 }
-                Logger.Info($"no MOVE {ai.TurnsUntilMovement}");
 
                 var dir = _random.Pick(result.AvailableDirs);
                 var offset = dir.ToIntVec() * 6;
@@ -357,8 +355,6 @@ namespace OpenNefia.Content.VanillaAI
             var pos = Vector2i.Zero;
             var blocked = false;
 
-            Logger.Warning($"START {spatial.WorldPosition} {dir}");
-
             int start;
             int finish;
             if (reverse)
@@ -413,12 +409,10 @@ namespace OpenNefia.Content.VanillaAI
 
                 if (CanAccessInDirCheck(map, pos, onCellSpatial?.Owner, ai))
                 {
-                    Logger.Debug("GETENT");
                     return (map.AtPos(pos), blocked);
                 }
             }
 
-            Logger.Warning("none");
             return (null, blocked);
         }
 
