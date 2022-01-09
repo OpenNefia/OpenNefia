@@ -8,8 +8,7 @@ namespace OpenNefia.Core.Game
 {
     public class GameSessionManager : IGameSessionManager
     {
-        private EntityUid? _player;
-        public EntityUid Player { get => _player!.Value; set => _player = value; }
+        public EntityUid Player { get; set; } = EntityUid.Invalid;
 
         public bool IsPlayer(EntityUid ent)
         {

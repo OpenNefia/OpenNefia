@@ -71,23 +71,43 @@ namespace OpenNefia.Content.Locale.Funcs
         }
 
         /// <summary>
-        /// Function: have(entity, needE)
+        /// Function: has(entity, needE)
         /// </summary>
         /// <hsp>#defcfunc have int have_charid</hsp>
-        [LocaleFunction("have")]
+        [LocaleFunction("has")]
         public static string BuiltIn_have(object? obj, bool needE = false)
         {
             switch (obj)
             {
+                case int objInt:
+                    if (objInt == 1)
+                        return "has";
+                    else
+                        return "have";
+
+                case long objLong:
+                    if (objLong == 1)
+                        return "has";
+                    else
+                        return "have";
+
                 case EntityUid objEntity:
                     var gameSession = IoCManager.Resolve<IGameSessionManager>();
 
                     if (gameSession.IsPlayer(objEntity))
                         return "have";
-                    else if (needE)
-                        return "has";
-                    else
-                        return "has";
+
+                    var entMan = IoCManager.Resolve<IEntityManager>();
+
+                    if (entMan.TryGetComponent(objEntity, out StackComponent stack))
+                    {
+                        if (stack.Count == 1)
+                            return "has";
+                        else
+                            return "have";
+                    }
+
+                    return "has";
 
                 default:
                     return "has";
@@ -131,7 +151,7 @@ namespace OpenNefia.Content.Locale.Funcs
 
             if (entMan.TryGetComponent(entity, out StackComponent stack))
             {
-                if (stack.Count != 1)
+                if (stack.Count == 1)
                     return "is";
                 else
                     return "are";

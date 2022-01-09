@@ -6,6 +6,6 @@ Elona.Edible =
    end,
    Finishes = function(entity, edible)
       return ("%s %s finished eating %s.")
-         :format(_.name(entity), _.have(entity), _.name(edible))
+         :format(_.name(entity), _.has(entity), _.name(edible))
    end,
 }
