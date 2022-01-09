@@ -2,7 +2,7 @@ namespace OpenNefia.Core.Random
 {
     public class SysRandom : IRandom
     {
-        private readonly System.Random _random = new();
+        private System.Random _random = new();
 
         public float NextFloat()
         {
@@ -32,6 +32,21 @@ namespace OpenNefia.Core.Random
         public void NextBytes(byte[] buffer)
         {
             _random.NextBytes(buffer);
+        }
+
+        public void PushSeed(int seed)
+        {
+            _random = new System.Random(seed);
+        }
+
+        public void PopSeed()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void ClearPushedSeeds()
+        {
+            throw new NotImplementedException();
         }
     }
 }

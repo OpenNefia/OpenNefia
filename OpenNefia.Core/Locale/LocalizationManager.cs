@@ -75,7 +75,7 @@ namespace OpenNefia.Core.Locale
         }
     }
 
-    public sealed partial class LocalizationManager : ILocalizationManager
+    public partial class LocalizationManager : ILocalizationManager
     {
         [Dependency] private readonly IUserInterfaceManager _uiManager = default!;
         [Dependency] private readonly IResourceManager _resourceManager = default!;
@@ -87,11 +87,10 @@ namespace OpenNefia.Core.Locale
 
         private readonly ResourcePath LocalePath = new ResourcePath("/Locale");
         
-        private LocalizationEnv _env = null!;
-
         public void Initialize(PrototypeId<LanguagePrototype> language)
         {
-            _env = new LocalizationEnv(_resourceManager, _reflectionManager);
+            _lua = CreateLuaEnv();
+            ScanBuiltInFunctions();
 
             SwitchLanguage(language);
 
@@ -107,9 +106,9 @@ namespace OpenNefia.Core.Locale
             using var profiler = new ProfilerLogger(LogLevel.Info, "loc", $"Switching language to {language}");
 
             Language = language;
-            _env.SetLanguage(language);
-            _env.LoadAll(language, LocalePath);
-            _env.Resync();
+            SetLanguage(language);
+            LoadAll(language, LocalePath);
+            Resync();
 
             foreach (var layer in _uiManager.ActiveLayers)
             {
@@ -126,12 +125,12 @@ namespace OpenNefia.Core.Locale
         {
             str = null;
 
-            if (_env._StringStore.TryGetValue(key, out str))
+            if (_stringStore.TryGetValue(key, out str))
             {
                 return true;
             }
 
-            if (_env._FunctionStore.TryGetValue(key, out var func))
+            if (_functionStore.TryGetValue(key, out var func))
             {
                 var shared = ArrayPool<object?>.Shared;
                 var rented = shared.Rent(args.Length);
@@ -155,7 +154,7 @@ namespace OpenNefia.Core.Locale
                 return true;
             }
 
-            if (_env._ListStore.TryGetValue(key, out var list))
+            if (_ListStore.TryGetValue(key, out var list))
             {
                 // This is meant to emulate the `txt` function in the HSP source.
                 str = _random.Pick(list);
@@ -194,23 +193,8 @@ namespace OpenNefia.Core.Locale
                 return false;
             }
 
-            table = _env._Lua.GetTable($"OpenNefia.Entities.{metadata.EntityPrototype.ID}");
+            table = _lua.GetTable($"OpenNefia.Entities.{metadata.EntityPrototype.ID}");
             return table != null;
-        }
-
-        public void LoadContentFile(ResourcePath luaFile)
-        {
-            _env.LoadContentFile(luaFile);
-        }
-
-        public void LoadString(string luaScript)
-        {
-            _env.LoadString(luaScript);
-        }
-
-        public void Resync()
-        {
-            _env.Resync();
         }
     }
 }

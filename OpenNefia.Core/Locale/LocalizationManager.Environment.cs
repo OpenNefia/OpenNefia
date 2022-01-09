@@ -6,44 +6,32 @@ using OpenNefia.Core.Reflection;
 using System.Reflection;
 using System.Linq.Expressions;
 using OpenNefia.Core.Log;
+using OpenNefia.Core.IoC;
 
 namespace OpenNefia.Core.Locale
 {
-    internal class LocalizationEnv : IDisposable
+    public partial class LocalizationManager : IDisposable
     {
-        private readonly IResourceManager _resourceManager;
-        private readonly IReflectionManager _reflectionManager;
-
         private PrototypeId<LanguagePrototype> _currentLanguage;
 
-        internal Lua _Lua;
-        internal Dictionary<string, string> _StringStore = new();
+        private Lua _lua = default!;
+        internal Dictionary<string, string> _stringStore = new();
         internal Dictionary<string, List<string>> _ListStore = new();
-        internal Dictionary<string, LuaFunction> _FunctionStore = new();
+        internal Dictionary<string, LuaFunction> _functionStore = new();
 
         private Dictionary<string, MethodInfo> _sharedBuiltInFunctions = new();
         private Dictionary<PrototypeId<LanguagePrototype>, Dictionary<string, MethodInfo>> _builtInFunctions = new();
 
-        private LuaTable _FinalizedKeys => (LuaTable)_Lua["_FinalizedKeys"];
-
-        public LocalizationEnv(IResourceManager resourceManager, IReflectionManager reflectionManager)
-        {
-            _resourceManager = resourceManager;
-            _reflectionManager = reflectionManager;
-
-            ScanBuiltInFunctions();
-
-            _Lua = SetupLua();
-        }
+        private LuaTable _FinalizedKeys => (LuaTable)_lua["_FinalizedKeys"];
 
         public void Clear()
         {
-            _Lua.Dispose();
-            _Lua = SetupLua();
-            _StringStore.Clear();
+            _lua.Dispose();
+            _lua = CreateLuaEnv();
+            _stringStore.Clear();
         }
 
-        private Lua SetupLua()
+        private Lua CreateLuaEnv()
         {
             var lua = new Lua();
             lua.State.Encoding = EncodingHelpers.UTF8;
@@ -61,16 +49,24 @@ namespace OpenNefia.Core.Locale
             lua["package.path"] = path;
         }
 
+        /// <summary>
+        /// Returns a string containing the localization logic in the Lua side.
+        /// </summary>
+        public virtual string GetLocaleEnvScript()
+        {
+            return _resourceManager.ContentFileReadAllText("/Lua/Core/LocaleEnv.lua");
+        }
+
         public void SetLanguage(PrototypeId<LanguagePrototype> language)
         {
             _currentLanguage = language;
 
             Clear();
 
-            _Lua["_LANGUAGE_CODE"] = (string)language;
+            _lua["_LANGUAGE_CODE"] = (string)language;
 
-            var chunk = _resourceManager.ContentFileReadAllText("/Lua/Core/LocaleEnv.lua");
-            _Lua.DoString(chunk);
+            var chunk = GetLocaleEnvScript();
+            _lua.DoString(chunk);
 
             LoadBuiltinFunctions();
         }
@@ -128,7 +124,7 @@ namespace OpenNefia.Core.Locale
 
         private void LoadBuiltinFunctions()
         {
-            var table = (LuaTable)_Lua["_"];
+            var table = (LuaTable)_lua["_"];
 
             foreach (var (funcName, func) in _sharedBuiltInFunctions)
             {
@@ -161,7 +157,7 @@ namespace OpenNefia.Core.Locale
             try
             {
                 var str = _resourceManager.ContentFileReadAllText(luaFile);
-                _Lua.DoString(str);
+                _lua.DoString(str);
             }
             catch (Exception ex)
             {
@@ -173,7 +169,7 @@ namespace OpenNefia.Core.Locale
         {
             try
             {
-                _Lua.DoString(luaScript);
+                _lua.DoString(luaScript);
             }
             catch (Exception ex)
             {
@@ -183,7 +179,7 @@ namespace OpenNefia.Core.Locale
 
         public void Resync()
         {
-            _Lua.DoString("_Finalize()");
+            _lua.DoString("_Finalize()");
 
             foreach (KeyValuePair<object, object> pair in _FinalizedKeys)
             {
@@ -194,7 +190,7 @@ namespace OpenNefia.Core.Locale
 
                 if (ty == typeof(LuaFunction))
                 {
-                    _FunctionStore[key] = (LuaFunction)value;
+                    _functionStore[key] = (LuaFunction)value;
                 }
                 else if (ty == typeof(LuaTable))
                 {
@@ -207,14 +203,14 @@ namespace OpenNefia.Core.Locale
                 }
                 else
                 {
-                    _StringStore[key] = value!.ToString()!;
+                    _stringStore[key] = value!.ToString()!;
                 }
             }
         }
 
         public void Dispose()
         {
-            this._Lua.Dispose();
+            this._lua.Dispose();
         }
     }
 }

@@ -133,7 +133,7 @@ namespace OpenNefia.Tests
             IoCManager.Register<IModLoader, TestingModLoader>(overwrite: true);
             IoCManager.Register<IModLoaderInternal, TestingModLoader>(overwrite: true);
             IoCManager.Register<TestingModLoader, TestingModLoader>(overwrite: true);
-            IoCManager.Register<ILocalizationManager, TestingLocalizationManager>(overwrite: true);
+            IoCManager.Register<ILocalizationManager, DummyLocalizationManager>(overwrite: true);
 
             _diFactory?.Invoke(container);
             container.BuildGraph();
