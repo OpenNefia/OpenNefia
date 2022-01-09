@@ -119,7 +119,7 @@ OpenNefia.Prototypes.Elona.Race.Elona =
       Name = "コボルト"
    },
    Lich = {
-      Description = 'リッチは高い知能と魔力を備えた不朽のアンデッドです。彼らは通常の種族よりも高いマナと瞑想の技術を得ますが、肉弾戦に耐え切れるほどの体力はありません。リッチは冷気と毒と強い暗黒への耐性を持っています。" is their new "life beginning anew, but they are patient. After all, they have all the time in the world now.',
+      Description = "リッチは高い知能と魔力を備えた不朽のアンデッドです。彼らは通常の種族よりも高いマナと瞑想の技術を得ますが、肉弾戦に耐え切れるほどの体力はありません。リッチは冷気と毒と強い暗黒への耐性を持っています。",
       Name = "リッチ"
    },
    Lizardman = {
