@@ -111,8 +111,12 @@ Test.Content.Builtins = {
             var entCharaPlayer = entMan.SpawnEntity(EntityCharaFemaleID, map.AtPos(Vector2i.One));
             gameSession.Player = entCharaPlayer;
 
+            var entItemOutOfSight = entMan.SpawnEntity(EntityItemSingleID, map.AtPos(new Vector2i(20, 20)));
+
             Assert.That(locMan.GetString("Test.Content.Builtins.Name", ("arg", entItemSingle)), Is.EqualTo("a ItemSingle"));
             Assert.That(locMan.GetString("Test.Content.Builtins.Name", ("arg", entItemStacked)), Is.EqualTo("2 ItemStackeds"));
+
+            Assert.That(locMan.GetString("Test.Content.Builtins.Name", ("arg", entItemOutOfSight)), Is.EqualTo("something"));
         }
 
         #endregion
