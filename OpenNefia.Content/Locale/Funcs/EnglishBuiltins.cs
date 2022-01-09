@@ -25,8 +25,18 @@ namespace OpenNefia.Content.Locale.Funcs
             switch (obj)
             {
                 case int objInt:
-                    if (objInt > 1)
+                    if (objInt != 1)
                         return "";
+                    else if (needE)
+                        return "es";
+                    else
+                        return "s";
+
+                case long objLong:
+                    if (objLong != 1)
+                        return "";
+                    else if (needE)
+                        return "es";
                     else
                         return "s";
 
@@ -37,6 +47,8 @@ namespace OpenNefia.Content.Locale.Funcs
                     {
                         if (stack.Count > 1)
                             return "";
+                        else if (needE)
+                            return "es";
                         else
                             return "s";
                     }
@@ -51,7 +63,10 @@ namespace OpenNefia.Content.Locale.Funcs
                         return "s";
 
                 default:
-                    return "s";
+                    if (needE)
+                        return "es";
+                    else
+                        return "s";
             }
         }
 
@@ -90,6 +105,14 @@ namespace OpenNefia.Content.Locale.Funcs
             if (obj is int i)
             {
                 if (i == 1)
+                    return "is";
+                else
+                    return "are";
+            }
+
+            if (obj is long l)
+            {
+                if (l == 1L)
                     return "is";
                 else
                     return "are";

@@ -14,6 +14,7 @@ namespace OpenNefia.Content.Tests
         {
             return GameSimulation
                .NewSimulation()
+               .LoadAssemblies(list => list.Add(typeof(Content.EntryPoint).Assembly))
                .RegisterEntitySystems(factory =>
                {
                    factory.LoadExtraSystemType<EntityGenSystem>();

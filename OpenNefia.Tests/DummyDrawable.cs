@@ -1,7 +1,7 @@
 ﻿using OpenNefia.Core.Maths;
 using OpenNefia.Core.UI.Element;
 
-namespace OpenNefia.Content.Tests
+namespace OpenNefia.Tests
 {
     public class DummyDrawable : IDrawable
     {
