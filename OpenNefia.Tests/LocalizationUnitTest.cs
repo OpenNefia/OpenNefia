@@ -1,5 +1,6 @@
 ﻿using OpenNefia.Core.IoC;
 using OpenNefia.Core.Locale;
+using OpenNefia.Core.Prototypes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +16,6 @@ namespace OpenNefia.Tests
             IoCManager.Register<ILocalizationManager, TestingLocalizationManager>(overwrite: true);
 
             // Load the required localization code in the Lua side.
-
         }
     }
 

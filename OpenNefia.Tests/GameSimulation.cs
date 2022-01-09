@@ -38,6 +38,7 @@ namespace OpenNefia.Tests
         ISimulationFactory RegisterEntitySystems(EntitySystemRegistrationDelegate factory);
         ISimulationFactory RegisterPrototypes(PrototypeRegistrationDelegate factory);
         ISimulationFactory RegisterDataDefinitionTypes(DataDefinitionTypesRegistrationDelegate factory);
+        ISimulationFactory LoadAssemblies(LoadAssembliesDelegate factory);
         ISimulationFactory LoadLocalizations(LocalizationLoadDelegate factory);
         ISimulation InitializeInstance();
     }
@@ -75,6 +76,8 @@ namespace OpenNefia.Tests
 
     public delegate void DataDefinitionTypesRegistrationDelegate(List<Type> types);
 
+    public delegate void LoadAssembliesDelegate(List<Assembly> assemblies);
+
     public delegate void LocalizationLoadDelegate(ILocalizationManager locMan);
 
     /// <summary>
@@ -96,6 +99,7 @@ namespace OpenNefia.Tests
         private EntitySystemRegistrationDelegate? _systemDelegate;
         private PrototypeRegistrationDelegate? _protoDelegate;
         private DataDefinitionTypesRegistrationDelegate? _dataDefnTypesDelegate;
+        private LoadAssembliesDelegate? _assembliesLoadDelegate;
         private LocalizationLoadDelegate? _localizationLoadDelegate;
 
         public IDependencyCollection Collection { get; private set; } = default!;
@@ -165,6 +169,12 @@ namespace OpenNefia.Tests
             return this;
         }
 
+        public ISimulationFactory LoadAssemblies(LoadAssembliesDelegate factory)
+        {
+            _assembliesLoadDelegate += factory;
+            return this;
+        }
+
         public ISimulationFactory LoadLocalizations(LocalizationLoadDelegate factory)
         {
             _localizationLoadDelegate += factory;
@@ -188,14 +198,20 @@ namespace OpenNefia.Tests
             container.Register<IModLoaderInternal, TestingModLoader>();
             container.Register<ITaskManager, TaskManager>();
 
-            container.RegisterInstance<IUserInterfaceManager>(new Mock<IUserInterfaceManager>().Object);
+            var mockUIManager = new Mock<IUserInterfaceManager>();
+            mockUIManager.Setup(m => m.ActiveLayers).Returns(new List<UiLayer>());
+            container.RegisterInstance<IUserInterfaceManager>(mockUIManager.Object);
             container.RegisterInstance<IGraphics>(new Mock<IGraphics>().Object);
 
-            var realReflection = new ReflectionManager();
-            realReflection.LoadAssemblies(new List<Assembly>(1)
+            var assemblies = new List<Assembly>(1)
             {
                 typeof(OpenNefia.Core.Engine).Assembly,
-            });
+            };
+
+            _assembliesLoadDelegate?.Invoke(assemblies);
+
+            var realReflection = new ReflectionManager();
+            realReflection.LoadAssemblies(assemblies);
 
             var reflectionManager = new Mock<IReflectionManager>();
             reflectionManager
@@ -217,6 +233,10 @@ namespace OpenNefia.Tests
             reflectionManager
                 .Setup(x => x.FindTypesWithAttribute<TypeSerializerAttribute>())
                 .Returns(() => realReflection.FindTypesWithAttribute<TypeSerializerAttribute>());
+
+            reflectionManager
+                .Setup(x => x.FindTypesWithAttribute<RegisterLocaleFunctionsAttribute>())
+                .Returns(() => realReflection.FindTypesWithAttribute<RegisterLocaleFunctionsAttribute>());
 
             container.RegisterInstance<IReflectionManager>(reflectionManager.Object); // tests should not be searching for types
             container.RegisterInstance<IResourceManager>(new Mock<IResourceManager>().Object); // no disk access for tests
@@ -303,6 +323,7 @@ namespace OpenNefia.Tests
             saveGameSer.Initialize();
 
             var locMan = container.Resolve<ILocalizationManager>();
+            locMan.Initialize(LanguagePrototypeOf.English);
             _localizationLoadDelegate?.Invoke(locMan);
             locMan.Resync();
 
