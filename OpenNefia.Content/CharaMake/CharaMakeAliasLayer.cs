@@ -1,4 +1,4 @@
-﻿using OpenNefia.Content.Aliases;
+﻿using OpenNefia.Content.RandomText;
 using OpenNefia.Content.UI;
 using OpenNefia.Content.UI.Element;
 using OpenNefia.Content.UI.Element.List;

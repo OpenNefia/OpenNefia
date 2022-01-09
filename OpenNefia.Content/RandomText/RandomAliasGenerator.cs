@@ -1,23 +1,13 @@
-﻿using Love;
-using Microsoft.VisualBasic.FileIO;
+﻿using Microsoft.VisualBasic.FileIO;
 using OpenNefia.Core.ContentPack;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Locale;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Random;
-using OpenNefia.Core.Stats;
 using OpenNefia.Core.Utility;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using YamlDotNet.Core;
 
-namespace OpenNefia.Content.Aliases
+namespace OpenNefia.Content.RandomText
 {
     public enum AliasType
     {
@@ -91,27 +81,17 @@ namespace OpenNefia.Content.Aliases
             }
         }
 
-        private class AliasData
-        {
-            public AliasDataCategory Category { get; }
-            public List<string> Choices { get; }
-
-            public AliasData(AliasDataCategory type, List<string> choices)
-            {
-                Category = type;
-                Choices = choices;
-            }
-        }
+        private record AliasData(AliasDataCategory Category, IReadOnlyList<string> Choices);
 
         [Dependency] private readonly IRandom _random = default!;
         [Dependency] private readonly IResourceManager _resourceManager = default!;
-        [Dependency] private readonly ILocalizationManager _localizationManager = default!;
+        [Dependency] private readonly ILocalizationManager _localeMan = default!;
 
         private readonly List<AliasData> _allAliasData = new();
 
         public void Initialize()
         {
-            _localizationManager.OnLanguageSwitched += LoadAliasFiles;
+            _localeMan.OnLanguageSwitched += LoadAliasFiles;
         }
 
         private void LoadAliasFiles(PrototypeId<LanguagePrototype> newLanguage)
@@ -119,16 +99,16 @@ namespace OpenNefia.Content.Aliases
             _allAliasData.Clear();
 
             var csvPaths = _resourceManager
-                .ContentFindFiles(new ResourcePath("/Aliases") / ((string)newLanguage))
+                .ContentFindFiles(new ResourcePath("/Aliases") / (string)newLanguage)
                 .Where(path => path.Extension == "csv");
 
             foreach (var csvPath in csvPaths)
             {
-                LoadFile(csvPath);
+                LoadAliasFile(csvPath);
             }
         }
 
-        private void LoadFile(ResourcePath csvPath)
+        private void LoadAliasFile(ResourcePath csvPath)
         {
             using (var stream = _resourceManager.ContentFileReadText(csvPath))
             {
@@ -169,7 +149,7 @@ namespace OpenNefia.Content.Aliases
 
         private string CapitalizeTitleText(string text)
         {
-            if (_localizationManager.Language != LanguagePrototypeOf.English || string.IsNullOrEmpty(text))
+            if (_localeMan.Language != LanguagePrototypeOf.English || string.IsNullOrEmpty(text))
                 return text;
 
             if (text[0] == '*')
@@ -229,7 +209,7 @@ namespace OpenNefia.Content.Aliases
 
             var noSecondPart = false;
 
-            if (_localizationManager.Language == LanguagePrototypeOf.Japanese)
+            if (_localeMan.Language == LanguagePrototypeOf.Japanese)
             {
                 while (true)
                 {
@@ -247,7 +227,7 @@ namespace OpenNefia.Content.Aliases
 
                         switch (_random.Next(5))
                         {
-                            case 0: 
+                            case 0:
                                 result += "・オブ・";
                                 break;
                             case 1:
@@ -272,7 +252,7 @@ namespace OpenNefia.Content.Aliases
                     break;
                 }
             }
-            else if (_localizationManager.Language == LanguagePrototypeOf.English)
+            else if (_localeMan.Language == LanguagePrototypeOf.English)
             {
                 if (column == 0 || column == 1)
                 {
@@ -337,7 +317,7 @@ namespace OpenNefia.Content.Aliases
 
             if (type == AliasType.Party)
             {
-                if (_localizationManager.Language == LanguagePrototypeOf.Japanese)
+                if (_localeMan.Language == LanguagePrototypeOf.Japanese)
                 {
                     var suffix = _random.Pick(PartyAliasSuffixesJP);
                     result += suffix;

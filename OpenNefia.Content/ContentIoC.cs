@@ -1,6 +1,6 @@
-﻿using OpenNefia.Content.Aliases;
-using OpenNefia.Content.CharaMake;
+﻿using OpenNefia.Content.CharaMake;
 using OpenNefia.Content.Logic;
+using OpenNefia.Content.RandomText;
 using OpenNefia.Content.TitleScreen;
 using OpenNefia.Content.UI.Hud;
 using OpenNefia.Content.UI.Layer;
@@ -21,6 +21,7 @@ namespace OpenNefia.Content
             IoCManager.Register<IHudLayer, HudLayer>();
             IoCManager.Register<IReplLayer, ReplLayer>();
             IoCManager.Register<IRandomAliasGenerator, RandomAliasGenerator>();
+            IoCManager.Register<IRandomNameGenerator, RandomNameGenerator>();
         }
     }
 }
