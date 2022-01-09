@@ -1,4 +1,5 @@
-﻿using OpenNefia.Content.Input;
+﻿using OpenNefia.Content.Aliases;
+using OpenNefia.Content.Input;
 using OpenNefia.Content.TitleScreen;
 using OpenNefia.Core.ContentPack;
 using OpenNefia.Core.GameController;
@@ -21,6 +22,9 @@ namespace OpenNefia.Content
         {
             ContentIoC.Register();
             IoCManager.BuildGraph();
+
+            var aliasGen = IoCManager.Resolve<IRandomAliasGenerator>();
+            aliasGen.Initialize();
         }
 
         public override void PostInit()

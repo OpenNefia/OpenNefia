@@ -28,6 +28,8 @@ namespace OpenNefia.Core.Locale
             where T: class, IPrototype;
     }
 
+    public delegate void LanguageSwitchedDelegate(PrototypeId<LanguagePrototype> newLanguage);
+
     public interface ILocalizationManager : ILocalizationFetcher
     {
         PrototypeId<LanguagePrototype> Language { get; }
@@ -44,6 +46,8 @@ namespace OpenNefia.Core.Locale
         void Resync();
 
         bool TryGetLocalizationData(EntityUid uid, [NotNullWhen(true)] out LuaTable? table);
+    
+        event LanguageSwitchedDelegate? OnLanguageSwitched;
     }
 
     /// <summary>
@@ -86,6 +90,8 @@ namespace OpenNefia.Core.Locale
         [Dependency] private readonly IEntityManager _entityManager = default!;
         [Dependency] private readonly IEntityFactory _entityFactory = default!;
 
+        public event LanguageSwitchedDelegate? OnLanguageSwitched;
+
         private readonly ResourcePath LocalePath = new ResourcePath("/Locale");
         
         public void Initialize(PrototypeId<LanguagePrototype> language)
@@ -120,12 +126,12 @@ namespace OpenNefia.Core.Locale
             {
                 _entityFactory.LocalizeComponents(uid);
             }
+
+            OnLanguageSwitched?.Invoke(language);
         }
 
         public bool TryGetString(LocaleKey key, [NotNullWhen(true)] out string? str, params LocaleArg[] args)
         {
-            str = null;
-
             if (_stringStore.TryGetValue(key, out str))
             {
                 return true;
