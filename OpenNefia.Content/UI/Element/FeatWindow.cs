@@ -130,8 +130,9 @@ namespace OpenNefia.Content.UI.Element
 
         private Func<Dictionary<FeatPrototype, int>> GetFeatsFunc;
         private Action<FeatData.Feat> SelectFeatAction;
+        private Func<int> GetAvailableCountFunc;
 
-        public FeatWindow(Func<Dictionary<FeatPrototype, int>> getFeatsFunc, Action<FeatData.Feat> selectFeatAction)
+        public FeatWindow(Func<Dictionary<FeatPrototype, int>> getFeatsFunc, Action<FeatData.Feat> selectFeatAction, Func<int> getAvailableCountFunc)
         {
             _prototypeManager = IoCManager.Resolve<IPrototypeManager>();
 
@@ -142,6 +143,7 @@ namespace OpenNefia.Content.UI.Element
             List = new UiPagedList<FeatData>(itemsPerPage: ItemsPerPage, elementForPageText: this);
             GetFeatsFunc = getFeatsFunc ?? (() => new Dictionary<FeatPrototype, int>());
             SelectFeatAction = selectFeatAction ?? (feat => { });
+            GetAvailableCountFunc = getAvailableCountFunc ?? (() => 0);
             //PageModel.NumberXOffset = -55;
             //PageModel.NumberYOffset = -3;
 

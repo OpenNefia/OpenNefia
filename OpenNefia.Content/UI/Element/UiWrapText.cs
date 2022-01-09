@@ -1,4 +1,7 @@
-﻿using OpenNefia.Core.Maths;
+﻿using OpenNefia.Core.IoC;
+using OpenNefia.Core.Locale;
+using OpenNefia.Core.Maths;
+using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Rendering;
 using System;
 using System.Collections.Generic;
@@ -23,7 +26,7 @@ namespace OpenNefia.Content.UI.Element
             set => base.Text = WordWrap(value, MaxWidth); 
         }
 
-        static char[] splitChars = new char[] { ' ' };
+        static char[] splitChars = new char[] { ' ', '　' };
 
         // function from https://stackoverflow.com/questions/17586/best-word-wrap-algorithm
         private string WordWrap(string str, int width)
@@ -31,7 +34,7 @@ namespace OpenNefia.Content.UI.Element
             if (width <= 0)
                 return base.Text;
 
-            string[] words = SplitString(str, splitChars);
+            string[] words = SplitString(str, LanguagePrototypeOf.Japanese);
 
             int curLineLength = 0;
             StringBuilder strBuilder = new StringBuilder();
@@ -70,8 +73,7 @@ namespace OpenNefia.Content.UI.Element
             return strBuilder.ToString();
         }
 
-        // function from https://stackoverflow.com/questions/17586/best-word-wrap-algorithm
-        private static string[] SplitString(string str, char[] splitChars)
+        private string[] SplitStringEn(string str, char[] splitChars)
         {
             List<string> parts = new List<string>();
             int startIndex = 0;
@@ -99,6 +101,18 @@ namespace OpenNefia.Content.UI.Element
                 }
 
                 startIndex = index + 1;
+            }
+        }
+
+        // function from https://stackoverflow.com/questions/17586/best-word-wrap-algorithm
+        private string[] SplitString(string str, PrototypeId<LanguagePrototype> lang)
+        {
+            switch (lang)
+            {
+                case var en when lang == LanguagePrototypeOf.English:
+                    return SplitStringEn(str, splitChars);
+                default:
+                    return str.Select(x => $"{x}").ToArray();
             }
         }
     }
