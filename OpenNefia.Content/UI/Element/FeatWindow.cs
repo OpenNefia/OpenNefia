@@ -32,7 +32,7 @@ namespace OpenNefia.Content.UI.Element
             public record GainedFeat : Feat
             {
                 public override int TotalLevel => Level;
-                public override string Name => $"[{Loc.GetString($"Elona.FeatMenu.FeatType.{Prototype.FeatType}")}]{base.Name}";
+                public override string Name => $"[{Loc.GetString($"Elona.FeatMenu.FeatType.{Prototype.FeatType}")}] {base.Name}";
                 public bool IsRace;
                 
                 public GainedFeat(FeatPrototype Prototype, int Level, bool isRace) : base(Prototype, Level)
@@ -85,11 +85,10 @@ namespace OpenNefia.Content.UI.Element
         }
 
         protected readonly IPrototypeManager _prototypeManager = default!;
-
+        private const int ItemsPerPage = 15;
         private const int WindowHeight = 430;
         private const int WindowWidth = 740;
-        private UiPageModel<FeatCell> PageModel;
-        public UiList<FeatData> List;
+        public UiPagedList<FeatData> List;
 
         private Func<Dictionary<FeatPrototype, int>> GetFeatsFunc;
         private Action<FeatData.Feat> SelectFeatAction;
@@ -99,22 +98,20 @@ namespace OpenNefia.Content.UI.Element
             _prototypeManager = IoCManager.Resolve<IPrototypeManager>();
 
             TextTitle.Text = Loc.GetString("Elona.FeatMenu.Title");
-            List = new UiList<FeatData>();
+            List = new UiPagedList<FeatData>(itemsPerPage: ItemsPerPage, elementForPageText: this);
             GetFeatsFunc = getFeatsFunc ?? (() => new Dictionary<FeatPrototype, int>());
             SelectFeatAction = selectFeatAction ?? (feat => { });
-            PageModel = new UiPageModel<FeatCell>();
-            PageModel.SetWindow(this);
-            PageModel.NumberXOffset = -55;
-            PageModel.NumberYOffset = -3;
+            //PageModel.NumberXOffset = -55;
+            //PageModel.NumberYOffset = -3;
 
             List.GrabFocus();
             List.EventOnActivate += List_OnActivate;
-            PageModel.OnPageChanged += OnPageChanged;
             RefreshData();
         }
 
         private void RefreshData(FeatPrototype? lastSelected = null)
         {
+            List.Clear();
             var data = new List<FeatCell>();
             var prototypes = _prototypeManager.EnumeratePrototypes<FeatPrototype>()?.Where(x => x.FeatType == FeatType.Feat)!;
 
@@ -130,16 +127,17 @@ namespace OpenNefia.Content.UI.Element
             data.AddRange(gainedFeats
                 .Select(x => new FeatCell(new FeatData.GainedFeat(x.Key, x.Value, x.Key.FeatType == FeatType.Race)))
                 .OrderBy(x => (x.Data as FeatData.GainedFeat)?.IsRace));
-            PageModel.Initialize(data, 15);
+            List.AddRange(data);
 
             if (lastSelected != null)
             {
                 try
                 {
-                    var selectedIndex = data.First(x => (x.Data as FeatData.GainedFeat)?.Prototype == lastSelected);
-                    var page = (data.IndexOf(selectedIndex)) / PageModel.ItemsPerPage;
-                    PageModel.ChangePage(page);
-                    List.Select(List.IndexOf(List.First(x => (x.Data as FeatData.Feat)?.Prototype == lastSelected)));
+                    var selected = data.First(x => (x.Data as FeatData.GainedFeat)?.Prototype == lastSelected);
+                    var page = (data.IndexOf(selected)) / ItemsPerPage;
+                    List.SetPage(page);
+                    var pageElements = List.DisplayedCells.ToList();
+                    List.Select(pageElements.IndexOf(pageElements.First(x => (x.Data as FeatData.Feat)?.Prototype == lastSelected)));
                 }
                 catch (Exception ex)
                 {
@@ -161,25 +159,6 @@ namespace OpenNefia.Content.UI.Element
             }
         }
 
-        private void OnPageChanged()
-        {
-            List.Clear();
-            List.AddRange(PageModel.GetCurrentElements());
-            List.Select(List.SelectedIndex);
-        }
-
-        public void OnKeyDown(GUIBoundKeyEventArgs args)
-        {
-            if (args.Function == EngineKeyFunctions.UINextPage)
-            {
-                PageModel.PageForward();
-            }
-            if (args.Function == EngineKeyFunctions.UIPreviousPage)
-            {
-                PageModel.PageBackward();
-            }
-        }
-
         public override void GetPreferredSize(out Vector2i size)
         {
             size.X = WindowWidth;
@@ -196,26 +175,22 @@ namespace OpenNefia.Content.UI.Element
         {
             base.SetPosition(x, y);
             List.SetPosition(X + 55, Y + 60);
-            PageModel.SetPosition(x, y);
         }
 
         public override void Draw()
         {
             base.Draw();
             List.Draw();
-            PageModel.Draw();
         }
 
         public override void Update(float dt)
         {
             base.Update(dt);
             List.Update(dt);
-            PageModel.Update(dt);
         }
 
         public override void Dispose()
         {
-            PageModel.OnPageChanged -= OnPageChanged;
             List.EventOnActivate -= List_OnActivate;
         }
     }
