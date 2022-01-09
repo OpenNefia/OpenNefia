@@ -8,7 +8,7 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace OpenNefia.Tests
 {
-    public class TestingLocalizationManager : ILocalizationManager
+    public class DummyLocalizationManager : ILocalizationManager
     {
         public PrototypeId<LanguagePrototype> Language => LanguagePrototypeOf.English;
 

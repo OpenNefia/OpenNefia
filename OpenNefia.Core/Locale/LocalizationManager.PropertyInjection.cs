@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace OpenNefia.Core.Locale
 {
-    public sealed partial class LocalizationManager
+    public partial class LocalizationManager
     {
         public void DoLocalize(object o, LocaleKey key)
         {
@@ -56,7 +56,7 @@ namespace OpenNefia.Core.Locale
 
         private void LocalizeDictionary(FieldInfo field, LocaleKey localeKey)
         {
-            var luaTable = _env._Lua.GetTable(localeKey);
+            var luaTable = _lua.GetTable(localeKey);
 
             if (luaTable == null)
             {

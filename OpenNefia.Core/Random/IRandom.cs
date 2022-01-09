@@ -14,5 +14,9 @@ namespace OpenNefia.Core.Random
         int Next(int maxValue);
         double NextDouble();
         void NextBytes(byte[] buffer);
+
+        void PushSeed(int seed);
+        void PopSeed();
+        void ClearPushedSeeds();
     }
 }
