@@ -208,8 +208,7 @@ namespace OpenNefia.Core.Locale
                 return false;
             }
 
-            // TODO: put this under prototypes like everything else
-            return TryGetTable($"OpenNefia.Entities.{metadata.EntityPrototype.ID}", out table);
+            return TryGetTable($"OpenNefia.Prototypes.Entity.{metadata.EntityPrototype.ID}", out table);
         }
     }
 }

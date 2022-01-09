@@ -1,4 +1,4 @@
-OpenNefia.Entities.Elona =
+OpenNefia.Prototypes.Entity.Elona =
 {
     ItemBug = {
         MetaData = {
