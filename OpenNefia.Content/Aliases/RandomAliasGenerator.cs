@@ -23,8 +23,7 @@ namespace OpenNefia.Content.Aliases
     {
         Chara,
         Weapon,
-        Party,
-        LivingWeapon
+        Party
     }
 
     public interface IRandomAliasGenerator
@@ -225,7 +224,7 @@ namespace OpenNefia.Content.Aliases
             alias = null;
             var (data, column, result) = RandomAliasAndChoice();
 
-            if ((type == AliasType.Weapon || type == AliasType.LivingWeapon) && data.Category == AliasDataCategory.Tool)
+            if (type == AliasType.Weapon && data.Category == AliasDataCategory.Tool)
                 return false;
 
             var skip = false;
