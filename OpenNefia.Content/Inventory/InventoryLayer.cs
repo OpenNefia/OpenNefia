@@ -26,6 +26,7 @@ using OpenNefia.Content.DisplayName;
 using OpenNefia.Content.GameObjects.Pickable;
 using OpenNefia.Core.Locale;
 using OpenNefia.Content.Cargo;
+using static OpenNefia.Content.Equipment.EquipmentLayer;
 
 namespace OpenNefia.Content.Inventory
 {
@@ -154,7 +155,7 @@ namespace OpenNefia.Content.Inventory
         public bool PlaySounds { get; set; } = false;
 
         private UiWindow Window = new();
-        private UiList<InventoryEntry> List = new();
+        private UiPagedList<InventoryEntry> List = new(itemsPerPage: 16);
 
         public int SelectedIndex => List.SelectedIndex;
         public InventoryEntry? SelectedEntry => List.SelectedCell?.Data;
@@ -192,6 +193,8 @@ namespace OpenNefia.Content.Inventory
 
             AddChild(Window);
             AddChild(List);
+
+            List.PageTextElement = Window;
 
             OnKeyBindDown += HandleKeyBindDown;
             List.EventOnActivate += OnSelect;

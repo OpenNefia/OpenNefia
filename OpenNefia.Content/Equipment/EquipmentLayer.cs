@@ -201,7 +201,7 @@ namespace OpenNefia.Content.Equipment
         protected IUiText TextNoteEquipStats = new UiText(UiFonts.TextNote);
 
         [Localize] protected UiWindow Window = new(keyHintXOffset: 64);
-        protected UiList<CellData> List = new();
+        protected UiPagedList<CellData> List = new(itemsPerPage: 14);
 
         private EntitySpriteBatch _spriteBatch = new();
 
@@ -220,6 +220,7 @@ namespace OpenNefia.Content.Equipment
             EventFilter = UIEventFilterMode.Stop;
             CanControlFocus = true;
 
+            List.PageTextElement = Window;
             List.EventOnActivate += HandleListOnActivate;
 
             AddChild(Window);

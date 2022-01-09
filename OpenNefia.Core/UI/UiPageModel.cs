@@ -18,7 +18,7 @@ namespace OpenNefia.Core.UI
     {
         private IEnumerable<T> PagedElements;
 
-        private int ItemsPerPage;
+        public int ItemsPerPage { get; }
 
         /// <inheritdoc/>
         public int CurrentPage { get; private set; } = 0;
@@ -31,15 +31,15 @@ namespace OpenNefia.Core.UI
 
         public event PageChangedDelegate? OnPageChanged;
 
-        public UiPageModel()
+        public UiPageModel(int itemsPerPage = 16)
         {
             PagedElements = Enumerable.Empty<T>();
+            ItemsPerPage = itemsPerPage;
         }
 
-        public void Initialize(IEnumerable<T> elements, int itemsPerPage = 16)
+        public void SetElements(IEnumerable<T> elements)
         {
             PagedElements = elements;
-            ItemsPerPage = itemsPerPage;
             SetPage(0);
         }
 
@@ -67,7 +67,7 @@ namespace OpenNefia.Core.UI
             var oldPage = CurrentPage;
             CurrentPage = Math.Clamp(page, 0, PageCount);
             UpdateCurrentElements();
-            OnPageChanged?.Invoke(page, PageCount);
+            OnPageChanged?.Invoke(CurrentPage, PageCount);
             return oldPage != CurrentPage;
         }
     }

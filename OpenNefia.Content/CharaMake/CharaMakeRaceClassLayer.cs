@@ -245,7 +245,7 @@ namespace OpenNefia.Content.CharaMake
             DetailContainer.AddLayout(LayoutType.Spacer, 18);
             DetailContainer.AddElement(TrainedSkillContainer);
 
-            List = new UiPagedList<RaceClass>(elementForPageText: Window);
+            List = new UiPagedList<RaceClass>(itemsPerPage: 16, elementForPageText: Window);
             List.EventOnActivate += (_, args) =>
             {
                 Select(args.SelectedCell.Data);

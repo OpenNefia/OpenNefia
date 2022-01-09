@@ -14,12 +14,12 @@ namespace OpenNefia.Content.UI.Element
 {
     public class UiPageText : UiElement
     {
-        private IUiElement? Parent;
+        public IUiElement? PageTextParent { get; set; }
         private UiText PageText;
 
         public UiPageText(IUiElement? parent = null)
         {
-            Parent = parent;
+            PageTextParent = parent;
             PageText = new UiText(UiFonts.WindowPage);
         }
 
@@ -36,15 +36,27 @@ namespace OpenNefia.Content.UI.Element
 
         public override void GetPreferredSize(out Vector2i size)
         {
-            size = Parent != null ? Parent.PixelSize : Vector2i.Zero;
+            size = PageTextParent != null ? PageTextParent.PixelSize : Vector2i.Zero;
+        }
+
+        public override void SetSize(int width, int height)
+        {
+            if (PageTextParent != null)
+            {
+                width = PageTextParent.Width;
+                height = PageTextParent.Height;
+            }
+
+            base.SetSize(width, height);
+            PageText.SetPreferredSize();
         }
 
         public override void SetPosition(int x, int y)
         {
-            if (Parent != null)
+            if (PageTextParent != null)
             {
-                x = Parent.X;
-                y = Parent.Y;
+                x = PageTextParent.X;
+                y = PageTextParent.Y;
             }
 
             base.SetPosition(x, y);
@@ -53,15 +65,16 @@ namespace OpenNefia.Content.UI.Element
 
         public override void Draw()
         {
-            if (Parent == null)
+            if (PageTextParent == null)
                 return;
 
             PageText.Draw();
+            UiUtils.DebugDraw(PageTextParent);
         }
 
         public override void Update(float dt)
         {
-            if (Parent == null)
+            if (PageTextParent == null)
                 return;
 
             PageText.Update(dt);
