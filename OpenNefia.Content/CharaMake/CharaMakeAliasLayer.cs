@@ -1,7 +1,9 @@
-﻿using OpenNefia.Content.UI;
+﻿using OpenNefia.Content.Aliases;
+using OpenNefia.Content.UI;
 using OpenNefia.Content.UI.Element;
 using OpenNefia.Content.UI.Element.List;
 using OpenNefia.Core.Audio;
+using OpenNefia.Core.IoC;
 using OpenNefia.Core.Locale;
 using OpenNefia.Core.Rendering;
 using System;
@@ -9,6 +11,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static OpenNefia.Content.Prototypes.Protos;
 
 namespace OpenNefia.Content.CharaMake
 {
@@ -33,48 +36,65 @@ namespace OpenNefia.Content.CharaMake
             }
         }
 
+        [Dependency] private readonly IRandomAliasGenerator _aliasGenerator = default!;
+
+        public const string ResultName = "alias";
+
         [Localize]
         private UiWindow Window;
         [Localize]
         private IUiText AliasTopic;
 
         private UiList<CreateCharAlias> List;
-        private const string ResultName = "alias";
 
         public CharaMakeAliasLayer()
         {
             Window = new UiWindow();
+
+            List = new UiList<CreateCharAlias>();
+            List.EventOnActivate += HandleListOnActivate;
+            AliasTopic = new UiTextTopic();
+
+            AddChild(Window);
+            AddChild(List);
+        }
+
+        public override void Initialize(CharaMakeData args)
+        {
+            base.Initialize(args);
+            Reroll();
+        }
+
+        private void HandleListOnActivate(object? sender, UiListEventArgs<CreateCharAlias> args)
+        {
+            if (args.SelectedCell.Data.IsReroll)
+            {
+                Sounds.Play(Sound.Dice);
+                Reroll();
+            }
+            else
+            {
+                Result = new CharaMakeResult(new Dictionary<string, object>
+                {
+                    { ResultName, args.SelectedCell.Data.Alias }
+                });
+                Finish(Result);
+            }
+        }
+
+        private void Reroll()
+        {
             var items = new CreateCharAliasCell[17];
             items[0] = new CreateCharAliasCell(new CreateCharAlias(string.Empty, true), Loc.GetString("Elona.CharaMake.AliasSelect.Reroll"));
 
             for (int i = 1; i < items.Length; i++)
             {
-                //TODO add alias generation + localization support
-                var alias = Guid.NewGuid().ToString();
+                var alias = _aliasGenerator.GenerateRandomAlias(AliasType.Chara);
                 items[i] = new CreateCharAliasCell(new CreateCharAlias(alias, false), alias);
             }
 
-            List = new UiList<CreateCharAlias>(items);
-            List.EventOnActivate += (_, args) =>
-            {
-                if (args.SelectedCell.Data.IsReroll)
-                {
-                    Sounds.Play(Prototypes.Protos.Sound.Dice);
-                    //TODO add rerolling
-                }
-                else
-                {
-                    Result = new CharaMakeResult(new Dictionary<string, object>
-                    {
-                        { ResultName, args.SelectedCell.Data.Alias }
-                    });
-                    Finish(Result);
-                }
-            };
-            AliasTopic = new UiTextTopic();
-
-            AddChild(Window);
-            AddChild(List);
+            List.Clear();
+            List.AddRange(items);
         }
 
         public override void OnFocused()
