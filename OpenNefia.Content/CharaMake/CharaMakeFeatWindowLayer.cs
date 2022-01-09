@@ -22,7 +22,6 @@ namespace OpenNefia.Content.CharaMake
                 selectedFeats[feat.Prototype] = level + 1;
             });
             AddChild(Window.List);
-            OnKeyBindDown += Window.OnKeyDown;
         }
 
         public override void OnFocused()

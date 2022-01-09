@@ -62,9 +62,6 @@ namespace OpenNefia.Core.Prototypes
         /// prototype since it's indirectly set up during race initialization.
         /// </remarks>
         public IReadOnlyList<PrototypeId<EquipSlotPrototype>> InitialEquipSlots => _initialEquipSlots;
-        
-        [DataField(required: true)]
-        public Dictionary<PrototypeId<SkillPrototype>, int> BaseSkills = new();
 
         [DataField]
         public PrototypeId<FeatPrototype>[] BaseFeats = Array.Empty<PrototypeId<FeatPrototype>>();
