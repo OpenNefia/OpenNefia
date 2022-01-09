@@ -172,6 +172,14 @@ namespace OpenNefia.Core.Locale
             return $"<Missing key: {key}>";
         }
 
+        public string GetStringOrEmpty(LocaleKey key, params LocaleArg[] args)
+        {
+            if (TryGetString(key, out var str, args))
+                return str;
+
+            return string.Empty;
+        }
+
         public string GetPrototypeString<T>(PrototypeId<T> protoId, LocaleKey key, params LocaleArg[] args)
             where T : class, IPrototype
         {

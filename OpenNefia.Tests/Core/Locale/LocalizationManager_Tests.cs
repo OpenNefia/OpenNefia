@@ -21,6 +21,8 @@ namespace OpenNefia.Tests.Core.Locale
             locMan.Resync();
 
             Assert.That(locMan.GetString("Test.Core.Missing"), Is.EqualTo("<Missing key: Test.Core.Missing>"));
+            Assert.That(locMan.TryGetString("Test.Core.Missing", out var str), Is.False);
+            Assert.That(str, Is.Null);
         }
 
         [Test]
