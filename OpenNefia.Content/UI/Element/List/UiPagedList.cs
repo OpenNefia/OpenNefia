@@ -41,6 +41,12 @@ namespace OpenNefia.Content.UI.Element.List
             PageText = new UiPageText(elementForPageText);
 
             OnPageChanged += PageText.UpdatePageText;
+            OnPageChanged += HandlePageChanged;
+        }
+
+        private void HandlePageChanged(int newPage, int newPageCount)
+        {
+            Select(SelectedIndex);
         }
 
         protected override void UpdateDisplayedCells(bool setSize)
