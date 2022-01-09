@@ -157,7 +157,7 @@ namespace OpenNefia.Core.Locale
             try
             {
                 var str = _resourceManager.ContentFileReadAllText(luaFile);
-                _lua.DoString(str);
+                LoadStringRaw(str);
             }
             catch (Exception ex)
             {
@@ -169,12 +169,19 @@ namespace OpenNefia.Core.Locale
         {
             try
             {
-                _lua.DoString(luaScript);
+                LoadStringRaw(luaScript);
             }
             catch (Exception ex)
             {
                 Logger.ErrorS("loc", ex, $"Failed to load Lua string: {ex}");
             }
+        }
+
+        private void LoadStringRaw(string str)
+        {
+            _lua.DoString("_BeforeLoad()");
+            _lua.DoString(str);
+            _lua.DoString("_AfterLoad()");
         }
 
         public void Resync()
