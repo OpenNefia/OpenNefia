@@ -840,19 +840,19 @@
 
     EtherUgly = {
         ["-1"] = {
-            Desc = ""--[[function(1)
-                return "You have sores on your face. [CHR" .. 1 .. "]"
-            end]]
+            Desc = function(x)
+                return "You have sores on your face. [CHR" .. x .. "]"
+            end,
         },
         ["-2"] = {
-            Desc = ""--[[function(1)
-                return "Your face is ulcerate. [CHR" .. 1 .. "]"
-            end]]
+            Desc = function(x)
+                return "Your face is ulcerate. [CHR" .. x .. "]"
+            end,
         },
         ["-3"] = {
-            Desc = ""--[[function(1)
-                return "Your face is crumbling. [CHR" .. 1 .. "]"
-            end]]
+            Desc = function(x)
+                return "Your face is crumbling. [CHR" .. x .. "]"
+            end,
         },
         OnGainLevel = "The swelling in your face decreases.",
         OnLoseLevel = "Your face is festered."
@@ -860,9 +860,9 @@
 
     EtherFoot = {
         ["-1"] = {
-            Desc = ""--[[function(1)
-                return "Your feet transformed into hooves. [SPD+" .. 1 .. " Can't wear boots]"
-            end]]
+            Desc = function(x)
+                return "Your feet transformed into hooves. [SPD+" .. x .. " Can't wear boots]"
+            end,
         },
         OnGainLevel = "Your feet become normal.",
         OnLoseLevel = "Your feet change into hooves."
@@ -870,9 +870,9 @@
 
     EtherEye = {
         ["-1"] = {
-            Desc = ""--[[function(1, 2)
-                return "You have 4 eyes. [PER+" .. 1 .. " CHR" .. 2 .. "]"
-            end]]
+            Desc = function(x, y)
+                return "You have 4 eyes. [PER+" .. x .. " CHR" .. y .. "]"
+            end,
         },
         OnGainLevel = "Your eyes become normal.",
         OnLoseLevel = "Your eyes are multipling."
@@ -880,9 +880,9 @@
 
     EtherFeather = {
         ["-1"] = {
-            Desc = ""--[[function(1)
-                return "You have grown feather. [SPD+" .. 1 .. " Weight-20% Can't wear cloaks]"
-            end]]
+            Desc = function(x)
+                return "You have grown feather. [SPD+" .. x .. " Weight-20% Can't wear cloaks]"
+            end,
         },
         OnGainLevel = "Your feathers wilt.",
         OnLoseLevel = "Feathers come out from your back."
@@ -890,9 +890,9 @@
 
     EtherNeck = {
         ["-1"] = {
-            Desc = ""--[[function(1, 2)
-                return "Your neck is extremely thick. [CHR" .. 1 .. " PV+" .. 2 .. " Can't wear amulets]"
-            end]]
+            Desc = function(x, y)
+                return "Your neck is extremely thick. [CHR" .. x .. " PV+" .. y .. " Can't wear amulets]"
+            end,
         },
         OnGainLevel = "Your neck becomes thin.",
         OnLoseLevel = "Your neck becomes extremely thick."
@@ -900,9 +900,9 @@
 
     EtherRage = {
         ["-1"] = {
-            Desc = ""--[[function(1, 2)
-                return "Desire for violence arises withn in you. [DV" .. 1 .. " Dmg bonus+" .. 2 .. "]"
-            end]]
+            Desc = function(x, y)
+                return "Desire for violence arises withn in you. [DV" .. x .. " Dmg bonus+" .. y .. "]"
+            end,
         },
         OnGainLevel = " A deep sense of peace fills your heart.",
         OnLoseLevel = "Hatred dominates your soul."
@@ -910,9 +910,9 @@
 
     EtherMind = {
         ["-1"] = {
-            Desc = ""--[[function(1, 2, 3, 4)
-                return "Your head has grown huge. [END" .. 1 .. " DEX" .. 2 .. " LER+" .. 3 .. " WIL+" .. 4 .. "]"
-            end]]
+            Desc = function(x, y, z, w)
+                return "Your head has grown huge. [END" .. x .. " DEX" .. y .. " LER+" .. z .. " WIL+" .. w .. "]"
+            end,
         },
         OnGainLevel = "Your head is normal size now.",
         OnLoseLevel = "Suddenly your head become giant size."
@@ -936,9 +936,9 @@
 
     EtherWeak = {
         ["-1"] = {
-            Desc = ""--[[function(1)
-                return "You suffer debilitation. [HP-15% STR" .. 1 .. "]"
-            end]]
+            Desc = function(x)
+                return "You suffer debilitation. [HP-15% STR" .. x .. "]"
+            end,
         },
         OnGainLevel = "You become healthy again.",
         OnLoseLevel = "You become weak, very weak."
@@ -946,9 +946,9 @@
 
     EtherFool = {
         ["-1"] = {
-            Desc = ""--[[function(1)
-                return "You have dementia. [MP-15% MAG" .. 1 .. "]"
-            end]]
+            Desc = function(x)
+                return "You have dementia. [MP-15% MAG" .. x .. "]"
+            end,
         },
         OnGainLevel = "You become confident again.",
         OnLoseLevel = "You become feebleminded."
@@ -956,9 +956,9 @@
 
     EtherHeavy = {
         ["-1"] = {
-            Desc = ""--[[function(1, 2)
-                return "You are covered by heavy carapace. [PV+" .. 1 .. " SPD" .. 2 .. "]"
-            end]]
+            Desc = function(x, y)
+                return "You are covered by heavy carapace. [PV+" .. x .. " SPD" .. y .. "]"
+            end,
         },
         OnGainLevel = "Your carapace starts to break.",
         OnLoseLevel = "Heavy carapace starts to cover up your skin."
