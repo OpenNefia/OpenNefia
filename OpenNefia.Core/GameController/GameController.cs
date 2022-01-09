@@ -214,6 +214,8 @@ namespace OpenNefia.Core.GameController
 
             logManager.GetSawmill("repl.exec").Level = LogLevel.Info;
             logManager.GetSawmill("go.sys").Level = LogLevel.Info;
+            logManager.GetSawmill("input.binding").Level = LogLevel.Info;
+            logManager.GetSawmill("ai.vanilla").Level = LogLevel.Info;
         }
 
         public void Run()

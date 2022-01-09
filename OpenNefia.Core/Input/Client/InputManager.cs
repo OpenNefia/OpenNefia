@@ -227,7 +227,7 @@ namespace OpenNefia.Core.Input
 
             _keysPressed[(int)args.Key] = true;
 
-            Logger.Info($"Bind: {args.Key} S: {_keysPressed[(int)Key.Shift]} C: {_keysPressed[(int)Key.Control]}");
+            Logger.DebugS("input.binding", $"Bind: {args.Key} S: {_keysPressed[(int)Key.Shift]} C: {_keysPressed[(int)Key.Control]}");
 
             PackedKeyCombo matchedCombo = default;
 
