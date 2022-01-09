@@ -49,7 +49,7 @@ namespace OpenNefia.Content.Tests
 ";
 
         private static readonly string PrototypeLocalizations = $@"
-OpenNefia.Entities = 
+OpenNefia.Prototypes.Entity = 
 {{
     [""{EntityCharaFemaleID}""] = {{
         MetaData = {{
