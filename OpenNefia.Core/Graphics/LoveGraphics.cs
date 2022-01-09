@@ -1,11 +1,13 @@
 ﻿using Love;
 using OpenNefia.Core.Input;
 using OpenNefia.Core.IoC;
+using OpenNefia.Core.Log;
 using OpenNefia.Core.Maps;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Core.ResourceManagement;
 using OpenNefia.Core.UI;
+using static OpenNefia.Core.Input.Mouse;
 using Vector2 = OpenNefia.Core.Maths.Vector2;
 
 namespace OpenNefia.Core.Graphics
@@ -186,7 +188,7 @@ namespace OpenNefia.Core.Graphics
             var control = false;
             var system = false;
 
-            if (!PressModifiers(key)) 
+            if (!PressModifiers(key))
             {
                 shift = _modShift != 0;
                 alt = _modAlt != 0;
@@ -255,6 +257,137 @@ namespace OpenNefia.Core.Graphics
         public override void WheelMoved(int x, int y)
         {
             OnMouseWheel?.Invoke(new MouseWheelEventArgs(new(Love.Mouse.GetPosition()), new Vector2i(x, y)));
+        }
+
+        /// <summary>
+        /// Presses a key without any modifiers/scancodes.
+        /// </summary>
+        private void PressVirtualKey(Input.Keyboard.Key key)
+        {
+            if (key == Input.Keyboard.Key.Unknown)
+                return;
+
+            var ev = new KeyEventArgs(
+                key,
+                false,
+                false, false, false, false,
+                Scancode.Unknow);
+
+            OnKeyPressed?.Invoke(ev);
+        }
+
+        /// <summary>
+        /// Releases a key without any modifiers/scancodes.
+        /// </summary>
+        private void ReleaseVirtualKey(Input.Keyboard.Key key)
+        {
+            if (key == Input.Keyboard.Key.Unknown)
+                return;
+
+            var ev = new KeyEventArgs(
+                key,
+                false,
+                false, false, false, false,
+                Scancode.Unknow);
+
+            OnKeyReleased?.Invoke(ev);
+        }
+
+        private const int PrimaryJoystickID = 0;
+
+        public override void JoystickPressed(Joystick joystick, int button)
+        {
+            if (joystick.GetID() != PrimaryJoystickID)
+                return;
+
+            var key = Input.Keyboard.JoystickButtonToKey(button);
+
+            PressVirtualKey(key);
+        }
+
+        public override void JoystickReleased(Joystick joystick, int button)
+        {
+            if (joystick.GetID() != PrimaryJoystickID)
+                return;
+
+            var key = Input.Keyboard.JoystickButtonToKey(button);
+
+            ReleaseVirtualKey(key);
+        }
+
+        private readonly Dictionary<Input.Keyboard.Key, float> _axisValues = new();
+        private readonly float _axisDeadzone = 0.5f; // TODO make configurable
+
+        public override void JoystickAxis(Joystick joystick, float axis, float value)
+        {
+            if (joystick.GetID() != PrimaryJoystickID)
+                return;
+
+            var key = Input.Keyboard.JoystickAxisToKey((int)axis, value);
+
+            var prevValue = _axisValues.GetValueOrDefault(key);
+
+            if (MathF.Abs(prevValue) < _axisDeadzone && MathF.Abs(value) >= _axisDeadzone)
+            {
+                PressVirtualKey(key);
+            }
+            else if (MathF.Abs(prevValue) >= _axisDeadzone && MathF.Abs(value) < _axisDeadzone)
+            {
+                ReleaseVirtualKey(key);
+            }
+
+            _axisValues[key] = value;
+        }
+
+        /// <summary>
+        /// Dumb thing for tracking pressed/released hat states since LÖVE doesn't give us those.
+        /// </summary>
+        private readonly Dictionary<int, Input.Keyboard.JoystickHat> _hatStates = new();
+
+        public override void JoystickHat(Joystick joystick, int hat, JoystickHat direction)
+        {
+            if (joystick.GetID() != PrimaryJoystickID)
+                return;
+
+            var lastHatState = _hatStates.GetValueOrDefault(hat);
+            var newHatState = (Input.Keyboard.JoystickHat)direction;
+
+            foreach (var key in Input.Keyboard.GetPressedHatKeys(hat, lastHatState, newHatState))
+                PressVirtualKey(key);
+
+            foreach (var key in Input.Keyboard.GetReleasedHatKeys(hat, lastHatState, newHatState))
+                ReleaseVirtualKey(key);
+
+            _hatStates[hat] = newHatState;
+        }
+
+        public override void JoystickAdded(Joystick joystick)
+        {
+            Logger.DebugS("graphics.löve", $"Added joystick: ID={joystick.GetID()}, Name={joystick.GetName()}");
+        }
+
+        public override void JoystickRemoved(Joystick joystick)
+        {
+            Logger.DebugS("graphics.löve", $"Removed joystick: ID={joystick.GetID()}, Name={joystick.GetName()}");
+
+            if (joystick.GetID() != PrimaryJoystickID)
+                return;
+
+            // Release all axis binds.
+            foreach (var (key, value) in _axisValues)
+            {
+                if (value >= _axisDeadzone)
+                    ReleaseVirtualKey(key);
+            }
+            _axisValues.Clear();
+
+            // Release all hat binds.
+            foreach (var (hat, lastHatState) in _hatStates)
+            {
+                foreach (var key in Input.Keyboard.GetReleasedHatKeys(hat, lastHatState, Input.Keyboard.JoystickHat.Centered))
+                    ReleaseVirtualKey(key);
+            }
+            _hatStates.Clear();
         }
 
         public override bool Quit()
