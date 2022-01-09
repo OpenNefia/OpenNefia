@@ -1,4 +1,5 @@
-﻿OpenNefia.Prototypes.Skill.Elona = {
+﻿OpenNefia.Prototypes.Elona.Skill.Elona =
+{
     StatStrength = {
         Name = "Strength",
         ShortName = " STR",
