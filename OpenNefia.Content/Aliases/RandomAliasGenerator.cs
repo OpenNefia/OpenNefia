@@ -35,8 +35,10 @@ namespace OpenNefia.Content.Aliases
 
     public class RandomAliasGenerator : IRandomAliasGenerator
     {
-        private enum TitleDataCategory
+        private enum AliasDataCategory
         {
+            Unknown,
+
             Royal,         // 王
             Tool,          // 具
             Shape,         // 形
@@ -60,42 +62,42 @@ namespace OpenNefia.Content.Aliases
             GeneralPurpose // 万能
         }
 
-        private static TitleDataCategory ParseTitleDataType(string str)
+        private static AliasDataCategory ParseAliasDataType(string str)
         {
             switch (str)
             {
-                case "王": return TitleDataCategory.Royal;
-                case "具": return TitleDataCategory.Tool;
-                case "形": return TitleDataCategory.Shape;
-                case "時": return TitleDataCategory.Time;
-                case "獣": return TitleDataCategory.Beast;
-                case "情": return TitleDataCategory.Feeling;
-                case "色": return TitleDataCategory.Color;
-                case "神": return TitleDataCategory.God;
-                case "人": return TitleDataCategory.Person;
-                case "世界": return TitleDataCategory.World;
-                case "星": return TitleDataCategory.Star;
-                case "石": return TitleDataCategory.Rock;
-                case "属": return TitleDataCategory.Element;
-                case "属性": return TitleDataCategory.Attribute;
-                case "族": return TitleDataCategory.Race;
-                case "体": return TitleDataCategory.Body;
-                case "動": return TitleDataCategory.Movement;
-                case "動物": return TitleDataCategory.Animal;
-                case "普": return TitleDataCategory.Regular;
-                case "物": return TitleDataCategory.Object;
-                case "万能":
-                default:
-                    return TitleDataCategory.GeneralPurpose;
+                case "王": return AliasDataCategory.Royal;
+                case "具": return AliasDataCategory.Tool;
+                case "形": return AliasDataCategory.Shape;
+                case "時": return AliasDataCategory.Time;
+                case "獣": return AliasDataCategory.Beast;
+                case "情": return AliasDataCategory.Feeling;
+                case "色": return AliasDataCategory.Color;
+                case "神": return AliasDataCategory.God;
+                case "人": return AliasDataCategory.Person;
+                case "世界": return AliasDataCategory.World;
+                case "星": return AliasDataCategory.Star;
+                case "石": return AliasDataCategory.Rock;
+                case "属": return AliasDataCategory.Element;
+                case "属性": return AliasDataCategory.Attribute;
+                case "族": return AliasDataCategory.Race;
+                case "体": return AliasDataCategory.Body;
+                case "動": return AliasDataCategory.Movement;
+                case "動物": return AliasDataCategory.Animal;
+                case "普": return AliasDataCategory.Regular;
+                case "物": return AliasDataCategory.Object;
+                case "万能": return AliasDataCategory.GeneralPurpose;
+
+                default: return AliasDataCategory.Unknown;
             }
         }
 
-        private class TitleData
+        private class AliasData
         {
-            public TitleDataCategory Category { get; }
+            public AliasDataCategory Category { get; }
             public List<string> Choices { get; }
 
-            public TitleData(TitleDataCategory type, List<string> choices)
+            public AliasData(AliasDataCategory type, List<string> choices)
             {
                 Category = type;
                 Choices = choices;
@@ -106,7 +108,7 @@ namespace OpenNefia.Content.Aliases
         [Dependency] private readonly IResourceManager _resourceManager = default!;
         [Dependency] private readonly ILocalizationManager _localizationManager = default!;
 
-        private readonly List<TitleData> _allTitleData = new();
+        private readonly List<AliasData> _allAliasData = new();
 
         public void Initialize()
         {
@@ -115,7 +117,7 @@ namespace OpenNefia.Content.Aliases
 
         private void LoadAliasFiles(PrototypeId<LanguagePrototype> newLanguage)
         {
-            _allTitleData.Clear();
+            _allAliasData.Clear();
 
             var csvPaths = _resourceManager
                 .ContentFindFiles(new ResourcePath("/Aliases") / ((string)newLanguage))
@@ -139,25 +141,25 @@ namespace OpenNefia.Content.Aliases
                     {
                         // Read current line fields, pointer moves to the next line.
                         var fields = csvParser.ReadFields()!;
-                        var type = ParseTitleDataType(fields[14]);
+                        var type = ParseAliasDataType(fields[14]);
                         var choices = fields.Take(13).ToList();
-                        var data = new TitleData(type, choices);
+                        var data = new AliasData(type, choices);
 
-                        _allTitleData.Add(data);
+                        _allAliasData.Add(data);
                     }
                 }
             }
         }
 
-        private (TitleData data, int column, string choice) RandomTitleAndChoice()
+        private (AliasData data, int column, string choice) RandomAliasAndChoice()
         {
-            TitleData data;
+            AliasData data;
             int column;
             string choice;
 
             do
             {
-                data = _random.Pick(_allTitleData);
+                data = _random.Pick(_allAliasData);
                 column = _random.Next(data.Choices.Count);
                 choice = data.Choices[column];
             }
@@ -184,7 +186,7 @@ namespace OpenNefia.Content.Aliases
 
         private const int MaxTitleLength = 28;
 
-        private readonly string[] PartyTitleSuffixesJP =
+        private readonly string[] PartyAliasSuffixesJP =
         {
             "団",
             "チーム",
@@ -199,7 +201,7 @@ namespace OpenNefia.Content.Aliases
             "の団",
         };
 
-        private readonly string[] PartyTitlePrefixesEN =
+        private readonly string[] PartyAliasPrefixesEN =
         {
             "The army of",
             "The party of",
@@ -207,7 +209,7 @@ namespace OpenNefia.Content.Aliases
             "Clan",
         };
 
-        private readonly string[] PartyTitleSuffixesEN =
+        private readonly string[] PartyAliasSuffixesEN =
         {
             "Clan",
             "Party",
@@ -218,12 +220,12 @@ namespace OpenNefia.Content.Aliases
             "Army",
         };
 
-        private bool TryGetRandomTitle(AliasType type, [NotNullWhen(true)] out string? title)
+        private bool TryGetRandomTitle(AliasType type, [NotNullWhen(true)] out string? alias)
         {
-            title = null;
-            var (data, column, result) = RandomTitleAndChoice();
+            alias = null;
+            var (data, column, result) = RandomAliasAndChoice();
 
-            if ((type == AliasType.Weapon || type == AliasType.LivingWeapon) && data.Category == TitleDataCategory.Tool)
+            if ((type == AliasType.Weapon || type == AliasType.LivingWeapon) && data.Category == AliasDataCategory.Tool)
                 return false;
 
             var skip = false;
@@ -255,11 +257,11 @@ namespace OpenNefia.Content.Aliases
 
                 for (int i = 0; i < 100; i++)
                 {
-                    var data2 = _random.Pick(_allTitleData);
+                    var data2 = _random.Pick(_allAliasData);
 
                     if (data != data2 && data.Category != data2.Category
-                        && data.Category != TitleDataCategory.GeneralPurpose
-                        && data2.Category != TitleDataCategory.GeneralPurpose)
+                        && data.Category != AliasDataCategory.GeneralPurpose
+                        && data2.Category != AliasDataCategory.GeneralPurpose)
                     {
                         int newColumn;
                         if (column < 10)
@@ -296,32 +298,32 @@ namespace OpenNefia.Content.Aliases
             {
                 if (_localizationManager.Language == LanguagePrototypeOf.Japanese)
                 {
-                    var suffix = _random.Pick(PartyTitleSuffixesJP);
+                    var suffix = _random.Pick(PartyAliasSuffixesJP);
                     result += suffix;
                 }
                 else if (_random.OneIn(2))
                 {
-                    var prefix = _random.Pick(PartyTitlePrefixesEN);
+                    var prefix = _random.Pick(PartyAliasPrefixesEN);
                     result = prefix + " " + result;
                 }
                 else
                 {
-                    var suffix = _random.Pick(PartyTitleSuffixesEN);
+                    var suffix = _random.Pick(PartyAliasSuffixesEN);
                     result += " " + suffix;
                 }
             }
 
-            title = result;
+            alias = result;
             return true;
         }
 
         public string GenerateRandomAlias(AliasType type)
         {
-            string? title = null;
+            string? alias;
 
-            while (!TryGetRandomTitle(type, out title)) { }
+            while (!TryGetRandomTitle(type, out alias)) { }
 
-            return title;
+            return alias;
         }
     }
 }
