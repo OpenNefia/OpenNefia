@@ -226,7 +226,7 @@ namespace OpenNefia.Content.UI.Element.List
             }
 
             SelectedIndex = index;
-            OnSelect(new UiListEventArgs<T>(this[index], index));
+            OnSelect(new UiListEventArgs<T>(DisplayedCells[index], index));
         }
 
         public virtual bool CanActivate(int index)
@@ -244,7 +244,7 @@ namespace OpenNefia.Content.UI.Element.List
             if (SelectOnActivate)
                 Select(index);
 
-            OnActivate(new UiListEventArgs<T>(this[index], index));
+            OnActivate(new UiListEventArgs<T>(DisplayedCells[index], index));
         }
 
         #endregion
