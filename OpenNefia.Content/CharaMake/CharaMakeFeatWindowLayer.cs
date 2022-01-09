@@ -1,4 +1,5 @@
-﻿using OpenNefia.Content.UI.Element;
+﻿using OpenNefia.Content.Prototypes;
+using OpenNefia.Content.UI.Element;
 using OpenNefia.Core.Locale;
 using System;
 using System.Collections.Generic;
@@ -14,7 +15,12 @@ namespace OpenNefia.Content.CharaMake
         private FeatWindow Window = default!;
         public CharaMakeFeatWindowLayer()
         {
-            Window = new FeatWindow(default!, default!);
+            var selectedFeats = new Dictionary<FeatPrototype, int>();
+            Window = new FeatWindow(() => selectedFeats, feat =>
+            {
+                selectedFeats.TryGetValue(feat.Prototype, out var level);
+                selectedFeats[feat.Prototype] = level + 1;
+            });
             AddChild(Window.List);
             OnKeyBindDown += Window.OnKeyDown;
         }
