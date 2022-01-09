@@ -160,7 +160,7 @@ namespace OpenNefia.Content.CharaMake
 
             public string GetName()
             {
-                return (IsExtra ? $"{Loc.GetString("Elona.CharaMake.Extra")} " : string.Empty) + EnsureString("Name");
+                return (IsExtra ? $"{Loc.GetString("Elona.CharaMake.Extra")}" : string.Empty) + EnsureString("Name");
             }
 
             public IReadOnlyDictionary<PrototypeId<SkillPrototype>, int> GetSkills()
