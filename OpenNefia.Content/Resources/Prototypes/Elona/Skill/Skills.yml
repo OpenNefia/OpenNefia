@@ -1,0 +1,186 @@
+- type: Elona.Skill
+  id: Elona.Shield
+  ordering:
+    after: Elona.Throwing
+  relatedSkill: Elona.StatConstitution
+  skillType: Skill
+
+- type: Elona.Skill
+  id: Elona.Evasion
+  relatedSkill: Elona.StatDexterity
+  skillType: Skill
+
+- type: Elona.Skill
+  id: Elona.DualWield
+  relatedSkill: Elona.StatDexterity
+  skillType: Skill
+
+- type: Elona.Skill
+  id: Elona.TwoHand
+  relatedSkill: Elona.StatStrength
+  skillType: Skill
+
+- type: Elona.Skill
+  id: Elona.WeightLifting
+  relatedSkill: Elona.StatStrength
+  skillType: Skill
+
+- type: Elona.Skill
+  id: Elona.Tactics
+  relatedSkill: Elona.StatStrength
+  skillType: Skill
+
+- type: Elona.Skill
+  id: Elona.Marksman
+  relatedSkill: Elona.StatPerception
+  skillType: Skill
+
+- type: Elona.Skill
+  id: Elona.Healing
+  relatedSkill: Elona.StatConstitution
+  skillType: Skill
+
+- type: Elona.Skill
+  id: Elona.Mining
+  relatedSkill: Elona.StatConstitution
+  skillType: Skill
+
+- type: Elona.Skill
+  id: Elona.Carpentry
+  relatedSkill: Elona.StatConstitution
+  skillType: Skill
+
+- type: Elona.Skill
+  id: Elona.HeavyArmor
+  relatedSkill: Elona.StatConstitution
+  skillType: Skill
+
+- type: Elona.Skill
+  id: Elona.MediumArmor
+  relatedSkill: Elona.StatConstitution
+  skillType: Skill
+
+- type: Elona.Skill
+  id: Elona.LightArmor
+  relatedSkill: Elona.StatDexterity
+  skillType: Skill
+
+- type: Elona.Skill
+  id: Elona.LockPicking
+  relatedSkill: Elona.StatDexterity
+  skillType: Skill
+
+- type: Elona.Skill
+  id: Elona.DisarmTrap
+  relatedSkill: Elona.StatDexterity
+  skillType: Skill
+
+- type: Elona.Skill
+  id: Elona.Tailoring
+  relatedSkill: Elona.StatDexterity
+  skillType: Skill
+
+- type: Elona.Skill
+  id: Elona.Jeweler
+  relatedSkill: Elona.StatDexterity
+  skillType: Skill
+
+- type: Elona.Skill
+  id: Elona.Stealth
+  relatedSkill: Elona.StatPerception
+  skillType: Skill
+
+- type: Elona.Skill
+  id: Elona.Detection
+  relatedSkill: Elona.StatPerception
+  skillType: Skill
+
+- type: Elona.Skill
+  id: Elona.SenseQuality
+  relatedSkill: Elona.StatPerception
+  skillType: Skill
+
+- type: Elona.Skill
+  id: Elona.EyeOfMind
+  relatedSkill: Elona.StatPerception
+  skillType: Skill
+
+- type: Elona.Skill
+  id: Elona.GreaterEvasion
+  relatedSkill: Elona.StatPerception
+  skillType: Skill
+
+- type: Elona.Skill
+  id: Elona.Anatomy
+  relatedSkill: Elona.StatLearning
+  skillType: Skill
+
+- type: Elona.Skill
+  id: Elona.Literacy
+  relatedSkill: Elona.StatLearning
+  skillType: Skill
+
+- type: Elona.Skill
+  id: Elona.Memorization
+  relatedSkill: Elona.StatLearning
+  skillType: Skill
+
+- type: Elona.Skill
+  id: Elona.Alchemy
+  relatedSkill: Elona.StatLearning
+  skillType: Skill
+
+- type: Elona.Skill
+  id: Elona.Gardening
+  relatedSkill: Elona.StatLearning
+  skillType: Skill
+
+- type: Elona.Skill
+  id: Elona.GeneEngineer
+  relatedSkill: Elona.StatLearning
+  skillType: Skill
+
+- type: Elona.Skill
+  id: Elona.Meditation
+  relatedSkill: Elona.StatMagic
+  skillType: Skill
+
+- type: Elona.Skill
+  id: Elona.MagicDevice
+  relatedSkill: Elona.StatMagic
+  skillType: Skill
+
+- type: Elona.Skill
+  id: Elona.Casting
+  relatedSkill: Elona.StatMagic
+  skillType: Skill
+
+- type: Elona.Skill
+  id: Elona.ControlMagic
+  relatedSkill: Elona.StatMagic
+  skillType: Skill
+
+- type: Elona.Skill
+  id: Elona.MagicCapacity
+  relatedSkill: Elona.StatMagic
+  skillType: Skill
+
+- type: Elona.Skill
+  id: Elona.Faith
+  relatedSkill: Elona.StatWill
+  skillType: Skill
+
+- type: Elona.Skill
+  id: Elona.Traveling
+  relatedSkill: Elona.StatWill
+  skillType: Skill
+
+- type: Elona.Skill
+  id: Elona.Negotiation
+  relatedSkill: Elona.StatCharisma
+  skillType: Skill
+
+- type: Elona.Skill
+  id: Elona.Investing
+  relatedSkill: Elona.StatCharisma
+  skillType: Skill

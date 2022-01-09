@@ -1,0 +1,61 @@
+- type: Elona.Skill
+  id: Elona.LongSword
+  ordering:
+    after: Elona.StatLuck
+  relatedSkill: Elona.StatStrength
+  skillType: WeaponProficiency
+
+- type: Elona.Skill
+  id: Elona.ShortSword
+  relatedSkill: Elona.StatDexterity
+  skillType: WeaponProficiency
+
+- type: Elona.Skill
+  id: Elona.Axe
+  relatedSkill: Elona.StatConstitution
+  skillType: WeaponProficiency
+
+- type: Elona.Skill
+  id: Elona.Blunt
+  relatedSkill: Elona.StatConstitution
+  skillType: WeaponProficiency
+
+- type: Elona.Skill
+  id: Elona.Polearm
+  relatedSkill: Elona.StatConstitution
+  skillType: WeaponProficiency
+
+- type: Elona.Skill
+  id: Elona.Stave
+  relatedSkill: Elona.StatConstitution
+  skillType: WeaponProficiency
+
+- type: Elona.Skill
+  id: Elona.MartialArts
+  relatedSkill: Elona.StatStrength
+  skillType: WeaponProficiency
+
+- type: Elona.Skill
+  id: Elona.Scythe
+  relatedSkill: Elona.StatStrength
+  skillType: WeaponProficiency
+
+- type: Elona.Skill
+  id: Elona.Bow
+  relatedSkill: Elona.StatDexterity
+  skillType: WeaponProficiency
+
+- type: Elona.Skill
+  id: Elona.Crossbow
+  relatedSkill: Elona.StatDexterity
+  skillType: WeaponProficiency
+
+- type: Elona.Skill
+  id: Elona.Firearm
+  relatedSkill: Elona.StatPerception
+  skillType: WeaponProficiency
+
+- type: Elona.Skill
+  id: Elona.Throwing
+  relatedSkill: Elona.StatDexterity
+  skillType: WeaponProficiency

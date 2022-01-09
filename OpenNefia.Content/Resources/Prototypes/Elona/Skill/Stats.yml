@@ -1,0 +1,47 @@
+- type: Elona.Skill
+  id: Elona.StatLife
+  skillType: StatSpecial
+
+- type: Elona.Skill
+  id: Elona.StatMana
+  skillType: StatSpecial
+
+- type: Elona.Skill
+  id: Elona.StatStrength
+  skillType: Stat
+
+- type: Elona.Skill
+  id: Elona.StatConstitution
+  skillType: Stat
+
+- type: Elona.Skill
+  id: Elona.StatDexterity
+  skillType: Stat
+
+- type: Elona.Skill
+  id: Elona.StatPerception
+  skillType: Stat
+
+- type: Elona.Skill
+  id: Elona.StatLearning
+  skillType: Stat
+
+- type: Elona.Skill
+  id: Elona.StatWill
+  skillType: Stat
+
+- type: Elona.Skill
+  id: Elona.StatMagic
+  skillType: Stat
+
+- type: Elona.Skill
+  id: Elona.StatCharisma
+  skillType: Stat
+
+- type: Elona.Skill
+  id: Elona.StatSpeed
+  skillType: Stat
+
+- type: Elona.Skill
+  id: Elona.StatLuck
+  skillType: Stat
