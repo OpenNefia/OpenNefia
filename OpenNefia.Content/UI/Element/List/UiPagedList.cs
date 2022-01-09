@@ -13,14 +13,19 @@ namespace OpenNefia.Content.UI.Element.List
 {
     public class UiPagedList<T> : UiList<T>, IUiPaged
     {
-        private UiPageModel<UiListCell<T>> _pageModel = new();
+        private UiPageModel<UiListCell<T>> _pageModel;
 
         public override IReadOnlyList<UiListCell<T>> DisplayedCells => _pageModel.CurrentElements;
 
         public int CurrentPage => _pageModel.CurrentPage;
         public int PageCount => _pageModel.PageCount;
 
-        private IUiElement? _elementForPageText;
+        public IUiElement? PageTextElement
+        {
+            get => PageText.PageTextParent;
+            set => PageText.PageTextParent = value;
+        }
+
         private UiPageText PageText;
 
         public event PageChangedDelegate? OnPageChanged
@@ -29,10 +34,11 @@ namespace OpenNefia.Content.UI.Element.List
             remove => _pageModel.OnPageChanged -= value;
         }
 
-        public UiPagedList(IUiElement? elementForPageText = null) : base()
+        public UiPagedList(int itemsPerPage = 16, IUiElement? elementForPageText = null) : base()
         {
-            _pageModel.Initialize(AllCells);
-            PageText = new UiPageText(_elementForPageText);
+            _pageModel = new UiPageModel<UiListCell<T>>(itemsPerPage);
+            _pageModel.SetElements(AllCells);
+            PageText = new UiPageText(elementForPageText);
 
             OnPageChanged += PageText.UpdatePageText;
         }
@@ -40,7 +46,7 @@ namespace OpenNefia.Content.UI.Element.List
         protected override void UpdateDisplayedCells(bool setSize)
         {
             var oldPage = _pageModel.CurrentPage;
-            _pageModel.Initialize(AllCells);
+            _pageModel.SetElements(AllCells);
             _pageModel.SetPage(oldPage);
 
             base.UpdateDisplayedCells(setSize);

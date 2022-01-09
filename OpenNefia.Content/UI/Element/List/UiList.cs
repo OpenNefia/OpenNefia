@@ -66,7 +66,7 @@ namespace OpenNefia.Content.UI.Element.List
 
             AllCells = cells.ToList();
 
-            UpdateDisplayedCells(setSize: false);
+            _needsUpdate = true;
 
             OnKeyBindDown += HandleKeyBindDown;
             EventFilter = UIEventFilterMode.Pass;
