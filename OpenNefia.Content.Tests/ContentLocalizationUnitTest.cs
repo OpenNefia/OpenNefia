@@ -1,5 +1,6 @@
 ﻿using NUnit.Framework;
 using OpenNefia.Content.Charas;
+using OpenNefia.Content.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Locale;
 using OpenNefia.Core.Prototypes;
@@ -34,6 +35,7 @@ namespace OpenNefia.Content.Tests
   id: {EntityItemSingleID}
   components:
   - type: Spatial
+  - type: Item
   - type: Stack
     count: 1
 
@@ -41,26 +43,59 @@ namespace OpenNefia.Content.Tests
   id: {EntityItemStackedID}
   components:
   - type: Spatial
+  - type: Item
   - type: Stack
-    count: 5
+    count: 2
 ";
 
-        protected ISimulation SimulationFactory()
+        private static readonly string PrototypeLocalizations = $@"
+OpenNefia.Entities = 
+{{
+    [""{EntityCharaFemaleID}""] = {{
+        MetaData = {{
+            Name = ""CharaFemale""
+        }},
+    }},
+    [""{EntityCharaMaleID}""] = {{
+        MetaData = {{
+            Name = ""CharaMale""
+        }},
+    }},
+    [""{EntityItemSingleID}""] = {{
+        MetaData = {{
+            Name = ""ItemSingle""
+        }},
+    }},
+    [""{EntityItemStackedID}""] = {{
+        MetaData = {{
+            Name = ""ItemStacked""
+        }},
+    }},
+}}
+";
+
+        protected virtual ISimulationFactory GetSimulationFactory()
         {
-            var sim = ContentGameSimulation
+            return ContentGameSimulation
                .NewSimulation()
                .RegisterComponents(factory =>
                {
                    factory.RegisterClass<CharaComponent>();
+                   factory.RegisterClass<ItemComponent>();
                })
                .RegisterDependencies(factory => factory.Register<ILocalizationManager, TestingLocalizationManager>(overwrite: true))
-               .RegisterPrototypes(protoMan => protoMan.LoadString(Prototypes))
-               .InitializeInstance();
+               .RegisterPrototypes(protoMan => protoMan.LoadString(Prototypes));
+        }
+
+        protected ISimulation SimulationFactory()
+        {
+            var sim = GetSimulationFactory().InitializeInstance();
 
             sim.CreateMapAndSetActive(10, 10);
 
             var locMan = sim.Resolve<ILocalizationManager>();
             locMan.SwitchLanguage(TestingLanguage);
+            locMan.LoadString(PrototypeLocalizations);
 
             return sim;
         }

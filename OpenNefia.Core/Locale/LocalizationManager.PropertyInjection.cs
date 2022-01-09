@@ -56,7 +56,7 @@ namespace OpenNefia.Core.Locale
 
         private void LocalizeDictionary(FieldInfo field, LocaleKey localeKey)
         {
-            var luaTable = _lua.GetTable(localeKey);
+            var luaTable = _lua.GetTable("_Collected." + localeKey);
 
             if (luaTable == null)
             {
