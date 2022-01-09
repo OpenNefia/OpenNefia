@@ -53,14 +53,14 @@ namespace OpenNefia.Core.Maps
         {
             // Tile.Empty relies on the Empty tile prototype being registered first
             // so it gets index 0.
-            var emptyDef = _prototypeManager.Index(TilePrototypeOf.Empty);
+            var emptyDef = _prototypeManager.Index(Tile.EmptyID);
 
             Register(emptyDef);
 
             var prototypeList = new List<TilePrototype>();
             foreach (var tileDef in _prototypeManager.EnumeratePrototypes<TilePrototype>())
             {
-                if (tileDef.GetStrongID() == TilePrototypeOf.Empty)
+                if (tileDef.GetStrongID() == Tile.EmptyID)
                     continue;
 
                 prototypeList.Add(tileDef);

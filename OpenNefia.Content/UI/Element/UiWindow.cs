@@ -1,4 +1,5 @@
-﻿using OpenNefia.Core.Locale;
+﻿using OpenNefia.Content.Prototypes;
+using OpenNefia.Core.Locale;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Core.UI;
@@ -52,7 +53,7 @@ namespace OpenNefia.Content.UI.Element
             this.KeyHintXOffset = keyHintXOffset;
             this.YOffset = yOffset;
 
-            this.AssetTipIcons = Assets.Get(AssetPrototypeOf.TipIcons);
+            this.AssetTipIcons = Assets.Get(Protos.Asset.TipIcons);
 
             this.TextTitle = new UiTextOutlined(this.FontWindowTitle);
             this.TextKeyHint = new UiText(this.FontWindowKeyHints, "(key hints)");

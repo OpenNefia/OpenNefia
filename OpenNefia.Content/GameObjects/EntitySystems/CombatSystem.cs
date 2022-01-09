@@ -14,6 +14,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static OpenNefia.Content.Prototypes.Protos;
 
 namespace OpenNefia.Content.GameObjects
 {
@@ -111,7 +112,7 @@ namespace OpenNefia.Content.GameObjects
             {
                 return weaponComp.UsedSkill;
             }
-            return SkillPrototypeOf.MartialArts;
+            return Skill.MartialArts;
         }
 
         /// <summary>

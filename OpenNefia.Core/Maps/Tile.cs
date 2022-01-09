@@ -1,4 +1,5 @@
 ﻿using OpenNefia.Core.IoC;
+using TilePrototypeId = OpenNefia.Core.Prototypes.PrototypeId<OpenNefia.Core.Maps.TilePrototype>;
 
 namespace OpenNefia.Core.Maps
 {
@@ -18,6 +19,7 @@ namespace OpenNefia.Core.Maps
         ///     An empty tile that can be compared against.
         /// </summary>
         public static readonly Tile Empty = new(0);
+        public static TilePrototypeId EmptyID = new(nameof(Empty));
 
         public TilePrototype ResolvePrototype() => IoCManager.Resolve<ITileDefinitionManager>()[Type];
 

@@ -1,12 +1,12 @@
 - type: BasicAnim
-  id: AnimSmoke
+  id: Elona.AnimSmoke
   hspIds:
     elona122: 8
   asset: AnimSmoke
   sound: Elona.Offer1
 
 - type: BasicAnim
-  id: AnimSparkle
+  id: Elona.AnimSparkle
   hspIds:
     elona122: 10
   asset: AnimSparkle
@@ -16,7 +16,7 @@
   rotation: 0.2
 
 - type: BasicAnim
-  id: AnimBuff
+  id: Elona.AnimBuff
   hspIds:
     elona122: 11
   asset: AnimBuff
@@ -25,7 +25,7 @@
   frameDelayMillis: 50
 
 - type: BasicAnim
-  id: AnimCurse
+  id: Elona.AnimCurse
   hspIds:
     elona122: 14
   asset: AnimCurse
@@ -33,7 +33,7 @@
   frameDelayMillis: 50
 
 - type: BasicAnim
-  id: AnimElec
+  id: Elona.AnimElec
   hspIds:
     elona122: 15
   asset: AnimElec

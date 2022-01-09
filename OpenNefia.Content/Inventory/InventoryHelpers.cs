@@ -8,6 +8,7 @@ using OpenNefia.Content.Equipment;
 using OpenNefia.Core.Locale;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Core.Log;
+using OpenNefia.Content.Prototypes;
 
 namespace OpenNefia.Content.Inventory
 {
@@ -60,7 +61,7 @@ namespace OpenNefia.Content.Inventory
                 icon = InventoryIcon.Drink;
             }
 
-            return new AssetDrawable(AssetPrototypeOf.InventoryIcons, regionId: ((int)icon).ToString());
+            return new AssetDrawable(Protos.Asset.InventoryIcons, regionId: ((int)icon).ToString());
         }
     }
 }

@@ -202,7 +202,7 @@ namespace OpenNefia.Content.CommandLine
                         else
                         {
                             Logger.Error($"MISSING TILE map{idx.AtlasIndex}.bmp {elonaTileId} ({(elonaTileId % 33) * 48},{(elonaTileId / 33) * 48})");
-                            tileDef = TilePrototypeOf.Empty;
+                            tileDef = Tile.EmptyID;
                         }
                         map.SetTile(new Vector2i(x, y), tileDef);
                     }

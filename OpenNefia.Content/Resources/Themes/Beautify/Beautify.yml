@@ -8419,982 +8419,982 @@
       filepath: /Graphic/Beautify/map2.bmp
   
   - type: Asset
-    id: HudMinimap
+    id: Elona.HudMinimap
     image:
       filepath: /Graphic/Beautify/interface.bmp
   
   - type: Asset
-    id: MinimapMarkerPlayer
+    id: Elona.MinimapMarkerPlayer
     image:
       filepath: /Graphic/Beautify/interface.bmp
   
   - type: Asset
-    id: MapNameIcon
+    id: Elona.MapNameIcon
     image:
       filepath: /Graphic/Beautify/interface.bmp
   
   - type: Asset
-    id: HudBar
+    id: Elona.HudBar
     image:
       filepath: /Graphic/Beautify/interface.bmp
   
   - type: Asset
-    id: SkillIcons
+    id: Elona.SkillIcons
     image:
       filepath: /Graphic/Beautify/item.bmp
   
   - type: Asset
-    id: HudSkillIcons
+    id: Elona.HudSkillIcons
     image:
       filepath: /Graphic/Beautify/interface.bmp
   
   - type: Asset
-    id: MessageWindow
+    id: Elona.MessageWindow
     image:
       filepath: /Graphic/Beautify/interface.bmp
   
   - type: Asset
-    id: GoldCoin
+    id: Elona.GoldCoin
     image:
       filepath: /Graphic/Beautify/interface.bmp
   
   - type: Asset
-    id: PlatinumCoin
+    id: Elona.PlatinumCoin
     image:
       filepath: /Graphic/Beautify/interface.bmp
   
   - type: Asset
-    id: CharacterLevelIcon
+    id: Elona.CharacterLevelIcon
     image:
       filepath: /Graphic/Beautify/interface.bmp
   
   - type: Asset
-    id: AutoTurnIcon
+    id: Elona.AutoTurnIcon
     image:
       filepath: /Graphic/Beautify/interface.bmp
   
   - type: Asset
-    id: HpBarFrame
+    id: Elona.HpBarFrame
     image:
       filepath: /Graphic/Beautify/interface.bmp
   
   - type: Asset
-    id: HudHpBar
+    id: Elona.HudHpBar
     image:
       filepath: /Graphic/Beautify/interface.bmp
   
   - type: Asset
-    id: HudMpBar
+    id: Elona.HudMpBar
     image:
       filepath: /Graphic/Beautify/interface.bmp
   
   - type: Asset
-    id: Clock
+    id: Elona.Clock
     image:
       filepath: /Graphic/Beautify/interface.bmp
   
   - type: Asset
-    id: ClockHand
+    id: Elona.ClockHand
     image:
       filepath: /Graphic/Beautify/interface.bmp
   
   - type: Asset
-    id: DateLabelFrame
+    id: Elona.DateLabelFrame
     image:
       filepath: /Graphic/Beautify/interface.bmp
   
   - type: Asset
-    id: BuffIcons
+    id: Elona.BuffIcons
     image:
       filepath: /Graphic/Beautify/character.bmp
   
   - type: Asset
-    id: Book
+    id: Elona.Book
     image:
       filepath: /Graphic/Beautify/book.bmp
   
   - type: Asset
-    id: DecoInvA
+    id: Elona.DecoInvA
     image:
       filepath: /Graphic/Beautify/deco_inv.bmp
   
   - type: Asset
-    id: DecoInvB
+    id: Elona.DecoInvB
     image:
       filepath: /Graphic/Beautify/deco_inv.bmp
   
   - type: Asset
-    id: DecoInvC
+    id: Elona.DecoInvC
     image:
       filepath: /Graphic/Beautify/deco_inv.bmp
   
   - type: Asset
-    id: DecoInvD
+    id: Elona.DecoInvD
     image:
       filepath: /Graphic/Beautify/deco_inv.bmp
   
   - type: Asset
-    id: DecoMirrorA
+    id: Elona.DecoMirrorA
     image:
       filepath: /Graphic/Beautify/deco_mirror.bmp
   
   - type: Asset
-    id: DecoFeatA
+    id: Elona.DecoFeatA
     image:
       filepath: /Graphic/Beautify/deco_feat.bmp
   
   - type: Asset
-    id: DecoFeatB
+    id: Elona.DecoFeatB
     image:
       filepath: /Graphic/Beautify/deco_feat.bmp
   
   - type: Asset
-    id: DecoFeatC
+    id: Elona.DecoFeatC
     image:
       filepath: /Graphic/Beautify/deco_feat.bmp
   
   - type: Asset
-    id: DecoFeatD
+    id: Elona.DecoFeatD
     image:
       filepath: /Graphic/Beautify/deco_feat.bmp
   
   - type: Asset
-    id: DecoBoardA
+    id: Elona.DecoBoardA
     image:
       filepath: /Graphic/Beautify/deco_board.bmp
   
   - type: Asset
-    id: DecoBoardB
+    id: Elona.DecoBoardB
     image:
       filepath: /Graphic/Beautify/deco_board.bmp
   
   - type: Asset
-    id: DecoSpellA
+    id: Elona.DecoSpellA
     image:
       filepath: /Graphic/Beautify/deco_spell.bmp
   
   - type: Asset
-    id: DecoSpellB
+    id: Elona.DecoSpellB
     image:
       filepath: /Graphic/Beautify/deco_spell.bmp
   
   - type: Asset
-    id: DecoSkillA
+    id: Elona.DecoSkillA
     image:
       filepath: /Graphic/Beautify/deco_skill.bmp
   
   - type: Asset
-    id: DecoSkillB
+    id: Elona.DecoSkillB
     image:
       filepath: /Graphic/Beautify/deco_skill.bmp
   
   - type: Asset
-    id: DecoHelpA
+    id: Elona.DecoHelpA
     image:
       filepath: /Graphic/Beautify/deco_help.bmp
   
   - type: Asset
-    id: DecoHelpB
+    id: Elona.DecoHelpB
     image:
       filepath: /Graphic/Beautify/deco_help.bmp
   
   - type: Asset
-    id: InventoryIcons
+    id: Elona.InventoryIcons
     image:
       filepath: /Graphic/Beautify/interface.bmp
   
   - type: Asset
-    id: TraitIcons
+    id: Elona.TraitIcons
     image:
       filepath: /Graphic/Beautify/interface.bmp
   
   - type: Asset
-    id: EquippedIcon
+    id: Elona.EquippedIcon
     image:
       filepath: /Graphic/Beautify/interface.bmp
   
   - type: Asset
-    id: LabelInput
+    id: Elona.LabelInput
     image:
       filepath: /Graphic/Beautify/interface.bmp
   
   - type: Asset
-    id: InputCaret
+    id: Elona.InputCaret
     image:
       filepath: /Graphic/Beautify/interface.bmp
   
   - type: Asset
-    id: DebrisBlood
+    id: Elona.DebrisBlood
     image:
       filepath: /Graphic/Beautify/character.bmp
   
   - type: Asset
-    id: DebrisFragment
+    id: Elona.DebrisFragment
     image:
       filepath: /Graphic/Beautify/character.bmp
   
   - type: Asset
-    id: BuffIconNone
+    id: Elona.BuffIconNone
     image:
       filepath: /Graphic/Beautify/interface.bmp
   
   - type: Asset
-    id: ArrowLeft
+    id: Elona.ArrowLeft
     image:
       filepath: /Graphic/Beautify/interface.bmp
   
   - type: Asset
-    id: ArrowRight
+    id: Elona.ArrowRight
     image:
       filepath: /Graphic/Beautify/interface.bmp
   
   - type: Asset
-    id: DirectionArrow
+    id: Elona.DirectionArrow
     image:
       filepath: /Graphic/Beautify/interface.bmp
   
   - type: Asset
-    id: Caption
+    id: Elona.Caption
     image:
       filepath: /Graphic/Beautify/interface.bmp
   
   - type: Asset
-    id: EnchantmentIcons
+    id: Elona.EnchantmentIcons
     image:
       filepath: /Graphic/Beautify/interface.bmp
   
   - type: Asset
-    id: InheritanceIcon
+    id: Elona.InheritanceIcon
     image:
       filepath: /Graphic/Beautify/interface.bmp
   
   - type: Asset
-    id: EquipSlotIcons
+    id: Elona.EquipSlotIcons
     image:
       filepath: /Graphic/Beautify/interface.bmp
   
   - type: Asset
-    id: TipIcons
+    id: Elona.TipIcons
     image:
       filepath: /Graphic/Beautify/interface.bmp
   
   - type: Asset
-    id: QuickMenuItem
+    id: Elona.QuickMenuItem
     image:
       filepath: /Graphic/Beautify/interface.bmp
   
   - type: Asset
-    id: QuickMenuItemSpecial
+    id: Elona.QuickMenuItemSpecial
     image:
       filepath: /Graphic/Beautify/interface.bmp
   
   - type: Asset
-    id: DecoWearA
+    id: Elona.DecoWearA
     image:
       filepath: /Graphic/Beautify/deco_wear.bmp
   
   - type: Asset
-    id: DecoWearB
+    id: Elona.DecoWearB
     image:
       filepath: /Graphic/Beautify/deco_wear.bmp
   
   - type: Asset
-    id: RadarDeco
+    id: Elona.RadarDeco
     image:
       filepath: /Graphic/Beautify/interface.bmp
   
   - type: Asset
-    id: StatusEffectBar
+    id: Elona.StatusEffectBar
     image:
       filepath: /Graphic/Beautify/interface.bmp
   
   - type: Asset
-    id: IeChat
+    id: Elona.IeChat
     image:
       filepath: /Graphic/Beautify/ie_chat.bmp
   
   - type: Asset
-    id: IeSheet
+    id: Elona.IeSheet
     image:
       filepath: /Graphic/Beautify/ie_sheet.bmp
   
   - type: Asset
-    id: IeScroll
+    id: Elona.IeScroll
     image:
       filepath: /Graphic/Beautify/ie_scroll.bmp
   
   - type: Asset
-    id: ImeStatusEnglish
+    id: Elona.ImeStatusEnglish
     image:
       filepath: /Graphic/Beautify/interface.bmp
   
   - type: Asset
-    id: ImeStatusJapanese
+    id: Elona.ImeStatusJapanese
     image:
       filepath: /Graphic/Beautify/interface.bmp
   
   - type: Asset
-    id: ImeStatusNone
+    id: Elona.ImeStatusNone
     image:
       filepath: /Graphic/Beautify/interface.bmp
   
   - type: Asset
-    id: MorePrompt
+    id: Elona.MorePrompt
     image:
       filepath: /Graphic/Beautify/interface.bmp
   
   - type: Asset
-    id: Window
+    id: Elona.Window
     image:
       filepath: /Graphic/Beautify/interface.bmp
   
   - type: Asset
-    id: TopicWindow0
+    id: Elona.TopicWindow0
     image:
       filepath: /Graphic/Beautify/interface.bmp
   
   - type: Asset
-    id: TopicWindow1
+    id: Elona.TopicWindow1
     image:
       filepath: /Graphic/Beautify/interface.bmp
   
   - type: Asset
-    id: TopicWindow2
+    id: Elona.TopicWindow2
     image:
       filepath: /Graphic/Beautify/interface.bmp
   
   - type: Asset
-    id: TopicWindow3
+    id: Elona.TopicWindow3
     image:
       filepath: /Graphic/Beautify/interface.bmp
   
   - type: Asset
-    id: TopicWindow4
+    id: Elona.TopicWindow4
     image:
       filepath: /Graphic/Beautify/interface.bmp
   
   - type: Asset
-    id: TopicWindow5
+    id: Elona.TopicWindow5
     image:
       filepath: /Graphic/Beautify/interface.bmp
   
   - type: Asset
-    id: Title
+    id: Elona.Title
     image:
       filepath: /Graphic/Beautify/title.bmp
   
   - type: Asset
-    id: Void
+    id: Elona.Void
     image:
       filepath: /Graphic/Beautify/void.bmp
   
   - type: Asset
-    id: BgAltar
+    id: Elona.BgAltar
     image:
       filepath: /Graphic/Beautify/bg_altar.bmp
   
   - type: Asset
-    id: BgNight
+    id: Elona.BgNight
     image:
       filepath: /Graphic/Beautify/bg_night.bmp
   
   - type: Asset
-    id: G1
+    id: Elona.G1
     image:
       filepath: /Graphic/Beautify/g1.bmp
   
   - type: Asset
-    id: G2
+    id: Elona.G2
     image:
       filepath: /Graphic/Beautify/g2.bmp
   
   - type: Asset
-    id: G3
+    id: Elona.G3
     image:
       filepath: /Graphic/Beautify/g3.bmp
   
   - type: Asset
-    id: G4
+    id: Elona.G4
     image:
       filepath: /Graphic/Beautify/g4.bmp
   
   - type: Asset
-    id: Bg1
+    id: Elona.Bg1
     image:
       filepath: /Graphic/Beautify/bg1.bmp
   
   - type: Asset
-    id: Bg2
+    id: Elona.Bg2
     image:
       filepath: /Graphic/Beautify/bg2.bmp
   
   - type: Asset
-    id: Bg3
+    id: Elona.Bg3
     image:
       filepath: /Graphic/Beautify/bg3.bmp
   
   - type: Asset
-    id: Bg4
+    id: Elona.Bg4
     image:
       filepath: /Graphic/Beautify/bg4.bmp
   
   - type: Asset
-    id: Bg5
+    id: Elona.Bg5
     image:
       filepath: /Graphic/Beautify/bg5.bmp
   
   - type: Asset
-    id: Bg6
+    id: Elona.Bg6
     image:
       filepath: /Graphic/Beautify/bg6.bmp
   
   - type: Asset
-    id: Bg7
+    id: Elona.Bg7
     image:
       filepath: /Graphic/Beautify/bg7.bmp
   
   - type: Asset
-    id: Bg8
+    id: Elona.Bg8
     image:
       filepath: /Graphic/Beautify/bg8.bmp
   
   - type: Asset
-    id: Bg9
+    id: Elona.Bg9
     image:
       filepath: /Graphic/Beautify/bg9.bmp
   
   - type: Asset
-    id: Bg10
+    id: Elona.Bg10
     image:
       filepath: /Graphic/Beautify/bg10.bmp
   
   - type: Asset
-    id: Bg11
+    id: Elona.Bg11
     image:
       filepath: /Graphic/Beautify/bg11.bmp
   
   - type: Asset
-    id: Bg12
+    id: Elona.Bg12
     image:
       filepath: /Graphic/Beautify/bg12.bmp
   
   - type: Asset
-    id: Bg13
+    id: Elona.Bg13
     image:
       filepath: /Graphic/Beautify/bg13.bmp
   
   - type: Asset
-    id: Bg22
+    id: Elona.Bg22
     image:
       filepath: /Graphic/Beautify/bg22.bmp
   
   - type: Asset
-    id: BgRe1
+    id: Elona.BgRe1
     image:
       filepath: /Graphic/Beautify/bg_re1.bmp
   
   - type: Asset
-    id: BgRe2
+    id: Elona.BgRe2
     image:
       filepath: /Graphic/Beautify/bg_re2.bmp
   
   - type: Asset
-    id: BgRe3
+    id: Elona.BgRe3
     image:
       filepath: /Graphic/Beautify/bg_re3.bmp
   
   - type: Asset
-    id: BgRe4
+    id: Elona.BgRe4
     image:
       filepath: /Graphic/Beautify/bg_re4.bmp
   
   - type: Asset
-    id: BgRe5
+    id: Elona.BgRe5
     image:
       filepath: /Graphic/Beautify/bg_re5.bmp
   
   - type: Asset
-    id: BgRe6
+    id: Elona.BgRe6
     image:
       filepath: /Graphic/Beautify/bg_re6.bmp
   
   - type: Asset
-    id: BgRe7
+    id: Elona.BgRe7
     image:
       filepath: /Graphic/Beautify/bg_re7.bmp
   
   - type: Asset
-    id: BgRe8
+    id: Elona.BgRe8
     image:
       filepath: /Graphic/Beautify/bg_re8.bmp
   
   - type: Asset
-    id: BgRe9
+    id: Elona.BgRe9
     image:
       filepath: /Graphic/Beautify/bg_re9.bmp
   
   - type: Asset
-    id: BgRe10
+    id: Elona.BgRe10
     image:
       filepath: /Graphic/Beautify/bg_re10.bmp
   
   - type: Asset
-    id: BgRe11
+    id: Elona.BgRe11
     image:
       filepath: /Graphic/Beautify/bg_re11.bmp
   
   - type: Asset
-    id: BgRe12
+    id: Elona.BgRe12
     image:
       filepath: /Graphic/Beautify/bg_re12.bmp
   
   - type: Asset
-    id: BgRe13
+    id: Elona.BgRe13
     image:
       filepath: /Graphic/Beautify/bg_re13.bmp
   
   - type: Asset
-    id: BgRe14
+    id: Elona.BgRe14
     image:
       filepath: /Graphic/Beautify/bg_re14.bmp
   
   - type: Asset
-    id: BgRe15
+    id: Elona.BgRe15
     image:
       filepath: /Graphic/Beautify/bg_re15.bmp
   
   - type: Asset
-    id: Paper
+    id: Elona.Paper
     image:
       filepath: /Graphic/Beautify/paper.bmp
   
   - type: Asset
-    id: SelectKey
+    id: Elona.SelectKey
     image:
       filepath: /Graphic/Beautify/interface.bmp
   
   - type: Asset
-    id: ImpressionIcon
+    id: Elona.ImpressionIcon
     image:
       filepath: /Graphic/Beautify/interface.bmp
   
   - type: Asset
-    id: ListBullet
+    id: Elona.ListBullet
     image:
       filepath: /Graphic/Beautify/interface.bmp
   
   - type: Asset
-    id: HpBarAlly
+    id: Elona.HpBarAlly
     image:
       filepath: /Graphic/Beautify/interface.bmp
   
   - type: Asset
-    id: HpBarOther
+    id: Elona.HpBarOther
     image:
       filepath: /Graphic/Beautify/interface.bmp
   
   - type: Asset
-    id: Shadow
+    id: Elona.Shadow
     image:
       filepath: /Graphic/Beautify/interface.bmp
   
   - type: Asset
-    id: ShadowEdges
+    id: Elona.ShadowEdges
     image:
       filepath: /Graphic/Beautify/interface.bmp
   
   - type: Asset
-    id: CharacterShadow
+    id: Elona.CharacterShadow
     image:
       filepath: /Graphic/Beautify/interface.bmp
   
   - type: Asset
-    id: PlayerLight
+    id: Elona.PlayerLight
     image:
       filepath: /Graphic/Beautify/interface.bmp
   
   - type: Asset
-    id: SceneTextShadow
+    id: Elona.SceneTextShadow
     image:
       filepath: /Graphic/Beautify/interface.bmp
   
   - type: Asset
-    id: EmotionIcons
+    id: Elona.EmotionIcons
     image:
       filepath: /Graphic/Beautify/interface.bmp
   
   - type: Asset
-    id: NefiaMark
+    id: Elona.NefiaMark
     image:
       filepath: /Graphic/Beautify/interface.bmp
   
   - type: Asset
-    id: WeatherSnowEtherwind
+    id: Elona.WeatherSnowEtherwind
     image:
       filepath: /Graphic/Beautify/interface.bmp
   
   - type: Asset
-    id: FailureToCastEffect
+    id: Elona.FailureToCastEffect
     image:
       filepath: /Graphic/Beautify/item.bmp
   
   - type: Asset
-    id: SwarmEffect
+    id: Elona.SwarmEffect
     image:
       filepath: /Graphic/Beautify/item.bmp
   
   - type: Asset
-    id: HealEffect
+    id: Elona.HealEffect
     image:
       filepath: /Graphic/Beautify/item.bmp
   
   - type: Asset
-    id: CurseEffect
+    id: Elona.CurseEffect
     image:
       filepath: /Graphic/Beautify/item.bmp
   
   - type: Asset
-    id: OfferEffect
+    id: Elona.OfferEffect
     image:
       filepath: /Graphic/Beautify/item.bmp
   
   - type: Asset
-    id: BreakingEffect
+    id: Elona.BreakingEffect
     image:
       filepath: /Graphic/Beautify/item.bmp
   
   - type: Asset
-    id: MeleeAttackDebris
+    id: Elona.MeleeAttackDebris
     image:
       filepath: /Graphic/Beautify/item.bmp
   
   - type: Asset
-    id: MeleeAttackBlood
+    id: Elona.MeleeAttackBlood
     image:
       filepath: /Graphic/Beautify/item.bmp
   
   - type: Asset
-    id: DeathBlood
+    id: Elona.DeathBlood
     image:
       filepath: /Graphic/Beautify/item.bmp
   
   - type: Asset
-    id: DeathFragments
+    id: Elona.DeathFragments
     image:
       filepath: /Graphic/Beautify/item.bmp
   
   - type: Asset
-    id: AnimSlash
+    id: Elona.AnimSlash
     image:
       filepath: /Graphic/Beautify/interface.bmp
   
   - type: Asset
-    id: AnimBash
+    id: Elona.AnimBash
     image:
       filepath: /Graphic/Beautify/interface.bmp
   
   - type: Asset
-    id: AnimMiracle
+    id: Elona.AnimMiracle
     image:
       filepath: /Graphic/Beautify/anime12.bmp
   
   - type: Asset
-    id: AnimSpotMine
+    id: Elona.AnimSpotMine
     image:
       filepath: /Graphic/Beautify/anime1.bmp
   
   - type: Asset
-    id: AnimSpotFish
+    id: Elona.AnimSpotFish
     image:
       filepath: /Graphic/Beautify/anime2.bmp
   
   - type: Asset
-    id: AnimSpotHarvest
+    id: Elona.AnimSpotHarvest
     image:
       filepath: /Graphic/Beautify/anime3.bmp
   
   - type: Asset
-    id: AnimSpotDig
+    id: Elona.AnimSpotDig
     image:
       filepath: /Graphic/Beautify/anime4.bmp
   
   - type: Asset
-    id: AnimBall
+    id: Elona.AnimBall
     image:
       filepath: /Graphic/Beautify/anime5.bmp
   
   - type: Asset
-    id: AnimBall2
+    id: Elona.AnimBall2
     image:
       filepath: /Graphic/Beautify/anime5.bmp
   
   - type: Asset
-    id: AnimShock
+    id: Elona.AnimShock
     image:
       filepath: /Graphic/Beautify/anime6.bmp
   
   - type: Asset
-    id: AnimBreath
+    id: Elona.AnimBreath
     image:
       filepath: /Graphic/Beautify/anime7.bmp
   
   - type: Asset
-    id: AnimSmoke
+    id: Elona.AnimSmoke
     image:
       filepath: /Graphic/Beautify/anime8.bmp
   
   - type: Asset
-    id: AnimNukeSmoke1
+    id: Elona.AnimNukeSmoke1
     image:
       filepath: /Graphic/Beautify/anime9.bmp
   
   - type: Asset
-    id: AnimNukeSmoke2
+    id: Elona.AnimNukeSmoke2
     image:
       filepath: /Graphic/Beautify/anime9.bmp
   
   - type: Asset
-    id: AnimNukeCloud
+    id: Elona.AnimNukeCloud
     image:
       filepath: /Graphic/Beautify/anime9.bmp
   
   - type: Asset
-    id: AnimNukeExplosion
+    id: Elona.AnimNukeExplosion
     image:
       filepath: /Graphic/Beautify/anime9.bmp
   
   - type: Asset
-    id: AnimNukeRing
+    id: Elona.AnimNukeRing
     image:
       filepath: /Graphic/Beautify/anime9.bmp
   
   - type: Asset
-    id: AnimSparkle
+    id: Elona.AnimSparkle
     image:
       filepath: /Graphic/Beautify/anime10.bmp
   
   - type: Asset
-    id: AnimBuff
+    id: Elona.AnimBuff
     image:
       filepath: /Graphic/Beautify/anime11.bmp
   
   - type: Asset
-    id: AnimGene
+    id: Elona.AnimGene
     image:
       filepath: /Graphic/Beautify/anime13.bmp
   
   - type: Asset
-    id: AnimCritical
+    id: Elona.AnimCritical
     image:
       filepath: /Graphic/Beautify/anime28.bmp
   
   - type: Asset
-    id: AnimCurse
+    id: Elona.AnimCurse
     image:
       filepath: /Graphic/Beautify/anime14.bmp
   
   - type: Asset
-    id: AnimElec
+    id: Elona.AnimElec
     image:
       filepath: /Graphic/Beautify/anime15.bmp
   
   - type: Asset
-    id: AnimFlame
+    id: Elona.AnimFlame
     image:
       filepath: /Graphic/Beautify/anime16.bmp
   
   - type: Asset
-    id: AnimMeteor
+    id: Elona.AnimMeteor
     image:
       filepath: /Graphic/Beautify/anime17.bmp
   
   - type: Asset
-    id: AnimMeteorImpact
+    id: Elona.AnimMeteorImpact
     image:
       filepath: /Graphic/Beautify/anime17.bmp
   
   - type: Asset
-    id: AnimElemLightning
+    id: Elona.AnimElemLightning
     image:
       filepath: /Graphic/Beautify/anime18.bmp
   
   - type: Asset
-    id: AnimElemCold
+    id: Elona.AnimElemCold
     image:
       filepath: /Graphic/Beautify/anime19.bmp
   
   - type: Asset
-    id: AnimElemFire
+    id: Elona.AnimElemFire
     image:
       filepath: /Graphic/Beautify/anime20.bmp
   
   - type: Asset
-    id: AnimElemNether
+    id: Elona.AnimElemNether
     image:
       filepath: /Graphic/Beautify/anime21.bmp
   
   - type: Asset
-    id: AnimElemDarkness
+    id: Elona.AnimElemDarkness
     image:
       filepath: /Graphic/Beautify/anime22.bmp
   
   - type: Asset
-    id: AnimElemMind
+    id: Elona.AnimElemMind
     image:
       filepath: /Graphic/Beautify/anime23.bmp
   
   - type: Asset
-    id: AnimElemSound
+    id: Elona.AnimElemSound
     image:
       filepath: /Graphic/Beautify/anime24.bmp
   
   - type: Asset
-    id: AnimElemChaos
+    id: Elona.AnimElemChaos
     image:
       filepath: /Graphic/Beautify/anime25.bmp
   
   - type: Asset
-    id: AnimElemNerve
+    id: Elona.AnimElemNerve
     image:
       filepath: /Graphic/Beautify/anime26.bmp
   
   - type: Asset
-    id: AnimElemPoison
+    id: Elona.AnimElemPoison
     image:
       filepath: /Graphic/Beautify/anime27.bmp
   
   - type: Asset
-    id: AutoTurnMining
+    id: Elona.AutoTurnMining
     image:
       filepath: /Graphic/Beautify/anime1.bmp
   
   - type: Asset
-    id: AutoTurnFishing
+    id: Elona.AutoTurnFishing
     image:
       filepath: /Graphic/Beautify/anime2.bmp
   
   - type: Asset
-    id: AutoTurnHarvesting
+    id: Elona.AutoTurnHarvesting
     image:
       filepath: /Graphic/Beautify/anime3.bmp
   
   - type: Asset
-    id: AutoTurnSearching
+    id: Elona.AutoTurnSearching
     image:
       filepath: /Graphic/Beautify/anime4.bmp
   
   - type: Asset
-    id: EffectMapRipple
+    id: Elona.EffectMapRipple
     image:
       filepath: /Graphic/Beautify/interface.bmp
   
   - type: Asset
-    id: EffectMapFoot
+    id: Elona.EffectMapFoot
     image:
       filepath: /Graphic/Beautify/interface.bmp
   
   - type: Asset
-    id: EffectMapSnow1
+    id: Elona.EffectMapSnow1
     image:
       filepath: /Graphic/Beautify/interface.bmp
   
   - type: Asset
-    id: EffectMapSnow2
+    id: Elona.EffectMapSnow2
     image:
       filepath: /Graphic/Beautify/interface.bmp
   
   - type: Asset
-    id: EffectMapSplash
+    id: Elona.EffectMapSplash
     image:
       filepath: /Graphic/Beautify/interface.bmp
   
   - type: Asset
-    id: EffectMapSplash2
+    id: Elona.EffectMapSplash2
     image:
       filepath: /Graphic/Beautify/interface.bmp
   
   - type: Asset
-    id: Cloud1
+    id: Elona.Cloud1
     image:
       filepath: /Graphic/Beautify/map0.bmp
   
   - type: Asset
-    id: Cloud2
+    id: Elona.Cloud2
     image:
       filepath: /Graphic/Beautify/map0.bmp
   
   - type: Asset
-    id: LightPortLight
+    id: Elona.LightPortLight
     image:
       filepath: /Graphic/Beautify/interface.bmp
   
   - type: Asset
-    id: LightTorch
+    id: Elona.LightTorch
     image:
       filepath: /Graphic/Beautify/interface.bmp
   
   - type: Asset
-    id: LightLantern
+    id: Elona.LightLantern
     image:
       filepath: /Graphic/Beautify/interface.bmp
   
   - type: Asset
-    id: LightCandle
+    id: Elona.LightCandle
     image:
       filepath: /Graphic/Beautify/interface.bmp
   
   - type: Asset
-    id: LightStove
+    id: Elona.LightStove
     image:
       filepath: /Graphic/Beautify/interface.bmp
   
   - type: Asset
-    id: LightItem
+    id: Elona.LightItem
     image:
       filepath: /Graphic/Beautify/interface.bmp
   
   - type: Asset
-    id: LightTown
+    id: Elona.LightTown
     image:
       filepath: /Graphic/Beautify/interface.bmp
   
   - type: Asset
-    id: LightCrystal
+    id: Elona.LightCrystal
     image:
       filepath: /Graphic/Beautify/interface.bmp
   
   - type: Asset
-    id: LightTownLight
+    id: Elona.LightTownLight
     image:
       filepath: /Graphic/Beautify/interface.bmp
   
   - type: Asset
-    id: LightWindow
+    id: Elona.LightWindow
     image:
       filepath: /Graphic/Beautify/interface.bmp
   
   - type: Asset
-    id: LightWindowRed
+    id: Elona.LightWindowRed
     image:
       filepath: /Graphic/Beautify/interface.bmp
   
   - type: Asset
-    id: FishingPole
+    id: Elona.FishingPole
     image:
       filepath: /Graphic/Beautify/fishing.bmp
   
   - type: Asset
-    id: FishingLine
+    id: Elona.FishingLine
     image:
       filepath: /Graphic/Beautify/fishing.bmp
   
   - type: Asset
-    id: FishingBob
+    id: Elona.FishingBob
     image:
       filepath: /Graphic/Beautify/fishing.bmp
   
   - type: Asset
-    id: FishingFish
+    id: Elona.FishingFish
     image:
       filepath: /Graphic/Beautify/fishing.bmp
   

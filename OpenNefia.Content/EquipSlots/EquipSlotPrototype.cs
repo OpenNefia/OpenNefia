@@ -1,7 +1,7 @@
 ﻿using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Serialization.Manager.Attributes;
-using OpenNefia.Core.Rendering;
 using OpenNefia.Core.Containers;
+using OpenNefia.Content.Prototypes;
 
 namespace OpenNefia.Content.EquipSlots
 {
@@ -21,7 +21,7 @@ namespace OpenNefia.Content.EquipSlots
         /// Icon index for this body part.
         /// </summary>
         /// <remarks>
-        /// This is a region ID in <see cref="AssetPrototypeOf.EquipSlotIcons"/>. 
+        /// This is a region ID in <see cref="Protos.Asset.EquipSlotIcons"/>. 
         /// </remarks>
         /// <seealso cref="EquipSlotIcon"/>
         [DataField]

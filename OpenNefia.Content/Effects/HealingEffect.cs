@@ -26,7 +26,7 @@ namespace OpenNefia.Content.Effects
         {
             Mes.Display($"{DisplayNameSystem.GetDisplayName(target)} is (supposed to be) healed.", UiColors.MesGreen);
 
-            var drawable = new ParticleMapDrawable(AssetPrototypeOf.HealEffect, Protos.Sound.Heal1, 5f);
+            var drawable = new ParticleMapDrawable(Protos.Asset.HealEffect, Protos.Sound.Heal1, 5f);
             _mapDrawables.Enqueue(drawable, coords);
 
             return EffectResult.Succeeded;

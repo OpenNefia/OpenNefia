@@ -70,13 +70,13 @@ namespace OpenNefia.Content.UI.Layer
 
         public TextPrompt()
         {
-            _Value = String.Empty;
+            _Value = string.Empty;
 
-            AssetLabelInput = Assets.Get(AssetPrototypeOf.LabelInput);
-            AssetImeStatusJapanese = Assets.Get(AssetPrototypeOf.ImeStatusJapanese);
-            AssetImeStatusEnglish = Assets.Get(AssetPrototypeOf.ImeStatusEnglish);
-            AssetImeStatusNone = Assets.Get(AssetPrototypeOf.ImeStatusNone);
-            AssetInputCaret = Assets.Get(AssetPrototypeOf.InputCaret);
+            AssetLabelInput = Assets.Get(Protos.Asset.LabelInput);
+            AssetImeStatusJapanese = Assets.Get(Protos.Asset.ImeStatusJapanese);
+            AssetImeStatusEnglish = Assets.Get(Protos.Asset.ImeStatusEnglish);
+            AssetImeStatusNone = Assets.Get(Protos.Asset.ImeStatusNone);
+            AssetInputCaret = Assets.Get(Protos.Asset.InputCaret);
 
             TopicWindow = new UiTopicWindow(UiTopicWindow.FrameStyleKind.Zero, UiTopicWindow.WindowStyleKind.Two);
             Text = new UiText(FontPromptText);
