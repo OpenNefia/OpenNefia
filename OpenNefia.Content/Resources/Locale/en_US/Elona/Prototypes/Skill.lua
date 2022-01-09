@@ -2,7 +2,7 @@
 {
     StatStrength = {
         Name = "Strength",
-        ShortName = " STR",
+        ShortName = "STR",
 
         OnDecrease = function(entity)
             return ("%s%s muscles soften.")
@@ -15,7 +15,7 @@
     },
     StatConstitution = {
         Name = "Constitution",
-        ShortName = " CON",
+        ShortName = "CON",
 
         OnDecrease = function(entity)
             return ("%s lose%s patience.")
@@ -28,7 +28,7 @@
     },
     StatDexterity = {
         Name = "Dexterity",
-        ShortName = " DEX",
+        ShortName = "DEX",
 
         OnDecrease = function(entity)
             return ("%s become%s clumsy.")
@@ -41,7 +41,7 @@
     },
     StatPerception = {
         Name = "Perception",
-        ShortName = " PER",
+        ShortName = "PER",
 
         OnDecrease = function(entity)
             return ("%s %s getting out of touch with the world.")
@@ -54,7 +54,7 @@
     },
     StatLearning = {
         Name = "Learning",
-        ShortName = " LER",
+        ShortName = "LER",
 
         OnDecrease = function(entity)
             return ("%s lose%s curiosity.")
@@ -67,7 +67,7 @@
     },
     StatWill = {
         Name = "Will",
-        ShortName = " WIL",
+        ShortName = "WIL",
 
         OnDecrease = function(entity)
             return ("%s%s will softens.")
@@ -80,7 +80,7 @@
     },
     StatMagic = {
         Name = "Magic",
-        ShortName = " MAG",
+        ShortName = "MAG",
 
         OnDecrease = function(entity)
             return ("%s%s magic degrades.")
@@ -93,7 +93,7 @@
     },
     StatCharisma = {
         Name = "Charisma",
-        ShortName = " CHR",
+        ShortName = "CHR",
 
         OnDecrease = function(entity)
             return ("%s start%s to avoid eyes of people.")
@@ -153,19 +153,19 @@
         end
     },
 
-    Gained = function(entity)
-        return ("You have learned new ability, %s.")
-            :format(entity)
+    Gained = function(skillName)
+        return ("You have learned a new ability, %s.")
+            :format(skillName)
     end,
 
     Default = {
-        OnDecrease = function(entity, skill)
+        OnDecrease = function(entity, skillName)
             return ("%s%s %s skill falls off.")
-                :format(_.name(entity), _.his_owned(entity), skill)
+                :format(_.name(entity), _.his_owned(entity), skillName)
         end,
-        OnIncrease = function(entity, skill)
+        OnIncrease = function(entity, skillName)
             return ("%s%s %s skill increases.")
-                :format(_.name(entity), _.his_owned(entity), skill)
+                :format(_.name(entity), _.his_owned(entity), skillName)
         end
     },
 
@@ -400,7 +400,7 @@
     },
     Fishing = {
        Description = "Displays your fishing skill.",
-       EnchantmentDescription = "makes you better fisher.",
+       EnchantmentDescription = "makes you a better fisher.",
        Name = "Fishing"
     },
     SpellFourDimensionalPocket = {
