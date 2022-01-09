@@ -2,7 +2,7 @@
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.UI.Layer;
 
-namespace OpenNefia.Content.Tests
+namespace OpenNefia.Tests
 {
     public class DummyLayer : DummyDrawable, IUiLayer
     {
