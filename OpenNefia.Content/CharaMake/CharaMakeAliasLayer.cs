@@ -35,11 +35,11 @@ namespace OpenNefia.Content.CharaMake
             public bool IsReroll { get; set; }
             public bool IsLocked { get; set; }
         }
-        public class CreateCharAliasCell : UiListCell<CreateCharaAliasData>
+        public class CreateCharaAliasCell : UiListCell<CreateCharaAliasData>
         {
             private UiText LockedText;
 
-            public CreateCharAliasCell(CreateCharaAliasData data, string text)
+            public CreateCharaAliasCell(CreateCharaAliasData data, string text)
                 : base(data, new UiText(UiFonts.ListTitleScreenText, text))
             {
                 LockedText = new UiText(UiFonts.CharaMakeRerollLocked, Loc.GetString("Elona.CharaMake.AttributeReroll.Locked"));
@@ -119,8 +119,8 @@ namespace OpenNefia.Content.CharaMake
 
         private void Reroll()
         {
-            var items = new CreateCharAliasCell[17];
-            items[0] = new CreateCharAliasCell(new CreateCharaAliasData(string.Empty, true), Loc.GetString("Elona.CharaMake.AliasSelect.Reroll"));
+            var items = new CreateCharaAliasCell[17];
+            items[0] = new CreateCharaAliasCell(new CreateCharaAliasData(string.Empty, true), Loc.GetString("Elona.CharaMake.AliasSelect.Reroll"));
 
             for (int i = 1; i < items.Length; i++)
             {
@@ -134,7 +134,7 @@ namespace OpenNefia.Content.CharaMake
                 else
                     alias = _aliasGenerator.GenerateRandomAlias(AliasType.Chara);
                 
-                items[i] = new CreateCharAliasCell(new CreateCharaAliasData(alias, isReroll: false, isLocked: isLocked), alias);
+                items[i] = new CreateCharaAliasCell(new CreateCharaAliasData(alias, isReroll: false, isLocked: isLocked), alias);
             }
 
             List.Clear();
