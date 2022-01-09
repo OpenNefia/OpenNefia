@@ -49,21 +49,37 @@ namespace OpenNefia.Content.UI.Element
                 Text = data.Name;
             }
 
-            public override void Draw()
+            public override void SetPosition(int x, int y)
             {
-                switch(Data)
+                switch (Data)
                 {
                     default:
-                        base.Draw();
-                        if (IndexInList % 2 == 0)
-                        {
-                            Love.Graphics.SetColor(UiColors.ListEntryAccent);
-                            Love.Graphics.Rectangle(Love.DrawMode.Fill, X - 1, Y, 650, 18);
-                        }
+                        base.SetPosition(x, y);
                         break;
                     case FeatData.FeatHeader header:
+                        base.SetPosition(x + 30, y);
+                        break;
+                    case FeatData.GainedFeat gained:
+                        base.SetPosition(x + 15, y);
+                        break;
+                }
+            }
+
+            public override void Draw()
+            {
+                if (IndexInList % 2 == 0 && Data is not FeatData.FeatHeader)
+                {
+                    Love.Graphics.SetColor(UiColors.ListEntryAccent);
+                    Love.Graphics.Rectangle(Love.DrawMode.Fill, X - 1, Y, 650, 18);
+                }
+                switch (Data)
+                {
+                    case FeatData.GainedFeat:
+                    case FeatData.FeatHeader:
                         UiText.Draw();
-                        //UiText.xof
+                        break;
+                    case FeatData.Feat:
+                        base.Draw();
                         break;
                 }
             }
@@ -81,8 +97,9 @@ namespace OpenNefia.Content.UI.Element
 
         public FeatWindow(Func<Dictionary<FeatPrototype, int>> getFeatsFunc, Action<FeatData.Feat> selectFeatAction)
         {
-            TextTitle.Text = Loc.GetString("Elona.FeatMenu.Title");
             _prototypeManager = IoCManager.Resolve<IPrototypeManager>();
+
+            TextTitle.Text = Loc.GetString("Elona.FeatMenu.Title");
             List = new UiList<FeatData>();
             GetFeatsFunc = getFeatsFunc ?? (() => new Dictionary<FeatPrototype, int>());
             SelectFeatAction = selectFeatAction ?? (feat => { });
@@ -91,6 +108,14 @@ namespace OpenNefia.Content.UI.Element
             PageModel.NumberXOffset = -55;
             PageModel.NumberYOffset = -3;
 
+            List.GrabFocus();
+            List.EventOnActivate += List_OnActivate;
+            PageModel.OnPageChanged += OnPageChanged;
+            RefreshData();
+        }
+
+        private void RefreshData(FeatPrototype? lastSelected = null)
+        {
             var data = new List<FeatCell>();
             var prototypes = _prototypeManager.EnumeratePrototypes<FeatPrototype>()?.Where(x => x.FeatType == FeatType.Feat)!;
 
@@ -106,11 +131,13 @@ namespace OpenNefia.Content.UI.Element
             data.AddRange(gainedFeats
                 .Select(x => new FeatCell(new FeatData.GainedFeat(x.Key, x.Value, x.Key.FeatType == FeatType.Race)))
                 .OrderBy(x => (x.Data as FeatData.GainedFeat)?.IsRace));
-
-            List.GrabFocus();
-            List.EventOnActivate += List_OnActivate;
-            PageModel.OnPageChanged += OnPageChanged;
             PageModel.Initialize(data, 15);
+
+            if (lastSelected != null)
+            {
+                PageModel.ChangePage(PageModel.PageCount);
+                List.Select(List.IndexOf(List.First(x => (x.Data as FeatData.Feat)?.Prototype == lastSelected)));
+            }
         }
 
         private void List_OnActivate(object? sender, UiListEventArgs<FeatData> args)
@@ -119,6 +146,7 @@ namespace OpenNefia.Content.UI.Element
             {
                 case FeatData.Feat feat:
                     SelectFeatAction(feat);
+                    RefreshData(feat.Prototype);
                     break;
             }
         }
