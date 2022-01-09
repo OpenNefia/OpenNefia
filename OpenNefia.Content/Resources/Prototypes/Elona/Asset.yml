@@ -224,7 +224,7 @@
   countX: 22
 
 - type: Asset
-  id: Elona.TraitIcons
+  id: Elona.FeatIcons
   image:
     filepath: /Graphic/Elona/interface.bmp
     region: "384, 336, 144, 24"

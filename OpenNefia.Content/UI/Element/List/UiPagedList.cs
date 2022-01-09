@@ -1,5 +1,6 @@
 ﻿using OpenNefia.Core.Audio;
 using OpenNefia.Core.Input;
+using OpenNefia.Core.Maths;
 using OpenNefia.Core.UI;
 using OpenNefia.Core.UI.Element;
 using System;
@@ -20,6 +21,8 @@ namespace OpenNefia.Content.UI.Element.List
         public int CurrentPage => _pageModel.CurrentPage;
         public int PageCount => _pageModel.PageCount;
 
+        public bool Muted;
+
         public IUiElement? PageTextElement
         {
             get => PageText.PageTextParent;
@@ -34,11 +37,14 @@ namespace OpenNefia.Content.UI.Element.List
             remove => _pageModel.OnPageChanged -= value;
         }
 
-        public UiPagedList(int itemsPerPage = 16, IUiElement? elementForPageText = null) : base()
+        public UiPagedList(int itemsPerPage = 16, IUiElement? elementForPageText = null, Vector2i? textOffset = null) : base()
         {
             _pageModel = new UiPageModel<UiListCell<T>>(itemsPerPage);
             _pageModel.SetElements(AllCells);
-            PageText = new UiPageText(elementForPageText);
+            PageText = new UiPageText(elementForPageText)
+            {
+                TextOffset = textOffset ?? default
+            };
 
             OnPageChanged += PageText.UpdatePageText;
             OnPageChanged += HandlePageChanged;
@@ -89,7 +95,8 @@ namespace OpenNefia.Content.UI.Element.List
             var changed = _pageModel.SetPage(page);
             if (changed)
             {
-                Sounds.Play(Sound.Pop1);
+                if (!Muted)
+                    Sounds.Play(Sound.Pop1);
                 UpdateAllCells();
             }
 

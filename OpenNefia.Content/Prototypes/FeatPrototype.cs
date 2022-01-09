@@ -11,8 +11,8 @@ namespace OpenNefia.Content.Prototypes
     public enum FeatType
     {
         Feat,
-        Race,
         Mutation,
+        Race,
         EtherDisease
     }
 
