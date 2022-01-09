@@ -231,7 +231,12 @@ namespace OpenNefia.Content.Locale.Funcs
         public static string BuiltIn_theTarget(object? source, object? target)
         {
             if (target is not EntityUid targetEnt)
-                return "it";
+            {
+                if (source == target)
+                    return "itself";
+                else
+                    return "it";
+            }
 
             // Check if the target is different than the source, and return "you"/"her"
             // if so.

@@ -1,4 +1,5 @@
-﻿using OpenNefia.Core.IoC;
+﻿using NUnit.Framework;
+using OpenNefia.Core.IoC;
 using OpenNefia.Core.Locale;
 using OpenNefia.Core.Prototypes;
 using System;
@@ -11,11 +12,20 @@ namespace OpenNefia.Tests
 {
     public class LocalizationUnitTest : OpenNefiaUnitTest
     {
+        protected virtual PrototypeId<LanguagePrototype> TestingLanguage => LanguagePrototypeOf.English;
+
         protected override void OverrideIoC()
         {
             IoCManager.Register<ILocalizationManager, TestingLocalizationManager>(overwrite: true);
 
             // Load the required localization code in the Lua side.
+        }
+
+        [SetUp]
+        public void Setup()
+        {
+            var locMan = IoCManager.Resolve<ILocalizationManager>();
+            locMan.SwitchLanguage(TestingLanguage);
         }
     }
 
