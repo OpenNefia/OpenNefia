@@ -16,7 +16,7 @@ namespace OpenNefia.Core.Locale
 
         private Lua _lua = default!;
         internal Dictionary<string, string> _stringStore = new();
-        internal Dictionary<string, List<string>> _ListStore = new();
+        internal Dictionary<string, List<string>> _listStore = new();
         internal Dictionary<string, LuaFunction> _functionStore = new();
 
         private Dictionary<string, MethodInfo> _sharedBuiltInFunctions = new();
@@ -206,7 +206,7 @@ namespace OpenNefia.Core.Locale
                     {
                         list.Add(subpair.Value.ToString()!);
                     }
-                    _ListStore[key] = list;
+                    _listStore[key] = list;
                 }
                 else
                 {

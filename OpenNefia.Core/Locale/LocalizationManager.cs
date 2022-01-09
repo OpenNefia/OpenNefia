@@ -16,6 +16,7 @@ using System.Diagnostics.CodeAnalysis;
 using OpenNefia.Core.UserInterface;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Timing;
+using Microsoft.CodeAnalysis;
 
 namespace OpenNefia.Core.Locale
 {
@@ -154,7 +155,7 @@ namespace OpenNefia.Core.Locale
                 return true;
             }
 
-            if (_ListStore.TryGetValue(key, out var list))
+            if (_listStore.TryGetValue(key, out var list))
             {
                 // This is meant to emulate the `txt` function in the HSP source.
                 str = _random.Pick(list);
@@ -180,6 +181,12 @@ namespace OpenNefia.Core.Locale
             return string.Empty;
         }
 
+        public bool TryGetTable(LocaleKey key, [NotNullWhen(true)] out LuaTable? table)
+        {
+            table = _lua.GetTable($"_Collected." + key);
+            return table != null;
+        }
+
         public string GetPrototypeString<T>(PrototypeId<T> protoId, LocaleKey key, params LocaleArg[] args)
             where T : class, IPrototype
         {
@@ -201,8 +208,8 @@ namespace OpenNefia.Core.Locale
                 return false;
             }
 
-            table = _lua.GetTable($"OpenNefia.Entities.{metadata.EntityPrototype.ID}");
-            return table != null;
+            // TODO: put this under prototypes like everything else
+            return TryGetTable($"OpenNefia.Entities.{metadata.EntityPrototype.ID}", out table);
         }
     }
 }

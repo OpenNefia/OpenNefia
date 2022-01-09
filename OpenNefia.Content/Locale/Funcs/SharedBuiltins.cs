@@ -22,11 +22,6 @@ namespace OpenNefia.Content.Locale.Funcs
         [LocaleFunction("name")]
         public static string BuiltIn_name(object? obj, bool ignoreSight = false)
         {
-            if (obj is string str)
-            {
-                return str;
-            }
-
             if (obj is not EntityUid entity)
             {
                 return Loc.GetString("Elona.GameObjects.Common.Something");
