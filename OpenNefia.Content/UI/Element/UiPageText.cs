@@ -31,7 +31,7 @@ namespace OpenNefia.Content.UI.Element
         /// </remarks>
         public void UpdatePageText(int newPage, int newPageCount)
         {
-            PageText.Text = newPageCount > 1 ? $"Page.{newPage + 1}/{newPageCount + 1}" : string.Empty;
+            PageText.Text = newPageCount > 0 ? $"Page.{newPage + 1}/{newPageCount + 1}" : string.Empty;
         }
 
         public override void GetPreferredSize(out Vector2i size)
@@ -69,7 +69,6 @@ namespace OpenNefia.Content.UI.Element
                 return;
 
             PageText.Draw();
-            UiUtils.DebugDraw(PageTextParent);
         }
 
         public override void Update(float dt)
