@@ -22,7 +22,8 @@ namespace OpenNefia.Content.UI.Element
             public virtual string Description { get; } = "";
             public record Feat(FeatPrototype Prototype, int Level) : FeatData
             {
-                public override string Name => Loc.GetPrototypeString(Prototype.GetStrongID(), $"{Level + 1}.Name")!;
+                public virtual int TotalLevel => Level + 1;
+                public override string Name => Loc.GetPrototypeString(Prototype.GetStrongID(), $"{TotalLevel}.Name")!;
             }
             public record FeatHeader(string LocalizeText) : FeatData
             {
@@ -30,6 +31,8 @@ namespace OpenNefia.Content.UI.Element
             }
             public record GainedFeat : Feat
             {
+                public override int TotalLevel => Level;
+                public override string Name => $"[{Loc.GetString($"Elona.FeatMenu.FeatType.{Prototype.FeatType}")}]{base.Name}";
                 public bool IsRace;
                 
                 public GainedFeat(FeatPrototype Prototype, int Level, bool isRace) : base(Prototype, Level)
@@ -49,20 +52,16 @@ namespace OpenNefia.Content.UI.Element
                 Text = data.Name;
             }
 
+            private int Offset => Data switch
+            {
+                FeatData.FeatHeader header => 35,
+                FeatData.GainedFeat gained => -5,
+                _ => 0,
+            };
+
             public override void SetPosition(int x, int y)
             {
-                switch (Data)
-                {
-                    default:
-                        base.SetPosition(x, y);
-                        break;
-                    case FeatData.FeatHeader header:
-                        base.SetPosition(x + 30, y);
-                        break;
-                    case FeatData.GainedFeat gained:
-                        base.SetPosition(x + 15, y);
-                        break;
-                }
+                base.SetPosition(x + Offset, y);
             }
 
             public override void Draw()
@@ -70,7 +69,7 @@ namespace OpenNefia.Content.UI.Element
                 if (IndexInList % 2 == 0 && Data is not FeatData.FeatHeader)
                 {
                     Love.Graphics.SetColor(UiColors.ListEntryAccent);
-                    Love.Graphics.Rectangle(Love.DrawMode.Fill, X - 1, Y, 650, 18);
+                    Love.Graphics.Rectangle(Love.DrawMode.Fill, X - 1, Y, 650 - Offset, 18);
                 }
                 switch (Data)
                 {
@@ -135,8 +134,17 @@ namespace OpenNefia.Content.UI.Element
 
             if (lastSelected != null)
             {
-                PageModel.ChangePage(PageModel.PageCount);
-                List.Select(List.IndexOf(List.First(x => (x.Data as FeatData.Feat)?.Prototype == lastSelected)));
+                try
+                {
+                    var selectedIndex = data.First(x => (x.Data as FeatData.GainedFeat)?.Prototype == lastSelected);
+                    var page = (data.IndexOf(selectedIndex)) / PageModel.ItemsPerPage;
+                    PageModel.ChangePage(page);
+                    List.Select(List.IndexOf(List.First(x => (x.Data as FeatData.Feat)?.Prototype == lastSelected)));
+                }
+                catch (Exception ex)
+                {
+
+                }
             }
         }
 
@@ -144,6 +152,8 @@ namespace OpenNefia.Content.UI.Element
         {
             switch(args.SelectedCell.Data)
             {
+                case FeatData.GainedFeat:
+                    break;
                 case FeatData.Feat feat:
                     SelectFeatAction(feat);
                     RefreshData(feat.Prototype);

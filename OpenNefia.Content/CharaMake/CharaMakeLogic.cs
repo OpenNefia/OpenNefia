@@ -22,11 +22,12 @@ namespace OpenNefia.Content.CharaMake
             return new List<ICharaMakeLayer>
             {
                 new CharaMakeFeatWindowLayer(),
+
                 new CharaMakeRaceSelectLayer(),
                 new CharaMakeGenderSelectLayer(),
                 new CharaMakeClassSelectLayer(),
                 new CharaMakeAttributeRerollLayer(),
-                // TODO add feat selection
+                new CharaMakeFeatWindowLayer(),
                 new CharaMakeAliasLayer(),
                 // TODO add appearance
                 // TODO add character sheet
