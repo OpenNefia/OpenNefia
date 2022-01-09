@@ -328,5 +328,84 @@ Test.Content.Builtins = {
         }
 
         #endregion
+
+        #region Builtin_theTarget()
+
+        private const string LocaleTestFile_theTarget = @"
+Test.Content.Builtins = {
+    TheTarget = function(source, target)
+        return ('%s'):format(_.theTarget(source, target))
+    end,
+}
+";
+
+        [Test]
+        public void TestBuiltIn_theTarget_Primitives()
+        {
+            var locMan = IoCManager.Resolve<ILocalizationManager>();
+            locMan.LoadString(LocaleTestFile_theTarget);
+            locMan.Resync();
+            
+            // Primitive boxing means that it will not output "itself".
+            Assert.That(locMan.GetString("Test.Content.Builtins.TheTarget", ("source", 1), ("target", 1)), Is.EqualTo("it"));
+            Assert.That(locMan.GetString("Test.Content.Builtins.TheTarget", ("source", 1), ("target", 2)), Is.EqualTo("it"));
+
+            var obj1 = new object();
+            var obj2 = new object();
+
+            Assert.That(locMan.GetString("Test.Content.Builtins.TheTarget", ("source", obj1), ("target", obj1)), Is.EqualTo("itself"));
+            Assert.That(locMan.GetString("Test.Content.Builtins.TheTarget", ("source", obj2), ("target", obj1)), Is.EqualTo("it"));
+        }
+
+        [Test]
+        public void TestBuiltIn_theTarget_Charas()
+        {
+            var sim = SimulationFactory();
+
+            var locMan = sim.Resolve<ILocalizationManager>();
+            locMan.LoadString(LocaleTestFile_theTarget);
+            locMan.Resync();
+
+            var entMan = sim.Resolve<IEntityManager>();
+            var gameSession = sim.Resolve<IGameSessionManager>();
+            var map = sim.ActiveMap!;
+
+            var entCharaFemale = entMan.SpawnEntity(EntityCharaFemaleID, map.AtPos(Vector2i.One));
+            var entCharaMale = entMan.SpawnEntity(EntityCharaMaleID, map.AtPos(Vector2i.One));
+            var entCharaPlayer = entMan.SpawnEntity(EntityCharaFemaleID, map.AtPos(Vector2i.One));
+            gameSession.Player = entCharaPlayer;
+
+            Assert.That(locMan.GetString("Test.Content.Builtins.TheTarget", ("source", entCharaFemale), ("target", entCharaFemale)), Is.EqualTo("herself"));
+            Assert.That(locMan.GetString("Test.Content.Builtins.TheTarget", ("source", entCharaMale), ("target", entCharaMale)), Is.EqualTo("himself"));
+            Assert.That(locMan.GetString("Test.Content.Builtins.TheTarget", ("source", entCharaPlayer), ("target", entCharaPlayer)), Is.EqualTo("yourself"));
+
+            Assert.That(locMan.GetString("Test.Content.Builtins.TheTarget", ("source", entCharaPlayer), ("target", entCharaFemale)), Is.EqualTo("her"));
+            Assert.That(locMan.GetString("Test.Content.Builtins.TheTarget", ("source", entCharaPlayer), ("target", entCharaMale)), Is.EqualTo("him"));
+            Assert.That(locMan.GetString("Test.Content.Builtins.TheTarget", ("source", entCharaMale), ("target", entCharaPlayer)), Is.EqualTo("you"));
+        }
+
+        [Test]
+        public void TestBuiltIn_theTarget_Items()
+        {
+            var sim = SimulationFactory();
+
+            var locMan = sim.Resolve<ILocalizationManager>();
+            locMan.LoadString(LocaleTestFile_theTarget);
+            locMan.Resync();
+
+            var entMan = sim.Resolve<IEntityManager>();
+            var map = sim.ActiveMap!;
+
+            var entItemSingle = entMan.SpawnEntity(EntityItemSingleID, map.AtPos(Vector2i.One));
+            var entItemStacked = entMan.SpawnEntity(EntityItemStackedID, map.AtPos(Vector2i.One));
+
+            Assert.That(locMan.GetString("Test.Content.Builtins.TheTarget", ("source", entItemSingle), ("target", entItemSingle)), Is.EqualTo("itself"));
+            Assert.That(locMan.GetString("Test.Content.Builtins.TheTarget", ("source", entItemStacked), ("target", entItemStacked)), Is.EqualTo("themselves"));
+
+            Assert.That(locMan.GetString("Test.Content.Builtins.TheTarget", ("source", entItemStacked), ("target", entItemSingle)), Is.EqualTo("it"));
+            Assert.That(locMan.GetString("Test.Content.Builtins.TheTarget", ("source", entItemSingle), ("target", entItemStacked)), Is.EqualTo("them"));
+        }
+
+        #endregion
     }
 }

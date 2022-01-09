@@ -15,8 +15,6 @@ namespace OpenNefia.Content.Tests
         protected static readonly PrototypeId<EntityPrototype> EntityItemSingleID = new("ItemSingle");
         protected static readonly PrototypeId<EntityPrototype> EntityItemStackedID = new("ItemStacked");
 
-        protected virtual PrototypeId<LanguagePrototype> TestingLanguage => LanguagePrototypeOf.English;
-
         private static readonly string Prototypes = @$"
 - type: Entity
   id: {EntityCharaFemaleID}
@@ -46,13 +44,6 @@ namespace OpenNefia.Content.Tests
   - type: Stack
     count: 5
 ";
-
-        [SetUp]
-        public void Setup()
-        {
-            var locMan = IoCManager.Resolve<ILocalizationManager>();
-            locMan.SwitchLanguage(TestingLanguage);
-        }
 
         protected ISimulation SimulationFactory()
         {
