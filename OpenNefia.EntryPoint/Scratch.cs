@@ -7,5 +7,8 @@ using OpenNefia.Core.Game;
 using OpenNefia.Core.Utility;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Content.Prototypes;
+using OpenNefia.Content.RandomText;
 
-Loc.SwitchLanguage(LanguagePrototypeOf.English);
+
+// Loc.SwitchLanguage(LanguagePrototypeOf.English);
+return IoCManager.Resolve<IRandomNameGenerator>().GenerateRandomName();
