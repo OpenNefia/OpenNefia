@@ -19,11 +19,11 @@
 
         OnDecrease = function(entity)
             return ("%s lose%s patience.")
-                :format(_.name(entity), s(entity))
+                :format(_.name(entity), _.s(entity))
         end,
         OnIncrease = function(entity)
             return ("%s begin%s to feel good when being hit hard.")
-                :format(_.name(entity), s(entity))
+                :format(_.name(entity), _.s(entity))
         end
     },
     StatDexterity = {
@@ -32,11 +32,11 @@
 
         OnDecrease = function(entity)
             return ("%s become%s clumsy.")
-                :format(_.name(entity), s(entity))
+                :format(_.name(entity), _.s(entity))
         end,
         OnIncrease = function(entity)
             return ("%s become%s dexterous.")
-                :format(_.name(entity), s(entity))
+                :format(_.name(entity), _.s(entity))
         end
     },
     StatPerception = {
@@ -45,11 +45,11 @@
 
         OnDecrease = function(entity)
             return ("%s %s getting out of touch with the world.")
-                :format(_.name(entity), is(entity))
+                :format(_.name(entity), _.is(entity))
         end,
         OnIncrease = function(entity)
             return ("%s feel%s more in touch with the world.")
-                :format(_.name(entity), s(entity))
+                :format(_.name(entity), _.s(entity))
         end
     },
     StatLearning = {
@@ -58,11 +58,11 @@
 
         OnDecrease = function(entity)
             return ("%s lose%s curiosity.")
-                :format(_.name(entity), s(entity))
+                :format(_.name(entity), _.s(entity))
         end,
         OnIncrease = function(entity)
             return ("%s feel%s studious.")
-                :format(_.name(entity), s(entity))
+                :format(_.name(entity), _.s(entity))
         end
     },
     StatWill = {
@@ -97,11 +97,11 @@
 
         OnDecrease = function(entity)
             return ("%s start%s to avoid eyes of people.")
-                :format(_.name(entity), s(entity))
+                :format(_.name(entity), _.s(entity))
         end,
         OnIncrease = function(entity)
             return ("%s enjoy%s showing off %s body.")
-                :format(_.name(entity), s(entity), his(entity))
+                :format(_.name(entity), _.s(entity), _.his(entity))
         end
     },
     StatSpeed = {
@@ -121,11 +121,11 @@
 
         OnDecrease = function(entity)
             return ("%s become%s unlucky.")
-                :format(_.name(entity), s(entity))
+                :format(_.name(entity), _.s(entity))
         end,
         OnIncrease = function(entity)
             return ("%s become%s lucky.")
-                :format(_.name(entity), s(entity))
+                :format(_.name(entity), _.s(entity))
         end
     },
     StatLife = {
