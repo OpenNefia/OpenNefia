@@ -150,9 +150,9 @@ namespace OpenNefia.Content.CharaMake
                 switch (Data)
                 {
                     case RacePrototype race:
-                        return Loc.GetPrototypeString<RacePrototype>(new(race.ID), suffix)!;
+                        return Loc.GetPrototypeString(race.GetStrongID(), suffix)!;
                     case ClassPrototype @class:
-                        return Loc.GetPrototypeString<ClassPrototype>(new(@class.ID), suffix)!;
+                        return Loc.GetPrototypeString(@class.GetStrongID(), suffix)!;
                     default:
                         return string.Empty;
                 }
