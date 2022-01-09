@@ -110,9 +110,9 @@ namespace OpenNefia.Content.CharaMake
         [Dependency] private readonly IRandom _random = default!;
 
         [Localize] private UiWindow Window = new();
-        [Localize] private UiTextTopic AttrTopic = new();
-        [Localize] private UiWrapText AttrInfo;
-        private UiText LockAmt = new();
+        [Localize] private UiTextTopic AttributeTopic = new();
+        [Localize] private UiWrapText AttributeInfo;
+        private UiText LockAmount = new();
         private UiList<AttributeRerollData> List;
 
         private int LockCount = 2;
@@ -121,10 +121,10 @@ namespace OpenNefia.Content.CharaMake
 
         public CharaMakeAttributeRerollLayer()
         {
-            AttrInfo = new UiWrapText(115, UiFonts.CharaMakeLockInfo);
+            AttributeInfo = new UiWrapText(115, UiFonts.CharaMakeLockInfo);
             List = new UiList<AttributeRerollData>();
-            LockAmt = new UiText(UiFonts.CharaMakeLockInfo);
-            AttrInfo.Text = Loc.GetString("Elona.CharaMake.AttributeReroll.AttrInfo");
+            LockAmount = new UiText(UiFonts.CharaMakeLockInfo);
+            AttributeInfo.Text = Loc.GetString("Elona.CharaMake.AttributeReroll.AttributeInfo");
             SetLockCountText();
             AddChild(List);
         }
@@ -234,7 +234,7 @@ namespace OpenNefia.Content.CharaMake
         }
         private void SetLockCountText()
         {
-            LockAmt.Text = $"{Loc.GetString("Elona.CharaMake.AttributeReroll.LockAmt")}: {LockCount}";
+            LockAmount.Text = $"{Loc.GetString("Elona.CharaMake.AttributeReroll.LockAmt")}: {LockCount}";
         }
 
         public override void OnFocused()
@@ -248,16 +248,16 @@ namespace OpenNefia.Content.CharaMake
             base.SetSize(width, height);
             Window.SetSize(360, 355);
             List.SetPreferredSize();
-            LockAmt.SetPreferredSize();
+            LockAmount.SetPreferredSize();
         }
 
         public override void SetPosition(int x, int y)
         {
             base.SetPosition(x, y);
             Center(Window, -10);
-            AttrInfo.SetPosition(Window.X + 165, Window.Y + 50);
-            LockAmt.SetPosition(Window.X + 172, Window.Y + 80);
-            AttrTopic.SetPosition(Window.X + 30, Window.Y + 30);
+            AttributeInfo.SetPosition(Window.X + 165, Window.Y + 50);
+            LockAmount.SetPosition(Window.X + 172, Window.Y + 80);
+            AttributeTopic.SetPosition(Window.X + 30, Window.Y + 30);
             List.SetPosition(Window.X + 40, Window.Y + 65);
         }
 
@@ -267,20 +267,20 @@ namespace OpenNefia.Content.CharaMake
             Window.Draw();
             GraphicsEx.SetColor(255, 255, 255, 30);
             AssetWindows[0].Draw(Window.X + 15, Window.Y + 50, 150, 265);
-            AttrTopic.Draw();
+            AttributeTopic.Draw();
             List.Draw();
-            LockAmt.Draw();
-            AttrInfo.Draw();
+            LockAmount.Draw();
+            AttributeInfo.Draw();
         }
 
         public override void Update(float dt)
         {
             base.Update(dt);
             Window.Update(dt);
-            AttrTopic.Update(dt);
+            AttributeTopic.Update(dt);
             List.Update(dt);
-            LockAmt.Update(dt);
-            AttrInfo.Update(dt);
+            LockAmount.Update(dt);
+            AttributeInfo.Update(dt);
         }
     }
 }

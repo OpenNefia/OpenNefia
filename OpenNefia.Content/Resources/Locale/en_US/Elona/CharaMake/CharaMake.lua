@@ -61,8 +61,8 @@
 		Window = {
 			Title = "Attb Reroll"
 		},
-		AttrTopic = "Attributes",
-		AttrInfo = "Locked items will not change.",
+		AttributeTopic = "Attributes",
+		AttributeInfo = "Locked items will not change.",
 		LockAmt = "Locks left",
 		Reroll = "Reroll",
 		Proceed = "Proceed",
