@@ -144,33 +144,35 @@ namespace OpenNefia.Content.CharaMake
             }
             Reset();
             Reroll(false);
-            List.EventOnActivate += (_, args) =>
-            {
-                switch(args.SelectedCell.Data)
-                {
-                    case AttributeRerollData.ListChoice choice:
-                        switch (choice.Choice)
-                        {
-                            case AttributeRerollChoice.Proceed:
-                                Finish(new CharaMakeResult(new Dictionary<string, object>
-                                {
-                                    { ResultName, List.Select(x => x.Data)
-                                        .Where(x => x is AttributeRerollData.Attribute)
-                                        .Cast<AttributeRerollData.Attribute>()
-                                        .ToDictionary(x => x.Id, y => y.Amount) }
-                                }));
-                                break;
-                            default:
-                                Reroll();
-                                break;
-                        }
-                        break;
-                    case AttributeRerollData.Attribute attr:
-                        SetLock(attr);
-                        break;
-                }
-            };
+            List.EventOnActivate += HandleListOnActivate;
             IsInitialized = true;
+        }
+
+        private void HandleListOnActivate(object? sender, UiListEventArgs<AttributeRerollData> args)
+        {
+            switch (args.SelectedCell.Data)
+            {
+                case AttributeRerollData.ListChoice choice:
+                    switch (choice.Choice)
+                    {
+                        case AttributeRerollChoice.Proceed:
+                            Finish(new CharaMakeResult(new Dictionary<string, object>
+                            {
+                                { ResultName, List.Select(x => x.Data)
+                                    .Where(x => x is AttributeRerollData.Attribute)
+                                    .Cast<AttributeRerollData.Attribute>()
+                                    .ToDictionary(x => x.Id, y => y.Amount) }
+                            }));
+                            break;
+                        default:
+                            Reroll();
+                            break;
+                    }
+                    break;
+                case AttributeRerollData.Attribute attr:
+                    SetLock(attr);
+                    break;
+            }
         }
 
         private void Reset()
@@ -232,6 +234,7 @@ namespace OpenNefia.Content.CharaMake
             }
             SetLockCountText();
         }
+
         private void SetLockCountText()
         {
             LockAmount.Text = $"{Loc.GetString("Elona.CharaMake.AttributeReroll.LockAmt")}: {LockCount}";
