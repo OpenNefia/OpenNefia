@@ -227,7 +227,7 @@ namespace OpenNefia.Content.Aliases
             if (type == AliasType.Weapon && data.Category == AliasDataCategory.Tool)
                 return false;
 
-            var skip = false;
+            var noSecondPart = false;
 
             if (_localizationManager.Language == LanguagePrototypeOf.Japanese)
             {
@@ -252,7 +252,7 @@ namespace OpenNefia.Content.Aliases
                                 break;
                             case 1:
                                 result = "ザ・" + result;
-                                skip = true;
+                                noSecondPart = true;
                                 break;
                             case 2:
                                 result += "・";
@@ -283,17 +283,17 @@ namespace OpenNefia.Content.Aliases
                     else if (_random.OneIn(6))
                     {
                         result = "the " + result;
-                        skip = true;
+                        noSecondPart = true;
                     }
                 }
 
-                if (!skip)
+                if (!noSecondPart)
                     result += " ";
 
                 result = CapitalizeTitleText(result);
             }
 
-            if (!skip)
+            if (!noSecondPart)
             {
                 string? found = null;
 
