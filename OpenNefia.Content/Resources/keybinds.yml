@@ -148,6 +148,8 @@ binds:
   type: State
   key: Enter
   canFocus: true
+  canRepeat: true
+  repeatMode: None
 - function: UICancel
   type: State
   key: Escape
@@ -160,18 +162,26 @@ binds:
   type: State
   key: NumpadPlus
   canFocus: true
+  canRepeat: true
+  repeatMode: None
 - function: UINextPage
   type: State
   key: Right
   canFocus: true
+  canRepeat: true
+  repeatMode: None
 - function: UIPreviousPage
   type: State
   key: NumpadMinus
   canFocus: true
+  canRepeat: true
+  repeatMode: None
 - function: UIPreviousPage
   type: State
   key: Left
   canFocus: true
+  canRepeat: true
+  repeatMode: None
 - function: Elona.UIIdentify
   type: State
   key: X

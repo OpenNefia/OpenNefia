@@ -104,7 +104,7 @@ namespace OpenNefia.Content.UI.Element.List
         {
         }
 
-        private void HandleKeyBindDown(GUIBoundKeyEventArgs args)
+        protected virtual void HandleKeyBindDown(GUIBoundKeyEventArgs args)
         {
             if (args.Function == EngineKeyFunctions.UISelect)
             {

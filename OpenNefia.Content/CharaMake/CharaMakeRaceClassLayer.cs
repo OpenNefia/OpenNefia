@@ -245,8 +245,6 @@ namespace OpenNefia.Content.CharaMake
             DetailContainer.AddLayout(LayoutType.Spacer, 18);
             DetailContainer.AddElement(TrainedSkillContainer);
 
-            OnKeyBindDown += CharaMakeRaceClassLayer_OnKeyBindDown;
-
             List = new UiPagedList<RaceClass>(elementForPageText: Window);
             List.EventOnActivate += (_, args) =>
             {
@@ -277,18 +275,6 @@ namespace OpenNefia.Content.CharaMake
         {
             base.OnFocused();
             List.GrabFocus();
-        }
-
-        private void CharaMakeRaceClassLayer_OnKeyBindDown(GUIBoundKeyEventArgs args)
-        {
-            if (args.Function == EngineKeyFunctions.UINextPage)
-            {
-                List.PageForward();
-            }
-            if (args.Function == EngineKeyFunctions.UIPreviousPage)
-            {
-                List.PageBackward();
-            }
         }
 
         protected abstract void Select(RaceClass item);
@@ -454,7 +440,6 @@ namespace OpenNefia.Content.CharaMake
         public override void Dispose()
         {
             base.Dispose();
-            OnKeyBindDown -= CharaMakeRaceClassLayer_OnKeyBindDown;
         }
     }
 }
