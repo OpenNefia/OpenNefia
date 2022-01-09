@@ -288,7 +288,10 @@ namespace OpenNefia.Core.Maps
             {
                 _entityManager.FinishEntityStartup(entity);
 
-                _onBlueprintEntityStartup?.Invoke(entity);
+                if (_mode == MapSerializeMode.Blueprint)
+                {
+                    _onBlueprintEntityStartup?.Invoke(entity);
+                }
             }
         }
     }
