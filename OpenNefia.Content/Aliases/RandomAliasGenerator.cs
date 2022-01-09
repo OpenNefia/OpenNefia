@@ -229,7 +229,50 @@ namespace OpenNefia.Content.Aliases
 
             var skip = false;
 
-            if (_localizationManager.Language == LanguagePrototypeOf.English)
+            if (_localizationManager.Language == LanguagePrototypeOf.Japanese)
+            {
+                while (true)
+                {
+                    if (column == 10 || column == 11)
+                    {
+                        if (_random.OneIn(5))
+                        {
+                            column = 0;
+                            if (_random.OneIn(2))
+                            {
+                                result += "の";
+                            }
+                            break;
+                        }
+
+                        switch (_random.Next(5))
+                        {
+                            case 0: 
+                                result += "・オブ・";
+                                break;
+                            case 1:
+                                result = "ザ・" + result;
+                                skip = true;
+                                break;
+                            case 2:
+                                result += "・";
+                                break;
+                        }
+                    }
+
+                    if (column == 0 || column == 1)
+                    {
+                        result += "の";
+                        if (_random.OneIn(10))
+                        {
+                            column = 10;
+                        }
+                    }
+
+                    break;
+                }
+            }
+            else if (_localizationManager.Language == LanguagePrototypeOf.English)
             {
                 if (column == 0 || column == 1)
                 {
@@ -262,17 +305,16 @@ namespace OpenNefia.Content.Aliases
                         && data.Category != AliasDataCategory.GeneralPurpose
                         && data2.Category != AliasDataCategory.GeneralPurpose)
                     {
-                        int newColumn;
                         if (column < 10)
                         {
-                            newColumn = _random.Next(2);
+                            column = _random.Next(2);
                         }
                         else
                         {
-                            newColumn = _random.Next(2) + 10;
+                            column = _random.Next(2) + 10;
                         }
 
-                        var check = data2.Choices[newColumn];
+                        var check = data2.Choices[column];
                         if (!string.IsNullOrEmpty(check))
                         {
                             found = check;
