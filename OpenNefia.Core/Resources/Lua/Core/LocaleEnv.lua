@@ -49,8 +49,33 @@ function finalize(t, trail)
 end
 
 _Root = {}
+_Collected = {}
 
-_Finalize = function() finalize(_Root, {}); end
+_Finalize = function() finalize(_Collected, {}); end
+
+-- https://stackoverflow.com/a/1283608
+function table.merge(t1, t2)
+   for k, v in pairs(t2) do
+      if type(v) == "table" then
+         if type(t1[k] or false) == "table" then
+            table.merge(t1[k] or {}, t2[k] or {})
+         else
+            t1[k] = v
+         end
+      else
+         t1[k] = v
+      end
+   end
+   return t1
+end
+
+function _BeforeLoad()
+   _Root = {}
+end
+
+function _AfterLoad()
+   _Collected = table.merge(_Collected, _Root)
+end
 
 _ = {}
 
