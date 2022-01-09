@@ -22,6 +22,8 @@ namespace OpenNefia.Content.Tests.Locale.Builtins
     {
         protected override PrototypeId<LanguagePrototype> TestingLanguage => LanguagePrototypeOf.English;
 
+        #region Builtin_s()
+
         private const string LocaleTestFile_s = @"
 Test.Content.Builtins = {
     S = function(arg, needE)
@@ -33,12 +35,10 @@ Test.Content.Builtins = {
 }
 ";
 
-
         [Test]
         public void TestBuiltIn_s_Primitives()
         {
             var locMan = IoCManager.Resolve<ILocalizationManager>();
-
             locMan.LoadString(LocaleTestFile_s);
             locMan.Resync();
 
@@ -53,6 +53,7 @@ Test.Content.Builtins = {
             Assert.That(locMan.GetString("Test.Content.Builtins.Es", ("arg", 2)), Is.EqualTo("wash"));
 
             Assert.That(locMan.GetString("Test.Content.Builtins.S", ("arg", 1.11111)), Is.EqualTo("speaks"));
+            Assert.That(locMan.GetString("Test.Content.Builtins.S", ("arg", 2.22222)), Is.EqualTo("speaks"));
             Assert.That(locMan.GetString("Test.Content.Builtins.S", ("arg", true)), Is.EqualTo("speaks"));
             Assert.That(locMan.GetString("Test.Content.Builtins.S", ("arg", "foo")), Is.EqualTo("speaks"));
             Assert.That(locMan.GetString("Test.Content.Builtins.Es", ("arg", "foo")), Is.EqualTo("washes"));
@@ -106,5 +107,80 @@ Test.Content.Builtins = {
             Assert.That(locMan.GetString("Test.Content.Builtins.Es", ("arg", entItemSingle)), Is.EqualTo("washes"));
             Assert.That(locMan.GetString("Test.Content.Builtins.Es", ("arg", entItemStacked)), Is.EqualTo("wash"));
         }
+
+        #endregion
+
+        #region Builtin_has()
+
+        private const string LocaleTestFile_has = @"
+Test.Content.Builtins = {
+    Has = function(arg)
+        return ('%s'):format(_.has(arg))
+    end,
+}
+";
+
+        [Test]
+        public void TestBuiltIn_has_Primitives()
+        {
+            var locMan = IoCManager.Resolve<ILocalizationManager>();
+            locMan.LoadString(LocaleTestFile_has);
+            locMan.Resync();
+
+            Assert.That(locMan.GetString("Test.Content.Builtins.Has", ("arg", -99)), Is.EqualTo("have"));
+            Assert.That(locMan.GetString("Test.Content.Builtins.Has", ("arg", 0)), Is.EqualTo("have"));
+            Assert.That(locMan.GetString("Test.Content.Builtins.Has", ("arg", 1)), Is.EqualTo("has"));
+            Assert.That(locMan.GetString("Test.Content.Builtins.Has", ("arg", 2)), Is.EqualTo("have"));
+            Assert.That(locMan.GetString("Test.Content.Builtins.Has", ("arg", 99)), Is.EqualTo("have"));
+
+            Assert.That(locMan.GetString("Test.Content.Builtins.Has", ("arg", 1.11111)), Is.EqualTo("has"));
+            Assert.That(locMan.GetString("Test.Content.Builtins.Has", ("arg", 3.14)), Is.EqualTo("has"));
+            Assert.That(locMan.GetString("Test.Content.Builtins.Has", ("arg", true)), Is.EqualTo("has"));
+            Assert.That(locMan.GetString("Test.Content.Builtins.Has", ("arg", "foo")), Is.EqualTo("has"));
+        }
+
+        [Test]
+        public void TestBuiltIn_has_Charas()
+        {
+            var sim = SimulationFactory();
+
+            var locMan = sim.Resolve<ILocalizationManager>();
+            locMan.LoadString(LocaleTestFile_has);
+            locMan.Resync();
+
+            var entMan = sim.Resolve<IEntityManager>();
+            var gameSession = sim.Resolve<IGameSessionManager>();
+            var map = sim.ActiveMap!;
+
+            var entCharaFemale = entMan.SpawnEntity(EntityCharaFemaleID, map.AtPos(Vector2i.One));
+            var entCharaMale = entMan.SpawnEntity(EntityCharaMaleID, map.AtPos(Vector2i.One));
+            var entCharaPlayer = entMan.SpawnEntity(EntityCharaFemaleID, map.AtPos(Vector2i.One));
+            gameSession.Player = entCharaPlayer;
+
+            Assert.That(locMan.GetString("Test.Content.Builtins.Has", ("arg", entCharaFemale)), Is.EqualTo("has"));
+            Assert.That(locMan.GetString("Test.Content.Builtins.Has", ("arg", entCharaMale)), Is.EqualTo("has"));
+            Assert.That(locMan.GetString("Test.Content.Builtins.Has", ("arg", entCharaPlayer)), Is.EqualTo("have"));
+        }
+
+        [Test]
+        public void TestBuiltIn_has_Items()
+        {
+            var sim = SimulationFactory();
+
+            var locMan = sim.Resolve<ILocalizationManager>();
+            locMan.LoadString(LocaleTestFile_has);
+            locMan.Resync();
+
+            var entMan = sim.Resolve<IEntityManager>();
+            var map = sim.ActiveMap!;
+
+            var entItemSingle = entMan.SpawnEntity(EntityItemSingleID, map.AtPos(Vector2i.One));
+            var entItemStacked = entMan.SpawnEntity(EntityItemStackedID, map.AtPos(Vector2i.One));
+
+            Assert.That(locMan.GetString("Test.Content.Builtins.Has", ("arg", entItemSingle)), Is.EqualTo("has"));
+            Assert.That(locMan.GetString("Test.Content.Builtins.Has", ("arg", entItemStacked)), Is.EqualTo("have"));
+        }
+
+        #endregion
     }
 }
