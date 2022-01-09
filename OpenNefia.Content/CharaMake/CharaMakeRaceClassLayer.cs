@@ -24,7 +24,7 @@ namespace OpenNefia.Content.CharaMake
     [Localize("Elona.CharaMake.RaceSelect")]
     public class CharaMakeRaceSelectLayer : CharaMakeRaceClassLayer
     {
-        
+        public const string ResultName = "race";
         public override IEnumerable<RaceClass> GetData()
         {
             return _prototypeManager.EnumeratePrototypes<RacePrototype>().OrderBy(x => x.IsExtra).Select(x => new RaceClass(x));
@@ -34,13 +34,14 @@ namespace OpenNefia.Content.CharaMake
         {
             Finish(new CharaMakeResult(new Dictionary<string, object>
             {
-                { RaceResultName, item.Data }
+                { ResultName, item.Data }
             }));
         }
     }
     [Localize("Elona.CharaMake.ClassSelect")]
     public class CharaMakeClassSelectLayer : CharaMakeRaceClassLayer
     {
+        public const string ResultName = "class";
         private UiText RaceText;
         private TileAtlasBatch Atlas = default!;
         private ChipPrototype MaleChip = default!;
@@ -58,7 +59,7 @@ namespace OpenNefia.Content.CharaMake
             
             if (Data.CharaData.TryGetValue(typeof(CharaMakeRaceSelectLayer), out var vals))
             {
-                if (vals.TryGetValue(RaceResultName, out var raceObj) && raceObj is RacePrototype race)
+                if (vals.TryGetValue(CharaMakeRaceSelectLayer.ResultName, out var raceObj) && raceObj is RacePrototype race)
                 {
                     RaceText.Text = $"{Loc.GetString("Elona.CharaMake.ClassSelect.RaceLabel")}: {Loc.GetPrototypeString(race.GetStrongID(), "Name")}";
                     try
@@ -90,7 +91,7 @@ namespace OpenNefia.Content.CharaMake
         {
             Finish(new CharaMakeResult(new Dictionary<string, object>
             {
-                { ClassResultName, item.Data }
+                { ResultName, item.Data }
             }));
         }
 
@@ -185,9 +186,6 @@ namespace OpenNefia.Content.CharaMake
         }
 
         [Dependency] protected readonly IPrototypeManager _prototypeManager = default!;
-
-        protected const string ClassResultName = "class";
-        protected const string RaceResultName = "race";
 
         [Localize] protected UiWindow Window;
         [Localize] protected UiTextTopic RaceTopic;

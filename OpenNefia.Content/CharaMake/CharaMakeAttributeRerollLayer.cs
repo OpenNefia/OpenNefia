@@ -191,12 +191,12 @@ namespace OpenNefia.Content.CharaMake
             if (playSound)
                 Sounds.Play(Protos.Sound.Dice);
 
-            if (!Data.TryGetValue("race", out RacePrototype? race))
+            if (!Data.TryGetValue(CharaMakeRaceSelectLayer.ResultName, out RacePrototype? race))
             {
                 Logger.WarningS("charamake", "no race prototype in charamake data");
                 return;
             }
-            if (!Data.TryGetValue("class", out ClassPrototype? @class))
+            if (!Data.TryGetValue(CharaMakeClassSelectLayer.ResultName, out ClassPrototype? @class))
             {
                 Logger.WarningS("charamake", "no class prototype in charamake data");
                 return;
