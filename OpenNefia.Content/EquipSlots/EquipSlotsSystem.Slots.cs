@@ -99,7 +99,7 @@ namespace OpenNefia.Content.EquipSlots
             if (!Resolve(uid, ref equipSlotsComp, ref containerComp))
                 return;
 
-            foreach (var slot in GetEquipSlots(uid))
+            foreach (var slot in GetEquipSlots(uid).ToList())
             {
                 TryRemoveEquipSlot(uid, slot, equipSlotsComp, containerComp);
             }
