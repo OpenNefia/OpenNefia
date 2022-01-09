@@ -255,5 +255,78 @@ Test.Content.Builtins = {
         }
 
         #endregion
+
+        #region Builtin_him()
+
+        private const string LocaleTestFile_him = @"
+Test.Content.Builtins = {
+    Him = function(arg)
+        return ('%s'):format(_.him(arg))
+    end,
+}
+";
+
+        [Test]
+        public void TestBuiltIn_him_Primitives()
+        {
+            var locMan = IoCManager.Resolve<ILocalizationManager>();
+            locMan.LoadString(LocaleTestFile_him);
+            locMan.Resync();
+
+            Assert.That(locMan.GetString("Test.Content.Builtins.Him", ("arg", -99)), Is.EqualTo("them"));
+            Assert.That(locMan.GetString("Test.Content.Builtins.Him", ("arg", 0)), Is.EqualTo("them"));
+            Assert.That(locMan.GetString("Test.Content.Builtins.Him", ("arg", 1)), Is.EqualTo("it"));
+            Assert.That(locMan.GetString("Test.Content.Builtins.Him", ("arg", 2)), Is.EqualTo("them"));
+            Assert.That(locMan.GetString("Test.Content.Builtins.Him", ("arg", 99)), Is.EqualTo("them"));
+
+            Assert.That(locMan.GetString("Test.Content.Builtins.Him", ("arg", 1.11111)), Is.EqualTo("it"));
+            Assert.That(locMan.GetString("Test.Content.Builtins.Him", ("arg", 3.14)), Is.EqualTo("it"));
+            Assert.That(locMan.GetString("Test.Content.Builtins.Him", ("arg", true)), Is.EqualTo("it"));
+            Assert.That(locMan.GetString("Test.Content.Builtins.Him", ("arg", "foo")), Is.EqualTo("it"));
+        }
+
+        [Test]
+        public void TestBuiltIn_him_Charas()
+        {
+            var sim = SimulationFactory();
+
+            var locMan = sim.Resolve<ILocalizationManager>();
+            locMan.LoadString(LocaleTestFile_him);
+            locMan.Resync();
+
+            var entMan = sim.Resolve<IEntityManager>();
+            var gameSession = sim.Resolve<IGameSessionManager>();
+            var map = sim.ActiveMap!;
+
+            var entCharaFemale = entMan.SpawnEntity(EntityCharaFemaleID, map.AtPos(Vector2i.One));
+            var entCharaMale = entMan.SpawnEntity(EntityCharaMaleID, map.AtPos(Vector2i.One));
+            var entCharaPlayer = entMan.SpawnEntity(EntityCharaFemaleID, map.AtPos(Vector2i.One));
+            gameSession.Player = entCharaPlayer;
+
+            Assert.That(locMan.GetString("Test.Content.Builtins.Him", ("arg", entCharaFemale)), Is.EqualTo("her"));
+            Assert.That(locMan.GetString("Test.Content.Builtins.Him", ("arg", entCharaMale)), Is.EqualTo("him"));
+            Assert.That(locMan.GetString("Test.Content.Builtins.Him", ("arg", entCharaPlayer)), Is.EqualTo("you"));
+        }
+
+        [Test]
+        public void TestBuiltIn_him_Items()
+        {
+            var sim = SimulationFactory();
+
+            var locMan = sim.Resolve<ILocalizationManager>();
+            locMan.LoadString(LocaleTestFile_him);
+            locMan.Resync();
+
+            var entMan = sim.Resolve<IEntityManager>();
+            var map = sim.ActiveMap!;
+
+            var entItemSingle = entMan.SpawnEntity(EntityItemSingleID, map.AtPos(Vector2i.One));
+            var entItemStacked = entMan.SpawnEntity(EntityItemStackedID, map.AtPos(Vector2i.One));
+
+            Assert.That(locMan.GetString("Test.Content.Builtins.Him", ("arg", entItemSingle)), Is.EqualTo("it"));
+            Assert.That(locMan.GetString("Test.Content.Builtins.Him", ("arg", entItemStacked)), Is.EqualTo("them"));
+        }
+
+        #endregion
     }
 }
