@@ -187,6 +187,44 @@ namespace OpenNefia.Content.Tests.EquipSlots
         }
 
         [Test]
+        public void TestClearEquipSlots()
+        {
+            var sim = SimulationFactory();
+
+            var entMan = sim.Resolve<IEntityManager>();
+            var mapMan = sim.Resolve<IMapManager>();
+
+            var containerSys = sim.GetEntitySystem<ContainerSystem>();
+            var equipSlotSys = sim.GetEntitySystem<EquipSlotsSystem>();
+
+            var map = sim.CreateMapAndSetActive(10, 10);
+
+            var ent = entMan.SpawnEntity(null, map.AtPos(Vector2i.One));
+
+            Assert.That(entMan.HasComponent<EquipSlotsComponent>(ent), Is.False);
+            Assert.That(entMan.HasComponent<ContainerManagerComponent>(ent), Is.False);
+            var equipSlots = entMan.EnsureComponent<EquipSlotsComponent>(ent);
+            var containers = entMan.EnsureComponent<ContainerManagerComponent>(ent);
+
+            Assert.Multiple(() =>
+            {
+                var oldContainerCount = containers.Containers.Count;
+
+                Assert.That(equipSlotSys.TryAddEquipSlot(ent, TestSlot1ID, out var _, out var _), Is.True);
+                Assert.That(equipSlotSys.TryAddEquipSlot(ent, TestSlot1ID, out var _, out var _), Is.True);
+                Assert.That(equipSlotSys.TryAddEquipSlot(ent, TestSlot2ID, out var _, out var _), Is.True);
+
+                Assert.That(equipSlots.EquipSlots!.Count, Is.EqualTo(3), "Equip slot count");
+                Assert.That(containers.Containers.Count, Is.EqualTo(oldContainerCount + 3), "Container count");
+
+                equipSlotSys.ClearEquipSlots(ent);
+
+                Assert.That(equipSlots.EquipSlots!.Count, Is.EqualTo(0), "Equip slot count after");
+                Assert.That(containers.Containers.Count, Is.EqualTo(oldContainerCount), "Container count after");
+            });
+        }
+
+        [Test]
         public void TestTryEquip()
         {
             var sim = SimulationFactory();
