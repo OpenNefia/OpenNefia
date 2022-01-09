@@ -1,4 +1,5 @@
 ﻿using OpenNefia.Core.Audio;
+using OpenNefia.Core.Input;
 using OpenNefia.Core.UI;
 using OpenNefia.Core.UI.Element;
 using System;
@@ -43,6 +44,20 @@ namespace OpenNefia.Content.UI.Element.List
             _pageModel.SetPage(oldPage);
 
             base.UpdateDisplayedCells(setSize);
+        }
+
+        protected override void HandleKeyBindDown(GUIBoundKeyEventArgs args)
+        {
+            base.HandleKeyBindDown(args);
+            
+            if (args.Function == EngineKeyFunctions.UIPreviousPage)
+            {
+                PageBackward();
+            }
+            else if (args.Function == EngineKeyFunctions.UINextPage)
+            {
+                PageForward();
+            }
         }
 
         public bool SetPage(int page)
