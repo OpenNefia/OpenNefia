@@ -5,6 +5,7 @@ using OpenNefia.Content.GameObjects;
 using OpenNefia.Content.Input;
 using OpenNefia.Content.Inventory;
 using OpenNefia.Content.Logic;
+using OpenNefia.Content.Prototypes;
 using OpenNefia.Content.Skills;
 using OpenNefia.Content.UI;
 using OpenNefia.Content.UI.Element;
@@ -213,8 +214,8 @@ namespace OpenNefia.Content.Equipment
         public EquipmentLayer()
         {
             AssetInventoryIcons = InventoryHelpers.MakeIcon(InventoryIcon.Equip);
-            AssetDecoWearA = new AssetDrawable(AssetPrototypeOf.DecoWearA);
-            AssetDecoWearB = new AssetDrawable(AssetPrototypeOf.DecoWearB);
+            AssetDecoWearA = new AssetDrawable(Protos.Asset.DecoWearA);
+            AssetDecoWearB = new AssetDrawable(Protos.Asset.DecoWearB);
 
             OnKeyBindDown += HandleKeyBindDown;
             EventFilter = UIEventFilterMode.Stop;

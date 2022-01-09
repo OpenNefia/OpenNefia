@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using OpenNefia.Core.Rendering;
+using OpenNefia.Content.Prototypes;
 
 namespace OpenNefia.Content.EquipSlots
 {
     /// <summary>
-    /// Region IDs for use with <see cref="AssetPrototypeOf.EquipSlotIcons"/>.
+    /// Region IDs for use with <see cref="Protos.Asset.EquipSlotIcons"/>.
     /// </summary>
     public enum EquipSlotIcon : int
     {

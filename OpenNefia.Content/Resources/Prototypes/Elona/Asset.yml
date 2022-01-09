@@ -1,671 +1,671 @@
 - type: Asset
-  id: HudMinimap
+  id: Elona.HudMinimap
   image:
     filepath: /Graphic/Elona/interface.bmp
     region: "120, 504, 136, 88"
 
 - type: Asset
-  id: MinimapMarkerPlayer
+  id: Elona.MinimapMarkerPlayer
   image:
     filepath: /Graphic/Elona/interface.bmp
     region: "15, 338, 6, 6"
 
 - type: Asset
-  id: MapNameIcon
+  id: Elona.MapNameIcon
   image:
     filepath: /Graphic/Elona/interface.bmp
     region: "208, 376, 16, 16"
 
 - type: Asset
-  id: HudBar
+  id: Elona.HudBar
   image:
     filepath: /Graphic/Elona/interface.bmp
     region: "0, 440, 192, 24"
 
 - type: Asset
-  id: AttributeIcons
+  id: Elona.AttributeIcons
   image:
     filepath: /Graphic/Elona/item.bmp
     region: "0, 672, 528, 48"
   countX: 11
 
 - type: Asset
-  id: HudSkillIcons
+  id: Elona.HudSkillIcons
   image:
     filepath: /Graphic/Elona/interface.bmp
     region: "0, 376, 160, 16"
   countX: 10
 
 - type: Asset
-  id: MessageWindow
+  id: Elona.MessageWindow
   image:
     filepath: /Graphic/Elona/interface.bmp
     region: "496, 528, 192, 72"
 
 - type: Asset
-  id: GoldCoin
+  id: Elona.GoldCoin
   image:
     filepath: /Graphic/Elona/interface.bmp
     region: "0, 392, 24, 24"
 
 - type: Asset
-  id: PlatinumCoin
+  id: Elona.PlatinumCoin
   image:
     filepath: /Graphic/Elona/interface.bmp
     region: "24, 392, 24, 24"
 
 - type: Asset
-  id: CharacterLevelIcon
+  id: Elona.CharacterLevelIcon
   image:
     filepath: /Graphic/Elona/interface.bmp
     region: "48, 392, 24, 24"
 
 - type: Asset
-  id: AutoTurnIcon
+  id: Elona.AutoTurnIcon
   image:
     filepath: /Graphic/Elona/interface.bmp
     region: "72, 392, 24, 24"
 
 - type: Asset
-  id: HpBarFrame
+  id: Elona.HpBarFrame
   image:
     filepath: /Graphic/Elona/interface.bmp
     region: "312, 504, 104, 15"
 
 - type: Asset
-  id: HudHpBar
+  id: Elona.HudHpBar
   image:
     filepath: /Graphic/Elona/interface.bmp
     region: "312, 520, 100, 6"
 
 - type: Asset
-  id: HudMpBar
+  id: Elona.HudMpBar
   image:
     filepath: /Graphic/Elona/interface.bmp
     region: "432, 520, 100, 6"
 
 - type: Asset
-  id: Clock
+  id: Elona.Clock
   image:
     filepath: /Graphic/Elona/interface.bmp
     region: "448, 408, 120, 96"
 
 - type: Asset
-  id: ClockHand
+  id: Elona.ClockHand
   image:
     filepath: /Graphic/Elona/interface.bmp
     region: "0, 288, 48, 48"
 
 - type: Asset
-  id: DateLabelFrame
+  id: Elona.DateLabelFrame
   image:
     filepath: /Graphic/Elona/interface.bmp
     region: "448, 376, 128, 24"
 
 - type: Asset
-  id: BuffIcons
+  id: Elona.BuffIcons
   image:
     filepath: /Graphic/Elona/character.bmp
     region: "0, 1120, 928, 32"
   countX: 29
 
 - type: Asset
-  id: Book
+  id: Elona.Book
   image:
     filepath: /Graphic/Elona/book.bmp
 
 - type: Asset
-  id: DecoInvA
+  id: Elona.DecoInvA
   image:
     filepath: /Graphic/Elona/deco_inv.bmp
     region: "0, 0, 144, 48"
 
 - type: Asset
-  id: DecoInvB
+  id: Elona.DecoInvB
   image:
     filepath: /Graphic/Elona/deco_inv.bmp
     region: "0, 48, 48, 72"
 
 - type: Asset
-  id: DecoInvC
+  id: Elona.DecoInvC
   image:
     filepath: /Graphic/Elona/deco_inv.bmp
     region: "48, 48, 48, 72"
 
 - type: Asset
-  id: DecoInvD
+  id: Elona.DecoInvD
   image:
     filepath: /Graphic/Elona/deco_inv.bmp
     region: "0, 120, 48, 72"
 
 - type: Asset
-  id: DecoMirrorA
+  id: Elona.DecoMirrorA
   image:
     filepath: /Graphic/Elona/deco_mirror.bmp
     region: "0, 0, 48, 120"
 
 - type: Asset
-  id: DecoFeatA
+  id: Elona.DecoFeatA
   image:
     filepath: /Graphic/Elona/deco_feat.bmp
     region: "0, 0, 48, 192"
 
 - type: Asset
-  id: DecoFeatB
+  id: Elona.DecoFeatB
   image:
     filepath: /Graphic/Elona/deco_feat.bmp
     region: "48, 0, 48, 144"
 
 - type: Asset
-  id: DecoFeatC
+  id: Elona.DecoFeatC
   image:
     filepath: /Graphic/Elona/deco_feat.bmp
     region: "0, 192, 96, 72"
 
 - type: Asset
-  id: DecoFeatD
+  id: Elona.DecoFeatD
   image:
     filepath: /Graphic/Elona/deco_feat.bmp
     region: "48, 144, 96, 48"
 
 - type: Asset
-  id: DecoBoardA
+  id: Elona.DecoBoardA
   image:
     filepath: /Graphic/Elona/deco_board.bmp
     region: "0, 0, 128, 128"
 
 - type: Asset
-  id: DecoBoardB
+  id: Elona.DecoBoardB
   image:
     filepath: /Graphic/Elona/deco_board.bmp
     region: "0, 144, 48, 84"
 
 - type: Asset
-  id: DecoSpellA
+  id: Elona.DecoSpellA
   image:
     filepath: /Graphic/Elona/deco_spell.bmp
     region: "0, 0, 72, 144"
 
 - type: Asset
-  id: DecoSpellB
+  id: Elona.DecoSpellB
   image:
     filepath: /Graphic/Elona/deco_spell.bmp
     region: "72, 0, 72, 96"
 
 - type: Asset
-  id: DecoSkillA
+  id: Elona.DecoSkillA
   image:
     filepath: /Graphic/Elona/deco_skill.bmp
     region: "0, 0, 72, 144"
 
 - type: Asset
-  id: DecoSkillB
+  id: Elona.DecoSkillB
   image:
     filepath: /Graphic/Elona/deco_skill.bmp
     region: "72, 0, 102, 48"
 
 - type: Asset
-  id: DecoHelpA
+  id: Elona.DecoHelpA
   image:
     filepath: /Graphic/Elona/deco_help.bmp
     region: "0, 0, 48, 48"
 
 - type: Asset
-  id: DecoHelpB
+  id: Elona.DecoHelpB
   image:
     filepath: /Graphic/Elona/deco_help.bmp
     region: "0, 48, 96, 120"
 
 - type: Asset
-  id: InventoryIcons
+  id: Elona.InventoryIcons
   image:
     filepath: /Graphic/Elona/interface.bmp
     region: "288, 48, 1056, 48"
   countX: 22
 
 - type: Asset
-  id: TraitIcons
+  id: Elona.TraitIcons
   image:
     filepath: /Graphic/Elona/interface.bmp
     region: "384, 336, 144, 24"
   countX: 6
 
 - type: Asset
-  id: EquippedIcon
+  id: Elona.EquippedIcon
   image:
     filepath: /Graphic/Elona/interface.bmp
     region: "12, 348, 12, 12"
 
 - type: Asset
-  id: LabelInput
+  id: Elona.LabelInput
   image:
     filepath: /Graphic/Elona/interface.bmp
     region: "128, 288, 128, 32"
 
 - type: Asset
-  id: InputCaret
+  id: Elona.InputCaret
   image:
     filepath: /Graphic/Elona/interface.bmp
     region: "0, 336, 12, 24"
 
 - type: Asset
-  id: DebrisBlood
+  id: Elona.DebrisBlood
   image:
     filepath: /Graphic/Elona/character.bmp
     region: "48, 1152, 288, 48"
   countX: 6
 
 - type: Asset
-  id: DebrisFragment
+  id: Elona.DebrisFragment
   image:
     filepath: /Graphic/Elona/character.bmp
     region: "336, 1152, 192, 48"
   countX: 4
 
 - type: Asset
-  id: BuffIconNone
+  id: Elona.BuffIconNone
   image:
     filepath: /Graphic/Elona/interface.bmp
     region: "320, 160, 32, 32"
 
 - type: Asset
-  id: ArrowLeft
+  id: Elona.ArrowLeft
   image:
     filepath: /Graphic/Elona/interface.bmp
     region: "312, 336, 24, 24"
 
 - type: Asset
-  id: ArrowRight
+  id: Elona.ArrowRight
   image:
     filepath: /Graphic/Elona/interface.bmp
     region: "336, 336, 24, 24"
 
 - type: Asset
-  id: DirectionArrow
+  id: Elona.DirectionArrow
   image:
     filepath: /Graphic/Elona/interface.bmp
     region: "212, 432, 28, 28"
 
 - type: Asset
-  id: Caption
+  id: Elona.Caption
   image:
     filepath: /Graphic/Elona/interface.bmp
     region: "672, 477, 128, 25"
 
 - type: Asset
-  id: EnchantmentIcons
+  id: Elona.EnchantmentIcons
   image:
     filepath: /Graphic/Elona/interface.bmp
     region: "72, 336, 240, 24"
   countX: 10
 
 - type: Asset
-  id: InheritanceIcon
+  id: Elona.InheritanceIcon
   image:
     filepath: /Graphic/Elona/interface.bmp
     region: "384, 360, 24, 24"
 
 - type: Asset
-  id: EquipSlotIcons
+  id: Elona.EquipSlotIcons
   image:
     filepath: /Graphic/Elona/interface.bmp
     region: "600, 336, 264, 24"
   countX: 11
 
 - type: Asset
-  id: TipIcons
+  id: Elona.TipIcons
   image:
     filepath: /Graphic/Elona/interface.bmp
     region: "96, 360, 192, 16"
   countX: 8
 
 - type: Asset
-  id: QuickMenuItem
+  id: Elona.QuickMenuItem
   image:
     filepath: /Graphic/Elona/interface.bmp
     region: "360, 192, 48, 48"
 
 - type: Asset
-  id: QuickMenuItemSpecial
+  id: Elona.QuickMenuItemSpecial
   image:
     filepath: /Graphic/Elona/interface.bmp
     region: "360, 144, 48, 48"
 
 - type: Asset
-  id: DecoWearA
+  id: Elona.DecoWearA
   image:
     filepath: /Graphic/Elona/deco_wear.bmp
     region: "0, 0, 96, 120"
 
 - type: Asset
-  id: DecoWearB
+  id: Elona.DecoWearB
   image:
     filepath: /Graphic/Elona/deco_wear.bmp
     region: "0, 120, 72, 144"
 
 - type: Asset
-  id: RadarDeco
+  id: Elona.RadarDeco
   image:
     filepath: /Graphic/Elona/interface.bmp
     region: "64, 288, 50, 32"
 
 - type: Asset
-  id: StatusEffectBar
+  id: Elona.StatusEffectBar
   image:
     filepath: /Graphic/Elona/interface.bmp
     region: "0, 416, 80, 15"
 
 - type: Asset
-  id: IeChat
+  id: Elona.IeChat
   image:
     filepath: /Graphic/Elona/ie_chat.bmp
 
 - type: Asset
-  id: IeSheet
+  id: Elona.IeSheet
   image:
     filepath: /Graphic/Elona/ie_sheet.bmp
 
 - type: Asset
-  id: IeScroll
+  id: Elona.IeScroll
   image:
     filepath: /Graphic/Elona/ie_scroll.bmp
 
 - type: Asset
-  id: ImeStatusEnglish
+  id: Elona.ImeStatusEnglish
   image:
     filepath: /Graphic/Elona/interface.bmp
     region: "24, 336, 24, 24"
 
 - type: Asset
-  id: ImeStatusJapanese
+  id: Elona.ImeStatusJapanese
   image:
     filepath: /Graphic/Elona/interface.bmp
     region: "48, 336, 24, 24"
 
 - type: Asset
-  id: ImeStatusNone
+  id: Elona.ImeStatusNone
   image:
     filepath: /Graphic/Elona/interface.bmp
     region: "72, 336, 24, 24"
 
 - type: Asset
-  id: MorePrompt
+  id: Elona.MorePrompt
   image:
     filepath: /Graphic/Elona/interface.bmp
     region: "552, 504, 120, 22"
 
 - type: Asset
-  id: Window
+  id: Elona.Window
   image:
     filepath: /Graphic/Elona/interface.bmp
     region: "0, 48, 264, 192"
   regionSpecifier: !type:WindowRegions {}
 
 - type: Asset
-  id: TopicWindow0
+  id: Elona.TopicWindow0
   image:
     filepath: /Graphic/Elona/interface.bmp
     region: "0, 240, 48, 48"
   regionSpecifier: !type:TopicWindowRegions {}
 
 - type: Asset
-  id: TopicWindow1
+  id: Elona.TopicWindow1
   image:
     filepath: /Graphic/Elona/interface.bmp
     region: "48, 240, 48, 48"
   regionSpecifier: !type:TopicWindowRegions {}
 
 - type: Asset
-  id: TopicWindow2
+  id: Elona.TopicWindow2
   image:
     filepath: /Graphic/Elona/interface.bmp
     region: "96, 240, 48, 48"
   regionSpecifier: !type:TopicWindowRegions {}
 
 - type: Asset
-  id: TopicWindow3
+  id: Elona.TopicWindow3
   image:
     filepath: /Graphic/Elona/interface.bmp
     region: "144, 240, 48, 48"
   regionSpecifier: !type:TopicWindowRegions {}
 
 - type: Asset
-  id: TopicWindow4
+  id: Elona.TopicWindow4
   image:
     filepath: /Graphic/Elona/interface.bmp
     region: "192, 240, 48, 48"
   regionSpecifier: !type:TopicWindowRegions {}
 
 - type: Asset
-  id: TopicWindow5
+  id: Elona.TopicWindow5
   image:
     filepath: /Graphic/Elona/interface.bmp
     region: "240, 240, 48, 48"
   regionSpecifier: !type:TopicWindowRegions {}
 
 - type: Asset
-  id: Title
+  id: Elona.Title
   image:
     filepath: /Graphic/Elona/title.bmp
 
 - type: Asset
-  id: Void
+  id: Elona.Void
   image:
     filepath: /Graphic/Elona/void.bmp
 
 - type: Asset
-  id: BgAltar
+  id: Elona.BgAltar
   image:
     filepath: /Graphic/Elona/bg_altar.bmp
 
 - type: Asset
-  id: BgNight
+  id: Elona.BgNight
   image:
     filepath: /Graphic/Elona/bg_night.bmp
 
 - type: Asset
-  id: G1
+  id: Elona.G1
   image:
     filepath: /Graphic/Elona/g1.bmp
 
 - type: Asset
-  id: G2
+  id: Elona.G2
   image:
     filepath: /Graphic/Elona/g2.bmp
 
 - type: Asset
-  id: G3
+  id: Elona.G3
   image:
     filepath: /Graphic/Elona/g3.bmp
 
 - type: Asset
-  id: G4
+  id: Elona.G4
   image:
     filepath: /Graphic/Elona/g4.bmp
 
 - type: Asset
-  id: Bg1
+  id: Elona.Bg1
   image:
     filepath: /Graphic/Elona/bg1.bmp
 
 - type: Asset
-  id: Bg2
+  id: Elona.Bg2
   image:
     filepath: /Graphic/Elona/bg2.bmp
 
 - type: Asset
-  id: Bg3
+  id: Elona.Bg3
   image:
     filepath: /Graphic/Elona/bg3.bmp
 
 - type: Asset
-  id: Bg4
+  id: Elona.Bg4
   image:
     filepath: /Graphic/Elona/bg4.bmp
 
 - type: Asset
-  id: Bg5
+  id: Elona.Bg5
   image:
     filepath: /Graphic/Elona/bg5.bmp
 
 - type: Asset
-  id: Bg6
+  id: Elona.Bg6
   image:
     filepath: /Graphic/Elona/bg6.bmp
 
 - type: Asset
-  id: Bg7
+  id: Elona.Bg7
   image:
     filepath: /Graphic/Elona/bg7.bmp
 
 - type: Asset
-  id: Bg8
+  id: Elona.Bg8
   image:
     filepath: /Graphic/Elona/bg8.bmp
 
 - type: Asset
-  id: Bg9
+  id: Elona.Bg9
   image:
     filepath: /Graphic/Elona/bg9.bmp
 
 - type: Asset
-  id: Bg10
+  id: Elona.Bg10
   image:
     filepath: /Graphic/Elona/bg10.bmp
 
 - type: Asset
-  id: Bg11
+  id: Elona.Bg11
   image:
     filepath: /Graphic/Elona/bg11.bmp
 
 - type: Asset
-  id: Bg12
+  id: Elona.Bg12
   image:
     filepath: /Graphic/Elona/bg12.bmp
 
 - type: Asset
-  id: Bg13
+  id: Elona.Bg13
   image:
     filepath: /Graphic/Elona/bg13.bmp
 
 - type: Asset
-  id: Bg22
+  id: Elona.Bg22
   image:
     filepath: /Graphic/Elona/bg22.bmp
 
 - type: Asset
-  id: BgRe1
+  id: Elona.BgRe1
   image:
     filepath: /Graphic/Elona/bg_re1.bmp
 
 - type: Asset
-  id: BgRe2
+  id: Elona.BgRe2
   image:
     filepath: /Graphic/Elona/bg_re2.bmp
 
 - type: Asset
-  id: BgRe3
+  id: Elona.BgRe3
   image:
     filepath: /Graphic/Elona/bg_re3.bmp
 
 - type: Asset
-  id: BgRe4
+  id: Elona.BgRe4
   image:
     filepath: /Graphic/Elona/bg_re4.bmp
 
 - type: Asset
-  id: BgRe5
+  id: Elona.BgRe5
   image:
     filepath: /Graphic/Elona/bg_re5.bmp
 
 - type: Asset
-  id: BgRe6
+  id: Elona.BgRe6
   image:
     filepath: /Graphic/Elona/bg_re6.bmp
 
 - type: Asset
-  id: BgRe7
+  id: Elona.BgRe7
   image:
     filepath: /Graphic/Elona/bg_re7.bmp
 
 - type: Asset
-  id: BgRe8
+  id: Elona.BgRe8
   image:
     filepath: /Graphic/Elona/bg_re8.bmp
 
 - type: Asset
-  id: BgRe9
+  id: Elona.BgRe9
   image:
     filepath: /Graphic/Elona/bg_re9.bmp
 
 - type: Asset
-  id: BgRe10
+  id: Elona.BgRe10
   image:
     filepath: /Graphic/Elona/bg_re10.bmp
 
 - type: Asset
-  id: BgRe11
+  id: Elona.BgRe11
   image:
     filepath: /Graphic/Elona/bg_re11.bmp
 
 - type: Asset
-  id: BgRe12
+  id: Elona.BgRe12
   image:
     filepath: /Graphic/Elona/bg_re12.bmp
 
 - type: Asset
-  id: BgRe13
+  id: Elona.BgRe13
   image:
     filepath: /Graphic/Elona/bg_re13.bmp
 
 - type: Asset
-  id: BgRe14
+  id: Elona.BgRe14
   image:
     filepath: /Graphic/Elona/bg_re14.bmp
 
 - type: Asset
-  id: BgRe15
+  id: Elona.BgRe15
   image:
     filepath: /Graphic/Elona/bg_re15.bmp
 
 - type: Asset
-  id: Paper
+  id: Elona.Paper
   image:
     filepath: /Graphic/Elona/paper.bmp
   countX: 2
 
 - type: Asset
-  id: SelectKey
+  id: Elona.SelectKey
   image:
     filepath: /Graphic/Elona/interface.bmp
     region: "0, 30, 24, 18"
 
 - type: Asset
-  id: ImpressionIcon
+  id: Elona.ImpressionIcon
   image:
     filepath: /Graphic/Elona/interface.bmp
     region: "16, 360, 16, 16"
 
 - type: Asset
-  id: ListBullet
+  id: Elona.ListBullet
   image:
     filepath: /Graphic/Elona/interface.bmp
     region: "48, 360, 16, 16"
 
 - type: Asset
-  id: HpBarAlly
+  id: Elona.HpBarAlly
   image:
     filepath: /Graphic/Elona/interface.bmp
     region: "432, 517, 48, 3"
 
 - type: Asset
-  id: HpBarOther
+  id: Elona.HpBarOther
   image:
     filepath: /Graphic/Elona/interface.bmp
     region: "432, 513, 48, 3"
 
 - type: Asset
-  id: Shadow
+  id: Elona.Shadow
   image:
     filepath: /Graphic/Elona/interface.bmp
     region: "0, 656, 192, 144"
@@ -673,46 +673,46 @@
   countY: 6
 
 - type: Asset
-  id: ShadowEdges
+  id: Elona.ShadowEdges
   image:
     filepath: /Graphic/Elona/interface.bmp
     region: "192, 752, 816, 48"
   countX: 17
 
 - type: Asset
-  id: CharacterShadow
+  id: Elona.CharacterShadow
   image:
     filepath: /Graphic/Elona/interface.bmp
     region: "240, 384, 32, 16"
 
 - type: Asset
-  id: PlayerLight
+  id: Elona.PlayerLight
   image:
     filepath: /Graphic/Elona/interface.bmp
     region: "800, 112, 144, 144"
 
 - type: Asset
-  id: SceneTextShadow
+  id: Elona.SceneTextShadow
   image:
     filepath: /Graphic/Elona/interface.bmp
     region: "456, 144, 344, 72"
 
 - type: Asset
-  id: EmotionIcons
+  id: Elona.EmotionIcons
   image:
     filepath: /Graphic/Elona/interface.bmp
     region: "32, 608, 464, 16"
   countX: 29
 
 - type: Asset
-  id: NefiaMark
+  id: Elona.NefiaMark
   image:
     filepath: /Graphic/Elona/interface.bmp
     region: "32, 624, 32, 16"
   countX: 2
 
 - type: Asset
-  id: WeatherSnowEtherwind
+  id: Elona.WeatherSnowEtherwind
   image:
     filepath: /Graphic/Elona/interface.bmp
     region: "0, 600, 32, 48"
@@ -720,460 +720,460 @@
   countY: 6
 
 - type: Asset
-  id: FailureToCastEffect
+  id: Elona.FailureToCastEffect
   image:
     filepath: /Graphic/Elona/item.bmp
     region: "480, 0, 48, 48"
 
 - type: Asset
-  id: SwarmEffect
+  id: Elona.SwarmEffect
   image:
     filepath: /Graphic/Elona/item.bmp
     region: "816, 0, 48, 48"
 
 - type: Asset
-  id: HealEffect
+  id: Elona.HealEffect
   image:
     filepath: /Graphic/Elona/item.bmp
     region: "336, 0, 48, 48"
 
 - type: Asset
-  id: CurseEffect
+  id: Elona.CurseEffect
   image:
     filepath: /Graphic/Elona/item.bmp
     region: "384, 0, 48, 48"
 
 - type: Asset
-  id: OfferEffect
+  id: Elona.OfferEffect
   image:
     filepath: /Graphic/Elona/item.bmp
     region: "432, 0, 48, 48"
 
 - type: Asset
-  id: BreakingEffect
+  id: Elona.BreakingEffect
   image:
     filepath: /Graphic/Elona/item.bmp
     region: "864, 0, 48, 48"
 
 - type: Asset
-  id: MeleeAttackDebris
+  id: Elona.MeleeAttackDebris
   image:
     filepath: /Graphic/Elona/item.bmp
     region: "1104, 0, 48, 48"
 
 - type: Asset
-  id: MeleeAttackBlood
+  id: Elona.MeleeAttackBlood
   image:
     filepath: /Graphic/Elona/item.bmp
     region: "720, 0, 48, 48"
 
 - type: Asset
-  id: DeathBlood
+  id: Elona.DeathBlood
   image:
     filepath: /Graphic/Elona/item.bmp
     region: "768, 0, 48, 48"
 
 - type: Asset
-  id: DeathFragments
+  id: Elona.DeathFragments
   image:
     filepath: /Graphic/Elona/item.bmp
     region: "864, 0, 48, 48"
 
 - type: Asset
-  id: AnimSlash
+  id: Elona.AnimSlash
   image:
     filepath: /Graphic/Elona/interface.bmp
     region: "1008, 432, 192, 48"
   countX: 4
 
 - type: Asset
-  id: AnimBash
+  id: Elona.AnimBash
   image:
     filepath: /Graphic/Elona/interface.bmp
     region: "816, 432, 192, 48"
   countX: 4
 
 - type: Asset
-  id: AnimMiracle
+  id: Elona.AnimMiracle
   image:
     filepath: /Graphic/Elona/anime12.bmp
   countX: 10
   countY: 2
 
 - type: Asset
-  id: AnimSpotMine
+  id: Elona.AnimSpotMine
   image:
     filepath: /Graphic/Elona/anime1.bmp
   countX: 5
 
 - type: Asset
-  id: AnimSpotFish
+  id: Elona.AnimSpotFish
   image:
     filepath: /Graphic/Elona/anime2.bmp
   countX: 3
 
 - type: Asset
-  id: AnimSpotHarvest
+  id: Elona.AnimSpotHarvest
   image:
     filepath: /Graphic/Elona/anime3.bmp
   countX: 3
 
 - type: Asset
-  id: AnimSpotDig
+  id: Elona.AnimSpotDig
   image:
     filepath: /Graphic/Elona/anime4.bmp
   countX: 4
 
 - type: Asset
-  id: AnimBall
+  id: Elona.AnimBall
   image:
     filepath: /Graphic/Elona/anime5.bmp
     region: "0, 0, 960, 96"
   countX: 10
 
 - type: Asset
-  id: AnimBall2
+  id: Elona.AnimBall2
   image:
     filepath: /Graphic/Elona/anime5.bmp
     region: "0, 96, 480, 96"
   countX: 10
 
 - type: Asset
-  id: AnimShock
+  id: Elona.AnimShock
   image:
     filepath: /Graphic/Elona/anime6.bmp
   countX: 10
 
 - type: Asset
-  id: AnimBreath
+  id: Elona.AnimBreath
   image:
     filepath: /Graphic/Elona/anime7.bmp
   countX: 10
 
 - type: Asset
-  id: AnimSmoke
+  id: Elona.AnimSmoke
   image:
     filepath: /Graphic/Elona/anime8.bmp
   countX: 5
 
 - type: Asset
-  id: AnimNukeSmoke1
+  id: Elona.AnimNukeSmoke1
   image:
     filepath: /Graphic/Elona/anime9.bmp
     region: "0, 0, 96, 96"
 
 - type: Asset
-  id: AnimNukeSmoke2
+  id: Elona.AnimNukeSmoke2
   image:
     filepath: /Graphic/Elona/anime9.bmp
     region: "96, 0, 96, 96"
 
 - type: Asset
-  id: AnimNukeCloud
+  id: Elona.AnimNukeCloud
   image:
     filepath: /Graphic/Elona/anime9.bmp
     region: "0, 96, 384, 96"
   countX: 2
 
 - type: Asset
-  id: AnimNukeExplosion
+  id: Elona.AnimNukeExplosion
   image:
     filepath: /Graphic/Elona/anime9.bmp
     region: "0, 288, 672, 48"
   countX: 7
 
 - type: Asset
-  id: AnimNukeRing
+  id: Elona.AnimNukeRing
   image:
     filepath: /Graphic/Elona/anime9.bmp
     region: "0, 408, 384, 48"
   countX: 2
 
 - type: Asset
-  id: AnimSparkle
+  id: Elona.AnimSparkle
   image:
     filepath: /Graphic/Elona/anime10.bmp
   countX: 10
 
 - type: Asset
-  id: AnimBuff
+  id: Elona.AnimBuff
   image:
     filepath: /Graphic/Elona/anime11.bmp
   countX: 5
 
 - type: Asset
-  id: AnimGene
+  id: Elona.AnimGene
   image:
     filepath: /Graphic/Elona/anime13.bmp
   countX: 5
   countY: 2
 
 - type: Asset
-  id: AnimCritical
+  id: Elona.AnimCritical
   image:
     filepath: /Graphic/Elona/anime28.bmp
   countX: 6
 
 - type: Asset
-  id: AnimCurse
+  id: Elona.AnimCurse
   image:
     filepath: /Graphic/Elona/anime14.bmp
   countX: 5
 
 - type: Asset
-  id: AnimElec
+  id: Elona.AnimElec
   image:
     filepath: /Graphic/Elona/anime15.bmp
   countX: 6
 
 - type: Asset
-  id: AnimFlame
+  id: Elona.AnimFlame
   image:
     filepath: /Graphic/Elona/anime16.bmp
   countX: 10
 
 - type: Asset
-  id: AnimMeteor
+  id: Elona.AnimMeteor
   image:
     filepath: /Graphic/Elona/anime17.bmp
     region: "0, 0, 768, 96"
   countX: 8
 
 - type: Asset
-  id: AnimMeteorImpact
+  id: Elona.AnimMeteorImpact
   image:
     filepath: /Graphic/Elona/anime17.bmp
     region: "0, 96, 960, 96"
   countX: 5
 
 - type: Asset
-  id: AnimElemLightning
+  id: Elona.AnimElemLightning
   image:
     filepath: /Graphic/Elona/anime18.bmp
   countX: 5
 
 - type: Asset
-  id: AnimElemCold
+  id: Elona.AnimElemCold
   image:
     filepath: /Graphic/Elona/anime19.bmp
   countX: 6
 
 - type: Asset
-  id: AnimElemFire
+  id: Elona.AnimElemFire
   image:
     filepath: /Graphic/Elona/anime20.bmp
   countX: 6
 
 - type: Asset
-  id: AnimElemNether
+  id: Elona.AnimElemNether
   image:
     filepath: /Graphic/Elona/anime21.bmp
   countX: 6
 
 - type: Asset
-  id: AnimElemDarkness
+  id: Elona.AnimElemDarkness
   image:
     filepath: /Graphic/Elona/anime22.bmp
   countX: 6
 
 - type: Asset
-  id: AnimElemMind
+  id: Elona.AnimElemMind
   image:
     filepath: /Graphic/Elona/anime23.bmp
   countX: 6
 
 - type: Asset
-  id: AnimElemSound
+  id: Elona.AnimElemSound
   image:
     filepath: /Graphic/Elona/anime24.bmp
   countX: 6
 
 - type: Asset
-  id: AnimElemChaos
+  id: Elona.AnimElemChaos
   image:
     filepath: /Graphic/Elona/anime25.bmp
   countX: 6
 
 - type: Asset
-  id: AnimElemNerve
+  id: Elona.AnimElemNerve
   image:
     filepath: /Graphic/Elona/anime26.bmp
   countX: 6
 
 - type: Asset
-  id: AnimElemPoison
+  id: Elona.AnimElemPoison
   image:
     filepath: /Graphic/Elona/anime27.bmp
   countX: 6
 
 - type: Asset
-  id: AutoTurnMining
+  id: Elona.AutoTurnMining
   image:
     filepath: /Graphic/Elona/anime1.bmp
   countX: 5
 
 - type: Asset
-  id: AutoTurnFishing
+  id: Elona.AutoTurnFishing
   image:
     filepath: /Graphic/Elona/anime2.bmp
   countX: 3
 
 - type: Asset
-  id: AutoTurnHarvesting
+  id: Elona.AutoTurnHarvesting
   image:
     filepath: /Graphic/Elona/anime3.bmp
   countX: 3
 
 - type: Asset
-  id: AutoTurnSearching
+  id: Elona.AutoTurnSearching
   image:
     filepath: /Graphic/Elona/anime4.bmp
     region: "0, 0, 576, 96"
   countX: 4
 
 - type: Asset
-  id: EffectMapRipple
+  id: Elona.EffectMapRipple
   image:
     filepath: /Graphic/Elona/interface.bmp
     region: "144, 624, 128, 32"
   countX: 4
 
 - type: Asset
-  id: EffectMapFoot
+  id: Elona.EffectMapFoot
   image:
     filepath: /Graphic/Elona/interface.bmp
     region: "272, 624, 32, 32"
   countX: 1
 
 - type: Asset
-  id: EffectMapSnow1
+  id: Elona.EffectMapSnow1
   image:
     filepath: /Graphic/Elona/interface.bmp
     region: "304, 624, 32, 32"
   countX: 1
 
 - type: Asset
-  id: EffectMapSnow2
+  id: Elona.EffectMapSnow2
   image:
     filepath: /Graphic/Elona/interface.bmp
     region: "336, 624, 32, 32"
   countX: 1
 
 - type: Asset
-  id: EffectMapSplash
+  id: Elona.EffectMapSplash
   image:
     filepath: /Graphic/Elona/interface.bmp
     region: "368, 624, 96, 32"
   countX: 3
 
 - type: Asset
-  id: EffectMapSplash2
+  id: Elona.EffectMapSplash2
   image:
     filepath: /Graphic/Elona/interface.bmp
     region: "464, 624, 96, 32"
   countX: 3
 
 - type: Asset
-  id: Cloud1
+  id: Elona.Cloud1
   image:
     filepath: /Graphic/Elona/map0.bmp
     region: "288, 1040, 208, 160"
 
 - type: Asset
-  id: Cloud2
+  id: Elona.Cloud2
   image:
     filepath: /Graphic/Elona/map0.bmp
     region: "0, 976, 288, 224"
 
 - type: Asset
-  id: LightPortLight
+  id: Elona.LightPortLight
   image:
     filepath: /Graphic/Elona/interface.bmp
     region: "192, 704, 48, 48"
 
 - type: Asset
-  id: LightTorch
+  id: Elona.LightTorch
   image:
     filepath: /Graphic/Elona/interface.bmp
     region: "240, 704, 96, 48"
   countX: 2
 
 - type: Asset
-  id: LightLantern
+  id: Elona.LightLantern
   image:
     filepath: /Graphic/Elona/interface.bmp
     region: "336, 704, 48, 48"
 
 - type: Asset
-  id: LightCandle
+  id: Elona.LightCandle
   image:
     filepath: /Graphic/Elona/interface.bmp
     region: "384, 704, 48, 48"
 
 - type: Asset
-  id: LightStove
+  id: Elona.LightStove
   image:
     filepath: /Graphic/Elona/interface.bmp
     region: "432, 704, 96, 48"
   countX: 2
 
 - type: Asset
-  id: LightItem
+  id: Elona.LightItem
   image:
     filepath: /Graphic/Elona/interface.bmp
     region: "528, 704, 48, 48"
 
 - type: Asset
-  id: LightTown
+  id: Elona.LightTown
   image:
     filepath: /Graphic/Elona/interface.bmp
     region: "576, 704, 48, 48"
 
 - type: Asset
-  id: LightCrystal
+  id: Elona.LightCrystal
   image:
     filepath: /Graphic/Elona/interface.bmp
     region: "624, 704, 96, 48"
   countX: 2
 
 - type: Asset
-  id: LightTownLight
+  id: Elona.LightTownLight
   image:
     filepath: /Graphic/Elona/interface.bmp
     region: "720, 704, 48, 48"
 
 - type: Asset
-  id: LightWindow
+  id: Elona.LightWindow
   image:
     filepath: /Graphic/Elona/interface.bmp
     region: "768, 704, 48, 48"
 
 - type: Asset
-  id: LightWindowRed
+  id: Elona.LightWindowRed
   image:
     filepath: /Graphic/Elona/interface.bmp
     region: "816, 704, 48, 48"
 
 - type: Asset
-  id: FishingPole
+  id: Elona.FishingPole
   image:
     filepath: /Graphic/Elona/fishing.bmp
     region: "0, 0, 48, 48"
 
 - type: Asset
-  id: FishingLine
+  id: Elona.FishingLine
   image:
     filepath: /Graphic/Elona/fishing.bmp
     region: "48, 0, 48, 48"
 
 - type: Asset
-  id: FishingBob
+  id: Elona.FishingBob
   image:
     filepath: /Graphic/Elona/fishing.bmp
     region: "116, 18, 14, 14"
 
 - type: Asset
-  id: FishingFish
+  id: Elona.FishingFish
   image:
     filepath: /Graphic/Elona/fishing.bmp
     region: "144, 0, 96, 48"

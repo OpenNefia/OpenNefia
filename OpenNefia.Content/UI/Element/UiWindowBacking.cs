@@ -1,4 +1,5 @@
-﻿using OpenNefia.Core.Maths;
+﻿using OpenNefia.Content.Prototypes;
+using OpenNefia.Core.Maths;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Core.UI.Element;
 using static OpenNefia.Core.Rendering.AssetInstance;
@@ -70,7 +71,7 @@ namespace OpenNefia.Content.UI.Element
                 parts.Add(new AssetBatchPart($"mid_right_{tile_y}", x_inner, dy * 8 + y + 48));
             }
 
-            this.AssetWindow = Assets.GetSized(AssetPrototypeOf.Window, this.PixelSize);
+            this.AssetWindow = Assets.GetSized(Protos.Asset.Window, this.PixelSize);
             this.Batch = this.AssetWindow.MakeBatch(parts);
         }
 

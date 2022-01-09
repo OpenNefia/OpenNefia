@@ -1,6 +1,7 @@
 ﻿using OpenNefia.Content.Factions;
 using OpenNefia.Content.GameObjects;
 using OpenNefia.Content.Parties;
+using OpenNefia.Content.Prototypes;
 using OpenNefia.Content.Skills;
 using OpenNefia.Core.Game;
 using OpenNefia.Core.GameObjects;
@@ -34,8 +35,8 @@ namespace OpenNefia.Content.VanillaAI
 
         public override void Initialize()
         {
-            AssetHPBarAlly = Assets.GetAsset(AssetPrototypeOf.HpBarAlly);
-            AssetHPBarOther = Assets.GetAsset(AssetPrototypeOf.HpBarOther);
+            AssetHPBarAlly = Assets.GetAsset(Protos.Asset.HpBarAlly);
+            AssetHPBarOther = Assets.GetAsset(Protos.Asset.HpBarOther);
         }
 
         public override void RedrawAll()

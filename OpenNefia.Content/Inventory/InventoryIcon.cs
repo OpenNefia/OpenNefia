@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using OpenNefia.Core.Rendering;
+using OpenNefia.Content.Prototypes;
 
 namespace OpenNefia.Content.Inventory
 {
     /// <summary>
-    /// Asset region IDs for <see cref="AssetPrototypeOf.InventoryIcons"/>.
+    /// Asset region IDs for <see cref="Protos.Asset.InventoryIcons"/>.
     /// </summary>
     public enum InventoryIcon : int
     {

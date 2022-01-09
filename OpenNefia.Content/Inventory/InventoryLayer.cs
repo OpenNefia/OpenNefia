@@ -179,11 +179,11 @@ namespace OpenNefia.Content.Inventory
 
         public InventoryLayer()
         {
-            AssetDecoInvA = new AssetDrawable(AssetPrototypeOf.DecoInvA);
-            AssetDecoInvB = new AssetDrawable(AssetPrototypeOf.DecoInvB);
-            AssetDecoInvC = new AssetDrawable(AssetPrototypeOf.DecoInvC);
-            AssetDecoInvD = new AssetDrawable(AssetPrototypeOf.DecoInvD);
-            AssetGoldCoin = new AssetDrawable(AssetPrototypeOf.GoldCoin);
+            AssetDecoInvA = new AssetDrawable(Protos.Asset.DecoInvA);
+            AssetDecoInvB = new AssetDrawable(Protos.Asset.DecoInvB);
+            AssetDecoInvC = new AssetDrawable(Protos.Asset.DecoInvC);
+            AssetDecoInvD = new AssetDrawable(Protos.Asset.DecoInvD);
+            AssetGoldCoin = new AssetDrawable(Protos.Asset.GoldCoin);
 
             TextTopicItemName.Text = Loc.GetString("Elona.Inventory.Layer.Topic.ItemName"); 
 

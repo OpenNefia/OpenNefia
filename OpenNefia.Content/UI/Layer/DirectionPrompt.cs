@@ -1,5 +1,6 @@
 ﻿using OpenNefia.Content.GameObjects;
 using OpenNefia.Content.Input;
+using OpenNefia.Content.Prototypes;
 using OpenNefia.Content.UI.Element;
 using OpenNefia.Core.Audio;
 using OpenNefia.Core.Directions;
@@ -60,7 +61,7 @@ namespace OpenNefia.Content.UI.Layer
 
         public DirectionPrompt()
         {
-            AssetDirectionArrow = Assets.Get(AssetPrototypeOf.DirectionArrow);
+            AssetDirectionArrow = Assets.Get(Protos.Asset.DirectionArrow);
 
             OnKeyBindDown += HandleKeyBindDown;
             OnKeyBindUp += HandleKeyBindUp;

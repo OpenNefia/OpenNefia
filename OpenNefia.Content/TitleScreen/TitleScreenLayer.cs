@@ -109,8 +109,8 @@ namespace OpenNefia.Content.TitleScreen
 
         public TitleScreenLayer()
         {
-            AssetTitle = Assets.Get(AssetPrototypeOf.Title);
-            AssetG4 = Assets.Get(AssetPrototypeOf.G4);
+            AssetTitle = Assets.Get(Protos.Asset.Title);
+            AssetG4 = Assets.Get(Protos.Asset.G4);
 
             var version = "1.22";
             TextInfo = new UiText[3];

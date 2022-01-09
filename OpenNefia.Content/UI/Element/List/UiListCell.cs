@@ -70,8 +70,8 @@ namespace OpenNefia.Content.UI.Element.List
             _data = data;
             UiText = text;
 
-            AssetSelectKey = Assets.Get(AssetPrototypeOf.SelectKey);
-            AssetListBullet = Assets.Get(AssetPrototypeOf.ListBullet);
+            AssetSelectKey = Assets.Get(Protos.Asset.SelectKey);
+            AssetListBullet = Assets.Get(Protos.Asset.ListBullet);
 
             Key = key;
 

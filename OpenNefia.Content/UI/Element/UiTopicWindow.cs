@@ -1,4 +1,5 @@
-﻿using OpenNefia.Core.Maths;
+﻿using OpenNefia.Content.Prototypes;
+using OpenNefia.Core.Maths;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Core.UI.Element;
 using static OpenNefia.Core.Rendering.AssetInstance;
@@ -50,17 +51,17 @@ namespace OpenNefia.Content.UI.Element
             {
                 case FrameStyleKind.Zero:
                 default:
-                    return Assets.GetSized(AssetPrototypeOf.TopicWindow0, this.PixelSize);
+                    return Assets.GetSized(Protos.Asset.TopicWindow0, this.PixelSize);
                 case FrameStyleKind.One:
-                    return Assets.GetSized(AssetPrototypeOf.TopicWindow1, this.PixelSize);
+                    return Assets.GetSized(Protos.Asset.TopicWindow1, this.PixelSize);
                 case FrameStyleKind.Two:
-                    return Assets.GetSized(AssetPrototypeOf.TopicWindow2, this.PixelSize);
+                    return Assets.GetSized(Protos.Asset.TopicWindow2, this.PixelSize);
                 case FrameStyleKind.Three:
-                    return Assets.GetSized(AssetPrototypeOf.TopicWindow3, this.PixelSize);
+                    return Assets.GetSized(Protos.Asset.TopicWindow3, this.PixelSize);
                 case FrameStyleKind.Four:
-                    return Assets.GetSized(AssetPrototypeOf.TopicWindow4, this.PixelSize);
+                    return Assets.GetSized(Protos.Asset.TopicWindow4, this.PixelSize);
                 case FrameStyleKind.Five:
-                    return Assets.GetSized(AssetPrototypeOf.TopicWindow5, this.PixelSize);
+                    return Assets.GetSized(Protos.Asset.TopicWindow5, this.PixelSize);
             }
         }
 
@@ -70,7 +71,7 @@ namespace OpenNefia.Content.UI.Element
             this.WindowStyle = windowStyle;
 
             this.AssetTopicWindow = this.GetTopicWindowAsset(this.FrameStyle);
-            this.AssetWindow = Assets.Get(AssetPrototypeOf.Window);
+            this.AssetWindow = Assets.Get(Protos.Asset.Window);
 
             this.TopicWindowBatch = this.MakeBatch();
         }

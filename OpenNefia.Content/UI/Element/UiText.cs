@@ -1,4 +1,5 @@
-﻿using OpenNefia.Core;
+﻿using OpenNefia.Content.Prototypes;
+using OpenNefia.Core;
 using OpenNefia.Core.Locale;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.Rendering;
@@ -125,12 +126,12 @@ namespace OpenNefia.Content.UI.Element
         public UiTextTopic(string text = "") 
             : base(new FontSpec(12, 12, style: FontStyle.Bold), text)
         {
-            AssetTipIcons = Assets.Get(AssetPrototypeOf.TipIcons);
+            AssetTipIcons = Assets.Get(Protos.Asset.TipIcons);
         }
 
         public UiTextTopic(FontSpec font, string text = "") : base(font, text)
         {
-            AssetTipIcons = Assets.Get(AssetPrototypeOf.TipIcons);
+            AssetTipIcons = Assets.Get(Protos.Asset.TipIcons);
         }
 
         public override void GetPreferredSize(out Vector2i size)

@@ -1,6 +1,7 @@
 ﻿using OpenNefia.Content.EquipSlots;
 using OpenNefia.Content.GameObjects;
 using OpenNefia.Content.Inventory;
+using OpenNefia.Content.Prototypes;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Locale;
 using OpenNefia.Core.Log;
@@ -65,7 +66,7 @@ namespace OpenNefia.Content.Equipment
                 icon = EquipSlotIcon.Head;
             }
 
-            return new AssetDrawable(AssetPrototypeOf.EquipSlotIcons, regionId: ((int)icon).ToString());
+            return new AssetDrawable(Protos.Asset.EquipSlotIcons, regionId: ((int)icon).ToString());
         }
     }
 }

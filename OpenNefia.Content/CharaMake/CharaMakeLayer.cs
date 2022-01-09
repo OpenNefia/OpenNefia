@@ -1,4 +1,5 @@
-﻿using OpenNefia.Content.UI;
+﻿using OpenNefia.Content.Prototypes;
+using OpenNefia.Content.UI;
 using OpenNefia.Content.UI.Element;
 using OpenNefia.Content.UI.Element.Containers;
 using OpenNefia.Content.UI.Element.List;
@@ -40,7 +41,7 @@ namespace OpenNefia.Content.CharaMake
 
             public AttributeIcon(string type)
             {
-                AssetAttributeIcons = Assets.Get(AssetPrototypeOf.AttributeIcons);
+                AssetAttributeIcons = Assets.Get(Protos.Asset.AttributeIcons);
                 Type = type;
             }
 
@@ -82,14 +83,14 @@ namespace OpenNefia.Content.CharaMake
 
         public CharaMakeLayer()
         {
-            AssetBG = Assets.Get(AssetPrototypeOf.Void);
+            AssetBG = Assets.Get(Protos.Asset.Void);
 
             AssetWindows = new[]
             {
-                Assets.Get(AssetPrototypeOf.G1),
-                Assets.Get(AssetPrototypeOf.G2),
-                Assets.Get(AssetPrototypeOf.G3),
-                Assets.Get(AssetPrototypeOf.G4)
+                Assets.Get(Protos.Asset.G1),
+                Assets.Get(Protos.Asset.G2),
+                Assets.Get(Protos.Asset.G3),
+                Assets.Get(Protos.Asset.G4)
             };
             CurrentWindowBG = AssetWindows[0];
 

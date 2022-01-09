@@ -3,7 +3,6 @@ using OpenNefia.Core.Audio;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Maths;
-using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Core.UI;
 using OpenNefia.Core.UI.Layer;
@@ -36,8 +35,8 @@ namespace OpenNefia.Content.Inventory
 
         public ItemDescriptionLayer()
         {
-            AssetEnchantmentIcons = Assets.Get(AssetPrototypeOf.EnchantmentIcons);
-            AssetInheritanceIcon = Assets.Get(AssetPrototypeOf.InheritanceIcon);
+            AssetEnchantmentIcons = Assets.Get(Protos.Asset.EnchantmentIcons);
+            AssetInheritanceIcon = Assets.Get(Protos.Asset.InheritanceIcon);
 
             CanControlFocus = true;
             OnKeyBindDown += HandleKeyBindDown;

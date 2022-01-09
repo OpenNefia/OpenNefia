@@ -89,9 +89,9 @@ namespace OpenNefia.Content.UI.Layer
         {
             Text = new UiText(FontPromptText);
 
-            AssetLabelInput = Assets.Get(AssetPrototypeOf.LabelInput);
-            AssetArrowLeft = Assets.Get(AssetPrototypeOf.ArrowLeft);
-            AssetArrowRight = Assets.Get(AssetPrototypeOf.ArrowRight);
+            AssetLabelInput = Assets.Get(Protos.Asset.LabelInput);
+            AssetArrowLeft = Assets.Get(Protos.Asset.ArrowLeft);
+            AssetArrowRight = Assets.Get(Protos.Asset.ArrowRight);
 
             TopicWindow = new UiTopicWindow(UiTopicWindow.FrameStyleKind.Zero, UiTopicWindow.WindowStyleKind.Two);
 
