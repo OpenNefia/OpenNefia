@@ -14,9 +14,9 @@ namespace OpenNefia.Core.Maps
         /// <summary>
         /// All maps that are currently loaded in memory.
         /// </summary>
-        public IReadOnlyDictionary<MapId, IMap> LoadedMaps { get; }
+        IReadOnlyDictionary<MapId, IMap> LoadedMaps { get; }
 
-        public event ActiveMapChangedDelegate? ActiveMapChanged;
+        event ActiveMapChangedDelegate? OnActiveMapChanged;
 
         void SetActiveMap(MapId mapId);
 
@@ -34,7 +34,6 @@ namespace OpenNefia.Core.Maps
         IMap GetMap(MapId mapId);
 
         bool TryGetMap(MapId mapId, [NotNullWhen(true)] out IMap? map);
-        bool TryGetMap(EntityUid mapEntityUid, [NotNullWhen(true)] out IMap? map);
 
         void UnloadMap(MapId mapId);
     }

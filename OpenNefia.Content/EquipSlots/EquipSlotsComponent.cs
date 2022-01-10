@@ -1,4 +1,5 @@
-﻿using OpenNefia.Core.Containers;
+﻿using OpenNefia.Core.Areas;
+using OpenNefia.Core.Containers;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Serialization.Manager.Attributes;
 using EquipSlotPrototypeId = OpenNefia.Core.Prototypes.PrototypeId<OpenNefia.Content.EquipSlots.EquipSlotPrototype>;

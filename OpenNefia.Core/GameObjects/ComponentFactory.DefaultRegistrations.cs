@@ -1,4 +1,5 @@
-﻿using OpenNefia.Core.Containers;
+﻿using OpenNefia.Core.Areas;
+using OpenNefia.Core.Containers;
 using OpenNefia.Core.Maps;
 using System;
 using System.Collections.Generic;
@@ -19,6 +20,7 @@ namespace OpenNefia.Core.GameObjects
             RegisterClass<SpatialComponent>();
             RegisterClass<MapComponent>();
             RegisterClass<MapSaveIdComponent>();
+            RegisterClass<AreaComponent>();
             RegisterClass<ContainerManagerComponent>();
             RegisterClass<StackComponent>();
             RegisterClass<MapEntityLookupComponent>();

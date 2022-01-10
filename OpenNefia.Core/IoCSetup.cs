@@ -1,4 +1,5 @@
-﻿using OpenNefia.Core.Asynchronous;
+﻿using OpenNefia.Core.Areas;
+using OpenNefia.Core.Asynchronous;
 using OpenNefia.Core.Audio;
 using OpenNefia.Core.CommandLine;
 using OpenNefia.Core.ContentPack;
@@ -61,6 +62,8 @@ namespace OpenNefia
             IoCManager.Register<IReflectionManager, ReflectionManager>();
             IoCManager.Register<IMapManager, MapManager>();
             IoCManager.Register<IMapManagerInternal, MapManager>();
+            IoCManager.Register<IAreaManager, AreaManager>();
+            IoCManager.Register<IAreaManagerInternal, AreaManager>();
             IoCManager.Register<IComponentDependencyManager, ComponentDependencyManager>();
             IoCManager.Register<IComponentFactory, ComponentFactory>();
             IoCManager.Register<IPrototypeManager, PrototypeManager>();

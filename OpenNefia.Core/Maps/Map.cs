@@ -16,10 +16,10 @@ namespace OpenNefia.Core.Maps
         IsOpaque = 0b00000010,
     }
 
-    public sealed class Map : IMap
+    internal sealed class Map : IMap
     {
-        public EntityUid MapEntityUid { get; internal set; }
         public MapId Id { get; internal set; }
+        public EntityUid MapEntityUid { get; internal set; }
 
         public int Width { get; }
         public int Height { get; }

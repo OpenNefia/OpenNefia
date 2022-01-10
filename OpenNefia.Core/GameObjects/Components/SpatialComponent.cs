@@ -23,6 +23,9 @@ namespace OpenNefia.Core.GameObjects
         private EntityUid _parent;
         [DataField("pos", noCompare: true)]
         private Vector2i _localPosition = Vector2i.Zero; // holds offset from grid, or offset from parent
+        
+        [DataField("mapless")]
+        public bool Mapless { get; internal set; }
 
         private Matrix3 _localMatrix = Matrix3.Identity;
         private Matrix3 _invLocalMatrix = Matrix3.Identity;
@@ -311,14 +314,14 @@ namespace OpenNefia.Core.GameObjects
             // Children MAY be initialized here before their parents are.
             // We do this whole dance to handle this recursively,
             // setting _mapIdInitialized along the way to avoid going to the IMapComponent every iteration.
-            MapId FindMapIdAndSet(SpatialComponent p)
+            MapId? FindMapIdAndSet(SpatialComponent p)
             {
                 if (p._mapIdInitialized)
                 {
                     return p.MapID;
                 }
 
-                MapId value;
+                MapId? value;
                 if (p._parent.IsValid())
                 {
                     value = FindMapIdAndSet((SpatialComponent)p.Parent!);
@@ -332,11 +335,14 @@ namespace OpenNefia.Core.GameObjects
                     }
                     else
                     {
-                        throw new InvalidOperationException("Transform node does not exist inside scene tree!");
+                        if (!Mapless)
+                            throw new InvalidOperationException("Transform node does not exist inside scene tree!");
+
+                        return null;
                     }
                 }
 
-                p.MapID = value;
+                p.MapID = value!.Value;
                 p._mapIdInitialized = true;
                 return value;
             }
@@ -370,6 +376,9 @@ namespace OpenNefia.Core.GameObjects
         /// </summary>
         public void AttachToMap()
         {
+            if (Mapless)
+                return;
+
             // nothing to do
             var oldParent = Parent;
             if (oldParent == null)
@@ -432,6 +441,9 @@ namespace OpenNefia.Core.GameObjects
         /// <param name="newParent"></param>
         public void AttachParent(SpatialComponent newParent)
         {
+            if (Mapless)
+                return;
+
             //NOTE: This function must be callable from before initialize
 
             // don't attach to something we're already attached to
@@ -447,6 +459,9 @@ namespace OpenNefia.Core.GameObjects
 
         internal void ChangeMapId(MapId newMapId)
         {
+            if (Mapless)
+                return;
+
             if (newMapId == MapID)
                 return;
 

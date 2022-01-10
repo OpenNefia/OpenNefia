@@ -1,4 +1,5 @@
 ﻿using OpenNefia.Content.Equipment;
+using OpenNefia.Core.Areas;
 using OpenNefia.Core.Containers;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Prototypes;

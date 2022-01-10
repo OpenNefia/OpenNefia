@@ -1,3 +1,4 @@
+using OpenNefia.Core.Areas;
 using OpenNefia.Core.Containers;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Serialization.Manager;

@@ -91,7 +91,7 @@ namespace OpenNefia.Content.UI.Layer
 
         public void Startup()
         {
-            _mapManager.ActiveMapChanged += OnActiveMapChanged;
+            _mapManager.OnActiveMapChanged += OnActiveMapChanged;
             _graphics.OnWindowResized += (_) => RefreshScreen();
 
             Camera.Initialize();
