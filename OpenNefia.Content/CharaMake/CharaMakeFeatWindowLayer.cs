@@ -37,7 +37,7 @@ namespace OpenNefia.Content.CharaMake
             if (Data.TryGetValue(CharaMakeRaceSelectLayer.ResultName, out RacePrototype? race))
             {
                 foreach (var feat in race.BaseFeats)
-                    SelectedFeats[feat.ResolvePrototype()] = 1;
+                    SelectedFeats[feat.Key.ResolvePrototype()] = feat.Value;
             }
             Window = new FeatWindow(() => SelectedFeats, feat =>
             {

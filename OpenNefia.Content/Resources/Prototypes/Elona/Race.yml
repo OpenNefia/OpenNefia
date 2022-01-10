@@ -254,6 +254,8 @@
   - Elona.Arm
   - Elona.Waist
   - Elona.Leg
+  baseFeats:
+    Elona.PermSkillPoint: 1
 - type: Elona.Race
   id: Elona.Norland
   hspIds:
@@ -335,6 +337,8 @@
   - Elona.Arm
   - Elona.Waist
   - Elona.Leg
+  baseFeats:
+    Elona.PermMagic: 1
 - type: Elona.Race
   id: Elona.Fairy
   hspIds:
@@ -375,6 +379,9 @@
   - Elona.Arm
   - Elona.Waist
   - Elona.Leg
+  baseFeats:
+    Elona.PermResist: 1
+    Elona.PermWeak: 1
 - type: Elona.Race
   id: Elona.Asura
   hspIds:
@@ -512,6 +519,9 @@
   - Elona.Arm
   - Elona.Waist
   - Elona.Leg
+  baseFeats:
+    Elona.PermPoison: 2
+    Elona.PermDarkness: 1
 - type: Elona.Race
   id: Elona.Juere
   hspIds:
@@ -553,6 +563,9 @@
   - Elona.Arm
   - Elona.Waist
   - Elona.Leg
+  baseFeats:
+    Elona.PermSlowFood: 1
+    Elona.PermMaterial: 1
 - type: Elona.Race
   id: Elona.Zombie
   hspIds:
@@ -630,7 +643,8 @@
   - Elona.Waist
   - Elona.Leg
   baseFeats:
-  - Elona.PermResEther
+    Elona.PermResEther: 1
+    Elona.PermCapacity: 1
 - type: Elona.Race
   id: Elona.Rabbit
   hspIds:
@@ -975,6 +989,10 @@
   - Elona.Arm
   - Elona.Waist
   - Elona.Leg
+  baseFeats:
+    Elona.PermCold: 1
+    Elona.PermDarkness: 2
+    Elona.PermPoison: 1
 - type: Elona.Race
   id: Elona.Hound
   hspIds:
@@ -1372,6 +1390,9 @@
   - Elona.Arm
   - Elona.Waist
   - Elona.Leg
+  baseFeats:
+    Elona.PermDarkness: 1
+    Elona.PermMaterial: 1
 - type: Elona.Race
   id: Elona.Bear
   hspIds:
@@ -1753,6 +1774,9 @@
   - Elona.Arm
   - Elona.Waist
   - Elona.Leg
+  baseFeats:
+    Elona.PermDim: 1
+    Elona.PermPoison: 2
 - type: Elona.Race
   id: Elona.Rock
   hspIds:
@@ -2374,6 +2398,8 @@
   initialEquipSlots:
   - Elona.Body
   - Elona.Hand
+  baseFeats:
+    Elona.PermChaosShape: 1
 - type: Elona.Race
   id: Elona.Yeek
   hspIds:
