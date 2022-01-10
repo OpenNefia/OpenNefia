@@ -22,7 +22,7 @@ namespace OpenNefia.Core.Areas
         IArea CreateArea(PrototypeId<AreaPrototype>? prototypeId = null);
         bool TryGetArea(AreaId areaId, [NotNullWhen(true)] out IArea? area);
         IArea GetArea(AreaId areaId);
-        void UnloadArea(AreaId areaID);
+        void DeleteArea(AreaId areaID);
 
         void RegisterAreaFloor(IArea area, AreaFloorId floorId, IMap map);
         void RegisterAreaFloor(IArea area, AreaFloorId floorId, MapId mapId);
@@ -33,6 +33,11 @@ namespace OpenNefia.Core.Areas
 
     internal interface IAreaManagerInternal : IAreaManager
     {
+        /// <summary>
+        /// All loaded areas. Used for serialization.
+        /// </summary>
+        new Dictionary<AreaId, IArea> LoadedAreas { get; }
+
         /// <summary>
         /// The next free area ID to use when generating new areas.
         /// </summary>
@@ -66,7 +71,6 @@ namespace OpenNefia.Core.Areas
         /// Allocates a new AreaID, incrementing the highest ID counter.
         /// </summary>
         AreaId GenerateAreaId();
-        void SetActiveArea(AreaId areaId);
     }
 
     public sealed partial class AreaManager : IAreaManagerInternal
@@ -75,17 +79,20 @@ namespace OpenNefia.Core.Areas
         [Dependency] private readonly IMapManager _mapManager = default!;
         [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
 
-        private protected readonly Dictionary<AreaId, IArea> _areas = new();
-        private protected readonly Dictionary<AreaId, EntityUid> _areaEntities = new();
+        private readonly Dictionary<AreaId, IArea> _areas = new();
+        private readonly Dictionary<AreaId, EntityUid> _areaEntities = new();
 
         /// <inheritdoc/>
         public event ActiveAreaChangedDelegate? ActiveAreaChanged;
 
         /// <inheritdoc/>
-        public IReadOnlyDictionary<AreaId, IArea> LoadedAreas => _areas;
+        IReadOnlyDictionary<AreaId, IArea> IAreaManager.LoadedAreas => _areas;
 
         /// <inheritdoc/>
-        public IArea? ActiveArea { get; private set; } = null;
+        Dictionary<AreaId, IArea> IAreaManagerInternal.LoadedAreas => _areas;
+
+        /// <inheritdoc/>
+        public IArea? ActiveArea => null;
 
         /// <inheritdoc/>
         public int NextAreaId { get; set; } = (int)AreaId.FirstId;
@@ -107,7 +114,6 @@ namespace OpenNefia.Core.Areas
         {
             _areas.Clear();
             _areaEntities.Clear();
-            ActiveArea = null;
             NextAreaId = (int)AreaId.FirstId;
         }
 
@@ -152,11 +158,6 @@ namespace OpenNefia.Core.Areas
             {
                 throw new ArgumentException($"Area entity {areaEntityUid} doesn't exist.", nameof(areaEntityUid));
             }
-            // Check to see if the IDs on the passed area were already set elsewhere.
-            if (area.AreaEntityUid.IsValid() || area.Id != AreaId.Nullspace)
-            {
-                throw new ArgumentException("Area is already in use.", nameof(area));
-            }
 
             _areas[areaId] = area;
 
@@ -177,7 +178,7 @@ namespace OpenNefia.Core.Areas
                 result = areaComp;
                 break;
             }
-
+            
             if (result != null)
             {
                 _areaEntities.Add(actualID, result.Owner);
@@ -186,6 +187,10 @@ namespace OpenNefia.Core.Areas
             }
             else
             {
+                // We assume the global map is always loaded.
+                var globalMap = _mapManager.GetMap(MapId.Global);
+                var globalMapSpatial = _entityManager.GetComponent<SpatialComponent>(globalMap.MapEntityUid);
+
                 var newEnt = _entityManager.CreateEntityUninitialized(null);
                 _areaEntities.Add(actualID, newEnt);
 
@@ -195,9 +200,11 @@ namespace OpenNefia.Core.Areas
 
                 var areaComp = _entityManager.AddComponent<AreaComponent>(newEnt);
                 areaComp.AreaId = actualID;
-
+                
+                // Area entities will always live in the global map. After all, it is possible for
+                // a map to belong to more than one area.
                 var areaSpatial = _entityManager.GetComponent<SpatialComponent>(newEnt);
-                areaSpatial.Mapless = true;
+                areaSpatial.AttachParent(globalMapSpatial);
 
                 _entityManager.InitializeComponents(newEnt);
                 _entityManager.StartComponents(newEnt);
@@ -253,20 +260,20 @@ namespace OpenNefia.Core.Areas
         }
 
         /// <inheritdoc/>
-        public void UnloadArea(AreaId areaID)
+        public void DeleteArea(AreaId areaID)
         {
             if (areaID == ActiveArea?.Id)
             {
-                ActiveArea = null;
+                Logger.WarningS("area", $"Deleting active area {areaID}");
             }
 
             if (!_areas.ContainsKey(areaID))
             {
-                Logger.WarningS("area", $"Attempted to unload nonexistent area '{areaID}'");
+                Logger.WarningS("area", $"Attempted to delete nonexistent area '{areaID}'");
                 return;
             }
 
-            Logger.InfoS("area", $"Unloading area {areaID}.");
+            Logger.InfoS("area", $"Deleting area {areaID}.");
 
             _areas.Remove(areaID);
 
@@ -285,23 +292,6 @@ namespace OpenNefia.Core.Areas
         public IArea GetArea(AreaId areasId)
         {
             return _areas[areasId];
-        }
-
-        /// <inheritdoc/>
-        public void SetActiveArea(AreaId areaId)
-        {
-            if (areaId == ActiveArea?.Id)
-                return;
-
-            if (!_areas.ContainsKey(areaId))
-            {
-                throw new ArgumentException($"Cannot find area {areaId}!", nameof(areaId));
-            }
-
-            var oldArea = ActiveArea;
-            var area = _areas[areaId];
-            ActiveArea = area;
-            ActiveAreaChanged?.Invoke(area, oldArea);
         }
     }
 }

@@ -49,9 +49,13 @@ namespace OpenNefia.Tests.Core.Areas
         [SetUp]
         public void Setup()
         {
-            IoCManager.Resolve<IMapManagerInternal>().FlushMaps();
+            var mapMan = IoCManager.Resolve<IMapManagerInternal>();
+            
+            mapMan.FlushMaps();
             IoCManager.Resolve<IAreaManagerInternal>().FlushAreas();
             IoCManager.Resolve<IEntityManagerInternal>().FlushEntities();
+
+            mapMan.CreateMap(1, 1, MapId.Global);
         }
 
         [Test]
@@ -73,7 +77,7 @@ namespace OpenNefia.Tests.Core.Areas
             Assert.That(area.Id, Is.EqualTo(areaId));
 
             // RegisterArea() shouldn't affect the next area ID (it's used
-            // for deserialization)
+            // for deserialization).
             Assert.That(areaMan.NextAreaId, Is.EqualTo(2));
         }
 
@@ -81,11 +85,23 @@ namespace OpenNefia.Tests.Core.Areas
         public void TestCreateArea()
         {
             var areaMan = IoCManager.Resolve<IAreaManager>();
+            var mapMan = IoCManager.Resolve<IMapManager>();
+            var entMan = IoCManager.Resolve<IEntityManager>();
 
             var area = areaMan.CreateArea();
 
             Assert.That(areaMan.AreaExists(area.Id), Is.True);
             Assert.That(area.ContainedMaps.Count, Is.EqualTo(0));
+
+            var areaComp = entMan.GetComponent<AreaComponent>(area.AreaEntityUid);
+            Assert.That(areaComp.AreaId, Is.EqualTo(area.Id));
+            Assert.That(areaComp.StartingFloor, Is.Null);
+
+            var areaSpatialComp = entMan.GetComponent<SpatialComponent>(area.AreaEntityUid);
+            Assert.That(areaSpatialComp.MapID, Is.EqualTo(MapId.Global));
+
+            var globalMapEnt = mapMan.GetMap(MapId.Global).MapEntityUid;
+            Assert.That(areaSpatialComp.ParentUid, Is.EqualTo(globalMapEnt));
         }
 
         [Test]
@@ -127,15 +143,6 @@ namespace OpenNefia.Tests.Core.Areas
 
             Assert.That(area.ContainedMaps[floorId].MapId, Is.EqualTo(map.Id));
             Assert.That(area.ContainedMaps[floorId].DefaultGenerator, Is.EqualTo(new PrototypeId<MapPrototype>("Blank")));
-
-            var areaComp = entMan.GetComponent<AreaComponent>(area.AreaEntityUid);
-            Assert.That(areaComp.AreaId, Is.EqualTo(area.Id));
-            Assert.That(areaComp.StartingFloor, Is.Null);
-
-            var areaSpatialComp = entMan.GetComponent<SpatialComponent>(area.AreaEntityUid);
-            Assert.That(areaSpatialComp.Mapless, Is.True);
-            Assert.That(areaSpatialComp.Parent, Is.Null);
-            Assert.That(areaSpatialComp.MapID, Is.EqualTo(MapId.Nullspace));
 
             Assert.Throws<ArgumentException>(() => areaMan.RegisterAreaFloor(area, floorId, map));
         }

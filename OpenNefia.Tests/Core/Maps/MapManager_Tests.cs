@@ -69,6 +69,16 @@ namespace OpenNefia.Tests.Core.Maps
 
             Assert.That(mapMan.NextMapId == (int)map2.Id + 1);
         }
+        
+        [Test]
+        public void TestSetActiveMap_GlobalMap()
+        {
+            var mapMan = IoCManager.Resolve<IMapManagerInternal>();
+
+            var map = mapMan.CreateMap(1, 1, MapId.Global);
+
+            Assert.Throws<ArgumentException>(() => mapMan.SetActiveMap(map.Id));
+        }
 
         [Test]
         public void TestUnloadMap_Entities()

@@ -174,9 +174,10 @@ namespace OpenNefia.Tests
 
             _systemDelegate?.Invoke(entitySystemMan);
 
-            var mapManager = container.Resolve<IMapManager>();
-
             entityMan.Startup();
+
+            var mapManager = container.Resolve<IMapManagerInternal>();
+            mapManager.CreateMap(1, 1, MapId.Global);
 
             container.Resolve<ISerializationManager>().Initialize();
 

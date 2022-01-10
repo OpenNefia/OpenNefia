@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using OpenNefia.Core.Areas;
 using OpenNefia.Core.Game;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Maps;
@@ -69,17 +70,24 @@ namespace OpenNefia.Tests.Core.SaveGames
             var saveSerMan = sim.Resolve<ISaveGameSerializerInternal>();
             var entMan = sim.Resolve<IEntityManagerInternal>();
             var mapMan = sim.Resolve<IMapManagerInternal>();
+            var mapLoader = sim.Resolve<IMapLoader>();
+            var areaMan = sim.Resolve<IAreaManagerInternal>();
             var sessMan = sim.Resolve<IGameSessionManager>();
 
             var map = sim.CreateMapAndSetActive(50, 50);
+            var mapEnt = map.MapEntityUid;
 
             // Act.
             mapMan.CreateMap(50, 50);
             var player = entMan.SpawnEntity(null, map.AtPos(Vector2i.One));
             sessMan.Player = player;
+            var area = areaMan.CreateArea();
+            var areaId = area.Id;
+            var areaEnt = area.AreaEntityUid;
 
             // Save these values.
             var nextMapId = mapMan.NextMapId;
+            var nextAreaId = areaMan.NextAreaId;
             var nextEntId = entMan.NextEntityUid;
             var activeMapId = sim.ActiveMap!.Id;
             var playerUid = sessMan.Player;
@@ -88,6 +96,7 @@ namespace OpenNefia.Tests.Core.SaveGames
 
             // Allocate some more IDs.
             var nextMap = mapMan.CreateMap(50, 50);
+            areaMan.CreateArea();
             var nextPlayer = entMan.SpawnEntity(null, map.AtPos(Vector2i.One));
             mapMan.SetActiveMap(nextMap.Id);
             sessMan.Player = nextPlayer;
@@ -96,9 +105,18 @@ namespace OpenNefia.Tests.Core.SaveGames
 
             // Check that the highest free entity/map IDs were restored.
             Assert.That(mapMan.NextMapId, Is.EqualTo(nextMapId));
+            Assert.That(areaMan.NextAreaId, Is.EqualTo(nextAreaId));
             Assert.That(entMan.NextEntityUid, Is.EqualTo(nextEntId));
             Assert.That(mapMan.ActiveMap?.Id, Is.EqualTo(activeMapId));
             Assert.That(sessMan.Player, Is.EqualTo(playerUid));
+
+            Assert.That(mapLoader.MapExistsInSave(MapId.Global, save), Is.True);
+            Assert.That(mapMan.MapIsLoaded(MapId.Global), Is.True);
+            Assert.That(mapMan.MapIsLoaded(activeMapId), Is.True);
+            Assert.That(entMan.EntityExists(mapEnt), Is.True);
+
+            Assert.That(areaMan.AreaExists(areaId), Is.True);
+            Assert.That(entMan.EntityExists(areaEnt), Is.True);
         }
     }
 
