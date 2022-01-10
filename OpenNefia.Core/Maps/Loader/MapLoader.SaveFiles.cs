@@ -13,6 +13,8 @@ namespace OpenNefia.Core.Maps
 {
     public sealed partial class MapLoader
     {
+        public event MapDeletedDelegate? OnMapDeleted;
+        
         /// <inheritdoc/>
         public bool MapExistsInSave(MapId id, ISaveGameHandle save)
         {
@@ -63,6 +65,26 @@ namespace OpenNefia.Core.Maps
             {
                 return DoMapLoad(mapId, reader, MapSerializeMode.Full);
             }
+        }
+
+        /// <inheritdoc/>
+        public void DeleteMap(MapId mapId, ISaveGameHandle save)
+        {
+            if (_mapManager.MapIsLoaded(mapId))
+            {
+                throw new InvalidOperationException($"Attempted to delete loaded map {mapId}");
+            }
+            if (!MapExistsInSave(mapId, save))
+            {
+                throw new FileNotFoundException($"Map {mapId} does not exist in the save.");
+            }
+
+            var filepath = GetMapFilePath(mapId);
+
+            Logger.InfoS(SawmillName, $"Deleting map {mapId} from {filepath}...");
+
+            save.Files.Delete(filepath);
+            OnMapDeleted?.Invoke(mapId);
         }
 
         /// <summary>

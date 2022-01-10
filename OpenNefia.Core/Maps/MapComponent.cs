@@ -1,9 +1,9 @@
-﻿using OpenNefia.Core.Maps;
+﻿using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Serialization.Manager.Attributes;
 using System;
 
-namespace OpenNefia.Core.GameObjects
-{   
+namespace OpenNefia.Core.Maps
+{
     /// <summary>
     ///     Represents a map inside the ECS system.
     /// </summary>
@@ -22,14 +22,8 @@ namespace OpenNefia.Core.GameObjects
         }
 
         public MapMetadata Metadata { get; internal set; } = new();
-
-        /// <inheritdoc />
-        public void ClearMapId()
-        {
-            _mapId = MapId.Nullspace;
-        }
     }
-    
+
     public class MapMetadata
     {
         public readonly string Name;

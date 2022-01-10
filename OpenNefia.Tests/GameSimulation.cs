@@ -1,5 +1,6 @@
 ﻿using JetBrains.Annotations;
 using Moq;
+using OpenNefia.Core.Areas;
 using OpenNefia.Core.Asynchronous;
 using OpenNefia.Core.Containers;
 using OpenNefia.Core.ContentPack;
@@ -248,6 +249,8 @@ namespace OpenNefia.Tests
             container.Register<IEntityFactoryInternal, EntityFactory>();
             container.Register<IMapManager, MapManager>();
             container.Register<IMapManagerInternal, MapManager>();
+            container.Register<IAreaManager, AreaManager>();
+            container.Register<IAreaManagerInternal, AreaManager>();
             container.Register<ISerializationManager, SerializationManager>();
             container.Register<IPrototypeManager, PrototypeManager>();
             container.Register<IPrototypeManagerInternal, PrototypeManager>();

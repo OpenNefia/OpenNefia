@@ -41,19 +41,19 @@ namespace OpenNefia.Core.Maps
         /// <summary>
         /// Allocates a new MapID, incrementing the highest ID counter.
         /// </summary>
-        /// <returns></returns>
         MapId GenerateMapId();
     }
 
     public sealed partial class MapManager : IMapManagerInternal
     {
         [Dependency] private readonly IEntityManager _entityManager = default!;
+        [Dependency] private readonly IMapManager _mapManager = default!;
 
         private protected readonly Dictionary<MapId, IMap> _maps = new();
         private protected readonly Dictionary<MapId, EntityUid> _mapEntities = new();
 
         /// <inheritdoc/>
-        public event ActiveMapChangedDelegate? ActiveMapChanged;
+        public event ActiveMapChangedDelegate? OnActiveMapChanged;
 
         /// <inheritdoc/>
         public IMap? ActiveMap { get; private set; } = null;
@@ -65,15 +65,15 @@ namespace OpenNefia.Core.Maps
         public int NextMapId { get; set; } = (int)MapId.FirstId;
 
         /// <inheritdoc/>
-        public bool MapIsLoaded(MapId mapId)
-        {
-            return _maps.ContainsKey(mapId);
-        }
-
-        /// <inheritdoc/>
         public MapId GenerateMapId()
         {
             return new(NextMapId++);
+        }
+
+        /// <inheritdoc/>
+        public bool MapIsLoaded(MapId mapId)
+        {
+            return _maps.ContainsKey(mapId);
         }
 
         /// <inheritdoc/>
@@ -98,13 +98,11 @@ namespace OpenNefia.Core.Maps
             return map;
         }
 
-        internal static void SetMapGridIds(IMap map, MapId mapId, EntityUid mapEntityUid)
+        private static void SetMapAndEntityIds(IMap map, MapId mapId, EntityUid mapEntityUid)
         {
-            var flags = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic;
-            var idField = map.GetType().GetProperty("Id", flags)!;
-            var mapEntityUidField = map.GetType().GetProperty("MapEntityUid", flags)!;
-            idField.SetValue(map, mapId);
-            mapEntityUidField.SetValue(map, mapEntityUid);
+            var mapInternal = (Map)map;
+            mapInternal.Id = mapId;
+            mapInternal.MapEntityUid = mapEntityUid;
         }
 
         /// <inheritdoc/>
@@ -127,7 +125,7 @@ namespace OpenNefia.Core.Maps
             _maps[mapId] = map;
 
             SetMapEntity(mapId, mapEntityUid);
-            SetMapGridIds(map, mapId, mapEntityUid);
+            SetMapAndEntityIds(map, mapId, mapEntityUid);
         }
 
         private EntityUid RebindMapEntity(MapId actualID, IMap map)
@@ -157,7 +155,7 @@ namespace OpenNefia.Core.Maps
                 
                 // Make sure the map IDs are set on the map object before map component
                 // events are fired.
-                SetMapGridIds(map, actualID, newEnt);
+                SetMapAndEntityIds(map, actualID, newEnt);
 
                 var mapComp = _entityManager.AddComponent<MapComponent>(newEnt);
                 mapComp.MapId = actualID;
@@ -212,7 +210,7 @@ namespace OpenNefia.Core.Maps
             // set as new map entity
             mapComp.MapId = mapId;
             _mapEntities[mapId] = newMapEntity;
-            SetMapGridIds(mapGrid, mapId, newMapEntity);
+            SetMapAndEntityIds(mapGrid, mapId, newMapEntity);
         }
 
         /// <inheritdoc/>
@@ -263,18 +261,6 @@ namespace OpenNefia.Core.Maps
         }
 
         /// <inheritdoc/>
-        public bool TryGetMap(EntityUid mapEntityUid, [NotNullWhen(true)] out IMap? map)
-        {
-            if (!_entityManager.TryGetComponent(mapEntityUid, out MapComponent? mapComp))
-            {
-                map = null;
-                return false;
-            }
-
-            return TryGetMap(mapComp.MapId, out map);
-        }
-
-        /// <inheritdoc/>
         public void SetActiveMap(MapId mapId)
         {
             if (mapId == ActiveMap?.Id)
@@ -288,7 +274,7 @@ namespace OpenNefia.Core.Maps
             var oldMap = ActiveMap;
             var map = _maps[mapId];
             ActiveMap = map;
-            ActiveMapChanged?.Invoke(map, oldMap);
+            OnActiveMapChanged?.Invoke(map, oldMap);
         }
 
         /// <inheritdoc/>

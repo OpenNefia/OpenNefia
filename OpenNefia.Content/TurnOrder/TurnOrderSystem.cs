@@ -91,7 +91,7 @@ namespace OpenNefia.Content.TurnOrder
 
         public override void Initialize()
         {
-            _mapManager.ActiveMapChanged += OnActiveMapChanged;
+            _mapManager.OnActiveMapChanged += OnActiveMapChanged;
             _saveGameSerializer.OnGameLoaded += OnGameLoaded;
 
             SubscribeLocalEvent<MapTurnOrderComponent, MapChangedEventArgs>(HandleMapChangedTurnOrder, nameof(HandleMapChangedTurnOrder));

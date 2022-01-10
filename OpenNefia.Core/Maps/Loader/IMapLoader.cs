@@ -6,10 +6,13 @@ using System.Diagnostics.CodeAnalysis;
 namespace OpenNefia.Core.Maps
 {
     public delegate void BlueprintEntityStartupDelegate(EntityUid entity);
+    public delegate void MapDeletedDelegate(MapId mapId);
 
     public interface IMapLoader
     {
         public event BlueprintEntityStartupDelegate OnBlueprintEntityStartup;
+
+        event MapDeletedDelegate? OnMapDeleted;
 
         /// <summary>
         /// Saves a blueprint to the user data folder.
@@ -57,7 +60,23 @@ namespace OpenNefia.Core.Maps
         /// <exception cref="FileNotFoundException">If the map does not exist in the save.</exception>
         IMap LoadMap(MapId mapId, ISaveGameHandle save);
 
+        /// <summary>
+        /// Tries to load this map from the save file.
+        /// </summary>
+        /// <param name="mapId">ID of the map to load.</param>
+        /// <param name="save">The save file to load from.</param>
+        /// <param name="map">The map, if it exists.</param>
+        /// <returns>True if the map was loaded.</returns>
         bool TryLoadMap(MapId mapId, ISaveGameHandle save, [NotNullWhen(true)] out IMap? map);
+
+        /// <summary>
+        /// Deletes a map in the save. The map must be unloaded first.
+        /// </summary>
+        /// <param name="mapId">ID of the map to delete.</param>
+        /// <param name="save">The save file to delete from.</param>
+        /// <exception cref="InvalidOperationException">If the map is still loaded.</exception>
+        /// <exception cref="FileNotFoundException">If the map does not exist in the save.</exception>
+        void DeleteMap(MapId mapId, ISaveGameHandle save);
 
         /// <summary>
         /// Returns true if the map with this ID exists in the save file.

@@ -7,8 +7,8 @@ namespace OpenNefia.Core.Maps
 {
     public interface IMap
     {
-        EntityUid MapEntityUid { get; }
         MapId Id { get; }
+        EntityUid MapEntityUid { get; }
         int Width { get; }
         int Height { get; }
         Vector2i Size { get; }
