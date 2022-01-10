@@ -12,6 +12,7 @@ namespace OpenNefia.Content.DisplayName
 {
     public class ItemNameSystem : EntitySystem
     {
+        [Dependency] private readonly ILocalizationManager _localizationManager = default!;
         public override void Initialize()
         {
             base.Initialize();
@@ -21,13 +22,17 @@ namespace OpenNefia.Content.DisplayName
 
         public void BasicName(EntityUid uid, ItemComponent component, ref GetItemNameEvent args)
         {
-            if (Loc.Language == LanguagePrototypeOf.Japanese)
+            switch(Loc.Language)
             {
-                args.ItemName += BasicNameJP(uid, component);
-            }
-            else
-            {
-                args.ItemName += BasicNameEN(uid, component);
+                case var jp when jp == LanguagePrototypeOf.Japanese:
+                    args.ItemName += BasicNameJP(uid, component);
+                    break;
+                case var en when en == LanguagePrototypeOf.English:
+                    args.ItemName += BasicNameEN(uid, component);
+                    break;
+                case var de when de == LanguagePrototypeOf.German:
+                    args.ItemName += BasicNameDE(uid, component);
+                    break;
             }
         }
 
@@ -61,6 +66,28 @@ namespace OpenNefia.Content.DisplayName
                 return $"a {basename}";
 
             return $"{stack.Count} {basename}s";
+        }
+
+        public string BasicNameDE(EntityUid uid,
+            ItemComponent? item = null,
+            MetaDataComponent? meta = null,
+            StackComponent? stack = null)
+        {
+            if (!Resolve(uid, ref item, ref meta, ref stack))
+                return $"<item {uid}>";
+
+            var test = _localizationManager.GetEntityData(meta.EntityPrototype?.ID!);
+            if (test.Attributes.TryGetValue("Gender", out var gender))
+            {
+                var assss = gender;
+            }
+
+            var basename = meta.DisplayName;
+
+            if (stack.Count == 1)
+                return $"ein {basename}";
+
+            return $"{stack.Count} {basename}";
         }
     }
 }

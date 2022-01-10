@@ -15,5 +15,6 @@ namespace OpenNefia.Core.Locale
     {
         public static readonly PrototypeId<LanguagePrototype> English = new("en_US");
         public static readonly PrototypeId<LanguagePrototype> Japanese = new("ja_JP");
+        public static readonly PrototypeId<LanguagePrototype> German = new("de_DE");
     }
 }
