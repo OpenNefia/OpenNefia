@@ -7,6 +7,8 @@ using OpenNefia.Core.Maths;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Core.ResourceManagement;
 using OpenNefia.Core.UI;
+using OpenNefia.Core.Utility;
+using System.Text.Unicode;
 using static OpenNefia.Core.Input.Mouse;
 using Vector2 = OpenNefia.Core.Maths.Vector2;
 
@@ -64,6 +66,7 @@ namespace OpenNefia.Core.Graphics
             OnWindowResized += HandleWindowResized;
 
             InitializeGraphicsDefaults();
+            LoadGamepadMappings();
         }
 
         public void Shutdown()
@@ -92,6 +95,14 @@ namespace OpenNefia.Core.Graphics
         {
             Love.Graphics.SetLineStyle(Love.LineStyle.Rough);
             Love.Graphics.SetLineWidth(1);
+        }
+
+        private void LoadGamepadMappings()
+        {
+            var mappingsPath = new ResourcePath("/Config/Core/gamecontrollerdb.txt");
+            var mappings = _resourceCache.ContentFileReadAllText(mappingsPath);
+            var mappingsBytes = EncodingHelpers.UTF8.GetBytes(mappings);
+            Love.Joystick.LoadGamepadMappings(mappingsBytes);
         }
 
         public void BeginDraw()
@@ -295,35 +306,35 @@ namespace OpenNefia.Core.Graphics
 
         private const int PrimaryJoystickID = 0;
 
-        public override void JoystickPressed(Joystick joystick, int button)
+        private readonly Dictionary<Input.Keyboard.Key, float> _axisValues = new();
+        private readonly float _axisDeadzone = 0.5f; // TODO make configurable
+
+        public override void JoystickGamepadPressed(Joystick joystick, GamepadButton button)
         {
             if (joystick.GetID() != PrimaryJoystickID)
                 return;
 
-            var key = Input.Keyboard.JoystickButtonToKey(button);
+            var key = Gamepad.GamepadButtonToKey((Input.Gamepad.Button)button);
 
             PressVirtualKey(key);
         }
 
-        public override void JoystickReleased(Joystick joystick, int button)
+        public override void JoystickGamepadReleased(Joystick joystick, GamepadButton button)
         {
             if (joystick.GetID() != PrimaryJoystickID)
                 return;
 
-            var key = Input.Keyboard.JoystickButtonToKey(button);
+            var key = Gamepad.GamepadButtonToKey((Input.Gamepad.Button)button);
 
             ReleaseVirtualKey(key);
         }
 
-        private readonly Dictionary<Input.Keyboard.Key, float> _axisValues = new();
-        private readonly float _axisDeadzone = 0.5f; // TODO make configurable
-
-        public override void JoystickAxis(Joystick joystick, float axis, float value)
+        public override void JoystickGamepadAxis(Joystick joystick, GamepadAxis axis, float value)
         {
             if (joystick.GetID() != PrimaryJoystickID)
                 return;
 
-            var key = Input.Keyboard.JoystickAxisToKey((int)axis, value);
+            var key = Gamepad.GamepadAxisToKey((Gamepad.Axis)axis, value);
 
             var prevValue = _axisValues.GetValueOrDefault(key);
 
@@ -337,28 +348,6 @@ namespace OpenNefia.Core.Graphics
             }
 
             _axisValues[key] = value;
-        }
-
-        /// <summary>
-        /// Dumb thing for tracking pressed/released hat states since LÖVE doesn't give us those.
-        /// </summary>
-        private readonly Dictionary<int, Input.Keyboard.JoystickHat> _hatStates = new();
-
-        public override void JoystickHat(Joystick joystick, int hat, JoystickHat direction)
-        {
-            if (joystick.GetID() != PrimaryJoystickID)
-                return;
-
-            var lastHatState = _hatStates.GetValueOrDefault(hat);
-            var newHatState = (Input.Keyboard.JoystickHat)direction;
-
-            foreach (var key in Input.Keyboard.GetPressedHatKeys(hat, lastHatState, newHatState))
-                PressVirtualKey(key);
-
-            foreach (var key in Input.Keyboard.GetReleasedHatKeys(hat, lastHatState, newHatState))
-                ReleaseVirtualKey(key);
-
-            _hatStates[hat] = newHatState;
         }
 
         public override void JoystickAdded(Joystick joystick)
@@ -380,15 +369,8 @@ namespace OpenNefia.Core.Graphics
                     ReleaseVirtualKey(key);
             }
             _axisValues.Clear();
-
-            // Release all hat binds.
-            foreach (var (hat, lastHatState) in _hatStates)
-            {
-                foreach (var key in Input.Keyboard.GetReleasedHatKeys(hat, lastHatState, Input.Keyboard.JoystickHat.Centered))
-                    ReleaseVirtualKey(key);
-            }
-            _hatStates.Clear();
         }
+
 
         public override bool Quit()
         {

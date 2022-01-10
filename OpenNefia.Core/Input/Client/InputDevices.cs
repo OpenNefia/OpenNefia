@@ -1,6 +1,7 @@
 ﻿using OpenNefia.Core.Locale;
 using System;
 using System.Collections.Generic;
+using static OpenNefia.Core.Input.Mouse;
 
 namespace OpenNefia.Core.Input
 {
@@ -41,7 +42,134 @@ namespace OpenNefia.Core.Input
             { Button.Button9, Keyboard.Key.MouseButton9 },
             { Button.LastButton, Keyboard.Key.Unknown },
         };
+    }
 
+    public static class Gamepad
+    {
+        /// <summary>
+        /// Virtual gamepad buttons.
+        /// </summary>
+        /// <remarks>
+        /// Same as <see cref="Love.GamepadButton"/>.
+        /// </remarks>
+        public enum Button
+        {
+            A = 1,
+            B,
+            X,
+            Y,
+            Back,
+            Guide,
+            Start,
+
+            /// <summary>
+            /// Left stick click button.
+            /// </summary>
+            LeftStick,
+
+            /// <summary>
+            /// Right stick click button.
+            /// </summary>
+            RightStick,
+
+            /// <summary>
+            /// Left bumper.
+            /// </summary>
+            LeftShoulder,
+
+            /// <summary>
+            /// Right bumper.
+            /// </summary>
+            RightShoulder,
+
+            /// <summary>
+            /// D-pad up.
+            /// </summary>
+            DPadUp,
+
+            /// <summary>
+            /// D-pad down.
+            /// </summary>
+            DPadDown,
+
+            /// <summary>
+            /// D-pad left.
+            /// </summary>
+            DPadLeft,
+
+            /// <summary>
+            /// D-pad right.
+            /// </summary>
+            DPadRight,
+        };
+
+        /// <summary>
+        /// Virtual gamepad axes.
+        /// </summary>
+        /// <remarks>
+        /// Same as <see cref="Love.GamepadAxis"/>.
+        /// </remarks>
+        public enum Axis
+        {
+            LeftX = 1,
+            LeftY,
+            RightX,
+            RightY,
+            TriggerLeft,
+            TriggerRight,
+        };
+
+        public static Keyboard.Key GamepadButtonToKey(Button button)
+        {
+            return _gamepadKeyMap[button];
+        }
+
+        public static Keyboard.Key GamepadAxisToKey(Axis axis, float value)
+        {
+            if (value < 0)
+                return _gamepadAxisMinusMap[axis];
+            else
+                return _gamepadAxisPlusMap[axis];
+        }
+
+        private static readonly Dictionary<Button, Keyboard.Key> _gamepadKeyMap = new()
+        {
+            { Button.A, Keyboard.Key.GamepadA },
+            { Button.B, Keyboard.Key.GamepadB },
+            { Button.X, Keyboard.Key.GamepadX },
+            { Button.Y, Keyboard.Key.GamepadY },
+            { Button.Back, Keyboard.Key.GamepadBack },
+            { Button.Guide, Keyboard.Key.GamepadGuide },
+            { Button.Start, Keyboard.Key.GamepadStart },
+            { Button.LeftStick, Keyboard.Key.GamepadLeftStick },
+            { Button.RightStick, Keyboard.Key.GamepadRightStick },
+            { Button.LeftShoulder, Keyboard.Key.GamepadLeftShoulder },
+            { Button.RightShoulder, Keyboard.Key.GamepadRightShoulder },
+            { Button.DPadUp, Keyboard.Key.GamepadDPadUp },
+            { Button.DPadDown, Keyboard.Key.GamepadDPadDown },
+            { Button.DPadLeft, Keyboard.Key.GamepadDPadLeft },
+            { Button.DPadRight, Keyboard.Key.GamepadDPadRight },
+        };
+
+        private static readonly Dictionary<Axis, Keyboard.Key> _gamepadAxisMinusMap = new()
+        {
+            { Axis.LeftX, Keyboard.Key.GamepadAxisLeftXMinus },
+            { Axis.LeftY, Keyboard.Key.GamepadAxisLeftYMinus },
+            { Axis.RightX, Keyboard.Key.GamepadAxisRightXMinus },
+            { Axis.RightY, Keyboard.Key.GamepadAxisRightYMinus },
+            { Axis.TriggerLeft, Keyboard.Key.GamepadAxisTriggerLeftMinus },
+            { Axis.TriggerRight, Keyboard.Key.GamepadAxisTriggerRightMinus },
+        };
+
+        private static readonly Dictionary<Axis, Keyboard.Key> _gamepadAxisPlusMap = new()
+        {
+            { Axis.LeftX, Keyboard.Key.GamepadAxisLeftXPlus },
+            { Axis.LeftY, Keyboard.Key.GamepadAxisLeftYPlus },
+            { Axis.RightX, Keyboard.Key.GamepadAxisRightXPlus },
+            { Axis.RightY, Keyboard.Key.GamepadAxisRightYPlus },
+            { Axis.TriggerLeft, Keyboard.Key.GamepadAxisTriggerLeftPlus },
+            { Axis.TriggerRight, Keyboard.Key.GamepadAxisTriggerRightPlus },
+        };
     }
 
     public static class Keyboard
@@ -286,197 +414,39 @@ namespace OpenNefia.Core.Input
             MouseButton8,
             MouseButton9,
 
-            JoystickButton1,
-            JoystickButton2,
-            JoystickButton3,
-            JoystickButton4,
-            JoystickButton5,
-            JoystickButton6,
-            JoystickButton7,
-            JoystickButton8,
-            JoystickButton9,
-            JoystickButton10,
-            JoystickButton11,
-            JoystickButton12,
-            JoystickButton13,
-            JoystickButton14,
-            JoystickButton15,
-            JoystickButton16,
-            JoystickButton17,
-            JoystickButton18,
-            JoystickButton19,
-            JoystickButton20,
+            GamepadA,
+            GamepadB,
+            GamepadX,
+            GamepadY,
+            GamepadBack,
+            GamepadGuide,
+            GamepadStart,
+            GamepadLeftStick,
+            GamepadRightStick,
+            GamepadLeftShoulder,
+            GamepadRightShoulder,
+            GamepadDPadUp,
+            GamepadDPadDown,
+            GamepadDPadLeft,
+            GamepadDPadRight,
 
-            JoystickAxis1Minus,
-            JoystickAxis1Plus,
-            JoystickAxis2Minus,
-            JoystickAxis2Plus,
-            JoystickAxis3Minus,
-            JoystickAxis3Plus,
-            JoystickAxis4Minus,
-            JoystickAxis4Plus,
-
-            JoystickHat1Up,
-            JoystickHat1Down,
-            JoystickHat1Left,
-            JoystickHat1Right,
-            JoystickHat2Up,
-            JoystickHat2Down,
-            JoystickHat2Left,
-            JoystickHat2Right,
+            GamepadAxisLeftXMinus,
+            GamepadAxisLeftXPlus,
+            GamepadAxisLeftYMinus,
+            GamepadAxisLeftYPlus,
+            GamepadAxisRightXMinus,
+            GamepadAxisRightXPlus,
+            GamepadAxisRightYMinus,
+            GamepadAxisRightYPlus,
+            GamepadAxisTriggerLeftMinus,
+            GamepadAxisTriggerLeftPlus,
+            GamepadAxisTriggerRightMinus,
+            GamepadAxisTriggerRightPlus,
         }
-
-        /// <summary>
-        /// Joystick hat values.
-        /// </summary>
-        /// <remarks>
-        /// Same as <see cref="Love.JoystickHat"/>.
-        /// </remarks>
-        public enum JoystickHat
-        {
-            Centered = 1,
-            Up,
-            Right,
-            Down,
-            Left,
-
-            /// <summary>
-            /// Right+Up
-            /// </summary>
-            RightUp,
-
-            /// <summary>
-            /// Right+Down
-            /// </summary>
-            RightDown,
-
-            /// <summary>
-            /// Left+Up
-            /// </summary>
-            LeftUp,
-
-            /// <summary>
-            /// Left+Down
-            /// </summary>
-            LeftDown,
-        };
 
         public static bool IsMouseKey(this Key key)
         {
             return key >= Key.MouseLeft && key <= Key.MouseButton9;
-        }
-
-        public static Key JoystickButtonToKey(int button)
-        {
-            if (button < 1 || button > 20)
-                return Key.Unknown;
-
-            return (Key)((byte)Key.JoystickButton1 + ((byte)button - 1));
-        }
-
-        public static Key JoystickAxisToKey(int axis, float value)
-        {
-            switch (axis)
-            {
-                case 1:
-                    if (value < 0)
-                        return Key.JoystickAxis1Minus;
-                    else
-                        return Key.JoystickAxis1Plus;
-                case 2:
-                    if (value < 0)
-                        return Key.JoystickAxis2Minus;
-                    else
-                        return Key.JoystickAxis2Plus;
-                case 3:
-                    if (value < 0)
-                        return Key.JoystickAxis3Minus;
-                    else
-                        return Key.JoystickAxis3Plus;
-                case 4:
-                    if (value < 0)
-                        return Key.JoystickAxis4Minus;
-                    else
-                        return Key.JoystickAxis4Plus;
-            }
-
-            return Key.Unknown;
-        }
-
-        // NOTE: Assumes no centered/diagonals.
-        public static Key JoystickHatToKey(int hat, JoystickHat direction)
-        {
-            switch (hat)
-            {
-                case 1:
-                    switch (direction)
-                    {
-                        case JoystickHat.Up:
-                            return Key.JoystickHat1Up;
-                        case JoystickHat.Down:
-                            return Key.JoystickHat1Down;
-                        case JoystickHat.Left:
-                            return Key.JoystickHat1Left;
-                        case JoystickHat.Right:
-                            return Key.JoystickHat1Right;
-                    }
-                    break;
-                case 2:
-                    switch (direction)
-                    {
-                        case JoystickHat.Up:
-                            return Key.JoystickHat2Up;
-                        case JoystickHat.Down:
-                            return Key.JoystickHat2Down;
-                        case JoystickHat.Left:
-                            return Key.JoystickHat2Left;
-                        case JoystickHat.Right:
-                            return Key.JoystickHat2Right;
-                    }
-                    break;
-            }
-
-            return Key.Unknown;
-        }
-
-        /// <summary>
-        /// Gets the pressed/released key diff between two joystick hat states.
-        /// </summary>
-        /// <remarks>
-        /// Necessary since LÖVE doesn't give us pressed/released states for joystick hats.
-        /// </remarks>
-        private static IEnumerable<JoystickHat> DiffJoystickHats(JoystickHat prevState, JoystickHat nextState)
-        {
-            var prevUp = prevState == JoystickHat.Up || prevState == JoystickHat.LeftUp || prevState == JoystickHat.RightUp;
-            var prevDown = prevState == JoystickHat.Down || prevState == JoystickHat.LeftDown || prevState == JoystickHat.RightDown;
-            var prevLeft = prevState == JoystickHat.Left || prevState == JoystickHat.LeftUp || prevState == JoystickHat.LeftDown;
-            var prevRight = prevState == JoystickHat.Right || prevState == JoystickHat.RightDown || prevState == JoystickHat.RightDown;
-
-            var nextUp = nextState == JoystickHat.Up || nextState == JoystickHat.LeftUp || nextState == JoystickHat.RightUp;
-            var nextDown = nextState == JoystickHat.Down || nextState == JoystickHat.LeftDown || nextState == JoystickHat.RightDown;
-            var nextLeft = nextState == JoystickHat.Left || nextState == JoystickHat.LeftUp || nextState == JoystickHat.LeftDown;
-            var nextRight = nextState == JoystickHat.Right || nextState == JoystickHat.RightDown || nextState == JoystickHat.RightDown;
-
-            if (!prevUp && nextUp)
-                yield return JoystickHat.Up;
-            if (!prevDown && nextDown)
-                yield return JoystickHat.Down;
-            if (!prevLeft && nextLeft)
-                yield return JoystickHat.Left;
-            if (!prevRight && nextRight)
-                yield return JoystickHat.Right;
-        }
-
-        internal static IEnumerable<Key> GetPressedHatKeys(int hat, JoystickHat lastHatState, JoystickHat newHatState)
-        {
-            return DiffJoystickHats(lastHatState, newHatState)
-                .Select(dir => JoystickHatToKey(hat, dir));
-        }
-
-        internal static IEnumerable<Key> GetReleasedHatKeys(int hat, JoystickHat lastHatState, JoystickHat newHatState)
-        {
-            return DiffJoystickHats(newHatState, lastHatState)
-                .Select(dir => JoystickHatToKey(hat, dir));
         }
 
         /// <summary>
