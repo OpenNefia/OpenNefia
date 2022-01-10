@@ -72,6 +72,27 @@ binds:
   canRepeat: true
   repeatMode: None
 
+- function: North
+  type: State
+  key: GamepadDPadUp
+  canRepeat: true
+  repeatMode: None
+- function: South
+  type: State
+  key: GamepadDPadDown
+  canRepeat: true
+  repeatMode: None
+- function: West
+  type: State
+  key: GamepadDPadLeft
+  canRepeat: true
+  repeatMode: None
+- function: East
+  type: State
+  key: GamepadDPadRight
+  canRepeat: true
+  repeatMode: None
+
 - function: Elona.Ascend
   type: State
   key: Comma
@@ -87,6 +108,10 @@ binds:
   type: State
   key: C
   mod1: Shift
+
+- function: Elona.Activate
+  type: State
+  key: GamepadB
 
 - function: Elona.PickUp
   type: State
@@ -109,6 +134,16 @@ binds:
 - function: Elona.Wear
   type: State
   key: W
+
+- function: Elona.PickUp
+  type: State
+  key: GamepadLeftShoulder
+- function: Elona.Examine
+  type: State
+  key: GamepadA
+- function: Elona.Wear
+  type: State
+  key: GamepadRightShoulder
 
 - function: UIClick
   type: State
@@ -197,6 +232,65 @@ binds:
 - function: Elona.UIMode2
   type: State
   key: Backslash
+  canFocus: true
+
+- function: UIUp
+  type: State
+  key: GamepadDPadUp
+  canFocus: true
+  canRepeat: true
+  repeatMode: UserInterface
+- function: UIDown
+  type: State
+  key: GamepadDPadDown
+  canFocus: true
+  canRepeat: true
+  repeatMode: UserInterface
+- function: UILeft
+  type: State
+  key: GamepadDPadLeft
+  canFocus: true
+  canRepeat: true
+  repeatMode: UserInterface
+- function: UIRight
+  type: State
+  key: GamepadDPadRight
+  canFocus: true
+  canRepeat: true
+  repeatMode: UserInterface
+- function: UISelect
+  type: State
+  key: GamepadA
+  canFocus: true
+  canRepeat: true
+  repeatMode: None
+- function: UICancel
+  type: State
+  key: GamepadB
+  canFocus: true
+- function: UINextPage
+  type: State
+  key: GamepadDPadRight
+  canFocus: true
+  canRepeat: true
+  repeatMode: None
+- function: UIPreviousPage
+  type: State
+  key: GamepadDPadLeft
+  canFocus: true
+  canRepeat: true
+  repeatMode: None
+- function: Elona.UIIdentify
+  type: State
+  key: GamepadX
+  canFocus: true
+- function: Elona.UIMode
+  type: State
+  key: GamepadY
+  canFocus: true
+- function: Elona.UIMode2
+  type: State
+  key: GamepadBack
   canFocus: true
 
 - function: Elona.DiagonalOnly
@@ -328,3 +422,7 @@ binds:
 - function: QuickLoadGame
   type: State
   key: F2
+
+- function: ShowEscapeMenu
+  type: State
+  key: GamepadStart
