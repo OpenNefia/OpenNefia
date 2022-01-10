@@ -16,12 +16,8 @@ namespace OpenNefia.Content.CharaMake
     {
         public const string ResultName = "feats";
         private FeatWindow Window = default!;
-        private Dictionary<FeatPrototype, int> SelectedFeats = default!;
+        private Dictionary<PrototypeId<FeatPrototype>, int> SelectedFeats = default!;
         private int FeatCount;
-        public CharaMakeFeatWindowLayer()
-        {
-            
-        }
 
         public override void Initialize(CharaMakeData args)
         {
@@ -29,31 +25,33 @@ namespace OpenNefia.Content.CharaMake
             Reset();
         }
 
+        private void AddFeat(FeatWindow.FeatNameAndDesc.Feat feat)
+        {
+            FeatCount--;
+            SelectedFeats.TryGetValue(feat.Prototype.GetStrongID(), out var level);
+            SelectedFeats[feat.Prototype.GetStrongID()] = level + 1;
+
+            if (FeatCount == 0)
+            {
+                Finish(new CharaMakeResult(new Dictionary<string, object>
+                {
+                    { ResultName, SelectedFeats }
+                }));
+            }
+        }
+
         private void Reset()
         {
             Window?.Dispose();
-            SelectedFeats = new Dictionary<FeatPrototype, int>();
+            SelectedFeats = new Dictionary<PrototypeId<FeatPrototype>, int>();
             FeatCount = 3;
             if (Data.TryGetValue(CharaMakeRaceSelectLayer.ResultName, out RacePrototype? race))
             {
-                foreach (var feat in race.BaseFeats)
-                    SelectedFeats[feat.Key.ResolvePrototype()] = feat.Value;
+                foreach (var feat in race.InitialFeats)
+                    SelectedFeats[feat.Key] = feat.Value;
             }
-            Window = new FeatWindow(() => SelectedFeats, feat =>
-            {
-                FeatCount--;
-                SelectedFeats.TryGetValue(feat.Prototype, out var level);
-                SelectedFeats[feat.Prototype] = level + 1;
-
-                if (FeatCount == 0)
-                {
-                    Finish(new CharaMakeResult(new Dictionary<string, object>
-                    {
-                        { ResultName, SelectedFeats }
-                    }));
-                }
-            }, () => FeatCount);
-            AddChild(Window.List);
+            Window = new FeatWindow(() => SelectedFeats, AddFeat, () => FeatCount);
+            AddChild(Window);
         }
 
         public override void OnQuery()
@@ -65,7 +63,7 @@ namespace OpenNefia.Content.CharaMake
         public override void OnFocused()
         {
             base.OnFocused();
-            Window.List.GrabFocus();
+            Window.GrabControlFocus();
         }
 
         public override void SetSize(int width, int height)

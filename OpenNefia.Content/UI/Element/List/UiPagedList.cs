@@ -21,8 +21,6 @@ namespace OpenNefia.Content.UI.Element.List
         public int CurrentPage => _pageModel.CurrentPage;
         public int PageCount => _pageModel.PageCount;
 
-        public bool Muted;
-
         public IUiElement? PageTextElement
         {
             get => PageText.PageTextParent;
@@ -90,17 +88,21 @@ namespace OpenNefia.Content.UI.Element.List
             return keyHints;
         }
 
-        public bool SetPage(int page)
+        public bool SetPage(int page, bool playSound)
         {
             var changed = _pageModel.SetPage(page);
             if (changed)
             {
-                if (!Muted)
+                if (playSound)
                     Sounds.Play(Sound.Pop1);
                 UpdateAllCells();
             }
-
             return changed;
+        }
+
+        public bool SetPage(int page)
+        {
+            return SetPage(page, true);
         }
 
         /// <inheritdoc/>

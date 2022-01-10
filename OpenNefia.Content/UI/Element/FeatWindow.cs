@@ -20,15 +20,15 @@ namespace OpenNefia.Content.UI.Element
 {
     public class FeatWindow : UiWindow
     {
-        public abstract record FeatData
+        public abstract record FeatNameAndDesc
         {
             public virtual string Name { get; } = "";
             public virtual string Description { get; } = "";
             public virtual Core.Maths.Color Color { get; } = Core.Maths.Color.Black;
-            public record Feat(FeatPrototype Prototype, int Level) : FeatData
+            public record Feat(FeatPrototype Prototype, int Level) : FeatNameAndDesc
             {
                 public virtual int TotalLevel => Level + 1;
-                public override string Name => Loc.GetPrototypeString(Prototype.GetStrongID(), $"{Math.Min(TotalLevel, Prototype.LevelMax)}.Name")! 
+                public override string Name => Loc.GetPrototypeString(Prototype.GetStrongID(), $"{Math.Min(TotalLevel, Prototype.LevelMax)}.Name") 
                     + (Level >= Prototype.LevelMax ? $"({Loc.GetString("Elona.FeatMenu.FeatMax")})" : string.Empty);
                 public override string Description => Loc.GetPrototypeString(Prototype.GetStrongID(), "MenuDesc")!;
 
@@ -39,7 +39,7 @@ namespace OpenNefia.Content.UI.Element
                     _ => base.Color,
                 };
             }
-            public record FeatHeader(string LocalizeText) : FeatData
+            public record FeatHeader(string LocalizeText) : FeatNameAndDesc
             {
                 public override string Name => Loc.GetString(LocalizeText);
             }
@@ -48,23 +48,20 @@ namespace OpenNefia.Content.UI.Element
                 public override int TotalLevel => Level;
                 public override string Name => $"[{Loc.GetString($"Elona.FeatMenu.FeatType.{Prototype.FeatType}")}]{Description}";
 
-                public override string Description => Loc.GetPrototypeString(Prototype.GetStrongID(), $"{Math.Min(TotalLevel, Prototype.LevelMax)}.Desc")!;
-                public bool IsRace;
+                public override string Description => Loc.GetPrototypeString(Prototype.GetStrongID(), $"{Math.Min(TotalLevel, Prototype.LevelMax)}.Desc");
                 
-                public GainedFeat(FeatPrototype Prototype, int Level, bool isRace) : base(Prototype, Level)
+                public GainedFeat(FeatPrototype Prototype, int Level) : base(Prototype, Level)
                 {
-                    IsRace = isRace;
                 }
             }
         }
 
-        public class FeatCell : UiListCell<FeatData>
+        public class FeatCell : UiListCell<FeatNameAndDesc>
         {
             private IAssetInstance FeatIcons;
-            public static explicit operator FeatCell(FeatData data) => new FeatCell(data);
 
             private IUiText DescriptionText;
-            public FeatCell(FeatData data) 
+            public FeatCell(FeatNameAndDesc data) 
                 : base(data, new UiText())
             {
                 FeatIcons = Assets.Get(Protos.Asset.FeatIcons);
@@ -76,8 +73,8 @@ namespace OpenNefia.Content.UI.Element
 
             private int Offset => Data switch
             {
-                FeatData.FeatHeader header => 35,
-                FeatData.GainedFeat gained => -8,
+                FeatNameAndDesc.FeatHeader header => 35,
+                FeatNameAndDesc.GainedFeat gained => -8,
                 _ => 0,
             };
 
@@ -103,27 +100,35 @@ namespace OpenNefia.Content.UI.Element
                 AssetListBullet.Draw(UiText.X - XOffset - 5 + width - 20, UiText.Y - 0);
             }
 
+            /// <summary>
+            /// the FeatType enum is already ordered correctly, so the int value only needs to be converted
+            /// to a string
+            /// </summary>
+            private string GetFeatIconRegion(FeatType type)
+            {
+                return $"{(int)type}";
+            }
 
             public override void Draw()
             {
-                if (IndexInList % 2 == 0 && Data is not FeatData.FeatHeader)
+                if (IndexInList % 2 == 0 && Data is not FeatNameAndDesc.FeatHeader)
                 {
                     Love.Graphics.SetColor(UiColors.ListEntryAccent);
                     Love.Graphics.Rectangle(Love.DrawMode.Fill, X - 1, Y, 650 - Offset, 18);
                 }
                 switch (Data)
                 {
-                    case FeatData.GainedFeat feat:
+                    case FeatNameAndDesc.GainedFeat feat:
                         GraphicsEx.SetColor(Core.Maths.Color.White);
-                        FeatIcons.DrawRegion($"{(int)feat.Prototype.FeatType}", X - 7, Y - 5);
+                        FeatIcons.DrawRegion(GetFeatIconRegion(feat.Prototype.FeatType), X - 7, Y - 5);
                         UiText.Draw();
                         break;
-                    case FeatData.FeatHeader:
+                    case FeatNameAndDesc.FeatHeader:
                         UiText.Draw();
                         break;
-                    case FeatData.Feat feat:
+                    case FeatNameAndDesc.Feat feat:
                         GraphicsEx.SetColor(Core.Maths.Color.White);
-                        FeatIcons.DrawRegion($"{(int)feat.Prototype.FeatType}", X - 27, Y - 5);
+                        FeatIcons.DrawRegion(GetFeatIconRegion(feat.Prototype.FeatType), X - 27, Y - 5);
                         base.Draw();
                         DescriptionText.Draw();
                         break;
@@ -131,11 +136,11 @@ namespace OpenNefia.Content.UI.Element
             }
         }
 
-        protected readonly IPrototypeManager _prototypeManager = default!;
+        [Dependency] protected readonly IPrototypeManager _prototypeManager = default!;
         private const int ItemsPerPage = 15;
         private const int WindowHeight = 430;
         private const int WindowWidth = 740;
-        public UiPagedList<FeatData> List;
+        private UiPagedList<FeatNameAndDesc> List;
         private UiTextTopic NameTopic;
         private UiTextTopic DetailTopic;
         private UiText FeatCountText;
@@ -146,92 +151,88 @@ namespace OpenNefia.Content.UI.Element
         private IAssetDrawable AssetDecoFeatC;
         private IAssetDrawable AssetDecoFeatD;
 
-        private Func<Dictionary<FeatPrototype, int>> GetFeatsFunc;
-        private Action<FeatData.Feat> SelectFeatAction;
+        private Func<Dictionary<PrototypeId<FeatPrototype>, int>> GetGainedFeatsFunc;
+        private Action<FeatNameAndDesc.Feat> SelectFeatAction;
         private Func<int> GetAvailableCountFunc;
 
-        public FeatWindow(Func<Dictionary<FeatPrototype, int>> getFeatsFunc, Action<FeatData.Feat> selectFeatAction, Func<int> getAvailableCountFunc) 
+        public FeatWindow(Func<Dictionary<PrototypeId<FeatPrototype>, int>> getGainedFeatsFunc, Action<FeatNameAndDesc.Feat> selectFeatAction, Func<int> getAvailableCountFunc) 
             : base(keyHintXOffset: 64)
         {
-            _prototypeManager = IoCManager.Resolve<IPrototypeManager>();
+            IoCManager.InjectDependencies(this);
             AssetInventoryIcons = InventoryHelpers.MakeIcon(InventoryIcon.Feat);
             AssetDecoFeatA = new AssetDrawable(Protos.Asset.DecoFeatA);
             AssetDecoFeatB = new AssetDrawable(Protos.Asset.DecoFeatB);
             AssetDecoFeatC = new AssetDrawable(Protos.Asset.DecoFeatC);
             AssetDecoFeatD = new AssetDrawable(Protos.Asset.DecoFeatD);
 
-            NameTopic = new UiTextTopic(Loc.GetString("Elona.FeatMenu.NameTopic"));
-            DetailTopic = new UiTextTopic(Loc.GetString("Elona.FeatMenu.DetailTopic"));
+            NameTopic = new UiTextTopic(Loc.GetString("Elona.FeatMenu.Topic.Name"));
+            DetailTopic = new UiTextTopic(Loc.GetString("Elona.FeatMenu.Topic.Detail"));
             FeatCountText = new UiText(UiFonts.WindowPage);
 
             TextTitle.Text = Loc.GetString("Elona.FeatMenu.Title");
-            List = new UiPagedList<FeatData>(ItemsPerPage, this, new Vector2i(-55, -3));
+            List = new UiPagedList<FeatNameAndDesc>(ItemsPerPage, this, new Vector2i(-55, -3));
 
-            GetFeatsFunc = getFeatsFunc ?? (() => new Dictionary<FeatPrototype, int>());
+            GetGainedFeatsFunc = getGainedFeatsFunc ?? (() => new Dictionary<PrototypeId<FeatPrototype>, int>());
             SelectFeatAction = selectFeatAction ?? (feat => { });
             GetAvailableCountFunc = getAvailableCountFunc ?? (() => 0);
 
-            List.GrabFocus();
             List.EventOnActivate += List_OnActivate;
             RefreshData();
         }
-
+        
         private void RefreshData(FeatPrototype? lastSelected = null)
         {
             List.Clear();
-            
+            CanControlFocus = true;
             var data = new List<FeatCell>();
-            var prototypes = _prototypeManager.EnumeratePrototypes<FeatPrototype>()?.Where(x => x.FeatType == FeatType.Feat)!;
+            var prototypes = _prototypeManager.EnumeratePrototypes<FeatPrototype>().Where(x => x.FeatType == FeatType.Feat);
             var featCount = GetAvailableCountFunc();
-            var gainedFeats = GetFeatsFunc();
+            var gainedFeats = GetGainedFeatsFunc();
 
             if (featCount > 0)
             {
-                data.Add(new FeatCell(new FeatData.FeatHeader("Elona.FeatMenu.AvailableHeader")));
+                data.Add(new FeatCell(new FeatNameAndDesc.FeatHeader("Elona.FeatMenu.AvailableHeader")));
                 data.AddRange(prototypes.Select(x =>
                 {
-                    gainedFeats.TryGetValue(x, out var val);
-                    return new FeatCell(new FeatData.Feat(x, val));
+                    gainedFeats.TryGetValue(x.GetStrongID(), out var val);
+                    return new FeatCell(new FeatNameAndDesc.Feat(x, val));
                 }));
-                FeatCountText.Text = string.Format(Loc.GetString("Elona.FeatMenu.FeatCount"), featCount);
+                FeatCountText.Text = Loc.GetString("Elona.FeatMenu.FeatCount", ("featsRemaining", featCount));
             }
             else
             {
                 FeatCountText.Text = string.Empty;
             }
-            data.Add(new FeatCell(new FeatData.FeatHeader("Elona.FeatMenu.GainedHeader")));
+            data.Add(new FeatCell(new FeatNameAndDesc.FeatHeader("Elona.FeatMenu.GainedHeader")));
             data.AddRange(gainedFeats
-                .Select(x => new FeatCell(new FeatData.GainedFeat(x.Key, x.Value, x.Key.FeatType == FeatType.Race)))
-                .OrderBy(x => (x.Data as FeatData.GainedFeat)?.IsRace));
+                .Select(x => new FeatCell(new FeatNameAndDesc.GainedFeat(x.Key.ResolvePrototype(), x.Value)))
+                .OrderBy(x => (x.Data as FeatNameAndDesc.GainedFeat)?.Prototype.FeatType));
             List.AddRange(data);
 
             if (lastSelected != null)
             {
-                try
-                {
-                    var selected = data.First(x => (x.Data as FeatData.GainedFeat)?.Prototype == lastSelected);
-                    var page = (data.IndexOf(selected)) / ItemsPerPage;
-                    List.Muted = true;
-                    List.SetPage(page);
-                    List.Muted = false;
-                    Sounds.Play(Protos.Sound.Ding3);
-                    var pageElements = List.DisplayedCells.ToList();
-                    List.Select(pageElements.IndexOf(pageElements.First(x => (x.Data as FeatData.GainedFeat)?.Prototype == lastSelected)));
-                }
-                catch (Exception ex)
-                {
-
-                }
+                var selected = data.First(x => (x.Data as FeatNameAndDesc.GainedFeat)?.Prototype == lastSelected);
+                var page = (data.IndexOf(selected)) / ItemsPerPage;
+                List.SetPage(page, false);
+                Sounds.Play(Protos.Sound.Ding3);
+                var pageElements = List.DisplayedCells.ToList();
+                List.Select(pageElements.IndexOf(pageElements.First(x => (x.Data as FeatNameAndDesc.GainedFeat)?.Prototype == lastSelected)));
             }
         }
 
-        private void List_OnActivate(object? sender, UiListEventArgs<FeatData> args)
+        public override void GrabControlFocus()
+        {
+            base.GrabControlFocus();
+            List.GrabFocus();
+        }
+
+        private void List_OnActivate(object? sender, UiListEventArgs<FeatNameAndDesc> args)
         {
             switch(args.SelectedCell.Data)
             {
-                case FeatData.GainedFeat:
+                case FeatNameAndDesc.GainedFeat:
                     break;
-                case FeatData.Feat feat:
+                case FeatNameAndDesc.Feat feat:
                     if (feat.Level >= feat.Prototype.LevelMax)
                         break;
 
