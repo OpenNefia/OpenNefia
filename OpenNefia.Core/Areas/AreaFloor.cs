@@ -8,10 +8,10 @@ namespace OpenNefia.Core.Areas
     public sealed class AreaFloor
     {
         [DataField]
-        public MapId? MapId { get; }
+        public MapId? MapId { get; set; }
 
         [DataField]
-        public PrototypeId<MapPrototype>? DefaultGenerator { get; }
+        public PrototypeId<MapPrototype> DefaultGenerator { get; set; } = new("Blank");
 
         public AreaFloor()
         {

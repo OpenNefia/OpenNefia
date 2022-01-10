@@ -21,6 +21,7 @@ namespace OpenNefia.Core.Areas
 
         IArea CreateArea(PrototypeId<AreaPrototype>? prototypeId = null);
         bool TryGetArea(AreaId areaId, [NotNullWhen(true)] out IArea? area);
+        IArea GetArea(AreaId areaId);
         void UnloadArea(AreaId areaID);
 
         void RegisterAreaFloor(IArea area, AreaFloorId floorId, IMap map);
@@ -275,14 +276,15 @@ namespace OpenNefia.Core.Areas
         }
 
         /// <inheritdoc/>
-        public IArea GetArea(AreaId areasId)
-        {
-            return _areas[areasId];
-        }
-
         public bool TryGetArea(AreaId areaId, [NotNullWhen(true)] out IArea? area)
         {
             return _areas.TryGetValue(areaId, out area);
+        }
+
+        /// <inheritdoc/>
+        public IArea GetArea(AreaId areasId)
+        {
+            return _areas[areasId];
         }
 
         /// <inheritdoc/>

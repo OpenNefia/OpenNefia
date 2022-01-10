@@ -1,5 +1,4 @@
-﻿using OpenNefia.Content.Maps;
-using OpenNefia.Core.Game;
+﻿using OpenNefia.Core.Game;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Log;
@@ -17,36 +16,15 @@ namespace OpenNefia.Content.Maps
         [Dependency] private readonly IMapManager _mapManager = default!;
         [Dependency] private readonly ISaveGameManager _saveGameManager = default!;
 
-        public TurnResult UseMapEntrance(EntityUid entranceUid, EntityUid user, MapEntranceComponent? mapEntrance = null)
-        {
-            if (!Resolve(entranceUid, ref mapEntrance))
-                return TurnResult.Failed;
-
-            // TODO: This will be replaced with the 'area' system at some point.
-            // Instead of map prototypes, there will be "area prototypes" with more than one floor
-            // where the area will generate/store a map for each floor.
-            if (mapEntrance.Entrance.DestinationMapId == null)
-            {
-                var proto = mapEntrance.MapPrototype.ResolvePrototype();
-                mapEntrance.Entrance.DestinationMapId = _mapLoader.LoadBlueprint(proto.BlueprintPath).Id;
-            }
-
-            return UseMapEntrance(user, mapEntrance.Entrance);
-        }
-
         public TurnResult UseMapEntrance(EntityUid user, MapEntrance entrance,
             SpatialComponent? spatial = null)
         {
             if (!Resolve(user, ref spatial))
                 return TurnResult.Failed;
 
-            if (entrance.DestinationMapId == null)
-            {
-                Logger.WarningS("map.entrance", "Entrance is missing destination map ID");
-                return TurnResult.Failed;
-            }
+            var destinationMapId = entrance.MapIdSpecifier.GetMapId();
 
-            if (!TryMapLoad(entrance.DestinationMapId.Value, out var map))
+            if (!TryMapLoad(destinationMapId, out var map))
                 return TurnResult.Failed;
 
             var newPos = entrance.StartLocation.GetStartPosition(user, map)
@@ -97,8 +75,8 @@ namespace OpenNefia.Content.Maps
         public void SetPreviousMap(MapId mapTravellingTo, MapCoordinates prevCoords)
         {
             var mapEntityUid = _mapManager.GetMap(mapTravellingTo).MapEntityUid;
-            var mapMapEntrance = EntityManager.EnsureComponent<MapEntranceComponent>(mapEntityUid);
-            mapMapEntrance.Entrance.DestinationMapId = prevCoords.MapId;
+            var mapMapEntrance = EntityManager.EnsureComponent<MapEdgesEntranceComponent>(mapEntityUid);
+            mapMapEntrance.Entrance.MapIdSpecifier = new BasicMapIdSpecifier(prevCoords.MapId);
             mapMapEntrance.Entrance.StartLocation = new SpecificMapLocation(prevCoords.Position);
         }
     }

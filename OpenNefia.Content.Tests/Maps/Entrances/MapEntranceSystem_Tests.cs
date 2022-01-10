@@ -38,7 +38,7 @@ namespace OpenNefia.Content.Tests.Maps.Entrances
 
             var entrance = new MapEntrance()
             {
-                DestinationMapId = map2.Id,
+                MapIdSpecifier = new BasicMapIdSpecifier(map2.Id),
                 StartLocation = new SpecificMapLocation(startPos)
             };
 

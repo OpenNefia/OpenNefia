@@ -43,6 +43,7 @@ namespace OpenNefia.Content.CommandLine
         [Dependency] private readonly IReflectionManager _reflectionManager = default!;
         [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
         [Dependency] private readonly ISerializationManager _serializationManager = default!;
+        [Dependency] private readonly IMapManager _mapManager = default!;
 
         private readonly EntityUid MapEntityUid = new EntityUid(0);
         private EntityUid _maxEntityUid;
@@ -186,7 +187,7 @@ namespace OpenNefia.Content.CommandLine
 
         private (string, YamlMappingNode) ReadHspMapMap(string mapFilePath, HspMapIdx idx)
         {
-            var map = new Map(idx.Width, idx.Height);
+            var map = _mapManager.CreateMap(idx.Width, idx.Height);
             var tileMap = BuildTileMap(idx.AtlasIndex);
 
             using (var reader = OpenCompressed(mapFilePath))

@@ -47,27 +47,19 @@ namespace OpenNefia.Content.Maps
 
         private TurnResult UseWorldMapEntrance(EntityUid entrance, EntityUid user,
             WorldMapEntranceComponent? worldMapEntrance = null,
-            MapEntranceComponent? mapEntrance = null,
             SpatialComponent? spatial = null)
         {
-            if (!Resolve(entrance, ref worldMapEntrance, ref mapEntrance, ref spatial))
+            if (!Resolve(entrance, ref worldMapEntrance, ref spatial))
                 return TurnResult.Failed;
 
             var prevCoords = spatial.MapPosition;
 
             _sounds.Play(Protos.Sound.Exitmap1);
 
-            var turnResult = _mapEntrances.UseMapEntrance(entrance, user, mapEntrance);
+            var turnResult = _mapEntrances.UseMapEntrance(user, worldMapEntrance.Entrance);
 
-            var mapId = mapEntrance.Entrance.DestinationMapId;
-            if (mapId != null)
-            {
-                _mapEntrances.SetPreviousMap(mapId.Value, prevCoords);
-            }
-            else
-            {
-                Logger.WarningS("sys.worldMapEntrance", "No map to travel to on this entrance!");
-            }
+            var mapId = worldMapEntrance.Entrance.MapIdSpecifier.GetMapId();
+            _mapEntrances.SetPreviousMap(mapId, prevCoords);
 
             return turnResult;
         }

@@ -1,4 +1,5 @@
-﻿using OpenNefia.Core.GameObjects;
+﻿using OpenNefia.Content.Maps;
+using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Serialization.Manager.Attributes;
 using System;
 using System.Collections.Generic;
@@ -16,6 +17,12 @@ namespace OpenNefia.Content.GameObjects
 
         [DataField(required: true)]
         public StairsDirection Direction { get; set; }
+
+        /// <summary>
+        /// Entrance to use.
+        /// </summary>
+        [DataField]
+        public MapEntrance Entrance { get; set; } = new();
     }
 
     public enum StairsDirection
