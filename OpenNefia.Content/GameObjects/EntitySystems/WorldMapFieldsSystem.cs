@@ -86,7 +86,7 @@ namespace OpenNefia.Content.GameObjects
 
             var entrance = new MapEntrance()
             {
-                DestinationMapId = fieldMap.Id,
+                MapIdSpecifier = new BasicMapIdSpecifier(fieldMap.Id),
                 StartLocation = new CenterMapLocation()
             };
 

@@ -40,11 +40,11 @@ namespace OpenNefia.Content.GameObjects
 
             if (_mapManager.TryGetMap(mapId, out var map) && !map.IsInBounds(pos))
             {
-                if (EntityManager.TryGetComponent<MapEntranceComponent>(map.MapEntityUid, out var mapEntrance))
+                if (EntityManager.TryGetComponent<MapEdgesEntranceComponent>(map.MapEntityUid, out var mapEdgesEntrance))
                 {
                     if (_playerQuery.YesOrNo(Loc.GetString("Elona.PlayerMovement.PromptLeaveMap", ("map", map.MapEntityUid))))
                     {
-                        Raise(uid, new ExitMapEventArgs(map, mapEntrance.Entrance), args);
+                        Raise(uid, new ExitMapEventArgs(map, mapEdgesEntrance.Entrance), args);
                     }
                 }
             }

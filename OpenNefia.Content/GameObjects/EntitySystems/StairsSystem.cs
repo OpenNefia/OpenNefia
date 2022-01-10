@@ -64,15 +64,14 @@ namespace OpenNefia.Content.GameObjects
         }
 
         private TurnResult UseStairs(EntityUid entrance, EntityUid user,
-            StairsComponent? stairs = null,
-            MapEntranceComponent? mapEntrance = null)
+            StairsComponent? stairs = null)
         {
-            if (!Resolve(entrance, ref stairs, ref mapEntrance))
+            if (!Resolve(entrance, ref stairs))
                 return TurnResult.Failed;
 
             _sounds.Play(Protos.Sound.Exitmap1);
 
-            return _mapEntrances.UseMapEntrance(entrance, user, mapEntrance);
+            return _mapEntrances.UseMapEntrance(user, stairs.Entrance);
         }
     }
 

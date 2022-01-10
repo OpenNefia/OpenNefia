@@ -8,11 +8,13 @@ using System.Threading.Tasks;
 
 namespace OpenNefia.Content.Maps
 {
+    /// <summary>
+    /// Map to travel to when exiting a map from the edges.
+    /// </summary>
     [RegisterComponent]
-    public class WorldMapEntranceComponent : Component
+    public class MapEdgesEntranceComponent : Component
     {
-        /// <inheritdoc />
-        public override string Name => "WorldMapEntrance";
+        public override string Name => "MapEdgesEntrance";
 
         /// <summary>
         /// Entrance to use.

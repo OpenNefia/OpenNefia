@@ -112,7 +112,7 @@ namespace OpenNefia.Content.UI.Layer
             if (map == Map)
                 return;
 
-            Map = (Map)map;
+            Map = map;
 
             Camera.SetMapSize(map.Size);
             _mapRenderer.SetMap(Map);

@@ -126,7 +126,7 @@ namespace OpenNefia.Tests.Core.Areas
             areaMan.RegisterAreaFloor(area, floorId, map);
 
             Assert.That(area.ContainedMaps[floorId].MapId, Is.EqualTo(map.Id));
-            Assert.That(area.ContainedMaps[floorId].DefaultGenerator, Is.Null);
+            Assert.That(area.ContainedMaps[floorId].DefaultGenerator, Is.EqualTo(new PrototypeId<MapPrototype>("Blank")));
 
             var areaComp = entMan.GetComponent<AreaComponent>(area.AreaEntityUid);
             Assert.That(areaComp.AreaId, Is.EqualTo(area.Id));
