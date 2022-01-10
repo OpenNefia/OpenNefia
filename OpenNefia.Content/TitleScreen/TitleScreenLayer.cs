@@ -118,7 +118,7 @@ namespace OpenNefia.Content.TitleScreen
             {
                 TextInfo[1] = new UiText(FontTitleText, "Contributor MSL / View the credits for more");
             }
-            else if (Loc.Language == LanguagePrototypeOf.English)
+            else // if (Loc.Language == LanguagePrototypeOf.English)
             {
                 TextInfo[1] = new UiText(FontTitleText, "Contributor f1r3fly, Sunstrike, Schmidt, Elvenspirit / View the credits for more");
             }
