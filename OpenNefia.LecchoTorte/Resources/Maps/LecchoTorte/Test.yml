@@ -185,5 +185,8 @@ entities:
   - type: Spatial
     parent: 0
     pos: 8,5
-  - type: MapEntrance
-    mapPrototype: Elona.NorthTyris
+  - type: Stairs
+    entrance:
+      mapIdSpecifier: !type:AreaFloorMapIdSpecifier
+        areaId: Elona.NorthTyris
+        floorId: Elona.NorthTyris

@@ -1,4 +1,5 @@
 ﻿using OpenNefia.Core.GameObjects;
+using OpenNefia.Core.Serialization.Manager.Attributes;
 
 namespace OpenNefia.Core.Areas
 {
@@ -16,6 +17,7 @@ namespace OpenNefia.Core.Areas
     /// (think Vernis/The Mine/Robber's Hideout/Test Ground)
     /// </para>
     /// </summary>
+    [ImplicitDataDefinitionForInheritors]
     public interface IArea
     {
         /// <summary>

@@ -1,8 +1,21 @@
+using OpenNefia.Core.SaveGames;
+
 namespace OpenNefia.Core.Maps
 {
     [Serializable]
     public readonly struct MapId : IEquatable<MapId>
     {
+        /// <summary>
+        /// Global entity storage. This is used for things like areas are not attached 
+        /// to any map, but should be available no matter which map the player is in.
+        /// </summary>
+        /// <remarks>
+        /// This map will be saved when the global session/serialized data is saved,
+        /// and will be loaded automatically when the game is loaded.
+        /// (see <see cref="ISaveGameSerializer"/>)
+        /// </remarks>
+        public static readonly MapId Global = new(-1);
+
         public static readonly MapId Nullspace = new(0);
 
         public static readonly MapId FirstId = new(1);

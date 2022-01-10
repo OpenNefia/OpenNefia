@@ -1,4 +1,5 @@
-﻿using OpenNefia.Core.ContentPack;
+﻿using OpenNefia.Core.Areas;
+using OpenNefia.Core.ContentPack;
 using OpenNefia.Core.Game;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
@@ -87,6 +88,20 @@ namespace OpenNefia.Core.SaveGames
         /// <see cref="IMapManagerInternal"/>
         [DataField(required: true)]
         public int NextMapId { get; set; }
+
+        /// <summary>
+        /// Next free area ID at the time of saving.
+        /// </summary>
+        /// <see cref="IAreaManagerInternal"/>
+        [DataField(required: true)]
+        public int NextAreaId { get; set; }
+
+        /// <summary>
+        /// All areas loaded at the time of saving.
+        /// </summary>
+        /// <see cref="IAreaManagerInternal"/>
+        [DataField(required: true)]
+        public Dictionary<AreaId, Area> Areas { get; set; } = new();
     }
 
     public sealed class SaveGameSerializer : ISaveGameSerializerInternal
@@ -95,8 +110,9 @@ namespace OpenNefia.Core.SaveGames
         [Dependency] private readonly IEntitySystemManager _entitySystemManager = default!;
         [Dependency] private readonly ISerializationManager _serializationManager = default!;
         [Dependency] private readonly IMapManagerInternal _mapManager = default!;
-        [Dependency] private readonly IGameSessionManager _gameSessionManager = default!;
         [Dependency] private readonly IMapLoader _mapLoader = default!;
+        [Dependency] private readonly IAreaManagerInternal _areaManager = default!;
+        [Dependency] private readonly IGameSessionManager _gameSessionManager = default!;
 
         public const string SawmillName = "save.game";
 
@@ -176,7 +192,6 @@ namespace OpenNefia.Core.SaveGames
         {
             SaveGlobalData(save);
             SaveSession(save);
-            SaveActiveMap(save);
 
             OnGameSaved?.Invoke(save);
 
@@ -191,6 +206,16 @@ namespace OpenNefia.Core.SaveGames
             {
                 throw new InvalidOperationException("No active map to save");
             }
+
+            // TODO move this somewhere else to ensure it's generated before the first save
+            // (probably the scenario init logic, when it's implemented)
+            if (!_mapManager.MapIsLoaded(MapId.Global))
+                _mapManager.CreateMap(1, 1, MapId.Global);
+
+            // Save the global map. This is used for global entity storage.
+            _mapLoader.SaveMap(MapId.Global, save);
+
+            _mapLoader.SaveMap(activeMap.Id, save);
 
             var player = _gameSessionManager.Player;
             if (!_entityManager.IsAlive(player))
@@ -210,21 +235,23 @@ namespace OpenNefia.Core.SaveGames
                 PlayerUid = (int)player,
                 NextEntityUid = _entityManager.NextEntityUid,
                 NextMapId = _mapManager.NextMapId,
+                NextAreaId = _areaManager.NextAreaId,
+                Areas = GetSerializableAreas(_areaManager.LoadedAreas)
             };
 
             var session = new ResourcePath("/session.yml");
             save.Files.WriteSerializedData(session, sessionData, _serializationManager, alwaysWrite: true);
         }
 
-        public void SaveActiveMap(ISaveGameHandle save)
+        private Dictionary<AreaId, Area> GetSerializableAreas(Dictionary<AreaId, IArea> loadedAreas)
         {
-            _mapLoader.SaveMap(_mapManager.ActiveMap!.Id, save);
+            return loadedAreas.Values.ToDictionary(area => area.Id, area => (Area)area);
         }
 
         public void SaveGlobalData(ISaveGameHandle save)
         {
             // Save all the global data not tied to maps.
-            var mapping = new MappingDataNode();
+            var globalData = new MappingDataNode();
 
             foreach (var (key, reg) in _trackedSaveData)
             {
@@ -233,13 +260,13 @@ namespace OpenNefia.Core.SaveGames
                 var data = reg.FieldInfo.GetValue(reg.Parent);
 
                 var node = _serializationManager.WriteValue(reg.Type, data, alwaysWrite: true);
-                mapping.Add(key, node);
+                globalData.Add(key, node);
             }
 
-            var global = new ResourcePath("/global.yml");
             var root = new MappingDataNode();
-            root.Add("data", mapping);
+            root.Add("data", globalData);
 
+            var global = new ResourcePath("/global.yml");
             save.Files.WriteAllYaml(global, root.ToYaml());
         }
 
@@ -256,12 +283,13 @@ namespace OpenNefia.Core.SaveGames
         }
 
         /// <summary>
-        /// Unloads absolutely everything from the entity/map managers.
+        /// Unloads absolutely everything from the entity/map/area managers.
         /// </summary>
         private void ResetGameState()
         {
             _entityManager.FlushEntities();
             _mapManager.FlushMaps();
+            _areaManager.FlushAreas();
         }
 
         private void LoadSession(ISaveGameHandle save)
@@ -285,6 +313,16 @@ namespace OpenNefia.Core.SaveGames
             var map = _mapLoader.LoadMap(new MapId(sessionData.ActiveMapId), save);
             _mapManager.SetActiveMap(map.Id);
 
+            // Load the global map.
+            _mapLoader.LoadMap(MapId.Global, save);
+
+            // Load areas.
+            _areaManager.NextAreaId = sessionData.NextAreaId;
+            foreach (var (areaId, area) in sessionData.Areas)
+            {
+                _areaManager.RegisterArea(area, areaId, area.AreaEntityUid);
+            }
+        
             var playerUid = new EntityUid(sessionData.PlayerUid);
             if (!_entityManager.TryGetComponent(playerUid, out SpatialComponent player) || player.MapID != map.Id)
             {

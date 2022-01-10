@@ -42,6 +42,8 @@ namespace OpenNefia.Core.Maps
         /// Allocates a new MapID, incrementing the highest ID counter.
         /// </summary>
         MapId GenerateMapId();
+
+        IMap CreateMap(int width, int height, MapId mapId);
     }
 
     public sealed partial class MapManager : IMapManagerInternal
@@ -88,12 +90,19 @@ namespace OpenNefia.Core.Maps
         /// <inheritdoc/>
         public IMap CreateMap(int width, int height)
         {
-            var actualID = GenerateMapId();
+            return CreateMap(width, height, GenerateMapId());  
+        }
+
+        /// <inheritdoc/>
+        public IMap CreateMap(int width, int height, MapId mapId)
+        {
+            if (MapIsLoaded(mapId))
+                throw new ArgumentException($"Attempted to create an already existing map {mapId}!");
 
             var map = new Map(width, height);
-            _maps.Add(actualID, map);
-            map.Id = actualID;
-            RebindMapEntity(actualID, map);
+            _maps.Add(mapId, map);
+            map.Id = mapId;
+            RebindMapEntity(mapId, map);
 
             return map;
         }
@@ -263,6 +272,9 @@ namespace OpenNefia.Core.Maps
         /// <inheritdoc/>
         public void SetActiveMap(MapId mapId)
         {
+            if (mapId == MapId.Global)
+                throw new ArgumentException($"Cannot set the active map to the global map.", nameof(mapId));
+
             if (mapId == ActiveMap?.Id)
                 return;
 

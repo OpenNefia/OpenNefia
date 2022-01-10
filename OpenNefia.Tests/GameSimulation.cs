@@ -306,9 +306,10 @@ namespace OpenNefia.Tests
                 .Union(dataDefinitionTypes)
                 .Union(compFactory.AllRegisteredTypes));
 
-            var mapManager = container.Resolve<IMapManager>();
-
             entityMan.Startup();
+
+            var mapManager = container.Resolve<IMapManagerInternal>();
+            mapManager.CreateMap(1, 1, MapId.Global);
 
             container.Resolve<ISerializationManager>().Initialize();
 
