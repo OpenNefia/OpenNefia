@@ -34,7 +34,9 @@ namespace OpenNefia.Content.UI.Element
             if (width <= 0)
                 return base.Text;
 
-            string[] words = SplitString(str, LanguagePrototypeOf.Japanese);
+            var locManager = IoCManager.Resolve<ILocalizationManager>();
+
+            string[] words = SplitString(str, locManager.Language);
 
             int curLineLength = 0;
             StringBuilder strBuilder = new StringBuilder();
