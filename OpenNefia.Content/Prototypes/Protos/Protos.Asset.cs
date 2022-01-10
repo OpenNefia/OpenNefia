@@ -45,7 +45,7 @@ namespace OpenNefia.Content.Prototypes
             public static readonly AssetPrototypeId DecoHelpA            = new($"Elona.{nameof(DecoHelpA)}");
             public static readonly AssetPrototypeId DecoHelpB            = new($"Elona.{nameof(DecoHelpB)}");
             public static readonly AssetPrototypeId InventoryIcons       = new($"Elona.{nameof(InventoryIcons)}");
-            public static readonly AssetPrototypeId TraitIcons           = new($"Elona.{nameof(TraitIcons)}");
+            public static readonly AssetPrototypeId FeatIcons            = new($"Elona.{nameof(FeatIcons)}");
             public static readonly AssetPrototypeId EquippedIcon         = new($"Elona.{nameof(EquippedIcon)}");
             public static readonly AssetPrototypeId LabelInput           = new($"Elona.{nameof(LabelInput)}");
             public static readonly AssetPrototypeId InputCaret           = new($"Elona.{nameof(InputCaret)}");

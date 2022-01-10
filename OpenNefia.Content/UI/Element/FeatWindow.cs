@@ -67,7 +67,7 @@ namespace OpenNefia.Content.UI.Element
             public FeatCell(FeatData data) 
                 : base(data, new UiText())
             {
-                FeatIcons = Assets.Get(AssetPrototypeOf.FeatIcons);
+                FeatIcons = Assets.Get(Protos.Asset.FeatIcons);
                 Text = data.Name;
                 DescriptionText = new UiText(Data.Description);
                 UiText.Color = data.Color;
@@ -155,10 +155,10 @@ namespace OpenNefia.Content.UI.Element
         {
             _prototypeManager = IoCManager.Resolve<IPrototypeManager>();
             AssetInventoryIcons = InventoryHelpers.MakeIcon(InventoryIcon.Feat);
-            AssetDecoFeatA = new AssetDrawable(AssetPrototypeOf.DecoFeatA);
-            AssetDecoFeatB = new AssetDrawable(AssetPrototypeOf.DecoFeatB);
-            AssetDecoFeatC = new AssetDrawable(AssetPrototypeOf.DecoFeatC);
-            AssetDecoFeatD = new AssetDrawable(AssetPrototypeOf.DecoFeatD);
+            AssetDecoFeatA = new AssetDrawable(Protos.Asset.DecoFeatA);
+            AssetDecoFeatB = new AssetDrawable(Protos.Asset.DecoFeatB);
+            AssetDecoFeatC = new AssetDrawable(Protos.Asset.DecoFeatC);
+            AssetDecoFeatD = new AssetDrawable(Protos.Asset.DecoFeatD);
 
             NameTopic = new UiTextTopic(Loc.GetString("Elona.FeatMenu.NameTopic"));
             DetailTopic = new UiTextTopic(Loc.GetString("Elona.FeatMenu.DetailTopic"));
