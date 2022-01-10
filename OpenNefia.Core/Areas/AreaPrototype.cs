@@ -16,7 +16,7 @@ namespace OpenNefia.Core.Areas
         [DataField("id", required: true)]
         public string ID { get; } = default!;
 
-        [DataField]
+        [DataField("initialFloors")]
         private readonly Dictionary<AreaFloorId, PrototypeId<MapPrototype>> _initialFloors = new();
 
         public IReadOnlyDictionary<AreaFloorId, PrototypeId<MapPrototype>> InitialFloors => _initialFloors;
