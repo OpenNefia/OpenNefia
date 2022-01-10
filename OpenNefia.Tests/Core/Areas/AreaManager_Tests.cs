@@ -4,6 +4,8 @@ using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Maps;
 using OpenNefia.Core.Maths;
+using OpenNefia.Core.Prototypes;
+using OpenNefia.Core.Serialization.Manager;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +18,34 @@ namespace OpenNefia.Tests.Core.Areas
     [TestOf(typeof(AreaManager))]
     public class AreaManager_Tests : OpenNefiaUnitTest
     {
+        private static readonly PrototypeId<MapPrototype> TestMapID = new("TestMap");
+        private static readonly PrototypeId<AreaPrototype> TestAreaID = new("TestArea");
+        private static readonly AreaFloorId TestMapFloor = new("Test.Map");
+
+        private static readonly string Prototypes = @$"
+- type: Map
+  id: {TestMapID}
+  blueprintPath: /Maps/Test/test.yml
+
+- type: Area
+  id: {TestAreaID}
+  initialFloors:
+    {TestMapFloor}: {TestMapID}
+  startingFloor: {TestMapFloor}
+";
+
+        [OneTimeSetUp]
+        public void OneTimeSetup()
+        {
+            IoCManager.Resolve<ISerializationManager>().Initialize();
+
+            var protoMan = IoCManager.Resolve<IPrototypeManager>();
+            protoMan.RegisterType<MapPrototype>();
+            protoMan.RegisterType<AreaPrototype>();
+            protoMan.LoadString(Prototypes);
+            protoMan.Resync();
+        }
+
         [SetUp]
         public void Setup()
         {
@@ -59,6 +89,19 @@ namespace OpenNefia.Tests.Core.Areas
         }
 
         [Test]
+        public void TestCreateArea_FromPrototype()
+        {
+            var areaMan = IoCManager.Resolve<IAreaManager>();
+
+            var area = areaMan.CreateArea(TestAreaID);
+
+            Assert.That(areaMan.AreaExists(area.Id), Is.True);
+            Assert.That(area.ContainedMaps.Count, Is.EqualTo(1));
+            Assert.That(area.ContainedMaps[TestMapFloor].MapId, Is.Null);
+            Assert.That(area.ContainedMaps[TestMapFloor].DefaultGenerator, Is.EqualTo(TestMapID));
+        }
+
+        [Test]
         public void TestCreateArea_HighestAreaID()
         {
             var areaMan = IoCManager.Resolve<IAreaManagerInternal>();
@@ -78,7 +121,7 @@ namespace OpenNefia.Tests.Core.Areas
 
             var area = areaMan.CreateArea();
             var map = mapMan.CreateMap(10, 10);
-            var floorId = new AreaFloorId("Test.FloorID");
+            var floorId = TestMapFloor;
 
             areaMan.RegisterAreaFloor(area, floorId, map);
 
@@ -106,11 +149,13 @@ namespace OpenNefia.Tests.Core.Areas
 
             var area = areaMan.CreateArea();
             var map = mapMan.CreateMap(10, 10);
-            var floorId = new AreaFloorId("Test.FloorID");
+            var floorId = TestMapFloor;
 
             Assert.Throws<ArgumentException>(() => areaMan.UnregisterAreaFloor(area, floorId));
 
             ((Area)area)._containedMaps[floorId] = new AreaFloor(map.Id);
+
+            Assert.That(area.ContainedMaps.ContainsKey(floorId), Is.True);
 
             areaMan.UnregisterAreaFloor(area, floorId);
 
