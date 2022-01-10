@@ -3,10 +3,13 @@
 	GainedHeader = "[Feats and traits]",
 	AvailableHeader = "[Available feats]",
 	FeatMax = "MAX",
-	NameTopic = "Name",
-	DetailTopic = "Detail",
-	FeatCount = "You can acquire {0} feats",
-
+	Topic = {
+		Name = "Name",
+		Detail = "Detail",
+	},
+	FeatCount = function(featsRemaining)
+		return ("You can acquire %s feats"):format(featsRemaining)
+	end,
 	FeatType = {
 		Feat = "Feat",
         Race = "Race",

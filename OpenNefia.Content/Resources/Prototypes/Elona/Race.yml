@@ -254,7 +254,7 @@
   - Elona.Arm
   - Elona.Waist
   - Elona.Leg
-  baseFeats:
+  initialFeats:
     Elona.PermSkillPoint: 1
 - type: Elona.Race
   id: Elona.Norland
@@ -337,7 +337,7 @@
   - Elona.Arm
   - Elona.Waist
   - Elona.Leg
-  baseFeats:
+  initialFeats:
     Elona.PermMagic: 1
 - type: Elona.Race
   id: Elona.Fairy
@@ -379,7 +379,7 @@
   - Elona.Arm
   - Elona.Waist
   - Elona.Leg
-  baseFeats:
+  initialFeats:
     Elona.PermResist: 1
     Elona.PermWeak: 1
 - type: Elona.Race
@@ -519,7 +519,7 @@
   - Elona.Arm
   - Elona.Waist
   - Elona.Leg
-  baseFeats:
+  initialFeats:
     Elona.PermPoison: 2
     Elona.PermDarkness: 1
 - type: Elona.Race
@@ -563,7 +563,7 @@
   - Elona.Arm
   - Elona.Waist
   - Elona.Leg
-  baseFeats:
+  initialFeats:
     Elona.PermSlowFood: 1
     Elona.PermMaterial: 1
 - type: Elona.Race
@@ -642,7 +642,7 @@
   - Elona.Arm
   - Elona.Waist
   - Elona.Leg
-  baseFeats:
+  initialFeats:
     Elona.PermResEther: 1
     Elona.PermCapacity: 1
 - type: Elona.Race
@@ -989,7 +989,7 @@
   - Elona.Arm
   - Elona.Waist
   - Elona.Leg
-  baseFeats:
+  initialFeats:
     Elona.PermCold: 1
     Elona.PermDarkness: 2
     Elona.PermPoison: 1
@@ -1390,7 +1390,7 @@
   - Elona.Arm
   - Elona.Waist
   - Elona.Leg
-  baseFeats:
+  initialFeats:
     Elona.PermDarkness: 1
     Elona.PermMaterial: 1
 - type: Elona.Race
@@ -1774,7 +1774,7 @@
   - Elona.Arm
   - Elona.Waist
   - Elona.Leg
-  baseFeats:
+  initialFeats:
     Elona.PermDim: 1
     Elona.PermPoison: 2
 - type: Elona.Race
@@ -2398,7 +2398,7 @@
   initialEquipSlots:
   - Elona.Body
   - Elona.Hand
-  baseFeats:
+  initialFeats:
     Elona.PermChaosShape: 1
 - type: Elona.Race
   id: Elona.Yeek

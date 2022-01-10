@@ -1,4 +1,4 @@
-﻿OpenNefia.Prototypes.Feat.Elona = {
+﻿OpenNefia.Prototypes.Elona.Feat.Elona = {
     Stamina = {
         ["1"] = {
             Desc = "You have good stamina. [Stamina+]",

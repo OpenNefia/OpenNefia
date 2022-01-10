@@ -10,13 +10,13 @@ namespace OpenNefia.Content.Prototypes
 {
     public enum FeatType
     {
-        Feat,
-        Mutation,
-        Race,
-        EtherDisease
+        Feat = 0,
+        Mutation = 1,
+        Race = 2,
+        EtherDisease = 3
     }
 
-    [Prototype("Feat")]
+    [Prototype("Elona.Feat")]
     public class FeatPrototype : IPrototype
     {
         [DataField("id", required: true)]

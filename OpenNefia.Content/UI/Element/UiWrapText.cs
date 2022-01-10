@@ -111,7 +111,7 @@ namespace OpenNefia.Content.UI.Element
         {
             switch (lang)
             {
-                case var en when lang == LanguagePrototypeOf.English:
+                case var en when en == LanguagePrototypeOf.English:
                     return SplitStringEn(str, splitChars);
                 default:
                     return str.Select(x => $"{x}").ToArray();
