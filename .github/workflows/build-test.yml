@@ -20,11 +20,12 @@ jobs:
         submodules: true
 
     - uses: OpenNefia/stylua-action@1.1.0
+      if: ${{ matrix.os == 'ubuntu-latest' }}
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
         version: v0.11.3
         sha256: a20c3d177866129f701fed3693825a4050ad45c32dda5369de8365aff4dba635
-        args: --check */Resources/ -g*.lua
+        args: --config-path stylua.toml --check OpenNefia.Core/Resources OpenNefia.Content/Resources OpenNefia.LecchoTorte/Resources -g*.lua
 
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
