@@ -1,0 +1,5 @@
+repos:
+- repo: https://github.com/OpenNefia/StyLua
+  rev: v0.11.3
+  hooks:
+    - id: stylua
