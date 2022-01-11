@@ -1,12 +1,16 @@
-﻿using OpenNefia.Content.Prototypes;
+﻿using OpenNefia.Content.Input;
+using OpenNefia.Content.Prototypes;
+using OpenNefia.Content.Skills;
 using OpenNefia.Content.UI;
 using OpenNefia.Content.UI.Element;
 using OpenNefia.Content.UI.Element.Containers;
 using OpenNefia.Content.UI.Element.List;
+using OpenNefia.Core;
 using OpenNefia.Core.Audio;
 using OpenNefia.Core.Input;
 using OpenNefia.Core.Locale;
 using OpenNefia.Core.Maths;
+using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Core.UI;
 using OpenNefia.Core.UI.Element;
@@ -24,22 +28,22 @@ namespace OpenNefia.Content.CharaMake
         protected class AttributeIcon : UiElement
         {
             private const string FallbackIcon = "2";
-            private readonly Dictionary<string, string> _attributes = new Dictionary<string, string>
+            private readonly Dictionary<PrototypeId<SkillPrototype>, string> _attributes = new()
             {
-                { "Elona.StatStrength", "0" },
-                { "Elona.StatConstitution", "1" },
-                { "Elona.StatDexterity", "2" },
-                { "Elona.StatPerception", "3" },
-                { "Elona.StatLearning", "4" },
-                { "Elona.StatWill", "5" },
-                { "Elona.StatMagic", "6" },
-                { "Elona.StatCharisma", "7" }
+                { Protos.Skill.StatStrength, "0" },
+                { Protos.Skill.StatConstitution, "1" },
+                { Protos.Skill.StatDexterity, "2" },
+                { Protos.Skill.StatPerception, "3" },
+                { Protos.Skill.StatLearning, "4" },
+                { Protos.Skill.StatWill, "5" },
+                { Protos.Skill.StatMagic, "6" },
+                { Protos.Skill.StatCharisma, "7" }
 
             };
             private IAssetInstance AssetAttributeIcons;
-            private string Type;
+            private PrototypeId<SkillPrototype>? Type;
 
-            public AttributeIcon(string type)
+            public AttributeIcon(PrototypeId<SkillPrototype>? type)
             {
                 AssetAttributeIcons = Assets.Get(Protos.Asset.AttributeIcons);
                 Type = type;
@@ -49,7 +53,7 @@ namespace OpenNefia.Content.CharaMake
             {
                 base.Draw();
                 GraphicsEx.SetColor(Color.White);
-                if (_attributes.TryGetValue(Type, out var iconId))
+                if (Type != null && _attributes.TryGetValue(Type.Value, out var iconId))
                     AssetAttributeIcons.DrawRegion($"{iconId ?? FallbackIcon}", X, Y, centered: true);
             }
 
@@ -68,18 +72,6 @@ namespace OpenNefia.Content.CharaMake
         [Localize]
         protected UiText Caption;
         private int UiMoveCount;
-
-        protected readonly string[] AttributeIds = new[]
-        {
-            "Elona.StatStrength",
-            "Elona.StatConstitution",
-            "Elona.StatDexterity",
-            "Elona.StatPerception",
-            "Elona.StatLearning",
-            "Elona.StatWill",
-            "Elona.StatMagic",
-            "Elona.StatCharisma"
-        };
 
         public CharaMakeLayer()
         {
@@ -113,9 +105,18 @@ namespace OpenNefia.Content.CharaMake
             }
         }
 
-        protected UiContainer MakeSkillContainer(string attr, string text, Color? color = null)
+        public override List<UiKeyHint> MakeKeyHints()
+        {
+            var keyHints = base.MakeKeyHints();
+
+            keyHints.Add(new(UiKeyHints.Back, EngineKeyFunctions.UICancel));
+
+            return keyHints;
+        }
+
+        protected UiContainer MakeSkillContainer(PrototypeId<SkillPrototype> attr, string text, Color? color = null)
             => MakeSkillContainer(attr, new UiText { Text = text, Color = color ?? Color.Black });
-        protected UiContainer MakeSkillContainer(string attr, UiText text)
+        protected UiContainer MakeSkillContainer(PrototypeId<SkillPrototype> attr, UiText text)
         {
             var cont = new UiHorizontalContainer();
             cont.AddLayout(LayoutType.XOffset, 7);

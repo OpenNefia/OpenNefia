@@ -101,7 +101,6 @@ namespace OpenNefia.Content.CharaMake
         {
             var keyHints = base.MakeKeyHints();
 
-            keyHints.Add(new(UiKeyHints.Back, EngineKeyFunctions.UICancel));
             keyHints.Add(new(new LocaleKey("Elona.CharaMake.AliasSelect.KeyHints.LockAlias"), ContentKeyFunctions.UIMode2));
 
             return keyHints;

@@ -187,6 +187,7 @@ namespace OpenNefia.Content.CharaMake
         }
 
         [Dependency] protected readonly IPrototypeManager _prototypeManager = default!;
+        [Dependency] protected readonly ISkillsSystem _skillsSys = default!;
 
         [Localize] protected UiWindow Window;
         [Localize] protected UiTextTopic RaceTopic;
@@ -201,15 +202,6 @@ namespace OpenNefia.Content.CharaMake
         private UiGridContainer AttributeContainer;
         private UiPagedList<RaceClass> List;
         private RaceClassCell[] AllData;
-
-        //skills that shouldn't show up on the screen at all
-        private readonly string[] SpecialSkillIds = new[]
-        {
-            "Elona.StatLife",
-            "Elona.StatMana",
-            "Elona.StatLuck",
-            "Elona.StatSpeed"
-        };
         
         public CharaMakeRaceClassLayer()
         {
@@ -263,6 +255,7 @@ namespace OpenNefia.Content.CharaMake
         {
             base.Initialize(args);
             AllData = GetData().Select(x => new RaceClassCell(x)).ToArray();
+            Window.KeyHints = MakeKeyHints();
             List.Clear();
             List.AddRange(AllData);
 
@@ -311,12 +304,12 @@ namespace OpenNefia.Content.CharaMake
 
         private IEnumerable<UiElement> MakeDetailAttribute(IReadOnlyDictionary<PrototypeId<SkillPrototype>, int> skills)
         {
-            foreach(var attrId in AttributeIds)
+            foreach(var attrProto in _skillsSys.EnumerateBaseAttributes())
             {
-                var arrtProtId = new PrototypeId<SkillPrototype>(attrId);
-                skills.TryGetValue(arrtProtId, out var amt);
+                var attrProtoId = attrProto.GetStrongID();
+                skills.TryGetValue(attrProtoId, out var amt);
                 GetAttributeAmountDesc(amt, out var desc, out var clr);
-                yield return MakeSkillContainer(attrId, $"{Loc.GetPrototypeString(arrtProtId, "ShortName")?.Trim().ToLower().FirstCharToUpper()}: {desc}", clr);
+                yield return MakeSkillContainer(attrProtoId, $"{Loc.GetPrototypeString(attrProtoId, "ShortName")?.Trim().ToLower().FirstCharToUpper()}: {desc}", clr);
             }
         }
 
@@ -328,10 +321,11 @@ namespace OpenNefia.Content.CharaMake
             var profs = new List<string>();
             foreach (var skillId in skills.Keys)
             {
-                if (AttributeIds.Any(x => x == skillId.ToString() || SpecialSkillIds.Any(x => x == skillId.ToString())))
+                var skill = _prototypeManager.Index(skillId);
+
+                if (skill.SkillType == SkillType.Stat || skill.SkillType == SkillType.StatSpecial)
                     continue;
 
-                var skill = _prototypeManager.Index(skillId);
                 switch (skill.SkillType)
                 {
                     case SkillType.WeaponProficiency:
@@ -341,7 +335,7 @@ namespace OpenNefia.Content.CharaMake
                         var related = _prototypeManager.Index(skill.RelatedSkill ?? default!);
                         var skillName = Loc.GetPrototypeString(skillId, "Name") ?? string.Empty;
                         var skillDesc = $"{skillName}{new string(' ', Math.Max(16 - skillName.Length, 0))}{Loc.GetPrototypeString(skillId, "Description") ?? string.Empty}";
-                        var cont = MakeSkillContainer(related.ID, skillDesc);
+                        var cont = MakeSkillContainer(related.GetStrongID(), skillDesc);
                         list.Add(cont);
                         break;
                 }
@@ -349,7 +343,7 @@ namespace OpenNefia.Content.CharaMake
             if (profs.Count > 0)
             {
                 var profDesc = $"{Loc.GetString("Elona.CharaMake.ClassAndRaceSelect.ProficientIn")} {string.Join(',', profs)}";
-                list.Insert(0, MakeSkillContainer("Elona.StatStrength", profDesc));
+                list.Insert(0, MakeSkillContainer(Protos.Skill.StatStrength, profDesc));
             }
 
             return list;
