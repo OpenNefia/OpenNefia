@@ -10,8 +10,8 @@ namespace OpenNefia.Content.Maps
         /// <summary>
         /// ID specifier of the map this entrance will lead to.
         /// </summary>
-        [DataField(required: true)]
-        public IMapIdSpecifier MapIdSpecifier { get; set; } = new PrototypeMapIdSpecifier(Protos.MapProtos.Blank);
+        [DataField("map", required: true)]
+        public IMapIdSpecifier MapIdSpecifier { get; set; } = new NullMapIdSpecifier();
 
         /// <summary>
         /// Location in the destination map to place the player/allies.

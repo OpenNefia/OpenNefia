@@ -71,7 +71,8 @@ namespace OpenNefia.Content.GameObjects
 
             _sounds.Play(Protos.Sound.Exitmap1);
 
-            return _mapEntrances.UseMapEntrance(user, stairs.Entrance);
+            return _mapEntrances.UseMapEntrance(user, stairs.Entrance) 
+                ? TurnResult.Succeeded : TurnResult.Failed;
         }
     }
 

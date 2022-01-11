@@ -26,6 +26,16 @@ namespace OpenNefia.Core.Areas
         public AreaId Id { get; }
        
         /// <summary>
+        /// ID used for referencing this specific area in prototype data.
+        /// </summary>
+        /// <remarks>
+        /// Problem this is intending to solve: placing entrances to areas in prototype
+        /// data/map blueprints. In prototypes, you won't know what <see cref="Id"/> an 
+        /// area is going to end up with yet.
+        /// </remarks>
+        public GlobalAreaId? GlobalId { get; }
+
+        /// <summary>
         /// Entity that is associated with this area.
         /// </summary>
         public EntityUid AreaEntityUid { get; }
@@ -34,5 +44,10 @@ namespace OpenNefia.Core.Areas
         /// Maps contained in this area.
         /// </summary>
         IReadOnlyDictionary<AreaFloorId, AreaFloor> ContainedMaps { get; }
+
+        /// <summary>
+        /// Initial floor to place the player in when generating area entrances.
+        /// </summary>
+        public AreaFloorId? StartingFloor { get; set; }
     }
 }

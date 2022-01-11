@@ -34,6 +34,8 @@ namespace OpenNefia.Core.SaveGames
         event GameSavedDelegate OnGameSaved;
         event GameLoadedDelegate OnGameLoaded;
 
+        ISaveGameHandle InitializeSaveGame(string name);
+
         /// <summary>
         /// Saves the game state to the provided save.
         /// </summary>
@@ -113,6 +115,8 @@ namespace OpenNefia.Core.SaveGames
         [Dependency] private readonly IMapLoader _mapLoader = default!;
         [Dependency] private readonly IAreaManagerInternal _areaManager = default!;
         [Dependency] private readonly IGameSessionManager _gameSessionManager = default!;
+        [Dependency] private readonly IModLoader _modLoader = default!;
+        [Dependency] private readonly ISaveGameManager _saveGameManager = default!;
 
         public const string SawmillName = "save.game";
 
@@ -187,6 +191,50 @@ namespace OpenNefia.Core.SaveGames
             _trackedSaveData.Add(key, new SaveDataRegistration(field, parent));
         }
 
+        /// <summary>
+        /// Unloads absolutely everything from the entity/map/area managers.
+        /// </summary>
+        private void ResetGameState()
+        {
+            _entityManager.FlushEntities();
+            _mapManager.FlushMaps();
+            _areaManager.FlushAreas();
+        }
+
+        private SaveGameHeader MakeSaveGameHeader(string name)
+        {
+            var engineVersion = Core.Engine.Version;
+            var engineCommitHash = "??????";
+            var assemblyVersions = new List<AssemblyMetaData>();
+
+            foreach (var assembly in _modLoader.LoadedModules)
+            {
+                if (assembly == typeof(Core.Engine).Assembly)
+                    continue;
+
+                var meta = AssemblyMetaData.FromAssembly(assembly);
+                assemblyVersions.Add(meta);
+            }
+
+            return new SaveGameHeader(name, assemblyVersions);
+        }
+
+        public ISaveGameHandle InitializeSaveGame(string name)
+        {
+            if (_saveGameManager.CurrentSave != null)
+                throw new InvalidOperationException($"A save has already been loaded! ({_saveGameManager.CurrentSave})");
+
+            ResetGameState();
+
+            var saveHeader = MakeSaveGameHeader(name);
+            var savePath = ResourcePath.Root / Guid.NewGuid().ToString();
+            var save = _saveGameManager.CreateSave(savePath, saveHeader);
+
+            _mapManager.CreateMap(1, 1, MapId.Global);
+
+            return save;
+        }
+
         /// <inheritdoc/>
         public void SaveGame(ISaveGameHandle save)
         {
@@ -207,10 +255,7 @@ namespace OpenNefia.Core.SaveGames
                 throw new InvalidOperationException("No active map to save");
             }
 
-            // TODO move this somewhere else to ensure it's generated before the first save
-            // (probably the scenario init logic, when it's implemented)
-            if (!_mapManager.MapIsLoaded(MapId.Global))
-                _mapManager.CreateMap(1, 1, MapId.Global);
+            DebugTools.Assert(_mapManager.MapIsLoaded(MapId.Global), "No global map!");
 
             // Save the global map. This is used for global entity storage.
             _mapLoader.SaveMap(MapId.Global, save);
@@ -280,16 +325,6 @@ namespace OpenNefia.Core.SaveGames
             LoadGlobalData(save);
 
             OnGameLoaded?.Invoke(save);
-        }
-
-        /// <summary>
-        /// Unloads absolutely everything from the entity/map/area managers.
-        /// </summary>
-        private void ResetGameState()
-        {
-            _entityManager.FlushEntities();
-            _mapManager.FlushMaps();
-            _areaManager.FlushAreas();
         }
 
         private void LoadSession(ISaveGameHandle save)

@@ -1,0 +1,62 @@
+- type: Area
+  id: Elona.Vernis
+  hspIds:
+    elona122: 5
+  createGlobal: true
+  floors:
+    Elona.FloorVernis: Elona.Vernis
+  startingFloor: Elona.FloorVernis
+
+- type: Area
+  id: Elona.PortKapul
+  hspIds:
+    elona122: 11
+  createGlobal: true
+  floors:
+    Elona.FloorPortKapul: Elona.PortKapul
+  startingFloor: Elona.FloorPortKapul
+
+- type: Area
+  id: Elona.Yowyn
+  hspIds:
+    elona122: 12
+  createGlobal: true
+  floors:
+    Elona.FloorYowyn: Elona.Yowyn
+  startingFloor: Elona.FloorYowyn
+
+- type: Area
+  id: Elona.Derphy
+  hspIds:
+    elona122: 14
+  createGlobal: true
+  floors:
+    Elona.FloorDerphy: Elona.Derphy
+  startingFloor: Elona.FloorDerphy
+
+- type: Area
+  id: Elona.Palmia
+  hspIds:
+    elona122: 15
+  createGlobal: true
+  floors:
+    Elona.FloorPalmia: Elona.Palmia
+  startingFloor: Elona.FloorPalmia
+
+- type: Area
+  id: Elona.Noyel
+  hspIds:
+    elona122: 33
+  createGlobal: true
+  floors:
+    Elona.FloorNoyel: Elona.Noyel
+  startingFloor: Elona.FloorNoyel
+
+- type: Area
+  id: Elona.Lumiest
+  hspIds:
+    elona122: 36
+  createGlobal: true
+  floors:
+    Elona.FloorLumiest: Elona.Lumiest
+  startingFloor: Elona.FloorLumiest

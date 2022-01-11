@@ -20,10 +20,5 @@ namespace OpenNefia.Core.Areas
             get => _areaId;
             internal set => _areaId = value;
         }
-
-        /// <summary>
-        /// Initial floor to place the player in when generating area entrances.
-        /// </summary>
-        public AreaFloorId? StartingFloor { get; set; }
     }
 }

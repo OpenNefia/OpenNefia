@@ -13,11 +13,14 @@ using OpenNefia.Core.SaveGames;
 using OpenNefia.Core.UserInterface;
 using OpenNefia.Content.Factions;
 using OpenNefia.Content.EntityGen;
+using OpenNefia.Core.Areas;
 using static OpenNefia.Content.Prototypes.Protos;
 using OpenNefia.Core.ContentPack;
 using OpenNefia.Content.Skills;
 using OpenNefia.Content.CharaMake;
 using OpenNefia.Content.EquipSlots;
+using OpenNefia.Core.Areas;
+using OpenNefia.Core.Prototypes;
 
 namespace OpenNefia.Content.TitleScreen
 {
@@ -29,6 +32,7 @@ namespace OpenNefia.Content.TitleScreen
     public class MainTitleLogic : IMainTitleLogic
     {
         [Dependency] private readonly IMapManager _mapManager = default!;
+        [Dependency] private readonly IAreaManager _areaManager = default!;
         [Dependency] private readonly IEntityManager _entityManager = default!;
         [Dependency] private readonly IGameSessionManager _gameSessionManager = default!;
         [Dependency] private readonly IFieldLayer _fieldLayer = default!;
@@ -37,6 +41,7 @@ namespace OpenNefia.Content.TitleScreen
         [Dependency] private readonly ISaveGameSerializer _saveGameSerializer = default!;
         [Dependency] private readonly IUserInterfaceManager _uiManager = default!;
         [Dependency] private readonly IModLoader _modLoader = default!;
+        [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
         [Dependency] private readonly ICharaMakeLogic _charaMakeLogic = default!;
 
         private void Startup()
@@ -82,31 +87,12 @@ namespace OpenNefia.Content.TitleScreen
             }
         }
 
-        private SaveGameHeader MakeSaveGameHeader()
-        {
-            var engineVersion = Core.Engine.Version;
-            var engineCommitHash = "??????";
-            var assemblyVersions = new List<AssemblyMetaData>();
-
-            foreach (var assembly in _modLoader.LoadedModules)
-            {
-                if (assembly == typeof(Core.Engine).Assembly)
-                    continue;
-
-                var meta = AssemblyMetaData.FromAssembly(assembly);
-                assemblyVersions.Add(meta);
-            }
-
-            return new SaveGameHeader("ruin", assemblyVersions);
-        }
-
         private void StartGame()
         {
-            var saveHeader = MakeSaveGameHeader();
-            var savePath = ResourcePath.Root / Guid.NewGuid().ToString();
-            var save = _saveGameManager.CreateSave(savePath, saveHeader);
+            var save = _saveGameSerializer.InitializeSaveGame("ruin");
             _saveGameManager.CurrentSave = save;
 
+            InitializeGlobalAreas();
             var map = InitMap();
 
             _mapManager.SetActiveMap(map.Id);
@@ -116,11 +102,29 @@ namespace OpenNefia.Content.TitleScreen
             _uiManager.Query(_fieldLayer);
 
             _mapManager.UnloadMap(map.Id);
+
+            _saveGameManager.CurrentSave = null;
         }
 
         private void CreateChara()
         {
             _charaMakeLogic.RunCreateChara();
+        }
+
+        /// <summary>
+        /// Does one-time setup of global areas. This is for setting up areas like towns to
+        /// be able to generate escort/other quests between them when a new save is being 
+        /// initialized.
+        /// </summary>
+        public void InitializeGlobalAreas()
+{
+            DebugTools.Assert(_areaManager.LoadedAreas.Count == 0, "Areas were already initialized!");
+
+            foreach (var areaProto in _prototypeManager.EnumeratePrototypes<AreaPrototype>())
+            {
+                var areaId = areaProto.GetStrongID();
+                _areaManager.CreateArea(areaId, new GlobalAreaId((string)areaId));
+            }
         }
 
         private IMap InitMap()

@@ -1,0 +1,8 @@
+- type: Area
+  id: Elona.NorthTyris
+  hspIds:
+    elona122: 4
+  createGlobal: true
+  floors:
+    Elona.FloorNorthTyris: Elona.NorthTyris
+  startingFloor: Elona.FloorNorthTyris

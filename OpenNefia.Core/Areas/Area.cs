@@ -13,18 +13,26 @@ namespace OpenNefia.Core.Areas
     [DataDefinition]
     internal sealed class Area : IArea
     {
-        [DataField(required: true)]
         /// <inheritdoc/>
+        [DataField(required: true)]
         public AreaId Id { get; internal set; }
 
-        [DataField(required: true)]
         /// <inheritdoc/>
+        [DataField(required: true)]
+        public GlobalAreaId? GlobalId { get; internal set; }
+
+        /// <inheritdoc/>
+        [DataField(required: true)]
         public EntityUid AreaEntityUid { get; internal set; }
 
-        [DataField("containedMaps", required: true)]
+        [DataField("maps", required: true)]
         internal Dictionary<AreaFloorId, AreaFloor> _containedMaps = new();
 
         /// <inheritdoc/>
         public IReadOnlyDictionary<AreaFloorId, AreaFloor> ContainedMaps => _containedMaps;
+
+        /// <inheritdoc/>
+        [DataField]
+        public AreaFloorId? StartingFloor { get; set; }
     }
 }

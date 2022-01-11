@@ -42,9 +42,6 @@
     - type: Chip
       id: Elona.FeatAreaCave
     - type: WorldMapEntrance
-    - type: MapEntrance
-      entrance:
-        startLocation: !type:MapEdgesLocation {}
 
 - type: Entity
   id: Elona.FeatDoor

@@ -90,10 +90,13 @@ namespace OpenNefia.Content.GameObjects
                 StartLocation = new CenterMapLocation()
             };
 
-            var turnResult = _mapEntrances.UseMapEntrance(user, entrance);
-            _mapEntrances.SetPreviousMap(fieldMap.Id, prevCoords);
+            if (_mapEntrances.UseMapEntrance(user, entrance, out var mapId))
+            {
+                _mapEntrances.SetPreviousMap(mapId.Value, prevCoords);
+                return TurnResult.Succeeded;
+            }
 
-            return turnResult;
+            return TurnResult.Failed;
         }
     }
 }
