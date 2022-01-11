@@ -86,11 +86,6 @@ namespace OpenNefia.Core.Input
             .Select(x => x.Function)
             .ToList();
 
-        public string GetKeyName(Key key)
-        {
-            return "???";
-        }
-
         public string GetKeyFunctionButtonString(BoundKeyFunction function)
         {
             if (!TryGetKeyBinding(function, out var bind))
