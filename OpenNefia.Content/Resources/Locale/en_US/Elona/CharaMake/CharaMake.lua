@@ -1,89 +1,98 @@
-﻿Elona.CharaMake = {
-	ProficientIn = "Proficient in",
-	Extra = "(extra)",
-	Skill = {
-		Amount = {
-			None = "None",
-			Slight = "Slight",
-			Little = "Little",
-			Normal = "Normal",
-			NotBad = "Not bad",
-			Good = "Good",
-			Great = "Great",
-			Best = "Best",
-		},
-	},
-	RaceSelect = {
-		Window = {
-			Title = "Race Selection",
-		},
+﻿Elona.CharaMake =
+{
+   Common = {
+      Locked = "Locked!",
+   },
 
-		DetailTopic = "Detail",
-		RaceTopic = "Race",
+   Skill = {
+      Amount = {
+         None = "None",
+         Slight = "Slight",
+         Little = "Little",
+         Normal = "Normal",
+         NotBad = "Not bad",
+         Good = "Good",
+         Great = "Great",
+         Best = "Best",
+      },
+   },
+   RaceSelect = {
+      Window = {
+         Title = "Race Selection",
+      },
 
-		AttributeTopic = "Attribute Bonus",
-		SkillTopic = "Trained Skill",
-		Caption = "Welcome, I've been looking for you."
-	},
+      DetailTopic = "Detail",
+      RaceTopic = "Race",
 
-	ClassSelect = {
-		Window = {
-			Title = "Class Selection",
-		},
+      AttributeTopic = "Attribute Bonus",
+      SkillTopic = "Trained Skill",
+      Caption = "Welcome, I've been looking for you."
+   },
 
-		DetailTopic = "Detail",
-		RaceTopic = "Class",
+   ClassAndRaceSelect = {
+      ProficientIn = "Proficient in",
+      Extra = "(extra)",
+   },
 
-		AttributeTopic = "Attribute Bonus",
-		SkillTopic = "Trained Skill",
-		Caption = "Your class and race determine the growth rate of your skills and attributes.",
-		RaceLabel = "Race"
-	},
+   ClassSelect = {
+      Window = {
+         Title = "Class Selection",
+      },
 
-	AliasSelect = {
-		Window = {
-			Title = "Alias Selection"
-		},
-		Reroll = "Reroll",
-		AliasTopic = "Alias List",
-		Caption = "Choose your Alias.",
-        KeyHints = {
-           LockAlias = "Lock Alias",
-        }
-	},
+      DetailTopic = "Detail",
+      RaceTopic = "Class",
 
-	GenderSelect = {
-		Window = {
-			Title = "Gender Selection"
-		},
-		GenderTopic = "Gender",
-		Caption = "What's your gender?"
-	},
+      AttributeTopic = "Attribute Bonus",
+      SkillTopic = "Trained Skill",
+      Caption = "Your class and race determine the growth rate of your skills and attributes.",
+      RaceLabel = "Race"
+   },
 
-	AttributeReroll = {
-		Window = {
-			Title = "Attb Reroll"
-		},
-		AttributeTopic = "Attributes",
-		AttributeInfo = "Locked items will not change.",
-		LockAmt = "Locks left",
-		Reroll = "Reroll",
-		Proceed = "Proceed",
-		Locked = "Locked!",
-		Caption = "You should prepare well, if you want to survive long enough in Irva."
-	},
+   AliasSelect = {
+      Window = {
+         Title = "Alias Selection"
+      },
+      Reroll = "Reroll",
+      AliasTopic = "Alias List",
+      Caption = "Choose your Alias.",
+      KeyHints = {
+         LockAlias = "Lock Alias",
+      }
+   },
 
-	FeatSelect = {
-		Window = {
-			Title = "Feats and Traits"
-		},
-		Caption = "Choose your feats wisely."
-	},
+   GenderSelect = {
+      Window = {
+         Title = "Gender Selection"
+      },
+      GenderTopic = "Gender",
+      Caption = "What's your gender?"
+   },
 
-	AppearanceSelect = {
-		Window = {
-			Title = "Appearance"
-		},
-		Caption = "What do you look like? Don't worry, you can change this later."
-	},
+   AttributeReroll = {
+      Window = {
+         Title = "Attb Reroll"
+      },
+      AttributeTopic = "Attributes",
+      AttributeInfo = "Locked items will not change.",
+      LockAmt = "Locks left",
+      Choice = {
+         Reroll = "Reroll",
+         Proceed = "Proceed",
+      },
+      Caption = "You should prepare well, if you want to survive long enough in Irva."
+   },
+
+   FeatSelect = {
+      Window = {
+         Title = "Feats and Traits"
+      },
+      Caption = "Choose your feats wisely."
+   },
+
+   AppearanceSelect = {
+      Window = {
+         Title = "Appearance"
+      },
+      Caption = "What do you look like? Don't worry, you can change this later."
+   },
 }

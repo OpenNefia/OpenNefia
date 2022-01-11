@@ -1,4 +1,5 @@
-﻿using OpenNefia.Content.Prototypes;
+﻿using OpenNefia.Content.Input;
+using OpenNefia.Content.Prototypes;
 using OpenNefia.Content.Skills;
 using OpenNefia.Content.UI;
 using OpenNefia.Content.UI.Element;
@@ -6,12 +7,15 @@ using OpenNefia.Content.UI.Element.Containers;
 using OpenNefia.Content.UI.Element.List;
 using OpenNefia.Core;
 using OpenNefia.Core.Audio;
+using OpenNefia.Core.Input;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Locale;
 using OpenNefia.Core.Log;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Random;
 using OpenNefia.Core.Rendering;
+using OpenNefia.Core.UI;
+using OpenNefia.Core.UI.Element;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,7 +38,7 @@ namespace OpenNefia.Content.CharaMake
 
             public sealed record ListChoice(AttributeRerollChoice Choice) : AttributeRerollData
             {
-                public override string Text => Loc.GetString($"Elona.CharaMake.AttributeReroll.{Choice}");
+                public override string Text => Loc.GetString($"Elona.CharaMake.AttributeReroll.Choice.{Choice}");
             }
             public sealed record Attribute(PrototypeId<SkillPrototype> Id) : AttributeRerollData
             {
@@ -68,7 +72,7 @@ namespace OpenNefia.Content.CharaMake
 
                 LockedText = new UiText(UiFonts.CharaMakeRerollLocked);
                 AmountText = new UiText(UiFonts.CharaMakeRerollAttrAmount);
-                LockedText.Text = Loc.GetString("Elona.CharaMake.AttributeReroll.Locked");
+                LockedText.Text = Loc.GetString("Elona.CharaMake.Common.Locked");
 
                 switch (data)
                 {
@@ -142,10 +146,30 @@ namespace OpenNefia.Content.CharaMake
                 Reroll(false);
                 return;
             }
+            Window.KeyHints = MakeKeyHints();
             Reset();
             Reroll(false);
+            OnKeyBindDown += HandleKeyBindDown;
             List.EventOnActivate += HandleListOnActivate;
             IsInitialized = true;
+        }
+
+        private void HandleKeyBindDown(GUIBoundKeyEventArgs args)
+        {
+            if (args.Function == ContentKeyFunctions.UIMode2)
+            {
+                Reroll(true);
+            }
+        }
+
+        public override List<UiKeyHint> MakeKeyHints()
+        {
+            var keyHints = base.MakeKeyHints();
+
+            keyHints.Add(new(UiKeyHints.Back, EngineKeyFunctions.UICancel));
+            keyHints.Add(new(new LocaleKey("Elona.CharaMake.AttributeReroll.Choice.Reroll"), ContentKeyFunctions.UIMode2));
+
+            return keyHints;
         }
 
         private void HandleListOnActivate(object? sender, UiListEventArgs<AttributeRerollData> args)

@@ -45,7 +45,7 @@ namespace OpenNefia.Content.CharaMake
             public CreateCharaAliasCell(CreateCharaAliasData data, string text)
                 : base(data, new UiText(UiFonts.ListTitleScreenText, text))
             {
-                LockedText = new UiText(UiFonts.CharaMakeRerollLocked, Loc.GetString("Elona.CharaMake.AttributeReroll.Locked"));
+                LockedText = new UiText(UiFonts.CharaMakeRerollLocked, Loc.GetString("Elona.CharaMake.Common.Locked"));
             }
 
             public override void SetPosition(int x, int y)
