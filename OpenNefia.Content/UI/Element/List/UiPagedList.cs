@@ -76,7 +76,10 @@ namespace OpenNefia.Content.UI.Element.List
         {
             var keyHints = base.MakeKeyHints();
 
-            keyHints.Add(new(UiKeyHints.Page, new[] { EngineKeyFunctions.UIPreviousPage, EngineKeyFunctions.UINextPage }));
+            if (PageCount > 0)
+            {
+                keyHints.Add(new(UiKeyHints.Page, new[] { EngineKeyFunctions.UIPreviousPage, EngineKeyFunctions.UINextPage }));
+            }
 
             return keyHints;
         }

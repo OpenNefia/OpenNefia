@@ -205,7 +205,6 @@ namespace OpenNefia.Content.Inventory
         {
             Context = context;
             Window.Title = Context.Behavior.WindowTitle;
-            Window.KeyHints = MakeKeyHints();
             CurrentIcon = Context.Behavior.MakeIcon();
 
             UpdateFiltering();
@@ -237,10 +236,9 @@ namespace OpenNefia.Content.Inventory
         {
             var keyHints = base.MakeKeyHints();
 
-            keyHints.AddRange(List.MakeKeyHints());
-
             keyHints.Add(new(UiKeyHints.KnownInfo, ContentKeyFunctions.UIIdentify));
             keyHints.Add(new(UiKeyHints.Mode, ContentKeyFunctions.UIMode));
+            keyHints.AddRange(List.MakeKeyHints());
             keyHints.Add(new(UiKeyHints.Close, EngineKeyFunctions.UICancel));
 
             if (Context.Behavior.EnableShortcuts)
@@ -397,6 +395,7 @@ namespace OpenNefia.Content.Inventory
             {
                 cell.RefreshFromItem(_entityManager);
             }
+            Window.KeyHints = MakeKeyHints();
         }
 
         public void RefreshList(InventoryRefreshListKind kind)

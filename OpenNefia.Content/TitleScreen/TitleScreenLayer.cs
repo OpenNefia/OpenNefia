@@ -140,7 +140,20 @@ namespace OpenNefia.Content.TitleScreen
             List = new UiList<TitleScreenChoice>(items);
             List.EventOnActivate += (_, evt) => RunTitleScreenAction(evt.SelectedCell.Data);
 
+            Window.KeyHints = MakeKeyHints();
+
             AddChildren();
+        }
+
+        public override List<UiKeyHint> MakeKeyHints()
+        {
+            var keyHints = base.MakeKeyHints();
+
+            keyHints.AddRange(List.MakeKeyHints());
+
+            keyHints.Add(new(UiKeyHints.Select, UiKeyNames.Cursor));
+
+            return keyHints;
         }
 
         public override void OnFocused()

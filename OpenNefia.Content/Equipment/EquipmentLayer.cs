@@ -228,6 +228,14 @@ namespace OpenNefia.Content.Equipment
             AddChild(List);
         }
 
+        public override void Initialize(Args args)
+        {
+            _equipee = args.Equipee;
+            _equipTarget = args.EquipTarget;
+
+            UpdateFromEquipTarget();
+        }
+
         public override void OnFocused()
         {
             base.OnFocused();
@@ -255,6 +263,18 @@ namespace OpenNefia.Content.Equipment
             {
                 // TODO resistance/detail views
             }
+        }
+
+        public override List<UiKeyHint> MakeKeyHints()
+        {
+            var keyHints = base.MakeKeyHints();
+
+            keyHints.Add(new(UiKeyHints.KnownInfo, ContentKeyFunctions.UIIdentify));
+            keyHints.Add(new(UiKeyHints.Mode, ContentKeyFunctions.UIMode));
+            keyHints.AddRange(List.MakeKeyHints());
+            keyHints.Add(new(UiKeyHints.Close, EngineKeyFunctions.UICancel));
+
+            return keyHints;
         }
 
         private void HandleListOnActivate(object? sender, UiListEventArgs<CellData> e)
@@ -319,14 +339,6 @@ namespace OpenNefia.Content.Equipment
             }
         }
 
-        public override void Initialize(Args args)
-        {
-            _equipee = args.Equipee;
-            _equipTarget = args.EquipTarget;
-
-            UpdateFromEquipTarget();
-        }
-
         private void UpdateFromEquipTarget()
         {
             var listData = BuildListData(_equipTarget);
@@ -335,6 +347,7 @@ namespace OpenNefia.Content.Equipment
             List.AddRange(listData.Select(d => new ListCell(d, _spriteBatch)));
 
             TextNoteEquipStats.Text = MakeEquipStatsText(_equipTarget);
+            Window.KeyHints = MakeKeyHints();
         }
 
         private IEnumerable<CellData> BuildListData(EntityUid equipTarget)
