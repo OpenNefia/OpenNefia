@@ -264,6 +264,9 @@ namespace OpenNefia.Tests
             container.Register<ITileDefinitionManagerInternal, TileDefinitionManager>();
             container.Register<ISaveGameSerializer, SaveGameSerializer>();
             container.Register<ISaveGameSerializerInternal, SaveGameSerializer>();
+            container.Register<ISaveGameManager, SaveGameManager>();
+            container.Register<ISaveGameManagerInternal, SaveGameManager>();
+            container.Register<IProfileManager, ProfileManager>();
             container.Register<IMapLoader, MapLoader>();
 
             _diFactory?.Invoke(container);

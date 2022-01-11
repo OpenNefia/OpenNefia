@@ -29,7 +29,7 @@ namespace OpenNefia.Tests.Core.Areas
 
 - type: Area
   id: {TestAreaID}
-  initialFloors:
+  floors:
     {TestMapFloor}: {TestMapID}
   startingFloor: {TestMapFloor}
 ";
