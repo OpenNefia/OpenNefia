@@ -187,6 +187,5 @@ entities:
     pos: 8,5
   - type: Stairs
     entrance:
-      mapIdSpecifier: !type:AreaFloorMapIdSpecifier
-        areaId: Elona.NorthTyris
-        floorId: Elona.NorthTyris
+      map: !type:GlobalAreaMapIdSpecifier
+        globalAreaId: Elona.NorthTyris

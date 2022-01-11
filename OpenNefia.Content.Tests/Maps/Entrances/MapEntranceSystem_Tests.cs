@@ -42,9 +42,10 @@ namespace OpenNefia.Content.Tests.Maps.Entrances
                 StartLocation = new SpecificMapLocation(startPos)
             };
 
-            var result = entranceSys.UseMapEntrance(ent, entrance);
+            var result = entranceSys.UseMapEntrance(ent, entrance, out var mapId);
 
             Assert.That(result, Is.EqualTo(TurnResult.Succeeded));
+            Assert.That(mapId, Is.EqualTo(map2.Id));
 
             var entSpatial = entMan.GetComponent<SpatialComponent>(ent);
             Assert.That(entSpatial.MapPosition, Is.EqualTo(map2.AtPos(12, 34)));

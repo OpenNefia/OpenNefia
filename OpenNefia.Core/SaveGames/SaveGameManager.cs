@@ -1,6 +1,7 @@
 ﻿using OpenNefia.Core.ContentPack;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Log;
+using OpenNefia.Core.Maps;
 using OpenNefia.Core.Profiles;
 using OpenNefia.Core.Serialization.Manager;
 using OpenNefia.Core.Serialization.Manager.Attributes;
@@ -56,6 +57,11 @@ namespace OpenNefia.Core.SaveGames
             Header = header;
 
             Files = new SaveGameDirProvider(tempDir, saveDir);
+        }
+
+        public override string ToString()
+        {
+            return $"Name={Header.Name}, SaveDirectory={SaveDirectory}";
         }
     }
 

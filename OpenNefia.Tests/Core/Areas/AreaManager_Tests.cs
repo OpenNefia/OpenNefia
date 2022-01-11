@@ -92,16 +92,24 @@ namespace OpenNefia.Tests.Core.Areas
 
             Assert.That(areaMan.AreaExists(area.Id), Is.True);
             Assert.That(area.ContainedMaps.Count, Is.EqualTo(0));
+            Assert.That(area.StartingFloor, Is.Null);
 
             var areaComp = entMan.GetComponent<AreaComponent>(area.AreaEntityUid);
             Assert.That(areaComp.AreaId, Is.EqualTo(area.Id));
-            Assert.That(areaComp.StartingFloor, Is.Null);
 
             var areaSpatialComp = entMan.GetComponent<SpatialComponent>(area.AreaEntityUid);
             Assert.That(areaSpatialComp.MapID, Is.EqualTo(MapId.Global));
 
             var globalMapEnt = mapMan.GetMap(MapId.Global).MapEntityUid;
             Assert.That(areaSpatialComp.ParentUid, Is.EqualTo(globalMapEnt));
+        }
+
+        [Test]
+        public void TestCreateArea_FromPrototype_Invalid()
+        {
+            var areaMan = IoCManager.Resolve<IAreaManager>();
+
+            Assert.Throws<ArgumentException>(() => areaMan.CreateArea(prototypeId: new("Dood")));
         }
 
         [Test]
@@ -113,8 +121,26 @@ namespace OpenNefia.Tests.Core.Areas
 
             Assert.That(areaMan.AreaExists(area.Id), Is.True);
             Assert.That(area.ContainedMaps.Count, Is.EqualTo(1));
+            Assert.That(area.GlobalId, Is.Null);
             Assert.That(area.ContainedMaps[TestMapFloor].MapId, Is.Null);
             Assert.That(area.ContainedMaps[TestMapFloor].DefaultGenerator, Is.EqualTo(TestMapID));
+        }
+
+        [Test]
+        public void TestCreateArea_WithGlobalID()
+        {
+            var areaMan = IoCManager.Resolve<IAreaManager>();
+
+            var globalId = new GlobalAreaId("Test.Area");
+            var area = areaMan.CreateArea(globalId: globalId);
+
+            Assert.That(areaMan.AreaExists(area.Id), Is.True);
+            Assert.That(areaMan.GlobalAreaExists(globalId), Is.True);
+
+            var found = areaMan.GetGlobalArea(globalId);
+            Assert.That(found.GlobalId, Is.EqualTo(globalId));
+
+            Assert.Throws<ArgumentException>(() => areaMan.CreateArea(globalId: globalId));
         }
 
         [Test]

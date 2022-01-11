@@ -16,23 +16,35 @@ namespace OpenNefia.Content.Maps
         [Dependency] private readonly IMapManager _mapManager = default!;
         [Dependency] private readonly ISaveGameManager _saveGameManager = default!;
 
-        public TurnResult UseMapEntrance(EntityUid user, MapEntrance entrance,
+        public bool UseMapEntrance(EntityUid user, MapEntrance entrance,
+            SpatialComponent? spatial = null)
+            => UseMapEntrance(user, entrance, out _, spatial);
+
+        public bool UseMapEntrance(EntityUid user, MapEntrance entrance, 
+            [NotNullWhen(true)] out MapId? mapId,
             SpatialComponent? spatial = null)
         {
+            mapId = null;
+
             if (!Resolve(user, ref spatial))
-                return TurnResult.Failed;
+                return false;
 
-            var destinationMapId = entrance.MapIdSpecifier.GetMapId();
+            mapId = entrance.MapIdSpecifier.GetMapId();
+            if (mapId == null)
+            {
+                Logger.WarningS("map.entrance", $"Failed to get map ID for entrance {entrance}!");
+                return false;
+            }
 
-            if (!TryMapLoad(destinationMapId, out var map))
-                return TurnResult.Failed;
+            if (!TryMapLoad(mapId.Value, out var map))
+                return false;
 
             var newPos = entrance.StartLocation.GetStartPosition(user, map)
                 .BoundWithin(map.Bounds);
 
             spatial.Coordinates = new EntityCoordinates(map.MapEntityUid, newPos);
 
-            return TurnResult.Succeeded;
+            return true;
         }
 
         /// <summary>

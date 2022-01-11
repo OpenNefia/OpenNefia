@@ -28,6 +28,9 @@ namespace OpenNefia.Content.Maps
 
         private void HandleExitMap(EntityUid playerUid, PlayerComponent component, ExitMapEventArgs args)
         {
+            if (args.Handled)
+                return;
+
             SpatialComponent? spatial = null;
             
             if (!Resolve(playerUid, ref spatial))
@@ -35,7 +38,9 @@ namespace OpenNefia.Content.Maps
 
             _sounds.Play(Protos.Sound.Exitmap1);
 
-            args.Handle(_mapEntrances.UseMapEntrance(playerUid, args.Entrance));
+            var turnResult = _mapEntrances.UseMapEntrance(playerUid, args.Entrance) 
+                ? TurnResult.Succeeded : TurnResult.Failed;
+            args.Handle(turnResult);
         }
 
         private void HandleEntityParentChanged(EntityUid uid, PlayerComponent component, ref EntityParentChangedEvent evt)

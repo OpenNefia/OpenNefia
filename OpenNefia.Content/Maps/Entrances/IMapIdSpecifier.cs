@@ -1,6 +1,7 @@
 ﻿using OpenNefia.Core.Areas;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
+using OpenNefia.Core.Log;
 using OpenNefia.Core.Maps;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Serialization.Manager.Attributes;
@@ -15,46 +16,15 @@ namespace OpenNefia.Content.Maps
     [ImplicitDataDefinitionForInheritors]
     public interface IMapIdSpecifier
     {
-        public MapId GetMapId();
+        public MapId? GetMapId();
     }
 
-    public class PrototypeMapIdSpecifier : IMapIdSpecifier
+    public class NullMapIdSpecifier : IMapIdSpecifier
     {
-        [Dependency] private readonly IMapLoader _mapLoader = default!;
-        [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-
-        [DataField]
-        public MapId? MapId { get; set; }
-
-        [DataField]
-        public PrototypeId<MapPrototype> MapGenerator { get; set; } = new("Blank");
-
-        [DataField]
-        public AreaId AreaId { get; set; }
-
-        [DataField]
-        public AreaFloorId FloorId { get; set; }
-
-        public PrototypeMapIdSpecifier()
+        public MapId? GetMapId()
         {
-        }
-
-        public PrototypeMapIdSpecifier(PrototypeId<MapPrototype> mapGenerator)
-        {
-            MapGenerator = mapGenerator;
-        }
-
-        public MapId GetMapId()
-        {
-            EntitySystem.InjectDependencies(this);
-
-            if (MapId == null)
-            {
-                var proto = _prototypeManager.Index(MapGenerator);
-                MapId = _mapLoader.LoadBlueprint(proto.BlueprintPath).Id;
-            }
-
-            return MapId.Value;
+            Logger.WarningS("area.mapIds", "No map ID specifier provided.");
+            return null;
         }
     }
 
@@ -72,7 +42,7 @@ namespace OpenNefia.Content.Maps
             MapId = mapId;
         }
 
-        public MapId GetMapId() => MapId;
+        public MapId? GetMapId() => MapId;
     }
 
     public class AreaFloorMapIdSpecifier : IMapIdSpecifier
@@ -87,11 +57,54 @@ namespace OpenNefia.Content.Maps
         [DataField]
         public AreaFloorId FloorId { get; set; }
 
-        public MapId GetMapId()
+        public MapId? GetMapId()
         {
             EntitySystem.InjectDependencies(this);
 
             var floor = _areaManager.GetArea(AreaId).ContainedMaps[FloorId];
+
+            if (floor.MapId == null)
+            {
+                var proto = _prototypeManager.Index(floor.DefaultGenerator);
+                floor.MapId = _mapLoader.LoadBlueprint(proto.BlueprintPath).Id;
+            }
+
+            return floor.MapId.Value;
+        }
+    }
+
+    public class GlobalAreaMapIdSpecifier : IMapIdSpecifier
+    {
+        [Dependency] private readonly IAreaManager _areaManager = default!;
+        [Dependency] private readonly IMapLoader _mapLoader = default!;
+        [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
+
+        [DataField(required: true)]
+        public GlobalAreaId GlobalAreaId { get; set; }
+
+        [DataField]
+        public AreaFloorId? FloorId { get; set; }
+
+        public MapId? GetMapId()
+        {
+            EntitySystem.InjectDependencies(this);
+
+            var area = _areaManager.GetGlobalArea(GlobalAreaId);
+            var startingFloor = FloorId.HasValue ? FloorId.Value : area.StartingFloor;
+
+            if (startingFloor == null)
+            {
+                Logger.ErrorS("area.mapIds", $"Area {GlobalAreaId} has no starting floor!");
+                return null;
+            }
+
+            // TODO: maybe change this for dungeons?
+            // or have a DungeonMapIdSpecifier that autopopulates the given area with a new floor?
+            if (!area.ContainedMaps.TryGetValue(startingFloor.Value, out var floor))
+            {
+                Logger.ErrorS("area.mapIds", $"Area {GlobalAreaId} is missing floor {floor}!");
+                return null;
+            }
 
             if (floor.MapId == null)
             {

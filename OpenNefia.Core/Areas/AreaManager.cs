@@ -19,7 +19,8 @@ namespace OpenNefia.Core.Areas
 
         event ActiveAreaChangedDelegate? ActiveAreaChanged;
 
-        IArea CreateArea(PrototypeId<AreaPrototype>? prototypeId = null);
+        bool AreaExists(AreaId areaId);
+        IArea CreateArea(PrototypeId<AreaPrototype>? prototypeId = null, GlobalAreaId? globalId = null);
         bool TryGetArea(AreaId areaId, [NotNullWhen(true)] out IArea? area);
         IArea GetArea(AreaId areaId);
         void DeleteArea(AreaId areaID);
@@ -28,7 +29,10 @@ namespace OpenNefia.Core.Areas
         void RegisterAreaFloor(IArea area, AreaFloorId floorId, MapId mapId);
         void RegisterAreaFloor(IArea area, AreaFloorId floorId, AreaFloor areaFloor);
         void UnregisterAreaFloor(IArea area, AreaFloorId floorId);
-        bool AreaExists(AreaId areaId);
+
+        bool GlobalAreaExists(GlobalAreaId globalId);
+        IArea GetGlobalArea(GlobalAreaId globalId);
+        bool TryGetGlobalArea(GlobalAreaId globalId, [NotNullWhen(true)] out IArea? area);
     }
 
     internal interface IAreaManagerInternal : IAreaManager
@@ -118,8 +122,13 @@ namespace OpenNefia.Core.Areas
         }
 
         /// <inheritdoc/>
-        public IArea CreateArea(PrototypeId<AreaPrototype>? prototypeId = null)
+        public IArea CreateArea(PrototypeId<AreaPrototype>? prototypeId = null, GlobalAreaId? globalId = null)
         {
+            if (prototypeId != null && !_prototypeManager.HasIndex(prototypeId.Value))
+                throw new ArgumentException($"Prototype with ID '{prototypeId}' does not exist.", nameof(prototypeId));
+            if (globalId != null && GlobalAreaExists(globalId.Value))
+                throw new ArgumentException($"Area with global ID '{globalId}' already exists.", nameof(globalId));
+
             var actualID = GenerateAreaId();
 
             var area = new Area();
@@ -134,7 +143,12 @@ namespace OpenNefia.Core.Areas
                 {
                     RegisterAreaFloor(area, floorId, new AreaFloor(initialMap));
                 }
-                _entityManager.GetComponent<AreaComponent>(area.AreaEntityUid).StartingFloor = proto.StartingFloor;
+                area.StartingFloor = proto.StartingFloor;
+            }
+
+            if (globalId != null)
+            {
+                area.GlobalId = globalId.Value;
             }
 
             return area;

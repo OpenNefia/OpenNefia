@@ -16,7 +16,19 @@ namespace OpenNefia.Core.Areas
         [DataField("id", required: true)]
         public string ID { get; } = default!;
 
-        [DataField("initialFloors")]
+        /// <summary>
+        /// If true, automatically register a global area with the same ID as 
+        /// this prototype's ID when starting a new save.
+        /// </summary>
+        /// <remarks>
+        /// TODO: Needs to be compatible with scenarios having their own area sets.
+        /// This will probably become a HashSet of PrototypeIds in a future ScenarioPrototype.
+        /// </remarks>
+        [DataField]
+        public bool CreateGlobal { get; } = false;
+
+        // TODO map generators/extra initialization things instead of prototype ID
+        [DataField("floors")]
         private readonly Dictionary<AreaFloorId, PrototypeId<MapPrototype>> _initialFloors = new();
 
         public IReadOnlyDictionary<AreaFloorId, PrototypeId<MapPrototype>> InitialFloors => _initialFloors;

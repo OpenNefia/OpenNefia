@@ -179,8 +179,11 @@ entities:
     pos: 26,23
   - type: Chip
     id: Elona.FeatAreaCity
-  - type: MapEntrance
-    mapPrototype: Elona.Vernis
+  - type: WorldMapEntrance
+    entrance:
+      map: !type:GlobalAreaMapIdSpecifier
+        globalAreaId: Elona.Vernis
+      startLocation: !type:MapEdgesLocation {}
 - uid: 2
   protoId: Elona.FeatMapEntrance
   components:
@@ -189,8 +192,11 @@ entities:
     pos: 3,15
   - type: Chip
     id: Elona.FeatAreaCity
-  - type: MapEntrance
-    mapPrototype: Elona.PortKapul
+  - type: WorldMapEntrance
+    entrance:
+      map: !type:GlobalAreaMapIdSpecifier
+        globalAreaId: Elona.PortKapul
+      startLocation: !type:MapEdgesLocation {}
 - uid: 3
   protoId: Elona.FeatMapEntrance
   components:
@@ -199,8 +205,11 @@ entities:
     pos: 43,32
   - type: Chip
     id: Elona.FeatAreaVillage
-  - type: MapEntrance
-    mapPrototype: Elona.Yowyn
+  - type: WorldMapEntrance
+    entrance:
+      map: !type:GlobalAreaMapIdSpecifier
+        globalAreaId: Elona.Yowyn
+      startLocation: !type:MapEdgesLocation {}
 - uid: 4
   protoId: Elona.FeatMapEntrance
   components:
@@ -209,8 +218,11 @@ entities:
     pos: 14,35
   - type: Chip
     id: Elona.FeatAreaVillage
-  - type: MapEntrance
-    mapPrototype: Elona.Derphy
+  - type: WorldMapEntrance
+    entrance:
+      map: !type:GlobalAreaMapIdSpecifier
+        globalAreaId: Elona.Derphy
+      startLocation: !type:MapEdgesLocation {}
 - uid: 5
   protoId: Elona.FeatMapEntrance
   components:
@@ -219,8 +231,11 @@ entities:
     pos: 53,24
   - type: Chip
     id: Elona.FeatAreaPalace
-  - type: MapEntrance
-    mapPrototype: Elona.Palmia
+  - type: WorldMapEntrance
+    entrance:
+      map: !type:GlobalAreaMapIdSpecifier
+        globalAreaId: Elona.Palmia
+      startLocation: !type:MapEdgesLocation {}
 - uid: 6
   protoId: Elona.FeatMapEntrance
   components:
@@ -229,8 +244,11 @@ entities:
     pos: 89,14
   - type: Chip
     id: Elona.FeatAreaVillageSnow
-  - type: MapEntrance
-    mapPrototype: Elona.Noyel
+  - type: WorldMapEntrance
+    entrance:
+      map: !type:GlobalAreaMapIdSpecifier
+        globalAreaId: Elona.Noyel
+      startLocation: !type:MapEdgesLocation {}
 - uid: 7
   protoId: Elona.FeatMapEntrance
   components:
@@ -239,6 +257,9 @@ entities:
     pos: 61,32
   - type: Chip
     id: Elona.FeatAreaCity
-  - type: MapEntrance
-    mapPrototype: Elona.Lumiest
+  - type: WorldMapEntrance
+    entrance:
+      map: !type:GlobalAreaMapIdSpecifier
+        globalAreaId: Elona.Lumiest
+      startLocation: !type:MapEdgesLocation {}
 ...

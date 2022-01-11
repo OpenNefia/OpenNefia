@@ -56,12 +56,13 @@ namespace OpenNefia.Content.Maps
 
             _sounds.Play(Protos.Sound.Exitmap1);
 
-            var turnResult = _mapEntrances.UseMapEntrance(user, worldMapEntrance.Entrance);
+            if (_mapEntrances.UseMapEntrance(user, worldMapEntrance.Entrance, out var mapId))
+            {
+                _mapEntrances.SetPreviousMap(mapId.Value, prevCoords);
+                return TurnResult.Succeeded;
+            }
 
-            var mapId = worldMapEntrance.Entrance.MapIdSpecifier.GetMapId();
-            _mapEntrances.SetPreviousMap(mapId, prevCoords);
-
-            return turnResult;
+            return TurnResult.Failed;
         }
     }
 
