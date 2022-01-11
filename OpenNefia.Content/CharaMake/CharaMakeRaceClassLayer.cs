@@ -160,7 +160,7 @@ namespace OpenNefia.Content.CharaMake
 
             public string GetName()
             {
-                return (IsExtra ? $"{Loc.GetString("Elona.CharaMake.Extra")}" : string.Empty) + EnsureString("Name");
+                return (IsExtra ? $"{Loc.GetString("Elona.CharaMake.ClassAndRaceSelect.Extra")}" : string.Empty) + EnsureString("Name");
             }
 
             public IReadOnlyDictionary<PrototypeId<SkillPrototype>, int> GetSkills()
@@ -348,7 +348,7 @@ namespace OpenNefia.Content.CharaMake
             }
             if (profs.Count > 0)
             {
-                var profDesc = $"{Loc.GetString("Elona.CharaMake.ProficientIn")} {string.Join(',', profs)}";
+                var profDesc = $"{Loc.GetString("Elona.CharaMake.ClassAndRaceSelect.ProficientIn")} {string.Join(',', profs)}";
                 list.Insert(0, MakeSkillContainer("Elona.StatStrength", profDesc));
             }
 
