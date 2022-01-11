@@ -11,7 +11,18 @@ namespace OpenNefia.Content.UI.Element
     public class UiWindow : UiElement
     {
         public bool HasShadow { get; }
-        public List<UiKeyHint> KeyHints { get; }
+
+        private IList<UiKeyHint> _keyHints = new List<UiKeyHint>();
+        public IList<UiKeyHint> KeyHints
+        {
+            get => _keyHints;
+            set
+            {
+                _keyHints = value;
+                RebuildKeyHintText();
+            }
+        }
+
         public int KeyHintXOffset { get; set; }
         public int YOffset { get; }
         public bool HasTitle => TextTitle.Text != string.Empty;
@@ -48,115 +59,122 @@ namespace OpenNefia.Content.UI.Element
             if (keyHints == null)
                 keyHints = new List<UiKeyHint>();
 
-            this.HasShadow = hasShadow;
-            this.KeyHints = keyHints;
-            this.KeyHintXOffset = keyHintXOffset;
-            this.YOffset = yOffset;
+            HasShadow = hasShadow;
+            _keyHints = keyHints;
+            KeyHintXOffset = keyHintXOffset;
+            YOffset = yOffset;
 
-            this.AssetTipIcons = Assets.Get(Protos.Asset.TipIcons);
+            AssetTipIcons = Assets.Get(Protos.Asset.TipIcons);
 
-            this.TextTitle = new UiTextOutlined(this.FontWindowTitle);
-            this.TextKeyHint = new UiText(this.FontWindowKeyHints, "(key hints)");
+            TextTitle = new UiTextOutlined(FontWindowTitle);
+            TextKeyHint = new UiText(FontWindowKeyHints);
 
-            this.Window = new UiWindowBacking();
-            this.WindowShadow = new UiWindowBacking(UiWindowBacking.WindowBackingType.Shadow);
-            this.TopicWindow = new UiTopicWindow();
+            Window = new UiWindowBacking();
+            WindowShadow = new UiWindowBacking(UiWindowBacking.WindowBackingType.Shadow);
+            TopicWindow = new UiTopicWindow();
 
             AddChild(TextTitle);
             AddChild(TextKeyHint);
+
+            RebuildKeyHintText();
+        }
+
+        private void RebuildKeyHintText()
+        {
+            TextKeyHint.Text = UserInterfaceManager.FormatKeyHints(KeyHints);
         }
 
         public override void SetPosition(int x, int y)
         {
             base.SetPosition(x, y);
 
-            if (this.HasShadow)
-                this.WindowShadow.SetPosition(this.X + 4, this.Y + 4);
+            if (HasShadow)
+                WindowShadow.SetPosition(X + 4, Y + 4);
 
-            this.Window.SetPosition(x, y);
+            Window.SetPosition(x, y);
 
-            if (this.HasTitle)
+            if (HasTitle)
             {
-                this.TextTitle.SetPosition(x + 45 * this.Width / 200 + 34 - this.TextTitle.Width / 2 
-                    + Math.Clamp(this.TextTitle.Width - 120, 0, 200) / 2, this.Y + 4);
-                this.TopicWindow.SetPosition(x + 34, y - 4);
+                TextTitle.SetPosition(x + 45 * Width / 200 + 34 - TextTitle.Width / 2 
+                    + Math.Clamp(TextTitle.Width - 120, 0, 200) / 2, Y + 4);
+                TopicWindow.SetPosition(x + 34, y - 4);
             }
 
-            this.TextKeyHint.SetPosition(x + 58 + this.KeyHintXOffset, y + this.Height - 43 - this.Height % 8);
+            TextKeyHint.SetPosition(x + 58 + KeyHintXOffset, y + Height - 43 - Height % 8);
         }
 
         public override void SetSize(int width, int height)
         {
             base.SetSize(width, height);
 
-            if (this.HasShadow)
-                this.WindowShadow.SetSize(this.Width, this.Height);
+            if (HasShadow)
+                WindowShadow.SetSize(Width, Height);
 
-            this.Window.SetSize(this.Width, this.Height);
+            Window.SetSize(Width, Height);
 
-            if (this.HasTitle)
+            if (HasTitle)
             {
-                this.TextTitle.SetPreferredSize();
-                this.TopicWindow.SetSize(45 * this.Width / 100 + Math.Clamp(this.TextTitle.Width - 120, 0, 200), 32);
+                TextTitle.SetPreferredSize();
+                TopicWindow.SetSize(45 * Width / 100 + Math.Clamp(TextTitle.Width - 120, 0, 200), 32);
             }
 
-            this.TextKeyHint.SetPreferredSize();
+            TextKeyHint.SetPreferredSize();
         }
 
         public override void Update(float dt)
         {
-            this.Window.Update(dt);
-            this.WindowShadow.Update(dt);
-            this.TopicWindow.Update(dt);
-            this.TextTitle?.Update(dt);
-            this.TextKeyHint.Update(dt);
+            Window.Update(dt);
+            WindowShadow.Update(dt);
+            TopicWindow.Update(dt);
+            TextTitle?.Update(dt);
+            TextKeyHint.Update(dt);
         }
 
         public override void Draw()
         {
-            if (this.HasShadow)
+            if (HasShadow)
             {
                 GraphicsEx.SetColor(255, 255, 255, 80);
                 Love.Graphics.SetBlendMode(Love.BlendMode.Subtract);
-                this.WindowShadow.Draw();
+                WindowShadow.Draw();
                 Love.Graphics.SetBlendMode(Love.BlendMode.Alpha);
             }
 
             GraphicsEx.SetColor(Color.White);
-            this.Window.Draw();
+            Window.Draw();
 
-            this.AssetTipIcons.DrawRegion("1", this.X + 30 + this.KeyHintXOffset, this.Y + this.Height - 47 - this.Height % 8);
+            AssetTipIcons.DrawRegion("1", X + 30 + KeyHintXOffset, Y + Height - 47 - Height % 8);
 
-            if (this.HasTitle)
+            if (HasTitle)
             {
-                this.TopicWindow.Draw();
-                this.TextTitle.Draw();
+                TopicWindow.Draw();
+                TextTitle.Draw();
             }
 
-            GraphicsEx.SetColor(this.ColorBottomLine1);
+            GraphicsEx.SetColor(ColorBottomLine1);
             Love.Graphics.Line(
-                this.X + 50 + this.KeyHintXOffset,
-                this.Y + this.Height - 48 - this.Height % 8,
-                this.X + this.Width - 40,
-                this.Y + this.Height - 48 - this.Height % 8);
+                X + 50 + KeyHintXOffset,
+                Y + Height - 48 - Height % 8,
+                X + Width - 40,
+                Y + Height - 48 - Height % 8);
 
-            GraphicsEx.SetColor(this.ColorBottomLine2);
+            GraphicsEx.SetColor(ColorBottomLine2);
             Love.Graphics.Line(
-                this.X + 50 + this.KeyHintXOffset,
-                this.Y + this.Height - 49 - this.Height % 8,
-                this.X + this.Width - 40,
-                this.Y + this.Height - 49 - this.Height % 8);
+                X + 50 + KeyHintXOffset,
+                Y + Height - 49 - Height % 8,
+                X + Width - 40,
+                Y + Height - 49 - Height % 8);
 
-            this.TextKeyHint.Draw();
+            TextKeyHint.Draw();
         }
 
         public override void Dispose()
         {
-            this.TextTitle?.Dispose();
-            this.TextKeyHint.Dispose();
-            this.Window.Dispose();
-            this.WindowShadow.Dispose();
-            this.TopicWindow.Dispose();
+            TextTitle?.Dispose();
+            TextKeyHint.Dispose();
+            Window.Dispose();
+            WindowShadow.Dispose();
+            TopicWindow.Dispose();
         }
     }
 }

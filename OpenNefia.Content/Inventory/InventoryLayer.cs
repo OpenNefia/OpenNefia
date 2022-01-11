@@ -205,6 +205,7 @@ namespace OpenNefia.Content.Inventory
         {
             Context = context;
             Window.Title = Context.Behavior.WindowTitle;
+            Window.KeyHints = MakeKeyHints();
             CurrentIcon = Context.Behavior.MakeIcon();
 
             UpdateFiltering();
@@ -230,6 +231,26 @@ namespace OpenNefia.Content.Inventory
             {
                 Context.Behavior.OnKeyBindDown(this, args);
             }
+        }
+
+        public override List<UiKeyHint> MakeKeyHints()
+        {
+            var keyHints = base.MakeKeyHints();
+
+            keyHints.AddRange(List.MakeKeyHints());
+
+            keyHints.Add(new(UiKeyHints.KnownInfo, ContentKeyFunctions.UIIdentify));
+            keyHints.Add(new(UiKeyHints.Mode, ContentKeyFunctions.UIMode));
+            keyHints.Add(new(UiKeyHints.Close, EngineKeyFunctions.UICancel));
+
+            if (Context.Behavior.EnableShortcuts)
+            {
+                keyHints.Add(new(UiKeyHints.Shortcut, UiKeyNames.Shortcut));
+            }
+
+            keyHints.AddRange(Context.Behavior.MakeKeyHints());
+
+            return keyHints;
         }
 
         private void ShowItemDescription()

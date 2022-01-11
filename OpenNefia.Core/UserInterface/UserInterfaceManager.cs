@@ -24,6 +24,7 @@ namespace OpenNefia.Core.UserInterface
         [Dependency] private readonly IGameController _gameController = default!;
         [Dependency] private readonly IInputManager _inputManager = default!;
         [Dependency] private readonly IGraphics _graphics = default!;
+        [Dependency] private readonly ILocalizationManager _loc = default!;
 
         /// <inheritdoc/>
         public UiElement? KeyboardFocused { get; private set; }
@@ -171,6 +172,39 @@ namespace OpenNefia.Core.UserInterface
             }
 
             return false;
+        }
+
+        public string FormatKeyHints(IEnumerable<UiKeyHint> keyHints)
+        {
+            var result = new StringBuilder();
+
+            foreach (var keyHint in keyHints)
+            {
+                var keyHintStr = new StringBuilder();
+
+                string keyNamesStr;
+
+                if (keyHint.KeybindNamesText != null)
+                {
+                    keyNamesStr = keyHint.KeybindNamesText;
+                }
+                else
+                {
+                    var keyNames = keyHint.KeyFunctions
+                        .Select(func => _inputManager.GetKeyFunctionButtonString(func));
+                    keyNamesStr = String.Join(',', keyNames);
+                }
+
+                if (string.IsNullOrEmpty(keyNamesStr))
+                    keyNamesStr = "???";
+
+                result.Append($"{keyNamesStr} [{keyHint.ActionText}] ");
+
+                if (!_loc.IsFullwidth())
+                    result.Append(" ");
+            }
+
+            return result.ToString().TrimEnd();
         }
     }
 }

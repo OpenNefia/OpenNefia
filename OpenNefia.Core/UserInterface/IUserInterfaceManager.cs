@@ -38,6 +38,8 @@ namespace OpenNefia.Core.UserInterface
         void GrabKeyboardFocus(UiElement control);
         void ReleaseKeyboardFocus(UiElement control);
 
+        string FormatKeyHints(IEnumerable<UiKeyHint> keyHints);
+
         void DrawLayers();
         bool IsQuerying(UiLayer layer);
         void PopLayer(UiLayer layer);

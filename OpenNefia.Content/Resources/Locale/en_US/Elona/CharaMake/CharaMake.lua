@@ -46,7 +46,10 @@
 		},
 		Reroll = "Reroll",
 		AliasTopic = "Alias List",
-		Caption = "Choose your Alias."
+		Caption = "Choose your Alias.",
+        KeyHints = {
+           LockAlias = "Lock Alias",
+        }
 	},
 
 	GenderSelect = {

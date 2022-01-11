@@ -6,6 +6,7 @@ using OpenNefia.Core.IoC;
 using OpenNefia.Core.Locale;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Rendering;
+using OpenNefia.Core.UI;
 using OpenNefia.Core.UI.Element;
 using System;
 using System.Collections.Generic;
@@ -66,6 +67,11 @@ namespace OpenNefia.Content.Inventory
 
         public virtual void OnKeyBindDown(IInventoryLayer layer, GUIBoundKeyEventArgs args)
         {
+        }
+
+        public virtual List<UiKeyHint> MakeKeyHints()
+        {
+            return new List<UiKeyHint>();
         }
 
         public bool CheckNoDropAndMessage(EntityUid item)

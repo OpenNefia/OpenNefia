@@ -3,10 +3,13 @@ using OpenNefia.Content.RandomText;
 using OpenNefia.Content.UI;
 using OpenNefia.Content.UI.Element;
 using OpenNefia.Content.UI.Element.List;
+using OpenNefia.Core;
 using OpenNefia.Core.Audio;
+using OpenNefia.Core.Input;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Locale;
 using OpenNefia.Core.Rendering;
+using OpenNefia.Core.UI;
 using OpenNefia.Core.UI.Element;
 using System;
 using System.Collections.Generic;
@@ -94,9 +97,20 @@ namespace OpenNefia.Content.CharaMake
             }
         }
 
+        public override List<UiKeyHint> MakeKeyHints()
+        {
+            var keyHints = base.MakeKeyHints();
+
+            keyHints.Add(new(UiKeyHints.Back, EngineKeyFunctions.UICancel));
+            keyHints.Add(new(new LocaleKey("Elona.CharaMake.AliasSelect.KeyHints.LockAlias"), ContentKeyFunctions.UIMode2));
+
+            return keyHints;
+        }
+
         public override void Initialize(CharaMakeData args)
         {
             base.Initialize(args);
+            Window.KeyHints = MakeKeyHints();
             Reroll();
         }
 

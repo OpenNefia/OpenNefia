@@ -1,6 +1,7 @@
 ﻿using OpenNefia.Core.Locale;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using static OpenNefia.Core.Input.Mouse;
 
 namespace OpenNefia.Core.Input
@@ -452,24 +453,41 @@ namespace OpenNefia.Core.Input
         /// <summary>
         ///     Gets a "nice" version of special unprintable keys such as <see cref="Key.Escape"/>.
         /// </summary>
-        /// <returns><see langword="null"/> if there is no nice version of this special key.</returns>
-        internal static string? GetSpecialKeyName(Key key, ILocalizationManager loc)
+        /// <returns><see langword="false"/> if there is no nice version of this special key.</returns>
+        internal static bool TryGetSpecialKeyName(Key key, ILocalizationManager loc, [NotNullWhen(true)] out string? name)
         {
-            var locId = $"input-key-{key}";
-            if (key == Key.LGUI || key == Key.RGUI)
+            string keyName;
+            switch (key)
             {
-                if (OperatingSystem.IsWindows())
-                    locId += "-win";
-                else if (OperatingSystem.IsMacOS())
-                    locId += "-mac";
-                else
-                    locId += "-linux";
+                case Key.LCtrl:
+                case Key.RCtrl:
+                    keyName = "Control";
+                    break;
+                case Key.LAlt:
+                case Key.RAlt:
+                    keyName = "Alt";
+                    break;
+                case Key.LShift:
+                case Key.RShift:
+                    keyName = "Shift";
+                    break;
+                case Key.LGUI:
+                case Key.RGUI:
+                    keyName = key.ToString();
+                    if (OperatingSystem.IsWindows())
+                        keyName += "_Win";
+                    else if (OperatingSystem.IsMacOS())
+                        keyName += "_Mac";
+                    else
+                        keyName += "_Linux";
+                    break;
+                default:
+                    keyName = key.ToString();
+                    break;
             }
 
-            if (loc.TryGetString(locId, out var name))
-                return name;
-
-            return loc.GetString("input-key-unknown");
+            var locId = $"OpenNefia.Input.Keys.{keyName}";
+            return loc.TryGetString(locId, out name);
         }
     }
 }
