@@ -44,7 +44,7 @@ namespace OpenNefia.Content.Tests.Maps.Entrances
 
             var result = entranceSys.UseMapEntrance(ent, entrance, out var mapId);
 
-            Assert.That(result, Is.EqualTo(TurnResult.Succeeded));
+            Assert.That(result, Is.True);
             Assert.That(mapId, Is.EqualTo(map2.Id));
 
             var entSpatial = entMan.GetComponent<SpatialComponent>(ent);
