@@ -1,4 +1,5 @@
-﻿using OpenNefia.Core.UI;
+﻿using OpenNefia.Core.GameObjects;
+using OpenNefia.Core.UI;
 using OpenNefia.Core.UI.Layer;
 using System;
 using System.Collections.Generic;
@@ -19,6 +20,6 @@ namespace OpenNefia.Content.CharaMake
 
     public interface ICharaMakeLayer : IUiLayerWithResult<CharaMakeData, CharaMakeResult>
     {
-        void ApplyStep();
+        void ApplyStep(EntityUid entity);
     }
 }
