@@ -916,29 +916,29 @@ namespace OpenNefia.Core.Input
 
                     if (Mode == KeyRepeatMode.Movement)
                     {
-                        WaitRemain = 0;
-                        Delay = 0.4f;
+                        WaitRemain = 1;
                     }
                     else if (Mode == KeyRepeatMode.UserInterface)
                     {
-                        WaitRemain = 3;
-                        Delay = 2f;
+                        WaitRemain = 2;
                     }
                     else
                     {
-                        WaitRemain = 0;
-                        Delay = 0.6f;
+                        WaitRemain = 1;
                     }
                 }
 
-                WaitRemain--;
                 if (WaitRemain <= 0)
                 {
                     if (Mode == KeyRepeatMode.Movement)
                     {
-                        Delay = 0.1f;
+                        Delay = 0.02f;
                     }
                     else if (Mode == KeyRepeatMode.UserInterface)
+                    {
+                        Delay = 0.02f;
+                    }
+                    else
                     {
                         Delay = 0.02f;
                     }
@@ -953,11 +953,11 @@ namespace OpenNefia.Core.Input
                     // TODO
                     if (Mode == KeyRepeatMode.Movement)
                     {
-                        Delay = 0.1f;
+                        Delay = 0.5f;
                     }
                     else if (Mode == KeyRepeatMode.UserInterface)
                     {
-                        Delay = 0.02f;
+                        Delay = 2f;
                     }
                     else
                     {
@@ -966,8 +966,20 @@ namespace OpenNefia.Core.Input
                 }
                 else
                 {
-                    Delay = 0.2f;
+                    if (Mode == KeyRepeatMode.Movement)
+                    {
+                        Delay = 0.5f;
+                    }
+                    else if (Mode == KeyRepeatMode.UserInterface)
+                    {
+                        Delay = 0.2f;
+                    }
+                    else
+                    {
+                        Delay = 0.6f;
+                    }
                 }
+                WaitRemain--;
                 IsPressed = false;
 
                 return IsRepeating;
