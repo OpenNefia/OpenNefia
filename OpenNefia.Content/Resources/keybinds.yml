@@ -4,94 +4,94 @@ binds:
   type: State
   key: Up
   canRepeat: true
-  repeatMode: None
+  repeatMode: Movement
 - function: South
   type: State
   key: Down
   canRepeat: true
-  repeatMode: None
+  repeatMode: Movement
 - function: West
   type: State
   key: Left
   canRepeat: true
-  repeatMode: None
+  repeatMode: Movement
 - function: East
   type: State
   key: Right
   canRepeat: true
-  repeatMode: None
+  repeatMode: Movement
 - function: Wait
   type: State
   key: Period
   canRepeat: true
-  repeatMode: None
+  repeatMode: Movement
 
 - function: North
   type: State
   key: Numpad8
   canRepeat: true
-  repeatMode: None
+  repeatMode: Movement
 - function: South
   type: State
   key: Numpad2
   canRepeat: true
-  repeatMode: None
+  repeatMode: Movement
 - function: West
   type: State
   key: Numpad4
   canRepeat: true
-  repeatMode: None
+  repeatMode: Movement
 - function: East
   type: State
   key: Numpad6
   canRepeat: true
-  repeatMode: None
+  repeatMode: Movement
 - function: Northwest
   type: State
   key: Numpad7
   canRepeat: true
-  repeatMode: None
+  repeatMode: Movement
 - function: Southwest
   type: State
   key: Numpad1
   canRepeat: true
-  repeatMode: None
+  repeatMode: Movement
 - function: Northeast
   type: State
   key: Numpad9
   canRepeat: true
-  repeatMode: None
+  repeatMode: Movement
 - function: Southeast
   type: State
   key: Numpad3
   canRepeat: true
-  repeatMode: None
+  repeatMode: Movement
 - function: Wait
   type: State
   key: NumpadPeriod
   canRepeat: true
-  repeatMode: None
+  repeatMode: Movement
 
 - function: North
   type: State
   key: GamepadDPadUp
   canRepeat: true
-  repeatMode: None
+  repeatMode: Movement
 - function: South
   type: State
   key: GamepadDPadDown
   canRepeat: true
-  repeatMode: None
+  repeatMode: Movement
 - function: West
   type: State
   key: GamepadDPadLeft
   canRepeat: true
-  repeatMode: None
+  repeatMode: Movement
 - function: East
   type: State
   key: GamepadDPadRight
   canRepeat: true
-  repeatMode: None
+  repeatMode: Movement
 
 - function: Elona.Ascend
   type: State
