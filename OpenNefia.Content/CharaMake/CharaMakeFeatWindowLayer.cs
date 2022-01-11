@@ -28,10 +28,11 @@ namespace OpenNefia.Content.CharaMake
         private void AddFeat(FeatWindow.FeatNameAndDesc.Feat feat)
         {
             FeatCount--;
-            SelectedFeats.TryGetValue(feat.Prototype.GetStrongID(), out var level);
-            SelectedFeats[feat.Prototype.GetStrongID()] = level + 1;
+            var protoId = feat.Prototype.GetStrongID();
+            SelectedFeats.TryGetValue(protoId, out var level);
+            SelectedFeats[protoId] = level + 1;
 
-            if (FeatCount == 0)
+            if (FeatCount <= 0)
             {
                 Finish(new CharaMakeResult(new Dictionary<string, object>
                 {

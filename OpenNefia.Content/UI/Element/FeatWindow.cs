@@ -15,6 +15,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Color = OpenNefia.Core.Maths.Color;
 
 namespace OpenNefia.Content.UI.Element
 {
@@ -24,7 +25,7 @@ namespace OpenNefia.Content.UI.Element
         {
             public virtual string Name { get; } = "";
             public virtual string Description { get; } = "";
-            public virtual Core.Maths.Color Color { get; } = Core.Maths.Color.Black;
+            public virtual Color Color { get; } = Color.Black;
             public record Feat(FeatPrototype Prototype, int Level) : FeatNameAndDesc
             {
                 public virtual int TotalLevel => Level + 1;
@@ -32,7 +33,7 @@ namespace OpenNefia.Content.UI.Element
                     + (Level >= Prototype.LevelMax ? $"({Loc.GetString("Elona.FeatMenu.FeatMax")})" : string.Empty);
                 public override string Description => Loc.GetPrototypeString(Prototype.GetStrongID(), "MenuDesc")!;
 
-                public override Core.Maths.Color Color => Level switch
+                public override Color Color => Level switch
                 {
                     > 0 => UiColors.CharaMakeStatLevelBest,
                     < 0 => UiColors.CharaMakeStatLevelSlight,
@@ -119,7 +120,7 @@ namespace OpenNefia.Content.UI.Element
                 switch (Data)
                 {
                     case FeatNameAndDesc.GainedFeat feat:
-                        GraphicsEx.SetColor(Core.Maths.Color.White);
+                        GraphicsEx.SetColor(Color.White);
                         FeatIcons.DrawRegion(GetFeatIconRegion(feat.Prototype.FeatType), X - 7, Y - 5);
                         UiText.Draw();
                         break;
@@ -127,7 +128,7 @@ namespace OpenNefia.Content.UI.Element
                         UiText.Draw();
                         break;
                     case FeatNameAndDesc.Feat feat:
-                        GraphicsEx.SetColor(Core.Maths.Color.White);
+                        GraphicsEx.SetColor(Color.White);
                         FeatIcons.DrawRegion(GetFeatIconRegion(feat.Prototype.FeatType), X - 27, Y - 5);
                         base.Draw();
                         DescriptionText.Draw();
