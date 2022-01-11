@@ -47,7 +47,7 @@ namespace OpenNefia.Content.Inventory
         public override void Initialize(EntityUid item)
         {
             _item = item;
-            TextTopicItemName.Text = _displayNames.GetDisplayNameInner(_item);
+            TextTopicItemName.Text = Loc.GetString("Elona.Common.NameWithDirectArticle", ("entity", _item));
 
             GetDescription();
         }

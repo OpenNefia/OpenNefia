@@ -1,4 +1,5 @@
-﻿using OpenNefia.Core.IoC;
+﻿using OpenNefia.Core.GameObjects;
+using OpenNefia.Core.IoC;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Utility;
 using System;
@@ -28,6 +29,11 @@ namespace OpenNefia.Core.Locale
         public static string GetString(LocaleKey key, params LocaleArg[] args)
         {
             return _localization.GetString(key, args);
+        }
+
+        public static EntityLocData GetLocalizationData(string prototypeId)
+        {
+            return _localization.GetEntityData(prototypeId);
         }
 
         public static bool IsFullwidth()

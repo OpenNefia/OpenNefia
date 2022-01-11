@@ -15,6 +15,9 @@
     },
 
     ItemLongSword = {
+        _LocData = {
+            Gender = "neutral",
+        },
         MetaData = {
             Name = "Langschwert"
         },
@@ -40,6 +43,9 @@
     },
 
     ItemHandAxe = {
+        _LocData = {
+            Gender = "male",
+        },
         MetaData = {
             Name = "Faustkeil"
         },
@@ -51,6 +57,9 @@
     },
 
     ItemClub = {
+        _LocData = {
+            Gender = "female",
+        },
         MetaData = {
             Name = "Keule"
         },
@@ -62,6 +71,9 @@
     },
 
     ItemMagicHat = {
+        _LocData = {
+            Gender = "male",
+        },
         MetaData = {
             Name = "Zauberhut"
         },
@@ -73,6 +85,9 @@
     },
 
     ItemFairyHat = {
+        _LocData = {
+            Gender = "male",
+        },
         MetaData = {
             Name = "Feenhut"
         },
@@ -84,6 +99,9 @@
     },
 
     ItemBreastplate = {
+        _LocData = {
+            Gender = "female",
+        },
         MetaData = {
             Name = "Brustplatte"
         },
@@ -95,6 +113,9 @@
     },
 
     ItemRobe = {
+        _LocData = {
+            Gender = "female",
+        },
         MetaData = {
             Name = "Robe"
         },
@@ -106,6 +127,9 @@
     },
 
     ItemDecoratedGloves = {
+        _LocData = {
+            PluralRule = "always"
+        },
         MetaData = {
             Name = "dekorierte Handschuhe"
         },
@@ -117,6 +141,9 @@
     },
 
     ItemThickGauntlets = {
+        _LocData = {
+            PluralRule = "always"
+        },
         MetaData = {
             Name = "Panzerhandschuhe"
         },
@@ -128,6 +155,9 @@
     },
 
     ItemHeavyBoots = {
+        _LocData = {
+            PluralRule = "always"
+        },
         MetaData = {
             Name = "schwere Stiefel"
         },
@@ -139,6 +169,9 @@
     },
 
     ItemCompositeBoots = {
+        _LocData = {
+            PluralRule = "always"
+        },
         MetaData = {
             Name = "composite boots"
         },
@@ -150,6 +183,9 @@
     },
 
     ItemDecorativeRing = {
+        _LocData = {
+            Gender = "male",
+        },
         MetaData = {
             Name = "decorative ring"
         },
@@ -3643,12 +3679,17 @@
     },
 
     ItemGoldenPedestal = {
+        _LocData = {
+            Gender = "male",
+			Adjective = "goldenen",
+			AdjectiveDirect = "goldener"
+        },
         MetaData = {
-            Name = "golden pedestal"
+            Name = "Sockel"
         },
         ItemDescription = {
             Primary = {
-                Text = "A pedestal decorated with gold leaf"
+                Text = "Ein goldener Sockel, dekoriert mit goldenen Blättern"
             },
         },
     },
@@ -5743,12 +5784,15 @@
     },
 
     ItemTreeOfAsh = {
+        _LocData = {
+            Gender = "female"
+        },
         MetaData = {
-            Name = "ash"
+            Name = "Esche"
         },
         ItemDescription = {
             Primary = {
-                Text = "A type of tree"
+                Text = "Eine Baumart"
             },
         },
     },
@@ -6596,8 +6640,11 @@
     },
 
     ItemWindow = {
+        _LocData = {
+            Gender = "neutral"
+        },
         MetaData = {
-            Name = "window"
+            Name = "Fenster"
         },
     },
 

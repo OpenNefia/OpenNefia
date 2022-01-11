@@ -9,5 +9,8 @@ Elona.Common =
    PutInBackpack = function(_1)
       return ("You put %s in your backpack.")
          :format(_1)
+   end,
+   NameWithDirectArticle = function(entity)
+      return ("%s"):format(_.name(entity, "direct"))
    end
 }

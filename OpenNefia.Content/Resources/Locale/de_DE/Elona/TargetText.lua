@@ -1,20 +1,20 @@
-Elona.TargetText =
+﻿Elona.TargetText =
 {
    ItemOnCell = {
-      And = " and ",
+      And = " und ",
 
       MoreThanThree = function(itemCount)
-         return ("There are %s items lying here."):format(itemCount)
+         return ("Hier liegen %s Gegenstände."):format(itemCount)
       end,
 
       Item = function(itemNames)
-         return ("You see %s here."):format(itemNames)
+         return ("Du siehst hier %s."):format(itemNames)
       end,
       Construct = function(itemNames)
-         return ("%s is constructed here."):format(itemNames)
+         return ("%s ist hier eingerichtet."):format(itemNames)
       end,
       NotOwned = function(itemNames)
-         return ("You see %s placed here."):format(itemNames)
+         return ("Du siehst hier %s plaziert."):format(itemNames)
       end,
    }
 }
