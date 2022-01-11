@@ -1,4 +1,5 @@
 ﻿using OpenNefia.Content.GameObjects;
+using OpenNefia.Content.Locale.Funcs;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Locale;
@@ -75,18 +76,36 @@ namespace OpenNefia.Content.DisplayName
         {
             if (!Resolve(uid, ref item, ref meta, ref stack))
                 return $"<item {uid}>";
-
-            var test = _localizationManager.GetEntityData(meta.EntityPrototype?.ID!);
-            if (test.Attributes.TryGetValue("Gender", out var gender))
+            
+            string prefix = GermanBuiltins.BaseArticle;
+            var locData = _localizationManager.GetEntityData(meta.EntityPrototype?.ID!);
+            if (locData.Attributes.TryGetValue(GermanBuiltins.PluralNameAttributeName, out var plrRule) 
+                && plrRule == GermanBuiltins.PluralNameAlways)
             {
-                var assss = gender;
+
             }
+            else if (locData.Attributes.TryGetValue(GermanBuiltins.GenderAttributeName, out var gender))
+            {
+                prefix += gender switch
+                {
+                    GermanBuiltins.GenderNameMale => GermanBuiltins.ArticleSuffixMale,
+                    GermanBuiltins.GenderNameFemale => GermanBuiltins.ArticleSuffixFemale,
+                    _ => string.Empty
+                };
+            }
+
+            if (locData.Attributes.TryGetValue(GermanBuiltins.AdjectiveAttributeName, out var adj))
+                prefix += $" {adj}";
 
             var basename = meta.DisplayName;
 
             if (stack.Count == 1)
-                return $"ein {basename}";
+                return $"{prefix} {basename}";
 
+            if (locData.Attributes.TryGetValue(GermanBuiltins.PluralAttributeName, out var plural))
+            {
+                basename = plural;
+            }
             return $"{stack.Count} {basename}";
         }
     }

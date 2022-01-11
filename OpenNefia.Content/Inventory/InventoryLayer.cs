@@ -330,7 +330,7 @@ namespace OpenNefia.Content.Inventory
         {
             InventoryEntry ToEntry(EntityUid ent, IInventorySource source)
             {
-                var itemName = DisplayNameSystem.GetDisplayName(ent);
+                var itemName = Loc.GetString("Elona.Common.NameWithDirectArticle", ("entity", ent));
                 var itemDetail = DefaultDetailText(ent);
                 var chipColor = Color.White;
                 if (_entityManager.TryGetComponent(ent, out ChipComponent? chip))
