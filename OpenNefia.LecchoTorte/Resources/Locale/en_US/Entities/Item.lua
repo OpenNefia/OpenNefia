@@ -1,8 +1,7 @@
-OpenNefia.Prototypes.Entity.LecchoTorte =
-{
-   PotionOfTest = {
-      MetaData = {
-         Name = "potion of test"
-      },
-   },
+OpenNefia.Prototypes.Entity.LecchoTorte = {
+    PotionOfTest = {
+        MetaData = {
+            Name = "potion of test",
+        },
+    },
 }
