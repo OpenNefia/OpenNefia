@@ -13,6 +13,8 @@ using OpenNefia.Core.UI.Element;
 using OpenNefia.Core.Input;
 using OpenNefia.Core.Locale;
 using OpenNefia.Content.UI;
+using OpenNefia.Content.Input;
+using System.Collections.Generic;
 
 namespace OpenNefia.Content.Inventory
 {
@@ -61,7 +63,16 @@ namespace OpenNefia.Content.Inventory
                 Finish(new UINone());
             }
         }
-        
+
+        public override List<UiKeyHint> MakeKeyHints()
+        {
+            var keyHints = base.MakeKeyHints();
+
+            keyHints.Add(new(UiKeyHints.Close, new[] { EngineKeyFunctions.UISelect, EngineKeyFunctions.UICancel }));
+
+            return keyHints;
+        }
+
         private void GetDescription()
         {
             Window.Title = Loc.GetString("Elona.Inventory.ItemDescriptionLayer.WindowTitle");
