@@ -5,7 +5,3 @@
 [submodule "Thirdparty/CSharpRepl"]
 	path = Thirdparty/CSharpRepl
 	url = https://github.com/waf/CSharpRepl.git
-[submodule "Thirdparty/megasource"]
-	path = Thirdparty/megasource
-	url = https://github.com/Ruin0x11/megasource.git
-	branch = opennefia-net
