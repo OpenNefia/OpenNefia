@@ -65,7 +65,7 @@ namespace OpenNefia.Content.CharaMake
             private UiText AmountText;
             private AttributeIcon Icon;
 
-            public AttributeRerollCell(AttributeRerollData data) 
+            public AttributeRerollCell(AttributeRerollData data)
                 : base(data, new UiText(UiFonts.ListText))
             {
                 Text = Data.Text;
@@ -78,11 +78,11 @@ namespace OpenNefia.Content.CharaMake
                 {
                     default:
                     case AttributeRerollData.ListChoice choice:
-                        Icon = new AttributeIcon("");
+                        Icon = new AttributeIcon(null);
                         break;
                     case AttributeRerollData.Attribute attr:
                         attr.AmountText = AmountText;
-                        Icon = new AttributeIcon(attr.Id.ToString());
+                        Icon = new AttributeIcon(attr.Id);
                         break;
                 }
             }
@@ -112,6 +112,7 @@ namespace OpenNefia.Content.CharaMake
         }
 
         [Dependency] private readonly IRandom _random = default!;
+        [Dependency] private readonly ISkillsSystem _skillsSys = default!;
 
         [Localize] private UiWindow Window = new();
         [Localize] private UiTextTopic AttributeTopic = new();
@@ -166,7 +167,6 @@ namespace OpenNefia.Content.CharaMake
         {
             var keyHints = base.MakeKeyHints();
 
-            keyHints.Add(new(UiKeyHints.Back, EngineKeyFunctions.UICancel));
             keyHints.Add(new(new LocaleKey("Elona.CharaMake.AttributeReroll.Choice.Reroll"), ContentKeyFunctions.UIMode2));
 
             return keyHints;
@@ -203,7 +203,14 @@ namespace OpenNefia.Content.CharaMake
         {
             LockCount = 2;
             List.Clear();
-            var data = AttributeIds.Select(x => new AttributeRerollCell(new AttributeRerollData.Attribute(new PrototypeId<SkillPrototype>(x)))).ToList();
+            var data = _skillsSys.EnumerateBaseAttributes()
+                .Select(skillProto =>
+                {
+                    var cellData = new AttributeRerollData.Attribute(skillProto.GetStrongID());
+                    return new AttributeRerollCell(cellData);
+                }
+                ).ToList();
+
             data.InsertRange(0, new[]
             {
                 new AttributeRerollCell(new AttributeRerollData.ListChoice(AttributeRerollChoice.Reroll)),

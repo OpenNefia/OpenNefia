@@ -13,9 +13,19 @@ namespace OpenNefia.Content.Skills
     public interface ISkillsSystem : IEntitySystem
     {
         void HealToMax(EntityUid uid, SkillsComponent? skills = null);
+
+        /// <summary>
+        /// Enumerates attributes, including luck and speed.
+        /// </summary>
+        IEnumerable<SkillPrototype> EnumerateAllAttributes();
+        
+        /// <summary>
+        /// Enumerates attributes, excluding luck and speed.
+        /// </summary>
+        IEnumerable<SkillPrototype> EnumerateBaseAttributes();
     }
 
-    public class SkillsSystem : EntitySystem, ISkillsSystem
+    public sealed partial class SkillsSystem : EntitySystem, ISkillsSystem
     {
         [Dependency] private readonly IPrototypeManager _protos = default!;
         [Dependency] private readonly IRefreshSystem _refresh = default!;

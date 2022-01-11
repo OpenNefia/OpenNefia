@@ -1,10 +1,14 @@
 ﻿using OpenNefia.Content.Charas;
 using OpenNefia.Content.GameObjects;
+using OpenNefia.Content.Input;
 using OpenNefia.Content.UI;
 using OpenNefia.Content.UI.Element;
 using OpenNefia.Content.UI.Element.List;
+using OpenNefia.Core.Input;
+using OpenNefia.Core;
 using OpenNefia.Core.Locale;
 using OpenNefia.Core.Rendering;
+using OpenNefia.Core.UI;
 using OpenNefia.Core.Utility;
 using System;
 using System.Collections.Generic;
@@ -54,6 +58,8 @@ namespace OpenNefia.Content.CharaMake
             };
             
             AddChild(List);
+
+            Window.KeyHints = MakeKeyHints();
         }
 
         public override void OnFocused()
