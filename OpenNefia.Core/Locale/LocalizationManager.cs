@@ -239,5 +239,67 @@ namespace OpenNefia.Core.Locale
 
             return TryGetTable($"OpenNefia.Prototypes.Entity.{metadata.EntityPrototype.ID}", out table);
         }
+
+        private void MungeEcksdee()
+        {
+            _entityCache.Clear();
+            return;
+            if (!TryGetTable("OpenNefia.Prototypes.Entity.Elona", out LuaTable? entityTable))
+            {
+                return;
+            }
+
+            foreach(KeyValuePair<object, object> pair in entityTable)
+            {
+                if (pair.Value is not LuaTable table)
+                    continue;
+                if (!table.TryGetTable("_LocData", out var locTable))
+                    continue;
+
+                var name = pair.Key.ToString()!;
+                var builder = ImmutableDictionary.CreateBuilder<string, string>();
+                foreach (KeyValuePair<object, object> locData in locTable)
+                    builder.Add(locData.Key.ToString()!, locData.Value.ToString()!);
+                _entityCache[name] = new EntityLocData(builder.ToImmutable());
+            }
+        }
+
+        private EntityLocData CalcEntityLoc(string id)
+        {
+            if (!TryGetTable($"OpenNefia.Prototypes.Entity.{id}", out var entityTable)
+                || !entityTable.TryGetTable("_LocData", out var locTable))
+                return new(ImmutableDictionary.Create<string, string>());
+
+            var builder = ImmutableDictionary.CreateBuilder<string, string>();
+            foreach (KeyValuePair<object, object> locData in locTable)
+                builder.Add(locData.Key.ToString()!, locData.Value.ToString()!);
+
+            return new(builder.ToImmutable());
+        }
+
+        /*
+        private bool TryGetEntityLocAttrib(EntityUid entity, string attribute, [NotNullWhen(true)] out string? value)
+        {
+            if (_entityManager.TryGetComponent<GrammarComponent?>(entity, out var grammar) &&
+                grammar.Attributes.TryGetValue(attribute, out value))
+            {
+                return true;
+            }
+            
+            if (_entityManager.GetComponent<MetaDataComponent>(entity).EntityPrototype is not { } prototype)
+            {
+                value = null;
+                return false;
+            }
+
+            var data = GetEntityData(prototype.ID);
+            return data.Attributes.TryGetValue(attribute, out value);
+        }
+        */
+
+        public EntityLocData GetEntityData(string prototypeId)
+        {
+            return _entityCache.GetOrAdd(prototypeId ?? string.Empty, (id, t) => t.CalcEntityLoc(id), this);
+        }
     }
 }

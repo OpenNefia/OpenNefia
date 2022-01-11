@@ -3062,12 +3062,15 @@
     },
 
     ItemStreetLamp = {
+		_LocData = {
+			Gender = "female"
+		},
         MetaData = {
-            Name = "street lamp"
+            Name = "Straßenlaterne"
         },
         ItemDescription = {
             Primary = {
-                Text = "A lamp that decorates the streets of Asseria"
+                Text = "Eine Straßenlaterne, welche die Straßen Asserias schmücken."
             },
         },
     },
@@ -3518,18 +3521,23 @@
         },
         ItemDescription = {
             Primary = {
-                Text = "A bed made out of recycled parts...,"
+                Text = "A bed made out of recycled parts..."
             },
         },
     },
 
     ItemCheapTable = {
+		_LocData = {
+			Gender = "male",
+			Adjective = "schäbigen",
+			AdjectiveDirect = "schäbiger"
+		},
         MetaData = {
-            Name = "cheap table"
+            Name = "Tisch"
         },
         ItemDescription = {
             Primary = {
-                Text = "A table made out of recycled wood"
+                Text = "Ein Tisch, welcher aus recyceltem Holz gebaut ist"
             },
         },
     },
@@ -3596,8 +3604,13 @@
     },
 
     ItemWideChair = {
+		_LocData = {
+			Gender = "male",
+			Adjective = "breiten",
+			AdjectiveDirect = "breiter"
+		},
         MetaData = {
-            Name = "wide chair"
+            Name = "Stuhl"
         },
     },
 
@@ -4499,23 +4512,33 @@
     },
 
     ItemRedTreasureMachine = {
+		_LocData = {
+			Gender = "female",
+			Adjective = "rote",
+			AdjectiveDirect = "rote"
+		},
         MetaData = {
-            Name = "red treasure machine"
+            Name = "Schatzmaschine"
         },
         ItemDescription = {
             Primary = {
-                Text = "A treasure machine accepting rare coins"
+                Text = "Eine Schatzmaschine, welche seltene Münzen annimmt."
             },
         },
     },
 
     ItemBlueTreasureMachine = {
+        _LocData = {
+			Gender = "female",
+			Adjective = "blaue",
+			AdjectiveDirect = "blaue"
+		},
         MetaData = {
-            Name = "blue treasure machine"
+            Name = "Schatzmaschine"
         },
         ItemDescription = {
             Primary = {
-                Text = "A treasure machine accepting very rare coins"
+                Text = "Eine Schatzmaschine, welche überaus seltene Münzen annimmt."
             },
         },
     },
@@ -5313,12 +5336,15 @@
     },
 
     ItemComputer = {
+		_LocData = {
+			Gender = "male"
+		},
         MetaData = {
-            Name = "computer"
+            Name = "Computer"
         },
         ItemDescription = {
             Primary = {
-                Text = "Asserian computer technology"
+                Text = "Asserianishe Computer-Technology"
             },
         },
     },
@@ -6369,12 +6395,15 @@
     },
 
     ItemCandle = {
+		_LocData = {
+			PluralRule = "always"
+		},
         MetaData = {
-            Name = "candle"
+            Name = "Kerzen"
         },
         ItemDescription = {
             Primary = {
-                Text = "A creepy set of candles"
+                Text = "Eine unheimliche Anordnung von Kerzen"
             },
         },
     },
@@ -6649,8 +6678,11 @@
     },
 
     ItemTrianglePlant = {
+		_LocData = {
+            Gender = "female"
+        },
         MetaData = {
-            Name = "triangle plant"
+            Name = "Dreieckspflanze"
         },
     },
 
@@ -6673,8 +6705,11 @@
     },
 
     ItemFlowerArch = {
+		_LocData = {
+			Gender = "male"
+		},
         MetaData = {
-            Name = "flower arch"
+            Name = "Blumenbogen"
         },
     },
 

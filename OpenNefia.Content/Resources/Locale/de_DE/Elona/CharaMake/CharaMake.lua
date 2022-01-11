@@ -23,7 +23,7 @@
 
 		AttributeTopic = "Attributboni",
 		SkillTopic = "Trainierte Fertigkeiten",
-		Caption = "Wilkommen, ich bereits nach dir gesucht."
+		Caption = "Wilkommen, ich habe bereits nach dir gesucht."
 	},
 
 	ClassSelect = {
