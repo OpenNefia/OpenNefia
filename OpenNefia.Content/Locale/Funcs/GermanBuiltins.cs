@@ -19,7 +19,7 @@ namespace OpenNefia.Content.Locale.Funcs
         public const string GenderAttributeName = "Gender";
         public const string PluralAttributeName = "Plural";
 
-        public const string PluralNameAttributeName = "PluralName";
+        public const string PluralNameAttributeName = "PluralRule";
         public const string PluralNameAlways = "always";
 
         public const string GenderNameMale = "male";
@@ -65,8 +65,16 @@ namespace OpenNefia.Content.Locale.Funcs
 
             var entMan = IoCManager.Resolve<IEntityManager>();
             var prototype = entMan.GetComponent<MetaDataComponent>(entity).EntityPrototype;
+            if (prototype == null)
+                return name;
+
             var locData = Loc.GetLocalizationData(prototype?.ID!);
-            if (locData.Attributes.TryGetValue(GenderAttributeName, out var gender))
+            if (locData.Attributes.TryGetValue(PluralNameAttributeName, out var plrRule)
+                && plrRule == PluralNameAlways)
+            {
+                return name;
+            }
+            else if (locData.Attributes.TryGetValue(GenderAttributeName, out var gender))
             {
                 var prefix = gender switch
                 {

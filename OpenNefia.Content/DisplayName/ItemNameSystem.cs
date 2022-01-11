@@ -76,13 +76,15 @@ namespace OpenNefia.Content.DisplayName
         {
             if (!Resolve(uid, ref item, ref meta, ref stack))
                 return $"<item {uid}>";
-            
+
+
+            var parts = new List<string>();
             string prefix = GermanBuiltins.BaseArticle;
             var locData = _localizationManager.GetEntityData(meta.EntityPrototype?.ID!);
             if (locData.Attributes.TryGetValue(GermanBuiltins.PluralNameAttributeName, out var plrRule) 
                 && plrRule == GermanBuiltins.PluralNameAlways)
             {
-
+                prefix = string.Empty;
             }
             else if (locData.Attributes.TryGetValue(GermanBuiltins.GenderAttributeName, out var gender))
             {
@@ -95,12 +97,17 @@ namespace OpenNefia.Content.DisplayName
             }
 
             if (locData.Attributes.TryGetValue(GermanBuiltins.AdjectiveAttributeName, out var adj))
-                prefix += $" {adj}";
+                parts.Add(adj);
 
             var basename = meta.DisplayName;
 
             if (stack.Count == 1)
-                return $"{prefix} {basename}";
+            {
+                parts.Add(basename!);
+                if (!string.IsNullOrEmpty(prefix))
+                    parts.Insert(0, prefix);
+                return string.Join(" ", parts);
+            }
 
             if (locData.Attributes.TryGetValue(GermanBuiltins.PluralAttributeName, out var plural))
             {
