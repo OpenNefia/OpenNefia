@@ -15,8 +15,8 @@ namespace OpenNefia.Content.CharaMake
     public class CharaMakeFeatWindowLayer : CharaMakeLayer
     {
         public const string ResultName = "feats";
-        private FeatWindow Window = default!;
-        private Dictionary<PrototypeId<FeatPrototype>, int> SelectedFeats = default!;
+        private FeatWindow FeatWindow = default!;
+        private readonly Dictionary<PrototypeId<FeatPrototype>, int> SelectedFeats = new();
         private int FeatCount;
 
         public override void Initialize(CharaMakeData args)
@@ -43,16 +43,16 @@ namespace OpenNefia.Content.CharaMake
 
         private void Reset()
         {
-            Window?.Dispose();
-            SelectedFeats = new Dictionary<PrototypeId<FeatPrototype>, int>();
+            FeatWindow?.Dispose();
+            SelectedFeats.Clear();
             FeatCount = 3;
             if (Data.TryGetValue(CharaMakeRaceSelectLayer.ResultName, out RacePrototype? race))
             {
                 foreach (var feat in race.InitialFeats)
                     SelectedFeats[feat.Key] = feat.Value;
             }
-            Window = new FeatWindow(() => SelectedFeats, AddFeat, () => FeatCount);
-            AddChild(Window);
+            FeatWindow = new FeatWindow(() => SelectedFeats, AddFeat, () => FeatCount);
+            AddChild(FeatWindow);
         }
 
         public override void OnQuery()
@@ -64,31 +64,31 @@ namespace OpenNefia.Content.CharaMake
         public override void OnFocused()
         {
             base.OnFocused();
-            Window.GrabControlFocus();
+            FeatWindow.GrabControlFocus();
         }
 
         public override void SetSize(int width, int height)
         {
             base.SetSize(width, height);
-            Window.SetPreferredSize();
+            FeatWindow.SetPreferredSize();
         }
 
         public override void SetPosition(int x, int y)
         {
             base.SetPosition(x, y);
-            Center(Window, 10);
+            Center(FeatWindow, 10);
         }
 
         public override void Draw()
         {
             base.Draw();
-            Window.Draw();
+            FeatWindow.Draw();
         }
 
         public override void Update(float dt)
         {
             base.Update(dt);
-            Window.Update(dt);
+            FeatWindow.Update(dt);
         }
     }
 }
