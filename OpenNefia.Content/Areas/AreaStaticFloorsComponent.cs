@@ -16,7 +16,7 @@ namespace OpenNefia.Content.Areas
     {
         public override string Name => "AreaStaticFloors";
 
-        [DataField]
+        [DataField("floors", required: true)]
         private readonly Dictionary<AreaFloorId, PrototypeId<MapPrototype>> _floors = new();
 
         public IReadOnlyDictionary<AreaFloorId, PrototypeId<MapPrototype>> Floors => _floors;

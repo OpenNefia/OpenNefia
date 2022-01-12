@@ -1,4 +1,5 @@
-﻿using OpenNefia.Core.Maps;
+﻿using OpenNefia.Core.Areas;
+using OpenNefia.Core.Maps;
 using OpenNefia.Core.Serialization.Manager.Attributes;
 
 namespace OpenNefia.Content.Maps
@@ -16,6 +17,8 @@ namespace OpenNefia.Content.Maps
         {
             MapId = mapId;
         }
+
+        public AreaId? GetAreaId() => null;
 
         public MapId? GetMapId() => MapId;
     }

@@ -86,10 +86,16 @@ namespace OpenNefia.Core.Areas
             return TryGetAreaAndFloorOfMap(map, out area, out _);
         }
 
-        public MapId? GenerateMapForFloor(AreaId areaId, AreaFloorId floorId)
+        public MapId? GetOrGenerateMapForFloor(AreaId areaId, AreaFloorId floorId)
         {
             var area = GetArea(areaId);
-            var floor = area.ContainedMaps[floorId];
+
+            if (!area.ContainedMaps.TryGetValue(floorId, out var floor))
+            {
+                floor = new AreaFloor();
+                RegisterAreaFloor(area, floorId, floor);
+            }
+
             if (floor.MapId != null)
             {
                 Logger.WarningS("area", $"Area/floor '{areaId}/'{floorId}' has already been generated, reusing generated map {floor.MapId}.");

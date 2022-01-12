@@ -20,14 +20,14 @@ namespace OpenNefia.Content.Maps
 
         public bool TryGetAreaOfEntrance(MapEntrance entrance, [NotNullWhen(true)] out IArea? area)
         {
-            var entranceMapId = entrance.MapIdSpecifier.GetMapId();
-            if (entranceMapId == null)
+            var entranceAreaId = entrance.MapIdSpecifier.GetAreaId();
+            if (entranceAreaId == null)
             {
                 area = null;
                 return false;
             }
 
-            return _areaManager.TryGetAreaOfMap(entranceMapId.Value, out area);
+            return _areaManager.TryGetArea(entranceAreaId.Value, out area);
         }
 
         public bool UseMapEntrance(EntityUid user, MapEntrance entrance,
