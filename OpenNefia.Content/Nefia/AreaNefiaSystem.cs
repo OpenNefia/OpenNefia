@@ -48,7 +48,7 @@ namespace OpenNefia.Content.Nefia
 
         private void OnCheckIsActive(EntityUid uid, AreaNefiaComponent areaNefia, RandomAreaCheckIsActiveEvent args)
         {
-            args.IsActive = areaNefia.State == NefiaState.Unvisited || areaNefia.State == NefiaState.Visited;
+            args.IsActive = areaNefia.State != NefiaState.Conquered && areaNefia.State != NefiaState.BossVanished;
         }
 
         private void OnNefiaFloorGenerate(EntityUid uid, AreaNefiaComponent component, AreaFloorGenerateEvent args)
@@ -207,8 +207,8 @@ namespace OpenNefia.Content.Nefia
         private int NefiaFloorNumberToLevel(int floorNumber, int nefiaBaseLevel)
         {
             // In OpenNefia, we start dungeons on floor 1. Nefia level is what used to be
-            // "starting floor", so a nefia of level 5 would start on the fifth floor.
-            // This means (nefia_level + floor) would be off by one, so subtract 1.
+            // "starting floor", so a Nefia of level 5 would start on the fifth floor.
+            // This means (nefiaBaseLevel + floorNumber) would be off by one, so subtract 1.
             return nefiaBaseLevel + floorNumber - 1;
         }
     }

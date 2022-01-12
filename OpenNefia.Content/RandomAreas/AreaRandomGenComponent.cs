@@ -8,8 +8,8 @@ using System.Threading.Tasks;
 namespace OpenNefia.Content.RandomAreas
 {
     /// <summary>
-    /// When attached to an entity prototype, indicates that this entity is an area entity
-    /// that can be generated randomly on the world map.
+    /// When attached to an aera entity prototype, indicates that this area can 
+    /// be generated randomly in a map with a <see cref="MapRandomAreaManagerComponent"/>.
     /// </summary>
     [RegisterComponent]
     [ComponentUsage(ComponentTarget.Area)]

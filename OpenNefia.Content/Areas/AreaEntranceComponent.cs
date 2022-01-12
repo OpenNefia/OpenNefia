@@ -8,7 +8,12 @@ using static OpenNefia.Core.Prototypes.EntityPrototype;
 
 namespace OpenNefia.Content.Areas
 {
+    /// <summary>
+    /// Specifies defaults for generated <see cref="WorldMapEntranceComponent"/>s that
+    /// lead to this area. Also allows setting a global area ID for this area..
+    /// </summary>
     [RegisterComponent]
+    [ComponentUsage(ComponentTarget.Area)]
     public class AreaEntranceComponent : Component
     {
         /// <inheritdoc />
@@ -35,7 +40,7 @@ namespace OpenNefia.Content.Areas
         public IMapStartLocation? StartLocation { get; set; }
 
         /// <summary>
-        /// Components to spawn the entrance with.
+        /// Extra components to spawn the map entrance entity with.
         /// </summary>
         [DataField]
         public ComponentRegistry Components { get; } = new();

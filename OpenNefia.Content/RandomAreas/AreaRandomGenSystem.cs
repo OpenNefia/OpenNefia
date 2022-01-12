@@ -14,10 +14,9 @@ using System.Diagnostics.CodeAnalysis;
 namespace OpenNefia.Content.RandomAreas
 {
     /// <summary>
-    /// System for randomly generating areas in a world map. This
-    /// logic is part of what makes random Nefias tick. In ON, the
-    /// random generation/placement logic has been decoupled from the Nefia
-    /// logic, so that a more varied assortment of random areas can be generated.
+    /// System for randomly generating areas in a world map. This logic is part of what makes 
+    /// random Nefias tick. In OpenNefia, the random generation/placement logic has been decoupled
+    /// from the Nefia logic, so that a more varied assortment of random areas can be generated.
     /// </summary>
     public class AreaRandomGenSystem : EntitySystem
     {

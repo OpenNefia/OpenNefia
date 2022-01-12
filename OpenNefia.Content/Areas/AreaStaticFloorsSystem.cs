@@ -23,6 +23,9 @@ namespace OpenNefia.Content.Areas
             SubscribeLocalEvent<AreaStaticFloorsComponent, AreaFloorGenerateEvent>(OnAreaFloorGenerate, nameof(OnAreaFloorGenerate));
         }
 
+        /// <summary>
+        /// Generate the static floor from its map blueprint.
+        /// </summary>
         private void OnAreaFloorGenerate(EntityUid areaEntity, AreaStaticFloorsComponent areaStaticFloors, AreaFloorGenerateEvent args)
         {
             if (args.Handled)

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace OpenNefia.Content.RandomAreas
 {
     /// <summary>
-    /// Indicates that this map can hold random areas. Used for the area entities
+    /// Indicates that this map can generate random areas/entrances. Used for the area entities
     /// of world maps like North Tyris to handle regenerating random areas like Nefia.
     /// </summary>
     [RegisterComponent]

@@ -11,7 +11,12 @@ using System.Threading.Tasks;
 
 namespace OpenNefia.Content.Areas
 {
+    /// <summary>
+    /// Defines a static set of floors for an area. This is used for instanced
+    /// maps like Vernis/The Mines/etc. that will always have a static floor ID.
+    /// </summary>
     [RegisterComponent]
+    [ComponentUsage(ComponentTarget.Area)]
     public sealed class AreaStaticFloorsComponent : Component
     {
         public override string Name => "AreaStaticFloors";

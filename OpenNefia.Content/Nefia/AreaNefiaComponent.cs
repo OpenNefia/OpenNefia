@@ -32,7 +32,7 @@ namespace OpenNefia.Content.Nefia
     }
 
     /// <summary>
-    /// Possible states of the Nefia.
+    /// Possible states of a Nefia.
     /// </summary>
     public enum NefiaState
     {
