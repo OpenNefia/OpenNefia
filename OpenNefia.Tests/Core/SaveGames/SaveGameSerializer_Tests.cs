@@ -1,4 +1,4 @@
-﻿using NUnit.Framework;
+using NUnit.Framework;
 using OpenNefia.Core.Areas;
 using OpenNefia.Core.Game;
 using OpenNefia.Core.GameObjects;

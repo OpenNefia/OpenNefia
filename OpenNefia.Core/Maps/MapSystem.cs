@@ -1,4 +1,4 @@
-﻿using JetBrains.Annotations;
+using JetBrains.Annotations;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 
@@ -6,13 +6,23 @@ namespace OpenNefia.Core.Maps
 {
     internal sealed class MapSystem : EntitySystem
     {
+        [Dependency] private readonly IMapManager _mapManager = default!;
+
         public override void Initialize()
         {
             base.Initialize();
 
+            _mapManager.OnActiveMapChanged += OnActiveMapChanged;
+
             SubscribeLocalEvent<MapComponent, ComponentAdd>(OnMapAdd, nameof(OnMapAdd));
             SubscribeLocalEvent<MapComponent, ComponentInit>(OnMapInit, nameof(OnMapInit));
             SubscribeLocalEvent<MapComponent, ComponentStartup>(OnMapStartup, nameof(OnMapStartup));
+        }
+
+        private void OnActiveMapChanged(IMap map, IMap? oldMap)
+        {
+            var ev = new MapEnteredEvent(map, oldMap);
+            RaiseLocalEvent(map.MapEntityUid, ev);
         }
 
         private void OnMapAdd(EntityUid uid, MapComponent component, ComponentAdd args)
@@ -76,6 +86,21 @@ namespace OpenNefia.Core.Maps
         {
             EntityUid = uid;
             MapId = mapId;
+        }
+    }
+
+    /// <summary>
+    /// Raised whenever the current map changes.
+    /// </summary>
+    public sealed class MapEnteredEvent : EntityEventArgs
+    {
+        public IMap NewMap { get; }
+        public IMap? OldMap { get; }
+
+        public MapEnteredEvent(IMap newMap, IMap? oldMap)
+        {
+            NewMap = newMap;
+            OldMap = oldMap;
         }
     }
 }
