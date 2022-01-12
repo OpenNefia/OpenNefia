@@ -18,20 +18,13 @@ namespace OpenNefia.Tests.Core.Areas
     [TestOf(typeof(AreaManager))]
     public class AreaManager_Tests : OpenNefiaUnitTest
     {
-        private static readonly PrototypeId<MapPrototype> TestMapID = new("TestMap");
-        private static readonly PrototypeId<AreaPrototype> TestAreaID = new("TestArea");
+        private static readonly PrototypeId<EntityPrototype> TestAreaID = new("TestArea");
         private static readonly AreaFloorId TestMapFloor = new("Test.Map");
 
         private static readonly string Prototypes = @$"
-- type: Map
-  id: {TestMapID}
-  blueprintPath: /Maps/Test/test.yml
-
-- type: Area
+- type: Entity
   id: {TestAreaID}
-  floors:
-    {TestMapFloor}: {TestMapID}
-  startingFloor: {TestMapFloor}
+  components:
 ";
 
         [OneTimeSetUp]
@@ -41,7 +34,7 @@ namespace OpenNefia.Tests.Core.Areas
 
             var protoMan = IoCManager.Resolve<IPrototypeManager>();
             protoMan.RegisterType<MapPrototype>();
-            protoMan.RegisterType<AreaPrototype>();
+            protoMan.RegisterType<EntityPrototype>();
             protoMan.LoadString(Prototypes);
             protoMan.Resync();
         }
@@ -81,9 +74,10 @@ namespace OpenNefia.Tests.Core.Areas
             Assert.That(areaMan.AreaExists(area.Id), Is.True);
             Assert.That(area.AreaEntityUid, Is.EqualTo(areaEnt));
             Assert.That(area.Id, Is.EqualTo(areaId));
-            Assert.That(areaMan.TryGetAreaAndFloorOfMap(map.Id, out var foundArea, out var foundFloor), Is.True);
-            Assert.That(foundArea, Is.EqualTo(area));
-            Assert.That(foundFloor, Is.EqualTo(TestMapFloor));
+
+            //Assert.That(areaMan.TryGetAreaAndFloorOfMap(map.Id, out var foundArea, out var foundFloor), Is.True);
+            //Assert.That(foundArea, Is.EqualTo(area));
+            //Assert.That(foundFloor, Is.EqualTo(TestMapFloor));
 
             // RegisterArea() shouldn't affect the next area ID (it's used
             // for deserialization).
@@ -118,7 +112,7 @@ namespace OpenNefia.Tests.Core.Areas
         {
             var areaMan = IoCManager.Resolve<IAreaManager>();
 
-            Assert.Throws<ArgumentException>(() => areaMan.CreateArea(prototypeId: new("Dood")));
+            Assert.Throws<ArgumentException>(() => areaMan.CreateArea(areaEntityProtoId: new("Dood")));
         }
 
         [Test]
@@ -132,7 +126,6 @@ namespace OpenNefia.Tests.Core.Areas
             Assert.That(area.ContainedMaps.Count, Is.EqualTo(1));
             Assert.That(area.GlobalId, Is.Null);
             Assert.That(area.ContainedMaps[TestMapFloor].MapId, Is.Null);
-            Assert.That(area.ContainedMaps[TestMapFloor].DefaultGenerator, Is.EqualTo(TestMapID));
         }
 
         [Test]
@@ -177,7 +170,6 @@ namespace OpenNefia.Tests.Core.Areas
             areaMan.RegisterAreaFloor(area, floorId, map);
 
             Assert.That(area.ContainedMaps[floorId].MapId, Is.EqualTo(map.Id));
-            Assert.That(area.ContainedMaps[floorId].DefaultGenerator, Is.EqualTo(new PrototypeId<MapPrototype>("Blank")));
             Assert.That(areaMan.TryGetAreaAndFloorOfMap(map.Id, out var foundArea, out var foundFloor), Is.True);
             Assert.That(foundArea, Is.EqualTo(area));
             Assert.That(foundFloor, Is.EqualTo(floorId));

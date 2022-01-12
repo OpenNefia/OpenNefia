@@ -21,6 +21,9 @@ using OpenNefia.Content.CharaMake;
 using OpenNefia.Content.EquipSlots;
 using OpenNefia.Core.Areas;
 using OpenNefia.Core.Prototypes;
+using OpenNefia.Content.Areas;
+using System.Linq;
+using OpenNefia.Content.Maps;
 
 namespace OpenNefia.Content.TitleScreen
 {
@@ -120,10 +123,24 @@ namespace OpenNefia.Content.TitleScreen
 {
             DebugTools.Assert(_areaManager.LoadedAreas.Count == 0, "Areas were already initialized!");
 
-            foreach (var areaProto in _prototypeManager.EnumeratePrototypes<AreaPrototype>())
+            foreach (var (areaEntityProto, globalAreaId) in EnumerateGlobalAreas())
             {
-                var areaId = areaProto.GetStrongID();
-                _areaManager.CreateArea(areaId, new GlobalAreaId((string)areaId));
+                var areaId = areaEntityProto.GetStrongID();
+                _areaManager.CreateArea(areaId, globalAreaId);
+            }
+        }
+
+        private IEnumerable<(EntityPrototype, GlobalAreaId)> EnumerateGlobalAreas()
+        {
+            foreach (var proto in _prototypeManager.EnumeratePrototypes<EntityPrototype>())
+            {
+                if (proto.TryGetComponent<AreaEntranceComponent>("AreaEntrance", out var areaEntrance))
+                {
+                    if (areaEntrance.GlobalId != null)
+                    {
+                        yield return (proto, areaEntrance.GlobalId.Value);
+                    }
+                }
             }
         }
 

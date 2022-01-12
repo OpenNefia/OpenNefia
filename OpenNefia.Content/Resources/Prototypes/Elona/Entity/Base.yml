@@ -75,3 +75,10 @@
   abstract: true
   components:
   - type: Map
+
+- type: Entity
+  id: BaseArea
+  hspEntityType: area
+  abstract: true
+  components:
+  - type: Area

@@ -1,5 +1,6 @@
 ﻿using OpenNefia.Content.Factions;
 using OpenNefia.Content.GameObjects;
+using OpenNefia.Content.Levels;
 using OpenNefia.Content.Logic;
 using OpenNefia.Core.Directions;
 using OpenNefia.Core.GameObjects;

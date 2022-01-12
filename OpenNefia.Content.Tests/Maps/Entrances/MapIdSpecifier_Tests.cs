@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using OpenNefia.Content.Areas;
 using OpenNefia.Content.Maps;
 using OpenNefia.Core.Areas;
 using OpenNefia.Core.GameObjects;
@@ -51,15 +52,26 @@ namespace OpenNefia.Content.Tests.Maps.Entrances
 
             var mapMan = sim.Resolve<IMapManager>();
             var areaMan = sim.Resolve<IAreaManager>();
+            var entMan = sim.Resolve<IEntityManager>();
 
-            var map = mapMan.CreateMap(10, 10);
+            var map1 = mapMan.CreateMap(10, 10);
+            var map2 = mapMan.CreateMap(10, 10);
+
             var area = areaMan.CreateArea();
-            var areaFloorId = new AreaFloorId("Test.Floor");
-            areaMan.RegisterAreaFloor(area, areaFloorId, map);
+            var areaFloorId1 = new AreaFloorId("Test.Floor1");
+            var areaFloorId2 = new AreaFloorId("Test.Floor2");
+            areaMan.RegisterAreaFloor(area, areaFloorId1, map1);
+            areaMan.RegisterAreaFloor(area, areaFloorId2, map2);
+            var areaDefEntrance = entMan.EnsureComponent<AreaEntranceComponent>(area.AreaEntityUid);
+            areaDefEntrance.StartingFloor = areaFloorId1;
 
-            var mapIdSpec = new AreaFloorMapIdSpecifier(area.Id, areaFloorId);
+            var mapIdSpec = new AreaFloorMapIdSpecifier(area.Id);
 
-            Assert.That(mapIdSpec.GetMapId(), Is.EqualTo(map.Id));
+            Assert.That(mapIdSpec.GetMapId(), Is.EqualTo(map1.Id));
+
+            mapIdSpec = new AreaFloorMapIdSpecifier(area.Id, areaFloorId2);
+
+            Assert.That(mapIdSpec.GetMapId(), Is.EqualTo(map2.Id));
         }
 
         [Test]
@@ -72,6 +84,7 @@ namespace OpenNefia.Content.Tests.Maps.Entrances
 
             var mapMan = sim.Resolve<IMapManager>();
             var areaMan = sim.Resolve<IAreaManager>();
+            var entMan = sim.Resolve<IEntityManager>();
 
             var map1 = mapMan.CreateMap(10, 10);
             var map2 = mapMan.CreateMap(10, 10);
@@ -83,7 +96,8 @@ namespace OpenNefia.Content.Tests.Maps.Entrances
             var areaFloorId2 = new AreaFloorId("Test.Floor2");
             areaMan.RegisterAreaFloor(area, areaFloorId1, map1);
             areaMan.RegisterAreaFloor(area, areaFloorId2, map2);
-            area.StartingFloor = areaFloorId1;
+            var areaDefEntrance = entMan.EnsureComponent<AreaEntranceComponent>(area.AreaEntityUid);
+            areaDefEntrance.StartingFloor = areaFloorId1;
 
             var mapIdSpec = new GlobalAreaMapIdSpecifier(globalId);
 

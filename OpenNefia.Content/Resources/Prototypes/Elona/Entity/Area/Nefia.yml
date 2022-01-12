@@ -1,0 +1,45 @@
+- type: Entity
+  id: Elona.BaseNefia
+  parent: BaseArea
+  abstract: true
+  components:
+  - type: AreaDungeon
+  - type: AreaRandomGen
+  - type: AreaNefia
+  - type: AreaEntrance
+
+- type: Entity
+  id: Elona.NefiaDungeon
+  parent: Elona.BaseNefia
+  components:
+  - type: AreaEntrance
+    components:
+    - type: Chip
+      chip: Elona.FeatAreaCave
+
+- type: Entity
+  id: Elona.NefiaForest
+  parent: Elona.BaseNefia
+  components:
+  - type: AreaEntrance
+    components:
+    - type: Chip
+      chip: Elona.FeatAreaForest
+
+- type: Entity
+  id: Elona.NefiaTower
+  parent: Elona.BaseNefia
+  components:
+  - type: AreaEntrance
+    components:
+    - type: Chip
+      image: Elona.FeatAreaTower
+
+- type: Entity
+  id: Elona.NefiaFort
+  parent: Elona.BaseNefia
+  components:
+  - type: AreaEntrance
+    components:
+    - type: Chip
+      image: Elona.FeatAreaFort

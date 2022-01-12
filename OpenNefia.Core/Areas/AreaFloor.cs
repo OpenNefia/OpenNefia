@@ -10,9 +10,6 @@ namespace OpenNefia.Core.Areas
         [DataField]
         public MapId? MapId { get; internal set; }
 
-        [DataField]
-        public PrototypeId<MapPrototype> DefaultGenerator { get; set; } = new("Blank");
-
         public AreaFloor()
         {
         }
@@ -20,11 +17,6 @@ namespace OpenNefia.Core.Areas
         public AreaFloor(MapId mapId)
         {
             MapId = mapId;
-        }
-
-        public AreaFloor(PrototypeId<MapPrototype> defaultGenerator)
-        {
-            DefaultGenerator = defaultGenerator;
         }
     }
 }

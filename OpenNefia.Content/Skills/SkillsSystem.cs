@@ -3,6 +3,7 @@ using System.Security.Cryptography;
 using OpenNefia.Content.EntityGen;
 using OpenNefia.Content.Equipment;
 using OpenNefia.Content.GameObjects;
+using OpenNefia.Content.Levels;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Prototypes;

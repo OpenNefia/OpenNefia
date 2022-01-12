@@ -1,0 +1,90 @@
+- type: Entity
+  id: Elona.Vernis
+  parent: BaseArea
+  hspIds:
+    elona122: 5
+  components:
+  - type: AreaStaticFloors
+    floors:
+      Elona.FloorVernis: Elona.Vernis
+  - type: AreaEntrance
+    startingFloor: Elona.FloorVernis
+    globalId: Elona.AreaVernis
+
+- type: Entity
+  id: Elona.PortKapul
+  parent: BaseArea
+  hspIds:
+    elona122: 11
+  components:
+  - type: AreaStaticFloors
+    floors:
+      Elona.FloorPortKapul: Elona.PortKapul
+  - type: AreaEntrance
+    startingFloor: Elona.FloorPortKapul
+    globalId: Elona.AreaPortKapul
+
+- type: Entity
+  id: Elona.Yowyn
+  parent: BaseArea
+  hspIds:
+    elona122: 12
+  components:
+  - type: AreaStaticFloors
+    floors:
+      Elona.FloorYowyn: Elona.Yowyn
+  - type: AreaEntrance
+    startingFloor: Elona.FloorYowyn
+    globalId: Elona.AreaYowyn
+
+- type: Entity
+  id: Elona.Derphy
+  parent: BaseArea
+  hspIds:
+    elona122: 14
+  components:
+  - type: AreaStaticFloors
+    floors:
+      Elona.FloorDerphy: Elona.Derphy
+  - type: AreaEntrance
+    startingFloor: Elona.FloorDerphy
+    globalId: Elona.AreaDerphy
+
+- type: Entity
+  id: Elona.Palmia
+  parent: BaseArea
+  hspIds:
+    elona122: 15
+  components:
+  - type: AreaStaticFloors
+    floors:
+      Elona.FloorPalmia: Elona.Palmia
+  - type: AreaEntrance
+    startingFloor: Elona.FloorPalmia
+    globalId: Elona.AreaPalmia
+
+- type: Entity
+  id: Elona.Noyel
+  parent: BaseArea
+  hspIds:
+    elona122: 33
+  components:
+  - type: AreaStaticFloors
+    floors:
+      Elona.FloorNoyel: Elona.Noyel
+  - type: AreaEntrance
+    startingFloor: Elona.FloorNoyel
+    globalId: Elona.AreaNoyel
+
+- type: Entity
+  id: Elona.Lumiest
+  parent: BaseArea
+  hspIds:
+    elona122: 36
+  components:
+  - type: AreaStaticFloors
+    floors:
+      Elona.FloorLumiest: Elona.Lumiest
+  - type: AreaEntrance
+    startingFloor: Elona.FloorLumiest
+    globalId: Elona.AreaLumiest

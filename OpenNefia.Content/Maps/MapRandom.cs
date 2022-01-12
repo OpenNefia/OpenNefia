@@ -8,11 +8,27 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static OpenNefia.Content.Prototypes.Protos;
 
 namespace OpenNefia.Content.Maps
 {
     public interface IMapRandom : IEntitySystem
     {
+        /// <summary>
+        /// Picks a random tile in the map.
+        /// </summary>
+        TileRef? PickRandomTile(IMap map);
+
+        /// <summary>
+        /// Picks a random tile in the map within the given tile radius.
+        /// </summary>
+        TileRef? PickRandomTileInRadius(TileRef tile, int radius);
+
+        /// <summary>
+        /// Picks a random tile in the map within the given tile radius.
+        /// </summary>
+        TileRef? PickRandomTileInRadius(MapCoordinates coords, int radius);
+
         /// <summary>
         ///     Gets tiles in random directions from the given one.
         /// </summary>
@@ -36,16 +52,26 @@ namespace OpenNefia.Content.Maps
         /// <inheritdoc/>
         public TileRef? PickRandomTile(IMap map)
         {
-            return map.GetTile(_random.NextPoint(map.Bounds));
+            return map.GetTile(_random.NextVec2iInBounds(map.Bounds));
+        }
+
+        public TileRef? PickRandomTileInRadius(TileRef tile, int radius)
+        {
+            return PickRandomTileInRadius(tile.MapPosition, radius);
+        }
+
+        public TileRef? PickRandomTileInRadius(MapCoordinates coords, int radius)
+{
+            if (!_mapManager.TryGetMap(coords.MapId, out var map))
+                return null;
+
+            return map.GetTile(_random.NextVec2iInRadius(radius).BoundWithin(map.Bounds));
         }
 
         /// <inheritdoc/>
         public IEnumerable<TileRef> GetRandomAdjacentTiles(TileRef tile, bool onlyAccessible = false)
         {
-            if (!_mapManager.TryGetMap(tile.MapId, out var map))
-                return Enumerable.Empty<TileRef>();
-
-            return GetRandomAdjacentTiles(map.AtPos(tile.Position), onlyAccessible);
+            return GetRandomAdjacentTiles(tile.MapPosition, onlyAccessible);
         }
 
         /// <inheritdoc/>
@@ -73,5 +99,4 @@ namespace OpenNefia.Content.Maps
             }
         }
     }
-
 }

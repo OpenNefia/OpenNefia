@@ -1,4 +1,5 @@
-﻿using OpenNefia.Core.IoC;
+﻿using OpenNefia.Core.GameObjects;
+using OpenNefia.Core.IoC;
 using OpenNefia.Core.Log;
 using OpenNefia.Core.Maps;
 using System;
@@ -76,13 +77,16 @@ namespace OpenNefia.Core.Areas
         }
 
         /// <inheritdoc/>
+        public bool TryGetAreaOfMap(IMap map, [NotNullWhen(true)] out IArea? area)
+            => TryGetAreaOfMap(map.Id, out area);
+
+        /// <inheritdoc/>
         public bool TryGetAreaOfMap(MapId map, [NotNullWhen(true)] out IArea? area)
         {
             return TryGetAreaAndFloorOfMap(map, out area, out _);
         }
 
-        // TODO: This is probably going into an IMapGenerator interface later.
-        public MapId GenerateMapForFloor(AreaId areaId, AreaFloorId floorId)
+        public MapId? GenerateMapForFloor(AreaId areaId, AreaFloorId floorId)
         {
             var area = GetArea(areaId);
             var floor = area.ContainedMaps[floorId];
@@ -91,11 +95,45 @@ namespace OpenNefia.Core.Areas
                 Logger.WarningS("area", $"Area/floor '{areaId}/'{floorId}' has already been generated, reusing generated map {floor.MapId}.");
                 return floor.MapId.Value;
             }
-            var proto = _prototypeManager.Index(floor.DefaultGenerator);
-            var mapId = _mapLoader.LoadBlueprint(proto.BlueprintPath).Id;
-            floor.MapId = mapId;
-            _mapsToAreas.Add(mapId, (area, floorId));
-            return mapId;
+
+            var ev = new AreaFloorGenerateEvent(area, floorId);
+            _entityManager.EventBus.RaiseLocalEvent(area.AreaEntityUid, ev);
+
+            if (ev.ResultMapId == null)
+            {
+                Logger.ErrorS("area", $"Failed to generate map for area/floor '{areaId}'/'{floorId}'!");
+                return null;
+            }
+
+            floor.MapId = ev.ResultMapId.Value;
+            _mapsToAreas.Add(floor.MapId.Value, (area, floorId));
+
+            return floor.MapId;
+        }
+    }
+
+    /// <summary>
+    /// Raised when a new floor in a area needs to be generated.
+    /// </summary>
+    public sealed class AreaFloorGenerateEvent : HandledEntityEventArgs
+    {
+        public IArea Area { get; }
+        public AreaFloorId FloorId { get; }
+
+        public MapId? ResultMapId { get; private set; }
+
+        public AreaFloorGenerateEvent(IArea area, AreaFloorId floorId)
+        {
+            Area = area;
+            FloorId = floorId;
+        }
+
+        public void Handle(IMap map) => Handle(map.Id);
+
+        public void Handle(MapId mapId)
+        {
+            Handled = true;
+            ResultMapId = mapId;
         }
     }
 }

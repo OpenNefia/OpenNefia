@@ -109,6 +109,17 @@ namespace OpenNefia.Core.Prototypes
             public ComponentRegistry(Dictionary<string, IComponent> components) : base(components)
             {
             }
+
+            public bool HasComponent<T>()
+                where T: IComponent
+            {
+                var dummy = (IComponent)Activator.CreateInstance(typeof(T))!;
+
+                if (!TryGetValue(dummy.Name, out var comp))
+                    return false;
+
+                return comp is T;
+            }
         }
     }
 }

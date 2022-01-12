@@ -23,6 +23,6 @@ namespace OpenNefia.Content.RandomAreas
         /// and regenerated.
         /// </summary>
         [DataField]
-        public bool NeedsRegeneration { get; set; } = false;
+        public bool RegenerateRandomAreas { get; set; } = false;
     }
 }
