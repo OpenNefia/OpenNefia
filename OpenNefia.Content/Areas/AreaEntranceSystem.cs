@@ -34,15 +34,19 @@ namespace OpenNefia.Content.Areas
             AreaEntranceComponent? areaEntranceComp = null)
         {
             IEntityLoadContext? context = null;
+            IMapStartLocation? startLocation = null;
             if (Resolve(area.AreaEntityUid, ref areaEntranceComp, logMissing: false))
             {
                 context = new BasicComponentLoadContext(areaEntranceComp.Components);
+                startLocation = areaEntranceComp.StartLocation;
             }
 
             var entranceEnt = EntityManager.SpawnEntity(Protos.Feat.MapEntrance, coords, context);
 
             var worldMapEntrance = EntityManager.EnsureComponent<WorldMapEntranceComponent>(entranceEnt);
             worldMapEntrance.Entrance.MapIdSpecifier = new AreaFloorMapIdSpecifier(area.Id);
+            if (startLocation != null)
+                worldMapEntrance.Entrance.StartLocation = startLocation;
 
             var areaEnt = area.AreaEntityUid;
 

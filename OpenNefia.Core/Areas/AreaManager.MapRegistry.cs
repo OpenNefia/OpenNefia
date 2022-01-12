@@ -1,3 +1,4 @@
+using OpenNefia.Core.Game;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Log;
@@ -102,7 +103,11 @@ namespace OpenNefia.Core.Areas
                 return floor.MapId.Value;
             }
 
-            var ev = new AreaFloorGenerateEvent(area, floorId);
+            // TODO: Should this be passed as an argument?
+            var player = IoCManager.Resolve<IGameSessionManager>().Player;
+            var previousCoords = _entityManager.GetComponent<SpatialComponent>(player).MapPosition;
+
+            var ev = new AreaFloorGenerateEvent(area, floorId, previousCoords);
             _entityManager.EventBus.RaiseLocalEvent(area.AreaEntityUid, ev);
 
             if (ev.ResultMapId == null)
@@ -125,13 +130,15 @@ namespace OpenNefia.Core.Areas
     {
         public IArea Area { get; }
         public AreaFloorId FloorId { get; }
+        public MapCoordinates PreviousCoords { get; }
 
         public MapId? ResultMapId { get; private set; }
 
-        public AreaFloorGenerateEvent(IArea area, AreaFloorId floorId)
+        public AreaFloorGenerateEvent(IArea area, AreaFloorId floorId, MapCoordinates previousCoords)
         {
             Area = area;
             FloorId = floorId;
+            PreviousCoords = previousCoords;
         }
 
         public void Handle(IMap map) => Handle(map.Id);

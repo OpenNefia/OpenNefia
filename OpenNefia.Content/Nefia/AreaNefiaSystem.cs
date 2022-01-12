@@ -20,6 +20,7 @@ using OpenNefia.Content.EntityGen;
 using OpenNefia.Content.Areas;
 using OpenNefia.Content.Maps;
 using OpenNefia.Core.Maths;
+using OpenNefia.Content.GameObjects;
 
 namespace OpenNefia.Content.Nefia
 {
@@ -52,12 +53,22 @@ namespace OpenNefia.Content.Nefia
 
         private void OnNefiaFloorGenerate(EntityUid uid, AreaNefiaComponent component, AreaFloorGenerateEvent args)
         {
+            // TODO: temporary floor generation.
+
             var map = _mapManager.CreateMap(20, 20);
             map.Clear(Protos.Tile.Dirt);
             foreach (var pos in EnumerateBorder(map.Bounds))
             {
                 map.SetTile(pos, Protos.Tile.WallDirt);
             }
+
+            var stairs = _entityGen.SpawnEntity(Protos.Feat.StairsUp, map.AtPos(10, 10))!.Value;
+            var stairsComp = EntityManager.EnsureComponent<StairsComponent>(stairs);
+            stairsComp.Entrance = MapEntrance.FromMapCoordinates(args.PreviousCoords);
+
+            var tagComp = EntityManager.EnsureComponent<TagComponent>(stairs);
+            tagComp.AddTag(Protos.Tag.DungeonStairsSurfacing);
+
             args.Handle(map);
         }
 
@@ -71,9 +82,9 @@ namespace OpenNefia.Content.Nefia
             {
                 yield return pos;
 
-                if (pos.Y == start.Y || pos.Y == end.Y)
+                if (pos.Y == start.Y || pos.Y == end.Y - 1)
                 {
-                    if (pos.X == end.X)
+                    if (pos.X == end.X - 1)
                     {
                         pos.X = start.X;
                         pos.Y++;
@@ -87,7 +98,7 @@ namespace OpenNefia.Content.Nefia
                 {
                     if (pos.X == start.X)
                     {
-                        pos.X = end.X;
+                        pos.X = end.X - 1;
                     }
                     else
                     {
