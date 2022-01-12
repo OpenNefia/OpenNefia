@@ -40,7 +40,7 @@
     elona122: 15
   components:
     - type: Chip
-      id: Elona.FeatAreaCave
+      id: Elona.FeatAreaDungeon
     - type: WorldMapEntrance
 
 - type: Entity

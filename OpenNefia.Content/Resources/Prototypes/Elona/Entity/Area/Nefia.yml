@@ -15,7 +15,7 @@
   - type: AreaEntrance
     components:
     - type: Chip
-      chip: Elona.FeatAreaCave
+      id: Elona.FeatAreaDungeon
 
 - type: Entity
   id: Elona.NefiaForest
@@ -24,7 +24,7 @@
   - type: AreaEntrance
     components:
     - type: Chip
-      chip: Elona.FeatAreaForest
+      id: Elona.FeatAreaForest
 
 - type: Entity
   id: Elona.NefiaTower
@@ -33,7 +33,7 @@
   - type: AreaEntrance
     components:
     - type: Chip
-      image: Elona.FeatAreaTower
+      id: Elona.FeatAreaTower
 
 - type: Entity
   id: Elona.NefiaFort
@@ -42,4 +42,4 @@
   - type: AreaEntrance
     components:
     - type: Chip
-      image: Elona.FeatAreaFort
+      id: Elona.FeatAreaFort
