@@ -12,12 +12,14 @@ using OpenNefia.Core.IoC;
 using OpenNefia.Content.GameObjects;
 using OpenNefia.Content.Charas;
 using OpenNefia.Content.Skills;
+using OpenNefia.Content.World;
 
 namespace OpenNefia.Content.UI.Element
 {
     public class CharSheet : UiElement
     {
         [Dependency] private readonly IEntityManager _entityManager = default!;
+        [Dependency] private readonly IWorldSystem _world = default!;
 
         public const int SheetWidth = 700;
         public const int SheetHeight = 400;
@@ -26,10 +28,11 @@ namespace OpenNefia.Content.UI.Element
         private EntityUid CharaEntity;
         public CharSheet(EntityUid charaEntity)
         {
+            EntitySystem.InjectDependencies(this);
             CharaEntity = charaEntity;
             IeSheet = Assets.Get(Protos.Asset.IeSheet);
+            Init();
         }
-
 
         private void Init()
         {
@@ -46,7 +49,6 @@ namespace OpenNefia.Content.UI.Element
 
             }
         }
-
 
         public override void SetSize(int width, int height)
         {
