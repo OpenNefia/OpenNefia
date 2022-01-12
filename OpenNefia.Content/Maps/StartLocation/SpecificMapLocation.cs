@@ -1,4 +1,4 @@
-﻿using OpenNefia.Core.GameObjects;
+using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Maps;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.Serialization.Manager.Attributes;
