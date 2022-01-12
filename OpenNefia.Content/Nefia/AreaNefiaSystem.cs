@@ -48,11 +48,14 @@ namespace OpenNefia.Content.Nefia
 
         private void OnCheckIsActive(EntityUid uid, AreaNefiaComponent areaNefia, RandomAreaCheckIsActiveEvent args)
         {
-            args.IsActive = areaNefia.State == NefiaState.Unvisited || areaNefia.State == NefiaState.Visited;
+            args.IsActive |= areaNefia.State == NefiaState.Unvisited || areaNefia.State == NefiaState.Visited;
         }
 
         private void OnNefiaFloorGenerate(EntityUid uid, AreaNefiaComponent component, AreaFloorGenerateEvent args)
         {
+            if (args.Handled)
+                return;
+
             // TODO: temporary floor generation.
 
             var map = _mapManager.CreateMap(20, 20);

@@ -188,17 +188,22 @@ namespace OpenNefia.Content.RandomAreas
         public int GetTotalActiveRandomAreasInMap(MapId mapId)
         {
             var totalActive = 0;
-            var ev = new RandomAreaCheckIsActiveEvent();
 
             foreach (var (entrance, area) in EnumerateRandomMapEntrancesIn(mapId).ToList())
             {
-                ev.IsActive = false;
-                RaiseLocalEvent(area.AreaEntityUid, ev);
-                if (ev.IsActive)
-                    totalActive += 1;
+                if(IsRandomAreaActive(area))
+                    totalActive++;
             }
 
             return totalActive;
+        }
+
+        public bool IsRandomAreaActive(IArea area)
+        {
+            var ev = new RandomAreaCheckIsActiveEvent();
+            ev.IsActive = false;
+            RaiseLocalEvent(area.AreaEntityUid, ev);
+            return ev.IsActive;
         }
 
         private void DeleteRandomAreasAndEntrancesInMap(MapId mapId)
