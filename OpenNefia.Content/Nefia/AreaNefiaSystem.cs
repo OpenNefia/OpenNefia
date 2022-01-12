@@ -75,7 +75,7 @@ namespace OpenNefia.Content.Nefia
             args.Handle(map);
         }
 
-        private IEnumerable<Vector2i> EnumerateBorder(UIBox2i bounds)
+        private static IEnumerable<Vector2i> EnumerateBorder(UIBox2i bounds)
         {
             var start = bounds.TopLeft;
             var end = bounds.BottomRight;

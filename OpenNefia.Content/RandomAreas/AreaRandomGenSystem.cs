@@ -34,6 +34,7 @@ namespace OpenNefia.Content.RandomAreas
         /// If the live number drops below this amount, then enough new random areas will be generated
         /// to fill the needed amount.
         /// </summary>
+        // TODO: Make into a CVar.
         public const int ActiveRandomAreaThreshold = 25;
 
         public override void Initialize()
