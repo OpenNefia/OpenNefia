@@ -1,3 +1,6 @@
+-- NOTE: I avoid the use of :format() in this file because of all the '%' that
+-- would need to be escaped.
+
 OpenNefia.Prototypes.Elona.Feat.Elona = {
     Stamina = {
         ["1"] = {

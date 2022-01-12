@@ -1,7 +1,11 @@
 Elona.FeatMenu = {
-    Title = "Feats and Traits",
-    GainedHeader = "[Feats and traits]",
-    AvailableHeader = "[Available feats]",
+    Window = {
+        Title = "Feats and Traits",
+    },
+    Header = {
+        Available = "[Available feats]",
+        Gained = "[Feats and traits]",
+    },
     FeatMax = "MAX",
     Topic = {
         Name = "Name",
