@@ -8,7 +8,7 @@ namespace OpenNefia.Content.Prototypes
         {
             #pragma warning disable format
 
-            public static readonly EntityPrototypeId Player = new($"Elona.Chara{nameof(Player)}");
+            public static readonly EntityPrototypeId Player = new($"Base.Chara{nameof(Player)}");
 
             public static readonly EntityPrototypeId Bug                        = new($"Elona.Chara{nameof(Bug)}");
             public static readonly EntityPrototypeId Shopkeeper                 = new($"Elona.Chara{nameof(Shopkeeper)}");

@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using OpenNefia.Content.EntityGen;
 using OpenNefia.Core.Maps;
+using OpenNefia.Core.SaveGames;
 
 namespace OpenNefia.Content.CharaMake
 {
@@ -20,8 +21,9 @@ namespace OpenNefia.Content.CharaMake
     public class CharaMakeLogic : ICharaMakeLogic
     {
         [Dependency] private readonly IUserInterfaceManager _uiManager = default!;
-        [Dependency] private readonly IEntityManager _entManager = default!;
-        [Dependency] private readonly IEntityGen _entityGen = default!;
+        [Dependency] private readonly IEntityManager _entityManager = default!;
+        [Dependency] private readonly IMapManager _mapManager = default!;
+        [Dependency] private readonly ISaveGameSerializer _saveSerializer = default!;
 
         public List<ICharaMakeLayer> GetDefaultCreationSteps()
         {
@@ -41,6 +43,8 @@ namespace OpenNefia.Content.CharaMake
 
         public void RunCreateChara()
         {
+            _saveSerializer.ResetGame();
+
             var steps = GetDefaultCreationSteps();
             var data = new CharaMakeData();
             var stepIndex = 0;
@@ -54,10 +58,16 @@ namespace OpenNefia.Content.CharaMake
                     Logger.DebugS("charamake", $"Character creation complete, values:" + Environment.NewLine 
                         + string.Join(Environment.NewLine, data.CharaData.SelectMany(x => x.Value.Select(y => $"{y.Key}: {y.Value}"))));
 
-                    //var newEnt = _entManager.CreateEntityUninitialized(null);
-                    //var coordEnt = _entManager.AddComponent<EntityCoordinates>(newEnt);
-                    var playerEntity = _entManager.SpawnEntity(Protos.Chara.Player, new EntityCoordinates());
-                    _entityGen.FireGeneratedEvent(playerEntity);
+                    var globalMap = _mapManager.CreateMap(1, 1, MapId.Global);
+                    var globalMapSpatial = _entityManager.GetComponent<SpatialComponent>(globalMap.MapEntityUid);
+
+
+                    var playerEntity = _entityManager.CreateEntityUninitialized(Protos.Chara.Player);
+                    var areaSpatial = _entityManager.GetComponent<SpatialComponent>(playerEntity);
+                    areaSpatial.AttachParent(globalMapSpatial);
+
+                    var entityGen = EntitySystem.Get<IEntityGen>();
+                    entityGen.FireGeneratedEvent(playerEntity);
                     foreach(var creationStep in steps)
                     {
                         creationStep.ApplyStep(playerEntity);
