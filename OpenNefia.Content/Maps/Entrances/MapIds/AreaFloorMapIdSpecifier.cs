@@ -30,6 +30,8 @@ namespace OpenNefia.Content.Maps
             FloorId = floorId;
         }
 
+        public AreaId? GetAreaId() => AreaId;
+
         public MapId? GetMapId()
         {
             EntitySystem.InjectDependencies(this);
@@ -44,19 +46,11 @@ namespace OpenNefia.Content.Maps
                 return null;
             }
 
-            // TODO: maybe change this for dungeons?
-            // or have a DungeonMapIdSpecifier that autopopulates the given area with a new floor?
-            if (!area.ContainedMaps.TryGetValue(startingFloor.Value, out var floor))
-            {
-                Logger.ErrorS("area.mapIds", $"Area {AreaId} is missing floor {floor}!");
-                return null;
-            }
-
-            var mapId = floor.MapId;
-
+            var mapId = _areaManager.GetOrGenerateMapForFloor(area.Id, startingFloor.Value);
             if (mapId == null)
             {
-                mapId = _areaManager.GenerateMapForFloor(AreaId, startingFloor.Value);
+                Logger.ErrorS("area.mapIds", $"Area {AreaId} is missing floor {startingFloor.Value}!");
+                return null;
             }
 
             return mapId;

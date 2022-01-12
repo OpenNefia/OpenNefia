@@ -1,4 +1,5 @@
-﻿using OpenNefia.Core.Maps;
+using OpenNefia.Core.Areas;
+using OpenNefia.Core.Maps;
 using OpenNefia.Core.Serialization.Manager.Attributes;
 using System;
 using System.Collections.Generic;
@@ -15,6 +16,11 @@ namespace OpenNefia.Content.Maps
     [ImplicitDataDefinitionForInheritors]
     public interface IMapIdSpecifier
     {
+        /// <summary>
+        /// Gets the area relevant to this destination, if any.
+        /// </summary>
+        public AreaId? GetAreaId();
+
         /// <summary>
         /// Gets the map to be used for the destination.
         /// </summary>
