@@ -7,6 +7,10 @@ namespace OpenNefia.Core.Audio
 {
     public sealed class HeadlessAudioManager : IAudioManager
     {
+        public void Initialize()
+        {
+        }
+
         public void Play(PrototypeId<SoundPrototype> prototype, AudioParams? audioParams = null)
         {
         }

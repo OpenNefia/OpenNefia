@@ -1,4 +1,4 @@
-﻿using OpenNefia.Core.Config;
+﻿using OpenNefia.Core.Configuration;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Maps;
@@ -16,10 +16,14 @@ namespace OpenNefia.Core.Audio
 {
     public sealed class LoveAudioManager : IAudioManager
     {
+        [Dependency] private readonly IConfigurationManager _config = default!;
         [Dependency] private readonly IResourceCache _resourceCache = default!;
         [Dependency] private readonly IEntityManager _entityManager = default!;
         [Dependency] private readonly IMapManager _mapManager = default!;
         [Dependency] private readonly ICoords _coords = default!;
+
+        private bool _enableSound;
+        private bool _usePositionalSound;
 
         private class PlayingSource
         {
@@ -33,6 +37,12 @@ namespace OpenNefia.Core.Audio
 
         private List<PlayingSource> _playingSources = new();
 
+        public void Initialize()
+        {
+            _config.OnValueChanged(CVars.AudioSound, b => _enableSound = b, true);
+            _config.OnValueChanged(CVars.AudioPositionalSound, b => _usePositionalSound = b, true);
+        }
+
         private Love.Source GetLoveSource(PrototypeId<SoundPrototype> prototype)
         {
             var fileData = _resourceCache.GetResource<LoveFileDataResource>(prototype.ResolvePrototype().Filepath);
@@ -42,7 +52,7 @@ namespace OpenNefia.Core.Audio
         /// <inheritdoc />
         public void Play(PrototypeId<SoundPrototype> prototype, AudioParams? audioParams = null)
         {
-            if (!ConfigVars.EnableSound)
+            if (!_enableSound)
                 return;
 
             var source = GetLoveSource(prototype);
@@ -83,7 +93,7 @@ namespace OpenNefia.Core.Audio
         /// <inheritdoc />
         public void Play(PrototypeId<SoundPrototype> prototype, Vector2i screenPosition, AudioParams? audioParams = null)
         {
-            if (!ConfigVars.EnableSound)
+            if (!_enableSound)
                 return;
 
             var source = GetLoveSource(prototype);
@@ -91,8 +101,10 @@ namespace OpenNefia.Core.Audio
             if (source.GetChannelCount() == 1)
             {
                 source.SetRelative(false);
-                source.SetPosition(screenPosition.X, screenPosition.Y, 0f);
                 source.SetAttenuationDistances(100, 500);
+
+                if (_usePositionalSound)
+                    source.SetPosition(screenPosition.X, screenPosition.Y, 0f);
             }
 
             source.SetVolume(Math.Clamp(audioParams?.Volume ?? 1f, 0f, 1f));

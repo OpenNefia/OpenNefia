@@ -6,7 +6,7 @@ namespace OpenNefia.Core.GameController
     {
         public Action? MainCallback { get; set; }
 
-        public bool Startup();
+        public bool Startup(GameControllerOptions options);
         public void Run();
 
         void Update(FrameEventArgs frame);

@@ -28,9 +28,11 @@ namespace OpenNefia
         {
             InitIoC(DisplayMode.Love);
 
+            var options = new GameControllerOptions();
+
             var gc = IoCManager.Resolve<IGameController>();
 
-            if (!gc.Startup())
+            if (!gc.Startup(options))
             {
                 Logger.Fatal("Failed to start game controller!");
                 return;

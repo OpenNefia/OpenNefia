@@ -7,6 +7,8 @@ namespace OpenNefia.Core.Audio
 {
     public interface IAudioManager
     {
+        void Initialize();
+
         /// <summary>
         /// Plays an audio file globally, without position.
         /// </summary>

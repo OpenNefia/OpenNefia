@@ -1,6 +1,5 @@
 ﻿using OpenNefia.Core.Audio;
-using OpenNefia.Core.Config;
-using OpenNefia.Core.Game;
+using OpenNefia.Core.Configuration;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Prototypes;
 
@@ -8,6 +7,12 @@ namespace OpenNefia.Core.Rendering
 {
     public class BasicAnimMapDrawable : BaseMapDrawable
     {
+        [Dependency] private readonly IPrototypeManager _protos = default!;
+        [Dependency] private readonly IConfigurationManager _config = default!;
+        [Dependency] private readonly IAssetManager _assets = default!;
+        [Dependency] private readonly ICoords _coords = default!;
+        [Dependency] private readonly IAudioManager _sounds = default!;
+
         public BasicAnimPrototype BasicAnim { get; }
 
         private FrameCounter Counter;
@@ -15,23 +20,25 @@ namespace OpenNefia.Core.Rendering
 
         public BasicAnimMapDrawable(PrototypeId<BasicAnimPrototype> basicAnimId)
         {
-            this.BasicAnim = basicAnimId.ResolvePrototype();
+            IoCManager.InjectDependencies(this);
 
-            var animeWait = ConfigVars.AnimeWait;
-            var maxFrames = this.BasicAnim.Asset.ResolvePrototype().CountX;
+            this.BasicAnim = _protos.Index(basicAnimId);
+            var asset = _protos.Index(BasicAnim.Asset);
+
+            var animeWait = _config.GetCVar(CVars.AnimeWait);
+            var maxFrames = asset.CountX;
             if (this.BasicAnim.FrameCount != null)
                 maxFrames = this.BasicAnim.FrameCount.Value;
 
             this.Counter = new FrameCounter(animeWait + this.BasicAnim.FrameDelayMillis / 2, maxFrames);
-            this.AssetDrawable = IoCManager.Resolve<IAssetManager>().GetAsset(this.BasicAnim.Asset);
+            this.AssetDrawable = _assets.GetAsset(this.BasicAnim.Asset);
         }
 
         public override void OnEnqueue()
         {
             if (this.BasicAnim.Sound != null)
             {
-                // TODO positional audio
-                Sounds.Play(this.BasicAnim.Sound.Value, this.ScreenLocalPos);
+                _sounds.Play(this.BasicAnim.Sound.Value, this.ScreenLocalPos);
             }
         }
 
@@ -48,8 +55,8 @@ namespace OpenNefia.Core.Rendering
         {
             Love.Graphics.SetColor(Love.Color.White);
             this.AssetDrawable.DrawRegion(Counter.FrameInt.ToString(), 
-                this.X + GameSession.Coords.TileSize.X / 2, 
-                this.Y + GameSession.Coords.TileSize.Y / 6,
+                this.X + _coords.TileSize.X / 2, 
+                this.Y + _coords.TileSize.Y / 6,
                 centered: true,
                 rotation: this.BasicAnim.Rotation * this.Counter.Frame);
         }

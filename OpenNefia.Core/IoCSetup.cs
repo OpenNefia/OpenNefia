@@ -2,6 +2,7 @@
 using OpenNefia.Core.Asynchronous;
 using OpenNefia.Core.Audio;
 using OpenNefia.Core.CommandLine;
+using OpenNefia.Core.Configuration;
 using OpenNefia.Core.ContentPack;
 using OpenNefia.Core.DebugServer;
 using OpenNefia.Core.Exceptions;
@@ -56,6 +57,8 @@ namespace OpenNefia
 
             IoCManager.Register<IRuntimeLog, RuntimeLog>();
             IoCManager.Register<ILogManager, LogManager>();
+            IoCManager.Register<IConfigurationManager, ConfigurationManager>();
+            IoCManager.Register<IConfigurationManagerInternal, ConfigurationManager>();
             IoCManager.Register<IDynamicTypeFactory, DynamicTypeFactory>();
             IoCManager.Register<IDynamicTypeFactoryInternal, DynamicTypeFactory>();
             IoCManager.Register<IEntitySystemManager, EntitySystemManager>();

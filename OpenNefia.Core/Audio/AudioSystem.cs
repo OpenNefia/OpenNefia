@@ -1,14 +1,7 @@
 ﻿using OpenNefia.Core.GameObjects;
-using OpenNefia.Core.Maps;
-using OpenNefia.Core.Config;
-using OpenNefia.Core.Prototypes;
-using OpenNefia.Core.Maths;
-using OpenNefia.Core.Game;
-using OpenNefia.Core.ResourceManagement;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Analyzers;
-using OpenNefia.Core.GameController;
 
 namespace OpenNefia.Core.Audio
 {

@@ -2,6 +2,7 @@
 using Moq;
 using OpenNefia.Core.Areas;
 using OpenNefia.Core.Asynchronous;
+using OpenNefia.Core.Configuration;
 using OpenNefia.Core.Containers;
 using OpenNefia.Core.ContentPack;
 using OpenNefia.Core.Exceptions;
@@ -192,6 +193,8 @@ namespace OpenNefia.Tests
             //Tier 1: System
             container.Register<ILogManager, LogManager>();
             container.Register<IRuntimeLog, RuntimeLog>();
+            container.Register<IConfigurationManager, ConfigurationManager>();
+            container.Register<IConfigurationManagerInternal, ConfigurationManager>();
             container.Register<IDynamicTypeFactory, DynamicTypeFactory>();
             container.Register<IDynamicTypeFactoryInternal, DynamicTypeFactory>();
             container.Register<ILocalizationManager, DummyLocalizationManager>();
