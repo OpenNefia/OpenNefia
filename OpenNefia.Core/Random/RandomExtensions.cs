@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.Utility;
@@ -82,10 +82,26 @@ namespace OpenNefia.Core.Random
             return random.Next() * 4.6566128752458E-10f;
         }
 
-        public static Vector2i NextPoint(this IRandom random, UIBox2i bounds)
+        public static Vector2i NextVec2iInBounds(this IRandom random, UIBox2i bounds)
         {
             return new Vector2i(random.Next(bounds.Left, bounds.Right),
                                 random.Next(bounds.Top, bounds.Bottom));
+        }
+
+        public static Vector2 NextVec2InRadius(this IRandom random, float radius)
+        {
+            while (true)
+            {
+                var result = new Vector2(random.NextFloat() - 0.5f, 
+                                         random.NextFloat() - 0.5f) * 2f;
+                if (result.LengthSquared <= 1f)
+                    return result * radius;
+            }
+        }
+
+        public static Vector2i NextVec2iInRadius(this IRandom random, float radius)
+        {
+            return (Vector2i)NextVec2InRadius(random, radius);
         }
 
         /// <summary>

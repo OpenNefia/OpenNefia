@@ -1,6 +1,7 @@
-﻿using OpenNefia.Core.Maps;
+using OpenNefia.Core.Maps;
 using OpenNefia.Core.Serialization.Manager.Attributes;
 using OpenNefia.Content.Prototypes;
+using OpenNefia.Core.Areas;
 
 namespace OpenNefia.Content.Maps
 {
@@ -18,6 +19,5 @@ namespace OpenNefia.Content.Maps
         /// </summary>
         [DataField]
         public IMapStartLocation StartLocation { get; set; } = new CenterMapLocation();
-
     }
 }

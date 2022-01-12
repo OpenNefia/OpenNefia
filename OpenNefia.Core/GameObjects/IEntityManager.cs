@@ -1,4 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
+using System.Diagnostics.CodeAnalysis;
 using OpenNefia.Core.Maps;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.Prototypes;
@@ -27,13 +27,17 @@ namespace OpenNefia.Core.GameObjects
         event EventHandler<EntityUid>? EntityStarted;
         event EventHandler<EntityUid>? EntityDeleted;
 
-        EntityUid CreateEntityUninitialized(PrototypeId<EntityPrototype>? prototypeId, EntityUid? euid);
+        EntityUid CreateEntityUninitialized(PrototypeId<EntityPrototype>? prototypeId, EntityUid? euid,
+            IEntityLoadContext? context = null);
 
-        EntityUid CreateEntityUninitialized(PrototypeId<EntityPrototype>? prototypeId);
+        EntityUid CreateEntityUninitialized(PrototypeId<EntityPrototype>? prototypeId,
+            IEntityLoadContext? context = null);
 
-        EntityUid CreateEntityUninitialized(PrototypeId<EntityPrototype>? prototypeId, EntityCoordinates coordinates);
+        EntityUid CreateEntityUninitialized(PrototypeId<EntityPrototype>? prototypeId, EntityCoordinates coordinates,
+            IEntityLoadContext? context = null);
 
-        EntityUid CreateEntityUninitialized(PrototypeId<EntityPrototype>? prototypeId, MapCoordinates coordinates);
+        EntityUid CreateEntityUninitialized(PrototypeId<EntityPrototype>? prototypeId, MapCoordinates coordinates,
+            IEntityLoadContext? context = null);
 
         /// <summary>
         /// Spawns an initialized entity at the default location, using the given prototype.
@@ -41,7 +45,8 @@ namespace OpenNefia.Core.GameObjects
         /// <param name="protoId">The prototype to clone. If this is null, the entity won't have a prototype.</param>
         /// <param name="coordinates"></param>
         /// <returns>Newly created entity.</returns>
-        EntityUid SpawnEntity(PrototypeId<EntityPrototype>? protoId, EntityCoordinates coordinates);
+        EntityUid SpawnEntity(PrototypeId<EntityPrototype>? protoId, EntityCoordinates coordinates, 
+            IEntityLoadContext? context = null);
 
         /// <summary>
         /// Spawns an entity at a specific position
@@ -49,7 +54,8 @@ namespace OpenNefia.Core.GameObjects
         /// <param name="protoName"></param>
         /// <param name="coordinates"></param>
         /// <returns></returns>
-        EntityUid SpawnEntity(PrototypeId<EntityPrototype>? protoId, MapCoordinates coordinates);
+        EntityUid SpawnEntity(PrototypeId<EntityPrototype>? protoId, MapCoordinates coordinates,
+            IEntityLoadContext? context = null);
 
         /// <summary>
         /// How many entities are currently active.

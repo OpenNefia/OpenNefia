@@ -1,3 +1,4 @@
+using OpenNefia.Content.Areas;
 using OpenNefia.Core.Areas;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
@@ -18,8 +19,7 @@ namespace OpenNefia.Content.Maps
     public class GlobalAreaMapIdSpecifier : IMapIdSpecifier
     {
         [Dependency] private readonly IAreaManager _areaManager = default!;
-        [Dependency] private readonly IMapLoader _mapLoader = default!;
-        [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
+        [Dependency] private readonly IAreaEntranceSystem _areaEntrances = default!;
 
         [DataField(required: true)]
         public GlobalAreaId GlobalAreaId { get; set; }
@@ -59,7 +59,7 @@ namespace OpenNefia.Content.Maps
             }
 
             var area = _areaManager.GetArea(ResolvedAreaId.Value);
-            var startingFloor = FloorId.HasValue ? FloorId.Value : area.StartingFloor;
+            var startingFloor = _areaEntrances.GetStartingFloor(area, FloorId);
 
             if (startingFloor == null)
             {

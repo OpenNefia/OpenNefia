@@ -1,0 +1,12 @@
+- type: Entity
+  id: Elona.NorthTyris
+  parent: BaseArea
+  hspIds:
+    elona122: 4
+  components:
+  - type: AreaStaticFloors
+    floors:
+      Elona.FloorNorthTyris: Elona.NorthTyris
+  - type: AreaEntrance
+    startingFloor: Elona.FloorNorthTyris
+    globalId: Elona.AreaNorthTyris

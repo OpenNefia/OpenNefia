@@ -1,4 +1,4 @@
-﻿using OpenNefia.Core.GameObjects;
+using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Serialization.Manager.Attributes;
 using System;
 using System.Collections.Generic;
@@ -23,6 +23,6 @@ namespace OpenNefia.Content.RandomAreas
         /// and regenerated.
         /// </summary>
         [DataField]
-        public bool NeedsRegeneration { get; set; } = false;
+        public bool RegenerateRandomAreas { get; set; } = false;
     }
 }

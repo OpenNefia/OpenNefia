@@ -171,6 +171,9 @@ tilemap:
 entities:
 - uid: 0
   protoId: Elona.MapWorld
+  components:
+  - type: MapRandomAreaManager
+    regenerateRandomAreas: true
 - uid: 1
   protoId: Elona.FeatMapEntrance
   components:
@@ -182,7 +185,7 @@ entities:
   - type: WorldMapEntrance
     entrance:
       map: !type:GlobalAreaMapIdSpecifier
-        globalAreaId: Elona.Vernis
+        globalAreaId: Elona.AreaVernis
       startLocation: !type:MapEdgesLocation {}
 - uid: 2
   protoId: Elona.FeatMapEntrance
@@ -195,7 +198,7 @@ entities:
   - type: WorldMapEntrance
     entrance:
       map: !type:GlobalAreaMapIdSpecifier
-        globalAreaId: Elona.PortKapul
+        globalAreaId: Elona.AreaPortKapul
       startLocation: !type:MapEdgesLocation {}
 - uid: 3
   protoId: Elona.FeatMapEntrance
@@ -208,7 +211,7 @@ entities:
   - type: WorldMapEntrance
     entrance:
       map: !type:GlobalAreaMapIdSpecifier
-        globalAreaId: Elona.Yowyn
+        globalAreaId: Elona.AreaYowyn
       startLocation: !type:MapEdgesLocation {}
 - uid: 4
   protoId: Elona.FeatMapEntrance
@@ -221,7 +224,7 @@ entities:
   - type: WorldMapEntrance
     entrance:
       map: !type:GlobalAreaMapIdSpecifier
-        globalAreaId: Elona.Derphy
+        globalAreaId: Elona.AreaDerphy
       startLocation: !type:MapEdgesLocation {}
 - uid: 5
   protoId: Elona.FeatMapEntrance
@@ -234,7 +237,7 @@ entities:
   - type: WorldMapEntrance
     entrance:
       map: !type:GlobalAreaMapIdSpecifier
-        globalAreaId: Elona.Palmia
+        globalAreaId: Elona.AreaPalmia
       startLocation: !type:MapEdgesLocation {}
 - uid: 6
   protoId: Elona.FeatMapEntrance
@@ -247,7 +250,7 @@ entities:
   - type: WorldMapEntrance
     entrance:
       map: !type:GlobalAreaMapIdSpecifier
-        globalAreaId: Elona.Noyel
+        globalAreaId: Elona.AreaNoyel
       startLocation: !type:MapEdgesLocation {}
 - uid: 7
   protoId: Elona.FeatMapEntrance
@@ -260,6 +263,6 @@ entities:
   - type: WorldMapEntrance
     entrance:
       map: !type:GlobalAreaMapIdSpecifier
-        globalAreaId: Elona.Lumiest
+        globalAreaId: Elona.AreaLumiest
       startLocation: !type:MapEdgesLocation {}
 ...
