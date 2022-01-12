@@ -1,8 +1,9 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using OpenNefia.Core.IoC;
 using OpenNefia.Core.Prototypes;
 
 namespace OpenNefia.Core.Maps
@@ -31,5 +32,28 @@ namespace OpenNefia.Core.Maps
         /// </summary>
         /// <param name="tileDef">THe definition to register.</param>
         void Register(TilePrototype tileDef);
+    }
+
+    public static class ITileDefinitionManagerExt
+    {
+        public static TilePrototype GetPrototype(this ITileDefinitionManager tileDefs, Tile tile)
+        {
+            return tileDefs[tile.Type];
+        }
+
+        public static TilePrototype GetPrototype(this ITileDefinitionManager tileDefs, TileRef tileRef)
+        {
+            return tileDefs[tileRef.Tile.Type];
+        }
+
+        public static PrototypeId<TilePrototype> GetPrototypeID(this ITileDefinitionManager tileDefs, Tile tile)
+        {
+            return GetPrototype(tileDefs, tile).GetStrongID();
+        }
+
+        public static PrototypeId<TilePrototype> GetPrototypeID(this ITileDefinitionManager tileDefs, TileRef tileRef)
+        {
+            return GetPrototype(tileDefs, tileRef).GetStrongID();
+        }
     }
 }

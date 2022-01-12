@@ -1,4 +1,4 @@
-﻿using OpenNefia.Core.Maps;
+using OpenNefia.Core.Maps;
 using OpenNefia.Core.Prototypes;
 using System;
 using System.Collections.Generic;
@@ -93,7 +93,7 @@ namespace OpenNefia.Content.FieldMap
 
             for (int i = 0; i < tileAmount; i++)
             {
-                var pos = random.NextPoint(map.Bounds);
+                var pos = random.NextVec2iInBounds(map.Bounds);
                 map.SetTile(pos, tile);
             }
         }

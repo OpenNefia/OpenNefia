@@ -20,7 +20,7 @@ namespace OpenNefia.Core.Areas
         event ActiveAreaChangedDelegate? ActiveAreaChanged;
 
         bool AreaExists(AreaId areaId);
-        IArea CreateArea(PrototypeId<AreaPrototype>? prototypeId = null, GlobalAreaId? globalId = null);
+        IArea CreateArea(PrototypeId<EntityPrototype>? areaEntityProtoId = null, GlobalAreaId? globalId = null, AreaId? parent = null);
         bool TryGetArea(AreaId areaId, [NotNullWhen(true)] out IArea? area);
         IArea GetArea(AreaId areaId);
         void DeleteArea(AreaId areaId);
@@ -31,10 +31,11 @@ namespace OpenNefia.Core.Areas
         void UnregisterAreaFloor(IArea area, AreaFloorId floorId);
 
         bool TryGetAreaOfMap(MapId map, [NotNullWhen(true)] out IArea? area);
+        bool TryGetAreaOfMap(IMap map, [NotNullWhen(true)] out IArea? area);
         bool TryGetAreaAndFloorOfMap(MapId map, [NotNullWhen(true)] out IArea? area, [NotNullWhen(true)] out AreaFloorId floorId);
 
         // TODO: This is probably going into an IMapGenerator interface later.
-        public MapId GenerateMapForFloor(AreaId areaId, AreaFloorId floorId);
+        public MapId? GenerateMapForFloor(AreaId areaId, AreaFloorId floorId);
 
         bool GlobalAreaExists(GlobalAreaId globalId);
         IArea GetGlobalArea(GlobalAreaId globalId);
@@ -130,34 +131,39 @@ namespace OpenNefia.Core.Areas
         }
 
         /// <inheritdoc/>
-        public IArea CreateArea(PrototypeId<AreaPrototype>? prototypeId = null, GlobalAreaId? globalId = null)
+        public IArea CreateArea(PrototypeId<EntityPrototype>? areaEntityProtoId = null, GlobalAreaId? globalId = null,
+            AreaId? parent = null)
         {
-            if (prototypeId != null && !_prototypeManager.HasIndex(prototypeId.Value))
-                throw new ArgumentException($"Prototype with ID '{prototypeId}' does not exist.", nameof(prototypeId));
+            if (areaEntityProtoId != null && !_prototypeManager.HasIndex(areaEntityProtoId.Value))
+                throw new ArgumentException($"Area entity prototype with ID '{areaEntityProtoId}' does not exist.", nameof(areaEntityProtoId));
             if (globalId != null && GlobalAreaExists(globalId.Value))
                 throw new ArgumentException($"Area with global ID '{globalId}' already exists.", nameof(globalId));
+            if (parent != null && !AreaExists(parent.Value))
+                throw new ArgumentException($"Parent area with ID '{parent}' does not exist.", nameof(parent));
 
             var actualID = GenerateAreaId();
 
             var area = new Area();
             _areas.Add(actualID, area);
             area.Id = actualID;
-            RebindAreaEntity(actualID, area);
-
-            if (prototypeId != null)
-            {
-                var proto = _prototypeManager.Index(prototypeId.Value);
-                foreach (var (floorId, initialMap) in proto.InitialFloors)
-                {
-                    RegisterAreaFloor(area, floorId, new AreaFloor(initialMap));
-                }
-                area.StartingFloor = proto.StartingFloor;
-            }
+            RebindAreaEntity(actualID, area, areaEntityProtoId);
 
             if (globalId != null)
             {
                 area.GlobalId = globalId.Value;
             }
+
+            if (parent != null)
+            {
+                Logger.DebugS("area", $"Parenting area {actualID} to area {parent}");
+                var parentArea = GetArea(parent.Value);
+                var parentAreaSpatial = _entityManager.GetComponent<SpatialComponent>(parentArea!.AreaEntityUid);
+                var areaSpatial = _entityManager.GetComponent<SpatialComponent>(area.AreaEntityUid);
+                areaSpatial.AttachParent(parentAreaSpatial);
+            }
+
+            var ev = new AreaGeneratedEvent(area);
+            _entityManager.EventBus.RaiseLocalEvent(area.AreaEntityUid, ev);
 
             return area;
         }
@@ -192,7 +198,7 @@ namespace OpenNefia.Core.Areas
             SetAreaAndEntityIds(area, areaId, areaEntityUid);
         }
 
-        private EntityUid RebindAreaEntity(AreaId actualID, IArea area)
+        private EntityUid RebindAreaEntity(AreaId actualID, IArea area, PrototypeId<EntityPrototype>? entityPrototypeId = null)
         {
             var areaComps = _entityManager.EntityQuery<AreaComponent>();
 
@@ -218,14 +224,14 @@ namespace OpenNefia.Core.Areas
                 var globalMap = _mapManager.GetMap(MapId.Global);
                 var globalMapSpatial = _entityManager.GetComponent<SpatialComponent>(globalMap.MapEntityUid);
 
-                var newEnt = _entityManager.CreateEntityUninitialized(null);
+                var newEnt = _entityManager.CreateEntityUninitialized(entityPrototypeId);
                 _areaEntities.Add(actualID, newEnt);
 
                 // Make sure the area IDs are set on the area object before area component
                 // events are fired.
                 SetAreaAndEntityIds(area, actualID, newEnt);
 
-                var areaComp = _entityManager.AddComponent<AreaComponent>(newEnt);
+                var areaComp = _entityManager.EnsureComponent<AreaComponent>(newEnt);
                 areaComp.AreaId = actualID;
                 
                 // Area entities will always live in the global map.
@@ -318,6 +324,19 @@ namespace OpenNefia.Core.Areas
         public IArea GetArea(AreaId areasId)
         {
             return _areas[areasId];
+        }
+    }
+
+    /// <summary>
+    /// Raised whenever a new area and area entity are created.
+    /// </summary>
+    public sealed class AreaGeneratedEvent : EntityEventArgs
+    {
+        public IArea Area { get; }
+
+        public AreaGeneratedEvent(IArea area)
+        {
+            Area = area;
         }
     }
 }

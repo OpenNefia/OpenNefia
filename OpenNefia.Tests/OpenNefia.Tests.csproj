@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 	<Import Project="..\MSBuild\OpenNefia.Properties.targets" />
   <Import Project="..\MSBuild\OpenNefia.Engine.props" />
 

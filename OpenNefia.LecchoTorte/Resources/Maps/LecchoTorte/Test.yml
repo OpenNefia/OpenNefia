@@ -188,4 +188,4 @@ entities:
   - type: Stairs
     entrance:
       map: !type:GlobalAreaMapIdSpecifier
-        globalAreaId: Elona.NorthTyris
+        globalAreaId: Elona.AreaNorthTyris

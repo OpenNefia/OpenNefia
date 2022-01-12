@@ -1,4 +1,4 @@
-﻿using OpenNefia.Core.GameObjects;
+using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Log;
 using OpenNefia.Core.Maps;
@@ -25,6 +25,7 @@ namespace OpenNefia.Content.EntityGen
     /// </remarks>
     public interface IEntityGen : IEntitySystem
     {
+        void FireGeneratedEvent(EntityUid entity);
         EntityUid? SpawnEntity(PrototypeId<EntityPrototype>? protoId, EntityCoordinates coordinates);
         EntityUid? SpawnEntity(PrototypeId<EntityPrototype>? protoId, MapCoordinates coordinates);
     }
@@ -40,8 +41,9 @@ namespace OpenNefia.Content.EntityGen
             SubscribeLocalEvent<SpatialComponent, EntityCloneFinishedEventArgs>(HandleClone, nameof(HandleClone));
         }
 
-        private void FireGeneratedEvent(EntityUid entity)
+        public void FireGeneratedEvent(EntityUid entity)
         {
+            // TODO: Check if generated has already been fired for this entity.
             var ev = new EntityGeneratedEvent();
             RaiseLocalEvent(entity, ref ev);
         }

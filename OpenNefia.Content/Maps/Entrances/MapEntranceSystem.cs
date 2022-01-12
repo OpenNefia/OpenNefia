@@ -1,4 +1,5 @@
-﻿using OpenNefia.Core.Game;
+using OpenNefia.Core.Areas;
+using OpenNefia.Core.Game;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Log;
@@ -10,11 +11,24 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace OpenNefia.Content.Maps
 {
-    public class MapEntranceSystem : EntitySystem
+    public sealed class MapEntranceSystem : EntitySystem
     {
         [Dependency] private readonly IMapLoader _mapLoader = default!;
         [Dependency] private readonly IMapManager _mapManager = default!;
+        [Dependency] private readonly IAreaManager _areaManager = default!;
         [Dependency] private readonly ISaveGameManager _saveGameManager = default!;
+
+        public bool TryGetAreaOfEntrance(MapEntrance entrance, [NotNullWhen(true)] out IArea? area)
+        {
+            var entranceMapId = entrance.MapIdSpecifier.GetMapId();
+            if (entranceMapId == null)
+            {
+                area = null;
+                return false;
+            }
+
+            return _areaManager.TryGetAreaOfMap(entranceMapId.Value, out area);
+        }
 
         public bool UseMapEntrance(EntityUid user, MapEntrance entrance,
             SpatialComponent? spatial = null)
