@@ -306,7 +306,7 @@
     region: "96, 192, 48, 48"
 
 - type: Chip
-  id: Elona.FeatAreaTree
+  id: Elona.FeatAreaForest
   hspIds:
     elona122: 135
   group: Feat
