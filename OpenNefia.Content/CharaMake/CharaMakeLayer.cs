@@ -9,6 +9,7 @@ using OpenNefia.Core;
 using OpenNefia.Core.Audio;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Input;
+using OpenNefia.Core.IoC;
 using OpenNefia.Core.Locale;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.Prototypes;
@@ -63,7 +64,7 @@ namespace OpenNefia.Content.CharaMake
                 size = new Vector2i(10, 10);
             }
         }
-
+        [Dependency] protected readonly IEntityManager _entityManager = default!;
         protected IAssetInstance AssetBG;
         protected IAssetInstance[] AssetWindows;
         protected IAssetInstance CurrentWindowBG;
@@ -160,17 +161,12 @@ namespace OpenNefia.Content.CharaMake
             Caption.Draw();
         }
 
-        //will be used to actually make the change to the character after creation
-        public virtual void ApplyStep()
-        {
-
-        }
-
         public override void Dispose()
         {
             OnKeyBindDown -= OnKeyDown;
         }
 
+        //will be used to actually make the change to the character after creation
         public virtual void ApplyStep(EntityUid entity)
         {
             

@@ -7,6 +7,7 @@ using OpenNefia.Content.UI.Element.Containers;
 using OpenNefia.Content.UI.Element.List;
 using OpenNefia.Core;
 using OpenNefia.Core.Audio;
+using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Input;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Locale;
@@ -315,6 +316,31 @@ namespace OpenNefia.Content.CharaMake
             List.Update(dt);
             LockAmount.Update(dt);
             AttributeInfo.Update(dt);
+        }
+
+        public override void ApplyStep(EntityUid entity)
+        {
+            base.ApplyStep(entity);
+            if (!Data.TryGetValue<Dictionary<PrototypeId<SkillPrototype>, int>>(ResultName, out var attributes))
+            {
+                Logger.WarningS("charamake", "No attributes in CharaMakeData");
+                return;
+            }
+
+            if (!_entityManager.TryGetComponent<SkillsComponent>(entity, out var skills))
+            {
+                Logger.WarningS("charamake", "No SkillsComponent present on entity");
+                return;
+            }
+
+            foreach (var attribute in attributes)
+            {
+                var level = skills.Level(attribute.Key);
+                skills.Skills[attribute.Key] = new LevelAndPotential()
+                {
+                    Level = attribute.Value + level
+                };
+            }
         }
     }
 }

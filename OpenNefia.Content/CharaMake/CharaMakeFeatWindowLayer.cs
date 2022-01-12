@@ -1,7 +1,10 @@
-﻿using OpenNefia.Content.Prototypes;
+﻿using OpenNefia.Content.Feats;
+using OpenNefia.Content.Prototypes;
 using OpenNefia.Content.UI.Element;
 using OpenNefia.Core.Audio;
+using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Locale;
+using OpenNefia.Core.Log;
 using OpenNefia.Core.Prototypes;
 using System;
 using System.Collections.Generic;
@@ -89,6 +92,28 @@ namespace OpenNefia.Content.CharaMake
         {
             base.Update(dt);
             FeatWindow.Update(dt);
+        }
+
+        public override void ApplyStep(EntityUid entity)
+        {
+            base.ApplyStep(entity);
+            if (!Data.TryGetValue<Dictionary<PrototypeId<FeatPrototype>, int>>(ResultName, out var feats))
+            {
+                Logger.WarningS("charamake", "No attributes in CharaMakeData");
+                return;
+            }
+
+            if (!_entityManager.TryGetComponent<FeatsComponent>(entity, out var featsComponent))
+            {
+                Logger.WarningS("charamake", "No FeatsComponent present on entity");
+                return;
+            }
+
+            foreach (var feat in feats)
+            {
+                featsComponent.Feats.TryGetValue(feat.Key, out var currentLevel);
+                featsComponent.Feats[feat.Key] = currentLevel + feat.Value;
+            }
         }
     }
 }

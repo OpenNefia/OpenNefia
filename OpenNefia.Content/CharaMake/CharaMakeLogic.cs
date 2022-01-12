@@ -73,6 +73,7 @@ namespace OpenNefia.Content.CharaMake
                         creationStep.ApplyStep(playerEntity);
                         creationStep.Dispose();
                     }
+                    _uiManager.Query<CharaMakeResult, CharaMakeLayer, CharaMakeData>(new CharaMakeCharSheetLayer(playerEntity), data);
                     break;
                 }
 
