@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <Import Project="..\MSBuild\OpenNefia.Properties.targets" />
   <Import Project="..\MSBuild\OpenNefia.Engine.props" />
   <Import Project="..\MSBuild\OpenNefia.DefineConstants.targets" />
@@ -10,6 +10,10 @@
 	<ItemGroup>
     <ProjectReference Include="..\OpenNefia.Core\OpenNefia.Core.csproj" />
   </ItemGroup>
+  
+	<ItemGroup>
+	  <Folder Include="Analysis\" />
+	</ItemGroup>
 
   <Import Project="..\MSBuild\OpenNefia.Analyzers.targets" />
 </Project>
