@@ -1,4 +1,4 @@
-﻿using ChipPrototypeId = OpenNefia.Core.Prototypes.PrototypeId<OpenNefia.Core.Rendering.ChipPrototype>;
+using ChipPrototypeId = OpenNefia.Core.Prototypes.PrototypeId<OpenNefia.Core.Rendering.ChipPrototype>;
 
 namespace OpenNefia.Content.Prototypes
 {
