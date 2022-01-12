@@ -1,5 +1,4 @@
-﻿using CSharpRepl.Services;
-using CSharpRepl.Services.Completion;
+﻿using CSharpRepl.Services.Completion;
 using CSharpRepl.Services.Logging;
 using CSharpRepl.Services.Roslyn;
 using CSharpRepl.Services.Roslyn.Scripting;
@@ -10,6 +9,7 @@ using OpenNefia.Core.Reflection;
 using OpenNefia.Core.Timing;
 using OpenNefia.Core.Utility;
 using PrettyPrompt.Consoles;
+using CSharpReplConfig = CSharpRepl.Services.Configuration;
 
 namespace OpenNefia.Core.DebugServer
 {
@@ -22,7 +22,7 @@ namespace OpenNefia.Core.DebugServer
         [Dependency] private readonly ILogManager _logManager = default!;
         [Dependency] private readonly ITaskRunner _taskRunner = default!; 
 
-        private Configuration _config = default!;
+        private CSharpReplConfig _config = default!;
         private RoslynServices _roslyn = default!;
         private bool IsInitialized = false;
 
@@ -51,7 +51,7 @@ namespace OpenNefia.Core.DebugServer
             }
         }
 
-        private static Configuration BuildDefaultConfig(IReflectionManager reflectionManager)
+        private static CSharpReplConfig BuildDefaultConfig(IReflectionManager reflectionManager)
         {
             var references = new HashSet<string>();
 
@@ -69,7 +69,7 @@ namespace OpenNefia.Core.DebugServer
                 references.Add(exeRelativePath);
             }
 
-            return new Configuration()
+            return new CSharpReplConfig()
             {
                 References = references,
                 Usings = new HashSet<string>()

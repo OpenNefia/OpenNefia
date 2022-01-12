@@ -1,4 +1,5 @@
-﻿using OpenNefia.Core.GameController;
+﻿using OpenNefia.Core.Configuration;
+using OpenNefia.Core.GameController;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Reflection;
 using OpenNefia.Core.Serialization.Manager;
@@ -18,6 +19,11 @@ namespace OpenNefia.Benchmarks.Serialization
                 typeof(OpenNefia.Core.Engine).Assembly,
                 typeof(SerializationBenchmark).Assembly
             };
+
+            foreach (var assembly in assemblies)
+            {
+                IoCManager.Resolve<IConfigurationManagerInternal>().LoadCVarsFromAssembly(assembly);
+            }
 
             IoCManager.Resolve<IReflectionManager>().LoadAssemblies(assemblies);
 

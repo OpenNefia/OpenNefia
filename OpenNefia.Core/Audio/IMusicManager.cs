@@ -11,6 +11,8 @@ namespace OpenNefia.Core.Audio
     {
         public bool IsPlaying { get; }
 
+        public void Initialize();
+
         /// <summary>
         /// Plays a music file.
         /// </summary>

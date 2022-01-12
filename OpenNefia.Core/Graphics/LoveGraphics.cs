@@ -1,4 +1,5 @@
 ﻿using Love;
+using OpenNefia.Core.Configuration;
 using OpenNefia.Core.Input;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Log;
@@ -17,6 +18,7 @@ namespace OpenNefia.Core.Graphics
     public class LoveGraphics : Love.Scene, IGraphics
     {
         [Dependency] private readonly IResourceCache _resourceCache = default!;
+        [Dependency] private readonly IConfigurationManager _config = default!;
 
         public Vector2i WindowSize => new(Love.Graphics.GetWidth(), Love.Graphics.GetHeight());
 
@@ -43,14 +45,33 @@ namespace OpenNefia.Core.Graphics
         {
             var bootConfig = new BootConfig()
             {
-                WindowTitle = Engine.Title,
-                WindowDisplay = 0,
+                WindowTitle = _config.GetCVar(CVars.DisplayTitle),
+                WindowDisplay = _config.GetCVar(CVars.DisplayDisplayNumber),
                 WindowMinWidth = 800,
                 WindowMinHeight = 600,
-                WindowVsync = true,
+                WindowWidth = _config.GetCVar(CVars.DisplayWidth),
+                WindowHeight = _config.GetCVar(CVars.DisplayHeight),
+                WindowVsync = _config.GetCVar(CVars.DisplayVSync),
+                WindowHighdpi = _config.GetCVar(CVars.DisplayHighDPI),
                 WindowResizable = true,
                 DefaultRandomSeed = 0
             };
+
+            switch (_config.GetCVar(CVars.DisplayWindowMode))
+            {
+                case WindowMode.Fullscreen:
+                    bootConfig.WindowFullscreen = true;
+                    bootConfig.WindowFullscreenType = FullscreenType.Exclusive;
+                    break;
+                case WindowMode.DesktopFullscreen:
+                    bootConfig.WindowFullscreen = true;
+                    bootConfig.WindowFullscreenType = FullscreenType.DeskTop;
+                    break;
+                case WindowMode.Windowed:
+                default:
+                    bootConfig.WindowFullscreen = false;
+                    break;
+            }
 
             Love.Boot.Init(bootConfig);
             Love.Timer.Step();

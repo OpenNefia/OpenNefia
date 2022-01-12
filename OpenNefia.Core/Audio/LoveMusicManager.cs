@@ -1,12 +1,15 @@
 ﻿using Melanchall.DryWetMidi.Core;
 using Melanchall.DryWetMidi.Multimedia;
-using OpenNefia.Core.Config;
+using OpenNefia.Core.Configuration;
+using OpenNefia.Core.IoC;
 using OpenNefia.Core.Prototypes;
 
 namespace OpenNefia.Core.Audio
 {
     public sealed class LoveMusicManager : IMusicManager
     {
+        [Dependency] private readonly IConfigurationManager _config = default!;
+
         private static Playback? MidiPlayback = null;
         private static OutputDevice? MidiDevice = null;
 
@@ -14,13 +17,33 @@ namespace OpenNefia.Core.Audio
 
         public bool IsPlaying => MidiPlayback != null;
 
+        private PrototypeId<MusicPrototype>? _currentlyPlaying;
+
+        private bool _enableMusic;
+
+        public void Initialize()
+        {
+            _config.OnValueChanged(CVars.AudioMusic, OnConfigEnableMusicChanged, true);
+        }
+
+        private void OnConfigEnableMusicChanged(bool b)
+        {
+            _enableMusic = b;
+            if (!_enableMusic)
+                StopInternal();
+            else if (_currentlyPlaying != null)
+                Play(_currentlyPlaying.Value);
+        }
+
         /// <inheritdoc />
         public void Play(PrototypeId<MusicPrototype> id)
         {
             if (IsPlaying)
-                Stop();
+                StopInternal();
 
-            if (!ConfigVars.EnableMusic)
+            _currentlyPlaying = id;
+
+            if (!_enableMusic)
                 return;
 
             var path = id.ResolvePrototype().Filepath;
@@ -38,6 +61,11 @@ namespace OpenNefia.Core.Audio
 
         /// <inheritdoc />
         public void Stop()
+        {
+            _currentlyPlaying = null;
+        }
+
+        private void StopInternal()
         {
             if (MidiPlayback != null)
             {

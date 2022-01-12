@@ -64,7 +64,9 @@ namespace OpenNefia.Core.CommandLine
 
         public void Run(string[] args)
         {
-            if (!_gameController.Startup())
+            var options = new GameControllerOptions();
+
+            if (!_gameController.Startup(options))
             {
                 Logger.Fatal("Failed to start game controller!");
                 return;

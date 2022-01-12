@@ -11,6 +11,10 @@ namespace OpenNefia.Core.Audio
     {
         public bool IsPlaying => false;
 
+        public void Initialize()
+        {
+        }
+
         public void Play(PrototypeId<MusicPrototype> id)
         {
         }

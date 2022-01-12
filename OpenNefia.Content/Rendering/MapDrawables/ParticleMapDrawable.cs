@@ -1,5 +1,5 @@
 ﻿using OpenNefia.Core.Audio;
-using OpenNefia.Core.Config;
+using OpenNefia.Core.Configuration;
 using OpenNefia.Core.Game;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Maths;
@@ -35,7 +35,7 @@ namespace OpenNefia.Content.Rendering
             var rand = IoCManager.Resolve<IRandom>();
 
             if (wait == null)
-                wait = ConfigVars.AnimeWait;
+                wait = IoCManager.Resolve<IConfigurationManager>().GetCVar(CCVars.AnimeWait);
 
             this.AssetParticle = Assets.Get(asset);
             this.Sound = sound;

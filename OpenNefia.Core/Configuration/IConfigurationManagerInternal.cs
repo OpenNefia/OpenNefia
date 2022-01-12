@@ -8,7 +8,7 @@ namespace OpenNefia.Core.Configuration
         void OverrideConVars(IEnumerable<(string key, string value)> cVars);
         void LoadCVarsFromAssembly(Assembly assembly);
 
-        void Initialize(bool isServer);
+        void Initialize();
 
         void Shutdown();
 

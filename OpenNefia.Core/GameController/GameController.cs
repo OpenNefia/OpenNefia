@@ -1,6 +1,9 @@
 ﻿using System.Globalization;
 using System.Runtime;
+using Microsoft.Extensions.Options;
 using OpenNefia.Core.Asynchronous;
+using OpenNefia.Core.Audio;
+using OpenNefia.Core.Configuration;
 using OpenNefia.Core.ContentPack;
 using OpenNefia.Core.DebugServer;
 using OpenNefia.Core.Game;
@@ -28,14 +31,17 @@ namespace OpenNefia.Core.GameController
 {
     public sealed partial class GameController : IGameController
     {
+        [Dependency] private readonly IConfigurationManagerInternal _config = default!;
         [Dependency] private readonly IGraphics _graphics = default!;
+        [Dependency] private readonly IAudioManager _audio = default!;
+        [Dependency] private readonly IMusicManager _music = default!;
         [Dependency] private readonly IResourceCacheInternal _resourceCache = default!;
         [Dependency] private readonly IAssetManager _assetManager = default!;
         [Dependency] private readonly ITileAtlasManager _atlasManager = default!;
         [Dependency] private readonly IModLoaderInternal _modLoader = default!;
         [Dependency] private readonly IEntityManager _entityManager = default!;
         [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-        [Dependency] private readonly ILogManager _logManager = default!;
+        [Dependency] private readonly ILogManager _log = default!;
         [Dependency] private readonly ISerializationManager _serialization = default!;
         [Dependency] private readonly IComponentFactory _components = default!;
         [Dependency] private readonly ITileDefinitionManagerInternal _tileDefinitionManager = default!;
@@ -52,41 +58,53 @@ namespace OpenNefia.Core.GameController
         [Dependency] private readonly ISaveGameManagerInternal _saveGameManager = default!;
         [Dependency] private readonly ISaveGameSerializerInternal _saveGameSerializer = default!;
 
-        private const string UserDataDir = "UserData";
-
         public Action? MainCallback { get; set; } = null;
+        private Func<ILogHandler>? _logHandlerFactory;
+        private ILogHandler? _logHandler;
+        public GameControllerOptions Options { get; private set; } = new();
 
-        public bool Startup()
+        public bool Startup(GameControllerOptions options)
         {
+            Options = options;
+
             Console.OutputEncoding = EncodingHelpers.UTF8;
-            SetupLogging(_logManager, () => new ConsoleLogHandler());
+            SetupLogging(() => new ConsoleLogHandler());
 
             _taskManager.Initialize();
 
             _modLoader.SetUseLoadContext(true);
 
-            var userDataDir = UserDataDir;
-            _resourceCache.Initialize(userDataDir);
-            
+            _resourceCache.Initialize(Options.UserDataDirectoryName);
+
             _profileManager.Initialize();
 
             ProgramShared.DoMounts(_resourceCache);
 
             _fontManager.Initialize();
 
+            InitializeConfig();
+
+            BindWindowEvents();
             _graphics.Initialize();
             ShowSplashScreen();
-            BindWindowEvents();
 
-            if (!_modLoader.TryLoadModulesFrom(new ResourcePath("/Assemblies"), string.Empty))
+            _audio.Initialize();
+            _music.Initialize();
+
+            if (!_modLoader.TryLoadModulesFrom(Options.AssemblyDirectory, string.Empty))
             {
                 Logger.Fatal("Errors while loading content assemblies.");
                 return false;
             }
 
-            _serialization.Initialize();
+            foreach (var loadedModule in _modLoader.LoadedModules)
+            {
+                _config.LoadCVarsFromAssembly(loadedModule);
+            }
 
+            _serialization.Initialize();
             _uiManager.Initialize();
+
             _modLoader.BroadcastRunLevel(ModRunLevel.PreInit);
             _modLoader.BroadcastRunLevel(ModRunLevel.Init);
 
@@ -106,11 +124,11 @@ namespace OpenNefia.Core.GameController
             _resourceCache.PreloadTextures();
 
             _themeManager.Initialize();
-            _themeManager.LoadDirectory(ResourcePath.Root / "Themes");
+            _themeManager.LoadDirectory(Options.ThemeDirectory);
             // _themeManager.SetActiveTheme("Beautify.Beautify");
 
             _prototypeManager.Initialize();
-            _prototypeManager.LoadDirectory(ResourcePath.Root / "Prototypes");
+            _prototypeManager.LoadDirectory(Options.PrototypeDirectory);
             _prototypeManager.Resync();
 
             _assetManager.PreloadAssets();
@@ -130,6 +148,36 @@ namespace OpenNefia.Core.GameController
             GC.Collect();
 
             return true;
+        }
+
+        private void InitializeConfig()
+        {
+            foreach (var loadedModule in _modLoader.LoadedModules)
+            {
+                _config.LoadCVarsFromAssembly(loadedModule);
+            }
+
+            _config.Initialize();
+            
+            // Load our own (non-mod) CVars.
+            _config.LoadCVarsFromAssembly(typeof(GameController).Assembly);
+
+            if (Options.LoadConfigAndUserData)
+            {
+                var configFile = Path.Combine(Options.UserDataDirectoryName, Options.ConfigFileName);
+                if (File.Exists(configFile))
+                {
+                    // Load config from user data if available.
+                    _config.LoadFromFile(configFile);
+                }
+                else
+                {
+                    // Else we just use code-defined defaults and let it save to file when the user changes things.
+                    _config.SetSaveFile(configFile);
+                }
+            }
+
+            _config.OverrideConVars(EnvironmentVariables.GetEnvironmentCVars());
         }
 
         /// <summary>
@@ -208,14 +256,42 @@ namespace OpenNefia.Core.GameController
             return true;
         }
 
-        internal static void SetupLogging(ILogManager logManager, Func<ILogHandler> logHandlerFactory)
+        internal void SetupLogging(Func<ILogHandler> logHandlerFactory)
         {
-            logManager.RootSawmill.AddHandler(logHandlerFactory());
+            var logHandler = logHandlerFactory() ?? null;
 
-            logManager.GetSawmill("repl.exec").Level = LogLevel.Info;
-            logManager.GetSawmill("go.sys").Level = LogLevel.Info;
-            logManager.GetSawmill("input.binding").Level = LogLevel.Info;
-            logManager.GetSawmill("ai.vanilla").Level = LogLevel.Info;
+            var logEnabled = _config.GetCVar(CVars.LogEnabled);
+
+            if (logEnabled && logHandler == null)
+            {
+                var logPath = _config.GetCVar(CVars.LogPath);
+                var logFormat = _config.GetCVar(CVars.LogFormat);
+                var logFilename = logFormat.Replace("%(date)s", DateTime.Now.ToString("yyyy-MM-dd"))
+                    .Replace("%(time)s", DateTime.Now.ToString("hh-mm-ss"));
+                var fullPath = Path.Combine(logPath, logFilename);
+
+                if (!Path.IsPathRooted(fullPath))
+                {
+                    logPath = PathHelpers.ExecutableRelativeFile(fullPath);
+                }
+
+                logHandler = new FileLogHandler(logPath);
+            }
+
+            _log.RootSawmill.Level = _config.GetCVar(CVars.LogLevel);
+
+            if (logEnabled && logHandler != null)
+            {
+                _logHandler = logHandler;
+                _log.RootSawmill.AddHandler(_logHandler!);
+            }
+
+            _log.RootSawmill.AddHandler(logHandlerFactory());
+
+            _log.GetSawmill("repl.exec").Level = LogLevel.Info;
+            _log.GetSawmill("go.sys").Level = LogLevel.Info;
+            _log.GetSawmill("input.binding").Level = LogLevel.Info;
+            _log.GetSawmill("ai.vanilla").Level = LogLevel.Info;
         }
 
         public void Run()
@@ -234,6 +310,11 @@ namespace OpenNefia.Core.GameController
             _graphics.Shutdown();
             _debugServer.Shutdown();
             _themeManager.Shutdown();
+            if (_logHandler != null)
+            {
+                _log.RootSawmill.RemoveHandler(_logHandler);
+                (_logHandler as IDisposable)?.Dispose();
+            }
             Logger.Log(LogLevel.Info, "Quitting game.");
             Environment.Exit(0);
         }

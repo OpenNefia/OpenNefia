@@ -18,7 +18,6 @@ namespace OpenNefia.Core.Configuration
         private const char TABLE_DELIMITER = '.';
         protected readonly Dictionary<string, ConfigVar> _configVars = new();
         private string? _configFile;
-        protected bool _isServer;
 
         /// <summary>
         ///     Constructs a new ConfigurationManager.
@@ -27,9 +26,8 @@ namespace OpenNefia.Core.Configuration
         {
         }
 
-        public void Initialize(bool isServer)
+        public void Initialize()
         {
-            _isServer = isServer;
         }
 
         public virtual void Shutdown()
@@ -210,14 +208,6 @@ namespace OpenNefia.Core.Configuration
         {
             DebugTools.Assert(!type.IsEnum || type.GetEnumUnderlyingType() == typeof(int),
                 $"{name}: Enum cvars must have int as underlying type.");
-
-            var only = _isServer ? CVar.CLIENTONLY : CVar.SERVERONLY;
-
-            if ((flags & only) != 0)
-            {
-                // Ignored on this side.
-                return;
-            }
 
             if (_configVars.TryGetValue(name, out var cVar))
             {
