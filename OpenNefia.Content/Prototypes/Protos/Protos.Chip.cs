@@ -1048,7 +1048,7 @@ namespace OpenNefia.Content.Prototypes
             public static readonly ChipPrototypeId FeatAreaCity                   = new($"Elona.{nameof(FeatAreaCity)}");
             public static readonly ChipPrototypeId FeatAreaDungeon                = new($"Elona.{nameof(FeatAreaDungeon)}");
             public static readonly ChipPrototypeId FeatAreaRock                   = new($"Elona.{nameof(FeatAreaRock)}");
-            public static readonly ChipPrototypeId FeatAreaTree                   = new($"Elona.{nameof(FeatAreaTree)}");
+            public static readonly ChipPrototypeId FeatAreaForest                 = new($"Elona.{nameof(FeatAreaForest)}");
             public static readonly ChipPrototypeId FeatAreaPalace                 = new($"Elona.{nameof(FeatAreaPalace)}");
             public static readonly ChipPrototypeId FeatAreaTower                  = new($"Elona.{nameof(FeatAreaTower)}");
             public static readonly ChipPrototypeId FeatAreaYourDungeon            = new($"Elona.{nameof(FeatAreaYourDungeon)}");
