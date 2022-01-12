@@ -24,6 +24,7 @@ namespace OpenNefia.Core.Maps
 
         bool MapIsLoaded(MapId mapId);
         IMap CreateMap(int width, int height);
+        IMap CreateMap(int width, int height, MapId mapId);
 
         /// <summary>
         /// Sets the MapEntity(root node) for a given map. If an entity is already set, it will be deleted

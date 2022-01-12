@@ -45,6 +45,11 @@ namespace OpenNefia.Core.SaveGames
         /// Loads the game state from the provided save.
         /// </summary>
         void LoadGame(ISaveGameHandle save);
+
+        /// <summary>
+        /// Resets all entites, allowing a new save to load.
+        /// </summary>
+        void ResetGame();
     }
 
     internal interface ISaveGameSerializerInternal : ISaveGameSerializer
@@ -191,15 +196,6 @@ namespace OpenNefia.Core.SaveGames
             _trackedSaveData.Add(key, new SaveDataRegistration(field, parent));
         }
 
-        /// <summary>
-        /// Unloads absolutely everything from the entity/map/area managers.
-        /// </summary>
-        private void ResetGameState()
-        {
-            _entityManager.FlushEntities();
-            _mapManager.FlushMaps();
-            _areaManager.FlushAreas();
-        }
 
         private SaveGameHeader MakeSaveGameHeader(string name)
         {
@@ -224,7 +220,7 @@ namespace OpenNefia.Core.SaveGames
             if (_saveGameManager.CurrentSave != null)
                 throw new InvalidOperationException($"A save has already been loaded! ({_saveGameManager.CurrentSave})");
 
-            ResetGameState();
+            ResetGame();
 
             var saveHeader = MakeSaveGameHeader(name);
             var savePath = ResourcePath.Root / Guid.NewGuid().ToString();
@@ -320,7 +316,7 @@ namespace OpenNefia.Core.SaveGames
         {
             save.Files.ClearTemp();
 
-            ResetGameState();
+            ResetGame();
             LoadSession(save);
             LoadGlobalData(save);
 
@@ -398,6 +394,13 @@ namespace OpenNefia.Core.SaveGames
                     reg.FieldInfo.SetValue(reg.Parent, value);
                 }
             }
+        }
+
+        public void ResetGame()
+        {
+            _entityManager.FlushEntities();
+            _mapManager.FlushMaps();
+            _areaManager.FlushAreas();
         }
     }
 }

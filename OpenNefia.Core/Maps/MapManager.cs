@@ -42,8 +42,6 @@ namespace OpenNefia.Core.Maps
         /// Allocates a new MapID, incrementing the highest ID counter.
         /// </summary>
         MapId GenerateMapId();
-
-        IMap CreateMap(int width, int height, MapId mapId);
     }
 
     public sealed partial class MapManager : IMapManagerInternal

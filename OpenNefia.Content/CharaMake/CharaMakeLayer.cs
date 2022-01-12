@@ -7,6 +7,7 @@ using OpenNefia.Content.UI.Element.Containers;
 using OpenNefia.Content.UI.Element.List;
 using OpenNefia.Core;
 using OpenNefia.Core.Audio;
+using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Input;
 using OpenNefia.Core.Locale;
 using OpenNefia.Core.Maths;
@@ -168,6 +169,11 @@ namespace OpenNefia.Content.CharaMake
         public override void Dispose()
         {
             OnKeyBindDown -= OnKeyDown;
+        }
+
+        public virtual void ApplyStep(EntityUid entity)
+        {
+            
         }
     }
 }
