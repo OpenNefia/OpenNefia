@@ -15,6 +15,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using OpenNefia.Core.GameObjects;
+using OpenNefia.Core.Log;
 
 namespace OpenNefia.Content.CharaMake
 {
@@ -98,6 +100,24 @@ namespace OpenNefia.Content.CharaMake
             Window.Update(dt);
             GenderTopic.Update(dt);
             List.Update(dt);
+        }
+
+        public override void ApplyStep(EntityUid entity)
+        {
+            base.ApplyStep(entity);
+            if (!Data.TryGetValue<Gender>(ResultName, out var gender))
+            {
+                Logger.WarningS("charamake", "No gender in CharaMakeData");
+                return;
+            }
+
+            if (!_entityManager.TryGetComponent<CharaComponent>(entity, out var chara))
+            {
+                Logger.WarningS("charamake", "No CharaComponent present on entity");
+                return;
+            }
+
+            chara.Gender = gender;
         }
     }
 }

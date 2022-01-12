@@ -1,13 +1,16 @@
-﻿using OpenNefia.Content.Input;
+﻿using OpenNefia.Content.Charas;
+using OpenNefia.Content.Input;
 using OpenNefia.Content.RandomText;
 using OpenNefia.Content.UI;
 using OpenNefia.Content.UI.Element;
 using OpenNefia.Content.UI.Element.List;
 using OpenNefia.Core;
 using OpenNefia.Core.Audio;
+using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Input;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Locale;
+using OpenNefia.Core.Log;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Core.UI;
 using OpenNefia.Core.UI.Element;
@@ -198,6 +201,24 @@ namespace OpenNefia.Content.CharaMake
             Window.Update(dt);
             AliasTopic.Update(dt);
             List.Update(dt);
+        }
+
+        public override void ApplyStep(EntityUid entity)
+        {
+            base.ApplyStep(entity);
+            if (!Data.TryGetValue<string>(ResultName, out var alias))
+            {
+                Logger.WarningS("charamake", "No alias in CharaMakeData");
+                return;
+            }
+
+            if (!_entityManager.TryGetComponent<CharaComponent>(entity, out var chara))
+            {
+                Logger.WarningS("charamake", "No CharaComponent present on entity");
+                return;
+            }
+
+            chara.Title = alias;
         }
     }
 }

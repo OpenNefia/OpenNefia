@@ -1,9 +1,11 @@
-﻿using OpenNefia.Content.Prototypes;
+﻿using OpenNefia.Content.Charas;
+using OpenNefia.Content.Prototypes;
 using OpenNefia.Content.Skills;
 using OpenNefia.Content.UI;
 using OpenNefia.Content.UI.Element;
 using OpenNefia.Content.UI.Element.Containers;
 using OpenNefia.Content.UI.Element.List;
+using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Input;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Locale;
@@ -37,6 +39,24 @@ namespace OpenNefia.Content.CharaMake
             {
                 { ResultName, item.Data }
             }));
+        }
+
+        public override void ApplyStep(EntityUid entity)
+        {
+            base.ApplyStep(entity);
+            if (!Data.TryGetValue<RacePrototype>(ResultName, out var race))
+            {
+                Logger.WarningS("charamake", "No race in CharaMakeData");
+                return;
+            }
+
+            if (!_entityManager.TryGetComponent<CharaComponent>(entity, out var chara))
+            {
+                Logger.WarningS("charamake", "No CharaComponent present on entity");
+                return;
+            }
+
+            chara.Race = race.GetStrongID();
         }
     }
     [Localize("Elona.CharaMake.ClassSelect")]
@@ -111,6 +131,24 @@ namespace OpenNefia.Content.CharaMake
             Atlas.Add(MaleChip.Image.AtlasIndex, Window.X + 405, Window.Y + 35, centered: true);
             Atlas.Flush();
             Atlas.Draw(0, 0, Width, Height);
+        }
+
+        public override void ApplyStep(EntityUid entity)
+        {
+            base.ApplyStep(entity);
+            if (!Data.TryGetValue<ClassPrototype>(ResultName, out var @class))
+            {
+                Logger.WarningS("charamake", "No class in CharaMakeData");
+                return;
+            }
+
+            if (!_entityManager.TryGetComponent<CharaComponent>(entity, out var chara))
+            {
+                Logger.WarningS("charamake", "No CharaComponent present on entity");
+                return;
+            }
+
+            chara.Class = @class.GetStrongID();
         }
     }
 
