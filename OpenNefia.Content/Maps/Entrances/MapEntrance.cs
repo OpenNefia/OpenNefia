@@ -19,5 +19,14 @@ namespace OpenNefia.Content.Maps
         /// </summary>
         [DataField]
         public IMapStartLocation StartLocation { get; set; } = new CenterMapLocation();
+
+        public static MapEntrance FromMapCoordinates(MapCoordinates coords)
+        {
+            return new MapEntrance()
+            {
+                MapIdSpecifier = new BasicMapIdSpecifier(coords.MapId),
+                StartLocation = new SpecificMapLocation(coords.Position)
+            };
+        }
     }
 }

@@ -1,0 +1,16 @@
+- type: Tag
+  id: Elona.TagItemElonaIsAcid
+- type: Tag
+  id: Elona.TagItemFest
+- type: Tag
+  id: Elona.TagItemFish
+- type: Tag
+  id: Elona.TagItemNeg
+- type: Tag
+  id: Elona.TagItemNogive
+- type: Tag
+  id: Elona.TagItemNoshop
+- type: Tag
+  id: Elona.TagItemSf
+- type: Tag
+  id: Elona.TagItemSpshop

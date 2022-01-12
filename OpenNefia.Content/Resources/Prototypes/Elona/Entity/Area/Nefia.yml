@@ -7,6 +7,8 @@
   - type: AreaRandomGen
   - type: AreaNefia
   - type: AreaEntrance
+    startLocation: !type:TaggedEntityMapLocation
+      tag: Elona.DungeonStairsSurfacing
 
 - type: Entity
   id: Elona.NefiaDungeon

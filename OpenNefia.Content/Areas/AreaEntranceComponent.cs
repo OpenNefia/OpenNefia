@@ -1,4 +1,5 @@
-﻿using OpenNefia.Core.Areas;
+﻿using OpenNefia.Content.Maps;
+using OpenNefia.Core.Areas;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Serialization.Manager.Attributes;
 using System;
@@ -25,6 +26,13 @@ namespace OpenNefia.Content.Areas
         /// </summary>
         [DataField]
         public AreaFloorId? StartingFloor { get; set; }
+
+        /// <summary>
+        /// Position to place the player on when entering the starting floor. 
+        /// This is copied to the generated <see cref="WorldMapEntranceComponent"/>.
+        /// </summary>
+        [DataField]
+        public IMapStartLocation? StartLocation { get; set; }
 
         /// <summary>
         /// Components to spawn the entrance with.
