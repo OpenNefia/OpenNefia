@@ -15,7 +15,7 @@ using OpenNefia.Tests;
 
 namespace OpenNefia.Content.Tests.EntityGen
 {
-    [TestFixture]
+    [TestFixture, Parallelizable]
     public class EntityGen_Tests : ContentUnitTest
     {
         private const string Prototypes = @"

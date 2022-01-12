@@ -1,10 +1,12 @@
 using OpenNefia.Content.Maps;
 using OpenNefia.Core.Areas;
 using OpenNefia.Core.GameObjects;
+using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Serialization.Manager.Attributes;
 using System;
 using System.Collections.Generic;
 using static OpenNefia.Core.Prototypes.EntityPrototype;
+using OpenNefia.Content.Prototypes;
 
 namespace OpenNefia.Content.Areas
 {
@@ -35,9 +37,9 @@ namespace OpenNefia.Content.Areas
         public IMapStartLocation? StartLocation { get; set; }
 
         /// <summary>
-        /// Components to spawn the entrance with.
+        /// Entity to spawn as the entrance.
+        /// Usually inherits from <see cref="Protos.Feat.MapEntrance"/>.
         /// </summary>
-        [DataField]
-        public ComponentRegistry Components { get; } = new();
+        public PrototypeId<EntityPrototype>? EntranceEntity { get; set; }
     }
 }

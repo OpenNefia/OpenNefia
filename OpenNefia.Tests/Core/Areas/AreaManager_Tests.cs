@@ -24,7 +24,6 @@ namespace OpenNefia.Tests.Core.Areas
         private static readonly string Prototypes = @$"
 - type: Entity
   id: {TestAreaID}
-  components:
 ";
 
         [OneTimeSetUp]
@@ -123,9 +122,8 @@ namespace OpenNefia.Tests.Core.Areas
             var area = areaMan.CreateArea(TestAreaID);
 
             Assert.That(areaMan.AreaExists(area.Id), Is.True);
-            Assert.That(area.ContainedMaps.Count, Is.EqualTo(1));
+            Assert.That(area.ContainedMaps.Count, Is.EqualTo(0));
             Assert.That(area.GlobalId, Is.Null);
-            Assert.That(area.ContainedMaps[TestMapFloor].MapId, Is.Null);
         }
 
         [Test]

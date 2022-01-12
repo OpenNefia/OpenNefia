@@ -16,7 +16,7 @@ using System.Threading.Tasks;
 
 namespace OpenNefia.Content.Tests.Maps.StartLocation
 {
-    [TestFixture]
+    [TestFixture, Parallelizable]
     [TestOf(typeof(TaggedEntityMapLocation))]
     public class TaggedEntityStartLocation_Tests
     {
