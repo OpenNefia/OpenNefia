@@ -23,12 +23,18 @@ namespace OpenNefia.Core.Areas
         IArea CreateArea(PrototypeId<AreaPrototype>? prototypeId = null, GlobalAreaId? globalId = null);
         bool TryGetArea(AreaId areaId, [NotNullWhen(true)] out IArea? area);
         IArea GetArea(AreaId areaId);
-        void DeleteArea(AreaId areaID);
+        void DeleteArea(AreaId areaId);
 
         void RegisterAreaFloor(IArea area, AreaFloorId floorId, IMap map);
         void RegisterAreaFloor(IArea area, AreaFloorId floorId, MapId mapId);
         void RegisterAreaFloor(IArea area, AreaFloorId floorId, AreaFloor areaFloor);
         void UnregisterAreaFloor(IArea area, AreaFloorId floorId);
+
+        bool TryGetAreaOfMap(MapId map, [NotNullWhen(true)] out IArea? area);
+        bool TryGetAreaAndFloorOfMap(MapId map, [NotNullWhen(true)] out IArea? area, [NotNullWhen(true)] out AreaFloorId floorId);
+
+        // TODO: This is probably going into an IMapGenerator interface later.
+        public MapId GenerateMapForFloor(AreaId areaId, AreaFloorId floorId);
 
         bool GlobalAreaExists(GlobalAreaId globalId);
         IArea GetGlobalArea(GlobalAreaId globalId);
@@ -85,6 +91,7 @@ namespace OpenNefia.Core.Areas
 
         private readonly Dictionary<AreaId, IArea> _areas = new();
         private readonly Dictionary<AreaId, EntityUid> _areaEntities = new();
+        private readonly Dictionary<MapId, (IArea, AreaFloorId)> _mapsToAreas = new();
 
         /// <inheritdoc/>
         public event ActiveAreaChangedDelegate? ActiveAreaChanged;
@@ -118,6 +125,7 @@ namespace OpenNefia.Core.Areas
         {
             _areas.Clear();
             _areaEntities.Clear();
+            _mapsToAreas.Clear();
             NextAreaId = (int)AreaId.FirstId;
         }
 
@@ -174,6 +182,11 @@ namespace OpenNefia.Core.Areas
             }
 
             _areas[areaId] = area;
+            foreach (var (floorId, floor) in area.ContainedMaps)
+            {
+                if (floor.MapId != null)
+                    _mapsToAreas.Add(floor.MapId.Value, (area, floorId));
+            }
 
             SetAreaEntity(areaId, areaEntityUid);
             SetAreaAndEntityIds(area, areaId, areaEntityUid);
@@ -215,8 +228,7 @@ namespace OpenNefia.Core.Areas
                 var areaComp = _entityManager.AddComponent<AreaComponent>(newEnt);
                 areaComp.AreaId = actualID;
                 
-                // Area entities will always live in the global map. After all, it is possible for
-                // a map to belong to more than one area.
+                // Area entities will always live in the global map.
                 var areaSpatial = _entityManager.GetComponent<SpatialComponent>(newEnt);
                 areaSpatial.AttachParent(globalMapSpatial);
 

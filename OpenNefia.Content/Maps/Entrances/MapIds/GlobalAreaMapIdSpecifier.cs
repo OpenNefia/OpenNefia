@@ -75,13 +75,14 @@ namespace OpenNefia.Content.Maps
                 return null;
             }
 
+            var mapId = floor.MapId;
+
             if (floor.MapId == null)
             {
-                var proto = _prototypeManager.Index(floor.DefaultGenerator);
-                floor.MapId = _mapLoader.LoadBlueprint(proto.BlueprintPath).Id;
+                mapId = _areaManager.GenerateMapForFloor(area.Id, startingFloor.Value);
             }
 
-            return floor.MapId.Value;
+            return mapId;
         }
     }
 }

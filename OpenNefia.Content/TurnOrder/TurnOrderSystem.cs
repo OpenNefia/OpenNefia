@@ -94,17 +94,14 @@ namespace OpenNefia.Content.TurnOrder
             _mapManager.OnActiveMapChanged += OnActiveMapChanged;
             _saveGameSerializer.OnGameLoaded += OnGameLoaded;
 
-            SubscribeLocalEvent<MapTurnOrderComponent, MapChangedEventArgs>(HandleMapChangedTurnOrder, nameof(HandleMapChangedTurnOrder));
+            SubscribeLocalEvent<MapTurnOrderComponent, MapEnteredEvent>(HandleMapChangedTurnOrder, nameof(HandleMapChangedTurnOrder));
         }
 
         #region Event Handlers
 
-        private void OnActiveMapChanged(IMap map, IMap? oldMap)
+        private void OnActiveMapChanged(IMap newMap, IMap? oldMap)
         {
             InitializeState();
-
-            var ev = new MapChangedEventArgs(map, oldMap);
-            RaiseLocalEvent(map.MapEntityUid, ev);
         }
 
         private void OnGameLoaded(ISaveGameHandle save)
@@ -112,7 +109,7 @@ namespace OpenNefia.Content.TurnOrder
             _saveWasLoaded = true;
         }
 
-        private void HandleMapChangedTurnOrder(EntityUid uid, MapTurnOrderComponent mapTurnOrder, MapChangedEventArgs args)
+        private void HandleMapChangedTurnOrder(EntityUid uid, MapTurnOrderComponent mapTurnOrder, MapEnteredEvent args)
         {
             mapTurnOrder.IsFirstTurn = true;
 
@@ -514,18 +511,6 @@ namespace OpenNefia.Content.TurnOrder
     }
 
     #region Events
-
-    public class MapChangedEventArgs
-    {
-        public IMap NewMap { get; }
-        public IMap? OldMap { get; }
-
-        public MapChangedEventArgs(IMap newMap, IMap? oldMap)
-        {
-            NewMap = newMap;
-            OldMap = oldMap;
-        }
-    }
 
     public class BeforeTurnBeginEventArgs : TurnResultEntityEventArgs
     {

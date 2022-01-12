@@ -11,8 +11,6 @@ namespace OpenNefia.Content.Maps
     public class AreaFloorMapIdSpecifier : IMapIdSpecifier
     {
         [Dependency] private readonly IAreaManager _areaManager = default!;
-        [Dependency] private readonly IMapLoader _mapLoader = default!;
-        [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
 
         [DataField(required: true)]
         public AreaId AreaId { get; set; }
@@ -44,13 +42,14 @@ namespace OpenNefia.Content.Maps
                 return null;
             }
 
-            if (floor.MapId == null)
+            var mapId = floor.MapId;
+
+            if (mapId == null)
             {
-                var proto = _prototypeManager.Index(floor.DefaultGenerator);
-                floor.MapId = _mapLoader.LoadBlueprint(proto.BlueprintPath).Id;
+                mapId = _areaManager.GenerateMapForFloor(AreaId, FloorId);
             }
 
-            return floor.MapId.Value;
+            return mapId.Value;
         }
     }
 }

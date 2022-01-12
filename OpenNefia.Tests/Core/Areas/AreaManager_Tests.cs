@@ -62,6 +62,7 @@ namespace OpenNefia.Tests.Core.Areas
         public void TestRegisterArea()
         {
             var areaMan = IoCManager.Resolve<IAreaManagerInternal>();
+            var mapMan = IoCManager.Resolve<IMapManager>();
             var entMan = IoCManager.Resolve<IEntityManager>();
 
             areaMan.NextAreaId = 2;
@@ -70,11 +71,19 @@ namespace OpenNefia.Tests.Core.Areas
             var areaId = new AreaId(42);
             var areaEnt = entMan.CreateEntityUninitialized(null);
 
+            // Simulate a registered area floor being loaded directly from disk
+            // (no RegisterAreaFloor() was called)
+            var map = mapMan.CreateMap(10, 10);
+            area._containedMaps[TestMapFloor] = new AreaFloor(map.Id);
+            
             areaMan.RegisterArea(area, areaId, areaEnt);
 
             Assert.That(areaMan.AreaExists(area.Id), Is.True);
             Assert.That(area.AreaEntityUid, Is.EqualTo(areaEnt));
             Assert.That(area.Id, Is.EqualTo(areaId));
+            Assert.That(areaMan.TryGetAreaAndFloorOfMap(map.Id, out var foundArea, out var foundFloor), Is.True);
+            Assert.That(foundArea, Is.EqualTo(area));
+            Assert.That(foundFloor, Is.EqualTo(TestMapFloor));
 
             // RegisterArea() shouldn't affect the next area ID (it's used
             // for deserialization).
@@ -169,8 +178,17 @@ namespace OpenNefia.Tests.Core.Areas
 
             Assert.That(area.ContainedMaps[floorId].MapId, Is.EqualTo(map.Id));
             Assert.That(area.ContainedMaps[floorId].DefaultGenerator, Is.EqualTo(new PrototypeId<MapPrototype>("Blank")));
+            Assert.That(areaMan.TryGetAreaAndFloorOfMap(map.Id, out var foundArea, out var foundFloor), Is.True);
+            Assert.That(foundArea, Is.EqualTo(area));
+            Assert.That(foundFloor, Is.EqualTo(floorId));
 
-            Assert.Throws<ArgumentException>(() => areaMan.RegisterAreaFloor(area, floorId, map));
+            Assert.Throws<ArgumentException>(() => areaMan.RegisterAreaFloor(area, floorId, map), "Attempting to reuse same area floor ID");
+
+            var floorId2 = new AreaFloorId("Test.Floor2");
+            Assert.Throws<ArgumentException>(() => areaMan.RegisterAreaFloor(area, floorId2, map), "Attempting to register same map with two different floors");
+
+            var area2 = areaMan.CreateArea();
+            Assert.Throws<ArgumentException>(() => areaMan.RegisterAreaFloor(area2, floorId, map), "Attempting to register same map with two different areas");
         }
 
         [Test]
@@ -193,6 +211,7 @@ namespace OpenNefia.Tests.Core.Areas
             areaMan.UnregisterAreaFloor(area, floorId);
 
             Assert.That(area.ContainedMaps.ContainsKey(floorId), Is.False);
+            Assert.That(areaMan.TryGetAreaAndFloorOfMap(map.Id, out _, out _), Is.False);
         }
     }
 }
