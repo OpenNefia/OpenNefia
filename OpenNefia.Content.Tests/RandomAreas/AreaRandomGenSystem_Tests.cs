@@ -21,8 +21,6 @@ namespace OpenNefia.Content.Tests.Areas
     {
         private static readonly PrototypeId<EntityPrototype> TestAreaEntityID = new("TestAreaEntity");
 
-        private static readonly AreaFloorId TestAreaFloorID = new("Test.AreaFloor");
-
         private static readonly string Prototypes = $@"
 - type: Entity
   id: {TestAreaEntityID}

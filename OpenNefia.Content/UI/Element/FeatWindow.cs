@@ -10,6 +10,7 @@ using OpenNefia.Core.Maths;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Core.UI.Element;
+using OpenNefia.Core.UserInterface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,7 +20,7 @@ using Color = OpenNefia.Core.Maths.Color;
 
 namespace OpenNefia.Content.UI.Element
 {
-    public class FeatWindow : UiWindow
+    public class FeatWindow : UiElement
     {
         public abstract record FeatNameAndDesc
         {
@@ -145,6 +146,7 @@ namespace OpenNefia.Content.UI.Element
         private UiTextTopic NameTopic;
         private UiTextTopic DetailTopic;
         private UiText FeatCountText;
+        private UiWindow Window = new(keyHintXOffset: 64);
 
         protected IAssetDrawable AssetInventoryIcons;
         private IAssetDrawable AssetDecoFeatA;
@@ -157,7 +159,6 @@ namespace OpenNefia.Content.UI.Element
         private Func<int> GetAvailableCountFunc;
 
         public FeatWindow(Func<Dictionary<PrototypeId<FeatPrototype>, int>> getGainedFeatsFunc, Action<FeatNameAndDesc.Feat> selectFeatAction, Func<int> getAvailableCountFunc) 
-            : base(keyHintXOffset: 64)
         {
             IoCManager.InjectDependencies(this);
             AssetInventoryIcons = InventoryHelpers.MakeIcon(InventoryIcon.Feat);
@@ -170,21 +171,23 @@ namespace OpenNefia.Content.UI.Element
             DetailTopic = new UiTextTopic(Loc.GetString("Elona.FeatMenu.Topic.Detail"));
             FeatCountText = new UiText(UiFonts.WindowPage);
 
-            TextTitle.Text = Loc.GetString("Elona.FeatMenu.Title");
+            Window.Title = Loc.GetString("Elona.FeatMenu.Window.Title");
             List = new UiPagedList<FeatNameAndDesc>(ItemsPerPage, this, new Vector2i(-55, -3));
 
             GetGainedFeatsFunc = getGainedFeatsFunc ?? (() => new Dictionary<PrototypeId<FeatPrototype>, int>());
             SelectFeatAction = selectFeatAction ?? (feat => { });
             GetAvailableCountFunc = getAvailableCountFunc ?? (() => 0);
 
+            EventFilter = UIEventFilterMode.Pass;
             List.EventOnActivate += List_OnActivate;
+            AddChild(List);
+
             RefreshData();
         }
         
         private void RefreshData(FeatPrototype? lastSelected = null)
         {
             List.Clear();
-            CanControlFocus = true;
             var data = new List<FeatCell>();
             var prototypes = _prototypeManager.EnumeratePrototypes<FeatPrototype>().Where(x => x.FeatType == FeatType.Feat);
             var featCount = GetAvailableCountFunc();
@@ -192,7 +195,7 @@ namespace OpenNefia.Content.UI.Element
 
             if (featCount > 0)
             {
-                data.Add(new FeatCell(new FeatNameAndDesc.FeatHeader("Elona.FeatMenu.AvailableHeader")));
+                data.Add(new FeatCell(new FeatNameAndDesc.FeatHeader("Elona.FeatMenu.Header.Available")));
                 data.AddRange(prototypes.Select(x =>
                 {
                     gainedFeats.TryGetValue(x.GetStrongID(), out var val);
@@ -204,7 +207,7 @@ namespace OpenNefia.Content.UI.Element
             {
                 FeatCountText.Text = string.Empty;
             }
-            data.Add(new FeatCell(new FeatNameAndDesc.FeatHeader("Elona.FeatMenu.GainedHeader")));
+            data.Add(new FeatCell(new FeatNameAndDesc.FeatHeader("Elona.FeatMenu.Header.Gained")));
             data.AddRange(gainedFeats
                 .Select(x => new FeatCell(new FeatNameAndDesc.GainedFeat(x.Key.ResolvePrototype(), x.Value)))
                 .OrderBy(x => (x.Data as FeatNameAndDesc.GainedFeat)?.Prototype.FeatType));
@@ -252,6 +255,7 @@ namespace OpenNefia.Content.UI.Element
         public override void SetSize(int width, int height)
         {
             base.SetSize(WindowWidth, WindowHeight);
+            Window.SetSize(Width, Height);
             List.SetPreferredSize();
             NameTopic.SetPreferredSize();
             DetailTopic.SetPreferredSize();
@@ -266,20 +270,22 @@ namespace OpenNefia.Content.UI.Element
         public override void SetPosition(int x, int y)
         {
             base.SetPosition(x, y);
-            List.SetPosition(X + 55, Y + 60);
-            NameTopic.SetPosition(X + 45, Y + 32);
-            DetailTopic.SetPosition(X + 270, NameTopic.Y);
-            FeatCountText.SetPosition(X + (Width / 2) + 10, Y + Height - 71);
-            AssetDecoFeatA.SetPosition(X + Width - 56, Y + Height - 198);
-            AssetDecoFeatB.SetPosition(X, Y);
-            AssetDecoFeatC.SetPosition(X + Width - 108, Y);
-            AssetDecoFeatD.SetPosition(X, Y + Height - 70);
-            AssetInventoryIcons.SetPosition(X + 46, Y - 16);
+            Window.SetPosition(x, y);
+            List.SetPosition(Window.X + 55, Window.Y + 60);
+            NameTopic.SetPosition(Window.X + 45, Window.Y + 32);
+            DetailTopic.SetPosition(Window.X + 270, NameTopic.Y);
+            FeatCountText.SetPosition(Window.X + (Window.Width / 2) + 10, Window.Y + Window.Height - 71);
+            AssetDecoFeatA.SetPosition(Window.X + Window.Width - 56, Window.Y + Window.Height - 198);
+            AssetDecoFeatB.SetPosition(Window.X, Window.Y);
+            AssetDecoFeatC.SetPosition(Window.X + Window.Width - 108, Window.Y);
+            AssetDecoFeatD.SetPosition(Window.X, Window.Y + Window.Height - 70);
+            AssetInventoryIcons.SetPosition(Window.X + 46, Window.Y - 16);
         }
 
         public override void Draw()
         {
             base.Draw();
+            Window.Draw();
             List.Draw();
             NameTopic.Draw();
             DetailTopic.Draw();
@@ -294,6 +300,7 @@ namespace OpenNefia.Content.UI.Element
         public override void Update(float dt)
         {
             base.Update(dt);
+            Window.Update(dt);
             List.Update(dt);
             NameTopic.Update(dt);
             DetailTopic.Update(dt);

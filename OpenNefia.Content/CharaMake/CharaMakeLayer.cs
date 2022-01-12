@@ -133,9 +133,9 @@ namespace OpenNefia.Content.CharaMake
             Data = args;
         }
 
-        protected void Center(UiWindow window, int yOffset = 20)
+        protected void Center(UiElement elem, int yOffset = 20)
         {
-            window.SetPosition((Width - window.Width) / 2, ((Height - window.Height) / 2) + yOffset);
+            elem.SetPosition((Width - elem.Width) / 2, ((Height - elem.Height) / 2) + yOffset);
         }
 
         public override void SetSize(int width, int height)

@@ -8,7 +8,7 @@ using Color = OpenNefia.Core.Maths.Color;
 
 namespace OpenNefia.Content.UI.Element
 {
-    public class UiWindow : UiElement
+    public sealed class UiWindow : UiElement
     {
         public bool HasShadow { get; }
 
