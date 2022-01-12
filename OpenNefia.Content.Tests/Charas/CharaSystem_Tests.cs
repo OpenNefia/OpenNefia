@@ -17,7 +17,7 @@ using static OpenNefia.Content.Prototypes.Protos;
 
 namespace OpenNefia.Content.Tests.Charas
 {
-    [TestFixture]
+    [TestFixture, Parallelizable]
     [TestOf(typeof(CharaSystem))]
     public class CharaSystem_Tests
     {

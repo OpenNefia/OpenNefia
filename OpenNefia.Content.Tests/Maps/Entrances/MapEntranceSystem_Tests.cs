@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace OpenNefia.Content.Tests.Maps.Entrances
 {
-    [TestFixture]
+    [TestFixture, Parallelizable]
     [TestOf(typeof(MapEntranceSystem))]
     public class MapEntranceSystem_Tests
     {

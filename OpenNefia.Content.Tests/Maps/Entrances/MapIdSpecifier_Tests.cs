@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace OpenNefia.Content.Tests.Maps.Entrances
 {
-    [TestFixture]
+    [TestFixture, Parallelizable]
     public class MapIdSpecifier_Tests
     {
         [Test]

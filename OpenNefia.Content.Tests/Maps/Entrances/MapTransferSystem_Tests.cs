@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace OpenNefia.Content.Tests.Maps.Entrances
 {
-    [TestFixture]
+    [TestFixture, Parallelizable]
     [TestOf(typeof(MapTransferSystem))]
     public class MapTransferSystem_Tests
     {

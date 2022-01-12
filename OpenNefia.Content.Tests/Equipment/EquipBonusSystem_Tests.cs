@@ -19,7 +19,7 @@ using static OpenNefia.Content.Prototypes.Protos;
 
 namespace OpenNefia.Content.Tests.Equipment
 {
-    [TestFixture]
+    [TestFixture, Parallelizable]
     [TestOf(typeof(EquipBonusSystem))]
     public class EquipBonusSystem_Tests : OpenNefiaUnitTest
     {

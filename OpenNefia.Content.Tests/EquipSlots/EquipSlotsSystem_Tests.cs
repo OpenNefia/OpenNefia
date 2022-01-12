@@ -16,7 +16,7 @@ using static OpenNefia.Content.Prototypes.Protos;
 
 namespace OpenNefia.Content.Tests.EquipSlots
 {
-    [TestFixture]
+    [TestFixture, Parallelizable]
     [TestOf(typeof(EquipSlotsSystem))]
     public class EquipSlotsSystem_Tests
     {

@@ -11,37 +11,57 @@
       tag: Elona.DungeonStairsSurfacing
 
 - type: Entity
+  id: Elona.NefiaDungeonEntrance
+  parent: Elona.FeatMapEntrance
+  components:
+  - type: Chip
+    id: Elona.FeatAreaDungeon
+
+- type: Entity
   id: Elona.NefiaDungeon
   parent: Elona.BaseNefia
   components:
   - type: AreaEntrance
-    components:
-    - type: Chip
-      id: Elona.FeatAreaDungeon
+    entranceEntity: Elona.NefiaDungeonEntrance
+
+- type: Entity
+  id: Elona.NefiaForestEntrance
+  parent: Elona.FeatMapEntrance
+  components:
+  - type: Chip
+    id: Elona.FeatAreaForest
 
 - type: Entity
   id: Elona.NefiaForest
   parent: Elona.BaseNefia
   components:
   - type: AreaEntrance
-    components:
-    - type: Chip
-      id: Elona.FeatAreaForest
+    entranceEntity: Elona.NefiaForestEntrance
+
+- type: Entity
+  id: Elona.NefiaTowerEntrance
+  parent: Elona.FeatMapEntrance
+  components:
+  - type: Chip
+    id: Elona.FeatAreaTower
 
 - type: Entity
   id: Elona.NefiaTower
   parent: Elona.BaseNefia
   components:
   - type: AreaEntrance
-    components:
-    - type: Chip
-      id: Elona.FeatAreaTower
+    entranceEntity: Elona.NefiaTowerEntrance
+
+- type: Entity
+  id: Elona.NefiaFortEntrance
+  parent: Elona.FeatMapEntrance
+  components:
+  - type: Chip
+    id: Elona.FeatAreaFort
 
 - type: Entity
   id: Elona.NefiaFort
   parent: Elona.BaseNefia
   components:
   - type: AreaEntrance
-    components:
-    - type: Chip
-      id: Elona.FeatAreaFort
+    entranceEntity: Elona.NefiaFortEntrance

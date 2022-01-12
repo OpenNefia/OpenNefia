@@ -7,6 +7,7 @@ using Love;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Serialization.Manager;
 using static OpenNefia.Core.Prototypes.EntityPrototype;
+using OpenNefia.Core.Prototypes;
 
 namespace OpenNefia.Content.Areas
 {
@@ -33,15 +34,15 @@ namespace OpenNefia.Content.Areas
         public WorldMapEntranceComponent CreateAreaEntrance(IArea area, MapCoordinates coords,
             AreaEntranceComponent? areaEntranceComp = null)
         {
-            IEntityLoadContext? context = null;
+            PrototypeId<EntityPrototype>? protoId = null;
             IMapStartLocation? startLocation = null;
             if (Resolve(area.AreaEntityUid, ref areaEntranceComp, logMissing: false))
             {
-                context = new BasicComponentLoadContext(areaEntranceComp.Components);
+                protoId = areaEntranceComp.EntranceEntity;
                 startLocation = areaEntranceComp.StartLocation;
             }
 
-            var entranceEnt = EntityManager.SpawnEntity(Protos.Feat.MapEntrance, coords, context);
+            var entranceEnt = EntityManager.SpawnEntity(protoId, coords);
 
             var worldMapEntrance = EntityManager.EnsureComponent<WorldMapEntranceComponent>(entranceEnt);
             worldMapEntrance.Entrance.MapIdSpecifier = new AreaFloorMapIdSpecifier(area.Id);
@@ -49,31 +50,6 @@ namespace OpenNefia.Content.Areas
                 worldMapEntrance.Entrance.StartLocation = startLocation;
 
             return worldMapEntrance;
-        }
-    }
-
-    public class BasicComponentLoadContext : IEntityLoadContext
-    {
-        private ComponentRegistry _components;
-
-        public BasicComponentLoadContext(ComponentRegistry components)
-        {
-            _components = components;
-        }
-
-        public IComponent GetComponentData(string componentName, IComponent? protoData)
-        {
-            return _components[componentName];
-        }
-
-        public IEnumerable<string> GetExtraComponentTypes()
-        {
-            return _components.Keys;
-        }
-
-        public bool ShouldLoadComponent(string componentName)
-        {
-            return _components.ContainsKey(componentName);
         }
     }
 }
