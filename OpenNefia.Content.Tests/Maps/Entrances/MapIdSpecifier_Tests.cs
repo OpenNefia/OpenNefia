@@ -57,7 +57,7 @@ namespace OpenNefia.Content.Tests.Maps.Entrances
             var map1 = mapMan.CreateMap(10, 10);
             var map2 = mapMan.CreateMap(10, 10);
 
-            var area = areaMan.CreateArea();
+            var area = areaMan.CreateArea(null);
             var areaFloorId1 = new AreaFloorId("Test.Floor1");
             var areaFloorId2 = new AreaFloorId("Test.Floor2");
             areaMan.RegisterAreaFloor(area, areaFloorId1, map1);
@@ -91,7 +91,7 @@ namespace OpenNefia.Content.Tests.Maps.Entrances
 
             var globalId = new GlobalAreaId("Test.GlobalArea");
 
-            var area = areaMan.CreateArea(globalId: globalId);
+            var area = areaMan.CreateArea(null, globalId: globalId);
             var areaFloorId1 = new AreaFloorId("Test.Floor1");
             var areaFloorId2 = new AreaFloorId("Test.Floor2");
             areaMan.RegisterAreaFloor(area, areaFloorId1, map1);

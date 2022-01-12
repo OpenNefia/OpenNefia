@@ -81,7 +81,7 @@ namespace OpenNefia.Tests.Core.SaveGames
             mapMan.CreateMap(50, 50);
             var player = entMan.SpawnEntity(null, map.AtPos(Vector2i.One));
             sessMan.Player = player;
-            var area = areaMan.CreateArea();
+            var area = areaMan.CreateArea(null);
             var areaId = area.Id;
             var areaEnt = area.AreaEntityUid;
 
@@ -96,7 +96,7 @@ namespace OpenNefia.Tests.Core.SaveGames
 
             // Allocate some more IDs.
             var nextMap = mapMan.CreateMap(50, 50);
-            areaMan.CreateArea();
+            areaMan.CreateArea(null);
             var nextPlayer = entMan.SpawnEntity(null, map.AtPos(Vector2i.One));
             mapMan.SetActiveMap(nextMap.Id);
             sessMan.Player = nextPlayer;

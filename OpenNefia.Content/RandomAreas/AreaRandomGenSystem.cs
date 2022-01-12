@@ -10,6 +10,8 @@ using OpenNefia.Core.Random;
 using OpenNefia.Content.Prototypes;
 using OpenNefia.Core.Maths;
 using System.Diagnostics.CodeAnalysis;
+using OpenNefia.Core.Log;
+using OpenNefia.Content.Areas;
 
 namespace OpenNefia.Content.RandomAreas
 {
@@ -28,6 +30,7 @@ namespace OpenNefia.Content.RandomAreas
         [Dependency] private readonly IMapRandom _mapRandom = default!;
         [Dependency] private readonly ITileDefinitionManager _tileDefs = default!;
         [Dependency] private readonly MapEntranceSystem _mapEntrances = default!;
+        [Dependency] private readonly IAreaEntranceSystem _areaEntrances = default!;
 
         /// <summary>
         /// The number of active random areas that should exist in the world map at any given time.
@@ -87,6 +90,15 @@ namespace OpenNefia.Content.RandomAreas
                 {
                     var ev = new GenerateRandomAreaEvent(mapCoords.Value);
                     RaiseLocalEvent(map.MapEntityUid, ev);
+                    if (ev.ResultArea != null)
+                    {
+                        _areaEntrances.CreateAreaEntrance(ev.ResultArea, ev.RandomAreaCoords);
+                        EntityManager.EnsureComponent<AreaRandomGenComponent>(ev.ResultArea.AreaEntityUid);
+                    }
+                    else
+                    {
+                        Logger.WarningS("randomArea", $"Failed to generate random area at {ev.RandomAreaCoords}.");
+                    }
                 }
             }
         }
@@ -259,18 +271,18 @@ namespace OpenNefia.Content.RandomAreas
     public sealed class GenerateRandomAreaEvent : HandledEntityEventArgs
     {
         public MapCoordinates RandomAreaCoords { get; }
-        
-        public EntityUid ResultMapEntrance { get; private set; }
+
+        public IArea? ResultArea { get; private set; }
 
         public GenerateRandomAreaEvent(MapCoordinates randomAreaPos)
         {
             RandomAreaCoords = randomAreaPos;
         }
 
-        public void Handle(EntityUid resultMapEntrance)
+        public void Handle(IArea resultArea)
         {
             Handled = true;
-            ResultMapEntrance = resultMapEntrance;
+            ResultArea = resultArea;
         }
     }
 }

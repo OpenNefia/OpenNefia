@@ -20,11 +20,22 @@ namespace OpenNefia.Content.Tests.Areas
     [TestOf(typeof(AreaEntranceSystem))]
     public class AreaEntranceSystem_Tests : OpenNefiaUnitTest
     {
+        private static readonly PrototypeId<EntityPrototype> TestAreaEntityID = new("TestAreaEntity");
         private static readonly PrototypeId<EntityPrototype> TestEntranceEntityID = new("TestEntranceEntity");
 
         private static readonly AreaFloorId TestAreaFloorID = new("Test.AreaFloor");
 
         private static readonly string Prototypes = $@"
+- type: Entity
+  id: {TestAreaEntityID}
+  parent: BaseArea
+  components:
+  - type: AreaEntrance
+    entranceEntity: {TestEntranceEntityID}
+    startLocation: !type:SpecificMapLocation
+      pos: 1,1
+    startingFloor: {TestAreaFloorID}
+
 - type: Entity
   id: {TestEntranceEntityID}
   parent: {Protos.Feat.MapEntrance}
@@ -47,14 +58,9 @@ namespace OpenNefia.Content.Tests.Areas
             var areaEntranceSys = sim.GetEntitySystem<AreaEntranceSystem>();
 
             var map = mapMan.CreateMap(50, 50);
-            var area = areaMan.CreateArea();
+            var area = areaMan.CreateArea(TestAreaEntityID);
 
             areaMan.RegisterAreaFloor(area, TestAreaFloorID, map);
-
-            var areaEntComp = entMan.EnsureComponent<AreaEntranceComponent>(area.AreaEntityUid);
-            areaEntComp.EntranceEntity = TestEntranceEntityID;
-            areaEntComp.StartLocation = new SpecificMapLocation(Vector2i.One);
-            areaEntComp.StartingFloor = TestAreaFloorID;
 
             mapMan.SetActiveMap(map.Id);
 

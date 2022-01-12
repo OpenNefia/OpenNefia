@@ -20,7 +20,7 @@ namespace OpenNefia.Core.Areas
         event ActiveAreaChangedDelegate? ActiveAreaChanged;
 
         bool AreaExists(AreaId areaId);
-        IArea CreateArea(PrototypeId<EntityPrototype>? areaEntityProtoId = null, GlobalAreaId? globalId = null, AreaId? parent = null);
+        IArea CreateArea(PrototypeId<EntityPrototype>? areaEntityProtoId, GlobalAreaId? globalId = null, AreaId? parent = null);
         bool TryGetArea(AreaId areaId, [NotNullWhen(true)] out IArea? area);
         IArea GetArea(AreaId areaId);
         void DeleteArea(AreaId areaId);
