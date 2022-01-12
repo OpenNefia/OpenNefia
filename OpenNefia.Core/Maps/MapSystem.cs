@@ -97,7 +97,7 @@ namespace OpenNefia.Core.Maps
         public IMap NewMap { get; }
         public IMap? OldMap { get; }
 
-        public MapEnteredEvent(IMap newMap, IMap? oldMap)
+        public MapEnteredEvent(IMap newMap, IMap? oldMap = null)
         {
             NewMap = newMap;
             OldMap = oldMap;

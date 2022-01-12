@@ -90,7 +90,7 @@ namespace OpenNefia.Tests.Core.Areas
             var mapMan = IoCManager.Resolve<IMapManager>();
             var entMan = IoCManager.Resolve<IEntityManager>();
 
-            var area = areaMan.CreateArea();
+            var area = areaMan.CreateArea(null);
 
             Assert.That(areaMan.AreaExists(area.Id), Is.True);
             Assert.That(area.ContainedMaps.Count, Is.EqualTo(0));
@@ -132,7 +132,7 @@ namespace OpenNefia.Tests.Core.Areas
             var areaMan = IoCManager.Resolve<IAreaManager>();
 
             var globalId = new GlobalAreaId("Test.Area");
-            var area = areaMan.CreateArea(globalId: globalId);
+            var area = areaMan.CreateArea(null, globalId: globalId);
 
             Assert.That(areaMan.AreaExists(area.Id), Is.True);
             Assert.That(areaMan.GlobalAreaExists(globalId), Is.True);
@@ -140,7 +140,7 @@ namespace OpenNefia.Tests.Core.Areas
             var found = areaMan.GetGlobalArea(globalId);
             Assert.That(found.GlobalId, Is.EqualTo(globalId));
 
-            Assert.Throws<ArgumentException>(() => areaMan.CreateArea(globalId: globalId));
+            Assert.Throws<ArgumentException>(() => areaMan.CreateArea(null, globalId: globalId));
         }
 
         [Test]
@@ -148,8 +148,8 @@ namespace OpenNefia.Tests.Core.Areas
         {
             var areaMan = IoCManager.Resolve<IAreaManagerInternal>();
 
-            areaMan.CreateArea();
-            var area2 = areaMan.CreateArea();
+            areaMan.CreateArea(null);
+            var area2 = areaMan.CreateArea(null);
 
             Assert.That(areaMan.NextAreaId == (int)area2.Id + 1);
         }
@@ -161,7 +161,7 @@ namespace OpenNefia.Tests.Core.Areas
             var mapMan = IoCManager.Resolve<IMapManager>();
             var entMan = IoCManager.Resolve<IEntityManager>();
 
-            var area = areaMan.CreateArea();
+            var area = areaMan.CreateArea(null);
             var map = mapMan.CreateMap(10, 10);
             var floorId = TestMapFloor;
 
@@ -177,7 +177,7 @@ namespace OpenNefia.Tests.Core.Areas
             var floorId2 = new AreaFloorId("Test.Floor2");
             Assert.Throws<ArgumentException>(() => areaMan.RegisterAreaFloor(area, floorId2, map), "Attempting to register same map with two different floors");
 
-            var area2 = areaMan.CreateArea();
+            var area2 = areaMan.CreateArea(null);
             Assert.Throws<ArgumentException>(() => areaMan.RegisterAreaFloor(area2, floorId, map), "Attempting to register same map with two different areas");
         }
 
@@ -188,7 +188,7 @@ namespace OpenNefia.Tests.Core.Areas
             var mapMan = IoCManager.Resolve<IMapManager>();
             var entMan = IoCManager.Resolve<IEntityManager>();
 
-            var area = areaMan.CreateArea();
+            var area = areaMan.CreateArea(null);
             var map = mapMan.CreateMap(10, 10);
             var floorId = TestMapFloor;
 

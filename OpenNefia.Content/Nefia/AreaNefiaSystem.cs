@@ -34,7 +34,6 @@ namespace OpenNefia.Content.Nefia
         [Dependency] private readonly IGameSessionManager _gameSession = default!;
         [Dependency] private readonly ILocalizationManager _loc = default!;
         [Dependency] private readonly IEntityGen _entityGen = default!;
-        [Dependency] private readonly IAreaEntranceSystem _areaEntrances = default!;
 
         public override void Initialize()
         {
@@ -127,8 +126,7 @@ namespace OpenNefia.Content.Nefia
             
             var area = _areaManager.CreateArea(areaEntityProto, parent: parentArea.Id);
             
-            var worldMapEntrance = _areaEntrances.CreateAreaEntrance(area, args.RandomAreaCoords);
-            args.Handle(worldMapEntrance.Owner);
+            args.Handle(area);
         }
 
         private void OnNefiaGenerated(EntityUid areaEntity, AreaNefiaComponent areaNefia, AreaGeneratedEvent args)
