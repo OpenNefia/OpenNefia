@@ -48,8 +48,6 @@ namespace OpenNefia.Content.Areas
             if (startLocation != null)
                 worldMapEntrance.Entrance.StartLocation = startLocation;
 
-            var areaEnt = area.AreaEntityUid;
-
             return worldMapEntrance;
         }
     }
