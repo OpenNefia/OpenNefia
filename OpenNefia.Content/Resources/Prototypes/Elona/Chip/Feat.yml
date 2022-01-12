@@ -288,7 +288,7 @@
     region: "0, 192, 48, 48"
 
 - type: Chip
-  id: Elona.FeatAreaCave
+  id: Elona.FeatAreaDungeon
   hspIds:
     elona122: 133
   group: Feat
@@ -351,7 +351,7 @@
     region: "336, 192, 48, 48"
 
 - type: Chip
-  id: Elona.FeatAreaTemple
+  id: Elona.FeatAreaFort
   hspIds:
     elona122: 140
   group: Feat
@@ -405,7 +405,7 @@
     region: "624, 192, 48, 48"
 
 - type: Chip
-  id: Elona.FeatAreaDungeon
+  id: Elona.FeatAreaDungeonTower
   hspIds:
     elona122: 146
   group: Feat
