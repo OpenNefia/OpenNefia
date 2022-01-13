@@ -28,7 +28,6 @@ namespace OpenNefia.Content.EntityGen
         void FireGeneratedEvent(EntityUid entity);
         EntityUid? SpawnEntity(PrototypeId<EntityPrototype>? protoId, EntityCoordinates coordinates);
         EntityUid? SpawnEntity(PrototypeId<EntityPrototype>? protoId, MapCoordinates coordinates);
-        void FireGeneratedEvent(EntityUid entity);
     }
 
     public class EntityGenSystem : EntitySystem, IEntityGen

@@ -62,12 +62,6 @@ namespace OpenNefia.Content.UI.Element.Containers
             }
         }
 
-        public virtual void AddLayout(params (LayoutType type, int offset)[] layouts)
-        {
-            foreach(var layout in layouts)
-                Entries.Add(new UiContainerEntry(layout.type, layout.offset));
-        }
-
         public virtual void AddLayout(LayoutType type, int offset)
         {
             Entries.Add(new UiContainerEntry(type, offset));

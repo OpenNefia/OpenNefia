@@ -1,0 +1,40 @@
+﻿Elona.CharSheet = {
+   Potential = {
+      Superb = "Superb",
+      Great = "Great",
+      Good = "Good",
+      Bad = "Bad",
+      Hopeless = "Hopeless"
+   },
+   Name = "Name",
+   Aka = "Aka",
+   Race = "Race",
+   Sex = "Sex",
+   Class = "Class",
+   Age = "Age",
+   Height = "Height",
+   Weight = "Weight",
+   Level = "Level",
+   Exp = "EXP",
+   NextLv = "Next Lv",
+   God = "God",
+   Guild = "Guild",
+   Sanity = "Sanity",
+   Fame = "Fame",
+   Karma = "Karma",
+   Turns = "Turns",
+   Days = "Days",
+   Kills = "Kills",
+   Time = "Time",
+   CargoWt = "Cargo Wt",
+   CargoLmt = "Cargo Lmt",
+   EquipWt = "Equip Wt",
+   DeepestLv = "Deepest Lv",
+   Topic = {
+      Attribute = "Attributes(Org) - Potential",
+      Blessing = "Blessing and Hex",
+      Trace = "Trace",
+      Extra = "Extra Info",
+      Rolls = "Combat Rolls"
+   }
+}

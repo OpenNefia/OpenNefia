@@ -27,43 +27,6 @@ namespace OpenNefia.Content.CharaMake
 {
     public class CharaMakeLayer : UiLayerWithResult<CharaMakeData, CharaMakeResult>, ICharaMakeLayer
     {
-        protected class AttributeIcon : UiElement
-        {
-            private const string FallbackIcon = "2";
-            private readonly Dictionary<PrototypeId<SkillPrototype>, string> _attributes = new()
-            {
-                { Protos.Skill.StatStrength, "0" },
-                { Protos.Skill.StatConstitution, "1" },
-                { Protos.Skill.StatDexterity, "2" },
-                { Protos.Skill.StatPerception, "3" },
-                { Protos.Skill.StatLearning, "4" },
-                { Protos.Skill.StatWill, "5" },
-                { Protos.Skill.StatMagic, "6" },
-                { Protos.Skill.StatCharisma, "7" }
-
-            };
-            private IAssetInstance AssetAttributeIcons;
-            private PrototypeId<SkillPrototype>? Type;
-
-            public AttributeIcon(PrototypeId<SkillPrototype>? type)
-            {
-                AssetAttributeIcons = Assets.Get(Protos.Asset.AttributeIcons);
-                Type = type;
-            }
-
-            public override void Draw()
-            {
-                base.Draw();
-                GraphicsEx.SetColor(Color.White);
-                if (Type != null && _attributes.TryGetValue(Type.Value, out var iconId))
-                    AssetAttributeIcons.DrawRegion($"{iconId ?? FallbackIcon}", X, Y, centered: true);
-            }
-
-            public override void GetPreferredSize(out Vector2i size)
-            {
-                size = new Vector2i(10, 10);
-            }
-        }
         [Dependency] protected readonly IEntityManager _entityManager = default!;
         protected IAssetInstance AssetBG;
         protected IAssetInstance[] AssetWindows;

@@ -24,6 +24,9 @@ namespace OpenNefia.Content.UI
         public static readonly FontSpec CharaMakeRerollAttrAmount = new(14, 12, style: FontStyle.Bold);
         public static readonly FontSpec CharaMakeRerollLocked = new(11, 9, color: UiColors.CharaMakeStatLevelGreat, style: FontStyle.Bold);
 
+        public static readonly FontSpec CharSheetInfo = new(11, 11);
+        public static readonly FontSpec CharSheetInfoContent = new(12, 12);
+
         public static readonly FontSpec TextNote = new(12, 10, style: FontStyle.Bold); // 12 + sizefix - en * 2
 
         public static readonly FontSpec PromptText = new(16, 14, color: UiColors.TextWhite, bgColor: UiColors.TextBlack);
