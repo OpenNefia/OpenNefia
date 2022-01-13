@@ -1,5 +1,6 @@
 ﻿using OpenNefia.Content.UI.Element;
 using OpenNefia.Core.GameObjects;
+using OpenNefia.Core.Locale;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace OpenNefia.Content.CharaMake
 {
+    [Localize("Elona.CharaMake.CharSheet")]
     public class CharaMakeCharSheetLayer : CharaMakeLayer
     {
         private CharSheet Sheet;
@@ -25,7 +27,7 @@ namespace OpenNefia.Content.CharaMake
         public override void SetPosition(int x, int y)
         {
             base.SetPosition(x, y);
-            Sheet.SetPosition(20, 20);
+            Center(Sheet, -10);
         }
 
         public override void Draw()
