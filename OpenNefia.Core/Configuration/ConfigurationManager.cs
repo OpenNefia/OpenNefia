@@ -5,7 +5,10 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using Nett;
+using OpenNefia.Core.IoC;
 using OpenNefia.Core.Log;
+using OpenNefia.Core.Profiles;
+using OpenNefia.Core.ResourceManagement;
 using OpenNefia.Core.Utility;
 
 namespace OpenNefia.Core.Configuration
@@ -15,9 +18,11 @@ namespace OpenNefia.Core.Configuration
     /// </summary>
     internal class ConfigurationManager : IConfigurationManagerInternal
     {
+        [Dependency] private readonly IProfileManager _profileManager = default!;
+
         private const char TABLE_DELIMITER = '.';
         protected readonly Dictionary<string, ConfigVar> _configVars = new();
-        private string? _configFile;
+        private ResourcePath? _configFile;
 
         /// <summary>
         ///     Constructs a new ConfigurationManager.
@@ -37,16 +42,17 @@ namespace OpenNefia.Core.Configuration
         }
 
         /// <inheritdoc />
-        public void LoadFromFile(string configFile)
+        public void LoadFromFile(ResourcePath configFile)
         {
             try
             {
-                var tblRoot = Toml.ReadFile(configFile);
+                using var stream = _profileManager.CurrentProfile.Open(configFile, FileMode.Open);
+                var tblRoot = Toml.ReadStream(stream);
 
                 ProcessTomlObject(tblRoot);
 
                 _configFile = configFile;
-                Logger.InfoS("cfg", $"Configuration Loaded from '{Path.GetFullPath(configFile)}'");
+                Logger.InfoS("cfg", $"Configuration Loaded from '{configFile}'");
             }
             catch (Exception e)
             {
@@ -54,7 +60,7 @@ namespace OpenNefia.Core.Configuration
             }
         }
 
-        public void SetSaveFile(string configFile)
+        public void SetSaveFile(ResourcePath configFile)
         {
             _configFile = configFile;
         }
@@ -185,7 +191,8 @@ namespace OpenNefia.Core.Configuration
                     }
                 }
 
-                Toml.WriteFile(tblRoot, _configFile);
+                using var writer = _profileManager.CurrentProfile.Open(_configFile, FileMode.Create);
+                Toml.WriteStream(tblRoot, writer);
                 Logger.InfoS("cfg", $"config saved to '{_configFile}'.");
             }
             catch (Exception e)

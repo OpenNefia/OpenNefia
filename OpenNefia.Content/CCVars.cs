@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace OpenNefia.Content
 {   
+    /// <summary>
+    /// Contains content <see cref="CVar"/>s.
+    /// </summary>
     // ReSharper disable once InconsistentNaming
     [CVarDefs]
     public sealed class CCVars : CVars

@@ -76,6 +76,9 @@ namespace OpenNefia.Core
         public static readonly CVarDef<bool> AudioMusic =
             CVarDef.Create("audio.music", true, CVar.Archive);
 
+        public static readonly CVarDef<int> AudioMidiDevice =
+            CVarDef.Create("audio.mididevice", 0, CVar.Archive);
+
         public static readonly CVarDef<bool> AudioSound =
             CVarDef.Create("audio.sound", true, CVar.Archive);
 

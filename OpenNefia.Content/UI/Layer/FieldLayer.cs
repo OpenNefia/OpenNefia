@@ -186,7 +186,7 @@ namespace OpenNefia.Content.UI.Layer
 
         public override void OnQuery()
         {
-            _music.Play(Protos.Music.March1);
+            _music.Play(Protos.Music.Field1);
 
             EntitySystem.Get<ITurnOrderSystem>().AdvanceState();
         }

@@ -3,27 +3,39 @@ using Melanchall.DryWetMidi.Multimedia;
 using OpenNefia.Core.Configuration;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Prototypes;
+using OpenNefia.Core.ResourceManagement;
+using OpenNefia.Core.Utility;
 
 namespace OpenNefia.Core.Audio
 {
     public sealed class LoveMusicManager : IMusicManager
     {
         [Dependency] private readonly IConfigurationManager _config = default!;
+        [Dependency] private readonly IResourceCache _resourceCache = default!;
+        [Dependency] private readonly IPrototypeManager _protos = default!;
 
-        private static Playback? MidiPlayback = null;
-        private static OutputDevice? MidiDevice = null;
+        private const string MidiFileExtension = "mid";
 
-        private static OutputDevice GetMidiOutputDevice() => OutputDevice.GetByIndex(0);
-
-        public bool IsPlaying => MidiPlayback != null;
+        private OutputDevice _midiDevice = default!;
+        private Playback? _midiPlayback = null;
+        private Love.Source? _streamPlayback = null;
 
         private PrototypeId<MusicPrototype>? _currentlyPlaying;
+
+        public bool IsPlaying => _midiPlayback != null || _streamPlayback != null;
 
         private bool _enableMusic;
 
         public void Initialize()
         {
+            _config.OnValueChanged(CVars.AudioMidiDevice, i => _midiDevice = OutputDevice.GetByIndex(i), true);
             _config.OnValueChanged(CVars.AudioMusic, OnConfigEnableMusicChanged, true);
+        }
+
+        public void Shutdown()
+        {
+            Stop();
+            _midiDevice?.Dispose();
         }
 
         private void OnConfigEnableMusicChanged(bool b)
@@ -35,27 +47,41 @@ namespace OpenNefia.Core.Audio
                 Play(_currentlyPlaying.Value);
         }
 
+        private Love.Source GetLoveStreamSource(ResourcePath path)
+        {
+            var fileData = _resourceCache.GetResource<LoveFileDataResource>(path);
+            return Love.Audio.NewSource(fileData, Love.SourceType.Stream);
+        }
+
         /// <inheritdoc />
-        public void Play(PrototypeId<MusicPrototype> id)
+        public void Play(PrototypeId<MusicPrototype> musicId)
         {
             if (IsPlaying)
                 StopInternal();
 
-            _currentlyPlaying = id;
+            _currentlyPlaying = musicId;
 
             if (!_enableMusic)
                 return;
 
-            var path = id.ResolvePrototype().Filepath;
+            var path = _protos.Index(musicId).Filepath;
 
-            if (path.Extension == "mid")
+            if (path.Extension.Equals(MidiFileExtension, StringComparison.InvariantCultureIgnoreCase))
             {
-                var midiFile = MidiFile.Read(path.ToString());
+                using (var stream = _resourceCache.ContentFileRead(path))
+                {
+                    var midiFile = MidiFile.Read(stream);
 
-                MidiDevice = GetMidiOutputDevice();
-                MidiPlayback = midiFile.GetPlayback(MidiDevice);
-                MidiPlayback.Loop = true;
-                MidiPlayback.Start();
+                    _midiPlayback = midiFile.GetPlayback(_midiDevice);
+                    _midiPlayback.Loop = true;
+                    _midiPlayback.Start();
+                }
+            }
+            else
+            {
+                _streamPlayback = GetLoveStreamSource(path);
+                _streamPlayback.SetLooping(true);
+                Love.Audio.Play(_streamPlayback);
             }
         }
 
@@ -63,20 +89,21 @@ namespace OpenNefia.Core.Audio
         public void Stop()
         {
             _currentlyPlaying = null;
+            StopInternal();
         }
 
         private void StopInternal()
         {
-            if (MidiPlayback != null)
+            _midiPlayback?.Dispose();
+
+            if (_streamPlayback != null)
             {
-                MidiPlayback.Dispose();
-                MidiPlayback = null;
+                Love.Audio.Stop(_streamPlayback);
+                _streamPlayback.Dispose();
             }
-            if (MidiDevice != null)
-            {
-                MidiDevice.Dispose();
-                MidiDevice = null;
-            }
+
+            _midiPlayback = null;
+            _streamPlayback = null;
         }
     }
 }

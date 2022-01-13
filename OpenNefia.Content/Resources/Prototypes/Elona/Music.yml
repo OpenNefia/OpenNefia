@@ -1,287 +1,287 @@
 - type: Music
-  id: Reset
+  id: Elona.Reset
   hspIds:
     elona122: 50
   filepath: /Sound/Elona/gm_on.mid
 
 - type: Music
-  id: Town1
+  id: Elona.Town1
   hspIds:
     elona122: 51
   filepath: /Sound/Elona/pop01.mid
 
 - type: Music
-  id: Town2
+  id: Elona.Town2
   hspIds:
     elona122: 52
   filepath: /Sound/Elona/morning_breeze.mid
 
 - type: Music
-  id: Town3
+  id: Elona.Town3
   hspIds:
     elona122: 53
   filepath: /Sound/Elona/happymarch.mid
 
 - type: Music
-  id: Town4
+  id: Elona.Town4
   hspIds:
     elona122: 54
   filepath: /Sound/Elona/xp_field7.mid
 
 - type: Music
-  id: Dungeon1
+  id: Elona.Dungeon1
   hspIds:
     elona122: 55
   filepath: /Sound/Elona/pop03.mid
 
 - type: Music
-  id: Dungeon2
+  id: Elona.Dungeon2
   hspIds:
     elona122: 56
   filepath: /Sound/Elona/PSML522.MID
 
 - type: Music
-  id: Dungeon3
+  id: Elona.Dungeon3
   hspIds:
     elona122: 57
   filepath: /Sound/Elona/PSML514.MID
 
 - type: Music
-  id: Dungeon4
+  id: Elona.Dungeon4
   hspIds:
     elona122: 58
   filepath: /Sound/Elona/PSML507.MID
 
 - type: Music
-  id: Dungeon5
+  id: Elona.Dungeon5
   hspIds:
     elona122: 59
   filepath: /Sound/Elona/fantasy04.mid
 
 - type: Music
-  id: Dungeon6
+  id: Elona.Dungeon6
   hspIds:
     elona122: 60
   filepath: /Sound/Elona/fantasy03.mid
 
 - type: Music
-  id: Puti
+  id: Elona.Puti
   hspIds:
     elona122: 61
   filepath: /Sound/Elona/dwarf.mid
 
 - type: Music
-  id: Boss
+  id: Elona.Boss
   hspIds:
     elona122: 62
   filepath: /Sound/Elona/battle1.mid
 
 - type: Music
-  id: Boss2
+  id: Elona.Boss2
   hspIds:
     elona122: 63
   filepath: /Sound/Elona/climax.mid
 
 - type: Music
-  id: Victory
+  id: Elona.Victory
   hspIds:
     elona122: 64
   filepath: /Sound/Elona/orc05.mid
 
 - type: Music
-  id: Opening
+  id: Elona.Opening
   hspIds:
     elona122: 65
   filepath: /Sound/Elona/orc01.mid
 
 - type: Music
-  id: LastBoss
+  id: Elona.LastBoss
   hspIds:
     elona122: 66
   filepath: /Sound/Elona/orc03.mid
 
 - type: Music
-  id: Home
+  id: Elona.Home
   hspIds:
     elona122: 67
   filepath: /Sound/Elona/PSML516.MID
 
 - type: Music
-  id: Lonely
+  id: Elona.Lonely
   hspIds:
     elona122: 68
   filepath: /Sound/Elona/PSML060.MID
 
 - type: Music
-  id: Chaos
+  id: Elona.Chaos
   hspIds:
     elona122: 69
   filepath: /Sound/Elona/fantasy01.mid
 
 - type: Music
-  id: March1
+  id: Elona.March1
   hspIds:
     elona122: 70
   filepath: /Sound/Elona/orc06.mid
 
 - type: Music
-  id: March2
+  id: Elona.March2
   hspIds:
     elona122: 71
   filepath: /Sound/Elona/orc02.mid
 
 - type: Music
-  id: March3
+  id: Elona.March3
   hspIds:
     elona122: 72
   filepath: /Sound/Elona/orc04.mid
 
 - type: Music
-  id: Arena
+  id: Elona.Arena
   hspIds:
     elona122: 73
   filepath: /Sound/Elona/victory.mid
 
 - type: Music
-  id: Fanfare
+  id: Elona.Fanfare
   hspIds:
     elona122: 74
   filepath: /Sound/Elona/fanfare.mid
 
 - type: Music
-  id: Village1
+  id: Elona.Village1
   hspIds:
     elona122: 75
   filepath: /Sound/Elona/cobalt.mid
 
 - type: Music
-  id: Battle1
+  id: Elona.Battle1
   hspIds:
     elona122: 76
   filepath: /Sound/Elona/battle3.mid
 
 - type: Music
-  id: Casino
+  id: Elona.Casino
   hspIds:
     elona122: 77
   filepath: /Sound/Elona/town2l.mid
 
 - type: Music
-  id: Coda
+  id: Elona.Coda
   hspIds:
     elona122: 78
   filepath: /Sound/Elona/epi1coda.mid
 
 - type: Music
-  id: Ruin
+  id: Elona.Ruin
   hspIds:
     elona122: 79
   filepath: /Sound/Elona/ruins1.mid
 
 - type: Music
-  id: Wedding
+  id: Elona.Wedding
   hspIds:
     elona122: 80
   filepath: /Sound/Elona/PSML052.MID
 
 - type: Music
-  id: PetArena
+  id: Elona.PetArena
   hspIds:
     elona122: 81
   filepath: /Sound/Elona/main2.mid
 
 - type: Music
-  id: Unrest
+  id: Elona.Unrest
   hspIds:
     elona122: 82
   filepath: /Sound/Elona/PSML514.MID
 
 - type: Music
-  id: Town5
+  id: Elona.Town5
   hspIds:
     elona122: 83
   filepath: /Sound/Elona/PSML047.MID
 
 - type: Music
-  id: Unrest2
+  id: Elona.Unrest2
   hspIds:
     elona122: 84
   filepath: /Sound/Elona/xp_shrine2.mid
 
 - type: Music
-  id: Town6
+  id: Elona.Town6
   hspIds:
     elona122: 85
   filepath: /Sound/Elona/morning_breeze.mid
 
 - type: Music
-  id: Field1
+  id: Elona.Field1
   hspIds:
     elona122: 86
   filepath: /Sound/Elona/orc04.mid
 
 - type: Music
-  id: Field2
+  id: Elona.Field2
   hspIds:
     elona122: 87
   filepath: /Sound/Elona/xp_field2.mid
 
 - type: Music
-  id: Field3
+  id: Elona.Field3
   hspIds:
     elona122: 88
   filepath: /Sound/Elona/xp_field4.mid
 
 - type: Music
-  id: Memory
+  id: Elona.Memory
   hspIds:
     elona122: 89
   filepath: /Sound/Elona/memory.mid
 
 - type: Music
-  id: Intro
+  id: Elona.Intro
   hspIds:
     elona122: 90
   filepath: /Sound/Elona/field1_d.mid
 
 - type: Music
-  id: Soraochi
+  id: Elona.Soraochi
   hspIds:
     elona122: 91
   filepath: /Sound/Elona/soraochi.mid
 
 - type: Music
-  id: Psml515
+  id: Elona.Psml515
   hspIds:
     elona122: 92
   filepath: /Sound/Elona/PSML515.MID
 
 - type: Music
-  id: Psml035
+  id: Elona.Psml035
   hspIds:
     elona122: 93
   filepath: /Sound/Elona/PSML035.MID
 
 - type: Music
-  id: Pinch2
+  id: Elona.Pinch2
   hspIds:
     elona122: 94
   filepath: /Sound/Elona/pinch2.mid
 
 - type: Music
-  id: Memory2
+  id: Elona.Memory2
   hspIds:
     elona122: 95
   filepath: /Sound/Elona/memory2.mid
 
 - type: Music
-  id: AnoSora
+  id: Elona.AnoSora
   hspIds:
     elona122: 96
   filepath: /Sound/Elona/AnoSora.mid
 
 - type: Music
-  id: Epilogue
+  id: Elona.Epilogue
   hspIds:
     elona122: 97
   filepath: /Sound/Elona/xp_epilogue1.mid

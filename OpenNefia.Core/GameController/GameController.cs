@@ -59,30 +59,26 @@ namespace OpenNefia.Core.GameController
         [Dependency] private readonly ISaveGameSerializerInternal _saveGameSerializer = default!;
 
         public Action? MainCallback { get; set; } = null;
-        private Func<ILogHandler>? _logHandlerFactory;
         private ILogHandler? _logHandler;
         public GameControllerOptions Options { get; private set; } = new();
 
         public bool Startup(GameControllerOptions options)
         {
             Options = options;
-
             Console.OutputEncoding = EncodingHelpers.UTF8;
+
+            _resourceCache.Initialize(Options.UserDataDirectoryName);
+            _profileManager.Initialize();
+
+            InitializeConfig();
             SetupLogging(() => new ConsoleLogHandler());
 
             _taskManager.Initialize();
 
             _modLoader.SetUseLoadContext(true);
-
-            _resourceCache.Initialize(Options.UserDataDirectoryName);
-
-            _profileManager.Initialize();
-
             ProgramShared.DoMounts(_resourceCache);
 
             _fontManager.Initialize();
-
-            InitializeConfig();
 
             BindWindowEvents();
             _graphics.Initialize();
@@ -152,11 +148,6 @@ namespace OpenNefia.Core.GameController
 
         private void InitializeConfig()
         {
-            foreach (var loadedModule in _modLoader.LoadedModules)
-            {
-                _config.LoadCVarsFromAssembly(loadedModule);
-            }
-
             _config.Initialize();
             
             // Load our own (non-mod) CVars.
@@ -164,8 +155,8 @@ namespace OpenNefia.Core.GameController
 
             if (Options.LoadConfigAndUserData)
             {
-                var configFile = Path.Combine(Options.UserDataDirectoryName, Options.ConfigFileName);
-                if (File.Exists(configFile))
+                var configFile = new ResourcePath(Options.ConfigFileName);
+                if (_profileManager.CurrentProfile.Exists(configFile))
                 {
                     // Load config from user data if available.
                     _config.LoadFromFile(configFile);
@@ -286,8 +277,6 @@ namespace OpenNefia.Core.GameController
                 _log.RootSawmill.AddHandler(_logHandler!);
             }
 
-            _log.RootSawmill.AddHandler(logHandlerFactory());
-
             _log.GetSawmill("repl.exec").Level = LogLevel.Info;
             _log.GetSawmill("go.sys").Level = LogLevel.Info;
             _log.GetSawmill("input.binding").Level = LogLevel.Info;
@@ -308,6 +297,8 @@ namespace OpenNefia.Core.GameController
             _entityManager.Shutdown();
             _uiManager.Shutdown();
             _graphics.Shutdown();
+            _audio.Shutdown();
+            _music.Shutdown();
             _debugServer.Shutdown();
             _themeManager.Shutdown();
             if (_logHandler != null)

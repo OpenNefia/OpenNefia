@@ -12,12 +12,13 @@ namespace OpenNefia.Core.Audio
         public bool IsPlaying { get; }
 
         public void Initialize();
+        public void Shutdown();
 
         /// <summary>
         /// Plays a music file.
         /// </summary>
-        /// <param name="prototype">Prototype of the music to play.</param>
-        public void Play(PrototypeId<MusicPrototype> id);
+        /// <param name="musicId">Prototype of the music to play.</param>
+        public void Play(PrototypeId<MusicPrototype> musicId);
 
         /// <summary>
         /// Stops playing music.

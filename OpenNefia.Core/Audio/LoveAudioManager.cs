@@ -6,6 +6,7 @@ using OpenNefia.Core.Maths;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Core.ResourceManagement;
+using OpenNefia.Core.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,10 +15,12 @@ using System.Threading.Tasks;
 
 namespace OpenNefia.Core.Audio
 {
+    // TODO: Need to frameupdate this to dispose of finished sources.
     public sealed class LoveAudioManager : IAudioManager
     {
         [Dependency] private readonly IConfigurationManager _config = default!;
         [Dependency] private readonly IResourceCache _resourceCache = default!;
+        [Dependency] private readonly IPrototypeManager _protos = default!;
         [Dependency] private readonly IEntityManager _entityManager = default!;
         [Dependency] private readonly IMapManager _mapManager = default!;
         [Dependency] private readonly ICoords _coords = default!;
@@ -43,19 +46,30 @@ namespace OpenNefia.Core.Audio
             _config.OnValueChanged(CVars.AudioPositionalSound, b => _usePositionalSound = b, true);
         }
 
-        private Love.Source GetLoveSource(PrototypeId<SoundPrototype> prototype)
+        public void Shutdown()
         {
-            var fileData = _resourceCache.GetResource<LoveFileDataResource>(prototype.ResolvePrototype().Filepath);
+            foreach (var source in _playingSources)
+            {
+                Love.Audio.Stop(source.Source);
+                source.Source.Dispose();
+            }
+            _playingSources.Clear();
+        }
+
+        private Love.Source GetLoveSource(ResourcePath path)
+        {
+            var fileData = _resourceCache.GetResource<LoveFileDataResource>(path);
             return Love.Audio.NewSource(fileData, Love.SourceType.Static);
         }
 
         /// <inheritdoc />
-        public void Play(PrototypeId<SoundPrototype> prototype, AudioParams? audioParams = null)
+        public void Play(PrototypeId<SoundPrototype> soundId, AudioParams? audioParams = null)
         {
             if (!_enableSound)
                 return;
 
-            var source = GetLoveSource(prototype);
+            var proto = _protos.Index(soundId);
+            var source = GetLoveSource(proto.Filepath);
 
             if (source.GetChannelCount() == 1)
             {
@@ -71,32 +85,33 @@ namespace OpenNefia.Core.Audio
         }
 
         /// <inheritdoc />
-        public void Play(PrototypeId<SoundPrototype> prototype, EntityUid entity, AudioParams? audioParams = null)
+        public void Play(PrototypeId<SoundPrototype> soundId, EntityUid entity, AudioParams? audioParams = null)
         {
             if (_entityManager.TryGetComponent<SpatialComponent>(entity, out var spatial))
-                Play(prototype, spatial.MapPosition, audioParams);
+                Play(soundId, spatial.MapPosition, audioParams);
             else
-                Play(prototype);
+                Play(soundId);
         }
 
         /// <inheritdoc />
-        public void Play(PrototypeId<SoundPrototype> prototype, MapCoordinates coordinates, AudioParams? audioParams = null)
+        public void Play(PrototypeId<SoundPrototype> soundId, MapCoordinates coordinates, AudioParams? audioParams = null)
         {
             if (coordinates.MapId != _mapManager.ActiveMap?.Id)
                 return;
 
             var screenPosition = _coords.TileToScreen(coordinates.Position);
 
-            Play(prototype, screenPosition, audioParams);
+            Play(soundId, screenPosition, audioParams);
         }
 
         /// <inheritdoc />
-        public void Play(PrototypeId<SoundPrototype> prototype, Vector2i screenPosition, AudioParams? audioParams = null)
+        public void Play(PrototypeId<SoundPrototype> soundId, Vector2i screenPosition, AudioParams? audioParams = null)
         {
             if (!_enableSound)
                 return;
 
-            var source = GetLoveSource(prototype);
+            var proto = _protos.Index(soundId);
+            var source = GetLoveSource(proto.Filepath);
 
             if (source.GetChannelCount() == 1)
             {
