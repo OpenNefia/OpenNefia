@@ -11,19 +11,23 @@ namespace OpenNefia.Core.Audio
         {
         }
 
-        public void Play(PrototypeId<SoundPrototype> prototype, AudioParams? audioParams = null)
+        public void Shutdown()
         {
         }
 
-        public void Play(PrototypeId<SoundPrototype> prototype, EntityUid entityUid, AudioParams? audioParams = null)
+        public void Play(PrototypeId<SoundPrototype> soundId, AudioParams? audioParams = null)
         {
         }
 
-        public void Play(PrototypeId<SoundPrototype> prototype, MapCoordinates coordinates, AudioParams? audioParams = null)
+        public void Play(PrototypeId<SoundPrototype> soundId, EntityUid entityUid, AudioParams? audioParams = null)
         {
         }
 
-        public void Play(PrototypeId<SoundPrototype> prototype, Vector2i screenPosition, AudioParams? audioParams = null)
+        public void Play(PrototypeId<SoundPrototype> soundId, MapCoordinates coordinates, AudioParams? audioParams = null)
+        {
+        }
+
+        public void Play(PrototypeId<SoundPrototype> soundId, Vector2i screenPosition, AudioParams? audioParams = null)
         {
         }
 

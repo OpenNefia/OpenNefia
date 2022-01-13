@@ -12,7 +12,7 @@ namespace OpenNefia.Core.GameController
         /// <summary>
         ///     Name of the configuration file in the user data directory.
         /// </summary>
-        public string ConfigFileName { get; init; } = "client_config.toml";
+        public string ConfigFileName { get; init; } = "config.toml";
 
         // TODO: Define engine branding from json file in resources.
         /// <summary>

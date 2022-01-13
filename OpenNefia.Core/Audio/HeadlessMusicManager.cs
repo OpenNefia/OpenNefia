@@ -15,7 +15,11 @@ namespace OpenNefia.Core.Audio
         {
         }
 
-        public void Play(PrototypeId<MusicPrototype> id)
+        public void Shutdown()
+        {
+        }
+
+        public void Play(PrototypeId<MusicPrototype> musicId)
         {
         }
 
