@@ -91,7 +91,7 @@ namespace OpenNefia.Content.UI.Element.List
             }
         }
 
-        public UiListCell(T data, string text, UiListChoiceKey? key = null) : this(data, new UiText(UiFonts.ListText, text), key) { }
+        public UiListCell(T data, string text = "", UiListChoiceKey? key = null) : this(data, new UiText(UiFonts.ListText, text), key) { }
 
         protected virtual void OnCellDataChanged()
         {

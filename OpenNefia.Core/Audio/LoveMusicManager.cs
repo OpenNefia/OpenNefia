@@ -56,6 +56,9 @@ namespace OpenNefia.Core.Audio
         /// <inheritdoc />
         public void Play(PrototypeId<MusicPrototype> musicId)
         {
+            if (_currentlyPlaying == musicId)
+                return;
+
             if (IsPlaying)
                 StopInternal();
 
@@ -95,6 +98,7 @@ namespace OpenNefia.Core.Audio
         private void StopInternal()
         {
             _midiPlayback?.Dispose();
+            _midiDevice?.TurnAllNotesOff();
 
             if (_streamPlayback != null)
             {
