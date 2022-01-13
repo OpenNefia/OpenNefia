@@ -94,4 +94,8 @@ Elona.CharaMake = {
         },
         Caption = "What do you look like? Don't worry, you can change this later.",
     },
+
+    CharSheet = {
+       Caption = "Hit the enter key to reroll your personal history."
+    },
 }
