@@ -1,10 +1,10 @@
 ﻿namespace OpenNefia.Core.UI
 {
     /// <summary>
-    /// Used to indicate a <see cref="IUiLayerWithResult{T}"/> does not return a result.
+    /// Used to indicate that a <see cref="UiLayerWithResult{T}"/> does not accept 
+    /// arguments/return a result.
     /// </summary>
-    public class UINone
+    public sealed class UINone
     {
-        public UINone() { }
     }
 }

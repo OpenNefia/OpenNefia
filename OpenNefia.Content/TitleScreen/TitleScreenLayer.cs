@@ -96,7 +96,6 @@ namespace OpenNefia.Content.TitleScreen
         }
 
         private FontSpec FontTitleText = UiFonts.TitleScreenText;
-        private IAssetInstance AssetTitle;
         private IAssetInstance AssetG4;
 
         private UiText[] TextInfo;
@@ -109,7 +108,6 @@ namespace OpenNefia.Content.TitleScreen
 
         public TitleScreenLayer()
         {
-            AssetTitle = Assets.Get(Protos.Asset.Title);
             AssetG4 = Assets.Get(Protos.Asset.G4);
 
             var version = "1.22";
@@ -184,6 +182,9 @@ namespace OpenNefia.Content.TitleScreen
                 case TitleScreenChoice.Exit:
                     Finish(new TitleScreenResult(TitleScreenAction.Quit));
                     break;
+                case TitleScreenChoice.Options:
+                    Finish(new TitleScreenResult(TitleScreenAction.Options));
+                    break;
                 case TitleScreenChoice.Generate:
                     Finish(new TitleScreenResult(TitleScreenAction.Generate));
                     break;
@@ -225,9 +226,6 @@ namespace OpenNefia.Content.TitleScreen
 
         public override void Draw()
         {
-            GraphicsEx.SetColor(Love.Color.White);
-            AssetTitle.Draw(X, Y, Width, Height);
-
             foreach (var text in TextInfo)
                 text.Draw();
 

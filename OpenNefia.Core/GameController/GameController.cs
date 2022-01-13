@@ -155,7 +155,7 @@ namespace OpenNefia.Core.GameController
 
             if (Options.LoadConfigAndUserData)
             {
-                var configFile = new ResourcePath(Options.ConfigFileName);
+                var configFile = ResourcePath.Root / Options.ConfigFileName;
                 if (_profileManager.CurrentProfile.Exists(configFile))
                 {
                     // Load config from user data if available.

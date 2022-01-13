@@ -24,6 +24,7 @@ using OpenNefia.Core.Prototypes;
 using OpenNefia.Content.Areas;
 using System.Linq;
 using OpenNefia.Content.Maps;
+using OpenNefia.Content.ConfigMenu;
 
 namespace OpenNefia.Content.TitleScreen
 {
@@ -62,7 +63,11 @@ namespace OpenNefia.Content.TitleScreen
             {
                 using (ITitleScreenLayer titleScreen = new TitleScreenLayer())
                 {
+                    var bg = new TitleScreenBGLayer();
+                    _uiManager.PushLayer(bg);
                     var result = _uiManager.Query(titleScreen);
+                    _uiManager.PopLayer(bg);
+
                     Console.WriteLine(result);
 
                     if (result.HasValue)
@@ -77,6 +82,11 @@ namespace OpenNefia.Content.TitleScreen
                                 break;
                             case TitleScreenAction.Generate:
                                 CreateChara();
+                                break;
+                            case TitleScreenAction.Options:
+                                _uiManager.PushLayer(bg);
+                                ShowConfigMenu();
+                                _uiManager.PopLayer(bg);
                                 break;
                             case TitleScreenAction.Quit:
                                 break;
@@ -112,6 +122,11 @@ namespace OpenNefia.Content.TitleScreen
         private void CreateChara()
         {
             _charaMakeLogic.RunCreateChara();
+        }
+
+        private void ShowConfigMenu()
+        {
+            _uiManager.Query<ConfigMenuLayer, ConfigMenuLayer.Args>(new ConfigMenuLayer.Args());
         }
 
         /// <summary>

@@ -6,6 +6,7 @@ namespace OpenNefia.Content.UI
     {
         public static readonly Color TextWhite = new(255, 255, 255, 255);
         public static readonly Color TextBlack = new(0, 0, 0, 255);
+        public static readonly Color TextDisabled = new(0, 0, 0, 128);
 
         public static readonly Color ListSelectedAdd = new(50, 50, 50, 255);
         public static readonly Color ListSelectedSub = new(30, 10, 0, 255);
