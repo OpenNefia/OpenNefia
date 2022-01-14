@@ -1,5 +1,6 @@
 ﻿using JetBrains.Annotations;
 using Moq;
+using OpenNefia.Core;
 using OpenNefia.Core.Areas;
 using OpenNefia.Core.Asynchronous;
 using OpenNefia.Core.Configuration;
@@ -275,6 +276,13 @@ namespace OpenNefia.Tests
             _diFactory?.Invoke(container);
             container.BuildGraph();
 
+            // Because of CVarDef, we have to load every one through reflection
+            // just in case a system needs one of them.
+            var configMan = container.Resolve<IConfigurationManagerInternal>();
+            configMan.Initialize();
+            configMan.LoadCVarsFromAssembly(typeof(Engine).Assembly); // Core
+            configMan.LoadCVarsFromAssembly(typeof(GameSimulation).Assembly); // Tests
+
             var logMan = container.Resolve<ILogManager>();
             logMan.RootSawmill.AddHandler(new TestLogHandler("SIM"));
 
@@ -333,7 +341,7 @@ namespace OpenNefia.Tests
             saveGameSer.Initialize();
 
             var locMan = container.Resolve<ILocalizationManager>();
-            locMan.Initialize(LanguagePrototypeOf.English);
+            locMan.Initialize();
             _localizationLoadDelegate?.Invoke(locMan);
             locMan.Resync();
 

@@ -1,4 +1,5 @@
 ﻿using OpenNefia.Core;
+using OpenNefia.Core.Configuration;
 using OpenNefia.Core.Containers;
 using OpenNefia.Core.ContentPack;
 using OpenNefia.Core.GameController;
@@ -145,6 +146,15 @@ namespace OpenNefia.Tests
 
             var contentAssemblies = new List<Assembly>();
             _assemblyLoadDelegate?.Invoke(contentAssemblies);
+
+            // Because of CVarDef, we have to load every one through reflection
+            // just in case a system needs one of them.
+            var configMan = container.Resolve<IConfigurationManagerInternal>();
+            configMan.Initialize();
+            foreach (var assembly in assemblies)
+            {
+                configMan.LoadCVarsFromAssembly(assembly);
+            }
 
             IoCManager.Resolve<IReflectionManager>().LoadAssemblies(assemblies);
 
