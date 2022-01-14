@@ -36,8 +36,8 @@ namespace OpenNefia.Content.UI.Element
 
                 public override Color Color => Level switch
                 {
-                    > 0 => UiColors.CharaMakeStatLevelBest,
-                    < 0 => UiColors.CharaMakeStatLevelSlight,
+                    > 0 => UiColors.CharaMakeAttrLevelBest,
+                    < 0 => UiColors.CharaMakeAttrLevelSlight,
                     _ => base.Color,
                 };
             }

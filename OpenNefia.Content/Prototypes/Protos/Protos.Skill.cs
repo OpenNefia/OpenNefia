@@ -10,18 +10,18 @@ namespace OpenNefia.Content.Prototypes
 
             #region Stats
 
-            public static readonly SkillPrototypeId StatLife         = new($"Elona.{nameof(StatLife)}");
-            public static readonly SkillPrototypeId StatMana         = new($"Elona.{nameof(StatMana)}");
-            public static readonly SkillPrototypeId StatStrength     = new($"Elona.{nameof(StatStrength)}");
-            public static readonly SkillPrototypeId StatConstitution = new($"Elona.{nameof(StatConstitution)}");
-            public static readonly SkillPrototypeId StatDexterity    = new($"Elona.{nameof(StatDexterity)}");
-            public static readonly SkillPrototypeId StatPerception   = new($"Elona.{nameof(StatPerception)}");
-            public static readonly SkillPrototypeId StatLearning     = new($"Elona.{nameof(StatLearning)}");
-            public static readonly SkillPrototypeId StatWill         = new($"Elona.{nameof(StatWill)}");
-            public static readonly SkillPrototypeId StatMagic        = new($"Elona.{nameof(StatMagic)}");
-            public static readonly SkillPrototypeId StatCharisma     = new($"Elona.{nameof(StatCharisma)}");
-            public static readonly SkillPrototypeId StatSpeed        = new($"Elona.{nameof(StatSpeed)}");
-            public static readonly SkillPrototypeId StatLuck         = new($"Elona.{nameof(StatLuck)}");
+            public static readonly SkillPrototypeId AttrLife         = new($"Elona.{nameof(AttrLife)}");
+            public static readonly SkillPrototypeId AttrMana         = new($"Elona.{nameof(AttrMana)}");
+            public static readonly SkillPrototypeId AttrStrength     = new($"Elona.{nameof(AttrStrength)}");
+            public static readonly SkillPrototypeId AttrConstitution = new($"Elona.{nameof(AttrConstitution)}");
+            public static readonly SkillPrototypeId AttrDexterity    = new($"Elona.{nameof(AttrDexterity)}");
+            public static readonly SkillPrototypeId AttrPerception   = new($"Elona.{nameof(AttrPerception)}");
+            public static readonly SkillPrototypeId AttrLearning     = new($"Elona.{nameof(AttrLearning)}");
+            public static readonly SkillPrototypeId AttrWill         = new($"Elona.{nameof(AttrWill)}");
+            public static readonly SkillPrototypeId AttrMagic        = new($"Elona.{nameof(AttrMagic)}");
+            public static readonly SkillPrototypeId AttrCharisma     = new($"Elona.{nameof(AttrCharisma)}");
+            public static readonly SkillPrototypeId AttrSpeed        = new($"Elona.{nameof(AttrSpeed)}");
+            public static readonly SkillPrototypeId AttrLuck         = new($"Elona.{nameof(AttrLuck)}");
 
             #endregion
 

@@ -361,7 +361,7 @@ namespace OpenNefia.Content.CharaMake
             {
                 var skill = _prototypeManager.Index(skillId);
 
-                if (skill.SkillType == SkillType.Stat || skill.SkillType == SkillType.StatSpecial)
+                if (skill.SkillType == SkillType.Attribute || skill.SkillType == SkillType.AttributeSpecial)
                     continue;
 
                 switch (skill.SkillType)
@@ -381,7 +381,7 @@ namespace OpenNefia.Content.CharaMake
             if (profs.Count > 0)
             {
                 var profDesc = $"{Loc.GetString("Elona.CharaMake.ClassAndRaceSelect.ProficientIn")} {string.Join(',', profs)}";
-                list.Insert(0, MakeSkillContainer(Protos.Skill.StatStrength, profDesc));
+                list.Insert(0, MakeSkillContainer(Protos.Skill.AttrStrength, profDesc));
             }
 
             return list;
@@ -393,35 +393,35 @@ namespace OpenNefia.Content.CharaMake
             {
                 case <= 0:
                     text = Loc.GetString("Elona.CharaMake.Skill.Amount.None");
-                    color = UiColors.CharaMakeStatLevelNone;
+                    color = UiColors.CharaMakeAttrLevelNone;
                     break;
                 case <= 2:
                     text = Loc.GetString("Elona.CharaMake.Skill.Amount.Slight");
-                    color = UiColors.CharaMakeStatLevelSlight;
+                    color = UiColors.CharaMakeAttrLevelSlight;
                     break;
                 case <= 4:
                     text = Loc.GetString("Elona.CharaMake.Skill.Amount.Little");
-                    color = UiColors.CharaMakeStatLevelLittle;
+                    color = UiColors.CharaMakeAttrLevelLittle;
                     break;
                 case <= 6:
                     text = Loc.GetString("Elona.CharaMake.Skill.Amount.Normal");
-                    color = UiColors.CharaMakeStatLevelNormal;
+                    color = UiColors.CharaMakeAttrLevelNormal;
                     break;
                 case <= 8:
                     text = Loc.GetString("Elona.CharaMake.Skill.Amount.NotBad");
-                    color = UiColors.CharaMakeStatLevelNotBad;
+                    color = UiColors.CharaMakeAttrLevelNotBad;
                     break;
                 case <= 10:
                     text = Loc.GetString("Elona.CharaMake.Skill.Amount.Good");
-                    color = UiColors.CharaMakeStatLevelGood;
+                    color = UiColors.CharaMakeAttrLevelGood;
                     break;
                 case <= 12:
                     text = Loc.GetString("Elona.CharaMake.Skill.Amount.Great");
-                    color = UiColors.CharaMakeStatLevelGreat;
+                    color = UiColors.CharaMakeAttrLevelGreat;
                     break;
                 default:
                     text = Loc.GetString("Elona.CharaMake.Skill.Amount.Best");
-                    color = UiColors.CharaMakeStatLevelBest;
+                    color = UiColors.CharaMakeAttrLevelBest;
                     break;
             }
         }

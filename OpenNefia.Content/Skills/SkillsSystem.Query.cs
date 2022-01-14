@@ -14,7 +14,7 @@ namespace OpenNefia.Content.Skills
         public IEnumerable<SkillPrototype> EnumerateAllAttributes()
         {
             return _protos.EnumeratePrototypes<SkillPrototype>()
-                .Where(skillProto => skillProto.SkillType == SkillType.Stat);
+                .Where(skillProto => skillProto.SkillType == SkillType.Attribute);
         }
 
         /// <summary>
@@ -22,8 +22,8 @@ namespace OpenNefia.Content.Skills
         /// </summary>
         private readonly HashSet<PrototypeId<SkillPrototype>> _nonBaseAttributes = new()
         {
-            Skill.StatSpeed,
-            Skill.StatLuck
+            Skill.AttrSpeed,
+            Skill.AttrLuck
         };
 
         /// <inheritdoc/>

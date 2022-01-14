@@ -81,26 +81,26 @@ namespace OpenNefia.Content.Skills
 
         private void RefreshHPMPAndStamina(SkillsComponent skills, LevelComponent level)
         {
-            var maxMPRaw = (skills.Level(Skill.StatMagic) * 2
-                         + skills.Level(Skill.StatWill)
-                         + skills.Level(Skill.StatLearning) / 3)
+            var maxMPRaw = (skills.Level(Skill.AttrMagic) * 2
+                         + skills.Level(Skill.AttrWill)
+                         + skills.Level(Skill.AttrLearning) / 3)
                          * (level.Level / 25)
-                         + skills.Level(Skill.StatMagic);
+                         + skills.Level(Skill.AttrMagic);
 
-            skills.MaxMP = Math.Clamp(maxMPRaw, 1, 1000000) * (skills.Level(Skill.StatMana) / 100);
+            skills.MaxMP = Math.Clamp(maxMPRaw, 1, 1000000) * (skills.Level(Skill.AttrMana) / 100);
             skills.MaxMP = Math.Max(skills.MaxHP, 1);
 
-            var maxHPRaw = (skills.Level(Skill.StatConstitution) * 2
-                         + skills.Level(Skill.StatStrength)
-                         + skills.Level(Skill.StatWill) / 3)
+            var maxHPRaw = (skills.Level(Skill.AttrConstitution) * 2
+                         + skills.Level(Skill.AttrStrength)
+                         + skills.Level(Skill.AttrWill) / 3)
                          * (level.Level / 25)
-                         + skills.Level(Skill.StatConstitution);
+                         + skills.Level(Skill.AttrConstitution);
 
-            skills.MaxHP = Math.Clamp(maxHPRaw, 1, 1000000) * (skills.Level(Skill.StatLife) / 100) + 5;
+            skills.MaxHP = Math.Clamp(maxHPRaw, 1, 1000000) * (skills.Level(Skill.AttrLife) / 100) + 5;
             skills.MaxHP = Math.Max(skills.MaxHP, 1);
 
             // TODO traits
-            skills.MaxStamina = 100 + (skills.Level(Skill.StatConstitution) + skills.Level(Skill.StatStrength)) / 5;
+            skills.MaxStamina = 100 + (skills.Level(Skill.AttrConstitution) + skills.Level(Skill.AttrStrength)) / 5;
         }
     }
 }

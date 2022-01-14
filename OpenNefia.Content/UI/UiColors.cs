@@ -53,14 +53,14 @@ namespace OpenNefia.Content.UI
         public static readonly Color MesLightGreen = new(215, 255, 215, 255);
         public static readonly Color MesTalk = new(210, 250, 160, 255);
 
-        public static readonly Color CharaMakeStatLevelNone = new(120, 120, 120);
-        public static readonly Color CharaMakeStatLevelSlight = new(200, 0, 0);
-        public static readonly Color CharaMakeStatLevelLittle = new(150, 0, 0);
-        public static readonly Color CharaMakeStatLevelNormal = new(0, 0, 0);
-        public static readonly Color CharaMakeStatLevelNotBad = new(0, 0, 150);
-        public static readonly Color CharaMakeStatLevelGood = new(0, 0, 150);
-        public static readonly Color CharaMakeStatLevelGreat = new(0, 0, 200);
-        public static readonly Color CharaMakeStatLevelBest = new(0, 0, 200);
+        public static readonly Color CharaMakeAttrLevelNone = new(120, 120, 120);
+        public static readonly Color CharaMakeAttrLevelSlight = new(200, 0, 0);
+        public static readonly Color CharaMakeAttrLevelLittle = new(150, 0, 0);
+        public static readonly Color CharaMakeAttrLevelNormal = new(0, 0, 0);
+        public static readonly Color CharaMakeAttrLevelNotBad = new(0, 0, 150);
+        public static readonly Color CharaMakeAttrLevelGood = new(0, 0, 150);
+        public static readonly Color CharaMakeAttrLevelGreat = new(0, 0, 200);
+        public static readonly Color CharaMakeAttrLevelBest = new(0, 0, 200);
         
         public static readonly Color InventoryItemNoDrop = new(120, 80, 0, 255);
         public static readonly Color InventoryItemDoomed = new(100, 10, 100, 255);
