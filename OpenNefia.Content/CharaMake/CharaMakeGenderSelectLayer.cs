@@ -17,6 +17,8 @@ using System.Text;
 using System.Threading.Tasks;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Log;
+using OpenNefia.Core.Audio;
+using OpenNefia.Content.Prototypes;
 
 namespace OpenNefia.Content.CharaMake
 {
@@ -53,6 +55,7 @@ namespace OpenNefia.Content.CharaMake
             });
             List.EventOnActivate += (_, args) =>
             {
+                Sounds.Play(Protos.Sound.Ok1);
                 Finish(new CharaMakeResult(new Dictionary<string, object>
                 {
                     { ResultName, args.SelectedCell.Data }
@@ -62,6 +65,12 @@ namespace OpenNefia.Content.CharaMake
             AddChild(List);
 
             Window.KeyHints = MakeKeyHints();
+        }
+
+        public override void OnQuery()
+        {
+            base.OnQuery();
+            Sounds.Play(Protos.Sound.Spell);
         }
 
         public override void OnFocused()

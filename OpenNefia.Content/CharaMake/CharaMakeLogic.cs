@@ -36,7 +36,6 @@ namespace OpenNefia.Content.CharaMake
                 new CharaMakeFeatWindowLayer(),
                 new CharaMakeAliasLayer(),
                 // TODO add appearance
-                // TODO add character sheet
             };
         }
 
@@ -67,6 +66,8 @@ namespace OpenNefia.Content.CharaMake
                     areaSpatial.AttachParent(globalMapSpatial);
 
                     var entityGen = EntitySystem.Get<IEntityGen>();
+                    _entityManager.InitializeComponents(playerEntity);
+                    _entityManager.StartComponents(playerEntity);
                     entityGen.FireGeneratedEvent(playerEntity);
                     foreach(var creationStep in steps)
                     {
