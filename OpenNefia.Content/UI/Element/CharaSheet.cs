@@ -26,22 +26,22 @@ using OpenNefia.Content.Equipment;
 
 namespace OpenNefia.Content.UI.Element
 {
-    public class CharSheet : UiElement
+    public class CharaSheet : UiElement
     {
-        public static class CharSheetHelpers
+        public static class CharaSheetHelpers
         {
             public static string GetPotentialDescription(int pot)
             {
                 if (pot >= 200)
-                    return Loc.GetString("Elona.CharSheet.Potential.Superb");
+                    return Loc.GetString("Elona.CharaSheet.Potential.Superb");
                 else if (pot >= 150)
-                    return Loc.GetString("Elona.CharSheet.Potential.Great");
+                    return Loc.GetString("Elona.CharaSheet.Potential.Great");
                 else if (pot >= 100)
-                    return Loc.GetString("Elona.CharSheet.Potential.Good");
+                    return Loc.GetString("Elona.CharaSheet.Potential.Good");
                 else if (pot >= 50)
-                    return Loc.GetString("Elona.CharSheet.Potential.Bad");
+                    return Loc.GetString("Elona.CharaSheet.Potential.Bad");
                 else
-                    return Loc.GetString("Elona.CharSheet.Potential.Hopeless");
+                    return Loc.GetString("Elona.CharaSheet.Potential.Hopeless");
             }
         }
 
@@ -120,7 +120,7 @@ namespace OpenNefia.Content.UI.Element
         private string TempKarma = "0";
         private string TempKills = "0";
 
-        public CharSheet(EntityUid charaEntity)
+        public CharaSheet(EntityUid charaEntity)
         {
             EntitySystem.InjectDependencies(this);
             CharaEntity = charaEntity;
@@ -180,38 +180,38 @@ namespace OpenNefia.Content.UI.Element
             if (chara != null)
             {
                 dict[string.Empty] = string.Empty;
-                dict[Loc.GetString("Elona.CharSheet.Name")] = TempName;
+                dict[Loc.GetString("Elona.CharaSheet.Name")] = TempName;
                 if (!string.IsNullOrEmpty(chara.Title))
-                    dict[Loc.GetString("Elona.CharSheet.Aka")] = chara.Title;
-                dict[Loc.GetString("Elona.CharSheet.Race")] = Loc.GetPrototypeString(chara.Race, "Name");
-                dict[Loc.GetString("Elona.CharSheet.Sex")] = Loc.GetString($"Elona.Gender.Names.{chara.Gender}.Normal").FirstCharToUpper();
+                    dict[Loc.GetString("Elona.CharaSheet.Aka")] = chara.Title;
+                dict[Loc.GetString("Elona.CharaSheet.Race")] = Loc.GetPrototypeString(chara.Race, "Name");
+                dict[Loc.GetString("Elona.CharaSheet.Sex")] = Loc.GetString($"Elona.Gender.Names.{chara.Gender}.Normal").FirstCharToUpper();
                 SetupContainer(NameContainer, 2, dict);
                 dict.Clear();
 
                 dict[string.Empty] = string.Empty;
-                dict[Loc.GetString("Elona.CharSheet.Class")] = Loc.GetPrototypeString(chara.Class, "Name");
+                dict[Loc.GetString("Elona.CharaSheet.Class")] = Loc.GetPrototypeString(chara.Class, "Name");
                 if (weight != null)
                 {
-                    dict[Loc.GetString("Elona.CharSheet.Age")] = weight.Age.ToString();
-                    dict[Loc.GetString("Elona.CharSheet.Height")] = $"{weight.Height} {Loc.GetString("Elona.CharSheet.Cm")}";
-                    dict[Loc.GetString("Elona.CharSheet.Weight")] = $"{weight.Weight} {Loc.GetString("Elona.CharSheet.Kg")}";
+                    dict[Loc.GetString("Elona.CharaSheet.Age")] = weight.Age.ToString();
+                    dict[Loc.GetString("Elona.CharaSheet.Height")] = $"{weight.Height} {Loc.GetString("Elona.CharaSheet.Cm")}";
+                    dict[Loc.GetString("Elona.CharaSheet.Weight")] = $"{weight.Weight} {Loc.GetString("Elona.CharaSheet.Kg")}";
                 }
                 SetupContainer(ClassContainer, 2, dict);
                 dict.Clear();
             }
             if (level != null)
             {
-                dict[Loc.GetString("Elona.CharSheet.Level")] = level.Level.ToString();
-                dict[Loc.GetString("Elona.CharSheet.Exp")] = level.Experience.ToString();
-                dict[Loc.GetString("Elona.CharSheet.NextLv")] = level.ExperienceToNext.ToString();
+                dict[Loc.GetString("Elona.CharaSheet.Level")] = level.Level.ToString();
+                dict[Loc.GetString("Elona.CharaSheet.Exp")] = level.Experience.ToString();
+                dict[Loc.GetString("Elona.CharaSheet.NextLv")] = level.ExperienceToNext.ToString();
             }
-            dict[Loc.GetString("Elona.CharSheet.God")] = TempGod;
-            dict[Loc.GetString("Elona.CharSheet.Guild")] = TempGuild;
+            dict[Loc.GetString("Elona.CharaSheet.God")] = TempGod;
+            dict[Loc.GetString("Elona.CharaSheet.Guild")] = TempGuild;
             SetupContainer(ExpContainer, 2, dict);
             dict.Clear();
 
 
-            AttributeContainer.AddElement(new UiTextTopic(Loc.GetString("Elona.CharSheet.Topic.Attribute")));
+            AttributeContainer.AddElement(new UiTextTopic(Loc.GetString("Elona.CharaSheet.Topic.Attribute")));
             if (skills != null)
             {
                 AttributeContainer.AddLayout(LayoutType.Spacer, 9);
@@ -228,7 +228,7 @@ namespace OpenNefia.Content.UI.Element
                         + new string(' ', Math.Max(1, AttributeSpacing - currentAmt.Length))
                         + orgAmt
                         + new string(' ', Math.Max(1, AttributePotentialSpacing - orgAmt.Length))
-                        + CharSheetHelpers.GetPotentialDescription(attrLvl.Potential);
+                        + CharaSheetHelpers.GetPotentialDescription(attrLvl.Potential);
                     cont.AddElement(new AttributeIcon(attrId));
                     cont.AddLayout(LayoutType.Spacer, 14);
                     cont.AddLayout(LayoutType.YOffset, -6);
@@ -240,16 +240,16 @@ namespace OpenNefia.Content.UI.Element
                 dict[Loc.GetPrototypeString(Protos.Skill.StatLife, "Name")] = $"{statLife?.Level.Buffed}({statLife?.Level.Base})";
                 skills.Skills.TryGetValue(Protos.Skill.StatMana, out var statMana);
                 dict[Loc.GetPrototypeString(Protos.Skill.StatMana, "Name")] = $"{statMana?.Level.Buffed}({statMana?.Level.Base})";
-                dict[Loc.GetString("Elona.CharSheet.Sanity")] = TempSanity;
+                dict[Loc.GetString("Elona.CharaSheet.Sanity")] = TempSanity;
                 skills.Skills.TryGetValue(Protos.Skill.StatSpeed, out var statSpd);
                 dict[Loc.GetPrototypeString(Protos.Skill.StatSpeed, "Name")] = $"{statSpd?.Level.Buffed}({statSpd?.Level.Base})";
                 dict[string.Empty] = string.Empty;
-                dict[Loc.GetString("Elona.CharSheet.Fame")] = TempFame;
-                dict[Loc.GetString("Elona.CharSheet.Karma")] = TempKarma;
+                dict[Loc.GetString("Elona.CharaSheet.Fame")] = TempFame;
+                dict[Loc.GetString("Elona.CharaSheet.Karma")] = TempKarma;
                 SetupContainer(SpecialStatContainer, 2, dict);
                 dict.Clear();
             }
-            BlessingContainer.AddElement(new UiTextTopic(Loc.GetString("Elona.CharSheet.Topic.Blessing")));
+            BlessingContainer.AddElement(new UiTextTopic(Loc.GetString("Elona.CharaSheet.Topic.Blessing")));
             BlessingContainer.AddLayout(LayoutType.Spacer, 10);
             BlessingContainer.AddLayout(LayoutType.XOffset, 30);
             var blessCont = new UiGridContainer(GridType.Horizontal, 5, xCentered: false, xSpace: 8);
@@ -262,33 +262,33 @@ namespace OpenNefia.Content.UI.Element
             }
             BlessingContainer.AddElement(blessCont);
 
-            TraceContainer.AddElement(new UiTextTopic(Loc.GetString("Elona.CharSheet.Topic.Trace")));
+            TraceContainer.AddElement(new UiTextTopic(Loc.GetString("Elona.CharaSheet.Topic.Trace")));
             TraceContainer.AddLayout(LayoutType.Spacer, 6);
             TraceContainer.AddLayout(LayoutType.XOffset, 3);
-            dict[Loc.GetString("Elona.CharSheet.Turns")] = $"{_world.State.PlayTurns} {Loc.GetString("Elona.CharSheet.TurnsPassed")}";
-            dict[Loc.GetString("Elona.CharSheet.Days")] = $"{_world.State.GameDate.Day - _world.State.InitialDate.Day} {Loc.GetString("Elona.CharSheet.DaysPassed")}";
-            dict[Loc.GetString("Elona.CharSheet.Kills")] = TempKills;
-            dict[Loc.GetString("Elona.CharSheet.Time")] = _world.State.PlayTime.ToString();
+            dict[Loc.GetString("Elona.CharaSheet.Turns")] = $"{_world.State.PlayTurns} {Loc.GetString("Elona.CharaSheet.TurnsPassed")}";
+            dict[Loc.GetString("Elona.CharaSheet.Days")] = $"{_world.State.GameDate.Day - _world.State.InitialDate.Day} {Loc.GetString("Elona.CharaSheet.DaysPassed")}";
+            dict[Loc.GetString("Elona.CharaSheet.Kills")] = TempKills;
+            dict[Loc.GetString("Elona.CharaSheet.Time")] = _world.State.PlayTime.ToString();
             SetupContainer(TraceContainer, 2, dict);
             dict.Clear();
 
-            ExtraContainer.AddElement(new UiTextTopic(Loc.GetString("Elona.CharSheet.Topic.Extra")));
+            ExtraContainer.AddElement(new UiTextTopic(Loc.GetString("Elona.CharaSheet.Topic.Extra")));
             ExtraContainer.AddLayout(LayoutType.Spacer, 6);
             ExtraContainer.AddLayout(LayoutType.XOffset, 3);
 
             if (cargoHold != null)
             {
                 var cargoWeight = _cargoSys.GetTotalCargoWeight(CharaEntity);
-                dict[Loc.GetString("Elona.CharSheet.CargoWt")] = UiUtils.DisplayWeight(cargoWeight);
-                dict[Loc.GetString("Elona.CharSheet.CargoLmt")] = UiUtils.DisplayWeight(cargoHold.MaxCargoWeight ?? 0);
+                dict[Loc.GetString("Elona.CharaSheet.CargoWeight")] = UiUtils.DisplayWeight(cargoWeight);
+                dict[Loc.GetString("Elona.CharaSheet.CargoLimit")] = UiUtils.DisplayWeight(cargoHold.MaxCargoWeight ?? 0);
             }
             var eqWeight = EquipmentHelpers.GetTotalEquipmentWeight(CharaEntity, _entityManager, _equipSlots);
-            dict[Loc.GetString("Elona.CharSheet.EquipWt")] = $"{UiUtils.DisplayWeight(eqWeight)} {EquipmentHelpers.DisplayArmorClass(eqWeight)}";
-            dict[Loc.GetString("Elona.CharSheet.DeepestLv")] = $"{_world.State.DeepestLevel}{Loc.GetString("Elona.CharSheet.DeepestLvDesc", ("level", _world.State.DeepestLevel))}";
+            dict[Loc.GetString("Elona.CharaSheet.EquipWeight")] = $"{UiUtils.DisplayWeight(eqWeight)} {EquipmentHelpers.DisplayArmorClass(eqWeight)}";
+            dict[Loc.GetString("Elona.CharaSheet.DeepestLevel")] = $"{_world.State.DeepestLevel}{Loc.GetString("Elona.CharaSheet.DeepestLevelDesc", ("level", _world.State.DeepestLevel))}";
             SetupContainer(ExtraContainer, 1, dict);
             dict.Clear();
 
-            RollsContainer.AddElement(new UiTextTopic(Loc.GetString("Elona.CharSheet.Topic.Rolls")));
+            RollsContainer.AddElement(new UiTextTopic(Loc.GetString("Elona.CharaSheet.Topic.Rolls")));
         }
 
         private void SetupContainer(UiContainer cont, int xOffset, Dictionary<string, string> content)
@@ -306,7 +306,7 @@ namespace OpenNefia.Content.UI.Element
             cont.AddElement(new UiText(UiFonts.CharSheetInfo, name 
                 + (xOffset > 0 ? new string(' ', Math.Max(1, xOffset - name.Length)) : string.Empty)));
             cont.AddLayout(LayoutType.YOffset, -1);
-            cont.AddElement(new UiText(UiFonts.CharSheetInfoContent, content));
+            cont.AddElement(new UiText(UiFonts.CharaSheetInfoContent, content));
             return cont;
         }
 

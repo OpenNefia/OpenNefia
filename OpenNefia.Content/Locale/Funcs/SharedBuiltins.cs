@@ -41,5 +41,31 @@ namespace OpenNefia.Content.Locale.Funcs
 
             return DisplayNameSystem.GetDisplayName(entity);
         }
+
+        /// <summary>
+        /// returns the ordnial short form for a number; 1 = st, 2 = nd, 3 = rd, ect.
+        /// </summary>
+        [LocaleFunction("ordinal")]
+        public static string BuiltIn_ordinal(object? obj)
+        {
+            if (obj is not long longNum)
+                return string.Empty;
+
+            var number = Convert.ToInt32(longNum);
+            var last = (number % 10);
+            return GetOrdinal(number) ?? GetOrdinal(last) ?? "th";
+        }
+
+        private static string? GetOrdinal(int number)
+        {
+            return number switch
+            {
+                1 => "st",
+                2 => "nd",
+                3 => "rd",
+                var num when num >= 11 && num <= 13 => "th",
+                _ => null
+            };
+        }
     }
 }

@@ -57,7 +57,6 @@ namespace OpenNefia.Content.TitleScreen
             Startup();
 
             var action = TitleScreenAction.ReturnToTitle;
-            
 
             while (action != TitleScreenAction.Quit)
             {

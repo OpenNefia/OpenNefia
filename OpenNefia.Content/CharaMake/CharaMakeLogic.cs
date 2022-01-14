@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using OpenNefia.Content.EntityGen;
 using OpenNefia.Core.Maps;
 using OpenNefia.Core.SaveGames;
+using OpenNefia.Core.UI;
 
 namespace OpenNefia.Content.CharaMake
 {
@@ -42,24 +43,23 @@ namespace OpenNefia.Content.CharaMake
 
         public void RunCreateChara()
         {
-            _saveSerializer.ResetGame();
-
             var steps = GetDefaultCreationSteps();
             var data = new CharaMakeData();
             var stepIndex = 0;
             var step = CharaMakeStep.Continue;
-
+            UiResult<CharaMakeResult> result;
+            ICharaMakeLayer currentStep;
             while (step != CharaMakeStep.Cancel)
             {
                 if (stepIndex >= steps.Count)
                 {
+                    _saveSerializer.ResetGameState();
                     //just for testing
                     Logger.DebugS("charamake", $"Character creation complete, values:" + Environment.NewLine 
                         + string.Join(Environment.NewLine, data.CharaData.SelectMany(x => x.Value.Select(y => $"{y.Key}: {y.Value}"))));
 
                     var globalMap = _mapManager.CreateMap(1, 1, MapId.Global);
                     var globalMapSpatial = _entityManager.GetComponent<SpatialComponent>(globalMap.MapEntityUid);
-
 
                     var playerEntity = _entityManager.CreateEntityUninitialized(Protos.Chara.Player);
                     var areaSpatial = _entityManager.GetComponent<SpatialComponent>(playerEntity);
@@ -71,16 +71,16 @@ namespace OpenNefia.Content.CharaMake
                     foreach(var creationStep in steps)
                     {
                         creationStep.ApplyStep(playerEntity);
-                        creationStep.Dispose();
                     }
                     entityGen.FireGeneratedEvent(playerEntity);
-                    _uiManager.Query<CharaMakeResult, CharaMakeLayer, CharaMakeData>(new CharaMakeCharSheetLayer(playerEntity), data);
-                    break;
+                    currentStep = new CharaMakeCharaSheetLayer(playerEntity);
                 }
-
-                var currentStep = steps[stepIndex];
+                else
+                {
+                    currentStep = steps[stepIndex];
+                }
                 var type = currentStep.GetType();
-                var result = _uiManager.Query<CharaMakeResult, CharaMakeLayer, CharaMakeData>(currentStep, data);
+                result = _uiManager.Query<CharaMakeResult, CharaMakeLayer, CharaMakeData>(currentStep, data);
 
                 if (!result.HasValue)
                 {

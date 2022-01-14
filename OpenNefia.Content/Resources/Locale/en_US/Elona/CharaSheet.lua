@@ -1,4 +1,4 @@
-Elona.CharSheet = {
+Elona.CharaSheet = {
     Potential = {
         Superb = "Superb",
         Great = "Great",
@@ -30,22 +30,12 @@ Elona.CharSheet = {
     DaysPassed = "Days",
     Kills = "Kills",
     Time = "Time",
-    CargoWt = "Cargo Wt",
-    CargoLmt = "Cargo Lmt",
-    EquipWt = "Equip Wt",
-    DeepestLv = "Deepest Lv",
-    DeepestLvDesc = function(level)
-        local last = math.floor(level % 10)
-        local lvlDesc = " Level"
-        if last == 1 then
-            return "st" .. lvlDesc
-        elseif last == 2 then
-            return "nd" .. lvlDesc
-        elseif last == 3 then
-            return "rd" .. lvlDesc
-        else
-            return "th" .. lvlDesc
-        end
+    CargoWeight = "Cargo Wt",
+    CargoLimit = "Cargo Lmt",
+    EquipWeight = "Equip Wt",
+    DeepestLevel = "Deepest Lv",
+    DeepestLevelDesc = function(level)
+        return _.ordinal(level) .. " Level"
     end,
     Topic = {
         Attribute = "Attributes(Org) - Potential",
