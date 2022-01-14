@@ -141,10 +141,12 @@ namespace OpenNefia.Core.UserInterface
             KeyboardFocused.TextEntered(guiArgs);
         }
 
-        private static void _doMouseGuiInput<T>(UiElement? control, T guiEvent, Action<UiElement, T> action,
+        private void _doMouseGuiInput<T>(UiElement? control, T guiEvent, Action<UiElement, T> action,
             bool ignoreStop = false)
             where T : GUIMouseEventArgs
         {
+            var lastHaltCounter = _inputManager.HaltCounter;
+
             while (control != null)
             {
                 guiEvent.RelativePixelPosition = guiEvent.GlobalPixelPosition.Position - control.GlobalPixelPosition;
@@ -154,7 +156,8 @@ namespace OpenNefia.Core.UserInterface
                 {
                     action(control, guiEvent);
 
-                    if (guiEvent.Handled || (!ignoreStop && control.EventFilter == UIEventFilterMode.Stop))
+                    var wasHaltInputCalled = lastHaltCounter != _inputManager.HaltCounter;
+                    if (guiEvent.Handled || (!ignoreStop && control.EventFilter == UIEventFilterMode.Stop) || wasHaltInputCalled)
                     {
                         break;
                     }
@@ -164,19 +167,24 @@ namespace OpenNefia.Core.UserInterface
             }
         }
 
-        private static void _doGuiInput<T>(UiElement? control, T guiEvent, Action<UiElement, T> action,
+        private void _doGuiInput<T>(UiElement? control, T guiEvent, Action<UiElement, T> action,
             bool ignoreStop = false)
             where T : GUIBoundKeyEventArgs
         {
+            var lastHaltCounter = _inputManager.HaltCounter;
+
             while (control != null)
             {
+
                 guiEvent.RelativePixelPosition = guiEvent.PointerLocation.Position - control.GlobalPixelPosition;
 
                 if (control.EventFilter != UIEventFilterMode.Ignore)
                 {
+
                     action(control, guiEvent);
 
-                    if (guiEvent.Handled || (!ignoreStop && control.EventFilter == UIEventFilterMode.Stop))
+                    var wasHaltInputCalled = lastHaltCounter != _inputManager.HaltCounter;
+                    if (guiEvent.Handled || (!ignoreStop && control.EventFilter == UIEventFilterMode.Stop) || wasHaltInputCalled)
                     {
                         break;
                     }

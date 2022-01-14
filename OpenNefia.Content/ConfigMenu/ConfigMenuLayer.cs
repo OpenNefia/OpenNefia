@@ -96,7 +96,6 @@ namespace OpenNefia.Content.ConfigMenu
 
         private void HandleListActivate(object? sender, UiListEventArgs<UINone> evt)
         {
-            Sounds.Play(Sound.Ok1);
             ((BaseConfigMenuUICell)evt.SelectedCell).HandleActivated();
             RefreshConfigValueDisplay();
         }
@@ -119,10 +118,12 @@ namespace OpenNefia.Content.ConfigMenu
 
             if (evt.Function == EngineKeyFunctions.UILeft)
             {
+                Sounds.Play(Sound.Ok1);
                 selected.HandleChanged(-1);
             }
             else if (evt.Function == EngineKeyFunctions.UIRight)
             {
+                Sounds.Play(Sound.Ok1);
                 selected.HandleChanged(1);
             }
             else if (evt.Function == EngineKeyFunctions.UISelect)

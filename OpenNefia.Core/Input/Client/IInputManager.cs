@@ -35,6 +35,14 @@ namespace OpenNefia.Core.Input
 
         IInputContextContainer Contexts { get; }
 
+        /// <summary>
+        /// Incremented each time HaltInput() is called; used for working around
+        /// the fact that key handlers are re-entrant and can themselves call HaltInput()
+        /// in a nested call stack. All key input handlers farther up the stack need to
+        /// be notified to stop trying to handle more input in that case.
+        /// </summary>
+        int HaltCounter { get; }
+
         void Initialize();
         void SaveToUserData();
 
