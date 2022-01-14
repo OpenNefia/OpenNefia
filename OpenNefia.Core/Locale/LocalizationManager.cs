@@ -277,26 +277,6 @@ namespace OpenNefia.Core.Locale
             return new(builder.ToImmutable());
         }
 
-        /*
-        private bool TryGetEntityLocAttrib(EntityUid entity, string attribute, [NotNullWhen(true)] out string? value)
-        {
-            if (_entityManager.TryGetComponent<GrammarComponent?>(entity, out var grammar) &&
-                grammar.Attributes.TryGetValue(attribute, out value))
-            {
-                return true;
-            }
-            
-            if (_entityManager.GetComponent<MetaDataComponent>(entity).EntityPrototype is not { } prototype)
-            {
-                value = null;
-                return false;
-            }
-
-            var data = GetEntityData(prototype.ID);
-            return data.Attributes.TryGetValue(attribute, out value);
-        }
-        */
-
         public EntityLocData GetEntityData(string prototypeId)
         {
             return _entityCache.GetOrAdd(prototypeId ?? string.Empty, (id, t) => t.CalcEntityLoc(id), this);
