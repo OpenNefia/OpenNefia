@@ -279,9 +279,9 @@ namespace OpenNefia.Content.CharaMake
             LockAmount.Text = $"{Loc.GetString("Elona.CharaMake.AttributeReroll.LockAmt")}: {LockCount}";
         }
 
-        public override void OnFocused()
+        public override void GrabFocus()
         {
-            base.OnFocused();
+            base.GrabFocus();
             List.GrabFocus();
         }
 

@@ -164,7 +164,7 @@ namespace OpenNefia.Core.UI.Element
             }
         }
 
-        public void GrabFocus()
+        public virtual void GrabFocus()
         {
             if (CanControlFocus)
             {

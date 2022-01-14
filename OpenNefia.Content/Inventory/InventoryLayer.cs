@@ -210,9 +210,9 @@ namespace OpenNefia.Content.Inventory
             UpdateFiltering();
         }
 
-        public override void OnFocused()
+        public override void GrabFocus()
         {
-            base.OnFocused();
+            base.GrabFocus();
             List.GrabFocus();
         }
 

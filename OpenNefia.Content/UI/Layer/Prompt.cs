@@ -106,9 +106,9 @@ namespace OpenNefia.Content.UI.Layer
             QueryText = args.QueryText;
         }
 
-        public override void OnFocused()
+        public override void GrabFocus()
         {
-            base.OnFocused();
+            base.GrabFocus();
             List.GrabFocus();
         }
 

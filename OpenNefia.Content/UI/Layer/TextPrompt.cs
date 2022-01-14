@@ -99,10 +99,9 @@ namespace OpenNefia.Content.UI.Layer
 
         }
 
-        public override void OnFocused()
+        public override void GrabFocus()
         {
-            base.OnFocused();
-            GrabFocus();
+            base.GrabFocus();
         }
 
         private void HandleKeyBindDown(GUIBoundKeyEventArgs args)

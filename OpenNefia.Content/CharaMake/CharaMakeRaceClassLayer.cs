@@ -302,9 +302,9 @@ namespace OpenNefia.Content.CharaMake
 
         public abstract IEnumerable<RaceClass> GetData();
 
-        public override void OnFocused()
+        public override void GrabFocus()
         {
-            base.OnFocused();
+            base.GrabFocus();
             List.GrabFocus();
         }
 
