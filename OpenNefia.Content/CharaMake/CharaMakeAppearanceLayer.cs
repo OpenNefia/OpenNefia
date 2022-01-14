@@ -52,12 +52,12 @@ namespace OpenNefia.Content.CharaMake
             {
                 new AppearanceCell(new UiAppearanceData.Done(), Loc.GetString("Elona.CharaMake.AppearanceSelect.Done"))
             };
-            List.EventOnActivate += ListOnActivate;
+            List.OnActivated += ListOnActivated;
             CharaFrame = new UiTopicWindow();
             AddChild(List);
         }
 
-        private void ListOnActivate(object? sender, UiListEventArgs<UiAppearanceData> args)
+        private void ListOnActivated(object? sender, UiListEventArgs<UiAppearanceData> args)
         {
             switch (args.SelectedCell.Data)
             {
@@ -124,7 +124,7 @@ namespace OpenNefia.Content.CharaMake
         public override void Dispose()
         {
             base.Dispose();
-            List.EventOnActivate -= ListOnActivate;
+            List.OnActivated -= ListOnActivated;
         }
     }
 }
