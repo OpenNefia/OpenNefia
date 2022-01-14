@@ -5,6 +5,7 @@ using OpenNefia.Core.IoC;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Core.UI.Element;
+using static OpenNefia.Content.Prototypes.Protos;
 
 namespace OpenNefia.Content.Rendering
 {
@@ -72,8 +73,8 @@ namespace OpenNefia.Content.Rendering
             _assetManager = assetManager;
             _coords = coords;
 
-            _assetShadow = _assetManager.GetAsset(new("Elona.Shadow"));
-            _assetShadowEdges = _assetManager.GetAsset(new("Elona.ShadowEdges"));
+            _assetShadow = _assetManager.GetAsset(Asset.Shadow);
+            _assetShadowEdges = _assetManager.GetAsset(Asset.ShadowEdges);
 
             _batchShadow = _assetShadow.MakeSpriteBatch(2048, SpriteBatchUsage.Dynamic);
             _batchShadowEdges = _assetShadowEdges.MakeSpriteBatch(2048, SpriteBatchUsage.Dynamic);
@@ -107,8 +108,8 @@ namespace OpenNefia.Content.Rendering
 
         public void OnThemeSwitched()
         {
-            _assetShadow = _assetManager.GetAsset(new("Elona.Shadow"));
-            _assetShadowEdges = _assetManager.GetAsset(new("Elona.ShadowEdges"));
+            _assetShadow = _assetManager.GetAsset(Asset.Shadow);
+            _assetShadowEdges = _assetManager.GetAsset(Asset.ShadowEdges);
 
             _batchShadow = _assetShadow.MakeSpriteBatch(2048, SpriteBatchUsage.Dynamic);
             _batchShadowEdges = _assetShadowEdges.MakeSpriteBatch(2048, SpriteBatchUsage.Dynamic);
