@@ -11,9 +11,9 @@ Elona.UserInterface = {
             Text = "Do you want to save the game and exit?",
             Choices = {
                 Cancel = "Cancel",
-                Exit = "Exit",
                 GameSetting = "Game Setting",
                 ReturnToTitle = "Return to Title",
+                Exit = "Exit",
             },
         },
 

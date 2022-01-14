@@ -10,10 +10,10 @@ Elona.UserInterface = {
         Prompt = {
             Text = "これまでの冒険を記録して終了する？",
             Choices = {
-                Cancel = "いいえ",
-                Exit = "はい",
+                Cancel = "戻る",
                 GameSetting = "ゲーム設定",
                 ReturnToTitle = "タイトルに戻る",
+                Exit = "終了",
             },
         },
 

@@ -126,19 +126,9 @@ namespace OpenNefia.Content.TitleScreen
             _charaMakeLogic.RunCreateChara();
         }
 
-
-        private static readonly PrototypeId<ConfigMenuItemPrototype> DefaultConfigMenuItemID = new("Elona.MenuDefault");
-
         private void ShowConfigMenu()
         {
-            var defaultMenuItem = _prototypeManager.Index(DefaultConfigMenuItemID);
-            if (defaultMenuItem.Node is not ConfigSubmenuMenuNode submenuNode)
-            {
-                throw new InvalidDataException($"Config menu item {DefaultConfigMenuItemID} must be a {nameof(ConfigSubmenuMenuNode)}!");
-            }
-
-            _uiManager.Query<ConfigMenuLayer, ConfigMenuLayer.Args>(new ConfigMenuLayer.Args(DefaultConfigMenuItemID, submenuNode));
-            _config.SaveToFile();
+            ConfigMenuHelpers.ShowConfigMenu(_prototypeManager, _uiManager, _config);
         }
 
         /// <summary>

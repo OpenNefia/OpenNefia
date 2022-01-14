@@ -98,8 +98,8 @@ namespace OpenNefia.Content.ConfigMenu
         }
 
         private void RefreshConfigValueDisplay()
-            // FIXME: #35
         {
+            // FIXME: #35
             foreach (var cell in List.Cast<BaseConfigMenuUICell>())
             {
                 cell.RefreshConfigValueDisplay();

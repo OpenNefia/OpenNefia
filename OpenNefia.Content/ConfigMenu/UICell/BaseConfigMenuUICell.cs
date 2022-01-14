@@ -12,6 +12,14 @@ using ConfigMenuItemProtoId = OpenNefia.Core.Prototypes.PrototypeId<OpenNefia.Co
 
 namespace OpenNefia.Content.ConfigMenu.UICell
 {
+    /// <summary>
+    /// Vanilla UI view for the config menu item models. Wraps <see cref="IConfigMenuNode"/>
+    /// with UI-specific properties.
+    /// </summary>
+    /// <remarks>
+    /// NOTE: All inheritors must have a one-argument constructor that accepts 
+    /// a <see cref="IConfigMenuNode"/>.
+    /// </remarks>
     public abstract class BaseConfigMenuUICell : UiListCell<UINone>
     {
         public IConfigMenuNode MenuNode { get; }
@@ -50,8 +58,13 @@ namespace OpenNefia.Content.ConfigMenu.UICell
     }
 
     /// <summary>
-    /// Vanilla UI view for the config menu item models.
+    /// Vanilla UI view for the config menu item models. Wraps <see cref="IConfigMenuNode"/>
+    /// with UI-specific properties.
     /// </summary>
+    /// <remarks>
+    /// NOTE: All inheritors must have a one-argument constructor that accepts 
+    /// a <see cref="IConfigMenuNode"/>.
+    /// </remarks>
     public abstract class BaseConfigMenuUICell<TMenuNode> : BaseConfigMenuUICell
         where TMenuNode: IConfigMenuNode
     {
