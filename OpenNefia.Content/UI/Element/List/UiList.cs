@@ -51,8 +51,8 @@ namespace OpenNefia.Content.UI.Element.List
 
         protected readonly Dictionary<int, UiListChoiceKey> ChoiceKeys = new();
 
-        public event UiListEventHandler<T>? EventOnSelect;
-        public event UiListEventHandler<T>? EventOnActivate;
+        public event UiListEventHandler<T>? OnSelected;
+        public event UiListEventHandler<T>? OnActivated;
 
         public UiList(IEnumerable<UiListCell<T>>? cells = null, int itemOffsetX = 0)
         {
@@ -184,14 +184,14 @@ namespace OpenNefia.Content.UI.Element.List
 
         #region List Handling
 
-        protected virtual void OnSelect(UiListEventArgs<T> e)
+        protected virtual void HandleSelect(UiListEventArgs<T> e)
         {
-            EventOnSelect?.Invoke(this, e);
+            OnSelected?.Invoke(this, e);
         }
 
-        protected virtual void OnActivate(UiListEventArgs<T> e)
+        protected virtual void HandleActivate(UiListEventArgs<T> e)
         {
-            EventOnActivate?.Invoke(this, e);
+            OnActivated?.Invoke(this, e);
         }
 
         public virtual bool CanSelect(int index)
@@ -226,7 +226,7 @@ namespace OpenNefia.Content.UI.Element.List
             }
 
             SelectedIndex = index;
-            OnSelect(new UiListEventArgs<T>(DisplayedCells[index], index));
+            HandleSelect(new UiListEventArgs<T>(DisplayedCells[index], index));
         }
 
         public virtual bool CanActivate(int index)
@@ -244,7 +244,7 @@ namespace OpenNefia.Content.UI.Element.List
             if (SelectOnActivate)
                 Select(index);
 
-            OnActivate(new UiListEventArgs<T>(DisplayedCells[index], index));
+            HandleActivate(new UiListEventArgs<T>(DisplayedCells[index], index));
         }
 
         #endregion

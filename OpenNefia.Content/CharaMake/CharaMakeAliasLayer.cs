@@ -81,7 +81,7 @@ namespace OpenNefia.Content.CharaMake
             Window = new UiWindow();
 
             List = new UiList<CreateCharaAliasData>();
-            List.EventOnActivate += HandleListOnActivate;
+            List.OnActivated += HandleListOnActivate;
             AliasTopic = new UiTextTopic();
 
             OnKeyBindDown += HandleKeyBindDown;

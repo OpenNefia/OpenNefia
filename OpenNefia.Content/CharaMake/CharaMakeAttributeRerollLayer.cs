@@ -153,7 +153,7 @@ namespace OpenNefia.Content.CharaMake
             Reset();
             Reroll(false);
             OnKeyBindDown += HandleKeyBindDown;
-            List.EventOnActivate += HandleListOnActivate;
+            List.OnActivated += HandleListOnActivate;
             IsInitialized = true;
         }
 

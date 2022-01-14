@@ -1,4 +1,5 @@
-﻿using OpenNefia.Content.Input;
+﻿using OpenNefia.Content.ConfigMenu;
+using OpenNefia.Content.Input;
 using OpenNefia.Content.RandomText;
 using OpenNefia.Content.TitleScreen;
 using OpenNefia.Core.ContentPack;
@@ -14,6 +15,10 @@ namespace OpenNefia.Content
     /// </summary>
     public class EntryPoint : ModEntryPoint
     {
+        [Dependency] private readonly IRandomAliasGenerator _aliasGen = default!;
+        [Dependency] private readonly IRandomNameGenerator _nameGen = default!;
+        [Dependency] private readonly IConfigMenuUICellFactory _configMenuUICellFactory = default!;
+
         public override void PreInit()
         {
         }
@@ -23,11 +28,16 @@ namespace OpenNefia.Content
             ContentIoC.Register();
             IoCManager.BuildGraph();
 
-            var aliasGen = IoCManager.Resolve<IRandomAliasGenerator>();
-            aliasGen.Initialize();
+            IoCManager.InjectDependencies(this);
 
-            var nameGen = IoCManager.Resolve<IRandomNameGenerator>();
-            nameGen.Initialize();
+            InitializeDependencies();
+        }
+
+        private void InitializeDependencies()
+        {
+            _aliasGen.Initialize();
+            _nameGen.Initialize();
+            _configMenuUICellFactory.Initialize();
         }
 
         public override void PostInit()

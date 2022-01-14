@@ -1,7 +1,10 @@
 {
   "profiles": {
     "OpenNefia": {
-      "commandName": "Project"
+      "commandName": "Project",
+      "environmentVariables": {
+        "OPENNEFIA_CVARS": "audio.music=false"
+      }
     },
     "Scratch": {
       "commandName": "Project",

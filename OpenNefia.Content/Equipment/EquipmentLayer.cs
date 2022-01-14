@@ -222,7 +222,7 @@ namespace OpenNefia.Content.Equipment
             CanControlFocus = true;
 
             List.PageTextElement = Window;
-            List.EventOnActivate += HandleListOnActivate;
+            List.OnActivated += HandleListOnActivate;
 
             AddChild(Window);
             AddChild(List);

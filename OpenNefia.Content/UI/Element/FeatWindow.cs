@@ -179,7 +179,7 @@ namespace OpenNefia.Content.UI.Element
             GetAvailableCountFunc = getAvailableCountFunc ?? (() => 0);
 
             EventFilter = UIEventFilterMode.Pass;
-            List.EventOnActivate += List_OnActivate;
+            List.OnActivated += List_OnActivate;
             AddChild(List);
 
             RefreshData();
@@ -314,7 +314,7 @@ namespace OpenNefia.Content.UI.Element
 
         public override void Dispose()
         {
-            List.EventOnActivate -= List_OnActivate;
+            List.OnActivated -= List_OnActivate;
         }
     }
 }

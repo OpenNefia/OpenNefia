@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -22,6 +23,7 @@ namespace OpenNefia.Core.Configuration
 
         private const char TABLE_DELIMITER = '.';
         protected readonly Dictionary<string, ConfigVar> _configVars = new();
+        protected readonly Dictionary<string, CVarDef> _configVarDefs = new();
         private ResourcePath? _configFile;
 
         /// <summary>
@@ -38,6 +40,7 @@ namespace OpenNefia.Core.Configuration
         public virtual void Shutdown()
         {
             _configVars.Clear();
+            _configVarDefs.Clear();
             _configFile = null;
         }
 
@@ -304,6 +307,7 @@ namespace OpenNefia.Core.Configuration
                         $"CVarDef '{defField.Name}' on '{defField.DeclaringType?.FullName}' is null.");
                 }
 
+                _configVarDefs.Add(def.Name, def);
                 RegisterCVar(def.Name, type, def.DefaultValue, def.Flags);
             }
         }
@@ -345,6 +349,11 @@ namespace OpenNefia.Core.Configuration
                 throw new InvalidConfigurationException($"Trying to set unregistered variable '{name}'");
         }
 
+        public void SetCVar(CVarDef def, object value)
+        {
+            SetCVar(def.Name, value);
+        }
+
         public void SetCVar<T>(CVarDef<T> def, T value) where T : notnull
         {
             SetCVar(def.Name, value);
@@ -360,9 +369,26 @@ namespace OpenNefia.Core.Configuration
             throw new InvalidConfigurationException($"Trying to get unregistered variable '{name}'");
         }
 
+        /// <inheritdoc />
+        public object GetCVar(string name)
+        {
+            if (_configVars.TryGetValue(name, out var cVar) && cVar.Registered)
+                //TODO: Make flags work, required non-derpy net system.
+                return (GetConfigVarValue(cVar))!;
+
+            throw new InvalidConfigurationException($"Trying to get unregistered variable '{name}'");
+        }
+
+        /// <inheritdoc />
         public T GetCVar<T>(CVarDef<T> def) where T : notnull
         {
             return GetCVar<T>(def.Name);
+        }
+
+        /// <inheritdoc />
+        public object GetCVar(CVarDef def)
+        {
+            return GetCVar(def.Name);
         }
 
         public Type GetCVarType(string name)
@@ -374,6 +400,38 @@ namespace OpenNefia.Core.Configuration
 
             // If it's null it's a string, since the rest is primitives which aren't null.
             return cVar.Value?.GetType() ?? typeof(string);
+        }
+
+        public bool TryGetCVarDef<T>(string name, [NotNullWhen(true)] out CVarDef<T>? def) 
+            where T : notnull
+        {
+            if (!TryGetCVarDef(name, typeof(T), out var defRaw))
+            {
+                def = null;
+                return false;
+            }
+
+            def = (CVarDef<T>)defRaw;
+            return true;
+        }
+
+        public bool TryGetCVarDef(string name, [NotNullWhen(true)] out CVarDef? def)
+        {
+            if (!_configVarDefs.TryGetValue(name, out def))
+                return false;
+
+            return true;
+        }
+
+        public bool TryGetCVarDef(string name, Type type, [NotNullWhen(true)] out CVarDef? def)
+        {
+            if (!TryGetCVarDef(name, out def))
+                return false;
+
+            if (!type.IsAssignableFrom(def.Type))
+                return false;
+
+            return true;
         }
 
         protected static object GetConfigVarValue(ConfigVar cVar)

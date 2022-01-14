@@ -3,16 +3,18 @@ using JetBrains.Annotations;
 
 namespace OpenNefia.Core.Configuration
 {
-    public abstract class CVarDef
+    public class CVarDef
     {
         public object DefaultValue { get; }
+        public Type Type { get; }
         public CVar Flags { get; }
         public string Name { get; }
         public string? Desc { get; }
 
-        private protected CVarDef(string name, object defaultValue, CVar flags, string? desc)
+        private protected CVarDef(string name, Type type, object defaultValue, CVar flags, string? desc)
         {
             Name = name;
+            Type = type;
             DefaultValue = defaultValue;
             Flags = flags;
             Desc = desc;
@@ -33,7 +35,7 @@ namespace OpenNefia.Core.Configuration
         public new T DefaultValue { get; }
 
         internal CVarDef(string name, T defaultValue, CVar flags, string? desc)
-            : base(name, defaultValue, flags, desc)
+            : base(name, typeof(T), defaultValue, flags, desc)
         {
             DefaultValue = defaultValue;
         }

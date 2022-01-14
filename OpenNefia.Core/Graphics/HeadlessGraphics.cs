@@ -48,6 +48,25 @@ namespace OpenNefia.Core.Graphics
         {
         }
 
+        public WindowSettings GetWindowSettings()
+        {
+            return new();
+        }
+
+        public void SetWindowSettings(FullscreenMode mode, WindowSettings? windowSettings = null)
+        {
+        }
+
+        public IEnumerable<FullscreenMode> GetFullscreenModes(int displayIndex)
+        {
+            return Enumerable.Empty<FullscreenMode>();
+        }
+
+        public int GetDisplayCount()
+        {
+            return 1;
+        }
+
         public void ShowSplashScreen()
         {
         }

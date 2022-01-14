@@ -59,6 +59,10 @@ namespace OpenNefia.Core
         public static readonly CVarDef<bool> DisplayHighDPI =
             CVarDef.Create("display.hidpi", false, CVar.Archive);
 
+        // TODO: make into distrib config
+        // that means a separate YAML thing that uses the serialization manager format
+        // for setting static global customizable data that is not bound to a config menu
+        // think emacs' defcustom
         public static readonly CVarDef<string> DisplayTitle =
             CVarDef.Create("display.title", "OpenNefia");
 
@@ -82,8 +86,8 @@ namespace OpenNefia.Core
         public static readonly CVarDef<bool> AudioSound =
             CVarDef.Create("audio.sound", true, CVar.Archive);
 
-        public static readonly CVarDef<bool> AudioPositionalSound =
-            CVarDef.Create("audio.positionalsound", true, CVar.Archive);
+        public static readonly CVarDef<bool> AudioPositionalAudio =
+            CVarDef.Create("audio.positionalaudio", true, CVar.Archive);
 
         /*
          * Debug

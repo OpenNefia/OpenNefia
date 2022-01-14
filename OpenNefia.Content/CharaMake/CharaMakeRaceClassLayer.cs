@@ -276,11 +276,11 @@ namespace OpenNefia.Content.CharaMake
             DetailContainer.AddElement(TrainedSkillContainer);
 
             List = new UiPagedList<RaceClass>(itemsPerPage: 16, elementForPageText: Window);
-            List.EventOnActivate += (_, args) =>
+            List.OnActivated += (_, args) =>
             {
                 Select(args.SelectedCell.Data);
             };
-            List.EventOnSelect += (_, args) =>
+            List.OnSelected += (_, args) =>
             {
                 SelectData(args.SelectedCell.Data);
             };

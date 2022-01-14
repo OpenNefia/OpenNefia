@@ -83,7 +83,7 @@ namespace OpenNefia.Content.UI.Layer
 
             OnKeyBindDown += HandleKeyBindDown;
 
-            List.EventOnActivate += (o, e) =>
+            List.OnActivated += (o, e) =>
             {
                 Finish(e.SelectedCell.Data);
             };
