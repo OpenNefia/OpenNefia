@@ -111,8 +111,7 @@ namespace OpenNefia.Content.CharaMake
 
             foreach (var feat in feats)
             {
-                featsComponent.Feats.TryGetValue(feat.Key, out var currentLevel);
-                featsComponent.Feats[feat.Key] = currentLevel + feat.Value;
+                featsComponent.Feats[feat.Key] = featsComponent.Level(feat.Key) + feat.Value;
             }
         }
     }

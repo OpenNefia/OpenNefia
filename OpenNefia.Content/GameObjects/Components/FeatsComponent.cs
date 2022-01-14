@@ -29,5 +29,12 @@ namespace OpenNefia.Content.Feats
         /// </summary>
         [DataField]
         public Dictionary<PrototypeId<FeatPrototype>, int> Feats { get; } = new();
+
+        public int Level(PrototypeId<FeatPrototype> id)
+        {
+            if (Feats.TryGetValue(id, out var val))
+                return val;
+            return 0;
+        }
     }
 }
