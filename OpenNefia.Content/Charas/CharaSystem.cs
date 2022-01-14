@@ -6,6 +6,7 @@ using OpenNefia.Content.EntityGen;
 using OpenNefia.Content.Skills;
 using static OpenNefia.Content.Prototypes.Protos;
 using OpenNefia.Content.EquipSlots;
+using OpenNefia.Content.GameObjects;
 
 namespace OpenNefia.Content.Charas
 {
@@ -14,6 +15,7 @@ namespace OpenNefia.Content.Charas
         [Dependency] private readonly IPrototypeManager _protos = default!;
         [Dependency] private readonly ISkillsSystem _skills = default!;
         [Dependency] private readonly IEquipSlotsSystem _equipSlots = default!;
+        [Dependency] private readonly IEntityManager _entityManager = default!;
 
         public override void Initialize()
         {
@@ -28,6 +30,7 @@ namespace OpenNefia.Content.Charas
             SetRaceDefaultChip(uid, chara);
 
             InitClassSkills(uid, chara);
+            InitCharaMakeSkills(uid);
         }
 
         private void InitRaceSkills(EntityUid uid, CharaComponent chara,
@@ -98,6 +101,23 @@ namespace OpenNefia.Content.Charas
 
                 skills.Skills[pair.Key].Level += pair.Value;
             }
+        }
+
+        private void InitCharaMakeSkills(EntityUid uid, SkillsComponent? skills = null, 
+            CharaMakeSkillInitTempComponent? charaMakeSkill = null)
+        {
+            if (!Resolve(uid, ref charaMakeSkill, ref skills, logMissing: false))
+                return;
+
+            foreach(var skill in charaMakeSkill.Skills)
+            {
+                skills.Skills[skill.Key] = new LevelAndPotential
+                {
+                    Level = skill.Value,
+                }; 
+            }
+
+            _entityManager.RemoveComponent<CharaMakeSkillInitTempComponent>(uid);
         }
     }
 }

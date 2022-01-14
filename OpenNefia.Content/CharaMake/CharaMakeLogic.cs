@@ -35,7 +35,7 @@ namespace OpenNefia.Content.CharaMake
                 new CharaMakeAttributeRerollLayer(),
                 new CharaMakeFeatWindowLayer(),
                 new CharaMakeAliasLayer(),
-                // TODO add appearance
+                new CharaMakeAppearanceLayer(),
             };
         }
 
@@ -68,12 +68,12 @@ namespace OpenNefia.Content.CharaMake
                     var entityGen = EntitySystem.Get<IEntityGen>();
                     _entityManager.InitializeComponents(playerEntity);
                     _entityManager.StartComponents(playerEntity);
-                    entityGen.FireGeneratedEvent(playerEntity);
                     foreach(var creationStep in steps)
                     {
                         creationStep.ApplyStep(playerEntity);
                         creationStep.Dispose();
                     }
+                    entityGen.FireGeneratedEvent(playerEntity);
                     _uiManager.Query<CharaMakeResult, CharaMakeLayer, CharaMakeData>(new CharaMakeCharSheetLayer(playerEntity), data);
                     break;
                 }
