@@ -17,8 +17,8 @@ namespace OpenNefia.Core.Maps
         Tile[,] Tiles { get; }
         Tile[,] TileMemory { get; }
 
+        int LastSightId { get; set; }
         MapObjectMemoryStore MapObjectMemory { get; }
-        ShadowMap ShadowMap { get; }
         bool NeedsRedraw { get; }
 
         IEnumerable<TileRef> AllTiles { get; }
@@ -44,7 +44,6 @@ namespace OpenNefia.Core.Maps
 
         bool IsInWindowFov(Vector2i pos);
         bool IsMemorized(Vector2i pos);
-        void RefreshVisibility();
         void MemorizeAllTiles();
         bool IsInBounds(Vector2i position);
         bool IsInBounds(MapCoordinates newCoords);

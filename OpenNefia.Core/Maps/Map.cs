@@ -32,8 +32,7 @@ namespace OpenNefia.Core.Maps
         private TileFlag[,] _tileFlagsEntities { get; }
         private TileFlag[,] _tileFlags { get; }
         internal int[,] _InSight;
-        internal int _LastSightId;
-        public ShadowMap ShadowMap { get; }
+        public int LastSightId { get; set; }
         public MapObjectMemoryStore MapObjectMemory { get; }
 
         public HashSet<Vector2i> DirtyTilesThisTurn { get; } = new();
@@ -54,7 +53,6 @@ namespace OpenNefia.Core.Maps
             _tileFlags = new TileFlag[width, height];
             MapObjectMemory = new MapObjectMemoryStore(this);
             _InSight = new int[width, height];
-            ShadowMap = new ShadowMap(this, IoCManager.Resolve<IEntityManager>(), IoCManager.Resolve<ICoords>());
         }
 
         public void Clear(PrototypeId<TilePrototype> tile)
@@ -87,7 +85,7 @@ namespace OpenNefia.Core.Maps
                 for (int x = 0; x < this.Width; x++)
                 {
                     TileMemory[x, y] = Tiles[x, y];
-                    _InSight[x, y] = _LastSightId;
+                    _InSight[x, y] = LastSightId;
                 }
             }
             this.RedrawAllThisTurn = true;
@@ -132,7 +130,7 @@ namespace OpenNefia.Core.Maps
             TileMemory[pos.X, pos.Y] = Tiles[pos.X, pos.Y];
             DirtyTilesThisTurn.Add(pos);
             MapObjectMemory.RevealObjects(pos);
-            _InSight[pos.X, pos.Y] = _LastSightId;
+            _InSight[pos.X, pos.Y] = LastSightId;
         }
 
         public void RefreshTile(Vector2i pos)
@@ -252,24 +250,12 @@ namespace OpenNefia.Core.Maps
             return GetTileMemory(coords.Position);
         }
 
-        public void RefreshVisibility()
-        {
-            _LastSightId += 1;
-            this.ShadowMap.RefreshVisibility();
-
-            MapObjectMemory.AllMemory.Values
-                .Where(memory => memory.HideWhenOutOfSight && !IsInWindowFov(memory.Coords.Position))
-                .Select(memory => memory.Coords)
-                .Distinct()
-                .ForEach(coords => MapObjectMemory.HideObjects(coords.Position));
-        }
-
         public bool IsInWindowFov(Vector2i pos)
         {
             if (!IsInBounds(pos))
                 return false;
 
-            return _InSight[pos.X, pos.Y] == _LastSightId;
+            return _InSight[pos.X, pos.Y] == LastSightId;
         }
 
         public bool IsMemorized(Vector2i pos)

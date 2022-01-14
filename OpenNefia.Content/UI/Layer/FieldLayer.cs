@@ -126,7 +126,7 @@ namespace OpenNefia.Content.UI.Layer
             if (Map == null)
                 return;
 
-            Map.RefreshVisibility();
+            _mapManager.RefreshVisibility(Map);
 
             var player = _gameSession.Player;
 

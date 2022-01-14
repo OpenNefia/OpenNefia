@@ -1,7 +1,8 @@
-﻿using OpenNefia.Core.GameObjects;
+﻿using OpenNefia.Analyzers;
+using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Log;
-using OpenNefia.Core.SaveGames;
+using OpenNefia.Core.Rendering;
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 
@@ -133,6 +134,9 @@ namespace OpenNefia.Core.Maps
 
             SetMapEntity(mapId, mapEntityUid);
             SetMapAndEntityIds(map, mapId, mapEntityUid);
+
+            var ev = new MapCreatedEvent(map, loadedFromSave: true);
+            _entityManager.EventBus.RaiseLocalEvent(map.MapEntityUid, ev);
         }
 
         private EntityUid RebindMapEntity(MapId actualID, IMap map)
@@ -170,6 +174,10 @@ namespace OpenNefia.Core.Maps
                 _entityManager.InitializeComponents(newEnt);
                 _entityManager.StartComponents(newEnt);
                 Logger.DebugS("map", $"Binding map {actualID} to entity {newEnt}");
+
+                var ev = new MapCreatedEvent(map, loadedFromSave: false);
+                _entityManager.EventBus.RaiseLocalEvent(map.MapEntityUid, ev);
+
                 return newEnt;
             }
         }
@@ -291,6 +299,52 @@ namespace OpenNefia.Core.Maps
         public bool IsMapInitialized(MapId mapId)
         {
             return _maps.ContainsKey(mapId);
+        }
+
+        /// <inheritdoc/>
+        public void RefreshVisibility(IMap map)
+        {
+            map.LastSightId++;
+
+            var ev = new RefreshMapVisibilityEvent(map);
+            IoCManager.Resolve<IEntityManager>().EventBus.RaiseLocalEvent(map.MapEntityUid, ref ev);
+
+            var outOfSightCoords = map.MapObjectMemory.AllMemory.Values
+                .Where(memory => memory.HideWhenOutOfSight && !map.IsInWindowFov(memory.Coords.Position))
+                .Select(memory => memory.Coords)
+                .Distinct();
+
+            foreach (var coords in outOfSightCoords)
+            {
+                map.MapObjectMemory.HideObjects(coords.Position);
+            }
+        }
+    }
+
+    /// <summary>
+    /// Raised when a map is either created from scratch or loaded
+    /// from save data.
+    /// </summary>
+    public sealed class MapCreatedEvent : EntityEventArgs
+    {
+        public IMap Map { get; }
+        public bool LoadedFromSave { get; }
+
+        public MapCreatedEvent(IMap map, bool loadedFromSave)
+        {
+            Map = map;
+            LoadedFromSave = loadedFromSave;
+        }
+    }
+
+    [EventArgsUsage(EventArgsTargets.ByRef)]
+    public struct RefreshMapVisibilityEvent
+    {
+        public IMap Map { get; }
+
+        public RefreshMapVisibilityEvent(IMap map)
+        {
+            Map = map;
         }
     }
 }
