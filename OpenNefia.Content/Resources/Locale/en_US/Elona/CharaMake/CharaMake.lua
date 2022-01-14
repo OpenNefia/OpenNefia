@@ -93,13 +93,13 @@ Elona.CharaMake = {
             Title = "Appearance",
         },
         Topic = {
-            Category = "Category"
+            Category = "Category",
         },
         Caption = "What do you look like? Don't worry, you can change this later.",
         Done = "Done",
     },
 
     CharSheet = {
-        Caption = "Hit the enter key to reroll your personal history."
+        Caption = "Hit the enter key to reroll your personal history.",
     },
 }
