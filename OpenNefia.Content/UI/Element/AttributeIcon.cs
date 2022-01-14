@@ -17,14 +17,14 @@ namespace OpenNefia.Content.UI.Element
         private const string FallbackIcon = "2";
         private readonly Dictionary<PrototypeId<SkillPrototype>, string> _attributes = new()
         {
-            { Protos.Skill.StatStrength, "0" },
-            { Protos.Skill.StatConstitution, "1" },
-            { Protos.Skill.StatDexterity, "2" },
-            { Protos.Skill.StatPerception, "3" },
-            { Protos.Skill.StatLearning, "4" },
-            { Protos.Skill.StatWill, "5" },
-            { Protos.Skill.StatMagic, "6" },
-            { Protos.Skill.StatCharisma, "7" }
+            { Protos.Skill.AttrStrength, "0" },
+            { Protos.Skill.AttrConstitution, "1" },
+            { Protos.Skill.AttrDexterity, "2" },
+            { Protos.Skill.AttrPerception, "3" },
+            { Protos.Skill.AttrLearning, "4" },
+            { Protos.Skill.AttrWill, "5" },
+            { Protos.Skill.AttrMagic, "6" },
+            { Protos.Skill.AttrCharisma, "7" }
 
         };
         private IAssetInstance AssetAttributeIcons;

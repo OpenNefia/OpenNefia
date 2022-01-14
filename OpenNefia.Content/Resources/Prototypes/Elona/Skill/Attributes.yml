@@ -1,0 +1,47 @@
+- type: Elona.Skill
+  id: Elona.AttrLife
+  skillType: AttributeSpecial
+
+- type: Elona.Skill
+  id: Elona.AttrMana
+  skillType: AttributeSpecial
+
+- type: Elona.Skill
+  id: Elona.AttrStrength
+  skillType: Attribute
+
+- type: Elona.Skill
+  id: Elona.AttrConstitution
+  skillType: Attribute
+
+- type: Elona.Skill
+  id: Elona.AttrDexterity
+  skillType: Attribute
+
+- type: Elona.Skill
+  id: Elona.AttrPerception
+  skillType: Attribute
+
+- type: Elona.Skill
+  id: Elona.AttrLearning
+  skillType: Attribute
+
+- type: Elona.Skill
+  id: Elona.AttrWill
+  skillType: Attribute
+
+- type: Elona.Skill
+  id: Elona.AttrMagic
+  skillType: Attribute
+
+- type: Elona.Skill
+  id: Elona.AttrCharisma
+  skillType: Attribute
+
+- type: Elona.Skill
+  id: Elona.AttrSpeed
+  skillType: Attribute
+
+- type: Elona.Skill
+  id: Elona.AttrLuck
+  skillType: Attribute

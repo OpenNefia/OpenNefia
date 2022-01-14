@@ -10,8 +10,8 @@ namespace OpenNefia.Content.Skills
 {
     public enum SkillType
     {
-        StatSpecial,
-        Stat,
+        AttributeSpecial,
+        Attribute,
         WeaponProficiency,
         Skill,
         SkillMagic,

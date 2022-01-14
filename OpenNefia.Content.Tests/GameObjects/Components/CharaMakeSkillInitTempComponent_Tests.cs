@@ -37,15 +37,15 @@ namespace OpenNefia.Content.Tests.GameObjects.Components
             _entityManager.StartComponents(playerEntity);
 
             var charaMakeSkillInit = _entityManager.AddComponent<CharaMakeSkillInitTempComponent>(playerEntity);
-            charaMakeSkillInit.Skills[Protos.Skill.StatStrength] = 777;
-            charaMakeSkillInit.Skills[Protos.Skill.StatMagic] = 888;
-            charaMakeSkillInit.Skills[Protos.Skill.StatDexterity] = 999;
+            charaMakeSkillInit.Skills[Protos.Skill.AttrStrength] = 777;
+            charaMakeSkillInit.Skills[Protos.Skill.AttrMagic] = 888;
+            charaMakeSkillInit.Skills[Protos.Skill.AttrDexterity] = 999;
 
             entityGen.FireGeneratedEvent(playerEntity);
             var skills = _entityManager.GetComponent<SkillsComponent>(playerEntity);
-            Assert.That(skills.Skills[Protos.Skill.StatStrength].Level == 777);
-            Assert.That(skills.Skills[Protos.Skill.StatMagic].Level == 888);
-            Assert.That(skills.Skills[Protos.Skill.StatDexterity].Level == 999);
+            Assert.That(skills.Skills[Protos.Skill.AttrStrength].Level == 777);
+            Assert.That(skills.Skills[Protos.Skill.AttrMagic].Level == 888);
+            Assert.That(skills.Skills[Protos.Skill.AttrDexterity].Level == 999);
             Assert.That(!_entityManager.HasComponent<CharaMakeSkillInitTempComponent>(playerEntity));
         }
     }

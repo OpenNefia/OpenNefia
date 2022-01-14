@@ -236,13 +236,13 @@ namespace OpenNefia.Content.UI.Element
                     AttributeContainer.AddElement(cont);
                 }
 
-                skills.Skills.TryGetValue(Protos.Skill.StatLife, out var statLife);
-                dict[Loc.GetPrototypeString(Protos.Skill.StatLife, "Name")] = $"{statLife?.Level.Buffed}({statLife?.Level.Base})";
-                skills.Skills.TryGetValue(Protos.Skill.StatMana, out var statMana);
-                dict[Loc.GetPrototypeString(Protos.Skill.StatMana, "Name")] = $"{statMana?.Level.Buffed}({statMana?.Level.Base})";
+                skills.Skills.TryGetValue(Protos.Skill.AttrLife, out var statLife);
+                dict[Loc.GetPrototypeString(Protos.Skill.AttrLife, "Name")] = $"{statLife?.Level.Buffed}({statLife?.Level.Base})";
+                skills.Skills.TryGetValue(Protos.Skill.AttrMana, out var statMana);
+                dict[Loc.GetPrototypeString(Protos.Skill.AttrMana, "Name")] = $"{statMana?.Level.Buffed}({statMana?.Level.Base})";
                 dict[Loc.GetString("Elona.CharaSheet.Sanity")] = TempSanity;
-                skills.Skills.TryGetValue(Protos.Skill.StatSpeed, out var statSpd);
-                dict[Loc.GetPrototypeString(Protos.Skill.StatSpeed, "Name")] = $"{statSpd?.Level.Buffed}({statSpd?.Level.Base})";
+                skills.Skills.TryGetValue(Protos.Skill.AttrSpeed, out var statSpd);
+                dict[Loc.GetPrototypeString(Protos.Skill.AttrSpeed, "Name")] = $"{statSpd?.Level.Buffed}({statSpd?.Level.Base})";
                 dict[string.Empty] = string.Empty;
                 dict[Loc.GetString("Elona.CharaSheet.Fame")] = TempFame;
                 dict[Loc.GetString("Elona.CharaSheet.Karma")] = TempKarma;
