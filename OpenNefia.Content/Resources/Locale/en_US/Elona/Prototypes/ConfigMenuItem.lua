@@ -21,13 +21,13 @@ OpenNefia.Prototypes.Elona.ConfigMenuItem.Elona = {
 
     ScreenMusic = {
         Description = "Enable or disable music.",
-        Name = "Music*",
+        Name = "Music",
         YesNo = "config.common.yes_no.on_off",
     },
 
     ScreenSound = {
         Description = "Enable or disable sound.",
-        Name = "Sound*",
+        Name = "Sound",
         YesNo = "config.common.yes_no.on_off",
     },
 
@@ -43,7 +43,7 @@ OpenNefia.Prototypes.Elona.ConfigMenuItem.Elona = {
 
     ScreenWindowMode = {
         Description = "Fullscreen mode.\n'Full screen' will use a hardware fullscreen mode.\n'Desktop fullscreen' will create a borderless window the same size as the screen.\n",
-        Name = "Screen Mode*",
+        Name = "Screen Mode",
         Choices = {
             DesktopFullscreen = "Desktop fullscreen",
             Fullscreen = "Full screen",
@@ -53,7 +53,11 @@ OpenNefia.Prototypes.Elona.ConfigMenuItem.Elona = {
 
     ScreenScreenResolution = {
         Description = "Screen resolution to use.\nThe available options may change depending on the graphics hardware you use.\n",
-        Name = "Screen Resolution*",
+        Name = "Screen Resolution",
+    },
+
+    ScreenDisplayNumber = {
+        Name = "Display Number",
     },
 
     --

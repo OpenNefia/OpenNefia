@@ -39,6 +39,7 @@
     - Elona.ScreenPositionalAudio
     - Elona.ScreenWindowMode
     - Elona.ScreenScreenResolution
+    - Elona.ScreenDisplayNumber
 
 - type: Elona.ConfigMenuItem
   id: Elona.ScreenSound
@@ -71,6 +72,11 @@
   node: !type:ConfigScreenResolutionMenuNode
     cvarWidth: display.width
     cvarHeight: display.height
+
+- type: Elona.ConfigMenuItem
+  id: Elona.ScreenDisplayNumber
+  node: !type:ConfigDisplayNumberMenuNode
+    cvar: display.displaynumber
 
 #
 # Net

@@ -32,7 +32,7 @@ namespace OpenNefia.Content.ConfigMenu.UICell
 
         public override void HandleChanged(int delta)
         {
-            _currentIndex = Math.Clamp(_currentIndex + delta, 0, _outputDevices.Count);
+            _currentIndex = Math.Clamp(_currentIndex + delta, 0, _outputDevices.Count - 1);
 
             ConfigManager.SetCVar(MenuNode.CVar, _currentIndex);
         }
