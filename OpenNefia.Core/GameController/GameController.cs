@@ -62,6 +62,8 @@ namespace OpenNefia.Core.GameController
         private ILogHandler? _logHandler;
         public GameControllerOptions Options { get; private set; } = new();
 
+        private bool _running = true;
+
         public bool Startup(GameControllerOptions options)
         {
             Options = options;
@@ -205,7 +207,7 @@ namespace OpenNefia.Core.GameController
             _graphics.OnMouseWheel += MouseWheel;
             _graphics.OnQuit += (_) =>
             {
-                Shutdown();
+                DoShutdown();
                 return false;
             };
         }
@@ -274,12 +276,25 @@ namespace OpenNefia.Core.GameController
         {
             Stage2Startup();
 
+            _running = true;
+
             MainCallback?.Invoke();
 
-            Shutdown();
+            DoShutdown();
         }
 
-        private void Shutdown()
+        public void Shutdown()
+        {
+            // Already got shut down I assume,
+            if (!_running)
+                return;
+
+            Logger.Info("Shutting down!");
+
+            _running = false;
+        }
+
+        private void DoShutdown()
         {
             _entityManager.Shutdown();
             _uiManager.Shutdown();
@@ -299,6 +314,12 @@ namespace OpenNefia.Core.GameController
 
         public void Update(FrameEventArgs frame)
         {
+            // TODO: Make this not rely on hacks somehow?
+            if (!_running)
+            {
+                DoShutdown();
+            }
+
             _taskManager.ProcessPendingTasks();
             _timerManager.UpdateTimers(frame);
             _inputManager.UpdateKeyRepeats(frame);
@@ -342,7 +363,7 @@ namespace OpenNefia.Core.GameController
         {
             if (Love.Boot.QuitFlag)
             {
-                Shutdown();
+                DoShutdown();
             }
 
             Love.Boot.SystemStep((Love.Scene)_graphics);

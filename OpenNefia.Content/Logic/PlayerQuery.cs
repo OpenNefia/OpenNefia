@@ -20,6 +20,11 @@ namespace OpenNefia.Content.Logic
     {
         bool YesOrNo(string queryText);
         bool YesOrNo(YesOrNoOptions opts);
+        
+        /// <summary>
+        /// Shows a "More..." prompt and waits for the player to press a key.
+        /// </summary>
+        void PromptMore();
     }
 
     public class PlayerQuery : IPlayerQuery
@@ -62,6 +67,11 @@ namespace OpenNefia.Content.Logic
             }
 
             return false;
+        }
+
+        public void PromptMore()
+        {
+            _uiManager.Query<MorePrompt>();
         }
     }
 }
