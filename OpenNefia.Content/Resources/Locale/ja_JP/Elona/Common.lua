@@ -8,4 +8,7 @@ Elona.Common = {
     PutInBackpack = function(entity)
         return ("%sをバックパックに入れた。"):format(_.name(entity))
     end,
+    NameWithDirectArticle = function(entity)
+        return _.name(entity)
+    end,
 }
