@@ -132,9 +132,7 @@ namespace OpenNefia.Core.GameController
             _tileDefinitionManager.Initialize();
             _tileDefinitionManager.RegisterAll();
 
-            // TODO replace with config system
-            var language = GetSystemLanguage();
-            _localizationManager.Initialize(language);
+            _localizationManager.Initialize();
 
             _saveGameManager.Initialize();
 
@@ -187,17 +185,6 @@ namespace OpenNefia.Core.GameController
             _mapRenderer.RegisterTileLayers();
 
             _debugServer.Startup();
-        }
-
-        private PrototypeId<LanguagePrototype> GetSystemLanguage()
-        {
-            var ci = CultureInfo.InstalledUICulture;
-            var code = ci.Name.Replace('-', '_');
-
-            if (code == "ja_JP")
-                return LanguagePrototypeOf.Japanese;
-
-            return LanguagePrototypeOf.English;
         }
 
         private void ShowSplashScreen()

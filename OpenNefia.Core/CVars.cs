@@ -90,6 +90,13 @@ namespace OpenNefia.Core
             CVarDef.Create("audio.positionalaudio", true, CVar.Archive);
 
         /*
+         * Language
+         */
+
+        public static readonly CVarDef<string> LanguageLanguage =
+            CVarDef.Create("language.language", "en_US", CVar.Archive);
+
+        /*
          * Debug
          */
 

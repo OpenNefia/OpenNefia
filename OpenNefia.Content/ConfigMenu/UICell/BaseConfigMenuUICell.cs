@@ -4,7 +4,10 @@ using OpenNefia.Content.UI.Element.List;
 using OpenNefia.Core.Configuration;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Locale;
+using OpenNefia.Core.Maths;
+using OpenNefia.Core.Rendering;
 using OpenNefia.Core.UI;
+using static OpenNefia.Content.Prototypes.Protos;
 using ConfigMenuItemProtoId = OpenNefia.Core.Prototypes.PrototypeId<OpenNefia.Content.ConfigMenu.ConfigMenuItemPrototype>;
 
 namespace OpenNefia.Content.ConfigMenu.UICell
@@ -12,6 +15,7 @@ namespace OpenNefia.Content.ConfigMenu.UICell
     public abstract class BaseConfigMenuUICell : UiListCell<UINone>
     {
         public IConfigMenuNode MenuNode { get; }
+        public IUiText ValueText { get; } = new UiText(UiFonts.ListText);
 
         protected BaseConfigMenuUICell(IConfigMenuNode menuNode) : base(new(), "", null)
         {
@@ -29,6 +33,11 @@ namespace OpenNefia.Content.ConfigMenu.UICell
         public virtual (bool decArrow, bool incArrow) CanChange()
         {
             return (false, false);
+        }
+
+        public virtual bool CanActivate()
+        {
+            return false;
         }
 
         public virtual void HandleChanged(int delta)
@@ -49,13 +58,22 @@ namespace OpenNefia.Content.ConfigMenu.UICell
         protected readonly IConfigurationManager ConfigManager;
 
         protected ConfigMenuItemProtoId ProtoId { get; }
-        protected IUiText ValueText = new UiText(UiFonts.ListText);
+
+        protected IAssetDrawable AssetArrowLeft;
+        protected IAssetDrawable AssetArrowRight;
+
+        protected virtual bool ShowArrows => true;
+
+        protected Color ColorArrowDisabled = Color.White.WithAlpha(100);
 
         public BaseConfigMenuUICell(ConfigMenuItemProtoId protoId, TMenuNode menuNode) 
             : base(menuNode)
         {
             ProtoId = protoId;
             ConfigManager = IoCManager.Resolve<IConfigurationManager>();
+
+            AssetArrowLeft = new AssetDrawable(Asset.ArrowLeft);
+            AssetArrowRight = new AssetDrawable(Asset.ArrowRight);
         }
 
         public new TMenuNode MenuNode => (TMenuNode)base.MenuNode;
@@ -66,30 +84,46 @@ namespace OpenNefia.Content.ConfigMenu.UICell
         {
             UiText.Text = Loc.GetPrototypeString(ProtoId, "Name");
             UiText.Color = Enabled ? UiColors.TextBlack : UiColors.TextDisabled;
+
+            var (leftArrowEnabled, rightArrowEnabled) = CanChange();
+            AssetArrowLeft.Color = leftArrowEnabled ? Color.White : ColorArrowDisabled;  
+            AssetArrowRight.Color = rightArrowEnabled ? Color.White : ColorArrowDisabled;
         }
 
         public override void SetSize(int width, int height)
         {
             base.SetSize(width, height);
             ValueText.SetPreferredSize();
+            AssetArrowLeft.SetPreferredSize();
+            AssetArrowRight.SetPreferredSize();
         }
 
         public override void SetPosition(int x, int y)
         {
             base.SetPosition(x, y);
             ValueText.SetPosition(X + 194, Y + 1);
+            AssetArrowLeft.SetPosition(X + 164, Y - 5);
+            AssetArrowRight.SetPosition(X + 302, Y - 5);
         }
 
         public override void Draw()
         {
             base.Draw();
             ValueText.Draw();
+
+            if (ShowArrows)
+            {
+                AssetArrowLeft.Draw();
+                AssetArrowRight.Draw();
+            }
         }
 
         public override void Update(float dt)
         {
             base.Update(dt);
-            ValueText.Draw();
+            ValueText.Update(dt);
+            AssetArrowLeft.Update(dt);
+            AssetArrowRight.Update(dt);
         }
     }
 

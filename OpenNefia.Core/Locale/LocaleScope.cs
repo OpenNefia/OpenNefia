@@ -51,5 +51,10 @@ namespace OpenNefia.Core.Locale
         {
             return _localizationManager.GetPrototypeString(protoId, KeyPrefix.With(key), args);
         }
+
+        public string GetPrototypeStringRaw(Type prototypeType, string prototypeID, LocaleKey keySuffix, LocaleArg[] args)
+        {
+            return _localizationManager.GetPrototypeStringRaw(prototypeType, prototypeID, keySuffix, args);
+        }
     }
 }

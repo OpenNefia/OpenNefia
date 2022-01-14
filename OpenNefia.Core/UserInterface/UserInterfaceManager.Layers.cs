@@ -156,7 +156,7 @@ namespace OpenNefia.Core.UserInterface
 
             if (!layer.IsLocalized)
             {
-                layer.Localize(layer.GetType().GetBaseLocaleKey());
+                layer.Localize();
             }
 
             layer.Result = null;

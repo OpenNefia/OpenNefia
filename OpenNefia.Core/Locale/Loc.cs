@@ -20,11 +20,6 @@ namespace OpenNefia.Core.Locale
 
         public static PrototypeId<LanguagePrototype> Language => _localization.Language;
 
-        public static void SwitchLanguage(PrototypeId<LanguagePrototype> language)
-        {
-            _localization.SwitchLanguage(language);
-        }
-
         public static bool TryGetString(LocaleKey key, [NotNullWhen(true)] out string? str, params LocaleArg[] args)
         {
             return _localization.TryGetString(key, out str, args);
@@ -59,6 +54,11 @@ namespace OpenNefia.Core.Locale
             where T : class, IPrototype
         {
             return _localization.GetPrototypeString(protoId, keySuffix, args);
+        }
+
+        public static string GetPrototypeStringRaw(Type prototypeType, string prototypeID, LocaleKey keySuffix, params LocaleArg[] args)
+        {
+            return _localization.GetPrototypeStringRaw(prototypeType, prototypeID, keySuffix, args);
         }
     }
 }

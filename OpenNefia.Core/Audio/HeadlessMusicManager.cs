@@ -1,4 +1,5 @@
-﻿using OpenNefia.Core.Prototypes;
+﻿using Melanchall.DryWetMidi.Multimedia;
+using OpenNefia.Core.Prototypes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,7 +20,16 @@ namespace OpenNefia.Core.Audio
         {
         }
 
+        public IEnumerable<OutputDevice> GetMidiOutputDevices()
+        {
+            return Enumerable.Empty<OutputDevice>();
+        }
+
         public void Play(PrototypeId<MusicPrototype> musicId)
+        {
+        }
+
+        public void Restart()
         {
         }
 

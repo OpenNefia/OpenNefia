@@ -23,7 +23,7 @@ namespace OpenNefia.Tests
             return string.Empty;
         }
 
-        public void Initialize(PrototypeId<LanguagePrototype> language)
+        public void Initialize()
         {
         }
 
@@ -61,6 +61,11 @@ namespace OpenNefia.Tests
         }
 
         string ILocalizationFetcher.GetPrototypeString<T>(PrototypeId<T> protoId, LocaleKey key, params LocaleArg[] args)
+        {
+            return string.Empty;
+        }
+
+        public string GetPrototypeStringRaw(Type prototypeType, string prototypeID, LocaleKey keySuffix, LocaleArg[] args)
         {
             return string.Empty;
         }

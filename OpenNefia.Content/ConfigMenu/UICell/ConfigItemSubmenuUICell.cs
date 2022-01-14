@@ -14,18 +14,19 @@ namespace OpenNefia.Content.ConfigMenu.UICell
 {
     public class ConfigItemSubmenuUICell : BaseConfigMenuUICell<ConfigSubmenuMenuNode>
     {
+        protected override bool ShowArrows => false;
+
         public ConfigItemSubmenuUICell(ConfigMenuItemProtoId protoId, ConfigSubmenuMenuNode data) : base(protoId, data)
         {
         }
 
-        public override (bool decArrow, bool incArrow) CanChange()
+        public override bool CanActivate()
         {
-            return (false, false);
+            return true;
         }
 
         public override void HandleActivated()
         {
-            Sounds.Play(Sound.Ok1);
             UserInterfaceManager.Query<ConfigMenuLayer, ConfigMenuLayer.Args>(new ConfigMenuLayer.Args(ProtoId, MenuNode));
         }
     }

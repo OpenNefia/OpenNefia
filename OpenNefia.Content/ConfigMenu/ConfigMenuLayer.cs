@@ -2,6 +2,7 @@
 using OpenNefia.Content.UI;
 using OpenNefia.Content.UI.Element;
 using OpenNefia.Content.UI.Element.List;
+using OpenNefia.Core;
 using OpenNefia.Core.Audio;
 using OpenNefia.Core.Configuration;
 using OpenNefia.Core.Input;
@@ -13,6 +14,7 @@ using OpenNefia.Core.Rendering;
 using OpenNefia.Core.UI;
 using OpenNefia.Core.UI.Element;
 using OpenNefia.Core.UI.Layer;
+using OpenNefia.Core.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -51,6 +53,7 @@ namespace OpenNefia.Content.ConfigMenu
         private UiWindow Window = new();
 
         private Vector2i _menuSize = new();
+        private PrototypeId<ConfigMenuItemPrototype> _protoId;
 
         public ConfigMenuLayer()
         {
@@ -78,26 +81,41 @@ namespace OpenNefia.Content.ConfigMenu
             }
 
             _menuSize = args.Submenu.MenuSize;
+            _protoId = args.PrototypeId;
 
-            Window.Title = Loc.GetPrototypeString(args.PrototypeId, "Name");
+            Window.Title = Loc.GetPrototypeString(_protoId, "Name");
             Window.KeyHints = MakeKeyHints();
 
             RefreshConfigValueDisplay();
         }
 
-        private void RefreshConfigValueDisplay()
+        public override void Localize(LocaleKey key)
         {
+            base.Localize(key);
+
+            Window.Title = Loc.GetPrototypeString(_protoId, "Name");
+            Window.KeyHints = MakeKeyHints();
+        }
+
+        private void RefreshConfigValueDisplay()
             // FIXME: #35
+        {
             foreach (var cell in List.Cast<BaseConfigMenuUICell>())
             {
                 cell.RefreshConfigValueDisplay();
+                cell.ValueText.Text = cell.ValueText.Text.WideSubstring(0, 15);
             }
         }
 
         private void HandleListActivate(object? sender, UiListEventArgs<UINone> evt)
         {
-            ((BaseConfigMenuUICell)evt.SelectedCell).HandleActivated();
-            RefreshConfigValueDisplay();
+            var selected = (BaseConfigMenuUICell)evt.SelectedCell;
+            if (selected.CanActivate())
+            {
+                Sounds.Play(Sound.Ok1);
+                selected.HandleActivated();
+                RefreshConfigValueDisplay();
+            }
         }
 
         private void HandleListPageChanged(int newPage, int newPageCount)
@@ -116,19 +134,25 @@ namespace OpenNefia.Content.ConfigMenu
             if (List.SelectedCell is not BaseConfigMenuUICell selected)
                 return;
 
+            var (leftEnabled, rightEnabled) = selected.CanChange();
+
             if (evt.Function == EngineKeyFunctions.UILeft)
             {
-                Sounds.Play(Sound.Ok1);
-                selected.HandleChanged(-1);
+                if (leftEnabled)
+                {
+                    Sounds.Play(Sound.Ok1);
+                    selected.HandleChanged(-1);
+                    RefreshConfigValueDisplay();
+                }
             }
             else if (evt.Function == EngineKeyFunctions.UIRight)
             {
-                Sounds.Play(Sound.Ok1);
-                selected.HandleChanged(1);
-            }
-            else if (evt.Function == EngineKeyFunctions.UISelect)
-            {
-                selected.HandleActivated();
+                if (rightEnabled)
+                {
+                    Sounds.Play(Sound.Ok1);
+                    selected.HandleChanged(1);
+                    RefreshConfigValueDisplay();
+                }
             }
         }
 

@@ -1,5 +1,4 @@
 OpenNefia.Prototypes.Elona.ConfigMenuItem.Elona = {
-
     MenuDefault = {
         Name = "オプション",
     },
@@ -45,8 +44,8 @@ OpenNefia.Prototypes.Elona.ConfigMenuItem.Elona = {
         Description = "ウィンドウとフルスクリーンを切り替えます。\nフルスクリーン2は、スクリーンと同じサイズのウィンドウを生成し擬似的にフルスクリーンとします。\n",
         Name = "画面モード*",
         Choices = {
-            Desktop = "フルスクリーン2",
-            Exclusive = "フルスクリーン",
+            DesktopFullscreen = "フルスクリーン2",
+            Fullscreen = "フルスクリーン",
             Windowed = "ウィンドウ",
         },
     },
@@ -101,5 +100,9 @@ OpenNefia.Prototypes.Elona.ConfigMenuItem.Elona = {
 
     MenuLanguage = {
         Name = "言語(Language)",
+    },
+
+    LanguageLanguage = {
+        Name = "言語",
     },
 }

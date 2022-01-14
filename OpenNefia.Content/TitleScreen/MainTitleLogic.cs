@@ -25,6 +25,7 @@ using OpenNefia.Content.Areas;
 using System.Linq;
 using OpenNefia.Content.Maps;
 using OpenNefia.Content.ConfigMenu;
+using OpenNefia.Core.Configuration;
 
 namespace OpenNefia.Content.TitleScreen
 {
@@ -47,6 +48,7 @@ namespace OpenNefia.Content.TitleScreen
         [Dependency] private readonly IModLoader _modLoader = default!;
         [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
         [Dependency] private readonly ICharaMakeLogic _charaMakeLogic = default!;
+        [Dependency] private readonly IConfigurationManager _config = default!;
 
         private void Startup()
         {
@@ -136,6 +138,7 @@ namespace OpenNefia.Content.TitleScreen
             }
 
             _uiManager.Query<ConfigMenuLayer, ConfigMenuLayer.Args>(new ConfigMenuLayer.Args(DefaultConfigMenuItemID, submenuNode));
+            _config.SaveToFile();
         }
 
         /// <summary>
