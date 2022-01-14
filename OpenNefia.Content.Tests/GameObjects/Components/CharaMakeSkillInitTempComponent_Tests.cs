@@ -33,7 +33,6 @@ namespace OpenNefia.Content.Tests.GameObjects.Components
             var areaSpatial = _entityManager.GetComponent<SpatialComponent>(playerEntity);
             areaSpatial.AttachParent(globalMapSpatial);
 
-
             var entityGen = EntitySystem.Get<IEntityGen>();
             _entityManager.InitializeComponents(playerEntity);
             _entityManager.StartComponents(playerEntity);
@@ -48,7 +47,7 @@ namespace OpenNefia.Content.Tests.GameObjects.Components
             Assert.That(skills.Skills[Protos.Skill.StatStrength].Level == 777);
             Assert.That(skills.Skills[Protos.Skill.StatMagic].Level == 888);
             Assert.That(skills.Skills[Protos.Skill.StatDexterity].Level == 999);
-            Assert.That(!_entityManager.TryGetComponent<CharaMakeSkillInitTempComponent>(playerEntity, out _));
+            Assert.That(!_entityManager.HasComponent<CharaMakeSkillInitTempComponent>(playerEntity));
         }
     }
 }

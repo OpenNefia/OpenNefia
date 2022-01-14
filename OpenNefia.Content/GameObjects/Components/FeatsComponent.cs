@@ -22,7 +22,7 @@ namespace OpenNefia.Content.Feats
         /// Current amount of learnable Feats.
         /// </summary>
         [DataField]
-        public int LearnableFeats { get; set; } = 0;
+        public int NumberOfFeatsAcquirable { get; set; } = 0;
 
         /// <summary>
         /// Current Feats and the respective Levels

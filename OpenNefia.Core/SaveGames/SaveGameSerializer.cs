@@ -47,9 +47,9 @@ namespace OpenNefia.Core.SaveGames
         void LoadGame(ISaveGameHandle save);
 
         /// <summary>
-        /// Resets all entites, allowing a new save to load.
+        /// Resets all entities, maps and areas, allowing a new save to load.
         /// </summary>
-        void ResetGame();
+        void ResetGameState();
     }
 
     internal interface ISaveGameSerializerInternal : ISaveGameSerializer
@@ -220,7 +220,7 @@ namespace OpenNefia.Core.SaveGames
             if (_saveGameManager.CurrentSave != null)
                 throw new InvalidOperationException($"A save has already been loaded! ({_saveGameManager.CurrentSave})");
 
-            ResetGame();
+            ResetGameState();
 
             var saveHeader = MakeSaveGameHeader(name);
             var savePath = ResourcePath.Root / Guid.NewGuid().ToString();
@@ -316,7 +316,7 @@ namespace OpenNefia.Core.SaveGames
         {
             save.Files.ClearTemp();
 
-            ResetGame();
+            ResetGameState();
             LoadSession(save);
             LoadGlobalData(save);
 
@@ -396,7 +396,7 @@ namespace OpenNefia.Core.SaveGames
             }
         }
 
-        public void ResetGame()
+        public void ResetGameState()
         {
             _entityManager.FlushEntities();
             _mapManager.FlushMaps();

@@ -11,13 +11,13 @@ using System.Threading.Tasks;
 
 namespace OpenNefia.Content.CharaMake
 {
-    [Localize("Elona.CharaMake.CharSheet")]
-    public class CharaMakeCharSheetLayer : CharaMakeLayer
+    [Localize("Elona.CharaMake.CharaSheet")]
+    public class CharaMakeCharaSheetLayer : CharaMakeLayer
     {
-        private CharSheet Sheet;
-        public CharaMakeCharSheetLayer(EntityUid entity)
+        private CharaSheet Sheet;
+        public CharaMakeCharaSheetLayer(EntityUid entity)
         {
-            Sheet = new CharSheet(entity);
+            Sheet = new CharaSheet(entity);
         }
 
         public override void OnQuery()

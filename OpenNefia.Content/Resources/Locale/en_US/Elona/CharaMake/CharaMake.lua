@@ -99,7 +99,7 @@ Elona.CharaMake = {
         Done = "Done",
     },
 
-    CharSheet = {
+    CharaSheet = {
         Caption = "Hit the enter key to reroll your personal history.",
     },
 }

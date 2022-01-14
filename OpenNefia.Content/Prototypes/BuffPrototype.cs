@@ -21,6 +21,9 @@ namespace OpenNefia.Content.Prototypes
         [DataField("id", required: true)]
         public string ID { get; } = default!;
 
+        ///<summary> 
+        /// Asset region ID for use with <see cref="Protos.Asset.BuffIcons"/>. 
+        ///</summary>
         [DataField]
         public string RegionId { get; } = default!;
 

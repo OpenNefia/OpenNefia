@@ -13,7 +13,7 @@ namespace OpenNefia.Content.GameObjects
     [RegisterComponent]
     public class CharaMakeSkillInitTempComponent : Component
     {
-        public override string Name => "CharaMakeSkillInit";
+        public override string Name => "CharaMakeSkillInitTemp";
 
         [DataField]
         public Dictionary<PrototypeId<SkillPrototype>, int> Skills { get; } = new();
