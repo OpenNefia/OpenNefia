@@ -97,11 +97,50 @@ namespace OpenNefia.Content.ConfigMenu
     /// </summary>
     public sealed class ConfigScreenResolutionMenuNode : IConfigMenuNode
     {
+        /// <summary>
+        /// Typically "display.width".
+        /// </summary>
         [DataField("cvarWidth", required: true)]
         public CVarDef<int> CVarWidth { get; } = default!;
 
+        /// <summary>
+        /// Typically "display.height".
+        /// </summary>
         [DataField("cvarHeight", required: true)]
         public CVarDef<int> CVarHeight { get; } = default!;
+    }
+
+    /// <summary>
+    /// This config option should provide a set of available MIDI device
+    /// numbers on the system.
+    /// </summary>
+    public sealed class ConfigMidiDeviceMenuNode : IConfigMenuNode
+    {
+        /// <summary>
+        /// Typically "audio.mididevice".
+        /// </summary>
+        [DataField("cvar", required: true)]
+        public CVarDef<int> CVar { get; } = default!;
+    }
+
+    /// <summary>
+    /// This config option should provide the list of all available
+    /// prototypes of the given type.
+    /// </summary>
+    public sealed class ConfigPrototypeIdsMenuNode : IConfigMenuNode
+    {
+        [DataField("cvar", required: true)]
+        public CVarDef<string> CVar { get; } = default!;
+
+        [DataField(required: true)]
+        public string PrototypeType { get; } = default!;
+
+        /// <summary>
+        /// Locale key in the prototype's locale namespace to use as the
+        /// display name.
+        /// </summary>
+        [DataField]
+        public string NameLocaleKey { get; } = "Name";
     }
 
     #endregion

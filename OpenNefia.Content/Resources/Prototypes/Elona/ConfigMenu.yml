@@ -52,7 +52,7 @@
 
 - type: Elona.ConfigMenuItem
   id: Elona.ScreenMidiDevice
-  node: !type:ConfigIntMenuNode
+  node: !type:ConfigMidiDeviceMenuNode
     cvar: audio.mididevice
 
 - type: Elona.ConfigMenuItem
@@ -119,3 +119,11 @@
 - type: Elona.ConfigMenuItem
   id: Elona.MenuLanguage
   node: !type:ConfigSubmenuMenuNode
+    items:
+    - Elona.LanguageLanguage
+
+- type: Elona.ConfigMenuItem
+  id: Elona.LanguageLanguage
+  node: !type:ConfigPrototypeIdsMenuNode
+    cvar: language.language
+    prototypeType: Language

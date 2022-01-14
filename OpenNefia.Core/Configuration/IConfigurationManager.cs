@@ -46,7 +46,7 @@ namespace OpenNefia.Core.Configuration
         /// <param name="value">The value to set.</param>
         void SetCVar(string name, object value);
 
-        void SetCVar(CVarDef def, object value);
+        void SetCVarRaw(CVarDef def, object value);
 
         void SetCVar<T>(CVarDef<T> def, T value) where T : notnull;
 
@@ -58,11 +58,11 @@ namespace OpenNefia.Core.Configuration
         /// <returns></returns>
         T GetCVar<T>(string name);
 
-        object GetCVar(string name);
+        object GetCVarRaw(string name);
 
         T GetCVar<T>(CVarDef<T> def) where T : notnull;
 
-        object GetCVar(CVarDef def);
+        object GetCVarRaw(CVarDef def);
 
         /// <summary>
         /// Tries to get a CVarDef.

@@ -78,12 +78,12 @@
         /// <summary>
         /// The x-coordinate of the window's position in the specified display.
         /// </summary>
-        public int X { get; set; }
+        public int? X { get; set; }
 
         /// <summary>
         /// The x-coordinate of the window's position in the specified display.
         /// </summary>
-        public int Y { get; set; }
+        public int? Y { get; set; }
 
         /// <summary>
         /// We don't explicitly set the refresh rate, it's "read-only".

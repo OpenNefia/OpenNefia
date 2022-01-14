@@ -14,10 +14,7 @@ namespace OpenNefia.Content.ConfigMenu.UICell
 
         public override (bool decArrow, bool incArrow) CanChange()
         {
-            if (CurrentValue == true)
-                return (false, true);
-            else
-                return (true, false);
+            return (CurrentValue == true, CurrentValue == false);
         }
 
         public override void HandleChanged(int delta)

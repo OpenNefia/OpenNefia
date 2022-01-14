@@ -17,8 +17,8 @@ namespace OpenNefia.Content.ConfigMenu.UICell
 
         public Enum CurrentValue
         {
-            get => (Enum)ConfigManager.GetCVar(MenuNode.CVar);
-            set => ConfigManager.SetCVar(MenuNode.CVar, value);
+            get => (Enum)ConfigManager.GetCVarRaw(MenuNode.CVar);
+            set => ConfigManager.SetCVarRaw(MenuNode.CVar, value);
         }
 
         public override (bool decArrow, bool incArrow) CanChange()
@@ -32,7 +32,7 @@ namespace OpenNefia.Content.ConfigMenu.UICell
         public override void HandleChanged(int delta)
         {
             var values = Enum.GetValues(MenuNode.EnumType);
-            var index = Math.Clamp(Array.IndexOf(values, CurrentValue), 0, values.Length);
+            var index = Math.Clamp(Array.IndexOf(values, CurrentValue) + delta, 0, values.Length);
 
             var rawValue = values.GetValue(index)!;
 
@@ -43,7 +43,7 @@ namespace OpenNefia.Content.ConfigMenu.UICell
         {
             base.RefreshConfigValueDisplay();
 
-            ValueText.Text = CurrentValue.ToString();
+            ValueText.Text = Loc.GetPrototypeString(ProtoId, $"Choices.{CurrentValue}");
         }
     }
 }

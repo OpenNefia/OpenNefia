@@ -1,4 +1,5 @@
-﻿using OpenNefia.Content.UI;
+﻿using Microsoft.CodeAnalysis;
+using OpenNefia.Content.UI;
 using OpenNefia.Content.UI.Element;
 using OpenNefia.Content.UI.Element.List;
 using OpenNefia.Core.Configuration;
@@ -18,9 +19,7 @@ namespace OpenNefia.Content.ConfigMenu.UICell
         private static readonly FullscreenMode DefaultResolution = new(800, 600);
 
         private List<FullscreenMode> _resolutions = new();
-        private FullscreenMode _current = DefaultResolution;
-        private FullscreenMode _minResolution = DefaultResolution;
-        private FullscreenMode _maxResolution = DefaultResolution;
+        private int _currentIndex = 0;
 
         public ConfigItemScreenResolutionUICell(PrototypeId<ConfigMenuItemPrototype> protoId, ConfigScreenResolutionMenuNode data) : base(protoId, data)
         {
@@ -30,34 +29,50 @@ namespace OpenNefia.Content.ConfigMenu.UICell
         {
             var windowSettings = _graphics.GetWindowSettings();
 
-            _resolutions.Clear();
-            _resolutions.AddRange(_graphics.GetFullscreenModes(windowSettings.Display));
-            _minResolution = _resolutions.First();
-            _maxResolution = _resolutions.Last();
+            _resolutions = _graphics.GetFullscreenModes(windowSettings.Display)
+                .Where(res => res.Width >= DefaultResolution.Width && res.Height >= DefaultResolution.Height)
+                .Reverse()
+                .ToList();
+
+            var screenSize = _graphics.WindowSize;
+            _currentIndex = 0;
+
+            for (int i = 0; i < _resolutions.Count; i++)
+            {
+                var resolution = _resolutions[i];
+                _currentIndex = i;
+                if (screenSize.X <= resolution.Width && screenSize.Y <= resolution.Height)
+                    break;
+            }
         }
 
         public override (bool decArrow, bool incArrow) CanChange()
         {
-            return (_current != _minResolution, _current != _maxResolution);
+            return (_currentIndex > 0, _currentIndex < _resolutions.Count - 1);
         }
 
         public override void HandleChanged(int delta)
         {
-            var index = Math.Clamp(_resolutions.IndexOf(_current), 0, _resolutions.Count);
+            _currentIndex = Math.Clamp(_currentIndex + delta, 0, _resolutions.Count);
 
-            _current = _resolutions[index];
+            var resolution = _resolutions.Count > 0
+                ? _resolutions[_currentIndex]
+                : DefaultResolution;
 
-            ConfigManager.SetCVar(MenuNode.CVarWidth, _current.Width);
-            ConfigManager.SetCVar(MenuNode.CVarHeight, _current.Height);
+            ConfigManager.SetCVar(MenuNode.CVarWidth, resolution.Width);
+            ConfigManager.SetCVar(MenuNode.CVarHeight, resolution.Height);
 
-            _graphics.SetWindowSettings(_current);
+            _graphics.SetWindowSettings(resolution);
         }
 
         public override void RefreshConfigValueDisplay()
         {
             base.RefreshConfigValueDisplay();
 
-            ValueText.Text = $"{_current.Width}x{_current.Height}";
+            var width = ConfigManager.GetCVar(MenuNode.CVarWidth);
+            var height = ConfigManager.GetCVar(MenuNode.CVarHeight);
+
+            ValueText.Text = $"{width}x{height}";
         }
     }
 }

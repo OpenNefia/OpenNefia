@@ -17,6 +17,7 @@ using OpenNefia.Core.UserInterface;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Timing;
 using Microsoft.CodeAnalysis;
+using OpenNefia.Core.Configuration;
 
 namespace OpenNefia.Core.Locale
 {
@@ -26,6 +27,7 @@ namespace OpenNefia.Core.Locale
         string GetString(LocaleKey key, params LocaleArg[] args);
         string GetPrototypeString<T>(PrototypeId<T> protoId, LocaleKey key, params LocaleArg[] args)
             where T: class, IPrototype;
+        string GetPrototypeStringRaw(Type prototypeType, string prototypeID, LocaleKey keySuffix, LocaleArg[] args);
     }
 
     public delegate void LanguageSwitchedDelegate(PrototypeId<LanguagePrototype> newLanguage);
@@ -34,7 +36,7 @@ namespace OpenNefia.Core.Locale
     {
         PrototypeId<LanguagePrototype> Language { get; }
 
-        void Initialize(PrototypeId<LanguagePrototype> language);
+        void Initialize();
 
         bool IsFullwidth();
         void SwitchLanguage(PrototypeId<LanguagePrototype> language);
@@ -89,24 +91,39 @@ namespace OpenNefia.Core.Locale
         [Dependency] private readonly IRandom _random = default!;
         [Dependency] private readonly IEntityManager _entityManager = default!;
         [Dependency] private readonly IEntityFactory _entityFactory = default!;
+        [Dependency] private readonly IConfigurationManager _config = default!;
+        [Dependency] private readonly IPrototypeManager _protos = default!;
 
         public event LanguageSwitchedDelegate? OnLanguageSwitched;
 
         private readonly ResourcePath LocalePath = new ResourcePath("/Locale");
-        
-        public void Initialize(PrototypeId<LanguagePrototype> language)
+
+        public PrototypeId<LanguagePrototype> Language { get; private set; } = LanguagePrototypeOf.English;
+
+        public void Initialize()
         {
             _lua = CreateLuaEnv();
             ScanBuiltInFunctions();
 
-            SwitchLanguage(language);
+            _config.OnValueChanged(CVars.LanguageLanguage, OnConfigLanguageChanged, true);
 
             _graphics.OnWindowFocused += WindowFocusedChanged;
 
             WatchResources();
         }
 
-        public PrototypeId<LanguagePrototype> Language { get; private set; } = LanguagePrototypeOf.English;
+        private void OnConfigLanguageChanged(string rawID)
+        {
+            PrototypeId<LanguagePrototype> protoId = new(rawID);
+
+            if (!_protos.HasIndex(protoId))
+            {
+                protoId = LanguagePrototypeOf.English;
+                Logger.WarningS("loc", $"No language with ID '{rawID}' registered; falling back to {protoId}");
+            }
+
+            SwitchLanguage(protoId);
+        }
         
         public void SwitchLanguage(PrototypeId<LanguagePrototype> language)
         {
@@ -119,7 +136,7 @@ namespace OpenNefia.Core.Locale
 
             foreach (var layer in _uiManager.ActiveLayers)
             {
-                layer.Localize(layer.GetType()!.FullName!);
+                layer.Localize();
             }
 
             foreach (var uid in _entityManager.GetEntityUids())
@@ -195,9 +212,12 @@ namespace OpenNefia.Core.Locale
 
         public string GetPrototypeString<T>(PrototypeId<T> protoId, LocaleKey key, params LocaleArg[] args)
             where T : class, IPrototype
+            => GetPrototypeStringRaw(typeof(T), (string)protoId, key, args);
+
+        public string GetPrototypeStringRaw(Type prototypeType, string prototypeID, LocaleKey keySuffix, LocaleArg[] args)
         {
-            var protoTypeId = typeof(T).GetCustomAttribute<PrototypeAttribute>()!.Type;
-            return GetString(new LocaleKey($"OpenNefia.Prototypes.{protoTypeId}.{protoId}").With(key), args);
+            var protoTypeId = prototypeType.GetCustomAttribute<PrototypeAttribute>()!.Type;
+            return GetString(new LocaleKey($"OpenNefia.Prototypes.{protoTypeId}.{prototypeID}").With(keySuffix), args);
         }
 
         public bool IsFullwidth()

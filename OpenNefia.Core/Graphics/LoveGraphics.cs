@@ -41,6 +41,9 @@ namespace OpenNefia.Core.Graphics
         private int _modShift;
         private int _modSystem;
 
+        private FullscreenMode _lastFullscreenMode;
+        private Vector2i _lastWindowPos;
+
         public void Initialize()
         {
             var bootConfig = new BootConfig()
@@ -86,8 +89,36 @@ namespace OpenNefia.Core.Graphics
 
             OnWindowResized += HandleWindowResized;
 
+            _config.OnValueChanged(CVars.DisplayWindowMode, OnConfigWindowModeChanged);
+
             InitializeGraphicsDefaults();
             LoadGamepadMappings();
+
+            _lastFullscreenMode = new FullscreenMode(WindowSize.X, WindowSize.Y);
+            _lastWindowPos = Love.Window.GetPosition();
+        }
+
+        private void OnConfigWindowModeChanged(WindowMode obj)
+        {
+            var settings = GetWindowSettings();
+
+            switch (_config.GetCVar(CVars.DisplayWindowMode))
+            {
+                case WindowMode.Fullscreen:
+                    settings.Fullscreen = true;
+                    settings.FullscreenType = FullscreenType.Exclusive;
+                    break;
+                case WindowMode.DesktopFullscreen:
+                    settings.Fullscreen = true;
+                    settings.FullscreenType = FullscreenType.Desktop;
+                    break;
+                case WindowMode.Windowed:
+                default:
+                    settings.Fullscreen = false;
+                    break;
+            }
+
+            SetWindowSettings(_lastFullscreenMode, settings);
         }
 
         public void Shutdown()
@@ -135,14 +166,16 @@ namespace OpenNefia.Core.Graphics
                 Resizable = loveWindowSettings.Resizable,
                 Stencil = loveWindowSettings.Stencil,
                 VSync = loveWindowSettings.Vsync,
-                X = loveWindowSettings.X,
-                Y = loveWindowSettings.Y,
+                X = loveWindowSettings.x,
+                Y = loveWindowSettings.y,
             };
         }
 
         public void SetWindowSettings(FullscreenMode mode, WindowSettings? windowSettings = null)
         {
             Love.WindowSettings? loveWindowSettings = null;
+
+            var isFullscreen = Love.Window.GetFullscreen();
 
             if (windowSettings != null)
             {
@@ -162,12 +195,28 @@ namespace OpenNefia.Core.Graphics
                     Resizable = windowSettings.Resizable,
                     Stencil = windowSettings.Stencil,
                     Vsync = windowSettings.VSync,
-                    X = windowSettings.X,
-                    Y = windowSettings.Y,
+                    x = isFullscreen ? null : windowSettings.X,
+                    y = isFullscreen ? null : windowSettings.Y,
                 };
             }
 
             Love.Window.SetMode(mode.Width, mode.Height, loveWindowSettings);
+
+            var ev = new WindowResizedEventArgs(WindowSize);
+            OnWindowResized?.Invoke(ev);
+        }
+
+        private void CenterWindow()
+        {
+            var settings = GetWindowSettings();
+            if (settings.Fullscreen)
+                return;
+
+            var desktopSize = (Vector2i)Love.Window.GetDesktopDimensions(settings.Display);
+            var windowSize = WindowSize;
+            var centerPos = (desktopSize / 2) - (windowSize / 2);
+
+            Love.Window.SetPosition(centerPos.X, centerPos.Y, settings.Display);
         }
 
         public int GetDisplayCount()

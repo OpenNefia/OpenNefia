@@ -349,7 +349,7 @@ namespace OpenNefia.Core.Configuration
                 throw new InvalidConfigurationException($"Trying to set unregistered variable '{name}'");
         }
 
-        public void SetCVar(CVarDef def, object value)
+        public void SetCVarRaw(CVarDef def, object value)
         {
             SetCVar(def.Name, value);
         }
@@ -370,7 +370,7 @@ namespace OpenNefia.Core.Configuration
         }
 
         /// <inheritdoc />
-        public object GetCVar(string name)
+        public object GetCVarRaw(string name)
         {
             if (_configVars.TryGetValue(name, out var cVar) && cVar.Registered)
                 //TODO: Make flags work, required non-derpy net system.
@@ -386,9 +386,9 @@ namespace OpenNefia.Core.Configuration
         }
 
         /// <inheritdoc />
-        public object GetCVar(CVarDef def)
+        public object GetCVarRaw(CVarDef def)
         {
-            return GetCVar(def.Name);
+            return GetCVarRaw(def.Name);
         }
 
         public Type GetCVarType(string name)

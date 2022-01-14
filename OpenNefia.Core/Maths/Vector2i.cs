@@ -186,6 +186,26 @@ namespace OpenNefia.Core.Maths
             return new((int)vector.X, (int)vector.Y);
         }
 
+        public static implicit operator Vector2i(Love.Point point)
+        {
+            return new(point.X, point.Y);
+        }
+
+        public static implicit operator Love.Point(Vector2i vector)
+        {
+            return new(vector.X, vector.Y);
+        }
+
+        public static implicit operator Vector2i(Love.Size size)
+        {
+            return new(size.Width, size.Height);
+        }
+
+        public static implicit operator Love.Size(Vector2i vector)
+        {
+            return new(vector.X, vector.Y);
+        }
+
         public static explicit operator Love.Vector2(Vector2i vector)
         {
             return new Love.Vector2((float)vector.X, (float)vector.Y);

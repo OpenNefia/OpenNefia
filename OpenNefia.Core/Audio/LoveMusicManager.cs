@@ -2,6 +2,7 @@
 using Melanchall.DryWetMidi.Multimedia;
 using OpenNefia.Core.Configuration;
 using OpenNefia.Core.IoC;
+using OpenNefia.Core.Log;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.ResourceManagement;
 using OpenNefia.Core.Utility;
@@ -16,11 +17,11 @@ namespace OpenNefia.Core.Audio
 
         private const string MidiFileExtension = "mid";
 
-        private OutputDevice _midiDevice = default!;
+        private OutputDevice? _midiDevice = default!;
         private Playback? _midiPlayback = null;
         private Love.Source? _streamPlayback = null;
 
-        private PrototypeId<MusicPrototype>? _currentlyPlaying;
+        private PrototypeId<MusicPrototype>? _lastPlayedMusic;
 
         public bool IsPlaying => _midiPlayback != null || _streamPlayback != null;
 
@@ -28,7 +29,7 @@ namespace OpenNefia.Core.Audio
 
         public void Initialize()
         {
-            _config.OnValueChanged(CVars.AudioMidiDevice, i => _midiDevice = OutputDevice.GetByIndex(i), true);
+            _config.OnValueChanged(CVars.AudioMidiDevice, OnConfigMidiDeviceChanged, true);
             _config.OnValueChanged(CVars.AudioMusic, OnConfigEnableMusicChanged, true);
         }
 
@@ -36,15 +37,36 @@ namespace OpenNefia.Core.Audio
         {
             Stop();
             _midiDevice?.Dispose();
+            _midiDevice = null;
+        }
+
+        public IEnumerable<OutputDevice> GetMidiOutputDevices()
+        {
+            return OutputDevice.GetAll();
+        }
+
+        private void OnConfigMidiDeviceChanged(int deviceIndex)
+        {
+            StopInternal();
+            _midiDevice?.Dispose();
+            _midiDevice = null;
+
+            try
+            {
+                _midiDevice = OutputDevice.GetByIndex(deviceIndex);
+            }
+            catch (Exception ex)
+            {
+                Logger.ErrorS("music", ex, $"Failed to find MIDI output device {deviceIndex}!");
+            }
+
+            Restart();
         }
 
         private void OnConfigEnableMusicChanged(bool b)
         {
             _enableMusic = b;
-            if (!_enableMusic)
-                StopInternal();
-            else if (_currentlyPlaying != null)
-                Play(_currentlyPlaying.Value);
+            Restart();
         }
 
         private Love.Source GetLoveStreamSource(ResourcePath path)
@@ -56,13 +78,13 @@ namespace OpenNefia.Core.Audio
         /// <inheritdoc />
         public void Play(PrototypeId<MusicPrototype> musicId)
         {
-            if (_currentlyPlaying == musicId)
+            if (IsPlaying && _lastPlayedMusic == musicId)
                 return;
 
             if (IsPlaying)
                 StopInternal();
 
-            _currentlyPlaying = musicId;
+            _lastPlayedMusic = musicId;
 
             if (!_enableMusic)
                 return;
@@ -71,13 +93,16 @@ namespace OpenNefia.Core.Audio
 
             if (path.Extension.Equals(MidiFileExtension, StringComparison.InvariantCultureIgnoreCase))
             {
-                using (var stream = _resourceCache.ContentFileRead(path))
+                if (_midiDevice != null)
                 {
-                    var midiFile = MidiFile.Read(stream);
+                    using (var stream = _resourceCache.ContentFileRead(path))
+                    {
+                        var midiFile = MidiFile.Read(stream);
 
-                    _midiPlayback = midiFile.GetPlayback(_midiDevice);
-                    _midiPlayback.Loop = true;
-                    _midiPlayback.Start();
+                        _midiPlayback = midiFile.GetPlayback(_midiDevice);
+                        _midiPlayback.Loop = true;
+                        _midiPlayback.Start();
+                    }
                 }
             }
             else
@@ -88,10 +113,17 @@ namespace OpenNefia.Core.Audio
             }
         }
 
+        public void Restart()
+        {
+            StopInternal();
+            if (_lastPlayedMusic != null)
+                Play(_lastPlayedMusic.Value);
+        }
+
         /// <inheritdoc />
         public void Stop()
         {
-            _currentlyPlaying = null;
+            _lastPlayedMusic = null;
             StopInternal();
         }
 
