@@ -195,13 +195,13 @@ namespace OpenNefia.Tests
             protoMan.Initialize();
 
             // Don't reparse prototypes from disk every run.
-            lock (_cachedPrototypes)
+            if (_cachedPrototypes.IsValueCreated)
             {
-                if (_cachedPrototypes.IsValueCreated)
-                {
-                    protoMan.LoadFromResults(_cachedPrototypes.Value!);
-                }
-                else
+                protoMan.LoadFromResults(_cachedPrototypes.Value!);
+            }
+            else
+            {
+                lock (_cachedPrototypes)
                 {
                     protoMan.LoadDirectory(ResourcePath.Root / "Prototypes");
 
