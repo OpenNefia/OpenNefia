@@ -313,6 +313,7 @@ namespace OpenNefia.Core.GameController
             {
                 Love.Vector4 backgroundColor = Love.Graphics.GetBackgroundColor();
                 Love.Graphics.Clear(backgroundColor.r, backgroundColor.g, backgroundColor.b, backgroundColor.a);
+                Love.Graphics.SetScissor();
                 Love.Graphics.Origin();
                 DoDraw();
                 Love.Graphics.Present();
