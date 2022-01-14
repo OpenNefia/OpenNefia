@@ -1,4 +1,5 @@
-﻿using OpenNefia.Content.Input;
+﻿using OpenNefia.Content.GameObjects;
+using OpenNefia.Content.Input;
 using OpenNefia.Content.Prototypes;
 using OpenNefia.Content.Skills;
 using OpenNefia.Content.UI;
@@ -333,19 +334,15 @@ namespace OpenNefia.Content.CharaMake
                 return;
             }
 
-            if (!_entityManager.TryGetComponent<SkillsComponent>(entity, out var skills))
+            if (!_entityManager.TryGetComponent<CharaMakeSkillInitTempComponent>(entity, out var skills))
             {
-                Logger.WarningS("charamake", "No SkillsComponent present on entity");
-                return;
+                skills = _entityManager.AddComponent<CharaMakeSkillInitTempComponent>(entity);
             }
 
             foreach (var attribute in attributes)
             {
-                var level = skills.Level(attribute.Key);
-                skills.Skills[attribute.Key] = new LevelAndPotential()
-                {
-                    Level = attribute.Value + level
-                };
+                skills.Skills.TryGetValue(attribute.Key, out var level);
+                skills.Skills[attribute.Key] = attribute.Value + level;
             }
         }
     }
