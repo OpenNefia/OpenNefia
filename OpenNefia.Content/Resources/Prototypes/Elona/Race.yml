@@ -5,18 +5,18 @@
   maleRatio: 0.5
   baseHeight: 10
   baseSkills:
+    Elona.AttrCharisma: 100
+    Elona.AttrConstitution: 100
+    Elona.AttrDexterity: 100
+    Elona.AttrLearning: 100
+    Elona.AttrLife: 1000
+    Elona.AttrMagic: 100
+    Elona.AttrMana: 1000
+    Elona.AttrPerception: 100
+    Elona.AttrSpeed: 500
+    Elona.AttrStrength: 100
+    Elona.AttrWill: 100
     Elona.Mining: 100
-    Elona.StatCharisma: 100
-    Elona.StatConstitution: 100
-    Elona.StatDexterity: 100
-    Elona.StatLearning: 100
-    Elona.StatLife: 1000
-    Elona.StatMagic: 100
-    Elona.StatMana: 1000
-    Elona.StatPerception: 100
-    Elona.StatSpeed: 500
-    Elona.StatStrength: 100
-    Elona.StatWill: 100
   initialEquipSlots:
   - Elona.Head
   - Elona.Neck
@@ -42,20 +42,20 @@
   minAge: 15
   maxAge: 44
   baseSkills:
+    Elona.AttrCharisma: 2
+    Elona.AttrConstitution: 6
+    Elona.AttrDexterity: 5
+    Elona.AttrLearning: 2
+    Elona.AttrLife: 90
+    Elona.AttrMagic: 4
+    Elona.AttrMana: 80
+    Elona.AttrPerception: 3
+    Elona.AttrSpeed: 70
+    Elona.AttrStrength: 8
+    Elona.AttrWill: 2
     Elona.MagicDevice: 3
     Elona.MartialArts: 2
     Elona.Pickpocket: 3
-    Elona.StatCharisma: 2
-    Elona.StatConstitution: 6
-    Elona.StatDexterity: 5
-    Elona.StatLearning: 2
-    Elona.StatLife: 90
-    Elona.StatMagic: 4
-    Elona.StatMana: 80
-    Elona.StatPerception: 3
-    Elona.StatSpeed: 70
-    Elona.StatStrength: 8
-    Elona.StatWill: 2
     Elona.Stealth: 2
   initialEquipSlots:
   - Elona.Head
@@ -81,21 +81,21 @@
   minAge: 15
   maxAge: 44
   baseSkills:
+    Elona.AttrCharisma: 2
+    Elona.AttrConstitution: 6
+    Elona.AttrDexterity: 3
+    Elona.AttrLearning: 2
+    Elona.AttrLife: 130
+    Elona.AttrMagic: 4
+    Elona.AttrMana: 80
+    Elona.AttrPerception: 2
+    Elona.AttrSpeed: 70
+    Elona.AttrStrength: 5
+    Elona.AttrWill: 3
     Elona.Healing: 3
     Elona.HeavyArmor: 3
     Elona.MartialArts: 1
     Elona.Shield: 3
-    Elona.StatCharisma: 2
-    Elona.StatConstitution: 6
-    Elona.StatDexterity: 3
-    Elona.StatLearning: 2
-    Elona.StatLife: 130
-    Elona.StatMagic: 4
-    Elona.StatMana: 80
-    Elona.StatPerception: 2
-    Elona.StatSpeed: 70
-    Elona.StatStrength: 5
-    Elona.StatWill: 3
   initialEquipSlots:
   - Elona.Head
   - Elona.Body
@@ -119,19 +119,19 @@
   minAge: 15
   maxAge: 44
   baseSkills:
+    Elona.AttrCharisma: 3
+    Elona.AttrConstitution: 9
+    Elona.AttrDexterity: 1
+    Elona.AttrLearning: 2
+    Elona.AttrLife: 90
+    Elona.AttrMagic: 3
+    Elona.AttrMana: 80
+    Elona.AttrPerception: 2
+    Elona.AttrSpeed: 60
+    Elona.AttrStrength: 10
+    Elona.AttrWill: 2
     Elona.Healing: 40
     Elona.MartialArts: 3
-    Elona.StatCharisma: 3
-    Elona.StatConstitution: 9
-    Elona.StatDexterity: 1
-    Elona.StatLearning: 2
-    Elona.StatLife: 90
-    Elona.StatMagic: 3
-    Elona.StatMana: 80
-    Elona.StatPerception: 2
-    Elona.StatSpeed: 60
-    Elona.StatStrength: 10
-    Elona.StatWill: 2
   initialEquipSlots:
   - Elona.Head
   - Elona.Body
@@ -153,21 +153,21 @@
   minAge: 15
   maxAge: 44
   baseSkills:
+    Elona.AttrCharisma: 3
+    Elona.AttrConstitution: 5
+    Elona.AttrDexterity: 6
+    Elona.AttrLearning: 4
+    Elona.AttrLife: 120
+    Elona.AttrMagic: 5
+    Elona.AttrMana: 70
+    Elona.AttrPerception: 7
+    Elona.AttrSpeed: 80
+    Elona.AttrStrength: 7
+    Elona.AttrWill: 4
     Elona.Evasion: 2
     Elona.MartialArts: 2
     Elona.Polearm: 3
     Elona.Shield: 3
-    Elona.StatCharisma: 3
-    Elona.StatConstitution: 5
-    Elona.StatDexterity: 6
-    Elona.StatLearning: 4
-    Elona.StatLife: 120
-    Elona.StatMagic: 5
-    Elona.StatMana: 70
-    Elona.StatPerception: 7
-    Elona.StatSpeed: 80
-    Elona.StatStrength: 7
-    Elona.StatWill: 4
   initialEquipSlots:
   - Elona.Head
   - Elona.Body
@@ -191,19 +191,19 @@
   minAge: 15
   maxAge: 44
   baseSkills:
+    Elona.AttrCharisma: 4
+    Elona.AttrConstitution: 8
+    Elona.AttrDexterity: 3
+    Elona.AttrLearning: 3
+    Elona.AttrLife: 160
+    Elona.AttrMagic: 7
+    Elona.AttrMana: 60
+    Elona.AttrPerception: 4
+    Elona.AttrSpeed: 65
+    Elona.AttrStrength: 12
+    Elona.AttrWill: 4
     Elona.EyeOfMind: 3
     Elona.MartialArts: 3
-    Elona.StatCharisma: 4
-    Elona.StatConstitution: 8
-    Elona.StatDexterity: 3
-    Elona.StatLearning: 3
-    Elona.StatLife: 160
-    Elona.StatMagic: 7
-    Elona.StatMana: 60
-    Elona.StatPerception: 4
-    Elona.StatSpeed: 65
-    Elona.StatStrength: 12
-    Elona.StatWill: 4
     Elona.Tactics: 4
   initialEquipSlots:
   - Elona.Head
@@ -226,21 +226,21 @@
   minAge: 15
   maxAge: 34
   baseSkills:
+    Elona.AttrCharisma: 7
+    Elona.AttrConstitution: 8
+    Elona.AttrDexterity: 8
+    Elona.AttrLearning: 12
+    Elona.AttrLife: 110
+    Elona.AttrMagic: 8
+    Elona.AttrMana: 90
+    Elona.AttrPerception: 8
+    Elona.AttrSpeed: 70
+    Elona.AttrStrength: 7
+    Elona.AttrWill: 8
     Elona.Firearm: 5
     Elona.Literacy: 3
     Elona.MartialArts: 2
     Elona.Negotiation: 2
-    Elona.StatCharisma: 7
-    Elona.StatConstitution: 8
-    Elona.StatDexterity: 8
-    Elona.StatLearning: 12
-    Elona.StatLife: 110
-    Elona.StatMagic: 8
-    Elona.StatMana: 90
-    Elona.StatPerception: 8
-    Elona.StatSpeed: 70
-    Elona.StatStrength: 7
-    Elona.StatWill: 8
     Elona.Throwing: 3
   initialEquipSlots:
   - Elona.Head
@@ -269,20 +269,20 @@
   minAge: 15
   maxAge: 34
   baseSkills:
+    Elona.AttrCharisma: 6
+    Elona.AttrConstitution: 8
+    Elona.AttrDexterity: 6
+    Elona.AttrLearning: 7
+    Elona.AttrLife: 100
+    Elona.AttrMagic: 7
+    Elona.AttrMana: 90
+    Elona.AttrPerception: 6
+    Elona.AttrSpeed: 70
+    Elona.AttrStrength: 8
+    Elona.AttrWill: 9
     Elona.Casting: 3
     Elona.ControlMagic: 3
     Elona.MartialArts: 2
-    Elona.StatCharisma: 6
-    Elona.StatConstitution: 8
-    Elona.StatDexterity: 6
-    Elona.StatLearning: 7
-    Elona.StatLife: 100
-    Elona.StatMagic: 7
-    Elona.StatMana: 90
-    Elona.StatPerception: 6
-    Elona.StatSpeed: 70
-    Elona.StatStrength: 8
-    Elona.StatWill: 9
     Elona.Tactics: 3
     Elona.TwoHand: 3
   initialEquipSlots:
@@ -310,21 +310,21 @@
   minAge: 16
   maxAge: 35
   baseSkills:
+    Elona.AttrCharisma: 8
+    Elona.AttrConstitution: 7
+    Elona.AttrDexterity: 7
+    Elona.AttrLearning: 8
+    Elona.AttrLife: 100
+    Elona.AttrMagic: 12
+    Elona.AttrMana: 100
+    Elona.AttrPerception: 10
+    Elona.AttrSpeed: 70
+    Elona.AttrStrength: 6
+    Elona.AttrWill: 10
     Elona.Casting: 5
     Elona.Literacy: 3
     Elona.MagicDevice: 3
     Elona.MartialArts: 2
-    Elona.StatCharisma: 8
-    Elona.StatConstitution: 7
-    Elona.StatDexterity: 7
-    Elona.StatLearning: 8
-    Elona.StatLife: 100
-    Elona.StatMagic: 12
-    Elona.StatMana: 100
-    Elona.StatPerception: 10
-    Elona.StatSpeed: 70
-    Elona.StatStrength: 6
-    Elona.StatWill: 10
   initialEquipSlots:
   - Elona.Head
   - Elona.Neck
@@ -352,21 +352,21 @@
   minAge: 5
   maxAge: 104
   baseSkills:
+    Elona.AttrCharisma: 12
+    Elona.AttrConstitution: 4
+    Elona.AttrDexterity: 9
+    Elona.AttrLearning: 8
+    Elona.AttrLife: 40
+    Elona.AttrMagic: 13
+    Elona.AttrMana: 130
+    Elona.AttrPerception: 10
+    Elona.AttrSpeed: 120
+    Elona.AttrStrength: 3
+    Elona.AttrWill: 8
     Elona.Casting: 5
     Elona.LightArmor: 3
     Elona.MartialArts: 1
     Elona.Pickpocket: 3
-    Elona.StatCharisma: 12
-    Elona.StatConstitution: 4
-    Elona.StatDexterity: 9
-    Elona.StatLearning: 8
-    Elona.StatLife: 40
-    Elona.StatMagic: 13
-    Elona.StatMana: 130
-    Elona.StatPerception: 10
-    Elona.StatSpeed: 120
-    Elona.StatStrength: 3
-    Elona.StatWill: 8
   initialEquipSlots:
   - Elona.Head
   - Elona.Neck
@@ -396,20 +396,20 @@
   maxAge: 34
   baseSkills:
     Elona.Anatomy: 4
+    Elona.AttrCharisma: 5
+    Elona.AttrConstitution: 9
+    Elona.AttrDexterity: 14
+    Elona.AttrLearning: 4
+    Elona.AttrLife: 90
+    Elona.AttrMagic: 5
+    Elona.AttrMana: 70
+    Elona.AttrPerception: 6
+    Elona.AttrSpeed: 70
+    Elona.AttrStrength: 11
+    Elona.AttrWill: 4
     Elona.DualWield: 30
     Elona.GreaterEvasion: 6
     Elona.MartialArts: 2
-    Elona.StatCharisma: 5
-    Elona.StatConstitution: 9
-    Elona.StatDexterity: 14
-    Elona.StatLearning: 4
-    Elona.StatLife: 90
-    Elona.StatMagic: 5
-    Elona.StatMana: 70
-    Elona.StatPerception: 6
-    Elona.StatSpeed: 70
-    Elona.StatStrength: 11
-    Elona.StatWill: 4
   initialEquipSlots:
   - Elona.Hand
   - Elona.Hand
@@ -429,20 +429,20 @@
   minAge: 1
   maxAge: 10
   baseSkills:
+    Elona.AttrCharisma: 13
+    Elona.AttrConstitution: 5
+    Elona.AttrDexterity: 7
+    Elona.AttrLearning: 6
+    Elona.AttrLife: 80
+    Elona.AttrMagic: 4
+    Elona.AttrMana: 100
+    Elona.AttrPerception: 5
+    Elona.AttrSpeed: 55
+    Elona.AttrStrength: 4
+    Elona.AttrWill: 8
     Elona.Evasion: 2
     Elona.MartialArts: 2
     Elona.Performer: 3
-    Elona.StatCharisma: 13
-    Elona.StatConstitution: 5
-    Elona.StatDexterity: 7
-    Elona.StatLearning: 6
-    Elona.StatLife: 80
-    Elona.StatMagic: 4
-    Elona.StatMana: 100
-    Elona.StatPerception: 5
-    Elona.StatSpeed: 55
-    Elona.StatStrength: 4
-    Elona.StatWill: 8
   initialEquipSlots:
   - Elona.Head
 - type: Elona.Race
@@ -458,20 +458,20 @@
   minAge: 2
   maxAge: 11
   baseSkills:
+    Elona.AttrCharisma: 6
+    Elona.AttrConstitution: 8
+    Elona.AttrDexterity: 6
+    Elona.AttrLearning: 7
+    Elona.AttrLife: 100
+    Elona.AttrMagic: 4
+    Elona.AttrMana: 80
+    Elona.AttrPerception: 11
+    Elona.AttrSpeed: 80
+    Elona.AttrStrength: 8
+    Elona.AttrWill: 8
     Elona.Evasion: 2
     Elona.GreaterEvasion: 2
     Elona.MartialArts: 2
-    Elona.StatCharisma: 6
-    Elona.StatConstitution: 8
-    Elona.StatDexterity: 6
-    Elona.StatLearning: 7
-    Elona.StatLife: 100
-    Elona.StatMagic: 4
-    Elona.StatMana: 80
-    Elona.StatPerception: 11
-    Elona.StatSpeed: 80
-    Elona.StatStrength: 8
-    Elona.StatWill: 8
   initialEquipSlots:
   - Elona.Head
   - Elona.Neck
@@ -492,21 +492,21 @@
   minAge: 20
   maxAge: 79
   baseSkills:
+    Elona.AttrCharisma: 6
+    Elona.AttrConstitution: 11
+    Elona.AttrDexterity: 8
+    Elona.AttrLearning: 6
+    Elona.AttrLife: 100
+    Elona.AttrMagic: 6
+    Elona.AttrMana: 100
+    Elona.AttrPerception: 6
+    Elona.AttrSpeed: 70
+    Elona.AttrStrength: 10
+    Elona.AttrWill: 7
     Elona.Cooking: 4
     Elona.Jeweler: 3
     Elona.MartialArts: 2
     Elona.Mining: 4
-    Elona.StatCharisma: 6
-    Elona.StatConstitution: 11
-    Elona.StatDexterity: 8
-    Elona.StatLearning: 6
-    Elona.StatLife: 100
-    Elona.StatMagic: 6
-    Elona.StatMana: 100
-    Elona.StatPerception: 6
-    Elona.StatSpeed: 70
-    Elona.StatStrength: 10
-    Elona.StatWill: 7
   initialEquipSlots:
   - Elona.Head
   - Elona.Neck
@@ -520,8 +520,8 @@
   - Elona.Waist
   - Elona.Leg
   initialFeats:
-    Elona.PermPoison: 2
     Elona.PermDarkness: 1
+    Elona.PermPoison: 2
 - type: Elona.Race
   id: Elona.Juere
   hspIds:
@@ -535,21 +535,21 @@
   minAge: 15
   maxAge: 44
   baseSkills:
+    Elona.AttrCharisma: 11
+    Elona.AttrConstitution: 8
+    Elona.AttrDexterity: 12
+    Elona.AttrLearning: 10
+    Elona.AttrLife: 100
+    Elona.AttrMagic: 8
+    Elona.AttrMana: 100
+    Elona.AttrPerception: 10
+    Elona.AttrSpeed: 70
+    Elona.AttrStrength: 7
+    Elona.AttrWill: 8
     Elona.LockPicking: 2
     Elona.MartialArts: 2
     Elona.Negotiation: 2
     Elona.Performer: 4
-    Elona.StatCharisma: 11
-    Elona.StatConstitution: 8
-    Elona.StatDexterity: 12
-    Elona.StatLearning: 10
-    Elona.StatLife: 100
-    Elona.StatMagic: 8
-    Elona.StatMana: 100
-    Elona.StatPerception: 10
-    Elona.StatSpeed: 70
-    Elona.StatStrength: 7
-    Elona.StatWill: 8
     Elona.Throwing: 3
   initialEquipSlots:
   - Elona.Head
@@ -564,8 +564,8 @@
   - Elona.Waist
   - Elona.Leg
   initialFeats:
-    Elona.PermSlowFood: 1
     Elona.PermMaterial: 1
+    Elona.PermSlowFood: 1
 - type: Elona.Race
   id: Elona.Zombie
   hspIds:
@@ -579,20 +579,20 @@
   minAge: 10
   maxAge: 209
   baseSkills:
+    Elona.AttrCharisma: 2
+    Elona.AttrConstitution: 8
+    Elona.AttrDexterity: 2
+    Elona.AttrLearning: 1
+    Elona.AttrLife: 120
+    Elona.AttrMagic: 6
+    Elona.AttrMana: 100
+    Elona.AttrPerception: 2
+    Elona.AttrSpeed: 45
+    Elona.AttrStrength: 10
+    Elona.AttrWill: 6
     Elona.Cooking: 3
     Elona.Fishing: 3
     Elona.MartialArts: 3
-    Elona.StatCharisma: 2
-    Elona.StatConstitution: 8
-    Elona.StatDexterity: 2
-    Elona.StatLearning: 1
-    Elona.StatLife: 120
-    Elona.StatMagic: 6
-    Elona.StatMana: 100
-    Elona.StatPerception: 2
-    Elona.StatSpeed: 45
-    Elona.StatStrength: 10
-    Elona.StatWill: 6
   initialEquipSlots:
   - Elona.Head
   - Elona.Neck
@@ -615,21 +615,21 @@
   minAge: 10
   maxAge: 209
   baseSkills:
+    Elona.AttrCharisma: 10
+    Elona.AttrConstitution: 6
+    Elona.AttrDexterity: 8
+    Elona.AttrLearning: 8
+    Elona.AttrLife: 90
+    Elona.AttrMagic: 13
+    Elona.AttrMana: 110
+    Elona.AttrPerception: 8
+    Elona.AttrSpeed: 70
+    Elona.AttrStrength: 6
+    Elona.AttrWill: 12
     Elona.Casting: 2
     Elona.MagicCapacity: 5
     Elona.MartialArts: 2
     Elona.Memorization: 3
-    Elona.StatCharisma: 10
-    Elona.StatConstitution: 6
-    Elona.StatDexterity: 8
-    Elona.StatLearning: 8
-    Elona.StatLife: 90
-    Elona.StatMagic: 13
-    Elona.StatMana: 110
-    Elona.StatPerception: 8
-    Elona.StatSpeed: 70
-    Elona.StatStrength: 6
-    Elona.StatWill: 12
   initialEquipSlots:
   - Elona.Head
   - Elona.Neck
@@ -643,8 +643,8 @@
   - Elona.Waist
   - Elona.Leg
   initialFeats:
-    Elona.PermResEther: 1
     Elona.PermCapacity: 1
+    Elona.PermResEther: 1
 - type: Elona.Race
   id: Elona.Rabbit
   hspIds:
@@ -658,19 +658,19 @@
   minAge: 2
   maxAge: 6
   baseSkills:
+    Elona.AttrCharisma: 10
+    Elona.AttrConstitution: 4
+    Elona.AttrDexterity: 6
+    Elona.AttrLearning: 5
+    Elona.AttrLife: 90
+    Elona.AttrMagic: 4
+    Elona.AttrMana: 80
+    Elona.AttrPerception: 11
+    Elona.AttrSpeed: 100
+    Elona.AttrStrength: 5
+    Elona.AttrWill: 4
     Elona.MartialArts: 1
     Elona.Riding: 3
-    Elona.StatCharisma: 10
-    Elona.StatConstitution: 4
-    Elona.StatDexterity: 6
-    Elona.StatLearning: 5
-    Elona.StatLife: 90
-    Elona.StatMagic: 4
-    Elona.StatMana: 80
-    Elona.StatPerception: 11
-    Elona.StatSpeed: 100
-    Elona.StatStrength: 5
-    Elona.StatWill: 4
   initialEquipSlots:
   - Elona.Head
   - Elona.Neck
@@ -691,19 +691,19 @@
   maxAge: 6
   baseSkills:
     Elona.Anatomy: 3
+    Elona.AttrCharisma: 8
+    Elona.AttrConstitution: 6
+    Elona.AttrDexterity: 5
+    Elona.AttrLearning: 4
+    Elona.AttrLife: 130
+    Elona.AttrMagic: 4
+    Elona.AttrMana: 80
+    Elona.AttrPerception: 6
+    Elona.AttrSpeed: 60
+    Elona.AttrStrength: 6
+    Elona.AttrWill: 5
     Elona.Healing: 3
     Elona.MartialArts: 1
-    Elona.StatCharisma: 8
-    Elona.StatConstitution: 6
-    Elona.StatDexterity: 5
-    Elona.StatLearning: 4
-    Elona.StatLife: 130
-    Elona.StatMagic: 4
-    Elona.StatMana: 80
-    Elona.StatPerception: 6
-    Elona.StatSpeed: 60
-    Elona.StatStrength: 6
-    Elona.StatWill: 5
   initialEquipSlots:
   - Elona.Head
   - Elona.Neck
@@ -724,20 +724,20 @@
   minAge: 2
   maxAge: 6
   baseSkills:
+    Elona.AttrCharisma: 6
+    Elona.AttrConstitution: 6
+    Elona.AttrDexterity: 6
+    Elona.AttrLearning: 5
+    Elona.AttrLife: 80
+    Elona.AttrMagic: 5
+    Elona.AttrMana: 80
+    Elona.AttrPerception: 8
+    Elona.AttrSpeed: 60
+    Elona.AttrStrength: 6
+    Elona.AttrWill: 5
     Elona.Investing: 2
     Elona.MartialArts: 1
     Elona.Performer: 3
-    Elona.StatCharisma: 6
-    Elona.StatConstitution: 6
-    Elona.StatDexterity: 6
-    Elona.StatLearning: 5
-    Elona.StatLife: 80
-    Elona.StatMagic: 5
-    Elona.StatMana: 80
-    Elona.StatPerception: 8
-    Elona.StatSpeed: 60
-    Elona.StatStrength: 6
-    Elona.StatWill: 5
   initialEquipSlots:
   - Elona.Body
 - type: Elona.Race
@@ -753,19 +753,19 @@
   minAge: 10
   maxAge: 19
   baseSkills:
+    Elona.AttrCharisma: 2
+    Elona.AttrConstitution: 5
+    Elona.AttrDexterity: 5
+    Elona.AttrLearning: 3
+    Elona.AttrLife: 90
+    Elona.AttrMagic: 2
+    Elona.AttrMana: 80
+    Elona.AttrPerception: 6
+    Elona.AttrSpeed: 70
+    Elona.AttrStrength: 6
+    Elona.AttrWill: 2
     Elona.EyeOfMind: 3
     Elona.MartialArts: 1
-    Elona.StatCharisma: 2
-    Elona.StatConstitution: 5
-    Elona.StatDexterity: 5
-    Elona.StatLearning: 3
-    Elona.StatLife: 90
-    Elona.StatMagic: 2
-    Elona.StatMana: 80
-    Elona.StatPerception: 6
-    Elona.StatSpeed: 70
-    Elona.StatStrength: 6
-    Elona.StatWill: 2
   initialEquipSlots:
   - Elona.Back
   - Elona.Ring
@@ -783,18 +783,18 @@
   minAge: 10
   maxAge: 19
   baseSkills:
+    Elona.AttrCharisma: 4
+    Elona.AttrConstitution: 5
+    Elona.AttrDexterity: 3
+    Elona.AttrLearning: 3
+    Elona.AttrLife: 100
+    Elona.AttrMagic: 2
+    Elona.AttrMana: 80
+    Elona.AttrPerception: 6
+    Elona.AttrSpeed: 25
+    Elona.AttrStrength: 4
+    Elona.AttrWill: 4
     Elona.MartialArts: 1
-    Elona.StatCharisma: 4
-    Elona.StatConstitution: 5
-    Elona.StatDexterity: 3
-    Elona.StatLearning: 3
-    Elona.StatLife: 100
-    Elona.StatMagic: 2
-    Elona.StatMana: 80
-    Elona.StatPerception: 6
-    Elona.StatSpeed: 25
-    Elona.StatStrength: 4
-    Elona.StatWill: 4
     Elona.Throwing: 5
   initialEquipSlots:
   - Elona.Back
@@ -811,21 +811,21 @@
   minAge: 10
   maxAge: 19
   baseSkills:
+    Elona.AttrCharisma: 4
+    Elona.AttrConstitution: 6
+    Elona.AttrDexterity: 5
+    Elona.AttrLearning: 8
+    Elona.AttrLife: 70
+    Elona.AttrMagic: 10
+    Elona.AttrMana: 80
+    Elona.AttrPerception: 10
+    Elona.AttrSpeed: 60
+    Elona.AttrStrength: 5
+    Elona.AttrWill: 8
     Elona.Literacy: 2
     Elona.MagicCapacity: 3
     Elona.MartialArts: 2
     Elona.Memorization: 3
-    Elona.StatCharisma: 4
-    Elona.StatConstitution: 6
-    Elona.StatDexterity: 5
-    Elona.StatLearning: 8
-    Elona.StatLife: 70
-    Elona.StatMagic: 10
-    Elona.StatMana: 80
-    Elona.StatPerception: 10
-    Elona.StatSpeed: 60
-    Elona.StatStrength: 5
-    Elona.StatWill: 8
   initialEquipSlots:
   - Elona.Head
   - Elona.Back
@@ -842,19 +842,19 @@
   minAge: 10
   maxAge: 19
   baseSkills:
+    Elona.AttrCharisma: 3
+    Elona.AttrConstitution: 6
+    Elona.AttrDexterity: 5
+    Elona.AttrLearning: 4
+    Elona.AttrLife: 80
+    Elona.AttrMagic: 4
+    Elona.AttrMana: 80
+    Elona.AttrPerception: 7
+    Elona.AttrSpeed: 75
+    Elona.AttrStrength: 5
+    Elona.AttrWill: 5
     Elona.Detection: 3
     Elona.MartialArts: 2
-    Elona.StatCharisma: 3
-    Elona.StatConstitution: 6
-    Elona.StatDexterity: 5
-    Elona.StatLearning: 4
-    Elona.StatLife: 80
-    Elona.StatMagic: 4
-    Elona.StatMana: 80
-    Elona.StatPerception: 7
-    Elona.StatSpeed: 75
-    Elona.StatStrength: 5
-    Elona.StatWill: 5
     Elona.Stealth: 3
   initialEquipSlots:
   - Elona.Neck
@@ -872,18 +872,18 @@
   maxAge: 19
   baseSkills:
     Elona.Alchemy: 2
+    Elona.AttrCharisma: 4
+    Elona.AttrConstitution: 7
+    Elona.AttrDexterity: 4
+    Elona.AttrLearning: 4
+    Elona.AttrLife: 50
+    Elona.AttrMagic: 10
+    Elona.AttrMana: 80
+    Elona.AttrPerception: 8
+    Elona.AttrSpeed: 60
+    Elona.AttrStrength: 5
+    Elona.AttrWill: 8
     Elona.MartialArts: 1
-    Elona.StatCharisma: 4
-    Elona.StatConstitution: 7
-    Elona.StatDexterity: 4
-    Elona.StatLearning: 4
-    Elona.StatLife: 50
-    Elona.StatMagic: 10
-    Elona.StatMana: 80
-    Elona.StatPerception: 8
-    Elona.StatSpeed: 60
-    Elona.StatStrength: 5
-    Elona.StatWill: 8
     Elona.Tailoring: 3
   initialEquipSlots:
   - Elona.Head
@@ -901,19 +901,19 @@
   minAge: 10
   maxAge: 19
   baseSkills:
+    Elona.AttrCharisma: 2
+    Elona.AttrConstitution: 5
+    Elona.AttrDexterity: 9
+    Elona.AttrLearning: 4
+    Elona.AttrLife: 10
+    Elona.AttrMagic: 6
+    Elona.AttrMana: 80
+    Elona.AttrPerception: 9
+    Elona.AttrSpeed: 140
+    Elona.AttrStrength: 3
+    Elona.AttrWill: 3
     Elona.GreaterEvasion: 3
     Elona.MartialArts: 2
-    Elona.StatCharisma: 2
-    Elona.StatConstitution: 5
-    Elona.StatDexterity: 9
-    Elona.StatLearning: 4
-    Elona.StatLife: 10
-    Elona.StatMagic: 6
-    Elona.StatMana: 80
-    Elona.StatPerception: 9
-    Elona.StatSpeed: 140
-    Elona.StatStrength: 3
-    Elona.StatWill: 3
   initialEquipSlots:
   - Elona.Head
 - type: Elona.Race
@@ -929,20 +929,20 @@
   minAge: 10
   maxAge: 19
   baseSkills:
+    Elona.AttrCharisma: 2
+    Elona.AttrConstitution: 12
+    Elona.AttrDexterity: 4
+    Elona.AttrLearning: 2
+    Elona.AttrLife: 170
+    Elona.AttrMagic: 6
+    Elona.AttrMana: 80
+    Elona.AttrPerception: 6
+    Elona.AttrSpeed: 50
+    Elona.AttrStrength: 9
+    Elona.AttrWill: 3
     Elona.Carpentry: 4
     Elona.Healing: 2
     Elona.MartialArts: 3
-    Elona.StatCharisma: 2
-    Elona.StatConstitution: 12
-    Elona.StatDexterity: 4
-    Elona.StatLearning: 2
-    Elona.StatLife: 170
-    Elona.StatMagic: 6
-    Elona.StatMana: 80
-    Elona.StatPerception: 6
-    Elona.StatSpeed: 50
-    Elona.StatStrength: 9
-    Elona.StatWill: 3
   initialEquipSlots:
   - Elona.Hand
   - Elona.Ring
@@ -962,21 +962,21 @@
   minAge: 10
   maxAge: 19
   baseSkills:
+    Elona.AttrCharisma: 4
+    Elona.AttrConstitution: 8
+    Elona.AttrDexterity: 7
+    Elona.AttrLearning: 10
+    Elona.AttrLife: 80
+    Elona.AttrMagic: 15
+    Elona.AttrMana: 140
+    Elona.AttrPerception: 10
+    Elona.AttrSpeed: 70
+    Elona.AttrStrength: 5
+    Elona.AttrWill: 13
     Elona.Casting: 3
     Elona.MagicDevice: 3
     Elona.MartialArts: 3
     Elona.Meditation: 5
-    Elona.StatCharisma: 4
-    Elona.StatConstitution: 8
-    Elona.StatDexterity: 7
-    Elona.StatLearning: 10
-    Elona.StatLife: 80
-    Elona.StatMagic: 15
-    Elona.StatMana: 140
-    Elona.StatPerception: 10
-    Elona.StatSpeed: 70
-    Elona.StatStrength: 5
-    Elona.StatWill: 13
   initialEquipSlots:
   - Elona.Head
   - Elona.Neck
@@ -1006,20 +1006,20 @@
   minAge: 10
   maxAge: 19
   baseSkills:
+    Elona.AttrCharisma: 3
+    Elona.AttrConstitution: 9
+    Elona.AttrDexterity: 11
+    Elona.AttrLearning: 5
+    Elona.AttrLife: 100
+    Elona.AttrMagic: 3
+    Elona.AttrMana: 80
+    Elona.AttrPerception: 10
+    Elona.AttrSpeed: 90
+    Elona.AttrStrength: 8
+    Elona.AttrWill: 4
     Elona.Detection: 4
     Elona.MartialArts: 2
     Elona.Performer: 2
-    Elona.StatCharisma: 3
-    Elona.StatConstitution: 9
-    Elona.StatDexterity: 11
-    Elona.StatLearning: 5
-    Elona.StatLife: 100
-    Elona.StatMagic: 3
-    Elona.StatMana: 80
-    Elona.StatPerception: 10
-    Elona.StatSpeed: 90
-    Elona.StatStrength: 8
-    Elona.StatWill: 4
   initialEquipSlots:
   - Elona.Head
   - Elona.Neck
@@ -1039,20 +1039,20 @@
   minAge: 10
   maxAge: 19
   baseSkills:
+    Elona.AttrCharisma: 11
+    Elona.AttrConstitution: 8
+    Elona.AttrDexterity: 6
+    Elona.AttrLearning: 7
+    Elona.AttrLife: 60
+    Elona.AttrMagic: 11
+    Elona.AttrMana: 80
+    Elona.AttrPerception: 14
+    Elona.AttrSpeed: 60
+    Elona.AttrStrength: 4
+    Elona.AttrWill: 6
     Elona.MagicCapacity: 4
     Elona.MagicDevice: 2
     Elona.MartialArts: 2
-    Elona.StatCharisma: 11
-    Elona.StatConstitution: 8
-    Elona.StatDexterity: 6
-    Elona.StatLearning: 7
-    Elona.StatLife: 60
-    Elona.StatMagic: 11
-    Elona.StatMana: 80
-    Elona.StatPerception: 14
-    Elona.StatSpeed: 60
-    Elona.StatStrength: 4
-    Elona.StatWill: 6
   initialEquipSlots:
   - Elona.Head
   - Elona.Neck
@@ -1075,20 +1075,20 @@
   minAge: 10
   maxAge: 19
   baseSkills:
+    Elona.AttrCharisma: 4
+    Elona.AttrConstitution: 9
+    Elona.AttrDexterity: 5
+    Elona.AttrLearning: 8
+    Elona.AttrLife: 100
+    Elona.AttrMagic: 13
+    Elona.AttrMana: 80
+    Elona.AttrPerception: 7
+    Elona.AttrSpeed: 60
+    Elona.AttrStrength: 5
+    Elona.AttrWill: 10
     Elona.Casting: 3
     Elona.ControlMagic: 2
     Elona.MartialArts: 2
-    Elona.StatCharisma: 4
-    Elona.StatConstitution: 9
-    Elona.StatDexterity: 5
-    Elona.StatLearning: 8
-    Elona.StatLife: 100
-    Elona.StatMagic: 13
-    Elona.StatMana: 80
-    Elona.StatPerception: 7
-    Elona.StatSpeed: 60
-    Elona.StatStrength: 5
-    Elona.StatWill: 10
   initialEquipSlots:
   - Elona.Head
   - Elona.Neck
@@ -1112,19 +1112,19 @@
   maxAge: 19
   baseSkills:
     Elona.Anatomy: 3
+    Elona.AttrCharisma: 4
+    Elona.AttrConstitution: 9
+    Elona.AttrDexterity: 4
+    Elona.AttrLearning: 4
+    Elona.AttrLife: 100
+    Elona.AttrMagic: 10
+    Elona.AttrMana: 80
+    Elona.AttrPerception: 6
+    Elona.AttrSpeed: 25
+    Elona.AttrStrength: 3
+    Elona.AttrWill: 7
     Elona.Detection: 3
     Elona.MartialArts: 2
-    Elona.StatCharisma: 4
-    Elona.StatConstitution: 9
-    Elona.StatDexterity: 4
-    Elona.StatLearning: 4
-    Elona.StatLife: 100
-    Elona.StatMagic: 10
-    Elona.StatMana: 80
-    Elona.StatPerception: 6
-    Elona.StatSpeed: 25
-    Elona.StatStrength: 3
-    Elona.StatWill: 7
   initialEquipSlots:
   - Elona.Head
 - type: Elona.Race
@@ -1140,19 +1140,19 @@
   minAge: 10
   maxAge: 19
   baseSkills:
+    Elona.AttrCharisma: 4
+    Elona.AttrConstitution: 13
+    Elona.AttrDexterity: 8
+    Elona.AttrLearning: 5
+    Elona.AttrLife: 190
+    Elona.AttrMagic: 8
+    Elona.AttrMana: 80
+    Elona.AttrPerception: 9
+    Elona.AttrSpeed: 70
+    Elona.AttrStrength: 11
+    Elona.AttrWill: 7
     Elona.Literacy: 3
     Elona.MartialArts: 3
-    Elona.StatCharisma: 4
-    Elona.StatConstitution: 13
-    Elona.StatDexterity: 8
-    Elona.StatLearning: 5
-    Elona.StatLife: 190
-    Elona.StatMagic: 8
-    Elona.StatMana: 80
-    Elona.StatPerception: 9
-    Elona.StatSpeed: 70
-    Elona.StatStrength: 11
-    Elona.StatWill: 7
     Elona.Traveling: 3
   initialEquipSlots:
   - Elona.Neck
@@ -1172,19 +1172,19 @@
   minAge: 10
   maxAge: 19
   baseSkills:
+    Elona.AttrCharisma: 2
+    Elona.AttrConstitution: 6
+    Elona.AttrDexterity: 13
+    Elona.AttrLearning: 4
+    Elona.AttrLife: 50
+    Elona.AttrMagic: 3
+    Elona.AttrMana: 80
+    Elona.AttrPerception: 11
+    Elona.AttrSpeed: 100
+    Elona.AttrStrength: 7
+    Elona.AttrWill: 6
     Elona.GreaterEvasion: 2
     Elona.MartialArts: 2
-    Elona.StatCharisma: 2
-    Elona.StatConstitution: 6
-    Elona.StatDexterity: 13
-    Elona.StatLearning: 4
-    Elona.StatLife: 50
-    Elona.StatMagic: 3
-    Elona.StatMana: 80
-    Elona.StatPerception: 11
-    Elona.StatSpeed: 100
-    Elona.StatStrength: 7
-    Elona.StatWill: 6
   initialEquipSlots:
   - Elona.Head
 - type: Elona.Race
@@ -1201,20 +1201,20 @@
   maxAge: 19
   baseSkills:
     Elona.Anatomy: 3
+    Elona.AttrCharisma: 3
+    Elona.AttrConstitution: 14
+    Elona.AttrDexterity: 9
+    Elona.AttrLearning: 8
+    Elona.AttrLife: 200
+    Elona.AttrMagic: 6
+    Elona.AttrMana: 80
+    Elona.AttrPerception: 4
+    Elona.AttrSpeed: 60
+    Elona.AttrStrength: 12
+    Elona.AttrWill: 5
     Elona.Carpentry: 3
     Elona.MagicDevice: 2
     Elona.MartialArts: 4
-    Elona.StatCharisma: 3
-    Elona.StatConstitution: 14
-    Elona.StatDexterity: 9
-    Elona.StatLearning: 8
-    Elona.StatLife: 200
-    Elona.StatMagic: 6
-    Elona.StatMana: 80
-    Elona.StatPerception: 4
-    Elona.StatSpeed: 60
-    Elona.StatStrength: 12
-    Elona.StatWill: 5
   initialEquipSlots:
   - Elona.Body
   - Elona.Back
@@ -1235,20 +1235,20 @@
   minAge: 10
   maxAge: 19
   baseSkills:
+    Elona.AttrCharisma: 3
+    Elona.AttrConstitution: 6
+    Elona.AttrDexterity: 8
+    Elona.AttrLearning: 8
+    Elona.AttrLife: 70
+    Elona.AttrMagic: 7
+    Elona.AttrMana: 80
+    Elona.AttrPerception: 8
+    Elona.AttrSpeed: 70
+    Elona.AttrStrength: 5
+    Elona.AttrWill: 4
     Elona.ControlMagic: 3
     Elona.MartialArts: 2
     Elona.Memorization: 3
-    Elona.StatCharisma: 3
-    Elona.StatConstitution: 6
-    Elona.StatDexterity: 8
-    Elona.StatLearning: 8
-    Elona.StatLife: 70
-    Elona.StatMagic: 7
-    Elona.StatMana: 80
-    Elona.StatPerception: 8
-    Elona.StatSpeed: 70
-    Elona.StatStrength: 5
-    Elona.StatWill: 4
   initialEquipSlots:
   - Elona.Neck
   - Elona.Body
@@ -1270,19 +1270,19 @@
   minAge: 10
   maxAge: 19
   baseSkills:
+    Elona.AttrCharisma: 2
+    Elona.AttrConstitution: 9
+    Elona.AttrDexterity: 9
+    Elona.AttrLearning: 8
+    Elona.AttrLife: 100
+    Elona.AttrMagic: 5
+    Elona.AttrMana: 80
+    Elona.AttrPerception: 4
+    Elona.AttrSpeed: 70
+    Elona.AttrStrength: 8
+    Elona.AttrWill: 6
     Elona.EyeOfMind: 4
     Elona.MartialArts: 2
-    Elona.StatCharisma: 2
-    Elona.StatConstitution: 9
-    Elona.StatDexterity: 9
-    Elona.StatLearning: 8
-    Elona.StatLife: 100
-    Elona.StatMagic: 5
-    Elona.StatMana: 80
-    Elona.StatPerception: 4
-    Elona.StatSpeed: 70
-    Elona.StatStrength: 8
-    Elona.StatWill: 6
   initialEquipSlots:
   - Elona.Hand
   - Elona.Hand
@@ -1302,18 +1302,18 @@
   minAge: 10
   maxAge: 19
   baseSkills:
+    Elona.AttrCharisma: 4
+    Elona.AttrConstitution: 9
+    Elona.AttrDexterity: 8
+    Elona.AttrLearning: 4
+    Elona.AttrLife: 100
+    Elona.AttrMagic: 6
+    Elona.AttrMana: 80
+    Elona.AttrPerception: 10
+    Elona.AttrSpeed: 70
+    Elona.AttrStrength: 6
+    Elona.AttrWill: 6
     Elona.MartialArts: 2
-    Elona.StatCharisma: 4
-    Elona.StatConstitution: 9
-    Elona.StatDexterity: 8
-    Elona.StatLearning: 4
-    Elona.StatLife: 100
-    Elona.StatMagic: 6
-    Elona.StatMana: 80
-    Elona.StatPerception: 10
-    Elona.StatSpeed: 70
-    Elona.StatStrength: 6
-    Elona.StatWill: 6
     Elona.Stealth: 4
   initialEquipSlots:
   - Elona.Body
@@ -1330,19 +1330,19 @@
   minAge: 10
   maxAge: 19
   baseSkills:
+    Elona.AttrCharisma: 7
+    Elona.AttrConstitution: 12
+    Elona.AttrDexterity: 11
+    Elona.AttrLearning: 6
+    Elona.AttrLife: 160
+    Elona.AttrMagic: 8
+    Elona.AttrMana: 80
+    Elona.AttrPerception: 8
+    Elona.AttrSpeed: 85
+    Elona.AttrStrength: 11
+    Elona.AttrWill: 9
     Elona.Fishing: 2
     Elona.MartialArts: 3
-    Elona.StatCharisma: 7
-    Elona.StatConstitution: 12
-    Elona.StatDexterity: 11
-    Elona.StatLearning: 6
-    Elona.StatLife: 160
-    Elona.StatMagic: 8
-    Elona.StatMana: 80
-    Elona.StatPerception: 8
-    Elona.StatSpeed: 85
-    Elona.StatStrength: 11
-    Elona.StatWill: 9
     Elona.Traveling: 3
   initialEquipSlots:
   - Elona.Neck
@@ -1362,22 +1362,22 @@
   minAge: 10
   maxAge: 19
   baseSkills:
+    Elona.AttrCharisma: 4
+    Elona.AttrConstitution: 8
+    Elona.AttrDexterity: 5
+    Elona.AttrLearning: 8
+    Elona.AttrLife: 110
+    Elona.AttrMagic: 7
+    Elona.AttrMana: 90
+    Elona.AttrPerception: 5
+    Elona.AttrSpeed: 70
+    Elona.AttrStrength: 8
+    Elona.AttrWill: 7
     Elona.EyeOfMind: 3
     Elona.Fishing: 2
     Elona.Healing: 5
     Elona.MartialArts: 2
     Elona.Mining: 2
-    Elona.StatCharisma: 4
-    Elona.StatConstitution: 8
-    Elona.StatDexterity: 5
-    Elona.StatLearning: 8
-    Elona.StatLife: 110
-    Elona.StatMagic: 7
-    Elona.StatMana: 90
-    Elona.StatPerception: 5
-    Elona.StatSpeed: 70
-    Elona.StatStrength: 8
-    Elona.StatWill: 7
   initialEquipSlots:
   - Elona.Head
   - Elona.Neck
@@ -1406,21 +1406,21 @@
   minAge: 10
   maxAge: 19
   baseSkills:
+    Elona.AttrCharisma: 5
+    Elona.AttrConstitution: 10
+    Elona.AttrDexterity: 5
+    Elona.AttrLearning: 6
+    Elona.AttrLife: 160
+    Elona.AttrMagic: 3
+    Elona.AttrMana: 80
+    Elona.AttrPerception: 6
+    Elona.AttrSpeed: 70
+    Elona.AttrStrength: 9
+    Elona.AttrWill: 6
     Elona.EyeOfMind: 3
     Elona.Healing: 3
     Elona.MartialArts: 2
     Elona.Performer: 2
-    Elona.StatCharisma: 5
-    Elona.StatConstitution: 10
-    Elona.StatDexterity: 5
-    Elona.StatLearning: 6
-    Elona.StatLife: 160
-    Elona.StatMagic: 3
-    Elona.StatMana: 80
-    Elona.StatPerception: 6
-    Elona.StatSpeed: 70
-    Elona.StatStrength: 9
-    Elona.StatWill: 6
   initialEquipSlots:
   - Elona.Hand
   - Elona.Hand
@@ -1442,20 +1442,20 @@
   minAge: 10
   maxAge: 19
   baseSkills:
+    Elona.AttrCharisma: 4
+    Elona.AttrConstitution: 4
+    Elona.AttrDexterity: 7
+    Elona.AttrLearning: 6
+    Elona.AttrLife: 40
+    Elona.AttrMagic: 7
+    Elona.AttrMana: 80
+    Elona.AttrPerception: 5
+    Elona.AttrSpeed: 50
+    Elona.AttrStrength: 8
+    Elona.AttrWill: 6
     Elona.LockPicking: 3
     Elona.MagicDevice: 2
     Elona.MartialArts: 2
-    Elona.StatCharisma: 4
-    Elona.StatConstitution: 4
-    Elona.StatDexterity: 7
-    Elona.StatLearning: 6
-    Elona.StatLife: 40
-    Elona.StatMagic: 7
-    Elona.StatMana: 80
-    Elona.StatPerception: 5
-    Elona.StatSpeed: 50
-    Elona.StatStrength: 8
-    Elona.StatWill: 6
   initialEquipSlots:
   - Elona.Head
   - Elona.Neck
@@ -1478,20 +1478,20 @@
   minAge: 10
   maxAge: 19
   baseSkills:
+    Elona.AttrCharisma: 5
+    Elona.AttrConstitution: 6
+    Elona.AttrDexterity: 8
+    Elona.AttrLearning: 7
+    Elona.AttrLife: 100
+    Elona.AttrMagic: 11
+    Elona.AttrMana: 110
+    Elona.AttrPerception: 7
+    Elona.AttrSpeed: 70
+    Elona.AttrStrength: 7
+    Elona.AttrWill: 9
     Elona.ControlMagic: 3
     Elona.MagicCapacity: 3
     Elona.MartialArts: 3
-    Elona.StatCharisma: 5
-    Elona.StatConstitution: 6
-    Elona.StatDexterity: 8
-    Elona.StatLearning: 7
-    Elona.StatLife: 100
-    Elona.StatMagic: 11
-    Elona.StatMana: 110
-    Elona.StatPerception: 7
-    Elona.StatSpeed: 70
-    Elona.StatStrength: 7
-    Elona.StatWill: 9
   initialEquipSlots:
   - Elona.Body
   - Elona.Hand
@@ -1513,20 +1513,20 @@
   minAge: 10
   maxAge: 19
   baseSkills:
+    Elona.AttrCharisma: 8
+    Elona.AttrConstitution: 7
+    Elona.AttrDexterity: 9
+    Elona.AttrLearning: 8
+    Elona.AttrLife: 80
+    Elona.AttrMagic: 12
+    Elona.AttrMana: 130
+    Elona.AttrPerception: 8
+    Elona.AttrSpeed: 80
+    Elona.AttrStrength: 6
+    Elona.AttrWill: 7
     Elona.ControlMagic: 3
     Elona.Literacy: 4
     Elona.MartialArts: 2
-    Elona.StatCharisma: 8
-    Elona.StatConstitution: 7
-    Elona.StatDexterity: 9
-    Elona.StatLearning: 8
-    Elona.StatLife: 80
-    Elona.StatMagic: 12
-    Elona.StatMana: 130
-    Elona.StatPerception: 8
-    Elona.StatSpeed: 80
-    Elona.StatStrength: 6
-    Elona.StatWill: 7
   initialEquipSlots:
   - Elona.Neck
   - Elona.Body
@@ -1548,19 +1548,19 @@
   minAge: 10
   maxAge: 19
   baseSkills:
+    Elona.AttrCharisma: 4
+    Elona.AttrConstitution: 6
+    Elona.AttrDexterity: 8
+    Elona.AttrLearning: 6
+    Elona.AttrLife: 60
+    Elona.AttrMagic: 9
+    Elona.AttrMana: 90
+    Elona.AttrPerception: 7
+    Elona.AttrSpeed: 85
+    Elona.AttrStrength: 6
+    Elona.AttrWill: 6
     Elona.DisarmTrap: 3
     Elona.MartialArts: 2
-    Elona.StatCharisma: 4
-    Elona.StatConstitution: 6
-    Elona.StatDexterity: 8
-    Elona.StatLearning: 6
-    Elona.StatLife: 60
-    Elona.StatMagic: 9
-    Elona.StatMana: 90
-    Elona.StatPerception: 7
-    Elona.StatSpeed: 85
-    Elona.StatStrength: 6
-    Elona.StatWill: 6
     Elona.Stealth: 3
   initialEquipSlots:
   - Elona.Neck
@@ -1583,20 +1583,20 @@
   minAge: 10
   maxAge: 19
   baseSkills:
+    Elona.AttrCharisma: 4
+    Elona.AttrConstitution: 6
+    Elona.AttrDexterity: 9
+    Elona.AttrLearning: 6
+    Elona.AttrLife: 90
+    Elona.AttrMagic: 9
+    Elona.AttrMana: 100
+    Elona.AttrPerception: 9
+    Elona.AttrSpeed: 80
+    Elona.AttrStrength: 8
+    Elona.AttrWill: 8
     Elona.MagicCapacity: 3
     Elona.MagicDevice: 2
     Elona.MartialArts: 2
-    Elona.StatCharisma: 4
-    Elona.StatConstitution: 6
-    Elona.StatDexterity: 9
-    Elona.StatLearning: 6
-    Elona.StatLife: 90
-    Elona.StatMagic: 9
-    Elona.StatMana: 100
-    Elona.StatPerception: 9
-    Elona.StatSpeed: 80
-    Elona.StatStrength: 8
-    Elona.StatWill: 8
   initialEquipSlots:
   - Elona.Neck
   - Elona.Hand
@@ -1619,19 +1619,19 @@
   minAge: 10
   maxAge: 19
   baseSkills:
+    Elona.AttrCharisma: 9
+    Elona.AttrConstitution: 15
+    Elona.AttrDexterity: 10
+    Elona.AttrLearning: 10
+    Elona.AttrLife: 220
+    Elona.AttrMagic: 13
+    Elona.AttrMana: 80
+    Elona.AttrPerception: 9
+    Elona.AttrSpeed: 70
+    Elona.AttrStrength: 13
+    Elona.AttrWill: 9
     Elona.Jeweler: 3
     Elona.MartialArts: 3
-    Elona.StatCharisma: 9
-    Elona.StatConstitution: 15
-    Elona.StatDexterity: 10
-    Elona.StatLearning: 10
-    Elona.StatLife: 220
-    Elona.StatMagic: 13
-    Elona.StatMana: 80
-    Elona.StatPerception: 9
-    Elona.StatSpeed: 70
-    Elona.StatStrength: 13
-    Elona.StatWill: 9
     Elona.Traveling: 3
   initialEquipSlots:
   - Elona.Neck
@@ -1651,19 +1651,19 @@
   minAge: 10
   maxAge: 19
   baseSkills:
+    Elona.AttrCharisma: 5
+    Elona.AttrConstitution: 10
+    Elona.AttrDexterity: 6
+    Elona.AttrLearning: 4
+    Elona.AttrLife: 140
+    Elona.AttrMagic: 6
+    Elona.AttrMana: 80
+    Elona.AttrPerception: 5
+    Elona.AttrSpeed: 120
+    Elona.AttrStrength: 8
+    Elona.AttrWill: 5
     Elona.GreaterEvasion: 2
     Elona.MartialArts: 4
-    Elona.StatCharisma: 5
-    Elona.StatConstitution: 10
-    Elona.StatDexterity: 6
-    Elona.StatLearning: 4
-    Elona.StatLife: 140
-    Elona.StatMagic: 6
-    Elona.StatMana: 80
-    Elona.StatPerception: 5
-    Elona.StatSpeed: 120
-    Elona.StatStrength: 8
-    Elona.StatWill: 5
     Elona.Traveling: 3
   initialEquipSlots:
   - Elona.Neck
@@ -1683,19 +1683,19 @@
   minAge: 10
   maxAge: 19
   baseSkills:
+    Elona.AttrCharisma: 4
+    Elona.AttrConstitution: 9
+    Elona.AttrDexterity: 10
+    Elona.AttrLearning: 6
+    Elona.AttrLife: 160
+    Elona.AttrMagic: 7
+    Elona.AttrMana: 80
+    Elona.AttrPerception: 11
+    Elona.AttrSpeed: 85
+    Elona.AttrStrength: 11
+    Elona.AttrWill: 8
     Elona.Detection: 3
     Elona.MartialArts: 3
-    Elona.StatCharisma: 4
-    Elona.StatConstitution: 9
-    Elona.StatDexterity: 10
-    Elona.StatLearning: 6
-    Elona.StatLife: 160
-    Elona.StatMagic: 7
-    Elona.StatMana: 80
-    Elona.StatPerception: 11
-    Elona.StatSpeed: 85
-    Elona.StatStrength: 11
-    Elona.StatWill: 8
     Elona.Tailoring: 3
   initialEquipSlots:
   - Elona.Head
@@ -1719,18 +1719,18 @@
   maxAge: 19
   baseSkills:
     Elona.Anatomy: 5
+    Elona.AttrCharisma: 4
+    Elona.AttrConstitution: 5
+    Elona.AttrDexterity: 9
+    Elona.AttrLearning: 5
+    Elona.AttrLife: 50
+    Elona.AttrMagic: 8
+    Elona.AttrMana: 80
+    Elona.AttrPerception: 12
+    Elona.AttrSpeed: 120
+    Elona.AttrStrength: 5
+    Elona.AttrWill: 6
     Elona.MartialArts: 2
-    Elona.StatCharisma: 4
-    Elona.StatConstitution: 5
-    Elona.StatDexterity: 9
-    Elona.StatLearning: 5
-    Elona.StatLife: 50
-    Elona.StatMagic: 8
-    Elona.StatMana: 80
-    Elona.StatPerception: 12
-    Elona.StatSpeed: 120
-    Elona.StatStrength: 5
-    Elona.StatWill: 6
     Elona.Stealth: 3
   initialEquipSlots:
   - Elona.Ring
@@ -1748,19 +1748,19 @@
   minAge: 10
   maxAge: 19
   baseSkills:
+    Elona.AttrCharisma: 3
+    Elona.AttrConstitution: 14
+    Elona.AttrDexterity: 4
+    Elona.AttrLearning: 4
+    Elona.AttrLife: 150
+    Elona.AttrMagic: 6
+    Elona.AttrMana: 70
+    Elona.AttrPerception: 5
+    Elona.AttrSpeed: 45
+    Elona.AttrStrength: 10
+    Elona.AttrWill: 9
     Elona.MartialArts: 4
     Elona.Mining: 3
-    Elona.StatCharisma: 3
-    Elona.StatConstitution: 14
-    Elona.StatDexterity: 4
-    Elona.StatLearning: 4
-    Elona.StatLife: 150
-    Elona.StatMagic: 6
-    Elona.StatMana: 70
-    Elona.StatPerception: 5
-    Elona.StatSpeed: 45
-    Elona.StatStrength: 10
-    Elona.StatWill: 9
     Elona.WeightLifting: 5
   initialEquipSlots:
   - Elona.Head
@@ -1790,19 +1790,19 @@
   minAge: 10
   maxAge: 19
   baseSkills:
+    Elona.AttrCharisma: 10
+    Elona.AttrConstitution: 22
+    Elona.AttrDexterity: 3
+    Elona.AttrLearning: 2
+    Elona.AttrLife: 40
+    Elona.AttrMagic: 4
+    Elona.AttrMana: 50
+    Elona.AttrPerception: 8
+    Elona.AttrSpeed: 70
+    Elona.AttrStrength: 8
+    Elona.AttrWill: 3
     Elona.MartialArts: 1
     Elona.Mining: 3
-    Elona.StatCharisma: 10
-    Elona.StatConstitution: 22
-    Elona.StatDexterity: 3
-    Elona.StatLearning: 2
-    Elona.StatLife: 40
-    Elona.StatMagic: 4
-    Elona.StatMana: 50
-    Elona.StatPerception: 8
-    Elona.StatSpeed: 70
-    Elona.StatStrength: 8
-    Elona.StatWill: 3
     Elona.WeightLifting: 3
   initialEquipSlots:
   - Elona.Head
@@ -1819,20 +1819,20 @@
   minAge: 10
   maxAge: 19
   baseSkills:
+    Elona.AttrCharisma: 3
+    Elona.AttrConstitution: 6
+    Elona.AttrDexterity: 7
+    Elona.AttrLearning: 3
+    Elona.AttrLife: 60
+    Elona.AttrMagic: 4
+    Elona.AttrMana: 80
+    Elona.AttrPerception: 7
+    Elona.AttrSpeed: 70
+    Elona.AttrStrength: 6
+    Elona.AttrWill: 4
     Elona.DisarmTrap: 2
     Elona.MartialArts: 2
     Elona.Shield: 3
-    Elona.StatCharisma: 3
-    Elona.StatConstitution: 6
-    Elona.StatDexterity: 7
-    Elona.StatLearning: 3
-    Elona.StatLife: 60
-    Elona.StatMagic: 4
-    Elona.StatMana: 80
-    Elona.StatPerception: 7
-    Elona.StatSpeed: 70
-    Elona.StatStrength: 6
-    Elona.StatWill: 4
   initialEquipSlots:
   - Elona.Back
   - Elona.Hand
@@ -1853,21 +1853,21 @@
   minAge: 10
   maxAge: 19
   baseSkills:
+    Elona.AttrCharisma: 4
+    Elona.AttrConstitution: 7
+    Elona.AttrDexterity: 8
+    Elona.AttrLearning: 4
+    Elona.AttrLife: 100
+    Elona.AttrMagic: 9
+    Elona.AttrMana: 80
+    Elona.AttrPerception: 6
+    Elona.AttrSpeed: 70
+    Elona.AttrStrength: 8
+    Elona.AttrWill: 6
     Elona.LockPicking: 3
     Elona.LongSword: 3
     Elona.MartialArts: 2
     Elona.Shield: 2
-    Elona.StatCharisma: 4
-    Elona.StatConstitution: 7
-    Elona.StatDexterity: 8
-    Elona.StatLearning: 4
-    Elona.StatLife: 100
-    Elona.StatMagic: 9
-    Elona.StatMana: 80
-    Elona.StatPerception: 6
-    Elona.StatSpeed: 70
-    Elona.StatStrength: 8
-    Elona.StatWill: 6
   initialEquipSlots:
   - Elona.Head
   - Elona.Neck
@@ -1893,20 +1893,20 @@
   minAge: 10
   maxAge: 19
   baseSkills:
+    Elona.AttrCharisma: 4
+    Elona.AttrConstitution: 7
+    Elona.AttrDexterity: 6
+    Elona.AttrLearning: 5
+    Elona.AttrLife: 120
+    Elona.AttrMagic: 10
+    Elona.AttrMana: 80
+    Elona.AttrPerception: 4
+    Elona.AttrSpeed: 70
+    Elona.AttrStrength: 9
+    Elona.AttrWill: 9
     Elona.Literacy: 3
     Elona.MagicCapacity: 2
     Elona.MartialArts: 2
-    Elona.StatCharisma: 4
-    Elona.StatConstitution: 7
-    Elona.StatDexterity: 6
-    Elona.StatLearning: 5
-    Elona.StatLife: 120
-    Elona.StatMagic: 10
-    Elona.StatMana: 80
-    Elona.StatPerception: 4
-    Elona.StatSpeed: 70
-    Elona.StatStrength: 9
-    Elona.StatWill: 9
   initialEquipSlots:
   - Elona.Head
   - Elona.Neck
@@ -1931,21 +1931,21 @@
   minAge: 10
   maxAge: 19
   baseSkills:
+    Elona.AttrCharisma: 12
+    Elona.AttrConstitution: 7
+    Elona.AttrDexterity: 7
+    Elona.AttrLearning: 4
+    Elona.AttrLife: 120
+    Elona.AttrMagic: 7
+    Elona.AttrMana: 120
+    Elona.AttrPerception: 7
+    Elona.AttrSpeed: 110
+    Elona.AttrStrength: 6
+    Elona.AttrWill: 4
     Elona.Evasion: 2
     Elona.GreaterEvasion: 3
     Elona.MartialArts: 2
     Elona.Performer: 2
-    Elona.StatCharisma: 12
-    Elona.StatConstitution: 7
-    Elona.StatDexterity: 7
-    Elona.StatLearning: 4
-    Elona.StatLife: 120
-    Elona.StatMagic: 7
-    Elona.StatMana: 120
-    Elona.StatPerception: 7
-    Elona.StatSpeed: 110
-    Elona.StatStrength: 6
-    Elona.StatWill: 4
   initialEquipSlots:
   - Elona.Head
   - Elona.Neck
@@ -1967,20 +1967,20 @@
   minAge: 10
   maxAge: 19
   baseSkills:
+    Elona.AttrCharisma: 7
+    Elona.AttrConstitution: 8
+    Elona.AttrDexterity: 7
+    Elona.AttrLearning: 8
+    Elona.AttrLife: 120
+    Elona.AttrMagic: 7
+    Elona.AttrMana: 80
+    Elona.AttrPerception: 7
+    Elona.AttrSpeed: 85
+    Elona.AttrStrength: 7
+    Elona.AttrWill: 7
     Elona.Detection: 3
     Elona.MartialArts: 2
     Elona.Performer: 2
-    Elona.StatCharisma: 7
-    Elona.StatConstitution: 8
-    Elona.StatDexterity: 7
-    Elona.StatLearning: 8
-    Elona.StatLife: 120
-    Elona.StatMagic: 7
-    Elona.StatMana: 80
-    Elona.StatPerception: 7
-    Elona.StatSpeed: 85
-    Elona.StatStrength: 7
-    Elona.StatWill: 7
     Elona.WeightLifting: 3
   initialEquipSlots:
   - Elona.Head
@@ -2003,21 +2003,21 @@
   minAge: 10
   maxAge: 19
   baseSkills:
+    Elona.AttrCharisma: 10
+    Elona.AttrConstitution: 6
+    Elona.AttrDexterity: 5
+    Elona.AttrLearning: 7
+    Elona.AttrLife: 100
+    Elona.AttrMagic: 7
+    Elona.AttrMana: 80
+    Elona.AttrPerception: 7
+    Elona.AttrSpeed: 95
+    Elona.AttrStrength: 4
+    Elona.AttrWill: 6
     Elona.Investing: 2
     Elona.Literacy: 4
     Elona.MartialArts: 2
     Elona.Meditation: 3
-    Elona.StatCharisma: 10
-    Elona.StatConstitution: 6
-    Elona.StatDexterity: 5
-    Elona.StatLearning: 7
-    Elona.StatLife: 100
-    Elona.StatMagic: 7
-    Elona.StatMana: 80
-    Elona.StatPerception: 7
-    Elona.StatSpeed: 95
-    Elona.StatStrength: 4
-    Elona.StatWill: 6
   initialEquipSlots:
   - Elona.Head
   - Elona.Neck
@@ -2044,18 +2044,18 @@
   maxAge: 19
   baseSkills:
     Elona.Anatomy: 2
+    Elona.AttrCharisma: 3
+    Elona.AttrConstitution: 4
+    Elona.AttrDexterity: 8
+    Elona.AttrLearning: 3
+    Elona.AttrLife: 80
+    Elona.AttrMagic: 2
+    Elona.AttrMana: 80
+    Elona.AttrPerception: 10
+    Elona.AttrSpeed: 75
+    Elona.AttrStrength: 5
+    Elona.AttrWill: 3
     Elona.MartialArts: 1
-    Elona.StatCharisma: 3
-    Elona.StatConstitution: 4
-    Elona.StatDexterity: 8
-    Elona.StatLearning: 3
-    Elona.StatLife: 80
-    Elona.StatMagic: 2
-    Elona.StatMana: 80
-    Elona.StatPerception: 10
-    Elona.StatSpeed: 75
-    Elona.StatStrength: 5
-    Elona.StatWill: 3
     Elona.Stealth: 3
   initialEquipSlots:
   - Elona.Back
@@ -2075,20 +2075,20 @@
   minAge: 10
   maxAge: 19
   baseSkills:
+    Elona.AttrCharisma: 4
+    Elona.AttrConstitution: 7
+    Elona.AttrDexterity: 5
+    Elona.AttrLearning: 4
+    Elona.AttrLife: 100
+    Elona.AttrMagic: 3
+    Elona.AttrMana: 80
+    Elona.AttrPerception: 4
+    Elona.AttrSpeed: 20
+    Elona.AttrStrength: 7
+    Elona.AttrWill: 5
     Elona.MartialArts: 1
     Elona.Meditation: 3
     Elona.SenseQuality: 3
-    Elona.StatCharisma: 4
-    Elona.StatConstitution: 7
-    Elona.StatDexterity: 5
-    Elona.StatLearning: 4
-    Elona.StatLife: 100
-    Elona.StatMagic: 3
-    Elona.StatMana: 80
-    Elona.StatPerception: 4
-    Elona.StatSpeed: 20
-    Elona.StatStrength: 7
-    Elona.StatWill: 5
   initialEquipSlots:
   - Elona.Leg
 - type: Elona.Race
@@ -2104,21 +2104,21 @@
   minAge: 10
   maxAge: 19
   baseSkills:
+    Elona.AttrCharisma: 25
+    Elona.AttrConstitution: 13
+    Elona.AttrDexterity: 21
+    Elona.AttrLearning: 8
+    Elona.AttrLife: 120
+    Elona.AttrMagic: 12
+    Elona.AttrMana: 80
+    Elona.AttrPerception: 28
+    Elona.AttrSpeed: 500
+    Elona.AttrStrength: 12
+    Elona.AttrWill: 13
     Elona.Evasion: 3
     Elona.EyeOfMind: 2
     Elona.GreaterEvasion: 3
     Elona.MartialArts: 3
-    Elona.StatCharisma: 25
-    Elona.StatConstitution: 13
-    Elona.StatDexterity: 21
-    Elona.StatLearning: 8
-    Elona.StatLife: 120
-    Elona.StatMagic: 12
-    Elona.StatMana: 80
-    Elona.StatPerception: 28
-    Elona.StatSpeed: 500
-    Elona.StatStrength: 12
-    Elona.StatWill: 13
   initialEquipSlots:
   - Elona.Head
   - Elona.Neck
@@ -2140,19 +2140,19 @@
   minAge: 10
   maxAge: 19
   baseSkills:
+    Elona.AttrCharisma: 10
+    Elona.AttrConstitution: 14
+    Elona.AttrDexterity: 11
+    Elona.AttrLearning: 12
+    Elona.AttrLife: 200
+    Elona.AttrMagic: 8
+    Elona.AttrMana: 80
+    Elona.AttrPerception: 24
+    Elona.AttrSpeed: 70
+    Elona.AttrStrength: 15
+    Elona.AttrWill: 15
     Elona.Firearm: 30
     Elona.MartialArts: 5
-    Elona.StatCharisma: 10
-    Elona.StatConstitution: 14
-    Elona.StatDexterity: 11
-    Elona.StatLearning: 12
-    Elona.StatLife: 200
-    Elona.StatMagic: 8
-    Elona.StatMana: 80
-    Elona.StatPerception: 24
-    Elona.StatSpeed: 70
-    Elona.StatStrength: 15
-    Elona.StatWill: 15
   initialEquipSlots:
   - Elona.Head
   - Elona.Body
@@ -2175,20 +2175,20 @@
   minAge: 10
   maxAge: 19
   baseSkills:
+    Elona.AttrCharisma: 7
+    Elona.AttrConstitution: 13
+    Elona.AttrDexterity: 14
+    Elona.AttrLearning: 16
+    Elona.AttrLife: 150
+    Elona.AttrMagic: 28
+    Elona.AttrMana: 500
+    Elona.AttrPerception: 18
+    Elona.AttrSpeed: 110
+    Elona.AttrStrength: 10
+    Elona.AttrWill: 18
     Elona.ControlMagic: 3
     Elona.MagicCapacity: 5
     Elona.MartialArts: 4
-    Elona.StatCharisma: 7
-    Elona.StatConstitution: 13
-    Elona.StatDexterity: 14
-    Elona.StatLearning: 16
-    Elona.StatLife: 150
-    Elona.StatMagic: 28
-    Elona.StatMana: 500
-    Elona.StatPerception: 18
-    Elona.StatSpeed: 110
-    Elona.StatStrength: 10
-    Elona.StatWill: 18
   initialEquipSlots:
   - Elona.Neck
   - Elona.Body
@@ -2210,21 +2210,21 @@
   minAge: 10
   maxAge: 19
   baseSkills:
+    Elona.AttrCharisma: 6
+    Elona.AttrConstitution: 10
+    Elona.AttrDexterity: 7
+    Elona.AttrLearning: 5
+    Elona.AttrLife: 100
+    Elona.AttrMagic: 5
+    Elona.AttrMana: 80
+    Elona.AttrPerception: 9
+    Elona.AttrSpeed: 65
+    Elona.AttrStrength: 7
+    Elona.AttrWill: 12
     Elona.DisarmTrap: 3
     Elona.LockPicking: 3
     Elona.MartialArts: 2
     Elona.Meditation: 3
-    Elona.StatCharisma: 6
-    Elona.StatConstitution: 10
-    Elona.StatDexterity: 7
-    Elona.StatLearning: 5
-    Elona.StatLife: 100
-    Elona.StatMagic: 5
-    Elona.StatMana: 80
-    Elona.StatPerception: 9
-    Elona.StatSpeed: 65
-    Elona.StatStrength: 7
-    Elona.StatWill: 12
   initialEquipSlots:
   - Elona.Head
   - Elona.Neck
@@ -2250,20 +2250,20 @@
   minAge: 10
   maxAge: 19
   baseSkills:
+    Elona.AttrCharisma: 4
+    Elona.AttrConstitution: 10
+    Elona.AttrDexterity: 10
+    Elona.AttrLearning: 10
+    Elona.AttrLife: 150
+    Elona.AttrMagic: 15
+    Elona.AttrMana: 150
+    Elona.AttrPerception: 20
+    Elona.AttrSpeed: 35
+    Elona.AttrStrength: 5
+    Elona.AttrWill: 15
     Elona.ControlMagic: 3
     Elona.MagicCapacity: 5
     Elona.MartialArts: 1
-    Elona.StatCharisma: 4
-    Elona.StatConstitution: 10
-    Elona.StatDexterity: 10
-    Elona.StatLearning: 10
-    Elona.StatLife: 150
-    Elona.StatMagic: 15
-    Elona.StatMana: 150
-    Elona.StatPerception: 20
-    Elona.StatSpeed: 35
-    Elona.StatStrength: 5
-    Elona.StatWill: 15
   initialEquipSlots:
   - Elona.Head
 - type: Elona.Race
@@ -2280,19 +2280,19 @@
   maxAge: 19
   baseSkills:
     Elona.Anatomy: 3
+    Elona.AttrCharisma: 7
+    Elona.AttrConstitution: 8
+    Elona.AttrDexterity: 10
+    Elona.AttrLearning: 4
+    Elona.AttrLife: 80
+    Elona.AttrMagic: 5
+    Elona.AttrMana: 80
+    Elona.AttrPerception: 11
+    Elona.AttrSpeed: 60
+    Elona.AttrStrength: 5
+    Elona.AttrWill: 4
     Elona.MartialArts: 1
     Elona.Meditation: 3
-    Elona.StatCharisma: 7
-    Elona.StatConstitution: 8
-    Elona.StatDexterity: 10
-    Elona.StatLearning: 4
-    Elona.StatLife: 80
-    Elona.StatMagic: 5
-    Elona.StatMana: 80
-    Elona.StatPerception: 11
-    Elona.StatSpeed: 60
-    Elona.StatStrength: 5
-    Elona.StatWill: 4
   initialEquipSlots:
   - Elona.Head
 - type: Elona.Race
@@ -2308,19 +2308,19 @@
   minAge: 10
   maxAge: 19
   baseSkills:
+    Elona.AttrCharisma: 3
+    Elona.AttrConstitution: 8
+    Elona.AttrDexterity: 5
+    Elona.AttrLearning: 7
+    Elona.AttrLife: 120
+    Elona.AttrMagic: 9
+    Elona.AttrMana: 140
+    Elona.AttrPerception: 11
+    Elona.AttrSpeed: 100
+    Elona.AttrStrength: 9
+    Elona.AttrWill: 6
     Elona.EyeOfMind: 3
     Elona.MartialArts: 2
-    Elona.StatCharisma: 3
-    Elona.StatConstitution: 8
-    Elona.StatDexterity: 5
-    Elona.StatLearning: 7
-    Elona.StatLife: 120
-    Elona.StatMagic: 9
-    Elona.StatMana: 140
-    Elona.StatPerception: 11
-    Elona.StatSpeed: 100
-    Elona.StatStrength: 9
-    Elona.StatWill: 6
     Elona.Stealth: 4
   initialEquipSlots:
   - Elona.Neck
@@ -2342,18 +2342,18 @@
   minAge: 10
   maxAge: 13
   baseSkills:
+    Elona.AttrCharisma: 22
+    Elona.AttrConstitution: 5
+    Elona.AttrDexterity: 13
+    Elona.AttrLearning: 8
+    Elona.AttrLife: 30
+    Elona.AttrMagic: 13
+    Elona.AttrMana: 100
+    Elona.AttrPerception: 15
+    Elona.AttrSpeed: 200
+    Elona.AttrStrength: 7
+    Elona.AttrWill: 10
     Elona.MartialArts: 4
-    Elona.StatCharisma: 22
-    Elona.StatConstitution: 5
-    Elona.StatDexterity: 13
-    Elona.StatLearning: 8
-    Elona.StatLife: 30
-    Elona.StatMagic: 13
-    Elona.StatMana: 100
-    Elona.StatPerception: 15
-    Elona.StatSpeed: 200
-    Elona.StatStrength: 7
-    Elona.StatWill: 10
     Elona.Tactics: 4
     Elona.TwoHand: 6
   initialEquipSlots:
@@ -2381,20 +2381,20 @@
   minAge: 25
   maxAge: 74
   baseSkills:
+    Elona.AttrCharisma: 1
+    Elona.AttrConstitution: 5
+    Elona.AttrDexterity: 5
+    Elona.AttrLearning: 7
+    Elona.AttrLife: 100
+    Elona.AttrMagic: 7
+    Elona.AttrMana: 100
+    Elona.AttrPerception: 7
+    Elona.AttrSpeed: 70
+    Elona.AttrStrength: 9
+    Elona.AttrWill: 9
     Elona.Healing: 4
     Elona.MagicCapacity: 3
     Elona.MartialArts: 2
-    Elona.StatCharisma: 1
-    Elona.StatConstitution: 5
-    Elona.StatDexterity: 5
-    Elona.StatLearning: 7
-    Elona.StatLife: 100
-    Elona.StatMagic: 7
-    Elona.StatMana: 100
-    Elona.StatPerception: 7
-    Elona.StatSpeed: 70
-    Elona.StatStrength: 9
-    Elona.StatWill: 9
   initialEquipSlots:
   - Elona.Body
   - Elona.Hand
@@ -2413,20 +2413,20 @@
   minAge: 15
   maxAge: 44
   baseSkills:
+    Elona.AttrCharisma: 6
+    Elona.AttrConstitution: 7
+    Elona.AttrDexterity: 6
+    Elona.AttrLearning: 6
+    Elona.AttrLife: 80
+    Elona.AttrMagic: 6
+    Elona.AttrMana: 90
+    Elona.AttrPerception: 7
+    Elona.AttrSpeed: 90
+    Elona.AttrStrength: 4
+    Elona.AttrWill: 4
     Elona.MartialArts: 1
     Elona.Meditation: 3
     Elona.Negotiation: 4
-    Elona.StatCharisma: 6
-    Elona.StatConstitution: 7
-    Elona.StatDexterity: 6
-    Elona.StatLearning: 6
-    Elona.StatLife: 80
-    Elona.StatMagic: 6
-    Elona.StatMana: 90
-    Elona.StatPerception: 7
-    Elona.StatSpeed: 90
-    Elona.StatStrength: 4
-    Elona.StatWill: 4
   initialEquipSlots:
   - Elona.Head
   - Elona.Neck
@@ -2452,21 +2452,21 @@
   minAge: 10
   maxAge: 19
   baseSkills:
+    Elona.AttrCharisma: 11
+    Elona.AttrConstitution: 14
+    Elona.AttrDexterity: 9
+    Elona.AttrLearning: 6
+    Elona.AttrLife: 150
+    Elona.AttrMagic: 11
+    Elona.AttrMana: 200
+    Elona.AttrPerception: 15
+    Elona.AttrSpeed: 70
+    Elona.AttrStrength: 13
+    Elona.AttrWill: 5
     Elona.ControlMagic: 4
     Elona.Faith: 4
     Elona.MartialArts: 3
     Elona.Meditation: 3
-    Elona.StatCharisma: 11
-    Elona.StatConstitution: 14
-    Elona.StatDexterity: 9
-    Elona.StatLearning: 6
-    Elona.StatLife: 150
-    Elona.StatMagic: 11
-    Elona.StatMana: 200
-    Elona.StatPerception: 15
-    Elona.StatSpeed: 70
-    Elona.StatStrength: 13
-    Elona.StatWill: 5
   initialEquipSlots:
   - Elona.Hand
   - Elona.Hand
@@ -2489,22 +2489,22 @@
   minAge: 100
   maxAge: 299
   baseSkills:
+    Elona.AttrCharisma: 6
+    Elona.AttrConstitution: 6
+    Elona.AttrDexterity: 6
+    Elona.AttrLearning: 6
+    Elona.AttrLife: 90
+    Elona.AttrMagic: 6
+    Elona.AttrMana: 150
+    Elona.AttrPerception: 6
+    Elona.AttrSpeed: 100
+    Elona.AttrStrength: 6
+    Elona.AttrWill: 6
     Elona.Casting: 4
     Elona.DualWield: 4
     Elona.Firearm: 4
     Elona.MartialArts: 3
     Elona.Negotiation: 3
-    Elona.StatCharisma: 6
-    Elona.StatConstitution: 6
-    Elona.StatDexterity: 6
-    Elona.StatLearning: 6
-    Elona.StatLife: 90
-    Elona.StatMagic: 6
-    Elona.StatMana: 150
-    Elona.StatPerception: 6
-    Elona.StatSpeed: 100
-    Elona.StatStrength: 6
-    Elona.StatWill: 6
     Elona.Tactics: 3
     Elona.Throwing: 3
     Elona.TwoHand: 3
@@ -2533,19 +2533,19 @@
   minAge: 10
   maxAge: 19
   baseSkills:
+    Elona.AttrCharisma: 6
+    Elona.AttrConstitution: 8
+    Elona.AttrDexterity: 4
+    Elona.AttrLearning: 4
+    Elona.AttrLife: 150
+    Elona.AttrMagic: 3
+    Elona.AttrMana: 50
+    Elona.AttrPerception: 5
+    Elona.AttrSpeed: 125
+    Elona.AttrStrength: 9
+    Elona.AttrWill: 4
     Elona.Healing: 4
     Elona.MartialArts: 1
-    Elona.StatCharisma: 6
-    Elona.StatConstitution: 8
-    Elona.StatDexterity: 4
-    Elona.StatLearning: 4
-    Elona.StatLife: 150
-    Elona.StatMagic: 3
-    Elona.StatMana: 50
-    Elona.StatPerception: 5
-    Elona.StatSpeed: 125
-    Elona.StatStrength: 9
-    Elona.StatWill: 4
   initialEquipSlots:
   - Elona.Body
   - Elona.Leg
@@ -2563,6 +2563,17 @@
   minAge: 999999
   maxAge: 999999
   baseSkills:
+    Elona.AttrCharisma: 21
+    Elona.AttrConstitution: 13
+    Elona.AttrDexterity: 19
+    Elona.AttrLearning: 16
+    Elona.AttrLife: 200
+    Elona.AttrMagic: 24
+    Elona.AttrMana: 100
+    Elona.AttrPerception: 17
+    Elona.AttrSpeed: 150
+    Elona.AttrStrength: 17
+    Elona.AttrWill: 25
     Elona.Bow: 7
     Elona.DualWield: 7
     Elona.Evasion: 3
@@ -2570,17 +2581,6 @@
     Elona.Firearm: 8
     Elona.GreaterEvasion: 3
     Elona.MartialArts: 6
-    Elona.StatCharisma: 21
-    Elona.StatConstitution: 13
-    Elona.StatDexterity: 19
-    Elona.StatLearning: 16
-    Elona.StatLife: 200
-    Elona.StatMagic: 24
-    Elona.StatMana: 100
-    Elona.StatPerception: 17
-    Elona.StatSpeed: 150
-    Elona.StatStrength: 17
-    Elona.StatWill: 25
     Elona.Tactics: 7
     Elona.TwoHand: 5
   initialEquipSlots:
@@ -2599,20 +2599,20 @@
   minAge: 10
   maxAge: 19
   baseSkills:
+    Elona.AttrCharisma: 7
+    Elona.AttrConstitution: 4
+    Elona.AttrDexterity: 18
+    Elona.AttrLearning: 5
+    Elona.AttrLife: 3
+    Elona.AttrMagic: 9
+    Elona.AttrMana: 40
+    Elona.AttrPerception: 16
+    Elona.AttrSpeed: 750
+    Elona.AttrStrength: 2
+    Elona.AttrWill: 8
     Elona.Evasion: 7
     Elona.GreaterEvasion: 6
     Elona.MartialArts: 1
-    Elona.StatCharisma: 7
-    Elona.StatConstitution: 4
-    Elona.StatDexterity: 18
-    Elona.StatLearning: 5
-    Elona.StatLife: 3
-    Elona.StatMagic: 9
-    Elona.StatMana: 40
-    Elona.StatPerception: 16
-    Elona.StatSpeed: 750
-    Elona.StatStrength: 2
-    Elona.StatWill: 8
     Elona.Stealth: 3
   initialEquipSlots:
   - Elona.Head
@@ -2637,20 +2637,20 @@
   minAge: 10
   maxAge: 19
   baseSkills:
+    Elona.AttrCharisma: 16
+    Elona.AttrConstitution: 1
+    Elona.AttrDexterity: 3
+    Elona.AttrLearning: 2
+    Elona.AttrLife: 1
+    Elona.AttrMagic: 4
+    Elona.AttrMana: 100
+    Elona.AttrPerception: 32
+    Elona.AttrSpeed: 640
+    Elona.AttrStrength: 4
+    Elona.AttrWill: 4
     Elona.GreaterEvasion: 6
     Elona.MagicCapacity: 4
     Elona.MartialArts: 1
-    Elona.StatCharisma: 16
-    Elona.StatConstitution: 1
-    Elona.StatDexterity: 3
-    Elona.StatLearning: 2
-    Elona.StatLife: 1
-    Elona.StatMagic: 4
-    Elona.StatMana: 100
-    Elona.StatPerception: 32
-    Elona.StatSpeed: 640
-    Elona.StatStrength: 4
-    Elona.StatWill: 4
   initialEquipSlots:
   - Elona.Head
   - Elona.Body
@@ -2668,21 +2668,21 @@
   minAge: 10
   maxAge: 19
   baseSkills:
+    Elona.AttrCharisma: 11
+    Elona.AttrConstitution: 13
+    Elona.AttrDexterity: 4
+    Elona.AttrLearning: 4
+    Elona.AttrLife: 170
+    Elona.AttrMagic: 3
+    Elona.AttrMana: 60
+    Elona.AttrPerception: 3
+    Elona.AttrSpeed: 155
+    Elona.AttrStrength: 11
+    Elona.AttrWill: 5
     Elona.DisarmTrap: 3
     Elona.Evasion: 11
     Elona.LockPicking: 3
     Elona.MartialArts: 2
-    Elona.StatCharisma: 11
-    Elona.StatConstitution: 13
-    Elona.StatDexterity: 4
-    Elona.StatLearning: 4
-    Elona.StatLife: 170
-    Elona.StatMagic: 3
-    Elona.StatMana: 60
-    Elona.StatPerception: 3
-    Elona.StatSpeed: 155
-    Elona.StatStrength: 11
-    Elona.StatWill: 5
   initialEquipSlots:
   - Elona.Head
   - Elona.Body

@@ -1,5 +1,5 @@
 OpenNefia.Prototypes.Elona.Skill.Elona = {
-    StatStrength = {
+    AttrStrength = {
         Name = "Strength",
         ShortName = "STR",
 
@@ -10,7 +10,7 @@ OpenNefia.Prototypes.Elona.Skill.Elona = {
             return ("%s%s muscles feel stronger."):format(_.name(entity), _.his_owned(entity))
         end,
     },
-    StatConstitution = {
+    AttrConstitution = {
         Name = "Constitution",
         ShortName = "CON",
 
@@ -21,7 +21,7 @@ OpenNefia.Prototypes.Elona.Skill.Elona = {
             return ("%s begin%s to feel good when being hit hard."):format(_.name(entity), _.s(entity))
         end,
     },
-    StatDexterity = {
+    AttrDexterity = {
         Name = "Dexterity",
         ShortName = "DEX",
 
@@ -32,7 +32,7 @@ OpenNefia.Prototypes.Elona.Skill.Elona = {
             return ("%s become%s dexterous."):format(_.name(entity), _.s(entity))
         end,
     },
-    StatPerception = {
+    AttrPerception = {
         Name = "Perception",
         ShortName = "PER",
 
@@ -43,7 +43,7 @@ OpenNefia.Prototypes.Elona.Skill.Elona = {
             return ("%s feel%s more in touch with the world."):format(_.name(entity), _.s(entity))
         end,
     },
-    StatLearning = {
+    AttrLearning = {
         Name = "Learning",
         ShortName = "LER",
 
@@ -54,7 +54,7 @@ OpenNefia.Prototypes.Elona.Skill.Elona = {
             return ("%s feel%s studious."):format(_.name(entity), _.s(entity))
         end,
     },
-    StatWill = {
+    AttrWill = {
         Name = "Will",
         ShortName = "WIL",
 
@@ -65,7 +65,7 @@ OpenNefia.Prototypes.Elona.Skill.Elona = {
             return ("%s%s will hardens."):format(_.name(entity), _.his_owned(entity))
         end,
     },
-    StatMagic = {
+    AttrMagic = {
         Name = "Magic",
         ShortName = "MAG",
 
@@ -76,7 +76,7 @@ OpenNefia.Prototypes.Elona.Skill.Elona = {
             return ("%s%s magic improves."):format(_.name(entity), _.his_owned(entity))
         end,
     },
-    StatCharisma = {
+    AttrCharisma = {
         Name = "Charisma",
         ShortName = "CHR",
 
@@ -87,7 +87,7 @@ OpenNefia.Prototypes.Elona.Skill.Elona = {
             return ("%s enjoy%s showing off %s body."):format(_.name(entity), _.s(entity), _.his(entity))
         end,
     },
-    StatSpeed = {
+    AttrSpeed = {
         Name = "Speed",
 
         OnDecrease = function(entity)
@@ -97,7 +97,7 @@ OpenNefia.Prototypes.Elona.Skill.Elona = {
             return ("%s%s speed increases."):format(_.name(entity), _.his_owned(entity))
         end,
     },
-    StatLuck = {
+    AttrLuck = {
         Name = "Luck",
 
         OnDecrease = function(entity)
@@ -107,7 +107,7 @@ OpenNefia.Prototypes.Elona.Skill.Elona = {
             return ("%s become%s lucky."):format(_.name(entity), _.s(entity))
         end,
     },
-    StatLife = {
+    AttrLife = {
         Name = "Life",
 
         OnDecrease = function(entity)
@@ -117,7 +117,7 @@ OpenNefia.Prototypes.Elona.Skill.Elona = {
             return ("%s%s life force increases."):format(_.name(entity), _.his_owned(entity))
         end,
     },
-    StatMana = {
+    AttrMana = {
         Name = "Mana",
 
         OnDecrease = function(entity)
