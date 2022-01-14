@@ -37,5 +37,7 @@ namespace OpenNefia.Core.Maps
         bool TryGetMap(MapId mapId, [NotNullWhen(true)] out IMap? map);
 
         void UnloadMap(MapId mapId);
+
+        void RefreshVisibility(IMap map);
     }
 }

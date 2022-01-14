@@ -1,10 +1,12 @@
 ﻿using Love;
+using OpenNefia.Content.MapVisibility;
 using OpenNefia.Core.Game;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Maths;
+using OpenNefia.Core.Rendering;
 using OpenNefia.Core.UI.Element;
 
-namespace OpenNefia.Core.Rendering
+namespace OpenNefia.Content.Rendering
 {
     public class ShadowBatch : BaseDrawable
     {
@@ -57,9 +59,9 @@ namespace OpenNefia.Core.Rendering
         public Vector2i ScreenSize { get => _sizeInTiles * _coords.TileSize; }
         public int ShadowStrength { get; set; } = 70;
 
-        private Love.Quad[,] _innerQuads = new Love.Quad[8, 6];
-        private Love.Quad[,] _cornerQuads = new Love.Quad[4, 3];
-        private Love.Quad[] _edgeQuads = new Love.Quad[17];
+        private Quad[,] _innerQuads = new Quad[8, 6];
+        private Quad[,] _cornerQuads = new Quad[4, 3];
+        private Quad[] _edgeQuads = new Quad[17];
 
         private Vector2i _sizeInTiles;
         private ShadowTile[,] _tiles = new ShadowTile[0, 0];
@@ -83,14 +85,14 @@ namespace OpenNefia.Core.Rendering
             {
                 for (int j = 0; j < 6; j++)
                 {
-                    _innerQuads[i, j] = Love.Graphics.NewQuad(i * 24, j * 24, 24, 24, iw, ih);
+                    _innerQuads[i, j] = Graphics.NewQuad(i * 24, j * 24, 24, 24, iw, ih);
                 }
             }
             for (int i = 0; i < 4; i++)
             {
                 for (int j = 0; j < 3; j++)
                 {
-                    _cornerQuads[i, j] = Love.Graphics.NewQuad(i * 48, j * 48, 48, 48, iw, ih);
+                    _cornerQuads[i, j] = Graphics.NewQuad(i * 48, j * 48, 48, 48, iw, ih);
                 }
             }
 
@@ -99,7 +101,7 @@ namespace OpenNefia.Core.Rendering
 
             for (int i = 0; i < 17; i++)
             {
-                _edgeQuads[i] = Love.Graphics.NewQuad(i * 48, 0, 48, 48, iw, ih);
+                _edgeQuads[i] = Graphics.NewQuad(i * 48, 0, 48, 48, iw, ih);
             }
         }
 
@@ -175,7 +177,7 @@ namespace OpenNefia.Core.Rendering
                 // corner directions.
 
                 var intercardinal = shadow & ShadowTile.Intercardinal;
-                
+
                 switch ((uint)intercardinal)
                 {
                     case 0b01110000: //    SW SE NW
@@ -350,13 +352,13 @@ namespace OpenNefia.Core.Rendering
 
         public override void Draw()
         {
-            Love.Graphics.SetBlendMode(BlendMode.Subtract);
+            Graphics.SetBlendMode(BlendMode.Subtract);
             GraphicsEx.SetColor(255, 255, 255, ShadowStrength);
 
-            Love.Graphics.SetScissor(X + _shadowBounds.Left, Y + _shadowBounds.Top, _shadowBounds.Width, _shadowBounds.Height);
-            Love.Graphics.Draw(_batchShadow, X, Y);
-            Love.Graphics.Draw(_batchShadowEdges, X, Y);
-            Love.Graphics.SetScissor();
+            Graphics.SetScissor(X + _shadowBounds.Left, Y + _shadowBounds.Top, _shadowBounds.Width, _shadowBounds.Height);
+            Graphics.Draw(_batchShadow, X, Y);
+            Graphics.Draw(_batchShadowEdges, X, Y);
+            Graphics.SetScissor();
 
             GraphicsEx.SetColor(255, 255, 255, (int)(ShadowStrength * ((256f - 9f) / 256f)));
 
@@ -369,7 +371,7 @@ namespace OpenNefia.Core.Rendering
             //// Down
             //Love.Graphics.Rectangle(Love.DrawMode.Fill, X + ShadowBounds.Left, Y + ShadowBounds.Bottom, ShadowBounds.Width, ShadowBounds.Height);
 
-            Love.Graphics.SetBlendMode(BlendMode.Alpha);
+            Graphics.SetBlendMode(BlendMode.Alpha);
         }
     }
 }

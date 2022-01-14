@@ -4,6 +4,8 @@ using OpenNefia.Core.Prototypes;
 
 namespace OpenNefia.Core.Rendering
 {
+    // TODO: Thinking of moving all calls to these into UiLayer.Initialize()
+    // and such, and adding IAssetManager as a [Dependency].
     public static class Assets
     {
         public static IAssetInstance Get(PrototypeId<AssetPrototype> id)
