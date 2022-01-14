@@ -97,8 +97,9 @@ namespace OpenNefia.Content.UI.Layer
             Camera.Initialize();
         }
 
-        public override void OnFocused()
+        public override void GrabFocus()
         {
+            base.GrabFocus();
             _inputManager.Contexts.SetActiveContext("field");
         }
 

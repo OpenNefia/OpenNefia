@@ -163,9 +163,9 @@ namespace OpenNefia.Content.CharaMake
             data.IsLocked = !data.IsLocked;
         }
 
-        public override void OnFocused()
+        public override void GrabFocus()
         {
-            base.OnFocused();
+            base.GrabFocus();
             List.GrabFocus();
         }
 

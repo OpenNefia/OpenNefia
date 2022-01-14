@@ -64,9 +64,9 @@ namespace OpenNefia.Content.CharaMake
             Sounds.Play(Protos.Sound.Feat);
         }
 
-        public override void OnFocused()
+        public override void GrabFocus()
         {
-            base.OnFocused();
+            base.GrabFocus();
             FeatWindow.GrabControlFocus();
         }
 

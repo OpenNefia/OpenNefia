@@ -66,7 +66,7 @@ namespace OpenNefia.Core.UserInterface
             KeyboardFocused = null;
             CurrentlyHovered = null;
 
-            CurrentLayer?.OnFocused();
+            CurrentLayer?.GrabFocus();
         }
 
         public void PopLayer(UiLayer layer)
@@ -79,7 +79,7 @@ namespace OpenNefia.Core.UserInterface
             KeyboardFocused = null;
             CurrentlyHovered = null;
 
-            CurrentLayer?.OnFocused();
+            CurrentLayer?.GrabFocus();
         }
 
         public bool IsQuerying(UiLayer layer)

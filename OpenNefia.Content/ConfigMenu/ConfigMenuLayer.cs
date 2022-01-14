@@ -67,9 +67,9 @@ namespace OpenNefia.Content.ConfigMenu
             AddChild(List);
         }
 
-        public override void OnFocused()
+        public override void GrabFocus()
         {
-            base.OnFocused();
+            base.GrabFocus();
             List.GrabFocus();
         }
 

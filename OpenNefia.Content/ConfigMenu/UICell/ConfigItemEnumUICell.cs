@@ -17,7 +17,11 @@ namespace OpenNefia.Content.ConfigMenu.UICell
 
         public Enum CurrentValue
         {
-            get => (Enum)ConfigManager.GetCVarRaw(MenuNode.CVar);
+            get
+            {
+                var rawValue = ConfigManager.GetCVarRaw(MenuNode.CVar);
+                return (Enum)Enum.ToObject(MenuNode.EnumType, rawValue);
+            } 
             set => ConfigManager.SetCVarRaw(MenuNode.CVar, value);
         }
 
