@@ -176,7 +176,6 @@ namespace OpenNefia.Core.UserInterface
                 {
                     var dt = Love.Timer.GetDelta();
                     var frameArgs = new FrameEventArgs(dt);
-                    // layer.RunKeyActions(frameArgs);
                     _gameController.Update(frameArgs);
                     result = layer.GetResult();
                     if (result != null)

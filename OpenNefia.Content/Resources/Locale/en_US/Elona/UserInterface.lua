@@ -18,6 +18,13 @@ Elona.UserInterface = {
         },
 
         Saved = "Your game has been saved successfully.",
-        YouCloseYourEyes = "You close your eyes and peacefully fade away. (Hit any key to exit)",
+        YouCloseYourEyes = function(entity)
+            return ("%s close%s %s eyes and peacefully fade%s away. (Hit any key to exit)"):format(
+                _.name(entity),
+                _.s(entity),
+                _.his(entity),
+                _.s(entity)
+            )
+        end,
     },
 }

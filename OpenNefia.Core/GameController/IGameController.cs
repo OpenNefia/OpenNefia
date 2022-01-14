@@ -12,5 +12,7 @@ namespace OpenNefia.Core.GameController
         void Update(FrameEventArgs frame);
         void Draw();
         void SystemStep();
+
+        void Shutdown();
     }
 }

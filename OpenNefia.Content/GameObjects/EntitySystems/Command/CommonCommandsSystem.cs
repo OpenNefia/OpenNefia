@@ -6,6 +6,7 @@ using OpenNefia.Core;
 using OpenNefia.Core.Audio;
 using OpenNefia.Core.Configuration;
 using OpenNefia.Core.Game;
+using OpenNefia.Core.GameController;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Input;
 using OpenNefia.Core.Input.Binding;
@@ -13,6 +14,7 @@ using OpenNefia.Core.IoC;
 using OpenNefia.Core.Locale;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.SaveGames;
+using OpenNefia.Core.Timing;
 using OpenNefia.Core.UserInterface;
 using System;
 using System.Collections.Generic;
@@ -34,6 +36,7 @@ namespace OpenNefia.Content.GameObjects
         [Dependency] private readonly IUserInterfaceManager _uiManager = default!;
         [Dependency] private readonly IPrototypeManager _protos = default!;
         [Dependency] private readonly IConfigurationManager _config = default!;
+        [Dependency] private readonly IGameController _gameController = default!;
 
         public override void Initialize()
         {
@@ -75,7 +78,7 @@ namespace OpenNefia.Content.GameObjects
 
         private TurnResult? ShowEscapeMenu(IGameSessionManager? session)
         {
-            if (!_turnOrderSystem.IsInGame())
+            if (!_turnOrderSystem.IsInGame() || session?.Player == null)
                 return null;
 
             var keyRoot = new LocaleKey("Elona.UserInterface.Exit.Prompt.Choices");
@@ -109,7 +112,7 @@ namespace OpenNefia.Content.GameObjects
                         ReturnToTitle();
                         break;
                     case EscapeMenuChoice.Exit:
-                        ExitGame();
+                        ExitGame(session!);
                         break;
                     case EscapeMenuChoice.Cancel:
                     default:
@@ -132,9 +135,31 @@ namespace OpenNefia.Content.GameObjects
             _field.Cancel();
         }
 
-        private void ExitGame()
+        private void Wait(float time)
         {
-            throw new NotImplementedException();
+            var remaining = time;
+
+            while (remaining > 0f)
+            {
+                var dt = Love.Timer.GetDelta();
+                var frameArgs = new FrameEventArgs(dt);
+                _gameController.Update(frameArgs);
+                _gameController.Draw();
+                _gameController.SystemStep();
+
+                remaining -= dt;
+            }
+        }
+
+        private void ExitGame(IGameSessionManager gameSession)
+        {
+            QuickSaveGame(gameSession);
+            Mes.Display(Loc.GetString("Elona.UserInterface.Exit.Saved"));
+            Mes.Display(Loc.GetString("Elona.UserInterface.Exit.YouCloseYourEyes", ("entity", gameSession.Player!)));
+            _playerQuery.PromptMore();
+            Wait(0.3f);
+
+            _gameController.Shutdown();
         }
     }
 }

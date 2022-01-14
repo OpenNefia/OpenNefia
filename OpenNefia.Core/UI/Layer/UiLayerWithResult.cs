@@ -8,6 +8,7 @@ namespace OpenNefia.Core.UI.Layer
     {
         public bool WasCancelled { get; set; }
         public bool WasFinished => Result != null;
+        public bool HasResult => WasCancelled || WasFinished || Exception != null;
         public TResult? Result { get; set; }
         public Exception? Exception { get; private set; }
 
