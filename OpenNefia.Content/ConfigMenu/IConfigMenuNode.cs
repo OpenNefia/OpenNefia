@@ -15,7 +15,7 @@ namespace OpenNefia.Content.ConfigMenu
     /// or another layouting engine. However, this does *not* mean that it should be necessary
     /// to rewrite the layout of the config menu for every possible UI framework. Mods should be
     /// able to specify their config hierarchy in a single place, and leave it up to the UI
-    /// implementation to layout that options hierarchy for rendering and such.
+    /// implementation to layout that config hierarchy for rendering and such.
     /// </para>
     /// <para>
     /// All implementers of this interface are intended to be used in YAML within a
@@ -92,8 +92,8 @@ namespace OpenNefia.Content.ConfigMenu
     #region Special Nodes
 
     /// <summary>
-    /// This config option should provide a list of screen resolutions provided
-    /// by the operating system.
+    /// This config option should provide a list of screen resolutions taken
+    /// from the operating system.
     /// </summary>
     public sealed class ConfigScreenResolutionMenuNode : IConfigMenuNode
     {
@@ -111,8 +111,8 @@ namespace OpenNefia.Content.ConfigMenu
     }
 
     /// <summary>
-    /// This config option should provide a list of display indices provided
-    /// by the operating system.
+    /// This config option should provide a list of display indices taken
+    /// from the operating system.
     /// </summary>
     public sealed class ConfigDisplayNumberMenuNode : IConfigMenuNode
     {

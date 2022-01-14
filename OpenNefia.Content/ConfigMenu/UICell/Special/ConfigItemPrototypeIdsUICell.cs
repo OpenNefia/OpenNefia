@@ -60,7 +60,6 @@ namespace OpenNefia.Content.ConfigMenu.UICell
             }
             else
             {
-
                 text = $"<{currentID}>";
             }
 
