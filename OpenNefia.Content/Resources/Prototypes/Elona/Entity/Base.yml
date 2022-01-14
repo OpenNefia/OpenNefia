@@ -30,6 +30,7 @@
   - type: CargoHolder
   - type: EquipSlots
   - type: VanillaAI
+  - type: Buffs
 
 - type: Entity
   id: BaseItem

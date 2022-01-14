@@ -1,4 +1,6 @@
 ﻿using OpenNefia.Content.UI.Element;
+using OpenNefia.Content.Prototypes;
+using OpenNefia.Core.Audio;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Locale;
 using System;
@@ -16,6 +18,12 @@ namespace OpenNefia.Content.CharaMake
         public CharaMakeCharSheetLayer(EntityUid entity)
         {
             Sheet = new CharSheet(entity);
+        }
+
+        public override void OnQuery()
+        {
+            base.OnQuery();
+            Sounds.Play(Protos.Sound.Chara);
         }
 
         public override void SetSize(int width, int height)

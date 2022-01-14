@@ -156,6 +156,12 @@ namespace OpenNefia.Content.CharaMake
             IsInitialized = true;
         }
 
+        public override void OnQuery()
+        {
+            base.OnQuery();
+            Sounds.Play(Protos.Sound.Skill);
+        }
+
         private void HandleKeyBindDown(GUIBoundKeyEventArgs args)
         {
             if (args.Function == ContentKeyFunctions.UIMode2)
