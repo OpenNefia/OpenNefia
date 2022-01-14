@@ -1,5 +1,4 @@
-Elona.GameObjects.Common =
-{
-   You = "you",
-   Something = "something"
+Elona.GameObjects.Common = {
+    You = "you",
+    Something = "something",
 }
