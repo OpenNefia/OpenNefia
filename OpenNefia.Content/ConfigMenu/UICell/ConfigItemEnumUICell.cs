@@ -34,9 +34,9 @@ namespace OpenNefia.Content.ConfigMenu.UICell
             var values = Enum.GetValues(MenuNode.EnumType);
             var index = Math.Clamp(Array.IndexOf(values, CurrentValue) + delta, 0, values.Length);
 
-            var rawValue = values.GetValue(index)!;
-
-            CurrentValue = (Enum)Convert.ChangeType(rawValue, MenuNode.EnumType)!;
+            var rawValue = values.GetValue(index);
+            if (rawValue != null)
+                CurrentValue = (Enum)Convert.ChangeType(rawValue, MenuNode.EnumType)!;
         }
 
         public override void RefreshConfigValueDisplay()

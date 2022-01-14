@@ -79,6 +79,7 @@ namespace OpenNefia.Core.Prototypes
         ///     Returns whether a prototype of type <typeparamref name="T"/> with the specified <param name="id"/> exists.
         /// </summary>
         bool HasIndex<T>(PrototypeId<T> id) where T : class, IPrototype;
+        bool HasIndex(Type type, string id);
         bool TryIndex<T>(PrototypeId<T> id, [NotNullWhen(true)] out T? prototype) where T : class, IPrototype;
         bool TryIndex(Type type, string id, [NotNullWhen(true)] out IPrototype? prototype);
 
@@ -796,13 +797,16 @@ namespace OpenNefia.Core.Prototypes
         }
 
         public bool HasIndex<T>(PrototypeId<T> id) where T : class, IPrototype
+            => HasIndex(typeof(T), (string)id); 
+
+        public bool HasIndex(Type type, string id)
         {
-            if (!_prototypes.TryGetValue(typeof(T), out var index))
+            if (!_prototypes.TryGetValue(type, out var index))
             {
-                throw new UnknownPrototypeException((string)id, typeof(T));
+                throw new UnknownPrototypeException(id, type);
             }
 
-            return index.ContainsKey((string)id);
+            return index.ContainsKey(id);
         }
 
         public bool TryIndex<T>(PrototypeId<T> id, [NotNullWhen(true)] out T? prototype) where T : class, IPrototype

@@ -21,7 +21,6 @@ namespace OpenNefia.Content.ConfigMenu
         void Initialize();
 
         BaseConfigMenuUICell CreateUICellFor(PrototypeId<ConfigMenuItemPrototype> protoId);
-        BaseConfigMenuUICell CreateUICellFor(PrototypeId<ConfigMenuItemPrototype> protoId, Type menuNodeType, IConfigMenuNode menuNode);
     }
 
     public sealed class ConfigMenuUICellFactory : IConfigMenuUICellFactory
@@ -74,7 +73,7 @@ namespace OpenNefia.Content.ConfigMenu
             return _menuNodeTypeToUICellType.GetValueOrDefault(menuNodeType);
         }
 
-        public BaseConfigMenuUICell CreateUICellFor(PrototypeId<ConfigMenuItemPrototype> protoId, Type menuNodeType, IConfigMenuNode menuNode)
+        private BaseConfigMenuUICell CreateUICellFor(PrototypeId<ConfigMenuItemPrototype> protoId, Type menuNodeType, IConfigMenuNode menuNode)
         {
             var uiCellType = GetUICellTypeFor(menuNodeType);
             if (uiCellType == null)
