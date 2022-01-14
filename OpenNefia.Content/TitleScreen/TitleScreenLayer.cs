@@ -136,7 +136,7 @@ namespace OpenNefia.Content.TitleScreen
                 new TitleScreenCell(TitleScreenChoice.Exit),
             };
             List = new UiList<TitleScreenChoice>(items);
-            List.EventOnActivate += (_, evt) => RunTitleScreenAction(evt.SelectedCell.Data);
+            List.OnActivated += (_, evt) => RunTitleScreenAction(evt.SelectedCell.Data);
 
             Window.KeyHints = MakeKeyHints();
 

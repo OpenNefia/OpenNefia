@@ -1,4 +1,5 @@
-﻿using OpenNefia.Core.Input;
+﻿using Love;
+using OpenNefia.Core.Input;
 using OpenNefia.Core.Maths;
 using System;
 using System.Collections.Generic;
@@ -24,6 +25,11 @@ namespace OpenNefia.Core.Graphics
         event Action<MouseWheelEventArgs>? OnMouseWheel;
         event Func<QuitEventArgs, bool>? OnQuit;
 
+        WindowSettings GetWindowSettings();
+        void SetWindowSettings(FullscreenMode mode, WindowSettings? windowSettings = null);
+        IEnumerable<FullscreenMode> GetFullscreenModes(int displayIndex);
+        int GetDisplayCount();
+
         void Initialize();
         void Shutdown();
         void ShowSplashScreen();
@@ -31,4 +37,6 @@ namespace OpenNefia.Core.Graphics
         void BeginDraw();
         void EndDraw();
     }
+
+    public record struct FullscreenMode(int Width, int Height);
 }

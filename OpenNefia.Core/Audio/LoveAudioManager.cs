@@ -43,7 +43,7 @@ namespace OpenNefia.Core.Audio
         public void Initialize()
         {
             _config.OnValueChanged(CVars.AudioSound, b => _enableSound = b, true);
-            _config.OnValueChanged(CVars.AudioPositionalSound, b => _usePositionalSound = b, true);
+            _config.OnValueChanged(CVars.AudioPositionalAudio, b => _usePositionalSound = b, true);
         }
 
         public void Shutdown()

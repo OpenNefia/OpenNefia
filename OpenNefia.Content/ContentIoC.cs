@@ -1,4 +1,5 @@
 ﻿using OpenNefia.Content.CharaMake;
+using OpenNefia.Content.ConfigMenu;
 using OpenNefia.Content.Logic;
 using OpenNefia.Content.RandomText;
 using OpenNefia.Content.TitleScreen;
@@ -22,6 +23,7 @@ namespace OpenNefia.Content
             IoCManager.Register<IReplLayer, ReplLayer>();
             IoCManager.Register<IRandomAliasGenerator, RandomAliasGenerator>();
             IoCManager.Register<IRandomNameGenerator, RandomNameGenerator>();
+            IoCManager.Register<IConfigMenuUICellFactory, ConfigMenuUICellFactory>();
         }
     }
 }

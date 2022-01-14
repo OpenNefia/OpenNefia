@@ -84,5 +84,29 @@ namespace OpenNefia.Core.Utility
 
             return false;
         }
+
+        public static T MinValue<T>() where T : Enum
+        {
+            var raw = EnumerateValues<T>().Cast<int>().Min();
+            return (T)Enum.ToObject(typeof(T), raw);
+        }
+
+        public static T MaxValue<T>() where T : Enum
+        {
+            var raw = EnumerateValues<T>().Cast<int>().Max();
+            return (T)Enum.ToObject(typeof(T), raw);
+        }
+
+        public static object MinValue(Type enumType)
+        {
+            var raw = Enum.GetValues(enumType).Cast<int>().Min();
+            return Enum.ToObject(enumType, raw);
+        }
+
+        public static object MaxValue(Type enumType)
+        {
+            var raw = Enum.GetValues(enumType).Cast<int>().Max();
+            return Enum.ToObject(enumType, raw);
+        }
     }
 }

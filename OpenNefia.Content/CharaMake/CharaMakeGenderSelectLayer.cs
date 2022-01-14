@@ -53,7 +53,7 @@ namespace OpenNefia.Content.CharaMake
                 new GenderCell(Gender.Male),
                 new GenderCell(Gender.Female),
             });
-            List.EventOnActivate += (_, args) =>
+            List.OnActivated += (_, args) =>
             {
                 Sounds.Play(Protos.Sound.Ok1);
                 Finish(new CharaMakeResult(new Dictionary<string, object>

@@ -61,11 +61,11 @@ namespace OpenNefia.Core.Graphics
             {
                 case WindowMode.Fullscreen:
                     bootConfig.WindowFullscreen = true;
-                    bootConfig.WindowFullscreenType = FullscreenType.Exclusive;
+                    bootConfig.WindowFullscreenType = Love.FullscreenType.Exclusive;
                     break;
                 case WindowMode.DesktopFullscreen:
                     bootConfig.WindowFullscreen = true;
-                    bootConfig.WindowFullscreenType = FullscreenType.DeskTop;
+                    bootConfig.WindowFullscreenType = Love.FullscreenType.DeskTop;
                     break;
                 case WindowMode.Windowed:
                 default:
@@ -111,6 +111,77 @@ namespace OpenNefia.Core.Graphics
 
             Love.Graphics.Present();
         }
+
+        #region Windowing
+
+        public WindowSettings GetWindowSettings()
+        {
+            var loveWindowSettings = Love.Window.GetMode();
+
+            // We shouldn't depend on Love2dCS's classes, in order to be backend-agnostic.
+            return new WindowSettings()
+            {
+                Borderless = loveWindowSettings.Borderless,
+                Centered = loveWindowSettings.Centered,
+                Depth = loveWindowSettings.Depth,
+                Display = loveWindowSettings.Display,
+                Fullscreen = loveWindowSettings.Fullscreen,
+                FullscreenType = (FullscreenType)loveWindowSettings.FullscreenType,
+                HighDPI = loveWindowSettings.HighDpi,
+                MinHeight = loveWindowSettings.MinHeight,
+                MinWidth = loveWindowSettings.MinWidth,
+                MSAA = loveWindowSettings.MSAA,
+                RefreshRate = loveWindowSettings.Refreshrate,
+                Resizable = loveWindowSettings.Resizable,
+                Stencil = loveWindowSettings.Stencil,
+                VSync = loveWindowSettings.Vsync,
+                X = loveWindowSettings.X,
+                Y = loveWindowSettings.Y,
+            };
+        }
+
+        public void SetWindowSettings(FullscreenMode mode, WindowSettings? windowSettings = null)
+        {
+            Love.WindowSettings? loveWindowSettings = null;
+
+            if (windowSettings != null)
+            {
+                loveWindowSettings = new Love.WindowSettings()
+                {
+                    Borderless = windowSettings.Borderless,
+                    Centered = windowSettings.Centered,
+                    Depth = windowSettings.Depth,
+                    Display = windowSettings.Display,
+                    Fullscreen = windowSettings.Fullscreen,
+                    FullscreenType = (Love.FullscreenType)windowSettings.FullscreenType,
+                    HighDpi = windowSettings.HighDPI,
+                    MinHeight = windowSettings.MinHeight,
+                    MinWidth = windowSettings.MinWidth,
+                    MSAA = windowSettings.MSAA,
+                    Refreshrate = windowSettings.RefreshRate,
+                    Resizable = windowSettings.Resizable,
+                    Stencil = windowSettings.Stencil,
+                    Vsync = windowSettings.VSync,
+                    X = windowSettings.X,
+                    Y = windowSettings.Y,
+                };
+            }
+
+            Love.Window.SetMode(mode.Width, mode.Height, loveWindowSettings);
+        }
+
+        public int GetDisplayCount()
+        {
+            return Love.Window.GetDisplayCount();
+        }
+
+        public IEnumerable<FullscreenMode> GetFullscreenModes(int displayIndex)
+        {
+            return Love.Window.GetFullscreenModes(displayIndex)
+                .Select(point => new FullscreenMode(point.X, point.Y));
+        }
+
+        #endregion
 
         private void InitializeGraphicsDefaults()
         {

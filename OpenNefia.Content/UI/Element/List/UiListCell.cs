@@ -12,18 +12,37 @@ using OpenNefia.Core.Input;
 
 namespace OpenNefia.Content.UI.Element.List
 {
-    public class UiListCell<T> : UiElement, IUiListCell<T>
+    public class UiListCell<T> : UiListCell, IUiListCell<T>
     {
         private T _data;
 
-        public T Data { 
-            get => _data; 
+        public T Data
+        {
+            get => _data;
             set
             {
                 _data = value;
                 OnCellDataChanged();
             }
         }
+
+        public UiListCell(T data, IUiText text, UiListChoiceKey? key = null) : base(text, key)
+        {
+            _data = data;
+        }
+
+        public UiListCell(T data, string text = "", UiListChoiceKey? key = null) 
+            : this(data, new UiText(UiFonts.ListText, text), key)
+        {
+        }
+
+        protected virtual void OnCellDataChanged()
+        {
+        }
+    }
+
+    public class UiListCell : UiElement, IUiListCell
+    {
 
         private UiListChoiceKey? _Key;
         public UiListChoiceKey? Key
@@ -65,9 +84,8 @@ namespace OpenNefia.Content.UI.Element.List
         protected IAssetInstance AssetListBullet;
         public IAssetInstance AssetSelectKey;
 
-        public UiListCell(T data, IUiText text, UiListChoiceKey? key = null)
+        public UiListCell(IUiText text, UiListChoiceKey? key = null)
         {
-            _data = data;
             UiText = text;
 
             AssetSelectKey = Assets.Get(Protos.Asset.SelectKey);
@@ -81,7 +99,7 @@ namespace OpenNefia.Content.UI.Element.List
 
         private void HandleMouseEntered(GUIMouseHoverEventArgs args)
         {
-            if (Parent is not UiList<T> list)
+            if (Parent is not IUiList list)
                 return;
 
             if (list.SelectedIndex != IndexInList)
@@ -89,12 +107,6 @@ namespace OpenNefia.Content.UI.Element.List
                 Sounds.Play(Protos.Sound.Cursor1);
                 list.Select(this.IndexInList);
             }
-        }
-
-        public UiListCell(T data, string text = "", UiListChoiceKey? key = null) : this(data, new UiText(UiFonts.ListText, text), key) { }
-
-        protected virtual void OnCellDataChanged()
-        {
         }
 
         public override void GetPreferredSize(out Vector2i size)

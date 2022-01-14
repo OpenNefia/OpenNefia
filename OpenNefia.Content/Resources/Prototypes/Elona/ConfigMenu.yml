@@ -1,0 +1,121 @@
+#
+# Default
+#
+
+# NOTE: This item is used internally by the engine as the top-level options menu.
+- type: Elona.ConfigMenuItem
+  id: Elona.MenuDefault
+  node: !type:ConfigSubmenuMenuNode
+    menuSize: 370,270
+    items:
+    - Elona.MenuGame
+    - Elona.MenuScreen
+    - Elona.MenuNet
+    - Elona.MenuAnime
+    - Elona.MenuInput
+    - Elona.MenuKeybindings
+    - Elona.MenuMessage
+    - Elona.MenuLanguage
+
+#
+# Game
+#
+
+- type: Elona.ConfigMenuItem
+  id: Elona.MenuGame
+  node: !type:ConfigSubmenuMenuNode
+
+#
+# Screen
+#
+
+- type: Elona.ConfigMenuItem
+  id: Elona.MenuScreen
+  node: !type:ConfigSubmenuMenuNode
+    items:
+    - Elona.ScreenSound
+    - Elona.ScreenMusic
+    - Elona.ScreenMidiDevice
+    - Elona.ScreenPositionalAudio
+    - Elona.ScreenWindowMode
+    - Elona.ScreenScreenResolution
+
+- type: Elona.ConfigMenuItem
+  id: Elona.ScreenSound
+  node: !type:ConfigBoolMenuNode
+    cvar: audio.sound
+
+- type: Elona.ConfigMenuItem
+  id: Elona.ScreenMusic
+  node: !type:ConfigBoolMenuNode
+    cvar: audio.music
+
+- type: Elona.ConfigMenuItem
+  id: Elona.ScreenMidiDevice
+  node: !type:ConfigIntMenuNode
+    cvar: audio.mididevice
+
+- type: Elona.ConfigMenuItem
+  id: Elona.ScreenPositionalAudio
+  node: !type:ConfigBoolMenuNode
+    cvar: audio.positionalaudio
+
+- type: Elona.ConfigMenuItem
+  id: Elona.ScreenWindowMode
+  node: !type:ConfigEnumMenuNode
+    cvar: display.windowmode
+    enumType: OpenNefia.Core.Graphics.WindowMode
+
+- type: Elona.ConfigMenuItem
+  id: Elona.ScreenScreenResolution
+  node: !type:ConfigScreenResolutionMenuNode
+    cvarWidth: display.width
+    cvarHeight: display.height
+
+#
+# Net
+#
+
+- type: Elona.ConfigMenuItem
+  id: Elona.MenuNet
+  node: !type:ConfigSubmenuMenuNode
+
+#
+# Anime
+#
+
+- type: Elona.ConfigMenuItem
+  id: Elona.MenuAnime
+  node: !type:ConfigSubmenuMenuNode
+
+#
+# Input
+#
+
+- type: Elona.ConfigMenuItem
+  id: Elona.MenuInput
+  node: !type:ConfigSubmenuMenuNode
+
+#
+# Keybindings
+#
+
+- type: Elona.ConfigMenuItem
+  id: Elona.MenuKeybindings
+  node: !type:ConfigSubmenuMenuNode
+
+#
+# Message
+#
+
+- type: Elona.ConfigMenuItem
+  id: Elona.MenuMessage
+  node: !type:ConfigSubmenuMenuNode
+
+#
+# Language
+#
+
+- type: Elona.ConfigMenuItem
+  id: Elona.MenuLanguage
+  node: !type:ConfigSubmenuMenuNode

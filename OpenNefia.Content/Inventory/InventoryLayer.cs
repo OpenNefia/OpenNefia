@@ -197,7 +197,7 @@ namespace OpenNefia.Content.Inventory
             List.PageTextElement = Window;
 
             OnKeyBindDown += HandleKeyBindDown;
-            List.EventOnActivate += OnSelect;
+            List.OnActivated += OnSelect;
             EventFilter = UIEventFilterMode.Pass;        
         }
 

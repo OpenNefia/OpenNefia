@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 namespace OpenNefia.Core.Configuration
 {
@@ -45,6 +46,8 @@ namespace OpenNefia.Core.Configuration
         /// <param name="value">The value to set.</param>
         void SetCVar(string name, object value);
 
+        void SetCVar(CVarDef def, object value);
+
         void SetCVar<T>(CVarDef<T> def, T value) where T : notnull;
 
         /// <summary>
@@ -55,7 +58,31 @@ namespace OpenNefia.Core.Configuration
         /// <returns></returns>
         T GetCVar<T>(string name);
 
+        object GetCVar(string name);
+
         T GetCVar<T>(CVarDef<T> def) where T : notnull;
+
+        object GetCVar(CVarDef def);
+
+        /// <summary>
+        /// Tries to get a CVarDef.
+        /// </summary>
+        /// <param name="name">The name of the CVar.</param>
+        /// <param name="type">The Type of the CVar value.</param>
+        /// <param name="def">The CVarDef for the CVar.</param>
+        /// <returns></returns>
+        bool TryGetCVarDef(string name, Type type, [NotNullWhen(true)] out CVarDef? def);
+
+        /// <summary>
+        /// Tries to get a CVarDef.
+        /// </summary>
+        /// <param name="name">The name of the CVar.</param>
+        /// <param name="def">The CVarDef for the CVar.</param>
+        /// <returns></returns>
+        bool TryGetCVarDef(string name, [NotNullWhen(true)] out CVarDef? def);
+
+        bool TryGetCVarDef<T>(string name, [NotNullWhen(true)] out CVarDef<T>? def)
+            where T : notnull;
 
         /// <summary>
         ///     Gets the type of a value stored in a CVar.

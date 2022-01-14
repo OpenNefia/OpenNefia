@@ -1,10 +1,14 @@
-﻿using OpenNefia.Content.UI;
+﻿using OpenNefia.Content.ConfigMenu.UICell;
+using OpenNefia.Content.UI;
 using OpenNefia.Content.UI.Element;
 using OpenNefia.Content.UI.Element.List;
 using OpenNefia.Core.Audio;
+using OpenNefia.Core.Configuration;
 using OpenNefia.Core.Input;
+using OpenNefia.Core.IoC;
 using OpenNefia.Core.Locale;
 using OpenNefia.Core.Maths;
+using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Core.UI;
 using OpenNefia.Core.UI.Element;
@@ -23,29 +27,39 @@ namespace OpenNefia.Content.ConfigMenu
     {
         public class Args
         {
+            public PrototypeId<ConfigMenuItemPrototype> PrototypeId { get; }
+            public ConfigSubmenuMenuNode Submenu { get; }
+
+            public Args(PrototypeId<ConfigMenuItemPrototype> prototypeId, ConfigSubmenuMenuNode submenu)
+            {
+                PrototypeId = prototypeId;
+                Submenu = submenu;
+            }
         }
+
+        [Dependency] private readonly IConfigMenuUICellFactory _cellFactory = default!;
 
         [Localize("Topic.Menu")]
         private IUiText TextTopicMenu = new UiTextTopic();
 
-        private IAssetInstance AssetTitle;
         private IAssetDrawable AssetG2;
 
-        private UiPagedList<bool> List;
+        // The UI cells are generic based on the config option type, so UINone is
+        // used to have them all in one list.
+        // FIXME: #35
+        private UiPagedList<UINone> List;
         private UiWindow Window = new();
 
-        private bool _isInTitleScreen;
+        private Vector2i _menuSize = new();
 
         public ConfigMenuLayer()
         {
-            List = new UiPagedList<bool>(elementForPageText: Window);
-            AssetTitle = Assets.Get(Asset.Title);
+            List = new UiPagedList<UINone>(elementForPageText: Window);
             AssetG2 = new AssetDrawable(Asset.G2, color: new(255, 255, 255, 50));
 
             OnKeyBindDown += HandleKeyBindDown;
-            CanControlFocus = true;
-
-            List.EventOnActivate += HandleListActivate;
+            List.OnActivated += HandleListActivate;
+            List.OnPageChanged += HandleListPageChanged;
 
             AddChild(List);
         }
@@ -58,25 +72,62 @@ namespace OpenNefia.Content.ConfigMenu
 
         public override void Initialize(Args args)
         {
-            for (int i = 0; i < 5; i++)
+            foreach (var child in args.Submenu.Items)
             {
-                List.Add(new ConfigItemBooleanCell(true));
+                List.Add(_cellFactory.CreateUICellFor(child));
             }
 
-            Window.Title = "ConfigMenuName";
+            _menuSize = args.Submenu.MenuSize;
+
+            Window.Title = Loc.GetPrototypeString(args.PrototypeId, "Name");
             Window.KeyHints = MakeKeyHints();
+
+            RefreshConfigValueDisplay();
         }
 
-        private void HandleListActivate(object? sender, UiListEventArgs<bool> evt)
+        private void RefreshConfigValueDisplay()
+        {
+            // FIXME: #35
+            foreach (var cell in List.Cast<BaseConfigMenuUICell>())
+            {
+                cell.RefreshConfigValueDisplay();
+            }
+        }
+
+        private void HandleListActivate(object? sender, UiListEventArgs<UINone> evt)
         {
             Sounds.Play(Sound.Ok1);
+            ((BaseConfigMenuUICell)evt.SelectedCell).HandleActivated();
+            RefreshConfigValueDisplay();
         }
 
-        private void HandleKeyBindDown(GUIBoundKeyEventArgs obj)
+        private void HandleListPageChanged(int newPage, int newPageCount)
         {
-            if (obj.Function == EngineKeyFunctions.UICancel)
+            // Recenter the window based on the new item count.
+            SetPreferredSize();
+        }
+
+        private void HandleKeyBindDown(GUIBoundKeyEventArgs evt)
+        {
+            if (evt.Function == EngineKeyFunctions.UICancel)
             {
                 Finish(new());
+            }
+
+            if (List.SelectedCell is not BaseConfigMenuUICell selected)
+                return;
+
+            if (evt.Function == EngineKeyFunctions.UILeft)
+            {
+                selected.HandleChanged(-1);
+            }
+            else if (evt.Function == EngineKeyFunctions.UIRight)
+            {
+                selected.HandleChanged(1);
+            }
+            else if (evt.Function == EngineKeyFunctions.UISelect)
+            {
+                selected.HandleActivated();
             }
         }
 
@@ -92,9 +143,14 @@ namespace OpenNefia.Content.ConfigMenu
 
         public override void GetPreferredBounds(out UIBox2i bounds)
         {
-            var menuWidth = 440;
-            var menuHeight = 300;
-            UiUtils.GetCenteredParams(menuWidth, menuHeight, out bounds);
+            var height = _menuSize.Y;
+
+            if (List.DisplayedCells.Count >= 9)
+            {
+                height += 10 + 30 * (List.DisplayedCells.Count - 9);
+            }
+
+            UiUtils.GetCenteredParams(_menuSize.X, height, out bounds);
             bounds.Top -= 12;
         }
 

@@ -7,7 +7,7 @@ namespace OpenNefia.Core.Configuration
     {
         /// <summary>
         /// The environment variable for configuring CVar overrides. The value
-        /// of the variable should be passed as key-value equalities separated by
+        /// of the variable should be passed as `key=value` separated by
         /// semicolons.
         /// </summary>
         public const string ConfigVarEnvironmentVariable = "OPENNEFIA_CVARS";
