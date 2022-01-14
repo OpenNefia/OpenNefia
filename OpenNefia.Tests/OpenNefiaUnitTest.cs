@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using Microsoft.CodeAnalysis;
 using NUnit.Framework;
+using OpenNefia.Core.Configuration;
 using OpenNefia.Core.ContentPack;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
@@ -31,7 +33,23 @@ namespace OpenNefia.Tests
             assemblies.Add(typeof(OpenNefia.Core.Engine).Assembly);
             assemblies.Add(Assembly.GetExecutingAssembly());
 
+            var configurationManager = IoCManager.Resolve<IConfigurationManagerInternal>();
+
+            configurationManager.Initialize();
+
+            foreach (var assembly in assemblies)
+            {
+                configurationManager.LoadCVarsFromAssembly(assembly);
+            }
+
             var contentAssemblies = GetContentAssemblies();
+
+            foreach (var assembly in contentAssemblies)
+            {
+                configurationManager.LoadCVarsFromAssembly(assembly);
+            }
+
+            configurationManager.LoadCVarsFromAssembly(typeof(OpenNefiaUnitTest).Assembly);
 
             // Required systems
             var systems = IoCManager.Resolve<IEntitySystemManager>();
@@ -52,7 +70,7 @@ namespace OpenNefia.Tests
             modLoader.TryLoadModulesFrom(ResourcePath.Root, "");
 
             // Required since localization hooks into entity creation.
-            IoCManager.Resolve<ILocalizationManager>().Initialize(LanguagePrototypeOf.English);
+            IoCManager.Resolve<ILocalizationManager>().Initialize();
 
             // Required components for the engine to work
             var compFactory = IoCManager.Resolve<IComponentFactory>();

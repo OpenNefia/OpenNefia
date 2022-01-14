@@ -23,6 +23,10 @@ namespace OpenNefia.Tests
         {
         }
 
+        public void Localize()
+        {
+        }
+
         public void OnQuery()
         {
         }

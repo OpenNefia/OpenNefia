@@ -116,11 +116,14 @@ namespace OpenNefia.Core.Locale
         {
             PrototypeId<LanguagePrototype> protoId = new(rawID);
 
+            // This makes the test suite have a hard dependency on Core prototypes.
+            /*
             if (!_protos.HasIndex(protoId))
             {
                 protoId = LanguagePrototypeOf.English;
                 Logger.WarningS("loc", $"No language with ID '{rawID}' registered; falling back to {protoId}");
             }
+            */
 
             SwitchLanguage(protoId);
         }
