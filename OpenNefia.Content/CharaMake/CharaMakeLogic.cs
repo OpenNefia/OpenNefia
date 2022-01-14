@@ -62,8 +62,8 @@ namespace OpenNefia.Content.CharaMake
                     var globalMapSpatial = _entityManager.GetComponent<SpatialComponent>(globalMap.MapEntityUid);
 
                     var playerEntity = _entityManager.CreateEntityUninitialized(Protos.Chara.Player);
-                    var areaSpatial = _entityManager.GetComponent<SpatialComponent>(playerEntity);
-                    areaSpatial.AttachParent(globalMapSpatial);
+                    var playerSpatial = _entityManager.GetComponent<SpatialComponent>(playerEntity);
+                    playerSpatial.AttachParent(globalMapSpatial);
 
                     var entityGen = EntitySystem.Get<IEntityGen>();
                     _entityManager.InitializeComponents(playerEntity);
