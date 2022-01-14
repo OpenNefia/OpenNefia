@@ -14,7 +14,8 @@ namespace OpenNefia.Content.ConfigMenu.UICell
         private List<IPrototype> _choices = new();
         private int _currentIndex = 0;
 
-        public ConfigItemPrototypeIdsUICell(PrototypeId<ConfigMenuItemPrototype> protoId, ConfigPrototypeIdsMenuNode data) : base(protoId, data)
+        public ConfigItemPrototypeIdsUICell(PrototypeId<ConfigMenuItemPrototype> protoId, ConfigPrototypeIdsMenuNode data) 
+            : base(protoId, data)
         {
         }
 
@@ -51,9 +52,9 @@ namespace OpenNefia.Content.ConfigMenu.UICell
 
             var prototypeType = _protos.GetVariantType(MenuNode.PrototypeType);
             var currentID = ConfigManager.GetCVar(MenuNode.CVar);
-            string text;
 
-            if (_protos.TryIndex(prototypeType, currentID, out var proto))
+            string text;
+            if (_protos.HasIndex(prototypeType, currentID))
             {
                 text = Loc.GetPrototypeStringRaw(prototypeType, currentID, MenuNode.NameLocaleKey);
             }

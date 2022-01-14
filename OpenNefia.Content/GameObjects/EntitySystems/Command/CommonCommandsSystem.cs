@@ -123,7 +123,7 @@ namespace OpenNefia.Content.GameObjects
         private void ShowConfigMenu()
         {
             Sounds.Play(Sound.Ok1);
-            ConfigMenuHelpers.ShowConfigMenu(_protos, _uiManager, _config);
+            ConfigMenuHelpers.QueryDefaultConfigMenu(_protos, _uiManager, _config);
         }
 
         private void ReturnToTitle()

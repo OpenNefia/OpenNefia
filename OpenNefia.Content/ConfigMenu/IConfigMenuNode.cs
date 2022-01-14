@@ -15,12 +15,12 @@ namespace OpenNefia.Content.ConfigMenu
     /// or another layouting engine. However, this does *not* mean that it should be necessary
     /// to rewrite the layout of the config menu for every possible UI framework. Mods should be
     /// able to specify their config hierarchy in a single place, and leave it up to the UI
-    /// implementation to config that options hierarchy for rendering and such.
+    /// implementation to layout that options hierarchy for rendering and such.
     /// </para>
     /// <para>
     /// All implementers of this interface are intended to be used in YAML within a
     /// <see cref="ConfigMenuItemPrototype"/>, which is where the single specification for the
-    /// config menus should take place.
+    /// config menus takes place.
     /// </para>
     /// </summary>
     [ImplicitDataDefinitionForInheritors]
@@ -125,7 +125,7 @@ namespace OpenNefia.Content.ConfigMenu
 
     /// <summary>
     /// This config option should provide a set of available MIDI device
-    /// numbers on the system.
+    /// indices on the system.
     /// </summary>
     public sealed class ConfigMidiDeviceMenuNode : IConfigMenuNode
     {
@@ -145,6 +145,9 @@ namespace OpenNefia.Content.ConfigMenu
         [DataField("cvar", required: true)]
         public CVarDef<string> CVar { get; } = default!;
 
+        /// <summary>
+        /// Prototype type, like "Elona.EquipSlot" for <see cref="EquipSlots.EquipSlotPrototype"/>.
+        /// </summary>
         [DataField(required: true)]
         public string PrototypeType { get; } = default!;
 

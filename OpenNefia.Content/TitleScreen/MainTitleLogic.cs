@@ -128,7 +128,7 @@ namespace OpenNefia.Content.TitleScreen
 
         private void ShowConfigMenu()
         {
-            ConfigMenuHelpers.ShowConfigMenu(_prototypeManager, _uiManager, _config);
+            ConfigMenuHelpers.QueryDefaultConfigMenu(_prototypeManager, _uiManager, _config);
         }
 
         /// <summary>

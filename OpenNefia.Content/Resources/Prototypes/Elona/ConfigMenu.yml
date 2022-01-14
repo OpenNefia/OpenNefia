@@ -2,7 +2,7 @@
 # Default
 #
 
-# NOTE: This item is used internally by the engine as the top-level options menu.
+# NOTE: This item is used internally by the engine as the top-level config menu.
 - type: Elona.ConfigMenuItem
   id: Elona.MenuDefault
   node: !type:ConfigSubmenuMenuNode
