@@ -33,9 +33,10 @@ namespace OpenNefia.Content.ConfigMenu
 
         /// <summary>
         /// Given a subclass of <see cref="BaseConfigMenuUICell{Type}"/>, returns
-        /// the menu node type of its generic type definition.
+        /// the generic type definition of <see cref="BaseConfigMenuUICell{Type}"/> for that type.
         /// 
-        /// e.g. for <see cref="ConfigItemBoolUICell"/>, it should return <see cref="ConfigBoolMenuNode"/>.
+        /// e.g. for <see cref="ConfigItemBoolUICell"/>, it should return
+        /// <see cref="BaseConfigMenuUICell{ConfigBoolMenuNode}"/>.
         /// </summary>
         private (Type? baseType, Type derivedType) GetMenuNodeTypeForUICellType(Type uiCellDerivedType)
         {

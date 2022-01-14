@@ -116,10 +116,16 @@ namespace OpenNefia.Core.Audio
             if (source.GetChannelCount() == 1)
             {
                 source.SetRelative(false);
-                source.SetAttenuationDistances(100, 500);
 
                 if (_usePositionalSound)
+                {
                     source.SetPosition(screenPosition.X, screenPosition.Y, 0f);
+                    source.SetAttenuationDistances(100, 500);
+                }
+                else
+                {
+                    source.SetAttenuationDistances(0, 0);
+                }
             }
 
             source.SetVolume(Math.Clamp(audioParams?.Volume ?? 1f, 0f, 1f));

@@ -11,6 +11,8 @@ using OpenNefia.Core.Graphics;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.UI.Element;
 using OpenNefia.Core.UserInterface;
+using OpenNefia.Core;
+using OpenNefia.Core.Locale;
 
 namespace OpenNefia.Content.UI.Layer
 {
@@ -26,6 +28,11 @@ namespace OpenNefia.Content.UI.Layer
             ChoiceData = result;
             ChoiceText = text;
             Key = key;
+        }
+
+        public PromptChoice(T result, LocaleKey localeKey, Keyboard.Key key = Keyboard.Key.Unknown)
+            : this(result, Loc.GetString(localeKey), key) 
+        {
         }
 
         public string GetChoiceText(int index)
