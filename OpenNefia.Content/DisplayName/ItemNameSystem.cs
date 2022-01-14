@@ -77,43 +77,8 @@ namespace OpenNefia.Content.DisplayName
             if (!Resolve(uid, ref item, ref meta, ref stack))
                 return $"<item {uid}>";
 
-
-            var parts = new List<string>();
-            string prefix = GermanBuiltins.BaseArticle;
-            var locData = _localizationManager.GetEntityData(meta.EntityPrototype?.ID!);
-            if (locData.Attributes.TryGetValue(GermanBuiltins.PluralNameAttributeName, out var plrRule) 
-                && plrRule == GermanBuiltins.PluralNameAlways)
-            {
-                prefix = string.Empty;
-            }
-            else if (locData.Attributes.TryGetValue(GermanBuiltins.GenderAttributeName, out var gender))
-            {
-                prefix += gender switch
-                {
-                    GermanBuiltins.GenderNameMale => GermanBuiltins.ArticleSuffixMale,
-                    GermanBuiltins.GenderNameFemale => GermanBuiltins.ArticleSuffixFemale,
-                    _ => string.Empty
-                };
-            }
-
-            if (locData.Attributes.TryGetValue(GermanBuiltins.AdjectiveAttributeName, out var adj))
-                parts.Add(adj);
-
-            var basename = meta.DisplayName;
-
-            if (stack.Count == 1)
-            {
-                parts.Add(basename!);
-                if (!string.IsNullOrEmpty(prefix))
-                    parts.Insert(0, prefix);
-                return string.Join(" ", parts);
-            }
-
-            if (locData.Attributes.TryGetValue(GermanBuiltins.PluralAttributeName, out var plural))
-            {
-                basename = plural;
-            }
-            return $"{stack.Count} {basename}";
+            var nameData = GermanBuiltins.GetDisplayData(uid);
+            return nameData.GetStackName(stack.Count);
         }
     }
 }

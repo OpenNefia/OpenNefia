@@ -98,6 +98,8 @@ namespace OpenNefia.Core.Locale
 
         private readonly ResourcePath LocalePath = new ResourcePath("/Locale");
 
+        private const string LocDataKey = "_LocData";
+
         public PrototypeId<LanguagePrototype> Language { get; private set; } = LanguagePrototypeOf.English;
 
         public void Initialize()
@@ -146,6 +148,7 @@ namespace OpenNefia.Core.Locale
             {
                 _entityFactory.LocalizeComponents(uid);
             }
+            _entityCache.Clear();
 
             OnLanguageSwitched?.Invoke(language);
         }
@@ -240,34 +243,10 @@ namespace OpenNefia.Core.Locale
             return TryGetTable($"OpenNefia.Prototypes.Entity.{metadata.EntityPrototype.ID}", out table);
         }
 
-        private void MungeEcksdee()
-        {
-            _entityCache.Clear();
-            return;
-            if (!TryGetTable("OpenNefia.Prototypes.Entity.Elona", out LuaTable? entityTable))
-            {
-                return;
-            }
-
-            foreach(KeyValuePair<object, object> pair in entityTable)
-            {
-                if (pair.Value is not LuaTable table)
-                    continue;
-                if (!table.TryGetTable("_LocData", out var locTable))
-                    continue;
-
-                var name = pair.Key.ToString()!;
-                var builder = ImmutableDictionary.CreateBuilder<string, string>();
-                foreach (KeyValuePair<object, object> locData in locTable)
-                    builder.Add(locData.Key.ToString()!, locData.Value.ToString()!);
-                _entityCache[name] = new EntityLocData(builder.ToImmutable());
-            }
-        }
-
-        private EntityLocData CalcEntityLoc(string id)
+        private EntityLocData ReadEntityLocDataFromLua(string id)
         {
             if (!TryGetTable($"OpenNefia.Prototypes.Entity.{id}", out var entityTable)
-                || !entityTable.TryGetTable("_LocData", out var locTable))
+                || !entityTable.TryGetTable(LocDataKey, out var locTable))
                 return new(ImmutableDictionary.Create<string, string>());
 
             var builder = ImmutableDictionary.CreateBuilder<string, string>();
@@ -279,7 +258,7 @@ namespace OpenNefia.Core.Locale
 
         public EntityLocData GetEntityData(string prototypeId)
         {
-            return _entityCache.GetOrAdd(prototypeId ?? string.Empty, (id, t) => t.CalcEntityLoc(id), this);
+            return _entityCache.GetOrAdd(prototypeId ?? string.Empty, (id, t) => t.ReadEntityLocDataFromLua(id), this);
         }
     }
 }

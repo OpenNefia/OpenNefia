@@ -15,6 +15,80 @@ namespace OpenNefia.Content.Locale.Funcs
     [RegisterLocaleFunctions("de_DE")]
     public static class GermanBuiltins
     {
+        public class EntityDisplayData
+        {
+            private string Article { get; set; } = "";
+            private string Adjective { get; set; } = "";
+            public string Noun { get; set; } = "";
+            
+            EntityLocData Data { get; set; } = default!;
+
+            public EntityDisplayData(string noun, EntityLocData data)
+            {
+                Noun = noun;
+                Data = data;
+            }
+
+            private void Init(bool direct)
+            {
+                Article = BaseArticle;
+                Adjective = string.Empty;
+                if (Data.Attributes.TryGetValue(PluralNameAttributeName, out var plrRule)
+                    && plrRule == PluralNameAlways)
+                {
+                    Article = string.Empty;
+                }
+                else if (Data.Attributes.TryGetValue(GenderAttributeName, out var gender))
+                {
+                    Article += gender switch
+                    {
+                        GenderNameMale => direct ? string.Empty : ArticleSuffixMale,
+                        GenderNameFemale => ArticleSuffixFemale,
+                        _ => string.Empty
+                    };
+                }
+                if (Data.Attributes.TryGetValue(direct ? AdjectiveDirectAttributeName : AdjectiveAttributeName, out var adj))
+                    Adjective = adj;
+            }
+
+            public string GetStackName(int count)
+            {
+                if (count <= 1)
+                    return GetIndirectName();
+
+                Init(false);
+                var baseName = Noun;
+                if (Data.Attributes.TryGetValue(PluralAttributeName, out var plural))
+                {
+                    baseName = plural;
+                }
+                var parts = new List<string>
+                {
+                    $"{count}"
+                };
+                if (Data.Attributes.TryGetValue(AdjectivePluralAttributeName, out var adj))
+                    parts.Add(adj);
+                parts.Add(baseName);
+                return string.Join(" ", parts);
+            }
+
+            private string GetName(bool direct)
+            {
+                Init(direct);
+                var parts = new List<string>();
+                if (!string.IsNullOrEmpty(Article))
+                    parts.Add(Article);
+                if (!string.IsNullOrEmpty(Adjective))
+                    parts.Add(Adjective);
+                parts.Add(Noun);
+                return string.Join(" ", parts);
+            }
+
+            public string GetDirectName() => GetName(true);
+
+            public string GetIndirectName() => GetName(false);
+        }
+
         public const string BaseArticle = "ein";
         public const string GenderAttributeName = "Gender";
         public const string PluralAttributeName = "Plural";
@@ -27,10 +101,12 @@ namespace OpenNefia.Content.Locale.Funcs
         public const string GenderNameNeutral = "neutral";
 
         public const string AdjectiveAttributeName = "Adjective";
+        public const string AdjectivePluralAttributeName = "AdjectivePlural";
         public const string AdjectiveDirectAttributeName = "AdjectiveDirect";
 
         public const string ArticleSuffixFemale = "e";
         public const string ArticleSuffixMale = "en";
+
         /// <summary>
         /// Function: name(entity, ignoreSight)
         /// </summary>
@@ -55,39 +131,14 @@ namespace OpenNefia.Content.Locale.Funcs
                 return Loc.GetString("Elona.GameObjects.Common.Something");
             }
 
-            var name = DisplayNameSystem.GetDisplayName(entity);
-            if (char.IsDigit(name.First()))
-                return name;
+            return GetDisplayData(entity).GetDirectName();
+        }
 
-            var parts = name.Split(' ');
-            if (parts.Length <= 1)
-                return name;
-
+        public static EntityDisplayData GetDisplayData(EntityUid entity)
+        {
             var entMan = IoCManager.Resolve<IEntityManager>();
             var prototype = entMan.GetComponent<MetaDataComponent>(entity).EntityPrototype;
-            if (prototype == null)
-                return name;
-
-            var locData = Loc.GetLocalizationData(prototype?.ID!);
-            if (locData.Attributes.TryGetValue(PluralNameAttributeName, out var plrRule)
-                && plrRule == PluralNameAlways)
-            {
-                return name;
-            }
-            else if (locData.Attributes.TryGetValue(GenderAttributeName, out var gender))
-            {
-                var prefix = gender switch
-                {
-                    GenderNameFemale => BaseArticle + ArticleSuffixFemale,
-                    _ => BaseArticle
-                };
-
-                if (locData.Attributes.TryGetValue(AdjectiveDirectAttributeName, out var adj))
-                    prefix += $" {adj}";
-
-                return $"{prefix} {parts.Last()}";
-            }
-            return name;
+            return new EntityDisplayData(DisplayNameSystem.GetDisplayName(entity), Loc.GetLocalizationData(prototype?.ID!));
         }
     }
 }
