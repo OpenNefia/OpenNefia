@@ -81,6 +81,17 @@ namespace OpenNefia.Core.Input
         /// <inheritdoc />
         public event Action<ViewportBoundKeyEventArgs>? KeyBindStateChanged;
 
+        /// <summary>
+        /// This is for checking if HaltInput() is called while another keybind is being
+        /// handled already. This is because keybind inputs are re-entrant, so you can
+        /// query layers, halt input and do all sorts of other things all within another
+        /// keybind handler.
+        /// </summary>
+        private int _haltCounter = 0;
+
+        /// <inheritdoc/>
+        public int HaltCounter => _haltCounter;
+
         public IEnumerable<BoundKeyFunction> DownKeyFunctions => _bindings
             .Where(x => x.State == BoundKeyState.Down)
             .Select(x => x.Function)
@@ -127,6 +138,8 @@ namespace OpenNefia.Core.Input
             {
                 LoadKeyFile(path, false);
             }
+
+            _haltCounter = 0;
         }
 
         public void SaveToUserData()
@@ -203,6 +216,8 @@ namespace OpenNefia.Core.Input
                     SetBindState(bind, BoundKeyState.Up);
                 }
             }
+
+            _haltCounter++;
         }
 
         /// <inheritdoc />
@@ -289,8 +304,19 @@ namespace OpenNefia.Core.Input
                     return;
             }
 
+            var lastHaltCounter = _haltCounter;
+
             foreach (var binding in bindsDown)
             {
+                if (lastHaltCounter != _haltCounter)
+                {
+                    // KeyDown() was re-entered by another key handler and something
+                    // in that handler called HaltInput(). This call to KeyDown() was
+                    // higher up the call stack and we're still trying to handle keybinds,
+                    // but we called HaltInput() already so bail out.
+                    break;
+                }
+
                 if (DownBind(binding, uiOnly, args.IsRepeat))
                 {
                     break;
