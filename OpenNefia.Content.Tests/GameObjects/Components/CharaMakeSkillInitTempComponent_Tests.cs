@@ -28,7 +28,6 @@ namespace OpenNefia.Content.Tests.GameObjects.Components
             var globalMap = _mapManager.GetMap(MapId.Global);
             var globalMapSpatial = _entityManager.GetComponent<SpatialComponent>(globalMap.MapEntityUid);
 
-
             var playerEntity = _entityManager.CreateEntityUninitialized(Protos.Chara.Player);
             var areaSpatial = _entityManager.GetComponent<SpatialComponent>(playerEntity);
             areaSpatial.AttachParent(globalMapSpatial);
