@@ -2,393 +2,393 @@
   id: Elona.Performer
   ordering:
     after: Elona.Investing
-  relatedSkill: Elona.StatCharisma
+  relatedSkill: Elona.AttrCharisma
   skillType: SkillAction
 
 - type: Elona.Skill
   id: Elona.Cooking
-  relatedSkill: Elona.StatLearning
+  relatedSkill: Elona.AttrLearning
   skillType: SkillAction
 
 - type: Elona.Skill
   id: Elona.Fishing
-  relatedSkill: Elona.StatPerception
+  relatedSkill: Elona.AttrPerception
   skillType: SkillAction
 
 - type: Elona.Skill
   id: Elona.Pickpocket
-  relatedSkill: Elona.StatDexterity
+  relatedSkill: Elona.AttrDexterity
   skillType: SkillAction
 
 - type: Elona.Skill
   id: Elona.Riding
-  relatedSkill: Elona.StatWill
+  relatedSkill: Elona.AttrWill
   skillType: SkillAction
 
 - type: Elona.Skill
   id: Elona.SpellGravity
-  relatedSkill: Elona.StatMagic
+  relatedSkill: Elona.AttrMagic
   skillType: SkillMagic
 
 - type: Elona.Skill
   id: Elona.SpellDominate
-  relatedSkill: Elona.StatCharisma
+  relatedSkill: Elona.AttrCharisma
   skillType: SkillMagic
 
 - type: Elona.Skill
   id: Elona.ActionCurse
-  relatedSkill: Elona.StatMagic
+  relatedSkill: Elona.AttrMagic
   skillType: SkillMagic
 
 - type: Elona.Skill
   id: Elona.SpellReturn
-  relatedSkill: Elona.StatPerception
+  relatedSkill: Elona.AttrPerception
   skillType: SkillMagic
 
 - type: Elona.Skill
   id: Elona.SpellFourDimensionalPocket
-  relatedSkill: Elona.StatPerception
+  relatedSkill: Elona.AttrPerception
   skillType: SkillMagic
 
 - type: Elona.Skill
   id: Elona.SpellMagicMap
-  relatedSkill: Elona.StatPerception
+  relatedSkill: Elona.AttrPerception
   skillType: SkillMagic
 
 - type: Elona.Skill
   id: Elona.SpellSenseObject
-  relatedSkill: Elona.StatPerception
+  relatedSkill: Elona.AttrPerception
   skillType: SkillMagic
 
 - type: Elona.Skill
   id: Elona.SpellIdentify
-  relatedSkill: Elona.StatPerception
+  relatedSkill: Elona.AttrPerception
   skillType: SkillMagic
 
 - type: Elona.Skill
   id: Elona.SpellUncurse
-  relatedSkill: Elona.StatWill
+  relatedSkill: Elona.AttrWill
   skillType: SkillMagic
 
 - type: Elona.Skill
   id: Elona.SpellOracle
-  relatedSkill: Elona.StatMagic
+  relatedSkill: Elona.AttrMagic
   skillType: SkillMagic
 
 - type: Elona.Skill
   id: Elona.SpellWallCreation
-  relatedSkill: Elona.StatMagic
+  relatedSkill: Elona.AttrMagic
   skillType: SkillMagic
 
 - type: Elona.Skill
   id: Elona.SpellDoorCreation
-  relatedSkill: Elona.StatMagic
+  relatedSkill: Elona.AttrMagic
   skillType: SkillMagic
 
 - type: Elona.Skill
   id: Elona.SpellWizardsHarvest
-  relatedSkill: Elona.StatCharisma
+  relatedSkill: Elona.AttrCharisma
   skillType: SkillMagic
 
 - type: Elona.Skill
   id: Elona.SpellRestoreBody
-  relatedSkill: Elona.StatWill
+  relatedSkill: Elona.AttrWill
   skillType: SkillMagic
 
 - type: Elona.Skill
   id: Elona.SpellRestoreSpirit
-  relatedSkill: Elona.StatWill
+  relatedSkill: Elona.AttrWill
   skillType: SkillMagic
 
 - type: Elona.Skill
   id: Elona.SpellWish
-  relatedSkill: Elona.StatMagic
+  relatedSkill: Elona.AttrMagic
   skillType: SkillMagic
 
 - type: Elona.Skill
   id: Elona.SpellResurrection
-  relatedSkill: Elona.StatWill
+  relatedSkill: Elona.AttrWill
   skillType: SkillMagic
 
 - type: Elona.Skill
   id: Elona.SpellMeteor
-  relatedSkill: Elona.StatMagic
+  relatedSkill: Elona.AttrMagic
   skillType: SkillMagic
 
 - type: Elona.Skill
   id: Elona.SpellIceBolt
-  relatedSkill: Elona.StatMagic
+  relatedSkill: Elona.AttrMagic
   skillType: SkillMagic
 
 - type: Elona.Skill
   id: Elona.SpellFireBolt
-  relatedSkill: Elona.StatMagic
+  relatedSkill: Elona.AttrMagic
   skillType: SkillMagic
 
 - type: Elona.Skill
   id: Elona.SpellLightningBolt
-  relatedSkill: Elona.StatMagic
+  relatedSkill: Elona.AttrMagic
   skillType: SkillMagic
 
 - type: Elona.Skill
   id: Elona.SpellDarknessBolt
-  relatedSkill: Elona.StatMagic
+  relatedSkill: Elona.AttrMagic
   skillType: SkillMagic
 
 - type: Elona.Skill
   id: Elona.SpellMindBolt
-  relatedSkill: Elona.StatMagic
+  relatedSkill: Elona.AttrMagic
   skillType: SkillMagic
 
 - type: Elona.Skill
   id: Elona.SpellMagicDart
-  relatedSkill: Elona.StatMagic
+  relatedSkill: Elona.AttrMagic
   skillType: SkillMagic
 
 - type: Elona.Skill
   id: Elona.SpellNetherArrow
-  relatedSkill: Elona.StatMagic
+  relatedSkill: Elona.AttrMagic
   skillType: SkillMagic
 
 - type: Elona.Skill
   id: Elona.SpellNerveArrow
-  relatedSkill: Elona.StatMagic
+  relatedSkill: Elona.AttrMagic
   skillType: SkillMagic
 
 - type: Elona.Skill
   id: Elona.SpellChaosEye
-  relatedSkill: Elona.StatMagic
+  relatedSkill: Elona.AttrMagic
   skillType: SkillMagic
 
 - type: Elona.Skill
   id: Elona.SpellDarkEye
-  relatedSkill: Elona.StatMagic
+  relatedSkill: Elona.AttrMagic
   skillType: SkillMagic
 
 - type: Elona.Skill
   id: Elona.SpellCrystalSpear
-  relatedSkill: Elona.StatMagic
+  relatedSkill: Elona.AttrMagic
   skillType: SkillMagic
 
 - type: Elona.Skill
   id: Elona.SpellIceBall
-  relatedSkill: Elona.StatMagic
+  relatedSkill: Elona.AttrMagic
   skillType: SkillMagic
 
 - type: Elona.Skill
   id: Elona.SpellFireBall
-  relatedSkill: Elona.StatMagic
+  relatedSkill: Elona.AttrMagic
   skillType: SkillMagic
 
 
 - type: Elona.Skill
   id: Elona.SpellChaosBall
-  relatedSkill: Elona.StatMagic
+  relatedSkill: Elona.AttrMagic
   skillType: SkillMagic
 
 - type: Elona.Skill
   id: Elona.SpellRagingRoar
-  relatedSkill: Elona.StatMagic
+  relatedSkill: Elona.AttrMagic
   skillType: SkillMagic
 
 - type: Elona.Skill
   id: Elona.SpellMagicStorm
-  relatedSkill: Elona.StatMagic
+  relatedSkill: Elona.AttrMagic
   skillType: SkillMagic
 
 - type: Elona.Skill
   id: Elona.ActionGrenade
-  relatedSkill: Elona.StatMagic
+  relatedSkill: Elona.AttrMagic
   skillType: SkillAction
 
 - type: Elona.Skill
   id: Elona.SpellHealingRain
-  relatedSkill: Elona.StatWill
+  relatedSkill: Elona.AttrWill
   skillType: SkillMagic
 
 - type: Elona.Skill
   id: Elona.ActionRainOfSanity
-  relatedSkill: Elona.StatWill
+  relatedSkill: Elona.AttrWill
   skillType: SkillAction
 
 - type: Elona.Skill
   id: Elona.ActionSuicideAttack
-  relatedSkill: Elona.StatConstitution
+  relatedSkill: Elona.AttrConstitution
   skillType: SkillAction
 
 - type: Elona.Skill
   id: Elona.SpellHealLight
-  relatedSkill: Elona.StatWill
+  relatedSkill: Elona.AttrWill
   skillType: SkillAction
 
 - type: Elona.Skill
   id: Elona.SpellHealCritical
-  relatedSkill: Elona.StatWill
+  relatedSkill: Elona.AttrWill
   skillType: SkillAction
 
 - type: Elona.Skill
   id: Elona.SpellHealingTouch
-  relatedSkill: Elona.StatWill
+  relatedSkill: Elona.AttrWill
   skillType: SkillAction
 
 - type: Elona.Skill
   id: Elona.SpellCureOfEris
-  relatedSkill: Elona.StatWill
+  relatedSkill: Elona.AttrWill
   skillType: SkillAction
 
 - type: Elona.Skill
   id: Elona.SpellCureOfJure
-  relatedSkill: Elona.StatWill
+  relatedSkill: Elona.AttrWill
   skillType: SkillAction
 
 - type: Elona.Skill
   id: Elona.ActionPrayerOfJure
-  relatedSkill: Elona.StatWill
+  relatedSkill: Elona.AttrWill
   skillType: SkillAction
 
 - type: Elona.Skill
   id: Elona.SpellTeleport
-  relatedSkill: Elona.StatMagic
+  relatedSkill: Elona.AttrMagic
   skillType: SkillMagic
 
 - type: Elona.Skill
   id: Elona.SpellTeleportOther
-  relatedSkill: Elona.StatMagic
+  relatedSkill: Elona.AttrMagic
   skillType: SkillMagic
 
 - type: Elona.Skill
   id: Elona.SpellShortTeleport
-  relatedSkill: Elona.StatMagic
+  relatedSkill: Elona.AttrMagic
   skillType: SkillMagic
 
 - type: Elona.Skill
   id: Elona.ActionDimensionalMove
-  relatedSkill: Elona.StatWill
+  relatedSkill: Elona.AttrWill
   skillType: SkillAction
 
 - type: Elona.Skill
   id: Elona.ActionShadowStep
-  relatedSkill: Elona.StatWill
+  relatedSkill: Elona.AttrWill
   skillType: SkillMagic
 
 - type: Elona.Skill
   id: Elona.ActionDrawShadow
-  relatedSkill: Elona.StatWill
+  relatedSkill: Elona.AttrWill
   skillType: SkillAction
 
 - type: Elona.Skill
   id: Elona.ActionSuspiciousHand
-  relatedSkill: Elona.StatDexterity
+  relatedSkill: Elona.AttrDexterity
   skillType: SkillAction
 
 - type: Elona.Skill
   id: Elona.ActionFireBreath
-  relatedSkill: Elona.StatConstitution
+  relatedSkill: Elona.AttrConstitution
   skillType: SkillAction
 
 - type: Elona.Skill
   id: Elona.ActionColdBreath
-  relatedSkill: Elona.StatConstitution
+  relatedSkill: Elona.AttrConstitution
   skillType: SkillAction
 
 - type: Elona.Skill
   id: Elona.ActionLightningBreath
-  relatedSkill: Elona.StatConstitution
+  relatedSkill: Elona.AttrConstitution
   skillType: SkillAction
 
 - type: Elona.Skill
   id: Elona.ActionDarknessBreath
-  relatedSkill: Elona.StatConstitution
+  relatedSkill: Elona.AttrConstitution
   skillType: SkillAction
 
 - type: Elona.Skill
   id: Elona.ActionChaosBreath
-  relatedSkill: Elona.StatConstitution
+  relatedSkill: Elona.AttrConstitution
   skillType: SkillAction
 
 - type: Elona.Skill
   id: Elona.ActionSoundBreath
-  relatedSkill: Elona.StatConstitution
+  relatedSkill: Elona.AttrConstitution
   skillType: SkillAction
 
 - type: Elona.Skill
   id: Elona.ActionNetherBreath
-  relatedSkill: Elona.StatConstitution
+  relatedSkill: Elona.AttrConstitution
   skillType: SkillAction
 
 - type: Elona.Skill
   id: Elona.ActionNerveBreath
-  relatedSkill: Elona.StatConstitution
+  relatedSkill: Elona.AttrConstitution
   skillType: SkillAction
 
 - type: Elona.Skill
   id: Elona.ActionPoisonBreath
-  relatedSkill: Elona.StatConstitution
+  relatedSkill: Elona.AttrConstitution
   skillType: SkillAction
 
 - type: Elona.Skill
   id: Elona.ActionMindBreath
-  relatedSkill: Elona.StatConstitution
+  relatedSkill: Elona.AttrConstitution
   skillType: SkillAction
 
 - type: Elona.Skill
   id: Elona.ActionPowerBreath
-  relatedSkill: Elona.StatConstitution
+  relatedSkill: Elona.AttrConstitution
   skillType: SkillAction
 
 - type: Elona.Skill
   id: Elona.SpellHolyLight
-  relatedSkill: Elona.StatWill
+  relatedSkill: Elona.AttrWill
   skillType: SkillMagic
 
 - type: Elona.Skill
   id: Elona.SpellVanquishHex
-  relatedSkill: Elona.StatWill
+  relatedSkill: Elona.AttrWill
   skillType: SkillMagic
 
 - type: Elona.Skill
   id: Elona.SpellSummonMonsters
-  relatedSkill: Elona.StatMagic
+  relatedSkill: Elona.AttrMagic
   skillType: SkillMagic
 
 - type: Elona.Skill
   id: Elona.SpellSummonWild
-  relatedSkill: Elona.StatMagic
+  relatedSkill: Elona.AttrMagic
   skillType: SkillMagic
 
 - type: Elona.Skill
   id: Elona.ActionSummonCats
-  relatedSkill: Elona.StatMagic
+  relatedSkill: Elona.AttrMagic
   skillType: SkillAction
 
 - type: Elona.Skill
   id: Elona.ActionSummonYeek
-  relatedSkill: Elona.StatMagic
+  relatedSkill: Elona.AttrMagic
   skillType: SkillAction
 
 - type: Elona.Skill
   id: Elona.ActionSummonPawn
-  relatedSkill: Elona.StatMagic
+  relatedSkill: Elona.AttrMagic
   skillType: SkillAction
 
 - type: Elona.Skill
   id: Elona.ActionSummonFire
-  relatedSkill: Elona.StatMagic
+  relatedSkill: Elona.AttrMagic
   skillType: SkillAction
 
 - type: Elona.Skill
   id: Elona.ActionSummonSister
-  relatedSkill: Elona.StatMagic
+  relatedSkill: Elona.AttrMagic
   skillType: SkillAction
 
 - type: Elona.Skill
   id: Elona.ActionEyeOfMutation
-  relatedSkill: Elona.StatWill
+  relatedSkill: Elona.AttrWill
   skillType: SkillAction
 
 - type: Elona.Skill
   id: Elona.SpellMutation
-  relatedSkill: Elona.StatPerception
+  relatedSkill: Elona.AttrPerception
   skillType: SkillMagic
 
 - type: Elona.Skill
@@ -397,260 +397,260 @@
 
 - type: Elona.Skill
   id: Elona.SpellWeb
-  relatedSkill: Elona.StatMagic
+  relatedSkill: Elona.AttrMagic
   skillType: SkillMagic
 
 - type: Elona.Skill
   id: Elona.SpellMistOfDarkness
-  relatedSkill: Elona.StatMagic
+  relatedSkill: Elona.AttrMagic
   skillType: SkillMagic
 
 - type: Elona.Skill
   id: Elona.SpellAcidGround
-  relatedSkill: Elona.StatMagic
+  relatedSkill: Elona.AttrMagic
   skillType: SkillMagic
 
 - type: Elona.Skill
   id: Elona.SpellFireWall
-  relatedSkill: Elona.StatMagic
+  relatedSkill: Elona.AttrMagic
   skillType: SkillMagic
 
 - type: Elona.Skill
   id: Elona.ActionEtherGround
-  relatedSkill: Elona.StatMagic
+  relatedSkill: Elona.AttrMagic
   skillType: SkillMagic
 
 - type: Elona.Skill
   id: Elona.ActionPregnant
-  relatedSkill: Elona.StatPerception
+  relatedSkill: Elona.AttrPerception
   skillType: SkillAction
 
 - type: Elona.Skill
   id: Elona.ActionEyeOfInsanity
-  relatedSkill: Elona.StatCharisma
+  relatedSkill: Elona.AttrCharisma
   skillType: SkillAction
 
 - type: Elona.Skill
   id: Elona.ActionHarvestMana
-  relatedSkill: Elona.StatMagic
+  relatedSkill: Elona.AttrMagic
   skillType: SkillAction
 
 - type: Elona.Skill
   id: Elona.ActionAbsorbMagic
-  relatedSkill: Elona.StatMagic
+  relatedSkill: Elona.AttrMagic
   skillType: SkillAction
 
 - type: Elona.Skill
   id: Elona.ActionDrainBlood
-  relatedSkill: Elona.StatDexterity
+  relatedSkill: Elona.AttrDexterity
   skillType: SkillAction
 
 - type: Elona.Skill
   id: Elona.ActionManisDisassembly
-  relatedSkill: Elona.StatWill
+  relatedSkill: Elona.AttrWill
   skillType: SkillAction
 
 - type: Elona.Skill
   id: Elona.ActionTouchOfWeakness
-  relatedSkill: Elona.StatMagic
+  relatedSkill: Elona.AttrMagic
   skillType: SkillAction
 
 - type: Elona.Skill
   id: Elona.ActionTouchOfHunger
-  relatedSkill: Elona.StatMagic
+  relatedSkill: Elona.AttrMagic
   skillType: SkillAction
 
 - type: Elona.Skill
   id: Elona.ActionTouchOfPoison
-  relatedSkill: Elona.StatDexterity
+  relatedSkill: Elona.AttrDexterity
   skillType: SkillAction
 
 - type: Elona.Skill
   id: Elona.ActionTouchOfNerve
-  relatedSkill: Elona.StatDexterity
+  relatedSkill: Elona.AttrDexterity
   skillType: SkillAction
 
 - type: Elona.Skill
   id: Elona.ActionTouchOfFear
-  relatedSkill: Elona.StatWill
+  relatedSkill: Elona.AttrWill
   skillType: SkillAction
 
 - type: Elona.Skill
   id: Elona.ActionTouchOfSleep
-  relatedSkill: Elona.StatWill
+  relatedSkill: Elona.AttrWill
   skillType: SkillAction
 
 - type: Elona.Skill
   id: Elona.ActionScavenge
-  relatedSkill: Elona.StatDexterity
+  relatedSkill: Elona.AttrDexterity
   skillType: SkillAction
 
 - type: Elona.Skill
   id: Elona.ActionDecapitation
-  relatedSkill: Elona.StatDexterity
+  relatedSkill: Elona.AttrDexterity
   skillType: SkillAction
 
 - type: Elona.Skill
   id: Elona.ActionEyeOfEther
-  relatedSkill: Elona.StatWill
+  relatedSkill: Elona.AttrWill
   skillType: SkillAction
 
 - type: Elona.Skill
   id: Elona.ActionEyeOfDimness
-  relatedSkill: Elona.StatCharisma
+  relatedSkill: Elona.AttrCharisma
   skillType: SkillAction
 
 - type: Elona.Skill
   id: Elona.ActionInsult
-  relatedSkill: Elona.StatInsult
+  relatedSkill: Elona.AttrInsult
   skillType: SkillAction
 
 - type: Elona.Skill
   id: Elona.ActionEyeOfMana
-  relatedSkill: Elona.StatMagic
+  relatedSkill: Elona.AttrMagic
   skillType: SkillAction
 
 - type: Elona.Skill
   id: Elona.ActionVanish
-  relatedSkill: Elona.StatPerception
+  relatedSkill: Elona.AttrPerception
   skillType: SkillAction
 
 - type: Elona.Skill
   id: Elona.ActionDistantAttack4
-  relatedSkill: Elona.StatStrength
+  relatedSkill: Elona.AttrStrength
   skillType: SkillAction
 
 - type: Elona.Skill
   id: Elona.ActionDistantAttack7
-  relatedSkill: Elona.StatStrength
+  relatedSkill: Elona.AttrStrength
   skillType: SkillAction
 
 - type: Elona.Skill
   id: Elona.ActionChange
-  relatedSkill: Elona.StatPerception
+  relatedSkill: Elona.AttrPerception
   skillType: SkillAction
 
 - type: Elona.Skill
   id: Elona.ActionDrawCharge
-  relatedSkill: Elona.StatMagic
+  relatedSkill: Elona.AttrMagic
   skillType: SkillAction
 
 - type: Elona.Skill
   id: Elona.ActionFillCharge
-  relatedSkill: Elona.StatMagic
+  relatedSkill: Elona.AttrMagic
   skillType: SkillAction
 
 - type: Elona.Skill
   id: Elona.ActionSwarm
-  relatedSkill: Elona.StatStrength
+  relatedSkill: Elona.AttrStrength
   skillType: SkillAction
 
 - type: Elona.Skill
   id: Elona.ActionCheer
-  relatedSkill: Elona.StatCharisma
+  relatedSkill: Elona.AttrCharisma
   skillType: SkillAction
 
 - type: Elona.Skill
   id: Elona.ActionMewmewmew
-  relatedSkill: Elona.StatLuck
+  relatedSkill: Elona.AttrLuck
   skillType: SkillAction
 
 - type: Elona.Skill
   id: Elona.ActionMirror
-  relatedSkill: Elona.StatPerception
+  relatedSkill: Elona.AttrPerception
   skillType: SkillAction
 
 - type: Elona.Skill
   id: Elona.ActionDropMine
-  relatedSkill: Elona.StatMagic
+  relatedSkill: Elona.AttrMagic
   skillType: SkillAction
 
 - type: Elona.Skill
   id: Elona.BuffHolyShield
-  relatedSkill: Elona.StatWill
+  relatedSkill: Elona.AttrWill
   skillType: SkillMagic
 
 - type: Elona.Skill
   id: Elona.BuffMistOfSilence
-  relatedSkill: Elona.StatPerception
+  relatedSkill: Elona.AttrPerception
   skillType: SkillMagic
 
 - type: Elona.Skill
   id: Elona.BuffRegeneration
-  relatedSkill: Elona.StatWill
+  relatedSkill: Elona.AttrWill
   skillType: SkillMagic
 
 - type: Elona.Skill
   id: Elona.BuffElementalShield
-  relatedSkill: Elona.StatWill
+  relatedSkill: Elona.AttrWill
   skillType: SkillMagic
 
 - type: Elona.Skill
   id: Elona.BuffSpeed
-  relatedSkill: Elona.StatWill
+  relatedSkill: Elona.AttrWill
   skillType: SkillMagic
 
 - type: Elona.Skill
   id: Elona.BuffSlow
-  relatedSkill: Elona.StatMagic
+  relatedSkill: Elona.AttrMagic
   skillType: SkillMagic
 
 - type: Elona.Skill
   id: Elona.BuffHero
-  relatedSkill: Elona.StatWill
+  relatedSkill: Elona.AttrWill
   skillType: SkillMagic
 
 - type: Elona.Skill
   id: Elona.BuffMistOfFrailness
-  relatedSkill: Elona.StatMagic
+  relatedSkill: Elona.AttrMagic
   skillType: SkillMagic
 
 - type: Elona.Skill
   id: Elona.BuffElementScar
-  relatedSkill: Elona.StatMagic
+  relatedSkill: Elona.AttrMagic
   skillType: SkillMagic
 
 - type: Elona.Skill
   id: Elona.BuffHolyVeil
-  relatedSkill: Elona.StatWill
+  relatedSkill: Elona.AttrWill
   skillType: SkillMagic
 
 - type: Elona.Skill
   id: Elona.BuffNightmare
-  relatedSkill: Elona.StatPerception
+  relatedSkill: Elona.AttrPerception
   skillType: SkillMagic
 
 - type: Elona.Skill
   id: Elona.BuffDivineWisdom
-  relatedSkill: Elona.StatLearning
+  relatedSkill: Elona.AttrLearning
   skillType: SkillMagic
 
 - type: Elona.Skill
   id: Elona.BuffPunishment
-  relatedSkill: Elona.StatWill
+  relatedSkill: Elona.AttrWill
   skillType: SkillAction
 
 - type: Elona.Skill
   id: Elona.BuffLulwysTrick
-  relatedSkill: Elona.StatDexterity
+  relatedSkill: Elona.AttrDexterity
   skillType: SkillAction
 
 - type: Elona.Skill
   id: Elona.BuffIncognito
-  relatedSkill: Elona.StatPerception
+  relatedSkill: Elona.AttrPerception
   skillType: SkillMagic
 
 - type: Elona.Skill
   id: Elona.BuffDeathWord
-  relatedSkill: Elona.StatWill
+  relatedSkill: Elona.AttrWill
   skillType: SkillAction
 
 - type: Elona.Skill
   id: Elona.BuffBoost
-  relatedSkill: Elona.StatWill
+  relatedSkill: Elona.AttrWill
   skillType: SkillAction
 
 - type: Elona.Skill
   id: Elona.BuffContingency
-  relatedSkill: Elona.StatWill
+  relatedSkill: Elona.AttrWill
   skillType: SkillMagic

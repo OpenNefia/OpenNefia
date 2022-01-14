@@ -1,5 +1,5 @@
 OpenNefia.Prototypes.Elona.Skill.Elona = {
-    StatStrength = {
+    AttrStrength = {
         Name = "筋力",
         ShortName = "筋力",
 
@@ -10,7 +10,7 @@ OpenNefia.Prototypes.Elona.Skill.Elona = {
             return ("%sはより強くなった。"):format(_.name(entity))
         end,
     },
-    StatConstitution = {
+    AttrConstitution = {
         Name = "耐久",
         ShortName = "耐久",
 
@@ -21,7 +21,7 @@ OpenNefia.Prototypes.Elona.Skill.Elona = {
             return ("%sは我慢することの快感を知った。"):format(_.name(entity))
         end,
     },
-    StatDexterity = {
+    AttrDexterity = {
         Name = "器用",
         ShortName = "器用",
 
@@ -32,7 +32,7 @@ OpenNefia.Prototypes.Elona.Skill.Elona = {
             return ("%sは器用になった。"):format(_.name(entity))
         end,
     },
-    StatPerception = {
+    AttrPerception = {
         Name = "感覚",
         ShortName = "感覚",
 
@@ -43,7 +43,7 @@ OpenNefia.Prototypes.Elona.Skill.Elona = {
             return ("%sは世界をより身近に感じるようになった。"):format(_.name(entity))
         end,
     },
-    StatLearning = {
+    AttrLearning = {
         Name = "習得",
         ShortName = "習得",
 
@@ -54,7 +54,7 @@ OpenNefia.Prototypes.Elona.Skill.Elona = {
             return ("%sは急に色々なことを学びたくなった。"):format(_.name(entity))
         end,
     },
-    StatWill = {
+    AttrWill = {
         Name = "意思",
         ShortName = "意思",
 
@@ -65,7 +65,7 @@ OpenNefia.Prototypes.Elona.Skill.Elona = {
             return ("%sの意思は固くなった。"):format(_.name(entity))
         end,
     },
-    StatMagic = {
+    AttrMagic = {
         Name = "魔力",
         ShortName = "魔力",
 
@@ -76,7 +76,7 @@ OpenNefia.Prototypes.Elona.Skill.Elona = {
             return ("%sは魔力の上昇を感じた。"):format(_.name(entity))
         end,
     },
-    StatCharisma = {
+    AttrCharisma = {
         Name = "魅力",
         ShortName = "魅力",
 
@@ -87,7 +87,7 @@ OpenNefia.Prototypes.Elona.Skill.Elona = {
             return ("%sは周囲の視線を心地よく感じる。"):format(_.name(entity))
         end,
     },
-    StatSpeed = {
+    AttrSpeed = {
         Name = "速度",
 
         OnDecrease = function(entity)
@@ -97,7 +97,7 @@ OpenNefia.Prototypes.Elona.Skill.Elona = {
             return ("%sは周りの動きが遅く見えるようになった。"):format(_.name(entity))
         end,
     },
-    StatLuck = {
+    AttrLuck = {
         Name = "運勢",
 
         OnDecrease = function(entity)
@@ -107,7 +107,7 @@ OpenNefia.Prototypes.Elona.Skill.Elona = {
             return ("%sは幸運になった。"):format(_.name(entity))
         end,
     },
-    StatLife = {
+    AttrLife = {
         Name = "生命力",
 
         OnDecrease = function(entity)
@@ -117,7 +117,7 @@ OpenNefia.Prototypes.Elona.Skill.Elona = {
             return ("%sは生命力の上昇を感じた。"):format(_.name(entity))
         end,
     },
-    StatMana = {
+    AttrMana = {
         Name = "マナ",
 
         OnDecrease = function(entity)
