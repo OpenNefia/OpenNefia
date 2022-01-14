@@ -5,6 +5,7 @@ using OpenNefia.Core.Locale;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Utility;
 using System.Diagnostics.CodeAnalysis;
+using System.Collections.Immutable;
 
 namespace OpenNefia.Tests
 {
@@ -16,6 +17,11 @@ namespace OpenNefia.Tests
 
         public void DoLocalize(object o, LocaleKey key)
         {
+        }
+
+        public EntityLocData GetEntityData(string prototypeId)
+        {
+            return new EntityLocData(ImmutableDictionary.Create<string, string>());
         }
 
         public string GetString(LocaleKey key, params LocaleArg[] args)
