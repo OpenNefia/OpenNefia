@@ -67,6 +67,11 @@ namespace OpenNefia.Core.Graphics
             return 1;
         }
 
+        public string GetDisplayName(int displayIndex)
+        {
+            return string.Empty;
+        }
+
         public void ShowSplashScreen()
         {
         }

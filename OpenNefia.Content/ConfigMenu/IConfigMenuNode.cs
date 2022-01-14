@@ -92,8 +92,8 @@ namespace OpenNefia.Content.ConfigMenu
     #region Special Nodes
 
     /// <summary>
-    /// This config option should provide a list of resolutions taken
-    /// from the operating system.
+    /// This config option should provide a list of screen resolutions provided
+    /// by the operating system.
     /// </summary>
     public sealed class ConfigScreenResolutionMenuNode : IConfigMenuNode
     {
@@ -108,6 +108,19 @@ namespace OpenNefia.Content.ConfigMenu
         /// </summary>
         [DataField("cvarHeight", required: true)]
         public CVarDef<int> CVarHeight { get; } = default!;
+    }
+
+    /// <summary>
+    /// This config option should provide a list of display indices provided
+    /// by the operating system.
+    /// </summary>
+    public sealed class ConfigDisplayNumberMenuNode : IConfigMenuNode
+    {
+        /// <summary>
+        /// Typically "display.displaynumber".
+        /// </summary>
+        [DataField("cvar", required: true)]
+        public CVarDef<int> CVar { get; } = default!;
     }
 
     /// <summary>

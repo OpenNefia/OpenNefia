@@ -39,7 +39,7 @@ namespace OpenNefia.Content.ConfigMenu.UICell
 
         public override void HandleChanged(int delta)
         {
-            _currentIndex = Math.Clamp(_currentIndex + delta, 0, _choices.Count);
+            _currentIndex = Math.Clamp(_currentIndex + delta, 0, _choices.Count - 1);
 
             if (_choices.Count > 0)
                 ConfigManager.SetCVar(MenuNode.CVar, _choices[_currentIndex].ID);

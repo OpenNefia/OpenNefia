@@ -20,13 +20,13 @@ OpenNefia.Prototypes.Elona.ConfigMenuItem.Elona = {
     },
 
     ScreenMusic = {
-        Name = "BGMの再生*",
+        Name = "BGMの再生",
         Description = "BGMを再生します。",
         YesNo = "config.common.yes_no.ari_nashi",
     },
 
     ScreenSound = {
-        Name = "サウンドの再生*",
+        Name = "サウンドの再生",
         Description = "SEを再生します。",
         YesNo = "config.common.yes_no.ari_nashi",
     },
@@ -42,7 +42,7 @@ OpenNefia.Prototypes.Elona.ConfigMenuItem.Elona = {
 
     ScreenWindowMode = {
         Description = "ウィンドウとフルスクリーンを切り替えます。\nフルスクリーン2は、スクリーンと同じサイズのウィンドウを生成し擬似的にフルスクリーンとします。\n",
-        Name = "画面モード*",
+        Name = "画面モード",
         Choices = {
             DesktopFullscreen = "フルスクリーン2",
             Fullscreen = "フルスクリーン",
@@ -51,7 +51,11 @@ OpenNefia.Prototypes.Elona.ConfigMenuItem.Elona = {
     },
 
     ScreenScreenResolution = {
-        Name = "画面の大きさ*",
+        Name = "画面の大きさ",
+    },
+
+    ScreenDisplayNumber = {
+        Name = "ディスプレイ番号",
     },
 
     --

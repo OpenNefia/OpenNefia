@@ -53,7 +53,7 @@ namespace OpenNefia.Content.ConfigMenu.UICell
 
         public override void HandleChanged(int delta)
         {
-            _currentIndex = Math.Clamp(_currentIndex + delta, 0, _resolutions.Count);
+            _currentIndex = Math.Clamp(_currentIndex + delta, 0, _resolutions.Count - 1);
 
             var resolution = _resolutions.Count > 0
                 ? _resolutions[_currentIndex]
@@ -62,7 +62,7 @@ namespace OpenNefia.Content.ConfigMenu.UICell
             ConfigManager.SetCVar(MenuNode.CVarWidth, resolution.Width);
             ConfigManager.SetCVar(MenuNode.CVarHeight, resolution.Height);
 
-            _graphics.SetWindowSettings(resolution);
+            _graphics.SetWindowSettings(resolution, _graphics.GetWindowSettings());
         }
 
         public override void RefreshConfigValueDisplay()

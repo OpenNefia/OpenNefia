@@ -29,6 +29,7 @@ namespace OpenNefia.Core.Graphics
         void SetWindowSettings(FullscreenMode mode, WindowSettings? windowSettings = null);
         IEnumerable<FullscreenMode> GetFullscreenModes(int displayIndex);
         int GetDisplayCount();
+        string GetDisplayName(int displayIndex);
 
         void Initialize();
         void Shutdown();
@@ -38,5 +39,16 @@ namespace OpenNefia.Core.Graphics
         void EndDraw();
     }
 
-    public record struct FullscreenMode(int Width, int Height);
+    public record struct FullscreenMode(int Width, int Height)
+    {
+        public static implicit operator Vector2i(FullscreenMode mode)
+        {
+            return new(mode.Width, mode.Height);
+        }
+
+        public static implicit operator FullscreenMode(Vector2i vector)
+        {
+            return new(vector.X, vector.Y);
+        }
+    }
 }
