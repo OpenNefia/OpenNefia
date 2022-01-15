@@ -1,6 +1,7 @@
 ﻿using OpenNefia.Core.Areas;
 using OpenNefia.Core.Containers;
 using OpenNefia.Core.Maps;
+using OpenNefia.Core.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,6 +25,7 @@ namespace OpenNefia.Core.GameObjects
             RegisterClass<ContainerManagerComponent>();
             RegisterClass<StackComponent>();
             RegisterClass<MapEntityLookupComponent>();
+            RegisterClass<DrawablesComponent>();
         }
     }
 }

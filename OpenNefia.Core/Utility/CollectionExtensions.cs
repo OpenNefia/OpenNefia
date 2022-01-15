@@ -38,6 +38,15 @@ namespace OpenNefia.Core.Utility
             return dict;
         }
 
+        public static TValue GetValueOr<TKey, TValue>(this Dictionary<TKey, TValue> self, TKey key, TValue defaultValue)
+            where TKey : notnull
+        {
+            if (self.TryGetValue(key, out var value))
+                return value;
+
+            return defaultValue;
+        }
+
         public static bool TryGetValue<T>(this IList<T> list, int index, out T value)
         {
             if (list.Count > index)
@@ -319,14 +328,6 @@ namespace OpenNefia.Core.Utility
 
             value = default;
             return false;
-        }
-
-        public static void ForEach<T>(this IEnumerable<T> iterator, Action<T> action)
-        {
-            foreach (T item in iterator)
-            {
-                action(item);
-            }
         }
 
         /// <summary>
