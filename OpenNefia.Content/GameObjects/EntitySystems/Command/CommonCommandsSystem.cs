@@ -1,4 +1,6 @@
-﻿using OpenNefia.Content.ConfigMenu;
+﻿using OpenNefia.Content.Charas;
+using OpenNefia.Content.ConfigMenu;
+using OpenNefia.Content.Input;
 using OpenNefia.Content.Logic;
 using OpenNefia.Content.TurnOrder;
 using OpenNefia.Content.UI.Layer;
@@ -44,6 +46,10 @@ namespace OpenNefia.Content.GameObjects
                 .Bind(EngineKeyFunctions.ShowEscapeMenu, InputCmdHandler.FromDelegate(ShowEscapeMenu))
                 .Bind(EngineKeyFunctions.QuickSaveGame, InputCmdHandler.FromDelegate(QuickSaveGame))
                 .Bind(EngineKeyFunctions.QuickLoadGame, InputCmdHandler.FromDelegate(QuickLoadGame))
+
+                // TODO: remove this when charasheet is implemented
+                .Bind(ContentKeyFunctions.UIPortrait, InputCmdHandler.FromDelegate(ShowAppearanceMenu))
+
                 .Register<CommonCommandsSystem>();
         }
 
@@ -64,6 +70,16 @@ namespace OpenNefia.Content.GameObjects
             var save = _saveGameManager.CurrentSave!;
 
             _saveGameSerializer.LoadGame(save);
+
+            return TurnResult.Aborted;
+        }
+
+        private TurnResult? ShowAppearanceMenu(IGameSessionManager? session)
+        {
+            if (session?.Player == null)
+                return null;
+
+            _uiManager.Query<CharaAppearanceLayer>();
 
             return TurnResult.Aborted;
         }

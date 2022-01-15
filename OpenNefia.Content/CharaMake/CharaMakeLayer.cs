@@ -98,11 +98,6 @@ namespace OpenNefia.Content.CharaMake
             Data = args;
         }
 
-        protected void Center(UiElement elem, int yOffset = 20)
-        {
-            elem.SetPosition((Width - elem.Width) / 2, ((Height - elem.Height) / 2) + yOffset);
-        }
-
         public override void SetSize(int width, int height)
         {
             base.SetSize(width, height);
@@ -119,7 +114,7 @@ namespace OpenNefia.Content.CharaMake
 
         public override void Draw()
         {
-            AssetBG.Draw(X, Y, Width, Height);
+            AssetBG.Draw(0, 0, Love.Graphics.GetWidth(), Love.Graphics.GetHeight());
             CaptionWindow.Draw();
             Caption.Draw();
         }

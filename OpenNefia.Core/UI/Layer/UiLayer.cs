@@ -23,12 +23,13 @@ namespace OpenNefia.Core.UI.Layer
         public virtual int? DefaultZOrder => null;
         public int ZOrder { get; set; }
 
-        public override UiLayer? Root { get => this; internal set => throw new InvalidOperationException(); }
+        public override UiLayer? Root { get; internal set; }
 
         public UiLayer()
         {
             _inputManager = IoCManager.Resolve<IInputManager>();
 
+            Root = this;
             EventFilter = UIEventFilterMode.Stop;
         }
 
@@ -44,14 +45,26 @@ namespace OpenNefia.Core.UI.Layer
             size = bounds.Size;
         }
 
+        public void GetPreferredPosition(out Vector2i pos)
+        {
+            GetPreferredBounds(out var bounds);
+            pos = bounds.TopLeft;
+        }
+
+        public void SetPreferredPosition()
+        {
+            GetPreferredPosition(out var pos);
+            SetPosition(pos.X, pos.Y);
+        }
+
         public bool IsInActiveLayerList()
         {
-            return IoCManager.Resolve<IUserInterfaceManager>().IsInActiveLayerList(this);
+            return UserInterfaceManager.IsInActiveLayerList(this);
         }
 
         public bool IsQuerying()
         {
-            return IoCManager.Resolve<IUserInterfaceManager>().IsQuerying(this);
+            return UserInterfaceManager.IsQuerying(this);
         }
 
         public override void GrabFocus()

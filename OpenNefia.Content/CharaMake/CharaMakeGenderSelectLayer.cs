@@ -19,6 +19,7 @@ using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Log;
 using OpenNefia.Core.Audio;
 using OpenNefia.Content.Prototypes;
+using OpenNefia.Core.Maths;
 
 namespace OpenNefia.Content.CharaMake
 {
@@ -79,16 +80,21 @@ namespace OpenNefia.Content.CharaMake
             List.GrabFocus();
         }
 
+        public override void GetPreferredBounds(out UIBox2i bounds)
+        {
+            UiUtils.GetCenteredParams(380, 180, out bounds, yOffset: -20);
+        }
+
         public override void SetSize(int width, int height)
         {
             base.SetSize(width, height);
-            Window.SetSize(380, 180);
+            Window.SetSize(Width, Height);
         }
 
         public override void SetPosition(int x, int y)
         {
             base.SetPosition(x, y);
-            Center(Window, -20);
+            Window.SetPosition(X, Y);
             GenderTopic.SetPosition(Window.X + 30, Window.Y + 30);
             List.SetPosition(Window.X + 35, Window.Y + 60);
         }

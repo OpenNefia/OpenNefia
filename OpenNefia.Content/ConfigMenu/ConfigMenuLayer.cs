@@ -175,8 +175,7 @@ namespace OpenNefia.Content.ConfigMenu
                 height += 10 + 30 * (List.DisplayedCells.Count - 9);
             }
 
-            UiUtils.GetCenteredParams(_menuSize.X, height, out bounds);
-            bounds.Top -= 12;
+            UiUtils.GetCenteredParams(_menuSize.X, height, out bounds, yOffset: -12);
         }
 
         public override void SetSize(int width, int height)

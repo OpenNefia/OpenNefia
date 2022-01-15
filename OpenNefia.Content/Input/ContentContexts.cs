@@ -14,6 +14,8 @@ namespace OpenNefia.Content.Input
             common.AddFunction(ContentKeyFunctions.UIIdentify);
             common.AddFunction(ContentKeyFunctions.UIMode);
             common.AddFunction(ContentKeyFunctions.UIMode2);
+            common.AddFunction(ContentKeyFunctions.UIPortrait);
+
             common.AddFunction(ContentKeyFunctions.DiagonalOnly);
 
             var field = contexts.GetContext("field");

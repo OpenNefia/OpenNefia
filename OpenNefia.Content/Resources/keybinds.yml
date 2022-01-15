@@ -233,6 +233,10 @@ binds:
   type: State
   key: Backslash
   canFocus: true
+- function: Elona.UIPortrait
+  type: State
+  key: P
+  canFocus: true
 
 - function: UIUp
   type: State
@@ -291,6 +295,10 @@ binds:
 - function: Elona.UIMode2
   type: State
   key: GamepadBack
+  canFocus: true
+- function: Elona.UIPortrait
+  type: State
+  key: GamepadRightShoulder
   canFocus: true
 
 - function: Elona.DiagonalOnly

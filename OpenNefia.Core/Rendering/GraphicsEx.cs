@@ -92,6 +92,8 @@ namespace OpenNefia.Core.Rendering
 
             if (scissor.HasValue)
                 Love.Graphics.SetScissor(scissor.Value);
+            else
+                Love.Graphics.SetScissor();
         }
 
         public static void DrawImageRegion(Love.Image image, Love.Quad quad, float x = 0, float y = 0, float width = 0, float height = 0, bool centered = false, float rotation = 0)

@@ -5,7 +5,9 @@ using OpenNefia.Core.Audio;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Locale;
 using OpenNefia.Core.Log;
+using OpenNefia.Core.Maths;
 using OpenNefia.Core.Prototypes;
+using OpenNefia.Core.UI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -64,22 +66,28 @@ namespace OpenNefia.Content.CharaMake
             Sounds.Play(Protos.Sound.Feat);
         }
 
+        public override void GetPreferredBounds(out UIBox2i bounds)
+        {
+            FeatWindow.GetPreferredSize(out var size);
+            UiUtils.GetCenteredParams(size.X, size.Y, out bounds, yOffset: 10);
+        }
+
         public override void GrabFocus()
         {
             base.GrabFocus();
-            FeatWindow.GrabControlFocus();
+            FeatWindow.GrabFocus();
         }
 
         public override void SetSize(int width, int height)
         {
             base.SetSize(width, height);
-            FeatWindow.SetPreferredSize();
+            FeatWindow.SetSize(Width, Height);
         }
 
         public override void SetPosition(int x, int y)
         {
             base.SetPosition(x, y);
-            Center(FeatWindow, 10);
+            FeatWindow.SetPosition(X, Y);
         }
 
         public override void Draw()

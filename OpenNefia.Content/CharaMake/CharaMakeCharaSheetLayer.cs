@@ -8,6 +8,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using OpenNefia.Core.Maths;
+using OpenNefia.Core.UI;
 
 namespace OpenNefia.Content.CharaMake
 {
@@ -26,16 +28,22 @@ namespace OpenNefia.Content.CharaMake
             Sounds.Play(Protos.Sound.Chara);
         }
 
+        public override void GetPreferredBounds(out UIBox2i bounds)
+        {
+            Sheet.GetPreferredSize(out var size);
+            UiUtils.GetCenteredParams(size.X, size.Y, out bounds, yOffset: -10);
+        }
+
         public override void SetSize(int width, int height)
         {
             base.SetSize(width, height);
-            Sheet.SetPreferredSize();
+            Sheet.SetSize(Width, Height);
         }
 
         public override void SetPosition(int x, int y)
         {
             base.SetPosition(x, y);
-            Center(Sheet, -10);
+            Sheet.SetPosition(X, Y);
         }
 
         public override void Draw()

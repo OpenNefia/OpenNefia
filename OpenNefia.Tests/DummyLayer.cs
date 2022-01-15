@@ -8,7 +8,6 @@ namespace OpenNefia.Tests
     {
         public int ZOrder { get; set; } = 0;
 
-
         public bool IsInActiveLayerList()
         {
             return true;
@@ -32,6 +31,15 @@ namespace OpenNefia.Tests
         }
 
         public void OnQueryFinish()
+        {
+        }
+
+        public void GetPreferredPosition(out Vector2i pos)
+        {
+            pos = Vector2i.Zero;
+        }
+
+        public void SetPreferredPosition()
         {
         }
 
