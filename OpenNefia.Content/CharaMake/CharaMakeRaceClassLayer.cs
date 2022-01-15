@@ -130,7 +130,7 @@ namespace OpenNefia.Content.CharaMake
             Atlas.Add(FemaleChip.Image.AtlasIndex, Window.X + 375, Window.Y + 35, centered: true);
             Atlas.Add(MaleChip.Image.AtlasIndex, Window.X + 405, Window.Y + 35, centered: true);
             Atlas.Flush();
-            Atlas.Draw(0, 0, Width, Height);
+            Atlas.Draw(0, 0);
         }
 
         public override void ApplyStep(EntityUid entity)

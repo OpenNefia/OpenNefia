@@ -13,29 +13,32 @@ using OpenNefia.Content.Charas;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.UI;
 using static OpenNefia.Content.Charas.CharaAppearanceWindow;
+using OpenNefia.Core.ResourceManagement;
+using static NetVips.Enums;
+using OpenNefia.Core.IoC;
+using OpenNefia.Core.Prototypes;
 
 namespace OpenNefia.Content.CharaMake
 {
-    /// <summary>
-    /// Still very WIP atm, unsure how the data will be stored. Essentially just a placeholder.
-    /// </summary>
-    [Localize("Elona.CharaMake.AppearanceSelect")]
     public class CharaMakeAppearanceLayer : CharaMakeLayer
     {
+        [Dependency] private readonly IPrototypeManager _protos = default!;
+        [Dependency] private readonly IResourceCache _resourceCache = default!;
+
         private CharaAppearanceWindow AppearanceWindow = new();
 
         public CharaMakeAppearanceLayer()
         {
             AddChild(AppearanceWindow);
 
-            AppearanceWindow.List.OnActivated += OnListActivated;
+            AppearanceWindow.List_OnActivated += OnListActivated;
         }
 
-        private void OnListActivated(object? sender, UiListEventArgs<UiAppearanceData> args)
+        private void OnListActivated(object? sender, UiListEventArgs<CharaAppearanceUICellData> args)
         {
             switch (args.SelectedCell.Data)
             {
-                case UiAppearanceData.Done:
+                case CharaAppearanceUICellData.Done:
                     Finish(new CharaMakeResult(new Dictionary<string, object>
                     {
 
@@ -47,6 +50,9 @@ namespace OpenNefia.Content.CharaMake
         public override void Initialize(CharaMakeData args)
         {
             base.Initialize(args);
+
+            var appearanceData = CharaAppearanceHelpers.MakeDefaultAppearanceData(_protos, _resourceCache);
+            AppearanceWindow.Initialize(appearanceData);
         }
 
         public override void OnQuery()

@@ -79,7 +79,8 @@ namespace OpenNefia.Content.GameObjects
             if (session?.Player == null)
                 return null;
 
-            _uiManager.Query<CharaAppearanceLayer>();
+            var args = new CharaAppearanceLayer.Args(session.Player);
+            _uiManager.Query<CharaAppearanceLayer, CharaAppearanceLayer.Args>(args);
 
             return TurnResult.Aborted;
         }

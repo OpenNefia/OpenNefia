@@ -109,23 +109,27 @@ namespace OpenNefia.Content.UI.Element.List
             if (args.Function == EngineKeyFunctions.UISelect)
             {
                 Activate(SelectedIndex);
+                args.Handle();
             }
             else if (args.Function == EngineKeyFunctions.UIClick)
             {
                 if (UserInterfaceManager.CurrentlyHovered == SelectedCell)
                 {
                     Activate(SelectedIndex);
+                    args.Handle();
                 }
             }
             else if (args.Function == EngineKeyFunctions.UIUp)
             {
                 Sounds.Play(Protos.Sound.Cursor1);
                 IncrementIndex(-1);
+                args.Handle();
             }
             else if (args.Function == EngineKeyFunctions.UIDown)
             {
                 Sounds.Play(Protos.Sound.Cursor1);
                 IncrementIndex(1);
+                args.Handle();
             }
         }
 

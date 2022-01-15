@@ -93,7 +93,7 @@ namespace OpenNefia.Core.Rendering
             this.Height = 0;
         }
 
-        public void Draw(int x, int y, int width, int height)
+        public void Draw(int x, int y, int? width = null, int? height = null)
         {
             Love.Graphics.SetColor(Love.Color.White);
             GraphicsEx.DrawSpriteBatch(this._batch, x, y, width, height);
