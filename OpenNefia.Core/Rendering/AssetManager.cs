@@ -18,7 +18,7 @@ namespace OpenNefia.Core.Rendering
         {
             var atlasPath = spec.Filepath;
             var imageRegion = spec.Region!.Value;
-            var parentImage = _resourceCache.GetLoveImageResource(atlasPath);
+            var parentImage = _resourceCache.GetResource<LoveImageResource>(atlasPath).Image;
 
             var quad = Love.Graphics.NewQuad(imageRegion.Left, imageRegion.Top, imageRegion.Width, imageRegion.Height, parentImage.GetWidth(), parentImage.GetHeight());
 
@@ -58,7 +58,7 @@ namespace OpenNefia.Core.Rendering
 
             if (imageSpec.Region == null)
             {
-                image = _resourceCache.GetLoveImageResource(imageSpec.Filepath);
+                image = _resourceCache.GetResource<LoveImageResource>(imageSpec.Filepath);
             }
             else
             {
