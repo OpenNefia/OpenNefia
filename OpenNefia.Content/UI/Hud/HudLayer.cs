@@ -12,6 +12,7 @@ namespace OpenNefia.Content.UI.Hud
 
         public IHudMessageWindow MessageWindow { get; }
         private UiFpsCounter FpsCounter;
+        private UiMessageWindowBacking Test = default!;
 
         public HudLayer()
         {
@@ -19,6 +20,12 @@ namespace OpenNefia.Content.UI.Hud
 
             MessageWindow = new SimpleMessageWindow();
             FpsCounter = new UiFpsCounter();
+        }
+
+        public override void Initialize(UINone args)
+        {
+            base.Initialize(args);
+            Test = new UiMessageWindowBacking();
         }
 
         public override void SetSize(int width, int height)
