@@ -94,21 +94,21 @@ namespace OpenNefia.Content.MapVisibility
             {
                 for (int y = start.Y; y < end.Y; y++)
                 {
-                    SetShadowBorder(map, shadows, new(y, end.X - 2), ShadowTile.East);
+                    SetShadowBorder(map, shadows, new(end.X - 2, y), ShadowTile.East);
                 }
             }
             if (start.Y > 0)
             {
                 for (int x = start.X; x < end.X; x++)
                 {
-                    SetShadowBorder(map, shadows, new(start.Y, x), ShadowTile.South);
+                    SetShadowBorder(map, shadows, new(x, start.Y), ShadowTile.South);
                 }
             }
             if (end.Y - 4 < map.Height)
             {
                 for (int x = start.X; x < end.X; x++)
                 {
-                    SetShadowBorder(map, shadows, new(end.Y - 2, x), ShadowTile.North);
+                    SetShadowBorder(map, shadows, new(x, end.Y - 2), ShadowTile.North);
                 }
             }
 
