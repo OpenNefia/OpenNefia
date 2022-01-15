@@ -67,6 +67,7 @@ namespace OpenNefia.Content.Charas
         public void Initialize(CharaAppearanceData data)
         {
             _data = data;
+            Window.Title = Loc.GetString("Elona.CharaMake.AppearanceSelect.Window.Title");
             List.Initialize(data);
             PreviewPanel.Initialize(data);
         }
@@ -105,7 +106,7 @@ namespace OpenNefia.Content.Charas
         {
             base.SetPosition(x, y);
             Window.SetPosition(X, Y);
-            Category.SetPosition(Window.X + 30, Window.Y + 35);
+            Category.SetPosition(Window.X + 34, Window.Y + 36);
             List.SetPosition(Window.X + 30, Window.Y + 65);
             AppearanceDeco.SetPosition(Window.X + Window.Width - 40, Window.Y);
             PreviewPanel.SetPosition(Window.X + 230, Window.Y + 70);
