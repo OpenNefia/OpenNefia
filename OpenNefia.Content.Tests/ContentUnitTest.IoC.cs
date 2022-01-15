@@ -28,11 +28,16 @@ namespace OpenNefia.Content.Tests
     public class TestingHudLayer : DummyLayer, IHudLayer
     {
         public IHudMessageWindow MessageWindow { get; } = new DummyMessageWindow();
+
+        public void Initialize()
+        {
+            
+        }
     }
 
     public class DummyMessageWindow : DummyDrawable, IHudMessageWindow
     {
-        public void Print(string queryText, Color? color = null)
+        public void Print(string queryText, Color? color = null, bool newLine = true)
         {
         }
     }

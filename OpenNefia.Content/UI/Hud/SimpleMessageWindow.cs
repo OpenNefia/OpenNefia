@@ -38,7 +38,7 @@ namespace OpenNefia.Content.UI.Hud
             NeedsRelayout = true;
         }
 
-        public void Print(string text, Color? color = null)
+        public void Print(string text, Color? color = null, bool newline = true)
         {
             if (color == null)
                 color = Color.White;

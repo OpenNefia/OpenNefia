@@ -26,6 +26,7 @@ using System.Linq;
 using OpenNefia.Content.Maps;
 using OpenNefia.Content.ConfigMenu;
 using OpenNefia.Core.Configuration;
+using OpenNefia.Content.UI.Hud;
 using OpenNefia.Content.DisplayName;
 using System.Numerics;
 using OpenNefia.Core.Audio;
@@ -53,6 +54,7 @@ namespace OpenNefia.Content.TitleScreen
         [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
         [Dependency] private readonly ICharaMakeLogic _charaMakeLogic = default!;
         [Dependency] private readonly IConfigurationManager _config = default!;
+        [Dependency] private readonly IHudLayer _hud = default!;
 
         private void Startup()
         {
@@ -116,6 +118,25 @@ namespace OpenNefia.Content.TitleScreen
             {
                 LoadGame(result.Value.SaveGame);
             }
+            /*
+            InitializeGlobalAreas();
+            var map = InitMap();
+
+            _mapManager.SetActiveMap(map.Id);
+
+            _saveGameSerializer.SaveGame(save);
+
+            _hud.Initialize();
+            var hudLayer = (UiLayer)_hud;
+            hudLayer.ZOrder = HudLayer.HudZOrder;
+            _uiManager.PushLayer(hudLayer);
+            _uiManager.Query(_fieldLayer);
+            _uiManager.PopLayer(hudLayer);
+
+            _mapManager.UnloadMap(map.Id);
+
+            _saveGameManager.CurrentSave = null;
+            */
         }
 
         private void RunGenerate()
