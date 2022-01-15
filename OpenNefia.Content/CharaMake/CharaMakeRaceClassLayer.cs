@@ -426,17 +426,22 @@ namespace OpenNefia.Content.CharaMake
             }
         }
 
+        public override void GetPreferredBounds(out UIBox2i bounds)
+        {
+            UiUtils.GetCenteredParams(700, 500, out bounds);
+        }
+
         public override void SetSize(int width, int height)
         {
             base.SetSize(width, height);
-            Window.SetSize(700, 500);
+            Window.SetSize(Width, Height);
             List.SetPreferredSize();
         }
 
         public override void SetPosition(int x, int y)
         {
             base.SetPosition(x, y);
-            Center(Window);
+            Window.SetPosition(X, Y);
             List.SetPosition(Window.X + 35, Window.Y + 60);
             RaceTopic.SetPosition(Window.X + 30, Window.Y + 30);
             DetailTopic.SetPosition(Window.X + 190, RaceTopic.Y);

@@ -13,6 +13,7 @@ using OpenNefia.Core.Input;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Locale;
 using OpenNefia.Core.Log;
+using OpenNefia.Core.Maths;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Random;
 using OpenNefia.Core.Rendering;
@@ -285,10 +286,15 @@ namespace OpenNefia.Content.CharaMake
             List.GrabFocus();
         }
 
+        public override void GetPreferredBounds(out UIBox2i bounds)
+        {
+            UiUtils.GetCenteredParams(360, 355, out bounds, yOffset: -10);
+        }
+
         public override void SetSize(int width, int height)
         {
             base.SetSize(width, height);
-            Window.SetSize(360, 355);
+            Window.SetSize(Width, Height);
             List.SetPreferredSize();
             LockAmount.SetPreferredSize();
         }
@@ -296,7 +302,7 @@ namespace OpenNefia.Content.CharaMake
         public override void SetPosition(int x, int y)
         {
             base.SetPosition(x, y);
-            Center(Window, -10);
+            Window.SetPosition(X, Y);
             AttributeInfo.SetPosition(Window.X + 165, Window.Y + 50);
             LockAmount.SetPosition(Window.X + 172, Window.Y + 80);
             AttributeTopic.SetPosition(Window.X + 30, Window.Y + 30);

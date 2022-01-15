@@ -9,44 +9,25 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using OpenNefia.Core.Rendering;
-using OpenNefia.Content.Charas;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.UI;
-using static OpenNefia.Content.Charas.CharaAppearanceWindow;
+using OpenNefia.Content.CharaMake;
+using OpenNefia.Core.UI.Layer;
 
-namespace OpenNefia.Content.CharaMake
+namespace OpenNefia.Content.Charas
 {
-    /// <summary>
-    /// Still very WIP atm, unsure how the data will be stored. Essentially just a placeholder.
-    /// </summary>
     [Localize("Elona.CharaMake.AppearanceSelect")]
-    public class CharaMakeAppearanceLayer : CharaMakeLayer
+    public class CharaAppearanceLayer : UiLayerWithResult<UINone, UINone>
     {
         private CharaAppearanceWindow AppearanceWindow = new();
 
-        public CharaMakeAppearanceLayer()
+        public CharaAppearanceLayer()
         {
             AddChild(AppearanceWindow);
-
-            AppearanceWindow.List.OnActivated += OnListActivated;
         }
 
-        private void OnListActivated(object? sender, UiListEventArgs<UiAppearanceData> args)
+        public override void Initialize(UINone args)
         {
-            switch (args.SelectedCell.Data)
-            {
-                case UiAppearanceData.Done:
-                    Finish(new CharaMakeResult(new Dictionary<string, object>
-                    {
-
-                    }));
-                    break;
-            }
-        }
-
-        public override void Initialize(CharaMakeData args)
-        {
-            base.Initialize(args);
         }
 
         public override void OnQuery()

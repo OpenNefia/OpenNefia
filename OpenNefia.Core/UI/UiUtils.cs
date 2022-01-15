@@ -19,7 +19,10 @@ namespace OpenNefia.Core.UI
             return screenPos.X >= 0 && screenPos.Y >= 0 && screenPos.X < gr.WindowSize.X && screenPos.Y < gr.WindowSize.Y - Constants.INF_MSGH;
         }
 
-        public static void GetCenteredParams(int width, int height, out UIBox2i bounds)
+        public static void GetCenteredParams(Vector2i size, out UIBox2i bounds, int yOffset = 0)
+            => GetCenteredParams(size.X, size.Y, out bounds, yOffset);
+
+        public static void GetCenteredParams(int width, int height, out UIBox2i bounds, int yOffset = 0)
         {
             var graphics = IoCManager.Resolve<IGraphics>();
             var (windowW, windowH) = graphics.WindowSize;
@@ -37,6 +40,8 @@ namespace OpenNefia.Core.UI
             {
                 y = (windowH - height) / 2;
             }
+
+            y += yOffset;
 
             bounds = UIBox2i.FromDimensions(x, y, width, height);
         }

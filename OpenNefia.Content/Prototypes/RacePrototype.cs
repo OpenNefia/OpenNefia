@@ -63,7 +63,9 @@ namespace OpenNefia.Core.Prototypes
         /// </remarks>
         public IReadOnlyList<PrototypeId<EquipSlotPrototype>> InitialEquipSlots => _initialEquipSlots;
 
-        [DataField]
-        public Dictionary<PrototypeId<FeatPrototype>, int> InitialFeats = new();
+        [DataField("initialFeats")]
+        private readonly Dictionary<PrototypeId<FeatPrototype>, int> _initialFeats = new();
+
+        public IReadOnlyDictionary<PrototypeId<FeatPrototype>, int> InitialFeats => _initialFeats;
     }
 }
