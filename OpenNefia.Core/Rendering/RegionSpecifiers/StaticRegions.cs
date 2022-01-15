@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace OpenNefia.Core.Rendering
 {
     [DataDefinition]
-    public class MessageWindowRegions : IRegionSpecifier
+    public class StaticRegions : IRegionSpecifier
     {
         [DataField]
         public Dictionary<string, UIBox2i> Regions { get; } = new();

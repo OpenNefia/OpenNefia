@@ -24,7 +24,6 @@ namespace OpenNefia.Content.UI.Layer
         [Dependency] private readonly IEntityManager _entityManager = default!;
         [Dependency] private readonly IMapRenderer _mapRenderer = default!;
         [Dependency] private readonly IMapManager _mapManager = default!;
-        [Dependency] private readonly IHudLayer _hud = default!;
         [Dependency] private readonly ICoords _coords = default!;
         [Dependency] private readonly IGameSessionManager _gameSession = default!;
         [Dependency] private readonly IGraphics _graphics = default!;
@@ -160,7 +159,6 @@ namespace OpenNefia.Content.UI.Layer
         {
             base.SetSize(width, height);
             _mapRenderer.SetSize(width, height);
-            _hud.SetSize(width, height);
 
             var player = _gameSession.Player;
             if (_entityManager.IsAlive(player))
@@ -173,7 +171,6 @@ namespace OpenNefia.Content.UI.Layer
         {
             base.SetPosition(x, y);
             _mapRenderer.SetPosition(x, y);
-            _hud.SetPosition(0, 0);
         }
 
         public override void OnQuery()
@@ -226,7 +223,6 @@ namespace OpenNefia.Content.UI.Layer
                 }
             }
 
-            _hud.Update(dt);
             _mapRenderer.Update(dt);
         }
 

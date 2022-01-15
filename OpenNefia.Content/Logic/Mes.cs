@@ -12,12 +12,12 @@ namespace OpenNefia.Content.Logic
     [Obsolete("Convert to IoC dependency")]
     public static class Mes
     {
-        public static void Display(string text, Color? color = null, bool noCapitalize = false)
+        public static void Display(string text, Color? color = null, bool newLine = true, bool noCapitalize = false)
         {
             if (!noCapitalize)
                 text = Loc.Capitalize(text);
             
-            IoCManager.Resolve<IHudLayer>().MessageWindow.Print(text, color);
+            IoCManager.Resolve<IHudLayer>().MessageWindow.Print(text, color, newLine);
         }
 
         public static void Newline()
