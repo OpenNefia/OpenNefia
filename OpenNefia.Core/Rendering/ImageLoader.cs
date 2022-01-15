@@ -1,34 +1,16 @@
 ﻿using NetVips.Extensions;
-using OpenNefia.Core.Utility;
-using System;
-using System.Collections.Generic;
+using OpenNefia.Core.ResourceManagement;
 using System.Drawing;
-using System.Drawing.Imaging;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using static NetVips.Enums;
 using VipsImage = NetVips.Image;
 
 namespace OpenNefia.Core.Rendering
 {
     /// <summary>
-    /// TODO this can't be put into IResourceCache because of the need to
-    /// specify a key color.
-    /// 
-    /// Robust worked around this by putting a .yml file next to every image
-    /// with the metadata to use (I don't really like this).
+    /// Image loader that handles making parts of a BMP image transparent.
     /// </summary>
-    [Obsolete("TODO move to IResourceCache")]
     public static class ImageLoader
     {
-        private static Dictionary<ResourcePath, Love.Image> _cache = new();
-
-        public static void ClearCache()
-        {
-            _cache.Clear();
-        }
-
         private static VipsImage RemoveKeyColor(VipsImage image, Maths.Color keyColor)
         {
             if (image.Bands == 4)
@@ -41,37 +23,54 @@ namespace OpenNefia.Core.Rendering
             return image.Bandjoin(alpha);
         }
 
-        private static Love.Image LoadBitmap(Stream stream, Maths.Color keyColor)
-        {
-            var image = new Bitmap(stream).ToVips();
-
-            image = RemoveKeyColor(image, keyColor);
-
-            var memory = image.WriteToMemory();
-            var imageData = Love.Image.NewImageData(image.Width, image.Height, Love.ImageDataPixelFormat.RGBA8, memory);
-
-            var loveImage = Love.Graphics.NewImage(imageData);
-
-            return loveImage;
-        }
-
         /// <summary>
-        /// Wrapper around <see cref="Love.Graphics.NewImage"/> that also supports loading .BMP files
-        /// with a key color.
+        /// Wrapper around <see cref="Love.Graphics.NewImageData"/> that also supports loading .BMP files
+        /// with a transparent key color.
         /// </summary>
-        /// <param name="filepath">Path to image file.</param>
+        /// <param name="fileData">File data that contains image data.</param>
         /// <returns></returns>
-        public static Love.Image NewImage(Stream stream, ResourcePath filepath, Maths.Color keyColor)
+        public static Love.ImageData NewImageData(Love.FileData fileData, ImageLoadParameters loadParams)
         {
-            if (_cache.TryGetValue(filepath, out var cachedImage))
+            if (loadParams.KeyColor != null && fileData.GetExtension() == "bmp")
             {
-                return cachedImage;
+                var bytes = fileData.GetBytes();
+                using var reader = new MemoryStream(bytes);
+                var image = new Bitmap(reader).ToVips();
+
+                image = RemoveKeyColor(image, loadParams.KeyColor.Value);
+
+                var pixelDataFormat = GetLovePixelDataFormat(image);
+
+                var memory = image.WriteToMemory();
+                return Love.Image.NewImageData(image.Width, image.Height, pixelDataFormat, memory);
             }
 
-            Love.Image image = LoadBitmap(stream, keyColor);
+            return Love.Image.NewImageData(fileData);
+        }
 
-            _cache[filepath] = image;
-            return image;
+        private static Love.ImageDataPixelFormat GetLovePixelDataFormat(VipsImage image)
+        {
+            switch (image.Interpretation)
+            {
+                case Interpretation.Srgb:
+                case Interpretation.Rgb:
+                    switch (image.Format)
+                    {
+                        case BandFormat.Char:
+                        case BandFormat.Uchar:
+                            return Love.ImageDataPixelFormat.RGBA8;
+                        case BandFormat.Short:
+                        case BandFormat.Ushort:
+                            return Love.ImageDataPixelFormat.RGBA16;
+                        case BandFormat.Float:
+                            return Love.ImageDataPixelFormat.RGBA16F;
+                        case BandFormat.Double:
+                            return Love.ImageDataPixelFormat.RGBA32F;
+                    }
+                    break;
+            }
+
+            throw new InvalidOperationException($"Unknown .BMP image format: Interpretation={image.Interpretation} {image.Format}");
         }
     }
 }

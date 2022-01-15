@@ -15,6 +15,11 @@ using OpenNefia.Core.UI;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.UI.Element;
+using OpenNefia.Content.PCCs;
+using OpenNefia.Core.Prototypes;
+using OpenNefia.Core.IoC;
+using OpenNefia.Core.Utility;
+using OpenNefia.Core.ResourceManagement;
 
 namespace OpenNefia.Content.Charas
 {
@@ -39,14 +44,25 @@ namespace OpenNefia.Content.Charas
             }
         }
 
+        [Dependency] private readonly IResourceCache _resourceCache = default!;
+
         [Localize] private UiWindow Window = new();
         private UiTextTopic Category;
         private UiTopicWindow CharaFrame;
         public UiList<UiAppearanceData> List { get; }
         private IAssetDrawable AppearanceDeco;
 
+
+
+
+        private PCCDrawable _pccDrawable;
+
+
+
         public CharaAppearanceWindow()
         {
+            IoCManager.InjectDependencies(this);
+
             AppearanceDeco = new AssetDrawable(Protos.Asset.DecoMirrorA);
             Category = new UiTextTopic(Loc.GetString("Elona.CharaMake.AppearanceSelect.Topic.Category"));
             Window.KeyHints = MakeKeyHints();
@@ -56,6 +72,22 @@ namespace OpenNefia.Content.Charas
             };
             CharaFrame = new UiTopicWindow();
             AddChild(List);
+
+            _pccDrawable = SetupPCC();
+        }
+
+        private PCCDrawable SetupPCC()
+        {
+            var allParts = IoCManager.Resolve<IPrototypeManager>()
+                .EnumeratePrototypes<PCCPartPrototype>()
+                .GroupBy(part => part.PCCPartType)
+                .Select(group => group.FirstOrDefault())
+                .WhereNotNull()
+                .Select(part => new PCCPart(part.PCCPartType, part.ImagePath, Color.White));
+
+            var pccDrawable = new PCCDrawable(allParts);
+            pccDrawable.RebakeImage(_resourceCache);
+            return pccDrawable;
         }
 
         public override void GrabFocus()
@@ -96,7 +128,16 @@ namespace OpenNefia.Content.Charas
             List.Draw();
             AppearanceDeco.Draw();
             CharaFrame.Draw();
+
+
+
+            _pccDrawable.Frame = Math.Clamp(((int)_frame / 4) % 4, 0, 3);
+            _pccDrawable.Direction = (PCCDirection)Math.Clamp(((int)_frame / 16) % 4, 0, 3);
+            _pccDrawable.Draw(CharaFrame.X + 46 - 24, CharaFrame.Y + 59 - 24, 2.0f, 2.0f);
         }
+
+        private int _pccFrame = 0;
+        private float _frame = 0f;
 
         public override void Update(float dt)
         {
@@ -106,6 +147,11 @@ namespace OpenNefia.Content.Charas
             List.Update(dt);
             AppearanceDeco.Update(dt);
             CharaFrame.Update(dt);
+
+
+            _frame += dt * 50;
+
+            _pccDrawable.Update(dt);
         }
     }
 }

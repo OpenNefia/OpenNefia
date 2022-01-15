@@ -49,7 +49,7 @@ namespace OpenNefia.Core.Rendering
 
         private Tuple<Love.Image, Love.Quad> LoadImageAndQuad(TileSpecifier tile)
         {
-            Love.Image image = _resourceCache.GetLoveImageResource(tile.Filepath);
+            Love.Image image = _resourceCache.GetResource<LoveImageResource>(tile.Filepath);
 
             if (tile.Region != null)
             {

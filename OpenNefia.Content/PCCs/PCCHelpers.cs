@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static OpenNefia.Content.PCCs.PCCDrawable;
 
 namespace OpenNefia.Content.PCCs
 {

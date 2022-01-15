@@ -23,7 +23,7 @@ namespace OpenNefia.Content.PCCs
         {
         }
 
-        public PCCPart(PCCPartType type, ResourcePath imagePath, Color color, int zOrder)
+        public PCCPart(PCCPartType type, ResourcePath imagePath, Color color, int? zOrder = null)
         {
             Type = type;
             ImagePath = imagePath;

@@ -15,14 +15,6 @@ namespace OpenNefia.Content.PCCs
 {
     public sealed class PCCDrawable : IEntityDrawable
     {
-        public enum PCCDirection
-        {
-            South = 0,
-            West = 1,
-            North = 2,
-            East = 3
-        }
-
         private static readonly Color[] PCCPartColors =
         {
             new (255, 255, 255, 255),
@@ -87,7 +79,7 @@ namespace OpenNefia.Content.PCCs
         private const int SheetHeight = PartHeight * 4;
         private const int MaxFrames = 16;
 
-        public PCCDrawable(IEnumerable<PCCPart> parts, IResourceCache? resourceCache = null)
+        public PCCDrawable(IEnumerable<PCCPart> parts)
         {
             _parts = parts.ToList();
 
@@ -132,9 +124,9 @@ namespace OpenNefia.Content.PCCs
 
             void DoRebake()
             {
-                foreach (var part in _parts)
+                foreach (var part in _parts.OrderBy(part => part.ZOrder ?? DefaultPCCPartZOrder))
                 {
-                    var image = cache.GetResource<LoveImageResource>(part.ImagePath);
+                    var image = cache.GetResource<LoveImageResource>(part.ImagePath).Image;
                     Love.Graphics.SetColor(part.Color);
                     Love.Graphics.Draw(image, 0, 0);
                 }
@@ -173,7 +165,7 @@ namespace OpenNefia.Content.PCCs
             var quad = _quads[index];
 
             Love.Graphics.SetColor(Love.Color.White);
-            GraphicsEx.DrawImageRegion(BakedImage!, quad, x + offsetX, y + offsetY, width * scaleX, height * scaleY);
+            GraphicsEx.DrawImageRegion(BakedImage!, quad, x + offsetX * scaleX, y + offsetY * scaleY, width * scaleX, height * scaleY, centered: true);
         }
 
         public void Dispose()

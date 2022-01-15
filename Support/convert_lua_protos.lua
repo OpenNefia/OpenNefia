@@ -3,6 +3,10 @@
 -- of OpenNefia (https://github.com/Ruin0x11/OpenNefia). It is used for converting
 -- the old Lua-based prototype format to the new YAML-based one.
 --
+-- It's run like this:
+--
+-- cd C:/users/yuno/build/elona-next & OpenNefia.bat exec C:/users/yuno/build/OpenNefia.NET/Support/convert_lua_protos.lua -r
+--
 
 local automagic = require("thirdparty.automagic")
 local lyaml = require("lyaml")
@@ -471,6 +475,11 @@ handlers["elona.field_type"] = function(from, to)
     end
 end
 
+handlers["base.pcc_part"] = function(from, to)
+    to.imagePath = from.image:gsub("graphic", "/Graphic/Elona")
+    to.pccPartType = capitalize(from.kind)
+end
+
 local function sort(a, b)
     return (a.elona_id or 0) < (b.elona_id or 0)
 end
@@ -493,6 +502,7 @@ local hspParents = {
 
 local hspTypes = {
     ["base.map_tile"] = "Tile",
+    ["base.pcc_part"] = "Elona.PCCPart",
     ["elona.field_type"] = "Elona.FieldType",
 }
 
@@ -555,6 +565,7 @@ write("base.portrait", "Portrait.yml")
 -- write("base.map_tile", "Tile.yml")
 -- write("base.chip", "Chip.yml")
 write("elona.field_type", "FieldType.yml")
+write("base.pcc_part", "PCCPart.yml")
 
 -- print(inspect(data["base.item"]:iter():filter(function(a) return a.fltselect > 0 and a.rarity == 0 end):to_list()))
 
