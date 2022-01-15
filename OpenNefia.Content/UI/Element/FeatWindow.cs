@@ -224,9 +224,9 @@ namespace OpenNefia.Content.UI.Element
             }
         }
 
-        public override void GrabControlFocus()
+        public override void GrabFocus()
         {
-            base.GrabControlFocus();
+            base.GrabFocus();
             List.GrabFocus();
         }
 

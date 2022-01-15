@@ -124,12 +124,14 @@ namespace OpenNefia.Content.PCCs
 
             void DoRebake()
             {
+
                 foreach (var part in _parts.OrderBy(part => part.ZOrder ?? DefaultPCCPartZOrder))
                 {
                     var image = cache.GetResource<LoveImageResource>(part.ImagePath).Image;
                     Love.Graphics.SetColor(part.Color);
                     Love.Graphics.Draw(image, 0, 0);
                 }
+
             }
         }
 
