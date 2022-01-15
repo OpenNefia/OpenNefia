@@ -18,6 +18,8 @@ using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Timing;
 using Microsoft.CodeAnalysis;
 using OpenNefia.Core.Configuration;
+using System.Collections.Immutable;
+using System.Collections.Concurrent;
 
 namespace OpenNefia.Core.Locale
 {
@@ -48,7 +50,9 @@ namespace OpenNefia.Core.Locale
         void Resync();
 
         bool TryGetLocalizationData(EntityUid uid, [NotNullWhen(true)] out LuaTable? table);
-    
+        EntityLocData GetEntityData(string prototypeId);
+
+
         event LanguageSwitchedDelegate? OnLanguageSwitched;
     }
 
@@ -99,6 +103,7 @@ namespace OpenNefia.Core.Locale
         private readonly ResourcePath LocalePath = new ResourcePath("/Locale");
 
         private const string LocDataKey = "_LocData";
+        private ConcurrentDictionary<string, EntityLocData> _entityCache = new();
 
         public PrototypeId<LanguagePrototype> Language { get; private set; } = LanguagePrototypeOf.English;
 

@@ -17,24 +17,38 @@ namespace OpenNefia.Content.Locale.Funcs
     {
         public class EntityDisplayData
         {
+            [Dependency] private readonly IEntityManager _entMan = default!;
             private string Article { get; set; } = "";
             private string Adjective { get; set; } = "";
             public string Noun { get; set; } = "";
             
             EntityLocData Data { get; set; } = default!;
 
-            public EntityDisplayData(string noun, EntityLocData data)
+            public EntityDisplayData(EntityUid entity, string noun)
             {
+                IoCManager.InjectDependencies(this);
+                var prototype = _entMan.GetComponent<MetaDataComponent>(entity).EntityPrototype;
+                Data = Loc.GetLocalizationData(prototype?.ID!);
                 Noun = noun;
-                Data = data;
             }
 
-            private void Init(bool direct)
+            private void Init(bool direct, bool plural)
             {
                 Article = BaseArticle;
                 Adjective = string.Empty;
-                if (Data.Attributes.TryGetValue(PluralNameAttributeName, out var plrRule)
-                    && plrRule == PluralNameAlways)
+                if (plural)
+                {
+                    if (Data.Attributes.TryGetValue(AdjectivePluralAttributeName, out var adj))
+                        Adjective = adj;
+                }
+                else
+                {
+                    if (Data.Attributes.TryGetValue(direct ? AdjectiveDirectAttributeName : AdjectiveAttributeName, out var adj))
+                        Adjective = adj;
+                }
+
+                if ((Data.Attributes.TryGetValue(PluralNameAttributeName, out var plrRule) && plrRule == PluralNameAlways)
+                    || plural)
                 {
                     Article = string.Empty;
                 }
@@ -47,46 +61,32 @@ namespace OpenNefia.Content.Locale.Funcs
                         _ => string.Empty
                     };
                 }
-                if (Data.Attributes.TryGetValue(direct ? AdjectiveDirectAttributeName : AdjectiveAttributeName, out var adj))
-                    Adjective = adj;
             }
 
-            public string GetStackName(int count)
+            private string GetName(bool direct, int count)
             {
-                if (count <= 1)
-                    return GetIndirectName();
-
-                Init(false);
-                var baseName = Noun;
-                if (Data.Attributes.TryGetValue(PluralAttributeName, out var plural))
-                {
-                    baseName = plural;
-                }
-                var parts = new List<string>
-                {
-                    $"{count}"
-                };
-                if (Data.Attributes.TryGetValue(AdjectivePluralAttributeName, out var adj))
-                    parts.Add(adj);
-                parts.Add(baseName);
-                return string.Join(" ", parts);
-            }
-
-            private string GetName(bool direct)
-            {
-                Init(direct);
+                Init(direct, count > 1);
                 var parts = new List<string>();
-                if (!string.IsNullOrEmpty(Article))
-                    parts.Add(Article);
+
+                if (count <= 1)
+                {
+                    if (!string.IsNullOrEmpty(Article))
+                        parts.Add(Article);
+                }
+                else
+                {
+                    parts.Add(count.ToString());
+                }
+
                 if (!string.IsNullOrEmpty(Adjective))
                     parts.Add(Adjective);
                 parts.Add(Noun);
                 return string.Join(" ", parts);
             }
 
-            public string GetDirectName() => GetName(true);
+            public string GetDirectName(int count) => GetName(true, count);
 
-            public string GetIndirectName() => GetName(false);
+            public string GetIndirectName(int count) => GetName(false, count);
         }
 
         public const string BaseArticle = "ein";
@@ -131,14 +131,21 @@ namespace OpenNefia.Content.Locale.Funcs
                 return Loc.GetString("Elona.GameObjects.Common.Something");
             }
 
-            return GetDisplayData(entity).GetDirectName();
+            var entMan = IoCManager.Resolve<IEntityManager>();
+            if (!entMan.TryGetComponent<MetaDataComponent>(entity, out var meta))
+            {
+
+            }
+            if (!entMan.TryGetComponent<StackComponent>(entity, out var stack))
+            {
+
+            }
+            return GetDisplayData(entity, meta.DisplayName!).GetDirectName(stack?.Count ?? 1);
         }
 
-        public static EntityDisplayData GetDisplayData(EntityUid entity)
+        public static EntityDisplayData GetDisplayData(EntityUid entity, string noun)
         {
-            var entMan = IoCManager.Resolve<IEntityManager>();
-            var prototype = entMan.GetComponent<MetaDataComponent>(entity).EntityPrototype;
-            return new EntityDisplayData(DisplayNameSystem.GetDisplayName(entity), Loc.GetLocalizationData(prototype?.ID!));
+            return new EntityDisplayData(entity, noun);
         }
     }
 }

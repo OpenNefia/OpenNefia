@@ -77,8 +77,7 @@ namespace OpenNefia.Content.DisplayName
             if (!Resolve(uid, ref item, ref meta, ref stack))
                 return $"<item {uid}>";
 
-            var nameData = GermanBuiltins.GetDisplayData(uid);
-            return nameData.GetStackName(stack.Count);
+            return GermanBuiltins.GetDisplayData(uid, meta.DisplayName!).GetIndirectName(stack.Count);
         }
     }
 }
