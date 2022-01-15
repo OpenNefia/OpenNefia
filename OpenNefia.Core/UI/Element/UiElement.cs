@@ -136,7 +136,7 @@ namespace OpenNefia.Core.UI.Element
         /// <summary>
         ///     Check if this control currently has control focus.
         /// </summary>
-        public virtual bool HasControlFocus()
+        public bool HasControlFocus()
         {
             return UserInterfaceManager.ControlFocused == this;
         }
@@ -144,7 +144,7 @@ namespace OpenNefia.Core.UI.Element
         /// <summary>
         ///     Grab control focus if this control doesn't already have it.
         /// </summary>
-        public virtual void GrabControlFocus()
+        public void GrabControlFocus()
         {
             if (CanControlFocus)
             {
