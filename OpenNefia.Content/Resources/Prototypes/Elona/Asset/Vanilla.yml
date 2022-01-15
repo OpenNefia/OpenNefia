@@ -41,6 +41,12 @@
   image:
     filepath: /Graphic/Elona/interface.bmp
     region: "496, 528, 192, 72"
+  regionSpecifier: !type:MessageWindowRegions {}
+    regions:
+      topBar: "0, 0, 192, 5"
+      body: "0, 6, 192, 62"
+      bottomBar: "0, 69, 192, 5"
+      windowTitle: "0, 53, 192, 18"
 
 - type: Asset
   id: Elona.GoldCoin
