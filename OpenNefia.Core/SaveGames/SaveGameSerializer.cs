@@ -23,6 +23,7 @@ namespace OpenNefia.Core.SaveGames
 {
     public delegate void GameSavedDelegate(ISaveGameHandle save);
     public delegate void GameLoadedDelegate(ISaveGameHandle save);
+    public delegate void SaveDataInitializeDelegate();
 
     /// <summary>
     /// Handles converting the serializable data of the current game state
@@ -33,6 +34,7 @@ namespace OpenNefia.Core.SaveGames
     {
         event GameSavedDelegate OnGameSaved;
         event GameLoadedDelegate OnGameLoaded;
+        event SaveDataInitializeDelegate OnSaveDataInitialize;
 
         ISaveGameHandle InitializeSaveGame(string name);
 
@@ -127,6 +129,7 @@ namespace OpenNefia.Core.SaveGames
 
         public event GameSavedDelegate? OnGameSaved;
         public event GameLoadedDelegate? OnGameLoaded;
+        public event SaveDataInitializeDelegate? OnSaveDataInitialize;
 
         private class SaveDataRegistration
         {
@@ -139,6 +142,18 @@ namespace OpenNefia.Core.SaveGames
             {
                 FieldInfo = propertyInfo;
                 Parent = parent;
+            }
+
+            public void SetValueOnParent(object? value)
+            {
+                if (FieldInfo.TryGetBackingField(out var backingField))
+                {
+                    backingField.SetValue(Parent, value);
+                }
+                else
+                {
+                    FieldInfo.SetValue(Parent, value);
+                }
             }
         }
 
@@ -196,11 +211,19 @@ namespace OpenNefia.Core.SaveGames
             _trackedSaveData.Add(key, new SaveDataRegistration(field, parent));
         }
 
+        private void ResetGlobalSaveData()
+        {
+            foreach (var (_, reg) in _trackedSaveData)
+            {
+                var newValue = Activator.CreateInstance(reg.FieldInfo.FieldType);
+                reg.SetValueOnParent(newValue);
+            }
+
+            OnSaveDataInitialize?.Invoke();
+        }
 
         private SaveGameHeader MakeSaveGameHeader(string name)
         {
-            var engineVersion = Core.Engine.Version;
-            var engineCommitHash = "??????";
             var assemblyVersions = new List<AssemblyMetaData>();
 
             foreach (var assembly in _modLoader.LoadedModules)
@@ -385,14 +408,7 @@ namespace OpenNefia.Core.SaveGames
 
                 var value = _serializationManager.ReadValue(reg.Type, rawNode, skipHook: true);
 
-                if (reg.FieldInfo.TryGetBackingField(out var backingField))
-                {
-                    backingField.SetValue(reg.Parent, value);
-                }
-                else
-                {
-                    reg.FieldInfo.SetValue(reg.Parent, value);
-                }
+                reg.SetValueOnParent(value);
             }
         }
 
@@ -401,6 +417,7 @@ namespace OpenNefia.Core.SaveGames
             _entityManager.FlushEntities();
             _mapManager.FlushMaps();
             _areaManager.FlushAreas();
+            ResetGlobalSaveData();
         }
     }
 }

@@ -118,6 +118,37 @@ namespace OpenNefia.Tests.Core.SaveGames
             Assert.That(areaMan.AreaExists(areaId), Is.True);
             Assert.That(entMan.EntityExists(areaEnt), Is.True);
         }
+
+        /// <summary>
+        /// Tests that global save data is reset after resetting the game state.
+        /// </summary>
+        [Test]
+        public void TestSaveDataReset()
+        {
+            // Arrange.
+            var sim = GameSimulation
+                .NewSimulation()
+                .RegisterEntitySystems(factory =>
+                {
+                    factory.LoadExtraSystemType<SaveGameTestSystem>();
+                })
+                .RegisterDataDefinitionTypes(types => types.Add(typeof(TestSaveData)))
+                .InitializeInstance();
+
+            var save = new TempSaveGameHandle();
+            var saveSerMan = sim.Resolve<ISaveGameSerializerInternal>();
+
+            // Act.
+            var sys = sim.GetEntitySystem<SaveGameTestSystem>();
+
+            sys.Data.Foo = 42;
+            sys.Data.Bar = new List<string> { "hoge" };
+
+            saveSerMan.ResetGameState();
+
+            Assert.That(sys.Data.Foo, Is.EqualTo(-1));
+            Assert.That(sys.Data.Bar, Is.EquivalentTo(new[] { "baz", "quux" }));
+        }
     }
 
     [Reflect(false)]
