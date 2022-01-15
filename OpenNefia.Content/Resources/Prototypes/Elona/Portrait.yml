@@ -1,5 +1,10 @@
 ---
 - type: Elona.Portrait
+  id: Default
+  image:
+    filepath: /Graphic/Elona/Portrait/Default.png
+
+- type: Elona.Portrait
   id: Elona.Man1
   hspIds:
     elona122: 0

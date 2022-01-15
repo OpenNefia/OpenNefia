@@ -76,11 +76,11 @@ namespace OpenNefia.Core.Rendering
             windowTiledSize = coords.GetTiledSize(graphics.WindowSize);
         }
 
-        public static void DrawSpriteBatch(Love.SpriteBatch batch, float x, float y, float width, float height, float rotation = 0)
+        public static void DrawSpriteBatch(Love.SpriteBatch batch, float x, float y, float? width, float? height, float rotation = 0)
         {
             Rectangle? scissor = null;
 
-            if (width > 0 || height > 0)
+            if (width != null && height != null)
             {
                 // Sprite batches will ignore the width and height of
                 // love.graphics.draw; we have to manually set the scissor.

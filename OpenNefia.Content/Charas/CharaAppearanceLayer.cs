@@ -13,21 +13,61 @@ using OpenNefia.Core.Maths;
 using OpenNefia.Core.UI;
 using OpenNefia.Content.CharaMake;
 using OpenNefia.Core.UI.Layer;
+using OpenNefia.Core.Prototypes;
+using OpenNefia.Core.IoC;
+using OpenNefia.Core.ResourceManagement;
+using OpenNefia.Content.PCCs;
+using OpenNefia.Core.GameObjects;
 
 namespace OpenNefia.Content.Charas
 {
     [Localize("Elona.CharaMake.AppearanceSelect")]
-    public class CharaAppearanceLayer : UiLayerWithResult<UINone, UINone>
+    public class CharaAppearanceLayer : UiLayerWithResult<CharaAppearanceLayer.Args, UINone>
     {
+        public class Args
+        {
+            public EntityUid TargetEntity { get; }
+
+            public Args(EntityUid targetEntity)
+            {
+                TargetEntity = targetEntity;
+            }
+        }
+
+        [Dependency] private readonly IEntityManager _entityManager = default!;
+        [Dependency] private readonly IPrototypeManager _protos = default!;
+        [Dependency] private readonly IResourceCache _resourceCache = default!;
+        [Dependency] private readonly IPCCSystem _pccs = default!;
+
+        private EntityUid _targetEntity;
+
         private CharaAppearanceWindow AppearanceWindow = new();
 
         public CharaAppearanceLayer()
         {
+            AppearanceWindow.List_OnActivated += HandleWindowListOnActivated;
             AddChild(AppearanceWindow);
         }
 
-        public override void Initialize(UINone args)
+        private void HandleWindowListOnActivated(object? sender, UiListEventArgs<CharaAppearanceUICellData> evt)
+        {          
+            // FIXME: #35
+            if (evt.Handled || evt.SelectedCell is not CharaAppearanceUIListCell cell)
+                return;
+
+            if (cell.Data is CharaAppearanceUICellData.Done)
+            {
+                Finish(new());
+            }
+        }
+
+        public override void Initialize(Args args)
         {
+            _targetEntity = args.TargetEntity;
+
+            CharaAppearanceData appearanceData = CharaAppearanceHelpers.MakeAppearanceDataFrom(args.TargetEntity, 
+                _protos, _entityManager, _resourceCache, _pccs);
+            AppearanceWindow.Initialize(appearanceData);
         }
 
         public override void OnQuery()

@@ -1,7 +1,6 @@
 ﻿using OpenNefia.Core.ContentPack;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Log;
-using OpenNefia.Core.Maths;
 using OpenNefia.Core.ResourceManagement;
 using OpenNefia.Core.Utility;
 using System.Security.Cryptography;
@@ -13,9 +12,9 @@ namespace OpenNefia.Core.Rendering
     /// Dynamically generates tile atlases by aggregating a series of
     /// <see cref="TileSpecifier"/>s and packing them into a single image.
     /// </summary>
-    public class TileAtlasFactory : IDisposable
+    public sealed class TileAtlasFactory : IDisposable
     {
-        private readonly IResourceCache _resourceCache = default!;
+        private readonly IResourceCache _resourceCache;
 
         private static readonly ResourcePath _cachePath = new ResourcePath("/Cache/Atlas");
 
@@ -30,12 +29,13 @@ namespace OpenNefia.Core.Rendering
 
         private Love.Canvas _workCanvas;
 
-        public TileAtlasFactory(int tileWidth = OrthographicCoords.TILE_SIZE, 
+        public TileAtlasFactory(IResourceCache resourceCache, 
+            int tileWidth = OrthographicCoords.TILE_SIZE, 
             int tileHeight = OrthographicCoords.TILE_SIZE, 
             int tileCountX = 48, 
             int tileCountY = 48)
         {
-            _resourceCache = IoCManager.Resolve<IResourceCache>();
+            _resourceCache = resourceCache;
 
             _tileWidth = tileWidth;
             _tileHeight = tileHeight;
@@ -98,7 +98,6 @@ namespace OpenNefia.Core.Rendering
             this._atlasTiles.Add(tile.AtlasIndex, atlasTile);
         }
 
-        [Obsolete]
         public TileAtlasFactory LoadTiles(IEnumerable<TileSpecifier> tiles)
         {
             _tileSpecs.AddRange(tiles);

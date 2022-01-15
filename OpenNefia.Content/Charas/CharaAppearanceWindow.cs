@@ -1,93 +1,84 @@
 ﻿using OpenNefia.Content.UI.Element;
 using OpenNefia.Content.UI.Element.List;
 using OpenNefia.Content.Prototypes;
-using OpenNefia.Core.Audio;
 using OpenNefia.Core.Locale;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using OpenNefia.Core.Rendering;
-using OpenNefia.Core.UI.Layer;
-using OpenNefia.Content.CharaMake;
 using OpenNefia.Core.UI;
 using OpenNefia.Core.Maths;
-using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.UI.Element;
 using OpenNefia.Content.PCCs;
-using OpenNefia.Core.Prototypes;
-using OpenNefia.Core.IoC;
-using OpenNefia.Core.Utility;
-using OpenNefia.Core.ResourceManagement;
+using OpenNefia.Content.UI;
 
 namespace OpenNefia.Content.Charas
 {
-    [Localize("Elona.Chara.AppearanceLayer")]
+    public sealed class CharaAppearanceData
+    {
+        public ChipPrototype ChipProto { get; set; }
+        public Color ChipColor { get; set; }
+        public PortraitPrototype PortraitProto { get; set; }
+        public PCCDrawable PCCDrawable { get; set; }
+        public bool UsePCC { get; set; }
+
+        public CharaAppearanceData(ChipPrototype chipProto, Color chipColor, PortraitPrototype portraitProto, PCCDrawable pccDrawable, bool usePCC)
+        {
+            ChipProto = chipProto;
+            ChipColor = chipColor;
+            PortraitProto = portraitProto;
+            PCCDrawable = pccDrawable;
+            UsePCC = usePCC;
+        }
+    }
+
     public class CharaAppearanceWindow : UiElement
     {
-        public abstract record UiAppearanceData()
-        {
-            public record Done : UiAppearanceData;
-        }
-
-        public class AppearanceCell : UiListCell<UiAppearanceData>
-        {
-            public AppearanceCell(UiAppearanceData data, string text)
-                : base(data, new UiText(text))
-            {
-            }
-
-            public override void Draw()
-            {
-                UiText.Draw();
-            }
-        }
-
-        [Dependency] private readonly IResourceCache _resourceCache = default!;
-
-        [Localize] private UiWindow Window = new();
-        private UiTextTopic Category;
-        private UiTopicWindow CharaFrame;
-        public UiList<UiAppearanceData> List { get; }
         private IAssetDrawable AppearanceDeco;
 
+        private UiWindow Window;
+        private UiTextTopic Category;
+        private CharaAppearancePreviewPanel PreviewPanel;
+        private CharaAppearanceList List;
 
+        public event UiListEventHandler<CharaAppearanceUICellData> List_OnActivated 
+        {
+            add => List.OnActivated += value;
+            remove => List.OnActivated -= value;
+        }
 
-
-        private PCCDrawable _pccDrawable;
-
-
+        private CharaAppearanceData _data = default!;
 
         public CharaAppearanceWindow()
         {
-            IoCManager.InjectDependencies(this);
-
             AppearanceDeco = new AssetDrawable(Protos.Asset.DecoMirrorA);
             Category = new UiTextTopic(Loc.GetString("Elona.CharaMake.AppearanceSelect.Topic.Category"));
-            Window.KeyHints = MakeKeyHints();
-            List = new UiList<UiAppearanceData>
+            Window = new UiWindow()
             {
-                new AppearanceCell(new UiAppearanceData.Done(), Loc.GetString("Elona.CharaMake.AppearanceSelect.Done"))
+                KeyHints = MakeKeyHints()
             };
-            CharaFrame = new UiTopicWindow();
-            AddChild(List);
+            List = new CharaAppearanceList()
+            {
+                new CharaAppearanceUIListCell(new CharaAppearanceUICellData.Done(), Loc.GetString("Elona.CharaMake.AppearanceSelect.Done")),
+                new CharaAppearanceUIListCell(new CharaAppearanceUICellData.CustomChara(), "Customchara")
+            };
+            PreviewPanel = new CharaAppearancePreviewPanel();
 
-            _pccDrawable = SetupPCC();
+            AddChild(List);
         }
 
-        private PCCDrawable SetupPCC()
+        public void Initialize(CharaAppearanceData data)
         {
-            var allParts = IoCManager.Resolve<IPrototypeManager>()
-                .EnumeratePrototypes<PCCPartPrototype>()
-                .GroupBy(part => part.PCCPartType)
-                .Select(group => group.FirstOrDefault())
-                .WhereNotNull()
-                .Select(part => new PCCPart(part.PCCPartType, part.ImagePath, Color.White));
+            _data = data;
+            List.Initialize(data);
+            PreviewPanel.Initialize(data);
+        }
 
-            var pccDrawable = new PCCDrawable(allParts);
-            pccDrawable.RebakeImage(_resourceCache);
-            return pccDrawable;
+        public override List<UiKeyHint> MakeKeyHints()
+        {
+            var keyHints = base.MakeKeyHints();
+
+            keyHints.Add(new(UiKeyHints.Change, UiKeyNames.LeftRight));
+            keyHints.Add(new(UiKeyHints.Close, UiKeyNames.Cancel));
+
+            return keyHints;
         }
 
         public override void GrabFocus()
@@ -107,7 +98,7 @@ namespace OpenNefia.Content.Charas
             Window.SetSize(Width, Height);
             Category.SetPreferredSize();
             List.SetPreferredSize();
-            CharaFrame.SetSize(90, 120);
+            PreviewPanel.SetPreferredSize();
         }
 
         public override void SetPosition(int x, int y)
@@ -117,7 +108,7 @@ namespace OpenNefia.Content.Charas
             Category.SetPosition(Window.X + 30, Window.Y + 35);
             List.SetPosition(Window.X + 30, Window.Y + 65);
             AppearanceDeco.SetPosition(Window.X + Window.Width - 40, Window.Y);
-            CharaFrame.SetPosition(Window.X + 230, Window.Y + 70);
+            PreviewPanel.SetPosition(Window.X + 230, Window.Y + 70);
         }
 
         public override void Draw()
@@ -127,17 +118,8 @@ namespace OpenNefia.Content.Charas
             Category.Draw();
             List.Draw();
             AppearanceDeco.Draw();
-            CharaFrame.Draw();
-
-
-
-            _pccDrawable.Frame = Math.Clamp(((int)_frame / 4) % 4, 0, 3);
-            _pccDrawable.Direction = (PCCDirection)Math.Clamp(((int)_frame / 16) % 4, 0, 3);
-            _pccDrawable.Draw(CharaFrame.X + 46 - 24, CharaFrame.Y + 59 - 24, 2.0f, 2.0f);
+            PreviewPanel.Draw();
         }
-
-        private int _pccFrame = 0;
-        private float _frame = 0f;
 
         public override void Update(float dt)
         {
@@ -146,12 +128,7 @@ namespace OpenNefia.Content.Charas
             Category.Update(dt);
             List.Update(dt);
             AppearanceDeco.Update(dt);
-            CharaFrame.Update(dt);
-
-
-            _frame += dt * 50;
-
-            _pccDrawable.Update(dt);
+            PreviewPanel.Update(dt);
         }
     }
 }

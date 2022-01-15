@@ -2,7 +2,7 @@
 {
     public record AtlasRegion(string atlasName, string id, TileSpecifier spec, bool hasOverhang = false);
 
-    internal interface IAtlasRegionProvider
+    public interface IAtlasRegionProvider
     {
         IEnumerable<AtlasRegion> GetAtlasRegions();
     }

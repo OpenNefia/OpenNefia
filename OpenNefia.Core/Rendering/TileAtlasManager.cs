@@ -2,6 +2,8 @@
 using OpenNefia.Core.Log;
 using OpenNefia.Core.Maps;
 using OpenNefia.Core.Prototypes;
+using OpenNefia.Core.Reflection;
+using OpenNefia.Core.ResourceManagement;
 using OpenNefia.Core.Timing;
 using System;
 using System.Collections.Generic;
@@ -14,6 +16,8 @@ namespace OpenNefia.Core.Rendering
     public class TileAtlasManager : ITileAtlasManager
     {
         [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
+        [Dependency] private readonly IReflectionManager _reflectionManager = default!;
+        [Dependency] private readonly IResourceCache _resourceCache = default!;
 
         public event Action? ThemeSwitched = null;
 
@@ -63,24 +67,27 @@ namespace OpenNefia.Core.Rendering
                         region.spec.HasOverhang = region.hasOverhang;
                     }
 
-                    var atlas = new TileAtlasFactory()
+                    var atlas = new TileAtlasFactory(_resourceCache)
                         .LoadTiles(group.Select(x => x.spec))
                         .Build();
+
                     AddAtlas(atlasName, atlas);
                 }
             }
         }
 
-        /// <summary>
-        /// TODO generalize across all prototypes
-        /// </summary>
-        /// <returns></returns>
         private List<IAtlasRegionProvider> GetAtlasRegionProviders()
         {
-            var protos = _prototypeManager.EnumeratePrototypes<ChipPrototype>()
-                   .Cast<IAtlasRegionProvider>()
-                   .ToList();
-            protos.AddRange(_prototypeManager.EnumeratePrototypes<TilePrototype>());
+            var protos = new List<IAtlasRegionProvider>();
+
+            foreach (var type in _reflectionManager.GetAllChildren(typeof(IAtlasRegionProvider)))
+            {
+                if (typeof(IPrototype).IsAssignableFrom(type))
+                {
+                    protos.AddRange(_prototypeManager.EnumeratePrototypes(type).Cast<IAtlasRegionProvider>());
+                }
+            }
+
             return protos;
         }
 
