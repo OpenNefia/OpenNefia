@@ -92,20 +92,24 @@ namespace OpenNefia.Content.Charas
         {
             AssetArrowLeft = new AssetDrawable(Asset.ArrowLeft);
             AssetArrowRight = new AssetDrawable(Asset.ArrowRight);
+
+            UiText.Text = Data.Text;
         }
 
         public override void SetSize(int width, int height)
         {
             base.SetSize(width, height);
             AssetArrowLeft.SetPreferredSize();
+            UiText.SetSize(110, UiText.Height);
             AssetArrowRight.SetPreferredSize();
         }
 
         public override void SetPosition(int x, int y)
         {
             base.SetPosition(x, y);
-            AssetArrowLeft.SetPosition(X - 30, Y - 5);
-            AssetArrowRight.SetPosition(X + 115, Y - 5);
+            AssetArrowLeft.SetPosition(X, Y - 2);
+            UiText.SetPosition(AssetArrowLeft.GlobalPixelBounds.Right + 5, Y + 2);
+            AssetArrowRight.SetPosition(UiText.GlobalPixelBounds.Right + 5 + 1, Y - 2);
         }
 
         public void Change(int delta)

@@ -5,11 +5,6 @@ using OpenNefia.Core.IoC;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Core.UI.Element;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using static OpenNefia.Content.UI.Element.UiTopicWindow;
 
 namespace OpenNefia.Content.Charas
@@ -26,6 +21,7 @@ namespace OpenNefia.Content.Charas
 
         private CharaAppearanceData _data = default!;
         private float _frame;
+        private float _pccFrame;
 
         public CharaAppearancePreviewPanel()
         {
@@ -39,6 +35,7 @@ namespace OpenNefia.Content.Charas
 
             _data = data;
             _frame = 0f;
+            _pccFrame = 0f;
         }
 
         public override void GetPreferredSize(out Vector2i size)
@@ -60,12 +57,22 @@ namespace OpenNefia.Content.Charas
 
         public override void Update(float dt)
         {
-            _frame += dt * 50;
+            var delta = dt * 50;
+            _frame += delta;
+
+            if (_frame % 100 < 45)
+            {
+                _pccFrame = _frame % 16;
+            }
+            else
+            {
+                _pccFrame += delta;
+            }
+
+            _data.PCCDrawable.Frame = Math.Clamp(((int)_pccFrame / 4) % 4, 0, 3);
+            _data.PCCDrawable.Direction = (PCCDirection)Math.Clamp(((int)_pccFrame / 16) % 4, 0, 3);
 
             WindowFrame.Update(dt);
-
-            _data.PCCDrawable.Frame = Math.Clamp(((int)_frame / 4) % 4, 0, 3);
-            _data.PCCDrawable.Direction = (PCCDirection)Math.Clamp(((int)_frame / 16) % 4, 0, 3);
         }
 
         public override void Draw()
