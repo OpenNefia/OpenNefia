@@ -1,22 +1,188 @@
-﻿using OpenNefia.Core.UI.Element;
+﻿using OpenNefia.Core.Prototypes;
+using OpenNefia.Core.UI.Element;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using OpenNefia.Core.Maths;
+using OpenNefia.Core.Utility;
+using OpenNefia.Core.ResourceManagement;
+using OpenNefia.Core.IoC;
+using OpenNefia.Core.Rendering;
 
 namespace OpenNefia.Content.PCCs
 {
-    public sealed class PCCDrawable : BaseDrawable
+    public sealed class PCCDrawable : IEntityDrawable
     {
-        public override void Update(float dt)
+        public enum PCCDirection
         {
-            throw new NotImplementedException();
+            South = 0,
+            West = 1,
+            North = 2,
+            East = 3
         }
 
-        public override void Draw()
+        private static readonly Color[] PCCPartColors =
         {
-            throw new NotImplementedException();
+            new (255, 255, 255, 255),
+            new (175, 255, 175, 255),
+            new (255, 155, 155, 255),
+            new (175, 175, 255, 255),
+            new (255, 215, 175, 255),
+            new (255, 255, 175, 255),
+            new (155, 154, 153, 255),
+            new (185, 155, 215, 255),
+            new (155, 205, 205, 255),
+            new (255, 195, 185, 255),
+            new (235, 215, 155, 255),
+            new (225, 215, 185, 255),
+            new (105, 235, 105, 255),
+            new (205, 205, 205, 255),
+            new (255, 225, 225, 255),
+            new (225, 225, 255, 255),
+            new (225, 195, 255, 255),
+            new (215, 255, 215, 255),
+            new (210, 250, 160, 255),
+        };
+
+        // TODO less hardcoding
+        private static readonly Dictionary<PCCPartType, int> PCCPartZOrders = new()
+        {
+            { PCCPartType.Mantle, 1000 },
+            { PCCPartType.Hairbk, 2000 },
+            { PCCPartType.Ridebk, 3000 },
+            { PCCPartType.Body, 4000 },
+            { PCCPartType.Eye, 5000 },
+            { PCCPartType.Pants, 6000 },
+            { PCCPartType.Cloth, 7000 },
+            { PCCPartType.Chest, 8000 },
+            { PCCPartType.Leg, 9000 },
+            { PCCPartType.Belt, 10000 },
+            { PCCPartType.Glove, 11000 },
+            { PCCPartType.Ride, 12000 },
+            { PCCPartType.Mantlebk, 13000 },
+            { PCCPartType.Hair, 14000 },
+            { PCCPartType.Subhair, 15000 },
+            { PCCPartType.Etc, 16000 },
+            { PCCPartType.Boots, 17000 }
+        };
+
+        private const int DefaultPCCPartZOrder = 100000;
+
+        private readonly List<PCCPart> _parts;
+        private readonly Love.Quad[] _quads = new Love.Quad[16];
+
+        public IReadOnlyList<PCCPart> Parts => _parts;
+
+        public int Frame { get; set; }
+        public PCCDirection Direction { get; set; }
+        public bool IsFullSize { get; set; }
+
+        private Love.Image? BakedImage = null;
+
+        private const int PartWidth = 32;
+        private const int PartHeight = 48;
+        private const int SheetWidth = PartWidth * 4;
+        private const int SheetHeight = PartHeight * 4;
+        private const int MaxFrames = 16;
+
+        public PCCDrawable(IEnumerable<PCCPart> parts, IResourceCache? resourceCache = null)
+        {
+            _parts = parts.ToList();
+
+            foreach (var part in _parts)
+            {
+                if (part.ZOrder == null)
+                {
+                    part.ZOrder = PCCPartZOrders.GetValueOr(part.Type, DefaultPCCPartZOrder);
+                }
+            }
+
+            AllocateQuads();
+        }
+
+        private void AllocateQuads()
+        {
+            for (int i = 0; i < 16; i++)
+            {
+                var x = i / 4;
+                var y = i % 4;
+
+                _quads[i]?.Dispose();
+                _quads[i] = Love.Graphics.NewQuad(x * PartWidth, y * PartHeight, 
+                    PartWidth, PartHeight, 
+                    SheetWidth, SheetHeight);
+            }
+        }
+
+        public void RebakeImage(IResourceCache cache)
+        {
+            BakedImage?.Dispose();
+
+            var canvas = Love.Graphics.NewCanvas(SheetWidth, SheetHeight);
+            canvas.SetFilter(Love.FilterMode.Nearest, Love.FilterMode.Nearest, 1);
+
+            GraphicsEx.WithCanvas(canvas, DoRebake);
+
+            BakedImage = Love.Graphics.NewImage(canvas.NewImageData());
+            BakedImage.SetFilter(Love.FilterMode.Nearest, Love.FilterMode.Nearest, 1);
+
+            canvas.Dispose();
+
+            void DoRebake()
+            {
+                foreach (var part in _parts)
+                {
+                    var image = cache.GetResource<LoveImageResource>(part.ImagePath);
+                    Love.Graphics.SetColor(part.Color);
+                    Love.Graphics.Draw(image, 0, 0);
+                }
+            }
+        }
+
+        public void NextFrame()
+        {
+            Frame = (Frame + 1) % MaxFrames;
+        }
+
+        public void Update(float dt)
+        {
+        }
+
+        public void Draw(float x, float y, float scaleX, float scaleY)
+        {
+            int width, height, offsetX, offsetY;
+
+            if (IsFullSize)
+            {
+                width = PartWidth;
+                height = PartHeight;
+                offsetX = 8;
+                offsetY = -4;
+            }
+            else
+            {
+                width = 24;
+                height = 40;
+                offsetX = 12;
+                offsetY = 4;
+            }
+
+            var index = Math.Clamp((int)Direction + Frame * 4, 0, MaxFrames - 1);
+            var quad = _quads[index];
+
+            Love.Graphics.SetColor(Love.Color.White);
+            GraphicsEx.DrawImageRegion(BakedImage!, quad, x + offsetX, y + offsetY, width * scaleX, height * scaleY);
+        }
+
+        public void Dispose()
+        {
+            BakedImage?.Dispose();
+            foreach (var quad in _quads)
+            {
+                quad?.Dispose();
+            }
         }
     }
 }

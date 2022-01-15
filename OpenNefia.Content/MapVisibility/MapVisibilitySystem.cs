@@ -51,7 +51,7 @@ namespace OpenNefia.Content.MapVisibility
             var map = args.Map;
             var shadows = mapVis.ShadowMap;
 
-            Array.Clear(shadows.ShadowTiles, 0, shadows.ShadowTiles.Length);
+            Array.Clear(shadows.ShadowTiles, (int)ShadowTile.None, shadows.ShadowTiles.Length);
 
             var player = _gameSession.Player;
             var playerSpatial = EntityManager.GetComponent<SpatialComponent>(player);
@@ -66,14 +66,16 @@ namespace OpenNefia.Content.MapVisibility
             var windowTiledH = Math.Min(windowTiledSize.Y, map.Height);
 
             var start = new Vector2i(Math.Clamp(playerPos.X - windowTiledW / 2 - 2, 0, map.Width - windowTiledW),
-                                    Math.Clamp(playerPos.Y - windowTiledH / 2 - 2, 0, map.Height - windowTiledH));
+                                     Math.Clamp(playerPos.Y - windowTiledH / 2 - 2, 0, map.Height - windowTiledH));
             var end = new Vector2i(start.X + windowTiledW + 4, start.Y + windowTiledH + 4);
 
             shadows.ShadowPos = _coords.TileToScreen(start);
             var shadowEnd = _coords.TileToScreen(end - 1);
             shadows.ShadowSize = shadowEnd - shadows.ShadowPos;
 
+            // TODO make this buffable.
             var fovSize = 15;
+
             var fovRadius = FovRadius.Get(fovSize);
             var radius = fovSize / 2 + 1;
 

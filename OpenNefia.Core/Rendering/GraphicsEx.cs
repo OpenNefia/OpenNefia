@@ -154,5 +154,15 @@ namespace OpenNefia.Core.Rendering
             Love.Graphics.SetColor(spec.Color);
             Love.Graphics.SetFont(spec.LoveFont);
         }
+
+        public static void WithCanvas(Love.Canvas canvas, Action callback)
+        {
+            var oldCanvas = Love.Graphics.GetCanvas();
+            Love.Graphics.SetCanvas(canvas);
+
+            callback();
+
+            Love.Graphics.SetCanvas(oldCanvas);
+        }
     }
 }
