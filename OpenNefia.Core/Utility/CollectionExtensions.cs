@@ -38,7 +38,7 @@ namespace OpenNefia.Core.Utility
             return dict;
         }
 
-        public static TValue GetValueOr<TKey, TValue>(this Dictionary<TKey, TValue> self, TKey key, TValue defaultValue)
+        public static TValue GetValueOr<TKey, TValue>(this IReadOnlyDictionary<TKey, TValue> self, TKey key, TValue defaultValue)
             where TKey : notnull
         {
             if (self.TryGetValue(key, out var value))

@@ -1,7 +1,10 @@
-﻿using OpenNefia.Content.UI.Element;
+﻿using OpenNefia.Content.PCCs;
+using OpenNefia.Content.UI.Element;
 using OpenNefia.Content.UI.Element.List;
 using OpenNefia.Core.Audio;
 using OpenNefia.Core.Input;
+using OpenNefia.Core.IoC;
+using OpenNefia.Core.Maths;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Core.UI.Element;
 using System;
@@ -24,7 +27,7 @@ namespace OpenNefia.Content.Charas
     {
         public virtual bool DrawArrows => true;
 
-        public virtual string Text => "Test";
+        public virtual string Text => "";
 
         public virtual void Change(int delta)
         {
@@ -38,6 +41,96 @@ namespace OpenNefia.Content.Charas
         public sealed class ChangePage : CharaAppearanceUICellData
         {
             public CharaAppearancePage Page { get; set; }
+
+            public ChangePage(CharaAppearancePage page)
+            {
+                Page = page;
+            }
+        }
+
+        public sealed class Portrait : CharaAppearanceUICellData
+        {
+            private List<PortraitPrototype> _portraits;
+            private int _currentIndex;
+
+            public override string Text => _currentIndex.ToString();
+
+            public PortraitPrototype? CurrentValue
+            {
+                get
+                {
+                    if (_portraits.Count == 0)
+                        return null;
+                    return _portraits[_currentIndex];
+                }
+            }
+
+            public Portrait(IEnumerable<PortraitPrototype> portraits)
+            {
+                _portraits = portraits.ToList();
+            }
+
+            public override void Change(int delta)
+            {
+                _currentIndex = (_currentIndex + delta) % _portraits.Count;
+            }
+        }
+
+        public sealed class PCCPart : CharaAppearanceUICellData
+        {
+            public string PartID { get; }
+
+            private List<PCCs.PCCPart> _parts;
+            private int _currentIndex;
+
+            public override string Text => _currentIndex.ToString();
+
+            public PCCs.PCCPart? CurrentValue
+            {
+                get
+                {
+                    if (_parts.Count == 0)
+                        return null;
+                    return _parts[_currentIndex];
+                }
+            }
+
+            public PCCPart(IEnumerable<PCCs.PCCPart> parts, string partID)
+            {
+                PartID = partID;
+                _parts = parts.ToList();
+            }
+
+            public override void Change(int delta)
+            {
+                _currentIndex = (_currentIndex + delta) % _parts.Count;
+            }
+        }
+
+        public sealed class PCCPartColor : CharaAppearanceUICellData
+        {
+            public PCCPartType[] PCCPartTypes { get; }
+
+            private List<Color> _colors;
+            private int _currentIndex;
+
+            public override string Text => _currentIndex.ToString();
+
+            public Color CurrentValue
+            {
+                get => _colors.ElementAtOrDefault(_currentIndex);
+            }
+
+            public PCCPartColor(IEnumerable<Color> colors, PCCPartType[] pccPartTypes)
+            {
+                _colors = colors.ToList();
+                PCCPartTypes = pccPartTypes;
+            }
+
+            public override void Change(int delta)
+            {
+                _currentIndex = (_currentIndex + delta) % _colors.Count;
+            }
         }
 
         public sealed class CustomChara : CharaAppearanceUICellData
@@ -52,34 +145,6 @@ namespace OpenNefia.Content.Charas
                     UsePCC = true;
             }
         }
-
-        public sealed class PCCPart : CharaAppearanceUICellData
-        {
-            private List<PCCs.PCCPart> _parts;
-            private int _currentIndex;
-
-            public override string Text => $"{CurrentValue?.Type}";
-
-            public PCCs.PCCPart? CurrentValue
-            {
-                get
-                {
-                    if (_parts.Count == 0)
-                        return null;
-                    return _parts[_currentIndex];
-                }
-            }
-
-            public PCCPart(IEnumerable<PCCs.PCCPart> parts)
-            {
-                _parts = parts.ToList();
-            }
-
-            public override void Change(int delta)
-            {
-                _currentIndex = (_currentIndex + delta) % _parts.Count;
-            }
-        }
     }
 
     public sealed class CharaAppearanceUIListCell : UiListCell<CharaAppearanceUICellData>
@@ -87,20 +152,28 @@ namespace OpenNefia.Content.Charas
         private IAssetDrawable AssetArrowLeft;
         private IAssetDrawable AssetArrowRight;
 
+        private IUiText ValueText = new UiText();
+
         public CharaAppearanceUIListCell(CharaAppearanceUICellData data, string text)
             : base(data, new UiText(text))
         {
             AssetArrowLeft = new AssetDrawable(Asset.ArrowLeft);
             AssetArrowRight = new AssetDrawable(Asset.ArrowRight);
 
-            UiText.Text = Data.Text;
+            RebuildText();
+        }
+
+        private void RebuildText()
+        {
+            ValueText.Text = Data.Text;
         }
 
         public override void SetSize(int width, int height)
         {
             base.SetSize(width, height);
             AssetArrowLeft.SetPreferredSize();
-            UiText.SetSize(110, UiText.Height);
+            UiText.SetSize(55, UiText.Height);
+            ValueText.SetSize(55, UiText.Height);
             AssetArrowRight.SetPreferredSize();
         }
 
@@ -109,18 +182,21 @@ namespace OpenNefia.Content.Charas
             base.SetPosition(x, y);
             AssetArrowLeft.SetPosition(X, Y - 2);
             UiText.SetPosition(AssetArrowLeft.GlobalPixelBounds.Right + 5, Y + 2);
-            AssetArrowRight.SetPosition(UiText.GlobalPixelBounds.Right + 5 + 1, Y - 2);
+            var padding = UiText.Font.LoveFont.GetWidth(new string(' ', 8));
+            ValueText.SetPosition(UiText.X + padding, Y + 2);
+            AssetArrowRight.SetPosition(ValueText.GlobalPixelBounds.Right + 5 + 1, Y - 2);
         }
 
         public void Change(int delta)
         {
             Data.Change(delta);
-            UiText.Text = Data.Text;
+            RebuildText();
         }
 
         public override void Update(float dt)
         {
             UiText.Update(dt);
+            ValueText.Update(dt);
             AssetArrowLeft.Update(dt);
             AssetArrowRight.Update(dt);
         }
@@ -128,6 +204,7 @@ namespace OpenNefia.Content.Charas
         public override void Draw()
         {
             UiText.Draw();
+            ValueText.Draw();
 
             if (Data.DrawArrows)
             {
@@ -137,18 +214,38 @@ namespace OpenNefia.Content.Charas
         }
     }
 
+    public delegate void AppearanceListItemChangedDelegate(CharaAppearanceUIListCell cell, int delta);
+
     public sealed class CharaAppearanceList : UiList<CharaAppearanceUICellData>
     {
+        public sealed class Pages : Dictionary<CharaAppearancePage, List<CharaAppearanceUIListCell>>
+        {
+        }
+
+        private Pages _pages = new();
+
         private CharaAppearanceData _data = default!;
+
+        public event AppearanceListItemChangedDelegate? OnAppearanceItemChanged;
 
         public CharaAppearanceList() : base()
         {
             OnActivated += HandleActivated;
         }
 
-        public void Initialize(CharaAppearanceData data)
+        public void Initialize(CharaAppearanceData data, Pages pages)
         {
+            IoCManager.InjectDependencies(this);
+
             _data = data;
+            _pages = pages;
+            ChangePage(CharaAppearancePage.Basic);
+        }
+
+        public void ChangePage(CharaAppearancePage page)
+        {
+            Clear();
+            AddRange(_pages[page]);
         }
 
         protected override void HandleKeyBindDown(GUIBoundKeyEventArgs args)
@@ -187,13 +284,13 @@ namespace OpenNefia.Content.Charas
         {
             cell.Change(delta);
 
-            switch (cell.Data)
+            if (cell.Data is CharaAppearanceUICellData.ChangePage changePage)
             {
-                case CharaAppearanceUICellData.CustomChara customChara:
-                    _data.UsePCC = customChara.UsePCC;
-                    break;
+                ChangePage(changePage.Page);
             }
-  
+
+            OnAppearanceItemChanged?.Invoke(cell, delta);
+
             Sounds.Play(Sound.Cursor1);
         }
     }

@@ -15,57 +15,12 @@ namespace OpenNefia.Content.PCCs
 {
     public sealed class PCCDrawable : IEntityDrawable
     {
-        private static readonly Color[] PCCPartColors =
-        {
-            new (255, 255, 255, 255),
-            new (175, 255, 175, 255),
-            new (255, 155, 155, 255),
-            new (175, 175, 255, 255),
-            new (255, 215, 175, 255),
-            new (255, 255, 175, 255),
-            new (155, 154, 153, 255),
-            new (185, 155, 215, 255),
-            new (155, 205, 205, 255),
-            new (255, 195, 185, 255),
-            new (235, 215, 155, 255),
-            new (225, 215, 185, 255),
-            new (105, 235, 105, 255),
-            new (205, 205, 205, 255),
-            new (255, 225, 225, 255),
-            new (225, 225, 255, 255),
-            new (225, 195, 255, 255),
-            new (215, 255, 215, 255),
-            new (210, 250, 160, 255),
-        };
-
-        // TODO less hardcoding
-        private static readonly Dictionary<PCCPartType, int> PCCPartZOrders = new()
-        {
-            { PCCPartType.Mantle, 1000 },
-            { PCCPartType.Hairbk, 2000 },
-            { PCCPartType.Ridebk, 3000 },
-            { PCCPartType.Body, 4000 },
-            { PCCPartType.Eye, 5000 },
-            { PCCPartType.Pants, 6000 },
-            { PCCPartType.Cloth, 7000 },
-            { PCCPartType.Chest, 8000 },
-            { PCCPartType.Leg, 9000 },
-            { PCCPartType.Belt, 10000 },
-            { PCCPartType.Glove, 11000 },
-            { PCCPartType.Ride, 12000 },
-            { PCCPartType.Mantlebk, 13000 },
-            { PCCPartType.Hair, 14000 },
-            { PCCPartType.Subhair, 15000 },
-            { PCCPartType.Etc, 16000 },
-            { PCCPartType.Boots, 17000 }
-        };
-
         private const int DefaultPCCPartZOrder = 100000;
 
-        private readonly List<PCCPart> _parts;
+        private readonly Dictionary<string, PCCPart> _parts;
         private readonly Love.Quad[] _quads = new Love.Quad[16];
 
-        public IReadOnlyList<PCCPart> Parts => _parts;
+        public IReadOnlyDictionary<string, PCCPart> Parts => _parts;
 
         public int Frame { get; set; }
         public PCCDirection Direction { get; set; }
@@ -79,15 +34,15 @@ namespace OpenNefia.Content.PCCs
         private const int SheetHeight = PartHeight * 4;
         private const int MaxFrames = 16;
 
-        public PCCDrawable(IEnumerable<PCCPart> parts)
+        public PCCDrawable(Dictionary<string, PCCPart> parts)
         {
-            _parts = parts.ToList();
+            _parts = parts;
 
-            foreach (var part in _parts)
+            foreach (var (_, part) in _parts)
             {
                 if (part.ZOrder == null)
                 {
-                    part.ZOrder = PCCPartZOrders.GetValueOr(part.Type, DefaultPCCPartZOrder);
+                    part.ZOrder = PCCConstants.DefaultPartZOrders.GetValueOr(part.Type, DefaultPCCPartZOrder);
                 }
             }
 
@@ -124,7 +79,7 @@ namespace OpenNefia.Content.PCCs
 
             void DoRebake()
             {
-                foreach (var part in _parts.OrderBy(part => part.ZOrder ?? DefaultPCCPartZOrder))
+                foreach (var part in _parts.OrderBy(pair => pair.Value.ZOrder ?? DefaultPCCPartZOrder))
                 {
                     var image = cache.GetResource<LoveImageResource>(part.ImagePath).Image;
                     Love.Graphics.SetColor(part.Color);
