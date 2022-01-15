@@ -89,12 +89,6 @@ Elona.CharaMake = {
     },
 
     AppearanceSelect = {
-        Window = {
-            Title = "Appearance",
-        },
-        Topic = {
-            Category = "Category",
-        },
         Caption = "What do you look like? Don't worry, you can change this later.",
         Done = "Done",
     },

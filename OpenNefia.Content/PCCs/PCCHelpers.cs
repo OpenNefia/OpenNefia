@@ -33,16 +33,35 @@ namespace OpenNefia.Content.PCCs
             }
         }
 
-        public static PCCDrawable MakeDefaultPCC(IPrototypeManager protos, IResourceCache resourceCache)
+        public static Dictionary<PCCPartType, List<PCCPartPrototype>> GetGroupedPCCPartPrototypes(IPrototypeManager protos)
         {
-            var allParts = protos
+            return protos
                 .EnumeratePrototypes<PCCPartPrototype>()
                 .GroupBy(part => part.PCCPartType)
-                .Select(group => group.FirstOrDefault())
-                .WhereNotNull()
-                .Select(part => new PCCPart(part.PCCPartType, part.ImagePath, Color.White));
+                .ToDictionary(group => group.Key, group => group.ToList());
+        }
 
-            var pccDrawable = new PCCDrawable(allParts);
+        public static Dictionary<PCCPartType, List<PCCPart>> GetGroupedPCCParts(IPrototypeManager protos)
+        {
+            return GetGroupedPCCPartPrototypes(protos)
+                .ToDictionary(pair => pair.Key,
+                              pair => pair.Value.Select(MakePCCPartFromPrototype).ToList());
+        }
+
+        private static PCCPart MakePCCPartFromPrototype(PCCPartPrototype proto)
+        {
+            return new PCCPart(proto.PCCPartType, proto.ImagePath, Color.White);
+        }
+
+        public static PCCDrawable MakeDefaultPCC(IReadOnlyDictionary<string, PCCPartType> partLayout, IPrototypeManager protos, IResourceCache resourceCache)
+        {
+            var defaultParts = GetGroupedPCCParts(protos)
+                .ToDictionary(pair => pair.Key, pair => pair.Value.First());
+
+            var parts = partLayout
+                .ToDictionary(pair => pair.Key, pair => defaultParts[pair.Value]);
+
+            var pccDrawable = new PCCDrawable(parts);
             pccDrawable.RebakeImage(resourceCache);
             return pccDrawable;
         }

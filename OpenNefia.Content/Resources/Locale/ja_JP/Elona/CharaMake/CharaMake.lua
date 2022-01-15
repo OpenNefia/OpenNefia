@@ -89,9 +89,6 @@ Elona.CharaMake = {
     },
 
     AppearanceSelect = {
-        Window = {
-            Title = "肖像の変更",
-        },
         Caption = "君の見た目を知っておきたいな。まあ、後からいつでも変えられるけどね。",
     },
 }
