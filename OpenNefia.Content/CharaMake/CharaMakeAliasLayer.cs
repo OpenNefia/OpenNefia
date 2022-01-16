@@ -224,7 +224,7 @@ namespace OpenNefia.Content.CharaMake
                 return;
             }
 
-            chara.Title = alias;
+            chara.Alias = alias;
         }
     }
 }

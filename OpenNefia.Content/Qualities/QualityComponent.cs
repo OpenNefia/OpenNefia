@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OpenNefia.Content.GameObjects
+namespace OpenNefia.Content.Qualities
 {
     [RegisterComponent]
     public class QualityComponent : Component
@@ -16,7 +16,7 @@ namespace OpenNefia.Content.GameObjects
         public override string Name => "Quality";
 
         [DataField(required: true)]
-        public Stat<Quality> Quality { get; set; } = new(GameObjects.Quality.Bad);
+        public Stat<Quality> Quality { get; set; } = new(Qualities.Quality.Bad);
     }
 
     public enum Quality

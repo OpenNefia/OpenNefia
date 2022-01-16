@@ -39,7 +39,7 @@ namespace OpenNefia.Content.Locale.Funcs
                 return Loc.GetString("Elona.GameObjects.Common.Something");
             }
 
-            return DisplayNameSystem.GetDisplayName(entity);
+            return EntitySystem.Get<IDisplayNameSystem>().GetDisplayName(entity);
         }
 
         /// <summary>

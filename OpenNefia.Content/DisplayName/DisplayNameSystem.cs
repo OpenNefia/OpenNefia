@@ -1,39 +1,65 @@
-﻿using OpenNefia.Core.GameObjects;
+﻿using OpenNefia.Content.CustomName;
+using OpenNefia.Core.GameObjects;
+using System.ComponentModel;
 
 namespace OpenNefia.Content.DisplayName
 {
-    public class DisplayNameSystem : EntitySystem
+    public interface IDisplayNameSystem : IEntitySystem
     {
+        string GetBaseName(EntityUid uid);
+        string GetDisplayName(EntityUid uid);
+    }
+
+    public class DisplayNameSystem : EntitySystem, IDisplayNameSystem
+    {
+        public static readonly SubId HandlerGetDefaultBaseName = new(typeof(DisplayNameSystem), nameof(GetDefaultBaseName));
+
         public override void Initialize()
         {
             base.Initialize();
 
-            SubscribeLocalEvent<MetaDataComponent, GetDisplayNameEventArgs>(GetFallbackName, nameof(GetFallbackName));
+            SubscribeLocalEvent<MetaDataComponent, GetBaseNameEventArgs>(GetDefaultBaseName, nameof(GetDefaultBaseName));
         }
 
-        public void GetFallbackName(EntityUid uid, MetaDataComponent component, ref GetDisplayNameEventArgs args)
+        private string GetFallbackName(EntityUid uid)
         {
-            if (args.Handled)
-                return;
-
-            args.Name = component.DisplayName ?? $"<entity {uid}>";
-            args.Handled = true;
+            return $"<entity {uid}>";
         }
 
-        public string GetDisplayNameInner(EntityUid uid)
+        private void GetDefaultBaseName(EntityUid uid, MetaDataComponent metaData, ref GetBaseNameEventArgs args)
         {
-            var ev = new GetDisplayNameEventArgs();
-            EntityManager.EventBus.RaiseLocalEvent(uid, ref ev);
+            var baseName = metaData.DisplayName ?? GetFallbackName(uid); 
+
+            if (EntityManager.TryGetComponent(uid, out CustomNameComponent customName))
+            {
+                baseName = customName.CustomName;
+            }
+
+            args.BaseName = baseName;
+        }
+
+        public string GetBaseName(EntityUid uid)
+        {
+            var ev = new GetBaseNameEventArgs();
+            RaiseLocalEvent(uid, ref ev);
+            return ev.BaseName;
+        }
+
+        public string GetDisplayName(EntityUid uid)
+        {
+            var baseName = GetBaseName(uid);
+            var ev = new GetDisplayNameEventArgs() { Name = baseName };
+            RaiseLocalEvent(uid, ref ev);
             return ev.Name;
-        }
-
-        public static string GetDisplayName(EntityUid uid)
-        {
-            return Get<DisplayNameSystem>().GetDisplayNameInner(uid);
         }
     }
 
-    public class GetDisplayNameEventArgs : HandledEntityEventArgs
+    public struct GetBaseNameEventArgs
+    {
+        public string BaseName = string.Empty;
+    }
+
+    public struct GetDisplayNameEventArgs
     {
         public string Name = string.Empty;
     }

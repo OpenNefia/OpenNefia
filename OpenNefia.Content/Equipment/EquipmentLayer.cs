@@ -377,7 +377,7 @@ namespace OpenNefia.Content.Equipment
 
                         cellData.ItemEntityUid = item;
                         cellData.ItemTextColor = InventoryHelpers.GetItemTextColor(item, _entityManager);
-                        cellData.ItemNameText = _displayNames.GetDisplayNameInner(item);
+                        cellData.ItemNameText = _displayNames.GetDisplayName(item);
 
                         var weight = 0;
                         if (_entityManager.TryGetComponent(item, out WeightComponent weightComp))

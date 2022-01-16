@@ -16,7 +16,8 @@ namespace OpenNefia.Content.Effects
     {
         // TODO flyweight this
         [Dependency] private readonly IMapDrawables _mapDrawables = default!;
-        
+        [Dependency] private readonly IDisplayNameSystem _displayNames = default!;
+
         void ISerializationHooks.AfterDeserialization()
         {
             IoCManager.InjectDependencies(this);
@@ -24,7 +25,7 @@ namespace OpenNefia.Content.Effects
 
         public override EffectResult Apply(EntityUid source, MapCoordinates coords, EntityUid target, EffectArgs args)
         {
-            Mes.Display($"{DisplayNameSystem.GetDisplayName(target)} is (supposed to be) healed.", UiColors.MesGreen);
+            Mes.Display($"{_displayNames.GetDisplayName(target)} is (supposed to be) healed.", UiColors.MesGreen);
 
             var drawable = new ParticleMapDrawable(Protos.Asset.HealEffect, Protos.Sound.Heal1, 5f);
             _mapDrawables.Enqueue(drawable, coords);

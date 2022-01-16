@@ -37,12 +37,16 @@ entities:
   - type: Spatial
     parent: 0
     pos: 4,5
+  - type: Quality
+    quality: Great
 - uid: 4
   protoId: Elona.CharaYeek
   components:
   - type: Spatial
     parent: 0
     pos: 5,5
+  - type: Quality
+    quality: God
 - uid: 5
   protoId: Elona.ItemDagger
   components:
