@@ -1,5 +1,6 @@
 ﻿using OpenNefia.Core.Audio;
 using OpenNefia.Core.Locale;
+using OpenNefia.Core.Maths;
 using OpenNefia.Core.UI.Element;
 using System;
 using System.Collections.Generic;
@@ -27,8 +28,14 @@ namespace OpenNefia.Core.UI
         public int PageCount => PagedElements.Count() / Math.Max(1, ItemsPerPage);
         
         private List<T> _currentElements = new();
+
+        /// <summary>
+        /// List of elements that form the current page. This is a window into
+        /// the entire page model's list of elements.
+        /// </summary>
         public IReadOnlyList<T> CurrentElements => _currentElements;
 
+        /// <inheritdoc/>
         public event PageChangedDelegate? OnPageChanged;
 
         public UiPageModel(int itemsPerPage = 16)
@@ -65,7 +72,7 @@ namespace OpenNefia.Core.UI
         public bool SetPage(int page)
         {
             var oldPage = CurrentPage;
-            CurrentPage = Math.Clamp(page, 0, PageCount);
+            CurrentPage = MathHelper.Wrap(page, 0, PageCount);
             UpdateCurrentElements();
             OnPageChanged?.Invoke(CurrentPage, PageCount);
             return oldPage != CurrentPage;
