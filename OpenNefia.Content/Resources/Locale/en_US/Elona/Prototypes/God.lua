@@ -1,9 +1,4 @@
 OpenNefia.Prototypes.Elona.God.Elona = {
-    Eyth = {
-        Name = "Eyth of Infidel",
-        ShortName = "Eyth",
-    },
-
     Ehekatl = {
         Name = "Ehekatl of Luck",
         ShortName = "Lulwy",

@@ -1,4 +1,5 @@
 ﻿using Love;
+using OpenNefia.Content.Feats;
 using OpenNefia.Content.Inventory;
 using OpenNefia.Content.Prototypes;
 using OpenNefia.Content.UI.Element.List;

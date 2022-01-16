@@ -17,18 +17,16 @@ namespace OpenNefia.Content.UI.Layer
     {
         public class Args
         {
-            public bool IsCancellable { get; set; }
-            public bool LimitLength { get; set; }
-            public string? InitialValue { get; set; }
-            public int? MaxLength { get; set; }
-            public bool HasShadow { get; set; }
-            public string? Prompt { get; set; }
+            public bool IsCancellable { get; set; } = true;
+            public string? InitialValue { get; set; } = null;
+            public int? MaxLength { get; set; } = 16;
+            public bool HasShadow { get; set; } = true;
+            public string? QueryText { get; set; } = null;
 
-            public Args(int? maxLength = 16, bool limitLength = false, string? initialValue = null, bool isCancellable = true, 
+            public Args(int? maxLength = 16, string? initialValue = null, bool isCancellable = true, 
                 bool hasShadow = true, string? prompt = null)
             {
                 MaxLength = maxLength;
-                LimitLength = limitLength;
                 InitialValue = initialValue;
                 IsCancellable = isCancellable;
                 HasShadow = hasShadow;
@@ -47,10 +45,9 @@ namespace OpenNefia.Content.UI.Layer
         }
 
         public bool IsCancellable { get; set; }
-        public bool LimitLength { get; set; }
         public int? MaxLength { get; set; }
         public bool HasShadow { get; set; }
-        private string? _prompt;
+        private string? _queryText;
 
         protected bool IsCutOff = false;
         protected float Dt = 0f;
@@ -91,11 +88,10 @@ namespace OpenNefia.Content.UI.Layer
         public override void Initialize(Args args)
         {
             MaxLength = args.MaxLength;
-            LimitLength = args.LimitLength;
             _Value = args.InitialValue ?? string.Empty;
             IsCancellable = args.IsCancellable;
             HasShadow = args.HasShadow;
-            _prompt = args.Prompt;
+            _queryText = args.QueryText;
 
         }
 
@@ -134,9 +130,9 @@ namespace OpenNefia.Content.UI.Layer
         public override void OnQuery()
         {
             Sounds.Play(Protos.Sound.Pop2);
-            if (_prompt != null)
+            if (_queryText != null)
             {
-                Mes.Display(_prompt);
+                Mes.Display(_queryText);
             }
         }
 

@@ -1,7 +1,10 @@
+using OpenNefia.Content.DisplayName;
+using OpenNefia.Core.Containers;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Log;
 using OpenNefia.Core.Maps;
+using OpenNefia.Core.Maths;
 using OpenNefia.Core.Prototypes;
 using System;
 using System.Collections.Generic;
@@ -28,11 +31,14 @@ namespace OpenNefia.Content.EntityGen
         void FireGeneratedEvent(EntityUid entity);
         EntityUid? SpawnEntity(PrototypeId<EntityPrototype>? protoId, EntityCoordinates coordinates);
         EntityUid? SpawnEntity(PrototypeId<EntityPrototype>? protoId, MapCoordinates coordinates);
+        EntityUid? SpawnEntity(PrototypeId<EntityPrototype>? protoId, IContainer container, int count = 1);
     }
 
     public class EntityGenSystem : EntitySystem, IEntityGen
     {
         [Dependency] private readonly IMapLoader _mapLoader = default!;
+        [Dependency] private readonly IDisplayNameSystem _displayNames = default!;
+        [Dependency] private readonly IStackSystem _stacks = default!;
 
         public override void Initialize()
         {
@@ -80,11 +86,34 @@ namespace OpenNefia.Content.EntityGen
 
             if (!EntityManager.IsAlive(ent))
             {
+                EntityManager.DeleteEntity(ent);
+
                 Logger.WarningS("entity.gen", $"Entity {ent} became invalid after {nameof(EntityGeneratedEvent)} was fired.");
                 return null;
             }
 
             return ent;
+        }
+
+        public EntityUid? SpawnEntity(PrototypeId<EntityPrototype>? protoId, IContainer container, int count = 1)
+        {
+            var coords = new EntityCoordinates(container.Owner, Vector2i.Zero);
+            var ent = SpawnEntity(protoId, coords);
+
+            if (!EntityManager.IsAlive(ent))
+                return null;
+        
+            if (!container.Insert(ent.Value))
+            {
+                Logger.WarningS("entity.gen", $"Could not fit entity '{_displayNames.GetBaseName(ent.Value)}' into container of entity '{_displayNames.GetBaseName(container.Owner)}'.");
+                
+                EntityManager.DeleteEntity(ent.Value);
+                return null;
+            }
+
+            _stacks.SetCount(ent.Value, count);
+
+            return ent.Value;
         }
     }
 

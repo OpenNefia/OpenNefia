@@ -61,7 +61,7 @@ namespace OpenNefia.Content.CharaMake
         {
             if (args.Function == EngineKeyFunctions.UICancel)
             {
-                Finish(new CharaMakeResult(new Dictionary<string, object>(), CharaMakeStep.GoBack));
+                Finish(new CharaMakeResult(new(), CharaMakeStep.GoBack));
                 args.Handle();
             }
             else if (args.Function == EngineKeyFunctions.UIDown || args.Function == EngineKeyFunctions.UIUp)

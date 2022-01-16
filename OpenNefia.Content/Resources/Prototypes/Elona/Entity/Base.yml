@@ -34,6 +34,7 @@
   - type: Sanity
   - type: Karma
   - type: Fame
+  - type: CurrencyHolder
 
 - type: Entity
   id: BaseItem

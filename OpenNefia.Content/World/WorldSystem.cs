@@ -193,6 +193,12 @@ namespace OpenNefia.Content.World
         public int PlayTurns { get; set; }
 
         /// <summary>
+        /// Total number of creatures the player has killed.
+        /// </summary>
+        [DataField]
+        public int TotalKills { get; set; }
+
+        /// <summary>
         /// Random seed this save was initialized with.
         /// </summary>
         [DataField]
