@@ -17,6 +17,7 @@ namespace OpenNefia.Content.GameObjects
 
         [Dependency] private readonly IAudioManager _sounds = default!;
         [Dependency] private readonly IStackSystem _stackSystem = default!;
+        [Dependency] private readonly IMessage _mes = default!;
 
         public override void Initialize()
         {
@@ -61,8 +62,8 @@ namespace OpenNefia.Content.GameObjects
             if (!_stackSystem.TrySplit(target, 1, out var split))
                 return TurnResult.Failed;
 
-            Mes.Display(Loc.GetString("Elona.Edible.Starts", ("entity", eater), ("edible", split)));
-            Mes.Display(Loc.GetString("Elona.Edible.Finishes", ("entity", eater), ("edible", split)));
+            _mes.Display(Loc.GetString("Elona.Edible.Starts", ("entity", eater), ("edible", split)));
+            _mes.Display(Loc.GetString("Elona.Edible.Finishes", ("entity", eater), ("edible", split)));
 
             _sounds.Play(Protos.Sound.Eat1, sourceSpatial.MapPosition);
 
@@ -76,7 +77,7 @@ namespace OpenNefia.Content.GameObjects
 
         private void HandleImpactOther(EntityUid thrown, EdibleComponent edibleComp, ThrownEntityImpactedOtherEvent args)
         {
-            Mes.Display(Loc.GetString("Elona.Throwable.Hits", ("entity", args.ImpactedWith)));
+            _mes.Display(Loc.GetString("Elona.Throwable.Hits", ("entity", args.ImpactedWith)));
             _sounds.Play(Protos.Sound.Eat1, args.Coords);
 
             edibleComp.Effect?.Apply(args.Thrower, args.Coords, args.ImpactedWith, edibleComp.Args);

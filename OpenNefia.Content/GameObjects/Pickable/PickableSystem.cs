@@ -24,6 +24,7 @@ namespace OpenNefia.Content.GameObjects.Pickable
         [Dependency] private readonly IRandom _random = default!;
         [Dependency] private readonly IStackSystem _stackSystem = default!;
         [Dependency] private readonly IGameSessionManager _gameSession = default!;
+        [Dependency] private readonly IMessage _mes = default!;
 
         private readonly PrototypeId<SoundPrototype>[] GetSounds = new[]
         {
@@ -82,11 +83,11 @@ namespace OpenNefia.Content.GameObjects.Pickable
             {
                 case OwnState.NPC:
                     _sounds.Play(Protos.Sound.Fail1);
-                    Mes.Display(Loc.GetString("Elona.GameObjects.Pickable.NotOwned"));
+                    _mes.Display(Loc.GetString("Elona.GameObjects.Pickable.NotOwned"));
                     return false;
                 case OwnState.Shop:
                     _sounds.Play(Protos.Sound.Fail1);
-                    Mes.Display(Loc.GetString("Elona.GameObjects.Pickable.CannotCarry"));
+                    _mes.Display(Loc.GetString("Elona.GameObjects.Pickable.CannotCarry"));
                     return false;
                 default:
                     return true;
@@ -108,7 +109,7 @@ namespace OpenNefia.Content.GameObjects.Pickable
 
             if (success)
             {
-                Mes.Display(Loc.GetString("Elona.GameObjects.Pickable.PicksUp", ("entity", picker), ("target", target)));
+                _mes.Display(Loc.GetString("Elona.GameObjects.Pickable.PicksUp", ("entity", picker), ("target", target)));
 
                 var sound = _random.Pick(GetSounds);
                 _sounds.Play(sound, picker);
@@ -137,7 +138,7 @@ namespace OpenNefia.Content.GameObjects.Pickable
 
             if (success)
             {
-                Mes.Display(Loc.GetString("Elona.GameObjects.Pickable.Drops", ("entity", picker), ("target", target)));
+                _mes.Display(Loc.GetString("Elona.GameObjects.Pickable.Drops", ("entity", picker), ("target", target)));
 
                 _sounds.Play(Protos.Sound.Drop1, picker);
 

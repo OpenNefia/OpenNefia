@@ -38,13 +38,17 @@ namespace OpenNefia.Content.UI.Hud
             NeedsRelayout = true;
         }
 
-        public void Print(string text, Color? color = null, bool newline = true)
+        public void Print(string text, Color? color = null)
         {
             if (color == null)
                 color = Color.White;
 
             Messages.PushFront(new ColoredString(text, color.Value));
             NeedsRelayout = true;
+        }
+        public void Newline()
+        {
+
         }
 
         public override void SetPosition(int x, int y)

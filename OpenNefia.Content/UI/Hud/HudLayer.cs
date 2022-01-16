@@ -6,46 +6,88 @@ using OpenNefia.Core.Rendering;
 using OpenNefia.Core.UI;
 using OpenNefia.Core.UI.Layer;
 using OpenNefia.Core.UI.Element;
+using OpenNefia.Content.UI.Element.Containers;
+using OpenNefia.Core.Input;
+using OpenNefia.Core.Maths;
+using OpenNefia.Content.World;
+using OpenNefia.Core.GameObjects;
 
 namespace OpenNefia.Content.UI.Hud
 {
     public class HudLayer : UiLayer, IHudLayer
     {
-        [Dependency] private readonly IGraphics _graphics = default!;
+        private IWorldSystem _world = default!;
 
-        public IHudMessageWindow MessageWindow { get; }
+        public IHudMessageWindow MessageWindow { get; private set; } = default!;
         private UiFpsCounter FpsCounter;
         private BaseDrawable MessageBoxBacking = default!;
+        private BaseDrawable BacklogBacking = default!;
         private BaseDrawable HudBar = default!;
 
+        private UiContainer MessageBoxContainer = default!;
+        public UiContainer BacklogContainer = default!;
+
         private IAssetInstance MiniMapAsset = default!;
+        private IAssetInstance ClockAsset = default!;
+        private IAssetInstance DateFrame = default!;
+        private IUiText DateText = default!;
+        private bool ShowingBacklog;
 
         private const int MinimapWidth = 122;
         private const int MinimapHeight = 88;
 
-        public const int HudZOrder = 10000000;
+        public const int HudZOrder = 200000000;
 
         public HudLayer()
         {
             IoCManager.InjectDependencies(this);
-            MessageWindow = new SimpleMessageWindow();
             FpsCounter = new UiFpsCounter();
+            OnKeyBindDown += OnKeyDown;
+        }
+
+        private void OnKeyDown(GUIBoundKeyEventArgs args)
+        {
+            if (args.Function == EngineKeyFunctions.UIBacklog)
+            {
+
+            }
         }
 
         public void Initialize()
         {
+            _world = EntitySystem.Get<WorldSystem>();
+
+            var date = _world.State.GameDate;
+            DateText = new UiText($"{date.Year}/{date.Month}/{date.Day}");
+
+            CanKeyboardFocus = true;
             MessageBoxBacking = new UiMessageWindowBacking();
+            BacklogBacking = new UiMessageWindowBacking(UiMessageWindowBacking.MessageBackingType.Expanded);
             HudBar = new UiHudBar();
             MiniMapAsset = Assets.Get(Protos.Asset.HudMinimap);
+            ClockAsset = Assets.Get(Protos.Asset.Clock);
+            DateFrame = Assets.Get(Protos.Asset.DateLabelFrame);
+
+            MessageBoxContainer = new UiVerticalContainer();
+            BacklogContainer = new UiVerticalContainer();
+
+            MessageWindow = new HudMessageWindow(MessageBoxContainer, BacklogContainer);
+        }
+
+        public void ToggleBacklog(bool visible)
+        {
+            ShowingBacklog = visible;
         }
 
         public override void SetSize(int width, int height)
         {
             base.SetSize(width, height);
-            MessageWindow.SetSize(_graphics.WindowSize.X - 100, 150);
+            MessageWindow.SetSize(Width - MinimapWidth - 80, MessageWindow.Height);
             FpsCounter.SetSize(400, 500);
             MessageBoxBacking.SetSize(Width + MinimapWidth, 72);
+            BacklogBacking.SetSize(width + MinimapWidth, 600);
             HudBar.SetSize(Width + MinimapWidth, UiHudBar.HudBarHeight);
+            DateText.SetPreferredSize();
         }
 
         public override void SetPosition(int x, int y)
@@ -54,28 +96,46 @@ namespace OpenNefia.Content.UI.Hud
             MessageWindow.SetPosition(X + 50, Y + Height - MessageWindow.Height - 10);
             FpsCounter.SetPosition(Width - FpsCounter.Text.Width - 5, 5);
             MessageBoxBacking.SetPosition(MinimapWidth, Height - MinimapHeight);
+            BacklogBacking.SetPosition(MinimapWidth + 10, Height - 470);
+            BacklogContainer.SetPosition(MinimapWidth + 15, BacklogBacking.Y + 12);
             HudBar.SetPosition(MinimapWidth, Height - 18);
+            MessageBoxContainer.SetPosition(BacklogContainer.X, Height - MinimapHeight + 4);
+            DateText.SetPosition(120, 17);
         }
 
         public override void Update(float dt)
         {
             MessageWindow.Update(dt);
             FpsCounter.Update(dt);
+            MessageBoxContainer.Update(dt);
+            BacklogContainer.Update(dt);
+            DateText.Update(dt);
         }
 
         public override void Draw()
         {
             MiniMapAsset.Draw(0, Height - MinimapHeight);
+            if (ShowingBacklog)
+            { 
+                BacklogBacking.Draw();
+                BacklogContainer.Draw();
+            }
+            GraphicsEx.SetColor(Color.White);
             MessageBoxBacking.Draw();
             HudBar.Draw();
             MessageWindow.Draw();
+            MessageBoxContainer.Draw();
             FpsCounter.Draw();
+            DateFrame.Draw(80, 8);
+            ClockAsset.Draw(0, 0);
+            DateText.Draw();
         }
 
         public override void Dispose()
         {
             MessageWindow.Dispose();
             FpsCounter.Dispose();
+            OnKeyBindDown -= OnKeyDown;
         }
     }
 }

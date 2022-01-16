@@ -55,6 +55,7 @@ namespace OpenNefia.Content.UI.Layer
     public class Prompt<T> : UiLayerWithResult<Prompt<T>.Args, PromptChoice<T>>
     {
         [Dependency] private readonly IGraphics _graphics = default!;
+        [Dependency] private readonly IMessage _mes = default!;
 
         public class Args
         {
@@ -125,7 +126,7 @@ namespace OpenNefia.Content.UI.Layer
         {
             if (QueryText != null)
             {
-                Mes.Display(QueryText);
+                _mes.Display(QueryText);
             }
             Sounds.Play(Protos.Sound.Pop2);
         }

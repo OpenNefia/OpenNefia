@@ -19,6 +19,7 @@ namespace OpenNefia.Content.GameObjects
         [Dependency] private readonly IAudioManager _sounds = default!;
         [Dependency] private readonly IStackSystem _stackSystem = default!;
         [Dependency] private readonly IEntityGen _entityGen = default!;
+        [Dependency] private readonly IMessage _mes = default!;
         [Dependency] private readonly IDisplayNameSystem _displayNames = default!;
 
         public override void Initialize()
@@ -66,7 +67,7 @@ namespace OpenNefia.Content.GameObjects
             if (!_stackSystem.TrySplit(target, 1, out var split))
                 return TurnResult.Failed;
 
-            Mes.Display($"{_displayNames.GetDisplayName(drinker)} drinks {_displayNames.GetDisplayName(split)}.");
+            _mes.Display($"{_displayNames.GetDisplayName(drinker)} drinks {_displayNames.GetDisplayName(split)}.");
 
             _sounds.Play(Protos.Sound.Drink1, sourceSpatial.MapPosition);
 
@@ -80,7 +81,7 @@ namespace OpenNefia.Content.GameObjects
 
         private void HandleImpactOther(EntityUid thrown, DrinkableComponent potionComp, ThrownEntityImpactedOtherEvent args)
         {
-            Mes.Display(Loc.GetString("Elona.Throwable.Hits", ("entity", args.ImpactedWith)));
+            _mes.Display(Loc.GetString("Elona.Throwable.Hits", ("entity", args.ImpactedWith)));
             _sounds.Play(Protos.Sound.Crush2, args.Coords);
 
             potionComp.Effect?.Apply(args.Thrower, args.Coords, args.ImpactedWith, potionComp.Args);

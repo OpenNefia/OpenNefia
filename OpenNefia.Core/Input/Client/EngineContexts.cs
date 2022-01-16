@@ -37,6 +37,9 @@
 
             common.AddFunction(EngineKeyFunctions.UINextPage);
             common.AddFunction(EngineKeyFunctions.UIPreviousPage);
+            common.AddFunction(EngineKeyFunctions.UINextTab);
+            common.AddFunction(EngineKeyFunctions.UIPreviousTab);
+            common.AddFunction(EngineKeyFunctions.UIBacklog);
 
             common.AddFunction(EngineKeyFunctions.TextCursorLeft);
             common.AddFunction(EngineKeyFunctions.TextCursorRight);
@@ -70,6 +73,7 @@
             field.AddFunction(EngineKeyFunctions.ShowEscapeMenu);
             field.AddFunction(EngineKeyFunctions.QuickSaveGame);
             field.AddFunction(EngineKeyFunctions.QuickLoadGame);
+            field.AddFunction(EngineKeyFunctions.UIBacklog);
         }
     }
 }

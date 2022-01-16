@@ -193,6 +193,18 @@ binds:
   type: State
   key: Shift
   canFocus: true
+- function: UINextTab
+  type: State
+  key: Numpad9
+  canFocus: true
+  canRepeat: true
+  repeatMode: UserInterface
+- function: UIPreviousTab
+  type: State
+  key: Numpad7
+  canFocus: true
+  canRepeat: true
+  repeatMode: UserInterface
 - function: UINextPage
   type: State
   key: NumpadPlus
@@ -214,6 +226,12 @@ binds:
 - function: UIPreviousPage
   type: State
   key: Left
+  canFocus: true
+  canRepeat: true
+  repeatMode: None
+- function: UIBacklog
+  type: State
+  key: NumpadDivide
   canFocus: true
   canRepeat: true
   repeatMode: None

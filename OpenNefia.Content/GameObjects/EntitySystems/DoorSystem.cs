@@ -20,6 +20,7 @@ namespace OpenNefia.Content.GameObjects
 
         [Dependency] private readonly IAudioManager _sounds = default!;
         [Dependency] private readonly IMapManager _mapManager = default!;
+        [Dependency] private readonly IMessage _mes = default!;
 
         public override void Initialize()
         {
@@ -75,11 +76,11 @@ namespace OpenNefia.Content.GameObjects
 
             if (!map.CanAccess(spatial.MapPosition))
             {
-                Mes.Display(Loc.GetString("Elona.Door.Close.Blocked"));
+                _mes.Display(Loc.GetString("Elona.Door.Close.Blocked"));
                 return TurnResult.Aborted;
             }
 
-            Mes.Display(Loc.GetString("Elona.Door.Close.Succeeds", ("entity", closer)));
+            _mes.Display(Loc.GetString("Elona.Door.Close.Succeeds", ("entity", closer)));
             SetOpen(uid, false, door);
 
             return TurnResult.Succeeded;
@@ -111,7 +112,7 @@ namespace OpenNefia.Content.GameObjects
 
         private void HandleCollidedWith(EntityUid uid, DoorComponent door, WasCollidedWithEventArgs args)
         {
-            Mes.Display(Loc.GetString("Elona.Door.Open.Succeeds", ("entity", args.Source)));
+            _mes.Display(Loc.GetString("Elona.Door.Open.Succeeds", ("entity", args.Source)));
 
             if (door.SoundOpen != null)
             {

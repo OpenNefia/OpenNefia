@@ -3,6 +3,7 @@ using OpenNefia.Content.GameObjects.Pickable;
 using OpenNefia.Content.Input;
 using OpenNefia.Content.Inventory;
 using OpenNefia.Content.Logic;
+using OpenNefia.Content.UI;
 using OpenNefia.Content.UI.Layer;
 using OpenNefia.Core.Game;
 using OpenNefia.Core.GameObjects;
@@ -32,6 +33,7 @@ namespace OpenNefia.Content.GameObjects
         [Dependency] private readonly IFieldLayer _field = default!;
         [Dependency] private readonly IMapManager _mapManager = default!;
         [Dependency] private readonly IUserInterfaceManager _uiMgr = default!;
+        [Dependency] private readonly IMessage _mes = default!;
 
         public override void Initialize()
         {
@@ -63,7 +65,7 @@ namespace OpenNefia.Content.GameObjects
 
             if (spatials.Count == 0)
             {
-                Mes.Display(Loc.GetString("Elona.GameObjects.Pickable.GraspAtAir"));
+                _mes.Display(Loc.GetString("Elona.GameObjects.Pickable.GraspAtAir"));
                 return TurnResult.Failed;
             }
             else if (spatials.Count == 1)
@@ -80,7 +82,7 @@ namespace OpenNefia.Content.GameObjects
 
                 if (result == TurnResult.NoResult)
                 {
-                    Mes.Display(Loc.GetString("Elona.GameObjects.Pickable.GraspAtAir"));
+                    _mes.Display(Loc.GetString("Elona.GameObjects.Pickable.GraspAtAir"));
                     result = TurnResult.Failed;
                 }
 
@@ -111,7 +113,7 @@ namespace OpenNefia.Content.GameObjects
 
             if (result.HasValue && result.Value.ChangedEquipment)
             {
-                Mes.Display(Loc.GetString("Elona.Equipment.YouChangeYourEquipment"));
+                _mes.Display(Loc.GetString("Elona.Equipment.YouChangeYourEquipment"));
                 return TurnResult.Succeeded;
             }
 
@@ -138,8 +140,8 @@ namespace OpenNefia.Content.GameObjects
 
                 if (full.State == BoundKeyState.Down && session?.Player != null)
                 {
-                    var context = new InventoryContext(session.Player, _behavior);
-                    var result = _uiMgr.Query<InventoryLayer, InventoryContext, InventoryLayer.Result>(context);
+                    var context = new InventoryGroupArgs(session.Player, _behavior);
+                    var result = _uiMgr.Query<InventoryUiGroup, InventoryGroupArgs, InventoryLayer.Result>(context);
 
                     if (result.HasValue)
                     {

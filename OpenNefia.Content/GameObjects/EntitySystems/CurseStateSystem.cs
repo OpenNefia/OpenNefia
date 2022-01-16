@@ -1,6 +1,7 @@
 ﻿using OpenNefia.Content.Equipment;
 using OpenNefia.Content.Logic;
 using OpenNefia.Core.GameObjects;
+using OpenNefia.Core.IoC;
 using OpenNefia.Core.Locale;
 using System;
 using System.Collections.Generic;
@@ -12,6 +13,7 @@ namespace OpenNefia.Content.GameObjects.EntitySystems
 {
     public class CurseStateSystem : EntitySystem
     {
+        [Dependency] private readonly IMessage _mes = default!;
         public override void Initialize()
         {
             SubscribeLocalEvent<CurseStateComponent, GotEquippedInMenuEvent>(OnEquippedInMenu, nameof(OnEquippedInMenu));
@@ -29,7 +31,7 @@ namespace OpenNefia.Content.GameObjects.EntitySystems
 
             if (key != null)
             {
-                Mes.Display(Loc.GetString(key, ("actor", args.Equipee), ("target", args.EquipTarget), ("item", item)));
+                _mes.Display(Loc.GetString(key, ("actor", args.Equipee), ("target", args.EquipTarget), ("item", item)));
             }
         }
     }

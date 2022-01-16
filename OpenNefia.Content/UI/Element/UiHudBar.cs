@@ -24,7 +24,7 @@ namespace OpenNefia.Content.UI.Element
             var parts = new List<AssetBatchPart>();
             for (int x = 0; x < Width / HudBarWidth; x++)
             {
-                parts.Add(new AssetBatchPart("bar", X + (x * HudBarWidth), Y));
+                parts.Add(new AssetBatchPart("bar",(x * HudBarWidth), 0));
             }
 
             HudBarAsset = Assets.GetSized(Protos.Asset.HudBar, PixelSize);
