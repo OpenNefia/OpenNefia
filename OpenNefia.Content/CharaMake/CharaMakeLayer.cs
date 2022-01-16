@@ -28,14 +28,14 @@ namespace OpenNefia.Content.CharaMake
     public class CharaMakeLayer : UiLayerWithResult<CharaMakeData, CharaMakeResult>, ICharaMakeLayer
     {
         [Dependency] protected readonly IEntityManager EntityManager = default!;
+
         protected IAssetInstance AssetBG;
         protected IAssetInstance[] AssetWindows;
         protected IAssetInstance CurrentWindowBG;
 
         protected CharaMakeData Data = default!;
-        private UiTopicWindow CaptionWindow;
-        [Localize]
-        protected UiText Caption;
+
+        [Localize] protected CharaMakeCaption Caption;
         private int UiMoveCount;
 
         public CharaMakeLayer()
@@ -51,14 +51,16 @@ namespace OpenNefia.Content.CharaMake
             };
             CurrentWindowBG = AssetWindows[0];
 
-            CaptionWindow = new UiTopicWindow(UiTopicWindow.FrameStyleKind.Five, UiTopicWindow.WindowStyleKind.One);
-            Caption = new UiTextOutlined(UiFonts.WindowTitle);
+            Caption = new CharaMakeCaption();
 
             OnKeyBindDown += HandleKeyBindDown;
         }
 
         protected virtual void HandleKeyBindDown(GUIBoundKeyEventArgs args)
         {
+            if (args.Handled)
+                return;
+
             if (args.Function == EngineKeyFunctions.UICancel)
             {
                 Finish(new CharaMakeResult(new(), CharaMakeStep.GoBack));
@@ -104,20 +106,17 @@ namespace OpenNefia.Content.CharaMake
         {
             base.SetSize(width, height);
             Caption.SetPreferredSize();
-            CaptionWindow.SetSize(Caption.TextWidth + 50, 27);
         }
 
         public override void SetPosition(int x, int y)
         {
             base.SetPosition(x, y);
-            CaptionWindow.SetPosition(18, 25);
-            Caption.SetPosition(43, 30);
+            Caption.SetPosition(20, 30);
         }
 
         public override void Draw()
         {
             AssetBG.Draw(0, 0, Love.Graphics.GetWidth(), Love.Graphics.GetHeight());
-            CaptionWindow.Draw();
             Caption.Draw();
         }
 

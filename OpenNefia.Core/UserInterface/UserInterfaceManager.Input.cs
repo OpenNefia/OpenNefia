@@ -1,4 +1,5 @@
 ﻿using OpenNefia.Core.Input;
+using OpenNefia.Core.Log;
 using OpenNefia.Core.Maps;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.UI.Element;
@@ -28,11 +29,13 @@ namespace OpenNefia.Core.UserInterface
 
             if (control.CanControlFocus)
             {
+                Logger.DebugS("ui.input", $"FOCUS: {control}");
                 ControlFocused = control;
             }
 
             if (control.CanKeyboardFocus && control.KeyboardFocusOnClick)
             {
+                Logger.DebugS("ui.input", $"KEYBOARD FOCUS: {control}");
                 control.GrabKeyboardFocus();
             }
 
@@ -91,8 +94,9 @@ namespace OpenNefia.Core.UserInterface
         {
             // Update which control is considered hovered.
             var newHovered = MouseGetControl(mouseMoveEventArgs.Position);
-            if (newHovered != CurrentlyHovered)
+            if (newHovered != CurrentlyHovered && newHovered != null)
             {
+                Logger.DebugS("ui.input", $"HOVER: {CurrentlyHovered} -> {newHovered}");
                 CurrentlyHovered?.MouseExited();
                 CurrentlyHovered = newHovered;
                 CurrentlyHovered?.MouseEntered();

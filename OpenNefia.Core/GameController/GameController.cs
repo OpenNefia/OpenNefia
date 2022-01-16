@@ -270,6 +270,7 @@ namespace OpenNefia.Core.GameController
             _log.GetSawmill("go.sys").Level = LogLevel.Info;
             _log.GetSawmill("input.binding").Level = LogLevel.Info;
             _log.GetSawmill("ai.vanilla").Level = LogLevel.Info;
+            _log.GetSawmill("ui.input").Level = LogLevel.Info;
         }
 
         public void Run()

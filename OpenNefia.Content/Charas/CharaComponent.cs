@@ -31,7 +31,7 @@ namespace OpenNefia.Content.Charas
         public PrototypeId<ClassPrototype> Class { get; set; } = default!;
 
         [DataField]
-        public Gender? Gender { get; set; }
+        public Gender Gender { get; set; } = Gender.Unknown;
 
         [ComponentDependency]
         private MetaDataComponent? _metaData;
@@ -74,6 +74,7 @@ namespace OpenNefia.Content.Charas
     public enum Gender : int
     {
         Male = 0,
-        Female = 1
+        Female = 1,
+        Unknown = 2
     }
 }

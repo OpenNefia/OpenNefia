@@ -12,7 +12,7 @@ namespace OpenNefia.Content.UI.Element.Containers
     {
         public int XSpace { get; set; }
 
-        protected override Vector2i ResolvePreferredSize()
+        protected override Vector2i RelayoutPreferredSize()
         {
             int yOffset = 0, xOffset = 0;
             int yMax = 0, xTotal = 0;

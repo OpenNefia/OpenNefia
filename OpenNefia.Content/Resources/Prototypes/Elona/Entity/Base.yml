@@ -18,6 +18,7 @@
   - type: Chip
     drawDepth: Characters
   - type: TurnOrder
+  - type: Quality
   - type: Moveable
   - type: Level
   - type: Chara
@@ -35,6 +36,8 @@
   - type: Karma
   - type: Fame
   - type: CurrencyHolder
+  - type: GuildMember
+  - type: GodFollower
 
 - type: Entity
   id: BaseItem

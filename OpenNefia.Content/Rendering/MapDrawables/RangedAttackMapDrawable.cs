@@ -1,4 +1,5 @@
-﻿using OpenNefia.Core.Audio;
+﻿using OpenNefia.Content.UI;
+using OpenNefia.Core.Audio;
 using OpenNefia.Core.Configuration;
 using OpenNefia.Core.Game;
 using OpenNefia.Core.GameObjects;
@@ -8,7 +9,6 @@ using OpenNefia.Core.Maps;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Rendering;
-using OpenNefia.Core.UI;
 using Color = OpenNefia.Core.Maths.Color;
 
 namespace OpenNefia.Content.Rendering

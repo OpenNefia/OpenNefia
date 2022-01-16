@@ -140,9 +140,7 @@ namespace OpenNefia.Content.UI.Element
         }
 
         [Dependency] protected readonly IPrototypeManager _prototypeManager = default!;
-        private const int ItemsPerPage = 15;
-        private const int WindowHeight = 430;
-        private const int WindowWidth = 740;
+
         private UiPagedList<FeatNameAndDesc> List;
         private UiTextTopic NameTopic;
         private UiTextTopic DetailTopic;
@@ -173,7 +171,7 @@ namespace OpenNefia.Content.UI.Element
             FeatCountText = new UiText(UiFonts.WindowPage);
 
             Window.Title = Loc.GetString("Elona.FeatMenu.Window.Title");
-            List = new UiPagedList<FeatNameAndDesc>(ItemsPerPage, this, new Vector2i(-55, -3));
+            List = new UiPagedList<FeatNameAndDesc>(itemsPerPage: 15, this, new Vector2i(-55, -3));
 
             GetGainedFeatsFunc = getGainedFeatsFunc ?? (() => new Dictionary<PrototypeId<FeatPrototype>, int>());
             SelectFeatAction = selectFeatAction ?? (feat => { });
@@ -217,7 +215,7 @@ namespace OpenNefia.Content.UI.Element
             if (lastSelected != null)
             {
                 var selected = data.First(x => (x.Data as FeatNameAndDesc.GainedFeat)?.Prototype == lastSelected);
-                var page = (data.IndexOf(selected)) / ItemsPerPage;
+                var page = (data.IndexOf(selected)) / List.ItemsPerPage;
                 List.SetPage(page, false);
                 Sounds.Play(Protos.Sound.Ding3);
                 var pageElements = List.DisplayedCells.ToList();
@@ -249,13 +247,12 @@ namespace OpenNefia.Content.UI.Element
 
         public override void GetPreferredSize(out Vector2i size)
         {
-            size.X = WindowWidth;
-            size.Y = WindowHeight;
+            size = new(730, 430);
         }
 
         public override void SetSize(int width, int height)
         {
-            base.SetSize(WindowWidth, WindowHeight);
+            base.SetSize(width, height);
             Window.SetSize(Width, Height);
             List.SetPreferredSize();
             NameTopic.SetPreferredSize();

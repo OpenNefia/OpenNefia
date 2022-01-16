@@ -20,6 +20,7 @@ namespace OpenNefia.Content.UI.Element.List
 
         public int CurrentPage => _pageModel.CurrentPage;
         public int PageCount => _pageModel.PageCount;
+        public int ItemsPerPage => _pageModel.ItemsPerPage;
 
         public IUiElement? PageTextElement
         {

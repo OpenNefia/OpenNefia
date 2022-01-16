@@ -1,5 +1,6 @@
 ﻿using OpenNefia.Content.Feats;
 using OpenNefia.Content.Prototypes;
+using OpenNefia.Content.UI;
 using OpenNefia.Content.UI.Element;
 using OpenNefia.Core.Audio;
 using OpenNefia.Core.GameObjects;
@@ -7,7 +8,6 @@ using OpenNefia.Core.Locale;
 using OpenNefia.Core.Log;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.Prototypes;
-using OpenNefia.Core.UI;
 using System;
 using System.Collections.Generic;
 using System.Linq;

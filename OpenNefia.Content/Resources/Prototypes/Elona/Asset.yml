@@ -291,6 +291,7 @@
   image:
     filepath: /Graphic/Elona/interface.bmp
     region: "672, 477, 128, 25"
+  regionSpecifier: !type:CaptionRegions {}
 
 - type: Asset
   id: Elona.EnchantmentIcons
