@@ -181,7 +181,7 @@ namespace OpenNefia.Content.ConfigMenu
         public override void SetSize(int width, int height)
         {
             base.SetSize(width, height);
-            Window.SetSize(width, height);
+            Window.SetSize(Width, Height);
             TextTopicMenu.SetPreferredSize();
             AssetG2.SetSize(Window.Width / 5 * 3, Window.Height - 80);
             List.SetSize(Window.Width - 56, Window.Height - 66);
