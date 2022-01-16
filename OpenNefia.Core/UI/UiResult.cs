@@ -10,6 +10,7 @@ namespace OpenNefia.Core.UI
     {
         public bool HasValue { get => this is Finished; }
 
+        [Obsolete("Make nullable")]
         public T Value
         {
             get

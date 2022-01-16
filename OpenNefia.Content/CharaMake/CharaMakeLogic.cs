@@ -15,10 +15,17 @@ using OpenNefia.Core.UI;
 
 namespace OpenNefia.Content.CharaMake
 {
+    public abstract record CharaMakeLogicResult
+    {
+        public sealed record NewPlayerIncarnated(EntityUid NewPlayer) : CharaMakeLogicResult;
+        public sealed record Canceled() : CharaMakeLogicResult;
+    }
+
     public interface ICharaMakeLogic
     {
-        void RunCreateChara();
+        CharaMakeLogicResult RunCreateChara();
     }
+
     public class CharaMakeLogic : ICharaMakeLogic
     {
         [Dependency] private readonly IUserInterfaceManager _uiManager = default!;
@@ -37,76 +44,98 @@ namespace OpenNefia.Content.CharaMake
                 new CharaMakeFeatWindowLayer(),
                 new CharaMakeAliasLayer(),
                 new CharaMakeAppearanceLayer(),
+
+                // This step should always be last.
+                new CharaMakeCharaSheetLayer()
             };
         }
 
-
-        public void RunCreateChara()
+        public CharaMakeLogicResult RunCreateChara()
         {
             var steps = GetDefaultCreationSteps();
-            var data = new CharaMakeData();
+            var data = new CharaMakeData(steps);
             var stepIndex = 0;
             var step = CharaMakeStep.Continue;
+            var finished = false;
+
             UiResult<CharaMakeResult> result;
             ICharaMakeLayer currentStep;
-            while (step != CharaMakeStep.Cancel)
+
+            void GoBack(Type charaMakeLayerType)
             {
-                if (stepIndex >= steps.Count)
+                if (data.CharaData.ContainsKey(charaMakeLayerType))
+                    data.CharaData.Remove(charaMakeLayerType);
+                stepIndex--;
+                if (stepIndex < 0)
+                    step = CharaMakeStep.Cancel;
+            }
+
+            void Restart()
+            {
+                foreach (var layer in steps!)
                 {
-                    _saveSerializer.ResetGameState();
-                    //just for testing
-                    Logger.DebugS("charamake", $"Character creation complete, values:" + Environment.NewLine 
-                        + string.Join(Environment.NewLine, data.CharaData.SelectMany(x => x.Value.Select(y => $"{y.Key}: {y.Value}"))));
-
-                    var globalMap = _mapManager.CreateMap(1, 1, MapId.Global);
-                    var globalMapSpatial = _entityManager.GetComponent<SpatialComponent>(globalMap.MapEntityUid);
-
-                    var playerEntity = _entityManager.CreateEntityUninitialized(Protos.Chara.Player);
-                    var playerSpatial = _entityManager.GetComponent<SpatialComponent>(playerEntity);
-                    playerSpatial.AttachParent(globalMapSpatial);
-
-                    var entityGen = EntitySystem.Get<IEntityGen>();
-                    _entityManager.InitializeComponents(playerEntity);
-                    _entityManager.StartComponents(playerEntity);
-                    foreach(var creationStep in steps)
-                    {
-                        creationStep.ApplyStep(playerEntity);
-                    }
-                    entityGen.FireGeneratedEvent(playerEntity);
-                    currentStep = new CharaMakeCharaSheetLayer(playerEntity);
+                    layer.Dispose();
                 }
-                else
-                {
-                    currentStep = steps[stepIndex];
-                }
-                var type = currentStep.GetType();
+                steps = GetDefaultCreationSteps();
+                data = new CharaMakeData(steps);
+                stepIndex = 0;
+            }
+
+            while (step != CharaMakeStep.Cancel && !finished)
+            {
+                currentStep = steps[stepIndex];
+
+                var charaMakeLayerType = currentStep.GetType();
                 result = _uiManager.Query<CharaMakeResult, CharaMakeLayer, CharaMakeData>(currentStep, data);
 
                 if (!result.HasValue)
                 {
-                    Logger.WarningS("charamake", $"Chara creation step for type {type} didn't set a result, aborting.");
+                    Logger.WarningS("charamake", $"Chara creation step for type {charaMakeLayerType} didn't set a result, aborting.");
                     step = CharaMakeStep.Cancel;
                 }
+                else
+                {
+                    step = result.Value.Step;
+                    data.LastStep = step;
+                }
 
-                step = result.Value.Step;
-                data.LastStep = step;
                 switch(step)
                 {
                     case CharaMakeStep.GoBack:
-                        if (data.CharaData.ContainsKey(type))
-                            data.CharaData.Remove(type);
-                        stepIndex--;
-                        if (stepIndex < 0)
-                            step = CharaMakeStep.Cancel;
+                        GoBack(charaMakeLayerType);
+                        break;
+                    case CharaMakeStep.Restart:
+                        Restart();
                         break;
                     case CharaMakeStep.Cancel:
                         break;
                     default:
-                        data.CharaData[type] = result.Value.Added;
+                        data.CharaData[charaMakeLayerType] = result.Value.Added;
                         stepIndex++;
+                        if (stepIndex == steps.Count)
+                            finished = true;
                         break;
                 }
             }
+
+            foreach (var layer in steps)
+            {
+                layer.Dispose();
+            }
+
+            if (!finished)
+            {
+                return new CharaMakeLogicResult.Canceled();
+            }
+
+            if (!data.TryGetValue<EntityUid>(CharaMakeCharaSheetLayer.ResultName, out var newPlayer))
+            {
+                Logger.ErrorS("charamake", $"Did not find a charamake result with name '{CharaMakeCharaSheetLayer.ResultName}' containing the new player!");
+
+                return new CharaMakeLogicResult.Canceled();
+            }
+
+            return new CharaMakeLogicResult.NewPlayerIncarnated(newPlayer);
         }
     }
 }

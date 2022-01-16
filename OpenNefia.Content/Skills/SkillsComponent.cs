@@ -85,6 +85,19 @@ namespace OpenNefia.Content.Skills
         [DataField]
         public Dictionary<PrototypeId<SkillPrototype>, LevelAndPotential> Skills { get; } = new();
 
+        /// <summary>
+        /// Number of spendable skill bonus points.
+        /// </summary>
+        [DataField]
+        public int BonusPoints { get; set; } = 0;
+
+        /// <summary>
+        /// Total number of skill bonus points this character has 
+        /// gained in their lifetime.
+        /// </summary>
+        [DataField]
+        public int TotalBonusPointsEarned { get; set; } = 0;
+
         public LevelAndPotential Ensure(PrototypeId<SkillPrototype> protoId)
         {
             if (Skills.TryGetValue(protoId, out var level))

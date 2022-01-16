@@ -4,6 +4,7 @@ namespace OpenNefia.Content.Prototypes
 {
     public static partial class Protos
     {
+        // TODO: rename this, it clashes with character feats
         public static class Feat
         {
             #pragma warning disable format

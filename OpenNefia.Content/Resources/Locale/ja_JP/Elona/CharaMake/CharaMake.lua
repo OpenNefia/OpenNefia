@@ -94,5 +94,19 @@ Elona.CharaMake = {
 
     CharaSheet = {
         Caption = "決定ｷｰを押すことで、生い立ちをリロールできる。",
+
+        FinalPrompt = {
+            Text = "満足できたかな？",
+
+            Choices = {
+                Yes = "はい",
+                No = "いいえ",
+                Restart = "最初から",
+                GoBack = "前に戻る",
+            },
+        },
+
+        WhatIsYourName = "最後の質問だ。君の名前は？",
+        NameIsAlreadyTaken = "あいにく、その名前の冒険者はすでに存在する。",
     },
 }

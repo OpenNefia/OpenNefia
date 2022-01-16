@@ -456,7 +456,7 @@ namespace OpenNefia.Content.TurnOrder
 
             Mes.Display(Loc.GetString("Elona.Death.GoodBye"));
 
-            var promptArgs = new TextPrompt.Args(maxLength: 16, limitLength: true, prompt: Loc.GetString("Elona.Death.PromptDyingMessage"));
+            var promptArgs = new TextPrompt.Args(maxLength: 16, prompt: Loc.GetString("Elona.Death.PromptDyingMessage"));
             var result = _uiManager.Query<TextPrompt, TextPrompt.Args, string>(promptArgs);
             string lastWords;
 

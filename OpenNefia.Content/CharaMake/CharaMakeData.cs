@@ -11,10 +11,12 @@ namespace OpenNefia.Content.CharaMake
     {
         public Dictionary<Type, Dictionary<string, object>> CharaData { get; set; }
         public CharaMakeStep LastStep { get; set; }
+        public IReadOnlyList<ICharaMakeLayer> AllSteps { get; } = new List<ICharaMakeLayer>();
 
-        public CharaMakeData()
+        public CharaMakeData(IEnumerable<ICharaMakeLayer> allSteps)
         {
             CharaData = new Dictionary<Type, Dictionary<string, object>>();
+            AllSteps = allSteps.ToList();
         }
 
         public bool TryGetValues(string key, out IEnumerable<object> vals)

@@ -14,6 +14,7 @@ namespace OpenNefia.Content.CharaMake
         Continue,
         Repeat,
         GoBack,
+        Restart,
         Cancel
     }
     public record CharaMakeResult(Dictionary<string, object> Added, CharaMakeStep Step = CharaMakeStep.Continue);

@@ -23,18 +23,23 @@ namespace OpenNefia.Content.UI.Element
 
         private PortraitPrototype? portraitProto;
 
-        public CharaSheetFaceFrame(EntityUid entity)
+        public CharaSheetFaceFrame()
         {
             EntitySystem.InjectDependencies(this);
-
-            _entity = entity;
 
             WindowFrame = new(UiTopicWindow.FrameStyleKind.One, UiTopicWindow.WindowStyleKind.One);
             _entityBatch = new EntitySpriteBatch();
             _portraitBatch = new TileAtlasBatch(ContentAtlasNames.Portrait);
+        }
+
+        public void RefreshFromEntity(EntityUid entity)
+        {
+            _entity = entity;
 
             if (_entityManager.TryGetComponent(_entity, out PortraitComponent portraitComp))
                 portraitProto = _protos.Index(portraitComp.PortraitID);
+            else
+                portraitProto = null;
         }
 
         public override void GetPreferredSize(out Vector2i size)

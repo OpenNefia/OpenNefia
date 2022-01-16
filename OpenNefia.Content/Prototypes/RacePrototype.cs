@@ -1,10 +1,10 @@
 ﻿using OpenNefia.Content.Effects;
-using OpenNefia.Content.Prototypes;
 using OpenNefia.Content.Skills;
 using OpenNefia.Content.Inventory;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Core.Serialization.Manager.Attributes;
 using OpenNefia.Content.EquipSlots;
+using OpenNefia.Content.Feats;
 
 namespace OpenNefia.Core.Prototypes
 {

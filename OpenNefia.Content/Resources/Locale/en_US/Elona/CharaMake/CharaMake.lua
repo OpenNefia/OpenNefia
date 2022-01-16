@@ -90,10 +90,23 @@ Elona.CharaMake = {
 
     AppearanceSelect = {
         Caption = "What do you look like? Don't worry, you can change this later.",
-        Done = "Done",
     },
 
     CharaSheet = {
         Caption = "Hit the enter key to reroll your personal history.",
+
+        FinalPrompt = {
+            Text = "Are you satisfied now?",
+
+            Choices = {
+                Yes = "Yes",
+                No = "No",
+                Restart = "Restart",
+                GoBack = "Go back",
+            },
+        },
+
+        WhatIsYourName = "Last question. What's your name?",
+        NameIsAlreadyTaken = "Sorry, but the name is already taken.",
     },
 }

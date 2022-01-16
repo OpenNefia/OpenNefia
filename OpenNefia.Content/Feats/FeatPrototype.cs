@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OpenNefia.Content.Prototypes
+namespace OpenNefia.Content.Feats
 {
     public enum FeatType
     {

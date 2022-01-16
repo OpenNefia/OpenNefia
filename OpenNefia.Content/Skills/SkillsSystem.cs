@@ -15,6 +15,8 @@ namespace OpenNefia.Content.Skills
     {
         void HealToMax(EntityUid uid, SkillsComponent? skills = null);
 
+        void GainBonusPoints(EntityUid uid, int bonusPoints, SkillsComponent? skill = null);
+
         /// <summary>
         /// Enumerates attributes, including luck and speed.
         /// </summary>
@@ -52,6 +54,17 @@ namespace OpenNefia.Content.Skills
             skills.HP = skills.MaxHP;
             skills.MP = skills.MaxHP;
             skills.Stamina = skills.MaxStamina;
+        }
+
+        public void GainBonusPoints(EntityUid uid, int bonusPoints, SkillsComponent? skills = null)
+        {
+            if (!Resolve(uid, ref skills))
+                return;
+
+            bonusPoints = Math.Max(bonusPoints, 0);
+
+            skills.BonusPoints += bonusPoints;
+            skills.TotalBonusPointsEarned += bonusPoints;
         }
 
         private void HandleRefresh(EntityUid uid, SkillsComponent skills, ref EntityRefreshEvent args)

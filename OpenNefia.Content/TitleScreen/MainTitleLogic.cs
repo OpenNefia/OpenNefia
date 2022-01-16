@@ -26,6 +26,8 @@ using System.Linq;
 using OpenNefia.Content.Maps;
 using OpenNefia.Content.ConfigMenu;
 using OpenNefia.Core.Configuration;
+using OpenNefia.Content.DisplayName;
+using System.Numerics;
 
 namespace OpenNefia.Content.TitleScreen
 {
@@ -45,7 +47,6 @@ namespace OpenNefia.Content.TitleScreen
         [Dependency] private readonly ISaveGameManager _saveGameManager = default!;
         [Dependency] private readonly ISaveGameSerializer _saveGameSerializer = default!;
         [Dependency] private readonly IUserInterfaceManager _uiManager = default!;
-        [Dependency] private readonly IModLoader _modLoader = default!;
         [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
         [Dependency] private readonly ICharaMakeLogic _charaMakeLogic = default!;
         [Dependency] private readonly IConfigurationManager _config = default!;
@@ -80,7 +81,7 @@ namespace OpenNefia.Content.TitleScreen
                             case TitleScreenAction.ReturnToTitle:
                                 break;
                             case TitleScreenAction.StartGame:
-                                StartGame();
+                                // StartGame();
                                 break;
                             case TitleScreenAction.Generate:
                                 CreateChara();
@@ -102,28 +103,14 @@ namespace OpenNefia.Content.TitleScreen
             }
         }
 
-        private void StartGame()
-        {
-            var save = _saveGameSerializer.InitializeSaveGame("ruin");
-            _saveGameManager.CurrentSave = save;
-
-            InitializeGlobalAreas();
-            var map = InitMap();
-
-            _mapManager.SetActiveMap(map.Id);
-
-            _saveGameSerializer.SaveGame(save);
-
-            _uiManager.Query(_fieldLayer);
-
-            _mapManager.UnloadMap(map.Id);
-
-            _saveGameManager.CurrentSave = null;
-        }
-
         private void CreateChara()
         {
-            _charaMakeLogic.RunCreateChara();
+            var result = _charaMakeLogic.RunCreateChara();
+
+            if (result is CharaMakeLogicResult.NewPlayerIncarnated newPlayerResult)
+            {
+                StartNewGame(newPlayerResult.NewPlayer);
+            }
         }
 
         private void ShowConfigMenu()
@@ -161,28 +148,35 @@ namespace OpenNefia.Content.TitleScreen
             }
         }
 
-        private IMap InitMap()
+        private void StartNewGame(EntityUid player)
         {
-            var map = _mapLoader.LoadBlueprint(new ResourcePath("/Maps/LecchoTorte/Test.yml"));
-            var entGen = EntitySystem.Get<IEntityGen>();
+            var saveName = EntitySystem.Get<IDisplayNameSystem>().GetBaseName(player);
 
-            var player = entGen.SpawnEntity(Chara.Sailor, map.AtPos(2, 2))!.Value;
-            _entityManager.AddComponent<PlayerComponent>(player);
+            var save = _saveGameSerializer.InitializeSaveGame(saveName);
+            _saveGameManager.CurrentSave = save;
+
             _gameSessionManager.Player = player;
 
-            var skills = _entityManager.EnsureComponent<SkillsComponent>(player);
-            skills.Ensure(Skill.AttrConstitution).Level = new(200);
-            skills.Ensure(Skill.AttrLife).Level = new(200);
+            InitializeGlobalAreas();
+
+            var map = _mapLoader.LoadBlueprint(new ResourcePath("/Maps/LecchoTorte/Test.yml"));
+            map.MemorizeAllTiles();
+
+            var playerSpatial = _entityManager.GetComponent<SpatialComponent>(player);
+            playerSpatial.SetCoordinates(map.AtPosEntity(2, 2), noEvents: true);
+
             EntitySystem.Get<IRefreshSystem>().Refresh(player);
             EntitySystem.Get<SkillsSystem>().HealToMax(player);
 
-            var equipSlotSys = EntitySystem.Get<IEquipSlotsSystem>();
-            for (int i = 0; i < 64; i++)
-                equipSlotSys.TryAddEquipSlot(player, EquipSlot.Hand, out _, out _);
+            _mapManager.SetActiveMap(map.Id);
 
-            map.MemorizeAllTiles();
+            _saveGameSerializer.SaveGame(save);
 
-            return map;
+            _uiManager.Query(_fieldLayer);
+
+            _mapManager.UnloadMap(map.Id);
+
+            _saveGameManager.CurrentSave = null;
         }
     }
 }

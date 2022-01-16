@@ -480,6 +480,12 @@ handlers["base.pcc_part"] = function(from, to)
     to.pccPartType = capitalize(from.kind)
 end
 
+handlers["base.trait"] = function(from, to)
+    to.levelMin = from.level_min
+    to.levelMax = from.level_max
+    to.featType = camelize(from.type)
+end
+
 local function sort(a, b)
     return (a.elona_id or 0) < (b.elona_id or 0)
 end
@@ -504,6 +510,7 @@ local hspTypes = {
     ["base.map_tile"] = "Tile",
     ["base.pcc_part"] = "Elona.PCCPart",
     ["elona.field_type"] = "Elona.FieldType",
+    ["base.trait"] = "Elona.Feat",
 }
 
 local function transformMinimal(i)
@@ -561,11 +568,12 @@ write("base.class", "Class.yml")
 write("base.race", "Race.yml")
 write("elona_sys.dialog", "Dialog.yml")
 write("base.tone", "Tone.yml")
-write("base.portrait", "Portrait.yml")
+-- write("base.portrait", "Portrait.yml")
 -- write("base.map_tile", "Tile.yml")
 -- write("base.chip", "Chip.yml")
 write("elona.field_type", "FieldType.yml")
 write("base.pcc_part", "PCCPart.yml")
+write("base.trait", "Feat.yml")
 
 -- print(inspect(data["base.item"]:iter():filter(function(a) return a.fltselect > 0 and a.rarity == 0 end):to_list()))
 

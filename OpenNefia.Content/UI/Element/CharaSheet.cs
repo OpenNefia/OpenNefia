@@ -24,6 +24,7 @@ using OpenNefia.Content.Karma;
 using OpenNefia.Content.Guild;
 using OpenNefia.Content.God;
 using OpenNefia.Content.CustomName;
+using OpenNefia.Content.DisplayName;
 
 namespace OpenNefia.Content.UI.Element
 {
@@ -91,6 +92,7 @@ namespace OpenNefia.Content.UI.Element
         [Dependency] protected readonly ISkillsSystem _skillsSys = default!;
         [Dependency] private readonly IEquipSlotsSystem _equipSlots = default!;
         [Dependency] private readonly ICargoSystem _cargoSys = default!;
+        [Dependency] private readonly IDisplayNameSystem _displayNames = default!;
 
         public const int SheetWidth = 700;
         public const int SheetHeight = 400;
@@ -112,21 +114,16 @@ namespace OpenNefia.Content.UI.Element
         private UiContainer ExtraContainer;
         private UiContainer RollsContainer;
 
-        // Temporary variables that need to be replaced as soon as the containing components exist
-        private string TempName = "????";
-        private string TempKills = "0";
-
         private readonly LocaleScope _locScope;
 
-        public CharaSheet(EntityUid charaEntity)
+        public CharaSheet()
         {
             EntitySystem.InjectDependencies(this);
 
             _locScope = Loc.MakeScope("Elona.CharaSheet");
 
-            CharaEntity = charaEntity;
             AssetIeSheet = Assets.Get(Protos.Asset.IeSheet);
-            FaceFrame = new CharaSheetFaceFrame(charaEntity);
+            FaceFrame = new CharaSheetFaceFrame();
 
             NameContainer = new UiVerticalContainer { YSpace = ContainerSpacing };
             ClassContainer = new UiVerticalContainer { YSpace = ContainerSpacing };
@@ -137,12 +134,12 @@ namespace OpenNefia.Content.UI.Element
             TraceContainer = new UiVerticalContainer { YSpace = ContainerSpacing };
             ExtraContainer = new UiVerticalContainer { YSpace = ContainerSpacing };
             RollsContainer = new UiVerticalContainer { YSpace = ContainerSpacing };
-
-            Init();
         }
 
-        public void Init()
+        public void RefreshFromEntity(EntityUid charaEntity)
         {
+            FaceFrame.RefreshFromEntity(charaEntity);
+
             NameContainer.Clear();
             ClassContainer.Clear();
             ExpContainer.Clear();
@@ -153,53 +150,53 @@ namespace OpenNefia.Content.UI.Element
             ExtraContainer.Clear();
             RollsContainer.Clear();
 
-            if (!_entityManager.TryGetComponent<LevelComponent>(CharaEntity, out var level))
+            if (!_entityManager.TryGetComponent<LevelComponent>(this.CharaEntity, out var level))
             {
-                Logger.WarningS("charsheet", $"entity {CharaEntity} does not posess a {nameof(LevelComponent)}");
+                Logger.WarningS("charsheet", $"entity {this.CharaEntity} does not posess a {nameof(Levels.LevelComponent)}");
             }
-            if (!_entityManager.TryGetComponent<CharaComponent>(CharaEntity, out var chara))
+            if (!_entityManager.TryGetComponent<CharaComponent>(this.CharaEntity, out var chara))
             {
-                Logger.WarningS("charsheet", $"entity {CharaEntity} does not posess a {nameof(CharaComponent)}");
+                Logger.WarningS("charsheet", $"entity {this.CharaEntity} does not posess a {nameof(Charas.CharaComponent)}");
             }
-            if (!_entityManager.TryGetComponent<SkillsComponent>(CharaEntity, out var skills))
+            if (!_entityManager.TryGetComponent<SkillsComponent>(this.CharaEntity, out var skills))
             {
-                Logger.WarningS("charsheet", $"entity {CharaEntity} does not posess a {nameof(SkillsComponent)}");
+                Logger.WarningS("charsheet", $"entity {this.CharaEntity} does not posess a {nameof(Skills.SkillsComponent)}");
             }
-            if (!_entityManager.TryGetComponent<CargoHolderComponent>(CharaEntity, out var cargoHold))
+            if (!_entityManager.TryGetComponent<CargoHolderComponent>(this.CharaEntity, out var cargoHold))
             {
-                Logger.WarningS("charsheet", $"entity {CharaEntity} does not posess a {nameof(CargoHolderComponent)}");
+                Logger.WarningS("charsheet", $"entity {this.CharaEntity} does not posess a {nameof(Cargo.CargoHolderComponent)}");
             }
-            if (!_entityManager.TryGetComponent<WeightComponent>(CharaEntity, out var weight))
+            if (!_entityManager.TryGetComponent<WeightComponent>(this.CharaEntity, out var weight))
             {
-                Logger.WarningS("charsheet", $"entity {CharaEntity} does not posess a {nameof(WeightComponent)}");
+                Logger.WarningS("charsheet", $"entity {this.CharaEntity} does not posess a {nameof(GameObjects.WeightComponent)}");
             }
-            if (!_entityManager.TryGetComponent<BuffsComponent>(CharaEntity, out var buffs))
+            if (!_entityManager.TryGetComponent<BuffsComponent>(this.CharaEntity, out var buffs))
             {
-                Logger.WarningS("charsheet", $"entity {CharaEntity} does not posess a {nameof(BuffsComponent)}");
+                Logger.WarningS("charsheet", $"entity {this.CharaEntity} does not posess a {nameof(GameObjects.BuffsComponent)}");
             }
-            if (!_entityManager.TryGetComponent<SanityComponent>(CharaEntity, out var sanity))
+            if (!_entityManager.TryGetComponent<SanityComponent>(this.CharaEntity, out var sanity))
             {
-                Logger.WarningS("charsheet", $"entity {CharaEntity} does not posess a {nameof(SanityComponent)}");
+                Logger.WarningS("charsheet", $"entity {this.CharaEntity} does not posess a {nameof(Sanity.SanityComponent)}");
             }
-            if (!_entityManager.TryGetComponent<FameComponent>(CharaEntity, out var fame))
+            if (!_entityManager.TryGetComponent<FameComponent>(this.CharaEntity, out var fame))
             {
-                Logger.WarningS("charsheet", $"entity {CharaEntity} does not posess a {nameof(FameComponent)}");
+                Logger.WarningS("charsheet", $"entity {this.CharaEntity} does not posess a {nameof(Fame.FameComponent)}");
             }
-            if (!_entityManager.TryGetComponent<KarmaComponent>(CharaEntity, out var karma))
+            if (!_entityManager.TryGetComponent<KarmaComponent>(this.CharaEntity, out var karma))
             {
-                Logger.WarningS("charsheet", $"entity {CharaEntity} does not posess a {nameof(KarmaComponent)}");
+                Logger.WarningS("charsheet", $"entity {this.CharaEntity} does not posess a {nameof(Karma.KarmaComponent)}");
             }
-            if (!_entityManager.TryGetComponent<GuildMemberComponent>(CharaEntity, out var guild))
+            if (!_entityManager.TryGetComponent<GuildMemberComponent>(this.CharaEntity, out var guild))
             {
-                Logger.WarningS("charsheet", $"entity {CharaEntity} does not posess a {nameof(GuildMemberComponent)}");
+                Logger.WarningS("charsheet", $"entity {this.CharaEntity} does not posess a {nameof(Guild.GuildMemberComponent)}");
             }
-            if (!_entityManager.TryGetComponent<GodFollowerComponent>(CharaEntity, out var god))
+            if (!_entityManager.TryGetComponent<GodFollowerComponent>(this.CharaEntity, out var god))
             {
-                Logger.WarningS("charsheet", $"entity {CharaEntity} does not posess a {nameof(GodFollowerComponent)}");
+                Logger.WarningS("charsheet", $"entity {this.CharaEntity} does not posess a {nameof(God.GodFollowerComponent)}");
             }
-            if (!_entityManager.TryGetComponent<CustomNameComponent>(CharaEntity, out var customName))
+            if (!_entityManager.TryGetComponent<CustomNameComponent>(this.CharaEntity, out var customName))
             {
-                Logger.WarningS("charsheet", $"entity {CharaEntity} does not posess a {nameof(CustomNameComponent)}");
+                Logger.WarningS("charsheet", $"entity {this.CharaEntity} does not posess a {nameof(CustomName.CustomNameComponent)}");
             }
 
             //
@@ -210,7 +207,7 @@ namespace OpenNefia.Content.UI.Element
             if (chara != null)
             {
                 dict[string.Empty] = string.Empty;
-                dict[_locScope.GetString("Group.Personal.Name")] = TempName;
+                dict[_locScope.GetString("Group.Personal.Name")] = _displayNames.GetBaseName(this.CharaEntity);
                 if (!string.IsNullOrEmpty(chara.Alias))
                     dict[_locScope.GetString("Group.Personal.Alias")] = chara.Alias;
                 dict[_locScope.GetString("Group.Personal.Race")] = Loc.GetPrototypeString(chara.Race, "Name");
@@ -330,7 +327,7 @@ namespace OpenNefia.Content.UI.Element
             TraceContainer.AddLayout(LayoutType.XOffset, 3);
             dict[_locScope.GetString("Group.Trace.Turns")] = $"{_locScope.GetString("Group.Trace.TurnsCounter", ("turns", _world.State.PlayTurns))}";
             dict[_locScope.GetString("Group.Trace.Days")] = $"{_locScope.GetString("Group.Trace.DaysCounter", ("days", traceDays))}";
-            dict[_locScope.GetString("Group.Trace.Kills")] = TempKills;
+            dict[_locScope.GetString("Group.Trace.Kills")] = _world.State.TotalKills.ToString();
             dict[_locScope.GetString("Group.Trace.Time")] = _world.State.PlayTime.ToString();
             SetupContainer(TraceContainer, 2, dict);
             dict.Clear();
@@ -345,11 +342,11 @@ namespace OpenNefia.Content.UI.Element
 
             if (cargoHold != null)
             {
-                var cargoWeight = _cargoSys.GetTotalCargoWeight(CharaEntity);
+                var cargoWeight = _cargoSys.GetTotalCargoWeight(this.CharaEntity);
                 dict[_locScope.GetString("Group.Extra.CargoWeight")] = UiUtils.DisplayWeight(cargoWeight);
                 dict[_locScope.GetString("Group.Extra.CargoLimit")] = UiUtils.DisplayWeight(cargoHold.MaxCargoWeight ?? 0);
             }
-            var eqWeight = EquipmentHelpers.GetTotalEquipmentWeight(CharaEntity, _entityManager, _equipSlots);
+            var eqWeight = EquipmentHelpers.GetTotalEquipmentWeight(this.CharaEntity, _entityManager, _equipSlots);
             dict[_locScope.GetString("Group.Extra.EquipWeight")] = $"{UiUtils.DisplayWeight(eqWeight)} {EquipmentHelpers.DisplayArmorClass(eqWeight)}";
             dict[_locScope.GetString("Group.Extra.DeepestLevel")] = $"{_locScope.GetString("Group.Extra.DeepestLevelCounter", ("level", _world.State.DeepestLevel))}";
             SetupContainer(ExtraContainer, 1, dict);
