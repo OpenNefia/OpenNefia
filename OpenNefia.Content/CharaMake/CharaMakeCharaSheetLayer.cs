@@ -30,8 +30,6 @@ namespace OpenNefia.Content.CharaMake
         [Dependency] private readonly ISaveGameSerializer _saveSerializer = default!;
         [Dependency] private readonly IRandomNameGenerator _randomNames = default!;
 
-        public const string ResultName = "playerEntity";
-
         private EntityUid _playerEntity;
 
         private CharaSheet Sheet = new();
@@ -215,7 +213,7 @@ namespace OpenNefia.Content.CharaMake
                 {
                     Finish(new CharaMakeResult(new Dictionary<string, object>()
                     {
-                        { ResultName, _playerEntity }
+                        { CharaMakeLogic.PlayerEntityResultName, _playerEntity }
                     }));
                 }
             }
