@@ -1,4 +1,12 @@
 Elona.CharaSheet = {
+    Topic = {
+        Attribute = "Attributes(Org) - Potential",
+        Blessing = "Blessing and Hex",
+        Trace = "Trace",
+        Extra = "Extra Info",
+        Rolls = "Combat Rolls",
+    },
+
     Potential = {
         Superb = "Superb",
         Great = "Great",
@@ -6,42 +14,59 @@ Elona.CharaSheet = {
         Bad = "Bad",
         Hopeless = "Hopeless",
     },
-    Name = "Name",
-    Aka = "Aka",
-    Race = "Race",
-    Sex = "Sex",
-    Class = "Class",
-    Age = "Age",
-    Height = "Height",
-    Cm = "cm",
-    Weight = "Weight",
-    Kg = "kg",
-    Level = "Level",
-    Exp = "EXP",
-    NextLv = "Next Lv",
-    God = "God",
-    Guild = "Guild",
-    Sanity = "Sanity",
-    Fame = "Fame",
-    Karma = "Karma",
-    Turns = "Turns",
-    TurnsPassed = "Turns",
-    Days = "Days",
-    DaysPassed = "Days",
-    Kills = "Kills",
-    Time = "Time",
-    CargoWeight = "Cargo Wt",
-    CargoLimit = "Cargo Lmt",
-    EquipWeight = "Equip Wt",
-    DeepestLevel = "Deepest Lv",
-    DeepestLevelDesc = function(level)
-        return _.ordinal(level) .. " Level"
-    end,
-    Topic = {
-        Attribute = "Attributes(Org) - Potential",
-        Blessing = "Blessing and Hex",
-        Trace = "Trace",
-        Extra = "Extra Info",
-        Rolls = "Combat Rolls",
+
+    Group = {
+        Attribute = {
+            Fame = "Fame",
+            Karma = "Karma",
+            Sanity = "Sanity",
+        },
+
+        Exp = {
+            Exp = "EXP",
+            RequiredExp = "Next Lv",
+            God = "God",
+            Guild = "Guild",
+            Level = "Level",
+        },
+
+        Personal = {
+            Name = "Name",
+            Alias = "Aka",
+            Race = "Race",
+            Sex = "Sex",
+            Class = "Class",
+            Age = "Age",
+            AgeCounter = function(years)
+                return ("%s"):format(years)
+            end,
+            Height = "Height",
+            Cm = "cm",
+            Weight = "Weight",
+            Kg = "kg",
+        },
+
+        Trace = {
+            Turns = "Turns",
+            TurnsCounter = function(turns)
+                return ("%s Turns"):format(turns)
+            end,
+            Days = "Days",
+            DaysCounter = function(days)
+                return ("%s Days"):format(days)
+            end,
+            Kills = "Kills",
+            Time = "Time",
+        },
+
+        Extra = {
+            CargoWeight = "Cargo Wt",
+            CargoLimit = "Cargo Lmt",
+            EquipWeight = "Equip Wt",
+            DeepestLevel = "Deepest Lv",
+            DeepestLevelCounter = function(level)
+                return _.ordinal(level) .. " Level"
+            end,
+        },
     },
 }
