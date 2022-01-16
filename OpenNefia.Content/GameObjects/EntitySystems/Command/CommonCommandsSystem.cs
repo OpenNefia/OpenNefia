@@ -46,10 +46,6 @@ namespace OpenNefia.Content.GameObjects
                 .Bind(EngineKeyFunctions.ShowEscapeMenu, InputCmdHandler.FromDelegate(ShowEscapeMenu))
                 .Bind(EngineKeyFunctions.QuickSaveGame, InputCmdHandler.FromDelegate(QuickSaveGame))
                 .Bind(EngineKeyFunctions.QuickLoadGame, InputCmdHandler.FromDelegate(QuickLoadGame))
-
-                // TODO: remove this when charasheet is implemented
-                .Bind(ContentKeyFunctions.UIPortrait, InputCmdHandler.FromDelegate(ShowAppearanceMenu))
-
                 .Register<CommonCommandsSystem>();
         }
 
@@ -70,17 +66,6 @@ namespace OpenNefia.Content.GameObjects
             var save = _saveGameManager.CurrentSave!;
 
             _saveGameSerializer.LoadGame(save);
-
-            return TurnResult.Aborted;
-        }
-
-        private TurnResult? ShowAppearanceMenu(IGameSessionManager? session)
-        {
-            if (session?.Player == null)
-                return null;
-
-            var args = new CharaAppearanceLayer.Args(session.Player);
-            _uiManager.Query<CharaAppearanceLayer, CharaAppearanceLayer.Args>(args);
 
             return TurnResult.Aborted;
         }

@@ -98,9 +98,9 @@ namespace OpenNefia.Content.UI.Element
         private const int AttributeSpacing = 5;
         private const int AttributePotentialSpacing = 8;
 
-        private IAssetInstance IeSheet;
+        private IAssetInstance AssetIeSheet;
         private EntityUid CharaEntity;
-        private UiTopicWindow FaceFrame;
+        private CharaSheetFaceFrame FaceFrame;
         private UiContainer NameContainer;
         private UiContainer ClassContainer;
         private UiContainer ExpContainer;
@@ -123,9 +123,10 @@ namespace OpenNefia.Content.UI.Element
         public CharaSheet(EntityUid charaEntity)
         {
             EntitySystem.InjectDependencies(this);
+
             CharaEntity = charaEntity;
-            IeSheet = Assets.Get(Protos.Asset.IeSheet);
-            FaceFrame = new UiTopicWindow();
+            AssetIeSheet = Assets.Get(Protos.Asset.IeSheet);
+            FaceFrame = new CharaSheetFaceFrame(charaEntity);
 
             NameContainer = new UiVerticalContainer { YSpace = ContainerSpacing };
             ClassContainer = new UiVerticalContainer { YSpace = ContainerSpacing };
@@ -319,7 +320,7 @@ namespace OpenNefia.Content.UI.Element
         public override void SetSize(int width, int height)
         {
             base.SetSize(width, height);
-            FaceFrame.SetSize(90, 120);
+            FaceFrame.SetPreferredSize();
         }
 
         public override void SetPosition(int x, int y)
@@ -351,9 +352,9 @@ namespace OpenNefia.Content.UI.Element
         {
             base.Draw();
             GraphicsEx.SetColor(0, 0, 0, 75);
-            IeSheet.Draw(X + 4, Y + 4, SheetWidth, SheetHeight);
+            AssetIeSheet.Draw(X + 4, Y + 4, SheetWidth, SheetHeight);
             GraphicsEx.SetColor(Color.White);
-            IeSheet.Draw(X, Y, SheetWidth, SheetHeight);
+            AssetIeSheet.Draw(X, Y, SheetWidth, SheetHeight);
             FaceFrame.Draw();
             NameContainer.Draw();
             ClassContainer.Draw();

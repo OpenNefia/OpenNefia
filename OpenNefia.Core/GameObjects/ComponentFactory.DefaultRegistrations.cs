@@ -25,7 +25,7 @@ namespace OpenNefia.Core.GameObjects
             RegisterClass<ContainerManagerComponent>();
             RegisterClass<StackComponent>();
             RegisterClass<MapEntityLookupComponent>();
-            RegisterClass<DrawablesComponent>();
+            RegisterClass<EntityDrawablesComponent>();
         }
     }
 }

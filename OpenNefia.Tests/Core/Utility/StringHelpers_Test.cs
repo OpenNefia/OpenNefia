@@ -73,5 +73,17 @@ namespace OpenNefia.Tests.Core.Utility
             Assert.That("ほげaぴよ".WideSubstring(3, 6), Is.EqualTo("aぴよ"));
             Assert.That("ほげaぴよ".WideSubstring(3), Is.EqualTo("aぴよ"));
         }
+
+        [Test]
+        public void TestWidePadRight()
+        {
+            Assert.That("ほげ".WidePadRight(6), Is.EqualTo("ほげ  "));
+            Assert.That("ほげ".WidePadRight(6, 'a'), Is.EqualTo("ほげaa"));
+            Assert.That("ほげ".WidePadRight(7), Is.EqualTo("ほげ   "));
+            Assert.That("ほげ".WidePadRight(0), Is.EqualTo("ほげ"));
+            Assert.That("ほげ".WidePadRight(-99), Is.EqualTo("ほげ"));
+            Assert.That("ほげa".WidePadRight(5), Is.EqualTo("ほげa"));
+            Assert.That("ほげa".WidePadRight(6), Is.EqualTo("ほげa "));
+        }
     }
 }

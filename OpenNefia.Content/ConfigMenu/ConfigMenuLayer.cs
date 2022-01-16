@@ -170,9 +170,9 @@ namespace OpenNefia.Content.ConfigMenu
         {
             var height = _menuSize.Y;
 
-            if (List.DisplayedCells.Count >= 9)
+            if (List.DisplayedCells.Count >= 8)
             {
-                height += 10 + 30 * (List.DisplayedCells.Count - 9);
+                height += 10 + 30 * (List.DisplayedCells.Count - 8);
             }
 
             UiUtils.GetCenteredParams(_menuSize.X, height, out bounds, yOffset: -12);

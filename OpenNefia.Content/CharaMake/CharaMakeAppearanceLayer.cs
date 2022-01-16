@@ -1,29 +1,22 @@
-﻿using OpenNefia.Content.UI.Element;
-using OpenNefia.Content.UI.Element.List;
+﻿using OpenNefia.Content.UI.Element.List;
 using OpenNefia.Content.Prototypes;
 using OpenNefia.Core.Audio;
 using OpenNefia.Core.Locale;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Content.Charas;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.UI;
-using static OpenNefia.Content.Charas.CharaAppearanceControl;
 using OpenNefia.Core.ResourceManagement;
-using static NetVips.Enums;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Content.PCCs;
-using OpenNefia.Content.Feats;
 using OpenNefia.Core.Log;
+using OpenNefia.Content.CharaAppearance;
 
 namespace OpenNefia.Content.CharaMake
 {
+    [Localize("Elona.CharaMake.AppearanceSelect")]
     public class CharaMakeAppearanceLayer : CharaMakeLayer
     {
         [Dependency] private readonly IPrototypeManager _protos = default!;
@@ -146,10 +139,19 @@ namespace OpenNefia.Content.CharaMake
                 return;
             }
 
+            var portrait = EntityManager.EnsureComponent<PortraitComponent>(entity);
+            portrait.PortraitID = appearance.PortraitProto.GetStrongID();
+
             if (appearance.UsePCC)
             {
                 var pccComp = EntityManager.EnsureComponent<PCCComponent>(entity);
                 _pccs.SetPCCParts(entity, appearance.PCCDrawable.Parts, pccComp);
+            }
+            else
+            {
+                // TODO: TryRemoveComponent?
+                if (EntityManager.HasComponent<PCCComponent>(entity))
+                    EntityManager.RemoveComponent<PCCComponent>(entity);
             }
         }
     }

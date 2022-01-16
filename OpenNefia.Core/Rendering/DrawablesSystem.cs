@@ -30,33 +30,33 @@ namespace OpenNefia.Core.Rendering
         }
     }
 
-    public interface IDrawablesSystem : IEntitySystem
+    public interface IEntityDrawablesSystem : IEntitySystem
     {
         void RegisterDrawable(EntityUid entity, string key, EntityDrawableEntry drawable, 
-            DrawablesComponent? drawables = null);
+            EntityDrawablesComponent? drawables = null);
 
-        void UnregisterDrawable(EntityUid entity, string key, DrawablesComponent? drawables = null);
+        void UnregisterDrawable(EntityUid entity, string key, EntityDrawablesComponent? drawables = null);
 
         bool TryGetDrawable(EntityUid entity, string key, [NotNullWhen(true)] out EntityDrawableEntry? drawable,
-            DrawablesComponent? drawables = null);
+            EntityDrawablesComponent? drawables = null);
 
-        void ClearDrawables(EntityUid entity, DrawablesComponent? drawables = null);
+        void ClearDrawables(EntityUid entity, EntityDrawablesComponent? drawables = null);
     }
 
-    public sealed class DrawablesSystem : EntitySystem, IDrawablesSystem
+    public sealed class DrawablesSystem : EntitySystem, IEntityDrawablesSystem
     {
         public void RegisterDrawable(EntityUid entity, string key, EntityDrawableEntry drawable,
-            DrawablesComponent? drawables = null)
+            EntityDrawablesComponent? drawables = null)
         {
             if (!Resolve(entity, ref drawables, logMissing: false))
             {
-                drawables = EntityManager.EnsureComponent<DrawablesComponent>(entity);
+                drawables = EntityManager.EnsureComponent<EntityDrawablesComponent>(entity);
             }
 
             drawables.EntityDrawables.Add(key, drawable);
         }
 
-        public void UnregisterDrawable(EntityUid entity, string key, DrawablesComponent? drawables = null)
+        public void UnregisterDrawable(EntityUid entity, string key, EntityDrawablesComponent? drawables = null)
         {
             if (!Resolve(entity, ref drawables, logMissing: false))
                 return;
@@ -66,7 +66,7 @@ namespace OpenNefia.Core.Rendering
 
         public bool TryGetDrawable(EntityUid entity, string key,
             [NotNullWhen(true)] out EntityDrawableEntry? drawable, 
-            DrawablesComponent? drawables = null)
+            EntityDrawablesComponent? drawables = null)
         {
             if (!Resolve(entity, ref drawables, logMissing: false))
             {
@@ -77,7 +77,7 @@ namespace OpenNefia.Core.Rendering
             return drawables.EntityDrawables.TryGetValue(key, out drawable);
         }
 
-        public void ClearDrawables(EntityUid entity, DrawablesComponent? drawables = null)
+        public void ClearDrawables(EntityUid entity, EntityDrawablesComponent? drawables = null)
         {
             if (!Resolve(entity, ref drawables, logMissing: false))
                 return;

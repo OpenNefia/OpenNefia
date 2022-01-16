@@ -1,8 +1,8 @@
 ﻿namespace OpenNefia.Content.PCCs
 {
     /// <summary>
-    /// Default PCC part slot identifiers. Necessary since you 
-    /// can have more than one PCC part of a given type (like "Etc" parts)
+    /// Common PCC part slot identifiers. Necessary since you 
+    /// can have more than one PCC part of a given type (like "Etc" parts).
     /// </summary>
     public static class PCCPartSlots
     {

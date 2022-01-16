@@ -13,18 +13,19 @@ namespace OpenNefia.Core.Rendering
     /// Manages entity drawables.
     /// </para>
     /// <para>
-    /// "Drawables" are pieces of state that need special rendering logic, like PCCs,
+    /// "Entity drawables" are pieces of state that need special rendering logic, like PCCs,
     /// which can't be rendered in a separate <see cref="TileDrawLayers.ITileLayer"/>
-    /// because they need proper Z ordering and occlusion in <see cref="TileDrawLayers.TileAndChipTileLayer"/>.
+    /// because they need proper Z-ordering and occlusion in <see cref="TileDrawLayers.TileAndChipTileLayer"/>.
     /// </para>
     /// </summary>
-    public sealed class DrawablesComponent : Component
+    public sealed class EntityDrawablesComponent : Component
     {
-        public override string Name => "Drawables";
+        public override string Name => "EntityDrawables";
 
         /// <summary>
-        /// List of drawables. Not serialized; rebuilt when the entity
-        /// is instantiated/deserialized.
+        /// List of drawables. Not serialized; rebuilt when the entity is instantiated/deserialized. 
+        /// Entity systems should modify this collection within <see cref="ComponentStartup"/> and 
+        /// <see cref="ComponentShutdown"/> event handlers.
         /// </summary>
         public Dictionary<string, EntityDrawableEntry> EntityDrawables { get; } = new();
     }
