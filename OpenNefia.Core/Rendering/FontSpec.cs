@@ -54,5 +54,10 @@ namespace OpenNefia.Core.Rendering
         private Love.Font? _font = null;
 
         public Love.Font LoveFont => _font ??= IoCManager.Resolve<IFontManager>().GetFont(this);
+
+        internal void ClearCachedFont()
+        {
+            _font = null;
+        }
     }
 }
