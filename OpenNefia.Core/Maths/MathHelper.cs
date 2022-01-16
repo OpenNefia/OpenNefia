@@ -88,7 +88,7 @@ namespace OpenNefia.Core.Maths
         public static long NextPowerOfTwo(long n)
         {
             if (n <= 0) throw new ArgumentOutOfRangeException(nameof(n), "Must be positive.");
-            return (long) NextPowerOfTwo((double) n);
+            return (long)NextPowerOfTwo((double)n);
         }
 
         /// <summary>
@@ -100,7 +100,7 @@ namespace OpenNefia.Core.Maths
         public static int NextPowerOfTwo(int n)
         {
             if (n <= 0) throw new ArgumentOutOfRangeException(nameof(n), "Must be positive.");
-            return (int) NextPowerOfTwo((double) n);
+            return (int)NextPowerOfTwo((double)n);
         }
 
         /// <summary>
@@ -613,6 +613,25 @@ namespace OpenNefia.Core.Maths
         }
 
         #endregion InterpolateCubic
+
+        #region Wrap
+
+        /// <summary>
+        /// Wraps an integer between <paramref name="lowerBound"/> and <paramref name="upperBound"/>.
+        /// </summary>
+        // https://stackoverflow.com/a/707426
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static int Wrap(int n, int lowerBound, int upperBound)
+        {
+            var rangeSize = upperBound - lowerBound + 1;
+
+            if (n < lowerBound)
+                n += rangeSize * ((lowerBound - n) / rangeSize + 1);
+
+            return lowerBound + (n - lowerBound) % rangeSize;
+        }
+
+        #endregion
 
         #endregion Public Members
     }

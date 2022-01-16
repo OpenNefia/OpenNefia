@@ -47,7 +47,7 @@ namespace OpenNefia.Content.CharaMake
             private UiText LockedText;
 
             public CreateCharaAliasCell(CreateCharaAliasData data, string text)
-                : base(data, new UiText(UiFonts.ListTitleScreenText, text))
+                : base(data, new UiText(text))
             {
                 LockedText = new UiText(UiFonts.CharaMakeRerollLocked, Loc.GetString("Elona.CharaMake.Common.Locked"));
             }
@@ -218,7 +218,7 @@ namespace OpenNefia.Content.CharaMake
                 return;
             }
 
-            if (!_entityManager.TryGetComponent<CharaComponent>(entity, out var chara))
+            if (!EntityManager.TryGetComponent<CharaComponent>(entity, out var chara))
             {
                 Logger.WarningS("charamake", "No CharaComponent present on entity");
                 return;

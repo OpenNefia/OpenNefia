@@ -12,6 +12,8 @@ using OpenNefia.Core.IoC;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core;
 using static OpenNefia.Content.Prototypes.Protos;
+using OpenNefia.Core.ResourceManagement;
+using OpenNefia.Core.Utility;
 
 namespace OpenNefia.Content.Charas
 {
@@ -33,9 +35,10 @@ namespace OpenNefia.Content.Charas
         }
     }
 
-    public class CharaAppearanceWindow : UiElement
+    public class CharaAppearanceControl : UiElement
     {
         [Dependency] private readonly IPrototypeManager _protos = default!;
+        [Dependency] private readonly IResourceCache _resourceCache = default!;
 
         private IAssetDrawable AppearanceDeco;
 
@@ -44,18 +47,20 @@ namespace OpenNefia.Content.Charas
         private CharaAppearancePreviewPanel PreviewPanel;
         private CharaAppearanceList AppearanceList;
 
+        private LocaleScope _locScope = Loc.MakeScope("Elona.CharaAppearance.Control");
+
         public event UiListEventHandler<CharaAppearanceUICellData> List_OnActivated
         {
             add => AppearanceList.OnActivated += value;
             remove => AppearanceList.OnActivated -= value;
         }
 
-        private CharaAppearanceData _data = default!;
+        public CharaAppearanceData AppearanceData { get; private set; } = default!;
 
-        public CharaAppearanceWindow()
+        public CharaAppearanceControl()
         {
             AppearanceDeco = new AssetDrawable(Protos.Asset.DecoMirrorA);
-            Category = new UiTextTopic(Loc.GetString("Elona.CharaMake.AppearanceSelect.Topic.Category"));
+            Category = new UiTextTopic(_locScope.GetString("Topic.Category"));
             Window = new UiWindow()
             {
                 KeyHints = MakeKeyHints()
@@ -63,6 +68,7 @@ namespace OpenNefia.Content.Charas
             AppearanceList = new CharaAppearanceList();
             PreviewPanel = new CharaAppearancePreviewPanel();
 
+            AppearanceList.OnSelected += HandleListSelected;
             AppearanceList.OnAppearanceItemChanged += HandleListAppearanceItemChanged;
 
             AddChild(AppearanceList);
@@ -72,31 +78,68 @@ namespace OpenNefia.Content.Charas
         {
             IoCManager.InjectDependencies(this);
 
-            _data = data;
-            Window.Title = Loc.GetString("Elona.CharaMake.AppearanceSelect.Window.Title");
+            AppearanceData = data;
+            Window.Title = _locScope.GetString("Window.Title.Appearance");
 
             var pages = BuildListPages(data);
-            AppearanceList.Initialize(data, pages);
+            AppearanceList.Initialize(pages, data);
             PreviewPanel.Initialize(data);
         }
 
         #region Model Updating
 
-        private void UpdatePortrait(PortraitPrototype? currentValue)
+        private void UpdatePortrait(PortraitPrototype? newPortrait)
         {
-            _data.PortraitProto = currentValue ?? _protos.Index(Portrait.Default);
+            AppearanceData.PortraitProto = newPortrait ?? _protos.Index(Portrait.Default);
+        }
+
+        private Color GetPCCPartColor(PCCPartType type)
+        {
+            var uiCell = AppearanceList.Select(cell => cell.Data)
+                .WhereAssignable<CharaAppearanceUICellData, CharaAppearanceUICellData.PCCPartColor>()
+                .Where(data => data.PCCPartTypes.Contains(type))
+                .FirstOrDefault();
+
+            return uiCell != null ? uiCell.CurrentValue : PCCConstants.DefaultPartColors.First();
         }
 
         private void UpdatePCCPart(string partID, PCCPart? part)
         {
             if (part == null)
-                return;
-
-
+            {
+                AppearanceData.PCCDrawable.Parts.Remove(partID);
+            }
+            else
+            {
+                AppearanceData.PCCDrawable.Parts[partID] = part;
+                part.Color = GetPCCPartColor(part.Type);
+                AppearanceData.PCCDrawable.RebakeImage(_resourceCache);
+            }
         }
 
-        private void UpdatePCCPartColors(PCCPartType[] pCCPartTypes, Color currentValue)
+        private void UpdatePCCPartColors(IReadOnlySet<PCCPartType> pccPartTypes, Color newColor)
         {
+            foreach (var part in AppearanceData.PCCDrawable.Parts.Values)
+            {
+                if (pccPartTypes.Contains(part.Type))
+                {
+                    part.Color = newColor;
+                }
+            }
+
+            AppearanceData.PCCDrawable.RebakeImage(_resourceCache);
+        }
+
+        private void HandleListSelected(object? sender, UiListEventArgs<CharaAppearanceUICellData> evt)
+        {
+            // FIXME: #35
+            if (evt.Handled || evt.SelectedCell is not CharaAppearanceUIListCell cell)
+                return;
+
+            if (cell.Data is CharaAppearanceUICellData.Portrait)
+                PreviewPanel.ShowPortrait = true;
+            else
+                PreviewPanel.ShowPortrait = false;
         }
 
         private void HandleListAppearanceItemChanged(CharaAppearanceUIListCell cell, int delta)
@@ -113,10 +156,12 @@ namespace OpenNefia.Content.Charas
                     UpdatePortrait(portrait.CurrentValue);
                     break;
                 case CharaAppearanceUICellData.CustomChara customChara:
-                    _data.UsePCC = customChara.UsePCC;
+                    AppearanceData.UsePCC = customChara.UsePCC;
                     break;
-                case CharaAppearanceUICellData.ChangePage changePage: // handled within the list
-                case CharaAppearanceUICellData.Done done:
+                case CharaAppearanceUICellData.ChangePage:
+                    // Handled internally in the list.
+                    break;
+                case CharaAppearanceUICellData.Done:
                 default:
                     break;
             }
@@ -130,14 +175,14 @@ namespace OpenNefia.Content.Charas
             {
                 var pccParts = parts[partType];
                 var cellData = new CharaAppearanceUICellData.PCCPart(pccParts, partID);
-                var text = Loc.GetString($"Elona.CharaAppearance.Choices.{keySuffix}");
+                var text = _locScope.GetString($"Choices.{keySuffix}");
                 return new CharaAppearanceUIListCell(cellData, text);
             };
 
             CharaAppearanceUIListCell MakePCCPartColorCell(IEnumerable<Color> partColors, PCCPartType[] pccPartTypes, LocaleKey keySuffix)
             {
                 var cellData = new CharaAppearanceUICellData.PCCPartColor(partColors, pccPartTypes);
-                var text = Loc.GetString($"Elona.CharaAppearance.Choices.{keySuffix}");
+                var text = _locScope.GetString($"Choices.{keySuffix}");
                 return new CharaAppearanceUIListCell(cellData, text);
             }
 
@@ -149,8 +194,8 @@ namespace OpenNefia.Content.Charas
 
             pages[CharaAppearancePage.Basic] = new()
             {
-                new CharaAppearanceUIListCell(new CharaAppearanceUICellData.Done(), Loc.GetString("Elona.CharaAppearance.Choices.Done")),
-                new CharaAppearanceUIListCell(new CharaAppearanceUICellData.Portrait(portraits), Loc.GetString("Elona.CharaAppearance.Choices.Basic.Portrait")),
+                new CharaAppearanceUIListCell(new CharaAppearanceUICellData.Done(), _locScope.GetString("Choices.Done")),
+                new CharaAppearanceUIListCell(new CharaAppearanceUICellData.Portrait(portraits), _locScope.GetString("Choices.Basic.Portrait")),
 
                 MakePCCPartCell(parts, PCCPartType.Hair, PCCPartSlots.Hair, "Basic.Hair"),
                 MakePCCPartCell(parts, PCCPartType.Subhair, PCCPartSlots.SubHair, "Basic.SubHair"),
@@ -159,8 +204,8 @@ namespace OpenNefia.Content.Charas
                 MakePCCPartCell(parts, PCCPartType.Cloth, PCCPartSlots.Cloth, "Basic.Cloth"),
                 MakePCCPartCell(parts, PCCPartType.Pants, PCCPartSlots.Pants, "Basic.Pants"),
 
-                new CharaAppearanceUIListCell(new CharaAppearanceUICellData.ChangePage(CharaAppearancePage.Detail), Loc.GetString("Elona.CharaAppearance.Choices.Basic.SetDetail")),
-                new CharaAppearanceUIListCell(new CharaAppearanceUICellData.CustomChara(), Loc.GetString("Elona.CharaAppearance.Choices.Basic.CustomChara"))
+                new CharaAppearanceUIListCell(new CharaAppearanceUICellData.ChangePage(CharaAppearancePage.Detail), _locScope.GetString("Choices.Basic.SetDetail")),
+                new CharaAppearanceUIListCell(new CharaAppearanceUICellData.CustomChara(), _locScope.GetString("Choices.Basic.CustomChara"))
             };
 
             pages[CharaAppearancePage.Detail] = new()
@@ -173,7 +218,7 @@ namespace OpenNefia.Content.Charas
                 MakePCCPartCell(parts, PCCPartType.Etc, PCCPartSlots.Etc3, "Detail.Etc3"),
                 MakePCCPartCell(parts, PCCPartType.Eye, PCCPartSlots.Eye, "Detail.Eyes"),
 
-                new CharaAppearanceUIListCell(new CharaAppearanceUICellData.ChangePage(CharaAppearancePage.Basic), Loc.GetString("Elona.CharaAppearance.Choices.Detail.SetBasic")),
+                new CharaAppearanceUIListCell(new CharaAppearanceUICellData.ChangePage(CharaAppearancePage.Basic), _locScope.GetString("Choices.Detail.SetBasic")),
             };
 
             return pages;

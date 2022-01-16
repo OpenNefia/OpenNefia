@@ -27,7 +27,7 @@ namespace OpenNefia.Content.CharaMake
 {
     public class CharaMakeLayer : UiLayerWithResult<CharaMakeData, CharaMakeResult>, ICharaMakeLayer
     {
-        [Dependency] protected readonly IEntityManager _entityManager = default!;
+        [Dependency] protected readonly IEntityManager EntityManager = default!;
         protected IAssetInstance AssetBG;
         protected IAssetInstance[] AssetWindows;
         protected IAssetInstance CurrentWindowBG;

@@ -14,6 +14,6 @@ namespace OpenNefia.Content.PCCs
         public override string Name => "PCC";
 
         [DataField("pccParts")]
-        public List<PCCPart> PCCParts { get; } = new();
+        public Dictionary<string, PCCPart> PCCParts { get; } = new();
     }
 }

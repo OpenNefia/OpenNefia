@@ -2,6 +2,7 @@
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Core.ResourceManagement;
+using OpenNefia.Core.Utility;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -17,6 +18,13 @@ namespace OpenNefia.Content.PCCs
             PCCComponent? pccComp = null);
 
         void RebakePCCImage(EntityUid uid, PCCComponent? pccComp = null);
+
+        /// <summary>
+        /// Sets the PCC data for this entity, creating a <see cref="PCCComponent"/> on it if it's missing.
+        /// </summary>
+        /// <param name="entity">Entity to set PCC data for.</param>
+        /// <param name="parts">Set of PCC parts to use. This replaces any existing PCC parts.</param>
+        void SetPCCParts(EntityUid entity, Dictionary<string, PCCPart> parts, PCCComponent? pccComp = null);
     }
 
     public sealed class PCCSystem : EntitySystem, IPCCSystem
@@ -67,6 +75,17 @@ namespace OpenNefia.Content.PCCs
                 return;
 
             pccDrawable.RebakeImage(_resourceCache);
+        }
+
+        public void SetPCCParts(EntityUid uid, Dictionary<string, PCCPart> parts, PCCComponent? pccComp = null)
+        {
+            if (!Resolve(uid, ref pccComp))
+                pccComp = EntityManager.EnsureComponent<PCCComponent>(uid);
+
+            pccComp.PCCParts.Clear();
+            pccComp.PCCParts.AddRange(parts);
+
+            RebakePCCImage(uid, pccComp);
         }
     }
 }

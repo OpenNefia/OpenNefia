@@ -17,10 +17,9 @@ namespace OpenNefia.Content.PCCs
     {
         private const int DefaultPCCPartZOrder = 100000;
 
-        private readonly Dictionary<string, PCCPart> _parts;
         private readonly Love.Quad[] _quads = new Love.Quad[16];
 
-        public IReadOnlyDictionary<string, PCCPart> Parts => _parts;
+        public Dictionary<string, PCCPart> Parts { get; }
 
         public int Frame { get; set; }
         public PCCDirection Direction { get; set; }
@@ -36,9 +35,9 @@ namespace OpenNefia.Content.PCCs
 
         public PCCDrawable(Dictionary<string, PCCPart> parts)
         {
-            _parts = parts;
+            Parts = parts;
 
-            foreach (var (_, part) in _parts)
+            foreach (var (_, part) in Parts)
             {
                 if (part.ZOrder == null)
                 {
@@ -79,7 +78,7 @@ namespace OpenNefia.Content.PCCs
 
             void DoRebake()
             {
-                foreach (var part in _parts.OrderBy(pair => pair.Value.ZOrder ?? DefaultPCCPartZOrder))
+                foreach (var (_, part) in Parts.OrderBy(pair => pair.Value.ZOrder ?? DefaultPCCPartZOrder))
                 {
                     var image = cache.GetResource<LoveImageResource>(part.ImagePath).Image;
                     Love.Graphics.SetColor(part.Color);

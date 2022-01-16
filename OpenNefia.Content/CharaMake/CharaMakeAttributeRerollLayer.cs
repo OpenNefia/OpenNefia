@@ -340,9 +340,9 @@ namespace OpenNefia.Content.CharaMake
                 return;
             }
 
-            if (!_entityManager.TryGetComponent<CharaMakeSkillInitTempComponent>(entity, out var skills))
+            if (!EntityManager.TryGetComponent<CharaMakeSkillInitTempComponent>(entity, out var skills))
             {
-                skills = _entityManager.AddComponent<CharaMakeSkillInitTempComponent>(entity);
+                skills = EntityManager.AddComponent<CharaMakeSkillInitTempComponent>(entity);
             }
 
             foreach (var attribute in attributes)

@@ -66,5 +66,10 @@ namespace OpenNefia.Core.Locale
         {
             return _localization.GetPrototypeStringRaw(prototypeType, prototypeID, keySuffix, args);
         }
+
+        public static LocaleScope MakeScope(LocaleKey keyPrefix)
+        {
+            return new LocaleScope(_localization, keyPrefix);
+        }
     }
 }

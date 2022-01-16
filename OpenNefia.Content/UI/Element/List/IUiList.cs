@@ -14,6 +14,8 @@ namespace OpenNefia.Content.UI.Element.List
         void Select(int index);
         bool CanActivate(int index);
         void Activate(int index);
+
+        void Clear(bool dispose);
     }
 
     public interface IUiList<T> : IUiList, IList<UiListCell<T>>
