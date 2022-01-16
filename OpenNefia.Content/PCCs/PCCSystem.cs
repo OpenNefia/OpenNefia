@@ -14,13 +14,21 @@ namespace OpenNefia.Content.PCCs
 {
     public interface IPCCSystem : IEntitySystem
     {
+        /// <summary>
+        /// Gets the underlying PCC drawable for this entity, if it exists.
+        /// </summary>
         bool TryGetPCCDrawable(EntityUid uid, [NotNullWhen(true)] out PCCDrawable? pccDrawable, 
             PCCComponent? pccComp = null);
 
+        /// <summary>
+        /// Updates the PCC image on this entity, if it exists. Call this whenever you update the list of
+        /// <see cref="PCCComponent.PCCParts"/> on the entity's <see cref="PCCComponent"/>.
+        /// </summary>
         void RebakePCCImage(EntityUid uid, PCCComponent? pccComp = null);
 
         /// <summary>
-        /// Sets the PCC data for this entity, creating a <see cref="PCCComponent"/> on it if it's missing.
+        /// Sets the PCC data for this entity, creating a <see cref="PCCComponent"/> on it if it's missing,
+        /// and rebakes the PCC image.
         /// </summary>
         /// <param name="entity">Entity to set PCC data for.</param>
         /// <param name="parts">Set of PCC parts to use. This replaces any existing PCC parts.</param>
@@ -31,7 +39,7 @@ namespace OpenNefia.Content.PCCs
     {
         public const string DrawableID = "Elona.PCC";
 
-        [Dependency] private readonly IDrawablesSystem _drawables = default!;
+        [Dependency] private readonly IEntityDrawablesSystem _drawables = default!;
         [Dependency] private readonly IResourceCache _resourceCache = default!;
 
         public override void Initialize()

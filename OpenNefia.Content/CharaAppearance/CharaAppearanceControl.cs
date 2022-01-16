@@ -14,8 +14,9 @@ using OpenNefia.Core;
 using static OpenNefia.Content.Prototypes.Protos;
 using OpenNefia.Core.ResourceManagement;
 using OpenNefia.Core.Utility;
+using OpenNefia.Content.Charas;
 
-namespace OpenNefia.Content.Charas
+namespace OpenNefia.Content.CharaAppearance
 {
     public sealed class CharaAppearanceData
     {
@@ -59,7 +60,7 @@ namespace OpenNefia.Content.Charas
 
         public CharaAppearanceControl()
         {
-            AppearanceDeco = new AssetDrawable(Protos.Asset.DecoMirrorA);
+            AppearanceDeco = new AssetDrawable(Asset.DecoMirrorA);
             Category = new UiTextTopic(_locScope.GetString("Topic.Category"));
             Window = new UiWindow()
             {
@@ -100,7 +101,7 @@ namespace OpenNefia.Content.Charas
                 .Where(data => data.PCCPartTypes.Contains(type))
                 .FirstOrDefault();
 
-            return uiCell != null ? uiCell.CurrentValue : PCCConstants.DefaultPartColors.First();
+            return uiCell != null ? uiCell.CurrentValue : PCCConstants.DefaultPCCPartColors.First();
         }
 
         private void UpdatePCCPart(string partID, PCCPart? part)
@@ -113,8 +114,9 @@ namespace OpenNefia.Content.Charas
             {
                 AppearanceData.PCCDrawable.Parts[partID] = part;
                 part.Color = GetPCCPartColor(part.Type);
-                AppearanceData.PCCDrawable.RebakeImage(_resourceCache);
             }
+
+            AppearanceData.PCCDrawable.RebakeImage(_resourceCache);
         }
 
         private void UpdatePCCPartColors(IReadOnlySet<PCCPartType> pccPartTypes, Color newColor)
@@ -187,7 +189,7 @@ namespace OpenNefia.Content.Charas
             }
 
             var parts = PCCHelpers.GetGroupedPCCParts(_protos);
-            var partColors = PCCConstants.DefaultPartColors;
+            var partColors = PCCConstants.DefaultPCCPartColors;
             var portraits = _protos.EnumeratePrototypes<PortraitPrototype>();
 
             var pages = new CharaAppearanceList.Pages();

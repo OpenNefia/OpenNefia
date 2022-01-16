@@ -111,6 +111,14 @@ namespace OpenNefia.Core.Utility
         /// <param name="rune"></param>
         /// <returns></returns>
         public static int GetWideWidth(this Rune rune) => UnicodeWidth.GetWidth(rune);
+        
+        public static string WidePadRight(this string str, int totalWideWidth, char paddingChar = ' ')
+        {
+            var wideWidth = str.GetWideLength();
+            var needed = Math.Max(totalWideWidth - wideWidth, 0);
+
+            return $"{str}{new string(paddingChar, needed)}";
+        }
 
         /// <summary>
         /// Like <see cref="string.Substring(int, int)"/>, but operating on CJK width instead of character count.

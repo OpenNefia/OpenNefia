@@ -7,7 +7,7 @@ using OpenNefia.Core.Rendering;
 using OpenNefia.Core.UI.Element;
 using static OpenNefia.Content.UI.Element.UiTopicWindow;
 
-namespace OpenNefia.Content.Charas
+namespace OpenNefia.Content.CharaAppearance
 {
     public sealed class CharaAppearancePreviewPanel : UiElement
     {
@@ -69,8 +69,8 @@ namespace OpenNefia.Content.Charas
                 _pccFrame += delta;
             }
 
-            _data.PCCDrawable.Frame = Math.Clamp(((int)_pccFrame / 4) % 4, 0, 3);
-            _data.PCCDrawable.Direction = (PCCDirection)Math.Clamp(((int)_pccFrame / 16) % 4, 0, 3);
+            _data.PCCDrawable.Frame = Math.Clamp((int)_pccFrame / 4 % 4, 0, 3);
+            _data.PCCDrawable.Direction = (PCCDirection)Math.Clamp((int)_pccFrame / 16 % 4, 0, 3);
 
             WindowFrame.Update(dt);
         }
@@ -87,7 +87,7 @@ namespace OpenNefia.Content.Charas
             }
             else if (_data.UsePCC)
             {
-                _data.PCCDrawable.Draw(WindowFrame.X + 46 - 24, WindowFrame.Y + 59 - 12, 2.0f, 2.0f);
+                _data.PCCDrawable.Draw(WindowFrame.X + 44 - 24, WindowFrame.Y + 59 - 12, 2.0f, 2.0f);
             }
             else
             {

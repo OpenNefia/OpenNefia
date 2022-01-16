@@ -1,17 +1,8 @@
-﻿using OpenNefia.Content.UI.Element;
-using OpenNefia.Content.UI.Element.List;
+﻿using OpenNefia.Content.UI.Element.List;
 using OpenNefia.Content.Prototypes;
 using OpenNefia.Core.Audio;
-using OpenNefia.Core.Locale;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using OpenNefia.Core.Rendering;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.UI;
-using OpenNefia.Content.CharaMake;
 using OpenNefia.Core.UI.Layer;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.IoC;
@@ -19,7 +10,7 @@ using OpenNefia.Core.ResourceManagement;
 using OpenNefia.Content.PCCs;
 using OpenNefia.Core.GameObjects;
 
-namespace OpenNefia.Content.Charas
+namespace OpenNefia.Content.CharaAppearance
 {
     public class CharaAppearanceLayer : UiLayerWithResult<CharaAppearanceLayer.Args, UINone>
     {
@@ -49,7 +40,7 @@ namespace OpenNefia.Content.Charas
         }
 
         private void HandleWindowListOnActivated(object? sender, UiListEventArgs<CharaAppearanceUICellData> evt)
-        {          
+        {
             // FIXME: #35
             if (evt.Handled || evt.SelectedCell is not CharaAppearanceUIListCell cell)
                 return;
@@ -64,7 +55,7 @@ namespace OpenNefia.Content.Charas
         {
             _targetEntity = args.TargetEntity;
 
-            CharaAppearanceData appearanceData = CharaAppearanceHelpers.MakeAppearanceDataFrom(args.TargetEntity, 
+            CharaAppearanceData appearanceData = CharaAppearanceHelpers.MakeAppearanceDataFrom(args.TargetEntity,
                 _protos, _entityManager, _resourceCache, _pccs);
             AppearanceControl.Initialize(appearanceData);
         }

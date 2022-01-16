@@ -11,8 +11,9 @@ using OpenNefia.Core.UI.Element;
 using OpenNefia.Content.Prototypes;
 using static OpenNefia.Content.Prototypes.Protos;
 using OpenNefia.Core.Prototypes;
+using OpenNefia.Content.Charas;
 
-namespace OpenNefia.Content.Charas
+namespace OpenNefia.Content.CharaAppearance
 {
     public enum CharaAppearancePage
     {
@@ -24,7 +25,7 @@ namespace OpenNefia.Content.Charas
     {
         public virtual bool DrawArrows => true;
 
-        public virtual string Text => String.Empty;
+        public virtual string Text => string.Empty;
 
         public virtual void Change(int delta)
         {
@@ -51,7 +52,7 @@ namespace OpenNefia.Content.Charas
             private int _currentIndex;
 
             public override string Text
-            { 
+            {
                 get
                 {
                     if (CurrentValue == null || CurrentValue.GetStrongID() == Protos.Portrait.Default)
@@ -127,8 +128,8 @@ namespace OpenNefia.Content.Charas
 
             public override void Change(int delta)
             {
-                // + 1 extra for the "no part here" choice in index 0
-                _currentIndex = MathHelper.Wrap(_currentIndex + delta, 0, (_parts.Count - 1) + 1); 
+                // +1 extra for the "no part here" choice in index 0
+                _currentIndex = MathHelper.Wrap(_currentIndex + delta, 0, _parts.Count - 1 + 1);
             }
         }
 
@@ -183,28 +184,35 @@ namespace OpenNefia.Content.Charas
         private IAssetDrawable AssetArrowLeft;
         private IAssetDrawable AssetArrowRight;
 
-        private IUiText ValueText = new UiText();
+        private string _baseText;
 
         public CharaAppearanceUIListCell(CharaAppearanceUICellData data, string text)
             : base(data, new UiText(text))
         {
+            _baseText = text;
+
             AssetArrowLeft = new AssetDrawable(Asset.ArrowLeft);
             AssetArrowRight = new AssetDrawable(Asset.ArrowRight);
 
             RebuildText();
         }
 
-        private void RebuildText()
+        public void RebuildText()
         {
-            ValueText.Text = Data.Text;
+            var valueText = Data.Text;
+            var baseText = _baseText;
+
+            if (valueText != string.Empty)
+                baseText = baseText.WidePadRight(8, ' ').WideSubstring(0, 8);
+
+            UiText.Text = $"{baseText} {valueText}";
         }
 
         public override void SetSize(int width, int height)
         {
             base.SetSize(width, height);
             AssetArrowLeft.SetPreferredSize();
-            UiText.SetSize(55, UiText.Height);
-            ValueText.SetSize(55, UiText.Height);
+            UiText.SetSize(110, UiText.Height);
             AssetArrowRight.SetPreferredSize();
         }
 
@@ -213,9 +221,7 @@ namespace OpenNefia.Content.Charas
             base.SetPosition(x, y);
             AssetArrowLeft.SetPosition(X, Y - 2);
             UiText.SetPosition(AssetArrowLeft.GlobalPixelBounds.Right + 5, Y + 2);
-            var padding = UiText.Font.LoveFont.GetWidth(new string(' ', 8));
-            ValueText.SetPosition(UiText.X + padding, Y + 2);
-            AssetArrowRight.SetPosition(ValueText.GlobalPixelBounds.Right + 5 + 1, Y - 2);
+            AssetArrowRight.SetPosition(UiText.GlobalPixelBounds.Right + 5 + 1, Y - 2);
         }
 
         public void Change(int delta)
@@ -227,7 +233,6 @@ namespace OpenNefia.Content.Charas
         public override void Update(float dt)
         {
             UiText.Update(dt);
-            ValueText.Update(dt);
             AssetArrowLeft.Update(dt);
             AssetArrowRight.Update(dt);
         }
@@ -235,7 +240,6 @@ namespace OpenNefia.Content.Charas
         public override void Draw()
         {
             UiText.Draw();
-            ValueText.Draw();
 
             if (Data.DrawArrows)
             {
@@ -356,6 +360,8 @@ namespace OpenNefia.Content.Charas
                         customChara.UsePCC = data.UsePCC;
                         break;
                 }
+
+                cell.RebuildText();
             }
         }
     }

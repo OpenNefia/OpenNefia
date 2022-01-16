@@ -4,6 +4,14 @@ using OpenNefia.Core.Utility;
 
 namespace OpenNefia.Content.PCCs
 {
+    /// <summary>
+    /// A single instantiated PCC part.
+    /// </summary>
+    /// <remarks>
+    /// Prototypes/theming aren't supported here, mostly because PCC parts
+    /// are a big collection of different choices meant to be added to, so
+    /// it becomes unclear which parts should replace others.
+    /// </remarks>
     [DataDefinition]
     public sealed class PCCPart
     {
@@ -17,13 +25,13 @@ namespace OpenNefia.Content.PCCs
         public Color Color { get; set; } = Color.White;
 
         [DataField]
-        public int? ZOrder { get; set; }
+        public int ZOrder { get; set; }
 
         public PCCPart()
         {
         }
 
-        public PCCPart(PCCPartType type, ResourcePath imagePath, Color color, int? zOrder = null)
+        public PCCPart(PCCPartType type, ResourcePath imagePath, Color color, int zOrder)
         {
             Type = type;
             ImagePath = imagePath;

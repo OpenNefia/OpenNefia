@@ -1,26 +1,21 @@
-﻿using OpenNefia.Content.PCCs;
+﻿using OpenNefia.Content.Charas;
+using OpenNefia.Content.PCCs;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Core.ResourceManagement;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static NetVips.Enums;
 using static OpenNefia.Content.Prototypes.Protos;
 
-namespace OpenNefia.Content.Charas
+namespace OpenNefia.Content.CharaAppearance
 {
     public static class CharaAppearanceHelpers
     {
         public static CharaAppearanceData MakeDefaultAppearanceData(IPrototypeManager protos, IResourceCache resourceCache)
         {
             ChipPrototype chipProto = protos.Index(Chip.Default);
-            PortraitPrototype portraitProto = protos.Index(Portrait.Default);
-            PCCDrawable pccDrawable = PCCHelpers.CreateDefaultPCCFromLayout(PCCConstants.DefaultPartLayout, protos, resourceCache);
+            PortraitPrototype portraitProto = protos.EnumeratePrototypes<PortraitPrototype>().Where(p => p.GetStrongID() != Portrait.Default).First();
+            PCCDrawable pccDrawable = PCCHelpers.CreateDefaultPCCFromLayout(PCCConstants.DefaultPCCPartLayout, protos, resourceCache);
 
             var appearanceData = new CharaAppearanceData(chipProto, Color.White, portraitProto, pccDrawable, true);
             return appearanceData;
@@ -58,7 +53,7 @@ namespace OpenNefia.Content.Charas
             }
             else
             {
-                pccDrawable = PCCHelpers.CreateDefaultPCCFromLayout(PCCConstants.DefaultPartLayout, protos, resourceCache);
+                pccDrawable = PCCHelpers.CreateDefaultPCCFromLayout(PCCConstants.DefaultPCCPartLayout, protos, resourceCache);
             }
 
             var appearanceData = new CharaAppearanceData(chipProto, chipColor, portraitProto, pccDrawable, usePCC);

@@ -1,15 +1,14 @@
 ﻿using OpenNefia.Core.Maths;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using OpenNefia.Content.CharaAppearance;
 
 namespace OpenNefia.Content.PCCs
 {
     public static class PCCConstants
     {
-        public static readonly Color[] DefaultPartColors =
+        /// <summary>
+        /// The default set of PCC part colors selectable in the <see cref="CharaAppearanceControl"/>.
+        /// </summary>
+        public static readonly Color[] DefaultPCCPartColors =
         {
             new (255, 255, 255, 255),
             new (175, 255, 175, 255),
@@ -32,6 +31,14 @@ namespace OpenNefia.Content.PCCs
             new (210, 250, 160, 255),
         };
 
+        /// <summary>
+        /// Fallback Z-order for unknown PCC part types.
+        /// </summary>
+        public const int DefaultPCCPartZOrder = 100000;
+
+        /// <summary>
+        /// Default Z-ordering for all PCC part types.
+        /// </summary>
         // TODO less hardcoding
         public static readonly IReadOnlyDictionary<PCCPartType, int> DefaultPartZOrders
             = new Dictionary<PCCPartType, int>()
@@ -58,32 +65,15 @@ namespace OpenNefia.Content.PCCs
         /// <summary>
         /// The set of PCC parts that should be set by default.
         /// </summary>
-        /// <remarks>
-        /// This is necessary since characters can set more than one <see cref="PCCPartType.Etc"/> 
-        /// slot in the appearance settings menu.
-        /// </remarks>
-        public static readonly IReadOnlyDictionary<string, PCCPartType> DefaultPartLayout
+        public static readonly IReadOnlyDictionary<string, PCCPartType> DefaultPCCPartLayout
             = new Dictionary<string, PCCPartType>()
         {
-            // { PCCPartSlots.Mantle,   PCCPartType.Mantle },
-            // { PCCPartSlots.Hairbk,   PCCPartType.Hairbk },
-            // { PCCPartSlots.Ridebk,   PCCPartType.Ridebk },
             { PCCPartSlots.Body,     PCCPartType.Body },
             { PCCPartSlots.Eye,      PCCPartType.Eye },
             { PCCPartSlots.Pants,    PCCPartType.Pants },
             { PCCPartSlots.Cloth,    PCCPartType.Cloth },
-            { PCCPartSlots.Chest,    PCCPartType.Chest },
-            { PCCPartSlots.Leg,      PCCPartType.Leg },
-            // { PCCPartSlots.Belt,     PCCPartType.Belt },
-            // { PCCPartSlots.Glove,    PCCPartType.Glove },
-            // { PCCPartSlots.Ride,     PCCPartType.Ride },
-            // { PCCPartSlots.Mantlebk, PCCPartType.Mantlebk },
             { PCCPartSlots.Hair,     PCCPartType.Hair },
             { PCCPartSlots.SubHair,  PCCPartType.Subhair },
-            { PCCPartSlots.Etc1,     PCCPartType.Etc },
-            { PCCPartSlots.Etc2,     PCCPartType.Etc },
-            { PCCPartSlots.Etc3,     PCCPartType.Etc },
-            // { PCCPartSlots.Boots,    PCCPartType.Boots }
         };
     }
 }

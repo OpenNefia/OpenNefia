@@ -8,12 +8,33 @@ using System.Threading.Tasks;
 
 namespace OpenNefia.Content.PCCs
 {
+    /// <summary>
+    /// Holds PCC data that is not tied to renderer state.
+    /// </summary>
     [RegisterComponent]
     public sealed class PCCComponent : Component
     {
         public override string Name => "PCC";
 
+        /// <summary>
+        /// List of PCC parts. Be sure to call <see cref="IPCCSystem.RebakePCCImage(EntityUid, PCCComponent?)"/>
+        /// if you modify this.
+        /// </summary>
         [DataField("pccParts")]
         public Dictionary<string, PCCPart> PCCParts { get; } = new();
+
+        /// <summary>
+        /// Direction the PCC is facing.
+        /// </summary>
+        [DataField("pccDirection")]
+        public PCCDirection PCCDirection { get; set; }
+    }
+
+    public enum PCCDirection
+    {
+        South = 0,
+        West = 1,
+        North = 2,
+        East = 3
     }
 }

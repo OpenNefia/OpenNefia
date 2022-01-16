@@ -33,6 +33,9 @@ namespace OpenNefia.Content.PCCs
             }
         }
 
+        /// <summary>
+        /// Gets a dictionary of all the PCC parts grouped by their <see cref="PCCPartType"/>.
+        /// </summary>
         public static Dictionary<PCCPartType, List<PCCPartPrototype>> GetGroupedPCCPartPrototypes(IPrototypeManager protos)
         {
             return protos
@@ -41,6 +44,9 @@ namespace OpenNefia.Content.PCCs
                 .ToDictionary(group => group.Key, group => group.ToList());
         }
 
+        /// <summary>
+        /// Instantiates all PCC part prototypes as <see cref="PCCPart"/> instances, grouped by PCC part type.
+        /// </summary>
         public static Dictionary<PCCPartType, List<PCCPart>> GetGroupedPCCParts(IPrototypeManager protos)
         {
             return GetGroupedPCCPartPrototypes(protos)
@@ -48,13 +54,30 @@ namespace OpenNefia.Content.PCCs
                               pair => pair.Value.Select(MakePCCPartFromPrototype).ToList());
         }
 
-        private static PCCPart MakePCCPartFromPrototype(PCCPartPrototype proto)
+        public static int GetPCCPartTypeZOrder(PCCPartType type)
         {
-            return new PCCPart(proto.PCCPartType, proto.ImagePath, Color.White);
+            return PCCConstants.DefaultPartZOrders.GetValueOr(type, PCCConstants.DefaultPCCPartZOrder);
         }
 
+        /// <summary>
+        /// Makes a <see cref="PCCPart"/> from a <see cref="PCCPartPrototype"/>.
+        /// </summary>
+        private static PCCPart MakePCCPartFromPrototype(PCCPartPrototype proto)
+        {
+            var zOrder = GetPCCPartTypeZOrder(proto.PCCPartType);
+            return new PCCPart(proto.PCCPartType, proto.ImagePath, Color.White, zOrder);
+        }
+
+        /// <summary>
+        /// Initializes a new PCC drawable from a given mapping of PCC slot ID names to the types of PCC parts
+        /// those slots should start with.
+        /// </summary>
+        /// <param name="partLayout">Map of PCC slot name -> PCC part type.</param>
         public static PCCDrawable CreateDefaultPCCFromLayout(IReadOnlyDictionary<string, PCCPartType> partLayout, IPrototypeManager protos, IResourceCache resourceCache)
         {
+            // Grab the first PCC part by prototype order.
+            // (Unlike with chips/portraits, there is no "default" PCC part prototype, so First() will
+            // always return an actual PCC part here.)
             var defaultParts = GetGroupedPCCParts(protos)
                 .ToDictionary(pair => pair.Key, pair => pair.Value.First());
 

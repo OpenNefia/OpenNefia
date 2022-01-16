@@ -158,6 +158,7 @@ namespace OpenNefia.Core.Rendering
         public static void WithCanvas(Love.Canvas canvas, Action callback)
         {
             var oldCanvas = Love.Graphics.GetCanvas();
+            var oldColor = Love.Graphics.GetColor();
             Love.Graphics.GetBlendMode(out var oldBlendMode, out var oldBlendAlphaMode);
 
             Love.Graphics.SetCanvas(canvas);
@@ -166,6 +167,7 @@ namespace OpenNefia.Core.Rendering
             callback();
 
             Love.Graphics.SetCanvas(oldCanvas);
+            Love.Graphics.SetColor(oldColor);
             Love.Graphics.SetBlendMode(oldBlendMode, oldBlendAlphaMode);
         }
     }

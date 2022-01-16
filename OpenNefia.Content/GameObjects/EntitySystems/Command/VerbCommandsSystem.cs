@@ -27,7 +27,6 @@ namespace OpenNefia.Content.GameObjects
     {
         [Dependency] private readonly IEntityLookup _lookup = default!;
         [Dependency] private readonly IVerbSystem _verbSystem = default!;
-        [Dependency] private readonly IFieldLayer _field = default!;
         [Dependency] private readonly IUserInterfaceManager _uiMgr = default!;
 
         public override void Initialize()
