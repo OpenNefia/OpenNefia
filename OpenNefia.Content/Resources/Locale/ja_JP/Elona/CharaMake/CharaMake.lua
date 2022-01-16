@@ -91,4 +91,8 @@ Elona.CharaMake = {
     AppearanceSelect = {
         Caption = "君の見た目を知っておきたいな。まあ、後からいつでも変えられるけどね。",
     },
+
+    CharaSheet = {
+        Caption = "決定ｷｰを押すことで、生い立ちをリロールできる。",
+    },
 }
