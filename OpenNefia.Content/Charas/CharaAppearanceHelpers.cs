@@ -20,7 +20,7 @@ namespace OpenNefia.Content.Charas
         {
             ChipPrototype chipProto = protos.Index(Chip.Default);
             PortraitPrototype portraitProto = protos.Index(Portrait.Default);
-            PCCDrawable pccDrawable = PCCHelpers.MakeDefaultPCC(protos, resourceCache);
+            PCCDrawable pccDrawable = PCCHelpers.CreateDefaultPCCFromLayout(PCCConstants.DefaultPartLayout, protos, resourceCache);
 
             var appearanceData = new CharaAppearanceData(chipProto, Color.White, portraitProto, pccDrawable, true);
             return appearanceData;
@@ -58,7 +58,7 @@ namespace OpenNefia.Content.Charas
             }
             else
             {
-                pccDrawable = PCCHelpers.MakeDefaultPCC(protos, resourceCache);
+                pccDrawable = PCCHelpers.CreateDefaultPCCFromLayout(PCCConstants.DefaultPartLayout, protos, resourceCache);
             }
 
             var appearanceData = new CharaAppearanceData(chipProto, chipColor, portraitProto, pccDrawable, usePCC);

@@ -6,14 +6,11 @@ using OpenNefia.Core.Input;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.Rendering;
+using OpenNefia.Core.Utility;
 using OpenNefia.Core.UI.Element;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static OpenNefia.Content.Charas.CharaAppearanceWindow;
+using OpenNefia.Content.Prototypes;
 using static OpenNefia.Content.Prototypes.Protos;
+using OpenNefia.Core.Prototypes;
 
 namespace OpenNefia.Content.Charas
 {
@@ -27,7 +24,7 @@ namespace OpenNefia.Content.Charas
     {
         public virtual bool DrawArrows => true;
 
-        public virtual string Text => "";
+        public virtual string Text => String.Empty;
 
         public virtual void Change(int delta)
         {
@@ -53,7 +50,17 @@ namespace OpenNefia.Content.Charas
             private List<PortraitPrototype> _portraits;
             private int _currentIndex;
 
-            public override string Text => _currentIndex.ToString();
+            public override string Text
+            { 
+                get
+                {
+                    if (CurrentValue == null || CurrentValue.GetStrongID() == Protos.Portrait.Default)
+                        return "N/A";
+
+                    // the default portrait should be the first in the list.
+                    return (_currentIndex - 1).ToString();
+                }
+            }
 
             public PortraitPrototype? CurrentValue
             {
@@ -63,16 +70,24 @@ namespace OpenNefia.Content.Charas
                         return null;
                     return _portraits[_currentIndex];
                 }
+                set
+                {
+                    if (value == null)
+                        _currentIndex = 0;
+                    else
+                        _currentIndex = Math.Clamp(_portraits.IndexOf(value), 0, _portraits.Count - 1);
+                }
             }
 
             public Portrait(IEnumerable<PortraitPrototype> portraits)
             {
                 _portraits = portraits.ToList();
+                _portraits.MoveElementWhere(x => x.GetStrongID() == Protos.Portrait.Default, 0);
             }
 
             public override void Change(int delta)
             {
-                _currentIndex = (_currentIndex + delta) % _portraits.Count;
+                _currentIndex = MathHelper.Wrap(_currentIndex + delta, 0, _portraits.Count - 1);
             }
         }
 
@@ -89,9 +104,18 @@ namespace OpenNefia.Content.Charas
             {
                 get
                 {
-                    if (_parts.Count == 0)
+                    // index 0 counts as "no part in this slot."
+                    if (_parts.Count == 0 || _currentIndex == 0)
                         return null;
-                    return _parts[_currentIndex];
+
+                    return _parts[_currentIndex - 1];
+                }
+                set
+                {
+                    if (value == null)
+                        _currentIndex = 0;
+                    else
+                        _currentIndex = Math.Clamp(_parts.FindIndex(x => x.ImagePath == value.ImagePath), 0, _parts.Count - 1) + 1;
                 }
             }
 
@@ -103,13 +127,14 @@ namespace OpenNefia.Content.Charas
 
             public override void Change(int delta)
             {
-                _currentIndex = (_currentIndex + delta) % _parts.Count;
+                // + 1 extra for the "no part here" choice in index 0
+                _currentIndex = MathHelper.Wrap(_currentIndex + delta, 0, (_parts.Count - 1) + 1); 
             }
         }
 
         public sealed class PCCPartColor : CharaAppearanceUICellData
         {
-            public PCCPartType[] PCCPartTypes { get; }
+            public HashSet<PCCPartType> PCCPartTypes { get; }
 
             private List<Color> _colors;
             private int _currentIndex;
@@ -119,23 +144,29 @@ namespace OpenNefia.Content.Charas
             public Color CurrentValue
             {
                 get => _colors.ElementAtOrDefault(_currentIndex);
+                set
+                {
+                    _currentIndex = Math.Clamp(_colors.IndexOf(value), 0, _colors.Count - 1);
+                }
             }
 
-            public PCCPartColor(IEnumerable<Color> colors, PCCPartType[] pccPartTypes)
+            public PCCPartColor(IEnumerable<Color> colors, IEnumerable<PCCPartType> pccPartTypes)
             {
                 _colors = colors.ToList();
-                PCCPartTypes = pccPartTypes;
+                PCCPartTypes = pccPartTypes.ToHashSet();
             }
 
             public override void Change(int delta)
             {
-                _currentIndex = (_currentIndex + delta) % _colors.Count;
+                _currentIndex = MathHelper.Wrap(_currentIndex + delta, 0, _colors.Count - 1);
             }
         }
 
         public sealed class CustomChara : CharaAppearanceUICellData
         {
             public bool UsePCC { get; set; }
+
+            public override string Text => UsePCC ? "1" : "0";
 
             public override void Change(int delta)
             {
@@ -224,8 +255,6 @@ namespace OpenNefia.Content.Charas
 
         private Pages _pages = new();
 
-        private CharaAppearanceData _data = default!;
-
         public event AppearanceListItemChangedDelegate? OnAppearanceItemChanged;
 
         public CharaAppearanceList() : base()
@@ -233,19 +262,22 @@ namespace OpenNefia.Content.Charas
             OnActivated += HandleActivated;
         }
 
-        public void Initialize(CharaAppearanceData data, Pages pages)
+        public void Initialize(Pages pages, CharaAppearanceData data)
         {
             IoCManager.InjectDependencies(this);
 
-            _data = data;
             _pages = pages;
+
+            SetListValuesFromAppearanceData(data);
+
             ChangePage(CharaAppearancePage.Basic);
         }
 
         public void ChangePage(CharaAppearancePage page)
         {
-            Clear();
+            Clear(dispose: false);
             AddRange(_pages[page]);
+            UpdateAllCells();
         }
 
         protected override void HandleKeyBindDown(GUIBoundKeyEventArgs args)
@@ -292,6 +324,39 @@ namespace OpenNefia.Content.Charas
             OnAppearanceItemChanged?.Invoke(cell, delta);
 
             Sounds.Play(Sound.Cursor1);
+        }
+
+        /// <summary>
+        /// Binds the values in the appearance data to their UI elements.
+        /// </summary>
+        private void SetListValuesFromAppearanceData(CharaAppearanceData data)
+        {
+            foreach (var cell in _pages.Values.SelectMany(x => x))
+            {
+                switch (cell.Data)
+                {
+                    case CharaAppearanceUICellData.Portrait portrait:
+                        portrait.CurrentValue = data.PortraitProto;
+                        break;
+                    case CharaAppearanceUICellData.PCCPart pccPart:
+                        if (data.PCCDrawable.Parts.TryGetValue(pccPart.PartID, out var part))
+                        {
+                            pccPart.CurrentValue = part;
+                        }
+                        break;
+                    case CharaAppearanceUICellData.PCCPartColor pccPartColor:
+                        // Find the first PCC part with the target type.
+                        var firstPCCPart = data.PCCDrawable.Parts.Values.FirstOrDefault(part => pccPartColor.PCCPartTypes.Contains(part.Type));
+                        if (firstPCCPart != null)
+                        {
+                            pccPartColor.CurrentValue = firstPCCPart.Color;
+                        }
+                        break;
+                    case CharaAppearanceUICellData.CustomChara customChara:
+                        customChara.UsePCC = data.UsePCC;
+                        break;
+                }
+            }
         }
     }
 }

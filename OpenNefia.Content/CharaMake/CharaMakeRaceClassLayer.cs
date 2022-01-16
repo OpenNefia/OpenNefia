@@ -50,7 +50,7 @@ namespace OpenNefia.Content.CharaMake
                 return;
             }
 
-            if (!_entityManager.TryGetComponent<CharaComponent>(entity, out var chara))
+            if (!EntityManager.TryGetComponent<CharaComponent>(entity, out var chara))
             {
                 Logger.WarningS("charamake", "No CharaComponent present on entity");
                 return;
@@ -142,7 +142,7 @@ namespace OpenNefia.Content.CharaMake
                 return;
             }
 
-            if (!_entityManager.TryGetComponent<CharaComponent>(entity, out var chara))
+            if (!EntityManager.TryGetComponent<CharaComponent>(entity, out var chara))
             {
                 Logger.WarningS("charamake", "No CharaComponent present on entity");
                 return;

@@ -384,10 +384,14 @@ namespace OpenNefia.Content.UI.Element.List
             _needsUpdate = true;
         }
 
-        public void Clear()
+        public void Clear() => Clear(true);
+        public void Clear(bool dispose)
         {
-            foreach (var cell in AllCells)
-                cell.Dispose();
+            if (dispose)
+            {
+                foreach (var cell in AllCells)
+                    cell.Dispose();
+            }
 
             AllCells.Clear();
             _needsUpdate = true;

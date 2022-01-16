@@ -21,7 +21,6 @@ using OpenNefia.Core.GameObjects;
 
 namespace OpenNefia.Content.Charas
 {
-    [Localize("Elona.CharaMake.AppearanceSelect")]
     public class CharaAppearanceLayer : UiLayerWithResult<CharaAppearanceLayer.Args, UINone>
     {
         public class Args
@@ -41,12 +40,12 @@ namespace OpenNefia.Content.Charas
 
         private EntityUid _targetEntity;
 
-        private CharaAppearanceWindow AppearanceWindow = new();
+        private CharaAppearanceControl AppearanceControl = new();
 
         public CharaAppearanceLayer()
         {
-            AppearanceWindow.List_OnActivated += HandleWindowListOnActivated;
-            AddChild(AppearanceWindow);
+            AppearanceControl.List_OnActivated += HandleWindowListOnActivated;
+            AddChild(AppearanceControl);
         }
 
         private void HandleWindowListOnActivated(object? sender, UiListEventArgs<CharaAppearanceUICellData> evt)
@@ -67,7 +66,7 @@ namespace OpenNefia.Content.Charas
 
             CharaAppearanceData appearanceData = CharaAppearanceHelpers.MakeAppearanceDataFrom(args.TargetEntity, 
                 _protos, _entityManager, _resourceCache, _pccs);
-            AppearanceWindow.Initialize(appearanceData);
+            AppearanceControl.Initialize(appearanceData);
         }
 
         public override void OnQuery()
@@ -79,43 +78,43 @@ namespace OpenNefia.Content.Charas
         public override void GrabFocus()
         {
             base.GrabFocus();
-            AppearanceWindow.GrabFocus();
+            AppearanceControl.GrabFocus();
         }
 
         public override void GetPreferredBounds(out UIBox2i bounds)
         {
-            AppearanceWindow.GetPreferredSize(out var size);
+            AppearanceControl.GetPreferredSize(out var size);
             UiUtils.GetCenteredParams(size, out bounds, yOffset: -15);
         }
 
         public override void SetSize(int width, int height)
         {
             base.SetSize(width, height);
-            AppearanceWindow.SetSize(Width, Height);
+            AppearanceControl.SetSize(Width, Height);
         }
 
         public override void SetPosition(int x, int y)
         {
             base.SetPosition(x, y);
-            AppearanceWindow.SetPosition(X, Y);
+            AppearanceControl.SetPosition(X, Y);
         }
 
         public override void Draw()
         {
             base.Draw();
-            AppearanceWindow.Draw();
+            AppearanceControl.Draw();
         }
 
         public override void Update(float dt)
         {
             base.Update(dt);
-            AppearanceWindow.Update(dt);
+            AppearanceControl.Update(dt);
         }
 
         public override void Dispose()
         {
             base.Dispose();
-            AppearanceWindow.Dispose();
+            AppearanceControl.Dispose();
         }
     }
 }

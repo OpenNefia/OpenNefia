@@ -111,7 +111,7 @@ namespace OpenNefia.Content.CharaMake
                 return;
             }
 
-            if (!_entityManager.TryGetComponent<FeatsComponent>(entity, out var featsComponent))
+            if (!EntityManager.TryGetComponent<FeatsComponent>(entity, out var featsComponent))
             {
                 Logger.WarningS("charamake", "No FeatsComponent present on entity");
                 return;

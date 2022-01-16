@@ -1,4 +1,4 @@
-Elona.CharaAppearance.Layer = {
+Elona.CharaAppearance.Control = {
     Window = {
         Title = {
             Appearance = "肖像の変更",

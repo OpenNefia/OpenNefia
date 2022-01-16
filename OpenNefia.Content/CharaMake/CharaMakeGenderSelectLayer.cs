@@ -43,7 +43,7 @@ namespace OpenNefia.Content.CharaMake
         [Localize] private UiWindow Window = new();
         [Localize] private UiTextTopic GenderTopic = new();
 
-        private const string ResultName = "gender";
+        public const string ResultName = "gender";
 
         private UiList<Gender> List = new();
 
@@ -126,7 +126,7 @@ namespace OpenNefia.Content.CharaMake
                 return;
             }
 
-            if (!_entityManager.TryGetComponent<CharaComponent>(entity, out var chara))
+            if (!EntityManager.TryGetComponent<CharaComponent>(entity, out var chara))
             {
                 Logger.WarningS("charamake", "No CharaComponent present on entity");
                 return;

@@ -53,7 +53,7 @@ namespace OpenNefia.Content.PCCs
             return new PCCPart(proto.PCCPartType, proto.ImagePath, Color.White);
         }
 
-        public static PCCDrawable MakeDefaultPCC(IReadOnlyDictionary<string, PCCPartType> partLayout, IPrototypeManager protos, IResourceCache resourceCache)
+        public static PCCDrawable CreateDefaultPCCFromLayout(IReadOnlyDictionary<string, PCCPartType> partLayout, IPrototypeManager protos, IResourceCache resourceCache)
         {
             var defaultParts = GetGroupedPCCParts(protos)
                 .ToDictionary(pair => pair.Key, pair => pair.Value.First());

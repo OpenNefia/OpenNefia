@@ -12,11 +12,15 @@ using OpenNefia.Core.Rendering;
 using OpenNefia.Content.Charas;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.UI;
-using static OpenNefia.Content.Charas.CharaAppearanceWindow;
+using static OpenNefia.Content.Charas.CharaAppearanceControl;
 using OpenNefia.Core.ResourceManagement;
 using static NetVips.Enums;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Prototypes;
+using OpenNefia.Core.GameObjects;
+using OpenNefia.Content.PCCs;
+using OpenNefia.Content.Feats;
+using OpenNefia.Core.Log;
 
 namespace OpenNefia.Content.CharaMake
 {
@@ -24,14 +28,17 @@ namespace OpenNefia.Content.CharaMake
     {
         [Dependency] private readonly IPrototypeManager _protos = default!;
         [Dependency] private readonly IResourceCache _resourceCache = default!;
+        [Dependency] private readonly IPCCSystem _pccs = default!;
 
-        private CharaAppearanceWindow AppearanceWindow = new();
+        public const string ResultName = "appearance";
+
+        private CharaAppearanceControl AppearanceControl = new();
 
         public CharaMakeAppearanceLayer()
         {
-            AddChild(AppearanceWindow);
+            AddChild(AppearanceControl);
 
-            AppearanceWindow.List_OnActivated += OnListActivated;
+            AppearanceControl.List_OnActivated += OnListActivated;
         }
 
         private void OnListActivated(object? sender, UiListEventArgs<CharaAppearanceUICellData> args)
@@ -41,9 +48,33 @@ namespace OpenNefia.Content.CharaMake
                 case CharaAppearanceUICellData.Done:
                     Finish(new CharaMakeResult(new Dictionary<string, object>
                     {
-
+                        { ResultName, AppearanceControl.AppearanceData }
                     }));
                     break;
+            }
+        }
+
+        private PrototypeId<ChipPrototype> GetDefaultCharaChip()
+        {
+            if (!Data.TryGetValue<Gender>(CharaMakeGenderSelectLayer.ResultName, out var gender))
+            {
+                gender = Gender.Female;
+                Logger.WarningS("charamake", $"No '{CharaMakeGenderSelectLayer.ResultName}' result in CharaMakeData");
+            }
+
+            if (!Data.TryGetValue<RacePrototype>(CharaMakeRaceSelectLayer.ResultName, out var race))
+            {
+                Logger.WarningS("charamake", $"No '{CharaMakeRaceSelectLayer.ResultName}' result in CharaMakeData");
+                return Protos.Chip.Default;
+            }
+
+            switch (gender)
+            {
+                case Gender.Male:
+                    return race.ChipMale;
+                case Gender.Female:
+                default:
+                    return race.ChipFemale;
             }
         }
 
@@ -52,7 +83,10 @@ namespace OpenNefia.Content.CharaMake
             base.Initialize(args);
 
             var appearanceData = CharaAppearanceHelpers.MakeDefaultAppearanceData(_protos, _resourceCache);
-            AppearanceWindow.Initialize(appearanceData);
+
+            appearanceData.ChipProto = _protos.Index(GetDefaultCharaChip());
+
+            AppearanceControl.Initialize(appearanceData);
         }
 
         public override void OnQuery()
@@ -64,43 +98,59 @@ namespace OpenNefia.Content.CharaMake
         public override void GrabFocus()
         {
             base.GrabFocus();
-            AppearanceWindow.GrabFocus();
+            AppearanceControl.GrabFocus();
         }
 
         public override void GetPreferredBounds(out UIBox2i bounds)
         {
-            AppearanceWindow.GetPreferredSize(out var size);
+            AppearanceControl.GetPreferredSize(out var size);
             UiUtils.GetCenteredParams(size, out bounds, yOffset: -15);
         }
 
         public override void SetSize(int width, int height)
         {
             base.SetSize(width, height);
-            AppearanceWindow.SetSize(Width, Height);
+            AppearanceControl.SetSize(Width, Height);
         }
 
         public override void SetPosition(int x, int y)
         {
             base.SetPosition(x, y);
-            AppearanceWindow.SetPosition(X, Y);
+            AppearanceControl.SetPosition(X, Y);
         }
 
         public override void Draw()
         {
             base.Draw();
-            AppearanceWindow.Draw();
+            AppearanceControl.Draw();
         }
 
         public override void Update(float dt)
         {
             base.Update(dt);
-            AppearanceWindow.Update(dt);
+            AppearanceControl.Update(dt);
         }
 
         public override void Dispose()
         {
             base.Dispose();
-            AppearanceWindow.Dispose();
+            AppearanceControl.Dispose();
+        }
+
+        public override void ApplyStep(EntityUid entity)
+        {
+            base.ApplyStep(entity);
+            if (!Data.TryGetValue<CharaAppearanceData>(ResultName, out var appearance))
+            {
+                Logger.WarningS("charamake", $"No '{ResultName}' result in CharaMakeData");
+                return;
+            }
+
+            if (appearance.UsePCC)
+            {
+                var pccComp = EntityManager.EnsureComponent<PCCComponent>(entity);
+                _pccs.SetPCCParts(entity, appearance.PCCDrawable.Parts, pccComp);
+            }
         }
     }
 }

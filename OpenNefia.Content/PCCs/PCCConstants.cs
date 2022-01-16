@@ -65,25 +65,25 @@ namespace OpenNefia.Content.PCCs
         public static readonly IReadOnlyDictionary<string, PCCPartType> DefaultPartLayout
             = new Dictionary<string, PCCPartType>()
         {
-            { PCCPartSlots.Mantle,   PCCPartType.Mantle },
-            { PCCPartSlots.Hairbk,   PCCPartType.Hairbk },
-            { PCCPartSlots.Ridebk,   PCCPartType.Ridebk },
+            // { PCCPartSlots.Mantle,   PCCPartType.Mantle },
+            // { PCCPartSlots.Hairbk,   PCCPartType.Hairbk },
+            // { PCCPartSlots.Ridebk,   PCCPartType.Ridebk },
             { PCCPartSlots.Body,     PCCPartType.Body },
             { PCCPartSlots.Eye,      PCCPartType.Eye },
             { PCCPartSlots.Pants,    PCCPartType.Pants },
             { PCCPartSlots.Cloth,    PCCPartType.Cloth },
             { PCCPartSlots.Chest,    PCCPartType.Chest },
             { PCCPartSlots.Leg,      PCCPartType.Leg },
-            { PCCPartSlots.Belt,     PCCPartType.Belt },
-            { PCCPartSlots.Glove,    PCCPartType.Glove },
-            { PCCPartSlots.Ride,     PCCPartType.Ride },
-            { PCCPartSlots.Mantlebk, PCCPartType.Mantlebk },
+            // { PCCPartSlots.Belt,     PCCPartType.Belt },
+            // { PCCPartSlots.Glove,    PCCPartType.Glove },
+            // { PCCPartSlots.Ride,     PCCPartType.Ride },
+            // { PCCPartSlots.Mantlebk, PCCPartType.Mantlebk },
             { PCCPartSlots.Hair,     PCCPartType.Hair },
             { PCCPartSlots.SubHair,  PCCPartType.Subhair },
             { PCCPartSlots.Etc1,     PCCPartType.Etc },
             { PCCPartSlots.Etc2,     PCCPartType.Etc },
             { PCCPartSlots.Etc3,     PCCPartType.Etc },
-            { PCCPartSlots.Boots,    PCCPartType.Boots }
+            // { PCCPartSlots.Boots,    PCCPartType.Boots }
         };
     }
 }
