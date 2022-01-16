@@ -43,7 +43,7 @@ namespace OpenNefia.Content.Charas
             {
                 if (!skills.Skills.ContainsKey(pair.Key))
                 {
-                    skills.Skills.Add(pair.Key, new LevelAndPotential() { Level = pair.Value });
+                    skills.Skills.Add(pair.Key, new LevelAndPotential() { Level = new(pair.Value) });
                 }
             }
         }
@@ -96,10 +96,10 @@ namespace OpenNefia.Content.Charas
             {
                 if (!skills.Skills.ContainsKey(pair.Key))
                 {
-                    skills.Skills.Add(pair.Key, new LevelAndPotential() { Level = 0 });
+                    skills.Skills.Add(pair.Key, new LevelAndPotential() { Level = new(0) });
                 }
 
-                skills.Skills[pair.Key].Level += pair.Value;
+                skills.Skills[pair.Key].Level.Base += pair.Value;
             }
         }
 
@@ -113,7 +113,7 @@ namespace OpenNefia.Content.Charas
             {
                 skills.Skills[skill.Key] = new LevelAndPotential
                 {
-                    Level = skill.Value,
+                    Level = new(skill.Value),
                 }; 
             }
 

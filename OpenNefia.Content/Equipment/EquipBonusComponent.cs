@@ -20,24 +20,24 @@ namespace OpenNefia.Content.Equipment
         /// Added Defense Value.
         /// </summary>
         [DataField]
-        public Stat<int> DV { get; set; } = 0;
+        public Stat<int> DV { get; set; } = new(0);
 
         /// <summary>
         /// Added Protection Value.
         /// </summary>
         [DataField]
-        public Stat<int> PV { get; set; } = 0;
+        public Stat<int> PV { get; set; } = new(0);
 
         /// <summary>
         /// Added hit bonus.
         /// </summary>
         [DataField]
-        public Stat<int> HitBonus { get; set; } = 0;
+        public Stat<int> HitBonus { get; set; } = new(0);
 
         /// <summary>
         /// Added damage bonus.
         /// </summary>
         [DataField]
-        public Stat<int> DamageBonus { get; set; } = 0;
+        public Stat<int> DamageBonus { get; set; } = new(0);
     }
 }

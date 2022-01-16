@@ -18,7 +18,7 @@ namespace OpenNefia.Content.Feats
         /// Level of the feat.
         /// </summary>
         [DataField]
-        public Stat<int> Level { get; set; } = 1;
+        public Stat<int> Level { get; set; } = new(0);
 
         public bool Equals(FeatLevel? other)
         {

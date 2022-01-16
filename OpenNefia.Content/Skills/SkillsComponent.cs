@@ -59,25 +59,25 @@ namespace OpenNefia.Content.Skills
         /// Current Defense Value.
         /// </summary>
         [DataField]
-        public Stat<int> DV { get; set; } = 0;
+        public Stat<int> DV { get; set; } = new(0);
 
         /// <summary>
         /// Current Protection Value.
         /// </summary>
         [DataField]
-        public Stat<int> PV { get; set; } = 0;
+        public Stat<int> PV { get; set; } = new(0);
 
         /// <summary>
         /// Current hit bonus.
         /// </summary>
         [DataField]
-        public Stat<int> HitBonus { get; set; } = 0;
+        public Stat<int> HitBonus { get; set; } = new(0);
 
         /// <summary>
         /// Current damage bonus.
         /// </summary>
         [DataField]
-        public Stat<int> DamageBonus { get; set; } = 0;
+        public Stat<int> DamageBonus { get; set; } = new(0);
 
         /// <summary>
         /// Level, potential and experience for skills and stats.
@@ -92,7 +92,7 @@ namespace OpenNefia.Content.Skills
 
             return new LevelAndPotential()
             {
-                Level = 0
+                Level = new(0)
             };
         }
 

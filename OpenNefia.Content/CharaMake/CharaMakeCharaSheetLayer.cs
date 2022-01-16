@@ -3,11 +3,6 @@ using OpenNefia.Content.Prototypes;
 using OpenNefia.Core.Audio;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Locale;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.UI;
 

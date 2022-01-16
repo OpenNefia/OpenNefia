@@ -21,7 +21,7 @@ namespace OpenNefia.Content.Tests.GameObjects.Components
         {
             var level = new LevelAndPotential()
             {
-                Level = 42,
+                Level = new(42),
                 Potential = 150,
                 Experience = 500
             };
@@ -50,7 +50,7 @@ namespace OpenNefia.Content.Tests.GameObjects.Components
         {
             var level = new LevelAndPotential()
             {
-                Level = 42,
+                Level = new(42),
                 Potential = 150,
                 Experience = 500
             };
@@ -69,7 +69,7 @@ namespace OpenNefia.Content.Tests.GameObjects.Components
         {
             var version = new LevelAndPotential()
             {
-                Level = 42,
+                Level = new(42),
                 Potential = 100,
                 Experience = 0
             };

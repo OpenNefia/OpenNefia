@@ -20,7 +20,7 @@ namespace OpenNefia.Content.Skills
         {
             var result = new LevelAndPotential()
             {
-                Level = int.Parse(node.Value)
+                Level = new(int.Parse(node.Value))
             };
             return new DeserializedValue<LevelAndPotential>(result);
         }
