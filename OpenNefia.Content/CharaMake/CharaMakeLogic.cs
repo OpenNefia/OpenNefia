@@ -34,6 +34,12 @@ namespace OpenNefia.Content.CharaMake
         [Dependency] private readonly IMapManager _mapManager = default!;
         [Dependency] private readonly ISaveGameSerializer _saveSerializer = default!;
 
+        /// <summary>
+        /// This result must be available to the charamake process once it finishes.
+        /// It must be the <see cref="EntityUid"/> of the new player character.
+        /// </summary>
+        public const string PlayerEntityResultName = "playerEntity";
+
         public List<ICharaMakeLayer> GetDefaultCreationSteps()
         {
             return new List<ICharaMakeLayer>
@@ -129,7 +135,7 @@ namespace OpenNefia.Content.CharaMake
                 return new CharaMakeLogicResult.Canceled();
             }
 
-            if (!data.TryGetValue<EntityUid>(CharaMakeCharaSheetLayer.ResultName, out var newPlayer))
+            if (!data.TryGetValue<EntityUid>(PlayerEntityResultName, out var newPlayer))
             {
                 Logger.ErrorS("charamake", $"Did not find a charamake result with name '{CharaMakeCharaSheetLayer.ResultName}' containing the new player!");
 
