@@ -27,6 +27,13 @@ namespace OpenNefia.Tests.Core.Stats
             Assert.That(new Stat<int>(42, 0).GetHashCode(), Is.EqualTo(new Stat<int>(42, 10000).GetHashCode()));
             Assert.That(new Stat<int>(0, 42).GetHashCode(), Is.Not.EqualTo(new Stat<int>(10000, 42).GetHashCode()));
         }
+        [Test]
+        public void TestStatIsBuffed()
+        {
+            Assert.That(new Stat<int>(42).IsBuffed, Is.False);
+            Assert.That(new Stat<int>(42, 0).IsBuffed, Is.True);
+            Assert.That(new Stat<int>(0, 42).IsBuffed, Is.True);
+        }
 
         [Test]
         public void TestStatImplicitOperators()
@@ -41,12 +48,37 @@ namespace OpenNefia.Tests.Core.Stats
         }
 
         [Test]
-        public void TestStatImplicitConstructor()
+        public void TestStatBuffedAssignment()
         {
-            Stat<int> stat = 12;
+            var stat = new Stat<int>(12);
 
             Assert.That(stat.Base, Is.EqualTo(12));
             Assert.That(stat.Buffed, Is.EqualTo(12));
+            Assert.That(stat.IsBuffed, Is.False);
+
+            stat.Base = 5;
+
+            Assert.That(stat.Base, Is.EqualTo(5));
+            Assert.That(stat.Buffed, Is.EqualTo(5));
+            Assert.That(stat.IsBuffed, Is.False);
+
+            stat.Buffed = 6;
+
+            Assert.That(stat.Base, Is.EqualTo(5));
+            Assert.That(stat.Buffed, Is.EqualTo(6));
+            Assert.That(stat.IsBuffed, Is.True);
+
+            stat.Base = 7;
+
+            Assert.That(stat.Base, Is.EqualTo(7));
+            Assert.That(stat.Buffed, Is.EqualTo(6));
+            Assert.That(stat.IsBuffed, Is.True);
+
+            stat.Base = 6;
+
+            Assert.That(stat.Base, Is.EqualTo(6));
+            Assert.That(stat.Buffed, Is.EqualTo(6));
+            Assert.That(stat.IsBuffed, Is.True);
         }
 
         [Test]
@@ -56,11 +88,13 @@ namespace OpenNefia.Tests.Core.Stats
 
             Assert.That(stat.Base, Is.EqualTo(12));
             Assert.That(stat.Buffed, Is.EqualTo(34));
+            Assert.That(stat.IsBuffed, Is.True);
 
             stat.Reset();
 
             Assert.That(stat.Base, Is.EqualTo(12));
             Assert.That(stat.Buffed, Is.EqualTo(12));
+            Assert.That(stat.IsBuffed, Is.False);
         }
     }
 }

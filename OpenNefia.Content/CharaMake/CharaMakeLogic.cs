@@ -84,7 +84,7 @@ namespace OpenNefia.Content.CharaMake
 
                 if (!result.HasValue)
                 {
-                    Logger.WarningS("charamake", $"Create char step for type {type} didn't set a result, aborting.");
+                    Logger.WarningS("charamake", $"Chara creation step for type {type} didn't set a result, aborting.");
                     step = CharaMakeStep.Cancel;
                 }
 

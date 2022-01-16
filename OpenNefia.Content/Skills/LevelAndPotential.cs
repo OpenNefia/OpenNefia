@@ -15,7 +15,7 @@ namespace OpenNefia.Content.Skills
         /// Level of the skill.
         /// </summary>
         [DataField]
-        public Stat<int> Level { get; set; } = 1;
+        public Stat<int> Level { get; set; } = new(1);
 
         /// <summary>
         /// Potential of the skill, specified as a percentage. 100 is the baseline.

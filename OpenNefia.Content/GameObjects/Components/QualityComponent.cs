@@ -16,7 +16,7 @@ namespace OpenNefia.Content.GameObjects
         public override string Name => "Quality";
 
         [DataField(required: true)]
-        public Stat<Quality> Quality { get; set; } = GameObjects.Quality.Bad;
+        public Stat<Quality> Quality { get; set; } = new(GameObjects.Quality.Bad);
     }
 
     public enum Quality

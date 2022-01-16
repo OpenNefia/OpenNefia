@@ -54,19 +54,21 @@ namespace OpenNefia.Content.CharaMake
             CaptionWindow = new UiTopicWindow(UiTopicWindow.FrameStyleKind.Five, UiTopicWindow.WindowStyleKind.One);
             Caption = new UiTextOutlined(UiFonts.WindowTitle);
 
-            OnKeyBindDown += OnKeyDown;
+            OnKeyBindDown += HandleKeyBindDown;
         }
 
-        private void OnKeyDown(GUIBoundKeyEventArgs args)
+        protected virtual void HandleKeyBindDown(GUIBoundKeyEventArgs args)
         {
             if (args.Function == EngineKeyFunctions.UICancel)
             {
                 Finish(new CharaMakeResult(new Dictionary<string, object>(), CharaMakeStep.GoBack));
+                args.Handle();
             }
             else if (args.Function == EngineKeyFunctions.UIDown || args.Function == EngineKeyFunctions.UIUp)
             {
                 UiMoveCount++;
                 CurrentWindowBG = AssetWindows[(UiMoveCount / 4) % 4];
+                args.Handle();
             }
         }
 
@@ -121,7 +123,7 @@ namespace OpenNefia.Content.CharaMake
 
         public override void Dispose()
         {
-            OnKeyBindDown -= OnKeyDown;
+            OnKeyBindDown -= HandleKeyBindDown;
         }
 
         //will be used to actually make the change to the character after creation

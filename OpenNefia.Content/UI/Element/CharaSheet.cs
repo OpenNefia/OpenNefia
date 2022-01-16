@@ -23,6 +23,9 @@ using OpenNefia.Content.Cargo;
 using OpenNefia.Content.EquipSlots;
 using OpenNefia.Core.UI;
 using OpenNefia.Content.Equipment;
+using OpenNefia.Content.Sanity;
+using OpenNefia.Content.Fame;
+using OpenNefia.Content.Karma;
 
 namespace OpenNefia.Content.UI.Element
 {
@@ -115,7 +118,6 @@ namespace OpenNefia.Content.UI.Element
         private string TempName = "????";
         private string TempGod = "Eyth of Infidel";
         private string TempGuild = "None";
-        private string TempSanity = "0";
         private string TempFame = "0";
         private string TempKarma = "0";
         private string TempKills = "0";
@@ -158,27 +160,39 @@ namespace OpenNefia.Content.UI.Element
 
             if (!_entityManager.TryGetComponent<LevelComponent>(CharaEntity, out var level))
             {
-                Logger.WarningS("charsheet", $"entity {CharaEntity} does not posess a LevelComponent");
+                Logger.WarningS("charsheet", $"entity {CharaEntity} does not posess a {nameof(LevelComponent)}");
             }
             if (!_entityManager.TryGetComponent<CharaComponent>(CharaEntity, out var chara))
             {
-                Logger.WarningS("charsheet", $"entity {CharaEntity} does not posess a CharaComponent");
+                Logger.WarningS("charsheet", $"entity {CharaEntity} does not posess a {nameof(CharaComponent)}");
             }
             if (!_entityManager.TryGetComponent<SkillsComponent>(CharaEntity, out var skills))
             {
-                Logger.WarningS("charsheet", $"entity {CharaEntity} does not posess a SkillsComponent");
+                Logger.WarningS("charsheet", $"entity {CharaEntity} does not posess a {nameof(SkillsComponent)}");
             }
             if (!_entityManager.TryGetComponent<CargoHolderComponent>(CharaEntity, out var cargoHold))
             {
-                Logger.WarningS("charsheet", $"entity {CharaEntity} does not posess a CargoHolderComponent");
+                Logger.WarningS("charsheet", $"entity {CharaEntity} does not posess a {nameof(CargoHolderComponent)}");
             }
             if (!_entityManager.TryGetComponent<WeightComponent>(CharaEntity, out var weight))
             {
-                Logger.WarningS("charsheet", $"entity {CharaEntity} does not posess a WeightComponent");
+                Logger.WarningS("charsheet", $"entity {CharaEntity} does not posess a {nameof(WeightComponent)}");
             }
             if (!_entityManager.TryGetComponent<BuffsComponent>(CharaEntity, out var buffs))
             {
-                Logger.WarningS("charsheet", $"entity {CharaEntity} does not posess a BuffsComponent");
+                Logger.WarningS("charsheet", $"entity {CharaEntity} does not posess a {nameof(BuffsComponent)}");
+            }
+            if (!_entityManager.TryGetComponent<SanityComponent>(CharaEntity, out var sanity))
+            {
+                Logger.WarningS("charsheet", $"entity {CharaEntity} does not posess a {nameof(SanityComponent)}");
+            }
+            if (!_entityManager.TryGetComponent<FameComponent>(CharaEntity, out var fame))
+            {
+                Logger.WarningS("charsheet", $"entity {CharaEntity} does not posess a {nameof(FameComponent)}");
+            }
+            if (!_entityManager.TryGetComponent<KarmaComponent>(CharaEntity, out var karma))
+            {
+                Logger.WarningS("charsheet", $"entity {CharaEntity} does not posess a {nameof(KarmaComponent)}");
             }
 
             //
@@ -253,11 +267,14 @@ namespace OpenNefia.Content.UI.Element
                     AttributeContainer.AddElement(cont);
                 }
 
+                var attributeInsanity = sanity != null ? sanity.Insanity : 0;
+                var attributeFame = fame != null ? fame.Fame.Buffed : 0;
+
                 skills.Skills.TryGetValue(Protos.Skill.AttrLife, out var statLife);
                 dict[Loc.GetPrototypeString(Protos.Skill.AttrLife, "Name")] = $"{statLife?.Level.Buffed}({statLife?.Level.Base})";
                 skills.Skills.TryGetValue(Protos.Skill.AttrMana, out var statMana);
                 dict[Loc.GetPrototypeString(Protos.Skill.AttrMana, "Name")] = $"{statMana?.Level.Buffed}({statMana?.Level.Base})";
-                dict[_locScope.GetString("Group.Attribute.Sanity")] = TempSanity;
+                dict[_locScope.GetString("Group.Attribute.Sanity")] = attributeInsanity.ToString();
                 skills.Skills.TryGetValue(Protos.Skill.AttrSpeed, out var statSpd);
                 dict[Loc.GetPrototypeString(Protos.Skill.AttrSpeed, "Name")] = $"{statSpd?.Level.Buffed}({statSpd?.Level.Base})";
                 dict[string.Empty] = string.Empty;

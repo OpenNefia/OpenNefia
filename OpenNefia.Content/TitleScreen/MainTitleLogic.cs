@@ -171,8 +171,8 @@ namespace OpenNefia.Content.TitleScreen
             _gameSessionManager.Player = player;
 
             var skills = _entityManager.EnsureComponent<SkillsComponent>(player);
-            skills.Ensure(Skill.AttrConstitution).Level = 200;
-            skills.Ensure(Skill.AttrLife).Level = 200;
+            skills.Ensure(Skill.AttrConstitution).Level = new(200);
+            skills.Ensure(Skill.AttrLife).Level = new(200);
             EntitySystem.Get<IRefreshSystem>().Refresh(player);
             EntitySystem.Get<SkillsSystem>().HealToMax(player);
 

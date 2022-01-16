@@ -86,7 +86,7 @@ namespace OpenNefia.Content.GameObjects
             ISerializationContext? context = null)
         {
             var result = new LevelPotentialAndStock();
-            result.Stats.Level = int.Parse(node.Value);
+            result.Stats.Level = new(int.Parse(node.Value));
 
             return new DeserializedValue<LevelPotentialAndStock>(result);
         }

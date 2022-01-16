@@ -8,20 +8,46 @@ namespace OpenNefia.Core.Stats
 {
     public class Stat<T> : IEquatable<Stat<T>>
     {
-        public T Base { get; set; }
-        public T Buffed { get; set; }
+        private T _base;
+        private T _buffed;
+     
+        public bool IsBuffed { get; private set; }
+
+        public T Base
+        {
+            get => _base;
+            set 
+            {
+                _base = value;
+                if (!IsBuffed)
+                    _buffed = value;
+            }
+        }
+        public T Buffed
+        {
+            get => _buffed;
+            set
+            {
+                if (!_buffed?.Equals(value) ?? false)
+                    IsBuffed = true;
+                
+                _buffed = value;
+            }
+        }
 
         public Stat(T baseValue) : this (baseValue, baseValue) {}
 
         public Stat(T baseValue, T buffedValue)
         {
-            Base = baseValue;
-            Buffed = buffedValue;
+            _base = baseValue;
+            _buffed = buffedValue;
+            IsBuffed = !baseValue?.Equals(buffedValue) ?? false;
         }
 
         public virtual void Reset()
         {
-            Buffed = Base;
+            _buffed = _base;
+            IsBuffed = false;
         }
 
         public virtual bool Equals(Stat<T>? other)
@@ -63,11 +89,6 @@ namespace OpenNefia.Core.Stats
         public static implicit operator T(Stat<T> stat)
         {
             return stat.Base;
-        }
-
-        public static implicit operator Stat<T>(T value)
-        {
-            return new(value);
         }
     }
 }
