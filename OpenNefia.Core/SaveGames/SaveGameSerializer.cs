@@ -243,13 +243,9 @@ namespace OpenNefia.Core.SaveGames
             if (_saveGameManager.CurrentSave != null)
                 throw new InvalidOperationException($"A save has already been loaded! ({_saveGameManager.CurrentSave})");
 
-            ResetGameState();
-
             var saveHeader = MakeSaveGameHeader(name);
             var savePath = ResourcePath.Root / Guid.NewGuid().ToString();
             var save = _saveGameManager.CreateSave(savePath, saveHeader);
-
-            _mapManager.CreateMap(1, 1, MapId.Global);
 
             return save;
         }

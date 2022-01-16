@@ -163,12 +163,14 @@ namespace OpenNefia.Content.TitleScreen
             map.MemorizeAllTiles();
 
             var playerSpatial = _entityManager.GetComponent<SpatialComponent>(player);
-            playerSpatial.SetCoordinates(map.AtPosEntity(2, 2), noEvents: true);
+            playerSpatial.Coordinates = map.AtPosEntity(2, 2);
 
             EntitySystem.Get<IRefreshSystem>().Refresh(player);
             EntitySystem.Get<SkillsSystem>().HealToMax(player);
 
             _mapManager.SetActiveMap(map.Id);
+
+            _mapManager.RefreshVisibility(map);
 
             _saveGameSerializer.SaveGame(save);
 

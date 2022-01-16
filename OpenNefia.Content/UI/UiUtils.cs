@@ -1,17 +1,21 @@
 ﻿using Love;
+using OpenNefia.Content.TurnOrder;
+using OpenNefia.Content.UI.Layer;
 using OpenNefia.Core.Game;
 using OpenNefia.Core.Graphics;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Maths;
+using OpenNefia.Core.Rendering;
+using OpenNefia.Core.UI;
 using OpenNefia.Core.UI.Element;
 
-namespace OpenNefia.Core.UI
+namespace OpenNefia.Content.UI
 {
     public static class UiUtils
     {
-        public static string GetKeyName(Input.Keyboard.Key key)
+        public static string GetKeyName(Core.Input.Keyboard.Key key)
         {
-            return Enum.GetName(typeof(Input.Keyboard.Key), key)!.ToLowerInvariant();
+            return Enum.GetName(typeof(Core.Input.Keyboard.Key), key)!.ToLowerInvariant();
         }
 
         public static bool IsPointInVisibleScreen(this IGraphics gr, Vector2i screenPos)
@@ -25,14 +29,16 @@ namespace OpenNefia.Core.UI
         public static void GetCenteredParams(int width, int height, out UIBox2i bounds, int yOffset = 0)
         {
             var graphics = IoCManager.Resolve<IGraphics>();
+            var coords = IoCManager.Resolve<ICoords>();
+            var field = IoCManager.Resolve<IFieldLayer>();
+
             var (windowW, windowH) = graphics.WindowSize;
 
-            var ingame = false;
             var x = (windowW - width) / 2;
-            var y = 0;
-            if (ingame)
+            int y;
+
+            if (field.IsInGame())
             {
-                var coords = GameSession.Coords;
                 var tiledHeight = windowH / coords.TileSize.Y;
                 y = ((tiledHeight - 2) * coords.TileSize.Y - height) / 2 + 8;
             }
@@ -48,16 +54,16 @@ namespace OpenNefia.Core.UI
 
         public static void DebugDraw(IDrawable elem)
         {
-            Love.Graphics.SetColor(Love.Color.Red);
-            Love.Graphics.Rectangle(Love.DrawMode.Line, elem.X, elem.Y, elem.Width, elem.Height);
-            Love.Graphics.SetColor(Love.Color.Blue);
-            Love.Graphics.Line(elem.X, elem.Y, elem.X + elem.Width, elem.Y + elem.Height);
+            Graphics.SetColor(Love.Color.Red);
+            Graphics.Rectangle(DrawMode.Line, elem.X, elem.Y, elem.Width, elem.Height);
+            Graphics.SetColor(Love.Color.Blue);
+            Graphics.Line(elem.X, elem.Y, elem.X + elem.Width, elem.Y + elem.Height);
         }
 
         public static string DisplayWeight(int weight)
         {
             var integer = Math.Abs(weight / 1000);
-            var fractional = Math.Abs((weight % 1000) / 100);
+            var fractional = Math.Abs(weight % 1000 / 100);
             return $"{integer}.{fractional}s";
         }
 

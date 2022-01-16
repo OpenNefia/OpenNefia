@@ -1,4 +1,8 @@
-﻿using OpenNefia.Core.Log;
+﻿using Love;
+using OpenNefia.Core.Game;
+using OpenNefia.Core.Graphics;
+using OpenNefia.Core.IoC;
+using OpenNefia.Core.Log;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Core.UI;
@@ -9,6 +13,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace OpenNefia.Core.UI.Layer
 {
@@ -17,6 +22,8 @@ namespace OpenNefia.Core.UI.Layer
     /// </summary>
     public class MinimalProgressBarLayer : UiLayerWithResult<IProgressableJob, UINone>
     {
+        [Dependency] private readonly IGraphics _graphics = default!;
+
         public IProgressableJob Job { get; private set; } = default!;
         private IEnumerator<ProgressStep> Steps = default!;
 
@@ -72,7 +79,10 @@ namespace OpenNefia.Core.UI.Layer
 
         public override void GetPreferredBounds(out UIBox2i bounds)
         {
-            UiUtils.GetCenteredParams(400, 200, out bounds);
+            var size = new Vector2i(400, 200);
+            var pos = (_graphics.WindowSize - size) / 2;
+
+            bounds = UIBox2i.FromDimensions(pos, size);
         }
 
         public override void Update(float dt)

@@ -12,6 +12,7 @@ using OpenNefia.Content.EntityGen;
 using OpenNefia.Core.Maps;
 using OpenNefia.Core.SaveGames;
 using OpenNefia.Core.UI;
+using OpenNefia.Core.Utility;
 
 namespace OpenNefia.Content.CharaMake
 {
@@ -134,6 +135,8 @@ namespace OpenNefia.Content.CharaMake
 
                 return new CharaMakeLogicResult.Canceled();
             }
+
+            DebugTools.Assert(_entityManager.IsAlive(newPlayer), "New charamake player was not alive!");
 
             return new CharaMakeLogicResult.NewPlayerIncarnated(newPlayer);
         }

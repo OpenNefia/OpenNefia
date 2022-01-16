@@ -18,6 +18,7 @@ using OpenNefia.Core.SaveGames;
 using OpenNefia.Content.RandomText;
 using OpenNefia.Content.Levels;
 using OpenNefia.Core.Log;
+using OpenNefia.Content.UI;
 
 namespace OpenNefia.Content.CharaMake
 {
@@ -35,10 +36,26 @@ namespace OpenNefia.Content.CharaMake
 
         private CharaSheet Sheet = new();
 
+        public CharaMakeCharaSheetLayer()
+        {
+            AddChild(Sheet);
+        }
+
+        public override void Initialize(CharaMakeData args)
+        {
+            base.Initialize(args);
+
+            Reroll(playSound: false);
+        }
+
+        public override void OnQuery()
+        {
+            base.OnQuery();
+            Sounds.Play(Sound.Chara);
+        }
+
         private EntityUid CreatePlayerEntity(IEnumerable<ICharaMakeLayer> steps)
         {
-            _saveSerializer.ResetGameState();
-
             var globalMap = _mapManager.CreateMap(1, 1, MapId.Global);
             var globalMapSpatial = EntityManager.GetComponent<SpatialComponent>(globalMap.MapEntityUid);
 
@@ -64,31 +81,33 @@ namespace OpenNefia.Content.CharaMake
             return playerEntity;
         }
 
-        public override void Initialize(CharaMakeData args)
-        {
-            base.Initialize(args);
-
-            Reroll(playSound: false);
-        }
-
         private void Reroll(bool playSound)
         {
-            if (EntityManager.IsAlive(_playerEntity))
-            {
-                EntityManager.DeleteEntity(_playerEntity);
-            }
+            _saveSerializer.ResetGameState();
 
             _playerEntity = CreatePlayerEntity(Data.AllSteps);
 
             Sheet.RefreshFromEntity(_playerEntity);
+            Sheet.SetSize(Sheet.Width, Sheet.Height);
+            Sheet.SetPosition(Sheet.X, Sheet.Y);
 
             if (playSound)
                 Sounds.Play(Sound.Dice);
         }
 
+        private void ResetCaption()
+        {
+            Caption.Text = Loc.GetString("Elona.CharaMake.CharaSheet.Caption");
+        }
+
         protected override void HandleKeyBindDown(GUIBoundKeyEventArgs args)
         {
-            if (args.Function == EngineKeyFunctions.UICancel)
+            if (args.Function == EngineKeyFunctions.UISelect)
+            {
+                Reroll(playSound: true);
+                args.Handle();
+            }
+            else if (args.Function == EngineKeyFunctions.UICancel)
             {
                 ShowFinalPrompt();
                 args.Handle();
@@ -108,6 +127,9 @@ namespace OpenNefia.Content.CharaMake
         /// </summary>
         private void ShowFinalPrompt()
         {
+            var caption = Loc.GetString("Elona.CharaMake.CharaSheet.FinalPrompt.Text");
+            Caption.Text = caption;
+
             var keyRoot = new LocaleKey("Elona.CharaMake.CharaSheet.FinalPrompt.Choices");
             var choices = new PromptChoice<FinalPromptChoice>[]
             {
@@ -121,7 +143,7 @@ namespace OpenNefia.Content.CharaMake
 
             var promptArgs = new Prompt<FinalPromptChoice>.Args(choices)
             {
-                QueryText = Loc.GetString("Elona.CharaMake.CharaSheet.FinalPrompt.Text")
+                QueryText = caption
             };
 
             var result = UserInterfaceManager.Query<Prompt<FinalPromptChoice>,
@@ -136,6 +158,7 @@ namespace OpenNefia.Content.CharaMake
                         ShowLastQuestion();
                         break;
                     case FinalPromptChoice.No:
+                        ResetCaption();
                         break;
                     case FinalPromptChoice.Restart:
                         Finish(new CharaMakeResult(new(), CharaMakeStep.Restart));
@@ -147,8 +170,6 @@ namespace OpenNefia.Content.CharaMake
                         break;
                 }
             }
-
-            Finish(new CharaMakeResult(new(), CharaMakeStep.GoBack));
         }
 
         /// <summary>
@@ -156,9 +177,12 @@ namespace OpenNefia.Content.CharaMake
         /// </summary>
         private void ShowLastQuestion()
         {
+            var caption = Loc.GetString("Elona.CharaMake.CharaSheet.WhatIsYourName");
+            Caption.Text = caption;
+
             var args = new TextPrompt.Args()
             {
-                QueryText = Loc.GetString("Elona.CharaMake.CharaSheet.WhatIsYourName"),
+                QueryText = caption,
                 MaxLength = 10
             };
 
@@ -179,7 +203,7 @@ namespace OpenNefia.Content.CharaMake
                 Sounds.Play(Sound.Skill);
 
                 var ev = new NewPlayerIncarnatedEvent(_playerEntity);
-                EntityManager.EventBus.RaiseLocalEvent(_playerEntity, ref ev);
+                EntityManager.EventBus.RaiseLocalEvent(_playerEntity, ev);
 
                 if (!EntityManager.IsAlive(_playerEntity))
                 {
@@ -195,31 +219,10 @@ namespace OpenNefia.Content.CharaMake
                     }));
                 }
             }
-        }
-
-        public override UiResult<CharaMakeResult>? GetResult()
-        {
-            var result = base.GetResult();
-
-            if (result == null)
-                return null;
-
-            Cleanup();
-            return result;
-        }
-
-        private void Cleanup()
-        {
-            if (EntityManager.IsAlive(_playerEntity))
+            else
             {
-                EntityManager.DeleteEntity(_playerEntity);
+                ResetCaption();
             }
-        }
-
-        public override void OnQuery()
-        {
-            base.OnQuery();
-            Sounds.Play(Sound.Chara);
         }
 
         public override void GetPreferredBounds(out UIBox2i bounds)

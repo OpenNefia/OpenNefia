@@ -5,7 +5,6 @@ using OpenNefia.Core.Locale;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Content.Charas;
 using OpenNefia.Core.Maths;
-using OpenNefia.Core.UI;
 using OpenNefia.Core.ResourceManagement;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Prototypes;
@@ -13,6 +12,7 @@ using OpenNefia.Core.GameObjects;
 using OpenNefia.Content.PCCs;
 using OpenNefia.Core.Log;
 using OpenNefia.Content.CharaAppearance;
+using OpenNefia.Content.UI;
 
 namespace OpenNefia.Content.CharaMake
 {

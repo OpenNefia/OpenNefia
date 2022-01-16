@@ -9,6 +9,7 @@ using OpenNefia.Core.IoC;
 using OpenNefia.Core.ResourceManagement;
 using OpenNefia.Content.PCCs;
 using OpenNefia.Core.GameObjects;
+using OpenNefia.Content.UI;
 
 namespace OpenNefia.Content.CharaAppearance
 {

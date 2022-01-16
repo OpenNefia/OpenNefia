@@ -67,16 +67,16 @@ namespace OpenNefia.Content.UI.Element.Containers
             Entries.Add(new UiContainerEntry(type, offset));
         }
 
-        public virtual void Resolve()
+        public virtual void Relayout()
         {
-            ResolvePreferredSize();
+            RelayoutPreferredSize();
         }
 
-        protected abstract Vector2i ResolvePreferredSize();
+        protected abstract Vector2i RelayoutPreferredSize();
 
         public override void GetPreferredSize(out Vector2i size)
         {
-            size = ResolvePreferredSize();
+            size = RelayoutPreferredSize();
         }
 
         public override void SetPosition(int x, int y)

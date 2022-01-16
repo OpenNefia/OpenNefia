@@ -13,7 +13,6 @@ using OpenNefia.Core.Log;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Rendering;
-using OpenNefia.Core.UI;
 using OpenNefia.Core.UI.Element;
 using OpenNefia.Core.Utility;
 using System;
@@ -314,7 +313,7 @@ namespace OpenNefia.Content.CharaMake
         {
             SetAttributes(data.GetSkills());
             SetTrainedSkills(data.GetSkills());
-            DetailContainer.Resolve();
+            DetailContainer.Relayout();
 
             data.TryGetString(out var desc, "Description");
             DetailText.Text = desc;
@@ -428,7 +427,7 @@ namespace OpenNefia.Content.CharaMake
 
         public override void GetPreferredBounds(out UIBox2i bounds)
         {
-            UiUtils.GetCenteredParams(700, 500, out bounds);
+            UiUtils.GetCenteredParams(680, 500, out bounds, yOffset: 20);
         }
 
         public override void SetSize(int width, int height)
@@ -446,7 +445,7 @@ namespace OpenNefia.Content.CharaMake
             RaceTopic.SetPosition(Window.X + 30, Window.Y + 30);
             DetailTopic.SetPosition(Window.X + 190, RaceTopic.Y);
             DetailContainer.SetPosition(Window.X + 210, Window.Y + 60);
-            DetailContainer.Resolve();
+            DetailContainer.Relayout();
         }
 
         public override void Draw()

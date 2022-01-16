@@ -3,7 +3,6 @@ using OpenNefia.Core.Audio;
 using OpenNefia.Core.Locale;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.Rendering;
-using OpenNefia.Core.UI;
 using OpenNefia.Core.UI.Element;
 using OpenNefia.Content.Prototypes;
 using Color = OpenNefia.Core.Maths.Color;

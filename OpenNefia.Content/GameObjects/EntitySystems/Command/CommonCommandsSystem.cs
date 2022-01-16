@@ -80,7 +80,7 @@ namespace OpenNefia.Content.GameObjects
 
         private TurnResult? ShowEscapeMenu(IGameSessionManager? session)
         {
-            if (!_turnOrderSystem.IsInGame() || session?.Player == null)
+            if (!_field.IsInGame() || session?.Player == null)
                 return null;
 
             var keyRoot = new LocaleKey("Elona.UserInterface.Exit.Prompt.Choices");

@@ -34,7 +34,7 @@ namespace OpenNefia.Content.UI.Element.Containers
             YCentered = yCentered;
         }
 
-        protected override Vector2i ResolvePreferredSize()
+        protected override Vector2i RelayoutPreferredSize()
         {
             int xMax = 0, yMax = 0;
             int xOffset = 0, yOffset = 0;

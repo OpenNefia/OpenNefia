@@ -2,7 +2,6 @@
 using OpenNefia.Core.Audio;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.Rendering;
-using OpenNefia.Core.UI;
 using OpenNefia.Core.UI.Layer;
 using OpenNefia.Content.Prototypes;
 using OpenNefia.Core.UI.Element;

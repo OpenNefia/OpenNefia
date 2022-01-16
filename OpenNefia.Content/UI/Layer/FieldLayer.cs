@@ -15,6 +15,7 @@ using OpenNefia.Core.Input;
 using OpenNefia.Content.TurnOrder;
 using static OpenNefia.Content.Prototypes.Protos;
 using OpenNefia.Core.Audio;
+using ICSharpCode.Decompiler.TypeSystem;
 
 namespace OpenNefia.Content.UI.Layer
 {
@@ -88,7 +89,6 @@ namespace OpenNefia.Content.UI.Layer
             //MouseButtons[MouseButton.Mouse3].Bind((evt) => PlaceTile(evt), trackReleased: true);
         }
 
-
         public void Startup()
         {
             _mapManager.OnActiveMapChanged += OnActiveMapChanged;
@@ -101,6 +101,12 @@ namespace OpenNefia.Content.UI.Layer
         {
             base.GrabFocus();
             _inputManager.Contexts.SetActiveContext("field");
+        }
+
+        /// <inheritdoc/>
+        public bool IsInGame()
+        {
+            return this.IsInActiveLayerList() && _mapManager.ActiveMap != null;
         }
 
         private void OnActiveMapChanged(IMap newMap, IMap? oldMap)

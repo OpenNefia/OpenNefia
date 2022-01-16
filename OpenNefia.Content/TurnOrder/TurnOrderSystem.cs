@@ -24,12 +24,6 @@ namespace OpenNefia.Content.TurnOrder
     public interface ITurnOrderSystem : IEntitySystem
     {
         /// <summary>
-        /// Returns true if the simulation is active (map is being displayed, etc.). This
-        /// will also return true if there is an active modal being displayed over the map.
-        /// </summary>
-        bool IsInGame();
-
-        /// <summary>
         /// Calculates the raw speed value for an entity.
         /// </summary>
         int CalculateSpeed(EntityUid entity, TurnOrderComponent? turnOrder = null);
@@ -130,12 +124,6 @@ namespace OpenNefia.Content.TurnOrder
         #region ITurnOrder Implementation
 
         /// <inheritdoc/>
-        public bool IsInGame()
-        {
-            return _gameSession.Player != null && _field.IsInActiveLayerList() && _mapManager.ActiveMap != null;
-        }
-
-        /// <inheritdoc/>
         public int CalculateSpeed(EntityUid entity, TurnOrderComponent? turnOrder = null)
         {
             if (!Resolve(entity, ref turnOrder))
@@ -216,7 +204,7 @@ namespace OpenNefia.Content.TurnOrder
         /// <returns>The new state.</returns>
         internal TurnOrderState RunStateChange(TurnOrderState state)
         {
-            if (!IsInGame())
+            if (!_field.IsInGame())
             {
                 return TurnOrderState.PlayerTurnQuery;
             }
