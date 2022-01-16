@@ -1,6 +1,7 @@
 ﻿using OpenNefia.Analyzers;
 using OpenNefia.Content.Charas;
 using OpenNefia.Content.GameObjects;
+using OpenNefia.Content.Qualities;
 using OpenNefia.Core.GameObjects;
 
 namespace OpenNefia.Content.DisplayName
@@ -11,17 +12,16 @@ namespace OpenNefia.Content.DisplayName
         {
             base.Initialize();
 
-            SubscribeLocalEvent<CharaComponent, GetDisplayNameEventArgs>(GetCharaName, nameof(GetCharaName));
+            SubscribeLocalEvent<CharaComponent, GetDisplayNameEventArgs>(GetCharaName, nameof(GetCharaName),
+                after: new [] { QualitySystem.HandlerAddQualityBrackets });
             SubscribeLocalEvent<ItemComponent, GetDisplayNameEventArgs>(GetItemName, nameof(GetItemName));
         }
 
         public void GetCharaName(EntityUid uid, CharaComponent component, ref GetDisplayNameEventArgs args)
         {
-            if (args.Handled || !EntityManager.TryGetComponent(uid, out MetaDataComponent metaData))
-                return;
-
-            args.Name = $"the {metaData.DisplayName}";
-            args.Handled = true;
+            // This is called after DisplayNameSystem puts the base name of the
+            // entity in the event args.
+            args.Name = $"the {args.Name}";
         }
 
         public void GetItemName(EntityUid uid, ItemComponent component, ref GetDisplayNameEventArgs args)

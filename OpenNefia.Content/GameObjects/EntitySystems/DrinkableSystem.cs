@@ -19,6 +19,7 @@ namespace OpenNefia.Content.GameObjects
         [Dependency] private readonly IAudioManager _sounds = default!;
         [Dependency] private readonly IStackSystem _stackSystem = default!;
         [Dependency] private readonly IEntityGen _entityGen = default!;
+        [Dependency] private readonly IDisplayNameSystem _displayNames = default!;
 
         public override void Initialize()
         {
@@ -65,7 +66,7 @@ namespace OpenNefia.Content.GameObjects
             if (!_stackSystem.TrySplit(target, 1, out var split))
                 return TurnResult.Failed;
 
-            Mes.Display($"{DisplayNameSystem.GetDisplayName(drinker)} drinks {DisplayNameSystem.GetDisplayName(split)}.");
+            Mes.Display($"{_displayNames.GetDisplayName(drinker)} drinks {_displayNames.GetDisplayName(split)}.");
 
             _sounds.Play(Protos.Sound.Drink1, sourceSpatial.MapPosition);
 
@@ -89,7 +90,7 @@ namespace OpenNefia.Content.GameObjects
 
         private void HandleImpactGround(EntityUid thrown, DrinkableComponent potionComp, ThrownEntityImpactedGroundEvent args)
         {
-            Mes.Display($"{DisplayNameSystem.GetDisplayName(thrown)} shatters.");
+            Mes.Display($"{_displayNames.GetDisplayName(thrown)} shatters.");
             _sounds.Play(Protos.Sound.Crush2, args.Coords);
 
             var puddle = _entityGen.SpawnEntity(Protos.Mef.Potion, args.Coords);

@@ -10,10 +10,7 @@ namespace OpenNefia.Content.Charas
         public override string Name => "Chara";
 
         [DataField]
-        public string Title { get; set; } = string.Empty;
-
-        [DataField]
-        public bool HasFullName { get; set; } = false;
+        public string Alias { get; set; } = string.Empty;
 
         /// <summary>
         /// Race of this character.

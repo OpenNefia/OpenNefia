@@ -13,7 +13,6 @@ namespace OpenNefia.Content.DisplayName
 {
     public class ItemNameSystem : EntitySystem
     {
-        [Dependency] private readonly ILocalizationManager _localizationManager = default!;
         public override void Initialize()
         {
             base.Initialize();

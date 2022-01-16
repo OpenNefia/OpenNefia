@@ -1,9 +1,4 @@
 ﻿using OpenNefia.Core.UI.Element;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using OpenNefia.Content.Prototypes;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Core.Maths;
@@ -26,6 +21,9 @@ using OpenNefia.Content.Equipment;
 using OpenNefia.Content.Sanity;
 using OpenNefia.Content.Fame;
 using OpenNefia.Content.Karma;
+using OpenNefia.Content.Guild;
+using OpenNefia.Content.God;
+using OpenNefia.Content.CustomName;
 
 namespace OpenNefia.Content.UI.Element
 {
@@ -116,10 +114,6 @@ namespace OpenNefia.Content.UI.Element
 
         // Temporary variables that need to be replaced as soon as the containing components exist
         private string TempName = "????";
-        private string TempGod = "Eyth of Infidel";
-        private string TempGuild = "None";
-        private string TempFame = "0";
-        private string TempKarma = "0";
         private string TempKills = "0";
 
         private readonly LocaleScope _locScope;
@@ -143,6 +137,7 @@ namespace OpenNefia.Content.UI.Element
             TraceContainer = new UiVerticalContainer { YSpace = ContainerSpacing };
             ExtraContainer = new UiVerticalContainer { YSpace = ContainerSpacing };
             RollsContainer = new UiVerticalContainer { YSpace = ContainerSpacing };
+
             Init();
         }
 
@@ -194,6 +189,18 @@ namespace OpenNefia.Content.UI.Element
             {
                 Logger.WarningS("charsheet", $"entity {CharaEntity} does not posess a {nameof(KarmaComponent)}");
             }
+            if (!_entityManager.TryGetComponent<GuildMemberComponent>(CharaEntity, out var guild))
+            {
+                Logger.WarningS("charsheet", $"entity {CharaEntity} does not posess a {nameof(GuildMemberComponent)}");
+            }
+            if (!_entityManager.TryGetComponent<GodFollowerComponent>(CharaEntity, out var god))
+            {
+                Logger.WarningS("charsheet", $"entity {CharaEntity} does not posess a {nameof(GodFollowerComponent)}");
+            }
+            if (!_entityManager.TryGetComponent<CustomNameComponent>(CharaEntity, out var customName))
+            {
+                Logger.WarningS("charsheet", $"entity {CharaEntity} does not posess a {nameof(CustomNameComponent)}");
+            }
 
             //
             // Personal
@@ -204,8 +211,8 @@ namespace OpenNefia.Content.UI.Element
             {
                 dict[string.Empty] = string.Empty;
                 dict[_locScope.GetString("Group.Personal.Name")] = TempName;
-                if (!string.IsNullOrEmpty(chara.Title))
-                    dict[_locScope.GetString("Group.Personal.Alias")] = chara.Title;
+                if (!string.IsNullOrEmpty(chara.Alias))
+                    dict[_locScope.GetString("Group.Personal.Alias")] = chara.Alias;
                 dict[_locScope.GetString("Group.Personal.Race")] = Loc.GetPrototypeString(chara.Race, "Name");
                 dict[_locScope.GetString("Group.Personal.Sex")] = Loc.GetString($"Elona.Gender.Names.{chara.Gender}.Normal").FirstCharToUpper();
                 SetupContainer(NameContainer, 2, dict);
@@ -227,14 +234,24 @@ namespace OpenNefia.Content.UI.Element
             // Level
             //
 
+            var levelGodId = god?.GodID;
+            var levelGodName = levelGodId != null 
+                ? Loc.GetPrototypeString(levelGodId.Value, "Name")
+                : Loc.GetString("Elona.God.Eyth.Name");
+
+            var levelGuildId = guild?.GuildID;
+            var levelGuildName = levelGuildId != null
+                ? Loc.GetPrototypeString(levelGuildId.Value, "Name")
+                : Loc.GetString("Elona.Guild.Name.None");
+
             if (level != null)
             {
                 dict[_locScope.GetString("Group.Exp.Level")] = level.Level.ToString();
                 dict[_locScope.GetString("Group.Exp.Exp")] = level.Experience.ToString();
                 dict[_locScope.GetString("Group.Exp.RequiredExp")] = level.ExperienceToNext.ToString();
             }
-            dict[_locScope.GetString("Group.Exp.God")] = TempGod;
-            dict[_locScope.GetString("Group.Exp.Guild")] = TempGuild;
+            dict[_locScope.GetString("Group.Exp.God")] = levelGodName;
+            dict[_locScope.GetString("Group.Exp.Guild")] = levelGuildName;
             SetupContainer(ExpContainer, 2, dict);
             dict.Clear();
 
@@ -269,6 +286,7 @@ namespace OpenNefia.Content.UI.Element
 
                 var attributeInsanity = sanity != null ? sanity.Insanity : 0;
                 var attributeFame = fame != null ? fame.Fame.Buffed : 0;
+                var attributeKarma = karma != null ? karma.Karma.Buffed : 0;
 
                 skills.Skills.TryGetValue(Protos.Skill.AttrLife, out var statLife);
                 dict[Loc.GetPrototypeString(Protos.Skill.AttrLife, "Name")] = $"{statLife?.Level.Buffed}({statLife?.Level.Base})";
@@ -278,8 +296,8 @@ namespace OpenNefia.Content.UI.Element
                 skills.Skills.TryGetValue(Protos.Skill.AttrSpeed, out var statSpd);
                 dict[Loc.GetPrototypeString(Protos.Skill.AttrSpeed, "Name")] = $"{statSpd?.Level.Buffed}({statSpd?.Level.Base})";
                 dict[string.Empty] = string.Empty;
-                dict[_locScope.GetString("Group.Attribute.Fame")] = TempFame;
-                dict[_locScope.GetString("Group.Attribute.Karma")] = TempKarma;
+                dict[_locScope.GetString("Group.Attribute.Fame")] = attributeFame.ToString();
+                dict[_locScope.GetString("Group.Attribute.Karma")] = attributeKarma.ToString();
                 SetupContainer(SpecialStatContainer, 2, dict);
                 dict.Clear();
             }

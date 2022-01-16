@@ -18,6 +18,7 @@ namespace OpenNefia.Content.GameObjects
     public class PregnantSystem : EntitySystem
     {
         [Dependency] private readonly IRandom _rand = default!;
+        [Dependency] private readonly IDisplayNameSystem _displayNames = default!;
 
         public override void Initialize()
         {
@@ -32,7 +33,7 @@ namespace OpenNefia.Content.GameObjects
             if (EntityManager.HasComponent<PregnantComponent>(uid))
                 return;
 
-            Console.WriteLine("An alien forces its way into " + DisplayNameSystem.GetDisplayName(uid) + "'s stomach!");
+            Console.WriteLine("An alien forces its way into " + _displayNames.GetDisplayName(uid) + "'s stomach!");
             EntityManager.AddComponent<PregnantComponent>(uid);
         }
 
@@ -45,7 +46,7 @@ namespace OpenNefia.Content.GameObjects
 
             if (_rand.OneIn(10))
             {
-                Console.WriteLine("Suddenly an alien bursts from " + DisplayNameSystem.GetDisplayName(uid) + "'s stomach!");
+                Console.WriteLine("Suddenly an alien bursts from " + _displayNames.GetDisplayName(uid) + "'s stomach!");
                 EntityManager.SpawnEntity(Protos.Chara.Putit, spatial.MapPosition.Offset(1, 1));
             }
         }

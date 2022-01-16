@@ -5,6 +5,8 @@ using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Locale;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.UI;
+using static OpenNefia.Content.Prototypes.Protos;
+using OpenNefia.Content.CustomName;
 
 namespace OpenNefia.Content.CharaMake
 {
@@ -12,9 +14,25 @@ namespace OpenNefia.Content.CharaMake
     public class CharaMakeCharaSheetLayer : CharaMakeLayer
     {
         private CharaSheet Sheet;
+
+        private EntityUid _entity;
+
         public CharaMakeCharaSheetLayer(EntityUid entity)
         {
+            _entity = entity;
+
+            Reroll(playSound: false);
+
             Sheet = new CharaSheet(entity);
+        }
+
+        private void Reroll(bool playSound)
+        {
+            if (playSound)
+                Sounds.Play(Sound.Dice);
+
+            var customName = EntityManager.EnsureComponent<CustomNameComponent>(_entity);
+            customName.CustomName = "????";
         }
 
         public override void OnQuery()

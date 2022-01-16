@@ -67,7 +67,7 @@ namespace OpenNefia.Content.GameObjects
             {
                 onlookerSpatial.MapPosition.TryDistanceTiled(spatial.MapPosition, out var dist);
                 var targetLevelText = GetTargetDangerText(args.Onlooker, target);
-                args.TargetTexts.Add("You are targeting " + _displayNames.GetDisplayNameInner(target) + " (distance " + (int)dist + ")");
+                args.TargetTexts.Add("You are targeting " + _displayNames.GetDisplayName(target) + " (distance " + (int)dist + ")");
                 args.TargetTexts.Add(targetLevelText);
             }
         }
@@ -98,7 +98,7 @@ namespace OpenNefia.Content.GameObjects
                     mes.Append(Loc.GetString("Elona.TargetText.ItemOnCell.And"));
                 }
                 var item = items[i];
-                mes.Append(_displayNames.GetDisplayNameInner(item.Owner));
+                mes.Append(_displayNames.GetDisplayName(item.Owner));
             }
 
             var ownState = OwnState.None;

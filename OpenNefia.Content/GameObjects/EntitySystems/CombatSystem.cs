@@ -23,6 +23,7 @@ namespace OpenNefia.Content.GameObjects
         [Dependency] private readonly IAudioManager _sounds = default!;
         [Dependency] private readonly IFactionSystem _factions = default!;
         [Dependency] private readonly IRandom _random = default!;
+        [Dependency] private readonly IDisplayNameSystem _displayNames = default!;
 
         public override void Initialize()
         {
@@ -38,13 +39,13 @@ namespace OpenNefia.Content.GameObjects
             if (!EntityManager.TryGetComponent(args.Target, out SkillsComponent targetSkills))
                 return;
 
-            Mes.Display($"{DisplayNameSystem.GetDisplayName(uid)} punches {DisplayNameSystem.GetDisplayName(args.Target)}");
+            Mes.Display($"{_displayNames.GetDisplayName(uid)} punches {_displayNames.GetDisplayName(args.Target)}");
 
             _sounds.Play(Protos.Sound.Atk1, args.Target);
             targetSkills.HP--;
             if (targetSkills.HP < 0)
             {
-                Mes.Display($"{DisplayNameSystem.GetDisplayName(uid)} kills {DisplayNameSystem.GetDisplayName(args.Target)}!");
+                Mes.Display($"{_displayNames.GetDisplayName(uid)} kills {_displayNames.GetDisplayName(args.Target)}!");
                 KillEntity(args.Target);
             }
 

@@ -32,6 +32,8 @@
   - type: VanillaAI
   - type: Buffs
   - type: Sanity
+  - type: Karma
+  - type: Fame
 
 - type: Entity
   id: BaseItem
