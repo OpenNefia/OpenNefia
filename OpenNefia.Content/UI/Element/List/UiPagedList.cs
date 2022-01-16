@@ -51,7 +51,8 @@ namespace OpenNefia.Content.UI.Element.List
 
         private void HandlePageChanged(int newPage, int newPageCount)
         {
-            Select(SelectedIndex);
+            var clampedIndex = Math.Clamp(SelectedIndex, 0, _pageModel.CurrentElements.Count - 1);
+            Select(clampedIndex);
         }
 
         protected override void UpdateDisplayedCells(bool setSize)
