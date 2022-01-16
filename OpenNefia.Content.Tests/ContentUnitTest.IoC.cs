@@ -33,11 +33,18 @@ namespace OpenNefia.Content.Tests
         {
             
         }
+
+        public void ToggleBacklog(bool visible)
+        {
+        }
     }
 
     public class DummyMessageWindow : DummyDrawable, IHudMessageWindow
     {
-        public void Print(string queryText, Color? color = null, bool newLine = true)
+        public void Print(string queryText, Color? color = null)
+        {
+        }
+        public void Newline()
         {
         }
     }

@@ -63,7 +63,7 @@ namespace OpenNefia.Content.Inventory
         public Color ChipColor { get; set; }
     }
     
-    public sealed class InventoryLayer : UiLayerWithResult<InventoryContext, InventoryLayer.Result>, IInventoryLayer
+    public sealed class InventoryLayer : GroupableUiLayer<InventoryContext, InventoryLayer.Result>, IInventoryLayer
     {
         public new class Result
         {
@@ -151,6 +151,7 @@ namespace OpenNefia.Content.Inventory
         [Dependency] private readonly IUserInterfaceManager _uiMgr = default!;
         [Dependency] private readonly IInventorySystem _invSys = default!;
         [Dependency] private readonly ICargoSystem _cargoSys = default!;
+        [Dependency] private readonly IMessage _mes = default!;
 
         public bool PlaySounds { get; set; } = false;
 
@@ -300,8 +301,8 @@ namespace OpenNefia.Content.Inventory
             var text = Context.GetQueryText();
             if (!string.IsNullOrEmpty(text))
             {
-                Mes.Newline();
-                Mes.Display(text);
+                _mes.Newline();
+                _mes.Display(text);
             }
         }
 

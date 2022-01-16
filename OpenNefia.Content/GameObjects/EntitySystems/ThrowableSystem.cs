@@ -19,6 +19,7 @@ namespace OpenNefia.Content.GameObjects
         [Dependency] private readonly IMapManager _mapManager = default!;
         [Dependency] private readonly IEntityLookup _lookup = default!;
         [Dependency] private readonly IStackSystem _stackSystem = default!;
+        [Dependency] private readonly IMessage _mes = default!;
 
         public const string VerbIDThrow = "Elona.Throw";
 
@@ -81,7 +82,7 @@ namespace OpenNefia.Content.GameObjects
 
             if (!posResult.Value.CanSee)
             {
-                Mes.Display("You can't see the location.");
+                _mes.Display("You can't see the location.");
                 args.Handle(TurnResult.Failed);
                 return;
             }
@@ -102,7 +103,7 @@ namespace OpenNefia.Content.GameObjects
                 || !EntityManager.IsAlive(throwing))
                 return false;
 
-            Mes.Display(Loc.GetString("Elona.Throwable.Throws", ("entity", source), ("item", throwing)));
+            _mes.Display(Loc.GetString("Elona.Throwable.Throws", ("entity", source), ("item", throwing)));
 
             var ev = new EntityThrownEventArgs(source, coords);
             RaiseLocalEvent(throwing, ev);

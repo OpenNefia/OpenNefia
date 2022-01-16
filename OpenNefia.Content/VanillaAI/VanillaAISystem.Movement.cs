@@ -22,6 +22,7 @@ namespace OpenNefia.Content.VanillaAI
     public sealed partial class VanillaAISystem
     {
         [Dependency] private readonly IEntityLookup _lookup = default!;
+        [Dependency] private readonly IMessage _mes = default!;
 
         public bool StayNearPosition(EntityUid entity, MapCoordinates anchor, VanillaAIComponent ai, 
             int maxDistance = 2, 
@@ -194,7 +195,7 @@ namespace OpenNefia.Content.VanillaAI
                         {
                             if (_movement.SwapPlaces(entity, onCell))
                             {
-                                Mes.DisplayIfLos(entity, Loc.GetString("Elona.AI.Swap.Displace", ("chara", entity), ("onCell", onCell)));
+                                _mes.DisplayIfLos(entity, Loc.GetString("Elona.AI.Swap.Displace", ("chara", entity), ("onCell", onCell)));
                                 // TODO activity
                             }
                         }

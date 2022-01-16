@@ -31,6 +31,7 @@ namespace OpenNefia.Content.RandomAreas
         [Dependency] private readonly ITileDefinitionManager _tileDefs = default!;
         [Dependency] private readonly MapEntranceSystem _mapEntrances = default!;
         [Dependency] private readonly IAreaEntranceSystem _areaEntrances = default!;
+        [Dependency] private readonly IMessage _mes = default!;
 
         /// <summary>
         /// The number of active random areas that should exist in the world map at any given time.
@@ -72,7 +73,7 @@ namespace OpenNefia.Content.RandomAreas
         {
             mapRandomAreas.RegenerateRandomAreas = false;
 
-            Mes.Display(Loc.GetString("Elona.RandomArea.SuddenDiastrophism"));
+            _mes.Display(Loc.GetString("Elona.RandomArea.SuddenDiastrophism"));
             DeleteRandomAreasAndEntrancesInMap(mapId);
             GenerateRandomAreas(mapId);
         }

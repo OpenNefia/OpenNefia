@@ -29,8 +29,12 @@ namespace OpenNefia.Core.Input
         public static readonly BoundKeyFunction UISelect = "UISelect";
         public static readonly BoundKeyFunction UICancel = "UICancel";
 
+        public static readonly BoundKeyFunction UINextTab = "UINextTab";
+        public static readonly BoundKeyFunction UIPreviousTab = "UIPreviousTab";
         public static readonly BoundKeyFunction UINextPage = "UINextPage";
         public static readonly BoundKeyFunction UIPreviousPage = "UIPreviousPage";
+        
+        public static readonly BoundKeyFunction UIBacklog = "UIBacklog";
 
         public static readonly BoundKeyFunction ShowDebugConsole = "ShowDebugConsole";
         public static readonly BoundKeyFunction ShowDebugMonitors = "ShowDebugMonitors";

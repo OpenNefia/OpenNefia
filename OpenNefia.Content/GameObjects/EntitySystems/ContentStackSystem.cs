@@ -1,5 +1,6 @@
 ﻿using OpenNefia.Content.Logic;
 using OpenNefia.Core.GameObjects;
+using OpenNefia.Core.IoC;
 using OpenNefia.Core.Locale;
 using System;
 using System.Collections.Generic;
@@ -11,6 +12,7 @@ namespace OpenNefia.Content.GameObjects
 {
     public class ContentStackSystem : EntitySystem
     {
+        [Dependency] private readonly IMessage _mes = default!;
         public override void Initialize()
         {
             SubscribeLocalEvent<SpatialComponent, EntityStackedEvent>(HandleStacked, nameof(HandleStacked));
@@ -20,7 +22,7 @@ namespace OpenNefia.Content.GameObjects
         {
             if (args.ShowMessage)
             {
-                Mes.Display(Loc.GetString("Elona.GameObjects.Stack.HasBeenStacked",
+                _mes.Display(Loc.GetString("Elona.GameObjects.Stack.HasBeenStacked",
                     ("entity", uid),
                     ("totalCount", args.NewCount)));
             }

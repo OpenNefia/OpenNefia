@@ -75,6 +75,7 @@ namespace OpenNefia.Content.TurnOrder
         [Dependency] private readonly IAudioManager _sounds = default!;
         [Dependency] private readonly IUserInterfaceManager _uiManager = default!;
         [Dependency] private readonly ISaveGameSerializer _saveGameSerializer = default!;
+        [Dependency] private readonly IMessage _mes = default!;
 
         private TurnOrderState _state = TurnOrderState.TurnBegin;
 
@@ -442,7 +443,7 @@ namespace OpenNefia.Content.TurnOrder
                 return ev.TurnResult.ToTurnOrderState();
             }
 
-            Mes.Display(Loc.GetString("Elona.Death.GoodBye"));
+            _mes.Display(Loc.GetString("Elona.Death.GoodBye"));
 
             var promptArgs = new TextPrompt.Args(maxLength: 16, prompt: Loc.GetString("Elona.Death.PromptDyingMessage"));
             var result = _uiManager.Query<TextPrompt, TextPrompt.Args, TextPrompt.Result>(promptArgs);

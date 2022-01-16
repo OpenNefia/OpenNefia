@@ -23,6 +23,7 @@ namespace OpenNefia.Content.Inventory
     {
         [Dependency] private readonly IEntityManager _entityManager = default!;
         [Dependency] private readonly IUserInterfaceManager _uiManager = default!;
+        [Dependency] private readonly IMessage _mes = default!;
 
         public EntityUid User { get; }
         public IInventoryBehavior Behavior { get; internal set; }
@@ -87,7 +88,7 @@ namespace OpenNefia.Content.Inventory
             {
                 if (Behavior.QueryAmount)
                 {
-                    Mes.Display($"How many? ({1} ~ {stack.Count})");
+                    _mes.Display($"How many? ({1} ~ {stack.Count})");
 
                     var result = _uiManager.Query<NumberPrompt, NumberPrompt.Args, NumberPrompt.Result>(new(stack.Count, 1, isCancellable: true));
                     if (!result.HasValue)

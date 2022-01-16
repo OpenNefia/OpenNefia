@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using OpenNefia.Core.Prototypes;
 using static OpenNefia.Core.Rendering.AssetInstance;
+using OpenNefia.Core.Maths;
 
 namespace OpenNefia.Content.UI.Element
 {
@@ -24,10 +25,16 @@ namespace OpenNefia.Content.UI.Element
 
         private IAssetInstance MessageWindowAsset = default!;
         private Love.SpriteBatch Batch = default!;
+        private Love.SpriteBatch? SideBatch = default!;
         private MessageBackingType Type;
         public UiMessageWindowBacking(MessageBackingType type = MessageBackingType.Default)
         {
             Type = type;
+        }
+
+        private int GetSideCount()
+        {
+            return Height / MessageBoxWidth;
         }
 
         public override void SetSize(int width, int height)
@@ -35,25 +42,43 @@ namespace OpenNefia.Content.UI.Element
             base.SetSize(width, height);
             var parts = new List<AssetBatchPart>();
 
+            MessageWindowAsset = Assets.Get(Protos.Asset.MessageWindow);
             switch (Type)
             {
                 default:
                     for (int x = 0; x < Width / MessageBoxWidth; x++)
                     {
-                        parts.Add(new AssetBatchPart("topBar", X + (x * MessageBoxWidth), Y));
-                        parts.Add(new AssetBatchPart("body", X + (x * MessageBoxWidth), Y + 5));
-                        parts.Add(new AssetBatchPart("bottomBar", X + (x * MessageBoxWidth), Y + 5 + 62));
+                        parts.Add(new AssetBatchPart("topBar", (x * MessageBoxWidth), 0));
+                        parts.Add(new AssetBatchPart("body", (x * MessageBoxWidth), 5));
+                        parts.Add(new AssetBatchPart("bottomBar", (x * MessageBoxWidth), 5 + 62));
                     }
                     break;
+                case MessageBackingType.Expanded:
+                    for (int x = 0; x < Width / MessageBoxWidth; x++)
+                    {
+                        parts.Add(new AssetBatchPart("topBar", (x * MessageBoxWidth), 0));
+                        for (int y = 0; y < Height / MessageBoxHeight; y++)
+                        {
+                            parts.Add(new AssetBatchPart("body", (x * MessageBoxWidth), 5 + (62 * y)));
+                        }
+                    }
+                    var sideParts = new List<AssetBatchPart>();
+                    for (int y = 0; y < GetSideCount(); y++)
+                    {
+                        sideParts.Add(new AssetBatchPart("topBar", y * MessageBoxWidth, 0));
+                    }
+                    SideBatch = MessageWindowAsset.MakeBatch(sideParts);
+                    break;
             }
-
-            MessageWindowAsset = Assets.Get(Protos.Asset.MessageWindow);
             Batch = MessageWindowAsset.MakeBatch(parts);
         }
+
 
         public override void Draw()
         {
             Love.Graphics.Draw(Batch, X, Y);
+            if (SideBatch != null)
+                Love.Graphics.Draw(SideBatch, X, Y + (GetSideCount() * MessageBoxWidth), (float)Angle.FromDegrees(-90).Theta);
         }
 
         public override void Update(float dt)

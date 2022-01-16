@@ -20,6 +20,7 @@ namespace OpenNefia.Content.Inventory
     public abstract class BaseInventoryBehavior : IInventoryBehavior
     {
         [Dependency] protected readonly IEntityManager EntityManager = default!;
+        [Dependency] private readonly IMessage _mes = default!;
 
         public abstract HspIds<InvElonaId>? HspIds { get; }
         public abstract string WindowTitle { get; }
@@ -79,7 +80,7 @@ namespace OpenNefia.Content.Inventory
             if (EntityManager.TryGetComponent(item, out PickableComponent pickable) && pickable.IsNoDrop)
             {
                 Sounds.Play(Sound.Fail1);
-                Mes.Display(Loc.GetString("Elona.Inventory.Common.SetAsNoDrop"));
+                _mes.Display(Loc.GetString("Elona.Inventory.Common.SetAsNoDrop"));
                 return true;
             }
 

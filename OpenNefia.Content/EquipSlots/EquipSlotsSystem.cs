@@ -25,6 +25,7 @@ namespace OpenNefia.Content.EquipSlots
     public sealed partial class EquipSlotsSystem : EntitySystem, IEquipSlotsSystem
     {
         [Dependency] private readonly IAudioManager _sounds = default!;
+        [Dependency] private readonly IMessage _mes = default!;
 
         public override void Initialize()
         {
@@ -70,7 +71,7 @@ namespace OpenNefia.Content.EquipSlots
         {
             if (!Resolve(target, ref equipSlots, false) || !Resolve(itemUid, ref item, false))
             {
-                if (!silent) Mes.Display(Loc.GetString("Elona.EquipSlots.Equip.Fails",
+                if (!silent) _mes.Display(Loc.GetString("Elona.EquipSlots.Equip.Fails",
                     ("actor", actor),
                     ("target", target),
                     ("item", itemUid)));
@@ -79,7 +80,7 @@ namespace OpenNefia.Content.EquipSlots
 
             if (!TryGetContainerForEquipSlot(target, equipSlot, out var slotContainer, equipSlots))
             {
-                if (!silent) Mes.Display(Loc.GetString("Elona.EquipSlots.Equip.Fails",
+                if (!silent) _mes.Display(Loc.GetString("Elona.EquipSlots.Equip.Fails",
                     ("actor", actor),
                     ("target", target),
                     ("item", itemUid)));
@@ -88,7 +89,7 @@ namespace OpenNefia.Content.EquipSlots
 
             if (!force && !CanEquip(actor, target, itemUid, equipSlot, out var reason, equipSlots, item))
             {
-                if (!silent) Mes.Display(Loc.GetString(reason,
+                if (!silent) _mes.Display(Loc.GetString(reason,
                     ("actor", actor),
                     ("target", target),
                     ("item", itemUid)));
@@ -97,7 +98,7 @@ namespace OpenNefia.Content.EquipSlots
 
             if (!slotContainer.Insert(itemUid))
             {
-                if (!silent) Mes.Display(Loc.GetString("Elona.EquipSlots.Equip.Fails",
+                if (!silent) _mes.Display(Loc.GetString("Elona.EquipSlots.Equip.Fails",
                     ("actor", actor),
                     ("target", target),
                     ("item", itemUid)));
@@ -113,8 +114,8 @@ namespace OpenNefia.Content.EquipSlots
                         _sounds.Play(sound.Value, target);
                 }
 
-                Mes.Newline();
-                Mes.Display(Loc.GetString("Elona.EquipSlots.Equip.Succeeds",
+                _mes.Newline();
+                _mes.Display(Loc.GetString("Elona.EquipSlots.Equip.Succeeds",
                     ("actor", actor),
                     ("target", target),
                     ("item", itemUid)));
@@ -200,7 +201,7 @@ namespace OpenNefia.Content.EquipSlots
             removedItem = null;
             if (!Resolve(target, ref equipSlots, false))
             {
-                if (!silent) Mes.Display(Loc.GetString("Elona.EquipSlots.Unequip.Fails",
+                if (!silent) _mes.Display(Loc.GetString("Elona.EquipSlots.Unequip.Fails",
                     ("actor", actor),
                     ("target", target),
                     ("item", EntityUid.Invalid)));
@@ -209,7 +210,7 @@ namespace OpenNefia.Content.EquipSlots
 
             if (!TryGetContainerForEquipSlot(target, equipSlot, out var slotContainer, equipSlots))
             {
-                if (!silent) Mes.Display(Loc.GetString("Elona.EquipSlots.Unequip.Fails",
+                if (!silent) _mes.Display(Loc.GetString("Elona.EquipSlots.Unequip.Fails",
                     ("actor", actor),
                     ("target", target),
                     ("item", EntityUid.Invalid)));
@@ -222,7 +223,7 @@ namespace OpenNefia.Content.EquipSlots
 
             if (!force && !CanUnequip(actor, target, equipSlot, out var reason, slotContainer, equipSlots))
             {
-                if (!silent) Mes.Display(Loc.GetString(reason, 
+                if (!silent) _mes.Display(Loc.GetString(reason, 
                     ("actor", actor),
                     ("target", target), 
                     ("item", slotContainer.ContainedEntity)));
@@ -251,8 +252,8 @@ namespace OpenNefia.Content.EquipSlots
 
             if (!silent)
             {
-                Mes.Newline();
-                Mes.Display(Loc.GetString("Elona.EquipSlots.Unequip.Succeeds",
+                _mes.Newline();
+                _mes.Display(Loc.GetString("Elona.EquipSlots.Unequip.Succeeds",
                     ("actor", actor),
                     ("target", target),
                     ("item", removedItem.Value)));

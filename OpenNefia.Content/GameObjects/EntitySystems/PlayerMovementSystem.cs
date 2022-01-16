@@ -18,6 +18,7 @@ namespace OpenNefia.Content.GameObjects
         [Dependency] private readonly IEntityLookup _lookup = default!;
         [Dependency] private readonly DisplayNameSystem _displayNames = default!;
         [Dependency] private readonly TargetTextSystem _targetText = default!;
+        [Dependency] private readonly IMessage _mes = default!;
 
         public override void Initialize()
         {
@@ -89,7 +90,7 @@ namespace OpenNefia.Content.GameObjects
                 var text = _targetText.GetItemOnCellText(uid, args.NewPosition);
                 if (text != null)
                 {
-                    Mes.Display(text);
+                    _mes.Display(text);
                 }
             }
             else
@@ -99,7 +100,7 @@ namespace OpenNefia.Content.GameObjects
 
                 if (items.Any())
                 {
-                    Mes.Display(Loc.GetString("Elona.PlayerMovement.SenseSomething"));
+                    _mes.Display(Loc.GetString("Elona.PlayerMovement.SenseSomething"));
                 }
             }
         }
