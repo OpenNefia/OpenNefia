@@ -21,6 +21,13 @@ namespace OpenNefia.Core.Maps
         TilePrototype this[int id] { get; }
 
         /// <summary>
+        ///     Indexer to retrieve an internal ID by a tile definition.
+        /// </summary>
+        /// <param name="protoId"></param>
+        /// <returns></returns>
+        ushort this[PrototypeId<TilePrototype> protoId] { get; }
+
+        /// <summary>
         ///     The number of tile definitions contained inside of this manager.
         /// </summary>
         int Count { get; }

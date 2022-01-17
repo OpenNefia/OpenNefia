@@ -215,7 +215,7 @@ namespace OpenNefia.Content.ConsoleCommands
 
             var protoToRune = YamlGridSerializer.BuildProtoToRuneTileMap(map);
 
-            var grid = YamlGridSerializer.SerializeGrid(map, protoToRune, _tileDefinitionManager);
+            var grid = YamlGridSerializer.SerializeGrid(map.Tiles, map.Size, protoToRune, _tileDefinitionManager);
             var runeToProtoTileMap = new YamlMappingNode();
 
             foreach (var (rune, tileId) in protoToRune.Invert())

@@ -3,6 +3,7 @@ using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Log;
 using OpenNefia.Core.Prototypes;
+using OpenNefia.Core.Rendering;
 using OpenNefia.Core.Serialization.Manager;
 using OpenNefia.Core.Serialization.Markdown;
 using OpenNefia.Core.Serialization.Markdown.Mapping;
@@ -34,7 +35,7 @@ namespace OpenNefia.Core.Maps
         
         public IEnumerable<EntityUid> Entities => _context.Entities;
 
-        public IMap? MapGrid { get; private set; }
+        public Map? MapGrid { get; private set; }
 
         private readonly List<(EntityUid, YamlMappingNode)> _entitiesToDeserialize = new();
 
@@ -63,6 +64,11 @@ namespace OpenNefia.Core.Maps
             // Load grids.
             ReadTileMapSection();
             ReadGridSection();
+            if (_mode == MapSerializeMode.Full)
+            {
+                ReadGridMemorySection();
+                ReadObjectMemorySection();
+            }
 
             // Entities are first allocated. This allows us to know the future UID of all entities on the map before
             // even ExposeData is loaded. This allows us to resolve serialized EntityUid instances correctly.
@@ -142,7 +148,43 @@ namespace OpenNefia.Core.Maps
         {
             var gridString = _rootNode.GetNode(MapLoadConstants.Grid).AsString().Trim();
 
-            MapGrid = YamlGridSerializer.DeserializeGrid(gridString, _tileMap!);
+            var tiles = YamlGridSerializer.DeserializeGrid(gridString, _tileMap!, _tileDefinitionManager, out var tileMapSize);
+
+            MapGrid = new Map(tileMapSize.X, tileMapSize.Y);
+            foreach (var tile in MapGrid.AllTiles)
+            {
+                MapGrid.Tiles[tile.X, tile.Y] = tiles[tile.X, tile.Y];
+            }
+
+            MapGrid.RedrawAllThisTurn = true;
+        }
+
+        private void ReadGridMemorySection()
+        {
+            var gridMemoryString = _rootNode.GetNode(MapLoadConstants.GridMemory).AsString().Trim();
+            var tileMemory = YamlGridSerializer.DeserializeGrid(gridMemoryString, _tileMap!, _tileDefinitionManager, out var tileMapMemorySize);
+
+            if (tileMapMemorySize != MapGrid!.Size)
+            {
+                throw new InvalidDataException($"Tilemap memory size {tileMapMemorySize} was not the same as tilemap size {MapGrid.Size}!");
+            }
+
+            foreach (var tile in MapGrid.AllTileMemory)
+            {
+                MapGrid.TileMemory[tile.X, tile.Y] = tileMemory[tile.X, tile.Y];
+            }
+        }
+
+        private void ReadObjectMemorySection()
+        {
+            var objectMemoryNode = _rootNode.GetNode(MapLoadConstants.ObjectMemory).ToDataNodeCast<MappingDataNode>();
+            
+            if (objectMemoryNode == null)
+            {
+                throw new InvalidDataException($"Object memory section '{MapLoadConstants.ObjectMemory}' not found!");
+            }
+
+            MapGrid!.MapObjectMemory = _serializationManager.ReadValueOrThrow<MapObjectMemoryStore>(objectMemoryNode);
         }
 
         private void AllocEntities()

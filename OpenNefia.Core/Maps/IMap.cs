@@ -22,6 +22,7 @@ namespace OpenNefia.Core.Maps
         bool NeedsRedraw { get; }
 
         IEnumerable<TileRef> AllTiles { get; }
+        IEnumerable<TileRef> AllTileMemory { get; }
         HashSet<Vector2i> DirtyTilesThisTurn { get; }
         bool RedrawAllThisTurn { get; set; }
 

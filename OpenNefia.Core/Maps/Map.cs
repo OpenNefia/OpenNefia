@@ -35,7 +35,7 @@ namespace OpenNefia.Core.Maps
         private TileFlag[,] _tileFlags { get; }
         internal int[,] _InSight;
         public int LastSightId { get; set; }
-        public MapObjectMemoryStore MapObjectMemory { get; }
+        public MapObjectMemoryStore MapObjectMemory { get; internal set; }
 
         public HashSet<Vector2i> DirtyTilesThisTurn { get; } = new();
         public bool RedrawAllThisTurn { get; set; }
@@ -197,6 +197,20 @@ namespace OpenNefia.Core.Maps
                     for (var y = 0; y < Height; y++)
                     {
                         yield return new TileRef(Id, x, y, Tiles[x, y]);
+                    }
+                }
+            }
+        }
+
+        public IEnumerable<TileRef> AllTileMemory
+        {
+            get
+            {
+                for (var x = 0; x < Width; x++)
+                {
+                    for (var y = 0; y < Height; y++)
+                    {
+                        yield return new TileRef(Id, x, y, TileMemory[x, y]);
                     }
                 }
             }

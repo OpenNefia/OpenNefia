@@ -5,6 +5,7 @@ using OpenNefia.Core.IoC;
 using OpenNefia.Core.Maps;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.Prototypes;
+using OpenNefia.Core.Rendering;
 using OpenNefia.Core.Serialization.Manager;
 using OpenNefia.Core.Serialization.Manager.Attributes;
 using OpenNefia.Core.Utility;
@@ -21,8 +22,10 @@ namespace OpenNefia.Tests.Core.Maps.Loader
     [TestOf(typeof(MapLoader))]
     public class MapLoader_Tests : OpenNefiaUnitTest
     {
+        private static readonly PrototypeId<TilePrototype> TileTestFloorID = new("Test.Floor");
+        private static readonly PrototypeId<TilePrototype> TileTestWallID = new("Test.Wall");
 
-        private const string Prototypes = @"
+        private static readonly string Prototypes = @$"
 - type: Entity
   id: MapDeserializeTest
   components:
@@ -35,7 +38,7 @@ namespace OpenNefia.Tests.Core.Maps.Loader
   id: MapDeserializeTestOverride
   components:
   - type: MapDeserializeTestOverride
-    bar: !type:TestDataProto {}
+    bar: !type:TestDataProto {{}}
 
 # Required by the engine.
 - type: Tile
@@ -46,7 +49,7 @@ namespace OpenNefia.Tests.Core.Maps.Loader
   isOpaque: false
 
 - type: Tile
-  id: Test.Floor
+  id: {TileTestFloorID}
   image:
     filepath: /Default.png
   isSolid: false
@@ -77,7 +80,7 @@ namespace OpenNefia.Tests.Core.Maps.Loader
             var protoMan = IoCManager.Resolve<IPrototypeManager>();
             protoMan.RegisterType<EntityPrototype>();
             protoMan.RegisterType<TilePrototype>();
-            protoMan.LoadDirectory(new ResourcePath("/Prototypes")); 
+            protoMan.LoadDirectory(new ResourcePath("/Prototypes"));
             protoMan.Resync();
 
             var tileDefMan = IoCManager.Resolve<ITileDefinitionManagerInternal>();
@@ -103,14 +106,14 @@ namespace OpenNefia.Tests.Core.Maps.Loader
             var mapMan = IoCManager.Resolve<IMapManager>();
             var entMan = IoCManager.Resolve<IEntityManager>();
 
-            var mapData1 = @"meta:
+            var mapData1 = @$"meta:
   format: 1
   name: test
   author: ruin
 grid: |
   .
 tilemap:
-  '.': Test.Floor
+  '.': {TileTestWallID}
 entities: []
 ";
 
@@ -130,14 +133,14 @@ entities: []
             var mapMan = IoCManager.Resolve<IMapManager>();
             var entMan = IoCManager.Resolve<IEntityManager>();
 
-            var mapData2 = @"meta:
+            var mapData2 = @$"meta:
   format: 1
   name: test
   author: ruin
 grid: |
   .
 tilemap:
-  '.': Test.Floor
+  '.': {TileTestFloorID}
 entities:
 - uid: 0
   components:
@@ -161,7 +164,7 @@ entities:
             var entMan = IoCManager.Resolve<IEntityManager>();
 
 
-            var mapData = @"
+            var mapData = @$"
 meta:
   format: 1
   name: test
@@ -174,8 +177,8 @@ grid: |
   @......@
   @@@@@@@@
 tilemap:
-  '@': Test.Wall
-  '.': Test.Floor
+  '@': {TileTestWallID}
+  '.': {TileTestFloorID}
 entities:
 - uid: 0
   components:
@@ -271,8 +274,8 @@ entities:
         }
 
         /// <summary>
-        /// Tests that the full state of data definition properties are captured on map save
-        /// , including defaults set by the prototype/constructors.
+        /// Tests that the full state of data definition properties are captured on map save,
+        /// including defaults set by the prototype/constructors.
         /// </summary>
         [Test]
         public void TestMapLoadDataDefinitions()
@@ -303,6 +306,71 @@ entities:
                 Assert.That(c.Foo, Is.TypeOf(typeof(TestDataRuntime)));
                 Assert.That(c.Bar, Is.TypeOf(typeof(TestDataProto)));
                 Assert.That(c.Baz, Is.TypeOf(typeof(TestDataCtor)));
+            });
+        }
+
+        /// <summary>
+        /// Tests that tile memory is saved and restored properly.
+        /// </summary>
+        [Test]
+        public void TestMapLoadTileMemory()
+        {
+            var mapMan = IoCManager.Resolve<IMapManager>();
+            var entMan = IoCManager.Resolve<IEntityManager>();
+            var tileDefMan = IoCManager.Resolve<ITileDefinitionManager>();
+
+            var mapLoader = IoCManager.Resolve<IMapLoader>();
+
+            var map = mapMan.CreateMap(5, 5);
+            var mapId = map.Id;
+
+            map.SetTileMemory(Vector2i.One, TileTestWallID);
+
+            using var save = new TempSaveGameHandle();
+
+            mapLoader.SaveMap(mapId, save);
+            mapMan.UnloadMap(mapId);
+            map = mapLoader.LoadMap(mapId, save);
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(map.GetTileMemory(Vector2i.Zero), Is.EqualTo(Tile.EmptyID));
+                Assert.That(map.GetTileMemory(Vector2i.One), Is.EqualTo(TileTestWallID));
+            });
+        }
+
+        /// <summary>
+        /// Tests that map object memory is saved and restored properly.
+        /// </summary>
+        [Test]
+        public void TestMapLoadObjectMemory()
+        {
+            var mapMan = IoCManager.Resolve<IMapManager>();
+            var entMan = IoCManager.Resolve<IEntityManager>();
+            var tileDefMan = IoCManager.Resolve<ITileDefinitionManager>();
+
+            var mapLoader = IoCManager.Resolve<IMapLoader>();
+
+            var map = mapMan.CreateMap(5, 5);
+            var mapId = map.Id;
+
+            entMan.EventBus.SubscribeLocalEvent<MapDeserializeTestComponent, GetMapObjectMemoryEventArgs>
+                ((_, _, _) => new MapObjectMemory());
+
+            var ent = entMan.SpawnEntity(new("MapDeserializeTestOverride"), map.AtPos(Vector2i.One));
+
+            map.MapObjectMemory.RevealObjects(map, Vector2i.One, entMan);
+
+            using var save = new TempSaveGameHandle();
+
+            mapLoader.SaveMap(mapId, save);
+            mapMan.UnloadMap(mapId);
+            map = mapLoader.LoadMap(mapId, save);
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(map.MapObjectMemory.AllMemory.Count, Is.EqualTo(1));
+                Assert.That(map.MapObjectMemory.AllMemory.First().Value.ObjectUid, Is.EqualTo(ent));
             });
         }
 

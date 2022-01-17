@@ -76,6 +76,7 @@ namespace OpenNefia.Core.Maps
         }
 
         public TilePrototype this[int index] => TileDefs[index];
+        public ushort this[PrototypeId<TilePrototype> protoId] => _tileIndices[protoId];
 
         public int Count => TileDefs.Count;
 

@@ -1,4 +1,6 @@
-﻿namespace OpenNefia.Core.Maps
+﻿using OpenNefia.Core.Prototypes;
+
+namespace OpenNefia.Core.Maps
 {
     internal interface ITileDefinitionManagerInternal : ITileDefinitionManager
     {

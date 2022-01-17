@@ -12,6 +12,8 @@
         public const string Tilemap = "tilemap";
 
         public const string Grid = "grid";
+        public const string GridMemory = "gridMemory";
+        public const string ObjectMemory = "objectMemory";
 
         public const string Entities = "entities";
         public const string Entities_ProtoId = "protoId";
