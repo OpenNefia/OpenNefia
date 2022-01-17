@@ -1,10 +1,6 @@
-﻿using OpenNefia.Content.EntityGen;
+﻿using OpenNefia.Content.DisplayName;
+using OpenNefia.Content.EntityGen;
 using OpenNefia.Tests;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OpenNefia.Content.Tests
 {
@@ -17,6 +13,7 @@ namespace OpenNefia.Content.Tests
                .LoadAssemblies(list => list.Add(typeof(Content.EntryPoint).Assembly))
                .RegisterEntitySystems(factory =>
                {
+                   factory.LoadExtraSystemType<DisplayNameSystem>();
                    factory.LoadExtraSystemType<EntityGenSystem>();
                });
         }

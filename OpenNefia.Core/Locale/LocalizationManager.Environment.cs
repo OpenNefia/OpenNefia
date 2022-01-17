@@ -26,7 +26,7 @@ namespace OpenNefia.Core.Locale
 
         public void Clear()
         {
-            _lua.Dispose();
+            _lua?.Dispose();
             _lua = CreateLuaEnv();
             _stringStore.Clear();
         }

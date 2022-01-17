@@ -227,6 +227,9 @@ namespace OpenNefia.Tests
             var tileMan = container.Resolve<ITileDefinitionManagerInternal>();
             tileMan.RegisterAll();
 
+            var locMan = container.Resolve<ILocalizationManager>();
+            locMan.Initialize();
+
             return this;
         }
 

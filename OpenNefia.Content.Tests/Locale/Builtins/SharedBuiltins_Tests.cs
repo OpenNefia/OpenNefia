@@ -24,18 +24,6 @@ namespace OpenNefia.Content.Tests.Locale.Builtins
     {
         protected override PrototypeId<LanguagePrototype> TestingLanguage => LanguagePrototypeOf.English;
 
-        protected override ISimulationFactory GetSimulationFactory()
-        {
-            return base.GetSimulationFactory()
-               .RegisterEntitySystems(factory =>
-               {
-                   factory.LoadExtraSystemType<VisibilitySystem>();
-                   factory.LoadExtraSystemType<DisplayNameSystem>();
-                   factory.LoadExtraSystemType<ObjectDisplayNameSystem>();
-                   factory.LoadExtraSystemType<ItemNameSystem>();
-               });
-        }
-
         #region Builtin_name()
 
         private const string LocaleTestFile_name = @"
@@ -86,8 +74,8 @@ Test.Content.Builtins = {
 
             var entCharaOutOfSight = entMan.SpawnEntity(EntityCharaFemaleID, map.AtPos(new Vector2i(20, 20)));
 
-            Assert.That(locMan.GetString("Test.Content.Builtins.Name", ("arg", entCharaFemale)), Is.EqualTo("CharaFemale"));
-            Assert.That(locMan.GetString("Test.Content.Builtins.Name", ("arg", entCharaMale)), Is.EqualTo("CharaMale"));
+            Assert.That(locMan.GetString("Test.Content.Builtins.Name", ("arg", entCharaFemale)), Is.EqualTo("the CharaFemale"));
+            Assert.That(locMan.GetString("Test.Content.Builtins.Name", ("arg", entCharaMale)), Is.EqualTo("the CharaMale"));
             Assert.That(locMan.GetString("Test.Content.Builtins.Name", ("arg", entCharaPlayer)), Is.EqualTo("you"));
 
             Assert.That(locMan.GetString("Test.Content.Builtins.Name", ("arg", entCharaOutOfSight)), Is.EqualTo("something"));

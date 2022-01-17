@@ -246,7 +246,7 @@ namespace OpenNefia.Core.SaveGames
             var saveHeader = MakeSaveGameHeader(name);
             var savePath = ResourcePath.Root / Guid.NewGuid().ToString();
             var save = _saveGameManager.CreateSave(savePath, saveHeader);
-            ((SaveGameHandle)save).LastWriteTime = DateTime.Now;
+            save.LastWriteTime = DateTime.Now;
 
             return save;
         }
@@ -260,7 +260,7 @@ namespace OpenNefia.Core.SaveGames
             OnGameSaved?.Invoke(save);
 
             save.Files.Commit();
-            ((SaveGameHandle)save).LastWriteTime = DateTime.Now;
+            save.LastWriteTime = DateTime.Now;
         }
 
         private void SaveSession(ISaveGameHandle save)

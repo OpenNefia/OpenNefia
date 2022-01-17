@@ -74,15 +74,10 @@ OpenNefia.Prototypes.Entity =
 }}
 ";
 
-        protected virtual ISimulationFactory GetSimulationFactory()
+        protected virtual IFullSimulationFactory GetSimulationFactory()
         {
-            return ContentGameSimulation
+            return ContentFullGameSimulation
                .NewSimulation()
-               .RegisterComponents(factory =>
-               {
-                   factory.RegisterClass<CharaComponent>();
-                   factory.RegisterClass<ItemComponent>();
-               })
                .RegisterDependencies(factory => factory.Register<ILocalizationManager, TestingLocalizationManager>(overwrite: true))
                .RegisterPrototypes(protoMan => protoMan.LoadString(Prototypes));
         }
