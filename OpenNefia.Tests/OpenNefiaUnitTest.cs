@@ -53,7 +53,10 @@ namespace OpenNefia.Tests
 
             // Required systems
             var systems = IoCManager.Resolve<IEntitySystemManager>();
-            systems.Initialize();
+            foreach (var type in ExtraSystemTypes)
+            {
+                systems.LoadExtraSystemType(type);
+            }
 
             var entMan = IoCManager.Resolve<IEntityManager>();
 
@@ -104,5 +107,7 @@ namespace OpenNefia.Tests
         {
             return Array.Empty<Assembly>();
         }
+
+        protected virtual IEnumerable<Type> ExtraSystemTypes => Enumerable.Empty<Type>();
     }
 }

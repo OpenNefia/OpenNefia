@@ -48,7 +48,6 @@ namespace OpenNefia.Core.Maps
     public sealed partial class MapManager : IMapManagerInternal
     {
         [Dependency] private readonly IEntityManager _entityManager = default!;
-        [Dependency] private readonly IMapManager _mapManager = default!;
 
         private protected readonly Dictionary<MapId, IMap> _maps = new();
         private protected readonly Dictionary<MapId, EntityUid> _mapEntities = new();
@@ -134,9 +133,6 @@ namespace OpenNefia.Core.Maps
 
             SetMapEntity(mapId, mapEntityUid);
             SetMapAndEntityIds(map, mapId, mapEntityUid);
-
-            var ev = new MapCreatedEvent(map, loadedFromSave: true);
-            _entityManager.EventBus.RaiseLocalEvent(map.MapEntityUid, ev);
         }
 
         private EntityUid RebindMapEntity(MapId actualID, IMap map)

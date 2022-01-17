@@ -22,12 +22,20 @@ namespace OpenNefia.Tests.Core.Maps.Loader
     [TestOf(typeof(MapLoader))]
     public class MapLoader_Tests : OpenNefiaUnitTest
     {
+        protected override IEnumerable<Type> ExtraSystemTypes => new[] {
+            typeof(EntityLookup),
+            typeof(SpatialSystem)
+        };
+
         private static readonly PrototypeId<TilePrototype> TileTestFloorID = new("Test.Floor");
         private static readonly PrototypeId<TilePrototype> TileTestWallID = new("Test.Wall");
+        private static readonly PrototypeId<EntityPrototype> TestDeserializeID = new("Test.Deserialize");
+        private static readonly PrototypeId<EntityPrototype> TestDeserializeOverrideID = new("Test.DeserializeOverride");
+        private static readonly PrototypeId<EntityPrototype> TestImpassibleID = new("Test.Impassible");
 
         private static readonly string Prototypes = @$"
 - type: Entity
-  id: MapDeserializeTest
+  id: {TestDeserializeID}
   components:
   - type: MapDeserializeTest
     foo: 1
@@ -35,10 +43,17 @@ namespace OpenNefia.Tests.Core.Maps.Loader
   - type: MapDeserializeTestRemove
 
 - type: Entity
-  id: MapDeserializeTestOverride
+  id: {TestDeserializeOverrideID}
   components:
   - type: MapDeserializeTestOverride
     bar: !type:TestDataProto {{}}
+
+- type: Entity
+  id: {TestImpassibleID}
+  components:
+  - type: Spatial
+    isSolid: true
+    isOpaque: true
 
 # Required by the engine.
 - type: Tile
@@ -157,12 +172,65 @@ entities:
             Assert.Throws<InvalidDataException>(() => mapLoad.LoadBlueprint(new ResourcePath("/TestMap2.yml")));
         }
 
+        /// <summary>
+        /// Loaded maps should have tile tangibility recalculated correctly.
+        /// </summary>
         [Test]
-        public void TestDataLoadPriority()
+        public void TestMapLoadTileTangibility()
         {
             var mapMan = IoCManager.Resolve<IMapManager>();
             var entMan = IoCManager.Resolve<IEntityManager>();
 
+            var mapData = @$"
+meta:
+  format: 1
+  name: test
+  author: ruin
+grid: |
+  @.
+  ..
+tilemap:
+  '.': {TileTestFloorID}
+  '@': {TileTestWallID}
+entities:
+- uid: 0
+  components:
+  - type: Map
+- uid: 1
+  protoId: {TestImpassibleID}
+  components:
+  - type: Spatial
+    parent: 0
+    pos: 1,0
+";
+
+            var resourceManager = IoCManager.Resolve<IResourceManagerInternal>();
+            resourceManager.MountString("/TestMap3.yml", mapData);
+
+            var mapLoad = IoCManager.Resolve<IMapLoader>();
+            var map = mapLoad.LoadBlueprint(new ResourcePath("/TestMap3.yml"));
+
+            Assert.That(map, Is.Not.Null);
+
+            var wallPos = Vector2i.Zero;
+            var floorPos = Vector2i.One;
+            var entityPos = new Vector2i(1, 0);
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(map.CanAccess(wallPos), Is.False, "Wall solid");
+                Assert.That(map.CanAccess(floorPos), Is.True, "Floor solid");
+                Assert.That(map.CanAccess(entityPos), Is.False, "Entity solid");
+                Assert.That(map.CanSeeThrough(wallPos), Is.False, "Wall opaque");
+                Assert.That(map.CanSeeThrough(floorPos), Is.True, "Floor opaque");
+                Assert.That(map.CanSeeThrough(entityPos), Is.False, "Entity opaque");
+            });
+        }
+
+        [Test]
+        public void TestDataLoadPriority()
+        {
+            var entMan = IoCManager.Resolve<IEntityManager>();
 
             var mapData = @$"
 meta:
@@ -184,7 +252,7 @@ entities:
   components:
   - type: Map
 - uid: 1
-  protoId: MapDeserializeTest
+  protoId: {TestDeserializeID}
   components:
   - type: MapDeserializeTest
     foo: 3
@@ -238,7 +306,7 @@ entities:
             var mapId = map.Id;
             var mapEntId = map.MapEntityUid;
 
-            var entityUid = entMan.SpawnEntity(new("MapDeserializeTest"), map.AtPos(Vector2i.One));
+            var entityUid = entMan.SpawnEntity(TestDeserializeID, map.AtPos(Vector2i.One));
 
             var c = entMan.GetComponent<MapDeserializeTestComponent>(entityUid);
             c.Foo = 999;
@@ -288,7 +356,7 @@ entities:
             var map = mapMan.CreateMap(50, 50);
             var mapId = map.Id;
 
-            var entityUid = entMan.SpawnEntity(new("MapDeserializeTestOverride"), map.AtPos(Vector2i.One));
+            var entityUid = entMan.SpawnEntity(TestDeserializeOverrideID, map.AtPos(Vector2i.One));
 
             var c = entMan.GetComponent<MapDeserializeTestOverrideComponent>(entityUid);
             c.Foo = new TestDataRuntime();
@@ -357,7 +425,7 @@ entities:
             var mapId = map.Id;
             var coords = map.AtPos(Vector2i.One);
 
-            var ent = entMan.SpawnEntity(new("MapDeserializeTestOverride"), coords);
+            var ent = entMan.SpawnEntity(TestDeserializeOverrideID, coords);
 
             var memIndex = 1;
             map.MapObjectMemory._allMemory[memIndex] = new MapObjectMemory()

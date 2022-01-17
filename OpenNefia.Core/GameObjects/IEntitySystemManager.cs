@@ -93,6 +93,8 @@ namespace OpenNefia.Core.GameObjects
         /// </exception>
         void LoadExtraSystemType<T>() where T : IEntitySystem, new();
 
+        void LoadExtraSystemType(Type type);
+
         /// <summary>
         ///     Injects dependencies into all fields with <see cref="DependencyAttribute"/> on the provided object, 
         ///     including the dependencies used to initialize <see cref="IEntitySystem"/>s.
