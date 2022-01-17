@@ -24,12 +24,21 @@ namespace OpenNefia.Core.Rendering
 
         private sealed record OrderingData(Type OrderType, Type[]? Before, Type[]? After);
 
-        private sealed record TileLayerMetaData(bool Enabled);
+        private sealed class TileLayerMetaData
+        {
+            public bool Enabled { get; set; }
 
-        private Dictionary<Type, OrderingData> _types = new();
-        private List<ITileLayer> _allTileLayers = new();
-        private Dictionary<ITileLayer, TileLayerMetaData> _tileLayerMetaData = new();
+            public TileLayerMetaData(bool enabled)
+            {
+                Enabled = enabled;
+            }
+        }
+
+        private readonly Dictionary<Type, OrderingData> _types = new();
+        private readonly List<ITileLayer> _allTileLayers = new();
+        private readonly Dictionary<ITileLayer, TileLayerMetaData> _tileLayerMetaData = new();
         private List<ITileLayer> _enabledTileLayers = new();
+
         private IMap? _map;
 
         public void Initialize()
@@ -55,10 +64,11 @@ namespace OpenNefia.Core.Rendering
 
             foreach (var type in GetSortedLayers())
             {
+                var attr = type.GetCustomAttribute<RegisterTileLayerAttribute>()!;
                 var layer = (ITileLayer) _layerDependencyCollection.ResolveType(type);
                 layer.Initialize();
                 _allTileLayers.Add(layer);
-                _tileLayerMetaData.Add(layer, new TileLayerMetaData(Enabled: true));
+                _tileLayerMetaData.Add(layer, new TileLayerMetaData(enabled: attr.EnabledAtStartup));
             }
 
             if (_map != null)
@@ -81,7 +91,18 @@ namespace OpenNefia.Core.Rendering
         }
 
         public void SetTileLayerEnabled<T>(bool enabled) where T : ITileLayer
+            => SetTileLayerEnabled(typeof(T), enabled);
+
+        public void SetTileLayerEnabled(Type type, bool enabled)
         {
+            var tileLayer = _allTileLayers.Where(x => x.GetType() == type).FirstOrDefault();
+            if (tileLayer == null)
+                return;
+
+            var meta = _tileLayerMetaData[tileLayer];
+            meta.Enabled = enabled;
+
+            RebuildEnabledTileLayers();
         }
 
         private void RegisterTileLayer(Type type)
