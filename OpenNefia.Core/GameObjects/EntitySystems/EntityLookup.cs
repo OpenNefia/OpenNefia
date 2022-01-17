@@ -129,10 +129,10 @@ namespace OpenNefia.Core.GameObjects
 
         public override void Initialize()
         {
-            SubscribeLocalEvent<MapComponent, MapInitializeEvent>(HandleMapInitialize, nameof(HandleMapInitialize));
+            SubscribeLocalEvent<MapComponent, MapCreatedEvent>(HandleMapCreated, nameof(HandleMapCreated));
         }
 
-        private void HandleMapInitialize(EntityUid uid, MapComponent component, MapInitializeEvent args)
+        private void HandleMapCreated(EntityUid uid, MapComponent component, MapCreatedEvent args)
         {
             var lookup = EntityManager.EnsureComponent<MapEntityLookupComponent>(uid);
             var map = _mapManager.GetMap(component.MapId);
