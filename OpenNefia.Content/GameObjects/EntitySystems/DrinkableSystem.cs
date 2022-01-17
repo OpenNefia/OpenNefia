@@ -91,7 +91,7 @@ namespace OpenNefia.Content.GameObjects
 
         private void HandleImpactGround(EntityUid thrown, DrinkableComponent potionComp, ThrownEntityImpactedGroundEvent args)
         {
-            Mes.Display($"{_displayNames.GetDisplayName(thrown)} shatters.");
+            _mes.Display($"{_displayNames.GetDisplayName(thrown)} shatters.");
             _sounds.Play(Protos.Sound.Crush2, args.Coords);
 
             var puddle = _entityGen.SpawnEntity(Protos.Mef.Potion, args.Coords);

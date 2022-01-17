@@ -187,7 +187,7 @@ namespace OpenNefia.Content.GameObjects
         private void ReturnToTitle(IGameSessionManager gameSession)
         {
             QuickSaveGame(gameSession);
-            Mes.Display(Loc.GetString("Elona.UserInterface.Exit.Saved"));
+            _mes.Display(Loc.GetString("Elona.UserInterface.Exit.Saved"));
             _playerQuery.PromptMore();
             Wait(0.3f);
 
