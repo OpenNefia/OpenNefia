@@ -9,6 +9,7 @@ using OpenNefia.Core.Serialization.Markdown;
 using OpenNefia.Core.Serialization.Markdown.Mapping;
 using OpenNefia.Core.Utility;
 using YamlDotNet.RepresentationModel;
+using YamlDotNet.Serialization;
 
 namespace OpenNefia.Core.Maps
 {
@@ -84,6 +85,12 @@ namespace OpenNefia.Core.Maps
 
             // Run Startup on all components.
             FinishEntitiesStartup();
+
+            // Run MapInit on all entities.
+            RunMapInitEventsOnMapAndEntities();
+
+            // Recalculate solidity/opacity for all tiles, taking entity spatials in to account.
+            RecalculateTileTangibility();
         }
 
         private void VerifyEntitiesExist()
@@ -334,6 +341,38 @@ namespace OpenNefia.Core.Maps
                 {
                     _onBlueprintEntityStartup?.Invoke(entity);
                 }
+            }
+        }
+
+        private void RunMapInitEventsOnMapAndEntities()
+        {
+            // This can't go in RegisterMap() because entities haven't been initialized
+            // at that point.
+            // Maybe run initialize/startup for just the map entity first?
+            var ev = new MapCreatedEvent(MapGrid!, loadedFromSave: true);
+            _entityManager.EventBus.RaiseLocalEvent(MapGrid!.MapEntityUid, ev);
+
+            foreach (var entityUid in _context.Entities)
+            {
+                MapInitExt.RunMapInit(entityUid);
+            }
+        }
+
+        private void RecalculateTileTangibility()
+        {
+            var mapLookupComp = _entityManager.GetComponent<MapEntityLookupComponent>(MapGrid!.MapEntityUid);
+
+            foreach (var tile in MapGrid!.AllTiles)
+            {
+                var pos = tile.Position;
+                MapGrid.RefreshTile(pos);
+
+                // this should be the same logic as IEntityLookup.GetLiveEntitiesAtCoords.
+                var ents = mapLookupComp.EntitySpatial[pos.X, pos.Y]
+                    .Where(uid => _entityManager.IsAlive(uid))
+                    .Select(uid => _entityManager.GetComponent<SpatialComponent>(uid));
+
+                MapGrid.RefreshTileEntities(pos, ents);
             }
         }
     }

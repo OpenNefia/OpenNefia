@@ -73,7 +73,7 @@ namespace OpenNefia.Core.GameObjects
             if (!map.IsInBounds(coords.Position))
                 return;
 
-            var lookup = EntityManager.EnsureComponent<MapEntityLookupComponent>(map.MapEntityUid);
+            var lookup = EntityManager.GetComponent<MapEntityLookupComponent>(map.MapEntityUid);
             lookup.EntitySpatial[coords.Position.X, coords.Position.Y].Add(entity);
         }
 
@@ -99,7 +99,7 @@ namespace OpenNefia.Core.GameObjects
             if (!map.IsInBounds(coords.Position))
                 return;
 
-            var lookup = EntityManager.EnsureComponent<MapEntityLookupComponent>(map.MapEntityUid);
+            var lookup = EntityManager.GetComponent<MapEntityLookupComponent>(map.MapEntityUid);
             lookup.EntitySpatial[coords.Position.X, coords.Position.Y].Remove(entity);
         }
 

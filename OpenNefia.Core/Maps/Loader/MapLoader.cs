@@ -1,21 +1,10 @@
-﻿using JetBrains.Annotations;
-using OpenNefia.Core.ContentPack;
+﻿using OpenNefia.Core.ContentPack;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Log;
-using OpenNefia.Core.Prototypes;
-using OpenNefia.Core.SaveGames;
 using OpenNefia.Core.Serialization;
-using OpenNefia.Core.Serialization.Manager;
-using OpenNefia.Core.Serialization.Manager.Result;
-using OpenNefia.Core.Serialization.Markdown;
-using OpenNefia.Core.Serialization.Markdown.Mapping;
-using OpenNefia.Core.Serialization.Markdown.Validation;
-using OpenNefia.Core.Serialization.Markdown.Value;
-using OpenNefia.Core.Serialization.TypeSerializers.Interfaces;
 using OpenNefia.Core.Timing;
 using OpenNefia.Core.Utility;
-using System.Globalization;
 using YamlDotNet.Core;
 using YamlDotNet.RepresentationModel;
 
@@ -113,11 +102,6 @@ namespace OpenNefia.Core.Maps
                 (YamlMappingNode)data.RootNode, OnBlueprintEntityStartup);
             deserializer.Deserialize();
             var grid = deserializer.MapGrid!;
-
-            foreach (var entityUid in deserializer.Entities)
-            {
-                MapInitExt.RunMapInit(entityUid);
-            }
 
             return grid;
         }

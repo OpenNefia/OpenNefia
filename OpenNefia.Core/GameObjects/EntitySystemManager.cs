@@ -204,6 +204,9 @@ namespace OpenNefia.Core.GameObjects
         }
 
         public void LoadExtraSystemType<T>() where T : IEntitySystem, new()
+            => LoadExtraSystemType(typeof(T));
+
+        public void LoadExtraSystemType(Type type)
         {
             if (_initialized)
             {
@@ -211,7 +214,13 @@ namespace OpenNefia.Core.GameObjects
                     "Cannot use LoadExtraSystemType when the entity system manager is initialized.");
             }
 
-            _extraLoadedTypes.Add(typeof(T));
+            if (!typeof(IEntitySystem).IsAssignableFrom(type))
+            {
+                throw new InvalidOperationException(
+                    $"Type {type} does not implement {nameof(IEntitySystem)}.");
+            }
+
+            _extraLoadedTypes.Add(type);
         }
 
         /// <inheritdoc />
