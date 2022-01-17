@@ -1,65 +1,63 @@
 ﻿using OpenNefia.Core.GameObjects;
-using OpenNefia.Core.IoC;
 using OpenNefia.Core.Maps;
 using OpenNefia.Core.Maths;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using OpenNefia.Core.Serialization.Manager.Attributes;
 
 namespace OpenNefia.Core.Rendering
 {
-    [Serializable]
-    public sealed class MapObjectMemoryStore : IEnumerable<MapObjectMemory>
+    [DataDefinition]
+    public sealed class MapObjectMemoryStore
     {
-        [Dependency] private readonly IEntityManager _entityManager = default!;
+        [DataField("allMemory")]
+        private Dictionary<int, MapObjectMemory> _allMemory = new();
 
-        internal IMap Map;
-        internal int CurrentIndex;
-        internal Dictionary<int, MapObjectMemory> AllMemory;
-        internal List<MapObjectMemory>?[,] Positional;
-        internal HashSet<MapObjectMemory> Added;
-        internal Stack<MapObjectMemory> Removed;
+        public IReadOnlyDictionary<int, MapObjectMemory> AllMemory => _allMemory;
+
+        [DataField("width")]
+        private int _width;
+
+        [DataField("height")]
+        private int _height;
+
+        [DataField("currentIndex")]
+        private int _currentIndex = 0;
+
+        [DataField("positional")]
+        private List<MapObjectMemory>?[,] _positional;
+
+        private HashSet<MapObjectMemory> _added = new();
+        private Stack<MapObjectMemory> _removed = new();
 
         private GetMapObjectMemoryEventArgs _event = new(default!);
 
-        public MapObjectMemoryStore(IMap map)
+        public MapObjectMemoryStore() : this(0, 0) { }
+        public MapObjectMemoryStore(int width, int height)
         {
-            IoCManager.InjectDependencies(this);
+            _width = width;
+            _height = height;
 
-            this.Map = map;
-            CurrentIndex = 0;
-            this.AllMemory = new Dictionary<int, MapObjectMemory>();
-            this.Positional = new List<MapObjectMemory>?[map.Width, map.Height];
-            this.Added = new HashSet<MapObjectMemory>();
-            this.Removed = new Stack<MapObjectMemory>();
+            _positional = new List<MapObjectMemory>?[width, height];
         }
-
-        public IEnumerator<MapObjectMemory> GetEnumerator() => AllMemory.Values.GetEnumerator();
-
-        IEnumerator IEnumerable.GetEnumerator() => AllMemory.Values.GetEnumerator();
 
         public void ForgetObjects(Vector2i coords)
         {
-            var at = Positional[coords.X, coords.Y];
+            var at = _positional[coords.X, coords.Y];
 
             if (at != null)
             {
                 foreach (var memory in at)
                 {
-                    AllMemory.Remove(memory.Index);
-                    Removed.Push(memory);
+                    _allMemory.Remove(memory.Index);
+                    _removed.Push(memory);
                 }
 
-                Positional[coords.X, coords.Y] = null;
+                _positional[coords.X, coords.Y] = null;
             }
         }
 
         public void HideObjects(Vector2i coords)
         {
-            var at = Positional[coords.X, coords.Y];
+            var at = _positional[coords.X, coords.Y];
 
             if (at != null)
             {
@@ -67,70 +65,72 @@ namespace OpenNefia.Core.Rendering
                 {
                     if (memory.HideWhenOutOfSight)
                     {
-                        AllMemory.Remove(memory.Index);
-                        Removed.Push(memory);
+                        _allMemory.Remove(memory.Index);
+                        _removed.Push(memory);
                     }
                 }
                 if (at.Count == 0)
-                    Positional[coords.X, coords.Y] = null;
+                    _positional[coords.X, coords.Y] = null;
             }
         }
 
         internal void Flush()
         {
-            foreach (var added in this.Added)
+            foreach (var added in _added)
             {
                 added.State = MemoryState.InUse;
             }
-            this.Map.MapObjectMemory.Added.Clear();
-            this.Map.MapObjectMemory.Removed.Clear();
+            _added.Clear();
+            _removed.Clear();
         }
 
         public void RedrawAll()
         {
-            this.Map.MapObjectMemory.Added.Clear();
-            this.Map.MapObjectMemory.Removed.Clear();
-            foreach (var memory in this.AllMemory.Values)
+            _added.Clear();
+            _removed.Clear();
+            foreach (var memory in _allMemory.Values)
             {
                 memory.State = MemoryState.Added;
-                this.Added.Add(memory);
+                _added.Add(memory);
             }
         }
 
-        public void RevealObjects(Vector2i pos)
+        public void RevealObjects(IMap map, Vector2i pos, IEntityManager entityManager)
         {
-            var at = Positional[pos.X, pos.Y];
+            var at = _positional[pos.X, pos.Y];
 
             if (at != null)
             {
                 foreach (var memory in at)
                 {
-                    AllMemory.Remove(memory.Index);
-                    Removed.Push(memory);
+                    _allMemory.Remove(memory.Index);
+                    _removed.Push(memory);
                 }
 
                 at.Clear();
             }
 
+            var lookup = EntitySystem.Get<IEntityLookup>();
+
             int i = 0;
-            foreach (var spatial in EntitySystem.Get<IEntityLookup>().GetLiveEntitiesAtCoords(Map.AtPos(pos)))
+            foreach (var spatial in lookup.GetLiveEntitiesAtCoords(map.AtPos(pos)))
             {
                 if (at == null)
                 {
                     at = new List<MapObjectMemory>();
-                    Positional[pos.X, pos.Y] = at;
+                    _positional[pos.X, pos.Y] = at;
                 }
 
                 var memory = GetOrCreateMemory();
 
                 _event.Memory = memory;
-                _entityManager.EventBus.RaiseLocalEvent(spatial.Owner, _event);
+                entityManager.EventBus.RaiseLocalEvent(spatial.Owner, _event);
                 memory = _event.Memory;
 
                 if (memory.IsVisible)
                 {
-                    this.AllMemory[memory.Index] = memory;
-                    this.Added.Add(memory);
+                    _allMemory[memory.Index] = memory;
+                    _added.Add(memory);
                     memory.ObjectUid = spatial.Owner;
                     memory.Coords = spatial.MapPosition;
                     at.Add(memory);
@@ -144,17 +144,17 @@ namespace OpenNefia.Core.Rendering
         {
             MapObjectMemory memory;
 
-            if (this.Removed.Count > 0)
+            if (_removed.Count > 0)
             {
                 // Index is not changed, to support reuse.
-                memory = this.Removed.Pop();
+                memory = _removed.Pop();
                 memory.AtlasIndex = "Default:Default";
             }
             else
             {
                 // Allocate a new memory entry and increment the index.
-                var index = CurrentIndex;
-                CurrentIndex += 1;
+                var index = _currentIndex;
+                _currentIndex += 1;
 
                 memory = new MapObjectMemory()
                 {

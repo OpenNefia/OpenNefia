@@ -4,8 +4,10 @@ using OpenNefia.Core.Maths;
 
 namespace OpenNefia.Core.Rendering.TileDrawLayers
 {
-    // Needs to be interleaved per-row to support wall occlusion.
-    // This would be a combination of tile_layer, tile_overhang_layer and chip_layer.
+    /// <summary>
+    /// Draws map tiles and map object memory taken from each entity's
+    /// <see cref="GameObjects.ChipComponent"/>.
+    /// </summary>
     [RegisterTileLayer]
     public sealed class TileAndChipTileLayer : BaseTileLayer
     {
@@ -38,15 +40,15 @@ namespace OpenNefia.Core.Rendering.TileDrawLayers
         public override void SetSize(int width, int height)
         {
             base.SetSize(width, height);
-            this._tileAndChipBatch.SetSize(width, height);
-            this._wallShadows.SetSize(width, height);
+            _tileAndChipBatch.SetSize(width, height);
+            _wallShadows.SetSize(width, height);
         }
 
         public override void SetPosition(int x, int y)
         {
             base.SetPosition(x, y);
-            this._tileAndChipBatch.SetPosition(x, y);
-            this._wallShadows.SetPosition(x, y);
+            _tileAndChipBatch.SetPosition(x, y);
+            _wallShadows.SetPosition(x, y);
         }
 
         private string ModifyWalls(Vector2i pos, TilePrototype tile)
@@ -70,7 +72,7 @@ namespace OpenNefia.Core.Rendering.TileDrawLayers
 
                 if (oneTileUp != null && oneTileUp.Value.Tile.ResolvePrototype().WallImage != null && _map.IsMemorized(oneUp))
                 {
-                    this._tileAndChipBatch.SetTile(oneUp, oneTileUp.Value.Tile.ResolvePrototype().Image.AtlasIndex);
+                    _tileAndChipBatch.SetTile(oneUp, oneTileUp.Value.Tile.ResolvePrototype().Image.AtlasIndex);
                 }
             }
 
@@ -81,23 +83,23 @@ namespace OpenNefia.Core.Rendering.TileDrawLayers
         {
             var tileIndex = ModifyWalls(pos, tile);
 
-            this._wallShadows.SetTile(pos, tile);
-            this._tileAndChipBatch.SetTile(pos, tileIndex);
+            _wallShadows.SetTile(pos, tile);
+            _tileAndChipBatch.SetTile(pos, tileIndex);
         }
 
         public void RedrawMapObjects()
         {
-            this._tileAndChipBatch.Clear();
-            foreach (var memory in _map.MapObjectMemory)
+            _tileAndChipBatch.Clear();
+            foreach (var memory in _map.MapObjectMemory.AllMemory.Values)
             {
-                this._tileAndChipBatch.AddChipEntry(memory);
+                _tileAndChipBatch.AddChipEntry(memory);
             }
         }
 
         public override void RedrawAll()
         {
-            this._wallShadows.Clear();
-            this._tileAndChipBatch.Clear();
+            _wallShadows.Clear();
+            _tileAndChipBatch.Clear();
 
             foreach (var coords in _map.AllTiles)
             {
@@ -106,7 +108,7 @@ namespace OpenNefia.Core.Rendering.TileDrawLayers
 
             RedrawMapObjects();
 
-            this._tileAndChipBatch.UpdateBatches();
+            _tileAndChipBatch.UpdateBatches();
         }
 
         public override void RedrawDirtyTiles(HashSet<Vector2i> dirtyTilesThisTurn)
@@ -118,19 +120,19 @@ namespace OpenNefia.Core.Rendering.TileDrawLayers
 
             RedrawMapObjects();
 
-            this._tileAndChipBatch.UpdateBatches();
+            _tileAndChipBatch.UpdateBatches();
         }
 
         public override void Update(float dt)
         {
-            this._tileAndChipBatch.Update(dt);
-            this._wallShadows.Update(dt);
+            _tileAndChipBatch.Update(dt);
+            _wallShadows.Update(dt);
         }
 
         public override void Draw()
         {
-            this._tileAndChipBatch.Draw();
-            this._wallShadows.Draw();
+            _tileAndChipBatch.Draw();
+            _wallShadows.Draw();
         }
     }
 }
