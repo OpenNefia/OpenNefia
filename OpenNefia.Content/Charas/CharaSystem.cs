@@ -9,10 +9,19 @@ using OpenNefia.Content.EquipSlots;
 using OpenNefia.Content.GameObjects;
 using System;
 using OpenNefia.Core.Random;
+using OpenNefia.Core.Rendering;
+using OpenNefia.Core.Log;
 
 namespace OpenNefia.Content.Charas
 {
-    public class CharaSystem : EntitySystem
+    public interface ICharaSystem : IEntitySystem
+    {
+        PrototypeId<ChipPrototype> GetDefaultCharaChip(EntityUid uid, CharaComponent? chara = null);
+        PrototypeId<ChipPrototype> GetDefaultCharaChip(PrototypeId<RacePrototype> raceID, Gender gender);
+        PrototypeId<ChipPrototype> GetDefaultCharaChip(RacePrototype race, Gender gender);
+    }
+
+    public class CharaSystem : EntitySystem, ICharaSystem
     {
         [Dependency] private readonly IPrototypeManager _protos = default!;
         [Dependency] private readonly ISkillsSystem _skills = default!;
@@ -31,7 +40,7 @@ namespace OpenNefia.Content.Charas
             InitRaceSkills(uid, chara);
             InitRaceEquipSlots(uid, chara);
             InitRacePhysiqueAndGender(uid, chara);
-            SetRaceDefaultChip(uid, chara);
+            SetDefaultCharaChip(uid, chara);
 
             InitClassSkills(uid, chara);
             InitCharaMakeSkills(uid);
@@ -97,25 +106,42 @@ namespace OpenNefia.Content.Charas
             // <<<<<<<< shade2/chara.hsp:519 	cWeight(rc)= cHeight(rc)*cHeight(rc)*(rnd(6)+18)/ ..
         }
 
-        private void SetRaceDefaultChip(EntityUid uid, CharaComponent chara, ChipComponent? chip = null)
+        private void SetDefaultCharaChip(EntityUid uid, CharaComponent chara, ChipComponent? chip = null)
         {
             if (!Resolve(uid, ref chip))
                 return;
-
-            var race = _protos.Index(chara.Race);
-
+            
             if (chip.ChipID == Chip.Default)
             {
-                switch (chara.Gender)
-                {
-                    case Gender.Male:
-                        chip.ChipID = race.ChipMale;
-                        break;
-                    case Gender.Female:
-                    default:
-                        chip.ChipID = race.ChipFemale;
-                        break;
-                }
+                chip.ChipID = GetDefaultCharaChip(uid, chara);
+            }
+        }
+
+        public PrototypeId<ChipPrototype> GetDefaultCharaChip(EntityUid uid, CharaComponent? chara = null)
+        {
+            if (!Resolve(uid, ref chara))
+            {
+                Logger.ErrorS("chara", "No default chara chip found for entity '{uid}'!");
+                return Chip.Default;
+            }
+
+            return GetDefaultCharaChip(chara.Race, chara.Gender);
+        }
+
+        public PrototypeId<ChipPrototype> GetDefaultCharaChip(PrototypeId<RacePrototype> raceID, Gender gender)
+            => GetDefaultCharaChip(_protos.Index(raceID), gender);
+
+        public PrototypeId<ChipPrototype> GetDefaultCharaChip(
+            RacePrototype race,
+            Gender gender)
+        {
+            switch (gender)
+            {
+                case Gender.Male:
+                    return race.ChipMale;
+                case Gender.Female:
+                default:
+                    return race.ChipFemale;
             }
         }
 
