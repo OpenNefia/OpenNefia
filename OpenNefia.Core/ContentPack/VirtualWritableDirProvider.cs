@@ -127,6 +127,16 @@ namespace OpenNefia.Core.ContentPack
         {
             return TryGetNodeAt(path, out var node) && node is DirectoryNode;
         }
+        
+        public DateTime GetLastWriteTime(ResourcePath path)
+        {
+            if (!TryGetNodeAt(path, out var node))
+            {
+                throw new ArgumentException("Path does not exist.");
+            }
+
+            return DateTime.UnixEpoch;
+        }
 
         public Stream Open(ResourcePath path, FileMode fileMode, FileAccess access, FileShare share)
         {

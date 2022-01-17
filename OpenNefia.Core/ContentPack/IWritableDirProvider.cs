@@ -59,6 +59,11 @@ namespace OpenNefia.Core.ContentPack
         bool IsDirectory(ResourcePath path);
 
         /// <summary>
+        /// Gets the last write time for the given path.
+        /// </summary>
+        DateTime GetLastWriteTime(ResourcePath path);
+
+        /// <summary>
         /// Attempts to open a file.
         /// </summary>
         /// <param name="path">Path of file to open.</param>

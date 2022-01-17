@@ -199,6 +199,8 @@ namespace OpenNefia.Content.TitleScreen
 
         private void LoadGame(ISaveGameHandle saveGame)
         {
+            _saveGameManager.CurrentSave = saveGame;
+
             _saveGameSerializer.LoadGame(saveGame);
             var map = _mapManager.ActiveMap!;
 

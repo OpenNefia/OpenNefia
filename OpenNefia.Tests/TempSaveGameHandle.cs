@@ -15,7 +15,7 @@ namespace OpenNefia.Tests
 
         public int SaveFormatVersion => SaveGameManager.SaveFormatVersion;
         public ResourcePath SaveDirectory { get; }
-        public DateTime LastSaveDate { get; }
+        public DateTime LastWriteTime { get; }
         public SaveGameHeader Header { get; }
         public ISaveGameDirProvider Files { get; }
 
@@ -25,7 +25,7 @@ namespace OpenNefia.Tests
             _committed = new TempWritableDirProvider(prefix);
 
             SaveDirectory = new(Path.GetFileName(_committed.RootDir));
-            LastSaveDate = DateTime.MinValue;
+            LastWriteTime = DateTime.MinValue;
             Header = new SaveGameHeader("TempSave");
             Files = new SaveGameDirProvider(_temp, _committed);
         }

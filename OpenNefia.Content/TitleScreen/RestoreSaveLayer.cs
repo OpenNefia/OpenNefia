@@ -48,7 +48,7 @@ namespace OpenNefia.Content.TitleScreen
             protected override void OnCellDataChanged()
 {
                 UiText.Text = Data.SaveGame.Header.Name;
-                TextSaveDate.Text = Data.SaveGame.LastSaveDate.ToString();
+                TextSaveDate.Text = Data.SaveGame.LastWriteTime.ToString();
             }
 
             public override void SetSize(int width, int height)
@@ -88,8 +88,6 @@ namespace OpenNefia.Content.TitleScreen
 
         [Dependency] private readonly ISaveGameManager _saveGameManager = default!;
         [Dependency] private readonly IPlayerQuery _playerQuery = default!;
-
-        private const string ScreenshotPath = "/screenshot.png";
 
         private readonly IAssetInstance AssetVoid;
         private readonly IAssetDrawable AssetNoScreenshot;
@@ -142,6 +140,7 @@ namespace OpenNefia.Content.TitleScreen
 
             List.Clear();
             List.AddRange(_saveGameManager.AllSaves
+                .OrderByDescending(save => save.LastWriteTime)
                 .Select(save => new RestoreSaveUICell(new RestoreSaveCellData(save))));
 
             List.Select(selectedIndex);
@@ -187,7 +186,7 @@ namespace OpenNefia.Content.TitleScreen
             if (_imageCache.TryGetValue(save, out image))
                 return true;
 
-            var screenshotPath = new ResourcePath(ScreenshotPath);
+            var screenshotPath = SaveGameConstants.ScreenshotPath;
             
             if (!save.Files.Exists(screenshotPath))
                 return false;
@@ -266,7 +265,7 @@ namespace OpenNefia.Content.TitleScreen
             TextNoSaves.SetPosition(Window.X + Window.Width / 2 - TextNoSaves.Width / 2, Window.Y + Window.Height / 2 - TextNoSaves.Height);
             TextTopicSaveName.SetPosition(Window.X + 40, Window.Y + 35);
             TextTopicSaveDate.SetPosition(Window.X + 200, Window.Y + 35);
-            ScreenshotBox.SetPosition(Window.X + 350, Window.Y + 60);
+            ScreenshotBox.SetPosition(Window.X + 340, Window.Y + 60);
         }
 
         public override void Update(float dt)
