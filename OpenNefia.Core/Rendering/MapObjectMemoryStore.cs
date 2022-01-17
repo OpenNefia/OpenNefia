@@ -1,15 +1,17 @@
 ﻿using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Maps;
 using OpenNefia.Core.Maths;
+using OpenNefia.Core.Serialization;
 using OpenNefia.Core.Serialization.Manager.Attributes;
+using static NetVips.Enums;
 
 namespace OpenNefia.Core.Rendering
 {
     [DataDefinition]
-    public sealed class MapObjectMemoryStore
+    public sealed class MapObjectMemoryStore : ISerializationHooks
     {
         [DataField("allMemory")]
-        private Dictionary<int, MapObjectMemory> _allMemory = new();
+        internal Dictionary<int, MapObjectMemory> _allMemory = new();
 
         public IReadOnlyDictionary<int, MapObjectMemory> AllMemory => _allMemory;
 
@@ -22,7 +24,6 @@ namespace OpenNefia.Core.Rendering
         [DataField("currentIndex")]
         private int _currentIndex = 0;
 
-        [DataField("positional")]
         private List<MapObjectMemory>?[,] _positional;
 
         private HashSet<MapObjectMemory> _added = new();
@@ -37,6 +38,25 @@ namespace OpenNefia.Core.Rendering
             _height = height;
 
             _positional = new List<MapObjectMemory>?[width, height];
+        }
+
+        void ISerializationHooks.AfterDeserialization()
+        {
+            _positional = new List<MapObjectMemory>?[_width, _height];
+
+            foreach (var memory in AllMemory.Values)
+            {
+                var coords = memory.Coords;
+                var at = _positional[coords.X, coords.Y];
+                
+                if (at == null)
+                {
+                    at = new List<MapObjectMemory>();
+                    _positional[coords.X, coords.Y] = at;
+                }
+
+                at.Add(memory);
+            }
         }
 
         public void ForgetObjects(Vector2i coords)
@@ -115,17 +135,17 @@ namespace OpenNefia.Core.Rendering
             int i = 0;
             foreach (var spatial in lookup.GetLiveEntitiesAtCoords(map.AtPos(pos)))
             {
-                if (at == null)
-                {
-                    at = new List<MapObjectMemory>();
-                    _positional[pos.X, pos.Y] = at;
-                }
-
                 var memory = GetOrCreateMemory();
 
                 _event.Memory = memory;
                 entityManager.EventBus.RaiseLocalEvent(spatial.Owner, _event);
                 memory = _event.Memory;
+
+                if (at == null)
+                {
+                    at = new List<MapObjectMemory>();
+                    _positional[pos.X, pos.Y] = at;
+                }
 
                 if (memory.IsVisible)
                 {
