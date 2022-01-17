@@ -334,8 +334,10 @@ entities:
 
             Assert.Multiple(() =>
             {
-                Assert.That(map.GetTileMemory(Vector2i.Zero), Is.EqualTo(Tile.EmptyID));
-                Assert.That(map.GetTileMemory(Vector2i.One), Is.EqualTo(TileTestWallID));
+                Assert.That(map.GetTileMemory(Vector2i.Zero)!.Value.Tile, Is.EqualTo(Tile.Empty));
+
+                var tileAtOne = map.GetTileMemory(Vector2i.One)!.Value.Tile;
+                Assert.That(tileDefMan[tileAtOne.Type].GetStrongID(), Is.EqualTo(TileTestWallID));
             });
         }
 
@@ -353,9 +355,6 @@ entities:
 
             var map = mapMan.CreateMap(5, 5);
             var mapId = map.Id;
-
-            entMan.EventBus.SubscribeLocalEvent<MapDeserializeTestComponent, GetMapObjectMemoryEventArgs>
-                ((_, _, _) => new MapObjectMemory());
 
             var ent = entMan.SpawnEntity(new("MapDeserializeTestOverride"), map.AtPos(Vector2i.One));
 

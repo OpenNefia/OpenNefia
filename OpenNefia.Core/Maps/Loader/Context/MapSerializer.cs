@@ -94,7 +94,7 @@ namespace OpenNefia.Core.Maps
 
         private void WriteTileMapSection()
         {
-            _tileMapInverse = YamlGridSerializer.BuildProtoToRuneTileMap(MapGrid!);
+            _tileMapInverse = YamlGridSerializer.BuildProtoToRuneTileMap(MapGrid!, _tileDefinitionManager);
 
             var tileMap = new YamlMappingNode();
             _rootNode.Add(MapLoadConstants.Tilemap, tileMap);

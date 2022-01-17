@@ -57,13 +57,17 @@ namespace OpenNefia.Core.Maps
             .EnumerateRunes()
             .ToArray();
 
-        public static Dictionary<PrototypeId<TilePrototype>, string> BuildProtoToRuneTileMap(IMap map)
+        public static Dictionary<PrototypeId<TilePrototype>, string> BuildProtoToRuneTileMap(IMap map, ITileDefinitionManager tileDefs)
         {
             var tilesSeen = new HashSet<PrototypeId<TilePrototype>>();
             
             foreach (var tile in map.Tiles)
             {
-                tilesSeen.Add(tile.ResolvePrototype().GetStrongID());
+                tilesSeen.Add(tileDefs[tile.Type].GetStrongID());
+            }
+            foreach (var tileMemory in map.TileMemory)
+            {
+                tilesSeen.Add(tileDefs[tileMemory.Type].GetStrongID());
             }
 
             var result = new Dictionary<PrototypeId<TilePrototype>, string>();
