@@ -11,11 +11,17 @@ using OpenNefia.Core.Input;
 using OpenNefia.Core.Maths;
 using OpenNefia.Content.World;
 using OpenNefia.Core.GameObjects;
+using OpenNefia.Content.UI.Layer;
+using OpenNefia.Core.Maps;
+using OpenNefia.Core.Game;
 
 namespace OpenNefia.Content.UI.Hud
 {
     public class HudLayer : UiLayer, IHudLayer
     {
+        [Dependency] private readonly IFieldLayer _field = default!;
+        [Dependency] private readonly IMapManager _mapManager = default!;
+        [Dependency] private readonly IEntityManager _entMan = default!;
         private IWorldSystem _world = default!;
 
         public IHudMessageWindow MessageWindow { get; private set; } = default!;
@@ -35,6 +41,7 @@ namespace OpenNefia.Content.UI.Hud
         private IAssetInstance DateFrame = default!;
         private IUiText DateText = default!;
         private ClockHand ClockHand = default!;
+        private Minimap Minimap = default!;
         
         private bool ShowingBacklog;
 
@@ -59,6 +66,7 @@ namespace OpenNefia.Content.UI.Hud
             BacklogBacking = new UiMessageWindowBacking(UiMessageWindowBacking.MessageBackingType.Expanded);
             HudBar = new UiHudBar();
             MiniMapAsset = Assets.Get(Protos.Asset.HudMinimap);
+            Minimap = new Minimap();
             ClockAsset = Assets.Get(Protos.Asset.Clock);
             ClockHand = new ClockHand();
             DateFrame = Assets.Get(Protos.Asset.DateLabelFrame);
@@ -67,7 +75,13 @@ namespace OpenNefia.Content.UI.Hud
             BacklogContainer = new UiVerticalContainer();
 
             MessageWindow = new HudMessageWindow(MessageBoxContainer, BacklogContainer);
+            _field.OnScreenRefresh += OnScreenRefresh;
             UpdateTime();
+        }
+
+        private void OnScreenRefresh()
+        {
+            UpdateMinimap();
         }
 
         public void UpdateTime()
@@ -75,6 +89,12 @@ namespace OpenNefia.Content.UI.Hud
             var date = _world.State.GameDate;
             DateText.Text = $"{date.Year}/{date.Month}/{date.Day}";
             ClockHand.SetHour(date.Hour);
+        }
+
+        public void UpdateMinimap()
+        {
+            if (_entMan.TryGetComponent<SpatialComponent>(GameSession.Player, out var spatial))
+                Minimap.Refresh(_mapManager.ActiveMap?.TileMemory!, spatial.MapPosition);
         }
 
         public void ToggleBacklog(bool visible)
@@ -85,6 +105,7 @@ namespace OpenNefia.Content.UI.Hud
         public override void SetSize(int width, int height)
         {
             base.SetSize(width, height);
+            Minimap.SetSize(MinimapWidth - 4, MinimapHeight - 4);
             MessageWindow.SetSize(Width - MinimapWidth - 80, MessageWindow.Height);
             FpsCounter.SetSize(400, 500);
             MessageBoxBacking.SetSize(Width + MinimapWidth, 72);
@@ -96,6 +117,7 @@ namespace OpenNefia.Content.UI.Hud
         public override void SetPosition(int x, int y)
         {
             base.SetPosition(x, y);
+            Minimap.SetPosition(2, Height - MinimapHeight + 2);
             MessageWindow.SetPosition(X + 50, Y + Height - MessageWindow.Height - 10);
             FpsCounter.SetPosition(Width - FpsCounter.Text.Width - 5, 5);
             MessageBoxBacking.SetPosition(MinimapWidth, Height - MinimapHeight);
@@ -120,6 +142,7 @@ namespace OpenNefia.Content.UI.Hud
         public override void Draw()
         {
             MiniMapAsset.Draw(0, Height - MinimapHeight);
+            Minimap.Draw();
             if (ShowingBacklog)
             { 
                 BacklogBacking.Draw();
@@ -141,6 +164,7 @@ namespace OpenNefia.Content.UI.Hud
         {
             MessageWindow.Dispose();
             FpsCounter.Dispose();
+            _field.OnScreenRefresh -= OnScreenRefresh;
         }
     }
 }

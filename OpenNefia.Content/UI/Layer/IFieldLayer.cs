@@ -8,6 +8,9 @@ namespace OpenNefia.Content.UI.Layer
     {
         Camera Camera { get; }
 
+        delegate void ScreenRefreshDelegate();
+        event ScreenRefreshDelegate OnScreenRefresh;
+
         void Startup();
         void SetMap(IMap map);
         void RefreshScreen();
