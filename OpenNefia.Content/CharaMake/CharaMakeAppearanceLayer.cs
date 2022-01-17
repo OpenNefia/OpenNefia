@@ -22,6 +22,7 @@ namespace OpenNefia.Content.CharaMake
         [Dependency] private readonly IPrototypeManager _protos = default!;
         [Dependency] private readonly IResourceCache _resourceCache = default!;
         [Dependency] private readonly IPCCSystem _pccs = default!;
+        [Dependency] private readonly ICharaSystem _charas = default!;
 
         public const string ResultName = "appearance";
 
@@ -61,14 +62,7 @@ namespace OpenNefia.Content.CharaMake
                 return Protos.Chip.Default;
             }
 
-            switch (gender)
-            {
-                case Gender.Male:
-                    return race.ChipMale;
-                case Gender.Female:
-                default:
-                    return race.ChipFemale;
-            }
+            return _charas.GetDefaultCharaChip(race, gender);
         }
 
         public override void Initialize(CharaMakeData args)
