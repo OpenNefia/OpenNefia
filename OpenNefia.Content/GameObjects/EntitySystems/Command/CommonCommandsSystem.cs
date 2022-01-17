@@ -1,6 +1,7 @@
 ﻿using OpenNefia.Content.Charas;
 using OpenNefia.Content.ConfigMenu;
 using OpenNefia.Content.Input;
+using OpenNefia.Content.Journal;
 using OpenNefia.Content.Logic;
 using OpenNefia.Content.TurnOrder;
 using OpenNefia.Content.UI;
