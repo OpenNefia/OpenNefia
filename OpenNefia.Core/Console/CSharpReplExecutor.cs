@@ -11,16 +11,20 @@ using OpenNefia.Core.Utility;
 using PrettyPrompt.Consoles;
 using CSharpReplConfig = CSharpRepl.Services.Configuration;
 
-namespace OpenNefia.Core.DebugServer
+namespace OpenNefia.Core.Console
 {
-    public class CSharpReplExecutor : IReplExecutor
+    public interface ICSharpReplExecutor : IReplExecutor
+    {
+    }
+
+    public class CSharpReplExecutor : ICSharpReplExecutor
     {
         public const string SawmillName = "exec.repl";
 
         [Dependency] private readonly IReflectionManager _reflectionManager = default!;
         [Dependency] private readonly IConsole _console = default!;
         [Dependency] private readonly ILogManager _logManager = default!;
-        [Dependency] private readonly ITaskRunner _taskRunner = default!; 
+        [Dependency] private readonly ITaskRunner _taskRunner = default!;
 
         private CSharpReplConfig _config = default!;
         private RoslynServices _roslyn = default!;

@@ -2,10 +2,11 @@
 using OpenNefia.Content.ConfigMenu;
 using OpenNefia.Content.Logic;
 using OpenNefia.Content.RandomText;
+using OpenNefia.Content.Repl;
 using OpenNefia.Content.TitleScreen;
 using OpenNefia.Content.UI.Hud;
 using OpenNefia.Content.UI.Layer;
-using OpenNefia.Content.UI.Layer.Repl;
+using OpenNefia.Core.Console;
 using OpenNefia.Core.IoC;
 using PrettyPrompt.Consoles;
 
@@ -21,6 +22,11 @@ namespace OpenNefia.Content
             IoCManager.Register<IFieldLayer, FieldLayer>();
             IoCManager.Register<IHudLayer, HudLayer>();
             IoCManager.Register<IReplLayer, ReplLayer>();
+            IoCManager.Register<IConsoleHost, ConsoleHost>();
+            IoCManager.Register<IReplExecutor, ConsoleCommandReplExecutor>();
+            IoCManager.Register<IConsoleOutput, ReplLayerConsoleOutput>();
+            IoCManager.Register<ICSharpReplExecutor, CSharpReplExecutor>();
+            IoCManager.Register<IConsole, DummyConsole>();
             IoCManager.Register<IRandomAliasGenerator, RandomAliasGenerator>();
             IoCManager.Register<IRandomNameGenerator, RandomNameGenerator>();
             IoCManager.Register<IConfigMenuUICellFactory, ConfigMenuUICellFactory>();

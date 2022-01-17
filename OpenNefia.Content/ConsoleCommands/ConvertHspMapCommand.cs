@@ -2,7 +2,7 @@
 using OpenNefia.Content.GameObjects;
 using OpenNefia.Content.GameObjects.Pickable;
 using OpenNefia.Content.Maps;
-using OpenNefia.Core.CommandLine;
+using OpenNefia.Core.Console;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Log;
@@ -22,22 +22,25 @@ using YamlDotNet.Core;
 using YamlDotNet.RepresentationModel;
 using static OpenNefia.Core.Prototypes.EntityPrototype;
 
-namespace OpenNefia.Content.CommandLine
+namespace OpenNefia.Content.ConsoleCommands
 {
-    [Verb(name: "convertHspMap", HelpText = "Converts a .map/.idx/.obj trio into a map blueprint.")]
-    public class ConvertHspMapCommand : BaseCommand
+    public class ConvertHspMapCommand : IConsoleCommand<ConvertHspMapCommand.Args>
     {
-        [Value(0, MetaName = "mapFilePath", Required = true, HelpText = "Path to .map file.")]
-        public string MapFilePath { get; set; } = default!;
+        [Verb(name: "convertHspMap", HelpText = "Converts a .map/.idx/.obj trio into a map blueprint.")]
+        public class Args
+        {
+            [Value(0, MetaName = "mapFilePath", Required = true, HelpText = "Path to .map file.")]
+            public string MapFilePath { get; set; } = default!;
 
-        [Value(1, MetaName = "outputDirectory", Required = true, HelpText = "Directory to hold the converted map blueprint.")]
-        public string OutputDirectory { get; set; } = default!;
+            [Value(1, MetaName = "outputDirectory", Required = true, HelpText = "Directory to hold the converted map blueprint.")]
+            public string OutputDirectory { get; set; } = default!;
 
-        [Option(longName: "mapName", HelpText = "Name of this map.")]
-        public string? MapName { get; set; }
+            [Option(longName: "mapName", HelpText = "Name of this map.")]
+            public string? MapName { get; set; }
 
-        [Option(longName: "mapAuthor", HelpText = "Author of this map.")]
-        public string MapAuthor { get; set; } = "(unknown)";
+            [Option(longName: "mapAuthor", HelpText = "Author of this map.")]
+            public string MapAuthor { get; set; } = "(unknown)";
+        }
 
         [Dependency] private readonly ITileDefinitionManager _tileDefinitionManager = default!;
         [Dependency] private readonly IReflectionManager _reflectionManager = default!;
@@ -202,7 +205,7 @@ namespace OpenNefia.Content.CommandLine
                             tileDef = tileMap[elonaTileId];
                         else
                         {
-                            Logger.Error($"MISSING TILE map{idx.AtlasIndex}.bmp {elonaTileId} ({(elonaTileId % 33) * 48},{(elonaTileId / 33) * 48})");
+                            Logger.Error($"MISSING TILE map{idx.AtlasIndex}.bmp {elonaTileId} ({elonaTileId % 33 * 48},{elonaTileId / 33 * 48})");
                             tileDef = Tile.EmptyID;
                         }
                         map.SetTile(new Vector2i(x, y), tileDef);
@@ -415,7 +418,7 @@ namespace OpenNefia.Content.CommandLine
                 for (var i = 0; i < 400; i++)
                 {
                     var obj = ReadObj(reader);
-                    
+
                     if (obj.Id == 0)
                         break;
 
@@ -449,27 +452,27 @@ namespace OpenNefia.Content.CommandLine
             return new BinaryReader(zlibStream);
         }
 
-        private YamlMappingNode BuildMapMetadata()
+        private YamlMappingNode BuildMapMetadata(Args args)
         {
-            if (MapName == null)
+            if (args.MapName == null)
             {
-                MapName = Path.GetFileNameWithoutExtension(MapFilePath);
+                args.MapName = Path.GetFileNameWithoutExtension(args.MapFilePath);
             }
 
             var meta = new YamlMappingNode();
             meta.Add(MapLoadConstants.Meta_Format, "1");
-            meta.Add(MapLoadConstants.Meta_Name, MapName);
-            meta.Add(MapLoadConstants.Meta_Author, MapAuthor);
+            meta.Add(MapLoadConstants.Meta_Name, args.MapName);
+            meta.Add(MapLoadConstants.Meta_Author, args.MapAuthor);
 
             return meta;
         }
 
-        public override void Execute()
+        public void Execute(IConsoleShell shell, Args args)
         {
-            Console.WriteLine($"Converting {MapFilePath}...");
+            Console.WriteLine($"Converting {args.MapFilePath}...");
 
-            var dir = Path.GetDirectoryName(MapFilePath);
-            var fileBaseName = Path.GetFileNameWithoutExtension(MapFilePath);
+            var dir = Path.GetDirectoryName(args.MapFilePath);
+            var fileBaseName = Path.GetFileNameWithoutExtension(args.MapFilePath);
             var idxFilePath = Path.Join(dir, $"{fileBaseName}.idx");
             var objFilePath = Path.Join(dir, $"{fileBaseName}.obj");
 
@@ -477,9 +480,9 @@ namespace OpenNefia.Content.CommandLine
             {
                 throw new InvalidDataException($"1.22 .idx file {idxFilePath} does not exist.");
             }
-            if (!File.Exists(MapFilePath))
+            if (!File.Exists(args.MapFilePath))
             {
-                throw new InvalidDataException($"1.22 .map file {MapFilePath} does not exist.");
+                throw new InvalidDataException($"1.22 .map file {args.MapFilePath} does not exist.");
             }
             if (!File.Exists(objFilePath))
             {
@@ -487,9 +490,9 @@ namespace OpenNefia.Content.CommandLine
             }
 
             var idx = ReadHspMapIdx(idxFilePath);
-            var (grid, tileMap) = ReadHspMapMap(MapFilePath, idx);
+            var (grid, tileMap) = ReadHspMapMap(args.MapFilePath, idx);
             var entities = ReadHspMapObj(objFilePath, idx);
-            var meta = BuildMapMetadata();
+            var meta = BuildMapMetadata(args);
 
             var root = new YamlMappingNode();
             root.Add(MapLoadConstants.Meta, meta);
@@ -498,10 +501,10 @@ namespace OpenNefia.Content.CommandLine
             root.Add(MapLoadConstants.Entities, entities);
 
             var document = new YamlDocument(root);
-            var outputPath = Path.Join(OutputDirectory, $"{fileBaseName}.yml");
-            
-            if (!Directory.Exists(OutputDirectory))
-                Directory.CreateDirectory(OutputDirectory);
+            var outputPath = Path.Join(args.OutputDirectory, $"{fileBaseName}.yml");
+
+            if (!Directory.Exists(args.OutputDirectory))
+                Directory.CreateDirectory(args.OutputDirectory);
 
             using (var fileStream = File.Open(outputPath, FileMode.Create, FileAccess.Write))
             {

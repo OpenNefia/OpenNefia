@@ -1,8 +1,3 @@
-using Moq;
-using OpenNefia.Content.UI.Hud;
-using OpenNefia.Content.UI.Layer;
-using OpenNefia.Content.UI.Layer.Repl;
-using OpenNefia.Core.IoC;
 using OpenNefia.Tests;
 using System.Reflection;
 

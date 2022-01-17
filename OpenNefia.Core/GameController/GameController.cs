@@ -4,8 +4,8 @@ using Microsoft.Extensions.Options;
 using OpenNefia.Core.Asynchronous;
 using OpenNefia.Core.Audio;
 using OpenNefia.Core.Configuration;
+using OpenNefia.Core.Console;
 using OpenNefia.Core.ContentPack;
-using OpenNefia.Core.DebugServer;
 using OpenNefia.Core.Game;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Graphics;
@@ -50,7 +50,6 @@ namespace OpenNefia.Core.GameController
         [Dependency] private readonly ITaskManager _taskManager = default!;
         [Dependency] private readonly ITimerManager _timerManager = default!;
         [Dependency] private readonly IMapRenderer _mapRenderer = default!;
-        [Dependency] private readonly IDebugServer _debugServer = default!;
         [Dependency] private readonly IThemeManager _themeManager = default!;
         [Dependency] private readonly IFontManager _fontManager = default!;
         [Dependency] private readonly IInputManager _inputManager = default!;
@@ -67,7 +66,7 @@ namespace OpenNefia.Core.GameController
         public bool Startup(GameControllerOptions options)
         {
             Options = options;
-            Console.OutputEncoding = EncodingHelpers.UTF8;
+            System.Console.OutputEncoding = EncodingHelpers.UTF8;
 
             _resourceCache.Initialize(Options.UserDataDirectoryName);
             _profileManager.Initialize();
@@ -138,6 +137,16 @@ namespace OpenNefia.Core.GameController
 
             _saveGameManager.Initialize();
 
+            _atlasManager.Initialize();
+            _atlasManager.LoadAtlases();
+
+            _entityManager.Startup();
+
+            _saveGameSerializer.Initialize();
+
+            _mapRenderer.Initialize();
+            _mapRenderer.RegisterTileLayers();
+
             _modLoader.BroadcastRunLevel(ModRunLevel.PostInit);
 
             GCSettings.LargeObjectHeapCompactionMode = GCLargeObjectHeapCompactionMode.CompactOnce;
@@ -169,24 +178,6 @@ namespace OpenNefia.Core.GameController
             }
 
             _config.OverrideConVars(EnvironmentVariables.GetEnvironmentCVars());
-        }
-
-        /// <summary>
-        /// This startup logic is heavier and only needed by the non-headless entry point.
-        /// </summary>
-        private void Stage2Startup()
-        {
-            _atlasManager.Initialize();
-            _atlasManager.LoadAtlases();
-
-            _entityManager.Startup();
-
-            _saveGameSerializer.Initialize();
-
-            _mapRenderer.Initialize();
-            _mapRenderer.RegisterTileLayers();
-
-            _debugServer.Startup();
         }
 
         private void ShowSplashScreen()
@@ -275,8 +266,6 @@ namespace OpenNefia.Core.GameController
 
         public void Run()
         {
-            Stage2Startup();
-
             _running = true;
 
             MainCallback?.Invoke();
@@ -302,7 +291,6 @@ namespace OpenNefia.Core.GameController
             _graphics.Shutdown();
             _audio.Shutdown();
             _music.Shutdown();
-            _debugServer.Shutdown();
             _themeManager.Shutdown();
             if (_logHandler != null)
             {
@@ -326,7 +314,6 @@ namespace OpenNefia.Core.GameController
             _inputManager.UpdateKeyRepeats(frame);
             _uiManager.UpdateLayers(frame);
             _taskManager.ProcessPendingTasks();
-            _debugServer.CheckForRequests();
         }
 
         public void Draw()

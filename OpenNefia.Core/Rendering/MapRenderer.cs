@@ -24,8 +24,12 @@ namespace OpenNefia.Core.Rendering
 
         private sealed record OrderingData(Type OrderType, Type[]? Before, Type[]? After);
 
+        private sealed record TileLayerMetaData(bool Enabled);
+
         private Dictionary<Type, OrderingData> _types = new();
-        private List<ITileLayer> _tileLayers = new();
+        private List<ITileLayer> _allTileLayers = new();
+        private Dictionary<ITileLayer, TileLayerMetaData> _tileLayerMetaData = new();
+        private List<ITileLayer> _enabledTileLayers = new();
         private IMap? _map;
 
         public void Initialize()
@@ -35,7 +39,9 @@ namespace OpenNefia.Core.Rendering
 
         public void RegisterTileLayers()
         {
-            _tileLayers.Clear();
+            _allTileLayers.Clear();
+            _tileLayerMetaData.Clear();
+            _enabledTileLayers.Clear();
             _types.Clear();
 
             _layerDependencyCollection = new(_entitySystemManager.DependencyCollection);
@@ -51,16 +57,31 @@ namespace OpenNefia.Core.Rendering
             {
                 var layer = (ITileLayer) _layerDependencyCollection.ResolveType(type);
                 layer.Initialize();
-                _tileLayers.Add(layer);
+                _allTileLayers.Add(layer);
+                _tileLayerMetaData.Add(layer, new TileLayerMetaData(Enabled: true));
             }
 
             if (_map != null)
             {
-                foreach (var layer in _tileLayers)
+                foreach (var layer in _allTileLayers)
                 {
                     layer.SetMap(_map);
                 }
             }
+
+            RebuildEnabledTileLayers();
+        }
+
+        private void RebuildEnabledTileLayers()
+        {
+            // _tileLayers should be sorted according to the ordering data by now.
+            _enabledTileLayers = _allTileLayers
+                .Where(tileLayer => _tileLayerMetaData[tileLayer].Enabled)
+                .ToList();
+        }
+
+        public void SetTileLayerEnabled<T>(bool enabled) where T : ITileLayer
+        {
         }
 
         private void RegisterTileLayer(Type type)
@@ -100,7 +121,7 @@ namespace OpenNefia.Core.Rendering
         {
             _map = map;
 
-            foreach (var layer in _tileLayers)
+            foreach (var layer in _allTileLayers)
             {
                 layer.SetMap(map);
             }
@@ -115,12 +136,12 @@ namespace OpenNefia.Core.Rendering
             if (this._map == null)
                 return;
 
-            foreach (var layer in _tileLayers)
+            foreach (var layer in _allTileLayers)
             {
                 layer.OnThemeSwitched();
             }
 
-            foreach (var layer in _tileLayers)
+            foreach (var layer in _allTileLayers)
             {
                 layer.RedrawAll();
             }
@@ -133,14 +154,14 @@ namespace OpenNefia.Core.Rendering
 
             if (this._map.RedrawAllThisTurn)
             {
-                foreach (var layer in _tileLayers)
+                foreach (var layer in _allTileLayers)
                 {
                     layer.RedrawAll();
                 }
             }
             else if(this._map.DirtyTilesThisTurn.Count > 0)
             {
-                foreach (var layer in _tileLayers)
+                foreach (var layer in _allTileLayers)
                 {
                     layer.RedrawDirtyTiles(this._map.DirtyTilesThisTurn);
                 }
@@ -154,7 +175,7 @@ namespace OpenNefia.Core.Rendering
         public override void SetSize(int width, int height)
         {
             base.SetSize(width, height);
-            foreach (var layer in this._tileLayers)
+            foreach (var layer in this._allTileLayers)
             {
                 layer.SetSize(width, height);
             }
@@ -163,7 +184,7 @@ namespace OpenNefia.Core.Rendering
         public override void SetPosition(int x, int y)
         {
             base.SetPosition(x, y);
-            foreach (var layer in this._tileLayers)
+            foreach (var layer in this._allTileLayers)
             {
                 layer.SetPosition(x, y);
             }
@@ -172,7 +193,7 @@ namespace OpenNefia.Core.Rendering
 
         public override void Update(float dt)
         {
-            foreach (var layer in _tileLayers)
+            foreach (var layer in _allTileLayers)
             {
                 layer.Update(dt);
             }
@@ -181,7 +202,7 @@ namespace OpenNefia.Core.Rendering
 
         public override void Draw()
         {
-            foreach (var layer in _tileLayers)
+            foreach (var layer in _enabledTileLayers)
             {
                 layer.Draw();
             }

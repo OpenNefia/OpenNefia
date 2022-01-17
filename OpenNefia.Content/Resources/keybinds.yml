@@ -309,21 +309,25 @@ binds:
   type: State
   key: Left
   canRepeat: true
+  repeatMode: None
 - function: TextCursorRight
   type: State
   key: Right
   canRepeat: true
+  repeatMode: None
 - function: TextCursorWordLeft
   type: State
   key: Left
   mod1: Control
   canRepeat: true
+  repeatMode: None
   allowSubCombs: true
 - function: TextCursorWordRight
   type: State
   key: Right
   mod1: Control
   canRepeat: true
+  repeatMode: None
   allowSubCombs: true
 - function: TextCursorBegin
   type: State
@@ -332,17 +336,20 @@ binds:
   type: State
   key: End
   canRepeat: true
+  repeatMode: None
 - function: TextCursorSelectLeft
   type: State
   key: Left
   mod1: Shift
   canRepeat: true
+  repeatMode: None
   allowSubCombs: true
 - function: TextCursorSelectRight
   type: State
   key: Right
   mod1: Shift
   canRepeat: true
+  repeatMode: None
   allowSubCombs: true
 - function: TextCursorSelectWordLeft
   type: State
@@ -350,6 +357,7 @@ binds:
   mod1: Shift
   mod2: Control
   canRepeat: true
+  repeatMode: None
   allowSubCombs: true
 - function: TextCursorSelectWordRight
   type: State
@@ -357,6 +365,7 @@ binds:
   mod1: Shift
   mod2: Control
   canRepeat: true
+  repeatMode: None
   allowSubCombs: true
 - function: TextCursorSelectBegin
   type: State
@@ -368,7 +377,18 @@ binds:
   mod1: Shift
   key: End
   canRepeat: true
+  repeatMode: None
   allowSubCombs: true
+- function: TextPageUp
+  type: State
+  key: PageUp
+  canRepeat: true
+  repeatMode: None
+- function: TextPageDown
+  type: State
+  key: PageDown
+  canRepeat: true
+  repeatMode: None
 - function: TextBackspace
   type: State
   key: BackSpace
@@ -417,9 +437,32 @@ binds:
   type: State
   key: Delete
   canRepeat: true
+  repeatMode: None
 - function: TextTabComplete
   type: State
   key: Tab
+
+# Vim-like text keybinds.
+- function: TextPageUp
+  type: State
+  key: U
+  mod1: Control
+  canRepeat: true
+  repeatMode: None
+- function: TextPageDown
+  type: State
+  key: D
+  mod1: Control
+  canRepeat: true
+  repeatMode: None
+- function: TextCursorBegin
+  type: State
+  key: A
+  mod1: Control
+- function: TextCursorEnd
+  type: State
+  key: E
+  mod1: Control
 
 - function: ShowEscapeMenu
   type: State
@@ -434,3 +477,27 @@ binds:
 - function: ShowEscapeMenu
   type: State
   key: GamepadStart
+
+- function: ShowDebugConsole
+  type: State
+  key: Backquote
+
+- function: Elona.ReplFullscreen
+  type: State
+  key: F
+  mod1: Control
+- function: Elona.ReplPrevCompletion
+  type: State
+  key: P
+  mod1: Control
+  canRepeat: true
+  repeatMode: None
+- function: Elona.ReplNextCompletion
+  type: State
+  key: 'N'
+  mod1: Control
+  canRepeat: true
+  repeatMode: None
+- function: Elona.ReplComplete
+  type: State
+  key: Tab

@@ -1,7 +1,9 @@
 ﻿using OpenNefia.Content.ConfigMenu;
 using OpenNefia.Content.Input;
 using OpenNefia.Content.RandomText;
+using OpenNefia.Content.Repl;
 using OpenNefia.Content.TitleScreen;
+using OpenNefia.Core.Console;
 using OpenNefia.Core.ContentPack;
 using OpenNefia.Core.GameController;
 using OpenNefia.Core.Input;
@@ -15,6 +17,8 @@ namespace OpenNefia.Content
     /// </summary>
     public class EntryPoint : ModEntryPoint
     {
+        [Dependency] private readonly IConsoleHost _consoleHost = default!;
+        [Dependency] private readonly IReplLayer _repl = default!;
         [Dependency] private readonly IRandomAliasGenerator _aliasGen = default!;
         [Dependency] private readonly IRandomNameGenerator _nameGen = default!;
         [Dependency] private readonly IConfigMenuUICellFactory _configMenuUICellFactory = default!;
@@ -35,6 +39,7 @@ namespace OpenNefia.Content
 
         private void InitializeDependencies()
         {
+            _repl.Initialize();
             _aliasGen.Initialize();
             _nameGen.Initialize();
             _configMenuUICellFactory.Initialize();
@@ -42,6 +47,9 @@ namespace OpenNefia.Content
 
         public override void PostInit()
         {
+            // Commands can take dependencies on entity systems, so this can't go in Init().
+            _consoleHost.Initialize();
+
             // Setup key contexts
             var inputMan = IoCManager.Resolve<IInputManager>();
             ContentContexts.SetupContexts(inputMan.Contexts);

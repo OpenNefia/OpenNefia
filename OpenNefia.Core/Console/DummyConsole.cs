@@ -1,10 +1,12 @@
-﻿using OpenNefia.Core.Log;
+﻿using OpenNefia.Core.IoC;
 using PrettyPrompt.Consoles;
 
-namespace OpenNefia.Core.DebugServer
+namespace OpenNefia.Core.Console
 {
-    internal class DummyConsole : IConsole
+    public sealed class DummyConsole : IConsole
     {
+        [Dependency] private readonly IConsoleOutput _output = default!;
+
         public int CursorTop => 0;
         public int BufferWidth => 0;
         public int WindowHeight => 0;
@@ -35,24 +37,9 @@ namespace OpenNefia.Core.DebugServer
         {
         }
 
-        public void Write(string value)
-        {
-            Logger.InfoS("repl.exec", value);
-        }
-
-        public void WriteLine(string value)
-        {
-            Logger.InfoS("repl.exec", value);
-        }
-
-        public void WriteError(string value)
-        {
-            Logger.ErrorS("repl.exec", value);
-        }
-
-        public void WriteErrorLine(string value)
-        {
-            Logger.ErrorS("repl.exec", value);
-        }
+        public void Write(string value) => _output.WriteLine(value);
+        public void WriteLine(string value) => _output.WriteLine(value);
+        public void WriteError(string value) => _output.WriteError(value);
+        public void WriteErrorLine(string value) => _output.WriteError(value);
     }
 }
