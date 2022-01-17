@@ -1,5 +1,6 @@
-﻿using Love;
-using OpenNefia.Content.TurnOrder;
+﻿using OpenNefia.Content.TurnOrder;
+using OpenNefia.Content.UI.Element;
+using OpenNefia.Content.UI.Hud;
 using OpenNefia.Content.UI.Layer;
 using OpenNefia.Core.Game;
 using OpenNefia.Core.Graphics;
@@ -26,38 +27,65 @@ namespace OpenNefia.Content.UI
         public static void GetCenteredParams(Vector2i size, out UIBox2i bounds, int yOffset = 0)
             => GetCenteredParams(size.X, size.Y, out bounds, yOffset);
 
+        /// <param name="inputSize">Preferred size of the child element to be fitted.</param>
+        /// <param name="outputSize">Size of the parent box to fit the child in.</param>
+        /// <returns>The portion of the child element to display, and the portion in the
+        /// parent to display the child in.</returns>
+        public static FittedSizes ApplyBoxFit(UiBoxFit fit, Vector2 inputSize, Vector2 outputSize)
+        {
+            if (inputSize.X <= 0 || inputSize.Y <= 0 || outputSize.X <= 0 || outputSize.Y <= 0)
+                return new FittedSizes(Vector2.Zero, Vector2.Zero);
+
+            Vector2 sourceSize;
+            Vector2 destinationSize;
+
+            switch (fit)
+            {
+                case UiBoxFit.Contain:
+                    sourceSize = inputSize;
+                    if (outputSize.X / outputSize.Y > sourceSize.X / sourceSize.Y)
+                    {
+                        destinationSize = new(sourceSize.X * outputSize.Y / sourceSize.Y, outputSize.Y);
+                    }
+                    else
+                    {
+                        destinationSize = new(outputSize.X, sourceSize.Y * outputSize.X / sourceSize.X);
+                    }
+                    break;
+                case UiBoxFit.None:
+                default:
+                    sourceSize = new(MathF.Min(inputSize.X, outputSize.X), MathF.Min(inputSize.Y, outputSize.Y));
+                    destinationSize = sourceSize;
+                    break;
+            }
+
+            return new FittedSizes(sourceSize, destinationSize);
+        }
+
         public static void GetCenteredParams(int width, int height, out UIBox2i bounds, int yOffset = 0)
         {
             var graphics = IoCManager.Resolve<IGraphics>();
             var coords = IoCManager.Resolve<ICoords>();
             var field = IoCManager.Resolve<IFieldLayer>();
+            var hud = IoCManager.Resolve<IHudLayer>();
 
-            var (windowW, windowH) = graphics.WindowSize;
+            var elementSize = new Vector2i(width, height);
+            var elementBounds = UIBox2i.FromDimensions(new Vector2i(0, yOffset), elementSize);
 
-            var x = (windowW - width) / 2;
-            int y;
+            var gameBounds = new UIBox2i(Vector2i.Zero, graphics.WindowSize);
 
-            if (field.IsInGame())
-            {
-                var tiledHeight = windowH / coords.TileSize.Y;
-                y = ((tiledHeight - 2) * coords.TileSize.Y - height) / 2 + 8;
-            }
-            else
-            {
-                y = (windowH - height) / 2;
-            }
-
-            y += yOffset;
-
-            bounds = UIBox2i.FromDimensions(x, y, width, height);
+            var fitted = ApplyBoxFit(UiBoxFit.None, elementSize, gameBounds.Size);
+            bounds = UiAlignment.Center.Inscribe(fitted.DestinationSize, gameBounds);
+            bounds.Top += yOffset;
+            bounds.Bottom += yOffset;
         }
 
         public static void DebugDraw(IDrawable elem)
         {
-            Graphics.SetColor(Love.Color.Red);
-            Graphics.Rectangle(DrawMode.Line, elem.X, elem.Y, elem.Width, elem.Height);
-            Graphics.SetColor(Love.Color.Blue);
-            Graphics.Line(elem.X, elem.Y, elem.X + elem.Width, elem.Y + elem.Height);
+            Love.Graphics.SetColor(Love.Color.Red);
+            Love.Graphics.Rectangle(Love.DrawMode.Line, elem.X, elem.Y, elem.Width, elem.Height);
+            Love.Graphics.SetColor(Love.Color.Blue);
+            Love.Graphics.Line(elem.X, elem.Y, elem.X + elem.Width, elem.Y + elem.Height);
         }
 
         public static string DisplayWeight(int weight)
