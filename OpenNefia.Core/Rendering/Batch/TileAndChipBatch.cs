@@ -14,7 +14,12 @@ namespace OpenNefia.Core.Rendering
 {
     /// <summary>
     /// A tile batch for rendering "strips" of map tile/chip batches with proper Z-ordering.
+    /// This drawable is intended to replicate vanilla's original tile renderer.
     /// </summary>
+    /// <remarks>
+    /// The strips of tiles are necessary to make sure things like wall overhangs properly occlude
+    /// tiles/chips in adjacent tile rows.
+    /// </remarks>
     internal class TileAndChipBatch : BaseDrawable
     {
         private ITileAtlasManager _atlasManager = default!;
@@ -83,14 +88,14 @@ namespace OpenNefia.Core.Rendering
             entry = new ChipBatchEntry(tile, memory);
 
             // Add to the appropriate Z layer strip.
-            this._rows[entry.RowIndex].ChipBatch.AddOrUpdateChipEntry(entry);
+            _rows[entry.RowIndex].ChipBatch.AddOrUpdateChipEntry(entry);
             _dirtyRows.Add(entry.RowIndex);
         }
 
         public void Clear()
         {
-            this._deadEntries.Clear();
-            this._redrawAll = true;
+            _deadEntries.Clear();
+            _redrawAll = true;
 
             foreach (var row in _rows)
             {

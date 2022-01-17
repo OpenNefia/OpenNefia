@@ -18,6 +18,8 @@ namespace OpenNefia.Core.Maps
 
     internal sealed class Map : IMap
     {
+        [Dependency] private readonly IEntityManager _entityManager = default!;
+
         public MapId Id { get; internal set; }
         public EntityUid MapEntityUid { get; internal set; }
 
@@ -41,6 +43,8 @@ namespace OpenNefia.Core.Maps
 
         public Map(int width, int height)
         {
+            IoCManager.InjectDependencies(this);
+
             MapEntityUid = EntityUid.Invalid;
             Id = MapId.Nullspace;
 
@@ -51,7 +55,7 @@ namespace OpenNefia.Core.Maps
             _tileFlagsTiles = new TileFlag[width, height];
             _tileFlagsEntities = new TileFlag[width, height];
             _tileFlags = new TileFlag[width, height];
-            MapObjectMemory = new MapObjectMemoryStore(this);
+            MapObjectMemory = new MapObjectMemoryStore(width, height);
             _InSight = new int[width, height];
         }
 
@@ -129,7 +133,7 @@ namespace OpenNefia.Core.Maps
 
             TileMemory[pos.X, pos.Y] = Tiles[pos.X, pos.Y];
             DirtyTilesThisTurn.Add(pos);
-            MapObjectMemory.RevealObjects(pos);
+            MapObjectMemory.RevealObjects(this, pos, _entityManager);
             _InSight[pos.X, pos.Y] = LastSightId;
         }
 
