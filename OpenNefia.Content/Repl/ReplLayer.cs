@@ -19,6 +19,9 @@ using OpenNefia.Core.Input;
 using OpenNefia.Content.Input;
 using OpenNefia.Core.UserInterface;
 using YamlDotNet.Core.Tokens;
+using OpenNefia.Core.ContentPack;
+using OpenNefia.Core.Profiles;
+using OpenNefia.Core.Log;
 
 namespace OpenNefia.Content.Repl
 {
@@ -39,6 +42,10 @@ namespace OpenNefia.Content.Repl
         [Dependency] private readonly IReplExecutor _executor = default!;
         [Dependency] private readonly IGraphics _graphics = default!;
         [Dependency] private readonly IInputManager _inputManager = default!;
+        [Dependency] private readonly IProfileManager _profiles = default!;
+
+        public const string HistoryFile = "/repl_history.txt";
+        private const int MaxSavedHistoryLines = 500;
 
         protected class ReplTextLine
         {
@@ -155,6 +162,26 @@ namespace OpenNefia.Content.Repl
         public void Initialize()
         {
             _inputManager.KeyBindStateChanged += HandleGlobalKeyBindStateChanged;
+            LoadHistory();
+        }
+
+        private void LoadHistory()
+        {
+            var historyPath = new ResourcePath(HistoryFile);
+            if (_profiles.CurrentProfile.Exists(historyPath))
+            {
+                Logger.InfoS("repl", $"Loading REPL history from {historyPath}");
+
+                using var text = _profiles.CurrentProfile.OpenText(historyPath);
+                History = text.ReadLines().ToList();
+            }
+        }
+
+        private void SaveHistory()
+        {
+            var historyPath = new ResourcePath(HistoryFile);
+            var allLines = string.Join('\n', History.Take(MaxSavedHistoryLines));
+            _profiles.CurrentProfile.WriteAllText(historyPath, allLines);
         }
 
         /// <summary>
@@ -477,6 +504,8 @@ namespace OpenNefia.Content.Repl
                 default:
                     break;
             }
+
+            SaveHistory();
 
             _field.RefreshScreen();
         }
