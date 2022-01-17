@@ -355,14 +355,16 @@ entities:
 
             var map = mapMan.CreateMap(5, 5);
             var mapId = map.Id;
+            var coords = map.AtPos(Vector2i.One);
 
-            var ent = entMan.SpawnEntity(new("MapDeserializeTestOverride"), map.AtPos(Vector2i.One));
+            var ent = entMan.SpawnEntity(new("MapDeserializeTestOverride"), coords);
 
             var memIndex = 1;
             map.MapObjectMemory._allMemory[memIndex] = new MapObjectMemory()
             {
                 Index = memIndex,
-                ObjectUid = ent
+                ObjectUid = ent,
+                Coords = coords
             };
 
             using var save = new TempSaveGameHandle();
@@ -375,6 +377,7 @@ entities:
             {
                 Assert.That(map.MapObjectMemory.AllMemory.Count, Is.EqualTo(1));
                 Assert.That(map.MapObjectMemory.AllMemory.First().Value.ObjectUid, Is.EqualTo(ent));
+                Assert.That(map.MapObjectMemory.AllMemory.First().Value.Coords, Is.EqualTo(coords));
             });
         }
 
