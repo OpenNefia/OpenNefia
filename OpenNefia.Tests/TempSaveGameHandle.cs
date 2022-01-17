@@ -15,7 +15,7 @@ namespace OpenNefia.Tests
 
         public int SaveFormatVersion => SaveGameManager.SaveFormatVersion;
         public ResourcePath SaveDirectory { get; }
-        public DateTime LastWriteTime { get; }
+        public DateTime LastWriteTime { get; set; }
         public SaveGameHeader Header { get; }
         public ISaveGameDirProvider Files { get; }
 

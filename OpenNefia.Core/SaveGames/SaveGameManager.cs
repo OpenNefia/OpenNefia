@@ -38,7 +38,7 @@ namespace OpenNefia.Core.SaveGames
     {
         int SaveFormatVersion { get; }
         ResourcePath SaveDirectory { get; }
-        DateTime LastWriteTime { get; }
+        DateTime LastWriteTime { get; set; }
         SaveGameHeader Header { get; }
         ISaveGameDirProvider Files { get; }
     }
@@ -47,7 +47,7 @@ namespace OpenNefia.Core.SaveGames
     {
         public int SaveFormatVersion => SaveGameManager.SaveFormatVersion;
         public ResourcePath SaveDirectory { get; }
-        public DateTime LastWriteTime { get; internal set; }
+        public DateTime LastWriteTime { get; set; }
         public SaveGameHeader Header { get; }
         public ISaveGameDirProvider Files { get; }
 
