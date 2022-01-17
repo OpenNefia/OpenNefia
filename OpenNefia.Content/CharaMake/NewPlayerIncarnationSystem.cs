@@ -33,7 +33,7 @@ namespace OpenNefia.Content.CharaMake
 
         private void HandleNewPlayerIncarnated(EntityUid uid, PlayerComponent player, NewPlayerIncarnatedEvent args)
         {
-            var currency = EntityManager.GetComponent<CurrencyHolderComponent>(uid);
+            var currency = EntityManager.GetComponent<WalletComponent>(uid);
             currency.Gold = 400 + _random.Next(200);
 
             // >>>>>>>> shade2/chara.hsp:539 *cm_finishPC ..
