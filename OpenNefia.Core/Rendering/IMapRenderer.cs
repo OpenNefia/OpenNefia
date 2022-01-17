@@ -11,5 +11,6 @@ namespace OpenNefia.Core.Rendering
         void RefreshAllLayers();
         void SetMap(IMap map);
         void SetTileLayerEnabled<T>(bool enabled) where T : ITileLayer;
+        void SetTileLayerEnabled(Type type, bool enabled);
     }
 }

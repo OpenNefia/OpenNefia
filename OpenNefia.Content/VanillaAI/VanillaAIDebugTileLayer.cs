@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace OpenNefia.Content.VanillaAI
 {
-    [RegisterTileLayer(renderAfter: new[] { typeof(TileAndChipTileLayer) })]
+    [RegisterTileLayer(renderAfter: new[] { typeof(TileAndChipTileLayer) }, enabledAtStartup: false)]
     public class VanillaAIDebugTileLayer : BaseTileLayer
     {
         [Dependency] private readonly IEntityLookup _lookup = default!;
