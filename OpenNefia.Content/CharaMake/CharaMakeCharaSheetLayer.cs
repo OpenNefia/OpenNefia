@@ -36,6 +36,7 @@ namespace OpenNefia.Content.CharaMake
 
         public CharaMakeCharaSheetLayer()
         {
+            CanControlFocus = true;
             AddChild(Sheet);
         }
 
