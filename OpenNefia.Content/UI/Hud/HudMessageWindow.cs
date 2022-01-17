@@ -58,7 +58,7 @@ namespace OpenNefia.Content.UI.Hud
         {
             Tags.Add(tag);
         }
-        public static FormattedMessage ColoredMessage(string text, Color? color = null)
+        public static FormattedMessage WithColor(string text, Color? color = null)
         {
             var mes = new FormattedMessage();
             mes.AddTag(new ColorMessageTag(color));
@@ -119,7 +119,7 @@ namespace OpenNefia.Content.UI.Hud
 
         public void Print(string queryText, Color? color = null)
         {
-            var mes = FormattedMessage.ColoredMessage(queryText, color);
+            var mes = FormattedMessage.WithColor(queryText, color);
             if (Messages.IsEmpty)
                 mes.Tags.Insert(0, new NewlineMessageTag());
             Messages.PushFront(mes);

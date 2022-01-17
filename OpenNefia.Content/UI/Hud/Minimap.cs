@@ -64,8 +64,8 @@ namespace OpenNefia.Content.UI.Hud
             Batch.Draw();
             if (PlayerCoords.HasValue)
             {
-                float xSize = ((float)Width / (float)MapSize.X);
-                float ySize = ((float)Height / (float)MapSize.Y);
+                float xSize = (float)Width / (float)MapSize.X;
+                float ySize = (float)Height / (float)MapSize.Y;
                 float x = xSize * PlayerCoords.Value.X + (xSize / 2f);
                 float y = ySize * PlayerCoords.Value.Y + (ySize / 2f);
                 PlayerIcon.Draw(X + x, Y + y, centered: true);

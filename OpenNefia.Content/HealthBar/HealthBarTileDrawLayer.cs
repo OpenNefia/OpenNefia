@@ -3,6 +3,7 @@ using OpenNefia.Content.GameObjects;
 using OpenNefia.Content.Parties;
 using OpenNefia.Content.Prototypes;
 using OpenNefia.Content.Skills;
+using OpenNefia.Content.UI;
 using OpenNefia.Core.Game;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
@@ -26,7 +27,7 @@ namespace OpenNefia.Content.VanillaAI
         private IAssetInstance AssetHPBarOther = default!;
 
         private IMap? _map;
-        private List<DrawEntry> _entries = new();
+        private List<UiHelpers.DrawEntry> _entries = new();
 
         public override void SetMap(IMap map)
         {
@@ -77,26 +78,13 @@ namespace OpenNefia.Content.VanillaAI
 
                 var screenPos = spatial.GetScreenPos();
 
-                var entry = new DrawEntry(assetInstance, hpRatio, screenPos);
+                var entry = new UiHelpers.DrawEntry(assetInstance, hpRatio, screenPos);
                 _entries.Add(entry);
             }
         }
 
         public override void Update(float dt)
         {
-        }
-
-        private void DrawPercentageBar(DrawEntry entry, Vector2 pos, float barWidth, Vector2 drawSize)
-        {
-            var size = entry.Asset.Size;
-            var lastWidth = barWidth;
-            if (entry.BarWidth != barWidth)
-            {
-                entry.BarWidth = barWidth;
-                entry.BarQuad.SetViewport(size.X - barWidth, 0, lastWidth, size.Y);
-            }
-
-            entry.Asset.Draw(entry.BarQuad, pos.X, pos.Y, drawSize.X, drawSize.Y);
         }
 
         private const int BarWidthPixels = 30;
@@ -109,34 +97,10 @@ namespace OpenNefia.Content.VanillaAI
 
             foreach (var entry in _entries)
             {
-                DrawPercentageBar(entry,
+                UiHelpers.DrawPercentageBar(entry,
                     GlobalPixelPosition + entry.ScreenPos + (9, size.Y),
                     entry.HPRatio * BarWidthPixels,
                     Vector2i.Zero);
-            }
-        }
-
-        private class DrawEntry : IDisposable
-        {
-            public DrawEntry(IAssetInstance assetInstance, float hpRatio, Vector2 screenPos)
-            {
-                Asset = assetInstance;
-                HPRatio = hpRatio;
-                ScreenPos = screenPos;
-                BarQuad = Love.Graphics.NewQuad(0, 0, assetInstance.Width, assetInstance.Height, assetInstance.Width, assetInstance.Height);
-                BarWidth = -1;
-            }
-
-            public IAssetInstance Asset { get; }
-            public float HPRatio { get; }
-            public Vector2 ScreenPos { get; }
-            public Love.Quad BarQuad { get; }
-
-            public float BarWidth { get; set; }
-
-            public void Dispose()
-            {
-                BarQuad.Dispose();
             }
         }
     }
