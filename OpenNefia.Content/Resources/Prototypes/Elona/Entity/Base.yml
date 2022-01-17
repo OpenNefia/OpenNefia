@@ -35,7 +35,7 @@
   - type: Sanity
   - type: Karma
   - type: Fame
-  - type: CurrencyHolder
+  - type: Wallet
   - type: GuildMember
   - type: GodFollower
 

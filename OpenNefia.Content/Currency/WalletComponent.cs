@@ -8,10 +8,14 @@ using System.Threading.Tasks;
 
 namespace OpenNefia.Content.Currency
 {
+    /// <summary>
+    /// Indicates something that can hold gold and platinum coins, like
+    /// characters.
+    /// </summary>
     [RegisterComponent]
-    public sealed class CurrencyHolderComponent : Component
+    public sealed class WalletComponent : Component
     {
-        public override string Name => "CurrencyHolder";
+        public override string Name => "Wallet";
 
         [DataField]
         public int Gold { get; set; }
