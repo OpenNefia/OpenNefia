@@ -1,4 +1,5 @@
 ﻿using OpenNefia.Core.Maps;
+using OpenNefia.Core.Rendering.TileDrawLayers;
 using OpenNefia.Core.UI.Element;
 
 namespace OpenNefia.Core.Rendering
@@ -9,5 +10,6 @@ namespace OpenNefia.Core.Rendering
         void RegisterTileLayers();
         void RefreshAllLayers();
         void SetMap(IMap map);
+        void SetTileLayerEnabled<T>(bool enabled) where T : ITileLayer;
     }
 }

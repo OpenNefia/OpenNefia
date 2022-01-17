@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OpenNefia.Core.DebugServer
+namespace OpenNefia.Core.Console
 {
     public abstract record ReplExecutionResult
     {

@@ -27,5 +27,10 @@ namespace OpenNefia.Content.Input
         public static readonly BoundKeyFunction Throw = "Elona.Throw";
         public static readonly BoundKeyFunction Examine = "Elona.Examine";
         public static readonly BoundKeyFunction Wear = "Elona.Wear";
+
+        public static readonly BoundKeyFunction ReplFullscreen = "Elona.ReplFullscreen";
+        public static readonly BoundKeyFunction ReplPrevCompletion = "Elona.ReplPrevCompletion";
+        public static readonly BoundKeyFunction ReplNextCompletion = "Elona.ReplNextCompletion";
+        public static readonly BoundKeyFunction ReplComplete = "Elona.ReplComplete";
     }
 }

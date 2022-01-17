@@ -1,5 +1,4 @@
 ﻿using System.Reflection;
-using OpenNefia.Core.CommandLine;
 using OpenNefia.Core.GameController;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Log;
@@ -44,10 +43,7 @@ namespace OpenNefia
         private static void CommandLineStart(string[] args)
         {
             InitIoC(DisplayMode.Headless);
-
-            var cmh = IoCManager.Resolve<ICommandLineController>();
-
-            cmh.Run(args);
+            Logger.Error("TODO");
         }
 
         private static void InitIoC(DisplayMode mode)

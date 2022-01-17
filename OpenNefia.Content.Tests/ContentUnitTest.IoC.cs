@@ -1,7 +1,7 @@
 ﻿using Moq;
+using OpenNefia.Content.Repl;
 using OpenNefia.Content.UI.Hud;
 using OpenNefia.Content.UI.Layer;
-using OpenNefia.Content.UI.Layer.Repl;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Maths;
 using OpenNefia.Tests;

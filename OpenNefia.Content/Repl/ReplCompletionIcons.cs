@@ -5,7 +5,7 @@ using OpenNefia.Core.Rendering;
 using System.Collections.Immutable;
 using AssetPrototypeID = OpenNefia.Core.Prototypes.PrototypeId<OpenNefia.Core.Rendering.AssetPrototype>;
 
-namespace OpenNefia.Content.UI.Layer.Repl
+namespace OpenNefia.Content.Repl
 {
     internal static class ReplIconsProtos
     {

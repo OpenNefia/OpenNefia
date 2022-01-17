@@ -26,7 +26,7 @@ namespace OpenNefia.Content.UI
         public static readonly Color PromptBackground = new(0, 0, 0, 127);
         public static readonly Color PromptTargetedTile = new(127, 127, 255, 50);
 
-        public static readonly Color ReplBackground = new(17, 65, 17, 192);
+        public static readonly Color ReplBackground = new(17, 17, 65, 192);
         public static readonly Color ReplText = new(255, 255, 255, 255);
         public static readonly Color ReplTextResult = new(150, 200, 200, 255);
         public static readonly Color ReplTextError = new(255, 0, 0, 255);

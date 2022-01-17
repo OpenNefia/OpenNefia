@@ -2,20 +2,25 @@
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Tags;
 using OpenNefia.Content.UI.Element;
-using OpenNefia.Core.DebugServer;
 using OpenNefia.Core.Graphics;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Maths;
-using OpenNefia.Core.Reflection;
 using OpenNefia.Core.Rendering;
+using OpenNefia.Core.Console;
 using OpenNefia.Core.UI;
 using OpenNefia.Core.UI.Element;
 using OpenNefia.Core.UI.Layer;
 using OpenNefia.Core.Utility;
 using TextCopy;
 using Color = OpenNefia.Core.Maths.Color;
+using OpenNefia.Content.UI;
+using OpenNefia.Content.UI.Layer;
+using OpenNefia.Core.Input;
+using OpenNefia.Content.Input;
+using OpenNefia.Core.UserInterface;
+using YamlDotNet.Core.Tokens;
 
-namespace OpenNefia.Content.UI.Layer.Repl
+namespace OpenNefia.Content.Repl
 {
     public interface IReplLayer : IUiLayerWithResult<UINone, UINone>
     {
@@ -23,6 +28,7 @@ namespace OpenNefia.Content.UI.Layer.Repl
         FontSpec FontReplText { get; }
         int MaxLines { get; }
 
+        void Initialize();
         void Clear();
         void PrintText(string text, Color? color = null);
     }
@@ -30,9 +36,9 @@ namespace OpenNefia.Content.UI.Layer.Repl
     public class ReplLayer : UiLayerWithResult<UINone, UINone>, IReplLayer
     {
         [Dependency] private readonly IFieldLayer _field = default!;
-        [Dependency] private readonly IReflectionManager _reflectionManager = default!;
         [Dependency] private readonly IReplExecutor _executor = default!;
         [Dependency] private readonly IGraphics _graphics = default!;
+        [Dependency] private readonly IInputManager _inputManager = default!;
 
         protected class ReplTextLine
         {
@@ -133,94 +139,148 @@ namespace OpenNefia.Content.UI.Layer.Repl
 
         public ReplLayer()
         {
-            IoCManager.InjectDependencies(this);
-
             _textCaret = new UiText(FontReplText, "> ");
             _textEditingLine = new UiText(FontReplText, "");
             _textScrollbackCounter = new UiText(FontReplText, "0/0");
             _textScrollback = new IUiText[0];
-            
+
             _scrollbackBuffer = new CircularBuffer<ReplTextLine>(10000);
             _completionsPane = new CompletionsPane((input, caret) => _executor.Complete(input, caret));
 
-            BindKeys();
+            CanControlFocus = true;
+            CanKeyboardFocus = true;
+            OnKeyBindDown += HandleKeyBindDown;
         }
 
-        protected virtual void BindKeys()
+        public void Initialize()
         {
-            //TextInput.Enabled = true;
-            //TextInput.Callback += (evt) => InsertText(evt.Text);
+            _inputManager.KeyBindStateChanged += HandleGlobalKeyBindStateChanged;
+        }
 
-            //Keybinds[Keys.Up] += (_) =>
-            //{
-            //    if (_completionsPane.IsVisible)
-            //        _completionsPane.Decrement();
-            //    else
-            //        PreviousHistoryEntry();
-            //};
-            //Keybinds[Keys.Down] += (_) =>
-            //{
-            //    if (_completionsPane.IsVisible)
-            //        _completionsPane.Increment();
-            //    else
-            //        NextHistoryEntry();
-            //};
-            //Keybinds[Keys.Left] += (_) =>
-            //{
-            //    CaretPos -= 1;
-            //    UpdateCompletions();
-            //};
-            //Keybinds[Keys.Right] += (_) =>
-            //{
-            //    CaretPos += 1;
-            //    UpdateCompletions();
-            //};
-            //Keybinds[Keys.Backspace] += (_) => DeleteCharAtCursor();
-            //Keybinds[Keys.PageUp] += (_) => SetScrollbackPos(ScrollbackPos + MaxLines / 2);
-            //Keybinds[Keys.PageDown] += (_) => SetScrollbackPos(ScrollbackPos - MaxLines / 2);
-            //Keybinds[Keys.Ctrl | Keys.A] += (_) =>
-            //{
-            //    CaretPos = 0;
-            //    UpdateCompletions();
-            //};
-            //Keybinds[Keys.Ctrl | Keys.E] += (_) =>
-            //{
-            //    CaretPos = EditingLine.Length;
-            //    UpdateCompletions();
-            //};
-            //Keybinds[Keys.Ctrl | Keys.F] += (_) => IsFullscreen = !IsFullscreen;
-            //Keybinds[Keys.Ctrl | Keys.X] += (_) => CutText();
-            //Keybinds[Keys.Ctrl | Keys.C] += (_) => CopyText();
-            //Keybinds[Keys.Ctrl | Keys.V] += (_) => PasteText();
-            //Keybinds[Keys.Ctrl | Keys.N] += (_) =>
-            //{
-            //    if (!_completionsPane.IsOpen)
-            //        _completionsPane.Open(CaretPos);
-            //    else
-            //        _completionsPane.Increment();
-            //};
-            //Keybinds[Keys.Ctrl | Keys.P] += (_) =>
-            //{
-            //    if (!_completionsPane.IsOpen)
-            //        _completionsPane.Open(CaretPos);
-            //    else
-            //        _completionsPane.Decrement();
-            //};
-            //Keybinds[Keys.Tab] += (_) => InsertCompletion();
-            //Keybinds[Keys.Enter] += (_) =>
-            //{
-            //    if (_completionsPane.IsVisible)
-            //        InsertCompletion();
-            //    else
-            //        SubmitText();
-            //};
-            //Keybinds[Keys.Escape] += (_) =>
-            //{
-            //    if (_completionsPane.IsVisible)
-            //        _completionsPane.Close();
-            //    else
-            //        Cancel();
-            //};
+        /// <summary>
+        /// The REPL layer can be called under any context, whether it be in the title
+        /// screen or in-game. This keybind handler hooks directly into the input manager
+        /// to accomplish this.
+        /// </summary>
+        private void HandleGlobalKeyBindStateChanged(ViewportBoundKeyEventArgs args)
+        {
+            if (args.KeyEventArgs.Function != EngineKeyFunctions.ShowDebugConsole)
+                return;
+
+            args.KeyEventArgs.Handle();
+
+            if (IsInActiveLayerList())
+            {
+                // REPL is already open.
+                return;
+            }
+
+            Initialize(new UINone());
+            IoCManager.Resolve<IUserInterfaceManager>().Query(this);
+        }
+
+        private void HandleKeyBindDown(GUIBoundKeyEventArgs args)
+        {
+            if (args.Function == EngineKeyFunctions.TextHistoryPrev)
+            {
+                if (_completionsPane.IsVisible)
+                    _completionsPane.Decrement();
+                else
+                    PreviousHistoryEntry();
+
+            }
+            else if (args.Function == EngineKeyFunctions.TextHistoryNext)
+            {
+                if (_completionsPane.IsVisible)
+                    _completionsPane.Increment();
+                else
+                    NextHistoryEntry();
+            }
+            else if (args.Function == EngineKeyFunctions.TextCursorLeft)
+            {
+                CaretPos -= 1;
+                UpdateCompletions();
+            }
+            else if (args.Function == EngineKeyFunctions.TextCursorRight)
+            {
+                CaretPos += 1;
+                UpdateCompletions();
+            }
+            else if (args.Function == EngineKeyFunctions.TextBackspace)
+            {
+                DeleteCharAtCursor();
+            }
+            else if (args.Function == EngineKeyFunctions.TextPageUp)
+            {
+                SetScrollbackPos(ScrollbackPos + MaxLines / 2);
+            }
+            else if (args.Function == EngineKeyFunctions.TextPageDown)
+            {
+                SetScrollbackPos(ScrollbackPos - MaxLines / 2);
+            }
+            else if (args.Function == EngineKeyFunctions.TextCursorBegin)
+            {
+                CaretPos = 0;
+                UpdateCompletions();
+            }
+            else if (args.Function == EngineKeyFunctions.TextCursorEnd)
+            {
+                CaretPos = EditingLine.Length;
+                UpdateCompletions();
+            }
+            else if (args.Function == ContentKeyFunctions.ReplFullscreen)
+            {
+                IsFullscreen = !IsFullscreen;
+            }
+            else if (args.Function == EngineKeyFunctions.TextCut)
+            {
+                CutText();
+            }
+            else if (args.Function == EngineKeyFunctions.TextCopy)
+            {
+                CopyText();
+            }
+            else if (args.Function == EngineKeyFunctions.TextPaste)
+            {
+                PasteText();
+            }
+            else if (args.Function == ContentKeyFunctions.ReplPrevCompletion)
+            {
+                if (!_completionsPane.IsOpen)
+                    _completionsPane.Open(CaretPos);
+                else
+                    _completionsPane.Decrement();
+            }
+            else if (args.Function == ContentKeyFunctions.ReplNextCompletion)
+            {
+                if (!_completionsPane.IsOpen)
+                    _completionsPane.Open(CaretPos);
+                else
+                    _completionsPane.Increment();
+            }
+            else if (args.Function == ContentKeyFunctions.ReplComplete)
+            {
+                InsertCompletion();
+            }
+            else if (args.Function == EngineKeyFunctions.TextSubmit)
+            {
+                if (_completionsPane.IsVisible)
+                    InsertCompletion();
+                else
+                    SubmitText();
+            }
+            else if (args.Function == EngineKeyFunctions.TextReleaseFocus)
+            {
+                if (_completionsPane.IsVisible)
+                    _completionsPane.Close();
+                else
+                    Cancel();
+            }
+        }
+
+        protected override void TextEntered(GUITextEventArgs args)
+        {
+            InsertText(args.AsRune.ToString());
         }
 
         public void InsertText(string inserted)
@@ -486,7 +546,7 @@ namespace OpenNefia.Content.UI.Layer.Repl
 
         public override void Update(float dt)
         {
-            this.Dt += dt;
+            Dt += dt;
 
             _textCaret.Update(dt);
             _textEditingLine.Update(dt);

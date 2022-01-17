@@ -19,34 +19,34 @@ entities:
 - uid: 0
   components:
   - type: Map
-- uid: 1
-  protoId: Elona.CharaYeek
-  components:
-  - type: Spatial
-    parent: 0
-    pos: 2,5
-- uid: 2
-  protoId: Elona.CharaYeek
-  components:
-  - type: Spatial
-    parent: 0
-    pos: 3,5
-- uid: 3
-  protoId: Elona.CharaYeek
-  components:
-  - type: Spatial
-    parent: 0
-    pos: 4,5
-  - type: Quality
-    quality: Great
-- uid: 4
-  protoId: Elona.CharaYeek
-  components:
-  - type: Spatial
-    parent: 0
-    pos: 5,5
-  - type: Quality
-    quality: God
+# - uid: 1
+#   protoId: Elona.CharaYeek
+#   components:
+#   - type: Spatial
+#     parent: 0
+#     pos: 2,5
+# - uid: 2
+#   protoId: Elona.CharaYeek
+#   components:
+#   - type: Spatial
+#     parent: 0
+#     pos: 3,5
+# - uid: 3
+#   protoId: Elona.CharaYeek
+#   components:
+#   - type: Spatial
+#     parent: 0
+#     pos: 4,5
+#   - type: Quality
+#     quality: Great
+# - uid: 4
+#   protoId: Elona.CharaYeek
+#   components:
+#   - type: Spatial
+#     parent: 0
+#     pos: 5,5
+#   - type: Quality
+#     quality: God
 - uid: 5
   protoId: Elona.ItemDagger
   components:
@@ -159,30 +159,30 @@ entities:
   - type: Spatial
     parent: 0
     pos: 6,5
-- uid: 21
-  protoId: LecchoTorte.LivingWall
-  components:
-  - type: Spatial
-    parent: 0
-    pos: 7,2
-- uid: 22
-  protoId: LecchoTorte.LivingWall
-  components:
-  - type: Spatial
-    parent: 0
-    pos: 7,3
-- uid: 23
-  protoId: LecchoTorte.LivingWall
-  components:
-  - type: Spatial
-    parent: 0
-    pos: 7,4
-- uid: 24
-  protoId: LecchoTorte.LivingWall
-  components:
-  - type: Spatial
-    parent: 0
-    pos: 7,5
+# - uid: 21
+#   protoId: LecchoTorte.LivingWall
+#   components:
+#   - type: Spatial
+#     parent: 0
+#     pos: 7,2
+# - uid: 22
+#   protoId: LecchoTorte.LivingWall
+#   components:
+#   - type: Spatial
+#     parent: 0
+#     pos: 7,3
+# - uid: 23
+#   protoId: LecchoTorte.LivingWall
+#   components:
+#   - type: Spatial
+#     parent: 0
+#     pos: 7,4
+# - uid: 24
+#   protoId: LecchoTorte.LivingWall
+#   components:
+#   - type: Spatial
+#     parent: 0
+#     pos: 7,5
 - uid: 25
   protoId: Elona.FeatStairsUp
   components:
