@@ -18,6 +18,7 @@ using OpenNefia.Core.Maths;
 using OpenNefia.Content.UI.Hud;
 using OpenNefia.Core.Locale;
 using OpenNefia.Core.UserInterface;
+using OpenNefia.Core.Audio;
 
 namespace OpenNefia.Content.UI
 {
@@ -82,6 +83,12 @@ namespace OpenNefia.Content.UI
             ShowSelectedLayer();
         }
 
+        public override void GrabFocus()
+        {
+            base.GrabFocus();
+            SelectedLayer.GrabFocus();
+        }
+
         private void OnKeyDown(Core.UI.Element.GUIBoundKeyEventArgs args)
         {
             var queryArgs = Layers.Keys.ToList();
@@ -91,15 +98,16 @@ namespace OpenNefia.Content.UI
                 case var next when next == EngineKeyFunctions.UINextTab:
                     index++;
                     SelectedArgs = queryArgs[index >= queryArgs.Count ? 0 : index];
+                    ShowSelectedLayer();
                     args.Handle();
                     break;
                 case var prev when prev == EngineKeyFunctions.UIPreviousTab:
                     index--;
                     SelectedArgs = queryArgs[index < 0 ? queryArgs.Count - 1 : index];
+                    ShowSelectedLayer();
                     args.Handle();
                     break;
             }
-            ShowSelectedLayer();
         }
 
         public override void OnQuery()
@@ -111,6 +119,7 @@ namespace OpenNefia.Content.UI
         {
             if (SelectedLayer != null)
             {
+                RemoveChild(SelectedLayer);
                 SelectedLayer.OnKeyBindDown -= OnKeyDown;
                 SelectedLayer.TabExit();
             }
@@ -118,13 +127,14 @@ namespace OpenNefia.Content.UI
             if (Layers.TryGetValue(SelectedArgs, out var layer))
             {
                 SelectedLayer = layer;
-                EntitySystem.InjectDependencies(layer);
+                AddChild(SelectedLayer);
+                EntitySystem.InjectDependencies(SelectedLayer);
                 layer.Initialize(SelectedArgs);
                 SetSize(Width, Height);
                 SetPosition(X, Y);
                 SelectedLayer.OnKeyBindDown += OnKeyDown;
                 SelectedLayer.TabEnter();
-                layer.GrabFocus();
+                SelectedLayer.GrabFocus();
             }
         }
 
@@ -251,6 +261,7 @@ namespace OpenNefia.Content.UI
         {
             base.TabEnter();
             _hud.ToggleBacklog(true);
+            Sounds.Play(Protos.Sound.Log);
         }
 
         public override void TabExit()

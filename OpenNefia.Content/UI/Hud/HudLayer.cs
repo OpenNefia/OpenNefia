@@ -19,6 +19,9 @@ namespace OpenNefia.Content.UI.Hud
         private IWorldSystem _world = default!;
 
         public IHudMessageWindow MessageWindow { get; private set; } = default!;
+
+        public Vector2i HudScreenOffset { get; } = new(0, MinimapHeight);
+
         private UiFpsCounter FpsCounter;
         private BaseDrawable MessageBoxBacking = default!;
         private BaseDrawable BacklogBacking = default!;
@@ -31,6 +34,8 @@ namespace OpenNefia.Content.UI.Hud
         private IAssetInstance ClockAsset = default!;
         private IAssetInstance DateFrame = default!;
         private IUiText DateText = default!;
+        private ClockHand ClockHand = default!;
+        
         private bool ShowingBacklog;
 
         private const int MinimapWidth = 122;
@@ -42,23 +47,12 @@ namespace OpenNefia.Content.UI.Hud
         {
             IoCManager.InjectDependencies(this);
             FpsCounter = new UiFpsCounter();
-            OnKeyBindDown += OnKeyDown;
-        }
-
-        private void OnKeyDown(GUIBoundKeyEventArgs args)
-        {
-            if (args.Function == EngineKeyFunctions.UIBacklog)
-            {
-
-            }
         }
 
         public void Initialize()
         {
             _world = EntitySystem.Get<WorldSystem>();
-
-            var date = _world.State.GameDate;
-            DateText = new UiText($"{date.Year}/{date.Month}/{date.Day}");
+            DateText = new UiText();
 
             CanKeyboardFocus = true;
             MessageBoxBacking = new UiMessageWindowBacking();
@@ -66,12 +60,21 @@ namespace OpenNefia.Content.UI.Hud
             HudBar = new UiHudBar();
             MiniMapAsset = Assets.Get(Protos.Asset.HudMinimap);
             ClockAsset = Assets.Get(Protos.Asset.Clock);
+            ClockHand = new ClockHand();
             DateFrame = Assets.Get(Protos.Asset.DateLabelFrame);
 
             MessageBoxContainer = new UiVerticalContainer();
             BacklogContainer = new UiVerticalContainer();
 
             MessageWindow = new HudMessageWindow(MessageBoxContainer, BacklogContainer);
+            UpdateTime();
+        }
+
+        public void UpdateTime()
+        {
+            var date = _world.State.GameDate;
+            DateText.Text = $"{date.Year}/{date.Month}/{date.Day}";
+            ClockHand.SetHour(date.Hour);
         }
 
         public void ToggleBacklog(bool visible)
@@ -101,6 +104,7 @@ namespace OpenNefia.Content.UI.Hud
             HudBar.SetPosition(MinimapWidth, Height - 18);
             MessageBoxContainer.SetPosition(BacklogContainer.X, Height - MinimapHeight + 4);
             DateText.SetPosition(120, 17);
+            ClockHand.SetPosition(62, 48);
         }
 
         public override void Update(float dt)
@@ -110,6 +114,7 @@ namespace OpenNefia.Content.UI.Hud
             MessageBoxContainer.Update(dt);
             BacklogContainer.Update(dt);
             DateText.Update(dt);
+            ClockHand.Update(dt);
         }
 
         public override void Draw()
@@ -128,6 +133,7 @@ namespace OpenNefia.Content.UI.Hud
             FpsCounter.Draw();
             DateFrame.Draw(80, 8);
             ClockAsset.Draw(0, 0);
+            ClockHand.Draw();
             DateText.Draw();
         }
 
@@ -135,7 +141,6 @@ namespace OpenNefia.Content.UI.Hud
         {
             MessageWindow.Dispose();
             FpsCounter.Dispose();
-            OnKeyBindDown -= OnKeyDown;
         }
     }
 }
