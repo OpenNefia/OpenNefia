@@ -68,6 +68,11 @@ namespace OpenNefia.Core.Maps
             WriteMetaSection();
             WriteTileMapSection();
             WriteGridSection();
+            if (_mode == MapSerializeMode.Full)
+            {
+                WriteGridMemorySection();
+                WriteObjectMemorySection();
+            }
 
             PopulateEntityList();
             WriteEntitySection();
@@ -100,11 +105,20 @@ namespace OpenNefia.Core.Maps
             }
         }
 
-        private void WriteGridSection()
+        private void WriteGridSection() => DoWriteGrid(MapLoadConstants.Grid, MapGrid!, MapGrid!.Tiles);
+        private void WriteGridMemorySection() => DoWriteGrid(MapLoadConstants.GridMemory, MapGrid!, MapGrid!.TileMemory);
+
+        private void DoWriteGrid(string name, IMap map, Tile[,] tiles)
         {
-            var grid = new YamlScalarNode(YamlGridSerializer.SerializeGrid(MapGrid!, _tileMapInverse!, _tileDefinitionManager));
+            var grid = new YamlScalarNode(YamlGridSerializer.SerializeGrid(tiles, map.Size, _tileMapInverse!, _tileDefinitionManager));
             grid.Style = ScalarStyle.Literal;
-            _rootNode.Add(MapLoadConstants.Grid, grid);
+            _rootNode.Add(name, grid);
+        }
+
+        private void WriteObjectMemorySection()
+        {
+            var objectMemory = _serializationManager.WriteValueAs<MappingDataNode>(MapGrid!.MapObjectMemory);
+            _rootNode.Add(MapLoadConstants.ObjectMemory, objectMemory.ToYamlNode());
         }
 
         private IEnumerable<EntityUid> GetAllEntitiesInMap(MapId mapId)

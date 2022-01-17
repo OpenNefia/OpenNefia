@@ -6,8 +6,10 @@ namespace OpenNefia.Core.Maps
 {
     public static class YamlGridSerializer
     {
-        public static IMap DeserializeGrid(string gridString,
-            Dictionary<string, PrototypeId<TilePrototype>> tileMap)
+        public static Tile[,] DeserializeGrid(string gridString,
+            Dictionary<string, PrototypeId<TilePrototype>> tileMap,
+            ITileDefinitionManager tileDefs,
+            out Vector2i size)
         {
             var lines = gridString.Split("\n").ToArray();
             if (lines.Length == 0)
@@ -17,7 +19,9 @@ namespace OpenNefia.Core.Maps
             var width = lines[0].Length;
             var height = lines.Length;
 
-            var map = new Map(width, height);
+            size = new Vector2i(width, height);
+
+            var tiles = new Tile[width, height];
 
             var x = 0;
             var y = 0;
@@ -36,7 +40,7 @@ namespace OpenNefia.Core.Maps
                         throw new InvalidDataException($"Tile at ({x},{y}) is missing from tilemap: {rune}");
                     }
 
-                    map.SetTile(new Vector2i(x, y), tileId);
+                    tiles[x, y] = new Tile(tileDefs[tileId]);
 
                     x++;
                 }
@@ -45,7 +49,7 @@ namespace OpenNefia.Core.Maps
                 y++;
             }
 
-            return map;
+            return tiles;
         }
 
         private static Rune[] TileRunes = 
@@ -81,17 +85,17 @@ namespace OpenNefia.Core.Maps
         }
 
 
-        public static string SerializeGrid(IMap map, 
+        public static string SerializeGrid(Tile[,] tiles, Vector2i size,
             Dictionary<PrototypeId<TilePrototype>, string> protoToRune,
             ITileDefinitionManager tileDefinitionManager)
         {
             var sb = new StringBuilder();
 
-            for (int y = 0; y < map.Height; y++)
+            for (int y = 0; y < size.Y; y++)
             {
-                for (int x = 0; x < map.Width; x++)
+                for (int x = 0; x < size.X; x++)
                 {
-                    var tile = map.GetTile(new Vector2i(x, y))!.Value.Tile;
+                    var tile = tiles[x, y];
                     var protoId = tileDefinitionManager[tile.Type].GetStrongID();
                     if (!protoToRune.TryGetValue(protoId, out var rune))
                     {
