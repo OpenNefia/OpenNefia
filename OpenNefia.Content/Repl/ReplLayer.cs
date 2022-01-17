@@ -355,8 +355,8 @@ namespace OpenNefia.Content.Repl
             {
                 if (HistoryPos - 1 < 0)
                 {
-                    //this.EditingLine = "";
-                    //this.HistoryPos = -1;
+                    EditingLine = "";
+                    HistoryPos = -1;
                 }
                 else if (HistoryPos - 1 <= History.Count)
                 {
@@ -379,8 +379,8 @@ namespace OpenNefia.Content.Repl
             {
                 if (HistoryPos + 1 > History.Count - 1)
                 {
-                    //this.EditingLine = "";
-                    //this.HistoryPos = this.History.Count;
+                    EditingLine = "";
+                    HistoryPos = History.Count;
                 }
                 else if (HistoryPos + 1 <= History.Count)
                 {
