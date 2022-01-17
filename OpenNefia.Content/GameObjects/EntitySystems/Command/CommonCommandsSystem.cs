@@ -7,9 +7,11 @@ using OpenNefia.Content.UI.Layer;
 using OpenNefia.Core;
 using OpenNefia.Core.Audio;
 using OpenNefia.Core.Configuration;
+using OpenNefia.Core.ContentPack;
 using OpenNefia.Core.Game;
 using OpenNefia.Core.GameController;
 using OpenNefia.Core.GameObjects;
+using OpenNefia.Core.Graphics;
 using OpenNefia.Core.Input;
 using OpenNefia.Core.Input.Binding;
 using OpenNefia.Core.IoC;
@@ -30,7 +32,6 @@ namespace OpenNefia.Content.GameObjects
     public class CommonCommandsSystem : EntitySystem
     {
         [Dependency] private readonly IPlayerQuery _playerQuery = default!;
-        [Dependency] private readonly ITurnOrderSystem _turnOrderSystem = default!;
         [Dependency] private readonly IFieldLayer _field = default!;
         [Dependency] private readonly IAudioManager _sounds = default!;
         [Dependency] private readonly ISaveGameManager _saveGameManager = default!;
@@ -39,6 +40,7 @@ namespace OpenNefia.Content.GameObjects
         [Dependency] private readonly IPrototypeManager _protos = default!;
         [Dependency] private readonly IConfigurationManager _config = default!;
         [Dependency] private readonly IGameController _gameController = default!;
+        [Dependency] private readonly IGraphics _graphics = default!;
 
         public override void Initialize()
         {
@@ -53,12 +55,30 @@ namespace OpenNefia.Content.GameObjects
         {
             var save = _saveGameManager.CurrentSave!;
 
+            // Step one frame to get a screenshot without modals.
+            StepFrame();
+
+            // Put the screenshot in the temp files first.
+            SaveScreenshot(save);
+
+            // Commit all temp files.
             _saveGameSerializer.SaveGame(save);
 
             _sounds.Play(Sound.Write1);
             Mes.Display(Loc.GetString("Elona.UserInterface.Save.QuickSave"));
 
             return TurnResult.Aborted;
+        }
+
+        private void SaveScreenshot(ISaveGameHandle save)
+        {
+            var path = SaveGameConstants.ScreenshotPath;
+
+            // This will output a capture of the previous draw frame, as we're in the middle
+            // of the next frame's Update() call.
+            var pngBytes = _graphics.CaptureCanvasPNG();
+
+            save.Files.WriteAllBytes(path, pngBytes);
         }
 
         private TurnResult? QuickLoadGame(IGameSessionManager? session)
@@ -111,7 +131,7 @@ namespace OpenNefia.Content.GameObjects
                         ShowConfigMenu();
                         break;
                     case EscapeMenuChoice.ReturnToTitle:
-                        ReturnToTitle();
+                        ReturnToTitle(session!);
                         break;
                     case EscapeMenuChoice.Exit:
                         ExitGame(session!);
@@ -131,26 +151,35 @@ namespace OpenNefia.Content.GameObjects
             ConfigMenuHelpers.QueryDefaultConfigMenu(_protos, _uiManager, _config);
         }
 
-        private void ReturnToTitle()
-        {
-            Sounds.Play(Sound.Ok1);
-            _field.Cancel();
-        }
-
         private void Wait(float time)
         {
             var remaining = time;
 
             while (remaining > 0f)
             {
-                var dt = Love.Timer.GetDelta();
-                var frameArgs = new FrameEventArgs(dt);
-                _gameController.Update(frameArgs);
-                _gameController.Draw();
-                _gameController.SystemStep();
-
+                var dt = StepFrame();
                 remaining -= dt;
             }
+        }
+
+        private float StepFrame()
+        {
+            var dt = Love.Timer.GetDelta();
+            var frameArgs = new FrameEventArgs(dt);
+            _gameController.Update(frameArgs);
+            _gameController.Draw();
+            _gameController.SystemStep();
+            return dt;
+        }
+
+        private void ReturnToTitle(IGameSessionManager gameSession)
+        {
+            QuickSaveGame(gameSession);
+            Mes.Display(Loc.GetString("Elona.UserInterface.Exit.Saved"));
+            _playerQuery.PromptMore();
+            Wait(0.3f);
+
+            _field.Cancel();
         }
 
         private void ExitGame(IGameSessionManager gameSession)

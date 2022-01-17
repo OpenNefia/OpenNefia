@@ -93,6 +93,19 @@ namespace OpenNefia.Core.ContentPack
             return Directory.Exists(GetFullPath(path));
         }
 
+        /// <inheritdoc/>
+        public DateTime GetLastWriteTime(ResourcePath path)
+        {
+            if (IsDirectory(path))
+            {
+                return new DirectoryInfo(GetFullPath(path)).LastWriteTime;
+            }
+            else
+            {
+                return new FileInfo(GetFullPath(path)).LastWriteTime;
+            }
+        }
+
         /// <inheritdoc />
         public Stream Open(ResourcePath path, FileMode fileMode, FileAccess access, FileShare share)
         {

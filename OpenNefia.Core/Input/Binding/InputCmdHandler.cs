@@ -53,7 +53,7 @@ namespace OpenNefia.Core.Input.Binding
 
             public override TurnResult? HandleCmdMessage(IGameSessionManager? session, InputCmdMessage message)
             {
-                if (!(message is FullInputCmdMessage msg))
+                if (message is not FullInputCmdMessage msg)
                     return null;
 
                 switch (msg.State)

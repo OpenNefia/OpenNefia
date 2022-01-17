@@ -239,6 +239,7 @@ namespace OpenNefia.Core.Graphics
         {
             Love.Graphics.SetLineStyle(Love.LineStyle.Rough);
             Love.Graphics.SetLineWidth(1);
+            Love.Graphics.SetBackgroundColor(0f, 0f, 0f, 1f);
         }
 
         private void LoadGamepadMappings()
@@ -253,7 +254,7 @@ namespace OpenNefia.Core.Graphics
         {
             Love.Graphics.SetBlendMode(Love.BlendMode.Alpha);
             Love.Graphics.SetCanvas(TargetCanvas);
-            Love.Graphics.Clear();
+            Love.Graphics.Clear(0f, 0f, 0f, 1f);
         }
 
         public void EndDraw()
@@ -263,6 +264,21 @@ namespace OpenNefia.Core.Graphics
             Love.Graphics.SetBlendMode(Love.BlendMode.Alpha, Love.BlendAlphaMode.PreMultiplied);
 
             Love.Graphics.Draw(TargetCanvas);
+        }
+
+        public byte[] CaptureCanvasPNG()
+        {
+            // This emulates LÖVE 11's love.graphics.captureScreenshot.
+
+            var imageData = TargetCanvas.NewImageData();
+            var fileData = imageData.Encode(ImageFormat.PNG);
+
+            var bytes = fileData.GetBytes();
+
+            imageData.Dispose();
+            fileData.Dispose();
+
+            return bytes;
         }
 
         #region Love Event Handlers

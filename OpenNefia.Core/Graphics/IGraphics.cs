@@ -31,6 +31,12 @@ namespace OpenNefia.Core.Graphics
         int GetDisplayCount();
         string GetDisplayName(int displayIndex);
 
+        /// <summary>
+        /// Captures the current state of the rendering canvas as
+        /// the bytes of a PNG file.
+        /// </summary>
+        byte[] CaptureCanvasPNG();
+
         void Initialize();
         void Shutdown();
         void ShowSplashScreen();

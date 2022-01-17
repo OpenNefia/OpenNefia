@@ -83,5 +83,10 @@ namespace OpenNefia.Core.Graphics
         public void EndDraw()
         {
         }
+
+        public byte[] CaptureCanvasPNG()
+        {
+            return Array.Empty<byte>();
+        }
     }
 }

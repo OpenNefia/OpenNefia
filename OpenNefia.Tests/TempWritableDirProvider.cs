@@ -51,6 +51,11 @@ namespace OpenNefia.Tests
             return _dirProvider.IsDirectory(path);
         }
 
+        public DateTime GetLastWriteTime(ResourcePath path)
+        {
+            return _dirProvider.GetLastWriteTime(path);
+        }
+
         public Stream Open(ResourcePath path, FileMode fileMode, FileAccess access, FileShare share)
         {
             return _dirProvider.Open(path, fileMode, access, share);

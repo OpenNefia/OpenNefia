@@ -38,7 +38,7 @@ namespace OpenNefia.Core.SaveGames
     {
         int SaveFormatVersion { get; }
         ResourcePath SaveDirectory { get; }
-        DateTime LastSaveDate { get; }
+        DateTime LastWriteTime { get; }
         SaveGameHeader Header { get; }
         ISaveGameDirProvider Files { get; }
     }
@@ -47,7 +47,7 @@ namespace OpenNefia.Core.SaveGames
     {
         public int SaveFormatVersion => SaveGameManager.SaveFormatVersion;
         public ResourcePath SaveDirectory { get; }
-        public DateTime LastSaveDate { get; internal set; }
+        public DateTime LastWriteTime { get; internal set; }
         public SaveGameHeader Header { get; }
         public ISaveGameDirProvider Files { get; }
 
@@ -192,7 +192,7 @@ namespace OpenNefia.Core.SaveGames
                 TryRegisterSave(dir.ChangeSeparator("/"));
             }
 
-            _saves = _saves.OrderBy(save => save.LastSaveDate).ToList();
+            _saves = _saves.OrderBy(save => save.LastWriteTime).ToList();
         }
 
         private void TryRegisterSave(ResourcePath saveDirectory)
@@ -218,12 +218,13 @@ namespace OpenNefia.Core.SaveGames
 
         private ISaveGameHandle RegisterSave(IWritableDirProvider saveDirReader, ResourcePath saveDirectory)
         {
-            var header = saveDirReader.ReadSerializedData<SaveGameHeader>(
-                new ResourcePath("/header.yml"), _serializationManager, skipHook: true)!;
+            var headerPath = new ResourcePath("/header.yml");
+            var header = saveDirReader.ReadSerializedData<SaveGameHeader>(headerPath, _serializationManager, skipHook: true)!;
 
             var tempDirReader = TempRootDir.GetChild(saveDirectory);
 
             var save = new SaveGameHandle(tempDirReader, saveDirReader, saveDirectory, header);
+            save.LastWriteTime = saveDirReader.GetLastWriteTime(headerPath);
             _saves.Add(save);
 
             return save;

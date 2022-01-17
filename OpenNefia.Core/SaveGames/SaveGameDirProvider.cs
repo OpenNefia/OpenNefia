@@ -30,16 +30,19 @@ namespace OpenNefia.Core.SaveGames
             _tempDir = temp;
         }
 
+        /// <inheritdoc/>
         public IWritableDirProvider GetChild(ResourcePath path)
         {
             throw new NotImplementedException();
         }
 
+        /// <inheritdoc/>
         public void CreateDirectory(ResourcePath path)
         {
             _tempDir.CreateDirectory(path);
         }
 
+        /// <inheritdoc/>
         public void Delete(ResourcePath path)
         {
             if (_tempDir.Exists(path))
@@ -49,6 +52,7 @@ namespace OpenNefia.Core.SaveGames
             _pendingDeletions.Add(path);
         }
 
+        /// <inheritdoc/>
         public bool Exists(ResourcePath path)
         {
             if (!path.IsRooted)
@@ -65,6 +69,7 @@ namespace OpenNefia.Core.SaveGames
             return _committedDir.Exists(path) || _tempDir.Exists(path);
         }
 
+        /// <inheritdoc/>
         public bool IsDirectory(ResourcePath path)
         {
             if (!path.IsRooted)
@@ -81,6 +86,16 @@ namespace OpenNefia.Core.SaveGames
             return _committedDir.Exists(path) || _tempDir.Exists(path);
         }
 
+        /// <inheritdoc/>
+        public DateTime GetLastWriteTime(ResourcePath path)
+        {
+            if (_tempDir.Exists(path))
+                return _tempDir.GetLastWriteTime(path);
+
+            return _committedDir.GetLastWriteTime(path);
+        }
+
+        /// <inheritdoc/>
         public (IEnumerable<ResourcePath> files, IEnumerable<ResourcePath> directories) Find(string pattern, bool recursive = true)
         {
             var (comittedFiles, committedDirs) = _committedDir.Find(pattern, recursive);
@@ -92,6 +107,7 @@ namespace OpenNefia.Core.SaveGames
             return (allFiles, allDirs);
         }
 
+        /// <inheritdoc/>
         public Stream Open(ResourcePath path, FileMode fileMode, FileAccess access, FileShare share)
         {
             if (!_tempDir.Exists(path) && _committedDir.Exists(path))
@@ -119,6 +135,7 @@ namespace OpenNefia.Core.SaveGames
             reader.CopyTo(writer);
         }
 
+        /// <inheritdoc/>
         public void Rename(ResourcePath oldPath, ResourcePath newPath)
         {
             if (!_tempDir.Exists(oldPath) && _committedDir.Exists(oldPath))
@@ -141,6 +158,7 @@ namespace OpenNefia.Core.SaveGames
             }
         }
 
+        /// <inheritdoc/>
         public void ClearTemp()
         {
             Logger.DebugS("save.writer", "Clearing temporary directory");
