@@ -219,6 +219,8 @@ namespace OpenNefia.Content.TitleScreen
 
         private void PromptDelete(RestoreSaveUICell cell)
         {
+            var captionText = Caption.Text;
+
             var save = cell.Data.SaveGame;
             var saveName = save.Header.Name;
 
@@ -228,15 +230,21 @@ namespace OpenNefia.Content.TitleScreen
                 QueryText = Loc.GetString("Elona.RestoreSave.Layer.Delete.Confirm", ("saveName", saveName))
             };
 
+            Caption.Text = opts.QueryText;
+
             if (_playerQuery.YesOrNo(opts))
             {
                 opts.QueryText = Loc.GetString("Elona.RestoreSave.Layer.Delete.ConfirmFinal", ("saveName", saveName));
+                Caption.Text = opts.QueryText;
+
                 if (_playerQuery.YesOrNo(opts))
                 {
                     _saveGameManager.DeleteSave(save);
                     RebuildList();
                 }
             }
+
+            Caption.Text = captionText;
         }
 
         public override void GetPreferredBounds(out UIBox2i bounds)
@@ -293,9 +301,8 @@ namespace OpenNefia.Content.TitleScreen
                 TextTopicSaveName.Draw();
                 TextTopicSaveDate.Draw();
                 List.Draw();
+                ScreenshotBox.Draw();
             }
-
-            ScreenshotBox.Draw();
         }
 
         public override void Dispose()
