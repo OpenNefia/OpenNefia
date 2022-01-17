@@ -1,6 +1,7 @@
 ﻿using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Maps;
 using OpenNefia.Core.Maths;
+using OpenNefia.Core.Serialization.Manager.Attributes;
 
 namespace OpenNefia.Core.Rendering
 {
@@ -18,21 +19,44 @@ namespace OpenNefia.Core.Rendering
         Removed
     }
 
-    [Serializable]
+    [DataDefinition]
     public class MapObjectMemory
     {
+        [DataField]
         public EntityUid ObjectUid;
+
+        [DataField]
         public bool IsVisible;
+
+        [DataField]
         public string AtlasIndex = string.Empty;
+
+        [DataField]
         public Vector2i ScreenOffset;
+
+        [DataField]
         public float Rotation;
+
+        [DataField]
         public Color Color;
+
+        [DataField]
         public ShadowType ShadowType;
+
+        [DataField]
         public int ZOrder;
+
+        [DataField]
         public bool HideWhenOutOfSight;
 
+
+        [DataField]
         internal int Index;
+
+        [DataField]
         internal MapCoordinates Coords;
+
+        [DataField]
         internal MemoryState State;
     }
 }

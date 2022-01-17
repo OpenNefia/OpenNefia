@@ -358,7 +358,12 @@ entities:
 
             var ent = entMan.SpawnEntity(new("MapDeserializeTestOverride"), map.AtPos(Vector2i.One));
 
-            map.MapObjectMemory.RevealObjects(map, Vector2i.One, entMan);
+            var memIndex = 1;
+            map.MapObjectMemory._allMemory[memIndex] = new MapObjectMemory()
+            {
+                Index = memIndex,
+                ObjectUid = ent
+            };
 
             using var save = new TempSaveGameHandle();
 

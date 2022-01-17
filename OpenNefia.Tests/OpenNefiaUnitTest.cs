@@ -53,8 +53,7 @@ namespace OpenNefia.Tests
 
             // Required systems
             var systems = IoCManager.Resolve<IEntitySystemManager>();
-            systems.LoadExtraSystemType<EntityLookup>();
-            systems.LoadExtraSystemType<SpatialSystem>();
+            systems.Initialize();
 
             var entMan = IoCManager.Resolve<IEntityManager>();
 
