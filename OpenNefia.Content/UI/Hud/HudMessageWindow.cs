@@ -111,6 +111,7 @@ namespace OpenNefia.Content.UI.Hud
         private bool NeedsRelayout;
         public HudMessageWindow(UiContainer messageBoxContainer, UiContainer backLogContainer)
         {
+            //not the amount of lines, but the amount of messages
             Messages = new CircularBuffer<FormattedMessage>(200);
             MessageBoxContainer = messageBoxContainer;
             BacklogContainer = backLogContainer;

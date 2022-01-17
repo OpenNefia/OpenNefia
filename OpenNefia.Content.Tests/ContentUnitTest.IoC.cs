@@ -29,12 +29,18 @@ namespace OpenNefia.Content.Tests
     {
         public IHudMessageWindow MessageWindow { get; } = new DummyMessageWindow();
 
+        public Vector2i HudScreenOffset => new();
+
         public void Initialize()
         {
             
         }
 
         public void ToggleBacklog(bool visible)
+        {
+        }
+
+        public void UpdateTime()
         {
         }
     }
