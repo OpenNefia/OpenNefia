@@ -213,7 +213,7 @@ namespace OpenNefia.Content.ConsoleCommands
                 }
             }
 
-            var protoToRune = YamlGridSerializer.BuildProtoToRuneTileMap(map);
+            var protoToRune = YamlGridSerializer.BuildProtoToRuneTileMap(map, _prototypeManager);
 
             var grid = YamlGridSerializer.SerializeGrid(map.Tiles, map.Size, protoToRune, _tileDefinitionManager);
             var runeToProtoTileMap = new YamlMappingNode();
