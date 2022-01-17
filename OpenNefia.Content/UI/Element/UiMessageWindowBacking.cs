@@ -26,6 +26,7 @@ namespace OpenNefia.Content.UI.Element
         private IAssetInstance MessageWindowAsset = default!;
         private Love.SpriteBatch Batch = default!;
         private Love.SpriteBatch? SideBatch = default!;
+        private Love.SpriteBatch? CornerBatch = default!;
         private MessageBackingType Type;
         public UiMessageWindowBacking(MessageBackingType type = MessageBackingType.Default)
         {
@@ -68,6 +69,11 @@ namespace OpenNefia.Content.UI.Element
                         sideParts.Add(new AssetBatchPart("topBar", y * MessageBoxWidth, 0));
                     }
                     SideBatch = MessageWindowAsset.MakeBatch(sideParts);
+                    var corner = new List<AssetBatchPart>
+                    {
+                        new AssetBatchPart("corner", 0, 0)
+                    };
+                    CornerBatch = MessageWindowAsset.MakeBatch(corner);
                     break;
             }
             Batch = MessageWindowAsset.MakeBatch(parts);
@@ -79,6 +85,8 @@ namespace OpenNefia.Content.UI.Element
             Love.Graphics.Draw(Batch, X, Y);
             if (SideBatch != null)
                 Love.Graphics.Draw(SideBatch, X, Y + (GetSideCount() * MessageBoxWidth), (float)Angle.FromDegrees(-90).Theta);
+            if (CornerBatch != null)
+                Love.Graphics.Draw(CornerBatch, X + 1, Y);
         }
 
         public override void Update(float dt)
