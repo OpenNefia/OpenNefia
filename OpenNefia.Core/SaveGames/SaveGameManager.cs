@@ -43,7 +43,7 @@ namespace OpenNefia.Core.SaveGames
         ISaveGameDirProvider Files { get; }
     }
 
-    public class SaveGameHandle : ISaveGameHandle
+    internal class SaveGameHandle : ISaveGameHandle
     {
         public int SaveFormatVersion => SaveGameManager.SaveFormatVersion;
         public ResourcePath SaveDirectory { get; }

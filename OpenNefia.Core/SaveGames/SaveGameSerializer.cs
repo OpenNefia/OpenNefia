@@ -246,6 +246,7 @@ namespace OpenNefia.Core.SaveGames
             var saveHeader = MakeSaveGameHeader(name);
             var savePath = ResourcePath.Root / Guid.NewGuid().ToString();
             var save = _saveGameManager.CreateSave(savePath, saveHeader);
+            ((SaveGameHandle)save).LastSaveDate = DateTime.Now;
 
             return save;
         }
@@ -259,6 +260,7 @@ namespace OpenNefia.Core.SaveGames
             OnGameSaved?.Invoke(save);
 
             save.Files.Commit();
+            ((SaveGameHandle)save).LastSaveDate = DateTime.Now;
         }
 
         private void SaveSession(ISaveGameHandle save)
@@ -361,7 +363,6 @@ namespace OpenNefia.Core.SaveGames
 
             _mapManager.NextMapId = sessionData.NextMapId;
             var map = _mapLoader.LoadMap(new MapId(sessionData.ActiveMapId), save);
-            _mapManager.SetActiveMap(map.Id);
 
             // Load the global map.
             _mapLoader.LoadMap(MapId.Global, save);
@@ -380,6 +381,10 @@ namespace OpenNefia.Core.SaveGames
             }
 
             _gameSessionManager.Player = playerUid;
+
+            // Set the active map. This also lets things like map tile layers that depend
+            // on the player being valid refresh themselves correctly.
+            _mapManager.SetActiveMap(map.Id);
         }
 
         public void LoadGlobalData(ISaveGameHandle save)

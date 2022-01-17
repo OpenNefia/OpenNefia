@@ -28,6 +28,9 @@ using OpenNefia.Content.ConfigMenu;
 using OpenNefia.Core.Configuration;
 using OpenNefia.Content.DisplayName;
 using System.Numerics;
+using OpenNefia.Core.Audio;
+using OpenNefia.Content.Logic;
+using OpenNefia.Core.Locale;
 
 namespace OpenNefia.Content.TitleScreen
 {
@@ -64,6 +67,8 @@ namespace OpenNefia.Content.TitleScreen
 
             while (action != TitleScreenAction.Quit)
             {
+                _saveGameSerializer.ResetGameState();
+
                 using (ITitleScreenLayer titleScreen = new TitleScreenLayer())
                 {
                     var bg = new TitleScreenBGLayer();
@@ -80,11 +85,11 @@ namespace OpenNefia.Content.TitleScreen
                         {
                             case TitleScreenAction.ReturnToTitle:
                                 break;
-                            case TitleScreenAction.StartGame:
-                                // StartGame();
+                            case TitleScreenAction.RestoreSave:
+                                RunRestoreSave();
                                 break;
                             case TitleScreenAction.Generate:
-                                CreateChara();
+                                RunGenerate();
                                 break;
                             case TitleScreenAction.Options:
                                 _uiManager.PushLayer(bg);
@@ -103,7 +108,17 @@ namespace OpenNefia.Content.TitleScreen
             }
         }
 
-        private void CreateChara()
+        private void RunRestoreSave()
+        {
+            var result = _uiManager.Query<RestoreSaveLayer, RestoreSaveLayer.Result>();
+
+            if (result.HasValue)
+            {
+                LoadGame(result.Value.SaveGame);
+            }
+        }
+
+        private void RunGenerate()
         {
             var result = _charaMakeLogic.RunCreateChara();
 
@@ -172,7 +187,22 @@ namespace OpenNefia.Content.TitleScreen
 
             _mapManager.RefreshVisibility(map);
 
+            // copied from CommonCommandsSystem
             _saveGameSerializer.SaveGame(save);
+            Sounds.Play(Sound.Write1);
+            Mes.Display(Loc.GetString("Elona.UserInterface.Save.QuickSave"));
+
+            _uiManager.Query(_fieldLayer);
+
+            _saveGameManager.CurrentSave = null;
+        }
+
+        private void LoadGame(ISaveGameHandle saveGame)
+        {
+            _saveGameSerializer.LoadGame(saveGame);
+            var map = _mapManager.ActiveMap!;
+
+            _mapManager.RefreshVisibility(map);
 
             _uiManager.Query(_fieldLayer);
 

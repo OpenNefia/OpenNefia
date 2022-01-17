@@ -1,0 +1,4 @@
+- type: Asset
+  id: Content.NoScreenshot
+  image:
+    filepath: /Graphic/Content/UI/NoScreenshot.png

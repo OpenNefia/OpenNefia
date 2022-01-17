@@ -8,6 +8,14 @@ namespace OpenNefia.Content.Prototypes
         {
             #pragma warning disable format
 
+            #region Content
+
+            public static readonly AssetPrototypeId NoScreenshot = new($"Content.{nameof(NoScreenshot)}");
+
+            #endregion
+
+            #region Vanilla
+
             public static readonly AssetPrototypeId HudMinimap           = new($"Elona.{nameof(HudMinimap)}");
             public static readonly AssetPrototypeId MinimapMarkerPlayer  = new($"Elona.{nameof(MinimapMarkerPlayer)}");
             public static readonly AssetPrototypeId MapNameIcon          = new($"Elona.{nameof(MapNameIcon)}");
@@ -204,6 +212,8 @@ namespace OpenNefia.Content.Prototypes
             public static readonly AssetPrototypeId FishingLine          = new($"Elona.{nameof(FishingLine)}");
             public static readonly AssetPrototypeId FishingBob           = new($"Elona.{nameof(FishingBob)}");
             public static readonly AssetPrototypeId FishingFish          = new($"Elona.{nameof(FishingFish)}");
+
+            #endregion
 
             #pragma warning restore format
         }

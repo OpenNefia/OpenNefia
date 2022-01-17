@@ -177,7 +177,7 @@ namespace OpenNefia.Content.TitleScreen
             switch (selectedChoice)
             {
                 case TitleScreenChoice.Restore:
-                    Finish(new TitleScreenResult(TitleScreenAction.StartGame));
+                    Finish(new TitleScreenResult(TitleScreenAction.RestoreSave));
                     break;
                 case TitleScreenChoice.Exit:
                     Finish(new TitleScreenResult(TitleScreenAction.Quit));

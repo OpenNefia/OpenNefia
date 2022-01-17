@@ -2,7 +2,7 @@
 - type: Elona.Portrait
   id: Default
   image:
-    filepath: /Graphic/Elona/Portrait/Default.png
+    filepath: /Graphic/Content/Portrait/Default.png
 
 - type: Elona.Portrait
   id: Elona.Man1
