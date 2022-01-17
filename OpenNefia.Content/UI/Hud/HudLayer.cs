@@ -22,6 +22,7 @@ using OpenNefia.Core.Prototypes;
 using OpenNefia.Content.Equipment;
 using OpenNefia.Core.Stats;
 using OpenNefia.Content.DisplayName;
+using OpenNefia.Content.Currency;
 
 namespace OpenNefia.Content.UI.Hud
 {
@@ -44,13 +45,14 @@ namespace OpenNefia.Content.UI.Hud
         [Dependency] private readonly IFieldLayer _field = default!;
         [Dependency] private readonly IMapManager _mapManager = default!;
         [Dependency] private readonly IEntityManager _entMan = default!;
+        [Dependency] private readonly IGraphics _graphics = default!;
         // These systems can't be gotten through the IoC at the time of the the first instantiation
         private IDisplayNameSystem _nameSystem = default!;
         private IWorldSystem _world = default!;
 
         public IHudMessageWindow MessageWindow { get; private set; } = default!;
 
-        public Vector2i HudScreenOffset { get; } = new(0, MinimapHeight);
+        public UIBox2i GameBounds => new(0, 0, _graphics.WindowSize.X, _graphics.WindowSize.Y - MinimapHeight);
 
         private UiFpsCounter FpsCounter;
         private BaseDrawable MessageBoxBacking = default!;
@@ -89,9 +91,6 @@ namespace OpenNefia.Content.UI.Hud
 
         private const int MinimapWidth = 122;
         private const int MinimapHeight = 88;
-        // TODO: replace when containing components exist
-        private const string GoldPlaceholder = "0";
-        private const string PlatPlaceholder = "0";
 
         public const int HudZOrder = 200000000;
 
@@ -191,9 +190,11 @@ namespace OpenNefia.Content.UI.Hud
             {
                 ExpText.Text = $"{Loc.GetString("Elona.Hud.Info.Level")}{level.Level}/{level.ExperienceToNext}";
             }
-            // Need components for Gold and Plat
-            GoldText.Text = $"{GoldPlaceholder} {Loc.GetString("Elona.Hud.Info.Gold")}";
-            PlatText.Text = $"{PlatPlaceholder} {Loc.GetString("Elona.Hud.Info.Platinum")}";
+            if (_entMan.TryGetComponent<WalletComponent>(GameSession.Player, out var wallet))
+            {
+                GoldText.Text = $"{wallet.Gold} {Loc.GetString("Elona.Hud.Info.Gold")}";
+                PlatText.Text = $"{wallet.Platinum} {Loc.GetString("Elona.Hud.Info.Platinum")}";
+            }
 
             if (_entMan.TryGetComponent<SkillsComponent>(GameSession.Player, out var skills))
             {

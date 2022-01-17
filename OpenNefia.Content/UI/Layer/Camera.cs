@@ -1,6 +1,7 @@
 ﻿using OpenNefia.Content.UI.Hud;
 using OpenNefia.Core.Game;
 using OpenNefia.Core.GameObjects;
+using OpenNefia.Core.Graphics;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Maps;
 using OpenNefia.Core.Maths;
@@ -14,6 +15,7 @@ namespace OpenNefia.Content.UI.Layer
         [Dependency] private readonly IEntityManager _entityManager = default!;
         [Dependency] private readonly ICoords _coords = default!;
         [Dependency] private readonly IHudLayer _hud = default!;
+        [Dependency] private readonly IGraphics _graphics = default!;
 
         private Vector2i _mapSize;
         private IDrawable _parent;
@@ -37,7 +39,7 @@ namespace OpenNefia.Content.UI.Layer
 
         public void CenterOnScreenPos(Vector2i screenPos)
         {
-            var size = _coords.TileToScreen(_mapSize) + _hud.HudScreenOffset;
+            var size = _coords.TileToScreen(_mapSize) + (_graphics.WindowSize.Y - _hud.GameBounds.Bottom);
             _screenPos = _coords.BoundDrawPosition(screenPos, size, _parent.PixelSize);
         }
 

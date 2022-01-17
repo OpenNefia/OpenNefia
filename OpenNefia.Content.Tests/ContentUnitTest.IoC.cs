@@ -29,7 +29,7 @@ namespace OpenNefia.Content.Tests
     {
         public IHudMessageWindow MessageWindow { get; } = new DummyMessageWindow();
 
-        public Vector2i HudScreenOffset => new();
+        public UIBox2i GameBounds => new();
 
         public void Initialize()
         {
