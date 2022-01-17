@@ -222,8 +222,8 @@ namespace OpenNefia.Content.UI.Hud
                 BacklogContainer.AddElement(line);
                 lineIndex++;
             }
-            MessageBoxContainer.Resolve();
-            BacklogContainer.Resolve();
+            MessageBoxContainer.Relayout();
+            BacklogContainer.Relayout();
             NeedsRelayout = false;
         }
 

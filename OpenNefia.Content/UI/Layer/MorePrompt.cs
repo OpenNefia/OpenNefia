@@ -18,6 +18,8 @@ namespace OpenNefia.Content.Logic
 
         private IAssetInstance AssetMorePrompt;
 
+        public override int? DefaultZOrder => int.MaxValue;
+
         private bool _canFinish = false;
         private bool _finished = false;
         private float _size;

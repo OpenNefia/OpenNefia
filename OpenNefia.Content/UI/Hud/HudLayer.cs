@@ -44,6 +44,8 @@ namespace OpenNefia.Content.UI.Hud
         [Dependency] private readonly IFieldLayer _field = default!;
         [Dependency] private readonly IMapManager _mapManager = default!;
         [Dependency] private readonly IEntityManager _entMan = default!;
+        // These systems can't be gotten through the IoC at the time of the the first instantiation
+        private IDisplayNameSystem _nameSystem = default!;
         private IWorldSystem _world = default!;
 
         public IHudMessageWindow MessageWindow { get; private set; } = default!;
@@ -103,6 +105,7 @@ namespace OpenNefia.Content.UI.Hud
         public void Initialize()
         {
             _world = EntitySystem.Get<WorldSystem>();
+            _nameSystem = EntitySystem.Get<DisplayNameSystem>();
             DateText = new UiText();
 
             CanKeyboardFocus = true;
@@ -225,7 +228,7 @@ namespace OpenNefia.Content.UI.Hud
                 }
             }
             if (_mapManager.ActiveMap?.MapEntityUid != null)
-                MapNameText.Text = DisplayNameSystem.GetDisplayName(_mapManager.ActiveMap.MapEntityUid);
+                MapNameText.Text = _nameSystem.GetDisplayName(_mapManager.ActiveMap.MapEntityUid);
             else
                 MapNameText.Text = string.Empty;
         }
@@ -284,7 +287,7 @@ namespace OpenNefia.Content.UI.Hud
             GoldText.SetPosition(590, Height - MinimapHeight - 13);
             PlatText.SetPosition(700, Height - MinimapHeight - 13);
             HudSkillContainer.SetPosition(305, Height - 14);
-            HudSkillContainer.Resolve();
+            HudSkillContainer.Relayout();
             MapNameText.SetPosition(160, Height - 14);
         }
 
