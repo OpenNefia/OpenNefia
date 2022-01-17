@@ -40,6 +40,10 @@ namespace OpenNefia.Content.Tests
         {
         }
 
+        public void UpdateMinimap()
+        {
+        }
+
         public void UpdateTime()
         {
         }

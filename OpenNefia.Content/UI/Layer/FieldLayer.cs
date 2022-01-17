@@ -16,6 +16,7 @@ using OpenNefia.Content.TurnOrder;
 using static OpenNefia.Content.Prototypes.Protos;
 using OpenNefia.Core.Audio;
 using ICSharpCode.Decompiler.TypeSystem;
+using OpenNefia.Analyzers;
 
 namespace OpenNefia.Content.UI.Layer
 {
@@ -41,6 +42,8 @@ namespace OpenNefia.Content.UI.Layer
         public Camera Camera { get; private set; }
 
         private PrototypeId<TilePrototype>? PlacingTile = null;
+
+        public event IFieldLayer.ScreenRefreshDelegate OnScreenRefresh = default!;
 
         public FieldLayer()
         {
@@ -125,6 +128,7 @@ namespace OpenNefia.Content.UI.Layer
                 return;
 
             _mapManager.RefreshVisibility(Map);
+            OnScreenRefresh?.Invoke();
 
             var player = _gameSession.Player;
 
