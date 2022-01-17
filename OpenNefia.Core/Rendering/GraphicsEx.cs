@@ -14,7 +14,7 @@ namespace OpenNefia.Core.Rendering
 {
     public static class GraphicsEx
     {
-        public static void DrawImage(Love.Image image, float x = 0, float y = 0, float width = 0, float height = 0, bool centered = false, float rotation = 0)
+        public static void DrawImage(Love.Texture image, float x = 0, float y = 0, float width = 0, float height = 0, bool centered = false, float rotation = 0)
         {
             var sx = 1f;
             var sy = 1f;
@@ -40,7 +40,7 @@ namespace OpenNefia.Core.Rendering
             Love.Graphics.Draw(image, x, y, rotation, sx, sy, ox, oy);
         }
 
-        public static void DrawImage(Love.Quad quad, Love.Image image, float x = 0, float y = 0, float width = 0, float height = 0, bool centered = false, float rotation = 0)
+        public static void DrawImage(Love.Quad quad, Love.Texture image, float x = 0, float y = 0, float width = 0, float height = 0, bool centered = false, float rotation = 0)
         {
             var sx = 1f;
             var sy = 1f;

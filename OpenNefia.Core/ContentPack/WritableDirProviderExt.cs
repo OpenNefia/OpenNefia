@@ -178,6 +178,21 @@ namespace OpenNefia.Core.ContentPack
         }
 
         /// <summary>
+        /// Reads the entire contents of a path as LÖVE FileData.
+        /// </summary>
+        /// <param name="provider">The writable directory to look for the path in.</param>
+        /// <param name="path">The path to read the contents from.</param>
+        /// <returns>The contents of the path as a <see cref="Love.FileData"/>.</returns>
+        /// <exception cref="FileNotFoundException">
+        ///     Thrown if the file does not exist.
+        /// </exception>
+        public static Love.FileData ReadAllLoveFileData(this IWritableDirProvider provider, ResourcePath path)
+        {
+            var bytes = provider.ReadAllBytes(path);
+            return Love.FileSystem.NewFileData(bytes, path.Filename);
+        }
+
+        /// <summary>
         /// Reads the entire contents of a serialized YAML file.
         /// </summary>
         /// <param name="provider">The writable directory to look for the path in.</param>

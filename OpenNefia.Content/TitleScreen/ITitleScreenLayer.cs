@@ -6,7 +6,7 @@ namespace OpenNefia.Content.TitleScreen
     public enum TitleScreenAction
     {
         ReturnToTitle,
-        StartGame,
+        RestoreSave,
         Generate,
         Options,
         Quit
