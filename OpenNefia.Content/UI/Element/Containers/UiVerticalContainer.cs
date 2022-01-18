@@ -10,12 +10,12 @@ namespace OpenNefia.Content.UI.Element.Containers
 {
     public class UiVerticalContainer : UiContainer
     {
-        public int YSpace { get; set; }
+        public float YSpace { get; set; }
 
-        protected override Vector2i RelayoutPreferredSize()
+        protected override Vector2 RelayoutPreferredSize()
         {
-            int xOffset = 0, yOffset = 0;
-            int xMax = 0, yTotal = 0;
+            float xOffset = 0, yOffset = 0;
+            float xMax = 0, yTotal = 0;
             foreach (var child in Entries)
             {
                 switch (child.Type)
@@ -69,7 +69,7 @@ namespace OpenNefia.Content.UI.Element.Containers
             }
 
             SetSize(xMax, yTotal);
-            return new Vector2i(xMax, yTotal);
+            return new Vector2(xMax, yTotal);
         }
 
 

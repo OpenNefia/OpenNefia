@@ -31,19 +31,19 @@ namespace OpenNefia.Content.UI.Element
             Text = new UiTextOutlined(FontText);
         }
 
-        public override void SetPosition(int x, int y)
+        public override void SetPosition(float x, float y)
         {
             base.SetPosition(x, y);
             Text.SetPosition(x, y);
         }
 
-        public override void SetSize(int width, int height)
+        public override void SetSize(float width, float height)
         {
             base.SetSize(width, height);
             Text.SetSize(width, height);
         }
 
-        public override void GetPreferredSize(out Vector2i size)
+        public override void GetPreferredSize(out Vector2 size)
         {
             Text.GetPreferredSize(out size);
         }

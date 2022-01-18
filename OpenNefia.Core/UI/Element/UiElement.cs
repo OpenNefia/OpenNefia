@@ -9,6 +9,32 @@ namespace OpenNefia.Core.UI.Element
 {
     public partial class UiElement : BaseDrawable, IUiElement, ILocalizable, IUiInput
     {
+        public float MinWidth { get; internal set; }
+        public float MinHeight { get; internal set; }
+        public float PreferredWidth { get; internal set; } = float.NaN;
+        public float PreferredHeight { get; internal set; } = float.NaN;
+
+        /// <summary>
+        /// A settable minimum size for this control.
+        /// </summary>
+        public Vector2 MinSize
+        {
+            get => (MinWidth, MinHeight);
+            set => (MinWidth, MinHeight) = Vector2.ComponentMax(Vector2.Zero, value);
+        }
+
+        /// <summary>
+        /// A preferred exact size for this control.
+        /// </summary>
+        public Vector2 PreferredSize
+        {
+            get => (PreferredWidth, PreferredHeight);
+            set => (PreferredWidth, PreferredHeight) = value;
+        }
+
+        /// <inheritdoc/>
+        public override float UIScale => Root?.UIScale ?? 1;
+
         private readonly List<UiElement> _orderedChildren = new();
 
         /// <summary>
@@ -39,15 +65,6 @@ namespace OpenNefia.Core.UI.Element
         public OrderedChildCollection Children { get; }
 
         public int ChildCount => _orderedChildren.Count;
-
-        /// <summary>
-        ///     The amount of "real" pixels a virtual pixel takes up.
-        ///     The higher the number, the bigger the interface.
-        ///     I.e. UIScale units are real pixels (rp) / virtual pixels (vp),
-        ///     real pixels varies depending on interface, virtual pixels doesn't.
-        ///     And vp * UIScale = rp, and rp / UIScale = vp
-        /// </summary>
-        public virtual float UIScale => 1;
 
         /// <summary>
         ///     The mode that controls how mouse *and* bound key filtering works. See the enum for how it functions.
@@ -205,15 +222,14 @@ namespace OpenNefia.Core.UI.Element
             UserInterfaceManager.ReleaseKeyboardFocus(this);
         }
 
-        public virtual void GetPreferredSize(out Vector2i size)
+        public virtual void GetPreferredSize(out Vector2 size)
         {
-            size = new Vector2i(64, 64);
+            size = PreferredSize;
         }
 
         public void SetPreferredSize()
         {
-            this.GetPreferredSize(out var size);
-            this.SetSize(size.X, size.Y);
+            this.SetSize(PreferredSize.X, PreferredSize.Y);
         }
 
         public virtual void Localize(LocaleKey key)

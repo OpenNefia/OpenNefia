@@ -66,7 +66,7 @@ namespace OpenNefia.Content.Rendering
 
         private Vector2i _sizeInTiles;
         private ShadowTile[,] _tiles = new ShadowTile[0, 0];
-        private UIBox2i _shadowBounds;
+        private UIBox2i _shadowPixelBounds;
 
         public void Initialize(IAssetManager assetManager, ICoords coords)
         {
@@ -79,8 +79,8 @@ namespace OpenNefia.Content.Rendering
             _batchShadow = _assetShadow.MakeSpriteBatch(2048, SpriteBatchUsage.Dynamic);
             _batchShadowEdges = _assetShadowEdges.MakeSpriteBatch(2048, SpriteBatchUsage.Dynamic);
 
-            var iw = _assetShadow.Width;
-            var ih = _assetShadow.Height;
+            var iw = _assetShadow.PixelWidth;
+            var ih = _assetShadow.PixelHeight;
 
             for (int i = 0; i < 8; i++)
             {
@@ -97,8 +97,8 @@ namespace OpenNefia.Content.Rendering
                 }
             }
 
-            iw = _assetShadowEdges.Width;
-            ih = _assetShadowEdges.Height;
+            iw = _assetShadowEdges.PixelWidth;
+            ih = _assetShadowEdges.PixelHeight;
 
             for (int i = 0; i < 17; i++)
             {
@@ -126,13 +126,13 @@ namespace OpenNefia.Content.Rendering
             _tiles[x, y] = shadow;
         }
 
-        public void SetAllTileShadows(ShadowTile[,] tiles, UIBox2i shadowBounds)
+        public void SetAllTileShadows(ShadowTile[,] tiles, UIBox2i shadowPixelBounds)
         {
             if (tiles.Length != _tiles.Length)
                 throw new Exception($"Invalid tile array size ({tiles.Length} != {_tiles.Length})");
 
             _tiles = tiles;
-            _shadowBounds = shadowBounds;
+            _shadowPixelBounds = shadowPixelBounds;
         }
 
         public void UpdateBatches()
@@ -356,9 +356,9 @@ namespace OpenNefia.Content.Rendering
             Graphics.SetBlendMode(BlendMode.Subtract);
             GraphicsEx.SetColor(255, 255, 255, ShadowStrength);
 
-            Graphics.SetScissor(X + _shadowBounds.Left, Y + _shadowBounds.Top, _shadowBounds.Width, _shadowBounds.Height);
-            Graphics.Draw(_batchShadow, X, Y);
-            Graphics.Draw(_batchShadowEdges, X, Y);
+            Graphics.SetScissor(PixelX + _shadowPixelBounds.Left, PixelY + _shadowPixelBounds.Top, _shadowPixelBounds.Width, _shadowPixelBounds.Height);
+            Graphics.Draw(_batchShadow, PixelX, PixelY);
+            Graphics.Draw(_batchShadowEdges, PixelX, PixelY);
             Graphics.SetScissor();
 
             GraphicsEx.SetColor(255, 255, 255, (int)(ShadowStrength * ((256f - 9f) / 256f)));

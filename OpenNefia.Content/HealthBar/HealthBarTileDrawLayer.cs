@@ -88,7 +88,7 @@ namespace OpenNefia.Content.VanillaAI
 
         private void DrawPercentageBar(DrawEntry entry, Vector2 pos, float barWidth, Vector2 drawSize)
         {
-            var size = entry.Asset.Size;
+            var size = entry.Asset.PixelSize;
             var lastWidth = barWidth;
             if (entry.BarWidth != barWidth)
             {
@@ -96,7 +96,7 @@ namespace OpenNefia.Content.VanillaAI
                 entry.BarQuad.SetViewport(size.X - barWidth, 0, lastWidth, size.Y);
             }
 
-            entry.Asset.Draw(entry.BarQuad, pos.X, pos.Y, drawSize.X, drawSize.Y);
+            entry.Asset.DrawS(UIScale, entry.BarQuad, pos.X, pos.Y, drawSize.X, drawSize.Y);
         }
 
         private const int BarWidthPixels = 30;
@@ -110,8 +110,8 @@ namespace OpenNefia.Content.VanillaAI
             foreach (var entry in _entries)
             {
                 DrawPercentageBar(entry,
-                    GlobalPixelPosition + entry.ScreenPos + (9, size.Y),
-                    entry.HPRatio * BarWidthPixels,
+                    Position + entry.ScreenPos + (9, size.Y),
+                    entry.HPRatio * BarWidthPixels / UIScale,
                     Vector2i.Zero);
             }
         }
@@ -123,7 +123,7 @@ namespace OpenNefia.Content.VanillaAI
                 Asset = assetInstance;
                 HPRatio = hpRatio;
                 ScreenPos = screenPos;
-                BarQuad = Love.Graphics.NewQuad(0, 0, assetInstance.Width, assetInstance.Height, assetInstance.Width, assetInstance.Height);
+                BarQuad = Love.Graphics.NewQuad(0, 0, assetInstance.PixelWidth, assetInstance.PixelHeight, assetInstance.PixelWidth, assetInstance.PixelHeight);
                 BarWidth = -1;
             }
 

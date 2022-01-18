@@ -25,19 +25,19 @@ namespace OpenNefia.Core.UI.Layer
             EventFilter = UIEventFilterMode.Stop;
         }
 
-        public virtual void GetPreferredBounds(out UIBox2i bounds)
+        public virtual void GetPreferredBounds(out UIBox2 bounds)
         {
             var graphics = IoCManager.Resolve<IGraphics>();
-            bounds = UIBox2i.FromDimensions(Vector2i.Zero, graphics.WindowSize);
+            bounds = UIBox2.FromDimensions(Vector2.Zero, graphics.WindowSize);
         }
 
-        public override sealed void GetPreferredSize(out Vector2i size)
+        public override sealed void GetPreferredSize(out Vector2 size)
         {
             GetPreferredBounds(out var bounds);
             size = bounds.Size;
         }
 
-        public void GetPreferredPosition(out Vector2i pos)
+        public void GetPreferredPosition(out Vector2 pos)
         {
             GetPreferredBounds(out var bounds);
             pos = bounds.TopLeft;

@@ -5,8 +5,8 @@ namespace OpenNefia.Tests
 {
     public class DummyDrawable : IDrawable
     {
-        public UIBox2i GlobalPixelBounds => UIBox2i.FromDimensions(GlobalPixelPosition, PixelSize);
-        public Vector2i GlobalPixelPosition => Vector2i.Zero;
+        public UIBox2i PixelRect => UIBox2i.FromDimensions(PixelPosition, PixelSize);
+        public Vector2i PixelPosition => Vector2i.Zero;
         public Vector2i PixelSize => new(Width, Height);
         public int Width => 800;
         public int Height => 600;
@@ -17,7 +17,7 @@ namespace OpenNefia.Tests
 
         public bool ContainsPoint(Vector2 point)
         {
-            return GlobalPixelBounds.Contains((int)point.X, (int)point.Y);
+            return PixelRect.Contains((int)point.X, (int)point.Y);
         }
 
         public void Dispose()
@@ -30,7 +30,7 @@ namespace OpenNefia.Tests
 
         public void GetPreferredBounds(out UIBox2i bounds)
         {
-            bounds = GlobalPixelBounds;
+            bounds = PixelRect;
         }
 
         public void GetPreferredSize(out Vector2i size)

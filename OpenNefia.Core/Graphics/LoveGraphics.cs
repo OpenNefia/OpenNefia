@@ -20,7 +20,9 @@ namespace OpenNefia.Core.Graphics
         [Dependency] private readonly IResourceCache _resourceCache = default!;
         [Dependency] private readonly IConfigurationManager _config = default!;
 
-        public Vector2i WindowSize => new(Love.Graphics.GetWidth(), Love.Graphics.GetHeight());
+        public float WindowScale => 1f;
+        public Vector2i WindowPixelSize => new(Love.Graphics.GetWidth(), Love.Graphics.GetHeight());
+        public Vector2 WindowSize => (Vector2)WindowPixelSize / WindowScale;
 
         public event Action<WindowResizedEventArgs>? OnWindowResized;
         public new event Action<WindowFocusedEventArgs>? OnWindowFocused;
@@ -95,7 +97,7 @@ namespace OpenNefia.Core.Graphics
             InitializeGraphicsDefaults();
             LoadGamepadMappings();
 
-            _lastFullscreenMode = new FullscreenMode(WindowSize.X, WindowSize.Y);
+            _lastFullscreenMode = new FullscreenMode(WindowPixelSize.X, WindowPixelSize.Y);
             _lastWindowPos = Love.Window.GetPosition();
         }
 
@@ -213,7 +215,7 @@ namespace OpenNefia.Core.Graphics
 
             Love.Window.SetMode(mode.Width, mode.Height, loveWindowSettings);
 
-            var ev = new WindowResizedEventArgs(WindowSize);
+            var ev = new WindowResizedEventArgs(WindowPixelSize);
             OnWindowResized?.Invoke(ev);
         }
 

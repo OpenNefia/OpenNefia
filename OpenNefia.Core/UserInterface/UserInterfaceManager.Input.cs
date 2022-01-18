@@ -61,7 +61,7 @@ namespace OpenNefia.Core.UserInterface
             }
 
             var guiArgs = new GUIBoundKeyEventArgs(args.Function, args.State, args.PointerLocation, args.CanFocus,
-                args.PointerLocation.Position - control.GlobalPixelPosition);
+                args.PointerLocation.Position - control.PixelPosition);
 
             _doGuiInput(control, guiArgs, (c, ev) => c.KeyBindDown(ev));
 
@@ -80,7 +80,7 @@ namespace OpenNefia.Core.UserInterface
             }
 
             var guiArgs = new GUIBoundKeyEventArgs(args.Function, args.State, args.PointerLocation, args.CanFocus,
-                args.PointerLocation.Position - control.GlobalPixelPosition);
+                args.PointerLocation.Position - control.PixelPosition);
 
             _doGuiInput(control, guiArgs, (c, ev) => c.KeyBindUp(ev));
 
@@ -109,7 +109,7 @@ namespace OpenNefia.Core.UserInterface
                 var guiArgs = new GUIMouseMoveEventArgs(mouseMoveEventArgs.Relative,
                     target,
                     mouseMoveEventArgs.Position,
-                    pos - target.GlobalPixelPosition);
+                    pos - target.PixelPosition);
 
                 _doMouseGuiInput(target, guiArgs, (c, ev) => c.MouseMove(ev));
             }
@@ -129,7 +129,7 @@ namespace OpenNefia.Core.UserInterface
 
             var guiArgs = new GUIMouseWheelEventArgs(args.Delta, control,
                 args.Position,
-                pos - control.GlobalPixelPosition);
+                pos - control.PixelPosition);
 
             _doMouseGuiInput(control, guiArgs, (c, ev) => c.MouseWheel(ev), true);
         }
@@ -153,7 +153,7 @@ namespace OpenNefia.Core.UserInterface
 
             while (control != null)
             {
-                guiEvent.RelativePixelPosition = guiEvent.GlobalPixelPosition.Position - control.GlobalPixelPosition;
+                guiEvent.RelativePixelPosition = guiEvent.GlobalPixelPosition.Position - control.PixelPosition;
 
                 guiEvent.SourceControl = control;
                 if (control.EventFilter != UIEventFilterMode.Ignore)
@@ -180,7 +180,7 @@ namespace OpenNefia.Core.UserInterface
             while (control != null)
             {
 
-                guiEvent.RelativePixelPosition = guiEvent.PointerLocation.Position - control.GlobalPixelPosition;
+                guiEvent.RelativePixelPosition = guiEvent.PointerLocation.Position - control.PixelPosition;
 
                 if (control.EventFilter != UIEventFilterMode.Ignore)
                 {

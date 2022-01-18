@@ -51,69 +51,69 @@ namespace OpenNefia.Content.UI.Element
             {
                 case FrameStyleKind.Zero:
                 default:
-                    return Assets.GetSized(Protos.Asset.TopicWindow0, this.PixelSize);
+                    return Assets.GetSized(Protos.Asset.TopicWindow0, PixelSize);
                 case FrameStyleKind.One:
-                    return Assets.GetSized(Protos.Asset.TopicWindow1, this.PixelSize);
+                    return Assets.GetSized(Protos.Asset.TopicWindow1, PixelSize);
                 case FrameStyleKind.Two:
-                    return Assets.GetSized(Protos.Asset.TopicWindow2, this.PixelSize);
+                    return Assets.GetSized(Protos.Asset.TopicWindow2, PixelSize);
                 case FrameStyleKind.Three:
-                    return Assets.GetSized(Protos.Asset.TopicWindow3, this.PixelSize);
+                    return Assets.GetSized(Protos.Asset.TopicWindow3, PixelSize);
                 case FrameStyleKind.Four:
-                    return Assets.GetSized(Protos.Asset.TopicWindow4, this.PixelSize);
+                    return Assets.GetSized(Protos.Asset.TopicWindow4, PixelSize);
                 case FrameStyleKind.Five:
-                    return Assets.GetSized(Protos.Asset.TopicWindow5, this.PixelSize);
+                    return Assets.GetSized(Protos.Asset.TopicWindow5, PixelSize);
             }
         }
 
         public UiTopicWindow(FrameStyleKind frameStyle = FrameStyleKind.One, WindowStyleKind windowStyle = WindowStyleKind.One)
         {
-            this.FrameStyle = frameStyle;
-            this.WindowStyle = windowStyle;
+            FrameStyle = frameStyle;
+            WindowStyle = windowStyle;
 
-            this.AssetTopicWindow = this.GetTopicWindowAsset(this.FrameStyle);
-            this.AssetWindow = Assets.Get(Protos.Asset.Window);
+            AssetTopicWindow = GetTopicWindowAsset(FrameStyle);
+            AssetWindow = Assets.Get(Protos.Asset.Window);
 
-            this.TopicWindowBatch = this.MakeBatch();
+            TopicWindowBatch = MakeBatch();
         }
 
         private Love.SpriteBatch MakeBatch()
         {
             var parts = new List<AssetBatchPart>();
 
-            for (int i = 0; i < this.Width / 16 - 1; i++)
+            for (int i = 0; i < Width / 16 - 1; i++)
             {
                 parts.Add(new AssetBatchPart("top_mid", i * 16 + 16, 0));
-                parts.Add(new AssetBatchPart("bottom_mid", i * 16 + 16, this.Height - 16));
+                parts.Add(new AssetBatchPart("bottom_mid", i * 16 + 16, PixelHeight - 16));
             }
 
-            var innerX = this.Width / 16 * 16 - 16;
-            var innerY = this.Height / 16 * 16 - 16;
+            var innerX = PixelWidth / 16 * 16 - 16;
+            var innerY = PixelHeight / 16 * 16 - 16;
 
             parts.Add(new AssetBatchPart("top_mid2", innerX, 0));
-            parts.Add(new AssetBatchPart("bottom_mid2", innerX, this.Height - 16));
+            parts.Add(new AssetBatchPart("bottom_mid2", innerX, PixelHeight - 16));
 
-            for (int i = 0; i < this.Height / 16 - 1; i++)
+            for (int i = 0; i < Height / 16 - 1; i++)
             {
                 parts.Add(new AssetBatchPart("left_mid", 0, i * 16 + 16));
-                parts.Add(new AssetBatchPart("right_mid", this.Width - 16, i * 16 + 16));
+                parts.Add(new AssetBatchPart("right_mid", PixelWidth - 16, i * 16 + 16));
             }
 
             parts.Add(new AssetBatchPart("left_mid2", 0, innerY));
-            parts.Add(new AssetBatchPart("right_mid2", this.Width - 16, innerY));
+            parts.Add(new AssetBatchPart("right_mid2", PixelWidth - 16, innerY));
 
             parts.Add(new AssetBatchPart("top_left", 0, 0));
-            parts.Add(new AssetBatchPart("bottom_left", 0, this.Height - 16));
-            parts.Add(new AssetBatchPart("top_right", this.Width - 16, 0));
-            parts.Add(new AssetBatchPart("bottom_right", this.Width - 16, this.Height - 16));
+            parts.Add(new AssetBatchPart("bottom_left", 0, PixelHeight - 16));
+            parts.Add(new AssetBatchPart("top_right", PixelWidth - 16, 0));
+            parts.Add(new AssetBatchPart("bottom_right", PixelWidth - 16, PixelHeight - 16));
 
-            this.AssetTopicWindow = this.GetTopicWindowAsset(this.FrameStyle);
-            return this.AssetTopicWindow.MakeBatch(parts);
+            AssetTopicWindow = GetTopicWindowAsset(FrameStyle);
+            return AssetTopicWindow.MakeBatch(parts);
         }
 
-        public override void SetSize(int width, int height)
+        public override void SetSize(float width, float height)
         {
             base.SetSize(width, height);
-            this.TopicWindowBatch = this.MakeBatch();
+            TopicWindowBatch = MakeBatch();
         }
 
         public override void Update(float dt)
@@ -122,66 +122,66 @@ namespace OpenNefia.Content.UI.Element
 
         public override void Draw()
         {
-            if (this.WindowStyle == WindowStyleKind.Six)
+            if (WindowStyle == WindowStyleKind.Six)
             {
-                GraphicsEx.SetColor(this.ColorStyle6);
-                GraphicsEx.DrawSpriteBatch(this.TopicWindowBatch, this.X, this.Y, this.Width - 4, this.Height - 4);
+                GraphicsEx.SetColor(ColorStyle6);
+                GraphicsEx.DrawSpriteBatch(TopicWindowBatch, PixelX, PixelY, PixelWidth - 4, PixelHeight - 4);
             }
             else
             {
                 var rect = true;
 
-                switch (this.WindowStyle)
+                switch (WindowStyle)
                 {
                     case WindowStyleKind.Zero:
                         rect = false;
-                        GraphicsEx.SetColor(this.ColorStyle0);
+                        GraphicsEx.SetColor(ColorStyle0);
                         break;
                     case WindowStyleKind.One:
-                        GraphicsEx.SetColor(this.ColorStyle1);
+                        GraphicsEx.SetColor(ColorStyle1);
                         break;
                     case WindowStyleKind.Two:
-                        GraphicsEx.SetColor(this.ColorStyle2);
+                        GraphicsEx.SetColor(ColorStyle2);
                         break;
                     case WindowStyleKind.Three:
-                        GraphicsEx.SetColor(this.ColorStyle3);
+                        GraphicsEx.SetColor(ColorStyle3);
                         break;
                     case WindowStyleKind.Four:
-                        GraphicsEx.SetColor(this.ColorStyle4);
+                        GraphicsEx.SetColor(ColorStyle4);
                         break;
                     case WindowStyleKind.Five:
                     default:
-                        GraphicsEx.SetColor(this.ColorStyle5);
+                        GraphicsEx.SetColor(ColorStyle5);
                         break;
                 }
 
                 if (rect)
                 {
                     Love.Graphics.SetBlendMode(Love.BlendMode.Subtract);
-                    Love.Graphics.Rectangle(Love.DrawMode.Fill, this.X + 4, this.Y + 4, this.Width - 4, this.Height - 4);
+                    Love.Graphics.Rectangle(Love.DrawMode.Fill, PixelX + 4, PixelY + 4, PixelWidth - 4, PixelHeight - 4);
                     Love.Graphics.SetBlendMode(Love.BlendMode.Alpha);
                 }
             }
 
-            this.AssetWindow.DrawRegion("fill", this.X + 4, this.Y + 4, this.Width - 6, this.Height - 8);
+            AssetWindow.DrawRegion("fill", PixelX + 4, PixelY + 4, PixelWidth - 6, PixelHeight - 8);
 
             GraphicsEx.SetColor(Love.Color.White);
-            Love.Graphics.Draw(this.TopicWindowBatch, this.X, this.Y);
+            Love.Graphics.Draw(TopicWindowBatch, PixelX, PixelY);
 
-            if (this.WindowStyle == WindowStyleKind.Five)
+            if (WindowStyle == WindowStyleKind.Five)
             {
-                GraphicsEx.SetColor(this.ColorStyle5);
-                GraphicsEx.DrawSpriteBatch(this.TopicWindowBatch, this.X + 2, this.Y + 2, this.Width - 4, this.Height - 5);
+                GraphicsEx.SetColor(ColorStyle5);
+                GraphicsEx.DrawSpriteBatch(TopicWindowBatch, PixelX + 2, PixelY + 2, PixelWidth - 4, PixelHeight - 5);
 
                 Love.Graphics.SetBlendMode(Love.BlendMode.Subtract);
-                Love.Graphics.Rectangle(Love.DrawMode.Fill, this.X + 4, this.Y + 4, this.Width - 4, this.Height - 4);
+                Love.Graphics.Rectangle(Love.DrawMode.Fill, PixelX + 4, PixelY + 4, PixelWidth - 4, PixelHeight - 4);
                 Love.Graphics.SetBlendMode(Love.BlendMode.Alpha);
             }
         }
 
         public override void Dispose()
         {
-            this.TopicWindowBatch.Dispose();
+            TopicWindowBatch.Dispose();
         }
     }
 }

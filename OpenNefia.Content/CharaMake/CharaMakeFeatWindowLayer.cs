@@ -70,7 +70,7 @@ namespace OpenNefia.Content.CharaMake
             Sounds.Play(Protos.Sound.Feat);
         }
 
-        public override void GetPreferredBounds(out UIBox2i bounds)
+        public override void GetPreferredBounds(out UIBox2 bounds)
         {
             FeatWindow.GetPreferredSize(out var size);
             UiUtils.GetCenteredParams(size.X, size.Y, out bounds, yOffset: 10);
@@ -82,13 +82,13 @@ namespace OpenNefia.Content.CharaMake
             FeatWindow.GrabFocus();
         }
 
-        public override void SetSize(int width, int height)
+        public override void SetSize(float width, float height)
         {
             base.SetSize(width, height);
             FeatWindow.SetSize(Width, Height);
         }
 
-        public override void SetPosition(int x, int y)
+        public override void SetPosition(float x, float y)
         {
             base.SetPosition(x, y);
             FeatWindow.SetPosition(X, Y);

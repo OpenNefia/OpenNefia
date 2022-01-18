@@ -193,7 +193,7 @@ namespace OpenNefia.Core.Rendering
             this._map.MapObjectMemory.Flush();
         }
 
-        public override void SetSize(int width, int height)
+        public override void SetSize(float width, float height)
         {
             base.SetSize(width, height);
             foreach (var layer in this._allTileLayers)
@@ -202,7 +202,7 @@ namespace OpenNefia.Core.Rendering
             }
         }
 
-        public override void SetPosition(int x, int y)
+        public override void SetPosition(float x, float y)
         {
             base.SetPosition(x, y);
             foreach (var layer in this._allTileLayers)

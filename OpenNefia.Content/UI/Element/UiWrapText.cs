@@ -13,8 +13,12 @@ namespace OpenNefia.Content.UI.Element
 {
     public class UiWrapText : UiText
     {
-        private int MaxWidth;
-        public UiWrapText(int maxWidth, FontSpec font, string text = "") : base(font, text)
+        /// <summary>
+        /// Max line width in virtual pixels.
+        /// </summary>
+        private float MaxWidth;
+
+        public UiWrapText(float maxWidth, FontSpec font, string text = "") : base(font, text)
         {
             MaxWidth = maxWidth;
             Text = text;
@@ -23,7 +27,7 @@ namespace OpenNefia.Content.UI.Element
         public override string Text 
         { 
             get => base.Text; 
-            set => base.Text = WordWrap(value, MaxWidth); 
+            set => base.Text = WordWrap(value, (int)(MaxWidth * UIScale)); 
         }
 
         static char[] splitChars = new char[] { ' ', '　' };

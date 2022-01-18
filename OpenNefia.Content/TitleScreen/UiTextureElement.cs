@@ -18,7 +18,7 @@ namespace OpenNefia.Content.TitleScreen
                 InnerTexture = innerTexture;
             }
 
-            public override void GetPreferredSize(out Vector2i size)
+            public override void GetPreferredSize(out Vector2 size)
             {
                 size = new(InnerTexture.GetWidth(), InnerTexture.GetHeight());
             }

@@ -43,7 +43,7 @@ namespace OpenNefia.Content.UI.Layer
             Image = image;
         }
 
-        public override void GetPreferredBounds(out UIBox2i bounds)
+        public override void GetPreferredBounds(out UIBox2 bounds)
         {
             UiUtils.GetCenteredParams(Image.GetWidth(), Image.GetHeight(), out bounds);
         }
@@ -57,14 +57,14 @@ namespace OpenNefia.Content.UI.Layer
         public override void Draw()
         {
             Graphics.SetColor(Love.Color.Black);
-            Graphics.Rectangle(DrawMode.Fill, X, Y, Width, Height);
+            GraphicsS.RectangleS(UIScale, DrawMode.Fill, X, Y, Width, Height);
 
             Graphics.SetColor(Love.Color.White);
-            Graphics.Draw(Image, X, Y);
+            Graphics.Draw(Image, PixelX, PixelY);
 
             if (DrawBorder)
             {
-                Graphics.Rectangle(DrawMode.Line, X, Y, Width, Height);
+                GraphicsS.RectangleS(UIScale, DrawMode.Line, X, Y, Width, Height);
             }
         }
     }

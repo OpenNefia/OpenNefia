@@ -51,13 +51,13 @@ namespace OpenNefia.Content.TitleScreen
                 TextSaveDate.Text = Data.SaveGame.LastWriteTime.ToString();
             }
 
-            public override void SetSize(int width, int height)
+            public override void SetSize(float width, float height)
             {
                 base.SetSize(width, height);
                 TextSaveDate.SetPreferredSize();
             }
 
-            public override void SetPosition(int x, int y)
+            public override void SetPosition(float x, float y)
             {
                 base.SetPosition(x, y);
                 TextSaveDate.SetPosition(X + 155, Y);
@@ -247,12 +247,12 @@ namespace OpenNefia.Content.TitleScreen
             Caption.Text = captionText;
         }
 
-        public override void GetPreferredBounds(out UIBox2i bounds)
+        public override void GetPreferredBounds(out UIBox2 bounds)
         {
             UiUtils.GetCenteredParams(680, 500, out bounds, yOffset: 20);
         }
 
-        public override void SetSize(int width, int height)
+        public override void SetSize(float width, float height)
         {
             base.SetSize(width, height);
             Window.SetSize(Width, Height);
@@ -264,7 +264,7 @@ namespace OpenNefia.Content.TitleScreen
             ScreenshotBox.SetSize(300, 225);
         }
 
-        public override void SetPosition(int x, int y)
+        public override void SetPosition(float x, float y)
         {
             base.SetPosition(x, y);
             Window.SetPosition(X, Y);

@@ -55,7 +55,7 @@ namespace OpenNefia.Core.UserInterface
         /// <inheritdoc/>
         public Vector2? CalcRelativeMousePositionFor(UiElement control, ScreenCoordinates mousePos)
         {
-            return mousePos.Position - control.GlobalPixelPosition;
+            return mousePos.Position - control.PixelPosition;
         }
 
         public void GrabKeyboardFocus(UiElement control)
@@ -133,7 +133,7 @@ namespace OpenNefia.Core.UserInterface
             for (var i = control.ChildCount - 1; i >= 0; i--)
             {
                 var child = control.GetChild(i);
-                if (!child.Visible || !child.GlobalPixelBounds.Contains((Vector2i)position))
+                if (!child.Visible || !child.PixelRect.Contains((Vector2i)position))
                 {
                     continue;
                 }

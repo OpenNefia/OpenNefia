@@ -21,14 +21,14 @@ namespace OpenNefia.Content.UI.Hud
             FpsCounter = new UiFpsCounter();
         }
 
-        public override void SetSize(int width, int height)
+        public override void SetSize(float width, float height)
         {
             base.SetSize(width, height);
             MessageWindow.SetSize(_graphics.WindowSize.X - 100, 150);
             FpsCounter.SetSize(400, 500);
         }
 
-        public override void SetPosition(int x, int y)
+        public override void SetPosition(float x, float y)
         {
             base.SetPosition(x, y);
             MessageWindow.SetPosition(X + 50, Y + Height - MessageWindow.Height - 10);

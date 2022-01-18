@@ -27,6 +27,7 @@ namespace OpenNefia.Content.UI.Layer
         [Dependency] private readonly IEntityLookup _lookup = default!;
         [Dependency] private readonly IEntityManager _entityManager = default!;
         [Dependency] private readonly IGameSessionManager _gameSession = default!;
+        [Dependency] private readonly ICoords _coords = default!;
 
         public class Args
         {
@@ -182,7 +183,7 @@ namespace OpenNefia.Content.UI.Layer
 
         }
 
-        public override void SetPosition(int x, int y)
+        public override void SetPosition(float x, float y)
         {
             base.SetPosition(x, y);
             TextTarget.SetPosition(100, Height - Constants.INF_MSGH - 45 - TextTarget.Height);
@@ -221,17 +222,17 @@ namespace OpenNefia.Content.UI.Layer
 
         public override void Draw()
         {
-            var screenPos = _field.Camera.TileToVisibleScreen(_targetPos);
+            var screenPixelPos = _field.Camera.TileToVisibleScreen(_targetPos);
             Love.Graphics.SetBlendMode(Love.BlendMode.Add);
             GraphicsEx.SetColor(ColorTargetedTile);
-            Love.Graphics.Rectangle(Love.DrawMode.Fill, screenPos.X, screenPos.Y, GameSession.Coords.TileSize.X, GameSession.Coords.TileSize.Y);
+            Love.Graphics.Rectangle(Love.DrawMode.Fill, screenPixelPos.X, screenPixelPos.Y, _coords.TileSize.X, _coords.TileSize.Y);
 
             if (ShouldDrawLine())
             {
                 foreach (var coords in PosHelpers.EnumerateLine(_originPos, _targetPos))
                 {
-                    screenPos = _field.Camera.TileToVisibleScreen(coords);
-                    Love.Graphics.Rectangle(Love.DrawMode.Fill, screenPos.X, screenPos.Y, GameSession.Coords.TileSize.X, GameSession.Coords.TileSize.Y);
+                    screenPixelPos = _field.Camera.TileToVisibleScreen(coords);
+                    Love.Graphics.Rectangle(Love.DrawMode.Fill, screenPixelPos.X, screenPixelPos.Y, _coords.TileSize.X, _coords.TileSize.Y);
                 }
             }
 

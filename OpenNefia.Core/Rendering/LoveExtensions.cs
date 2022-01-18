@@ -12,5 +12,15 @@ namespace OpenNefia.Core.Rendering
         {
             text.Set(new Love.ColoredStringArray(Love.ColoredString.Create(str, color ?? Love.Color.White)));
         }
+
+        public static float GetVirtualWidth(this Love.Font font, float uiScale, string text)
+        {
+            return font.GetWidth(text) / uiScale;
+        }
+
+        public static float GetVirtualHeight(this Love.Font font, float uiScale)
+        {
+            return font.GetHeight() / uiScale;
+        }
     }
 }

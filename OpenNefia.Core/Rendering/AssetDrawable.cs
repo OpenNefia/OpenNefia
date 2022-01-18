@@ -46,7 +46,7 @@ namespace OpenNefia.Core.Rendering
             RegionId = regionId;
         }
 
-        public override void GetPreferredSize(out Vector2i size)
+        public override void GetPreferredSize(out Vector2 size)
         {
             if (RegionId != null)
             {
@@ -62,7 +62,7 @@ namespace OpenNefia.Core.Rendering
             }
             else
             {
-                size = Instance.Size;
+                size = Instance.PixelSize;
             }
         }
 

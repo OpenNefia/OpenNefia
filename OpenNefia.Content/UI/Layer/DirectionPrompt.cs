@@ -1,21 +1,16 @@
-﻿using OpenNefia.Content.GameObjects;
-using OpenNefia.Content.Input;
+﻿using OpenNefia.Content.Input;
 using OpenNefia.Content.Prototypes;
-using OpenNefia.Content.UI.Element;
 using OpenNefia.Core.Audio;
 using OpenNefia.Core.Directions;
-using OpenNefia.Core.Game;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Input;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Maps;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.Rendering;
-using OpenNefia.Core.UI;
 using OpenNefia.Core.UI.Element;
 using OpenNefia.Core.UI.Layer;
 using OpenNefia.Core.UserInterface;
-using OpenNefia.Core.Utility;
 using static OpenNefia.Content.Prototypes.Protos;
 using Color = OpenNefia.Core.Maths.Color;
 
@@ -125,7 +120,7 @@ namespace OpenNefia.Content.UI.Layer
             _field.Camera.CenterOnTilePos(_centerCoords);
         }
 
-        public override void SetPosition(int x, int y)
+        public override void SetPosition(float x, float y)
         {
             base.SetPosition(x, y);
         }
@@ -145,7 +140,6 @@ namespace OpenNefia.Content.UI.Layer
         public override void Update(float dt)
         {
             _dt += dt;
-
         }
 
         public override void Draw()
@@ -156,7 +150,7 @@ namespace OpenNefia.Content.UI.Layer
             var frame = _dt * 50;
             var alpha = (byte)Math.Max(200 - Math.Pow(frame / 2 % 20, 2), 0);
 
-            var pos = GlobalPixelPosition + screenPos + _coords.TileSize / 2;
+            var pos = PixelPosition + screenPos + _coords.TileSize / 2;
 
             Love.Graphics.SetColor(Color.White.WithAlpha(alpha));
 

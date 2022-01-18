@@ -47,7 +47,7 @@ namespace OpenNefia.Content.UI.Hud
             NeedsRelayout = true;
         }
 
-        public override void SetPosition(int x, int y)
+        public override void SetPosition(float x, float y)
         {
             base.SetPosition(x, y);
             NeedsRelayout = true;
@@ -93,7 +93,7 @@ namespace OpenNefia.Content.UI.Hud
             for (int i = 0; i < TextMessages.Length; i++)
             {
                 var text = TextMessages[i];
-                text.SetPosition(X + 5, Y + Height - FontTargetText.LoveFont.GetHeight() * (i + 1) - 5);
+                text.SetPosition(X + 5, Y + Height - FontTargetText.LoveFont.GetHeight() / UIScale * (i + 1) - 5);
                 text.Draw();
             }
             //Love.Graphics.SetScissor();

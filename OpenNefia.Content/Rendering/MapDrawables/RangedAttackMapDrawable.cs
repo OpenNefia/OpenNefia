@@ -98,7 +98,7 @@ namespace OpenNefia.Content.Rendering
             var cx = (int)(_counter.Frame * (screenPos.X) / _counter.MaxFrames);
             var cy = (int)(_counter.Frame * (screenPos.Y) / _counter.MaxFrames);
 
-            if (_graphics.IsPointInVisibleScreen(GlobalPixelPosition + new Vector2i(cx, cy)))
+            if (_graphics.IsPointInVisibleScreen(PixelPosition + new Vector2i(cx, cy)))
             {
                 _chipBatch.Clear();
                 _chipBatch.Add(_chip.Image.AtlasIndex, 

@@ -1,5 +1,4 @@
-﻿using Love;
-using OpenNefia.Core;
+﻿using OpenNefia.Core;
 using OpenNefia.Core.Audio;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.UI;
@@ -9,19 +8,18 @@ using System.Collections;
 using OpenNefia.Core.Utility;
 using OpenNefia.Core.Input;
 using OpenNefia.Core.UserInterface;
-using OpenNefia.Core.Log;
 
 namespace OpenNefia.Content.UI.Element.List
 {
     public class UiList<T> : UiElement, IUiList<T>, IRawInputControl
     {
-        public const int DEFAULT_ITEM_HEIGHT = 19;
+        public const float DEFAULT_ITEM_HEIGHT = 19f;
 
         protected IList<UiListCell<T>> AllCells { get; }
         public virtual IReadOnlyList<UiListCell<T>> DisplayedCells => (IReadOnlyList<UiListCell<T>>)AllCells;
 
-        public int ItemHeight { get; }
-        public int ItemOffsetX { get; }
+        public float ItemHeight { get; }
+        public float ItemOffsetX { get; }
 
         public bool HighlightSelected { get; set; }
         public bool SelectOnActivate { get; set; }
@@ -255,7 +253,7 @@ namespace OpenNefia.Content.UI.Element.List
 
         #region UI Handling
 
-        public override void SetPosition(int x, int y)
+        public override void SetPosition(float x, float y)
         {
             base.SetPosition(x, y);
 
@@ -266,35 +264,35 @@ namespace OpenNefia.Content.UI.Element.List
                 var cell = DisplayedCells[index];
                 cell.XOffset = ItemOffsetX;
                 cell.SetPosition(X, iy);
-
+                
                 iy += cell.Height;
             }
         }
 
-        public override void GetPreferredSize(out Vector2i size)
+        public override void GetPreferredSize(out Vector2 size)
         {
-            size = Vector2i.Zero;
+            size = Vector2.Zero;
 
             for (int index = 0; index < DisplayedCells.Count; index++)
             {
                 var cell = DisplayedCells[index];
                 cell.GetPreferredSize(out var cellSize);
-                size.X = Math.Max(size.X, cellSize.X);
-                size.Y += Math.Max(cellSize.Y, ItemHeight);
+                size.X = MathF.Max(size.X, cellSize.X);
+                size.Y += MathF.Max(cellSize.Y, ItemHeight);
             }
         }
 
-        public override void SetSize(int width, int height)
+        public override void SetSize(float width, float height)
         {
-            var totalHeight = 0;
+            var totalHeight = 0f;
 
             for (int index = 0; index < DisplayedCells.Count; index++)
             {
                 var cell = DisplayedCells[index];
                 cell.GetPreferredSize(out var cellSize);
-                var cellHeight = Math.Max(cellSize.Y, ItemHeight);
+                var cellHeight = MathF.Max(cellSize.Y, ItemHeight);
                 cell.SetSize(width, cellHeight);
-                width = Math.Max(width, cell.Width);
+                width = MathF.Max(width, cell.Width);
                 totalHeight += cell.Height;
             }
 

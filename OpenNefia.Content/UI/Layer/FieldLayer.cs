@@ -39,8 +39,6 @@ namespace OpenNefia.Content.UI.Layer
 
         public Camera Camera { get; private set; }
 
-        private PrototypeId<TilePrototype>? PlacingTile = null;
-
         public FieldLayer()
         {
             _scroller = new UiScroller();
@@ -156,7 +154,7 @@ namespace OpenNefia.Content.UI.Layer
             //}
         }
 
-        public override void SetSize(int width, int height)
+        public override void SetSize(float width, float height)
         {
             base.SetSize(width, height);
             _mapRenderer.SetSize(width, height);
@@ -169,7 +167,7 @@ namespace OpenNefia.Content.UI.Layer
             }
         }
 
-        public override void SetPosition(int x, int y)
+        public override void SetPosition(float x, float y)
         {
             base.SetPosition(x, y);
             _mapRenderer.SetPosition(x, y);
@@ -209,23 +207,6 @@ namespace OpenNefia.Content.UI.Layer
 
             SetPosition((int)Camera.ScreenPos.X, (int)Camera.ScreenPos.Y);
 
-            if (PlacingTile != null)
-            {
-                var mouse = Love.Mouse.GetPosition();
-                var tiledPos = _coords.ScreenToTile(new Vector2i((int)mouse.X - X, (int)mouse.Y - Y));
-
-                if (Map.IsInBounds(tiledPos) && Map.Tiles[tiledPos.X, tiledPos.Y].ResolvePrototype().GetStrongID() != PlacingTile)
-                {
-                    var proto = PlacingTile.Value.ResolvePrototype();
-                    if (proto.IsSolid)
-                    {
-                        Sounds.Play(Sound.Offer1, Map.AtPos(tiledPos));
-                    }
-                    Map.SetTile(tiledPos, PlacingTile.Value);
-                    Map.MemorizeTile(tiledPos);
-                }
-            }
-
             _hud.Update(dt);
             _mapRenderer.Update(dt);
         }
@@ -241,7 +222,6 @@ namespace OpenNefia.Content.UI.Layer
             var player = _gameSession.Player!;
             var playerSpatial = _entityManager.GetComponent<SpatialComponent>(player);
             var screenPos = playerSpatial.GetScreenPos();
-            Love.Graphics.Rectangle(Love.DrawMode.Line, X + screenPos.X, Y + screenPos.Y, _coords.TileSize.X, _coords.TileSize.Y);
 
             _hud.Draw();
         }

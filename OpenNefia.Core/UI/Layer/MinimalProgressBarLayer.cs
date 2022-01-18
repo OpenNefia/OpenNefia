@@ -77,7 +77,7 @@ namespace OpenNefia.Core.UI.Layer
         {
         }
 
-        public override void GetPreferredBounds(out UIBox2i bounds)
+        public override void GetPreferredBounds(out UIBox2 bounds)
         {
             var size = new Vector2i(400, 200);
             var pos = (_graphics.WindowSize - size) / 2;

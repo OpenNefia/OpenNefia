@@ -1,5 +1,4 @@
-﻿using Love;
-using OpenNefia.Core.Input;
+﻿using OpenNefia.Core.Input;
 using OpenNefia.Core.Maths;
 using System;
 using System.Collections.Generic;
@@ -11,7 +10,20 @@ namespace OpenNefia.Core.Graphics
 {
     public interface IGraphics
     {
-        Vector2i WindowSize { get; }
+        /// <summary>
+        /// Window scale.
+        /// </summary>
+        float WindowScale { get; }
+
+        /// <summary>
+        /// Window size in virtual pixels, according to global UI scaling settings.
+        /// </summary>
+        Vector2 WindowSize { get; }
+
+        /// <summary>
+        /// Window size in physical pixels.
+        /// </summary>
+        Vector2i WindowPixelSize { get; }
 
         event Action<WindowResizedEventArgs>? OnWindowResized;
         event Action<WindowFocusedEventArgs>? OnWindowFocused;

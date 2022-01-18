@@ -35,15 +35,15 @@ namespace OpenNefia.Content.CharaMake
             TextCaption.Text = Loc.GetString(key);
         }
 
-        public override void GetPreferredSize(out Vector2i size)
+        public override void GetPreferredSize(out Vector2 size)
         {
             size = new(760, 24);
         }
 
-        public override void SetSize(int width, int height)
+        public override void SetSize(float width, float height)
         {
             TextCaption.SetPreferredSize();
-            width = Math.Min(TextCaption.TextWidth + 45, width);
+            width = MathF.Min(TextCaption.TextWidth + 45, width);
 
             base.SetSize(width, height);
 
@@ -51,7 +51,7 @@ namespace OpenNefia.Content.CharaMake
             AssetCaption = Assets.GetSized(Asset.Caption, PixelSize);
         }
 
-        public override void SetPosition(int x, int y)
+        public override void SetPosition(float x, float y)
         {
             base.SetPosition(x, y);
             TextCaption.SetPosition(X + 18, Y + 4);
@@ -64,7 +64,8 @@ namespace OpenNefia.Content.CharaMake
 
         public override void Draw()
         {
-            var count = MathF.Ceiling((float)Width / AssetCaption!.Width);
+            var captionWidth = AssetCaption!.VirtualWidth(UIScale);
+            var count = MathF.Ceiling((float)Width / captionWidth);
 
             Love.Graphics.SetColor(Color.White);
 
@@ -81,9 +82,9 @@ namespace OpenNefia.Content.CharaMake
                     regionOffset = 0;
                 }
 
-                AssetCaption.DrawRegion((0 + regionOffset).ToString(), i * AssetCaption.Width + X, Y);
-                AssetCaption.DrawRegion((1 + regionOffset).ToString(), i * AssetCaption.Width + X, Y + 2);
-                AssetCaption.DrawRegion((2 + regionOffset).ToString(), i * AssetCaption.Width + X, Y + 22);
+                AssetCaption.DrawRegionS(UIScale, (0 + regionOffset).ToString(), i * captionWidth + X, Y);
+                AssetCaption.DrawRegionS(UIScale, (1 + regionOffset).ToString(), i * captionWidth + X, Y + 2);
+                AssetCaption.DrawRegionS(UIScale, (2 + regionOffset).ToString(), i * captionWidth + X, Y + 22);
             }
 
             TextCaption.Draw();

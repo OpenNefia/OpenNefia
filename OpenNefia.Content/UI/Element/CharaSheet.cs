@@ -63,7 +63,7 @@ namespace OpenNefia.Content.UI.Element
                 Buff = buff;
             }
 
-            public override void GetPreferredSize(out Vector2i size)
+            public override void GetPreferredSize(out Vector2 size)
             {
                 size.X = TileWidth;
                 size.Y = TileHeight;
@@ -73,8 +73,8 @@ namespace OpenNefia.Content.UI.Element
             {
                 base.Draw();
                 GraphicsEx.SetColor(255, 255, 255, 120);
-                var x = X + (TileWidth / 2);
-                var y = Y + (TileHeight / 2);
+                var x = (X + (TileWidth / 2)) * UIScale;
+                var y = (Y + (TileHeight / 2)) * UIScale;
                 TileIcon.Draw(x, y, centered:true);
                 if (Buff.HasValue)
                 {
@@ -83,8 +83,7 @@ namespace OpenNefia.Content.UI.Element
                     HexBlessingIcons.DrawRegion(buffProto.RegionId, x, y);
                 }
             }
-
-        }    
+        } 
 
         [Dependency] private readonly IEntityManager _entityManager = default!;
         [Dependency] private readonly IWorldSystem _world = default!;
@@ -387,19 +386,19 @@ namespace OpenNefia.Content.UI.Element
             return cont;
         }
 
-        public override void GetPreferredSize(out Vector2i size)
+        public override void GetPreferredSize(out Vector2 size)
         {
             size.X = SheetWidth;
             size.Y = SheetHeight;
         }
 
-        public override void SetSize(int width, int height)
+        public override void SetSize(float width, float height)
         {
             base.SetSize(width, height);
             FaceFrame.SetPreferredSize();
         }
 
-        public override void SetPosition(int x, int y)
+        public override void SetPosition(float x, float y)
         {
             base.SetPosition(x, y);
             FaceFrame.SetPosition(x + 550, y + 25);
@@ -428,9 +427,9 @@ namespace OpenNefia.Content.UI.Element
         {
             base.Draw();
             GraphicsEx.SetColor(0, 0, 0, 75);
-            AssetIeSheet.Draw(X + 4, Y + 4, SheetWidth, SheetHeight);
+            AssetIeSheet.Draw(PixelX + 4, PixelY + 4, SheetWidth * UIScale, SheetHeight * UIScale);
             GraphicsEx.SetColor(Color.White);
-            AssetIeSheet.Draw(X, Y, SheetWidth, SheetHeight);
+            AssetIeSheet.Draw(PixelX, PixelY, SheetWidth * UIScale, SheetHeight * UIScale);
             FaceFrame.Draw();
             NameContainer.Draw();
             ClassContainer.Draw();

@@ -73,19 +73,19 @@ namespace OpenNefia.Content.CharaAppearance
             AppearanceControl.GrabFocus();
         }
 
-        public override void GetPreferredBounds(out UIBox2i bounds)
+        public override void GetPreferredBounds(out UIBox2 bounds)
         {
             AppearanceControl.GetPreferredSize(out var size);
             UiUtils.GetCenteredParams(size, out bounds, yOffset: -15);
         }
 
-        public override void SetSize(int width, int height)
+        public override void SetSize(float width, float height)
         {
             base.SetSize(width, height);
             AppearanceControl.SetSize(Width, Height);
         }
 
-        public override void SetPosition(int x, int y)
+        public override void SetPosition(float x, float y)
         {
             base.SetPosition(x, y);
             AppearanceControl.SetPosition(X, Y);

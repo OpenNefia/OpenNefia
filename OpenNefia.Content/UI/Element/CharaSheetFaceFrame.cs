@@ -42,19 +42,19 @@ namespace OpenNefia.Content.UI.Element
                 portraitProto = null;
         }
 
-        public override void GetPreferredSize(out Vector2i size)
+        public override void GetPreferredSize(out Vector2 size)
         {
             size = new(90, 120);
         }
 
-        public override void SetSize(int width, int height)
+        public override void SetSize(float width, float height)
         {
             base.SetSize(width, height);
             WindowFrame.SetSize(Width, Height);
             _entityBatch.SetSize(Width, Height);
         }
 
-        public override void SetPosition(int x, int y)
+        public override void SetPosition(float x, float y)
         {
             base.SetPosition(x, y);
             WindowFrame.SetPosition(X, Y);
@@ -69,7 +69,7 @@ namespace OpenNefia.Content.UI.Element
             if (portraitProto != null)
             {
                 _portraitBatch.Clear();
-                _portraitBatch.Add(portraitProto.Image.AtlasIndex, 0, 0, WindowFrame.Width - 8, WindowFrame.Height - 8);
+                _portraitBatch.Add(portraitProto.Image.AtlasIndex, 0, 0, WindowFrame.PixelWidth - 8, WindowFrame.PixelHeight - 8);
                 _portraitBatch.Flush();
             }
 
@@ -80,7 +80,7 @@ namespace OpenNefia.Content.UI.Element
         public override void Draw()
         {
             WindowFrame.Draw();
-            _portraitBatch.Draw(WindowFrame.X + 4, WindowFrame.Y + 4);
+            _portraitBatch.Draw(WindowFrame.PixelX + 4, WindowFrame.PixelY + 4);
             _entityBatch.Draw();
         }
     }

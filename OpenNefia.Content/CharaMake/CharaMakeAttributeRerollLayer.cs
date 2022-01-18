@@ -90,13 +90,13 @@ namespace OpenNefia.Content.CharaMake
                 }
             }
 
-            public override void SetSize(int width, int height)
+            public override void SetSize(float width, float height)
             {
                 height = 22;
                 base.SetSize(width, height);
             }
 
-            public override void SetPosition(int x, int y)
+            public override void SetPosition(float x, float y)
             {
                 base.SetPosition(x, y);
                 Icon.SetPosition(x + 150, y + 9);
@@ -286,12 +286,12 @@ namespace OpenNefia.Content.CharaMake
             List.GrabFocus();
         }
 
-        public override void GetPreferredBounds(out UIBox2i bounds)
+        public override void GetPreferredBounds(out UIBox2 bounds)
         {
             UiUtils.GetCenteredParams(360, 355, out bounds, yOffset: -10);
         }
 
-        public override void SetSize(int width, int height)
+        public override void SetSize(float width, float height)
         {
             base.SetSize(width, height);
             Window.SetSize(Width, Height);
@@ -299,7 +299,7 @@ namespace OpenNefia.Content.CharaMake
             LockAmount.SetPreferredSize();
         }
 
-        public override void SetPosition(int x, int y)
+        public override void SetPosition(float x, float y)
         {
             base.SetPosition(x, y);
             Window.SetPosition(X, Y);

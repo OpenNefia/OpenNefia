@@ -1,14 +1,6 @@
-﻿using Love;
-using OpenNefia.Core.Audio;
-using OpenNefia.Core.Maths;
+﻿using OpenNefia.Core.Maths;
 using OpenNefia.Core.UI;
 using OpenNefia.Core.UI.Element;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static OpenNefia.Core.Utility.FormattedMessage;
 
 namespace OpenNefia.Content.UI.Element
 {
@@ -16,7 +8,8 @@ namespace OpenNefia.Content.UI.Element
     {
         public IUiElement? PageTextParent { get; set; }
         private UiText PageText;
-        public Vector2i TextOffset;
+        public Vector2 TextOffset { get; set; }
+        public Vector2i TextPixelOffset => (Vector2i)(TextOffset * UIScale);
 
         public UiPageText(IUiElement? parent = null)
         {
@@ -35,12 +28,12 @@ namespace OpenNefia.Content.UI.Element
             PageText.Text = newPageCount > 0 ? $"Page.{newPage + 1}/{newPageCount + 1}" : string.Empty;
         }
 
-        public override void GetPreferredSize(out Vector2i size)
+        public override void GetPreferredSize(out Vector2 size)
         {
             size = PageTextParent != null ? PageTextParent.PixelSize : Vector2i.Zero;
         }
 
-        public override void SetSize(int width, int height)
+        public override void SetSize(float width, float height)
         {
             if (PageTextParent != null)
             {
@@ -52,7 +45,7 @@ namespace OpenNefia.Content.UI.Element
             PageText.SetPreferredSize();
         }
 
-        public override void SetPosition(int x, int y)
+        public override void SetPosition(float x, float y)
         {
             if (PageTextParent != null)
             {

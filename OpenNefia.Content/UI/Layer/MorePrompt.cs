@@ -49,14 +49,14 @@ namespace OpenNefia.Content.Logic
             _canFinish = false;
             _finished = false;
             _size = 0f;
-            _size2 = (AssetMorePrompt.Height / 2);
+            _size2 = (AssetMorePrompt.PixelHeight / 2);
             _delay = 0f;
         }
 
-        public override void GetPreferredBounds(out UIBox2i bounds)
+        public override void GetPreferredBounds(out UIBox2 bounds)
         {
-            var pos = _graphics.WindowSize - AssetMorePrompt.Size;
-            bounds = UIBox2i.FromDimensions(pos, AssetMorePrompt.Size);
+            var pos = _graphics.WindowSize - AssetMorePrompt.PixelSize;
+            bounds = UIBox2i.FromDimensions(pos, AssetMorePrompt.PixelSize);
         }
 
         public override UiResult<UINone>? GetResult()
@@ -92,9 +92,9 @@ namespace OpenNefia.Content.Logic
                 // short period so they can notice it.
                 _size += delta;
 
-                if (_size >= (AssetMorePrompt.Height / 2))
+                if (_size >= (AssetMorePrompt.PixelHeight / 2))
                 {
-                    _size = (AssetMorePrompt.Height / 2);
+                    _size = (AssetMorePrompt.PixelHeight / 2);
                     _delay += delta;
 
                     if (_delay > 20f)
@@ -113,11 +113,11 @@ namespace OpenNefia.Content.Logic
             if (HasResult)
             {
                 // FIXME don't use 0 as indicating default height...
-                AssetMorePrompt.Draw(X, Y + (AssetMorePrompt.Height / 2) - _size2, Width, _size2 * 2f + 1f);
+                AssetMorePrompt.Draw(X, Y + (AssetMorePrompt.PixelHeight / 2) - _size2, Width, _size2 * 2f + 1f);
             }
             else if (_size > 0f)
             {
-                AssetMorePrompt.Draw(X, Y + (AssetMorePrompt.Height / 2) - _size, Width, _size * 2f + 1f);
+                AssetMorePrompt.Draw(X, Y + (AssetMorePrompt.PixelHeight / 2) - _size, Width, _size * 2f + 1f);
             }
         }
     }

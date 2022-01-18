@@ -13,8 +13,13 @@ namespace OpenNefia.Content.UI.Element
         public FontSpec Font { get; set; }
 
         /// <summary>
-        /// Width of the text contained inside of the UI element, in pixels.
+        /// Width of the text contained inside of the UI element, in virtual pixels.
         /// </summary>
-        public int TextWidth { get; }
+        public float TextWidth { get; }
+
+        /// <summary>
+        /// Width of the text contained inside of the UI element, in physical pixels.
+        /// </summary>
+        public int TextPixelWidth { get; }
     }
 }

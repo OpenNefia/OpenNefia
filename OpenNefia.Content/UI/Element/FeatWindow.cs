@@ -1,10 +1,8 @@
-﻿using Love;
-using OpenNefia.Content.Feats;
+﻿using OpenNefia.Content.Feats;
 using OpenNefia.Content.Inventory;
 using OpenNefia.Content.Prototypes;
 using OpenNefia.Content.UI.Element.List;
 using OpenNefia.Core.Audio;
-using OpenNefia.Core.Input;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Locale;
 using OpenNefia.Core.Maths;
@@ -12,12 +10,6 @@ using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Core.UI.Element;
 using OpenNefia.Core.UserInterface;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Color = OpenNefia.Core.Maths.Color;
 
 namespace OpenNefia.Content.UI.Element
 {
@@ -74,14 +66,14 @@ namespace OpenNefia.Content.UI.Element
                 DescriptionText.Color = data.Color;
             }
 
-            private int Offset => Data switch
+            private float Offset => Data switch
             {
-                FeatNameAndDesc.FeatHeader header => 35,
-                FeatNameAndDesc.GainedFeat gained => -8,
-                _ => 0,
+                FeatNameAndDesc.FeatHeader header => 35f,
+                FeatNameAndDesc.GainedFeat gained => -8f,
+                _ => 0f,
             };
 
-            public override void SetPosition(int x, int y)
+            public override void SetPosition(float x, float y)
             {
                 base.SetPosition(x + Offset, y);
                 UiText.SetPosition(UiText.X, UiText.Y + 4);
@@ -91,16 +83,16 @@ namespace OpenNefia.Content.UI.Element
             //overriden because position needs to be slightly altered
             public override void DrawHighlight()
             {
-                var width = Math.Clamp(UiText.TextWidth + AssetSelectKey.Width + 8 + XOffset, 10, 480);
-                Graphics.SetBlendMode(BlendMode.Subtract);
+                var virtualWidth = Math.Clamp(UiText.TextWidth + AssetSelectKey.VirtualWidth(UIScale) + 8 + XOffset, 10, 480);
+                Love.Graphics.SetBlendMode(Love.BlendMode.Subtract);
                 GraphicsEx.SetColor(ColorSelectedSub);
-                Graphics.Rectangle(DrawMode.Fill, UiText.X - XOffset - 4, UiText.Y - 4, width, 19);
-                Graphics.SetBlendMode(BlendMode.Add);
+                GraphicsS.RectangleS(UIScale, Love.DrawMode.Fill, UiText.X - XOffset - 4, UiText.Y - 4, virtualWidth, 19);
+                Love.Graphics.SetBlendMode(Love.BlendMode.Add);
                 GraphicsEx.SetColor(ColorSelectedAdd);
-                Graphics.Rectangle(DrawMode.Fill, UiText.X - XOffset - 3, UiText.Y - 3, width - 2, 17);
-                Graphics.SetBlendMode(BlendMode.Alpha);
+                GraphicsS.RectangleS(UIScale, Love.DrawMode.Fill, UiText.X - XOffset - 3, UiText.Y - 3, virtualWidth - 2, 17);
+                Love.Graphics.SetBlendMode(Love.BlendMode.Alpha);
                 GraphicsEx.SetColor(Love.Color.White);
-                AssetListBullet.Draw(UiText.X - XOffset - 5 + width - 20, UiText.Y - 0);
+                AssetListBullet.DrawS(UIScale, UiText.X - XOffset - 5 + virtualWidth - 20, UiText.Y - 0);
             }
 
             /// <summary>
@@ -117,13 +109,13 @@ namespace OpenNefia.Content.UI.Element
                 if (IndexInList % 2 == 0 && Data is not FeatNameAndDesc.FeatHeader)
                 {
                     Love.Graphics.SetColor(UiColors.ListEntryAccent);
-                    Love.Graphics.Rectangle(Love.DrawMode.Fill, X - 1, Y, 650 - Offset, 18);
+                    GraphicsS.RectangleS(UIScale, Love.DrawMode.Fill, X - 1, Y, 650 - Offset, 18);
                 }
                 switch (Data)
                 {
                     case FeatNameAndDesc.GainedFeat feat:
                         GraphicsEx.SetColor(Color.White);
-                        FeatIcons.DrawRegion(GetFeatIconRegion(feat.Prototype.FeatType), X - 7, Y - 5);
+                        FeatIcons.DrawRegionS(UIScale, GetFeatIconRegion(feat.Prototype.FeatType), X - 7, Y - 5);
                         UiText.Draw();
                         break;
                     case FeatNameAndDesc.FeatHeader:
@@ -131,7 +123,7 @@ namespace OpenNefia.Content.UI.Element
                         break;
                     case FeatNameAndDesc.Feat feat:
                         GraphicsEx.SetColor(Color.White);
-                        FeatIcons.DrawRegion(GetFeatIconRegion(feat.Prototype.FeatType), X - 27, Y - 5);
+                        FeatIcons.DrawRegionS(UIScale, GetFeatIconRegion(feat.Prototype.FeatType), X - 27, Y - 5);
                         base.Draw();
                         DescriptionText.Draw();
                         break;
@@ -171,7 +163,7 @@ namespace OpenNefia.Content.UI.Element
             FeatCountText = new UiText(UiFonts.WindowPage);
 
             Window.Title = Loc.GetString("Elona.FeatMenu.Window.Title");
-            List = new UiPagedList<FeatNameAndDesc>(itemsPerPage: 15, this, new Vector2i(-55, -3));
+            List = new UiPagedList<FeatNameAndDesc>(itemsPerPage: 15, this, new Vector2(-55f, -3f));
 
             GetGainedFeatsFunc = getGainedFeatsFunc ?? (() => new Dictionary<PrototypeId<FeatPrototype>, int>());
             SelectFeatAction = selectFeatAction ?? (feat => { });
@@ -245,12 +237,12 @@ namespace OpenNefia.Content.UI.Element
             }
         }
 
-        public override void GetPreferredSize(out Vector2i size)
+        public override void GetPreferredSize(out Vector2 size)
         {
             size = new(730, 430);
         }
 
-        public override void SetSize(int width, int height)
+        public override void SetSize(float width, float height)
         {
             base.SetSize(width, height);
             Window.SetSize(Width, Height);
@@ -265,7 +257,7 @@ namespace OpenNefia.Content.UI.Element
             AssetInventoryIcons.SetPreferredSize();
         }
 
-        public override void SetPosition(int x, int y)
+        public override void SetPosition(float x, float y)
         {
             base.SetPosition(x, y);
             Window.SetPosition(x, y);

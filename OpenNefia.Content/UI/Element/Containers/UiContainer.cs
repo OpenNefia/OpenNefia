@@ -72,16 +72,16 @@ namespace OpenNefia.Content.UI.Element.Containers
             RelayoutPreferredSize();
         }
 
-        protected abstract Vector2i RelayoutPreferredSize();
+        protected abstract Vector2 RelayoutPreferredSize();
 
-        public override void GetPreferredSize(out Vector2i size)
+        public override void GetPreferredSize(out Vector2 size)
         {
             size = RelayoutPreferredSize();
         }
 
-        public override void SetPosition(int x, int y)
+        public override void SetPosition(float x, float y)
         {
-            int xDiff = X, yDiff = Y;
+            float xDiff = X, yDiff = Y;
             base.SetPosition(x, y);
             xDiff = X - xDiff;
             yDiff = Y - yDiff;

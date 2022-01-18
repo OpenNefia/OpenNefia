@@ -183,12 +183,12 @@ namespace OpenNefia.Content.UI.Layer
         public const int DEFAULT_WIDTH = 16 * 16 + 60;
         public const int DEFAULT_HEIGHT = 36;
 
-        public override void GetPreferredBounds(out UIBox2i bounds)
+        public override void GetPreferredBounds(out UIBox2 bounds)
         {
             UiUtils.GetCenteredParams(DEFAULT_WIDTH, DEFAULT_HEIGHT, out bounds);
         }
 
-        public override void SetSize(int width, int height)
+        public override void SetSize(float width, float height)
         {
             width = Math.Max(width, FontPromptText.LoveFont.GetWidth(Value));
 
@@ -198,7 +198,7 @@ namespace OpenNefia.Content.UI.Layer
             Text.SetPreferredSize();
         }
 
-        public override void SetPosition(int x, int y)
+        public override void SetPosition(float x, float y)
         {
             base.SetPosition(x, y);
 
@@ -219,27 +219,27 @@ namespace OpenNefia.Content.UI.Layer
             if (HasShadow)
             {
                 GraphicsEx.SetColor(ColorPromptBackground);
-                Love.Graphics.Rectangle(Love.DrawMode.Fill, X + 4, Y + 4, Width - 1, Height - 1);
+                GraphicsS.RectangleS(UIScale, Love.DrawMode.Fill, X + 4, Y + 4, Width - 1, Height - 1);
             }
 
             TopicWindow.Draw();
 
             GraphicsEx.SetColor(Love.Color.White);
-            AssetLabelInput.Draw(X + Width / 2 - 60, Y - 32);
+            AssetLabelInput.Draw(PixelX + PixelWidth / 2 - 60, PixelY - 32);
 
             if (IsCutOff)
             {
-                AssetImeStatusNone.Draw(X + 8, Y + 4);
+                AssetImeStatusNone.Draw(PixelX + 8, PixelY + 4);
             }
             else
             {
-                AssetImeStatusEnglish.Draw(X + 8, Y + 4);
+                AssetImeStatusEnglish.Draw(PixelX + 8, PixelY + 4);
             }
 
             Text.Draw();
 
             GraphicsEx.SetColor(255, 255, 255, (int)CaretAlpha);
-            AssetInputCaret.Draw(X + Text.Width + 34, Y + 5);
+            AssetInputCaret.Draw(PixelX + Text.PixelWidth + 34, PixelY + 5);
         }
 
         public override void Dispose()

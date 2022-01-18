@@ -93,14 +93,14 @@ namespace OpenNefia.Content.Inventory
                 UiSubtext.Text = entry.ItemDetailText;
             }
 
-            public override void SetSize(int width, int height)
+            public override void SetSize(float width, float height)
             {
                 UiText.SetSize(width, height);
                 UiSubtext.SetSize(width, height);
                 base.SetSize(Math.Max(width, UiText.Width), height);
             }
 
-            public override void SetPosition(int x, int y)
+            public override void SetPosition(float x, float y)
             {
                 base.SetPosition(x, y);
                 UiText.SetPosition(X + 30 + XOffset, Y + 1);
@@ -112,11 +112,11 @@ namespace OpenNefia.Content.Inventory
                 if (IndexInList % 2 == 0)
                 {
                     Love.Graphics.SetColor(UiColors.ListEntryAccent);
-                    Love.Graphics.Rectangle(Love.DrawMode.Fill, X - 1, Y, Width - 30, 18);
+                    GraphicsS.RectangleS(UIScale, Love.DrawMode.Fill, X - 1, Y, Width - 30, 18);
                 }
 
                 Love.Graphics.SetColor(Color.White);
-                AssetSelectKey.Draw(X, Y - 1);
+                AssetSelectKey.DrawS(UIScale, X, Y - 1);
                 KeyNameText.Draw();
 
                 Data.Origin.OnDraw();
@@ -124,7 +124,7 @@ namespace OpenNefia.Content.Inventory
                 UiText.Draw();
                 UiSubtext.Draw();
 
-                SpriteBatch.Add(Data.ItemEntityUid, X - 21, Y + 11, color: Data.ChipColor, centered: true);
+                SpriteBatch.Add(Data.ItemEntityUid, PixelX - 21, PixelY + 11, color: Data.ChipColor, centered: true);
             }
 
             public override void Update(float dt)
@@ -411,12 +411,12 @@ namespace OpenNefia.Content.Inventory
             }
         }
 
-        public override void GetPreferredBounds(out UIBox2i bounds)
+        public override void GetPreferredBounds(out UIBox2 bounds)
         {
             UiUtils.GetCenteredParams(640, 432, out bounds);
         }
 
-        public override void SetSize(int width, int height)
+        public override void SetSize(float width, float height)
         {
             base.SetSize(width, height);
 
@@ -438,7 +438,7 @@ namespace OpenNefia.Content.Inventory
             TextGoldCount.SetPreferredSize();
         }
 
-        public override void SetPosition(int x, int y)
+        public override void SetPosition(float x, float y)
         {
             base.SetPosition(x, y);
 
@@ -456,7 +456,7 @@ namespace OpenNefia.Content.Inventory
 
             TextTopicItemName.SetPosition(Window.X + 28, Window.Y + 30);
             TextTopicItemDetail.SetPosition(Window.X + 526, Window.Y + 30);
-            var notePos = UiUtils.NotePosition(GlobalPixelBounds, TextNoteTotalWeight);
+            var notePos = UiUtils.NotePosition(PixelRect, TextNoteTotalWeight);
             TextNoteTotalWeight.SetPosition(notePos.X, notePos.Y);
             TextGoldCount.SetPosition(Window.X + 368, Window.Y + 37);
         }

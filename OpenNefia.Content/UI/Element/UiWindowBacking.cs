@@ -20,59 +20,56 @@ namespace OpenNefia.Content.UI.Element
 
         public UiWindowBacking(WindowBackingType type = WindowBackingType.Normal)
         {
-            this.Type = type;
+            Type = type;
         }
 
-        public override void SetSize(int width, int height)
+        public override void SetSize(float width, float height)
         {
             base.SetSize(width, height);
 
-            var x = 0;
-            var y = 0;
+            var x_inner = PixelWidth + 0 - PixelWidth % 8 - 64;
+            var y_inner = PixelHeight + 0 - PixelHeight % 8 - 64;
 
-            var x_inner = width + x - width % 8 - 64;
-            var y_inner = height + y - height % 8 - 64;
-
-            y_inner = Math.Max(y_inner, y + 14);
+            y_inner = Math.Max(y_inner, 0 + 14);
 
             var parts = new List<AssetBatchPart>();
 
-            if (this.Type != WindowBackingType.Shadow)
+            if (Type != WindowBackingType.Shadow)
             {
-                parts.Add(new AssetBatchPart("top_left", x, y));
+                parts.Add(new AssetBatchPart("top_left", 0, 0));
             }
-            parts.Add(new AssetBatchPart("top_right", x_inner, y));
-            parts.Add(new AssetBatchPart("bottom_left", x, y_inner));
+            parts.Add(new AssetBatchPart("top_right", x_inner, 0));
+            parts.Add(new AssetBatchPart("bottom_left", 0, y_inner));
             parts.Add(new AssetBatchPart("bottom_right", x_inner, y_inner));
 
             for (int dx = 8; dx < width / 8 - 8; dx++)
             {
                 var tile = Math.Abs((dx - 8) % 18);
-                if (this.Type != WindowBackingType.Shadow)
+                if (Type != WindowBackingType.Shadow)
                 {
-                    parts.Add(new AssetBatchPart($"top_mid_{tile}", dx * 8 + x, y));
+                    parts.Add(new AssetBatchPart($"top_mid_{tile}", dx * 8 + 0, 0));
                 }
-                parts.Add(new AssetBatchPart($"bottom_mid_{tile}", dx * 8 + x, y_inner));
+                parts.Add(new AssetBatchPart($"bottom_mid_{tile}", dx * 8 + 0, y_inner));
             }
 
             for (int dy = 0; dy < height / 8 - 13; dy++)
             {
                 var tile_y = dy % 12;
-                if (this.Type != WindowBackingType.Shadow)
+                if (Type != WindowBackingType.Shadow)
                 {
-                    parts.Add(new AssetBatchPart($"mid_left_{tile_y}", x, dy * 8 + y + 48));
+                    parts.Add(new AssetBatchPart($"mid_left_{tile_y}", 0, dy * 8 + 0 + 48));
 
                     for (int dx = 0; dx < width / 8 - 14; dx++)
                     {
                         var tile_x = Math.Abs((dx - 8) % 18);
-                        parts.Add(new AssetBatchPart($"mid_mid_{tile_y}_{tile_x}", dx * 8 + x + 56, dy * 8 + y + 48));
+                        parts.Add(new AssetBatchPart($"mid_mid_{tile_y}_{tile_x}", dx * 8 + 0 + 56, dy * 8 + 0 + 48));
                     }
                 }
-                parts.Add(new AssetBatchPart($"mid_right_{tile_y}", x_inner, dy * 8 + y + 48));
+                parts.Add(new AssetBatchPart($"mid_right_{tile_y}", x_inner, dy * 8 + 0 + 48));
             }
 
-            this.AssetWindow = Assets.GetSized(Protos.Asset.Window, this.PixelSize);
-            this.Batch = this.AssetWindow.MakeBatch(parts);
+            AssetWindow = Assets.GetSized(Protos.Asset.Window, PixelSize);
+            Batch = AssetWindow.MakeBatch(parts);
         }
 
         public override void Update(float dt)
@@ -81,12 +78,12 @@ namespace OpenNefia.Content.UI.Element
 
         public override void Draw()
         {
-            Love.Graphics.Draw(this.Batch!, this.X, this.Y);
+            Love.Graphics.Draw(Batch!, PixelX, PixelY);
         }
 
         public override void Dispose()
         {
-            this.Batch?.Dispose();
+            Batch?.Dispose();
         }
     }
 }

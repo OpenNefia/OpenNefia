@@ -27,7 +27,7 @@ namespace OpenNefia.Content.TitleScreen
 
         public class TitleScreenCell : UiListCell<TitleScreenChoice>
         {
-            private const int ITEM_HEIGHT = 35;
+            private const float ITEM_HEIGHT = 35;
 
             [Localize("Subtext")]
             public IUiText TextSubtext;
@@ -46,7 +46,7 @@ namespace OpenNefia.Content.TitleScreen
                 SetPosition(X, Y);
             }
 
-            public override void SetPosition(int x, int y)
+            public override void SetPosition(float x, float y)
             {
                 base.SetPosition(x, y);
                 if (TextSubtext.Text != string.Empty)
@@ -60,7 +60,7 @@ namespace OpenNefia.Content.TitleScreen
                 }
             }
 
-            public override void SetSize(int width, int height)
+            public override void SetSize(float width, float height)
             {
                 height = ITEM_HEIGHT;
 
@@ -72,7 +72,7 @@ namespace OpenNefia.Content.TitleScreen
             public override void Draw()
             {
                 GraphicsEx.SetColor(Love.Color.White);
-                AssetSelectKey.Draw(X, Y - 1);
+                AssetSelectKey.DrawS(UIScale, X, Y - 1);
                 KeyNameText.Draw();
                 UiText.Draw();
                 if (Loc.IsFullwidth())
@@ -193,14 +193,14 @@ namespace OpenNefia.Content.TitleScreen
             }
         }
 
-        public override void SetSize(int width, int height)
+        public override void SetSize(float width, float height)
         {
             base.SetSize(width, height);
             Window.SetSize(320, 355);
             List.SetPreferredSize();
         }
 
-        public override void SetPosition(int x, int y)
+        public override void SetPosition(float x, float y)
         {
             base.SetPosition(x, y);
             TextInfo[0].SetPosition(X + 20, Y + 20);
@@ -235,10 +235,10 @@ namespace OpenNefia.Content.TitleScreen
             var bgPicWidth = Window.Width / 5 * 4;
             var bgPicHeight = Window.Height - 80;
             GraphicsEx.SetColor(255, 255, 255, 50);
-            AssetG4.Draw(Window.X + 160 - bgPicWidth / 2,
-                              Window.Y + Window.Height / 2 - bgPicHeight / 2,
-                              bgPicWidth,
-                              bgPicHeight);
+            AssetG4.DrawS(UIScale, Window.X + 160 - bgPicWidth / 2,
+                                   Window.Y + Window.Height / 2 - bgPicHeight / 2,
+                                   bgPicWidth,
+                                   bgPicHeight);
         }
 
         public override void Dispose()

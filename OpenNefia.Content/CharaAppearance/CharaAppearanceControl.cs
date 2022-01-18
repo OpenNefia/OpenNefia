@@ -242,12 +242,12 @@ namespace OpenNefia.Content.CharaAppearance
             AppearanceList.GrabFocus();
         }
 
-        public override void GetPreferredSize(out Vector2i size)
+        public override void GetPreferredSize(out Vector2 size)
         {
             size = new(380, 340);
         }
 
-        public override void SetSize(int width, int height)
+        public override void SetSize(float width, float height)
         {
             base.SetSize(width, height);
             Window.SetSize(Width, Height);
@@ -256,7 +256,7 @@ namespace OpenNefia.Content.CharaAppearance
             PreviewPanel.SetPreferredSize();
         }
 
-        public override void SetPosition(int x, int y)
+        public override void SetPosition(float x, float y)
         {
             base.SetPosition(x, y);
             Window.SetPosition(X, Y);

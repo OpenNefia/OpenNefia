@@ -208,7 +208,7 @@ namespace OpenNefia.Content.CharaAppearance
             UiText.Text = $"{baseText} {valueText}";
         }
 
-        public override void SetSize(int width, int height)
+        public override void SetSize(float width, float height)
         {
             base.SetSize(width, height);
             AssetArrowLeft.SetPreferredSize();
@@ -216,12 +216,12 @@ namespace OpenNefia.Content.CharaAppearance
             AssetArrowRight.SetPreferredSize();
         }
 
-        public override void SetPosition(int x, int y)
+        public override void SetPosition(float x, float y)
         {
             base.SetPosition(x, y);
             AssetArrowLeft.SetPosition(X, Y - 2);
-            UiText.SetPosition(AssetArrowLeft.GlobalPixelBounds.Right + 5, Y + 2);
-            AssetArrowRight.SetPosition(UiText.GlobalPixelBounds.Right + 5 + 1, Y - 2);
+            UiText.SetPosition(AssetArrowLeft.PixelRect.Right + 5, Y + 2);
+            AssetArrowRight.SetPosition(UiText.PixelRect.Right + 5 + 1, Y - 2);
         }
 
         public void Change(int delta)

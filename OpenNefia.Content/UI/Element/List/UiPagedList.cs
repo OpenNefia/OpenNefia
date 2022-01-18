@@ -36,7 +36,7 @@ namespace OpenNefia.Content.UI.Element.List
             remove => _pageModel.OnPageChanged -= value;
         }
 
-        public UiPagedList(int itemsPerPage = 16, IUiElement? elementForPageText = null, Vector2i? textOffset = null) : base()
+        public UiPagedList(int itemsPerPage = 16, IUiElement? elementForPageText = null, Vector2? textOffset = null) : base()
         {
             _pageModel = new UiPageModel<UiListCell<T>>(itemsPerPage);
             _pageModel.SetElements(AllCells);
@@ -122,13 +122,13 @@ namespace OpenNefia.Content.UI.Element.List
             return SetPage(CurrentPage - 1);
         }
 
-        public override void SetSize(int width, int height)
+        public override void SetSize(float width, float height)
         {
             base.SetSize(width, height);
             PageText.SetSize(width, height);
         }
 
-        public override void SetPosition(int x, int y)
+        public override void SetPosition(float x, float y)
         {
             base.SetPosition(x, y);
             PageText.SetPosition(x, y);

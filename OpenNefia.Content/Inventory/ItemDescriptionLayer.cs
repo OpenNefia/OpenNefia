@@ -107,7 +107,7 @@ namespace OpenNefia.Content.Inventory
             }
         }
 
-        public override void SetSize(int width, int height)
+        public override void SetSize(float width, float height)
         {
             base.SetSize(width, height);
 
@@ -118,7 +118,7 @@ namespace OpenNefia.Content.Inventory
             WrapDescription(maxWidth);
         }
 
-        public override void SetPosition(int x, int y)
+        public override void SetPosition(float x, float y)
         {
             base.SetPosition(x, y);
 
@@ -131,7 +131,7 @@ namespace OpenNefia.Content.Inventory
             Sounds.Play(Protos.Sound.Pop2);
         }
 
-        public override void GetPreferredBounds(out UIBox2i bounds)
+        public override void GetPreferredBounds(out UIBox2 bounds)
         {
             UiUtils.GetCenteredParams(600, 408, out bounds);
         }
@@ -164,7 +164,7 @@ namespace OpenNefia.Content.Inventory
                         break;
                     case ItemDescriptionType.FlavorItalic:
                         font = UiFonts.ItemDescFlavorItalic.WithColor(entry.TextColor);
-                        x = GlobalPixelBounds.Right - font.LoveFont.GetWidth(entry.Text) - 80;
+                        x = PixelRect.Right - font.LoveFont.GetWidth(entry.Text) - 80;
                         break;
                     case ItemDescriptionType.Normal:
                     default:

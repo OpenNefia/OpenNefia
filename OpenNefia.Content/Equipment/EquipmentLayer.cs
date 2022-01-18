@@ -117,16 +117,16 @@ namespace OpenNefia.Content.Equipment
                 Icon = Data.EquipSlotIcon;
             }
 
-            public override void SetPosition(int x, int y)
+            public override void SetPosition(float x, float y)
             {
-                XOffset = 30;
+                XOffset = 30f;
                 base.SetPosition(x, y);
                 Icon?.SetPosition(X - 66, Y - 2);
                 TextEquipSlotName.SetPosition(X - 42, Y + 3);
-                TextSubtext.SetPosition(X + Width - 44 - TextSubtext.TextWidth, Y + 2);
+                TextSubtext.SetPosition(X + Width - 44 - TextSubtext.TextPixelWidth, Y + 2);
             }
 
-            public override void SetSize(int width, int height)
+            public override void SetSize(float width, float height)
             {
                 base.SetSize(width, height);
                 Icon?.SetPreferredSize();
@@ -146,7 +146,7 @@ namespace OpenNefia.Content.Equipment
                 if (IndexInList % 2 == 0)
                 {
                     Love.Graphics.SetColor(UiColors.ListEntryAccent);
-                    Love.Graphics.Rectangle(Love.DrawMode.Fill, X - 1, Y, Width - 30, 18);
+                    GraphicsS.RectangleS(UIScale, Love.DrawMode.Fill, X - 1, Y, Width - 30, 18);
                 }
 
                 Love.Graphics.SetColor(Color.White);
@@ -161,7 +161,7 @@ namespace OpenNefia.Content.Equipment
                 TextSubtext.Draw();
 
                 if (Data.ItemEntityUid != null)
-                    SpriteBatch.Add(Data.ItemEntityUid.Value, X + 12 + 28, Y + 10, centered: true);
+                    SpriteBatch.Add(Data.ItemEntityUid.Value, PixelX + 12 + 28, PixelY + 10, centered: true);
             }
 
             public override void Dispose()
@@ -430,12 +430,12 @@ namespace OpenNefia.Content.Equipment
             Sounds.Play(Sound.Wear);
         }
 
-        public override void GetPreferredBounds(out UIBox2i bounds)
+        public override void GetPreferredBounds(out UIBox2 bounds)
         {
             UiUtils.GetCenteredParams(690, 428, out bounds);
         }
 
-        public override void SetSize(int width, int height)
+        public override void SetSize(float width, float height)
         {
             base.SetSize(width, height);
             Window.SetSize(Width, Height);
@@ -450,7 +450,7 @@ namespace OpenNefia.Content.Equipment
             TextNoteEquipStats.SetPreferredSize();
         }
 
-        public override void SetPosition(int x, int y)
+        public override void SetPosition(float x, float y)
         {
             base.SetPosition(x, y);
             Window.SetPosition(X, Y);
@@ -462,7 +462,7 @@ namespace OpenNefia.Content.Equipment
             AssetInventoryIcons.SetPosition(Window.X + 46, Window.Y - 16);
             AssetDecoWearA.SetPosition(Window.X + Window.Width - 106, Window.Y);
             AssetDecoWearB.SetPosition(Window.X, Window.Y + Window.Height - 164);
-            var notePos = UiUtils.NotePosition(GlobalPixelBounds, TextNoteEquipStats);
+            var notePos = UiUtils.NotePosition(PixelRect, TextNoteEquipStats);
             TextNoteEquipStats.SetPosition(notePos.X, notePos.Y);
         }
 
