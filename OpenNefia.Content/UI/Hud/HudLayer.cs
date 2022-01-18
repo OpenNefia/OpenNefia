@@ -17,8 +17,14 @@ namespace OpenNefia.Content.UI.Hud
         {
             IoCManager.InjectDependencies(this);
 
-            MessageWindow = new SimpleMessageWindow();
+            LayerUIScale = _graphics.WindowScale;
+
+            var messageWindow = new SimpleMessageWindow();
+            MessageWindow = messageWindow;
             FpsCounter = new UiFpsCounter();
+
+            AddChild(messageWindow);
+            AddChild(FpsCounter);
         }
 
         public override void SetSize(float width, float height)

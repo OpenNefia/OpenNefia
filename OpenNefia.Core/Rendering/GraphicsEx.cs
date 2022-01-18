@@ -14,6 +14,16 @@ namespace OpenNefia.Core.Rendering
 {
     public static class GraphicsEx
     {
+        public static void DrawImageS(float uiScale, Love.Texture image, float x, float y, float? width = null, float? height = null, bool centered = false, float rotation = 0)
+        {
+            if (width == null)
+                width = image.GetWidth();
+            if (height == null)
+                height = image.GetHeight();
+
+            DrawImage(image, x * uiScale, y * uiScale, width.Value * uiScale, height.Value * uiScale, centered, rotation);
+        }
+
         public static void DrawImage(Love.Texture image, float x = 0, float y = 0, float width = 0, float height = 0, bool centered = false, float rotation = 0)
         {
             var sx = 1f;

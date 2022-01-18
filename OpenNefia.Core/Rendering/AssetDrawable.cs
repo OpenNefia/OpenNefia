@@ -13,16 +13,7 @@ namespace OpenNefia.Core.Rendering
     /// A UI element wrapper around an <see cref="IAssetInstance"/> with its own
     /// position, color, and other properties.
     /// </summary>
-    public interface IAssetDrawable : IUiElement
-    {
-        IAssetInstance Instance { get; set; }
-        Color Color { get; set; }
-        bool Centered { get; set; }
-        float Rotation { get; set; }
-        string? RegionId { get; set; }
-    }
-
-    public class AssetDrawable : UiElement, IAssetDrawable
+    public class AssetDrawable : UiElement
     {
         public IAssetInstance Instance { get; set; }
         public Color Color { get; set; } = Color.White;

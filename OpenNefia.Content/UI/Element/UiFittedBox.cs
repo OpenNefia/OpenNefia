@@ -79,14 +79,22 @@ namespace OpenNefia.Content.UI.Element
     /// </remarks>
     public class UiFittedBox : UiElement
     {
-        private IUiElement? _child;
-        public IUiElement? Child 
+        private UiElement? _child;
+        public UiElement? Child 
         {
             get => _child; 
             set
             {
+                if (_child != null)
+                    RemoveChild(_child);
+
                 _child = value;
-                RelayoutChild();
+
+                if (_child != null)
+                {
+                    AddChild(_child);
+                    RelayoutChild();
+                }
             }
         }
 
@@ -94,7 +102,7 @@ namespace OpenNefia.Content.UI.Element
 
         public UiAlignment Alignment { get; set; }
 
-        public UiFittedBox(IUiElement? child = null)
+        public UiFittedBox(UiElement? child = null)
         {
             Child = child;
         }

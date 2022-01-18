@@ -56,7 +56,7 @@ namespace OpenNefia.Content.UI
             Love.Graphics.SetColor(Love.Color.Red);
             GraphicsS.RectangleS(elem.UIScale, Love.DrawMode.Line, elem.X, elem.Y, elem.Width, elem.Height);
             Love.Graphics.SetColor(Love.Color.Blue);
-            Love.Graphics.Line(elem.X, elem.Y, elem.X + elem.Width, elem.Y + elem.Height);
+            GraphicsS.LineS(elem.UIScale, elem.X, elem.Y, elem.X + elem.Width, elem.Y + elem.Height);
         }
 
         public static string DisplayWeight(int weight)

@@ -94,8 +94,8 @@ namespace OpenNefia.Content.Equipment
         public class ListCell : UiListCell<CellData>
         {
             private IUiElement? Icon;
-            private readonly IUiText TextEquipSlotName = new UiText(UiFonts.EquipmentEquipSlotName);
-            private readonly IUiText TextSubtext = new UiText();
+            private readonly UiText TextEquipSlotName = new UiText(UiFonts.EquipmentEquipSlotName);
+            private readonly UiText TextSubtext = new UiText();
 
             private readonly EntitySpriteBatch SpriteBatch;
 
@@ -180,26 +180,26 @@ namespace OpenNefia.Content.Equipment
         [Dependency] private readonly IStackSystem _stackSystem = default!;
         [Dependency] private readonly IPrototypeManager _protos = default!;
 
-        protected IAssetDrawable AssetInventoryIcons;
-        protected IAssetDrawable AssetDecoWearA;
-        protected IAssetDrawable AssetDecoWearB;
+        protected AssetDrawable AssetInventoryIcons;
+        protected AssetDrawable AssetDecoWearA;
+        protected AssetDrawable AssetDecoWearB;
 
         /// <summary>
         /// "Category/Name"
         /// </summary>
         [Localize("Topic.CategoryName")]
-        protected IUiText TextTopicCategoryName = new UiTextTopic();
+        protected UiText TextTopicCategoryName = new UiTextTopic();
 
         /// <summary>
         /// "Weight"
         /// </summary>
         [Localize("Topic.Weight")]
-        protected IUiText TextTopicWeight = new UiTextTopic();
+        protected UiText TextTopicWeight = new UiTextTopic();
 
         /// <summary>
         /// Total equipment weight, armor class, hit/damage bonuses.
         /// </summary>
-        protected IUiText TextNoteEquipStats = new UiText(UiFonts.TextNote);
+        protected UiText TextNoteEquipStats = new UiText(UiFonts.TextNote);
 
         [Localize] protected UiWindow Window = new(keyHintXOffset: 64);
         protected UiPagedList<CellData> List = new(itemsPerPage: 14);

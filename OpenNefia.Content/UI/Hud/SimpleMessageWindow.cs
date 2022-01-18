@@ -25,15 +25,16 @@ namespace OpenNefia.Content.UI.Hud
         private bool NeedsRelayout;
 
         private FontSpec FontTargetText = UiFonts.TargetText;
-        private IUiText[] TextMessages;
+        private UiText[] TextMessages;
 
         public SimpleMessageWindow()
         {
             Messages = new CircularBuffer<ColoredString>(50);
-            TextMessages = new IUiText[12];
+            TextMessages = new UiText[12];
             for (int i = 0; i < TextMessages.Length; i++)
             {
                 TextMessages[i] = new UiTextOutlined(FontTargetText);
+                AddChild(TextMessages[i]);
             }
             NeedsRelayout = true;
         }

@@ -28,7 +28,7 @@ namespace OpenNefia.Content.UI.Layer
 
         private FontSpec FontListText = UiFonts.ListText;
         private Color ColorTextBlack = UiColors.TextBlack;
-        private IUiText TextStatus;
+        private UiText TextStatus;
         private UiWindow Window;
 
         public ProgressBarLayer()

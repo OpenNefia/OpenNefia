@@ -37,11 +37,13 @@ namespace OpenNefia.Content.TitleScreen
 
         private sealed class RestoreSaveUICell : UiListCell<RestoreSaveCellData>
         {
-            private IUiText TextSaveDate = new UiText();
+            private UiText TextSaveDate = new UiText();
 
             public RestoreSaveUICell(RestoreSaveCellData data)
                 : base(data, new UiText(), null)
             {
+                AddChild(TextSaveDate);
+
                 OnCellDataChanged();
             }
 
@@ -90,7 +92,7 @@ namespace OpenNefia.Content.TitleScreen
         [Dependency] private readonly IPlayerQuery _playerQuery = default!;
 
         private readonly IAssetInstance AssetVoid;
-        private readonly IAssetDrawable AssetNoScreenshot;
+        private readonly AssetDrawable AssetNoScreenshot;
 
         [Localize] private readonly UiWindow Window = new();
         private readonly UiPagedList<RestoreSaveCellData> List = new(itemsPerPage: 18);
@@ -100,9 +102,9 @@ namespace OpenNefia.Content.TitleScreen
         private readonly UiFittedBox ScreenshotBox;
         private UiTextureElement? ScreenshotElement;
 
-        [Localize("NoSaves")] private readonly IUiText TextNoSaves = new UiText();
-        [Localize("Topic.SaveName")] private readonly IUiText TextTopicSaveName = new UiTextTopic();
-        [Localize("Topic.SaveDate")] private readonly IUiText TextTopicSaveDate = new UiTextTopic();
+        [Localize("NoSaves")] private readonly UiText TextNoSaves = new UiText();
+        [Localize("Topic.SaveName")] private readonly UiText TextTopicSaveName = new UiTextTopic();
+        [Localize("Topic.SaveDate")] private readonly UiText TextTopicSaveDate = new UiTextTopic();
 
         public RestoreSaveLayer()
         {
@@ -121,6 +123,11 @@ namespace OpenNefia.Content.TitleScreen
 
             AddChild(ScreenshotBox);
             AddChild(List);
+            AddChild(Window);
+            AddChild(Caption);
+            AddChild(TextNoSaves);
+            AddChild(TextTopicSaveName);
+            AddChild(TextTopicSaveDate);
         }
 
         public override void GrabFocus()

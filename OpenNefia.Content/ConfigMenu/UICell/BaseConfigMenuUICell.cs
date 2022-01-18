@@ -23,7 +23,7 @@ namespace OpenNefia.Content.ConfigMenu.UICell
     public abstract class BaseConfigMenuUICell : UiListCell<UINone>
     {
         public IConfigMenuNode MenuNode { get; }
-        public IUiText ValueText { get; } = new UiText(UiFonts.ListText);
+        public UiText ValueText { get; } = new UiText(UiFonts.ListText);
 
         protected BaseConfigMenuUICell(IConfigMenuNode menuNode) : base(new(), "", null)
         {
@@ -72,8 +72,8 @@ namespace OpenNefia.Content.ConfigMenu.UICell
 
         protected ConfigMenuItemProtoId ProtoId { get; }
 
-        protected IAssetDrawable AssetArrowLeft;
-        protected IAssetDrawable AssetArrowRight;
+        protected AssetDrawable AssetArrowLeft;
+        protected AssetDrawable AssetArrowRight;
 
         protected virtual bool ShowArrows => true;
 

@@ -38,6 +38,7 @@ namespace OpenNefia.Content.Logic
             {
                 if (_canFinish)
                 {
+                    _size2 = Height / 2;
                     Sounds.Play(Sound.Ok1);
                     Finish(new());
                 }
@@ -49,7 +50,7 @@ namespace OpenNefia.Content.Logic
             _canFinish = false;
             _finished = false;
             _size = 0f;
-            _size2 = (AssetMorePrompt.PixelHeight / 2);
+            _size2 = 0f;
             _delay = 0f;
         }
 
@@ -92,9 +93,9 @@ namespace OpenNefia.Content.Logic
                 // short period so they can notice it.
                 _size += delta;
 
-                if (_size >= (AssetMorePrompt.PixelHeight / 2))
+                if (_size >= Height / 2)
                 {
-                    _size = (AssetMorePrompt.PixelHeight / 2);
+                    _size = Height / 2;
                     _delay += delta;
 
                     if (_delay > 20f)
@@ -113,11 +114,11 @@ namespace OpenNefia.Content.Logic
             if (HasResult)
             {
                 // FIXME don't use 0 as indicating default height...
-                AssetMorePrompt.Draw(X, Y + (AssetMorePrompt.PixelHeight / 2) - _size2, Width, _size2 * 2f + 1f);
+                AssetMorePrompt.DrawS(UIScale, X, Y + (Height / 2) - _size2, Width, _size2 * 2f + 1f);
             }
             else if (_size > 0f)
             {
-                AssetMorePrompt.Draw(X, Y + (AssetMorePrompt.PixelHeight / 2) - _size, Width, _size * 2f + 1f);
+                AssetMorePrompt.DrawS(UIScale, X, Y + (Height / 2) - _size, Width, _size * 2f + 1f);
             }
         }
     }

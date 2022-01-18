@@ -58,7 +58,7 @@ namespace OpenNefia.Content.Equipment
             }
         }
 
-        public static IAssetDrawable MakeEquipSlotIcon(EquipSlotIcon icon)
+        public static AssetDrawable MakeEquipSlotIcon(EquipSlotIcon icon)
         {
             if (!Enum.IsDefined(typeof(EquipSlotIcon), icon))
             {

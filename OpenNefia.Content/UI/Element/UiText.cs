@@ -7,7 +7,7 @@ using OpenNefia.Core.UI.Element;
 
 namespace OpenNefia.Content.UI.Element
 {
-    public class UiText : UiElement, IUiText
+    public class UiText : UiElement
     {
         protected Love.Text BakedText;
 

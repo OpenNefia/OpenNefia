@@ -4,7 +4,7 @@ namespace OpenNefia.Core.Rendering
 {
     /// <summary>
     /// Represents one copy of a loaded asset's graphics data, which
-    /// can be reused with multiple <see cref="IAssetDrawable"/>s.
+    /// can be reused with multiple <see cref="AssetDrawable"/>s.
     /// </summary>
     public interface IAssetInstance : IDisposable
     {

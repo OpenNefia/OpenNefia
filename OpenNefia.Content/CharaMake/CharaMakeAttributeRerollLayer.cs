@@ -47,7 +47,7 @@ namespace OpenNefia.Content.CharaMake
             {
                 public override string Text => Loc.GetPrototypeString(Id, "Name")!;
 
-                public IUiText AmountText = default!;
+                public UiText AmountText = default!;
                 public bool Locked;
                 private int _amount;
                 public int Amount

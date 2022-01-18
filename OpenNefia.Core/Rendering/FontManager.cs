@@ -44,6 +44,8 @@ namespace OpenNefia.Core.Rendering
             _fontCache.Clear();
         }
 
+        // TODO: Needs UI scale passed to it
+        [Obsolete("Pass UIScale as argument")]
         public Love.Font GetFont(FontSpec spec)
         {
             var size = _localization.IsFullwidth() ? spec.Size : spec.SmallSize;

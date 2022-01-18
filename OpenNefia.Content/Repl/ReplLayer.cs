@@ -108,10 +108,10 @@ namespace OpenNefia.Content.Repl
         public Color ColorReplTextResult { get; } = UiColors.ReplTextResult;
         public Color ColorReplTextError { get; } = UiColors.ReplTextError;
 
-        private IUiText _textCaret;
-        private IUiText _textEditingLine;
-        private IUiText _textScrollbackCounter;
-        private IUiText[] _textScrollback;
+        private UiText _textCaret;
+        private UiText _textEditingLine;
+        private UiText _textScrollbackCounter;
+        private UiText[] _textScrollback;
 
         private CompletionsPane _completionsPane;
 
@@ -154,7 +154,7 @@ namespace OpenNefia.Content.Repl
             _textCaret = new UiText(FontReplText, "> ");
             _textEditingLine = new UiText(FontReplText, "");
             _textScrollbackCounter = new UiText(FontReplText, "0/0");
-            _textScrollback = new IUiText[0];
+            _textScrollback = new UiText[0];
 
             _scrollbackBuffer = new CircularBuffer<ReplTextLine>(10000);
             _completionsPane = new CompletionsPane((input, caret) => _executor.Complete(input, caret));
@@ -544,7 +544,7 @@ namespace OpenNefia.Content.Repl
 
             foreach (var text in _textScrollback)
                 text.Dispose();
-            _textScrollback = new IUiText[MaxLines];
+            _textScrollback = new UiText[MaxLines];
             for (int i = 0; i < MaxLines; i++)
                 _textScrollback[i] = new UiText(FontReplText);
 
@@ -721,7 +721,7 @@ namespace OpenNefia.Content.Repl
 
         public CompletionItemWithDescription? SelectedItem { get => FilteredView.SelectedItem?.Completion; }
 
-        private record CompletionPaneEntry(IUiText Text,
+        private record CompletionPaneEntry(UiText Text,
                                            IAssetInstance Icon,
                                            CompletionItemWithDescription Completion);
 

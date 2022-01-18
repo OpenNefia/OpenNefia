@@ -12,8 +12,8 @@ namespace OpenNefia.Core.UI.Layer
     {
         private readonly IInputManager _inputManager = default!;
 
-        internal float _uiScale = 1f;
-        public override float UIScale => _uiScale;
+        public float LayerUIScale { get; set; } = 1f;
+        public override float UIScale => LayerUIScale;
 
         public virtual int? DefaultZOrder => null;
         public int ZOrder { get; set; }

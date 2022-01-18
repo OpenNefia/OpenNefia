@@ -22,7 +22,7 @@ namespace OpenNefia.Content.UI.Element
         private FontSpec FontText = UiFonts.FpsCounter;
 
         public bool ShowDrawStats { get; set; } = true;
-        public IUiText Text { get; }
+        public UiText Text { get; }
 
         public UiFpsCounter()
         {

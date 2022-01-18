@@ -68,7 +68,7 @@ namespace OpenNefia.Content.UI.Layer
 
         protected Color ColorTargetedTile = UiColors.PromptTargetedTile;
         protected FontSpec FontTargetText = UiFonts.TargetText;
-        protected IUiText TextTarget;
+        protected UiText TextTarget;
 
         public PositionPrompt()
         {

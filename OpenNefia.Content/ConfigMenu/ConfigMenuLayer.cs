@@ -42,9 +42,9 @@ namespace OpenNefia.Content.ConfigMenu
         [Dependency] private readonly IConfigMenuUICellFactory _cellFactory = default!;
 
         [Localize("Topic.Menu")]
-        private IUiText TextTopicMenu = new UiTextTopic();
+        private UiText TextTopicMenu = new UiTextTopic();
 
-        private IAssetDrawable AssetG2;
+        private AssetDrawable AssetG2;
 
         // The UI cells are generic based on the config option type, so UINone is
         // used to have them all in one list.

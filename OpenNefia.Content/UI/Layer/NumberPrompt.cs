@@ -82,7 +82,7 @@ namespace OpenNefia.Content.UI.Layer
 
         protected Color ColorPromptBackground = UiColors.PromptBackground;
         protected FontSpec FontPromptText = UiFonts.PromptText;
-        protected IUiText Text;
+        protected UiText Text;
 
         public NumberPrompt()
         {
