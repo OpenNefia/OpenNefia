@@ -35,6 +35,7 @@ namespace OpenNefia.Core.Graphics
         event Action<MouseButtonEventArgs>? OnMousePressed;
         event Action<MouseButtonEventArgs>? OnMouseReleased;
         event Action<MouseWheelEventArgs>? OnMouseWheel;
+        event Action<WindowScaleChangedEventArgs>? OnWindowScaleChanged;
         event Func<QuitEventArgs, bool>? OnQuit;
 
         WindowSettings GetWindowSettings();

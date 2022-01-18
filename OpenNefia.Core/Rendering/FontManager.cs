@@ -1,5 +1,6 @@
 ﻿using OpenNefia.Core.Configuration;
 using OpenNefia.Core.Graphics;
+using OpenNefia.Core.Input;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Locale;
 using OpenNefia.Core.Prototypes;
@@ -31,7 +32,7 @@ namespace OpenNefia.Core.Rendering
 
             _localization.OnLanguageSwitched += HandleLanguageSwitched;
 
-            _config.OnValueChanged(CVars.DisplayUIScale, OnConfigDisplayUIScaleChanged);
+            _graphics.OnWindowScaleChanged += HandleWindowScaleChanged;
         }
 
         /// <summary>
@@ -43,7 +44,7 @@ namespace OpenNefia.Core.Rendering
             ClearCache();
         }
 
-        private void OnConfigDisplayUIScaleChanged(float _)
+        private void HandleWindowScaleChanged(WindowScaleChangedEventArgs obj)
         {
             ClearCache();
         }
@@ -58,7 +59,7 @@ namespace OpenNefia.Core.Rendering
             _fontCache.Clear();
         }
 
-        public Love.Font GetFont(FontSpec spec) => GetFont(spec, _config.GetCVar(CVars.DisplayUIScale));
+        public Love.Font GetFont(FontSpec spec) => GetFont(spec, _graphics.WindowScale);
 
         // TODO: Needs UI scale passed to it
         public Love.Font GetFont(FontSpec spec, float uiScale)

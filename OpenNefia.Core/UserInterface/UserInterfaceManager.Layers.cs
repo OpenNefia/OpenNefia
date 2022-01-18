@@ -1,5 +1,6 @@
 ﻿using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Graphics;
+using OpenNefia.Core.Input;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Locale;
 using OpenNefia.Core.Log;
@@ -104,13 +105,13 @@ namespace OpenNefia.Core.UserInterface
             }
         }
 
-        private void OnConfigDisplayUIScaleChanged(float newUiScale)
+        private void HandleWindowScaleChanged(WindowScaleChangedEventArgs evt)
         {
-            var ev = new GUIScaleChangedEventArgs(globalUIScale: _graphics.WindowScale);
+            var ev = new GUIScaleChangedEventArgs(globalUIScale: evt.UIScale);
 
             foreach (var layer in this.Layers)
             {
-                layer.LayerUIScale = newUiScale;
+                layer.LayerUIScale = evt.UIScale;
 
                 NotifyUIScaleChanged(layer, ev);
 

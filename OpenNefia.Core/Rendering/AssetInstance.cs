@@ -96,13 +96,14 @@ namespace OpenNefia.Core.Rendering
             CountY = Asset.CountY;
             _regions = regions;
 
+            AddImplicitRegions();
             SetupQuads();
         }
 
-        private void SetupQuads()
+        private void AddImplicitRegions()
         {
-            var countX = CountX;
-            var countY = CountY;
+            var countX = (int)CountX;
+            var countY = (int)CountY;
 
             var imageWidth = Image.GetWidth();
             var imageHeight = Image.GetHeight();
@@ -112,26 +113,32 @@ namespace OpenNefia.Core.Rendering
                 var width = imageWidth / countX;
                 var height = imageHeight / countY;
 
-                uint quadId = 0;
+                var regionId = 0;
                 for (int j = 0; j < countY; j++)
                 {
                     for (int i = 0; i < countX; i++)
                     {
-                        Quads[quadId.ToString()] = Love.Graphics.NewQuad(width * i, height * j, width, height, imageWidth, imageHeight);
-                        quadId++;
+                        _regions[regionId.ToString()] = UIBox2i.FromDimensions(width * i, height * j, width, height);
+                        regionId++;
                     }
                 }
             }
             else
             {
-                Quads["0"] = Love.Graphics.NewQuad(0, 0, imageWidth, imageHeight, imageWidth, imageHeight);
+                _regions["0"] = UIBox2i.FromDimensions(0, 0, imageWidth, imageHeight);
             }
+        }
+
+        private void SetupQuads()
+        {
+            var imageWidth = Image.GetWidth();
+            var imageHeight = Image.GetHeight();
 
             foreach (var pair in _regions)
             {
-                var key = pair.Key;
+                var regionId = pair.Key;
                 var region = pair.Value;
-                Quads[key] = Love.Graphics.NewQuad(region.Left, region.Top, region.Width, region.Height, imageWidth, imageHeight);
+                Quads[regionId] = Love.Graphics.NewQuad(region.Left, region.Top, region.Width, region.Height, imageWidth, imageHeight);
             }
         }
 

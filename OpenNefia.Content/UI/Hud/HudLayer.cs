@@ -2,6 +2,7 @@
 using OpenNefia.Core.Graphics;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.UI;
+using OpenNefia.Core.UI.Element;
 using OpenNefia.Core.UI.Layer;
 
 namespace OpenNefia.Content.UI.Hud
@@ -17,8 +18,6 @@ namespace OpenNefia.Content.UI.Hud
         {
             IoCManager.InjectDependencies(this);
 
-            LayerUIScale = _graphics.WindowScale;
-
             var messageWindow = new SimpleMessageWindow();
             MessageWindow = messageWindow;
             FpsCounter = new UiFpsCounter();
@@ -29,6 +28,9 @@ namespace OpenNefia.Content.UI.Hud
 
         public override void SetSize(float width, float height)
         {
+            // TODO remove
+            LayerUIScale = _graphics.WindowScale;
+
             base.SetSize(width, height);
             MessageWindow.SetSize(_graphics.WindowSize.X - 100, 150);
             FpsCounter.SetSize(400, 500);

@@ -1,4 +1,5 @@
-﻿using OpenNefia.Core.Maths;
+﻿using OpenNefia.Core.Log;
+using OpenNefia.Core.Maths;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.UI.Element;
 using System;
@@ -47,7 +48,7 @@ namespace OpenNefia.Core.Rendering
                 }
                 else
                 {
-                    // This draws at the default size.
+                    Logger.Warning("asset.drawable", $"No region with ID '{region}' found in asset instance!");
                     size = Vector2i.Zero;
                 }
             }

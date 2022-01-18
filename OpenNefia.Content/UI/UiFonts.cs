@@ -20,7 +20,7 @@ namespace OpenNefia.Content.UI
         public static readonly FontSpec WindowKeyHints = new(12, 10);
         public static readonly FontSpec WindowPage = new(12, 12, style: FontStyle.Bold);
 
-        public static readonly FontSpec CharaMakeLockInfo = new(13, 12);
+        public static readonly FontSpec CharaMakeLockInfo = new(12, 10);
         public static readonly FontSpec CharaMakeRerollAttrAmount = new(14, 12, style: FontStyle.Bold);
         public static readonly FontSpec CharaMakeRerollLocked = new(11, 9, color: UiColors.CharaMakeAttrLevelGreat, style: FontStyle.Bold);
 

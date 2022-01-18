@@ -74,7 +74,12 @@ namespace OpenNefia.Content.UI.Element.List
 
         protected virtual void UpdateDisplayedCells(bool setSize)
         {
-            RemoveAllChildren();
+            foreach (var child in Children.ToList())
+            {
+                // Don't unparent things like UiPageText.
+                if (AllCells.Contains(child))
+                    RemoveChild(child);
+            }
 
             ChoiceKeys.Clear();
             for (var i = 0; i < DisplayedCells.Count; i++)

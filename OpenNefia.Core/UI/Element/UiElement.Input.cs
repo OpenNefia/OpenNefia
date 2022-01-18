@@ -31,7 +31,6 @@ namespace OpenNefia.Core.UI.Element
         {
         }
 
-        // TODO should these be removed?
         public event Action<GUIBoundKeyEventArgs>? OnKeyBindDown;
         public event Action<GUIBoundKeyEventArgs>? OnKeyBindUp;
 
@@ -57,8 +56,11 @@ namespace OpenNefia.Core.UI.Element
         {
         }
 
+        public event Action<GUIScaleChangedEventArgs>? OnUIScaleChanged;
+
         protected internal virtual void UIScaleChanged(GUIScaleChangedEventArgs args)
         {
+            OnUIScaleChanged?.Invoke(args);
         }
     }
 

@@ -44,7 +44,7 @@ namespace OpenNefia.Core.UserInterface
         {
             _inputManager.UIKeyBindStateChanged += OnUIKeyBindStateChanged;
             _graphics.OnWindowResized += HandleWindowResized;
-            _config.OnValueChanged(CVars.DisplayUIScale, OnConfigDisplayUIScaleChanged);
+            _graphics.OnWindowScaleChanged += HandleWindowScaleChanged;
         }
 
         public void InitializeTesting()

@@ -20,6 +20,7 @@ namespace OpenNefia.Core.Graphics
         public new event Action<MouseButtonEventArgs>? OnMousePressed;
         public new event Action<MouseButtonEventArgs>? OnMouseReleased;
         public new event Action<MouseWheelEventArgs>? OnMouseWheel;
+        public event Action<WindowScaleChangedEventArgs>? OnWindowScaleChanged;
         public new event Func<QuitEventArgs, bool>? OnQuit;
 
         public void Initialize()

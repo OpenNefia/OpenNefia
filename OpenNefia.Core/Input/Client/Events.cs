@@ -188,4 +188,17 @@ namespace OpenNefia.Core.Input
             Entered = entered;
         }
     }
+
+    public class WindowScaleChangedEventArgs : EventArgs
+    {
+        /// <summary>
+        ///     The new global UI scale.
+        /// </summary>
+        public float UIScale { get; }
+
+        public WindowScaleChangedEventArgs(float uiScale)
+        {
+            UIScale = uiScale;
+        }
+    }
 }
