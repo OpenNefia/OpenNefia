@@ -66,8 +66,8 @@ namespace OpenNefia.Content.UI.Element
 
         public override void GetPreferredSize(out Vector2 size)
         {
-            size.X = Font.LoveFont.GetWidth(Text);
-            size.Y = Font.LoveFont.GetHeight() * Text.Split('\n').Length;
+            size.X = Font.LoveFont.GetWidthV(UIScale, Text);
+            size.Y = Font.LoveFont.GetHeightV(UIScale);
         }
 
         public override void Localize(LocaleKey key)
@@ -150,7 +150,7 @@ namespace OpenNefia.Content.UI.Element
             Love.Graphics.SetColor(Color.White);
             AssetTipIcons.DrawRegionS(UIScale, "1", X, Y + 7);
             Love.Graphics.SetColor(Color);
-            GraphicsS.DrawS(UIScale, BakedText, X + 26, Y + 8); // y + vfix + 8
+            Love.Graphics.Draw(BakedText, PixelX + 26, PixelY + 8); // y + vfix + 8
             Love.Graphics.SetColor(Color.Black);
             GraphicsS.LineS(UIScale, X + 22, Y + 21, X + BakedText.GetWidthV(UIScale) + 36, Y + 21);
         }

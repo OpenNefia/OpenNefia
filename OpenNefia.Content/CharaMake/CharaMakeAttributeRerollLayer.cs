@@ -73,9 +73,8 @@ namespace OpenNefia.Content.CharaMake
             {
                 Text = Data.Text;
 
-                LockedText = new UiText(UiFonts.CharaMakeRerollLocked);
+                LockedText = new UiText(UiFonts.CharaMakeRerollLocked, Loc.GetString("Elona.CharaMake.Common.Locked"));
                 AmountText = new UiText(UiFonts.CharaMakeRerollAttrAmount);
-                LockedText.Text = Loc.GetString("Elona.CharaMake.Common.Locked");
 
                 switch (data)
                 {
@@ -88,6 +87,10 @@ namespace OpenNefia.Content.CharaMake
                         Icon = new AttributeIcon(attr.Id);
                         break;
                 }
+
+                AddChild(LockedText);
+                AddChild(AmountText);
+                AddChild(Icon);
             }
 
             public override void SetSize(float width, float height)
@@ -134,6 +137,11 @@ namespace OpenNefia.Content.CharaMake
             LockAmount = new UiText(UiFonts.CharaMakeLockInfo);
             AttributeInfo.Text = Loc.GetString("Elona.CharaMake.AttributeReroll.AttributeInfo");
             SetLockCountText();
+
+            AddChild(Window);
+            AddChild(AttributeTopic);
+            AddChild(AttributeInfo);
+            AddChild(LockAmount);
             AddChild(List);
         }
 
@@ -314,7 +322,7 @@ namespace OpenNefia.Content.CharaMake
             base.Draw();
             Window.Draw();
             GraphicsEx.SetColor(255, 255, 255, 30);
-            AssetWindows[0].Draw(Window.X + 15, Window.Y + 50, 150, 265);
+            AssetWindows[0].DrawS(UIScale, Window.X + 15, Window.Y + 50, 150, 265);
             AttributeTopic.Draw();
             List.Draw();
             LockAmount.Draw();

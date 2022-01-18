@@ -30,7 +30,7 @@ namespace OpenNefia.Content.UI.Element
 
         public override void GetPreferredSize(out Vector2 size)
         {
-            size = PageTextParent != null ? PageTextParent.PixelSize : Vector2i.Zero;
+            size = PageTextParent != null ? PageTextParent.Size : Vector2.Zero;
         }
 
         public override void SetSize(float width, float height)

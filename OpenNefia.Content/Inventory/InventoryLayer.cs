@@ -62,7 +62,7 @@ namespace OpenNefia.Content.Inventory
         public string ItemDetailText { get; set; }
         public Color ChipColor { get; set; }
     }
-    
+
     public sealed class InventoryLayer : UiLayerWithResult<InventoryContext, InventoryLayer.Result>, IInventoryLayer
     {
         public new class Result
@@ -79,7 +79,7 @@ namespace OpenNefia.Content.Inventory
 
         public class InventoryEntryCell : UiListCell<InventoryEntry>
         {
-            private readonly IUiText UiSubtext;
+            private readonly UiText UiSubtext;
             private readonly EntitySpriteBatch SpriteBatch;
 
             public InventoryEntryCell(InventoryEntry entry, EntitySpriteBatch spriteBatch)
@@ -91,6 +91,8 @@ namespace OpenNefia.Content.Inventory
 
                 UiText.Text = entry.ItemNameText;
                 UiSubtext.Text = entry.ItemDetailText;
+
+                AddChild(UiSubtext);
             }
 
             public override void SetSize(float width, float height)
@@ -160,18 +162,18 @@ namespace OpenNefia.Content.Inventory
         public int SelectedIndex => List.SelectedIndex;
         public InventoryEntry? SelectedEntry => List.SelectedCell?.Data;
 
-        private IUiText TextTopicItemName = new UiTextTopic();
-        private IUiText TextTopicItemDetail = new UiTextTopic();
-        private IUiText TextNoteTotalWeight = new UiText(UiFonts.TextNote);
-        private IUiText TextGoldCount = new UiText(UiFonts.InventoryGoldCount);
+        private UiText TextTopicItemName = new UiTextTopic();
+        private UiText TextTopicItemDetail = new UiTextTopic();
+        private UiText TextNoteTotalWeight = new UiText(UiFonts.TextNote);
+        private UiText TextGoldCount = new UiText(UiFonts.InventoryGoldCount);
 
-        private IAssetDrawable AssetDecoInvA;
-        private IAssetDrawable AssetDecoInvB;
-        private IAssetDrawable AssetDecoInvC;
-        private IAssetDrawable AssetDecoInvD;
-        private IAssetDrawable AssetGoldCoin;
+        private AssetDrawable AssetDecoInvA;
+        private AssetDrawable AssetDecoInvB;
+        private AssetDrawable AssetDecoInvC;
+        private AssetDrawable AssetDecoInvD;
+        private AssetDrawable AssetGoldCoin;
 
-        private IUiElement? CurrentIcon;
+        private UiElement? CurrentIcon;
 
         private EntitySpriteBatch _spriteBatch = new();
 
@@ -185,7 +187,7 @@ namespace OpenNefia.Content.Inventory
             AssetDecoInvD = new AssetDrawable(Protos.Asset.DecoInvD);
             AssetGoldCoin = new AssetDrawable(Protos.Asset.GoldCoin);
 
-            TextTopicItemName.Text = Loc.GetString("Elona.Inventory.Layer.Topic.ItemName"); 
+            TextTopicItemName.Text = Loc.GetString("Elona.Inventory.Layer.Topic.ItemName");
 
             // TODO IInventoryBehavior can set this.
             var topicText = Loc.GetString("Elona.Inventory.Layer.Topic.ItemWeight");
@@ -193,12 +195,21 @@ namespace OpenNefia.Content.Inventory
 
             AddChild(Window);
             AddChild(List);
+            AddChild(AssetDecoInvA);
+            AddChild(TextTopicItemDetail);
+            AddChild(TextTopicItemName);
+            AddChild(TextNoteTotalWeight);
+            AddChild(TextGoldCount);
+            AddChild(AssetDecoInvB);
+            AddChild(AssetDecoInvC);
+            AddChild(AssetDecoInvD);
+            AddChild(AssetGoldCoin);
 
             List.PageTextElement = Window;
 
             OnKeyBindDown += HandleKeyBindDown;
             List.OnActivated += OnSelect;
-            EventFilter = UIEventFilterMode.Pass;        
+            EventFilter = UIEventFilterMode.Pass;
         }
 
         public override void Initialize(InventoryContext context)
@@ -206,6 +217,8 @@ namespace OpenNefia.Content.Inventory
             Context = context;
             Window.Title = Context.Behavior.WindowTitle;
             CurrentIcon = Context.Behavior.MakeIcon();
+            if (CurrentIcon != null)
+                AddChild(CurrentIcon);
 
             UpdateFiltering();
         }
@@ -374,7 +387,7 @@ namespace OpenNefia.Content.Inventory
 
             if (Context.Behavior.ShowTotalWeight)
             {
-                var weightText = Loc.GetString("Elona.Inventory.Layer.Note.TotalWeight", 
+                var weightText = Loc.GetString("Elona.Inventory.Layer.Note.TotalWeight",
                     ("totalWeight", totalWeightStr),
                     ("maxWeight", maxWeightStr),
                     ("cargoWeight", cargoWeightStr),

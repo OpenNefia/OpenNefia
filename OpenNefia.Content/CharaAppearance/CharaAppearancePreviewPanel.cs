@@ -27,6 +27,8 @@ namespace OpenNefia.Content.CharaAppearance
         {
             _chipBatch = new TileAtlasBatch(AtlasNames.Chip);
             _portraitBatch = new TileAtlasBatch(ContentAtlasNames.Portrait);
+
+            AddChild(WindowFrame);
         }
 
         public void Initialize(CharaAppearanceData data)
@@ -82,12 +84,12 @@ namespace OpenNefia.Content.CharaAppearance
             if (ShowPortrait)
             {
                 _portraitBatch.Clear();
-                _portraitBatch.Add(UIScale, _data.PortraitProto.Image.AtlasIndex, 4, 4, WindowFrame.PixelWidth - 8, WindowFrame.PixelHeight - 8);
+                _portraitBatch.Add(UIScale, _data.PortraitProto.Image.AtlasIndex, 4, 4, WindowFrame.Width - 8, WindowFrame.Height - 8);
                 _portraitBatch.Draw(UIScale, WindowFrame.X, WindowFrame.Y);
             }
             else if (_data.UsePCC)
             {
-                _data.PCCDrawable.Draw(WindowFrame.PixelX + 44 - 24, WindowFrame.PixelY + 59 - 12, 2.0f, 2.0f);
+                _data.PCCDrawable.Draw(WindowFrame.PixelX + (44 - 24) * UIScale, WindowFrame.PixelY + (59 - 12) * UIScale, 2.0f * UIScale, 2.0f * UIScale);
             }
             else
             {

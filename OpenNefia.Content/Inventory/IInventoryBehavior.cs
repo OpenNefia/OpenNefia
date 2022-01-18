@@ -60,7 +60,7 @@ namespace OpenNefia.Content.Inventory
         /// <summary>
         /// Allocates the icon that this behavior will display in the icon bar.
         /// </summary>
-        IUiElement? MakeIcon();
+        UiElement? MakeIcon();
 
         IEnumerable<IInventorySource> GetSources(InventoryContext context);
 

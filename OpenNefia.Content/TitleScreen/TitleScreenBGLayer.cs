@@ -19,7 +19,7 @@ namespace OpenNefia.Content.TitleScreen
         public override void Draw()
         {
             GraphicsEx.SetColor(Love.Color.White);
-            AssetTitle.Draw(X, Y, Width, Height);
+            AssetTitle.DrawS(UIScale, X, Y, Width, Height);
         }
     }
 }

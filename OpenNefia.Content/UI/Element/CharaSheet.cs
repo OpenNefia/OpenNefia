@@ -75,7 +75,7 @@ namespace OpenNefia.Content.UI.Element
                 GraphicsEx.SetColor(255, 255, 255, 120);
                 var x = (X + (TileWidth / 2)) * UIScale;
                 var y = (Y + (TileHeight / 2)) * UIScale;
-                TileIcon.Draw(x, y, centered:true);
+                TileIcon.DrawS(UIScale, x, y, centered:true);
                 if (Buff.HasValue)
                 {
                     GraphicsEx.SetColor(Color.White);
@@ -131,6 +131,17 @@ namespace OpenNefia.Content.UI.Element
             TraceContainer = new UiVerticalContainer { YSpace = ContainerSpacing };
             ExtraContainer = new UiVerticalContainer { YSpace = ContainerSpacing };
             RollsContainer = new UiVerticalContainer { YSpace = ContainerSpacing };
+
+            AddChild(FaceFrame);
+            AddChild(NameContainer);
+            AddChild(ClassContainer);
+            AddChild(ExpContainer);
+            AddChild(AttributeContainer);
+            AddChild(SpecialStatContainer);
+            AddChild(BlessingContainer);
+            AddChild(TraceContainer);
+            AddChild(ExtraContainer);
+            AddChild(RollsContainer);
         }
 
         public void RefreshFromEntity(EntityUid charaEntity)

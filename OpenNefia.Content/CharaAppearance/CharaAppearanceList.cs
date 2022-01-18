@@ -181,8 +181,8 @@ namespace OpenNefia.Content.CharaAppearance
 
     public sealed class CharaAppearanceUIListCell : UiListCell<CharaAppearanceUICellData>
     {
-        private IAssetDrawable AssetArrowLeft;
-        private IAssetDrawable AssetArrowRight;
+        private AssetDrawable AssetArrowLeft;
+        private AssetDrawable AssetArrowRight;
 
         private string _baseText;
 
@@ -193,6 +193,9 @@ namespace OpenNefia.Content.CharaAppearance
 
             AssetArrowLeft = new AssetDrawable(Asset.ArrowLeft);
             AssetArrowRight = new AssetDrawable(Asset.ArrowRight);
+
+            AddChild(AssetArrowLeft);
+            AddChild(AssetArrowRight);
 
             RebuildText();
         }
@@ -220,8 +223,8 @@ namespace OpenNefia.Content.CharaAppearance
         {
             base.SetPosition(x, y);
             AssetArrowLeft.SetPosition(X, Y - 2);
-            UiText.SetPosition(AssetArrowLeft.PixelRect.Right + 5, Y + 2);
-            AssetArrowRight.SetPosition(UiText.PixelRect.Right + 5 + 1, Y - 2);
+            UiText.SetPosition(AssetArrowLeft.Rect.Right + 5, Y + 2);
+            AssetArrowRight.SetPosition(UiText.Rect.Right + 5 + 1, Y - 2);
         }
 
         public void Change(int delta)
@@ -279,9 +282,8 @@ namespace OpenNefia.Content.CharaAppearance
 
         public void ChangePage(CharaAppearancePage page)
         {
-            Clear(dispose: false);
-            AddRange(_pages[page]);
-            UpdateAllCells();
+            var index = SelectedIndex;
+            SetAll(_pages[page], dispose: false);
         }
 
         protected override void HandleKeyBindDown(GUIBoundKeyEventArgs args)

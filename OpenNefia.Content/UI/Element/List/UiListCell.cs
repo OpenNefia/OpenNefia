@@ -23,7 +23,7 @@ namespace OpenNefia.Content.UI.Element.List
             }
         }
 
-        public UiListCell(T data, IUiText text, UiListChoiceKey? key = null) : base(text, key)
+        public UiListCell(T data, UiText text, UiListChoiceKey? key = null) : base(text, key)
         {
             _data = data;
         }
@@ -53,7 +53,7 @@ namespace OpenNefia.Content.UI.Element.List
                 {
                     keyName = UiUtils.GetKeyName(Key.Key);
                 }
-                KeyNameText = new UiTextOutlined(FontListKeyName, keyName);
+                KeyNameText.Text = keyName;
             }
         }
 
@@ -66,9 +66,9 @@ namespace OpenNefia.Content.UI.Element.List
         public int IndexInList { get; set; }
 
         [Localize("Text")]
-        protected IUiText UiText;
+        protected UiText UiText;
 
-        protected IUiText KeyNameText = null!;
+        protected UiText KeyNameText = null!;
 
         public virtual string? LocalizeKey => null;
 
@@ -89,9 +89,10 @@ namespace OpenNefia.Content.UI.Element.List
         protected IAssetInstance AssetListBullet;
         public IAssetInstance AssetSelectKey;
 
-        public UiListCell(IUiText text, UiListChoiceKey? key = null)
+        public UiListCell(UiText text, UiListChoiceKey? key = null)
         {
             UiText = text;
+            KeyNameText = new UiTextOutlined(FontListKeyName);
 
             AssetSelectKey = Assets.Get(Protos.Asset.SelectKey);
             AssetListBullet = Assets.Get(Protos.Asset.ListBullet);
@@ -100,6 +101,9 @@ namespace OpenNefia.Content.UI.Element.List
 
             OnMouseEntered += HandleMouseEntered;
             EventFilter = UIEventFilterMode.Pass;
+
+            AddChild(UiText);
+            AddChild(KeyNameText);
         }
 
         private void HandleMouseEntered(GUIMouseHoverEventArgs args)
@@ -131,10 +135,10 @@ namespace OpenNefia.Content.UI.Element.List
         public override void SetPosition(float x, float y)
         {
             base.SetPosition(x, y);
-            UiText.SetPosition(x + AssetSelectKey.VirtualWidth(UIScale) + 2 + 4 + XOffset, y);
+            UiText.SetPosition(X + AssetSelectKey.VirtualWidth(UIScale) + 2 + 4 + XOffset, Y);
 
-            var keyNameX = x + (AssetSelectKey.VirtualWidth(UIScale) - KeyNameText.Width) / 2 - 2;
-            var keyNameY = y + (AssetSelectKey.VirtualHeight(UIScale) - KeyNameText.Height) / 2 - 1;
+            var keyNameX = X + (AssetSelectKey.VirtualWidth(UIScale) - KeyNameText.Width) / 2 - 2;
+            var keyNameY = Y + (AssetSelectKey.VirtualHeight(UIScale) - KeyNameText.Height) / 2 - 1;
             KeyNameText.SetPosition(keyNameX, keyNameY);
         }
 

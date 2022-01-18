@@ -70,7 +70,7 @@ namespace OpenNefia.Core.Rendering
 
         public static void DrawSpriteBatchS(float uiScale, Love.SpriteBatch batch, float x, float y, float? width, float? height, float rotation = 0)
         {
-            GraphicsS.DrawS(uiScale, batch, x, y, rotation);
+            Love.Graphics.Draw(batch, x * uiScale, y * uiScale, rotation);
         }
 
         public static void DrawImageRegion(Love.Image image, Love.Quad quad, float x = 0, float y = 0, float width = 0, float height = 0, bool centered = false, float rotation = 0)

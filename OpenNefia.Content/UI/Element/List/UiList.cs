@@ -40,7 +40,7 @@ namespace OpenNefia.Content.UI.Element.List
         {
             get
             {
-                if (DisplayedCells.Count == 0)
+                if (DisplayedCells.Count == 0 || SelectedIndex < 0 || SelectedIndex >= DisplayedCells.Count)
                     return null;
 
                 return DisplayedCells[SelectedIndex];
@@ -223,9 +223,7 @@ namespace OpenNefia.Content.UI.Element.List
         public void Select(int index)
         {
             if (!CanSelect(index))
-            {
                 return;
-            }
 
             SelectedIndex = index;
             HandleSelect(new UiListEventArgs<T>(DisplayedCells[index], index));
@@ -247,6 +245,16 @@ namespace OpenNefia.Content.UI.Element.List
                 Select(index);
 
             HandleActivate(new UiListEventArgs<T>(DisplayedCells[index], index));
+        }
+
+        public void SetAll(IEnumerable<UiListCell<T>> items, bool dispose = true)
+        {
+            var index = SelectedIndex;
+            Clear(dispose);
+            AddRange(items);
+            if (DisplayedCells.Count > 0)
+                Select(Math.Clamp(index, 0, DisplayedCells.Count - 1));
+            UpdateAllCells();
         }
 
         #endregion

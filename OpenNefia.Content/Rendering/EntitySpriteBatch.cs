@@ -7,9 +7,8 @@ using OpenNefia.Core.UI.Element;
 
 namespace OpenNefia.Content.Inventory
 {
-    public class EntitySpriteBatch : BaseDrawable
+    public class EntitySpriteBatch : UiElement
     {
-        [Dependency] private readonly ITileAtlasManager _tileAtlasManager = default!;
         [Dependency] private readonly IEntityMemorySystem _entityMemory = default!;
 
         private class Entry 

@@ -54,8 +54,8 @@ namespace OpenNefia.Content.UI.Element
         public class FeatCell : UiListCell<FeatNameAndDesc>
         {
             private IAssetInstance FeatIcons;
+            private UiText DescriptionText;
 
-            private IUiText DescriptionText;
             public FeatCell(FeatNameAndDesc data) 
                 : base(data, new UiText())
             {
@@ -64,6 +64,8 @@ namespace OpenNefia.Content.UI.Element
                 DescriptionText = new UiText(Data.Description);
                 UiText.Color = data.Color;
                 DescriptionText.Color = data.Color;
+
+                AddChild(DescriptionText);
             }
 
             private float Offset => Data switch
@@ -139,11 +141,11 @@ namespace OpenNefia.Content.UI.Element
         private UiText FeatCountText;
         private UiWindow Window = new(keyHintXOffset: 64);
 
-        protected IAssetDrawable AssetInventoryIcons;
-        private IAssetDrawable AssetDecoFeatA;
-        private IAssetDrawable AssetDecoFeatB;
-        private IAssetDrawable AssetDecoFeatC;
-        private IAssetDrawable AssetDecoFeatD;
+        protected AssetDrawable AssetInventoryIcons;
+        private AssetDrawable AssetDecoFeatA;
+        private AssetDrawable AssetDecoFeatB;
+        private AssetDrawable AssetDecoFeatC;
+        private AssetDrawable AssetDecoFeatD;
 
         private Func<Dictionary<PrototypeId<FeatPrototype>, int>> GetGainedFeatsFunc;
         private Action<FeatNameAndDesc.Feat> SelectFeatAction;
@@ -171,6 +173,16 @@ namespace OpenNefia.Content.UI.Element
 
             EventFilter = UIEventFilterMode.Pass;
             List.OnActivated += List_OnActivate;
+
+            AddChild(AssetInventoryIcons);
+            AddChild(AssetDecoFeatA);
+            AddChild(AssetDecoFeatB);
+            AddChild(AssetDecoFeatC);
+            AddChild(AssetDecoFeatD);
+            AddChild(NameTopic);
+            AddChild(DetailTopic);
+            AddChild(FeatCountText);
+            AddChild(Window);
             AddChild(List);
 
             RefreshData();

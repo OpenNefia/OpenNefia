@@ -24,5 +24,7 @@ namespace OpenNefia.Content.UI.Element.List
         event UiListEventHandler<T>? OnActivated;
 
         public IUiListCell<T>? SelectedCell { get; }
+
+        void SetAll(IEnumerable<UiListCell<T>> items, bool dispose = true);
     }
 }

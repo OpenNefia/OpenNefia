@@ -73,8 +73,11 @@ namespace OpenNefia.Content.UI.Element
             WindowShadow = new UiWindowBacking(UiWindowBacking.WindowBackingType.Shadow);
             TopicWindow = new UiTopicWindow();
 
+            AddChild(Window);
+            AddChild(WindowShadow);
             AddChild(TextTitle);
             AddChild(TextKeyHint);
+            AddChild(TopicWindow);
 
             RebuildKeyHintText();
         }
@@ -91,16 +94,16 @@ namespace OpenNefia.Content.UI.Element
             if (HasShadow)
                 WindowShadow.SetPosition(X + 4, Y + 4);
 
-            Window.SetPosition(x, y);
+            Window.SetPosition(X, Y);
 
             if (HasTitle)
             {
-                TextTitle.SetPosition(x + 45 * Width / 200 + 34 - TextTitle.Width / 2 
+                TextTitle.SetPosition(X + 45 * Width / 200 + 34 - TextTitle.Width / 2 
                     + Math.Clamp(TextTitle.Width - 120, 0, 200) / 2, Y + 4);
-                TopicWindow.SetPosition(x + 34, y - 4);
+                TopicWindow.SetPosition(X + 34, Y - 4);
             }
 
-            TextKeyHint.SetPosition(x + 58 + KeyHintXOffset, y + Height - 43 - Height % 8);
+            TextKeyHint.SetPosition(X + 58 + KeyHintXOffset, Y + Height - 43 - Height % 8);
         }
 
         public override void SetSize(float width, float height)
@@ -143,7 +146,7 @@ namespace OpenNefia.Content.UI.Element
             GraphicsEx.SetColor(Color.White);
             Window.Draw();
 
-            AssetTipIcons.DrawRegion("1", X + 30 + KeyHintXOffset, Y + Height - 47 - Height % 8);
+            AssetTipIcons.DrawRegionS(UIScale, "1", X + 30 + KeyHintXOffset, Y + Height - 47 - Height % 8);
 
             if (HasTitle)
             {
@@ -152,14 +155,16 @@ namespace OpenNefia.Content.UI.Element
             }
 
             GraphicsEx.SetColor(ColorBottomLine1);
-            Love.Graphics.Line(
+            GraphicsS.LineS(
+                UIScale,
                 X + 50 + KeyHintXOffset,
                 Y + Height - 48 - Height % 8,
                 X + Width - 40,
                 Y + Height - 48 - Height % 8);
 
             GraphicsEx.SetColor(ColorBottomLine2);
-            Love.Graphics.Line(
+            GraphicsS.LineS(
+                UIScale,
                 X + 50 + KeyHintXOffset,
                 Y + Height - 49 - Height % 8,
                 X + Width - 40,

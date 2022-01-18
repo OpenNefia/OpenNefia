@@ -62,7 +62,7 @@ namespace OpenNefia.Content.UI.Layer
         protected double CaretAlpha = 2;
 
         protected UiTopicWindow TopicWindow;
-        protected IUiText Text;
+        protected UiText Text;
 
         protected IAssetInstance AssetLabelInput;
         protected IAssetInstance AssetImeStatusJapanese;
@@ -89,6 +89,9 @@ namespace OpenNefia.Content.UI.Layer
             OnKeyBindDown += HandleKeyBindDown;
             CanControlFocus = true;
             CanKeyboardFocus = true;
+
+            AddChild(TopicWindow);
+            AddChild(Text);
 
             UpdateText();
         }
@@ -225,21 +228,21 @@ namespace OpenNefia.Content.UI.Layer
             TopicWindow.Draw();
 
             GraphicsEx.SetColor(Love.Color.White);
-            AssetLabelInput.Draw(PixelX + PixelWidth / 2 - 60, PixelY - 32);
+            AssetLabelInput.DrawS(UIScale, X + Width / 2 - 60, Y - 32);
 
             if (IsCutOff)
             {
-                AssetImeStatusNone.Draw(PixelX + 8, PixelY + 4);
+                AssetImeStatusNone.DrawS(UIScale, X + 8, Y + 4);
             }
             else
             {
-                AssetImeStatusEnglish.Draw(PixelX + 8, PixelY + 4);
+                AssetImeStatusEnglish.DrawS(UIScale, X + 8, Y + 4);
             }
 
             Text.Draw();
 
             GraphicsEx.SetColor(255, 255, 255, (int)CaretAlpha);
-            AssetInputCaret.Draw(PixelX + Text.PixelWidth + 34, PixelY + 5);
+            AssetInputCaret.DrawS(UIScale, X + Text.Width + 34, Y + 5);
         }
 
         public override void Dispose()

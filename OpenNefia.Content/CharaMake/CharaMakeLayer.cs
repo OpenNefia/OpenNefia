@@ -53,6 +53,8 @@ namespace OpenNefia.Content.CharaMake
 
             Caption = new CharaMakeCaption();
 
+            AddChild(Caption);
+
             OnKeyBindDown += HandleKeyBindDown;
         }
 

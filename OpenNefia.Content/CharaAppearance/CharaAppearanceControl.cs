@@ -41,10 +41,10 @@ namespace OpenNefia.Content.CharaAppearance
         [Dependency] private readonly IPrototypeManager _protos = default!;
         [Dependency] private readonly IResourceCache _resourceCache = default!;
 
-        private IAssetDrawable AppearanceDeco;
+        private AssetDrawable AppearanceDeco;
 
         private UiWindow Window;
-        private UiTextTopic Category;
+        private UiTextTopic TextTopicCategory;
         private CharaAppearancePreviewPanel PreviewPanel;
         private CharaAppearanceList AppearanceList;
 
@@ -61,7 +61,7 @@ namespace OpenNefia.Content.CharaAppearance
         public CharaAppearanceControl()
         {
             AppearanceDeco = new AssetDrawable(Asset.DecoMirrorA);
-            Category = new UiTextTopic(_locScope.GetString("Topic.Category"));
+            TextTopicCategory = new UiTextTopic(_locScope.GetString("Topic.Category"));
             Window = new UiWindow()
             {
                 KeyHints = MakeKeyHints()
@@ -72,7 +72,11 @@ namespace OpenNefia.Content.CharaAppearance
             AppearanceList.OnSelected += HandleListSelected;
             AppearanceList.OnAppearanceItemChanged += HandleListAppearanceItemChanged;
 
+            AddChild(AppearanceDeco);
+            AddChild(Window);
+            AddChild(TextTopicCategory);
             AddChild(AppearanceList);
+            AddChild(PreviewPanel);
         }
 
         public void Initialize(CharaAppearanceData data)
@@ -251,7 +255,7 @@ namespace OpenNefia.Content.CharaAppearance
         {
             base.SetSize(width, height);
             Window.SetSize(Width, Height);
-            Category.SetPreferredSize();
+            TextTopicCategory.SetPreferredSize();
             AppearanceList.SetPreferredSize();
             PreviewPanel.SetPreferredSize();
         }
@@ -260,7 +264,7 @@ namespace OpenNefia.Content.CharaAppearance
         {
             base.SetPosition(x, y);
             Window.SetPosition(X, Y);
-            Category.SetPosition(Window.X + 34, Window.Y + 36);
+            TextTopicCategory.SetPosition(Window.X + 34, Window.Y + 36);
             AppearanceList.SetPosition(Window.X + 30, Window.Y + 65);
             AppearanceDeco.SetPosition(Window.X + Window.Width - 40, Window.Y);
             PreviewPanel.SetPosition(Window.X + 230, Window.Y + 70);
@@ -270,7 +274,7 @@ namespace OpenNefia.Content.CharaAppearance
         {
             base.Draw();
             Window.Draw();
-            Category.Draw();
+            TextTopicCategory.Draw();
             AppearanceList.Draw();
             AppearanceDeco.Draw();
             PreviewPanel.Draw();
@@ -280,7 +284,7 @@ namespace OpenNefia.Content.CharaAppearance
         {
             base.Update(dt);
             Window.Update(dt);
-            Category.Update(dt);
+            TextTopicCategory.Update(dt);
             AppearanceList.Update(dt);
             AppearanceDeco.Update(dt);
             PreviewPanel.Update(dt);

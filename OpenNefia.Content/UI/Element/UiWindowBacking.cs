@@ -6,7 +6,7 @@ using static OpenNefia.Core.Rendering.AssetInstance;
 
 namespace OpenNefia.Content.UI.Element
 {
-    public class UiWindowBacking : BaseDrawable
+    public class UiWindowBacking : UiElement
     {
         public enum WindowBackingType
         {
@@ -42,7 +42,7 @@ namespace OpenNefia.Content.UI.Element
             parts.Add(new AssetBatchPart("bottom_left", 0, y_inner));
             parts.Add(new AssetBatchPart("bottom_right", x_inner, y_inner));
 
-            for (int dx = 8; dx < width / 8 - 8; dx++)
+            for (int dx = 8; dx < PixelWidth / 8 - 8; dx++)
             {
                 var tile = Math.Abs((dx - 8) % 18);
                 if (Type != WindowBackingType.Shadow)
@@ -52,14 +52,14 @@ namespace OpenNefia.Content.UI.Element
                 parts.Add(new AssetBatchPart($"bottom_mid_{tile}", dx * 8 + 0, y_inner));
             }
 
-            for (int dy = 0; dy < height / 8 - 13; dy++)
+            for (int dy = 0; dy < PixelHeight / 8 - 13; dy++)
             {
                 var tile_y = dy % 12;
                 if (Type != WindowBackingType.Shadow)
                 {
                     parts.Add(new AssetBatchPart($"mid_left_{tile_y}", 0, dy * 8 + 0 + 48));
 
-                    for (int dx = 0; dx < width / 8 - 14; dx++)
+                    for (int dx = 0; dx < PixelWidth / 8 - 14; dx++)
                     {
                         var tile_x = Math.Abs((dx - 8) % 18);
                         parts.Add(new AssetBatchPart($"mid_mid_{tile_y}_{tile_x}", dx * 8 + 0 + 56, dy * 8 + 0 + 48));
@@ -78,7 +78,7 @@ namespace OpenNefia.Content.UI.Element
 
         public override void Draw()
         {
-            Love.Graphics.Draw(Batch!, PixelX, PixelY);
+            GraphicsEx.DrawSpriteBatchS(UIScale, Batch!, X, Y, Width, Height);
         }
 
         public override void Dispose()

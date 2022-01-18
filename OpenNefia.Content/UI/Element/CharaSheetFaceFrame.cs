@@ -18,7 +18,7 @@ namespace OpenNefia.Content.UI.Element
         private EntityUid _entity;
 
         private readonly UiTopicWindow WindowFrame;
-        private readonly EntitySpriteBatch _entityBatch;
+        private readonly EntitySpriteBatch EntityBatch;
         private readonly TileAtlasBatch _portraitBatch;
 
         private PortraitPrototype? portraitProto;
@@ -28,8 +28,11 @@ namespace OpenNefia.Content.UI.Element
             EntitySystem.InjectDependencies(this);
 
             WindowFrame = new(UiTopicWindow.FrameStyleKind.One, UiTopicWindow.WindowStyleKind.One);
-            _entityBatch = new EntitySpriteBatch();
+            EntityBatch = new EntitySpriteBatch();
             _portraitBatch = new TileAtlasBatch(ContentAtlasNames.Portrait);
+
+            AddChild(EntityBatch);
+            AddChild(WindowFrame);
         }
 
         public void RefreshFromEntity(EntityUid entity)
@@ -51,20 +54,20 @@ namespace OpenNefia.Content.UI.Element
         {
             base.SetSize(width, height);
             WindowFrame.SetSize(Width, Height);
-            _entityBatch.SetSize(Width, Height);
+            EntityBatch.SetSize(Width, Height);
         }
 
         public override void SetPosition(float x, float y)
         {
             base.SetPosition(x, y);
             WindowFrame.SetPosition(X, Y);
-            _entityBatch.SetPosition(X + 46, Y + 61);
+            EntityBatch.SetPosition(X + 46, Y + 61);
         }
 
         public override void Update(float dt)
         {
             WindowFrame.Update(dt);
-            _entityBatch.Update(dt);
+            EntityBatch.Update(dt);
 
             if (portraitProto != null)
             {
@@ -73,15 +76,15 @@ namespace OpenNefia.Content.UI.Element
                 _portraitBatch.Flush();
             }
 
-            _entityBatch.Clear();
-            _entityBatch.Add(_entity, 0, 0);
+            EntityBatch.Clear();
+            EntityBatch.Add(_entity, 0, 0);
         }
 
         public override void Draw()
         {
             WindowFrame.Draw();
             _portraitBatch.Draw(UIScale, WindowFrame.X + 4, WindowFrame.Y + 4);
-            _entityBatch.Draw();
+            EntityBatch.Draw();
         }
     }
 }

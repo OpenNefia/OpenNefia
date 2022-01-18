@@ -13,6 +13,8 @@ namespace OpenNefia.Core.Rendering
         Vector2i PixelSize { get; }
 
         Vector2 VirtualSize(float uiScale);
+        float VirtualWidth(float uiScale);
+        float VirtualHeight(float uiScale);
 
         AssetPrototype Asset { get; }
         IReadOnlyDictionary<string, UIBox2i> Regions { get; }
@@ -25,11 +27,9 @@ namespace OpenNefia.Core.Rendering
         void Draw(float x, float y, float width = 0, float height = 0, bool centered = false, float rotation = 0);
         void Draw(Love.Quad quad, float x, float y, float width = 0, float height = 0, bool centered = false, float rotation = 0);
         void DrawRegion(string regionId, float x = 0, float y = 0, float width = 0, float height = 0, bool centered = false, float rotation = 0);
-        void DrawS(float uiScale, float vx, float vy, float vwidth = 0, float vheight = 0, bool centered = false, float rotation = 0);
-        void DrawS(float uiScale, Love.Quad quad, float vx, float vy, float vwidth = 0, float vheight = 0, bool centered = false, float rotation = 0);
-        void DrawRegionS(float uiScale, string regionId, float vx = 0, float vy = 0, float vwidth = 0, float vheight = 0, bool centered = false, float rotation = 0);
-        float VirtualWidth(float uiScale);
-        float VirtualHeight(float uiScale);
+        void DrawS(float uiScale, float vx, float vy, float? vwidth = null, float? vheight = null, bool centered = false, float rotation = 0);
+        void DrawS(float uiScale, Love.Quad quad, float vx, float vy, float? vwidth = null, float? vheight = null, bool centered = false, float rotation = 0);
+        void DrawRegionS(float uiScale, string regionId, float vx, float vy, float? vwidth = null, float? vheight = null, bool centered = false, float rotation = 0);
     }
     
     public class AssetInstance : IAssetInstance
@@ -176,19 +176,29 @@ namespace OpenNefia.Core.Rendering
             GraphicsEx.DrawImageRegion(Image, quad, x, y, width, height, centered, rotation);
         }
 
-        public void DrawS(float uiScale, float vx, float vy, float vwidth = 0, float vheight = 0, bool centered = false, float rotation = 0)
+        public void DrawS(float uiScale, float vx, float vy, float? vwidth = null, float? vheight = null, bool centered = false, float rotation = 0)
         {
-            Draw(vx * uiScale, vy * uiScale, vwidth * uiScale, vheight * uiScale, centered, rotation);
+            if (vwidth == null)
+                vwidth = PixelWidth;
+            if (vheight == null)
+                vheight = PixelHeight;
+
+            Draw(vx * uiScale, vy * uiScale, vwidth.Value * uiScale, vheight.Value * uiScale, centered, rotation);
         }
 
-        public void DrawS(float uiScale, Love.Quad quad, float vx, float vy, float vwidth = 0, float vheight = 0, bool centered = false, float rotation = 0)
+        public void DrawS(float uiScale, Love.Quad quad, float vx, float vy, float? vwidth = null, float? vheight = null, bool centered = false, float rotation = 0)
         {
-            Draw(quad, vx * uiScale, vy * uiScale, vwidth * uiScale, vheight * uiScale, centered, rotation);
+            if (vwidth == null)
+                vwidth = quad.GetViewport().Width;
+            if (vheight == null)
+                vheight = quad.GetViewport().Height;
+
+            Draw(quad, vx * uiScale, vy * uiScale, vwidth.Value * uiScale, vheight.Value * uiScale, centered, rotation);
         }
 
-        public void DrawRegionS(float uiScale, string regionId, float vx, float vy, float vwidth = 0, float vheight = 0, bool centered = false, float rotation = 0)
+        public void DrawRegionS(float uiScale, string regionId, float vx, float vy, float? vwidth = null, float? vheight = null, bool centered = false, float rotation = 0)
         {
-            DrawRegion(regionId, vx * uiScale, vy * uiScale, vwidth * uiScale, vheight * uiScale, centered, rotation);
+            DrawS(uiScale, Quads[regionId], vx, vy, vwidth, vheight, centered, rotation);
         }
 
         public void Dispose()

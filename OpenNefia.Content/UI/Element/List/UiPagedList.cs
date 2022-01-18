@@ -125,7 +125,7 @@ namespace OpenNefia.Content.UI.Element.List
         public override void SetSize(float width, float height)
         {
             base.SetSize(width, height);
-            PageText.SetSize(width, height);
+            PageText.SetSize(Width, Height);
         }
 
         public override void SetPosition(float x, float y)

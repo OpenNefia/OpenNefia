@@ -20,7 +20,10 @@ namespace OpenNefia.Core.Graphics
         [Dependency] private readonly IResourceCache _resourceCache = default!;
         [Dependency] private readonly IConfigurationManager _config = default!;
 
-        public float WindowScale => 1f;
+        private const int MinWidth = 800;
+        private const int MinHeight = 600;
+
+        public float WindowScale { get; internal set; } = 1f;
         public Vector2i WindowPixelSize => new(Love.Graphics.GetWidth(), Love.Graphics.GetHeight());
         public Vector2 WindowSize => (Vector2)WindowPixelSize / WindowScale;
 
@@ -44,16 +47,17 @@ namespace OpenNefia.Core.Graphics
         private int _modSystem;
 
         private FullscreenMode _lastFullscreenMode;
-        private Vector2i _lastWindowPos;
 
         public void Initialize()
         {
+            WindowScale = _config.GetCVar(CVars.DisplayUIScale);
+
             var bootConfig = new BootConfig()
             {
                 WindowTitle = _config.GetCVar(CVars.DisplayTitle),
                 WindowDisplay = _config.GetCVar(CVars.DisplayDisplayNumber),
-                WindowMinWidth = 800,
-                WindowMinHeight = 600,
+                WindowMinWidth = Math.Max(MinWidth, (int)(MinWidth * WindowScale)),
+                WindowMinHeight = Math.Max(MinHeight, (int)(MinHeight * WindowScale)),
                 WindowWidth = _config.GetCVar(CVars.DisplayWidth),
                 WindowHeight = _config.GetCVar(CVars.DisplayHeight),
                 WindowVsync = _config.GetCVar(CVars.DisplayVSync),
@@ -87,7 +91,7 @@ namespace OpenNefia.Core.Graphics
 
             Love.Boot.SystemStep(this);
 
-            TargetCanvas = Love.Graphics.NewCanvas(Love.Graphics.GetWidth(), Love.Graphics.GetHeight());
+            TargetCanvas = Love.Graphics.NewCanvas(WindowPixelSize.X, WindowPixelSize.Y);
 
             OnWindowResized += HandleWindowResized;
 
@@ -98,7 +102,6 @@ namespace OpenNefia.Core.Graphics
             LoadGamepadMappings();
 
             _lastFullscreenMode = new FullscreenMode(WindowPixelSize.X, WindowPixelSize.Y);
-            _lastWindowPos = Love.Window.GetPosition();
         }
 
         private void OnConfigWindowModeChanged(WindowMode obj)

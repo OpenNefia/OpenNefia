@@ -6,7 +6,7 @@ using static OpenNefia.Core.Rendering.AssetInstance;
 
 namespace OpenNefia.Content.UI.Element
 {
-    public class UiTopicWindow : BaseDrawable
+    public class UiTopicWindow : UiElement
     {
         public enum FrameStyleKind : int
         {

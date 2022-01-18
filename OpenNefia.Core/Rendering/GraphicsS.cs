@@ -37,6 +37,11 @@ namespace OpenNefia.Core.Rendering
             Love.Graphics.Translate(vx * uiScale, vy * uiScale);
         }
 
+        public static void PrintS(float uiScale, string text, float vx, float vy)
+        {
+            Love.Graphics.Print(text, vx * uiScale, vy * uiScale);
+        }
+
         #region Extension Methods
 
         [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]

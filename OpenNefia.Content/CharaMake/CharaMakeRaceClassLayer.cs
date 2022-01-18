@@ -71,6 +71,8 @@ namespace OpenNefia.Content.CharaMake
         {
             RaceText = new UiText();
             Atlas = new TileAtlasBatch(AtlasNames.Chip);
+
+            AddChild(RaceText);
         }
 
         public override void Initialize(CharaMakeData args)
@@ -284,8 +286,11 @@ namespace OpenNefia.Content.CharaMake
                 SelectData(args.SelectedCell.Data);
             };
 
+            AddChild(RaceTopic);
+            AddChild(DetailTopic);
             AddChild(List);
             AddChild(Window);
+            AddChild(DetailContainer);
         }
 
         public override void Initialize(CharaMakeData args)
@@ -453,7 +458,7 @@ namespace OpenNefia.Content.CharaMake
             base.Draw();
             Window.Draw();
             GraphicsEx.SetColor(255, 255, 255, 50);
-            CurrentWindowBG.Draw(Window.X + 15, Window.Y + 40, 270, 420);
+            CurrentWindowBG.DrawS(UIScale, Window.X + 15, Window.Y + 40, 270, 420);
             List.Draw();
 
             RaceTopic.Draw();

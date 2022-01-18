@@ -28,7 +28,7 @@ namespace OpenNefia.Content.Inventory
         private IAssetInstance AssetEnchantmentIcons;
         private IAssetInstance AssetInheritanceIcon;
 
-        private IUiText TextTopicItemName = new UiTextTopic();
+        private UiText TextTopicItemName = new UiTextTopic();
 
         private UiWindow Window = new();
 
@@ -39,6 +39,9 @@ namespace OpenNefia.Content.Inventory
         {
             AssetEnchantmentIcons = Assets.Get(Protos.Asset.EnchantmentIcons);
             AssetInheritanceIcon = Assets.Get(Protos.Asset.InheritanceIcon);
+
+            AddChild(TextTopicItemName);
+            AddChild(Window);
 
             CanControlFocus = true;
             OnKeyBindDown += HandleKeyBindDown;
@@ -174,18 +177,18 @@ namespace OpenNefia.Content.Inventory
                 }
 
                 GraphicsEx.SetFont(font);
-                Love.Graphics.Print(entry.Text, x, y);
+                GraphicsS.PrintS(UIScale, entry.Text, x, y);
 
                 Love.Graphics.SetColor(Color.White);
             
                 if (icon.HasValue)
                 {
-                    AssetEnchantmentIcons.DrawRegion(((int)icon.Value).ToString(), x - 28, y - 7);
+                    AssetEnchantmentIcons.DrawRegionS(UIScale, ((int)icon.Value).ToString(), x - 28, y - 7);
                 }
 
                 if (entry.IsInheritable)
                 {
-                    AssetInheritanceIcon.Draw(x - 53, y - 5);
+                    AssetInheritanceIcon.DrawS(UIScale, x - 53, y - 5);
                 }
             }
         }

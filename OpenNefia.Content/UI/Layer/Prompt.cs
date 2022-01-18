@@ -87,6 +87,7 @@ namespace OpenNefia.Content.UI.Layer
             Window = new UiTopicWindow(UiTopicWindow.FrameStyleKind.Zero, UiTopicWindow.WindowStyleKind.Zero);
 
             AddChild(List);
+            AddChild(Window);
 
             OnKeyBindDown += HandleKeyBindDown;
 

@@ -50,6 +50,8 @@ namespace OpenNefia.Content.CharaMake
                 : base(data, new UiText(text))
             {
                 LockedText = new UiText(UiFonts.CharaMakeRerollLocked, Loc.GetString("Elona.CharaMake.Common.Locked"));
+
+                AddChild(LockedText);
             }
 
             public override void SetPosition(float x, float y)
@@ -73,7 +75,7 @@ namespace OpenNefia.Content.CharaMake
         [Localize]
         private UiWindow Window;
         [Localize]
-        private IUiText AliasTopic;
+        private UiText AliasTopic;
 
         private UiList<CreateCharaAliasData> List;
 
@@ -87,6 +89,7 @@ namespace OpenNefia.Content.CharaMake
 
             OnKeyBindDown += HandleKeyBindDown;
 
+            AddChild(AliasTopic);
             AddChild(Window);
             AddChild(List);
         }
@@ -196,7 +199,7 @@ namespace OpenNefia.Content.CharaMake
             base.Draw();
             Window.Draw();
             GraphicsEx.SetColor(255, 255, 255, 30);
-            CurrentWindowBG.Draw(Window.X + 40, Window.Y + 30, 300, 405);
+            CurrentWindowBG.DrawS(UIScale, Window.X + 40, Window.Y + 30, 300, 405);
             List.Draw();
             AliasTopic.Draw();
         }

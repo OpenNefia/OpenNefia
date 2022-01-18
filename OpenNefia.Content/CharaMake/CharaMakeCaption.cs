@@ -28,6 +28,8 @@ namespace OpenNefia.Content.CharaMake
         public CharaMakeCaption()
         {
             TextCaption = new UiTextOutlined(UiFonts.WindowTitle);
+            
+            AddChild(TextCaption);
         }
 
         public override void Localize(LocaleKey key)
@@ -64,8 +66,8 @@ namespace OpenNefia.Content.CharaMake
 
         public override void Draw()
         {
-            var captionWidth = AssetCaption!.VirtualWidth(UIScale);
-            var count = MathF.Ceiling((float)Width / captionWidth);
+            var captionVirtualWidth = AssetCaption!.VirtualWidth(UIScale);
+            var count = MathF.Ceiling((float)Width / captionVirtualWidth);
 
             Love.Graphics.SetColor(Color.White);
 
@@ -82,9 +84,9 @@ namespace OpenNefia.Content.CharaMake
                     regionOffset = 0;
                 }
 
-                AssetCaption.DrawRegionS(UIScale, (0 + regionOffset).ToString(), i * captionWidth + X, Y);
-                AssetCaption.DrawRegionS(UIScale, (1 + regionOffset).ToString(), i * captionWidth + X, Y + 2);
-                AssetCaption.DrawRegionS(UIScale, (2 + regionOffset).ToString(), i * captionWidth + X, Y + 22);
+                AssetCaption.DrawRegionS(UIScale, (0 + regionOffset).ToString(), i * captionVirtualWidth + X, Y);
+                AssetCaption.DrawRegionS(UIScale, (1 + regionOffset).ToString(), i * captionVirtualWidth + X, Y + 2);
+                AssetCaption.DrawRegionS(UIScale, (2 + regionOffset).ToString(), i * captionVirtualWidth + X, Y + 22);
             }
 
             TextCaption.Draw();

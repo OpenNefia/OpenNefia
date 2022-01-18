@@ -60,6 +60,11 @@ namespace OpenNefia.Content.UI.Element.Containers
             {
                 Entries.Add(element);
             }
+
+            if (element.Element != null)
+            {
+                Children.Add(element.Element);
+            }
         }
 
         public virtual void AddLayout(LayoutType type, int offset)
@@ -113,7 +118,13 @@ namespace OpenNefia.Content.UI.Element.Containers
         public virtual void Clear()
         {
             foreach (var entry in Entries)
-                entry.Element?.Dispose();
+            {
+                if (entry.Element != null)
+                {
+                    RemoveChild(entry.Element);
+                    entry.Element.Dispose();
+                }
+            }
             Entries.Clear();
         }
 

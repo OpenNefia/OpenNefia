@@ -55,6 +55,7 @@ namespace OpenNefia.Core.UserInterface
 
         public void PushLayer(UiLayer layer)
         {
+            layer._uiScale = _graphics.WindowScale;
             layer.GetPreferredBounds(out var bounds);
             layer.SetSize(bounds.Width, bounds.Height);
             layer.SetPosition(bounds.Left, bounds.Top);

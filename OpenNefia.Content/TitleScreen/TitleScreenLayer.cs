@@ -30,7 +30,7 @@ namespace OpenNefia.Content.TitleScreen
             private const float ITEM_HEIGHT = 35;
 
             [Localize("Subtext")]
-            public IUiText TextSubtext;
+            public UiText TextSubtext;
 
             public override string? LocalizeKey => Enum.GetName(Data);
 
@@ -38,6 +38,7 @@ namespace OpenNefia.Content.TitleScreen
                 : base(submenu, new UiText(UiFonts.ListTitleScreenText))
             {
                 TextSubtext = new UiText(UiFonts.ListTitleScreenSubtext);
+                AddChild(TextSubtext);
             }
 
             public override void Localize(LocaleKey key)
@@ -51,12 +52,12 @@ namespace OpenNefia.Content.TitleScreen
                 base.SetPosition(x, y);
                 if (TextSubtext.Text != string.Empty)
                 {
-                    TextSubtext.SetPosition(x + 40, y - 4);
-                    UiText.SetPosition(x + 40 + XOffset + 4, y + 8);
+                    TextSubtext.SetPosition(X + 40, Y - 4);
+                    UiText.SetPosition(X + 40 + XOffset + 4, Y + 8);
                 }
                 else
                 {
-                    UiText.SetPosition(x + 40 + XOffset + 4, y + 1);
+                    UiText.SetPosition(X + 40 + XOffset + 4, Y + 1);
                 }
             }
 
