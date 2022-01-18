@@ -44,8 +44,8 @@ namespace OpenNefia.Core.Rendering
             y *= uiScale;
 
             var quadRect = tile.Quad.GetViewport();
-            var sx = 1f;
-            var sy = 1f;
+            var sx = 1f * uiScale;
+            var sy = 1f * uiScale;
 
             if (color != null)
             {
