@@ -834,25 +834,25 @@ entities:
   - type: Pickable
     ownState: NPC
 - uid: 97
-  protoId: Elona.FeatDoorWooden
+  protoId: Elona.MObjDoorWooden
   components:
   - type: Spatial
     pos: 11,20
     parent: 0
 - uid: 98
-  protoId: Elona.FeatDoorWooden
+  protoId: Elona.MObjDoorWooden
   components:
   - type: Spatial
     pos: 10,9
     parent: 0
 - uid: 99
-  protoId: Elona.FeatDoorWooden
+  protoId: Elona.MObjDoorWooden
   components:
   - type: Spatial
     pos: 5,15
     parent: 0
 - uid: 100
-  protoId: Elona.FeatDoorWooden
+  protoId: Elona.MObjDoorWooden
   components:
   - type: Spatial
     pos: 3,8
@@ -994,13 +994,13 @@ entities:
   - type: Pickable
     ownState: NPC
 - uid: 118
-  protoId: Elona.FeatQuestBoard
+  protoId: Elona.MObjQuestBoard
   components:
   - type: Spatial
     pos: 15,10
     parent: 0
 - uid: 119
-  protoId: Elona.FeatVotingBox
+  protoId: Elona.MObjVotingBox
   components:
   - type: Spatial
     pos: 4,9
@@ -1086,37 +1086,37 @@ entities:
   - type: Pickable
     ownState: NPC
 - uid: 130
-  protoId: Elona.FeatSmallMedal
+  protoId: Elona.MObjSmallMedal
   components:
   - type: Spatial
     pos: 9,20
     parent: 0
 - uid: 131
-  protoId: Elona.FeatSmallMedal
+  protoId: Elona.MObjSmallMedal
   components:
   - type: Spatial
     pos: 23,20
     parent: 0
 - uid: 132
-  protoId: Elona.FeatSmallMedal
+  protoId: Elona.MObjSmallMedal
   components:
   - type: Spatial
     pos: 26,2
     parent: 0
 - uid: 133
-  protoId: Elona.FeatSmallMedal
+  protoId: Elona.MObjSmallMedal
   components:
   - type: Spatial
     pos: 7,4
     parent: 0
 - uid: 134
-  protoId: Elona.FeatSmallMedal
+  protoId: Elona.MObjSmallMedal
   components:
   - type: Spatial
     pos: 3,18
     parent: 0
 - uid: 135
-  protoId: Elona.FeatSmallMedal
+  protoId: Elona.MObjSmallMedal
   components:
   - type: Spatial
     pos: 15,11
@@ -1474,7 +1474,7 @@ entities:
   - type: Pickable
     ownState: NPC
 - uid: 180
-  protoId: Elona.FeatPoliticsBoard
+  protoId: Elona.MObjPoliticsBoard
   components:
   - type: Spatial
     pos: 18,13

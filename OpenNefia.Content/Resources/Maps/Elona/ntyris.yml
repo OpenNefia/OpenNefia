@@ -175,91 +175,91 @@ entities:
   - type: MapRandomAreaManager
     regenerateRandomAreas: true
 - uid: 1
-  protoId: Elona.FeatMapEntrance
+  protoId: Elona.MObjMapEntrance
   components:
   - type: Spatial
     parent: 0
     pos: 26,23
   - type: Chip
-    id: Elona.FeatAreaCity
+    id: Elona.MObjAreaCity
   - type: WorldMapEntrance
     entrance:
       map: !type:GlobalAreaMapIdSpecifier
         globalAreaId: Elona.AreaVernis
       startLocation: !type:MapEdgesLocation {}
 - uid: 2
-  protoId: Elona.FeatMapEntrance
+  protoId: Elona.MObjMapEntrance
   components:
   - type: Spatial
     parent: 0
     pos: 3,15
   - type: Chip
-    id: Elona.FeatAreaCity
+    id: Elona.MObjAreaCity
   - type: WorldMapEntrance
     entrance:
       map: !type:GlobalAreaMapIdSpecifier
         globalAreaId: Elona.AreaPortKapul
       startLocation: !type:MapEdgesLocation {}
 - uid: 3
-  protoId: Elona.FeatMapEntrance
+  protoId: Elona.MObjMapEntrance
   components:
   - type: Spatial
     parent: 0
     pos: 43,32
   - type: Chip
-    id: Elona.FeatAreaVillage
+    id: Elona.MObjAreaVillage
   - type: WorldMapEntrance
     entrance:
       map: !type:GlobalAreaMapIdSpecifier
         globalAreaId: Elona.AreaYowyn
       startLocation: !type:MapEdgesLocation {}
 - uid: 4
-  protoId: Elona.FeatMapEntrance
+  protoId: Elona.MObjMapEntrance
   components:
   - type: Spatial
     parent: 0
     pos: 14,35
   - type: Chip
-    id: Elona.FeatAreaVillage
+    id: Elona.MObjAreaVillage
   - type: WorldMapEntrance
     entrance:
       map: !type:GlobalAreaMapIdSpecifier
         globalAreaId: Elona.AreaDerphy
       startLocation: !type:MapEdgesLocation {}
 - uid: 5
-  protoId: Elona.FeatMapEntrance
+  protoId: Elona.MObjMapEntrance
   components:
   - type: Spatial
     parent: 0
     pos: 53,24
   - type: Chip
-    id: Elona.FeatAreaPalace
+    id: Elona.MObjAreaPalace
   - type: WorldMapEntrance
     entrance:
       map: !type:GlobalAreaMapIdSpecifier
         globalAreaId: Elona.AreaPalmia
       startLocation: !type:MapEdgesLocation {}
 - uid: 6
-  protoId: Elona.FeatMapEntrance
+  protoId: Elona.MObjMapEntrance
   components:
   - type: Spatial
     parent: 0
     pos: 89,14
   - type: Chip
-    id: Elona.FeatAreaVillageSnow
+    id: Elona.MObjAreaVillageSnow
   - type: WorldMapEntrance
     entrance:
       map: !type:GlobalAreaMapIdSpecifier
         globalAreaId: Elona.AreaNoyel
       startLocation: !type:MapEdgesLocation {}
 - uid: 7
-  protoId: Elona.FeatMapEntrance
+  protoId: Elona.MObjMapEntrance
   components:
   - type: Spatial
     parent: 0
     pos: 61,32
   - type: Chip
-    id: Elona.FeatAreaCity
+    id: Elona.MObjAreaCity
   - type: WorldMapEntrance
     entrance:
       map: !type:GlobalAreaMapIdSpecifier

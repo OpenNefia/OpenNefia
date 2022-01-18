@@ -140,7 +140,7 @@ entities:
     pos: 2,17
     parent: 0
 - uid: 17
-  protoId: Elona.FeatDoorWooden
+  protoId: Elona.MObjDoorWooden
   components:
   - type: Spatial
     pos: 14,7

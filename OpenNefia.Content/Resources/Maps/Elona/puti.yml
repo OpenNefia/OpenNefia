@@ -909,31 +909,31 @@ entities:
     pos: 74,4
     parent: 0
 - uid: 148
-  protoId: Elona.FeatSmallMedal
+  protoId: Elona.MObjSmallMedal
   components:
   - type: Spatial
     pos: 75,5
     parent: 0
 - uid: 149
-  protoId: Elona.FeatSmallMedal
+  protoId: Elona.MObjSmallMedal
   components:
   - type: Spatial
     pos: 73,11
     parent: 0
 - uid: 150
-  protoId: Elona.FeatSmallMedal
+  protoId: Elona.MObjSmallMedal
   components:
   - type: Spatial
     pos: 29,2
     parent: 0
 - uid: 151
-  protoId: Elona.FeatStairsUp
+  protoId: Elona.MObjStairsUp
   components:
   - type: Spatial
     pos: 4,9
     parent: 0
 - uid: 152
-  protoId: Elona.FeatDoorWooden
+  protoId: Elona.MObjDoorWooden
   components:
   - type: Spatial
     pos: 7,8
@@ -941,7 +941,7 @@ entities:
   - type: Door
     unlockDifficulty: 15
 - uid: 153
-  protoId: Elona.FeatDoorWooden
+  protoId: Elona.MObjDoorWooden
   components:
   - type: Spatial
     pos: 22,6
@@ -949,13 +949,13 @@ entities:
   - type: Door
     unlockDifficulty: 10
 - uid: 154
-  protoId: Elona.FeatDoorWooden
+  protoId: Elona.MObjDoorWooden
   components:
   - type: Spatial
     pos: 30,5
     parent: 0
 - uid: 155
-  protoId: Elona.FeatDoorWooden
+  protoId: Elona.MObjDoorWooden
   components:
   - type: Spatial
     pos: 31,7
@@ -963,7 +963,7 @@ entities:
   - type: Door
     unlockDifficulty: 15
 - uid: 156
-  protoId: Elona.FeatDoorWooden
+  protoId: Elona.MObjDoorWooden
   components:
   - type: Spatial
     pos: 70,7

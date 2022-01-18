@@ -95,31 +95,31 @@ entities:
   components:
   - type: Map
 - uid: 1
-  protoId: Elona.FeatDoorWooden
+  protoId: Elona.MObjDoorWooden
   components:
   - type: Spatial
     pos: 12,6
     parent: 0
 - uid: 2
-  protoId: Elona.FeatDoorWooden
+  protoId: Elona.MObjDoorWooden
   components:
   - type: Spatial
     pos: 19,5
     parent: 0
 - uid: 3
-  protoId: Elona.FeatDoorWooden
+  protoId: Elona.MObjDoorWooden
   components:
   - type: Spatial
     pos: 4,16
     parent: 0
 - uid: 4
-  protoId: Elona.FeatQuestBoard
+  protoId: Elona.MObjQuestBoard
   components:
   - type: Spatial
     pos: 16,18
     parent: 0
 - uid: 5
-  protoId: Elona.FeatVotingBox
+  protoId: Elona.MObjVotingBox
   components:
   - type: Spatial
     pos: 17,18
@@ -1253,7 +1253,7 @@ entities:
   - type: Pickable
     ownState: NPC
 - uid: 147
-  protoId: Elona.FeatDoorWooden
+  protoId: Elona.MObjDoorWooden
   components:
   - type: Spatial
     pos: 52,5
@@ -1683,7 +1683,7 @@ entities:
   - type: Pickable
     ownState: NPC
 - uid: 201
-  protoId: Elona.FeatDoorWooden
+  protoId: Elona.MObjDoorWooden
   components:
   - type: Spatial
     pos: 8,18
@@ -1995,7 +1995,7 @@ entities:
   - type: Pickable
     ownState: NPC
 - uid: 243
-  protoId: Elona.FeatPoliticsBoard
+  protoId: Elona.MObjPoliticsBoard
   components:
   - type: Spatial
     pos: 22,19

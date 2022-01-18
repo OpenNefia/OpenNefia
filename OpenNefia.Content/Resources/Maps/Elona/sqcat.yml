@@ -31,7 +31,7 @@ entities:
   components:
   - type: Map
 - uid: 1
-  protoId: Elona.FeatDoorWooden
+  protoId: Elona.MObjDoorWooden
   components:
   - type: Spatial
     pos: 6,3
@@ -39,7 +39,7 @@ entities:
   - type: Door
     unlockDifficulty: 20
 - uid: 2
-  protoId: Elona.FeatDoorWooden
+  protoId: Elona.MObjDoorWooden
   components:
   - type: Spatial
     pos: 16,3
@@ -47,7 +47,7 @@ entities:
   - type: Door
     unlockDifficulty: 20
 - uid: 3
-  protoId: Elona.FeatDoorWooden
+  protoId: Elona.MObjDoorWooden
   components:
   - type: Spatial
     pos: 16,7
@@ -55,7 +55,7 @@ entities:
   - type: Door
     unlockDifficulty: 20
 - uid: 4
-  protoId: Elona.FeatDoorWooden
+  protoId: Elona.MObjDoorWooden
   components:
   - type: Spatial
     pos: 12,9
@@ -63,7 +63,7 @@ entities:
   - type: Door
     unlockDifficulty: 20
 - uid: 5
-  protoId: Elona.FeatDoorWooden
+  protoId: Elona.MObjDoorWooden
   components:
   - type: Spatial
     pos: 8,11
@@ -71,7 +71,7 @@ entities:
   - type: Door
     unlockDifficulty: 20
 - uid: 6
-  protoId: Elona.FeatStairsUp
+  protoId: Elona.MObjStairsUp
   components:
   - type: Spatial
     pos: 3,7

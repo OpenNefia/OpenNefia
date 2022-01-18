@@ -38,7 +38,7 @@ namespace OpenNefia.Content.Areas
 
         /// <summary>
         /// Entity to spawn as the entrance.
-        /// Usually inherits from <see cref="Protos.Feat.MapEntrance"/>.
+        /// Usually inherits from <see cref="Protos.Mobj.MapEntrance"/>.
         /// </summary>
         [DataField]
         public PrototypeId<EntityPrototype>? EntranceEntity { get; set; }

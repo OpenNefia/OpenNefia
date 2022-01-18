@@ -12,10 +12,10 @@
 
 - type: Entity
   id: Elona.NefiaDungeonEntrance
-  parent: Elona.FeatMapEntrance
+  parent: Elona.MObjMapEntrance
   components:
   - type: Chip
-    id: Elona.FeatAreaDungeon
+    id: Elona.MObjAreaDungeon
 
 - type: Entity
   id: Elona.NefiaDungeon
@@ -26,10 +26,10 @@
 
 - type: Entity
   id: Elona.NefiaForestEntrance
-  parent: Elona.FeatMapEntrance
+  parent: Elona.MObjMapEntrance
   components:
   - type: Chip
-    id: Elona.FeatAreaForest
+    id: Elona.MObjAreaForest
 
 - type: Entity
   id: Elona.NefiaForest
@@ -40,10 +40,10 @@
 
 - type: Entity
   id: Elona.NefiaTowerEntrance
-  parent: Elona.FeatMapEntrance
+  parent: Elona.MObjMapEntrance
   components:
   - type: Chip
-    id: Elona.FeatAreaTower
+    id: Elona.MObjAreaTower
 
 - type: Entity
   id: Elona.NefiaTower
@@ -54,10 +54,10 @@
 
 - type: Entity
   id: Elona.NefiaFortEntrance
-  parent: Elona.FeatMapEntrance
+  parent: Elona.MObjMapEntrance
   components:
   - type: Chip
-    id: Elona.FeatAreaFort
+    id: Elona.MObjAreaFort
 
 - type: Entity
   id: Elona.NefiaFort

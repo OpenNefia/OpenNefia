@@ -445,19 +445,19 @@ entities:
   - type: Pickable
     ownState: NPC
 - uid: 53
-  protoId: Elona.FeatSmallMedal
+  protoId: Elona.MObjSmallMedal
   components:
   - type: Spatial
     pos: 1,12
     parent: 0
 - uid: 54
-  protoId: Elona.FeatSmallMedal
+  protoId: Elona.MObjSmallMedal
   components:
   - type: Spatial
     pos: 23,12
     parent: 0
 - uid: 55
-  protoId: Elona.FeatSmallMedal
+  protoId: Elona.MObjSmallMedal
   components:
   - type: Spatial
     pos: 16,2

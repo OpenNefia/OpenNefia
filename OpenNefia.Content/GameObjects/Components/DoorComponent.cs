@@ -16,10 +16,10 @@ namespace OpenNefia.Content.GameObjects
         [ComponentDependency] private SpatialComponent? _spatial = null;
 
         [DataField]
-        public PrototypeId<ChipPrototype> ChipOpen { get; } = Protos.Chip.FeatDoorWoodenOpen;
+        public PrototypeId<ChipPrototype> ChipOpen { get; } = Protos.Chip.MObjDoorWoodenOpen;
 
         [DataField]
-        public PrototypeId<ChipPrototype> ChipClosed { get; } = Protos.Chip.FeatDoorWoodenClosed;
+        public PrototypeId<ChipPrototype> ChipClosed { get; } = Protos.Chip.MObjDoorWoodenClosed;
 
         [DataField]
         public SoundSpecifier? SoundOpen { get; }

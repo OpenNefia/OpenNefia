@@ -64,7 +64,7 @@ namespace OpenNefia.Content.Nefia
                 map.SetTile(pos, Protos.Tile.WallDirt);
             }
 
-            var stairs = _entityGen.SpawnEntity(Protos.Feat.StairsUp, map.AtPos(3, 3))!.Value;
+            var stairs = _entityGen.SpawnEntity(Protos.Mobj.StairsUp, map.AtPos(3, 3))!.Value;
             var stairsComp = EntityManager.EnsureComponent<StairsComponent>(stairs);
             stairsComp.Entrance = MapEntrance.FromMapCoordinates(args.PreviousCoords);
 

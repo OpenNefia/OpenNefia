@@ -29,13 +29,13 @@ entities:
   components:
   - type: Map
 - uid: 1
-  protoId: Elona.FeatStairsUp
+  protoId: Elona.MObjStairsUp
   components:
   - type: Spatial
     pos: 1,3
     parent: 0
 - uid: 2
-  protoId: Elona.FeatDoorJail
+  protoId: Elona.MObjDoorJail
   components:
   - type: Spatial
     pos: 11,10
@@ -43,7 +43,7 @@ entities:
   - type: Door
     unlockDifficulty: 90
 - uid: 3
-  protoId: Elona.FeatDoorJail
+  protoId: Elona.MObjDoorJail
   components:
   - type: Spatial
     pos: 11,6
@@ -51,7 +51,7 @@ entities:
   - type: Door
     unlockDifficulty: 90
 - uid: 4
-  protoId: Elona.FeatDoorJail
+  protoId: Elona.MObjDoorJail
   components:
   - type: Spatial
     pos: 17,10
@@ -59,7 +59,7 @@ entities:
   - type: Door
     unlockDifficulty: 90
 - uid: 5
-  protoId: Elona.FeatDoorJail
+  protoId: Elona.MObjDoorJail
   components:
   - type: Spatial
     pos: 17,6
@@ -67,7 +67,7 @@ entities:
   - type: Door
     unlockDifficulty: 90
 - uid: 6
-  protoId: Elona.FeatDoorJail
+  protoId: Elona.MObjDoorJail
   components:
   - type: Spatial
     pos: 23,10
@@ -75,7 +75,7 @@ entities:
   - type: Door
     unlockDifficulty: 90
 - uid: 7
-  protoId: Elona.FeatDoorJail
+  protoId: Elona.MObjDoorJail
   components:
   - type: Spatial
     pos: 23,6
@@ -83,7 +83,7 @@ entities:
   - type: Door
     unlockDifficulty: 90
 - uid: 8
-  protoId: Elona.FeatDoorJail
+  protoId: Elona.MObjDoorJail
   components:
   - type: Spatial
     pos: 29,10
@@ -91,7 +91,7 @@ entities:
   - type: Door
     unlockDifficulty: 90
 - uid: 9
-  protoId: Elona.FeatDoorJail
+  protoId: Elona.MObjDoorJail
   components:
   - type: Spatial
     pos: 29,6
@@ -99,7 +99,7 @@ entities:
   - type: Door
     unlockDifficulty: 90
 - uid: 10
-  protoId: Elona.FeatDoorJail
+  protoId: Elona.MObjDoorJail
   components:
   - type: Spatial
     pos: 35,10
@@ -107,7 +107,7 @@ entities:
   - type: Door
     unlockDifficulty: 90
 - uid: 11
-  protoId: Elona.FeatDoorJail
+  protoId: Elona.MObjDoorJail
   components:
   - type: Spatial
     pos: 35,6
@@ -291,13 +291,13 @@ entities:
   - type: Pickable
     ownState: NPC
 - uid: 34
-  protoId: Elona.FeatDoorWooden
+  protoId: Elona.MObjDoorWooden
   components:
   - type: Spatial
     pos: 5,8
     parent: 0
 - uid: 35
-  protoId: Elona.FeatDoorWooden
+  protoId: Elona.MObjDoorWooden
   components:
   - type: Spatial
     pos: 2,11
