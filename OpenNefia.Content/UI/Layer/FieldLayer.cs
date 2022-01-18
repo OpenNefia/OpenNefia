@@ -39,21 +39,12 @@ namespace OpenNefia.Content.UI.Layer
 
         public Camera Camera { get; private set; }
 
-        private FontSpec FontText = new(14, 12);
-
-        public string Message { get; private set; }
-        private string MouseText;
         private PrototypeId<TilePrototype>? PlacingTile = null;
 
         public FieldLayer()
         {
             _scroller = new UiScroller();
             Camera = new Camera(this);
-
-            var result = PrintMessage("dood");
-            Console.WriteLine($"Got back: {result}");
-            Message = result;
-            MouseText = "";
 
             BindKeys();
         }
@@ -165,12 +156,6 @@ namespace OpenNefia.Content.UI.Layer
             //}
         }
 
-        public string PrintMessage(string dood)
-        {
-            Console.WriteLine($"Hi, I'm {dood}.");
-            return dood + "?";
-        }
-
         public override void SetSize(int width, int height)
         {
             base.SetSize(width, height);
@@ -257,12 +242,6 @@ namespace OpenNefia.Content.UI.Layer
             var playerSpatial = _entityManager.GetComponent<SpatialComponent>(player);
             var screenPos = playerSpatial.GetScreenPos();
             Love.Graphics.Rectangle(Love.DrawMode.Line, X + screenPos.X, Y + screenPos.Y, _coords.TileSize.X, _coords.TileSize.Y);
-
-            GraphicsEx.SetFont(FontText);
-            GraphicsEx.SetColor(Color.White);
-            Love.Graphics.Print(Message, 5, 5);
-            Love.Graphics.Print(MouseText, 5, 20);
-            Love.Graphics.Print($"Player: ({playerSpatial.MapPosition})", 5, 35);
 
             _hud.Draw();
         }
