@@ -6,6 +6,7 @@ using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Locale;
 using OpenNefia.Core.Maps;
+using OpenNefia.Core.Maths;
 using System.Text;
 
 namespace OpenNefia.Content.GameObjects
@@ -31,9 +32,10 @@ namespace OpenNefia.Content.GameObjects
         }
 
         public void CheckMovementOutOfMap(EntityUid uid, BeforeMoveEventArgs args,
-           PlayerComponent? player = null)
+           PlayerComponent? player = null, 
+           SpatialComponent? playerSpatial = null)
         {
-            if (args.Handled || !Resolve(uid, ref player))
+            if (args.Handled || !Resolve(uid, ref player, ref playerSpatial))
                 return;
 
             var (pos, mapId) = args.NewPosition;
@@ -44,6 +46,7 @@ namespace OpenNefia.Content.GameObjects
                 {
                     if (_playerQuery.YesOrNo(Loc.GetString("Elona.PlayerMovement.PromptLeaveMap", ("map", map.MapEntityUid))))
                     {
+                        playerSpatial.Direction = playerSpatial.Direction.GetOpposite();
                         Raise(uid, new ExitMapEventArgs(map, mapEdgesEntrance.Entrance), args);
                     }
                 }
