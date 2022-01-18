@@ -1,5 +1,5 @@
 - type: Chip
-  id: Elona.FeatStairsDown
+  id: Elona.MObjStairsDown
   hspIds:
     elona122: 231
   group: Feat
@@ -8,7 +8,7 @@
     region: "0, 336, 48, 48"
 
 - type: Chip
-  id: Elona.FeatStairsUp
+  id: Elona.MObjStairsUp
   hspIds:
     elona122: 232
   group: Feat
@@ -17,7 +17,7 @@
     region: "48, 336, 48, 48"
 
 - type: Chip
-  id: Elona.FeatHidden
+  id: Elona.MObjHidden
   hspIds:
     elona122: 233
   group: Feat
@@ -26,7 +26,7 @@
     region: "96, 336, 48, 48"
 
 - type: Chip
-  id: Elona.FeatTrap
+  id: Elona.MObjTrap
   hspIds:
     elona122: 234
   group: Feat
@@ -35,7 +35,7 @@
     region: "144, 336, 48, 48"
 
 - type: Chip
-  id: Elona.FeatBar
+  id: Elona.MObjBar
   hspIds:
     elona122: 235
   group: Feat
@@ -44,7 +44,7 @@
     region: "192, 336, 48, 48"
 
 - type: Chip
-  id: Elona.FeatDoorWoodenOpen
+  id: Elona.MObjDoorWoodenOpen
   hspIds:
     elona122: 236
   group: Feat
@@ -53,7 +53,7 @@
     region: "240, 336, 48, 48"
 
 - type: Chip
-  id: Elona.FeatLockedHatch
+  id: Elona.MObjLockedHatch
   hspIds:
     elona122: 237
   group: Feat
@@ -62,7 +62,7 @@
     region: "288, 336, 48, 48"
 
 - type: Chip
-  id: Elona.FeatMaterialDig
+  id: Elona.MObjMaterialDig
   hspIds:
     elona122: 238
   group: Feat
@@ -71,7 +71,7 @@
     region: "336, 336, 48, 48"
 
 - type: Chip
-  id: Elona.FeatMaterialGem
+  id: Elona.MObjMaterialGem
   hspIds:
     elona122: 239
   group: Feat
@@ -80,7 +80,7 @@
     region: "384, 336, 48, 48"
 
 - type: Chip
-  id: Elona.FeatMaterialWood
+  id: Elona.MObjMaterialWood
   hspIds:
     elona122: 240
   group: Feat
@@ -89,7 +89,7 @@
     region: "432, 336, 48, 48"
 
 - type: Chip
-  id: Elona.FeatDoorSFOpen
+  id: Elona.MObjDoorSFOpen
   hspIds:
     elona122: 241
   group: Feat
@@ -98,7 +98,7 @@
     region: "480, 336, 48, 48"
 
 - type: Chip
-  id: Elona.FeatPot
+  id: Elona.MObjPot
   hspIds:
     elona122: 242
   group: Feat
@@ -107,7 +107,7 @@
     region: "528, 336, 48, 48"
 
 - type: Chip
-  id: Elona.FeatMaterialCrafting
+  id: Elona.MObjMaterialCrafting
   hspIds:
     elona122: 243
   group: Feat
@@ -116,7 +116,7 @@
     region: "576, 336, 48, 48"
 
 - type: Chip
-  id: Elona.FeatMaterialMine
+  id: Elona.MObjMaterialMine
   hspIds:
     elona122: 244
   group: Feat
@@ -125,7 +125,7 @@
     region: "624, 336, 48, 48"
 
 - type: Chip
-  id: Elona.FeatMaterialFish
+  id: Elona.MObjMaterialFish
   hspIds:
     elona122: 245
   group: Feat
@@ -134,7 +134,7 @@
     region: "672, 336, 48, 48"
 
 - type: Chip
-  id: Elona.FeatMaterialPlant
+  id: Elona.MObjMaterialPlant
   hspIds:
     elona122: 246
   group: Feat
@@ -143,7 +143,7 @@
     region: "720, 336, 48, 48"
 
 - type: Chip
-  id: Elona.FeatPlant0
+  id: Elona.MObjPlant0
   hspIds:
     elona122: 247
   group: Feat
@@ -152,7 +152,7 @@
     region: "768, 336, 48, 48"
 
 - type: Chip
-  id: Elona.FeatPlant1
+  id: Elona.MObjPlant1
   hspIds:
     elona122: 248
   group: Feat
@@ -161,7 +161,7 @@
     region: "816, 336, 48, 48"
 
 - type: Chip
-  id: Elona.FeatPlant2
+  id: Elona.MObjPlant2
   hspIds:
     elona122: 249
   group: Feat
@@ -170,7 +170,7 @@
     region: "864, 336, 48, 48"
 
 - type: Chip
-  id: Elona.FeatPlant3
+  id: Elona.MObjPlant3
   hspIds:
     elona122: 250
   group: Feat
@@ -179,7 +179,7 @@
     region: "912, 336, 48, 48"
 
 - type: Chip
-  id: Elona.FeatDoorEasternOpen
+  id: Elona.MObjDoorEasternOpen
   hspIds:
     elona122: 264
   group: Feat
@@ -188,7 +188,7 @@
     region: "0, 384, 48, 48"
 
 - type: Chip
-  id: Elona.FeatDoorJailOpen
+  id: Elona.MObjDoorJailOpen
   hspIds:
     elona122: 265
   group: Feat
@@ -197,7 +197,7 @@
     region: "48, 384, 48, 48"
 
 - type: Chip
-  id: Elona.FeatMoongate
+  id: Elona.MObjMoongate
   hspIds:
     elona122: 284
   group: Feat
@@ -207,7 +207,7 @@
     _CountX: 2
 
 - type: Chip
-  id: Elona.FeatDoorWoodenClosed
+  id: Elona.MObjDoorWoodenClosed
   hspIds:
     elona122: 726
   group: Feat
@@ -216,7 +216,7 @@
     region: "0, 1056, 48, 48"
 
 - type: Chip
-  id: Elona.FeatQuestBoard
+  id: Elona.MObjQuestBoard
   hspIds:
     elona122: 727
   group: Feat
@@ -225,7 +225,7 @@
     region: "48, 1056, 48, 48"
 
 - type: Chip
-  id: Elona.FeatDoorSFClosed
+  id: Elona.MObjDoorSFClosed
   hspIds:
     elona122: 728
   group: Feat
@@ -234,7 +234,7 @@
     region: "96, 1056, 48, 48"
 
 - type: Chip
-  id: Elona.FeatVotingBox
+  id: Elona.MObjVotingBox
   hspIds:
     elona122: 729
   group: Feat
@@ -243,7 +243,7 @@
     region: "144, 1056, 48, 48"
 
 - type: Chip
-  id: Elona.FeatDoorEasternClosed
+  id: Elona.MObjDoorEasternClosed
   hspIds:
     elona122: 730
   group: Feat
@@ -252,7 +252,7 @@
     region: "192, 1056, 48, 48"
 
 - type: Chip
-  id: Elona.FeatTomb
+  id: Elona.MObjTomb
   hspIds:
     elona122: 731
   group: Feat
@@ -261,7 +261,7 @@
     region: "240, 1056, 48, 48"
 
 - type: Chip
-  id: Elona.FeatPoliticsBoard
+  id: Elona.MObjPoliticsBoard
   hspIds:
     elona122: 732
   group: Feat
@@ -270,7 +270,7 @@
     region: "288, 1056, 48, 48"
 
 - type: Chip
-  id: Elona.FeatDoorJailClosed
+  id: Elona.MObjDoorJailClosed
   hspIds:
     elona122: 733
   group: Feat
@@ -279,7 +279,7 @@
     region: "336, 1056, 48, 48"
 
 - type: Chip
-  id: Elona.FeatAreaCity
+  id: Elona.MObjAreaCity
   hspIds:
     elona122: 132
   group: Feat
@@ -288,7 +288,7 @@
     region: "0, 192, 48, 48"
 
 - type: Chip
-  id: Elona.FeatAreaDungeon
+  id: Elona.MObjAreaDungeon
   hspIds:
     elona122: 133
   group: Feat
@@ -297,7 +297,7 @@
     region: "48, 192, 48, 48"
 
 - type: Chip
-  id: Elona.FeatAreaRock
+  id: Elona.MObjAreaRock
   hspIds:
     elona122: 134
   group: Feat
@@ -306,7 +306,7 @@
     region: "96, 192, 48, 48"
 
 - type: Chip
-  id: Elona.FeatAreaForest
+  id: Elona.MObjAreaForest
   hspIds:
     elona122: 135
   group: Feat
@@ -315,7 +315,7 @@
     region: "144, 192, 48, 48"
 
 - type: Chip
-  id: Elona.FeatAreaPalace
+  id: Elona.MObjAreaPalace
   hspIds:
     elona122: 136
   group: Feat
@@ -324,7 +324,7 @@
     region: "192, 192, 48, 48"
 
 - type: Chip
-  id: Elona.FeatAreaTower
+  id: Elona.MObjAreaTower
   hspIds:
     elona122: 137
   group: Feat
@@ -333,7 +333,7 @@
     region: "240, 192, 48, 48"
 
 - type: Chip
-  id: Elona.FeatAreaYourDungeon
+  id: Elona.MObjAreaYourDungeon
   hspIds:
     elona122: 138
   group: Feat
@@ -342,7 +342,7 @@
     region: "288, 192, 48, 48"
 
 - type: Chip
-  id: Elona.FeatAreaLesimas
+  id: Elona.MObjAreaLesimas
   hspIds:
     elona122: 139
   group: Feat
@@ -351,7 +351,7 @@
     region: "336, 192, 48, 48"
 
 - type: Chip
-  id: Elona.FeatAreaFort
+  id: Elona.MObjAreaFort
   hspIds:
     elona122: 140
   group: Feat
@@ -360,7 +360,7 @@
     region: "384, 192, 48, 48"
 
 - type: Chip
-  id: Elona.FeatAreaCrypt
+  id: Elona.MObjAreaCrypt
   hspIds:
     elona122: 141
   group: Feat
@@ -369,7 +369,7 @@
     region: "432, 192, 48, 48"
 
 - type: Chip
-  id: Elona.FeatAreaVillage
+  id: Elona.MObjAreaVillage
   hspIds:
     elona122: 142
   group: Feat
@@ -378,7 +378,7 @@
     region: "480, 192, 48, 48"
 
 - type: Chip
-  id: Elona.FeatAreaTown
+  id: Elona.MObjAreaTown
   hspIds:
     elona122: 143
   group: Feat
@@ -387,7 +387,7 @@
     region: "528, 192, 48, 48"
 
 - type: Chip
-  id: Elona.FeatAreaCastle
+  id: Elona.MObjAreaCastle
   hspIds:
     elona122: 144
   group: Feat
@@ -396,7 +396,7 @@
     region: "576, 192, 48, 48"
 
 - type: Chip
-  id: Elona.FeatAreaTowerOfFire
+  id: Elona.MObjAreaTowerOfFire
   hspIds:
     elona122: 145
   group: Feat
@@ -405,7 +405,7 @@
     region: "624, 192, 48, 48"
 
 - type: Chip
-  id: Elona.FeatAreaDungeonTower
+  id: Elona.MObjAreaDungeonTower
   hspIds:
     elona122: 146
   group: Feat
@@ -414,7 +414,7 @@
     region: "672, 192, 48, 48"
 
 - type: Chip
-  id: Elona.FeatAreaTruceGround
+  id: Elona.MObjAreaTruceGround
   hspIds:
     elona122: 147
   group: Feat
@@ -423,7 +423,7 @@
     region: "720, 192, 48, 48"
 
 - type: Chip
-  id: Elona.FeatAreaTent
+  id: Elona.MObjAreaTent
   hspIds:
     elona122: 148
   group: Feat
@@ -432,7 +432,7 @@
     region: "768, 192, 48, 48"
 
 - type: Chip
-  id: Elona.FeatAreaGod
+  id: Elona.MObjAreaGod
   hspIds:
     elona122: 149
   group: Feat
@@ -441,7 +441,7 @@
     region: "816, 192, 48, 48"
 
 - type: Chip
-  id: Elona.FeatAreaMuseum
+  id: Elona.MObjAreaMuseum
   hspIds:
     elona122: 150
   group: Feat
@@ -450,7 +450,7 @@
     region: "864, 192, 48, 48"
 
 - type: Chip
-  id: Elona.FeatAreaShop
+  id: Elona.MObjAreaShop
   hspIds:
     elona122: 151
   group: Feat
@@ -459,7 +459,7 @@
     region: "912, 192, 48, 48"
 
 - type: Chip
-  id: Elona.FeatAreaCrop
+  id: Elona.MObjAreaCrop
   hspIds:
     elona122: 152
   group: Feat
@@ -468,7 +468,7 @@
     region: "960, 192, 48, 48"
 
 - type: Chip
-  id: Elona.FeatAreaStorageHouse
+  id: Elona.MObjAreaStorageHouse
   hspIds:
     elona122: 153
   group: Feat
@@ -477,7 +477,7 @@
     region: "1008, 192, 48, 48"
 
 - type: Chip
-  id: Elona.FeatAreaRanch
+  id: Elona.MObjAreaRanch
   hspIds:
     elona122: 154
   group: Feat
@@ -486,7 +486,7 @@
     region: "1056, 192, 48, 48"
 
 - type: Chip
-  id: Elona.FeatAreaEmbassy
+  id: Elona.MObjAreaEmbassy
   hspIds:
     elona122: 155
   group: Feat
@@ -495,7 +495,7 @@
     region: "1104, 192, 48, 48"
 
 - type: Chip
-  id: Elona.FeatAreaVillageSnow
+  id: Elona.MObjAreaVillageSnow
   hspIds:
     elona122: 156
   group: Feat
@@ -504,7 +504,7 @@
     region: "1152, 192, 48, 48"
 
 - type: Chip
-  id: Elona.FeatAreaMiralAndGaroksWorkshop
+  id: Elona.MObjAreaMiralAndGaroksWorkshop
   hspIds:
     elona122: 157
   group: Feat
@@ -513,7 +513,7 @@
     region: "1200, 192, 48, 48"
 
 - type: Chip
-  id: Elona.FeatAreaBorderTent
+  id: Elona.MObjAreaBorderTent
   hspIds:
     elona122: 158
   group: Feat
@@ -522,7 +522,7 @@
     region: "1248, 192, 48, 48"
 
 - type: Chip
-  id: Elona.FeatAreaTheSmokeAndPipe
+  id: Elona.MObjAreaTheSmokeAndPipe
   hspIds:
     elona122: 159
   group: Feat
@@ -531,7 +531,7 @@
     region: "1296, 192, 48, 48"
 
 - type: Chip
-  id: Elona.FeatAreaPyramid
+  id: Elona.MObjAreaPyramid
   hspIds:
     elona122: 160
   group: Feat
@@ -540,7 +540,7 @@
     region: "1344, 192, 48, 48"
 
 - type: Chip
-  id: Elona.FeatAreaJail
+  id: Elona.MObjAreaJail
   hspIds:
     elona122: 161
   group: Feat
@@ -549,7 +549,7 @@
     region: "1392, 192, 48, 48"
 
 - type: Chip
-  id: Elona.FeatBuildingMountain
+  id: Elona.MObjBuildingMountain
   hspIds:
     elona122: 363
   group: Feat
@@ -558,7 +558,7 @@
     region: "0, 528, 48, 48"
 
 - type: Chip
-  id: Elona.FeatBuildingCrop
+  id: Elona.MObjBuildingCrop
   hspIds:
     elona122: 364
   group: Feat
@@ -567,7 +567,7 @@
     region: "48, 528, 48, 48"
 
 - type: Chip
-  id: Elona.FeatBuildingHouse1
+  id: Elona.MObjBuildingHouse1
   hspIds:
     elona122: 365
   group: Feat
@@ -576,7 +576,7 @@
     region: "96, 528, 48, 48"
 
 - type: Chip
-  id: Elona.FeatBuildingHouse2
+  id: Elona.MObjBuildingHouse2
   hspIds:
     elona122: 366
   group: Feat
@@ -585,7 +585,7 @@
     region: "144, 528, 48, 48"
 
 - type: Chip
-  id: Elona.FeatBuildingHouse3
+  id: Elona.MObjBuildingHouse3
   hspIds:
     elona122: 367
   group: Feat
@@ -594,7 +594,7 @@
     region: "192, 528, 48, 48"
 
 - type: Chip
-  id: Elona.FeatBuildingLighthouse
+  id: Elona.MObjBuildingLighthouse
   hspIds:
     elona122: 368
   group: Feat

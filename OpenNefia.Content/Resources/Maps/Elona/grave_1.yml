@@ -477,13 +477,13 @@ entities:
     pos: 27,18
     parent: 0
 - uid: 65
-  protoId: Elona.FeatSmallMedal
+  protoId: Elona.MObjSmallMedal
   components:
   - type: Spatial
     pos: 13,11
     parent: 0
 - uid: 66
-  protoId: Elona.FeatSmallMedal
+  protoId: Elona.MObjSmallMedal
   components:
   - type: Spatial
     pos: 30,7

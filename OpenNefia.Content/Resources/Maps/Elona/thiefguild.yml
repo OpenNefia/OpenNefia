@@ -46,7 +46,7 @@ entities:
   components:
   - type: Map
 - uid: 1
-  protoId: Elona.FeatStairsUp
+  protoId: Elona.MObjStairsUp
   components:
   - type: Spatial
     pos: 8,9
@@ -84,61 +84,61 @@ entities:
   - type: Pickable
     ownState: NPC
 - uid: 6
-  protoId: Elona.FeatDoorWooden
+  protoId: Elona.MObjDoorWooden
   components:
   - type: Spatial
     pos: 1,14
     parent: 0
 - uid: 7
-  protoId: Elona.FeatDoorWooden
+  protoId: Elona.MObjDoorWooden
   components:
   - type: Spatial
     pos: 2,18
     parent: 0
 - uid: 8
-  protoId: Elona.FeatDoorWooden
+  protoId: Elona.MObjDoorWooden
   components:
   - type: Spatial
     pos: 8,18
     parent: 0
 - uid: 9
-  protoId: Elona.FeatDoorWooden
+  protoId: Elona.MObjDoorWooden
   components:
   - type: Spatial
     pos: 21,17
     parent: 0
 - uid: 10
-  protoId: Elona.FeatDoorWooden
+  protoId: Elona.MObjDoorWooden
   components:
   - type: Spatial
     pos: 18,15
     parent: 0
 - uid: 11
-  protoId: Elona.FeatDoorWooden
+  protoId: Elona.MObjDoorWooden
   components:
   - type: Spatial
     pos: 24,15
     parent: 0
 - uid: 12
-  protoId: Elona.FeatDoorWooden
+  protoId: Elona.MObjDoorWooden
   components:
   - type: Spatial
     pos: 18,10
     parent: 0
 - uid: 13
-  protoId: Elona.FeatDoorWooden
+  protoId: Elona.MObjDoorWooden
   components:
   - type: Spatial
     pos: 10,8
     parent: 0
 - uid: 14
-  protoId: Elona.FeatDoorWooden
+  protoId: Elona.MObjDoorWooden
   components:
   - type: Spatial
     pos: 27,5
     parent: 0
 - uid: 15
-  protoId: Elona.FeatDoorWooden
+  protoId: Elona.MObjDoorWooden
   components:
   - type: Spatial
     pos: 3,9

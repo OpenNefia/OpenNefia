@@ -90,43 +90,43 @@ entities:
   components:
   - type: Map
 - uid: 1
-  protoId: Elona.FeatDoorEastern
+  protoId: Elona.MObjDoorEastern
   components:
   - type: Spatial
     pos: 5,42
     parent: 0
 - uid: 2
-  protoId: Elona.FeatDoorEastern
+  protoId: Elona.MObjDoorEastern
   components:
   - type: Spatial
     pos: 4,44
     parent: 0
 - uid: 3
-  protoId: Elona.FeatDoorEastern
+  protoId: Elona.MObjDoorEastern
   components:
   - type: Spatial
     pos: 23,29
     parent: 0
 - uid: 4
-  protoId: Elona.FeatDoorEastern
+  protoId: Elona.MObjDoorEastern
   components:
   - type: Spatial
     pos: 21,25
     parent: 0
 - uid: 5
-  protoId: Elona.FeatDoorEastern
+  protoId: Elona.MObjDoorEastern
   components:
   - type: Spatial
     pos: 25,24
     parent: 0
 - uid: 6
-  protoId: Elona.FeatDoorEastern
+  protoId: Elona.MObjDoorEastern
   components:
   - type: Spatial
     pos: 25,27
     parent: 0
 - uid: 7
-  protoId: Elona.FeatStairsDown
+  protoId: Elona.MObjStairsDown
   components:
   - type: Spatial
     pos: 27,40
@@ -612,43 +612,43 @@ entities:
   - type: Pickable
     ownState: NPC
 - uid: 68
-  protoId: Elona.FeatSmallMedal
+  protoId: Elona.MObjSmallMedal
   components:
   - type: Spatial
     pos: 1,35
     parent: 0
 - uid: 69
-  protoId: Elona.FeatSmallMedal
+  protoId: Elona.MObjSmallMedal
   components:
   - type: Spatial
     pos: 4,33
     parent: 0
 - uid: 70
-  protoId: Elona.FeatSmallMedal
+  protoId: Elona.MObjSmallMedal
   components:
   - type: Spatial
     pos: 7,36
     parent: 0
 - uid: 71
-  protoId: Elona.FeatSmallMedal
+  protoId: Elona.MObjSmallMedal
   components:
   - type: Spatial
     pos: 25,47
     parent: 0
 - uid: 72
-  protoId: Elona.FeatSmallMedal
+  protoId: Elona.MObjSmallMedal
   components:
   - type: Spatial
     pos: 25,25
     parent: 0
 - uid: 73
-  protoId: Elona.FeatSmallMedal
+  protoId: Elona.MObjSmallMedal
   components:
   - type: Spatial
     pos: 27,4
     parent: 0
 - uid: 74
-  protoId: Elona.FeatSmallMedal
+  protoId: Elona.MObjSmallMedal
   components:
   - type: Spatial
     pos: 16,7

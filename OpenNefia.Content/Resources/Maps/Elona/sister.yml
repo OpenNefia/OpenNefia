@@ -155,25 +155,25 @@ entities:
   components:
   - type: Map
 - uid: 1
-  protoId: Elona.FeatDoorWooden
+  protoId: Elona.MObjDoorWooden
   components:
   - type: Spatial
     pos: 5,6
     parent: 0
 - uid: 2
-  protoId: Elona.FeatDoorWooden
+  protoId: Elona.MObjDoorWooden
   components:
   - type: Spatial
     pos: 12,11
     parent: 0
 - uid: 3
-  protoId: Elona.FeatDoorWooden
+  protoId: Elona.MObjDoorWooden
   components:
   - type: Spatial
     pos: 19,8
     parent: 0
 - uid: 4
-  protoId: Elona.FeatDoorWooden
+  protoId: Elona.MObjDoorWooden
   components:
   - type: Spatial
     pos: 19,5
@@ -395,37 +395,37 @@ entities:
   - type: Pickable
     ownState: NPC
 - uid: 32
-  protoId: Elona.FeatSmallMedal
+  protoId: Elona.MObjSmallMedal
   components:
   - type: Spatial
     pos: 11,21
     parent: 0
 - uid: 33
-  protoId: Elona.FeatSmallMedal
+  protoId: Elona.MObjSmallMedal
   components:
   - type: Spatial
     pos: 7,18
     parent: 0
 - uid: 34
-  protoId: Elona.FeatSmallMedal
+  protoId: Elona.MObjSmallMedal
   components:
   - type: Spatial
     pos: 10,19
     parent: 0
 - uid: 35
-  protoId: Elona.FeatSmallMedal
+  protoId: Elona.MObjSmallMedal
   components:
   - type: Spatial
     pos: 8,20
     parent: 0
 - uid: 36
-  protoId: Elona.FeatSmallMedal
+  protoId: Elona.MObjSmallMedal
   components:
   - type: Spatial
     pos: 19,4
     parent: 0
 - uid: 37
-  protoId: Elona.FeatSmallMedal
+  protoId: Elona.MObjSmallMedal
   components:
   - type: Spatial
     pos: 3,4

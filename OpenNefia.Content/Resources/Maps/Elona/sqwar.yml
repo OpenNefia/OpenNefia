@@ -567,7 +567,7 @@ entities:
     pos: 5,7
     parent: 0
 - uid: 89
-  protoId: Elona.FeatStairsUp
+  protoId: Elona.MObjStairsUp
   components:
   - type: Spatial
     pos: 2,2

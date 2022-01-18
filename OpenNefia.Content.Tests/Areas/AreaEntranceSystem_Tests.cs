@@ -38,10 +38,10 @@ namespace OpenNefia.Content.Tests.Areas
 
 - type: Entity
   id: {TestEntranceEntityID}
-  parent: {Protos.Feat.MapEntrance}
+  parent: {Protos.Mobj.MapEntrance}
   components:
   - type: Chip
-    id: {Protos.Chip.FeatAreaBorderTent}
+    id: {Protos.Chip.MObjAreaBorderTent}
 ";
 
         [Test]
@@ -76,7 +76,7 @@ namespace OpenNefia.Content.Tests.Areas
             Assert.That(worldMapEntMeta.EntityPrototype?.GetStrongID(), Is.EqualTo(TestEntranceEntityID));
 
             var worldMapEntChip = entMan.GetComponent<ChipComponent>(worldMapEntComp.Owner);
-            Assert.That(worldMapEntChip.ChipID, Is.EqualTo(Protos.Chip.FeatAreaBorderTent));
+            Assert.That(worldMapEntChip.ChipID, Is.EqualTo(Protos.Chip.MObjAreaBorderTent));
         }
     }
 }

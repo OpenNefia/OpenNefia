@@ -59,7 +59,7 @@
   - type: Pickable
 
 - type: Entity
-  id: BaseFeat
+  id: BaseMObj
   parent: BaseObject
   abstract: true
   hspEntityType: feat

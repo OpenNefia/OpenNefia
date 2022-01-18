@@ -41,43 +41,43 @@ entities:
   components:
   - type: Map
 - uid: 1
-  protoId: Elona.FeatDoorSF
+  protoId: Elona.MObjDoorSF
   components:
   - type: Spatial
     pos: 18,11
     parent: 0
 - uid: 2
-  protoId: Elona.FeatDoorSF
+  protoId: Elona.MObjDoorSF
   components:
   - type: Spatial
     pos: 8,11
     parent: 0
 - uid: 3
-  protoId: Elona.FeatDoorSF
+  protoId: Elona.MObjDoorSF
   components:
   - type: Spatial
     pos: 10,7
     parent: 0
 - uid: 4
-  protoId: Elona.FeatDoorSF
+  protoId: Elona.MObjDoorSF
   components:
   - type: Spatial
     pos: 13,5
     parent: 0
 - uid: 5
-  protoId: Elona.FeatDoorSF
+  protoId: Elona.MObjDoorSF
   components:
   - type: Spatial
     pos: 5,5
     parent: 0
 - uid: 6
-  protoId: Elona.FeatDoorSF
+  protoId: Elona.MObjDoorSF
   components:
   - type: Spatial
     pos: 16,7
     parent: 0
 - uid: 7
-  protoId: Elona.FeatDoorSF
+  protoId: Elona.MObjDoorSF
   components:
   - type: Spatial
     pos: 21,5

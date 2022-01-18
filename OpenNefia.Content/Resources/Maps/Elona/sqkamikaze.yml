@@ -368,133 +368,133 @@ entities:
     pos: 7,19
     parent: 0
 - uid: 56
-  protoId: Elona.FeatMine
+  protoId: Elona.MObjMine
   components:
   - type: Spatial
     pos: 9,8
     parent: 0
 - uid: 57
-  protoId: Elona.FeatMine
+  protoId: Elona.MObjMine
   components:
   - type: Spatial
     pos: 8,5
     parent: 0
 - uid: 58
-  protoId: Elona.FeatMine
+  protoId: Elona.MObjMine
   components:
   - type: Spatial
     pos: 2,7
     parent: 0
 - uid: 59
-  protoId: Elona.FeatMine
+  protoId: Elona.MObjMine
   components:
   - type: Spatial
     pos: 3,11
     parent: 0
 - uid: 60
-  protoId: Elona.FeatMine
+  protoId: Elona.MObjMine
   components:
   - type: Spatial
     pos: 10,12
     parent: 0
 - uid: 61
-  protoId: Elona.FeatMine
+  protoId: Elona.MObjMine
   components:
   - type: Spatial
     pos: 6,11
     parent: 0
 - uid: 62
-  protoId: Elona.FeatMine
+  protoId: Elona.MObjMine
   components:
   - type: Spatial
     pos: 12,8
     parent: 0
 - uid: 63
-  protoId: Elona.FeatMine
+  protoId: Elona.MObjMine
   components:
   - type: Spatial
     pos: 11,10
     parent: 0
 - uid: 64
-  protoId: Elona.FeatMine
+  protoId: Elona.MObjMine
   components:
   - type: Spatial
     pos: 11,6
     parent: 0
 - uid: 65
-  protoId: Elona.FeatMine
+  protoId: Elona.MObjMine
   components:
   - type: Spatial
     pos: 12,13
     parent: 0
 - uid: 66
-  protoId: Elona.FeatMine
+  protoId: Elona.MObjMine
   components:
   - type: Spatial
     pos: 15,14
     parent: 0
 - uid: 67
-  protoId: Elona.FeatMine
+  protoId: Elona.MObjMine
   components:
   - type: Spatial
     pos: 6,9
     parent: 0
 - uid: 68
-  protoId: Elona.FeatMine
+  protoId: Elona.MObjMine
   components:
   - type: Spatial
     pos: 13,5
     parent: 0
 - uid: 69
-  protoId: Elona.FeatMine
+  protoId: Elona.MObjMine
   components:
   - type: Spatial
     pos: 26,2
     parent: 0
 - uid: 70
-  protoId: Elona.FeatMine
+  protoId: Elona.MObjMine
   components:
   - type: Spatial
     pos: 27,5
     parent: 0
 - uid: 71
-  protoId: Elona.FeatMine
+  protoId: Elona.MObjMine
   components:
   - type: Spatial
     pos: 24,4
     parent: 0
 - uid: 72
-  protoId: Elona.FeatMine
+  protoId: Elona.MObjMine
   components:
   - type: Spatial
     pos: 29,7
     parent: 0
 - uid: 73
-  protoId: Elona.FeatMine
+  protoId: Elona.MObjMine
   components:
   - type: Spatial
     pos: 30,4
     parent: 0
 - uid: 74
-  protoId: Elona.FeatMine
+  protoId: Elona.MObjMine
   components:
   - type: Spatial
     pos: 24,1
     parent: 0
 - uid: 75
-  protoId: Elona.FeatMine
+  protoId: Elona.MObjMine
   components:
   - type: Spatial
     pos: 26,8
     parent: 0
 - uid: 76
-  protoId: Elona.FeatMine
+  protoId: Elona.MObjMine
   components:
   - type: Spatial
     pos: 29,1
     parent: 0
 - uid: 77
-  protoId: Elona.FeatMine
+  protoId: Elona.MObjMine
   components:
   - type: Spatial
     pos: 32,8

@@ -1011,31 +1011,31 @@ entities:
   - type: Pickable
     ownState: NPC
 - uid: 118
-  protoId: Elona.FeatDoorWooden
+  protoId: Elona.MObjDoorWooden
   components:
   - type: Spatial
     pos: 23,12
     parent: 0
 - uid: 119
-  protoId: Elona.FeatDoorWooden
+  protoId: Elona.MObjDoorWooden
   components:
   - type: Spatial
     pos: 28,14
     parent: 0
 - uid: 120
-  protoId: Elona.FeatDoorWooden
+  protoId: Elona.MObjDoorWooden
   components:
   - type: Spatial
     pos: 24,18
     parent: 0
 - uid: 121
-  protoId: Elona.FeatDoorWooden
+  protoId: Elona.MObjDoorWooden
   components:
   - type: Spatial
     pos: 9,15
     parent: 0
 - uid: 122
-  protoId: Elona.FeatDoorWooden
+  protoId: Elona.MObjDoorWooden
   components:
   - type: Spatial
     pos: 12,6
@@ -1321,13 +1321,13 @@ entities:
   - type: Pickable
     ownState: NPC
 - uid: 158
-  protoId: Elona.FeatQuestBoard
+  protoId: Elona.MObjQuestBoard
   components:
   - type: Spatial
     pos: 13,10
     parent: 0
 - uid: 159
-  protoId: Elona.FeatVotingBox
+  protoId: Elona.MObjVotingBox
   components:
   - type: Spatial
     pos: 18,20
@@ -1453,61 +1453,61 @@ entities:
   - type: Pickable
     ownState: NPC
 - uid: 175
-  protoId: Elona.FeatSmallMedal
+  protoId: Elona.MObjSmallMedal
   components:
   - type: Spatial
     pos: 1,2
     parent: 0
 - uid: 176
-  protoId: Elona.FeatSmallMedal
+  protoId: Elona.MObjSmallMedal
   components:
   - type: Spatial
     pos: 33,2
     parent: 0
 - uid: 177
-  protoId: Elona.FeatSmallMedal
+  protoId: Elona.MObjSmallMedal
   components:
   - type: Spatial
     pos: 3,28
     parent: 0
 - uid: 178
-  protoId: Elona.FeatSmallMedal
+  protoId: Elona.MObjSmallMedal
   components:
   - type: Spatial
     pos: 23,26
     parent: 0
 - uid: 179
-  protoId: Elona.FeatSmallMedal
+  protoId: Elona.MObjSmallMedal
   components:
   - type: Spatial
     pos: 22,14
     parent: 0
 - uid: 180
-  protoId: Elona.FeatSmallMedal
+  protoId: Elona.MObjSmallMedal
   components:
   - type: Spatial
     pos: 7,19
     parent: 0
 - uid: 181
-  protoId: Elona.FeatSmallMedal
+  protoId: Elona.MObjSmallMedal
   components:
   - type: Spatial
     pos: 28,16
     parent: 0
 - uid: 182
-  protoId: Elona.FeatSmallMedal
+  protoId: Elona.MObjSmallMedal
   components:
   - type: Spatial
     pos: 34,22
     parent: 0
 - uid: 183
-  protoId: Elona.FeatStairsDown
+  protoId: Elona.MObjStairsDown
   components:
   - type: Spatial
     pos: 16,17
     parent: 0
 - uid: 184
-  protoId: Elona.FeatPoliticsBoard
+  protoId: Elona.MObjPoliticsBoard
   components:
   - type: Spatial
     pos: 15,10

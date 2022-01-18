@@ -41,13 +41,13 @@ entities:
   components:
   - type: Map
 - uid: 1
-  protoId: Elona.FeatStairsUp
+  protoId: Elona.MObjStairsUp
   components:
   - type: Spatial
     pos: 23,3
     parent: 0
 - uid: 2
-  protoId: Elona.FeatStairsDown
+  protoId: Elona.MObjStairsDown
   components:
   - type: Spatial
     pos: 26,24

@@ -1,52 +1,52 @@
 
 - type: Entity
-  id: Elona.FeatStairsUp
-  parent: BaseFeat
+  id: Elona.MObjStairsUp
+  parent: BaseMObj
   hspIds:
     elona122: 10
   hspCellObjIds:
     elona122: [5]
   components:
   - type: Chip
-    id: Elona.FeatStairsUp
+    id: Elona.MObjStairsUp
   - type: Stairs
     direction: Up
 
 - type: Entity
-  id: Elona.FeatStairsDown
-  parent: BaseFeat
+  id: Elona.MObjStairsDown
+  parent: BaseMObj
   hspIds:
     elona122: 11
   hspCellObjIds:
     elona122: [6]
   components:
   - type: Chip
-    id: Elona.FeatStairsDown
+    id: Elona.MObjStairsDown
   - type: Stairs
     direction: Down
 
 - type: Entity
-  id: Elona.FeatMine
-  parent: BaseFeat
+  id: Elona.MObjMine
+  parent: BaseMObj
   hspIds:
     elona122: 14
   hspCellObjIds:
     elona122: [3, 4]
 
 - type: Entity
-  id: Elona.FeatMapEntrance
-  parent: BaseFeat
+  id: Elona.MObjMapEntrance
+  parent: BaseMObj
   hspIds:
     elona122: 15
   components:
     - type: Chip
-      id: Elona.FeatAreaDungeon
+      id: Elona.MObjAreaDungeon
     - type: WorldMapEntrance
 
 - type: Entity
-  id: Elona.FeatDoor
+  id: Elona.MObjDoor
   abstract: true
-  parent: BaseFeat
+  parent: BaseMObj
   hspIds:
     elona122: 21
   components:
@@ -57,66 +57,66 @@
     - type: AICanPassThrough
 
 - type: Entity
-  id: Elona.FeatDoorWooden
-  parent: Elona.FeatDoor
+  id: Elona.MObjDoorWooden
+  parent: Elona.MObjDoor
   hspIds:
     elona122: 21
   hspCellObjIds:
     elona122: [0, 1, 2]
   components:
     - type: Door
-      chipOpen: Elona.FeatDoorWoodenOpen
-      chipClosed: Elona.FeatDoorWoodenClosed
+      chipOpen: Elona.MObjDoorWoodenOpen
+      chipClosed: Elona.MObjDoorWoodenClosed
       soundOpen: Elona.Door1
 
 - type: Entity
-  id: Elona.FeatDoorSF
-  parent: Elona.FeatDoor
+  id: Elona.MObjDoorSF
+  parent: Elona.MObjDoor
   hspIds:
     elona122: 21
   hspCellObjIds:
     elona122: [7]
   components:
     - type: Door
-      chipOpen: Elona.FeatDoorSFOpen
-      chipClosed: Elona.FeatDoorSFClosed
+      chipOpen: Elona.MObjDoorSFOpen
+      chipClosed: Elona.MObjDoorSFClosed
       soundOpen: Elona.Door2
 
 - type: Entity
-  id: Elona.FeatDoorEastern
-  parent: Elona.FeatDoor
+  id: Elona.MObjDoorEastern
+  parent: Elona.MObjDoor
   hspIds:
     elona122: 21
   hspCellObjIds:
     elona122: [11]
   components:
     - type: Door
-      chipOpen: Elona.FeatDoorEasternOpen
-      chipClosed: Elona.FeatDoorEasternClosed
+      chipOpen: Elona.MObjDoorEasternOpen
+      chipClosed: Elona.MObjDoorEasternClosed
       soundOpen: Elona.Card1
 
 - type: Entity
-  id: Elona.FeatDoorJail
-  parent: Elona.FeatDoor
+  id: Elona.MObjDoorJail
+  parent: Elona.MObjDoor
   hspIds:
     elona122: 21
   hspCellObjIds:
     elona122: [13]
   components:
     - type: Door
-      chipOpen: Elona.FeatDoorJailOpen
-      chipClosed: Elona.FeatDoorJailClosed
+      chipOpen: Elona.MObjDoorJailOpen
+      chipClosed: Elona.MObjDoorJailClosed
       soundOpen: Elona.Curse1
 
 - type: Entity
-  id: Elona.FeatHiddenPath
-  parent: BaseFeat
+  id: Elona.MObjHiddenPath
+  parent: BaseMObj
   hspIds:
     elona122: 22
 
 - type: Entity
-  id: Elona.FeatQuestBoard
-  parent: BaseFeat
+  id: Elona.MObjQuestBoard
+  parent: BaseMObj
   hspIds:
     elona122: 23
   hspCellObjIds:
@@ -125,31 +125,31 @@
   - type: Spatial
     isSolid: true
   - type: Chip
-    id: Elona.FeatQuestBoard
+    id: Elona.MObjQuestBoard
 
 - type: Entity
-  id: Elona.FeatPlant
-  parent: BaseFeat
+  id: Elona.MObjPlant
+  parent: BaseMObj
   hspIds:
     elona122: 29
   components:
   - type: Chip
-    id: Elona.FeatPlant0
+    id: Elona.MObjPlant0
 
 - type: Entity
-  id: Elona.FeatPot
-  parent: BaseFeat
+  id: Elona.MObjPot
+  parent: BaseMObj
   hspIds:
     elona122: 30
   components:
   - type: Spatial
     isSolid: true
   - type: Chip
-    id: Elona.FeatPot
+    id: Elona.MObjPot
 
 - type: Entity
-  id: Elona.FeatVotingBox
-  parent: BaseFeat
+  id: Elona.MObjVotingBox
+  parent: BaseMObj
   hspIds:
     elona122: 31
   hspCellObjIds:
@@ -158,19 +158,19 @@
   - type: Spatial
     isSolid: true
   - type: Chip
-    id: Elona.FeatVotingBox
+    id: Elona.MObjVotingBox
 
 - type: Entity
-  id: Elona.FeatSmallMedal
-  parent: BaseFeat
+  id: Elona.MObjSmallMedal
+  parent: BaseMObj
   hspIds:
     elona122: 32
   hspCellObjIds:
     elona122: [10]
 
 - type: Entity
-  id: Elona.FeatPoliticsBoard
-  parent: BaseFeat
+  id: Elona.MObjPoliticsBoard
+  parent: BaseMObj
   hspIds:
     elona122: 33
   hspCellObjIds:
@@ -179,20 +179,20 @@
   - type: Spatial
     isSolid: true
   - type: Chip
-    id: Elona.FeatPoliticsBoard
+    id: Elona.MObjPoliticsBoard
 
-- id: Elona.FeatMapgenBlock
-  parent: BaseFeat
+- id: Elona.MObjMapgenBlock
+  parent: BaseMObj
   type: Entity
   components:
   - type: Spatial
     isSolid: true
 
-- id: Elona.FeatLockedHatch
-  parent: BaseFeat
+- id: Elona.MObjLockedHatch
+  parent: BaseMObj
   type: Entity
 
-- id: Elona.FeatMaterialSpot
-  parent: BaseFeat
+- id: Elona.MObjMaterialSpot
+  parent: BaseMObj
   type: Entity
 ...

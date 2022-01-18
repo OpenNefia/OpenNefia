@@ -27,13 +27,13 @@ entities:
   components:
   - type: Map
 - uid: 1
-  protoId: Elona.FeatDoorWooden
+  protoId: Elona.MObjDoorWooden
   components:
   - type: Spatial
     pos: 8,11
     parent: 0
 - uid: 2
-  protoId: Elona.FeatDoorWooden
+  protoId: Elona.MObjDoorWooden
   components:
   - type: Spatial
     pos: 10,9

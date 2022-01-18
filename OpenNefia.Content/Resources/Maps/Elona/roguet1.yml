@@ -35,7 +35,7 @@ entities:
   components:
   - type: Map
 - uid: 1
-  protoId: Elona.FeatStairsUp
+  protoId: Elona.MObjStairsUp
   components:
   - type: Spatial
     pos: 15,16
@@ -323,31 +323,31 @@ entities:
     pos: 20,2
     parent: 0
 - uid: 49
-  protoId: Elona.FeatDoorWooden
+  protoId: Elona.MObjDoorWooden
   components:
   - type: Spatial
     pos: 6,3
     parent: 0
 - uid: 50
-  protoId: Elona.FeatDoorWooden
+  protoId: Elona.MObjDoorWooden
   components:
   - type: Spatial
     pos: 24,3
     parent: 0
 - uid: 51
-  protoId: Elona.FeatSmallMedal
+  protoId: Elona.MObjSmallMedal
   components:
   - type: Spatial
     pos: 26,3
     parent: 0
 - uid: 52
-  protoId: Elona.FeatSmallMedal
+  protoId: Elona.MObjSmallMedal
   components:
   - type: Spatial
     pos: 4,5
     parent: 0
 - uid: 53
-  protoId: Elona.FeatSmallMedal
+  protoId: Elona.MObjSmallMedal
   components:
   - type: Spatial
     pos: 19,10
