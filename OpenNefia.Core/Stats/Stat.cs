@@ -35,6 +35,7 @@ namespace OpenNefia.Core.Stats
             }
         }
 
+        // Needed for copying in de/serialization
         public Stat() : this(default!, default!) { }
 
         public Stat(T baseValue) : this (baseValue, baseValue) {}
