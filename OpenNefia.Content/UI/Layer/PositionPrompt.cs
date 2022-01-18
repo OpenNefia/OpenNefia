@@ -126,7 +126,7 @@ namespace OpenNefia.Content.UI.Layer
         protected override void MouseMove(GUIMouseMoveEventArgs args)
         {
             if (_isPanning)
-                PanWithMouse(args.Relative);
+                PanWithMouse(args.Relative * UIScale);
             else
                 MouseToTargetPos((Vector2i)args.GlobalPixelPosition.Position);
         }

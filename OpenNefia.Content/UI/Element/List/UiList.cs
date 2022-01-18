@@ -247,7 +247,7 @@ namespace OpenNefia.Content.UI.Element.List
             HandleActivate(new UiListEventArgs<T>(DisplayedCells[index], index));
         }
 
-        public void SetAll(IEnumerable<UiListCell<T>> items, bool dispose = true)
+        public virtual void SetAll(IEnumerable<UiListCell<T>> items, bool dispose = true)
         {
             var index = SelectedIndex;
             Clear(dispose);

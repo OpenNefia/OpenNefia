@@ -11,7 +11,7 @@ namespace OpenNefia.Content.UI
     {
         public static readonly FontSpec TitleScreenText = new(13, 13, color: UiColors.TextWhite, bgColor: UiColors.TextBlack);
 
-        public static readonly FontSpec ListTitleScreenText = new(13, 14);
+        public static readonly FontSpec ListTitleScreenText = new(14, 13);
         public static readonly FontSpec ListTitleScreenSubtext = new(11, 11);
         public static readonly FontSpec ListText = new(14, 12);
         public static readonly FontSpec ListKeyName = new(15, 13, color: UiColors.TextWhite, bgColor: UiColors.TextBlack);

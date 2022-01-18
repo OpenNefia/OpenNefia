@@ -21,6 +21,13 @@ namespace OpenNefia.Tests
         public Vector2 Position => new(0, 0);
         public float UIScale => 1f;
 
+        public UIBox2 SizeBox => UIBox2.FromDimensions(Vector2.Zero, Size);
+        public UIBox2i PixelSizeBox => UIBox2i.FromDimensions(Vector2i.Zero, PixelSize);
+        public int PixelWidth => PixelSize.X;
+        public int PixelHeight => PixelSize.Y;
+        public int PixelX => PixelPosition.X;
+        public int PixelY => PixelPosition.Y;
+
         public bool ContainsPoint(Vector2 point)
         {
             return PixelRect.Contains((int)point.X, (int)point.Y);

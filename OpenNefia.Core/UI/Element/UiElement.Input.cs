@@ -56,6 +56,10 @@ namespace OpenNefia.Core.UI.Element
         protected internal virtual void TextEntered(GUITextEventArgs args)
         {
         }
+
+        protected internal virtual void UIScaleChanged(GUIScaleChangedEventArgs args)
+        {
+        }
     }
 
     public class GUIMouseHoverEventArgs : EventArgs
@@ -132,18 +136,26 @@ namespace OpenNefia.Core.UI.Element
         /// <summary>
         ///     Position of the mouse, relative to the screen.
         /// </summary>
+        public Vector2 GlobalPosition { get; }
+
         public ScreenCoordinates GlobalPixelPosition { get; }
 
         /// <summary>
         ///     Position of the mouse, relative to the current control.
         /// </summary>
+        public Vector2 RelativePosition { get; internal set; }
+
         public Vector2 RelativePixelPosition { get; internal set; }
 
         protected GUIMouseEventArgs(UiElement sourceControl,
+            Vector2 globalPosition,
             ScreenCoordinates globalPixelPosition,
+            Vector2 relativePosition,
             Vector2 relativePixelPosition)
         {
             SourceControl = sourceControl;
+            GlobalPosition = globalPosition;
+            RelativePosition = relativePosition;
             RelativePixelPosition = relativePixelPosition;
             GlobalPixelPosition = globalPixelPosition;
         }
@@ -152,16 +164,18 @@ namespace OpenNefia.Core.UI.Element
     public class GUIMouseMoveEventArgs : GUIMouseEventArgs
     {
         /// <summary>
-        ///     The new position relative to the previous position.
+        ///     The new position relative to the previous position, in virtual pixels.
         /// </summary>
         public Vector2 Relative { get; }
 
         // ALL the parameters!
         public GUIMouseMoveEventArgs(Vector2 relative,
-            UiElement sourceControl,
+            UiElement sourceElement,
+            Vector2 globalPosition,
             ScreenCoordinates globalPixelPosition,
+            Vector2 relativePosition,
             Vector2 relativePixelPosition)
-            : base(sourceControl, globalPixelPosition, relativePixelPosition)
+            : base(sourceElement, globalPosition, globalPixelPosition, relativePosition, relativePixelPosition)
         {
             Relative = relative;
         }
@@ -172,12 +186,27 @@ namespace OpenNefia.Core.UI.Element
         public Vector2 Delta { get; }
 
         public GUIMouseWheelEventArgs(Vector2 delta,
-            UiElement sourceControl,
+            UiElement sourceElement,
+            Vector2 globalPosition,
             ScreenCoordinates globalPixelPosition,
+            Vector2 relativePosition,
             Vector2 relativePixelPosition)
-            : base(sourceControl, globalPixelPosition, relativePixelPosition)
+            : base(sourceElement, globalPosition, globalPixelPosition, relativePosition, relativePixelPosition)
         {
             Delta = delta;
+        }
+    }
+
+    public class GUIScaleChangedEventArgs : EventArgs
+    {
+        /// <summary>
+        ///     The new global UI scale.
+        /// </summary>
+        public float GlobalUIScale { get; }
+
+        public GUIScaleChangedEventArgs(float globalUIScale)
+        {
+            GlobalUIScale = globalUIScale;
         }
     }
 }

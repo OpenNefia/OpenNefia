@@ -59,7 +59,7 @@ Use 'cvar ?' to get a list of all registered CVars.";
                 }
                 catch (FormatException)
                 {
-                    shell.WriteLine($"Input value is in incorrect format for type {type}");
+                    shell.WriteError($"Input value is in incorrect format for type {type}");
                 }
             }
         }

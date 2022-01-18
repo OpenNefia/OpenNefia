@@ -4,6 +4,7 @@ using OpenNefia.Core.Maths;
 using OpenNefia.Core.UI.Layer;
 using OpenNefia.Core.UserInterface;
 using OpenNefia.Core.Utility;
+using static NetVips.Enums;
 
 namespace OpenNefia.Core.UI.Element
 {
@@ -31,6 +32,18 @@ namespace OpenNefia.Core.UI.Element
             get => (PreferredWidth, PreferredHeight);
             set => (PreferredWidth, PreferredHeight) = value;
         }
+
+        /// <summary>
+        ///     The position of the top left corner of the control relative to the parent, in virtual pixels.
+        /// </summary>
+        /// <seealso cref="RelativePixelPosition"/>
+        public Vector2 RelativePosition => Position - (Parent?.Position ?? Vector2.Zero);
+
+        /// <summary>
+        ///     The position of the top left corner of the control relative to the parent, in physical pixels.
+        /// </summary>
+        /// <seealso cref="Position"/>
+        public Vector2i RelativePixelPosition => (Vector2i)(RelativePosition * UIScale);
 
         /// <inheritdoc/>
         public override float UIScale => Root?.UIScale ?? 1;

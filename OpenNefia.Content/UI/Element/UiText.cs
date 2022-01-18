@@ -42,8 +42,6 @@ namespace OpenNefia.Content.UI.Element
         public Color Color { get; set; }
         public Color BgColor { get; set; }
 
-#pragma warning disable CS8618
-
         public UiText(string text = "") : this(new FontSpec(), text) { }
 
         public UiText(FontSpec font, string text = "")
@@ -56,7 +54,16 @@ namespace OpenNefia.Content.UI.Element
             RebakeText();
         }
 
-#pragma warning restore CS8618
+        protected override void UIScaleChanged(GUIScaleChangedEventArgs args)
+        {
+            ReallocateText();
+        }
+
+        private void ReallocateText()
+        {
+            BakedText.Dispose();
+            BakedText = Love.Graphics.NewText(Font.LoveFont, _text);
+        }
 
         public void RebakeText()
         {
@@ -150,7 +157,7 @@ namespace OpenNefia.Content.UI.Element
             Love.Graphics.SetColor(Color.White);
             AssetTipIcons.DrawRegionS(UIScale, "1", X, Y + 7);
             Love.Graphics.SetColor(Color);
-            Love.Graphics.Draw(BakedText, PixelX + 26, PixelY + 8); // y + vfix + 8
+            Love.Graphics.Draw(BakedText, PixelX + 26 * UIScale, PixelY + 8 * UIScale); // y + vfix + 8
             Love.Graphics.SetColor(Color.Black);
             GraphicsS.LineS(UIScale, X + 22, Y + 21, X + BakedText.GetWidthV(UIScale) + 36, Y + 21);
         }

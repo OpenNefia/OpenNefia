@@ -53,6 +53,13 @@ namespace OpenNefia.Content.TitleScreen
                 TextSaveDate.Text = Data.SaveGame.LastWriteTime.ToString();
             }
 
+            public override void GetPreferredSize(out Vector2 size)
+            {
+                base.GetPreferredSize(out size);
+                TextSaveDate.GetPreferredSize(out var size2);
+                size.X += size2.X + 55;
+            }
+
             public override void SetSize(float width, float height)
             {
                 base.SetSize(width, height);
@@ -143,14 +150,11 @@ namespace OpenNefia.Content.TitleScreen
 
         private void RebuildList()
         {
-            var selectedIndex = List.SelectedIndex;
-
-            List.Clear();
-            List.AddRange(_saveGameManager.AllSaves
+            var cells = _saveGameManager.AllSaves
                 .OrderByDescending(save => save.LastWriteTime)
-                .Select(save => new RestoreSaveUICell(new RestoreSaveCellData(save))));
+                .Select(save => new RestoreSaveUICell(new RestoreSaveCellData(save)));
 
-            List.Select(selectedIndex);
+            List.SetAll(cells);
 
             Window.KeyHints = MakeKeyHints();
         }

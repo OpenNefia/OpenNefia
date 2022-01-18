@@ -15,6 +15,8 @@ namespace OpenNefia.Content.UI.Element
         {
             PageTextParent = parent;
             PageText = new UiText(UiFonts.WindowPage);
+
+            AddChild(PageText);
         }
 
         /// <summary>
@@ -63,6 +65,8 @@ namespace OpenNefia.Content.UI.Element
                 return;
 
             PageText.Draw();
+            UiUtils.DebugDraw(this);
+            UiUtils.DebugDraw(PageTextParent);
         }
 
         public override void Update(float dt)

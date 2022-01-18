@@ -20,8 +20,8 @@ namespace OpenNefia.Core.Graphics
         [Dependency] private readonly IResourceCache _resourceCache = default!;
         [Dependency] private readonly IConfigurationManager _config = default!;
 
-        private const int MinWidth = 800;
-        private const int MinHeight = 600;
+        public const int MinWidth = 800;
+        public const int MinHeight = 600;
 
         public float WindowScale { get; internal set; } = 1f;
         public Vector2i WindowPixelSize => new(Love.Graphics.GetWidth(), Love.Graphics.GetHeight());
@@ -194,7 +194,7 @@ namespace OpenNefia.Core.Graphics
 
         public void SetWindowSettings(FullscreenMode mode, WindowSettings? windowSettings = null)
         {
-            Love.WindowSettings? loveWindowSettings = null;
+            Love.WindowSettings loveWindowSettings = Love.Window.GetMode();
 
             var isFullscreen = Love.Window.GetFullscreen();
 
@@ -209,8 +209,6 @@ namespace OpenNefia.Core.Graphics
                     Fullscreen = windowSettings.Fullscreen,
                     FullscreenType = (Love.FullscreenType)windowSettings.FullscreenType,
                     HighDpi = windowSettings.HighDPI,
-                    MinWidth = Math.Max(MinWidth, (int)(MinWidth * WindowScale)),
-                    MinHeight = Math.Max(MinHeight, (int)(MinHeight * WindowScale)),
                     MSAA = windowSettings.MSAA,
                     Refreshrate = windowSettings.RefreshRate,
                     Resizable = true,
@@ -221,6 +219,8 @@ namespace OpenNefia.Core.Graphics
                 };
             }
 
+            loveWindowSettings.MinWidth = Math.Max(MinWidth, (int)(MinWidth * WindowScale));
+            loveWindowSettings.MinHeight = Math.Max(MinHeight, (int)(MinHeight * WindowScale));
 
             Love.Window.SetMode(mode.Width, mode.Height, loveWindowSettings);
 
@@ -438,7 +438,7 @@ namespace OpenNefia.Core.Graphics
 
         public override void WheelMoved(int x, int y)
         {
-            OnMouseWheel?.Invoke(new MouseWheelEventArgs(new(Love.Mouse.GetPosition()), new Vector2i(x, y)));
+            OnMouseWheel?.Invoke(new MouseWheelEventArgs(new(Love.Mouse.GetPosition()), new Vector2(x, y)));
         }
 
         /// <summary>

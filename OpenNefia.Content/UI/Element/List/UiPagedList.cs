@@ -47,6 +47,8 @@ namespace OpenNefia.Content.UI.Element.List
 
             OnPageChanged += PageText.UpdatePageText;
             OnPageChanged += HandlePageChanged;
+
+            AddChild(PageText);
         }
 
         private void HandlePageChanged(int newPage, int newPageCount)

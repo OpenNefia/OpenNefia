@@ -5,6 +5,7 @@ using OpenNefia.Core.Locale;
 using OpenNefia.Core.Log;
 using OpenNefia.Core.Timing;
 using OpenNefia.Core.UI;
+using OpenNefia.Core.UI.Element;
 using OpenNefia.Core.UI.Layer;
 using System;
 using System.Collections.Generic;
@@ -105,13 +106,28 @@ namespace OpenNefia.Core.UserInterface
 
         private void OnConfigDisplayUIScaleChanged(float newUiScale)
         {
+            var ev = new GUIScaleChangedEventArgs(globalUIScale: _graphics.WindowScale);
+
             foreach (var layer in this.Layers)
             {
                 layer.LayerUIScale = newUiScale;
+
+                NotifyUIScaleChanged(layer, ev);
+
                 layer.GetPreferredBounds(out var bounds);
                 layer.SetSize(bounds.Width, bounds.Height);
                 layer.SetPosition(bounds.Left, bounds.Top);
             }
+        }
+
+        private void NotifyUIScaleChanged(UiElement elem, GUIScaleChangedEventArgs ev)
+        {
+            foreach (var child in elem.Children)
+            {
+                NotifyUIScaleChanged(child, ev);
+            }
+
+            elem.UIScaleChanged(ev);
         }
 
         public UiResult<TResult> Query<TLayer, TResult>()

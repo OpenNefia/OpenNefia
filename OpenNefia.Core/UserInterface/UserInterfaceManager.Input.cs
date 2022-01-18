@@ -106,9 +106,10 @@ namespace OpenNefia.Core.UserInterface
             if (target != null)
             {
                 var pos = mouseMoveEventArgs.Position.Position;
-                var guiArgs = new GUIMouseMoveEventArgs(mouseMoveEventArgs.Relative,
+                var guiArgs = new GUIMouseMoveEventArgs(mouseMoveEventArgs.Relative / target.UIScale,
                     target,
-                    mouseMoveEventArgs.Position,
+                    pos / target.UIScale, mouseMoveEventArgs.Position,
+                    pos / target.UIScale - target.Position,
                     pos - target.PixelPosition);
 
                 _doMouseGuiInput(target, guiArgs, (c, ev) => c.MouseMove(ev));
@@ -128,8 +129,8 @@ namespace OpenNefia.Core.UserInterface
             var pos = args.Position.Position;
 
             var guiArgs = new GUIMouseWheelEventArgs(args.Delta, control,
-                args.Position,
-                pos - control.PixelPosition);
+                pos / control.UIScale, args.Position,
+                pos / control.UIScale - control.Position, pos - control.PixelPosition);
 
             _doMouseGuiInput(control, guiArgs, (c, ev) => c.MouseWheel(ev), true);
         }

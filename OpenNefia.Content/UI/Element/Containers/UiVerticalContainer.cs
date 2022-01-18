@@ -71,8 +71,5 @@ namespace OpenNefia.Content.UI.Element.Containers
             SetSize(xMax, yTotal);
             return new Vector2(xMax, yTotal);
         }
-
-
-
     }
 }
