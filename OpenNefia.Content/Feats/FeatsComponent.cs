@@ -1,6 +1,7 @@
 ﻿using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Serialization.Manager.Attributes;
+using OpenNefia.Core.Stats;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,12 +28,12 @@ namespace OpenNefia.Content.Feats
         /// Current Feats and the respective Levels
         /// </summary>
         [DataField]
-        public Dictionary<PrototypeId<FeatPrototype>, int> Feats { get; } = new();
+        public Dictionary<PrototypeId<FeatPrototype>, Stat<int>> Feats { get; } = new();
 
         public int Level(PrototypeId<FeatPrototype> id)
         {
             if (Feats.TryGetValue(id, out var val))
-                return val;
+                return val.Buffed;
             return 0;
         }
     }

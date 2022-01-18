@@ -35,6 +35,8 @@ namespace OpenNefia.Core.Stats
             }
         }
 
+        public Stat() : this(default!, default!) { }
+
         public Stat(T baseValue) : this (baseValue, baseValue) {}
 
         public Stat(T baseValue, T buffedValue)
@@ -84,11 +86,6 @@ namespace OpenNefia.Core.Stats
         public static bool operator !=(Stat<T>? left, Stat<T>? right)
         {
             return !(left == right);
-        }
-
-        public static implicit operator T(Stat<T> stat)
-        {
-            return stat.Base;
         }
     }
 }
