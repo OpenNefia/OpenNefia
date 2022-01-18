@@ -43,9 +43,9 @@ namespace OpenNefia.Content.Tests.GameObjects.Components
 
             entityGen.FireGeneratedEvent(playerEntity);
             var skills = _entityManager.GetComponent<SkillsComponent>(playerEntity);
-            Assert.That(skills.Skills[Protos.Skill.AttrStrength].Level == 777);
-            Assert.That(skills.Skills[Protos.Skill.AttrMagic].Level == 888);
-            Assert.That(skills.Skills[Protos.Skill.AttrDexterity].Level == 999);
+            Assert.That(skills.Skills[Protos.Skill.AttrStrength].Level.Base == 777);
+            Assert.That(skills.Skills[Protos.Skill.AttrMagic].Level.Base == 888);
+            Assert.That(skills.Skills[Protos.Skill.AttrDexterity].Level.Base == 999);
             Assert.That(!_entityManager.HasComponent<CharaMakeSkillInitTempComponent>(playerEntity));
         }
     }

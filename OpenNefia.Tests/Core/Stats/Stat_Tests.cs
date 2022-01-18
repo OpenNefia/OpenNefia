@@ -36,18 +36,6 @@ namespace OpenNefia.Tests.Core.Stats
         }
 
         [Test]
-        public void TestStatImplicitOperators()
-        {
-            var stat = new Stat<int>(12, 34);
-
-            Assert.That((int)stat, Is.EqualTo(12));
-            Assert.That(stat == 12, Is.True);
-            Assert.That(stat != 12, Is.False);
-            Assert.That(stat == 34, Is.False);
-            Assert.That(stat != 34, Is.True);
-        }
-
-        [Test]
         public void TestStatBuffedAssignment()
         {
             var stat = new Stat<int>(12);

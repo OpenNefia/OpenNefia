@@ -8,6 +8,7 @@ using OpenNefia.Core.Locale;
 using OpenNefia.Core.Log;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.Prototypes;
+using OpenNefia.Core.Stats;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -119,7 +120,7 @@ namespace OpenNefia.Content.CharaMake
 
             foreach (var feat in feats)
             {
-                featsComponent.Feats[feat.Key] = featsComponent.Level(feat.Key) + feat.Value;
+                featsComponent.Feats[feat.Key] = new(featsComponent.Level(feat.Key) + feat.Value);
             }
         }
     }

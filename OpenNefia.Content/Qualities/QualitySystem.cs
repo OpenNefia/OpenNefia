@@ -21,11 +21,11 @@ namespace OpenNefia.Content.Qualities
 
         private void AddQualityBrackets(EntityUid uid, QualityComponent quality, ref GetBaseNameEventArgs args)
         {
-            if (quality.Quality == Quality.Great)
+            if (quality.Quality.Buffed == Quality.Great)
             {
                 args.BaseName = Loc.GetString("Elona.Quality.Brackets.Great", ("name", args.BaseName));
             }
-            else if (quality.Quality == Quality.God)
+            else if (quality.Quality.Buffed == Quality.God)
             {
                 args.BaseName = Loc.GetString("Elona.Quality.Brackets.God", ("name", args.BaseName));
             }
