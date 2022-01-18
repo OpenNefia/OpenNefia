@@ -7,8 +7,8 @@ namespace OpenNefia.Core.UI.Layer
     {
         int ZOrder { get; set; }
 
-        void GetPreferredBounds(out UIBox2i bounds);
-        void GetPreferredPosition(out Vector2i pos);
+        void GetPreferredBounds(out UIBox2 bounds);
+        void GetPreferredPosition(out Vector2 pos);
         void SetPreferredPosition();
 
         void OnQuery();

@@ -21,7 +21,7 @@ namespace OpenNefia.Core.UI.Element
         public Vector2i PixelSize => (Vector2i)(Size * UIScale);
 
         /// <inheritdoc/>
-        public Vector2i PixelPosition { get => PixelRect.TopLeft; }
+        public Vector2i PixelPosition => (Vector2i)(Position * UIScale);
 
         /// <inheritdoc/>
         public UIBox2 Rect => UIBox2.FromDimensions(Position, Size);

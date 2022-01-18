@@ -126,10 +126,10 @@ namespace OpenNefia.Content.CharaMake
             base.Draw();
             RaceText.Draw();
             Atlas.Clear();
-            Atlas.Add(FemaleChip.Image.AtlasIndex, Window.X + 375, Window.Y + 35, centered: true);
-            Atlas.Add(MaleChip.Image.AtlasIndex, Window.X + 405, Window.Y + 35, centered: true);
+            Atlas.Add(UIScale, FemaleChip.Image.AtlasIndex, Window.X + 375, Window.Y + 35, centered: true);
+            Atlas.Add(UIScale, MaleChip.Image.AtlasIndex, Window.X + 405, Window.Y + 35, centered: true);
             Atlas.Flush();
-            Atlas.Draw(0, 0);
+            Atlas.Draw(UIScale, 0, 0);
         }
 
         public override void ApplyStep(EntityUid entity)

@@ -81,7 +81,7 @@ namespace OpenNefia.Content.Inventory
             _itemDescSystem.GetItemDescription(_item, _rawEntries);
         }
 
-        private void WrapDescription(int maxWidth)
+        private void WrapDescription(float maxWidth)
         {
             _wrappedEntries.Clear();
 
@@ -89,7 +89,7 @@ namespace OpenNefia.Content.Inventory
             {
                 if (entry.Type == ItemDescriptionType.Flavor)
                 {
-                    var (_, wrapped) = UiFonts.ItemDescFlavor.LoveFont.GetWrap(entry.Text, maxWidth);
+                    var (_, wrapped) = UiFonts.ItemDescFlavor.LoveFont.GetWrapS(UIScale, entry.Text, maxWidth);
                     foreach (var text in wrapped)
                     {
                         _wrappedEntries.Add(new ItemDescriptionEntry()
@@ -114,7 +114,7 @@ namespace OpenNefia.Content.Inventory
             Window.SetSize(Width, Height);
             TextTopicItemName.SetPreferredSize();
 
-            var maxWidth = Width - (68 * 2) - UiFonts.ItemDescNormal.LoveFont.GetWidth(" ");
+            var maxWidth = Width - (68 * 2) - UiFonts.ItemDescNormal.LoveFont.GetWidthV(UIScale, " ");
             WrapDescription(maxWidth);
         }
 

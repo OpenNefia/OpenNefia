@@ -82,18 +82,18 @@ namespace OpenNefia.Content.CharaAppearance
             if (ShowPortrait)
             {
                 _portraitBatch.Clear();
-                _portraitBatch.Add(_data.PortraitProto.Image.AtlasIndex, 4, 4, WindowFrame.Width - 8, WindowFrame.Height - 8);
-                _portraitBatch.Draw(WindowFrame.X, WindowFrame.Y);
+                _portraitBatch.Add(UIScale, _data.PortraitProto.Image.AtlasIndex, 4, 4, WindowFrame.PixelWidth - 8, WindowFrame.PixelHeight - 8);
+                _portraitBatch.Draw(UIScale, WindowFrame.X, WindowFrame.Y);
             }
             else if (_data.UsePCC)
             {
-                _data.PCCDrawable.Draw(WindowFrame.X + 44 - 24, WindowFrame.Y + 59 - 12, 2.0f, 2.0f);
+                _data.PCCDrawable.Draw(WindowFrame.PixelX + 44 - 24, WindowFrame.PixelY + 59 - 12, 2.0f, 2.0f);
             }
             else
             {
                 _chipBatch.Clear();
-                _chipBatch.Add(_data.ChipProto.Image.AtlasIndex, 46 - 24, 59 - 24, _coords.TileSize.X, _coords.TileSize.Y, _data.ChipColor);
-                _chipBatch.Draw(WindowFrame.X, WindowFrame.Y);
+                _chipBatch.Add(UIScale, _data.ChipProto.Image.AtlasIndex, 46 - 24, 59 - 24, _coords.TileSize.X, _coords.TileSize.Y, _data.ChipColor);
+                _chipBatch.Draw(UIScale, WindowFrame.X, WindowFrame.Y);
             }
         }
 

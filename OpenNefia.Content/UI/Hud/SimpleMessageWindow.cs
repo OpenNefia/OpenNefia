@@ -87,13 +87,13 @@ namespace OpenNefia.Content.UI.Hud
         public override void Draw()
         {
             GraphicsEx.SetColor(0, 0, 0, 64);
-            Love.Graphics.Rectangle(Love.DrawMode.Fill, X, Y, Width, Height);
+            GraphicsS.RectangleS(UIScale, Love.DrawMode.Fill, X, Y, Width, Height);
 
             //Love.Graphics.SetScissor(this.X, this.Y, this.Width, this.Height);
             for (int i = 0; i < TextMessages.Length; i++)
             {
                 var text = TextMessages[i];
-                text.SetPosition(X + 5, Y + Height - FontTargetText.LoveFont.GetHeight() / UIScale * (i + 1) - 5);
+                text.SetPosition(X + 5, Y + Height - FontTargetText.LoveFont.GetHeightV(UIScale) * (i + 1) - 5);
                 text.Draw();
             }
             //Love.Graphics.SetScissor();

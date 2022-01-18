@@ -68,17 +68,9 @@ namespace OpenNefia.Core.Rendering
             Love.Graphics.Draw(quad, image, x, y, rotation, sx, sy, ox, oy);
         }
 
-        public static Vector2i GetViewportSize() => new Vector2i(Love.Graphics.GetWidth(), Love.Graphics.GetHeight());
-
-        public static void GetWindowTiledSize(this ICoords coords, out Vector2i windowTiledSize)
+        public static void DrawSpriteBatchS(float uiScale, Love.SpriteBatch batch, float x, float y, float? width, float? height, float rotation = 0)
         {
-            var graphics = IoCManager.Resolve<IGraphics>();
-            windowTiledSize = coords.GetTiledSize(graphics.WindowSize);
-        }
-
-        public static void DrawSpriteBatch(Love.SpriteBatch batch, float x, float y, float? width, float? height, float rotation = 0)
-        {
-            Love.Graphics.Draw(batch, x, y, rotation);
+            GraphicsS.DrawS(uiScale, batch, x, y, rotation);
         }
 
         public static void DrawImageRegion(Love.Image image, Love.Quad quad, float x = 0, float y = 0, float width = 0, float height = 0, bool centered = false, float rotation = 0)

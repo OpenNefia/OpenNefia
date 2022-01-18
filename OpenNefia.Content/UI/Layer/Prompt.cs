@@ -137,12 +137,12 @@ namespace OpenNefia.Content.UI.Layer
             var height = listSize.Y;
 
             var promptX = (_graphics.WindowSize.X - 10) / 2 + 3;
-            var promptY = (_graphics.WindowSize.Y - Constants.INF_VERH - 30) / 2 - 4;
+            var promptY = (_graphics.WindowSize.Y - Constants.INF_VERH / UIScale - 30) / 2 - 4;
 
             var x = promptX - width / 2;
             var y = promptY - height / 2;
 
-            bounds = UIBox2i.FromDimensions(x, y, width, height);
+            bounds = UIBox2.FromDimensions(x, y, width, height);
         }
 
         public override void SetSize(float width, float height)

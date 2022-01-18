@@ -82,7 +82,7 @@ namespace OpenNefia.Core.UI.Layer
             var size = new Vector2i(400, 200);
             var pos = (_graphics.WindowSize - size) / 2;
 
-            bounds = UIBox2i.FromDimensions(pos, size);
+            bounds = UIBox2.FromDimensions(pos, size);
         }
 
         public override void Update(float dt)
@@ -118,15 +118,15 @@ namespace OpenNefia.Core.UI.Layer
             var barHeight = 20;
 
             Love.Graphics.SetColor(Love.Color.White);
-            Love.Graphics.Draw(LoadingText, x - LoadingText.GetWidth() / 2, y - LoadingText.GetHeight() / 2 - 24 - 4 - barHeight);
+            GraphicsS.DrawS(UIScale, LoadingText, x - LoadingText.GetWidthV(UIScale) / 2, y - LoadingText.GetHeightV(UIScale) / 2 - 24 - 4 - barHeight);
 
-            Love.Graphics.Draw(StatusText, x - StatusText.GetWidth() / 2, y - StatusText.GetHeight() / 2 - 4 - barHeight);
+            GraphicsS.DrawS(UIScale, StatusText, x - StatusText.GetWidthV(UIScale) / 2, y - StatusText.GetHeightV(UIScale) / 2 - 4 - barHeight);
 
-            Love.Graphics.Rectangle(Love.DrawMode.Line, x - barWidth / 2, y, barWidth, barHeight);
-            Love.Graphics.Rectangle(Love.DrawMode.Fill, x - barWidth / 2, y, (int)(barWidth * ProgressPercent), barHeight);
+            GraphicsS.RectangleS(UIScale, Love.DrawMode.Line, x - barWidth / 2, y, barWidth, barHeight);
+            GraphicsS.RectangleS(UIScale, Love.DrawMode.Fill, x - barWidth / 2, y, (int)(barWidth * ProgressPercent), barHeight);
 
-            Love.Graphics.Rectangle(Love.DrawMode.Line, x - barWidth / 2, y + barHeight + 4, barWidth, barHeight);
-            Love.Graphics.Rectangle(Love.DrawMode.Fill, x - barWidth / 2, y + barHeight + 4, (int)(barWidth * _currentOperation.Progress), barHeight);
+            GraphicsS.RectangleS(UIScale, Love.DrawMode.Line, x - barWidth / 2, y + barHeight + 4, barWidth, barHeight);
+            GraphicsS.RectangleS(UIScale, Love.DrawMode.Fill, x - barWidth / 2, y + barHeight + 4, (int)(barWidth * _currentOperation.Progress), barHeight);
         }
 
         public override void Dispose()

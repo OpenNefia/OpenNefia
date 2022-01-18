@@ -1,5 +1,4 @@
-﻿using Love;
-using OpenNefia.Core.Maths;
+﻿using OpenNefia.Core.Maths;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Core.UI.Element;
 using System;
@@ -68,7 +67,7 @@ namespace OpenNefia.Content.UI.Element
 
                 if (ShowDrawStats)
                 {
-                    Graphics.GetStats(out var drawCalls,
+                    Love.Graphics.GetStats(out var drawCalls,
                         out var canvasSwitches,
                         out var shaderSwitches,
                         out var canvases,

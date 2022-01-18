@@ -12,6 +12,8 @@ namespace OpenNefia.Core.UI.Layer
     {
         private readonly IInputManager _inputManager = default!;
 
+        public override float UIScale => 1f;
+
         public virtual int? DefaultZOrder => null;
         public int ZOrder { get; set; }
 

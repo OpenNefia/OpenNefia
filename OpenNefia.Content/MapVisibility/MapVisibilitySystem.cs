@@ -1,5 +1,6 @@
 ﻿using OpenNefia.Core.Game;
 using OpenNefia.Core.GameObjects;
+using OpenNefia.Core.Graphics;
 using OpenNefia.Core.Maps;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.Rendering;
@@ -10,6 +11,7 @@ namespace OpenNefia.Content.MapVisibility
     public sealed class MapVisibilitySystem : EntitySystem
     {
         [Core.IoC.Dependency] private readonly ICoords _coords = default!;
+        [Core.IoC.Dependency] private readonly IGraphics _graphics = default!;
         [Core.IoC.Dependency] private readonly IGameSessionManager _gameSession = default!;
 
         public override void Initialize()
@@ -60,7 +62,7 @@ namespace OpenNefia.Content.MapVisibility
             if (map.Id != playerSpatial.MapID)
                 return;
 
-            _coords.GetWindowTiledSize(out var windowTiledSize);
+            var windowTiledSize = _coords.GetTiledSize(_graphics.WindowPixelSize);
 
             var windowTiledW = Math.Min(windowTiledSize.X, map.Width);
             var windowTiledH = Math.Min(windowTiledSize.Y, map.Height);

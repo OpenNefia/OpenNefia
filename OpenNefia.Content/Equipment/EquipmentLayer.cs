@@ -462,7 +462,7 @@ namespace OpenNefia.Content.Equipment
             AssetInventoryIcons.SetPosition(Window.X + 46, Window.Y - 16);
             AssetDecoWearA.SetPosition(Window.X + Window.Width - 106, Window.Y);
             AssetDecoWearB.SetPosition(Window.X, Window.Y + Window.Height - 164);
-            var notePos = UiUtils.NotePosition(PixelRect, TextNoteEquipStats);
+            var notePos = UiUtils.NotePosition(Rect, TextNoteEquipStats);
             TextNoteEquipStats.SetPosition(notePos.X, notePos.Y);
         }
 

@@ -1,5 +1,4 @@
-﻿using Love;
-using OpenNefia.Content.TurnOrder;
+﻿using OpenNefia.Content.TurnOrder;
 using OpenNefia.Content.UI.Layer;
 using OpenNefia.Core.Game;
 using OpenNefia.Core.Graphics;
@@ -20,13 +19,13 @@ namespace OpenNefia.Content.UI
 
         public static bool IsPointInVisibleScreen(this IGraphics gr, Vector2i screenPos)
         {
-            return screenPos.X >= 0 && screenPos.Y >= 0 && screenPos.X < gr.WindowSize.X && screenPos.Y < gr.WindowSize.Y - Constants.INF_MSGH;
+            return screenPos.X >= 0 && screenPos.Y >= 0 && screenPos.X < gr.WindowPixelSize.X && screenPos.Y < gr.WindowPixelSize.Y - Constants.INF_MSGH;
         }
 
-        public static void GetCenteredParams(Vector2i size, out UIBox2i bounds, int yOffset = 0)
+        public static void GetCenteredParams(Vector2 size, out UIBox2 bounds, float yOffset = 0f)
             => GetCenteredParams(size.X, size.Y, out bounds, yOffset);
 
-        public static void GetCenteredParams(int width, int height, out UIBox2i bounds, int yOffset = 0)
+        public static void GetCenteredParams(float width, float height, out UIBox2 bounds, float yOffset = 0f)
         {
             var graphics = IoCManager.Resolve<IGraphics>();
             var coords = IoCManager.Resolve<ICoords>();
@@ -35,7 +34,7 @@ namespace OpenNefia.Content.UI
             var (windowW, windowH) = graphics.WindowSize;
 
             var x = (windowW - width) / 2;
-            int y;
+            float y;
 
             if (field.IsInGame())
             {
@@ -49,15 +48,15 @@ namespace OpenNefia.Content.UI
 
             y += yOffset;
 
-            bounds = UIBox2i.FromDimensions(x, y, width, height);
+            bounds = UIBox2.FromDimensions(x, y, width, height);
         }
 
         public static void DebugDraw(IDrawable elem)
         {
-            Graphics.SetColor(Love.Color.Red);
-            Graphics.Rectangle(DrawMode.Line, elem.X, elem.Y, elem.Width, elem.Height);
-            Graphics.SetColor(Love.Color.Blue);
-            Graphics.Line(elem.X, elem.Y, elem.X + elem.Width, elem.Y + elem.Height);
+            Love.Graphics.SetColor(Love.Color.Red);
+            GraphicsS.RectangleS(elem.UIScale, Love.DrawMode.Line, elem.X, elem.Y, elem.Width, elem.Height);
+            Love.Graphics.SetColor(Love.Color.Blue);
+            Love.Graphics.Line(elem.X, elem.Y, elem.X + elem.Width, elem.Y + elem.Height);
         }
 
         public static string DisplayWeight(int weight)
@@ -67,7 +66,7 @@ namespace OpenNefia.Content.UI
             return $"{integer}.{fractional}s";
         }
 
-        public static Vector2i NotePosition(UIBox2i bounds, IDrawable text, int xOffset = 0)
+        public static Vector2 NotePosition(UIBox2 bounds, IDrawable text, float xOffset = 0f)
         {
             return new(bounds.Right - text.Width - 140 - xOffset,
                        bounds.Bottom - 65 - bounds.Height % 8);

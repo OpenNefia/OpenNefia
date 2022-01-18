@@ -14,16 +14,16 @@ namespace OpenNefia.Core.Rendering
         private string _atlasName { get; }
         private TileAtlas _atlas { get; set; }
         private SpriteBatch _batch { get; set; }
-        public int Width { get; private set; }
-        public int Height { get; private set; }
+        public int PixelWidth { get; private set; }
+        public int PixelHeight { get; private set; }
 
         public TileAtlasBatch(string atlasName)
         {
             _atlasName = atlasName;
             _atlas = IoCManager.Resolve<ITileAtlasManager>().GetAtlas(atlasName);
             _batch = Love.Graphics.NewSpriteBatch(_atlas.Image, 2048, SpriteBatchUsage.Dynamic);
-            Width = 0;
-            Height = 0;
+            PixelWidth = 0;
+            PixelHeight = 0;
         }
 
         public void OnThemeSwitched()
@@ -32,13 +32,16 @@ namespace OpenNefia.Core.Rendering
             _batch = Love.Graphics.NewSpriteBatch(_atlas.Image, 2048, SpriteBatchUsage.Dynamic);
         }
 
-        public void Add(string tileId, int x, int y, int? width = null, int? height = null, Love.Color? color = null, bool centered = false, float rotation = 0f)
+        public void Add(float uiScale, string tileId, float x, float y, float? width = null, float? height = null, Love.Color? color = null, bool centered = false, float rotation = 0f)
         {
             if (!this._atlas.TryGetTile(tileId, out var tile))
             {
                 Logger.ErrorS("tile.batch", $"Unknown tile {tileId} in atlas {_atlasName}");
                 return;
             }
+
+            x *= uiScale;
+            y *= uiScale;
 
             var quadRect = tile.Quad.GetViewport();
             var sx = 1f;
@@ -59,13 +62,15 @@ namespace OpenNefia.Core.Rendering
 
             if (width != null)
             {
-                sx = (float)width.Value / (float)ttw;
-                ttw = width.Value;
+                width *= uiScale;
+                sx = (float)width.Value / ttw;
+                ttw = (int)width.Value;
             }
             if (height != null)
             {
-                sy = (float)height.Value / (float)tth;
-                tth = height.Value;
+                height *= uiScale;
+                sy = (float)height.Value / tth;
+                tth = (int)height.Value;
             }
 
             var ox = 0f;
@@ -78,8 +83,8 @@ namespace OpenNefia.Core.Rendering
 
             this._batch.Add(tile.Quad, x, y, MathUtil.DegreesToRadians(rotation), sx, sy, ox, oy);
 
-            this.Width = Math.Max(this.Width, x + ttw);
-            this.Height = Math.Max(this.Height, y + tth);
+            PixelWidth = Math.Max(PixelWidth, (int)x + ttw);
+            PixelHeight = Math.Max(PixelHeight, (int)y + tth);
         }
 
         public void Flush() => this._batch.Flush();
@@ -89,14 +94,14 @@ namespace OpenNefia.Core.Rendering
         public void Clear()
         {
             this._batch.Clear();
-            this.Width = 0;
-            this.Height = 0;
+            this.PixelWidth = 0;
+            this.PixelHeight = 0;
         }
 
-        public void Draw(int x, int y, int? width = null, int? height = null)
+        public void Draw(float uiScale, float x, float y, float? width = null, float? height = null)
         {
             Love.Graphics.SetColor(Love.Color.White);
-            GraphicsEx.DrawSpriteBatch(this._batch, x, y, width, height);
+            GraphicsEx.DrawSpriteBatchS(uiScale, this._batch, x, y, width, height);
         }
 
         public void Dispose()

@@ -74,12 +74,12 @@ namespace OpenNefia.Content.Inventory
 
             foreach (var entry in _entries)
             {
-                _atlasBatch.Add(entry.Memory.AtlasIndex, entry.X, entry.Y, entry.Width, entry.Height, 
+                _atlasBatch.Add(UIScale, entry.Memory.AtlasIndex, entry.X, entry.Y, entry.Width, entry.Height, 
                     entry.Color, entry.Centered, entry.Rotation);
             }
 
             _atlasBatch.Flush();
-            _atlasBatch.Draw(X, Y, Width, Height);
+            _atlasBatch.Draw(UIScale, X, Y, Width, Height);
         }
     }
 }

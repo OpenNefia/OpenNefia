@@ -1,4 +1,5 @@
 ﻿using OpenNefia.Core.ContentPack;
+using OpenNefia.Core.Graphics;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Locale;
 using OpenNefia.Core.Prototypes;
@@ -11,6 +12,7 @@ namespace OpenNefia.Core.Rendering
     {
         [Dependency] private readonly ILocalizationManager _localization = default!;
         [Dependency] private readonly IResourceCache _resourceCache = default!;
+        [Dependency] private readonly IGraphics _graphics = default!;
 
         private sealed record FontCacheEntry(FontSpec FontSpec, Love.Font LoveFont);
 
@@ -45,6 +47,7 @@ namespace OpenNefia.Core.Rendering
         public Love.Font GetFont(FontSpec spec)
         {
             var size = _localization.IsFullwidth() ? spec.Size : spec.SmallSize;
+            size = (int)(size * _graphics.WindowScale);
 
             if (_fontCache.TryGetValue(size, out var cachedEntry))
             {

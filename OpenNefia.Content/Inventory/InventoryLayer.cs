@@ -456,7 +456,7 @@ namespace OpenNefia.Content.Inventory
 
             TextTopicItemName.SetPosition(Window.X + 28, Window.Y + 30);
             TextTopicItemDetail.SetPosition(Window.X + 526, Window.Y + 30);
-            var notePos = UiUtils.NotePosition(PixelRect, TextNoteTotalWeight);
+            var notePos = UiUtils.NotePosition(Rect, TextNoteTotalWeight);
             TextNoteTotalWeight.SetPosition(notePos.X, notePos.Y);
             TextGoldCount.SetPosition(Window.X + 368, Window.Y + 37);
         }

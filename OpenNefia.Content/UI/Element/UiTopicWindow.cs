@@ -80,7 +80,7 @@ namespace OpenNefia.Content.UI.Element
         {
             var parts = new List<AssetBatchPart>();
 
-            for (int i = 0; i < Width / 16 - 1; i++)
+            for (int i = 0; i < PixelWidth / 16 - 1; i++)
             {
                 parts.Add(new AssetBatchPart("top_mid", i * 16 + 16, 0));
                 parts.Add(new AssetBatchPart("bottom_mid", i * 16 + 16, PixelHeight - 16));
@@ -92,7 +92,7 @@ namespace OpenNefia.Content.UI.Element
             parts.Add(new AssetBatchPart("top_mid2", innerX, 0));
             parts.Add(new AssetBatchPart("bottom_mid2", innerX, PixelHeight - 16));
 
-            for (int i = 0; i < Height / 16 - 1; i++)
+            for (int i = 0; i < PixelHeight / 16 - 1; i++)
             {
                 parts.Add(new AssetBatchPart("left_mid", 0, i * 16 + 16));
                 parts.Add(new AssetBatchPart("right_mid", PixelWidth - 16, i * 16 + 16));
@@ -125,7 +125,7 @@ namespace OpenNefia.Content.UI.Element
             if (WindowStyle == WindowStyleKind.Six)
             {
                 GraphicsEx.SetColor(ColorStyle6);
-                GraphicsEx.DrawSpriteBatch(TopicWindowBatch, PixelX, PixelY, PixelWidth - 4, PixelHeight - 4);
+                GraphicsEx.DrawSpriteBatchS(UIScale, TopicWindowBatch, X, Y, Width - 4, Height - 4);
             }
             else
             {
@@ -158,23 +158,23 @@ namespace OpenNefia.Content.UI.Element
                 if (rect)
                 {
                     Love.Graphics.SetBlendMode(Love.BlendMode.Subtract);
-                    Love.Graphics.Rectangle(Love.DrawMode.Fill, PixelX + 4, PixelY + 4, PixelWidth - 4, PixelHeight - 4);
+                    GraphicsS.RectangleS(UIScale, Love.DrawMode.Fill, X + 4, Y + 4, Width - 4, Height - 4);
                     Love.Graphics.SetBlendMode(Love.BlendMode.Alpha);
                 }
             }
 
-            AssetWindow.DrawRegion("fill", PixelX + 4, PixelY + 4, PixelWidth - 6, PixelHeight - 8);
+            AssetWindow.DrawRegionS(UIScale, "fill", X + 4, Y + 4, Width - 6, Height - 8);
 
             GraphicsEx.SetColor(Love.Color.White);
-            Love.Graphics.Draw(TopicWindowBatch, PixelX, PixelY);
+            GraphicsEx.DrawSpriteBatchS(UIScale, TopicWindowBatch, X, Y, null, null);
 
             if (WindowStyle == WindowStyleKind.Five)
             {
                 GraphicsEx.SetColor(ColorStyle5);
-                GraphicsEx.DrawSpriteBatch(TopicWindowBatch, PixelX + 2, PixelY + 2, PixelWidth - 4, PixelHeight - 5);
+                GraphicsEx.DrawSpriteBatchS(UIScale, TopicWindowBatch, X + 2, Y + 2, Width - 4, Height - 5);
 
                 Love.Graphics.SetBlendMode(Love.BlendMode.Subtract);
-                Love.Graphics.Rectangle(Love.DrawMode.Fill, PixelX + 4, PixelY + 4, PixelWidth - 4, PixelHeight - 4);
+                GraphicsS.RectangleS(UIScale, Love.DrawMode.Fill, X + 4, Y + 4, Width - 4, Height - 4);
                 Love.Graphics.SetBlendMode(Love.BlendMode.Alpha);
             }
         }

@@ -1,16 +1,14 @@
-﻿using Love;
-using OpenNefia.Core.Input;
-using OpenNefia.Core.IoC;
+﻿using OpenNefia.Core.Input;
 using OpenNefia.Core.Maths;
-using OpenNefia.Core.ResourceManagement;
-using OpenNefia.Core.UI;
 using Vector2 = OpenNefia.Core.Maths.Vector2;
 
 namespace OpenNefia.Core.Graphics
 {
     public class HeadlessGraphics : Love.Scene, IGraphics
     {
-        public Vector2i WindowSize => new(800, 600);
+        public float WindowScale => 1f;
+        public Vector2 WindowSize => (Vector2)WindowPixelSize * WindowScale;
+        public Vector2i WindowPixelSize => new(800, 600);
 
         public event Action<WindowResizedEventArgs>? OnWindowResized;
         public new event Action<WindowFocusedEventArgs>? OnWindowFocused;
@@ -28,7 +26,7 @@ namespace OpenNefia.Core.Graphics
         {
             // TODO: Much of Love.Graphics requires the window to be initialized
             // and visible.
-            var bootConfig = new BootConfig()
+            var bootConfig = new Love.BootConfig()
             {
                 WindowTitle = Engine.Title,
                 WindowDisplay = 0,

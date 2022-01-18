@@ -101,7 +101,8 @@ namespace OpenNefia.Content.Rendering
             if (_graphics.IsPointInVisibleScreen(PixelPosition + new Vector2i(cx, cy)))
             {
                 _chipBatch.Clear();
-                _chipBatch.Add(_chip.Image.AtlasIndex, 
+                _chipBatch.Add(_graphics.WindowScale, 
+                    _chip.Image.AtlasIndex, 
                     cx + _coords.TileSize.X / 2, 
                     cy + _coords.TileSize.Y / 2, 
                     _coords.TileSize.X,
@@ -110,7 +111,7 @@ namespace OpenNefia.Content.Rendering
                     centered: true, 
                     rotation: (float)Angle.BetweenPoints(_startPos.Position, _endPos.Position).Degrees);
                 _chipBatch.Flush();
-                _chipBatch.Draw(X, Y, Width, Height);
+                _chipBatch.Draw(_graphics.WindowScale, X, Y, Width, Height);
             }
         }
 

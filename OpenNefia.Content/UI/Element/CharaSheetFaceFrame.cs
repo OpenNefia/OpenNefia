@@ -69,7 +69,7 @@ namespace OpenNefia.Content.UI.Element
             if (portraitProto != null)
             {
                 _portraitBatch.Clear();
-                _portraitBatch.Add(portraitProto.Image.AtlasIndex, 0, 0, WindowFrame.PixelWidth - 8, WindowFrame.PixelHeight - 8);
+                _portraitBatch.Add(UIScale, portraitProto.Image.AtlasIndex, 0, 0, WindowFrame.Width - 8, WindowFrame.Height - 8);
                 _portraitBatch.Flush();
             }
 
@@ -80,7 +80,7 @@ namespace OpenNefia.Content.UI.Element
         public override void Draw()
         {
             WindowFrame.Draw();
-            _portraitBatch.Draw(WindowFrame.PixelX + 4, WindowFrame.PixelY + 4);
+            _portraitBatch.Draw(UIScale, WindowFrame.X + 4, WindowFrame.Y + 4);
             _entityBatch.Draw();
         }
     }

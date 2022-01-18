@@ -24,75 +24,75 @@ namespace OpenNefia.Core.UI.Element
         ///     Absolute position of the drawable element.
         ///     Unlike Robust, this is relative to the global viewport.
         /// </summary>
-        public Vector2i PixelPosition { get => PixelRect.TopLeft; }
+        public Vector2i PixelPosition { get; }
 
         /// <summary>
         ///     Represents the "rectangle" of the control relative to the global viewport, in virtual pixels.
         /// </summary>
         /// <seealso cref="PixelRect"/>
-        public UIBox2 Rect => UIBox2.FromDimensions(Position, Size);
+        public UIBox2 Rect { get; }
 
         /// <summary>
         ///     Represents the "rectangle" of the control relative to the global viewport, in physical pixels.
         /// </summary>
         /// <seealso cref="Rect"/>
-        public UIBox2i PixelRect => UIBox2i.FromDimensions(PixelPosition, PixelSize);
+        public UIBox2i PixelRect { get; }
 
         /// <summary>
         ///     A <see cref="UIBox2"/> with the top left at 0,0 and the size equal to <see cref="Size"/>.
         /// </summary>
         /// <seealso cref="PixelSizeBox"/>
-        public UIBox2 SizeBox => new(Vector2.Zero, Size);
+        public UIBox2 SizeBox { get; }
 
         /// <summary>
         ///     A <see cref="UIBox2i"/> with the top left at 0,0 and the size equal to <see cref="PixelSize"/>.
         /// </summary>
         /// <seealso cref="SizeBox"/>
-        public UIBox2i PixelSizeBox => new(Vector2i.Zero, PixelSize);
+        public UIBox2i PixelSizeBox { get; }
 
         /// <summary>
         ///     The width of the control, in virtual pixels.
         /// </summary>
         /// <seealso cref="PixelWidth"/>
-        public float Width => Size.X;
+        public float Width { get; }
 
         /// <summary>
         ///     The height of the control, in virtual pixels.
         /// </summary>
         /// <seealso cref="PixelHeight"/>
-        public float Height => Size.Y;
+        public float Height { get; }
 
         /// <summary>
         ///     The width of the control, in physical pixels.
         /// </summary>
         /// <seealso cref="Width"/>
-        public int PixelWidth => PixelSize.X;
+        public int PixelWidth { get; }
 
         /// <summary>
         ///     The height of the control, in physical pixels.
         /// </summary>
         /// <seealso cref="Height"/>
-        public int PixelHeight => PixelSize.Y;
+        public int PixelHeight { get; }
 
         /// <summary>
         ///     The X coordinate of the control, in virtual pixels.
         /// </summary>
-        public float X => Position.X;
+        public float X { get; }
 
         /// <summary>
         ///     The Y coordinate of the control, in virtual pixels.
         /// </summary>
-        public float Y => Position.Y;
+        public float Y { get; }
 
         /// <summary>
         ///     The Y coordinate of the control, in physical pixels.
         /// </summary>
-        public int PixelX => PixelPosition.X;
+        public int PixelX { get; }
 
         /// <summary>
         ///     The Y coordinate of the control, in physical pixels.
         /// </summary>
-        public int PixelY => PixelPosition.Y;
+        public int PixelY { get; }
 
         /// <summary>
         ///     The amount of "real" pixels a virtual pixel takes up.
@@ -101,7 +101,7 @@ namespace OpenNefia.Core.UI.Element
         ///     real pixels varies depending on interface, virtual pixels doesn't.
         ///     And vp * UIScale = rp, and rp / UIScale = vp
         /// </summary>
-        public virtual float UIScale => 1f;
+        public float UIScale { get; }
 
         /// <summary>
         /// Sets the size of this component, in virtual pixels.

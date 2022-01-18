@@ -55,8 +55,8 @@ namespace OpenNefia.Content.Logic
 
         public override void GetPreferredBounds(out UIBox2 bounds)
         {
-            var pos = _graphics.WindowSize - AssetMorePrompt.PixelSize;
-            bounds = UIBox2i.FromDimensions(pos, AssetMorePrompt.PixelSize);
+            var pos = _graphics.WindowSize - AssetMorePrompt.VirtualSize(UIScale);
+            bounds = UIBox2.FromDimensions(pos, AssetMorePrompt.VirtualSize(UIScale));
         }
 
         public override UiResult<UINone>? GetResult()

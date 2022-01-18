@@ -100,7 +100,7 @@ namespace OpenNefia.Content.Repl
 
         public int ScrollbackSize { get => _scrollbackBuffer.Size; }
         public float CursorDisplayX { get => X + 6 + _textCaret.Width + CursorX; }
-        public float CursorDisplayY { get => Y + Height - PullDownY - FontReplText.LoveFont.GetVirtualHeight(UIScale) - 4; }
+        public float CursorDisplayY { get => Y + Height - PullDownY - FontReplText.LoveFont.GetHeightV(UIScale) - 4; }
 
         public FontSpec FontReplText { get; } = UiFonts.ReplText;
         public Color ColorReplBackground { get; } = UiColors.ReplBackground;
@@ -461,7 +461,7 @@ namespace OpenNefia.Content.Repl
                 return;
             }
 
-            _completionsPane.SetPosition(CursorDisplayX, CursorDisplayY + FontReplText.LoveFont.GetVirtualHeight(UIScale));
+            _completionsPane.SetPosition(CursorDisplayX, CursorDisplayY + FontReplText.LoveFont.GetHeightV(UIScale));
             _completionsPane.TryToComplete(EditingLine, CaretPos);
         }
 
@@ -534,13 +534,13 @@ namespace OpenNefia.Content.Repl
         {
             var viewportHeight = _graphics.WindowSize.Y;
 
-            bounds = UIBox2i.FromDimensions(0, 0, _graphics.WindowSize.X, (int)Math.Clamp(viewportHeight * HeightPercentage, 0, viewportHeight - 1));
+            bounds = UIBox2.FromDimensions(0, 0, _graphics.WindowSize.X, (int)Math.Clamp(viewportHeight * HeightPercentage, 0, viewportHeight - 1));
         }
 
         public override void SetSize(float width, float height)
         {
             base.SetSize(width, height);
-            MaxLines = (int)((Height - 5) / FontReplText.LoveFont.GetVirtualHeight(UIScale));
+            MaxLines = (int)((Height - 5) / FontReplText.LoveFont.GetHeightV(UIScale));
 
             foreach (var text in _textScrollback)
                 text.Dispose();
@@ -570,11 +570,11 @@ namespace OpenNefia.Content.Repl
             }
 
             IsPullingDown = UsePullDownAnimation;
-            PullDownY = 0;
+            PullDownY = 0f;
 
             if (UsePullDownAnimation)
             {
-                PullDownY = MaxLines * FontReplText.LoveFont.GetHeight();
+                PullDownY = MaxLines * FontReplText.LoveFont.GetHeightV(UIScale);
             }
         }
 
@@ -596,7 +596,7 @@ namespace OpenNefia.Content.Repl
             {
                 if (WasFinished || WasCancelled)
                 {
-                    PullDownY = MathF.Min(PullDownY + PullDownSpeed * dt * 1000f, MaxLines * FontReplText.LoveFont.GetHeight());
+                    PullDownY = MathF.Min(PullDownY + PullDownSpeed * dt * 1000f, MaxLines * FontReplText.LoveFont.GetHeightV(UIScale));
                 }
                 else if (PullDownY > 0)
                 {
@@ -612,7 +612,7 @@ namespace OpenNefia.Content.Repl
 
             if (WasFinished || WasCancelled)
             {
-                if (PullDownY >= MaxLines * FontReplText.LoveFont.GetHeight())
+                if (PullDownY >= MaxLines * FontReplText.LoveFont.GetHeightV(UIScale))
                 {
                     return base.GetResult();
                 }
@@ -681,7 +681,7 @@ namespace OpenNefia.Content.Repl
             for (int i = 0; i < _textScrollback.Length; i++)
             {
                 var text = _textScrollback[i];
-                text.SetPosition(X + 5, y + Height - FontReplText.LoveFont.GetVirtualHeight(UIScale) * (i + 2) - 5);
+                text.SetPosition(X + 5, y + Height - FontReplText.LoveFont.GetHeightV(UIScale) * (i + 2) - 5);
                 text.Draw();
             }
 
@@ -690,7 +690,7 @@ namespace OpenNefia.Content.Repl
                 var curX = CursorDisplayX;
                 var curY = CursorDisplayY;
                 GraphicsEx.SetColor(ColorReplText);
-                GraphicsS.LineS(UIScale, curX, curY, curX, curY + FontReplText.LoveFont.GetVirtualHeight(UIScale));
+                GraphicsS.LineS(UIScale, curX, curY, curX, curY + FontReplText.LoveFont.GetHeightV(UIScale));
             }
 
             _completionsPane.Draw();
@@ -713,8 +713,8 @@ namespace OpenNefia.Content.Repl
 
     public class CompletionsPane : UiElement
     {
-        public int Padding { get; set; } = 5;
-        public int BorderPadding { get; set; } = 4;
+        public float Padding { get; set; } = 5f;
+        public float BorderPadding { get; set; } = 4f;
         public int MaxDisplayedEntries { get; set; } = 10;
         public bool IsOpen { get; set; }
         public bool IsVisible { get => IsOpen && FilteredView.Count > 0; }
@@ -924,17 +924,17 @@ namespace OpenNefia.Content.Repl
                 return;
 
             GraphicsEx.SetColor(ColorCompletionBackground);
-            Love.Graphics.Rectangle(Love.DrawMode.Fill, X, Y, Width, Height);
+            GraphicsS.RectangleS(UIScale, Love.DrawMode.Fill, X, Y, Width, Height);
 
             GraphicsEx.SetColor(ColorCompletionBorder);
-            Love.Graphics.Rectangle(Love.DrawMode.Line, X + BorderPadding, Y + BorderPadding, Width - BorderPadding * 2, Height - BorderPadding * 2);
+            GraphicsS.RectangleS(UIScale, Love.DrawMode.Line, X + BorderPadding, Y + BorderPadding, Width - BorderPadding * 2, Height - BorderPadding * 2);
 
             foreach (var entry in FilteredView)
             {
                 if (entry == FilteredView.SelectedItem)
                 {
                     GraphicsEx.SetColor(255, 255, 255, 128);
-                    Love.Graphics.Rectangle(Love.DrawMode.Fill, entry.Text.X, entry.Text.Y, entry.Text.Width, entry.Text.Height);
+                    GraphicsS.RectangleS(UIScale, Love.DrawMode.Fill, entry.Text.X, entry.Text.Y, entry.Text.Width, entry.Text.Height);
                 }
                 GraphicsEx.SetColor(Color.White);
                 entry.Icon.Draw(entry.Text.X - entry.Text.Height - 4, entry.Text.Y, entry.Text.Height, entry.Text.Height);

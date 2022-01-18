@@ -148,11 +148,11 @@ namespace OpenNefia.Content.UI.Element
         public override void Draw()
         {
             Love.Graphics.SetColor(Color.White);
-            AssetTipIcons.DrawRegion("1", PixelX, PixelY + 7);
+            AssetTipIcons.DrawRegionS(UIScale, "1", X, Y + 7);
             Love.Graphics.SetColor(Color);
-            Love.Graphics.Draw(BakedText, PixelX + 26, PixelY + 8); // y + vfix + 8
+            GraphicsS.DrawS(UIScale, BakedText, X + 26, Y + 8); // y + vfix + 8
             Love.Graphics.SetColor(Color.Black);
-            Love.Graphics.Line(PixelX + 22, PixelY + 21, PixelX + BakedText.GetWidth() + 36, PixelY + 21);
+            GraphicsS.LineS(UIScale, X + 22, Y + 21, X + BakedText.GetWidthV(UIScale) + 36, Y + 21);
         }
     }
 }
