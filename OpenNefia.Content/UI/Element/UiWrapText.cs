@@ -26,8 +26,12 @@ namespace OpenNefia.Content.UI.Element
 
         public override string Text 
         { 
-            get => base.Text; 
-            set => base.Text = WordWrap(value, (int)(MaxWidth * UIScale)); 
+            get => base.Text;
+            set
+            {
+                base.Text = WordWrap(value, (int)(MaxWidth * UIScale));
+                SetPreferredSize();
+            }
         }
 
         static char[] splitChars = new char[] { ' ', '　' };
