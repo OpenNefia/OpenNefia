@@ -94,6 +94,9 @@ namespace OpenNefia.Content.UI.Layer
 
             TopicWindow = new UiTopicWindow(UiTopicWindow.FrameStyleKind.Zero, UiTopicWindow.WindowStyleKind.Two);
 
+            AddChild(Text);
+            AddChild(TopicWindow);
+
             OnKeyBindDown += HandleKeyBindDown;
         }
 

@@ -64,6 +64,9 @@ namespace OpenNefia.Content.ConfigMenu
             List.OnActivated += HandleListActivate;
             List.OnPageChanged += HandleListPageChanged;
 
+            AddChild(TextTopicMenu);
+            AddChild(AssetG2);
+            AddChild(Window);
             AddChild(List);
         }
 

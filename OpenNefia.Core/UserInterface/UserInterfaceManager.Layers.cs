@@ -103,6 +103,17 @@ namespace OpenNefia.Core.UserInterface
             }
         }
 
+        private void OnConfigDisplayUIScaleChanged(float newUiScale)
+        {
+            foreach (var layer in this.Layers)
+            {
+                layer.LayerUIScale = newUiScale;
+                layer.GetPreferredBounds(out var bounds);
+                layer.SetSize(bounds.Width, bounds.Height);
+                layer.SetPosition(bounds.Left, bounds.Top);
+            }
+        }
+
         public UiResult<TResult> Query<TLayer, TResult>()
             where TLayer : IUiLayerWithResult<UINone, TResult>, new()
             where TResult : class

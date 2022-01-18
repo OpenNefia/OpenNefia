@@ -1,4 +1,5 @@
-﻿using OpenNefia.Core.ContentPack;
+﻿using OpenNefia.Core.Configuration;
+using OpenNefia.Core.ContentPack;
 using OpenNefia.Core.Graphics;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Locale;
@@ -13,6 +14,7 @@ namespace OpenNefia.Core.Rendering
         [Dependency] private readonly ILocalizationManager _localization = default!;
         [Dependency] private readonly IResourceCache _resourceCache = default!;
         [Dependency] private readonly IGraphics _graphics = default!;
+        [Dependency] private readonly IConfigurationManager _config = default!;
 
         private sealed record FontCacheEntry(FontSpec FontSpec, Love.Font LoveFont);
 
@@ -28,6 +30,13 @@ namespace OpenNefia.Core.Rendering
                 _fallbackFontPath = msGothic;
 
             _localization.OnLanguageSwitched += HandleLanguageSwitched;
+
+            _config.OnValueChanged(CVars.DisplayUIScale, OnConfigDisplayUIScaleChanged);
+        }
+
+        private void OnConfigDisplayUIScaleChanged(float _)
+        {
+            ClearCache();
         }
 
         /// <summary>
@@ -35,6 +44,11 @@ namespace OpenNefia.Core.Rendering
         /// for the current language.
         /// </summary>
         private void HandleLanguageSwitched(PrototypeId<LanguagePrototype> _)
+        {
+            ClearCache();
+        }
+
+        private void ClearCache()
         {
             foreach (var entry in _fontCache.Values)
             {

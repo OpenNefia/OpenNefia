@@ -97,6 +97,7 @@ namespace OpenNefia.Core.Graphics
 
             _config.OnValueChanged(CVars.DisplayWindowMode, OnConfigWindowModeChanged);
             _config.OnValueChanged(CVars.DisplayDisplayNumber, OnConfigDisplayNumberChanged);
+            _config.OnValueChanged(CVars.DisplayUIScale, OnConfigDisplayUIScaleChanged);
 
             InitializeGraphicsDefaults();
             LoadGamepadMappings();
@@ -134,6 +135,11 @@ namespace OpenNefia.Core.Graphics
             settings.Display = displaynumber;
             
             SetWindowSettings(_lastFullscreenMode, settings);
+        }
+
+        private void OnConfigDisplayUIScaleChanged(float newUiScale)
+        {
+            WindowScale = newUiScale;
         }
 
         public void Shutdown()
@@ -203,8 +209,8 @@ namespace OpenNefia.Core.Graphics
                     Fullscreen = windowSettings.Fullscreen,
                     FullscreenType = (Love.FullscreenType)windowSettings.FullscreenType,
                     HighDpi = windowSettings.HighDPI,
-                    MinWidth = 800,
-                    MinHeight = 600,
+                    MinWidth = Math.Max(MinWidth, (int)(MinWidth * WindowScale)),
+                    MinHeight = Math.Max(MinHeight, (int)(MinHeight * WindowScale)),
                     MSAA = windowSettings.MSAA,
                     Refreshrate = windowSettings.RefreshRate,
                     Resizable = true,

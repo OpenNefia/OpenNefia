@@ -28,6 +28,8 @@ namespace OpenNefia.Content.ConfigMenu.UICell
         protected BaseConfigMenuUICell(IConfigMenuNode menuNode) : base(new(), "", null)
         {
             MenuNode = menuNode;
+
+            AddChild(ValueText);
         }
 
         public virtual void RefreshConfigValueDisplay()
@@ -87,6 +89,9 @@ namespace OpenNefia.Content.ConfigMenu.UICell
 
             AssetArrowLeft = new AssetDrawable(Asset.ArrowLeft);
             AssetArrowRight = new AssetDrawable(Asset.ArrowRight);
+
+            AddChild(AssetArrowLeft);
+            AddChild(AssetArrowRight);
         }
 
         public new TMenuNode MenuNode => (TMenuNode)base.MenuNode;

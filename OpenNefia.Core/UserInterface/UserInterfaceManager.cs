@@ -1,4 +1,5 @@
-﻿using OpenNefia.Core.GameController;
+﻿using OpenNefia.Core.Configuration;
+using OpenNefia.Core.GameController;
 using OpenNefia.Core.Graphics;
 using OpenNefia.Core.Input;
 using OpenNefia.Core.IoC;
@@ -25,6 +26,7 @@ namespace OpenNefia.Core.UserInterface
         [Dependency] private readonly IInputManager _inputManager = default!;
         [Dependency] private readonly IGraphics _graphics = default!;
         [Dependency] private readonly ILocalizationManager _loc = default!;
+        [Dependency] private readonly IConfigurationManager _config = default!;
 
         /// <inheritdoc/>
         public UiElement? KeyboardFocused { get; private set; }
@@ -42,6 +44,7 @@ namespace OpenNefia.Core.UserInterface
         {
             _inputManager.UIKeyBindStateChanged += OnUIKeyBindStateChanged;
             _graphics.OnWindowResized += HandleWindowResized;
+            _config.OnValueChanged(CVars.DisplayUIScale, OnConfigDisplayUIScaleChanged);
         }
 
         public void InitializeTesting()
