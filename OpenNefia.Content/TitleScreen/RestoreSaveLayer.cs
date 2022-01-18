@@ -60,7 +60,7 @@ namespace OpenNefia.Content.TitleScreen
             public override void SetPosition(int x, int y)
             {
                 base.SetPosition(x, y);
-                TextSaveDate.SetPosition(X + 165, Y);
+                TextSaveDate.SetPosition(X + 155, Y);
             }
 
             public override void Update(float dt)
@@ -272,7 +272,7 @@ namespace OpenNefia.Content.TitleScreen
             List.SetPosition(Window.X + 40, Window.Y + 65);
             TextNoSaves.SetPosition(Window.X + Window.Width / 2 - TextNoSaves.Width / 2, Window.Y + Window.Height / 2 - TextNoSaves.Height);
             TextTopicSaveName.SetPosition(Window.X + 40, Window.Y + 35);
-            TextTopicSaveDate.SetPosition(Window.X + 200, Window.Y + 35);
+            TextTopicSaveDate.SetPosition(Window.X + 190, Window.Y + 35);
             ScreenshotBox.SetPosition(Window.X + 340, Window.Y + 60);
         }
 
