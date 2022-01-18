@@ -33,8 +33,8 @@ namespace OpenNefia.Core.Maps
         private TileFlag[,] _tileFlagsTiles { get; }
         private TileFlag[,] _tileFlagsEntities { get; }
         private TileFlag[,] _tileFlags { get; }
-        internal int[,] _InSight;
-        public int LastSightId { get; set; }
+        public uint[,] InSight { get; internal set; }
+        public uint LastSightId { get; set; }
         public MapObjectMemoryStore MapObjectMemory { get; internal set; }
 
         public HashSet<Vector2i> DirtyTilesThisTurn { get; } = new();
@@ -56,7 +56,7 @@ namespace OpenNefia.Core.Maps
             _tileFlagsEntities = new TileFlag[width, height];
             _tileFlags = new TileFlag[width, height];
             MapObjectMemory = new MapObjectMemoryStore(width, height);
-            _InSight = new int[width, height];
+            InSight = new uint[width, height];
         }
 
         public void Clear(PrototypeId<TilePrototype> tile)
@@ -89,7 +89,7 @@ namespace OpenNefia.Core.Maps
                 for (int x = 0; x < this.Width; x++)
                 {
                     TileMemory[x, y] = Tiles[x, y];
-                    _InSight[x, y] = LastSightId;
+                    InSight[x, y] = LastSightId;
                 }
             }
             this.RedrawAllThisTurn = true;
@@ -134,7 +134,7 @@ namespace OpenNefia.Core.Maps
             TileMemory[pos.X, pos.Y] = Tiles[pos.X, pos.Y];
             DirtyTilesThisTurn.Add(pos);
             MapObjectMemory.RevealObjects(this, pos, _entityManager);
-            _InSight[pos.X, pos.Y] = LastSightId;
+            InSight[pos.X, pos.Y] = LastSightId;
         }
 
         public void RefreshTile(Vector2i pos)
@@ -273,7 +273,7 @@ namespace OpenNefia.Core.Maps
             if (!IsInBounds(pos))
                 return false;
 
-            return _InSight[pos.X, pos.Y] == LastSightId;
+            return InSight[pos.X, pos.Y] == LastSightId;
         }
 
         public bool IsMemorized(Vector2i pos)

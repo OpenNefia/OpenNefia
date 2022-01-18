@@ -17,14 +17,16 @@ namespace OpenNefia.Core.Maps
         Tile[,] Tiles { get; }
         Tile[,] TileMemory { get; }
 
-        int LastSightId { get; set; }
+        uint LastSightId { get; set; }
+        uint[,] InSight { get; }
         MapObjectMemoryStore MapObjectMemory { get; }
+
         bool NeedsRedraw { get; }
+        HashSet<Vector2i> DirtyTilesThisTurn { get; }
+        bool RedrawAllThisTurn { get; set; }
 
         IEnumerable<TileRef> AllTiles { get; }
         IEnumerable<TileRef> AllTileMemory { get; }
-        HashSet<Vector2i> DirtyTilesThisTurn { get; }
-        bool RedrawAllThisTurn { get; set; }
 
         void Clear(PrototypeId<TilePrototype> tile);
         void ClearMemory(PrototypeId<TilePrototype> tile);

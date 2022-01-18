@@ -7,6 +7,7 @@ using OpenNefia.Core.Rendering;
 using OpenNefia.Core.Serialization.Manager;
 using OpenNefia.Core.Serialization.Markdown;
 using OpenNefia.Core.Serialization.Markdown.Mapping;
+using OpenNefia.Core.Serialization.Markdown.Sequence;
 using OpenNefia.Core.Utility;
 using YamlDotNet.RepresentationModel;
 using YamlDotNet.Serialization;
@@ -68,6 +69,7 @@ namespace OpenNefia.Core.Maps
             if (_mode == MapSerializeMode.Full)
             {
                 ReadGridMemorySection();
+                ReadGridInSightSections();
                 ReadObjectMemorySection();
             }
 
@@ -180,6 +182,13 @@ namespace OpenNefia.Core.Maps
             {
                 MapGrid.TileMemory[tile.X, tile.Y] = tileMemory[tile.X, tile.Y];
             }
+        }
+
+        private void ReadGridInSightSections()
+        {
+            var gridInSightStr = _rootNode.GetNode(MapLoadConstants.GridInSight).AsString();
+            MapGrid!.InSight = YamlGridSerializer.DeserializeInSight(gridInSightStr, MapGrid.Size);
+            MapGrid!.LastSightId = _rootNode.GetNode(MapLoadConstants.GridLastSightId).AsUInt();
         }
 
         private void ReadObjectMemorySection()

@@ -1,5 +1,8 @@
-﻿using OpenNefia.Core.Maths;
+﻿using Love;
+using OpenNefia.Core.Maths;
 using OpenNefia.Core.Prototypes;
+using System.Collections;
+using System.IO;
 using System.Text;
 
 namespace OpenNefia.Core.Maps
@@ -52,7 +55,7 @@ namespace OpenNefia.Core.Maps
             return tiles;
         }
 
-        private static Rune[] TileRunes = 
+        private static Rune[] TileRunes =
             "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!#$%&\'()*+,-./0123456789:;=?@^_~ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïð"
             .EnumerateRunes()
             .ToArray();
@@ -60,7 +63,7 @@ namespace OpenNefia.Core.Maps
         public static Dictionary<PrototypeId<TilePrototype>, string> BuildProtoToRuneTileMap(IMap map, ITileDefinitionManager tileDefs)
         {
             var tilesSeen = new HashSet<PrototypeId<TilePrototype>>();
-            
+
             foreach (var tile in map.Tiles)
             {
                 tilesSeen.Add(tileDefs[tile.Type].GetStrongID());
@@ -88,7 +91,6 @@ namespace OpenNefia.Core.Maps
             return result;
         }
 
-
         public static string SerializeGrid(Tile[,] tiles, Vector2i size,
             Dictionary<PrototypeId<TilePrototype>, string> protoToRune,
             ITileDefinitionManager tileDefinitionManager)
@@ -111,6 +113,45 @@ namespace OpenNefia.Core.Maps
             }
 
             return sb.ToString();
+        }
+
+        public static string SerializeInSight(uint[,] inSight, Vector2i size)
+        {
+            var nTiles = inSight.Length * sizeof(uint);
+            var barr = new byte[nTiles];
+
+            using (var stream = new MemoryStream(barr))
+            using (var writer = new BinaryWriter(stream))
+            {
+                for (int y = 0; y < size.Y; y++)
+                {
+                    for (var x = 0; x < size.X; x++)
+                    {
+                        writer.Write(inSight[x, y]);
+                    }
+                }
+            }
+
+            return Convert.ToBase64String(barr);
+        }
+
+        public static uint[,] DeserializeInSight(string base64, Vector2i size)
+        {
+            var inSightBytes = Convert.FromBase64String(base64);
+            var inSight = new uint[size.X, size.Y];
+
+            using var stream = new MemoryStream(inSightBytes);
+            using var reader = new BinaryReader(stream);
+
+            for (ushort y = 0; y < size.Y; y++)
+            {
+                for (ushort x = 0; x < size.X; x++)
+                {
+                    inSight[x, y] = reader.ReadUInt32();
+                }
+            }
+
+            return inSight;
         }
     }
 }

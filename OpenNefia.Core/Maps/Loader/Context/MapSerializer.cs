@@ -71,6 +71,7 @@ namespace OpenNefia.Core.Maps
             if (_mode == MapSerializeMode.Full)
             {
                 WriteGridMemorySection();
+                WriteGridInSightSections();
                 WriteObjectMemorySection();
             }
 
@@ -113,6 +114,13 @@ namespace OpenNefia.Core.Maps
             var grid = new YamlScalarNode(YamlGridSerializer.SerializeGrid(tiles, map.Size, _tileMapInverse!, _tileDefinitionManager));
             grid.Style = ScalarStyle.Literal;
             _rootNode.Add(name, grid);
+        }
+
+        private void WriteGridInSightSections()
+        {
+            var gridInSight = new YamlScalarNode(YamlGridSerializer.SerializeInSight(MapGrid!.InSight, MapGrid.Size));
+            _rootNode.Add(MapLoadConstants.GridInSight, gridInSight);
+            _rootNode.Add(MapLoadConstants.GridLastSightId, new YamlScalarNode(MapGrid.LastSightId.ToString()));
         }
 
         private void WriteObjectMemorySection()

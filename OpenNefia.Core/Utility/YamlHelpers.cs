@@ -24,6 +24,12 @@ namespace OpenNefia.Core.Utility
         }
 
         [Pure]
+        public static uint AsUInt(this YamlNode node)
+        {
+            return uint.Parse(node.AsString(), CultureInfo.InvariantCulture);
+        }
+
+        [Pure]
         public static string AsString(this YamlNode node)
         {
             return ((YamlScalarNode) node).Value ?? "";
