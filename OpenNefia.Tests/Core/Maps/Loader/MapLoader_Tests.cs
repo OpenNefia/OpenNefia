@@ -449,6 +449,38 @@ entities:
             });
         }
 
+        /// <summary>
+        /// Tests that tile in sight data is saved and restored properly.
+        /// </summary>
+        [Test]
+        public void TestMapLoadInSight()
+        {
+            var mapMan = IoCManager.Resolve<IMapManager>();
+            var entMan = IoCManager.Resolve<IEntityManager>();
+            var tileDefMan = IoCManager.Resolve<ITileDefinitionManager>();
+
+            var mapLoader = IoCManager.Resolve<IMapLoader>();
+
+            var map = mapMan.CreateMap(5, 5);
+            var mapId = map.Id;
+
+            map.InSight[1, 1] = 45;
+            map.LastSightId = 100;
+
+            using var save = new TempSaveGameHandle();
+
+            mapLoader.SaveMap(mapId, save);
+            mapMan.UnloadMap(mapId);
+            map = mapLoader.LoadMap(mapId, save);
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(map.InSight[0, 0], Is.Zero);
+                Assert.That(map.InSight[1, 1], Is.EqualTo(45));
+                Assert.That(map.LastSightId, Is.EqualTo(100));
+            });
+        }
+
         [DataDefinition]
         private sealed class MapDeserializeTestComponent : Component
         {

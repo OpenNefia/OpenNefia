@@ -13,6 +13,9 @@
 
         public const string Grid = "grid";
         public const string GridMemory = "gridMemory";
+        public const string GridInSight = "gridInSight";
+        public const string GridLastSightId = "gridLastSightId";
+
         public const string ObjectMemory = "objectMemory";
 
         public const string Entities = "entities";
