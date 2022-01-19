@@ -9,24 +9,36 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using OpenNefia.Core.Maths;
+using OpenNefia.Core.GameObjects;
+using OpenNefia.Core.Game;
 
-namespace OpenNefia.Content.UI.Hud
+namespace OpenNefia.Content.Hud
 {
-    public class Minimap : BaseDrawable
+    public class UiHudMinimap : BaseHudWidget
     {
         [Dependency] private readonly ITileDefinitionManager _tileDefManager = default!;
+        [Dependency] private readonly IEntityManager _entMan = default!;
+        [Dependency] private readonly IMapManager _mapManager = default!;
+
         private Vector2i MapSize;
         private MapCoordinates? PlayerCoords = default!;
-        private TileAtlasBatch Batch;
-        private IAssetInstance PlayerIcon;
+        private TileAtlasBatch Batch = default!;
+        private IAssetInstance PlayerIcon = default!;
 
         private readonly Color WallColor = new(90, 90, 90);
 
-        public Minimap()
+        public override void Initialize()
         {
-            IoCManager.InjectDependencies(this);
+            base.Initialize();
             Batch = new TileAtlasBatch(AtlasNames.Tile);
             PlayerIcon = Assets.Get(Protos.Asset.MinimapMarkerPlayer);
+        }
+
+        public override void UpdateWidget()
+        {
+            base.UpdateWidget();
+            if (_entMan.TryGetComponent<SpatialComponent>(GameSession.Player, out var spatial))
+                Refresh(_mapManager.ActiveMap?.TileMemory!, spatial.MapPosition);
         }
 
         public void Refresh(Tile[,] tiles, MapCoordinates playerPos)
@@ -74,6 +86,48 @@ namespace OpenNefia.Content.UI.Hud
 
         public override void Update(float dt)
         {
+        }
+    }
+
+    public class HudMinimapWidget : BaseHudWidget
+    {
+        private IAssetInstance MiniMapAsset = default!;
+        private UiHudMinimap Minimap = default!;
+
+        public const int MinimapWidth = 122;
+        public const int MinimapHeight = 88;
+
+        public override void Initialize()
+        {
+            base.Initialize();
+            MiniMapAsset = Assets.Get(Protos.Asset.HudMinimap);
+            Minimap = new UiHudMinimap();
+            Minimap.Initialize();
+        }
+
+        public override void SetPosition(int x, int y)
+        {
+            base.SetPosition(x, y);
+            Minimap.SetPosition(x + 2, y + 2);
+        }
+
+        public override void SetSize(int width, int height)
+        {
+            base.SetSize(width, height);
+            Minimap.SetSize(MinimapWidth - 4, MinimapHeight - 4);
+        }
+
+        public override void UpdateWidget()
+        {
+            base.UpdateWidget();
+            Minimap.UpdateWidget();
+        }
+
+        public override void Draw()
+        {
+            base.Draw();
+            MiniMapAsset.Draw(X, Y);
+            Minimap.Draw();
         }
     }
 }

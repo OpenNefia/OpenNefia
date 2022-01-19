@@ -34,7 +34,7 @@ namespace OpenNefia.Core.Input
         public static readonly BoundKeyFunction UINextPage = "UINextPage";
         public static readonly BoundKeyFunction UIPreviousPage = "UIPreviousPage";
         
-        public static readonly BoundKeyFunction UIBacklog = "UIBacklog";
+        public static readonly BoundKeyFunction Backlog = "Backlog";
 
         public static readonly BoundKeyFunction ShowDebugConsole = "ShowDebugConsole";
         public static readonly BoundKeyFunction ShowDebugMonitors = "ShowDebugMonitors";

@@ -223,6 +223,7 @@ namespace OpenNefia.Content.TitleScreen
             hudLayer.ZOrder = HudLayer.HudZOrder;
             _uiManager.PushLayer(hudLayer);
             _uiManager.Query(_fieldLayer);
+            _hud.ClearWidgets();
             _uiManager.PopLayer(hudLayer);
         }
     }

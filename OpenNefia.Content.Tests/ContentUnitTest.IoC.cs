@@ -31,9 +31,14 @@ namespace OpenNefia.Content.Tests
 
         public UIBox2i GameBounds => new();
 
+        public IBacklog Backlog => default!;
+
+        public void ClearWidgets()
+        {
+        }
+
         public void Initialize()
         {
-            
         }
 
         public void ToggleBacklog(bool visible)
@@ -51,10 +56,29 @@ namespace OpenNefia.Content.Tests
 
     public class DummyMessageWindow : DummyDrawable, IHudMessageWindow
     {
+        public float PosX { get; set; }
+        public float PosY { get; set; }
+
+        public bool Movable => false;
+
+        public bool IsShowingBacklog => false;
+
         public void Print(string queryText, Color? color = null)
         {
         }
         public void Newline()
+        {
+        }
+
+        public void UpdateWidget()
+        {
+        }
+
+        public void Initialize()
+        {
+        }
+
+        public void ToggleBacklog(bool visible)
         {
         }
     }

@@ -1,5 +1,8 @@
-﻿using OpenNefia.Content.UI.Element;
+﻿using OpenNefia.Content.Hud;
+using OpenNefia.Content.UI.Element;
 using OpenNefia.Content.UI.Element.Containers;
+using OpenNefia.Core.Configuration;
+using OpenNefia.Core.IoC;
 using OpenNefia.Core.Locale;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.Rendering;
@@ -67,8 +70,9 @@ namespace OpenNefia.Content.UI.Hud
         }
     }
 
-    public class HudMessageWindow : UiElement, IHudMessageWindow
+    public class HudMessageWindow : BaseHudWidget, IHudMessageWindow
     {
+        [Dependency] private readonly IConfigurationManager _config = default!;
         public class MessageContainer : UiHorizontalContainer
         {
             public bool HasContent => Entries.Any(x => x.Element is MessageText);
@@ -99,18 +103,12 @@ namespace OpenNefia.Content.UI.Hud
         private const int BacklogLines = 26;
         private const int MessageBoxLines = 4;
 
-        private readonly byte[] MessageOpacities =
-        {
-            130,
-            180,
-            220,
-            255,
-            210
-        };
-
+        private float MessageFadeAmount => (float)_config.GetCVar(CCVars.MessageFade) / 100f;
         private bool NeedsRelayout;
+
         public HudMessageWindow(UiContainer messageBoxContainer, UiContainer backLogContainer)
         {
+            IoCManager.InjectDependencies(this);
             //not the amount of lines, but the amount of messages
             Messages = new CircularBuffer<FormattedMessage>(200);
             MessageBoxContainer = messageBoxContainer;
@@ -142,7 +140,7 @@ namespace OpenNefia.Content.UI.Hud
             return cont;
         }
 
-        private void ReLayoutText()
+        private void RelayoutText()
         {
             var lines = new List<MessageContainer>();
             var currentLine = GetMessageLine(false);
@@ -199,24 +197,22 @@ namespace OpenNefia.Content.UI.Hud
             emptyLine.AddElement(new UiText(UiFonts.MessageText));
 
             var lineIndex = 0;
-            var mesBoxLines = Enumerable.Empty<MessageContainer>()
-                .Concat(Enumerable.Repeat(emptyLine, Math.Max(0, MessageBoxLines - lines.Count)))
+            var mesBoxLines = Enumerable.Repeat(emptyLine, Math.Max(0, MessageBoxLines - lines.Count))
                 .Concat(lines.Skip(Math.Max(0, lines.Count - MessageBoxLines))); 
             var backlogLines = lines.Count > MessageBoxLines
-                ? Enumerable.Empty<MessageContainer>()
-                    .Concat(Enumerable.Repeat(emptyLine, Math.Max(0, BacklogLines + MessageBoxLines - lines.Count)))
+                ? Enumerable.Repeat(emptyLine, Math.Max(0, BacklogLines + MessageBoxLines - lines.Count))
                     .Concat(lines.Take(lines.Count - MessageBoxLines))
                 : Enumerable.Empty<MessageContainer>();
 
             foreach (var line in mesBoxLines)
             {
-                line.SetOpacities(MessageOpacities[lineIndex]);
+                line.SetOpacities(Convert.ToByte(255 * Math.Pow(MessageFadeAmount, 3 - lineIndex)));
                 MessageBoxContainer.AddElement(line);
                 lineIndex++;
             }
             foreach (var line in backlogLines)
             {
-                line.SetOpacities(MessageOpacities[4]);
+                line.SetOpacities(Convert.ToByte(255 * Math.Pow(MessageFadeAmount, 2)));
                 if (lineIndex >= MessageBoxLines + BacklogLines)
                     break;
                 BacklogContainer.AddElement(line);
@@ -237,7 +233,7 @@ namespace OpenNefia.Content.UI.Hud
         {
             base.Update(dt);
             if (NeedsRelayout)
-                ReLayoutText();
+                RelayoutText();
         }
     }
 }

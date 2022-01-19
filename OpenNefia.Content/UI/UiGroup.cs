@@ -36,16 +36,6 @@ namespace OpenNefia.Content.UI
         {
 
         }
-
-        public virtual void TabEnter()
-        {
-
-        }
-
-        public virtual void TabExit()
-        {
-
-        }
     }
 
     public class UiGroup<TLayer, TArgs, TLayerArgs, TResult> : UiLayerWithResult<TArgs, TResult>
@@ -93,26 +83,20 @@ namespace OpenNefia.Content.UI
         {
             var queryArgs = Layers.Keys.ToList();
             var index = queryArgs.IndexOf(SelectedArgs);
-            switch(args.Function)
+            if (args.Function == EngineKeyFunctions.UINextTab)
             {
-                case var next when next == EngineKeyFunctions.UINextTab:
-                    index++;
-                    SelectedArgs = queryArgs[index >= queryArgs.Count ? 0 : index];
-                    ShowSelectedLayer();
-                    args.Handle();
-                    break;
-                case var prev when prev == EngineKeyFunctions.UIPreviousTab:
-                    index--;
-                    SelectedArgs = queryArgs[index < 0 ? queryArgs.Count - 1 : index];
-                    ShowSelectedLayer();
-                    args.Handle();
-                    break;
+                index++;
+                SelectedArgs = queryArgs[index >= queryArgs.Count ? 0 : index];
+                ShowSelectedLayer();
+                args.Handle();
             }
-        }
-
-        public override void OnQuery()
-        {
-            base.OnQuery();
+            else if (args.Function == EngineKeyFunctions.UIPreviousTab)
+            {
+                index--;
+                SelectedArgs = queryArgs[index < 0 ? queryArgs.Count - 1 : index];
+                ShowSelectedLayer();
+                args.Handle();
+            }
         }
 
         protected virtual void ShowSelectedLayer()
@@ -121,7 +105,7 @@ namespace OpenNefia.Content.UI
             {
                 RemoveChild(SelectedLayer);
                 SelectedLayer.OnKeyBindDown -= OnKeyDown;
-                SelectedLayer.TabExit();
+                SelectedLayer.OnQueryFinish();
             }
 
             if (Layers.TryGetValue(SelectedArgs, out var layer))
@@ -133,7 +117,7 @@ namespace OpenNefia.Content.UI
                 SetSize(Width, Height);
                 SetPosition(X, Y);
                 SelectedLayer.OnKeyBindDown += OnKeyDown;
-                SelectedLayer.TabEnter();
+                SelectedLayer.OnQuery();
                 SelectedLayer.GrabFocus();
             }
         }
@@ -200,13 +184,8 @@ namespace OpenNefia.Content.UI
         {
             var res = SelectedLayer?.GetResult();
             if (res != null)
-                SelectedLayer?.TabExit();
+                SelectedLayer?.OnQueryFinish();
             return res;
-        }
-
-        public override void Dispose()
-        {
-            base.Dispose();
         }
     }
 }

@@ -27,7 +27,7 @@ namespace OpenNefia.Content.VanillaAI
         private IAssetInstance AssetHPBarOther = default!;
 
         private IMap? _map;
-        private List<UiHelpers.DrawEntry> _entries = new();
+        private List<UiHelpers.UiBarDrawableState> _entries = new();
 
         public override void SetMap(IMap map)
         {
@@ -78,7 +78,7 @@ namespace OpenNefia.Content.VanillaAI
 
                 var screenPos = spatial.GetScreenPos();
 
-                var entry = new UiHelpers.DrawEntry(assetInstance, hpRatio, screenPos);
+                var entry = new UiHelpers.UiBarDrawableState(assetInstance, hpRatio, screenPos);
                 _entries.Add(entry);
             }
         }

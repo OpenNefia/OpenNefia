@@ -25,6 +25,7 @@ namespace OpenNefia.Content.Inventory
             // TODO: mix behaviour
             new ThrowInventoryBehavior(),
         };
+
         public InventoryGroupArgs(EntityUid entity, IInventoryBehavior selected)
         {
             InventoryContext context = default!;

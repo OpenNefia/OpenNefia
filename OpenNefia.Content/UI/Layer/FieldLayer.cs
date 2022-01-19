@@ -31,7 +31,7 @@ namespace OpenNefia.Content.UI.Layer
         [Dependency] private readonly IInputManager _inputManager = default!;
         [Dependency] private readonly IMusicManager _music = default!;
 
-        public override int? DefaultZOrder => 40000;
+        public override int? DefaultZOrder => 100000;
 
         public static FieldLayer? Instance = null;
 

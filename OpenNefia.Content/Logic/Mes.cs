@@ -23,7 +23,7 @@ namespace OpenNefia.Content.Logic
 
         public void Newline()
         {
-            _hud.MessageWindow.Newline();
+            _hud.MessageWindow?.Newline();
         }
 
         public void Display(string text, Color? color = null, bool noCapitalize = false)
@@ -31,7 +31,7 @@ namespace OpenNefia.Content.Logic
             if (!noCapitalize)
                 text = Loc.Capitalize(text);
             
-            _hud.MessageWindow.Print(text, color);
+            _hud.MessageWindow?.Print(text, color);
         }
 
         public void DisplayIfLos(EntityUid entity, string mes, Color? color = null, bool noCapitalize = false)

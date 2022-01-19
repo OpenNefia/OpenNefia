@@ -45,15 +45,15 @@ namespace OpenNefia.Content.Journal
                 Cancel();
         }
 
-        public override void TabEnter()
+        public override void OnQuery()
         {
-            base.TabEnter();
+            base.OnQuery();
             OnKeyBindDown += OnKeyDown;
         }
 
-        public override void TabExit()
+        public override void OnQueryFinish()
         {
-            base.TabExit();
+            base.OnQueryFinish();
             OnKeyBindDown -= OnKeyDown;
         }
     }
@@ -70,6 +70,7 @@ namespace OpenNefia.Content.Journal
                 Layers[args] = logType switch
                 {
                     JournalGroupUiArgs.LogTab.Backlog => new BacklogUiLayer(),
+                    // TODO: add other group layers
                     _ => new JournalUiLayer()
                 };
             }

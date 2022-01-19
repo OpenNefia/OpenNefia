@@ -100,6 +100,10 @@ OpenNefia.Prototypes.Elona.ConfigMenuItem.Elona = {
         Name = "Message & Log",
     },
 
+    MessageFade = {
+        Name = "Transparency",
+    },
+
     --
     -- Menu: Language
     --
