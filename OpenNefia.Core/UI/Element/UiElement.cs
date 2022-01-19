@@ -14,6 +14,8 @@ namespace OpenNefia.Core.UI.Element
         public float MinHeight { get; internal set; }
         public float PreferredWidth { get; internal set; } = float.NaN;
         public float PreferredHeight { get; internal set; } = float.NaN;
+        public float MaxWidth { get; internal set; } = float.PositiveInfinity;
+        public float MaxHeight { get; internal set; } = float.PositiveInfinity;
 
         /// <summary>
         /// A settable minimum size for this control.
@@ -31,6 +33,15 @@ namespace OpenNefia.Core.UI.Element
         {
             get => (PreferredWidth, PreferredHeight);
             set => (PreferredWidth, PreferredHeight) = value;
+        }
+
+        /// <summary>
+        /// A settable maximum size for this control.
+        /// </summary>
+        public Vector2 MaxSize
+        {
+            get => (MaxWidth, MaxHeight);
+            set => (MaxWidth, MaxHeight) = Vector2.ComponentMax(Vector2.Zero, value);
         }
 
         /// <summary>
@@ -243,7 +254,14 @@ namespace OpenNefia.Core.UI.Element
         public void SetPreferredSize()
         {
             GetPreferredSize(out var size);
-            this.SetSize(size.X != float.NaN ? size.X : Width, size.Y != float.NaN ? size.Y : Height);
+
+            var width = float.IsNaN(size.X) ? Width : size.X;
+            var height = float.IsNaN(size.Y) ? Height : size.Y;
+
+            width = Math.Clamp(width, MinWidth, MaxWidth);
+            height = Math.Clamp(height, MinHeight, MaxHeight);
+
+            this.SetSize(width, height);
         }
 
         public virtual void Localize(LocaleKey key)

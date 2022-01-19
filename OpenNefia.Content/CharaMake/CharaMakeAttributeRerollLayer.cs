@@ -133,7 +133,7 @@ namespace OpenNefia.Content.CharaMake
         public CharaMakeAttributeRerollLayer()
         {
             AttributeInfo = new UiWrappedText(UiFonts.CharaMakeLockInfo);
-            AttributeInfo.PreferredSize = new(110, 0);
+            AttributeInfo.MinSize = new(110, 0);
             List = new UiList<AttributeRerollData>();
             LockAmount = new UiText(UiFonts.CharaMakeLockInfo);
             AttributeInfo.WrappedText = Loc.GetString("Elona.CharaMake.AttributeReroll.AttributeInfo");

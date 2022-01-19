@@ -255,7 +255,7 @@ namespace OpenNefia.Content.CharaMake
             DetailContainer = new UiVerticalContainer();
 
             DetailText = new UiWrappedText(UiFonts.ListTitleScreenText);
-            DetailText.PreferredSize = new(450, 0);
+            DetailText.MinSize = new(450, 0);
             DetailContainer.AddElement(DetailText);
             DetailContainer.AddLayout(LayoutType.YMin, 110);
 
