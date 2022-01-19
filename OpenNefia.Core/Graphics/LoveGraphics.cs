@@ -147,7 +147,9 @@ namespace OpenNefia.Core.Graphics
             WindowScale = Math.Max(newUiScale, MinWindowScale);
 
             if (WindowPixelSize.X < PixelMinWidth || WindowPixelSize.Y < PixelMinHeight)
-                SetWindowSettings(_lastFullscreenMode);
+            {
+                SetWindowSettings(new(PixelMinHeight, PixelMinHeight));
+            }
 
             OnWindowScaleChanged?.Invoke(new(newUiScale));
         }

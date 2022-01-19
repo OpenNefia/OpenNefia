@@ -236,7 +236,7 @@ namespace OpenNefia.Content.CharaMake
         private UiVerticalContainer DetailContainer;
         private UiVerticalContainer SkillContainer;
         private UiVerticalContainer TrainedSkillContainer;
-        private UiWrapText DetailText;
+        private UiWrappedText DetailText;
 
         private UiGridContainer AttributeContainer;
         private UiPagedList<RaceClass> List;
@@ -254,7 +254,8 @@ namespace OpenNefia.Content.CharaMake
 
             DetailContainer = new UiVerticalContainer();
 
-            DetailText = new UiWrapText(UiFonts.ListTitleScreenText);
+            DetailText = new UiWrappedText(UiFonts.ListTitleScreenText);
+            DetailText.PreferredSize = new(450, 0);
             DetailContainer.AddElement(DetailText);
             DetailContainer.AddLayout(LayoutType.YMin, 110);
 
@@ -321,7 +322,7 @@ namespace OpenNefia.Content.CharaMake
             DetailContainer.Relayout();
 
             data.TryGetString(out var desc, "Description");
-            DetailText.Text = desc;
+            DetailText.WrappedText = desc;
         }
 
         private void SetAttributes(IReadOnlyDictionary<PrototypeId<SkillPrototype>, int> skills)
@@ -440,10 +441,7 @@ namespace OpenNefia.Content.CharaMake
             base.SetSize(width, height);
             Window.SetSize(Width, Height);
             List.SetPreferredSize();
-            // TODO change
-            DetailText.GetPreferredSize(out var size);
-            size.X = 450;
-            DetailText.SetSize(size.X, size.Y);
+            DetailText.SetPreferredSize();
         }
 
         public override void SetPosition(float x, float y)

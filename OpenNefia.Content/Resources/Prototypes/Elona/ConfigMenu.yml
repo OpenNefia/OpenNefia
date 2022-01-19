@@ -40,6 +40,7 @@
     - Elona.ScreenWindowMode
     - Elona.ScreenScreenResolution
     - Elona.ScreenDisplayNumber
+    - Elona.ScreenUIScale
 
 - type: Elona.ConfigMenuItem
   id: Elona.ScreenSound
@@ -77,6 +78,14 @@
   id: Elona.ScreenDisplayNumber
   node: !type:ConfigDisplayNumberMenuNode
     cvar: display.displaynumber
+
+- type: Elona.ConfigMenuItem
+  id: Elona.ScreenUIScale
+  node: !type:ConfigFloatMenuNode
+    cvar: display.uiScale
+    min: 1.0
+    max: 4.0
+    step: 0.1
 
 #
 # Net

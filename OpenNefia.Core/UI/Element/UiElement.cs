@@ -243,7 +243,7 @@ namespace OpenNefia.Core.UI.Element
         public void SetPreferredSize()
         {
             GetPreferredSize(out var size);
-            this.SetSize(size.X, size.Y);
+            this.SetSize(size.X != float.NaN ? size.X : Width, size.Y != float.NaN ? size.Y : Height);
         }
 
         public virtual void Localize(LocaleKey key)

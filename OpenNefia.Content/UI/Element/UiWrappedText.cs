@@ -1,37 +1,62 @@
 ﻿using OpenNefia.Core.IoC;
 using OpenNefia.Core.Locale;
-using OpenNefia.Core.Maths;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Rendering;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using OpenNefia.Core.UI.Element;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace OpenNefia.Content.UI.Element
 {
-    public class UiWrapText : UiText
+    public class UiWrappedText : UiElement
     {
-        public UiWrapText(FontSpec font, string text = "") : base(font, text)
-        {
-            Text = text;
+        public UiText UiText { get; }
+
+        public UiWrappedText(FontSpec font, string text = "")
+{
+            UiText = new UiText(font, text);
+            OriginalText = text;
+            UiText.Text = WordWrap(OriginalText, PixelWidth);
+
+            AddChild(UiText);
         }
 
-        public override string Text 
-        { 
-            get => base.Text;
+        public string OriginalText { get; private set; }
+
+        public string WrappedText 
+        {
+            get => UiText.Text;
             set
             {
-                base.Text = WordWrap(value, PixelWidth);
-                SetPreferredSize();
+                OriginalText = value;
+                UiText.Text = WordWrap(OriginalText, PixelWidth);
             }
         }
 
         public override void SetSize(float width, float height)
         {
             base.SetSize(width, height);
-            Text = Text;
+            UiText.Text = WordWrap(OriginalText, PixelWidth);
+        }
+
+        public override void SetPosition(float x, float y)
+        {
+            base.SetPosition(x, y);
+            UiText.SetPosition(X, Y);
+        }
+
+        public override void Update(float dt)
+        {
+            UiText.Update(dt);
+        }
+
+        public override void Draw()
+        {
+            UiText.Draw();
+        }
+
+        public override void Dispose()
+        {
+            UiText.Dispose();
         }
 
         static char[] splitChars = new char[] { ' ', '　' };
@@ -40,7 +65,7 @@ namespace OpenNefia.Content.UI.Element
         private string WordWrap(string str, int pixelWidth)
         {
             if (pixelWidth <= 0)
-                return base.Text;
+                return OriginalText;
 
             var locManager = IoCManager.Resolve<ILocalizationManager>();
 
@@ -53,7 +78,7 @@ namespace OpenNefia.Content.UI.Element
                 string word = words[i];
                 // If adding the new word to the current line would be too long,
                 // then put it on a new line (and split it up if it's too long).
-                if (curLineLength + Font.LoveFont.GetWidth(word) > pixelWidth)
+                if (curLineLength + UiText.Font.LoveFont.GetWidth(word) > pixelWidth)
                 {
                     // Only move down to a new line if we have text on the current line.
                     // Avoids situation where wrapped whitespace causes emptylines in text.
@@ -77,7 +102,7 @@ namespace OpenNefia.Content.UI.Element
                     word = word.TrimStart();
                 }
                 strBuilder.Append(word);
-                curLineLength += Font.LoveFont.GetWidth(word);
+                curLineLength += UiText.Font.LoveFont.GetWidth(word);
             }
 
             return strBuilder.ToString();

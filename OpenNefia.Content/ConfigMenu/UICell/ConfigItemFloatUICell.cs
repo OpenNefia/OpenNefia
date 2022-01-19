@@ -2,9 +2,9 @@
 
 namespace OpenNefia.Content.ConfigMenu.UICell
 {
-    public class ConfigItemIntUICell : BaseConfigMenuCVarUICell<ConfigIntMenuNode, int>
+    public class ConfigItemFloatUICell : BaseConfigMenuCVarUICell<ConfigFloatMenuNode, float>
     {
-        public ConfigItemIntUICell(PrototypeId<ConfigMenuItemPrototype> protoId, ConfigIntMenuNode data) : base(protoId, data)
+        public ConfigItemFloatUICell(PrototypeId<ConfigMenuItemPrototype> protoId, ConfigFloatMenuNode data) : base(protoId, data)
         {
         }
 
@@ -22,7 +22,7 @@ namespace OpenNefia.Content.ConfigMenu.UICell
         {
             base.RefreshConfigValueDisplay();
 
-            ValueText.Text = CurrentValue.ToString();
+            ValueText.Text = CurrentValue.ToString("F1");
         }
     }
 }
