@@ -466,6 +466,28 @@ handlers["base.map_tile"] = function(from, to)
     to.isOpaque = from.is_opaque
 end
 
+handlers["base.chip"] = function(from, to)
+    if from.group then
+        to.group = capitalize(from.group)
+    end
+    if from.group ~= "item" or from.image.source == nil then
+        return false
+    end
+    to.image = {
+        filepath = from.image.source:gsub("graphic", "/Graphic/Elona"),
+        region = ("\"%s, %s, %s, %s\""):format(from.image.x, from.image.y, from.image.width, from.image.height),
+    }
+    if (from.y_offset or 0) ~= 0 then
+        to.offset = ("0,%d"):format(from.y_offset)
+    end
+    if (from.shadow or 0) ~= 0 then
+        to.shadowRot = from.shadow
+    end
+    if (from.stack_height or 0) ~= 0 then
+        to.stackYOffset = from.stack_height
+    end
+end
+
 handlers["elona.field_type"] = function(from, to)
     to.defaultTile = dotted(from.default_tile)
     to.fogTile = dotted(from.fog)
@@ -507,6 +529,7 @@ local hspParents = {
 }
 
 local hspTypes = {
+    ["base.chip"] = "Chip",
     ["base.map_tile"] = "Tile",
     ["base.pcc_part"] = "Elona.PCCPart",
     ["elona.field_type"] = "Elona.FieldType",

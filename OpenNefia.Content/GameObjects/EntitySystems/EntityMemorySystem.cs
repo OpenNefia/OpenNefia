@@ -1,5 +1,6 @@
 ﻿using OpenNefia.Content.Charas;
 using OpenNefia.Core.GameObjects;
+using OpenNefia.Core.IoC;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Rendering;
@@ -13,6 +14,8 @@ namespace OpenNefia.Content.GameObjects
 
     public class EntityMemorySystem : EntitySystem, IEntityMemorySystem
     {
+        [Dependency] private readonly IPrototypeManager _protos = default!;
+
         public override void Initialize()
         {
             SubscribeLocalEvent<ChipComponent, GetMapObjectMemoryEventArgs>(ProduceSpriteMemory, nameof(ProduceSpriteMemory));
@@ -26,10 +29,11 @@ namespace OpenNefia.Content.GameObjects
 
         private void ProduceSpriteMemory(EntityUid uid, ChipComponent chip, GetMapObjectMemoryEventArgs args)
         {
+            var chipProto = _protos.Index(chip.ChipID);
             var memory = args.Memory;
-            memory.AtlasIndex = chip.ChipID.ResolvePrototype().Image.AtlasIndex;
+            memory.AtlasIndex = chipProto.Image.AtlasIndex;
             memory.Color = chip.Color;
-            memory.ScreenOffset = Vector2i.Zero;
+            memory.ScreenOffset = chipProto.Offset;
             memory.IsVisible = EntityManager.IsAlive(uid);
             memory.ZOrder = chip.DrawDepth;
             memory.HideWhenOutOfSight = false;
