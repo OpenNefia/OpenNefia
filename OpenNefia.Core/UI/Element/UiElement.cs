@@ -254,14 +254,18 @@ namespace OpenNefia.Core.UI.Element
         public void SetPreferredSize()
         {
             GetPreferredSize(out var size);
+            this.SetSize(size.X, size.Y);
+        }
 
-            var width = float.IsNaN(size.X) ? Width : size.X;
-            var height = float.IsNaN(size.Y) ? Height : size.Y;
+        public override void SetSize(float width, float height)
+        {
+            width = float.IsNaN(width) ? Width : width;
+            height = float.IsNaN(height) ? Height : height;
 
             width = Math.Clamp(width, MinWidth, MaxWidth);
             height = Math.Clamp(height, MinHeight, MaxHeight);
 
-            this.SetSize(width, height);
+            base.SetSize(width, height);
         }
 
         public virtual void Localize(LocaleKey key)
