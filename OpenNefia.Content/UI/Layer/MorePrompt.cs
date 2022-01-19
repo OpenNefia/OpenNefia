@@ -114,11 +114,11 @@ namespace OpenNefia.Content.Logic
             if (HasResult)
             {
                 // FIXME don't use 0 as indicating default height...
-                AssetMorePrompt.DrawS(UIScale, X, Y + (Height / 2) - _size2, Width, _size2 * 2f + 1f);
+                AssetMorePrompt.Draw(UIScale, X, Y + (Height / 2) - _size2, Width, _size2 * 2f + 1f);
             }
             else if (_size > 0f)
             {
-                AssetMorePrompt.DrawS(UIScale, X, Y + (Height / 2) - _size, Width, _size * 2f + 1f);
+                AssetMorePrompt.Draw(UIScale, X, Y + (Height / 2) - _size, Width, _size * 2f + 1f);
             }
         }
     }

@@ -118,7 +118,7 @@ namespace OpenNefia.Content.CharaMake
 
         public override void Draw()
         {
-            AssetBG.Draw(0, 0, Love.Graphics.GetWidth(), Love.Graphics.GetHeight());
+            AssetBG.DrawUnscaled(0, 0, Love.Graphics.GetWidth(), Love.Graphics.GetHeight());
             Caption.Draw();
         }
 

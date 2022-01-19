@@ -153,13 +153,13 @@ namespace OpenNefia.Content.UI.Element.List
             GraphicsS.RectangleS(UIScale, Love.DrawMode.Fill, UiText.X - XOffset - 3, UiText.Y - 1, virtualWidth - 2, 17);
             Love.Graphics.SetBlendMode(Love.BlendMode.Alpha);
             GraphicsEx.SetColor(Love.Color.White);
-            AssetListBullet.DrawS(UIScale, UiText.X - XOffset - 5 + virtualWidth - 20, UiText.Y + 2);
+            AssetListBullet.Draw(UIScale, UiText.X - XOffset - 5 + virtualWidth - 20, UiText.Y + 2);
         }
 
         public override void Draw()
         {
             GraphicsEx.SetColor(Love.Color.White);
-            AssetSelectKey.DrawS(UIScale, X, Y - 1);
+            AssetSelectKey.Draw(UIScale, X, Y - 1);
             KeyNameText.Draw();
             UiText.Draw();
         }

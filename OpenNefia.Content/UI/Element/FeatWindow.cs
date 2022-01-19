@@ -94,7 +94,7 @@ namespace OpenNefia.Content.UI.Element
                 GraphicsS.RectangleS(UIScale, Love.DrawMode.Fill, UiText.X - XOffset - 3, UiText.Y - 3, virtualWidth - 2, 17);
                 Love.Graphics.SetBlendMode(Love.BlendMode.Alpha);
                 GraphicsEx.SetColor(Love.Color.White);
-                AssetListBullet.DrawS(UIScale, UiText.X - XOffset - 5 + virtualWidth - 20, UiText.Y - 0);
+                AssetListBullet.Draw(UIScale, UiText.X - XOffset - 5 + virtualWidth - 20, UiText.Y - 0);
             }
 
             /// <summary>
@@ -117,7 +117,7 @@ namespace OpenNefia.Content.UI.Element
                 {
                     case FeatNameAndDesc.GainedFeat feat:
                         GraphicsEx.SetColor(Color.White);
-                        FeatIcons.DrawRegionS(UIScale, GetFeatIconRegion(feat.Prototype.FeatType), X - 7, Y - 5);
+                        FeatIcons.DrawRegion(UIScale, GetFeatIconRegion(feat.Prototype.FeatType), X - 7, Y - 5);
                         UiText.Draw();
                         break;
                     case FeatNameAndDesc.FeatHeader:
@@ -125,7 +125,7 @@ namespace OpenNefia.Content.UI.Element
                         break;
                     case FeatNameAndDesc.Feat feat:
                         GraphicsEx.SetColor(Color.White);
-                        FeatIcons.DrawRegionS(UIScale, GetFeatIconRegion(feat.Prototype.FeatType), X - 27, Y - 5);
+                        FeatIcons.DrawRegion(UIScale, GetFeatIconRegion(feat.Prototype.FeatType), X - 27, Y - 5);
                         base.Draw();
                         DescriptionText.Draw();
                         break;

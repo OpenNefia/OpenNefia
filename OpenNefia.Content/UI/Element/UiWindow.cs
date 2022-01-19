@@ -146,7 +146,7 @@ namespace OpenNefia.Content.UI.Element
             GraphicsEx.SetColor(Color.White);
             Window.Draw();
 
-            AssetTipIcons.DrawRegionS(UIScale, "1", X + 30 + KeyHintXOffset, Y + Height - 47 - Height % 8);
+            AssetTipIcons.DrawRegion(UIScale, "1", X + 30 + KeyHintXOffset, Y + Height - 47 - Height % 8);
 
             if (HasTitle)
             {

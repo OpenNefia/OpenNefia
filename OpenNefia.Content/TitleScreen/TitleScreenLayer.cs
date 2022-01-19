@@ -73,7 +73,7 @@ namespace OpenNefia.Content.TitleScreen
             public override void Draw()
             {
                 GraphicsEx.SetColor(Love.Color.White);
-                AssetSelectKey.DrawS(UIScale, X, Y - 1);
+                AssetSelectKey.Draw(UIScale, X, Y - 1);
                 KeyNameText.Draw();
                 UiText.Draw();
                 if (Loc.IsFullwidth())
@@ -236,7 +236,7 @@ namespace OpenNefia.Content.TitleScreen
             var bgPicWidth = Window.Width / 5 * 4;
             var bgPicHeight = Window.Height - 80;
             GraphicsEx.SetColor(255, 255, 255, 50);
-            AssetG4.DrawS(UIScale, Window.X + 160 - bgPicWidth / 2,
+            AssetG4.Draw(UIScale, Window.X + 160 - bgPicWidth / 2,
                                    Window.Y + Window.Height / 2 - bgPicHeight / 2,
                                    bgPicWidth,
                                    bgPicHeight);

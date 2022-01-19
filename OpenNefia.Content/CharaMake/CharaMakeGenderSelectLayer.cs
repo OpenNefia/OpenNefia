@@ -105,7 +105,7 @@ namespace OpenNefia.Content.CharaMake
             base.Draw();
             Window.Draw();
             GraphicsEx.SetColor(255, 255, 255, 40);
-            AssetWindows[0].DrawS(UIScale, Window.X + 100, Window.Y + 30, 180, 110);
+            AssetWindows[0].Draw(UIScale, Window.X + 100, Window.Y + 30, 180, 110);
             GenderTopic.Draw();
             List.Draw();
         }

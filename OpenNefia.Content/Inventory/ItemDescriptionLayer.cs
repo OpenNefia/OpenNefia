@@ -183,12 +183,12 @@ namespace OpenNefia.Content.Inventory
             
                 if (icon.HasValue)
                 {
-                    AssetEnchantmentIcons.DrawRegionS(UIScale, ((int)icon.Value).ToString(), x - 28, y - 7);
+                    AssetEnchantmentIcons.DrawRegion(UIScale, ((int)icon.Value).ToString(), x - 28, y - 7);
                 }
 
                 if (entry.IsInheritable)
                 {
-                    AssetInheritanceIcon.DrawS(UIScale, x - 53, y - 5);
+                    AssetInheritanceIcon.Draw(UIScale, x - 53, y - 5);
                 }
             }
         }

@@ -68,11 +68,11 @@ namespace OpenNefia.Core.Rendering
 
             if (RegionId != null)
             {
-                Instance.DrawRegionS(UIScale, RegionId, X, Y, Width, Height, Centered, Rotation);
+                Instance.DrawRegion(UIScale, RegionId, X, Y, Width, Height, Centered, Rotation);
             }
             else
             {
-                Instance.DrawS(UIScale, X, Y, Width, Height, Centered, Rotation);
+                Instance.Draw(UIScale, X, Y, Width, Height, Centered, Rotation);
             }
         }
     }

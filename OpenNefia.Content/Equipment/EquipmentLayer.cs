@@ -150,7 +150,7 @@ namespace OpenNefia.Content.Equipment
                 }
 
                 Love.Graphics.SetColor(Color.White);
-                AssetSelectKey.Draw(X, Y - 1);
+                AssetSelectKey.Draw(UIScale, X, Y - 1);
                 KeyNameText.Draw();
 
                 Icon?.Draw();

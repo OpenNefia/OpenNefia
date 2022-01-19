@@ -228,21 +228,21 @@ namespace OpenNefia.Content.UI.Layer
             TopicWindow.Draw();
 
             GraphicsEx.SetColor(Love.Color.White);
-            AssetLabelInput.DrawS(UIScale, X + Width / 2 - 60, Y - 32);
+            AssetLabelInput.Draw(UIScale, X + Width / 2 - 60, Y - 32);
 
             if (IsCutOff)
             {
-                AssetImeStatusNone.DrawS(UIScale, X + 8, Y + 4);
+                AssetImeStatusNone.Draw(UIScale, X + 8, Y + 4);
             }
             else
             {
-                AssetImeStatusEnglish.DrawS(UIScale, X + 8, Y + 4);
+                AssetImeStatusEnglish.Draw(UIScale, X + 8, Y + 4);
             }
 
             Text.Draw();
 
             GraphicsEx.SetColor(255, 255, 255, (int)CaretAlpha);
-            AssetInputCaret.DrawS(UIScale, X + Text.Width + 34, Y + 5);
+            AssetInputCaret.Draw(UIScale, X + Text.Width + 34, Y + 5);
         }
 
         public override void Dispose()

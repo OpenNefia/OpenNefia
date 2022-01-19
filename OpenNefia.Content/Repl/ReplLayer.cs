@@ -947,7 +947,7 @@ namespace OpenNefia.Content.Repl
                     GraphicsS.RectangleS(UIScale, Love.DrawMode.Fill, entry.Text.X, entry.Text.Y, entry.Text.Width, entry.Text.Height);
                 }
                 GraphicsEx.SetColor(Color.White);
-                entry.Icon.Draw(entry.Text.X - entry.Text.Height - 4, entry.Text.Y, entry.Text.Height, entry.Text.Height);
+                entry.Icon.Draw(UIScale, entry.Text.X - entry.Text.Height - 4, entry.Text.Y, entry.Text.Height, entry.Text.Height);
                 entry.Text.Draw();
             }
         }

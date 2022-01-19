@@ -299,7 +299,7 @@ namespace OpenNefia.Content.TitleScreen
 
         public override void Draw()
         {
-            AssetVoid.Draw(0, 0, Love.Graphics.GetWidth(), Love.Graphics.GetHeight());
+            AssetVoid.DrawUnscaled(0, 0, Love.Graphics.GetWidth(), Love.Graphics.GetHeight());
             Caption.Draw();
             Window.Draw();
             

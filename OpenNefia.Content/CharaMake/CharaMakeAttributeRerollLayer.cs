@@ -132,7 +132,7 @@ namespace OpenNefia.Content.CharaMake
 
         public CharaMakeAttributeRerollLayer()
         {
-            AttributeInfo = new UiWrapText(110, UiFonts.CharaMakeLockInfo);
+            AttributeInfo = new UiWrapText(UiFonts.CharaMakeLockInfo);
             List = new UiList<AttributeRerollData>();
             LockAmount = new UiText(UiFonts.CharaMakeLockInfo);
             AttributeInfo.Text = Loc.GetString("Elona.CharaMake.AttributeReroll.AttributeInfo");
@@ -303,6 +303,10 @@ namespace OpenNefia.Content.CharaMake
         {
             base.SetSize(width, height);
             Window.SetSize(Width, Height);
+            // TODO change
+            AttributeInfo.GetPreferredSize(out var size);
+            size.X = 110;
+            AttributeInfo.SetSize(size.X, size.Y);
             List.SetPreferredSize();
             LockAmount.SetPreferredSize();
         }
@@ -332,7 +336,7 @@ namespace OpenNefia.Content.CharaMake
             base.Draw();
             Window.Draw();
             GraphicsEx.SetColor(255, 255, 255, 30);
-            AssetWindows[0].DrawS(UIScale, Window.X + 15, Window.Y + 50, 150, 265);
+            AssetWindows[0].Draw(UIScale, Window.X + 15, Window.Y + 50, 150, 265);
             AttributeTopic.Draw();
             List.Draw();
             LockAmount.Draw();

@@ -163,7 +163,7 @@ namespace OpenNefia.Content.UI.Element
                 }
             }
 
-            AssetWindow.DrawRegionS(UIScale, "fill", X, Y, Width - 2, Height - 2);
+            AssetWindow.DrawRegion(UIScale, "fill", X, Y, Width - 2, Height - 2);
 
             GraphicsEx.SetColor(Love.Color.White);
             GraphicsEx.DrawSpriteBatchS(UIScale, TopicWindowBatch, X, Y, null, null);

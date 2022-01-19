@@ -193,9 +193,9 @@ namespace OpenNefia.Content.UI.Layer
             TopicWindow.Draw();
 
             GraphicsEx.SetColor(Love.Color.White);
-            AssetLabelInput.DrawS(UIScale, X + Width / 2 - 56, Y - 32);
-            AssetArrowLeft.DrawS(UIScale, X + 28, Y + 4);
-            AssetArrowRight.DrawS(UIScale, X + Width - 51, Y + 4);
+            AssetLabelInput.Draw(UIScale, X + Width / 2 - 56, Y - 32);
+            AssetArrowLeft.Draw(UIScale, X + 28, Y + 4);
+            AssetArrowRight.Draw(UIScale, X + Width - 51, Y + 4);
 
             Text.Draw();
         }

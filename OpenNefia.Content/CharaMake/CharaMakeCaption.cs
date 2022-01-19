@@ -84,9 +84,9 @@ namespace OpenNefia.Content.CharaMake
                     regionOffset = 0;
                 }
 
-                AssetCaption.DrawRegionS(UIScale, (0 + regionOffset).ToString(), i * captionVirtualWidth + X, Y);
-                AssetCaption.DrawRegionS(UIScale, (1 + regionOffset).ToString(), i * captionVirtualWidth + X, Y + 2);
-                AssetCaption.DrawRegionS(UIScale, (2 + regionOffset).ToString(), i * captionVirtualWidth + X, Y + 22);
+                AssetCaption.DrawRegion(UIScale, (0 + regionOffset).ToString(), i * captionVirtualWidth + X, Y);
+                AssetCaption.DrawRegion(UIScale, (1 + regionOffset).ToString(), i * captionVirtualWidth + X, Y + 2);
+                AssetCaption.DrawRegion(UIScale, (2 + regionOffset).ToString(), i * captionVirtualWidth + X, Y + 22);
             }
 
             TextCaption.Draw();

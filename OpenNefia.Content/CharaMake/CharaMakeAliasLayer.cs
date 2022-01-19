@@ -199,7 +199,7 @@ namespace OpenNefia.Content.CharaMake
             base.Draw();
             Window.Draw();
             GraphicsEx.SetColor(255, 255, 255, 30);
-            CurrentWindowBG.DrawS(UIScale, Window.X + 40, Window.Y + 30, 300, 405);
+            CurrentWindowBG.Draw(UIScale, Window.X + 40, Window.Y + 30, 300, 405);
             List.Draw();
             AliasTopic.Draw();
         }

@@ -13,14 +13,8 @@ namespace OpenNefia.Content.UI.Element
 {
     public class UiWrapText : UiText
     {
-        /// <summary>
-        /// Max line width in virtual pixels.
-        /// </summary>
-        private float MaxWidth;
-
-        public UiWrapText(float maxWidth, FontSpec font, string text = "") : base(font, text)
+        public UiWrapText(FontSpec font, string text = "") : base(font, text)
         {
-            MaxWidth = maxWidth;
             Text = text;
         }
 
@@ -29,17 +23,23 @@ namespace OpenNefia.Content.UI.Element
             get => base.Text;
             set
             {
-                base.Text = WordWrap(value, (int)(MaxWidth * UIScale));
+                base.Text = WordWrap(value, PixelWidth);
                 SetPreferredSize();
             }
+        }
+
+        public override void SetSize(float width, float height)
+        {
+            base.SetSize(width, height);
+            Text = Text;
         }
 
         static char[] splitChars = new char[] { ' ', '　' };
 
         // function from https://stackoverflow.com/questions/17586/best-word-wrap-algorithm
-        private string WordWrap(string str, int width)
+        private string WordWrap(string str, int pixelWidth)
         {
-            if (width <= 0)
+            if (pixelWidth <= 0)
                 return base.Text;
 
             var locManager = IoCManager.Resolve<ILocalizationManager>();
@@ -53,7 +53,7 @@ namespace OpenNefia.Content.UI.Element
                 string word = words[i];
                 // If adding the new word to the current line would be too long,
                 // then put it on a new line (and split it up if it's too long).
-                if (curLineLength + Font.LoveFont.GetWidth(word) > width)
+                if (curLineLength + Font.LoveFont.GetWidth(word) > pixelWidth)
                 {
                     // Only move down to a new line if we have text on the current line.
                     // Avoids situation where wrapped whitespace causes emptylines in text.
@@ -65,10 +65,10 @@ namespace OpenNefia.Content.UI.Element
 
                     // If the current word is too long to fit on a line even on it's own then
                     // split the word up.
-                    while (word.Length > width)
+                    while (word.Length > pixelWidth)
                     {
-                        strBuilder.Append(word.Substring(0, width - 1) + "-");
-                        word = word.Substring(width - 1);
+                        strBuilder.Append(word.Substring(0, pixelWidth - 1) + "-");
+                        word = word.Substring(pixelWidth - 1);
 
                         strBuilder.Append(Environment.NewLine);
                     }

@@ -254,7 +254,7 @@ namespace OpenNefia.Content.CharaMake
 
             DetailContainer = new UiVerticalContainer();
 
-            DetailText = new UiWrapText(450, UiFonts.ListTitleScreenText);
+            DetailText = new UiWrapText(UiFonts.ListTitleScreenText);
             DetailContainer.AddElement(DetailText);
             DetailContainer.AddLayout(LayoutType.YMin, 110);
 
@@ -440,6 +440,10 @@ namespace OpenNefia.Content.CharaMake
             base.SetSize(width, height);
             Window.SetSize(Width, Height);
             List.SetPreferredSize();
+            // TODO change
+            DetailText.GetPreferredSize(out var size);
+            size.X = 450;
+            DetailText.SetSize(size.X, size.Y);
         }
 
         public override void SetPosition(float x, float y)
@@ -458,7 +462,7 @@ namespace OpenNefia.Content.CharaMake
             base.Draw();
             Window.Draw();
             GraphicsEx.SetColor(255, 255, 255, 50);
-            CurrentWindowBG.DrawS(UIScale, Window.X + 15, Window.Y + 40, 270, 420);
+            CurrentWindowBG.Draw(UIScale, Window.X + 15, Window.Y + 40, 270, 420);
             List.Draw();
 
             RaceTopic.Draw();

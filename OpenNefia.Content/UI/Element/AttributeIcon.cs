@@ -41,7 +41,7 @@ namespace OpenNefia.Content.UI.Element
             base.Draw();
             GraphicsEx.SetColor(Color.White);
             if (Type != null && _attributes.TryGetValue(Type.Value, out var iconId))
-                AssetAttributeIcons.DrawRegion($"{iconId ?? FallbackIcon}", PixelX, PixelY, centered: true);
+                AssetAttributeIcons.DrawRegionUnscaled($"{iconId ?? FallbackIcon}", PixelX, PixelY, centered: true);
         }
 
         public override void GetPreferredSize(out Vector2 size)

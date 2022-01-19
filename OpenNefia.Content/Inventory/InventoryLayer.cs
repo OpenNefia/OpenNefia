@@ -118,7 +118,7 @@ namespace OpenNefia.Content.Inventory
                 }
 
                 Love.Graphics.SetColor(Color.White);
-                AssetSelectKey.DrawS(UIScale, X, Y - 1);
+                AssetSelectKey.Draw(UIScale, X, Y - 1);
                 KeyNameText.Draw();
 
                 Data.Origin.OnDraw();

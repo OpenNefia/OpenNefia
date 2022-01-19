@@ -96,7 +96,7 @@ namespace OpenNefia.Content.VanillaAI
                 entry.BarQuad.SetViewport(size.X - barWidth, 0, lastWidth, size.Y);
             }
 
-            entry.Asset.DrawS(UIScale, entry.BarQuad, pos.X, pos.Y, drawSize.X, drawSize.Y);
+            entry.Asset.Draw(UIScale, entry.BarQuad, pos.X, pos.Y, drawSize.X, drawSize.Y);
         }
 
         private const int BarWidthPixels = 30;

@@ -75,12 +75,12 @@ namespace OpenNefia.Content.UI.Element
                 GraphicsEx.SetColor(255, 255, 255, 120);
                 var x = (X + (TileWidth / 2)) * UIScale;
                 var y = (Y + (TileHeight / 2)) * UIScale;
-                TileIcon.DrawS(UIScale, x, y, centered:true);
+                TileIcon.Draw(UIScale, x, y, centered:true);
                 if (Buff.HasValue)
                 {
                     GraphicsEx.SetColor(Color.White);
                     var buffProto = Buff?.ResolvePrototype()!;
-                    HexBlessingIcons.DrawRegion(buffProto.RegionId, x, y);
+                    HexBlessingIcons.DrawRegionUnscaled(buffProto.RegionId, x, y);
                 }
             }
         } 
@@ -438,9 +438,9 @@ namespace OpenNefia.Content.UI.Element
         {
             base.Draw();
             GraphicsEx.SetColor(0, 0, 0, 75);
-            AssetIeSheet.Draw(PixelX + 4, PixelY + 4, SheetWidth * UIScale, SheetHeight * UIScale);
+            AssetIeSheet.DrawUnscaled(PixelX + 4, PixelY + 4, SheetWidth * UIScale, SheetHeight * UIScale);
             GraphicsEx.SetColor(Color.White);
-            AssetIeSheet.Draw(PixelX, PixelY, SheetWidth * UIScale, SheetHeight * UIScale);
+            AssetIeSheet.DrawUnscaled(PixelX, PixelY, SheetWidth * UIScale, SheetHeight * UIScale);
             FaceFrame.Draw();
             NameContainer.Draw();
             ClassContainer.Draw();

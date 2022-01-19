@@ -24,12 +24,12 @@ namespace OpenNefia.Core.Rendering
         Love.SpriteBatch MakeBatch(List<AssetInstance.AssetBatchPart> parts, int maxSprites = 2048);
         Love.SpriteBatch MakeSpriteBatch(int count, Love.SpriteBatchUsage usage);
 
-        void Draw(float x, float y, float width = 0, float height = 0, bool centered = false, float rotation = 0);
-        void Draw(Love.Quad quad, float x, float y, float width = 0, float height = 0, bool centered = false, float rotation = 0);
-        void DrawRegion(string regionId, float x = 0, float y = 0, float width = 0, float height = 0, bool centered = false, float rotation = 0);
-        void DrawS(float uiScale, float vx, float vy, float? vwidth = null, float? vheight = null, bool centered = false, float rotation = 0);
-        void DrawS(float uiScale, Love.Quad quad, float vx, float vy, float? vwidth = null, float? vheight = null, bool centered = false, float rotation = 0);
-        void DrawRegionS(float uiScale, string regionId, float vx, float vy, float? vwidth = null, float? vheight = null, bool centered = false, float rotation = 0);
+        void DrawUnscaled(float x, float y, float width = 0, float height = 0, bool centered = false, float rotation = 0);
+        void DrawUnscaled(Love.Quad quad, float x, float y, float width = 0, float height = 0, bool centered = false, float rotation = 0);
+        void DrawRegionUnscaled(string regionId, float x = 0, float y = 0, float width = 0, float height = 0, bool centered = false, float rotation = 0);
+        void Draw(float uiScale, float vx, float vy, float? vwidth = null, float? vheight = null, bool centered = false, float rotation = 0);
+        void Draw(float uiScale, Love.Quad quad, float vx, float vy, float? vwidth = null, float? vheight = null, bool centered = false, float rotation = 0);
+        void DrawRegion(float uiScale, string regionId, float vx, float vy, float? vwidth = null, float? vheight = null, bool centered = false, float rotation = 0);
     }
     
     public class AssetInstance : IAssetInstance
@@ -162,17 +162,17 @@ namespace OpenNefia.Core.Rendering
             return Love.Graphics.NewSpriteBatch(Image, count, usage);
         }
 
-        public void Draw(float x, float y, float width = 0, float height = 0, bool centered = false, float rotation = 0)
+        public void DrawUnscaled(float x, float y, float width = 0, float height = 0, bool centered = false, float rotation = 0)
         {
             GraphicsEx.DrawImage(Image, x, y, width, height, centered, rotation);
         }
 
-        public void Draw(Love.Quad quad, float x, float y, float width = 0, float height = 0, bool centered = false, float rotation = 0)
+        public void DrawUnscaled(Love.Quad quad, float x, float y, float width = 0, float height = 0, bool centered = false, float rotation = 0)
         {
             GraphicsEx.DrawImage(quad, Image, x, y, width, height, centered, rotation);
         }
 
-        public void DrawRegion(string regionId, float x, float y, float width = 0, float height = 0, bool centered = false, float rotation = 0)
+        public void DrawRegionUnscaled(string regionId, float x, float y, float width = 0, float height = 0, bool centered = false, float rotation = 0)
         {
             var quad = Quads[regionId];
             if (quad == null)
@@ -183,29 +183,29 @@ namespace OpenNefia.Core.Rendering
             GraphicsEx.DrawImageRegion(Image, quad, x, y, width, height, centered, rotation);
         }
 
-        public void DrawS(float uiScale, float vx, float vy, float? vwidth = null, float? vheight = null, bool centered = false, float rotation = 0)
+        public void Draw(float uiScale, float vx, float vy, float? vwidth = null, float? vheight = null, bool centered = false, float rotation = 0)
         {
             if (vwidth == null)
                 vwidth = PixelWidth;
             if (vheight == null)
                 vheight = PixelHeight;
 
-            Draw(vx * uiScale, vy * uiScale, vwidth.Value * uiScale, vheight.Value * uiScale, centered, rotation);
+            DrawUnscaled(vx * uiScale, vy * uiScale, vwidth.Value * uiScale, vheight.Value * uiScale, centered, rotation);
         }
 
-        public void DrawS(float uiScale, Love.Quad quad, float vx, float vy, float? vwidth = null, float? vheight = null, bool centered = false, float rotation = 0)
+        public void Draw(float uiScale, Love.Quad quad, float vx, float vy, float? vwidth = null, float? vheight = null, bool centered = false, float rotation = 0)
         {
             if (vwidth == null)
                 vwidth = quad.GetViewport().Width;
             if (vheight == null)
                 vheight = quad.GetViewport().Height;
 
-            Draw(quad, vx * uiScale, vy * uiScale, vwidth.Value * uiScale, vheight.Value * uiScale, centered, rotation);
+            DrawUnscaled(quad, vx * uiScale, vy * uiScale, vwidth.Value * uiScale, vheight.Value * uiScale, centered, rotation);
         }
 
-        public void DrawRegionS(float uiScale, string regionId, float vx, float vy, float? vwidth = null, float? vheight = null, bool centered = false, float rotation = 0)
+        public void DrawRegion(float uiScale, string regionId, float vx, float vy, float? vwidth = null, float? vheight = null, bool centered = false, float rotation = 0)
         {
-            DrawS(uiScale, Quads[regionId], vx, vy, vwidth, vheight, centered, rotation);
+            Draw(uiScale, Quads[regionId], vx, vy, vwidth, vheight, centered, rotation);
         }
 
         public void Dispose()

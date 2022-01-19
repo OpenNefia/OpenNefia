@@ -157,7 +157,7 @@ namespace OpenNefia.Content.UI.Element
         public override void Draw()
         {
             Love.Graphics.SetColor(Color.White);
-            AssetTipIcons.DrawRegionS(UIScale, "1", X, Y + 7);
+            AssetTipIcons.DrawRegion(UIScale, "1", X, Y + 7);
             Love.Graphics.SetColor(Color);
             Love.Graphics.Draw(BakedText, PixelX + 26 * UIScale, PixelY + 8 * UIScale); // y + vfix + 8
             Love.Graphics.SetColor(Color.Black);
