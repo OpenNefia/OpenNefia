@@ -62,11 +62,6 @@ namespace OpenNefia.Content.ConfigMenu
             OnKeyBindDown += HandleKeyBindDown;
             List.OnActivated += HandleListActivate;
             List.OnPageChanged += HandleListPageChanged;
-
-            AddChild(TextTopicMenu);
-            AddChild(AssetG2);
-            AddChild(Window);
-            AddChild(List);
         }
 
         public override void GrabFocus()

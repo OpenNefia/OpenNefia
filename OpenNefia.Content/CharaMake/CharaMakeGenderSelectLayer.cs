@@ -62,10 +62,6 @@ namespace OpenNefia.Content.CharaMake
                 }));
             };
 
-            AddChild(GenderTopic);
-            AddChild(Window);
-            AddChild(List);
-
             Window.KeyHints = MakeKeyHints();
         }
 

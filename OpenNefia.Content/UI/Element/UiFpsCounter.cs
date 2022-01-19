@@ -1,5 +1,6 @@
 ﻿using OpenNefia.Core.Maths;
 using OpenNefia.Core.Rendering;
+using OpenNefia.Core.UI;
 using OpenNefia.Core.UI.Element;
 using System;
 using System.Collections.Generic;
@@ -22,7 +23,8 @@ namespace OpenNefia.Content.UI.Element
         private FontSpec FontText = UiFonts.FpsCounter;
 
         public bool ShowDrawStats { get; set; } = true;
-        public UiText Text { get; }
+
+        [Child] public UiText Text { get; }
 
         public UiFpsCounter()
         {
@@ -33,13 +35,13 @@ namespace OpenNefia.Content.UI.Element
         public override void SetPosition(float x, float y)
         {
             base.SetPosition(x, y);
-            Text.SetPosition(x, y);
+            Text.SetPosition(X, Y);
         }
 
         public override void SetSize(float width, float height)
         {
             base.SetSize(width, height);
-            Text.SetSize(width, height);
+            Text.SetSize(Width, Height);
         }
 
         public override void GetPreferredSize(out Vector2 size)

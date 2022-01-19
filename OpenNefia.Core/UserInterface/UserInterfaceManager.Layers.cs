@@ -59,9 +59,7 @@ namespace OpenNefia.Core.UserInterface
         public void PushLayer(UiLayer layer)
         {
             layer.LayerUIScale = _graphics.WindowScale;
-            layer.GetPreferredBounds(out var bounds);
-            layer.SetSize(bounds.Width, bounds.Height);
-            layer.SetPosition(bounds.Left, bounds.Top);
+            ResizeAndLayoutLayer(layer);
             Layers.Add(layer);
             SortLayers();
 
@@ -100,10 +98,16 @@ namespace OpenNefia.Core.UserInterface
         {
             foreach (var layer in this.Layers)
             {
-                layer.GetPreferredBounds(out var bounds);
-                layer.SetSize(bounds.Width, bounds.Height);
-                layer.SetPosition(bounds.Left, bounds.Top);
+                ResizeAndLayoutLayer(layer);
             }
+        }
+
+        private static void ResizeAndLayoutLayer(UiLayer layer)
+        {
+            UiHelpers.AddChildrenFromAttributesRecursive(layer);
+            layer.GetPreferredBounds(out var bounds);
+            layer.SetSize(bounds.Width, bounds.Height);
+            layer.SetPosition(bounds.Left, bounds.Top);
         }
 
         private void HandleWindowScaleChanged(WindowScaleChangedEventArgs evt)
@@ -130,35 +134,6 @@ namespace OpenNefia.Core.UserInterface
             }
 
             elem.UIScaleChanged(ev);
-        }
-
-        private void AddChildrenFromAttributes(UiElement parent)
-        {
-            foreach (var info in GetChildAnnotatedFields(parent))
-            {
-                var child = info.GetValue(parent);
-                if (child is not UiElement childElem)
-                {
-                    Logger.WarningS("ui.layer", $"Could not add child '{info.Name}' ({child}) to parent {nameof(UiElement)} {parent}");
-                    continue;
-                }
-
-                if (childElem.Parent != null)
-                    continue;
-
-                parent.AddChild(childElem);
-            }
-
-            foreach (var child in parent.Children)
-            {
-                AddChildrenFromAttributes(child);
-            }
-        }
-
-        private IEnumerable<AbstractFieldInfo> GetChildAnnotatedFields(UiElement elem)
-        {
-            return elem.GetType().GetAllPropertiesAndFields()
-                .Where(info => info.HasAttribute<ChildAttribute>());
         }
 
         public UiResult<TResult> Query<TLayer, TResult>()
@@ -232,7 +207,7 @@ namespace OpenNefia.Core.UserInterface
             where TLayer : IUiLayer
         {
             if (layer is UiElement elem)
-                AddChildrenFromAttributes(elem);
+                UiHelpers.AddChildrenFromAttributesRecursive(elem);
 
             EntitySystem.InjectDependencies(layer);
         }

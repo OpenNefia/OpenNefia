@@ -91,7 +91,7 @@ namespace OpenNefia.Content.UI.Element.List
                     cell.Key = UiListChoiceKey.MakeDefault(i);
                 }
                 ChoiceKeys[i] = cell.Key;
-                AddChild(cell);
+                UiHelpers.AddChildrenRecursive(this, cell);
             }
 
             if (setSize)

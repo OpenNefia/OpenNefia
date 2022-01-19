@@ -10,7 +10,7 @@ namespace OpenNefia.Content.Repl
 
         public void WriteLine(string text)
         {
-            _replLayer.PrintText(text);
+            _replLayer.PrintText(text, UiColors.ReplTextResult);
         }
 
         public void WriteError(string text)

@@ -22,8 +22,8 @@ namespace OpenNefia.Content.UI.Hud
             MessageWindow = messageWindow;
             FpsCounter = new UiFpsCounter();
 
-            AddChild(messageWindow);
-            AddChild(FpsCounter);
+            UiHelpers.AddChildrenRecursive(this, messageWindow);
+            UiHelpers.AddChildrenRecursive(this, FpsCounter);
         }
 
         public override void SetSize(float width, float height)
@@ -40,7 +40,7 @@ namespace OpenNefia.Content.UI.Hud
         {
             base.SetPosition(x, y);
             MessageWindow.SetPosition(X + 50, Y + Height - MessageWindow.Height - 10);
-            FpsCounter.SetPosition(Width - FpsCounter.Text.Width - 5, 5);
+            FpsCounter.SetPosition(Rect.Right - FpsCounter.Text.Width - 5, 5);
         }
 
         public override void Update(float dt)

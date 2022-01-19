@@ -552,7 +552,7 @@ namespace OpenNefia.Content.Repl
             for (int i = 0; i < MaxLines; i++)
             {
                 TextScrollback[i] = new UiText(FontReplText);
-                AddChild(TextScrollback[i]);
+                UiHelpers.AddChildrenRecursive(this, TextScrollback[i]);
             }
 
             NeedsScrollbackRedraw = true;
