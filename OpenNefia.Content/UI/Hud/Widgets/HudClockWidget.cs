@@ -18,6 +18,7 @@ namespace OpenNefia.Content.Hud
         // Angle in radians
         private float Angle;
         private SpriteBatch Batch;
+
         public ClockHand()
         {
             var asset = Assets.Get(Protos.Asset.ClockHand);
@@ -49,7 +50,6 @@ namespace OpenNefia.Content.Hud
 
         public override void Initialize()
         {
-            //= EntitySystem.Get<WorldSystem>();
             base.Initialize();
             ClockAsset = Assets.Get(Protos.Asset.Clock);
             ClockHand = new ClockHand();
