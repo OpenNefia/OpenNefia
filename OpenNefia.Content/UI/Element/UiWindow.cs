@@ -77,6 +77,24 @@ namespace OpenNefia.Content.UI.Element
             TextKeyHint.Text = UserInterfaceManager.FormatKeyHints(KeyHints);
         }
 
+        public override void SetSize(float width, float height)
+        {
+            base.SetSize(width, height);
+
+            if (HasShadow)
+                WindowShadow.SetSize(Width, Height);
+
+            Window.SetSize(Width, Height);
+
+            if (HasTitle)
+            {
+                TextTitle.SetPreferredSize();
+                TopicWindow.SetSize(45 * Width / 100 + Math.Clamp(TextTitle.Width - 120, 0, 200), 32);
+            }
+
+            TextKeyHint.SetPreferredSize();
+        }
+
         public override void SetPosition(float x, float y)
         {
             base.SetPosition(x, y);
@@ -94,24 +112,6 @@ namespace OpenNefia.Content.UI.Element
             }
 
             TextKeyHint.SetPosition(X + 58 + KeyHintXOffset, Y + Height - 43 - Height % 8);
-        }
-
-        public override void SetSize(float width, float height)
-        {
-            base.SetSize(width, height);
-
-            if (HasShadow)
-                WindowShadow.SetSize(Width, Height);
-
-            Window.SetSize(Width, Height);
-
-            if (HasTitle)
-            {
-                TextTitle.SetPreferredSize();
-                TopicWindow.SetSize(45 * Width / 100 + Math.Clamp(TextTitle.Width - 120, 0, 200), 32);
-            }
-
-            TextKeyHint.SetPreferredSize();
         }
 
         public override void Update(float dt)

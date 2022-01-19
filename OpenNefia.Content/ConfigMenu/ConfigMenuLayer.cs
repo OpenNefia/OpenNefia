@@ -119,6 +119,7 @@ namespace OpenNefia.Content.ConfigMenu
         {
             // Recenter the window based on the new item count.
             SetPreferredSize();
+            SetPosition(X, Y);
         }
 
         private void HandleKeyBindDown(GUIBoundKeyEventArgs evt)
