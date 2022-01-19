@@ -30,6 +30,7 @@ namespace OpenNefia.Content.UI.Layer
         [Dependency] private readonly IGraphics _graphics = default!;
         [Dependency] private readonly IInputManager _inputManager = default!;
         [Dependency] private readonly IMusicManager _music = default!;
+        [Dependency] private readonly IHudLayer _hud = default!;
 
         public override int? DefaultZOrder => 100000;
 
