@@ -240,6 +240,49 @@ binds:
 
 - function: UIUp
   type: State
+  key: Numpad8
+  canFocus: true
+  canRepeat: true
+  repeatMode: UserInterface
+- function: UIDown
+  type: State
+  key: Numpad2
+  canFocus: true
+  canRepeat: true
+  repeatMode: UserInterface
+- function: UILeft
+  type: State
+  key: Numpad4
+  canFocus: true
+  canRepeat: true
+  repeatMode: UserInterface
+- function: UIRight
+  type: State
+  key: Numpad6
+  canFocus: true
+  canRepeat: true
+  repeatMode: UserInterface
+- function: UISelect
+  type: State
+  key: NumpadEnter
+  canFocus: true
+  canRepeat: true
+  repeatMode: None
+- function: UINextPage
+  type: State
+  key: Numpad6
+  canFocus: true
+  canRepeat: true
+  repeatMode: None
+- function: UIPreviousPage
+  type: State
+  key: Numpad4
+  canFocus: true
+  canRepeat: true
+  repeatMode: None
+
+- function: UIUp
+  type: State
   key: GamepadDPadUp
   canFocus: true
   canRepeat: true
