@@ -101,13 +101,15 @@ namespace OpenNefia.Content.Skills
 
         public LevelAndPotential Ensure(SkillsComponent skills, PrototypeId<SkillPrototype> protoId)
         {
-            if (skills.Skills.TryGetValue(protoId, out var level))
-                return level;
-
-            return new LevelAndPotential()
+            if (!skills.Skills.TryGetValue(protoId, out var level))
             {
-                Level = new(0)
-            };
+                level = new LevelAndPotential()
+                {
+                    Level = new(0)
+                };
+                skills.Skills[protoId] = level;
+            }
+            return level;
         }
 
         public bool TryGetKnown(SkillsComponent skills, PrototypeId<SkillPrototype> protoId, [NotNullWhen(true)] out LevelAndPotential? level)

@@ -38,7 +38,7 @@ namespace OpenNefia.Content.Tests.Areas
 
 - type: Entity
   id: {TestEntranceEntityID}
-  parent: {Protos.Mobj.MapEntrance}
+  parent: {Protos.MObj.MapEntrance}
   components:
   - type: Chip
     id: {Protos.Chip.MObjAreaBorderTent}
