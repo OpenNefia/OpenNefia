@@ -375,7 +375,7 @@ namespace OpenNefia.Content.CharaMake
                     default:
                         var related = _prototypeManager.Index(skill.RelatedSkill ?? default!);
                         var skillName = Loc.GetPrototypeString(skillId, "Name") ?? string.Empty;
-                        var skillDesc = $"{skillName}{new string(' ', Math.Max(16 - skillName.Length, 0))}{Loc.GetPrototypeString(skillId, "Description") ?? string.Empty}";
+                        var skillDesc = $"{skillName.WidePadRight(16)}{Loc.GetPrototypeString(skillId, "Description") ?? string.Empty}";
                         var cont = MakeSkillContainer(related.GetStrongID(), skillDesc);
                         list.Add(cont);
                         break;

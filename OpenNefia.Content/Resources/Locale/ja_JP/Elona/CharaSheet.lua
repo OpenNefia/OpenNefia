@@ -31,7 +31,7 @@ Elona.CharaSheet = {
         },
 
         Personal = {
-            Name = "年齢",
+            Name = "名前",
             Alias = "異名",
             Race = "種族",
             Sex = "性別",
