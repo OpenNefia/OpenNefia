@@ -1,22 +1,15 @@
 ﻿using OpenNefia.Core.Rendering;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Maps;
-using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Game;
-using OpenNefia.Core.Maths;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.UI;
 using OpenNefia.Core.UI.Layer;
-using OpenNefia.Content.UI.Hud;
 using OpenNefia.Content.Prototypes;
 using OpenNefia.Core.Graphics;
-using OpenNefia.Core.UI.Element;
 using OpenNefia.Core.Input;
 using OpenNefia.Content.TurnOrder;
-using static OpenNefia.Content.Prototypes.Protos;
 using OpenNefia.Core.Audio;
-using ICSharpCode.Decompiler.TypeSystem;
-using OpenNefia.Analyzers;
 
 namespace OpenNefia.Content.UI.Layer
 {
@@ -25,12 +18,10 @@ namespace OpenNefia.Content.UI.Layer
         [Dependency] private readonly IEntityManager _entityManager = default!;
         [Dependency] private readonly IMapRenderer _mapRenderer = default!;
         [Dependency] private readonly IMapManager _mapManager = default!;
-        [Dependency] private readonly ICoords _coords = default!;
         [Dependency] private readonly IGameSessionManager _gameSession = default!;
         [Dependency] private readonly IGraphics _graphics = default!;
         [Dependency] private readonly IInputManager _inputManager = default!;
         [Dependency] private readonly IMusicManager _music = default!;
-        [Dependency] private readonly IHudLayer _hud = default!;
 
         public override int? DefaultZOrder => 100000;
 
@@ -158,9 +149,6 @@ namespace OpenNefia.Content.UI.Layer
 
             var player = _gameSession.Player!;
             var playerSpatial = _entityManager.GetComponent<SpatialComponent>(player);
-            var screenPos = playerSpatial.GetScreenPos();
-
-            _hud.Draw();
         }
 
         public override void Dispose()

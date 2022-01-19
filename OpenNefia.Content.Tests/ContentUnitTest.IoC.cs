@@ -29,7 +29,7 @@ namespace OpenNefia.Content.Tests
     {
         public IHudMessageWindow MessageWindow { get; } = new DummyMessageWindow();
 
-        public UIBox2i GameBounds => new();
+        public UIBox2 GameBounds => default!;
 
         public IBacklog Backlog => default!;
 

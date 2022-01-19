@@ -11,7 +11,7 @@ namespace OpenNefia.Content.UI.Element.Containers
     public class UiHorizontalContainer : UiContainer
     {
         public float XSpace { get; set; }
-        public loat XMinWidth { get; set; }
+        public float XMinWidth { get; set; }
 
         protected override Vector2 RelayoutPreferredSize()
         {

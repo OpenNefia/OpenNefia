@@ -56,10 +56,16 @@ namespace OpenNefia.Core.Rendering
             /// </summary>
             public int PixelY => PixelPosition.Y;
 
-            public AssetBatchPart(string id, int x, int y)
+            /// <summary>
+            /// Constructs a new <see cref="AssetBatchPart"/>.
+            /// </summary>
+            /// <param name="id">ID of the batch part.</param>
+            /// <param name="pixelX">X position of the part in physical pixels.</param>
+            /// <param name="pixelY">Y position of the part in physical pixels.</param>
+            public AssetBatchPart(string id, int pixelX, int pixelY)
             {
                 RegionId = id;
-                PixelPosition = new(x, y);
+                PixelPosition = new(pixelX, pixelY);
             }
 
             public override string ToString()
@@ -183,32 +189,29 @@ namespace OpenNefia.Core.Rendering
             GraphicsEx.DrawImageRegion(Image, quad, x, y, width, height, centered, rotation, originOffset);
         }
 
-        public void Draw(float uiScale, float vx, float vy, float? vwidth = null, float? vheight = null, bool centered = false, float rotation = 0)
+        public void Draw(float uiScale, float vx, float vy, float? vwidth = null, float? vheight = null, bool centered = false, float rotation = 0, Maths.Vector2 originOffset = default)
         {
             if (vwidth == null)
                 vwidth = PixelWidth;
             if (vheight == null)
                 vheight = PixelHeight;
 
-            DrawUnscaled(vx * uiScale, vy * uiScale, vwidth.Value * uiScale, vheight.Value * uiScale, centered, rotation);
+            DrawUnscaled(vx * uiScale, vy * uiScale, vwidth.Value * uiScale, vheight.Value * uiScale, centered, rotation, originOffset * uiScale);
         }
 
-        public void Draw(float uiScale, Love.Quad quad, float vx, float vy, float? vwidth = null, float? vheight = null, bool centered = false, float rotation = 0)
+        public void Draw(float uiScale, Love.Quad quad, float vx, float vy, float? vwidth = null, float? vheight = null, bool centered = false, float rotation = 0, Maths.Vector2 originOffset = default)
         {
             if (vwidth == null)
                 vwidth = quad.GetViewport().Width;
             if (vheight == null)
                 vheight = quad.GetViewport().Height;
 
-            DrawUnscaled(quad, vx * uiScale, vy * uiScale, vwidth.Value * uiScale, vheight.Value * uiScale, centered, rotation);
+            DrawUnscaled(quad, vx * uiScale, vy * uiScale, vwidth.Value * uiScale, vheight.Value * uiScale, centered, rotation, originOffset * uiScale);
         }
 
-        public void DrawRegion(float uiScale, string regionId, float vx, float vy, float? vwidth = null, float? vheight = null, bool centered = false, float rotation = 0)
+        public void DrawRegion(float uiScale, string regionId, float vx, float vy, float? vwidth = null, float? vheight = null, bool centered = false, float rotation = 0, Maths.Vector2 originOffset = default)
         {
-            Draw(uiScale, Quads[regionId], vx, vy, vwidth, vheight, centered, rotation);
-=======
-            GraphicsEx.DrawImageRegion(this.Image, quad, x, y, width, height, centered, rotation, originOffset);
->>>>>>> origin/master
+            Draw(uiScale, Quads[regionId], vx, vy, vwidth, vheight, centered, rotation, originOffset);
         }
 
         public void Dispose()

@@ -12,6 +12,7 @@ using OpenNefia.Core.IoC;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Content.Skills;
 using OpenNefia.Core.Game;
+using OpenNefia.Core.UI;
 
 namespace OpenNefia.Content.Hud
 {
@@ -20,41 +21,43 @@ namespace OpenNefia.Content.Hud
         protected abstract string BarText { get; set; }
         protected abstract IAssetInstance BarAsset { get; set; }
         protected abstract float BarRatio { get; set; }
-        protected virtual Vector2i BarSize { get; } = new(83, 7);
+        protected virtual Vector2 BarSize { get; } = new(83, 7);
         protected virtual Vector2 BarOffset { get; } = new(17, 5);
 
         private UiHelpers.UiBarDrawableState BarState = default!;
         private IAssetInstance BarBGAsset;
-        private IUiText UiText;
+        [Child] private UiText UiText;
 
         public HudBarBaseWidget()
         {
             UiText = new UiTextOutlined(UiFonts.HUDBarText);
             BarBGAsset = Assets.Get(Protos.Asset.HpBarFrame);
+
+            MinSize = PreferredSize = BarSize;
         }
 
-        public override void SetPosition(int x, int y)
+        public override void SetPosition(float x, float y)
         {
             base.SetPosition(x, y);
-            UiText.SetPosition(x + 20, y - 7);
+            UiText.SetPosition(X + 20, X - 7);
         }
 
         protected void RefreshBarState()
         {
             UiText.Text = BarText;
-            BarState = new UiHelpers.UiBarDrawableState(BarAsset, Math.Clamp(BarRatio, 0f, 1f), new());
+            BarState = new UiHelpers.UiBarDrawableState(BarAsset, Math.Clamp(BarRatio, 0f, 1f), Vector2.Zero);
         }
 
         public override void Draw()
         {
             base.Draw();
-            BarBGAsset.Draw(X, Y);
-            UiHelpers.DrawPercentageBar(BarState, new Vector2(X, Y) + BarOffset, BarState.HPRatio * BarSize.X, new());
+            BarBGAsset.Draw(UIScale, X, Y);
+            UiHelpers.DrawPercentageBar(UIScale, BarState, new Vector2(X, Y) + BarOffset, BarState.HPRatio * BarSize.X, Size);
             UiText.Draw();
         }
     }
 
-    public class HudHPBarWidget : HudBarBaseWidget
+    public sealed class HudHPBarWidget : HudBarBaseWidget
     {
         [Dependency] private readonly IEntityManager _entMan = default!;
 
@@ -62,9 +65,8 @@ namespace OpenNefia.Content.Hud
         protected override IAssetInstance BarAsset { get; set; } = default!;
         protected override float BarRatio { get; set; }
 
-        public override void Initialize()
+        public HudHPBarWidget()
         {
-            base.Initialize();
             BarAsset = Assets.Get(Protos.Asset.HudHpBar);
         }
 
@@ -80,17 +82,16 @@ namespace OpenNefia.Content.Hud
         }
     }
 
-    public class HudMPBarWidget : HudBarBaseWidget
+    public sealed class HudMPBarWidget : HudBarBaseWidget
     {
         [Dependency] private readonly IEntityManager _entMan = default!;
 
-        protected override string BarText { get; set; } = default!;
-        protected override IAssetInstance BarAsset { get; set; } = default!;
+        protected override string BarText { get; set; } = string.Empty;
+        protected override IAssetInstance BarAsset { get; set; }
         protected override float BarRatio { get; set; }
 
-        public override void Initialize()
+        public HudMPBarWidget()
         {
-            base.Initialize();
             BarAsset = Assets.Get(Protos.Asset.HudMpBar);
         }
 

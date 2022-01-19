@@ -48,20 +48,20 @@ namespace OpenNefia.Content.UI.Hud
             BottomRight,
         }
 
-        private class WidgetInstance
+        private sealed class WidgetInstance
         {
-            public IHudWidget Widget { get; set; }
-            public Vector2i Offset { get; set; }
-            public Func<Vector2i> SizeFunc { get; set; }
+            public BaseHudWidget Widget { get; set; }
+            public Vector2 Position { get; set; }
+            public Func<Vector2> SizeFunc { get; set; }
             public WidgetDrawFlags DrawFlags { get; set; }
             public WidgetAnchor Anchor { get; set; }
 
-            public WidgetInstance(IHudWidget widget, WidgetAnchor anchor = default, Vector2i pos = default, Func<Vector2i> size = default!,
+            public WidgetInstance(BaseHudWidget widget, WidgetAnchor anchor = default, Vector2 position = default, Func<Vector2> size = default!,
                 WidgetDrawFlags flags = WidgetDrawFlags.Always)
             {
                 Widget = widget;
                 Widget.Initialize();
-                Offset = pos;
+                Position = position;
                 SizeFunc = size ?? (() => new());
                 DrawFlags = flags;
                 Anchor = anchor;
@@ -75,42 +75,52 @@ namespace OpenNefia.Content.UI.Hud
 
         public HudMessageBoxWidget HudMessageWindow { get; private set; } = default!;
 
-        public UIBox2i GameBounds => new(0, 0, _graphics.WindowSize.X, _graphics.WindowSize.Y - HudMinimapWidget.MinimapHeight);
+        public UIBox2 GameBounds => new(0, 0, _graphics.WindowSize.X, _graphics.WindowSize.Y - HudMinimapWidget.MinimapHeight);
         public IBacklog Backlog => HudMessageWindow;
         public IHudMessageWindow MessageWindow => HudMessageWindow;
         public bool IsShowingBacklog => HudMessageWindow.IsShowingBacklog;
 
-        private UiFpsCounter FpsCounter;
-        private BaseDrawable MessageBoxBacking = default!;
-        private BaseDrawable BacklogBacking = default!;
-        private BaseDrawable HudBar = default!;
+        [Child] private UiFpsCounter FpsCounter;
+        [Child] private UiMessageWindowBacking MessageBoxBacking = default!;
+        [Child] private UiMessageWindowBacking BacklogBacking = default!;
+        [Child] private UiHudBar HudBar = default!;
 
         public const int HudZOrder = 200000000;
 
         public HudLayer()
         {
             IoCManager.InjectDependencies(this);
-            FpsCounter = new UiFpsCounter();
 
-            UiHelpers.AddChildrenRecursive(this, messageWindow);
-            UiHelpers.AddChildrenRecursive(this, FpsCounter);
+            FpsCounter = new UiFpsCounter();
+            MessageBoxBacking = new UiMessageWindowBacking();
+            BacklogBacking = new UiMessageWindowBacking(UiMessageWindowBacking.MessageBackingType.Expanded);
+            HudBar = new UiHudBar();
         }
 
         public void Initialize()
         {
             CanKeyboardFocus = true;
-            MessageBoxBacking = new UiMessageWindowBacking();
-            BacklogBacking = new UiMessageWindowBacking(UiMessageWindowBacking.MessageBackingType.Expanded);
-            HudBar = new UiHudBar();
 
             AddDefaultWidgets();
+            
+            // This is so the widgets will have the correct UI scaling.
+            foreach (var widget in Widgets)
+            {
+                UiHelpers.AddChildrenRecursive(this, widget.Widget);
+            }
+
             _field.OnScreenRefresh += OnScreenRefresh;
         }
 
         private void AddDefaultWidgets()
         {
             HudMessageWindow = new HudMessageBoxWidget();
-            Widgets.Add(new(HudMessageWindow, WidgetAnchor.BottomLeft, new(HudMinimapWidget.MinimapWidth + 25, -84), () => new(Width - HudMinimapWidget.MinimapWidth - 75, 0)));
+
+            Widgets.Add(new(HudMessageWindow, WidgetAnchor.BottomLeft, 
+                new(HudMinimapWidget.MinimapWidth + 25, -84), 
+                () => new(Width - HudMinimapWidget.MinimapWidth - 75, 
+                0)));
+
             Widgets.Add(new(new HudMinimapWidget(), WidgetAnchor.BottomLeft, new(0, -HudMinimapWidget.MinimapHeight)));
             Widgets.Add(new(new HudExpWidget(), WidgetAnchor.BottomLeft, new(5, -104)));
             Widgets.Add(new(new HudAreaNameWidget(), WidgetAnchor.BottomLeft, new(HudMinimapWidget.MinimapWidth + 18, -17)));
@@ -168,16 +178,17 @@ namespace OpenNefia.Content.UI.Hud
         public override void SetPosition(float x, float y)
         {
             base.SetPosition(x, y);
+
             foreach(var widget in Widgets)
             {
-                Vector2i anchor = widget.Anchor switch
+                Vector2 anchor = widget.Anchor switch
                 {
                     WidgetAnchor.BottomLeft => new(0, Height),
                     WidgetAnchor.BottomRight => new(Width, Height),
                     WidgetAnchor.TopRight => new(Width, 0),
                     _ => new(0, 0),
                 };
-                widget.Widget.SetPosition(anchor.X + widget.Offset.X, anchor.Y + widget.Offset.Y);
+                widget.Widget.SetPosition(anchor.X + widget.Position.X, anchor.Y + widget.Position.Y);
             }
             
             FpsCounter.SetPosition(Width - FpsCounter.Text.Width - 5, 5);
@@ -195,18 +206,25 @@ namespace OpenNefia.Content.UI.Hud
         public override void Draw()
         {
             GraphicsEx.SetColor(Color.White);
+
             if (IsShowingBacklog)
+            {
                 BacklogBacking.Draw();
+            }
+
             MessageBoxBacking.Draw();
             HudBar.Draw();
             HudMessageWindow.Draw();
+
             foreach (var widget in Widgets)
             {
                 if (IsShowingBacklog && !widget.DrawFlags.HasFlag(WidgetDrawFlags.Backlog))
                     continue;
+
                 GraphicsEx.SetColor(Color.White);
                 widget.Widget.Draw();
             }
+
             FpsCounter.Draw();
         }
 
@@ -223,6 +241,10 @@ namespace OpenNefia.Content.UI.Hud
 
         public void ClearWidgets()
         {
+            foreach (var widget in Widgets)
+            {
+                RemoveChild(widget.Widget);
+            }
             Widgets.Clear();
         }
     }

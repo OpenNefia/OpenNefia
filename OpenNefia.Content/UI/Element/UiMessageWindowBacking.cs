@@ -13,17 +13,15 @@ using OpenNefia.Core.Maths;
 
 namespace OpenNefia.Content.UI.Element
 {
-    public class UiMessageWindowBacking : BaseDrawable
+    public class UiMessageWindowBacking : UiElement
     {
-        public const int MessageBoxWidth = 192;
-        public const int MessageBoxHeight = 72;
         public enum MessageBackingType
         {
             Default,
             Expanded
         }
 
-        private IAssetInstance MessageWindowAsset = default!;
+        private IAssetInstance AssetMessageWindow = default!;
         private Love.SpriteBatch Batch = default!;
         private Love.SpriteBatch? SideBatch = default!;
         private Love.SpriteBatch? CornerBatch = default!;
@@ -41,58 +39,78 @@ namespace OpenNefia.Content.UI.Element
 
         private int GetSideCount()
         {
-            return Height / MessageBoxWidth;
+            return PixelHeight / AssetMessageWindow.PixelWidth;
         }
 
-        public override void SetSize(int width, int height)
+        public override void SetSize(float width, float height)
         {
             base.SetSize(width, height);
             var parts = new List<AssetBatchPart>();
 
-            MessageWindowAsset = Assets.Get(Protos.Asset.MessageWindow);
+            AssetMessageWindow = Assets.Get(Protos.Asset.MessageWindow);
+            var mboxPixelWidth = AssetMessageWindow.PixelWidth;
+
             switch (Type)
             {
                 default:
-                    for (int x = 0; x < Width / MessageBoxWidth; x++)
+                    for (int x = 0; x < PixelWidth / mboxPixelWidth; x++)
                     {
-                        parts.Add(new AssetBatchPart(TopBarName, (x * MessageBoxWidth), 0));
-                        parts.Add(new AssetBatchPart(BodyName, (x * MessageBoxWidth), 5));
-                        parts.Add(new AssetBatchPart(BottomBarName, (x * MessageBoxWidth), 5 + 62));
+                        parts.Add(new AssetBatchPart(TopBarName, (x * mboxPixelWidth), 0));
+                        parts.Add(new AssetBatchPart(BodyName, (x * mboxPixelWidth), 5));
+                        parts.Add(new AssetBatchPart(BottomBarName, (x * mboxPixelWidth), 5 + 62));
                     }
                     break;
                 case MessageBackingType.Expanded:
-                    for (int x = 0; x < Width / MessageBoxWidth; x++)
+                    for (int x = 0; x < PixelWidth / mboxPixelWidth; x++)
                     {
-                        parts.Add(new AssetBatchPart(TopBarName, (x * MessageBoxWidth), 0));
-                        for (int y = 0; y < Height / MessageBoxHeight; y++)
+                        parts.Add(new AssetBatchPart(TopBarName, (x * mboxPixelWidth), 0));
+                        for (int y = 0; y < PixelHeight / mboxPixelWidth; y++)
                         {
-                            parts.Add(new AssetBatchPart(BodyName, (x * MessageBoxWidth), 5 + (62 * y)));
+                            parts.Add(new AssetBatchPart(BodyName, (x * mboxPixelWidth), 5 + (62 * y)));
                         }
                     }
+
                     var sideParts = new List<AssetBatchPart>();
                     for (int y = 0; y < GetSideCount(); y++)
                     {
-                        sideParts.Add(new AssetBatchPart(TopBarName, y * MessageBoxWidth, 0));
+                        sideParts.Add(new AssetBatchPart(TopBarName, y * mboxPixelWidth, 0));
                     }
-                    SideBatch = MessageWindowAsset.MakeBatch(sideParts);
+
+                    SideBatch?.Dispose();
+                    SideBatch = AssetMessageWindow.MakeBatch(sideParts);
+
                     var corner = new List<AssetBatchPart>
                     {
                         new AssetBatchPart(CornerName, 0, 0)
                     };
-                    CornerBatch = MessageWindowAsset.MakeBatch(corner);
+
+                    CornerBatch?.Dispose();
+                    CornerBatch = AssetMessageWindow.MakeBatch(corner);
+
                     break;
             }
-            Batch = MessageWindowAsset.MakeBatch(parts);
-        }
 
+            Batch?.Dispose();
+            Batch = AssetMessageWindow.MakeBatch(parts);
+        }
 
         public override void Draw()
         {
-            Love.Graphics.Draw(Batch, X, Y);
+            GraphicsS.DrawS(UIScale, Batch, X, Y);
+
             if (SideBatch != null)
-                Love.Graphics.Draw(SideBatch, X, Y + (GetSideCount() * MessageBoxWidth), (float)Angle.FromDegrees(-90).Theta);
+            {
+                GraphicsS.DrawS(UIScale,
+                    SideBatch,
+                    X,
+                    Y + (GetSideCount() * AssetMessageWindow.VirtualWidth(UIScale)),
+                    (float)Angle.FromDegrees(-90).Theta);
+            }
+
             if (CornerBatch != null)
-                Love.Graphics.Draw(CornerBatch, X + 1, Y);
+            {
+                GraphicsS.DrawS(UIScale, CornerBatch, X + 1, Y);
+            }
         }
 
         public override void Update(float dt)

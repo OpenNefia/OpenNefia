@@ -4,6 +4,7 @@ using OpenNefia.Content.UI.Element;
 using OpenNefia.Content.World;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Rendering;
+using OpenNefia.Core.UI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,20 +17,19 @@ namespace OpenNefia.Content.Hud
     {
         [Dependency] private readonly IWorldSystem _world = default!;
 
-        private IAssetInstance DateFrame = default!;
-        private IUiText DateText = default!;
+        private IAssetInstance DateFrame = default!; // FIXME: #94
+        [Child] private UiText DateText = new UiText();
 
         public override void Initialize()
         {
             base.Initialize();
             DateFrame = Assets.Get(Protos.Asset.DateLabelFrame);
-            DateText = new UiText();
         }
 
-        public override void SetPosition(int x, int y)
+        public override void SetPosition(float x, float y)
         {
             base.SetPosition(x, y);
-            DateText.SetPosition(x + 40, y + 9);
+            DateText.SetPosition(X + 40, Y + 9);
         }
 
         public override void UpdateWidget()
@@ -42,7 +42,7 @@ namespace OpenNefia.Content.Hud
         public override void Draw()
         {
             base.Draw();
-            DateFrame.Draw(X, Y);
+            DateFrame.Draw(UIScale, X, Y);
             DateText.Draw();
         }
     }

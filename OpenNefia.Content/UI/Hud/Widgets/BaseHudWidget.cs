@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace OpenNefia.Content.Hud
 {
-    public class BaseHudWidget : BaseDrawable, IHudWidget
+    public class BaseHudWidget : UiElement, IHudWidget
     {
         public virtual float PosX { get; set; }
         public virtual float PosY { get; set; }
@@ -19,14 +19,6 @@ namespace OpenNefia.Content.Hud
         public virtual void Initialize()
         {
             EntitySystem.InjectDependencies(this);
-        }
-
-        public override void Draw()
-        {
-        }
-
-        public override void Update(float dt)
-        {
         }
 
         public virtual void UpdateWidget()

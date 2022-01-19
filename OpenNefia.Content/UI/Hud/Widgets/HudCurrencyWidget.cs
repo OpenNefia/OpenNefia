@@ -7,12 +7,8 @@ using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Locale;
 using OpenNefia.Core.Rendering;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using OpenNefia.Content.Levels;
+using OpenNefia.Core.UI;
 
 namespace OpenNefia.Content.Hud
 {
@@ -21,12 +17,11 @@ namespace OpenNefia.Content.Hud
         protected abstract IAssetInstance Icon { get; set; }
         protected abstract string Text { get; set; }
 
-        private IUiText UiText = default!;
+        [Child] private UiText UiText = new UiTextOutlined(UiFonts.HUDInfoText);
 
         public override void Initialize()
         {
             base.Initialize();
-            UiText = new UiTextOutlined(UiFonts.HUDInfoText);
         }
 
         public override void UpdateWidget()
@@ -35,7 +30,7 @@ namespace OpenNefia.Content.Hud
             UiText.Text = Text ?? string.Empty;
         }
 
-        public override void SetPosition(int x, int y)
+        public override void SetPosition(float x, float y)
         {
             base.SetPosition(x, y);
             UiText.SetPosition(x + 30, y + 3);
@@ -44,7 +39,7 @@ namespace OpenNefia.Content.Hud
         public override void Draw()
         {
             base.Draw();
-            Icon.Draw(X, Y);
+            Icon.Draw(UIScale, X, Y);
             UiText.Draw();
         }
     }

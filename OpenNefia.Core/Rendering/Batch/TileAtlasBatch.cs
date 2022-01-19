@@ -1,16 +1,10 @@
 ﻿using Love;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Log;
-using OpenNefia.Core.UI.Element;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OpenNefia.Core.Rendering
 {
-    public class TileAtlasBatch : BaseDrawable
+    public class TileAtlasBatch : IDisposable
     {
         private string _atlasName { get; }
         private TileAtlas _atlas { get; set; }
@@ -35,7 +29,7 @@ namespace OpenNefia.Core.Rendering
 
         public void Add(float uiScale, string tileId, float x, float y, float? width = null, float? height = null, Love.Color? color = null, bool centered = false, float rotation = 0f)
         {
-            if (!this._atlas.TryGetTile(tileId, out var tile))
+            if (!_atlas.TryGetTile(tileId, out var tile))
             {
                 Logger.ErrorS("tile.batch", $"Unknown tile {tileId} in atlas {_atlasName}");
                 return;
@@ -51,27 +45,27 @@ namespace OpenNefia.Core.Rendering
             if (color != null)
             {
                 var c = color.Value;
-                this._batch.SetColor(c.Rf, c.Gf, c.Bf, c.Af);
+                _batch.SetColor(c.Rf, c.Gf, c.Bf, c.Af);
             }
             else
             {
-                this._batch.SetColor(1f, 1f, 1f, 1f);
+                _batch.SetColor(1f, 1f, 1f, 1f);
             }
 
-            var ttw = (int)quadRect.Width;
-            var tth = (int)quadRect.Height;
+            var ttw = quadRect.Width;
+            var tth = quadRect.Height;
 
             if (width != null)
             {
                 width *= uiScale;
                 sx = (float)width.Value / ttw;
-                ttw = (int)width.Value;
+                ttw = width.Value;
             }
             if (height != null)
             {
                 height *= uiScale;
                 sy = (float)height.Value / tth;
-                tth = (int)height.Value;
+                tth = height.Value;
             }
 
             var ox = 0f;
@@ -82,42 +76,32 @@ namespace OpenNefia.Core.Rendering
                 oy = (float)tth / 2;
             }
 
-            this._batch.Add(tile.Quad, x, y, MathUtil.DegreesToRadians(rotation), sx, sy, ox, oy);
+            _batch.Add(tile.Quad, x, y, MathUtil.DegreesToRadians(rotation), sx, sy, ox, oy);
 
-            this.BatchPixelWidth = Math.Max(this.BatchPixelWidth, x + ttw);
-            this.BatchPixelHeight = Math.Max(this.BatchPixelHeight, y + tth);
+            BatchPixelWidth = Math.Max(BatchPixelWidth, (int)(x + ttw));
+            BatchPixelHeight = Math.Max(BatchPixelHeight, (int)(y + tth));
         }
 
-        public void Flush() => this._batch.Flush();
+        public void Flush() => _batch.Flush();
 
-        public bool GetTileSize(TileSpecifier spec, out int width, out int height) => this._atlas.GetTileSize(spec, out width, out height);
+        public bool GetTileSize(TileSpecifier spec, out int width, out int height) => _atlas.GetTileSize(spec, out width, out height);
 
         public void Clear()
         {
-            this._batch.Clear();
-            this.BatchPixelWidth = 0;
-            this.BatchPixelHeight = 0;
+            _batch.Clear();
+            BatchPixelWidth = 0;
+            BatchPixelHeight = 0;
         }
 
-        public override void Draw()
-        {
-            Love.Graphics.Draw(_batch, X, Y, sx: (float)Width / (float)BatchWidth, sy: (float)Height/ (float)BatchHeight);
-        }
-
-        [Obsolete("Use new Draw() function.")]
         public void Draw(float uiScale, float x, float y, float? width = null, float? height = null)
         {
             Love.Graphics.SetColor(Love.Color.White);
-            GraphicsEx.DrawSpriteBatchS(uiScale, this._batch, x, y, width, height);
+            GraphicsEx.DrawSpriteBatchS(uiScale, _batch, x, y, width, height);
         }
 
-        public override void Dispose()
+        public void Dispose()
         {
-            this._batch.Dispose();
-        }
-
-        public override void Update(float dt)
-        {
+            _batch.Dispose();
         }
     }
 }

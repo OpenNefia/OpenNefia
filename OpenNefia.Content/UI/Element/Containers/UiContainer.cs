@@ -1,5 +1,7 @@
 ﻿using OpenNefia.Core;
+using OpenNefia.Core.Log;
 using OpenNefia.Core.Maths;
+using OpenNefia.Core.UI;
 using OpenNefia.Core.UI.Element;
 using System;
 using System.Collections.Generic;
@@ -24,11 +26,11 @@ namespace OpenNefia.Content.UI.Element.Containers
     }
     public class UiContainerEntry
     {
-        public IUiElement? Element { get; set; }
+        public UiElement? Element { get; set; }
         public LayoutType Type { get; set;}
         public int Offset { get; set; }
 
-        public UiContainerEntry(IUiElement uiElement)
+        public UiContainerEntry(UiElement uiElement)
         {
             Element = uiElement;
             Type = LayoutType.Element;
@@ -63,7 +65,13 @@ namespace OpenNefia.Content.UI.Element.Containers
 
             if (element.Element != null)
             {
-                Children.Add(element.Element);
+                if (element.Element.Parent != null)
+                {
+                    Logger.WarningS("ui.container", $"Container child element {element.Element} already parented to {element.Element.Parent} in AddElement()");
+                    element.Element.Parent.RemoveChild(element.Element);
+                }
+
+                UiHelpers.AddChildrenRecursive(this, element.Element);
             }
         }
 
@@ -119,10 +127,9 @@ namespace OpenNefia.Content.UI.Element.Containers
         {
             foreach (var entry in Entries)
             {
-                if (entry.Element != null)
+                if (entry.Element != null && entry.Element.Parent == this)
                 {
                     RemoveChild(entry.Element);
-                    entry.Element.Dispose();
                 }
             }
             Entries.Clear();

@@ -65,17 +65,13 @@ namespace OpenNefia.Content.UI
         public static void GetCenteredParams(float width, float height, out UIBox2 bounds, float yOffset = 0f)
         {
             var graphics = IoCManager.Resolve<IGraphics>();
-            var coords = IoCManager.Resolve<ICoords>();
-            var field = IoCManager.Resolve<IFieldLayer>();
-            var hud = IoCManager.Resolve<IHudLayer>();
 
-            var elementSize = new Vector2i(width, height);
-            var elementBounds = UIBox2i.FromDimensions(new Vector2i(0, yOffset), elementSize);
-
-            var gameBounds = new UIBox2i(Vector2i.Zero, graphics.WindowSize);
+            var elementSize = new Vector2(width, height);
+            var gameBounds = new UIBox2(Vector2.Zero, graphics.WindowSize);
 
             var fitted = ApplyBoxFit(UiBoxFit.None, elementSize, gameBounds.Size);
             bounds = UiAlignment.Center.Inscribe(fitted.DestinationSize, gameBounds);
+
             bounds.Top += yOffset;
             bounds.Bottom += yOffset;
         }

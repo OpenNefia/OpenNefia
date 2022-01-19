@@ -37,7 +37,7 @@ namespace OpenNefia.Content.Hud
 
         public HudSkillIconType Type { get; }
         private IAssetInstance SkillIcons;
-        private IUiText UiText;
+        private UiText UiText;
 
         public HudAttributeWidget(HudSkillIconType type)
         {
@@ -94,16 +94,16 @@ namespace OpenNefia.Content.Hud
             return $"{(int)Type}";
         }
 
-        public override void SetPosition(int x, int y)
+        public override void SetPosition(float x, float y)
         {
             base.SetPosition(x, y);
-            UiText.SetPosition(x + 20, y + 2);
+            UiText.SetPosition(X + 20, Y + 2);
         }
 
         public override void Draw()
         {
             base.Draw();
-            SkillIcons.DrawRegion(GetIconRegion(), X, Y);
+            SkillIcons.DrawRegion(UIScale, GetIconRegion(), X, Y);
             UiText.Draw();
         }
     }
