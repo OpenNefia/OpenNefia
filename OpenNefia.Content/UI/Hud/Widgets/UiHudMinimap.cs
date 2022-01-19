@@ -38,7 +38,7 @@ namespace OpenNefia.Content.Hud
         {
             base.UpdateWidget();
             if (_entMan.TryGetComponent<SpatialComponent>(GameSession.Player, out var spatial))
-                Refresh(_mapManager.ActiveMap?.TileMemory!, spatial.MapPosition);
+                Refresh(_mapManager.ActiveMap!.TileMemory, spatial.MapPosition);
         }
 
         public void Refresh(Tile[,] tiles, MapCoordinates playerPos)
