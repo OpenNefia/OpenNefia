@@ -97,39 +97,5 @@ namespace OpenNefia.Content.Skills
         /// </summary>
         [DataField]
         public int TotalBonusPointsEarned { get; set; } = 0;
-
-        public LevelAndPotential Ensure(PrototypeId<SkillPrototype> protoId)
-        {
-            if (Skills.TryGetValue(protoId, out var level))
-                return level;
-
-            return new LevelAndPotential()
-            {
-                Level = new(0)
-            };
-        }
-
-        public bool TryGetKnown(PrototypeId<SkillPrototype> protoId, [NotNullWhen(true)] out LevelAndPotential? level)
-        {
-            if (!Skills.TryGetValue(protoId, out level))
-            {
-                return false;
-            }
-
-            if (level.Level.Base <= 0)
-            {
-                return false;
-            }
-
-            return true;
-        }
-
-        public int Level(PrototypeId<SkillPrototype> id)
-        {
-            if (!TryGetKnown(id, out var level))
-                return 0;
-
-            return level.Level.Buffed;
-        }
     }
 }

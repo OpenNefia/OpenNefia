@@ -13,8 +13,16 @@ using OpenNefia.Core.Input;
 
 namespace OpenNefia.Content.UI.Layer
 {
-    public class TextPrompt : UiLayerWithResult<TextPrompt.Args, string>
+    public class TextPrompt : UiLayerWithResult<TextPrompt.Args, TextPrompt.Result>
     {
+        public class Result
+        {
+            public string Text { get; set; }
+            public Result(string text)
+            {
+                Text = text;
+            }
+        }
         public class Args
         {
             public bool IsCancellable { get; set; } = true;
@@ -104,7 +112,7 @@ namespace OpenNefia.Content.UI.Layer
         {
             if (args.Function == EngineKeyFunctions.TextSubmit)
             {
-                Finish(Value);
+                Finish(new(Value));
             }
             else if (args.Function == EngineKeyFunctions.TextReleaseFocus)
             {

@@ -445,16 +445,16 @@ namespace OpenNefia.Content.TurnOrder
             Mes.Display(Loc.GetString("Elona.Death.GoodBye"));
 
             var promptArgs = new TextPrompt.Args(maxLength: 16, prompt: Loc.GetString("Elona.Death.PromptDyingMessage"));
-            var result = _uiManager.Query<TextPrompt, TextPrompt.Args, string>(promptArgs);
+            var result = _uiManager.Query<TextPrompt, TextPrompt.Args, TextPrompt.Result>(promptArgs);
             string lastWords;
 
-            if (!result.HasValue || string.IsNullOrEmpty(result.Value))
+            if (!result.HasValue || string.IsNullOrEmpty(result.Value.Text))
             {
                 lastWords = Loc.GetString("Elona.Death.DefaultLastWords");
             }
             else
             {
-                lastWords = result.Value;
+                lastWords = result.Value.Text;
             }
 
             lastWords = Loc.GetString("Elona.Common.Quote", ("str", lastWords));

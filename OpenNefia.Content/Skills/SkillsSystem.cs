@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Security.Cryptography;
 using OpenNefia.Content.EntityGen;
 using OpenNefia.Content.Equipment;
@@ -16,6 +17,12 @@ namespace OpenNefia.Content.Skills
         void HealToMax(EntityUid uid, SkillsComponent? skills = null);
 
         void GainBonusPoints(EntityUid uid, int bonusPoints, SkillsComponent? skill = null);
+
+        int Level(SkillsComponent skills, PrototypeId<SkillPrototype> id);
+
+        LevelAndPotential Ensure(SkillsComponent skills, PrototypeId<SkillPrototype> protoId);
+
+        bool TryGetKnown(SkillsComponent skills, PrototypeId<SkillPrototype> protoId, [NotNullWhen(true)] out LevelAndPotential? level);
 
         /// <summary>
         /// Enumerates attributes, including luck and speed.
@@ -92,28 +99,62 @@ namespace OpenNefia.Content.Skills
             }
         }
 
+        public LevelAndPotential Ensure(SkillsComponent skills, PrototypeId<SkillPrototype> protoId)
+        {
+            if (skills.Skills.TryGetValue(protoId, out var level))
+                return level;
+
+            return new LevelAndPotential()
+            {
+                Level = new(0)
+            };
+        }
+
+        public bool TryGetKnown(SkillsComponent skills, PrototypeId<SkillPrototype> protoId, [NotNullWhen(true)] out LevelAndPotential? level)
+        {
+            if (!skills.Skills.TryGetValue(protoId, out level))
+            {
+                return false;
+            }
+
+            if (level.Level.Base <= 0)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        public int Level(SkillsComponent skills, PrototypeId<SkillPrototype> id)
+        {
+            if (!TryGetKnown(skills, id, out var level))
+                return 0;
+
+            return level.Level.Buffed;
+        }
+
         private void RefreshHPMPAndStamina(SkillsComponent skills, LevelComponent level)
         {
-            var maxMPRaw = (skills.Level(Skill.AttrMagic) * 2
-                         + skills.Level(Skill.AttrWill)
-                         + skills.Level(Skill.AttrLearning) / 3)
+            var maxMPRaw = (Level(skills, Skill.AttrMagic) * 2
+                         + Level(skills, Skill.AttrWill)
+                         + Level(skills, Skill.AttrLearning) / 3)
                          * (level.Level / 25)
-                         + skills.Level(Skill.AttrMagic);
+                         + Level(skills, Skill.AttrMagic);
 
-            skills.MaxMP = Math.Clamp(maxMPRaw, 1, 1000000) * (skills.Level(Skill.AttrMana) / 100);
+            skills.MaxMP = Math.Clamp(maxMPRaw, 1, 1000000) * (Level(skills, Skill.AttrMana) / 100);
             skills.MaxMP = Math.Max(skills.MaxHP, 1);
 
-            var maxHPRaw = (skills.Level(Skill.AttrConstitution) * 2
-                         + skills.Level(Skill.AttrStrength)
-                         + skills.Level(Skill.AttrWill) / 3)
+            var maxHPRaw = (Level(skills, Skill.AttrConstitution) * 2
+                         + Level(skills, Skill.AttrStrength)
+                         + Level(skills, Skill.AttrWill) / 3)
                          * (level.Level / 25)
-                         + skills.Level(Skill.AttrConstitution);
+                         + Level(skills, Skill.AttrConstitution);
 
-            skills.MaxHP = Math.Clamp(maxHPRaw, 1, 1000000) * (skills.Level(Skill.AttrLife) / 100) + 5;
+            skills.MaxHP = Math.Clamp(maxHPRaw, 1, 1000000) * (Level(skills, Skill.AttrLife) / 100) + 5;
             skills.MaxHP = Math.Max(skills.MaxHP, 1);
 
             // TODO traits
-            skills.MaxStamina = 100 + (skills.Level(Skill.AttrConstitution) + skills.Level(Skill.AttrStrength)) / 5;
+            skills.MaxStamina = 100 + (Level(skills, Skill.AttrConstitution) + Level(skills, Skill.AttrStrength)) / 5;
         }
     }
 }
