@@ -19,6 +19,7 @@ using OpenNefia.Core.Log;
 using OpenNefia.Core.Audio;
 using OpenNefia.Content.Prototypes;
 using OpenNefia.Core.Maths;
+using OpenNefia.Core.UI;
 
 namespace OpenNefia.Content.CharaMake
 {
@@ -39,12 +40,11 @@ namespace OpenNefia.Content.CharaMake
             }
         }
 
-        [Localize] private UiWindow Window = new();
-        [Localize] private UiTextTopic GenderTopic = new();
-
         public const string ResultName = "gender";
 
-        private UiList<Gender> List = new();
+        [Child] [Localize] private UiWindow Window = new();
+        [Child] [Localize] private UiTextTopic GenderTopic = new();
+        [Child] private UiList<Gender> List = new();
 
         public CharaMakeGenderSelectLayer()
         {

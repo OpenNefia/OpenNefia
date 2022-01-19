@@ -209,8 +209,7 @@ namespace OpenNefia.Core.GameController
 
             if (downloader.NeedsDownload())
             {
-                var layer = new MinimalProgressBarLayer();
-                layer.Initialize(downloader);
+                var layer = _uiManager.CreateLayer<MinimalProgressBarLayer, IProgressableJob>(downloader);
                 var result = _uiManager.Query(layer);
                 if (!result.HasValue)
                 {

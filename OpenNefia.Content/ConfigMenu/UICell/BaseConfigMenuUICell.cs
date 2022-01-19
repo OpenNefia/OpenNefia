@@ -23,13 +23,11 @@ namespace OpenNefia.Content.ConfigMenu.UICell
     public abstract class BaseConfigMenuUICell : UiListCell<UINone>
     {
         public IConfigMenuNode MenuNode { get; }
-        public UiText ValueText { get; } = new UiText(UiFonts.ListText);
+        [Child] public UiText ValueText { get; } = new UiText(UiFonts.ListText);
 
         protected BaseConfigMenuUICell(IConfigMenuNode menuNode) : base(new(), "", null)
         {
             MenuNode = menuNode;
-
-            AddChild(ValueText);
         }
 
         public virtual void RefreshConfigValueDisplay()
@@ -74,8 +72,8 @@ namespace OpenNefia.Content.ConfigMenu.UICell
 
         protected ConfigMenuItemProtoId ProtoId { get; }
 
-        protected AssetDrawable AssetArrowLeft;
-        protected AssetDrawable AssetArrowRight;
+        [Child] protected AssetDrawable AssetArrowLeft;
+        [Child] protected AssetDrawable AssetArrowRight;
 
         protected virtual bool ShowArrows => true;
 
@@ -89,9 +87,6 @@ namespace OpenNefia.Content.ConfigMenu.UICell
 
             AssetArrowLeft = new AssetDrawable(Asset.ArrowLeft);
             AssetArrowRight = new AssetDrawable(Asset.ArrowRight);
-
-            AddChild(AssetArrowLeft);
-            AddChild(AssetArrowRight);
         }
 
         public new TMenuNode MenuNode => (TMenuNode)base.MenuNode;

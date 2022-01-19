@@ -8,6 +8,7 @@ using OpenNefia.Core.Locale;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Rendering;
+using OpenNefia.Core.UI;
 using OpenNefia.Core.UI.Element;
 using OpenNefia.Core.UserInterface;
 
@@ -54,7 +55,7 @@ namespace OpenNefia.Content.UI.Element
         public class FeatCell : UiListCell<FeatNameAndDesc>
         {
             private IAssetInstance FeatIcons;
-            private UiText DescriptionText;
+            [Child] private UiText DescriptionText;
 
             public FeatCell(FeatNameAndDesc data) 
                 : base(data, new UiText())
@@ -64,8 +65,6 @@ namespace OpenNefia.Content.UI.Element
                 DescriptionText = new UiText(Data.Description);
                 UiText.Color = data.Color;
                 DescriptionText.Color = data.Color;
-
-                AddChild(DescriptionText);
             }
 
             private float Offset => Data switch
@@ -135,17 +134,17 @@ namespace OpenNefia.Content.UI.Element
 
         [Dependency] protected readonly IPrototypeManager _prototypeManager = default!;
 
-        private UiPagedList<FeatNameAndDesc> List;
-        private UiTextTopic NameTopic;
-        private UiTextTopic DetailTopic;
-        private UiText FeatCountText;
-        private UiWindow Window = new(keyHintXOffset: 64);
+        [Child] private UiPagedList<FeatNameAndDesc> List;
+        [Child] private UiTextTopic NameTopic;
+        [Child] private UiTextTopic DetailTopic;
+        [Child] private UiText FeatCountText;
+        [Child] private UiWindow Window = new(keyHintXOffset: 64);
 
-        protected AssetDrawable AssetInventoryIcons;
-        private AssetDrawable AssetDecoFeatA;
-        private AssetDrawable AssetDecoFeatB;
-        private AssetDrawable AssetDecoFeatC;
-        private AssetDrawable AssetDecoFeatD;
+        [Child] protected AssetDrawable AssetInventoryIcons;
+        [Child] private AssetDrawable AssetDecoFeatA;
+        [Child] private AssetDrawable AssetDecoFeatB;
+        [Child] private AssetDrawable AssetDecoFeatC;
+        [Child] private AssetDrawable AssetDecoFeatD;
 
         private Func<Dictionary<PrototypeId<FeatPrototype>, int>> GetGainedFeatsFunc;
         private Action<FeatNameAndDesc.Feat> SelectFeatAction;
@@ -173,18 +172,10 @@ namespace OpenNefia.Content.UI.Element
 
             EventFilter = UIEventFilterMode.Pass;
             List.OnActivated += List_OnActivate;
+        }
 
-            AddChild(AssetInventoryIcons);
-            AddChild(AssetDecoFeatA);
-            AddChild(AssetDecoFeatB);
-            AddChild(AssetDecoFeatC);
-            AddChild(AssetDecoFeatD);
-            AddChild(NameTopic);
-            AddChild(DetailTopic);
-            AddChild(FeatCountText);
-            AddChild(Window);
-            AddChild(List);
-
+        public void Initialize()
+        {
             RefreshData();
         }
         

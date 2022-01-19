@@ -61,8 +61,8 @@ namespace OpenNefia.Content.UI.Layer
         protected float Dt = 0f;
         protected double CaretAlpha = 2;
 
-        protected UiTopicWindow TopicWindow;
-        protected UiText Text;
+        [Child] protected UiTopicWindow TopicWindow;
+        [Child] protected UiText Text;
 
         protected IAssetInstance AssetLabelInput;
         protected IAssetInstance AssetImeStatusJapanese;
@@ -89,9 +89,6 @@ namespace OpenNefia.Content.UI.Layer
             OnKeyBindDown += HandleKeyBindDown;
             CanControlFocus = true;
             CanKeyboardFocus = true;
-
-            AddChild(TopicWindow);
-            AddChild(Text);
 
             UpdateText();
         }

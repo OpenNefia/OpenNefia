@@ -32,12 +32,11 @@ namespace OpenNefia.Content.CharaMake
 
         private EntityUid _playerEntity;
 
-        private CharaSheet Sheet = new();
+        [Child] private CharaSheet Sheet = new();
 
         public CharaMakeCharaSheetLayer()
         {
             CanControlFocus = true;
-            AddChild(Sheet);
         }
 
         public override void Initialize(CharaMakeData args)

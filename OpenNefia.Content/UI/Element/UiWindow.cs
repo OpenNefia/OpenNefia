@@ -1,6 +1,5 @@
 ﻿using OpenNefia.Content.Prototypes;
 using OpenNefia.Core.Locale;
-using OpenNefia.Core.Maths;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Core.UI;
 using OpenNefia.Core.UI.Element;
@@ -38,21 +37,18 @@ namespace OpenNefia.Content.UI.Element
             }
         }
 
-        protected Color ColorBottomLine1 = UiColors.WindowBottomLine1;
-        protected Color ColorBottomLine2 = UiColors.WindowBottomLine2;
-        protected FontSpec FontWindowTitle = UiFonts.WindowTitle;
-        protected FontSpec FontWindowKeyHints = UiFonts.WindowKeyHints;
+        private Color ColorBottomLine1 = UiColors.WindowBottomLine1;
+        private Color ColorBottomLine2 = UiColors.WindowBottomLine2;
+        private FontSpec FontWindowTitle = UiFonts.WindowTitle;
+        private FontSpec FontWindowKeyHints = UiFonts.WindowKeyHints;
 
-        protected IAssetInstance AssetTipIcons;
+        private IAssetInstance AssetTipIcons;
 
-        [Localize("Title")]
-        protected UiText TextTitle;
-
-        protected UiText TextKeyHint;
-
-        protected UiWindowBacking Window;
-        protected UiWindowBacking WindowShadow;
-        protected UiTopicWindow TopicWindow;
+        [Child] [Localize("Title")] private UiText TextTitle;
+        [Child] private UiText TextKeyHint;
+        [Child] private UiWindowBacking Window;
+        [Child] private UiWindowBacking WindowShadow;
+        [Child] private UiTopicWindow TopicWindow;
 
         public UiWindow(bool hasShadow = true, List<UiKeyHint>? keyHints = null, int keyHintXOffset = 0, int yOffset = 0)
         {
@@ -72,12 +68,6 @@ namespace OpenNefia.Content.UI.Element
             Window = new UiWindowBacking();
             WindowShadow = new UiWindowBacking(UiWindowBacking.WindowBackingType.Shadow);
             TopicWindow = new UiTopicWindow();
-
-            AddChild(Window);
-            AddChild(WindowShadow);
-            AddChild(TextTitle);
-            AddChild(TextKeyHint);
-            AddChild(TopicWindow);
 
             RebuildKeyHintText();
         }

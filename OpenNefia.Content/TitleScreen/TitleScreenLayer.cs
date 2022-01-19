@@ -29,8 +29,7 @@ namespace OpenNefia.Content.TitleScreen
         {
             private const float ITEM_HEIGHT = 35;
 
-            [Localize("Subtext")]
-            public UiText TextSubtext;
+            [Child] [Localize("Subtext")] public UiText TextSubtext;
 
             public override string? LocalizeKey => Enum.GetName(Data);
 
@@ -38,7 +37,6 @@ namespace OpenNefia.Content.TitleScreen
                 : base(submenu, new UiText(UiFonts.ListTitleScreenText))
             {
                 TextSubtext = new UiText(UiFonts.ListTitleScreenSubtext);
-                AddChild(TextSubtext);
             }
 
             public override void Localize(LocaleKey key)
@@ -101,11 +99,8 @@ namespace OpenNefia.Content.TitleScreen
 
         private UiText[] TextInfo;
 
-        [Localize]
-        private UiWindow Window;
-
-        [Localize]
-        private UiList<TitleScreenChoice> List;
+        [Child] [Localize] private UiWindow Window;
+        [Child] [Localize] private UiList<TitleScreenChoice> List;
 
         public TitleScreenLayer()
         {
@@ -141,7 +136,10 @@ namespace OpenNefia.Content.TitleScreen
 
             Window.KeyHints = MakeKeyHints();
 
-            AddChildren();
+            foreach (var text in TextInfo)
+            {
+                AddChild(text);
+            }
         }
 
         public override List<UiKeyHint> MakeKeyHints()
@@ -159,16 +157,6 @@ namespace OpenNefia.Content.TitleScreen
         {
             base.GrabFocus();
             List.GrabFocus();
-        }
-
-        public void AddChildren()
-        {
-            foreach (var text in TextInfo)
-            {
-                AddChild(text);
-            }
-            AddChild(Window);
-            AddChild(List);
         }
 
         private void RunTitleScreenAction(TitleScreenChoice selectedChoice)

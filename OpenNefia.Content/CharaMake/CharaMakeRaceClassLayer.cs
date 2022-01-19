@@ -13,6 +13,7 @@ using OpenNefia.Core.Log;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Rendering;
+using OpenNefia.Core.UI;
 using OpenNefia.Core.UI.Element;
 using OpenNefia.Core.Utility;
 using System;
@@ -62,7 +63,9 @@ namespace OpenNefia.Content.CharaMake
     public class CharaMakeClassSelectLayer : CharaMakeRaceClassLayer
     {
         public const string ResultName = "class";
-        private UiText RaceText;
+        
+        [Child] private UiText RaceText;
+        
         private TileAtlasBatch Atlas = default!;
         private ChipPrototype MaleChip = default!;
         private ChipPrototype FemaleChip = default!;
@@ -71,8 +74,6 @@ namespace OpenNefia.Content.CharaMake
         {
             RaceText = new UiText();
             Atlas = new TileAtlasBatch(AtlasNames.Chip);
-
-            AddChild(RaceText);
         }
 
         public override void Initialize(CharaMakeData args)
@@ -228,18 +229,22 @@ namespace OpenNefia.Content.CharaMake
         [Dependency] protected readonly IPrototypeManager _prototypeManager = default!;
         [Dependency] protected readonly ISkillsSystem _skillsSys = default!;
 
-        [Localize] protected UiWindow Window;
-        [Localize] protected UiTextTopic RaceTopic;
-        [Localize] protected UiTextTopic DetailTopic;
+        [Child] [Localize] protected UiWindow Window;
+        [Child] [Localize] protected UiTextTopic RaceTopic;
+        [Child] [Localize] protected UiTextTopic DetailTopic;
+        [Child] private UiVerticalContainer DetailContainer;
+        [Child] private UiPagedList<RaceClass> List;
+        
+        //
+        // DetailContainer children
+        // 
         [Localize] protected UiTextTopic AttributeTopic;
         [Localize] protected UiTextTopic SkillTopic;
-        private UiVerticalContainer DetailContainer;
         private UiVerticalContainer SkillContainer;
         private UiVerticalContainer TrainedSkillContainer;
         private UiWrappedText DetailText;
 
         private UiGridContainer AttributeContainer;
-        private UiPagedList<RaceClass> List;
         private RaceClassCell[] AllData;
         
         public CharaMakeRaceClassLayer()
@@ -286,12 +291,6 @@ namespace OpenNefia.Content.CharaMake
             {
                 SelectData(args.SelectedCell.Data);
             };
-
-            AddChild(RaceTopic);
-            AddChild(DetailTopic);
-            AddChild(List);
-            AddChild(Window);
-            AddChild(DetailContainer);
         }
 
         public override void Initialize(CharaMakeData args)
@@ -299,8 +298,7 @@ namespace OpenNefia.Content.CharaMake
             base.Initialize(args);
             AllData = GetData().Select(x => new RaceClassCell(x)).ToArray();
             Window.KeyHints = MakeKeyHints();
-            List.Clear();
-            List.AddRange(AllData);
+            List.SetAll(AllData);
 
             SelectData(AllData.First().Data);
         }

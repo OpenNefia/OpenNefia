@@ -74,8 +74,8 @@ namespace OpenNefia.Content.UI.Layer
             }
         }
 
-        public UiList<PromptChoice<T>> List { get; }
-        public UiTopicWindow Window { get; }
+        [Child] public UiList<PromptChoice<T>> List { get; }
+        [Child] public UiTopicWindow Window { get; }
 
         public bool IsCancellable { get; private set; }
         public string? QueryText { get; private set; }
@@ -85,9 +85,6 @@ namespace OpenNefia.Content.UI.Layer
         {
             List = new UiList<PromptChoice<T>>();
             Window = new UiTopicWindow(UiTopicWindow.FrameStyleKind.Zero, UiTopicWindow.WindowStyleKind.Zero);
-
-            AddChild(List);
-            AddChild(Window);
 
             OnKeyBindDown += HandleKeyBindDown;
 

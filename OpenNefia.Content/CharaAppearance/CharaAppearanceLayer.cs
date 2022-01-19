@@ -32,12 +32,11 @@ namespace OpenNefia.Content.CharaAppearance
 
         private EntityUid _targetEntity;
 
-        private CharaAppearanceControl AppearanceControl = new();
+        [Child] private CharaAppearanceControl AppearanceControl = new();
 
         public CharaAppearanceLayer()
         {
             AppearanceControl.List_OnActivated += HandleWindowListOnActivated;
-            AddChild(AppearanceControl);
         }
 
         private void HandleWindowListOnActivated(object? sender, UiListEventArgs<CharaAppearanceUICellData> evt)

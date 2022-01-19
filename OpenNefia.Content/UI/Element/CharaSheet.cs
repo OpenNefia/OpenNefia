@@ -24,6 +24,7 @@ using OpenNefia.Content.Guild;
 using OpenNefia.Content.God;
 using OpenNefia.Content.CustomName;
 using OpenNefia.Content.DisplayName;
+using OpenNefia.Core.UI;
 
 namespace OpenNefia.Content.UI.Element
 {
@@ -100,16 +101,17 @@ namespace OpenNefia.Content.UI.Element
         private const int AttributePotentialSpacing = 8;
 
         private IAssetInstance AssetIeSheet;
-        private CharaSheetFaceFrame FaceFrame;
-        private UiContainer NameContainer;
-        private UiContainer ClassContainer;
-        private UiContainer ExpContainer;
-        private UiContainer AttributeContainer;
-        private UiContainer SpecialStatContainer;
-        private UiContainer BlessingContainer;
-        private UiContainer TraceContainer;
-        private UiContainer ExtraContainer;
-        private UiContainer RollsContainer;
+
+        [Child] private CharaSheetFaceFrame FaceFrame;
+        [Child] private UiContainer NameContainer;
+        [Child] private UiContainer ClassContainer;
+        [Child] private UiContainer ExpContainer;
+        [Child] private UiContainer AttributeContainer;
+        [Child] private UiContainer SpecialStatContainer;
+        [Child] private UiContainer BlessingContainer;
+        [Child] private UiContainer TraceContainer;
+        [Child] private UiContainer ExtraContainer;
+        [Child] private UiContainer RollsContainer;
 
         private readonly LocaleScope _locScope;
 
@@ -131,17 +133,6 @@ namespace OpenNefia.Content.UI.Element
             TraceContainer = new UiVerticalContainer { YSpace = ContainerSpacing };
             ExtraContainer = new UiVerticalContainer { YSpace = ContainerSpacing };
             RollsContainer = new UiVerticalContainer { YSpace = ContainerSpacing };
-
-            AddChild(FaceFrame);
-            AddChild(NameContainer);
-            AddChild(ClassContainer);
-            AddChild(ExpContainer);
-            AddChild(AttributeContainer);
-            AddChild(SpecialStatContainer);
-            AddChild(BlessingContainer);
-            AddChild(TraceContainer);
-            AddChild(ExtraContainer);
-            AddChild(RollsContainer);
         }
 
         public void RefreshFromEntity(EntityUid charaEntity)

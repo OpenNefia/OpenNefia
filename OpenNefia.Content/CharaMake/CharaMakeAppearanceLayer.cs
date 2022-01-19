@@ -13,6 +13,7 @@ using OpenNefia.Content.PCCs;
 using OpenNefia.Core.Log;
 using OpenNefia.Content.CharaAppearance;
 using OpenNefia.Content.UI;
+using OpenNefia.Core.UI;
 
 namespace OpenNefia.Content.CharaMake
 {
@@ -26,12 +27,10 @@ namespace OpenNefia.Content.CharaMake
 
         public const string ResultName = "appearance";
 
-        private CharaAppearanceControl AppearanceControl = new();
+        [Child] private CharaAppearanceControl AppearanceControl = new();
 
         public CharaMakeAppearanceLayer()
         {
-            AddChild(AppearanceControl);
-
             AppearanceControl.List_OnActivated += OnListActivated;
         }
 

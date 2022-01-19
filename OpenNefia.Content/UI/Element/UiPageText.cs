@@ -7,16 +7,16 @@ namespace OpenNefia.Content.UI.Element
     public class UiPageText : UiElement
     {
         public IUiElement? PageTextParent { get; set; }
-        private UiText PageText;
+        
         public Vector2 TextOffset { get; set; }
         public Vector2i TextPixelOffset => (Vector2i)(TextOffset * UIScale);
+
+        [Child] private UiText PageText;
 
         public UiPageText(IUiElement? parent = null)
         {
             PageTextParent = parent;
             PageText = new UiText(UiFonts.WindowPage);
-
-            AddChild(PageText);
         }
 
         /// <summary>

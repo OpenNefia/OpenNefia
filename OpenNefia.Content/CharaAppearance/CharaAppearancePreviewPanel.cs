@@ -4,6 +4,7 @@ using OpenNefia.Content.UI.Element;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.Rendering;
+using OpenNefia.Core.UI;
 using OpenNefia.Core.UI.Element;
 using static OpenNefia.Content.UI.Element.UiTopicWindow;
 
@@ -15,7 +16,7 @@ namespace OpenNefia.Content.CharaAppearance
 
         public bool ShowPortrait { get; set; }
 
-        private UiTopicWindow WindowFrame = new(FrameStyleKind.One, WindowStyleKind.One);
+        [Child] private UiTopicWindow WindowFrame = new(FrameStyleKind.One, WindowStyleKind.One);
         private TileAtlasBatch _chipBatch;
         private TileAtlasBatch _portraitBatch;
 
@@ -27,8 +28,6 @@ namespace OpenNefia.Content.CharaAppearance
         {
             _chipBatch = new TileAtlasBatch(AtlasNames.Chip);
             _portraitBatch = new TileAtlasBatch(ContentAtlasNames.Portrait);
-
-            AddChild(WindowFrame);
         }
 
         public void Initialize(CharaAppearanceData data)

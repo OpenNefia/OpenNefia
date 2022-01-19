@@ -187,22 +187,24 @@ namespace OpenNefia.Content.Equipment
         /// <summary>
         /// "Category/Name"
         /// </summary>
+        [Child]
         [Localize("Topic.CategoryName")]
         protected UiText TextTopicCategoryName = new UiTextTopic();
 
         /// <summary>
         /// "Weight"
         /// </summary>
+        [Child]
         [Localize("Topic.Weight")]
         protected UiText TextTopicWeight = new UiTextTopic();
 
         /// <summary>
         /// Total equipment weight, armor class, hit/damage bonuses.
         /// </summary>
-        protected UiText TextNoteEquipStats = new UiText(UiFonts.TextNote);
+        [Child] protected UiText TextNoteEquipStats = new UiText(UiFonts.TextNote);
 
-        [Localize] protected UiWindow Window = new(keyHintXOffset: 64);
-        protected UiPagedList<CellData> List = new(itemsPerPage: 14);
+        [Child] [Localize] protected UiWindow Window = new(keyHintXOffset: 64);
+        [Child] protected UiPagedList<CellData> List = new(itemsPerPage: 14);
 
         private EntitySpriteBatch _spriteBatch = new();
 
@@ -223,9 +225,6 @@ namespace OpenNefia.Content.Equipment
 
             List.PageTextElement = Window;
             List.OnActivated += HandleListOnActivate;
-
-            AddChild(Window);
-            AddChild(List);
         }
 
         public override void Initialize(Args args)

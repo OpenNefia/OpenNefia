@@ -47,6 +47,26 @@ namespace OpenNefia.Core.UserInterface
         void UpdateLayers(FrameEventArgs frame);
         bool IsInActiveLayerList(UiLayer layer);
 
+        TLayer CreateLayer<TLayer, TArgs, TResult>(TArgs args)
+            where TLayer : IUiLayerWithResult<TArgs, TResult>, new()
+            where TResult : class;
+
+        TLayer CreateLayer<TLayer, TResult>()
+            where TLayer : IUiLayerWithResult<UINone, TResult>, new()
+            where TResult : class;
+
+        TLayer CreateLayer<TLayer, TArgs>(TArgs args) 
+            where TLayer : IUiLayerWithResult<TArgs, UINone>, new();
+
+        TLayer CreateLayer<TLayer>()
+            where TLayer : IUiLayer, new();
+
+        void InitializeLayer<TLayer, TArgs, TResult>(TLayer layer, TArgs args)
+            where TLayer : IUiLayerWithResult<TArgs, TResult>
+            where TResult : class;
+
+        void InitializeLayer<TLayer>(TLayer layer) where TLayer : IUiLayer;
+
         UiResult<TResult> Query<TLayer, TArgs, TResult>(TArgs args)
             where TLayer : IUiLayerWithResult<TArgs, TResult>, new()
             where TResult : class;
@@ -63,7 +83,7 @@ namespace OpenNefia.Core.UserInterface
 
         UiResult<TResult> Query<TArgs, TResult>(IUiLayerWithResult<TArgs, TResult> layer) where TResult : class;
 
-        UiResult<TResult> Query<TResult, TLayer, TArgs>(IUiLayerWithResult<TArgs, TResult> layer, TArgs args)
+        UiResult<TResult> Query<TResult, TLayer, TArgs>(TLayer layer, TArgs args)
             where TLayer : IUiLayerWithResult<TArgs, TResult>
             where TResult : class;
     }

@@ -6,6 +6,7 @@ using OpenNefia.Core.Rendering;
 using static OpenNefia.Content.Prototypes.Protos;
 using OpenNefia.Core;
 using OpenNefia.Core.Maths;
+using OpenNefia.Core.UI;
 
 namespace OpenNefia.Content.CharaMake
 {
@@ -21,15 +22,13 @@ namespace OpenNefia.Content.CharaMake
             }
         }
 
-        public UiText TextCaption { get; }
+        [Child] public UiText TextCaption { get; }
 
         private IAssetInstance? AssetCaption;
 
         public CharaMakeCaption()
         {
             TextCaption = new UiTextOutlined(UiFonts.WindowTitle);
-            
-            AddChild(TextCaption);
         }
 
         public override void Localize(LocaleKey key)

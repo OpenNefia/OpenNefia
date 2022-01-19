@@ -28,7 +28,7 @@ namespace OpenNefia.Content.UI.Element.List
             set => PageText.PageTextParent = value;
         }
 
-        private UiPageText PageText;
+        [Child] private UiPageText PageText;
 
         public event PageChangedDelegate? OnPageChanged
         {
@@ -47,8 +47,6 @@ namespace OpenNefia.Content.UI.Element.List
 
             OnPageChanged += PageText.UpdatePageText;
             OnPageChanged += HandlePageChanged;
-
-            AddChild(PageText);
         }
 
         private void HandlePageChanged(int newPage, int newPageCount)

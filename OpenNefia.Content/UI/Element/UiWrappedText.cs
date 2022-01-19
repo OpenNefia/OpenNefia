@@ -2,6 +2,7 @@
 using OpenNefia.Core.Locale;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Rendering;
+using OpenNefia.Core.UI;
 using OpenNefia.Core.UI.Element;
 using System.Text;
 
@@ -9,20 +10,18 @@ namespace OpenNefia.Content.UI.Element
 {
     public class UiWrappedText : UiElement
     {
-        public UiText UiText { get; }
+        [Child] public UiText UiText { get; }
 
         public UiWrappedText(FontSpec font, string text = "")
-{
+        {
             UiText = new UiText(font, text);
             OriginalText = text;
             UiText.Text = WordWrap(OriginalText, PixelWidth);
-
-            AddChild(UiText);
         }
 
         public string OriginalText { get; private set; }
 
-        public string WrappedText 
+        public string WrappedText
         {
             get => UiText.Text;
             set

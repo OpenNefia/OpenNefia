@@ -8,6 +8,7 @@ using OpenNefia.Core.Timing;
 using OpenNefia.Core.UI;
 using OpenNefia.Core.UI.Element;
 using OpenNefia.Core.UI.Layer;
+using OpenNefia.Core.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -131,6 +132,35 @@ namespace OpenNefia.Core.UserInterface
             elem.UIScaleChanged(ev);
         }
 
+        private void AddChildrenFromAttributes(UiElement parent)
+        {
+            foreach (var info in GetChildAnnotatedFields(parent))
+            {
+                var child = info.GetValue(parent);
+                if (child is not UiElement childElem)
+                {
+                    Logger.WarningS("ui.layer", $"Could not add child '{info.Name}' ({child}) to parent {nameof(UiElement)} {parent}");
+                    continue;
+                }
+
+                if (childElem.Parent != null)
+                    continue;
+
+                parent.AddChild(childElem);
+            }
+
+            foreach (var child in parent.Children)
+            {
+                AddChildrenFromAttributes(child);
+            }
+        }
+
+        private IEnumerable<AbstractFieldInfo> GetChildAnnotatedFields(UiElement elem)
+        {
+            return elem.GetType().GetAllPropertiesAndFields()
+                .Where(info => info.HasAttribute<ChildAttribute>());
+        }
+
         public UiResult<TResult> Query<TLayer, TResult>()
             where TLayer : IUiLayerWithResult<UINone, TResult>, new()
             where TResult : class
@@ -138,40 +168,84 @@ namespace OpenNefia.Core.UserInterface
             return Query<TLayer, UINone, TResult>(new UINone());
         }
 
-        public UiResult<UINone> Query<TLayer, TArgs>(TArgs args) 
+        public UiResult<UINone> Query<TLayer, TArgs>(TArgs args)
             where TLayer : IUiLayerWithResult<TArgs, UINone>, new()
         {
             return Query<TLayer, TArgs, UINone>(args);
         }
 
-        public UiResult<UINone> Query<TLayer>() 
+        public UiResult<UINone> Query<TLayer>()
             where TLayer : IUiLayerWithResult<UINone, UINone>, new()
         {
             return Query<TLayer, UINone, UINone>(new UINone());
         }
 
         public UiResult<TResult> Query<TLayer, TArgs, TResult>(TArgs args)
-            where TLayer: IUiLayerWithResult<TArgs, TResult>, new()
+            where TLayer : IUiLayerWithResult<TArgs, TResult>, new()
             where TResult : class
         {
-            using (var layer = Activator.CreateInstance<TLayer>()!)
+            using (var layer = CreateLayer<TLayer, TArgs, TResult>(args))
             {
-                EntitySystem.InjectDependencies(layer);
-                layer.Initialize(args);
                 return Query(layer);
             }
         }
 
-        public UiResult<TResult> Query<TResult, TLayer, TArgs>(IUiLayerWithResult<TArgs, TResult> layer, TArgs args)
+        public TLayer CreateLayer<TLayer, TArgs, TResult>(TArgs args) 
+            where TLayer : IUiLayerWithResult<TArgs, TResult>, new()
+            where TResult : class
+        {
+            var layer = Activator.CreateInstance<TLayer>()!;
+            InitializeLayer<TLayer, TArgs, TResult>(layer, args);
+            return layer;
+        }
+
+        public TLayer CreateLayer<TLayer, TResult>()
+            where TLayer : IUiLayerWithResult<UINone, TResult>, new()
+            where TResult : class
+        {
+            return CreateLayer<TLayer, UINone, TResult>(new());
+        }
+
+        public TLayer CreateLayer<TLayer, TArgs>(TArgs args)
+            where TLayer : IUiLayerWithResult<TArgs, UINone>, new()
+        {
+            return CreateLayer<TLayer, TArgs, UINone>(args);
+        }
+
+        public TLayer CreateLayer<TLayer>()
+            where TLayer : IUiLayer, new()
+        {
+            var layer = Activator.CreateInstance<TLayer>()!;
+            InitializeLayer(layer);
+            return layer;
+        }
+
+        public void InitializeLayer<TLayer, TArgs, TResult>(TLayer layer, TArgs args)
             where TLayer : IUiLayerWithResult<TArgs, TResult>
             where TResult : class
         {
-                EntitySystem.InjectDependencies(layer);
-                layer.Initialize(args);
-                return Query(layer);
+            InitializeLayer(layer);
+            layer.Initialize(args);
         }
 
-        public UiResult<TResult> Query<TArgs, TResult>(IUiLayerWithResult<TArgs, TResult> layer) 
+        public void InitializeLayer<TLayer>(TLayer layer)
+            where TLayer : IUiLayer
+        {
+            if (layer is UiElement elem)
+                AddChildrenFromAttributes(elem);
+
+            EntitySystem.InjectDependencies(layer);
+        }
+
+        public UiResult<TResult> Query<TResult, TLayer, TArgs>(TLayer layer, TArgs args)
+            where TLayer : IUiLayerWithResult<TArgs, TResult>
+            where TResult : class
+        {
+            InitializeLayer<TLayer, TArgs, TResult>(layer, args);
+            return Query(layer);
+        }
+
+        public UiResult<TResult> Query<TArgs, TResult>(IUiLayerWithResult<TArgs, TResult> layer)
             where TResult : class
         {
             if (layer.DefaultZOrder != null)

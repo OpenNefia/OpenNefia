@@ -41,16 +41,15 @@ namespace OpenNefia.Content.ConfigMenu
 
         [Dependency] private readonly IConfigMenuUICellFactory _cellFactory = default!;
 
-        [Localize("Topic.Menu")]
-        private UiText TextTopicMenu = new UiTextTopic();
-
-        private AssetDrawable AssetG2;
+        [Child] [Localize("Topic.Menu")] private UiText TextTopicMenu = new UiTextTopic();
+        [Child] private AssetDrawable AssetG2;
 
         // The UI cells are generic based on the config option type, so UINone is
         // used to have them all in one list.
         // FIXME: #35
-        private UiPagedList<UINone> List;
-        private UiWindow Window = new();
+        // It should be BaseConfigMenuUICell instead.
+        [Child] private UiPagedList<UINone> List;
+        [Child] private UiWindow Window = new();
 
         private Vector2i _menuSize = new();
         private PrototypeId<ConfigMenuItemPrototype> _protoId;

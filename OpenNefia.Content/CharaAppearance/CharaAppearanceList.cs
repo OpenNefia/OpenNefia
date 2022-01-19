@@ -12,6 +12,7 @@ using OpenNefia.Content.Prototypes;
 using static OpenNefia.Content.Prototypes.Protos;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Content.Charas;
+using OpenNefia.Core.UI;
 
 namespace OpenNefia.Content.CharaAppearance
 {
@@ -181,8 +182,8 @@ namespace OpenNefia.Content.CharaAppearance
 
     public sealed class CharaAppearanceUIListCell : UiListCell<CharaAppearanceUICellData>
     {
-        private AssetDrawable AssetArrowLeft;
-        private AssetDrawable AssetArrowRight;
+        [Child] private AssetDrawable AssetArrowLeft;
+        [Child] private AssetDrawable AssetArrowRight;
 
         private string _baseText;
 
@@ -193,9 +194,6 @@ namespace OpenNefia.Content.CharaAppearance
 
             AssetArrowLeft = new AssetDrawable(Asset.ArrowLeft);
             AssetArrowRight = new AssetDrawable(Asset.ArrowRight);
-
-            AddChild(AssetArrowLeft);
-            AddChild(AssetArrowRight);
 
             RebuildText();
         }

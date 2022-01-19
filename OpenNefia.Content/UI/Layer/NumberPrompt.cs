@@ -7,6 +7,7 @@ using OpenNefia.Content.Prototypes;
 using OpenNefia.Core.UI.Element;
 using OpenNefia.Core.Input;
 using static OpenNefia.Content.Prototypes.Protos;
+using OpenNefia.Core.UI;
 
 namespace OpenNefia.Content.UI.Layer
 {
@@ -74,15 +75,15 @@ namespace OpenNefia.Content.UI.Layer
 
         public bool IsCancellable { get; set; }
 
-        protected UiTopicWindow TopicWindow;
-
         protected IAssetInstance AssetLabelInput;
         protected IAssetInstance AssetArrowLeft;
         protected IAssetInstance AssetArrowRight;
 
         protected Color ColorPromptBackground = UiColors.PromptBackground;
         protected FontSpec FontPromptText = UiFonts.PromptText;
-        protected UiText Text;
+
+        [Child] protected UiText Text;
+        [Child] protected UiTopicWindow TopicWindow;
 
         public NumberPrompt()
         {
@@ -93,9 +94,6 @@ namespace OpenNefia.Content.UI.Layer
             AssetArrowRight = Assets.Get(Protos.Asset.ArrowRight);
 
             TopicWindow = new UiTopicWindow(UiTopicWindow.FrameStyleKind.Zero, UiTopicWindow.WindowStyleKind.Two);
-
-            AddChild(Text);
-            AddChild(TopicWindow);
 
             OnKeyBindDown += HandleKeyBindDown;
         }

@@ -44,14 +44,12 @@ namespace OpenNefia.Content.CharaMake
         }
         public class CreateCharaAliasCell : UiListCell<CreateCharaAliasData>
         {
-            private UiText LockedText;
+            [Child] private UiText LockedText;
 
             public CreateCharaAliasCell(CreateCharaAliasData data, string text)
                 : base(data, new UiText(text))
             {
                 LockedText = new UiText(UiFonts.CharaMakeRerollLocked, Loc.GetString("Elona.CharaMake.Common.Locked"));
-
-                AddChild(LockedText);
             }
 
             public override void SetPosition(float x, float y)
@@ -72,12 +70,9 @@ namespace OpenNefia.Content.CharaMake
 
         public const string ResultName = "alias";
 
-        [Localize]
-        private UiWindow Window;
-        [Localize]
-        private UiText AliasTopic;
-
-        private UiList<CreateCharaAliasData> List;
+        [Child] [Localize] private UiWindow Window;
+        [Child] [Localize] private UiText AliasTopic;
+        [Child] private UiList<CreateCharaAliasData> List;
 
         public CharaMakeAliasLayer()
         {
@@ -88,10 +83,6 @@ namespace OpenNefia.Content.CharaMake
             AliasTopic = new UiTextTopic();
 
             OnKeyBindDown += HandleKeyBindDown;
-
-            AddChild(AliasTopic);
-            AddChild(Window);
-            AddChild(List);
         }
 
         private void HandleKeyBindDown(GUIBoundKeyEventArgs obj)

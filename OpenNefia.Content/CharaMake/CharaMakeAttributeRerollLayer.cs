@@ -64,9 +64,9 @@ namespace OpenNefia.Content.CharaMake
 
         public class AttributeRerollCell : UiListCell<AttributeRerollData>
         {
-            private UiText LockedText;
-            private UiText AmountText;
-            private AttributeIcon Icon;
+            [Child] private UiText LockedText;
+            [Child] private UiText AmountText;
+            [Child] private AttributeIcon Icon;
 
             public AttributeRerollCell(AttributeRerollData data)
                 : base(data, new UiText(UiFonts.ListText))
@@ -87,10 +87,6 @@ namespace OpenNefia.Content.CharaMake
                         Icon = new AttributeIcon(attr.Id);
                         break;
                 }
-
-                AddChild(LockedText);
-                AddChild(AmountText);
-                AddChild(Icon);
             }
 
             public override void SetSize(float width, float height)
@@ -120,11 +116,11 @@ namespace OpenNefia.Content.CharaMake
         [Dependency] private readonly IRandom _random = default!;
         [Dependency] private readonly ISkillsSystem _skillsSys = default!;
 
-        [Localize] private UiWindow Window = new();
-        [Localize] private UiTextTopic AttributeTopic = new();
-        [Localize] private UiWrappedText AttributeInfo;
-        private UiText LockAmount = new();
-        private UiList<AttributeRerollData> List;
+        [Child] [Localize] private UiWindow Window = new();
+        [Child] [Localize] private UiTextTopic AttributeTopic = new();
+        [Child] [Localize] private UiWrappedText AttributeInfo;
+        [Child] private UiText LockAmount = new();
+        [Child] private UiList<AttributeRerollData> List;
 
         private int LockCount = 2;
         private bool IsInitialized;
@@ -138,12 +134,6 @@ namespace OpenNefia.Content.CharaMake
             LockAmount = new UiText(UiFonts.CharaMakeLockInfo);
             AttributeInfo.WrappedText = Loc.GetString("Elona.CharaMake.AttributeReroll.AttributeInfo");
             SetLockCountText();
-
-            AddChild(Window);
-            AddChild(AttributeTopic);
-            AddChild(AttributeInfo);
-            AddChild(LockAmount);
-            AddChild(List);
         }
 
         public override void Initialize(CharaMakeData args)

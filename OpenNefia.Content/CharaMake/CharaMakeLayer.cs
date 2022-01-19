@@ -35,7 +35,7 @@ namespace OpenNefia.Content.CharaMake
 
         protected CharaMakeData Data = default!;
 
-        [Localize] protected CharaMakeCaption Caption;
+        [Child] [Localize] protected CharaMakeCaption Caption;
         private int UiMoveCount;
 
         public CharaMakeLayer()
@@ -52,8 +52,6 @@ namespace OpenNefia.Content.CharaMake
             CurrentWindowBG = AssetWindows[0];
 
             Caption = new CharaMakeCaption();
-
-            AddChild(Caption);
 
             OnKeyBindDown += HandleKeyBindDown;
         }

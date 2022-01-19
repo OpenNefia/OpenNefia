@@ -6,6 +6,7 @@ using OpenNefia.Core.UI.Element;
 using OpenNefia.Content.Prototypes;
 using OpenNefia.Core.UserInterface;
 using OpenNefia.Core.Input;
+using OpenNefia.Core.UI;
 
 namespace OpenNefia.Content.UI.Element.List
 {
@@ -65,10 +66,8 @@ namespace OpenNefia.Content.UI.Element.List
 
         public int IndexInList { get; set; }
 
-        [Localize("Text")]
-        protected UiText UiText;
-
-        protected UiText KeyNameText = null!;
+        [Child] [Localize("Text")] protected UiText UiText;
+        [Child] protected UiText KeyNameText = null!;
 
         public virtual string? LocalizeKey => null;
 
@@ -101,9 +100,6 @@ namespace OpenNefia.Content.UI.Element.List
 
             OnMouseEntered += HandleMouseEntered;
             EventFilter = UIEventFilterMode.Pass;
-
-            AddChild(UiText);
-            AddChild(KeyNameText);
         }
 
         private void HandleMouseEntered(GUIMouseHoverEventArgs args)

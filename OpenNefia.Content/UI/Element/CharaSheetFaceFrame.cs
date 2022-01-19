@@ -6,6 +6,7 @@ using OpenNefia.Core.IoC;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Rendering;
+using OpenNefia.Core.UI;
 using OpenNefia.Core.UI.Element;
 
 namespace OpenNefia.Content.UI.Element
@@ -17,8 +18,8 @@ namespace OpenNefia.Content.UI.Element
 
         private EntityUid _entity;
 
-        private readonly UiTopicWindow WindowFrame;
-        private readonly EntitySpriteBatch EntityBatch;
+        [Child] private readonly UiTopicWindow WindowFrame;
+        [Child] private readonly EntitySpriteBatch EntityBatch;
         private readonly TileAtlasBatch _portraitBatch;
 
         private PortraitPrototype? portraitProto;
@@ -30,9 +31,6 @@ namespace OpenNefia.Content.UI.Element
             WindowFrame = new(UiTopicWindow.FrameStyleKind.One, UiTopicWindow.WindowStyleKind.One);
             EntityBatch = new EntitySpriteBatch();
             _portraitBatch = new TileAtlasBatch(ContentAtlasNames.Portrait);
-
-            AddChild(EntityBatch);
-            AddChild(WindowFrame);
         }
 
         public void RefreshFromEntity(EntityUid entity)

@@ -28,9 +28,8 @@ namespace OpenNefia.Content.Inventory
         private IAssetInstance AssetEnchantmentIcons;
         private IAssetInstance AssetInheritanceIcon;
 
-        private UiText TextTopicItemName = new UiTextTopic();
-
-        private UiWindow Window = new();
+        [Child] private UiText TextTopicItemName = new UiTextTopic();
+        [Child] private UiWindow Window = new();
 
         private readonly List<ItemDescriptionEntry> _rawEntries = new();
         private readonly List<ItemDescriptionEntry> _wrappedEntries = new();
@@ -39,9 +38,6 @@ namespace OpenNefia.Content.Inventory
         {
             AssetEnchantmentIcons = Assets.Get(Protos.Asset.EnchantmentIcons);
             AssetInheritanceIcon = Assets.Get(Protos.Asset.InheritanceIcon);
-
-            AddChild(TextTopicItemName);
-            AddChild(Window);
 
             CanControlFocus = true;
             OnKeyBindDown += HandleKeyBindDown;
