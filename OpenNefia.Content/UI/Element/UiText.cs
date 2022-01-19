@@ -90,7 +90,19 @@ namespace OpenNefia.Content.UI.Element
         public override void Draw()
         {
             GraphicsEx.SetColor(Color);
-            Love.Graphics.Draw(BakedText, PixelX, PixelY);
+            DrawTextInternal(BakedText!, PixelX, PixelY, Font.Style);
+        }
+
+        protected static void DrawTextInternal(Love.Text? text, float x, float y, FontStyle style)
+        {
+            Love.Graphics.Draw(text, x, y);
+
+            switch (style)
+            {
+                case FontStyle.Bold:
+                    Love.Graphics.Draw(text, x+1, y);
+                    break;
+            }
         }
 
         public override void Dispose()
@@ -110,10 +122,10 @@ namespace OpenNefia.Content.UI.Element
             GraphicsEx.SetColor(BgColor);
             for (int dx = -1; dx <= 1; dx++)
                 for (int dy = -1; dy <= 1; dy++)
-                    Love.Graphics.Draw(BakedText, PixelX + dx, PixelY + dy);
+                    DrawTextInternal(BakedText, PixelX + dx, PixelY + dy, Font.Style);
 
             GraphicsEx.SetColor(Color);
-            Love.Graphics.Draw(BakedText, PixelX, PixelY);
+            DrawTextInternal(BakedText, PixelX, PixelY, Font.Style);
         }
     }
 
@@ -125,10 +137,10 @@ namespace OpenNefia.Content.UI.Element
         public override void Draw()
         {
             GraphicsEx.SetColor(BgColor);
-            Love.Graphics.Draw(BakedText, PixelX + 1, PixelY + 1);
+            DrawTextInternal(BakedText, PixelX + 1, PixelY + 1, Font.Style);
 
             GraphicsEx.SetColor(Color);
-            Love.Graphics.Draw(BakedText, PixelX, PixelY);
+            DrawTextInternal(BakedText, PixelX, PixelY, Font.Style);
         }
     }
 
@@ -159,7 +171,7 @@ namespace OpenNefia.Content.UI.Element
             Love.Graphics.SetColor(Color.White);
             AssetTipIcons.DrawRegion(UIScale, "1", X, Y + 7);
             Love.Graphics.SetColor(Color);
-            Love.Graphics.Draw(BakedText, PixelX + 26 * UIScale, PixelY + 8 * UIScale); // y + vfix + 8
+            DrawTextInternal(BakedText, PixelX + 26 * UIScale, PixelY + 8 * UIScale, Font.Style); // y + vfix + 8
             Love.Graphics.SetColor(Color.Black);
             GraphicsS.LineS(UIScale, X + 22, Y + 21, X + BakedText!.GetWidthV(UIScale) + 36, Y + 21);
         }
