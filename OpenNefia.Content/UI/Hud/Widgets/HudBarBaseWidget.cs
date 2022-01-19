@@ -17,7 +17,6 @@ namespace OpenNefia.Content.Hud
 {
     public abstract class HudBarBaseWidget : BaseHudWidget
     {
-
         protected abstract string BarText { get; set; }
         protected abstract IAssetInstance BarAsset { get; set; }
         protected abstract float BarRatio { get; set; }
@@ -40,7 +39,7 @@ namespace OpenNefia.Content.Hud
             UiText.SetPosition(x + 20, y - 7);
         }
 
-        protected void SetState()
+        protected void RefreshBarState()
         {
             UiText.Text = BarText;
             BarState = new UiHelpers.UiBarDrawableState(BarAsset, Math.Clamp(BarRatio, 0f, 1f), new());
@@ -77,7 +76,7 @@ namespace OpenNefia.Content.Hud
                 BarText = $"{skills.HP}({skills.MaxHP})";
                 BarRatio = (float)skills.HP / skills.MaxHP;
             }
-            SetState();
+            RefreshBarState();
         }
     }
 
@@ -103,7 +102,7 @@ namespace OpenNefia.Content.Hud
                 BarText = $"{skills.MP}({skills.MaxMP})";
                 BarRatio = (float)skills.MP / skills.MaxMP;
             }
-            SetState();
+            RefreshBarState();
         }
     }
 }
