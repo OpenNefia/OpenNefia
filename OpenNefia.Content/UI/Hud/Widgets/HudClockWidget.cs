@@ -15,25 +15,27 @@ namespace OpenNefia.Content.Hud
 {
     public class ClockHand : BaseDrawable
     {
-        // Angle in radians
-        private float Angle;
-        private SpriteBatch Batch;
+        private AssetDrawable HandAsset;
 
         public ClockHand()
         {
-            var asset = Assets.Get(Protos.Asset.ClockHand);
-            var parts = new List<AssetBatchPart>{ new("0", 0, 0) };
-            Batch = asset.MakeBatch(parts);
+            HandAsset = new(Assets.Get(Protos.Asset.ClockHand), centered: true, regionId: "0", originOffset: new(0, -2.5f));
         }
 
         public void SetHour(int hour)
         {
-            Angle = (float)Core.Maths.Angle.FromDegrees(hour * 30).Theta;
+            HandAsset.Rotation = (float)Core.Maths.Angle.FromDegrees(hour * 30).Theta;
+        }
+
+        public override void SetPosition(int x, int y)
+        {
+            base.SetPosition(x, y);
+            HandAsset.SetPosition(x, y);
         }
 
         public override void Draw()
         {
-            Graphics.Draw(Batch, X, Y, Angle, 1, 1, 24, 21.5f);
+            HandAsset.Draw();
         }
 
         public override void Update(float dt)
