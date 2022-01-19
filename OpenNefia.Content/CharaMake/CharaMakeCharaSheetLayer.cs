@@ -185,12 +185,12 @@ namespace OpenNefia.Content.CharaMake
                 MaxLength = 10
             };
 
-            var result = UserInterfaceManager.Query<TextPrompt, TextPrompt.Args, string>(args);
+            var result = UserInterfaceManager.Query<TextPrompt, TextPrompt.Args, TextPrompt.Result>(args);
 
             if (result.HasValue)
             {
                 var customName = EntityManager.EnsureComponent<CustomNameComponent>(_playerEntity);
-                var resultName = result.Value;
+                var resultName = result.Value.Text;
 
                 if (string.IsNullOrWhiteSpace(resultName))
                 {

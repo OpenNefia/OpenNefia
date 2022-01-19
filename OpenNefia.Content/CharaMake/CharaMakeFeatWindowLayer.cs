@@ -4,6 +4,7 @@ using OpenNefia.Content.UI;
 using OpenNefia.Content.UI.Element;
 using OpenNefia.Core.Audio;
 using OpenNefia.Core.GameObjects;
+using OpenNefia.Core.IoC;
 using OpenNefia.Core.Locale;
 using OpenNefia.Core.Log;
 using OpenNefia.Core.Maths;
@@ -20,6 +21,8 @@ namespace OpenNefia.Content.CharaMake
     [Localize("Elona.CharaMake.FeatSelect")]
     public class CharaMakeFeatWindowLayer : CharaMakeLayer
     {
+        [Dependency] private readonly IFeatsSystem _feats = default!;
+
         public const string ResultName = "feats";
         private FeatWindow FeatWindow = default!;
         private readonly Dictionary<PrototypeId<FeatPrototype>, int> SelectedFeats = new();
@@ -120,7 +123,7 @@ namespace OpenNefia.Content.CharaMake
 
             foreach (var feat in feats)
             {
-                featsComponent.Feats[feat.Key] = new(featsComponent.Level(feat.Key) + feat.Value);
+                featsComponent.Feats[feat.Key] = new(_feats.Level(featsComponent, feat.Key) + feat.Value);
             }
         }
     }

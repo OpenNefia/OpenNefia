@@ -22,6 +22,7 @@ namespace OpenNefia.Content.CharaMake
         [Dependency] private readonly IRandom _random = default!;
         [Dependency] private readonly IEntityGen _entityGen = default!;
         [Dependency] private readonly ISkillsSystem _skills = default!;
+        [Dependency] private readonly IFeatsSystem _feats = default!;
         [Dependency] private readonly IRefreshSystem _refreshSys = default!;
 
         public const int DefaultSkillBonusPoints = 5;
@@ -47,14 +48,14 @@ namespace OpenNefia.Content.CharaMake
             _entityGen.SpawnEntity(Item.BottleOfCrimAle, inventory.Container, count: 2);
 
             var skills = EntityManager.EnsureComponent<SkillsComponent>(uid);
-            if (skills.Level(Skill.Literacy) == 0)
+            if (_skills.Level(skills, Skill.Literacy) == 0)
                 _entityGen.SpawnEntity(Item.PotionOfCureMinorWound, inventory.Container, count: 3);
 
             // TODO class inits
 
             var feats = EntityManager.EnsureComponent<FeatsComponent>(uid);
 
-            var skillBonusPoints = DefaultSkillBonusPoints + feats.Level(CharaFeat.PermSkillPoint);
+            var skillBonusPoints = DefaultSkillBonusPoints + _feats.Level(feats, CharaFeat.PermSkillPoint);
             _skills.GainBonusPoints(uid, skillBonusPoints, skills);
 
             foreach (var item in inventory.Container.ContainedEntities)
