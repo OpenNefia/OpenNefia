@@ -1,8 +1,10 @@
 ﻿using OpenNefia.Content.Charas;
 using OpenNefia.Content.ConfigMenu;
 using OpenNefia.Content.Input;
+using OpenNefia.Content.Journal;
 using OpenNefia.Content.Logic;
 using OpenNefia.Content.TurnOrder;
+using OpenNefia.Content.UI;
 using OpenNefia.Content.UI.Layer;
 using OpenNefia.Core;
 using OpenNefia.Core.Audio;
@@ -19,6 +21,7 @@ using OpenNefia.Core.Locale;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.SaveGames;
 using OpenNefia.Core.Timing;
+using OpenNefia.Core.UI;
 using OpenNefia.Core.UserInterface;
 using System;
 using System.Collections.Generic;
@@ -41,6 +44,7 @@ namespace OpenNefia.Content.GameObjects
         [Dependency] private readonly IConfigurationManager _config = default!;
         [Dependency] private readonly IGameController _gameController = default!;
         [Dependency] private readonly IGraphics _graphics = default!;
+        [Dependency] private readonly IMessage _mes = default!;
 
         public override void Initialize()
         {
@@ -48,6 +52,7 @@ namespace OpenNefia.Content.GameObjects
                 .Bind(EngineKeyFunctions.ShowEscapeMenu, InputCmdHandler.FromDelegate(ShowEscapeMenu))
                 .Bind(EngineKeyFunctions.QuickSaveGame, InputCmdHandler.FromDelegate(QuickSaveGame))
                 .Bind(EngineKeyFunctions.QuickLoadGame, InputCmdHandler.FromDelegate(QuickLoadGame))
+                .Bind(EngineKeyFunctions.Backlog, InputCmdHandler.FromDelegate(ShowBacklog))
                 .Register<CommonCommandsSystem>();
         }
 
@@ -65,7 +70,7 @@ namespace OpenNefia.Content.GameObjects
             _saveGameSerializer.SaveGame(save);
 
             _sounds.Play(Sound.Write1);
-            Mes.Display(Loc.GetString("Elona.UserInterface.Save.QuickSave"));
+            _mes.Display(Loc.GetString("Elona.UserInterface.Save.QuickSave"));
 
             return TurnResult.Aborted;
         }
@@ -145,6 +150,14 @@ namespace OpenNefia.Content.GameObjects
             return TurnResult.Aborted;
         }
 
+        private TurnResult? ShowBacklog(IGameSessionManager? session)
+        {
+            var context = new JournalUiGroupArgs(JournalGroupUiArgs.LogTab.Backlog);
+            _uiManager.Query<JournalUiGroup, JournalUiGroupArgs>(context);
+
+            return TurnResult.Aborted;
+        }
+
         private void ShowConfigMenu()
         {
             Sounds.Play(Sound.Ok1);
@@ -175,7 +188,7 @@ namespace OpenNefia.Content.GameObjects
         private void ReturnToTitle(IGameSessionManager gameSession)
         {
             QuickSaveGame(gameSession);
-            Mes.Display(Loc.GetString("Elona.UserInterface.Exit.Saved"));
+            _mes.Display(Loc.GetString("Elona.UserInterface.Exit.Saved"));
             _playerQuery.PromptMore();
             Wait(0.3f);
 
@@ -185,8 +198,8 @@ namespace OpenNefia.Content.GameObjects
         private void ExitGame(IGameSessionManager gameSession)
         {
             QuickSaveGame(gameSession);
-            Mes.Display(Loc.GetString("Elona.UserInterface.Exit.Saved"));
-            Mes.Display(Loc.GetString("Elona.UserInterface.Exit.YouCloseYourEyes", ("entity", gameSession.Player!)));
+            _mes.Display(Loc.GetString("Elona.UserInterface.Exit.Saved"));
+            _mes.Display(Loc.GetString("Elona.UserInterface.Exit.YouCloseYourEyes", ("entity", gameSession.Player!)));
             _playerQuery.PromptMore();
             Wait(0.3f);
 

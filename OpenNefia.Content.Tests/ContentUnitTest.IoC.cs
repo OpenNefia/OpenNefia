@@ -28,11 +28,57 @@ namespace OpenNefia.Content.Tests
     public class TestingHudLayer : DummyLayer, IHudLayer
     {
         public IHudMessageWindow MessageWindow { get; } = new DummyMessageWindow();
+
+        public UIBox2i GameBounds => new();
+
+        public IBacklog Backlog => default!;
+
+        public void ClearWidgets()
+        {
+        }
+
+        public void Initialize()
+        {
+        }
+
+        public void ToggleBacklog(bool visible)
+        {
+        }
+
+        public void UpdateMinimap()
+        {
+        }
+
+        public void UpdateTime()
+        {
+        }
     }
 
     public class DummyMessageWindow : DummyDrawable, IHudMessageWindow
     {
+        public float PosX { get; set; }
+        public float PosY { get; set; }
+
+        public bool Movable => false;
+
+        public bool IsShowingBacklog => false;
+
         public void Print(string queryText, Color? color = null)
+        {
+        }
+        public void Newline()
+        {
+        }
+
+        public void UpdateWidget()
+        {
+        }
+
+        public void Initialize()
+        {
+        }
+
+        public void ToggleBacklog(bool visible)
         {
         }
     }

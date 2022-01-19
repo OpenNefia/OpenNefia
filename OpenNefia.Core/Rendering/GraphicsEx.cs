@@ -14,17 +14,17 @@ namespace OpenNefia.Core.Rendering
 {
     public static class GraphicsEx
     {
-        public static void DrawImageS(float uiScale, Love.Texture image, float x, float y, float? width = null, float? height = null, bool centered = false, float rotation = 0)
+        public static void DrawImageS(float uiScale, Love.Texture image, float x, float y, float? width = null, float? height = null, bool centered = false, float rotation = 0, Maths.Vector2 originOffset = default)
         {
             if (width == null)
                 width = image.GetWidth();
             if (height == null)
                 height = image.GetHeight();
 
-            DrawImage(image, x * uiScale, y * uiScale, width.Value * uiScale, height.Value * uiScale, centered, rotation);
+            DrawImage(image, x * uiScale, y * uiScale, width.Value * uiScale, height.Value * uiScale, centered, rotation, originOffset * uiScale);
         }
 
-        public static void DrawImage(Love.Texture image, float x = 0, float y = 0, float width = 0, float height = 0, bool centered = false, float rotation = 0)
+        public static void DrawImage(Love.Texture image, float x = 0, float y = 0, float width = 0, float height = 0, bool centered = false, float rotation = 0, Maths.Vector2 originOffset = default)
         {
             var sx = 1f;
             var sy = 1f;
@@ -38,19 +38,16 @@ namespace OpenNefia.Core.Rendering
                 sy = height / image.GetHeight();
             }
 
-            var ox = 0f;
-            var oy = 0f;
-
             if (centered)
             {
-                ox = image.GetWidth() / 2f;
-                oy = image.GetHeight() / 2f;
+                originOffset.X += image.GetWidth() / 2f;
+                originOffset.Y += image.GetHeight() / 2f;
             }
 
-            Love.Graphics.Draw(image, x, y, rotation, sx, sy, ox, oy);
+            Love.Graphics.Draw(image, x, y, rotation, sx, sy, originOffset.X, originOffset.Y);
         }
 
-        public static void DrawImage(Love.Quad quad, Love.Texture image, float x = 0, float y = 0, float width = 0, float height = 0, bool centered = false, float rotation = 0)
+        public static void DrawImage(Love.Quad quad, Love.Texture image, float x = 0, float y = 0, float width = 0, float height = 0, bool centered = false, float rotation = 0, Maths.Vector2 originOffset = default)
         {
             var sx = 1f;
             var sy = 1f;
@@ -66,16 +63,13 @@ namespace OpenNefia.Core.Rendering
                 sy = height / quadRect.Height;
             }
 
-            var ox = 0f;
-            var oy = 0f;
-
             if (centered)
             {
-                ox = quadRect.Width / 2f;
-                oy = quadRect.Height / 2f;
+                originOffset.X += quadRect.Width / 2f;
+                originOffset.Y += quadRect.Height / 2f;
             }
 
-            Love.Graphics.Draw(quad, image, x, y, rotation, sx, sy, ox, oy);
+            Love.Graphics.Draw(quad, image, x, y, rotation, sx, sy, originOffset.X, originOffset.Y);
         }
 
         public static void DrawSpriteBatchS(float uiScale, Love.SpriteBatch batch, float x, float y, float? width, float? height, float rotation = 0)
@@ -83,7 +77,7 @@ namespace OpenNefia.Core.Rendering
             Love.Graphics.Draw(batch, x * uiScale, y * uiScale, rotation);
         }
 
-        public static void DrawImageRegion(Love.Image image, Love.Quad quad, float x = 0, float y = 0, float width = 0, float height = 0, bool centered = false, float rotation = 0)
+        public static void DrawImageRegion(Love.Image image, Love.Quad quad, float x = 0, float y = 0, float width = 0, float height = 0, bool centered = false, float rotation = 0, Maths.Vector2 originOffset = default)
         {
             var viewport = quad.GetViewport();
 
@@ -99,16 +93,13 @@ namespace OpenNefia.Core.Rendering
                 sy = height / viewport.Height;
             }
 
-            var ox = 0f;
-            var oy = 0f;
-
             if (centered)
             {
-                ox = viewport.Width / 2f;
-                oy = viewport.Height / 2f;
+                originOffset.X += viewport.Width / 2f;
+                originOffset.Y += viewport.Height / 2f;
             }
 
-            Love.Graphics.Draw(quad, image, x, y, rotation, sx, sy, ox, oy);
+            Love.Graphics.Draw(quad, image, x, y, rotation, sx, sy, originOffset.X, originOffset.Y);
         }
 
         internal static void SetColor(object colorTextBlack)

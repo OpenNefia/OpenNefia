@@ -16,6 +16,13 @@ namespace OpenNefia.Core
         }
 
         /*
+         * Message
+         */
+
+        public static readonly CVarDef<int> MessageFade =
+            CVarDef.Create("message.fade", 50, CVar.Archive);
+
+        /*
          * Log
          */
 

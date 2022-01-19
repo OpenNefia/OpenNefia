@@ -126,6 +126,17 @@
 - type: Elona.ConfigMenuItem
   id: Elona.MenuMessage
   node: !type:ConfigSubmenuMenuNode
+    items:
+    - Elona.MessageFade
+    
+- type: Elona.ConfigMenuItem
+  id: Elona.MessageFade
+  node: !type:ConfigIntMenuNode
+    cvar: message.fade
+    min: 0
+    max: 50
+    step: 10
+
 
 #
 # Language

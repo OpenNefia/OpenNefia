@@ -9,24 +9,32 @@ using OpenNefia.Core.Maths;
 
 namespace OpenNefia.Content.Logic
 {
-    [Obsolete("Convert to IoC dependency")]
-    public static class Mes
+    public interface IMessage
     {
-        public static void Display(string text, Color? color = null, bool noCapitalize = false)
+        void Newline();
+        void Display(string text, Color? color = null, bool noCapitalize = false);
+        [Obsolete("Maybe move `entity` into a named param for Display()?")]
+        void DisplayIfLos(EntityUid entity, string mes, Color? color = null, bool noCapitalize = false);
+    }
+
+    public class Message : IMessage
+    {
+        [Dependency] private readonly IHudLayer _hud = default!;
+
+        public void Newline()
+        {
+            _hud.MessageWindow?.Newline();
+        }
+
+        public void Display(string text, Color? color = null, bool noCapitalize = false)
         {
             if (!noCapitalize)
                 text = Loc.Capitalize(text);
             
-            IoCManager.Resolve<IHudLayer>().MessageWindow.Print(text, color);
+            _hud.MessageWindow?.Print(text, color);
         }
 
-        public static void Newline()
-        {
-            // TODO
-        }
-
-        [Obsolete("Maybe move `entity` into a named param for Display()?")]
-        public static void DisplayIfLos(EntityUid entity, string mes, Color? color = null, bool noCapitalize = false)
+        public void DisplayIfLos(EntityUid entity, string mes, Color? color = null, bool noCapitalize = false)
         {
             var visibility = EntitySystem.Get<IVisibilitySystem>();
             var gameSession = IoCManager.Resolve<IGameSessionManager>();
@@ -34,7 +42,7 @@ namespace OpenNefia.Content.Logic
             if (entMan.IsAlive(gameSession.Player) 
                 && visibility.HasLineOfSight(gameSession.Player, entity))
             {
-                Mes.Display(mes, color, noCapitalize);
+                Display(mes, color, noCapitalize);
             }
         }
     }

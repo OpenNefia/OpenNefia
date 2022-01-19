@@ -10,11 +10,14 @@ using OpenNefia.Content.Prototypes;
 using OpenNefia.Content.Logic;
 using OpenNefia.Core.UI.Element;
 using OpenNefia.Core.Input;
+using OpenNefia.Core.IoC;
 
 namespace OpenNefia.Content.UI.Layer
 {
     public class TextPrompt : UiLayerWithResult<TextPrompt.Args, TextPrompt.Result>
     {
+        [Dependency] private readonly IMessage _mes = default!;
+        
         public class Result
         {
             public string Text { get; set; }
@@ -23,6 +26,7 @@ namespace OpenNefia.Content.UI.Layer
                 Text = text;
             }
         }
+        
         public class Args
         {
             public bool IsCancellable { get; set; } = true;
@@ -140,7 +144,7 @@ namespace OpenNefia.Content.UI.Layer
             Sounds.Play(Protos.Sound.Pop2);
             if (_queryText != null)
             {
-                Mes.Display(_queryText);
+                _mes.Display(_queryText);
             }
         }
 

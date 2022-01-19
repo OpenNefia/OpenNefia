@@ -1,4 +1,5 @@
-﻿using OpenNefia.Core.Audio;
+﻿using OpenNefia.Content.UI.Hud;
+using OpenNefia.Core.Audio;
 using OpenNefia.Core.Graphics;
 using OpenNefia.Core.Input;
 using OpenNefia.Core.IoC;
@@ -17,6 +18,8 @@ namespace OpenNefia.Content.Logic
         [Dependency] private readonly IGraphics _graphics = default!;
 
         private IAssetInstance AssetMorePrompt;
+
+        public override int? DefaultZOrder => HudLayer.HudZOrder + 10000;
 
         private bool _canFinish = false;
         private bool _finished = false;

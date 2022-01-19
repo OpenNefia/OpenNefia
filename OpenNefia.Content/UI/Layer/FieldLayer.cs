@@ -16,6 +16,7 @@ using OpenNefia.Content.TurnOrder;
 using static OpenNefia.Content.Prototypes.Protos;
 using OpenNefia.Core.Audio;
 using ICSharpCode.Decompiler.TypeSystem;
+using OpenNefia.Analyzers;
 
 namespace OpenNefia.Content.UI.Layer
 {
@@ -24,12 +25,14 @@ namespace OpenNefia.Content.UI.Layer
         [Dependency] private readonly IEntityManager _entityManager = default!;
         [Dependency] private readonly IMapRenderer _mapRenderer = default!;
         [Dependency] private readonly IMapManager _mapManager = default!;
-        [Dependency] private readonly IHudLayer _hud = default!;
         [Dependency] private readonly ICoords _coords = default!;
         [Dependency] private readonly IGameSessionManager _gameSession = default!;
         [Dependency] private readonly IGraphics _graphics = default!;
         [Dependency] private readonly IInputManager _inputManager = default!;
         [Dependency] private readonly IMusicManager _music = default!;
+        [Dependency] private readonly IHudLayer _hud = default!;
+
+        public override int? DefaultZOrder => 100000;
 
         public static FieldLayer? Instance = null;
 
@@ -39,43 +42,12 @@ namespace OpenNefia.Content.UI.Layer
 
         public Camera Camera { get; private set; }
 
+        public event IFieldLayer.ScreenRefreshDelegate OnScreenRefresh = default!;
+
         public FieldLayer()
         {
             _scroller = new UiScroller();
             Camera = new Camera(this);
-
-            BindKeys();
-        }
-
-        protected virtual void BindKeys()
-        {
-            //Keybinds[CoreKeybinds.Identify] += Examine;
-            //Keybinds[CoreKeybinds.Escape] += PromptToQuit;
-            //Keybinds[Keys.Ctrl | Keys.T] += QueryAtlas;
-            //Keybinds[CoreKeybinds.North] += (_) => MovePlayer(Direction.North);
-            //Keybinds[CoreKeybinds.South] += (_) => MovePlayer(Direction.South);
-            //Keybinds[CoreKeybinds.West] += (_) => MovePlayer(Direction.West);
-            //Keybinds[CoreKeybinds.East] += (_) => MovePlayer(Direction.East);
-            //Keybinds[CoreKeybinds.Ascend] += Ascend;
-            //Keybinds[CoreKeybinds.Descend] += Descend;
-            //Keybinds[CoreKeybinds.Enter] += Activate;
-            //Keybinds[CoreKeybinds.Repl] += QueryRepl;
-            //Keybinds[Keys.G] += PickUpItem;
-            //Keybinds[Keys.D] += DropItem;
-            //Keybinds[Keys.Q] += DrinkItem;
-            //Keybinds[Keys.T] += ThrowItem;
-            //Keybinds[Keys.W] += QueryLayer;
-
-            //_scroller.BindKeys(this);
-
-            //MouseMoved.Callback += (evt) =>
-            //{
-            //    MouseText = $"{evt.Pos}";
-            //};
-
-            //MouseButtons[MouseButton.Mouse1].Bind((evt) => PlaceTile(evt), trackReleased: true);
-            //MouseButtons[MouseButton.Mouse2].Bind((evt) => PlaceTile(evt), trackReleased: true);
-            //MouseButtons[MouseButton.Mouse3].Bind((evt) => PlaceTile(evt), trackReleased: true);
         }
 
         public void Startup()
@@ -122,6 +94,7 @@ namespace OpenNefia.Content.UI.Layer
                 return;
 
             _mapManager.RefreshVisibility(Map);
+            OnScreenRefresh?.Invoke();
 
             var player = _gameSession.Player;
 
@@ -131,34 +104,10 @@ namespace OpenNefia.Content.UI.Layer
             }
         }
 
-        private void PlaceTile(GUIBoundKeyEventArgs evt)
-        {
-            //if (evt.State == BoundKeyState.Down)
-            //{
-            //    if (evt.Button == MouseButton.Mouse1)
-            //    {
-            //        PlacingTile = Protos.Tile.Dirt;
-            //    }
-            //    else if (evt.Button == MouseButton.Mouse2)
-            //    {
-            //        PlacingTile = Protos.Tile.WallBrick;
-            //    }
-            //    else
-            //    {
-            //        PlacingTile = Protos.Tile.Flooring1;
-            //    }
-            //}
-            //else
-            //{
-            //    PlacingTile = null;
-            //}
-        }
-
         public override void SetSize(float width, float height)
         {
             base.SetSize(width, height);
             _mapRenderer.SetSize(width, height);
-            _hud.SetSize(width, height);
 
             var player = _gameSession.Player;
             if (_entityManager.IsAlive(player))
@@ -171,7 +120,6 @@ namespace OpenNefia.Content.UI.Layer
         {
             base.SetPosition(x, y);
             _mapRenderer.SetPosition(x, y);
-            _hud.SetPosition(0, 0);
         }
 
         public override void OnQuery()
@@ -183,16 +131,6 @@ namespace OpenNefia.Content.UI.Layer
 
         public override void OnQueryFinish()
         {
-        }
-
-        private void QueryLayer(GUIBoundKeyEventArgs args)
-        {
-            //using (var layer = new TestLayer())
-            //{
-            //    Console.WriteLine("Query layer!");
-            //    var result = layer.Query();
-            //    Console.WriteLine($"Get result: {result}");
-            //}
         }
 
         public override void Update(float dt)
@@ -207,7 +145,6 @@ namespace OpenNefia.Content.UI.Layer
 
             SetPosition((int)Camera.ScreenPos.X, (int)Camera.ScreenPos.Y);
 
-            _hud.Update(dt);
             _mapRenderer.Update(dt);
         }
 

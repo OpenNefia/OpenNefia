@@ -58,17 +58,13 @@ namespace OpenNefia.Content.UI.Element
             UiText.Dispose();
         }
 
-        static char[] splitChars = new char[] { ' ', '　' };
-
         // function from https://stackoverflow.com/questions/17586/best-word-wrap-algorithm
         private string WordWrap(string str, int pixelWidth)
         {
             if (pixelWidth <= 0)
                 return OriginalText;
 
-            var locManager = IoCManager.Resolve<ILocalizationManager>();
-
-            string[] words = SplitString(str, locManager.Language);
+            string[] words = UiHelpers.SplitString(str, Loc.Language);
 
             int curLineLength = 0;
             StringBuilder strBuilder = new StringBuilder();
@@ -105,49 +101,6 @@ namespace OpenNefia.Content.UI.Element
             }
 
             return strBuilder.ToString();
-        }
-
-        private string[] SplitStringEn(string str, char[] splitChars)
-        {
-            List<string> parts = new List<string>();
-            int startIndex = 0;
-            while (true)
-            {
-                int index = str.IndexOfAny(splitChars, startIndex);
-
-                if (index == -1)
-                {
-                    parts.Add(str.Substring(startIndex));
-                    return parts.ToArray();
-                }
-
-                string word = str.Substring(startIndex, index - startIndex);
-                char nextChar = str.Substring(index, 1)[0];
-                // Dashes and the likes should stick to the word occuring before it. Whitespace doesn't have to.
-                if (char.IsWhiteSpace(nextChar))
-                {
-                    parts.Add(word);
-                    parts.Add(nextChar.ToString());
-                }
-                else
-                {
-                    parts.Add(word + nextChar);
-                }
-
-                startIndex = index + 1;
-            }
-        }
-
-        // function from https://stackoverflow.com/questions/17586/best-word-wrap-algorithm
-        private string[] SplitString(string str, PrototypeId<LanguagePrototype> lang)
-        {
-            switch (lang)
-            {
-                case var en when en == LanguagePrototypeOf.English:
-                    return SplitStringEn(str, splitChars);
-                default:
-                    return str.Select(x => $"{x}").ToArray();
-            }
         }
     }
 }

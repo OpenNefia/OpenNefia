@@ -21,14 +21,15 @@ namespace OpenNefia.Core.Rendering
         public bool Centered { get; set; }
         public float Rotation { get; set; }
         public string? RegionId { get; set; }
+        public Vector2 OriginOffset { get; set; }
 
 
-        public AssetDrawable(PrototypeId<AssetPrototype> proto, Color? color = null, bool centered = false, float rotation = 0f, string? regionId = null)
-            : this(Assets.Get(proto), color, centered, rotation, regionId)
+        public AssetDrawable(PrototypeId<AssetPrototype> proto, Color? color = null, bool centered = false, float rotation = 0f, string? regionId = null, Vector2 originOffset = default)
+            : this(Assets.Get(proto), color, centered, rotation, regionId, originOffset)
         {
         }
 
-        public AssetDrawable(IAssetInstance instance, Color? color = null, bool centered = false, float rotation = 0f, string? regionId = null)
+        public AssetDrawable(IAssetInstance instance, Color? color = null, bool centered = false, float rotation = 0f, string? regionId = null, Vector2 originOffset = default)
         {
             Instance = instance;
             if (color != null)
@@ -36,6 +37,7 @@ namespace OpenNefia.Core.Rendering
             Centered = centered;
             Rotation = rotation;
             RegionId = regionId;
+            OriginOffset = originOffset;
         }
 
         public override void GetPreferredSize(out Vector2 size)
@@ -68,11 +70,11 @@ namespace OpenNefia.Core.Rendering
 
             if (RegionId != null)
             {
-                Instance.DrawRegion(UIScale, RegionId, X, Y, Width, Height, Centered, Rotation);
+                Instance.DrawRegion(UIScale, RegionId, X, Y, Width, Height, Centered, Rotation, OriginOffset);
             }
             else
             {
-                Instance.Draw(UIScale, X, Y, Width, Height, Centered, Rotation);
+                Instance.Draw(UIScale, X, Y, Width, Height, Centered, Rotation, OriginOffset);
             }
         }
     }

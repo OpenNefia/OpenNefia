@@ -17,6 +17,7 @@ namespace OpenNefia.Content.Inventory
     {
         [Dependency] private readonly IVerbSystem _verbSystem = default!;
         [Dependency] private readonly IUserInterfaceManager _uiManager = default!;
+        [Dependency] private readonly IMessage _mes = default!;
 
         public override HspIdsInv HspIds { get; } = HspIdsInv.From122(new(id: 1));
 
@@ -62,12 +63,12 @@ namespace OpenNefia.Content.Inventory
             if (pickable.IsNoDrop)
             {
                 pickable.IsNoDrop = false;
-                Mes.Display(Loc.GetString("Elona.Inventory.Behavior.Examine.NoDrop.Unset", ("entity", item)));
+                _mes.Display(Loc.GetString("Elona.Inventory.Behavior.Examine.NoDrop.Unset", ("entity", item)));
             }
             else
             {
                 pickable.IsNoDrop = true;
-                Mes.Display(Loc.GetString("Elona.Inventory.Behavior.Examine.NoDrop.Set", ("entity", item)));
+                _mes.Display(Loc.GetString("Elona.Inventory.Behavior.Examine.NoDrop.Set", ("entity", item)));
             }
 
             layer.RefreshList(InventoryRefreshListKind.Redisplay);

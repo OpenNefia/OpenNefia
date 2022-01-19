@@ -107,41 +107,6 @@ namespace OpenNefia.Content.UI.Element
             Child = child;
         }
 
-        /// <param name="inputSize">Preferred size of the child element to be fitted.</param>
-        /// <param name="outputSize">Size of the parent box to fit the child in.</param>
-        /// <returns>The portion of the child element to display, and the portion in the
-        /// parent to display the child in.</returns>
-        public static FittedSizes ApplyBoxFit(UiBoxFit fit, Vector2 inputSize, Vector2 outputSize)
-        {
-            if (inputSize.X <= 0 || inputSize.Y <= 0 || outputSize.X <= 0 || outputSize.Y <= 0)
-                return new FittedSizes(Vector2.Zero, Vector2.Zero);
-
-            Vector2 sourceSize;
-            Vector2 destinationSize;
-
-            switch (fit)
-            {
-                case UiBoxFit.Contain:
-                    sourceSize = inputSize;
-                    if (outputSize.X / outputSize.Y > sourceSize.X / sourceSize.Y)
-                    {
-                        destinationSize = new(sourceSize.X * outputSize.Y / sourceSize.Y, outputSize.Y);
-                    }
-                    else
-                    {
-                        destinationSize = new(outputSize.X, sourceSize.Y * outputSize.X / sourceSize.X);
-                    }
-                    break;
-                case UiBoxFit.None:
-                default:
-                    sourceSize = new(MathF.Min(inputSize.X, outputSize.X), MathF.Min(inputSize.Y, outputSize.Y));
-                    destinationSize = sourceSize;
-                    break;
-            }
-
-            return new FittedSizes(sourceSize, destinationSize);
-        }
-
         public override void SetSize(float width, float height)
         {
             base.SetSize(width, height);
@@ -160,7 +125,7 @@ namespace OpenNefia.Content.UI.Element
                 return;
 
             Child.GetPreferredSize(out var preferredChildSize);
-            var fitted = ApplyBoxFit(BoxFit, preferredChildSize, Size);
+            var fitted = UiUtils.ApplyBoxFit(BoxFit, preferredChildSize, Size);
             var aligned = Alignment.Inscribe(fitted.DestinationSize, Rect);
 
             Child.SetPosition(aligned.Left, aligned.Top);

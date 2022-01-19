@@ -37,6 +37,9 @@
 
             common.AddFunction(EngineKeyFunctions.UINextPage);
             common.AddFunction(EngineKeyFunctions.UIPreviousPage);
+            common.AddFunction(EngineKeyFunctions.UINextTab);
+            common.AddFunction(EngineKeyFunctions.UIPreviousTab);
+            common.AddFunction(EngineKeyFunctions.Backlog);
 
             common.AddFunction(EngineKeyFunctions.TextCursorLeft);
             common.AddFunction(EngineKeyFunctions.TextCursorRight);

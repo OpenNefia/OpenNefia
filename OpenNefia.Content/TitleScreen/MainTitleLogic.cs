@@ -26,6 +26,7 @@ using System.Linq;
 using OpenNefia.Content.Maps;
 using OpenNefia.Content.ConfigMenu;
 using OpenNefia.Core.Configuration;
+using OpenNefia.Content.UI.Hud;
 using OpenNefia.Content.DisplayName;
 using System.Numerics;
 using OpenNefia.Core.Audio;
@@ -53,6 +54,8 @@ namespace OpenNefia.Content.TitleScreen
         [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
         [Dependency] private readonly ICharaMakeLogic _charaMakeLogic = default!;
         [Dependency] private readonly IConfigurationManager _config = default!;
+        [Dependency] private readonly IHudLayer _hud = default!;
+        [Dependency] private readonly IMessage _mes = default!;
 
         private void Startup()
         {
@@ -190,9 +193,9 @@ namespace OpenNefia.Content.TitleScreen
             // copied from CommonCommandsSystem
             _saveGameSerializer.SaveGame(save);
             Sounds.Play(Sound.Write1);
-            Mes.Display(Loc.GetString("Elona.UserInterface.Save.QuickSave"));
+            _mes.Display(Loc.GetString("Elona.UserInterface.Save.QuickSave"));
 
-            _uiManager.Query(_fieldLayer);
+            QueryFieldLayer();
 
             _saveGameManager.CurrentSave = null;
         }
@@ -206,11 +209,22 @@ namespace OpenNefia.Content.TitleScreen
 
             _mapManager.RefreshVisibility(map);
 
-            _uiManager.Query(_fieldLayer);
+            QueryFieldLayer();
 
             _mapManager.UnloadMap(map.Id);
 
             _saveGameManager.CurrentSave = null;
+        }
+
+        private void QueryFieldLayer()
+        {
+            _hud.Initialize();
+            var hudLayer = (UiLayer)_hud;
+            hudLayer.ZOrder = HudLayer.HudZOrder;
+            _uiManager.PushLayer(hudLayer);
+            _uiManager.Query(_fieldLayer);
+            _hud.ClearWidgets();
+            _uiManager.PopLayer(hudLayer);
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Love;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Log;
+using OpenNefia.Core.UI.Element;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,21 +10,21 @@ using System.Threading.Tasks;
 
 namespace OpenNefia.Core.Rendering
 {
-    public class TileAtlasBatch : IDisposable
+    public class TileAtlasBatch : BaseDrawable
     {
         private string _atlasName { get; }
         private TileAtlas _atlas { get; set; }
         private SpriteBatch _batch { get; set; }
-        public int PixelWidth { get; private set; }
-        public int PixelHeight { get; private set; }
+        public int BatchPixelWidth { get; private set; }
+        public int BatchPixelHeight { get; private set; }
 
         public TileAtlasBatch(string atlasName)
         {
             _atlasName = atlasName;
             _atlas = IoCManager.Resolve<ITileAtlasManager>().GetAtlas(atlasName);
             _batch = Love.Graphics.NewSpriteBatch(_atlas.Image, 2048, SpriteBatchUsage.Dynamic);
-            PixelWidth = 0;
-            PixelHeight = 0;
+            BatchPixelWidth = 0;
+            BatchPixelHeight = 0;
         }
 
         public void OnThemeSwitched()
@@ -83,8 +84,8 @@ namespace OpenNefia.Core.Rendering
 
             this._batch.Add(tile.Quad, x, y, MathUtil.DegreesToRadians(rotation), sx, sy, ox, oy);
 
-            PixelWidth = Math.Max(PixelWidth, (int)x + ttw);
-            PixelHeight = Math.Max(PixelHeight, (int)y + tth);
+            this.BatchPixelWidth = Math.Max(this.BatchPixelWidth, x + ttw);
+            this.BatchPixelHeight = Math.Max(this.BatchPixelHeight, y + tth);
         }
 
         public void Flush() => this._batch.Flush();
@@ -94,19 +95,29 @@ namespace OpenNefia.Core.Rendering
         public void Clear()
         {
             this._batch.Clear();
-            this.PixelWidth = 0;
-            this.PixelHeight = 0;
+            this.BatchPixelWidth = 0;
+            this.BatchPixelHeight = 0;
         }
 
+        public override void Draw()
+        {
+            Love.Graphics.Draw(_batch, X, Y, sx: (float)Width / (float)BatchWidth, sy: (float)Height/ (float)BatchHeight);
+        }
+
+        [Obsolete("Use new Draw() function.")]
         public void Draw(float uiScale, float x, float y, float? width = null, float? height = null)
         {
             Love.Graphics.SetColor(Love.Color.White);
             GraphicsEx.DrawSpriteBatchS(uiScale, this._batch, x, y, width, height);
         }
 
-        public void Dispose()
+        public override void Dispose()
         {
             this._batch.Dispose();
+        }
+
+        public override void Update(float dt)
+        {
         }
     }
 }

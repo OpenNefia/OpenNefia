@@ -15,7 +15,7 @@ namespace OpenNefia.Content.ConfigMenu.UICell
 
         public override void HandleChanged(int delta)
         {
-            CurrentValue = Math.Clamp(CurrentValue + delta * MenuNode.Step, MenuNode.Min, MenuNode.Max);
+            CurrentValue = Math.Clamp(CurrentValue + (delta * MenuNode.Step), MenuNode.Min, MenuNode.Max);
         }
 
         public override void RefreshConfigValueDisplay()

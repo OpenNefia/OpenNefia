@@ -24,11 +24,11 @@ namespace OpenNefia.Content.UI.Element.Containers
     }
     public class UiContainerEntry
     {
-        public UiElement? Element { get; set; }
+        public IUiElement? Element { get; set; }
         public LayoutType Type { get; set;}
         public int Offset { get; set; }
 
-        public UiContainerEntry(UiElement uiElement)
+        public UiContainerEntry(IUiElement uiElement)
         {
             Element = uiElement;
             Type = LayoutType.Element;
@@ -132,16 +132,6 @@ namespace OpenNefia.Content.UI.Element.Containers
         {
             Clear();
             base.Dispose();
-        }
-
-        public override void Localize(LocaleKey key)
-        {
-            base.Localize(key);
-            foreach (var entry in Entries)
-            {
-                if (entry.Element != null)
-                    entry.Element.Localize(key);
-            }
         }
     }
 }

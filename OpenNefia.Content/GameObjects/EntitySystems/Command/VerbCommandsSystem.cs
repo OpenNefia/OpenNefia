@@ -28,6 +28,7 @@ namespace OpenNefia.Content.GameObjects
         [Dependency] private readonly IEntityLookup _lookup = default!;
         [Dependency] private readonly IVerbSystem _verbSystem = default!;
         [Dependency] private readonly IUserInterfaceManager _uiMgr = default!;
+        [Dependency] private readonly IMessage _mes = default!;
 
         public override void Initialize()
         {
@@ -44,12 +45,12 @@ namespace OpenNefia.Content.GameObjects
 
         private TurnResult? CommandClose(IGameSessionManager? session)
         {
-            Mes.Display(Loc.GetString("Elona.Door.QueryClose"));
+            _mes.Display(Loc.GetString("Elona.Door.QueryClose"));
 
             var dir = _uiMgr.Query<DirectionPrompt, DirectionPrompt.Args, DirectionPrompt.Result>(new(session!.Player));
             if (!dir.HasValue)
             {
-                Mes.Display(Loc.GetString("Elona.Common.ItIsImpossible"));
+                _mes.Display(Loc.GetString("Elona.Common.ItIsImpossible"));
                 return TurnResult.Aborted;
             }
 
@@ -60,7 +61,7 @@ namespace OpenNefia.Content.GameObjects
 
             if (!targets.Any())
             {
-                Mes.Display(Loc.GetString("Elona.Door.Close.NothingToClose"));
+                _mes.Display(Loc.GetString("Elona.Door.Close.NothingToClose"));
                 return TurnResult.Aborted;
             }
 

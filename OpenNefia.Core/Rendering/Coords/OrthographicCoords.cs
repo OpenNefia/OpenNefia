@@ -32,11 +32,8 @@ namespace OpenNefia.Core.Rendering
 
         public Vector2i BoundDrawPosition(Vector2i screenPos, Vector2i tiledSize, Vector2i viewportSize)
         {
-            var mapScreenWidth = tiledSize.X * TileSize.X;
-            var mapScreenHeight = tiledSize.Y * TileSize.Y;
-
-            var maxX = Math.Max(mapScreenWidth - viewportSize.X, 0);
-            var maxY = Math.Max(mapScreenHeight - viewportSize.Y, 0);
+            var maxX = Math.Max(tiledSize.X - viewportSize.X, 0);
+            var maxY = Math.Max(tiledSize.Y - viewportSize.Y, 0);
 
             return new(Math.Clamp(-screenPos.X + viewportSize.X / 2, -maxX, 0),
                        Math.Clamp(-screenPos.Y + viewportSize.Y / 2, -maxY, 0));

@@ -30,6 +30,12 @@ namespace OpenNefia.Content.UI
 
         public static readonly FontSpec TextNote = new(12, 10, style: FontStyle.Bold); // 12 + sizefix - en * 2
 
+        public static readonly FontSpec MessageText = new(14, 14);
+        public static readonly FontSpec HUDTabText = new(14, 12, color: UiColors.TextWhite, bgColor: UiColors.TextBlack);
+        public static readonly FontSpec HUDBarText = new(10, 10, color: UiColors.TextWhite, bgColor: UiColors.TextBlack);
+        public static readonly FontSpec HUDInfoText = new(11, 11, color: UiColors.TextWhite, bgColor: UiColors.TextBlack);
+        public static readonly FontSpec HUDSkillText = new(11, 11);
+
         public static readonly FontSpec PromptText = new(16, 14, color: UiColors.TextWhite, bgColor: UiColors.TextBlack);
         public static readonly FontSpec TargetText = new(14, 12, color: UiColors.TextWhite, bgColor: UiColors.TextBlack);
 
