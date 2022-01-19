@@ -16,23 +16,23 @@ namespace OpenNefia.Content.Journal
     {
         [Dependency] private readonly IHudLayer _hud = default!;
 
-        public override void TabEnter()
+        public override void OnQuery()
         {
-            base.TabEnter();
-            _hud.ToggleBacklog(true);
+            base.OnQuery();
+            _hud.Backlog.ToggleBacklog(visible: true);
             Sounds.Play(Protos.Sound.Log);
         }
 
-        public override void TabExit()
+        public override void OnQueryFinish()
         {
-            base.TabExit();
-            _hud.ToggleBacklog(false);
+            base.OnQueryFinish();
+            _hud.Backlog.ToggleBacklog(visible: false);
         }
 
         protected override void OnKeyDown(GUIBoundKeyEventArgs args)
         {
             base.OnKeyDown(args);
-            if (args.Function == EngineKeyFunctions.UIBacklog)
+            if (args.Function == EngineKeyFunctions.Backlog)
                 Cancel();
         }
     }

@@ -28,6 +28,12 @@ namespace OpenNefia.Content.UI.Element
         private Love.SpriteBatch? SideBatch = default!;
         private Love.SpriteBatch? CornerBatch = default!;
         private MessageBackingType Type;
+
+        private const string TopBarName = "topBar";
+        private const string BodyName = "body";
+        private const string BottomBarName = "bottomBar";
+        private const string CornerName = "corner";
+
         public UiMessageWindowBacking(MessageBackingType type = MessageBackingType.Default)
         {
             Type = type;
@@ -49,29 +55,29 @@ namespace OpenNefia.Content.UI.Element
                 default:
                     for (int x = 0; x < Width / MessageBoxWidth; x++)
                     {
-                        parts.Add(new AssetBatchPart("topBar", (x * MessageBoxWidth), 0));
-                        parts.Add(new AssetBatchPart("body", (x * MessageBoxWidth), 5));
-                        parts.Add(new AssetBatchPart("bottomBar", (x * MessageBoxWidth), 5 + 62));
+                        parts.Add(new AssetBatchPart(TopBarName, (x * MessageBoxWidth), 0));
+                        parts.Add(new AssetBatchPart(BodyName, (x * MessageBoxWidth), 5));
+                        parts.Add(new AssetBatchPart(BottomBarName, (x * MessageBoxWidth), 5 + 62));
                     }
                     break;
                 case MessageBackingType.Expanded:
                     for (int x = 0; x < Width / MessageBoxWidth; x++)
                     {
-                        parts.Add(new AssetBatchPart("topBar", (x * MessageBoxWidth), 0));
+                        parts.Add(new AssetBatchPart(TopBarName, (x * MessageBoxWidth), 0));
                         for (int y = 0; y < Height / MessageBoxHeight; y++)
                         {
-                            parts.Add(new AssetBatchPart("body", (x * MessageBoxWidth), 5 + (62 * y)));
+                            parts.Add(new AssetBatchPart(BodyName, (x * MessageBoxWidth), 5 + (62 * y)));
                         }
                     }
                     var sideParts = new List<AssetBatchPart>();
                     for (int y = 0; y < GetSideCount(); y++)
                     {
-                        sideParts.Add(new AssetBatchPart("topBar", y * MessageBoxWidth, 0));
+                        sideParts.Add(new AssetBatchPart(TopBarName, y * MessageBoxWidth, 0));
                     }
                     SideBatch = MessageWindowAsset.MakeBatch(sideParts);
                     var corner = new List<AssetBatchPart>
                     {
-                        new AssetBatchPart("corner", 0, 0)
+                        new AssetBatchPart(CornerName, 0, 0)
                     };
                     CornerBatch = MessageWindowAsset.MakeBatch(corner);
                     break;

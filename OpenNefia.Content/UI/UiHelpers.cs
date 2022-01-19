@@ -12,9 +12,9 @@ namespace OpenNefia.Content.UI
 {
     public static class UiHelpers
     {
-        public class DrawEntry : IDisposable
+        public class UiBarDrawableState : IDisposable
         {
-            public DrawEntry(IAssetInstance assetInstance, float hpRatio, Vector2 screenPos)
+            public UiBarDrawableState(IAssetInstance assetInstance, float hpRatio, Vector2 screenPos)
             {
                 Asset = assetInstance;
                 HPRatio = hpRatio;
@@ -80,7 +80,7 @@ namespace OpenNefia.Content.UI
             }
         }
 
-        public static void DrawPercentageBar(DrawEntry entry, Vector2 pos, float barWidth, Vector2 drawSize)
+        public static void DrawPercentageBar(UiBarDrawableState entry, Vector2 pos, float barWidth, Vector2 drawSize)
         {
             var size = entry.Asset.Size;
             var lastWidth = barWidth;

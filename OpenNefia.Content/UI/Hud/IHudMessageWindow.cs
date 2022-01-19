@@ -1,4 +1,5 @@
-﻿using OpenNefia.Core.Maths;
+﻿using OpenNefia.Content.Hud;
+using OpenNefia.Core.Maths;
 
 namespace OpenNefia.Content.UI.Hud
 {

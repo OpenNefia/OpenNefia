@@ -72,6 +72,9 @@ namespace OpenNefia.Content.ConfigMenu
 
         [DataField]
         public int Max { get; } = int.MaxValue;
+
+        [DataField]
+        public int Step { get; } = 1;
     }
 
     public sealed class ConfigBoolMenuNode : IConfigCVarMenuNode<bool>

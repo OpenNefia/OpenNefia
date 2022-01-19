@@ -199,9 +199,28 @@ binds:
   canFocus: true
   canRepeat: true
   repeatMode: UserInterface
+- function: UINextTab
+  type: State
+  key: Tab
+  canFocus: true
+  canRepeat: true
+  repeatMode: UserInterface
+- function: UINextTab
+  type: State
+  key: Tab
+  canFocus: true
+  canRepeat: true
+  repeatMode: UserInterface
 - function: UIPreviousTab
   type: State
   key: Numpad7
+  canFocus: true
+  canRepeat: true
+  repeatMode: UserInterface
+- function: UIPreviousTab
+  type: State
+  key: Tab
+  mod1: Control
   canFocus: true
   canRepeat: true
   repeatMode: UserInterface
@@ -229,9 +248,15 @@ binds:
   canFocus: true
   canRepeat: true
   repeatMode: None
-- function: UIBacklog
+- function: Backlog
   type: State
   key: NumpadDivide
+  canFocus: true
+  canRepeat: true
+  repeatMode: None
+- function: Backlog
+  type: State
+  key: Slash
   canFocus: true
   canRepeat: true
   repeatMode: None

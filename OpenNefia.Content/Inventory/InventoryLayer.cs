@@ -211,12 +211,6 @@ namespace OpenNefia.Content.Inventory
             UpdateFiltering();
         }
 
-        public override void TabEnter()
-        {
-            base.TabEnter();
-            Sounds.Play(Protos.Sound.Inv);
-        }
-
         public override void GrabFocus()
         {
             base.GrabFocus();

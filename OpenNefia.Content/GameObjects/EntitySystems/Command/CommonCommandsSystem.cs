@@ -52,7 +52,7 @@ namespace OpenNefia.Content.GameObjects
                 .Bind(EngineKeyFunctions.ShowEscapeMenu, InputCmdHandler.FromDelegate(ShowEscapeMenu))
                 .Bind(EngineKeyFunctions.QuickSaveGame, InputCmdHandler.FromDelegate(QuickSaveGame))
                 .Bind(EngineKeyFunctions.QuickLoadGame, InputCmdHandler.FromDelegate(QuickLoadGame))
-                .Bind(EngineKeyFunctions.UIBacklog, InputCmdHandler.FromDelegate(ShowBacklog))
+                .Bind(EngineKeyFunctions.Backlog, InputCmdHandler.FromDelegate(ShowBacklog))
                 .Register<CommonCommandsSystem>();
         }
 
@@ -153,7 +153,7 @@ namespace OpenNefia.Content.GameObjects
         private TurnResult? ShowBacklog(IGameSessionManager? session)
         {
             var context = new JournalUiGroupArgs(JournalGroupUiArgs.LogTab.Backlog);
-            _uiManager.Query<JournalUiGroup, JournalUiGroupArgs, UINone>(context);
+            _uiManager.Query<JournalUiGroup, JournalUiGroupArgs>(context);
 
             return TurnResult.Aborted;
         }
