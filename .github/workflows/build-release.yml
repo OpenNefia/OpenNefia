@@ -1,14 +1,13 @@
-name: Publish Release
+name: Build Release
 
 on:
-  push:
+  pull_request:
     tags:
     - 'v*'
 
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v2
       with:
@@ -21,8 +20,3 @@ jobs:
 
     - name: Package release
       run: ./build.sh -t PackageFullRelease -- --runtime win-x64
-
-    - uses: ncipollo/release-action@v1
-      with:
-        artifacts: "release/OpenNefia-win-x64.zip"
-        token: ${{ secrets.GITHUB_TOKEN }}
