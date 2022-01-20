@@ -43,13 +43,6 @@ namespace OpenNefia.Packaging.Tasks
 
         public override void Run(BuildContext context)
         {
-            var gitRoot = context.GitFindRootFromPath(context.Environment.WorkingDirectory);
-            if (gitRoot == null)
-            {
-                context.Log.Error("Git repository root not found in any parent directory.");
-                return;
-            }
-
             if (Directory.Exists(Constants.OutputDir))
             {
                 context.Log.Information("Clearing old output folder...");
@@ -60,9 +53,7 @@ namespace OpenNefia.Packaging.Tasks
 
             var entryPointOutput = Utility.GetProjectOutputDir("OpenNefia.EntryPoint", context);
 
-            var commitHash = context.GitCommitHash(gitRoot);
-
-            var distribName = $"OpenNefia-{commitHash}-{context.Runtime}";
+            var distribName = $"OpenNefia-{context.Runtime}";
             var zipName = $"{distribName}.zip";
             var zipPath = Path.Combine(Constants.OutputDir, zipName);
 
