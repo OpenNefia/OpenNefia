@@ -93,7 +93,6 @@ namespace OpenNefia.Content.Journal
             if (icon is not AssetDrawable iconAsset)
                 return null;
 
-            iconAsset.OriginOffset = (-12, -32);
             return iconAsset;
         }
 

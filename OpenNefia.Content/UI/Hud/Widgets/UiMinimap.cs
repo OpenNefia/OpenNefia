@@ -81,7 +81,6 @@ namespace OpenNefia.Content.Hud
                 float y = Height * ((float)PlayerCoords.Value.Y / MapSize.Y);
                 PlayerIcon.Draw(UIScale, X + x, Y + y, centered: true);
             }
-            UiUtils.DebugDraw(this);
         }
 
         public override void Update(float dt)

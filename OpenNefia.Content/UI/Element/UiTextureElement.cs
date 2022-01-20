@@ -28,7 +28,6 @@ namespace OpenNefia.Content.UI.Element
 
         public override void Draw()
         {
-            UiUtils.DebugDraw(this);
             Love.Graphics.SetColor(Love.Color.White);
             GraphicsEx.DrawImageS(UIScale, InnerTexture, X, Y, Width, Height);
         }

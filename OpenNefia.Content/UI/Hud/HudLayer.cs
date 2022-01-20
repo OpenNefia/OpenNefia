@@ -190,8 +190,9 @@ namespace OpenNefia.Content.UI.Hud
                 };
                 widget.Widget.SetPosition(anchor.X + widget.Position.X, anchor.Y + widget.Position.Y);
             }
-            
-            FpsCounter.SetPosition(Width - FpsCounter.Text.Width - 5, 5);
+
+            FpsCounter.Update(0); // so that TextWidth is available
+            FpsCounter.SetPosition(Width - FpsCounter.Text.TextWidth - 5, 5);
             MessageBoxBacking.SetPosition(0, Height - HudMinimapWidget.MinimapHeight);
             HudBar.SetPosition(0, Height - 18);
             BacklogBacking.SetPosition(127, Height - 467);

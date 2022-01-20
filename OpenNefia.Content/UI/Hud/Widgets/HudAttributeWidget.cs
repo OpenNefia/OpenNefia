@@ -14,6 +14,7 @@ using OpenNefia.Core.Prototypes;
 using System.Drawing;
 using OpenNefia.Core.Stats;
 using OpenNefia.Core.Rendering;
+using OpenNefia.Core.UI;
 
 namespace OpenNefia.Content.Hud
 {
@@ -37,7 +38,7 @@ namespace OpenNefia.Content.Hud
 
         public HudSkillIconType Type { get; }
         private IAssetInstance SkillIcons;
-        private UiText UiText;
+        [Child] private UiText UiText;
 
         public HudAttributeWidget(HudSkillIconType type)
         {

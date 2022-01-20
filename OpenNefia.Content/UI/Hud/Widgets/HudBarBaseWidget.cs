@@ -39,7 +39,7 @@ namespace OpenNefia.Content.Hud
         public override void SetPosition(float x, float y)
         {
             base.SetPosition(x, y);
-            UiText.SetPosition(X + 20, X - 7);
+            UiText.SetPosition(X + 20, Y - 7);
         }
 
         protected void RefreshBarState()
