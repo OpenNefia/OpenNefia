@@ -79,9 +79,9 @@ namespace OpenNefia.Packaging.Tasks
                     AllowEmptyCommit = true
                 };
                 repository.Commit($"Version: {versionTag}", sig, sig, commitOpts);
-            }
 
-            context.GitTag(gitRoot, versionTag);
+                repository.ApplyTag(versionTag, sig, versionTag);
+            }
 
             context.Log.Information($"Tagged version {versionTag}");
         }

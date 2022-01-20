@@ -4,6 +4,8 @@ using Cake.Common.Tools.DotNet;
 using Cake.Common.Tools.DotNet.MSBuild;
 using Cake.Common.Tools.DotNet.Build;
 using Cake.Core.IO.Arguments;
+using Cake.Git;
+using Cake.Core.Diagnostics;
 
 namespace OpenNefia.Packaging.Tasks
 {
@@ -12,6 +14,17 @@ namespace OpenNefia.Packaging.Tasks
     {
         public override void Run(BuildContext context)
         {
+            var gitRoot = context.GitFindRootFromPath(context.Environment.WorkingDirectory);
+            if (gitRoot == null)
+            {
+                throw new InvalidOperationException("Git repository root not found in any parent directory.");
+            }
+
+            if (context.GitHasUncommitedChanges(gitRoot))
+            {
+                throw new InvalidOperationException("Uncommited changes detected; commit them first before running this task.");
+            }
+
             var dotNetSettings = new DotNetMSBuildSettings()
             {
                 NoLogo = true,
@@ -26,6 +39,7 @@ namespace OpenNefia.Packaging.Tasks
 
             dotNetSettings.Targets.Add("Rebuild");
             dotNetSettings.Properties["FullRelease"] = new List<string> { "True" };
+            dotNetSettings.Properties["SourceRevisionId"] = new List<string> { context.GitLogTip(gitRoot.FullPath).Sha };
 
             var settings = new DotNetBuildSettings
             {
