@@ -39,6 +39,9 @@ namespace OpenNefia.Content.UI.Element
 
         private int GetSideCount()
         {
+            // This really is height divided by width, because the
+            // size of the asset gets rotated 90 degrees when drawing
+            // the side of the message window.
             return PixelHeight / AssetMessageWindow.PixelWidth;
         }
 
@@ -49,6 +52,7 @@ namespace OpenNefia.Content.UI.Element
 
             AssetMessageWindow = Assets.Get(Protos.Asset.MessageWindow);
             var mboxPixelWidth = AssetMessageWindow.PixelWidth;
+            var mboxPixelHeight = AssetMessageWindow.PixelHeight;
 
             switch (Type)
             {
@@ -64,7 +68,7 @@ namespace OpenNefia.Content.UI.Element
                     for (int x = 0; x < PixelWidth / mboxPixelWidth; x++)
                     {
                         parts.Add(new AssetBatchPart(TopBarName, (x * mboxPixelWidth), 0));
-                        for (int y = 0; y < PixelHeight / mboxPixelWidth; y++)
+                        for (int y = 0; y < PixelHeight / mboxPixelHeight; y++)
                         {
                             parts.Add(new AssetBatchPart(BodyName, (x * mboxPixelWidth), 5 + (62 * y)));
                         }
@@ -73,6 +77,7 @@ namespace OpenNefia.Content.UI.Element
                     var sideParts = new List<AssetBatchPart>();
                     for (int y = 0; y < GetSideCount(); y++)
                     {
+                        // This is rotated to be vertical later.
                         sideParts.Add(new AssetBatchPart(TopBarName, y * mboxPixelWidth, 0));
                     }
 
@@ -103,7 +108,7 @@ namespace OpenNefia.Content.UI.Element
                 GraphicsS.DrawS(UIScale,
                     SideBatch,
                     X,
-                    Y + (GetSideCount() * AssetMessageWindow.VirtualWidth(UIScale)),
+                    Y + (GetSideCount() * AssetMessageWindow.PixelWidth),
                     (float)Angle.FromDegrees(-90).Theta);
             }
 

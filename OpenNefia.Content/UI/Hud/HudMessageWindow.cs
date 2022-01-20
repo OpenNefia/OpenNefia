@@ -218,7 +218,7 @@ namespace OpenNefia.Content.UI.Hud
 
             foreach (var line in backlogLines)
             {
-                line.SetOpacities(Convert.ToByte(255 * Math.Pow(MessageFadeAmount, 2)));
+                line.SetOpacities(Convert.ToByte(255));
                 if (lineIndex >= MessageBoxLines + BacklogLines)
                     break;
                 BacklogContainer.AddElement(line);
