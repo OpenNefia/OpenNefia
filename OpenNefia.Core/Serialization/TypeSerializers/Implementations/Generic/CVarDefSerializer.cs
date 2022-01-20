@@ -42,7 +42,7 @@ namespace OpenNefia.Core.Serialization.TypeSerializers.Implementations.Generic
         {
             var configManager = dependencies.Resolve<IConfigurationManager>();
 
-            DebugTools.Assert(configManager.TryGetCVarDef<T>(node.Value, out var cVarDef));
+            configManager.TryGetCVarDef<T>(node.Value, out var cVarDef);
             return new DeserializedValue<CVarDef<T>>(cVarDef!);
         }
 
@@ -86,7 +86,7 @@ namespace OpenNefia.Core.Serialization.TypeSerializers.Implementations.Generic
         {
             var configManager = dependencies.Resolve<IConfigurationManager>();
 
-            DebugTools.Assert(configManager.TryGetCVarDef(node.Value, out var cVarDef));
+            configManager.TryGetCVarDef(node.Value, out var cVarDef);
             return new DeserializedValue<CVarDef>(cVarDef!);
         }
 
