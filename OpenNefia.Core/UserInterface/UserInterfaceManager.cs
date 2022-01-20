@@ -1,4 +1,5 @@
-﻿using OpenNefia.Core.GameController;
+﻿using OpenNefia.Core.Configuration;
+using OpenNefia.Core.GameController;
 using OpenNefia.Core.Graphics;
 using OpenNefia.Core.Input;
 using OpenNefia.Core.IoC;
@@ -25,6 +26,7 @@ namespace OpenNefia.Core.UserInterface
         [Dependency] private readonly IInputManager _inputManager = default!;
         [Dependency] private readonly IGraphics _graphics = default!;
         [Dependency] private readonly ILocalizationManager _loc = default!;
+        [Dependency] private readonly IConfigurationManager _config = default!;
 
         /// <inheritdoc/>
         public UiElement? KeyboardFocused { get; private set; }
@@ -42,6 +44,7 @@ namespace OpenNefia.Core.UserInterface
         {
             _inputManager.UIKeyBindStateChanged += OnUIKeyBindStateChanged;
             _graphics.OnWindowResized += HandleWindowResized;
+            _graphics.OnWindowScaleChanged += HandleWindowScaleChanged;
         }
 
         public void InitializeTesting()
@@ -55,7 +58,7 @@ namespace OpenNefia.Core.UserInterface
         /// <inheritdoc/>
         public Vector2? CalcRelativeMousePositionFor(UiElement control, ScreenCoordinates mousePos)
         {
-            return mousePos.Position - control.GlobalPixelPosition;
+            return mousePos.Position - control.PixelPosition;
         }
 
         public void GrabKeyboardFocus(UiElement control)
@@ -133,7 +136,7 @@ namespace OpenNefia.Core.UserInterface
             for (var i = control.ChildCount - 1; i >= 0; i--)
             {
                 var child = control.GetChild(i);
-                if (!child.Visible || !child.GlobalPixelBounds.Contains((Vector2i)position))
+                if (!child.Visible || !child.PixelRect.Contains((Vector2i)position))
                 {
                     continue;
                 }

@@ -7,9 +7,8 @@ using OpenNefia.Core.UI.Element;
 
 namespace OpenNefia.Content.Inventory
 {
-    public class EntitySpriteBatch : BaseDrawable
+    public class EntitySpriteBatch : UiElement
     {
-        [Dependency] private readonly ITileAtlasManager _tileAtlasManager = default!;
         [Dependency] private readonly IEntityMemorySystem _entityMemory = default!;
 
         private class Entry 
@@ -74,12 +73,12 @@ namespace OpenNefia.Content.Inventory
 
             foreach (var entry in _entries)
             {
-                _atlasBatch.Add(entry.Memory.AtlasIndex, entry.X, entry.Y, entry.Width, entry.Height, 
+                _atlasBatch.Add(1f, entry.Memory.AtlasIndex, entry.X, entry.Y, entry.Width, entry.Height, 
                     entry.Color, entry.Centered, entry.Rotation);
             }
 
             _atlasBatch.Flush();
-            _atlasBatch.Draw(X, Y, Width, Height);
+            _atlasBatch.Draw(UIScale, X, Y, Width, Height);
         }
     }
 }

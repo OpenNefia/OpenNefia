@@ -10,6 +10,7 @@ using OpenNefia.Core.Log;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Stats;
+using OpenNefia.Core.UI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,9 +25,16 @@ namespace OpenNefia.Content.CharaMake
         [Dependency] private readonly IFeatsSystem _feats = default!;
 
         public const string ResultName = "feats";
-        private FeatWindow FeatWindow = default!;
+
         private readonly Dictionary<PrototypeId<FeatPrototype>, int> SelectedFeats = new();
         private int FeatCount;
+
+        [Child] private FeatWindow FeatWindow;
+
+        public CharaMakeFeatWindowLayer()
+        {
+            FeatWindow = new FeatWindow(() => SelectedFeats, AddFeat, () => FeatCount);
+        }
 
         public override void Initialize(CharaMakeData args)
         {
@@ -52,7 +60,6 @@ namespace OpenNefia.Content.CharaMake
 
         private void Reset()
         {
-            FeatWindow?.Dispose();
             SelectedFeats.Clear();
             FeatCount = 3;
             if (Data.TryGetValue(CharaMakeRaceSelectLayer.ResultName, out RacePrototype? race))
@@ -60,8 +67,7 @@ namespace OpenNefia.Content.CharaMake
                 foreach (var feat in race.InitialFeats)
                     SelectedFeats[feat.Key] = feat.Value;
             }
-            FeatWindow = new FeatWindow(() => SelectedFeats, AddFeat, () => FeatCount);
-            AddChild(FeatWindow);
+            FeatWindow.Initialize();
         }
 
         public override void OnQuery()
@@ -70,7 +76,7 @@ namespace OpenNefia.Content.CharaMake
             Sounds.Play(Protos.Sound.Feat);
         }
 
-        public override void GetPreferredBounds(out UIBox2i bounds)
+        public override void GetPreferredBounds(out UIBox2 bounds)
         {
             FeatWindow.GetPreferredSize(out var size);
             UiUtils.GetCenteredParams(size.X, size.Y, out bounds, yOffset: 10);
@@ -82,13 +88,13 @@ namespace OpenNefia.Content.CharaMake
             FeatWindow.GrabFocus();
         }
 
-        public override void SetSize(int width, int height)
+        public override void SetSize(float width, float height)
         {
             base.SetSize(width, height);
             FeatWindow.SetSize(Width, Height);
         }
 
-        public override void SetPosition(int x, int y)
+        public override void SetPosition(float x, float y)
         {
             base.SetPosition(x, y);
             FeatWindow.SetPosition(X, Y);

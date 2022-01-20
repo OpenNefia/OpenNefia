@@ -37,13 +37,13 @@ namespace OpenNefia.Content.MapVisibility
             _batch.SetMapSize(map.Size);
         }
 
-        public override void SetSize(int width, int height)
+        public override void SetSize(float width, float height)
         {
             base.SetSize(width, height);
             _batch.SetSize(width, height);
         }
 
-        public override void SetPosition(int x, int y)
+        public override void SetPosition(float x, float y)
         {
             base.SetPosition(x, y);
             _batch.SetPosition(x, y);

@@ -15,7 +15,9 @@ namespace OpenNefia.Content.Inventory
         public override HspIdsInv HspIds { get; } = HspIdsInv.From122(new(id: 2));
 
         public override string WindowTitle => Loc.GetString("Elona.Inventory.Behavior.Drop.WindowTitle");
-        public override IUiElement MakeIcon() => InventoryHelpers.MakeIcon(InventoryIcon.Drop);
+        public override UiElement MakeIcon() => InventoryHelpers.MakeIcon(InventoryIcon.Drop);
+
+        public override bool QueryAmount => true;
 
         public override IEnumerable<IInventorySource> GetSources(InventoryContext context)
         {

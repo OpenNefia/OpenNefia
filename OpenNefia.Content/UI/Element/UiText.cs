@@ -7,11 +7,15 @@ using OpenNefia.Core.UI.Element;
 
 namespace OpenNefia.Content.UI.Element
 {
-    public class UiText : UiElement, IUiText
+    public class UiText : UiElement
     {
-        protected Love.Text BakedText;
+        protected Love.Text? BakedText;
 
-        public int TextWidth { get => this.Font.LoveFont.GetWidth(this.Text); }
+        /// <inheritdoc/>
+        public float TextWidth => TextPixelWidth / UIScale;
+
+        /// <inheritdoc/>
+        public int TextPixelWidth { get => Font.LoveFont.GetWidth(Text); }
 
         private FontSpec _font;
         public FontSpec Font
@@ -19,8 +23,8 @@ namespace OpenNefia.Content.UI.Element
             get => _font;
             set
             {
-                this._font = value;
-                this.RebakeText();
+                _font = value;
+                RebakeText();
             }
         }
 
@@ -30,45 +34,53 @@ namespace OpenNefia.Content.UI.Element
             get => _text;
             set
             {
-                this._text = value;
-                this.RebakeText();
+                _text = value;
+                RebakeText();
             }
         }
 
         public Color Color { get; set; }
         public Color BgColor { get; set; }
 
-#pragma warning disable CS8618
-
         public UiText(string text = "") : this(new FontSpec(), text) { }
 
         public UiText(FontSpec font, string text = "")
         {
-            this._text = text;
-            this._font = font ?? throw new ArgumentNullException(nameof(font));
-            this.Color = font.Color;
-            this.BgColor = font.BgColor;
-            this.BakedText = Love.Graphics.NewText(Font.LoveFont, string.Empty);
-            this.RebakeText();
+            _text = text;
+            _font = font ?? throw new ArgumentNullException(nameof(font));
+            Color = font.Color;
+            BgColor = font.BgColor;
+            BakedText = Love.Graphics.NewText(Font.LoveFont, string.Empty);
+            RebakeText();
         }
 
-#pragma warning restore CS8618
+        protected override void UIScaleChanged(GUIScaleChangedEventArgs args)
+        {
+            ReallocateText();
+        }
+
+        private void ReallocateText()
+        {
+            BakedText?.Dispose();
+            BakedText = Love.Graphics.NewText(Font.LoveFont, _text);
+        }
 
         public void RebakeText()
         {
-            this.BakedText.Set(this._text, Color.White);
-            this.SetPreferredSize();
+            BakedText!.Set(_text, Color.White);
+            SetPreferredSize();
         }
 
-        public override void GetPreferredSize(out Vector2i size)
+        public override void GetPreferredSize(out Vector2 size)
         {
-            size.X = this.Font.LoveFont.GetWidth(this.Text);
-            size.Y = this.Font.LoveFont.GetHeight() * this.Text.Split('\n').Length;
+            var numLines = Text.Split('\n').Length;
+            size.X = Font.LoveFont.GetWidthV(UIScale, Text);
+            size.Y = Font.LoveFont.GetHeightV(UIScale) * numLines;
         }
 
         public override void Localize(LocaleKey key)
         {
-            this.Text = Loc.GetString(key);
+            Text = Loc.GetString(key);
         }
 
         public override void Update(float dt)
@@ -77,13 +89,26 @@ namespace OpenNefia.Content.UI.Element
 
         public override void Draw()
         {
-            GraphicsEx.SetColor(this.Color);
-            Love.Graphics.Draw(this.BakedText, this.X, this.Y);
+            GraphicsEx.SetColor(Color);
+            DrawTextInternal(BakedText!, PixelX, PixelY, Font.Style);
+        }
+
+        protected static void DrawTextInternal(Love.Text? text, float x, float y, FontStyle style)
+        {
+            Love.Graphics.Draw(text, x, y);
+
+            switch (style)
+            {
+                case FontStyle.Bold:
+                    Love.Graphics.Draw(text, x+1, y);
+                    break;
+            }
         }
 
         public override void Dispose()
         {
-            this.BakedText.Dispose();
+            BakedText?.Dispose();
+            BakedText = null;
         }
     }
 
@@ -94,13 +119,13 @@ namespace OpenNefia.Content.UI.Element
 
         public override void Draw()
         {
-            GraphicsEx.SetColor(this.BgColor);
+            GraphicsEx.SetColor(BgColor);
             for (int dx = -1; dx <= 1; dx++)
                 for (int dy = -1; dy <= 1; dy++)
-                    Love.Graphics.Draw(this.BakedText, this.X + dx, this.Y + dy);
+                    DrawTextInternal(BakedText, PixelX + dx, PixelY + dy, Font.Style);
 
-            GraphicsEx.SetColor(this.Color);
-            Love.Graphics.Draw(this.BakedText, this.X, this.Y);
+            GraphicsEx.SetColor(Color);
+            DrawTextInternal(BakedText, PixelX, PixelY, Font.Style);
         }
     }
 
@@ -111,11 +136,11 @@ namespace OpenNefia.Content.UI.Element
 
         public override void Draw()
         {
-            GraphicsEx.SetColor(this.BgColor);
-            Love.Graphics.Draw(this.BakedText, this.X + 1, this.Y + 1);
+            GraphicsEx.SetColor(BgColor);
+            DrawTextInternal(BakedText, PixelX + 1, PixelY + 1, Font.Style);
 
-            GraphicsEx.SetColor(this.Color);
-            Love.Graphics.Draw(this.BakedText, this.X, this.Y);
+            GraphicsEx.SetColor(Color);
+            DrawTextInternal(BakedText, PixelX, PixelY, Font.Style);
         }
     }
 
@@ -134,7 +159,7 @@ namespace OpenNefia.Content.UI.Element
             AssetTipIcons = Assets.Get(Protos.Asset.TipIcons);
         }
 
-        public override void GetPreferredSize(out Vector2i size)
+        public override void GetPreferredSize(out Vector2 size)
         {
             base.GetPreferredSize(out size);
             size.X += 26;
@@ -144,11 +169,11 @@ namespace OpenNefia.Content.UI.Element
         public override void Draw()
         {
             Love.Graphics.SetColor(Color.White);
-            AssetTipIcons.DrawRegion("1", X, Y + 7);
+            AssetTipIcons.DrawRegion(UIScale, "1", X, Y + 7);
             Love.Graphics.SetColor(Color);
-            Love.Graphics.Draw(BakedText, X + 26, Y + 8); // y + vfix + 8
+            DrawTextInternal(BakedText, PixelX + 26 * UIScale, PixelY + 8 * UIScale, Font.Style); // y + vfix + 8
             Love.Graphics.SetColor(Color.Black);
-            Love.Graphics.Line(X + 22, Y + 21, X + BakedText.GetWidth() + 36, Y + 21);
+            GraphicsS.LineS(UIScale, X + 22, Y + 21, X + BakedText!.GetWidthV(UIScale) + 36, Y + 21);
         }
     }
 }

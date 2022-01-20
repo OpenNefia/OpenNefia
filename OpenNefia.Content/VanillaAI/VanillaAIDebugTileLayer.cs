@@ -98,7 +98,7 @@ namespace OpenNefia.Content.VanillaAI
                 var entityScreenPos = (Love.Vector2)(_coords.TileToScreen(entry.EntityPos) + _coords.TileSize / 2);
                 var desiredOutline = GetTileOutline(entry.DesiredPos);
 
-                Love.Graphics.Line((Love.Vector2)GlobalPixelPosition + entityScreenPos,
+                Love.Graphics.Line((Love.Vector2)PixelPosition + entityScreenPos,
                                    desiredOutline[0] + (Love.Vector2)_coords.TileSize / 2);
 
                 DrawTileOutline(desiredOutline, ColorLineAlly);
@@ -108,7 +108,7 @@ namespace OpenNefia.Content.VanillaAI
                     Love.Graphics.SetColor(ColorLineEnemy);
                     var targetOutline = GetTileOutline(entry.TargetPos.Value);
 
-                    Love.Graphics.Line((Love.Vector2)GlobalPixelPosition + entityScreenPos,
+                    Love.Graphics.Line((Love.Vector2)PixelPosition + entityScreenPos,
                                        targetOutline[0] + (Love.Vector2)_coords.TileSize / 2);
 
                     DrawTileOutline(targetOutline, ColorLineEnemy);
@@ -119,7 +119,7 @@ namespace OpenNefia.Content.VanillaAI
                     Love.Graphics.SetColor(ColorLineAnchor);
                     var targetOutline = GetTileOutline(entry.AnchorPos.Value);
 
-                    Love.Graphics.Line((Love.Vector2)GlobalPixelPosition + entityScreenPos,
+                    Love.Graphics.Line((Love.Vector2)PixelPosition + entityScreenPos,
                                        targetOutline[0] + (Love.Vector2)_coords.TileSize / 2);
 
                     DrawTileOutline(targetOutline, ColorLineAnchor);
@@ -132,11 +132,11 @@ namespace OpenNefia.Content.VanillaAI
             var outline = new Love.Vector2[5];
 
             // world position is the top-left corner of the screen-space tile
-            outline[0] = (Love.Vector2)(GlobalPixelPosition + _coords.TileToScreen(worldPos));
-            outline[1] = (Love.Vector2)(GlobalPixelPosition + _coords.TileToScreen(worldPos + (1, 0)));
-            outline[2] = (Love.Vector2)(GlobalPixelPosition + _coords.TileToScreen(worldPos + (1, 1)));
-            outline[3] = (Love.Vector2)(GlobalPixelPosition + _coords.TileToScreen(worldPos + (0, 1)));
-            outline[4] = (Love.Vector2)(GlobalPixelPosition + _coords.TileToScreen(worldPos));
+            outline[0] = (Love.Vector2)(PixelPosition + _coords.TileToScreen(worldPos));
+            outline[1] = (Love.Vector2)(PixelPosition + _coords.TileToScreen(worldPos + (1, 0)));
+            outline[2] = (Love.Vector2)(PixelPosition + _coords.TileToScreen(worldPos + (1, 1)));
+            outline[3] = (Love.Vector2)(PixelPosition + _coords.TileToScreen(worldPos + (0, 1)));
+            outline[4] = (Love.Vector2)(PixelPosition + _coords.TileToScreen(worldPos));
 
             return outline;
         }

@@ -16,6 +16,11 @@ namespace OpenNefia.Content.Input
             common.AddFunction(ContentKeyFunctions.UIMode2);
             common.AddFunction(ContentKeyFunctions.UIPortrait);
 
+            common.AddFunction(ContentKeyFunctions.ReplFullscreen);
+            common.AddFunction(ContentKeyFunctions.ReplPrevCompletion);
+            common.AddFunction(ContentKeyFunctions.ReplNextCompletion);
+            common.AddFunction(ContentKeyFunctions.ReplComplete);
+
             common.AddFunction(ContentKeyFunctions.DiagonalOnly);
 
             var field = contexts.GetContext("field");

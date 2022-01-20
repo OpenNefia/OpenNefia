@@ -36,7 +36,7 @@ namespace OpenNefia.Content.Inventory
         /// <inheritdoc/>
         public abstract IEnumerable<IInventorySource> GetSources(InventoryContext context);
 
-        public virtual IUiElement? MakeIcon()
+        public virtual UiElement? MakeIcon()
         {
             return null;
         }

@@ -32,12 +32,11 @@ namespace OpenNefia.Content.CharaMake
 
         private EntityUid _playerEntity;
 
-        private CharaSheet Sheet = new();
+        [Child] private CharaSheet Sheet = new();
 
         public CharaMakeCharaSheetLayer()
         {
             CanControlFocus = true;
-            AddChild(Sheet);
         }
 
         public override void Initialize(CharaMakeData args)
@@ -224,19 +223,19 @@ namespace OpenNefia.Content.CharaMake
             }
         }
 
-        public override void GetPreferredBounds(out UIBox2i bounds)
+        public override void GetPreferredBounds(out UIBox2 bounds)
         {
             Sheet.GetPreferredSize(out var size);
             UiUtils.GetCenteredParams(size.X, size.Y, out bounds, yOffset: -10);
         }
 
-        public override void SetSize(int width, int height)
+        public override void SetSize(float width, float height)
         {
             base.SetSize(width, height);
             Sheet.SetSize(Width, Height);
         }
 
-        public override void SetPosition(int x, int y)
+        public override void SetPosition(float x, float y)
         {
             base.SetPosition(x, y);
             Sheet.SetPosition(X, Y);

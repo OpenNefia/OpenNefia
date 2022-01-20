@@ -1,5 +1,4 @@
-﻿using Love;
-using OpenNefia.Core;
+﻿using OpenNefia.Core;
 using OpenNefia.Core.Audio;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.UI;
@@ -9,19 +8,18 @@ using System.Collections;
 using OpenNefia.Core.Utility;
 using OpenNefia.Core.Input;
 using OpenNefia.Core.UserInterface;
-using OpenNefia.Core.Log;
 
 namespace OpenNefia.Content.UI.Element.List
 {
     public class UiList<T> : UiElement, IUiList<T>, IRawInputControl
     {
-        public const int DEFAULT_ITEM_HEIGHT = 19;
+        public const float DEFAULT_ITEM_HEIGHT = 19f;
 
         protected IList<UiListCell<T>> AllCells { get; }
         public virtual IReadOnlyList<UiListCell<T>> DisplayedCells => (IReadOnlyList<UiListCell<T>>)AllCells;
 
-        public int ItemHeight { get; }
-        public int ItemOffsetX { get; }
+        public float ItemHeight { get; }
+        public float ItemOffsetX { get; }
 
         public bool HighlightSelected { get; set; }
         public bool SelectOnActivate { get; set; }
@@ -42,7 +40,7 @@ namespace OpenNefia.Content.UI.Element.List
         {
             get
             {
-                if (DisplayedCells.Count == 0)
+                if (DisplayedCells.Count == 0 || SelectedIndex < 0 || SelectedIndex >= DisplayedCells.Count)
                     return null;
 
                 return DisplayedCells[SelectedIndex];
@@ -76,7 +74,12 @@ namespace OpenNefia.Content.UI.Element.List
 
         protected virtual void UpdateDisplayedCells(bool setSize)
         {
-            RemoveAllChildren();
+            foreach (var child in Children.ToList())
+            {
+                // Don't unparent things like UiPageText.
+                if (AllCells.Contains(child))
+                    RemoveChild(child);
+            }
 
             ChoiceKeys.Clear();
             for (var i = 0; i < DisplayedCells.Count; i++)
@@ -88,7 +91,7 @@ namespace OpenNefia.Content.UI.Element.List
                     cell.Key = UiListChoiceKey.MakeDefault(i);
                 }
                 ChoiceKeys[i] = cell.Key;
-                AddChild(cell);
+                UiHelpers.AddChildrenRecursive(this, cell);
             }
 
             if (setSize)
@@ -225,9 +228,7 @@ namespace OpenNefia.Content.UI.Element.List
         public void Select(int index)
         {
             if (!CanSelect(index))
-            {
                 return;
-            }
 
             SelectedIndex = index;
             HandleSelect(new UiListEventArgs<T>(DisplayedCells[index], index));
@@ -251,11 +252,21 @@ namespace OpenNefia.Content.UI.Element.List
             HandleActivate(new UiListEventArgs<T>(DisplayedCells[index], index));
         }
 
+        public virtual void SetAll(IEnumerable<UiListCell<T>> items, bool dispose = true)
+        {
+            var index = SelectedIndex;
+            Clear(dispose);
+            AddRange(items);
+            if (DisplayedCells.Count > 0)
+                Select(Math.Clamp(index, 0, DisplayedCells.Count - 1));
+            UpdateAllCells();
+        }
+
         #endregion
 
         #region UI Handling
 
-        public override void SetPosition(int x, int y)
+        public override void SetPosition(float x, float y)
         {
             base.SetPosition(x, y);
 
@@ -266,35 +277,35 @@ namespace OpenNefia.Content.UI.Element.List
                 var cell = DisplayedCells[index];
                 cell.XOffset = ItemOffsetX;
                 cell.SetPosition(X, iy);
-
+                
                 iy += cell.Height;
             }
         }
 
-        public override void GetPreferredSize(out Vector2i size)
+        public override void GetPreferredSize(out Vector2 size)
         {
-            size = Vector2i.Zero;
+            size = Vector2.Zero;
 
             for (int index = 0; index < DisplayedCells.Count; index++)
             {
                 var cell = DisplayedCells[index];
                 cell.GetPreferredSize(out var cellSize);
-                size.X = Math.Max(size.X, cellSize.X);
-                size.Y += Math.Max(cellSize.Y, ItemHeight);
+                size.X = MathF.Max(size.X, cellSize.X);
+                size.Y += MathF.Max(cellSize.Y, ItemHeight);
             }
         }
 
-        public override void SetSize(int width, int height)
+        public override void SetSize(float width, float height)
         {
-            var totalHeight = 0;
+            var totalHeight = 0f;
 
             for (int index = 0; index < DisplayedCells.Count; index++)
             {
                 var cell = DisplayedCells[index];
                 cell.GetPreferredSize(out var cellSize);
-                var cellHeight = Math.Max(cellSize.Y, ItemHeight);
+                var cellHeight = MathF.Max(cellSize.Y, ItemHeight);
                 cell.SetSize(width, cellHeight);
-                width = Math.Max(width, cell.Width);
+                width = MathF.Max(width, cell.Width);
                 totalHeight += cell.Height;
             }
 

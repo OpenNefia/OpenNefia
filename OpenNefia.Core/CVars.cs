@@ -61,7 +61,7 @@ namespace OpenNefia.Core
             CVarDef.Create("display.height", 600, CVar.Archive);
 
         public static readonly CVarDef<float> DisplayUIScale =
-            CVarDef.Create("display.uiScale", 0f, CVar.Archive);
+            CVarDef.Create("display.uiScale", 1.0f, CVar.Archive);
 
         public static readonly CVarDef<bool> DisplayHighDPI =
             CVarDef.Create("display.hidpi", false, CVar.Archive);

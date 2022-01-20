@@ -29,7 +29,7 @@ namespace OpenNefia.Content.Inventory
         public override HspIdsInv HspIds { get; } = HspIdsInv.From122(new(id: 6));
 
         public override string WindowTitle => Loc.GetString("Elona.Inventory.Behavior.Equip.WindowTitle");
-        public override IUiElement MakeIcon() => InventoryHelpers.MakeIcon(InventoryIcon.Equip);
+        public override UiElement MakeIcon() => InventoryHelpers.MakeIcon(InventoryIcon.Equip);
 
         public EquipInventoryBehavior(EquipSlotPrototypeId equipSlotId)
         {

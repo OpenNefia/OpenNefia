@@ -47,9 +47,13 @@ namespace OpenNefia.Content.Inventory
 
     public class InventoryUiGroup : UiGroup<InventoryLayer, InventoryGroupArgs, InventoryContext, InventoryLayer.Result>
     {
-        protected override (IAssetDrawable Elem, Vector2i Offset) GetIcon(InventoryContext args)
+        protected override AssetDrawable? GetIcon(InventoryContext args)
         {
-            return ((IAssetDrawable)args.Behavior.MakeIcon()!, new(-12, -32));
+            var icon = args.Behavior.MakeIcon()!;
+            if (icon is not AssetDrawable iconAsset)
+                return null;
+
+            return iconAsset;
         }
 
         protected override string GetText(InventoryContext args)

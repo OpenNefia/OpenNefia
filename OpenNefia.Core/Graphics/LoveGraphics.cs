@@ -20,7 +20,16 @@ namespace OpenNefia.Core.Graphics
         [Dependency] private readonly IResourceCache _resourceCache = default!;
         [Dependency] private readonly IConfigurationManager _config = default!;
 
-        public Vector2i WindowSize => new(Love.Graphics.GetWidth(), Love.Graphics.GetHeight());
+        public const float MinWidth = 800;
+        public const float MinHeight = 600;
+        private int PixelMinWidth => (int)(MinWidth * WindowScale);
+        private int PixelMinHeight => (int)(MinHeight * WindowScale);
+
+        private const float MinWindowScale = 0.5f;
+
+        public float WindowScale { get; internal set; } = 1f;
+        public Vector2i WindowPixelSize => new(Love.Graphics.GetWidth(), Love.Graphics.GetHeight());
+        public Vector2 WindowSize => (Vector2)WindowPixelSize / WindowScale;
 
         public event Action<WindowResizedEventArgs>? OnWindowResized;
         public new event Action<WindowFocusedEventArgs>? OnWindowFocused;
@@ -32,6 +41,7 @@ namespace OpenNefia.Core.Graphics
         public new event Action<MouseButtonEventArgs>? OnMousePressed;
         public new event Action<MouseButtonEventArgs>? OnMouseReleased;
         public new event Action<MouseWheelEventArgs>? OnMouseWheel;
+        public event Action<WindowScaleChangedEventArgs>? OnWindowScaleChanged;
         public new event Func<QuitEventArgs, bool>? OnQuit;
 
         private Love.Canvas TargetCanvas = default!;
@@ -42,16 +52,17 @@ namespace OpenNefia.Core.Graphics
         private int _modSystem;
 
         private FullscreenMode _lastFullscreenMode;
-        private Vector2i _lastWindowPos;
 
         public void Initialize()
         {
+            WindowScale = Math.Max(_config.GetCVar(CVars.DisplayUIScale), MinWindowScale);
+
             var bootConfig = new BootConfig()
             {
                 WindowTitle = _config.GetCVar(CVars.DisplayTitle),
                 WindowDisplay = _config.GetCVar(CVars.DisplayDisplayNumber),
-                WindowMinWidth = 800,
-                WindowMinHeight = 600,
+                WindowMinWidth = PixelMinWidth,
+                WindowMinHeight = PixelMinHeight,
                 WindowWidth = _config.GetCVar(CVars.DisplayWidth),
                 WindowHeight = _config.GetCVar(CVars.DisplayHeight),
                 WindowVsync = _config.GetCVar(CVars.DisplayVSync),
@@ -85,18 +96,18 @@ namespace OpenNefia.Core.Graphics
 
             Love.Boot.SystemStep(this);
 
-            TargetCanvas = Love.Graphics.NewCanvas(Love.Graphics.GetWidth(), Love.Graphics.GetHeight());
+            TargetCanvas = Love.Graphics.NewCanvas(WindowPixelSize.X, WindowPixelSize.Y);
 
             OnWindowResized += HandleWindowResized;
 
             _config.OnValueChanged(CVars.DisplayWindowMode, OnConfigWindowModeChanged);
             _config.OnValueChanged(CVars.DisplayDisplayNumber, OnConfigDisplayNumberChanged);
+            _config.OnValueChanged(CVars.DisplayUIScale, OnConfigDisplayUIScaleChanged);
 
             InitializeGraphicsDefaults();
             LoadGamepadMappings();
 
-            _lastFullscreenMode = new FullscreenMode(WindowSize.X, WindowSize.Y);
-            _lastWindowPos = Love.Window.GetPosition();
+            _lastFullscreenMode = new FullscreenMode(WindowPixelSize.X, WindowPixelSize.Y);
         }
 
         private void OnConfigWindowModeChanged(WindowMode obj)
@@ -129,6 +140,18 @@ namespace OpenNefia.Core.Graphics
             settings.Display = displaynumber;
             
             SetWindowSettings(_lastFullscreenMode, settings);
+        }
+
+        private void OnConfigDisplayUIScaleChanged(float newUiScale)
+        {
+            WindowScale = Math.Max(newUiScale, MinWindowScale);
+
+            if (WindowPixelSize.X < PixelMinWidth || WindowPixelSize.Y < PixelMinHeight)
+            {
+                SetWindowSettings(new(PixelMinHeight, PixelMinHeight));
+            }
+
+            OnWindowScaleChanged?.Invoke(new(newUiScale));
         }
 
         public void Shutdown()
@@ -183,7 +206,7 @@ namespace OpenNefia.Core.Graphics
 
         public void SetWindowSettings(FullscreenMode mode, WindowSettings? windowSettings = null)
         {
-            Love.WindowSettings? loveWindowSettings = null;
+            Love.WindowSettings loveWindowSettings = Love.Window.GetMode();
 
             var isFullscreen = Love.Window.GetFullscreen();
 
@@ -198,8 +221,6 @@ namespace OpenNefia.Core.Graphics
                     Fullscreen = windowSettings.Fullscreen,
                     FullscreenType = (Love.FullscreenType)windowSettings.FullscreenType,
                     HighDpi = windowSettings.HighDPI,
-                    MinWidth = 800,
-                    MinHeight = 600,
                     MSAA = windowSettings.MSAA,
                     Refreshrate = windowSettings.RefreshRate,
                     Resizable = true,
@@ -210,10 +231,12 @@ namespace OpenNefia.Core.Graphics
                 };
             }
 
+            loveWindowSettings.MinWidth = PixelMinWidth;
+            loveWindowSettings.MinHeight = PixelMinHeight;
 
             Love.Window.SetMode(mode.Width, mode.Height, loveWindowSettings);
 
-            var ev = new WindowResizedEventArgs(WindowSize);
+            var ev = new WindowResizedEventArgs(WindowPixelSize);
             OnWindowResized?.Invoke(ev);
         }
 
@@ -427,7 +450,7 @@ namespace OpenNefia.Core.Graphics
 
         public override void WheelMoved(int x, int y)
         {
-            OnMouseWheel?.Invoke(new MouseWheelEventArgs(new(Love.Mouse.GetPosition()), new Vector2i(x, y)));
+            OnMouseWheel?.Invoke(new MouseWheelEventArgs(new(Love.Mouse.GetPosition()), new Vector2(x, y)));
         }
 
         /// <summary>

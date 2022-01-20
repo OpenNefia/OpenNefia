@@ -41,16 +41,15 @@ namespace OpenNefia.Content.ConfigMenu
 
         [Dependency] private readonly IConfigMenuUICellFactory _cellFactory = default!;
 
-        [Localize("Topic.Menu")]
-        private IUiText TextTopicMenu = new UiTextTopic();
-
-        private IAssetDrawable AssetG2;
+        [Child] [Localize("Topic.Menu")] private UiText TextTopicMenu = new UiTextTopic();
+        [Child] private AssetDrawable AssetG2;
 
         // The UI cells are generic based on the config option type, so UINone is
         // used to have them all in one list.
         // FIXME: #35
-        private UiPagedList<UINone> List;
-        private UiWindow Window = new();
+        // It should be BaseConfigMenuUICell instead.
+        [Child] private UiPagedList<UINone> List;
+        [Child] private UiWindow Window = new();
 
         private Vector2i _menuSize = new();
         private PrototypeId<ConfigMenuItemPrototype> _protoId;
@@ -63,8 +62,6 @@ namespace OpenNefia.Content.ConfigMenu
             OnKeyBindDown += HandleKeyBindDown;
             List.OnActivated += HandleListActivate;
             List.OnPageChanged += HandleListPageChanged;
-
-            AddChild(List);
         }
 
         public override void GrabFocus()
@@ -122,6 +119,7 @@ namespace OpenNefia.Content.ConfigMenu
         {
             // Recenter the window based on the new item count.
             SetPreferredSize();
+            SetPosition(X, Y);
         }
 
         private void HandleKeyBindDown(GUIBoundKeyEventArgs evt)
@@ -166,7 +164,7 @@ namespace OpenNefia.Content.ConfigMenu
             return keyHints;
         }
 
-        public override void GetPreferredBounds(out UIBox2i bounds)
+        public override void GetPreferredBounds(out UIBox2 bounds)
         {
             var height = _menuSize.Y;
 
@@ -178,7 +176,7 @@ namespace OpenNefia.Content.ConfigMenu
             UiUtils.GetCenteredParams(_menuSize.X, height, out bounds, yOffset: -12);
         }
 
-        public override void SetSize(int width, int height)
+        public override void SetSize(float width, float height)
         {
             base.SetSize(width, height);
             Window.SetSize(Width, Height);
@@ -187,7 +185,7 @@ namespace OpenNefia.Content.ConfigMenu
             List.SetSize(Window.Width - 56, Window.Height - 66);
         }
 
-        public override void SetPosition(int x, int y)
+        public override void SetPosition(float x, float y)
         {
             base.SetPosition(x, y);
             Window.SetPosition(X, Y);

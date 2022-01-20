@@ -28,9 +28,8 @@ namespace OpenNefia.Content.Inventory
         private IAssetInstance AssetEnchantmentIcons;
         private IAssetInstance AssetInheritanceIcon;
 
-        private IUiText TextTopicItemName = new UiTextTopic();
-
-        private UiWindow Window = new();
+        [Child] private UiText TextTopicItemName = new UiTextTopic();
+        [Child] private UiWindow Window = new();
 
         private readonly List<ItemDescriptionEntry> _rawEntries = new();
         private readonly List<ItemDescriptionEntry> _wrappedEntries = new();
@@ -48,6 +47,7 @@ namespace OpenNefia.Content.Inventory
         {
             _item = item;
             TextTopicItemName.Text = Loc.GetString("Elona.Common.NameWithDirectArticle", ("entity", _item));
+            Window.KeyHints = MakeKeyHints();
 
             GetDescription();
         }
@@ -81,7 +81,7 @@ namespace OpenNefia.Content.Inventory
             _itemDescSystem.GetItemDescription(_item, _rawEntries);
         }
 
-        private void WrapDescription(int maxWidth)
+        private void WrapDescription(float maxWidth)
         {
             _wrappedEntries.Clear();
 
@@ -89,7 +89,7 @@ namespace OpenNefia.Content.Inventory
             {
                 if (entry.Type == ItemDescriptionType.Flavor)
                 {
-                    var (_, wrapped) = UiFonts.ItemDescFlavor.LoveFont.GetWrap(entry.Text, maxWidth);
+                    var (_, wrapped) = UiFonts.ItemDescFlavor.LoveFont.GetWrapS(UIScale, entry.Text, maxWidth);
                     foreach (var text in wrapped)
                     {
                         _wrappedEntries.Add(new ItemDescriptionEntry()
@@ -107,18 +107,18 @@ namespace OpenNefia.Content.Inventory
             }
         }
 
-        public override void SetSize(int width, int height)
+        public override void SetSize(float width, float height)
         {
             base.SetSize(width, height);
 
             Window.SetSize(Width, Height);
             TextTopicItemName.SetPreferredSize();
 
-            var maxWidth = Width - (68 * 2) - UiFonts.ItemDescNormal.LoveFont.GetWidth(" ");
+            var maxWidth = Width - (68 * 2) - UiFonts.ItemDescNormal.LoveFont.GetWidthV(UIScale, " ");
             WrapDescription(maxWidth);
         }
 
-        public override void SetPosition(int x, int y)
+        public override void SetPosition(float x, float y)
         {
             base.SetPosition(x, y);
 
@@ -131,7 +131,7 @@ namespace OpenNefia.Content.Inventory
             Sounds.Play(Protos.Sound.Pop2);
         }
 
-        public override void GetPreferredBounds(out UIBox2i bounds)
+        public override void GetPreferredBounds(out UIBox2 bounds)
         {
             UiUtils.GetCenteredParams(600, 408, out bounds);
         }
@@ -164,7 +164,7 @@ namespace OpenNefia.Content.Inventory
                         break;
                     case ItemDescriptionType.FlavorItalic:
                         font = UiFonts.ItemDescFlavorItalic.WithColor(entry.TextColor);
-                        x = GlobalPixelBounds.Right - font.LoveFont.GetWidth(entry.Text) - 80;
+                        x = Rect.Right - font.LoveFont.GetWidth(entry.Text) - 80;
                         break;
                     case ItemDescriptionType.Normal:
                     default:
@@ -174,18 +174,18 @@ namespace OpenNefia.Content.Inventory
                 }
 
                 GraphicsEx.SetFont(font);
-                Love.Graphics.Print(entry.Text, x, y);
+                GraphicsS.PrintS(UIScale, entry.Text, x, y);
 
                 Love.Graphics.SetColor(Color.White);
             
                 if (icon.HasValue)
                 {
-                    AssetEnchantmentIcons.DrawRegion(((int)icon.Value).ToString(), x - 28, y - 7);
+                    AssetEnchantmentIcons.DrawRegion(UIScale, ((int)icon.Value).ToString(), x - 28, y - 7);
                 }
 
                 if (entry.IsInheritable)
                 {
-                    AssetInheritanceIcon.Draw(x - 53, y - 5);
+                    AssetInheritanceIcon.Draw(UIScale, x - 53, y - 5);
                 }
             }
         }

@@ -38,9 +38,9 @@ namespace OpenNefia.Content.CharaMake
         /// </summary>
         public const string PlayerEntityResultName = "playerEntity";
 
-        public List<ICharaMakeLayer> GetDefaultCreationSteps()
+        public List<CharaMakeLayer> GetDefaultCreationSteps()
         {
-            return new List<ICharaMakeLayer>
+            return new List<CharaMakeLayer>
             {
                 new CharaMakeRaceSelectLayer(),
                 new CharaMakeGenderSelectLayer(),
@@ -64,7 +64,7 @@ namespace OpenNefia.Content.CharaMake
             var finished = false;
 
             UiResult<CharaMakeResult> result;
-            ICharaMakeLayer currentStep;
+            CharaMakeLayer currentStep;
 
             void GoBack(Type charaMakeLayerType)
             {

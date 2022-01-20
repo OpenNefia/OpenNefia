@@ -1,15 +1,11 @@
 ﻿using OpenNefia.Core.Rendering;
 using OpenNefia.Content.Prototypes;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using OpenNefia.Content.UI;
 using OpenNefia.Content.UI.Element;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Maps;
 using OpenNefia.Content.DisplayName;
+using OpenNefia.Core.UI;
 
 namespace OpenNefia.Content.Hud
 {
@@ -19,7 +15,7 @@ namespace OpenNefia.Content.Hud
         [Dependency] private IDisplayNameSystem _nameSystem = default!;
 
         private IAssetInstance MapNameIcon;
-        private IUiText UiText;
+        [Child] private UiText UiText;
 
         public HudAreaNameWidget()
         {
@@ -36,16 +32,16 @@ namespace OpenNefia.Content.Hud
                 UiText.Text = string.Empty;
         }
 
-        public override void SetPosition(int x, int y)
+        public override void SetPosition(float x, float y)
         {
             base.SetPosition(x, y);
-            UiText.SetPosition(x + 20, y + 2);
+            UiText.SetPosition(X + 20, Y + 2);
         }
 
         public override void Draw()
         {
             base.Draw();
-            MapNameIcon.Draw(X, Y);
+            MapNameIcon.Draw(UIScale, X, Y);
             UiText.Draw();
         }
     }

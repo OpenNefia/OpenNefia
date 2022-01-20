@@ -24,6 +24,7 @@ using OpenNefia.Content.Guild;
 using OpenNefia.Content.God;
 using OpenNefia.Content.CustomName;
 using OpenNefia.Content.DisplayName;
+using OpenNefia.Core.UI;
 
 namespace OpenNefia.Content.UI.Element
 {
@@ -63,7 +64,7 @@ namespace OpenNefia.Content.UI.Element
                 Buff = buff;
             }
 
-            public override void GetPreferredSize(out Vector2i size)
+            public override void GetPreferredSize(out Vector2 size)
             {
                 size.X = TileWidth;
                 size.Y = TileHeight;
@@ -73,18 +74,17 @@ namespace OpenNefia.Content.UI.Element
             {
                 base.Draw();
                 GraphicsEx.SetColor(255, 255, 255, 120);
-                var x = X + (TileWidth / 2);
-                var y = Y + (TileHeight / 2);
-                TileIcon.Draw(x, y, centered:true);
+                var x = (X + (TileWidth / 2)) * UIScale;
+                var y = (Y + (TileHeight / 2)) * UIScale;
+                TileIcon.Draw(UIScale, x, y, centered:true);
                 if (Buff.HasValue)
                 {
                     GraphicsEx.SetColor(Color.White);
                     var buffProto = Buff?.ResolvePrototype()!;
-                    HexBlessingIcons.DrawRegion(buffProto.RegionId, x, y);
+                    HexBlessingIcons.DrawRegionUnscaled(buffProto.RegionId, x, y);
                 }
             }
-
-        }    
+        } 
 
         [Dependency] private readonly IEntityManager _entityManager = default!;
         [Dependency] private readonly IWorldSystem _world = default!;
@@ -101,16 +101,17 @@ namespace OpenNefia.Content.UI.Element
         private const int AttributePotentialSpacing = 8;
 
         private IAssetInstance AssetIeSheet;
-        private CharaSheetFaceFrame FaceFrame;
-        private UiContainer NameContainer;
-        private UiContainer ClassContainer;
-        private UiContainer ExpContainer;
-        private UiContainer AttributeContainer;
-        private UiContainer SpecialStatContainer;
-        private UiContainer BlessingContainer;
-        private UiContainer TraceContainer;
-        private UiContainer ExtraContainer;
-        private UiContainer RollsContainer;
+
+        [Child] private CharaSheetFaceFrame FaceFrame;
+        [Child] private UiContainer NameContainer;
+        [Child] private UiContainer ClassContainer;
+        [Child] private UiContainer ExpContainer;
+        [Child] private UiContainer AttributeContainer;
+        [Child] private UiContainer SpecialStatContainer;
+        [Child] private UiContainer BlessingContainer;
+        [Child] private UiContainer TraceContainer;
+        [Child] private UiContainer ExtraContainer;
+        [Child] private UiContainer RollsContainer;
 
         private readonly LocaleScope _locScope;
 
@@ -211,7 +212,7 @@ namespace OpenNefia.Content.UI.Element
                     dict[_locScope.GetString("Group.Personal.Alias")] = chara.Alias;
                 dict[_locScope.GetString("Group.Personal.Race")] = Loc.GetPrototypeString(chara.Race, "Name");
                 dict[_locScope.GetString("Group.Personal.Sex")] = Loc.GetString($"Elona.Gender.Names.{chara.Gender}.Normal").FirstCharToUpper();
-                SetupContainer(NameContainer, 2, dict);
+                SetupContainer(NameContainer, 4, dict);
                 dict.Clear();
 
                 dict[string.Empty] = string.Empty;
@@ -222,7 +223,7 @@ namespace OpenNefia.Content.UI.Element
                     dict[_locScope.GetString("Group.Personal.Height")] = $"{weight.Height} {_locScope.GetString("Group.Personal.Cm")}";
                     dict[_locScope.GetString("Group.Personal.Weight")] = $"{weight.Weight} {_locScope.GetString("Group.Personal.Kg")}";
                 }
-                SetupContainer(ClassContainer, 2, dict);
+                SetupContainer(ClassContainer, 4, dict);
                 dict.Clear();
             }
 
@@ -248,7 +249,7 @@ namespace OpenNefia.Content.UI.Element
             }
             dict[_locScope.GetString("Group.Exp.God")] = levelGodName;
             dict[_locScope.GetString("Group.Exp.Guild")] = levelGuildName;
-            SetupContainer(ExpContainer, 2, dict);
+            SetupContainer(ExpContainer, 5, dict);
             dict.Clear();
 
             //
@@ -264,8 +265,10 @@ namespace OpenNefia.Content.UI.Element
                 {
                     var cont = new UiHorizontalContainer();
                     var attrId = attrProto.GetStrongID();
+
                     if (!skills.Skills.TryGetValue(attrId, out var attrLvl))
                         continue;
+
                     string currentAmt = attrLvl.Level.Buffed.ToString();
                     string orgAmt = $"({attrLvl.Level.Base})";
                     var content = currentAmt
@@ -273,10 +276,12 @@ namespace OpenNefia.Content.UI.Element
                         + orgAmt
                         + new string(' ', Math.Max(1, AttributePotentialSpacing - orgAmt.Length))
                         + CharaSheetHelpers.GetPotentialDescription(attrLvl.Potential);
+
                     cont.AddElement(new AttributeIcon(attrId));
                     cont.AddLayout(LayoutType.Spacer, 14);
                     cont.AddLayout(LayoutType.YOffset, -6);
-                    cont.AddElement(MakeInfoContainer(Loc.GetPrototypeString(attrId, "ShortName"), 1, content));
+                    cont.AddElement(MakeInfoContainer(Loc.GetPrototypeString(attrId, "ShortName"), 5, content));
+
                     AttributeContainer.AddElement(cont);
                 }
 
@@ -294,7 +299,7 @@ namespace OpenNefia.Content.UI.Element
                 dict[string.Empty] = string.Empty;
                 dict[_locScope.GetString("Group.Attribute.Fame")] = attributeFame.ToString();
                 dict[_locScope.GetString("Group.Attribute.Karma")] = attributeKarma.ToString();
-                SetupContainer(SpecialStatContainer, 2, dict);
+                SetupContainer(SpecialStatContainer, 6, dict);
                 dict.Clear();
             }
 
@@ -328,7 +333,7 @@ namespace OpenNefia.Content.UI.Element
             dict[_locScope.GetString("Group.Trace.Days")] = $"{_locScope.GetString("Group.Trace.DaysCounter", ("days", traceDays))}";
             dict[_locScope.GetString("Group.Trace.Kills")] = _world.State.TotalKills.ToString();
             dict[_locScope.GetString("Group.Trace.Time")] = _world.State.PlayTime.ToString();
-            SetupContainer(TraceContainer, 2, dict);
+            SetupContainer(TraceContainer, 4, dict);
             dict.Clear();
 
             //
@@ -348,7 +353,7 @@ namespace OpenNefia.Content.UI.Element
             var eqWeight = EquipmentHelpers.GetTotalEquipmentWeight(charaEntity, _entityManager, _equipSlots);
             dict[_locScope.GetString("Group.Extra.EquipWeight")] = $"{UiUtils.DisplayWeight(eqWeight)} {EquipmentHelpers.DisplayArmorClass(eqWeight)}";
             dict[_locScope.GetString("Group.Extra.DeepestLevel")] = $"{_locScope.GetString("Group.Extra.DeepestLevelCounter", ("level", _world.State.DeepestLevel))}";
-            SetupContainer(ExtraContainer, 1, dict);
+            SetupContainer(ExtraContainer, 6, dict);
             dict.Clear();
             
             //
@@ -380,29 +385,28 @@ namespace OpenNefia.Content.UI.Element
         private UiContainer MakeInfoContainer(string name, int xOffset, string content)
         {
             var cont = new UiHorizontalContainer();
-            cont.AddElement(new UiText(UiFonts.CharSheetInfo, name 
-                + (xOffset > 0 ? new string(' ', Math.Max(1, xOffset - name.Length)) : string.Empty)));
+            cont.AddElement(new UiText(UiFonts.CharSheetInfo, name.WidePadRight(xOffset)));
             cont.AddLayout(LayoutType.YOffset, -1);
             cont.AddElement(new UiText(UiFonts.CharaSheetInfoContent, content));
             return cont;
         }
 
-        public override void GetPreferredSize(out Vector2i size)
+        public override void GetPreferredSize(out Vector2 size)
         {
             size.X = SheetWidth;
             size.Y = SheetHeight;
         }
 
-        public override void SetSize(int width, int height)
+        public override void SetSize(float width, float height)
         {
             base.SetSize(width, height);
             FaceFrame.SetPreferredSize();
         }
 
-        public override void SetPosition(int x, int y)
+        public override void SetPosition(float x, float y)
         {
             base.SetPosition(x, y);
-            FaceFrame.SetPosition(x + 550, y + 25);
+            FaceFrame.SetPosition(x + 558, y + 23);
 
             NameContainer.SetPosition(x + 30, y + 47);
             NameContainer.Relayout();
@@ -428,9 +432,9 @@ namespace OpenNefia.Content.UI.Element
         {
             base.Draw();
             GraphicsEx.SetColor(0, 0, 0, 75);
-            AssetIeSheet.Draw(X + 4, Y + 4, SheetWidth, SheetHeight);
+            AssetIeSheet.DrawUnscaled(PixelX + 4, PixelY + 4, SheetWidth * UIScale, SheetHeight * UIScale);
             GraphicsEx.SetColor(Color.White);
-            AssetIeSheet.Draw(X, Y, SheetWidth, SheetHeight);
+            AssetIeSheet.DrawUnscaled(PixelX, PixelY, SheetWidth * UIScale, SheetHeight * UIScale);
             FaceFrame.Draw();
             NameContainer.Draw();
             ClassContainer.Draw();

@@ -252,7 +252,7 @@ namespace OpenNefia.Tests.Core.UserInterface
             var pos = new ScreenCoordinates(30, 30);
 
             var mouseEvent = new GUIBoundKeyEventArgs(EngineKeyFunctions.UISelect, BoundKeyState.Down,
-                pos, true, pos.Position - control.GlobalPixelPosition);
+                pos, true, pos.Position - control.PixelPosition);
 
             _userInterfaceManager.KeyBindDown(mouseEvent);
 

@@ -6,6 +6,7 @@ using OpenNefia.Core.IoC;
 using OpenNefia.Core.Locale;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.Rendering;
+using OpenNefia.Core.UI;
 using OpenNefia.Core.UI.Element;
 using OpenNefia.Core.Utility;
 using System;
@@ -145,7 +146,8 @@ namespace OpenNefia.Content.UI.Hud
             var lines = new List<MessageContainer>();
             var currentLine = GetMessageLine(false);
             Color currentColor = Color.White;
-            var totalWidth = 0;
+            var totalWidth = 0f;
+
             foreach (var message in Messages.Reverse())
             {
                 foreach(var tag in message.Tags)
@@ -156,7 +158,7 @@ namespace OpenNefia.Content.UI.Hud
                             if (currentLine.HasContent)
                                 lines.Add(currentLine);
                             currentLine = GetMessageLine(true);
-                            totalWidth = 0;
+                            totalWidth = 0f;
                             break;
 
                         case ColorMessageTag colorTag:
@@ -168,7 +170,7 @@ namespace OpenNefia.Content.UI.Hud
                             var words = UiHelpers.SplitString(textTag.Message, Loc.Language);
                             foreach(var word in words)
                             {
-                                var wordWidth = UiFonts.MessageText.LoveFont.GetWidth(word);
+                                var wordWidth = UiFonts.MessageText.LoveFont.GetWidthV(UIScale, word);
                                 if (totalWidth + wordWidth > Width)
                                 {
                                     currentLine.AddElement(new MessageText(sb.ToString().TrimStart()) { Color = currentColor });
@@ -189,6 +191,7 @@ namespace OpenNefia.Content.UI.Hud
                     }
                 }
             }
+
             lines.Add(currentLine);
             MessageBoxContainer.Clear();
             BacklogContainer.Clear();
@@ -197,8 +200,10 @@ namespace OpenNefia.Content.UI.Hud
             emptyLine.AddElement(new UiText(UiFonts.MessageText));
 
             var lineIndex = 0;
+
             var mesBoxLines = Enumerable.Repeat(emptyLine, Math.Max(0, MessageBoxLines - lines.Count))
-                .Concat(lines.Skip(Math.Max(0, lines.Count - MessageBoxLines))); 
+                .Concat(lines.Skip(Math.Max(0, lines.Count - MessageBoxLines)));
+
             var backlogLines = lines.Count > MessageBoxLines
                 ? Enumerable.Repeat(emptyLine, Math.Max(0, BacklogLines + MessageBoxLines - lines.Count))
                     .Concat(lines.Take(lines.Count - MessageBoxLines))
@@ -210,20 +215,22 @@ namespace OpenNefia.Content.UI.Hud
                 MessageBoxContainer.AddElement(line);
                 lineIndex++;
             }
+
             foreach (var line in backlogLines)
             {
-                line.SetOpacities(Convert.ToByte(255 * Math.Pow(MessageFadeAmount, 2)));
+                line.SetOpacities(Convert.ToByte(255));
                 if (lineIndex >= MessageBoxLines + BacklogLines)
                     break;
                 BacklogContainer.AddElement(line);
                 lineIndex++;
             }
+
             MessageBoxContainer.Relayout();
             BacklogContainer.Relayout();
             NeedsRelayout = false;
         }
 
-        public override void SetSize(int width, int height)
+        public override void SetSize(float width, float height)
         {
             base.SetSize(width, height);
             NeedsRelayout = true;

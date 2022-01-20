@@ -72,7 +72,7 @@ Elona.CharaMake = {
             Title = "能力のロール",
         },
         AttributeTopic = "能力",
-        AttributeInfo = "ロックされた能力は\n変化しません",
+        AttributeInfo = "ロックされた能力は変化しません",
         LockAmt = "残りロック",
         Choice = {
             Reroll = "リロール",

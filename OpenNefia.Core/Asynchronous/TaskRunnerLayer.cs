@@ -49,14 +49,14 @@ namespace OpenNefia.Core.Asynchronous
         public override void Draw()
         {
             GraphicsEx.SetColor(0, 0, 0, 128);
-            Love.Graphics.Rectangle(Love.DrawMode.Fill, X, Y, Width, Height);
+            GraphicsS.RectangleS(UIScale, Love.DrawMode.Fill, X, Y, Width, Height);
 
             {
                 Love.Graphics.Push();
-                Love.Graphics.Translate(X + Width / 2, Y + Height / 2);
+                GraphicsS.TranslateS(UIScale, X + Width / 2, Y + Height / 2);
                 Love.Graphics.Rotate(Dt);
                 Love.Graphics.SetColor(Love.Color.White);
-                Love.Graphics.Rectangle(Love.DrawMode.Fill, -32, -32, 64, 64);
+                GraphicsS.RectangleS(UIScale, Love.DrawMode.Fill, -32, -32, 64, 64);
                 Love.Graphics.Pop();
             }
         }

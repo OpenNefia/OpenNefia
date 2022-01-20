@@ -37,14 +37,14 @@ namespace OpenNefia.Core.Rendering.TileDrawLayers
             _wallShadows.SetMap(map);
         }
 
-        public override void SetSize(int width, int height)
+        public override void SetSize(float width, float height)
         {
             base.SetSize(width, height);
             _tileAndChipBatch.SetSize(width, height);
             _wallShadows.SetSize(width, height);
         }
 
-        public override void SetPosition(int x, int y)
+        public override void SetPosition(float x, float y)
         {
             base.SetPosition(x, y);
             _tileAndChipBatch.SetPosition(x, y);

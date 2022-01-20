@@ -72,7 +72,7 @@ namespace OpenNefia.Content.TitleScreen
             {
                 _saveGameSerializer.ResetGameState();
 
-                using (ITitleScreenLayer titleScreen = new TitleScreenLayer())
+                using (ITitleScreenLayer titleScreen = _uiManager.CreateLayer<TitleScreenLayer, TitleScreenResult>())
                 {
                     var bg = new TitleScreenBGLayer();
                     _uiManager.PushLayer(bg);

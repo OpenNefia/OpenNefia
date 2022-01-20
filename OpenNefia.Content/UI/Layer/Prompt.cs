@@ -75,8 +75,8 @@ namespace OpenNefia.Content.UI.Layer
             }
         }
 
-        public UiList<PromptChoice<T>> List { get; }
-        public UiTopicWindow Window { get; }
+        [Child] public UiList<PromptChoice<T>> List { get; }
+        [Child] public UiTopicWindow Window { get; }
 
         public bool IsCancellable { get; private set; }
         public string? QueryText { get; private set; }
@@ -86,8 +86,6 @@ namespace OpenNefia.Content.UI.Layer
         {
             List = new UiList<PromptChoice<T>>();
             Window = new UiTopicWindow(UiTopicWindow.FrameStyleKind.Zero, UiTopicWindow.WindowStyleKind.Zero);
-
-            AddChild(List);
 
             OnKeyBindDown += HandleKeyBindDown;
 
@@ -131,22 +129,22 @@ namespace OpenNefia.Content.UI.Layer
             Sounds.Play(Protos.Sound.Pop2);
         }
 
-        public override void GetPreferredBounds(out UIBox2i bounds)
+        public override void GetPreferredBounds(out UIBox2 bounds)
         {
             List.GetPreferredSize(out var listSize);
             var width = Math.Max(DefaultWidth, listSize.X + 26 + 44);
             var height = listSize.Y;
 
             var promptX = (_graphics.WindowSize.X - 10) / 2 + 3;
-            var promptY = (_graphics.WindowSize.Y - Constants.INF_VERH - 30) / 2 - 4;
+            var promptY = (_graphics.WindowSize.Y - Constants.INF_VERH / UIScale - 30) / 2 - 4;
 
             var x = promptX - width / 2;
             var y = promptY - height / 2;
 
-            bounds = UIBox2i.FromDimensions(x, y, width, height);
+            bounds = UIBox2.FromDimensions(x, y, width, height);
         }
 
-        public override void SetSize(int width, int height)
+        public override void SetSize(float width, float height)
         {
             List.SetSize(width, height);
 
@@ -155,7 +153,7 @@ namespace OpenNefia.Content.UI.Layer
             Window.SetSize(Width - 16, Height - 16);
         }
 
-        public override void SetPosition(int x, int y)
+        public override void SetPosition(float x, float y)
         {
             base.SetPosition(x, y);
 

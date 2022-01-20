@@ -5,19 +5,32 @@ namespace OpenNefia.Tests
 {
     public class DummyDrawable : IDrawable
     {
-        public UIBox2i GlobalPixelBounds => UIBox2i.FromDimensions(GlobalPixelPosition, PixelSize);
-        public Vector2i GlobalPixelPosition => Vector2i.Zero;
-        public Vector2i PixelSize => new(Width, Height);
-        public int Width => 800;
-        public int Height => 600;
-        public int X => 0;
-        public int Y => 0;
+        public UIBox2i PixelRect => UIBox2i.FromDimensions(PixelPosition, PixelSize);
+        public Vector2i PixelPosition => Vector2i.Zero;
+        public Vector2i PixelSize => (Vector2i)(Size * UIScale);
+
+        public float Width => Size.X;
+        public float Height => Size.Y;
+        public float X => Position.X;
+        public float Y => Position.Y;
 
         public bool IsLocalized => false;
 
+        public UIBox2 Rect => UIBox2.FromDimensions(Position, Size);
+        public Vector2 Size => new(800, 600);
+        public Vector2 Position => new(0, 0);
+        public float UIScale => 1f;
+
+        public UIBox2 SizeBox => UIBox2.FromDimensions(Vector2.Zero, Size);
+        public UIBox2i PixelSizeBox => UIBox2i.FromDimensions(Vector2i.Zero, PixelSize);
+        public int PixelWidth => PixelSize.X;
+        public int PixelHeight => PixelSize.Y;
+        public int PixelX => PixelPosition.X;
+        public int PixelY => PixelPosition.Y;
+
         public bool ContainsPoint(Vector2 point)
         {
-            return GlobalPixelBounds.Contains((int)point.X, (int)point.Y);
+            return PixelRect.Contains((int)point.X, (int)point.Y);
         }
 
         public void Dispose()
@@ -28,21 +41,21 @@ namespace OpenNefia.Tests
         {
         }
 
-        public void GetPreferredBounds(out UIBox2i bounds)
+        public void GetPreferredBounds(out UIBox2 bounds)
         {
-            bounds = GlobalPixelBounds;
+            bounds = Rect;
         }
 
-        public void GetPreferredSize(out Vector2i size)
+        public void GetPreferredSize(out Vector2 size)
         {
-            size = PixelSize;
+            size = Size;
         }
 
-        public void SetPosition(int x, int y)
+        public void SetSize(float width, float height)
         {
         }
 
-        public void SetSize(int width, int height)
+        public void SetPosition(float x, float y)
         {
         }
 

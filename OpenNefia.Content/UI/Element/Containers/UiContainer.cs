@@ -1,5 +1,7 @@
 ﻿using OpenNefia.Core;
+using OpenNefia.Core.Log;
 using OpenNefia.Core.Maths;
+using OpenNefia.Core.UI;
 using OpenNefia.Core.UI.Element;
 using System;
 using System.Collections.Generic;
@@ -24,11 +26,11 @@ namespace OpenNefia.Content.UI.Element.Containers
     }
     public class UiContainerEntry
     {
-        public IUiElement? Element { get; set; }
+        public UiElement? Element { get; set; }
         public LayoutType Type { get; set;}
         public int Offset { get; set; }
 
-        public UiContainerEntry(IUiElement uiElement)
+        public UiContainerEntry(UiElement uiElement)
         {
             Element = uiElement;
             Type = LayoutType.Element;
@@ -60,6 +62,17 @@ namespace OpenNefia.Content.UI.Element.Containers
             {
                 Entries.Add(element);
             }
+
+            if (element.Element != null)
+            {
+                if (element.Element.Parent != null)
+                {
+                    // Logger.WarningS("ui.container", $"Container child element {element.Element} already parented to {element.Element.Parent} in AddElement()");
+                    element.Element.Parent.RemoveChild(element.Element);
+                }
+
+                UiHelpers.AddChildrenRecursive(this, element.Element);
+            }
         }
 
         public virtual void AddLayout(LayoutType type, int offset)
@@ -72,16 +85,16 @@ namespace OpenNefia.Content.UI.Element.Containers
             RelayoutPreferredSize();
         }
 
-        protected abstract Vector2i RelayoutPreferredSize();
+        protected abstract Vector2 RelayoutPreferredSize();
 
-        public override void GetPreferredSize(out Vector2i size)
+        public override void GetPreferredSize(out Vector2 size)
         {
             size = RelayoutPreferredSize();
         }
 
-        public override void SetPosition(int x, int y)
+        public override void SetPosition(float x, float y)
         {
-            int xDiff = X, yDiff = Y;
+            float xDiff = X, yDiff = Y;
             base.SetPosition(x, y);
             xDiff = X - xDiff;
             yDiff = Y - yDiff;
@@ -113,7 +126,12 @@ namespace OpenNefia.Content.UI.Element.Containers
         public virtual void Clear()
         {
             foreach (var entry in Entries)
-                entry.Element?.Dispose();
+            {
+                if (entry.Element != null && entry.Element.Parent == this)
+                {
+                    RemoveChild(entry.Element);
+                }
+            }
             Entries.Clear();
         }
 

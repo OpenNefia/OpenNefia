@@ -7,7 +7,12 @@ namespace OpenNefia.Content.UI.Hud
     {
         public IHudMessageWindow MessageWindow { get; }
         public IBacklog Backlog { get; }
-        public UIBox2i GameBounds { get; }
+
+        /// <summary>
+        /// Portion of the game window not covered by the HUD, in virtual pixels.
+        /// </summary>
+        public UIBox2 GameBounds { get; }
+
         void Initialize();
         void ClearWidgets();
     }

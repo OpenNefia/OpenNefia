@@ -39,8 +39,7 @@ namespace OpenNefia.Core.ResourceManagement
         {
             _image.Dispose();
             _imageData.Dispose();
-            _imageData = LoadImageData(cache, path);
-            _image = Love.Graphics.NewImage(_imageData);
+            Load(cache, path);
         }
 
         private static ImageLoadParameters? TryLoadTextureParameters(IResourceCache cache, ResourcePath path)

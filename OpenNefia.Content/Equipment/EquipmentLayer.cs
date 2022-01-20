@@ -94,8 +94,8 @@ namespace OpenNefia.Content.Equipment
         public class ListCell : UiListCell<CellData>
         {
             private IUiElement? Icon;
-            private readonly IUiText TextEquipSlotName = new UiText(UiFonts.EquipmentEquipSlotName);
-            private readonly IUiText TextSubtext = new UiText();
+            private readonly UiText TextEquipSlotName = new UiText(UiFonts.EquipmentEquipSlotName);
+            private readonly UiText TextSubtext = new UiText();
 
             private readonly EntitySpriteBatch SpriteBatch;
 
@@ -117,16 +117,16 @@ namespace OpenNefia.Content.Equipment
                 Icon = Data.EquipSlotIcon;
             }
 
-            public override void SetPosition(int x, int y)
+            public override void SetPosition(float x, float y)
             {
-                XOffset = 30;
+                XOffset = 30f;
                 base.SetPosition(x, y);
                 Icon?.SetPosition(X - 66, Y - 2);
                 TextEquipSlotName.SetPosition(X - 42, Y + 3);
-                TextSubtext.SetPosition(X + Width - 44 - TextSubtext.TextWidth, Y + 2);
+                TextSubtext.SetPosition(X + Width - 44 - TextSubtext.TextPixelWidth, Y + 2);
             }
 
-            public override void SetSize(int width, int height)
+            public override void SetSize(float width, float height)
             {
                 base.SetSize(width, height);
                 Icon?.SetPreferredSize();
@@ -146,11 +146,11 @@ namespace OpenNefia.Content.Equipment
                 if (IndexInList % 2 == 0)
                 {
                     Love.Graphics.SetColor(UiColors.ListEntryAccent);
-                    Love.Graphics.Rectangle(Love.DrawMode.Fill, X - 1, Y, Width - 30, 18);
+                    GraphicsS.RectangleS(UIScale, Love.DrawMode.Fill, X - 1, Y, Width - 30, 18);
                 }
 
                 Love.Graphics.SetColor(Color.White);
-                AssetSelectKey.Draw(X, Y - 1);
+                AssetSelectKey.Draw(UIScale, X, Y - 1);
                 KeyNameText.Draw();
 
                 Icon?.Draw();
@@ -161,7 +161,7 @@ namespace OpenNefia.Content.Equipment
                 TextSubtext.Draw();
 
                 if (Data.ItemEntityUid != null)
-                    SpriteBatch.Add(Data.ItemEntityUid.Value, X + 12 + 28, Y + 10, centered: true);
+                    SpriteBatch.Add(Data.ItemEntityUid.Value, PixelX + 12 + 28, PixelY + 10, centered: true);
             }
 
             public override void Dispose()
@@ -180,29 +180,31 @@ namespace OpenNefia.Content.Equipment
         [Dependency] private readonly IStackSystem _stackSystem = default!;
         [Dependency] private readonly IPrototypeManager _protos = default!;
 
-        protected IAssetDrawable AssetInventoryIcons;
-        protected IAssetDrawable AssetDecoWearA;
-        protected IAssetDrawable AssetDecoWearB;
+        protected AssetDrawable AssetInventoryIcons;
+        protected AssetDrawable AssetDecoWearA;
+        protected AssetDrawable AssetDecoWearB;
 
         /// <summary>
         /// "Category/Name"
         /// </summary>
+        [Child]
         [Localize("Topic.CategoryName")]
-        protected IUiText TextTopicCategoryName = new UiTextTopic();
+        protected UiText TextTopicCategoryName = new UiTextTopic();
 
         /// <summary>
         /// "Weight"
         /// </summary>
+        [Child]
         [Localize("Topic.Weight")]
-        protected IUiText TextTopicWeight = new UiTextTopic();
+        protected UiText TextTopicWeight = new UiTextTopic();
 
         /// <summary>
         /// Total equipment weight, armor class, hit/damage bonuses.
         /// </summary>
-        protected IUiText TextNoteEquipStats = new UiText(UiFonts.TextNote);
+        [Child] protected UiText TextNoteEquipStats = new UiText(UiFonts.TextNote);
 
-        [Localize] protected UiWindow Window = new(keyHintXOffset: 64);
-        protected UiPagedList<CellData> List = new(itemsPerPage: 14);
+        [Child] [Localize] protected UiWindow Window = new(keyHintXOffset: 64);
+        [Child] protected UiPagedList<CellData> List = new(itemsPerPage: 14);
 
         private EntitySpriteBatch _spriteBatch = new();
 
@@ -223,9 +225,6 @@ namespace OpenNefia.Content.Equipment
 
             List.PageTextElement = Window;
             List.OnActivated += HandleListOnActivate;
-
-            AddChild(Window);
-            AddChild(List);
         }
 
         public override void Initialize(Args args)
@@ -430,12 +429,12 @@ namespace OpenNefia.Content.Equipment
             Sounds.Play(Sound.Wear);
         }
 
-        public override void GetPreferredBounds(out UIBox2i bounds)
+        public override void GetPreferredBounds(out UIBox2 bounds)
         {
             UiUtils.GetCenteredParams(690, 428, out bounds);
         }
 
-        public override void SetSize(int width, int height)
+        public override void SetSize(float width, float height)
         {
             base.SetSize(width, height);
             Window.SetSize(Width, Height);
@@ -450,7 +449,7 @@ namespace OpenNefia.Content.Equipment
             TextNoteEquipStats.SetPreferredSize();
         }
 
-        public override void SetPosition(int x, int y)
+        public override void SetPosition(float x, float y)
         {
             base.SetPosition(x, y);
             Window.SetPosition(X, Y);
@@ -462,7 +461,7 @@ namespace OpenNefia.Content.Equipment
             AssetInventoryIcons.SetPosition(Window.X + 46, Window.Y - 16);
             AssetDecoWearA.SetPosition(Window.X + Window.Width - 106, Window.Y);
             AssetDecoWearB.SetPosition(Window.X, Window.Y + Window.Height - 164);
-            var notePos = UiUtils.NotePosition(GlobalPixelBounds, TextNoteEquipStats);
+            var notePos = UiUtils.NotePosition(Rect, TextNoteEquipStats);
             TextNoteEquipStats.SetPosition(notePos.X, notePos.Y);
         }
 

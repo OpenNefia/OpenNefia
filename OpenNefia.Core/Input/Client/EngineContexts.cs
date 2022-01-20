@@ -66,6 +66,8 @@
             common.AddFunction(EngineKeyFunctions.TextHistoryNext);
             common.AddFunction(EngineKeyFunctions.TextReleaseFocus);
             common.AddFunction(EngineKeyFunctions.TextScrollToBottom);
+            common.AddFunction(EngineKeyFunctions.TextPageUp);
+            common.AddFunction(EngineKeyFunctions.TextPageDown);
             common.AddFunction(EngineKeyFunctions.TextDelete);
             common.AddFunction(EngineKeyFunctions.TextTabComplete);
 

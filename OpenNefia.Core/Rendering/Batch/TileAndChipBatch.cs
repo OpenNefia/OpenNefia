@@ -146,7 +146,7 @@ namespace OpenNefia.Core.Rendering
             for (int tileY = 0; tileY < _rows.Length; tileY++)
             {
                 var row = _rows[tileY];
-                row.Draw(X, Y);
+                row.Draw(PixelX, PixelY);
             }
         }
     }

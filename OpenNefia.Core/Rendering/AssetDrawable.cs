@@ -1,4 +1,5 @@
-﻿using OpenNefia.Core.Maths;
+﻿using OpenNefia.Core.Log;
+using OpenNefia.Core.Maths;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.UI.Element;
 using System;
@@ -13,16 +14,7 @@ namespace OpenNefia.Core.Rendering
     /// A UI element wrapper around an <see cref="IAssetInstance"/> with its own
     /// position, color, and other properties.
     /// </summary>
-    public interface IAssetDrawable : IUiElement
-    {
-        IAssetInstance Instance { get; set; }
-        Color Color { get; set; }
-        bool Centered { get; set; }
-        float Rotation { get; set; }
-        string? RegionId { get; set; }
-    }
-
-    public class AssetDrawable : UiElement, IAssetDrawable
+    public class AssetDrawable : UiElement
     {
         public IAssetInstance Instance { get; set; }
         public Color Color { get; set; } = Color.White;
@@ -48,7 +40,7 @@ namespace OpenNefia.Core.Rendering
             OriginOffset = originOffset;
         }
 
-        public override void GetPreferredSize(out Vector2i size)
+        public override void GetPreferredSize(out Vector2 size)
         {
             if (RegionId != null)
             {
@@ -58,13 +50,13 @@ namespace OpenNefia.Core.Rendering
                 }
                 else
                 {
-                    // This draws at the default size.
+                    Logger.Warning("asset.drawable", $"No region with ID '{region}' found in asset instance!");
                     size = Vector2i.Zero;
                 }
             }
             else
             {
-                size = Instance.Size;
+                size = Instance.PixelSize;
             }
         }
 
@@ -78,11 +70,11 @@ namespace OpenNefia.Core.Rendering
 
             if (RegionId != null)
             {
-                Instance.DrawRegion(RegionId, X, Y, Width, Height, Centered, Rotation, OriginOffset);
+                Instance.DrawRegion(UIScale, RegionId, X, Y, Width, Height, Centered, Rotation, OriginOffset);
             }
             else
             {
-                Instance.Draw(X, Y, Width, Height, Centered, Rotation, OriginOffset);
+                Instance.Draw(UIScale, X, Y, Width, Height, Centered, Rotation, OriginOffset);
             }
         }
     }

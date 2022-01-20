@@ -38,29 +38,31 @@ namespace OpenNefia.Content.UI
         }
     }
 
-    public class UiGroup<TLayer, TArgs, TLayerArgs, TResult> : UiLayerWithResult<TArgs, TResult>
-        where TArgs : UiGroupArgs<TLayer, TLayerArgs>
-        where TLayerArgs : notnull
+    public class UiGroup<TLayer, TArgs, TSublayerArgs, TResult> : UiLayerWithResult<TArgs, TResult>
+        where TArgs : UiGroupArgs<TLayer, TSublayerArgs>
+        where TSublayerArgs : notnull
         where TResult : class
-        where TLayer : GroupableUiLayer<TLayerArgs, TResult>, new()
+        where TLayer : GroupableUiLayer<TSublayerArgs, TResult>, new()
     {
-        private Dictionary<TLayerArgs, TLayer> Layers = new();
-        private Dictionary<TLayerArgs, IUiText> Texts = new();
-        private Dictionary<TLayerArgs, (IAssetDrawable Elem, Vector2i Offset)> Icons = new();
-        private UiTopicWindow TabWindow = default!;
+        private Dictionary<TSublayerArgs, TLayer> Layers = new();
+        private Dictionary<TSublayerArgs, UiText> Texts = new();
+        private Dictionary<TSublayerArgs, AssetDrawable?> Icons = new();
+        
+        [Child] private UiTopicWindow TabIconWindow = default!;
         private IAssetInstance TabDeco;
 
-        private TLayerArgs SelectedArgs = default!;
+        private TSublayerArgs SelectedArgs = default!;
         private TLayer SelectedLayer = default!;
 
-        private const int ItemWidth = 50;
-        private const int ExtraTabWindowWidth = 30;
+        private const float ItemWidth = 50f;
+        private const float ExtraTabWindowWidth = 30f;
 
         public UiGroup()
         {
-            TabWindow = new UiTopicWindow(UiTopicWindow.FrameStyleKind.Three, UiTopicWindow.WindowStyleKind.Four);
-            OnKeyBindDown += OnKeyDown;
+            TabIconWindow = new UiTopicWindow(UiTopicWindow.FrameStyleKind.Three, UiTopicWindow.WindowStyleKind.Four);
             TabDeco = Assets.Get(Protos.Asset.RadarDeco);
+
+            OnKeyBindDown += HandleKeyBindDown;
         }
 
         public override void Initialize(TArgs args)
@@ -68,8 +70,19 @@ namespace OpenNefia.Content.UI
             base.Initialize(args);
             SelectedArgs = args.SelectedArgs;
             Layers = args.Layers;
-            Texts = Layers.ToDictionary(x => x.Key, y => (IUiText)new UiTextOutlined(UiFonts.HUDTabText, GetText(y.Key)));
+            Texts = Layers.ToDictionary(x => x.Key, y => (UiText)new UiTextOutlined(UiFonts.HUDTabText, GetText(y.Key)));
             Icons = Layers.ToDictionary(x => x.Key, y => GetIcon(y.Key));
+
+            foreach (var text in Texts.Values)
+            {
+                AddChild(text);
+            }
+            foreach (var icon in Icons.Values)
+            {
+                if (icon != null)
+                    AddChild(icon);
+            }
+
             ShowSelectedLayer();
         }
 
@@ -79,7 +92,7 @@ namespace OpenNefia.Content.UI
             SelectedLayer.GrabFocus();
         }
 
-        private void OnKeyDown(Core.UI.Element.GUIBoundKeyEventArgs args)
+        private void HandleKeyBindDown(GUIBoundKeyEventArgs args)
         {
             var queryArgs = Layers.Keys.ToList();
             var index = queryArgs.IndexOf(SelectedArgs);
@@ -104,7 +117,7 @@ namespace OpenNefia.Content.UI
             if (SelectedLayer != null)
             {
                 RemoveChild(SelectedLayer);
-                SelectedLayer.OnKeyBindDown -= OnKeyDown;
+                SelectedLayer.OnKeyBindDown -= HandleKeyBindDown;
                 SelectedLayer.OnQueryFinish();
             }
 
@@ -112,38 +125,49 @@ namespace OpenNefia.Content.UI
             {
                 SelectedLayer = layer;
                 AddChild(SelectedLayer);
-                EntitySystem.InjectDependencies(SelectedLayer);
-                layer.Initialize(SelectedArgs);
+
+                UserInterfaceManager.InitializeLayer<TLayer, TSublayerArgs, TResult>(SelectedLayer, SelectedArgs);
+
                 SetSize(Width, Height);
                 SetPosition(X, Y);
-                SelectedLayer.OnKeyBindDown += OnKeyDown;
+                SelectedLayer.OnKeyBindDown += HandleKeyBindDown;
                 SelectedLayer.OnQuery();
                 SelectedLayer.GrabFocus();
             }
         }
 
-        protected virtual (IAssetDrawable Elem, Vector2i Offset) GetIcon(TLayerArgs args) => (default!, default);
+        protected virtual AssetDrawable? GetIcon(TSublayerArgs args) => null;
 
-        protected virtual string GetText(TLayerArgs args) => string.Empty;
+        protected virtual string GetText(TSublayerArgs args) => string.Empty;
 
-        public override void SetSize(int width, int height)
+        public override void SetSize(float width, float height)
         {
             base.SetSize(width, height);
-            TabWindow.SetSize(ExtraTabWindowWidth + (Layers.Count * ItemWidth), 24);
+            TabIconWindow.SetSize(ExtraTabWindowWidth + (Layers.Count * ItemWidth), 24);
             if (SelectedLayer != null)
                 SelectedLayer.SetPreferredSize();
+
+            foreach (var text in Texts.Values)
+            {
+                text.SetPreferredSize();
+            }
+
+            foreach (var icon in Icons.Values)
+            {
+                if (icon != null)
+                    icon.SetPreferredSize();
+            }
         }
 
-        public override void SetPosition(int x, int y)
+        public override void SetPosition(float x, float y)
         {
             base.SetPosition(x, y);
-            TabWindow.SetPosition(Width - TabWindow.Width - 20, 32);
-            int tabInfoX = TabWindow.X + (ItemWidth / 2);
-            int tabInfoY = TabWindow.Y + 5;
+            TabIconWindow.SetPosition(Width - TabIconWindow.Width - 20, 32);
+            var tabInfoX = TabIconWindow.X + (ItemWidth / 2);
+            var tabInfoY = TabIconWindow.Y + 5;
             foreach (var layer in Layers)
             {
-                var iconOffset = Icons[layer.Key].Offset;
-                Icons[layer.Key].Elem.SetPosition(tabInfoX + iconOffset.X, tabInfoY + iconOffset.Y);
+                Icons[layer.Key]?.SetPosition(tabInfoX - 12, tabInfoY - 32);
                 Texts[layer.Key].SetPosition(tabInfoX, tabInfoY);
                 tabInfoX += ItemWidth;
             }
@@ -157,17 +181,26 @@ namespace OpenNefia.Content.UI
         public override void Draw()
         {
             base.Draw();
-            TabWindow.Draw();
-            TabDeco.Draw(TabWindow.X - 32, TabWindow.Y - 7);
+
+            TabIconWindow.Draw();
+            TabDeco.Draw(UIScale, TabIconWindow.X - 32, TabIconWindow.Y - 7);
+
             foreach(var layer in Layers)
             {
                 var color = (layer.Value == SelectedLayer) ? Color.White : Color.Gray;
-                Icons[layer.Key].Elem.Color = color;
-                Icons[layer.Key].Elem.Draw();
+
+                var icon = Icons[layer.Key];
+                if (icon != null)
+                {
+                    icon.Color = color;
+                    icon.Draw();
+                }
+
                 Texts[layer.Key].Color = color;
                 Texts[layer.Key].Draw();
             }
             GraphicsEx.SetColor(Color.White);
+
             if (SelectedLayer != null)
                 SelectedLayer.Draw();
         }
@@ -175,7 +208,7 @@ namespace OpenNefia.Content.UI
         public override void Update(float dt)
         {
             base.Update(dt);
-            TabWindow.Update(dt);
+            TabIconWindow.Update(dt);
             if (SelectedLayer != null)
                 SelectedLayer.Update(dt);
         }

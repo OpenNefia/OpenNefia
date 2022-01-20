@@ -1,21 +1,16 @@
-﻿using OpenNefia.Content.GameObjects;
-using OpenNefia.Content.Input;
+﻿using OpenNefia.Content.Input;
 using OpenNefia.Content.Prototypes;
-using OpenNefia.Content.UI.Element;
 using OpenNefia.Core.Audio;
 using OpenNefia.Core.Directions;
-using OpenNefia.Core.Game;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Input;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Maps;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.Rendering;
-using OpenNefia.Core.UI;
 using OpenNefia.Core.UI.Element;
 using OpenNefia.Core.UI.Layer;
 using OpenNefia.Core.UserInterface;
-using OpenNefia.Core.Utility;
 using static OpenNefia.Content.Prototypes.Protos;
 using Color = OpenNefia.Core.Maths.Color;
 
@@ -112,7 +107,7 @@ namespace OpenNefia.Content.UI.Layer
         protected override void MouseMove(GUIMouseMoveEventArgs args)
         {
             if (_isPanning)
-                PanWithMouse(args.Relative);
+                PanWithMouse(args.Relative * UIScale);
         }
 
         private void PanWithMouse(Vector2 delta)
@@ -125,7 +120,7 @@ namespace OpenNefia.Content.UI.Layer
             _field.Camera.CenterOnTilePos(_centerCoords);
         }
 
-        public override void SetPosition(int x, int y)
+        public override void SetPosition(float x, float y)
         {
             base.SetPosition(x, y);
         }
@@ -145,33 +140,32 @@ namespace OpenNefia.Content.UI.Layer
         public override void Update(float dt)
         {
             _dt += dt;
-
         }
 
         public override void Draw()
         {
-            var screenPos = _field.Camera.TileToVisibleScreen(_centerCoords);
-            var (tileWidth, tileHeight) = _coords.TileSize;
+            var screenPos = _field.Camera.TileToVisibleScreen(_centerCoords) / UIScale;
+            var (tileWidth, tileHeight) = _coords.TileSize / UIScale;
 
             var frame = _dt * 50;
             var alpha = (byte)Math.Max(200 - Math.Pow(frame / 2 % 20, 2), 0);
 
-            var pos = GlobalPixelPosition + screenPos + _coords.TileSize / 2;
+            var pos = Position + screenPos + (_coords.TileSize / UIScale) / 2;
 
             Love.Graphics.SetColor(Color.White.WithAlpha(alpha));
 
             if (!_diagonalOnly)
             {
-                AssetDirectionArrow.Draw(pos.X, pos.Y - tileHeight, centered: true, rotation: Direction.North.ToAngle());
-                AssetDirectionArrow.Draw(pos.X, pos.Y + tileHeight, centered: true, rotation: Direction.South.ToAngle());
-                AssetDirectionArrow.Draw(pos.X + tileWidth, pos.Y, centered: true, rotation: Direction.East.ToAngle());
-                AssetDirectionArrow.Draw(pos.X - tileWidth, pos.Y, centered: true, rotation: Direction.West.ToAngle());
+                AssetDirectionArrow.Draw(UIScale, pos.X, pos.Y - tileHeight, centered: true, rotation: Direction.North.ToAngle());
+                AssetDirectionArrow.Draw(UIScale, pos.X, pos.Y + tileHeight, centered: true, rotation: Direction.South.ToAngle());
+                AssetDirectionArrow.Draw(UIScale, pos.X + tileWidth, pos.Y, centered: true, rotation: Direction.East.ToAngle());
+                AssetDirectionArrow.Draw(UIScale, pos.X - tileWidth, pos.Y, centered: true, rotation: Direction.West.ToAngle());
             }
 
-            AssetDirectionArrow.Draw(pos.X - tileWidth, pos.Y - tileHeight, centered: true, rotation: Direction.NorthWest.ToAngle());
-            AssetDirectionArrow.Draw(pos.X + tileWidth, pos.Y + tileHeight, centered: true, rotation: Direction.SouthEast.ToAngle());
-            AssetDirectionArrow.Draw(pos.X + tileWidth, pos.Y - tileHeight, centered: true, rotation: Direction.NorthEast.ToAngle());
-            AssetDirectionArrow.Draw(pos.X - tileWidth, pos.Y + tileHeight, centered: true, rotation: Direction.SouthWest.ToAngle());
+            AssetDirectionArrow.Draw(UIScale, pos.X - tileWidth, pos.Y - tileHeight, centered: true, rotation: Direction.NorthWest.ToAngle());
+            AssetDirectionArrow.Draw(UIScale, pos.X + tileWidth, pos.Y + tileHeight, centered: true, rotation: Direction.SouthEast.ToAngle());
+            AssetDirectionArrow.Draw(UIScale, pos.X + tileWidth, pos.Y - tileHeight, centered: true, rotation: Direction.NorthEast.ToAngle());
+            AssetDirectionArrow.Draw(UIScale, pos.X - tileWidth, pos.Y + tileHeight, centered: true, rotation: Direction.SouthWest.ToAngle());
         }
     }
 }

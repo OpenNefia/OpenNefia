@@ -83,6 +83,21 @@ namespace OpenNefia.Content.ConfigMenu
         public CVarDef<bool> CVar { get; } = default!;
     }
 
+    public sealed class ConfigFloatMenuNode : IConfigCVarMenuNode<float>
+    {
+        [DataField("cvar", required: true)]
+        public CVarDef<float> CVar { get; } = default!;
+
+        [DataField]
+        public float Min { get; } = float.NegativeInfinity;
+
+        [DataField]
+        public float Max { get; } = float.PositiveInfinity;
+
+        [DataField]
+        public float Step { get; } = 0.1f;
+    }
+
     public sealed class ConfigEnumMenuNode : IConfigCVarMenuNode
     {
         [DataField("cvar", required: true)]

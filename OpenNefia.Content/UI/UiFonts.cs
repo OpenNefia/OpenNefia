@@ -11,7 +11,7 @@ namespace OpenNefia.Content.UI
     {
         public static readonly FontSpec TitleScreenText = new(13, 13, color: UiColors.TextWhite, bgColor: UiColors.TextBlack);
 
-        public static readonly FontSpec ListTitleScreenText = new(13, 14);
+        public static readonly FontSpec ListTitleScreenText = new(14, 13);
         public static readonly FontSpec ListTitleScreenSubtext = new(11, 11);
         public static readonly FontSpec ListText = new(14, 12);
         public static readonly FontSpec ListKeyName = new(15, 13, color: UiColors.TextWhite, bgColor: UiColors.TextBlack);
@@ -20,20 +20,21 @@ namespace OpenNefia.Content.UI
         public static readonly FontSpec WindowKeyHints = new(12, 10);
         public static readonly FontSpec WindowPage = new(12, 12, style: FontStyle.Bold);
 
-        public static readonly FontSpec CharaMakeLockInfo = new(13, 12);
+        public static readonly FontSpec CharaMakeLockInfo = new(12, 10);
+        public static readonly FontSpec CharaMakeLockInfoBold = new(12, 10, style: FontStyle.Bold);
         public static readonly FontSpec CharaMakeRerollAttrAmount = new(14, 12, style: FontStyle.Bold);
         public static readonly FontSpec CharaMakeRerollLocked = new(11, 9, color: UiColors.CharaMakeAttrLevelGreat, style: FontStyle.Bold);
 
-        public static readonly FontSpec CharSheetInfo = new(13, 11);
+        public static readonly FontSpec CharSheetInfo = new(13, 11, style: FontStyle.Bold);
         public static readonly FontSpec CharaSheetInfoContent = new(14, 12);
 
         public static readonly FontSpec TextNote = new(12, 10, style: FontStyle.Bold); // 12 + sizefix - en * 2
 
         public static readonly FontSpec MessageText = new(14, 14);
         public static readonly FontSpec HUDTabText = new(14, 12, color: UiColors.TextWhite, bgColor: UiColors.TextBlack);
-        public static readonly FontSpec HUDBarText = new(10, 10, color: UiColors.TextWhite, bgColor: UiColors.TextBlack);
-        public static readonly FontSpec HUDInfoText = new(11, 11, color: UiColors.TextWhite, bgColor: UiColors.TextBlack);
-        public static readonly FontSpec HUDSkillText = new(11, 11);
+        public static readonly FontSpec HUDBarText = new(12, 10, color: UiColors.TextWhite, bgColor: UiColors.TextBlack, style: FontStyle.Bold);
+        public static readonly FontSpec HUDInfoText = new(13, 11, color: UiColors.TextWhite, bgColor: UiColors.TextBlack);
+        public static readonly FontSpec HUDSkillText = new(13, 11);
 
         public static readonly FontSpec PromptText = new(16, 14, color: UiColors.TextWhite, bgColor: UiColors.TextBlack);
         public static readonly FontSpec TargetText = new(14, 12, color: UiColors.TextWhite, bgColor: UiColors.TextBlack);

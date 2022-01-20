@@ -11,6 +11,7 @@ using OpenNefia.Core.Maps;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Core.Rendering.TileDrawLayers;
+using OpenNefia.Core.UI;
 
 namespace OpenNefia.Content.VanillaAI
 {
@@ -87,7 +88,7 @@ namespace OpenNefia.Content.VanillaAI
         {
         }
 
-        private const int BarWidthPixels = 30;
+        private const float BarWidthPixels = 30f;
 
         public override void Draw()
         {
@@ -97,10 +98,10 @@ namespace OpenNefia.Content.VanillaAI
 
             foreach (var entry in _entries)
             {
-                UiHelpers.DrawPercentageBar(entry,
-                    GlobalPixelPosition + entry.ScreenPos + (9, size.Y),
-                    entry.HPRatio * BarWidthPixels,
-                    Vector2i.Zero);
+                UiHelpers.DrawPercentageBar(1f, 
+                    entry,
+                    Position + entry.ScreenPos + (9, size.Y),
+                    entry.HPRatio * BarWidthPixels);
             }
         }
     }

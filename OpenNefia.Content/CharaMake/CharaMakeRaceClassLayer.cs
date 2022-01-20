@@ -13,6 +13,7 @@ using OpenNefia.Core.Log;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Rendering;
+using OpenNefia.Core.UI;
 using OpenNefia.Core.UI.Element;
 using OpenNefia.Core.Utility;
 using System;
@@ -62,7 +63,9 @@ namespace OpenNefia.Content.CharaMake
     public class CharaMakeClassSelectLayer : CharaMakeRaceClassLayer
     {
         public const string ResultName = "class";
-        private UiText RaceText;
+        
+        [Child] private UiText RaceText;
+        
         private TileAtlasBatch Atlas = default!;
         private ChipPrototype MaleChip = default!;
         private ChipPrototype FemaleChip = default!;
@@ -115,7 +118,7 @@ namespace OpenNefia.Content.CharaMake
             }));
         }
 
-        public override void SetPosition(int x, int y)
+        public override void SetPosition(float x, float y)
         {
             base.SetPosition(x, y);
             RaceText.SetPosition(Window.X + 470, Window.Y + 35);
@@ -126,10 +129,10 @@ namespace OpenNefia.Content.CharaMake
             base.Draw();
             RaceText.Draw();
             Atlas.Clear();
-            Atlas.Add(FemaleChip.Image.AtlasIndex, Window.X + 375, Window.Y + 35, centered: true);
-            Atlas.Add(MaleChip.Image.AtlasIndex, Window.X + 405, Window.Y + 35, centered: true);
+            Atlas.Add(UIScale, FemaleChip.Image.AtlasIndex, Window.X + 375, Window.Y + 35, centered: true);
+            Atlas.Add(UIScale, MaleChip.Image.AtlasIndex, Window.X + 405, Window.Y + 35, centered: true);
             Atlas.Flush();
-            Atlas.Draw(0, 0);
+            Atlas.Draw(UIScale, 0, 0);
         }
 
         public override void ApplyStep(EntityUid entity)
@@ -226,18 +229,22 @@ namespace OpenNefia.Content.CharaMake
         [Dependency] protected readonly IPrototypeManager _prototypeManager = default!;
         [Dependency] protected readonly ISkillsSystem _skillsSys = default!;
 
-        [Localize] protected UiWindow Window;
-        [Localize] protected UiTextTopic RaceTopic;
-        [Localize] protected UiTextTopic DetailTopic;
+        [Child] [Localize] protected UiWindow Window;
+        [Child] [Localize] protected UiTextTopic RaceTopic;
+        [Child] [Localize] protected UiTextTopic DetailTopic;
+        [Child] private UiVerticalContainer DetailContainer;
+        [Child] private UiPagedList<RaceClass> List;
+        
+        //
+        // DetailContainer children
+        // 
         [Localize] protected UiTextTopic AttributeTopic;
         [Localize] protected UiTextTopic SkillTopic;
-        private UiVerticalContainer DetailContainer;
         private UiVerticalContainer SkillContainer;
         private UiVerticalContainer TrainedSkillContainer;
-        private UiWrapText DetailText;
+        private UiWrappedText DetailText;
 
         private UiGridContainer AttributeContainer;
-        private UiPagedList<RaceClass> List;
         private RaceClassCell[] AllData;
         
         public CharaMakeRaceClassLayer()
@@ -252,7 +259,8 @@ namespace OpenNefia.Content.CharaMake
 
             DetailContainer = new UiVerticalContainer();
 
-            DetailText = new UiWrapText(450, UiFonts.ListTitleScreenText);
+            DetailText = new UiWrappedText(UiFonts.ListTitleScreenText);
+            DetailText.MinSize = new(450, 0);
             DetailContainer.AddElement(DetailText);
             DetailContainer.AddLayout(LayoutType.YMin, 110);
 
@@ -283,9 +291,6 @@ namespace OpenNefia.Content.CharaMake
             {
                 SelectData(args.SelectedCell.Data);
             };
-
-            AddChild(List);
-            AddChild(Window);
         }
 
         public override void Initialize(CharaMakeData args)
@@ -293,8 +298,7 @@ namespace OpenNefia.Content.CharaMake
             base.Initialize(args);
             AllData = GetData().Select(x => new RaceClassCell(x)).ToArray();
             Window.KeyHints = MakeKeyHints();
-            List.Clear();
-            List.AddRange(AllData);
+            List.SetAll(AllData);
 
             SelectData(AllData.First().Data);
         }
@@ -316,7 +320,7 @@ namespace OpenNefia.Content.CharaMake
             DetailContainer.Relayout();
 
             data.TryGetString(out var desc, "Description");
-            DetailText.Text = desc;
+            DetailText.WrappedText = desc;
         }
 
         private void SetAttributes(IReadOnlyDictionary<PrototypeId<SkillPrototype>, int> skills)
@@ -371,7 +375,7 @@ namespace OpenNefia.Content.CharaMake
                     default:
                         var related = _prototypeManager.Index(skill.RelatedSkill ?? default!);
                         var skillName = Loc.GetPrototypeString(skillId, "Name") ?? string.Empty;
-                        var skillDesc = $"{skillName}{new string(' ', Math.Max(16 - skillName.Length, 0))}{Loc.GetPrototypeString(skillId, "Description") ?? string.Empty}";
+                        var skillDesc = $"{skillName.WidePadRight(16)}{Loc.GetPrototypeString(skillId, "Description") ?? string.Empty}";
                         var cont = MakeSkillContainer(related.GetStrongID(), skillDesc);
                         list.Add(cont);
                         break;
@@ -425,19 +429,20 @@ namespace OpenNefia.Content.CharaMake
             }
         }
 
-        public override void GetPreferredBounds(out UIBox2i bounds)
+        public override void GetPreferredBounds(out UIBox2 bounds)
         {
             UiUtils.GetCenteredParams(680, 500, out bounds, yOffset: 20);
         }
 
-        public override void SetSize(int width, int height)
+        public override void SetSize(float width, float height)
         {
             base.SetSize(width, height);
             Window.SetSize(Width, Height);
             List.SetPreferredSize();
+            DetailText.SetPreferredSize();
         }
 
-        public override void SetPosition(int x, int y)
+        public override void SetPosition(float x, float y)
         {
             base.SetPosition(x, y);
             Window.SetPosition(X, Y);
@@ -453,7 +458,7 @@ namespace OpenNefia.Content.CharaMake
             base.Draw();
             Window.Draw();
             GraphicsEx.SetColor(255, 255, 255, 50);
-            CurrentWindowBG.Draw(Window.X + 15, Window.Y + 40, 270, 420);
+            CurrentWindowBG.Draw(UIScale, Window.X + 15, Window.Y + 40, 270, 420);
             List.Draw();
 
             RaceTopic.Draw();

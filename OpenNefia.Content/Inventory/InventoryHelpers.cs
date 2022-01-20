@@ -53,7 +53,7 @@ namespace OpenNefia.Content.Inventory
             return UiColors.TextBlack;
         }
 
-        public static IAssetDrawable MakeIcon(InventoryIcon icon)
+        public static AssetDrawable MakeIcon(InventoryIcon icon)
         {
             if (!Enum.IsDefined(typeof(InventoryIcon), icon))
             {

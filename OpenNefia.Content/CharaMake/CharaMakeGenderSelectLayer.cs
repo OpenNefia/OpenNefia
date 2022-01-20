@@ -19,6 +19,7 @@ using OpenNefia.Core.Log;
 using OpenNefia.Core.Audio;
 using OpenNefia.Content.Prototypes;
 using OpenNefia.Core.Maths;
+using OpenNefia.Core.UI;
 
 namespace OpenNefia.Content.CharaMake
 {
@@ -39,12 +40,11 @@ namespace OpenNefia.Content.CharaMake
             }
         }
 
-        [Localize] private UiWindow Window = new();
-        [Localize] private UiTextTopic GenderTopic = new();
-
         public const string ResultName = "gender";
 
-        private UiList<Gender> List = new();
+        [Child] [Localize] private UiWindow Window = new();
+        [Child] [Localize] private UiTextTopic GenderTopic = new();
+        [Child] private UiList<Gender> List = new();
 
         public CharaMakeGenderSelectLayer()
         {
@@ -61,8 +61,6 @@ namespace OpenNefia.Content.CharaMake
                     { ResultName, args.SelectedCell.Data }
                 }));
             };
-            
-            AddChild(List);
 
             Window.KeyHints = MakeKeyHints();
         }
@@ -79,18 +77,18 @@ namespace OpenNefia.Content.CharaMake
             List.GrabFocus();
         }
 
-        public override void GetPreferredBounds(out UIBox2i bounds)
+        public override void GetPreferredBounds(out UIBox2 bounds)
         {
             UiUtils.GetCenteredParams(380, 180, out bounds, yOffset: -20);
         }
 
-        public override void SetSize(int width, int height)
+        public override void SetSize(float width, float height)
         {
             base.SetSize(width, height);
             Window.SetSize(Width, Height);
         }
 
-        public override void SetPosition(int x, int y)
+        public override void SetPosition(float x, float y)
         {
             base.SetPosition(x, y);
             Window.SetPosition(X, Y);
@@ -103,7 +101,7 @@ namespace OpenNefia.Content.CharaMake
             base.Draw();
             Window.Draw();
             GraphicsEx.SetColor(255, 255, 255, 40);
-            AssetWindows[0].Draw(Window.X + 100, Window.Y + 30, 180, 110);
+            AssetWindows[0].Draw(UIScale, Window.X + 100, Window.Y + 30, 180, 110);
             GenderTopic.Draw();
             List.Draw();
         }

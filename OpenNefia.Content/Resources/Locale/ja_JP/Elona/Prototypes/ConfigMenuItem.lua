@@ -58,6 +58,10 @@ OpenNefia.Prototypes.Elona.ConfigMenuItem.Elona = {
         Name = "ディスプレイ番号",
     },
 
+    ScreenUIScale = {
+        Name = "ＵＩスケール",
+    },
+
     --
     -- Menu: Net
     --

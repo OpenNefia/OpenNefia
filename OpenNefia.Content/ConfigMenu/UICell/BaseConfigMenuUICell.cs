@@ -23,7 +23,7 @@ namespace OpenNefia.Content.ConfigMenu.UICell
     public abstract class BaseConfigMenuUICell : UiListCell<UINone>
     {
         public IConfigMenuNode MenuNode { get; }
-        public IUiText ValueText { get; } = new UiText(UiFonts.ListText);
+        [Child] public UiText ValueText { get; } = new UiText(UiFonts.ListText);
 
         protected BaseConfigMenuUICell(IConfigMenuNode menuNode) : base(new(), "", null)
         {
@@ -72,8 +72,8 @@ namespace OpenNefia.Content.ConfigMenu.UICell
 
         protected ConfigMenuItemProtoId ProtoId { get; }
 
-        protected IAssetDrawable AssetArrowLeft;
-        protected IAssetDrawable AssetArrowRight;
+        [Child] protected AssetDrawable AssetArrowLeft;
+        [Child] protected AssetDrawable AssetArrowRight;
 
         protected virtual bool ShowArrows => true;
 
@@ -103,7 +103,7 @@ namespace OpenNefia.Content.ConfigMenu.UICell
             AssetArrowRight.Color = rightArrowEnabled ? Color.White : ColorArrowDisabled;
         }
 
-        public override void SetSize(int width, int height)
+        public override void SetSize(float width, float height)
         {
             base.SetSize(width, height);
             ValueText.SetPreferredSize();
@@ -111,7 +111,7 @@ namespace OpenNefia.Content.ConfigMenu.UICell
             AssetArrowRight.SetPreferredSize();
         }
 
-        public override void SetPosition(int x, int y)
+        public override void SetPosition(float x, float y)
         {
             base.SetPosition(x, y);
             ValueText.SetPosition(X + 194, Y + 1);

@@ -1,4 +1,6 @@
-﻿using OpenNefia.Core.ContentPack;
+﻿using OpenNefia.Core.Configuration;
+using OpenNefia.Core.Graphics;
+using OpenNefia.Core.Input;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Locale;
 using OpenNefia.Core.Prototypes;
@@ -11,11 +13,14 @@ namespace OpenNefia.Core.Rendering
     {
         [Dependency] private readonly ILocalizationManager _localization = default!;
         [Dependency] private readonly IResourceCache _resourceCache = default!;
+        [Dependency] private readonly IGraphics _graphics = default!;
+        [Dependency] private readonly IConfigurationManager _config = default!;
 
         private sealed record FontCacheEntry(FontSpec FontSpec, Love.Font LoveFont);
 
         private ResourcePath _fallbackFontPath = new("/Font/Core/kochi-gothic-subst.ttf");
         private static Dictionary<int, FontCacheEntry> _fontCache = new();
+        private static HashSet<FontSpec> _fontSpecs = new();
 
         public void Initialize()
         {
@@ -26,6 +31,8 @@ namespace OpenNefia.Core.Rendering
                 _fallbackFontPath = msGothic;
 
             _localization.OnLanguageSwitched += HandleLanguageSwitched;
+
+            _graphics.OnWindowScaleChanged += HandleWindowScaleChanged;
         }
 
         /// <summary>
@@ -34,17 +41,33 @@ namespace OpenNefia.Core.Rendering
         /// </summary>
         private void HandleLanguageSwitched(PrototypeId<LanguagePrototype> _)
         {
-            foreach (var entry in _fontCache.Values)
+            ClearCache();
+        }
+
+        private void HandleWindowScaleChanged(WindowScaleChangedEventArgs obj)
+        {
+            ClearCache();
+        }
+
+        private void ClearCache()
+        {
+            foreach (var spec in _fontSpecs)
             {
-                entry.FontSpec.ClearCachedFont();
+                spec.ClearCachedFont();
             }
 
             _fontCache.Clear();
         }
 
-        public Love.Font GetFont(FontSpec spec)
+        public Love.Font GetFont(FontSpec spec) => GetFont(spec, _graphics.WindowScale);
+
+        // TODO: Needs UI scale passed to it
+        public Love.Font GetFont(FontSpec spec, float uiScale)
         {
+            _fontSpecs.Add(spec);
+
             var size = _localization.IsFullwidth() ? spec.Size : spec.SmallSize;
+            size = (int)(size * uiScale);
 
             if (_fontCache.TryGetValue(size, out var cachedEntry))
             {
@@ -67,6 +90,7 @@ namespace OpenNefia.Core.Rendering
         public void Clear()
         {
             _fontCache.Clear();
+            _fontSpecs.Clear();
         }
     }
 }

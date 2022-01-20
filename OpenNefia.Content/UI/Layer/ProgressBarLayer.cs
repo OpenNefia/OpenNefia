@@ -28,7 +28,7 @@ namespace OpenNefia.Content.UI.Layer
 
         private FontSpec FontListText = UiFonts.ListText;
         private Color ColorTextBlack = UiColors.TextBlack;
-        private IUiText TextStatus;
+        private UiText TextStatus;
         private UiWindow Window;
 
         public ProgressBarLayer()
@@ -72,20 +72,20 @@ namespace OpenNefia.Content.UI.Layer
             Sounds.Play(Protos.Sound.Pop2);
         }
 
-        public override void SetSize(int width, int height)
+        public override void SetSize(float width, float height)
         {
             base.SetSize(width, height);
             Window.SetSize(width, height);
         }
 
-        public override void SetPosition(int x, int y)
+        public override void SetPosition(float x, float y)
         {
             base.SetPosition(x, y);
             Window.SetPosition(x, y);
             TextStatus.SetPosition(X + Width / 2 - TextStatus.Width / 2, Y + Height / 2 - TextStatus.Height * 3);
         }
 
-        public override void GetPreferredBounds(out UIBox2i bounds)
+        public override void GetPreferredBounds(out UIBox2 bounds)
         {
             UiUtils.GetCenteredParams(400, 200, out bounds);
         }
@@ -123,8 +123,8 @@ namespace OpenNefia.Content.UI.Layer
             TextStatus.Draw();
 
             GraphicsEx.SetColor(ColorTextBlack);
-            Love.Graphics.Rectangle(Love.DrawMode.Line, X + 30, Y + Height / 2 - 10, Width - 60, 20);
-            Love.Graphics.Rectangle(Love.DrawMode.Fill, X + 30, Y + Height / 2 - 10, (int)((Width - 60) * ProgressPercent), 20);
+            GraphicsS.RectangleS(UIScale, Love.DrawMode.Line, X + 30, Y + Height / 2 - 10, Width - 60, 20);
+            GraphicsS.RectangleS(UIScale, Love.DrawMode.Fill, X + 30, Y + Height / 2 - 10, (int)((Width - 60) * ProgressPercent), 20);
         }
 
         public override void Dispose()

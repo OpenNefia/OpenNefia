@@ -19,8 +19,8 @@ namespace OpenNefia.Content.UI.Element.Containers
         /// Amount of columns when horizontal / rows when vertical
         /// </summary>
         private int Length;
-        private int XSpace;
-        private int YSpace;
+        private float XSpace;
+        private float YSpace;
         private bool XCentered;
         private bool YCentered;
 
@@ -34,10 +34,10 @@ namespace OpenNefia.Content.UI.Element.Containers
             YCentered = yCentered;
         }
 
-        protected override Vector2i RelayoutPreferredSize()
+        protected override Vector2 RelayoutPreferredSize()
         {
-            int xMax = 0, yMax = 0;
-            int xOffset = 0, yOffset = 0;
+            float xMax = 0, yMax = 0;
+            float xOffset = 0, yOffset = 0;
             int elemIndex = 0;
             foreach (var elem in Entries)
             {
@@ -76,8 +76,8 @@ namespace OpenNefia.Content.UI.Element.Containers
                             break;
                         }
 
-                        int mainOffset = elemIndex % Length;
-                        int subOffset;
+                        float mainOffset = elemIndex % Length;
+                        float subOffset;
                         switch(GridType)
                         {
                             case GridType.Horizontal:
@@ -116,9 +116,9 @@ namespace OpenNefia.Content.UI.Element.Containers
             {
                 default:
                 case GridType.Horizontal:
-                    return new Vector2i(Math.Min(totalElements, Length) * xMax, (totalElements / Length) * yMax);
+                    return new Vector2(MathF.Min(totalElements, Length) * xMax, (totalElements / Length) * yMax);
                 case GridType.Vertical:
-                    return new Vector2i((totalElements / Length) * xMax, Math.Min(totalElements, Length) * yMax);
+                    return new Vector2((totalElements / Length) * xMax, MathF.Min(totalElements, Length) * yMax);
             }
         }
     }

@@ -11,10 +11,12 @@ using System.Threading.Tasks;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Game;
+using OpenNefia.Core.UI;
+using OpenNefia.Content.UI;
 
 namespace OpenNefia.Content.Hud
 {
-    public class UiHudMinimap : BaseHudWidget
+    public class UiMinimap : BaseHudWidget
     {
         [Dependency] private readonly ITileDefinitionManager _tileDefManager = default!;
         [Dependency] private readonly IEntityManager _entMan = default!;
@@ -53,34 +55,31 @@ namespace OpenNefia.Content.Hud
                 for(int y = 0; y < tiles.GetLength(1); y++)
                 {
                     var tile = _tileDefManager[tiles[x, y].Type];
-                    Batch.Add($"{tile.ID}:Tile", 
+                    Batch.Add(UIScale,
+                        tile.Image.AtlasIndex,
                         x * tileWidth, y * tileHeight, tileWidth, tileHeight, tile.IsSolid ? WallColor : Color.White);
                 }
             }
         }
 
-        public override void SetSize(int width, int height)
+        public override void SetSize(float width, float height)
         {
             base.SetSize(width, height);
-            Batch.SetSize(width, height);
         }
 
-        public override void SetPosition(int x, int y)
+        public override void SetPosition(float x, float y)
         {
             base.SetPosition(x, y);
-            Batch.SetPosition(x, y);
         }
 
         public override void Draw()
         {
-            Batch.Draw();
+            Batch.Draw(UIScale, X, Y, Width, Height);
             if (PlayerCoords.HasValue)
             {
-                float xSize = (float)Width / (float)MapSize.X;
-                float ySize = (float)Height / (float)MapSize.Y;
-                float x = xSize * PlayerCoords.Value.X + (xSize / 2f);
-                float y = ySize * PlayerCoords.Value.Y + (ySize / 2f);
-                PlayerIcon.Draw(X + x, Y + y, centered: true);
+                float x = Width * ((float)PlayerCoords.Value.X / MapSize.X);
+                float y = Height * ((float)PlayerCoords.Value.Y / MapSize.Y);
+                PlayerIcon.Draw(UIScale, X + x, Y + y, centered: true);
             }
         }
 
@@ -92,26 +91,26 @@ namespace OpenNefia.Content.Hud
     public class HudMinimapWidget : BaseHudWidget
     {
         private IAssetInstance MiniMapAsset = default!;
-        private UiHudMinimap Minimap = default!;
+        [Child] private UiMinimap Minimap = default!;
 
-        public const int MinimapWidth = 122;
-        public const int MinimapHeight = 88;
+        public const float MinimapWidth = 122;
+        public const float MinimapHeight = 88;
 
         public override void Initialize()
         {
             base.Initialize();
             MiniMapAsset = Assets.Get(Protos.Asset.HudMinimap);
-            Minimap = new UiHudMinimap();
+            Minimap = new UiMinimap();
             Minimap.Initialize();
         }
 
-        public override void SetPosition(int x, int y)
+        public override void SetPosition(float x, float y)
         {
             base.SetPosition(x, y);
             Minimap.SetPosition(x + 2, y + 2);
         }
 
-        public override void SetSize(int width, int height)
+        public override void SetSize(float width, float height)
         {
             base.SetSize(width, height);
             Minimap.SetSize(MinimapWidth - 4, MinimapHeight - 4);
@@ -126,7 +125,7 @@ namespace OpenNefia.Content.Hud
         public override void Draw()
         {
             base.Draw();
-            MiniMapAsset.Draw(X, Y);
+            MiniMapAsset.Draw(UIScale, X, Y);
             Minimap.Draw();
         }
     }

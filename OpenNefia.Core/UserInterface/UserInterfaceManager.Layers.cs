@@ -1,11 +1,14 @@
 ﻿using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Graphics;
+using OpenNefia.Core.Input;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Locale;
 using OpenNefia.Core.Log;
 using OpenNefia.Core.Timing;
 using OpenNefia.Core.UI;
+using OpenNefia.Core.UI.Element;
 using OpenNefia.Core.UI.Layer;
+using OpenNefia.Core.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -55,9 +58,8 @@ namespace OpenNefia.Core.UserInterface
 
         public void PushLayer(UiLayer layer)
         {
-            layer.GetPreferredBounds(out var bounds);
-            layer.SetSize(bounds.Width, bounds.Height);
-            layer.SetPosition(bounds.Left, bounds.Top);
+            layer.LayerUIScale = _graphics.WindowScale;
+            ResizeAndLayoutLayer(layer);
             Layers.Add(layer);
             SortLayers();
 
@@ -96,10 +98,42 @@ namespace OpenNefia.Core.UserInterface
         {
             foreach (var layer in this.Layers)
             {
+                ResizeAndLayoutLayer(layer);
+            }
+        }
+
+        private static void ResizeAndLayoutLayer(UiLayer layer)
+        {
+            UiHelpers.AddChildrenFromAttributesRecursive(layer);
+            layer.GetPreferredBounds(out var bounds);
+            layer.SetSize(bounds.Width, bounds.Height);
+            layer.SetPosition(bounds.Left, bounds.Top);
+        }
+
+        private void HandleWindowScaleChanged(WindowScaleChangedEventArgs evt)
+        {
+            var ev = new GUIScaleChangedEventArgs(globalUIScale: evt.UIScale);
+
+            foreach (var layer in this.Layers)
+            {
+                layer.LayerUIScale = evt.UIScale;
+
+                NotifyUIScaleChanged(layer, ev);
+
                 layer.GetPreferredBounds(out var bounds);
                 layer.SetSize(bounds.Width, bounds.Height);
                 layer.SetPosition(bounds.Left, bounds.Top);
             }
+        }
+
+        private void NotifyUIScaleChanged(UiElement elem, GUIScaleChangedEventArgs ev)
+        {
+            foreach (var child in elem.Children)
+            {
+                NotifyUIScaleChanged(child, ev);
+            }
+
+            elem.UIScaleChanged(ev);
         }
 
         public UiResult<TResult> Query<TLayer, TResult>()
@@ -109,40 +143,84 @@ namespace OpenNefia.Core.UserInterface
             return Query<TLayer, UINone, TResult>(new UINone());
         }
 
-        public UiResult<UINone> Query<TLayer, TArgs>(TArgs args) 
+        public UiResult<UINone> Query<TLayer, TArgs>(TArgs args)
             where TLayer : IUiLayerWithResult<TArgs, UINone>, new()
         {
             return Query<TLayer, TArgs, UINone>(args);
         }
 
-        public UiResult<UINone> Query<TLayer>() 
+        public UiResult<UINone> Query<TLayer>()
             where TLayer : IUiLayerWithResult<UINone, UINone>, new()
         {
             return Query<TLayer, UINone, UINone>(new UINone());
         }
 
         public UiResult<TResult> Query<TLayer, TArgs, TResult>(TArgs args)
-            where TLayer: IUiLayerWithResult<TArgs, TResult>, new()
+            where TLayer : IUiLayerWithResult<TArgs, TResult>, new()
             where TResult : class
         {
-            using (var layer = Activator.CreateInstance<TLayer>()!)
+            using (var layer = CreateLayer<TLayer, TArgs, TResult>(args))
             {
-                EntitySystem.InjectDependencies(layer);
-                layer.Initialize(args);
                 return Query(layer);
             }
         }
 
-        public UiResult<TResult> Query<TResult, TLayer, TArgs>(IUiLayerWithResult<TArgs, TResult> layer, TArgs args)
+        public TLayer CreateLayer<TLayer, TArgs, TResult>(TArgs args) 
+            where TLayer : IUiLayerWithResult<TArgs, TResult>, new()
+            where TResult : class
+        {
+            var layer = Activator.CreateInstance<TLayer>()!;
+            InitializeLayer<TLayer, TArgs, TResult>(layer, args);
+            return layer;
+        }
+
+        public TLayer CreateLayer<TLayer, TResult>()
+            where TLayer : IUiLayerWithResult<UINone, TResult>, new()
+            where TResult : class
+        {
+            return CreateLayer<TLayer, UINone, TResult>(new());
+        }
+
+        public TLayer CreateLayer<TLayer, TArgs>(TArgs args)
+            where TLayer : IUiLayerWithResult<TArgs, UINone>, new()
+        {
+            return CreateLayer<TLayer, TArgs, UINone>(args);
+        }
+
+        public TLayer CreateLayer<TLayer>()
+            where TLayer : IUiLayer, new()
+        {
+            var layer = Activator.CreateInstance<TLayer>()!;
+            InitializeLayer(layer);
+            return layer;
+        }
+
+        public void InitializeLayer<TLayer, TArgs, TResult>(TLayer layer, TArgs args)
             where TLayer : IUiLayerWithResult<TArgs, TResult>
             where TResult : class
         {
-                EntitySystem.InjectDependencies(layer);
-                layer.Initialize(args);
-                return Query(layer);
+            InitializeLayer(layer);
+            layer.Initialize(args);
         }
 
-        public UiResult<TResult> Query<TArgs, TResult>(IUiLayerWithResult<TArgs, TResult> layer) 
+        public void InitializeLayer<TLayer>(TLayer layer)
+            where TLayer : IUiLayer
+        {
+            if (layer is UiElement elem)
+                UiHelpers.AddChildrenFromAttributesRecursive(elem);
+
+            EntitySystem.InjectDependencies(layer);
+        }
+
+        public UiResult<TResult> Query<TResult, TLayer, TArgs>(TLayer layer, TArgs args)
+            where TLayer : IUiLayerWithResult<TArgs, TResult>
+            where TResult : class
+        {
+            InitializeLayer<TLayer, TArgs, TResult>(layer, args);
+            return Query(layer);
+        }
+
+        public UiResult<TResult> Query<TArgs, TResult>(IUiLayerWithResult<TArgs, TResult> layer)
             where TResult : class
         {
             if (layer.DefaultZOrder != null)

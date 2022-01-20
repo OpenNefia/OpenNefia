@@ -1,13 +1,12 @@
-﻿using Love;
-using OpenNefia.Core.Audio;
+﻿using OpenNefia.Core.Audio;
 using OpenNefia.Core.Locale;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Core.UI.Element;
 using OpenNefia.Content.Prototypes;
-using Color = OpenNefia.Core.Maths.Color;
 using OpenNefia.Core.UserInterface;
 using OpenNefia.Core.Input;
+using OpenNefia.Core.UI;
 
 namespace OpenNefia.Content.UI.Element.List
 {
@@ -25,7 +24,7 @@ namespace OpenNefia.Content.UI.Element.List
             }
         }
 
-        public UiListCell(T data, IUiText text, UiListChoiceKey? key = null) : base(text, key)
+        public UiListCell(T data, UiText text, UiListChoiceKey? key = null) : base(text, key)
         {
             _data = data;
         }
@@ -55,7 +54,7 @@ namespace OpenNefia.Content.UI.Element.List
                 {
                     keyName = UiUtils.GetKeyName(Key.Key);
                 }
-                KeyNameText = new UiTextOutlined(FontListKeyName, keyName);
+                KeyNameText.Text = keyName;
             }
         }
 
@@ -67,14 +66,20 @@ namespace OpenNefia.Content.UI.Element.List
 
         public int IndexInList { get; set; }
 
-        [Localize("Text")]
-        protected IUiText UiText;
-
-        protected IUiText KeyNameText = null!;
+        [Child] [Localize("Text")] protected UiText UiText;
+        [Child] protected UiText KeyNameText = null!;
 
         public virtual string? LocalizeKey => null;
 
-        public int XOffset { get; set; }
+        /// <summary>
+        /// X offset of the text in virtual pixels.
+        /// </summary>
+        public float XOffset { get; set; }
+
+        /// <summary>
+        /// X offset of the text in physical pixels.
+        /// </summary>
+        public int PixelXOffset => (int)(XOffset * UIScale);
 
         protected FontSpec FontListKeyName = UiFonts.ListKeyName;
         public Color ColorSelectedAdd = UiColors.ListSelectedAdd;
@@ -83,9 +88,10 @@ namespace OpenNefia.Content.UI.Element.List
         protected IAssetInstance AssetListBullet;
         public IAssetInstance AssetSelectKey;
 
-        public UiListCell(IUiText text, UiListChoiceKey? key = null)
+        public UiListCell(UiText text, UiListChoiceKey? key = null)
         {
             UiText = text;
+            KeyNameText = new UiTextOutlined(FontListKeyName);
 
             AssetSelectKey = Assets.Get(Protos.Asset.SelectKey);
             AssetListBullet = Assets.Get(Protos.Asset.ListBullet);
@@ -108,48 +114,48 @@ namespace OpenNefia.Content.UI.Element.List
             }
         }
 
-        public override void GetPreferredSize(out Vector2i size)
+        public override void GetPreferredSize(out Vector2 size)
         {
             UiText.GetPreferredSize(out size);
-            size.X = size.X + AssetSelectKey.Width + 2 + 4 + XOffset;
+            size.X = size.X + AssetSelectKey.VirtualWidth(UIScale) + 2 + 4 + XOffset;
         }
 
-        public override void SetSize(int width, int height)
+        public override void SetSize(float width, float height)
         {
             UiText.GetPreferredSize(out var textSize);
-            UiText.SetSize(textSize.X - AssetSelectKey.Width - 6 + XOffset, textSize.Y);
+            UiText.SetSize(textSize.X - (AssetSelectKey.VirtualWidth(UIScale) - 6 + XOffset), textSize.Y);
             KeyNameText.SetPreferredSize();
-            base.SetSize(Math.Max(width, textSize.X + AssetSelectKey.Width + 2 + 4 + XOffset), height);
+            base.SetSize(MathF.Max(width, textSize.X + AssetSelectKey.VirtualWidth(UIScale) + 2 + 4 + XOffset), height);
         }
 
-        public override void SetPosition(int x, int y)
+        public override void SetPosition(float x, float y)
         {
             base.SetPosition(x, y);
-            UiText.SetPosition(x + AssetSelectKey.Width + 2 + 4 + XOffset, y);
+            UiText.SetPosition(X + AssetSelectKey.VirtualWidth(UIScale) + 2 + 4 + XOffset, Y);
 
-            var keyNameX = x + (AssetSelectKey.Width - KeyNameText.Width) / 2 - 2;
-            var keyNameY = y + (AssetSelectKey.Height - Graphics.GetFont().GetHeight()) / 2 - 1;
+            var keyNameX = X + (AssetSelectKey.VirtualWidth(UIScale) - KeyNameText.Width) / 2 - 5 + UIScale * 3;
+            var keyNameY = Y + (AssetSelectKey.VirtualHeight(UIScale) - KeyNameText.Height) / 2 - 7 + UIScale * 3;
             KeyNameText.SetPosition(keyNameX, keyNameY);
         }
 
         public virtual void DrawHighlight()
         {
-            var width = Math.Clamp(UiText.TextWidth + AssetSelectKey.Width + 8 + XOffset, 10, 480);
-            Graphics.SetBlendMode(BlendMode.Subtract);
+            var virtualWidth = Math.Clamp(UiText.TextWidth + AssetSelectKey.VirtualWidth(UIScale) + 8 + XOffset, 10, 480);
+            Love.Graphics.SetBlendMode(Love.BlendMode.Subtract);
             GraphicsEx.SetColor(ColorSelectedSub);
-            Graphics.Rectangle(DrawMode.Fill, UiText.X - XOffset - 4, UiText.Y - 2, width, 19);
-            Graphics.SetBlendMode(BlendMode.Add);
+            GraphicsS.RectangleS(UIScale, Love.DrawMode.Fill, UiText.X - XOffset - 4, UiText.Y - 2, virtualWidth, 19);
+            Love.Graphics.SetBlendMode(Love.BlendMode.Add);
             GraphicsEx.SetColor(ColorSelectedAdd);
-            Graphics.Rectangle(DrawMode.Fill, UiText.X - XOffset - 3, UiText.Y - 1, width - 2, 17);
-            Graphics.SetBlendMode(BlendMode.Alpha);
+            GraphicsS.RectangleS(UIScale, Love.DrawMode.Fill, UiText.X - XOffset - 3, UiText.Y - 1, virtualWidth - 2, 17);
+            Love.Graphics.SetBlendMode(Love.BlendMode.Alpha);
             GraphicsEx.SetColor(Love.Color.White);
-            AssetListBullet.Draw(UiText.X - XOffset - 5 + width - 20, UiText.Y + 2);
+            AssetListBullet.Draw(UIScale, UiText.X - XOffset - 5 + virtualWidth - 20, UiText.Y + 2);
         }
 
         public override void Draw()
         {
             GraphicsEx.SetColor(Love.Color.White);
-            AssetSelectKey.Draw(X, Y - 1);
+            AssetSelectKey.Draw(UIScale, X, Y - 1);
             KeyNameText.Draw();
             UiText.Draw();
         }

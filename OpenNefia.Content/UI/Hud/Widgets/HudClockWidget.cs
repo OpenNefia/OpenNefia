@@ -10,16 +10,17 @@ using System.Threading.Tasks;
 using static OpenNefia.Core.Rendering.AssetInstance;
 using OpenNefia.Content.World;
 using OpenNefia.Core.IoC;
+using OpenNefia.Core.UI;
 
 namespace OpenNefia.Content.Hud
 {
-    public class ClockHand : BaseDrawable
+    public class ClockHand : UiElement
     {
-        private AssetDrawable HandAsset;
+        [Child] private AssetDrawable HandAsset;
 
         public ClockHand()
         {
-            HandAsset = new(Assets.Get(Protos.Asset.ClockHand), centered: true, regionId: "0", originOffset: new(0, -2.5f));
+            HandAsset = new AssetDrawable(Protos.Asset.ClockHand, centered: true, regionId: "0", originOffset: new(0, -2.5f));
         }
 
         public void SetHour(int hour)
@@ -27,10 +28,10 @@ namespace OpenNefia.Content.Hud
             HandAsset.Rotation = (float)Core.Maths.Angle.FromDegrees(hour * 30).Theta;
         }
 
-        public override void SetPosition(int x, int y)
+        public override void SetPosition(float x, float y)
         {
             base.SetPosition(x, y);
-            HandAsset.SetPosition(x, y);
+            HandAsset.SetPosition(X, Y);
         }
 
         public override void Draw()
@@ -48,24 +49,23 @@ namespace OpenNefia.Content.Hud
         [Dependency] private readonly IWorldSystem _world = default!;
 
         private IAssetInstance ClockAsset = default!;
-        private ClockHand ClockHand = default!;
+        [Child] private ClockHand ClockHand = new();
 
         public override void Initialize()
         {
             base.Initialize();
             ClockAsset = Assets.Get(Protos.Asset.Clock);
-            ClockHand = new ClockHand();
         }
 
-        public override void SetPosition(int x, int y)
+        public override void SetPosition(float x, float y)
         {
             base.SetPosition(x, y);
-            ClockHand.SetPosition(x + 62, y + 48);
+            ClockHand.SetPosition(X + 62, Y + 48);
         }
 
         public override void Draw()
         {
-            ClockAsset.Draw(X, Y);
+            ClockAsset.Draw(UIScale, X, Y);
             ClockHand.Draw();
         }
 

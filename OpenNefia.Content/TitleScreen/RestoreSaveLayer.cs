@@ -37,7 +37,7 @@ namespace OpenNefia.Content.TitleScreen
 
         private sealed class RestoreSaveUICell : UiListCell<RestoreSaveCellData>
         {
-            private IUiText TextSaveDate = new UiText();
+            [Child] private UiText TextSaveDate = new UiText();
 
             public RestoreSaveUICell(RestoreSaveCellData data)
                 : base(data, new UiText(), null)
@@ -51,13 +51,20 @@ namespace OpenNefia.Content.TitleScreen
                 TextSaveDate.Text = Data.SaveGame.LastWriteTime.ToString();
             }
 
-            public override void SetSize(int width, int height)
+            public override void GetPreferredSize(out Vector2 size)
+            {
+                base.GetPreferredSize(out size);
+                TextSaveDate.GetPreferredSize(out var size2);
+                size.X += size2.X + 55;
+            }
+
+            public override void SetSize(float width, float height)
             {
                 base.SetSize(width, height);
                 TextSaveDate.SetPreferredSize();
             }
 
-            public override void SetPosition(int x, int y)
+            public override void SetPosition(float x, float y)
             {
                 base.SetPosition(x, y);
                 TextSaveDate.SetPosition(X + 155, Y);
@@ -90,19 +97,19 @@ namespace OpenNefia.Content.TitleScreen
         [Dependency] private readonly IPlayerQuery _playerQuery = default!;
 
         private readonly IAssetInstance AssetVoid;
-        private readonly IAssetDrawable AssetNoScreenshot;
+        private readonly AssetDrawable AssetNoScreenshot;
 
-        [Localize] private readonly UiWindow Window = new();
-        private readonly UiPagedList<RestoreSaveCellData> List = new(itemsPerPage: 18);
-        [Localize] private readonly CharaMakeCaption Caption = new();
+        [Child] [Localize] private readonly UiWindow Window = new();
+        [Child] [Localize] private readonly CharaMakeCaption Caption = new();
+        [Child] private readonly UiPagedList<RestoreSaveCellData> List = new(itemsPerPage: 18);
         private readonly Dictionary<ISaveGameHandle, Love.Image> _imageCache = new();
 
-        private readonly UiFittedBox ScreenshotBox;
+        [Child] private readonly UiFittedBox ScreenshotBox;
         private UiTextureElement? ScreenshotElement;
 
-        [Localize("NoSaves")] private readonly IUiText TextNoSaves = new UiText();
-        [Localize("Topic.SaveName")] private readonly IUiText TextTopicSaveName = new UiTextTopic();
-        [Localize("Topic.SaveDate")] private readonly IUiText TextTopicSaveDate = new UiTextTopic();
+        [Child] [Localize("NoSaves")] private readonly UiText TextNoSaves = new UiText();
+        [Child] [Localize("Topic.SaveName")] private readonly UiText TextTopicSaveName = new UiTextTopic();
+        [Child] [Localize("Topic.SaveDate")] private readonly UiText TextTopicSaveDate = new UiTextTopic();
 
         public RestoreSaveLayer()
         {
@@ -118,9 +125,6 @@ namespace OpenNefia.Content.TitleScreen
                 Alignment = UiAlignment.Center,
                 BoxFit = UiBoxFit.Contain
             };
-
-            AddChild(ScreenshotBox);
-            AddChild(List);
         }
 
         public override void GrabFocus()
@@ -136,14 +140,11 @@ namespace OpenNefia.Content.TitleScreen
 
         private void RebuildList()
         {
-            var selectedIndex = List.SelectedIndex;
-
-            List.Clear();
-            List.AddRange(_saveGameManager.AllSaves
+            var cells = _saveGameManager.AllSaves
                 .OrderByDescending(save => save.LastWriteTime)
-                .Select(save => new RestoreSaveUICell(new RestoreSaveCellData(save))));
+                .Select(save => new RestoreSaveUICell(new RestoreSaveCellData(save)));
 
-            List.Select(selectedIndex);
+            List.SetAll(cells);
 
             Window.KeyHints = MakeKeyHints();
         }
@@ -247,12 +248,12 @@ namespace OpenNefia.Content.TitleScreen
             Caption.Text = captionText;
         }
 
-        public override void GetPreferredBounds(out UIBox2i bounds)
+        public override void GetPreferredBounds(out UIBox2 bounds)
         {
             UiUtils.GetCenteredParams(680, 500, out bounds, yOffset: 20);
         }
 
-        public override void SetSize(int width, int height)
+        public override void SetSize(float width, float height)
         {
             base.SetSize(width, height);
             Window.SetSize(Width, Height);
@@ -264,7 +265,7 @@ namespace OpenNefia.Content.TitleScreen
             ScreenshotBox.SetSize(300, 225);
         }
 
-        public override void SetPosition(int x, int y)
+        public override void SetPosition(float x, float y)
         {
             base.SetPosition(x, y);
             Window.SetPosition(X, Y);
@@ -288,7 +289,7 @@ namespace OpenNefia.Content.TitleScreen
 
         public override void Draw()
         {
-            AssetVoid.Draw(0, 0, Love.Graphics.GetWidth(), Love.Graphics.GetHeight());
+            AssetVoid.DrawUnscaled(0, 0, Love.Graphics.GetWidth(), Love.Graphics.GetHeight());
             Caption.Draw();
             Window.Draw();
             

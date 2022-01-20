@@ -1,4 +1,5 @@
-﻿using OpenNefia.Core.Prototypes;
+﻿using OpenNefia.Core.Maths;
+using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Serialization.Manager.Attributes;
 
 namespace OpenNefia.Core.Rendering
@@ -14,6 +15,18 @@ namespace OpenNefia.Core.Rendering
 
         [DataField]
         public string Group { get; } = string.Empty;
+
+        /// <summary>
+        /// Offset to render this chip at, in pixels.
+        /// </summary>
+        [DataField]
+        public Vector2i Offset { get; } = Vector2i.Zero;
+
+        /// <summary>
+        /// Offset to apply when rendering this chip as part of a stack, in pixels.
+        /// </summary>
+        [DataField]
+        public int StackYOffset { get; } = 0;
 
         public IEnumerable<AtlasRegion> GetAtlasRegions()
         {

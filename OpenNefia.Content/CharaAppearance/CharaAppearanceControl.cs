@@ -41,12 +41,11 @@ namespace OpenNefia.Content.CharaAppearance
         [Dependency] private readonly IPrototypeManager _protos = default!;
         [Dependency] private readonly IResourceCache _resourceCache = default!;
 
-        private IAssetDrawable AppearanceDeco;
-
-        private UiWindow Window;
-        private UiTextTopic Category;
-        private CharaAppearancePreviewPanel PreviewPanel;
-        private CharaAppearanceList AppearanceList;
+        [Child] private AssetDrawable AssetAppearanceDeco;
+        [Child] private UiWindow Window;
+        [Child] private UiTextTopic TextTopicCategory;
+        [Child] private CharaAppearancePreviewPanel PreviewPanel;
+        [Child] private CharaAppearanceList AppearanceList;
 
         private LocaleScope _locScope = Loc.MakeScope("Elona.CharaAppearance.Control");
 
@@ -60,8 +59,8 @@ namespace OpenNefia.Content.CharaAppearance
 
         public CharaAppearanceControl()
         {
-            AppearanceDeco = new AssetDrawable(Asset.DecoMirrorA);
-            Category = new UiTextTopic(_locScope.GetString("Topic.Category"));
+            AssetAppearanceDeco = new AssetDrawable(Asset.DecoMirrorA);
+            TextTopicCategory = new UiTextTopic(_locScope.GetString("Topic.Category"));
             Window = new UiWindow()
             {
                 KeyHints = MakeKeyHints()
@@ -71,8 +70,6 @@ namespace OpenNefia.Content.CharaAppearance
 
             AppearanceList.OnSelected += HandleListSelected;
             AppearanceList.OnAppearanceItemChanged += HandleListAppearanceItemChanged;
-
-            AddChild(AppearanceList);
         }
 
         public void Initialize(CharaAppearanceData data)
@@ -242,27 +239,27 @@ namespace OpenNefia.Content.CharaAppearance
             AppearanceList.GrabFocus();
         }
 
-        public override void GetPreferredSize(out Vector2i size)
+        public override void GetPreferredSize(out Vector2 size)
         {
             size = new(380, 340);
         }
 
-        public override void SetSize(int width, int height)
+        public override void SetSize(float width, float height)
         {
             base.SetSize(width, height);
             Window.SetSize(Width, Height);
-            Category.SetPreferredSize();
+            TextTopicCategory.SetPreferredSize();
             AppearanceList.SetPreferredSize();
             PreviewPanel.SetPreferredSize();
         }
 
-        public override void SetPosition(int x, int y)
+        public override void SetPosition(float x, float y)
         {
             base.SetPosition(x, y);
             Window.SetPosition(X, Y);
-            Category.SetPosition(Window.X + 34, Window.Y + 36);
+            TextTopicCategory.SetPosition(Window.X + 34, Window.Y + 36);
             AppearanceList.SetPosition(Window.X + 30, Window.Y + 65);
-            AppearanceDeco.SetPosition(Window.X + Window.Width - 40, Window.Y);
+            AssetAppearanceDeco.SetPosition(Window.X + Window.Width - 40, Window.Y);
             PreviewPanel.SetPosition(Window.X + 230, Window.Y + 70);
         }
 
@@ -270,9 +267,9 @@ namespace OpenNefia.Content.CharaAppearance
         {
             base.Draw();
             Window.Draw();
-            Category.Draw();
+            TextTopicCategory.Draw();
             AppearanceList.Draw();
-            AppearanceDeco.Draw();
+            AssetAppearanceDeco.Draw();
             PreviewPanel.Draw();
         }
 
@@ -280,9 +277,9 @@ namespace OpenNefia.Content.CharaAppearance
         {
             base.Update(dt);
             Window.Update(dt);
-            Category.Update(dt);
+            TextTopicCategory.Update(dt);
             AppearanceList.Update(dt);
-            AppearanceDeco.Update(dt);
+            AssetAppearanceDeco.Update(dt);
             PreviewPanel.Update(dt);
         }
     }

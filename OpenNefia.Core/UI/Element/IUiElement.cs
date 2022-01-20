@@ -9,7 +9,10 @@ namespace OpenNefia.Core.UI.Element
 {
     public interface IUiElement : IDrawable
     {
-        void GetPreferredSize(out Vector2i size);
+        Vector2 PreferredSize { get; set; }
+        Vector2 MinSize { get; set; }
+
+        void GetPreferredSize(out Vector2 size);
         void SetPreferredSize();
     }
 }

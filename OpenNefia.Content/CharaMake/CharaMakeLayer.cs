@@ -35,7 +35,7 @@ namespace OpenNefia.Content.CharaMake
 
         protected CharaMakeData Data = default!;
 
-        [Localize] protected CharaMakeCaption Caption;
+        [Child] [Localize] protected CharaMakeCaption Caption;
         private int UiMoveCount;
 
         public CharaMakeLayer()
@@ -102,13 +102,13 @@ namespace OpenNefia.Content.CharaMake
             Data = args;
         }
 
-        public override void SetSize(int width, int height)
+        public override void SetSize(float width, float height)
         {
             base.SetSize(width, height);
             Caption.SetPreferredSize();
         }
 
-        public override void SetPosition(int x, int y)
+        public override void SetPosition(float x, float y)
         {
             base.SetPosition(x, y);
             Caption.SetPosition(20, 30);
@@ -116,7 +116,7 @@ namespace OpenNefia.Content.CharaMake
 
         public override void Draw()
         {
-            AssetBG.Draw(0, 0, Love.Graphics.GetWidth(), Love.Graphics.GetHeight());
+            AssetBG.DrawUnscaled(0, 0, Love.Graphics.GetWidth(), Love.Graphics.GetHeight());
             Caption.Draw();
         }
 

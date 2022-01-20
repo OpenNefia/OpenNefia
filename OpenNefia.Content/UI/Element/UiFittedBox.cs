@@ -57,14 +57,13 @@ namespace OpenNefia.Content.UI.Element
         /// Returns a box of the given size aligned within the given box with this
         /// alignment.
         /// </summary>
-        // TODO needs to be UIBox2
-        public UIBox2i Inscribe(Vector2 size, UIBox2i box)
+        public UIBox2 Inscribe(Vector2 size, UIBox2 box)
         {
             float halfWidth = (box.Width - size.X) / 2.0F;
             float halfHeight = (box.Height - size.Y) / 2.0F;
-            return UIBox2i.FromDimensions(new Vector2i((int)(box.Left + halfWidth + X * halfWidth),
-                                                       (int)(box.Top + halfHeight + Y * halfHeight)), 
-                                          (Vector2i)size);
+            return UIBox2.FromDimensions(new Vector2(box.Left + halfWidth + X * halfWidth,
+                                                     box.Top + halfHeight + Y * halfHeight),
+                                         size);
         }
     }
 
@@ -80,14 +79,22 @@ namespace OpenNefia.Content.UI.Element
     /// </remarks>
     public class UiFittedBox : UiElement
     {
-        private IUiElement? _child;
-        public IUiElement? Child 
+        private UiElement? _child;
+        public UiElement? Child 
         {
             get => _child; 
             set
             {
+                if (_child != null)
+                    RemoveChild(_child);
+
                 _child = value;
-                RelayoutChild();
+
+                if (_child != null)
+                {
+                    AddChild(_child);
+                    RelayoutChild();
+                }
             }
         }
 
@@ -95,17 +102,17 @@ namespace OpenNefia.Content.UI.Element
 
         public UiAlignment Alignment { get; set; }
 
-        public UiFittedBox(IUiElement? child = null)
+        public UiFittedBox(UiElement? child = null)
         {
             Child = child;
         }
 
-        public override void SetSize(int width, int height)
+        public override void SetSize(float width, float height)
         {
             base.SetSize(width, height);
         }
 
-        public override void SetPosition(int x, int y)
+        public override void SetPosition(float x, float y)
         {
             base.SetPosition(x, y);
 
@@ -118,8 +125,8 @@ namespace OpenNefia.Content.UI.Element
                 return;
 
             Child.GetPreferredSize(out var preferredChildSize);
-            var fitted = UiUtils.ApplyBoxFit(BoxFit, preferredChildSize, PixelSize);
-            var aligned = Alignment.Inscribe(fitted.DestinationSize, GlobalPixelBounds);
+            var fitted = UiUtils.ApplyBoxFit(BoxFit, preferredChildSize, Size);
+            var aligned = Alignment.Inscribe(fitted.DestinationSize, Rect);
 
             Child.SetPosition(aligned.Left, aligned.Top);
             Child.SetSize(aligned.Width, aligned.Height);

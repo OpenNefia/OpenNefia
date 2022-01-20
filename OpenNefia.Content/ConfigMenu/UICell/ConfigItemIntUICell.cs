@@ -1,9 +1,4 @@
-﻿using OpenNefia.Content.UI;
-using OpenNefia.Content.UI.Element;
-using OpenNefia.Content.UI.Element.List;
-using OpenNefia.Core.Configuration;
-using OpenNefia.Core.Locale;
-using OpenNefia.Core.Prototypes;
+﻿using OpenNefia.Core.Prototypes;
 
 namespace OpenNefia.Content.ConfigMenu.UICell
 {

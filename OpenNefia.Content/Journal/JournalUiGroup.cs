@@ -79,16 +79,21 @@ namespace OpenNefia.Content.Journal
 
     public class JournalUiGroup : UiGroup<JournalUiLayer, JournalUiGroupArgs, JournalGroupUiArgs, UINone>
     {
-        protected override (IAssetDrawable Elem, Vector2i Offset) GetIcon(JournalGroupUiArgs args)
+        protected override AssetDrawable? GetIcon(JournalGroupUiArgs args)
         {
-            var icon = args.Type switch
+            var iconType = args.Type switch
             {
                 JournalGroupUiArgs.LogTab.Backlog => InventoryIcon.Log,
                 JournalGroupUiArgs.LogTab.Journal => InventoryIcon.Read,
                 JournalGroupUiArgs.LogTab.Chat => InventoryIcon.Chat,
                 _ => InventoryIcon.Drink
             };
-            return (InventoryHelpers.MakeIcon(icon), new(-12, -32));
+
+            var icon = InventoryHelpers.MakeIcon(iconType);
+            if (icon is not AssetDrawable iconAsset)
+                return null;
+
+            return iconAsset;
         }
 
         protected override string GetText(JournalGroupUiArgs args)

@@ -62,7 +62,7 @@ namespace OpenNefia.Content.Inventory
         public string ItemDetailText { get; set; }
         public Color ChipColor { get; set; }
     }
-    
+
     public sealed class InventoryLayer : GroupableUiLayer<InventoryContext, InventoryLayer.Result>, IInventoryLayer
     {
         public new class Result
@@ -79,8 +79,8 @@ namespace OpenNefia.Content.Inventory
 
         public class InventoryEntryCell : UiListCell<InventoryEntry>
         {
-            private readonly IUiText UiSubtext;
-            private readonly EntitySpriteBatch SpriteBatch;
+            [Child] private readonly UiText UiSubtext;
+            [Child] private readonly EntitySpriteBatch SpriteBatch;
 
             public InventoryEntryCell(InventoryEntry entry, EntitySpriteBatch spriteBatch)
                 : base(entry, new UiText())
@@ -93,14 +93,14 @@ namespace OpenNefia.Content.Inventory
                 UiSubtext.Text = entry.ItemDetailText;
             }
 
-            public override void SetSize(int width, int height)
+            public override void SetSize(float width, float height)
             {
                 UiText.SetSize(width, height);
                 UiSubtext.SetSize(width, height);
                 base.SetSize(Math.Max(width, UiText.Width), height);
             }
 
-            public override void SetPosition(int x, int y)
+            public override void SetPosition(float x, float y)
             {
                 base.SetPosition(x, y);
                 UiText.SetPosition(X + 30 + XOffset, Y + 1);
@@ -112,11 +112,11 @@ namespace OpenNefia.Content.Inventory
                 if (IndexInList % 2 == 0)
                 {
                     Love.Graphics.SetColor(UiColors.ListEntryAccent);
-                    Love.Graphics.Rectangle(Love.DrawMode.Fill, X - 1, Y, Width - 30, 18);
+                    GraphicsS.RectangleS(UIScale, Love.DrawMode.Fill, X - 1, Y, Width - 30, 18);
                 }
 
                 Love.Graphics.SetColor(Color.White);
-                AssetSelectKey.Draw(X, Y - 1);
+                AssetSelectKey.Draw(UIScale, X, Y - 1);
                 KeyNameText.Draw();
 
                 Data.Origin.OnDraw();
@@ -124,7 +124,7 @@ namespace OpenNefia.Content.Inventory
                 UiText.Draw();
                 UiSubtext.Draw();
 
-                SpriteBatch.Add(Data.ItemEntityUid, X - 21, Y + 11, color: Data.ChipColor, centered: true);
+                SpriteBatch.Add(Data.ItemEntityUid, PixelX - 21, PixelY + 11, color: Data.ChipColor, centered: true);
             }
 
             public override void Update(float dt)
@@ -155,26 +155,26 @@ namespace OpenNefia.Content.Inventory
 
         public bool PlaySounds { get; set; } = false;
 
-        private UiWindow Window = new();
-        private UiPagedList<InventoryEntry> List = new(itemsPerPage: 16);
-
         public int SelectedIndex => List.SelectedIndex;
         public InventoryEntry? SelectedEntry => List.SelectedCell?.Data;
 
-        private IUiText TextTopicItemName = new UiTextTopic();
-        private IUiText TextTopicItemDetail = new UiTextTopic();
-        private IUiText TextNoteTotalWeight = new UiText(UiFonts.TextNote);
-        private IUiText TextGoldCount = new UiText(UiFonts.InventoryGoldCount);
+        [Child] private UiWindow Window = new();
+        [Child] private UiPagedList<InventoryEntry> List = new(itemsPerPage: 16);
 
-        private IAssetDrawable AssetDecoInvA;
-        private IAssetDrawable AssetDecoInvB;
-        private IAssetDrawable AssetDecoInvC;
-        private IAssetDrawable AssetDecoInvD;
-        private IAssetDrawable AssetGoldCoin;
+        [Child] private UiText TextTopicItemName = new UiTextTopic();
+        [Child] private UiText TextTopicItemDetail = new UiTextTopic();
+        [Child] private UiText TextNoteTotalWeight = new UiText(UiFonts.TextNote);
+        [Child] private UiText TextGoldCount = new UiText(UiFonts.InventoryGoldCount);
 
-        private IUiElement? CurrentIcon;
+        [Child] private AssetDrawable AssetDecoInvA;
+        [Child] private AssetDrawable AssetDecoInvB;
+        [Child] private AssetDrawable AssetDecoInvC;
+        [Child] private AssetDrawable AssetDecoInvD;
+        [Child] private AssetDrawable AssetGoldCoin;
 
-        private EntitySpriteBatch _spriteBatch = new();
+        [Child] private EntitySpriteBatch _itemSpriteBatch = new();
+
+        private UiElement? CurrentIcon;
 
         public InventoryContext Context { get; private set; } = default!;
 
@@ -186,20 +186,17 @@ namespace OpenNefia.Content.Inventory
             AssetDecoInvD = new AssetDrawable(Protos.Asset.DecoInvD);
             AssetGoldCoin = new AssetDrawable(Protos.Asset.GoldCoin);
 
-            TextTopicItemName.Text = Loc.GetString("Elona.Inventory.Layer.Topic.ItemName"); 
+            TextTopicItemName.Text = Loc.GetString("Elona.Inventory.Layer.Topic.ItemName");
 
             // TODO IInventoryBehavior can set this.
             var topicText = Loc.GetString("Elona.Inventory.Layer.Topic.ItemWeight");
             TextTopicItemDetail.Text = topicText;
 
-            AddChild(Window);
-            AddChild(List);
-
             List.PageTextElement = Window;
 
             OnKeyBindDown += HandleKeyBindDown;
             List.OnActivated += OnSelect;
-            EventFilter = UIEventFilterMode.Pass;        
+            EventFilter = UIEventFilterMode.Pass;
         }
 
         public override void Initialize(InventoryContext context)
@@ -207,6 +204,8 @@ namespace OpenNefia.Content.Inventory
             Context = context;
             Window.Title = Context.Behavior.WindowTitle;
             CurrentIcon = Context.Behavior.MakeIcon();
+            if (CurrentIcon != null)
+                AddChild(CurrentIcon);
 
             UpdateFiltering();
         }
@@ -357,7 +356,7 @@ namespace OpenNefia.Content.Inventory
             var index = List.SelectedIndex;
 
             List.Clear();
-            List.AddRange(filtered.Select(e => new InventoryEntryCell(e, _spriteBatch)));
+            List.AddRange(filtered.Select(e => new InventoryEntryCell(e, _itemSpriteBatch)));
 
             List.SelectedIndex = index;
 
@@ -375,7 +374,7 @@ namespace OpenNefia.Content.Inventory
 
             if (Context.Behavior.ShowTotalWeight)
             {
-                var weightText = Loc.GetString("Elona.Inventory.Layer.Note.TotalWeight", 
+                var weightText = Loc.GetString("Elona.Inventory.Layer.Note.TotalWeight",
                     ("totalWeight", totalWeightStr),
                     ("maxWeight", maxWeightStr),
                     ("cargoWeight", cargoWeightStr),
@@ -412,18 +411,18 @@ namespace OpenNefia.Content.Inventory
             }
         }
 
-        public override void GetPreferredBounds(out UIBox2i bounds)
+        public override void GetPreferredBounds(out UIBox2 bounds)
         {
             UiUtils.GetCenteredParams(640, 432, out bounds);
         }
 
-        public override void SetSize(int width, int height)
+        public override void SetSize(float width, float height)
         {
             base.SetSize(width, height);
 
             Window.SetSize(Width, Height);
             List.SetSize(Width - 58, Height - 60);
-            _spriteBatch.SetSize(0, 0);
+            _itemSpriteBatch.SetSize(0, 0);
 
             AssetDecoInvA.SetPreferredSize();
             AssetDecoInvB.SetPreferredSize();
@@ -439,13 +438,13 @@ namespace OpenNefia.Content.Inventory
             TextGoldCount.SetPreferredSize();
         }
 
-        public override void SetPosition(int x, int y)
+        public override void SetPosition(float x, float y)
         {
             base.SetPosition(x, y);
 
             Window.SetPosition(X, Y);
             List.SetPosition(Window.X + 58, Window.Y + 60);
-            _spriteBatch.SetPosition(0, 0);
+            _itemSpriteBatch.SetPosition(0, 0);
 
             AssetDecoInvA.SetPosition(Window.X + Window.Width - 136, Y - 6);
             AssetDecoInvB.SetPosition(Window.X + Window.Width - 186, Y - 6);
@@ -457,7 +456,7 @@ namespace OpenNefia.Content.Inventory
 
             TextTopicItemName.SetPosition(Window.X + 28, Window.Y + 30);
             TextTopicItemDetail.SetPosition(Window.X + 526, Window.Y + 30);
-            var notePos = UiUtils.NotePosition(GlobalPixelBounds, TextNoteTotalWeight);
+            var notePos = UiUtils.NotePosition(Rect, TextNoteTotalWeight);
             TextNoteTotalWeight.SetPosition(notePos.X, notePos.Y);
             TextGoldCount.SetPosition(Window.X + 368, Window.Y + 37);
         }
@@ -466,7 +465,7 @@ namespace OpenNefia.Content.Inventory
         {
             Window.Update(dt);
             List.Update(dt);
-            _spriteBatch.Update(dt);
+            _itemSpriteBatch.Update(dt);
 
             AssetDecoInvA.Update(dt);
             AssetDecoInvB.Update(dt);
@@ -501,9 +500,9 @@ namespace OpenNefia.Content.Inventory
             TextNoteTotalWeight.Draw();
 
             // List will update the sprite batch.
-            _spriteBatch.Clear();
+            _itemSpriteBatch.Clear();
             List.Draw();
-            _spriteBatch.Draw();
+            _itemSpriteBatch.Draw();
 
             if (Context.Behavior.ShowMoney)
             {
@@ -528,7 +527,7 @@ namespace OpenNefia.Content.Inventory
             TextNoteTotalWeight.Dispose();
 
             List.Dispose();
-            _spriteBatch.Dispose();
+            _itemSpriteBatch.Dispose();
 
             AssetGoldCoin.Dispose();
             TextGoldCount.Dispose();

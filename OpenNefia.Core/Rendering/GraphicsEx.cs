@@ -14,6 +14,16 @@ namespace OpenNefia.Core.Rendering
 {
     public static class GraphicsEx
     {
+        public static void DrawImageS(float uiScale, Love.Texture image, float x, float y, float? width = null, float? height = null, bool centered = false, float rotation = 0, Maths.Vector2 originOffset = default)
+        {
+            if (width == null)
+                width = image.GetWidth();
+            if (height == null)
+                height = image.GetHeight();
+
+            DrawImage(image, x * uiScale, y * uiScale, width.Value * uiScale, height.Value * uiScale, centered, rotation, originOffset * uiScale);
+        }
+
         public static void DrawImage(Love.Texture image, float x = 0, float y = 0, float width = 0, float height = 0, bool centered = false, float rotation = 0, Maths.Vector2 originOffset = default)
         {
             var sx = 1f;
@@ -62,17 +72,9 @@ namespace OpenNefia.Core.Rendering
             Love.Graphics.Draw(quad, image, x, y, rotation, sx, sy, originOffset.X, originOffset.Y);
         }
 
-        public static Vector2i GetViewportSize() => new Vector2i(Love.Graphics.GetWidth(), Love.Graphics.GetHeight());
-
-        public static void GetWindowTiledSize(this ICoords coords, out Vector2i windowTiledSize)
+        public static void DrawSpriteBatchS(float uiScale, Love.SpriteBatch batch, float x, float y, float? width, float? height, float rotation = 0)
         {
-            var graphics = IoCManager.Resolve<IGraphics>();
-            windowTiledSize = coords.GetTiledSize(graphics.WindowSize);
-        }
-
-        public static void DrawSpriteBatch(Love.SpriteBatch batch, float x, float y, float? width, float? height, float rotation = 0)
-        {
-            Love.Graphics.Draw(batch, x, y, rotation);
+            Love.Graphics.Draw(batch, x * uiScale, y * uiScale, rotation);
         }
 
         public static void DrawImageRegion(Love.Image image, Love.Quad quad, float x = 0, float y = 0, float width = 0, float height = 0, bool centered = false, float rotation = 0, Maths.Vector2 originOffset = default)

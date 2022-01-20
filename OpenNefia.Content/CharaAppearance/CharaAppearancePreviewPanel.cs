@@ -4,6 +4,7 @@ using OpenNefia.Content.UI.Element;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.Rendering;
+using OpenNefia.Core.UI;
 using OpenNefia.Core.UI.Element;
 using static OpenNefia.Content.UI.Element.UiTopicWindow;
 
@@ -15,7 +16,7 @@ namespace OpenNefia.Content.CharaAppearance
 
         public bool ShowPortrait { get; set; }
 
-        private UiTopicWindow WindowFrame = new(FrameStyleKind.One, WindowStyleKind.One);
+        [Child] private UiTopicWindow WindowFrame = new(FrameStyleKind.One, WindowStyleKind.One);
         private TileAtlasBatch _chipBatch;
         private TileAtlasBatch _portraitBatch;
 
@@ -38,18 +39,18 @@ namespace OpenNefia.Content.CharaAppearance
             _pccFrame = 0f;
         }
 
-        public override void GetPreferredSize(out Vector2i size)
+        public override void GetPreferredSize(out Vector2 size)
         {
             size = new(88, 120);
         }
 
-        public override void SetSize(int width, int height)
+        public override void SetSize(float width, float height)
         {
             base.SetSize(width, height);
             WindowFrame.SetSize(Width, Height);
         }
 
-        public override void SetPosition(int x, int y)
+        public override void SetPosition(float x, float y)
         {
             base.SetPosition(x, y);
             WindowFrame.SetPosition(X, Y);
@@ -82,18 +83,18 @@ namespace OpenNefia.Content.CharaAppearance
             if (ShowPortrait)
             {
                 _portraitBatch.Clear();
-                _portraitBatch.Add(_data.PortraitProto.Image.AtlasIndex, 4, 4, WindowFrame.Width - 8, WindowFrame.Height - 8);
-                _portraitBatch.Draw(WindowFrame.X, WindowFrame.Y);
+                _portraitBatch.Add(UIScale, _data.PortraitProto.Image.AtlasIndex, 4, 4, WindowFrame.Width - 8, WindowFrame.Height - 8);
+                _portraitBatch.Draw(UIScale, WindowFrame.X, WindowFrame.Y);
             }
             else if (_data.UsePCC)
             {
-                _data.PCCDrawable.Draw(WindowFrame.X + 44 - 24, WindowFrame.Y + 59 - 12, 2.0f, 2.0f);
+                _data.PCCDrawable.Draw(WindowFrame.PixelX + (44 - 24) * UIScale, WindowFrame.PixelY + (59 - 12) * UIScale, 2.0f * UIScale, 2.0f * UIScale);
             }
             else
             {
                 _chipBatch.Clear();
-                _chipBatch.Add(_data.ChipProto.Image.AtlasIndex, 46 - 24, 59 - 24, _coords.TileSize.X, _coords.TileSize.Y, _data.ChipColor);
-                _chipBatch.Draw(WindowFrame.X, WindowFrame.Y);
+                _chipBatch.Add(UIScale, _data.ChipProto.Image.AtlasIndex, 46 - 24, 59 - 24, _coords.TileSize.X, _coords.TileSize.Y, _data.ChipColor);
+                _chipBatch.Draw(UIScale, WindowFrame.X, WindowFrame.Y);
             }
         }
 

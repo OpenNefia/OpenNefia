@@ -89,18 +89,18 @@ namespace OpenNefia.Content.Repl
         public bool HideDuringExecute { get; set; } = true;
         public string EditingLine
         {
-            get => _textEditingLine.Text;
+            get => TextEditingLine.Text;
             set
             {
-                _textEditingLine.Text = value;
-                CaretPos = Math.Clamp(CaretPos, 0, _textEditingLine.Text.Length);
+                TextEditingLine.Text = value;
+                CaretPos = Math.Clamp(CaretPos, 0, TextEditingLine.Text.Length);
             }
         }
         public bool ShowCompletions { get; set; } = true;
 
         public int ScrollbackSize { get => _scrollbackBuffer.Size; }
-        public int CursorDisplayX { get => X + 6 + _textCaret.Width + CursorX; }
-        public int CursorDisplayY { get => Y + Height - PullDownY - FontReplText.LoveFont.GetHeight() - 4; }
+        public float CursorDisplayX { get => X + TextCaret.Width + TextEditingLine.TextWidth + TextEditingLine.Font.LoveFont.GetWidthV(UIScale, " ") - 7; }
+        public float CursorDisplayY { get => Y + Height - PullDownY - FontReplText.LoveFont.GetHeightV(UIScale) - 4; }
 
         public FontSpec FontReplText { get; } = UiFonts.ReplText;
         public Color ColorReplBackground { get; } = UiColors.ReplBackground;
@@ -108,18 +108,23 @@ namespace OpenNefia.Content.Repl
         public Color ColorReplTextResult { get; } = UiColors.ReplTextResult;
         public Color ColorReplTextError { get; } = UiColors.ReplTextError;
 
-        private IUiText _textCaret;
-        private IUiText _textEditingLine;
-        private IUiText _textScrollbackCounter;
-        private IUiText[] _textScrollback;
+        [Child] private UiText TextCaret;
+        [Child] private UiText TextEditingLine;
+        [Child] private UiText TextScrollbackCounter;
+        private UiText[] TextScrollback;
 
         private CompletionsPane _completionsPane;
 
         protected float Dt = 0f;
+
         protected bool IsPullingDown = false;
-        protected int PullDownY = 0;
+        protected float PullDownY = 0f;
+        protected float PullDownPixelY => PullDownY * UIScale;
+
+        protected float CursorX = 0f;
+        protected float CursorPixelX => CursorX * UIScale;
+
         public int MaxLines { get; private set; } = 0;
-        protected int CursorX = 0;
 
         private int _CursorCharPos = 0;
         /// Stringwise width position of cursor. (not CJK width)
@@ -130,7 +135,7 @@ namespace OpenNefia.Content.Repl
             {
                 _CursorCharPos = Math.Clamp(value, 0, EditingLine.Length);
                 var prefixToCursor = EditingLine.Substring(0, CaretPos);
-                var prefixWidth = FontReplText.LoveFont.GetWidth(prefixToCursor);
+                var prefixWidth = FontReplText.LoveFont.GetWidthV(UIScale, prefixToCursor);
                 CursorX = prefixWidth;
             }
         }
@@ -146,10 +151,10 @@ namespace OpenNefia.Content.Repl
 
         public ReplLayer()
         {
-            _textCaret = new UiText(FontReplText, "> ");
-            _textEditingLine = new UiText(FontReplText, "");
-            _textScrollbackCounter = new UiText(FontReplText, "0/0");
-            _textScrollback = new IUiText[0];
+            TextCaret = new UiText(FontReplText, "> ");
+            TextEditingLine = new UiText(FontReplText, "");
+            TextScrollbackCounter = new UiText(FontReplText, "0/0");
+            TextScrollback = new UiText[0];
 
             _scrollbackBuffer = new CircularBuffer<ReplTextLine>(10000);
             _completionsPane = new CompletionsPane((input, caret) => _executor.Complete(input, caret));
@@ -202,8 +207,9 @@ namespace OpenNefia.Content.Repl
                 return;
             }
 
-            Initialize(new UINone());
-            IoCManager.Resolve<IUserInterfaceManager>().Query(this);
+            var uiManager = IoCManager.Resolve<IUserInterfaceManager>();
+            uiManager.InitializeLayer<ReplLayer, UINone, UINone>(this, new());
+            uiManager.Query(this);
         }
 
         private void HandleKeyBindDown(GUIBoundKeyEventArgs args)
@@ -456,7 +462,7 @@ namespace OpenNefia.Content.Repl
                 return;
             }
 
-            _completionsPane.SetPosition(CursorDisplayX, CursorDisplayY + FontReplText.LoveFont.GetHeight());
+            _completionsPane.SetPosition(CursorDisplayX, CursorDisplayY + FontReplText.LoveFont.GetHeightV(UIScale));
             _completionsPane.TryToComplete(EditingLine, CaretPos);
         }
 
@@ -470,7 +476,7 @@ namespace OpenNefia.Content.Repl
 
         public void SubmitText()
         {
-            var code = _textEditingLine.Text;
+            var code = TextEditingLine.Text;
 
             _completionsPane.Close();
 
@@ -479,14 +485,14 @@ namespace OpenNefia.Content.Repl
                 History.Insert(0, code);
             }
 
-            _textEditingLine.Text = string.Empty;
+            TextEditingLine.Text = string.Empty;
             ScrollbackPos = 0;
             HistoryPos = -1;
             CaretPos = 0;
             CursorX = 0;
             Dt = 0;
 
-            PrintText($"{_textCaret.Text}{code}");
+            PrintText($"{TextCaret.Text}{code}");
 
             IsExecuting = true;
             var result = _executor.Execute(code);
@@ -525,28 +531,34 @@ namespace OpenNefia.Content.Repl
             NeedsScrollbackRedraw = true;
         }
 
-        public override void GetPreferredBounds(out UIBox2i bounds)
+        public override void GetPreferredBounds(out UIBox2 bounds)
         {
             var viewportHeight = _graphics.WindowSize.Y;
 
-            bounds = UIBox2i.FromDimensions(0, 0, _graphics.WindowSize.X, (int)Math.Clamp(viewportHeight * HeightPercentage, 0, viewportHeight - 1));
+            bounds = UIBox2.FromDimensions(0, 0, _graphics.WindowSize.X, (int)Math.Clamp(viewportHeight * HeightPercentage, 0, viewportHeight - 1));
         }
 
-        public override void SetSize(int width, int height)
+        public override void SetSize(float width, float height)
         {
             base.SetSize(width, height);
-            MaxLines = (Height - 5) / FontReplText.LoveFont.GetHeight();
+            MaxLines = (int)((Height - 5) / FontReplText.LoveFont.GetHeightV(UIScale));
 
-            foreach (var text in _textScrollback)
+            foreach (var text in TextScrollback)
+            {
                 text.Dispose();
-            _textScrollback = new IUiText[MaxLines];
+                RemoveChild(text);
+            }
+            TextScrollback = new UiText[MaxLines];
             for (int i = 0; i < MaxLines; i++)
-                _textScrollback[i] = new UiText(FontReplText);
+            {
+                TextScrollback[i] = new UiText(FontReplText);
+                UiHelpers.AddChildrenRecursive(this, TextScrollback[i]);
+            }
 
             NeedsScrollbackRedraw = true;
         }
 
-        public override void SetPosition(int x, int y)
+        public override void SetPosition(float x, float y)
         {
             base.SetPosition(x, y);
         }
@@ -565,11 +577,11 @@ namespace OpenNefia.Content.Repl
             }
 
             IsPullingDown = UsePullDownAnimation;
-            PullDownY = 0;
+            PullDownY = 0f;
 
             if (UsePullDownAnimation)
             {
-                PullDownY = MaxLines * FontReplText.LoveFont.GetHeight();
+                PullDownY = MaxLines * FontReplText.LoveFont.GetHeightV(UIScale);
             }
         }
 
@@ -577,10 +589,10 @@ namespace OpenNefia.Content.Repl
         {
             Dt += dt;
 
-            _textCaret.Update(dt);
-            _textEditingLine.Update(dt);
-            _textScrollbackCounter.Update(dt);
-            foreach (var text in _textScrollback)
+            TextCaret.Update(dt);
+            TextEditingLine.Update(dt);
+            TextScrollbackCounter.Update(dt);
+            foreach (var text in TextScrollback)
             {
                 text.Update(dt);
             }
@@ -591,11 +603,11 @@ namespace OpenNefia.Content.Repl
             {
                 if (WasFinished || WasCancelled)
                 {
-                    PullDownY = (int)Math.Min(PullDownY + PullDownSpeed * dt * 1000f, MaxLines * FontReplText.LoveFont.GetHeight());
+                    PullDownY = MathF.Min(PullDownY + PullDownSpeed * dt * 1000f, MaxLines * FontReplText.LoveFont.GetHeightV(UIScale));
                 }
                 else if (PullDownY > 0)
                 {
-                    PullDownY = (int)Math.Max(PullDownY - PullDownSpeed * dt * 1000f, 0);
+                    PullDownY = MathF.Max(PullDownY - PullDownSpeed * dt * 1000f, 0);
                 }
             }
         }
@@ -607,7 +619,7 @@ namespace OpenNefia.Content.Repl
 
             if (WasFinished || WasCancelled)
             {
-                if (PullDownY >= MaxLines * FontReplText.LoveFont.GetHeight())
+                if (PullDownY >= MaxLines * FontReplText.LoveFont.GetHeightV(UIScale))
                 {
                     return base.GetResult();
                 }
@@ -627,28 +639,28 @@ namespace OpenNefia.Content.Repl
 
             // Background
             GraphicsEx.SetColor(ColorReplBackground);
-            Love.Graphics.Rectangle(Love.DrawMode.Fill, X, y, Width, Height);
+            GraphicsS.RectangleS(UIScale, Love.DrawMode.Fill, X, y, Width, Height);
 
-            var yPos = y + Height - FontReplText.LoveFont.GetHeight() - 5;
+            var yPos = y + Height - FontReplText.LoveFont.GetHeightV(UIScale) - 5;
 
             // Caret
             if (!IsExecuting)
             {
-                _textCaret.SetPosition(X + 5, yPos);
-                _textCaret.Draw();
+                TextCaret.SetPosition(X + 5, yPos);
+                TextCaret.Draw();
             }
 
             // Current line
-            _textEditingLine.SetPosition(X + 5 + FontReplText.LoveFont.GetWidth(_textCaret.Text), yPos);
-            _textEditingLine.Draw();
+            TextEditingLine.SetPosition(X + 5 + FontReplText.LoveFont.GetWidthV(UIScale, TextCaret.Text), yPos);
+            TextEditingLine.Draw();
 
             // Scrollback Display
             if (NeedsScrollbackRedraw)
             {
                 if (ScrollbackPos > 0)
                 {
-                    _textScrollbackCounter.Text = $"{ScrollbackPos}/{_scrollbackBuffer.Size}";
-                    _textScrollbackCounter.SetPosition(X + Width - _textScrollbackCounter.Width - 5, yPos);
+                    TextScrollbackCounter.Text = $"{ScrollbackPos}/{_scrollbackBuffer.Size}";
+                    TextScrollbackCounter.SetPosition(X + Width - TextScrollbackCounter.Width - 5, yPos);
                 }
 
                 for (int i = 0; i < MaxLines; i++)
@@ -659,7 +671,7 @@ namespace OpenNefia.Content.Repl
                         break;
                     }
 
-                    var uiText = _textScrollback[i];
+                    var uiText = TextScrollback[i];
                     var line = _scrollbackBuffer[index];
                     uiText.Text = line.Text;
                     uiText.Color = line.Color;
@@ -670,13 +682,13 @@ namespace OpenNefia.Content.Repl
             // Scrollback counter
             if (ScrollbackPos > 0)
             {
-                _textScrollbackCounter.Draw();
+                TextScrollbackCounter.Draw();
             }
 
-            for (int i = 0; i < _textScrollback.Length; i++)
+            for (int i = 0; i < TextScrollback.Length; i++)
             {
-                var text = _textScrollback[i];
-                text.SetPosition(X + 5, y + Height - FontReplText.LoveFont.GetHeight() * (i + 2) - 5);
+                var text = TextScrollback[i];
+                text.SetPosition(X + 5, y + Height - FontReplText.LoveFont.GetHeightV(UIScale) * (i + 2) - 5);
                 text.Draw();
             }
 
@@ -685,7 +697,7 @@ namespace OpenNefia.Content.Repl
                 var curX = CursorDisplayX;
                 var curY = CursorDisplayY;
                 GraphicsEx.SetColor(ColorReplText);
-                Love.Graphics.Line(curX, curY, curX, curY + FontReplText.LoveFont.GetHeight());
+                GraphicsS.LineS(UIScale, curX, curY, curX, curY + FontReplText.LoveFont.GetHeightV(UIScale));
             }
 
             _completionsPane.Draw();
@@ -693,10 +705,10 @@ namespace OpenNefia.Content.Repl
 
         public override void Dispose()
         {
-            _textCaret.Dispose();
-            _textEditingLine.Dispose();
-            _textScrollbackCounter.Dispose();
-            foreach (var text in _textScrollback)
+            TextCaret.Dispose();
+            TextEditingLine.Dispose();
+            TextScrollbackCounter.Dispose();
+            foreach (var text in TextScrollback)
             {
                 text.Dispose();
             }
@@ -708,15 +720,15 @@ namespace OpenNefia.Content.Repl
 
     public class CompletionsPane : UiElement
     {
-        public int Padding { get; set; } = 5;
-        public int BorderPadding { get; set; } = 4;
+        public float Padding { get; set; } = 5f;
+        public float BorderPadding { get; set; } = 4f;
         public int MaxDisplayedEntries { get; set; } = 10;
         public bool IsOpen { get; set; }
         public bool IsVisible { get => IsOpen && FilteredView.Count > 0; }
 
         public CompletionItemWithDescription? SelectedItem { get => FilteredView.SelectedItem?.Completion; }
 
-        private record CompletionPaneEntry(IUiText Text,
+        private record CompletionPaneEntry(UiText Text,
                                            IAssetInstance Icon,
                                            CompletionItemWithDescription Completion);
 
@@ -778,7 +790,7 @@ namespace OpenNefia.Content.Repl
             FilterCompletions(input, caret);
         }
 
-        public override void GetPreferredSize(out Vector2i size)
+        public override void GetPreferredSize(out Vector2 size)
         {
             size = Vector2i.Zero;
 
@@ -900,7 +912,7 @@ namespace OpenNefia.Content.Repl
             && FilteredView.SelectedItem.Completion.Item.DisplayText.Length < caret - CaretPosWhenOpened;
 
 
-        public override void SetPosition(int x, int y)
+        public override void SetPosition(float x, float y)
         {
             base.SetPosition(x, y);
             foreach (var (entry, index) in FilteredView.WithIndex())
@@ -919,20 +931,20 @@ namespace OpenNefia.Content.Repl
                 return;
 
             GraphicsEx.SetColor(ColorCompletionBackground);
-            Love.Graphics.Rectangle(Love.DrawMode.Fill, X, Y, Width, Height);
+            GraphicsS.RectangleS(UIScale, Love.DrawMode.Fill, X, Y, Width, Height);
 
             GraphicsEx.SetColor(ColorCompletionBorder);
-            Love.Graphics.Rectangle(Love.DrawMode.Line, X + BorderPadding, Y + BorderPadding, Width - BorderPadding * 2, Height - BorderPadding * 2);
+            GraphicsS.RectangleS(UIScale, Love.DrawMode.Line, X + BorderPadding, Y + BorderPadding, Width - BorderPadding * 2, Height - BorderPadding * 2);
 
             foreach (var entry in FilteredView)
             {
                 if (entry == FilteredView.SelectedItem)
                 {
                     GraphicsEx.SetColor(255, 255, 255, 128);
-                    Love.Graphics.Rectangle(Love.DrawMode.Fill, entry.Text.X, entry.Text.Y, entry.Text.Width, entry.Text.Height);
+                    GraphicsS.RectangleS(UIScale, Love.DrawMode.Fill, entry.Text.X, entry.Text.Y, entry.Text.Width, entry.Text.Height);
                 }
                 GraphicsEx.SetColor(Color.White);
-                entry.Icon.Draw(entry.Text.X - entry.Text.Height - 4, entry.Text.Y, entry.Text.Height, entry.Text.Height);
+                entry.Icon.Draw(UIScale, entry.Text.X - entry.Text.Height - 4, entry.Text.Y, entry.Text.Height, entry.Text.Height);
                 entry.Text.Draw();
             }
         }

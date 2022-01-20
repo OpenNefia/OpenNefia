@@ -8,11 +8,13 @@ namespace OpenNefia.Core.Rendering
     // and such, and adding IAssetManager as a [Dependency].
     public static class Assets
     {
+        [Obsolete("Pass UIScale to Assets.Get()")]
         public static IAssetInstance Get(PrototypeId<AssetPrototype> id)
         {
             return IoCManager.Resolve<IAssetManager>().GetAsset(id);
         }
 
+        [Obsolete("Pass UIScale to Assets.Get()")]
         public static IAssetInstance GetSized(PrototypeId<AssetPrototype> id, Vector2i size)
         {
             return IoCManager.Resolve<IAssetManager>().GetSizedAsset(id, size);

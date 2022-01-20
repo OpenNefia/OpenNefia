@@ -6,6 +6,7 @@ using OpenNefia.Core.IoC;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Rendering;
+using OpenNefia.Core.UI;
 using OpenNefia.Core.UI.Element;
 
 namespace OpenNefia.Content.UI.Element
@@ -17,8 +18,8 @@ namespace OpenNefia.Content.UI.Element
 
         private EntityUid _entity;
 
-        private readonly UiTopicWindow WindowFrame;
-        private readonly EntitySpriteBatch _entityBatch;
+        [Child] private readonly UiTopicWindow WindowFrame;
+        [Child] private readonly EntitySpriteBatch EntityBatch;
         private readonly TileAtlasBatch _portraitBatch;
 
         private PortraitPrototype? portraitProto;
@@ -28,7 +29,7 @@ namespace OpenNefia.Content.UI.Element
             EntitySystem.InjectDependencies(this);
 
             WindowFrame = new(UiTopicWindow.FrameStyleKind.One, UiTopicWindow.WindowStyleKind.One);
-            _entityBatch = new EntitySpriteBatch();
+            EntityBatch = new EntitySpriteBatch();
             _portraitBatch = new TileAtlasBatch(ContentAtlasNames.Portrait);
         }
 
@@ -42,46 +43,46 @@ namespace OpenNefia.Content.UI.Element
                 portraitProto = null;
         }
 
-        public override void GetPreferredSize(out Vector2i size)
+        public override void GetPreferredSize(out Vector2 size)
         {
             size = new(90, 120);
         }
 
-        public override void SetSize(int width, int height)
+        public override void SetSize(float width, float height)
         {
             base.SetSize(width, height);
             WindowFrame.SetSize(Width, Height);
-            _entityBatch.SetSize(Width, Height);
+            EntityBatch.SetSize(Width, Height);
         }
 
-        public override void SetPosition(int x, int y)
+        public override void SetPosition(float x, float y)
         {
             base.SetPosition(x, y);
             WindowFrame.SetPosition(X, Y);
-            _entityBatch.SetPosition(X + 46, Y + 61);
+            EntityBatch.SetPosition(X + 46, Y + 61);
         }
 
         public override void Update(float dt)
         {
             WindowFrame.Update(dt);
-            _entityBatch.Update(dt);
+            EntityBatch.Update(dt);
 
             if (portraitProto != null)
             {
                 _portraitBatch.Clear();
-                _portraitBatch.Add(portraitProto.Image.AtlasIndex, 0, 0, WindowFrame.Width - 8, WindowFrame.Height - 8);
+                _portraitBatch.Add(UIScale, portraitProto.Image.AtlasIndex, 0, 0, WindowFrame.Width - 8, WindowFrame.Height - 8);
                 _portraitBatch.Flush();
             }
 
-            _entityBatch.Clear();
-            _entityBatch.Add(_entity, 0, 0);
+            EntityBatch.Clear();
+            EntityBatch.Add(_entity, 0, 0);
         }
 
         public override void Draw()
         {
             WindowFrame.Draw();
-            _portraitBatch.Draw(WindowFrame.X + 4, WindowFrame.Y + 4);
-            _entityBatch.Draw();
+            _portraitBatch.Draw(UIScale, WindowFrame.X + 4, WindowFrame.Y + 4);
+            EntityBatch.Draw();
         }
     }
 }
