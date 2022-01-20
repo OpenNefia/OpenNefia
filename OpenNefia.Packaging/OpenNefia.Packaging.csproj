@@ -12,6 +12,7 @@
     <PackageReference Include="Cake.DocFx" Version="1.0.0" />
     <PackageReference Include="Cake.Frosting" Version="2.0.0" />
     <PackageReference Include="Cake.Git" Version="2.0.0" />
+    <PackageReference Include="Cake.Prompt" Version="1.0.15" />
     <PackageReference Include="LibGit2Sharp" Version="0.27.0-preview-0158" />
   </ItemGroup>
 </Project>
