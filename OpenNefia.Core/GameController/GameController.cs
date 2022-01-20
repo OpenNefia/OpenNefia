@@ -209,17 +209,23 @@ namespace OpenNefia.Core.GameController
 
             if (downloader.NeedsDownload())
             {
-                var layer = _uiManager.CreateLayer<MinimalProgressBarLayer, IProgressableJob>(downloader);
-                var result = _uiManager.Query(layer);
-                if (!result.HasValue)
+                // don't initialize through UserInterfaceManager since entity systems haven't been brought up yet.
+                using (var layer = new MinimalProgressBarLayer())
                 {
-                    Exception? ex = null;
-                    if (result is UiResult<UINone>.Error err)
+                    IoCManager.InjectDependencies(layer);
+                    layer.Initialize(downloader);
+
+                    var result = _uiManager.Query(layer);
+                    if (!result.HasValue)
                     {
-                        ex = err.Exception;
+                        Exception? ex = null;
+                        if (result is UiResult<UINone>.Error err)
+                        {
+                            ex = err.Exception;
+                        }
+                        Logger.Fatal($"Error downloading vanilla assets! {ex}");
+                        return false;
                     }
-                    Logger.Fatal($"Error downloading vanilla assets! {ex}");
-                    return false;
                 }
             }
 
