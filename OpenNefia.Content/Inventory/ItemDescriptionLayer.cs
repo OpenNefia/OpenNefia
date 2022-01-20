@@ -47,6 +47,7 @@ namespace OpenNefia.Content.Inventory
         {
             _item = item;
             TextTopicItemName.Text = Loc.GetString("Elona.Common.NameWithDirectArticle", ("entity", _item));
+            Window.KeyHints = MakeKeyHints();
 
             GetDescription();
         }

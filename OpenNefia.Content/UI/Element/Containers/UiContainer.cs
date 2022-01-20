@@ -67,7 +67,7 @@ namespace OpenNefia.Content.UI.Element.Containers
             {
                 if (element.Element.Parent != null)
                 {
-                    Logger.WarningS("ui.container", $"Container child element {element.Element} already parented to {element.Element.Parent} in AddElement()");
+                    // Logger.WarningS("ui.container", $"Container child element {element.Element} already parented to {element.Element.Parent} in AddElement()");
                     element.Element.Parent.RemoveChild(element.Element);
                 }
 
