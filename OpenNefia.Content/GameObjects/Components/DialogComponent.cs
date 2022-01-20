@@ -1,5 +1,6 @@
 ﻿using OpenNefia.Content.Charas;
 using OpenNefia.Content.Dialog;
+using OpenNefia.Content.Prototypes;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Serialization.Manager.Attributes;
@@ -17,7 +18,7 @@ namespace OpenNefia.Content.GameObjects
         public override string Name => "Dialog";
 
         [DataField]
-        public PrototypeId<DialogItemPrototype>? DialogID;
+        public PrototypeId<DialogPrototype>? DialogID = Protos.Dialog.DialogDefault;
 
         [DataField]
         public bool CanTalk { get; set; } = false;

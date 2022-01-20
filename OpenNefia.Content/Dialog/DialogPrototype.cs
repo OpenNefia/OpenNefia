@@ -8,8 +8,8 @@ using System.Threading.Tasks;
 
 namespace OpenNefia.Content.Dialog
 {
-    [Prototype("Elona.DialogItem")]
-    public sealed class DialogItemPrototype : IPrototype
+    [Prototype("Elona.Dialog")]
+    public sealed class DialogPrototype : IPrototype
     {
         [DataField("id", required: true)]
         public string ID { get; } = default!;
