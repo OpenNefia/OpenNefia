@@ -12,6 +12,7 @@ using OpenNefia.Core.Maths;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Game;
 using OpenNefia.Core.UI;
+using OpenNefia.Content.UI;
 
 namespace OpenNefia.Content.Hud
 {
@@ -76,12 +77,11 @@ namespace OpenNefia.Content.Hud
             Batch.Draw(UIScale, X, Y, Width, Height);
             if (PlayerCoords.HasValue)
             {
-                float xSize = (PixelWidth / MapSize.X) / UIScale;
-                float ySize = (PixelHeight / MapSize.Y)/  UIScale;
-                float x = xSize * PlayerCoords.Value.X + (xSize / 2f);
-                float y = ySize * PlayerCoords.Value.Y + (ySize / 2f);
+                float x = Width * ((float)PlayerCoords.Value.X / MapSize.X);
+                float y = Height * ((float)PlayerCoords.Value.Y / MapSize.Y);
                 PlayerIcon.Draw(UIScale, X + x, Y + y, centered: true);
             }
+            UiUtils.DebugDraw(this);
         }
 
         public override void Update(float dt)
