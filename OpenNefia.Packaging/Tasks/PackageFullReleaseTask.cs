@@ -3,6 +3,8 @@ using Cake.Frosting;
 using System.IO.Compression;
 using System.Diagnostics;
 using Cake.Git;
+using Cake.Core.IO;
+using Path = System.IO.Path;
 
 namespace OpenNefia.Packaging.Tasks
 {
@@ -25,15 +27,6 @@ namespace OpenNefia.Packaging.Tasks
         };
 
         /// <summary>
-        /// Resource directories that should not be redistributed.
-        /// </summary>
-        private static readonly string[] IgnoredResourceDirs = new string[]
-        {
-            "Resources/Graphic/Elona/",
-            "Resources/Sound/Elona/"
-        };
-
-        /// <summary>
         /// Resource files that should not be redistributed.
         /// </summary>
         private static readonly HashSet<string> IgnoredResourceFiles = new()
@@ -43,6 +36,12 @@ namespace OpenNefia.Packaging.Tasks
 
         public override void Run(BuildContext context)
         {
+            var gitRoot = context.GitFindRootFromPath(context.Environment.WorkingDirectory);
+            if (gitRoot == null)
+            {
+                throw new InvalidOperationException("Git repository root not found in any parent directory.");
+            }
+
             if (Directory.Exists(Constants.OutputDir))
             {
                 context.Log.Information("Clearing old output folder...");
@@ -62,7 +61,7 @@ namespace OpenNefia.Packaging.Tasks
                 using (var zipArchive = new ZipArchive(stream, ZipArchiveMode.Create))
                 {
                     context.Log.Information($"Copying resources...");
-                    CopyResources(entryPointOutput);
+                    CopyResources(gitRoot, entryPointOutput);
 
                     context.Log.Information($"Packing files...");
                     ZipAllFiles(zipArchive, distribName, entryPointOutput);
@@ -72,8 +71,10 @@ namespace OpenNefia.Packaging.Tasks
             context.Log.Information($"Wrote .zip to {zipPath}");
         }
 
-        private void CopyResources(string entryPointOutput)
+        private void CopyResources(DirectoryPath gitRoot, string entryPointOutput)
         {
+            using var repository = new LibGit2Sharp.Repository(gitRoot.FullPath);
+
             var enumOptions = new EnumerationOptions()
             {
                 RecurseSubdirectories = true
@@ -89,10 +90,12 @@ namespace OpenNefia.Packaging.Tasks
                     if (IgnoredResourceFiles.Contains(filename))
                         continue;
 
-                    var relFile = Path.GetRelativePath(projectDir, file);
-                    if (IgnoredResourceDirs.Any(ignoredDir => Utility.PathStartsWith(relFile, ignoredDir)))
+                    var repoRelFile = Path.GetRelativePath(gitRoot.FullPath, file).Replace("\\", "/");
+                    Console.WriteLine($"{repoRelFile} {IsPathIgnored(repository, repoRelFile)}");
+                    if (IsPathIgnored(repository, repoRelFile))
                         continue;
 
+                    var relFile = Path.GetRelativePath(projectDir, file);
                     var outputFile = Path.Join(entryPointOutput, relFile);
 
                     var dir = Path.GetDirectoryName(outputFile)!;
@@ -103,6 +106,14 @@ namespace OpenNefia.Packaging.Tasks
                         File.Copy(file, outputFile);
                 }
             }
+        }
+
+        /// <summary>
+        /// True if the path is ignored *and* it's not in the index.
+        /// </summary>
+        private bool IsPathIgnored(LibGit2Sharp.Repository repository, string file)
+        {
+            return repository.Ignore.IsPathIgnored(file) && repository.Index[file] == null;
         }
 
         private void ZipAllFiles(ZipArchive zipArchive, string distribName, string entryPointOutput)
