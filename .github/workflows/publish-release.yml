@@ -20,7 +20,7 @@ jobs:
         dotnet-version: 6.0.100
 
     - name: Package release
-      run: ./build.sh -t PackageFullRelease -- --runtime win-x64
+      run: bash build.sh -t PackageFullRelease -- --runtime win-x64
 
     - uses: ncipollo/release-action@v1
       with:
