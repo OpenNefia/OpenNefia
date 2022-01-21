@@ -15,7 +15,7 @@ namespace OpenNefia.Core
             // Autopickup/Resources/Prototypes/Autopickup
             // 
             // ...And so on.
-            res.MountContentDirectory("Resources/");
+            res.MountContentDirectory("Resources");
 #else
             // Assets directory in OpenNefia.Core
             res.MountContentDirectory("../../../../OpenNefia.Core/Resources");
