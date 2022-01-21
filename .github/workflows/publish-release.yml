@@ -22,7 +22,8 @@ jobs:
     - name: Package release
       run: bash build.sh -t PackageFullRelease -- --runtime win-x64
 
-    - uses: ncipollo/release-action@v1
+    - name: Release
+      uses: softprops/action-gh-release@v1
+      if: startsWith(github.ref, 'refs/tags/')
       with:
-        artifacts: "release/OpenNefia-win-x64.zip"
-        token: ${{ secrets.GITHUB_TOKEN }}
+        files: "release/OpenNefia-win-x64.zip"
