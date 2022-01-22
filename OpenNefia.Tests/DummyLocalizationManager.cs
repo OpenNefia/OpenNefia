@@ -75,5 +75,11 @@ namespace OpenNefia.Tests
         {
             return string.Empty;
         }
+
+        public bool TryGetTable(LocaleKey key, [NotNullWhen(true)] out LuaTable? table)
+        {
+            table = null;
+            return false;
+        }
     }
 }

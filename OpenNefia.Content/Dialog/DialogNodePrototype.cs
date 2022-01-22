@@ -14,6 +14,10 @@ namespace OpenNefia.Content.Dialog
         [DataField("id", required: true)]
         public string ID { get; } = default!;
 
+        [DataField("locKey")]
+        private string _LocKey { get; } = default!;
+        public string LocKey => _LocKey ?? ID.Replace("Elona.", "Elona.Dialog.");
+
         [DataField]
         public IDialogNode Node { get; } = default!;
     }

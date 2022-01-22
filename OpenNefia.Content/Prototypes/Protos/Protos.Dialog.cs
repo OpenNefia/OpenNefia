@@ -14,6 +14,7 @@ namespace OpenNefia.Content.Prototypes
 
             public static readonly DialogNodePrototypeId TalkDefault    = new($"Elona.{nameof(TalkDefault)}");
             public static readonly DialogNodePrototypeId TalkBye        = new($"Elona.{nameof(TalkBye)}");
+            public static readonly DialogNodePrototypeId TalkMore       = new($"Elona.{nameof(TalkMore)}");
 
 #pragma warning restore format
         }

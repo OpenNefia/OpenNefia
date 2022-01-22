@@ -52,6 +52,8 @@ namespace OpenNefia.Core.Locale
         bool TryGetLocalizationData(EntityUid uid, [NotNullWhen(true)] out LuaTable? table);
         EntityLocData GetEntityData(string prototypeId);
 
+        bool TryGetTable(LocaleKey key, [NotNullWhen(true)] out LuaTable? table);
+
         event LanguageSwitchedDelegate? OnLanguageSwitched;
     }
 

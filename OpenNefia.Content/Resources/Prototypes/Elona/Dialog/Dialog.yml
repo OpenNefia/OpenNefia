@@ -1,12 +1,47 @@
 ﻿---
 - type: Elona.Dialog
   id: Elona.DialogDefault
+  node: !type:PrototypeDialog
+    id: Elona.TalkDefault
 
 - type: Elona.DialogNode
   id: Elona.TalkDefault
+  node: !type:DefaultDialog {}
 - type: Elona.DialogNode
   id: Elona.TalkBye
+  node: !type:CloseDialog {}
+- type: Elona.DialogNode
+  id: Elona.TalkMore
+  node: !type:MoreDialog {}
 
+- type: Elona.Dialog
+  id: Elona.Erystia
+  node: !type:NodeSequence
+    nodes:
+    - !type:DialogText
+      locKey: "Elona.Dialog.Test"
+    - !type:DialogText
+      locKey: "Elona.Dialog.Test"
+    - !type:DialogBranch
+      locKey: "Elona.Dialog.Test2"
+      choices:
+      - priority: 1
+        locKey: "Elona.Dialog.TestBranch1"
+        node: !type:DialogText
+          locKey: "Elona.Dialog.Test2"
+      - priority: -1
+        locKey: "Elona.Dialog.TestBranch2"
+        node: !type:DialogSequence
+          locKey: "Elona.Dialog.TestDialog"
+    - !type:DialogText
+      locKey: "Elona.Dialog.Test"
+    - !type:CloseDialog {}
+
+- type: Elona.Dialog
+  id: Elona.Lomias
+
+- type: Elona.Dialog
+  id: Elona.LomiasGameBegin
 
 
 - type: Elona.Dialog
@@ -41,12 +76,6 @@
 
 - type: Elona.Dialog
   id: Elona.Miches
-
-- type: Elona.Dialog
-  id: Elona.Lomias
-
-- type: Elona.Dialog
-  id: Elona.LomiasGameBegin
 
 - type: Elona.Dialog
   id: Elona.Miral
@@ -182,9 +211,6 @@
 
 - type: Elona.Dialog
   id: Elona.Garokk
-
-- type: Elona.Dialog
-  id: Elona.Erystia
 
 - type: Elona.Dialog
   id: Elona.Doria
