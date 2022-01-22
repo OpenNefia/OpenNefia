@@ -1,6 +1,7 @@
 ﻿using OpenNefia.Content.Charas;
 using OpenNefia.Content.Inventory;
 using OpenNefia.Content.Rendering;
+using OpenNefia.Content.UI.Element;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Maths;
@@ -9,7 +10,7 @@ using OpenNefia.Core.Rendering;
 using OpenNefia.Core.UI;
 using OpenNefia.Core.UI.Element;
 
-namespace OpenNefia.Content.UI.Element
+namespace OpenNefia.Content.CharaInfo
 {
     public sealed class CharaSheetFaceFrame : UiElement
     {

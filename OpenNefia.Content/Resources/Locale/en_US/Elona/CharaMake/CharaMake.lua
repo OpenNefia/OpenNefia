@@ -1,6 +1,10 @@
 Elona.CharaMake = {
     Common = {
         Locked = "Locked!",
+
+        KeyHint = {
+            Reroll = "Reroll",
+        },
     },
 
     Skill = {
@@ -104,6 +108,10 @@ Elona.CharaMake = {
                 Restart = "Restart",
                 GoBack = "Go back",
             },
+        },
+
+        KeyHint = {
+            FinalConfirmation = "Confirm",
         },
 
         WhatIsYourName = "Last question. What's your name?",

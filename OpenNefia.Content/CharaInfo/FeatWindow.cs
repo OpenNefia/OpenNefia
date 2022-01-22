@@ -1,6 +1,8 @@
 ﻿using OpenNefia.Content.Feats;
 using OpenNefia.Content.Inventory;
 using OpenNefia.Content.Prototypes;
+using OpenNefia.Content.UI;
+using OpenNefia.Content.UI.Element;
 using OpenNefia.Content.UI.Element.List;
 using OpenNefia.Core.Audio;
 using OpenNefia.Core.IoC;
@@ -13,7 +15,7 @@ using OpenNefia.Core.UI.Element;
 using OpenNefia.Core.UserInterface;
 using OpenNefia.Core.Utility;
 
-namespace OpenNefia.Content.UI.Element
+namespace OpenNefia.Content.CharaInfo
 {
     public class FeatWindow : UiElement
     {
@@ -209,7 +211,7 @@ namespace OpenNefia.Content.UI.Element
             if (lastSelected != null)
             {
                 var selected = data.First(x => (x.Data as FeatNameAndDesc.GainedFeat)?.Prototype == lastSelected);
-                var page = (data.IndexOf(selected)) / List.ItemsPerPage;
+                var page = data.IndexOf(selected) / List.ItemsPerPage;
                 List.SetPage(page, false);
                 Sounds.Play(Protos.Sound.Ding3);
                 var pageElements = List.DisplayedCells.ToList();
@@ -266,7 +268,7 @@ namespace OpenNefia.Content.UI.Element
             List.SetPosition(Window.X + 55, Window.Y + 60);
             NameTopic.SetPosition(Window.X + 45, Window.Y + 32);
             DetailTopic.SetPosition(Window.X + 270, NameTopic.Y);
-            FeatCountText.SetPosition(Window.X + (Window.Width / 2) + 10, Window.Y + Window.Height - 71);
+            FeatCountText.SetPosition(Window.X + Window.Width / 2 + 10, Window.Y + Window.Height - 71);
             AssetDecoFeatA.SetPosition(Window.X + Window.Width - 56, Window.Y + Window.Height - 198);
             AssetDecoFeatB.SetPosition(Window.X, Window.Y);
             AssetDecoFeatC.SetPosition(Window.X + Window.Width - 108, Window.Y);

@@ -1,5 +1,4 @@
-﻿using OpenNefia.Content.UI.Element;
-using OpenNefia.Content.Prototypes;
+﻿using OpenNefia.Content.Prototypes;
 using OpenNefia.Core.Audio;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Locale;
@@ -19,6 +18,9 @@ using OpenNefia.Content.RandomText;
 using OpenNefia.Content.Levels;
 using OpenNefia.Core.Log;
 using OpenNefia.Content.UI;
+using OpenNefia.Content.CharaInfo;
+using OpenNefia.Core.Graphics;
+using OpenNefia.Content.Input;
 
 namespace OpenNefia.Content.CharaMake
 {
@@ -29,10 +31,12 @@ namespace OpenNefia.Content.CharaMake
         [Dependency] private readonly IEntityGen _entityGen = default!;
         [Dependency] private readonly ISaveGameSerializer _saveSerializer = default!;
         [Dependency] private readonly IRandomNameGenerator _randomNames = default!;
+        [Dependency] private readonly IGraphics _graphics = default!;
 
         private EntityUid _playerEntity;
 
         [Child] private CharaSheet Sheet = new();
+        [Child] private KeyHintBar KeyHintBar = new();
 
         public CharaMakeCharaSheetLayer()
         {
@@ -86,11 +90,21 @@ namespace OpenNefia.Content.CharaMake
             _playerEntity = CreatePlayerEntity(Data.AllSteps);
 
             Sheet.RefreshFromEntity(_playerEntity);
-            Sheet.SetSize(Sheet.Width, Sheet.Height);
-            Sheet.SetPosition(Sheet.X, Sheet.Y);
+            KeyHintBar.Text = UserInterfaceManager.FormatKeyHints(MakeKeyHints());
 
             if (playSound)
                 Sounds.Play(Sound.Dice);
+        }
+
+        public override List<UiKeyHint> MakeKeyHints()
+        {
+            var keyHints = base.MakeKeyHints();
+            
+            keyHints.Add(new(new LocaleKey("Elona.CharaMake.Common.KeyHint.Reroll"), UiKeyNames.EnterKey));
+            keyHints.Add(new(UiKeyHints.Portrait, ContentKeyFunctions.UIPortrait));
+            keyHints.Add(new(new LocaleKey("Elona.CharaMake.CharaSheet.KeyHint.FinalConfirmation"), UiKeyNames.EnterKey));
+
+            return keyHints;
         }
 
         private void ResetCaption()
@@ -156,7 +170,6 @@ namespace OpenNefia.Content.CharaMake
                         ShowLastQuestion();
                         break;
                     case FinalPromptChoice.No:
-                        ResetCaption();
                         break;
                     case FinalPromptChoice.Restart:
                         Finish(new CharaMakeResult(new(), CharaMakeStep.Restart));
@@ -168,6 +181,8 @@ namespace OpenNefia.Content.CharaMake
                         break;
                 }
             }
+
+            ResetCaption();
         }
 
         /// <summary>
@@ -233,24 +248,28 @@ namespace OpenNefia.Content.CharaMake
         {
             base.SetSize(width, height);
             Sheet.SetSize(Width, Height);
+            KeyHintBar.SetSize(_graphics.WindowSize.X - 240, 16);
         }
 
         public override void SetPosition(float x, float y)
         {
             base.SetPosition(x, y);
             Sheet.SetPosition(X, Y);
-        }
-
-        public override void Draw()
-        {
-            base.Draw();
-            Sheet.Draw();
+            KeyHintBar.SetPosition(240, _graphics.WindowSize.Y - KeyHintBar.Height);
         }
 
         public override void Update(float dt)
         {
             base.Update(dt);
             Sheet.Update(dt);
+            KeyHintBar.Update(dt);
+        }
+
+        public override void Draw()
+        {
+            base.Draw();
+            Sheet.Draw();
+            KeyHintBar.Draw();
         }
     }
 }

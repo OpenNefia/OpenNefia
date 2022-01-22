@@ -13,6 +13,7 @@ namespace OpenNefia.Core.Rendering
         Vector2i PixelSize { get; }
 
         Vector2 VirtualSize(float uiScale);
+        Vector2 VirtualSize(float uiScale, string regionID);
         float VirtualWidth(float uiScale);
         float VirtualHeight(float uiScale);
 
@@ -90,6 +91,11 @@ namespace OpenNefia.Core.Rendering
         public Vector2i PixelSize => new(PixelWidth, PixelHeight);
 
         public Vector2 VirtualSize(float uiScale) => (Vector2)PixelSize / uiScale;
+        public Vector2 VirtualSize(float uiScale, string regionID)
+        {
+            var region = Regions[regionID];
+            return (Vector2)region.Size / uiScale;
+        }
         public float VirtualWidth(float uiScale) => PixelWidth / uiScale;
         public float VirtualHeight(float uiScale) => PixelWidth / uiScale;
 

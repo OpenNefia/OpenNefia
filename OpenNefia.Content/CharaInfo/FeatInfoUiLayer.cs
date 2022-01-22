@@ -2,7 +2,6 @@
 using OpenNefia.Content.GameObjects;
 using OpenNefia.Content.Input;
 using OpenNefia.Content.UI;
-using OpenNefia.Content.UI.Element;
 using OpenNefia.Core.Audio;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
