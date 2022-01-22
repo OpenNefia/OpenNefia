@@ -60,7 +60,9 @@ namespace OpenNefia.Content.GameObjects
             var player = session.Player;
 
             var verb = new Verb(PickableSystem.VerbIDPickUp);
-            var spatials = _lookup.EntitiesUnderneath(session.Player).ToList();
+            var spatials = _lookup.EntitiesUnderneath(session.Player)
+                .Where(spatial => _verbSystem.GetLocalVerbs(session.Player, spatial.Owner).Contains(verb))
+                .ToList();
 
             if (spatials.Count == 0)
             {
