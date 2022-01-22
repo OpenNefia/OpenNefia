@@ -70,7 +70,7 @@ namespace OpenNefia.Content.UI
             base.Initialize(args);
             SelectedArgs = args.SelectedArgs;
             Layers = args.Layers;
-            Texts = Layers.ToDictionary(x => x.Key, y => (UiText)new UiTextOutlined(UiFonts.HUDTabText, GetText(y.Key)));
+            Texts = Layers.ToDictionary(x => x.Key, y => (UiText)new UiTextOutlined(UiFonts.HUDTabText, GetTabName(y.Key)));
             Icons = Layers.ToDictionary(x => x.Key, y => GetIcon(y.Key));
 
             foreach (var text in Texts.Values)
@@ -138,7 +138,7 @@ namespace OpenNefia.Content.UI
 
         protected virtual AssetDrawable? GetIcon(TSublayerArgs args) => null;
 
-        protected virtual string GetText(TSublayerArgs args) => string.Empty;
+        protected virtual string GetTabName(TSublayerArgs args) => string.Empty;
 
         public override void SetSize(float width, float height)
         {

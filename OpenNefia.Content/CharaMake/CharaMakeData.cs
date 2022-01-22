@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OpenNefia.Core.Log;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
@@ -19,7 +20,7 @@ namespace OpenNefia.Content.CharaMake
             AllSteps = allSteps.ToList();
         }
 
-        public bool TryGetValues(string key, out IEnumerable<object> vals)
+        public bool TryGetCharaMakeResults(string key, out IEnumerable<object> vals)
         {
             vals = CharaData.Values.Where(x => x.TryGetValue(key, out _)).Select(x => x[key]);
             return vals.Any();
@@ -28,10 +29,10 @@ namespace OpenNefia.Content.CharaMake
         /// <summary>
         /// Returns the first object with the correct type in the data
         /// </summary>
-        public bool TryGetValue<T>(string key, [NotNullWhen(true)] out T? val)
+        public bool TryGetCharaMakeResult<T>(string key, [NotNullWhen(true)] out T? val)
         {
             val = default!;
-            if (TryGetValues(key, out var vals))
+            if (TryGetCharaMakeResults(key, out var vals))
             {
                 foreach (var obj in vals)
                 {
@@ -42,6 +43,8 @@ namespace OpenNefia.Content.CharaMake
                     }
                 }
             }
+
+            Logger.ErrorS("charamake", $"No charamake result with name '{key}' and type {typeof(T)} in {nameof(CharaMakeData)}!");
             return false;
         }
     }

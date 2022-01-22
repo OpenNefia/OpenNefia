@@ -11,6 +11,7 @@ using OpenNefia.Core.Rendering;
 using OpenNefia.Core.UI;
 using OpenNefia.Core.UI.Element;
 using OpenNefia.Core.UserInterface;
+using OpenNefia.Core.Utility;
 
 namespace OpenNefia.Content.UI.Element
 {
@@ -24,7 +25,7 @@ namespace OpenNefia.Content.UI.Element
             public record Feat(FeatPrototype Prototype, int Level) : FeatNameAndDesc
             {
                 public virtual int TotalLevel => Level + 1;
-                public override string Name => Loc.GetPrototypeString(Prototype.GetStrongID(), $"{Math.Min(TotalLevel, Prototype.LevelMax)}.Name") 
+                public override string Name => Loc.GetPrototypeString(Prototype.GetStrongID(), $"{Math.Min(TotalLevel, Prototype.LevelMax)}.Name")
                     + (Level >= Prototype.LevelMax ? $"({Loc.GetString("Elona.FeatMenu.FeatMax")})" : string.Empty);
                 public override string Description => Loc.GetPrototypeString(Prototype.GetStrongID(), "MenuDesc")!;
 
@@ -45,7 +46,7 @@ namespace OpenNefia.Content.UI.Element
                 public override string Name => $"[{Loc.GetString($"Elona.FeatMenu.FeatType.{Prototype.FeatType}")}]{Description}";
 
                 public override string Description => Loc.GetPrototypeString(Prototype.GetStrongID(), $"{Math.Min(TotalLevel, Prototype.LevelMax)}.Desc");
-                
+
                 public GainedFeat(FeatPrototype Prototype, int Level) : base(Prototype, Level)
                 {
                 }
@@ -57,7 +58,7 @@ namespace OpenNefia.Content.UI.Element
             private IAssetInstance FeatIcons;
             [Child] private UiText DescriptionText;
 
-            public FeatCell(FeatNameAndDesc data) 
+            public FeatCell(FeatNameAndDesc data)
                 : base(data, new UiText())
             {
                 FeatIcons = Assets.Get(Protos.Asset.FeatIcons);
@@ -146,13 +147,12 @@ namespace OpenNefia.Content.UI.Element
         [Child] private AssetDrawable AssetDecoFeatC;
         [Child] private AssetDrawable AssetDecoFeatD;
 
-        private Func<Dictionary<PrototypeId<FeatPrototype>, int>> GetGainedFeatsFunc;
-        private Action<FeatNameAndDesc.Feat> SelectFeatAction;
-        private Func<int> GetAvailableCountFunc;
+        private IFeatWindowBehavior Behavior;
 
-        public FeatWindow(Func<Dictionary<PrototypeId<FeatPrototype>, int>> getGainedFeatsFunc, Action<FeatNameAndDesc.Feat> selectFeatAction, Func<int> getAvailableCountFunc) 
+        public FeatWindow(IFeatWindowBehavior behavior)
         {
             IoCManager.InjectDependencies(this);
+
             AssetInventoryIcons = InventoryHelpers.MakeIcon(InventoryIcon.Feat);
             AssetDecoFeatA = new AssetDrawable(Protos.Asset.DecoFeatA);
             AssetDecoFeatB = new AssetDrawable(Protos.Asset.DecoFeatB);
@@ -166,35 +166,34 @@ namespace OpenNefia.Content.UI.Element
             Window.Title = Loc.GetString("Elona.FeatMenu.Window.Title");
             List = new UiPagedList<FeatNameAndDesc>(itemsPerPage: 15, this, new Vector2(-55f, -3f));
 
-            GetGainedFeatsFunc = getGainedFeatsFunc ?? (() => new Dictionary<PrototypeId<FeatPrototype>, int>());
-            SelectFeatAction = selectFeatAction ?? (feat => { });
-            GetAvailableCountFunc = getAvailableCountFunc ?? (() => 0);
+            Behavior = behavior;
 
             EventFilter = UIEventFilterMode.Pass;
             List.OnActivated += List_OnActivate;
         }
 
-        public void Initialize()
-        {
-            RefreshData();
-        }
-        
-        private void RefreshData(FeatPrototype? lastSelected = null)
+        public void RefreshData(FeatPrototype? lastSelected = null)
         {
             List.Clear();
             var data = new List<FeatCell>();
             var prototypes = _prototypeManager.EnumeratePrototypes<FeatPrototype>().Where(x => x.FeatType == FeatType.Feat);
-            var featCount = GetAvailableCountFunc();
-            var gainedFeats = GetGainedFeatsFunc();
+            var featCount = Behavior.GetNumberOfFeatsAcquirable();
+            var gainedFeats = Behavior.GetGainedFeats();
 
             if (featCount > 0)
             {
-                data.Add(new FeatCell(new FeatNameAndDesc.FeatHeader("Elona.FeatMenu.Header.Available")));
-                data.AddRange(prototypes.Select(x =>
+                var availableFeatCells = prototypes.Select(x =>
                 {
-                    gainedFeats.TryGetValue(x.GetStrongID(), out var val);
-                    return new FeatCell(new FeatNameAndDesc.Feat(x, val));
-                }));
+                    var featLevel = 0;
+
+                    if (gainedFeats.TryGetValue(x.GetStrongID(), out var level))
+                        featLevel = level.Level.Base;
+
+                    return new FeatCell(new FeatNameAndDesc.Feat(x, featLevel));
+                });
+
+                data.Add(new FeatCell(new FeatNameAndDesc.FeatHeader("Elona.FeatMenu.Header.Available")));
+                data.AddRange(availableFeatCells);
                 FeatCountText.Text = Loc.GetString("Elona.FeatMenu.FeatCount", ("featsRemaining", featCount));
             }
             else
@@ -203,7 +202,7 @@ namespace OpenNefia.Content.UI.Element
             }
             data.Add(new FeatCell(new FeatNameAndDesc.FeatHeader("Elona.FeatMenu.Header.Gained")));
             data.AddRange(gainedFeats
-                .Select(x => new FeatCell(new FeatNameAndDesc.GainedFeat(x.Key.ResolvePrototype(), x.Value)))
+                .Select(x => new FeatCell(new FeatNameAndDesc.GainedFeat(x.Key.ResolvePrototype(), x.Value.Level.Base)))
                 .OrderBy(x => (x.Data as FeatNameAndDesc.GainedFeat)?.Prototype.FeatType));
             List.AddRange(data);
 
@@ -226,7 +225,7 @@ namespace OpenNefia.Content.UI.Element
 
         private void List_OnActivate(object? sender, UiListEventArgs<FeatNameAndDesc> args)
         {
-            switch(args.SelectedCell.Data)
+            switch (args.SelectedCell.Data)
             {
                 case FeatNameAndDesc.GainedFeat:
                     break;
@@ -234,7 +233,7 @@ namespace OpenNefia.Content.UI.Element
                     if (feat.Level >= feat.Prototype.LevelMax)
                         break;
 
-                    SelectFeatAction(feat);
+                    Behavior.OnFeatSelected(feat);
                     RefreshData(feat.Prototype);
                     break;
             }

@@ -44,11 +44,8 @@ namespace OpenNefia.Content.CharaMake
         public override void ApplyStep(EntityUid entity)
         {
             base.ApplyStep(entity);
-            if (!Data.TryGetValue<RacePrototype>(ResultName, out var race))
-            {
-                Logger.WarningS("charamake", "No race in CharaMakeData");
+            if (!Data.TryGetCharaMakeResult<RacePrototype>(ResultName, out var race))
                 return;
-            }
 
             if (!EntityManager.TryGetComponent<CharaComponent>(entity, out var chara))
             {
@@ -138,11 +135,8 @@ namespace OpenNefia.Content.CharaMake
         public override void ApplyStep(EntityUid entity)
         {
             base.ApplyStep(entity);
-            if (!Data.TryGetValue<ClassPrototype>(ResultName, out var @class))
-            {
-                Logger.WarningS("charamake", "No class in CharaMakeData");
+            if (!Data.TryGetCharaMakeResult<ClassPrototype>(ResultName, out var @class))
                 return;
-            }
 
             if (!EntityManager.TryGetComponent<CharaComponent>(entity, out var chara))
             {

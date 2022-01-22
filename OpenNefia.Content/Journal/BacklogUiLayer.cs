@@ -9,10 +9,11 @@ using System.Threading.Tasks;
 using OpenNefia.Content.UI.Hud;
 using OpenNefia.Core.UI.Element;
 using OpenNefia.Core.Input;
+using OpenNefia.Content.Input;
 
 namespace OpenNefia.Content.Journal
 {
-    public class BacklogUiLayer : JournalUiLayer
+    public class BacklogUiLayer : LogGroupUiLayer
     {
         [Dependency] private readonly IHudLayer _hud = default!;
 
@@ -32,7 +33,7 @@ namespace OpenNefia.Content.Journal
         protected override void OnKeyDown(GUIBoundKeyEventArgs args)
         {
             base.OnKeyDown(args);
-            if (args.Function == EngineKeyFunctions.Backlog)
+            if (args.Function == ContentKeyFunctions.Backlog)
                 Cancel();
         }
     }

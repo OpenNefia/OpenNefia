@@ -47,6 +47,31 @@ namespace OpenNefia.Core.Utility
             return defaultValue;
         }
 
+        public static TValue GetValueOrInsert<TKey, TValue>(this IDictionary<TKey, TValue> self, TKey key)
+            where TKey : notnull
+            where TValue : new()
+        {
+            if (!self.TryGetValue(key, out var value))
+            {
+                value = new TValue();
+                self.Add(key, value);
+            }
+
+            return value;
+        }
+
+        public static TValue GetValueOrInsert<TKey, TValue>(this IDictionary<TKey, TValue> self, TKey key, Func<TValue> instantiator)
+            where TKey : notnull
+        {
+            if (!self.TryGetValue(key, out var value))
+            {
+                value = instantiator();
+                self.Add(key, value);
+            }
+
+            return value;
+        }
+
         public static bool TryGetValue<T>(this IList<T> list, int index, out T value)
         {
             if (list.Count > index)
@@ -109,7 +134,7 @@ namespace OpenNefia.Core.Utility
         public static void MoveElementWhere<T>(this IList<T> list, Predicate<T> pred, int newIndex)
         {
             var oldIndex = list.FindIndex(pred);
-            
+
             if (oldIndex == -1)
                 throw new InvalidOperationException("Predicate did not match any element in the list.");
 
@@ -171,7 +196,7 @@ namespace OpenNefia.Core.Utility
             }
 
             var t = list[list.Count - 1];
-            list.RemoveAt(list.Count-1);
+            list.RemoveAt(list.Count - 1);
             return t;
         }
 
@@ -187,12 +212,12 @@ namespace OpenNefia.Core.Utility
         public static TSource? FirstOrNull<TSource>(
             this IEnumerable<TSource> source,
             Func<TSource, bool> predicate)
-        where TSource: struct
+        where TSource : struct
         {
             if (source == null)
-                throw new ArgumentNullException(nameof (source));
+                throw new ArgumentNullException(nameof(source));
             if (predicate == null)
-                throw new ArgumentNullException(nameof (predicate));
+                throw new ArgumentNullException(nameof(predicate));
             foreach (TSource source1 in source)
             {
                 if (predicate(source1))
@@ -218,7 +243,7 @@ namespace OpenNefia.Core.Utility
             where TSource : struct
         {
             if (source == null)
-                throw new ArgumentNullException(nameof (source));
+                throw new ArgumentNullException(nameof(source));
 
             using var enumerator = source.GetEnumerator();
             if (!enumerator.MoveNext())
@@ -299,7 +324,7 @@ namespace OpenNefia.Core.Utility
         /// Returns a new dictionary with all keys and values swapped.
         /// </summary>
         /// <exception cref="ArgumentException"/>
-        public static Dictionary<TValue, TKey> Invert<TKey, TValue>(this IDictionary<TKey, TValue> dict) 
+        public static Dictionary<TValue, TKey> Invert<TKey, TValue>(this IDictionary<TKey, TValue> dict)
             where TKey : notnull
             where TValue : notnull
         {

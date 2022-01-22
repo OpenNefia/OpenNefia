@@ -232,16 +232,11 @@ namespace OpenNefia.Content.CharaMake
             if (playSound)
                 Sounds.Play(Protos.Sound.Dice);
 
-            if (!Data.TryGetValue(CharaMakeRaceSelectLayer.ResultName, out RacePrototype? race))
-            {
-                Logger.WarningS("charamake", "no race prototype in charamake data");
+            if (!Data.TryGetCharaMakeResult(CharaMakeRaceSelectLayer.ResultName, out RacePrototype? race))
                 return;
-            }
-            if (!Data.TryGetValue(CharaMakeClassSelectLayer.ResultName, out ClassPrototype? @class))
-            {
-                Logger.WarningS("charamake", "no class prototype in charamake data");
+            
+            if (!Data.TryGetCharaMakeResult(CharaMakeClassSelectLayer.ResultName, out ClassPrototype? @class))
                 return;
-            }
 
             foreach (var item in List)
             {
@@ -335,11 +330,8 @@ namespace OpenNefia.Content.CharaMake
         public override void ApplyStep(EntityUid entity)
         {
             base.ApplyStep(entity);
-            if (!Data.TryGetValue<Dictionary<PrototypeId<SkillPrototype>, int>>(ResultName, out var attributes))
-            {
-                Logger.WarningS("charamake", "No attributes in CharaMakeData");
+            if (!Data.TryGetCharaMakeResult<Dictionary<PrototypeId<SkillPrototype>, int>>(ResultName, out var attributes))
                 return;
-            }
 
             if (!EntityManager.TryGetComponent<CharaMakeSkillInitTempComponent>(entity, out var skills))
             {

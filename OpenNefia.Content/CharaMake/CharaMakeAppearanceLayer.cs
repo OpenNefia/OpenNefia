@@ -49,17 +49,11 @@ namespace OpenNefia.Content.CharaMake
 
         private PrototypeId<ChipPrototype> GetDefaultCharaChip()
         {
-            if (!Data.TryGetValue<Gender>(CharaMakeGenderSelectLayer.ResultName, out var gender))
-            {
+            if (!Data.TryGetCharaMakeResult<Gender>(CharaMakeGenderSelectLayer.ResultName, out var gender))
                 gender = Gender.Female;
-                Logger.WarningS("charamake", $"No '{CharaMakeGenderSelectLayer.ResultName}' result in CharaMakeData");
-            }
 
-            if (!Data.TryGetValue<RacePrototype>(CharaMakeRaceSelectLayer.ResultName, out var race))
-            {
-                Logger.WarningS("charamake", $"No '{CharaMakeRaceSelectLayer.ResultName}' result in CharaMakeData");
+            if (!Data.TryGetCharaMakeResult<RacePrototype>(CharaMakeRaceSelectLayer.ResultName, out var race))
                 return Protos.Chip.Default;
-            }
 
             return _charas.GetDefaultCharaChip(race, gender);
         }
@@ -126,11 +120,8 @@ namespace OpenNefia.Content.CharaMake
         public override void ApplyStep(EntityUid entity)
         {
             base.ApplyStep(entity);
-            if (!Data.TryGetValue<CharaAppearanceData>(ResultName, out var appearance))
-            {
-                Logger.WarningS("charamake", $"No '{ResultName}' result in CharaMakeData");
+            if (!Data.TryGetCharaMakeResult<CharaAppearanceData>(ResultName, out var appearance))
                 return;
-            }
 
             var portrait = EntityManager.EnsureComponent<PortraitComponent>(entity);
             portrait.PortraitID = appearance.PortraitProto.GetStrongID();

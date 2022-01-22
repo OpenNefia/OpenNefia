@@ -131,9 +131,30 @@ binds:
 - function: Elona.Examine
   type: State
   key: X
-- function: Elona.Wear
+- function: Elona.CharaInfo
+  type: State
+  key: C
+- function: Elona.Equipment
   type: State
   key: W
+- function: Elona.FeatInfo
+  type: State
+  key: F
+- function: Elona.Journal
+  type: State
+  key: J
+- function: Elona.Backlog
+  type: State
+  key: NumpadDivide
+  canFocus: true
+- function: Elona.Backlog
+  type: State
+  key: Slash
+  canFocus: true
+- function: Elona.ChatLog
+  type: State
+  key: F4
+
 
 - function: Elona.PickUp
   type: State
@@ -141,7 +162,7 @@ binds:
 - function: Elona.Examine
   type: State
   key: GamepadA
-- function: Elona.Wear
+- function: Elona.Equipment
   type: State
   key: GamepadRightShoulder
 
@@ -245,18 +266,6 @@ binds:
 - function: UIPreviousPage
   type: State
   key: Left
-  canFocus: true
-  canRepeat: true
-  repeatMode: None
-- function: Backlog
-  type: State
-  key: NumpadDivide
-  canFocus: true
-  canRepeat: true
-  repeatMode: None
-- function: Backlog
-  type: State
-  key: Slash
   canFocus: true
   canRepeat: true
   repeatMode: None

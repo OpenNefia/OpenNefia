@@ -1,10 +1,9 @@
-﻿using OpenNefia.Content.Charas;
+﻿using OpenNefia.Content.CharaInfo;
 using OpenNefia.Content.ConfigMenu;
+using OpenNefia.Content.Equipment;
 using OpenNefia.Content.Input;
 using OpenNefia.Content.Journal;
 using OpenNefia.Content.Logic;
-using OpenNefia.Content.TurnOrder;
-using OpenNefia.Content.UI;
 using OpenNefia.Content.UI.Layer;
 using OpenNefia.Core;
 using OpenNefia.Core.Audio;
@@ -23,11 +22,8 @@ using OpenNefia.Core.SaveGames;
 using OpenNefia.Core.Timing;
 using OpenNefia.Core.UI;
 using OpenNefia.Core.UserInterface;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using static OpenNefia.Content.CharaInfo.CharaGroupSublayerArgs;
+using static OpenNefia.Content.Journal.LogGroupSublayerArgs;
 using static OpenNefia.Content.Prototypes.Protos;
 
 namespace OpenNefia.Content.GameObjects
@@ -49,11 +45,89 @@ namespace OpenNefia.Content.GameObjects
         public override void Initialize()
         {
             CommandBinds.Builder
+                // CharaInfo group
+                .Bind(ContentKeyFunctions.CharaInfo, InputCmdHandler.FromDelegate(ShowCharaInfo))
+                .Bind(ContentKeyFunctions.Equipment, InputCmdHandler.FromDelegate(ShowEquipment))
+                .Bind(ContentKeyFunctions.FeatInfo, InputCmdHandler.FromDelegate(ShowFeatInfo))
+
+                // Journal group
+                .Bind(ContentKeyFunctions.Backlog, InputCmdHandler.FromDelegate(ShowBacklog))
+                .Bind(ContentKeyFunctions.Journal, InputCmdHandler.FromDelegate(ShowJournal))
+                .Bind(ContentKeyFunctions.ChatLog, InputCmdHandler.FromDelegate(ShowChatLog))
+                
+                // Other commands
                 .Bind(EngineKeyFunctions.ShowEscapeMenu, InputCmdHandler.FromDelegate(ShowEscapeMenu))
                 .Bind(EngineKeyFunctions.QuickSaveGame, InputCmdHandler.FromDelegate(QuickSaveGame))
                 .Bind(EngineKeyFunctions.QuickLoadGame, InputCmdHandler.FromDelegate(QuickLoadGame))
-                .Bind(EngineKeyFunctions.Backlog, InputCmdHandler.FromDelegate(ShowBacklog))
                 .Register<CommonCommandsSystem>();
+        }
+
+        private TurnResult? ShowCharaInfo(IGameSessionManager? session)
+        {
+            if (session?.Player == null)
+                return null;
+
+            var context = new CharaUiGroupArgs(CharaTab.CharaInfo, session.Player);
+            var result = _uiManager.Query<CharaUiGroup, CharaUiGroupArgs, CharaGroupSublayerResult>(context);
+
+            return HandleCharaUiGroupResult(result);
+        }
+
+        private TurnResult? ShowEquipment(IGameSessionManager? session)
+        {
+            if (session?.Player == null)
+                return null;
+
+            var context = new CharaUiGroupArgs(CharaTab.Equipment, session.Player);
+            var result = _uiManager.Query<CharaUiGroup, CharaUiGroupArgs, CharaGroupSublayerResult>(context);
+
+            return HandleCharaUiGroupResult(result);
+        }
+
+        private TurnResult? ShowFeatInfo(IGameSessionManager? session)
+        {
+            if (session?.Player == null)
+                return null;
+
+            var context = new CharaUiGroupArgs(CharaTab.FeatInfo, session.Player);
+            var result = _uiManager.Query<CharaUiGroup, CharaUiGroupArgs, CharaGroupSublayerResult>(context);
+
+            return HandleCharaUiGroupResult(result);
+        }
+
+        private TurnResult HandleCharaUiGroupResult(UiResult<CharaGroupSublayerResult> result)
+        {
+            if (result.HasValue && result.Value.ChangedEquipment)
+            {
+                _mes.Display(Loc.GetString("Elona.Equipment.YouChangeYourEquipment"));
+                return TurnResult.Succeeded;
+            }
+
+            return TurnResult.Aborted;
+        }
+
+        private TurnResult? ShowJournal(IGameSessionManager? session)
+        {
+            var context = new LogUiGroupArgs(LogTab.Journal);
+            _uiManager.Query<LogUiGroup, LogUiGroupArgs>(context);
+
+            return TurnResult.Aborted;
+        }
+
+        private TurnResult? ShowBacklog(IGameSessionManager? session)
+        {
+            var context = new LogUiGroupArgs(LogTab.Backlog);
+            _uiManager.Query<LogUiGroup, LogUiGroupArgs>(context);
+
+            return TurnResult.Aborted;
+        }
+
+        private TurnResult? ShowChatLog(IGameSessionManager? session)
+        {
+            var context = new LogUiGroupArgs(LogTab.ChatLog);
+            _uiManager.Query<LogUiGroup, LogUiGroupArgs>(context);
+
+            return TurnResult.Aborted;
         }
 
         private TurnResult? QuickSaveGame(IGameSessionManager? session)
@@ -146,14 +220,6 @@ namespace OpenNefia.Content.GameObjects
                         break;
                 }
             }
-
-            return TurnResult.Aborted;
-        }
-
-        private TurnResult? ShowBacklog(IGameSessionManager? session)
-        {
-            var context = new JournalUiGroupArgs(JournalGroupUiArgs.LogTab.Backlog);
-            _uiManager.Query<JournalUiGroup, JournalUiGroupArgs>(context);
 
             return TurnResult.Aborted;
         }

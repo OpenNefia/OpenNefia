@@ -133,10 +133,9 @@ namespace OpenNefia.Content.CharaMake
                 return new CharaMakeLogicResult.Canceled();
             }
 
-            if (!data.TryGetValue<EntityUid>(PlayerEntityResultName, out var newPlayer))
+            if (!data.TryGetCharaMakeResult<EntityUid>(PlayerEntityResultName, out var newPlayer))
             {
                 Logger.ErrorS("charamake", $"Did not find a charamake result with name '{PlayerEntityResultName}' containing the new player!");
-
                 return new CharaMakeLogicResult.Canceled();
             }
 

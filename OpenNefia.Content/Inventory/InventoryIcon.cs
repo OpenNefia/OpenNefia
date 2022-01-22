@@ -21,9 +21,12 @@ namespace OpenNefia.Content.Inventory
         DipSource = 6,
         Examine = 7,
         Drop = 8,
-        Tome = 9, // Unused.
+        Chara = 9,
         Equip = 10,
         Feat = 11,
+        Material = 12,
+        Spell = 13,
+        Skill = 14,
         Log = 15,
         Chat = 16,
         PickUp = 17,

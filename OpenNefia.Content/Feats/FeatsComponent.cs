@@ -28,6 +28,6 @@ namespace OpenNefia.Content.Feats
         /// Current Feats and the respective Levels
         /// </summary>
         [DataField]
-        public Dictionary<PrototypeId<FeatPrototype>, Stat<int>> Feats { get; } = new();
+        public Dictionary<PrototypeId<FeatPrototype>, FeatLevel> Feats { get; } = new();
     }
 }

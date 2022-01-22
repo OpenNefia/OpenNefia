@@ -206,11 +206,8 @@ namespace OpenNefia.Content.CharaMake
         public override void ApplyStep(EntityUid entity)
         {
             base.ApplyStep(entity);
-            if (!Data.TryGetValue<string>(ResultName, out var alias))
-            {
-                Logger.WarningS("charamake", "No alias in CharaMakeData");
+            if (!Data.TryGetCharaMakeResult<string>(ResultName, out var alias))
                 return;
-            }
 
             if (!EntityManager.TryGetComponent<CharaComponent>(entity, out var chara))
             {

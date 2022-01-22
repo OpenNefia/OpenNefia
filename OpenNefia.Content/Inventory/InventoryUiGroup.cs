@@ -56,7 +56,7 @@ namespace OpenNefia.Content.Inventory
             return iconAsset;
         }
 
-        protected override string GetText(InventoryContext args)
+        protected override string GetTabName(InventoryContext args)
         {
             return args.Behavior.WindowTitle;
         }

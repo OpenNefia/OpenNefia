@@ -9,13 +9,8 @@ using OpenNefia.Core.Locale;
 using OpenNefia.Core.Log;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.Prototypes;
-using OpenNefia.Core.Stats;
 using OpenNefia.Core.UI;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using OpenNefia.Core.Utility;
 
 namespace OpenNefia.Content.CharaMake
 {
@@ -26,14 +21,14 @@ namespace OpenNefia.Content.CharaMake
 
         public const string ResultName = "feats";
 
-        private readonly Dictionary<PrototypeId<FeatPrototype>, int> SelectedFeats = new();
+        private readonly Dictionary<PrototypeId<FeatPrototype>, FeatLevel> SelectedFeats = new();
         private int FeatCount;
 
         [Child] private FeatWindow FeatWindow;
 
         public CharaMakeFeatWindowLayer()
         {
-            FeatWindow = new FeatWindow(() => SelectedFeats, AddFeat, () => FeatCount);
+            FeatWindow = new FeatWindow(new CharaMakeFeatWindowBehavior(this));
         }
 
         public override void Initialize(CharaMakeData args)
@@ -46,8 +41,8 @@ namespace OpenNefia.Content.CharaMake
         {
             FeatCount--;
             var protoId = feat.Prototype.GetStrongID();
-            SelectedFeats.TryGetValue(protoId, out var level);
-            SelectedFeats[protoId] = level + 1;
+            var level = SelectedFeats.GetValueOrInsert(protoId, () => new FeatLevel(0));
+            level.Level.Base += 1;
 
             if (FeatCount <= 0)
             {
@@ -62,12 +57,12 @@ namespace OpenNefia.Content.CharaMake
         {
             SelectedFeats.Clear();
             FeatCount = 3;
-            if (Data.TryGetValue(CharaMakeRaceSelectLayer.ResultName, out RacePrototype? race))
+            if (Data.TryGetCharaMakeResult(CharaMakeRaceSelectLayer.ResultName, out RacePrototype? race))
             {
                 foreach (var feat in race.InitialFeats)
-                    SelectedFeats[feat.Key] = feat.Value;
+                    SelectedFeats[feat.Key] = new FeatLevel(feat.Value);
             }
-            FeatWindow.Initialize();
+            FeatWindow.RefreshData();
         }
 
         public override void OnQuery()
@@ -115,11 +110,8 @@ namespace OpenNefia.Content.CharaMake
         public override void ApplyStep(EntityUid entity)
         {
             base.ApplyStep(entity);
-            if (!Data.TryGetValue<Dictionary<PrototypeId<FeatPrototype>, int>>(ResultName, out var feats))
-            {
-                Logger.WarningS("charamake", "No attributes in CharaMakeData");
+            if (!Data.TryGetCharaMakeResult<Dictionary<PrototypeId<FeatPrototype>, FeatLevel>>(ResultName, out var feats))
                 return;
-            }
 
             if (!EntityManager.TryGetComponent<FeatsComponent>(entity, out var featsComponent))
             {
@@ -127,10 +119,28 @@ namespace OpenNefia.Content.CharaMake
                 return;
             }
 
-            foreach (var feat in feats)
+            foreach (var (featId, level) in feats)
             {
-                featsComponent.Feats[feat.Key] = new(_feats.Level(featsComponent, feat.Key) + feat.Value);
+                featsComponent.Feats[featId] = level;
             }
+        }
+
+        private class CharaMakeFeatWindowBehavior : IFeatWindowBehavior
+        {
+            private CharaMakeFeatWindowLayer Layer;
+
+            public CharaMakeFeatWindowBehavior(CharaMakeFeatWindowLayer layer)
+            {
+                Layer = layer;
+            }
+
+            public int GetNumberOfFeatsAcquirable() => Layer.FeatCount;
+
+            public IReadOnlyDictionary<PrototypeId<FeatPrototype>, FeatLevel> GetGainedFeats()
+                => Layer.SelectedFeats;
+
+            public void OnFeatSelected(FeatWindow.FeatNameAndDesc.Feat feat)
+                => Layer.AddFeat(feat);
         }
     }
 }

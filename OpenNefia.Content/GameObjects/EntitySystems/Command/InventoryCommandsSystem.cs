@@ -49,7 +49,6 @@ namespace OpenNefia.Content.GameObjects
                     new InventoryInputCmdHandler(_uiMgr, new ThrowInventoryBehavior()))
                 .Bind(ContentKeyFunctions.Eat,
                     new InventoryInputCmdHandler(_uiMgr, new EatInventoryBehavior()))
-                .Bind(ContentKeyFunctions.Wear, InputCmdHandler.FromDelegate(HandleWear))
                 .Register<InventoryCommandsSystem>();
         }
 
@@ -100,24 +99,6 @@ namespace OpenNefia.Content.GameObjects
 
                 return TurnResult.Aborted;
             }
-        }
-
-        private TurnResult? HandleWear(IGameSessionManager? session)
-        {
-            if (session == null)
-                return null;
-
-            var player = session.Player;
-
-            var result = _uiMgr.Query<EquipmentLayer, EquipmentLayer.Args, EquipmentLayer.Result>(new(player));
-
-            if (result.HasValue && result.Value.ChangedEquipment)
-            {
-                _mes.Display(Loc.GetString("Elona.Equipment.YouChangeYourEquipment"));
-                return TurnResult.Succeeded;
-            }
-
-            return TurnResult.Aborted;
         }
 
         private sealed class InventoryInputCmdHandler : InputCmdHandler

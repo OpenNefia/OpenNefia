@@ -2,39 +2,33 @@
 using OpenNefia.Content.UI;
 using OpenNefia.Core.Input;
 using OpenNefia.Core.Locale;
-using OpenNefia.Core.Maths;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Core.UI;
 using OpenNefia.Core.UI.Element;
 using OpenNefia.Core.UserInterface;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OpenNefia.Content.Journal
 {
-    public class JournalGroupUiArgs
+    public class LogGroupSublayerArgs
     {
         public enum LogTab
         {
             Backlog,
             Journal,
-            Chat
+            ChatLog
         }
 
-        public LogTab Type;
+        public LogTab Type { get; }
 
-        public JournalGroupUiArgs(LogTab type)
+        public LogGroupSublayerArgs(LogTab type)
         {
             Type = type;
         }
     }
 
-    public class JournalUiLayer : GroupableUiLayer<JournalGroupUiArgs, UINone>
+    public class LogGroupUiLayer : GroupableUiLayer<LogGroupSublayerArgs, UINone>
     {
-        public JournalUiLayer()
+        public LogGroupUiLayer()
         {
             EventFilter = UIEventFilterMode.Pass;
             CanControlFocus = true;
@@ -58,34 +52,35 @@ namespace OpenNefia.Content.Journal
         }
     }
 
-    public class JournalUiGroupArgs : UiGroupArgs<JournalUiLayer, JournalGroupUiArgs>
+    public class LogUiGroupArgs : UiGroupArgs<LogGroupUiLayer, LogGroupSublayerArgs>
     {
-        public JournalUiGroupArgs(JournalGroupUiArgs.LogTab type)
+        public LogUiGroupArgs(LogGroupSublayerArgs.LogTab selectedTab)
         {
-            foreach (JournalGroupUiArgs.LogTab logType in Enum.GetValues(typeof(JournalGroupUiArgs.LogTab)))
+            foreach (LogGroupSublayerArgs.LogTab logType in Enum.GetValues(typeof(LogGroupSublayerArgs.LogTab)))
             {
-                var args = new JournalGroupUiArgs(logType);
-                if (logType == type)
+                var args = new LogGroupSublayerArgs(logType);
+                if (logType == selectedTab)
                     SelectedArgs = args;
+
                 Layers[args] = logType switch
                 {
-                    JournalGroupUiArgs.LogTab.Backlog => new BacklogUiLayer(),
+                    LogGroupSublayerArgs.LogTab.Backlog => new BacklogUiLayer(),
                     // TODO: add other group layers
-                    _ => new JournalUiLayer()
+                    _ => new LogGroupUiLayer()
                 };
             }
         }
     }
 
-    public class JournalUiGroup : UiGroup<JournalUiLayer, JournalUiGroupArgs, JournalGroupUiArgs, UINone>
+    public class LogUiGroup : UiGroup<LogGroupUiLayer, LogUiGroupArgs, LogGroupSublayerArgs, UINone>
     {
-        protected override AssetDrawable? GetIcon(JournalGroupUiArgs args)
+        protected override AssetDrawable? GetIcon(LogGroupSublayerArgs args)
         {
             var iconType = args.Type switch
             {
-                JournalGroupUiArgs.LogTab.Backlog => InventoryIcon.Log,
-                JournalGroupUiArgs.LogTab.Journal => InventoryIcon.Read,
-                JournalGroupUiArgs.LogTab.Chat => InventoryIcon.Chat,
+                LogGroupSublayerArgs.LogTab.Backlog => InventoryIcon.Log,
+                LogGroupSublayerArgs.LogTab.Journal => InventoryIcon.Read,
+                LogGroupSublayerArgs.LogTab.ChatLog => InventoryIcon.Chat,
                 _ => InventoryIcon.Drink
             };
 
@@ -96,9 +91,9 @@ namespace OpenNefia.Content.Journal
             return iconAsset;
         }
 
-        protected override string GetText(JournalGroupUiArgs args)
+        protected override string GetTabName(LogGroupSublayerArgs args)
         {
-            return Loc.GetString($"Elona.Hud.LogGroup.{args.Type}");
+            return Loc.GetString($"Elona.UI.MenuGroup.Log.{args.Type}");
         }
     }
 }

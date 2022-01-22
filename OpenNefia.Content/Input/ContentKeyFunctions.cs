@@ -26,7 +26,12 @@ namespace OpenNefia.Content.Input
         public static readonly BoundKeyFunction Eat = "Elona.Eat";
         public static readonly BoundKeyFunction Throw = "Elona.Throw";
         public static readonly BoundKeyFunction Examine = "Elona.Examine";
-        public static readonly BoundKeyFunction Wear = "Elona.Wear";
+        public static readonly BoundKeyFunction CharaInfo = "Elona.CharaInfo";
+        public static readonly BoundKeyFunction Equipment = "Elona.Equipment";
+        public static readonly BoundKeyFunction FeatInfo = "Elona.FeatInfo";
+        public static readonly BoundKeyFunction Backlog = "Elona.Backlog";
+        public static readonly BoundKeyFunction Journal = "Elona.Journal";
+        public static readonly BoundKeyFunction ChatLog = "Elona.ChatLog";
 
         public static readonly BoundKeyFunction ReplFullscreen = "Elona.ReplFullscreen";
         public static readonly BoundKeyFunction ReplPrevCompletion = "Elona.ReplPrevCompletion";
