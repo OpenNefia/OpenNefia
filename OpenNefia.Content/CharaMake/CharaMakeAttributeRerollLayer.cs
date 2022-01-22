@@ -175,7 +175,7 @@ namespace OpenNefia.Content.CharaMake
         {
             var keyHints = base.MakeKeyHints();
 
-            keyHints.Add(new(new LocaleKey("Elona.CharaMake.AttributeReroll.Choice.Reroll"), ContentKeyFunctions.UIMode2));
+            keyHints.Add(new(new LocaleKey("Elona.CharaMake.Common.KeyHint.Reroll"), ContentKeyFunctions.UIMode2));
 
             return keyHints;
         }

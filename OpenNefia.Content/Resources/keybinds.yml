@@ -155,7 +155,6 @@ binds:
   type: State
   key: F4
 
-
 - function: Elona.PickUp
   type: State
   key: GamepadLeftShoulder

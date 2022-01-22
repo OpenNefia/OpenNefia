@@ -1,7 +1,7 @@
-﻿using OpenNefia.Content.Feats;
+﻿using OpenNefia.Content.CharaInfo;
+using OpenNefia.Content.Feats;
 using OpenNefia.Content.Prototypes;
 using OpenNefia.Content.UI;
-using OpenNefia.Content.UI.Element;
 using OpenNefia.Core.Audio;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;

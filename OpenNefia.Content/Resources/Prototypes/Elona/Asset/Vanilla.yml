@@ -49,7 +49,7 @@
       topBar: "0, 0, 192, 5"
       body: "0, 6, 192, 62"
       bottomBar: "0, 69, 192, 5"
-      windowTitle: "0, 53, 192, 18"
+      keyHintBar: "0, 53, 192, 18"
       corner: "0, 0, 7, 2"
 
 - type: Asset

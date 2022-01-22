@@ -25,8 +25,10 @@ using OpenNefia.Content.God;
 using OpenNefia.Content.CustomName;
 using OpenNefia.Content.DisplayName;
 using OpenNefia.Core.UI;
+using OpenNefia.Content.UI;
+using OpenNefia.Content.UI.Element;
 
-namespace OpenNefia.Content.UI.Element
+namespace OpenNefia.Content.CharaInfo
 {
     public class CharaSheet : UiElement
     {
@@ -74,8 +76,8 @@ namespace OpenNefia.Content.UI.Element
             {
                 base.Draw();
 
-                var x = (X + (TileWidth / 2));
-                var y = (Y + (TileHeight / 2));
+                var x = X + TileWidth / 2;
+                var y = Y + TileHeight / 2;
 
                 GraphicsEx.SetColor(255, 255, 255, 120);
                 TileIcon.Draw(UIScale, x, y, centered: true);
@@ -86,7 +88,7 @@ namespace OpenNefia.Content.UI.Element
                     HexBlessingIcons.DrawRegion(UIScale, Buff.RegionId, x, y);
                 }
             }
-        } 
+        }
 
         [Dependency] private readonly IEntityManager _entityManager = default!;
         [Dependency] private readonly IWorldSystem _world = default!;
@@ -235,7 +237,7 @@ namespace OpenNefia.Content.UI.Element
             //
 
             var levelGodId = god?.GodID;
-            var levelGodName = levelGodId != null 
+            var levelGodName = levelGodId != null
                 ? Loc.GetPrototypeString(levelGodId.Value, "Name")
                 : Loc.GetString("Elona.God.Eyth.Name");
 
@@ -358,7 +360,7 @@ namespace OpenNefia.Content.UI.Element
             dict[_locScope.GetString("Group.Extra.DeepestLevel")] = $"{_locScope.GetString("Group.Extra.DeepestLevelCounter", ("level", _world.State.DeepestLevel))}";
             SetupContainer(ExtraContainer, 6, dict);
             dict.Clear();
-            
+
             //
             // Rolls
             //
@@ -379,7 +381,7 @@ namespace OpenNefia.Content.UI.Element
         private void SetupContainer(UiContainer cont, int xOffset, IDictionary<string, string> content)
         {
             var maxLen = content.Select(x => x.Key).Max(x => x.Length);
-            foreach(var item in content)
+            foreach (var item in content)
             {
                 cont.AddElement(MakeInfoContainer(item.Key, maxLen + xOffset, item.Value));
             }
@@ -388,7 +390,7 @@ namespace OpenNefia.Content.UI.Element
         private UiContainer MakeInfoContainer(string name, int xOffset, string content)
         {
             var cont = new UiHorizontalContainer();
-            cont.AddElement(new UiText(UiFonts.CharSheetInfo, name.WidePadRight(xOffset)));
+            cont.AddElement(new UiText(UiFonts.CharaSheetInfo, name.WidePadRight(xOffset)));
             cont.AddLayout(LayoutType.YOffset, -1);
             cont.AddElement(new UiText(UiFonts.CharaSheetInfoContent, content));
             return cont;

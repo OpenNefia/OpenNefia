@@ -1,8 +1,8 @@
 ﻿using OpenNefia.Content.Feats;
 using OpenNefia.Core.Prototypes;
-using static OpenNefia.Content.UI.Element.FeatWindow;
+using static OpenNefia.Content.CharaInfo.FeatWindow;
 
-namespace OpenNefia.Content.UI.Element
+namespace OpenNefia.Content.CharaInfo
 {
     public interface IFeatWindowBehavior
     {
