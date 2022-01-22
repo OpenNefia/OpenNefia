@@ -55,9 +55,9 @@ namespace OpenNefia.Content.UI.Element
             private IAssetInstance HexBlessingIcons;
             private IAssetInstance TileIcon;
 
-            private PrototypeId<BuffPrototype>? Buff;
+            private BuffPrototype? Buff;
 
-            public HexAndBlessingIcon(PrototypeId<BuffPrototype>? buff)
+            public HexAndBlessingIcon(BuffPrototype? buff)
             {
                 TileIcon = Assets.Get(Protos.Asset.BuffIconNone);
                 HexBlessingIcons = Assets.Get(Protos.Asset.BuffIcons);
@@ -73,15 +73,17 @@ namespace OpenNefia.Content.UI.Element
             public override void Draw()
             {
                 base.Draw();
+
+                var x = (X + (TileWidth / 2));
+                var y = (Y + (TileHeight / 2));
+
                 GraphicsEx.SetColor(255, 255, 255, 120);
-                var x = (X + (TileWidth / 2)) * UIScale;
-                var y = (Y + (TileHeight / 2)) * UIScale;
-                TileIcon.Draw(UIScale, x, y, centered:true);
-                if (Buff.HasValue)
+                TileIcon.Draw(UIScale, x, y, centered: true);
+
+                if (Buff != null)
                 {
                     GraphicsEx.SetColor(Color.White);
-                    var buffProto = Buff?.ResolvePrototype()!;
-                    HexBlessingIcons.DrawRegionUnscaled(buffProto.RegionId, x, y);
+                    HexBlessingIcons.DrawRegion(UIScale, Buff.RegionId, x, y);
                 }
             }
         } 
@@ -92,6 +94,7 @@ namespace OpenNefia.Content.UI.Element
         [Dependency] private readonly IEquipSlotsSystem _equipSlots = default!;
         [Dependency] private readonly ICargoSystem _cargoSys = default!;
         [Dependency] private readonly IDisplayNameSystem _displayNames = default!;
+        [Dependency] private readonly IPrototypeManager _protos = default!;
 
         public const int SheetWidth = 700;
         public const int SheetHeight = 400;
@@ -314,7 +317,7 @@ namespace OpenNefia.Content.UI.Element
             for (int i = 0; i < 15; i++)
             {
                 if (buffs?.Buffs.Count > i)
-                    blessCont.AddElement(new HexAndBlessingIcon(buffs.Buffs[i]));
+                    blessCont.AddElement(new HexAndBlessingIcon(_protos.Index(buffs.Buffs[i])));
                 else
                     blessCont.AddElement(new HexAndBlessingIcon(null));
             }

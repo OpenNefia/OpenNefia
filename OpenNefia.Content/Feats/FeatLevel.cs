@@ -14,6 +14,15 @@ namespace OpenNefia.Content.Feats
     [DataDefinition]
     public class FeatLevel : IEquatable<FeatLevel>
     {
+        public FeatLevel()
+        {
+        }
+
+        public FeatLevel(int baseLevel)
+        {
+            Level = new(baseLevel);
+        }
+
         /// <summary>
         /// Level of the feat.
         /// </summary>

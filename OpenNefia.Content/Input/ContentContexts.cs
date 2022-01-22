@@ -23,6 +23,9 @@ namespace OpenNefia.Content.Input
 
             common.AddFunction(ContentKeyFunctions.DiagonalOnly);
 
+            // Used in both the field and in the backlog layer itself.
+            common.AddFunction(ContentKeyFunctions.Backlog);
+
             var field = contexts.GetContext("field");
             field.AddFunction(ContentKeyFunctions.Ascend);
             field.AddFunction(ContentKeyFunctions.Descend);
@@ -35,7 +38,12 @@ namespace OpenNefia.Content.Input
             field.AddFunction(ContentKeyFunctions.Eat);
             field.AddFunction(ContentKeyFunctions.Throw);
             field.AddFunction(ContentKeyFunctions.Examine);
-            field.AddFunction(ContentKeyFunctions.Wear);
+
+            field.AddFunction(ContentKeyFunctions.CharaInfo);
+            field.AddFunction(ContentKeyFunctions.Equipment);
+            field.AddFunction(ContentKeyFunctions.FeatInfo);
+            field.AddFunction(ContentKeyFunctions.Journal);
+            field.AddFunction(ContentKeyFunctions.ChatLog);
         }
     }
 }
