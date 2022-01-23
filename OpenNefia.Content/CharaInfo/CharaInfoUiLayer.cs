@@ -1,8 +1,10 @@
-﻿using OpenNefia.Content.CharaMake;
-using OpenNefia.Content.Input;
-using OpenNefia.Content.UI;
+﻿using OpenNefia.Content.UI;
+using OpenNefia.Core;
 using OpenNefia.Core.Audio;
 using OpenNefia.Core.GameObjects;
+using OpenNefia.Core.Graphics;
+using OpenNefia.Core.Input;
+using OpenNefia.Core.IoC;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.UI;
 using OpenNefia.Core.UI.Element;
@@ -12,31 +14,62 @@ namespace OpenNefia.Content.CharaInfo
 {
     public sealed class CharaInfoUiLayer : CharaGroupUiLayer
     {
-        [Child] private CharaSheet Sheet = new();
+        [Dependency] private readonly IGraphics _graphics = default!;
+
+        [Child] private UiKeyHintBar KeyHintBar = new();
+        [Child] private CharaInfoPagesControl CharaInfoPages = new();
 
         private EntityUid _charaEntity;
 
         public CharaInfoUiLayer()
         {
+            CharaInfoPages.OnPageChanged += HandlePagesPageChanged;
+
+            OnKeyBindDown += HandleKeyBindDown;
         }
 
         public override void GrabFocus()
         {
             base.GrabFocus();
-            Sheet.GrabFocus();
+            CharaInfoPages.GrabFocus();
         }
 
         public override void Initialize(CharaGroupSublayerArgs args)
         {
             _charaEntity = args.CharaEntity;
 
-            Sheet.Initialize(_charaEntity);
-            Sheet.RefreshFromEntity();
+            CharaInfoPages.Initialize(_charaEntity);
+            CharaInfoPages.RefreshFromEntity();
+        }
+
+        private void HandlePagesPageChanged(int newPage, int newPageCount)
+        {
+            UpdateKeyHintBar();
+        }
+
+        private void UpdateKeyHintBar()
+        {
+            KeyHintBar.Text = UserInterfaceManager.FormatKeyHints(MakeKeyHints());
+        }
+
+        private void HandleKeyBindDown(GUIBoundKeyEventArgs evt)
+        {
+            if (evt.Function == EngineKeyFunctions.UICancel)
+            {
+                // TODO wear equipment flag
+                Finish(new());
+            }
         }
 
         public override List<UiKeyHint> MakeKeyHints()
         {
-            return base.MakeKeyHints();
+            var keyHints = base.MakeKeyHints();
+
+            keyHints.Add(new(new LocaleKey("Elona.CharaSheet.KeyHint.BlessingAndHex"), UiKeyNames.Cursor));
+            keyHints.AddRange(CharaInfoPages.MakeKeyHints());
+            keyHints.Add(new(UiKeyHints.Close, EngineKeyFunctions.UICancel));
+
+            return keyHints;
         }
 
         public override void OnQuery()
@@ -47,30 +80,34 @@ namespace OpenNefia.Content.CharaInfo
 
         public override void GetPreferredBounds(out UIBox2 bounds)
         {
-            Sheet.GetPreferredSize(out var size);
+            CharaInfoPages.GetPreferredSize(out var size);
             UiUtils.GetCenteredParams(size.X, size.Y, out bounds, yOffset: -10);
         }
 
         public override void SetSize(float width, float height)
         {
             base.SetSize(width, height);
-            Sheet.SetSize(Width, Height);
+            KeyHintBar.SetSize(_graphics.WindowSize.X - 240, 16);
+            CharaInfoPages.SetSize(Width, Height);
         }
 
         public override void SetPosition(float x, float y)
         {
             base.SetPosition(x, y);
-            Sheet.SetPosition(X, Y);
+            KeyHintBar.SetPosition(240, 0);
+            CharaInfoPages.SetPosition(X, Y);
         }
 
         public override void Update(float dt)
         {
-            Sheet.Update(dt);
+            KeyHintBar.Update(dt);
+            CharaInfoPages.Update(dt);
         }
 
         public override void Draw()
         {
-            Sheet.Draw();
+            KeyHintBar.Draw();
+            CharaInfoPages.Draw();
         }
     }
 }

@@ -15,12 +15,10 @@ using OpenNefia.Core.Maps;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.SaveGames;
 using OpenNefia.Content.RandomText;
-using OpenNefia.Content.Levels;
 using OpenNefia.Core.Log;
 using OpenNefia.Content.UI;
 using OpenNefia.Content.CharaInfo;
 using OpenNefia.Core.Graphics;
-using OpenNefia.Content.Input;
 
 namespace OpenNefia.Content.CharaMake
 {
@@ -35,7 +33,7 @@ namespace OpenNefia.Content.CharaMake
 
         private EntityUid _playerEntity;
 
-        [Child] private CharaSheet Sheet = new();
+        [Child] private CharaInfoPagesControl CharaInfoPages = new();
         [Child] private UiKeyHintBar KeyHintBar = new();
 
         public CharaMakeCharaSheetLayer()
@@ -46,7 +44,7 @@ namespace OpenNefia.Content.CharaMake
         public override void GrabFocus()
         {
             base.GrabFocus();
-            Sheet.GrabFocus();
+            CharaInfoPages.GrabFocus();
         }
 
         public override void Initialize(CharaMakeData args)
@@ -66,7 +64,7 @@ namespace OpenNefia.Content.CharaMake
             var globalMap = _mapManager.CreateMap(1, 1, MapId.Global);
             var globalMapSpatial = EntityManager.GetComponent<SpatialComponent>(globalMap.MapEntityUid);
 
-            var playerEntity = EntityManager.CreateEntityUninitialized(Protos.Chara.Player);
+            var playerEntity = EntityManager.CreateEntityUninitialized(Chara.Player);
             var playerSpatial = EntityManager.GetComponent<SpatialComponent>(playerEntity);
             playerSpatial.AttachParent(globalMapSpatial);
 
@@ -94,8 +92,8 @@ namespace OpenNefia.Content.CharaMake
 
             _playerEntity = CreatePlayerEntity(Data.AllSteps);
 
-            Sheet.Initialize(_playerEntity);
-            Sheet.RefreshFromEntity();
+            CharaInfoPages.Initialize(_playerEntity);
+            CharaInfoPages.RefreshFromEntity();
             KeyHintBar.Text = UserInterfaceManager.FormatKeyHints(MakeKeyHints());
 
             if (playSound)
@@ -104,11 +102,11 @@ namespace OpenNefia.Content.CharaMake
 
         public override List<UiKeyHint> MakeKeyHints()
         {
-            var keyHints = base.MakeKeyHints();
+            var keyHints = new List<UiKeyHint>();
             
             keyHints.Add(new(new LocaleKey("Elona.CharaMake.Common.KeyHint.Reroll"), UiKeyNames.EnterKey));
-            keyHints.AddRange(Sheet.MakeKeyHints());
-            keyHints.Add(new(new LocaleKey("Elona.CharaMake.CharaSheet.KeyHint.FinalConfirmation"), UiKeyNames.EnterKey));
+            keyHints.AddRange(CharaInfoPages.MakeKeyHints());
+            keyHints.Add(new(new LocaleKey("Elona.CharaMake.CharaSheet.KeyHint.FinalConfirmation"), EngineKeyFunctions.UICancel));
 
             return keyHints;
         }
@@ -246,35 +244,35 @@ namespace OpenNefia.Content.CharaMake
 
         public override void GetPreferredBounds(out UIBox2 bounds)
         {
-            Sheet.GetPreferredSize(out var size);
+            CharaInfoPages.GetPreferredSize(out var size);
             UiUtils.GetCenteredParams(size.X, size.Y, out bounds, yOffset: -10);
         }
 
         public override void SetSize(float width, float height)
         {
             base.SetSize(width, height);
-            Sheet.SetSize(Width, Height);
-            KeyHintBar.SetSize(_graphics.WindowSize.X - 240, 16);
+            CharaInfoPages.SetSize(Width, Height);
+            KeyHintBar.SetSize(_graphics.WindowSize.X - 226, 16);
         }
 
         public override void SetPosition(float x, float y)
         {
             base.SetPosition(x, y);
-            Sheet.SetPosition(X, Y);
-            KeyHintBar.SetPosition(240, _graphics.WindowSize.Y - KeyHintBar.Height);
+            CharaInfoPages.SetPosition(X, Y);
+            KeyHintBar.SetPosition(226, 0);
         }
 
         public override void Update(float dt)
         {
             base.Update(dt);
-            Sheet.Update(dt);
+            CharaInfoPages.Update(dt);
             KeyHintBar.Update(dt);
         }
 
         public override void Draw()
         {
             base.Draw();
-            Sheet.Draw();
+            CharaInfoPages.Draw();
             KeyHintBar.Draw();
         }
     }

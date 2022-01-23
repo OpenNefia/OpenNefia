@@ -17,8 +17,7 @@ namespace OpenNefia.Core.Input
 		{
 			if (_printableKeyNameMap.TryGetValue(key, out var name))
 			{
-				var textInfo = Thread.CurrentThread.CurrentCulture.TextInfo;
-				return textInfo.ToTitleCase(name);
+				return name;
 }
 
 			if (Keyboard.TryGetSpecialKeyName(key, _loc, out name))

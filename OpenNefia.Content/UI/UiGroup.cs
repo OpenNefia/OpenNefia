@@ -185,7 +185,15 @@ namespace OpenNefia.Content.UI
             TabIconWindow.Draw();
             TabDeco.Draw(UIScale, TabIconWindow.X - 32, TabIconWindow.Y - 7);
 
-            foreach(var layer in Layers)
+            DrawIconBar();
+
+            if (SelectedLayer != null)
+                SelectedLayer.Draw();
+        }
+
+        private void DrawIconBar()
+        {
+            foreach (var layer in Layers)
             {
                 var color = (layer.Value == SelectedLayer) ? Color.White : Color.Gray;
 
@@ -200,9 +208,6 @@ namespace OpenNefia.Content.UI
                 Texts[layer.Key].Draw();
             }
             GraphicsEx.SetColor(Color.White);
-
-            if (SelectedLayer != null)
-                SelectedLayer.Draw();
         }
 
         public override void Update(float dt)
