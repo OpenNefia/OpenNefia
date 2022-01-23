@@ -34,7 +34,7 @@ using OpenNefia.Content.CharaAppearance;
 
 namespace OpenNefia.Content.CharaInfo
 {
-    public class CharaSheet : UiElement
+    public class CharaSheetControl : UiElement
     {
         public static class CharaSheetHelpers
         {
@@ -126,7 +126,7 @@ namespace OpenNefia.Content.CharaInfo
 
         private readonly LocaleScope _locScope;
 
-        public CharaSheet()
+        public CharaSheetControl()
         {
             EntitySystem.InjectDependencies(this);
 

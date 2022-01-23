@@ -7,6 +7,10 @@ Elona.CharaSheet = {
         Rolls = "Combat Rolls",
     },
 
+    KeyHint = {
+        BlessingAndHex = "Blessing/Curse Info",
+    },
+
     Potential = {
         Superb = "Superb",
         Great = "Great",

@@ -7,6 +7,10 @@ Elona.CharaSheet = {
         Rolls = "各種修正",
     },
 
+    KeyHint = {
+        BlessingAndHex = "祝福と呪いの情報",
+    },
+
     Potential = {
         Superb = "Superb",
         Great = "Great",

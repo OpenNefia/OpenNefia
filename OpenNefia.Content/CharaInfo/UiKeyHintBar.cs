@@ -41,6 +41,7 @@ namespace OpenNefia.Content.CharaInfo
         public override void GetPreferredSize(out Vector2 size)
         {
             UiText.GetPreferredSize(out size);
+            size.X += 32;
         }
 
         public override void SetSize(float width, float height)
