@@ -36,17 +36,22 @@ namespace OpenNefia.Content.CharaMake
         private EntityUid _playerEntity;
 
         [Child] private CharaSheet Sheet = new();
-        [Child] private KeyHintBar KeyHintBar = new();
+        [Child] private UiKeyHintBar KeyHintBar = new();
 
         public CharaMakeCharaSheetLayer()
         {
             CanControlFocus = true;
         }
 
+        public override void GrabFocus()
+        {
+            base.GrabFocus();
+            Sheet.GrabFocus();
+        }
+
         public override void Initialize(CharaMakeData args)
         {
             base.Initialize(args);
-
             Reroll(playSound: false);
         }
 
@@ -89,7 +94,8 @@ namespace OpenNefia.Content.CharaMake
 
             _playerEntity = CreatePlayerEntity(Data.AllSteps);
 
-            Sheet.RefreshFromEntity(_playerEntity);
+            Sheet.Initialize(_playerEntity);
+            Sheet.RefreshFromEntity();
             KeyHintBar.Text = UserInterfaceManager.FormatKeyHints(MakeKeyHints());
 
             if (playSound)
@@ -101,7 +107,7 @@ namespace OpenNefia.Content.CharaMake
             var keyHints = base.MakeKeyHints();
             
             keyHints.Add(new(new LocaleKey("Elona.CharaMake.Common.KeyHint.Reroll"), UiKeyNames.EnterKey));
-            keyHints.Add(new(UiKeyHints.Portrait, ContentKeyFunctions.UIPortrait));
+            keyHints.AddRange(Sheet.MakeKeyHints());
             keyHints.Add(new(new LocaleKey("Elona.CharaMake.CharaSheet.KeyHint.FinalConfirmation"), UiKeyNames.EnterKey));
 
             return keyHints;

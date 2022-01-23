@@ -10,6 +10,8 @@ using OpenNefia.Core.ResourceManagement;
 using OpenNefia.Content.PCCs;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Content.UI;
+using OpenNefia.Core.UI.Element;
+using OpenNefia.Core.Input;
 
 namespace OpenNefia.Content.CharaAppearance
 {
@@ -37,6 +39,16 @@ namespace OpenNefia.Content.CharaAppearance
         public CharaAppearanceLayer()
         {
             AppearanceControl.List_OnActivated += HandleWindowListOnActivated;
+
+            OnKeyBindDown += HandleKeyBindDown;
+        }
+
+        private void HandleKeyBindDown(GUIBoundKeyEventArgs args)
+        {
+            if (args.Function == EngineKeyFunctions.UICancel)
+            {
+                Cancel();
+            }
         }
 
         private void HandleWindowListOnActivated(object? sender, UiListEventArgs<CharaAppearanceUICellData> evt)
@@ -47,6 +59,7 @@ namespace OpenNefia.Content.CharaAppearance
 
             if (cell.Data is CharaAppearanceUICellData.Done)
             {
+                CharaAppearanceHelpers.ApplyAppearanceDataTo(_targetEntity, AppearanceControl.AppearanceData, _entityManager, _pccs);
                 Finish(new());
             }
         }
@@ -55,7 +68,7 @@ namespace OpenNefia.Content.CharaAppearance
         {
             _targetEntity = args.TargetEntity;
 
-            CharaAppearanceData appearanceData = CharaAppearanceHelpers.MakeAppearanceDataFrom(args.TargetEntity,
+            CharaAppearanceData appearanceData = CharaAppearanceHelpers.MakeAppearanceDataFrom(_targetEntity,
                 _protos, _entityManager, _resourceCache, _pccs);
             AppearanceControl.Initialize(appearanceData);
         }

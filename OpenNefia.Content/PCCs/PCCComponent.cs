@@ -16,6 +16,9 @@ namespace OpenNefia.Content.PCCs
     {
         public override string Name => "PCC";
 
+        [DataField("usePCC")]
+        public bool UsePCC { get; set; } = false;
+
         /// <summary>
         /// List of PCC parts. Be sure to call <see cref="IPCCSystem.RebakePCCImage(EntityUid, PCCComponent?)"/>
         /// if you modify this.

@@ -16,7 +16,7 @@ namespace OpenNefia.Content.CharaInfo
     /// <summary>
     /// Standalone key hint bar that's used in the character info menu.
     /// </summary>
-    public sealed class KeyHintBar : UiElement
+    public sealed class UiKeyHintBar : UiElement
     {
         private const string KeyHintBarRegionID = "keyHintBar";
 
@@ -31,7 +31,7 @@ namespace OpenNefia.Content.CharaInfo
             set => UiText.Text = value;
         }
 
-        public KeyHintBar()
+        public UiKeyHintBar()
         {
             AssetMessageWindow = Assets.Get(Asset.MessageWindow);
             AssetTipIcons = Assets.Get(Asset.TipIcons);

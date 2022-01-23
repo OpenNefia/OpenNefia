@@ -5,7 +5,9 @@ using OpenNefia.Core.Maths;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Core.ResourceManagement;
+using static NetVips.Enums;
 using static OpenNefia.Content.Prototypes.Protos;
+using OpenNefia.Core.Utility;
 
 namespace OpenNefia.Content.CharaAppearance
 {
@@ -46,10 +48,11 @@ namespace OpenNefia.Content.CharaAppearance
             }
 
             var usePCC = false;
+            PCCDrawable? pccDrawable;
 
-            if (pccs.TryGetPCCDrawable(entity, out var pccDrawable))
+            if (entityManager.TryGetComponent(entity, out PCCComponent pcc) && pccs.TryGetPCCDrawable(entity, out pccDrawable, pcc))
             {
-                usePCC = true;
+                usePCC = pcc.UsePCC;
             }
             else
             {
@@ -58,6 +61,20 @@ namespace OpenNefia.Content.CharaAppearance
 
             var appearanceData = new CharaAppearanceData(chipProto, chipColor, portraitProto, pccDrawable, usePCC);
             return appearanceData;
+        }
+
+        public static void ApplyAppearanceDataTo(EntityUid entity, CharaAppearanceData appearance, 
+            IEntityManager _entityManager,
+            IPCCSystem pccs)
+        {
+            var portrait = _entityManager.EnsureComponent<PortraitComponent>(entity);
+            portrait.PortraitID = appearance.PortraitProto.GetStrongID();
+
+            var pccComp = _entityManager.EnsureComponent<PCCComponent>(entity);
+            pccComp.UsePCC = appearance.UsePCC;
+
+            var newParts = appearance.PCCDrawable.Parts.ShallowClone();
+            pccs.SetPCCParts(entity, newParts, pccComp);
         }
     }
 }

@@ -18,21 +18,20 @@ namespace OpenNefia.Content.CharaInfo
 
         public CharaInfoUiLayer()
         {
-            OnKeyBindDown += HandleKeyBindDown;
+        }
+
+        public override void GrabFocus()
+        {
+            base.GrabFocus();
+            Sheet.GrabFocus();
         }
 
         public override void Initialize(CharaGroupSublayerArgs args)
         {
             _charaEntity = args.CharaEntity;
 
-            Sheet.RefreshFromEntity(_charaEntity);
-        }
-
-        private void HandleKeyBindDown(GUIBoundKeyEventArgs obj)
-        {
-            if (obj.Function == ContentKeyFunctions.UIPortrait)
-            {
-            }
+            Sheet.Initialize(_charaEntity);
+            Sheet.RefreshFromEntity();
         }
 
         public override List<UiKeyHint> MakeKeyHints()
