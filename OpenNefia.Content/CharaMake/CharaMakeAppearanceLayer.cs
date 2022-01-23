@@ -123,20 +123,7 @@ namespace OpenNefia.Content.CharaMake
             if (!Data.TryGetCharaMakeResult<CharaAppearanceData>(ResultName, out var appearance))
                 return;
 
-            var portrait = EntityManager.EnsureComponent<PortraitComponent>(entity);
-            portrait.PortraitID = appearance.PortraitProto.GetStrongID();
-
-            if (appearance.UsePCC)
-            {
-                var pccComp = EntityManager.EnsureComponent<PCCComponent>(entity);
-                _pccs.SetPCCParts(entity, appearance.PCCDrawable.Parts, pccComp);
-            }
-            else
-            {
-                // TODO: TryRemoveComponent?
-                if (EntityManager.HasComponent<PCCComponent>(entity))
-                    EntityManager.RemoveComponent<PCCComponent>(entity);
-            }
+            CharaAppearanceHelpers.ApplyAppearanceDataTo(entity, appearance, EntityManager, _pccs);
         }
     }
 }
