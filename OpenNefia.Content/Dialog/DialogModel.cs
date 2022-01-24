@@ -66,6 +66,11 @@ namespace OpenNefia.Content.Dialog
             val = default!;
             return false;
         }
+
+        public void Set(string key, object data)
+        {
+            Data[key] = data;
+        }
     }
 
     public interface IDialogModel
