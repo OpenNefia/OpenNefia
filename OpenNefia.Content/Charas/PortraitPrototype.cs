@@ -19,6 +19,9 @@ namespace OpenNefia.Content.Charas
         [DataField(required: true)]
         public TileSpecifier Image { get; } = null!;
 
+        [DataField]
+        public Gender? Gender { get; } = null;
+
         public IEnumerable<AtlasRegion> GetAtlasRegions()
         {
             yield return new(ContentAtlasNames.Portrait, $"{ID}:Default", Image);
