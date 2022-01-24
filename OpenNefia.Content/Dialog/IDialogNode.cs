@@ -127,7 +127,7 @@ namespace OpenNefia.Content.Dialog
             EntitySystem.InjectDependencies(this);
 
             if (!_entMan.TryGetComponent(entity, out ToneComponent tone))
-                yield return new DialogMessage.Complete();
+                yield return new DialogMessage.Cancelled("No ToneComponent present on entity");
 
             yield return new DialogMessage.DialogSingle("Normal dialog");
         }

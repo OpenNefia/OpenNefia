@@ -23,12 +23,12 @@ using System.Threading.Tasks;
 
 namespace OpenNefia.Content.Dialog
 {
-    public interface IDialogLayer : IUiLayerWithResult<DialogLayer.Args, DialogLayer.Result>
+    public interface IDialogLayer : IUiLayerWithResult<DialogLayer.Args, UINone>
     {
 
     }
 
-    public class DialogLayer : UiLayerWithResult<DialogLayer.Args, DialogLayer.Result>, IDialogLayer
+    public class DialogLayer : UiLayerWithResult<DialogLayer.Args, UINone>, IDialogLayer
     {
         protected DialogModel Model = default!;
 
@@ -40,11 +40,6 @@ namespace OpenNefia.Content.Dialog
             {
                 Model = model;
             }
-        }
-
-        public class Result
-        {
-
         }
 
         public DialogLayer()
@@ -61,7 +56,6 @@ namespace OpenNefia.Content.Dialog
             Model.OnDialogClose += OnDialogClose;
             Model.OnSpeakerChanged += OnSpeakerChanged;
             OnKeyBindDown += KeyBindDown;
-            //_mes.Display($"Dialog: {string.Join(", ", args.Choices.Select(x => x.Id))}");
         }
 
         protected override void KeyBindDown(GUIBoundKeyEventArgs args)
