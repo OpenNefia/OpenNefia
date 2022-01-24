@@ -1,4 +1,8 @@
 - type: Tag
+  id: Elona.Lomias
+- type: Tag
+  id: Elona.Larnniere
+- type: Tag
   id: Elona.TagCharaCat
 - type: Tag
   id: Elona.TagCharaDragon

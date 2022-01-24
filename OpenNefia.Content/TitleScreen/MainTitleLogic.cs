@@ -32,6 +32,7 @@ using System.Numerics;
 using OpenNefia.Core.Audio;
 using OpenNefia.Content.Logic;
 using OpenNefia.Core.Locale;
+using OpenNefia.Content.Dialog;
 
 namespace OpenNefia.Content.TitleScreen
 {
@@ -185,6 +186,18 @@ namespace OpenNefia.Content.TitleScreen
 
             EntitySystem.Get<IRefreshSystem>().Refresh(player);
             EntitySystem.Get<SkillsSystem>().HealToMax(player);
+
+            var entGen = EntitySystem.Get<IEntityGen>();
+            var lom = entGen.SpawnEntity(Protos.Chara.Lomias, map.AtPos(3, 2))!;
+            var lar = entGen.SpawnEntity(Protos.Chara.Larnneire, map.AtPos(2, 3))!;
+            var lomDiaProt = Protos.Dialog.LomiasGameBegin.ResolvePrototype()!;
+
+            var tagLom = _entityManager.EnsureComponent<TagComponent>(lom.Value);
+            tagLom.AddTag(Protos.Tag.Lomias);
+            var tagLar = _entityManager.EnsureComponent<TagComponent>(lar.Value);
+            tagLar.AddTag(Protos.Tag.Larnniere);
+
+            new DialogModel().Inititialize(lom.Value, lomDiaProt.Node);
 
             _mapManager.SetActiveMap(map.Id);
 

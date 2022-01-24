@@ -18,61 +18,46 @@ namespace OpenNefia.Content.UI.Element
 
         private EntityUid _entity;
 
-        [Child] private readonly UiTopicWindow WindowFrame;
         [Child] private readonly EntitySpriteBatch EntityBatch;
-        private readonly TileAtlasBatch _portraitBatch;
-
-        private PortraitPrototype? portraitProto;
+        [Child] private FaceFrame FaceFrame;
 
         public CharaSheetFaceFrame()
         {
             EntitySystem.InjectDependencies(this);
 
-            WindowFrame = new(UiTopicWindow.FrameStyleKind.One, UiTopicWindow.WindowStyleKind.One);
+            FaceFrame = new FaceFrame();
             EntityBatch = new EntitySpriteBatch();
-            _portraitBatch = new TileAtlasBatch(ContentAtlasNames.Portrait);
         }
 
         public void RefreshFromEntity(EntityUid entity)
         {
             _entity = entity;
-
-            if (_entityManager.TryGetComponent(_entity, out PortraitComponent portraitComp))
-                portraitProto = _protos.Index(portraitComp.PortraitID);
-            else
-                portraitProto = null;
+            FaceFrame.RefreshFromEntity(entity);
         }
 
         public override void GetPreferredSize(out Vector2 size)
         {
-            size = new(90, 120);
+            FaceFrame.GetPreferredSize(out size);
         }
 
         public override void SetSize(float width, float height)
         {
             base.SetSize(width, height);
-            WindowFrame.SetSize(Width, Height);
+            FaceFrame.SetSize(Width, Height);
             EntityBatch.SetSize(Width, Height);
         }
 
         public override void SetPosition(float x, float y)
         {
             base.SetPosition(x, y);
-            WindowFrame.SetPosition(X, Y);
+            FaceFrame.SetPosition(X, Y);
             EntityBatch.SetPosition(X + 46, Y + 61);
         }
 
         public override void Update(float dt)
         {
-            WindowFrame.Update(dt);
+            FaceFrame.Update(dt);
             EntityBatch.Update(dt);
-
-            if (portraitProto != null)
-            {
-                _portraitBatch.Clear();
-                _portraitBatch.Add(UIScale, portraitProto.Image.AtlasIndex, 0, 0, WindowFrame.Width - 8, WindowFrame.Height - 8);
-                _portraitBatch.Flush();
-            }
 
             EntityBatch.Clear();
             EntityBatch.Add(_entity, 0, 0);
@@ -80,8 +65,7 @@ namespace OpenNefia.Content.UI.Element
 
         public override void Draw()
         {
-            WindowFrame.Draw();
-            _portraitBatch.Draw(UIScale, WindowFrame.X + 4, WindowFrame.Y + 4);
+            FaceFrame.Draw();
             EntityBatch.Draw();
         }
     }

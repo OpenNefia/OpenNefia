@@ -1,5 +1,7 @@
-﻿using OpenNefia.Content.GameObjects;
+﻿using OpenNefia.Content.DisplayName;
+using OpenNefia.Content.GameObjects;
 using OpenNefia.Content.GameObjects.EntitySystems;
+using OpenNefia.Core.Game;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Locale;
@@ -17,7 +19,7 @@ namespace OpenNefia.Content.Dialog
     public interface IDialogNode
     {
         public string LocKey { get; set; }
-        IEnumerable<DialogMessage> GetResults(EntityUid entity);
+        IEnumerable<DialogMessage> GetResults(EntityUid entity, DialogContextData context);
     }
 
     public interface IDialogBranchNode
@@ -33,7 +35,7 @@ namespace OpenNefia.Content.Dialog
         [DataField]
         public string LocKey { get; set; } = default!;
 
-        public abstract IEnumerable<DialogMessage> GetResults(EntityUid entity);
+        public abstract IEnumerable<DialogMessage> GetResults(EntityUid entity, DialogContextData context);
     }
 
     public sealed class EmptyDialog : DialogNode
@@ -43,7 +45,7 @@ namespace OpenNefia.Content.Dialog
             LocKey = locKey;
         }
 
-        public override IEnumerable<DialogMessage> GetResults(EntityUid entity)
+        public override IEnumerable<DialogMessage> GetResults(EntityUid entity, DialogContextData context)
         {
             yield return new DialogMessage.Complete();
         }
@@ -51,7 +53,7 @@ namespace OpenNefia.Content.Dialog
 
     public sealed class CloseDialog : DialogNode
     {
-        public override IEnumerable<DialogMessage> GetResults(EntityUid entity)
+        public override IEnumerable<DialogMessage> GetResults(EntityUid entity, DialogContextData context)
         {
             yield return new DialogMessage.Complete();
         }
@@ -59,7 +61,7 @@ namespace OpenNefia.Content.Dialog
 
     public sealed class ReturnToRoot : DialogNode
     {
-        public override IEnumerable<DialogMessage> GetResults(EntityUid entity)
+        public override IEnumerable<DialogMessage> GetResults(EntityUid entity, DialogContextData context)
         {
             yield return new DialogMessage.Return();
         }
@@ -67,7 +69,7 @@ namespace OpenNefia.Content.Dialog
 
     public sealed class MoreDialog : DialogNode
     {
-        public override IEnumerable<DialogMessage> GetResults(EntityUid entity)
+        public override IEnumerable<DialogMessage> GetResults(EntityUid entity, DialogContextData context)
         {
             yield return new DialogMessage.Continue();
         }
@@ -80,7 +82,7 @@ namespace OpenNefia.Content.Dialog
 
         public DialogChoice? SelectedChoice { get; set; }
 
-        public override IEnumerable<DialogMessage> GetResults(EntityUid entity)
+        public override IEnumerable<DialogMessage> GetResults(EntityUid entity, DialogContextData context)
         {
             foreach (var choice in Choices)
             {
@@ -92,7 +94,7 @@ namespace OpenNefia.Content.Dialog
             if (SelectedChoice == null || SelectedChoice.Node == null)
                 yield break;
 
-            foreach(var node in SelectedChoice.Node.GetResults(entity))
+            foreach(var node in SelectedChoice.Node.GetResults(entity, context))
             {
                 yield return node;
             }
@@ -101,33 +103,42 @@ namespace OpenNefia.Content.Dialog
 
     public sealed class SpeakerSwap : DialogNode
     {
-        [DataField(required: true)]
-        public string NewSpeaker { get; } = default!;
-        public override IEnumerable<DialogMessage> GetResults(EntityUid entity)
+        [Dependency] private readonly IEntityLookup _lookup = default!;
+
+        [DataField("id", required: true)]
+        public string ID { get; } = default!;
+        public override IEnumerable<DialogMessage> GetResults(EntityUid entity, DialogContextData context)
         {
-            yield return new DialogMessage.SpeakerSwap(NewSpeaker);
+            EntitySystem.InjectDependencies(this);
+            var speaker = _lookup.EntityQueryInMap<TagComponent>(GameSession.ActiveMap!.Id)
+                .FirstOrDefault(x => x.HasTag(new(ID)));
+
+            if (speaker != null)
+                yield return new DialogMessage.SpeakerSwap(speaker.Owner);
+            else
+                yield return new DialogMessage.Cancelled($"Unable to find entity with tag {ID}.");
         }
     }
 
     public sealed class DefaultDialog : DialogNode
     {
-        public override IEnumerable<DialogMessage> GetResults(EntityUid entity)
+        public override IEnumerable<DialogMessage> GetResults(EntityUid entity, DialogContextData context)
         {
             EntitySystem.InjectDependencies(this);
 
             if (!_entMan.TryGetComponent(entity, out ToneComponent tone))
                 yield return new DialogMessage.Complete();
 
-            yield return new DialogMessage.DialogSingle("asdasd");
+            yield return new DialogMessage.DialogSingle("Normal dialog");
         }
     }
 
     public sealed class NodeSequence : DialogNode
     {
-        public override IEnumerable<DialogMessage> GetResults(EntityUid entity)
+        public override IEnumerable<DialogMessage> GetResults(EntityUid entity, DialogContextData context)
         {
             foreach(var node in Nodes)
-                foreach (var res in node.GetResults(entity))
+                foreach (var res in node.GetResults(entity, context))
                     yield return res;
         }
 
@@ -137,12 +148,12 @@ namespace OpenNefia.Content.Dialog
 
     public sealed class DialogSequence : DialogNode
     {
-        public override IEnumerable<DialogMessage> GetResults(EntityUid entity)
+        public override IEnumerable<DialogMessage> GetResults(EntityUid entity, DialogContextData context)
         {
             var luaMan = IoCManager.Resolve<ILocalizationManager>();
             if (!luaMan.TryGetTable(LocKey, out var table))
             {
-                yield return new DialogMessage.Cancelled();
+                yield return new DialogMessage.Cancelled($"Locale table for {LocKey} not found.");
                 yield break;
             }
 
@@ -160,21 +171,32 @@ namespace OpenNefia.Content.Dialog
 
     public sealed class DialogText : DialogNode
     {
-        public override IEnumerable<DialogMessage> GetResults(EntityUid entity)
+        public override IEnumerable<DialogMessage> GetResults(EntityUid entity, DialogContextData context)
         {
             yield return new DialogMessage.DialogText(Loc.GetString(LocKey ?? ""));
         }
     }
 
+    public class FormattedText : DialogNode
+    {
+        [DataField]
+        public List<DialogFormatData> FormatData { get; } = new();
+        public override IEnumerable<DialogMessage> GetResults(EntityUid entity, DialogContextData context)
+        {
+            var res = Loc.GetString(LocKey ?? "", FormatData.Select((x, ind) => new LocaleArg($"_{ind}", x.GetFormatText(context))).ToArray());
+            yield return new DialogMessage.DialogText(res);
+        }
+    }
+
     public sealed class PrototypeDialog : DialogNode
     {
-        public override IEnumerable<DialogMessage> GetResults(EntityUid entity)
+        public override IEnumerable<DialogMessage> GetResults(EntityUid entity, DialogContextData context)
         {
-            var proto = Id.ResolvePrototype();
-            return proto.Node!.GetResults(entity);
+            var proto = ID.ResolvePrototype();
+            return proto.Node!.GetResults(entity, context);
         }
 
-        [DataField(required: true)]
-        public PrototypeId<DialogNodePrototype> Id { get; } = default!;
+        [DataField("id", required: true)]
+        public PrototypeId<DialogNodePrototype> ID { get; } = default!;
     }
 }

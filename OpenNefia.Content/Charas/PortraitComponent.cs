@@ -9,7 +9,7 @@ namespace OpenNefia.Content.Charas
     public class PortraitComponent : Component
     {
         /// <inheritdoc />
-        public override string Name => "PortraitComponent";
+        public override string Name => "Portrait";
 
         [DataField("id")]
         public PrototypeId<PortraitPrototype> PortraitID = Protos.Portrait.Default;

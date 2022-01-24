@@ -56,7 +56,7 @@
     relation: Neutral
   - type: Dialog
     canTalk: true
-    portrait: Random
+  - type: GenRandomPortrait
   - type: Tone
     id: Elona.Shopkeeper
   - type: VanillaAI
@@ -99,7 +99,8 @@
   - type: Dialog
     canTalk: true
     dialogID: Elona.Zeome
-    portrait: Elona.Zeome
+  - type: Portrait
+    id: Elona.Zeome
   - type: Tone
     id: Elona.Zeome
 - type: Entity
@@ -225,7 +226,7 @@
     relation: Dislike
   - type: Dialog
     canTalk: true
-    portrait: Random
+  - type: GenRandomPortrait
   - type: Tone
     id: Elona.FallenSoldier
 - type: Entity
@@ -253,7 +254,7 @@
     relation: Dislike
   - type: Dialog
     canTalk: true
-    portrait: Random
+  - type: GenRandomPortrait
   - type: Tone
     id: Elona.FallenSoldier
 - type: Entity
@@ -281,7 +282,7 @@
     relation: Dislike
   - type: Dialog
     canTalk: true
-    portrait: Random
+  - type: GenRandomPortrait
   - type: Tone
     id: Elona.Beggar
 - type: Entity
@@ -352,7 +353,7 @@
     relation: Enemy
   - type: Dialog
     canTalk: true
-    portrait: Random
+  - type: GenRandomPortrait
   - type: Tone
     id: Elona.Punk
 - type: Entity
@@ -444,7 +445,7 @@
     relation: Neutral
   - type: Dialog
     canTalk: true
-    portrait: Random
+  - type: GenRandomPortrait
   - type: Tone
     id: Elona.Citizen
 - type: Entity
@@ -490,7 +491,7 @@
   - type: Faction
     relation: Enemy
   - type: Dialog
-    portrait: Random
+  - type: GenRandomPortrait
 - type: Entity
   id: Elona.CharaMandrake
   parent: BaseChara
@@ -601,7 +602,8 @@
   - type: Dialog
     canTalk: true
     dialogID: Elona.Orphe
-    portrait: Elona.Orphe
+  - type: Portrait
+    id: Elona.Orphe
   - type: Tone
     id: Elona.Orphe
 - type: Entity
@@ -632,7 +634,7 @@
   - type: Faction
     relation: Enemy
   - type: Dialog
-    portrait: Random
+  - type: GenRandomPortrait
 - type: Entity
   id: Elona.CharaGoda
   parent: BaseChara
@@ -684,7 +686,8 @@
   - type: Faction
     relation: Enemy
   - type: Dialog
-    portrait: Elona.Man7
+  - type: Portrait
+    id: Elona.Man7
 - type: Entity
   id: Elona.CharaIsca
   parent: BaseChara
@@ -714,7 +717,8 @@
   - type: Faction
     relation: Enemy
   - type: Dialog
-    portrait: Elona.Isca
+  - type: Portrait
+    id: Elona.Isca
 - type: Entity
   id: Elona.CharaWhomDwellInTheVanity
   parent: BaseChara
@@ -745,7 +749,8 @@
   - type: Dialog
     canTalk: true
     dialogID: Elona.WhomDwellInTheVanity
-    portrait: Elona.Bethel
+  - type: Portrait
+    id: Elona.Bethel
   - type: Tone
     id: Elona.WhomDwellInTheVanity
 - type: Entity
@@ -778,7 +783,8 @@
   - type: Dialog
     canTalk: true
     dialogID: Elona.Loyter
-    portrait: Elona.Loyter
+  - type: Portrait
+    id: Elona.Loyter
   - type: Tone
     id: Elona.Loyter
 - type: Entity
@@ -811,7 +817,8 @@
   - type: Dialog
     canTalk: true
     dialogID: Elona.Miches
-    portrait: Elona.Miches
+  - type: Portrait
+    id: Elona.Miches
   - type: Tone
     id: Elona.Miches
 - type: Entity
@@ -844,7 +851,8 @@
   - type: Dialog
     canTalk: true
     dialogID: Elona.Shena
-    portrait: Elona.Shena
+  - type: Portrait
+    id: Elona.Shena
   - type: Tone
     id: Elona.Shena
 - type: Entity
@@ -908,7 +916,8 @@
   - type: Dialog
     canTalk: true
     dialogID: Elona.Larnneire
-    portrait: Elona.Larnneire
+  - type: Portrait
+    id: Elona.Larnneire
   - type: Tone
     id: Elona.Larnneire
 - type: Entity
@@ -944,7 +953,8 @@
   - type: Dialog
     canTalk: true
     dialogID: Elona.Lomias
-    portrait: Elona.Lomias
+  - type: Portrait
+    id: Elona.Lomias
   - type: Tone
     id: Elona.Lomias
   - type: VanillaAI
@@ -975,7 +985,7 @@
     relation: Dislike
   - type: Dialog
     canTalk: true
-    portrait: Random
+  - type: GenRandomPortrait
   - type: Tone
     id: Elona.TownChild
 - type: Entity
@@ -1003,7 +1013,7 @@
     relation: Dislike
   - type: Dialog
     canTalk: true
-    portrait: Random
+  - type: GenRandomPortrait
   - type: Tone
     id: Elona.OldPerson
 - type: Entity
@@ -1033,7 +1043,8 @@
     relation: Enemy
   - type: Dialog
     canTalk: true
-    portrait: Elona.Zeome
+  - type: Portrait
+    id: Elona.Zeome
   - type: Tone
     id: Elona.At
 - type: Entity
@@ -1061,7 +1072,7 @@
     relation: Neutral
   - type: Dialog
     canTalk: true
-    portrait: Random
+  - type: GenRandomPortrait
   - type: Tone
     id: Elona.Citizen2
   - type: VanillaAI
@@ -1091,7 +1102,7 @@
     relation: Neutral
   - type: Dialog
     canTalk: true
-    portrait: Random
+  - type: GenRandomPortrait
   - type: Tone
     id: Elona.Citizen
 - type: Entity
@@ -1119,7 +1130,7 @@
     relation: Neutral
   - type: Dialog
     canTalk: true
-    portrait: Random
+  - type: GenRandomPortrait
   - type: Tone
     id: Elona.Trainer
   - type: VanillaAI
@@ -1155,7 +1166,7 @@
   - type: Faction
     relation: Neutral
   - type: Dialog
-    portrait: Random
+  - type: GenRandomPortrait
   - type: VanillaAI
     calmAction: Dull
     targetDistance: 2
@@ -1924,7 +1935,7 @@
     relation: Neutral
   - type: Dialog
     canTalk: true
-    portrait: Random
+  - type: GenRandomPortrait
   - type: Tone
     id: Elona.Citizen2
   - type: VanillaAI
@@ -1954,7 +1965,7 @@
     relation: Neutral
   - type: Dialog
     canTalk: true
-    portrait: Random
+  - type: GenRandomPortrait
   - type: Tone
     id: Elona.Bartender
   - type: VanillaAI
@@ -1984,7 +1995,7 @@
     relation: Neutral
   - type: Dialog
     canTalk: true
-    portrait: Random
+  - type: GenRandomPortrait
   - type: Tone
     id: Elona.Citizen2
 - type: Entity
@@ -2014,7 +2025,8 @@
     relation: Neutral
   - type: Dialog
     canTalk: true
-    portrait: Elona.Man45
+  - type: Portrait
+    id: Elona.Man45
   - type: Tone
     id: Elona.Captain
 - type: Entity
@@ -2044,7 +2056,7 @@
     relation: Neutral
   - type: Dialog
     canTalk: true
-    portrait: Random
+  - type: GenRandomPortrait
   - type: Tone
     id: Elona.Citizen2
   - type: VanillaAI
@@ -2076,7 +2088,7 @@
     relation: Neutral
   - type: Dialog
     canTalk: true
-    portrait: Random
+  - type: GenRandomPortrait
   - type: VanillaAI
     calmAction: Dull
 - type: Entity
@@ -2103,7 +2115,7 @@
   - type: Faction
     relation: Neutral
   - type: Dialog
-    portrait: Random
+  - type: GenRandomPortrait
 - type: Entity
   id: Elona.CharaGuardPortKapul
   parent: BaseChara
@@ -2130,7 +2142,7 @@
     relation: Neutral
   - type: Dialog
     canTalk: true
-    portrait: Random
+  - type: GenRandomPortrait
   - type: Tone
     id: Elona.Guard
   - type: VanillaAI
@@ -2161,7 +2173,7 @@
     relation: Neutral
   - type: Dialog
     canTalk: true
-    portrait: Random
+  - type: GenRandomPortrait
   - type: Tone
     id: Elona.Guard
   - type: VanillaAI
@@ -2224,7 +2236,8 @@
   - type: Dialog
     canTalk: true
     dialogID: Elona.Stersha
-    portrait: Elona.Stersha
+  - type: Portrait
+    id: Elona.Stersha
   - type: Tone
     id: Elona.Stersha
 - type: Entity
@@ -2257,7 +2270,8 @@
   - type: Dialog
     canTalk: true
     dialogID: Elona.Xabi
-    portrait: Elona.Xabi
+  - type: Portrait
+    id: Elona.Xabi
   - type: Tone
     id: Elona.Xabi
 - type: Entity
@@ -3808,7 +3822,8 @@
   - type: Dialog
     canTalk: true
     dialogID: Elona.Slan
-    portrait: Elona.Karam
+  - type: Portrait
+    id: Elona.Karam
   - type: Tone
     id: Elona.Slan
 - type: Entity
@@ -3908,7 +3923,8 @@
   - type: Dialog
     canTalk: true
     dialogID: Elona.Erystia
-    portrait: Elona.Erystia
+  - type: Portrait
+    id: Elona.Erystia
   - type: Tone
     id: Elona.Erystia
 - type: Entity
@@ -4028,7 +4044,8 @@
   - type: Dialog
     canTalk: true
     dialogID: Elona.Karam
-    portrait: Elona.Karam
+  - type: Portrait
+    id: Elona.Karam
   - type: Tone
     id: Elona.Karam
 - type: Entity
@@ -4696,7 +4713,7 @@
     relation: Neutral
   - type: Dialog
     canTalk: true
-    portrait: Random
+  - type: GenRandomPortrait
   - type: Tone
     id: Elona.Citizen
 - type: Entity
@@ -4724,7 +4741,7 @@
     relation: Neutral
   - type: Dialog
     canTalk: true
-    portrait: Random
+  - type: GenRandomPortrait
   - type: Tone
     id: Elona.Citizen
 - type: Entity
@@ -4752,7 +4769,7 @@
     relation: Neutral
   - type: Dialog
     canTalk: true
-    portrait: Random
+  - type: GenRandomPortrait
   - type: Tone
     id: Elona.SalesPerson
 - type: Entity
@@ -4780,7 +4797,7 @@
     relation: Dislike
   - type: Dialog
     canTalk: true
-    portrait: Random
+  - type: GenRandomPortrait
   - type: Tone
     id: Elona.Punk
   - type: VanillaAI
@@ -5057,7 +5074,7 @@
     relation: Neutral
   - type: Dialog
     canTalk: true
-    portrait: Random
+  - type: GenRandomPortrait
   - type: Tone
     id: Elona.RichPerson
 - type: Entity
@@ -5085,7 +5102,7 @@
     relation: Neutral
   - type: Dialog
     canTalk: true
-    portrait: Random
+  - type: GenRandomPortrait
   - type: Tone
     id: Elona.NobleChild
 - type: Entity
@@ -5113,7 +5130,7 @@
     relation: Neutral
   - type: Dialog
     canTalk: true
-    portrait: Random
+  - type: GenRandomPortrait
   - type: Tone
     id: Elona.Tourist
 - type: Entity
@@ -5597,7 +5614,7 @@
     relation: Neutral
   - type: Dialog
     canTalk: true
-    portrait: Random
+  - type: GenRandomPortrait
   - type: Tone
     id: Elona.MoyerTheCrooked
   - type: VanillaAI
@@ -5627,7 +5644,7 @@
     relation: Neutral
   - type: Dialog
     canTalk: true
-    portrait: Random
+  - type: GenRandomPortrait
   - type: Tone
     id: Elona.PalmianEliteSoldier
   - type: VanillaAI
@@ -5687,7 +5704,7 @@
     relation: Neutral
   - type: Dialog
     canTalk: true
-    portrait: Random
+  - type: GenRandomPortrait
   - type: VanillaAI
     calmAction: Dull
 - type: Entity
@@ -5875,7 +5892,8 @@
   - type: Faction
     relation: Enemy
   - type: Dialog
-    portrait: Elona.Stersha
+  - type: Portrait
+    id: Elona.Stersha
 - type: Entity
   id: Elona.CharaGwen
   parent: BaseChara
@@ -6153,7 +6171,8 @@
   - type: Dialog
     canTalk: true
     dialogID: Elona.Pael
-    portrait: Elona.Woman16
+  - type: Portrait
+    id: Elona.Woman16
   - type: Tone
     id: Elona.Pael
   - type: VanillaAI
@@ -6188,7 +6207,8 @@
   - type: Dialog
     canTalk: true
     dialogID: Elona.Lily
-    portrait: Elona.Woman14
+  - type: Portrait
+    id: Elona.Woman14
   - type: Tone
     id: Elona.Lily
   - type: VanillaAI
@@ -6223,7 +6243,8 @@
   - type: Dialog
     canTalk: true
     dialogID: Elona.Raphael
-    portrait: Elona.Man15
+  - type: Portrait
+    id: Elona.Man15
   - type: Tone
     id: Elona.Raphael
   - type: VanillaAI
@@ -6258,7 +6279,8 @@
   - type: Dialog
     canTalk: true
     dialogID: Elona.Ainc
-    portrait: Elona.Man19
+  - type: Portrait
+    id: Elona.Man19
   - type: Tone
     id: Elona.Ainc
   - type: VanillaAI
@@ -6323,7 +6345,8 @@
   - type: Dialog
     canTalk: true
     dialogID: Elona.Rilian
-    portrait: Elona.Woman17
+  - type: Portrait
+    id: Elona.Woman17
   - type: Tone
     id: Elona.Rilian
   - type: VanillaAI
@@ -6358,7 +6381,8 @@
   - type: Dialog
     canTalk: true
     dialogID: Elona.Tam
-    portrait: Elona.Man17
+  - type: Portrait
+    id: Elona.Man17
   - type: Tone
     id: Elona.Tam
   - type: VanillaAI
@@ -6492,7 +6516,8 @@
   - type: Dialog
     canTalk: true
     dialogID: Elona.Gilbert
-    portrait: Elona.Gilbert
+  - type: Portrait
+    id: Elona.Gilbert
   - type: Tone
     id: Elona.Gilbert
   - type: VanillaAI
@@ -6707,7 +6732,7 @@
     relation: Dislike
   - type: Dialog
     canTalk: true
-    portrait: Random
+  - type: GenRandomPortrait
   - type: Tone
     id: Elona.Citizen
 - type: Entity
@@ -6840,7 +6865,8 @@
   - type: Dialog
     canTalk: true
     dialogID: Elona.Arnord
-    portrait: Elona.Arnord
+  - type: Portrait
+    id: Elona.Arnord
   - type: Tone
     id: Elona.Arnord
   - type: VanillaAI
@@ -6957,7 +6983,8 @@
   - type: Dialog
     canTalk: true
     dialogID: Elona.Mia
-    portrait: Elona.Mia
+  - type: Portrait
+    id: Elona.Mia
   - type: Tone
     id: Elona.Mia
 - type: Entity
@@ -7096,7 +7123,8 @@
   - type: Dialog
     canTalk: true
     dialogID: Elona.Renton
-    portrait: Elona.Man6
+  - type: Portrait
+    id: Elona.Man6
   - type: Tone
     id: Elona.Renton
   - type: VanillaAI
@@ -7135,7 +7163,8 @@
   - type: Dialog
     canTalk: true
     dialogID: Elona.Marks
-    portrait: Elona.Man2
+  - type: Portrait
+    id: Elona.Man2
   - type: Tone
     id: Elona.Marks
   - type: VanillaAI
@@ -7303,7 +7332,8 @@
   - type: Dialog
     canTalk: true
     dialogID: Elona.Noel
-    portrait: Elona.Woman16
+  - type: Portrait
+    id: Elona.Woman16
   - type: Tone
     id: Elona.Noel
   - type: VanillaAI
@@ -7639,7 +7669,7 @@
     relation: Dislike
   - type: Dialog
     canTalk: true
-    portrait: Random
+  - type: GenRandomPortrait
   - type: Tone
     id: Elona.Farmer
 - type: Entity
@@ -7667,7 +7697,7 @@
     relation: Dislike
   - type: Dialog
     canTalk: true
-    portrait: Random
+  - type: GenRandomPortrait
   - type: Tone
     id: Elona.Sister
 - type: Entity
@@ -7698,7 +7728,7 @@
     relation: Dislike
   - type: Dialog
     canTalk: true
-    portrait: Random
+  - type: GenRandomPortrait
   - type: Tone
     id: Elona.Rogue
 - type: Entity
@@ -7726,7 +7756,7 @@
     relation: Dislike
   - type: Dialog
     canTalk: true
-    portrait: Random
+  - type: GenRandomPortrait
   - type: Tone
     id: Elona.Artist
 - type: Entity
@@ -7754,7 +7784,7 @@
     relation: Dislike
   - type: Dialog
     canTalk: true
-    portrait: Random
+  - type: GenRandomPortrait
   - type: Tone
     id: Elona.Miner
 - type: Entity
@@ -7782,7 +7812,7 @@
     relation: Dislike
   - type: Dialog
     canTalk: true
-    portrait: Random
+  - type: GenRandomPortrait
   - type: Tone
     id: Elona.Noble
 - type: Entity
@@ -7919,7 +7949,8 @@
   - type: Dialog
     canTalk: true
     dialogID: Elona.Icolle
-    portrait: Elona.Man18
+  - type: Portrait
+    id: Elona.Man18
   - type: Tone
     id: Elona.Icolle
   - type: VanillaAI
@@ -7954,7 +7985,8 @@
   - type: Dialog
     canTalk: true
     dialogID: Elona.Balzak
-    portrait: Elona.Balzak
+  - type: Portrait
+    id: Elona.Balzak
   - type: Tone
     id: Elona.Balzak
   - type: VanillaAI
@@ -8170,7 +8202,8 @@
     relation: Neutral
   - type: Dialog
     canTalk: true
-    portrait: Elona.Man14
+  - type: Portrait
+    id: Elona.Man14
   - type: Tone
     id: Elona.Revlus
   - type: VanillaAI
@@ -8206,7 +8239,7 @@
     relation: Dislike
   - type: Dialog
     canTalk: true
-    portrait: Random
+  - type: GenRandomPortrait
   - type: Tone
     id: Elona.GuildMember
   - type: VanillaAI
@@ -8247,7 +8280,8 @@
   - type: Dialog
     canTalk: true
     dialogID: Elona.Lexus
-    portrait: Elona.Man6
+  - type: Portrait
+    id: Elona.Man6
   - type: Tone
     id: Elona.Lexus
   - type: VanillaAI
@@ -8282,7 +8316,8 @@
   - type: Faction
     relation: Neutral
   - type: Dialog
-    portrait: Elona.Woman18
+  - type: Portrait
+    id: Elona.Woman18
   - type: VanillaAI
     moveChance: 0.9
 - type: Entity
@@ -8313,7 +8348,8 @@
   - type: Faction
     relation: Neutral
   - type: Dialog
-    portrait: Elona.Man7
+  - type: Portrait
+    id: Elona.Man7
   - type: VanillaAI
     moveChance: 0.65
 - type: Entity
@@ -8341,7 +8377,7 @@
     relation: Dislike
   - type: Dialog
     canTalk: true
-    portrait: Random
+  - type: GenRandomPortrait
   - type: Tone
     id: Elona.GuildMember
   - type: VanillaAI
@@ -8376,7 +8412,8 @@
   - type: Dialog
     canTalk: true
     dialogID: Elona.Abyss
-    portrait: Elona.Man6
+  - type: Portrait
+    id: Elona.Man6
   - type: Tone
     id: Elona.Abyss
   - type: VanillaAI
@@ -8407,7 +8444,7 @@
     relation: Dislike
   - type: Dialog
     canTalk: true
-    portrait: Random
+  - type: GenRandomPortrait
   - type: Tone
     id: Elona.GuildMember
   - type: VanillaAI
@@ -8475,7 +8512,8 @@
   - type: Dialog
     canTalk: true
     dialogID: Elona.Doria
-    portrait: Elona.Man6
+  - type: Portrait
+    id: Elona.Man6
   - type: Tone
     id: Elona.Doria
   - type: VanillaAI
@@ -8586,7 +8624,8 @@
   - type: Dialog
     canTalk: true
     dialogID: Elona.Conery
-    portrait: Elona.Conery
+  - type: Portrait
+    id: Elona.Conery
   - type: Tone
     id: Elona.Conery
 - type: Entity
@@ -8622,7 +8661,8 @@
   - type: Dialog
     canTalk: true
     dialogID: Elona.RogueBoss
-    portrait: Elona.Man47
+  - type: Portrait
+    id: Elona.Man47
   - type: Tone
     id: Elona.RogueParty
   - type: VanillaAI
@@ -9144,7 +9184,7 @@
     relation: Neutral
   - type: Dialog
     canTalk: true
-    portrait: Random
+  - type: GenRandomPortrait
   - type: Tone
     id: Elona.Cleaner
   - type: VanillaAI
@@ -9315,7 +9355,7 @@
     relation: Dislike
   - type: Dialog
     canTalk: true
-    portrait: Random
+  - type: GenRandomPortrait
   - type: Tone
     id: Elona.Bard
   - type: VanillaAI
@@ -9515,7 +9555,7 @@
     relation: Neutral
   - type: Dialog
     canTalk: true
-    portrait: Random
+  - type: GenRandomPortrait
   - type: Tone
     id: Elona.Trainer
   - type: VanillaAI
@@ -9578,7 +9618,7 @@
     relation: Neutral
   - type: Dialog
     canTalk: true
-    portrait: Random
+  - type: GenRandomPortrait
   - type: Tone
     id: Elona.Rogue
   - type: VanillaAI
@@ -9646,7 +9686,7 @@
     relation: Dislike
   - type: Dialog
     canTalk: true
-    portrait: Random
+  - type: GenRandomPortrait
   - type: Tone
     id: Elona.Prisoner
 - type: Entity
@@ -9935,7 +9975,7 @@
     relation: Dislike
   - type: Dialog
     canTalk: true
-    portrait: Random
+  - type: GenRandomPortrait
   - type: Tone
     id: Elona.Fanatic
 - type: Entity
@@ -10026,7 +10066,7 @@
     relation: Dislike
   - type: Dialog
     canTalk: true
-    portrait: Random
+  - type: GenRandomPortrait
   - type: Tone
     id: Elona.FestivalTourist
 - type: Entity
@@ -10121,7 +10161,7 @@
   - type: Faction
     relation: Neutral
   - type: Dialog
-    portrait: Random
+  - type: GenRandomPortrait
   - type: VanillaAI
     calmAction: Stand
 ...

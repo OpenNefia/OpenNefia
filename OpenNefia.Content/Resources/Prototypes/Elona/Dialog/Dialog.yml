@@ -1,51 +1,59 @@
 ﻿---
 - type: Elona.Dialog
+  id: ElonaSys.IgnoresYou
+
+- type: Elona.Dialog
   id: Elona.DialogDefault
   node: !type:PrototypeDialog
     id: Elona.TalkDefault
 
 - type: Elona.DialogNode
   id: Elona.TalkDefault
+  locKey: "Elona.Dialog.Option.Default"
   node: !type:DefaultDialog {}
 - type: Elona.DialogNode
   id: Elona.TalkBye
+  locKey: "Elona.Dialog.Option.Bye"
   node: !type:CloseDialog {}
 - type: Elona.DialogNode
   id: Elona.TalkMore
+  locKey: "Elona.Dialog.Option.More"
   node: !type:MoreDialog {}
 
 - type: Elona.Dialog
-  id: Elona.Erystia
+  id: Elona.LomiasGameBegin
   node: !type:NodeSequence
     nodes:
-    - !type:DialogText
-      locKey: "Elona.Dialog.Test"
-    - !type:DialogText
-      locKey: "Elona.Dialog.Test"
-    - !type:DialogBranch
-      locKey: "Elona.Dialog.Test2"
-      choices:
-      - priority: 1
-        locKey: "Elona.Dialog.TestBranch1"
-        node: !type:DialogText
-          locKey: "Elona.Dialog.Test2"
-      - priority: -1
-        locKey: "Elona.Dialog.TestBranch2"
-        node: !type:DialogSequence
-          locKey: "Elona.Dialog.TestDialog"
-    - !type:DialogText
-      locKey: "Elona.Dialog.Test"
-    - !type:CloseDialog {}
+    - !type:DialogSequence
+      locKey: "Elona.Dialog.Beginning.Lomias1"
+    - !type:SpeakerSwap
+      id: "Elona.Larnniere"
+    - !type:DialogSequence
+      locKey: "Elona.Dialog.Beginning.Larnniere"
+    - !type:SpeakerSwap
+      id: "Elona.Lomias"
+    - !type:FormattedText
+      locKey: "Elona.Dialog.Beginning.Lomias2"
+      formatData:
+      - !type:PlayerNameFormat {}
+    - !type:PrototypeDialog
+      id: Elona.LomiasMainNode
 
 - type: Elona.Dialog
   id: Elona.Lomias
+  node: !type:PrototypeDialog
+    id: Elona.LomiasMainNode
+
+- type: Elona.DialogNode
+  id: Elona.LomiasMainNode
+  node: !type:NodeSequence
+    nodes:
+    - !type:DialogText
+      locKey: "Elona.Dialog.Beginning.LomiasTemp"
+    - !type:CloseDialog {}
 
 - type: Elona.Dialog
-  id: Elona.LomiasGameBegin
-
-
-- type: Elona.Dialog
-  id: ElonaSys.IgnoresYou
+  id: Elona.Erystia
 
 - type: Elona.Dialog
   id: Elona.PartTimeWorker

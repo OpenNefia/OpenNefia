@@ -28,6 +28,9 @@ namespace OpenNefia.Content.UI
         public static readonly FontSpec CharSheetInfo = new(13, 11, style: FontStyle.Bold);
         public static readonly FontSpec CharaSheetInfoContent = new(14, 12);
 
+        public static readonly FontSpec DialogText = new(14, 12);
+        public static readonly FontSpec DialogName = new(12, 12, style: FontStyle.Bold);
+
         public static readonly FontSpec TextNote = new(12, 10, style: FontStyle.Bold); // 12 + sizefix - en * 2
 
         public static readonly FontSpec MessageText = new(14, 14);

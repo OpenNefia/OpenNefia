@@ -1,4 +1,5 @@
-﻿using OpenNefia.Content.GameObjects.EntitySystems;
+﻿using OpenNefia.Content.DisplayName;
+using OpenNefia.Content.GameObjects.EntitySystems;
 using OpenNefia.Content.Prototypes;
 using OpenNefia.Content.UI;
 using OpenNefia.Content.UI.Element;
@@ -48,7 +49,7 @@ namespace OpenNefia.Content.Dialog
 
         public DialogLayer()
         {
-            IoCManager.InjectDependencies(this);
+            EntitySystem.InjectDependencies(this);
         }
 
         public override void Initialize(Args args)
@@ -100,31 +101,49 @@ namespace OpenNefia.Content.Dialog
     {
         private class DialogCell : UiListCell<DialogChoice>
         {
-            public DialogCell(DialogChoice data) 
+            public DialogCell(DialogChoice data, DialogContextData context) 
                 : base(data)
             {
-                UiText.Text = Loc.GetString(data.LocKey + data.ExtraText);
+                UiText.Text = Loc.GetString(data.LocKey + (data.ExtraFormat?.GetFormatText(context) ?? string.Empty));
             }
         }
+
+        [Dependency] private readonly IDisplayNameSystem _nameSys = default!;
 
         private const int DialogWidth = 600;
         private const int DialogHeight = 380;
         private IAssetInstance AssetIeChat;
 
+        [Child] private FaceFrame FaceFrame;
         [Child] private UiList<DialogChoice> List;
         [Child] private UiWrappedText Text;
+        [Child] private UiText NameText;
+        [Child] private UiTextTopic ImpressTopic;
+        [Child] private UiTextTopic AttractTopic;
 
         public DefaultDialogLayer()
         {
             AssetIeChat = Assets.Get(Protos.Asset.IeChat);
-            Text = new UiWrappedText(UiFonts.ListText);
+            Text = new UiWrappedText(UiFonts.DialogText);
             List = new UiList<DialogChoice>();
             List.OnActivated += ListOnActivated;
+            NameText = new UiText(UiFonts.DialogName);
+            FaceFrame = new FaceFrame(renderFrame: false);
+            ImpressTopic = new UiTextTopic(Loc.GetString("Elona.Dialog.Topic.Impress"));
+            AttractTopic = new UiTextTopic(Loc.GetString("Elona.Dialog.Topic.Attract"));
         }
 
         private void ListOnActivated(object? sender, UiListEventArgs<DialogChoice> args)
         {
             Model.SelectChoice(args.SelectedCell.Data);
+            Sounds.Play(Protos.Sound.More1);
+        }
+
+        protected override void KeyBindDown(GUIBoundKeyEventArgs args)
+        {
+            if (args.Function == EngineKeyFunctions.UICancel)
+                Sounds.Play(Protos.Sound.More1);
+            base.KeyBindDown(args);
         }
 
         public override void GrabFocus()
@@ -137,19 +156,14 @@ namespace OpenNefia.Content.Dialog
         {
             base.OnQuery();
             Sounds.Play(Protos.Sound.Chat);
-        }
-
-        public override void OnQueryFinish()
-        {
-            base.OnQueryFinish();
-            Sounds.Play(Protos.Sound.More1);
+            Model.Next();
         }
 
         protected override void OnChoicesChanged(IOrderedEnumerable<DialogChoice> choices)
         {
             base.OnChoicesChanged(choices);
             List.Clear();
-            List.SetAll(choices.Select(x => new DialogCell(x)));
+            List.SetAll(choices.Select(x => new DialogCell(x, Model.ContextData)));
             SetSize(Width, Height);
             SetPosition(X, Y);
         }
@@ -157,8 +171,6 @@ namespace OpenNefia.Content.Dialog
         protected override void OnShowMessage(DialogMessage.DialogText message)
         {
             base.OnShowMessage(message);
-            if (!string.IsNullOrEmpty(Text.WrappedText))
-                Sounds.Play(Protos.Sound.More1);
             Text.WrappedText = message.Text;
         }
 
@@ -168,11 +180,22 @@ namespace OpenNefia.Content.Dialog
             Finish(new());
         }
 
+        protected override void OnSpeakerChanged(EntityUid speaker)
+        {
+            base.OnSpeakerChanged(speaker);
+            NameText.Text = _nameSys.GetDisplayName(speaker);
+            FaceFrame.RefreshFromEntity(speaker);
+        }
+
         public override void SetSize(float width, float height)
         {
             base.SetSize(width, height);
             List.SetPreferredSize();
             Text.SetSize(360, 200);
+            NameText.SetPreferredSize();
+            FaceFrame.SetPreferredSize();
+            ImpressTopic.SetPreferredSize();
+            AttractTopic.SetPreferredSize();
         }
 
         public override void SetPosition(float x, float y)
@@ -183,7 +206,11 @@ namespace OpenNefia.Content.Dialog
             base.SetPosition(x, y);
 
             List.SetPosition(x + 140, y + DialogHeight - List.Height - 30);
-            Text.SetPosition(x + 145, y + 70);
+            Text.SetPosition(x + 145, y + 65);
+            NameText.SetPosition(x + 110, y + 35);
+            FaceFrame.SetPosition(x + 40, y + 55);
+            ImpressTopic.SetPosition(x + 30, y + 190);
+            AttractTopic.SetPosition(ImpressTopic.X, y + 235);
         }
 
         public override void Draw()
@@ -195,6 +222,21 @@ namespace OpenNefia.Content.Dialog
             AssetIeChat.DrawUnscaled(PixelX, PixelY, DialogWidth * UIScale, DialogHeight * UIScale);
             List.Draw();
             Text.Draw();
+            NameText.Draw();
+            FaceFrame.Draw();
+            ImpressTopic.Draw();
+            AttractTopic.Draw();
+        }
+
+        public override void Update(float dt)
+        {
+            base.Update(dt);
+            List.Update(dt);
+            Text.Update(dt);
+            NameText.Update(dt);
+            FaceFrame.Update(dt);
+            ImpressTopic.Update(dt);
+            AttractTopic.Update(dt);
         }
     }
 }

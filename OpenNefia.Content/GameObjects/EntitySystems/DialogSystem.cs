@@ -61,66 +61,6 @@ namespace OpenNefia.Content.GameObjects.EntitySystems
         }
     }
 
-    [Flags]
-    public enum DialogChoiceFlag
-    {
-        None            = 0,
-        Branch          = 1 << 0,
-        More            = 1 << 1,
-    }
-
-
-    [DataDefinition]
-    public class DialogChoice
-    {
-        [DataField]
-        public string LocKey { get; set; }
-
-        [DataField]
-        public int Priority { get; set; }
-
-        [DataField(required: true)]
-        public IDialogNode? Node { get; set; }
-
-        [DataField]
-        public string ExtraText { get; set; }
-
-        public DialogChoiceFlag Flags { get; set; }
-
-        public DialogChoice() 
-        {
-            LocKey = string.Empty;
-            Node = null;
-            ExtraText = string.Empty;
-        }
-        public DialogChoice(int priority = 0, PrototypeId<DialogNodePrototype>? id = null, string? locKey = null, string extraText = "", DialogChoiceFlag flags = default)
-        {
-            var proto = id?.ResolvePrototype();
-            Priority = priority;
-            if (proto != null)
-            {
-                Node = proto.Node;
-                if (Node.LocKey == null)
-                {
-                    Node.LocKey = proto.LocKey;
-                }
-                if (locKey == null)
-                {
-                    LocKey = proto.LocKey;
-                }
-            }
-
-            if (locKey != null)
-            {
-                LocKey = locKey;
-            }
-            LocKey ??= "";
-
-            ExtraText = extraText;
-            Flags = flags;
-        }
-    }
-
     public class GetDialogueOptionsEventArgs : EntityEventArgs
     {
         public DialogLayer Layer { get; set; } = default!;
