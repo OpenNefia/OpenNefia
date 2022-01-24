@@ -33,6 +33,7 @@ using OpenNefia.Core.Audio;
 using OpenNefia.Content.Logic;
 using OpenNefia.Core.Locale;
 using OpenNefia.Content.Dialog;
+using OpenNefia.Content.TurnOrder;
 
 namespace OpenNefia.Content.TitleScreen
 {
@@ -197,7 +198,10 @@ namespace OpenNefia.Content.TitleScreen
             var tagLar = _entityManager.EnsureComponent<TagComponent>(lar.Value);
             tagLar.AddTag(Protos.Tag.Larnniere);
 
-            new DialogModel().Inititialize(lom.Value, lomDiaProt.Node);
+            EntitySystem.Get<ITurnOrderSystem>().QueueDefferedAction(new(() =>
+            {
+                new DialogModel().Inititialize(lom.Value, lomDiaProt.Node);
+            }));
 
             _mapManager.SetActiveMap(map.Id);
 

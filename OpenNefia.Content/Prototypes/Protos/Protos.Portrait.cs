@@ -8,7 +8,7 @@ namespace OpenNefia.Content.Prototypes
         {
             #pragma warning disable format
 
-            public static readonly PortraitPrototypeId Default      = new($"Elona.{nameof(Default)}");
+            public static readonly PortraitPrototypeId Default      = new($"{nameof(Default)}");
 
             public static readonly PortraitPrototypeId Man1         = new($"Elona.{nameof(Man1)}");
             public static readonly PortraitPrototypeId Man2         = new($"Elona.{nameof(Man2)}");
