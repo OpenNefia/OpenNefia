@@ -34,7 +34,6 @@ namespace OpenNefia.Content.Charas
 
         public override void Initialize()
         {
-            RebuildPortraitArrays();
             _protos.PrototypesReloaded += OnPrototypesReloaded;
             SubscribeLocalEvent<CharaComponent, EntityGeneratedEvent>(HandleGenerated, nameof(HandleGenerated),
                 before: new[] { new SubId(typeof(SkillsSystem), "HandleGenerated") });
@@ -79,6 +78,9 @@ namespace OpenNefia.Content.Charas
         
         private void GenRandomPortrait(EntityUid uid, GenRandomPortraitComponent genPor, ref EntityGeneratedEvent args)
         {
+            if (MalePortraits == null || FemalePortraits == null)
+                RebuildPortraitArrays();
+
             Gender gender = Gender.Male;
             if (_entityManager.TryGetComponent<CharaComponent>(uid, out var chara))
                 gender = chara.Gender;
@@ -90,7 +92,7 @@ namespace OpenNefia.Content.Charas
             };
 
             var portComp = _entityManager.EnsureComponent<PortraitComponent>(uid);
-            portComp.PortraitID = _random.Pick(randName);
+            portComp.PortraitID = _random.Pick(randName!);
 
             _entityManager.RemoveComponent<GenRandomPortraitComponent>(uid);
         }
