@@ -20,7 +20,7 @@ namespace OpenNefia.Content.Charas
         public TileSpecifier Image { get; } = null!;
 
         [DataField]
-        public Gender? Gender { get; } = null;
+        public Gender? RandomGender { get; } = null;
 
         public IEnumerable<AtlasRegion> GetAtlasRegions()
         {

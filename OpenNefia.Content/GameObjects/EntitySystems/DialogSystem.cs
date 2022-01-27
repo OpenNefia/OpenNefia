@@ -16,7 +16,7 @@ namespace OpenNefia.Content.GameObjects.EntitySystems
 {
     public interface IDialogSystem : IEntitySystem
     {
-        GetDialogueOptionsEventArgs HandleTalk(EntityUid target);
+        GetDialogOptionsEventArgs HandleTalk(EntityUid target);
     }
     public class DialogSystem : EntitySystem, IDialogSystem
     {
@@ -30,10 +30,10 @@ namespace OpenNefia.Content.GameObjects.EntitySystems
         {
             SubscribeLocalEvent<DialogComponent, WasCollidedWithEventArgs>(HandleCollision, nameof(HandleCollision));
 
-            SubscribeLocalEvent<DialogComponent, GetDialogueOptionsEventArgs>(AddDefaultDialog, nameof(AddDefaultDialog));
+            SubscribeLocalEvent<DialogComponent, GetDialogOptionsEventArgs>(AddDefaultDialog, nameof(AddDefaultDialog));
         }
 
-        private void AddDefaultDialog(EntityUid uid, DialogComponent component, GetDialogueOptionsEventArgs args)
+        private void AddDefaultDialog(EntityUid uid, DialogComponent component, GetDialogOptionsEventArgs args)
         {
             args.Layer = new DefaultDialogLayer();
             args.Choices.Add(new(TalkDefaultPrio, Protos.Dialog.TalkDefault));
@@ -48,20 +48,20 @@ namespace OpenNefia.Content.GameObjects.EntitySystems
             if (relation < Relation.Dislike)
                 return;
 
-            var model = new DialogModel();
-            model.Inititialize(component.Owner);
+            var logic = new DialogLogic();
+            logic.Initialize(component.Owner);
         }
 
-        public GetDialogueOptionsEventArgs HandleTalk(EntityUid target)
+        public GetDialogOptionsEventArgs HandleTalk(EntityUid target)
         {
-            var diaArgs = new GetDialogueOptionsEventArgs();
+            var diaArgs = new GetDialogOptionsEventArgs();
             RaiseLocalEvent(target, diaArgs);
 
             return diaArgs;
         }
     }
 
-    public class GetDialogueOptionsEventArgs : EntityEventArgs
+    public class GetDialogOptionsEventArgs : EntityEventArgs
     {
         public DialogLayer Layer { get; set; } = default!;
         public List<DialogChoice> Choices = new();

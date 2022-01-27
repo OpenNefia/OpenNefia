@@ -1,5 +1,6 @@
 ﻿using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Serialization.Manager.Attributes;
+using OpenNefia.Content.Prototypes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,15 +9,6 @@ using System.Threading.Tasks;
 
 namespace OpenNefia.Content.Dialog
 {
-    [Flags]
-    public enum DialogChoiceFlag
-    {
-        None = 0,
-        Branch = 1 << 0,
-        More = 1 << 1,
-        OverrideNode = 1 << 2,
-    }
-
     [DataDefinition]
     public class DialogChoice
     {
@@ -27,20 +19,17 @@ namespace OpenNefia.Content.Dialog
         public int Priority { get; set; }
 
         [DataField(required: true)]
-        public IDialogNode? Node { get; set; }
+        public IDialogNode Node { get; set; } = default!;
 
         [DataField]
-        public DialogFormatData? ExtraFormat { get; set; }
-
-        public DialogChoiceFlag Flags { get; set; }
+        public List<DialogFormatData>? FormatData { get; set; }
 
         public DialogChoice()
         {
             LocKey = string.Empty;
-            Node = null;
-            ExtraFormat = null;
+            FormatData = null;
         }
-        public DialogChoice(int priority = 0, PrototypeId<DialogNodePrototype>? id = null, string? locKey = null, DialogFormatData? extraFormat = null, DialogChoiceFlag flags = default)
+        public DialogChoice(int priority = 0, PrototypeId<DialogNodePrototype>? id = null, string? locKey = null, IEnumerable<DialogFormatData>? formatData = null)
         {
             var proto = id?.ResolvePrototype();
             Priority = priority;
@@ -51,20 +40,10 @@ namespace OpenNefia.Content.Dialog
                 {
                     Node.LocKey = proto.LocKey;
                 }
-                if (locKey == null)
-                {
-                    LocKey = proto.LocKey;
-                }
             }
+            LocKey ??= proto?.LocKey ?? locKey ?? string.Empty;
 
-            if (locKey != null)
-            {
-                LocKey = locKey;
-            }
-            LocKey ??= "";
-
-            ExtraFormat = extraFormat;
-            Flags = flags;
+            FormatData = formatData?.ToList();
         }
     }
 }

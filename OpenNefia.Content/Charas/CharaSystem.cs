@@ -46,10 +46,10 @@ namespace OpenNefia.Content.Charas
             var femaleList = new List<PrototypeId<PortraitPrototype>>();
             foreach (var port in _protos.EnumeratePrototypes<PortraitPrototype>())
             {
-                if (!port?.Gender.HasValue ?? true)
+                if (!port?.RandomGender.HasValue ?? true)
                     continue;
 
-                var list = port!.Gender!.Value switch
+                var list = port!.RandomGender!.Value switch
                 {
                     Gender.Female => femaleList,
                     _ => maleList

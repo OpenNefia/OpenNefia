@@ -18,7 +18,7 @@ namespace OpenNefia.Content.GameObjects
         public override string Name => "Dialog";
 
         [DataField]
-        public PrototypeId<DialogPrototype>? DialogID = Protos.Dialog.DialogDefault;
+        public PrototypeId<DialogPrototype> DialogID = Protos.Dialog.DialogDefault;
 
         [DataField]
         public bool CanTalk { get; set; } = false;

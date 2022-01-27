@@ -42,11 +42,6 @@ namespace OpenNefia.Content.TurnOrder
         /// Advances the state of the simulation until additional input or exiting are needed.
         /// </summary>
         void AdvanceStateFromPlayer(TurnResult turnResult);
-
-        /// <summary>
-        /// Queue an action, which is executed the next time the player gains control.
-        /// </summary>
-        void QueueDefferedAction(TurnOrderSystem.DefferedAction action);
     }
 
     /// <summary>
@@ -72,18 +67,6 @@ namespace OpenNefia.Content.TurnOrder
     /// </remarks>
     public class TurnOrderSystem : EntitySystem, ITurnOrderSystem
     {
-        public struct DefferedAction
-        {
-            public Guid ID { get; set; }
-            public Action Action { get; set; }
-
-            public DefferedAction(Action action)
-            {
-                ID = Guid.NewGuid();
-                Action = action;
-            }
-        }
-
         [Dependency] private readonly IGameSessionManager _gameSession = default!;
         [Dependency] private readonly IFieldLayer _field = default!;
         [Dependency] private readonly IMapManager _mapManager = default!;
@@ -100,7 +83,6 @@ namespace OpenNefia.Content.TurnOrder
         private IEnumerator<TurnOrderComponent>? _currentTurnOrder;
         private TurnOrderComponent? _activeEntity;
         private bool _saveWasLoaded;
-        private Stack<DefferedAction> DefferedActions = new();
 
         public override void Initialize()
         {
@@ -199,24 +181,13 @@ namespace OpenNefia.Content.TurnOrder
                         QuitToTitleScreen();
                         return;
                     case TurnOrderState.PlayerTurnQuery:
-                        for (int i = 0; i < DefferedActions.Count; i++)
-                        {
-                            DefferedActions.Pop().Action?.Invoke();
-                        }
                         return;
                 }
             }
         }
 
-        /// <inheritdoc/>
-        public void QueueDefferedAction(DefferedAction action)
-        {
-            DefferedActions.Push(action);
-        }
-
         private void QuitToTitleScreen()
         {
-            DefferedActions.Clear();
             if (_field.IsQuerying())
             {
                 _field.Cancel();

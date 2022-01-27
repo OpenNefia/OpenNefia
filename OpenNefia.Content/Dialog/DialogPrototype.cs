@@ -14,7 +14,7 @@ namespace OpenNefia.Content.Dialog
         [DataField("id", required: true)]
         public string ID { get; } = default!;
 
-        [DataField]
+        [DataField(required: true)]
         public IDialogNode Node { get; } = default!;
     }
 }

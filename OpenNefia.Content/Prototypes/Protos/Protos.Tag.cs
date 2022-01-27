@@ -8,11 +8,11 @@ namespace OpenNefia.Content.Prototypes
         {
             #pragma warning disable format
 
-            public static readonly TagPrototypeId DungeonStairsDelving   = new($"Elona.{nameof(DungeonStairsDelving)}");
-            public static readonly TagPrototypeId DungeonStairsSurfacing = new($"Elona.{nameof(DungeonStairsSurfacing)}");
+            public static readonly TagPrototypeId DungeonStairsDelving      = new($"Elona.{nameof(DungeonStairsDelving)}");
+            public static readonly TagPrototypeId DungeonStairsSurfacing    = new($"Elona.{nameof(DungeonStairsSurfacing)}");
 
-            public static readonly TagPrototypeId Lomias                 = new($"Elona.{nameof(Lomias)}");
-            public static readonly TagPrototypeId Larnniere              = new($"Elona.{nameof(Larnniere)}");
+            public static readonly TagPrototypeId UniqueCharaLomias         = new($"Elona.{nameof(UniqueCharaLomias)}");
+            public static readonly TagPrototypeId UniqueCharaLarnniere      = new($"Elona.{nameof(UniqueCharaLarnniere)}");
 
             #pragma warning restore format
         }

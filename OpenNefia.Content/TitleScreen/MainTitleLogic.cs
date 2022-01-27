@@ -194,13 +194,13 @@ namespace OpenNefia.Content.TitleScreen
             var lomDiaProt = Protos.Dialog.LomiasGameBegin.ResolvePrototype()!;
 
             var tagLom = _entityManager.EnsureComponent<TagComponent>(lom.Value);
-            tagLom.AddTag(Protos.Tag.Lomias);
+            tagLom.AddTag(Protos.Tag.UniqueCharaLomias);
             var tagLar = _entityManager.EnsureComponent<TagComponent>(lar.Value);
-            tagLar.AddTag(Protos.Tag.Larnniere);
+            tagLar.AddTag(Protos.Tag.UniqueCharaLarnniere);
 
-            EntitySystem.Get<ITurnOrderSystem>().QueueDefferedAction(new(() =>
+            EntitySystem.Get<IDefferedActionSystem>().EnqeueDefferedAction(new(() =>
             {
-                new DialogModel().Inititialize(lom.Value, lomDiaProt.Node);
+                new DialogLogic().Initialize(lom.Value, lomDiaProt.Node);
             }));
 
             _mapManager.SetActiveMap(map.Id);

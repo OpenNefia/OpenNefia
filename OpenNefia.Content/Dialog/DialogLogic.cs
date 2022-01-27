@@ -15,30 +15,17 @@ using System.Threading.Tasks;
 
 namespace OpenNefia.Content.Dialog
 {
-    public record DialogMessage
-    {
-        public record Continue()    : DialogMessage;
-        public record Complete()    : DialogMessage;
-        public record Return()      : DialogMessage;
-        public record Cancelled(string Message) : DialogMessage;
-
-        public record DialogText(string Text) : DialogMessage;
-        public record DialogSingle(string Text) : DialogText(Text);
-        public record DialogChoices(string Text, IOrderedEnumerable<DialogChoice> Choices, IDialogBranchNode Node) : DialogText(Text);
-
-        public record SpeakerSwap(EntityUid Entity) : DialogMessage;
-    }
-
     public class DialogContextData
     {
         private Dictionary<string, object> Data { get; } = new();
 
-        public T Ensure<T>(string key)
+        public T Ensure<T>(string key) 
+            where T : new()
         {
             T res = default!;
             if (!Data.TryGetValue(key, out var val))
             {
-                res = Activator.CreateInstance<T>()!;
+                res = new T();
                 Data[key] = res;
             }
             else if (Data[key] is T tVal)
@@ -73,12 +60,12 @@ namespace OpenNefia.Content.Dialog
         }
     }
 
-    public interface IDialogModel
+    public interface IDialogLogic
     {
-        void Inititialize(EntityUid entity, IDialogNode? nodeOverride = null, DialogContextData? contextData = null);
+        void Initialize(EntityUid entity, IDialogNode? nodeOverride = null, DialogContextData? contextData = null);
     }
 
-    public class DialogModel : IDialogModel
+    public class DialogLogic : IDialogLogic
     {
         [Dependency] private readonly IUserInterfaceManager _uiManager = default!;
         [Dependency] private readonly IPrototypeManager _protoMan = default!;
@@ -88,47 +75,46 @@ namespace OpenNefia.Content.Dialog
         public EntityUid Speaker = default!;
         private EntityUid DialogEntity = default!;
         private IDialogNode? NodeOverride = null;
-        private IEnumerator<DialogMessage>? MessageEnumerator = default!;
+        private IEnumerator<IDialogMessage>? MessageEnumerator = default!;
         private IDialogBranchNode? BranchNode;
 
+        public DialogLayer Layer { get; set; } = default!;
         public DialogContextData ContextData = default!;
 
         public delegate void ShowChoicesDelegate(IOrderedEnumerable<DialogChoice> choices);
-        public event ShowChoicesDelegate OnChoicesChanged = default!;
+        public event ShowChoicesDelegate? OnChoicesChanged;
 
-        public delegate void ShowMessageResultDelegate(DialogMessage.DialogText message);
-        public event ShowMessageResultDelegate OnShowMessage = default!;
+        public delegate void ShowMessageResultDelegate(string message);
+        public event ShowMessageResultDelegate? OnShowMessage;
 
         public delegate void DialogCloseDelegate();
-        public event DialogCloseDelegate OnDialogClose = default!;
+        public event DialogCloseDelegate? OnDialogClose;
 
         public delegate void SpeakerChangedDelegate(EntityUid speaker);
-        public event SpeakerChangedDelegate OnSpeakerChanged = default!;
+        public event SpeakerChangedDelegate? OnSpeakerChanged;
 
-        public DialogModel()
+        public void Initialize(EntityUid entity, IDialogNode? nodeOverride = null, DialogContextData? contextData = null)
         {
             EntitySystem.InjectDependencies(this);
-        }
-
-        public void Inititialize(EntityUid entity, IDialogNode? nodeOverride = null, DialogContextData? contextData = null)
-        {
             ContextData = contextData ?? new DialogContextData();
             NodeOverride = nodeOverride;
             DialogEntity = entity;
             var args = ResetDialog(initalizeLayer: true);
-            OnSpeakerChanged?.Invoke(entity);
+            EntitySystem.InjectDependencies(args.Layer);
+            ChangeSpeaker(entity);
             _uiManager.Query(args.Layer);
         }
 
-        private GetDialogueOptionsEventArgs ResetDialog(bool initalizeLayer)
+        public GetDialogOptionsEventArgs ResetDialog(bool initalizeLayer)
         {
             MessageEnumerator = null;
             var args = _dialog.HandleTalk(DialogEntity);
             Speaker = DialogEntity;
             if (initalizeLayer)
             {
+                Layer = args.Layer;
                 var layerArgs = new DialogLayer.Args(this);
-                args.Layer.Initialize(layerArgs);
+                Layer.Initialize(layerArgs);
             }
             OnChoicesChanged?.Invoke(args.Choices.OrderByDescending(x => x.Priority));
             return args;
@@ -136,9 +122,10 @@ namespace OpenNefia.Content.Dialog
 
         public void SelectChoice(DialogChoice choice)
         {
-            if (choice.Flags.HasFlag(DialogChoiceFlag.Branch) && BranchNode != null)
+            if (BranchNode != null)
             {
                 BranchNode.SelectedChoice = choice;
+                BranchNode = null;
             }
 
             if (MessageEnumerator != null)
@@ -147,15 +134,14 @@ namespace OpenNefia.Content.Dialog
                     return;
             }
 
-            if ((choice.Node != null && MessageEnumerator == null)
-                || choice.Flags.HasFlag(DialogChoiceFlag.OverrideNode))
+            if ((choice.Node != null && MessageEnumerator == null))
             {
                 MessageEnumerator = GetChoiceMessages(choice).GetEnumerator();
                 Next();
             }
         }
 
-        public IEnumerable<DialogMessage> GetComponentMessages()
+        public IEnumerable<IDialogMessage> GetComponentMessages()
         {
             if (NodeOverride != null)
             {
@@ -168,14 +154,13 @@ namespace OpenNefia.Content.Dialog
 
             if (!_entMan.TryGetComponent(DialogEntity, out DialogComponent component))
             {
-                yield return new DialogMessage.Cancelled("Dialog entity does not have a DialogComponent");
+                yield return new DialogCancelMessage("Dialog entity does not have a DialogComponent");
                 yield break;
             }
 
-            if (!component.DialogID.HasValue
-                || !_protoMan.TryIndex(component.DialogID.Value, out var diaProto))
+            if (!_protoMan.TryIndex(component.DialogID, out var diaProto))
             {
-                yield return new DialogMessage.Cancelled("Dialog doesn not have a prototype");
+                yield return new DialogCancelMessage("Dialog doesn not have a prototype");
                 yield break;
             }
 
@@ -187,52 +172,17 @@ namespace OpenNefia.Content.Dialog
             }
         }
 
-        public IEnumerable<DialogMessage> GetChoiceMessages(DialogChoice choice)
+        public IEnumerable<IDialogMessage> GetChoiceMessages(DialogChoice choice)
         {
             if (choice.Node == null)
             {
-                yield return new DialogMessage.Cancelled("Dialog choice node was null");
+                yield return new DialogCancelMessage("Dialog choice node was null");
                 yield break;
             }
 
             foreach (var res in choice.Node.GetResults(DialogEntity, ContextData))
             {
                 yield return res;
-            }
-        }
-
-        public void HandleMessage(DialogMessage message)
-        {
-            switch (message)
-            {
-                case DialogMessage.Continue:
-                    break;
-                case DialogMessage.SpeakerSwap swap:
-                    OnSpeakerChanged?.Invoke(swap.Entity);
-                    Next();
-                    break;
-                case DialogMessage.Return:
-                    ResetDialog(initalizeLayer: false);
-                    break;
-                case DialogMessage.DialogSingle single:
-                    OnShowMessage?.Invoke(single);
-                    break;
-                case DialogMessage.DialogChoices dialogChoices:
-                    BranchNode = dialogChoices.Node;
-                    OnChoicesChanged?.Invoke(dialogChoices.Choices);
-                    OnShowMessage?.Invoke(dialogChoices);
-                    break;
-                case DialogMessage.DialogText dialogText:
-                    OnChoicesChanged?.Invoke(GetMoreChoice().OrderBy(x => x.Priority));
-                    OnShowMessage?.Invoke(dialogText);
-                    break;
-                case DialogMessage.Complete:
-                    OnDialogClose?.Invoke();
-                    break;
-                case DialogMessage.Cancelled cancel:
-                    Logger.WarningS("dialog", cancel.Message);
-                    OnDialogClose?.Invoke();
-                    break;
             }
         }
 
@@ -249,13 +199,34 @@ namespace OpenNefia.Content.Dialog
                 MessageEnumerator.MoveNext();
             }
 
-            HandleMessage(MessageEnumerator.Current);
+            MessageEnumerator.Current?.Apply(this);
             return true;
         }
 
-        private IEnumerable<DialogChoice> GetMoreChoice()
+        public void ChangeSpeaker(EntityUid newSpeaker)
         {
-            yield return new DialogChoice(id: Protos.Dialog.TalkMore, flags: DialogChoiceFlag.More);
+            OnSpeakerChanged?.Invoke(newSpeaker);
+        }
+
+        public void CloseDialog()
+        {
+            OnDialogClose?.Invoke();
+        }
+
+        public void ShowMessage(string message)
+        {
+            OnShowMessage?.Invoke(message);
+        }
+
+        public void ChangeChoices(IOrderedEnumerable<DialogChoice> choices)
+        {
+            OnChoicesChanged?.Invoke(choices);
+        }
+
+        public IOrderedEnumerable<DialogChoice> GetMoreChoices()
+        {
+            return new[] { new DialogChoice(id: Protos.Dialog.TalkMore) }
+                .OrderByDescending(x => x.Priority);
         }
     }
 }

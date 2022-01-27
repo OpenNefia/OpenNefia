@@ -25,36 +25,30 @@ namespace OpenNefia.Content.Dialog
 {
     public interface IDialogLayer : IUiLayerWithResult<DialogLayer.Args, UINone>
     {
-
     }
 
     public class DialogLayer : UiLayerWithResult<DialogLayer.Args, UINone>, IDialogLayer
     {
-        protected DialogModel Model = default!;
+        protected DialogLogic Logic = default!;
 
         public class Args
         {
-            public DialogModel Model;
+            public DialogLogic Model;
 
-            public Args(DialogModel model)
+            public Args(DialogLogic model)
             {
                 Model = model;
             }
         }
 
-        public DialogLayer()
-        {
-            EntitySystem.InjectDependencies(this);
-        }
-
         public override void Initialize(Args args)
         {
             base.Initialize(args);
-            Model = args.Model;
-            Model.OnChoicesChanged += OnChoicesChanged;
-            Model.OnShowMessage += OnShowMessage;
-            Model.OnDialogClose += OnDialogClose;
-            Model.OnSpeakerChanged += OnSpeakerChanged;
+            Logic = args.Model;
+            Logic.OnChoicesChanged += OnChoicesChanged;
+            Logic.OnShowMessage += OnShowMessage;
+            Logic.OnDialogClose += OnDialogClose;
+            Logic.OnSpeakerChanged += OnSpeakerChanged;
             OnKeyBindDown += KeyBindDown;
         }
 
@@ -64,7 +58,7 @@ namespace OpenNefia.Content.Dialog
                 Finish(new());
         }
 
-        protected virtual void OnShowMessage(DialogMessage.DialogText message)
+        protected virtual void OnShowMessage(string message)
         {
         }
 
@@ -83,10 +77,10 @@ namespace OpenNefia.Content.Dialog
         public override void Dispose()
         {
             base.Dispose();
-            Model.OnChoicesChanged -= OnChoicesChanged;
-            Model.OnShowMessage -= OnShowMessage;
-            Model.OnDialogClose -= OnDialogClose;
-            Model.OnSpeakerChanged -= OnSpeakerChanged;
+            Logic.OnChoicesChanged -= OnChoicesChanged;
+            Logic.OnShowMessage -= OnShowMessage;
+            Logic.OnDialogClose -= OnDialogClose;
+            Logic.OnSpeakerChanged -= OnSpeakerChanged;
             OnKeyBindDown -= KeyBindDown;
         }
     }
@@ -98,7 +92,10 @@ namespace OpenNefia.Content.Dialog
             public DialogCell(DialogChoice data, DialogContextData context) 
                 : base(data)
             {
-                UiText.Text = Loc.GetString(data.LocKey + (data.ExtraFormat?.GetFormatText(context) ?? string.Empty));
+                if (data.FormatData == null)
+                    UiText.Text = Loc.GetString(data.LocKey);
+                else
+                    UiText.Text = Loc.GetString(data.LocKey, data.FormatData.Select((x, ind) => new LocaleArg($"_{ind}", x.GetFormatText(context))).ToArray());
             }
         }
 
@@ -129,7 +126,7 @@ namespace OpenNefia.Content.Dialog
 
         private void ListOnActivated(object? sender, UiListEventArgs<DialogChoice> args)
         {
-            Model.SelectChoice(args.SelectedCell.Data);
+            Logic.SelectChoice(args.SelectedCell.Data);
             Sounds.Play(Protos.Sound.More1);
         }
 
@@ -150,22 +147,22 @@ namespace OpenNefia.Content.Dialog
         {
             base.OnQuery();
             Sounds.Play(Protos.Sound.Chat);
-            Model.Next();
+            Logic.Next();
         }
 
         protected override void OnChoicesChanged(IOrderedEnumerable<DialogChoice> choices)
         {
             base.OnChoicesChanged(choices);
             List.Clear();
-            List.SetAll(choices.Select(x => new DialogCell(x, Model.ContextData)));
+            List.SetAll(choices.Select(x => new DialogCell(x, Logic.ContextData)));
             SetSize(Width, Height);
             SetPosition(X, Y);
         }
 
-        protected override void OnShowMessage(DialogMessage.DialogText message)
+        protected override void OnShowMessage(string message)
         {
             base.OnShowMessage(message);
-            Text.WrappedText = message.Text;
+            Text.WrappedText = message;
         }
 
         protected override void OnDialogClose()
@@ -209,7 +206,6 @@ namespace OpenNefia.Content.Dialog
 
         public override void Draw()
         {
-            base.Draw();
             GraphicsEx.SetColor(0, 0, 0, 75);
             AssetIeChat.DrawUnscaled(PixelX + 4, PixelY + 4, DialogWidth * UIScale, DialogHeight * UIScale);
             GraphicsEx.SetColor(Color.White);

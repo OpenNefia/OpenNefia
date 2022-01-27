@@ -1,4 +1,5 @@
-﻿using OpenNefia.Core.Prototypes;
+﻿using OpenNefia.Core;
+using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Serialization.Manager.Attributes;
 using System;
 using System.Collections.Generic;
@@ -15,7 +16,7 @@ namespace OpenNefia.Content.Dialog
         public string ID { get; } = default!;
 
         [DataField]
-        public string LocKey { get; } = default!;
+        public LocaleKey LocKey { get; } = LocaleKey.Empty;
 
         [DataField]
         public IDialogNode Node { get; } = default!;

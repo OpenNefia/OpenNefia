@@ -27,11 +27,11 @@
     - !type:DialogSequence
       locKey: "Elona.Dialog.Beginning.Lomias1"
     - !type:SpeakerSwap
-      id: "Elona.Larnniere"
+      id: "Elona.UniqueCharaLarnniere"
     - !type:DialogSequence
       locKey: "Elona.Dialog.Beginning.Larnniere"
     - !type:SpeakerSwap
-      id: "Elona.Lomias"
+      id: "Elona.UniqueCharaLomias"
     - !type:FormattedText
       locKey: "Elona.Dialog.Beginning.Lomias2"
       formatData:

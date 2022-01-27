@@ -10,6 +10,9 @@ using System.Threading.Tasks;
 
 namespace OpenNefia.Content.Dialog
 {
+    /// <summary>
+    /// Classes which allow for game data to be inserted into dialog messages and choices
+    /// </summary>
     [ImplicitDataDefinitionForInheritors]
     public abstract class DialogFormatData
     {
@@ -25,6 +28,10 @@ namespace OpenNefia.Content.Dialog
         }
     }
 
+    /// <summary>
+    /// Takes a string value directly from the dialog context to insert into text
+    /// an example would be prices in choices (like investing in a shop)
+    /// </summary>
     public sealed class ContextFormat : DialogFormatData
     {
         [DataField(required: true)]
@@ -32,7 +39,9 @@ namespace OpenNefia.Content.Dialog
 
         public override string GetFormatText(DialogContextData context)
         {
-            return $"{context.Ensure<object>(Key)}";
+            if (context.TryGet<string>(Key, out var str))
+                return str;
+            return $"<Key {Key} not present in DialogContextData.>";
         }
     }
 }
