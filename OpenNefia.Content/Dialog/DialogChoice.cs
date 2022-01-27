@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using OpenNefia.Core;
 
 namespace OpenNefia.Content.Dialog
 {
@@ -13,7 +14,7 @@ namespace OpenNefia.Content.Dialog
     public class DialogChoice
     {
         [DataField]
-        public string LocKey { get; set; }
+        public LocaleKey LocKey { get; set; }
 
         [DataField]
         public int Priority { get; set; }
@@ -26,10 +27,10 @@ namespace OpenNefia.Content.Dialog
 
         public DialogChoice()
         {
-            LocKey = string.Empty;
             FormatData = null;
         }
-        public DialogChoice(int priority = 0, PrototypeId<DialogNodePrototype>? id = null, string? locKey = null, IEnumerable<DialogFormatData>? formatData = null)
+
+        public DialogChoice(int priority = 0, PrototypeId<DialogNodePrototype>? id = null, LocaleKey? locKey = null, IEnumerable<DialogFormatData>? formatData = null)
         {
             var proto = id?.ResolvePrototype();
             Priority = priority;
@@ -41,7 +42,7 @@ namespace OpenNefia.Content.Dialog
                     Node.LocKey = proto.LocKey;
                 }
             }
-            LocKey ??= proto?.LocKey ?? locKey ?? string.Empty;
+            LocKey = proto?.LocKey ?? locKey ?? LocaleKey.Empty;
 
             FormatData = formatData?.ToList();
         }
