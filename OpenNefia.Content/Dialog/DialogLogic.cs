@@ -72,6 +72,8 @@ namespace OpenNefia.Content.Dialog
         [Dependency] private readonly IDialogSystem _dialog = default!;
         [Dependency] private readonly IEntityManager _entMan = default!;
 
+        public const string SpeakerConextName = "speaker";
+
         public EntityUid Speaker = default!;
         private EntityUid DialogEntity = default!;
         private IDialogNode? NodeOverride = null;
@@ -206,6 +208,7 @@ namespace OpenNefia.Content.Dialog
         public void ChangeSpeaker(EntityUid newSpeaker)
         {
             OnSpeakerChanged?.Invoke(newSpeaker);
+            ContextData.Set(SpeakerConextName, newSpeaker);
         }
 
         public void CloseDialog()

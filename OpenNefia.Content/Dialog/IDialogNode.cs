@@ -30,9 +30,6 @@ namespace OpenNefia.Content.Dialog
 
     public abstract class DialogNode : IDialogNode
     {
-        [Dependency] protected readonly IEntityManager _entMan = default!;
-
-
         [DataField]
         public LocaleKey LocKey { get; set; } = LocaleKey.Empty;
 
@@ -87,10 +84,64 @@ namespace OpenNefia.Content.Dialog
         {
             yield return new DialogChoicesMessage(Loc.GetString(LocKey), Choices.OrderByDescending(x => x.Priority));
 
-            if (SelectedChoice == null || SelectedChoice.Node == null)
+            if (SelectedChoice?.Node == null)
                 yield break;
 
             foreach(var node in SelectedChoice.Node.GetResults(entity, context))
+            {
+                yield return node;
+            }
+        }
+    }
+
+    [DataDefinition]
+    public class ConditionalChoice
+    {
+        [DataField]
+        public DialogConditionData? Condition { get; } = default!;
+
+        [DataField(required: true)]
+        public DialogChoice Choice { get; } = default!;
+    }
+
+    public sealed class ConditionalDialogBranch : DialogNode, IDialogBranchNode
+    {
+        [DataField(required: true)]
+        public List<ConditionalChoice> Choices { get; set; } = new();
+        public DialogChoice? SelectedChoice { get; set; }
+
+        public override IEnumerable<IDialogMessage> GetResults(EntityUid entity, DialogContextData context)
+        {
+            yield return new DialogChoicesMessage(Loc.GetString(LocKey), Choices
+                .Where(x => x.Condition?.IsConditionFulfilled(context) ?? true)
+                .Select(x => x.Choice)
+                .OrderByDescending(x => x.Priority));
+
+            if (SelectedChoice?.Node == null)
+                yield break;
+
+            foreach (var node in SelectedChoice.Node.GetResults(entity, context))
+            {
+                yield return node;
+            }
+        }
+    }
+
+    public sealed class ConditionalDialogAuto : DialogNode
+    {
+        [DataField(required: true)]
+        public List<ConditionalChoice> Choices { get; set; } = new();
+
+        public override IEnumerable<IDialogMessage> GetResults(EntityUid entity, DialogContextData context)
+        {
+            var choice = Choices.First(x => x.Condition?.IsConditionFulfilled(context) ?? true);
+            if (choice == null)
+            {
+                yield return new DialogCancelMessage("No choice's condition in auto branch was met");
+                yield break;
+            }
+
+            foreach (var node in choice.Choice.Node.GetResults(entity, context))
             {
                 yield return node;
             }
@@ -118,6 +169,8 @@ namespace OpenNefia.Content.Dialog
 
     public sealed class DefaultDialog : DialogNode
     {
+        [Dependency] private readonly IEntityManager _entMan = default!;
+
         public override IEnumerable<IDialogMessage> GetResults(EntityUid entity, DialogContextData context)
         {
             EntitySystem.InjectDependencies(this);
