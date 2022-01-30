@@ -276,6 +276,9 @@ namespace OpenNefia.Tests
             _diFactory?.Invoke(container);
             container.BuildGraph();
 
+            var random = container.Resolve<IRandom>();
+            random.PushSeed(0);
+
             // Because of CVarDef, we have to load every one through reflection
             // just in case a system needs one of them.
             var configMan = container.Resolve<IConfigurationManagerInternal>();
