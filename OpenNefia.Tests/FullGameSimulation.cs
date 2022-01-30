@@ -9,6 +9,7 @@ using OpenNefia.Core.Locale;
 using OpenNefia.Core.Log;
 using OpenNefia.Core.Maps;
 using OpenNefia.Core.Prototypes;
+using OpenNefia.Core.Random;
 using OpenNefia.Core.Reflection;
 using OpenNefia.Core.Serialization.Manager;
 using OpenNefia.Core.Serialization.Manager.Result;
@@ -146,6 +147,9 @@ namespace OpenNefia.Tests
 
             var contentAssemblies = new List<Assembly>();
             _assemblyLoadDelegate?.Invoke(contentAssemblies);
+
+            var random = container.Resolve<IRandom>();
+            random.PushSeed(0);
 
             // Because of CVarDef, we have to load every one through reflection
             // just in case a system needs one of them.

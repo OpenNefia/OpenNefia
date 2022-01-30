@@ -44,7 +44,7 @@ namespace OpenNefia.Content.Skills
         private int CalcSkillExpGain(int baseExpGained, int potential, int skillLevel, float growthBuff)
         {
             var expGained = baseExpGained * potential / (100 + skillLevel * 15);
-            
+
             if (growthBuff > 0)
                 expGained = (int)(expGained * (1.0f + growthBuff));
 
@@ -83,7 +83,7 @@ namespace OpenNefia.Content.Skills
         }
 
         /// <inheritdoc/>
-        public void GainSkillExp(EntityUid uid, PrototypeId<SkillPrototype> skillId, 
+        public void GainSkillExp(EntityUid uid, PrototypeId<SkillPrototype> skillId,
             int baseExpGained,
             int relatedSkillExpDivisor = 0,
             int levelExpDivisor = 0,
@@ -109,7 +109,7 @@ namespace OpenNefia.Content.Skills
 
             var baseLevel = skills.BaseLevel(skillProto);
             var potential = skills.Potential(skillProto);
-            
+
             if (potential == 0)
                 return;
 
@@ -141,9 +141,9 @@ namespace OpenNefia.Content.Skills
                 if (EntityManager.TryGetComponent(uid, out LevelComponent levelComp))
                 {
                     var levelExpGained = CalcLevelExpGainFromSkillExpGain(levelComp.ExperienceToNext, levelComp.Level, actualExpGained, levelExpDivisor);
-                    
+
                     levelComp.Experience += levelExpGained;
-                    
+
                     if (EntityManager.TryGetComponent(uid, out SleepExperienceComponent sleepExpComp))
                     {
                         sleepExpComp.SleepExperience += levelExpGained;
@@ -166,13 +166,17 @@ namespace OpenNefia.Content.Skills
 
             if (levelDelta > 0)
             {
-                for (int i = 0; i <= levelDelta; i++)
+                for (int i = 0; i < levelDelta; i++)
+                {
                     newPotential = PotentialRange.Clamp((int)(newPotential * PotentialLevelingDecayRate));
+                }
             }
             else if (levelDelta < 0)
             {
-                for (int i = 0; i >= -levelDelta; i--)
+                for (int i = 0; i > -levelDelta; i--)
+                {
                     newPotential = PotentialRange.Clamp((int)(newPotential * (1.0f + (1.0f - PotentialLevelingDecayRate))) + 1);
+                }
             }
 
             return newPotential;
@@ -216,7 +220,7 @@ namespace OpenNefia.Content.Skills
                 newExp %= 1000;
                 var newLevel = skill.Level.Base + levelDelta;
                 var newPotential = CalcNewPotentialFromLeveling(skill.Potential, levelDelta);
-                
+
                 skill.Level.Base = newLevel;
                 skill.Potential = newPotential;
                 skill.Experience = newExp;
