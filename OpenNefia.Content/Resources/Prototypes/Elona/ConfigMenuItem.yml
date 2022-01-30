@@ -102,6 +102,25 @@
 - type: Elona.ConfigMenuItem
   id: Elona.MenuAnime
   node: !type:ConfigSubmenuMenuNode
+    items:
+    - Elona.AnimeAlertWait
+    - Elona.AnimeAnimationWait
+
+- type: Elona.ConfigMenuItem
+  id: Elona.AnimeAlertWait
+  node: !type:ConfigFloatMenuNode
+    cvar: anime.alertWait
+    min: 0.0
+    max: 1.0
+    step: 0.1
+
+- type: Elona.ConfigMenuItem
+  id: Elona.AnimeAnimationWait
+  node: !type:ConfigFloatMenuNode
+    cvar: anime.animationWait
+    min: 0.0
+    max: 1.0
+    step: 0.1
 
 #
 # Input

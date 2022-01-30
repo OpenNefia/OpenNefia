@@ -34,8 +34,5 @@ namespace OpenNefia.Content.Skills
         [DataField]
         [NeverPushInheritance]
         public HspIds<int>? HspIds { get; }
-
-        [DataField]
-        public PrototypeId<SkillPrototype>? RelatedAttribute { get; }
     }
 }

@@ -14,17 +14,16 @@ namespace OpenNefia.Content.UI.Element.List
         void Select(int index);
         bool CanActivate(int index);
         void Activate(int index);
-
-        void Clear(bool dispose);
     }
 
-    public interface IUiList<T> : IUiList, IList<UiListCell<T>>
+    public interface IUiList<T> : IUiList, IReadOnlyList<UiListCell<T>>
     {
         event UiListEventHandler<T>? OnSelected;
         event UiListEventHandler<T>? OnActivated;
 
         public IUiListCell<T>? SelectedCell { get; }
 
-        void SetAll(IEnumerable<UiListCell<T>> items, bool dispose = true);
+        void SetCells(IEnumerable<UiListCell<T>> items, bool dispose = true);
+        void CreateAndSetCells(IEnumerable<T> items);
     }
 }

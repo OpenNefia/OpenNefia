@@ -32,5 +32,20 @@ namespace OpenNefia.Content.Skills
             return EnumerateAllAttributes()
                 .Where(skill => !_nonBaseAttributes.Contains(skill.GetStrongID()));
         }
+
+        /// <inheritdoc/>
+        public IEnumerable<SkillPrototype> EnumerateRegularSkills()
+        {
+            return _protos.EnumeratePrototypes<SkillPrototype>()
+                .Where(skillProto => skillProto.SkillType == SkillType.Skill
+                                  || skillProto.SkillType == SkillType.SkillAction);
+        }
+
+        /// <inheritdoc/>
+        public IEnumerable<SkillPrototype> EnumerateWeaponProficiencies()
+        {
+            return _protos.EnumeratePrototypes<SkillPrototype>()
+                .Where(skillProto => skillProto.SkillType == SkillType.WeaponProficiency);
+        }
     }
 }

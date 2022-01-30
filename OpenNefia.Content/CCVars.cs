@@ -15,5 +15,21 @@ namespace OpenNefia.Content
     [CVarDefs]
     public sealed class CCVars : CVars
     {
+        /*
+         * Anime
+         */
+
+        public static readonly CVarDef<float> AnimeAlertWait =
+            CVarDef.Create("anime.alertWait", 0.5f);
+
+        /*
+         * Debug
+         */
+
+        public static readonly CVarDef<bool> DebugShowDetailedSkillPower =
+            CVarDef.Create("debug.showDetailedSkillPower", false, CVar.Archive);
+
+        public static readonly CVarDef<bool> DebugShowDetailedResistPower =
+            CVarDef.Create("debug.showDetailedResistPower", false, CVar.Archive);
     }
 }

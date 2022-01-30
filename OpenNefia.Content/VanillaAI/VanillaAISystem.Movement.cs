@@ -195,7 +195,7 @@ namespace OpenNefia.Content.VanillaAI
                         {
                             if (_movement.SwapPlaces(entity, onCell))
                             {
-                                _mes.DisplayIfLos(entity, Loc.GetString("Elona.AI.Swap.Displace", ("chara", entity), ("onCell", onCell)));
+                                _mes.Display(Loc.GetString("Elona.AI.Swap.Displace", ("chara", entity), ("onCell", onCell)), entity: entity);
                                 // TODO activity
                             }
                         }

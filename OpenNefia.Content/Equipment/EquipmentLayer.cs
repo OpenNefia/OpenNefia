@@ -342,8 +342,7 @@ namespace OpenNefia.Content.Equipment
         {
             var listData = BuildListData(_equipTarget);
 
-            List.Clear();
-            List.AddRange(listData.Select(d => new ListCell(d, _spriteBatch)));
+            List.SetCells(listData.Select(d => new ListCell(d, _spriteBatch)));
 
             TextNoteEquipStats.Text = MakeEquipStatsText(_equipTarget);
             Window.KeyHints = MakeKeyHints();

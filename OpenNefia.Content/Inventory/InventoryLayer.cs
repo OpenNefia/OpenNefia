@@ -355,8 +355,7 @@ namespace OpenNefia.Content.Inventory
 
             var index = List.SelectedIndex;
 
-            List.Clear();
-            List.AddRange(filtered.Select(e => new InventoryEntryCell(e, _itemSpriteBatch)));
+            List.SetCells(filtered.Select(e => new InventoryEntryCell(e, _itemSpriteBatch)));
 
             List.SelectedIndex = index;
 

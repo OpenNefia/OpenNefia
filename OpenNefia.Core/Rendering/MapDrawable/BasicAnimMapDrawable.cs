@@ -25,7 +25,7 @@ namespace OpenNefia.Core.Rendering
             this.BasicAnim = _protos.Index(basicAnimId);
             var asset = _protos.Index(BasicAnim.Asset);
 
-            var animeWait = _config.GetCVar(CVars.AnimeWait);
+            var animeWait = _config.GetCVar(CVars.AnimeAnimationWait);
             var maxFrames = asset.CountX;
             if (this.BasicAnim.FrameCount != null)
                 maxFrames = this.BasicAnim.FrameCount.Value;

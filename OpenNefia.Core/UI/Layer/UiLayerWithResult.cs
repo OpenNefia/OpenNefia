@@ -50,9 +50,7 @@ namespace OpenNefia.Core.UI.Layer
             var manager = IoCManager.Resolve<ILocalizationManager>();
             LocaleScope = new LocaleScope(manager, key);
 
-            manager.DoLocalize(this, key);
-
-            IsLocalized = true;
+            base.Localize(key);
         }
     }
 }

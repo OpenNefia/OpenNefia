@@ -272,6 +272,19 @@ namespace OpenNefia.Core.UI.Element
         {
             IoCManager.Resolve<ILocalizationManager>().DoLocalize(this, key);
             IsLocalized = true;
+            LocalizeChildren();
+        }
+
+        protected void LocalizeChildren()
+        {
+            foreach (var child in Children)
+            {
+                if (child.GetType().TryGetCustomAttribute<LocalizeAttribute>(out var attr))
+                {
+                    child.Localize(attr.RootLocaleKey ?? throw new ArgumentNullException($"[Localize] attribute declared on type {child.GetType()} had no locale key declared."));
+                }
+                child.LocalizeChildren();
+            }
         }
 
         /// <summary>

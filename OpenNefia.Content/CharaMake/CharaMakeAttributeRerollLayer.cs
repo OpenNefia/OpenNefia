@@ -66,7 +66,7 @@ namespace OpenNefia.Content.CharaMake
         {
             [Child] private UiText LockedText;
             [Child] private UiText AmountText;
-            [Child] private AttributeIcon Icon;
+            [Child] private AttributeIcon? Icon;
 
             public AttributeRerollCell(AttributeRerollData data)
                 : base(data, new UiText(UiFonts.ListText))
@@ -80,7 +80,7 @@ namespace OpenNefia.Content.CharaMake
                 {
                     default:
                     case AttributeRerollData.ListChoice choice:
-                        Icon = new AttributeIcon(null);
+                        Icon = null;
                         break;
                     case AttributeRerollData.Attribute attr:
                         attr.AmountText = AmountText;
@@ -98,7 +98,7 @@ namespace OpenNefia.Content.CharaMake
             public override void SetPosition(float x, float y)
             {
                 base.SetPosition(x, y);
-                Icon.SetPosition(x + 150, y + 9);
+                Icon?.SetPosition(x + 150, y + 9);
                 AmountText.SetPosition(x + 162, y);
                 LockedText.SetPosition(x + 185, y + 3);
             }
@@ -108,7 +108,7 @@ namespace OpenNefia.Content.CharaMake
                 base.Draw();
                 if (Data is AttributeRerollData.Attribute attr && attr.Locked)
                     LockedText.Draw();
-                Icon.Draw();
+                Icon?.Draw();
                 AmountText.Draw();
             }
         }
@@ -210,7 +210,6 @@ namespace OpenNefia.Content.CharaMake
         private void Reset()
         {
             LockCount = 2;
-            List.Clear();
             var data = _skillsSys.EnumerateBaseAttributes()
                 .Select(skillProto =>
                 {
@@ -224,7 +223,7 @@ namespace OpenNefia.Content.CharaMake
                 new AttributeRerollCell(new AttributeRerollData.ListChoice(AttributeRerollChoice.Reroll)),
                 new AttributeRerollCell(new AttributeRerollData.ListChoice(AttributeRerollChoice.Proceed)),
             });
-            List.AddRange(data);
+            List.SetCells(data);
         }
 
         private void Reroll(bool playSound = true)

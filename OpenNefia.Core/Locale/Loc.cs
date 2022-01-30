@@ -50,11 +50,19 @@ namespace OpenNefia.Core.Locale
             return text;
         }
 
+        public static string? GetPrototypeStringOpt<T>(T proto, LocaleKey keySuffix, params LocaleArg[] args)
+            where T : class, IPrototype
+            => GetPrototypeStringOpt(proto.GetStrongID(), keySuffix, args);
+
         public static string? GetPrototypeStringOpt<T>(PrototypeId<T> protoId, LocaleKey keySuffix, params LocaleArg[] args)
             where T : class, IPrototype
         {
             return _localization.GetPrototypeString(protoId, keySuffix, args);
         }
+
+        public static string GetPrototypeString<T>(T proto, LocaleKey keySuffix, params LocaleArg[] args)
+            where T : class, IPrototype
+            => GetPrototypeString(proto.GetStrongID(), keySuffix, args);
 
         public static string GetPrototypeString<T>(PrototypeId<T> protoId, LocaleKey keySuffix, params LocaleArg[] args)
             where T : class, IPrototype
@@ -70,6 +78,14 @@ namespace OpenNefia.Core.Locale
         public static LocaleScope MakeScope(LocaleKey keyPrefix)
         {
             return new LocaleScope(_localization, keyPrefix);
+        }
+
+        /// <summary>
+        /// For use with <see cref="LocalizeAttribute"/>.
+        /// </summary>
+        public static LocaleScope MakeScope()
+        {
+            return MakeScope(LocaleKey.Empty);
         }
     }
 }

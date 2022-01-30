@@ -99,7 +99,7 @@ namespace OpenNefia.Content.UI.Layer
 
         public override void Initialize(Args args)
         {
-            List.SetFrom(args.Choices);
+            List.CreateAndSetCells(args.Choices);
             DefaultWidth = args.Width;
             IsCancellable = args.IsCancellable;
             QueryText = args.QueryText;

@@ -292,7 +292,7 @@ namespace OpenNefia.Content.CharaMake
             base.Initialize(args);
             AllData = GetData().Select(x => new RaceClassCell(x)).ToArray();
             Window.KeyHints = MakeKeyHints();
-            List.SetAll(AllData);
+            List.SetCells(AllData);
 
             SelectData(AllData.First().Data);
         }

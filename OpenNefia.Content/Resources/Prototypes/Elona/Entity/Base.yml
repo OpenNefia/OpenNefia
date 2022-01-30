@@ -33,8 +33,6 @@
   - type: VanillaAI
   - type: Buffs
   - type: Sanity
-  - type: Karma
-  - type: Fame
   - type: Wallet
   - type: GuildMember
   - type: GodFollower

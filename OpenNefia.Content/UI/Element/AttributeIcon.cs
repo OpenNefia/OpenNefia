@@ -9,39 +9,63 @@ using System.Text;
 using System.Threading.Tasks;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Core.Maths;
+using OpenNefia.Core.Utility;
 
 namespace OpenNefia.Content.UI.Element
 {
     public class AttributeIcon : UiElement
     {
-        private const string FallbackIcon = "2";
-        private readonly Dictionary<PrototypeId<SkillPrototype>, string> _attributes = new()
+        public static class Regions
         {
-            { Protos.Skill.AttrStrength, "0" },
-            { Protos.Skill.AttrConstitution, "1" },
-            { Protos.Skill.AttrDexterity, "2" },
-            { Protos.Skill.AttrPerception, "3" },
-            { Protos.Skill.AttrLearning, "4" },
-            { Protos.Skill.AttrWill, "5" },
-            { Protos.Skill.AttrMagic, "6" },
-            { Protos.Skill.AttrCharisma, "7" }
+#pragma warning disable format
+            public const string IconStrength     = "0";
+            public const string IconConstitution = "1";
+            public const string IconDexterity    = "2";
+            public const string IconPerception   = "3";
+            public const string IconLearning     = "4";
+            public const string IconWill         = "5";
+            public const string IconMagic        = "6";
+            public const string IconCharisma     = "7";
 
+            public const string IconResistance   = "11";
+#pragma warning restore format
+        }
+
+        private static readonly Dictionary<PrototypeId<SkillPrototype>, string> _attributes = new()
+        {
+#pragma warning disable format
+            { Protos.Skill.AttrStrength,      Regions.IconStrength },
+            { Protos.Skill.AttrConstitution,  Regions.IconConstitution },
+            { Protos.Skill.AttrDexterity,     Regions.IconDexterity },
+            { Protos.Skill.AttrPerception,    Regions.IconPerception },
+            { Protos.Skill.AttrLearning,      Regions.IconLearning },
+            { Protos.Skill.AttrWill,          Regions.IconWill },
+            { Protos.Skill.AttrMagic,         Regions.IconMagic },
+            { Protos.Skill.AttrCharisma,      Regions.IconCharisma }
+#pragma warning restore format
         };
+
         private IAssetInstance AssetAttributeIcons;
-        private PrototypeId<SkillPrototype>? Type;
+        private string? _regionId;
 
         public AttributeIcon(PrototypeId<SkillPrototype>? type)
         {
             AssetAttributeIcons = Assets.Get(Protos.Asset.AttributeIcons);
-            Type = type;
+            _regionId = type != null ? _attributes.GetValueOrDefault(type.Value) : null;
+        }
+
+        public AttributeIcon(string regionId)
+        {
+            AssetAttributeIcons = Assets.Get(Protos.Asset.AttributeIcons);
+            _regionId = regionId;
         }
 
         public override void Draw()
         {
             base.Draw();
             GraphicsEx.SetColor(Color.White);
-            if (Type != null && _attributes.TryGetValue(Type.Value, out var iconId))
-                AssetAttributeIcons.DrawRegionUnscaled($"{iconId ?? FallbackIcon}", PixelX, PixelY, centered: true);
+            if (_regionId != null)
+                AssetAttributeIcons.DrawRegion(UIScale, _regionId, X, Y, centered: true);
         }
 
         public override void GetPreferredSize(out Vector2 size)

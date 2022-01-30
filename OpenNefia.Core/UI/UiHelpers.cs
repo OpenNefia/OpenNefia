@@ -28,7 +28,8 @@ namespace OpenNefia.Core.UI
                 var child = info.GetValue(parent);
                 if (child is not UiElement childElem)
                 {
-                    Logger.WarningS("ui", $"Could not add child '{info.Name}' ({child}) to parent {nameof(UiElement)} {parent}");
+                    if (child != null)
+                        Logger.WarningS("ui", $"Could not add child '{info.Name}' ({child}) to parent {nameof(UiElement)} {parent}");
                     continue;
                 }
 
@@ -136,6 +137,31 @@ namespace OpenNefia.Core.UI
             }
 
             entry.Asset.Draw(uiScale, entry.BarQuad, pos.X, pos.Y, drawSize.X, drawSize.Y);
+        }
+
+        public static string FormatPowerText(int grade, bool noBrackets = false)
+        {
+            grade = Math.Abs(grade);
+            var gradeUnit = Loc.GetString("Elona.UI.Misc.PowerLevel");
+            var s = string.Empty;
+
+            for (int i = 0; i < grade; i++)
+            {
+                if (i >= 4)
+                {
+                    s += "+";
+                    break;
+                }
+
+                s += gradeUnit;
+            }
+
+            if (!noBrackets)
+            {
+                s = "[" + s + "]";
+            }
+
+            return s;
         }
     }
 }

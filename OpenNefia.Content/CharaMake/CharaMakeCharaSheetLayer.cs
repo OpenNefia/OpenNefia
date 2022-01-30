@@ -19,6 +19,9 @@ using OpenNefia.Core.Log;
 using OpenNefia.Content.UI;
 using OpenNefia.Content.CharaInfo;
 using OpenNefia.Core.Graphics;
+using OpenNefia.Content.Karma;
+using OpenNefia.Content.Fame;
+using OpenNefia.Content.Sleep;
 
 namespace OpenNefia.Content.CharaMake
 {
@@ -59,6 +62,14 @@ namespace OpenNefia.Content.CharaMake
             Sounds.Play(Sound.Chara);
         }
 
+        private void AddPlayerOnlyComponents(EntityUid playerEntity)
+        {
+            EntityManager.EnsureComponent<PlayerComponent>(playerEntity);
+            EntityManager.EnsureComponent<KarmaComponent>(playerEntity);
+            EntityManager.EnsureComponent<FameComponent>(playerEntity);
+            EntityManager.EnsureComponent<SleepExperienceComponent>(playerEntity);
+        }
+
         private EntityUid CreatePlayerEntity(IEnumerable<ICharaMakeLayer> steps)
         {
             var globalMap = _mapManager.CreateMap(1, 1, MapId.Global);
@@ -79,7 +90,7 @@ namespace OpenNefia.Content.CharaMake
             var customName = EntityManager.EnsureComponent<CustomNameComponent>(playerEntity);
             customName.CustomName = "????";
 
-            EntityManager.EnsureComponent<PlayerComponent>(playerEntity);
+            AddPlayerOnlyComponents(playerEntity);
 
             _entityGen.FireGeneratedEvent(playerEntity);
 

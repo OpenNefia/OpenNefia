@@ -144,7 +144,7 @@ namespace OpenNefia.Content.TitleScreen
                 .OrderByDescending(save => save.LastWriteTime)
                 .Select(save => new RestoreSaveUICell(new RestoreSaveCellData(save)));
 
-            List.SetAll(cells);
+            List.SetCells(cells);
 
             Window.KeyHints = MakeKeyHints();
         }

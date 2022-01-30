@@ -252,14 +252,24 @@ namespace OpenNefia.Content.UI.Element.List
             HandleActivate(new UiListEventArgs<T>(DisplayedCells[index], index));
         }
 
-        public virtual void SetAll(IEnumerable<UiListCell<T>> items, bool dispose = true)
+        public virtual void SetCells(IEnumerable<UiListCell<T>> items, bool dispose = true)
         {
             var index = SelectedIndex;
-            Clear(dispose);
-            AddRange(items);
+            if (dispose)
+            {
+                foreach (var cell in AllCells)
+                    cell.Dispose();
+            }
+            AllCells.Clear();
+            AllCells.AddRange(items);
             if (DisplayedCells.Count > 0)
                 Select(Math.Clamp(index, 0, DisplayedCells.Count - 1));
             UpdateAllCells();
+        }
+
+        public void CreateAndSetCells(IEnumerable<T> items)
+        {
+            SetCells(MakeDefaultList(items));
         }
 
         #endregion
@@ -356,7 +366,7 @@ namespace OpenNefia.Content.UI.Element.List
 
         #endregion
 
-        #region IList implementation
+        #region IReadOnlyList implementation
 
         public int Count => AllCells.Count;
         public bool IsReadOnly => AllCells.IsReadOnly;
@@ -375,58 +385,8 @@ namespace OpenNefia.Content.UI.Element.List
             return AllCells.IndexOf(item);
         }
 
-        public void Insert(int index, UiListCell<T> item)
-        {
-            AllCells.Insert(index, item);
-            _needsUpdate = true;
-        }
-
-        public void RemoveAt(int index)
-        {
-            var cell = AllCells[index];
-            cell.Dispose();
-            AllCells.RemoveAt(index);
-            _needsUpdate = true;
-        }
-
-        public void Add(UiListCell<T> item)
-        {
-            AllCells.Add(item);
-            _needsUpdate = true;
-        }
-
-        public void Clear() => Clear(true);
-        public void Clear(bool dispose)
-        {
-            if (dispose)
-            {
-                foreach (var cell in AllCells)
-                    cell.Dispose();
-            }
-
-            AllCells.Clear();
-            _needsUpdate = true;
-        }
-
-        public void AddRange(IEnumerable<UiListCell<T>> items)
-        {
-            AllCells.AddRange(items);
-            _needsUpdate = true;
-        }
-
-        public void SetFrom(IEnumerable<T> items)
-        {
-            Clear();
-            AddRange(MakeDefaultList(items));
-        }
-
         public bool Contains(UiListCell<T> item) => AllCells.Contains(item);
         public void CopyTo(UiListCell<T>[] array, int arrayIndex) => AllCells.CopyTo(array, arrayIndex);
-        public bool Remove(UiListCell<T> item)
-        {
-            _needsUpdate = true;
-            return AllCells.Remove(item);
-        }
 
         public bool IsFixedSize => false;
         public bool IsSynchronized => false;

@@ -148,8 +148,7 @@ namespace OpenNefia.Content.CharaMake
                 items[i] = new CreateCharaAliasCell(new CreateCharaAliasData(alias, isReroll: false, isLocked: isLocked), alias);
             }
 
-            List.Clear();
-            List.AddRange(items);
+            List.SetCells(items);
         }
 
         private void SetLock(CreateCharaAliasData data)
