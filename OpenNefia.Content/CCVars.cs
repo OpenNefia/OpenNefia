@@ -20,7 +20,7 @@ namespace OpenNefia.Content
          */
 
         public static readonly CVarDef<float> AnimeAlertWait =
-            CVarDef.Create("anime.alertWait", 0.5f);
+            CVarDef.Create("anime.alertWait", 0.0f);
 
         /*
          * Debug
@@ -31,5 +31,8 @@ namespace OpenNefia.Content
 
         public static readonly CVarDef<bool> DebugShowDetailedResistPower =
             CVarDef.Create("debug.showDetailedResistPower", false, CVar.Archive);
+
+        public static readonly CVarDef<bool> DebugUnlimitedSkillPoints =
+            CVarDef.Create("debug.unlimitedSkillPoints", false, CVar.Archive | CVar.Cheat);
     }
 }

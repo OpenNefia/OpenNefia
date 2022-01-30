@@ -9,6 +9,10 @@ using OpenNefia.Content.Levels;
 
 namespace OpenNefia.Content.Tests.Skills
 {
+    /// <summary>
+    /// The values in this test originate from a mocked version of 1.22.
+    /// (except character experience gain, which is randomized)
+    /// </summary>
     [TestFixture, Parallelizable]
     [TestOf(typeof(SkillsSystem))]
     public class SkillsSystem_Tests : OpenNefiaUnitTest

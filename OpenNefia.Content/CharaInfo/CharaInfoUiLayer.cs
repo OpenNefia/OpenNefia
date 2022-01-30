@@ -3,6 +3,7 @@ using OpenNefia.Content.UI;
 using OpenNefia.Content.UI.Element.List;
 using OpenNefia.Core;
 using OpenNefia.Core.Audio;
+using OpenNefia.Core.Configuration;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Graphics;
 using OpenNefia.Core.Input;
@@ -20,6 +21,7 @@ namespace OpenNefia.Content.CharaInfo
         [Dependency] private readonly IGraphics _graphics = default!;
         [Dependency] private readonly IEntityManager _entityManager = default!;
         [Dependency] private readonly ISkillsSystem _skills = default!;
+        [Dependency] private readonly IConfigurationManager _config = default!;
 
         [Child] private UiKeyHintBar KeyHintBar = new();
         [Child] private CharaInfoPagesControl CharaInfoPages = new();
@@ -75,14 +77,18 @@ namespace OpenNefia.Content.CharaInfo
             if (!_entityManager.TryGetComponent(_charaEntity, out SkillsComponent skills))
                 return;
 
-            if (skills.BonusPoints <= 0)
+            var unlimited = _config.GetCVar(CCVars.DebugUnlimitedSkillPoints);
+
+            if (skills.BonusPoints <= 0 && !unlimited)
                 return;
 
             if (_skills.HasSkill(_charaEntity, skill.SkillPrototype, skills))
             {
                 Sounds.Play(Sound.Spend1);
                 _skills.ApplyBonusPoint(_charaEntity, skill.SkillPrototype.GetStrongID(), skills);
-                skills.BonusPoints--;
+
+                if (!unlimited)
+                    skills.BonusPoints--;
                 
                 CharaInfoPages.RefreshFromEntity();
             }

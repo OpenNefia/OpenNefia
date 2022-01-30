@@ -50,16 +50,6 @@ namespace OpenNefia.Core.Locale
             return text;
         }
 
-        public static string? GetPrototypeStringOpt<T>(T proto, LocaleKey keySuffix, params LocaleArg[] args)
-            where T : class, IPrototype
-            => GetPrototypeStringOpt(proto.GetStrongID(), keySuffix, args);
-
-        public static string? GetPrototypeStringOpt<T>(PrototypeId<T> protoId, LocaleKey keySuffix, params LocaleArg[] args)
-            where T : class, IPrototype
-        {
-            return _localization.GetPrototypeString(protoId, keySuffix, args);
-        }
-
         public static string GetPrototypeString<T>(T proto, LocaleKey keySuffix, params LocaleArg[] args)
             where T : class, IPrototype
             => GetPrototypeString(proto.GetStrongID(), keySuffix, args);
@@ -73,6 +63,21 @@ namespace OpenNefia.Core.Locale
         public static string GetPrototypeStringRaw(Type prototypeType, string prototypeID, LocaleKey keySuffix, params LocaleArg[] args)
         {
             return _localization.GetPrototypeStringRaw(prototypeType, prototypeID, keySuffix, args);
+        }
+
+        public static bool TryGetPrototypeString<T>(T proto, LocaleKey keySuffix, [NotNullWhen(true)] out string? str, params LocaleArg[] args)
+            where T : class, IPrototype
+            => TryGetPrototypeString(proto.GetStrongID(), keySuffix, out str, args);
+
+        public static bool TryGetPrototypeString<T>(PrototypeId<T> protoId, LocaleKey key, [NotNullWhen(true)] out string? str, params LocaleArg[] args)
+            where T : class, IPrototype
+        {
+            return _localization.TryGetPrototypeString(protoId, key, out str, args);
+        }
+
+        public static bool TryGetPrototypeStringRaw(Type prototypeType, string prototypeID, LocaleKey keySuffix, [NotNullWhen(true)] out string? str, LocaleArg[] args)
+        {
+            return _localization.TryGetPrototypeStringRaw(prototypeType, prototypeID, keySuffix, out str, args);
         }
 
         public static LocaleScope MakeScope(LocaleKey keyPrefix)
