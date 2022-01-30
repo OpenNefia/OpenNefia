@@ -78,12 +78,12 @@ OpenNefia.Prototypes.Elona.ConfigMenuItem.Elona = {
         Name = "アニメ設定",
     },
 
-    AlertWait = {
+    AnimeAlertWait = {
         Name = "アラートウェイト",
         Description = "重要なメッセージが表示された際のウェイトの長さです。",
     },
 
-    AnimeWait = {
+    AnimeAnimationWait = {
         Name = "アニメウェイト",
         Description = "アニメーションの長さです。",
         Formatter = "config.common.formatter.wait", -- TODO

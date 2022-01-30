@@ -66,7 +66,8 @@ namespace OpenNefia.Tests
             return false;
         }
 
-        string ILocalizationFetcher.GetPrototypeString<T>(PrototypeId<T> protoId, LocaleKey key, params LocaleArg[] args)
+        public string GetPrototypeString<T>(PrototypeId<T> protoId, LocaleKey key, params LocaleArg[] args)
+            where T: class, IPrototype
         {
             return string.Empty;
         }
@@ -74,6 +75,19 @@ namespace OpenNefia.Tests
         public string GetPrototypeStringRaw(Type prototypeType, string prototypeID, LocaleKey keySuffix, LocaleArg[] args)
         {
             return string.Empty;
+        }
+
+        public bool TryGetPrototypeString<T>(PrototypeId<T> protoId, LocaleKey key, [NotNullWhen(true)] out string? str, params LocaleArg[] args)
+            where T : class, IPrototype
+        {
+            str = null;
+            return false;
+        }
+
+        public bool TryGetPrototypeStringRaw(Type prototypeType, string prototypeID, LocaleKey keySuffix, [NotNullWhen(true)] out string? str, LocaleArg[] args)
+        {
+            str = null;
+            return false;
         }
     }
 }

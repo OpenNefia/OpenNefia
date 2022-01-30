@@ -23,6 +23,12 @@ namespace OpenNefia.Content.Parties
         /// Returns true if this entity is in the player's party.
         /// </summary>
         bool IsInPlayerParty(EntityUid entity, PartyComponent? party = null);
+
+        /// <summary>
+        /// Creates a <see cref="PartyComponent"/> on the given entity if it doesn't exist,
+        /// sets the leader to the given entity, and ensures they are a member of the party.
+        /// </summary>
+        PartyComponent EnsurePartyAndSetLeader(EntityUid entity);
     }
 
     public class PartySystem : EntitySystem, IPartySystem
@@ -44,10 +50,23 @@ namespace OpenNefia.Content.Parties
 
         public bool IsInPlayerParty(EntityUid entity, PartyComponent? party = null)
         {
+            if (_gameSession.IsPlayer(entity))
+                return true;
+
             if (!Resolve(entity, ref party, logMissing: false))
                 return false;
 
             return party.Leader != null && party.Leader == _gameSession.Player;
+        }
+
+        public PartyComponent EnsurePartyAndSetLeader(EntityUid entity)
+        {
+            var parties = EntityManager.EnsureComponent<PartyComponent>(entity);
+
+            parties.Leader = entity;
+            parties.Members.Add(entity);
+
+            return parties;
         }
     }
 }

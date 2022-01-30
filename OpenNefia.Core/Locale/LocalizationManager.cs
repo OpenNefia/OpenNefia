@@ -1,12 +1,9 @@
 ﻿using OpenNefia.Core.IoC;
-using OpenNefia.Core.Locale;
-using OpenNefia.Core.UI;
 using OpenNefia.Core.Utility;
 using System.Reflection;
 using NLua;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.ContentPack;
-using OpenNefia.Core.UI.Layer;
 using System.Buffers;
 using OpenNefia.Core.Random;
 using OpenNefia.Core.Log;
@@ -16,7 +13,6 @@ using System.Diagnostics.CodeAnalysis;
 using OpenNefia.Core.UserInterface;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Timing;
-using Microsoft.CodeAnalysis;
 using OpenNefia.Core.Configuration;
 using System.Collections.Immutable;
 using System.Collections.Concurrent;
@@ -30,6 +26,9 @@ namespace OpenNefia.Core.Locale
         string GetPrototypeString<T>(PrototypeId<T> protoId, LocaleKey key, params LocaleArg[] args)
             where T: class, IPrototype;
         string GetPrototypeStringRaw(Type prototypeType, string prototypeID, LocaleKey keySuffix, LocaleArg[] args);
+        bool TryGetPrototypeString<T>(PrototypeId<T> protoId, LocaleKey key, [NotNullWhen(true)] out string? str, params LocaleArg[] args)
+            where T : class, IPrototype;
+        bool TryGetPrototypeStringRaw(Type prototypeType, string prototypeID, LocaleKey keySuffix, [NotNullWhen(true)] out string? str, LocaleArg[] args);
     }
 
     public delegate void LanguageSwitchedDelegate(PrototypeId<LanguagePrototype> newLanguage);
@@ -228,6 +227,16 @@ namespace OpenNefia.Core.Locale
         {
             var protoTypeId = prototypeType.GetCustomAttribute<PrototypeAttribute>()!.Type;
             return GetString(new LocaleKey($"OpenNefia.Prototypes.{protoTypeId}.{prototypeID}").With(keySuffix), args);
+        }
+
+        public bool TryGetPrototypeString<T>(PrototypeId<T> protoId, LocaleKey key, [NotNullWhen(true)] out string? str, params LocaleArg[] args)
+            where T : class, IPrototype
+            => TryGetPrototypeStringRaw(typeof(T), (string)protoId, key, out str, args);
+
+        public bool TryGetPrototypeStringRaw(Type prototypeType, string prototypeID, LocaleKey keySuffix, [NotNullWhen(true)] out string? str, LocaleArg[] args)
+        {
+            var protoTypeId = prototypeType.GetCustomAttribute<PrototypeAttribute>()!.Type;
+            return TryGetString(new LocaleKey($"OpenNefia.Prototypes.{protoTypeId}.{prototypeID}").With(keySuffix), out str, args);
         }
 
         public bool IsFullwidth()

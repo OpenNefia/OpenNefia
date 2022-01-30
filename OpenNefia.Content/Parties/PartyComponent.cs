@@ -23,7 +23,7 @@ namespace OpenNefia.Content.Parties
         /// The leader themselves are also a member.
         /// </remarks>
         [DataField]
-        public List<EntityUid> Members { get; } = new();
+        public SortedSet<EntityUid> Members { get; } = new();
 
         /// <summary>
         /// Party leader entity that is leading this entity, if any.

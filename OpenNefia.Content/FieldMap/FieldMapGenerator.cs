@@ -79,7 +79,8 @@ namespace OpenNefia.Content.FieldMap
             }
 
             var metaData = _entMan.EnsureComponent<MetaDataComponent>(map.MapEntityUid);
-            metaData.DisplayName = Loc.GetPrototypeStringOpt(FieldMap, "Name");
+            if (Loc.TryGetPrototypeString(FieldMap, "Name", out var name))
+                metaData.DisplayName = name;
 
             // TODO create_junk_items()
 

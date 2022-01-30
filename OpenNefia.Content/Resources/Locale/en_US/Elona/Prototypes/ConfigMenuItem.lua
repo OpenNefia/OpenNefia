@@ -80,12 +80,12 @@ OpenNefia.Prototypes.Elona.ConfigMenuItem.Elona = {
         Name = "Animation Setting",
     },
 
-    AlertWait = {
+    AnimeAlertWait = {
         Name = "Alert Wait",
         Description = "Number of frames to wait if an important message is received.\nThese are: leveling up, leveling up a skill, or having a change in hunger status.\n",
     },
 
-    AnimationWait = {
+    AnimeAnimationWait = {
         Name = "Animation Wait",
         Description = "Number of frames to wait for animations.\nThis also acts as multiplier for the speed of auto-turn actions.\n",
         Formatter = "config.common.formatter.wait", -- TODO

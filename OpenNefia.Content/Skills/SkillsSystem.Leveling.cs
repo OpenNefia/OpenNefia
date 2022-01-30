@@ -201,11 +201,9 @@ namespace OpenNefia.Content.Skills
                 case SkillChangeType.Decreased:
                     keySuffix = "OnDecrease";
                     break;
-
             }
 
-            var text = Loc.GetPrototypeStringOpt(skillProto, keySuffix, ("entity", entity));
-            if (text != null)
+            if (Loc.TryGetPrototypeString(skillProto, keySuffix, out var text, ("entity", entity)))
                 return text;
 
             var skillName = Loc.GetPrototypeString(skillProto, "Name");

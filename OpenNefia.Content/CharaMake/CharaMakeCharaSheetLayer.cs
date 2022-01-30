@@ -22,6 +22,7 @@ using OpenNefia.Core.Graphics;
 using OpenNefia.Content.Karma;
 using OpenNefia.Content.Fame;
 using OpenNefia.Content.Sleep;
+using OpenNefia.Content.Parties;
 
 namespace OpenNefia.Content.CharaMake
 {
@@ -33,6 +34,7 @@ namespace OpenNefia.Content.CharaMake
         [Dependency] private readonly ISaveGameSerializer _saveSerializer = default!;
         [Dependency] private readonly IRandomNameGenerator _randomNames = default!;
         [Dependency] private readonly IGraphics _graphics = default!;
+        [Dependency] private readonly IPartySystem _parties = default!;
 
         private EntityUid _playerEntity;
 
@@ -89,6 +91,8 @@ namespace OpenNefia.Content.CharaMake
 
             var customName = EntityManager.EnsureComponent<CustomNameComponent>(playerEntity);
             customName.CustomName = "????";
+
+            _parties.EnsurePartyAndSetLeader(playerEntity);
 
             AddPlayerOnlyComponents(playerEntity);
 
