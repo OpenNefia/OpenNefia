@@ -2,6 +2,8 @@
 using OpenNefia.Core.Input;
 using OpenNefia.Core.UI;
 using OpenNefia.Core.UI.Element;
+using OpenNefia.Core.UserInterface;
+using static OpenNefia.Content.CharaAppearance.CharaAppearanceList;
 using static OpenNefia.Content.Prototypes.Protos;
 
 namespace OpenNefia.Content.UI.Element
@@ -30,12 +32,27 @@ namespace OpenNefia.Content.UI.Element
         {
             CurrentPage = 0;
             SetElements(children);
+
+            EventFilter = UIEventFilterMode.Pass;
+            OnKeyBindDown += HandleKeyBindDown;
         }
 
         public override void GrabFocus()
         {
             base.GrabFocus();
             CurrentElement?.GrabFocus();
+        }
+
+        private void HandleKeyBindDown(GUIBoundKeyEventArgs evt)
+        {
+            if (evt.Function == EngineKeyFunctions.UIPreviousPage)
+            {
+                PageBackward();
+            }
+            else if (evt.Function != EngineKeyFunctions.UINextPage)
+            {
+                PageForward();
+            }
         }
 
         public override List<UiKeyHint> MakeKeyHints()
@@ -81,7 +98,7 @@ namespace OpenNefia.Content.UI.Element
             {
                 if (elem is IUiPaged elemPaged)
                 {
-                    for (int childPage = 0; childPage < elemPaged.PageCount; childPage++)
+                    for (int childPage = 0; childPage < elemPaged.PageCount + 1; childPage++)
                     {
                         _parentPagesToChildPages.Add(PageCount, new PageMapping(elem, childPage));
                         PageCount++;

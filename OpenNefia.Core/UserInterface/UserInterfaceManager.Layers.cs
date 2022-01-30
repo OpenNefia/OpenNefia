@@ -210,6 +210,8 @@ namespace OpenNefia.Core.UserInterface
                 UiHelpers.AddChildrenFromAttributesRecursive(elem);
 
             EntitySystem.InjectDependencies(layer);
+            if (!layer.IsLocalized)
+                layer.Localize();
         }
 
         public UiResult<TResult> Query<TResult, TLayer, TArgs>(TLayer layer, TArgs args)
@@ -230,11 +232,6 @@ namespace OpenNefia.Core.UserInterface
             else
             {
                 layer.ZOrder = (CurrentLayer?.ZOrder ?? 0) + 1000;
-            }
-
-            if (!layer.IsLocalized)
-            {
-                layer.Localize();
             }
 
             layer.Result = null;

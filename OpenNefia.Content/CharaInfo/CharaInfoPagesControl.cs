@@ -9,12 +9,13 @@ using OpenNefia.Core.UI.Element;
 namespace OpenNefia.Content.CharaInfo
 {
     /// <summary>
-    /// Contains a <see cref="CharaSheetControl"/> and the pages containing
+    /// Contains a <see cref="CharaSheetControl"/> and the <see cref="SkillsListControl"/> containing
     /// skill/resistance info.
     /// </summary>
     public sealed class CharaInfoPagesControl : UiElement
     {
-        private CharaSheetControl Sheet = new();
+        public CharaSheetControl CharaSheet { get; } = new();
+        public SkillsListControl SkillsList { get; } = new();
         [Child] private UiPagedContainer Pages;
 
         public event PageChangedDelegate? OnPageChanged
@@ -25,10 +26,9 @@ namespace OpenNefia.Content.CharaInfo
 
         public CharaInfoPagesControl()
         {
-            Pages = new UiPagedContainer(new[] { Sheet });
+            Pages = new UiPagedContainer(new UiElement[] { CharaSheet, SkillsList });
 
             Pages.OnPageChanged += HandlePageChanged;
-            OnKeyBindDown += HandleKeyBindDown;
         }
 
         public override void GrabFocus()
@@ -39,30 +39,20 @@ namespace OpenNefia.Content.CharaInfo
 
         public void Initialize(EntityUid charaEntity)
         {
-            Sheet.Initialize(charaEntity);
+            CharaSheet.Initialize(charaEntity);
+            SkillsList.Initialize(charaEntity);
         }
 
         public void RefreshFromEntity()
         {
-            Sheet.RefreshFromEntity();
+            CharaSheet.RefreshFromEntity();
+            SkillsList.RefreshFromEntity();
             Pages.RecalculatePageCount();
         }
 
         private void HandlePageChanged(int newPage, int newPageCount)
         {
             Pages.GrabFocus();
-        }
-
-        private void HandleKeyBindDown(GUIBoundKeyEventArgs evt)
-        {
-            if (evt.Function == EngineKeyFunctions.UIPreviousPage)
-            {
-                Pages.PageBackward();
-            }
-            else if (evt.Function != EngineKeyFunctions.UINextPage)
-            {
-                Pages.PageForward();
-            }
         }
 
         public override List<UiKeyHint> MakeKeyHints()
@@ -72,7 +62,7 @@ namespace OpenNefia.Content.CharaInfo
 
         public override void GetPreferredSize(out Vector2 size)
         {
-            Sheet.GetPreferredSize(out size);
+            CharaSheet.GetPreferredSize(out size);
         }
 
         public override void SetPosition(float x, float y)

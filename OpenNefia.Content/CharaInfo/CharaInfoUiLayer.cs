@@ -1,4 +1,6 @@
-﻿using OpenNefia.Content.UI;
+﻿using OpenNefia.Content.Skills;
+using OpenNefia.Content.UI;
+using OpenNefia.Content.UI.Element.List;
 using OpenNefia.Core;
 using OpenNefia.Core.Audio;
 using OpenNefia.Core.GameObjects;
@@ -6,6 +8,7 @@ using OpenNefia.Core.Graphics;
 using OpenNefia.Core.Input;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Maths;
+using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.UI;
 using OpenNefia.Core.UI.Element;
 using static OpenNefia.Content.Prototypes.Protos;
@@ -15,6 +18,8 @@ namespace OpenNefia.Content.CharaInfo
     public sealed class CharaInfoUiLayer : CharaGroupUiLayer
     {
         [Dependency] private readonly IGraphics _graphics = default!;
+        [Dependency] private readonly IEntityManager _entityManager = default!;
+        [Dependency] private readonly ISkillsSystem _skills = default!;
 
         [Child] private UiKeyHintBar KeyHintBar = new();
         [Child] private CharaInfoPagesControl CharaInfoPages = new();
@@ -24,6 +29,7 @@ namespace OpenNefia.Content.CharaInfo
         public CharaInfoUiLayer()
         {
             CharaInfoPages.OnPageChanged += HandlePagesPageChanged;
+            CharaInfoPages.SkillsList.OnListItemActivated += HandleSkillsListItemActivated;
 
             OnKeyBindDown += HandleKeyBindDown;
         }
@@ -58,6 +64,31 @@ namespace OpenNefia.Content.CharaInfo
             {
                 // TODO wear equipment flag
                 Finish(new());
+            }
+        }
+
+        private void HandleSkillsListItemActivated(object? sender, UiListEventArgs<SkillsListControl.SkillsListEntry> e)
+        {
+            if (e.SelectedCell.Data is not SkillsListControl.SkillsListEntry.Skill skill)
+                return;
+
+            if (!_entityManager.TryGetComponent(_charaEntity, out SkillsComponent skills))
+                return;
+
+            if (skills.BonusPoints <= 0)
+                return;
+
+            if (_skills.HasSkill(_charaEntity, skill.SkillPrototype, skills))
+            {
+                Sounds.Play(Sound.Spend1);
+                _skills.ApplyBonusPoint(_charaEntity, skill.SkillPrototype.GetStrongID(), skills);
+                skills.BonusPoints--;
+                
+                CharaInfoPages.RefreshFromEntity();
+            }
+            else
+            {
+                Sounds.Play(Sound.Fail1);
             }
         }
 

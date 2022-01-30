@@ -24,7 +24,7 @@ namespace OpenNefia.Content.UI.Element
             set
             {
                 _font = value;
-                RebakeText();
+                ReallocateText();
             }
         }
 

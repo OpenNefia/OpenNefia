@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OpenNefia.Core.Utility;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -11,17 +12,23 @@ namespace OpenNefia.Core.Locale
     {
         public void DoLocalize(object o, LocaleKey key)
         {
-            foreach (var field in o.GetType().GetLocalizableFields())
+            foreach (var field in o.GetType().GetAllPropertiesAndFields())
             {
-                DoLocalizeField(o, key, field);
+                if (field.TryGetAttribute<LocalizeAttribute>(out var fieldAttr))
+                    DoLocalizeField(o, key, field, fieldAttr);
             }
         }
 
-        private void DoLocalizeField(object? o, LocaleKey baseKey, FieldInfo field)
+        private void DoLocalizeField(object? o, LocaleKey baseKey, AbstractFieldInfo field, LocalizeAttribute fieldAttr)
         {
-            var attr = field.GetCustomAttribute<LocalizeAttribute>();
+            string keyFrag = fieldAttr?.RootLocaleKey ?? field.Name;
+            var nextKey = baseKey.With(keyFrag);
 
-            string keyFrag = attr?.RootLocaleKey ?? field.Name;
+            // Override the field's [Localize] attribute if [Localize] is declared on the field's type.
+            if (field.GetType().TryGetCustomAttribute<LocalizeAttribute>(out var typeAttr))
+            {
+                nextKey = typeAttr.RootLocaleKey ?? throw new ArgumentNullException($"[Localize] attribute declared on type {field.GetType()} had no locale key declared.");
+            }
 
             if (typeof(ILocalizable).IsAssignableFrom(field.FieldType))
             {
@@ -29,8 +36,6 @@ namespace OpenNefia.Core.Locale
                 localizable.Localize(baseKey.With(keyFrag));
                 return;
             }
-
-            var nextKey = baseKey.With(keyFrag);
 
             if (field.FieldType == typeof(string))
             {
@@ -54,7 +59,7 @@ namespace OpenNefia.Core.Locale
             }
         }
 
-        private void LocalizeDictionary(FieldInfo field, LocaleKey localeKey)
+        private void LocalizeDictionary(AbstractFieldInfo field, LocaleKey localeKey)
         {
             var luaTable = _lua.GetTable("_Collected." + localeKey);
 

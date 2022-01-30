@@ -19,11 +19,13 @@ namespace OpenNefia.Core.Locale
     /// Assert.That(str1, Is.EqualTo(str2));
     /// </code>
     /// </summary>
-    public class LocaleScope : ILocalizationFetcher
+    public class LocaleScope : ILocalizationFetcher, ILocalizable
     {
         private readonly ILocalizationManager _localizationManager;
 
-        public LocaleKey KeyPrefix { get; }
+        public LocaleKey KeyPrefix { get; private set; }
+
+        public bool IsLocalized { get; private set; } = false;
 
         public LocaleScope(ILocalizationManager localizationManager)
             : this(localizationManager, LocaleKey.Empty)
@@ -55,6 +57,12 @@ namespace OpenNefia.Core.Locale
         public string GetPrototypeStringRaw(Type prototypeType, string prototypeID, LocaleKey keySuffix, LocaleArg[] args)
         {
             return _localizationManager.GetPrototypeStringRaw(prototypeType, prototypeID, keySuffix, args);
+        }
+
+        public void Localize(LocaleKey key)
+        {
+            KeyPrefix = key.GetParent();
+            IsLocalized = true;
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using OpenNefia.Content.CharaInfo;
 using OpenNefia.Content.ConfigMenu;
 using OpenNefia.Content.Equipment;
+using OpenNefia.Content.GameController;
 using OpenNefia.Content.Input;
 using OpenNefia.Content.Journal;
 using OpenNefia.Content.Logic;
@@ -135,7 +136,7 @@ namespace OpenNefia.Content.GameObjects
             var save = _saveGameManager.CurrentSave!;
 
             // Step one frame to get a screenshot without modals.
-            StepFrame();
+            _gameController.StepFrame();
 
             // Put the screenshot in the temp files first.
             SaveScreenshot(save);
@@ -230,33 +231,12 @@ namespace OpenNefia.Content.GameObjects
             ConfigMenuHelpers.QueryDefaultConfigMenu(_protos, _uiManager, _config);
         }
 
-        private void Wait(float time)
-        {
-            var remaining = time;
-
-            while (remaining > 0f)
-            {
-                var dt = StepFrame();
-                remaining -= dt;
-            }
-        }
-
-        private float StepFrame()
-        {
-            var dt = Love.Timer.GetDelta();
-            var frameArgs = new FrameEventArgs(dt);
-            _gameController.Update(frameArgs);
-            _gameController.Draw();
-            _gameController.SystemStep();
-            return dt;
-        }
-
         private void ReturnToTitle(IGameSessionManager gameSession)
         {
             QuickSaveGame(gameSession);
             _mes.Display(Loc.GetString("Elona.UserInterface.Exit.Saved"));
             _playerQuery.PromptMore();
-            Wait(0.3f);
+            _gameController.Wait(0.3f);
 
             _field.Cancel();
         }
@@ -267,7 +247,7 @@ namespace OpenNefia.Content.GameObjects
             _mes.Display(Loc.GetString("Elona.UserInterface.Exit.Saved"));
             _mes.Display(Loc.GetString("Elona.UserInterface.Exit.YouCloseYourEyes", ("entity", gameSession.Player!)));
             _playerQuery.PromptMore();
-            Wait(0.3f);
+            _gameController.Wait(0.3f);
 
             _gameController.Shutdown();
         }

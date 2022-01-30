@@ -77,8 +77,8 @@ namespace OpenNefia.Core
          * Anime
          */
 
-        public static readonly CVarDef<float> AnimeWait =
-            CVarDef.Create("anime.wait", 20f);
+        public static readonly CVarDef<float> AnimeAnimationWait =
+            CVarDef.Create("anime.animationWait", 0.2f);
 
         /*
          * Audio

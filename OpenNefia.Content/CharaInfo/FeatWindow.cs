@@ -176,7 +176,6 @@ namespace OpenNefia.Content.CharaInfo
 
         public void RefreshData(FeatPrototype? lastSelected = null)
         {
-            List.Clear();
             var data = new List<FeatCell>();
             var prototypes = _prototypeManager.EnumeratePrototypes<FeatPrototype>().Where(x => x.FeatType == FeatType.Feat);
             var featCount = Behavior.GetNumberOfFeatsAcquirable();
@@ -206,7 +205,8 @@ namespace OpenNefia.Content.CharaInfo
             data.AddRange(gainedFeats
                 .Select(x => new FeatCell(new FeatNameAndDesc.GainedFeat(x.Key.ResolvePrototype(), x.Value.Level.Base)))
                 .OrderBy(x => (x.Data as FeatNameAndDesc.GainedFeat)?.Prototype.FeatType));
-            List.AddRange(data);
+
+            List.SetCells(data);
 
             if (lastSelected != null)
             {

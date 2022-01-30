@@ -48,7 +48,7 @@ namespace OpenNefia.Content.CharaMake
 
         public CharaMakeGenderSelectLayer()
         {
-            List.AddRange(new[] 
+            List.SetCells(new[] 
             {
                 new GenderCell(Gender.Male),
                 new GenderCell(Gender.Female),

@@ -1,0 +1,3 @@
+Elona.UI.Misc = {
+    PowerLevel = "#",
+}

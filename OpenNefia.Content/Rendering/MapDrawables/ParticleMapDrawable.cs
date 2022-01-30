@@ -30,23 +30,23 @@ namespace OpenNefia.Content.Rendering
         private Particle[] Particles;
         private FrameCounter Counter;
 
-        public ParticleMapDrawable(PrototypeId<AssetPrototype> asset, PrototypeId<SoundPrototype>? sound, float rotationVariance = -1f, float? wait = null)
+        public ParticleMapDrawable(PrototypeId<AssetPrototype> asset, PrototypeId<SoundPrototype>? sound, float rotationVariance = -1f, float? waitSecs = null)
         {
             var rand = IoCManager.Resolve<IRandom>();
 
-            if (wait == null)
-                wait = IoCManager.Resolve<IConfigurationManager>().GetCVar(CCVars.AnimeWait);
+            if (waitSecs == null)
+                waitSecs = IoCManager.Resolve<IConfigurationManager>().GetCVar(CCVars.AnimeAnimationWait);
 
             this.AssetParticle = Assets.Get(asset);
             this.Sound = sound;
             this.RotationVariance = rotationVariance;
-            this.AnimeWait = wait.Value;
+            this.AnimeWait = waitSecs.Value;
             var coords = GameSession.Coords;
             this.Particles = Enumerable.Range(0, 15)
                 .Select(_ => new Particle(new Vector2i(rand.Next(coords.TileSize.X), rand.Next(coords.TileSize.Y)),
                                           rand.Next(4) + 1 * rotationVariance))
                 .ToArray();
-            this.Counter = new FrameCounter(wait.Value, 10);
+            this.Counter = new FrameCounter(waitSecs.Value, 10);
         }
 
         public override void OnEnqueue()

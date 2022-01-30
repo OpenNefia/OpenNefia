@@ -13,7 +13,7 @@
 
         public LocaleKey With(string other)
         {
-            if (this.Key == string.Empty)
+            if (Key == string.Empty)
             {
                 return new LocaleKey(other);
             }
@@ -21,7 +21,19 @@
             return new LocaleKey(Key + "." + other);
         }
 
-        public override string ToString() => this.Key;
+        public LocaleKey GetParent()
+        {
+            if (Key == String.Empty)
+                return Empty;
+
+            int index = Key.LastIndexOf(".");
+            if (index < 0)
+                return Empty;
+
+            return new LocaleKey(Key.Substring(0, index));
+        }
+
+        public override string ToString() => Key;
 
         public static implicit operator string(LocaleKey key) => key.Key;
         public static implicit operator LocaleKey(string key) => new LocaleKey(key);

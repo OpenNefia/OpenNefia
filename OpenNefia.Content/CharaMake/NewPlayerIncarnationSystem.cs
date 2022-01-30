@@ -48,7 +48,7 @@ namespace OpenNefia.Content.CharaMake
             _entityGen.SpawnEntity(Item.BottleOfCrimAle, inventory.Container, count: 2);
 
             var skills = EntityManager.EnsureComponent<SkillsComponent>(uid);
-            if (_skills.Level(skills, Skill.Literacy) == 0)
+            if (_skills.Level(uid, Skill.Literacy, skills) == 0)
                 _entityGen.SpawnEntity(Item.PotionOfCureMinorWound, inventory.Container, count: 3);
 
             // TODO class inits

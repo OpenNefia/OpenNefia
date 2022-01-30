@@ -4,7 +4,7 @@ namespace OpenNefia.Core.Rendering
 {
     public class FrameCounter
     {
-        public float FrameDelayMillis;
+        public float FrameDelaySecs;
         public uint MaxFrames;
 
         private float Dt = 0f;
@@ -12,16 +12,16 @@ namespace OpenNefia.Core.Rendering
         public uint FrameInt { get => (uint)Frame; }
         public bool IsFinished { get => Frame >= MaxFrames; }
 
-        public FrameCounter(float delayMillis, uint maxFrames)
+        public FrameCounter(float delaySecs, uint maxFrames)
         {
-            FrameDelayMillis = delayMillis;
+            FrameDelaySecs = delaySecs;
             MaxFrames = maxFrames;
         }
         
         public void Update(float dt)
         {
-            Dt += dt * 1000f;
-            Frame = Math.Clamp((Dt / FrameDelayMillis), 0f, (float)MaxFrames);
+            Dt += dt;
+            Frame = Math.Clamp((Dt / FrameDelaySecs), 0f, (float)MaxFrames);
         }
     }
 }

@@ -15,7 +15,7 @@ namespace OpenNefia.Content.Skills
     /// Since max HP/MP/stamina are calculated from stats, I can't really see the benefit of separating the two.
     /// </remarks>
     [RegisterComponent]
-    public class SkillsComponent : Component
+    public sealed class SkillsComponent : Component
     {
         public override string Name => "Skills";
 
@@ -97,5 +97,60 @@ namespace OpenNefia.Content.Skills
         /// </summary>
         [DataField]
         public int TotalBonusPointsEarned { get; set; } = 0;
+
+        public LevelAndPotential Ensure(PrototypeId<SkillPrototype> protoId)
+        {
+            if (Skills.TryGetValue(protoId, out var level))
+                return level;
+
+            return new LevelAndPotential()
+            {
+                Level = new(0)
+            };
+        }
+
+        public bool TryGetKnown(SkillPrototype proto, [NotNullWhen(true)] out LevelAndPotential? level)
+            => TryGetKnown(proto.GetStrongID(), out level);
+        public bool TryGetKnown(PrototypeId<SkillPrototype> protoId, [NotNullWhen(true)] out LevelAndPotential? level)
+        {
+            if (!Skills.TryGetValue(protoId, out level))
+            {
+                return false;
+            }
+
+            if (level.Level.Base <= 0)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        public int Level(SkillPrototype proto) => Level(proto.GetStrongID());
+        public int Level(PrototypeId<SkillPrototype> id)
+        {
+            if (!TryGetKnown(id, out var level))
+                return 0;
+
+            return level.Level.Buffed;
+        }
+
+        public int BaseLevel(SkillPrototype proto) => BaseLevel(proto.GetStrongID());
+        public int BaseLevel(PrototypeId<SkillPrototype> id)
+        {
+            if (!TryGetKnown(id, out var level))
+                return 0;
+
+            return level.Level.Base;
+        }
+
+        public int Potential(SkillPrototype proto) => Potential(proto.GetStrongID());
+        public int Potential(PrototypeId<SkillPrototype> id)
+        {
+            if (!TryGetKnown(id, out var level))
+                return 0;
+
+            return level.Potential;
+        }
     }
 }

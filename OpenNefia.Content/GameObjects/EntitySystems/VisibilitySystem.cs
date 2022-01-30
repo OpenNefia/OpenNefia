@@ -1,4 +1,5 @@
-﻿using OpenNefia.Core.Game;
+﻿using Love;
+using OpenNefia.Core.Game;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Maps;
@@ -7,6 +8,12 @@ namespace OpenNefia.Content.GameObjects
 {
     public interface IVisibilitySystem : IEntitySystem
     {
+        /// <summary>
+        /// Returns true if the tile this entity is on is within the visible bounds of the
+        /// game window. Does not do any invisibility checks.
+        /// </summary>
+        bool IsInWindowFov(EntityUid target, SpatialComponent? spatial = null);
+
         /// <summary>
         /// Returns true if the entity has line of sight to the position of the target.
         /// Ignores invisibility checks.
@@ -31,6 +38,17 @@ namespace OpenNefia.Content.GameObjects
     {
         [Dependency] private readonly IMapManager _mapManager = default!;
         [Dependency] private readonly IGameSessionManager _gameSession = default!;
+
+        public bool IsInWindowFov(EntityUid target, SpatialComponent? spatial = null)
+{
+            if (!Resolve(target, ref spatial))
+                return false;
+
+            if (!_mapManager.TryGetMap(spatial.MapID, out var map))
+                return false;
+
+            return map.IsInWindowFov(spatial.WorldPosition);
+        }
 
         public bool HasLineOfSight(EntityUid onlooker, EntityUid target,
             SpatialComponent? onlookerSpatial = null,

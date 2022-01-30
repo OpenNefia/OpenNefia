@@ -72,10 +72,12 @@ namespace OpenNefia.Content.ConfigMenu
 
         public override void Initialize(Args args)
         {
+            var cells = new List<BaseConfigMenuUICell>();
             foreach (var child in args.Submenu.Items)
             {
-                List.Add(_cellFactory.CreateUICellFor(child));
+                cells.Add(_cellFactory.CreateUICellFor(child));
             }
+            List.SetCells(cells);
 
             _menuSize = args.Submenu.MenuSize;
             _protoId = args.PrototypeId;

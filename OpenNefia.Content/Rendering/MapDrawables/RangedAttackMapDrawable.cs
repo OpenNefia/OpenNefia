@@ -52,7 +52,7 @@ namespace OpenNefia.Content.Rendering
             if (_startPos.TryDistanceTiled(_endPos, out var dist)) {
                 maxFrames = (int)dist / 2 + 1;
             }
-            _counter = new FrameCounter(_config.GetCVar(CCVars.AnimeWait), (uint)maxFrames);
+            _counter = new FrameCounter(_config.GetCVar(CCVars.AnimeAnimationWait), (uint)maxFrames);
         }
 
         public override void OnThemeSwitched()
