@@ -24,7 +24,7 @@ namespace OpenNefia.Content.Dialog
         public override string GetFormatText(DialogContextData context)
         {
             var nameSys = EntitySystem.Get<IDisplayNameSystem>();
-            return nameSys?.GetDisplayName(GameSession.Player) ?? string.Empty;
+            return nameSys?.GetBaseName(GameSession.Player) ?? string.Empty;
         }
     }
 
