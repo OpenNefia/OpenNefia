@@ -1,5 +1,6 @@
 ﻿using OpenNefia.Content.Prototypes;
 using OpenNefia.Core.Maths;
+using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Core.UI.Element;
 using static OpenNefia.Core.Rendering.AssetInstance;
@@ -14,12 +15,14 @@ namespace OpenNefia.Content.UI.Element
             Shadow
         }
 
+        private PrototypeId<AssetPrototype> ProtoId;
         private IAssetInstance? AssetWindow;
         private Love.SpriteBatch? Batch;
         private WindowBackingType Type;
 
-        public UiWindowBacking(WindowBackingType type = WindowBackingType.Normal)
+        public UiWindowBacking(PrototypeId<AssetPrototype> protoId, WindowBackingType type = WindowBackingType.Normal)
         {
+            ProtoId = protoId;
             Type = type;
         }
 
@@ -68,7 +71,7 @@ namespace OpenNefia.Content.UI.Element
                 parts.Add(new AssetBatchPart($"mid_right_{tile_y}", x_inner, dy * 8 + 0 + 48));
             }
 
-            AssetWindow = Assets.GetSized(Protos.Asset.Window, PixelSize);
+            AssetWindow = Assets.GetSized(ProtoId, PixelSize);
             Batch = AssetWindow.MakeBatch(parts);
         }
 

@@ -16,6 +16,9 @@ namespace OpenNefia.Content.UI
         public static readonly Color WindowBottomLine1 = new(194, 170, 146, 255);
         public static readonly Color WindowBottomLine2 = new(234, 220, 188, 255);
 
+        public static readonly Color ScrollBottomLine1 = new(194, 173, 161, 255);
+        public static readonly Color ScrollBottomLine2 = new(224, 213, 191, 255);
+
         public static readonly Color TopicWindowStyle0 = new(255, 255, 255, 255);
         public static readonly Color TopicWindowStyle1 = new(60, 50, 60, 255);
         public static readonly Color TopicWindowStyle2 = new(45, 40, 50, 255);
