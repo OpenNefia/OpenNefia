@@ -17,7 +17,7 @@ namespace OpenNefia.Content.UI.Element.Containers
         {
             float yOffset = 0, xOffset = 0;
             float yMax = 0, xTotal = 0;
-            foreach (var child in Entries)
+            foreach (var child in _entries)
             {
                 switch (child.Type)
                 {
