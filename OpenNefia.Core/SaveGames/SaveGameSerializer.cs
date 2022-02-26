@@ -32,7 +32,7 @@ namespace OpenNefia.Core.SaveGames
     /// </summary>
     public interface ISaveGameSerializer
     {
-        event GameSavedDelegate OnGameSaved;
+        event GameSavedDelegate BeforeGameSaved;
         event GameLoadedDelegate OnGameLoaded;
         event SaveDataInitializeDelegate OnSaveDataInitialize;
 
@@ -127,7 +127,7 @@ namespace OpenNefia.Core.SaveGames
 
         public const string SawmillName = "save.game";
 
-        public event GameSavedDelegate? OnGameSaved;
+        public event GameSavedDelegate? BeforeGameSaved;
         public event GameLoadedDelegate? OnGameLoaded;
         public event SaveDataInitializeDelegate? OnSaveDataInitialize;
 
@@ -165,17 +165,27 @@ namespace OpenNefia.Core.SaveGames
             {
                 if (_entitySystemManager.TryGetEntitySystem(type, out var sys))
                 {
-                    foreach (var info in sys.GetType().GetAllPropertiesAndFields())
-                    {
-                        if (info.TryGetAttribute(out RegisterSaveDataAttribute? attr))
-                        {
-                            var value = info.GetValue(sys);
-                            if (value == null)
-                                throw new InvalidDataException($"Expected non-nullable reference for save data '{attr.Key}', got null.");
+                    RegisterSaveDataFromFields(sys);
+                }
+            }
 
-                            RegisterSaveData(attr.Key, info, sys);
-                        }
-                    }
+            foreach (var instance in IoCManager.Instance!.Services.Values)
+            {
+                RegisterSaveDataFromFields(instance);
+            }
+        }
+
+        private void RegisterSaveDataFromFields(object instance)
+        {
+            foreach (var info in instance.GetType().GetAllPropertiesAndFields())
+            {
+                if (info.TryGetAttribute(out RegisterSaveDataAttribute? attr))
+                {
+                    var value = info.GetValue(instance);
+                    if (value == null)
+                        throw new InvalidDataException($"Expected non-nullable reference for save data '{attr.Key}', got null.");
+
+                    RegisterSaveData(attr.Key, info, instance);
                 }
             }
         }
@@ -202,9 +212,9 @@ namespace OpenNefia.Core.SaveGames
             {
                 throw new ArgumentException($"Save data reference '{key}' was already registered (type: {ty})", nameof(key));
             }
-            if (!_serializationManager.HasDataDefinition(ty))
+            if (!_serializationManager.CanSerializeType(ty))
             {
-                throw new ArgumentException($"Type '{ty}' does not have a data definition.", nameof(ty));
+                throw new ArgumentException($"Type '{ty}' cannot be serialized.", nameof(ty));
             }
 
             Logger.DebugS(SawmillName, $"Registering global save data: {key} ({ty})");
@@ -254,10 +264,10 @@ namespace OpenNefia.Core.SaveGames
         /// <inheritdoc/>
         public void SaveGame(ISaveGameHandle save)
         {
+            BeforeGameSaved?.Invoke(save);
+
             SaveGlobalData(save);
             SaveSession(save);
-
-            OnGameSaved?.Invoke(save);
 
             save.Files.Commit();
             save.LastWriteTime = DateTime.Now;

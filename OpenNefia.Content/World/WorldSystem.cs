@@ -181,12 +181,6 @@ namespace OpenNefia.Content.World
         public GameDateTime InitialDate { get; set; } = DefaultDate;
 
         /// <summary>
-        /// Amount of real time the player has played the game.
-        /// </summary>
-        [DataField]
-        public TimeSpan PlayTime { get; set; }
-
-        /// <summary>
         /// Number of in-game minutes that have passed across all maps so far.
         /// </summary>
         [DataField]

@@ -210,6 +210,18 @@ namespace OpenNefia.Core.Serialization.Manager
             return DataDefinitions.TryGetValue(type, out _);
         }
 
+        public bool CanSerializeType(Type type)
+        {
+            var hasTypeSerializer =
+                _typeWriters.ContainsKey(type)
+                    && _typeReaders.Keys.Select(v => v.Type).Contains(type)
+                    && _typeComparers.ContainsKey(type)
+                    && _typeValidators.Keys.Select(v => v.Type).Contains(type)
+                    && _typeCopiers.ContainsKey(type);
+
+            return HasDataDefinition(type) || hasTypeSerializer || type.IsArray;
+        }
+
         public ValidationNode ValidateNode(Type type, DataNode node, ISerializationContext? context = null)
         {
             var underlyingType = type.EnsureNotNullableType();

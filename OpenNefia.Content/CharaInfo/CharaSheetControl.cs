@@ -32,6 +32,7 @@ using OpenNefia.Content.Input;
 using static OpenNefia.Content.Prototypes.Protos;
 using OpenNefia.Content.CharaAppearance;
 using OpenNefia.Core.Audio;
+using System.Xml.Linq;
 
 namespace OpenNefia.Content.CharaInfo
 {
@@ -102,6 +103,7 @@ namespace OpenNefia.Content.CharaInfo
         [Dependency] private readonly ICargoSystem _cargoSys = default!;
         [Dependency] private readonly IDisplayNameSystem _displayNames = default!;
         [Dependency] private readonly IPrototypeManager _protos = default!;
+        [Dependency] private readonly IPlayTimeManager _playTime = default!;
 
         private const int SheetWidth = 700;
         private const int SheetHeight = 400;
@@ -122,6 +124,9 @@ namespace OpenNefia.Content.CharaInfo
         [Child] private UiContainer TraceContainer;
         [Child] private UiContainer ExtraContainer;
         [Child] private UiContainer RollsContainer;
+
+        private UiContainer PlayTimeContainer;
+        private UiText TextPlayTime;
 
         private EntityUid _charaEntity;
 
@@ -145,6 +150,12 @@ namespace OpenNefia.Content.CharaInfo
             TraceContainer = new UiVerticalContainer { YSpace = ContainerSpacing };
             ExtraContainer = new UiVerticalContainer { YSpace = ContainerSpacing };
             RollsContainer = new UiVerticalContainer { YSpace = ContainerSpacing };
+
+            TextPlayTime = new UiText(UiFonts.CharaSheetInfoContent);
+            PlayTimeContainer = new UiHorizontalContainer();
+            PlayTimeContainer.AddElement(new UiText(UiFonts.CharaSheetInfo, _locScope.GetString("Group.Trace.Time").WidePadRight(4)));
+            PlayTimeContainer.AddLayout(LayoutType.YOffset, -1);
+            PlayTimeContainer.AddElement(TextPlayTime);
 
             EventFilter = UIEventFilterMode.Pass;
             CanControlFocus = true;
@@ -373,9 +384,9 @@ namespace OpenNefia.Content.CharaInfo
             dict[_locScope.GetString("Group.Trace.Turns")] = $"{_locScope.GetString("Group.Trace.TurnsCounter", ("turns", _world.State.PlayTurns))}";
             dict[_locScope.GetString("Group.Trace.Days")] = $"{_locScope.GetString("Group.Trace.DaysCounter", ("days", traceDays))}";
             dict[_locScope.GetString("Group.Trace.Kills")] = _world.State.TotalKills.ToString();
-            dict[_locScope.GetString("Group.Trace.Time")] = _world.State.PlayTime.ToString();
             SetupContainer(TraceContainer, 4, dict);
             dict.Clear();
+            TraceContainer.AddElement(PlayTimeContainer);
 
             //
             // Extra
@@ -469,6 +480,23 @@ namespace OpenNefia.Content.CharaInfo
             RollsContainer.Relayout();
         }
 
+        public override void Update(float dt)
+        {
+            base.Update(dt);
+            FaceFrame.Update(dt);
+            NameContainer.Update(dt);
+            ClassContainer.Update(dt);
+            ExpContainer.Update(dt);
+            AttributeContainer.Update(dt);
+            SpecialStatContainer.Update(dt);
+            BlessingContainer.Update(dt);
+            TraceContainer.Update(dt);
+            ExtraContainer.Update(dt);
+            RollsContainer.Update(dt);
+
+            TextPlayTime.Text = _playTime.PrecisePlayTime.ToString(@"hh\:mm\:ss");
+        }
+
         public override void Draw()
         {
             base.Draw();
@@ -486,21 +514,6 @@ namespace OpenNefia.Content.CharaInfo
             TraceContainer.Draw();
             ExtraContainer.Draw();
             RollsContainer.Draw();
-        }
-
-        public override void Update(float dt)
-        {
-            base.Update(dt);
-            FaceFrame.Update(dt);
-            NameContainer.Update(dt);
-            ClassContainer.Update(dt);
-            ExpContainer.Update(dt);
-            AttributeContainer.Update(dt);
-            SpecialStatContainer.Update(dt);
-            BlessingContainer.Update(dt);
-            TraceContainer.Update(dt);
-            ExtraContainer.Update(dt);
-            RollsContainer.Update(dt);
         }
     }
 }
