@@ -10,6 +10,7 @@ namespace OpenNefia.Tests
 
         public Vector2 PreferredSize { get; set; } = new(800, 600);
         public Vector2 MinSize { get; set; } = new(800, 600);
+        public bool Visible { get; set; } = true;
 
         public bool IsInActiveLayerList()
         {

@@ -4,6 +4,7 @@ using OpenNefia.Content.Input;
 using OpenNefia.Content.UI;
 using OpenNefia.Core.Audio;
 using OpenNefia.Core.GameObjects;
+using OpenNefia.Core.Input;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.Prototypes;
@@ -43,8 +44,12 @@ namespace OpenNefia.Content.CharaInfo
             FeatWindow.GrabFocus();
         }
 
-        private void HandleKeyBindDown(GUIBoundKeyEventArgs obj)
+        private void HandleKeyBindDown(GUIBoundKeyEventArgs evt)
         {
+            if (evt.Function == EngineKeyFunctions.UICancel)
+            {
+                Finish(SharedSublayerResult);
+            }
         }
 
         public override List<UiKeyHint> MakeKeyHints()

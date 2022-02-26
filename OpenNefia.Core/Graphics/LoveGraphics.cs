@@ -262,6 +262,7 @@ namespace OpenNefia.Core.Graphics
         {
             Love.Graphics.SetLineStyle(Love.LineStyle.Rough);
             Love.Graphics.SetLineWidth(1);
+            Love.Graphics.SetDefaultFilter(Love.FilterMode.Linear, Love.FilterMode.Linear, 1);
             Love.Graphics.SetBackgroundColor(0f, 0f, 0f, 1f);
         }
 

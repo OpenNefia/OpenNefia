@@ -39,8 +39,8 @@ namespace OpenNefia.Core.Rendering
             y *= uiScale;
 
             var quadRect = tile.Quad.GetViewport();
-            var sx = 1f * uiScale;
-            var sy = 1f * uiScale;
+            var sx = uiScale;
+            var sy = uiScale;
 
             if (color != null)
             {
@@ -70,10 +70,10 @@ namespace OpenNefia.Core.Rendering
 
             var ox = 0f;
             var oy = 0f;
-            if (centered)
+            if (centered && false)
             {
-                ox = (float)ttw / 2;
-                oy = (float)tth / 2;
+                ox = ((float)ttw) / 2;
+                oy = ((float)tth) / 2;
             }
 
             _batch.Add(tile.Quad, x, y, MathUtil.DegreesToRadians(rotation), sx, sy, ox, oy);

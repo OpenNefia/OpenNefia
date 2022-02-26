@@ -24,7 +24,7 @@ namespace OpenNefia.Core.Rendering
 
         private List<TileSpecifier> _tileSpecs = new();
         private Dictionary<string, AtlasTile> _atlasTiles = new();
-        private ImageFilter _filter = new();
+        private ImageFilter _filter = new(Love.FilterMode.Nearest, Love.FilterMode.Linear, 1);
         private Dictionary<Love.Image, Love.SpriteBatch> _pendingQuads = new();
 
         private Love.Canvas _workCanvas;
@@ -171,6 +171,7 @@ namespace OpenNefia.Core.Rendering
             Love.Graphics.Clear();
             Love.Graphics.SetBlendMode(Love.BlendMode.Alpha);
             Love.Graphics.SetColor(Love.Color.White);
+            var oldFilter = GraphicsEx.GetDefaultFilter();
             GraphicsEx.SetDefaultFilter(_filter);
 
             foreach (var tile in _tileSpecs)
@@ -187,11 +188,13 @@ namespace OpenNefia.Core.Rendering
 
             var imageData = _workCanvas.NewImageData();
             var image = Love.Graphics.NewImage(imageData);
-            image.SetFilter(Love.FilterMode.Nearest, Love.FilterMode.Nearest, 1);
+            image.SetFilter(Love.FilterMode.Nearest, Love.FilterMode.Linear, 1);
 
             var tileAtlas = new TileAtlas(image, _atlasTiles);
 
             // WriteCachedAtlas(tileAtlas, imageData, hashString);
+
+            GraphicsEx.SetDefaultFilter(oldFilter);
 
             return tileAtlas;
         }

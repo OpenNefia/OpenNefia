@@ -33,7 +33,7 @@ namespace OpenNefia.Content.CharaInfo
     public class CharaGroupSublayerResult
     {
         /// <summary>
-        /// If true, the character changed equipment. This means the characters's
+        /// If true, the character changed equipment. This means the character's
         /// turn should be passed when the menu is exited.
         /// </summary>
         public bool ChangedEquipment { get; set; }
@@ -41,28 +41,12 @@ namespace OpenNefia.Content.CharaInfo
 
     public class CharaGroupUiLayer : GroupableUiLayer<CharaGroupSublayerArgs, CharaGroupSublayerResult>
     {
+        public CharaGroupSublayerResult SharedSublayerResult { get; set; } = default!;
+
         public CharaGroupUiLayer()
         {
             EventFilter = UIEventFilterMode.Pass;
             CanControlFocus = true;
-        }
-
-        protected virtual void OnKeyDown(GUIBoundKeyEventArgs args)
-        {
-            if (args.Function == EngineKeyFunctions.UICancel)
-                Cancel();
-        }
-
-        public override void OnQuery()
-        {
-            base.OnQuery();
-            OnKeyBindDown += OnKeyDown;
-        }
-
-        public override void OnQueryFinish()
-        {
-            base.OnQueryFinish();
-            OnKeyBindDown -= OnKeyDown;
         }
     }
 
@@ -80,7 +64,7 @@ namespace OpenNefia.Content.CharaInfo
                 Layers[args] = logType switch
                 {
                     CharaGroupSublayerArgs.CharaTab.CharaInfo => new CharaInfoUiLayer(),
-                    // CharaGroupSublayerArgs.CharaTab.Equipment => new EquipmentUiLayer(),
+                    CharaGroupSublayerArgs.CharaTab.Equipment => new EquipmentUiLayer(),
                     CharaGroupSublayerArgs.CharaTab.FeatInfo => new FeatInfoUiLayer(),
                     // TODO: add other group layers
                     _ => new CharaGroupUiLayer()
@@ -91,6 +75,19 @@ namespace OpenNefia.Content.CharaInfo
 
     public class CharaUiGroup : UiGroup<CharaGroupUiLayer, CharaUiGroupArgs, CharaGroupSublayerArgs, CharaGroupSublayerResult>
     {
+        public override void Initialize(CharaUiGroupArgs args)
+        {
+            base.Initialize(args);
+            
+            // for tracking equipment status
+            CharaGroupSublayerResult sharedResult = new();
+
+            foreach (var layer in Layers.Values)
+            {
+                layer.SharedSublayerResult = sharedResult;
+            }
+        }
+
         protected override AssetDrawable? GetIcon(CharaGroupSublayerArgs args)
         {
             var iconType = args.Type switch

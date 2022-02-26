@@ -79,7 +79,7 @@ namespace OpenNefia.Content.Equipment
 
             public EquipSlotInstance EquipSlot { get; set; }
             public string EquipSlotText { get; set; } = string.Empty;
-            public IUiElement? EquipSlotIcon { get; set; }
+            public UiElement? EquipSlotIcon { get; set; }
             public EntityUid? ItemEntityUid { get; set; }
             public Color ItemTextColor { get; set; }
             public string ItemNameText { get; set; } = string.Empty;
@@ -93,10 +93,11 @@ namespace OpenNefia.Content.Equipment
 
         public class ListCell : UiListCell<CellData>
         {
-            private IUiElement? Icon;
-            private readonly UiText TextEquipSlotName = new UiText(UiFonts.EquipmentEquipSlotName);
-            private readonly UiText TextSubtext = new UiText();
+            private UiElement? Icon;
+            [Child] private readonly UiText TextEquipSlotName = new UiText(UiFonts.EquipmentEquipSlotName);
+            [Child] private readonly UiText TextSubtext = new UiText();
 
+            // parented to layer and shared across all cells
             private readonly EntitySpriteBatch SpriteBatch;
 
             public ListCell(CellData data, EntitySpriteBatch spriteBatch) 
@@ -114,7 +115,13 @@ namespace OpenNefia.Content.Equipment
                 TextSubtext.Text = Data.ItemSubnameText;
                 TextEquipSlotName.Text = Data.EquipSlotText;
 
+                if (Icon != null)
+                    RemoveChild(Icon);
+
                 Icon = Data.EquipSlotIcon;
+
+                if (Icon != null)
+                    AddChild(Icon);
             }
 
             public override void SetPosition(float x, float y)
@@ -154,14 +161,13 @@ namespace OpenNefia.Content.Equipment
                 KeyNameText.Draw();
 
                 Icon?.Draw();
-                TextEquipSlotName.Draw();
 
                 TextEquipSlotName.Draw();
                 UiText.Draw();
                 TextSubtext.Draw();
 
                 if (Data.ItemEntityUid != null)
-                    SpriteBatch.Add(Data.ItemEntityUid.Value, PixelX + 12 + 28, PixelY + 10, centered: true);
+                    SpriteBatch.Add(Data.ItemEntityUid.Value, X + 12, Y - 14);
             }
 
             public override void Dispose()
@@ -180,9 +186,9 @@ namespace OpenNefia.Content.Equipment
         [Dependency] private readonly IStackSystem _stackSystem = default!;
         [Dependency] private readonly IPrototypeManager _protos = default!;
 
-        protected AssetDrawable AssetInventoryIcons;
-        protected AssetDrawable AssetDecoWearA;
-        protected AssetDrawable AssetDecoWearB;
+        [Child] protected AssetDrawable AssetInventoryIcons;
+        [Child] protected AssetDrawable AssetDecoWearA;
+        [Child] protected AssetDrawable AssetDecoWearB;
 
         /// <summary>
         /// "Category/Name"
@@ -206,12 +212,18 @@ namespace OpenNefia.Content.Equipment
         [Child] [Localize] protected UiWindow Window = new(keyHintXOffset: 64);
         [Child] protected UiPagedList<CellData> List = new(itemsPerPage: 14);
 
-        private EntitySpriteBatch _spriteBatch = new();
+        public delegate void EquippedDelegate(GotEquippedInMenuEvent ev);
+        public delegate void UnequippedDelegate();
+
+        public event EquippedDelegate? OnEquipped;
+        public event UnequippedDelegate? OnUnequipped;
+
+        [Child] private EntitySpriteBatch _spriteBatch = new();
 
         private EntityUid _equipee;
         private EntityUid _equipTarget;
 
-        private bool _changedEquipment = false;
+        public bool ChangedEquipment { get; private set; } = false;
 
         public EquipmentLayer()
         {
@@ -246,7 +258,7 @@ namespace OpenNefia.Content.Equipment
             if (args.Function == EngineKeyFunctions.UICancel)
             {
                 // Need to finish instead of cancel in case equipment was changed.
-                Finish(new Result(_changedEquipment));
+                Finish(new Result(ChangedEquipment));
             }
             else if (args.Function == ContentKeyFunctions.UIIdentify)
             {
@@ -300,6 +312,7 @@ namespace OpenNefia.Content.Equipment
             if (_equipSlots.TryUnequip(_equipee, _equipTarget, equipSlot, out var unequippedItem, placeInto: container, silent: false))
             {
                 Sounds.Play(Sound.Equip1);
+                OnUnequipped?.Invoke();
                 UpdateFromEquipTarget();
             }
             else
@@ -328,17 +341,18 @@ namespace OpenNefia.Content.Equipment
                 }
 
                 Sounds.Play(Sound.Equip1);
-                _changedEquipment = true;
+                ChangedEquipment = true;
 
                 // Display messages relating to curse state, weapon suitability, etc.
                 var ev = new GotEquippedInMenuEvent(_equipee, _equipTarget, equipSlot);
                 _entityManager.EventBus.RaiseLocalEvent(splitItem, ev);
+                OnEquipped?.Invoke(ev);
 
                 UpdateFromEquipTarget();
             }
         }
 
-        private void UpdateFromEquipTarget()
+        public void UpdateFromEquipTarget()
         {
             var listData = BuildListData(_equipTarget);
 

@@ -21,5 +21,16 @@ namespace OpenNefia.Core.Rendering
 
         [DataField]
         public int Anisotropy = 1;
+
+        public ImageFilter()
+        {
+        }
+
+        public ImageFilter(FilterMode min, FilterMode mag, int anisotropy)
+        {
+            Min = min;
+            Mag = mag;
+            Anisotropy = anisotropy;
+        }
     }
 }
