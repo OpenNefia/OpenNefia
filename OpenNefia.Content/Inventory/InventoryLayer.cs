@@ -124,7 +124,7 @@ namespace OpenNefia.Content.Inventory
                 UiText.Draw();
                 UiSubtext.Draw();
 
-                SpriteBatch.Add(Data.ItemEntityUid, PixelX - 21, PixelY + 11, color: Data.ChipColor, centered: true);
+                SpriteBatch.Add(Data.ItemEntityUid, X - 40, Y - 12, color: Data.ChipColor);
             }
 
             public override void Update(float dt)

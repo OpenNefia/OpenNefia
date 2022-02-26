@@ -35,7 +35,6 @@ namespace OpenNefia.Content.UI
     {
         public GroupableUiLayer()
         {
-
         }
     }
 
@@ -45,7 +44,7 @@ namespace OpenNefia.Content.UI
         where TResult : class
         where TLayer : GroupableUiLayer<TSublayerArgs, TResult>, new()
     {
-        private Dictionary<TSublayerArgs, TLayer> Layers = new();
+        protected Dictionary<TSublayerArgs, TLayer> Layers = new();
         private Dictionary<TSublayerArgs, UiText> Texts = new();
         private Dictionary<TSublayerArgs, AssetDrawable?> Icons = new();
         

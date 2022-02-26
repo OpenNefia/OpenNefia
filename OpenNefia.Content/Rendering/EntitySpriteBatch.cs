@@ -14,15 +14,15 @@ namespace OpenNefia.Content.Inventory
         private class Entry 
         {
             public MapObjectMemory Memory { get; set; }
-            public int X { get; set; }
-            public int Y { get; set; }
-            public int? Width { get; set; }
-            public int? Height { get; set; }
+            public float X { get; set; }
+            public float Y { get; set; }
+            public float? Width { get; set; }
+            public float? Height { get; set; }
             public Color Color { get; set; }
             public bool Centered { get; set; }
             public float Rotation { get; set; }
 
-            public Entry(MapObjectMemory memory, int x, int y, int? width, int? height, 
+            public Entry(MapObjectMemory memory, float x, float y, float? width, float? height, 
                 Color color, bool centered, float rotation)
             {
                 Memory = memory;
@@ -48,7 +48,7 @@ namespace OpenNefia.Content.Inventory
             _atlasBatch = new TileAtlasBatch(AtlasNames.Chip);
         }
 
-        public void Add(EntityUid entity, int x, int y, int? width = null, int? height = null, Color? color = null, bool centered = false, float rotation = 0f)
+        public void Add(EntityUid entity, float x, float y, float? width = null, float? height = null, Color? color = null, bool centered = false, float rotation = 0f)
         {
             color ??= Color.White;
 
@@ -73,7 +73,7 @@ namespace OpenNefia.Content.Inventory
 
             foreach (var entry in _entries)
             {
-                _atlasBatch.Add(1, entry.Memory.AtlasIndex, entry.X, entry.Y, entry.Width, entry.Height, 
+                _atlasBatch.Add(UIScale, entry.Memory.AtlasIndex, entry.X, entry.Y, entry.Width, entry.Height, 
                     entry.Color, entry.Centered, entry.Rotation);
             }
 

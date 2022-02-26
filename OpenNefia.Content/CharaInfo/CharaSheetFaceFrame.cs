@@ -1,6 +1,7 @@
 ﻿using OpenNefia.Content.Charas;
 using OpenNefia.Content.Inventory;
 using OpenNefia.Content.Rendering;
+using OpenNefia.Content.UI;
 using OpenNefia.Content.UI.Element;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
@@ -84,6 +85,6 @@ namespace OpenNefia.Content.CharaInfo
             WindowFrame.Draw();
             _portraitBatch.Draw(UIScale, WindowFrame.X + 4, WindowFrame.Y + 4);
             EntityBatch.Draw();
-        }
+        }   
     }
 }

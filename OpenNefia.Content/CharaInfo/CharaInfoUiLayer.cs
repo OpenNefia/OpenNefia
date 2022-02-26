@@ -64,8 +64,7 @@ namespace OpenNefia.Content.CharaInfo
         {
             if (evt.Function == EngineKeyFunctions.UICancel)
             {
-                // TODO wear equipment flag
-                Finish(new());
+                Finish(SharedSublayerResult);
             }
         }
 

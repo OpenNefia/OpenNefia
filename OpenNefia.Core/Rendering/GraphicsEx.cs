@@ -107,7 +107,13 @@ namespace OpenNefia.Core.Rendering
             throw new NotImplementedException();
         }
 
-        internal static void SetDefaultFilter(ImageFilter filter)
+        public static ImageFilter GetDefaultFilter()
+        {
+            Love.Graphics.GetDefaultFilter(out var min, out var mag, out var anisotropy);
+            return new ImageFilter(min, mag, anisotropy);
+        }
+
+        public static void SetDefaultFilter(ImageFilter filter)
         {
             Love.Graphics.SetDefaultFilter(filter.Min, filter.Mag, filter.Anisotropy);
         }
