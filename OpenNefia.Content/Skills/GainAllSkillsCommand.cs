@@ -29,7 +29,7 @@ namespace OpenNefia.Content.Skills
 
             var gained = 0;
 
-            foreach (var skill in _skills.EnumerateRegularSkills())
+            foreach (var skill in _skills.EnumerateRegularSkills().Concat(_skills.EnumerateWeaponProficiencies()))
             {
                 var skillId = skill.GetStrongID();
 

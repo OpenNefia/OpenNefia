@@ -1,4 +1,5 @@
 ﻿using OpenNefia.Core.Maths;
+using OpenNefia.Core.UI.Element;
 using Scancode = Love.Scancode;
 
 namespace OpenNefia.Core.Input
@@ -11,7 +12,7 @@ namespace OpenNefia.Core.Input
     /// but before key bind events are actually raised.
     /// This is necessary to allow UI system stuff to actually work correctly.
     /// </remarks>
-    public interface IRawInputControl
+    public interface IRawInputControl : IUiElement
     {
         /// <param name="guiRawEvent"></param>
         /// <returns>If true: all further key bind events should be blocked.</returns>

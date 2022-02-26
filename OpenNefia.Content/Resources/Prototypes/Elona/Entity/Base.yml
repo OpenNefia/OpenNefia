@@ -23,6 +23,7 @@
   - type: Level
   - type: Chara
   - type: Skills
+  - type: Resists
   - type: Feats
   - type: Spells
   - type: Faction

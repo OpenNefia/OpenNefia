@@ -31,6 +31,7 @@ using OpenNefia.Core.UserInterface;
 using OpenNefia.Content.Input;
 using static OpenNefia.Content.Prototypes.Protos;
 using OpenNefia.Content.CharaAppearance;
+using OpenNefia.Core.Audio;
 
 namespace OpenNefia.Content.CharaInfo
 {
@@ -102,8 +103,8 @@ namespace OpenNefia.Content.CharaInfo
         [Dependency] private readonly IDisplayNameSystem _displayNames = default!;
         [Dependency] private readonly IPrototypeManager _protos = default!;
 
-        public const int SheetWidth = 700;
-        public const int SheetHeight = 400;
+        private const int SheetWidth = 700;
+        private const int SheetHeight = 400;
         private const int ContainerSpacing = 4;
         private const int AttributeContainerSpacing = 6;
         private const int AttributeSpacing = 5;
@@ -157,6 +158,7 @@ namespace OpenNefia.Content.CharaInfo
                 var args = new CharaAppearanceLayer.Args(_charaEntity);
                 UserInterfaceManager.Query<CharaAppearanceLayer, CharaAppearanceLayer.Args>(args);
                 RefreshFromEntity();
+                Sounds.Play(Sound.Chara);
             }
         }
 

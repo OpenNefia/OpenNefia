@@ -37,8 +37,7 @@ namespace OpenNefia.Content.Skills
         public IEnumerable<SkillPrototype> EnumerateRegularSkills()
         {
             return _protos.EnumeratePrototypes<SkillPrototype>()
-                .Where(skillProto => skillProto.SkillType == SkillType.Skill
-                                  || skillProto.SkillType == SkillType.SkillAction);
+                .Where(skillProto => skillProto.SkillType == SkillType.Skill);
         }
 
         /// <inheritdoc/>

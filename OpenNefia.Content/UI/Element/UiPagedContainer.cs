@@ -49,6 +49,8 @@ namespace OpenNefia.Content.UI.Element
         public override void GrabFocus()
         {
             base.GrabFocus();
+            UserInterfaceManager.ControlFocused = null;
+            UserInterfaceManager.ReleaseKeyboardFocus();
             CurrentElement?.GrabFocus();
         }
 
@@ -128,6 +130,8 @@ namespace OpenNefia.Content.UI.Element
 
             foreach (var elem in _contained)
             {
+                elem.Visible = false;
+
                 if (elem is IUiPaged elemPaged)
                 {
                     for (int childPage = 0; childPage < elemPaged.PageCount + 1; childPage++)
@@ -153,6 +157,8 @@ namespace OpenNefia.Content.UI.Element
 
             CurrentPage = page;
             CurrentElement = mapping.Element;
+            CurrentElement.Visible = true;
+            GrabFocus();
 
             var changed = false;
 
@@ -162,7 +168,6 @@ namespace OpenNefia.Content.UI.Element
             if (playSound && !changed)
                 Sounds.Play(Sound.Pop1);
 
-            GrabFocus();
             OnPageChanged?.Invoke(CurrentPage, PageCount);
 
             return true;

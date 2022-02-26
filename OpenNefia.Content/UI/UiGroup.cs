@@ -19,6 +19,7 @@ using OpenNefia.Content.UI.Hud;
 using OpenNefia.Core.Locale;
 using OpenNefia.Core.UserInterface;
 using OpenNefia.Core.Audio;
+using System.Reflection.Emit;
 
 namespace OpenNefia.Content.UI
 {
@@ -73,6 +74,11 @@ namespace OpenNefia.Content.UI
             Texts = Layers.ToDictionary(x => x.Key, y => (UiText)new UiTextOutlined(UiFonts.HUDTabText, GetTabName(y.Key)));
             Icons = Layers.ToDictionary(x => x.Key, y => GetIcon(y.Key));
 
+            foreach (var layer in Layers.Values)
+            {
+                AddChild(layer);
+                layer.Visible = false;
+            }
             foreach (var text in Texts.Values)
             {
                 AddChild(text);
@@ -89,6 +95,10 @@ namespace OpenNefia.Content.UI
         public override void GrabFocus()
         {
             base.GrabFocus();
+
+            // TODO: remove
+            SelectedLayer.LayerUIScale = LayerUIScale;
+
             SelectedLayer.GrabFocus();
         }
 
@@ -116,7 +126,7 @@ namespace OpenNefia.Content.UI
         {
             if (SelectedLayer != null)
             {
-                RemoveChild(SelectedLayer);
+                SelectedLayer.Visible = false;
                 SelectedLayer.OnKeyBindDown -= HandleKeyBindDown;
                 SelectedLayer.OnQueryFinish();
             }
@@ -124,7 +134,7 @@ namespace OpenNefia.Content.UI
             if (Layers.TryGetValue(SelectedArgs, out var layer))
             {
                 SelectedLayer = layer;
-                AddChild(SelectedLayer);
+                SelectedLayer.Visible = true;
 
                 UserInterfaceManager.InitializeLayer<TLayer, TSublayerArgs, TResult>(SelectedLayer, SelectedArgs);
 

@@ -1,0 +1,149 @@
+---
+- type: Elona.Element
+  id: Elona.Fire
+  hspIds:
+    elona122: 50
+  color: '#FF9B9B'
+  uiColor: '#960000'
+  canResist: true
+  sound: Base.AtkFire
+  deathAnim: Base.AnimElemFire
+  deathAnimDY: -20
+  rarity: 1
+- type: Elona.Element
+  id: Elona.Cold
+  hspIds:
+    elona122: 51
+  color: '#FFFFFF'
+  uiColor: '#000096'
+  canResist: true
+  sound: Base.AtkIce
+  deathAnim: Base.AnimElemCold
+  rarity: 1
+- type: Elona.Element
+  id: Elona.Lightning
+  hspIds:
+    elona122: 52
+  color: '#FFFFAF'
+  uiColor: '#969600'
+  canResist: true
+  sound: Base.AtkElec
+  deathAnim: Base.AnimElemLightning
+  rarity: 1
+- type: Elona.Element
+  id: Elona.Darkness
+  hspIds:
+    elona122: 53
+  color: '#AFAFFF'
+  uiColor: '#645050'
+  canResist: true
+  sound: Base.AtkDark
+  deathAnim: Base.AnimElemDarkness
+  rarity: 2
+- type: Elona.Element
+  id: Elona.Mind
+  hspIds:
+    elona122: 54
+  color: '#FFC3B9'
+  uiColor: '#966432'
+  canResist: true
+  preservesSleep: true
+  sound: Base.AtkMind
+  deathAnim: Base.AnimElemMind
+  rarity: 2
+- type: Elona.Element
+  id: Elona.Poison
+  hspIds:
+    elona122: 55
+  color: '#AFFFAF'
+  uiColor: '#009600'
+  canResist: true
+  sound: Base.AtkPoison
+  deathAnim: Base.AnimElemPoison
+  rarity: 3
+- type: Elona.Element
+  id: Elona.Nether
+  hspIds:
+    elona122: 56
+  color: '#9B9A99'
+  uiColor: '#963200'
+  canResist: true
+  sound: Base.AtkHell
+  deathAnim: Base.AnimElemMind
+  deathAnimDY: -24
+  rarity: 4
+- type: Elona.Element
+  id: Elona.Sound
+  hspIds:
+    elona122: 57
+  color: '#EBD79B'
+  uiColor: '#326496'
+  canResist: true
+  sound: Base.AtkSound
+  deathAnim: Base.AnimElemSound
+  rarity: 3
+- type: Elona.Element
+  id: Elona.Nerve
+  hspIds:
+    elona122: 58
+  color: '#9BCDCD'
+  uiColor: '#649632'
+  canResist: true
+  preservesSleep: true
+  sound: Base.AtkNerve
+  deathAnim: Base.AnimElemNerve
+  rarity: 3
+- type: Elona.Element
+  id: Elona.Chaos
+  hspIds:
+    elona122: 59
+  color: '#B99BD7'
+  uiColor: '#960096'
+  canResist: true
+  preservesSleep: true
+  sound: Base.AtkChaos
+  deathAnim: Base.AnimElemChaos
+  rarity: 4
+- type: Elona.Element
+  id: Elona.Magic
+  hspIds:
+    elona122: 60
+  uiColor: '#966464'
+  canResist: true
+  rarity: 5
+- type: Elona.Element
+  id: Elona.Cut
+  hspIds:
+    elona122: 61
+- type: Elona.Element
+  id: Elona.Ether
+  hspIds:
+    elona122: 62
+- type: Elona.Element
+  id: Elona.Acid
+  hspIds:
+    elona122: 63
+  color: '#AFFFAF'
+  sound: Base.AtkPoison
+  deathAnim: Base.AnimElemPoison
+- type: Elona.Element
+  id: Elona.Rotten
+  hspIds:
+    elona122: 613
+- type: Elona.Element
+  id: Elona.Hunger
+  hspIds:
+    elona122: 614
+- type: Elona.Element
+  id: Elona.Fear
+  hspIds:
+    elona122: 617
+- type: Elona.Element
+  id: Elona.Soft
+  hspIds:
+    elona122: 618
+- type: Elona.Element
+  id: Elona.Vorpal
+  hspIds:
+    elona122: 658
+...

@@ -157,7 +157,7 @@ namespace OpenNefia.Core.UserInterface
                 guiEvent.RelativePixelPosition = guiEvent.GlobalPixelPosition.Position - control.PixelPosition;
 
                 guiEvent.SourceControl = control;
-                if (control.EventFilter != UIEventFilterMode.Ignore)
+                if (control.EventFilter != UIEventFilterMode.Ignore && control.Visible)
                 {
                     action(control, guiEvent);
 
@@ -182,7 +182,7 @@ namespace OpenNefia.Core.UserInterface
             {
                 guiEvent.RelativePixelPosition = guiEvent.PointerLocation.Position - control.PixelPosition;
 
-                if (control.EventFilter != UIEventFilterMode.Ignore && !EventFiltered(control, guiEvent))
+                if (control.EventFilter != UIEventFilterMode.Ignore && control.Visible && !EventFiltered(control, guiEvent))
                 {
                     action(control, guiEvent);
 

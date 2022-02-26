@@ -11,6 +11,7 @@ namespace OpenNefia.Core.UI.Element
     {
         Vector2 PreferredSize { get; set; }
         Vector2 MinSize { get; set; }
+        bool Visible { get; set; }
 
         void GetPreferredSize(out Vector2 size);
         void SetPreferredSize();
