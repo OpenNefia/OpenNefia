@@ -36,6 +36,7 @@ namespace OpenNefia.Core.UserInterface
         public UiLayer? CurrentLayer { get; }
 
         void GrabKeyboardFocus(UiElement control);
+        void ReleaseKeyboardFocus();
         void ReleaseKeyboardFocus(UiElement control);
 
         string FormatKeyHints(IEnumerable<UiKeyHint> keyHints);

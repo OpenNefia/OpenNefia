@@ -508,6 +508,33 @@ handlers["base.trait"] = function(from, to)
     to.featType = camelize(from.type)
 end
 
+handlers["base.element"] = function(from, to)
+    if from.color then
+        to.color = rgbToHex(from.color)
+    end
+    if from.ui_color then
+        to.uiColor = rgbToHex(from.ui_color)
+    end
+    if from.can_resist then
+        to.canResist = from.can_resist or false
+    end
+    if from.preserves_sleep then
+        to.preservesSleep = from.preserves_sleep
+    end
+    if from.sound then
+        to.sound = dotted(from.sound)
+    end
+    if from.death_anim then
+        to.deathAnim = dotted(from.death_anim)
+    end
+    if from.death_anim_dy then
+        to.deathAnimDY = from.death_anim_dy
+    end
+    if from.rarity then
+        to.rarity = from.rarity
+    end
+end
+
 local function sort(a, b)
     return (a.elona_id or 0) < (b.elona_id or 0)
 end
@@ -597,6 +624,7 @@ write("base.tone", "Tone.yml")
 write("elona.field_type", "FieldType.yml")
 write("base.pcc_part", "PCCPart.yml")
 write("base.trait", "Feat.yml")
+write("base.element", "Element.yml")
 
 -- print(inspect(data["base.item"]:iter():filter(function(a) return a.fltselect > 0 and a.rarity == 0 end):to_list()))
 

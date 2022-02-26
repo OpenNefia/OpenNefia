@@ -10,14 +10,27 @@ namespace OpenNefia.Content.Skills
 {
     public enum SkillType
     {
-        AttributeSpecial,
+        /// <summary>
+        /// Regular attributes.
+        /// </summary>
         Attribute,
-        WeaponProficiency,
+
+        /// <summary>
+        /// Special attributes (Life and Mana).
+        /// </summary>
+        AttributeSpecial,
+
+        /// <summary>
+        /// Regular skills.
+        /// </summary>
         Skill,
-        SkillMagic,
-        SkillAction,
-        SkillEffect
+
+        /// <summary>
+        /// Weapon proficiencies.
+        /// </summary>
+        WeaponProficiency
     }
+
     [Prototype("Elona.Skill")]
     public class SkillPrototype : IPrototype, IHspIds<int>
     {

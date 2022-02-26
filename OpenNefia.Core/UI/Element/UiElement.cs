@@ -159,11 +159,16 @@ namespace OpenNefia.Core.UI.Element
         /// </remarks>
         public bool KeyboardFocusOnClick { get; set; }
 
+        private bool _visible = true;
+
         /// <summary>
         ///     Whether or not this control and its children are visible.
         /// </summary>
         /// <remarks>TODO implement</remarks>
-        public bool Visible { get; set; } = true;
+        public bool Visible {
+            get => _visible && (Parent?.Visible ?? true);
+            set => _visible = value;
+        }
 
         public UiElement()
         {

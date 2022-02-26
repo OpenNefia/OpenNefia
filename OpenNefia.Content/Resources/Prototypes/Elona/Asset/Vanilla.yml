@@ -29,8 +29,8 @@
   id: Elona.AttributeIcons
   image:
     filepath: /Graphic/Elona/item.bmp
-    region: "0, 672, 528, 48"
-  countX: 11
+    region: "0, 672, 576, 48"
+  countX: 12
 
 - type: Asset
   id: Elona.HudSkillIcons

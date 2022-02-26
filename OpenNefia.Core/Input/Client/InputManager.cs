@@ -288,14 +288,14 @@ namespace OpenNefia.Core.Input
                 uiOnly = _uiMgr.HandleCanFocusDown(MouseScreenPosition, out _);
             }
 
-            if (_uiMgr.KeyboardFocused is IRawInputControl rawInput)
+            if (_uiMgr.KeyboardFocused is IRawInputControl rawInput && rawInput.Visible)
             {
                 var block = RaiseRawKeyInput(args, rawInput, args.IsRepeat ? RawKeyAction.Repeat : RawKeyAction.Down);
 
                 if (block)
                     return;
             }
-            else if (_uiMgr.ControlFocused is IRawInputControl ctrlRawInput)
+            else if (_uiMgr.ControlFocused is IRawInputControl ctrlRawInput && ctrlRawInput.Visible)
             {
                 // HACK: This is to support arbitrary keys in list elements...
                 var block = RaiseRawKeyInput(args, ctrlRawInput, args.IsRepeat ? RawKeyAction.Repeat : RawKeyAction.Down);

@@ -12,7 +12,6 @@ using OpenNefia.Core.UI;
 using OpenNefia.Core.UI.Element;
 using OpenNefia.Content.UI;
 using OpenNefia.Core.Maths;
-using OpenNefia.Core.Prototypes;
 
 namespace OpenNefia.Content.CharaInfo
 {
@@ -59,7 +58,7 @@ namespace OpenNefia.Content.CharaInfo
                 public override int OffsetX => -6;
                 public override int OffsetDX => 18;
 
-                public Skill(string text, string description, string power, string detail, SkillPrototype skillPrototype) 
+                public Skill(string text, string description, string power, string detail, SkillPrototype skillPrototype)
                     : base(text, description, power, detail)
                 {
                     SkillPrototype = skillPrototype;
@@ -70,7 +69,7 @@ namespace OpenNefia.Content.CharaInfo
             {
                 public ElementPrototype ElementPrototype { get; }
 
-                public Resist(string text, string description, string power, string detail, ElementPrototype elementPrototype) 
+                public Resist(string text, string description, string power, string detail, ElementPrototype elementPrototype)
                     : base(text, description, power, detail)
                 {
                     ElementPrototype = elementPrototype;
@@ -206,6 +205,8 @@ namespace OpenNefia.Content.CharaInfo
         private EntityUid _charaEntity;
 
         private IAssetInstance AssetIeSheet;
+        private const int SheetWidth = 700;
+        private const int SheetHeight = 400;
 
         [Child] [Localize("Topic.Name")] private UiText TextTopicName = new UiTextTopic();
         [Child] [Localize("Topic.Level")] private UiText TextTopicLevel = new UiTextTopic();
@@ -253,7 +254,7 @@ namespace OpenNefia.Content.CharaInfo
 
         private bool ShouldDisplayResist(ElementPrototype proto)
         {
-            return _resists.HasResist(_charaEntity, proto);
+            return true;
         }
 
         private string FormatSkillDetail(SkillPrototype skillProto)
@@ -325,7 +326,7 @@ namespace OpenNefia.Content.CharaInfo
                 var desc = Loc.GetPrototypeString(skillProto, "Description");
                 var power = FormatSkillPower(skillProto);
                 var detail = FormatSkillDetail(skillProto);
-                
+
                 return new SkillsListEntry.Skill(name, desc, power, detail, skillProto);
             }
 
@@ -451,7 +452,10 @@ namespace OpenNefia.Content.CharaInfo
 
         public override void Draw()
         {
-            AssetIeSheet.Draw(UIScale, X, Y);
+            GraphicsEx.SetColor(0, 0, 0, 75);
+            AssetIeSheet.DrawUnscaled(PixelX + 4, PixelY + 4, SheetWidth * UIScale, SheetHeight * UIScale);
+            GraphicsEx.SetColor(Color.White);
+            AssetIeSheet.DrawUnscaled(PixelX, PixelY, SheetWidth * UIScale, SheetHeight * UIScale);
             TextTopicName.Draw();
             TextTopicLevel.Draw();
             TextTopicDetail.Draw();

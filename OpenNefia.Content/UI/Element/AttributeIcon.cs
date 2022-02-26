@@ -27,7 +27,7 @@ namespace OpenNefia.Content.UI.Element
             public const string IconMagic        = "6";
             public const string IconCharisma     = "7";
 
-            public const string IconResistance   = "11";
+            public const string IconResistance   = "10";
 #pragma warning restore format
         }
 
