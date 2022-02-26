@@ -16,7 +16,7 @@ namespace OpenNefia.Content.GameController
             var frameArgs = new FrameEventArgs(dt);
             gameController.Update(frameArgs);
             gameController.Draw();
-            gameController.SystemStep();
+            // gameController.SystemStep();
             return dt;
         }
 

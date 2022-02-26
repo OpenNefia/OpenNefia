@@ -126,6 +126,13 @@ namespace OpenNefia.Content.Skills
             return true;
         }
 
+        public bool HasSkill(SkillPrototype proto)
+            => HasSkill(proto.GetStrongID());
+        public bool HasSkill(PrototypeId<SkillPrototype> id)
+        {
+            return TryGetKnown(id, out _);
+        }
+
         public int Level(SkillPrototype proto) => Level(proto.GetStrongID());
         public int Level(PrototypeId<SkillPrototype> id)
         {

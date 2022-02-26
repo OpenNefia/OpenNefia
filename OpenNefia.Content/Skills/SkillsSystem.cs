@@ -53,6 +53,8 @@ namespace OpenNefia.Content.Skills
         void ModifyPotential(EntityUid uid, PrototypeId<SkillPrototype> skillId, int delta, SkillsComponent? skills = null);
         void GainFixedSkillExp(EntityUid uid, PrototypeId<SkillPrototype> skillId, int expGained, SkillsComponent? skills = null);
         void GainSkillExp(EntityUid uid, PrototypeId<SkillPrototype> skillId, int baseExpGained, int relatedSkillExpDivisor = 0, int levelExpDivisor = 0, SkillsComponent? skills = null);
+        void GainSkill(EntityUid uid, PrototypeId<SkillPrototype> skillId, LevelAndPotential? initialValues = null,
+            SkillsComponent? skills = null);
 
         #endregion
 

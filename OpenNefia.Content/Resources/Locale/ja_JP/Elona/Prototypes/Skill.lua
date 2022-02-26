@@ -156,6 +156,7 @@ OpenNefia.Prototypes.Elona.Skill.Elona = {
     },
     BuffBoost = {
         Name = "ブースト",
+        Description = "",
     },
     Bow = {
         Description = "弓を扱う技術",
@@ -240,6 +241,7 @@ OpenNefia.Prototypes.Elona.Skill.Elona = {
     },
     BuffDeathWord = {
         Name = "死の宣告",
+        Description = "",
     },
     ActionDecapitation = {
         Description = "対象即死",
@@ -260,10 +262,12 @@ OpenNefia.Prototypes.Elona.Skill.Elona = {
         Name = "罠解体",
     },
     ActionDistantAttack4 = {
-        Name = "遠距離打撃",
+        Name = "遠距離打撃４",
+        Description = "有射程/通常近接攻撃",
     },
     ActionDistantAttack7 = {
-        Name = "遠距離打撃",
+        Name = "遠距離打撃７",
+        Description = "有射程/通常近接攻撃",
     },
     BuffDivineWisdom = {
         Name = "知者の加護",
@@ -496,6 +500,7 @@ OpenNefia.Prototypes.Elona.Skill.Elona = {
     },
     BuffLulwysTrick = {
         Name = "ルルウィの憑依",
+        Description = "",
     },
     MagicCapacity = {
         Description = "マナの反動から身を守る",
@@ -646,6 +651,7 @@ OpenNefia.Prototypes.Elona.Skill.Elona = {
     },
     BuffPunishment = {
         Name = "神罰",
+        Description = "対象を罰する",
     },
     SpellRagingRoar = {
         Description = "轟音の球",
