@@ -3,6 +3,7 @@ using OpenNefia.Core.Locale;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Core.UI;
 using OpenNefia.Core.UI.Element;
+using static OpenNefia.Content.Prototypes.Protos;
 using Color = OpenNefia.Core.Maths.Color;
 
 namespace OpenNefia.Content.UI.Element
@@ -65,8 +66,8 @@ namespace OpenNefia.Content.UI.Element
             TextTitle = new UiTextOutlined(FontWindowTitle);
             TextKeyHint = new UiText(FontWindowKeyHints);
 
-            Window = new UiWindowBacking();
-            WindowShadow = new UiWindowBacking(UiWindowBacking.WindowBackingType.Shadow);
+            Window = new UiWindowBacking(Asset.Window);
+            WindowShadow = new UiWindowBacking(Asset.Window, UiWindowBacking.WindowBackingType.Shadow);
             TopicWindow = new UiTopicWindow();
 
             RebuildKeyHintText();

@@ -380,6 +380,7 @@
   id: Elona.IeScroll
   image:
     filepath: /Graphic/Elona/ie_scroll.bmp
+  regionSpecifier: !type:WindowRegions {}
 
 - type: Asset
   id: Elona.ImeStatusEnglish

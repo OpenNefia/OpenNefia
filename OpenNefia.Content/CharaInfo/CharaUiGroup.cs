@@ -66,7 +66,7 @@ namespace OpenNefia.Content.CharaInfo
                     CharaGroupSublayerArgs.CharaTab.CharaInfo => new CharaInfoUiLayer(),
                     CharaGroupSublayerArgs.CharaTab.Equipment => new EquipmentUiLayer(),
                     CharaGroupSublayerArgs.CharaTab.FeatInfo => new FeatInfoUiLayer(),
-                    // TODO: add other group layers
+                    CharaGroupSublayerArgs.CharaTab.MaterialInfo => new MaterialInfoUiLayer(),
                     _ => new CharaGroupUiLayer()
                 };
             }
@@ -95,7 +95,8 @@ namespace OpenNefia.Content.CharaInfo
                 CharaGroupSublayerArgs.CharaTab.CharaInfo => InventoryIcon.Chara,
                 CharaGroupSublayerArgs.CharaTab.Equipment => InventoryIcon.Equip,
                 CharaGroupSublayerArgs.CharaTab.FeatInfo => InventoryIcon.Feat,
-                _ => InventoryIcon.Drink
+                CharaGroupSublayerArgs.CharaTab.MaterialInfo => InventoryIcon.Material,
+                _ => default
             };
 
             // FIXME
