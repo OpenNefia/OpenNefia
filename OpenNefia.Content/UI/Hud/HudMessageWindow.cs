@@ -76,10 +76,10 @@ namespace OpenNefia.Content.UI.Hud
         [Dependency] private readonly IConfigurationManager _config = default!;
         public class MessageContainer : UiHorizontalContainer
         {
-            public bool HasContent => Entries.Any(x => x.Element is MessageText);
+            public bool HasContent => _entries.Any(x => x.Element is MessageText);
             public void SetOpacities(byte opacity)
             {
-                foreach(var item in Entries)
+                foreach(var item in _entries)
                 {
                     if (item.Element is MessageText text && text.ChangeOpacity)
                         text.Color = text.Color.WithAlpha(opacity);

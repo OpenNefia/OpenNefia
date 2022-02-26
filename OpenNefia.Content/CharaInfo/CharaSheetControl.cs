@@ -125,8 +125,8 @@ namespace OpenNefia.Content.CharaInfo
         [Child] private UiContainer ExtraContainer;
         [Child] private UiContainer RollsContainer;
 
-        private UiContainer PlayTimeContainer;
-        private UiText TextPlayTime;
+        private UiContainer PlayTimeContainer = default!;
+        private UiText TextPlayTime = default!;
 
         private EntityUid _charaEntity;
 
@@ -150,12 +150,6 @@ namespace OpenNefia.Content.CharaInfo
             TraceContainer = new UiVerticalContainer { YSpace = ContainerSpacing };
             ExtraContainer = new UiVerticalContainer { YSpace = ContainerSpacing };
             RollsContainer = new UiVerticalContainer { YSpace = ContainerSpacing };
-
-            TextPlayTime = new UiText(UiFonts.CharaSheetInfoContent);
-            PlayTimeContainer = new UiHorizontalContainer();
-            PlayTimeContainer.AddElement(new UiText(UiFonts.CharaSheetInfo, _locScope.GetString("Group.Trace.Time").WidePadRight(4)));
-            PlayTimeContainer.AddLayout(LayoutType.YOffset, -1);
-            PlayTimeContainer.AddElement(TextPlayTime);
 
             EventFilter = UIEventFilterMode.Pass;
             CanControlFocus = true;
@@ -384,9 +378,11 @@ namespace OpenNefia.Content.CharaInfo
             dict[_locScope.GetString("Group.Trace.Turns")] = $"{_locScope.GetString("Group.Trace.TurnsCounter", ("turns", _world.State.PlayTurns))}";
             dict[_locScope.GetString("Group.Trace.Days")] = $"{_locScope.GetString("Group.Trace.DaysCounter", ("days", traceDays))}";
             dict[_locScope.GetString("Group.Trace.Kills")] = _world.State.TotalKills.ToString();
+            dict[_locScope.GetString("Group.Trace.Time")] = string.Empty;
             SetupContainer(TraceContainer, 4, dict);
+            PlayTimeContainer = (UiContainer)TraceContainer.Entries[6].Element!;
+            TextPlayTime = (UiText)PlayTimeContainer.Entries[2].Element!;
             dict.Clear();
-            TraceContainer.AddElement(PlayTimeContainer);
 
             //
             // Extra

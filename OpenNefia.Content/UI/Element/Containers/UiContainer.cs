@@ -24,6 +24,7 @@ namespace OpenNefia.Content.UI.Element.Containers
         YMin,
         XMin
     }
+
     public class UiContainerEntry
     {
         public UiElement? Element { get; set; }
@@ -48,19 +49,20 @@ namespace OpenNefia.Content.UI.Element.Containers
 
     public abstract class UiContainer : UiElement, ILocalizable
     {
-        protected readonly List<UiContainerEntry> Entries = new List<UiContainerEntry>();
+        protected readonly List<UiContainerEntry> _entries = new List<UiContainerEntry>();
+        public IReadOnlyList<UiContainerEntry> Entries => _entries;
 
         public virtual void AddElement(UiContainerEntry element, LayoutType extraType = LayoutType.None, int extraAmount = 0)
         {
             if (extraType != LayoutType.None)
             {
                 AddLayout(extraType, extraAmount);
-                Entries.Add(element);
+                _entries.Add(element);
                 AddLayout(extraType, -extraAmount);
             }
             else
             {
-                Entries.Add(element);
+                _entries.Add(element);
             }
 
             if (element.Element != null)
@@ -77,7 +79,7 @@ namespace OpenNefia.Content.UI.Element.Containers
 
         public virtual void AddLayout(LayoutType type, int offset)
         {
-            Entries.Add(new UiContainerEntry(type, offset));
+            _entries.Add(new UiContainerEntry(type, offset));
         }
 
         public virtual void Relayout()
@@ -98,7 +100,7 @@ namespace OpenNefia.Content.UI.Element.Containers
             base.SetPosition(x, y);
             xDiff = X - xDiff;
             yDiff = Y - yDiff;
-            foreach (var entry in Entries)
+            foreach (var entry in _entries)
             {
                 if (entry.Element != null)
                     entry.Element.SetPosition(entry.Element.X + xDiff, entry.Element.Y + yDiff);
@@ -107,7 +109,7 @@ namespace OpenNefia.Content.UI.Element.Containers
 
         public override void Draw()
         {
-            foreach (var entry in Entries)
+            foreach (var entry in _entries)
             {
                 if (entry.Element != null)
                     entry.Element.Draw();
@@ -116,7 +118,7 @@ namespace OpenNefia.Content.UI.Element.Containers
 
         public override void Update(float dt)
         {
-            foreach (var entry in Entries)
+            foreach (var entry in _entries)
             {
                 if (entry.Element != null)
                     entry.Element.Update(dt);
@@ -125,14 +127,14 @@ namespace OpenNefia.Content.UI.Element.Containers
 
         public virtual void Clear()
         {
-            foreach (var entry in Entries)
+            foreach (var entry in _entries)
             {
                 if (entry.Element != null && entry.Element.Parent == this)
                 {
                     RemoveChild(entry.Element);
                 }
             }
-            Entries.Clear();
+            _entries.Clear();
         }
 
         public override void Dispose()
