@@ -95,6 +95,11 @@ namespace OpenNefia.Core.UI.Element
         /// </summary>
         public UIEventFilterMode EventFilter { get; set; } = UIEventFilterMode.Ignore;
 
+        /// <summary>
+        ///     Active filters for determining if this control should receive a <see cref="GUIBoundKeyEventArgs"/>.
+        /// </summary>
+        public List<IBoundKeyEventFilter> BoundKeyEventFilters { get; } = new();
+
         private bool _canControlFocus;
 
         /// <summary>

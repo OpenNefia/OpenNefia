@@ -180,12 +180,10 @@ namespace OpenNefia.Core.UserInterface
 
             while (control != null)
             {
-
                 guiEvent.RelativePixelPosition = guiEvent.PointerLocation.Position - control.PixelPosition;
 
-                if (control.EventFilter != UIEventFilterMode.Ignore)
+                if (control.EventFilter != UIEventFilterMode.Ignore && !EventFiltered(control, guiEvent))
                 {
-
                     action(control, guiEvent);
 
                     var wasHaltInputCalled = lastHaltCounter != _inputManager.HaltCounter;
@@ -197,6 +195,18 @@ namespace OpenNefia.Core.UserInterface
 
                 control = control.Parent;
             }
+        }
+
+        private bool EventFiltered<T>(UiElement control, T guiEvent) 
+            where T : GUIBoundKeyEventArgs
+        {
+            foreach (var filter in control.BoundKeyEventFilters)
+            {
+                if (!filter.FilterEvent(control, guiEvent))
+                    return true;
+            }
+
+            return false;
         }
     }
 }

@@ -16,10 +16,19 @@ namespace OpenNefia.Content.UI.Element
     /// </summary>
     public sealed class UiPagedContainer : UiElement, IUiPaged
     {
+        private class BoundKeyEventFilter : IBoundKeyEventFilter
+        {
+            public bool FilterEvent(UiElement element, GUIBoundKeyEventArgs evt)
+            {
+                return evt.Function != EngineKeyFunctions.UINextPage && evt.Function != EngineKeyFunctions.UIPreviousPage;
+            }
+        }
+
         private sealed record PageMapping(UiElement Element, int ChildPage);
 
         private readonly Dictionary<int, PageMapping> _parentPagesToChildPages = new();
         private List<UiElement> _contained = new();
+        private IBoundKeyEventFilter _eventFilter = new BoundKeyEventFilter();
 
         public event PageChangedDelegate? OnPageChanged;
 
@@ -48,10 +57,12 @@ namespace OpenNefia.Content.UI.Element
             if (evt.Function == EngineKeyFunctions.UIPreviousPage)
             {
                 PageBackward();
+                evt.Handle();
             }
-            else if (evt.Function != EngineKeyFunctions.UINextPage)
+            else if (evt.Function == EngineKeyFunctions.UINextPage)
             {
                 PageForward();
+                evt.Handle();
             }
         }
 
@@ -70,10 +81,29 @@ namespace OpenNefia.Content.UI.Element
             return keyHints;
         }
 
+        private void RemoveKeyFilterRecursive(UiElement elem)
+        {
+            elem.BoundKeyEventFilters.Remove(_eventFilter);
+            foreach (var child in elem.Children)
+            {
+                RemoveKeyFilterRecursive(child);
+            }
+        }
+
+        private void AddKeyFilterRecursive(UiElement elem)
+        {
+            elem.BoundKeyEventFilters.Add(_eventFilter);
+            foreach (var child in elem.Children)
+            {
+                AddKeyFilterRecursive(child);
+            }
+        }
+
         public void SetElements(IEnumerable<UiElement> children)
         {
             foreach (var elem in _contained)
             {
+                RemoveKeyFilterRecursive(elem);
                 RemoveChild(elem);
             }
 
@@ -81,7 +111,9 @@ namespace OpenNefia.Content.UI.Element
 
             foreach (var elem in _contained)
             {
-                AddChild(elem);
+                // Ensure [Child] elements are added before adding the key filter.
+                this.AddChildrenRecursive(elem);
+                AddKeyFilterRecursive(elem);
             }
 
             RecalculatePageCount();
@@ -122,12 +154,15 @@ namespace OpenNefia.Content.UI.Element
             CurrentPage = page;
             CurrentElement = mapping.Element;
 
-            if (mapping.Element is IUiPaged elemPaged)
-                elemPaged.SetPage(mapping.ChildPage);
+            var changed = false;
 
-            if (playSound)
+            if (mapping.Element is IUiPaged elemPaged)
+                changed = elemPaged.SetPage(mapping.ChildPage);
+            
+            if (playSound && !changed)
                 Sounds.Play(Sound.Pop1);
 
+            GrabFocus();
             OnPageChanged?.Invoke(CurrentPage, PageCount);
 
             return true;

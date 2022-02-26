@@ -260,5 +260,90 @@ namespace OpenNefia.Tests.Core.UserInterface
 
             control.Dispose();
         }
+
+        private class PassFilter : IBoundKeyEventFilter
+        {
+            public bool Triggered { get; private set; } = false;
+
+            public bool FilterEvent(UiElement element, GUIBoundKeyEventArgs evt)
+            {
+                Triggered = true;
+                return true;
+            }
+        }
+
+        private class IgnoreFilter : IBoundKeyEventFilter
+        {
+            public bool Triggered { get; private set; } = false;
+
+            public bool FilterEvent(UiElement element, GUIBoundKeyEventArgs evt)
+            {
+                Triggered = true;
+                return false;
+            }
+        }
+
+        [Test]
+        public void TestBoundKeyEventFilters()
+        {
+            var passControl = new UiElement
+            {
+                EventFilter = UIEventFilterMode.Pass,
+            };
+            var ignoreControl = new UiElement
+            {
+                EventFilter = UIEventFilterMode.Pass
+            };
+
+            var passFilter = new PassFilter();
+            var passFilter2 = new PassFilter();
+            var ignoreFilter = new IgnoreFilter();
+            var ignoreFilter2 = new IgnoreFilter();
+            passControl.BoundKeyEventFilters.Add(passFilter);
+            passControl.BoundKeyEventFilters.Add(passFilter2);
+            ignoreControl.BoundKeyEventFilters.Add(ignoreFilter);
+            ignoreControl.BoundKeyEventFilters.Add(ignoreFilter2);
+
+            passControl.SetSize(50, 50);
+            ignoreControl.SetSize(50, 50);
+
+            var layer = new UiLayer();
+            layer.AddChild(passControl);
+            layer.AddChild(ignoreControl);
+
+            _userInterfaceManager.PushLayer(layer);
+            passControl.SetPosition(0, 0);
+            ignoreControl.SetPosition(50, 50);
+
+            var passControlFired = false;
+
+            void PassControlMouseDown(GUIBoundKeyEventArgs ev)
+            {
+                passControlFired = true;
+            }
+
+            passControl.OnKeyBindDown += PassControlMouseDown;
+            ignoreControl.OnKeyBindDown += _ => Assert.Fail("Ignore control should not get a mouse event.");
+
+            var mouseEvent1 = new BoundKeyEventArgs(EngineKeyFunctions.UISelect, BoundKeyState.Down,
+                new ScreenCoordinates(30, 30), true);
+            var mouseEvent2 = new BoundKeyEventArgs(EngineKeyFunctions.UISelect, BoundKeyState.Down,
+                new ScreenCoordinates(80, 80), true);
+
+            _userInterfaceManager.KeyBindDown(mouseEvent1);
+            _userInterfaceManager.KeyBindDown(mouseEvent2);
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(passControlFired, Is.True, "Pass control fired");
+                Assert.That(passFilter.Triggered, Is.True, "Pass filter triggered");
+                Assert.That(ignoreFilter.Triggered, Is.True, "Ignore filter triggered");
+                Assert.That(passFilter2.Triggered, Is.True, "Pass filter 2 triggered");
+                Assert.That(ignoreFilter2.Triggered, Is.False, "Ignore filter 2 triggered");
+            });
+
+            passControl.Dispose();
+            ignoreControl.Dispose();
+        }
     }
 }
