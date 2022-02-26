@@ -31,6 +31,13 @@ namespace OpenNefia.Core.Serialization.Manager
         bool HasDataDefinition(Type type);
 
         /// <summary>
+        /// Checks if a type can be serialized.
+        /// </summary>
+        /// <param name="type">The type to check for.</param>
+        /// <returns>True if it can be, false otherwise.</returns>
+        bool CanSerializeType(Type type);
+
+        /// <summary>
         /// Gets a data definition.
         /// </summary>
         /// <param name="type">The type to get for.</param>

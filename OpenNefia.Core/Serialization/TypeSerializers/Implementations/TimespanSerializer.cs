@@ -13,7 +13,7 @@ using OpenNefia.Core.Serialization.TypeSerializers.Interfaces;
 namespace OpenNefia.Core.Serialization.TypeSerializers.Implementations
 {
     [TypeSerializer]
-    public class TimespanSerializer : ITypeSerializer<TimeSpan, ValueDataNode>
+    public class TimeSpanSerializer : ITypeSerializer<TimeSpan, ValueDataNode>
     {
         public DeserializationResult Read(ISerializationManager serializationManager, ValueDataNode node,
             IDependencyCollection dependencies,

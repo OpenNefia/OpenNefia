@@ -28,6 +28,11 @@ namespace OpenNefia.Core.IoC
     public interface IDependencyCollection
     {
         /// <summary>
+        /// Dictionary that maps the types passed to <see cref="Resolve{T}"/> to their implementation.
+        /// </summary>
+        IReadOnlyDictionary<Type, object> Services { get; }
+
+        /// <summary>
         /// Registers an interface to an implementation, to make it accessible to <see cref="DependencyCollection.Resolve{T}"/>
         /// <see cref="IDependencyCollection.BuildGraph"/> MUST be called after this method to make the new interface available.
         /// </summary>

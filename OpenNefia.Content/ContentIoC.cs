@@ -6,6 +6,7 @@ using OpenNefia.Content.Repl;
 using OpenNefia.Content.TitleScreen;
 using OpenNefia.Content.UI.Hud;
 using OpenNefia.Content.UI.Layer;
+using OpenNefia.Content.World;
 using OpenNefia.Core.Console;
 using OpenNefia.Core.IoC;
 using PrettyPrompt.Consoles;
@@ -31,6 +32,7 @@ namespace OpenNefia.Content
             IoCManager.Register<IRandomAliasGenerator, RandomAliasGenerator>();
             IoCManager.Register<IRandomNameGenerator, RandomNameGenerator>();
             IoCManager.Register<IConfigMenuUICellFactory, ConfigMenuUICellFactory>();
+            IoCManager.Register<IPlayTimeManager, PlayTimeManager>();
         }
     }
 }

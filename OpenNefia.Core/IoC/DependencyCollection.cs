@@ -21,10 +21,10 @@ namespace OpenNefia.Core.IoC
         private delegate void InjectorDelegate(object target, object[] services);
         private static readonly Type[] InjectorParameters = { typeof(object), typeof(object[]) };
 
-        /// <summary>
-        /// Dictionary that maps the types passed to <see cref="Resolve{T}"/> to their implementation.
-        /// </summary>
         private readonly Dictionary<Type, object> _services = new();
+
+        /// <inheritdoc/>
+        public IReadOnlyDictionary<Type, object> Services => _services;
 
         /// <summary>
         /// The types interface types mapping to their registered implementations.
