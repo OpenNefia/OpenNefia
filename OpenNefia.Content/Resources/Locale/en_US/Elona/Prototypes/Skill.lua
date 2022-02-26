@@ -154,6 +154,7 @@ OpenNefia.Prototypes.Elona.Skill.Elona = {
     },
     BuffBoost = {
         Name = "Boost",
+        Description = "",
     },
     Bow = {
         Description = "Indicates your skill with bows.",
@@ -236,6 +237,7 @@ OpenNefia.Prototypes.Elona.Skill.Elona = {
     },
     BuffDeathWord = {
         Name = "Death Word",
+        Description = "",
     },
     ActionDecapitation = {
         Description = "Kill target",
@@ -254,10 +256,12 @@ OpenNefia.Prototypes.Elona.Skill.Elona = {
         Name = "Disarm Trap",
     },
     ActionDistantAttack4 = {
-        Name = "Distant Attack",
+        Name = "Distant Attack 4",
+        Description = "Distant Attack",
     },
     ActionDistantAttack7 = {
-        Name = "Distant Attack",
+        Name = "Distant Attack 7",
+        Description = "Distant Attack",
     },
     BuffDivineWisdom = {
         Name = "Divine Wisdom",
@@ -481,6 +485,7 @@ OpenNefia.Prototypes.Elona.Skill.Elona = {
     },
     BuffLulwysTrick = {
         Name = "Lulwy's Trick",
+        Description = "",
     },
     MagicCapacity = {
         Description = "Reduces kickback damage from over casting.",
@@ -623,6 +628,7 @@ OpenNefia.Prototypes.Elona.Skill.Elona = {
     },
     BuffPunishment = {
         Name = "Punishment",
+        Description = "Punish target",
     },
     SpellRagingRoar = {
         Description = "Surround(Sound)",

@@ -76,7 +76,7 @@ namespace OpenNefia.Content.Skills
             if (potential == 0)
                 return;
 
-            var levelDelta = ProcLeveling(uid, skillProto, skill, newExp, skills);
+            var levelDelta = ProcSkillLeveling(uid, skillProto, skill, newExp);
 
             var ev = new SkillExpGainedEvent(skillProto, expGained, expGained, levelDelta);
             RaiseLocalEvent(uid, ref ev);
@@ -102,13 +102,13 @@ namespace OpenNefia.Content.Skills
 
             if (skillProto.RelatedSkill != null)
             {
-                // Recursion alert.
+                // [[[ Recursion alert! ]]]
                 var relatedSkillExp = CalcRelatedSkillExp(baseExpGained, relatedSkillExpDivisor);
                 GainSkillExp(uid, skillProto.RelatedSkill.Value, relatedSkillExp, skills: skills);
             }
 
-            var baseLevel = skills.BaseLevel(skillProto);
-            var potential = skills.Potential(skillProto);
+            var baseLevel = skill.Level.Base;
+            var potential = skill.Potential;
 
             if (potential == 0)
                 return;
@@ -152,7 +152,7 @@ namespace OpenNefia.Content.Skills
             }
 
             var newExp = skill.Experience + actualExpGained;
-            var levelDelta = ProcLeveling(uid, skillProto, skill, newExp, skills);
+            var levelDelta = ProcSkillLeveling(uid, skillProto, skill, newExp);
 
             var ev = new SkillExpGainedEvent(skillProto, baseExpGained, actualExpGained, levelDelta);
             RaiseLocalEvent(uid, ref ev);
@@ -210,7 +210,7 @@ namespace OpenNefia.Content.Skills
             return Loc.GetString($"Elona.Skill.Default.{keySuffix}", ("entity", entity), ("skillName", skillName));
         }
 
-        private int ProcLeveling(EntityUid uid, SkillPrototype skillProto, LevelAndPotential skill, int newExp, SkillsComponent skills)
+        private int ProcSkillLeveling(EntityUid uid, SkillPrototype skillProto, LevelAndPotential skill, int newExp)
         {
             if (newExp >= 1000)
             {
@@ -276,6 +276,37 @@ namespace OpenNefia.Content.Skills
                 skill.Experience = newExp;
                 return 0;
             }
+        }
+
+        /// <inheritdoc/>
+        public void GainSkill(EntityUid uid, PrototypeId<SkillPrototype> skillId, LevelAndPotential? initialValues = null, 
+            SkillsComponent? skills = null)
+        {
+            if (!Resolve(uid, ref skills))
+                return;
+
+            if (skills.HasSkill(skillId))
+            {
+                ModifyPotential(uid, skillId, 20);
+                return;
+            }
+
+            var newSkill = new LevelAndPotential()
+            {
+                Level = initialValues?.Level ?? new(1),
+                Potential = initialValues?.Potential ?? 0,
+                Experience = initialValues?.Experience ?? 0
+            };
+            newSkill.Level.Base = Math.Max(newSkill.Level.Base, 1);
+
+            skills.Skills[skillId] = newSkill;
+
+            if (newSkill.Potential <= 0)
+            {
+                ModifyPotential(uid, skillId, 50);
+            }
+
+            _refresh.Refresh(uid);
         }
     }
 
