@@ -1,6 +1,7 @@
 ﻿using Cake.Frosting;
 using Cake.DocFx;
 using Cake.Core.IO;
+using Cake.DocFx.Serve;
 
 namespace OpenNefia.Packaging.Tasks
 {
@@ -14,7 +15,6 @@ namespace OpenNefia.Packaging.Tasks
     }
 
     [TaskName("DocFxBuild")]
-    [IsDependentOn(typeof(DocFxMetadataTask))]
     public sealed class DocFxBuildTask : FrostingTask<BuildContext>
     {
         public override void Run(BuildContext context)
@@ -28,7 +28,7 @@ namespace OpenNefia.Packaging.Tasks
     {
         public override void Run(BuildContext context)
         {
-            context.DocFxServe(new DirectoryPath("docs/_site"));
+            context.DocFxServe(new DirectoryPath("docs/site"), new DocFxServeSettings() { Port = "4567" });
         }
     }
 }

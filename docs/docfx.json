@@ -5,29 +5,31 @@
         {
           "files": ["**/*.csproj"],
           "exclude": [ "**/bin/**", "**/obj/**" ], 
-          "cwd": "."
+          "cwd": ".."
         }
       ],
-      "dest": "docs/obj/api"
+      "dest": "obj/api"
     }
   ],
   "build": {
     "content": [
       {
         "files": ["**/*.yml"],
-        "src": "docs/obj/api",
-        "dest": "docs/api"
+        "src": "obj/api",
+        "dest": "api"
       },
       {
-        "files": [ "*.md", "toc.yml" ],
-        "src": "docs/"
+        "files": [ "index.md", "toc.yml" ],
+      },
+      {
+        "files": [ "conceptual/**" ],
       }
     ],
     "globalMetadata" : {
       "_appTitle": "docfx seed website",
       "_enableSearch": true
     },
-    "dest": "docs/_site",
-    "template": ["default", "override"]
+    "dest": "site",
+    "template": ["statictoc", "templates/docfx-lavandula/src"]
   }
 }
