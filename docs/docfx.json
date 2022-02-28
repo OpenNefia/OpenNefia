@@ -30,6 +30,6 @@
       "_enableSearch": true
     },
     "dest": "site",
-    "template": ["statictoc", "templates/docfx-lavandula/src"]
+    "template": ["default", "templates/docfx-lavandula/src"]
   }
 }
