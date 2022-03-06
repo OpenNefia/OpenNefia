@@ -1,11 +1,7 @@
-using System;
 using OpenNefia.Core.Input;
-using OpenNefia.Core.IoC;
 using OpenNefia.Core.Log;
 using OpenNefia.Core.Maths;
-using OpenNefia.Core.Timing;
 using OpenNefia.Core.UI.Element;
-using OpenNefia.Core.UI.Wisp;
 using OpenNefia.Core.UI.Wisp.Controls;
 using OpenNefia.Core.UserInterface;
 

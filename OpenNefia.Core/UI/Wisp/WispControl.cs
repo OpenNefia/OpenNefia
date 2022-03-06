@@ -27,7 +27,7 @@ namespace OpenNefia.Core.UI.Wisp
     /// <see cref="Element.UiElement"/> should be ported over to use this class, along with XAML layouting.
     /// </para>
     /// </summary>
-    public abstract partial class WispControl : UiElement
+    public partial class WispControl : UiElement
     {
         internal Vector2? PreviousMeasure;
         internal UIBox2? PreviousArrange;

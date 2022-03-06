@@ -53,7 +53,8 @@
       AssemblyOriginatorKeyFile="$(AssemblyOriginatorKeyFile)"
       SignAssembly="$(SignAssembly)"
       DelaySign="$(DelaySign)"
-      UpdateBuildIndicator="$(IntermediateOutputPath)XAML/doot"/>
+      UpdateBuildIndicator="$(IntermediateOutputPath)XAML/doot"
+      DebuggerLaunch="true"/>
 
     <PropertyGroup>
       <DOTNET_HOST_PATH Condition="'$(DOTNET_HOST_PATH)' == ''">dotnet</DOTNET_HOST_PATH>

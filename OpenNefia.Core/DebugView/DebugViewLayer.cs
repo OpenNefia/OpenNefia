@@ -1,8 +1,10 @@
 ﻿using Love;
+using OpenNefia.Core.Locale;
 using OpenNefia.Core.UI;
 using OpenNefia.Core.UI.Element;
 using OpenNefia.Core.UI.Layer;
 using OpenNefia.Core.UI.Wisp;
+using OpenNefia.Core.UI.Wisp.CustomControls;
 using OpenNefia.Core.UserInterface;
 using System;
 using System.Collections.Generic;
@@ -35,6 +37,14 @@ namespace OpenNefia.Core.DebugView
                 HorizontalAlignment = HAlignment.Stretch,
                 VerticalAlignment = VAlignment.Stretch,
             };
+
+            WispRoot.AddChild(new DefaultWindow()
+            {
+                TitleClass = "windowTitleAlert",
+                HeaderClass = "windowHeaderAlert",
+                Title = "Asdfg!",
+                PreferredSize = (400, 200),
+            });
 
             AddChild(WispRoot);
         }

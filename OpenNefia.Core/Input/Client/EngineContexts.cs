@@ -26,7 +26,7 @@
             common.AddFunction(EngineKeyFunctions.Wait);
 
             common.AddFunction(EngineKeyFunctions.ShowDebugConsole);
-            common.AddFunction(EngineKeyFunctions.ShowDebugMonitors);
+            common.AddFunction(EngineKeyFunctions.ShowDebugView);
 
             common.AddFunction(EngineKeyFunctions.UIUp);
             common.AddFunction(EngineKeyFunctions.UIDown);

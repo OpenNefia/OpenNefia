@@ -5,7 +5,7 @@ namespace OpenNefia.Core.UserInterface.XAML
     public static class OpenNefiaXamlLoader
     {
         /// <summary>
-        /// Calls to this are replaced inline with the correct XAML loading code
+        /// Calls to this method are replaced inline with the correct XAML loading code
         /// by the XAML code generator.
         /// </summary>
         public static void Load(object obj)

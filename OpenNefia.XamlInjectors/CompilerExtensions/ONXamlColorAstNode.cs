@@ -4,15 +4,15 @@ using XamlX.Emit;
 using XamlX.IL;
 using XamlX.TypeSystem;
 
-namespace OpenNefia.Build.Tasks
+namespace OpenNefia.XamlInjectors.CompilerExtensions
 {
-    internal class RXamlColorAstNode
+    internal class ONXamlColorAstNode
         : XamlAstNode, IXamlAstValueNode, IXamlAstILEmitableNode
     {
         private readonly IXamlMethod _method;
         private readonly string _color;
 
-        public RXamlColorAstNode(IXamlLineInfo lineInfo, ONXamlWellKnownTypes types, string color) : base(lineInfo)
+        public ONXamlColorAstNode(IXamlLineInfo lineInfo, ONXamlWellKnownTypes types, string color) : base(lineInfo)
         {
             _color = color;
             Type = new XamlAstClrTypeReference(lineInfo, types.Color, false);

@@ -68,9 +68,9 @@ internal class XamlXNameResolver : INameResolver, IXamlAstVisitor
     {
         var accessText = objectNode
             .Children
-            .OfType<XamlAstXmlDirective>()
-            .Where(dir => dir.Name == "Access" && dir.Namespace == XamlNamespaces.Xaml2006)
-            .Select(dir => dir.Values[0])
+            .OfType<XamlAstXamlPropertyValueNode>()
+            .Where(prop => prop.Property is XamlAstNamePropertyReference propRef && propRef.Name == "Access")
+            .Select(prop => prop.Values[0])
             .OfType<XamlAstTextNode>()
             .Select(txt => txt.Text)
             .FirstOrDefault();
