@@ -5,7 +5,7 @@ using OpenNefia.Core.Configuration;
 using OpenNefia.Core.Console;
 using OpenNefia.Core.IoC;
 
-namespace Robust.Server.Console.Commands
+namespace OpenNefia.Server.Console.Commands
 {
     [UsedImplicitly]
     internal sealed class CVarCommand : IConsoleCommand<CVarCommand.Args>

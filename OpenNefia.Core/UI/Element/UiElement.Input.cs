@@ -80,15 +80,21 @@ namespace OpenNefia.Core.UI.Element
     public class GUIBoundKeyEventArgs : BoundKeyEventArgs
     {
         /// <summary>
+        ///     Position of the mouse, relative to the current control, in virtual pixels.
+        /// </summary>
+        public Vector2 RelativePosition { get; internal set; }
+
+        /// <summary>
         ///     Position of the mouse, relative to the current control.
         /// </summary>
         public Vector2 RelativePixelPosition { get; internal set; }
 
         public GUIBoundKeyEventArgs(BoundKeyFunction function, BoundKeyState state, ScreenCoordinates pointerLocation,
-            bool canFocus, Vector2 relativePixelPosition)
+            bool canFocus, Vector2 relativePosition, Vector2 relativePixelPosition)
             : base(function, state, pointerLocation, canFocus)
         {
             RelativePixelPosition = relativePixelPosition;
+            RelativePosition = relativePosition;
         }
     }
 

@@ -154,6 +154,11 @@ namespace OpenNefia.Core.Maths
             }
         }
 
+        public static explicit operator UIBox2i(UIBox2 box)
+        {
+            return new((int)box.Left, (int)box.Top, (int)box.Right, (int)box.Bottom);
+        }
+
         /// <summary>
         ///     Compares two objects for equality by value.
         /// </summary>

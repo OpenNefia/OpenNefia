@@ -31,8 +31,20 @@ namespace OpenNefia.Core.UserInterface
         /// <inheritdoc/>
         public UiElement? KeyboardFocused { get; private set; }
 
+        private UiElement? _controlFocused;
+
         /// <inheritdoc/>
-        public UiElement? ControlFocused { get; set; }
+        public UiElement? ControlFocused
+        {
+            get => _controlFocused;
+            set
+            {
+                if (_controlFocused == value)
+                    return;
+                _controlFocused?.ControlFocusExited();
+                _controlFocused = value;
+            }
+        }
 
         /// <inheritdoc/>
         public UiElement? CurrentlyHovered { get; private set; }

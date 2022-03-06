@@ -31,6 +31,14 @@
     <ProjectReference Include="..\Thirdparty\Love2dCS\project_dotnet\project_dotnet.csproj" />
   </ItemGroup>
 
-  <Import Project="..\MSBuild\XamlIL.targets" />
   <Import Project="..\MSBuild\OpenNefia.Analyzers.targets" />
+  <Import Project="..\MSBuild\XamlIL.targets" />
+  <ItemGroup>
+    <EmbeddedResource Remove="UI\Wisp\CustomControls\DefaultWindow.xaml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AdditionalFiles Update="UI\Wisp\CustomControls\DefaultWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </AdditionalFiles>
+  </ItemGroup>
 </Project>

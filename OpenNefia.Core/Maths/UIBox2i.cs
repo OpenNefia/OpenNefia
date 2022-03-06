@@ -148,6 +148,11 @@ namespace OpenNefia.Core.Maths
             return code;
         }
 
+        public static implicit operator UIBox2(UIBox2i box)
+        {
+            return new(box.Left, box.Top, box.Right, box.Bottom);
+        }
+
         public static UIBox2i operator +(UIBox2i box, (int lo, int to, int ro, int bo) offsets)
         {
             var (lo, to, ro, bo) = offsets;
