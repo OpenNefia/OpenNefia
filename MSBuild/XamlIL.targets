@@ -1,0 +1,65 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="12.0">
+  <PropertyGroup>
+    <!-- Avoid MSBuild adding a None entry for XAML files because they'd show up TWICE in the project view. -->
+    <DefaultItemExcludes>**/*.xaml</DefaultItemExcludes>
+    <OpenNefiaUseExternalMSBuild>true</OpenNefiaUseExternalMSBuild>
+    <_OpenNefiaUseExternalMSBuild>$(OpenNefiaUseExternalMSBuild)</_OpenNefiaUseExternalMSBuild>
+    <_OpenNefiaUseExternalMSBuild Condition="'$(_OpenNefiaForceInternalMSBuild)' == 'true'">false</_OpenNefiaUseExternalMSBuild>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Update="**\*.xaml.cs">
+      <DependentUpon>%(Filename)</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="**\*.xaml"/>
+    <AdditionalFiles Include="**\*.xaml"/>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="$(MSBuildThisFileDirectory)..\OpenNefia.XamlNameGenerator\OpenNefia.XamlNameGenerator.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false"/>
+    <ProjectReference Include="$(MSBuildThisFileDirectory)..\OpenNefia.XamlInjectors\OpenNefia.XamlInjectors.csproj" ReferenceOutputAssembly="false"/>
+  </ItemGroup>
+
+  <UsingTask
+    Condition="'$(_OpenNefiaUseExternalMSBuild)' != 'true' And $(DesignTimeBuild) != true"
+    TaskName="CompileOpenNefiaXamlTask"
+    AssemblyFile="$(MSBuildThisFileDirectory)..\OpenNefia.XamlInjectors\bin\$(Configuration)\netstandard2.0\OpenNefia.XamlInjectors.dll"/>
+  <Target
+    Name="CompileOpenNefiaXaml"
+    Condition="Exists('@(IntermediateAssembly)')"
+    AfterTargets="AfterCompile"
+    Inputs="@(IntermediateAssembly);@(ReferencePathWithRefAssemblies)"
+    Outputs="$(IntermediateOutputPath)XAML/doot">
+    <PropertyGroup>
+      <OpenNefiaXamlReferencesTemporaryFilePath Condition="'$(OpenNefiaXamlReferencesTemporaryFilePath)' == ''">$(IntermediateOutputPath)XAML/references</OpenNefiaXamlReferencesTemporaryFilePath>
+      <OpenNefiaXamlOriginalCopyFilePath Condition="'$(OpenNefiaXamlOriginalCopyFilePath)' == ''">$(IntermediateOutputPath)XAML/original.dll</OpenNefiaXamlOriginalCopyFilePath>
+    </PropertyGroup>
+    <WriteLinesToFile
+      Condition="'$(_OpenNefiaForceInternalMSBuild)' != 'true'"
+      File="$(OpenNefiaXamlReferencesTemporaryFilePath)"
+      Lines="@(ReferencePathWithRefAssemblies)"
+      Overwrite="true"/>
+
+    <!--
+    UpdateBuildIndicator is done so that we can use MSBuild Inputs and Outputs on the target
+    to avoid unecessary execution of this target
+    Saves compile time if e.g. ONLY OpenNefia.Core changes (OpenNefia.Content doesn't have to re-xaml).
+    -->
+    <CompileOpenNefiaXamlTask
+      Condition="'$(_OpenNefiaUseExternalMSBuild)' != 'true'"
+      AssemblyFile="@(IntermediateAssembly)"
+      ReferencesFilePath="$(OpenNefiaXamlReferencesTemporaryFilePath)"
+      OriginalCopyPath="$(OpenNefiaXamlOriginalCopyFilePath)"
+      ProjectDirectory="$(MSBuildProjectDirectory)"
+      AssemblyOriginatorKeyFile="$(AssemblyOriginatorKeyFile)"
+      SignAssembly="$(SignAssembly)"
+      DelaySign="$(DelaySign)"
+      UpdateBuildIndicator="$(IntermediateOutputPath)XAML/doot"/>
+
+    <PropertyGroup>
+      <DOTNET_HOST_PATH Condition="'$(DOTNET_HOST_PATH)' == ''">dotnet</DOTNET_HOST_PATH>
+    </PropertyGroup>
+    <Exec
+      Condition="'$(_OpenNefiaUseExternalMSBuild)' == 'true'"
+      Command="&quot;$(DOTNET_HOST_PATH)&quot; msbuild /nodereuse:false $(MSBuildProjectFile) /t:CompileOpenNefiaXaml /p:_OpenNefiaForceInternalMSBuild=true /p:Configuration=$(Configuration) /p:RuntimeIdentifier=$(RuntimeIdentifier) /p:TargetFramework=$(TargetFramework) /p:BuildProjectReferences=false"/>
+  </Target>
+</Project>

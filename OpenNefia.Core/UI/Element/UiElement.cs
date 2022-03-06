@@ -3,6 +3,7 @@ using OpenNefia.Core.Locale;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.UI.Layer;
 using OpenNefia.Core.UserInterface;
+using OpenNefia.Core.UserInterface.XAML;
 using OpenNefia.Core.Utility;
 using static NetVips.Enums;
 
@@ -16,6 +17,9 @@ namespace OpenNefia.Core.UI.Element
         public float PreferredHeight { get; internal set; } = float.NaN;
         public float MaxWidth { get; internal set; } = float.PositiveInfinity;
         public float MaxHeight { get; internal set; } = float.PositiveInfinity;
+
+        // ReSharper disable once ValueParameterNotUsed
+        public AccessLevel? Access { set { } }
 
         /// <summary>
         /// A settable minimum size for this control.
@@ -75,6 +79,45 @@ namespace OpenNefia.Core.UI.Element
         public bool IsInsideTree => Root != null;
 
         public virtual UiLayer? Root { get; internal set; }
+
+        public NameScope? NameScope;
+
+        //public void AttachNameScope(Dictionary<string, Control> nameScope)
+        //{
+        //    _nameScope = nameScope;
+        //}
+
+        public NameScope? FindNameScope()
+        {
+            foreach (var control in this.GetSelfAndLogicalAncestors())
+            {
+                if (control.NameScope != null) return control.NameScope;
+            }
+
+            return null;
+        }
+
+        public T FindControl<T>(string name) where T : UiElement
+        {
+            var nameScope = FindNameScope();
+            if (nameScope == null)
+            {
+                throw new ArgumentException("No Namespace found for Control");
+            }
+
+            var value = nameScope.Find(name);
+            if (value == null)
+            {
+                throw new ArgumentException($"No Control with the name {name} found");
+            }
+
+            if (value is not T ret)
+            {
+                throw new ArgumentException($"Control with name {name} had invalid type {value.GetType()}");
+            }
+
+            return ret;
+        }
 
         internal IUserInterfaceManagerInternal UserInterfaceManagerInternal { get; }
 
@@ -165,7 +208,8 @@ namespace OpenNefia.Core.UI.Element
         ///     Whether or not this control and its children are visible.
         /// </summary>
         /// <remarks>TODO implement</remarks>
-        public bool Visible {
+        public bool Visible
+        {
             get => _visible && (Parent?.Visible ?? true);
             set => _visible = value;
         }
@@ -308,6 +352,72 @@ namespace OpenNefia.Core.UI.Element
         }
 
         /// <summary>
+        ///     Gets the "index" in the parent.
+        ///     This index is used for ordering of actions like input and drawing among siblings.
+        /// </summary>
+        /// <exception cref="InvalidOperationException">
+        ///     Thrown if this control has no parent.
+        /// </exception>
+        public int GetPositionInParent()
+        {
+            if (Parent == null)
+            {
+                throw new InvalidOperationException("This control has no parent!");
+            }
+
+            return Parent._orderedChildren.IndexOf(this);
+        }
+
+        /// <summary>
+        ///     Sets the index of this control in the parent.
+        ///     This pretty much corresponds to layout and drawing order in relation to its siblings.
+        /// </summary>
+        /// <param name="position"></param>
+        /// <exception cref="InvalidOperationException">This control has no parent.</exception>
+        public void SetPositionInParent(int position)
+        {
+            if (Parent == null)
+            {
+                throw new InvalidOperationException("No parent to change position in.");
+            }
+
+            var posInParent = GetPositionInParent();
+            if (posInParent == position)
+            {
+                return;
+            }
+
+            Parent._orderedChildren.RemoveAt(posInParent);
+            Parent._orderedChildren.Insert(position, this);
+            Parent.ChildMoved(this, posInParent, position);
+        }
+
+        /// <summary>
+        ///     Makes this the first control among its siblings,
+        ///     So that it's first in things such as drawing order.
+        /// </summary>
+        /// <exception cref="InvalidOperationException">This control has no parent.</exception>
+        public void SetPositionFirst()
+        {
+            SetPositionInParent(0);
+        }
+
+        /// <summary>
+        ///     Makes this the last control among its siblings,
+        ///     So that it's last in things such as drawing order.
+        /// </summary>
+        /// <exception cref="InvalidOperationException">This control has no parent.</exception>
+        public void SetPositionLast()
+        {
+            if (Parent == null)
+            {
+                throw new InvalidOperationException("No parent to change position in.");
+            }
+
+            SetPositionInParent(Parent.ChildCount - 1);
+        }
+
+        /// <summary>
         ///     Called when this control receives keyboard focus.
         /// </summary>
         protected internal virtual void KeyboardFocusEntered()
@@ -318,6 +428,24 @@ namespace OpenNefia.Core.UI.Element
         ///     Called when this control loses keyboard focus (corresponds to UserInterfaceManager.KeyboardFocused).
         /// </summary>
         protected internal virtual void KeyboardFocusExited()
+        {
+        }
+
+        /// <summary>
+        ///     Fired when a control loses control focus for any reason. See <see cref="IUserInterfaceManager.ControlFocused"/>.
+        /// </summary>
+        /// <remarks>
+        ///     Controls which have some sort of drag / drop behavior should usually implement this method (typically by cancelling the drag drop).
+        ///     Otherwise, if a user clicks down LMB over one control to initiate a drag, then clicks RMB down
+        ///     over a different control while still holding down LMB, the control being dragged will now lose focus
+        ///     and will no longer receive the keyup for the LMB, thus won't cancel the drag.
+        ///     This should also be considered for controls which have any special KeyBindUp behavior - consider
+        ///     what would happen if the control lost focus and never received the KeyBindUp.
+        ///
+        ///     There is no corresponding ControlFocusEntered - if a control wants to handle that situation they should simply
+        ///     handle KeyBindDown as that's the only way a control would gain focus.
+        /// </remarks>
+        protected internal virtual void ControlFocusExited()
         {
         }
 
@@ -423,10 +551,32 @@ namespace OpenNefia.Core.UI.Element
             child.Parent = this;
             _orderedChildren.Add(child);
 
+            child.Parented(this);
             if (Root != null)
             {
                 child._propagateEnterTree(Root);
             }
+
+            ChildAdded(child);
+        }
+
+        public event Action<UiElement>? OnChildAdded;
+
+        /// <summary>
+        ///     Called after a new child is added to this control.
+        /// </summary>
+        /// <param name="newChild">The new child.</param>
+        protected virtual void ChildAdded(UiElement newChild)
+        {
+            OnChildAdded?.Invoke(newChild);
+        }
+
+        /// <summary>
+        ///     Called when this control gets made a child of a different control.
+        /// </summary>
+        /// <param name="newParent">The new parent component.</param>
+        protected virtual void Parented(UiElement newParent)
+        {
         }
 
         /// <summary>
@@ -449,10 +599,44 @@ namespace OpenNefia.Core.UI.Element
 
             child.Parent = null;
 
+            child.Deparented();
             if (IsInsideTree)
             {
                 child._propagateExitTree();
             }
+
+            ChildRemoved(child);
+        }
+
+        public event Action<UiElement>? OnChildRemoved;
+
+        /// <summary>
+        ///     Called when a child is removed from this child.
+        /// </summary>
+        /// <param name="child">The former child.</param>
+        protected virtual void ChildRemoved(UiElement child)
+        {
+            OnChildRemoved?.Invoke(child);
+        }
+
+        /// <summary>
+        ///     Called when this control is removed as child from the former parent.
+        /// </summary>
+        protected virtual void Deparented()
+        {
+        }
+
+        public event Action<ControlChildMovedEventArgs>? OnChildMoved;
+
+        /// <summary>
+        ///     Called when the order index of a child changes.
+        /// </summary>
+        /// <param name="child">The child that was changed.</param>
+        /// <param name="oldIndex">The previous index of the child.</param>
+        /// <param name="newIndex">The new index of the child.</param>
+        protected virtual void ChildMoved(UiElement child, int oldIndex, int newIndex)
+        {
+            OnChildMoved?.Invoke(new ControlChildMovedEventArgs(child, oldIndex, newIndex));
         }
 
         private void _propagateExitTree()
@@ -589,5 +773,19 @@ namespace OpenNefia.Core.UI.Element
                 }
             }
         }
+    }
+
+    public readonly struct ControlChildMovedEventArgs
+    {
+        public ControlChildMovedEventArgs(UiElement control, int oldIndex, int newIndex)
+        {
+            Control = control;
+            OldIndex = oldIndex;
+            NewIndex = newIndex;
+        }
+
+        public readonly UiElement Control;
+        public readonly int OldIndex;
+        public readonly int NewIndex;
     }
 }

@@ -61,6 +61,7 @@ namespace OpenNefia.Core.UserInterface
             }
 
             var guiArgs = new GUIBoundKeyEventArgs(args.Function, args.State, args.PointerLocation, args.CanFocus,
+                (args.PointerLocation.Position / _graphics.WindowScale) - control.Position,
                 args.PointerLocation.Position - control.PixelPosition);
 
             _doGuiInput(control, guiArgs, (c, ev) => c.KeyBindDown(ev));
@@ -80,6 +81,7 @@ namespace OpenNefia.Core.UserInterface
             }
 
             var guiArgs = new GUIBoundKeyEventArgs(args.Function, args.State, args.PointerLocation, args.CanFocus,
+                (args.PointerLocation.Position / _graphics.WindowScale) - control.Position,
                 args.PointerLocation.Position - control.PixelPosition);
 
             _doGuiInput(control, guiArgs, (c, ev) => c.KeyBindUp(ev));

@@ -17,4 +17,5 @@
   </ItemGroup>
 
   <Import Project="..\MSBuild\OpenNefia.Analyzers.targets" />
+  <Import Project="..\MSBuild\XamlIL.targets" />
 </Project>

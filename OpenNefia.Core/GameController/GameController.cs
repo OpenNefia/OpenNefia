@@ -24,6 +24,7 @@ using OpenNefia.Core.Serialization.Manager;
 using OpenNefia.Core.Timing;
 using OpenNefia.Core.UI;
 using OpenNefia.Core.UI.Layer;
+using OpenNefia.Core.UI.Wisp;
 using OpenNefia.Core.UserInterface;
 using OpenNefia.Core.Utility;
 
@@ -56,6 +57,7 @@ namespace OpenNefia.Core.GameController
         [Dependency] private readonly IProfileManager _profileManager = default!;
         [Dependency] private readonly ISaveGameManagerInternal _saveGameManager = default!;
         [Dependency] private readonly ISaveGameSerializerInternal _saveGameSerializer = default!;
+        [Dependency] private readonly IWispManager _wispManager = default!;
 
         public Action? MainCallback { get; set; } = null;
         private ILogHandler? _logHandler;
@@ -319,6 +321,7 @@ namespace OpenNefia.Core.GameController
             _inputManager.UpdateKeyRepeats(frame);
             _uiManager.UpdateLayers(frame);
             _taskManager.ProcessPendingTasks();
+            _wispManager.Update(frame);
         }
 
         public void Draw()
