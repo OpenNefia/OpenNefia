@@ -1,9 +1,11 @@
 ﻿using ImGuiNET;
 using OpenNefia.Core.Graphics;
+using OpenNefia.Core.Input;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Log;
 using OpenNefia.Core.Timing;
 using System.Buffers;
+using System.Reflection;
 using System.Runtime.InteropServices;
 
 namespace OpenNefia.Core.DebugView
@@ -19,7 +21,7 @@ namespace OpenNefia.Core.DebugView
     /// <summary>
     /// Based on https://github.com/mellinoe/ImGui.NET/blob/master/src/ImGui.NET.SampleProgram/ImGuiController.cs
     /// </summary>
-    public sealed class DebugViewManager : IDebugViewManager
+    public sealed partial class DebugViewManager : IDebugViewManager
     {
         [Dependency] private readonly IGraphics _graphics = default!;
 
@@ -65,6 +67,7 @@ namespace OpenNefia.Core.DebugView
             _imGuiToLoveTextures.Add(fontTextureId, _fontTexture);
 
             SetPerFrameImGuiData(new FrameEventArgs(1f / 60f));
+            SetupKeyMap();
 
             ImGui.NewFrame();
             _frameBegun = true;
