@@ -2,12 +2,11 @@
 using Pidgin;
 using static Pidgin.Parser;
 
-
-namespace OpenNefia.Build.Tasks
+namespace OpenNefia.XamlInjectors.CompilerExtensions
 {
     public static class MathParsing
     {
-        public static Parser<char, float> Single { get; } = Real.Select(c => (float) c);
+        public static Parser<char, float> Single { get; } = Real.Select(c => (float)c);
 
         public static Parser<char, float> Single1 { get; }
             = Single.Between(SkipWhitespaces);
@@ -29,9 +28,9 @@ namespace OpenNefia.Build.Tasks
         public static Parser<char, float[]> Thickness { get; }
             = SkipWhitespaces.Then(
                 OneOf(
-                    Try(Single4.Select(c => new[] {c.Item1, c.Item2, c.Item3, c.Item4})),
-                    Try(Single2.Select(c => new[] {c.Item1, c.Item2})),
-                    Try(Single1.Select(c => new[] {c}))
+                    Try(Single4.Select(c => new[] { c.Item1, c.Item2, c.Item3, c.Item4 })),
+                    Try(Single2.Select(c => new[] { c.Item1, c.Item2 })),
+                    Try(Single1.Select(c => new[] { c }))
                 ));
     }
 }

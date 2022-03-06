@@ -1,10 +1,7 @@
 using System.Collections;
-using System.Collections.Generic;
 using OpenNefia.Core.UserInterface.XAML;
 using OpenNefia.Core.Maths;
-using OpenNefia.Core.Timing;
 using OpenNefia.Core.Utility;
-using OpenNefia.Core.UI.Wisp;
 using OpenNefia.Core.UI.Wisp.Controls;
 using OpenNefia.Core.UserInterface;
 using OpenNefia.Core.UI.Element;

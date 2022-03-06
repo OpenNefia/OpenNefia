@@ -6,16 +6,16 @@ using XamlX.Emit;
 using XamlX.IL;
 using XamlX.TypeSystem;
 
-namespace OpenNefia.Build.Tasks
+namespace OpenNefia.XamlInjectors.CompilerExtensions
 {
-    public abstract class RXamlVecLikeConstAstNode<T>
+    public abstract class ONXamlVecLikeConstAstNode<T>
         : XamlAstNode, IXamlAstValueNode, IXamlAstILEmitableNode
         where T : unmanaged
     {
         private readonly IXamlConstructor _constructor;
         protected readonly T[] Values;
 
-        public RXamlVecLikeConstAstNode(
+        public ONXamlVecLikeConstAstNode(
             IXamlLineInfo lineInfo,
             IXamlType type, IXamlConstructor constructor,
             IXamlType componentType, T[] values)
@@ -47,7 +47,7 @@ namespace OpenNefia.Build.Tasks
         }
     }
 
-    public sealed class RXamlSingleVecLikeConstAstNode : RXamlVecLikeConstAstNode<float>
+    public sealed class RXamlSingleVecLikeConstAstNode : ONXamlVecLikeConstAstNode<float>
     {
         public RXamlSingleVecLikeConstAstNode(
             IXamlLineInfo lineInfo,
@@ -69,9 +69,9 @@ namespace OpenNefia.Build.Tasks
         }
     }
 
-    public sealed class RXamlInt32VecLikeConstAstNode : RXamlVecLikeConstAstNode<int>
+    public sealed class ONXamlInt32VecLikeConstAstNode : ONXamlVecLikeConstAstNode<int>
     {
-        public RXamlInt32VecLikeConstAstNode(
+        public ONXamlInt32VecLikeConstAstNode(
             IXamlLineInfo lineInfo,
             IXamlType type, IXamlConstructor constructor,
             IXamlType componentType, int[] values)

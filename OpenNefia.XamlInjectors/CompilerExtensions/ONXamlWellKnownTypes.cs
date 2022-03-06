@@ -1,8 +1,12 @@
 ﻿using System.Linq;
+using XamlX.Emit;
+using XamlX.IL;
 using XamlX.Transform;
 using XamlX.TypeSystem;
 
-namespace OpenNefia.Build.Tasks
+using XamlIlEmitContext = XamlX.Emit.XamlEmitContext<XamlX.IL.IXamlILEmitter, XamlX.IL.XamlILNodeEmitResult>;
+
+namespace OpenNefia.XamlInjectors.CompilerExtensions
 {
     class ONXamlWellKnownTypes
     {
@@ -17,6 +21,7 @@ namespace OpenNefia.Build.Tasks
         public IXamlConstructor ThicknessConstructorFull { get; }
         public IXamlType Color { get; }
         public IXamlMethod ColorFromXaml { get; }
+        public IXamlType TypeUtilities { get; }
 
         public ONXamlWellKnownTypes(TransformerConfiguration cfg)
         {
@@ -42,6 +47,8 @@ namespace OpenNefia.Build.Tasks
             {
                 IsStatic = true
             });
+
+            TypeUtilities = cfg.TypeSystem.GetType("OpenNefia.Core.UserInterface.XAML.TypeUtilities");
         }
     }
 
@@ -49,10 +56,18 @@ namespace OpenNefia.Build.Tasks
     {
         public static ONXamlWellKnownTypes GetOpenNefiaTypes(this AstTransformationContext ctx)
         {
-            if (ctx.TryGetItem<ONXamlWellKnownTypes>(out var rv))
-                return rv;
-            ctx.SetItem(rv = new ONXamlWellKnownTypes(ctx.Configuration));
-            return rv;
+            if (ctx.TryGetItem<ONXamlWellKnownTypes>(out var onv))
+                return onv;
+            ctx.SetItem(onv = new ONXamlWellKnownTypes(ctx.Configuration));
+            return onv;
+        }
+
+        public static ONXamlWellKnownTypes GetOpenNefiaTypes(this XamlIlEmitContext ctx)
+        {
+            if (ctx.TryGetItem<ONXamlWellKnownTypes>(out var onv))
+                return onv;
+            ctx.SetItem(onv = new ONXamlWellKnownTypes(ctx.Configuration));
+            return onv;
         }
     }
 }

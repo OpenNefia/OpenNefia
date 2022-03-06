@@ -1,7 +1,7 @@
-<Project Sdk="Microsoft.NET.Sdk">
-
+﻿<Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
         <TargetFramework>netstandard2.0</TargetFramework>
+        <LangVersion>preview</LangVersion>
         <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
     </PropertyGroup>
 
@@ -13,5 +13,9 @@
 
     <ItemGroup>
       <ProjectReference Include="..\Thirdparty\XamlX\src\XamlX.IL.Cecil\XamlX.IL.Cecil.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Runtime\" />
     </ItemGroup>
 </Project>

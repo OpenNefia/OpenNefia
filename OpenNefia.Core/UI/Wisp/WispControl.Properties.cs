@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace OpenNefia.Core.UI.Wisp
 {
-    public abstract partial class WispControl
+    public partial class WispControl
     {
         private Dictionary<AttachedProperty, object?>? _attachedProperties;
 
