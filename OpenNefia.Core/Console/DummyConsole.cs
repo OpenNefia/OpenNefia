@@ -37,9 +37,9 @@ namespace OpenNefia.Core.Console
         {
         }
 
-        public void Write(string value) => _output.WriteLine(value);
-        public void WriteLine(string value) => _output.WriteLine(value);
-        public void WriteError(string value) => _output.WriteError(value);
-        public void WriteErrorLine(string value) => _output.WriteError(value);
+        public void Write(string? value) => _output.WriteLine(value ?? string.Empty);
+        public void WriteLine(string? value) => _output.WriteLine(value ?? string.Empty);
+        public void WriteError(string? value) => _output.WriteError(value ?? string.Empty);
+        public void WriteErrorLine(string? value) => _output.WriteError(value ?? string.Empty);
     }
 }
