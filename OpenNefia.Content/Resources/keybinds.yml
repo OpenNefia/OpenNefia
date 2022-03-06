@@ -576,6 +576,10 @@ binds:
   type: State
   key: Backquote
 
+- function: ShowDebugView
+  type: State
+  key: F12
+
 - function: Elona.ReplFullscreen
   type: State
   key: F

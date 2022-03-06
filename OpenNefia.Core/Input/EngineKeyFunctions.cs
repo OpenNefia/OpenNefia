@@ -35,7 +35,7 @@ namespace OpenNefia.Core.Input
         public static readonly BoundKeyFunction UIPreviousPage = "UIPreviousPage";
 
         public static readonly BoundKeyFunction ShowDebugConsole = "ShowDebugConsole";
-        public static readonly BoundKeyFunction ShowDebugMonitors = "ShowDebugMonitors";
+        public static readonly BoundKeyFunction ShowDebugView = "ShowDebugView";
 
         // Cursor keys in LineEdit and such.
         public static readonly BoundKeyFunction TextCursorLeft = "TextCursorLeft";

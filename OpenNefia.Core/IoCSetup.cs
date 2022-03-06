@@ -27,6 +27,7 @@ using OpenNefia.Core.Timing;
 using OpenNefia.Core.UI.Layer;
 using OpenNefia.Core.UserInterface;
 using PrettyPrompt.Consoles;
+using OpenNefia.Core.DebugView;
 
 namespace OpenNefia
 {
@@ -104,6 +105,8 @@ namespace OpenNefia
             IoCManager.Register<ISaveGameManagerInternal, SaveGameManager>();
             IoCManager.Register<ISaveGameSerializer, SaveGameSerializer>();
             IoCManager.Register<ISaveGameSerializerInternal, SaveGameSerializer>();
+            IoCManager.Register<IDebugViewManager, DebugViewManager>();
+            IoCManager.Register<IDebugViewLayer, DebugViewLayer>();
         }
     }
 }

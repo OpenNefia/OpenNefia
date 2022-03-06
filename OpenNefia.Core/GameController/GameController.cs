@@ -6,6 +6,7 @@ using OpenNefia.Core.Audio;
 using OpenNefia.Core.Configuration;
 using OpenNefia.Core.Console;
 using OpenNefia.Core.ContentPack;
+using OpenNefia.Core.DebugView;
 using OpenNefia.Core.Game;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Graphics;
@@ -56,6 +57,7 @@ namespace OpenNefia.Core.GameController
         [Dependency] private readonly IProfileManager _profileManager = default!;
         [Dependency] private readonly ISaveGameManagerInternal _saveGameManager = default!;
         [Dependency] private readonly ISaveGameSerializerInternal _saveGameSerializer = default!;
+        [Dependency] private readonly IDebugViewManager _debugViewManager = default!;
 
         public Action? MainCallback { get; set; } = null;
         private ILogHandler? _logHandler;
@@ -146,6 +148,8 @@ namespace OpenNefia.Core.GameController
 
             _mapRenderer.Initialize();
             _mapRenderer.RegisterTileLayers();
+
+            _debugViewManager.Initialize();
 
             _modLoader.BroadcastRunLevel(ModRunLevel.PostInit);
 
@@ -314,11 +318,13 @@ namespace OpenNefia.Core.GameController
                 DoShutdown();
             }
 
+            _debugViewManager.NewFrame();
             _taskManager.ProcessPendingTasks();
             _timerManager.UpdateTimers(frame);
             _inputManager.UpdateKeyRepeats(frame);
             _uiManager.UpdateLayers(frame);
             _taskManager.ProcessPendingTasks();
+            _debugViewManager.Update(frame);
         }
 
         public void Draw()

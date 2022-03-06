@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <PackageReference Include="CommandLineParser" Version="2.8.0" />
+    <PackageReference Include="ImGui.NET" Version="1.87.2" />
     <PackageReference Include="JetBrains.Annotations" Version="2021.3.0" />
     <PackageReference Include="Melanchall.DryWetMidi" Version="6.0.0" />
     <PackageReference Include="Nett" Version="0.15.0" />

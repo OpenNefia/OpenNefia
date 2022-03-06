@@ -374,6 +374,12 @@ namespace OpenNefia.Core.Maths
             return new Love.Vector2(vector.X, vector.Y);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static implicit operator System.Numerics.Vector2(Vector2 vector)
+        {
+            return new System.Numerics.Vector2(vector.X, vector.Y);
+        }
+
         /// <summary>
         ///     Returns a string that represents the current Vector2.
         /// </summary>

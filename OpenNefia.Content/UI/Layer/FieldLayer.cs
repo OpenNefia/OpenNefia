@@ -10,6 +10,8 @@ using OpenNefia.Core.Graphics;
 using OpenNefia.Core.Input;
 using OpenNefia.Content.TurnOrder;
 using OpenNefia.Core.Audio;
+using OpenNefia.Core.DebugView;
+using OpenNefia.Content.UI.Hud;
 
 namespace OpenNefia.Content.UI.Layer
 {
@@ -22,10 +24,9 @@ namespace OpenNefia.Content.UI.Layer
         [Dependency] private readonly IGraphics _graphics = default!;
         [Dependency] private readonly IInputManager _inputManager = default!;
         [Dependency] private readonly IMusicManager _music = default!;
+        [Dependency] private readonly IHudLayer _hud = default!;
 
         public override int? DefaultZOrder => 100000;
-
-        public static FieldLayer? Instance = null;
 
         public IMap Map { get; private set; } = default!;
 
@@ -144,11 +145,6 @@ namespace OpenNefia.Content.UI.Layer
             Love.Graphics.SetColor(255, 255, 255);
 
             _mapRenderer.Draw();
-
-            Love.Graphics.SetColor(255, 0, 0);
-
-            var player = _gameSession.Player!;
-            var playerSpatial = _entityManager.GetComponent<SpatialComponent>(player);
         }
 
         public override void Dispose()
