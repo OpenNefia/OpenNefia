@@ -1,11 +1,11 @@
-﻿<DefaultWindow xmlns="https://opennefia.io" MinWidth="100" MinHeight="50">
-    <PanelContainer StyleClasses="windowPanel" />
+﻿<DefaultWindow xmlns="https://opennefia.io" MinWidth="100" MinHeight="50" Class="OpenNefia.Core.UI.Wisp.CustomControls.DefaultWindow">
+    <PanelContainer/>
     <BoxContainer Orientation="Vertical" SeparationOverride="0">
-        <PanelContainer Name="WindowHeader" StyleClasses="windowHeader">
+        <PanelContainer Name="WindowHeader">
             <BoxContainer Orientation="Horizontal">
-                <Label Margin="5 0 0 0" HorizontalExpand="true" Name="TitleLabel" StyleIdentifier="foo" ClipText="True"
-                       Text="defaultwindow-placeholder-title" VAlign="Center" StyleClasses="windowTitle" />
-                <TextureButton Name="CloseButton" StyleClasses="windowCloseButton" VerticalAlignment="Center" />
+                <Label Margin="5 0 0 0" HorizontalExpand="true" Name="TitleLabel" ClipText="True"
+                       Text="defaultwindow-placeholder-title" VAlign="Center" />
+                <TextureButton Name="CloseButton" VerticalAlignment="Center" />
             </BoxContainer>
         </PanelContainer>
         <WispControl Name="ContentsContainer" Margin="10" RectClipContent="True" VerticalExpand="true" />

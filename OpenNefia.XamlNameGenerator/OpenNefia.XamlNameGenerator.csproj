@@ -1,22 +1,22 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
-    <PropertyGroup>
-        <TargetFramework>netstandard2.0</TargetFramework>
-    </PropertyGroup>
-
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <LangVersion>preview</LangVersion>
+  </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="3.9.0" PrivateAssets="all" />
     <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="3.3.3" PrivateAssets="all" />
   </ItemGroup>
-
   <ItemGroup>
-    <Compile Link="XamlX\filename" Include="../XamlX/src/XamlX/**/*.cs" />
-    <Compile Remove="../XamlX/src/XamlX/**/SreTypeSystem.cs" />
-    <Compile Remove="../XamlX/src/XamlX/obj/**" />
+    <Compile Link="XamlX\filename" Include="../Thirdparty/XamlX/src/XamlX/**/*.cs" />
+    <Compile Remove="../Thirdparty/XamlX/src/XamlX/**/SreTypeSystem.cs" />
+    <Compile Remove="../Thirdparty/XamlX/src/XamlX/obj/**" />
     <Compile Include="..\OpenNefia.Core\UserInterface\ControlPropertyAccess.cs" />
   </ItemGroup>
-
   <ItemGroup>
-    <ProjectReference Include="..\Thirdparty\XamlX\src\XamlX\XamlX.csproj" />
+    <None Include="Generator.props">
+      <Pack>true</Pack>
+      <PackagePath>buildTransitive\$(PackageId).props</PackagePath>
+    </None>
   </ItemGroup>
 </Project>

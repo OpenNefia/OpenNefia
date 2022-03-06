@@ -13,7 +13,12 @@ namespace OpenNefia.Build.Tasks
     {
         public bool Execute()
         {
-            //Debugger.Launch();
+#if DEBUG
+            if (!Debugger.IsAttached)
+            {
+                Debugger.Launch();
+            }
+#endif 
             OutputPath = OutputPath ?? AssemblyFile;
             var outputPdb = GetPdbPath(OutputPath);
             var input = AssemblyFile;

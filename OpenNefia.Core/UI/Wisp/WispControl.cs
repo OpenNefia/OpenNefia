@@ -2,6 +2,7 @@
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.UI.Element;
 using OpenNefia.Core.UserInterface;
+using OpenNefia.Core.UserInterface.XAML;
 using OpenNefia.Core.Utility;
 using static NetVips.Enums;
 
@@ -45,6 +46,7 @@ namespace OpenNefia.Core.UI.Wisp
         public WispControl() : base()
         {
             WispManager = IoCManager.Resolve<IWispManager>();
+            XamlChildren = Children;
         }
 
         /// <summary>
@@ -65,8 +67,29 @@ namespace OpenNefia.Core.UI.Wisp
         public bool IsMeasureValid { get; private set; }
         public bool IsArrangeValid { get; private set; }
 
+        /// <summary>
+        /// Margin of this control.
+        /// </summary>
+        public Thickness Margin
+        {
+            get => _margin;
+            set
+            {
+                _margin = value;
+                InvalidateMeasure();
+            }
+        }
+
         public IEnumerable<WispControl> WispChildren => Children.WhereAssignable<UiElement, WispControl>();
         public int WispChildCount => WispChildren.Count();
+
+        [Content]
+        public virtual ICollection<UiElement> XamlChildren { get; protected set; }
+
+        /// <summary>
+        /// Full name of the class to bind this control to. Set in XAML.
+        /// </summary>
+        public string? Class { get; private set; }
 
         /// <summary>
         /// Horizontal alignment mode.
