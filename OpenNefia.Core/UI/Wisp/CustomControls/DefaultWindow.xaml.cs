@@ -6,8 +6,10 @@ using OpenNefia.Core.Timing;
 using OpenNefia.Core.Utility;
 using OpenNefia.Core.UI.Wisp;
 using OpenNefia.Core.UI.Wisp.Controls;
+using OpenNefia.Core.UserInterface;
+using OpenNefia.Core.UI.Element;
 
-namespace OpenNefia.Core.UserInterface.CustomControls
+namespace OpenNefia.Core.UI.Wisp.CustomControls
 {
     /// <summary>
     /// Simple window implementation that can be resized and has a title bar.
@@ -47,11 +49,13 @@ namespace OpenNefia.Core.UserInterface.CustomControls
                 if (_headerClass == value)
                     return;
 
+                /*
                 if (_headerClass != null)
                     WindowHeader.RemoveStyleClass(_headerClass);
 
                 if (value != null)
                     WindowHeader.AddStyleClass(value);
+                */
 
                 _headerClass = value;
             }
@@ -65,11 +69,13 @@ namespace OpenNefia.Core.UserInterface.CustomControls
                 if (_titleClass == value)
                     return;
 
+                /*
                 if (_titleClass != null)
                     TitleLabel.RemoveStyleClass(_titleClass);
 
                 if (value != null)
                     TitleLabel.AddStyleClass(value);
+                */
 
                 _titleClass = value;
             }
@@ -174,7 +180,7 @@ namespace OpenNefia.Core.UserInterface.CustomControls
             return mode;
         }
 
-        public sealed class WispContentCollection : ICollection<WispControl>, IReadOnlyCollection<WispControl>
+        public sealed class WispContentCollection : ICollection<UiElement>, IReadOnlyCollection<UiElement>
         {
             private readonly DefaultWindow Owner;
 
@@ -188,10 +194,10 @@ namespace OpenNefia.Core.UserInterface.CustomControls
                 return new(Owner);
             }
 
-            IEnumerator<WispControl> IEnumerable<WispControl>.GetEnumerator() => GetEnumerator();
+            IEnumerator<UiElement> IEnumerable<UiElement>.GetEnumerator() => GetEnumerator();
             IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
-            public void Add(WispControl item)
+            public void Add(UiElement item)
             {
                 Owner.Contents.AddChild(item);
             }
@@ -201,17 +207,17 @@ namespace OpenNefia.Core.UserInterface.CustomControls
                 Owner.Contents.RemoveAllChildren();
             }
 
-            public bool Contains(WispControl item)
+            public bool Contains(UiElement item)
             {
                 return item?.Parent == Owner.Contents;
             }
 
-            public void CopyTo(WispControl[] array, int arrayIndex)
+            public void CopyTo(UiElement[] array, int arrayIndex)
             {
                 Owner.Contents.Children.CopyTo(array, arrayIndex);
             }
 
-            public bool Remove(WispControl item)
+            public bool Remove(UiElement item)
             {
                 if (item?.Parent != Owner.Contents)
                 {
@@ -224,19 +230,19 @@ namespace OpenNefia.Core.UserInterface.CustomControls
                 return true;
             }
 
-            int ICollection<WispControl>.Count => Owner.Contents.WispChildCount;
-            int IReadOnlyCollection<WispControl>.Count => Owner.Contents.WispChildCount;
+            int ICollection<UiElement>.Count => Owner.Contents.ChildCount;
+            int IReadOnlyCollection<UiElement>.Count => Owner.Contents.ChildCount;
 
             public bool IsReadOnly => false;
 
 
-            public struct Enumerator : IEnumerator<WispControl>
+            public struct Enumerator : IEnumerator<UiElement>
             {
-                private IEnumerator<WispControl> _enumerator;
+                private OrderedChildCollection.Enumerator _enumerator;
 
                 internal Enumerator(DefaultWindow DefaultWindow)
                 {
-                    _enumerator = DefaultWindow.Contents.WispChildren.GetEnumerator();
+                    _enumerator = DefaultWindow.Contents.Children.GetEnumerator();
                 }
 
                 public bool MoveNext()
@@ -249,7 +255,7 @@ namespace OpenNefia.Core.UserInterface.CustomControls
                     _enumerator.Reset();
                 }
 
-                public WispControl Current => _enumerator.Current;
+                public UiElement Current => _enumerator.Current;
 
                 object IEnumerator.Current => Current;
 

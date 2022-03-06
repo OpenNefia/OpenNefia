@@ -7,8 +7,9 @@ using OpenNefia.Core.Timing;
 using OpenNefia.Core.UI.Element;
 using OpenNefia.Core.UI.Wisp;
 using OpenNefia.Core.UI.Wisp.Controls;
+using OpenNefia.Core.UserInterface;
 
-namespace OpenNefia.Core.UserInterface.CustomControls
+namespace OpenNefia.Core.UI.Wisp.CustomControls
 {
     /// <summary>
     ///     Provides basic functionality for windows that can be opened, dragged around, etc...
@@ -134,10 +135,12 @@ namespace OpenNefia.Core.UserInterface.CustomControls
                 var (left, top) = Position;
                 var (right, bottom) = Position + PreferredSize;
 
-                if (float.IsNaN(PreferredSize.X)) {
+                if (float.IsNaN(PreferredSize.X))
+                {
                     right = Position.X + Size.X;
                 }
-                if (float.IsNaN(PreferredSize.Y)) {
+                if (float.IsNaN(PreferredSize.Y))
+                {
                     bottom = Position.Y + Size.Y;
                 }
 
