@@ -65,12 +65,10 @@ namespace OpenNefia.Core.UI.Wisp.Controls
         {
             get
             {
-                /*
                 if (TryGetStyleProperty<AlignMode>(StylePropertyAlignMode, out var alignMode))
                 {
                     return alignMode;
                 }
-                */
 
                 return _align;
             }
@@ -91,12 +89,10 @@ namespace OpenNefia.Core.UI.Wisp.Controls
                     return FontOverride;
                 }
 
-                /*
                 if (TryGetStyleProperty<FontSpec>(StylePropertyFont, out var font))
                 {
                     return font;
                 }
-                */
 
                 //return UserInterfaceManager.ThemeDefaults.LabelFont;
                 return _fallbackFont;
@@ -114,10 +110,10 @@ namespace OpenNefia.Core.UI.Wisp.Controls
                     return FontColorOverride.Value;
                 }
 
-                //if (TryGetStyleProperty<Color>(StylePropertyFontColor, out var color))
-                //{
-                //    return color;
-                //}
+                if (TryGetStyleProperty<Color>(StylePropertyFontColor, out var color))
+                {
+                    return color;
+                }
 
                 return Color.White;
             }
@@ -264,13 +260,11 @@ namespace OpenNefia.Core.UI.Wisp.Controls
             _textDimensionCacheValid = true;
         }
 
-        /*
         protected override void StylePropertiesChanged()
         {
             _textDimensionCacheValid = false;
 
             base.StylePropertiesChanged();
         }
-        */
     }
 }

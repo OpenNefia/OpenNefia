@@ -1,6 +1,7 @@
 ﻿using System;
 using OpenNefia.Core.Graphics;
 using OpenNefia.Core.Maths;
+using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Rendering;
 
 namespace OpenNefia.Core.UI.Wisp.Controls
@@ -8,7 +9,7 @@ namespace OpenNefia.Core.UI.Wisp.Controls
     public class TextureButton : BaseButton
     {
         private Vector2 _scale = (1, 1);
-        private IAssetInstance? _assetNormal;
+        private PrototypeId<AssetPrototype>? _assetNormal;
         public const string StylePropertyTexture = "texture";
         public const string StylePseudoClassNormal = "normal";
         public const string StylePseudoClassHover = "hover";
@@ -20,7 +21,7 @@ namespace OpenNefia.Core.UI.Wisp.Controls
             DrawModeChanged();
         }
 
-        public IAssetInstance? AssetNormal
+        public PrototypeId<AssetPrototype>? AssetNormal
         {
             get => _assetNormal;
             set
@@ -42,7 +43,6 @@ namespace OpenNefia.Core.UI.Wisp.Controls
 
         protected override void DrawModeChanged()
         {
-            /*
             switch (DrawMode)
             {
                 case DrawModeEnum.Normal:
@@ -60,39 +60,36 @@ namespace OpenNefia.Core.UI.Wisp.Controls
                 default:
                     throw new ArgumentOutOfRangeException();
             }
-            */
         }
 
         public override void Draw()
         {
-            var asset = AssetNormal;
+            var assetId = AssetNormal;
 
-            if (asset == null)
+            if (assetId == null)
             {
-                /*
-                TryGetStyleProperty(StylePropertyTexture, out texture);
-                if (texture == null)
+                TryGetStyleProperty(StylePropertyTexture, out assetId);
+                if (assetId == null)
                 {
                     return;
                 }
-                */
             }
 
-            asset?.Draw(UIScale, PixelSizeBox);
+            var asset = assetId == null ? null : Assets.Get(assetId.Value);
+            asset?.Draw(UIScale, GlobalPixelRect);
         }
 
         protected override Vector2 MeasureOverride(Vector2 availableSize)
         {
-            var texture = AssetNormal;
+            var assetId = AssetNormal;
 
-            /*
-            if (texture == null)
+            if (assetId == null)
             {
-                TryGetStyleProperty(StylePropertyTexture, out texture);
+                TryGetStyleProperty(StylePropertyTexture, out assetId);
             }
-            */
 
-            return Scale * (texture?.VirtualSize(UIScale) ?? Vector2.Zero);
+            var asset = assetId == null ? null : Assets.Get(assetId.Value);
+            return Scale * (asset?.VirtualSize(UIScale) ?? Vector2.Zero);
         }
     }
 }

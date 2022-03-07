@@ -22,9 +22,33 @@ namespace OpenNefia.Core.UI.Element
         public AccessLevel? Access { set { } }
 
         /// <summary>
+        /// TODO remove after merge with wisp
+        /// </summary>
+        public virtual Vector2 GlobalPosition => Position;
+
+        /// <summary>
+        /// TODO remove after merge with wisp
+        /// </summary>
+        public virtual Vector2i GlobalPixelPosition => PixelPosition;
+
+        /// <summary>
+        /// TODO remove after merge with wisp
+        /// </summary>
+
+        /// <summary>
+        /// TODO remove after merge with wisp
+        /// </summary>
+        public UIBox2 GlobalRect => UIBox2.FromDimensions(GlobalPosition, Size);
+
+        /// <summary>
+        /// TODO remove after merge with wisp
+        /// </summary>
+        public UIBox2i GlobalPixelRect => UIBox2i.FromDimensions(GlobalPixelPosition, PixelSize);
+
+        /// <summary>
         /// A settable minimum size for this control.
         /// </summary>
-        public Vector2 MinSize
+        public virtual Vector2 MinSize
         {
             get => (MinWidth, MinHeight);
             set => (MinWidth, MinHeight) = Vector2.ComponentMax(Vector2.Zero, value);
@@ -33,7 +57,7 @@ namespace OpenNefia.Core.UI.Element
         /// <summary>
         /// A preferred exact size for this control.
         /// </summary>
-        public Vector2 PreferredSize
+        public virtual Vector2 PreferredSize
         {
             get => (PreferredWidth, PreferredHeight);
             set => (PreferredWidth, PreferredHeight) = value;
@@ -42,7 +66,7 @@ namespace OpenNefia.Core.UI.Element
         /// <summary>
         /// A settable maximum size for this control.
         /// </summary>
-        public Vector2 MaxSize
+        public virtual Vector2 MaxSize
         {
             get => (MaxWidth, MaxHeight);
             set => (MaxWidth, MaxHeight) = Vector2.ComponentMax(Vector2.Zero, value);
@@ -52,7 +76,7 @@ namespace OpenNefia.Core.UI.Element
         ///     The position of the top left corner of the control relative to the parent, in virtual pixels.
         /// </summary>
         /// <seealso cref="RelativePixelPosition"/>
-        public Vector2 RelativePosition
+        public virtual Vector2 RelativePosition
         {
             get => Position - (Parent?.Position ?? Vector2.Zero);
             set

@@ -61,8 +61,8 @@ namespace OpenNefia.Core.UserInterface
             }
 
             var guiArgs = new GUIBoundKeyEventArgs(args.Function, args.State, args.PointerLocation, args.CanFocus,
-                (args.PointerLocation.Position / _graphics.WindowScale) - control.Position,
-                args.PointerLocation.Position - control.PixelPosition);
+                (args.PointerLocation.Position / control.UIScale) - control.GlobalPosition,
+                args.PointerLocation.Position - control.GlobalPixelPosition);
 
             _doGuiInput(control, guiArgs, (c, ev) => c.KeyBindDown(ev));
 
@@ -81,8 +81,8 @@ namespace OpenNefia.Core.UserInterface
             }
 
             var guiArgs = new GUIBoundKeyEventArgs(args.Function, args.State, args.PointerLocation, args.CanFocus,
-                (args.PointerLocation.Position / _graphics.WindowScale) - control.Position,
-                args.PointerLocation.Position - control.PixelPosition);
+                (args.PointerLocation.Position / control.UIScale) - control.GlobalPosition,
+                args.PointerLocation.Position - control.GlobalPixelPosition);
 
             _doGuiInput(control, guiArgs, (c, ev) => c.KeyBindUp(ev));
 
@@ -98,7 +98,7 @@ namespace OpenNefia.Core.UserInterface
             var newHovered = MouseGetControl(mouseMoveEventArgs.Position);
             if (newHovered != CurrentlyHovered && newHovered != null)
             {
-                Logger.DebugS("ui.input", $"HOVER: {CurrentlyHovered} -> {newHovered}");
+                Logger.InfoS("ui.input", $"HOVER: {CurrentlyHovered} -> {newHovered}");
                 CurrentlyHovered?.MouseExited();
                 CurrentlyHovered = newHovered;
                 CurrentlyHovered?.MouseEntered();
@@ -111,8 +111,8 @@ namespace OpenNefia.Core.UserInterface
                 var guiArgs = new GUIMouseMoveEventArgs(mouseMoveEventArgs.Relative / target.UIScale,
                     target,
                     pos / target.UIScale, mouseMoveEventArgs.Position,
-                    pos / target.UIScale - target.Position,
-                    pos - target.PixelPosition);
+                    pos / target.UIScale - target.GlobalPosition,
+                    pos - target.GlobalPixelPosition);
 
                 _doMouseGuiInput(target, guiArgs, (c, ev) => c.MouseMove(ev));
             }
@@ -132,7 +132,7 @@ namespace OpenNefia.Core.UserInterface
 
             var guiArgs = new GUIMouseWheelEventArgs(args.Delta, control,
                 pos / control.UIScale, args.Position,
-                pos / control.UIScale - control.Position, pos - control.PixelPosition);
+                pos / control.UIScale - control.GlobalPosition, pos - control.GlobalPixelPosition);
 
             _doMouseGuiInput(control, guiArgs, (c, ev) => c.MouseWheel(ev), true);
         }
@@ -156,7 +156,7 @@ namespace OpenNefia.Core.UserInterface
 
             while (control != null)
             {
-                guiEvent.RelativePixelPosition = guiEvent.GlobalPixelPosition.Position - control.PixelPosition;
+                guiEvent.RelativePixelPosition = guiEvent.GlobalPixelPosition.Position - control.GlobalPixelPosition;
 
                 guiEvent.SourceControl = control;
                 if (control.EventFilter != UIEventFilterMode.Ignore && control.Visible)
@@ -182,7 +182,7 @@ namespace OpenNefia.Core.UserInterface
 
             while (control != null)
             {
-                guiEvent.RelativePixelPosition = guiEvent.PointerLocation.Position - control.PixelPosition;
+                guiEvent.RelativePixelPosition = guiEvent.PointerLocation.Position - control.GlobalPixelPosition;
 
                 if (control.EventFilter != UIEventFilterMode.Ignore && control.Visible && !EventFiltered(control, guiEvent))
                 {
