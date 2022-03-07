@@ -30,6 +30,8 @@ namespace OpenNefia.Core.UI.Wisp.Controls
             VerticalAlignment = VAlignment.Center;
         }
 
+        private List<string> _splitText = new();
+
         /// <summary>
         ///     The text to display.
         /// </summary>
@@ -39,6 +41,10 @@ namespace OpenNefia.Core.UI.Wisp.Controls
             set
             {
                 _text = value;
+                if (_text != null)
+                    _splitText = _text.Split().ToList();
+                else
+                    _splitText.Clear();
                 _textDimensionCacheValid = false;
                 InvalidateMeasure();
             }
@@ -75,6 +81,7 @@ namespace OpenNefia.Core.UI.Wisp.Controls
 
         public FontSpec? FontOverride { get; set; }
 
+        private FontSpec _fallbackFont = new FontSpec(14);
         private FontSpec ActualFont
         {
             get
@@ -92,7 +99,7 @@ namespace OpenNefia.Core.UI.Wisp.Controls
                 */
 
                 //return UserInterfaceManager.ThemeDefaults.LabelFont;
-                return new FontSpec(14);
+                return _fallbackFont;
             }
         }
 
@@ -184,7 +191,8 @@ namespace OpenNefia.Core.UI.Wisp.Controls
             var baseLine = CalcBaseline();
 
             GraphicsEx.SetFont(font);
-            foreach (var line in _text.Split("\n"))
+            Love.Graphics.SetColor(actualFontColor);
+            foreach (var line in _splitText)
             {
                 Love.Graphics.Print(line, baseLine.X, baseLine.Y);
                 newlines += 1;
@@ -240,41 +248,20 @@ namespace OpenNefia.Core.UI.Wisp.Controls
         private void _calculateTextDimension()
         {
             _cachedTextWidths.Clear();
-            _cachedTextWidths.Add(0);
-
-            /*
 
             if (_text == null)
             {
+                _cachedTextWidths.Add(0);
                 _cachedTextHeight = 0;
                 _textDimensionCacheValid = true;
                 return;
             }
 
             var font = ActualFont;
-            var height = font.GetHeight(UIScale);
-            foreach (var rune in _text.EnumerateRunes())
-            {
-                if (rune == new Rune('\n'))
-                {
-                    _cachedTextWidths.Add(0);
-                    height += font.GetLineHeight(UIScale);
-                }
-                else
-                {
-                    var metrics = font.GetCharMetrics(rune, UIScale);
-                    if (metrics == null)
-                    {
-                        continue;
-                    }
+            _cachedTextWidths.AddRange(_splitText.Select(line => font.LoveFont.GetWidth(line)));
+            _cachedTextHeight = (int)(font.LoveFont.GetHeight() + font.LoveFont.GetLineHeight() * _splitText.Count);
 
-                    _cachedTextWidths[^1] += metrics.Value.Advance;
-                }
-            }
-
-            _cachedTextHeight = height;
             _textDimensionCacheValid = true;
-            */
         }
 
         /*

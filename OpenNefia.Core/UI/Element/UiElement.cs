@@ -52,7 +52,14 @@ namespace OpenNefia.Core.UI.Element
         ///     The position of the top left corner of the control relative to the parent, in virtual pixels.
         /// </summary>
         /// <seealso cref="RelativePixelPosition"/>
-        public Vector2 RelativePosition => Position - (Parent?.Position ?? Vector2.Zero);
+        public Vector2 RelativePosition
+        {
+            get => Position - (Parent?.Position ?? Vector2.Zero);
+            set
+            {
+                Position = (Parent?.Position ?? Vector2.Zero) + value;
+            }
+        }
 
         /// <summary>
         ///     The position of the top left corner of the control relative to the parent, in physical pixels.

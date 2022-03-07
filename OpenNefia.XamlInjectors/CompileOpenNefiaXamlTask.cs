@@ -1,22 +1,24 @@
-using System;
+﻿using System;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using Microsoft.Build.Framework;
 
-namespace OpenNefia.Build.Tasks
+namespace OpenNefia.XamlInjectors
 {
-    public class CompileOpenNefiaXamlTask: ITask
+    /// <summary>
+    /// Based on https://github.com/AvaloniaUI/Avalonia/blob/c85fa2b9977d251a31886c2534613b4730fbaeaf/src/Avalonia.Build.Tasks/CompileAvaloniaXamlTask.cs
+    /// </summary>
+    public class CompileOpenNefiaXamlTask : ITask
     {
         public bool Execute()
         {
-            Enum.TryParse(ReportImportance, true, out MessageImportance outputImportance);
-
+            //Debugger.Launch();
             OutputPath = OutputPath ?? AssemblyFile;
             var outputPdb = GetPdbPath(OutputPath);
             var input = AssemblyFile;
             var inputPdb = GetPdbPath(input);
-            // Make a copy and delete the original file to prevent MSBuild from thinking that everything is OK 
+            // Make a copy and delete the original file to prevent MSBuild from thinking that everything is OK
             if (OriginalCopyPath != null)
             {
                 File.Copy(AssemblyFile, OriginalCopyPath, true);
@@ -33,19 +35,18 @@ namespace OpenNefia.Build.Tasks
             }
 
             var msg = $"{nameof(CompileOpenNefiaXamlTask)} -> AssemblyFile:{AssemblyFile}, ProjectDirectory:{ProjectDirectory}, OutputPath:{OutputPath}";
-            BuildEngine.LogMessage(msg, outputImportance < MessageImportance.Low ? MessageImportance.High : outputImportance);
+            BuildEngine.LogMessage(msg, MessageImportance.High);
 
-            var res = XamlCompilerTaskExecutor.Compile(BuildEngine, input,
+            var res = XamlCompiler.Compile(BuildEngine, input,
                 File.ReadAllLines(ReferencesFilePath).Where(l => !string.IsNullOrWhiteSpace(l)).ToArray(),
-                ProjectDirectory, OutputPath, VerifyIl, outputImportance,
-                (SignAssembly && !DelaySign) ? AssemblyOriginatorKeyFile : null,
-                SkipXamlCompilation, DebuggerLaunch);
-            if (!res.Success)
+                ProjectDirectory, OutputPath,
+                SignAssembly && !DelaySign ? AssemblyOriginatorKeyFile : null, DebuggerLaunch);
+            if (!res.success)
                 return false;
-            if (!res.WrittenFile)
+            if (!res.writtentofile)
             {
                 File.Copy(input, OutputPath, true);
-                if(File.Exists(inputPdb))
+                if (File.Exists(inputPdb))
                     File.Copy(inputPdb, outputPdb, true);
             }
 
@@ -64,6 +65,26 @@ namespace OpenNefia.Build.Tasks
             return true;
         }
 
+        [Required]
+        public string ReferencesFilePath { get; set; }
+
+        [Required]
+        public string ProjectDirectory { get; set; }
+
+        [Required]
+        public string AssemblyFile { get; set; }
+
+        [Required]
+        public string OriginalCopyPath { get; set; }
+
+        public string OutputPath { get; set; }
+        public string UpdateBuildIndicator { get; set; }
+
+        public string AssemblyOriginatorKeyFile { get; set; }
+        public bool SignAssembly { get; set; }
+        public bool DelaySign { get; set; }
+
+        // shamelessly copied from avalonia
         string GetPdbPath(string p)
         {
             var d = Path.GetDirectoryName(p);
@@ -73,28 +94,6 @@ namespace OpenNefia.Build.Tasks
                 rv = Path.Combine(d, rv);
             return rv;
         }
-        
-        [Required]
-        public string AssemblyFile { get; set; }
-        [Required]
-        public string ReferencesFilePath { get; set; }
-        [Required]
-        public string OriginalCopyPath { get; set; }
-        [Required]
-        public string ProjectDirectory { get; set; }
-        
-        public string OutputPath { get; set; }
-        public string UpdateBuildIndicator { get; set; }
-
-        public bool VerifyIl { get; set; }
-        
-        public bool SkipXamlCompilation { get; set; }
-        
-        public string AssemblyOriginatorKeyFile { get; set; }
-        public bool SignAssembly { get; set; }
-        public bool DelaySign { get; set; }
-
-        public string ReportImportance { get; set; }
 
         public IBuildEngine BuildEngine { get; set; }
         public ITaskHost HostObject { get; set; }

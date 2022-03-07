@@ -1,12 +1,10 @@
-﻿using OpenNefia.Build.Tasks;
-using OpenNefia.XamlInjectors.CompilerExtensions;
-using System.Linq;
+﻿using System.Linq;
 using XamlX.Ast;
 using XamlX.Emit;
 using XamlX.IL;
 using XamlX.Transform;
 
-namespace OpenNefia.XamlInjectors.Compiler
+namespace OpenNefia.XamlInjectors.CompilerExtensions.Transformers
 {
     class OpenNefiaMarkRootObjectScopeNode : IXamlAstTransformer
     {
@@ -45,10 +43,10 @@ namespace OpenNefia.XamlInjectors.Compiler
                 var dontAbsorb = codeGen.DefineLabel();
                 var end = codeGen.DefineLabel();
                 var contextScopeField = context.RuntimeContext.ContextType.Fields.First(f =>
-                    f.Name == OpenNefiaXamlIlLanguage.ContextNameScopeFieldName);
+                    f.Name == XamlCompiler.ContextNameScopeFieldName);
                 var controlNameScopeField = controlType.Fields.First(f => f.Name == "NameScope");
                 var nameScopeType = context.Configuration.TypeSystem
-                    .FindType("OpenNefia.Core.UserInterface.XAML.NameScope");
+                    .FindType(Constants.NameScopeTypeName);
                 var nameScopeCompleteMethod = nameScopeType.Methods.First(m => m.Name == "Complete");
                 var nameScopeAbsorbMethod = nameScopeType.Methods.First(m => m.Name == "Absorb");
                 using (var local = codeGen.LocalsPool.GetLocal(controlType))

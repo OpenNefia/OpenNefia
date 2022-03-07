@@ -87,9 +87,12 @@ namespace OpenNefia.Core.UI.Wisp
         public virtual ICollection<UiElement> XamlChildren { get; protected set; }
 
         /// <summary>
-        /// Full name of the class to bind this control to. Set in XAML.
+        /// Full name of the class to bind this control to. Set by XAML.
+        /// If this is non-null, the class is expected to be declared with
+        /// <c>partial</c>, and a corresponding .xaml file sharing the same
+        /// basename should exist in the same directory as the class's file.
         /// </summary>
-        public string? Class { get; private set; }
+        public string? Class { get; set; }
 
         /// <summary>
         /// Horizontal alignment mode.
@@ -351,7 +354,7 @@ namespace OpenNefia.Core.UI.Wisp
 
         /// <summary>
         /// Lay out this control in the given space of its parent.
-        /// This sets <see cref="Position"/> and <see cref="Size"/> and also arranges any child controls.
+        /// This sets <see cref="RelativePosition"/> and <see cref="Size"/> and also arranges any child controls.
         /// </summary>
         public void Arrange(UIBox2 finalRect)
         {
@@ -416,7 +419,7 @@ namespace OpenNefia.Core.UI.Wisp
                     break;
             }
 
-            Position = origin;
+            RelativePosition = origin;
             Size = size;
         }
 

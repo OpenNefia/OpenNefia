@@ -72,7 +72,7 @@ namespace {nameSpace}
         bool isWindow;
         do
         {
-            isWindow = type.FullName == "OpenNefia.Core.UserInterface.CustomControls.DefaultWindow";
+            isWindow = type.FullName == "OpenNefia.Core.UI.Wisp.CustomControls.DefaultWindow";
             type = type.BaseType;
         } while (!isWindow && type != null);
 
