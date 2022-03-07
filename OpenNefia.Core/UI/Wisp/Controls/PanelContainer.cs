@@ -12,7 +12,7 @@ namespace OpenNefia.Core.UI.Wisp.Controls
         public override void Draw()
         {
             var style = _getStyleBox();
-            style?.Draw(PixelSizeBox, UIScale);
+            style?.Draw(GlobalPixelRect, UIScale);
         }
 
         protected override Vector2 MeasureOverride(Vector2 availableSize)
@@ -51,9 +51,8 @@ namespace OpenNefia.Core.UI.Wisp.Controls
                 return PanelOverride;
             }
 
-            // TryGetStyleProperty<StyleBox>(StylePropertyPanel, out var box);
-            // return box;
-            return null;
+            TryGetStyleProperty<StyleBox>(StylePropertyPanel, out var box);
+            return box;
         }
     }
 }

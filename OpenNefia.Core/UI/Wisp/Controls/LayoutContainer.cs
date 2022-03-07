@@ -523,19 +523,19 @@ namespace OpenNefia.Core.UI.Wisp.Controls
                 */
 
                 Love.Graphics.SetColor(Color.Red);
-                GraphicsS.RectangleS(UIScale, Love.DrawMode.Line, left, top, right, bottom);
+                Love.Graphics.Rectangle(Love.DrawMode.Line, left, top, right, bottom);
             }
 
             void DrawVLine(float x, Color color)
             {
                 Love.Graphics.SetColor(color);
-                GraphicsS.LineS(UIScale, x, 0, x, pSizeY);
+                Love.Graphics.Line(x, 0, x, pSizeY);
             }
 
             void DrawHLine(float y, Color color)
             {
                 Love.Graphics.SetColor(color);
-                GraphicsS.LineS(UIScale, 0, y, pSizeX, y);
+                Love.Graphics.Line(0, y, pSizeX, y);
             }
         }
 

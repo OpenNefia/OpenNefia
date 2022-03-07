@@ -18,8 +18,10 @@ namespace OpenNefia.Core.UI.Wisp.CustomControls
     public partial class DefaultWindow : BaseWindow
     {
         public const string StyleClassWindowTitle = "windowTitle";
+        public const string StyleClassWindowTitleAlert = "windowTitleAlert";
         public const string StyleClassWindowPanel = "windowPanel";
         public const string StyleClassWindowHeader = "windowHeader";
+        public const string StyleClassWindowHeaderAlert = "windowHeaderAlert";
         public const string StyleClassWindowCloseButton = "windowCloseButton";
 
         private string? _headerClass;
@@ -46,13 +48,11 @@ namespace OpenNefia.Core.UI.Wisp.CustomControls
                 if (_headerClass == value)
                     return;
 
-                /*
                 if (_headerClass != null)
                     WindowHeader.RemoveStyleClass(_headerClass);
 
                 if (value != null)
                     WindowHeader.AddStyleClass(value);
-                */
 
                 _headerClass = value;
             }
@@ -66,13 +66,11 @@ namespace OpenNefia.Core.UI.Wisp.CustomControls
                 if (_titleClass == value)
                     return;
 
-                /*
                 if (_titleClass != null)
                     TitleLabel.RemoveStyleClass(_titleClass);
 
                 if (value != null)
                     TitleLabel.AddStyleClass(value);
-                */
 
                 _titleClass = value;
             }
@@ -88,7 +86,6 @@ namespace OpenNefia.Core.UI.Wisp.CustomControls
 
         protected override Vector2 MeasureOverride(Vector2 availableSize)
         {
-
             return Vector2.ComponentMax(
                 ContentsMinimumSize,
                 base.MeasureOverride(Vector2.ComponentMax(availableSize, ContentsMinimumSize)));

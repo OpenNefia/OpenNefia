@@ -247,7 +247,7 @@ namespace OpenNefia.Core.UI.Wisp.Controls
             OnButtonUp?.Invoke(buttonEventArgs);
 
             var drawMode = DrawMode;
-            if (Mode == ActionMode.Release && _attemptingPress > 0 && ContainsPoint((args.PointerLocation.Position - PixelPosition) / UIScale))
+            if (Mode == ActionMode.Release && _attemptingPress > 0 && ContainsPoint((args.PointerLocation.Position - GlobalPixelPosition) / UIScale))
             {
                 // Can't un press a radio button directly.
                 if (Group == null || !Pressed)

@@ -1,4 +1,5 @@
-﻿using OpenNefia.Core.IoC;
+﻿using OpenNefia.Core.DebugView;
+using OpenNefia.Core.IoC;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.UI.Element;
 using OpenNefia.Core.UserInterface;
@@ -45,7 +46,9 @@ namespace OpenNefia.Core.UI.Wisp
 
         public WispControl() : base()
         {
-            WispManager = IoCManager.Resolve<IWispManager>();
+            CanControlFocus = true;
+            WispManager = IoCManager.Resolve<IWispManager>();     
+            StyleClasses = new StyleClassCollection(this);
             XamlChildren = Children;
         }
 
@@ -64,6 +67,36 @@ namespace OpenNefia.Core.UI.Wisp
         public Vector2 DesiredSize { get; private set; }
         public Vector2i DesiredPixelSize => (Vector2i)(DesiredSize * UIScale);
 
+        public override Vector2 MinSize
+        {
+            get => base.MinSize;
+            set
+            {
+                base.MinSize = value;
+                InvalidateMeasure();
+            }
+        }
+
+        public override Vector2 PreferredSize
+        {
+            get => base.PreferredSize;
+            set
+            {
+                base.PreferredSize = value;
+                InvalidateMeasure();
+            }
+        }
+
+        public override Vector2 MaxSize
+        {
+            get => base.MaxSize; 
+            set
+            {
+                base.MaxSize = value;
+                InvalidateMeasure();
+            }
+        }
+
         public bool IsMeasureValid { get; private set; }
         public bool IsArrangeValid { get; private set; }
 
@@ -80,6 +113,10 @@ namespace OpenNefia.Core.UI.Wisp
             }
         }
 
+        public IWispLayer? WispRootLayer => Root as IWispLayer;
+
+        public WispControl? WispParent => Parent as WispControl;
+
         public IEnumerable<WispControl> WispChildren => Children.WhereAssignable<UiElement, WispControl>();
         public int WispChildCount => WispChildren.Count();
 
@@ -93,6 +130,50 @@ namespace OpenNefia.Core.UI.Wisp
         /// basename should exist in the same directory as the class's file.
         /// </summary>
         public string? Class { get; set; }
+
+        public override Vector2 GlobalPosition
+        {
+            get
+            {
+                var offset = Position;
+                var parent = Parent;
+                while (parent != null)
+                {
+                    offset += parent.Position;
+                    parent = parent.Parent;
+                }
+
+                return offset;
+            }
+        }
+
+        public override Vector2i GlobalPixelPosition
+        {
+            get
+            {
+                var offset = PixelPosition;
+                var parent = Parent;
+                while (parent != null)
+                {
+                    offset += parent.PixelPosition;
+                    parent = parent.Parent;
+                }
+
+                return offset;
+            }
+        }
+
+        /// <summary>
+        ///     Called to test whether this control has a certain point,
+        ///     for the purposes of finding controls under the cursor.
+        /// </summary>
+        /// <param name="point">The relative point, in virtual pixels.</param>
+        /// <returns>True if this control does have the point and should be counted as a hit.</returns>
+        public override bool ContainsPoint(Vector2 point)
+        {
+            var size = Size;
+            return point.X >= 0 && point.X <= size.X && point.Y >= 0 && point.Y <= size.Y;
+        }
 
         /// <summary>
         /// Horizontal alignment mode.
@@ -200,6 +281,13 @@ namespace OpenNefia.Core.UI.Wisp
             size = DesiredSize;
         }
 
+        /// <inheritdoc/>
+        protected internal override void UIScaleChanged(GUIScaleChangedEventArgs args)
+        {
+            base.UIScaleChanged(args);
+            InvalidateMeasure();
+        }
+
         protected override void ChildAdded(UiElement newChild)
         {
             base.ChildAdded(newChild);
@@ -209,6 +297,7 @@ namespace OpenNefia.Core.UI.Wisp
         protected override void Parented(UiElement newParent)
         {
             base.Parented(newParent);
+            StylesheetUpdateRecursive();
             InvalidateMeasure();
         }
 
@@ -287,8 +376,8 @@ namespace OpenNefia.Core.UI.Wisp
         {
             if (!Visible)
                 return default;
-            // if (_stylingDirty)
-            //    ForceRunStyleUpdate();
+            if (_stylingDirty)
+               ForceRunStyleUpdate();
 
             var withoutMargin = _margin.Deflate(availableSize);
 
@@ -419,7 +508,7 @@ namespace OpenNefia.Core.UI.Wisp
                     break;
             }
 
-            RelativePosition = origin;
+            Position = origin;
             Size = size;
         }
 
@@ -453,9 +542,9 @@ namespace OpenNefia.Core.UI.Wisp
             var minConstraint = float.IsNaN(setW) ? 0 : setW;
             minW = MathHelper.Clamp(maxW, minConstraint, minW);
 
-            var minH = control.MinWidth;
-            var setH = control.PreferredWidth;
-            var maxH = control.MaxWidth;
+            var minH = control.MinHeight;
+            var setH = control.PreferredHeight;
+            var maxH = control.MaxHeight;
 
             maxConstraint = float.IsNaN(setH) ? float.PositiveInfinity : setH;
             maxH = MathHelper.Clamp(maxConstraint, minH, maxH);

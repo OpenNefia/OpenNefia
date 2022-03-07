@@ -10,6 +10,13 @@ namespace OpenNefia.Core.UI.Wisp
     /// </summary>
     public interface IWispManager
     {
+        /// <summary>
+        ///     Default style sheet that applies to all controls
+        ///     that do not have a more specific style sheet via <see cref="Control.Stylesheet"/>.
+        /// </summary>
+        Stylesheet? Stylesheet { get; set; }
+
+        void QueueStyleUpdate(WispControl control);
         void QueueArrangeUpdate(WispControl control);
         void QueueMeasureUpdate(WispControl control);
         void Update(FrameEventArgs args);
@@ -19,9 +26,16 @@ namespace OpenNefia.Core.UI.Wisp
     {
         [Dependency] private readonly IGraphics _graphics = default!;
 
-        // private readonly Queue<WispControl> _styleUpdateQueue = new();
+        private readonly Queue<WispControl> _styleUpdateQueue = new();
         private readonly Queue<WispControl> _measureUpdateQueue = new();
         private readonly Queue<WispControl> _arrangeUpdateQueue = new();
+
+        public Stylesheet? Stylesheet { get; set; }
+
+        public void QueueStyleUpdate(WispControl control)
+        {
+            _styleUpdateQueue.Enqueue(control);
+        }
 
         public void QueueMeasureUpdate(WispControl control)
         {
@@ -37,17 +51,17 @@ namespace OpenNefia.Core.UI.Wisp
         public void Update(FrameEventArgs args)
         {
             // Process queued style & layout updates.
-            //while (_styleUpdateQueue.Count != 0)
-            //{
-            //    var control = _styleUpdateQueue.Dequeue();
+            while (_styleUpdateQueue.Count != 0)
+            {
+                var control = _styleUpdateQueue.Dequeue();
 
-            //    if (control.Disposed)
-            //    {
-            //        continue;
-            //    }
+                if (control.Disposed)
+                {
+                    continue;
+                }
 
-            //    control.DoStyleUpdate();
-            //}
+                control.DoStyleUpdate();
+            }
 
             while (_measureUpdateQueue.Count != 0)
             {

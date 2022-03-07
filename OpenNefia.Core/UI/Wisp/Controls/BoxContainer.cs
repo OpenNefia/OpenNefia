@@ -40,10 +40,10 @@ namespace OpenNefia.Core.UI.Wisp.Controls
         {
             get
             {
-                //if (TryGetStyleProperty(StylePropertySeparation, out int separation))
-                //{
-                //    return separation;
-                //}
+                if (TryGetStyleProperty(StylePropertySeparation, out int separation))
+                {
+                    return separation;
+                }
 
                 return SeparationOverride ?? DefaultSeparation;
             }

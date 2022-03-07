@@ -166,6 +166,7 @@ namespace OpenNefia.Core.UI.Wisp.CustomControls
                 var rect = new UIBox2(left, top, right, bottom);
                 LayoutContainer.SetPosition(this, rect.TopLeft);
                 PreferredSize = rect.Size;
+                Logger.Info($"Pref {PreferredSize} {rect}");
             }
         }
 
@@ -222,7 +223,7 @@ namespace OpenNefia.Core.UI.Wisp.CustomControls
 
             if (!IsOpen)
             {
-                //                                             UserInterfaceManager.WindowRoot.AddChild(this);
+                WispRootLayer!.WindowRoot.AddChild(this);
             }
 
             Opened();
@@ -238,7 +239,7 @@ namespace OpenNefia.Core.UI.Wisp.CustomControls
                 // An explaination: The BadOpenGLVersionWindow was showing up off the top-left corner of the screen.
                 // Basically, if OpenCentered happens super-early, RootControl doesn't get time to layout children.
                 // But we know that this is always going to be one of the roots anyway for now.
-                //                   LayoutContainer.SetPosition(this, (UserInterfaceManager.RootControl.Size - SetSize) / 2);
+                LayoutContainer.SetPosition(this, (WispRootLayer!.WispRoot.Size - PreferredSize) / 2);
                 _firstTimeOpened = false;
             }
             else
