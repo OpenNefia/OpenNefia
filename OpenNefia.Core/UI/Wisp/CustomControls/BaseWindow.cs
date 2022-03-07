@@ -166,7 +166,6 @@ namespace OpenNefia.Core.UI.Wisp.CustomControls
                 var rect = new UIBox2(left, top, right, bottom);
                 LayoutContainer.SetPosition(this, rect.TopLeft);
                 PreferredSize = rect.Size;
-                Logger.Info($"Pref {PreferredSize} {rect}");
             }
         }
 

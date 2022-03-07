@@ -2,6 +2,7 @@
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.Timing;
+using OpenNefia.Core.UI.Wisp.Styling;
 
 namespace OpenNefia.Core.UI.Wisp
 {
@@ -16,6 +17,8 @@ namespace OpenNefia.Core.UI.Wisp
         /// </summary>
         Stylesheet? Stylesheet { get; set; }
 
+        void AddRoot(WispRoot root);
+        void RemoveRoot(WispRoot root);
         void QueueStyleUpdate(WispControl control);
         void QueueArrangeUpdate(WispControl control);
         void QueueMeasureUpdate(WispControl control);
@@ -30,7 +33,35 @@ namespace OpenNefia.Core.UI.Wisp
         private readonly Queue<WispControl> _measureUpdateQueue = new();
         private readonly Queue<WispControl> _arrangeUpdateQueue = new();
 
-        public Stylesheet? Stylesheet { get; set; }
+        private readonly List<WispRoot> _roots = new();
+
+        private Stylesheet? _stylesheet;
+        public Stylesheet? Stylesheet
+        {
+            get => _stylesheet;
+            set
+            {
+                _stylesheet = value;
+
+                foreach (var root in _roots)
+                {
+                    if (root.Stylesheet == null)
+                    {
+                        root.StylesheetUpdateRecursive();
+                    }
+                }
+            }
+        }
+
+        public void AddRoot(WispRoot root)
+        {
+            _roots.Add(root);
+        }
+
+        public void RemoveRoot(WispRoot root)
+        {
+            _roots.Remove(root);
+        }
 
         public void QueueStyleUpdate(WispControl control)
         {
@@ -109,7 +140,7 @@ namespace OpenNefia.Core.UI.Wisp
                 RunMeasure(wispParent);
             }
 
-            if (control is WispRoot root)
+            if (control is WispRoot)
             {
                 control.Measure(_graphics.WindowSize);
             }

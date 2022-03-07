@@ -15,6 +15,10 @@
 	<ItemGroup>
     <ProjectReference Include="..\OpenNefia.Core\OpenNefia.Core.csproj" />
   </ItemGroup>
+  
+	<ItemGroup>
+	  <Folder Include="UI\Stylesheets\" />
+	</ItemGroup>
 
   <Import Project="..\MSBuild\OpenNefia.Analyzers.targets" />
   <Import Project="..\MSBuild\XamlIL.targets" />

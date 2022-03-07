@@ -98,7 +98,7 @@ namespace OpenNefia.Core.UserInterface
             var newHovered = MouseGetControl(mouseMoveEventArgs.Position);
             if (newHovered != CurrentlyHovered && newHovered != null)
             {
-                Logger.InfoS("ui.input", $"HOVER: {CurrentlyHovered} -> {newHovered}");
+                Logger.DebugS("ui.input", $"HOVER: {CurrentlyHovered} -> {newHovered}");
                 CurrentlyHovered?.MouseExited();
                 CurrentlyHovered = newHovered;
                 CurrentlyHovered?.MouseEntered();

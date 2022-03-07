@@ -12,9 +12,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Timer = OpenNefia.Core.Timing.Timer;
 
-namespace OpenNefia.Core.Locale
+namespace OpenNefia.Core.UI.Wisp.Styling
 {
-    public partial class LocalizationManager
+    public sealed partial class StylesheetManager
     {
         [Dependency] private readonly ITaskManager _taskManager = default!;
 
@@ -45,22 +45,35 @@ namespace OpenNefia.Core.Locale
 
             foreach (var file in _reloadQueue)
             {
-                LoadContentFile(ResourcePath.Root / file);
+                TryLoadStylesheet(file.ToRootedPath());
             }
-
-            Resync();
 
             _reloadQueue.Clear();
 
-            Logger.Info("loc", $"Reloaded localization files in {sw.ElapsedMilliseconds} ms");
+            Logger.InfoS("stylesheet", $"Reloaded stylesheets in {sw.ElapsedMilliseconds} ms");
 #endif
+        }
+
+        private void TryLoadStylesheet(ResourcePath luaFile)
+        {
+            try
+            {
+                var sheet = ParseStylesheet(luaFile);
+                _wispManager.Stylesheet = sheet;
+
+                Logger.InfoS("stylesheet", $"Loaded stylesheet at {luaFile}.");
+            }
+            catch (Exception ex)
+            {
+                Logger.ErrorS("stylesheet", $"Failed to load stylesheet: {ex}");
+            }
         }
 
         private void WatchResources()
         {
 #if !FULL_RELEASE
-            foreach (var path in _resourceManager.GetContentRoots().Select(r => r.ToString())
-                .Where(r => Directory.Exists(r + "/Locale/" + Language.ToString())).Select(p => p + "/Locale/" + Language.ToString()))
+            foreach (var path in _resourceCache.GetContentRoots().Select(r => r.ToString())
+                .Where(r => Directory.Exists(r + "/Stylesheets")).Select(p => p + "/Stylesheets"))
             {
                 var watcher = new FileSystemWatcher(path, "*.lua")
                 {
