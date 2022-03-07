@@ -2,7 +2,7 @@
 using XamlX.Ast;
 using XamlX.Transform;
 
-namespace OpenNefia.XamlInjectors.Compiler
+namespace OpenNefia.XamlInjectors.CompilerExtensions.Transformers
 {
     class IgnoredDirectivesTransformer : IXamlAstTransformer
     {
@@ -14,9 +14,9 @@ namespace OpenNefia.XamlInjectors.Compiler
                     n is XamlAstXmlDirective dir &&
                     dir.Namespace == XamlNamespaces.Xaml2006 &&
                     (dir.Name == "Class" ||
-                        dir.Name == "Precompile" ||
-                        dir.Name == "FieldModifier" ||
-                        dir.Name == "ClassModifier"));
+                     dir.Name == "Precompile" ||
+                     dir.Name == "FieldModifier" ||
+                     dir.Name == "ClassModifier"));
             }
 
             return node;

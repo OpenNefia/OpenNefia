@@ -1,24 +1,13 @@
-using System;
-using Microsoft.Build.Framework;
+﻿using Microsoft.Build.Framework;
 
-namespace OpenNefia.Build.Tasks
+namespace OpenNefia.XamlInjectors
 {
-    static class Extensions
+    /// <summary>
+    /// Taken from https://github.com/AvaloniaUI/Avalonia/blob/c85fa2b9977d251a31886c2534613b4730fbaeaf/src/Avalonia.Build.Tasks/Extensions.cs
+    /// </summary>
+    public static class Extensions
     {
-        static string FormatErrorCode(BuildEngineErrorCode code) => $"AVLN:{(int)code:0000}";
-
-        public static void LogError(this IBuildEngine engine, BuildEngineErrorCode code, string file, string message)
-        {
-            engine.LogErrorEvent(new BuildErrorEventArgs("Avalonia", FormatErrorCode(code), file ?? "", 0, 0, 0, 0, message,
-                "", "Avalonia"));
-        }
-
-        public static void LogWarning(this IBuildEngine engine, BuildEngineErrorCode code, string file, string message)
-        {
-            engine.LogWarningEvent(new BuildWarningEventArgs("Avalonia", FormatErrorCode(code), file ?? "", 0, 0, 0, 0, message,
-                "", "Avalonia"));
-        }
-
+        //shamefully copied from avalonia
         public static void LogMessage(this IBuildEngine engine, string message, MessageImportance imp)
         {
             engine.LogMessageEvent(new BuildMessageEventArgs(message, "", "Avalonia", imp));

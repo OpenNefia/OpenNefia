@@ -26,6 +26,11 @@ namespace OpenNefia.Core.UI.Wisp.CustomControls
         /// </summary>
         public event Action? OnClose;
 
+        protected BaseWindow()
+        {
+            CanControlFocus = true;
+        }
+
         public virtual void Close()
         {
             if (Parent == null)

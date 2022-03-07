@@ -47,9 +47,9 @@ namespace OpenNefia.XamlInjectors.CompilerExtensions
         }
     }
 
-    public sealed class RXamlSingleVecLikeConstAstNode : ONXamlVecLikeConstAstNode<float>
+    public sealed class ONXamlSingleVecLikeConstAstNode : ONXamlVecLikeConstAstNode<float>
     {
-        public RXamlSingleVecLikeConstAstNode(
+        public ONXamlSingleVecLikeConstAstNode(
             IXamlLineInfo lineInfo,
             IXamlType type, IXamlConstructor constructor,
             IXamlType componentType, float[] values)
@@ -69,9 +69,9 @@ namespace OpenNefia.XamlInjectors.CompilerExtensions
         }
     }
 
-    public sealed class ONXamlInt32VecLikeConstAstNode : ONXamlVecLikeConstAstNode<int>
+    public sealed class RXamlInt32VecLikeConstAstNode : ONXamlVecLikeConstAstNode<int>
     {
-        public ONXamlInt32VecLikeConstAstNode(
+        public RXamlInt32VecLikeConstAstNode(
             IXamlLineInfo lineInfo,
             IXamlType type, IXamlConstructor constructor,
             IXamlType componentType, int[] values)

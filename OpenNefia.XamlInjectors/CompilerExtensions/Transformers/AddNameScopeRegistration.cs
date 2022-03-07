@@ -1,13 +1,11 @@
-﻿using OpenNefia.Build.Tasks;
-using OpenNefia.XamlInjectors.CompilerExtensions;
-using System.Linq;
+﻿using System.Linq;
 using XamlX.Ast;
 using XamlX.Emit;
 using XamlX.IL;
 using XamlX.Transform;
 using XamlX.TypeSystem;
 
-namespace OpenNefia.XamlInjectors.Compiler
+namespace OpenNefia.XamlInjectors.CompilerExtensions.Transformers
 {
     class AddNameScopeRegistration : IXamlAstTransformer
     {
@@ -16,7 +14,7 @@ namespace OpenNefia.XamlInjectors.Compiler
             if (node is XamlPropertyAssignmentNode pa)
             {
                 if (pa.Property.Name == "Name"
-                    && pa.Property.DeclaringType.FullName == "OpenNefia.Core.UI.Element.UiElement")
+                    && pa.Property.DeclaringType.FullName == Constants.ControlTypeName)
                 {
                     if (context.ParentNodes().FirstOrDefault() is XamlManipulationGroupNode mg
                         && mg.Children.OfType<OpenNefiaNameScopeRegistrationXamlIlNode>().Any())
@@ -85,12 +83,12 @@ namespace OpenNefia.XamlInjectors.Compiler
                 {
 
                     var scopeField = context.RuntimeContext.ContextType.Fields.First(f =>
-                        f.Name == OpenNefiaXamlIlLanguage.ContextNameScopeFieldName);
+                        f.Name == XamlCompiler.ContextNameScopeFieldName);
                     var namescopeRegisterFunction = context.Configuration.TypeSystem
-                        .FindType("OpenNefia.Core.UserInterface.XAML.NameScope").Methods
+                        .FindType(Constants.NameScopeTypeName).Methods
                         .First(m => m.Name == "Register");
 
-                    using (var targetLoc = context.GetLocalOfType(context.Configuration.TypeSystem.FindType("OpenNefia.Client.UI.Element.UiElement")))
+                    using (var targetLoc = context.GetLocalOfType(context.Configuration.TypeSystem.FindType(Constants.ControlTypeName)))
                     {
 
                         codeGen

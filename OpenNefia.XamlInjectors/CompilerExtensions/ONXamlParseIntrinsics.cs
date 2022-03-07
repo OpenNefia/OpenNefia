@@ -1,9 +1,8 @@
-﻿using System;
+﻿using Pidgin;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using OpenNefia.Build.Tasks;
-using Pidgin;
 using XamlX;
 using XamlX.Ast;
 using XamlX.Transform;
@@ -24,7 +23,7 @@ namespace OpenNefia.XamlInjectors.CompilerExtensions
 
                 var (x, y) = foo.Value;
 
-                result = new RXamlSingleVecLikeConstAstNode(
+                result = new ONXamlSingleVecLikeConstAstNode(
                     node,
                     types.Vector2, types.Vector2ConstructorFull,
                     types.Single, new[] { x, y });
@@ -56,7 +55,7 @@ namespace OpenNefia.XamlInjectors.CompilerExtensions
                     full = val;
                 }
 
-                result = new RXamlSingleVecLikeConstAstNode(
+                result = new ONXamlSingleVecLikeConstAstNode(
                     node,
                     types.Thickness, types.ThicknessConstructorFull,
                     types.Single, full);
@@ -88,7 +87,7 @@ namespace OpenNefia.XamlInjectors.CompilerExtensions
                     full = val;
                 }
 
-                result = new RXamlSingleVecLikeConstAstNode(
+                result = new ONXamlSingleVecLikeConstAstNode(
                     node,
                     types.Thickness, types.ThicknessConstructorFull,
                     types.Single, full);
@@ -105,5 +104,6 @@ namespace OpenNefia.XamlInjectors.CompilerExtensions
             result = null;
             return false;
         }
+
     }
 }
