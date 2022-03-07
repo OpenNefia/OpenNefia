@@ -9,7 +9,7 @@ namespace OpenNefia.Core.UI.Wisp.Controls
     public class TextureButton : BaseButton
     {
         private Vector2 _scale = (1, 1);
-        private PrototypeId<AssetPrototype>? _assetNormal;
+        private IAssetInstance? _assetNormal;
         public const string StylePropertyTexture = "texture";
         public const string StylePseudoClassNormal = "normal";
         public const string StylePseudoClassHover = "hover";
@@ -21,7 +21,7 @@ namespace OpenNefia.Core.UI.Wisp.Controls
             DrawModeChanged();
         }
 
-        public PrototypeId<AssetPrototype>? AssetNormal
+        public IAssetInstance? AssetNormal
         {
             get => _assetNormal;
             set
@@ -64,31 +64,29 @@ namespace OpenNefia.Core.UI.Wisp.Controls
 
         public override void Draw()
         {
-            var assetId = AssetNormal;
+            var asset = AssetNormal;
 
-            if (assetId == null)
+            if (asset == null)
             {
-                TryGetStyleProperty(StylePropertyTexture, out assetId);
-                if (assetId == null)
+                TryGetStyleProperty(StylePropertyTexture, out asset);
+                if (asset == null)
                 {
                     return;
                 }
             }
 
-            var asset = assetId == null ? null : Assets.Get(assetId.Value);
             asset?.Draw(UIScale, GlobalPixelRect);
         }
 
         protected override Vector2 MeasureOverride(Vector2 availableSize)
         {
-            var assetId = AssetNormal;
+            var asset = AssetNormal;
 
-            if (assetId == null)
+            if (asset == null)
             {
-                TryGetStyleProperty(StylePropertyTexture, out assetId);
+                TryGetStyleProperty(StylePropertyTexture, out asset);
             }
 
-            var asset = assetId == null ? null : Assets.Get(assetId.Value);
             return Scale * (asset?.VirtualSize(UIScale) ?? Vector2.Zero);
         }
     }

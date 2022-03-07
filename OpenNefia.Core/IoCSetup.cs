@@ -28,6 +28,7 @@ using OpenNefia.Core.UI.Layer;
 using OpenNefia.Core.UserInterface;
 using PrettyPrompt.Consoles;
 using OpenNefia.Core.UI.Wisp;
+using OpenNefia.Core.UI.Wisp.Styling;
 
 namespace OpenNefia
 {
@@ -106,6 +107,7 @@ namespace OpenNefia
             IoCManager.Register<ISaveGameSerializer, SaveGameSerializer>();
             IoCManager.Register<ISaveGameSerializerInternal, SaveGameSerializer>();
             IoCManager.Register<IWispManager, WispManager>();
+            IoCManager.Register<IStylesheetManager, StylesheetManager>();
         }
     }
 }

@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using JetBrains.Annotations;
+using OpenNefia.Core.UI.Wisp;
 using OpenNefia.Core.Utility;
 
-namespace OpenNefia.Core.UI.Wisp
+namespace OpenNefia.Core.UI.Wisp.Styling
 {
     /// <seealso cref="StylesheetHelpers"/>
     public sealed class Stylesheet
@@ -238,6 +240,20 @@ namespace OpenNefia.Core.UI.Wisp
         public StyleSpecificity Specificity { get; }
         public Selector Selector { get; }
         public IReadOnlyList<StyleProperty> Properties { get; }
+
+        public override string ToString()
+        {
+            var sb = new StringBuilder();
+
+            sb.AppendLine($"{Selector} {{");
+            foreach (var property in Properties)
+            {
+                sb.AppendLine($"    {property}");
+            }
+            sb.AppendLine($"}}");
+
+            return sb.ToString();
+        }
     }
 
     // https://specifishity.com/
@@ -306,6 +322,11 @@ namespace OpenNefia.Core.UI.Wisp
 
         public string Name { get; }
         public object Value { get; }
+
+        public override string ToString()
+        {
+            return $"{Name}: {Value}";
+        }
     }
 
     public abstract class Selector
@@ -419,6 +440,18 @@ namespace OpenNefia.Core.UI.Wisp
 
             return new StyleSpecificity(countId, countClasses, countTypes);
         }
+
+        public override string ToString()
+        {
+            var classes = (ElementClasses ?? Enumerable.Empty<string>()).Select(s => "." + s);
+            var pseudos = (PseudoClasses ?? Enumerable.Empty<string>()).Select(s => ":" + s);
+
+            var classesStr = classes.Any() ? " " + string.Join(" ", classes) : "";
+            var elementId = ElementId != null ? (" #" + ElementId) : "";
+            var pseudosStr = pseudos.Any() ? " " + string.Join(" ", pseudos) : "";
+
+            return $"{ElementType?.Name ?? "*"}{classesStr}{elementId}{pseudosStr}";
+        }
     }
 
     // Temporarily hidden due to performance concerns.
@@ -462,6 +495,11 @@ namespace OpenNefia.Core.UI.Wisp
         {
             return Ascendant.CalculateSpecificity() + Descendant.CalculateSpecificity();
         }
+
+        public override string ToString()
+        {
+            return $"{Ascendant} {Descendant}";
+        }
     }
 
     // Temporarily hidden due to performance concerns.
@@ -489,6 +527,11 @@ namespace OpenNefia.Core.UI.Wisp
         public override StyleSpecificity CalculateSpecificity()
         {
             return Parent.CalculateSpecificity() + Child.CalculateSpecificity();
+        }
+
+        public override string ToString()
+        {
+            return $"{Parent} > {Child}";
         }
     }
 }

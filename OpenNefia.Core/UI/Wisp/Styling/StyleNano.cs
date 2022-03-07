@@ -6,7 +6,7 @@ using OpenNefia.Core.Maths;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Core.UI.Wisp.Drawing;
 
-namespace OpenNefia.Content.UI.Stylesheets
+namespace OpenNefia.Core.UI.Wisp.Styling
 {
     public class StyleNano
     {
@@ -22,7 +22,7 @@ namespace OpenNefia.Content.UI.Stylesheets
 
         public StyleNano(IResourceCache resourceCache)
         {
-            this._resourceCache = resourceCache;
+            _resourceCache = resourceCache;
 
             var font12 = new FontSpec(12);
             var font12Italic = new FontSpec(12, style: FontStyle.Italic);
@@ -51,7 +51,7 @@ namespace OpenNefia.Content.UI.Stylesheets
                         null),
                     new[]
                     {
-                        new StyleProperty(TextureButton.StylePropertyTexture, Prototypes.Protos.Asset.AutoTurnIcon),
+                        // new StyleProperty(TextureButton.StylePropertyTexture, Prototypes.Protos.Asset.AutoTurnIcon),
                         new StyleProperty(WispControl.StylePropertyModulateSelf, Color.FromHex("#4B596A")),
                     }),
                 // Window close button hover.

@@ -30,7 +30,7 @@ namespace OpenNefia.Core.UI.Wisp.Controls
             VerticalAlignment = VAlignment.Center;
         }
 
-        private List<string> _splitText = new();
+        private List<Love.Text> _splitText = new();
 
         /// <summary>
         ///     The text to display.
@@ -41,10 +41,7 @@ namespace OpenNefia.Core.UI.Wisp.Controls
             set
             {
                 _text = value;
-                if (_text != null)
-                    _splitText = _text.Split().ToList();
-                else
-                    _splitText.Clear();
+
                 _textDimensionCacheValid = false;
                 InvalidateMeasure();
             }
@@ -77,7 +74,16 @@ namespace OpenNefia.Core.UI.Wisp.Controls
 
         public VAlignMode VAlign { get; set; }
 
-        public FontSpec? FontOverride { get; set; }
+        private FontSpec? _fontOverride;
+        public FontSpec? FontOverride
+        {
+            get => _fontOverride;
+            set
+            {
+                _fontOverride = value;
+                RebakeText();
+            }
+        }
 
         private FontSpec _fallbackFont = new FontSpec(14);
         private FontSpec ActualFont
@@ -125,6 +131,25 @@ namespace OpenNefia.Core.UI.Wisp.Controls
 
         public int? ShadowOffsetYOverride { get; set; }
 
+
+        private void RebakeText()
+        {
+            foreach (var text in _splitText)
+            {
+                text.Dispose();
+            }
+            _splitText.Clear();
+
+            if (_text != null)
+            {
+                _splitText = _text.Split().Select(s =>
+                {
+                    var text = Love.Graphics.NewText(ActualFont.LoveFont, s);
+                    text.Set(s, Color.White);
+                    return text;
+                }).ToList();
+            }
+        }
 
         public override void Draw()
         {
@@ -181,7 +206,7 @@ namespace OpenNefia.Core.UI.Wisp.Controls
                         throw new ArgumentOutOfRangeException();
                 }
 
-                return (hOffset, font.LoveFont.GetAscent() + font.LoveFont.GetLineHeight() * newlines + vOffset);
+                return (hOffset, font.LoveFont.GetLineHeight() * newlines + vOffset);
             }
 
             var baseLine = CalcBaseline();
@@ -190,7 +215,7 @@ namespace OpenNefia.Core.UI.Wisp.Controls
             Love.Graphics.SetColor(actualFontColor);
             foreach (var line in _splitText)
             {
-                Love.Graphics.Print(line, baseLine.X, baseLine.Y);
+                Love.Graphics.Draw(line, GlobalPixelPosition.X + baseLine.X, GlobalPixelPosition.Y + baseLine.Y);
                 newlines += 1;
                 baseLine = CalcBaseline();
             }
@@ -216,6 +241,7 @@ namespace OpenNefia.Core.UI.Wisp.Controls
         {
             if (!_textDimensionCacheValid)
             {
+                RebakeText();
                 _calculateTextDimension();
                 DebugTools.Assert(_textDimensionCacheValid);
             }
@@ -254,7 +280,7 @@ namespace OpenNefia.Core.UI.Wisp.Controls
             }
 
             var font = ActualFont;
-            _cachedTextWidths.AddRange(_splitText.Select(line => font.LoveFont.GetWidth(line)));
+            _cachedTextWidths.AddRange(_splitText.Select(line => line.GetWidth()));
             _cachedTextHeight = (int)(font.LoveFont.GetHeight() + font.LoveFont.GetLineHeight() * _splitText.Count);
 
             _textDimensionCacheValid = true;

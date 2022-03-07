@@ -3,14 +3,12 @@ using OpenNefia.Content.Input;
 using OpenNefia.Content.RandomText;
 using OpenNefia.Content.Repl;
 using OpenNefia.Content.TitleScreen;
-using OpenNefia.Content.UI.Stylesheets;
 using OpenNefia.Content.World;
 using OpenNefia.Core.Console;
 using OpenNefia.Core.ContentPack;
 using OpenNefia.Core.GameController;
 using OpenNefia.Core.Input;
 using OpenNefia.Core.IoC;
-using OpenNefia.Core.Log;
 
 namespace OpenNefia.Content
 {
@@ -25,7 +23,6 @@ namespace OpenNefia.Content
         [Dependency] private readonly IRandomNameGenerator _nameGen = default!;
         [Dependency] private readonly IConfigMenuUICellFactory _configMenuUICellFactory = default!;
         [Dependency] private readonly IPlayTimeManager _playTimeManager = default!;
-        [Dependency] private readonly IStylesheetManager _stylesheetManager = default!;
 
         public override void PreInit()
         {
@@ -48,7 +45,6 @@ namespace OpenNefia.Content
             _nameGen.Initialize();
             _configMenuUICellFactory.Initialize();
             _playTimeManager.Initialize();
-            _stylesheetManager.Initialize();
         }
 
         public override void PostInit()
