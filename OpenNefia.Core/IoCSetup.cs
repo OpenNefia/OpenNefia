@@ -29,6 +29,7 @@ using OpenNefia.Core.UserInterface;
 using PrettyPrompt.Consoles;
 using OpenNefia.Core.UI.Wisp;
 using OpenNefia.Core.UI.Wisp.Styling;
+using OpenNefia.Core.HotReload;
 
 namespace OpenNefia
 {
@@ -108,6 +109,8 @@ namespace OpenNefia
             IoCManager.Register<ISaveGameSerializerInternal, SaveGameSerializer>();
             IoCManager.Register<IWispManager, WispManager>();
             IoCManager.Register<IStylesheetManager, StylesheetManager>();
+            IoCManager.Register<IHotReloadWatcher, HotReloadWatcher>();
+            IoCManager.Register<IHotReloadWatcherInternal, HotReloadWatcher>();
         }
     }
 }

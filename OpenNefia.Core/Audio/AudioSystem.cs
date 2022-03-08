@@ -27,10 +27,4 @@ namespace OpenNefia.Core.Audio
             _audioManager.SetListenerPosition(listenerPos);
         }
     }
-
-    [EventArgsUsage(EventArgsTargets.ByRef)]
-    public struct FrameUpdateEventArgs
-    {
-        public float Dt;
-    }
 }

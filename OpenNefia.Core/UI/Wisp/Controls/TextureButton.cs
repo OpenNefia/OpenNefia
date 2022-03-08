@@ -1,5 +1,6 @@
 ﻿using System;
 using OpenNefia.Core.Graphics;
+using OpenNefia.Core.Log;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Rendering;

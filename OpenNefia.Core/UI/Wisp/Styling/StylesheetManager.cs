@@ -22,14 +22,30 @@ namespace OpenNefia.Core.UI.Wisp.Styling
         [Dependency] private readonly IReflectionManager _reflectionManager = default!;
         [Dependency] private readonly IGraphics _graphics = default!;
 
+        private static ResourcePath DefaultStylesheetPath = new("/Stylesheets/Default.lua");
+
         public void Initialize()
         {
-            var sheet = ParseStylesheet(new("/Stylesheets/Default.lua"));
-            _wispManager.Stylesheet = sheet;
+            TryLoadStylesheet(DefaultStylesheetPath);
 
             _graphics.OnWindowFocused += WindowFocusedChanged;
 
             WatchResources();
+        }
+
+        private void TryLoadStylesheet(ResourcePath luaFile)
+        {
+            try
+            {
+                var sheet = ParseStylesheet(luaFile);
+                _wispManager.Stylesheet = sheet;
+
+                Logger.InfoS("wisp.stylesheet", $"Loaded stylesheet at {luaFile}.");
+            }
+            catch (Exception ex)
+            {
+                Logger.ErrorS("wisp.stylesheet", $"Failed to load stylesheet: {ex}");
+            }
         }
 
         private Lua CreateLuaEnv()
@@ -106,7 +122,7 @@ namespace OpenNefia.Core.UI.Wisp.Styling
                 selectorElement = new SelectorElement(elementType, new List<string>(), null, new List<string>());
             }
 
-            Logger.InfoS("stylesheet", $"Parse element rules: {selectorElement} ({parentSelector})");
+            Logger.DebugS("wisp.stylesheet", $"Parse element rules: {selectorElement} ({parentSelector})");
 
             if (tableValue["properties"] is not LuaTable propertiesTable)
             {
@@ -121,7 +137,7 @@ namespace OpenNefia.Core.UI.Wisp.Styling
         {
             var newSelector = ParseSingleRule(null, selectorTable, selectorElement, inheritType: true);
 
-            Logger.InfoS("stylesheet", $"Parse rule: {selectorElement} -> {newSelector}");
+            Logger.DebugS("wisp.stylesheet", $"Parse rule: {selectorElement} -> {newSelector}");
 
             if (selectorTable["properties"] is not LuaTable propertiesTable)
             {
@@ -229,7 +245,7 @@ namespace OpenNefia.Core.UI.Wisp.Styling
 
                 var styleRule = new StyleRule(selector, styleProperties);
 
-                Logger.InfoS("stylesheet", $"Parsed style rule:\n{styleRule}");
+                Logger.DebugS("wisp.stylesheet", $"Parsed style rule:\n{styleRule}");
 
                 styleRules.Add(styleRule);
             }
