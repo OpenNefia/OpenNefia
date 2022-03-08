@@ -23,284 +23,380 @@ namespace OpenNefia.XamlInjectors
     /// </summary>
     public partial class XamlCompiler
     {
-        public static (bool success, bool writtentofile) Compile(IBuildEngine engine, string input, string[] references,
-            string projectDirectory, string output, string strongNameKey, bool debuggerLaunch)
+        public IBuildEngine Engine { get; }
+        public CecilTypeSystem TypeSystem { get; }
+
+        public XamlLanguageTypeMappings XamlLanguage { get; }
+        public XamlLanguageEmitMappings<IXamlILEmitter, XamlILNodeEmitResult> EmitConfig { get; }
+        public TransformerConfiguration TransformerConfig { get; }
+
+        public OpenNefiaXamlILCompiler Compiler { get; }
+
+        public AssemblyDefinition TargetAssembly => TypeSystem.TargetAssemblyDefinition;
+        public ModuleDefinition MainModule => TargetAssembly.MainModule;
+        public MethodReference StringEquals { get; }
+
+        public XamlCompiler(IBuildEngine engine, string input, string[] references)
         {
-            var typeSystem = new CecilTypeSystem(references
+            Engine = engine;
+            TypeSystem = new CecilTypeSystem(references
                 .Where(r => !r.ToLowerInvariant().EndsWith("opennefia.xamlinjectors.dll"))
                 .Concat(new[] { input }), input);
 
-            var asm = typeSystem.TargetAssemblyDefinition;
-
-            if (asm.MainModule.GetType(Constants.CompiledXamlNamespace, "XamlIlContext") != null)
-            {
-                // If this type exists, the assembly has already been processed by us.
-                // Do not run again, it would corrupt the file.
-                // This *shouldn't* be possible due to Inputs/Outputs dependencies in the build system,
-                // but better safe than sorry eh?
-                engine.LogWarningEvent(new BuildWarningEventArgs("XAMLIL", "", "", 0, 0, 0, 0, "Ran twice on same assembly file; ignoring.", "", ""));
-                return (true, false);
-            }
-
-            var compileRes = CompileCore(engine, typeSystem, debuggerLaunch);
-            if (compileRes == null)
-                return (true, false);
-            if (compileRes == false)
-                return (false, false);
-
-            var writerParameters = new WriterParameters { WriteSymbols = asm.MainModule.HasSymbols };
-            if (!string.IsNullOrWhiteSpace(strongNameKey))
-                writerParameters.StrongNameKeyBlob = File.ReadAllBytes(strongNameKey);
-
-            asm.Write(output, writerParameters);
-
-            return (true, true);
-
-        }
-
-        static bool? CompileCore(IBuildEngine engine, CecilTypeSystem typeSystem, bool debuggerLaunch)
-        {
-            if (debuggerLaunch && !System.Diagnostics.Debugger.IsAttached)
-            {
-                System.Diagnostics.Debugger.Launch();
-            }
-            var asm = typeSystem.TargetAssemblyDefinition;
-            var embrsc = new EmbeddedResources(asm);
-
-            if (embrsc.Resources.Count(CheckXamlName) == 0)
-                // Nothing to do
-                return null;
-
-            var xamlLanguage = new XamlLanguageTypeMappings(typeSystem)
+            XamlLanguage = new XamlLanguageTypeMappings(TypeSystem)
             {
                 XmlnsAttributes =
                 {
-                    typeSystem.GetType("Avalonia.Metadata.XmlnsDefinitionAttribute"),
+                    TypeSystem.GetType("Avalonia.Metadata.XmlnsDefinitionAttribute"),
 
                 },
                 ContentAttributes =
                 {
-                    typeSystem.GetType("OpenNefia.Core.UserInterface.XAML.ContentAttribute")
+                    TypeSystem.GetType("OpenNefia.Core.UserInterface.XAML.ContentAttribute")
                 },
                 UsableDuringInitializationAttributes =
                 {
-                    typeSystem.GetType("OpenNefia.Core.UserInterface.XAML.UsableDuringInitializationAttribute")
+                    TypeSystem.GetType("OpenNefia.Core.UserInterface.XAML.UsableDuringInitializationAttribute")
                 },
                 DeferredContentPropertyAttributes =
                 {
-                    typeSystem.GetType("OpenNefia.Core.UserInterface.XAML.DeferredContentAttribute")
+                    TypeSystem.GetType("OpenNefia.Core.UserInterface.XAML.DeferredContentAttribute")
                 },
-                RootObjectProvider = typeSystem.GetType("OpenNefia.Core.UserInterface.XAML.ITestRootObjectProvider"),
-                UriContextProvider = typeSystem.GetType("OpenNefia.Core.UserInterface.XAML.ITestUriContext"),
-                ProvideValueTarget = typeSystem.GetType("OpenNefia.Core.UserInterface.XAML.ITestProvideValueTarget"),
+                RootObjectProvider = TypeSystem.GetType("OpenNefia.Core.UserInterface.XAML.ITestRootObjectProvider"),
+                UriContextProvider = TypeSystem.GetType("OpenNefia.Core.UserInterface.XAML.ITestUriContext"),
+                ProvideValueTarget = TypeSystem.GetType("OpenNefia.Core.UserInterface.XAML.ITestProvideValueTarget"),
             };
-            var emitConfig = new XamlLanguageEmitMappings<IXamlILEmitter, XamlILNodeEmitResult>
+
+            EmitConfig = new XamlLanguageEmitMappings<IXamlILEmitter, XamlILNodeEmitResult>
             {
-                ContextTypeBuilderCallback = (b, c) => EmitNameScopeField(xamlLanguage, typeSystem, b, c)
+                ContextTypeBuilderCallback = (b, c) => EmitNameScopeField(XamlLanguage, TypeSystem, b, c)
             };
 
-            var transformerconfig = new TransformerConfiguration(
-                typeSystem,
-                typeSystem.TargetAssembly,
-                xamlLanguage,
-                XamlXmlnsMappings.Resolve(typeSystem, xamlLanguage), CustomValueConverter);
+            TransformerConfig = new TransformerConfiguration(
+                TypeSystem,
+                TypeSystem.TargetAssembly,
+                XamlLanguage,
+                XamlXmlnsMappings.Resolve(TypeSystem, XamlLanguage), CustomValueConverter);
 
-            var contextDef = new TypeDefinition(Constants.CompiledXamlNamespace, "XamlIlContext",
-                TypeAttributes.Class, asm.MainModule.TypeSystem.Object);
-            asm.MainModule.Types.Add(contextDef);
-            var contextClass = XamlILContextDefinition.GenerateContextClass(typeSystem.CreateTypeBuilder(contextDef), typeSystem,
-                xamlLanguage, emitConfig);
+            Compiler =
+                new OpenNefiaXamlILCompiler(TransformerConfig, EmitConfig, true);
 
-            var compiler =
-                new OpenNefiaXamlILCompiler(transformerconfig, emitConfig, true);
-
-            var loaderDispatcherDef = new TypeDefinition(Constants.CompiledXamlNamespace, "!XamlLoader",
-                TypeAttributes.Class, asm.MainModule.TypeSystem.Object);
-
-            var loaderDispatcherMethod = new MethodDefinition("TryLoad",
-                MethodAttributes.Static | MethodAttributes.Public,
-                asm.MainModule.TypeSystem.Object)
-            {
-                Parameters = { new ParameterDefinition(asm.MainModule.TypeSystem.String) }
-            };
-            loaderDispatcherDef.Methods.Add(loaderDispatcherMethod);
-            asm.MainModule.Types.Add(loaderDispatcherDef);
-
-            var stringEquals = asm.MainModule.ImportReference(asm.MainModule.TypeSystem.String.Resolve().Methods.First(
+            StringEquals = MainModule.ImportReference(MainModule.TypeSystem.String.Resolve().Methods.First(
                 m =>
                     m.IsStatic && m.Name == "Equals" && m.Parameters.Count == 2 &&
                     m.ReturnType.FullName == "System.Boolean"
                     && m.Parameters[0].ParameterType.FullName == "System.String"
                     && m.Parameters[1].ParameterType.FullName == "System.String"));
+        }
 
-            bool CompileGroup(IResourceGroup group)
+        public (bool success, bool writtentofile) Compile(string output, string strongNameKey, bool debuggerLaunch)
+        {
+            if (TargetAssembly.MainModule.GetType(Constants.CompiledXamlNamespace, "XamlIlContext") != null)
             {
-                var typeDef = new TypeDefinition(Constants.CompiledXamlNamespace, "!" + group.Name, TypeAttributes.Class,
-                    asm.MainModule.TypeSystem.Object);
-
-                //typeDef.CustomAttributes.Add(new CustomAttribute(ed));
-                asm.MainModule.Types.Add(typeDef);
-                var builder = typeSystem.CreateTypeBuilder(typeDef);
-
-                foreach (var res in group.Resources.Where(CheckXamlName))
-                {
-                    try
-                    {
-                        engine.LogMessage($"XAMLIL: {res.Name} -> {res.Uri}", MessageImportance.Low);
-
-                        var xaml = new StreamReader(new MemoryStream(res.FileContents)).ReadToEnd();
-                        var parsed = XDocumentXamlParser.Parse(xaml);
-
-                        var initialRoot = (XamlAstObjectNode)parsed.Root;
-
-                        var classDirective = initialRoot.Children.OfType<XamlAstXmlDirective>()
-                            .FirstOrDefault(d => d.Namespace == XamlNamespaces.Xaml2006 && d.Name == "Class");
-                        string classname;
-                        if (classDirective != null && classDirective.Values[0] is XamlAstTextNode tn)
-                        {
-                            classname = tn.Text;
-                        }
-                        else
-                        {
-                            classname = res.Name.Replace(".xaml", "");
-                        }
-
-                        var classType = typeSystem.TargetAssembly.FindType(classname);
-                        if (classType == null)
-                            throw new Exception($"Unable to find type '{classname}'");
-
-                        compiler.Transform(parsed);
-
-                        var populateName = $"Populate:{res.Name}";
-                        var buildName = $"Build:{res.Name}";
-
-                        var classTypeDefinition = typeSystem.GetTypeReference(classType).Resolve();
-
-                        var populateBuilder = typeSystem.CreateTypeBuilder(classTypeDefinition);
-
-                        compiler.Compile(parsed, contextClass,
-                            compiler.DefinePopulateMethod(populateBuilder, parsed, populateName,
-                                classTypeDefinition == null),
-                            compiler.DefineBuildMethod(builder, parsed, buildName, true),
-                            null,
-                            null,
-                            (closureName, closureBaseType, emitter) =>
-                                populateBuilder.DefineSubType(closureBaseType, closureName, false),
-                            res.Uri, res
-                        );
-
-                        //add compiled populate method
-                        var compiledPopulateMethod = typeSystem.GetTypeReference(populateBuilder).Resolve().Methods
-                            .First(m => m.Name == populateName);
-
-                        const string TrampolineName = "!XamlIlPopulateTrampoline";
-                        var trampoline = new MethodDefinition(TrampolineName,
-                            MethodAttributes.Static | MethodAttributes.Private, asm.MainModule.TypeSystem.Void);
-                        trampoline.Parameters.Add(new ParameterDefinition(classTypeDefinition));
-                        classTypeDefinition.Methods.Add(trampoline);
-
-                        trampoline.Body.Instructions.Add(Instruction.Create(OpCodes.Ldnull));
-                        trampoline.Body.Instructions.Add(Instruction.Create(OpCodes.Ldarg_0));
-                        trampoline.Body.Instructions.Add(Instruction.Create(OpCodes.Call, compiledPopulateMethod));
-                        trampoline.Body.Instructions.Add(Instruction.Create(OpCodes.Ret));
-
-                        var foundXamlLoader = false;
-                        // Find OpenNefiaXamlLoader.Load(this) and replace it with !XamlIlPopulateTrampoline(this)
-                        foreach (var method in classTypeDefinition.Methods
-                            .Where(m => !m.Attributes.HasFlag(MethodAttributes.Static)))
-                        {
-                            var i = method.Body.Instructions;
-                            for (var c = 1; c < i.Count; c++)
-                            {
-                                if (i[c].OpCode == OpCodes.Call)
-                                {
-                                    var op = i[c].Operand as MethodReference;
-
-                                    if (op != null
-                                        && op.Name == TrampolineName)
-                                    {
-                                        foundXamlLoader = true;
-                                        break;
-                                    }
-
-                                    if (op != null
-                                        && op.Name == "Load"
-                                        && op.Parameters.Count == 1
-                                        && op.Parameters[0].ParameterType.FullName == "System.Object"
-                                        && op.DeclaringType.FullName == "OpenNefia.Core.UserInterface.XAML.OpenNefiaXamlLoader")
-                                    {
-                                        if (MatchThisCall(i, c - 1))
-                                        {
-                                            i[c].Operand = trampoline;
-                                            foundXamlLoader = true;
-                                        }
-                                    }
-                                }
-                            }
-                        }
-
-                        if (!foundXamlLoader)
-                        {
-                            var ctors = classTypeDefinition.GetConstructors()
-                                .Where(c => !c.IsStatic).ToList();
-                            // We can inject xaml loader into default constructor
-                            if (ctors.Count == 1 && ctors[0].Body.Instructions.Count(o => o.OpCode != OpCodes.Nop) == 3)
-                            {
-                                var i = ctors[0].Body.Instructions;
-                                var retIdx = i.IndexOf(i.Last(x => x.OpCode == OpCodes.Ret));
-                                i.Insert(retIdx, Instruction.Create(OpCodes.Call, trampoline));
-                                i.Insert(retIdx, Instruction.Create(OpCodes.Ldarg_0));
-                            }
-                            else
-                            {
-                                throw new InvalidProgramException(
-                                    $"No call to OpenNefiaXamlLoader.Load(this) call found anywhere in the type {classType.FullName} and type seems to have custom constructors.");
-                            }
-                        }
-
-                        //add compiled build method
-                        var compiledBuildMethod = typeSystem.GetTypeReference(builder).Resolve().Methods
-                            .First(m => m.Name == buildName);
-                        var parameterlessCtor = classTypeDefinition.GetConstructors()
-                            .FirstOrDefault(c => c.IsPublic && !c.IsStatic && !c.HasParameters);
-
-                        if (compiledBuildMethod != null && parameterlessCtor != null)
-                        {
-                            var i = loaderDispatcherMethod.Body.Instructions;
-                            var nop = Instruction.Create(OpCodes.Nop);
-                            i.Add(Instruction.Create(OpCodes.Ldarg_0));
-                            i.Add(Instruction.Create(OpCodes.Ldstr, res.Uri));
-                            i.Add(Instruction.Create(OpCodes.Call, stringEquals));
-                            i.Add(Instruction.Create(OpCodes.Brfalse, nop));
-                            if (parameterlessCtor != null)
-                                i.Add(Instruction.Create(OpCodes.Newobj, parameterlessCtor));
-                            else
-                            {
-                                i.Add(Instruction.Create(OpCodes.Call, compiledBuildMethod));
-                            }
-
-                            i.Add(Instruction.Create(OpCodes.Ret));
-                            i.Add(nop);
-                        }
-                    }
-                    catch (Exception e)
-                    {
-                        engine.LogErrorEvent(new BuildErrorEventArgs("XAMLIL", "", res.FilePath, 0, 0, 0, 0,
-                            $"{res.FilePath}: {e.Message}", "", "CompileOpenNefiaXaml"));
-                    }
-                }
-                return true;
+                // If this type exists, the assembly has already been processed by us.
+                // Do not run again, it would corrupt the file.
+                // This *shouldn't* be possible due to Inputs/Outputs dependencies in the build system,
+                // but better safe than sorry eh?
+                Engine.LogWarningEvent(new BuildWarningEventArgs("XAMLIL", "", "", 0, 0, 0, 0, "Ran twice on same assembly file; ignoring.", "", ""));
+                return (true, false);
             }
 
-            if (embrsc.Resources.Count(CheckXamlName) != 0)
+            var compileRes = CompileCore(debuggerLaunch);
+            if (compileRes == null)
+                return (true, false);
+            if (compileRes == false)
+                return (false, false);
+
+            var writerParameters = new WriterParameters { WriteSymbols = MainModule.HasSymbols };
+            if (!string.IsNullOrWhiteSpace(strongNameKey))
+                writerParameters.StrongNameKeyBlob = File.ReadAllBytes(strongNameKey);
+
+            TargetAssembly.Write(output, writerParameters);
+
+            return (true, true);
+
+        }
+
+        private const string TrampolineName = "!XamlIlPopulateTrampoline";
+
+        private class CompileGroupResult
+        {
+            public CompileGroupResult(IXamlType classType,
+                TypeDefinition classTypeDefinition,
+                MethodDefinition compiledPopulateMethod,
+                MethodDefinition compiledBuildMethod,
+                MethodDefinition parameterlessCtor,
+                IResource resource)
             {
-                if (!CompileGroup(embrsc))
-                    return false;
+                ClassType = classType;
+                ClassTypeDefinition = classTypeDefinition;
+                CompiledBuildMethod = compiledBuildMethod;
+                CompiledPopulateMethod = compiledPopulateMethod;
+                ParameterlessCtor = parameterlessCtor;
+                Resource = resource;
+            }
+
+            public IXamlType ClassType { get; }
+            public TypeDefinition ClassTypeDefinition { get; }
+            public MethodDefinition CompiledBuildMethod { get; }
+            public MethodDefinition CompiledPopulateMethod { get; }
+            public MethodDefinition ParameterlessCtor { get; }
+            public IResource Resource { get; }
+        }
+
+        private bool? CompileCore(bool debuggerLaunch)
+        {
+            if (debuggerLaunch && !System.Diagnostics.Debugger.IsAttached)
+            {
+                System.Diagnostics.Debugger.Launch();
+            }
+
+            var resourceGroup = new EmbeddedResources(TargetAssembly);
+            if (resourceGroup.Resources.Count(CheckXamlName) == 0)
+                // Nothing to do
+                return null;
+
+            var contextDef = new TypeDefinition(Constants.CompiledXamlNamespace, "XamlIlContext",
+                TypeAttributes.Class, MainModule.TypeSystem.Object);
+            MainModule.Types.Add(contextDef);
+
+            var contextClass = XamlILContextDefinition.GenerateContextClass(TypeSystem.CreateTypeBuilder(contextDef), TypeSystem,
+                XamlLanguage, EmitConfig);
+
+            var results = new List<CompileGroupResult>();
+
+            if (resourceGroup.Resources.Count(CheckXamlName) != 0)
+            {
+                var typeDef = new TypeDefinition(Constants.CompiledXamlNamespace, "!" + resourceGroup.Name, TypeAttributes.Class,
+                    TargetAssembly.MainModule.TypeSystem.Object);
+
+                //typeDef.CustomAttributes.Add(new CustomAttribute(ed));
+                TargetAssembly.MainModule.Types.Add(typeDef);
+                var builder = TypeSystem.CreateTypeBuilder(typeDef);
+
+                results = CompileGroup(resourceGroup, contextClass, builder);
+
+                foreach (var result in results)
+                {
+                    AddInitializer(result);
+                }
+            }
+
+            AddLoaderMethod(results);
+
+            return true;
+        }
+
+        private List<CompileGroupResult> CompileGroup(IResourceGroup group, IXamlType contextClass, IXamlTypeBuilder<IXamlILEmitter> builder)
+        {
+            var results = new List<CompileGroupResult>();
+
+            foreach (var res in group.Resources.Where(CheckXamlName))
+            {
+                try
+                {
+                    results.Add(CompileResource(res, contextClass, builder));
+                }
+                catch (Exception e)
+                {
+                    Engine.LogErrorEvent(new BuildErrorEventArgs("XAMLIL", "", res.FilePath, 0, 0, 0, 0,
+                        $"{res.FilePath}: {e.Message}", "", "CompileOpenNefiaXaml"));
+                }
+            }
+            return results;
+        }
+
+        private CompileGroupResult? CompileResource(IResource res, IXamlType contextClass, IXamlTypeBuilder<IXamlILEmitter> builder)
+        {
+            Engine.LogMessage($"XAMLIL: {res.Name} -> {res.Uri}", MessageImportance.Low);
+
+            var xaml = new StreamReader(new MemoryStream(res.FileContents)).ReadToEnd();
+            var parsed = XDocumentXamlParser.Parse(xaml);
+
+            var classType = GetClassTypeFromXaml(res, parsed);
+
+            Compiler.Transform(parsed);
+
+            var populateName = $"Populate:{res.Name}";
+            var buildName = $"Build:{res.Name}";
+
+            var classTypeDefinition = TypeSystem.GetTypeReference(classType).Resolve();
+
+            var populateBuilder = TypeSystem.CreateTypeBuilder(classTypeDefinition);
+
+            Compiler.Compile(parsed, contextClass,
+                Compiler.DefinePopulateMethod(populateBuilder, parsed, populateName,
+                    classTypeDefinition == null),
+                Compiler.DefineBuildMethod(builder, parsed, buildName, true),
+                null,
+                null,
+                (closureName, closureBaseType, emitter) =>
+                    populateBuilder.DefineSubType(closureBaseType, closureName, false),
+                res.Uri, res
+            );
+
+            //add compiled populate method
+            var compiledPopulateMethod = TypeSystem.GetTypeReference(populateBuilder).Resolve().Methods
+                .First(m => m.Name == populateName);
+
+            //add compiled build method
+            var compiledBuildMethod = TypeSystem.GetTypeReference(builder).Resolve().Methods
+                .First(m => m.Name == buildName);
+            var parameterlessCtor = classTypeDefinition.GetConstructors()
+                .FirstOrDefault(c => c.IsPublic && !c.IsStatic && !c.HasParameters);
+
+            return new CompileGroupResult(classType, classTypeDefinition, compiledPopulateMethod, compiledBuildMethod, parameterlessCtor, res);
+        }
+
+        private IXamlType GetClassTypeFromXaml(IResource res, XamlDocument parsed)
+        {
+            var initialRoot = (XamlAstObjectNode)parsed.Root;
+
+            var classDirective = initialRoot.Children.OfType<XamlAstXmlDirective>()
+                .FirstOrDefault(d => d.Namespace == XamlNamespaces.Xaml2006 && d.Name == "Class");
+            string classname;
+            if (classDirective != null && classDirective.Values[0] is XamlAstTextNode tn)
+            {
+                classname = tn.Text;
+            }
+            else
+            {
+                classname = res.Name.Replace(".xaml", "");
+            }
+
+            var classType = TypeSystem.TargetAssembly.FindType(classname);
+            if (classType == null)
+                throw new Exception($"Unable to find type '{classname}'");
+            return classType;
+        }
+
+        private void AddInitializer(CompileGroupResult result)
+        {
+            var classTypeDefinition = result.ClassTypeDefinition;
+            var compiledPopulateMethod = result.CompiledPopulateMethod;
+
+            var trampoline = AddTrampoline(TargetAssembly, classTypeDefinition, compiledPopulateMethod);
+            ReplaceLoadXamlCalls(result.ClassType, classTypeDefinition, trampoline);
+        }
+
+        private void AddLoaderMethod(List<CompileGroupResult> results)
+        {
+            var loaderDispatcherDef = new TypeDefinition(Constants.CompiledXamlNamespace, "!XamlLoader",
+                TypeAttributes.Class, MainModule.TypeSystem.Object);
+
+            var loaderDispatcherMethod = new MethodDefinition("TryLoad",
+                MethodAttributes.Static | MethodAttributes.Public,
+                MainModule.TypeSystem.Object)
+            {
+                Parameters = { new ParameterDefinition(MainModule.TypeSystem.String) }
+            };
+            loaderDispatcherDef.Methods.Add(loaderDispatcherMethod);
+            MainModule.Types.Add(loaderDispatcherDef);
+
+            foreach (var result in results)
+            {
+                AddBuildMethodToLoader(loaderDispatcherMethod, result);
             }
 
             loaderDispatcherMethod.Body.Instructions.Add(Instruction.Create(OpCodes.Ldnull));
             loaderDispatcherMethod.Body.Instructions.Add(Instruction.Create(OpCodes.Ret));
-            return true;
+        }
+
+        private void AddBuildMethodToLoader(MethodDefinition loaderDispatcherMethod, CompileGroupResult result)
+        {
+            var compiledBuildMethod = result.CompiledBuildMethod;
+            var parameterlessCtor = result.ParameterlessCtor;
+
+            if (compiledBuildMethod != null && parameterlessCtor != null)
+            {
+                var i = loaderDispatcherMethod.Body.Instructions;
+                var nop = Instruction.Create(OpCodes.Nop);
+                i.Add(Instruction.Create(OpCodes.Ldarg_0));
+                i.Add(Instruction.Create(OpCodes.Ldstr, result.Resource.Uri));
+                i.Add(Instruction.Create(OpCodes.Call, StringEquals));
+                i.Add(Instruction.Create(OpCodes.Brfalse, nop));
+                if (parameterlessCtor != null)
+                    i.Add(Instruction.Create(OpCodes.Newobj, parameterlessCtor));
+                else
+                {
+                    i.Add(Instruction.Create(OpCodes.Call, compiledBuildMethod));
+                }
+
+                i.Add(Instruction.Create(OpCodes.Ret));
+                i.Add(nop);
+            }
+        }
+
+        private MethodDefinition AddTrampoline(AssemblyDefinition asm, TypeDefinition classTypeDefinition, MethodDefinition compiledPopulateMethod)
+        {
+            var trampoline = new MethodDefinition(TrampolineName,
+                                        MethodAttributes.Static | MethodAttributes.Private, MainModule.TypeSystem.Void);
+            trampoline.Parameters.Add(new ParameterDefinition(classTypeDefinition));
+            classTypeDefinition.Methods.Add(trampoline);
+
+            trampoline.Body.Instructions.Add(Instruction.Create(OpCodes.Ldnull));
+            trampoline.Body.Instructions.Add(Instruction.Create(OpCodes.Ldarg_0));
+            trampoline.Body.Instructions.Add(Instruction.Create(OpCodes.Call, compiledPopulateMethod));
+            trampoline.Body.Instructions.Add(Instruction.Create(OpCodes.Ret));
+
+            return trampoline;
+        }
+
+        private static void ReplaceLoadXamlCalls(IXamlType classType, TypeDefinition classTypeDefinition, MethodDefinition trampoline)
+        {
+            var foundXamlLoader = false;
+            // Find OpenNefiaXamlLoader.Load(this) and replace it with !XamlIlPopulateTrampoline(this)
+            foreach (var method in classTypeDefinition.Methods
+                .Where(m => !m.Attributes.HasFlag(MethodAttributes.Static)))
+            {
+                var i = method.Body.Instructions;
+                for (var c = 1; c < i.Count; c++)
+                {
+                    if (i[c].OpCode == OpCodes.Call)
+                    {
+                        var op = i[c].Operand as MethodReference;
+
+                        if (op != null
+                            && op.Name == TrampolineName)
+                        {
+                            foundXamlLoader = true;
+                            break;
+                        }
+
+                        if (op != null
+                            && op.Name == "Load"
+                            && op.Parameters.Count == 1
+                            && op.Parameters[0].ParameterType.FullName == "System.Object"
+                            && op.DeclaringType.FullName == "OpenNefia.Core.UserInterface.XAML.OpenNefiaXamlLoader")
+                        {
+                            if (MatchThisCall(i, c - 1))
+                            {
+                                i[c].Operand = trampoline;
+                                foundXamlLoader = true;
+                            }
+                        }
+                    }
+                }
+            }
+
+            if (!foundXamlLoader)
+            {
+                var ctors = classTypeDefinition.GetConstructors()
+                    .Where(c => !c.IsStatic).ToList();
+                // We can inject xaml loader into default constructor
+                if (ctors.Count == 1 && ctors[0].Body.Instructions.Count(o => o.OpCode != OpCodes.Nop) == 3)
+                {
+                    var i = ctors[0].Body.Instructions;
+                    var retIdx = i.IndexOf(i.Last(x => x.OpCode == OpCodes.Ret));
+                    i.Insert(retIdx, Instruction.Create(OpCodes.Call, trampoline));
+                    i.Insert(retIdx, Instruction.Create(OpCodes.Ldarg_0));
+                }
+                else
+                {
+                    throw new InvalidProgramException(
+                        $"No call to OpenNefiaXamlLoader.Load(this) call found anywhere in the type {classType.FullName} and type seems to have custom constructors.");
+                }
+            }
         }
 
         private static bool CustomValueConverter(
