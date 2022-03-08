@@ -1,0 +1,8 @@
+﻿<$safeitemrootname$ xmlns="https://opennefia.io" 
+                    Class="$rootnamespace$.$safeitemrootname$">
+    <BoxContainer>
+        <Label Name="TitleLabel"
+               ClipText="True" HorizontalExpand="true" VAlign="Center"
+               Text="Scut!" />
+    </BoxContainer>
+<$safeitemrootname$/>

@@ -1,0 +1,6 @@
+﻿<DefaultWindow xmlns="https://opennefia.io"
+               Class="$rootnamespace$.$safeitemrootname$">
+    <BoxContainer Orientation="Vertical">
+        <Label Text="Hello, world." Margin="0 0 10 0"/>
+    </BoxContainer>
+</DefaultWindow>

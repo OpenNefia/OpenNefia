@@ -1,0 +1,41 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32014.148
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenNefia.VSTemplates.Control", "VSTemplates\Control\OpenNefia.VSTemplates.Control.csproj", "{E94B32C1-248A-4CAF-AB46-5D1B7906771D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenNefia.VSTemplates.Window", "VSTemplates\Window\OpenNefia.VSTemplates.Window.csproj", "{E33B9756-055C-463D-ACAC-A6D3155BE57E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E94B32C1-248A-4CAF-AB46-5D1B7906771D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E94B32C1-248A-4CAF-AB46-5D1B7906771D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E94B32C1-248A-4CAF-AB46-5D1B7906771D}.Debug|x86.ActiveCfg = Debug|x86
+		{E94B32C1-248A-4CAF-AB46-5D1B7906771D}.Debug|x86.Build.0 = Debug|x86
+		{E94B32C1-248A-4CAF-AB46-5D1B7906771D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E94B32C1-248A-4CAF-AB46-5D1B7906771D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E94B32C1-248A-4CAF-AB46-5D1B7906771D}.Release|x86.ActiveCfg = Release|x86
+		{E94B32C1-248A-4CAF-AB46-5D1B7906771D}.Release|x86.Build.0 = Release|x86
+		{E33B9756-055C-463D-ACAC-A6D3155BE57E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E33B9756-055C-463D-ACAC-A6D3155BE57E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E33B9756-055C-463D-ACAC-A6D3155BE57E}.Debug|x86.ActiveCfg = Debug|x86
+		{E33B9756-055C-463D-ACAC-A6D3155BE57E}.Debug|x86.Build.0 = Debug|x86
+		{E33B9756-055C-463D-ACAC-A6D3155BE57E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E33B9756-055C-463D-ACAC-A6D3155BE57E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E33B9756-055C-463D-ACAC-A6D3155BE57E}.Release|x86.ActiveCfg = Release|x86
+		{E33B9756-055C-463D-ACAC-A6D3155BE57E}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E3BB4582-32E4-4E35-8E88-B36E08FCCC80}
+	EndGlobalSection
+EndGlobal
