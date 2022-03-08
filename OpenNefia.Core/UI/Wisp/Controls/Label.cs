@@ -170,7 +170,6 @@ namespace OpenNefia.Core.UI.Wisp.Controls
                 _splitText = _text.Split("\n").Select(s =>
                 {
                     var text = Love.Graphics.NewText(ActualFont.LoveFont, s);
-                    text.Set(s, Color.White);
                     return text;
                 }).ToList();
             }
@@ -236,9 +235,9 @@ namespace OpenNefia.Core.UI.Wisp.Controls
 
             var baseLine = CalcBaseline();
 
-            GraphicsEx.SetFont(font);
             Love.Graphics.SetColor(actualFontColor);
             
+            // TODO: need better clipping management (global stack used by WispManager)
             if (ClipText)
                 Love.Graphics.SetScissor(GlobalPixelRect);
 

@@ -12,14 +12,9 @@ namespace OpenNefia.Core.ControlTest
         {
             OpenNefiaXamlLoader.Load(this);
 
-            AllInOneButton.OnPressed += _ => ShowWindow();
-            ItemListButton.OnPressed += _ => ShowWindow();
-        }
-
-        private void ShowWindow()
-        {
-            var win = new DefaultWindow();
-            WispRootLayer!.OpenWindowCentered(win);
+            AllInOneButton.OnPressed += _ => WispRootLayer!.OpenWindowCentered(new AllInOneWindow());
+            ItemListButton.OnPressed += _ => WispRootLayer!.OpenWindowCentered(new DefaultWindow());
+            TextureRectButton.OnPressed += _ => WispRootLayer!.OpenWindowCentered(new TextureRectWindow());
         }
     }
 }

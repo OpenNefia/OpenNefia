@@ -66,7 +66,8 @@ namespace OpenNefia.Core.UI.Wisp.Styling
             {
                 elementType = null;
             }
-            else if (!_reflectionManager.TryLooseGetType(elementTypeNameStr, out elementType))
+            // Type should end with ".<ClassName>"
+            else if (!_reflectionManager.TryLooseGetType("." + elementTypeNameStr, out elementType))
             {
                 throw new StylesheetLoadException($"Could not find element class with type '{elementTypeNameStr}'");
             }
@@ -104,7 +105,7 @@ namespace OpenNefia.Core.UI.Wisp.Styling
                 throw new StylesheetLoadException($"Missing properties for nested rule '{selectorTable["body"]}'");
             }
 
-            ParseStyleRules(styleRules, selectorElement, propertiesTable);
+            ParseStyleRules(styleRules, newSelector, propertiesTable);
             ParseNestedForms(styleRules, propertiesTable, newSelector);
         }
 

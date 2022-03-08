@@ -101,7 +101,7 @@ namespace OpenNefia.Core.UI.Wisp.Controls
             }
 
             var box = _getGrabberBox();
-            if (!box.Contains(args.RelativePixelPosition))
+            if (!box.Contains(args.PointerLocation.Position))
             {
                 return;
             }
@@ -129,7 +129,7 @@ namespace OpenNefia.Core.UI.Wisp.Controls
             if (_grabData == null)
             {
                 var box = _getGrabberBox();
-                _isHovered = box.Contains(args.RelativePixelPosition);
+                _isHovered = box.Contains(args.GlobalPixelPosition.Position);
                 _updatePseudoClass();
                 return;
             }
@@ -164,10 +164,10 @@ namespace OpenNefia.Core.UI.Wisp.Controls
 
             if (_orientation == OrientationMode.Horizontal)
             {
-                return new UIBox2(GlobalPixelX + grabberOffset, GlobalPixelY, grabberEnd, PixelHeight);
+                return new UIBox2(GlobalPixelX + grabberOffset, GlobalPixelY, GlobalPixelX + grabberEnd, GlobalPixelY + PixelHeight);
             }
 
-            return new UIBox2(GlobalPixelX, GlobalPixelY + grabberOffset, PixelWidth, grabberEnd);
+            return new UIBox2(GlobalPixelX, GlobalPixelY + grabberOffset, GlobalPixelX + PixelWidth, GlobalPixelY + grabberEnd);
         }
 
         private float _getGrabberBoxMinSize()

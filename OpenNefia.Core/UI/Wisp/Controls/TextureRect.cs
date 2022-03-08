@@ -104,7 +104,10 @@ namespace OpenNefia.Core.UI.Wisp.Controls
                 Love.Graphics.SetShader(shader.LoveShader);
             }
 
+            var color = Color.White;
+
             var dimensions = GetDrawDimensions(asset);
+            Love.Graphics.SetColor(color);
 
             switch (Stretch)
             {
@@ -170,8 +173,8 @@ namespace OpenNefia.Core.UI.Wisp.Controls
                     // Use whichever scale is greater.
                     var scale = Math.Max(scaleX, scaleY);
                     // Offset inside the actual texture.
-                    var offset = (texSize - PixelSize) / scale / 2f;
-                    return UIBox2.FromDimensions(GlobalPixelPosition + offset, PixelSize / scale);
+                    var offset = ((texSize * scale) - PixelSize) / scale / 2f;
+                    return UIBox2.FromDimensions(offset, PixelSize / scale);
                 default:
                     throw new ArgumentOutOfRangeException();
             }

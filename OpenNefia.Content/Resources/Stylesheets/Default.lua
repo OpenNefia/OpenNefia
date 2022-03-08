@@ -55,6 +55,14 @@ local function font(t)
     return result
 end
 
+local function font(t)
+    local result = FontSpec(t.size, t.smallSize or t.size)
+    t.size = nil
+    t.smallSize = nil
+    setProps(result, t)
+    return result
+end
+
 ----------------------------------------
 -- Fallback
 ----------------------------------------
@@ -75,21 +83,72 @@ _({
     modulateSelf = "#FFFFFF",
 })
 
+defaultGrabberSize = 10
+
+HScrollBar({
+    grabber = styleBoxFlat({
+        backgroundColor = "#80808080",
+        contentMarginTopOverride = defaultGrabberSize,
+    }),
+
+    rule(":hover")({
+        grabber = styleBoxFlat({
+            backgroundColor = "#A0A0A080",
+            contentMarginTopOverride = defaultGrabberSize,
+        }),
+    }),
+    rule(":grabbed")({
+        grabber = styleBoxFlat({
+            backgroundColor = "#C0C0C080",
+            contentMarginTopOverride = defaultGrabberSize,
+        }),
+    }),
+})
+
+VScrollBar({
+    grabber = styleBoxFlat({
+        backgroundColor = "#80808080",
+        contentMarginLeftOverride = defaultGrabberSize,
+        contentMarginTopOverride = defaultGrabberSize,
+    }),
+
+    rule(":hover")({
+        grabber = styleBoxFlat({
+            backgroundColor = "#A0A0A080",
+            contentMarginLeftOverride = defaultGrabberSize,
+            contentMarginTopOverride = defaultGrabberSize,
+        }),
+    }),
+    rule(":grabbed")({
+        grabber = styleBoxFlat({
+            backgroundColor = "#C0C0C080",
+            contentMarginLeftOverride = defaultGrabberSize,
+            contentMarginTopOverride = defaultGrabberSize,
+        }),
+    }),
+})
+
 ----------------------------------------
 -- Custom
 ----------------------------------------
 
 _({
     rule(".windowPanel")({
-        panel = styleBoxFlat({ backgroundColor = "#888899" }),
-    }),
-
-    rule(".windowTitleAlert")({
-        panel = styleBoxFlat({ backgroundColor = "#003332" }),
+        panel = styleBoxFlat({
+            backgroundColor = "#202040D0",
+            borderColor = "#80808080",
+            borderThickness = margin(1),
+        }),
     }),
 })
 
 PanelContainer(".windowHeader")({
+    panel = styleBoxFlat({
+        backgroundColor = "#444488",
+    }),
+})
+
+PanelContainer(".windowHeaderAlert")({
     panel = styleBoxFlat({ backgroundColor = "#884444" }),
 })
 
@@ -104,29 +163,45 @@ fontBold12 = font({
     -- style = { "Bold" }
 })
 
-colorGold = "#A88B5E"
+colorGold = "#F8ABAE"
 
 Label(".windowTitle")({
-    fontColor = colorGold,
-    font = fontBold12,
-})
-
-Label(".windowTitleAlert")({
     fontColor = "#FFFFFF",
     font = fontBold12,
 })
 
-ContainerButton({
+Label(".windowTitleAlert")({
+    fontColor = colorGold,
+    font = fontBold12,
+})
+
+Button({
     styleBox = styleBoxFlat({
-        borderColor = "#005555",
-        backgroundColor = "#007777",
-        borderThickness = margin(10),
+        borderColor = "#446666",
+        backgroundColor = "#447777",
+        borderThickness = margin(2),
+    }),
+
+    rule(":hover")({
+        styleBox = styleBoxFlat({
+            borderColor = "#446666",
+            backgroundColor = "#44AAAA",
+            borderThickness = margin(2),
+        }),
     }),
 })
 
 TextureButton(".windowCloseButton")({
     texture = asset("Elona.AutoTurnIcon"),
     modulateSelf = "#4B596A",
+})
+
+CheckBox(".checkBox")({
+    texture = asset("Core.WispCheckboxUnchecked"),
+})
+
+CheckBox(".checkBoxChecked")({
+    texture = asset("Core.WispCheckboxChecked"),
 })
 
 --[[
