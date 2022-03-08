@@ -198,6 +198,8 @@ namespace OpenNefia.Core.UI.Wisp
             }
         }
 
+        // TODO cache instead of recalculating; LOVE2D forces us to use this
+        // coordinate system. Or implement a screen-relative drawing handle.
         public override Vector2 GlobalPosition
         {
             get

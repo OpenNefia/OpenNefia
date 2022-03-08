@@ -1,7 +1,8 @@
 ﻿<DefaultWindow xmlns="https://opennefia.io"
-               Title="Control Debug"
-               Class="OpenNefia.Core.ControlTest.ControlDebugWindow">
-    <BoxContainer Orientation="Vertical">
+               Class="OpenNefia.Core.ControlTest.ControlDebugWindow"
+               Title="Control Debug">
+    <BoxContainer Orientation="Vertical" VerticalExpand="True">
         <Button Name="ToggleDebugButton" Text="Toggle Debug" HorizontalExpand="True" Margin ="0 4" />
+        <Button Name="PatchButton" Text="Patch" HorizontalExpand="True" Margin ="0 4" />
     </BoxContainer>
 </DefaultWindow>
