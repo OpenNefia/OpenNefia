@@ -14,7 +14,7 @@ namespace OpenNefia.Core.UI.Wisp.Controls
     /// </summary>
     public class Label : WispControl
     {
-        public const string StylePropertyFontColor = "font-color";
+        public const string StylePropertyFontColor = "fontColor";
         public const string StylePropertyFont = "font";
         public const string StylePropertyAlignMode = "alignMode";
 
@@ -85,7 +85,6 @@ namespace OpenNefia.Core.UI.Wisp.Controls
             }
         }
 
-        private FontSpec _fallbackFont = new FontSpec(14);
         private FontSpec ActualFont
         {
             get
@@ -100,8 +99,7 @@ namespace OpenNefia.Core.UI.Wisp.Controls
                     return font;
                 }
 
-                //return UserInterfaceManager.ThemeDefaults.LabelFont;
-                return _fallbackFont;
+                return WispManager.GetStyleFallback<FontSpec>();
             }
         }
 
@@ -121,7 +119,7 @@ namespace OpenNefia.Core.UI.Wisp.Controls
                     return color;
                 }
 
-                return Color.White;
+                return WispManager.GetStyleFallback<Color>();
             }
         }
 
@@ -131,6 +129,33 @@ namespace OpenNefia.Core.UI.Wisp.Controls
 
         public int? ShadowOffsetYOverride { get; set; }
 
+        /// <summary>
+        /// Horizontal alignment mode for label text.
+        /// </summary>
+        /// <remarks>
+        /// NOTE: Separate from <see cref="WispControl.HAlignment"/>!
+        /// </remarks>
+        public enum AlignMode : byte
+        {
+            Left = 0,
+            Center = 1,
+            Right = 2,
+            Fill = 3
+        }
+
+        /// <summary>
+        /// Vertical alignment mode for label text.
+        /// </summary>
+        /// <remarks>
+        /// NOTE: Separate from <see cref="WispControl.VAlignment"/>!
+        /// </remarks>
+        public enum VAlignMode : byte
+        {
+            Top = 0,
+            Center = 1,
+            Bottom = 2,
+            Fill = 3
+        }
 
         private void RebakeText()
         {
@@ -142,7 +167,7 @@ namespace OpenNefia.Core.UI.Wisp.Controls
 
             if (_text != null)
             {
-                _splitText = _text.Split().Select(s =>
+                _splitText = _text.Split("\n").Select(s =>
                 {
                     var text = Love.Graphics.NewText(ActualFont.LoveFont, s);
                     text.Set(s, Color.White);
@@ -213,28 +238,19 @@ namespace OpenNefia.Core.UI.Wisp.Controls
 
             GraphicsEx.SetFont(font);
             Love.Graphics.SetColor(actualFontColor);
+            
+            if (ClipText)
+                Love.Graphics.SetScissor(GlobalPixelRect);
+
             foreach (var line in _splitText)
             {
                 Love.Graphics.Draw(line, GlobalPixelPosition.X + baseLine.X, GlobalPixelPosition.Y + baseLine.Y);
                 newlines += 1;
                 baseLine = CalcBaseline();
             }
-        }
 
-        public enum AlignMode : byte
-        {
-            Left = 0,
-            Center = 1,
-            Right = 2,
-            Fill = 3
-        }
-
-        public enum VAlignMode : byte
-        {
-            Top = 0,
-            Center = 1,
-            Bottom = 2,
-            Fill = 3
+            if (ClipText)
+                Love.Graphics.SetScissor();
         }
 
         protected override Vector2 MeasureOverride(Vector2 availableSize)

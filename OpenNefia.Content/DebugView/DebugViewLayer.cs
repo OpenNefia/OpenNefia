@@ -3,8 +3,12 @@ using OpenNefia.Core.UI.Wisp.CustomControls;
 using OpenNefia.Core.Input;
 using OpenNefia.Core.UI.Element;
 using OpenNefia.Core.UI.Wisp.Controls;
+using OpenNefia.Core.UserInterface;
+using static OpenNefia.Core.UI.Wisp.WispControl;
+using OpenNefia.Core.ControlTest;
+using OpenNefia.Core.UI.Wisp;
 
-namespace OpenNefia.Core.DebugView
+namespace OpenNefia.Content.DebugView
 {
     public sealed class DebugViewLayer : WispLayerWithResult<UINone, UINone>
     {
@@ -17,8 +21,8 @@ namespace OpenNefia.Core.DebugView
                     TitleClass = DefaultWindow.StyleClassWindowTitleAlert,
                     HeaderClass = DefaultWindow.StyleClassWindowHeaderAlert,
                     Title = "Asdfg!",
-                    PreferredSize = (400, 100),
-                    EventFilter = UserInterface.UIEventFilterMode.Pass,
+                    ExactSize = (400, 100),
+                    EventFilter = UIEventFilterMode.Pass,
                 };
 
                 // win.SetValue(LayoutContainer.DebugProperty, true);
@@ -33,21 +37,25 @@ namespace OpenNefia.Core.DebugView
                     box.AddChild(new Label()
                     {
                         Text = $"テスト{j}でござる。",
-                        HorizontalAlignment = UI.Wisp.WispControl.HAlignment.Left,
+                        HorizontalAlignment = HAlignment.Left,
                         HorizontalExpand = true
                     });
                 }
 
                 win.Contents.AddChild(box);
-                WindowRoot.AddChild(win);
-
-                win.OpenCentered();
+                this.OpenWindowCentered(win);
             }
 
-            // WindowRoot.Debug = true;
+            var controlTestWindow = new ControlTestMainWindow();
+            this.OpenWindowToLeft(controlTestWindow);
+
+            var controlDebugWindow = new ControlDebugWindow();
+            this.OpenWindowCentered(controlDebugWindow);
+
+            OnKeyBindDown += KeyBindDown;
         }
 
-        protected internal override void KeyBindDown(GUIBoundKeyEventArgs args)
+        private void KeyBindDown(GUIBoundKeyEventArgs args)
         {
             if (args.Function == EngineKeyFunctions.UICancel)
             {

@@ -33,37 +33,37 @@ namespace OpenNefia.Core.UI.Wisp.Controls
             }
         }
 
-        public static readonly AttachedProperty MarginLeftProperty = AttachedProperty.Create("MarginLeft",
+        public static readonly AttachedProperty MarginLeftProperty = AttachedProperty.Create("marginLeft",
             typeof(LayoutContainer), typeof(float), changed: LayoutPropertyChangedCallback);
 
-        public static readonly AttachedProperty MarginTopProperty = AttachedProperty.Create("MarginTop",
+        public static readonly AttachedProperty MarginTopProperty = AttachedProperty.Create("marginTop",
             typeof(LayoutContainer), typeof(float), changed: LayoutPropertyChangedCallback);
 
-        public static readonly AttachedProperty MarginRightProperty = AttachedProperty.Create("MarginRight",
+        public static readonly AttachedProperty MarginRightProperty = AttachedProperty.Create("marginRight",
             typeof(LayoutContainer), typeof(float), changed: LayoutPropertyChangedCallback);
 
-        public static readonly AttachedProperty MarginBottomProperty = AttachedProperty.Create("MarginBottom",
+        public static readonly AttachedProperty MarginBottomProperty = AttachedProperty.Create("marginBottom",
             typeof(LayoutContainer), typeof(float), changed: LayoutPropertyChangedCallback);
 
-        public static readonly AttachedProperty AnchorLeftProperty = AttachedProperty.Create("AnchorLeft",
+        public static readonly AttachedProperty AnchorLeftProperty = AttachedProperty.Create("anchorLeft",
             typeof(LayoutContainer), typeof(float), changed: LayoutPropertyChangedCallback);
 
-        public static readonly AttachedProperty AnchorTopProperty = AttachedProperty.Create("AnchorTop",
+        public static readonly AttachedProperty AnchorTopProperty = AttachedProperty.Create("anchorTop",
             typeof(LayoutContainer), typeof(float), changed: LayoutPropertyChangedCallback);
 
-        public static readonly AttachedProperty AnchorRightProperty = AttachedProperty.Create("AnchorRight",
+        public static readonly AttachedProperty AnchorRightProperty = AttachedProperty.Create("anchorRight",
             typeof(LayoutContainer), typeof(float), changed: LayoutPropertyChangedCallback);
 
-        public static readonly AttachedProperty AnchorBottomProperty = AttachedProperty.Create("AnchorBottom",
+        public static readonly AttachedProperty AnchorBottomProperty = AttachedProperty.Create("anchorBottom",
             typeof(LayoutContainer), typeof(float), changed: LayoutPropertyChangedCallback);
 
-        public static readonly AttachedProperty GrowHorizontalProperty = AttachedProperty.Create("GrowHorizontal",
+        public static readonly AttachedProperty GrowHorizontalProperty = AttachedProperty.Create("growHorizontal",
             typeof(LayoutContainer), typeof(GrowDirection), changed: LayoutPropertyChangedCallback);
 
-        public static readonly AttachedProperty GrowVerticalProperty = AttachedProperty.Create("GrowVertical",
+        public static readonly AttachedProperty GrowVerticalProperty = AttachedProperty.Create("growVertical",
             typeof(LayoutContainer), typeof(GrowDirection), changed: LayoutPropertyChangedCallback);
 
-        public static readonly AttachedProperty<bool> DebugProperty = AttachedProperty<bool>.Create("Debug",
+        public static readonly AttachedProperty<bool> DebugProperty = AttachedProperty<bool>.Create("debug",
             typeof(LayoutContainer));
 
         private bool _inheritChildMeasure = true;

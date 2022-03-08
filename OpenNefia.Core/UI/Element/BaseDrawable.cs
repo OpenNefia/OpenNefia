@@ -86,6 +86,7 @@ namespace OpenNefia.Core.UI.Element
             return Rect.Contains(point);
         }
 
+        // TODO make these protected internal.
         public abstract void Update(float dt);
         public abstract void Draw();
 

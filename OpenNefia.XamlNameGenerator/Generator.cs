@@ -38,19 +38,26 @@ public class OpenNefiaNameSourceGenerator : ISourceGenerator
         var options = new GeneratorOptions(context);
         var types = new RoslynTypeSystem((CSharpCompilation)context.Compilation);
         var defaultAccess = options.OpenNefiaNameGeneratorDefaultAccessLevel.ToString().ToLowerInvariant();
-        ICodeGenerator generator = options.OpenNefiaNameGeneratorBehavior switch {
+        ICodeGenerator generator = options.OpenNefiaNameGeneratorBehavior switch
+        {
             Behavior.OnlyProperties => new OnlyPropertiesCodeGenerator(),
             Behavior.InitializeComponent => new InitializeComponentCodeGenerator(types),
             _ => throw new ArgumentOutOfRangeException()
         };
 
         var compiler = MiniCompiler.CreateDefault(types, MiniCompiler.OpenNefiaXmlnsDefinitionAttribute);
+
+        if (options.OpenNefiaNameGeneratorDebuggerLaunch && !Debugger.IsAttached)
+        {
+            Debugger.Launch();
+        }
+
         return new OpenNefiaNameGenerator(
-            new GlobPatternGroup(options.OpenNefiaNameGeneratorFilterByPath),
-            new GlobPatternGroup(options.OpenNefiaNameGeneratorFilterByNamespace),
-            new XamlXViewResolver(types, compiler, true, type => ReportInvalidType(context, type)),
-            new XamlXNameResolver(defaultAccess),
-            generator);
+        new GlobPatternGroup(options.OpenNefiaNameGeneratorFilterByPath),
+        new GlobPatternGroup(options.OpenNefiaNameGeneratorFilterByNamespace),
+        new XamlXViewResolver(types, compiler, true, type => ReportInvalidType(context, type)),
+        new XamlXNameResolver(defaultAccess),
+        generator);
     }
 
     private static void ReportUnhandledError(GeneratorExecutionContext context, Exception error)

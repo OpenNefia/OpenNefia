@@ -164,11 +164,10 @@ namespace OpenNefia.Core.UI.Wisp.Drawing
         }
 
         /// <summary>
-        ///     Draw this style box to the screen at the specified coordinates.
+        ///     Draw this style box to the screen at the specified pixel coordinates.
         /// </summary>
-        /// <param name="handle"></param>
-        /// <param name="box"></param>
-        public void Draw(UIBox2 box, float uiScale)
+        /// <param name="box">Screen region in global pixel coordinates.</param>
+        public void Draw(UIBox2 box)
         {
             box = new UIBox2(
                 box.Left + PaddingLeft,
@@ -177,7 +176,7 @@ namespace OpenNefia.Core.UI.Wisp.Drawing
                 box.Bottom - PaddingBottom
             );
 
-            DoDraw(box, uiScale);
+            DoDraw(box);
         }
 
         /// <summary>
@@ -317,7 +316,7 @@ namespace OpenNefia.Core.UI.Wisp.Drawing
             }
         }
 
-        protected abstract void DoDraw(UIBox2 box, float uiScale);
+        protected abstract void DoDraw(UIBox2 pixelBox);
 
         protected virtual float GetDefaultContentMargin(Margin margin)
         {

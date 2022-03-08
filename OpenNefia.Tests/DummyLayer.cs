@@ -8,7 +8,7 @@ namespace OpenNefia.Tests
     {
         public int ZOrder { get; set; } = 0;
 
-        public Vector2 PreferredSize { get; set; } = new(800, 600);
+        public Vector2 ExactSize { get; set; } = new(800, 600);
         public Vector2 MinSize { get; set; } = new(800, 600);
         public bool Visible { get; set; } = true;
 
