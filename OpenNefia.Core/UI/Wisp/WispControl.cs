@@ -1,10 +1,10 @@
-﻿using OpenNefia.Core.DebugView;
-using OpenNefia.Core.IoC;
+﻿using OpenNefia.Core.IoC;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.UI.Element;
 using OpenNefia.Core.UserInterface;
 using OpenNefia.Core.UserInterface.XAML;
 using OpenNefia.Core.Utility;
+using OpenNefia.Core.ViewVariables;
 using static NetVips.Enums;
 
 namespace OpenNefia.Core.UI.Wisp
@@ -77,12 +77,12 @@ namespace OpenNefia.Core.UI.Wisp
             }
         }
 
-        public override Vector2 PreferredSize
+        public override Vector2 ExactSize
         {
-            get => base.PreferredSize;
+            get => base.ExactSize;
             set
             {
-                base.PreferredSize = value;
+                base.ExactSize = value;
                 InvalidateMeasure();
             }
         }
@@ -131,6 +131,73 @@ namespace OpenNefia.Core.UI.Wisp
         /// </summary>
         public string? Class { get; set; }
 
+        /// <summary>
+        ///     Gets whether this control is at all visible.
+        ///     This means the control is part of the tree of the root control, and all of its parents are visible.
+        /// </summary>
+        /// <seealso cref="Visible"/>
+        [ViewVariables]
+        public bool VisibleInTree
+        {
+            get
+            {
+                for (var parent = this; parent != null; parent = parent.WispParent)
+                {
+                    if (!parent.Visible)
+                    {
+                        return false;
+                    }
+
+                    if (parent is WispRoot)
+                    {
+                        return true;
+                    }
+                }
+
+                return false;
+            }
+        }
+
+        public event Action<WispControl>? OnVisibilityChanged;
+
+        /// <summary>
+        ///     Whether or not this control and its children are visible.
+        /// </summary>
+        public override bool Visible
+        {
+            get => base.Visible;
+            set
+            {
+                if (base.Visible == value)
+                    return;
+
+                base.Visible = value;
+
+                _propagateVisibilityChanged(value);
+                // TODO: unhardcode this.
+                // Many containers ignore children if they're invisible, so that's why we're replicating that ehre.
+                WispParent?.InvalidateMeasure();
+                InvalidateMeasure();
+            }
+        }
+
+        private void _propagateVisibilityChanged(bool newVisible)
+        {
+            OnVisibilityChanged?.Invoke(this);
+            if (!VisibleInTree)
+            {
+                UserInterfaceManagerInternal.ControlHidden(this);
+            }
+
+            foreach (var child in WispChildren)
+            {
+                if (newVisible || child.Visible)
+                {
+                    child._propagateVisibilityChanged(newVisible);
+                }
+            }
+        }
+
         public override Vector2 GlobalPosition
         {
             get
@@ -147,6 +214,9 @@ namespace OpenNefia.Core.UI.Wisp
             }
         }
 
+        public float GlobalX => GlobalPosition.X;
+        public float GlobalY => GlobalPosition.Y;
+
         public override Vector2i GlobalPixelPosition
         {
             get
@@ -162,6 +232,9 @@ namespace OpenNefia.Core.UI.Wisp
                 return offset;
             }
         }
+
+        public int GlobalPixelX => GlobalPixelPosition.X;
+        public int GlobalPixelY => GlobalPixelPosition.Y;
 
         /// <summary>
         ///     Called to test whether this control has a certain point,
@@ -279,6 +352,22 @@ namespace OpenNefia.Core.UI.Wisp
         public sealed override void GetPreferredSize(out Vector2 size)
         {
             size = DesiredSize;
+        }
+
+        public override void SetSize(float width, float height)
+        {
+            base.SetSize(width, height);
+            Resized();
+        }
+
+        public event Action? OnResized;
+
+        /// <summary>
+        ///     Called when the size of the control changes.
+        /// </summary>
+        protected virtual void Resized()
+        {
+            OnResized?.Invoke();
         }
 
         /// <inheritdoc/>
@@ -421,7 +510,7 @@ namespace OpenNefia.Core.UI.Wisp
         {
             var min = Vector2.Zero;
 
-            foreach (var child in Children.WhereAssignable<UiElement, WispControl>())
+            foreach (var child in WispChildren)
             {
                 child.Measure(availableSize);
                 min = Vector2.ComponentMax(min, child.DesiredSize);

@@ -23,11 +23,18 @@ namespace OpenNefia.Core.UI.Wisp
         void QueueArrangeUpdate(WispControl control);
         void QueueMeasureUpdate(WispControl control);
         void FrameUpdate(FrameEventArgs args);
+
+        /// <summary>
+        /// Gets a style fallback.
+        /// </summary>
+        /// <seealso cref="IStylesheetManager.GetStyleFallback{T}"/>
+        T GetStyleFallback<T>();
     }
 
     public sealed class WispManager : IWispManager
     {
         [Dependency] private readonly IGraphics _graphics = default!;
+        [Dependency] private readonly IStylesheetManager _stylesheetManager = default!;
 
         private readonly Queue<WispControl> _styleUpdateQueue = new();
         private readonly Queue<WispControl> _measureUpdateQueue = new();
@@ -135,9 +142,9 @@ namespace OpenNefia.Core.UI.Wisp
             if (control.IsMeasureValid || !control.IsInsideTree)
                 return;
 
-            if (control.Parent is WispControl wispParent)
+            if (control.WispParent != null)
             {
-                RunMeasure(wispParent);
+                RunMeasure(control.WispParent);
             }
 
             if (control is WispRoot)
@@ -155,9 +162,9 @@ namespace OpenNefia.Core.UI.Wisp
             if (control.IsArrangeValid || !control.IsInsideTree)
                 return;
 
-            if (control.Parent is WispControl wispParent)
+            if (control.WispParent != null)
             {
-                RunArrange(wispParent);
+                RunArrange(control.WispParent);
             }
 
             if (control is WispRoot root)
@@ -169,5 +176,7 @@ namespace OpenNefia.Core.UI.Wisp
                 control.Arrange(control.PreviousArrange.Value);
             }
         }
+
+        public T GetStyleFallback<T>() => _stylesheetManager.GetStyleFallback<T>();
     }
 }

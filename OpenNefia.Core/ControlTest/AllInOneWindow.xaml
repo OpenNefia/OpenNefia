@@ -1,0 +1,6 @@
+﻿<DefaultWindow xmlns="https://opennefia.io"
+               Class="OpenNefia.Core.ControlTest.AllInOneWindow">
+    <BoxContainer Orientation="Vertical">
+        <Label Text="Label" Margin="0 0 10 0"/>
+    </BoxContainer>
+</DefaultWindow>

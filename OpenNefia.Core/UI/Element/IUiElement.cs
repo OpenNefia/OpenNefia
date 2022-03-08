@@ -9,7 +9,7 @@ namespace OpenNefia.Core.UI.Element
 {
     public interface IUiElement : IDrawable
     {
-        Vector2 PreferredSize { get; set; }
+        Vector2 ExactSize { get; set; }
         Vector2 MinSize { get; set; }
         bool Visible { get; set; }
 

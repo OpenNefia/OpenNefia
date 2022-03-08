@@ -76,7 +76,7 @@ namespace OpenNefia.Core.UI.Wisp.Controls
                 }
             }
 
-            asset?.Draw(UIScale, GlobalPixelRect);
+            asset?.DrawUnscaled(GlobalPixelRect);
         }
 
         protected override Vector2 MeasureOverride(Vector2 availableSize)

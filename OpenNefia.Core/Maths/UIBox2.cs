@@ -159,6 +159,11 @@ namespace OpenNefia.Core.Maths
             return new((int)box.Left, (int)box.Top, (int)box.Right, (int)box.Bottom);
         }
 
+        public static implicit operator Love.RectangleF(UIBox2 box)
+        {
+            return new(box.Left, box.Top, box.Width, box.Height);
+        }
+
         /// <summary>
         ///     Compares two objects for equality by value.
         /// </summary>

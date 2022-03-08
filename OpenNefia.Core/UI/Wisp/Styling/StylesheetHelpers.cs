@@ -9,7 +9,9 @@ using System.Threading.Tasks;
 namespace OpenNefia.Core.UI.Wisp.Styling
 {
     /// <summary>
-    /// TODO: bind privately
+    /// Helper functions for use with NLua binding in stylesheet .lua files.
+    /// 
+    /// TODO: expose this privately
     /// </summary>
     public static class StylesheetUtilities
     {

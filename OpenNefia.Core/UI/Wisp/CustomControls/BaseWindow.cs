@@ -4,6 +4,7 @@ using OpenNefia.Core.Maths;
 using OpenNefia.Core.UI.Element;
 using OpenNefia.Core.UI.Wisp.Controls;
 using OpenNefia.Core.UserInterface;
+using OpenNefia.Core.Utility;
 
 namespace OpenNefia.Core.UI.Wisp.CustomControls
 {
@@ -134,13 +135,13 @@ namespace OpenNefia.Core.UI.Wisp.CustomControls
             else
             {
                 var (left, top) = Position;
-                var (right, bottom) = Position + PreferredSize;
+                var (right, bottom) = Position + ExactSize;
 
-                if (float.IsNaN(PreferredSize.X))
+                if (float.IsNaN(ExactSize.X))
                 {
                     right = Position.X + Size.X;
                 }
-                if (float.IsNaN(PreferredSize.Y))
+                if (float.IsNaN(ExactSize.Y))
                 {
                     bottom = Position.Y + Size.Y;
                 }
@@ -165,7 +166,7 @@ namespace OpenNefia.Core.UI.Wisp.CustomControls
 
                 var rect = new UIBox2(left, top, right, bottom);
                 LayoutContainer.SetPosition(this, rect.TopLeft);
-                PreferredSize = rect.Size;
+                ExactSize = rect.Size;
             }
         }
 
@@ -212,7 +213,7 @@ namespace OpenNefia.Core.UI.Wisp.CustomControls
             return true;
         }
 
-        public void Open()
+        public void Open(IWispLayer layer)
         {
             if (!Visible)
             {
@@ -222,44 +223,44 @@ namespace OpenNefia.Core.UI.Wisp.CustomControls
 
             if (!IsOpen)
             {
-                WispRootLayer!.WindowRoot.AddChild(this);
+                layer.WindowRoot.AddChild(this);
             }
 
             Opened();
         }
 
-        public void OpenCentered()
+        public void OpenCentered(IWispLayer layer)
         {
             if (_firstTimeOpened)
             {
                 Measure(Vector2.Infinity);
-                PreferredSize = DesiredSize;
-                Open();
+                ExactSize = DesiredSize;
+                Open(layer);
                 // An explaination: The BadOpenGLVersionWindow was showing up off the top-left corner of the screen.
                 // Basically, if OpenCentered happens super-early, RootControl doesn't get time to layout children.
                 // But we know that this is always going to be one of the roots anyway for now.
-                LayoutContainer.SetPosition(this, (WispRootLayer!.WispRoot.Size - PreferredSize) / 2);
+                LayoutContainer.SetPosition(this, (WispRootLayer!.WispRoot.Size - ExactSize) / 2);
                 _firstTimeOpened = false;
             }
             else
             {
-                Open();
+                Open(layer);
             }
         }
 
-        public void OpenToLeft()
+        public void OpenToLeft(IWispLayer layer)
         {
             if (_firstTimeOpened)
             {
                 Measure(Vector2.Infinity);
-                PreferredSize = DesiredSize;
-                Open();
+                ExactSize = DesiredSize;
+                Open(layer);
                 LayoutContainer.SetPosition(this, (0, (Parent!.Size.Y - DesiredSize.Y) / 2));
                 _firstTimeOpened = false;
             }
             else
             {
-                Open();
+                Open(layer);
             }
         }
 

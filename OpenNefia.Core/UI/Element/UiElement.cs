@@ -57,7 +57,7 @@ namespace OpenNefia.Core.UI.Element
         /// <summary>
         /// A preferred exact size for this control.
         /// </summary>
-        public virtual Vector2 PreferredSize
+        public virtual Vector2 ExactSize
         {
             get => (PreferredWidth, PreferredHeight);
             set => (PreferredWidth, PreferredHeight) = value;
@@ -239,7 +239,7 @@ namespace OpenNefia.Core.UI.Element
         ///     Whether or not this control and its children are visible.
         /// </summary>
         /// <remarks>TODO implement</remarks>
-        public bool Visible
+        public virtual bool Visible
         {
             get => _visible && (Parent?.Visible ?? true);
             set => _visible = value;
@@ -333,7 +333,7 @@ namespace OpenNefia.Core.UI.Element
 
         public virtual void GetPreferredSize(out Vector2 size)
         {
-            size = PreferredSize;
+            size = ExactSize;
         }
 
         public void SetPreferredSize()

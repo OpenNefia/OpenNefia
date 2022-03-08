@@ -10,6 +10,7 @@ public enum BuildProperties
     OpenNefiaNameGeneratorDefaultAccessLevel = 1,
     OpenNefiaNameGeneratorFilterByPath = 2,
     OpenNefiaNameGeneratorFilterByNamespace = 3,
+    OpenNefiaNameGeneratorDebuggerLaunch = 4,
 }
 
 public enum DefaultFieldModifier
@@ -89,6 +90,18 @@ public class GeneratorOptions
             if (propertyValue.Contains(";"))
                 return propertyValue.Split(';');
             return new[] {propertyValue};
+        }
+    }
+
+    public bool OpenNefiaNameGeneratorDebuggerLaunch
+    {
+        get
+        {
+            var propertyValue = _context.GetMsBuildProperty(
+                nameof(BuildProperties.OpenNefiaNameGeneratorDebuggerLaunch),
+                "false");
+
+            return propertyValue == "true";
         }
     }
 }

@@ -33,7 +33,7 @@ namespace OpenNefia.Content.Hud
             UiText = new UiTextOutlined(UiFonts.HUDBarText);
             BarBGAsset = Assets.Get(Protos.Asset.HpBarFrame);
 
-            MinSize = PreferredSize = BarSize;
+            MinSize = ExactSize = BarSize;
         }
 
         public override void SetPosition(float x, float y)

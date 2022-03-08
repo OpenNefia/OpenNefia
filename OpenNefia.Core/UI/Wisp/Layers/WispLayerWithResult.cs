@@ -3,12 +3,11 @@ using OpenNefia.Core.IoC;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Core.UI.Layer;
-using OpenNefia.Core.UI.Wisp;
 using OpenNefia.Core.UI.Wisp.Controls;
 using OpenNefia.Core.UserInterface;
 using static OpenNefia.Core.UI.Wisp.WispControl;
 
-namespace OpenNefia.Core.DebugView
+namespace OpenNefia.Core.UI.Wisp
 {
     /// <summary>
     /// <para>
@@ -16,8 +15,9 @@ namespace OpenNefia.Core.DebugView
     /// </para>
     /// <remarks>
     /// NOTE: Until more support for Wisp is added, this layer is where all
-    /// Wisp components will be confined to. It will be merged into
-    /// <see cref="UiLayer"/> at some point.
+    /// Wisp components will be confined to. 
+    /// 
+    /// This class will be merged into <see cref="UiLayer"/> at some point.
     /// </remarks>
     /// </summary>
     public abstract class WispLayerWithResult<TArgs, TResult> : UiLayerWithResult<TArgs, TResult>, IWispLayer
@@ -25,9 +25,16 @@ namespace OpenNefia.Core.DebugView
     {
         [Dependency] private IWispManager _wispManager = default!;
 
+        private UIBox2? _currentScissor;
+        private Stack<UIBox2> _scissorStack = new();
+
+        /// <inheritdoc/>
         public WispRoot WispRoot { get; }
 
+        /// <inheritdoc/>
         public LayoutContainer WindowRoot { get; }
+
+        public bool Debug { get; set; }
 
         public WispLayerWithResult()
         {
@@ -93,22 +100,31 @@ namespace OpenNefia.Core.DebugView
 
         private void DrawRecursive(WispControl control)
         {
+            if (!control.Visible)
+                return;
+
             if (control.RectClipContent)
-                Love.Graphics.SetScissor(control.GlobalPixelRect);
+            {
+                if (_currentScissor != null)
+                    _scissorStack.Push(_currentScissor.Value);
+                _currentScissor = control.GlobalPixelRect;
+                Love.Graphics.SetScissor(_currentScissor.Value);
+            }
 
             control.Draw();
 
-            /*
-            var color = Color.Red;
-            if (UserInterfaceManager.ControlFocused == control)
-                color = Color.Gold;
-            else if (UserInterfaceManager.CurrentlyHovered == control)
-                color = Color.LightBlue;
-            Love.Graphics.SetLineWidth(2);
-            Love.Graphics.SetColor(color);
-            GraphicsS.RectangleS(UIScale, Love.DrawMode.Line, control.GlobalRect);
-            Love.Graphics.SetLineWidth(1);
-            */
+            if (Debug)
+            {
+                var color = Color.Red;
+                if (UserInterfaceManager.ControlFocused == control)
+                    color = Color.Gold;
+                else if (UserInterfaceManager.CurrentlyHovered == control)
+                    color = Color.LightBlue;
+                Love.Graphics.SetLineWidth(2);
+                Love.Graphics.SetColor(color);
+                GraphicsS.RectangleS(UIScale, Love.DrawMode.Line, control.GlobalRect);
+                Love.Graphics.SetLineWidth(1);
+            }
 
             foreach (var child in control.WispChildren)
             {
@@ -116,7 +132,18 @@ namespace OpenNefia.Core.DebugView
             }
 
             if (control.RectClipContent)
-                Love.Graphics.SetScissor();
+            {
+                if (_scissorStack.Count == 0)
+                {
+                    _currentScissor = null;
+                    Love.Graphics.SetScissor();
+                }
+                else
+                {
+                    _currentScissor = _scissorStack.Pop();
+                    Love.Graphics.SetScissor(_currentScissor.Value);
+                }
+            }
         }
 
         public override void Draw()

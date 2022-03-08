@@ -10,25 +10,25 @@ namespace OpenNefia.Core.UI.Wisp.Drawing
         public Color BorderColor { get; set; }
         public Thickness BorderThickness { get; set; }
 
-        protected override void DoDraw(UIBox2 box, float uiScale)
+        protected override void DoDraw(UIBox2 pixelBox)
         {
             Love.Graphics.SetColor(BorderColor);
 
             var (btl, btt, btr, btb) = BorderThickness;
             if (btl > 0)
-                GraphicsS.RectangleS(uiScale, Love.DrawMode.Fill, new UIBox2(box.Left, box.Top, box.Left + btl, box.Bottom));
+                GraphicsEx.Rectangle(Love.DrawMode.Fill, new UIBox2(pixelBox.Left, pixelBox.Top, pixelBox.Left + btl, pixelBox.Bottom));
 
             if (btt > 0)
-                GraphicsS.RectangleS(uiScale, Love.DrawMode.Fill, new UIBox2(box.Left, box.Top, box.Right, box.Top + btt));
+                GraphicsEx.Rectangle(Love.DrawMode.Fill, new UIBox2(pixelBox.Left, pixelBox.Top, pixelBox.Right, pixelBox.Top + btt));
 
             if (btr > 0)
-                GraphicsS.RectangleS(uiScale, Love.DrawMode.Fill, new UIBox2(box.Right - btr, box.Top, box.Right, box.Bottom));
+                GraphicsEx.Rectangle(Love.DrawMode.Fill, new UIBox2(pixelBox.Right - btr, pixelBox.Top, pixelBox.Right, pixelBox.Bottom));
 
             if (btb > 0)
-                GraphicsS.RectangleS(uiScale, Love.DrawMode.Fill, new UIBox2(box.Left, box.Bottom - btb, box.Right, box.Bottom));
+                GraphicsEx.Rectangle(Love.DrawMode.Fill, new UIBox2(pixelBox.Left, pixelBox.Bottom - btb, pixelBox.Right, pixelBox.Bottom));
 
             Love.Graphics.SetColor(BackgroundColor);
-            GraphicsS.RectangleS(uiScale, Love.DrawMode.Fill, BorderThickness.Deflate(box));
+            GraphicsEx.Rectangle(Love.DrawMode.Fill, BorderThickness.Deflate(pixelBox));
         }
 
         public StyleBoxFlat()

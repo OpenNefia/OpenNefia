@@ -1,0 +1,8 @@
+﻿<DefaultWindow xmlns="https://opennefia.io"
+               Class="OpenNefia.Core.ControlTest.ControlTestMainWindow"
+               Title="{Loc 'OpenNefia.UI.ControlTest.MainWindow.Title'}">
+    <BoxContainer Orientation="Vertical" VerticalExpand="True" >
+        <Button Name="AllInOneButton" Text="{Loc 'OpenNefia.UI.ControlTest.AllInOneWindow.Title'}" HorizontalExpand="True" Margin ="0 4" />
+        <Button Name="ItemListButton" Text="{Loc 'OpenNefia.UI.ControlTest.ItemListWindow.Title'}" HorizontalExpand="True" Margin ="0 4" />
+    </BoxContainer>
+</DefaultWindow>

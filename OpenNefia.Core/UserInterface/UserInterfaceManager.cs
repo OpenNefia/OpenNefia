@@ -110,6 +110,12 @@ namespace OpenNefia.Core.UserInterface
             }
         }
 
+        public void ControlHidden(UiElement control)
+        {
+            // Does the same thing but it could later be changed so..
+            ControlRemovedFromTree(control);
+        }
+
         public void ControlRemovedFromTree(UiElement control)
         {
             ReleaseKeyboardFocus(control);

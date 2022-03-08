@@ -54,16 +54,20 @@ namespace OpenNefia.Core.HotReload
 
         public void EnqueueClearCache(Type[]? updatedTypes)
         {
-            var str = updatedTypes != null ? string.Join<Type>(',', updatedTypes) : "<none>";
-            Logger.DebugS("hotreload", $"ClearCache received: {str}");
+            var typenames = updatedTypes != null ? updatedTypes.Select(t => t.FullName) : new string[] { "<none>" };
+            Logger.DebugS("hotreload", $"ClearCache received");
+            foreach (var typename in typenames)
+                Logger.DebugS("hotreload", $"  - {typename}");
 
             _queuedClearCache.Enqueue(new HotReloadArgs(updatedTypes));
         }
 
         public void EnqueueUpdateApplication(Type[]? updatedTypes)
         {
-            var str = updatedTypes != null ? string.Join<Type>(',', updatedTypes) : "<none>";
-            Logger.DebugS("hotreload", $"UpdateApplication received: {str}");
+            var typenames = updatedTypes != null ? updatedTypes.Select(t => t.FullName) : new string[] { "<none>" };
+            Logger.DebugS("hotreload", $"UpdateApplication received");
+            foreach (var typename in typenames)
+                Logger.DebugS("hotreload", $"  - {typename}");
 
             _queuedUpdateApplication.Enqueue(new HotReloadArgs(updatedTypes));
         }

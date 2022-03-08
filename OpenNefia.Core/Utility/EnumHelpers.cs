@@ -72,7 +72,7 @@ namespace OpenNefia.Core.Utility
         /// }
         /// </code>
         /// </example>
-        public static bool ContainsValue<T>(this Enum value, T request)
+        public static bool HasAllFlags<T>(this Enum value, T request)
         {
             int valueAsInt = Convert.ToInt32(value, CultureInfo.InvariantCulture);
             int requestAsInt = Convert.ToInt32(request, CultureInfo.InvariantCulture);

@@ -14,6 +14,14 @@
     <AdditionalFiles Include="**\*.xaml"/>
   </ItemGroup>
 
+  <Import Project="$(MSBuildThisFileDirectory)..\OpenNefia.XamlNameGenerator\Generator.props" />
+
+  <!-- OpenNefia.XamlNameGenerator config -->
+  <PropertyGroup>
+    <OpenNefiaNameGeneratorBehavior>OnlyProperties</OpenNefiaNameGeneratorBehavior>
+    <OpenNefiaNameGeneratorDebuggerLaunch>false</OpenNefiaNameGeneratorDebuggerLaunch>
+  </PropertyGroup>
+
   <ItemGroup>
     <ProjectReference Include="$(MSBuildThisFileDirectory)..\OpenNefia.XamlNameGenerator\OpenNefia.XamlNameGenerator.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false"/>
     <ProjectReference Include="$(MSBuildThisFileDirectory)..\OpenNefia.XamlInjectors\OpenNefia.XamlInjectors.csproj" ReferenceOutputAssembly="false"/>
