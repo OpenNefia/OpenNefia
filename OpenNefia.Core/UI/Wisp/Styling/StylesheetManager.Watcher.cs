@@ -50,23 +50,8 @@ namespace OpenNefia.Core.UI.Wisp.Styling
 
             _reloadQueue.Clear();
 
-            Logger.InfoS("stylesheet", $"Reloaded stylesheets in {sw.ElapsedMilliseconds} ms");
+            Logger.InfoS("wisp.stylesheet", $"Reloaded stylesheets in {sw.ElapsedMilliseconds} ms");
 #endif
-        }
-
-        private void TryLoadStylesheet(ResourcePath luaFile)
-        {
-            try
-            {
-                var sheet = ParseStylesheet(luaFile);
-                _wispManager.Stylesheet = sheet;
-
-                Logger.InfoS("stylesheet", $"Loaded stylesheet at {luaFile}.");
-            }
-            catch (Exception ex)
-            {
-                Logger.ErrorS("stylesheet", $"Failed to load stylesheet: {ex}");
-            }
         }
 
         private void WatchResources()

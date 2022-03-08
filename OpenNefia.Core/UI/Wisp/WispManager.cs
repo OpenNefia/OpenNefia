@@ -22,7 +22,7 @@ namespace OpenNefia.Core.UI.Wisp
         void QueueStyleUpdate(WispControl control);
         void QueueArrangeUpdate(WispControl control);
         void QueueMeasureUpdate(WispControl control);
-        void Update(FrameEventArgs args);
+        void FrameUpdate(FrameEventArgs args);
     }
 
     public sealed class WispManager : IWispManager
@@ -79,7 +79,7 @@ namespace OpenNefia.Core.UI.Wisp
             _arrangeUpdateQueue.Enqueue(control);
         }
 
-        public void Update(FrameEventArgs args)
+        public void FrameUpdate(FrameEventArgs args)
         {
             // Process queued style & layout updates.
             while (_styleUpdateQueue.Count != 0)
