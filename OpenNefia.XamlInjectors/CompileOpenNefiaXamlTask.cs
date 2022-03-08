@@ -37,10 +37,12 @@ namespace OpenNefia.XamlInjectors
             var msg = $"{nameof(CompileOpenNefiaXamlTask)} -> AssemblyFile:{AssemblyFile}, ProjectDirectory:{ProjectDirectory}, OutputPath:{OutputPath}";
             BuildEngine.LogMessage(msg, MessageImportance.High);
 
-            var res = XamlCompiler.Compile(BuildEngine, input,
-                File.ReadAllLines(ReferencesFilePath).Where(l => !string.IsNullOrWhiteSpace(l)).ToArray(),
-                ProjectDirectory, OutputPath,
-                SignAssembly && !DelaySign ? AssemblyOriginatorKeyFile : null, DebuggerLaunch);
+            var references = File.ReadAllLines(ReferencesFilePath).Where(l => !string.IsNullOrWhiteSpace(l)).ToArray();
+            var strongNameKey = SignAssembly && !DelaySign ? AssemblyOriginatorKeyFile : null;
+
+            var compiler = new XamlCompiler(BuildEngine, input, references);
+            var res = compiler.Compile(OutputPath, strongNameKey, DebuggerLaunch);
+
             if (!res.success)
                 return false;
             if (!res.writtentofile)
