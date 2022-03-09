@@ -4,7 +4,7 @@ using XamlX.TypeSystem;
 
 namespace OpenNefia.XamlInjectors.CompilerExtensions
 {
-    class ONXamlWellKnownTypes
+    public class ONXamlWellKnownTypes
     {
         public XamlTypeWellKnownTypes XamlIlTypes { get; }
         public IXamlType Single { get; }
@@ -45,7 +45,7 @@ namespace OpenNefia.XamlInjectors.CompilerExtensions
         }
     }
 
-    static class RXamlWellKnownTypesExtensions
+    public static class ONXamlWellKnownTypesExtensions
     {
         public static ONXamlWellKnownTypes GetOpenNefiaTypes(this AstTransformationContext ctx)
         {

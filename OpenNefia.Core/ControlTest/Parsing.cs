@@ -1,18 +1,40 @@
-﻿using Pidgin;
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
+﻿using OpenNefia.XamlInjectors.CompilerExtensions;
+using Pidgin;
+using System.Diagnostics.CodeAnalysis;
 using XamlX;
 using XamlX.Ast;
 using XamlX.Transform;
 using XamlX.TypeSystem;
 
-namespace OpenNefia.XamlInjectors.CompilerExtensions
+namespace OpenNefia.Core.ControlTest
 {
-    class ONXamlParseIntrinsics
+    static class Parsing
     {
-        public static bool TryConvert(AstTransformationContext context, IXamlAstValueNode node, string text, IXamlType type, ONXamlWellKnownTypes types, out IXamlAstValueNode result)
+        public static bool CustomValueConverter(
+            AstTransformationContext context,
+            IXamlAstValueNode node,
+            IXamlType type,
+            [NotNullWhen(true)] out IXamlAstValueNode? result)
+        {
+            if (!(node is XamlAstTextNode textNode))
+            {
+                result = null;
+                return false;
+            }
+
+            var text = textNode.Text;
+            var types = context.GetOpenNefiaTypes();
+
+            if (TryConvert(context, node, text, type, types, out result))
+            {
+                return true;
+            }
+
+            result = null;
+            return false;
+        }
+
+        private static bool TryConvert(AstTransformationContext context, IXamlAstValueNode node, string text, IXamlType type, ONXamlWellKnownTypes types, [NotNullWhen(true)] out IXamlAstValueNode? result)
         {
             if (type.Equals(types.Vector2))
             {

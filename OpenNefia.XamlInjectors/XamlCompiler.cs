@@ -431,7 +431,7 @@ namespace OpenNefia.XamlInjectors
 
         public const string ContextNameScopeFieldName = "OpenNefiaNameScope";
 
-        private static void EmitNameScopeField(XamlLanguageTypeMappings xamlLanguage, CecilTypeSystem typeSystem, IXamlTypeBuilder<IXamlILEmitter> typeBuilder, IXamlILEmitter constructor)
+        public static void EmitNameScopeField(XamlLanguageTypeMappings xamlLanguage, IXamlTypeSystem typeSystem, IXamlTypeBuilder<IXamlILEmitter> typeBuilder, IXamlILEmitter constructor)
         {
             var nameScopeType = typeSystem.FindType(Constants.NameScopeTypeName);
             var field = typeBuilder.DefineField(nameScopeType,
