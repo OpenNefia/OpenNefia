@@ -16,12 +16,13 @@ namespace OpenNefia.XamlInjectors.CompilerExtensions
         {
             if (type.Equals(types.Vector2))
             {
-                var foo = MathParsing.Single2.Parse(text);
+                //var foo = MathParsing.Single2.Parse(text);
 
-                if (!foo.Success)
-                    throw new XamlLoadException($"Unable to parse \"{text}\" as a Vector2", node);
+                //if (!foo.Success)
+                //    throw new XamlLoadException($"Unable to parse \"{text}\" as a Vector2", node);
 
-                var (x, y) = foo.Value;
+                //var (x, y) = foo.Value;
+                var (x, y) = (1f, 1f);
 
                 result = new ONXamlSingleVecLikeConstAstNode(
                     node,
@@ -32,12 +33,13 @@ namespace OpenNefia.XamlInjectors.CompilerExtensions
 
             if (type.Equals(types.Thickness))
             {
-                var foo = MathParsing.Thickness.Parse(text);
+                // var foo = MathParsing.Thickness.Parse(text);
 
-                if (!foo.Success)
-                    throw new XamlLoadException($"Unable to parse \"{text}\" as a Thickness", node);
+                // if (!foo.Success)
+                //     throw new XamlLoadException($"Unable to parse \"{text}\" as a Thickness", node);
 
-                var val = foo.Value;
+                //var val = foo.Value;
+                var val = new float[] { 1 };
                 float[] full;
                 if (val.Length == 1)
                 {
@@ -64,12 +66,13 @@ namespace OpenNefia.XamlInjectors.CompilerExtensions
 
             if (type.Equals(types.Thickness))
             {
-                var foo = MathParsing.Thickness.Parse(text);
+                //var foo = MathParsing.Thickness.Parse(text);
 
-                if (!foo.Success)
-                    throw new XamlLoadException($"Unable to parse \"{text}\" as a Thickness", node);
+                //if (!foo.Success)
+                //    throw new XamlLoadException($"Unable to parse \"{text}\" as a Thickness", node);
 
-                var val = foo.Value;
+                //var val = foo.Value;
+                var val = new float[] { 1 };
                 float[] full;
                 if (val.Length == 1)
                 {

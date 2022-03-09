@@ -30,6 +30,7 @@
     <ProjectReference Include="..\Thirdparty\CSharpRepl\CSharpRepl\CSharpRepl.csproj" />
     <ProjectReference Include="..\OpenNefia.Analyzers\OpenNefia.Analyzers.csproj" />
     <ProjectReference Include="..\Thirdparty\Love2dCS\project_dotnet\project_dotnet.csproj" />
+    <ProjectReference Include="..\OpenNefia.XamlInjectors\OpenNefia.XamlInjectors.csproj" />
   </ItemGroup>
 
   <Import Project="..\MSBuild\XamlIL.targets" />
