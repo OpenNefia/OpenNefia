@@ -3,20 +3,19 @@ using OpenNefia.Core.UI.Wisp.CustomControls;
 using OpenNefia.Core.UserInterface.XAML;
 using OpenNefia.Core.UserInterface.XAML.HotReload;
 using OpenNefia.Core.IoC;
+using OpenNefia.Core.ControlDesigner;
 
 namespace OpenNefia.Core.ControlTest
 {
     public partial class ControlDebugWindow : DefaultWindow
     {
-        [Dependency] private readonly IXamlHotReloadManager _xamlHotReload = default!;
-
         public ControlDebugWindow()
         {
             IoCManager.InjectDependencies(this);
             OpenNefiaXamlLoader.Load(this);
 
             ToggleDebugButton.OnPressed += ToggleDebug;
-            PatchButton.OnPressed += DoPatch;
+            DesignerButton.OnPressed += OpenDesigner;
         }
 
         private void ToggleDebug(BaseButton.ButtonEventArgs obj)
@@ -24,9 +23,9 @@ namespace OpenNefia.Core.ControlTest
             WispRootLayer!.Debug = !WispRootLayer.Debug;
         }
 
-        private void DoPatch(BaseButton.ButtonEventArgs obj)
+        private void OpenDesigner(BaseButton.ButtonEventArgs obj)
         {
-            _xamlHotReload.HotReloadXamlControl(typeof(TextureRectWindow), "C:\\Users\\yuno\\build\\OpenNefia.NET\\OpenNefia.Core\\ControlTest\\TextureRectWindow.xaml");
+            UserInterfaceManager.Query<ControlDesignerLayer>();
         }
     }
 }

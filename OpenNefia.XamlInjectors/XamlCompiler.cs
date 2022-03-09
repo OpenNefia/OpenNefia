@@ -256,20 +256,7 @@ namespace OpenNefia.XamlInjectors
 
         private IXamlType GetClassTypeFromXaml(IResource res, XamlDocument parsed)
         {
-            var initialRoot = (XamlAstObjectNode)parsed.Root;
-
-            // Look for an unnamespaced "Class='<...>'" directive (we do not use the Xaml2006 namespace).
-            var property = initialRoot.Children.OfType<XamlAstXamlPropertyValueNode>()
-                .FirstOrDefault(p => p.Property is XamlAstNamePropertyReference namedProperty && namedProperty.Name == "Class");
-            string classname;
-            if (property != null && property.Values[0] is XamlAstTextNode tn)
-            {
-                classname = tn.Text;
-            }
-            else
-            {
-                classname = res.Name.Replace(".xaml", "");
-            }
+            var classname = XamlAstHelpers.GetClassNameFromXaml(res.FilePath, parsed);
 
             var classType = TypeSystem.TargetAssembly.FindType(classname);
             if (classType == null)
@@ -442,19 +429,5 @@ namespace OpenNefia.XamlInjectors
                 .Newobj(nameScopeType.GetConstructor())
                 .Stfld(field);
         }
-    }
-
-    interface IResource : IFileSource
-    {
-        string Uri { get; }
-        string Name { get; }
-        void Remove();
-
-    }
-
-    interface IResourceGroup
-    {
-        string Name { get; }
-        IEnumerable<IResource> Resources { get; }
     }
 }

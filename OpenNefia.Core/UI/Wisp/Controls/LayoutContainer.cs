@@ -135,8 +135,6 @@ namespace OpenNefia.Core.UI.Wisp.Controls
 
         /// <summary>
         ///     Sets an anchor AND a margin preset. This is most likely the method you want.
-        ///
-
         /// </summary>
         /// <remarks>
         ///     Note that the current size and minimum size of the control affects how
