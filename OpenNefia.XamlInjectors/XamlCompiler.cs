@@ -117,7 +117,7 @@ namespace OpenNefia.XamlInjectors
 
         }
 
-        private const string TrampolineName = "!XamlIlPopulateTrampoline";
+        public const string TrampolineName = "!XamlIlPopulateTrampoline";
 
         public class CompileGroupResult
         {
