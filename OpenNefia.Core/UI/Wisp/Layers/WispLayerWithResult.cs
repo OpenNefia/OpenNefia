@@ -67,7 +67,6 @@ namespace OpenNefia.Core.UI.Wisp
         public override void SetSize(float width, float height)
         {
             base.SetSize(width, height);
-            WispRoot.SetSize(width, height);
             WispRoot.InvalidateMeasure();
         }
 

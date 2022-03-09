@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using OpenNefia.Core.UserInterface.XAML;
 using OpenNefia.Core.UserInterface.XAML.HotReload;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Input;
@@ -23,6 +24,40 @@ using static OpenNefia.XamlInjectors.XamlCompiler;
 
 namespace OpenNefia.Core.ControlDesigner
 {
+    /// <summary>
+    /// <para>
+    /// UI for previewing and modifying controls. This acts as a substitute for
+    /// a "designer view"-type plugin in-editor. The usage is as follows:
+    /// </para>
+    /// <para>
+    /// <list type="number">
+    /// <item>
+    /// Open the XAML file of the control you want to edit using this layer.
+    /// </item>
+    /// <item>
+    /// Open an external editor and make changes to the XAML. Watch as your
+    /// edits are applied after saving.
+    /// </item>
+    /// <item>
+    /// Open Visual Studio, make changes to the corresponding <c>.xaml.cs</c> file,
+    /// and do a Hot Reload. The control will also update itself in that case.
+    /// (NOTE: The call to <see cref="OpenNefiaXamlLoader.Load(object)"/> must be in the control's
+    /// constructor for this to work, due to performance reasons).
+    /// </item>
+    /// <item>
+    /// Open an external editor and modify the currently used stylesheet, to see
+    /// your changes instantly.
+    /// </item>
+    /// </list>
+    /// </para>
+    /// </summary>
+    /// <remarks>
+    /// <para>
+    /// There is a significant amount of compiler machinery that goes into making
+    /// this work: hotloading detection runtime XAML compilation, runtime method 
+    /// patching, dynamic instantiation...
+    /// </para>
+    /// </remarks>
     public sealed class ControlDesignerLayer : WispLayerWithResult<UINone, UINone>
     {
         [Dependency] private readonly IReflectionManager _reflectionManager = default!;
@@ -32,6 +67,7 @@ namespace OpenNefia.Core.ControlDesigner
 
         public const string StyleClassDesignerBackground = "designerBackground";
         public const string StyleClassDesignerToolbar = "designerToolbar";
+        public const string StyleClassDesignerPointer = "designerPointer";
 
         public override int? DefaultZOrder => 30000000;
 
@@ -46,6 +82,8 @@ namespace OpenNefia.Core.ControlDesigner
         private Button _hotReloadButton;
         private CheckBox _debugCheckBox;
         private CheckBox _watchCheckBox;
+        private Label _errorLabel;
+        private MeasurementPointer _pointer;
 
         public ControlDesignerLayer()
         {
@@ -126,7 +164,22 @@ namespace OpenNefia.Core.ControlDesigner
                 VerticalExpand = true
             };
 
+            _errorLabel = new Label()
+            {
+                HorizontalAlignment = WispControl.HAlignment.Stretch,
+                VerticalAlignment = WispControl.VAlignment.Bottom,
+                VAlign = Label.VAlignMode.Top,
+                Margin = new Thickness(5)
+            };
+            WispRoot.AddChild(_errorLabel);
+
             WispRoot.AddChild(_layoutArea);
+
+            _pointer = new MeasurementPointer()
+            {
+                Class = StyleClassDesignerPointer
+            };
+            WispRoot.AddChild(_pointer);
 
             OnKeyBindDown += KeyBindDown;
         }
@@ -170,6 +223,23 @@ namespace OpenNefia.Core.ControlDesigner
             }
         }
 
+        protected override void Resized()
+        {
+            base.Resized();
+            RecenterControl();
+        }
+
+        private void RecenterControl()
+        {
+            if (_current == null)
+                return;
+
+            // BUG: Measure() hasn't been run here yet?
+            _current.Control.Measure(_layoutArea.Size);
+            _current.Control.ExactSize = _current.Control.DesiredSize;
+            LayoutContainer.SetPosition(_current.Control, (_layoutArea.Size - _current.Control.ExactSize) / 2);
+        }
+
         public override void OnQuery()
         {
             base.OnQuery();
@@ -194,6 +264,9 @@ namespace OpenNefia.Core.ControlDesigner
             _debugCheckBox.Pressed = Debug;
             _hotReloadButton.Disabled = _current == null;
             _watchCheckBox.Pressed = _watching;
+
+            Love.Mouse.GetPosition(out var mx, out var my);
+            _pointer.Position = new((float)mx / UIScale, ((float)my / UIScale) - Height);
         }
 
         private void OnHotReload(HotReloadEventArgs args)
@@ -243,24 +316,29 @@ namespace OpenNefia.Core.ControlDesigner
                     throw new InvalidDataException($"Type '{controlType}' does not inherit from {nameof(WispControl)}");
                 }
 
+                _pointer.Target = null;
+
                 var xamlResource = new XamlResource(controlType, xamlPath);
-                var designingControl = (WispControl)Activator.CreateInstance(controlType)!;
+                var designingControl = Activator.CreateInstance(controlType) as WispControl;
+                if (designingControl == null)
+                    throw new InvalidOperationException($"Failed to instantiate control of type {controlType}.");
 
                 if (_current != null)
                 {
-                    _layoutArea.RemoveChild(_current.Control);
-                    _current = null;
+                    if (_current.Control.Parent == _layoutArea)
+                        _layoutArea.RemoveChild(_current.Control);
+                    _current.Control.Dispose();
                 }
 
                 _current = new Data(designingControl, controlType, xamlResource);
 
                 _layoutArea.AddChild(_current.Control);
-                _current.Control.Measure(_layoutArea.Size);
-                _current.Control.ExactSize = _current.Control.DesiredSize;
-                LayoutContainer.SetPosition(_current.Control, (_layoutArea.Size - _current.Control.ExactSize) / 2);
-                _hotReloadButton.Disabled = false;
+                RecenterControl();
 
                 CreateFileWatcher(_current.XamlResource);
+
+                _pointer.Target = _current.Control;
+                _errorLabel.Text = null;
 
                 Logger.InfoS("wisp.designer", $"Loaded control {controlType.Name}. ({xamlPath})");
             }
@@ -268,6 +346,7 @@ namespace OpenNefia.Core.ControlDesigner
             {
                 Logger.ErrorS("wisp.designer", $"Failed to load XAML from {xamlPath}");
                 Logger.ErrorS("wisp.designer", ex.ToString());
+                _errorLabel.Text = "Error: " + ex.Message;
             }
         }
 
@@ -298,7 +377,7 @@ namespace OpenNefia.Core.ControlDesigner
                 {
                     if (_current?.XamlResource.FilePath == args.FullPath)
                     {
-                        Logger.InfoS("wisp.designer", "Detected file change.");
+                        Logger.DebugS("wisp.designer", $"Detected file change: {args.FullPath}");
                         DoHotReload();
                     }
                 });
@@ -316,17 +395,23 @@ namespace OpenNefia.Core.ControlDesigner
 
             try
             {
-                var designingControl = (WispControl)Activator.CreateInstance(_current.ControlType)!;
+                _pointer.Target = null;
 
-                _layoutArea.RemoveChild(_current.Control);
+                var designingControl = (WispControl)Activator.CreateInstance(_current.ControlType)!;
+                if (designingControl == null)
+                    throw new InvalidOperationException($"Failed to instantiate control of type {_current.ControlType}.");
+
+                if (_current.Control.Parent == _layoutArea)
+                    _layoutArea.RemoveChild(_current.Control);
+                _current.Control.Dispose();
 
                 _current = new Data(designingControl, _current.ControlType, _current.XamlResource);
 
                 _layoutArea.AddChild(_current.Control);
-                _current.Control.Measure(_layoutArea.Size);
-                _current.Control.ExactSize = _current.Control.DesiredSize;
-                LayoutContainer.SetPosition(_current.Control, (_layoutArea.Size - _current.Control.ExactSize) / 2);
-                _hotReloadButton.Disabled = false;
+                RecenterControl();
+
+                _errorLabel.Text = null;
+                _pointer.Target = _current.Control;
 
                 Logger.DebugS("wisp.designer", $"Rebuilt the current control.");
             }
@@ -334,6 +419,7 @@ namespace OpenNefia.Core.ControlDesigner
             {
                 Logger.ErrorS("wisp.designer", $"Failed to reinstantiate control '{_current.ControlType}'");
                 Logger.ErrorS("wisp.designer", ex.ToString());
+                _errorLabel.Text = "Error: " + ex.Message;
             }
         }
 
@@ -347,13 +433,16 @@ namespace OpenNefia.Core.ControlDesigner
 
             try
             {
-                _xamlHotReload.HotReloadXamlControl(_current.ControlType, _current.XamlResource.FilePath);
+                _xamlHotReload.HotReloadControlXaml(_current.ControlType, _current.XamlResource.FilePath);
                 RebuildControl();
+
+                _errorLabel.Text = null;
             }
             catch (Exception ex)
             {
                 Logger.ErrorS("wisp.designer", $"Failed to hot reload control '{_current.ControlType}'");
                 Logger.ErrorS("wisp.designer", ex.ToString());
+                _errorLabel.Text = "Error: " + ex.Message;
             }
         }
 

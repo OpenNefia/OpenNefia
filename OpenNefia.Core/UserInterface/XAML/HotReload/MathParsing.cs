@@ -1,9 +1,13 @@
-﻿using System.Linq;
-using Pidgin;
+﻿using Pidgin;
+using System.Linq;
 using static Pidgin.Parser;
 
-namespace OpenNefia.Core.UserInterface.XAML.HotReload
+namespace OpenNefia.XamlInjectors.CompilerExtensions
 {
+    /// <summary>
+    /// NOTE: This source code is shared between OpenNefia.Core and OpenNefia.XamlInjectors
+    /// due to some weirdness with Pidgin's codegen.
+    /// </summary>
     public static class MathParsing
     {
         public static Parser<char, float> Single { get; } = Real.Select(c => (float)c);

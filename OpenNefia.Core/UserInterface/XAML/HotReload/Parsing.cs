@@ -1,16 +1,18 @@
-﻿using OpenNefia.XamlInjectors.CompilerExtensions;
-using Pidgin;
-using System.Diagnostics.CodeAnalysis;
+﻿using Pidgin;
 using XamlX;
 using XamlX.Ast;
 using XamlX.Transform;
 using XamlX.TypeSystem;
 
-namespace OpenNefia.Core.UserInterface.XAML.HotReload
+namespace OpenNefia.XamlInjectors.CompilerExtensions
 {
+    /// <summary>
+    /// NOTE: This source code is shared between OpenNefia.Core and OpenNefia.XamlInjectors
+    /// due to some weirdness with Pidgin's codegen.
+    /// </summary>
     internal static class Parsing
     {
-        internal static bool TryConvert(AstTransformationContext context, IXamlAstValueNode node, string text, IXamlType type, ONXamlWellKnownTypes types, [NotNullWhen(true)] out IXamlAstValueNode? result)
+        internal static bool TryConvert(AstTransformationContext context, IXamlAstValueNode node, string text, IXamlType type, ONXamlWellKnownTypes types, out IXamlAstValueNode? result)
         {
             if (type.Equals(types.Vector2))
             {

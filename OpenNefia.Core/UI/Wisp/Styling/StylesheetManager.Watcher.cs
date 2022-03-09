@@ -19,40 +19,6 @@ namespace OpenNefia.Core.UI.Wisp.Styling
         [Dependency] private readonly ITaskManager _taskManager = default!;
 
         private readonly List<FileSystemWatcher> _watchers = new();
-        private readonly TimeSpan _reloadDelay = TimeSpan.FromMilliseconds(10);
-        private CancellationTokenSource _reloadToken = new();
-        private readonly HashSet<ResourcePath> _reloadQueue = new();
-
-        private void WindowFocusedChanged(WindowFocusedEventArgs args)
-        {
-#if !FULL_RELEASE
-            if (args.Focused && _reloadQueue.Count > 0)
-            {
-                Timer.Spawn(_reloadDelay, ReloadPrototypeQueue, _reloadToken.Token);
-            }
-            else
-            {
-                _reloadToken.Cancel();
-                _reloadToken = new CancellationTokenSource();
-            }
-#endif
-        }
-
-        private void ReloadPrototypeQueue()
-        {
-#if !FULL_RELEASE
-            var sw = Stopwatch.StartNew();
-
-            foreach (var file in _reloadQueue)
-            {
-                TryLoadStylesheet(file.ToRootedPath());
-            }
-
-            _reloadQueue.Clear();
-
-            Logger.InfoS("wisp.stylesheet", $"Reloaded stylesheets in {sw.ElapsedMilliseconds} ms");
-#endif
-        }
 
         private void WatchResources()
         {
@@ -93,7 +59,9 @@ namespace OpenNefia.Core.UI.Wisp.Styling
                                 continue;
                             }
 
-                            _reloadQueue.Add(relative);
+                            var sw = Stopwatch.StartNew();
+                            TryLoadStylesheet(relative.ToRootedPath());
+                            Logger.InfoS("wisp.stylesheet", $"Reloaded stylesheet in {sw.ElapsedMilliseconds}ms");
                         }
                     });
                 };

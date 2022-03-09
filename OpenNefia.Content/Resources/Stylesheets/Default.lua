@@ -152,9 +152,14 @@ PanelContainer(".windowHeaderAlert")({
     panel = styleBoxFlat({ backgroundColor = "#884444" }),
 })
 
+font10 = font({
+    size = 10,
+    smallSize = 10,
+})
+
 font12 = font({
-    size = 14,
-    smallSize = 14,
+    size = 12,
+    smallSize = 12,
 })
 
 fontBold12 = font({
@@ -236,6 +241,15 @@ PanelContainer(".designerToolbar")({
     styleBox = styleBoxFlat({
         backgroundColor = "#223333",
     }),
+})
+
+Label(".pointerText")({
+    fontColor = "#00AAAA",
+    font = font10,
+})
+
+MeasurementPointer({
+    rulerColor = "#A0A0A040",
 })
 
 --[[

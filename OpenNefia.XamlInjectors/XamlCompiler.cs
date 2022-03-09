@@ -408,7 +408,7 @@ namespace OpenNefia.XamlInjectors
             var text = textNode.Text;
             var types = context.GetOpenNefiaTypes();
 
-            if (ONXamlParseIntrinsics.TryConvert(context, node, text, type, types, out result))
+            if (Parsing.TryConvert(context, node, text, type, types, out result))
             {
                 return true;
             }

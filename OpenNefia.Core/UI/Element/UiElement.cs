@@ -351,6 +351,17 @@ namespace OpenNefia.Core.UI.Element
             height = Math.Clamp(height, MinHeight, MaxHeight);
 
             base.SetSize(width, height);
+            Resized();
+        }
+
+        public event Action? OnResized;
+
+        /// <summary>
+        ///     Called when the size of the control changes.
+        /// </summary>
+        protected virtual void Resized()
+        {
+            OnResized?.Invoke();
         }
 
         public virtual void Localize(LocaleKey key)

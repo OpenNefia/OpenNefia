@@ -40,6 +40,10 @@ namespace OpenNefia.Core.UI.Wisp.Controls
             get => _text;
             set
             {
+                if (_text == value)
+                {
+                    return;
+                }
                 _text = value;
 
                 _textDimensionCacheValid = false;
@@ -184,6 +188,7 @@ namespace OpenNefia.Core.UI.Wisp.Controls
 
             if (!_textDimensionCacheValid)
             {
+                RebakeText();
                 _calculateTextDimension();
                 DebugTools.Assert(_textDimensionCacheValid);
             }
@@ -230,7 +235,7 @@ namespace OpenNefia.Core.UI.Wisp.Controls
                         throw new ArgumentOutOfRangeException();
                 }
 
-                return (hOffset, font.LoveFont.GetLineHeight() * newlines + vOffset);
+                return (hOffset, font.LoveFont.GetHeight() * newlines + vOffset);
             }
 
             var baseLine = CalcBaseline();
@@ -285,10 +290,10 @@ namespace OpenNefia.Core.UI.Wisp.Controls
         private void _calculateTextDimension()
         {
             _cachedTextWidths.Clear();
+            _cachedTextWidths.Add(0);
 
             if (_text == null)
             {
-                _cachedTextWidths.Add(0);
                 _cachedTextHeight = 0;
                 _textDimensionCacheValid = true;
                 return;
@@ -296,7 +301,7 @@ namespace OpenNefia.Core.UI.Wisp.Controls
 
             var font = ActualFont;
             _cachedTextWidths.AddRange(_splitText.Select(line => line.GetWidth()));
-            _cachedTextHeight = (int)(font.LoveFont.GetHeight() + font.LoveFont.GetLineHeight() * _splitText.Count);
+            _cachedTextHeight = (font.LoveFont.GetHeight() * _splitText.Count);
 
             _textDimensionCacheValid = true;
         }

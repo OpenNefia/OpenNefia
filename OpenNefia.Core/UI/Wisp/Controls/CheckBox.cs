@@ -30,7 +30,10 @@ namespace OpenNefia.Core.UI.Wisp.Controls
             };
             hBox.AddChild(TextureRect);
 
-            Label = new Label();
+            Label = new Label()
+            {
+                Margin = new Maths.Thickness(5, 0, 0, 0)
+            };
             hBox.AddChild(Label);
         }
 
