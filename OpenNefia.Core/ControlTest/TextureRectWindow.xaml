@@ -5,8 +5,8 @@
     <ScrollContainer VerticalExpand="True">
         <BoxContainer Orientation="Vertical" Name="TextureContainer">
             <Label Text="dood"/>
-            <Label Text="doddod"/>
-            <Label Text="doodddddd"/>
+            <Label Text="Scut!"/>
+            <Label Text="d"/>
         </BoxContainer>
     </ScrollContainer>
 </DefaultWindow>

@@ -1,5 +1,4 @@
 ﻿using JetBrains.Annotations;
-using Microsoft.Extensions.FileSystemGlobbing;
 using OpenNefia.Core.Asynchronous;
 using OpenNefia.Core.HotReload;
 using OpenNefia.Core.IoC;
@@ -13,9 +12,9 @@ using System.Reflection.Metadata;
 
 namespace OpenNefia.Core.HotReload
 {
-    public delegate void HotReloadDelegate(HotReloadArgs args);
+    public delegate void HotReloadDelegate(HotReloadEventArgs args);
 
-    public record HotReloadArgs(Type[]? UpdatedTypes);
+    public record HotReloadEventArgs(Type[]? UpdatedTypes);
 
     public interface IHotReloadWatcher
     {
@@ -44,8 +43,8 @@ namespace OpenNefia.Core.HotReload
         public event HotReloadDelegate? OnClearCache;
         public event HotReloadDelegate? OnUpdateApplication;
 
-        private Queue<HotReloadArgs> _queuedClearCache = new();
-        private Queue<HotReloadArgs> _queuedUpdateApplication = new();
+        private Queue<HotReloadEventArgs> _queuedClearCache = new();
+        private Queue<HotReloadEventArgs> _queuedUpdateApplication = new();
 
         public void Initialize()
         {
@@ -59,7 +58,7 @@ namespace OpenNefia.Core.HotReload
             foreach (var typename in typenames)
                 Logger.DebugS("hotreload", $"  - {typename}");
 
-            _queuedClearCache.Enqueue(new HotReloadArgs(updatedTypes));
+            _queuedClearCache.Enqueue(new HotReloadEventArgs(updatedTypes));
         }
 
         public void EnqueueUpdateApplication(Type[]? updatedTypes)
@@ -69,7 +68,7 @@ namespace OpenNefia.Core.HotReload
             foreach (var typename in typenames)
                 Logger.DebugS("hotreload", $"  - {typename}");
 
-            _queuedUpdateApplication.Enqueue(new HotReloadArgs(updatedTypes));
+            _queuedUpdateApplication.Enqueue(new HotReloadEventArgs(updatedTypes));
         }
 
         public void FrameUpdate(FrameEventArgs frame)

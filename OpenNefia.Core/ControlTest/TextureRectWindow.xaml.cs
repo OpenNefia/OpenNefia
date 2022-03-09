@@ -20,7 +20,7 @@ namespace OpenNefia.Core.ControlTest
             {
                 var textureRect = new TextureRect()
                 {
-                    Texture = Assets.Get(AssetId),
+                    Texture = Assets.Get(new("Elona.G2")),
                     Stretch = stretchMode,
                     ExactSize = (300, 300),
                 };
