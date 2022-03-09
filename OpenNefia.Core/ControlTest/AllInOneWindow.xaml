@@ -6,7 +6,7 @@
         <BoxContainer Orientation="Vertical">
             <Button Text="Button" Margin ="0 4" />
             <Label Text="Label" Margin ="0 4" />
-            <CheckBox Text="CheckBox" Margin ="0 4" />
+            <CheckBox Text="CheckBox!!!!" Margin ="0 4" />
         </BoxContainer>
     </ScrollContainer>
 </DefaultWindow>

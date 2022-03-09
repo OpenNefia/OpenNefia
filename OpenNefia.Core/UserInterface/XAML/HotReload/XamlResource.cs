@@ -3,10 +3,10 @@ using static OpenNefia.XamlInjectors.XamlCompiler;
 
 namespace OpenNefia.Core.UserInterface.XAML.HotReload
 {
-    internal class Resource : IResource
+    internal class XamlResource : IResource
     {
-        private Assembly _assembly;
         private Type _classType;
+        private Assembly _assembly;
         private string _xamlPath;
 
         public string Uri => $"resm:{Name}?assembly={_assembly.GetName().Name}";
@@ -14,10 +14,10 @@ namespace OpenNefia.Core.UserInterface.XAML.HotReload
         public string FilePath => _xamlPath;
         public byte[] FileContents => File.ReadAllBytes(_xamlPath);
 
-        public Resource(Assembly assembly, Type classType, string xamlPath)
+        public XamlResource(Type classType, string xamlPath)
         {
-            _assembly = assembly;
             _classType = classType;
+            _assembly = classType.Assembly;
             _xamlPath = xamlPath;
         }
 

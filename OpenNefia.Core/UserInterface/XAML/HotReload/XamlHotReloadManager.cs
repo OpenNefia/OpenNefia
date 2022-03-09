@@ -17,6 +17,7 @@ using Sre = System.Reflection.Emit;
 using static OpenNefia.XamlInjectors.XamlCompiler;
 using JetBrains.Annotations;
 using OpenNefia.Core.Log;
+using OpenNefia.XamlInjectors;
 
 namespace OpenNefia.Core.UserInterface.XAML.HotReload
 {
@@ -95,7 +96,7 @@ namespace OpenNefia.Core.UserInterface.XAML.HotReload
 
             var containingAssembly = controlType.Assembly;
             var assemblyReferences = GetAssemblyReferences(containingAssembly);
-            var xamlResource = new Resource(containingAssembly, controlType, xamlPath);
+            var xamlResource = new XamlResource(controlType, xamlPath);
 
             if (controlType.GetMethod($"Populate:{xamlResource.Name}", BindingFlags.Static | BindingFlags.NonPublic) == null)
             {
@@ -111,8 +112,15 @@ namespace OpenNefia.Core.UserInterface.XAML.HotReload
 
             var compiler = new OpenNefiaXamlILCompiler(transformerConfig, _emitConfig, true);
 
-            var xaml = new StreamReader(new MemoryStream(xamlResource.FileContents)).ReadToEnd();
-            var parsed = XDocumentXamlParser.Parse(xaml);
+            XamlDocument parsed;
+            using (var stream = new MemoryStream(xamlResource.FileContents))
+            {
+                using (var reader = new StreamReader(stream))
+                {
+                    var xaml = reader.ReadToEnd();
+                    parsed = XDocumentXamlParser.Parse(xaml);
+                }
+            }
 
             var xamlClassType = GetClassTypeFromXaml(xamlResource, parsed);
 
@@ -185,20 +193,7 @@ namespace OpenNefia.Core.UserInterface.XAML.HotReload
 
         private IXamlType GetClassTypeFromXaml(IResource res, XamlDocument parsed)
         {
-            var initialRoot = (XamlAstObjectNode)parsed.Root;
-
-            // Look for an unnamespaced "Class='<...>'" directive (we do not use the Xaml2006 namespace).
-            var property = initialRoot.Children.OfType<XamlAstXamlPropertyValueNode>()
-                .FirstOrDefault(p => p.Property is XamlAstNamePropertyReference namedProperty && namedProperty.Name == "Class");
-            string classname;
-            if (property != null && property.Values[0] is XamlAstTextNode tn)
-            {
-                classname = tn.Text;
-            }
-            else
-            {
-                classname = res.Name.Replace(".xaml", "");
-            }
+            var classname = XamlAstHelpers.GetClassNameFromXaml(res.Name, parsed);
 
             var classType = _typeSystem.FindType(classname);
             if (classType == null)

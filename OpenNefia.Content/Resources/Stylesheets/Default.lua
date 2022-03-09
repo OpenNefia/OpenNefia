@@ -189,6 +189,22 @@ Button({
             borderThickness = margin(2),
         }),
     }),
+
+    rule(":pressed")({
+        styleBox = styleBoxFlat({
+            borderColor = "#886666",
+            backgroundColor = "#AAAA44",
+            borderThickness = margin(2),
+        }),
+    }),
+
+    rule(":disabled")({
+        styleBox = styleBoxFlat({
+            borderColor = "#444444",
+            backgroundColor = "#666666",
+            borderThickness = margin(2),
+        }),
+    }),
 })
 
 CheckBox({
@@ -207,6 +223,18 @@ TextureRect(".checkBox")({
 
     rule(".checkBoxChecked")({
         texture = asset("Core.WispCheckboxChecked"),
+    }),
+})
+
+PanelContainer(".designerBackground")({
+    styleBox = styleBoxFlat({
+        backgroundColor = "#B0C4DE",
+    }),
+})
+
+PanelContainer(".designerToolbar")({
+    styleBox = styleBoxFlat({
+        backgroundColor = "#223333",
     }),
 })
 

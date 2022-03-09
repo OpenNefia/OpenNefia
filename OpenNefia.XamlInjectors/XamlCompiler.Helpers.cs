@@ -34,7 +34,6 @@ namespace OpenNefia.XamlInjectors
             string Uri { get; }
             string Name { get; }
             void Remove();
-
         }
 
         public interface IResourceGroup

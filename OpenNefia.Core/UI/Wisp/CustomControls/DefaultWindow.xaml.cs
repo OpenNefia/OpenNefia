@@ -5,6 +5,7 @@ using OpenNefia.Core.Maths;
 using OpenNefia.Core.Utility;
 using OpenNefia.Core.UI.Wisp.Controls;
 using OpenNefia.Core.UI.Element;
+using OpenNefia.Core.ViewVariables;
 
 namespace OpenNefia.Core.UI.Wisp.CustomControls
 {
@@ -40,6 +41,14 @@ namespace OpenNefia.Core.UI.Wisp.CustomControls
             XamlChildren = new WispContentCollection(this);
         }
 
+        [ViewVariables]
+        public bool CanClose
+        {
+            get => CloseButton.Visible;
+            set => CloseButton.Visible = value;
+        }
+
+        [ViewVariables]
         public string? HeaderClass
         {
             get => _headerClass;
@@ -58,6 +67,7 @@ namespace OpenNefia.Core.UI.Wisp.CustomControls
             }
         }
 
+        [ViewVariables]
         public string? TitleClass
         {
             get => _titleClass;
@@ -91,6 +101,7 @@ namespace OpenNefia.Core.UI.Wisp.CustomControls
                 base.MeasureOverride(Vector2.ComponentMax(availableSize, ContentsMinimumSize)));
         }
 
+        [ViewVariables]
         public string? Title
         {
             get => TitleLabel.Text;

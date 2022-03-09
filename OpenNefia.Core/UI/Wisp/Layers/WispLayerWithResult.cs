@@ -64,6 +64,13 @@ namespace OpenNefia.Core.UI.Wisp
             WispRoot.Arrange(UIBox2.FromDimensions(Vector2.Zero, graphics.WindowSize));
         }
 
+        public override void SetSize(float width, float height)
+        {
+            base.SetSize(width, height);
+            WispRoot.SetSize(width, height);
+            WispRoot.InvalidateMeasure();
+        }
+
         public override void OnQuery()
         {
             base.OnQuery();
@@ -86,6 +93,9 @@ namespace OpenNefia.Core.UI.Wisp
 
         private void UpdateRecursive(WispControl control, float dt)
         {
+            if (!control.Visible)
+                return;
+
             control.Update(dt);
             foreach (var child in control.WispChildren)
             {
@@ -122,10 +132,8 @@ namespace OpenNefia.Core.UI.Wisp
                     color = Color.Gold;
                 else if (UserInterfaceManager.CurrentlyHovered == control)
                     color = Color.LightBlue;
-                Love.Graphics.SetLineWidth(2);
                 Love.Graphics.SetColor(color);
                 GraphicsS.RectangleS(UIScale, Love.DrawMode.Line, control.GlobalRect);
-                Love.Graphics.SetLineWidth(1);
             }
 
             foreach (var child in control.WispChildren)
