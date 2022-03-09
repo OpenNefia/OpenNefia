@@ -29,7 +29,7 @@ namespace OpenNefia.XamlInjectors
             return i.OpCode == OpCodes.Ldarg_0 || (i.OpCode == OpCodes.Ldarg && i.Operand?.Equals(0) == true);
         }
 
-        interface IResource : IFileSource
+        public interface IResource : IFileSource
         {
             string Uri { get; }
             string Name { get; }
@@ -37,7 +37,7 @@ namespace OpenNefia.XamlInjectors
 
         }
 
-        interface IResourceGroup
+        public interface IResourceGroup
         {
             string Name { get; }
             IEnumerable<IResource> Resources { get; }

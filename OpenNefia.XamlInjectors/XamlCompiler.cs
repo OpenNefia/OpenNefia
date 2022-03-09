@@ -23,7 +23,7 @@ namespace OpenNefia.XamlInjectors
     /// </summary>
     public partial class XamlCompiler
     {
-        public IBuildEngine Engine { get; }
+        public IBuildEngine? Engine { get; }
         public CecilTypeSystem TypeSystem { get; }
 
         public XamlLanguageTypeMappings XamlLanguage { get; }
@@ -36,7 +36,7 @@ namespace OpenNefia.XamlInjectors
         public ModuleDefinition MainModule => TargetAssembly.MainModule;
         public MethodReference StringEquals { get; }
 
-        public XamlCompiler(IBuildEngine engine, string input, string[] references)
+        public XamlCompiler(string input, string[] references, IBuildEngine? engine = null)
         {
             Engine = engine;
             TypeSystem = new CecilTypeSystem(references
@@ -97,7 +97,7 @@ namespace OpenNefia.XamlInjectors
                 // Do not run again, it would corrupt the file.
                 // This *shouldn't* be possible due to Inputs/Outputs dependencies in the build system,
                 // but better safe than sorry eh?
-                Engine.LogWarningEvent(new BuildWarningEventArgs("XAMLIL", "", "", 0, 0, 0, 0, "Ran twice on same assembly file; ignoring.", "", ""));
+                Engine?.LogWarningEvent(new BuildWarningEventArgs("XAMLIL", "", "", 0, 0, 0, 0, "Ran twice on same assembly file; ignoring.", "", ""));
                 return (true, false);
             }
 
@@ -119,7 +119,7 @@ namespace OpenNefia.XamlInjectors
 
         private const string TrampolineName = "!XamlIlPopulateTrampoline";
 
-        private class CompileGroupResult
+        public class CompileGroupResult
         {
             public CompileGroupResult(IXamlType classType,
                 TypeDefinition classTypeDefinition,
@@ -195,20 +195,20 @@ namespace OpenNefia.XamlInjectors
             {
                 try
                 {
-                    results.Add(CompileResource(res, contextClass, builder));
+                    results.Add(CompileSingleResource(res, contextClass, builder));
                 }
                 catch (Exception e)
                 {
-                    Engine.LogErrorEvent(new BuildErrorEventArgs("XAMLIL", "", res.FilePath, 0, 0, 0, 0,
+                    Engine?.LogErrorEvent(new BuildErrorEventArgs("XAMLIL", "", res.FilePath, 0, 0, 0, 0,
                         $"{res.FilePath}: {e.Message}", "", "CompileOpenNefiaXaml"));
                 }
             }
             return results;
         }
 
-        private CompileGroupResult? CompileResource(IResource res, IXamlType contextClass, IXamlTypeBuilder<IXamlILEmitter> builder)
+        public CompileGroupResult CompileSingleResource(IResource res, IXamlType contextClass, IXamlTypeBuilder<IXamlILEmitter>? builder = null)
         {
-            Engine.LogMessage($"XAMLIL: {res.Name} -> {res.Uri}", MessageImportance.Low);
+            Engine?.LogMessage($"XAMLIL: {res.Name} -> {res.Uri}", MessageImportance.Low);
 
             var xaml = new StreamReader(new MemoryStream(res.FileContents)).ReadToEnd();
             var parsed = XDocumentXamlParser.Parse(xaml);
@@ -227,7 +227,7 @@ namespace OpenNefia.XamlInjectors
             Compiler.Compile(parsed, contextClass,
                 Compiler.DefinePopulateMethod(populateBuilder, parsed, populateName,
                     classTypeDefinition == null),
-                Compiler.DefineBuildMethod(builder, parsed, buildName, true),
+                builder != null ? Compiler.DefineBuildMethod(builder, parsed, buildName, true) : null,
                 null,
                 null,
                 (closureName, closureBaseType, emitter) =>
@@ -239,13 +239,19 @@ namespace OpenNefia.XamlInjectors
             var compiledPopulateMethod = TypeSystem.GetTypeReference(populateBuilder).Resolve().Methods
                 .First(m => m.Name == populateName);
 
-            //add compiled build method
-            var compiledBuildMethod = TypeSystem.GetTypeReference(builder).Resolve().Methods
-                .First(m => m.Name == buildName);
+            MethodDefinition? compiledBuildMethod = null;
+
+            if (builder != null)
+            {
+                //add compiled build method
+                compiledBuildMethod = TypeSystem.GetTypeReference(builder).Resolve().Methods
+                    .First(m => m.Name == buildName);
+            }
+
             var parameterlessCtor = classTypeDefinition.GetConstructors()
                 .FirstOrDefault(c => c.IsPublic && !c.IsStatic && !c.HasParameters);
 
-            return new CompileGroupResult(classType, classTypeDefinition, compiledPopulateMethod, compiledBuildMethod, parameterlessCtor, res);
+            return new CompileGroupResult(classType, classTypeDefinition!, compiledPopulateMethod, compiledBuildMethod, parameterlessCtor, res);
         }
 
         private IXamlType GetClassTypeFromXaml(IResource res, XamlDocument parsed)

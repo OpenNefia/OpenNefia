@@ -3,6 +3,7 @@
                Title="TextureRect"
                MinSize ="500 400">
     <ScrollContainer VerticalExpand="True">
+        <Label Text="Asdf!"/>
         <BoxContainer Orientation="Vertical" Name="TextureContainer">
         </BoxContainer>
     </ScrollContainer>

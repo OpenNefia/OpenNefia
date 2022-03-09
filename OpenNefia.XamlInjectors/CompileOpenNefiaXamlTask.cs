@@ -40,7 +40,7 @@ namespace OpenNefia.XamlInjectors
             var references = File.ReadAllLines(ReferencesFilePath).Where(l => !string.IsNullOrWhiteSpace(l)).ToArray();
             var strongNameKey = SignAssembly && !DelaySign ? AssemblyOriginatorKeyFile : null;
 
-            var compiler = new XamlCompiler(BuildEngine, input, references);
+            var compiler = new XamlCompiler(input, references, BuildEngine);
             var res = compiler.Compile(OutputPath, strongNameKey, DebuggerLaunch);
 
             if (!res.success)
