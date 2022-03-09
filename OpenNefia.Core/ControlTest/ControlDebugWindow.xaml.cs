@@ -1,22 +1,32 @@
 ﻿using Avalonia.Metadata;
+using CommandLine;
 using HarmonyLib;
 using JetBrains.Annotations;
 using Microsoft.Build.Framework;
+using Mono.Cecil.Cil;
 using OpenNefia.Core.Log;
 using OpenNefia.Core.UI.Wisp.Controls;
 using OpenNefia.Core.UI.Wisp.CustomControls;
 using OpenNefia.Core.UserInterface;
 using OpenNefia.Core.UserInterface.XAML;
 using OpenNefia.XamlInjectors;
+using OpenNefia.XamlInjectors.CompilerExtensions;
 using System.Collections;
 using System.Diagnostics;
 using System.Reflection;
+using System.Reflection.Emit;
 using System.Xml.Linq;
+using XamlX;
+using XamlX.Ast;
+using XamlX.Emit;
 using XamlX.IL;
+using XamlX.Parsers;
 using XamlX.Transform;
+using XamlX.TypeSystem;
+using Mono.Reflection;
 using static OpenNefia.XamlInjectors.XamlCompiler;
-using Cil = Mono.Cecil.Cil;
 using Sre = System.Reflection.Emit;
+using OpenNefia.Core.Utility;
 
 namespace OpenNefia.Core.ControlTest
 {
@@ -35,41 +45,124 @@ namespace OpenNefia.Core.ControlTest
             WispRootLayer!.Debug = !WispRootLayer.Debug;
         }
 
-        private bool _patched = false;
-
         private void DoPatch(BaseButton.ButtonEventArgs obj)
         {
-            if (_patched)
-                return;
-
             var asm = typeof(Engine).Assembly;
-            File.Copy(asm.Location, asm.Location + ".copy", overwrite: true);
 
             var references = File.ReadAllLines("C:/Users/yuno/build/OpenNefia.NET/OpenNefia.Core/obj/Debug/net6.0/XAML/references");
 
-            var xamlCompiler = new XamlCompiler(asm.Location + ".copy", references, new DummyBuildEngine());
+            var typeSystem = new SreTypeSystem();
+
+            var xamlLanguage = new XamlLanguageTypeMappings(typeSystem)
+            {
+                XmlnsAttributes =
+                {
+                    typeSystem.GetType(typeof(XmlnsDefinitionAttribute)),
+                },
+                ContentAttributes =
+                {
+                    typeSystem.GetType(typeof(ContentAttribute))
+                },
+                UsableDuringInitializationAttributes =
+                {
+                    typeSystem.GetType(typeof(UsableDuringInitializationAttribute))
+                },
+                DeferredContentPropertyAttributes =
+                {
+                    typeSystem.GetType(typeof(DeferredContentAttribute))
+                },
+            };
+
+            var emitConfig = new XamlLanguageEmitMappings<IXamlILEmitter, XamlILNodeEmitResult>
+            {
+                ContextTypeBuilderCallback = (b, c) => EmitNameScopeField(xamlLanguage, typeSystem, b, c)
+            };
+
+            var transformerConfig = new TransformerConfiguration(
+                typeSystem,
+                typeSystem.GetAssembly(asm),
+                xamlLanguage,
+                XamlXmlnsMappings.Resolve(typeSystem, xamlLanguage), Parsing.CustomValueConverter);
+
+            var compiler =
+                new OpenNefiaXamlILCompiler(transformerConfig, emitConfig, true);
 
             var xamlPath = "C:/Users/yuno/build/OpenNefia.NET/OpenNefia.Core/ControlTest/TextureRectWindow.xaml";
             var res = new Resource(asm, typeof(TextureRectWindow), xamlPath);
 
-            var typeSystem = xamlCompiler.TypeSystem;
+            var xaml = new StreamReader(new MemoryStream(res.FileContents)).ReadToEnd();
+            var parsed = XDocumentXamlParser.Parse(xaml);
 
-            var contextDef = typeSystem.GetTypeReference(typeSystem.FindType(Constants.CompiledXamlNamespace + ".XamlIlContext")).Resolve();
+            var classType = GetClassTypeFromXaml(res, parsed, typeSystem);
 
-            var contextClass = XamlILContextDefinition.GenerateContextClass(typeSystem.CreateTypeBuilder(contextDef), typeSystem,
-                xamlCompiler.XamlLanguage, xamlCompiler.EmitConfig);
+            compiler.Transform(parsed);
 
-            var result = xamlCompiler.CompileSingleResource(res, contextClass);
+            var module = AssemblyBuilder
+                .DefineDynamicAssembly(
+                    new AssemblyName(Guid.NewGuid().ToString()),
+                    AssemblyBuilderAccess.RunAndCollect)
+                .DefineDynamicModule(Guid.NewGuid().ToString());
 
-            Patch.Context = result;
+            var typeBuilder = module
+                .DefineType(
+                    Guid.NewGuid().ToString(),
+                    TypeAttributes.Class | TypeAttributes.Public);
+
+            var xamlTypeBuilder = typeSystem.CreateTypeBuilder(typeBuilder);
+
+            var contextClass = XamlILContextDefinition.GenerateContextClass(xamlTypeBuilder, typeSystem,
+                xamlLanguage, emitConfig);
+
+            var type2 = module
+                .DefineType(
+                    Guid.NewGuid().ToString(),
+                    TypeAttributes.Class | TypeAttributes.Public);
+            var xamlType2Builder = typeSystem.CreateTypeBuilder(type2);
+
+            var populateName = $"Populate:{res.Name}";
+            var populateMethod = compiler.DefinePopulateMethod(xamlType2Builder, parsed, populateName, isPublic: false);
+
+            compiler.Compile(parsed, contextClass,
+                populateMethod,
+                buildMethod: null,
+                namespaceInfoBuilder: null,
+                createClosure: null,
+                createDelegateType: (closureName, closureBaseType, emitter) => xamlTypeBuilder.DefineSubType(closureBaseType, closureName, false),
+                res.Uri, res
+            );
+
+            var compiledPopulateMethod = type2.CreateTypeInfo()!.DeclaredMethods
+                .Where(m => m.Name == populateName).First();
+
+            Patch.Context = compiledPopulateMethod;
 
             var harmony = new Harmony("xyz.opennefia");
-            var original = typeof(TextureRectWindow).GetMethod(result.CompiledPopulateMethod.Name, BindingFlags.NonPublic | BindingFlags.Static);
+            var original = typeof(TextureRectWindow).GetMethod(populateName, BindingFlags.NonPublic | BindingFlags.Static);
             var transpiler = typeof(Patch).GetMethod("Transpiler", BindingFlags.NonPublic | BindingFlags.Static);
             harmony.Patch(original, transpiler: new HarmonyMethod(transpiler));
             Logger.Info("Patched trampoline.");
+        }
 
-            _patched = true;
+        private static IXamlType GetClassTypeFromXaml(IResource res, XamlDocument parsed, SreTypeSystem typeSystem)
+        {
+            var initialRoot = (XamlAstObjectNode)parsed.Root;
+
+            var classDirective = initialRoot.Children.OfType<XamlAstXmlDirective>()
+                .FirstOrDefault(d => d.Namespace == XamlNamespaces.Xaml2006 && d.Name == "Class");
+            string classname;
+            if (classDirective != null && classDirective.Values[0] is XamlAstTextNode tn)
+            {
+                classname = tn.Text;
+            }
+            else
+            {
+                classname = res.Name.Replace(".xaml", "");
+            }
+
+            var classType = typeSystem.FindType(classname);
+            if (classType == null)
+                throw new Exception($"Unable to find type '{classname}'");
+            return classType;
         }
     }
 
@@ -129,78 +222,57 @@ namespace OpenNefia.Core.ControlTest
         }
     }
 
-    internal class SreOpCodeConverter
-    {
-        private readonly Dictionary<Cil.Code, Sre.OpCode> _lookup = new();
-
-        public SreOpCodeConverter()
-        {
-            var fields = typeof(Sre.OpCodes).GetFields(BindingFlags.Static | BindingFlags.Public);
-           
-            foreach (var field in fields.Where(f => f.FieldType == typeof(Sre.OpCode)))
-            {
-                var cecilCode = GetCecilCode(field.Name);
-                var sreOpCode = (Sre.OpCode)field.GetValue(null)!;
-
-                if (cecilCode != null)
-                {
-                    _lookup.Add(cecilCode.Value, sreOpCode);
-                }
-                else
-                {
-                    Logger.WarningS("wisp.compile", $"Missing opcode with name {field.Name}");
-                }
-            }
-        }
-
-        public Sre.OpCode this[Cil.OpCode cecilOpCode] => _lookup[cecilOpCode.Code];
-
-        private static Cil.Code? GetCecilCode(string name)
-        {
-            Cil.Code code;
-            return Enum.TryParse(name, true, out code) ? code : null;
-        }
-    }
-
     internal static class Patch
     {
-        internal static CompileGroupResult Context { get; set; } = default!;
-        internal static SreOpCodeConverter SreOpCodes = new();
+        internal static MethodInfo Context { get; set; } = default!;
+
+        private static Sre.Label MakeLabel(int i)
+        {
+            var constructor = typeof(Sre.Label).GetConstructor(
+                BindingFlags.Instance | BindingFlags.NonPublic,
+                null, new Type[] { typeof(int) }, null)!;
+
+            return (Sre.Label)constructor.Invoke(new object[] { i });
+        }
 
         [UsedImplicitly]
         static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
         {
-            return Context.CompiledPopulateMethod.Body.Instructions.Select(ToHarmonyInstruction);
-        }
+            var monoInstructions = Context.GetInstructions();
+            var harmonyInstructions = monoInstructions.Select(ToHarmonyInstruction).ToList();
 
-        private static CodeInstruction ToHarmonyInstruction(Cil.Instruction cecilInst)
-        {
-            var operand = cecilInst.Operand;
-
-            if (operand is Mono.Cecil.MethodReference method)
-{
-                var type = Type.GetType(method.DeclaringType.FullName);
-                var parameters = method.Parameters.Select(param => param.ParameterType.GetMonoType()).ToArray();
-                var genericParameters = method.GenericParameters.Select(param => param.GetMonoType()).ToArray();
-                operand = AccessTools.Method(type, method.Name, parameters, genericParameters);
-            }
-
-            return new CodeInstruction(SreOpCodes[cecilInst.OpCode], operand);
-        }
-
-        public static Type GetMonoType(this Mono.Cecil.TypeReference type)
-        {
-            return Type.GetType(type.GetReflectionName(), true)!;
-        }
-
-        private static string GetReflectionName(this Mono.Cecil.TypeReference type)
-        {
-            if (type.IsGenericInstance)
+            var lookup = new Dictionary<int, int>();
+            var i = 0;
+            foreach (var inst in monoInstructions)
             {
-                var genericInstance = (Mono.Cecil.GenericInstanceType)type;
-                return string.Format("{0}.{1}[{2}]", genericInstance.Namespace, type.Name, string.Join(",", genericInstance.GenericArguments.Select(p => p.GetReflectionName()).ToArray()));
+                lookup[inst.Offset] = i;
             }
-            return type.FullName;
+
+            var labelLookup = new Dictionary<int, Sre.Label>();
+            var labelIndex = 0;
+            foreach (var instruction in harmonyInstructions)
+            {
+                if (instruction.operand is Mono.Reflection.Instruction monoInst)
+                {
+                    var label = labelLookup.GetValueOrInsert(monoInst.Offset, () =>
+                    {
+                        var l = MakeLabel(labelIndex);
+                        labelIndex += 1;
+                        return l;
+                    });
+
+                    var harmonyInst = harmonyInstructions[lookup[monoInst.Offset]];
+                    harmonyInst.labels.Add(label);
+                    instruction.operand = label;
+                }
+            }
+
+            return harmonyInstructions;
+        }
+
+        private static CodeInstruction ToHarmonyInstruction(Mono.Reflection.Instruction monoInst)
+        {
+            return new CodeInstruction(monoInst.OpCode, monoInst.Operand);
         }
     }
 }

@@ -6,7 +6,7 @@ using XamlX.TypeSystem;
 
 namespace OpenNefia.XamlInjectors.CompilerExtensions
 {
-    internal class ONXamlColorAstNode
+    public class ONXamlColorAstNode
         : XamlAstNode, IXamlAstValueNode, IXamlAstILEmitableNode
     {
         private readonly IXamlMethod _method;
