@@ -83,7 +83,7 @@ namespace OpenNefia.Core.UI.Wisp.Styling
                 selectorElement = new SelectorElement(elementType, new List<string>(), null, new List<string>());
             }
 
-            Logger.DebugS("wisp.stylesheet", $"Parse element rules: {selectorElement} ({parentSelector})");
+            Logger.DebugS("wisp.stylesheet", $"Parse element rules: {selectorElement} {parentSelector}");
 
             if (tableValue["properties"] is not LuaTable propertiesTable)
             {

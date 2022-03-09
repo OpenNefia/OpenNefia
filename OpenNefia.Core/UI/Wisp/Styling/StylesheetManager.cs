@@ -30,8 +30,6 @@ namespace OpenNefia.Core.UI.Wisp.Styling
         [Dependency] private readonly IWispManager _wispManager = default!;
         [Dependency] private readonly IResourceCache _resourceCache = default!;
         [Dependency] private readonly IReflectionManager _reflectionManager = default!;
-        [Dependency] private readonly IAssetManager _assetManager = default!;
-        [Dependency] private readonly IGraphics _graphics = default!;
 
         private static ResourcePath DefaultStylesheetPath = new("/Stylesheets/Default.lua");
 
@@ -42,8 +40,6 @@ namespace OpenNefia.Core.UI.Wisp.Styling
             SetupStyleFallbacks();
 
             TryLoadStylesheet(DefaultStylesheetPath);
-
-            _graphics.OnWindowFocused += WindowFocusedChanged;
 
             WatchResources();
         }

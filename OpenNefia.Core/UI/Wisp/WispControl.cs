@@ -359,17 +359,6 @@ namespace OpenNefia.Core.UI.Wisp
         public override void SetSize(float width, float height)
         {
             base.SetSize(width, height);
-            Resized();
-        }
-
-        public event Action? OnResized;
-
-        /// <summary>
-        ///     Called when the size of the control changes.
-        /// </summary>
-        protected virtual void Resized()
-        {
-            OnResized?.Invoke();
         }
 
         /// <inheritdoc/>

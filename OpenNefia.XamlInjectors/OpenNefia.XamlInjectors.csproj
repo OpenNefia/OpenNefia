@@ -13,5 +13,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\Thirdparty\XamlX\src\XamlX.IL.Cecil\XamlX.IL.Cecil.csproj" />
+      <Compile Include="..\OpenNefia.Core\UserInterface\XAML\HotReload\Parsing.cs" />
+      <Compile Include="..\OpenNefia.Core\UserInterface\XAML\HotReload\MathParsing.cs" />
     </ItemGroup>
 </Project>
