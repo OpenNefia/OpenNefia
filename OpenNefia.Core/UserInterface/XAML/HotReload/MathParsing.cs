@@ -2,7 +2,7 @@
 using Pidgin;
 using static Pidgin.Parser;
 
-namespace OpenNefia.Core.ControlTest
+namespace OpenNefia.Core.UserInterface.XAML.HotReload
 {
     public static class MathParsing
     {

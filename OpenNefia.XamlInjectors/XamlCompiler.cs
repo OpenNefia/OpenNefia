@@ -258,10 +258,11 @@ namespace OpenNefia.XamlInjectors
         {
             var initialRoot = (XamlAstObjectNode)parsed.Root;
 
-            var classDirective = initialRoot.Children.OfType<XamlAstXmlDirective>()
-                .FirstOrDefault(d => d.Namespace == XamlNamespaces.Xaml2006 && d.Name == "Class");
+            // Look for an unnamespaced "Class='<...>'" directive (we do not use the Xaml2006 namespace).
+            var property = initialRoot.Children.OfType<XamlAstXamlPropertyValueNode>()
+                .FirstOrDefault(p => p.Property is XamlAstNamePropertyReference namedProperty && namedProperty.Name == "Class");
             string classname;
-            if (classDirective != null && classDirective.Values[0] is XamlAstTextNode tn)
+            if (property != null && property.Values[0] is XamlAstTextNode tn)
             {
                 classname = tn.Text;
             }

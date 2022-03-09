@@ -103,6 +103,8 @@ namespace OpenNefia.Core.UI.Wisp
             if (!control.Visible)
                 return;
 
+            // TODO Love.Graphics.Push!
+
             if (control.RectClipContent)
             {
                 if (_currentScissor != null)

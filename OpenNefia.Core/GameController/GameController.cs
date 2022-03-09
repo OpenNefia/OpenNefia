@@ -24,6 +24,7 @@ using OpenNefia.Core.UI.Layer;
 using OpenNefia.Core.UI.Wisp;
 using OpenNefia.Core.UI.Wisp.Styling;
 using OpenNefia.Core.UserInterface;
+using OpenNefia.Core.UserInterface.XAML.HotReload;
 using OpenNefia.Core.Utility;
 
 namespace OpenNefia.Core.GameController
@@ -58,6 +59,7 @@ namespace OpenNefia.Core.GameController
         [Dependency] private readonly IWispManager _wispManager = default!;
         [Dependency] private readonly IStylesheetManager _stylesheetManager = default!;
         [Dependency] private readonly IHotReloadWatcherInternal _hotReloadWatcher = default!;
+        [Dependency] private readonly IXamlHotReloadManager _xamlHotReload = default!;
 
         public Action? MainCallback { get; set; } = null;
         private ILogHandler? _logHandler;
@@ -152,6 +154,8 @@ namespace OpenNefia.Core.GameController
 
             _mapRenderer.Initialize();
             _mapRenderer.RegisterTileLayers();
+
+            _xamlHotReload.Initialize();
 
             _modLoader.BroadcastRunLevel(ModRunLevel.PostInit);
 
