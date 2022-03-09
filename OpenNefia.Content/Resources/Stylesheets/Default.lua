@@ -191,17 +191,23 @@ Button({
     }),
 })
 
+CheckBox({
+    styleBox = styleBoxFlat({
+        backgroundColor = "#00000000",
+    }),
+})
+
 TextureButton(".windowCloseButton")({
     texture = asset("Elona.AutoTurnIcon"),
     modulateSelf = "#4B596A",
 })
 
-CheckBox(".checkBox")({
+TextureRect(".checkBox")({
     texture = asset("Core.WispCheckboxUnchecked"),
-})
 
-CheckBox(".checkBoxChecked")({
-    texture = asset("Core.WispCheckboxChecked"),
+    rule(".checkBoxChecked")({
+        texture = asset("Core.WispCheckboxChecked"),
+    }),
 })
 
 --[[

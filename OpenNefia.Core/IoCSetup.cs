@@ -30,6 +30,7 @@ using PrettyPrompt.Consoles;
 using OpenNefia.Core.UI.Wisp;
 using OpenNefia.Core.UI.Wisp.Styling;
 using OpenNefia.Core.HotReload;
+using OpenNefia.Core.UserInterface.XAML.HotReload;
 
 namespace OpenNefia
 {
@@ -111,6 +112,7 @@ namespace OpenNefia
             IoCManager.Register<IStylesheetManager, StylesheetManager>();
             IoCManager.Register<IHotReloadWatcher, HotReloadWatcher>();
             IoCManager.Register<IHotReloadWatcherInternal, HotReloadWatcher>();
+            IoCManager.Register<IXamlHotReloadManager, XamlHotReloadManager>();
         }
     }
 }

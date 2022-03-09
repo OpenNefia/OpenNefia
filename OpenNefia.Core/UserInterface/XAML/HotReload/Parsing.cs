@@ -6,35 +6,11 @@ using XamlX.Ast;
 using XamlX.Transform;
 using XamlX.TypeSystem;
 
-namespace OpenNefia.Core.ControlTest
+namespace OpenNefia.Core.UserInterface.XAML.HotReload
 {
-    static class Parsing
+    internal static class Parsing
     {
-        public static bool CustomValueConverter(
-            AstTransformationContext context,
-            IXamlAstValueNode node,
-            IXamlType type,
-            [NotNullWhen(true)] out IXamlAstValueNode? result)
-        {
-            if (!(node is XamlAstTextNode textNode))
-            {
-                result = null;
-                return false;
-            }
-
-            var text = textNode.Text;
-            var types = context.GetOpenNefiaTypes();
-
-            if (TryConvert(context, node, text, type, types, out result))
-            {
-                return true;
-            }
-
-            result = null;
-            return false;
-        }
-
-        private static bool TryConvert(AstTransformationContext context, IXamlAstValueNode node, string text, IXamlType type, ONXamlWellKnownTypes types, [NotNullWhen(true)] out IXamlAstValueNode? result)
+        internal static bool TryConvert(AstTransformationContext context, IXamlAstValueNode node, string text, IXamlType type, ONXamlWellKnownTypes types, [NotNullWhen(true)] out IXamlAstValueNode? result)
         {
             if (type.Equals(types.Vector2))
             {
