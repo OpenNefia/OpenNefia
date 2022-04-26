@@ -39,7 +39,7 @@ namespace OpenNefia.Content.Parties
         {
             while (EntityManager.TryGetComponent(entity, out PartyComponent party))
             {
-                if (party.Leader == null)
+                if (party.Leader == null || party.Leader == entity)
                     return party;
 
                 entity = party.Leader.Value;

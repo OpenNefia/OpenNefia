@@ -15,7 +15,8 @@ namespace OpenNefia.Core.UI.Wisp
     /// </para>
     /// <remarks>
     /// NOTE: Until more support for Wisp is added, this layer is where all
-    /// Wisp components will be confined to. 
+    /// Wisp components will be confined to. It should only be used for
+    /// developer-facing features until then.
     /// 
     /// This class will be merged into <see cref="UiLayer"/> at some point.
     /// </remarks>
