@@ -21,6 +21,8 @@ using OpenNefia.Content.Areas;
 using OpenNefia.Content.Maps;
 using OpenNefia.Core.Maths;
 using OpenNefia.Content.GameObjects;
+using OpenNefia.Core.Log;
+using OpenNefia.Content.GameObjects.EntitySystems.Tag;
 
 namespace OpenNefia.Content.Nefia
 {
@@ -34,6 +36,7 @@ namespace OpenNefia.Content.Nefia
         [Dependency] private readonly IGameSessionManager _gameSession = default!;
         [Dependency] private readonly ILocalizationManager _loc = default!;
         [Dependency] private readonly IEntityGen _entityGen = default!;
+        [Dependency] private readonly ITagSystem _tags = default!;
 
         public override void Initialize()
         {
@@ -50,14 +53,10 @@ namespace OpenNefia.Content.Nefia
             args.IsActive |= areaNefia.State == NefiaState.Unvisited || areaNefia.State == NefiaState.Visited;
         }
 
-        private void OnNefiaFloorGenerate(EntityUid uid, AreaNefiaComponent component, AreaFloorGenerateEvent args)
+        private IMap GenerateFallbackMap(AreaFloorGenerateEvent args)
         {
-            if (args.Handled)
-                return;
-
-            // TODO: temporary floor generation.
-
             var map = _mapManager.CreateMap(20, 20);
+
             map.Clear(Protos.Tile.Dirt);
             foreach (var pos in EnumerateBorder(map.Bounds))
             {
@@ -71,7 +70,38 @@ namespace OpenNefia.Content.Nefia
             var tagComp = EntityManager.EnsureComponent<TagComponent>(stairs);
             tagComp.AddTag(Protos.Tag.DungeonStairsSurfacing);
 
+            return map;
+        }
+
+        private void OnNefiaFloorGenerate(EntityUid areaEnt, AreaNefiaComponent areaNefia, AreaFloorGenerateEvent args)
+        {
+            if (args.Handled)
+                return;
+
+            var ev = new GenerateNefiaFloorEvent(args.Area, args.FloorId, args.PreviousCoords);
+            RaiseLocalEvent(areaEnt, ev);
+
+            if (ev.ResultMapId == null)
+            {
+                Logger.ErrorS("nefia.gen", $"Failed to generate Nefia floor!");
+                return;
+            }
+
+            var map = _mapManager.GetMap(ev.ResultMapId.Value);
+
+            if (!ValidateStairs(map))
+            {
+                Logger.ErrorS("nefia.gen", $"Nefia floor had no entity with stairs descending tag.");
+                return;
+            }
+
             args.Handle(map);
+        }
+
+        private bool ValidateStairs(IMap map)
+        {
+            // TODO support down stairs
+            return _tags.EntityWithTagInMap(map.Id, Protos.Tag.DungeonStairsSurfacing) != null;
         }
 
         private static IEnumerable<Vector2i> EnumerateBorder(UIBox2i bounds)
@@ -205,12 +235,53 @@ namespace OpenNefia.Content.Nefia
         /// Given a Nefia's base level and the number of floors deep into it,
         /// returns the creature level of that floor.
         /// </summary>
-        private int NefiaFloorNumberToLevel(int floorNumber, int nefiaBaseLevel)
+        public static int NefiaFloorNumberToLevel(int floorNumber, int nefiaBaseLevel)
         {
             // In OpenNefia, we start dungeons on floor 1. Nefia level is what used to be
             // "starting floor", so a nefia of level 5 would start on the fifth floor.
             // This means (nefia_level + floor) would be off by one, so subtract 1.
             return nefiaBaseLevel + floorNumber - 1;
+        }
+    }
+
+    public sealed class GenerateNefiaFloorEvent : HandledEntityEventArgs
+    {
+        /// <summary>
+        /// Area a floor is being generated in.
+        /// </summary>
+        public IArea Area { get; }
+
+        /// <summary>
+        /// ID of the floor.
+        /// </summary>
+        public AreaFloorId FloorId { get; }
+
+        /// <summary>
+        /// Map coordinates of the player at the time the floor is generated.
+        /// This can be used to generate a map based on the terrain the player
+        /// is standing on (fields, forest, desert, etc.)
+        /// </summary>
+        public MapCoordinates PreviousCoords { get; }
+
+        /// <summary>
+        /// Map of the area's floor that was created. If this is left as <c>null</c>,
+        /// then floor creation failed.
+        /// </summary>
+        public MapId? ResultMapId { get; private set; }
+
+        public GenerateNefiaFloorEvent(IArea area, AreaFloorId floorId, MapCoordinates previousCoords)
+        {
+            Area = area;
+            FloorId = floorId;
+            PreviousCoords = previousCoords;
+        }
+
+        public void Handle(IMap map) => Handle(map.Id);
+
+        public void Handle(MapId mapId)
+        {
+            Handled = true;
+            ResultMapId = mapId;
         }
     }
 }

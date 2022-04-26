@@ -1,4 +1,5 @@
 ﻿using OpenNefia.Core.IoC;
+using OpenNefia.Core.Prototypes;
 using TilePrototypeId = OpenNefia.Core.Prototypes.PrototypeId<OpenNefia.Core.Maps.TilePrototype>;
 
 namespace OpenNefia.Core.Maps
@@ -22,6 +23,7 @@ namespace OpenNefia.Core.Maps
         public static TilePrototypeId EmptyID = new(nameof(Empty));
 
         public TilePrototype ResolvePrototype() => IoCManager.Resolve<ITileDefinitionManager>()[Type];
+        public TilePrototypeId GetStrongID() => ResolvePrototype().GetStrongID();
 
         public override bool Equals(object? obj)
         {
