@@ -34,6 +34,11 @@ namespace OpenNefia.Core.Random
             _random.NextBytes(buffer);
         }
 
+        public void RandomizeSeed()
+        {
+            _random = new System.Random();
+        }
+
         public void PushSeed(int seed)
         {
             _random = new System.Random(seed);

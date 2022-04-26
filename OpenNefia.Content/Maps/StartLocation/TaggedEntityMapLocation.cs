@@ -1,4 +1,5 @@
 using OpenNefia.Content.GameObjects;
+using OpenNefia.Content.GameObjects.EntitySystems.Tag;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Log;
@@ -14,7 +15,7 @@ namespace OpenNefia.Content.Maps
     /// </summary>
     public class TaggedEntityMapLocation : IMapStartLocation
     {
-        [Dependency] private readonly IEntityLookup _lookup = default!;
+        [Dependency] private readonly ITagSystem _tags = default!;
 
         [DataField]
         public PrototypeId<TagPrototype> Tag { get; }
@@ -30,14 +31,11 @@ namespace OpenNefia.Content.Maps
         {
             EntitySystem.InjectDependencies(this);
 
-            var found = _lookup.EntityQueryInMap<TagComponent, SpatialComponent>(map.Id)
-                .Where(pair => pair.Item1.HasTag(Tag))
-                .FirstOrDefault();
+            var found = _tags.EntityWithTagInMap<SpatialComponent>(map.Id, Tag);
 
-            if (found != default)
+            if (found != null)
             {
-                var (_, foundSpatial) = found;
-                return foundSpatial.WorldPosition;
+                return found.WorldPosition;
             }
 
             Logger.ErrorS("area.mapIds", $"Failed to find entity with tag {Tag} in the destination map!");

@@ -89,12 +89,11 @@ namespace OpenNefia.Content.Maps
             }
 
             Logger.InfoS("map.entrance", $"Loaded map {mapToLoad} from disk.");
-
             return true;
         }
 
         /// <summary>
-        /// Set the map to travel to when exiting the destination map via the edges.
+        /// Sets the map to travel to when exiting the destination map via the edges.
         /// </summary>
         /// <param name="mapTravellingTo">Map that is being travelled to.</param>
         /// <param name="prevCoords">Location that exiting the given map from the edges should lead to.</param>
