@@ -57,7 +57,7 @@ namespace OpenNefia.Content.ConfigMenu
             {
                 // uiCellBaseType is a generic type of BaseConfigMenuUICell<>.
                 // menuNodeType is the type of the config item node coming from YAML.
-                var menuNodeType = uiCellBaseType.GetGenericArguments()[0];
+                var menuNodeType = uiCellBaseType!.GetGenericArguments()[0];
 
                 // When the factory finds this menu node type in YAML, instantiate the
                 // corresponding UI cell that can accept it as an argument.
