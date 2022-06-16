@@ -10,6 +10,7 @@ using OpenNefia.Core.Graphics;
 using OpenNefia.Core.Input;
 using OpenNefia.Content.TurnOrder;
 using OpenNefia.Core.Audio;
+using OpenNefia.Content.TitleScreen;
 
 namespace OpenNefia.Content.UI.Layer
 {

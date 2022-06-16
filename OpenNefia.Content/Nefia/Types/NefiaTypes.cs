@@ -71,6 +71,12 @@ namespace OpenNefia.Content.Nefia
     [DataDefinition]
     public struct Room
     {
+        public Room(UIBox2i bounds, Direction alignment)
+        {
+            Bounds = bounds;
+            Alignment = alignment;
+        }
+
         [DataField]
         public UIBox2i Bounds { get; set; }
         

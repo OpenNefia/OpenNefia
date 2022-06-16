@@ -66,6 +66,23 @@ namespace OpenNefia.Core.Maths
             return xOk && yOk;
         }
 
+        public readonly bool IsInBounds(int x, int y)
+        {
+            return IsInBounds(new Vector2i(x, y));
+        }
+
+        public readonly bool IsInBounds(Vector2i point)
+        {
+            var xOk = point.X >= Left ^ point.X > Right - 1;
+            var yOk = point.Y >= Top ^ point.Y > Bottom - 1;
+            return xOk && yOk;
+        }
+
+        public readonly bool IsInBounds(UIBox2i other)
+        {
+            return IsInBounds(other.TopLeft) && IsInBounds(other.BottomRight);
+        }
+
         /// <summary>Returns a UIBox2 translated by the given amount.</summary>
         public readonly UIBox2i Translated(Vector2i point)
         {

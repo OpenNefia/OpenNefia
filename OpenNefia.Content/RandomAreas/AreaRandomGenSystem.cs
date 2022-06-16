@@ -150,7 +150,7 @@ namespace OpenNefia.Content.RandomAreas
                 var mapCoords = randTile.Value.MapPosition;
                 var tileId = _tileDefs.GetPrototypeID(randTile.Value);
 
-                if (!validBounds.Contains(mapCoords.Position))
+                if (!validBounds.IsInBounds(mapCoords.Position))
                     return false;
 
                 if (!RandomAreaSpawnableTiles.Contains(tileId))
@@ -189,7 +189,7 @@ namespace OpenNefia.Content.RandomAreas
                 var worldEntrance = pair.Item1;
                 var spatial = EntityManager.GetComponent<SpatialComponent>(worldEntrance.Owner);
                 var bounds = Box2iCenteredAt(spatial.WorldPosition, 2);
-                return bounds.Contains(mapCoords.Position);
+                return bounds.IsInBounds(mapCoords.Position);
             }
 
             return EnumerateRandomMapEntrancesIn(mapCoords.MapId).Any(TooClose);
