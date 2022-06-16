@@ -247,7 +247,14 @@ namespace OpenNefia.Core.Graphics
 
         public string GetDisplayName(int displaynumber)
         {
-            return Love.Window.GetDisplayName(displaynumber);
+            try
+            {
+                return Love.Window.GetDisplayName(displaynumber);
+            }
+            catch (Exception e)
+            {
+                return $"<unknown: {displaynumber}>";
+            }
         }
 
         public IEnumerable<FullscreenMode> GetFullscreenModes(int displaynumber)

@@ -35,13 +35,13 @@ namespace OpenNefia.Content.Nefia
                 var data = new Blackboard<NefiaGenParams>();
                 data.Add(new BaseNefiaGenParams(width, height));
 
-                var ev = new GenerateNefiaFloorAttemptEvent(area, mapId, data, floorNumber, i);
-
                 var paramsEv = new GenerateNefiaFloorParamsEvent(area, mapId, data, floorNumber, i);
                 _entityManager.EventBus.RaiseLocalEvent(area.AreaEntityUid, paramsEv);
-                _entityManager.EventBus.RaiseLocalEvent(area.AreaEntityUid, ev);
 
-                if (ev.Handled)
+                var genEv = new GenerateNefiaFloorAttemptEvent(area, mapId, data, floorNumber, i);
+                _entityManager.EventBus.RaiseLocalEvent(area.AreaEntityUid, genEv);
+
+                if (genEv.Handled)
                 {
                     if (_mapManager.MapIsLoaded(mapId))
                     {
