@@ -54,6 +54,18 @@ namespace OpenNefia.Tests.Core.Maths
             (-20, -20)
         };
 
+        private static IEnumerable<(int x, int y, bool isInBounds)> IsInBoundsTests => new (int, int, bool)[]
+        {
+            (0, 1, false),
+            (1, 0, false),
+            (1, 1, false),
+            (0, -1, true),
+            (1, -1, false),
+            (-1, 0, true),
+            (-1, 1, false),
+            (-1, -1, true)
+        };
+
         private static IEnumerable<(UIBox2i a, UIBox2i b, UIBox2i? expected)> Intersections =>
             new (UIBox2i, UIBox2i, UIBox2i?)[]
             {
@@ -200,6 +212,40 @@ namespace OpenNefia.Tests.Core.Maths
             Assert.That(box.Contains(x, y), Is.False);
             Assert.That(box.Contains(vec), Is.False);
             Assert.That(box.Contains(vec, false), Is.False);
+        }
+
+        [Test]
+        public void Box2iIsInBoundsSelfClosed()
+        {
+            var box = new UIBox2i(-1, -1, 1, 1);
+
+            Assert.That(box.IsInBounds(box.BottomLeft), Is.False);
+            Assert.That(box.IsInBounds(box.TopLeft), Is.True);
+            Assert.That(box.IsInBounds(box.TopRight), Is.False);
+            Assert.That(box.IsInBounds(box.BottomRight), Is.False);
+
+            var bl = box.BottomLeft;
+            var tl = box.TopLeft;
+            var tr = box.TopRight;
+            var br = box.BottomRight;
+
+            Assert.That(box.IsInBounds(bl.X, bl.Y), Is.False);
+            Assert.That(box.IsInBounds(tl.X, tl.Y), Is.True);
+            Assert.That(box.IsInBounds(tr.X, tr.Y), Is.False);
+            Assert.That(box.IsInBounds(br.X, br.Y), Is.False);
+        }
+
+        [Test]
+        public void Box2iIsInBounds([ValueSource(nameof(IsInBoundsTests))]
+            (int, int, bool) test)
+        {
+            var (x, y, isInBounds) = test;
+            var vec = new Vector2i(x, y);
+
+            var box = new UIBox2i(-1, -1, 1, 1);
+
+            Assert.That(box.IsInBounds(x, y) == isInBounds);
+            Assert.That(box.IsInBounds(vec) == isInBounds);
         }
 
         [Test]

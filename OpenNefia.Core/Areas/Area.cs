@@ -34,5 +34,10 @@ namespace OpenNefia.Core.Areas
         /// <inheritdoc/>
         [DataField]
         public AreaFloorId? StartingFloor { get; set; }
+
+        public override string ToString()
+        {
+            return $"Area(id={Id}, entUid={AreaEntityUid}, globalId={GlobalId})";
+        }
     }
 }
