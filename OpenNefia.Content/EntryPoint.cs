@@ -18,7 +18,7 @@ namespace OpenNefia.Content
     public class EntryPoint : ModEntryPoint
     {
         [Dependency] private readonly IConsoleHost _consoleHost = default!;
-        [Dependency] private readonly IReplLayer _repl = default!;
+        //[Dependency] private readonly IReplLayer _repl = default!;
         [Dependency] private readonly IRandomAliasGenerator _aliasGen = default!;
         [Dependency] private readonly IRandomNameGenerator _nameGen = default!;
         [Dependency] private readonly IConfigMenuUICellFactory _configMenuUICellFactory = default!;
@@ -40,7 +40,7 @@ namespace OpenNefia.Content
 
         private void InitializeDependencies()
         {
-            _repl.Initialize();
+            //_repl.Initialize();
             _aliasGen.Initialize();
             _nameGen.Initialize();
             _configMenuUICellFactory.Initialize();

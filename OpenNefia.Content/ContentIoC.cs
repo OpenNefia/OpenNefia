@@ -23,12 +23,12 @@ namespace OpenNefia.Content
             IoCManager.Register<IFieldLayer, FieldLayer>();
             IoCManager.Register<IHudLayer, HudLayer>();
             IoCManager.Register<IMessage, Message>();
-            IoCManager.Register<IReplLayer, ReplLayer>();
-            IoCManager.Register<IConsoleHost, ConsoleHost>();
-            IoCManager.Register<IReplExecutor, ConsoleCommandReplExecutor>();
-            IoCManager.Register<IConsoleOutput, ReplLayerConsoleOutput>();
-            IoCManager.Register<ICSharpReplExecutor, CSharpReplExecutor>();
-            IoCManager.Register<IConsole, DummyConsole>();
+            //IoCManager.Register<IReplLayer, ReplLayer>();
+            //IoCManager.Register<IConsoleHost, ConsoleHost>();
+            //IoCManager.Register<IReplExecutor, ConsoleCommandReplExecutor>();
+            //IoCManager.Register<IConsoleOutput, ReplLayerConsoleOutput>();
+            //IoCManager.Register<ICSharpReplExecutor, CSharpReplExecutor>();
+            //IoCManager.Register<IConsole, DummyConsole>();
             IoCManager.Register<IRandomAliasGenerator, RandomAliasGenerator>();
             IoCManager.Register<IRandomNameGenerator, RandomNameGenerator>();
             IoCManager.Register<IConfigMenuUICellFactory, ConfigMenuUICellFactory>();
