@@ -78,24 +78,36 @@
     (with-current-buffer (process-buffer proc)
       (erase-buffer))
     (process-put proc :response nil)
-    (with-demoted-errors "Error: %s"
-        (open-nefia-cs--process-response
-         (process-get proc :command)
-         (process-get proc :args)
-         response))))
+    (open-nefia-cs--process-response
+     (process-get proc :command)
+     (process-get proc :args)
+     response)))
 
 (defun open-nefia-cs--process-response (cmd args response)
-  (with-demoted-errors "Error: %s"
-    (-let (((&alist 'success 'message) response))
-      (if (eq success t)
-          (pcase cmd
-            ("exec" (let ((result (alist-get 'result response)))
-                      (message "--> %s" result)
-                      (eros--make-result-overlay result
-                        :where (line-end-position)
-                        :duration 5)))
-            (else (error "No action for %s %s" cmd (prin1-to-string response))))
-        (error message)))))
+  (let ((process (open-nefia-cs-repl-process)))
+    (condition-case err
+        (-let (((&alist 'success 'message) response))
+          (if (eq success t)
+              (pcase cmd
+                ("exec"
+                 (let ((result (alist-get 'result response)))
+                   (if (process-live-p process)
+                       (progn
+                         (comint-output-filter process result)
+                         (comint-output-filter process "\n")
+                         (comint-output-filter process open-nefia-cs-repl-prompt))
+                     (message "--> %s" result)
+                     (eros--make-result-overlay result
+                       :where (line-end-position)
+                       :duration 5))))
+                (else (error "No action for %s %s" cmd (prin1-to-string response))))
+            (error message)))
+        (error
+         (if (process-live-p process)
+             (progn
+               (comint-output-filter process (format "Error: %s\n" (error-message-string err)))
+               (comint-output-filter process open-nefia-cs-repl-prompt))
+           (message "Error: %s" err))))))
 
 ;;
 ;; Network
@@ -159,7 +171,10 @@ removed.  Return the new string.  If STRING is nil, return nil."
 
 (defun open-nefia-cs-send-region (start end)
   (interactive "r")
-  (open-nefia-cs--send-to-repl (buffer-substring-no-properties start end)))
+  (open-nefia-cs-repl-input-sender
+   (open-nefia-cs-repl-process)
+   (buffer-substring-no-properties start end)
+   t))
 
 (defun open-nefia-cs-send-buffer ()
   (interactive)
@@ -213,5 +228,138 @@ removed.  Return the new string.  If STRING is nil, return nil."
           (make-directory new-dir))
         (find-file new-file)
         (goto-line old-line)))))
+
+(defun open-nefia-cs--fontify-region (mode beg end)
+  (let ((prev-mode major-mode))
+    (delay-mode-hooks (funcall mode))
+    (font-lock-default-function mode)
+    (font-lock-default-fontify-region beg end nil)
+    ;(delay-mode-hooks (funcall prev-mode))
+    ))
+
+(defun open-nefia-cs--fontify-str (str mode)
+  (with-temp-buffer
+    (insert str)
+    (open-nefia-cs--fontify-region mode (point-min) (point-max))
+    (buffer-string)))
+
+;; keys for interacting inside Monroe REPL buffer
+(defvar open-nefia-cs-repl-mode-map
+  (let ((map (make-sparse-keymap)))
+    (set-keymap-parent map comint-mode-map)
+    (define-key map "\C-c\C-d" 'monroe-describe)
+    (define-key map "\C-c\C-c" 'monroe-interrupt)
+    (define-key map "\M-."     'monroe-jump)
+    map))
+
+(defun open-nefia-cs-repl-buffer ()
+  "Returns right monroe buffer."
+  (get-buffer (format "*open-nefia-cs-repl*")))
+
+(defun open-nefia-cs-repl-process ()
+  "Returns right monroe process."
+  (get-buffer-process (open-nefia-cs-repl-buffer)))
+
+(defcustom open-nefia-cs-repl-prompt "> "
+  "String used for displaying prompt."
+  :type 'regexp
+  :group 'open-nefia-cs)
+
+(defcustom open-nefia-cs-repl-prompt-regexp "^> *"
+  "Regexp to recognize prompts in Monroe more. The same regexp is
+used in inferior-lisp."
+  :type 'regexp
+  :group 'open-nefia-cs)
+
+(defun open-nefia-cs-repl--shell-faces-to-font-lock-faces (text &optional start-pos)
+  "Set all 'face in TEXT to 'font-lock-face optionally starting at START-POS."
+  (let ((pos 0)
+        (start-pos (or start-pos 0))
+        next)
+    (while (and (/= pos (length text))
+                (setq next (next-single-property-change pos 'face text)))
+      (let* ((plist (text-properties-at pos text))
+             (plist (-if-let (face (plist-get plist 'face))
+                        (progn (plist-put plist 'face nil)  ; Swap face
+                               (plist-put plist 'font-lock-face face))
+                      plist)))
+        (set-text-properties (+ start-pos pos) (+ start-pos next) plist)
+        (setq pos next)))))
+
+(defun open-nefia-cs-repl--shell-fontify-prompt-post-command-hook ()
+  "Fontify just the current line in `hy-shell-buffer' for `post-command-hook'.
+
+Constantly extracts current prompt text and executes and manages applying
+`hy--shell-faces-to-font-lock-faces' to the text."
+  (-when-let* (((_ . prompt-end) comint-last-prompt)
+               (_ (and prompt-end
+                       (> (point) prompt-end)  ; new command is being entered
+                       (process-live-p (open-nefia-cs-repl-process)))))  ; process alive?
+      (let* ((input (buffer-substring-no-properties prompt-end (point-max)))
+             (deactivate-mark nil)
+             (buffer-undo-list t)
+             (text (open-nefia-cs--fontify-str input 'csharp-mode)))
+        (open-nefia-cs-repl--shell-faces-to-font-lock-faces text prompt-end))))
+
+(defun open-nefia-cs-repl-input-sender (proc input &optional print-input)
+  "Called when user enter data in REPL and when something is received in."
+  (if print-input
+      (with-current-buffer (open-nefia-cs-repl-buffer)
+        (let ((prompt-end (cdr comint-last-prompt)))
+          (goto-char prompt-end)
+          (insert (format "%s" input))
+          (open-nefia-cs-repl--shell-fontify-prompt-post-command-hook)
+          (comint-send-input)))
+    (open-nefia-cs--send-to-repl input)))
+
+(defvar open-nefia-cs-repl-font-lock-keywords
+  (list
+   ;; comments
+   '(";.*$" . font-lock-comment-face)
+   ;; errors
+   '("^Error:.*$" . compilation-error)
+   '("^   at .*$" . compilation-error)
+   ;; output
+   '("^.*$" . font-lock-keyword-face))
+  "Additional expressions to highlight.")
+
+(define-derived-mode open-nefia-cs-repl-mode comint-mode "Monroe nREPL"
+  "Major mode for evaluating commands over nREPL.
+
+The following keys are available in `monroe-mode':
+
+  \\{monroe-mode-map}"
+
+  :syntax-table lisp-mode-syntax-table
+  (setq comint-prompt-regexp open-nefia-cs-repl-prompt-regexp)
+  (setq comint-input-sender 'open-nefia-cs-repl-input-sender)
+  (setq comint-highlight-input nil)
+  (setq mode-line-process '(":%s"))
+  (setq font-lock-defaults '(open-nefia-cs-repl-font-lock-keywords t))
+  (setq truncate-lines nil)
+  (add-hook 'post-command-hook
+            'open-nefia-cs-repl--shell-fontify-prompt-post-command-hook nil 'local)
+
+  ;; a hack to keep comint happy
+  (unless (comint-check-proc (current-buffer))
+    (let ((fake-proc (start-process "open-nefia-cs" (current-buffer) nil)))
+      (set-process-query-on-exit-flag fake-proc nil)
+      (insert (format ";; OpenNefia.NET REPL\n"))
+      (set-marker (process-mark fake-proc) (point))
+      (comint-output-filter fake-proc open-nefia-cs-repl-prompt))))
+
+;;; user command
+
+;;;###autoload
+(defun open-nefia-cs-repl ()
+  "Load monroe by setting up appropriate mode, asking user for
+connection endpoint."
+  (interactive)
+  (with-current-buffer
+      (get-buffer-create (concat "*open-nefia-cs-repl*"))
+    (progn
+      (goto-char (point-max))
+      (open-nefia-cs-repl-mode)
+      (switch-to-buffer (current-buffer)))))
 
 (provide 'open-nefia-cs)

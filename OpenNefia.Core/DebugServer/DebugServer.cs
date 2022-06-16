@@ -236,7 +236,17 @@ namespace OpenNefia.Core.DebugServer
         {
             _replExecutor.Initialize();
             var script = Regex.Unescape(opts.Script);
-            var result = _replExecutor.Execute(script);
+
+            var result = _replExecutor.Execute($"return {script}");
+            
+            if (result is not ReplExecutionResult.Success)
+            {
+                result = _replExecutor.Execute(script);
+            }
+            if (result is not ReplExecutionResult.Success)
+            {
+                result = _replExecutor.Execute(script + ";");
+            }
 
             switch (result)
             {
