@@ -1,3 +1,4 @@
+#nullable enable
 #r "System.Runtime"
 #r "C:/Users/yuno/build/OpenNefia.NET/OpenNefia.EntryPoint/bin/Debug/net6.0/OpenNefia.Core.dll"
 #r "C:/Users/yuno/build/OpenNefia.NET/OpenNefia.EntryPoint/bin/Debug/net6.0/Resources/Assemblies/OpenNefia.Content.dll"
@@ -16,5 +17,6 @@ using OpenNefia.Content.RandomText;
 var a = 1;
 var b = 2;
 var c = IoCManager.Resolve<IRandomNameGenerator>().GenerateRandomName();
+var map = IoCManager.Resolve<IMapManager>().ActiveMap!;
 
-return c;
+return map.AtPos(new (1, 2));
