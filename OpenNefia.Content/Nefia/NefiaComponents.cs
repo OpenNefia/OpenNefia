@@ -1,5 +1,4 @@
 ﻿using OpenNefia.Content.Maps;
-using OpenNefia.Content.Nefia.Generator;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Maps;
@@ -13,11 +12,6 @@ using System.Threading.Tasks;
 
 namespace OpenNefia.Content.Nefia
 {
-    public interface INefiaFloorTemplate
-    {
-        public void Setup(IMap map, NefiaGenParamsComponent nefiaParams);
-    }
-
     [RegisterComponent]
     [ComponentUsage(ComponentTarget.Map)]
     public class NefiaGenParamsComponent : Component
@@ -37,39 +31,44 @@ namespace OpenNefia.Content.Nefia
 
     [RegisterComponent]
     [ComponentUsage(ComponentTarget.Map)]
-    public class NefiaGenTypeComponent : Component
-    {
-        public override string Name => "NefiaGenType";
-
-        [DataField]
-        public INefiaFloorType Generator { get; set; } = new NefiaFloorStandard();
-    }
-
-    [RegisterComponent]
-    [ComponentUsage(ComponentTarget.Map)]
     public class NefiaCrowdDensityModifierComponent : Component
     {
         /// <inheritdoc />
         public override string Name => "MapNefiaCrowdDensityModifier";
 
         [DataField(required: true)]
-        public INefiaCrowdDensityModifier Modifier = new DefaultCrowdDensityModifier();
+        public INefiaCrowdDensityModifier Modifier = new SimpleCrowdDensityModifier();
     }
 
     public sealed record NefiaCrowdDensity(int MobCount, int ItemCount);
 
+    [ImplicitDataDefinitionForInheritors]
     public interface INefiaCrowdDensityModifier
     {
         public NefiaCrowdDensity Calculate(IMap map);
     }
 
-    public class DefaultCrowdDensityModifier : INefiaCrowdDensityModifier
+    public class SimpleCrowdDensityModifier : INefiaCrowdDensityModifier
     {
+        [DataField]
+        public int MobModifier { get; set; }
+
+        [DataField]
+        public int ItemModifier { get; set; }
+
+        public SimpleCrowdDensityModifier() : this(4, 4) {}
+
+        public SimpleCrowdDensityModifier(int mob, int item)
+        {
+            MobModifier = mob;
+            ItemModifier = item;
+        }
+
         public NefiaCrowdDensity Calculate(IMap map)
         {
             var entityMan = IoCManager.Resolve<IEntityManager>();
             var crowdDensity = entityMan.GetComponent<MapCommonComponent>(map.MapEntityUid).MaxCrowdDensity;
-            return new(crowdDensity / 4, crowdDensity / 4);
+            return new(crowdDensity / MobModifier, crowdDensity / ItemModifier);
         }
     }
 

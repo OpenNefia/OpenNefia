@@ -24,6 +24,7 @@ using OpenNefia.Content.GameObjects;
 using OpenNefia.Core.Log;
 using OpenNefia.Content.GameObjects.EntitySystems.Tag;
 using System.Text.RegularExpressions;
+using System.Reflection.Metadata;
 
 namespace OpenNefia.Content.Nefia
 {
@@ -41,12 +42,12 @@ namespace OpenNefia.Content.Nefia
 
         public override void Initialize()
         {
+            SubscribeLocalEvent<AreaNefiaComponent, AreaFloorGenerateEvent>(OnNefiaFloorGenerate, nameof(OnNefiaFloorGenerate));
             SubscribeLocalEvent<AreaNefiaComponent, AreaGeneratedEvent>(OnNefiaGenerated, nameof(OnNefiaGenerated));
             SubscribeLocalEvent<AreaNefiaComponent, RandomAreaCheckIsActiveEvent>(OnCheckIsActive, nameof(OnCheckIsActive));
             SubscribeLocalEvent<GenerateRandomAreaEvent>(GenerateRandomNefia, nameof(GenerateRandomNefia));
 
-            // TODO: temporary for now.
-            SubscribeLocalEvent<AreaNefiaComponent, AreaFloorGenerateEvent>(OnNefiaFloorGenerate, nameof(OnNefiaFloorGenerate));
+            // The nefia generation algorithms can be swapped in by subscribing to AreaFloorGenerateEvent.
         }
 
         private void OnCheckIsActive(EntityUid uid, AreaNefiaComponent areaNefia, RandomAreaCheckIsActiveEvent args)
@@ -72,6 +73,20 @@ namespace OpenNefia.Content.Nefia
             tagComp.AddTag(Protos.Tag.DungeonStairsSurfacing);
 
             return map;
+        }
+
+        private void OnNefiaFloorGenerate(EntityUid uid, AreaNefiaComponent component, AreaFloorGenerateEvent args)
+        {
+            if (args.Handled)
+                return;
+
+            var ev = new NefiaFloorGenerateEvent(args.Area, args.FloorId, args.PreviousCoords);
+            RaiseLocalEvent(uid, ev);
+
+            if (ev.Handled)
+            {
+                args.Handle(ev.ResultMapId!.Value);
+            }
         }
 
         public void GenerateRandomNefia(GenerateRandomAreaEvent args)
@@ -191,105 +206,6 @@ namespace OpenNefia.Content.Nefia
             return nefiaBaseLevel + floorNumber - 1;
         }
 
-        private void OnNefiaFloorGenerate(EntityUid areaEnt, AreaNefiaComponent areaNefia, AreaFloorGenerateEvent args)
-        {
-            if (args.Handled)
-                return;
-
-            //var ev = new GenerateNefiaFloorEvent(args.Area, args.FloorId, args.PreviousCoords);
-            //RaiseLocalEvent(areaEnt, ev);
-
-            var mapId = _mapManager.GenerateMapId();
-            var floorNumber = AreaIdToFloorNumber(args.FloorId);
-            var generator = new NefiaFloorGenerator();
-            
-            if (!generator.TryToGenerate(args.Area, mapId, floorNumber, out var map))
-            {
-                Logger.ErrorS("nefia.gen", $"Failed to generate Nefia floor!");
-                return;
-            }
-
-            if (!ConnectStairs(map, args.Area, floorNumber, args.PreviousCoords))
-            {
-                Logger.ErrorS("nefia.gen", $"Failed to connect stairs!");
-                return;
-            }
-
-            args.Handle(map);
-        }
-
-        private bool ConnectStairs(IMap map, IArea area, int floorNumber, MapCoordinates previousCoords)
-        {
-            // Note: Delving always means "closer to the boss level" regardless of stairs up/down
-            var delving = _tags.EntityWithTagInMap(map.Id, Protos.Tag.DungeonStairsDelving);
-            if (delving != null)
-            {
-                var areaDungeon = EntityManager.GetComponent<AreaDungeonComponent>(area.AreaEntityUid);
-
-                if (floorNumber >= areaDungeon.DeepestFloor)
-                {
-                    EntityManager.DeleteEntity(delving.Owner);
-                }
-                else
-                {
-                    var nextFloorId = FloorNumberToAreaId(floorNumber + 1);
-                    var stairs = EntityManager.GetComponent<StairsComponent>(delving.Owner);
-                    stairs.Entrance = new MapEntrance()
-                    {
-                        MapIdSpecifier = new AreaFloorMapIdSpecifier(area.Id, nextFloorId),
-                        StartLocation = new TaggedEntityMapLocation(Protos.Tag.DungeonStairsSurfacing)
-                    };
-
-                    Logger.InfoS("nefia.gen.floor", $"Delving stairs to: {nextFloorId}");
-                }
-            }
-            else
-            {
-                Logger.WarningS("nefia.gen.floor", "No stairs delving in dungeon.");
-            }
-
-            var surfacing = _tags.EntityWithTagInMap(map.Id, Protos.Tag.DungeonStairsSurfacing);
-            if (surfacing != null)
-            {
-                var stairs = EntityManager.GetComponent<StairsComponent>(surfacing.Owner);
-
-                if (floorNumber <= 1)
-                {
-                    if (!_areaManager.TryGetParentArea(area.Id, out var parentArea))
-                    {
-                        Logger.ErrorS("nefia.gen.floor", "No parent area to surface to!");
-                    }
-                    else
-                    {
-                        // TODO for better precision, the entity UID of the entrance needs to be passed here.
-                        // but MapEntrance doesn't attach any entity information.
-                        stairs.Entrance = MapEntrance.FromMapCoordinates(previousCoords);
-
-                        Logger.InfoS("nefia.gen.floor", $"Surfacing stairs to coords: {previousCoords}");
-                    }
-                }
-                else
-                {
-                    var prevFloorId = FloorNumberToAreaId(floorNumber - 1);
-                    stairs.Entrance = new MapEntrance()
-                    {
-                        MapIdSpecifier = new AreaFloorMapIdSpecifier(area.Id, prevFloorId),
-                        StartLocation = new TaggedEntityMapLocation(Protos.Tag.DungeonStairsDelving)
-                    };
-
-                    Logger.InfoS("nefia.gen.floor", $"Surfacing stairs to: {prevFloorId}");
-                }
-            }
-            else
-            {
-                // Weird, we should always have surfacing stairs.
-                Logger.ErrorS("nefia.gen.floor", "No stairs surfacing in dungeon.");
-                return false;
-            }
-
-            return true;
-        }
-
         private static IEnumerable<Vector2i> EnumerateBorder(UIBox2i bounds)
         {
             var start = bounds.TopLeft;
@@ -325,6 +241,49 @@ namespace OpenNefia.Content.Nefia
                     }
                 }
             }
+        }
+    }
+
+    public sealed class NefiaFloorGenerateEvent : HandledEntityEventArgs
+    {
+        /// <summary>
+        /// Area a floor is being generated in.
+        /// </summary>
+        public IArea Area { get; }
+
+        /// <summary>
+        /// ID of the floor.
+        /// </summary>
+        public AreaFloorId FloorId { get; }
+
+        /// <summary>
+        /// Map coordinates of the player at the time the floor is generated.
+        /// This can be used to generate a map based on the terrain the player
+        /// is standing on (fields, forest, desert, etc.)
+        /// </summary>
+        public MapCoordinates PreviousCoords { get; }
+
+        // TODO would be nice to have EntityCoordinates also
+
+        /// <summary>
+        /// Map of the area's floor that was created. If this is left as <c>null</c>,
+        /// then floor creation failed.
+        /// </summary>
+        public MapId? ResultMapId { get; private set; }
+
+        public NefiaFloorGenerateEvent(IArea area, AreaFloorId floorId, MapCoordinates previousCoords)
+        {
+            Area = area;
+            FloorId = floorId;
+            PreviousCoords = previousCoords;
+        }
+
+        public void Handle(IMap map) => Handle(map.Id);
+
+        public void Handle(MapId mapId)
+        {
+            Handled = true;
+            ResultMapId = mapId;
         }
     }
 }

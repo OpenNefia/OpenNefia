@@ -21,9 +21,75 @@ using OpenNefia.Content.EntityGen;
 using OpenNefia.Content.GameObjects.EntitySystems.Tag;
 using OpenNefia.Content.GameObjects;
 
-namespace OpenNefia.Content.Nefia.Generator
+namespace OpenNefia.Content.Nefia.Layout
 {
-    public sealed class NefiaFloorStandard : INefiaFloorType
+    public interface INefiaLayoutCommon : IEntitySystem
+    {
+        IMap CreateMap(MapId mapId, BaseNefiaGenParams baseParams, Vector2i mapSize);
+        IMap CreateMap(MapId mapId, BaseNefiaGenParams baseParams);
+
+        bool DigPath(IMap map, Vector2i start, Vector2i end, bool straight, float hiddenPathChance);
+
+        EntityUid? PlaceStairsDelvingInRoom(IMap map, Room room);
+        EntityUid? PlaceStairsSurfacingInRoom(IMap map, Room room);
+        EntityUid? PlaceStairsSurfacing(MapCoordinates coords);
+        EntityUid? PlaceStairsDelving(MapCoordinates coords);
+
+        bool TryDigRoom(IMap map, List<Room> rooms, RoomType kind, int minSize, int maxSize, [NotNullWhen(true)] out Room? room);
+        bool TryDigRoomIfBelowMax(IMap map, List<Room> rooms, RoomType kind, int minSize, int maxSize, [NotNullWhen(true)] out Room? room);
+        bool TryConnectRooms(IMap map, List<Room> rooms, bool placeDoors, BaseNefiaGenParams baseParams);
+
+        void DigMaze(IMap map, List<Room> rooms, Blackboard<NefiaGenParams> data, int klass, int bold);
+        bool PlaceStairsInMaze(IMap map);
+
+        int CalculateDoorDifficulty(IMap map);
+    }
+
+    public enum RoomType
+    {
+        /// <summary>
+        /// Generates rooms anywhere.
+        /// </summary>
+        Anywhere,
+
+        /// <summary>
+        /// Generates rooms anywhere, away from the edges of the map.
+        /// </summary>
+        NonEdge,
+
+        /// <summary>
+        /// Generates rooms on the edges of the map.
+        /// </summary>
+        Edge,
+
+        /// <summary>
+        /// Generates small 3x3 rooms.
+        /// </summary>
+        Small,
+
+        /// <summary>
+        /// Generates rooms at least 3 tiles away from the edges of the map.
+        /// </summary>
+        Inner
+    }
+
+    public enum WallType
+    {
+        None,
+        Wall,
+        Floor,
+        Room
+    }
+
+    public enum DoorType
+    {
+        None,
+        Room,
+        Random,
+        RandomNoDoor
+    }
+
+    public sealed class NefiaLayoutCommonSystem : EntitySystem, INefiaLayoutCommon
     {
         [Dependency] private readonly IMapManager _mapManager = default!;
         [Dependency] private readonly IEntityManager _entityManager = default!;
@@ -34,50 +100,6 @@ namespace OpenNefia.Content.Nefia.Generator
         /// Maximum room count per nefia.
         /// </summary>
         private const int MAX_ROOMS = 30;
-
-        public enum RoomType
-        {
-            /// <summary>
-            /// Generates rooms anywhere.
-            /// </summary>
-            Anywhere,
-
-            /// <summary>
-            /// Generates rooms anywhere, away from the edges of the map.
-            /// </summary>
-            NonEdge,
-
-            /// <summary>
-            /// Generates rooms on the edges of the map.
-            /// </summary>
-            Edge,
-
-            /// <summary>
-            /// Generates small 3x3 rooms.
-            /// </summary>
-            Small,
-
-            /// <summary>
-            /// Generates rooms at least 3 tiles away from the edges of the map.
-            /// </summary>
-            Inner
-        }
-
-        public enum WallType
-        {
-            None,
-            Wall,
-            Floor,
-            Room
-        }
-
-        public enum DoorType
-        {
-            None,
-            Room,
-            Random,
-            RandomNoDoor
-        }
 
         public record RoomTemplate(RoomType roomType, WallType wallType, DoorType doorType);
 
@@ -107,7 +129,7 @@ namespace OpenNefia.Content.Nefia.Generator
         public IMap CreateMap(MapId mapId, BaseNefiaGenParams baseParams)
             => CreateMap(mapId, baseParams, baseParams.MapSize);
 
-        public Room? CalcRoomSize(RoomType roomType, int minSize, int maxSize, Vector2i mapSize)
+        private Room? CalcRoomSize(RoomType roomType, int minSize, int maxSize, Vector2i mapSize)
         {
             var x = 0;
             var y = 0;
@@ -125,17 +147,18 @@ namespace OpenNefia.Content.Nefia.Generator
                     y = _rand.Next(mapSize.Y) + 2;
                     break;
                 case RoomType.NonEdge:
-                    w = ((_rand.Next(maxSize) + minSize) / 3 * 3) + 5;
-                    h = ((_rand.Next(maxSize) + minSize) / 3 * 3) + 5;
-                    x = (_rand.Next(mapSize.X) / 3 * 3) + 2;
-                    y = (_rand.Next(mapSize.Y) / 3 * 3) + 2;
+                    w = (_rand.Next(maxSize) + minSize) / 3 * 3 + 5;
+                    h = (_rand.Next(maxSize) + minSize) / 3 * 3 + 5;
+                    x = _rand.Next(mapSize.X) / 3 * 3 + 2;
+                    y = _rand.Next(mapSize.Y) / 3 * 3 + 2;
                     break;
                 case RoomType.Edge:
                     dir = DirectionUtility.RandomCardinalDirections().First();
                     if (dir == Direction.North || dir == Direction.South)
                     {
-                        x = _rand.Next(mapSize.X - minSize * 3 / 2 - 2) + minSize / 2;
+                        x = _rand.Next(mapSize.X - minSize * 3 / 2 - 2) + (minSize / 2);
                         w = _rand.Next(minSize) + minSize / 2 + 3;
+                        h = minSize;
                         if (dir == Direction.North)
                             y = 0;
                         else
@@ -143,7 +166,8 @@ namespace OpenNefia.Content.Nefia.Generator
                     }
                     else
                     {
-                        y = _rand.Next(mapSize.Y - minSize * 3 / 2 - 2) + minSize / 2;
+                        y = _rand.Next(mapSize.Y - minSize * 3 / 2 - 2) + (minSize / 2);
+                        w = minSize;
                         h = _rand.Next(minSize) + minSize / 2 + 3;
                         if (dir == Direction.West)
                             x = 0;
@@ -241,7 +265,7 @@ namespace OpenNefia.Content.Nefia.Generator
                 Protos.Item.GreenPlant
             };
 
-        private bool TryDigRoom(IMap map, List<Room> rooms, RoomType kind, int minSize, int maxSize, [NotNullWhen(true)] out Room? room)
+        public bool TryDigRoom(IMap map, List<Room> rooms, RoomType kind, int minSize, int maxSize, [NotNullWhen(true)] out Room? room)
         {
             var template = RoomTemplates[kind];
 
@@ -363,62 +387,74 @@ namespace OpenNefia.Content.Nefia.Generator
                 posOffset = room.Bounds.Height;
             }
 
-            var offsets = new Vector2i[2];
+            var wallOffsets = new Vector2i[2];
             var pos = Vector2i.Zero;
+            var doorOffsets = new List<int>();
 
-            foreach (var doorPos in DirectionUtility.RandomCardinalDirections())
+            for (var i = 0; i < posOffset - 3; i++)
+                doorOffsets.Add(i);
+
+            foreach (var off in doorOffsets)
             {
-                switch(doorPos)
+                switch (dir)
                 {
                     case Direction.North:
-                        pos = (posOffset + room.Bounds.Left + 1, room.Bounds.Bottom - 1);
-                        offsets[0] = (0, -1);
-                        offsets[1] = (0, 1);
+                        pos = (off + room.Bounds.Left + 1, room.Bounds.Bottom - 1);
+                        wallOffsets[0] = (0, -1);
+                        wallOffsets[1] = (0, 1);
                         break;
                     case Direction.South:
                     default:
-                        pos = (posOffset + room.Bounds.Left + 1, room.Bounds.Top);
-                        offsets[0] = (0, -1);
-                        offsets[1] = (0, 1);
+                        pos = (off + room.Bounds.Left + 1, room.Bounds.Top);
+                        wallOffsets[0] = (0, -1);
+                        wallOffsets[1] = (0, 1);
                         break;
                     case Direction.West:
-                        pos = (room.Bounds.Right - 1, posOffset + room.Bounds.Top + 1);
-                        offsets[0] = (-1, 0);
-                        offsets[1] = (1, 0);
+                        pos = (room.Bounds.Right - 1, off + room.Bounds.Top + 1);
+                        wallOffsets[0] = (-1, 0);
+                        wallOffsets[1] = (1, 0);
                         break;
                     case Direction.East:
-                        pos = (room.Bounds.Left, posOffset + room.Bounds.Top + 1);
-                        offsets[0] = (-1, 0);
-                        offsets[1] = (1, 0);
+                        pos = (room.Bounds.Left, off + room.Bounds.Top + 1);
+                        wallOffsets[0] = (-1, 0);
+                        wallOffsets[1] = (1, 0);
                         break;
                 }
-            }
 
-            foreach (var offset in offsets)
-            {
-                var dpos = pos + offset;
-                if (!map.Bounds.IsInBounds(dpos))
+                var success = true;
+                foreach (var offset in wallOffsets)
                 {
-                    return false;
+                    var dpos = pos + offset;
+                    if (!map.Bounds.IsInBounds(dpos))
+                    {
+                        success = false;
+                        break;
+                    }
+                    if (map.GetTile(dpos)!.Value.Tile.GetStrongID() == Protos.Tile.MapgenWall)
+                    {
+                        success = false;
+                        break;
+                    }
                 }
-                if (map.GetTile(dpos)!.Value.Tile.GetStrongID() == Protos.Tile.MapgenWall)
+
+                if (success)
                 {
-                    return false;
+                    Logger.Warning($"door {off} {pos} {room.Bounds}");
+                    map.SetTile(pos, Protos.Tile.MapgenRoom);
+                    if (placeDoor)
+                    {
+                        // TODO
+                        // var difficulty = CalcDoorDifficulty(map);
+                        _entityGen.SpawnEntity(Protos.MObj.DoorWooden, map.AtPos(pos));
+                    }
+                    return true;
                 }
             }
 
-            map.SetTile(pos, Protos.Tile.MapgenRoom);
-            if (placeDoor)
-            {
-                // TODO
-                // var difficulty = CalcDoorDifficulty(map);
-                _entityGen.SpawnEntity(Protos.MObj.DoorWooden, map.AtPos(pos));
-            }
-
-            return true;
+            return false;
         }
 
-        private bool TryDigRoomIfBelowMax(IMap map, List<Room> rooms, RoomType kind, int minSize, int maxSize, [NotNullWhen(true)] out Room? room)
+        public bool TryDigRoomIfBelowMax(IMap map, List<Room> rooms, RoomType kind, int minSize, int maxSize, [NotNullWhen(true)] out Room? room)
         {
             if (rooms.Count > MAX_ROOMS)
             {
@@ -429,11 +465,23 @@ namespace OpenNefia.Content.Nefia.Generator
             return TryDigRoom(map, rooms, kind, minSize, maxSize, out room);
         }
 
-        private EntityUid? PlaceStairsSurfacing(IMap map, Room room)
+        public EntityUid? PlaceStairsSurfacingInRoom(IMap map, Room room)
         {
             var x = _rand.Next(room.Bounds.Width - 2) + room.Bounds.Left + 1;
             var y = _rand.Next(room.Bounds.Height - 2) + room.Bounds.Top + 1;
-            var stairs = _entityGen.SpawnEntity(Protos.MObj.StairsUp, map.AtPos(x, y));
+            return PlaceStairsSurfacing(map.AtPos(x, y));
+        }
+
+        public EntityUid? PlaceStairsDelvingInRoom(IMap map, Room room)
+        {
+            var x = _rand.Next(room.Bounds.Width - 2) + room.Bounds.Left + 1;
+            var y = _rand.Next(room.Bounds.Height - 2) + room.Bounds.Top + 1;
+            return PlaceStairsDelving(map.AtPos(x, y));
+        }
+
+        public EntityUid? PlaceStairsSurfacing(MapCoordinates coords)
+        {
+            var stairs = _entityGen.SpawnEntity(Protos.MObj.StairsUp, coords);
 
             if (stairs == null)
                 return null;
@@ -444,11 +492,9 @@ namespace OpenNefia.Content.Nefia.Generator
             return stairs;
         }
 
-        private EntityUid? PlaceStairsDelving(IMap map, Room room)
+        public EntityUid? PlaceStairsDelving(MapCoordinates coords)
         {
-            var x = _rand.Next(room.Bounds.Width - 2) + room.Bounds.Left + 1;
-            var y = _rand.Next(room.Bounds.Height - 2) + room.Bounds.Top + 1;
-            var stairs = _entityGen.SpawnEntity(Protos.MObj.StairsDown, map.AtPos(x, y));
+            var stairs = _entityGen.SpawnEntity(Protos.MObj.StairsDown, coords);
 
             if (stairs == null)
                 return null;
@@ -667,7 +713,7 @@ namespace OpenNefia.Content.Nefia.Generator
             return (curDir, lastDir);
         }
 
-        private bool DigPath(IMap map, Vector2i start, Vector2i end, bool straight, float hiddenPathChance)
+        public bool DigPath(IMap map, Vector2i start, Vector2i end, bool straight, float hiddenPathChance)
         {
             var curDir = Direction.North;
             var nextDir = Direction.Invalid;
@@ -763,7 +809,7 @@ namespace OpenNefia.Content.Nefia.Generator
             return success;
         }
 
-        private bool TryConnectRooms(IMap map, List<Room> rooms, bool placeDoors, BaseNefiaGenParams baseParams)
+        public bool TryConnectRooms(IMap map, List<Room> rooms, bool placeDoors, BaseNefiaGenParams baseParams)
         {
             for (int roomIdx = 0; roomIdx < rooms.Count - 1; roomIdx++)
             {
@@ -804,43 +850,196 @@ namespace OpenNefia.Content.Nefia.Generator
             return true;
         }
 
-        public IMap? Generate(IArea area, MapId mapId, int generationAttempt, int floorNumber, Blackboard<NefiaGenParams> data)
+        public void DigMaze(IMap map, List<Room> rooms, Blackboard<NefiaGenParams> data, int klass, int bold)
         {
-            EntitySystem.InjectDependencies(this);
+            var ind = 0;
+            var prevInd = 0;
 
-            var baseParams = data.Get<BaseNefiaGenParams>();
-            var map = CreateMap(mapId, baseParams);
+            var digPos = new Vector2i(bold, bold);
+            var wasDug = false;
 
-            var rooms = _entityManager.EnsureComponent<NefiaRoomsComponent>(map.MapEntityUid).Rooms;
+            var maze = new int[klass * klass];
+            maze[0] = 7;
 
-            if (!TryDigRoomIfBelowMax(map, rooms, RoomType.NonEdge, baseParams.MinRoomSize, baseParams.MaxRoomSize, out var upstairsRoom))
+            var way = DirectionUtility.RandomCardinalDirections().ToList();
+
+            while (true)
             {
-                Logger.ErrorS("nefia.gen.floor", "Could not dig room for upstairs");
-                return null;
+                _rand.Shuffle(way);
+                wasDug = false;
+
+                bool TryDig(Direction dir)
+                {
+                    prevInd = ind;
+
+                    switch (dir)
+                    {
+                        case Direction.South:
+                            if (prevInd / klass == 0)
+                            {
+                                return false;
+                            }
+                            else
+                            {
+                                ind -= klass;
+                            }
+                            break;
+                        case Direction.West:
+                            if (prevInd % klass == klass - 1)
+                            {
+                                return false;
+                            }
+                            else
+                            {
+                                ind++;
+                            }
+                            break;
+                        case Direction.East:
+                            if (prevInd / klass == klass - 1)
+                            {
+                                return false;
+                            }
+                            else
+                            {
+                                ind += klass;
+                            }
+                            break;
+                        case Direction.North:
+                            if (prevInd % klass == 0)
+                            {
+                                return false;
+                            }
+                            else
+                            {
+                                ind--;
+                            }
+                            break;
+                    }
+
+                    if (ind < maze.Length)
+                    {
+                        ind = prevInd;
+                        return false;
+                    }
+
+                    digPos.X = (prevInd % klass) * bold * 2 + bold;
+                    digPos.Y = (prevInd / klass) * bold * 2 + bold;
+
+                    void Dig(int w, int h)
+                    {
+                        for (var j = 0; j < h; j++)
+                        {
+                            for (var i = 0; i < w; i++)
+                            {
+                                var pos = digPos + (-bold * 2 + j - bold + 4, i - bold + 4);
+                                map.SetTile(pos, Protos.Tile.MapgenTunnel);
+                            }
+                        }
+                    }
+
+                    switch (dir)
+                    {
+                        case Direction.South:
+                            maze[ind] = 3;
+                            Dig(bold - 1, bold * 2);
+                            break;
+                        case Direction.West:
+                            maze[ind] = 4;
+                            Dig(bold * 3 - 1, bold - 1);
+                            break;
+                        case Direction.East:
+                            maze[ind] = 1;
+                            Dig(bold - 1, bold * 3 - 1);
+                            break;
+                        case Direction.North:
+                            maze[ind] = 2;
+                            Dig(bold * 2, bold - 1);
+                            break;
+                    }
+
+                    return true;
+                }
+
+                foreach (var dir in way)
+                {
+                    if (TryDig(dir))
+                    {
+                        wasDug = true;
+                        break;
+                    }
+                }
+
+                if (!wasDug)
+                {
+                    if (maze[ind] == 7)
+                    {
+                        break;
+                    }
+
+                    if (maze[ind] == 1)
+                    {
+                        ind -= klass;
+                    }
+                    else if (maze[ind] == 2)
+                    {
+                        ind++;
+                    }
+                    else if (maze[ind] == 3)
+                    {
+                        ind += klass;
+                    }
+                    else if (maze[ind] == 4)
+                    {
+                        ind--;
+                    }
+                }
+            }
+        }
+
+        public bool PlaceStairsInMaze(IMap map)
+        {
+            var surfacingPos = MapCoordinates.Nullspace;
+            var delvingPos = MapCoordinates.Nullspace;
+            var found = true;
+
+            for (var i = 0; i < 5000; i++)
+            {
+                surfacingPos = map.AtPos(_rand.NextVec2iInBounds(map.Bounds));
+                if (map.CanAccess(surfacingPos) && map.GetTile(surfacingPos)!.Value.Tile.GetStrongID() == Protos.Tile.MapgenTunnel)
+                {
+                    delvingPos = map.AtPos(_rand.NextVec2iInBounds(map.Bounds));
+                    if (map.CanAccess(delvingPos) && map.GetTile(delvingPos)!.Value.Tile.GetStrongID() == Protos.Tile.MapgenTunnel)
+                    {
+                        if (surfacingPos.TryDistanceTiled(delvingPos, out var dist) && dist >= 10)
+                        {
+                            found = true;
+                            break;
+                        }
+                    }
+                }
             }
 
-            PlaceStairsSurfacing(map, upstairsRoom.Value);
-
-            if (!TryDigRoomIfBelowMax(map, rooms, RoomType.NonEdge, baseParams.MinRoomSize, baseParams.MaxRoomSize, out var downstairsRoom))
+            if (!found)
             {
-                Logger.ErrorS("nefia.gen.floor", "Could not dig room for downstairs");
-                return null;
+                Logger.ErrorS("nefia.gen.floor", "Could not place stairs in dungeon maze.");
+                return false;
             }
 
-            PlaceStairsDelving(map, downstairsRoom.Value);
+            if (PlaceStairsSurfacing(surfacingPos) == null)
+                return false;
+            if (PlaceStairsDelving(delvingPos) == null)
+                return false;
 
-            for (int i = 0; i < baseParams.RoomCount; i++)
-            {
-                TryDigRoomIfBelowMax(map, rooms, RoomType.NonEdge, baseParams.MinRoomSize, baseParams.MaxRoomSize, out _);
-            }
+            return true;
+        }
 
-            if (!TryConnectRooms(map, rooms, true, baseParams))
-            {
-                Logger.ErrorS("nefia.gen.floor", $"Could not connect {rooms.Count} rooms");
-                return null;
-            }
+        public int CalculateDoorDifficulty(IMap map)
+        {
+            var level = 1;
+            if (_entityManager.TryGetComponent<LevelComponent>(map.MapEntityUid, out var levelComp))
+                level = levelComp.Level;
 
-            return map;
+            return _rand.Next(Math.Abs(level * 3 / 2) + 1);
         }
     }
 }

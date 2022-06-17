@@ -336,7 +336,13 @@ namespace OpenNefia.Core.Areas
             }
 
             var spatial = _entityManager.GetComponent<SpatialComponent>(area.AreaEntityUid);
-            var parentAreaComp = _entityManager.GetComponent<AreaComponent>(spatial.ParentUid);
+
+            if (!_entityManager.TryGetComponent<AreaComponent>(spatial.ParentUid, out var parentAreaComp))
+            {
+                parentArea = null;
+                return false;
+            }
+
             return TryGetArea(parentAreaComp.AreaId, out parentArea);
         }
     }
