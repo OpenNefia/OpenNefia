@@ -9,6 +9,8 @@
   - type: AreaEntrance
     startLocation: !type:TaggedEntityMapLocation
       tag: Elona.DungeonStairsSurfacing
+  - type: NefiaGenType
+    generator: !type:NefiaFloorStandard
 
 #
 # Dungeon
@@ -47,6 +49,8 @@
   components:
   - type: AreaEntrance
     entranceEntity: Elona.NefiaForestEntrance
+  - type: NefiaGenType
+    generator: !type:NefiaFloorStandard
 
 #
 # Tower
@@ -65,6 +69,8 @@
   components:
   - type: AreaEntrance
     entranceEntity: Elona.NefiaTowerEntrance
+  - type: NefiaGenType
+    generator: !type:NefiaFloorStandard
 
 #
 # Fort
@@ -83,3 +89,5 @@
   components:
   - type: AreaEntrance
     entranceEntity: Elona.NefiaFortEntrance
+  - type: NefiaGenType
+    generator: !type:NefiaFloorStandard

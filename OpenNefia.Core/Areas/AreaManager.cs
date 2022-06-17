@@ -24,6 +24,7 @@ namespace OpenNefia.Core.Areas
         bool TryGetArea(AreaId areaId, [NotNullWhen(true)] out IArea? area);
         IArea GetArea(AreaId areaId);
         void DeleteArea(AreaId areaId);
+        bool TryGetParentArea(AreaId areaId, [NotNullWhen(true)] out IArea? parentArea);
 
         void RegisterAreaFloor(IArea area, AreaFloorId floorId, IMap map);
         void RegisterAreaFloor(IArea area, AreaFloorId floorId, MapId mapId);
@@ -324,6 +325,19 @@ namespace OpenNefia.Core.Areas
         public IArea GetArea(AreaId areasId)
         {
             return _areas[areasId];
+        }
+
+        public bool TryGetParentArea(AreaId areaId, [NotNullWhen(true)] out IArea? parentArea)
+        {
+            if (!TryGetArea(areaId, out var area))
+            {
+                parentArea = null;
+                return false;
+            }
+
+            var spatial = _entityManager.GetComponent<SpatialComponent>(area.AreaEntityUid);
+            var parentAreaComp = _entityManager.GetComponent<AreaComponent>(spatial.ParentUid);
+            return TryGetArea(parentAreaComp.AreaId, out parentArea);
         }
     }
 

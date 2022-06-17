@@ -164,6 +164,11 @@ handlers["base.chara"] = function(from, to)
         end
     end
 
+    if (from.creaturepack or 0) ~= 0 then
+        c = comp(to, "CreaturePack")
+        c.category = "Elona." .. Enum.CharaCategory:to_string(from.creaturepack)
+    end
+
     if #from.tags > 0 then
         c = comp(to, "Tag")
         c.tags = {}
@@ -646,7 +651,7 @@ local function write(ty, filename)
     file:close()
 end
 
--- write("base.chara", "Entity/Chara.yml")
+write("base.chara", "Entity/Chara.yml")
 -- write("base.item", "Entity/Item.yml")
 -- write("base.class", "Class.yml")
 -- write("base.race", "Race.yml")

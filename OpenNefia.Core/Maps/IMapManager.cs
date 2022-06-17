@@ -10,6 +10,7 @@ namespace OpenNefia.Core.Maps
     public interface IMapManager
     {
         IMap? ActiveMap { get; }
+        int NextMapId { get; }
 
         /// <summary>
         /// All maps that are currently loaded in memory.

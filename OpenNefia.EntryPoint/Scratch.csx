@@ -15,8 +15,10 @@ using OpenNefia.Content.Prototypes;
 using OpenNefia.Content.RandomText;
 using OpenNefia.Content.Debug;
 using OpenNefia.Content.Nefia;
+using OpenNefia.Content.Maps;
 
 var _maps = IoCManager.Resolve<IMapManager>();
+var _entities = IoCManager.Resolve<IEntityManager>();
 var _script = EntitySystem.Get<ScriptTools>();
 
 var area = _script.GetOrCreateArea("TestArea", new("Elona.NefiaDungeon"), null);
@@ -28,4 +30,7 @@ if (gen.TryToGenerate(area, mapId, 1, out var map))
     return _script.PrintMap(map);
 }
 
-return "???";
+var tmap = _maps.ActiveMap!;
+var common = _entities.GetComponent<MapCommonComponent>(tmap.MapEntityUid);
+
+return common.Tileset;

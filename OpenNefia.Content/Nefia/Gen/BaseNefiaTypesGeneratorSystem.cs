@@ -9,6 +9,14 @@ using OpenNefia.Core.Log;
 using System.Diagnostics.CodeAnalysis;
 using OpenNefia.Core.Random;
 using OpenNefia.Core.Directions;
+using Love;
+using static OpenNefia.Content.Prototypes.Protos;
+using OpenNefia.Content.EntityGen;
+using OpenNefia.Content.Charas;
+using static NetVips.Enums;
+using OpenNefia.Content.GameObjects;
+using OpenNefia.Core.Areas;
+using OpenNefia.Content.GameObjects.EntitySystems.Tag;
 
 namespace OpenNefia.Content.Nefia
 {
@@ -16,11 +24,16 @@ namespace OpenNefia.Content.Nefia
     {
         [Dependency] private readonly IMapManager _mapManager = default!;
         [Dependency] private readonly IRandom _rand = default!;
+        [Dependency] private readonly IMapTilesetSystem _mapTilesets = default!;
+        [Dependency] private readonly IEntityGen _entityGen = default!;
+        [Dependency] private readonly IEntityLookup _lookup = default!;
+        [Dependency] private readonly ITagSystem _tags = default!;
 
         public override void Initialize()
         {
             SubscribeLocalEvent<GenerateNefiaFloorParamsEvent>(SetupBaseParams, nameof(SetupBaseParams));
             SubscribeLocalEvent<NefiaGenTypeComponent, GenerateNefiaFloorAttemptEvent>(GenerateFloor, nameof(GenerateFloor));
+            SubscribeLocalEvent<AfterGenerateNefiaFloorEvent>(FinalizeNefia, nameof(FinalizeNefia));
         }
 
         private void SetupBaseParams(GenerateNefiaFloorParamsEvent ev)
@@ -44,6 +57,187 @@ namespace OpenNefia.Content.Nefia
             {
                 args.Handle();
             }
+        }
+
+        private void FinalizeNefia(AfterGenerateNefiaFloorEvent ev)
+        {
+            var map = ev.Map;
+            var common = EntityManager.EnsureComponent<MapCommonComponent>(map.MapEntityUid);
+            common.Tileset = ev.BaseParams.Tileset;
+            _mapTilesets.ApplyTileset(map, common.Tileset);
+
+            var rooms = EntityManager.EnsureComponent<NefiaRoomsComponent>(map.MapEntityUid);
+
+            Logger.DebugS("nefia.gen.floor", $"Populating {rooms.Rooms.Count} dungeon rooms.");
+            PopulateRooms(map, rooms.Rooms, ev.BaseParams);
+
+            var maxCrowdDensity = common.MaxCrowdDensity;
+            var density = new NefiaCrowdDensity(maxCrowdDensity / 4, maxCrowdDensity / 4);
+            if (EntityManager.TryGetComponent<NefiaCrowdDensityModifierComponent>(map.MapEntityUid, out var modifier))
+            {
+                density = modifier.Modifier.Calculate(map);
+            }
+
+            AddMobsAndTraps(map, density);
+
+            // TODO little sister
+        }
+
+        private void PopulateRooms(IMap map, List<Room> rooms, BaseNefiaGenParams baseParams)
+        {
+            var creaturePacks = baseParams.CreaturePacks;
+            var hasMonsterHouse = false;
+            var level = EntityManager.EnsureComponent<LevelComponent>(map.MapEntityUid);
+
+            foreach (var room in rooms)
+            {
+                var bounds = new UIBox2i(room.Bounds.TopLeft + (1, 1), room.Bounds.BottomRight - (2, 2));
+                var size = bounds.Width * bounds.Height;
+
+                for (var i = 0; i < size / 8 + 2; i++)
+                {
+                    if (_rand.OneIn(2))
+                    {
+                        // TODO
+                        var itemPos = _rand.NextVec2iInBounds(bounds);
+                        _entityGen.SpawnEntity(Protos.Item.Putitoro, map.AtPos(itemPos));
+                    }
+
+                    // TODO filter
+
+                    var charaPos = _rand.NextVec2iInBounds(bounds);
+                    var chara = _entityGen.SpawnEntity(Protos.Chara.Putit, map.AtPos(charaPos));
+                    if (chara != null)
+                    {
+                        if (level.Level > 3)
+                        {
+                            if (EntityManager.TryGetComponent<CreaturePackComponent>(chara.Value, out var creaturePack))
+                            {
+                                if (_rand.OneIn(creaturePacks * 5 + 5))
+                                {
+                                    creaturePacks++;
+                                    var creatureCount = 10 + _rand.Next(20);
+                                    for (var j = 0; j < creatureCount; j++)
+                                    {
+                                        // TODO
+                                        var pos = _rand.NextVec2iInBounds(bounds);
+                                        _entityGen.SpawnEntity(Protos.Chara.RedPutit, map.AtPos(pos));
+                                    }
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                if (!HasStairsInRoom(map, room))
+                {
+                    if (!hasMonsterHouse || baseParams.CanHaveMultipleMonsterHouses)
+                    {
+                        if (_rand.OneIn(8) && size < 40)
+                        {
+                            hasMonsterHouse = true;
+
+                            for (var ry = bounds.Top; ry < bounds.Bottom - 1; ry++)
+                            {
+                                for (var rx = bounds.Left; rx < bounds.Right - 1; rx++)
+                                {
+                                    // TODO
+                                    _entityGen.SpawnEntity(Protos.Chara.Slime, map.AtPos(rx, ry));
+                                }
+                            }
+
+                            if (!baseParams.CanHaveMultipleMonsterHouses)
+                            {
+                                for (var j = 0; j < _rand.Next(3); j++)
+                                {
+                                    // TODO
+                                    var pos = _rand.NextVec2iInBounds(bounds);
+                                    _entityGen.SpawnEntity(Protos.Item.BejeweledChest, map.AtPos(pos));
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        private bool HasStairsInRoom(IMap map, Room room)
+        {
+            return _lookup.EntityQueryInMap<SpatialComponent, StairsComponent>(map.Id)
+                .Any(ent => room.Bounds.IsInBounds(ent.Item1.WorldPosition));
+        }
+
+        private void AddMobsAndTraps(IMap map, NefiaCrowdDensity density)
+        {
+            for (var i = 0; i < density.MobCount; i++)
+            {
+                // TODO
+                var pos = _rand.NextVec2iInBounds(map.Bounds);
+                _entityGen.SpawnEntity(Protos.Chara.Yeek, map.AtPos(pos));
+            }
+
+            for (var i = 0; i < density.ItemCount; i++)
+            {
+                // TODO
+                var pos = _rand.NextVec2iInBounds(map.Bounds);
+                _entityGen.SpawnEntity(Protos.Item.Aloe, map.AtPos(pos));
+            }
+
+            var trapDensity = _rand.Next(map.Width * map.Height / 80);
+            for (var i = 0; i < trapDensity; i++)
+            {
+                PlaceTrap(map);
+            }
+
+            if (_rand.OneIn(5))
+            {
+                var webDensity = _rand.Next(map.Width * map.Height / 40);
+                if (_rand.OneIn(5))
+                {
+                    webDensity = _rand.Next(map.Width * map.Height / 5);
+                }
+                for (var i = 0; i < webDensity; i++)
+                {
+                    PlaceWeb(map);
+                }
+            }
+
+            if (_rand.OneIn(4))
+            {
+                var potDensity = Math.Clamp(_rand.Next(map.Width * map.Height / 500 + 1) + 1, 3, 15);
+                for (var i = 0; i < potDensity; i++)
+                {
+                    PlacePot(map);
+                }
+            }
+        }
+
+        private void PlaceTrap(IMap map, MapCoordinates? coords = null)
+        {
+            if (coords == null)
+                coords = map.AtPos(_rand.Next(map.Width - 5) + 2, _rand.Next(map.Height - 5) + 2);
+
+            // TODO
+            _entityGen.SpawnEntity(Protos.MObj.Mine, coords.Value);
+        }
+
+        private void PlaceWeb(IMap map, MapCoordinates? coords = null)
+        {
+            if (coords == null)
+                coords = map.AtPos(_rand.Next(map.Width - 5) + 2, _rand.Next(map.Height - 5) + 2);
+
+            // TODO
+            _entityGen.SpawnEntity(Protos.Mef.Web, coords.Value);
+        }
+
+        private void PlacePot(IMap map, MapCoordinates? coords = null)
+        {
+            if (coords == null)
+                coords = map.AtPos(_rand.Next(map.Width - 5) + 2, _rand.Next(map.Height - 5) + 2);
+
+            // TODO
+            _entityGen.SpawnEntity(Protos.MObj.Pot, coords.Value);
         }
     }
 }

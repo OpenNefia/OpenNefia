@@ -155,6 +155,19 @@ namespace OpenNefia.Tests.Core.Areas
         }
 
         [Test]
+        public void TestCreateArea_Parenting()
+        {
+            var areaMan = IoCManager.Resolve<IAreaManager>();
+
+            var parentArea = areaMan.CreateArea(null);
+            var area = areaMan.CreateArea(null, parent: parentArea.Id);
+
+            Assert.That(areaMan.TryGetParentArea(area.Id, out var parentArea2), Is.True);
+            Assert.That(parentArea2, Is.Not.Null);
+            Assert.That(parentArea2!.Id, Is.EqualTo(parentArea.Id));
+        }
+
+        [Test]
         public void TestRegisterAreaFloor()
         {
             var areaMan = IoCManager.Resolve<IAreaManager>();

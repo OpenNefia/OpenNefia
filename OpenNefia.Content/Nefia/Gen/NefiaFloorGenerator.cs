@@ -18,7 +18,6 @@ namespace OpenNefia.Content.Nefia
         [Dependency] private readonly IMapManager _mapManager = default!;
         [Dependency] private readonly IEntityManager _entityManager = default!;
         [Dependency] private readonly IRandom _rand = default!;
-        [Dependency] private readonly IMapTilesetSystem _mapTilesets = default!;
 
         public NefiaFloorGenerator()
         {
@@ -72,9 +71,8 @@ namespace OpenNefia.Content.Nefia
                 return false;
             }
 
-            var baseParams = data.Get<BaseNefiaGenParams>();
-            var tileset = baseParams.Tileset;
-            _mapTilesets.ApplyTileset(map, tileset);
+            var ev = new AfterGenerateNefiaFloorEvent(area, map, data, floorNumber);
+            _entityManager.EventBus.RaiseLocalEvent(area.AreaEntityUid, ev);
 
             return true;
         }
@@ -99,8 +97,9 @@ namespace OpenNefia.Content.Nefia
         public int TunnelLength { get; set; } = 1;
         public float HiddenPathChance { get; set; } = 0.05f;
         public int CreaturePacks { get; set; } = 1;
+        public bool CanHaveMultipleMonsterHouses { get; set; } = false;
         public int MaxCharaCount { get; set; } = 1;
-        public PrototypeId<MapTilesetPrototype> Tileset { get; set; } = Protos.MapTileset.Dungeon;
+        public PrototypeId<MapTilesetPrototype> Tileset = Protos.MapTileset.Dungeon;
     }
 
     internal class GenerateNefiaFloorParamsEvent
@@ -147,6 +146,23 @@ namespace OpenNefia.Content.Nefia
         public void Handle()
         {
             Handled = true;
+        }
+    }
+
+    public sealed class AfterGenerateNefiaFloorEvent : EntityEventArgs
+    {
+        public IArea Area { get; }
+        public IMap Map { get; }
+        public int FloorNumber { get; }
+        public Blackboard<NefiaGenParams> Data { get; set; }
+        public BaseNefiaGenParams BaseParams => Data.Get<BaseNefiaGenParams>();
+
+        public AfterGenerateNefiaFloorEvent(IArea area, IMap map, Blackboard<NefiaGenParams> data, int floorNumber)
+        {
+            Area = area;
+            Map = map;
+            Data = data;
+            FloorNumber = floorNumber;
         }
     }
 }
