@@ -29,8 +29,6 @@ namespace OpenNefia.Content.Nefia
         /// Base level of this Nefia.
         /// </summary>
         public int BaseLevel { get; internal set; }
-
-
     }
 
     /// <summary>

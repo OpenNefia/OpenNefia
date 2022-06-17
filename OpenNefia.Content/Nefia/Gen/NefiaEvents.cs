@@ -1,87 +1,23 @@
 ﻿using OpenNefia.Content.Maps;
 using OpenNefia.Core.Areas;
 using OpenNefia.Core.GameObjects;
-using OpenNefia.Core.IoC;
-using OpenNefia.Core.Log;
 using OpenNefia.Core.Maps;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.Prototypes;
-using OpenNefia.Core.Random;
 using OpenNefia.Core.Utility;
 using OpenNefia.Content.Prototypes;
-using System.Diagnostics.CodeAnalysis;
 
 namespace OpenNefia.Content.Nefia
 {
-    public class NefiaFloorGenerator
-    {
-        [Dependency] private readonly IMapManager _mapManager = default!;
-        [Dependency] private readonly IEntityManager _entityManager = default!;
-        [Dependency] private readonly IRandom _rand = default!;
-
-        public NefiaFloorGenerator()
-        {
-            EntitySystem.InjectDependencies(this);
-        }
-
-        private bool TryToGenerateRaw(IArea area, MapId mapId, int floorNumber, [NotNullWhen(true)] out IMap? map, [NotNullWhen(true)] out Blackboard<NefiaGenParams>? data)
-        {
-            var attempts = 2000;
-
-            for (var i = 0; i < attempts; i++)
-            {
-                _mapManager.UnloadMap(mapId);
-                _rand.RandomizeSeed();
-
-                var width = 34 + _rand.Next(15);
-                var height = 22 + _rand.Next(15);
-
-                data = new Blackboard<NefiaGenParams>();
-                data.Add(new BaseNefiaGenParams(width, height));
-
-                var paramsEv = new GenerateNefiaFloorParamsEvent(area, mapId, data, floorNumber, i);
-                _entityManager.EventBus.RaiseLocalEvent(area.AreaEntityUid, paramsEv);
-
-                var genEv = new GenerateNefiaFloorAttemptEvent(area, mapId, data, floorNumber, i);
-                _entityManager.EventBus.RaiseLocalEvent(area.AreaEntityUid, genEv);
-
-                if (genEv.Handled)
-                {
-                    if (_mapManager.MapIsLoaded(mapId))
-                    {
-                        map = _mapManager.GetMap(mapId);
-                        return true;
-                    }
-                    else
-                    {
-                        Logger.ErrorS("nefia.gen.floor", $"Map for nefia floor {mapId} not generated!");
-                    }
-                }
-            }
-
-            data = null;
-            map = null;
-            return false;
-        }
-
-        public bool TryToGenerate(IArea area, MapId mapId, int floorNumber, [NotNullWhen(true)] out IMap? map)
-        {
-            if (!TryToGenerateRaw(area, mapId, floorNumber, out map, out var data))
-            {
-                return false;
-            }
-
-            var ev = new AfterGenerateNefiaFloorEvent(area, map, data, floorNumber);
-            _entityManager.EventBus.RaiseLocalEvent(area.AreaEntityUid, ev);
-
-            return true;
-        }
-    }
-
     public class NefiaGenParams {}
 
+    /// <summary>
+    /// Parameters general to all nefia geneation algorithms.
+    /// </summary>
     public sealed class BaseNefiaGenParams : NefiaGenParams
     {
+        public BaseNefiaGenParams() : this(10, 10) {}
+
         public BaseNefiaGenParams(int width, int height)
         {
             MapSize = Vector2i.ComponentMax(new(width, height), Vector2i.One);
@@ -99,7 +35,21 @@ namespace OpenNefia.Content.Nefia
         public int CreaturePacks { get; set; } = 1;
         public bool CanHaveMultipleMonsterHouses { get; set; } = false;
         public int MaxCharaCount { get; set; } = 1;
-        public PrototypeId<MapTilesetPrototype> Tileset = Protos.MapTileset.Dungeon;
+    }
+
+    /// <summary>
+    /// Parameters only used by <see cref="VanillaNefiaGenSystem"/>.
+    /// </summary>
+    public sealed class StandardNefiaGenParams : NefiaGenParams
+    {
+        public StandardNefiaGenParams(IVanillaNefiaTemplate template, IVanillaNefiaLayout layout)
+        {
+            Template = template;
+            Layout = layout;
+        }
+
+        public IVanillaNefiaTemplate Template { get; set; }
+        public IVanillaNefiaLayout Layout { get; set; }
     }
 
     internal class GenerateNefiaFloorParamsEvent

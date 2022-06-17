@@ -4,6 +4,7 @@ using OpenNefia.Core.Maps;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Content.Prototypes;
 using OpenNefia.Core.Serialization.Manager.Attributes;
+using OpenNefia.Content.Material;
 
 namespace OpenNefia.Content.Maps
 {
@@ -34,5 +35,8 @@ namespace OpenNefia.Content.Maps
         /// </summary>
         [DataField]
         public int MaxCrowdDensity { get; set; } = 0;
+
+        [DataField]
+        public PrototypeId<MaterialSpotPrototype>? MaterialSpotType { get; set; } = null;
     }
 }

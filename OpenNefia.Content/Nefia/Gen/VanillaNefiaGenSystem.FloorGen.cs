@@ -6,37 +6,23 @@ using OpenNefia.Content.Levels;
 using OpenNefia.Content.Maps;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.Log;
-using System.Diagnostics.CodeAnalysis;
 using OpenNefia.Core.Random;
-using OpenNefia.Core.Directions;
-using Love;
-using static OpenNefia.Content.Prototypes.Protos;
 using OpenNefia.Content.EntityGen;
 using OpenNefia.Content.Charas;
-using static NetVips.Enums;
 using OpenNefia.Content.GameObjects;
 using OpenNefia.Core.Areas;
 using OpenNefia.Content.GameObjects.EntitySystems.Tag;
+using OpenNefia.Content.Dungeons;
+using System.Diagnostics.CodeAnalysis;
+using OpenNefia.Core.Utility;
+using OpenNefia.Content.Nefia;
+using Love;
 
 namespace OpenNefia.Content.Nefia
 {
-    public sealed class BaseNefiaTypesGeneratorSystem : EntitySystem
+    public sealed partial class VanillaNefiaGenSystem
     {
-        [Dependency] private readonly IMapManager _mapManager = default!;
-        [Dependency] private readonly IRandom _rand = default!;
-        [Dependency] private readonly IMapTilesetSystem _mapTilesets = default!;
-        [Dependency] private readonly IEntityGen _entityGen = default!;
-        [Dependency] private readonly IEntityLookup _lookup = default!;
-        [Dependency] private readonly ITagSystem _tags = default!;
-
-        public override void Initialize()
-        {
-            SubscribeLocalEvent<GenerateNefiaFloorParamsEvent>(SetupBaseParams, nameof(SetupBaseParams));
-            SubscribeLocalEvent<NefiaGenTypeComponent, GenerateNefiaFloorAttemptEvent>(GenerateFloor, nameof(GenerateFloor));
-            SubscribeLocalEvent<AfterGenerateNefiaFloorEvent>(FinalizeNefia, nameof(FinalizeNefia));
-        }
-
-        private void SetupBaseParams(GenerateNefiaFloorParamsEvent ev)
+        private void SetupBaseParams(EntityUid uid, NefiaVanillaComponent component, GenerateNefiaFloorParamsEvent ev)
         {
             var baseParams = ev.BaseParams;
             var (width, height) = baseParams.MapSize;
@@ -49,21 +35,28 @@ namespace OpenNefia.Content.Nefia
             baseParams.DangerLevel = AreaNefiaSystem.NefiaFloorNumberToLevel(ev.FloorNumber, areaNefia.BaseLevel);
         }
 
-        private void GenerateFloor(EntityUid uid, NefiaGenTypeComponent component, GenerateNefiaFloorAttemptEvent args)
+        private void GenerateFloorAttempt(EntityUid uid, NefiaVanillaComponent component, GenerateNefiaFloorAttemptEvent args)
         {
-            var map = component.Generator.Generate(args.Area, args.MapId, args.GenerationAttempt, args.FloorNumber, args.Data);
+            var layout = args.Data.Get<StandardNefiaGenParams>().Layout;
+            var map = layout.Generate(args.Area, args.MapId, args.GenerationAttempt, args.FloorNumber, args.Data);
 
             if (map != null)
-            {
                 args.Handle();
-            }
         }
 
-        private void FinalizeNefia(AfterGenerateNefiaFloorEvent ev)
+        private void FinalizeNefia(EntityUid uid, NefiaVanillaComponent component, AfterGenerateNefiaFloorEvent ev)
         {
             var map = ev.Map;
+            var area = ev.Area;
+            var floorNumber = ev.FloorNumber;
+
+            if (ev.Data.TryGet<StandardNefiaGenParams>(out var stdParams))
+            {
+                stdParams.Template.AfterGenerateMap(area, map, floorNumber, ev.Data);
+                stdParams.Layout.AfterGenerateMap(area, map, floorNumber, ev.Data);
+            }
+
             var common = EntityManager.EnsureComponent<MapCommonComponent>(map.MapEntityUid);
-            common.Tileset = ev.BaseParams.Tileset;
             _mapTilesets.ApplyTileset(map, common.Tileset);
 
             var rooms = EntityManager.EnsureComponent<NefiaRoomsComponent>(map.MapEntityUid);

@@ -1,0 +1,91 @@
+---
+- type: Elona.MaterialSpot
+  id: Elona.Global
+  materials:
+  - Elona.Kuzu
+  - Elona.CasinoChip
+  - Elona.Coin1
+  - Elona.Coin2
+  - Elona.Paper
+  - Elona.Sumi
+  - Elona.Driftwood
+  - Elona.Stone
+  - Elona.Staff
+  - Elona.Cloth
+  - Elona.Yellmadman
+  - Elona.MagicMass
+  - Elona.Elec
+  - Elona.Generate
+- type: Elona.MaterialSpot
+  id: Elona.Building
+  materials:
+  - Elona.Adhesive
+  - Elona.MemoryFrag
+  - Elona.MagicPaper
+  - Elona.MagicInk
+- type: Elona.MaterialSpot
+  id: Elona.Water
+  materials:
+  - Elona.SeaWater
+  - Elona.Waterdrop
+  - Elona.TearAngel
+  - Elona.HotWater
+  - Elona.TearWitch
+  - Elona.Snow
+- type: Elona.MaterialSpot
+  id: Elona.Mine
+  materials:
+  - Elona.MithrilFrag
+  - Elona.SteelFrag
+  - Elona.FireStone
+  - Elona.IceStone
+  - Elona.ElecStone
+  - Elona.GoodStone
+  - Elona.EtherFrag
+  - Elona.ElemFrag
+  - Elona.ChaosStone
+- type: Elona.MaterialSpot
+  id: Elona.Bush
+  materials:
+  - Elona.Plant1
+  - Elona.Plant2
+  - Elona.Plant3
+  - Elona.Plant4
+  - Elona.PlantHeal
+  - Elona.FlyingGrass
+  - Elona.Plant5
+  - Elona.BlackMyst
+  - Elona.Sap
+- type: Elona.MaterialSpot
+  id: Elona.Field
+  materials:
+  - Elona.Adhesive
+  - Elona.MemoryFrag
+  - Elona.MagicPaper
+  - Elona.MagicInk
+- type: Elona.MaterialSpot
+  id: Elona.Dungeon
+  materials:
+  - Elona.MagicFrag
+- type: Elona.MaterialSpot
+  id: Elona.Forest
+  materials:
+  - Elona.Stick
+  - Elona.Leather
+  - Elona.String
+  - Elona.TightWood
+  - Elona.CrookedStaff
+- type: Elona.MaterialSpot
+  id: Elona.General
+  materials: []
+- type: Elona.MaterialSpot
+  id: Elona.Remains
+  materials:
+  - Elona.Feather
+  - Elona.TailRabbit
+  - Elona.GenHuman
+  - Elona.TailBear
+  - Elona.GenTroll
+  - Elona.EyeWitch
+  - Elona.FairyDust
+...

@@ -22,19 +22,25 @@ using OpenNefia.Content.GameObjects;
 var _maps = IoCManager.Resolve<IMapManager>();
 var _entities = IoCManager.Resolve<IEntityManager>();
 var _script = EntitySystem.Get<ScriptTools>();
+var _nefia = EntitySystem.Get<AreaNefiaSystem>();
 
 var area = _script.GetOrCreateArea("TestArea", new("Elona.NefiaDungeon"), null);
-// var gen = new NefiaFloorGenerator();
-// var mapId = new MapId(999);
+var floorId = AreaNefiaSystem.FloorNumberToAreaId(1);
+var cur = _maps.ActiveMap!;
 
-// if (gen.TryToGenerate(area, mapId, 1, out var map))
-// {
-//     return _script.PrintMap(map);
-// }
+var nefiaVanilla = _entities.GetComponent<NefiaVanillaComponent>(area.AreaEntityUid);
+nefiaVanilla.Template = new BasicNefiaTemplate()
+{
+    Layout = new NefiaLayoutResident()
+};
 
-var tmap = _maps.ActiveMap!;
-var _tags = EntitySystem.Get<TagSystem>();
-var stair = _tags.EntityWithTagInMap(tmap.Id, Protos.Tag.DungeonStairsDelving);
-var stairs = _entities.GetComponent<StairsComponent>(stair!.Owner);
+var ev = new NefiaFloorGenerateEvent(area, floorId, cur.AtPos(1, 1));
+_entities.EventBus.RaiseLocalEvent(area.AreaEntityUid, ev);
 
-return stairs.Entrance;
+if (ev.Handled)
+{
+    var result = _maps.GetMap(ev.ResultMapId.Value);
+    return _script.PrintMap(result);
+}
+
+return "???";

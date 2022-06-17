@@ -574,6 +574,19 @@ handlers["elona_sys.map_tileset"] = function(from, to)
     end
 end
 
+handlers["elona.material_spot"] = function(from, to)
+    to.materials = {}
+    for i, m in ipairs(from.materials) do
+        to.materials[i] = dotted(m)
+    end
+end
+
+handlers["elona.material"] = function(from, to)
+    to.level = from.level
+    to.rarity = from.rarity
+    to.chip = dotted(from.image)
+end
+
 local function sort(a, b)
     return (a.elona_id or 0) < (b.elona_id or 0)
 end
@@ -651,7 +664,7 @@ local function write(ty, filename)
     file:close()
 end
 
-write("base.chara", "Entity/Chara.yml")
+-- write("base.chara", "Entity/Chara.yml")
 -- write("base.item", "Entity/Item.yml")
 -- write("base.class", "Class.yml")
 -- write("base.race", "Race.yml")
@@ -665,6 +678,8 @@ write("base.chara", "Entity/Chara.yml")
 -- write("base.trait", "Feat.yml")
 -- write("base.element", "Element.yml")
 -- write("elona_sys.map_tileset", "MapTileset.yml")
+write("elona.material_spot", "MaterialSpot.yml")
+write("elona.material", "Material.yml")
 
 -- print(inspect(data["base.item"]:iter():filter(function(a) return a.fltselect > 0 and a.rarity == 0 end):to_list()))
 

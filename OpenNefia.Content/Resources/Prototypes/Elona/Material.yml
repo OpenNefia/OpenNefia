@@ -1,0 +1,387 @@
+---
+- type: Elona.Material
+  id: Elona.Kuzu
+  hspIds:
+    elona122: 0
+  level: 0
+  rarity: 1
+  chip: Elona.ItemGarbage
+- type: Elona.Material
+  id: Elona.CasinoChip
+  hspIds:
+    elona122: 1
+  level: 1
+  rarity: 80
+  chip: Elona.ItemCasinoChip
+- type: Elona.Material
+  id: Elona.Sumi
+  hspIds:
+    elona122: 2
+  level: 1
+  rarity: 10
+  chip: Elona.ItemWoodPiece
+- type: Elona.Material
+  id: Elona.Driftwood
+  hspIds:
+    elona122: 3
+  level: 1
+  rarity: 10
+  chip: Elona.ItemWoodPiece
+- type: Elona.Material
+  id: Elona.Feather
+  hspIds:
+    elona122: 4
+  level: 1
+  rarity: 10
+  chip: Elona.ItemMaterialFeather
+- type: Elona.Material
+  id: Elona.Waterdrop
+  hspIds:
+    elona122: 5
+  level: 1
+  rarity: 10
+  chip: Elona.ItemPotion
+- type: Elona.Material
+  id: Elona.Staff
+  hspIds:
+    elona122: 6
+  level: 1
+  rarity: 70
+  chip: Elona.ItemWoodPiece
+- type: Elona.Material
+  id: Elona.MithrilFrag
+  hspIds:
+    elona122: 7
+  level: 1
+  rarity: 40
+  chip: Elona.ItemOrePiece
+- type: Elona.Material
+  id: Elona.EtherFrag
+  hspIds:
+    elona122: 8
+  level: 10
+  rarity: 40
+  chip: Elona.ItemOrePiece
+- type: Elona.Material
+  id: Elona.SteelFrag
+  hspIds:
+    elona122: 9
+  level: 1
+  rarity: 10
+  chip: Elona.ItemOrePiece
+- type: Elona.Material
+  id: Elona.TearAngel
+  hspIds:
+    elona122: 10
+  level: 4
+  rarity: 50
+  chip: Elona.ItemPotion
+- type: Elona.Material
+  id: Elona.TearWitch
+  hspIds:
+    elona122: 11
+  level: 8
+  rarity: 30
+  chip: Elona.ItemPotion
+- type: Elona.Material
+  id: Elona.SeaWater
+  hspIds:
+    elona122: 12
+  level: 1
+  rarity: 10
+  chip: Elona.ItemPotion
+- type: Elona.Material
+  id: Elona.Plant1
+  hspIds:
+    elona122: 13
+  level: 1
+  rarity: 10
+  chip: Elona.ItemStomafillia
+- type: Elona.Material
+  id: Elona.Plant2
+  hspIds:
+    elona122: 14
+  level: 1
+  rarity: 20
+  chip: Elona.ItemStomafillia
+- type: Elona.Material
+  id: Elona.Plant3
+  hspIds:
+    elona122: 15
+  level: 1
+  rarity: 20
+  chip: Elona.ItemStomafillia
+- type: Elona.Material
+  id: Elona.Plant4
+  hspIds:
+    elona122: 16
+  level: 1
+  rarity: 10
+  chip: Elona.ItemStomafillia
+- type: Elona.Material
+  id: Elona.Plant5
+  hspIds:
+    elona122: 17
+  level: 12
+  rarity: 20
+  chip: Elona.ItemStomafillia
+- type: Elona.Material
+  id: Elona.TailRabbit
+  hspIds:
+    elona122: 18
+  level: 1
+  rarity: 80
+  chip: Elona.ItemRabbitsTail
+- type: Elona.Material
+  id: Elona.GenTroll
+  hspIds:
+    elona122: 19
+  level: 5
+  rarity: 15
+  chip: Elona.ItemRemainsHeart
+- type: Elona.Material
+  id: Elona.Snow
+  hspIds:
+    elona122: 20
+  level: 12
+  rarity: 15
+  chip: Elona.ItemMaterialSpark
+- type: Elona.Material
+  id: Elona.FairyDust
+  hspIds:
+    elona122: 21
+  level: 15
+  rarity: 45
+  chip: Elona.ItemOrePiece
+- type: Elona.Material
+  id: Elona.ElemFrag
+  hspIds:
+    elona122: 22
+  level: 20
+  rarity: 100
+  chip: Elona.ItemOrePiece
+- type: Elona.Material
+  id: Elona.Elec
+  hspIds:
+    elona122: 23
+  level: 12
+  rarity: 20
+  chip: Elona.ItemMaterialSpark
+- type: Elona.Material
+  id: Elona.BlackMyst
+  hspIds:
+    elona122: 24
+  level: 15
+  rarity: 40
+  chip: Elona.ItemMaterialSkull
+- type: Elona.Material
+  id: Elona.HotWater
+  hspIds:
+    elona122: 25
+  level: 4
+  rarity: 20
+  chip: Elona.ItemPotion
+- type: Elona.Material
+  id: Elona.FireStone
+  hspIds:
+    elona122: 26
+  level: 5
+  rarity: 10
+  chip: Elona.ItemOrePiece
+- type: Elona.Material
+  id: Elona.IceStone
+  hspIds:
+    elona122: 27
+  level: 5
+  rarity: 10
+  chip: Elona.ItemOrePiece
+- type: Elona.Material
+  id: Elona.ElecStone
+  hspIds:
+    elona122: 28
+  level: 5
+  rarity: 10
+  chip: Elona.ItemOrePiece
+- type: Elona.Material
+  id: Elona.FlyingGrass
+  hspIds:
+    elona122: 29
+  level: 7
+  rarity: 50
+  chip: Elona.ItemStomafillia
+- type: Elona.Material
+  id: Elona.MagicMass
+  hspIds:
+    elona122: 30
+  level: 10
+  rarity: 150
+  chip: Elona.ItemMaterialSpark
+- type: Elona.Material
+  id: Elona.GenHuman
+  hspIds:
+    elona122: 31
+  level: 1
+  rarity: 20
+  chip: Elona.ItemRemainsHeart
+- type: Elona.Material
+  id: Elona.EyeWitch
+  hspIds:
+    elona122: 32
+  level: 8
+  rarity: 40
+  chip: Elona.ItemRemainsHeart
+- type: Elona.Material
+  id: Elona.Leather
+  hspIds:
+    elona122: 33
+  level: 4
+  rarity: 20
+  chip: Elona.ItemSilkCloth
+- type: Elona.Material
+  id: Elona.Sap
+  hspIds:
+    elona122: 34
+  level: 25
+  rarity: 200
+  chip: Elona.ItemPotion
+- type: Elona.Material
+  id: Elona.MagicPaper
+  hspIds:
+    elona122: 35
+  level: 8
+  rarity: 40
+  chip: Elona.ItemScroll
+- type: Elona.Material
+  id: Elona.MagicInk
+  hspIds:
+    elona122: 36
+  level: 8
+  rarity: 40
+  chip: Elona.ItemPotion
+- type: Elona.Material
+  id: Elona.CrookedStaff
+  hspIds:
+    elona122: 37
+  level: 12
+  rarity: 60
+  chip: Elona.ItemRod
+- type: Elona.Material
+  id: Elona.Yellmadman
+  hspIds:
+    elona122: 38
+  level: 4
+  rarity: 30
+  chip: Elona.ItemProjectileBomb1
+- type: Elona.Material
+  id: Elona.TailBear
+  hspIds:
+    elona122: 39
+  level: 3
+  rarity: 20
+  chip: Elona.ItemRabbitsTail
+- type: Elona.Material
+  id: Elona.Coin1
+  hspIds:
+    elona122: 40
+  level: 1
+  rarity: 200
+  chip: Elona.ItemPlatinumCoin
+- type: Elona.Material
+  id: Elona.Coin2
+  hspIds:
+    elona122: 41
+  level: 1
+  rarity: 1000
+  chip: Elona.ItemPlatinumCoin
+- type: Elona.Material
+  id: Elona.PlantHeal
+  hspIds:
+    elona122: 42
+  level: 3
+  rarity: 20
+  chip: Elona.ItemStomafillia
+- type: Elona.Material
+  id: Elona.Paper
+  hspIds:
+    elona122: 43
+  level: 1
+  rarity: 20
+  chip: Elona.ItemScroll
+- type: Elona.Material
+  id: Elona.Generate
+  hspIds:
+    elona122: 44
+  level: 25
+  rarity: 150
+  chip: Elona.ItemMaterialSpark
+- type: Elona.Material
+  id: Elona.Cloth
+  hspIds:
+    elona122: 45
+  level: 3
+  rarity: 20
+  chip: Elona.ItemSilkCloth
+- type: Elona.Material
+  id: Elona.Stick
+  hspIds:
+    elona122: 46
+  level: 2
+  rarity: 20
+  chip: Elona.ItemWoodPiece
+- type: Elona.Material
+  id: Elona.TightWood
+  hspIds:
+    elona122: 47
+  level: 10
+  rarity: 20
+  chip: Elona.ItemWoodPiece
+- type: Elona.Material
+  id: Elona.Stone
+  hspIds:
+    elona122: 48
+  level: 1
+  rarity: 10
+  chip: Elona.ItemOrePiece
+- type: Elona.Material
+  id: Elona.MemoryFrag
+  hspIds:
+    elona122: 49
+  level: 5
+  rarity: 50
+  chip: Elona.ItemGorgeousCandlestick
+- type: Elona.Material
+  id: Elona.MagicFrag
+  hspIds:
+    elona122: 50
+  level: 1
+  rarity: 30
+  chip: Elona.ItemOrePiece
+- type: Elona.Material
+  id: Elona.ChaosStone
+  hspIds:
+    elona122: 51
+  level: 40
+  rarity: 200
+  chip: Elona.ItemOrePiece
+- type: Elona.Material
+  id: Elona.GoodStone
+  hspIds:
+    elona122: 52
+  level: 8
+  rarity: 50
+  chip: Elona.ItemOrePiece
+- type: Elona.Material
+  id: Elona.String
+  hspIds:
+    elona122: 53
+  level: 6
+  rarity: 20
+  chip: Elona.ItemRope
+- type: Elona.Material
+  id: Elona.Adhesive
+  hspIds:
+    elona122: 54
+  level: 1
+  rarity: 50
+  chip: Elona.ItemPotion
+...
