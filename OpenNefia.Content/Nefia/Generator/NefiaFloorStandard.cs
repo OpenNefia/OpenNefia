@@ -18,6 +18,8 @@ using OpenNefia.Core.IoC;
 using OpenNefia.Core.Directions;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Content.EntityGen;
+using OpenNefia.Content.GameObjects.EntitySystems.Tag;
+using OpenNefia.Content.GameObjects;
 
 namespace OpenNefia.Content.Nefia.Generator
 {
@@ -427,18 +429,34 @@ namespace OpenNefia.Content.Nefia.Generator
             return TryDigRoom(map, rooms, kind, minSize, maxSize, out room);
         }
 
-        private EntityUid? PlaceStairsUp(IMap map, Room room)
+        private EntityUid? PlaceStairsSurfacing(IMap map, Room room)
         {
             var x = _rand.Next(room.Bounds.Width - 2) + room.Bounds.Left + 1;
             var y = _rand.Next(room.Bounds.Height - 2) + room.Bounds.Top + 1;
-            return _entityGen.SpawnEntity(Protos.MObj.StairsUp, map.AtPos(x, y));
+            var stairs = _entityGen.SpawnEntity(Protos.MObj.StairsUp, map.AtPos(x, y));
+
+            if (stairs == null)
+                return null;
+
+            var tag = _entityManager.EnsureComponent<TagComponent>(stairs.Value);
+            tag.AddTag(Protos.Tag.DungeonStairsSurfacing);
+
+            return stairs;
         }
 
-        private EntityUid? PlaceStairsDown(IMap map, Room room)
+        private EntityUid? PlaceStairsDelving(IMap map, Room room)
         {
             var x = _rand.Next(room.Bounds.Width - 2) + room.Bounds.Left + 1;
             var y = _rand.Next(room.Bounds.Height - 2) + room.Bounds.Top + 1;
-            return _entityGen.SpawnEntity(Protos.MObj.StairsDown, map.AtPos(x, y));
+            var stairs = _entityGen.SpawnEntity(Protos.MObj.StairsDown, map.AtPos(x, y));
+
+            if (stairs == null)
+                return null;
+
+            var tag = _entityManager.EnsureComponent<TagComponent>(stairs.Value);
+            tag.AddTag(Protos.Tag.DungeonStairsDelving);
+
+            return stairs;
         }
 
         private (Vector2i, Direction) CalcRoomEntrance(IMap map, Room room)
@@ -801,7 +819,7 @@ namespace OpenNefia.Content.Nefia.Generator
                 return null;
             }
 
-            PlaceStairsUp(map, upstairsRoom.Value);
+            PlaceStairsSurfacing(map, upstairsRoom.Value);
 
             if (!TryDigRoomIfBelowMax(map, rooms, RoomType.NonEdge, baseParams.MinRoomSize, baseParams.MaxRoomSize, out var downstairsRoom))
             {
@@ -809,7 +827,7 @@ namespace OpenNefia.Content.Nefia.Generator
                 return null;
             }
 
-            PlaceStairsDown(map, downstairsRoom.Value);
+            PlaceStairsDelving(map, downstairsRoom.Value);
 
             for (int i = 0; i < baseParams.RoomCount; i++)
             {

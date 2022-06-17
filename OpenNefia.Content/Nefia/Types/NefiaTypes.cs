@@ -1,5 +1,7 @@
-﻿using OpenNefia.Content.Nefia.Generator;
+﻿using OpenNefia.Content.Maps;
+using OpenNefia.Content.Nefia.Generator;
 using OpenNefia.Core.GameObjects;
+using OpenNefia.Core.IoC;
 using OpenNefia.Core.Maps;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.Serialization.Manager.Attributes;
@@ -45,16 +47,30 @@ namespace OpenNefia.Content.Nefia
 
     [RegisterComponent]
     [ComponentUsage(ComponentTarget.Map)]
-    public class NefiaCrowdModifierComponent : Component
+    public class NefiaCrowdDensityModifierComponent : Component
     {
         /// <inheritdoc />
-        public override string Name => "MapNefiaCrowdModifier";
+        public override string Name => "MapNefiaCrowdDensityModifier";
 
-        [DataField]
-        public float MobDensityModifier { get; set; } = 1.0f;
+        [DataField(required: true)]
+        public INefiaCrowdDensityModifier Modifier = new DefaultCrowdDensityModifier();
+    }
 
-        [DataField]
-        public float CrowedDensityModifier { get; set; } = 1.0f;
+    public sealed record NefiaCrowdDensity(int MobCount, int ItemCount);
+
+    public interface INefiaCrowdDensityModifier
+    {
+        public NefiaCrowdDensity Calculate(IMap map);
+    }
+
+    public class DefaultCrowdDensityModifier : INefiaCrowdDensityModifier
+    {
+        public NefiaCrowdDensity Calculate(IMap map)
+        {
+            var entityMan = IoCManager.Resolve<IEntityManager>();
+            var crowdDensity = entityMan.GetComponent<MapCommonComponent>(map.MapEntityUid).MaxCrowdDensity;
+            return new(crowdDensity / 4, crowdDensity / 4);
+        }
     }
 
     [RegisterComponent]

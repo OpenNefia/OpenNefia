@@ -145,6 +145,8 @@ namespace OpenNefia.Core.Areas
         /// </summary>
         public MapCoordinates PreviousCoords { get; }
 
+        // TODO would be nice to have EntityCoordinates also
+
         /// <summary>
         /// Map of the area's floor that was created. If this is left as <c>null</c>,
         /// then floor creation failed.
