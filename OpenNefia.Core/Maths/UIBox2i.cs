@@ -80,7 +80,7 @@ namespace OpenNefia.Core.Maths
 
         public readonly bool IsInBounds(UIBox2i other)
         {
-            return IsInBounds(other.TopLeft) && IsInBounds(other.BottomRight);
+            return IsInBounds(other.TopLeft) && IsInBounds(other.BottomRight - Vector2i.One);
         }
 
         /// <summary>Returns a UIBox2 translated by the given amount.</summary>

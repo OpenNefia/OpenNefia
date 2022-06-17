@@ -28,7 +28,7 @@ namespace OpenNefia.Content.Nefia
             var baseParams = ev.BaseParams;
             var (width, height) = baseParams.MapSize;
             baseParams.MapSize = new(width, height);
-            baseParams.RoomCount = (width ^ 2) / 70;
+            baseParams.RoomCount = width * height / 70;
             baseParams.TunnelLength = width * height;
             baseParams.MaxCharaCount = (width * height) / 2;
 

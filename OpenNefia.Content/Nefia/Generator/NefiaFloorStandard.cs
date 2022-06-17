@@ -505,7 +505,7 @@ namespace OpenNefia.Content.Nefia.Generator
                     else
                         dest = Direction.South;
                 }
-                else if (start.X > end.X)
+                if (start.X > end.X)
                 {
                     curDir = Direction.West;
                     if (start.Y > end.Y)
@@ -521,13 +521,52 @@ namespace OpenNefia.Content.Nefia.Generator
                     else
                         dest = Direction.East;
                 }
-                else if (start.Y > end.Y)
+                if (start.Y > end.Y)
                 {
                     curDir = Direction.North;
                     if (start.X > end.X)
                         dest = Direction.West;
                     else
                         dest = Direction.East;
+                }
+            }
+
+            if (curDir == Direction.West || curDir == Direction.East)
+            {
+                if (start.Y > end.Y)
+                {
+                    curDir = Direction.North;
+                }
+                else
+                {
+                    curDir = Direction.South;
+                }
+                if (start.X > end.X)
+                {
+                    dest = Direction.West;
+                }
+                else
+                {
+                    dest = Direction.East;
+                }
+            }
+            else
+            {
+                if (start.X > end.X)
+                {
+                    curDir = Direction.West;
+                }
+                else
+                {
+                    curDir = Direction.East;
+                }
+                if (start.Y > end.Y)
+                {
+                    dest = Direction.North;
+                }
+                else
+                {
+                    dest = Direction.South;
                 }
             }
 
@@ -645,23 +684,7 @@ namespace OpenNefia.Content.Nefia.Generator
                     (curDir, lastDir) = GetNextDigDir2(map, curDir, lastDir, start, end);
                 }
 
-                var digPos = start;
-
-                switch (curDir)
-                {
-                    case Direction.West:
-                        digPos.X = start.X - 1;
-                        break;
-                    case Direction.East:
-                        digPos.X = start.X + 1;
-                        break;
-                    case Direction.North:
-                        digPos.Y = start.Y - 1;
-                        break;
-                    case Direction.South:
-                        digPos.Y = start.Y + 1;
-                        break;
-                }
+                var digPos = start + curDir.ToIntVec();
 
                 if (CanDig(map, digPos))
                 {
@@ -727,9 +750,9 @@ namespace OpenNefia.Content.Nefia.Generator
             for (int roomIdx = 0; roomIdx < rooms.Count - 1; roomIdx++)
             {
                 var success = false;
-                var entranceCount = _rand.Next(baseParams.RoomEntranceCount + 1) + 1;
+                var entranceCount = _rand.Next(baseParams.RoomEntranceCount + 1);
 
-                for (int i = 1; i < entranceCount; i++)
+                for (int i = 0; i < entranceCount; i++)
                 {
                     var startPos = Vector2i.Zero;
                     var endPos = Vector2i.Zero;
@@ -749,7 +772,7 @@ namespace OpenNefia.Content.Nefia.Generator
                             endPos = adjacent;
                     }
 
-                    success = success || DigPath(map, startPos, endPos, true, baseParams.HiddenPathChance);
+                    success = success || DigPath(map, startPos, endPos, true, baseParams.HiddenPathChance) || true;
                     if (success)
                     {
                         break;
@@ -772,7 +795,7 @@ namespace OpenNefia.Content.Nefia.Generator
 
             var rooms = _entityManager.EnsureComponent<NefiaRoomsComponent>(map.MapEntityUid).Rooms;
 
-            if (!TryDigRoom(map, rooms, RoomType.NonEdge, baseParams.MinRoomSize, baseParams.MaxRoomSize, out var upstairsRoom))
+            if (!TryDigRoomIfBelowMax(map, rooms, RoomType.NonEdge, baseParams.MinRoomSize, baseParams.MaxRoomSize, out var upstairsRoom))
             {
                 Logger.ErrorS("nefia.gen.floor", "Could not dig room for upstairs");
                 return null;
@@ -780,7 +803,7 @@ namespace OpenNefia.Content.Nefia.Generator
 
             PlaceStairsUp(map, upstairsRoom.Value);
 
-            if (!TryDigRoom(map, rooms, RoomType.NonEdge, baseParams.MinRoomSize, baseParams.MaxRoomSize, out var downstairsRoom))
+            if (!TryDigRoomIfBelowMax(map, rooms, RoomType.NonEdge, baseParams.MinRoomSize, baseParams.MaxRoomSize, out var downstairsRoom))
             {
                 Logger.ErrorS("nefia.gen.floor", "Could not dig room for downstairs");
                 return null;
@@ -790,16 +813,14 @@ namespace OpenNefia.Content.Nefia.Generator
 
             for (int i = 0; i < baseParams.RoomCount; i++)
             {
-                TryDigRoom(map, rooms, RoomType.NonEdge, baseParams.MinRoomSize, baseParams.MaxRoomSize, out _);
+                TryDigRoomIfBelowMax(map, rooms, RoomType.NonEdge, baseParams.MinRoomSize, baseParams.MaxRoomSize, out _);
             }
 
             if (!TryConnectRooms(map, rooms, true, baseParams))
             {
-                Logger.ErrorS("nefia.gen.floor", "Could not connect rooms");
+                Logger.ErrorS("nefia.gen.floor", $"Could not connect {rooms.Count} rooms");
                 return null;
             }
-
-            map.Clear(Protos.Tile.Brick1);
 
             return map;
         }

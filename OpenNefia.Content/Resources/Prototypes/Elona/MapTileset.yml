@@ -6,22 +6,23 @@
     chipOpen: Elona.FeatDoorWoodenOpen
   tiles:
     Elona.MapgenDefault: !type:TileSingle
-      tile: Elona.WallOrientalTop
+      tile: Elona.WallOriental
     Elona.MapgenRoom: !type:TileSingle
       tile: Elona.CrackedDirt2
     Elona.MapgenTunnel: !type:TileSingle
       tile: Elona.DarkDirt1
     Elona.MapgenWall: !type:TileSingle
-      tile: Elona.WallStone1Top
-  fogTile: Elona.WallStone4Fog
+      tile: Elona.WallStone1
+  fogTile: !type:TileSingle
+    tile: Elona.WallStone4Fog
 
 - type: Elona.MapTileset
   id: Elona.NoyelFields
   tiles:
     Elona.MapgenDefault: !type:TileSingle
-      tile: Elona.WallForestTop
+      tile: Elona.WallForest
     Elona.MapgenRoom: !type:TileRandom
-      tiles: 
+      tiles:
       - Elona.Snow
       - Elona.SnowMound
       - Elona.SnowPlants
@@ -32,8 +33,9 @@
     Elona.MapgenTunnel: !type:TileSingle
       tile: Elona.Grass
     Elona.MapgenWall: !type:TileSingle
-      tile: Elona.WallForestTop
-  fogTile: Elona.WallStone1Fog
+      tile: Elona.WallForest
+  fogTile: !type:TileSingle
+    tile: Elona.WallStone1Fog
 
 - type: Elona.MapTileset
   id: Elona.Dungeon
@@ -41,34 +43,35 @@
     elona122: 0
   tiles:
     Elona.MapgenDefault: !type:TileSingle
-      tile: Elona.WallDirtDarkTop
+      tile: Elona.WallDirtDark
     Elona.MapgenRoom: !type:TileRandom
-      tiles: 
+      tiles:
       - Elona.DarkDirt1
       - Elona.DarkDirt2
       - Elona.DarkDirt3
       - Elona.DarkDirt4
       pickChance: 0.5
     Elona.MapgenTunnel: !type:TileRandom
-      tiles: 
+      tiles:
       - Elona.DarkDirt1
       - Elona.DarkDirt2
       - Elona.DarkDirt3
       - Elona.DarkDirt4
       pickChance: 0.5
     Elona.MapgenWall: !type:TileSingle
-      tile: Elona.WallDirtDarkTop
-  fogTile: Elona.WallStone2Fog
+      tile: Elona.WallDirtDark
+  fogTile: !type:TileSingle
+    tile: Elona.WallStone2Fog
 
 - type: Elona.MapTileset
   id: Elona.WorldMap
   hspIds:
     elona122: 1
-  tiles: []
+  tiles: {}
   fogTile: !type:TileRandom
     tiles:
-    - Elona.WallOrientalTop
-    - Elona.WallBrickTop
+    - Elona.WallOriental
+    - Elona.WallBrick
     pickChance: 0.25
 
 - type: Elona.MapTileset
@@ -77,8 +80,9 @@
     elona122: 2
   tiles:
     Elona.MapgenWall: !type:TileSingle
-      tile: Elona.WallStone1Top
-  fogTile: Elona.WallStone2Fog
+      tile: Elona.WallStone1
+  fogTile: !type:TileSingle
+    tile: Elona.WallStone2Fog
 
 - type: Elona.MapTileset
   id: Elona.Home
@@ -90,8 +94,9 @@
     Elona.MapgenTunnel: !type:TileSingle
       tile: Elona.Dirt
     Elona.MapgenWall: !type:TileSingle
-      tile: Elona.WallDirtDarkTop
-  fogTile: Elona.WallDirtDarkFog
+      tile: Elona.WallDirtDark
+  fogTile: !type:TileSingle
+    tile: Elona.WallDirtDarkFog
 
 - type: Elona.MapTileset
   id: Elona.Wilderness
@@ -100,7 +105,8 @@
   tiles:
     Elona.MapgenDefault: !type:TileSingle
       tile: Elona.Grass
-  fogTile: Elona.WallStone1Fog
+  fogTile: !type:TileSingle
+    tile: Elona.WallStone1Fog
 
 - type: Elona.MapTileset
   id: Elona.Snow
@@ -108,7 +114,7 @@
     elona122: 6
   tiles:
     Elona.MapgenDefault: !type:TileSingle
-      tile: Elona.WallDirtDarkTop
+      tile: Elona.WallDirtDark
     Elona.MapgenRoom: !type:TileRandom
       tiles:
       - Elona.DarkDirt1
@@ -119,14 +125,15 @@
       - Elona.DirtPatch
       pickChance: 0.333333
     Elona.MapgenTunnel: !type:TileRandom
-      tiles: 
+      tiles:
       - Elona.Snow
       - Elona.SnowMound
       - Elona.SnowPlants
       pickChance: 0.5
     Elona.MapgenWall: !type:TileSingle
-      tile: Elona.WallDirtDarkTop
-  fogTile: Elona.WallStone2Fog
+      tile: Elona.WallDirtDark
+  fogTile: !type:TileSingle
+    tile: Elona.WallStone2Fog
 
 - type: Elona.MapTileset
   id: Elona.TowerOfFire
@@ -134,17 +141,18 @@
     elona122: 7
   tiles:
     Elona.MapgenDefault: !type:TileSingle
-      tile: Elona.WallTowerOfFireTop
+      tile: Elona.WallTowerOfFire
     Elona.MapgenRoom: !type:TileRandom
-      tiles: 
+      tiles:
       - Elona.TowerOfFireTile1
       - Elona.TowerOfFireTile2
       pickChance: 0.5
     Elona.MapgenTunnel: !type:TileSingle
       tile: Elona.TowerOfFireTile2
     Elona.MapgenWall: !type:TileSingle
-      tile: Elona.WallTowerOfFireTop
-  fogTile: Elona.WallStone3Fog
+      tile: Elona.WallTowerOfFire
+  fogTile: !type:TileSingle
+    tile: Elona.WallStone3Fog
 
 - type: Elona.MapTileset
   id: Elona.Sf
@@ -168,18 +176,18 @@
     elona122: 10
   tiles:
     Elona.MapgenDefault: !type:TileSingle
-      tile: Elona.WallDirtDarkTop
+      tile: Elona.WallDirtDark
     Elona.MapgenRoom: !type:TileSingle
       tile: Elona.AnimeWaterShallow
     Elona.MapgenTunnel: !type:TileRandom
-      tiles: 
+      tiles:
       - Elona.DarkDirt1
       - Elona.DarkDirt2
       - Elona.DarkDirt3
       - Elona.DarkDirt4
       pickChance: 0.5
     Elona.MapgenWall: !type:TileSingle
-      tile: Elona.WallDirtDarkTop
+      tile: Elona.WallDirtDark
 
 - type: Elona.MapTileset
   id: Elona.Castle
@@ -187,14 +195,15 @@
     elona122: 11
   tiles:
     Elona.MapgenDefault: !type:TileSingle
-      tile: Elona.WallStone4Top
+      tile: Elona.WallStone4
     Elona.MapgenRoom: !type:TileSingle
       tile: Elona.CarpetGreen
     Elona.MapgenTunnel: !type:TileSingle
       tile: Elona.Tiled2
     Elona.MapgenWall: !type:TileSingle
-      tile: Elona.WallWoodenTop
-  fogTile: Elona.WallStone3Fog
+      tile: Elona.WallWooden
+  fogTile: !type:TileSingle
+    tile: Elona.WallStone3Fog
 
 - type: Elona.MapTileset
   id: Elona.Jail
@@ -210,9 +219,9 @@
     elona122: 100
   tiles:
     Elona.MapgenDefault: !type:TileSingle
-      tile: Elona.WallConcreteTop
+      tile: Elona.WallConcrete
     Elona.MapgenRoom: !type:TileRandom
-      tiles: 
+      tiles:
       - Elona.Tile1
       - Elona.Tile2
       - Elona.Tile3
@@ -220,8 +229,9 @@
     Elona.MapgenTunnel: !type:TileSingle
       tile: Elona.Cobble4
     Elona.MapgenWall: !type:TileSingle
-      tile: Elona.WallConcreteLightTop
-  fogTile: Elona.WallStone3Fog
+      tile: Elona.WallConcreteLight
+  fogTile: !type:TileSingle
+    tile: Elona.WallStone3Fog
 
 - type: Elona.MapTileset
   id: Elona.Tower2
@@ -229,14 +239,15 @@
     elona122: 101
   tiles:
     Elona.MapgenDefault: !type:TileSingle
-      tile: Elona.WallStone7Top
+      tile: Elona.WallStone7
     Elona.MapgenRoom: !type:TileSingle
       tile: Elona.Cobble3
     Elona.MapgenTunnel: !type:TileSingle
       tile: Elona.Concrete2
     Elona.MapgenWall: !type:TileSingle
-      tile: Elona.WallStone7Top
-  fogTile: Elona.WallStone3Fog
+      tile: Elona.WallStone7
+  fogTile: !type:TileSingle
+    tile: Elona.WallStone3Fog
 
 - type: Elona.MapTileset
   id: Elona.DungeonCastle
@@ -244,24 +255,25 @@
     elona122: 200
   tiles:
     Elona.MapgenDefault: !type:TileSingle
-      tile: Elona.WallDirtTop
+      tile: Elona.WallDirt
     Elona.MapgenRoom: !type:TileRandom
-      tiles: 
+      tiles:
       - Elona.DarkDirt1
       - Elona.DarkDirt2
       - Elona.DarkDirt3
       - Elona.DarkDirt4
       pickChance: 0.5
     Elona.MapgenTunnel: !type:TileRandom
-      tiles: 
+      tiles:
       - Elona.DarkDirt1
       - Elona.DarkDirt2
       - Elona.DarkDirt3
       - Elona.DarkDirt4
       pickChance: 0.5
     Elona.MapgenWall: !type:TileSingle
-      tile: Elona.WallStone1Top
-  fogTile: Elona.WallStone4Fog
+      tile: Elona.WallStone1
+  fogTile: !type:TileSingle
+    tile: Elona.WallStone4Fog
 
 - type: Elona.MapTileset
   id: Elona.DungeonForest
@@ -269,9 +281,9 @@
     elona122: 300
   tiles:
     Elona.MapgenDefault: !type:TileSingle
-      tile: Elona.WallForestTop
+      tile: Elona.WallForest
     Elona.MapgenRoom: !type:TileRandom
-      tiles: 
+      tiles:
       - Elona.Grass
       - Elona.GrassViolets
       - Elona.GrassRocks
@@ -282,6 +294,7 @@
     Elona.MapgenTunnel: !type:TileSingle
       tile: Elona.Grass
     Elona.MapgenWall: !type:TileSingle
-      tile: Elona.WallForestTop
-  fogTile: Elona.WallStone1Fog
+      tile: Elona.WallForest
+  fogTile: !type:TileSingle
+    tile: Elona.WallStone1Fog
 ...

@@ -1,11 +1,15 @@
-﻿using OpenNefia.Core.Areas;
+﻿using OpenNefia.Content.Maps;
+using OpenNefia.Core.Areas;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Log;
 using OpenNefia.Core.Maps;
 using OpenNefia.Core.Maths;
+using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Random;
 using OpenNefia.Core.Utility;
+using OpenNefia.Content.Prototypes;
+using System.Diagnostics.CodeAnalysis;
 
 namespace OpenNefia.Content.Nefia
 {
@@ -14,13 +18,14 @@ namespace OpenNefia.Content.Nefia
         [Dependency] private readonly IMapManager _mapManager = default!;
         [Dependency] private readonly IEntityManager _entityManager = default!;
         [Dependency] private readonly IRandom _rand = default!;
+        [Dependency] private readonly IMapTilesetSystem _mapTilesets = default!;
 
         public NefiaFloorGenerator()
         {
             EntitySystem.InjectDependencies(this);
         }
 
-        public bool TryToGenerate(IArea area, MapId mapId, int floorNumber)
+        private bool TryToGenerateRaw(IArea area, MapId mapId, int floorNumber, [NotNullWhen(true)] out IMap? map, [NotNullWhen(true)] out Blackboard<NefiaGenParams>? data)
         {
             var attempts = 2000;
 
@@ -32,7 +37,7 @@ namespace OpenNefia.Content.Nefia
                 var width = 34 + _rand.Next(15);
                 var height = 22 + _rand.Next(15);
 
-                var data = new Blackboard<NefiaGenParams>();
+                data = new Blackboard<NefiaGenParams>();
                 data.Add(new BaseNefiaGenParams(width, height));
 
                 var paramsEv = new GenerateNefiaFloorParamsEvent(area, mapId, data, floorNumber, i);
@@ -45,6 +50,7 @@ namespace OpenNefia.Content.Nefia
                 {
                     if (_mapManager.MapIsLoaded(mapId))
                     {
+                        map = _mapManager.GetMap(mapId);
                         return true;
                     }
                     else
@@ -54,7 +60,23 @@ namespace OpenNefia.Content.Nefia
                 }
             }
 
+            data = null;
+            map = null;
             return false;
+        }
+
+        public bool TryToGenerate(IArea area, MapId mapId, int floorNumber, [NotNullWhen(true)] out IMap? map)
+        {
+            if (!TryToGenerateRaw(area, mapId, floorNumber, out map, out var data))
+            {
+                return false;
+            }
+
+            var baseParams = data.Get<BaseNefiaGenParams>();
+            var tileset = baseParams.Tileset;
+            _mapTilesets.ApplyTileset(map, tileset);
+
+            return true;
         }
     }
 
@@ -78,6 +100,7 @@ namespace OpenNefia.Content.Nefia
         public float HiddenPathChance { get; set; } = 0.05f;
         public int CreaturePacks { get; set; } = 1;
         public int MaxCharaCount { get; set; } = 1;
+        public PrototypeId<MapTilesetPrototype> Tileset { get; set; } = Protos.MapTileset.Dungeon;
     }
 
     internal class GenerateNefiaFloorParamsEvent
