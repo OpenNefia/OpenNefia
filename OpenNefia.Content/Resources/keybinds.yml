@@ -116,6 +116,10 @@ binds:
 - function: Elona.PickUp
   type: State
   key: G
+- function: Elona.Dig
+  type: State
+  key: D
+  mod1: Shift
 - function: Elona.Drop
   type: State
   key: D

@@ -32,5 +32,10 @@ namespace OpenNefia.Content.Maps
                 StartLocation = new SpecificMapLocation(coords.Position)
             };
         }
+
+        public override string ToString()
+        {
+            return $"{nameof(MapEntrance)}(mapId={MapIdSpecifier}, loc={StartLocation})";
+        }
     }
 }
