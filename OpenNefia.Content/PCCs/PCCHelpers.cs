@@ -36,10 +36,10 @@ namespace OpenNefia.Content.PCCs
         /// <summary>
         /// Gets a dictionary of all the PCC parts grouped by their <see cref="PCCPartType"/>.
         /// </summary>
-        public static Dictionary<PCCPartType, List<PCCPartPrototype>> GetGroupedPCCPartPrototypes(IPrototypeManager protos)
+        public static Dictionary<PCCPartType, List<MapTilesetPrototype>> GetGroupedPCCPartPrototypes(IPrototypeManager protos)
         {
             return protos
-                .EnumeratePrototypes<PCCPartPrototype>()
+                .EnumeratePrototypes<MapTilesetPrototype>()
                 .GroupBy(part => part.PCCPartType)
                 .ToDictionary(group => group.Key, group => group.ToList());
         }
@@ -60,9 +60,9 @@ namespace OpenNefia.Content.PCCs
         }
 
         /// <summary>
-        /// Makes a <see cref="PCCPart"/> from a <see cref="PCCPartPrototype"/>.
+        /// Makes a <see cref="PCCPart"/> from a <see cref="MapTilesetPrototype"/>.
         /// </summary>
-        private static PCCPart MakePCCPartFromPrototype(PCCPartPrototype proto)
+        private static PCCPart MakePCCPartFromPrototype(MapTilesetPrototype proto)
         {
             var zOrder = GetPCCPartTypeZOrder(proto.PCCPartType);
             return new PCCPart(proto.PCCPartType, proto.ImagePath, Color.White, zOrder);

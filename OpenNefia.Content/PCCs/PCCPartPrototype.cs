@@ -5,7 +5,7 @@ using OpenNefia.Core.Utility;
 namespace OpenNefia.Content.PCCs
 {
     [Prototype("Elona.PCCPart")]
-    public class PCCPartPrototype : IPrototype
+    public class MapTilesetPrototype : IPrototype
     {
         [DataField("id", required: true)]
         public string ID { get; } = default!;

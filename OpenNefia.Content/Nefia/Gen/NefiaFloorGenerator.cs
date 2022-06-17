@@ -70,8 +70,8 @@ namespace OpenNefia.Content.Nefia
         public Vector2i MapSize { get; set; } = Vector2i.One;
         public int DangerLevel { get; set; } = 1;
         public int RoomCount { get; set; } = 1;
-        public Vector2i MinRoomSize { get; set; } = new(3, 3);
-        public Vector2i MaxRoomSize { get; set; } = new(4, 4);
+        public int MinRoomSize { get; set; } = 3;
+        public int MaxRoomSize { get; set; } = 4;
         public int ExtraRoomCount { get; set; } = 10;
         public int RoomEntranceCount { get; set; } = 1;
         public int TunnelLength { get; set; } = 1;
