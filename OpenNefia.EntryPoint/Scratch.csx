@@ -23,6 +23,9 @@ var area = _script.GetOrCreateArea("TestArea", new("Elona.NefiaDungeon"), null);
 var gen = new NefiaFloorGenerator();
 var mapId = new MapId(999);
 
-var found = gen.TryToGenerate(area, mapId, 1);
-var map = _maps.GetMap(mapId);
-return _script.PrintMap(map);
+if (gen.TryToGenerate(area, mapId, 1, out var map))
+{
+    return _script.PrintMap(map);
+}
+
+return "???";
