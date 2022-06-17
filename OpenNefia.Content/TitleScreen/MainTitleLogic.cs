@@ -183,6 +183,9 @@ namespace OpenNefia.Content.TitleScreen
             var playerSpatial = _entityManager.GetComponent<SpatialComponent>(player);
             playerSpatial.Coordinates = map.AtPosEntity(2, 2);
 
+            var skills = _entityManager.GetComponent<SkillsComponent>(player);
+            skills.Skills[Protos.Skill.AttrConstitution].Level.Base = 2000;
+            skills.Skills[Protos.Skill.AttrStrength].Level.Base = 2000;
             EntitySystem.Get<IRefreshSystem>().Refresh(player);
             EntitySystem.Get<SkillsSystem>().HealToMax(player);
 

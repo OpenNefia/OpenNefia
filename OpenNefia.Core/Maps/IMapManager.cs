@@ -10,7 +10,6 @@ namespace OpenNefia.Core.Maps
     public interface IMapManager
     {
         IMap? ActiveMap { get; }
-        int NextMapId { get; }
 
         /// <summary>
         /// All maps that are currently loaded in memory.
@@ -40,5 +39,10 @@ namespace OpenNefia.Core.Maps
         void UnloadMap(MapId mapId);
 
         void RefreshVisibility(IMap map);
+
+        /// <summary>
+        /// Allocates a new MapID, incrementing the highest ID counter.
+        /// </summary>
+        MapId GenerateMapId();
     }
 }
