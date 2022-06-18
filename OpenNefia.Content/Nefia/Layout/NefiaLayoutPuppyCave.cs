@@ -39,7 +39,7 @@ namespace OpenNefia.Content.Nefia
 
         public IMap? Generate(IArea area, MapId mapId, int generationAttempt, int floorNumber, Blackboard<NefiaGenParams> data)
         {
-            var klass = 5 * _rand.Next(4);
+            var klass = 5 + _rand.Next(4);
             var bold = 2;
 
             var baseParams = data.Get<BaseNefiaGenParams>();
@@ -137,17 +137,17 @@ namespace OpenNefia.Content.Nefia
                 if (!map!.IsInBounds(pos))
                     return;
 
-                if (map.GetTile(pos)!.Value.Tile.GetStrongID() != Protos.Tile.MapgenTunnel)
+                if (map.GetTile(pos)?.Tile.GetStrongID() != Protos.Tile.MapgenTunnel)
                     return;
 
                 if (_lookup.GetLiveEntitiesAtCoords(map.AtPos(pos)).Count() > 0)
                     return;
 
-                if (map.GetTile(pos + (-1, 0))!.Value.Tile.GetStrongID() == Protos.Tile.MapgenTunnel
-                    && map.GetTile(pos + (1, 0))!.Value.Tile.GetStrongID() == Protos.Tile.MapgenTunnel)
+                if (map.GetTile(pos + (-1, 0))?.Tile.GetStrongID() == Protos.Tile.MapgenTunnel
+                    && map.GetTile(pos + (1, 0))?.Tile.GetStrongID() == Protos.Tile.MapgenTunnel)
                 {
-                    if (map.GetTile(pos + (0, -1))!.Value.Tile.GetStrongID() == Protos.Tile.MapgenDefault
-                        && map.GetTile(pos + (0, 1))!.Value.Tile.GetStrongID() == Protos.Tile.MapgenDefault)
+                    if (map.GetTile(pos + (0, -1))?.Tile.GetStrongID() == Protos.Tile.MapgenDefault
+                        && map.GetTile(pos + (0, 1))?.Tile.GetStrongID() == Protos.Tile.MapgenDefault)
                     {
                         var door = _entityGen.SpawnEntity(Protos.MObj.DoorWooden, map.AtPos(pos));
                         if (door != null && _entityManager.TryGetComponent<DoorComponent>(door.Value, out var doorComp))
@@ -159,11 +159,11 @@ namespace OpenNefia.Content.Nefia
                     return;
                 }
 
-                if (map.GetTile(pos + (0, -1))!.Value.Tile.GetStrongID() == Protos.Tile.MapgenTunnel
-                    && map.GetTile(pos + (0, 1))!.Value.Tile.GetStrongID() == Protos.Tile.MapgenTunnel)
+                if (map.GetTile(pos + (0, -1))?.Tile.GetStrongID() == Protos.Tile.MapgenTunnel
+                    && map.GetTile(pos + (0, 1))?.Tile.GetStrongID() == Protos.Tile.MapgenTunnel)
                 {
-                    if (map.GetTile(pos + (-1, 0))!.Value.Tile.GetStrongID() == Protos.Tile.MapgenDefault
-                        && map.GetTile(pos + (1, 0))!.Value.Tile.GetStrongID() == Protos.Tile.MapgenDefault)
+                    if (map.GetTile(pos + (-1, 0))?.Tile.GetStrongID() == Protos.Tile.MapgenDefault
+                        && map.GetTile(pos + (1, 0))?.Tile.GetStrongID() == Protos.Tile.MapgenDefault)
                     {
                         var door = _entityGen.SpawnEntity(Protos.MObj.DoorWooden, map.AtPos(pos));
                         if (door != null && _entityManager.TryGetComponent<DoorComponent>(door.Value, out var doorComp))
@@ -173,6 +173,14 @@ namespace OpenNefia.Content.Nefia
                     }
 
                     return;
+                }
+            }
+
+            for (var j = 0; j < map.Height / 2 - 2; j++)
+            {
+                for (var i = 0; i < map.Width / 2 - 2; i++)
+                {
+                    TryPlaceDoor((i * 2, j * 2));
                 }
             }
 
