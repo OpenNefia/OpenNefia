@@ -24,7 +24,7 @@ namespace OpenNefia.Content.GameObjects.Pickable
         [Dependency] private readonly IRandom _random = default!;
         [Dependency] private readonly IStackSystem _stackSystem = default!;
         [Dependency] private readonly IGameSessionManager _gameSession = default!;
-        [Dependency] private readonly IMessage _mes = default!;
+        [Dependency] private readonly IMessagesManager _mes = default!;
 
         private readonly PrototypeId<SoundPrototype>[] GetSounds = new[]
         {

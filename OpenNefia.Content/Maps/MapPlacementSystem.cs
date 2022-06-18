@@ -83,7 +83,7 @@ namespace OpenNefia.Content.Maps
         bool TryPlaceChara(EntityUid entity, MapCoordinates coords);
     }
 
-    public sealed class MapPlacement : EntitySystem, IMapPlacement
+    public sealed class MapPlacementSystem : EntitySystem, IMapPlacement
     {
         [Dependency] private readonly IRandom _random = default!;
         [Dependency] private readonly IMapManager _mapManager = default!;
@@ -91,7 +91,7 @@ namespace OpenNefia.Content.Maps
         [Dependency] private readonly IMapTilesetSystem _tilesets = default!;
         [Dependency] private readonly IPartySystem _parties = default!;
         [Dependency] private readonly IGameSessionManager _session = default!;
-        [Dependency] private readonly IMessage _mes = default!;
+        [Dependency] private readonly IMessagesManager _mes = default!;
 
         public MapCoordinates? FindFreePosition(IMap map, bool allowStacking = false, bool mapOnly = false, bool forceClear = false)
         {

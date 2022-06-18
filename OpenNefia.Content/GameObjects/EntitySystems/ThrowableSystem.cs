@@ -19,7 +19,7 @@ namespace OpenNefia.Content.GameObjects
         [Dependency] private readonly IMapManager _mapManager = default!;
         [Dependency] private readonly IEntityLookup _lookup = default!;
         [Dependency] private readonly IStackSystem _stackSystem = default!;
-        [Dependency] private readonly IMessage _mes = default!;
+        [Dependency] private readonly IMessagesManager _mes = default!;
 
         public const string VerbIDThrow = "Elona.Throw";
 

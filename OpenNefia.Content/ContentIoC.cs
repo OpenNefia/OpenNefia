@@ -22,7 +22,7 @@ namespace OpenNefia.Content
             IoCManager.Register<ICharaMakeLogic, CharaMakeLogic>();
             IoCManager.Register<IFieldLayer, FieldLayer>();
             IoCManager.Register<IHudLayer, HudLayer>();
-            IoCManager.Register<IMessage, Message>();
+            IoCManager.Register<IMessagesManager, MessagesManager>();
             //IoCManager.Register<IReplLayer, ReplLayer>();
             //IoCManager.Register<IConsoleHost, ConsoleHost>();
             //IoCManager.Register<IReplExecutor, ConsoleCommandReplExecutor>();

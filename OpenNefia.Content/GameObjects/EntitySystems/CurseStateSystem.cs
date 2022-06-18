@@ -13,7 +13,7 @@ namespace OpenNefia.Content.GameObjects.EntitySystems
 {
     public class CurseStateSystem : EntitySystem
     {
-        [Dependency] private readonly IMessage _mes = default!;
+        [Dependency] private readonly IMessagesManager _mes = default!;
         public override void Initialize()
         {
             SubscribeLocalEvent<CurseStateComponent, GotEquippedInMenuEvent>(OnEquippedInMenu, nameof(OnEquippedInMenu));

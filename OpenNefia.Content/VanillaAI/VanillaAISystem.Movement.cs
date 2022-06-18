@@ -22,7 +22,7 @@ namespace OpenNefia.Content.VanillaAI
     public sealed partial class VanillaAISystem
     {
         [Dependency] private readonly IEntityLookup _lookup = default!;
-        [Dependency] private readonly IMessage _mes = default!;
+        [Dependency] private readonly IMessagesManager _mes = default!;
 
         public bool StayNearPosition(EntityUid entity, MapCoordinates anchor, VanillaAIComponent ai, 
             int maxDistance = 2, 

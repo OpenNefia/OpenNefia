@@ -33,7 +33,7 @@ namespace OpenNefia.Content.GameObjects
         [Dependency] private readonly IFieldLayer _field = default!;
         [Dependency] private readonly IMapManager _mapManager = default!;
         [Dependency] private readonly IUserInterfaceManager _uiMgr = default!;
-        [Dependency] private readonly IMessage _mes = default!;
+        [Dependency] private readonly IMessagesManager _mes = default!;
 
         public override void Initialize()
         {

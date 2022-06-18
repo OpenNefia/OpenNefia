@@ -18,7 +18,7 @@ namespace OpenNefia.Content.GameObjects
         [Dependency] private readonly IEntityLookup _lookup = default!;
         [Dependency] private readonly DisplayNameSystem _displayNames = default!;
         [Dependency] private readonly TargetTextSystem _targetText = default!;
-        [Dependency] private readonly IMessage _mes = default!;
+        [Dependency] private readonly IMessagesManager _mes = default!;
 
         public override void Initialize()
         {

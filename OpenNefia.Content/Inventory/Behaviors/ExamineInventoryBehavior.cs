@@ -17,7 +17,7 @@ namespace OpenNefia.Content.Inventory
     {
         [Dependency] private readonly IVerbSystem _verbSystem = default!;
         [Dependency] private readonly IUserInterfaceManager _uiManager = default!;
-        [Dependency] private readonly IMessage _mes = default!;
+        [Dependency] private readonly IMessagesManager _mes = default!;
 
         public override HspIdsInv HspIds { get; } = HspIdsInv.From122(new(id: 1));
 

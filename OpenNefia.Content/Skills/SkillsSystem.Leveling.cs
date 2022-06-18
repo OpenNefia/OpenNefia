@@ -22,7 +22,7 @@ namespace OpenNefia.Content.Skills
         [Dependency] private readonly IRandom _rand = default!;
         [Dependency] private readonly IVisibilitySystem _visibility = default!;
         [Dependency] private readonly IPartySystem _parties = default!;
-        [Dependency] private readonly IMessage _mes = default!;
+        [Dependency] private readonly IMessagesManager _mes = default!;
 
         public static readonly IntRange PotentialRange = new(1, 400);
 

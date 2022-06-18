@@ -2,6 +2,8 @@
 using NUnit.Framework;
 using OpenNefia.Content.EntityGen;
 using OpenNefia.Content.GameObjects;
+using OpenNefia.Content.Maps;
+using OpenNefia.Content.Parties;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Maps;
@@ -37,6 +39,10 @@ namespace OpenNefia.Content.Tests.EntityGen
                .RegisterPrototypes(protoMan => protoMan.LoadString(Prototypes))
                .RegisterEntitySystems(factory =>
                {
+                   factory.LoadExtraSystemType<EntityGenSystem>();
+                   factory.LoadExtraSystemType<MapPlacementSystem>();
+                   factory.LoadExtraSystemType<MapTilesetSystem>();
+                   factory.LoadExtraSystemType<PartySystem>();
                    factory.LoadExtraSystemType<EntityGenTestSystem>();
                })
                .InitializeInstance();

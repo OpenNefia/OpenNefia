@@ -24,7 +24,7 @@ namespace OpenNefia.Content.GameObjects
         [Dependency] private readonly IFactionSystem _factions = default!;
         [Dependency] private readonly IRandom _random = default!;
         [Dependency] private readonly IDisplayNameSystem _displayNames = default!;
-        [Dependency] private readonly IMessage _mes = default!;
+        [Dependency] private readonly IMessagesManager _mes = default!;
 
         public override void Initialize()
         {

@@ -79,8 +79,8 @@ namespace OpenNefia.Tests.Core.Maths
             new (UIBox2i, int, UIBox2i)[]
             {
                 (new UIBox2i(0, 0, 5, 5), 0, new UIBox2i(0, 0, 5, 5)),
-                (new UIBox2i(0, 0, 5, 5), 2, new UIBox2i(-2, -2, 7, 7)),
-                (new UIBox2i(0, 0, 5, 5), -2, new UIBox2i(2, 2, 3, 3)),
+                (new UIBox2i(0, 0, 5, 5), 2, new UIBox2i(-2, -2, 9, 9)),
+                (new UIBox2i(0, 0, 5, 5), -2, new UIBox2i(2, 2, 1, 1)),
             };
 
         [Test]

@@ -12,7 +12,7 @@ namespace OpenNefia.Content.GameObjects
 {
     public class ContentStackSystem : EntitySystem
     {
-        [Dependency] private readonly IMessage _mes = default!;
+        [Dependency] private readonly IMessagesManager _mes = default!;
         public override void Initialize()
         {
             SubscribeLocalEvent<SpatialComponent, EntityStackedEvent>(HandleStacked, nameof(HandleStacked));

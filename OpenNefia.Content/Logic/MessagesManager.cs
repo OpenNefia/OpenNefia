@@ -12,13 +12,13 @@ using OpenNefia.Core.Maths;
 
 namespace OpenNefia.Content.Logic
 {
-    public interface IMessage
+    public interface IMessagesManager
     {
         void Newline();
         void Display(string text, Color? color = null, bool alert = false, bool noCapitalize = false, EntityUid? entity = null);
     }
 
-    public class Message : IMessage
+    public class MessagesManager : IMessagesManager
     {
         [Dependency] private readonly IHudLayer _hud = default!;
         [Dependency] private readonly IEntityManager _entityManager = default!;

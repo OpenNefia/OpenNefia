@@ -151,7 +151,7 @@ namespace OpenNefia.Content.Inventory
         [Dependency] private readonly IUserInterfaceManager _uiMgr = default!;
         [Dependency] private readonly IInventorySystem _invSys = default!;
         [Dependency] private readonly ICargoSystem _cargoSys = default!;
-        [Dependency] private readonly IMessage _mes = default!;
+        [Dependency] private readonly IMessagesManager _mes = default!;
 
         public bool PlaySounds { get; set; } = false;
 
