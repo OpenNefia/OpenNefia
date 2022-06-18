@@ -1,0 +1,12 @@
+﻿<DefaultWindow xmlns="https://opennefia.io"
+               Class="OpenNefia.Core.ControlTest.AllInOneWindow"
+               Title="All In One"
+               MinSize="300 300">
+    <ScrollContainer VerticalExpand="False">
+        <BoxContainer Orientation="Vertical">
+            <Button Text="Button" HorizontalAlignment="Left" Margin ="0 4" />
+            <Label Text="Label" HorizontalAlignment="Left" Margin ="0 4" />
+            <CheckBox Text="CheckBox" HorizontalAlignment="Left" Margin ="0 4" />
+        </BoxContainer>
+    </ScrollContainer>
+</DefaultWindow>

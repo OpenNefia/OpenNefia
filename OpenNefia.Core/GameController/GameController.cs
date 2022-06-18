@@ -1,20 +1,17 @@
-﻿using System.Globalization;
-using System.Runtime;
-using Microsoft.Extensions.Options;
+﻿using System.Runtime;
 using OpenNefia.Core.Asynchronous;
 using OpenNefia.Core.Audio;
 using OpenNefia.Core.Configuration;
-using OpenNefia.Core.Console;
 using OpenNefia.Core.ContentPack;
 using OpenNefia.Core.Game;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Graphics;
+using OpenNefia.Core.HotReload;
 using OpenNefia.Core.Input;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Locale;
 using OpenNefia.Core.Log;
 using OpenNefia.Core.Maps;
-using OpenNefia.Core.Maths;
 using OpenNefia.Core.Profiles;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Rendering;
@@ -24,7 +21,10 @@ using OpenNefia.Core.Serialization.Manager;
 using OpenNefia.Core.Timing;
 using OpenNefia.Core.UI;
 using OpenNefia.Core.UI.Layer;
+using OpenNefia.Core.UI.Wisp;
+using OpenNefia.Core.UI.Wisp.Styling;
 using OpenNefia.Core.UserInterface;
+using OpenNefia.Core.UserInterface.XAML.HotReload;
 using OpenNefia.Core.Utility;
 
 namespace OpenNefia.Core.GameController
@@ -56,6 +56,10 @@ namespace OpenNefia.Core.GameController
         [Dependency] private readonly IProfileManager _profileManager = default!;
         [Dependency] private readonly ISaveGameManagerInternal _saveGameManager = default!;
         [Dependency] private readonly ISaveGameSerializerInternal _saveGameSerializer = default!;
+        [Dependency] private readonly IWispManager _wispManager = default!;
+        [Dependency] private readonly IStylesheetManager _stylesheetManager = default!;
+        [Dependency] private readonly IHotReloadWatcherInternal _hotReloadWatcher = default!;
+        [Dependency] private readonly IXamlHotReloadManager _xamlHotReload = default!;
 
         public Action? MainCallback { get; set; } = null;
         private ILogHandler? _logHandler;
@@ -67,6 +71,8 @@ namespace OpenNefia.Core.GameController
         {
             Options = options;
             System.Console.OutputEncoding = EncodingHelpers.UTF8;
+
+            _hotReloadWatcher.Initialize();
 
             _resourceCache.Initialize(Options.UserDataDirectoryName);
             _profileManager.Initialize();
@@ -130,6 +136,8 @@ namespace OpenNefia.Core.GameController
 
             _assetManager.PreloadAssets();
 
+            _stylesheetManager.Initialize();
+
             _tileDefinitionManager.Initialize();
             _tileDefinitionManager.RegisterAll();
 
@@ -146,6 +154,8 @@ namespace OpenNefia.Core.GameController
 
             _mapRenderer.Initialize();
             _mapRenderer.RegisterTileLayers();
+
+            _xamlHotReload.Initialize();
 
             _modLoader.BroadcastRunLevel(ModRunLevel.PostInit);
 
@@ -314,9 +324,11 @@ namespace OpenNefia.Core.GameController
                 DoShutdown();
             }
 
+            _hotReloadWatcher.FrameUpdate(frame);
             _taskManager.ProcessPendingTasks();
             _timerManager.UpdateTimers(frame);
             _inputManager.UpdateKeyRepeats(frame);
+            _wispManager.FrameUpdate(frame);
             _uiManager.UpdateLayers(frame);
             _taskManager.ProcessPendingTasks();
         }

@@ -9,7 +9,6 @@ using OpenNefia.Core.ContentPack;
 using OpenNefia.Core.GameController;
 using OpenNefia.Core.Input;
 using OpenNefia.Core.IoC;
-using OpenNefia.Core.Log;
 
 namespace OpenNefia.Content
 {

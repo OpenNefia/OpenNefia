@@ -1,4 +1,5 @@
-﻿using System.Runtime.CompilerServices;
+﻿using OpenNefia.Core.Maths;
+using System.Runtime.CompilerServices;
 
 namespace OpenNefia.Core.Rendering
 {
@@ -24,6 +25,15 @@ namespace OpenNefia.Core.Rendering
         public static void RectangleS(float uiScale, Love.DrawMode drawMode, float vx, float vy, float vw, float vh)
         {
             Love.Graphics.Rectangle(drawMode, vx * uiScale, vy * uiScale, vw * uiScale, vh * uiScale);
+        }
+
+        /// <summary>
+        /// Scale-aware version of <see cref="Love.Graphics.Rectangle(Love.DrawMode, float, float, float, float)"/>.
+        /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static void RectangleS(float uiScale, Love.DrawMode drawMode, UIBox2 box)
+        {
+            Love.Graphics.Rectangle(drawMode, box.Left * uiScale, box.Top * uiScale, box.Width * uiScale, box.Height * uiScale);
         }
 
         /// <summary>

@@ -52,7 +52,7 @@ namespace OpenNefia.Core.Locale
 
             _reloadQueue.Clear();
 
-            Logger.Info($"Reloaded localization files in {sw.ElapsedMilliseconds} ms");
+            Logger.Info("loc", $"Reloaded localization files in {sw.ElapsedMilliseconds} ms");
 #endif
         }
 

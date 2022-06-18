@@ -7,16 +7,9 @@ using OpenNefia.Core.Locale;
 using OpenNefia.Core.Log;
 using OpenNefia.Core.Maps;
 using OpenNefia.Core.Maths;
-using OpenNefia.Core.Timing;
 using OpenNefia.Core.UI;
 using OpenNefia.Core.UI.Element;
-using OpenNefia.Core.UI.Layer;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace OpenNefia.Core.UserInterface
 {
@@ -31,8 +24,20 @@ namespace OpenNefia.Core.UserInterface
         /// <inheritdoc/>
         public UiElement? KeyboardFocused { get; private set; }
 
+        private UiElement? _controlFocused;
+
         /// <inheritdoc/>
-        public UiElement? ControlFocused { get; set; }
+        public UiElement? ControlFocused
+        {
+            get => _controlFocused;
+            set
+            {
+                if (_controlFocused == value)
+                    return;
+                _controlFocused?.ControlFocusExited();
+                _controlFocused = value;
+            }
+        }
 
         /// <inheritdoc/>
         public UiElement? CurrentlyHovered { get; private set; }
@@ -58,7 +63,7 @@ namespace OpenNefia.Core.UserInterface
         /// <inheritdoc/>
         public Vector2? CalcRelativeMousePositionFor(UiElement control, ScreenCoordinates mousePos)
         {
-            return mousePos.Position - control.PixelPosition;
+            return mousePos.Position - control.GlobalPixelPosition;
         }
 
         public void GrabKeyboardFocus(UiElement control)
@@ -105,6 +110,12 @@ namespace OpenNefia.Core.UserInterface
             }
         }
 
+        public void ControlHidden(UiElement control)
+        {
+            // Does the same thing but it could later be changed so..
+            ControlRemovedFromTree(control);
+        }
+
         public void ControlRemovedFromTree(UiElement control)
         {
             ReleaseKeyboardFocus(control);
@@ -136,7 +147,7 @@ namespace OpenNefia.Core.UserInterface
             for (var i = control.ChildCount - 1; i >= 0; i--)
             {
                 var child = control.GetChild(i);
-                if (!child.Visible || !child.PixelRect.Contains((Vector2i)position))
+                if (!child.Visible || !child.GlobalPixelRect.Contains((Vector2i)position))
                 {
                     continue;
                 }
@@ -148,7 +159,7 @@ namespace OpenNefia.Core.UserInterface
                 }
             }
 
-            if (control.EventFilter != UIEventFilterMode.Ignore && control.ContainsPoint(position / control.UIScale))
+            if (control.EventFilter != UIEventFilterMode.Ignore && control.GlobalPixelRect.Contains((Vector2i)position))
             {
                 return (control, position);
             }

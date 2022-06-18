@@ -12,10 +12,10 @@ namespace OpenNefia.Core.UI.Element
     public abstract class BaseDrawable : IDrawable
     {
         /// <inheritdoc/>
-        public Vector2 Size { get; internal set; }
+        public virtual Vector2 Size { get; internal set; }
 
         /// <inheritdoc/>
-        public Vector2 Position { get; internal set; }
+        public virtual Vector2 Position { get; internal set; }
 
         /// <inheritdoc/>
         public Vector2i PixelSize => (Vector2i)(Size * UIScale);
@@ -81,11 +81,12 @@ namespace OpenNefia.Core.UI.Element
         }
 
         /// <inheritdoc/>
-        public bool ContainsPoint(Vector2 point)
+        public virtual bool ContainsPoint(Vector2 point)
         {
             return Rect.Contains(point);
         }
 
+        // TODO make these protected internal.
         public abstract void Update(float dt);
         public abstract void Draw();
 

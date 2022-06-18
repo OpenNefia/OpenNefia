@@ -3,6 +3,7 @@ using OpenNefia.Core.Maps;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.UI.Element;
 using OpenNefia.Core.UI.Layer;
+using OpenNefia.Core.UI.Wisp;
 using System.Diagnostics.CodeAnalysis;
 
 namespace OpenNefia.Core.UserInterface
@@ -30,6 +31,8 @@ namespace OpenNefia.Core.UserInterface
         void MouseWheel(MouseWheelEventArgs args);
 
         void TextEntered(TextEventArgs textEvent);
+
+        void ControlHidden(UiElement control);
 
         void ControlRemovedFromTree(UiElement control);
 

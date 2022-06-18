@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Why.Assets.Assemblies
+namespace OpenNefia.Core.UI.Wisp
 {
-    class _
+    public sealed class WispRoot : WispControl
     {
     }
 }

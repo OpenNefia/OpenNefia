@@ -24,6 +24,11 @@ namespace OpenNefia.Core.Rendering
             DrawImage(image, x * uiScale, y * uiScale, width.Value * uiScale, height.Value * uiScale, centered, rotation, originOffset * uiScale);
         }
 
+        public static void Rectangle(DrawMode fill, UIBox2 box)
+        {
+            Love.Graphics.Rectangle(fill, box.Left, box.Top, box.Width, box.Height);
+        }
+
         public static void DrawImage(Love.Texture image, float x = 0, float y = 0, float width = 0, float height = 0, bool centered = false, float rotation = 0, Maths.Vector2 originOffset = default)
         {
             var sx = 1f;

@@ -85,7 +85,7 @@ namespace OpenNefia.Content.UI.Hud
         [Child] private UiMessageWindowBacking BacklogBacking = default!;
         [Child] private UiHudBar HudBar = default!;
 
-        public const int HudZOrder = 200000000;
+        public const int HudZOrder = 20000000;
 
         public HudLayer()
         {

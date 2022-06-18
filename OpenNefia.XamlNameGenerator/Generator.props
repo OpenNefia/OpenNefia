@@ -1,0 +1,22 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <OpenNefiaNameGeneratorBehavior Condition="'$(OpenNefiaNameGeneratorBehavior)' == ''">InitializeComponent</OpenNefiaNameGeneratorBehavior>
+    <OpenNefiaNameGeneratorDefaultFieldModifier Condition="'$(OpenNefiaNameGeneratorDefaultFieldModifier)' == ''">internal</OpenNefiaNameGeneratorDefaultFieldModifier>
+    <OpenNefiaNameGeneratorFilterByPath Condition="'$(OpenNefiaNameGeneratorFilterByPath)' == ''">*</OpenNefiaNameGeneratorFilterByPath>
+    <OpenNefiaNameGeneratorFilterByNamespace Condition="'$(OpenNefiaNameGeneratorFilterByNamespace)' == ''">*</OpenNefiaNameGeneratorFilterByNamespace>
+    <OpenNefiaNameGeneratorDebuggerLaunch Condition="'$(OpenNefiaNameGeneratorDebuggerLaunch)' == ''">false</OpenNefiaNameGeneratorDebuggerLaunch>
+  </PropertyGroup>
+  <ItemGroup>
+    <CompilerVisibleItemMetadata Include="AdditionalFiles" MetadataName="SourceItemGroup"/>
+    <CompilerVisibleProperty Include="OpenNefiaNameGeneratorBehavior" />
+    <CompilerVisibleProperty Include="OpenNefiaNameGeneratorDefaultFieldModifier" />
+    <CompilerVisibleProperty Include="OpenNefiaNameGeneratorFilterByPath" />
+    <CompilerVisibleProperty Include="OpenNefiaNameGeneratorFilterByNamespace" />
+    <CompilerVisibleProperty Include="OpenNefiaNameGeneratorDebuggerLaunch" />
+  </ItemGroup>
+  <Target Name="_InjectAdditionalFiles" BeforeTargets="GenerateMSBuildEditorConfigFileShouldRun">
+    <ItemGroup>
+      <AdditionalFiles Include="@(OpenNefiaXaml)" SourceItemGroup="OpenNefiaXaml" />
+    </ItemGroup>
+  </Target>
+</Project>

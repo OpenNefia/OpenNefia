@@ -9,6 +9,7 @@ using OpenNefia.Core.Reflection;
 using OpenNefia.Core.Timing;
 using OpenNefia.Core.Utility;
 using PrettyPrompt.Consoles;
+using PrettyPrompt.Highlighting;
 using CSharpReplConfig = CSharpRepl.Services.Configuration;
 
 namespace OpenNefia.Core.Console
@@ -73,10 +74,9 @@ namespace OpenNefia.Core.Console
                 references.Add(exeRelativePath);
             }
 
-            return new CSharpReplConfig()
-            {
-                References = references,
-                Usings = new HashSet<string>()
+            return new CSharpReplConfig(
+                references: references.ToArray(),
+                usings: new string[]
                 {
                     "OpenNefia.Core",
                     "OpenNefia.Core.GameObjects",
@@ -90,9 +90,9 @@ namespace OpenNefia.Core.Console
                     "OpenNefia.Content.GameObjects",
                     "OpenNefia.Content.UI",
                     "OpenNefia.Content.Logic",
-                    "System.Linq",
+                    "System.Linq"
                 }
-            };
+            );
         }
 
         public void Initialize()
@@ -131,11 +131,11 @@ namespace OpenNefia.Core.Console
                     break;
                 case EvaluationResult.Error err:
                     var formattedError = await _roslyn.PrettyPrintAsync(err.Exception, displayDetails);
-                    _console.WriteErrorLine(AnsiEscapeCodes.Red + formattedError + AnsiEscapeCodes.Reset);
+                    _console.WriteErrorLine(AnsiColor.Red.GetEscapeSequence() + formattedError + AnsiEscapeCodes.Reset);
                     break;
                 case EvaluationResult.Cancelled:
                     _console.WriteErrorLine(
-                        AnsiEscapeCodes.Yellow + "Operation cancelled." + AnsiEscapeCodes.Reset
+                       AnsiColor.Yellow.GetEscapeSequence() + "Operation cancelled." + AnsiEscapeCodes.Reset
                     );
                     break;
             }
