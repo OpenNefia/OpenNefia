@@ -64,7 +64,7 @@ namespace OpenNefia.Core.Prototypes
         /// <summary>
         /// The prototype we inherit from.
         /// </summary>
-        [DataField(customTypeSerializer:typeof(PrototypeIdStringSerializer<EntityPrototype>))]
+        [DataField(customTypeSerializer: typeof(PrototypeIdStringSerializer<EntityPrototype>))]
         public string? Parent { get; private set; }
 
         /// <summary>
@@ -91,7 +91,7 @@ namespace OpenNefia.Core.Prototypes
 
             // There are no duplicate component names
             // TODO Sanity check with names being in an attribute of the type instead
-            component = (T) componentUnCast;
+            component = (T)componentUnCast;
             return true;
         }
 
@@ -111,7 +111,7 @@ namespace OpenNefia.Core.Prototypes
             }
 
             public bool HasComponent<T>()
-                where T: IComponent
+                where T : class, IComponent
             {
                 var dummy = (IComponent)Activator.CreateInstance(typeof(T))!;
 
@@ -119,6 +119,28 @@ namespace OpenNefia.Core.Prototypes
                     return false;
 
                 return comp is T;
+            }
+
+            public bool TryGetComponent<T>([NotNullWhen(true)] out T? component)
+                where T : class, IComponent
+            {
+                var dummy = (IComponent)Activator.CreateInstance(typeof(T))!;
+
+                if (TryGetValue(dummy.Name, out var comp) && comp is T)
+                {
+                    component = (comp as T)!;
+                    return true;
+                }
+
+                component = null;
+                return false;
+            }
+
+            public T GetComponent<T>()
+                where T : class, IComponent
+            {
+                var dummy = (IComponent)Activator.CreateInstance(typeof(T))!;
+                return (this[dummy.Name] as T)!;
             }
         }
     }

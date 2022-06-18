@@ -4,6 +4,7 @@ using OpenNefia.Content.Feats;
 using OpenNefia.Content.GameObjects;
 using OpenNefia.Content.Inventory;
 using OpenNefia.Content.Qualities;
+using OpenNefia.Content.RandomGen;
 using OpenNefia.Content.Skills;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
@@ -20,7 +21,7 @@ namespace OpenNefia.Content.CharaMake
     public sealed class NewPlayerIncarnationSystem : EntitySystem
     {
         [Dependency] private readonly IRandom _random = default!;
-        [Dependency] private readonly IEntityGen _entityGen = default!;
+        [Dependency] private readonly IItemGen _itemGen = default!;
         [Dependency] private readonly ISkillsSystem _skills = default!;
         [Dependency] private readonly IFeatsSystem _feats = default!;
         [Dependency] private readonly IRefreshSystem _refreshSys = default!;
@@ -43,13 +44,13 @@ namespace OpenNefia.Content.CharaMake
             quality.Quality.Base = Quality.Normal;
 
             var inventory = EntityManager.GetComponent<InventoryComponent>(uid);
-            _entityGen.SpawnEntity(Item.CargoTravelersFood, inventory.Container, count: 8);
-            _entityGen.SpawnEntity(Item.Ration, inventory.Container, count: 8);
-            _entityGen.SpawnEntity(Item.BottleOfCrimAle, inventory.Container, count: 2);
+            _itemGen.GenerateItem(inventory.Container, Item.CargoTravelersFood, amount: 8);
+            _itemGen.GenerateItem(inventory.Container, Item.Ration, amount: 8);
+            _itemGen.GenerateItem(inventory.Container, Item.BottleOfCrimAle, amount: 2);
 
             var skills = EntityManager.EnsureComponent<SkillsComponent>(uid);
             if (_skills.Level(uid, Skill.Literacy, skills) == 0)
-                _entityGen.SpawnEntity(Item.PotionOfCureMinorWound, inventory.Container, count: 3);
+                _itemGen.GenerateItem(inventory.Container, Item.PotionOfCureMinorWound, amount: 3);
 
             // TODO class inits
 

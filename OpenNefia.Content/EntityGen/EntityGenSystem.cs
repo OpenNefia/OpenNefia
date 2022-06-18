@@ -1,3 +1,4 @@
+using OpenNefia.Analyzers;
 using OpenNefia.Content.Charas;
 using OpenNefia.Content.DisplayName;
 using OpenNefia.Content.Maps;
@@ -31,10 +32,10 @@ namespace OpenNefia.Content.EntityGen
     public interface IEntityGen : IEntitySystem
     {
         void FireGeneratedEvent(EntityUid entity);
-        EntityUid? SpawnEntity(PrototypeId<EntityPrototype>? protoId, EntityCoordinates coordinates);
-        EntityUid? SpawnEntity(PrototypeId<EntityPrototype>? protoId, MapCoordinates coordinates);
-        EntityUid? SpawnEntity(PrototypeId<EntityPrototype>? protoId, IContainer container, int count = 1);
-        EntityUid? SpawnEntity(PrototypeId<EntityPrototype>? protoId, IMap map);
+        EntityUid? SpawnEntity(PrototypeId<EntityPrototype>? protoId, EntityCoordinates coordinates, int? amount = null, EntityGenArgSet? args = null);
+        EntityUid? SpawnEntity(PrototypeId<EntityPrototype>? protoId, MapCoordinates coordinates, int? amount = null, EntityGenArgSet? args = null);
+        EntityUid? SpawnEntity(PrototypeId<EntityPrototype>? protoId, IContainer container, int? amount = null, EntityGenArgSet? args = null);
+        EntityUid? SpawnEntity(PrototypeId<EntityPrototype>? protoId, IMap map, int? amount = null, EntityGenArgSet? args = null);
     }
 
     public class EntityGenSystem : EntitySystem, IEntityGen
@@ -75,12 +76,12 @@ namespace OpenNefia.Content.EntityGen
             FireGeneratedEvent(entity);
         }
 
-        public EntityUid? SpawnEntity(PrototypeId<EntityPrototype>? protoId, EntityCoordinates coordinates)
+        public EntityUid? SpawnEntity(PrototypeId<EntityPrototype>? protoId, EntityCoordinates coordinates, int? count = null, EntityGenArgSet? args = null)
         {
             if (!coordinates.IsValid(EntityManager))
                 return null;
 
-            return SpawnEntity(protoId, coordinates.ToMap(EntityManager));
+            return SpawnEntity(protoId, coordinates.ToMap(EntityManager), count, args);
         }
 
         private enum PositionSearchType
@@ -101,9 +102,17 @@ namespace OpenNefia.Content.EntityGen
             return PositionSearchType.General;
         }
 
-        public EntityUid? SpawnEntity(PrototypeId<EntityPrototype>? protoId, MapCoordinates coordinates)
+        public EntityUid? SpawnEntity(PrototypeId<EntityPrototype>? protoId, MapCoordinates coordinates, int? count = null, EntityGenArgSet? args = null)
         {
             var ent = EntityManager.SpawnEntity(protoId, new MapCoordinates(MapId.Global, Vector2i.Zero));
+
+            if (count == null && args != null && args.TryGet<EntityGenCommonArgs>(out var commonArgs))
+                count = commonArgs.Amount;
+
+            if (EntityManager.HasComponent<StackComponent>(ent))
+                _stacks.SetCount(ent, Math.Max(count ?? 1, 1));
+            else if (count != null)
+                Logger.WarningS("entity.gen", $"Passed count {count} to generate entity {protoId}, but entity did not have a {nameof(StackComponent)}.");
 
             var searchType = GetSearchType(protoId);
             var spatial = EntityManager.GetComponent<SpatialComponent>(ent);
@@ -128,6 +137,10 @@ namespace OpenNefia.Content.EntityGen
                 return null;
             }
 
+            args ??= EntityGenArgSet.Make();
+            var ev = new EntityBeingGeneratedEvent(args);
+            RaiseLocalEvent(ent, ref ev);
+
             FireGeneratedEvent(ent);
 
             if (!EntityManager.IsAlive(ent))
@@ -141,19 +154,19 @@ namespace OpenNefia.Content.EntityGen
             return ent;
         }
 
-        public EntityUid? SpawnEntity(PrototypeId<EntityPrototype>? protoId, IMap map)
+        public EntityUid? SpawnEntity(PrototypeId<EntityPrototype>? protoId, IMap map, int? count = null, EntityGenArgSet? args = null)
         {
             var pos = _placement.FindFreePosition(map);
             if (pos == null)
                 return null;
 
-            return SpawnEntity(protoId, pos.Value);
+            return SpawnEntity(protoId, pos.Value, count, args);
         }
 
-        public EntityUid? SpawnEntity(PrototypeId<EntityPrototype>? protoId, IContainer container, int count = 1)
+        public EntityUid? SpawnEntity(PrototypeId<EntityPrototype>? protoId, IContainer container, int? count = null, EntityGenArgSet? args = null)
         {
             var coords = new EntityCoordinates(container.Owner, Vector2i.Zero);
-            var ent = SpawnEntity(protoId, coords);
+            var ent = SpawnEntity(protoId, coords, count, args);
 
             if (!EntityManager.IsAlive(ent))
                 return null;
@@ -166,12 +179,22 @@ namespace OpenNefia.Content.EntityGen
                 return null;
             }
 
-            _stacks.SetCount(ent.Value, count);
-
             return ent.Value;
         }
     }
 
+    [EventArgsUsage(EventArgsTargets.ByRef)]
+    public struct EntityBeingGeneratedEvent
+    {
+        public EntityGenArgSet Args { get; }
+
+        public EntityBeingGeneratedEvent(EntityGenArgSet args)
+        {
+            Args = args;
+        }
+    }
+
+    [EventArgsUsage(EventArgsTargets.ByRef)]
     public struct EntityGeneratedEvent
     {
     }

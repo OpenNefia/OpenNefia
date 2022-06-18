@@ -17,6 +17,7 @@ using System.Diagnostics.CodeAnalysis;
 using OpenNefia.Core.Utility;
 using Love;
 using System.ComponentModel;
+using OpenNefia.Content.RandomGen;
 
 namespace OpenNefia.Content.Nefia
 {
@@ -37,6 +38,10 @@ namespace OpenNefia.Content.Nefia
         [Dependency] private readonly ITagSystem _tags = default!;
         [Dependency] private readonly IAreaManager _areaManager = default!;
         [Dependency] private readonly IMapPlacement _placement = default!;
+        [Dependency] private readonly IItemGen _itemGen = default!;
+        [Dependency] private readonly ICharaGen _charaGen = default!;
+        [Dependency] private readonly IRandomGenSystem _randomGen = default!;
+        [Dependency] private readonly ILevelSystem _levels = default!;
 
         /// <summary>
         /// Maximum number of times the layout should be generated before giving up.

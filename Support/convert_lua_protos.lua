@@ -40,6 +40,9 @@ local function dottedEntity(str, ty)
 end
 
 local function itemCategory(str, ident)
+    if str == "elona.no_generate" then
+        return "Elona.NoGenerate"
+    end
     local mod_id, data_id = str:match "([^.]+)%.([^.]+)"
     return ("%s.%s%s"):format(classify(mod_id), ident, classify(data_id))
 end
@@ -118,6 +121,7 @@ local function tuple(t)
 end
 
 local handlers = {}
+local allTags = {}
 
 local function comp(t, name)
     if t.components == nil then
@@ -160,7 +164,7 @@ handlers["base.chara"] = function(from, to)
             rarity = from.rarity or 100000,
         }
         if (from.fltselect or 0) ~= 0 then
-            c.tables.chara.fltselect = Enum.FltSelect:to_string(from.fltselect)
+            c.tables.chara.fltselect = "Elona." .. Enum.FltSelect:to_string(from.fltselect)
         end
     end
 
@@ -242,6 +246,10 @@ handlers["base.chara"] = function(from, to)
             c.moveChance = from.ai_move_chance / 100.0
         end
     end
+
+    if from.is_unique then
+        c = comp(to, "UniqueCompanion")
+    end
 end
 
 handlers["base.item"] = function(from, to)
@@ -263,7 +271,7 @@ handlers["base.item"] = function(from, to)
             rarity = from.rarity or 100000,
         }
         if (from.fltselect or 0) ~= 0 then
-            c.tables.item.fltselect = Enum.FltSelect:to_string(from.fltselect)
+            c.tables.item.fltselect = "Elona." .. Enum.FltSelect:to_string(from.fltselect)
         end
     end
 
@@ -276,7 +284,12 @@ handlers["base.item"] = function(from, to)
     c.tags = {}
     for _, cat in ipairs(from.categories or {}) do
         if not cat:match "elona.tag_" then
-            c.tags[#c.tags + 1] = itemCategory(cat, "Item")
+            local tag = itemCategory(cat, "ItemCat")
+            c.tags[#c.tags + 1] = tag
+            if not allTags[tag] then
+                allTags[tag] = true
+                allTags[#allTags + 1] = tag
+            end
         end
     end
     for _, tag in ipairs(from.tags or {}) do
@@ -664,8 +677,8 @@ local function write(ty, filename)
     file:close()
 end
 
--- write("base.chara", "Entity/Chara.yml")
--- write("base.item", "Entity/Item.yml")
+write("base.chara", "Entity/Chara.yml")
+write("base.item", "Entity/Item.yml")
 -- write("base.class", "Class.yml")
 -- write("base.race", "Race.yml")
 -- write("elona_sys.dialog", "Dialog.yml")
@@ -680,6 +693,10 @@ end
 -- write("elona_sys.map_tileset", "MapTileset.yml")
 write("elona.material_spot", "MaterialSpot.yml")
 write("elona.material", "Material.yml")
+
+for _, tag in ipairs(allTags) do
+    print(tag)
+end
 
 -- print(inspect(data["base.item"]:iter():filter(function(a) return a.fltselect > 0 and a.rarity == 0 end):to_list()))
 

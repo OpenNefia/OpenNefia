@@ -6,6 +6,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using OpenNefia.Content.Charas;
+using OpenNefia.Core.Maps;
+using OpenNefia.Content.RandomGen;
 
 namespace OpenNefia.Content.Maps
 {
@@ -25,16 +27,20 @@ namespace OpenNefia.Content.Maps
         /// Random character generation behavior.
         /// </summary>
         [DataField]
-        public IMapCharaFilter? CharaFilter { get; set; }
+        public IMapCharaFilter? CharaFilterGen { get; set; }
     }
 
     [ImplicitDataDefinitionForInheritors]
     public interface IMapCharaFilter
     {
-        // TODO
+        CharaFilter GenerateFilter(IMap map);
     }
 
-    public class CharaFilterPalmia : IMapCharaFilter
+    public class DefaultCharaFilter : IMapCharaFilter
     {
+        public CharaFilter GenerateFilter(IMap map)
+        {
+            return new();
+        }
     }
 }

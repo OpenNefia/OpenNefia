@@ -16,6 +16,7 @@
     id: Elona.GrassPatch1
   - density: 2
     id: Elona.GrassPatch2
+  generator: !type:FieldMapGeneratorPlains {}
 - type: Elona.FieldType
   id: Elona.Grassland
   defaultTile: Elona.GrassTall1
@@ -37,6 +38,7 @@
     id: Elona.GrassTall2
   - density: 2
     id: Elona.GrassPatch1
+  generator: !type:FieldMapGeneratorGrassland {}
 - type: Elona.FieldType
   id: Elona.Desert
   defaultTile: Elona.Desert
@@ -52,6 +54,7 @@
     id: Elona.DesertFlowers1
   - density: 2
     id: Elona.DesertFlowers2
+  generator: !type:FieldMapGeneratorDesert {}
 - type: Elona.FieldType
   id: Elona.Sea
   defaultTile: Elona.CrackedDirt1
@@ -70,6 +73,7 @@
     id: Elona.GrassViolets
   - density: 2
     id: Elona.GrassTall2
+  generator: !type:FieldMapGeneratorForest {}
 - type: Elona.FieldType
   id: Elona.SnowField
   defaultTile: Elona.Snow
@@ -89,4 +93,5 @@
     id: Elona.SnowRock
   - density: 1
     id: Elona.SnowFlowers2
+  generator: !type:FieldMapGeneratorSnowField {}
 ...

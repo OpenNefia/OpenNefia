@@ -20,6 +20,7 @@ using OpenNefia.Core.Prototypes;
 using OpenNefia.Content.EntityGen;
 using OpenNefia.Content.GameObjects.EntitySystems.Tag;
 using OpenNefia.Content.GameObjects;
+using OpenNefia.Content.RandomGen;
 
 namespace OpenNefia.Content.Nefia.Layout
 {
@@ -95,6 +96,7 @@ namespace OpenNefia.Content.Nefia.Layout
         [Dependency] private readonly IEntityManager _entityManager = default!;
         [Dependency] private readonly IRandom _rand = default!;
         [Dependency] private readonly IEntityGen _entityGen = default!;
+        [Dependency] private readonly IItemGen _itemGen = default!;
 
         /// <summary>
         /// Maximum room count per nefia.
@@ -319,11 +321,11 @@ namespace OpenNefia.Content.Nefia.Layout
                                             if (_rand.OneIn(3))
                                             {
                                                 var id = _rand.Pick(RoomItems);
-                                                _entityGen.SpawnEntity(id, pos);
+                                                _itemGen.GenerateItem(pos, id);
                                             }
                                             else if (i % 2 == 1)
                                             {
-                                                _entityGen.SpawnEntity(Protos.Item.Candle, pos);
+                                                _itemGen.GenerateItem(pos, Protos.Item.Candle);
                                             }
                                         }
                                     }
@@ -338,11 +340,11 @@ namespace OpenNefia.Content.Nefia.Layout
                                         if (_rand.OneIn(3))
                                         {
                                             var id = _rand.Pick(RoomItems);
-                                            _entityGen.SpawnEntity(id, pos);
+                                            _itemGen.GenerateItem(pos, id);
                                         }
                                         else if (i % 2 == 1)
                                         {
-                                            _entityGen.SpawnEntity(Protos.Item.Candle, pos);
+                                            _itemGen.GenerateItem(pos, Protos.Item.Candle);
                                         }
                                     }
                                     break;

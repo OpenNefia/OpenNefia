@@ -14,6 +14,12 @@ using OpenNefia.Core.Maps;
 using OpenNefia.Content.UI.Layer;
 using OpenNefia.Content.Levels;
 using OpenNefia.Content.EntityGen;
+using OpenNefia.Core.Rendering;
+using Love;
+using OpenNefia.Content.Rendering;
+using OpenNefia.Content.RandomGen;
+using OpenNefia.Content.Qualities;
+using OpenNefia.Core.Random;
 
 namespace OpenNefia.Content.Pot
 {
@@ -24,8 +30,11 @@ namespace OpenNefia.Content.Pot
         [Dependency] private readonly IVisibilitySystem _visibliity = default!;
         [Dependency] private readonly IMessagesManager _mes = default!;
         [Dependency] private readonly IFieldLayer _field = default!;
+        [Dependency] private readonly IItemGen _itemGen = default!;
+        [Dependency] private readonly IRandomGenSystem _randomGen = default!;
+        [Dependency] private readonly IRandom _rand = default!;
         [Dependency] private readonly ILevelSystem _levels = default!;
-        [Dependency] private readonly IEntityGen _entityGen = default!;
+        [Dependency] private readonly IMapDrawables _mapDrawables = default!;
 
         public override void Initialize()
         {
@@ -40,19 +49,25 @@ namespace OpenNefia.Content.Pot
             var chip = EntityManager.GetComponent<ChipComponent>(uid);
             chip.ChipID = Protos.Chip.Default;
 
-            // TODO
+            // TODO shelter
             var level = _levels.GetLevel(map.MapEntityUid);
-            _entityGen.SpawnEntity(Protos.Item.SunCrystal, spatial.MapPosition);
+
+            _itemGen.GenerateItem(spatial.MapPosition, 
+                minLevel: level, 
+                quality: _randomGen.CalcObjectQuality(Quality.Good),
+                tags: new[] { _rand.Pick(RandomGenConsts.FilterSets.Barrel) });
 
             map.MemorizeTile(spatial.WorldPosition);
             _field.RefreshScreen();
 
-            // TODO
             if (_visibliity.IsInWindowFov(args.Source))
             {
                 _audio.Play(Protos.Sound.Bash1, uid);
                 _mes.Display(Loc.GetString("Elona.Pot.Shatters", ("basher", args.Source)));
                 _audio.Play(Protos.Sound.Crush1, uid);
+                var drawable = new BreakingFragmentsMapDrawable();
+                _mapDrawables.Enqueue(drawable, spatial.MapPosition);
+                _mapDrawables.WaitForDrawables();
             }
 
             EntityManager.DeleteEntity(uid);

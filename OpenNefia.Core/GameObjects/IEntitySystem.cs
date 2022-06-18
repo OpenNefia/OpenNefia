@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using JetBrains.Annotations;
+using OpenNefia.Core.Maps;
+using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.UI.Element;
 
 namespace OpenNefia.Core.GameObjects

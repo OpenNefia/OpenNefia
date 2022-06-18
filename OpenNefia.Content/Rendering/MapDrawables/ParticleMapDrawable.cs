@@ -26,7 +26,6 @@ namespace OpenNefia.Content.Rendering
         private IAssetInstance AssetParticle;
         private PrototypeId<SoundPrototype>? Sound;
         private float RotationVariance;
-        private float AnimeWait;
         private Particle[] Particles;
         private FrameCounter Counter;
 
@@ -40,7 +39,6 @@ namespace OpenNefia.Content.Rendering
             this.AssetParticle = Assets.Get(asset);
             this.Sound = sound;
             this.RotationVariance = rotationVariance;
-            this.AnimeWait = waitSecs.Value;
             var coords = GameSession.Coords;
             this.Particles = Enumerable.Range(0, 15)
                 .Select(_ => new Particle(new Vector2i(rand.Next(coords.TileSize.X), rand.Next(coords.TileSize.Y)),

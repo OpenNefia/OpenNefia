@@ -11,6 +11,9 @@ using OpenNefia.Core.Serialization.Manager.Attributes;
 using OpenNefia.Core.Random;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Locale;
+using OpenNefia.Content.RandomGen;
+using OpenNefia.Content.GameObjects;
+using OpenNefia.Content.GameObjects.Pickable;
 
 namespace OpenNefia.Content.FieldMap
 {
@@ -41,6 +44,120 @@ namespace OpenNefia.Content.FieldMap
 
         [DataField]
         public List<FieldMapTile> Tiles { get; set; } = new();
+
+        [DataField]
+        public IFieldMapGenerator? Generator { get; set; }
+    }
+
+    [ImplicitDataDefinitionForInheritors]
+    public interface IFieldMapGenerator
+    {
+        void OnGenerate(IMap map);
+    }
+
+    public sealed class FieldMapGeneratorForest : IFieldMapGenerator
+    {
+        [Dependency] private readonly IRandom _rand = default!;
+        [Dependency] private readonly IItemGen _itemGen = default!;
+        [Dependency] private readonly IEntityManager _entityMan = default!;
+
+        public void OnGenerate(IMap map)
+        {
+            for (var i = 0; i < 20 + _rand.Next(20); i++)
+            {
+                var entity = _itemGen.GenerateItem(map, tags: new[] { Protos.Tag.ItemCatJunkInField });
+                if (entity != null && _entityMan.TryGetComponent<PickableComponent>(entity.Value, out var pickable))
+                {
+                    pickable.OwnState = OwnState.NPC;
+                }
+            }
+
+            FieldMapGenerator.CreateJunkItems(map, _itemGen, _rand);
+        }
+    }
+
+    public sealed class FieldMapGeneratorGrassland : IFieldMapGenerator
+    {
+        [Dependency] private readonly IRandom _rand = default!;
+        [Dependency] private readonly IItemGen _itemGen = default!;
+        [Dependency] private readonly IEntityManager _entityMan = default!;
+
+        public void OnGenerate(IMap map)
+        {
+            for (var i = 0; i < 10 + _rand.Next(10); i++)
+            {
+                var entity = _itemGen.GenerateItem(map, tags: new[] { Protos.Tag.ItemCatJunkInField });
+                if (entity != null && _entityMan.TryGetComponent<PickableComponent>(entity.Value, out var pickable))
+                {
+                    pickable.OwnState = OwnState.NPC;
+                }
+            }
+
+            FieldMapGenerator.CreateJunkItems(map, _itemGen, _rand);
+        }
+    }
+
+    public sealed class FieldMapGeneratorDesert : IFieldMapGenerator
+    {
+        [Dependency] private readonly IRandom _rand = default!;
+        [Dependency] private readonly IItemGen _itemGen = default!;
+        [Dependency] private readonly IEntityManager _entityMan = default!;
+
+        public void OnGenerate(IMap map)
+        {
+            for (var i = 0; i < 10 + _rand.Next(10); i++)
+            {
+                var entity = _itemGen.GenerateItem(map, id: Protos.Item.DeadTree);
+                if (entity != null && _entityMan.TryGetComponent<PickableComponent>(entity.Value, out var pickable))
+                {
+                    pickable.OwnState = OwnState.NPC;
+                }
+            }
+
+            FieldMapGenerator.CreateJunkItems(map, _itemGen, _rand);
+        }
+    }
+
+    public sealed class FieldMapGeneratorSnowField : IFieldMapGenerator
+    {
+        [Dependency] private readonly IRandom _rand = default!;
+        [Dependency] private readonly IItemGen _itemGen = default!;
+        [Dependency] private readonly IEntityManager _entityMan = default!;
+
+        public void OnGenerate(IMap map)
+        {
+            for (var i = 0; i < 3 + _rand.Next(5); i++)
+            {
+                var entity = _itemGen.GenerateItem(map, tags: new[] { Protos.Tag.ItemCatJunkInField }, fltselect: FltSelects.Snow);
+                if (entity != null && _entityMan.TryGetComponent<PickableComponent>(entity.Value, out var pickable))
+                {
+                    pickable.OwnState = OwnState.NPC;
+                }
+            }
+
+            FieldMapGenerator.CreateJunkItems(map, _itemGen, _rand);
+        }
+    }
+
+    public sealed class FieldMapGeneratorPlains : IFieldMapGenerator
+    {
+        [Dependency] private readonly IRandom _rand = default!;
+        [Dependency] private readonly IItemGen _itemGen = default!;
+        [Dependency] private readonly IEntityManager _entityMan = default!;
+
+        public void OnGenerate(IMap map)
+        {
+            for (var i = 0; i < 5 + _rand.Next(5); i++)
+            {
+                var entity = _itemGen.GenerateItem(map, tags: new[] { Protos.Tag.ItemCatJunkInField });
+                if (entity != null && _entityMan.TryGetComponent<PickableComponent>(entity.Value, out var pickable))
+                {
+                    pickable.OwnState = OwnState.NPC;
+                }
+            }
+
+            FieldMapGenerator.CreateJunkItems(map, _itemGen, _rand);
+        }
     }
 
     [DataDefinition]
@@ -82,9 +199,21 @@ namespace OpenNefia.Content.FieldMap
             if (Loc.TryGetPrototypeString(FieldMap, "Name", out var name))
                 metaData.DisplayName = name;
 
-            // TODO create_junk_items()
+            if (proto.Generator != null)
+            {
+                EntitySystem.InjectDependencies(proto.Generator);
+                proto.Generator.OnGenerate(map);
+            }
 
             return map;
+        }
+
+        public static void CreateJunkItems(IMap map, IItemGen _itemGen, IRandom _random)
+        {
+            for (int i = 0; i < 4 + _random.Next(5); i++)
+            {
+                _itemGen.GenerateItem(map, tags: new[] { Protos.Tag.ItemCatJunkInField });
+            }
         }
 
         public static void SprayTile(IMap map, PrototypeId<TilePrototype> tile, int density,

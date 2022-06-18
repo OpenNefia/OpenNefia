@@ -18,6 +18,8 @@ using OpenNefia.Core.Utility;
 using OpenNefia.Content.Nefia;
 using Love;
 using OpenNefia.Content.Web;
+using OpenNefia.Content.Qualities;
+using OpenNefia.Content.RandomGen;
 
 namespace OpenNefia.Content.Nefia
 {
@@ -73,6 +75,9 @@ namespace OpenNefia.Content.Nefia
                 density = modifier.Modifier.Calculate(map);
             }
 
+            if (charaGen.CharaFilterGen == null)
+                charaGen.CharaFilterGen = new DungeonCharaFilter();
+
             AddMobsAndTraps(map, density);
 
             // TODO little sister
@@ -98,13 +103,15 @@ namespace OpenNefia.Content.Nefia
                 {
                     if (_rand.OneIn(2))
                     {
-                        // TODO
-                        _entityGen.SpawnEntity(Protos.Item.Putitoro, map);
+                        var pos = _rand.NextVec2iInBounds(bounds);
+                        _itemGen.GenerateItem(map.AtPos(pos), 
+                            minLevel: _randomGen.CalcObjectLevel(map), 
+                            quality: _randomGen.CalcObjectQuality(Quality.Normal),
+                            tags: new[] { RandomGenConsts.FilterSets.Dungeon(_rand) });
                     }
 
-                    // TODO filter
-
-                    var chara = _entityGen.SpawnEntity(Protos.Chara.Putit, map);
+                    var charaPos = _rand.NextVec2iInBounds(bounds);
+                    var chara = _charaGen.GenerateCharaFromMapFilter(map.AtPos(charaPos));
                     if (chara != null)
                     {
                         if (level.Level > 3)
@@ -117,8 +124,11 @@ namespace OpenNefia.Content.Nefia
                                     var creatureCount2 = 10 + _rand.Next(20);
                                     for (var j = 0; j < creatureCount2; j++)
                                     {
-                                        // TODO
-                                        _entityGen.SpawnEntity(Protos.Chara.RedPutit, map);
+                                        var pos = _rand.NextVec2iInBounds(bounds);
+                                        _charaGen.GenerateChara(map.AtPos(pos),
+                                            minLevel: _levels.GetLevel(chara.Value),
+                                            quality: _randomGen.CalcObjectQuality(Quality.Normal),
+                                            fltselect: creaturePack.Category);
                                     }
                                     break;
                                 }
@@ -139,8 +149,7 @@ namespace OpenNefia.Content.Nefia
                             {
                                 for (var rx = bounds.Left; rx < bounds.Right; rx++)
                                 {
-                                    // TODO
-                                    _entityGen.SpawnEntity(Protos.Chara.Slime, map.AtPos(rx, ry));
+                                    _charaGen.GenerateCharaFromMapFilter(map.AtPos(rx, ry));
                                 }
                             }
 
@@ -148,8 +157,8 @@ namespace OpenNefia.Content.Nefia
                             {
                                 for (var j = 0; j < _rand.Next(3); j++)
                                 {
-                                    // TODO
-                                    _entityGen.SpawnEntity(Protos.Item.BejeweledChest, map);
+                                    var pos = _rand.NextVec2iInBounds(bounds);
+                                    _itemGen.GenerateItem(map.AtPos(pos), tags: new[] { Protos.Tag.ItemCatContainer });
                                 }
                             }
                         }
@@ -168,14 +177,14 @@ namespace OpenNefia.Content.Nefia
         {
             for (var i = 0; i < density.MobCount; i++)
             {
-                // TODO
-                _entityGen.SpawnEntity(Protos.Chara.Yeek, map);
+                _charaGen.GenerateCharaFromMapFilter(map);
             }
 
             for (var i = 0; i < density.ItemCount; i++)
             {
-                // TODO
-                _entityGen.SpawnEntity(Protos.Item.Aloe, map);
+                _itemGen.GenerateItem(map, minLevel: _levels.GetLevel(map.MapEntityUid),
+                    quality: Quality.Bad,
+                    tags: new[] { RandomGenConsts.FilterSets.Dungeon(_rand) });
             }
 
             var trapDensity = _rand.Next(map.Width * map.Height / 80);

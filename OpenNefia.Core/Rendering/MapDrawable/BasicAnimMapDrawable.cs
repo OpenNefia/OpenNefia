@@ -58,7 +58,7 @@ namespace OpenNefia.Core.Rendering
                 this.X + _coords.TileSize.X / 2, 
                 this.Y + _coords.TileSize.Y / 6,
                 centered: true,
-                rotation: this.BasicAnim.Rotation * this.Counter.Frame);
+                rotationRads: this.BasicAnim.Rotation * this.Counter.Frame);
         }
     }
 }

@@ -12,6 +12,7 @@ using OpenNefia.Core.Utility;
 using OpenNefia.Content.Prototypes;
 using OpenNefia.Content.DisplayName;
 using OpenNefia.Content.Charas;
+using OpenNefia.Content.RandomGen;
 
 namespace OpenNefia.Content.GameObjects
 {
@@ -19,6 +20,7 @@ namespace OpenNefia.Content.GameObjects
     {
         [Dependency] private readonly IRandom _rand = default!;
         [Dependency] private readonly IDisplayNameSystem _displayNames = default!;
+        [Dependency] private readonly ICharaGen _charaGen = default!;
 
         public override void Initialize()
         {
@@ -46,8 +48,9 @@ namespace OpenNefia.Content.GameObjects
 
             if (_rand.OneIn(10))
             {
+                // TODO
                 Console.WriteLine("Suddenly an alien bursts from " + _displayNames.GetDisplayName(uid) + "'s stomach!");
-                EntityManager.SpawnEntity(Protos.Chara.Putit, spatial.MapPosition.Offset(1, 1));
+                _charaGen.GenerateChara(spatial.MapPosition.Offset(1, 1), id: Protos.Chara.Alien);
             }
         }
     }
