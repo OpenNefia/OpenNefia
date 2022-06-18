@@ -17,7 +17,7 @@ local function setProps(result, t)
         for k, v in pairs(t) do
             k = capitalize(k)
             if type(v) == "string" then
-                if v:match("^#") then
+                if v:match "^#" then
                     v = Color.FromXaml(v)
                 end
             end
@@ -67,190 +67,190 @@ end
 -- Fallback
 ----------------------------------------
 
-defaultFont = font({
+defaultFont = font {
     size = 14,
     smallSize = 14,
-})
+}
 
-defaultStyleBox = styleBoxFlat({ backgroundColor = "#202020" })
+defaultStyleBox = styleBoxFlat { backgroundColor = "#202020" }
 
-_({
+_ {
     font = defaultFont,
     fontColor = "#FFFFFF",
     panel = defaultStyleBox,
     styleBox = defaultStyleBox,
-    texture = asset("Elona.AutoTurnIcon"),
+    texture = asset "Elona.AutoTurnIcon",
     modulateSelf = "#FFFFFF",
-})
+}
 
 defaultGrabberSize = 10
 
-HScrollBar({
-    grabber = styleBoxFlat({
+HScrollBar {
+    grabber = styleBoxFlat {
         backgroundColor = "#80808080",
         contentMarginTopOverride = defaultGrabberSize,
-    }),
+    },
 
-    rule(":hover")({
-        grabber = styleBoxFlat({
+    rule ":hover" {
+        grabber = styleBoxFlat {
             backgroundColor = "#A0A0A080",
             contentMarginTopOverride = defaultGrabberSize,
-        }),
-    }),
-    rule(":grabbed")({
-        grabber = styleBoxFlat({
+        },
+    },
+    rule ":grabbed" {
+        grabber = styleBoxFlat {
             backgroundColor = "#C0C0C080",
             contentMarginTopOverride = defaultGrabberSize,
-        }),
-    }),
-})
+        },
+    },
+}
 
-VScrollBar({
-    grabber = styleBoxFlat({
+VScrollBar {
+    grabber = styleBoxFlat {
         backgroundColor = "#80808080",
         contentMarginLeftOverride = defaultGrabberSize,
         contentMarginTopOverride = defaultGrabberSize,
-    }),
+    },
 
-    rule(":hover")({
-        grabber = styleBoxFlat({
+    rule ":hover" {
+        grabber = styleBoxFlat {
             backgroundColor = "#A0A0A080",
             contentMarginLeftOverride = defaultGrabberSize,
             contentMarginTopOverride = defaultGrabberSize,
-        }),
-    }),
-    rule(":grabbed")({
-        grabber = styleBoxFlat({
+        },
+    },
+    rule ":grabbed" {
+        grabber = styleBoxFlat {
             backgroundColor = "#C0C0C080",
             contentMarginLeftOverride = defaultGrabberSize,
             contentMarginTopOverride = defaultGrabberSize,
-        }),
-    }),
-})
+        },
+    },
+}
 
 ----------------------------------------
 -- Custom
 ----------------------------------------
 
-_({
-    rule(".windowPanel")({
-        panel = styleBoxFlat({
+_ {
+    rule ".windowPanel" {
+        panel = styleBoxFlat {
             backgroundColor = "#202040D0",
             borderColor = "#80808080",
             borderThickness = margin(1),
-        }),
-    }),
-})
+        },
+    },
+}
 
-PanelContainer(".windowHeader")({
-    panel = styleBoxFlat({
+PanelContainer ".windowHeader" {
+    panel = styleBoxFlat {
         backgroundColor = "#444488",
-    }),
-})
+    },
+}
 
-PanelContainer(".windowHeaderAlert")({
-    panel = styleBoxFlat({ backgroundColor = "#884444" }),
-})
+PanelContainer ".windowHeaderAlert" {
+    panel = styleBoxFlat { backgroundColor = "#884444" },
+}
 
-font10 = font({
+font10 = font {
     size = 10,
     smallSize = 10,
-})
+}
 
-font12 = font({
+font12 = font {
     size = 12,
     smallSize = 12,
-})
+}
 
-fontBold12 = font({
+fontBold12 = font {
     size = 12,
     smallSize = 12,
     -- style = { "Bold" }
-})
+}
 
 colorGold = "#F8ABAE"
 
-Label(".windowTitle")({
+Label ".windowTitle" {
     fontColor = "#FFFFFF",
     font = fontBold12,
-})
+}
 
-Label(".windowTitleAlert")({
+Label ".windowTitleAlert" {
     fontColor = colorGold,
     font = fontBold12,
-})
+}
 
-Button({
-    styleBox = styleBoxFlat({
+Button {
+    styleBox = styleBoxFlat {
         borderColor = "#446666",
         backgroundColor = "#447777",
         borderThickness = margin(2),
-    }),
+    },
 
-    rule(":hover")({
-        styleBox = styleBoxFlat({
+    rule ":hover" {
+        styleBox = styleBoxFlat {
             borderColor = "#446666",
             backgroundColor = "#44AAAA",
             borderThickness = margin(2),
-        }),
-    }),
+        },
+    },
 
-    rule(":pressed")({
-        styleBox = styleBoxFlat({
+    rule ":pressed" {
+        styleBox = styleBoxFlat {
             borderColor = "#886666",
             backgroundColor = "#AAAA44",
             borderThickness = margin(2),
-        }),
-    }),
+        },
+    },
 
-    rule(":disabled")({
-        styleBox = styleBoxFlat({
+    rule ":disabled" {
+        styleBox = styleBoxFlat {
             borderColor = "#444444",
             backgroundColor = "#666666",
             borderThickness = margin(2),
-        }),
-    }),
-})
+        },
+    },
+}
 
-CheckBox({
-    styleBox = styleBoxFlat({
+CheckBox {
+    styleBox = styleBoxFlat {
         backgroundColor = "#00000000",
-    }),
-})
+    },
+}
 
-TextureButton(".windowCloseButton")({
-    texture = asset("Elona.AutoTurnIcon"),
+TextureButton ".windowCloseButton" {
+    texture = asset "Elona.AutoTurnIcon",
     modulateSelf = "#4B596A",
-})
+}
 
-TextureRect(".checkBox")({
-    texture = asset("Core.WispCheckboxUnchecked"),
+TextureRect ".checkBox" {
+    texture = asset "Core.WispCheckboxUnchecked",
 
-    rule(".checkBoxChecked")({
-        texture = asset("Core.WispCheckboxChecked"),
-    }),
-})
+    rule ".checkBoxChecked" {
+        texture = asset "Core.WispCheckboxChecked",
+    },
+}
 
-PanelContainer(".designerBackground")({
-    styleBox = styleBoxFlat({
+PanelContainer ".designerBackground" {
+    styleBox = styleBoxFlat {
         backgroundColor = "#B0C4DE",
-    }),
-})
+    },
+}
 
-PanelContainer(".designerToolbar")({
-    styleBox = styleBoxFlat({
+PanelContainer ".designerToolbar" {
+    styleBox = styleBoxFlat {
         backgroundColor = "#223333",
-    }),
-})
+    },
+}
 
-Label(".pointerText")({
+Label ".pointerText" {
     fontColor = "#00AAAA",
     font = font10,
-})
+}
 
-MeasurementPointer({
+MeasurementPointer {
     rulerColor = "#A0A0A040",
-})
+}
 
 --[[
 ItemList {

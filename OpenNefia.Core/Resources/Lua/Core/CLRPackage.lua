@@ -17,7 +17,7 @@
 
 -- LuaInterface hosted with stock Lua interpreter will need to explicitly require this...
 if not luanet then
-    require("luanet")
+    require "luanet"
 end
 
 local import_type, load_assembly = luanet.import_type, luanet.load_assembly

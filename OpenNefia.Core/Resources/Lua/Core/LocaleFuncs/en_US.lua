@@ -7,7 +7,7 @@ local i18n = {
 local en_US = {}
 
 function en_US.you()
-    return i18n.get("chara.you")
+    return i18n.get "chara.you"
 end
 
 function en_US.name(obj, ignore_sight)
@@ -18,10 +18,10 @@ function en_US.name(obj, ignore_sight)
         end
 
         if not obj.is_visible and not ignore_sight then
-            return i18n.get("chara.something")
+            return i18n.get "chara.something"
         end
 
-        local name = obj.name or i18n.get("chara.something")
+        local name = obj.name or i18n.get "chara.something"
         local first = name:sub(1, 1)
 
         -- HACK should be a property instead, like `has_own_name = true/"random"`
@@ -35,23 +35,23 @@ function en_US.name(obj, ignore_sight)
     end
     -- <<<<<<<< shade2/init.hsp:4090 	return cnName(tc) ..
 
-    return i18n.get("chara.something")
+    return i18n.get "chara.something"
 end
 
 function en_US.basename(obj)
     if type(obj) == "table" then
-        return obj.basename or obj.name or i18n.get("chara.something")
+        return obj.basename or obj.name or i18n.get "chara.something"
     end
 
-    return i18n.get("chara.something")
+    return i18n.get "chara.something"
 end
 
 function en_US.itemname(obj)
     if type(obj) == "table" then
-        return obj.name or i18n.get("chara.something")
+        return obj.name or i18n.get "chara.something"
     end
 
-    return i18n.get("chara.something")
+    return i18n.get "chara.something"
 end
 
 en_US.itembasename = en_US.basename
