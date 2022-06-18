@@ -29,13 +29,6 @@ namespace OpenNefia.Content.Maps
         [DataField]
         public PrototypeId<TilePrototype> FogTile { get; set; } = Protos.Tile.WallDirtFog;
 
-        /// <summary>
-        /// The maximum number of characters that should be active in this map.
-        /// If there are not enough, more will be randomly generated over time.
-        /// </summary>
-        [DataField]
-        public int MaxCrowdDensity { get; set; } = 0;
-
         [DataField]
         public PrototypeId<MaterialSpotPrototype>? MaterialSpotType { get; set; } = null;
     }

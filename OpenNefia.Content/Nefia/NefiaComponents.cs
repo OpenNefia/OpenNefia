@@ -67,7 +67,7 @@ namespace OpenNefia.Content.Nefia
         public NefiaCrowdDensity Calculate(IMap map)
         {
             var entityMan = IoCManager.Resolve<IEntityManager>();
-            var crowdDensity = entityMan.GetComponent<MapCommonComponent>(map.MapEntityUid).MaxCrowdDensity;
+            var crowdDensity = entityMan.EnsureComponent<MapCharaGenComponent>(map.MapEntityUid).MaxCharaCount;
             return new(crowdDensity / MobModifier, crowdDensity / ItemModifier);
         }
     }

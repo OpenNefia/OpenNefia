@@ -64,7 +64,8 @@ namespace OpenNefia.Content.Nefia
             Logger.DebugS("nefia.gen.floor", $"Populating {rooms.Rooms.Count} dungeon rooms.");
             PopulateRooms(map, rooms.Rooms, ev.BaseParams);
 
-            var maxCrowdDensity = common.MaxCrowdDensity;
+            var charaGen = EntityManager.EnsureComponent<MapCharaGenComponent>(map.MapEntityUid);
+            var maxCrowdDensity = charaGen.MaxCharaCount;
             var density = new NefiaCrowdDensity(maxCrowdDensity / 4, maxCrowdDensity / 4);
             if (EntityManager.TryGetComponent<NefiaCrowdDensityModifierComponent>(map.MapEntityUid, out var modifier))
             {
@@ -84,7 +85,6 @@ namespace OpenNefia.Content.Nefia
 
             foreach (var room in rooms)
             {
-                Logger.Warning($"room {room.Bounds}");
                 var bounds = new UIBox2i(room.Bounds.TopLeft + (1, 1), room.Bounds.BottomRight - (1, 1));
                 var size = bounds.Width * bounds.Height;
 
