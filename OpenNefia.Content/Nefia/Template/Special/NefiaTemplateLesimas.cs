@@ -57,8 +57,9 @@ namespace OpenNefia.Content.Nefia
         {
             var level = _entityMan.GetComponent<LevelComponent>(map.MapEntityUid);
             var common = _entityMan.GetComponent<MapCommonComponent>(map.MapEntityUid);
+            var charaGen = _entityMan.GetComponent<MapCharaGenComponent>(map.MapEntityUid);
             common.Tileset = Protos.MapTileset.Tower2;
-            common.MaxCrowdDensity += level.Level / 2;
+            charaGen.MaxCharaCount += level.Level / 2;
 
             if (_rand.OneIn(20))
                 common.Tileset = Protos.MapTileset.Water;

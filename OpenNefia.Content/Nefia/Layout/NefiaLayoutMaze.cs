@@ -44,9 +44,9 @@ namespace OpenNefia.Content.Nefia
 
             var baseParams = data.Get<BaseNefiaGenParams>();
             baseParams.MapSize = (klass * (bold * 2) - bold + 8, baseParams.MapSize.X);
+            baseParams.MaxCharaCount = baseParams.MapSize.X * baseParams.MapSize.Y / 12;
 
             var map = _nefiaLayout.CreateMap(mapId, baseParams);
-            baseParams.MaxCharaCount = map.Width * map.Height / 12;
 
             var rooms = _entityManager.EnsureComponent<NefiaRoomsComponent>(map.MapEntityUid).Rooms;
 

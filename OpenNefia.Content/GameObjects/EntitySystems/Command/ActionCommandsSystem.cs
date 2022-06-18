@@ -29,7 +29,7 @@ namespace OpenNefia.Content.GameObjects
         {
             CommandBinds.Builder
                 .Bind(ContentKeyFunctions.Dig, InputCmdHandler.FromDelegate(CommandDig))
-                .Register<VerbCommandsSystem>();
+                .Register<ActionCommandsSystem>();
         }
 
         private TurnResult? CommandDig(IGameSessionManager? session)

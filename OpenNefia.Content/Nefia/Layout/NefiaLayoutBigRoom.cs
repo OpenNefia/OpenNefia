@@ -37,9 +37,9 @@ namespace OpenNefia.Content.Nefia
         {
             var baseParams = data.Get<BaseNefiaGenParams>();
             baseParams.MapSize = (48 + _rand.Next(20), 22);
+            baseParams.MaxCharaCount = baseParams.MapSize.X * baseParams.MapSize.Y / 20;
 
             var map = _nefiaLayout.CreateMap(mapId, baseParams);
-            baseParams.MaxCharaCount = map.Width * map.Height / 20;
 
             foreach (var tile in map.AllTiles)
             {

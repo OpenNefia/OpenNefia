@@ -40,9 +40,9 @@ namespace OpenNefia.Content.Nefia
         {
             var baseParams = data.Get<BaseNefiaGenParams>();
             baseParams.MapSize = (30, 60 + _rand.Next(60));
+            baseParams.MaxCharaCount = baseParams.MapSize.X * baseParams.MapSize.Y / 20;
 
             var map = _nefiaLayout.CreateMap(mapId, baseParams);
-            baseParams.MaxCharaCount = map.Width * map.Height / 20;
 
             var tunnelWidth = 6;
             var dx = (map.Width / 2) - (tunnelWidth / 2);

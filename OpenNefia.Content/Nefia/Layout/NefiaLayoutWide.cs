@@ -102,7 +102,7 @@ namespace OpenNefia.Content.Nefia
                 return null;
             }
 
-            _nefiaLayout.PlaceStairsSurfacingInRoom(map, delvingRoom.Value);
+            _nefiaLayout.PlaceStairsDelvingInRoom(map, delvingRoom.Value);
 
             for (var i = 0; i < baseParams.RoomCount; i++)
             {
