@@ -36,6 +36,7 @@ namespace OpenNefia.Content.Nefia
         [Dependency] private readonly IEntityLookup _lookup = default!;
         [Dependency] private readonly ITagSystem _tags = default!;
         [Dependency] private readonly IAreaManager _areaManager = default!;
+        [Dependency] private readonly IMapPlacement _placement = default!;
 
         /// <summary>
         /// Maximum number of times the layout should be generated before giving up.

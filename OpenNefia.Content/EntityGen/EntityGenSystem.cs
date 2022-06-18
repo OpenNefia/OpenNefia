@@ -116,20 +116,18 @@ namespace OpenNefia.Content.EntityGen
                     break;
                 case PositionSearchType.General:
                 default:
-                    var coords = _placement.FindFreePosition(coordinates);
-                    if (coords == null)
-                    {
-                        Logger.WarningS("entity.gen", $"Failed to place entity {ent} at {coordinates}!");
-                        EntityManager.DeleteEntity(ent);
-                        return null;
-                    }
-                    var map = _mapManager.GetMap(coords.Value.MapId);
-                    spatial.Coordinates = map.AtPosEntity(coords.Value.Position);
+                    var map = _mapManager.GetMap(coordinates.MapId);
+                    spatial.Coordinates = map.AtPosEntity(coordinates.Position);
                     break;
             }
 
             if (spatial.MapID == MapId.Global)
-                throw new InvalidOperationException($"Entity {ent} was not moved from global map to real position.");
+            {
+                EntityManager.DeleteEntity(ent);
+
+                Logger.ErrorS("entity.gen", $"Entity {ent} was not moved from global map to real position.");
+                return null;
+            }
 
             FireGeneratedEvent(ent);
 
