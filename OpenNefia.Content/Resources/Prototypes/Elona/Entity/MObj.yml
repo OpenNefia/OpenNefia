@@ -146,6 +146,7 @@
     isSolid: true
   - type: Chip
     id: Elona.MObjPot
+  - type: Pot
 
 - type: Entity
   id: Elona.MObjVotingBox

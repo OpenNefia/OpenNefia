@@ -17,6 +17,7 @@ using System.Diagnostics.CodeAnalysis;
 using OpenNefia.Core.Utility;
 using OpenNefia.Content.Nefia;
 using Love;
+using OpenNefia.Content.Web;
 
 namespace OpenNefia.Content.Nefia
 {
@@ -29,7 +30,7 @@ namespace OpenNefia.Content.Nefia
             baseParams.MapSize = new(width, height);
             baseParams.RoomCount = width * height / 70;
             baseParams.TunnelLength = width * height;
-            baseParams.MaxCharaCount = (width * height) / 2;
+            baseParams.MaxCharaCount = (width * height) / 100;
 
             var areaNefia = EntityManager.GetComponent<AreaNefiaComponent>(ev.Area.AreaEntityUid);
             baseParams.DangerLevel = AreaNefiaSystem.NefiaFloorNumberToLevel(ev.FloorNumber, areaNefia.BaseLevel);
@@ -185,6 +186,8 @@ namespace OpenNefia.Content.Nefia
 
             if (_rand.OneIn(5))
             {
+                var level = EntityManager.EnsureComponent<LevelComponent>(map.MapEntityUid);
+
                 var webDensity = _rand.Next(map.Width * map.Height / 40);
                 if (_rand.OneIn(5))
                 {
@@ -192,7 +195,8 @@ namespace OpenNefia.Content.Nefia
                 }
                 for (var i = 0; i < webDensity; i++)
                 {
-                    PlaceWeb(map);
+                    var difficulty = level.Level * 10 + 100;
+                    PlaceWeb(map, difficulty);
                 }
             }
 
@@ -208,29 +212,64 @@ namespace OpenNefia.Content.Nefia
 
         private void PlaceTrap(IMap map, MapCoordinates? coords = null)
         {
-            if (coords == null)
-                coords = map.AtPos(_rand.Next(map.Width - 5) + 2, _rand.Next(map.Height - 5) + 2);
+            for (var i = 0; i < 3; i++)
+            {
+                MapCoordinates coords2;
 
-            // TODO
-            _entityGen.SpawnEntity(Protos.MObj.Mine, coords.Value);
+                if (coords == null)
+                    coords2 = map.AtPos(_rand.Next(map.Width - 5) + 2, _rand.Next(map.Height - 5) + 2);
+                else
+                    coords2 = coords.Value;
+
+                if (map.IsFloor(coords2.Position) && _lookup.GetBlockingEntity(coords2) == null)
+                {
+                    // TODO
+                    _entityGen.SpawnEntity(Protos.MObj.Mine, coords2);
+                    return;
+                }
+            }
         }
 
-        private void PlaceWeb(IMap map, MapCoordinates? coords = null)
+        private void PlaceWeb(IMap map, int difficulty, MapCoordinates? coords = null)
         {
-            if (coords == null)
-                coords = map.AtPos(_rand.Next(map.Width - 5) + 2, _rand.Next(map.Height - 5) + 2);
+            for (var i = 0; i < 3; i++)
+            {
+                MapCoordinates coords2;
 
-            // TODO
-            _entityGen.SpawnEntity(Protos.Mef.Web, coords.Value);
+                if (coords == null)
+                    coords2 = map.AtPos(_rand.Next(map.Width - 5) + 2, _rand.Next(map.Height - 5) + 2);
+                else
+                    coords2 = coords.Value;
+
+                if (map.IsFloor(coords2.Position) && _lookup.GetBlockingEntity(coords2) == null)
+                {
+                    var entity = _entityGen.SpawnEntity(Protos.Mef.Web, coords2);
+                    if (entity != null && EntityManager.TryGetComponent<WebComponent>(entity.Value, out var web))
+                    {
+                        web.UntangleDifficulty = difficulty;
+                    }
+                    return;
+                }
+            }
         }
 
         private void PlacePot(IMap map, MapCoordinates? coords = null)
         {
-            if (coords == null)
-                coords = map.AtPos(_rand.Next(map.Width - 5) + 2, _rand.Next(map.Height - 5) + 2);
+            for (var i = 0; i < 3; i++)
+            {
+                MapCoordinates? coords2;
 
-            // TODO
-            _entityGen.SpawnEntity(Protos.MObj.Pot, coords.Value);
+                if (coords == null)
+                    coords2 = _placement.FindFreePosition(map.AtPos(_rand.Next(map.Width - 5) + 2, _rand.Next(map.Height - 5) + 2));
+                else
+                    coords2 = coords;
+
+                if (coords2 != null && map.IsFloor(coords2.Value.Position) && !_lookup.GetLiveEntitiesAtCoords(coords2.Value).Any())
+                {
+                    _entityGen.SpawnEntity(Protos.MObj.Pot, coords2.Value);
+                    return;
+                }
+            }
         }
     }
 }

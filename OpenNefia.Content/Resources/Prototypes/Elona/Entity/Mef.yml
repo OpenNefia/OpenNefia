@@ -3,6 +3,8 @@
   parent: BaseMef
   hspIds:
     elona122: 1
+  components:
+  - type: Web
 
 - type: Entity
   id: Elona.MefMist
