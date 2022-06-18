@@ -31,7 +31,7 @@ var cur = _maps.ActiveMap!;
 var nefiaVanilla = _entities.GetComponent<NefiaVanillaComponent>(area.AreaEntityUid);
 nefiaVanilla.Template = new BasicNefiaTemplate()
 {
-    Layout = new NefiaLayoutBigRoom()
+    Layout = new NefiaLayoutResident()
 };
 
 var ev = new NefiaFloorGenerateEvent(area, floorId, cur.AtPos(1, 1));
