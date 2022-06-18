@@ -62,8 +62,7 @@ namespace OpenNefia.Content.Nefia
             // TODO
             for (var i = 0; i < 10 + _rand.Next(6); i++)
             {
-                var pos = _rand.NextVec2iInBounds(map.Bounds);
-                var chara = _entityGen.SpawnEntity(Protos.Chara.Putit, map.AtPos(pos));
+                var chara = _entityGen.SpawnEntity(Protos.Chara.Putit, map);
                 if (chara != null && _entityManager.TryGetComponent<FactionComponent>(chara.Value, out var faction))
                 {
                     faction.RelationToPlayer = Relation.Enemy;
@@ -72,8 +71,7 @@ namespace OpenNefia.Content.Nefia
 
             for (var i = 0; i < 10 + _rand.Next(6); i++)
             {
-                var pos = _rand.NextVec2iInBounds(map.Bounds);
-                var item = _entityGen.SpawnEntity(Protos.Item.TreeOfBeech, map.AtPos(pos));
+                var item = _entityGen.SpawnEntity(Protos.Item.TreeOfBeech, map);
                 if (item != null && _entityManager.TryGetComponent<PickableComponent>(item.Value, out var pickable))
                 {
                     pickable.OwnState = OwnState.None;

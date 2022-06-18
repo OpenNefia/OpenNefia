@@ -98,14 +98,12 @@ namespace OpenNefia.Content.Nefia
                     if (_rand.OneIn(2))
                     {
                         // TODO
-                        var itemPos = _rand.NextVec2iInBounds(bounds);
-                        _entityGen.SpawnEntity(Protos.Item.Putitoro, map.AtPos(itemPos));
+                        _entityGen.SpawnEntity(Protos.Item.Putitoro, map);
                     }
 
                     // TODO filter
 
-                    var charaPos = _rand.NextVec2iInBounds(bounds);
-                    var chara = _entityGen.SpawnEntity(Protos.Chara.Putit, map.AtPos(charaPos));
+                    var chara = _entityGen.SpawnEntity(Protos.Chara.Putit, map);
                     if (chara != null)
                     {
                         if (level.Level > 3)
@@ -119,8 +117,7 @@ namespace OpenNefia.Content.Nefia
                                     for (var j = 0; j < creatureCount2; j++)
                                     {
                                         // TODO
-                                        var pos = _rand.NextVec2iInBounds(bounds);
-                                        _entityGen.SpawnEntity(Protos.Chara.RedPutit, map.AtPos(pos));
+                                        _entityGen.SpawnEntity(Protos.Chara.RedPutit, map);
                                     }
                                     break;
                                 }
@@ -151,8 +148,7 @@ namespace OpenNefia.Content.Nefia
                                 for (var j = 0; j < _rand.Next(3); j++)
                                 {
                                     // TODO
-                                    var pos = _rand.NextVec2iInBounds(bounds);
-                                    _entityGen.SpawnEntity(Protos.Item.BejeweledChest, map.AtPos(pos));
+                                    _entityGen.SpawnEntity(Protos.Item.BejeweledChest, map);
                                 }
                             }
                         }
@@ -172,15 +168,13 @@ namespace OpenNefia.Content.Nefia
             for (var i = 0; i < density.MobCount; i++)
             {
                 // TODO
-                var pos = _rand.NextVec2iInBounds(map.Bounds);
-                _entityGen.SpawnEntity(Protos.Chara.Yeek, map.AtPos(pos));
+                _entityGen.SpawnEntity(Protos.Chara.Yeek, map);
             }
 
             for (var i = 0; i < density.ItemCount; i++)
             {
                 // TODO
-                var pos = _rand.NextVec2iInBounds(map.Bounds);
-                _entityGen.SpawnEntity(Protos.Item.Aloe, map.AtPos(pos));
+                _entityGen.SpawnEntity(Protos.Item.Aloe, map);
             }
 
             var trapDensity = _rand.Next(map.Width * map.Height / 80);

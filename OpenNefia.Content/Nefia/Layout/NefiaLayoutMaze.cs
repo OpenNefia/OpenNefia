@@ -68,8 +68,7 @@ namespace OpenNefia.Content.Nefia
             // <<<<<<<< shade2/map_rand.hsp:246 		} ..
 
             // TODO
-            var pos = _rand.NextVec2iInBounds(map.Bounds);
-            _entityGen.SpawnEntity(Protos.Item.Helm, map.AtPos(pos));
+            _entityGen.SpawnEntity(Protos.Item.Helm, map);
         }
     }
 }

@@ -75,6 +75,14 @@ namespace OpenNefia.Tests.Core.Maths
                 (new UIBox2i(2, 0, 5, 5), new UIBox2i(6, 6, 10, 10), null),
             };
 
+        private static IEnumerable<(UIBox2i box, int amount, UIBox2i expected)> Expansions =>
+            new (UIBox2i, int, UIBox2i)[]
+            {
+                (new UIBox2i(0, 0, 5, 5), 0, new UIBox2i(0, 0, 5, 5)),
+                (new UIBox2i(0, 0, 5, 5), 2, new UIBox2i(-2, -2, 7, 7)),
+                (new UIBox2i(0, 0, 5, 5), -2, new UIBox2i(2, 2, 3, 3)),
+            };
+
         [Test]
         public void Box2iVectorConstructor([ValueSource(nameof(Sources))] (int, int, int, int) test)
         {
@@ -293,6 +301,15 @@ namespace OpenNefia.Tests.Core.Maths
             // This should be a symmetric operation.
             Assert.That(a.Intersection(b), Is.EqualTo(expected));
             Assert.That(b.Intersection(a), Is.EqualTo(expected));
+        }
+
+        [Test]
+        public void Box2iExpand(
+            [ValueSource(nameof(Expansions))] (UIBox2i box, int amount, UIBox2i expected) value)
+        {
+            var (box, amount, expected) = value;
+
+            Assert.That(box.Expand(amount), Is.EqualTo(expected));
         }
     }
 }
