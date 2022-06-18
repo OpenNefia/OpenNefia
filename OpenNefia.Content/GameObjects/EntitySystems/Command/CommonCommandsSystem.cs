@@ -41,7 +41,7 @@ namespace OpenNefia.Content.GameObjects
         [Dependency] private readonly IConfigurationManager _config = default!;
         [Dependency] private readonly IGameController _gameController = default!;
         [Dependency] private readonly IGraphics _graphics = default!;
-        [Dependency] private readonly IMessage _mes = default!;
+        [Dependency] private readonly IMessagesManager _mes = default!;
 
         public override void Initialize()
         {

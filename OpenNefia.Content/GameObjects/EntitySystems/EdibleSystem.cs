@@ -17,7 +17,7 @@ namespace OpenNefia.Content.GameObjects
 
         [Dependency] private readonly IAudioManager _sounds = default!;
         [Dependency] private readonly IStackSystem _stackSystem = default!;
-        [Dependency] private readonly IMessage _mes = default!;
+        [Dependency] private readonly IMessagesManager _mes = default!;
 
         public override void Initialize()
         {

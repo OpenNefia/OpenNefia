@@ -16,7 +16,7 @@ namespace OpenNefia.Content.UI.Layer
 {
     public class TextPrompt : UiLayerWithResult<TextPrompt.Args, TextPrompt.Result>
     {
-        [Dependency] private readonly IMessage _mes = default!;
+        [Dependency] private readonly IMessagesManager _mes = default!;
         
         public class Result
         {

@@ -41,10 +41,9 @@ namespace OpenNefia.Content.EntityGen
     {
         [Dependency] private readonly IMapManager _mapManager = default!;
         [Dependency] private readonly IMapLoader _mapLoader = default!;
-        [Dependency] private readonly IDisplayNameSystem _displayNames = default!;
+        [Dependency] private readonly IPrototypeManager _protos = default!;
         [Dependency] private readonly IStackSystem _stacks = default!;
         [Dependency] private readonly IMapPlacement _placement = default!;
-        [Dependency] private readonly IPrototypeManager _protos = default!;
 
         public override void Initialize()
         {
@@ -161,7 +160,7 @@ namespace OpenNefia.Content.EntityGen
         
             if (!container.Insert(ent.Value))
             {
-                Logger.WarningS("entity.gen", $"Could not fit entity '{_displayNames.GetBaseName(ent.Value)}' into container of entity '{_displayNames.GetBaseName(container.Owner)}'.");
+                Logger.WarningS("entity.gen", $"Could not fit entity '{ent}' into container of entity '{container.Owner}'.");
                 
                 EntityManager.DeleteEntity(ent.Value);
                 return null;

@@ -23,7 +23,7 @@ namespace OpenNefia.Content.Inventory
     {
         [Dependency] private readonly IEntityManager _entityManager = default!;
         [Dependency] private readonly IUserInterfaceManager _uiManager = default!;
-        [Dependency] private readonly IMessage _mes = default!;
+        [Dependency] private readonly IMessagesManager _mes = default!;
 
         public EntityUid User { get; }
         public IInventoryBehavior Behavior { get; internal set; }

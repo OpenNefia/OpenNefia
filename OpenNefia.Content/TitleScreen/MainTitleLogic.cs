@@ -55,7 +55,7 @@ namespace OpenNefia.Content.TitleScreen
         [Dependency] private readonly ICharaMakeLogic _charaMakeLogic = default!;
         [Dependency] private readonly IConfigurationManager _config = default!;
         [Dependency] private readonly IHudLayer _hud = default!;
-        [Dependency] private readonly IMessage _mes = default!;
+        [Dependency] private readonly IMessagesManager _mes = default!;
 
         private void Startup()
         {

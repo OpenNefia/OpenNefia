@@ -55,7 +55,7 @@ namespace OpenNefia.Content.UI.Layer
     public class Prompt<T> : UiLayerWithResult<Prompt<T>.Args, PromptChoice<T>>
     {
         [Dependency] private readonly IGraphics _graphics = default!;
-        [Dependency] private readonly IMessage _mes = default!;
+        [Dependency] private readonly IMessagesManager _mes = default!;
 
         public class Args
         {

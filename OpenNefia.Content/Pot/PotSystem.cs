@@ -22,7 +22,7 @@ namespace OpenNefia.Content.Pot
         [Dependency] private readonly IMapManager _mapMan = default!;
         [Dependency] private readonly IAudioManager _audio = default!;
         [Dependency] private readonly IVisibilitySystem _visibliity = default!;
-        [Dependency] private readonly IMessage _mes = default!;
+        [Dependency] private readonly IMessagesManager _mes = default!;
         [Dependency] private readonly IFieldLayer _field = default!;
         [Dependency] private readonly ILevelSystem _levels = default!;
         [Dependency] private readonly IEntityGen _entityGen = default!;
