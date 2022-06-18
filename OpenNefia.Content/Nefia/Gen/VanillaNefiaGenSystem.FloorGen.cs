@@ -84,10 +84,16 @@ namespace OpenNefia.Content.Nefia
 
             foreach (var room in rooms)
             {
-                var bounds = new UIBox2i(room.Bounds.TopLeft + (1, 1), room.Bounds.BottomRight - (2, 2));
+                Logger.Warning($"room {room.Bounds}");
+                var bounds = new UIBox2i(room.Bounds.TopLeft + (1, 1), room.Bounds.BottomRight - (1, 1));
                 var size = bounds.Width * bounds.Height;
 
-                for (var i = 0; i < size / 8 + 2; i++)
+                if (size <= 1)
+                    continue;
+
+                var creatureCount = _rand.Next(size / 8 + 2);
+
+                for (var i = 0; i < creatureCount; i++)
                 {
                     if (_rand.OneIn(2))
                     {
@@ -109,8 +115,8 @@ namespace OpenNefia.Content.Nefia
                                 if (_rand.OneIn(creaturePacks * 5 + 5))
                                 {
                                     creaturePacks++;
-                                    var creatureCount = 10 + _rand.Next(20);
-                                    for (var j = 0; j < creatureCount; j++)
+                                    var creatureCount2 = 10 + _rand.Next(20);
+                                    for (var j = 0; j < creatureCount2; j++)
                                     {
                                         // TODO
                                         var pos = _rand.NextVec2iInBounds(bounds);
@@ -131,9 +137,9 @@ namespace OpenNefia.Content.Nefia
                         {
                             hasMonsterHouse = true;
 
-                            for (var ry = bounds.Top; ry < bounds.Bottom - 1; ry++)
+                            for (var ry = bounds.Top; ry < bounds.Bottom; ry++)
                             {
-                                for (var rx = bounds.Left; rx < bounds.Right - 1; rx++)
+                                for (var rx = bounds.Left; rx < bounds.Right; rx++)
                                 {
                                     // TODO
                                     _entityGen.SpawnEntity(Protos.Chara.Slime, map.AtPos(rx, ry));

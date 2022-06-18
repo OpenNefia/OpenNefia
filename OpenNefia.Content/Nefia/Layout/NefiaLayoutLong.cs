@@ -106,7 +106,7 @@ namespace OpenNefia.Content.Nefia
             // Place delving stairs
             while (true)
             {
-                var pos = _rand.NextVec2iInVec(map.Width, Math.Min(map.Height - _rand.Next(15) - 1, map.Height));
+                var pos = (_rand.Next(map.Width), map.Height - _rand.Next(Math.Min(15, map.Height)) - 1);
                 if (map.GetTile(pos)!.Value.Tile.GetStrongID() == Protos.Tile.MapgenTunnel)
                 {
                     _nefiaLayout.PlaceStairsDelving(map.AtPos(pos));

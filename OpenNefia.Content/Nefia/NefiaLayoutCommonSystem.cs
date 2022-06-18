@@ -868,7 +868,7 @@ namespace OpenNefia.Content.Nefia.Layout
                 _rand.Shuffle(way);
                 wasDug = false;
 
-                bool TryDig(Direction dir)
+                foreach (var dir in way)
                 {
                     prevInd = ind;
 
@@ -877,7 +877,7 @@ namespace OpenNefia.Content.Nefia.Layout
                         case Direction.South:
                             if (prevInd / klass == 0)
                             {
-                                return false;
+                                continue;
                             }
                             else
                             {
@@ -887,7 +887,7 @@ namespace OpenNefia.Content.Nefia.Layout
                         case Direction.West:
                             if (prevInd % klass == klass - 1)
                             {
-                                return false;
+                                continue;
                             }
                             else
                             {
@@ -897,7 +897,7 @@ namespace OpenNefia.Content.Nefia.Layout
                         case Direction.East:
                             if (prevInd / klass == klass - 1)
                             {
-                                return false;
+                                continue;
                             }
                             else
                             {
@@ -907,7 +907,7 @@ namespace OpenNefia.Content.Nefia.Layout
                         case Direction.North:
                             if (prevInd % klass == 0)
                             {
-                                return false;
+                                continue;
                             }
                             else
                             {
@@ -916,10 +916,10 @@ namespace OpenNefia.Content.Nefia.Layout
                             break;
                     }
 
-                    if (ind < maze.Length)
+                    if (maze[ind] != 0)
                     {
                         ind = prevInd;
-                        return false;
+                        continue;
                     }
 
                     digPos.X = (prevInd % klass) * bold * 2 + bold;
@@ -957,16 +957,8 @@ namespace OpenNefia.Content.Nefia.Layout
                             break;
                     }
 
-                    return true;
-                }
-
-                foreach (var dir in way)
-                {
-                    if (TryDig(dir))
-                    {
-                        wasDug = true;
-                        break;
-                    }
+                    wasDug = true;
+                    break;
                 }
 
                 if (!wasDug)
@@ -1000,7 +992,9 @@ namespace OpenNefia.Content.Nefia.Layout
         {
             var surfacingPos = MapCoordinates.Nullspace;
             var delvingPos = MapCoordinates.Nullspace;
-            var found = true;
+            var found = false;
+
+            //Logger.Warning($"{EntitySystem.Get<Debug.ScriptTools>().PrintMap(map)}");
 
             for (var i = 0; i < 5000; i++)
             {
