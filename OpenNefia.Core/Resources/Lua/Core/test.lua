@@ -1,4 +1,4 @@
-require("LocaleEnv")
+require "LocaleEnv"
 
 OpenNefia.Core.UI.Layer.TitleScreenLayer = {
     Window = {
@@ -41,5 +41,5 @@ OpenNefia.Core.Data.Types.CharaDef = {
     },
 }
 
-local inspect = require("Thirdparty.inspect")
+local inspect = require "Thirdparty.inspect"
 print(inspect(_Root))

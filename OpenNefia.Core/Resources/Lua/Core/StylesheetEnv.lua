@@ -7,7 +7,7 @@ function rule(...)
 
     local count = select("#", ...)
     if count == 0 then
-        error("No rules provided.")
+        error "No rules provided."
     end
 
     local body = nil
@@ -19,14 +19,14 @@ function rule(...)
             error("Invalid rule " .. tostring(rule))
         end
 
-        if rule:match("^%.") then
+        if rule:match "^%." then
             classes[#classes + 1] = rule:sub(2)
-        elseif rule:match("^#") then
+        elseif rule:match "^#" then
             if elementId then
                 error("elementId declared twice in rules list (" .. elementId .. ", " .. rule:sub(2) .. ")")
             end
             elementId = rule:sub(2)
-        elseif rule:match("^:") then
+        elseif rule:match "^:" then
             pseudos[#pseudos + 1] = rule:sub(2)
         else
             error("Invalid rule " .. rule)

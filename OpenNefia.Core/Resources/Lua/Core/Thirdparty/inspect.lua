@@ -48,7 +48,7 @@ end
 -- Apostrophizes the string if it has quotes, but not aphostrophes
 -- Otherwise, it returns a regular quoted string
 local function smartQuote(str)
-    if str:match("\"") and not str:match("'") then
+    if str:match "\"" and not str:match "'" then
         return "'" .. str .. "'"
     end
     return "\"" .. str:gsub("\"", "\\\"") .. "\""
@@ -78,7 +78,7 @@ local function escape(str)
 end
 
 local function isIdentifier(str)
-    return type(str) == "string" and str:match("^[_%a][_%a%d]*$")
+    return type(str) == "string" and str:match "^[_%a][_%a%d]*$"
 end
 
 local function isSequenceKey(k, sequenceLength)
@@ -231,7 +231,7 @@ function Inspector:puts(...)
     if self.max_length and #buffer >= self.max_length then
         len = len + 1
         buffer[len] = "< ... >"
-        error("over length")
+        error "over length"
     end
 end
 
@@ -264,9 +264,9 @@ function Inspector:putKey(k)
     if isIdentifier(k) then
         return self:puts(k)
     end
-    self:puts("[")
+    self:puts "["
     self:putValue(k)
-    self:puts("]")
+    self:puts "]"
 end
 
 function Inspector:putTable(t)
@@ -275,7 +275,7 @@ function Inspector:putTable(t)
     elseif self:alreadyVisited(t) then
         self:puts("<table ", self:getId(t), ">")
     elseif self.level >= self.depth then
-        self:puts("{...}")
+        self:puts "{...}"
     else
         if self.tableAppearances[t] > 1 then
             self:puts("<", self:getId(t), ">")
@@ -284,17 +284,17 @@ function Inspector:putTable(t)
         local nonSequentialKeys, nonSequentialKeysLength, sequenceLength = getNonSequentialKeys(t)
         local mt = getmetatable(t)
 
-        self:puts("{")
+        self:puts "{"
         self:down(function()
             local count = 0
             for i = 1, sequenceLength do
                 if count > 0 then
-                    self:puts(",")
+                    self:puts ","
                 end
                 if self.always_tabify then
                     self:tabify()
                 else
-                    self:puts(" ")
+                    self:puts " "
                 end
                 self:putValue(t[i])
                 count = count + 1
@@ -303,21 +303,21 @@ function Inspector:putTable(t)
             for i = 1, nonSequentialKeysLength do
                 local k = nonSequentialKeys[i]
                 if count > 0 then
-                    self:puts(",")
+                    self:puts ","
                 end
                 self:tabify()
                 self:putKey(k)
-                self:puts(" = ")
+                self:puts " = "
                 self:putValue(t[k])
                 count = count + 1
             end
 
             if type(mt) == "table" then
                 if count > 0 then
-                    self:puts(",")
+                    self:puts ","
                 end
                 self:tabify()
-                self:puts("<metatable> = ")
+                self:puts "<metatable> = "
                 self:putValue(mt)
             end
         end)
@@ -325,10 +325,10 @@ function Inspector:putTable(t)
         if nonSequentialKeysLength > 0 or type(mt) == "table" or self.always_tabify then -- result is multi-lined. Justify closing }
             self:tabify()
         elseif sequenceLength > 0 then -- array tables have one extra space before closing }
-            self:puts(" ")
+            self:puts " "
         end
 
-        self:puts("}")
+        self:puts "}"
     end
 end
 
@@ -385,7 +385,7 @@ function inspect.inspect(root, options)
     }, Inspector_mt)
 
     local ok, err = pcall(inspector.putValue, inspector, root)
-    if not ok and not err:match(": over length$") then
+    if not ok and not err:match ": over length$" then
         error(err)
     end
 
