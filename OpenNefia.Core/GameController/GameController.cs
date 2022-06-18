@@ -3,6 +3,7 @@ using OpenNefia.Core.Asynchronous;
 using OpenNefia.Core.Audio;
 using OpenNefia.Core.Configuration;
 using OpenNefia.Core.ContentPack;
+using OpenNefia.Core.DebugServer;
 using OpenNefia.Core.Game;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Graphics;
@@ -50,6 +51,7 @@ namespace OpenNefia.Core.GameController
         [Dependency] private readonly ITaskManager _taskManager = default!;
         [Dependency] private readonly ITimerManager _timerManager = default!;
         [Dependency] private readonly IMapRenderer _mapRenderer = default!;
+        [Dependency] private readonly IDebugServer _debugServer = default!;
         [Dependency] private readonly IThemeManager _themeManager = default!;
         [Dependency] private readonly IFontManager _fontManager = default!;
         [Dependency] private readonly IInputManager _inputManager = default!;
@@ -156,6 +158,7 @@ namespace OpenNefia.Core.GameController
             _mapRenderer.RegisterTileLayers();
 
             _xamlHotReload.Initialize();
+            _debugServer.Startup();
 
             _modLoader.BroadcastRunLevel(ModRunLevel.PostInit);
 
@@ -306,6 +309,7 @@ namespace OpenNefia.Core.GameController
             _graphics.Shutdown();
             _audio.Shutdown();
             _music.Shutdown();
+            _debugServer.Shutdown();
             _themeManager.Shutdown();
             if (_logHandler != null)
             {
@@ -331,6 +335,7 @@ namespace OpenNefia.Core.GameController
             _wispManager.FrameUpdate(frame);
             _uiManager.UpdateLayers(frame);
             _taskManager.ProcessPendingTasks();
+            _debugServer.CheckForRequests();
         }
 
         public void Draw()

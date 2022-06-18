@@ -1,11 +1,6 @@
 ﻿using OpenNefia.Core.UI;
 using OpenNefia.Core.UI.Wisp;
 using OpenNefia.Core.UI.Wisp.Controls;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using OpenNefia.Core.UserInterface.XAML;
 using OpenNefia.Core.UserInterface.XAML.HotReload;
 using OpenNefia.Core.IoC;
@@ -14,11 +9,9 @@ using OpenNefia.Core.UI.Element;
 using OpenNefia.XamlInjectors;
 using OpenNefia.Core.Reflection;
 using OpenNefia.Core.Log;
-using XamlX.Ast;
 using XamlX.Parsers;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.HotReload;
-using System.IO;
 using OpenNefia.Core.Asynchronous;
 using static OpenNefia.XamlInjectors.XamlCompiler;
 
@@ -51,13 +44,6 @@ namespace OpenNefia.Core.ControlDesigner
     /// </list>
     /// </para>
     /// </summary>
-    /// <remarks>
-    /// <para>
-    /// There is a significant amount of compiler machinery that goes into making
-    /// this work: hotloading detection runtime XAML compilation, runtime method 
-    /// patching, dynamic instantiation...
-    /// </para>
-    /// </remarks>
     public sealed class ControlDesignerLayer : WispLayerWithResult<UINone, UINone>
     {
         [Dependency] private readonly IReflectionManager _reflectionManager = default!;

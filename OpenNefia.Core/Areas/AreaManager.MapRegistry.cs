@@ -124,14 +124,33 @@ namespace OpenNefia.Core.Areas
     }
 
     /// <summary>
-    /// Raised when a new floor in a area needs to be generated.
+    /// Raised when a new floor in an area needs to be generated.
     /// </summary>
     public sealed class AreaFloorGenerateEvent : HandledEntityEventArgs
     {
+        /// <summary>
+        /// Area a floor is being generated in.
+        /// </summary>
         public IArea Area { get; }
+
+        /// <summary>
+        /// ID of the floor.
+        /// </summary>
         public AreaFloorId FloorId { get; }
+
+        /// <summary>
+        /// Map coordinates of the player at the time the floor is generated.
+        /// This can be used to generate a map based on the terrain the player
+        /// is standing on (fields, forest, desert, etc.)
+        /// </summary>
         public MapCoordinates PreviousCoords { get; }
 
+        // TODO would be nice to have EntityCoordinates also
+
+        /// <summary>
+        /// Map of the area's floor that was created. If this is left as <c>null</c>,
+        /// then floor creation failed.
+        /// </summary>
         public MapId? ResultMapId { get; private set; }
 
         public AreaFloorGenerateEvent(IArea area, AreaFloorId floorId, MapCoordinates previousCoords)

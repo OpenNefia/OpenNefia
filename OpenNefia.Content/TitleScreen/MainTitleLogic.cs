@@ -55,7 +55,7 @@ namespace OpenNefia.Content.TitleScreen
         [Dependency] private readonly ICharaMakeLogic _charaMakeLogic = default!;
         [Dependency] private readonly IConfigurationManager _config = default!;
         [Dependency] private readonly IHudLayer _hud = default!;
-        [Dependency] private readonly IMessage _mes = default!;
+        [Dependency] private readonly IMessagesManager _mes = default!;
 
         private void Startup()
         {
@@ -183,6 +183,9 @@ namespace OpenNefia.Content.TitleScreen
             var playerSpatial = _entityManager.GetComponent<SpatialComponent>(player);
             playerSpatial.Coordinates = map.AtPosEntity(2, 2);
 
+            var skills = _entityManager.GetComponent<SkillsComponent>(player);
+            skills.Skills[Protos.Skill.AttrConstitution].Level.Base = 2000;
+            skills.Skills[Protos.Skill.AttrStrength].Level.Base = 2000;
             EntitySystem.Get<IRefreshSystem>().Refresh(player);
             EntitySystem.Get<SkillsSystem>().HealToMax(player);
 
@@ -195,7 +198,7 @@ namespace OpenNefia.Content.TitleScreen
             Sounds.Play(Sound.Write1);
             _mes.Display(Loc.GetString("Elona.UserInterface.Save.QuickSave"));
 
-            QueryFieldLayer();
+            QueryFieldLayer(isNewSave: true);
 
             _saveGameManager.CurrentSave = null;
         }
@@ -209,22 +212,44 @@ namespace OpenNefia.Content.TitleScreen
 
             _mapManager.RefreshVisibility(map);
 
-            QueryFieldLayer();
+            QueryFieldLayer(isNewSave: false);
 
             _mapManager.UnloadMap(map.Id);
 
             _saveGameManager.CurrentSave = null;
         }
 
-        private void QueryFieldLayer()
+        private void QueryFieldLayer(bool isNewSave)
         {
             _hud.Initialize();
             var hudLayer = (UiLayer)_hud;
             hudLayer.ZOrder = HudLayer.HudZOrder;
             _uiManager.PushLayer(hudLayer);
+
+            var evLoaded = new GameLoadedEventArgs(isNewSave);
+            _entityManager.EventBus.RaiseLocalEvent(_gameSessionManager.Player, evLoaded);
+
             _uiManager.Query(_fieldLayer);
             _hud.ClearWidgets();
             _uiManager.PopLayer(hudLayer);
+
+            // TODO this shouldn't target an entity?
+            var evCleanedUp = new GameCleanedUpEventArgs();
+            _entityManager.EventBus.RaiseLocalEvent(_gameSessionManager.Player, evCleanedUp);
         }
+    }
+
+    public sealed class GameLoadedEventArgs : EntityEventArgs
+    {
+        public bool IsNewSave { get; }
+
+        public GameLoadedEventArgs(bool isNewSave)
+        {
+            IsNewSave = isNewSave;
+        }
+    }
+
+    public sealed class GameCleanedUpEventArgs : EntityEventArgs
+    {
     }
 }

@@ -54,6 +54,7 @@ namespace OpenNefia.Content.Charas
                 case CharaLivenessState.Alive:
                     return EntityGameLiveness.Alive;
                 case CharaLivenessState.PetDead:
+                case CharaLivenessState.PetWait:
                 case CharaLivenessState.VillagerDead:
                     return EntityGameLiveness.Hidden;
                 case CharaLivenessState.Dead:
@@ -67,6 +68,7 @@ namespace OpenNefia.Content.Charas
     {
         Alive,
         PetDead,
+        PetWait,
         VillagerDead,
         Dead,
     }

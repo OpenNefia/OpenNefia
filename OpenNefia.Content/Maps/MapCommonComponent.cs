@@ -1,12 +1,10 @@
 ﻿using OpenNefia.Core.Audio;
 using OpenNefia.Core.GameObjects;
+using OpenNefia.Core.Maps;
 using OpenNefia.Core.Prototypes;
+using OpenNefia.Content.Prototypes;
 using OpenNefia.Core.Serialization.Manager.Attributes;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using OpenNefia.Content.Material;
 
 namespace OpenNefia.Content.Maps
 {
@@ -24,5 +22,14 @@ namespace OpenNefia.Content.Maps
 
         [DataField]
         public bool IsIndoors { get; set; } = false;
+
+        [DataField]
+        public PrototypeId<MapTilesetPrototype> Tileset { get; set; } = Protos.MapTileset.Default;
+
+        [DataField]
+        public PrototypeId<TilePrototype> FogTile { get; set; } = Protos.Tile.WallDirtFog;
+
+        [DataField]
+        public PrototypeId<MaterialSpotPrototype>? MaterialSpotType { get; set; } = null;
     }
 }

@@ -31,6 +31,7 @@ using OpenNefia.Core.UI.Wisp;
 using OpenNefia.Core.UI.Wisp.Styling;
 using OpenNefia.Core.HotReload;
 using OpenNefia.Core.UserInterface.XAML.HotReload;
+using OpenNefia.Core.DebugServer;
 
 namespace OpenNefia
 {
@@ -101,6 +102,11 @@ namespace OpenNefia
             IoCManager.Register<IMapRenderer, MapRenderer>();
             IoCManager.Register<IMapDrawables, MapDrawables>();
             IoCManager.Register<ITimerManager, TimerManager>();
+            IoCManager.Register<IDebugServer, DebugServer>();
+            IoCManager.Register<IConsoleHost, ConsoleHost>();
+            IoCManager.Register<IConsoleOutput, DummyConsoleOutput>();
+            IoCManager.Register<ICSharpReplExecutor, CSharpReplExecutor>();
+            IoCManager.Register<IConsole, DummyConsole>();
             IoCManager.Register<IMapLoader, MapLoader>();
             IoCManager.Register<IThemeManager, ThemeManager>();
             IoCManager.Register<IProfileManager, ProfileManager>();

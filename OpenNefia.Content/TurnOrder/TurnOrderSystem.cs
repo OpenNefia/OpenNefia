@@ -75,7 +75,7 @@ namespace OpenNefia.Content.TurnOrder
         [Dependency] private readonly IAudioManager _sounds = default!;
         [Dependency] private readonly IUserInterfaceManager _uiManager = default!;
         [Dependency] private readonly ISaveGameSerializer _saveGameSerializer = default!;
-        [Dependency] private readonly IMessage _mes = default!;
+        [Dependency] private readonly IMessagesManager _mes = default!;
 
         private TurnOrderState _state = TurnOrderState.TurnBegin;
 

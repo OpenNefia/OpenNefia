@@ -1,4 +1,6 @@
+using OpenNefia.Content.Charas;
 using OpenNefia.Content.DisplayName;
+using OpenNefia.Content.Maps;
 using OpenNefia.Core.Containers;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
@@ -32,13 +34,16 @@ namespace OpenNefia.Content.EntityGen
         EntityUid? SpawnEntity(PrototypeId<EntityPrototype>? protoId, EntityCoordinates coordinates);
         EntityUid? SpawnEntity(PrototypeId<EntityPrototype>? protoId, MapCoordinates coordinates);
         EntityUid? SpawnEntity(PrototypeId<EntityPrototype>? protoId, IContainer container, int count = 1);
+        EntityUid? SpawnEntity(PrototypeId<EntityPrototype>? protoId, IMap map);
     }
 
     public class EntityGenSystem : EntitySystem, IEntityGen
     {
+        [Dependency] private readonly IMapManager _mapManager = default!;
         [Dependency] private readonly IMapLoader _mapLoader = default!;
-        [Dependency] private readonly IDisplayNameSystem _displayNames = default!;
+        [Dependency] private readonly IPrototypeManager _protos = default!;
         [Dependency] private readonly IStackSystem _stacks = default!;
+        [Dependency] private readonly IMapPlacement _placement = default!;
 
         public override void Initialize()
         {
@@ -78,9 +83,50 @@ namespace OpenNefia.Content.EntityGen
             return SpawnEntity(protoId, coordinates.ToMap(EntityManager));
         }
 
+        private enum PositionSearchType
+        {
+            General,
+            Chara
+        }
+
+        private PositionSearchType GetSearchType(PrototypeId<EntityPrototype>? protoId)
+        {
+            if (protoId == null)
+                return PositionSearchType.General;
+
+            var proto = _protos.Index(protoId.Value);
+            if (proto.Components.HasComponent<CharaComponent>())
+                return PositionSearchType.Chara;
+
+            return PositionSearchType.General;
+        }
+
         public EntityUid? SpawnEntity(PrototypeId<EntityPrototype>? protoId, MapCoordinates coordinates)
         {
-            var ent = EntityManager.SpawnEntity(protoId, coordinates);
+            var ent = EntityManager.SpawnEntity(protoId, new MapCoordinates(MapId.Global, Vector2i.Zero));
+
+            var searchType = GetSearchType(protoId);
+            var spatial = EntityManager.GetComponent<SpatialComponent>(ent);
+
+            switch (searchType)
+            {
+                case PositionSearchType.Chara:
+                    _placement.TryPlaceChara(ent, coordinates);
+                    break;
+                case PositionSearchType.General:
+                default:
+                    var map = _mapManager.GetMap(coordinates.MapId);
+                    spatial.Coordinates = map.AtPosEntity(coordinates.Position);
+                    break;
+            }
+
+            if (spatial.MapID == MapId.Global)
+            {
+                EntityManager.DeleteEntity(ent);
+
+                Logger.ErrorS("entity.gen", $"Entity {ent} was not moved from global map to real position.");
+                return null;
+            }
 
             FireGeneratedEvent(ent);
 
@@ -95,6 +141,15 @@ namespace OpenNefia.Content.EntityGen
             return ent;
         }
 
+        public EntityUid? SpawnEntity(PrototypeId<EntityPrototype>? protoId, IMap map)
+        {
+            var pos = _placement.FindFreePosition(map);
+            if (pos == null)
+                return null;
+
+            return SpawnEntity(protoId, pos.Value);
+        }
+
         public EntityUid? SpawnEntity(PrototypeId<EntityPrototype>? protoId, IContainer container, int count = 1)
         {
             var coords = new EntityCoordinates(container.Owner, Vector2i.Zero);
@@ -105,7 +160,7 @@ namespace OpenNefia.Content.EntityGen
         
             if (!container.Insert(ent.Value))
             {
-                Logger.WarningS("entity.gen", $"Could not fit entity '{_displayNames.GetBaseName(ent.Value)}' into container of entity '{_displayNames.GetBaseName(container.Owner)}'.");
+                Logger.WarningS("entity.gen", $"Could not fit entity '{ent}' into container of entity '{container.Owner}'.");
                 
                 EntityManager.DeleteEntity(ent.Value);
                 return null;

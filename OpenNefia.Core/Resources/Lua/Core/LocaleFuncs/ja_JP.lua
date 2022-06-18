@@ -13,7 +13,7 @@ local Rand = {
 local jp = {}
 
 function jp.you()
-    return i18n.get("chara.you")
+    return i18n.get "chara.you"
 end
 
 function jp.name(obj, ignore_sight)
@@ -24,22 +24,22 @@ function jp.name(obj, ignore_sight)
         end
 
         if not obj.is_visible and not ignore_sight then
-            return i18n.get("chara.something")
+            return i18n.get "chara.something"
         end
 
-        return obj.name or i18n.get("chara.something")
+        return obj.name or i18n.get "chara.something"
     end
     -- <<<<<<<< shade2/init.hsp:4090 	return cnName(tc) ..
 
-    return i18n.get("chara.something")
+    return i18n.get "chara.something"
 end
 
 function jp.basename(obj)
     if type(obj) == "table" then
-        return obj.basename or obj.name or i18n.get("chara.something")
+        return obj.basename or obj.name or i18n.get "chara.something"
     end
 
-    return i18n.get("chara.something")
+    return i18n.get "chara.something"
 end
 
 jp.itemname = jp.name

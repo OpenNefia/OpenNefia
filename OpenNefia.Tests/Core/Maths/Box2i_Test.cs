@@ -54,6 +54,18 @@ namespace OpenNefia.Tests.Core.Maths
             (-20, -20)
         };
 
+        private static IEnumerable<(int x, int y, bool isInBounds)> IsInBoundsTests => new (int, int, bool)[]
+        {
+            (0, 1, false),
+            (1, 0, false),
+            (1, 1, false),
+            (0, -1, true),
+            (1, -1, false),
+            (-1, 0, true),
+            (-1, 1, false),
+            (-1, -1, true)
+        };
+
         private static IEnumerable<(UIBox2i a, UIBox2i b, UIBox2i? expected)> Intersections =>
             new (UIBox2i, UIBox2i, UIBox2i?)[]
             {
@@ -61,6 +73,14 @@ namespace OpenNefia.Tests.Core.Maths
                 (new UIBox2i(0, 0, 5, 5), new UIBox2i(3, 3, 7, 7), new UIBox2i(3, 3, 5, 5)),
                 (new UIBox2i(2, 0, 5, 5), new UIBox2i(0, 3, 4, 7), new UIBox2i(2, 3, 4, 5)),
                 (new UIBox2i(2, 0, 5, 5), new UIBox2i(6, 6, 10, 10), null),
+            };
+
+        private static IEnumerable<(UIBox2i box, int amount, UIBox2i expected)> Expansions =>
+            new (UIBox2i, int, UIBox2i)[]
+            {
+                (new UIBox2i(0, 0, 5, 5), 0, new UIBox2i(0, 0, 5, 5)),
+                (new UIBox2i(0, 0, 5, 5), 2, new UIBox2i(-2, -2, 9, 9)),
+                (new UIBox2i(0, 0, 5, 5), -2, new UIBox2i(2, 2, 1, 1)),
             };
 
         [Test]
@@ -203,6 +223,40 @@ namespace OpenNefia.Tests.Core.Maths
         }
 
         [Test]
+        public void Box2iIsInBoundsSelfClosed()
+        {
+            var box = new UIBox2i(-1, -1, 1, 1);
+
+            Assert.That(box.IsInBounds(box.BottomLeft), Is.False);
+            Assert.That(box.IsInBounds(box.TopLeft), Is.True);
+            Assert.That(box.IsInBounds(box.TopRight), Is.False);
+            Assert.That(box.IsInBounds(box.BottomRight), Is.False);
+
+            var bl = box.BottomLeft;
+            var tl = box.TopLeft;
+            var tr = box.TopRight;
+            var br = box.BottomRight;
+
+            Assert.That(box.IsInBounds(bl.X, bl.Y), Is.False);
+            Assert.That(box.IsInBounds(tl.X, tl.Y), Is.True);
+            Assert.That(box.IsInBounds(tr.X, tr.Y), Is.False);
+            Assert.That(box.IsInBounds(br.X, br.Y), Is.False);
+        }
+
+        [Test]
+        public void Box2iIsInBounds([ValueSource(nameof(IsInBoundsTests))]
+            (int, int, bool) test)
+        {
+            var (x, y, isInBounds) = test;
+            var vec = new Vector2i(x, y);
+
+            var box = new UIBox2i(-1, -1, 1, 1);
+
+            Assert.That(box.IsInBounds(x, y) == isInBounds);
+            Assert.That(box.IsInBounds(vec) == isInBounds);
+        }
+
+        [Test]
         public void Box2iTranslated([ValueSource(nameof(LargeTranslations))]
             (int, int) test)
         {
@@ -247,6 +301,15 @@ namespace OpenNefia.Tests.Core.Maths
             // This should be a symmetric operation.
             Assert.That(a.Intersection(b), Is.EqualTo(expected));
             Assert.That(b.Intersection(a), Is.EqualTo(expected));
+        }
+
+        [Test]
+        public void Box2iExpand(
+            [ValueSource(nameof(Expansions))] (UIBox2i box, int amount, UIBox2i expected) value)
+        {
+            var (box, amount, expected) = value;
+
+            Assert.That(box.Expand(amount), Is.EqualTo(expected));
         }
     }
 }

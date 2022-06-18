@@ -93,6 +93,10 @@ namespace OpenNefia.Core.ResourceManagement
         /// </summary>
         public Color? KeyColor { get; set; } = null;
 
+        public ImageLoadParameters()
+        {
+        }
+        
         public static ImageLoadParameters FromYaml(YamlMappingNode yaml)
         {
             var loadParams = new ImageLoadParameters();

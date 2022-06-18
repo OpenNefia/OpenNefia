@@ -39,5 +39,10 @@ namespace OpenNefia.Core.Maps
         void UnloadMap(MapId mapId);
 
         void RefreshVisibility(IMap map);
+
+        /// <summary>
+        /// Allocates a new MapID, incrementing the highest ID counter.
+        /// </summary>
+        MapId GenerateMapId();
     }
 }

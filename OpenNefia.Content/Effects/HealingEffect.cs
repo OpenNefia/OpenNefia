@@ -16,7 +16,7 @@ namespace OpenNefia.Content.Effects
     {
         // TODO flyweight this
         [Dependency] private readonly IMapDrawables _mapDrawables = default!;
-        [Dependency] private readonly IMessage _mes = default!;
+        [Dependency] private readonly IMessagesManager _mes = default!;
         [Dependency] private readonly IDisplayNameSystem _displayNames = default!;
 
         void ISerializationHooks.AfterDeserialization()

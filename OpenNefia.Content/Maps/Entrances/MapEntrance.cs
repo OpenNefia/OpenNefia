@@ -20,6 +20,10 @@ namespace OpenNefia.Content.Maps
         [DataField]
         public IMapStartLocation StartLocation { get; set; } = new CenterMapLocation();
 
+        /// <summary>
+        /// Generates a map entrace leading to the specified map coordinates.
+        /// </summary>
+        /// <param name="coords">Coordinates to move to when this entrance is entered.</param>
         public static MapEntrance FromMapCoordinates(MapCoordinates coords)
         {
             return new MapEntrance()
@@ -27,6 +31,11 @@ namespace OpenNefia.Content.Maps
                 MapIdSpecifier = new BasicMapIdSpecifier(coords.MapId),
                 StartLocation = new SpecificMapLocation(coords.Position)
             };
+        }
+
+        public override string ToString()
+        {
+            return $"{nameof(MapEntrance)}(mapId={MapIdSpecifier}, loc={StartLocation})";
         }
     }
 }

@@ -38,11 +38,6 @@ namespace OpenNefia.Core.Maps
         /// This should **only** be called when handling game saving/loading.
         /// </remarks>
         void FlushMaps();
-
-        /// <summary>
-        /// Allocates a new MapID, incrementing the highest ID counter.
-        /// </summary>
-        MapId GenerateMapId();
     }
 
     public sealed partial class MapManager : IMapManagerInternal
@@ -234,7 +229,7 @@ namespace OpenNefia.Core.Maps
 
             if (!_maps.ContainsKey(mapID))
             {
-                Logger.WarningS("map", $"Attempted to unload nonexistent map '{mapID}'");
+                Logger.DebugS("map", $"Attempted to unload nonexistent map '{mapID}'");
                 return;
             }
 

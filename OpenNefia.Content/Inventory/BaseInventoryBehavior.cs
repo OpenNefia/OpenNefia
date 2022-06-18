@@ -20,7 +20,7 @@ namespace OpenNefia.Content.Inventory
     public abstract class BaseInventoryBehavior : IInventoryBehavior
     {
         [Dependency] protected readonly IEntityManager EntityManager = default!;
-        [Dependency] private readonly IMessage _mes = default!;
+        [Dependency] private readonly IMessagesManager _mes = default!;
 
         public abstract HspIds<InvElonaId>? HspIds { get; }
         public abstract string WindowTitle { get; }

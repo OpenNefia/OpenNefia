@@ -8,11 +8,11 @@
 -- cd C:/users/yuno/build/elona-next & OpenNefia.bat exec C:/users/yuno/build/OpenNefia.NET/Support/convert_lua_protos.lua -r
 --
 
-local automagic = require("thirdparty.automagic")
-local lyaml = require("lyaml")
-local Enum = require("api.Enum")
-local Log = require("api.Log")
-local IItemEquipment = require("mod.elona.api.aspect.IItemEquipment")
+local automagic = require "thirdparty.automagic"
+local lyaml = require "lyaml"
+local Enum = require "api.Enum"
+local Log = require "api.Log"
+local IItemEquipment = require "mod.elona.api.aspect.IItemEquipment"
 
 local tags = {}
 
@@ -29,18 +29,18 @@ local function classify(str)
 end
 
 local function dotted(str)
-    local mod_id, data_id = str:match("([^.]+)%.([^.]+)")
+    local mod_id, data_id = str:match "([^.]+)%.([^.]+)"
     return ("%s.%s"):format(classify(mod_id), classify(data_id))
 end
 
 local function dottedEntity(str, ty)
-    local _, ty = ty:match("([^.]+)%.([^.]+)")
-    local mod_id, data_id = str:match("([^.]+)%.([^.]+)")
+    local _, ty = ty:match "([^.]+)%.([^.]+)"
+    local mod_id, data_id = str:match "([^.]+)%.([^.]+)"
     return ("%s.%s%s"):format(classify(mod_id), classify(ty), classify(data_id))
 end
 
 local function itemCategory(str, ident)
-    local mod_id, data_id = str:match("([^.]+)%.([^.]+)")
+    local mod_id, data_id = str:match "([^.]+)%.([^.]+)"
     return ("%s.%s%s"):format(classify(mod_id), ident, classify(data_id))
 end
 
@@ -164,6 +164,11 @@ handlers["base.chara"] = function(from, to)
         end
     end
 
+    if (from.creaturepack or 0) ~= 0 then
+        c = comp(to, "CreaturePack")
+        c.category = "Elona." .. Enum.CharaCategory:to_string(from.creaturepack)
+    end
+
     if #from.tags > 0 then
         c = comp(to, "Tag")
         c.tags = {}
@@ -270,7 +275,7 @@ handlers["base.item"] = function(from, to)
     c = comp(to, "Tag")
     c.tags = {}
     for _, cat in ipairs(from.categories or {}) do
-        if not cat:match("elona.tag_") then
+        if not cat:match "elona.tag_" then
             c.tags[#c.tags + 1] = itemCategory(cat, "Item")
         end
     end
@@ -355,7 +360,7 @@ handlers["base.class"] = function(from, to)
         to.equipmentType = dotted(from.properties.equipment_type)
     end
     if from.on_init_player then
-        local _, name = to.id:match("([^.]+)%.([^.]+)")
+        local _, name = to.id:match "([^.]+)%.([^.]+)"
         to.onInitPlayer = setmetatable({}, { tag = ("type:Init%sEffect"):format(name), type = "mapping" })
     end
     to.baseSkills = {}
@@ -435,7 +440,7 @@ handlers["base.portrait"] = function(from, to)
 end
 
 handlers["base.map_tile"] = function(from, to)
-    if from.wall_kind == 1 and to.id:match("Bottom$") then
+    if from.wall_kind == 1 and to.id:match "Bottom$" then
         return false
     end
 
@@ -451,7 +456,7 @@ handlers["base.map_tile"] = function(from, to)
     end
 
     if from.wall then
-        assert(to.id:match("Top$"))
+        assert(to.id:match "Top$")
         to.id = to.id:gsub("Top$", "")
 
         assert(from.wall_kind == 2)
@@ -535,6 +540,53 @@ handlers["base.element"] = function(from, to)
     end
 end
 
+handlers["elona_sys.map_tileset"] = function(from, to)
+    if from.door then
+        to.door = {}
+        if from.door.open_tile then
+            to.door.openChip = dotted(from.door.open_tile)
+        end
+        if from.door.closed_tile then
+            to.door.closedChip = dotted(from.door.closed_tile)
+        end
+    end
+
+    if from.tiles then
+        to.tiles = {}
+        for k, v in pairs(from.tiles) do
+            local t = {}
+            if type(v) == "function" then
+                t.tiles = "TODO"
+                to.tiles[dotted(k)] = setmetatable(t, { tag = "type:TileRandom", type = "mapping" })
+            else
+                t.tile = dotted(v)
+                to.tiles[dotted(k)] = setmetatable(t, { tag = "type:TileSingle", type = "mapping" })
+            end
+        end
+    end
+
+    if from.fog then
+        if type(from.fog) == "function" then
+            to.fogTile = "TODO"
+        else
+            to.fogTile = dotted(from.fog)
+        end
+    end
+end
+
+handlers["elona.material_spot"] = function(from, to)
+    to.materials = {}
+    for i, m in ipairs(from.materials) do
+        to.materials[i] = dotted(m)
+    end
+end
+
+handlers["elona.material"] = function(from, to)
+    to.level = from.level
+    to.rarity = from.rarity
+    to.chip = dotted(from.image)
+end
+
 local function sort(a, b)
     return (a.elona_id or 0) < (b.elona_id or 0)
 end
@@ -612,19 +664,22 @@ local function write(ty, filename)
     file:close()
 end
 
-write("base.chara", "Entity/Chara.yml")
-write("base.item", "Entity/Item.yml")
-write("base.class", "Class.yml")
-write("base.race", "Race.yml")
-write("elona_sys.dialog", "Dialog.yml")
-write("base.tone", "Tone.yml")
+-- write("base.chara", "Entity/Chara.yml")
+-- write("base.item", "Entity/Item.yml")
+-- write("base.class", "Class.yml")
+-- write("base.race", "Race.yml")
+-- write("elona_sys.dialog", "Dialog.yml")
+-- write("base.tone", "Tone.yml")
 -- write("base.portrait", "Portrait.yml")
 -- write("base.map_tile", "Tile.yml")
 -- write("base.chip", "Chip.yml")
-write("elona.field_type", "FieldType.yml")
-write("base.pcc_part", "PCCPart.yml")
-write("base.trait", "Feat.yml")
-write("base.element", "Element.yml")
+-- write("elona.field_type", "FieldType.yml")
+-- write("base.pcc_part", "PCCPart.yml")
+-- write("base.trait", "Feat.yml")
+-- write("base.element", "Element.yml")
+-- write("elona_sys.map_tileset", "MapTileset.yml")
+write("elona.material_spot", "MaterialSpot.yml")
+write("elona.material", "Material.yml")
 
 -- print(inspect(data["base.item"]:iter():filter(function(a) return a.fltselect > 0 and a.rarity == 0 end):to_list()))
 

@@ -57,10 +57,18 @@ namespace OpenNefia.Content.DisplayName
     public struct GetBaseNameEventArgs
     {
         public string BaseName = string.Empty;
+
+        public GetBaseNameEventArgs()
+        {
+        }
     }
 
     public struct GetDisplayNameEventArgs
     {
         public string Name = string.Empty;
+
+        public GetDisplayNameEventArgs()
+        {
+        }
     }
 }

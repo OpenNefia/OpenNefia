@@ -24,6 +24,10 @@ using OpenNefia.Core.Reflection;
 
 namespace OpenNefia.Core.UserInterface.XAML.HotReload
 {
+    /// <summary>
+    /// Handles runtime hot reloading of XAML-bound <see cref="WispControl"/> classes.
+    /// This greatly simplifies the edit-compile-test cycle of XAML-based controls.
+    /// </summary>
     internal interface IXamlHotReloadManager
     {
         void Initialize();
@@ -40,7 +44,7 @@ namespace OpenNefia.Core.UserInterface.XAML.HotReload
         /// </summary>
         /// <remarks>
         /// Due to the design of the hotloading mechanism, this will only apply the changes
-        /// when a new control of the given type is constructed. This can be worked around,
+        /// when a new instance of the given control type is constructed. This can be worked around,
         /// such as how <see cref="ControlDesigner.ControlDesignerLayer"/> reconstructs the control 
         /// when something changes.
         /// </remarks>

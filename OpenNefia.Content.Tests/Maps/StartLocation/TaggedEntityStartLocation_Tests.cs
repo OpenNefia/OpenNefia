@@ -1,6 +1,8 @@
 using NUnit.Framework;
 using OpenNefia.Content.Charas;
+using OpenNefia.Content.EntityGen;
 using OpenNefia.Content.GameObjects;
+using OpenNefia.Content.GameObjects.EntitySystems.Tag;
 using OpenNefia.Content.Maps;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
@@ -41,6 +43,10 @@ namespace OpenNefia.Content.Tests.Maps.StartLocation
                     protoFactory.RegisterType<TagPrototype>();
                     protoFactory.LoadString(Prototypes);
                 })
+               .RegisterEntitySystems(factory =>
+               {
+                   factory.LoadExtraSystemType<TagSystem>();
+               })
                 .RegisterComponents(factory => factory.RegisterClass<TagComponent>())
                 .InitializeInstance();
 
