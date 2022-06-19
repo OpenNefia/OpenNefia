@@ -1,0 +1,115 @@
+---
+- type: Elona.God
+  id: Elona.Mani
+  hspIds:
+    elona122: 1
+  isPrimaryGod: true
+  servant: Elona.Android
+  items:
+  - itemId: Elona.GemstoneOfMani
+    onlyOnce: true
+  artifact: Elona.WinchesterPremium
+  summon: Elona.Mani
+  blessings: !type:GodBlessingManiEffect {}
+  offerings:
+  - category: Elona.ItemEquipRangedGun
+  - category: Elona.ItemEquipRangedLaserGun
+  - category: Elona.ItemOfferingSf
+- type: Elona.God
+  id: Elona.Lulwy
+  hspIds:
+    elona122: 2
+  isPrimaryGod: true
+  servant: Elona.BlackAngel
+  items:
+  - itemId: Elona.LulwysGemStoneOfGodSpeed
+    onlyOnce: true
+  artifact: Elona.WindBow
+  summon: Elona.Lulwy
+  blessings: !type:GodBlessingLulwyEffect {}
+  offerings:
+  - category: Elona.ItemEquipRangedBow
+  - category: Elona.ItemEquipRangedCrossbow
+  callbacks: !type:GodLulwyCallbacks {}
+- type: Elona.God
+  id: Elona.Itzpalt
+  hspIds:
+    elona122: 3
+  isPrimaryGod: true
+  servant: Elona.Exile
+  items:
+  - filter:
+      type: TODO
+    itemId: Elona.SecretTreasure
+    noStack: true
+  artifact: Elona.ElementalStaff
+  blessings: !type:GodBlessingItzpaltEffect {}
+  offerings:
+  - category: Elona.ItemEquipMeleeStaff
+  callbacks: !type:GodItzpaltCallbacks {}
+- type: Elona.God
+  id: Elona.Ehekatl
+  hspIds:
+    elona122: 4
+  isPrimaryGod: true
+  servant: Elona.BlackCat
+  items:
+  - filter:
+      type: TODO
+    itemId: Elona.SecretTreasure
+    noStack: true
+  artifact: Elona.LuckyDagger
+  summon: Elona.Ehekatl
+  blessings: !type:GodBlessingEhekatlEffect {}
+  offerings:
+  - category: Elona.ItemOfferingFish
+- type: Elona.God
+  id: Elona.Opatos
+  hspIds:
+    elona122: 5
+  isPrimaryGod: true
+  servant: Elona.GoldenKnight
+  items:
+  - filter:
+      type: TODO
+    itemId: Elona.SecretTreasure
+    noStack: true
+  artifact: Elona.GaiaHammer
+  summon: Elona.Opatos
+  blessings: !type:GodBlessingOpatosEffect {}
+  offerings:
+  - category: Elona.ItemOfferingOre
+- type: Elona.God
+  id: Elona.Jure
+  hspIds:
+    elona122: 6
+  isPrimaryGod: true
+  servant: Elona.Defender
+  items:
+  - itemId: Elona.JuresGemStoneOfHolyRain
+    onlyOnce: true
+  - filter:
+      type: TODO
+    itemId: Elona.SecretTreasure
+    noStack: true
+  artifact: Elona.HolyLance
+  blessings: !type:GodBlessingJureEffect {}
+  offerings:
+  - category: Elona.ItemOfferingOre
+  callbacks: !type:GodJureCallbacks {}
+- type: Elona.God
+  id: Elona.Kumiromi
+  hspIds:
+    elona122: 7
+  isPrimaryGod: true
+  servant: Elona.CuteFairy
+  items:
+  - itemId: Elona.KumiromisGemStoneOfRejuvenation
+    onlyOnce: true
+  artifact: Elona.KumiromiScythe
+  summon: Elona.Kumiromi
+  blessings: !type:GodBlessingKumiromiEffect {}
+  offerings:
+  - category: Elona.ItemOfferingVegetable
+  - category: Elona.ItemCropSeed
+...

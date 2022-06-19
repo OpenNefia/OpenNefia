@@ -29,7 +29,7 @@ namespace OpenNefia.Content.Rendering
         private Particle[] Particles;
         private FrameCounter Counter;
 
-        public ParticleMapDrawable(PrototypeId<AssetPrototype> asset, PrototypeId<SoundPrototype>? sound, float rotationVariance = -1f, float? waitSecs = null)
+        public ParticleMapDrawable(PrototypeId<AssetPrototype> asset, PrototypeId<SoundPrototype>? sound = null, float rotationVariance = -1f, float? waitSecs = null)
         {
             var rand = IoCManager.Resolve<IRandom>();
 

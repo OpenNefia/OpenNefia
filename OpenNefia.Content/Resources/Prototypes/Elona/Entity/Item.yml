@@ -1194,6 +1194,7 @@
     value: 40000
     material: Elona.Steel
     identifyDifficulty: 500
+    isPrecious: true
   - type: Weight
     weight: 2200
   - type: Equipment
@@ -1233,6 +1234,7 @@
     value: 40000
     material: Elona.Silver
     identifyDifficulty: 500
+    isPrecious: true
   - type: Weight
     weight: 1400
   - type: Equipment
@@ -1396,6 +1398,7 @@
     value: 50000
     material: Elona.Iron
     identifyDifficulty: 500
+    isPrecious: true
   - type: Weight
     weight: 9000
   - type: Equipment
@@ -1432,6 +1435,7 @@
     value: 60000
     material: Elona.Obsidian
     identifyDifficulty: 500
+    isPrecious: true
   - type: Weight
     weight: 4000
   - type: Equipment
@@ -1649,6 +1653,7 @@
     value: 20000
     material: Elona.Obsidian
     identifyDifficulty: 500
+    isPrecious: true
   - type: Weight
     weight: 4200
   - type: Equipment
@@ -4328,6 +4333,7 @@
     value: 60000
     material: Elona.Ether
     identifyDifficulty: 500
+    isPrecious: true
   - type: Weight
     weight: 600
   - type: Equipment
@@ -4367,6 +4373,7 @@
     value: 60000
     material: Elona.Mithril
     identifyDifficulty: 500
+    isPrecious: true
   - type: Weight
     weight: 1200
   - type: Equipment
@@ -7554,6 +7561,7 @@
     value: 40000
     material: Elona.Mithril
     identifyDifficulty: 500
+    isPrecious: true
   - type: Weight
     weight: 1200
   - type: Equipment
@@ -7591,6 +7599,7 @@
     value: 30000
     material: Elona.Iron
     identifyDifficulty: 500
+    isPrecious: true
   - type: Weight
     weight: 1800
   - type: Equipment
@@ -7627,6 +7636,7 @@
     value: 30000
     material: Elona.Mithril
     identifyDifficulty: 500
+    isPrecious: true
   - type: Weight
     weight: 1200
   - type: Equipment
@@ -7662,6 +7672,7 @@
     value: 30000
     material: Elona.Obsidian
     identifyDifficulty: 500
+    isPrecious: true
   - type: Weight
     weight: 2500
   - type: Equipment
@@ -7701,6 +7712,7 @@
     value: 30000
     material: Elona.Iron
     identifyDifficulty: 500
+    isPrecious: true
   - type: Weight
     weight: 2000
   - type: Equipment
@@ -7738,6 +7750,7 @@
     value: 30000
     material: Elona.Mithril
     identifyDifficulty: 500
+    isPrecious: true
   - type: Weight
     weight: 500
   - type: Equipment
@@ -11050,6 +11063,7 @@
     - Elona.Precious
   - type: Item
     value: 8000
+    isPrecious: true
   - type: Weight
     weight: 380
 - type: Entity
@@ -11276,6 +11290,7 @@
     value: 60000
     material: Elona.Ether
     identifyDifficulty: 500
+    isPrecious: true
   - type: Weight
     weight: 8500
   - type: Equipment
@@ -12391,6 +12406,7 @@
     - Elona.Precious
   - type: Item
     value: 380
+    isPrecious: true
   - type: Weight
     weight: 20000
 - type: Entity
@@ -13286,6 +13302,7 @@
     - Elona.Precious
   - type: Item
     value: 1800
+    isPrecious: true
   - type: Weight
     weight: 150000
 - type: Entity
@@ -13355,6 +13372,7 @@
     - Elona.Precious
   - type: Item
     value: 12000
+    isPrecious: true
   - type: Weight
     weight: 2400
 - type: Entity
@@ -13623,6 +13641,7 @@
     - Elona.Precious
   - type: Item
     value: 100
+    isPrecious: true
   - type: Weight
     weight: 100
 - type: Entity
@@ -13648,6 +13667,7 @@
     - Elona.Precious
   - type: Item
     value: 14500
+    isPrecious: true
   - type: Weight
     weight: 6500
 - type: Entity
@@ -13793,6 +13813,7 @@
     - Elona.Precious
   - type: Item
     value: 1
+    isPrecious: true
   - type: Weight
     weight: 1
 - type: Entity
@@ -13816,6 +13837,7 @@
     - Elona.Precious
   - type: Item
     value: 15000
+    isPrecious: true
   - type: Weight
     weight: 380
 - type: Entity
@@ -13839,6 +13861,7 @@
     - Elona.Precious
   - type: Item
     value: 10000
+    isPrecious: true
   - type: Weight
     weight: 380
 - type: Entity
@@ -13864,6 +13887,7 @@
     - Elona.Precious
   - type: Item
     value: 7500
+    isPrecious: true
   - type: Weight
     weight: 8000
 - type: Entity
@@ -13889,6 +13913,7 @@
   - type: Item
     value: 50000
     originalnameref2: bottle
+    isPrecious: true
   - type: Weight
     weight: 120
 - type: Entity
@@ -13920,6 +13945,7 @@
     value: 40000
     material: Elona.Mithril
     identifyDifficulty: 500
+    isPrecious: true
   - type: Weight
     weight: 1500
   - type: Equipment
@@ -14163,6 +14189,7 @@
     - Elona.Precious
   - type: Item
     value: 150000
+    isPrecious: true
   - type: Weight
     weight: 400
 - type: Entity
@@ -14215,6 +14242,7 @@
     - Elona.Precious
   - type: Item
     value: 100000
+    isPrecious: true
   - type: Weight
     weight: 720
 - type: Entity
@@ -14266,6 +14294,7 @@
     - Elona.Precious
   - type: Item
     value: 7500
+    isPrecious: true
   - type: Weight
     weight: 2500
 - type: Entity
@@ -14577,6 +14606,7 @@
     - Elona.Precious
   - type: Item
     value: 100000
+    isPrecious: true
   - type: Weight
     weight: 500
 - type: Entity
@@ -14714,6 +14744,7 @@
     value: 25000
     material: Elona.Leather
     identifyDifficulty: 500
+    isPrecious: true
   - type: Weight
     weight: 650
   - type: Equipment
@@ -14749,6 +14780,7 @@
     - Elona.Precious
   - type: Item
     value: 100000
+    isPrecious: true
   - type: Weight
     weight: 440
 - type: Entity
@@ -14776,6 +14808,7 @@
     - Elona.Precious
   - type: Item
     value: 25000
+    isPrecious: true
   - type: Weight
     weight: 2500
 - type: Entity
@@ -14832,6 +14865,7 @@
   - type: Item
     value: 100000
     originalnameref2: statue
+    isPrecious: true
   - type: Weight
     weight: 15000
 - type: Entity
@@ -14860,6 +14894,7 @@
   - type: Item
     value: 100000
     originalnameref2: statue
+    isPrecious: true
   - type: Weight
     weight: 14000
 - type: Entity
@@ -14969,6 +15004,7 @@
     - Elona.Precious
   - type: Item
     value: 10000
+    isPrecious: true
   - type: Weight
     weight: 120000
 - type: Entity
@@ -14996,6 +15032,7 @@
     - Elona.Precious
   - type: Item
     value: 5000
+    isPrecious: true
   - type: Weight
     weight: 1000
 - type: Entity
@@ -15027,6 +15064,7 @@
     value: 35000
     material: Elona.Ether
     identifyDifficulty: 500
+    isPrecious: true
   - type: Weight
     weight: 800
   - type: Equipment
@@ -15064,6 +15102,7 @@
     value: 35000
     material: Elona.Diamond
     identifyDifficulty: 500
+    isPrecious: true
   - type: Weight
     weight: 2800
   - type: Equipment
@@ -15101,6 +15140,7 @@
     value: 35000
     material: Elona.SpiritCloth
     identifyDifficulty: 500
+    isPrecious: true
   - type: Weight
     weight: 850
   - type: Equipment
@@ -15138,6 +15178,7 @@
     value: 35000
     material: Elona.Obsidian
     identifyDifficulty: 500
+    isPrecious: true
   - type: Weight
     weight: 900
   - type: Equipment
@@ -15176,6 +15217,7 @@
     value: 35000
     material: Elona.Silver
     identifyDifficulty: 500
+    isPrecious: true
   - type: Weight
     weight: 4400
   - type: Equipment
@@ -15214,6 +15256,7 @@
     value: 35000
     material: Elona.Mica
     identifyDifficulty: 500
+    isPrecious: true
   - type: Weight
     weight: 400
   - type: Equipment
@@ -15253,6 +15296,7 @@
     value: 35000
     material: Elona.Adamantium
     identifyDifficulty: 500
+    isPrecious: true
   - type: Weight
     weight: 6500
   - type: Equipment
@@ -15288,6 +15332,7 @@
   - type: Item
     value: 50000
     originalnameref2: Lulwy's gem stone
+    isPrecious: true
   - type: Weight
     weight: 1200
 - type: Entity
@@ -15317,6 +15362,7 @@
   - type: Item
     value: 50000
     originalnameref2: Jure's gem stone
+    isPrecious: true
   - type: Weight
     weight: 1200
 - type: Entity
@@ -15346,6 +15392,7 @@
   - type: Item
     value: 50000
     originalnameref2: Kumiromi's gem stone
+    isPrecious: true
   - type: Weight
     weight: 1200
 - type: Entity
@@ -15375,6 +15422,7 @@
   - type: Item
     value: 50000
     originalnameref2: gem stone
+    isPrecious: true
   - type: Weight
     weight: 1200
 - type: Entity
@@ -15398,6 +15446,7 @@
     - Elona.Precious
   - type: Item
     value: 20000
+    isPrecious: true
   - type: Weight
     weight: 25000
 - type: Entity
@@ -15448,6 +15497,7 @@
   - type: Item
     value: 100000
     originalnameref2: statue
+    isPrecious: true
   - type: Weight
     weight: 12000
 - type: Entity
@@ -15663,6 +15713,7 @@
     value: 50000
     material: Elona.Rubynus
     identifyDifficulty: 500
+    isPrecious: true
   - type: Weight
     weight: 14000
   - type: Equipment
@@ -15761,6 +15812,7 @@
     - Elona.Precious
   - type: Item
     value: 10
+    isPrecious: true
   - type: Weight
     weight: 3000
 - type: Entity
@@ -15833,6 +15885,7 @@
     - Elona.Precious
   - type: Item
     value: 10000
+    isPrecious: true
   - type: Weight
     weight: 150
 - type: Entity
@@ -15907,6 +15960,7 @@
     value: 50
     material: Elona.Iron
     identifyDifficulty: 500
+    isPrecious: true
   - type: Weight
     weight: 250
   - type: Equipment
@@ -15963,6 +16017,7 @@
     - Elona.Precious
   - type: Item
     value: 35000
+    isPrecious: true
   - type: Weight
     weight: 4500
 - type: Entity
@@ -16196,6 +16251,7 @@
     value: 9500
     material: Elona.Adamantium
     identifyDifficulty: 500
+    isPrecious: true
   - type: Weight
     weight: 7500
   - type: Equipment
@@ -16257,6 +16313,7 @@
     value: 94000
     material: Elona.Silk
     identifyDifficulty: 500
+    isPrecious: true
   - type: Weight
     weight: 250
   - type: Equipment
@@ -16293,6 +16350,7 @@
     value: 45000
     material: Elona.Silver
     identifyDifficulty: 500
+    isPrecious: true
   - type: Weight
     weight: 6500
   - type: Equipment
@@ -16351,6 +16409,7 @@
   - type: Item
     value: 100000
     originalnameref2: statue
+    isPrecious: true
   - type: Weight
     weight: 12000
 - type: Entity
@@ -16382,6 +16441,7 @@
     value: 9500
     material: Elona.Coral
     identifyDifficulty: 500
+    isPrecious: true
   - type: Weight
     weight: 400
   - type: Equipment
@@ -16418,6 +16478,7 @@
     value: 9500
     material: Elona.Mica
     identifyDifficulty: 500
+    isPrecious: true
   - type: Weight
     weight: 400
   - type: Equipment
@@ -16449,6 +16510,7 @@
     - Elona.Precious
   - type: Item
     value: 1
+    isPrecious: true
   - type: Weight
     weight: 1
 - type: Entity
@@ -16480,6 +16542,7 @@
     value: 25000
     material: Elona.Gold
     identifyDifficulty: 500
+    isPrecious: true
   - type: Weight
     weight: 75000
   - type: Equipment
@@ -16516,6 +16579,7 @@
     value: 7500
     material: Elona.Wood
     identifyDifficulty: 500
+    isPrecious: true
   - type: Weight
     weight: 2850
   - type: Equipment
@@ -16553,6 +16617,7 @@
     value: 17500
     material: Elona.Coral
     identifyDifficulty: 500
+    isPrecious: true
   - type: Weight
     weight: 950
   - type: Equipment
@@ -16590,6 +16655,7 @@
     value: 15000
     material: Elona.Mithril
     identifyDifficulty: 500
+    isPrecious: true
   - type: Weight
     weight: 1250
   - type: Equipment
@@ -16646,6 +16712,7 @@
   - type: Item
     value: 1
     originalnameref2: token
+    isPrecious: true
   - type: Weight
     weight: 1
 - type: Entity
@@ -16861,6 +16928,7 @@
     value: 30000
     material: Elona.Ether
     identifyDifficulty: 500
+    isPrecious: true
   - type: Weight
     weight: 376500
   - type: Equipment
@@ -16898,6 +16966,7 @@
     value: 1200
     material: Elona.Mica
     identifyDifficulty: 500
+    isPrecious: true
   - type: Weight
     weight: 150
   - type: Equipment
@@ -16935,6 +17004,7 @@
     value: 40000
     material: Elona.Obsidian
     identifyDifficulty: 500
+    isPrecious: true
   - type: Weight
     weight: 2500
   - type: Equipment
@@ -16969,6 +17039,7 @@
   - type: Item
     value: 15000
     originalnameref2: license
+    isPrecious: true
   - type: Weight
     weight: 500
 - type: Entity
@@ -16996,6 +17067,7 @@
   - type: Item
     value: 50000
     originalnameref2: plank
+    isPrecious: true
   - type: Weight
     weight: 1200
 - type: Entity
@@ -17022,6 +17094,7 @@
     - Elona.Precious
   - type: Item
     value: 50000
+    isPrecious: true
   - type: Weight
     weight: 1200
 - type: Entity
@@ -17048,6 +17121,7 @@
     - Elona.Precious
   - type: Item
     value: 50000
+    isPrecious: true
   - type: Weight
     weight: 1200
 - type: Entity
@@ -17074,6 +17148,7 @@
     - Elona.Precious
   - type: Item
     value: 50000
+    isPrecious: true
   - type: Weight
     weight: 1200
 - type: Entity
@@ -17123,6 +17198,7 @@
     - Elona.Precious
   - type: Item
     value: 4500
+    isPrecious: true
   - type: Weight
     weight: 7500
 - type: Entity
@@ -17147,6 +17223,7 @@
   - type: Item
     value: 50
     originalnameref2: statue
+    isPrecious: true
   - type: Weight
     weight: 15000
 - type: Entity
@@ -17345,6 +17422,7 @@
     value: 15000
     material: Elona.Obsidian
     identifyDifficulty: 500
+    isPrecious: true
   - type: Weight
     weight: 2400
   - type: Equipment
@@ -17384,6 +17462,7 @@
     value: 25000
     material: Elona.Iron
     identifyDifficulty: 500
+    isPrecious: true
   - type: Weight
     weight: 950
   - type: Equipment
@@ -17445,6 +17524,7 @@
     - Elona.Precious
   - type: Item
     value: 75000
+    isPrecious: true
   - type: Weight
     weight: 5000
 - type: Entity
@@ -17474,6 +17554,7 @@
     - Elona.Precious
   - type: Item
     value: 35000
+    isPrecious: true
   - type: Weight
     weight: 45000
 - type: Entity
@@ -17800,6 +17881,7 @@
     - Elona.Precious
   - type: Item
     value: 160
+    isPrecious: true
   - type: Weight
     weight: 250
 - type: Entity
@@ -17828,6 +17910,7 @@
   - type: Item
     value: 100000
     originalnameref2: statue
+    isPrecious: true
   - type: Weight
     weight: 15000
 - type: Entity
@@ -17856,6 +17939,7 @@
   - type: Item
     value: 100000
     originalnameref2: statue
+    isPrecious: true
   - type: Weight
     weight: 15000
 - type: Entity
@@ -18182,6 +18266,7 @@
     value: 72000
     material: Elona.Iron
     identifyDifficulty: 500
+    isPrecious: true
   - type: Weight
     weight: 22500
   - type: Equipment

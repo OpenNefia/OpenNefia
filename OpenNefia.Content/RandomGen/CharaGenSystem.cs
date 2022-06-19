@@ -28,10 +28,14 @@ namespace OpenNefia.Content.RandomGen
         EntityUid? GenerateChara(MapCoordinates coords, PrototypeId<EntityPrototype>? id = null, 
             int minLevel = 1, PrototypeId<TagPrototype>[]? tags = null, string? fltselect = null, 
             PrototypeId<RacePrototype>? raceFilter = null, Quality? quality = null, EntityGenArgSet? args = null);
+        EntityUid? GenerateChara(EntityUid ent, PrototypeId<EntityPrototype>? id = null,
+            int minLevel = 1, PrototypeId<TagPrototype>[]? tags = null, string? fltselect = null,
+            PrototypeId<RacePrototype>? raceFilter = null, Quality? quality = null, EntityGenArgSet? args = null);
         EntityUid? GenerateChara(IMap map, PrototypeId<EntityPrototype>? id = null,
             int minLevel = 1, PrototypeId<TagPrototype>[]? tags = null, string? fltselect = null,
             PrototypeId<RacePrototype>? raceFilter = null, Quality? quality = null, EntityGenArgSet? args = null);
         EntityUid? GenerateChara(MapCoordinates coords, CharaFilter filter);
+        EntityUid? GenerateChara(EntityUid ent, CharaFilter filter);
         EntityUid? GenerateChara(IMap map, CharaFilter filter);
 
         CharaFilter GenerateCharaFilter(IMap map);
@@ -135,6 +139,15 @@ namespace OpenNefia.Content.RandomGen
             return _entityGen.SpawnEntity(id, coords, args: args);
         }
 
+        public EntityUid? GenerateChara(EntityUid ent, PrototypeId<EntityPrototype>? id = null,
+            int minLevel = 1, PrototypeId<TagPrototype>[]? tags = null, string? fltselect = null, PrototypeId<RacePrototype>? raceFilter = null, Quality? quality = null, EntityGenArgSet? args = null)
+        {
+            if (!EntityManager.TryGetComponent<SpatialComponent>(ent, out var spatial))
+                return null;
+
+            return GenerateChara(spatial.MapPosition, id, minLevel, tags, fltselect, raceFilter, quality, args);
+        }
+
         public EntityUid? GenerateChara(IMap map, PrototypeId<EntityPrototype>? id = null,
             int minLevel = 1, PrototypeId<TagPrototype>[]? tags = null, string? fltselect = null, PrototypeId<RacePrototype>? raceFilter = null, Quality? quality = null, EntityGenArgSet? args = null)
         {
@@ -148,6 +161,11 @@ namespace OpenNefia.Content.RandomGen
         public EntityUid? GenerateChara(MapCoordinates coords, CharaFilter filter)
         {
             return GenerateChara(coords, filter.Id, filter.MinLevel, filter.Tags, filter.Fltselect, filter.RaceFilter, filter.Quality, filter.Args);
+        }
+
+        public EntityUid? GenerateChara(EntityUid ent, CharaFilter filter)
+        {
+            return GenerateChara(ent, filter.Id, filter.MinLevel, filter.Tags, filter.Fltselect, filter.RaceFilter, filter.Quality, filter.Args);
         }
 
         public EntityUid? GenerateChara(IMap map, CharaFilter filter)

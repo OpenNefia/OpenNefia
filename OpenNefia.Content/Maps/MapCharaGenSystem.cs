@@ -21,7 +21,7 @@ namespace OpenNefia.Content.Maps
             SubscribeLocalEvent<MapCharaGenComponent, GetCharaFilterEvent>(SetDefaultFilter, nameof(SetDefaultFilter));
         }
 
-        private void SetDefaultFilter(EntityUid uid, MapCharaGenComponent component, GetCharaFilterEvent args)
+        private void SetDefaultFilter(EntityUid uid, MapCharaGenComponent component, ref GetCharaFilterEvent args)
         {
             if (component.CharaFilterGen != null)
             {

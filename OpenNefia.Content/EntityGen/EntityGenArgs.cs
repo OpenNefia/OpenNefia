@@ -51,6 +51,11 @@ namespace OpenNefia.Content.EntityGen
         public bool NoStack { get; set; } = false;
 
         /// <summary>
+        /// If true, the entity's type will not be randomly modified. Applies to things like Shade generation.
+        /// </summary>
+        public bool NoRandomModify { get; set; } = false;
+
+        /// <summary>
         /// If true, the <see cref="EntityGeneratedEvent"/> will not be fired when spawning this entity.
         /// </summary>
         public bool NoFireGeneratedEvent { get; set; } = false;

@@ -23,12 +23,15 @@ namespace OpenNefia.Content.RandomGen
 
         EntityUid? GenerateItem(MapCoordinates coords, PrototypeId<EntityPrototype>? id = null, int minLevel = 1, PrototypeId<TagPrototype>[]? tags = null, string? fltselect = null,
             int? amount = null, Quality? quality = null, EntityGenArgSet? args = null);
+        EntityUid? GenerateItem(EntityUid ent, PrototypeId<EntityPrototype>? id = null, int minLevel = 1, PrototypeId<TagPrototype>[]? tags = null, string? fltselect = null,
+            int? amount = null, Quality? quality = null, EntityGenArgSet? args = null);
         EntityUid? GenerateItem(IMap map, PrototypeId<EntityPrototype>? id = null, int minLevel = 1, PrototypeId<TagPrototype>[]? tags = null, string? fltselect = null,
             int? amount = null, Quality? quality = null, EntityGenArgSet? args = null);
         EntityUid? GenerateItem(IContainer container, PrototypeId<EntityPrototype>? id = null, int minLevel = 1, PrototypeId<TagPrototype>[]? tags = null, string? fltselect = null,
             int? amount = null, Quality? quality = null, EntityGenArgSet? args = null);
 
         EntityUid? GenerateItem(MapCoordinates coords, ItemFilter filter);
+        EntityUid? GenerateItem(EntityUid ent, ItemFilter filter);
         EntityUid? GenerateItem(IMap map, ItemFilter filter);
         EntityUid? GenerateItem(IContainer container, ItemFilter filter);
     }
@@ -134,6 +137,16 @@ namespace OpenNefia.Content.RandomGen
             return GenerateItem(pos.Value, id, minLevel, tags, fltselect, amount, quality, args);
         }
 
+        public EntityUid? GenerateItem(EntityUid ent, PrototypeId<EntityPrototype>? id = null,
+            int minLevel = 1, PrototypeId<TagPrototype>[]? tags = null, string? fltselect = null,
+            int? amount = null, Quality? quality = null, EntityGenArgSet? args = null)
+        {
+            if (!EntityManager.TryGetComponent<SpatialComponent>(ent, out var spatial))
+                return null;
+
+            return GenerateItem(spatial.MapPosition, id, minLevel, tags, fltselect, amount, quality, args);
+        }
+
         public EntityUid? GenerateItem(IContainer container, PrototypeId<EntityPrototype>? id = null, int minLevel = 1, PrototypeId<TagPrototype>[]? tags = null, string? fltselect = null, int? amount = null, Quality? quality = null, EntityGenArgSet? args = null)
         {
             args ??= EntityGenArgSet.Make();
@@ -159,6 +172,11 @@ namespace OpenNefia.Content.RandomGen
         public EntityUid? GenerateItem(MapCoordinates coords, ItemFilter filter)
         {
             return GenerateItem(coords, filter.Id, filter.MinLevel, filter.Tags, filter.Fltselect, filter.Amount, filter.Quality, filter.Args);
+        }
+
+        public EntityUid? GenerateItem(EntityUid ent, ItemFilter filter)
+        {
+            return GenerateItem(ent, filter.Id, filter.MinLevel, filter.Tags, filter.Fltselect, filter.Amount, filter.Quality, filter.Args);
         }
 
         public EntityUid? GenerateItem(IMap map, ItemFilter filter)

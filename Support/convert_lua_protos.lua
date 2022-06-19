@@ -47,6 +47,11 @@ local function itemCategory(str, ident)
     return ("%s.%s%s"):format(classify(mod_id), ident, classify(data_id))
 end
 
+local function dataPart(str)
+    local mod_id, data_id = str:match "([^.]+)%.([^.]+)"
+    return classify(data_id)
+end
+
 local function dotted_keys(t)
     return fun.iter(t)
         :map(function(k, v)
@@ -312,6 +317,9 @@ handlers["base.item"] = function(from, to)
     end
     if from.originalnameref2 then
         c.originalnameref2 = from.originalnameref2
+    end
+    if from.is_precious then
+        c.isPrecious = true
     end
 
     if from.weight ~= 0 then
@@ -600,6 +608,54 @@ handlers["elona.material"] = function(from, to)
     to.chip = dotted(from.image)
 end
 
+handlers["elona.god"] = function(from, to)
+    if from.is_primary_god then
+        to.isPrimaryGod = true
+    end
+    to.servant = dotted(from.servant)
+    to.items = {}
+    for _, fromItem in ipairs(from.items) do
+        local toItem = {
+            itemId = dotted(fromItem.id),
+            onlyOnce = fromItem.only_once,
+            noStack = fromItem.no_stack,
+        }
+        if fromItem.properties then
+            toItem.filter = {
+                type = "TODO",
+            }
+        end
+        to.items[#to.items + 1] = toItem
+    end
+    to.artifact = dotted(from.artifact)
+    if from.summon then
+        to.summon = dotted(from.summon)
+    end
+    if from.blessings then
+        to.blessings = setmetatable(
+            {},
+            { tag = ("type:GodBlessing%sEffect"):format(dataPart(from._id)), type = "mapping" }
+        )
+    end
+    to.offerings = {}
+    for _, fromOffering in ipairs(from.offerings) do
+        local toOffering = {}
+        if fromOffering.type == "category" then
+            toOffering.category = itemCategory(fromOffering.id, "Item")
+        end
+        if fromOffering.type == "item" then
+            toOffering.itemId = dotted(fromOffering.id)
+        end
+        to.offerings[#to.offerings + 1] = toOffering
+    end
+
+    if from.on_join_faith or from.on_leave_faith then
+        to.callbacks = setmetatable({}, { tag = ("type:God%sCallbacks"):format(dataPart(from._id)), type = "mapping" })
+    end
+end
+
+handlers["elona_sys.magic"] = function(from, to) end
+
 local function sort(a, b)
     return (a.elona_id or 0) < (b.elona_id or 0)
 end
@@ -693,10 +749,12 @@ write("base.item", "Entity/Item.yml")
 -- write("elona_sys.map_tileset", "MapTileset.yml")
 write("elona.material_spot", "MaterialSpot.yml")
 write("elona.material", "Material.yml")
+write("elona.god", "God.yml")
+write("elona_sys.magic", "Magic.yml")
 
-for _, tag in ipairs(allTags) do
-    print(tag)
-end
+-- for _, tag in ipairs(allTags) do
+--     print(tag)
+-- end
 
 -- print(inspect(data["base.item"]:iter():filter(function(a) return a.fltselect > 0 and a.rarity == 0 end):to_list()))
 

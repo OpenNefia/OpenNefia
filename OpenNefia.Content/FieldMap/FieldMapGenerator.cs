@@ -213,6 +213,9 @@ namespace OpenNefia.Content.FieldMap
                 proto.Generator.OnGenerate(map);
             }
 
+            var charaGen = _entMan.EnsureComponent<MapCharaGenComponent>(map.MapEntityUid);
+            charaGen.MaxCharaCount = 4;
+
             var turnOrder = _entMan.EnsureComponent<MapTurnOrderComponent>(map.MapEntityUid);
             turnOrder.TurnCost = 10000;
 
@@ -226,6 +229,8 @@ namespace OpenNefia.Content.FieldMap
 
             var mapAi = _entMan.EnsureComponent<MapVanillaAIComponent>(map.MapEntityUid);
             mapAi.DefaultCalmAction = VanillaAICalmAction.None;
+
+            _entMan.EnsureComponent<MapTypeFieldComponent>(map.MapEntityUid);
 
             return map;
         }
