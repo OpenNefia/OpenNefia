@@ -14,6 +14,10 @@ using OpenNefia.Core.Locale;
 using OpenNefia.Content.RandomGen;
 using OpenNefia.Content.GameObjects;
 using OpenNefia.Content.GameObjects.Pickable;
+using OpenNefia.Content.Maps;
+using OpenNefia.Content.TurnOrder;
+using OpenNefia.Content.Levels;
+using OpenNefia.Content.VanillaAI;
 
 namespace OpenNefia.Content.FieldMap
 {
@@ -179,6 +183,7 @@ namespace OpenNefia.Content.FieldMap
         [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
         [Dependency] private readonly IRandom _random = default!;
         [Dependency] private readonly IEntityManager _entMan = default!;
+        [Dependency] private readonly ICharaGen _charaGen = default!;
 
         /// <summary>
         /// The type of field map to generate.
@@ -206,6 +211,34 @@ namespace OpenNefia.Content.FieldMap
             {
                 EntitySystem.InjectDependencies(proto.Generator);
                 proto.Generator.OnGenerate(map);
+            }
+
+            var turnOrder = _entMan.EnsureComponent<MapTurnOrderComponent>(map.MapEntityUid);
+            turnOrder.TurnCost = 10000;
+
+            var level = _entMan.EnsureComponent<LevelComponent>(map.MapEntityUid);
+            level.Level = 1;
+
+            var common = _entMan.GetComponent<MapCommonComponent>(map.MapEntityUid);
+            common.IsIndoors = false;
+            common.FogTile = proto.FogTile;
+            common.IsTemporary = true;
+
+            var mapAi = _entMan.EnsureComponent<MapVanillaAIComponent>(map.MapEntityUid);
+            mapAi.DefaultCalmAction = VanillaAICalmAction.None;
+
+            return map;
+        }
+
+        public IMap? GenerateAndPopulate(MapGeneratorOptions opts)
+        {
+            var map = Generate(opts);
+            if (map == null)
+                return null;
+
+            for (var i = 0; i < _charaGen.GetMaxCrowdDensity(map); i++)
+            {
+                _charaGen.GenerateCharaFromMapFilter(map);
             }
 
             return map;

@@ -1,6 +1,7 @@
 ﻿using OpenNefia.Content.RandomGen;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Log;
+using OpenNefia.Core.Maps;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,11 @@ using System.Threading.Tasks;
 
 namespace OpenNefia.Content.Maps
 {
-    public sealed class MapCharaGenSystem : EntitySystem
+    public interface IMapCharaGenSystem : IEntitySystem
+    {
+    }
+
+    public sealed class MapCharaGenSystem : EntitySystem, IMapCharaGenSystem
     {
         public override void Initialize()
         {

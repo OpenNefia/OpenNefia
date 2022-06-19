@@ -77,8 +77,8 @@ namespace OpenNefia.Content.GameObjects
             {
                 FieldMap = GetFieldMapFromStoodTile(stoodTile)
             };
-            IoCManager.InjectDependencies(gen);
-            var fieldMap = gen.Generate(new MapGeneratorOptions()
+            EntitySystem.InjectDependencies(gen);
+            var fieldMap = gen.GenerateAndPopulate(new MapGeneratorOptions()
             {
                 Width = 34,
                 Height = 22

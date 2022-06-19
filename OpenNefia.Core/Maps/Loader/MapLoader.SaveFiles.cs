@@ -76,7 +76,7 @@ namespace OpenNefia.Core.Maps
             }
             if (!MapExistsInSave(mapId, save))
             {
-                throw new FileNotFoundException($"Map {mapId} does not exist in the save.");
+                return;
             }
 
             var filepath = GetMapFilePath(mapId);

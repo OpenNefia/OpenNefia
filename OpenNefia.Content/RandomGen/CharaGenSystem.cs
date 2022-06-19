@@ -37,6 +37,8 @@ namespace OpenNefia.Content.RandomGen
         CharaFilter GenerateCharaFilter(IMap map);
         EntityUid? GenerateCharaFromMapFilter(MapCoordinates coords);
         EntityUid? GenerateCharaFromMapFilter(IMap map);
+
+        int GetMaxCrowdDensity(IMap map);
     }
 
     public sealed class CharaGenSystem : EntitySystem, ICharaGen
@@ -171,6 +173,14 @@ namespace OpenNefia.Content.RandomGen
         public EntityUid? GenerateCharaFromMapFilter(IMap map)
         {
             return GenerateChara(map, GenerateCharaFilter(map));
+        }
+
+        public int GetMaxCrowdDensity(IMap map)
+        {
+            if (!EntityManager.TryGetComponent<MapCharaGenComponent>(map.MapEntityUid, out var mapCharaGen))
+                return 0;
+
+            return mapCharaGen.MaxCharaCount;
         }
     }
 
