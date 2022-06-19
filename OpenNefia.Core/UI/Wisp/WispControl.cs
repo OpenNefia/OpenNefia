@@ -120,6 +120,12 @@ namespace OpenNefia.Core.UI.Wisp
         public IEnumerable<WispControl> WispChildren => Children.WhereAssignable<UiElement, WispControl>();
         public int WispChildCount => WispChildren.Count();
 
+        // TODO remove
+        public WispControl GetWispChild(int index)
+        {
+            return (WispControl)GetChild(index);
+        }
+
         [Content]
         public virtual ICollection<UiElement> XamlChildren { get; protected set; }
 

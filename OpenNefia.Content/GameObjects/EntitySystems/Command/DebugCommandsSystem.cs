@@ -1,4 +1,4 @@
-﻿using OpenNefia.Content.DebugView;
+﻿using OpenNefia.Core.DebugView;
 using OpenNefia.Core.Game;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Input;

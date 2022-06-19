@@ -26,6 +26,8 @@ namespace OpenNefia.Core.UI.Wisp
         /// </remarks>
         LayoutContainer WindowRoot { get; }
 
+        PopupContainer ModalRoot { get; }
+
         bool Debug { get; set; }
     }
 }

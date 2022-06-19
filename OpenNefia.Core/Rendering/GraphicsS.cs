@@ -55,7 +55,7 @@ namespace OpenNefia.Core.Rendering
         }
 
         /// <summary>
-        /// Scale-area version of <see cref="Love.Graphics.Print(string, float, float, float, float, float, float, float, float, float)"/>. 
+        /// Scale-aware version of <see cref="Love.Graphics.Print(string, float, float, float, float, float, float, float, float, float)"/>. 
         /// </summary>
         public static void PrintS(float uiScale, string text, float vx, float vy)
         {
@@ -107,6 +107,24 @@ namespace OpenNefia.Core.Rendering
         public static float GetHeightV(this Love.Text text, float uiScale)
         {
             return text.GetHeight() / uiScale;
+        }
+
+        /// <summary>
+        /// Gets the ascent of the font in virtual pixels.
+        /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static float GetAscentV(this Love.Font font, float uiScale)
+        {
+            return font.GetAscent() / uiScale;
+        }
+
+        /// <summary>
+        /// Gets the descent of the font in virtual pixels.
+        /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static float GetDescentV(this Love.Font font, float uiScale)
+        {
+            return font.GetDescent() / uiScale;
         }
 
         #endregion

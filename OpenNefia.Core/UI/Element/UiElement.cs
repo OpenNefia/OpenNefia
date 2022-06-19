@@ -491,6 +491,14 @@ namespace OpenNefia.Core.UI.Element
         {
         }
 
+        /// <summary>
+        ///     Called when this modal control is closed.
+        ///     Only used for controls that are actually modals.
+        /// </summary>
+        protected internal virtual void ModalRemoved()
+        {
+        }
+
         public bool Disposed { get; private set; }
 
         /// <summary>

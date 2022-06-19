@@ -397,7 +397,22 @@ namespace OpenNefia.Core.GameObjects
             EntityStarted?.Invoke(this, uid);
         }
 
-#endregion Entity Management
+        /// <inheritdoc />
+        public virtual EntityStringRepresentation ToPrettyString(EntityUid uid)
+        {
+            // We want to retrieve the MetaData component even if it is deleted.
+            if (!_entTraitArray[ArrayIndexFor<MetaDataComponent>()].TryGetValue(uid, out var component))
+                return new EntityStringRepresentation(uid, true);
+
+            var metadata = (MetaDataComponent)component;
+
+            // TODO
+            var entityName = "<entity>";
+
+            return new EntityStringRepresentation(uid, metadata.EntityDeleted, entityName, metadata.EntityPrototype?.ID);
+        }
+
+        #endregion Entity Management
 
         /// <summary>
         ///     Factory for generating a new EntityUid for an entity currently being created.
