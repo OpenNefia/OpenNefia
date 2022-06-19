@@ -27,7 +27,7 @@ using OpenNefia.Core;
 
 namespace OpenNefia.Content.Religion
 {
-    public interface IReligionSystem
+    public interface IReligionSystem : IEntitySystem
     {
         PrototypeId<GodPrototype>? PickRandomGodId(bool noEyth = false);
         void GodSays(PrototypeId<GodPrototype>? godId, string text);
@@ -74,10 +74,32 @@ namespace OpenNefia.Content.Religion
         [Dependency] private readonly IStackSystem _stacks = default!;
         [Dependency] private readonly IActivitySystem _activities = default!;
 
-        public void Initialize()
+        public override void Initialize()
         {
             SubscribeLocalEvent<ReligionComponent, OnJoinFaithEvent>(OnJoinFaith, nameof(OnJoinFaith));
             SubscribeLocalEvent<ReligionComponent, OnLeaveFaithEvent>(OnLeaveFaith, nameof(OnLeaveFaith));
+            SubscribeLocalEvent<ReligionComponent, EntityBeingGeneratedEvent>(SetRandomGod, nameof(SetRandomGod));
+            SubscribeLocalEvent<ReligionComponent, EntityRefreshEvent>(ApplyBlessings, nameof(ApplyBlessings));
+        }
+
+        private void SetRandomGod(EntityUid uid, ReligionComponent component, EntityBeingGeneratedEvent args)
+        {
+            var hasDialog = false;
+            if (EntityManager.TryGetComponent<DialogComponent>(uid, out var dialog))
+                hasDialog = dialog.CanTalk || dialog.DialogID != null;
+
+            if (!_gameSession.IsPlayer(uid) && hasDialog && component.GodID == null)
+                component.GodID = PickRandomGodId();
+        }
+
+        private void ApplyBlessings(EntityUid uid, ReligionComponent component, EntityRefreshEvent args)
+        {
+            if (component.GodID == null)
+                return;
+
+            var godProto = _protos.Index(component.GodID.Value);
+            var spatial = EntityManager.GetComponent<SpatialComponent>(uid);
+            godProto.Blessing?.Apply(source: uid, coords: spatial.MapPosition, target: uid, args: new());
         }
 
         private void OnJoinFaith(EntityUid uid, ReligionComponent component, OnJoinFaithEvent args)

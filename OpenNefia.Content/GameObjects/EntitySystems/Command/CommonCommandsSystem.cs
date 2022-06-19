@@ -1,6 +1,5 @@
 ﻿using OpenNefia.Content.CharaInfo;
 using OpenNefia.Content.ConfigMenu;
-using OpenNefia.Content.Equipment;
 using OpenNefia.Content.Input;
 using OpenNefia.Content.Journal;
 using OpenNefia.Content.Logic;
@@ -19,7 +18,6 @@ using OpenNefia.Core.IoC;
 using OpenNefia.Core.Locale;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.SaveGames;
-using OpenNefia.Core.Timing;
 using OpenNefia.Core.UI;
 using OpenNefia.Core.UserInterface;
 using static OpenNefia.Content.CharaInfo.CharaGroupSublayerArgs;
