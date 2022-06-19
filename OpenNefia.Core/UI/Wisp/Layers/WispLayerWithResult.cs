@@ -73,15 +73,25 @@ namespace OpenNefia.Core.UI.Wisp
             AddChild(WispRoot);
         }
 
-        protected void PushScissor(UIBox2i scissor)
+        /// <inheritdoc/>
+        public void PushScissor(UIBox2 scissor)
         {
-            if (_currentScissor != null)
-                _scissorStack.Push(_currentScissor.Value);
-            _currentScissor = scissor;
-            Love.Graphics.SetScissor(_currentScissor.Value);
+            var oldScissor = _currentScissor;
+            var newScissor = scissor;
+
+            if (oldScissor != null)
+            {
+                // New scissors should be subsets of the parent.
+                newScissor = oldScissor.Value.Intersection(newScissor) ?? new UIBox2();
+                _scissorStack.Push(oldScissor.Value);
+            }
+
+            _currentScissor = newScissor;
+            Love.Graphics.SetScissor(newScissor);
         }
 
-        protected void PopScissor()
+        /// <inheritdoc/>
+        public void PopScissor()
         {
             if (_scissorStack.Count == 0)
             {
@@ -185,6 +195,7 @@ namespace OpenNefia.Core.UI.Wisp
 
         public override void Draw()
         {
+            _scissorStack.Clear();
             DrawRecursive(WispRoot, Color.White);
         }
     }

@@ -241,10 +241,10 @@ namespace OpenNefia.Core.UI.Wisp.Controls
             var baseLine = CalcBaseline();
 
             GraphicsS.SetColorTinted(this, actualFontColor);
-            
+
             // TODO: need better clipping management (global stack used by WispManager)
             if (ClipText)
-                Love.Graphics.SetScissor(GlobalPixelRect);
+                WispRootLayer!.PushScissor(GlobalPixelRect);
 
             foreach (var line in _splitText)
             {
@@ -254,7 +254,7 @@ namespace OpenNefia.Core.UI.Wisp.Controls
             }
 
             if (ClipText)
-                Love.Graphics.SetScissor();
+                WispRootLayer!.PopScissor();
         }
 
         protected override Vector2 MeasureOverride(Vector2 availableSize)
