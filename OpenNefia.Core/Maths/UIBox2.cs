@@ -130,6 +130,26 @@ namespace OpenNefia.Core.Maths
             return new(Left + point.X, Top + point.Y, Right + point.X, Bottom + point.Y);
         }
 
+        /// <summary>
+        ///     Calculates the "intersection" of this and another box.
+        ///     Basically, the smallest region that fits in both boxes.
+        /// </summary>
+        /// <param name="other">The box to calculate the intersection with.</param>
+        /// <returns>
+        ///     <c>null</c> if there is no intersection, otherwise the smallest region that fits in both boxes.
+        /// </returns>
+        public readonly UIBox2? Intersection(in UIBox2 other)
+        {
+            if (!Intersects(other))
+            {
+                return null;
+            }
+
+            return new UIBox2(
+                Vector2.ComponentMax(TopLeft, other.TopLeft),
+                Vector2.ComponentMin(BottomRight, other.BottomRight));
+        }
+
         public readonly bool Equals(UIBox2 other)
         {
             return Left.Equals(other.Left) && Right.Equals(other.Right) && Top.Equals(other.Top) &&

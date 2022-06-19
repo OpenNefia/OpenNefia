@@ -29,6 +29,8 @@ namespace OpenNefia.Core.UI.Wisp
 
         PopupContainer ModalRoot { get; }
 
+        // TODO: use a DrawHandle class instead of Love.Graphics methods for the below
+
         /// <summary>
         /// Global color modulation to be used when rendering.
         /// </summary>
@@ -36,6 +38,22 @@ namespace OpenNefia.Core.UI.Wisp
         /// !!! THIS IS A STUPID HACK !!!
         /// </remarks>
         Color GlobalTint { get; }
+
+        /// <summary>
+        /// Pushes a global scissor.
+        /// </summary>
+        /// <remarks>
+        /// !!! THIS IS A STUPID HACK !!!
+        /// </remarks>
+        void PushScissor(UIBox2 scissor);
+
+        /// <summary>
+        /// Pops a global scissor.
+        /// </summary>
+        /// <remarks>
+        /// !!! THIS IS A STUPID HACK !!!
+        /// </remarks>
+        void PopScissor();
 
         bool Debug { get; set; }
         bool DebugClipping { get; set; }
