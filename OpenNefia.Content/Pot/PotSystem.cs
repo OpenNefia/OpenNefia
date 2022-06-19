@@ -59,7 +59,7 @@ namespace OpenNefia.Content.Pot
 
             map.MemorizeTile(spatial.WorldPosition);
             _field.RefreshScreen();
-
+            
             if (_visibliity.IsInWindowFov(args.Source))
             {
                 _audio.Play(Protos.Sound.Bash1, uid);

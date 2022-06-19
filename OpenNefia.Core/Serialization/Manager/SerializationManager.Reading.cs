@@ -124,7 +124,7 @@ namespace OpenNefia.Core.Serialization.Manager
                             $"Cannot read {nameof(ISelfSerialize)} from node type {nodeType}. Expected {nameof(ValueDataNode)}");
                     }
 
-                    var instantiator = instance.GetOrCreateInstantiator(value) ?? throw new NullReferenceException($"No instantiator could be made for type {value}");
+                    var instantiator = instance.GetOrCreateInstantiator(value) ?? throw new NullReferenceException($"No instantiator could be made for type {value} (does it have a zero-argument constructor?)");
                     var instantiatorConst = Expression.Constant(instantiator);
 
                     call = value.IsValueType switch
@@ -185,7 +185,7 @@ namespace OpenNefia.Core.Serialization.Manager
                     var definition = instance.GetDefinition(value);
                     var definitionConst = Expression.Constant(definition, typeof(DataDefinition));
 
-                    var instantiator = instance.GetOrCreateInstantiator(value);
+                    var instantiator = instance.GetOrCreateInstantiator(value) ?? throw new NullReferenceException($"No instantiator could be made for type {value} (does it have a zero-argument constructor?)");
                     var instantiatorConst = Expression.Constant(instantiator);
 
                     var populateConst = Expression.Constant(value.IsAssignableTo(typeof(IPopulateDefaultValues)));
