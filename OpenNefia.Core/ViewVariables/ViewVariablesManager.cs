@@ -3,6 +3,8 @@ using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.UI.Wisp.CustomControls;
+using OpenNefia.Core.UserInterface;
+using OpenNefia.Core.Utility;
 using OpenNefia.Core.ViewVariables.Editors;
 using OpenNefia.Core.ViewVariables.Instances;
 using OpenNefia.Core.ViewVariables.Traits;
@@ -14,6 +16,7 @@ namespace OpenNefia.Core.ViewVariables
     {
         [Dependency] private readonly IEntityManager _entityManager = default!;
         [Dependency] private readonly IDebugViewLayer _debugView = default!;
+        [Dependency] private readonly IUserInterfaceManager _uiManager = default!;
 
         private readonly Dictionary<Type, HashSet<Type>> _cachedTraits = new();
         private readonly List<ViewVariablesPropertyMatcher> _matchers = new()
@@ -79,7 +82,29 @@ namespace OpenNefia.Core.ViewVariables
             window.OnClose += () => _closeInstance(instance, false);
             _windows.Add(instance, window);
             window.ExactSize = _defaultWindowSize;
-            window.OpenCentered(_debugView);
+
+            DefaultWindow? lastWindow = GetLastOpenedWindow();
+            if (lastWindow != null)
+                window.OpenAt(_debugView, lastWindow.Position + (20, 20));
+            else
+                window.OpenCentered(_debugView);
+        }
+
+        private DefaultWindow? GetLastOpenedWindow()
+        {
+            if (_windows.Count == 0)
+                return null;
+
+            var control = _uiManager.ControlFocused;
+            while (control != null)
+            {
+                if (control is DefaultWindow win && _windows.ContainsValue(win))
+                    return win;
+
+                control = control.Parent;
+            }
+
+            return null;
         }
 
         private void _closeInstance(ViewVariablesInstance instance, bool closeWindow)
