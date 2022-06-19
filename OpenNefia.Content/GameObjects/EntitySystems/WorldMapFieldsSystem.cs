@@ -17,6 +17,7 @@ namespace OpenNefia.Content.GameObjects
         [Dependency] private readonly IAudioManager _sounds = default!;
         [Dependency] private readonly IMapManager _mapManager = default!;
         [Dependency] private readonly MapEntranceSystem _mapEntrances = default!;
+        [Dependency] private readonly IPrototypeManager _protos = default!;
 
         public override void Initialize()
         {
@@ -42,9 +43,14 @@ namespace OpenNefia.Content.GameObjects
             }
         }
 
-        private PrototypeId<FieldTypePrototype> GetFieldMapFromStoodTile(PrototypeId<TilePrototype> stoodTile)
+        public PrototypeId<FieldTypePrototype> GetFieldMapFromStoodTile(PrototypeId<TilePrototype> stoodTile)
         {
-            // TODO
+            foreach (var proto in _protos.EnumeratePrototypes<FieldTypePrototype>())
+            {
+                if (proto.WorldMapTiles.Contains(stoodTile))
+                    return proto.GetStrongID();
+            }
+
             return Protos.FieldMap.Plains;
         
         }

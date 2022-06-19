@@ -37,25 +37,28 @@ namespace OpenNefia.Content.FieldMap
         public string ID { get; } = default!;
 
         [DataField]
+        public HashSet<PrototypeId<TilePrototype>> WorldMapTiles { get; } = new();
+
+        [DataField]
         public PrototypeId<TilePrototype> DefaultTile { get; set; } = Protos.Tile.Grass;
 
         [DataField]
         public PrototypeId<TilePrototype> FogTile { get; set; } = Protos.Tile.WallForestFog;
 
         [DataField]
-        public List<FieldMapTile> Tiles { get; set; } = new();
+        public List<FieldMapTile> Tiles { get; } = new();
 
         [DataField]
-        public IFieldMapGenerator? Generator { get; set; }
+        public IFieldMapEvents? Generator { get; set; }
     }
 
     [ImplicitDataDefinitionForInheritors]
-    public interface IFieldMapGenerator
+    public interface IFieldMapEvents
     {
         void OnGenerate(IMap map);
     }
 
-    public sealed class FieldMapGeneratorForest : IFieldMapGenerator
+    public sealed class FieldMapGeneratorForest : IFieldMapEvents
     {
         [Dependency] private readonly IRandom _rand = default!;
         [Dependency] private readonly IItemGen _itemGen = default!;
@@ -65,7 +68,7 @@ namespace OpenNefia.Content.FieldMap
         {
             for (var i = 0; i < 20 + _rand.Next(20); i++)
             {
-                var entity = _itemGen.GenerateItem(map, tags: new[] { Protos.Tag.ItemCatJunkInField });
+                var entity = _itemGen.GenerateItem(map, tags: new[] { Protos.Tag.ItemCatTree });
                 if (entity != null && _entityMan.TryGetComponent<PickableComponent>(entity.Value, out var pickable))
                 {
                     pickable.OwnState = OwnState.NPC;
@@ -76,7 +79,7 @@ namespace OpenNefia.Content.FieldMap
         }
     }
 
-    public sealed class FieldMapGeneratorGrassland : IFieldMapGenerator
+    public sealed class FieldMapGeneratorGrassland : IFieldMapEvents
     {
         [Dependency] private readonly IRandom _rand = default!;
         [Dependency] private readonly IItemGen _itemGen = default!;
@@ -86,7 +89,7 @@ namespace OpenNefia.Content.FieldMap
         {
             for (var i = 0; i < 10 + _rand.Next(10); i++)
             {
-                var entity = _itemGen.GenerateItem(map, tags: new[] { Protos.Tag.ItemCatJunkInField });
+                var entity = _itemGen.GenerateItem(map, tags: new[] { Protos.Tag.ItemCatTree });
                 if (entity != null && _entityMan.TryGetComponent<PickableComponent>(entity.Value, out var pickable))
                 {
                     pickable.OwnState = OwnState.NPC;
@@ -97,7 +100,7 @@ namespace OpenNefia.Content.FieldMap
         }
     }
 
-    public sealed class FieldMapGeneratorDesert : IFieldMapGenerator
+    public sealed class FieldMapGeneratorDesert : IFieldMapEvents
     {
         [Dependency] private readonly IRandom _rand = default!;
         [Dependency] private readonly IItemGen _itemGen = default!;
@@ -118,7 +121,7 @@ namespace OpenNefia.Content.FieldMap
         }
     }
 
-    public sealed class FieldMapGeneratorSnowField : IFieldMapGenerator
+    public sealed class FieldMapGeneratorSnowField : IFieldMapEvents
     {
         [Dependency] private readonly IRandom _rand = default!;
         [Dependency] private readonly IItemGen _itemGen = default!;
@@ -128,7 +131,7 @@ namespace OpenNefia.Content.FieldMap
         {
             for (var i = 0; i < 3 + _rand.Next(5); i++)
             {
-                var entity = _itemGen.GenerateItem(map, tags: new[] { Protos.Tag.ItemCatJunkInField }, fltselect: FltSelects.Snow);
+                var entity = _itemGen.GenerateItem(map, tags: new[] { Protos.Tag.ItemCatTree }, fltselect: FltSelects.Snow);
                 if (entity != null && _entityMan.TryGetComponent<PickableComponent>(entity.Value, out var pickable))
                 {
                     pickable.OwnState = OwnState.NPC;
@@ -139,7 +142,7 @@ namespace OpenNefia.Content.FieldMap
         }
     }
 
-    public sealed class FieldMapGeneratorPlains : IFieldMapGenerator
+    public sealed class FieldMapGeneratorPlains : IFieldMapEvents
     {
         [Dependency] private readonly IRandom _rand = default!;
         [Dependency] private readonly IItemGen _itemGen = default!;
@@ -149,7 +152,7 @@ namespace OpenNefia.Content.FieldMap
         {
             for (var i = 0; i < 5 + _rand.Next(5); i++)
             {
-                var entity = _itemGen.GenerateItem(map, tags: new[] { Protos.Tag.ItemCatJunkInField });
+                var entity = _itemGen.GenerateItem(map, tags: new[] { Protos.Tag.ItemCatTree });
                 if (entity != null && _entityMan.TryGetComponent<PickableComponent>(entity.Value, out var pickable))
                 {
                     pickable.OwnState = OwnState.NPC;

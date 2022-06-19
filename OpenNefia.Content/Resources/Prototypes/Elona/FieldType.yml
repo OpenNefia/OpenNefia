@@ -19,6 +19,11 @@
   generator: !type:FieldMapGeneratorPlains {}
 - type: Elona.FieldType
   id: Elona.Grassland
+  worldMapTiles:
+    - Elona.WorldTrees6
+    - Elona.WorldPlants1
+    - Elona.WorldPlants2
+    - Elona.WorldPlants3
   defaultTile: Elona.GrassTall1
   fogTile: Elona.WallStone1Fog
   tiles:
@@ -41,6 +46,11 @@
   generator: !type:FieldMapGeneratorGrassland {}
 - type: Elona.FieldType
   id: Elona.Desert
+  worldMapTiles:
+  - Elona.WorldDirt1
+  - Elona.WorldDirt2
+  - Elona.WorldDirt3
+  - Elona.WorldDirt4
   defaultTile: Elona.Desert
   fogTile: Elona.WallStone4Fog
   tiles:
@@ -57,11 +67,61 @@
   generator: !type:FieldMapGeneratorDesert {}
 - type: Elona.FieldType
   id: Elona.Sea
+  worldMapTiles:
+  - Elona.WorldWater
+  - Elona.WorldWaterRocks
+  - Elona.WorldWater2
+  - Elona.WorldWaterPole
+  - Elona.WorldWaterIceberg
+  - Elona.WorldWaterRock
+  - Elona.WorldWaterShadow
+  - Elona.WorldGrassWaterBorderW
+  - Elona.WorldGrassWaterBorderE
+  - Elona.WorldGrassWaterBorderN
+  - Elona.WorldGrassWaterBorderS
+  - Elona.WorldGrassWaterBorderCornerNe
+  - Elona.WorldGrassWaterBorderCornerNw
+  - Elona.WorldGrassWaterBorderCornerSe
+  - Elona.WorldGrassWaterBorderCornerSw
+  - Elona.WorldGrassWaterBorderNe
+  - Elona.WorldGrassWaterBorderNw
+  - Elona.WorldGrassWaterBorderSe
+  - Elona.WorldGrassWaterBorderSw
+  - Elona.WorldSnowWaterBorderW
+  - Elona.WorldSnowWaterBorderE
+  - Elona.WorldSnowWaterBorderN
+  - Elona.WorldSnowWaterBorderS
+  - Elona.WorldSnowWaterBorderCornerNe
+  - Elona.WorldSnowWaterBorderCornerNw
+  - Elona.WorldSnowWaterBorderCornerSe
+  - Elona.WorldSnowWaterBorderCornerSw
+  - Elona.WorldSnowWaterBorderNe
+  - Elona.WorldSnowWaterBorderNw
+  - Elona.WorldSnowWaterBorderSe
+  - Elona.WorldSnowWaterBorderSw
+  - Elona.WorldDesertWaterBorderW
+  - Elona.WorldDesertWaterBorderE
+  - Elona.WorldDesertWaterBorderN
+  - Elona.WorldDesertWaterBorderS
+  - Elona.WorldDesertWaterBorderCornerNe
+  - Elona.WorldDesertWaterBorderCornerNw
+  - Elona.WorldDesertWaterBorderCornerSe
+  - Elona.WorldDesertWaterBorderCornerSw
+  - Elona.WorldDesertWaterBorderNe
+  - Elona.WorldDesertWaterBorderNw
+  - Elona.WorldDesertWaterBorderSe
+  - Elona.WorldDesertWaterBorderSw
   defaultTile: Elona.CrackedDirt1
   fogTile: Elona.WallStone1Fog
   tiles: []
 - type: Elona.FieldType
   id: Elona.Forest
+  worldMapTiles:
+  - Elona.WorldTrees1
+  - Elona.WorldTrees2
+  - Elona.WorldTrees3
+  - Elona.WorldTrees4
+  - Elona.WorldTrees5
   defaultTile: Elona.GrassBush1
   fogTile: Elona.WallStone1Fog
   tiles:
@@ -76,6 +136,32 @@
   generator: !type:FieldMapGeneratorForest {}
 - type: Elona.FieldType
   id: Elona.SnowField
+  worldMapTiles:
+  - Elona.WorldSnowCross
+  - Elona.WorldSnow
+  - Elona.WorldSnowTrees1
+  - Elona.WorldSnowTrees2
+  - Elona.WorldSnowCrater
+  - Elona.WorldSnowMounds
+  - Elona.WorldSnowDeadTree
+  - Elona.WorldSnowTrees3
+  - Elona.WorldSnowTrees4
+  - Elona.WorldSnowTrees5
+  - Elona.WorldSnowBorderW
+  - Elona.WorldSnowBorderE
+  - Elona.WorldSnowBorderN
+  - Elona.WorldSnowBorderS
+  - Elona.WorldSnowBorderCornerNe
+  - Elona.WorldSnowBorderCornerNw
+  - Elona.WorldSnowBorderCornerSe
+  - Elona.WorldSnowBorderCornerSw
+  - Elona.WorldSnowBorderNe
+  - Elona.WorldSnowBorderNw
+  - Elona.WorldSnowBorderSe
+  - Elona.WorldSnowBorderSw
+  - Elona.WorldSnowMountain1
+  - Elona.WorldSnowMountain2
+  - Elona.WorldSnowMountain3
   defaultTile: Elona.Snow
   fogTile: Elona.WallStone5Fog
   tiles:

@@ -24,10 +24,4 @@ using OpenNefia.Core.Prototypes;
 var item = EntitySystem.Get<IItemGen>();
 var chara = EntitySystem.Get<ICharaGen>();
 
-var se = new HashSet<PrototypeId<EntityPrototype>>();
-for (var i = 1; i < 100; i++)
-{
-    se.Add(chara.PickRandomCharaIdRaw(100)!.Value);
-}
-
-return string.Join(", ",se.ToArray());
+return item.PickRandomItemIdRaw(1, tags: new[] { Protos.Tag.ItemCatJunkInField }, fltselect: "Elona.Snow");
