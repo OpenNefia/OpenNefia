@@ -15,12 +15,18 @@ namespace OpenNefia.Core.ControlTest
             OpenNefiaXamlLoader.Load(this);
 
             ToggleDebugButton.OnPressed += ToggleDebug;
+            ToggleClippingButton.OnPressed += ToggleClipping;
             DesignerButton.OnPressed += OpenDesigner;
         }
 
         private void ToggleDebug(BaseButton.ButtonEventArgs obj)
         {
             WispRootLayer!.Debug = !WispRootLayer.Debug;
+        }
+
+        private void ToggleClipping(BaseButton.ButtonEventArgs obj)
+        {
+            WispRootLayer!.DebugClipping = !WispRootLayer.DebugClipping;
         }
 
         private void OpenDesigner(BaseButton.ButtonEventArgs obj)

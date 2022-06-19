@@ -16,7 +16,7 @@ namespace OpenNefia.Core.ViewVariables.Editors
         {
             if (!ReadOnly)
             {
-                Logger.WarningS("vv", "ViewVariablesPropertyEditorDummy being selected for editable field.");
+                Logger.WarningS("vv", $"ViewVariablesPropertyEditorDummy being selected for editable field: {value?.GetType()}.");
             }
             return new Label
             {

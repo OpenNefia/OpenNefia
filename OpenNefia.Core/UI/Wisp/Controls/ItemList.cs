@@ -335,7 +335,7 @@ namespace OpenNefia.Core.UI.Wisp.Controls
 
             var offset = -_scrollBar.Value;
 
-            listBg.Draw(GlobalPixelRect);
+            listBg.Draw(GlobalPixelRect, WispRootLayer!.GlobalTint);
 
             foreach (var item in _itemList)
             {
@@ -363,13 +363,13 @@ namespace OpenNefia.Core.UI.Wisp.Controls
 
                 if (region.Intersects(sizeBox))
                 {
-                    bg.Draw(item.Region.Value);
+                    bg.Draw(item.Region.Value, WispRootLayer!.GlobalTint);
 
                     var contentBox = bg.GetContentBox(item.Region.Value);
                     var drawOffset = contentBox.TopLeft;
                     if (item.Icon != null)
                     {
-                        Love.Graphics.SetColor(item.IconModulate);
+                        GraphicsS.SetColorTinted(this, item.IconModulate);
                         var drawLocation = UIBox2.FromDimensions(GlobalPixelPosition + drawOffset, item.Icon.PixelSize);
                         if (item.IconRegion.Size == Vector2.Zero)
                         {
@@ -404,7 +404,7 @@ namespace OpenNefia.Core.UI.Wisp.Controls
             var offsetY = (int)(box.Height - font.LoveFont.GetHeight()) / 2;
             var baseLine = new Vector2i(GlobalPixelX, GlobalPixelY + offsetY + font.LoveFont.GetAscent()) + box.TopLeft;
 
-            Love.Graphics.SetColor(color);
+            GraphicsS.SetColorTinted(this, color);
             Love.Graphics.SetScissor(box);
             Love.Graphics.Draw(text, baseLine.X, baseLine.Y);
             Love.Graphics.SetScissor();

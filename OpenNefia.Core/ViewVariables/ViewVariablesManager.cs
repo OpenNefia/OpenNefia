@@ -16,7 +16,10 @@ namespace OpenNefia.Core.ViewVariables
         [Dependency] private readonly IDebugViewLayer _debugView = default!;
 
         private readonly Dictionary<Type, HashSet<Type>> _cachedTraits = new();
-        private readonly List<ViewVariablesPropertyMatcher> _matchers = new();
+        private readonly List<ViewVariablesPropertyMatcher> _matchers = new()
+        {
+            new ViewVariablesBuiltinPropertyMatcher()
+        };
 
         private readonly Vector2i _defaultWindowSize = (640, 420);
 
@@ -52,11 +55,6 @@ namespace OpenNefia.Core.ViewVariables
             return traits;
         }
 
-        public void Initialize()
-        {
-            _matchers.Add(new ViewVariablesBuiltinPropertyMatcher());
-        }
-
         public VVPropEditor PropertyFor(Type? type)
         {
             if (type == null)
@@ -81,7 +79,7 @@ namespace OpenNefia.Core.ViewVariables
             window.OnClose += () => _closeInstance(instance, false);
             _windows.Add(instance, window);
             window.ExactSize = _defaultWindowSize;
-            window.Open(_debugView);
+            window.OpenCentered(_debugView);
         }
 
         private void _closeInstance(ViewVariablesInstance instance, bool closeWindow)

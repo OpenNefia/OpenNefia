@@ -11,6 +11,7 @@ namespace OpenNefia.Content.GameObjects
     public class DebugCommandsSystem : EntitySystem
     {
         [Dependency] private readonly IUserInterfaceManager _uiManager = default!;
+        [Dependency] private readonly IDebugViewLayer _debugView = default!;
 
         public override void Initialize()
         {
@@ -24,7 +25,7 @@ namespace OpenNefia.Content.GameObjects
             if (session?.Player == null)
                 return null;
 
-            _uiManager.Query<DebugViewLayer>();
+            _uiManager.Query(_debugView);
 
             return TurnResult.NoResult;
         }

@@ -17,9 +17,9 @@ namespace OpenNefia.Core.UI.Wisp.Controls
         private const float BlinkTime = 0.5f;
         private const float MouseScrollDelay = 0.001f;
 
-        public const string StylePropertyStyleBox = "stylebox";
-        public const string StylePropertyCursorColor = "cursor-color";
-        public const string StylePropertySelectionColor = "selection-color";
+        public const string StylePropertyStyleBox = "styleBox";
+        public const string StylePropertyCursorColor = "cursorColor";
+        public const string StylePropertySelectionColor = "selectionColor";
         public const string StyleClassLineEditNotEditable = "notEditable";
         public const string StylePseudoClassPlaceholder = "placeholder";
 

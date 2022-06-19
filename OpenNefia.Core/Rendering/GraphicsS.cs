@@ -1,4 +1,5 @@
 ﻿using OpenNefia.Core.Maths;
+using OpenNefia.Core.UI.Wisp;
 using System.Runtime.CompilerServices;
 
 namespace OpenNefia.Core.Rendering
@@ -125,6 +126,19 @@ namespace OpenNefia.Core.Rendering
         public static float GetDescentV(this Love.Font font, float uiScale)
         {
             return font.GetDescent() / uiScale;
+        }
+
+        #endregion
+
+        #region Other
+
+        /// <summary>
+        /// TODO stop using static methods and place this in a DrawingHandle class.
+        /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static void SetColorTinted(WispControl control, Color color)
+        {
+            Love.Graphics.SetColor(color * control.WispRootLayer!.GlobalTint);
         }
 
         #endregion

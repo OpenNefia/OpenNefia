@@ -16,7 +16,7 @@ namespace OpenNefia.Core.Utility
         {
             using var stream =
                 typeof(TypeAbbreviation).Assembly.GetManifestResourceStream(
-                    "Robust.Shared.Utility.TypeAbbreviations.yaml");
+                    "OpenNefia.Core.Utility.TypeAbbreviations.yaml");
             DebugTools.AssertNotNull(stream);
 
             using var streamReader = new StreamReader(stream!, EncodingHelpers.UTF8);

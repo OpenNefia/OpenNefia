@@ -39,6 +39,10 @@ namespace OpenNefia.Core.UI.Wisp
         public PopupContainer ModalRoot { get; }
 
         public bool Debug { get; set; }
+        public bool DebugClipping { get; set; }
+
+        /// <inheritdoc/>
+        public Color GlobalTint { get; private set; }
 
         public WispLayerWithResult()
         {
@@ -67,12 +71,28 @@ namespace OpenNefia.Core.UI.Wisp
             WispRoot.AddChild(ModalRoot);
 
             AddChild(WispRoot);
+        }
 
-            // Arrange early so that WispRoot has the correct size set by the time the
-            // constructor finishes.
-            var graphics = IoCManager.Resolve<IGraphics>();
-            WispRoot.Measure(graphics.WindowSize);
-            WispRoot.Arrange(UIBox2.FromDimensions(Vector2.Zero, graphics.WindowSize));
+        protected void PushScissor(UIBox2i scissor)
+        {
+            if (_currentScissor != null)
+                _scissorStack.Push(_currentScissor.Value);
+            _currentScissor = scissor;
+            Love.Graphics.SetScissor(_currentScissor.Value);
+        }
+
+        protected void PopScissor()
+        {
+            if (_scissorStack.Count == 0)
+            {
+                _currentScissor = null;
+                Love.Graphics.SetScissor();
+            }
+            else
+            {
+                _currentScissor = _scissorStack.Pop();
+                Love.Graphics.SetScissor(_currentScissor.Value);
+            }
         }
 
         public override void SetSize(float width, float height)
@@ -83,6 +103,10 @@ namespace OpenNefia.Core.UI.Wisp
 
         public override void OnQuery()
         {
+            var graphics = IoCManager.Resolve<IGraphics>();
+            WispRoot.Measure(graphics.WindowSize);
+            WispRoot.Arrange(UIBox2.FromDimensions(Vector2.Zero, graphics.WindowSize));
+
             base.OnQuery();
 
             // TODO move to UserInterfaceManager
@@ -118,20 +142,22 @@ namespace OpenNefia.Core.UI.Wisp
             UpdateRecursive(WispRoot, dt);
         }
 
-        private void DrawRecursive(WispControl control)
+        private void DrawRecursive(WispControl control, Color tint)
         {
             if (!control.Visible)
                 return;
 
             // TODO Love.Graphics.Push!
+            // WispControl.Draw() is supposed to use local coordinates
+            // (no GlobalPosition/X/Y)
 
-            if (control.RectClipContent)
+            if (control.RectClipContent && !DebugClipping)
             {
-                if (_currentScissor != null)
-                    _scissorStack.Push(_currentScissor.Value);
-                _currentScissor = control.GlobalPixelRect;
-                Love.Graphics.SetScissor(_currentScissor.Value);
+                PushScissor(control.GlobalPixelRect);
             }
+
+            tint *= control.ActualTint;
+            GlobalTint = tint * control.ActualTintSelf;
 
             control.Draw();
 
@@ -148,27 +174,18 @@ namespace OpenNefia.Core.UI.Wisp
 
             foreach (var child in control.WispChildren)
             {
-                DrawRecursive(child);
+                DrawRecursive(child, tint);
             }
 
-            if (control.RectClipContent)
+            if (control.RectClipContent && !DebugClipping)
             {
-                if (_scissorStack.Count == 0)
-                {
-                    _currentScissor = null;
-                    Love.Graphics.SetScissor();
-                }
-                else
-                {
-                    _currentScissor = _scissorStack.Pop();
-                    Love.Graphics.SetScissor(_currentScissor.Value);
-                }
+                PopScissor();
             }
         }
 
         public override void Draw()
         {
-            DrawRecursive(WispRoot);
+            DrawRecursive(WispRoot, Color.White);
         }
     }
 }

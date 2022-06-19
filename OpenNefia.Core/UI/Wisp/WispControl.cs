@@ -47,7 +47,7 @@ namespace OpenNefia.Core.UI.Wisp
         public WispControl() : base()
         {
             CanControlFocus = true;
-            WispManager = IoCManager.Resolve<IWispManager>();     
+            WispManager = IoCManager.Resolve<IWispManager>();
             StyleClasses = new StyleClassCollection(this);
             XamlChildren = Children;
         }
@@ -89,7 +89,7 @@ namespace OpenNefia.Core.UI.Wisp
 
         public override Vector2 MaxSize
         {
-            get => base.MaxSize; 
+            get => base.MaxSize;
             set
             {
                 base.MaxSize = value;
@@ -136,6 +136,72 @@ namespace OpenNefia.Core.UI.Wisp
         /// basename should exist in the same directory as the class's file.
         /// </summary>
         public string? Class { get; set; }
+
+        /// <summary>
+        ///     An override for the modulate self from the style sheet.
+        /// </summary>
+        /// <seealso cref="ActualTintSelf" />
+        public Color? TintSelf { get; set; }
+
+        /// <summary>
+        ///     An override for the modulate from the style sheet.
+        /// </summary>
+        /// <seealso cref="ActualTint" />
+        public Color? Tint { get; set; }
+
+        /// <summary>
+        ///     The value used to modulate this control (and not its siblings) with on top of <see cref="Tint"/>
+        ///     when drawing.
+        /// </summary>
+        /// <remarks>
+        ///     By default this value is pulled from CSS, or <see cref="ModulateSelfOverride"/> if available.
+        ///
+        ///     Modulation is multiplying or tinting the color basically.
+        /// </remarks>
+        public Color ActualTintSelf
+        {
+            get
+            {
+                if (TintSelf.HasValue)
+                {
+                    return TintSelf.Value;
+                }
+
+                if (TryGetStyleProperty(StylePropertyTintSelf, out Color modulate))
+                {
+                    return modulate;
+                }
+
+                return Color.White;
+            }
+        }
+
+        /// <summary>
+        ///     The value used to modulate this control (and its siblings) with on top of <see cref="Tint"/>
+        ///     when drawing.
+        /// </summary>
+        /// <remarks>
+        ///     By default this value is pulled from CSS, or <see cref="Tint"/> if available.
+        ///
+        ///     Modulation is multiplying or tinting the color basically.
+        /// </remarks>
+        public Color ActualTint
+        {
+            get
+            {
+                if (Tint.HasValue)
+                {
+                    return Tint.Value;
+                }
+
+                if (TryGetStyleProperty(StylePropertyTint, out Color modulate))
+                {
+                    return modulate;
+                }
+
+                return Color.White;
+            }
+        }
 
         /// <summary>
         ///     Gets whether this control is at all visible.
@@ -463,7 +529,7 @@ namespace OpenNefia.Core.UI.Wisp
             if (!Visible)
                 return default;
             if (_stylingDirty)
-               ForceRunStyleUpdate();
+                ForceRunStyleUpdate();
 
             var withoutMargin = _margin.Deflate(availableSize);
 

@@ -82,7 +82,7 @@ namespace OpenNefia.Core.ViewVariables
             _beingEdited = obj;
             _editedProperty = propertyInfo;
             DebugTools.Assert(propertyInfo.DeclaringType != null);
-            DebugTools.Assert(propertyInfo.DeclaringType.IsInstanceOfType(obj));
+            DebugTools.Assert(propertyInfo.DeclaringType.IsInstanceOfType(obj));u
 
             DebugTools.Assert(ViewVariablesUtility.TryGetViewVariablesAccess(fieldInfo, out var access));
             NameLabel.Text = propertyInfo.Name;

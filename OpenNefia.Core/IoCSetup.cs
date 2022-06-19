@@ -32,6 +32,8 @@ using OpenNefia.Core.UI.Wisp.Styling;
 using OpenNefia.Core.HotReload;
 using OpenNefia.Core.UserInterface.XAML.HotReload;
 using OpenNefia.Core.DebugServer;
+using OpenNefia.Core.DebugView;
+using OpenNefia.Core.ViewVariables;
 
 namespace OpenNefia
 {
@@ -119,6 +121,9 @@ namespace OpenNefia
             IoCManager.Register<IHotReloadWatcher, HotReloadWatcher>();
             IoCManager.Register<IHotReloadWatcherInternal, HotReloadWatcher>();
             IoCManager.Register<IXamlHotReloadManager, XamlHotReloadManager>();
+            IoCManager.Register<IDebugViewLayer, DebugViewLayer>();
+            IoCManager.Register<IViewVariablesManager, ViewVariablesManager>();
+            IoCManager.Register<IViewVariablesManagerInternal, ViewVariablesManager>();
         }
     }
 }

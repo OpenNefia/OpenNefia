@@ -19,7 +19,11 @@ namespace OpenNefia.Core.ViewVariables.Editors
             };
             if (!ReadOnly)
             {
-                box.OnToggled += args => ValueChanged(args.Pressed);
+                box.OnToggled += args =>
+                {
+                    ValueChanged(args.Pressed);
+                    box.Text = args.Pressed.ToString();
+                };
             }
             return box;
         }

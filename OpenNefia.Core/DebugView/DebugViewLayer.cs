@@ -7,17 +7,30 @@ using OpenNefia.Core.UserInterface;
 using static OpenNefia.Core.UI.Wisp.WispControl;
 using OpenNefia.Core.ControlTest;
 using OpenNefia.Core.UI.Wisp;
+using OpenNefia.Core.ViewVariables;
+using OpenNefia.Core.IoC;
+using OpenNefia.Core.UI.Layer;
 
 namespace OpenNefia.Core.DebugView
 {
-    public interface IDebugViewLayer : IWispLayer
+    public interface IDebugViewLayer : IUiLayerWithResult<UINone, UINone>, IWispLayer
     {
     }
 
     public sealed class DebugViewLayer : WispLayerWithResult<UINone, UINone>, IDebugViewLayer
     {
+        private bool _initialized = false;
+
         public DebugViewLayer()
         {
+            OnKeyBindDown += KeyBindDown;
+        }
+
+        public void Initialize()
+        {
+            if (_initialized)
+                return;
+
             for (int i = 0; i < 5; i++)
             {
                 var win = new DefaultWindow()
@@ -56,7 +69,13 @@ namespace OpenNefia.Core.DebugView
             var controlDebugWindow = new ControlDebugWindow();
             this.OpenWindowCentered(controlDebugWindow);
 
-            OnKeyBindDown += KeyBindDown;
+            _initialized = true;
+        }
+
+        public override void OnQuery()
+        {
+            base.OnQuery();
+            Initialize();
         }
 
         private void KeyBindDown(GUIBoundKeyEventArgs args)

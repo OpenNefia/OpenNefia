@@ -1,4 +1,5 @@
-﻿using OpenNefia.Core.UI.Layer;
+﻿using OpenNefia.Core.Maths;
+using OpenNefia.Core.UI.Layer;
 using OpenNefia.Core.UI.Wisp.Controls;
 using OpenNefia.Core.UI.Wisp.CustomControls;
 
@@ -28,6 +29,15 @@ namespace OpenNefia.Core.UI.Wisp
 
         PopupContainer ModalRoot { get; }
 
+        /// <summary>
+        /// Global color modulation to be used when rendering.
+        /// </summary>
+        /// <remarks>
+        /// !!! THIS IS A STUPID HACK !!!
+        /// </remarks>
+        Color GlobalTint { get; }
+
         bool Debug { get; set; }
+        bool DebugClipping { get; set; }
     }
 }

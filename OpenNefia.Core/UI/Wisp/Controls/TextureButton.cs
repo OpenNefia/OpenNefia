@@ -76,7 +76,7 @@ namespace OpenNefia.Core.UI.Wisp.Controls
                 }
             }
 
-            Love.Graphics.SetColor(Color.White);
+            GraphicsS.SetColorTinted(this, Color.White);
             asset?.DrawUnscaled(GlobalPixelRect);
         }
 

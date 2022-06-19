@@ -14,11 +14,11 @@ namespace OpenNefia.Core.UI.Wisp.Controls
         public static readonly AttachedProperty<bool> TabVisibleProperty = AttachedProperty<bool>.Create("TabVisible", typeof(TabContainer), true);
         public static readonly AttachedProperty<string?> TabTitleProperty = AttachedProperty<string?>.CreateNull("TabTitle", typeof(TabContainer));
 
-        public const string StylePropertyTabStyleBox = "tab-stylebox";
-        public const string StylePropertyTabStyleBoxInactive = "tab-stylebox-inactive";
-        public const string stylePropertyTabFontColor = "tab-font-color";
-        public const string StylePropertyTabFontColorInactive = "tab-font-color-inactive";
-        public const string StylePropertyPanelStyleBox = "panel-stylebox";
+        public const string StylePropertyTabStyleBox = "tabStyleBox";
+        public const string StylePropertyTabStyleBoxInactive = "tabStyleBoxInactive";
+        public const string stylePropertyTabFontColor = "tabFontColor";
+        public const string StylePropertyTabFontColorInactive = "tabFontColorInactive";
+        public const string StylePropertyPanelStyleBox = "panelStyleBox";
         public const string StylePropertyFont = "font";
 
         private int _currentTab;
@@ -79,7 +79,7 @@ namespace OpenNefia.Core.UI.Wisp.Controls
             var control = GetWispChild(tab);
             var title = control.GetValue(TabTitleProperty);
 
-            return title ?? control.Name ?? Loc.GetString("tab-container-not-tab-title-provided");
+            return title ?? control.Name ?? Loc.GetString("OpenNefia.UI.TabContainer.NoTabTitleProvided");
         }
 
         public static string? GetTabTitle(WispControl control)
@@ -145,7 +145,7 @@ namespace OpenNefia.Core.UI.Wisp.Controls
             var panel = _getPanel();
             var panelBox = new UIBox2(0, headerSize, PixelWidth, PixelHeight);
 
-            panel?.Draw(panelBox);
+            panel?.Draw(panelBox.Translated(GlobalPosition), WispRootLayer!.GlobalTint);
 
             var font = _getFont();
             var boxActive = _getTabBoxActive();
@@ -179,6 +179,7 @@ namespace OpenNefia.Core.UI.Wisp.Controls
 
                 var active = _currentTab == i;
                 var box = active ? boxActive : boxInactive;
+                var fontColor = active ? fontColorActive : fontColorInactive;
 
                 UIBox2 contentBox;
                 var topLeft = new Vector2(headerOffset, 0);
@@ -187,19 +188,21 @@ namespace OpenNefia.Core.UI.Wisp.Controls
 
                 if (box != null)
                 {
-                    var drawBox = box.GetEnvelopBox(topLeft, size);
+                    var drawBox = box.GetEnvelopBox(GlobalPosition + topLeft, size);
                     boxAdvance = drawBox.Width;
-                    box.Draw(drawBox);
+                    box.Draw(drawBox, WispRootLayer!.GlobalTint);
                     contentBox = box.GetContentBox(drawBox);
                 }
                 else
                 {
                     boxAdvance = size.X;
-                    contentBox = UIBox2.FromDimensions(topLeft, size);
+                    contentBox = UIBox2.FromDimensions(GlobalPosition + topLeft, size);
                 }
 
-                var baseLine = GlobalPosition + new Vector2(0, font.LoveFont.GetAscentV(UIScale)) + contentBox.TopLeft;
+                var baseLine = new Vector2(0, 0) + contentBox.TopLeft;
 
+                GraphicsS.SetColorTinted(this, fontColor);
+                Love.Graphics.SetFont(font.LoveFont);
                 GraphicsS.PrintS(UIScale, title, baseLine.X, baseLine.Y);
                 //foreach (var rune in title.EnumerateRunes())
                 //{
