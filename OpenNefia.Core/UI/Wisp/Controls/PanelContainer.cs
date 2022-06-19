@@ -12,7 +12,7 @@ namespace OpenNefia.Core.UI.Wisp.Controls
         public override void Draw()
         {
             var style = _getStyleBox();
-            style?.Draw(GlobalPixelRect);
+            style?.Draw(GlobalPixelRect, WispRootLayer!.GlobalTint);
         }
 
         protected override Vector2 MeasureOverride(Vector2 availableSize)

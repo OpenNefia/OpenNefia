@@ -28,6 +28,8 @@ namespace OpenNefia.Core.ViewVariables.Traits
 
         public override void Initialize(ViewVariablesInstanceObject instance)
         {
+            base.Initialize(instance);
+
             var enumerable = (IEnumerable)instance.Object;
             _enumerator = enumerable.GetEnumerator();
 
@@ -64,10 +66,10 @@ namespace OpenNefia.Core.ViewVariables.Traits
             };
             outerVBox.AddChild(_elementsVBox);
 
-            instance.AddTab("IEnumerable", outerVBox);
+            instance.AddTab(nameof(IEnumerable), outerVBox);
         }
 
-        public override async void Refresh()
+        public override void Refresh()
         {
             _cache.Clear();
             _ended = false;
@@ -75,33 +77,26 @@ namespace OpenNefia.Core.ViewVariables.Traits
             var enumerable = (IEnumerable)Instance.Object;
             _enumerator = enumerable.GetEnumerator();
 
-            await _moveToPage(_page);
+            _moveToPage(_page);
         }
 
-        private async void _lineEditTextEntered(LineEdit.LineEditEventArgs obj)
+        private void _lineEditTextEntered(LineEdit.LineEditEventArgs obj)
         {
-            await _moveToPage(int.Parse(obj.Text, CultureInfo.InvariantCulture));
+            _moveToPage(int.Parse(obj.Text, CultureInfo.InvariantCulture));
         }
 
-        private async void _rightButtonPressed(BaseButton.ButtonEventArgs obj)
+        private void _rightButtonPressed(BaseButton.ButtonEventArgs obj)
         {
-            await _moveToPage(_page + 1);
+            _moveToPage(_page + 1);
         }
 
-        private async void _leftButtonPressed(BaseButton.ButtonEventArgs obj)
+        private void _leftButtonPressed(BaseButton.ButtonEventArgs obj)
         {
-            await _moveToPage(_page - 1);
+            _moveToPage(_page - 1);
         }
 
-        private async Task _moveToPage(int page)
+        private void _moveToPage(int page)
         {
-            // TODO: Network overhead optimization potential:
-            // Right now, (in NETWORK mode) if I request page 5, it has to cache all 5 pages,
-            // now the server obviously (enumerator and all that) has to TOO, but whatever.
-            // The waste is that all pages are also SENT, even though we only really care about the fifth at the moment.
-            // Because the cache can't have holes (and also the network system is too simplistic at the moment,
-            // if you do do a by-page pull and you're way too far along,
-            // you'll just get 0 elements which doesn't tell you where it ended but that's kinda necessary.
             if (page < 0)
             {
                 page = 0;

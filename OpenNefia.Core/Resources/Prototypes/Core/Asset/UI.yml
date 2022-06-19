@@ -7,3 +7,8 @@
   id: Core.WispCheckboxChecked
   image:
     filepath: /Graphic/Core/UI/CheckboxChecked.png
+
+- type: Asset
+  id: Core.WispOptionButtonTriangle
+  image:
+    filepath: /Graphic/Core/UI/OptionButtonTriangle.png

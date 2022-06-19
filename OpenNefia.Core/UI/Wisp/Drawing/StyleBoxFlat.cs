@@ -10,9 +10,9 @@ namespace OpenNefia.Core.UI.Wisp.Drawing
         public Color BorderColor { get; set; }
         public Thickness BorderThickness { get; set; }
 
-        protected override void DoDraw(UIBox2 pixelBox)
+        protected override void DoDraw(UIBox2 pixelBox, Color tint)
         {
-            Love.Graphics.SetColor(BorderColor);
+            Love.Graphics.SetColor(BorderColor * tint);
 
             var (btl, btt, btr, btb) = BorderThickness;
             if (btl > 0)
@@ -27,7 +27,7 @@ namespace OpenNefia.Core.UI.Wisp.Drawing
             if (btb > 0)
                 GraphicsEx.Rectangle(Love.DrawMode.Fill, new UIBox2(pixelBox.Left, pixelBox.Bottom - btb, pixelBox.Right, pixelBox.Bottom));
 
-            Love.Graphics.SetColor(BackgroundColor);
+            Love.Graphics.SetColor(BackgroundColor * tint);
             GraphicsEx.Rectangle(Love.DrawMode.Fill, BorderThickness.Deflate(pixelBox));
         }
 

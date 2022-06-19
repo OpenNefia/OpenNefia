@@ -107,7 +107,7 @@ namespace OpenNefia.Core.UI.Wisp.Controls
             var color = Color.White;
 
             var dimensions = GetDrawDimensions(asset);
-            Love.Graphics.SetColor(color);
+            GraphicsS.SetColorTinted(this, color);
 
             switch (Stretch)
             {

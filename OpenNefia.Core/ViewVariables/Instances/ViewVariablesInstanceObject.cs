@@ -127,7 +127,6 @@ namespace OpenNefia.Core.ViewVariables.Instances
             foreach (var traitTy in traitData)
             {
                 var trait = (ViewVariablesTrait)Activator.CreateInstance(traitTy)!;
-                trait.Initialize(this);
                 list.Add(trait);
             }
 

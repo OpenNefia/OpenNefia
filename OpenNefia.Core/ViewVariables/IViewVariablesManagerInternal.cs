@@ -2,8 +2,6 @@ namespace OpenNefia.Core.ViewVariables
 {
     internal interface IViewVariablesManagerInternal : IViewVariablesManager
     {
-        void Initialize();
-
         /// <summary>
         ///     Creates the ideal property editor for a specific property type.
         /// </summary>

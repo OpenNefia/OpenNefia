@@ -45,4 +45,10 @@
       <Generator>MSBuild:Compile</Generator>
     </AdditionalFiles>
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Utility\TypeAbbreviations.yaml">
+      <LogicalName>OpenNefia.Core.Utility.TypeAbbreviations.yaml</LogicalName>
+    </EmbeddedResource>
+    <None Remove="ContentPack\Sandbox.yml" />
+  </ItemGroup>
 </Project>

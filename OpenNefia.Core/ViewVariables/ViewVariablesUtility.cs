@@ -36,6 +36,40 @@ namespace OpenNefia.Core.ViewVariables
                 return true;
             }
 
+            if (info is PropertyInfo propertyInfo)
+            {
+                if (info.HasCustomAttribute<DataFieldAttribute>())
+                {
+                    if (propertyInfo.CanWrite)
+                    {
+                        access = VVAccess.ReadWrite;
+                    }
+                    else
+                    {
+                        access = VVAccess.ReadOnly;
+                    }
+                    return true;
+                }
+
+                var getter = propertyInfo.GetGetMethod();
+                var getterIsPublic = getter != null && getter.IsPublic;
+                var setter = propertyInfo.GetSetMethod();
+                var setterIsPublic = setter != null && setter.IsPublic;
+
+                if (getterIsPublic)
+                {
+                    if (setterIsPublic)
+                        access = VVAccess.ReadWrite;
+                    else
+                        access = VVAccess.ReadOnly;
+                    
+                    return true;
+                }
+
+                access = null;
+                return false;
+            }
+
             if (info.HasCustomAttribute<DataFieldAttribute>())
             {
                 access = VVAccess.ReadOnly;

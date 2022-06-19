@@ -80,7 +80,7 @@ namespace OpenNefia.Core.UI.Wisp.Controls
         {
             var styleBox = _getGrabberStyleBox();
 
-            styleBox?.Draw(_getGrabberBox());
+            styleBox?.Draw(_getGrabberBox(), WispRootLayer!.GlobalTint);
         }
 
         protected internal override void MouseExited()
