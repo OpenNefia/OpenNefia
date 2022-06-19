@@ -10,12 +10,12 @@ using System.Threading.Tasks;
 
 namespace OpenNefia.Content.Magic
 {
-    public interface IMagicSystem
+    public interface IMagicSystem : IEntitySystem
     {
         EffectResult Cast(PrototypeId<MagicPrototype> magicId, int power, EntityUid target, EntityUid? source = null, EntityUid? item = null, CurseState curseState = CurseState.Normal);
     }
 
-    public sealed class MagicSystem : IMagicSystem
+    public sealed class MagicSystem : EntitySystem, IMagicSystem
     {
         public EffectResult Cast(PrototypeId<MagicPrototype> magicId, int power, EntityUid target, EntityUid? source = null, EntityUid? item = null, CurseState curseState = CurseState.Normal)
         {

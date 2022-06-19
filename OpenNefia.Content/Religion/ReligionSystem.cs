@@ -82,7 +82,7 @@ namespace OpenNefia.Content.Religion
             SubscribeLocalEvent<ReligionComponent, EntityRefreshEvent>(ApplyBlessings, nameof(ApplyBlessings));
         }
 
-        private void SetRandomGod(EntityUid uid, ReligionComponent component, EntityBeingGeneratedEvent args)
+        private void SetRandomGod(EntityUid uid, ReligionComponent component, ref EntityBeingGeneratedEvent args)
         {
             var hasDialog = false;
             if (EntityManager.TryGetComponent<DialogComponent>(uid, out var dialog))
@@ -92,7 +92,7 @@ namespace OpenNefia.Content.Religion
                 component.GodID = PickRandomGodId();
         }
 
-        private void ApplyBlessings(EntityUid uid, ReligionComponent component, EntityRefreshEvent args)
+        private void ApplyBlessings(EntityUid uid, ReligionComponent component, ref EntityRefreshEvent args)
         {
             if (component.GodID == null)
                 return;
