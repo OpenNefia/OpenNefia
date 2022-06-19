@@ -5,6 +5,7 @@ using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Maps;
 using OpenNefia.Core.Prototypes;
+using OpenNefia.Content.Prototypes;
 using OpenNefia.Core.Random;
 using OpenNefia.Core.Utility;
 using System;
@@ -65,14 +66,19 @@ namespace OpenNefia.Content.RandomGen
                 if (!comps.TryGetComponent<LevelComponent>(out var level) || level.Level > minLevel)
                     return false;
 
+                comps.TryGetComponent<TagComponent>(out var tagComp);
+
                 if (tagSet != null)
                 {
-                    if (!comps.TryGetComponent<TagComponent>(out var tagComp))
+                    if (tagComp == null)
                         return false;
 
                     if (!tagSet.IsSubsetOf(tagComp.Tags))
                         return false;
                 }
+
+                if (tagComp != null && tagComp.Tags.Contains(Protos.Tag.NoGenerate))
+                    return false;
 
                 if (fltselect != null)
                 {

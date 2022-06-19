@@ -125,7 +125,7 @@ namespace OpenNefia.Core.Reflection
                 return ret;
             }
 
-            throw new ArgumentException("Unable to find type.");
+            throw new ArgumentException($"Unable to find type ending with '{name}'.");
         }
 
         public bool TryLooseGetType(string name, [NotNullWhen(true)] out Type? type)

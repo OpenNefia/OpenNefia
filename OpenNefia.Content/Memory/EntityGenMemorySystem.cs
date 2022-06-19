@@ -1,6 +1,8 @@
-﻿using OpenNefia.Core.GameObjects;
+﻿using OpenNefia.Content.Skills;
+using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.SaveGames;
+using OpenNefia.Core.Serialization.Manager.Attributes;
 using OpenNefia.Core.Utility;
 using System;
 using System.Collections.Generic;
@@ -36,10 +38,13 @@ namespace OpenNefia.Content.Memory
         public const string Identified = nameof(Identified);
     }
 
+    [DataDefinition]
+    public sealed class EntityGenMemory : Dictionary<string, Dictionary<PrototypeId<EntityPrototype>, int>> { }
+
     public sealed class EntityGenMemorySystem : EntitySystem, IEntityGenMemorySystem
     {
         [RegisterSaveData($"Elona.EntityMemorySystem.Memory")]
-        private Dictionary<string, Dictionary<PrototypeId<EntityPrototype>, int>> Memory { get; } = new();
+        private EntityGenMemory Memory { get; } = new();
 
         public void Memorize(PrototypeId<EntityPrototype> id, string kind)
         {

@@ -32,7 +32,7 @@ namespace OpenNefia.Content.RandomGen
         [DataField]
         public int Coefficient { get; set; } = 400;
 
-        [DataField]
+        [DataField("fltselect")]
         public string? FltSelect { get; set; } = null;
     }
 

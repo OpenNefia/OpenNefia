@@ -43,6 +43,8 @@ namespace OpenNefia.Tests
     public class FullGameSimulation : ISimulation, IFullSimulationFactory
     {
         private static ThreadLocal<Dictionary<Type, Dictionary<string, DeserializationResult>>> _cachedPrototypes = new();
+        private static ThreadLocal<Dictionary<Type, Dictionary<string, PrototypeOrderingData>>> _cachedOrdering = new();
+        private static ThreadLocal<Dictionary<Type, Dictionary<string, Dictionary<Type, object>>>> _cachedExtendedData = new();
 
         private AssemblyLoadDelegate? _assemblyLoadDelegate;
         private DiContainerDelegate? _diFactory;
@@ -201,7 +203,7 @@ namespace OpenNefia.Tests
             // Don't reparse prototypes from disk every run.
             if (_cachedPrototypes.IsValueCreated)
             {
-                protoMan.LoadFromResults(_cachedPrototypes.Value!);
+                protoMan.LoadFromCachedResults(_cachedPrototypes.Value!, _cachedOrdering.Value!, _cachedExtendedData.Value!);
             }
             else
             {
@@ -209,19 +211,27 @@ namespace OpenNefia.Tests
                 {
                     protoMan.LoadDirectory(ResourcePath.Root / "Prototypes");
 
-                    // Deepcopy two layers worth of dictionaries.
-                    var cachedResults = new Dictionary<Type, Dictionary<string, DeserializationResult>>();
-                    foreach (var (prototypeType, protos) in protoMan.PrototypeResults)
+                    Dictionary<T1, Dictionary<T2, T3>> Deepcopy<T1, T2, T3>(Dictionary<T1, Dictionary<T2, T3>> dict)
+                        where T1 : class
+                        where T2 : class
                     {
-                        var cachedProtos = new Dictionary<string, DeserializationResult>();
-                        foreach (var (prototypeId, res) in protos)
+                        // Deepcopy two layers worth of dictionaries.
+                        var result = new Dictionary<T1, Dictionary<T2, T3>>();
+                        foreach (var (a, b) in dict)
                         {
-                            cachedProtos.Add(prototypeId, res);
+                            var inner = new Dictionary<T2, T3>();
+                            foreach (var (prototypeId, res) in b)
+                            {
+                                inner.Add(prototypeId, res);
+                            }
+                            result.Add(a, inner);
                         }
-                        cachedResults.Add(prototypeType, cachedProtos);
+                        return result;
                     }
 
-                    _cachedPrototypes.Value = cachedResults;
+                    _cachedPrototypes.Value = Deepcopy(protoMan.PrototypeResults);
+                    _cachedOrdering.Value = Deepcopy(protoMan.PrototypeOrdering);
+                    _cachedExtendedData.Value = Deepcopy(protoMan.PrototypeExtendedData);
                 }
             }
 

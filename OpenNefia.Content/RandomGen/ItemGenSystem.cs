@@ -16,7 +16,7 @@ using OpenNefia.Core.Containers;
 
 namespace OpenNefia.Content.RandomGen
 {
-    public interface IItemGen
+    public interface IItemGen : IEntitySystem
     {
         PrototypeId<EntityPrototype>? PickRandomItemIdRaw(int minLevel = 1, PrototypeId<TagPrototype>[]? tags = null, string? fltselect = null);
         PrototypeId<EntityPrototype> PickRandomItemId(EntityGenArgSet argSet, int minLevel = 1, PrototypeId<TagPrototype>[]? tags = null, string? fltselect = null);
@@ -53,7 +53,7 @@ namespace OpenNefia.Content.RandomGen
             var level = comps.GetComponent<LevelComponent>().Level;
             var table = comps.GetComponent<RandomGenComponent>().Tables[RandomGenTables.Item];
 
-            return table.Rarity / ((1000 + Math.Abs(minLevel - level)) * table.Coefficient) + 1;
+            return table.Rarity / (1000 + Math.Abs(minLevel - level) * table.Coefficient) + 1;
         }
 
         public PrototypeId<EntityPrototype> PickRandomItemId(EntityGenArgSet argSet, int minLevel = 1, PrototypeId<TagPrototype>[]? tags = null, string? fltselect = null)

@@ -81,7 +81,45 @@ namespace OpenNefia.Content.EntityGen
             if (!coordinates.IsValid(EntityManager))
                 return null;
 
-            return SpawnEntity(protoId, coordinates.ToMap(EntityManager), count, args);
+            var ent = EntityManager.SpawnEntity(protoId, new MapCoordinates(MapId.Global, Vector2i.Zero));
+
+            if (count == null && args != null && args.TryGet<EntityGenCommonArgs>(out var commonArgs))
+                count = commonArgs.Amount;
+
+            if (EntityManager.HasComponent<StackComponent>(ent))
+                _stacks.SetCount(ent, Math.Max(count ?? 1, 1));
+            else if (count != null)
+                Logger.WarningS("entity.gen", $"Passed count {count} to generate entity {protoId}, but entity did not have a {nameof(StackComponent)}.");
+
+            var searchType = GetSearchType(protoId);
+            var spatial = EntityManager.GetComponent<SpatialComponent>(ent);
+
+            switch (searchType)
+            {
+                case PositionSearchType.Chara:
+                    _placement.TryPlaceChara(ent, coordinates.ToMap(EntityManager));
+                    break;
+                case PositionSearchType.General:
+                default:
+                    spatial.Coordinates = coordinates;
+                    break;
+            }
+
+            args ??= EntityGenArgSet.Make();
+            var ev = new EntityBeingGeneratedEvent(args);
+            RaiseLocalEvent(ent, ref ev);
+
+            FireGeneratedEvent(ent);
+
+            if (!EntityManager.IsAlive(ent))
+            {
+                EntityManager.DeleteEntity(ent);
+
+                Logger.WarningS("entity.gen", $"Entity {ent} became invalid after {nameof(EntityGeneratedEvent)} was fired.");
+                return null;
+            }
+
+            return ent;
         }
 
         private enum PositionSearchType
@@ -104,54 +142,13 @@ namespace OpenNefia.Content.EntityGen
 
         public EntityUid? SpawnEntity(PrototypeId<EntityPrototype>? protoId, MapCoordinates coordinates, int? count = null, EntityGenArgSet? args = null)
         {
-            var ent = EntityManager.SpawnEntity(protoId, new MapCoordinates(MapId.Global, Vector2i.Zero));
-
-            if (count == null && args != null && args.TryGet<EntityGenCommonArgs>(out var commonArgs))
-                count = commonArgs.Amount;
-
-            if (EntityManager.HasComponent<StackComponent>(ent))
-                _stacks.SetCount(ent, Math.Max(count ?? 1, 1));
-            else if (count != null)
-                Logger.WarningS("entity.gen", $"Passed count {count} to generate entity {protoId}, but entity did not have a {nameof(StackComponent)}.");
-
-            var searchType = GetSearchType(protoId);
-            var spatial = EntityManager.GetComponent<SpatialComponent>(ent);
-
-            switch (searchType)
+            if (!coordinates.TryToEntity(_mapManager, out var entityCoords))
             {
-                case PositionSearchType.Chara:
-                    _placement.TryPlaceChara(ent, coordinates);
-                    break;
-                case PositionSearchType.General:
-                default:
-                    var map = _mapManager.GetMap(coordinates.MapId);
-                    spatial.Coordinates = map.AtPosEntity(coordinates.Position);
-                    break;
-            }
-
-            if (spatial.MapID == MapId.Global)
-            {
-                EntityManager.DeleteEntity(ent);
-
-                Logger.ErrorS("entity.gen", $"Entity {ent} was not moved from global map to real position.");
+                Logger.ErrorS("entity.gen", $"Could not convert map coords {coordinates} to entity coords.");
                 return null;
             }
 
-            args ??= EntityGenArgSet.Make();
-            var ev = new EntityBeingGeneratedEvent(args);
-            RaiseLocalEvent(ent, ref ev);
-
-            FireGeneratedEvent(ent);
-
-            if (!EntityManager.IsAlive(ent))
-            {
-                EntityManager.DeleteEntity(ent);
-
-                Logger.WarningS("entity.gen", $"Entity {ent} became invalid after {nameof(EntityGeneratedEvent)} was fired.");
-                return null;
-            }
-
-            return ent;
+            return SpawnEntity(protoId, entityCoords, count, args);
         }
 
         public EntityUid? SpawnEntity(PrototypeId<EntityPrototype>? protoId, IMap map, int? count = null, EntityGenArgSet? args = null)

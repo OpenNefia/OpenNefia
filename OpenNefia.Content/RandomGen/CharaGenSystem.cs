@@ -18,7 +18,7 @@ using OpenNefia.Analyzers;
 
 namespace OpenNefia.Content.RandomGen
 {
-    public interface ICharaGen
+    public interface ICharaGen : IEntitySystem
     {
         PrototypeId<EntityPrototype>? PickRandomCharaIdRaw(int minLevel = 1, PrototypeId<TagPrototype>[]? tags = null, string? fltselect = null, 
             PrototypeId<RacePrototype>? raceFilter = null, string? category = null);
@@ -77,9 +77,9 @@ namespace OpenNefia.Content.RandomGen
         {
             var comps = proto.Components;
             var level = comps.GetComponent<LevelComponent>().Level;
-            var table = comps.GetComponent<RandomGenComponent>().Tables[RandomGenTables.Item];
+            var table = comps.GetComponent<RandomGenComponent>().Tables[RandomGenTables.Chara];
 
-            return table.Rarity / ((500 + Math.Abs(minLevel - level)) * table.Coefficient) + 1;
+            return table.Rarity / (500 + Math.Abs(minLevel - level) * table.Coefficient) + 1;
         }
 
         public PrototypeId<EntityPrototype> PickRandomCharaId(EntityGenArgSet args, int minLevel = 1, PrototypeId<TagPrototype>[]? tags = null, string? fltselect = null, PrototypeId<RacePrototype>? raceFilter = null, string? category = null)
