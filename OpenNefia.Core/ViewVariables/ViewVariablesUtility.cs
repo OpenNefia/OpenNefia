@@ -53,8 +53,15 @@ namespace OpenNefia.Core.ViewVariables
 
                 var getter = propertyInfo.GetGetMethod();
                 var getterIsPublic = getter != null && getter.IsPublic;
-                var setter = propertyInfo.GetSetMethod();
+                var setter = propertyInfo.GetSetMethod(true);
                 var setterIsPublic = setter != null && setter.IsPublic;
+
+                if (setter != null && setter.GetParameters().Length != 1)
+                {
+                    // otherwise it errors on Invoke(obj, new[] {v})
+                    access = null;
+                    return false;
+                }
 
                 if (getterIsPublic)
                 {

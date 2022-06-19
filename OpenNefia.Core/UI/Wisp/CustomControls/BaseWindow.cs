@@ -264,6 +264,22 @@ namespace OpenNefia.Core.UI.Wisp.CustomControls
             }
         }
 
+        public void OpenAt(IWispLayer layer, Vector2 pos)
+        {
+            if (_firstTimeOpened)
+            {
+                Measure(Vector2.Infinity);
+                ExactSize = DesiredSize;
+                Open(layer);
+                LayoutContainer.SetPosition(this, pos);
+                _firstTimeOpened = false;
+            }
+            else
+            {
+                Open(layer);
+            }
+        }
+
         protected virtual void Opened()
         {
 
