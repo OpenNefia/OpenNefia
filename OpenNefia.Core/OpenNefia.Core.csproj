@@ -37,4 +37,12 @@
 
   <Import Project="..\MSBuild\XamlIL.targets" />
   <Import Project="..\MSBuild\OpenNefia.Analyzers.targets" />
+  <ItemGroup>
+    <EmbeddedResource Remove="ViewVariables\ViewVariablesAddWindow.xaml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AdditionalFiles Update="ViewVariables\ViewVariablesAddWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </AdditionalFiles>
+  </ItemGroup>
 </Project>

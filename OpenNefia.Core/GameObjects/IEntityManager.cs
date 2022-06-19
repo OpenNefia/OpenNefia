@@ -89,6 +89,11 @@ namespace OpenNefia.Core.GameObjects
         /// </summary>
         bool Deleted([NotNullWhen(false)] EntityUid? uid);
 
+        /// <summary>
+        /// Returns a string representation of an entity with various information regarding it.
+        /// </summary>
+        EntityStringRepresentation ToPrettyString(EntityUid uid);
+
         #endregion Entity Management
     }
 }

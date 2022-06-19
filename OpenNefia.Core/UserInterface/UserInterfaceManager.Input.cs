@@ -3,6 +3,7 @@ using OpenNefia.Core.Log;
 using OpenNefia.Core.Maps;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.UI.Element;
+using OpenNefia.Core.UI.Wisp;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -18,6 +19,29 @@ namespace OpenNefia.Core.UserInterface
         public bool HandleCanFocusDown(ScreenCoordinates pointerPosition, [NotNullWhen(true)] out (UiElement control, Vector2i rel)? hitData)
         {
             var hit = MouseGetControlAndRel(pointerPosition);
+            var pos = pointerPosition.Position;
+
+            // If we have a modal open and the mouse down was outside it, close said modal.
+            while (_modalStack.Count != 0)
+            {
+                var top = _modalStack[^1];
+                var offset = pos - top.GlobalPixelPosition;
+                if (!top.ContainsPoint(offset / top.UIScale))
+                {
+                    if (top.EventFilter != UIEventFilterMode.Stop)
+                        RemoveModal(top);
+                    else
+                    {
+                        ControlFocused = top;
+                        hitData = null;
+                        return false; // prevent anything besides the top modal control from receiving input
+                    }
+                }
+                else
+                {
+                    break;
+                }
+            }
 
             if (hit == null)
             {
@@ -53,6 +77,18 @@ namespace OpenNefia.Core.UserInterface
 
         public void KeyBindDown(BoundKeyEventArgs args)
         {
+            if (args.Function == EngineKeyFunctions.CloseModals && _modalStack.Count != 0)
+            {
+                while (_modalStack.Count > 0)
+                {
+                    var top = _modalStack[^1];
+                    RemoveModal(top);
+                }
+
+                args.Handle();
+                return;
+            }
+
             var control = ControlFocused ?? KeyboardFocused ?? MouseGetControl(args.PointerLocation);
 
             if (control == null)

@@ -39,6 +39,8 @@ namespace OpenNefia.Core.UserInterface
         void ReleaseKeyboardFocus();
         void ReleaseKeyboardFocus(UiElement control);
 
+        void PushModal(UiElement modal);
+
         string FormatKeyHints(IEnumerable<UiKeyHint> keyHints);
 
         void DrawLayers();

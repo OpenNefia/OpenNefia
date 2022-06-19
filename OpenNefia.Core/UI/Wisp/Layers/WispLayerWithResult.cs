@@ -35,6 +35,9 @@ namespace OpenNefia.Core.UI.Wisp
         /// <inheritdoc/>
         public LayoutContainer WindowRoot { get; }
 
+        /// <inheritdoc/>
+        public PopupContainer ModalRoot { get; }
+
         public bool Debug { get; set; }
 
         public WispLayerWithResult()
@@ -55,6 +58,13 @@ namespace OpenNefia.Core.UI.Wisp
                 EventFilter = UIEventFilterMode.Ignore
             };
             WispRoot.AddChild(WindowRoot);
+
+            ModalRoot = new PopupContainer
+            {
+                Name = nameof(ModalRoot),
+                EventFilter = UIEventFilterMode.Ignore
+            };
+            WispRoot.AddChild(ModalRoot);
 
             AddChild(WispRoot);
 

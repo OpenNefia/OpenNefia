@@ -8,9 +8,13 @@ using static OpenNefia.Core.UI.Wisp.WispControl;
 using OpenNefia.Core.ControlTest;
 using OpenNefia.Core.UI.Wisp;
 
-namespace OpenNefia.Content.DebugView
+namespace OpenNefia.Core.DebugView
 {
-    public sealed class DebugViewLayer : WispLayerWithResult<UINone, UINone>
+    public interface IDebugViewLayer : IWispLayer
+    {
+    }
+
+    public sealed class DebugViewLayer : WispLayerWithResult<UINone, UINone>, IDebugViewLayer
     {
         public DebugViewLayer()
         {
