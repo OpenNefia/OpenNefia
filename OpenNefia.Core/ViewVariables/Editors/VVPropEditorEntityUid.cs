@@ -40,7 +40,7 @@ namespace OpenNefia.Core.ViewVariables.Editors
 
             vvButton.OnPressed += e =>
             {
-                // IoCManager.Resolve<IConsoleHost>().ExecuteCommand($"vv {uid}");
+                IoCManager.Resolve<IViewVariablesManager>().OpenVV(uid);
             };
 
             hBox.AddChild(lineEdit);

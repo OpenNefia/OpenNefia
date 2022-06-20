@@ -155,6 +155,8 @@ namespace OpenNefia.Core.ViewVariables.Traits
         {
             if (_ended && HighestKnownPage == 0)
             {
+                // BUG: this is ignored when TabContainer selects this tab
+                // since changes to Visible are always fully propagated by any parents.
                 _controlsHBox.Visible = false;
                 return;
             }

@@ -25,6 +25,7 @@ namespace OpenNefia.Core.UI.Wisp
         where TResult : class
     {
         [Dependency] private IWispManager _wispManager = default!;
+        [Dependency] private IGraphics _graphics = default!;
 
         private UIBox2? _currentScissor;
         private Stack<UIBox2> _scissorStack = new();
@@ -74,15 +75,18 @@ namespace OpenNefia.Core.UI.Wisp
         }
 
         /// <inheritdoc/>
-        public void PushScissor(UIBox2 scissor)
+        public void PushScissor(UIBox2 scissor, bool ignoreParents = false)
         {
             var oldScissor = _currentScissor;
             var newScissor = scissor;
 
             if (oldScissor != null)
             {
-                // New scissors should be subsets of the parent.
-                newScissor = oldScissor.Value.Intersection(newScissor) ?? new UIBox2();
+                if (!ignoreParents)
+                {
+                    // New scissors should be subsets of the parent.
+                    newScissor = oldScissor.Value.Intersection(newScissor) ?? new UIBox2();
+                }
                 _scissorStack.Push(oldScissor.Value);
             }
 
@@ -113,9 +117,8 @@ namespace OpenNefia.Core.UI.Wisp
 
         public override void OnQuery()
         {
-            var graphics = IoCManager.Resolve<IGraphics>();
-            WispRoot.Measure(graphics.WindowSize);
-            WispRoot.Arrange(UIBox2.FromDimensions(Vector2.Zero, graphics.WindowSize));
+            WispRoot.Measure(_graphics.WindowSize);
+            WispRoot.Arrange(UIBox2.FromDimensions(Vector2.Zero, _graphics.WindowSize));
 
             base.OnQuery();
 
@@ -173,12 +176,7 @@ namespace OpenNefia.Core.UI.Wisp
 
             if (Debug)
             {
-                var color = Color.Red;
-                if (UserInterfaceManager.ControlFocused == control)
-                    color = Color.Gold;
-                else if (UserInterfaceManager.CurrentlyHovered == control)
-                    color = Color.LightBlue;
-                Love.Graphics.SetColor(color);
+                Love.Graphics.SetColor(Color.Red);
                 GraphicsS.RectangleS(UIScale, Love.DrawMode.Line, control.GlobalRect);
             }
 
@@ -197,6 +195,36 @@ namespace OpenNefia.Core.UI.Wisp
         {
             _scissorStack.Clear();
             DrawRecursive(WispRoot, Color.White);
+
+            if (Debug)
+            {
+                var control = UserInterfaceManager.CurrentlyHovered;
+
+                if (control != null)
+                {
+                    var font = _wispManager.GetStyleFallback<FontSpec>();
+                    var mousePos = UserInterfaceManager.MousePositionScaled;
+                    Love.Graphics.SetColor(Color.White);
+                    Love.Graphics.SetFont(font.LoveFont);
+                    GraphicsS.PrintS(UIScale, $"Control: {control.GetType()}", mousePos.X, mousePos.Y);
+                    GraphicsS.PrintS(UIScale, $"Bounds: {control.GlobalPixelRect} {control.PixelSize}", mousePos.X, mousePos.Y + font.LoveFont.GetHeightV(UIScale));
+
+                    var color = Color.Gold;
+                    color.A = 0.2f;
+                    Love.Graphics.SetColor(color);
+                    GraphicsS.RectangleS(UIScale, Love.DrawMode.Fill, control.GlobalRect);
+                }
+
+                control = UserInterfaceManager.ControlFocused;
+
+                if (control != null)
+                {
+                    var color = Color.Cyan;
+                    color.A = 0.2f;
+                    Love.Graphics.SetColor(color);
+                    GraphicsS.RectangleS(UIScale, Love.DrawMode.Fill, control.GlobalRect);
+                }
+            }
         }
     }
 }

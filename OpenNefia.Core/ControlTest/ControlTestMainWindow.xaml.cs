@@ -5,6 +5,9 @@ using OpenNefia.Core.UserInterface;
 using OpenNefia.Core.UserInterface.XAML;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.ViewVariables;
+using OpenNefia.Core.Game;
+using OpenNefia.Core.Maps;
+using OpenNefia.Core.Areas;
 
 namespace OpenNefia.Core.ControlTest
 {
@@ -20,7 +23,15 @@ namespace OpenNefia.Core.ControlTest
             ViewVariablesButton.OnPressed += _ =>
             {
                 var vv = IoCManager.Resolve<IViewVariablesManager>();
-                vv.OpenVV(this);
+                var session = IoCManager.Resolve<IGameSessionManager>();
+                if (session != null)
+                    vv.OpenVV(session);
+                var map = IoCManager.Resolve<IMapManager>().ActiveMap;
+                if (map != null)
+                    vv.OpenVV(map);
+                var area = IoCManager.Resolve<IAreaManager>().ActiveArea;
+                if (area != null)
+                    vv.OpenVV(area);
             };
         }
     }

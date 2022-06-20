@@ -45,7 +45,7 @@ namespace OpenNefia.Core.UI.Wisp
         /// <remarks>
         /// !!! THIS IS A STUPID HACK !!!
         /// </remarks>
-        void PushScissor(UIBox2 scissor);
+        void PushScissor(UIBox2 scissor, bool ignoreParents = false);
 
         /// <summary>
         /// Pops a global scissor.

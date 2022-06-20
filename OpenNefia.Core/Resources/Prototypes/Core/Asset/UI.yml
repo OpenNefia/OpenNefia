@@ -1,4 +1,9 @@
 - type: Asset
+  id: Core.WispCross
+  image:
+    filepath: /Graphic/Core/UI/Cross.png
+
+- type: Asset
   id: Core.WispCheckboxUnchecked
   image:
     filepath: /Graphic/Core/UI/CheckboxUnchecked.png

@@ -1,3 +1,4 @@
+using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Locale;
 using OpenNefia.Core.UI.Wisp.Controls;
 using OpenNefia.Core.UI.Wisp.CustomControls;
@@ -5,18 +6,39 @@ using OpenNefia.Core.UserInterface.XAML;
 
 namespace OpenNefia.Core.ViewVariables
 {
-    public sealed partial class ViewVariablesAddWindow : DefaultWindow
+    public sealed record VVComponentEntry(string Name, ComponentTarget Target);
+
+    public sealed class ViewVariablesAddComponentWindow : ViewVariablesAddWindow<VVComponentEntry>
+    {
+        private readonly ComponentTarget _componentTarget;
+
+        public ViewVariablesAddComponentWindow(IEnumerable<VVComponentEntry> entries, LocaleKey title, ComponentTarget componentTarget)
+            : base(entries, title)
+        {
+            _componentTarget = componentTarget;
+        }
+    }
+
+    public sealed class ViewVariablesAddPrototypeWindow : ViewVariablesAddWindow<string>
+    {
+        public ViewVariablesAddPrototypeWindow(IEnumerable<string> entries, LocaleKey title) 
+            : base(entries, title)
+        {
+        }
+    }
+
+    public abstract partial class ViewVariablesAddWindow<T> : DefaultWindow
     {
         private string? _lastSearch;
-        private string[] _entries = Array.Empty<string>();
+        private T[] _entries = Array.Empty<T>();
 
         public event Action<AddButtonPressedEventArgs>? AddButtonPressed;
 
-        public ViewVariablesAddWindow(IEnumerable<string> entries, LocaleKey title)
+        public ViewVariablesAddWindow(IEnumerable<T> entries, LocaleKey title)
         {
             OpenNefiaXamlLoader.Load(this);
 
-            Title = Loc.GetString(title);
+            Title = title;
 
             EntryItemList.OnItemSelected += _ => RefreshAddButton();
             EntryItemList.OnItemDeselected += _ => RefreshAddButton();
@@ -33,26 +55,26 @@ namespace OpenNefia.Core.ViewVariables
             AddButton.Disabled = !EntryItemList.GetSelected().Any();
         }
 
-        public void Populate(IEnumerable<string> components)
+        public void Populate(IEnumerable<T> entries)
         {
-            _entries = components.ToArray();
+            _entries = entries.ToArray();
             Array.Sort(_entries);
             Populate(_lastSearch);
         }
 
-        private void Populate(string? search = null)
+        private void Populate(string? search = null, bool showAll = false)
         {
             _lastSearch = search;
             EntryItemList.ClearSelected();
             EntryItemList.Clear();
             AddButton.Disabled = true;
 
-            foreach (var component in _entries)
+            foreach (var entry in _entries)
             {
-                if (!string.IsNullOrEmpty(search) && !component.Contains(search, StringComparison.InvariantCultureIgnoreCase))
-                    continue;
+                // if (!string.IsNullOrEmpty(search) && !entry.Contains(search, StringComparison.InvariantCultureIgnoreCase))
+                //    continue;
 
-                EntryItemList.AddItem(component);
+                EntryItemList.AddItem("");
             }
         }
 
