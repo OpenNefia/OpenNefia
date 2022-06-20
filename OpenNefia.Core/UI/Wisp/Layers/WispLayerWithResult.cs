@@ -144,9 +144,11 @@ namespace OpenNefia.Core.UI.Wisp
                 return;
 
             control.Update(dt);
-            foreach (var child in control.WispChildren)
+
+            foreach (var child in control.Children)
             {
-                UpdateRecursive(child, dt);
+                if (child is WispControl wispChild)
+                    UpdateRecursive(wispChild, dt);
             }
         }
 
@@ -194,9 +196,10 @@ namespace OpenNefia.Core.UI.Wisp
                 GraphicsS.RectangleS(UIScale, Love.DrawMode.Line, control.GlobalRect);
             }
 
-            foreach (var child in control.WispChildren)
+            foreach (var child in control.Children)
             {
-                DrawRecursive(child, tint);
+                if (child is WispControl wispChild)
+                    DrawRecursive(wispChild, tint);
             }
 
             if (control.RectClipContent && !DebugClipping)

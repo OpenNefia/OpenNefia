@@ -241,7 +241,7 @@ namespace OpenNefia.Core.UI.Element
         /// <remarks>TODO implement</remarks>
         public virtual bool Visible
         {
-            get => _visible && (Parent?.Visible ?? true);
+            get => _visible;
             set => _visible = value;
         }
 
