@@ -194,8 +194,8 @@ namespace OpenNefia.Tests.Core.UserInterface.Controls
             // pre-expanded size should be used to determine the size of each "cell", and then expansion
             // happens within the defined control size
             var grid = limitByCount
-                ? new GridContainer {Columns = 2, SetSize = (200, 200)}
-                : new GridContainer {MaxGridWidth = 125, SetSize = (200, 200)};
+                ? new GridContainer {Columns = 2, ExactSize = (200, 200)}
+                : new GridContainer {MaxGridWidth = 125, ExactSize = (200, 200)};
             var child1 = new WispControl {MinSize = (50, 50), HorizontalExpand = true};
             var child2 = new WispControl {MinSize = (50, 50)};
             var child3 = new WispControl {MinSize = (50, 50)};
@@ -227,8 +227,8 @@ namespace OpenNefia.Tests.Core.UserInterface.Controls
         public void TestExpandRows(bool limitByCount)
         {
             var grid = limitByCount
-                ? new GridContainer {Rows = 2, SetSize = (200, 200)}
-                : new GridContainer {MaxGridHeight = 125, SetSize = (200, 200)};
+                ? new GridContainer {Rows = 2, ExactSize = (200, 200)}
+                : new GridContainer {MaxGridHeight = 125, ExactSize = (200, 200)};
             var child1 = new WispControl {MinSize = (50, 50), VerticalExpand = true};
             var child2 = new WispControl {MinSize = (50, 50)};
             var child3 = new WispControl {MinSize = (50, 50)};

@@ -1,4 +1,5 @@
 ﻿using Moq;
+using OpenNefia.Content.DebugView;
 using OpenNefia.Content.Repl;
 using OpenNefia.Content.UI.Hud;
 using OpenNefia.Content.UI.Layer;
@@ -22,6 +23,7 @@ namespace OpenNefia.Content.Tests
             IoCManager.RegisterInstance<IFieldLayer>(new Mock<IFieldLayer>().Object, true);
             IoCManager.RegisterInstance<IHudLayer>(new TestingHudLayer(), true);
             IoCManager.RegisterInstance<IReplLayer>(new Mock<IReplLayer>().Object, true);
+            IoCManager.RegisterInstance<IDebugViewLayer>(new Mock<IDebugViewLayer>().Object, true);
         }
     }
 
