@@ -48,11 +48,10 @@ namespace OpenNefia.Core.ViewVariables
                     traits.Add(typeof(ViewVariablesTraitEnumerable));
                 }
 
-                // TODO
-                //if (typeof(EntityUid).IsAssignableFrom(type))
-                //{
-                //    traits.Add(typeof(ViewVariablesTraitEntity));
-                //}
+                if (typeof(EntityUid).IsAssignableFrom(type))
+                {
+                    traits.Add(typeof(ViewVariablesTraitEntity));
+                }
             }
 
             return traits;

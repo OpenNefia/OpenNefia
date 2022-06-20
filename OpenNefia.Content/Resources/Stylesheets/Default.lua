@@ -228,7 +228,7 @@ CheckBox {
 }
 
 TextureButton ".windowCloseButton" {
-    texture = asset "Elona.AutoTurnIcon",
+    texture = asset "Core.WispCross",
     modulateSelf = "#4B596A",
 }
 
@@ -255,6 +255,21 @@ PanelContainer ".designerToolbar" {
 Label ".pointerText" {
     fontColor = "#00AAAA",
     font = font10,
+}
+
+ItemList {
+    itemlistBackground = styleBoxFlat {
+        backgroundColor = "#505070",
+    },
+    itemBackground = styleBoxFlat {
+        backgroundColor = "#444477",
+    },
+    selectedItemBackground = styleBoxFlat {
+        backgroundColor = "#AAAA44",
+    },
+    disabledItemBackground = styleBoxFlat {
+        backgroundColor = "#505050",
+    },
 }
 
 MeasurementPointer {

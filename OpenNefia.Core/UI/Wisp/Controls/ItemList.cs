@@ -363,7 +363,7 @@ namespace OpenNefia.Core.UI.Wisp.Controls
 
                 if (region.Intersects(sizeBox))
                 {
-                    bg.Draw(item.Region.Value, WispRootLayer!.GlobalTint);
+                    bg.Draw(item.Region.Value.Translated(GlobalPixelPosition), WispRootLayer!.GlobalTint);
 
                     var contentBox = bg.GetContentBox(item.Region.Value);
                     var drawOffset = contentBox.TopLeft;
@@ -401,11 +401,11 @@ namespace OpenNefia.Core.UI.Wisp.Controls
             var font = ActualFont;
 
             var color = ActualFontColor;
-            var offsetY = (int)(box.Height - font.LoveFont.GetHeight()) / 2;
-            var baseLine = new Vector2i(GlobalPixelX, GlobalPixelY + offsetY + font.LoveFont.GetAscent()) + box.TopLeft;
+            var offsetY = (int)(box.Height - font.LoveFont.GetHeight()) / 2 - 1;
+            var baseLine = GlobalPixelPosition + new Vector2i(0, offsetY) + box.TopLeft;
 
             GraphicsS.SetColorTinted(this, color);
-            WispRootLayer!.PushScissor(box);
+            WispRootLayer!.PushScissor(box.Translated(GlobalPixelPosition), ignoreParents: true);
             Love.Graphics.Draw(text, baseLine.X, baseLine.Y);
             WispRootLayer.PopScissor();
         }

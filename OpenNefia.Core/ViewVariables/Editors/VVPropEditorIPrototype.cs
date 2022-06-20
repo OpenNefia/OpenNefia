@@ -13,7 +13,7 @@ namespace OpenNefia.Core.ViewVariables.Editors
     {
         private object? _localValue;
 
-        private ViewVariablesAddWindow? _addWindow;
+        private ViewVariablesAddPrototypeWindow? _addWindow;
         private LineEdit _lineEdit = new();
 
         protected override WispControl MakeUI(object? value)
@@ -57,10 +57,10 @@ namespace OpenNefia.Core.ViewVariables.Editors
         {
             _addWindow?.Dispose();
 
-            ClientSideWindowList();
+            WindowList();
         }
 
-        private void ClientSideWindowList()
+        private void WindowList()
         {
             var protoMan = IoCManager.Resolve<IPrototypeManager>();
             var debugView = IoCManager.Resolve<IDebugViewLayer>();
@@ -74,12 +74,12 @@ namespace OpenNefia.Core.ViewVariables.Editors
                 list.Add(prototype.ID);
             }
 
-            _addWindow = new ViewVariablesAddWindow(list, "Set Prototype [C]");
+            _addWindow = new ViewVariablesAddPrototypeWindow(list, "Set Prototype");
             _addWindow.AddButtonPressed += OnAddButtonPressed;
             _addWindow.OpenCentered(debugView);
         }
 
-        private void OnAddButtonPressed(ViewVariablesAddWindow.AddButtonPressedEventArgs obj)
+        private void OnAddButtonPressed(ViewVariablesAddPrototypeWindow.AddButtonPressedEventArgs obj)
         {
             _lineEdit.Text = obj.Entry;
             _addWindow?.Dispose();
