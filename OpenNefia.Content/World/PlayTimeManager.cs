@@ -53,7 +53,7 @@ namespace OpenNefia.Content.World
         {
             var now = DateTime.Now;
             PlayTimeAtLastSave = PrecisePlayTime;
-            _begin = DateTime.Now;
+            _begin = now;
         }
     }
 }

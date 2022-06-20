@@ -4,6 +4,7 @@ using OpenNefia.Core.Serialization.Manager.Attributes;
 namespace OpenNefia.Content.TurnOrder
 {
     [RegisterComponent]
+    [ComponentUsage(ComponentTarget.Map)]
     public class MapTurnOrderComponent : Component
     {
         public override string Name => "MapTurnOrder";

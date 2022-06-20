@@ -43,4 +43,8 @@
     </EmbeddedResource>
     <None Remove="ContentPack\Sandbox.yml" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="ControlTest\" />
+    <Folder Include="DebugView\" />
+  </ItemGroup>
 </Project>

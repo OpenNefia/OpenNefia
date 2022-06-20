@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 namespace OpenNefia.Content.Areas
 {
     [RegisterComponent]
+    [ComponentUsage(ComponentTarget.Area)]
     public sealed class AreaStaticFloorsComponent : Component
     {
         public override string Name => "AreaStaticFloors";

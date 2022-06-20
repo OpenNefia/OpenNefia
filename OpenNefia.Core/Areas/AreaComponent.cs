@@ -7,6 +7,7 @@ namespace OpenNefia.Core.Areas
     /// <summary>
     ///     Represents an area inside the ECS system.
     /// </summary>
+    [ComponentUsage(ComponentTarget.Area)]
     public class AreaComponent : Component
     {
         /// <inheritdoc />

@@ -14,8 +14,8 @@ namespace OpenNefia.Core.Input
         public enum Button : byte
         {
             Left = 0,
-            Middle = 1,
-            Right = 2,
+            Right = 1,
+            Middle = 2,
             Button4,
             Button5,
             Button6,
@@ -33,8 +33,8 @@ namespace OpenNefia.Core.Input
         private static readonly Dictionary<Button, Keyboard.Key> _mouseKeyMap = new()
         {
             { Button.Left, Keyboard.Key.MouseLeft },
-            { Button.Middle, Keyboard.Key.MouseMiddle },
             { Button.Right, Keyboard.Key.MouseRight },
+            { Button.Middle, Keyboard.Key.MouseMiddle },
             { Button.Button4, Keyboard.Key.MouseButton4 },
             { Button.Button5, Keyboard.Key.MouseButton5 },
             { Button.Button6, Keyboard.Key.MouseButton6 },

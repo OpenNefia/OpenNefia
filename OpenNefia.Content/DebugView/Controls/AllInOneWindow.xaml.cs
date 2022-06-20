@@ -3,7 +3,7 @@ using OpenNefia.Core.UI.Wisp.CustomControls;
 using OpenNefia.Core.UserInterface;
 using OpenNefia.Core.UserInterface.XAML;
 
-namespace OpenNefia.Core.ControlTest
+namespace OpenNefia.Content.DebugView
 {
     public partial class AllInOneWindow : DefaultWindow
     {

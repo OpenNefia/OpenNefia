@@ -42,12 +42,17 @@ namespace OpenNefia.Content.Nefia
 
         public override void Initialize()
         {
+            SubscribeLocalEvent<AreaNefiaComponent, AreaEnteredEvent>(OnNefiaAreaEntered, nameof(OnNefiaAreaEntered));
             SubscribeLocalEvent<AreaNefiaComponent, AreaFloorGenerateEvent>(OnNefiaFloorGenerate, nameof(OnNefiaFloorGenerate));
             SubscribeLocalEvent<AreaNefiaComponent, AreaGeneratedEvent>(OnNefiaGenerated, nameof(OnNefiaGenerated));
             SubscribeLocalEvent<AreaNefiaComponent, RandomAreaCheckIsActiveEvent>(OnCheckIsActive, nameof(OnCheckIsActive));
             SubscribeLocalEvent<GenerateRandomAreaEvent>(GenerateRandomNefia, nameof(GenerateRandomNefia));
+        }
 
-            // The nefia generation algorithms can be swapped in by subscribing to AreaFloorGenerateEvent.
+        private void OnNefiaAreaEntered(EntityUid uid, AreaNefiaComponent component, AreaEnteredEvent args)
+        {
+            if (component.State == NefiaState.Unvisited)
+                component.State = NefiaState.Visited;
         }
 
         private void OnCheckIsActive(EntityUid uid, AreaNefiaComponent areaNefia, RandomAreaCheckIsActiveEvent args)

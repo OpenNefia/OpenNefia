@@ -1,6 +1,7 @@
 ﻿using Love;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Log;
+using OpenNefia.Core.Maths;
 
 namespace OpenNefia.Core.Rendering
 {
@@ -84,7 +85,7 @@ namespace OpenNefia.Core.Rendering
 
         public void Flush() => _batch.Flush();
 
-        public bool GetTileSize(TileSpecifier spec, out int width, out int height) => _atlas.GetTileSize(spec, out width, out height);
+        public Vector2i GetTileSize(TileSpecifier spec) => _atlas.GetTileSize(spec);
 
         public void Clear()
         {

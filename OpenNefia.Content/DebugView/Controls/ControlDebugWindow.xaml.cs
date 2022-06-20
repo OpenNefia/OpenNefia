@@ -5,7 +5,7 @@ using OpenNefia.Core.UserInterface.XAML.HotReload;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.ControlDesigner;
 
-namespace OpenNefia.Core.ControlTest
+namespace OpenNefia.Content.DebugView
 {
     public partial class ControlDebugWindow : DefaultWindow
     {
@@ -13,6 +13,8 @@ namespace OpenNefia.Core.ControlTest
         {
             IoCManager.InjectDependencies(this);
             OpenNefiaXamlLoader.Load(this);
+
+            CanClose = false;
 
             ToggleDebugButton.OnPressed += ToggleDebug;
             ToggleClippingButton.OnPressed += ToggleClipping;

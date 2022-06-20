@@ -10,6 +10,7 @@ using OpenNefia.Content.Charas;
 namespace OpenNefia.Content.Maps
 {
     [RegisterComponent]
+    [ComponentUsage(ComponentTarget.Map)]
     public class MapCharaGenComponent : Component
     {
         public override string Name => "MapCharaGen";

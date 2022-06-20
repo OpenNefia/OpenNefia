@@ -10,7 +10,7 @@ namespace OpenNefia.Content.Nefia
     /// a dungeon with that layout.
     /// </summary>
     [RegisterComponent]
-    [ComponentUsage(ComponentTarget.Map)]
+    [ComponentUsage(ComponentTarget.Area)]
     public class NefiaVanillaComponent : Component
     {
         public override string Name => "NefiaVanilla";

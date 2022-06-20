@@ -7,6 +7,7 @@ namespace OpenNefia.Content.GameObjects
     /// if the map entity has this component.
     /// </summary>
     [RegisterComponent]
+    [ComponentUsage(ComponentTarget.Map)]
     public class WorldMapFieldsComponent : Component
     {
         /// <inheritdoc />

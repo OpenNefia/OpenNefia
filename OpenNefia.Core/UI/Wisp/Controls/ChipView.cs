@@ -38,7 +38,11 @@ namespace OpenNefia.Core.UI.Wisp.Controls
 
         protected override Vector2 MeasureOverride(Vector2 availableSize)
         {
-            return _coords.TileSize * Scale;
+            if (Chip == null || Chip.Deleted)
+                return _coords.TileSize * Scale;
+
+            var chipProto = _protos.Index(Chip.ChipID);
+            return _chipBatch.GetTileSize(chipProto.Image) * Scale;
         }
 
         public override void Draw()
@@ -51,7 +55,7 @@ namespace OpenNefia.Core.UI.Wisp.Controls
             var chipProto = _protos.Index(Chip.ChipID);
 
             _chipBatch.Clear();
-            _chipBatch.Add(UIScale, chipProto.Image.AtlasIndex, 46 - 24, 59 - 24, _coords.TileSize.X, _coords.TileSize.Y, Chip.Color);
+            _chipBatch.Add(UIScale, chipProto.Image.AtlasIndex, 0, 0, _coords.TileSize.X, _coords.TileSize.Y, Chip.Color);
             _chipBatch.Draw(UIScale, GlobalPixelX, GlobalPixelY);
         }
     }

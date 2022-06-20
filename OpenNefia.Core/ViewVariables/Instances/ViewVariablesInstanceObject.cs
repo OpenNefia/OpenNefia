@@ -13,6 +13,7 @@ namespace OpenNefia.Core.ViewVariables.Instances
     {
         private TabContainer _tabs = default!;
         private Button _refreshButton = default!;
+        private WispControl _topBar = default!;
         private int _tabCount;
 
         private readonly List<ViewVariablesTrait> _traits = new();
@@ -20,6 +21,7 @@ namespace OpenNefia.Core.ViewVariables.Instances
         private CancellationTokenSource _refreshCancelToken = new();
 
         public object Object { get; private set; } = default!;
+        public WispControl TopBar => _topBar;
 
         public ViewVariablesInstanceObject(IViewVariablesManagerInternal vvm)
             : base(vvm) { }
@@ -56,19 +58,19 @@ namespace OpenNefia.Core.ViewVariables.Instances
 
             // Handle top bar.
             {
-                var headBox = new BoxContainer
+                _topBar = new BoxContainer
                 {
                     Orientation = LayoutOrientation.Horizontal
                 };
                 var name = MakeTopBar(top, bottom);
                 name.HorizontalExpand = true;
-                headBox.AddChild(name);
+                _topBar.AddChild(name);
 
                 _refreshButton = new Button { Text = "Refresh", /* ToolTip = "RMB to toggle auto-refresh." */ };
                 _refreshButton.OnPressed += _ => _refresh();
                 _refreshButton.OnKeyBindDown += OnButtonKeybindDown;
-                headBox.AddChild(_refreshButton);
-                vBoxContainer.AddChild(headBox);
+                _topBar.AddChild(_refreshButton);
+                vBoxContainer.AddChild(_topBar);
             }
 
             _tabs = new TabContainer();

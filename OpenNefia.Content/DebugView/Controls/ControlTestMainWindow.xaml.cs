@@ -9,13 +9,15 @@ using OpenNefia.Core.Game;
 using OpenNefia.Core.Maps;
 using OpenNefia.Core.Areas;
 
-namespace OpenNefia.Core.ControlTest
+namespace OpenNefia.Content.DebugView
 {
     public partial class ControlTestMainWindow : DefaultWindow
     {
         public ControlTestMainWindow()
         {
             OpenNefiaXamlLoader.Load(this);
+
+            CanClose = false;
 
             AllInOneButton.OnPressed += _ => WispRootLayer!.OpenWindowCentered(new AllInOneWindow());
             ItemListButton.OnPressed += _ => WispRootLayer!.OpenWindowCentered(new DefaultWindow());

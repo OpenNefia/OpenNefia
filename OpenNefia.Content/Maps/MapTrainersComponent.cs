@@ -8,6 +8,7 @@ using System.Collections.Generic;
 namespace OpenNefia.Content.Maps
 {
     [RegisterComponent]
+    [ComponentUsage(ComponentTarget.Map)]
     public class MapTrainersComponent : Component
     {
         /// <inheritdoc />

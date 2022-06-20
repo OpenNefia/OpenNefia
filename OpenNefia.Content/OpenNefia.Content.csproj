@@ -22,4 +22,41 @@
 
   <Import Project="..\MSBuild\OpenNefia.Analyzers.targets" />
   <Import Project="..\MSBuild\XamlIL.targets" />
+  <ItemGroup>
+    <EmbeddedResource Remove="DebugView\AllInOneWindow.xaml" />
+    <EmbeddedResource Remove="DebugView\ControlDebugWindow.xaml" />
+    <EmbeddedResource Remove="DebugView\ControlTestMainWindow.xaml" />
+    <EmbeddedResource Remove="DebugView\TextureRectWindow.xaml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AdditionalFiles Update="DebugView\Controls\AllInOneWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </AdditionalFiles>
+    <AdditionalFiles Update="DebugView\Controls\ControlDebugWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </AdditionalFiles>
+    <AdditionalFiles Update="DebugView\Controls\ControlTestMainWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </AdditionalFiles>
+    <AdditionalFiles Update="DebugView\Controls\TextureRectWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </AdditionalFiles>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="DebugView\Controls\AllInOneWindow.xaml.cs">
+      <DependentUpon>%(Filename)</DependentUpon>
+    </Compile>
+    <Compile Update="DebugView\Controls\ControlDebugWindow.xaml.cs">
+      <DependentUpon>%(Filename)</DependentUpon>
+    </Compile>
+    <Compile Update="DebugView\Controls\ControlTestMainWindow.xaml.cs">
+      <DependentUpon>%(Filename)</DependentUpon>
+    </Compile>
+    <Compile Update="DebugView\Controls\TextureRectWindow.xaml.cs">
+      <DependentUpon>%(Filename)</DependentUpon>
+    </Compile>
+  </ItemGroup>
 </Project>

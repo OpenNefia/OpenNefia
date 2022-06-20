@@ -1,4 +1,5 @@
-﻿using OpenNefia.Core.ViewVariables.Instances;
+﻿using OpenNefia.Core.UI.Wisp;
+using OpenNefia.Core.ViewVariables.Instances;
 
 namespace OpenNefia.Core.ViewVariables
 {
