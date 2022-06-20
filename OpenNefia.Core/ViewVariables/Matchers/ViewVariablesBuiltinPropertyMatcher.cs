@@ -77,6 +77,12 @@ namespace OpenNefia.Core.ViewVariables
                 return (VVPropEditor)Activator.CreateInstance(typeof(VVPropEditorIPrototype<>).MakeGenericType(type))!;
             }
 
+            if (type.IsGenericType && type.GetGenericTypeDefinition() == typeof(PrototypeId<>))
+            {
+                var prototypeType = type.GetGenericArguments().First();
+                return (VVPropEditor)Activator.CreateInstance(typeof(VVPropEditorIPrototypeId<>).MakeGenericType(prototypeType))!;
+            }
+
             if (typeof(ISelfSerialize).IsAssignableFrom(type))
             {
                 return (VVPropEditor)Activator.CreateInstance(typeof(VVPropEditorISelfSerializable<>).MakeGenericType(type))!;

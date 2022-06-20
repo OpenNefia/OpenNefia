@@ -326,5 +326,10 @@ namespace OpenNefia.Core.Maps
 
             return true;
         }
+
+        public override string ToString()
+        {
+            return $"{nameof(Map)}(id={Id}, entUid={MapEntityUid})";
+        }
     }
 }

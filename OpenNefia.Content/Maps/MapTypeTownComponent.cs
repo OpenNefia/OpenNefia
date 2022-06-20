@@ -6,6 +6,7 @@ using System.Collections.Generic;
 namespace OpenNefia.Content.Maps
 {
     [RegisterComponent]
+    [ComponentUsage(ComponentTarget.Map)]
     public class MapTypeTownComponent : Component
     {
         /// <inheritdoc />

@@ -11,6 +11,7 @@ using OpenNefia.Content.Prototypes;
 namespace OpenNefia.Content.Areas
 {
     [RegisterComponent]
+    [ComponentUsage(ComponentTarget.Area)]
     public class AreaEntranceComponent : Component
     {
         /// <inheritdoc />

@@ -1,5 +1,4 @@
 using OpenNefia.Core.GameObjects;
-using OpenNefia.Core.IoC;
 using OpenNefia.Core.UI.Wisp.Controls;
 using OpenNefia.Core.UI.Wisp.CustomControls;
 using OpenNefia.Core.UserInterface.XAML;
@@ -7,16 +6,24 @@ using OpenNefia.Core.Utility;
 
 namespace OpenNefia.Core.ViewVariables
 {
-    public sealed partial class ViewVariablesAddWindow : DefaultWindow
+    public sealed record VVComponentEntry(string Name, ComponentTarget Target) : IComparable<VVComponentEntry>
+    {
+        public int CompareTo(VVComponentEntry? other) => Name.CompareTo(other?.Name);
+    }
+
+    public sealed partial class ViewVariablesAddComponentWindow : DefaultWindow
     {
         protected string? _lastSearch;
-        private string[] _entries = Array.Empty<string>();
+        private VVComponentEntry[] _entries = Array.Empty<VVComponentEntry>();
+        private readonly ComponentTarget _componentTarget;
 
         public event Action<AddButtonPressedEventArgs>? AddButtonPressed;
 
-        public ViewVariablesAddWindow(IEnumerable<string> entries, LocaleKey title)
+        public ViewVariablesAddComponentWindow(IEnumerable<VVComponentEntry> entries, LocaleKey title, ComponentTarget componentTarget)
         {
             OpenNefiaXamlLoader.Load(this);
+
+            _componentTarget = componentTarget;
 
             Title = title;
 
@@ -24,6 +31,7 @@ namespace OpenNefia.Core.ViewVariables
             EntryItemList.OnItemDeselected += _ => RefreshAddButton();
             SearchLineEdit.OnTextChanged += OnSearchTextChanged;
             AddButton.OnPressed += OnAddButtonPressed;
+            ShowAllCheckBox.OnPressed += _ => PopulateWithLastSearch();
 
             Populate(entries);
 
@@ -35,7 +43,12 @@ namespace OpenNefia.Core.ViewVariables
             AddButton.Disabled = !EntryItemList.GetSelected().Any();
         }
 
-        public void Populate(IEnumerable<string> entries)
+        private void PopulateWithLastSearch()
+        {
+            Populate(_lastSearch);
+        }
+
+        public void Populate(IEnumerable<VVComponentEntry> entries)
         {
             _entries = entries.ToArray();
             Array.Sort(_entries);
@@ -49,12 +62,15 @@ namespace OpenNefia.Core.ViewVariables
             EntryItemList.Clear();
             AddButton.Disabled = true;
 
-            foreach (var entry in _entries)
+            foreach (var (name, target) in _entries)
             {
-                if (!string.IsNullOrEmpty(search) && !entry.Contains(search, StringComparison.InvariantCultureIgnoreCase))
+                if (!string.IsNullOrEmpty(search) && !name.Contains(search, StringComparison.InvariantCultureIgnoreCase))
                     continue;
 
-                EntryItemList.AddItem(entry);
+                if (!ShowAllCheckBox.Pressed && _componentTarget != target)
+                    continue;
+
+                EntryItemList.AddItem(name);
             }
         }
 

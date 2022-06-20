@@ -1,7 +1,8 @@
-﻿using OpenNefia.Core.DebugView;
-using OpenNefia.Core.GameObjects;
+﻿using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
+using OpenNefia.Core.Log;
 using OpenNefia.Core.Maths;
+using OpenNefia.Core.UI.Wisp;
 using OpenNefia.Core.UI.Wisp.CustomControls;
 using OpenNefia.Core.UserInterface;
 using OpenNefia.Core.Utility;
@@ -14,8 +15,6 @@ namespace OpenNefia.Core.ViewVariables
 {
     public sealed class ViewVariablesManager : IViewVariablesManagerInternal
     {
-        [Dependency] private readonly IEntityManager _entityManager = default!;
-        [Dependency] private readonly IDebugViewLayer _debugView = default!;
         [Dependency] private readonly IUserInterfaceManager _uiManager = default!;
 
         private readonly Dictionary<Type, HashSet<Type>> _cachedTraits = new();
@@ -72,8 +71,19 @@ namespace OpenNefia.Core.ViewVariables
             return new VVPropEditorDummy();
         }
 
-        public void OpenVV(object obj)
+        public void OpenVV(object obj, IWispLayer? layer = null)
         {
+            // TODO all layers should inherit IWispLayer at some point
+            if (layer == null)
+            {
+                layer = _uiManager.CurrentLayer as IWispLayer;
+                if (layer == null)
+                {
+                    Logger.ErrorS("vv", $"Can't open ViewVariables in this context: {_uiManager.CurrentLayer}");
+                    return;
+                }
+            }
+
             ViewVariablesInstance instance = new ViewVariablesInstanceObject(this);
 
             var window = new DefaultWindow { Title = "View Variables" };
@@ -84,9 +94,9 @@ namespace OpenNefia.Core.ViewVariables
 
             DefaultWindow? lastWindow = GetLastOpenedWindow();
             if (lastWindow != null)
-                window.OpenAt(_debugView, lastWindow.Position + (20, 20));
+                window.OpenAt(layer, lastWindow.Position + (20, 20));
             else
-                window.OpenCentered(_debugView);
+                window.OpenCentered(layer);
         }
 
         private DefaultWindow? GetLastOpenedWindow()

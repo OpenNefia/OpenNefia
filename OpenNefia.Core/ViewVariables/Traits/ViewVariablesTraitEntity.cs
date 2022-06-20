@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using OpenNefia.Core.Areas;
-using OpenNefia.Core.DebugView;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Locale;
@@ -25,7 +24,6 @@ namespace OpenNefia.Core.ViewVariables.Traits
     {
         [Dependency] private readonly IEntityManager _entityManager = default!;
         [Dependency] private readonly IComponentFactory _componentFactory = default!;
-        [Dependency] private readonly IDebugViewLayer _debugView = default!;
 
         private EntityUid _entity = default!;
 
@@ -34,6 +32,7 @@ namespace OpenNefia.Core.ViewVariables.Traits
         private BoxContainer _components = default!;
         private Button _componentsAddButton = default!;
         private LineEdit _componentsSearchBar = default!;
+        private IWispLayer _layer = default!;
 
         public ViewVariablesTraitEntity()
         {
@@ -45,53 +44,7 @@ namespace OpenNefia.Core.ViewVariables.Traits
             base.Initialize(instance);
 
             _entity = (EntityUid)instance.Object;
-
-            // Handle top bar displaying type and ToString().
-            /*
-            {
-                WispControl top;
-                var stringified = PrettyPrint.PrintUserFacingWithType(_entity, out var typeStringified);
-                if (typeStringified != "")
-                {
-                    //var smallFont = new VectorFont(_resourceCache.GetResource<FontResource>("/Fonts/CALIBRI.TTF"), 10);
-                    // Custom ToString() implementation.
-                    var headBox = new BoxContainer
-                    {
-                        Orientation = LayoutOrientation.Vertical,
-                        SeparationOverride = 0
-                    };
-                    headBox.AddChild(new Label { Text = stringified, ClipText = true });
-                    headBox.AddChild(new Label
-                    {
-                        Text = typeStringified,
-                        //    FontOverride = smallFont,
-                        FontColorOverride = Color.DarkGray,
-                        ClipText = true
-                    });
-                    top = headBox;
-                }
-                else
-                {
-                    top = new Label { Text = stringified };
-                }
-
-                if (_entityManager.TryGetComponent(_entity, out ChipComponent? chip))
-                {
-                    var hBox = new BoxContainer
-                    {
-                        Orientation = LayoutOrientation.Horizontal
-                    };
-                    top.HorizontalExpand = true;
-                    hBox.AddChild(top);
-                    hBox.AddChild(new ChipView { Chip = chip });
-                    vBoxContainer.AddChild(hBox);
-                }
-                else
-                {
-                    vBoxContainer.AddChild(top);
-                }
-            }
-            */
+            _layer = Instance.TopBar.WispRootLayer!; // TODO remove
 
             _components = new BoxContainer
             {
@@ -100,7 +53,31 @@ namespace OpenNefia.Core.ViewVariables.Traits
             };
             instance.AddTab(Loc.GetString("OpenNefia.ViewVariables.Entity.Tab.Components"), _components);
 
+            MakeTopBar(instance);
+
             PopulateComponents();
+        }
+
+        public void MakeTopBar(ViewVariablesInstanceObject instance)
+        {
+            var headBox = instance.TopBar;
+            var stringified = PrettyPrint.PrintUserFacingWithType(_entity, out var typeStringified);
+            if (typeStringified != "")
+            {
+                //var smallFont = new VectorFont(_resourceCache.GetResource<FontResource>("/Fonts/CALIBRI.TTF"), 10);
+                // Custom ToString() implementation.
+                headBox.AddChild(new Label { Text = stringified, ClipText = true });
+            }
+
+            if (_entityManager.TryGetComponent(_entity, out ChipComponent? chip))
+            {
+                var hBox = new BoxContainer
+                {
+                    Orientation = LayoutOrientation.Horizontal
+                };
+                headBox.AddChild(hBox);
+                hBox.AddChild(new ChipView { Chip = chip });
+            }
         }
 
         public override void Refresh()
@@ -192,7 +169,7 @@ namespace OpenNefia.Core.ViewVariables.Traits
             _addComponentWindow = new ViewVariablesAddComponentWindow(GetValidComponentsForAdding(), Loc.GetString("OpenNefia.ViewVariables.Entity.AddWindowComponents"), target);
             _addComponentWindow.AddButtonPressed += TryAdd;
 
-            _addComponentWindow.OpenCentered(_debugView);
+            _addComponentWindow.OpenCentered(_layer);
         }
 
         /// <summary>
@@ -200,18 +177,15 @@ namespace OpenNefia.Core.ViewVariables.Traits
         /// </summary>
         private IEnumerable<VVComponentEntry> GetValidComponentsForAdding()
         {
-
             foreach (var type in _componentFactory.AllRegisteredTypes)
             {
-                var target = ComponentTarget.Normal;
-
                 if (_entityManager.HasComponent(_entity, type))
                     continue;
 
+                var target = ComponentTarget.Normal;
+
                 if (type.TryGetCustomAttribute<ComponentUsageAttribute>(out var usageAttr))
-                {
                     target = usageAttr.Target;
-                }
 
                 yield return new(_componentFactory.GetRegistration(type).Name, target);
             }

@@ -9,6 +9,7 @@ using OpenNefia.Content.Material;
 namespace OpenNefia.Content.Maps
 {
     [RegisterComponent]
+    [ComponentUsage(ComponentTarget.Map)]
     public class MapCommonComponent : Component, IHspIds<int>
     {
         public override string Name => "MapCommon";

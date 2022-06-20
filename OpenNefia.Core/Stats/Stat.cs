@@ -88,5 +88,10 @@ namespace OpenNefia.Core.Stats
         {
             return !(left == right);
         }
+
+        public override string ToString()
+        {
+            return $"{Buffed}({Base})";
+        }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Love;
+using OpenNefia.Core.Maths;
 using OpenNefia.Core.Serialization.Manager.Attributes;
 using OpenNefia.Core.Utility;
 using System;
@@ -59,21 +60,16 @@ namespace OpenNefia.Core.Rendering
         public bool TryGetTile(TileSpecifier spec, [NotNullWhen(true)] out AtlasTile? tile)
             => TryGetTile(spec.AtlasIndex, out tile);
 
-        public bool GetTileSize(TileSpecifier spec, out int width, out int height)
+        public Vector2i GetTileSize(TileSpecifier spec)
         {
             if (!TryGetTile(spec, out var tile))
             {
-                width = 0;
-                height = 0;
-                return false;
+                return Vector2i.Zero;
             }
 
             var rect = tile.Quad.GetViewport();
 
-            width = (int)rect.Width;
-            height = (int)rect.Height;
-
-            return true;
+            return (Vector2i)(Maths.Vector2)rect.Size;
         }
 
         public void Dispose()

@@ -21,7 +21,7 @@ namespace OpenNefia.Core.ViewVariables.Editors
                 MinSize = new Vector2(240, 0),
             };
 
-            hBoxContainer.AddChild(new Label {Text = "grid: "});
+            hBoxContainer.AddChild(new Label {Text = "map: "});
 
             var entityManager = IoCManager.Resolve<IEntityManager>();
 

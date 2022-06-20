@@ -7,7 +7,7 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace OpenNefia.Core.Areas
 {
-    public delegate void ActiveAreaChangedDelegate(IArea newArea, IArea? oldArea);
+    public delegate void ActiveAreaChangedDelegate(IArea? newArea, IArea? oldArea);
 
     /// <summary>
     /// Manages areas.
@@ -17,7 +17,7 @@ namespace OpenNefia.Core.Areas
         IReadOnlyDictionary<AreaId, IArea> LoadedAreas { get; }
         IArea? ActiveArea { get; }
 
-        event ActiveAreaChangedDelegate? ActiveAreaChanged;
+        event ActiveAreaChangedDelegate? OnActiveAreaChanged;
 
         bool AreaExists(AreaId areaId);
         IArea CreateArea(PrototypeId<EntityPrototype>? areaEntityProtoId, GlobalAreaId? globalId = null, AreaId? parent = null);
@@ -49,6 +49,9 @@ namespace OpenNefia.Core.Areas
         /// All loaded areas. Used for serialization.
         /// </summary>
         new Dictionary<AreaId, IArea> LoadedAreas { get; }
+
+        void Initialize();
+        void Shutdown();
 
         /// <summary>
         /// The next free area ID to use when generating new areas.
@@ -96,7 +99,7 @@ namespace OpenNefia.Core.Areas
         private readonly Dictionary<MapId, (IArea, AreaFloorId)> _mapsToAreas = new();
 
         /// <inheritdoc/>
-        public event ActiveAreaChangedDelegate? ActiveAreaChanged;
+        public event ActiveAreaChangedDelegate? OnActiveAreaChanged;
 
         /// <inheritdoc/>
         IReadOnlyDictionary<AreaId, IArea> IAreaManager.LoadedAreas => _areas;
@@ -105,10 +108,47 @@ namespace OpenNefia.Core.Areas
         Dictionary<AreaId, IArea> IAreaManagerInternal.LoadedAreas => _areas;
 
         /// <inheritdoc/>
-        public IArea? ActiveArea => null;
+        public IArea? ActiveArea
+        {
+            get
+            {
+                if (_mapManager.ActiveMap == null)
+                    return null;
+
+                if (!TryGetAreaOfMap(_mapManager.ActiveMap, out var area))
+                    return null;
+
+                return area;
+            }
+        }
 
         /// <inheritdoc/>
         public int NextAreaId { get; set; } = (int)AreaId.FirstId;
+
+        /// <inheritdoc/>
+        public void Initialize()
+        {
+            _mapManager.OnActiveMapChanged += OnActiveMapChanged;
+        }
+
+        /// <inheritdoc/>
+        public void Shutdown()
+        {
+            _mapManager.OnActiveMapChanged -= OnActiveMapChanged;
+        }
+
+        private void OnActiveMapChanged(IMap newMap, IMap? oldMap)
+        {
+            IArea? oldArea = null;
+            IArea? newArea;
+
+            if (oldMap != null)
+                TryGetAreaOfMap(oldMap, out oldArea);
+            TryGetAreaOfMap(newMap, out newArea);
+
+            if (oldArea?.Id != newArea?.Id)
+                OnActiveAreaChanged?.Invoke(newArea, oldArea);
+        }
 
         /// <inheritdoc/>
         public AreaId GenerateAreaId()

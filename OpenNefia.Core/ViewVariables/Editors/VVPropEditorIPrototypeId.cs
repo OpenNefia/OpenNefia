@@ -8,8 +8,7 @@ using static OpenNefia.Core.UI.Wisp.Controls.BoxContainer;
 
 namespace OpenNefia.Core.ViewVariables.Editors
 {
-    public sealed class VVPropEditorIPrototypeId<T> : VVPropEditor
-        where T : class, IPrototype
+    public sealed class VVPropEditorIPrototype<T> : VVPropEditor
     {
         private object? _localValue;
 
@@ -31,7 +30,7 @@ namespace OpenNefia.Core.ViewVariables.Editors
                 HorizontalExpand = true,
                 HorizontalAlignment = WispControl.HAlignment.Stretch,
                 PlaceHolder = "Prototype ID",
-                Text = _localValue?.ToString() ?? string.Empty,
+                Text = (value as IPrototype)?.ID ?? string.Empty,
                 Editable = !ReadOnly
             };
 
@@ -73,7 +72,7 @@ namespace OpenNefia.Core.ViewVariables.Editors
                 list.Add(prototype.ID);
             }
 
-            _addWindow = new ViewVariablesAddWindow(list, "Set Prototype ID");
+            _addWindow = new ViewVariablesAddWindow(list, "Set Prototype");
             _addWindow.AddButtonPressed += OnAddButtonPressed;
             _addWindow.OpenCentered(_lineEdit.WispRootLayer!); // TODO
         }
@@ -90,18 +89,14 @@ namespace OpenNefia.Core.ViewVariables.Editors
             var vvm = IoCManager.Resolve<IViewVariablesManager>();
 
             if (_localValue != null)
-            {
-                var protoMan = IoCManager.Resolve<IPrototypeManager>();
-                if (protoMan.TryIndex(typeof(T), _localValue.ToString()!, out var prototype))
-                    vvm.OpenVV(prototype);
-            }
+                vvm.OpenVV(_localValue);
         }
 
         private void SetNewValue(string text)
         {
             var protoMan = IoCManager.Resolve<IPrototypeManager>();
-            if (protoMan.TryIndex(typeof(T), text, out var prototype))
-                ValueChanged(((T)prototype).GetStrongID(), false);
+            if(protoMan.TryIndex(typeof(T), text, out var prototype))
+                ValueChanged(prototype, false);
 
             return;
         }

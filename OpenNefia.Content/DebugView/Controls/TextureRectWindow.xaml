@@ -1,5 +1,5 @@
 ﻿<DefaultWindow xmlns="https://opennefia.io"
-               Class="OpenNefia.Core.ControlTest.TextureRectWindow"
+               Class="OpenNefia.Content.DebugView.TextureRectWindow"
                Title="TextureRect"
                MinSize ="500 400">
     <ScrollContainer VerticalExpand="True">

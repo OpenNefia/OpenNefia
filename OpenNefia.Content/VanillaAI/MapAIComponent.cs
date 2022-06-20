@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 namespace OpenNefia.Content.VanillaAI
 {
     [RegisterComponent]
+    [ComponentUsage(ComponentTarget.Map)]
     public class MapVanillaAIComponent : Component
     {
         public override string Name => "MapVanillaAI";

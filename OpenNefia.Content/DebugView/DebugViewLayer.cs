@@ -5,13 +5,17 @@ using OpenNefia.Core.UI.Element;
 using OpenNefia.Core.UI.Wisp.Controls;
 using OpenNefia.Core.UserInterface;
 using static OpenNefia.Core.UI.Wisp.WispControl;
-using OpenNefia.Core.ControlTest;
 using OpenNefia.Core.UI.Wisp;
-using OpenNefia.Core.ViewVariables;
+using OpenNefia.Content.UI.Layer;
 using OpenNefia.Core.IoC;
+using OpenNefia.Core.Log;
 using OpenNefia.Core.UI.Layer;
+using OpenNefia.Core.Maps;
+using OpenNefia.Core.Maths;
+using OpenNefia.Core.GameObjects;
+using OpenNefia.Core.ViewVariables;
 
-namespace OpenNefia.Core.DebugView
+namespace OpenNefia.Content.DebugView
 {
     public interface IDebugViewLayer : IUiLayerWithResult<UINone, UINone>, IWispLayer
     {
@@ -19,11 +23,17 @@ namespace OpenNefia.Core.DebugView
 
     public sealed class DebugViewLayer : WispLayerWithResult<UINone, UINone>, IDebugViewLayer
     {
+        // The dependency on IFieldLayer is why this lives in content instead of core.
+        [Dependency] private readonly IFieldLayer _field = default!;
+        [Dependency] private readonly IMapManager _mapManager = default!;
+        [Dependency] private readonly IEntityLookup _lookup = default!;
+        [Dependency] private readonly IViewVariablesManager _viewVariables = default!;
+
         private bool _initialized = false;
 
         public DebugViewLayer()
         {
-            OnKeyBindDown += KeyBindDown;
+            OnKeyBindDown += HandleKeyBindDown;
         }
 
         public void Initialize()
@@ -78,11 +88,33 @@ namespace OpenNefia.Core.DebugView
             Initialize();
         }
 
-        private void KeyBindDown(GUIBoundKeyEventArgs args)
+        private void HandleKeyBindDown(GUIBoundKeyEventArgs args)
         {
             if (args.Function == EngineKeyFunctions.UICancel)
             {
                 Cancel();
+            }
+            else if (args.Function == EngineKeyFunctions.UIRightClick)
+            {
+                if (_mapManager.ActiveMap != null)
+                {
+                    var pos = _field.Camera.VisibleScreenToTile(args.PointerLocation.Position * UIScale);
+                    Logger.InfoS("debugview", $"{pos}");
+                    OnRightClick(_mapManager.ActiveMap, pos);
+                }
+            }
+        }
+
+        private void OnRightClick(IMap map, Vector2i pos)
+        {
+            if (!map.IsInBounds(pos))
+                return;
+
+            var coords = map.AtPos(pos);
+
+            foreach (var entity in _lookup.GetLiveEntitiesAtCoords(coords))
+            {
+                _viewVariables.OpenVV(entity, this);
             }
         }
     }

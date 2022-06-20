@@ -12,6 +12,6 @@ namespace OpenNefia.Content.Charas
         public override string Name => "PortraitComponent";
 
         [DataField("id")]
-        public PrototypeId<PortraitPrototype> PortraitID = Protos.Portrait.Default;
+        public PrototypeId<PortraitPrototype> PortraitID { get; set; } = Protos.Portrait.Default;
     }
 }

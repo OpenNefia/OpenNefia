@@ -11,6 +11,7 @@ using static OpenNefia.Core.Prototypes.EntityPrototype;
 namespace OpenNefia.Content.Maps
 {
     [RegisterComponent]
+    [ComponentUsage(ComponentTarget.Map)]
     public class MapAutogenCharasComponent : Component
     {
         public override string Name => "MapAutogenCharas";
@@ -24,6 +25,7 @@ namespace OpenNefia.Content.Maps
     }
 
     [RegisterComponent]
+    [ComponentUsage(ComponentTarget.Map)]
     public class MapAutogenEntitiesComponent : Component
     {
         public override string Name => "MapAutogenEntities";

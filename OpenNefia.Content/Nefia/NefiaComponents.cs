@@ -14,23 +14,6 @@ namespace OpenNefia.Content.Nefia
 {
     [RegisterComponent]
     [ComponentUsage(ComponentTarget.Map)]
-    public class NefiaGenParamsComponent : Component
-    {
-        /// <inheritdoc />
-        public override string Name => "NefiaGenParams";
-
-        [DataField]
-        public float MapLevel { get; set; } = 1;
-
-        [DataField]
-        public bool HasMonsterHouses { get; set; } = false;
-
-        [DataField]
-        public int MaxGenerationAttempts { get; set; } = 2000;
-    }
-
-    [RegisterComponent]
-    [ComponentUsage(ComponentTarget.Map)]
     public class NefiaCrowdDensityModifierComponent : Component
     {
         /// <inheritdoc />
