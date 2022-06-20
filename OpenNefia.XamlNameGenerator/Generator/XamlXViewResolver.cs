@@ -66,21 +66,39 @@ internal class XamlXViewResolver : IViewResolver, IXamlAstVisitor
                 namedProperty.Name == "Class" &&
                 property.Values[0] is XamlAstTextNode text)
             {
+                var fullClassName = text.Text;
+
+                // "My.GenericClass{T1, T2, T3}"
+                var generics = new List<string>();
+                var genericSuffix = string.Empty;
+                var genericBracePos = text.Text.IndexOf('{');
+                if (genericBracePos > 0)
+                {
+                    var genericStr = fullClassName.Substring(genericBracePos);
+                    fullClassName = fullClassName.Substring(0, genericBracePos);
+
+                    // In the CLR, generic types are identified like "List`1" for 1 generic parameter,
+                    // "Dictionary`2" for 2 parameters, and so on.
+                    // https://stackoverflow.com/a/1483451
+                    generics = genericStr.Trim('{', '}').Split(',').Select(s => s.Trim()).ToList();
+                    genericSuffix = $"`{generics.Count}";
+                }
+
                 if (_checkTypeValidity)
                 {
-                    var existingType = _typeSystem.FindType(text.Text);
+                    var existingType = _typeSystem.FindType(fullClassName + genericSuffix);
                     if (existingType == null)
                     {
-                        _onTypeInvalid?.Invoke(text.Text);
+                        _onTypeInvalid?.Invoke(fullClassName + genericSuffix);
                         return node;
                     }
                 }
 
-                var split = text.Text.Split('.');
+                var split = fullClassName.Split('.');
                 var nameSpace = string.Join(".", split.Take(split.Length - 1));
                 var className = split.Last();
 
-                _resolvedClass = new ResolvedView(className, clrType, nameSpace, _xaml);
+                _resolvedClass = new ResolvedView(className, generics, clrType, nameSpace, _xaml);
                 return node;
             }
         }

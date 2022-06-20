@@ -5,5 +5,5 @@ namespace OpenNefia.XamlNameGenerator.Domain;
 
 internal interface ICodeGenerator
 {
-    string GenerateCode(string className, string nameSpace, IXamlType XamlType, IEnumerable<ResolvedName> names);
+    string GenerateCode(string className, IList<string> generics, string nameSpace, IXamlType XamlType, IEnumerable<ResolvedName> names);
 }

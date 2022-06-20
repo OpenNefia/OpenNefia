@@ -193,6 +193,8 @@ namespace OpenNefia.XamlInjectors
 
             foreach (var res in group.Resources.Where(CheckXamlName))
             {
+                Console.WriteLine($"[XAML] {res.FilePath}");
+
                 try
                 {
                     results.Add(CompileSingleResource(res, contextClass, builder));

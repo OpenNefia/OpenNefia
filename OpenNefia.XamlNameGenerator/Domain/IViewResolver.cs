@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using XamlX.Ast;
 using XamlX.TypeSystem;
 
@@ -8,4 +9,4 @@ internal interface IViewResolver
     ResolvedView ResolveView(string xaml);
 }
 
-internal record ResolvedView(string ClassName, IXamlType XamlType, string Namespace, XamlDocument Xaml);
+internal record ResolvedView(string ClassName, IList<string> Generics, IXamlType XamlType, string Namespace, XamlDocument Xaml);
