@@ -422,6 +422,17 @@ namespace OpenNefia.Core.UI.Wisp
         /// <seealso cref="RectDrawClipMargin"/>
         public bool RectClipContent { get; set; }
 
+        /// <summary>
+        ///     A margin around this control. If this control + this margin is outside its parent's <see cref="RectClipContent" />,
+        ///     it will not be drawn.
+        /// </summary>
+        /// <remarks>
+        ///     A control rectangle does not necessarily have to be listened to for drawing.
+        ///     So the problem is, how do we know where to stop trying to draw the control if it's clipped away?
+        /// </remarks>
+        /// <seealso cref="RectClipContent"/>
+        public int RectDrawClipMargin { get; set; } = 10;
+
         // TODO: remove GetPreferredSize
         public sealed override void GetPreferredSize(out Vector2 size)
         {

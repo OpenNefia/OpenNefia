@@ -160,13 +160,27 @@ namespace OpenNefia.Core.UI.Wisp
             if (!control.Visible)
                 return;
 
+            if (_currentScissor != null)
+            {
+                // Manual clip test with scissor region as optimization.
+                var controlBox = control.GlobalPixelRect;
+                var clipMargin = control.RectDrawClipMargin;
+                var clipTestBox = new UIBox2i(controlBox.Left - clipMargin, controlBox.Top - clipMargin,
+                    controlBox.Right + clipMargin, controlBox.Bottom + clipMargin);
+
+                if (!_currentScissor.Value.Intersects(clipTestBox))
+                {
+                    return;
+                }
+            }
+
             // TODO Love.Graphics.Push!
             // WispControl.Draw() is supposed to use local coordinates
             // (no GlobalPosition/X/Y)
 
             if (control.RectClipContent && !DebugClipping)
             {
-                PushScissor(control.GlobalPixelRect);
+                PushScissor(control.GlobalRect);
             }
 
             tint *= control.ActualTint;

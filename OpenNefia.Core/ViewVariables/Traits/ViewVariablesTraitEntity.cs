@@ -32,7 +32,6 @@ namespace OpenNefia.Core.ViewVariables.Traits
         private BoxContainer _components = default!;
         private Button _componentsAddButton = default!;
         private LineEdit _componentsSearchBar = default!;
-        private IWispLayer _layer = default!;
 
         public ViewVariablesTraitEntity()
         {
@@ -44,7 +43,6 @@ namespace OpenNefia.Core.ViewVariables.Traits
             base.Initialize(instance);
 
             _entity = (EntityUid)instance.Object;
-            _layer = Instance.TopBar.WispRootLayer!; // TODO remove
 
             _components = new BoxContainer
             {
@@ -169,7 +167,7 @@ namespace OpenNefia.Core.ViewVariables.Traits
             _addComponentWindow = new ViewVariablesAddComponentWindow(GetValidComponentsForAdding(), Loc.GetString("OpenNefia.ViewVariables.Entity.AddWindowComponents"), target);
             _addComponentWindow.AddButtonPressed += TryAdd;
 
-            _addComponentWindow.OpenCentered(_layer);
+            _addComponentWindow.OpenCentered(_components.WispRootLayer!); // TODO
         }
 
         /// <summary>

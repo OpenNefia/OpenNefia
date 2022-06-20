@@ -26,7 +26,6 @@ namespace OpenNefia.Content.DebugView
         // The dependency on IFieldLayer is why this lives in content instead of core.
         [Dependency] private readonly IFieldLayer _field = default!;
         [Dependency] private readonly IMapManager _mapManager = default!;
-        [Dependency] private readonly IEntityLookup _lookup = default!;
         [Dependency] private readonly IViewVariablesManager _viewVariables = default!;
 
         private bool _initialized = false;
@@ -112,7 +111,9 @@ namespace OpenNefia.Content.DebugView
 
             var coords = map.AtPos(pos);
 
-            foreach (var entity in _lookup.GetLiveEntitiesAtCoords(coords))
+            var lookup = EntitySystem.Get<IEntityLookup>();
+
+            foreach (var entity in lookup.GetLiveEntitiesAtCoords(coords))
             {
                 _viewVariables.OpenVV(entity, this);
             }

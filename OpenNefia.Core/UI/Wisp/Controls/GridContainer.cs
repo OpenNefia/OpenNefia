@@ -25,7 +25,7 @@ namespace OpenNefia.Core.UI.Wisp.Controls
         /// how items will fill them out as they are added.
         /// This is set depending on whether you have specified Columns or Rows.
         /// </summary>
-        public Dimension LimitedDimension => _limitDimension;
+        public Dimension LimitedDimension { get => _limitDimension; set => _limitDimension = value; }
         /// <summary>
         /// Opposite dimension of LimitedDimension
         /// </summary>
@@ -127,6 +127,25 @@ namespace OpenNefia.Core.UI.Wisp.Controls
             set => SetMaxSize(Dimension.Row, value);
         }
 
+        private bool _autoExpand;
+
+        /// <summary>
+        /// If true, expand the grid based on its size. Overrides <see cref="MaxGridWidth"/>/ and <see cref="MaxGridHeight"/>.
+        /// </summary>
+        public bool AutoExpand
+        {
+            get => _autoExpand;
+            set
+            {
+                _autoExpand = value;
+
+                if (_autoExpand)
+                {
+                    _limitType = LimitType.Size;
+                }
+            }
+        }
+
         private int? _vSeparationOverride;
 
         [SuppressMessage("ReSharper", "StringLiteralTypo")]
@@ -149,6 +168,14 @@ namespace OpenNefia.Core.UI.Wisp.Controls
 
         private float GetLimitPixelSize()
         {
+            if (AutoExpand)
+            {
+                if (_limitDimension == Dimension.Column)
+                    return PixelWidth;
+                else
+                    return PixelHeight;
+            }
+
             return _limitSize * UIScale;
         }
 
