@@ -1,0 +1,11 @@
+﻿<DefaultWindow xmlns="https://opennefia.io"
+               Class="OpenNefia.Content.DebugView.TilePickerWindow"
+               Title="Tile Picker"
+               ExactSize ="400 300">
+    <ScrollContainer VerticalExpand="True">
+        <BoxContainer Orientation="Vertical">
+            <GridContainer AutoExpand="True" Name="TileGrid">
+            </GridContainer>
+        </BoxContainer>
+    </ScrollContainer>
+</DefaultWindow>

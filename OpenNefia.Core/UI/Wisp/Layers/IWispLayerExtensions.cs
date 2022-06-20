@@ -1,4 +1,5 @@
-﻿using OpenNefia.Core.UI.Wisp.CustomControls;
+﻿using OpenNefia.Core.Maths;
+using OpenNefia.Core.UI.Wisp.CustomControls;
 
 namespace OpenNefia.Core.UI.Wisp
 {
@@ -17,6 +18,11 @@ namespace OpenNefia.Core.UI.Wisp
         public static void OpenWindowToLeft(this IWispLayer layer, BaseWindow window)
         {
             window.OpenToLeft(layer);
+        }
+
+        public static void OpenWindowAt(this IWispLayer layer, BaseWindow window, Vector2 pos)
+        {
+            window.OpenAt(layer, pos);
         }
     }
 }

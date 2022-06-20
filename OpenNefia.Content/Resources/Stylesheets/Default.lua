@@ -201,6 +201,22 @@ ContainerButton {
     },
 }
 
+ContainerButton ".tileButton" {
+    tint = "#FFFFFF00",
+
+    rule ":hover" {
+        tint = "#44AAAAA0",
+    },
+
+    rule ":pressed" {
+        tint = "#AAAA44A0",
+    },
+
+    rule ":disabled" {
+        tint = "#30313CA0",
+    },
+}
+
 TextureRect ".optionTriangle" {
     texture = asset "Core.WispOptionButtonTriangle",
 }
