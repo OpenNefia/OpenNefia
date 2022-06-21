@@ -1,5 +1,6 @@
 ﻿using OpenNefia.Content.Currency;
 using OpenNefia.Content.EntityGen;
+using OpenNefia.Content.Factions;
 using OpenNefia.Content.Feats;
 using OpenNefia.Content.GameObjects;
 using OpenNefia.Content.Inventory;
@@ -64,6 +65,9 @@ namespace OpenNefia.Content.CharaMake
                 if (EntityManager.TryGetComponent(item, out IdentifyComponent identify))
                     identify.IdentifyState = IdentifyState.Full;
             }
+
+            var faction = EntityManager.EnsureComponent<FactionComponent>(uid);
+            faction.RelationToPlayer = Relation.Ally;
 
             _refreshSys.Refresh(uid);
 

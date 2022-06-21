@@ -92,8 +92,6 @@ namespace OpenNefia.Content.CharaMake
             var customName = EntityManager.EnsureComponent<CustomNameComponent>(playerEntity);
             customName.CustomName = "????";
 
-            _parties.EnsurePartyAndSetLeader(playerEntity);
-
             AddPlayerOnlyComponents(playerEntity);
 
             _entityGen.FireGeneratedEvent(playerEntity);

@@ -2,15 +2,6 @@
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Log;
 using OpenNefia.Core.UserInterface;
-using OpenNefia.Content.Prototypes;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using OpenNefia.Content.EntityGen;
-using OpenNefia.Core.Maps;
-using OpenNefia.Core.SaveGames;
 using OpenNefia.Core.UI;
 using OpenNefia.Core.Utility;
 

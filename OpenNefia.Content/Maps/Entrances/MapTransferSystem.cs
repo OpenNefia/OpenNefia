@@ -55,21 +55,10 @@ namespace OpenNefia.Content.Maps
 
             // TODO: dunno if the potential for an expensive map load on property setting
             // is desirable...
-            if (_gameSession.IsPlayer(uid) && spatial.MapID != MapId.Nullspace)
+            if (_gameSession.IsPlayer(uid) && spatial.MapID != MapId.Nullspace && spatial.MapID != MapId.Global)
             {
                 DoMapTransfer(uid, spatial);
             }
-        }
-
-        private void RunMapInitializeEvents()
-        {
-            // TODO
-        }
-
-        private void TransferPlayerParty(EntityUid player, SpatialComponent spatial)
-        {
-            // TODO
-            _mapManager.SetActiveMap(spatial.MapID);
         }
 
         private void DoMapTransfer(EntityUid player, SpatialComponent spatial)
@@ -102,6 +91,17 @@ namespace OpenNefia.Content.Maps
                     _mapLoader.DeleteMap(oldMap.Id, save);
                 }
             }
+        }
+
+        private void TransferPlayerParty(EntityUid player, SpatialComponent spatial)
+        {
+            // TODO
+            _mapManager.SetActiveMap(spatial.MapID);
+        }
+
+        private void RunMapInitializeEvents()
+        {
+            // TODO
         }
     }
 }

@@ -23,6 +23,7 @@ namespace OpenNefia.Content.VanillaAI
         [Dependency] private readonly IEntityManager _entMan = default!;
         [Dependency] private readonly IGameSessionManager _gameSession = default!;
         [Dependency] private readonly IVisibilitySystem _visibility = default!;
+        [Dependency] private readonly IPartySystem _parties = default!;
 
         private IAssetInstance AssetHPBarAlly = default!;
         private IAssetInstance AssetHPBarOther = default!;
@@ -61,8 +62,6 @@ namespace OpenNefia.Content.VanillaAI
 
             _entries.Clear();
 
-            var playerParty = EntityManager.EnsureComponent<PartyComponent>(_gameSession.Player!);
-
             foreach (var (spatial, skills) in _lookup.EntityQueryInMap<SpatialComponent, SkillsComponent>(_map.Id))
             {
                 if (!_entMan.IsAlive(spatial.Owner) || !_visibility.CanSeeEntity(_gameSession.Player!, spatial.Owner))
@@ -70,7 +69,7 @@ namespace OpenNefia.Content.VanillaAI
 
                 IAssetInstance assetInstance;
 
-                if (playerParty.Members.Contains(spatial.Owner))
+                if (_parties.IsInPlayerParty(spatial.Owner))
                     assetInstance = AssetHPBarAlly;
                 else
                     assetInstance = AssetHPBarOther;
