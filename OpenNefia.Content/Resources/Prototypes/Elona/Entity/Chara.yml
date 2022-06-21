@@ -24,7 +24,7 @@
     tables:
       chara:
         coefficient: 400
-        fltselect: Sp
+        fltselect: Elona.Sp
         rarity: 100000
   - type: Chara
     race: Elona.Slime
@@ -44,7 +44,7 @@
     tables:
       chara:
         coefficient: 400
-        fltselect: Shop
+        fltselect: Elona.Shop
         rarity: 100000
   - type: Tag
     tags:
@@ -79,7 +79,7 @@
     tables:
       chara:
         coefficient: 400
-        fltselect: SpUnique
+        fltselect: Elona.SpUnique
         rarity: 100000
   - type: Tag
     tags:
@@ -245,7 +245,7 @@
     tables:
       chara:
         coefficient: 400
-        fltselect: Town
+        fltselect: Elona.Town
         rarity: 100000
   - type: Tag
     tags:
@@ -273,7 +273,7 @@
     tables:
       chara:
         coefficient: 400
-        fltselect: Town
+        fltselect: Elona.Town
         rarity: 100000
   - type: Tag
     tags:
@@ -438,7 +438,7 @@
     tables:
       chara:
         coefficient: 400
-        fltselect: Shop
+        fltselect: Elona.Shop
         rarity: 100000
   - type: Tag
     tags:
@@ -600,7 +600,7 @@
     tables:
       chara:
         coefficient: 400
-        fltselect: SpUnique
+        fltselect: Elona.SpUnique
         rarity: 1000
   - type: Tag
     tags:
@@ -665,7 +665,7 @@
     tables:
       chara:
         coefficient: 400
-        fltselect: Unique
+        fltselect: Elona.Unique
         rarity: 100000
   - type: CreaturePack
     category: Elona.Orc
@@ -674,6 +674,7 @@
     class: Elona.Warrior
   - type: Faction
     relation: Enemy
+  - type: UniqueCompanion
 - type: Entity
   id: Elona.CharaMadScientist
   parent: BaseChara
@@ -690,7 +691,7 @@
     tables:
       chara:
         coefficient: 400
-        fltselect: Unique
+        fltselect: Elona.Unique
         rarity: 1000
   - type: Tag
     tags:
@@ -703,6 +704,7 @@
     relation: Enemy
   - type: Dialog
     portrait: Elona.Man7
+  - type: UniqueCompanion
 - type: Entity
   id: Elona.CharaIsca
   parent: BaseChara
@@ -719,7 +721,7 @@
     tables:
       chara:
         coefficient: 400
-        fltselect: Unique
+        fltselect: Elona.Unique
         rarity: 1000
   - type: Tag
     tags:
@@ -733,6 +735,7 @@
     relation: Enemy
   - type: Dialog
     portrait: Elona.Isca
+  - type: UniqueCompanion
 - type: Entity
   id: Elona.CharaWhomDwellInTheVanity
   parent: BaseChara
@@ -749,7 +752,7 @@
     tables:
       chara:
         coefficient: 400
-        fltselect: SpUnique
+        fltselect: Elona.SpUnique
         rarity: 1000
   - type: Tag
     tags:
@@ -782,7 +785,7 @@
     tables:
       chara:
         coefficient: 400
-        fltselect: SpUnique
+        fltselect: Elona.SpUnique
         rarity: 1000
   - type: Tag
     tags:
@@ -815,7 +818,7 @@
     tables:
       chara:
         coefficient: 400
-        fltselect: SpUnique
+        fltselect: Elona.SpUnique
         rarity: 100000
   - type: Tag
     tags:
@@ -848,7 +851,7 @@
     tables:
       chara:
         coefficient: 400
-        fltselect: SpUnique
+        fltselect: Elona.SpUnique
         rarity: 100000
   - type: Tag
     tags:
@@ -881,7 +884,7 @@
     tables:
       chara:
         coefficient: 400
-        fltselect: SpUnique
+        fltselect: Elona.SpUnique
         rarity: 100000
   - type: Chara
     race: Elona.Norland
@@ -909,7 +912,7 @@
     tables:
       chara:
         coefficient: 400
-        fltselect: SpUnique
+        fltselect: Elona.SpUnique
         rarity: 100000
   - type: Tag
     tags:
@@ -945,7 +948,7 @@
     tables:
       chara:
         coefficient: 400
-        fltselect: SpUnique
+        fltselect: Elona.SpUnique
         rarity: 100000
   - type: Tag
     tags:
@@ -981,7 +984,7 @@
     tables:
       chara:
         coefficient: 400
-        fltselect: Town
+        fltselect: Elona.Town
         rarity: 100000
   - type: Tag
     tags:
@@ -1009,7 +1012,7 @@
     tables:
       chara:
         coefficient: 400
-        fltselect: Town
+        fltselect: Elona.Town
         rarity: 100000
   - type: Tag
     tags:
@@ -1038,7 +1041,7 @@
     tables:
       chara:
         coefficient: 400
-        fltselect: Sp
+        fltselect: Elona.Sp
         rarity: 100000
   - type: Tag
     tags:
@@ -1067,7 +1070,7 @@
     tables:
       chara:
         coefficient: 400
-        fltselect: Shop
+        fltselect: Elona.Shop
         rarity: 100000
   - type: Tag
     tags:
@@ -1097,7 +1100,7 @@
     tables:
       chara:
         coefficient: 400
-        fltselect: Shop
+        fltselect: Elona.Shop
         rarity: 100000
   - type: Tag
     tags:
@@ -1125,7 +1128,7 @@
     tables:
       chara:
         coefficient: 400
-        fltselect: Shop
+        fltselect: Elona.Shop
         rarity: 100000
   - type: Tag
     tags:
@@ -1155,7 +1158,7 @@
     tables:
       chara:
         coefficient: 400
-        fltselect: Shop
+        fltselect: Elona.Shop
         rarity: 100000
   - type: Tag
     tags:
@@ -1950,7 +1953,7 @@
     tables:
       chara:
         coefficient: 400
-        fltselect: Shop
+        fltselect: Elona.Shop
         rarity: 100000
   - type: Tag
     tags:
@@ -1980,7 +1983,7 @@
     tables:
       chara:
         coefficient: 400
-        fltselect: Sp
+        fltselect: Elona.Sp
         rarity: 100000
   - type: Tag
     tags:
@@ -2010,7 +2013,7 @@
     tables:
       chara:
         coefficient: 400
-        fltselect: Shop
+        fltselect: Elona.Shop
         rarity: 100000
   - type: Tag
     tags:
@@ -2039,7 +2042,7 @@
     tables:
       chara:
         coefficient: 400
-        fltselect: Sp
+        fltselect: Elona.Sp
         rarity: 100000
   - type: Tag
     tags:
@@ -2069,7 +2072,7 @@
     tables:
       chara:
         coefficient: 400
-        fltselect: Shop
+        fltselect: Elona.Shop
         rarity: 100000
   - type: Tag
     tags:
@@ -2101,7 +2104,7 @@
     tables:
       chara:
         coefficient: 400
-        fltselect: Shop
+        fltselect: Elona.Shop
         rarity: 100000
   - type: Tag
     tags:
@@ -2130,7 +2133,7 @@
     tables:
       chara:
         coefficient: 400
-        fltselect: Shop
+        fltselect: Elona.Shop
         rarity: 100000
   - type: Tag
     tags:
@@ -2156,7 +2159,7 @@
     tables:
       chara:
         coefficient: 400
-        fltselect: TownSp
+        fltselect: Elona.TownSp
         rarity: 100000
   - type: Tag
     tags:
@@ -2187,7 +2190,7 @@
     tables:
       chara:
         coefficient: 400
-        fltselect: TownSp
+        fltselect: Elona.TownSp
         rarity: 100000
   - type: Tag
     tags:
@@ -2248,7 +2251,7 @@
     tables:
       chara:
         coefficient: 400
-        fltselect: SpUnique
+        fltselect: Elona.SpUnique
         rarity: 100000
   - type: Tag
     tags:
@@ -2281,7 +2284,7 @@
     tables:
       chara:
         coefficient: 400
-        fltselect: SpUnique
+        fltselect: Elona.SpUnique
         rarity: 100000
   - type: Tag
     tags:
@@ -3860,7 +3863,7 @@
     tables:
       chara:
         coefficient: 400
-        fltselect: SpUnique
+        fltselect: Elona.SpUnique
         rarity: 100000
   - type: Tag
     tags:
@@ -3893,7 +3896,7 @@
     tables:
       chara:
         coefficient: 400
-        fltselect: SpUnique
+        fltselect: Elona.SpUnique
         rarity: 1000
   - type: Tag
     tags:
@@ -3924,7 +3927,7 @@
     tables:
       chara:
         coefficient: 400
-        fltselect: SpUnique
+        fltselect: Elona.SpUnique
         rarity: 100000
   - type: Tag
     tags:
@@ -3960,7 +3963,7 @@
     tables:
       chara:
         coefficient: 400
-        fltselect: SpUnique
+        fltselect: Elona.SpUnique
         rarity: 100000
   - type: Tag
     tags:
@@ -3993,7 +3996,7 @@
     tables:
       chara:
         coefficient: 400
-        fltselect: SpUnique
+        fltselect: Elona.SpUnique
         rarity: 100000
   - type: Chara
     race: Elona.Norland
@@ -4024,7 +4027,7 @@
     tables:
       chara:
         coefficient: 400
-        fltselect: SpUnique
+        fltselect: Elona.SpUnique
         rarity: 100000
   - type: Chara
     race: Elona.Norland
@@ -4055,7 +4058,7 @@
     tables:
       chara:
         coefficient: 400
-        fltselect: SpUnique
+        fltselect: Elona.SpUnique
         rarity: 100000
   - type: Chara
     race: Elona.Dragon
@@ -4080,7 +4083,7 @@
     tables:
       chara:
         coefficient: 400
-        fltselect: SpUnique
+        fltselect: Elona.SpUnique
         rarity: 100000
   - type: Tag
     tags:
@@ -4766,7 +4769,7 @@
     tables:
       chara:
         coefficient: 400
-        fltselect: Shop
+        fltselect: Elona.Shop
         rarity: 100000
   - type: Tag
     tags:
@@ -4794,7 +4797,7 @@
     tables:
       chara:
         coefficient: 400
-        fltselect: Shop
+        fltselect: Elona.Shop
         rarity: 100000
   - type: Tag
     tags:
@@ -4822,7 +4825,7 @@
     tables:
       chara:
         coefficient: 400
-        fltselect: Shop
+        fltselect: Elona.Shop
         rarity: 100000
   - type: Tag
     tags:
@@ -4884,7 +4887,7 @@
     tables:
       chara:
         coefficient: 400
-        fltselect: SpUnique
+        fltselect: Elona.SpUnique
         rarity: 100000
   - type: Tag
     tags:
@@ -4914,7 +4917,7 @@
     tables:
       chara:
         coefficient: 400
-        fltselect: Sp
+        fltselect: Elona.Sp
         rarity: 100000
   - type: Tag
     tags:
@@ -4944,7 +4947,7 @@
     tables:
       chara:
         coefficient: 400
-        fltselect: SpUnique
+        fltselect: Elona.SpUnique
         rarity: 100000
   - type: Tag
     tags:
@@ -4980,7 +4983,7 @@
     tables:
       chara:
         coefficient: 400
-        fltselect: SpUnique
+        fltselect: Elona.SpUnique
         rarity: 100000
   - type: Tag
     tags:
@@ -5019,7 +5022,7 @@
     tables:
       chara:
         coefficient: 400
-        fltselect: Sp
+        fltselect: Elona.Sp
         rarity: 100000
   - type: Tag
     tags:
@@ -5043,7 +5046,7 @@
     tables:
       chara:
         coefficient: 400
-        fltselect: Friend
+        fltselect: Elona.Friend
         rarity: 100000
   - type: Chara
     race: Elona.Cat
@@ -5068,7 +5071,7 @@
     tables:
       chara:
         coefficient: 400
-        fltselect: Friend
+        fltselect: Elona.Friend
         rarity: 100000
   - type: Tag
     tags:
@@ -5127,7 +5130,7 @@
     tables:
       chara:
         coefficient: 400
-        fltselect: Shop
+        fltselect: Elona.Shop
         rarity: 20000
   - type: Tag
     tags:
@@ -5155,7 +5158,7 @@
     tables:
       chara:
         coefficient: 400
-        fltselect: Shop
+        fltselect: Elona.Shop
         rarity: 40000
   - type: Tag
     tags:
@@ -5183,7 +5186,7 @@
     tables:
       chara:
         coefficient: 400
-        fltselect: Shop
+        fltselect: Elona.Shop
         rarity: 100000
   - type: Tag
     tags:
@@ -5636,7 +5639,7 @@
     tables:
       chara:
         coefficient: 400
-        fltselect: SpUnique
+        fltselect: Elona.SpUnique
         rarity: 100000
   - type: Chara
     race: Elona.Giant
@@ -5668,7 +5671,7 @@
     tables:
       chara:
         coefficient: 400
-        fltselect: Sp
+        fltselect: Elona.Sp
         rarity: 100000
   - type: Tag
     tags:
@@ -5699,7 +5702,7 @@
     tables:
       chara:
         coefficient: 400
-        fltselect: TownSp
+        fltselect: Elona.TownSp
         rarity: 100000
   - type: Tag
     tags:
@@ -5730,7 +5733,7 @@
     tables:
       chara:
         coefficient: 400
-        fltselect: Sp
+        fltselect: Elona.Sp
         rarity: 100000
   - type: Tag
     tags:
@@ -5758,7 +5761,7 @@
     tables:
       chara:
         coefficient: 400
-        fltselect: Shop
+        fltselect: Elona.Shop
         rarity: 100000
   - type: Tag
     tags:
@@ -5790,7 +5793,7 @@
     tables:
       chara:
         coefficient: 400
-        fltselect: SpUnique
+        fltselect: Elona.SpUnique
         rarity: 100000
   - type: Tag
     tags:
@@ -5826,7 +5829,7 @@
     tables:
       chara:
         coefficient: 400
-        fltselect: SpUnique
+        fltselect: Elona.SpUnique
         rarity: 100000
   - type: Tag
     tags:
@@ -5858,7 +5861,7 @@
     tables:
       chara:
         coefficient: 400
-        fltselect: SpUnique
+        fltselect: Elona.SpUnique
         rarity: 100000
   - type: Tag
     tags:
@@ -5887,7 +5890,7 @@
     tables:
       chara:
         coefficient: 400
-        fltselect: Sp
+        fltselect: Elona.Sp
         rarity: 100000
   - type: Tag
     tags:
@@ -5915,7 +5918,7 @@
     tables:
       chara:
         coefficient: 400
-        fltselect: Sp
+        fltselect: Elona.Sp
         rarity: 100000
   - type: Tag
     tags:
@@ -5950,7 +5953,7 @@
     tables:
       chara:
         coefficient: 400
-        fltselect: SpUnique
+        fltselect: Elona.SpUnique
         rarity: 100000
   - type: Chara
     race: Elona.Juere
@@ -5976,7 +5979,7 @@
     tables:
       chara:
         coefficient: 400
-        fltselect: SpUnique
+        fltselect: Elona.SpUnique
         rarity: 100000
   - type: Tag
     tags:
@@ -6223,7 +6226,7 @@
     tables:
       chara:
         coefficient: 400
-        fltselect: SpUnique
+        fltselect: Elona.SpUnique
         rarity: 100000
   - type: Tag
     tags:
@@ -6258,7 +6261,7 @@
     tables:
       chara:
         coefficient: 400
-        fltselect: SpUnique
+        fltselect: Elona.SpUnique
         rarity: 100000
   - type: Tag
     tags:
@@ -6293,7 +6296,7 @@
     tables:
       chara:
         coefficient: 400
-        fltselect: SpUnique
+        fltselect: Elona.SpUnique
         rarity: 100000
   - type: Tag
     tags:
@@ -6328,7 +6331,7 @@
     tables:
       chara:
         coefficient: 400
-        fltselect: SpUnique
+        fltselect: Elona.SpUnique
         rarity: 100000
   - type: Tag
     tags:
@@ -6363,7 +6366,7 @@
     tables:
       chara:
         coefficient: 400
-        fltselect: SpUnique
+        fltselect: Elona.SpUnique
         rarity: 100000
   - type: Tag
     tags:
@@ -6394,7 +6397,7 @@
     tables:
       chara:
         coefficient: 400
-        fltselect: SpUnique
+        fltselect: Elona.SpUnique
         rarity: 100000
   - type: Tag
     tags:
@@ -6428,7 +6431,7 @@
     tables:
       chara:
         coefficient: 400
-        fltselect: SpUnique
+        fltselect: Elona.SpUnique
         rarity: 100000
   - type: Tag
     tags:
@@ -6527,7 +6530,7 @@
     tables:
       chara:
         coefficient: 400
-        fltselect: SpUnique
+        fltselect: Elona.SpUnique
         rarity: 100000
   - type: Tag
     tags:
@@ -6564,7 +6567,7 @@
     tables:
       chara:
         coefficient: 400
-        fltselect: SpUnique
+        fltselect: Elona.SpUnique
         rarity: 100000
   - type: Tag
     tags:
@@ -6787,7 +6790,7 @@
     tables:
       chara:
         coefficient: 400
-        fltselect: Shop
+        fltselect: Elona.Shop
         rarity: 100000
   - type: Tag
     tags:
@@ -6881,7 +6884,7 @@
     tables:
       chara:
         coefficient: 400
-        fltselect: SpUnique
+        fltselect: Elona.SpUnique
         rarity: 100000
   - type: CreaturePack
     category: Elona.Yeek
@@ -6924,7 +6927,7 @@
     tables:
       chara:
         coefficient: 400
-        fltselect: SpUnique
+        fltselect: Elona.SpUnique
         rarity: 100000
   - type: Tag
     tags:
@@ -7043,7 +7046,7 @@
     tables:
       chara:
         coefficient: 400
-        fltselect: SpUnique
+        fltselect: Elona.SpUnique
         rarity: 100000
   - type: Tag
     tags:
@@ -7096,7 +7099,7 @@
     tables:
       chara:
         coefficient: 400
-        fltselect: Sp
+        fltselect: Elona.Sp
         rarity: 100000
   - type: Tag
     tags:
@@ -7178,7 +7181,7 @@
     tables:
       chara:
         coefficient: 400
-        fltselect: SpUnique
+        fltselect: Elona.SpUnique
         rarity: 100000
   - type: Tag
     tags:
@@ -7220,7 +7223,7 @@
     tables:
       chara:
         coefficient: 400
-        fltselect: SpUnique
+        fltselect: Elona.SpUnique
         rarity: 100000
   - type: Tag
     tags:
@@ -7340,7 +7343,7 @@
     tables:
       chara:
         coefficient: 400
-        fltselect: SpUnique
+        fltselect: Elona.SpUnique
         rarity: 100000
   - type: CreaturePack
     category: Elona.Mummy
@@ -7392,7 +7395,7 @@
     tables:
       chara:
         coefficient: 400
-        fltselect: SpUnique
+        fltselect: Elona.SpUnique
         rarity: 100000
   - type: Tag
     tags:
@@ -7430,7 +7433,7 @@
     tables:
       chara:
         coefficient: 400
-        fltselect: SpUnique
+        fltselect: Elona.SpUnique
         rarity: 50000
   - type: Tag
     tags:
@@ -7469,7 +7472,7 @@
     tables:
       chara:
         coefficient: 400
-        fltselect: SpUnique
+        fltselect: Elona.SpUnique
         rarity: 50000
   - type: Tag
     tags:
@@ -7507,7 +7510,7 @@
     tables:
       chara:
         coefficient: 400
-        fltselect: SpUnique
+        fltselect: Elona.SpUnique
         rarity: 50000
   - type: Tag
     tags:
@@ -7539,7 +7542,7 @@
     tables:
       chara:
         coefficient: 400
-        fltselect: SpUnique
+        fltselect: Elona.SpUnique
         rarity: 50000
   - type: Tag
     tags:
@@ -7580,7 +7583,7 @@
     tables:
       chara:
         coefficient: 400
-        fltselect: SpUnique
+        fltselect: Elona.SpUnique
         rarity: 50000
   - type: Tag
     tags:
@@ -7614,7 +7617,7 @@
     tables:
       chara:
         coefficient: 400
-        fltselect: SpUnique
+        fltselect: Elona.SpUnique
         rarity: 50000
   - type: Tag
     tags:
@@ -7648,7 +7651,7 @@
     tables:
       chara:
         coefficient: 400
-        fltselect: SpUnique
+        fltselect: Elona.SpUnique
         rarity: 50000
   - type: Tag
     tags:
@@ -7733,7 +7736,7 @@
     tables:
       chara:
         coefficient: 400
-        fltselect: TownSp
+        fltselect: Elona.TownSp
         rarity: 2000
   - type: Tag
     tags:
@@ -7761,7 +7764,7 @@
     tables:
       chara:
         coefficient: 400
-        fltselect: TownSp
+        fltselect: Elona.TownSp
         rarity: 2000
   - type: Tag
     tags:
@@ -7789,7 +7792,7 @@
     tables:
       chara:
         coefficient: 400
-        fltselect: TownSp
+        fltselect: Elona.TownSp
         rarity: 2000
   - type: Tag
     tags:
@@ -7820,7 +7823,7 @@
     tables:
       chara:
         coefficient: 400
-        fltselect: TownSp
+        fltselect: Elona.TownSp
         rarity: 2000
   - type: Tag
     tags:
@@ -7848,7 +7851,7 @@
     tables:
       chara:
         coefficient: 400
-        fltselect: TownSp
+        fltselect: Elona.TownSp
         rarity: 2000
   - type: Tag
     tags:
@@ -7876,7 +7879,7 @@
     tables:
       chara:
         coefficient: 400
-        fltselect: TownSp
+        fltselect: Elona.TownSp
         rarity: 2000
   - type: Tag
     tags:
@@ -8011,7 +8014,7 @@
     tables:
       chara:
         coefficient: 400
-        fltselect: SpUnique
+        fltselect: Elona.SpUnique
         rarity: 100000
   - type: Tag
     tags:
@@ -8046,7 +8049,7 @@
     tables:
       chara:
         coefficient: 400
-        fltselect: SpUnique
+        fltselect: Elona.SpUnique
         rarity: 100000
   - type: Tag
     tags:
@@ -8258,7 +8261,7 @@
     tables:
       chara:
         coefficient: 400
-        fltselect: SpUnique
+        fltselect: Elona.SpUnique
         rarity: 100000
   - type: Tag
     tags:
@@ -8295,7 +8298,7 @@
     tables:
       chara:
         coefficient: 400
-        fltselect: TownSp
+        fltselect: Elona.TownSp
         rarity: 2000
   - type: Tag
     tags:
@@ -8334,7 +8337,7 @@
     tables:
       chara:
         coefficient: 400
-        fltselect: SpUnique
+        fltselect: Elona.SpUnique
         rarity: 100000
   - type: Tag
     tags:
@@ -8376,7 +8379,7 @@
     tables:
       chara:
         coefficient: 400
-        fltselect: SpUnique
+        fltselect: Elona.SpUnique
         rarity: 100000
   - type: Tag
     tags:
@@ -8407,7 +8410,7 @@
     tables:
       chara:
         coefficient: 400
-        fltselect: SpUnique
+        fltselect: Elona.SpUnique
         rarity: 100000
   - type: Tag
     tags:
@@ -8435,7 +8438,7 @@
     tables:
       chara:
         coefficient: 400
-        fltselect: TownSp
+        fltselect: Elona.TownSp
         rarity: 2000
   - type: Tag
     tags:
@@ -8468,7 +8471,7 @@
     tables:
       chara:
         coefficient: 400
-        fltselect: SpUnique
+        fltselect: Elona.SpUnique
         rarity: 100000
   - type: Tag
     tags:
@@ -8501,7 +8504,7 @@
     tables:
       chara:
         coefficient: 400
-        fltselect: TownSp
+        fltselect: Elona.TownSp
         rarity: 2000
   - type: Tag
     tags:
@@ -8567,7 +8570,7 @@
     tables:
       chara:
         coefficient: 400
-        fltselect: SpUnique
+        fltselect: Elona.SpUnique
         rarity: 100000
   - type: Tag
     tags:
@@ -8649,7 +8652,7 @@
     tables:
       chara:
         coefficient: 400
-        fltselect: SpUnique
+        fltselect: Elona.SpUnique
         rarity: 40000
   - type: Tag
     tags:
@@ -8678,7 +8681,7 @@
     tables:
       chara:
         coefficient: 400
-        fltselect: SpUnique
+        fltselect: Elona.SpUnique
         rarity: 100000
   - type: Tag
     tags:
@@ -8711,7 +8714,7 @@
     tables:
       chara:
         coefficient: 400
-        fltselect: SpUnique
+        fltselect: Elona.SpUnique
         rarity: 25000
   - type: Tag
     tags:
@@ -8848,7 +8851,7 @@
     tables:
       chara:
         coefficient: 400
-        fltselect: SpUnique
+        fltselect: Elona.SpUnique
         rarity: 100000
   - type: Tag
     tags:
@@ -9178,7 +9181,7 @@
     tables:
       chara:
         coefficient: 400
-        fltselect: SpUnique
+        fltselect: Elona.SpUnique
         rarity: 50000
   - type: Chara
     race: Elona.Machinegod
@@ -9209,7 +9212,7 @@
     tables:
       chara:
         coefficient: 400
-        fltselect: SpUnique
+        fltselect: Elona.SpUnique
         rarity: 50000
   - type: Chara
     race: Elona.Mutant
@@ -9237,7 +9240,7 @@
     tables:
       chara:
         coefficient: 100
-        fltselect: TownSp
+        fltselect: Elona.TownSp
         rarity: 10000
   - type: Tag
     tags:
@@ -9301,7 +9304,7 @@
     tables:
       chara:
         coefficient: 400
-        fltselect: SpUnique
+        fltselect: Elona.SpUnique
         rarity: 50000
   - type: Tag
     tags:
@@ -9409,7 +9412,7 @@
     tables:
       chara:
         coefficient: 400
-        fltselect: Shop
+        fltselect: Elona.Shop
         rarity: 2000
   - type: Tag
     tags:
@@ -9550,7 +9553,7 @@
     tables:
       chara:
         coefficient: 400
-        fltselect: SpUnique
+        fltselect: Elona.SpUnique
         rarity: 100000
   - type: Tag
     tags:
@@ -9609,7 +9612,7 @@
     tables:
       chara:
         coefficient: 400
-        fltselect: Sp
+        fltselect: Elona.Sp
         rarity: 100000
   - type: Tag
     tags:
@@ -9642,7 +9645,7 @@
     tables:
       chara:
         coefficient: 400
-        fltselect: SpUnique
+        fltselect: Elona.SpUnique
         rarity: 50000
   - type: Tag
     tags:
@@ -9672,7 +9675,7 @@
     tables:
       chara:
         coefficient: 400
-        fltselect: TownSp
+        fltselect: Elona.TownSp
         rarity: 2000
   - type: Tag
     tags:
@@ -9705,7 +9708,7 @@
     tables:
       chara:
         coefficient: 400
-        fltselect: SpUnique
+        fltselect: Elona.SpUnique
         rarity: 100000
   - type: Tag
     tags:
@@ -9740,7 +9743,7 @@
     tables:
       chara:
         coefficient: 400
-        fltselect: TownSp
+        fltselect: Elona.TownSp
         rarity: 2000
   - type: Tag
     tags:
@@ -9771,7 +9774,7 @@
     tables:
       chara:
         coefficient: 400
-        fltselect: SpUnique
+        fltselect: Elona.SpUnique
         rarity: 100000
   - type: Tag
     tags:
@@ -9801,7 +9804,7 @@
     tables:
       chara:
         coefficient: 400
-        fltselect: SpUnique
+        fltselect: Elona.SpUnique
         rarity: 100000
   - type: Tag
     tags:
@@ -9830,7 +9833,7 @@
     tables:
       chara:
         coefficient: 400
-        fltselect: SpUnique
+        fltselect: Elona.SpUnique
         rarity: 100000
   - type: Chara
     race: Elona.God
@@ -9894,7 +9897,7 @@
     tables:
       chara:
         coefficient: 400
-        fltselect: SpUnique
+        fltselect: Elona.SpUnique
         rarity: 100000
   - type: Tag
     tags:
@@ -9924,7 +9927,7 @@
     tables:
       chara:
         coefficient: 400
-        fltselect: SpUnique
+        fltselect: Elona.SpUnique
         rarity: 0
   - type: Chara
     race: Elona.God
@@ -9973,7 +9976,7 @@
     tables:
       chara:
         coefficient: 400
-        fltselect: SpUnique
+        fltselect: Elona.SpUnique
         rarity: 100000
   - type: Chara
     race: Elona.Bike
@@ -10028,7 +10031,7 @@
     tables:
       chara:
         coefficient: 400
-        fltselect: Sp
+        fltselect: Elona.Sp
         rarity: 2000
   - type: Tag
     tags:
@@ -10062,7 +10065,7 @@
     tables:
       chara:
         coefficient: 400
-        fltselect: SpUnique
+        fltselect: Elona.SpUnique
         rarity: 2000
   - type: Tag
     tags:
@@ -10093,7 +10096,7 @@
     tables:
       chara:
         coefficient: 400
-        fltselect: Sp
+        fltselect: Elona.Sp
         rarity: 2000
   - type: Tag
     tags:
@@ -10122,7 +10125,7 @@
     tables:
       chara:
         coefficient: 400
-        fltselect: Sp
+        fltselect: Elona.Sp
         rarity: 100000
   - type: Tag
     tags:
@@ -10153,7 +10156,7 @@
     tables:
       chara:
         coefficient: 400
-        fltselect: SpUnique
+        fltselect: Elona.SpUnique
         rarity: 100000
   - type: Tag
     tags:
@@ -10187,7 +10190,7 @@
     tables:
       chara:
         coefficient: 400
-        fltselect: SpUnique
+        fltselect: Elona.SpUnique
         rarity: 100000
   - type: Tag
     tags:
@@ -10218,7 +10221,7 @@
     tables:
       chara:
         coefficient: 400
-        fltselect: Sp
+        fltselect: Elona.Sp
         rarity: 100000
   - type: Tag
     tags:

@@ -1,7 +1,6 @@
-﻿using OpenNefia.Content.Factions;
-using OpenNefia.Content.GameController;
-using OpenNefia.Content.GameObjects;
+﻿using OpenNefia.Content.GameObjects;
 using OpenNefia.Content.UI.Hud;
+using OpenNefia.Core;
 using OpenNefia.Core.Configuration;
 using OpenNefia.Core.Game;
 using OpenNefia.Core.GameController;
@@ -60,5 +59,11 @@ namespace OpenNefia.Content.Logic
             }
             // <<<<<<<< elona122/shade2/init.hsp:3581 		} ...
         }
+    }
+
+    public static class IMessagesManagerExt
+    {
+        public static void DisplayL(this IMessagesManager mes, LocaleKey key, Color? color = null, bool alert = false, bool noCapitalize = false, EntityUid? entity = null)
+            => mes.Display(Loc.GetString(key), color, alert, noCapitalize, entity);
     }
 }

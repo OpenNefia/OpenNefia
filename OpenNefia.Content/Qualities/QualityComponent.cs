@@ -21,11 +21,11 @@ namespace OpenNefia.Content.Qualities
 
     public enum Quality
     {
-        Bad = 0,
-        Normal = 1,
-        Good = 2,
-        Great = 3,
-        God = 4,
-        Unique = 5
+        Bad = 1,
+        Normal = 2,
+        Good = 3,
+        Great = 4,
+        God = 5,
+        Unique = 6
     }
 }

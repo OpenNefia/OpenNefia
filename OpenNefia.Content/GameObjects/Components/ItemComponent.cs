@@ -15,6 +15,9 @@ namespace OpenNefia.Content.GameObjects
         public int Value { get; set; } = 0;
 
         [DataField]
+        public bool IsPrecious { get; set; } = false;
+
+        [DataField]
         public PrototypeId<MaterialPrototype>? Material { get; set; }
 
         [DataField("originalnameref2")]

@@ -23,6 +23,7 @@ using OpenNefia.Content.GameObjects;
 using OpenNefia.Content.Nefia.Layout;
 using OpenNefia.Content.Factions;
 using OpenNefia.Content.GameObjects.Pickable;
+using OpenNefia.Content.RandomGen;
 
 namespace OpenNefia.Content.Nefia
 {
@@ -32,7 +33,8 @@ namespace OpenNefia.Content.Nefia
     public class NefiaLayoutHunt : IVanillaNefiaLayout
     {
         [Dependency] private readonly IEntityManager _entityManager = default!;
-        [Dependency] private readonly IEntityGen _entityGen = default!;
+        [Dependency] private readonly ICharaGen _charaGen = default!;
+        [Dependency] private readonly IItemGen _itemGen = default!;
         [Dependency] private readonly INefiaLayoutCommon _nefiaLayout = default!;
         [Dependency] private readonly IRandom _rand = default!;
 
@@ -57,12 +59,11 @@ namespace OpenNefia.Content.Nefia
             return map;
         }
 
-        void IVanillaNefiaLayout.AfterGenerateMap(IArea area, IMap map, int floorNumber, Blackboard<NefiaGenParams> data) 
+        void IVanillaNefiaLayout.AfterGenerateMap(IArea area, IMap map, int floorNumber, Blackboard<NefiaGenParams> data)
         {
-            // TODO
             for (var i = 0; i < 10 + _rand.Next(6); i++)
             {
-                var chara = _entityGen.SpawnEntity(Protos.Chara.Putit, map);
+                var chara = _charaGen.GenerateCharaFromMapFilter(map);
                 if (chara != null && _entityManager.TryGetComponent<FactionComponent>(chara.Value, out var faction))
                 {
                     faction.RelationToPlayer = Relation.Enemy;
@@ -71,7 +72,7 @@ namespace OpenNefia.Content.Nefia
 
             for (var i = 0; i < 10 + _rand.Next(6); i++)
             {
-                var item = _entityGen.SpawnEntity(Protos.Item.TreeOfBeech, map);
+                var item = _itemGen.GenerateItem(map, tags: new[] { Protos.Tag.ItemCatTree });
                 if (item != null && _entityManager.TryGetComponent<PickableComponent>(item.Value, out var pickable))
                 {
                     pickable.OwnState = OwnState.None;

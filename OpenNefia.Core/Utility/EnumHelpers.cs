@@ -16,7 +16,7 @@ namespace OpenNefia.Core.Utility
         /// <param name="value">The value.</param>
         /// <returns></returns>
         public static IEnumerable<T> EnumerateValues<T>()
-            where T: Enum
+            where T : Enum
         {
             foreach (object item in Enum.GetValues(typeof(T)))
             {
@@ -107,6 +107,11 @@ namespace OpenNefia.Core.Utility
         {
             var raw = Enum.GetValues(enumType).Cast<int>().Max();
             return Enum.ToObject(enumType, raw);
+        }
+
+        public static T Clamp<T>(T val, T min, T max) where T : Enum
+        {
+            return (T)Enum.ToObject(typeof(T), Math.Clamp(Convert.ToInt32(val), Convert.ToInt32(min), Convert.ToInt32(max)));
         }
     }
 }

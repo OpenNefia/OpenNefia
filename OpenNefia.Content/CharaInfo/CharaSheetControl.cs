@@ -21,7 +21,7 @@ using OpenNefia.Content.Sanity;
 using OpenNefia.Content.Fame;
 using OpenNefia.Content.Karma;
 using OpenNefia.Content.Guild;
-using OpenNefia.Content.God;
+using OpenNefia.Content.Religion;
 using OpenNefia.Content.CustomName;
 using OpenNefia.Content.DisplayName;
 using OpenNefia.Core.UI;
@@ -235,9 +235,9 @@ namespace OpenNefia.Content.CharaInfo
             {
                 Logger.WarningS("charasheet", $"entity {_charaEntity} does not posess a {nameof(GuildMemberComponent)}");
             }
-            if (!_entityManager.TryGetComponent<GodFollowerComponent>(_charaEntity, out var god))
+            if (!_entityManager.TryGetComponent<ReligionComponent>(_charaEntity, out var god))
             {
-                Logger.WarningS("charasheet", $"entity {_charaEntity} does not posess a {nameof(GodFollowerComponent)}");
+                Logger.WarningS("charasheet", $"entity {_charaEntity} does not posess a {nameof(ReligionComponent)}");
             }
             if (!_entityManager.TryGetComponent<CustomNameComponent>(_charaEntity, out var customName))
             {

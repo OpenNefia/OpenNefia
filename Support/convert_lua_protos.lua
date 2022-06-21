@@ -40,8 +40,16 @@ local function dottedEntity(str, ty)
 end
 
 local function itemCategory(str, ident)
+    if str == "elona.no_generate" then
+        return "Elona.NoGenerate"
+    end
     local mod_id, data_id = str:match "([^.]+)%.([^.]+)"
     return ("%s.%s%s"):format(classify(mod_id), ident, classify(data_id))
+end
+
+local function dataPart(str)
+    local mod_id, data_id = str:match "([^.]+)%.([^.]+)"
+    return classify(data_id)
 end
 
 local function dotted_keys(t)
@@ -118,6 +126,7 @@ local function tuple(t)
 end
 
 local handlers = {}
+local allTags = {}
 
 local function comp(t, name)
     if t.components == nil then
@@ -160,7 +169,7 @@ handlers["base.chara"] = function(from, to)
             rarity = from.rarity or 100000,
         }
         if (from.fltselect or 0) ~= 0 then
-            c.tables.chara.fltselect = Enum.FltSelect:to_string(from.fltselect)
+            c.tables.chara.fltselect = "Elona." .. Enum.FltSelect:to_string(from.fltselect)
         end
     end
 
@@ -242,6 +251,10 @@ handlers["base.chara"] = function(from, to)
             c.moveChance = from.ai_move_chance / 100.0
         end
     end
+
+    if from.is_unique then
+        c = comp(to, "UniqueCompanion")
+    end
 end
 
 handlers["base.item"] = function(from, to)
@@ -263,7 +276,7 @@ handlers["base.item"] = function(from, to)
             rarity = from.rarity or 100000,
         }
         if (from.fltselect or 0) ~= 0 then
-            c.tables.item.fltselect = Enum.FltSelect:to_string(from.fltselect)
+            c.tables.item.fltselect = "Elona." .. Enum.FltSelect:to_string(from.fltselect)
         end
     end
 
@@ -276,7 +289,12 @@ handlers["base.item"] = function(from, to)
     c.tags = {}
     for _, cat in ipairs(from.categories or {}) do
         if not cat:match "elona.tag_" then
-            c.tags[#c.tags + 1] = itemCategory(cat, "Item")
+            local tag = itemCategory(cat, "ItemCat")
+            c.tags[#c.tags + 1] = tag
+            if not allTags[tag] then
+                allTags[tag] = true
+                allTags[#allTags + 1] = tag
+            end
         end
     end
     for _, tag in ipairs(from.tags or {}) do
@@ -299,6 +317,9 @@ handlers["base.item"] = function(from, to)
     end
     if from.originalnameref2 then
         c.originalnameref2 = from.originalnameref2
+    end
+    if from.is_precious then
+        c.isPrecious = true
     end
 
     if from.weight ~= 0 then
@@ -587,6 +608,54 @@ handlers["elona.material"] = function(from, to)
     to.chip = dotted(from.image)
 end
 
+handlers["elona.god"] = function(from, to)
+    if from.is_primary_god then
+        to.isPrimaryGod = true
+    end
+    to.servant = dotted(from.servant)
+    to.items = {}
+    for _, fromItem in ipairs(from.items) do
+        local toItem = {
+            itemId = dotted(fromItem.id),
+            onlyOnce = fromItem.only_once,
+            noStack = fromItem.no_stack,
+        }
+        if fromItem.properties then
+            toItem.filter = {
+                type = "TODO",
+            }
+        end
+        to.items[#to.items + 1] = toItem
+    end
+    to.artifact = dotted(from.artifact)
+    if from.summon then
+        to.summon = dotted(from.summon)
+    end
+    if from.blessings then
+        to.blessings = setmetatable(
+            {},
+            { tag = ("type:GodBlessing%sEffect"):format(dataPart(from._id)), type = "mapping" }
+        )
+    end
+    to.offerings = {}
+    for _, fromOffering in ipairs(from.offerings) do
+        local toOffering = {}
+        if fromOffering.type == "category" then
+            toOffering.category = itemCategory(fromOffering.id, "Item")
+        end
+        if fromOffering.type == "item" then
+            toOffering.itemId = dotted(fromOffering.id)
+        end
+        to.offerings[#to.offerings + 1] = toOffering
+    end
+
+    if from.on_join_faith or from.on_leave_faith then
+        to.callbacks = setmetatable({}, { tag = ("type:God%sCallbacks"):format(dataPart(from._id)), type = "mapping" })
+    end
+end
+
+handlers["elona_sys.magic"] = function(from, to) end
+
 local function sort(a, b)
     return (a.elona_id or 0) < (b.elona_id or 0)
 end
@@ -664,8 +733,8 @@ local function write(ty, filename)
     file:close()
 end
 
--- write("base.chara", "Entity/Chara.yml")
--- write("base.item", "Entity/Item.yml")
+write("base.chara", "Entity/Chara.yml")
+write("base.item", "Entity/Item.yml")
 -- write("base.class", "Class.yml")
 -- write("base.race", "Race.yml")
 -- write("elona_sys.dialog", "Dialog.yml")
@@ -680,6 +749,12 @@ end
 -- write("elona_sys.map_tileset", "MapTileset.yml")
 write("elona.material_spot", "MaterialSpot.yml")
 write("elona.material", "Material.yml")
+write("elona.god", "God.yml")
+write("elona_sys.magic", "Magic.yml")
+
+-- for _, tag in ipairs(allTags) do
+--     print(tag)
+-- end
 
 -- print(inspect(data["base.item"]:iter():filter(function(a) return a.fltselect > 0 and a.rarity == 0 end):to_list()))
 

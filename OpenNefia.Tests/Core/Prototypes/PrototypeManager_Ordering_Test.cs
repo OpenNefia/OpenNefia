@@ -13,7 +13,8 @@ using System.Threading.Tasks;
 namespace OpenNefia.Tests.Core.Prototypes
 {
     [TestFixture]
-    public class PrototypeOrderingTest : OpenNefiaUnitTest
+    [TestOf(typeof(PrototypeManager))]
+    public class PrototypeManager_Ordering_Test : OpenNefiaUnitTest
     {
         private IPrototypeManager manager = default!;
 

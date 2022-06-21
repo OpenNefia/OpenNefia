@@ -26,11 +26,10 @@ namespace OpenNefia.Content.Rendering
         private IAssetInstance AssetParticle;
         private PrototypeId<SoundPrototype>? Sound;
         private float RotationVariance;
-        private float AnimeWait;
         private Particle[] Particles;
         private FrameCounter Counter;
 
-        public ParticleMapDrawable(PrototypeId<AssetPrototype> asset, PrototypeId<SoundPrototype>? sound, float rotationVariance = -1f, float? waitSecs = null)
+        public ParticleMapDrawable(PrototypeId<AssetPrototype> asset, PrototypeId<SoundPrototype>? sound = null, float rotationVariance = -1f, float? waitSecs = null)
         {
             var rand = IoCManager.Resolve<IRandom>();
 
@@ -40,7 +39,6 @@ namespace OpenNefia.Content.Rendering
             this.AssetParticle = Assets.Get(asset);
             this.Sound = sound;
             this.RotationVariance = rotationVariance;
-            this.AnimeWait = waitSecs.Value;
             var coords = GameSession.Coords;
             this.Particles = Enumerable.Range(0, 15)
                 .Select(_ => new Particle(new Vector2i(rand.Next(coords.TileSize.X), rand.Next(coords.TileSize.Y)),

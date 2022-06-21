@@ -25,16 +25,16 @@ namespace OpenNefia.Core.Rendering
         Love.SpriteBatch MakeBatch(List<AssetInstance.AssetBatchPart> parts, int maxSprites = 2048);
         Love.SpriteBatch MakeSpriteBatch(int count, Love.SpriteBatchUsage usage);
 
-        void DrawUnscaled(float x, float y, float width = 0, float height = 0, bool centered = false, float rotation = 0, Maths.Vector2 originOffset = default);
-        void DrawUnscaled(UIBox2 box, bool centered = false, float rotation = 0, Maths.Vector2 originOffset = default);
-        void DrawRegionUnscaled(Love.Quad quad, float x, float y, float width = 0, float height = 0, bool centered = false, float rotation = 0, Maths.Vector2 originOffset = default);
-        void DrawRegionUnscaled(UIBox2 quad, UIBox2 box, bool centered = false, float rotation = 0, Maths.Vector2 originOffset = default);
-        void DrawRegionUnscaled(Love.Quad quad, UIBox2 box, bool centered = false, float rotation = 0, Maths.Vector2 originOffset = default);
-        void DrawRegionUnscaled(string regionId, float x = 0, float y = 0, float width = 0, float height = 0, bool centered = false, float rotation = 0, Maths.Vector2 originOffset = default);
-        void Draw(float uiScale, float vx, float vy, float? vwidth = null, float? vheight = null, bool centered = false, float rotation = 0, Maths.Vector2 originOffset = default);
-        void Draw(float uiScale, UIBox2 box, bool centered = false, float rotation = 0, Maths.Vector2 originOffset = default);
-        void Draw(float uiScale, Love.Quad quad, float vx, float vy, float? vwidth = null, float? vheight = null, bool centered = false, float rotation = 0, Maths.Vector2 originOffset = default);
-        void DrawRegion(float uiScale, string regionId, float vx, float vy, float? vwidth = null, float? vheight = null, bool centered = false, float rotation = 0, Maths.Vector2 originOffset = default);
+        void DrawUnscaled(float x, float y, float width = 0, float height = 0, bool centered = false, float rotationRads = 0, Maths.Vector2 originOffset = default);
+        void DrawUnscaled(UIBox2 box, bool centered = false, float rotationRads = 0, Maths.Vector2 originOffset = default);
+        void DrawRegionUnscaled(Love.Quad quad, float x, float y, float width = 0, float height = 0, bool centered = false, float rotationRads = 0, Maths.Vector2 originOffset = default);
+        void DrawRegionUnscaled(UIBox2 quad, UIBox2 box, bool centered = false, float rotationRads = 0, Maths.Vector2 originOffset = default);
+        void DrawRegionUnscaled(Love.Quad quad, UIBox2 box, bool centered = false, float rotationRads = 0, Maths.Vector2 originOffset = default);
+        void DrawRegionUnscaled(string regionId, float x = 0, float y = 0, float width = 0, float height = 0, bool centered = false, float rotationRads = 0, Maths.Vector2 originOffset = default);
+        void Draw(float uiScale, float vx, float vy, float? vwidth = null, float? vheight = null, bool centered = false, float rotationRads = 0, Maths.Vector2 originOffset = default);
+        void Draw(float uiScale, UIBox2 box, bool centered = false, float rotationRads = 0, Maths.Vector2 originOffset = default);
+        void Draw(float uiScale, Love.Quad quad, float vx, float vy, float? vwidth = null, float? vheight = null, bool centered = false, float rotationRads = 0, Maths.Vector2 originOffset = default);
+        void DrawRegion(float uiScale, string regionId, float vx, float vy, float? vwidth = null, float? vheight = null, bool centered = false, float rotationRads = 0, Maths.Vector2 originOffset = default);
     }
     
     public class AssetInstance : IAssetInstance

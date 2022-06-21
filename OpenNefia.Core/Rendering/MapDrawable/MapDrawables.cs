@@ -1,5 +1,6 @@
 ﻿using OpenNefia.Core.Game;
 using OpenNefia.Core.GameController;
+using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Maps;
 using OpenNefia.Core.Timing;
@@ -9,6 +10,10 @@ namespace OpenNefia.Core.Rendering
 {
     public class MapDrawables : BaseDrawable, IMapDrawables
     {
+        [Dependency] private readonly IEntityManager _entityMan = default!;
+        [Dependency] private readonly IMapManager _mapMan = default!;
+        [Dependency] private readonly ICoords _coords = default!;
+
         private class Entry : IComparable<Entry>
         {
             public IMapDrawable Drawable;
@@ -36,13 +41,21 @@ namespace OpenNefia.Core.Rendering
 
         public void Enqueue(IMapDrawable drawable, MapCoordinates pos, int zOrder = 0)
         {
-            if (pos.MapId != GameSession.ActiveMap?.Id)
+            if (pos.MapId != _mapMan.ActiveMap?.Id)
                 return;
 
-            var screenPos = GameSession.Coords.TileToScreen(pos.Position);
+            var screenPos = _coords.TileToScreen(pos.Position);
             drawable.ScreenLocalPos = screenPos;
             drawable.OnEnqueue();
             Active.Add(new Entry(drawable, zOrder));
+        }
+
+        public void Enqueue(IMapDrawable drawable, EntityUid ent, int zOrder = 0)
+        {
+            if (!_entityMan.TryGetComponent<SpatialComponent>(ent, out var spatial))
+                return;
+
+            Enqueue(drawable, spatial.MapPosition, zOrder);
         }
 
         public void Clear()

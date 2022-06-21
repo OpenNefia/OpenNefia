@@ -3,6 +3,7 @@ using Moq;
 using OpenNefia.Core;
 using OpenNefia.Core.Areas;
 using OpenNefia.Core.Asynchronous;
+using OpenNefia.Core.Audio;
 using OpenNefia.Core.Configuration;
 using OpenNefia.Core.Containers;
 using OpenNefia.Core.ContentPack;
@@ -272,6 +273,8 @@ namespace OpenNefia.Tests
             container.Register<ISaveGameManagerInternal, SaveGameManager>();
             container.Register<IProfileManager, ProfileManager>();
             container.Register<IMapLoader, MapLoader>();
+
+            container.RegisterInstance<IAudioManager>(new Mock<IAudioManager>().Object);
 
             _diFactory?.Invoke(container);
             container.BuildGraph();

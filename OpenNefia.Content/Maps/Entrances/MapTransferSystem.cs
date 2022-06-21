@@ -66,11 +66,17 @@ namespace OpenNefia.Content.Maps
             // TODO
         }
 
+        private void TransferPlayerParty(EntityUid player, SpatialComponent spatial)
+        {
+            // TODO
+            _mapManager.SetActiveMap(spatial.MapID);
+        }
+
         private void DoMapTransfer(EntityUid player, SpatialComponent spatial)
         {
             var oldMap = _mapManager.ActiveMap;
 
-            _mapManager.SetActiveMap(spatial.MapID);
+            TransferPlayerParty(player, spatial);
 
             RunMapInitializeEvents();
 
@@ -79,8 +85,22 @@ namespace OpenNefia.Content.Maps
             if (oldMap != null)
             {
                 var save = _saveGameManager.CurrentSave!;
-                _mapLoader.SaveMap(oldMap.Id, save);
+
+                var mapCommon = EntityManager.GetComponent<MapCommonComponent>(oldMap.MapEntityUid);
+                var isTemporary = mapCommon.IsTemporary;
+
+                if (!isTemporary)
+                {
+                    _mapLoader.SaveMap(oldMap.Id, save);
+                }
+
                 _mapManager.UnloadMap(oldMap.Id);
+
+                if (isTemporary)
+                {
+                    Logger.WarningS("map.transfer", $"Deleting temporary map {oldMap.Id}.");
+                    _mapLoader.DeleteMap(oldMap.Id, save);
+                }
             }
         }
     }

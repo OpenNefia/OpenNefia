@@ -25,6 +25,12 @@ namespace OpenNefia.Content.Maps
         public bool IsIndoors { get; set; } = false;
 
         [DataField]
+        public bool IsTemporary { get; set; } = false;
+
+        [DataField]
+        public bool IsRenewable { get; set; } = true;
+
+        [DataField]
         public PrototypeId<MapTilesetPrototype> Tileset { get; set; } = Protos.MapTileset.Default;
 
         [DataField]

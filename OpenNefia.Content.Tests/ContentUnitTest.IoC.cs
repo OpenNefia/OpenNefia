@@ -3,6 +3,7 @@ using OpenNefia.Content.DebugView;
 using OpenNefia.Content.Repl;
 using OpenNefia.Content.UI.Hud;
 using OpenNefia.Content.UI.Layer;
+using OpenNefia.Core.Audio;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Maths;
 using OpenNefia.Tests;
@@ -21,13 +22,13 @@ namespace OpenNefia.Content.Tests
             ContentIoC.Register();
 
             IoCManager.RegisterInstance<IFieldLayer>(new Mock<IFieldLayer>().Object, true);
-            IoCManager.RegisterInstance<IHudLayer>(new TestingHudLayer(), true);
+            IoCManager.RegisterInstance<IHudLayer>(new DummyHudLayer(), true);
             IoCManager.RegisterInstance<IReplLayer>(new Mock<IReplLayer>().Object, true);
             IoCManager.RegisterInstance<IDebugViewLayer>(new Mock<IDebugViewLayer>().Object, true);
         }
     }
 
-    public class TestingHudLayer : DummyLayer, IHudLayer
+    public class DummyHudLayer : DummyLayer, IHudLayer
     {
         public IHudMessageWindow MessageWindow { get; } = new DummyMessageWindow();
 

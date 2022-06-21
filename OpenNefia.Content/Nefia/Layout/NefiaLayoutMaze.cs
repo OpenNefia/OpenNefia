@@ -23,6 +23,8 @@ using OpenNefia.Content.GameObjects;
 using OpenNefia.Content.Nefia.Layout;
 using OpenNefia.Content.Factions;
 using OpenNefia.Content.GameObjects.Pickable;
+using OpenNefia.Content.RandomGen;
+using OpenNefia.Content.Qualities;
 
 namespace OpenNefia.Content.Nefia
 {
@@ -32,7 +34,7 @@ namespace OpenNefia.Content.Nefia
     public class NefiaLayoutMaze : IVanillaNefiaLayout
     {
         [Dependency] private readonly IEntityManager _entityManager = default!;
-        [Dependency] private readonly IEntityGen _entityGen = default!;
+        [Dependency] private readonly IItemGen _itemGen = default!;
         [Dependency] private readonly IEntityLookup _lookup = default!;
         [Dependency] private readonly INefiaLayoutCommon _nefiaLayout = default!;
         [Dependency] private readonly IRandom _rand = default!;
@@ -68,7 +70,7 @@ namespace OpenNefia.Content.Nefia
             // <<<<<<<< shade2/map_rand.hsp:246 		} ..
 
             // TODO
-            _entityGen.SpawnEntity(Protos.Item.Helm, map);
+            _itemGen.GenerateItem(map, tags: new[] { _rand.Pick(RandomGenConsts.FilterSets.Wear) }, quality: Quality.Unique);
         }
     }
 }

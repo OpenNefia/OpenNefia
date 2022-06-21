@@ -20,5 +20,8 @@ namespace OpenNefia.Content.VanillaAI
         /// </summary>
         [DataField]
         public bool AnchorCitizens { get; set; } = false;
+
+        [DataField]
+        public VanillaAICalmAction DefaultCalmAction { get; set; } = VanillaAICalmAction.Roam;
     }
 }

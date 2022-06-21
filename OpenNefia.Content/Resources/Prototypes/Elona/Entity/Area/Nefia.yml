@@ -88,4 +88,4 @@
   - type: AreaEntrance
     entranceEntity: Elona.NefiaFortEntrance
   - type: NefiaVanilla
-    generator: !type:NefiaTemplateFort
+    template: !type:NefiaTemplateFort

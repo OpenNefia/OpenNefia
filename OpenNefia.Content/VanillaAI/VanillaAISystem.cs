@@ -19,12 +19,18 @@ using System.Threading.Tasks;
 
 namespace OpenNefia.Content.VanillaAI
 {
+    public interface IVanillaAISystem : IEntitySystem
+    {
+        public EntityUid? GetTarget(EntityUid entity, VanillaAIComponent? ai = null);
+        public void SetTarget(EntityUid entity, EntityUid? target, int aggro, VanillaAIComponent? ai = null);
+    }
+
     /// <summary>
     /// Handles Elona's vanilla AI. The idea is that this can be replaced with whatever
     /// AI system you want by simply removing the <see cref="VanillaAIComponent"/> on the 
     /// entity prototype and writing another entity system that handles <see cref="NPCTurnStartedEvent"/>.
     /// </summary>
-    public sealed partial class VanillaAISystem : EntitySystem
+    public sealed partial class VanillaAISystem : EntitySystem, IVanillaAISystem
     {
         [Dependency] private readonly IMapRandom _mapRandom = default!;
         [Dependency] private readonly IMapManager _mapManager = default!;
@@ -151,7 +157,7 @@ namespace OpenNefia.Content.VanillaAI
             ai.Aggro = Math.Max(ai.Aggro - 1, 0);
         }
 
-        private EntityUid? GetTarget(EntityUid entity, VanillaAIComponent? ai = null)
+        public EntityUid? GetTarget(EntityUid entity, VanillaAIComponent? ai = null)
         {
             if (!Resolve(entity, ref ai))
                 return null;
@@ -159,7 +165,7 @@ namespace OpenNefia.Content.VanillaAI
             return ai.CurrentTarget;
         }
 
-        private void SetTarget(EntityUid entity, EntityUid? target, int aggro, VanillaAIComponent? ai = null)
+        public void SetTarget(EntityUid entity, EntityUid? target, int aggro, VanillaAIComponent? ai = null)
         {
             if (!Resolve(entity, ref ai))
                 return;

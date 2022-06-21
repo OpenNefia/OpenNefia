@@ -18,29 +18,10 @@ using OpenNefia.Content.Nefia;
 using OpenNefia.Content.Maps;
 using OpenNefia.Content.GameObjects.EntitySystems.Tag;
 using OpenNefia.Content.GameObjects;
+using OpenNefia.Content.RandomGen;
+using OpenNefia.Core.Prototypes;
 
-var _maps = IoCManager.Resolve<IMapManager>();
-var _entities = IoCManager.Resolve<IEntityManager>();
-var _script = EntitySystem.Get<ScriptTools>();
-var _nefia = EntitySystem.Get<AreaNefiaSystem>();
+var item = EntitySystem.Get<IItemGen>();
+var chara = EntitySystem.Get<ICharaGen>();
 
-var area = _script.GetOrCreateArea("TestArea", new("Elona.NefiaDungeon"), null);
-var floorId = AreaNefiaSystem.FloorNumberToAreaId(1);
-var cur = _maps.ActiveMap!;
-
-var nefiaVanilla = _entities.GetComponent<NefiaVanillaComponent>(area.AreaEntityUid);
-nefiaVanilla.Template = new BasicNefiaTemplate()
-{
-    Layout = new NefiaLayoutResident()
-};
-
-var ev = new NefiaFloorGenerateEvent(area, floorId, cur.AtPos(1, 1));
-_entities.EventBus.RaiseLocalEvent(area.AreaEntityUid, ev);
-
-if (ev.Handled)
-{
-    var result = _maps.GetMap(ev.ResultMapId.Value);
-    return _script.PrintMap(result);
-}
-
-return "???";
+return item.PickRandomItemIdRaw(1, tags: new[] { Protos.Tag.ItemCatJunkInField }, fltselect: "Elona.Snow");
