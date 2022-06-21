@@ -4,34 +4,25 @@ using OpenNefia.Core.Game;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Maps;
-using OpenNefia.Core.Rendering;
-using OpenNefia.Core.UI;
 using OpenNefia.Core.UI.Layer;
 using OpenNefia.Core.Utility;
 using OpenNefia.Content.Prototypes;
 using OpenNefia.Core.SaveGames;
 using OpenNefia.Core.UserInterface;
-using OpenNefia.Content.Factions;
-using OpenNefia.Content.EntityGen;
 using OpenNefia.Core.Areas;
 using static OpenNefia.Content.Prototypes.Protos;
-using OpenNefia.Core.ContentPack;
 using OpenNefia.Content.Skills;
 using OpenNefia.Content.CharaMake;
-using OpenNefia.Content.EquipSlots;
-using OpenNefia.Core.Areas;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Content.Areas;
-using System.Linq;
-using OpenNefia.Content.Maps;
 using OpenNefia.Content.ConfigMenu;
 using OpenNefia.Core.Configuration;
 using OpenNefia.Content.UI.Hud;
 using OpenNefia.Content.DisplayName;
-using System.Numerics;
 using OpenNefia.Core.Audio;
 using OpenNefia.Content.Logic;
 using OpenNefia.Core.Locale;
+using OpenNefia.Content.CustomName;
 
 namespace OpenNefia.Content.TitleScreen
 {
@@ -101,6 +92,9 @@ namespace OpenNefia.Content.TitleScreen
                                 break;
                             case TitleScreenAction.Quit:
                                 break;
+                            case TitleScreenAction.QuickStart:
+                                RunQuickStart();
+                                break;
                         }
                     }
                     else
@@ -109,6 +103,16 @@ namespace OpenNefia.Content.TitleScreen
                     }
                 }
             }
+        }
+
+        private void RunQuickStart()
+        {
+            _saveGameSerializer.ResetGameState();
+            var layer = _uiManager.CreateLayer<CharaMakeCharaSheetLayer>();
+            var player = layer.CreatePlayerEntity(new List<ICharaMakeLayer>());
+            var customName = _entityManager.EnsureComponent<CustomNameComponent>(player);
+            customName.CustomName = "*QuickStart*";
+            StartNewGame(player);
         }
 
         private void RunRestoreSave()
@@ -142,7 +146,7 @@ namespace OpenNefia.Content.TitleScreen
         /// initialized.
         /// </summary>
         public void InitializeGlobalAreas()
-{
+        {
             DebugTools.Assert(_areaManager.LoadedAreas.Count == 0, "Areas were already initialized!");
 
             foreach (var (areaEntityProto, globalAreaId) in EnumerateGlobalAreas())
@@ -183,13 +187,10 @@ namespace OpenNefia.Content.TitleScreen
             var playerSpatial = _entityManager.GetComponent<SpatialComponent>(player);
             playerSpatial.Coordinates = map.AtPosEntity(2, 2);
 
-            var skills = _entityManager.GetComponent<SkillsComponent>(player);
-            skills.Skills[Protos.Skill.AttrConstitution].Level.Base = 2000;
-            skills.Skills[Protos.Skill.AttrStrength].Level.Base = 2000;
-            EntitySystem.Get<IRefreshSystem>().Refresh(player);
-            EntitySystem.Get<SkillsSystem>().HealToMax(player);
-
             _mapManager.SetActiveMap(map.Id);
+
+            var ev = new NewGameStartedEventArgs();
+            _entityManager.EventBus.RaiseLocalEvent(_gameSessionManager.Player, ev);
 
             _mapManager.RefreshVisibility(map);
 
@@ -226,8 +227,11 @@ namespace OpenNefia.Content.TitleScreen
             hudLayer.ZOrder = HudLayer.HudZOrder;
             _uiManager.PushLayer(hudLayer);
 
-            var evLoaded = new GameLoadedEventArgs(isNewSave);
-            _entityManager.EventBus.RaiseLocalEvent(_gameSessionManager.Player, evLoaded);
+            if (!isNewSave)
+            {
+                var ev = new GameLoadedEventArgs();
+                _entityManager.EventBus.RaiseLocalEvent(_gameSessionManager.Player, ev);
+            }
 
             _uiManager.Query(_fieldLayer);
             _hud.ClearWidgets();
@@ -241,11 +245,15 @@ namespace OpenNefia.Content.TitleScreen
 
     public sealed class GameLoadedEventArgs : EntityEventArgs
     {
-        public bool IsNewSave { get; }
-
-        public GameLoadedEventArgs(bool isNewSave)
+        public GameLoadedEventArgs()
         {
-            IsNewSave = isNewSave;
+        }
+    }
+
+    public sealed class NewGameStartedEventArgs : EntityEventArgs
+    {
+        public NewGameStartedEventArgs()
+        {
         }
     }
 

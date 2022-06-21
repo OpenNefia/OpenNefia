@@ -26,6 +26,8 @@ namespace OpenNefia.Content.Input
             // Used in both the field and in the backlog layer itself.
             common.AddFunction(ContentKeyFunctions.Backlog);
 
+            common.AddFunction(ContentKeyFunctions.QuickStart);
+
             var field = contexts.GetContext("field");
             field.AddFunction(ContentKeyFunctions.Ascend);
             field.AddFunction(ContentKeyFunctions.Descend);

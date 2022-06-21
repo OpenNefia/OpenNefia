@@ -145,7 +145,7 @@ namespace OpenNefia.Core.UI.Wisp.Controls
             var panel = _getPanel();
             var panelBox = new UIBox2(0, headerSize, PixelWidth, PixelHeight);
 
-            panel?.Draw(panelBox.Translated(GlobalPosition), WispRootLayer!.GlobalTint);
+            panel?.Draw(panelBox.Translated(GlobalPixelPosition), WispRootLayer!.GlobalTint);
 
             var font = _getFont();
             var boxActive = _getTabBoxActive();
@@ -188,7 +188,7 @@ namespace OpenNefia.Core.UI.Wisp.Controls
 
                 if (box != null)
                 {
-                    var drawBox = box.GetEnvelopBox(GlobalPosition + topLeft, size);
+                    var drawBox = box.GetEnvelopBox(GlobalPixelPosition + topLeft, size);
                     boxAdvance = drawBox.Width;
                     box.Draw(drawBox, WispRootLayer!.GlobalTint);
                     contentBox = box.GetContentBox(drawBox);

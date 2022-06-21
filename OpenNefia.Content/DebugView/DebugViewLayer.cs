@@ -145,10 +145,12 @@ namespace OpenNefia.Content.DebugView
             if (args.Function == EngineKeyFunctions.UICancel)
             {
                 Cancel();
+                args.Handle();
             }
             else if (args.Function == EngineKeyFunctions.UIClick)
             {
                 _placingTile = true;
+                args.Handle();
             }
             else if (args.Function == EngineKeyFunctions.UIRightClick)
             {
@@ -158,6 +160,7 @@ namespace OpenNefia.Content.DebugView
                     Logger.InfoS("debugview", $"{pos}");
                     OnRightClick(_mapManager.ActiveMap, pos);
                 }
+                args.Handle();
             }
         }
 
@@ -166,6 +169,7 @@ namespace OpenNefia.Content.DebugView
             if (args.Function == EngineKeyFunctions.UIClick)
             {
                 _placingTile = false;
+                args.Handle();
             }
         }
 

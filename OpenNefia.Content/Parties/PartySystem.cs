@@ -207,7 +207,7 @@ namespace OpenNefia.Content.Parties
 
         public bool TryGetLeader(EntityUid target, [NotNullWhen(true)] out EntityUid? leader, PartyComponent? party = null)
         {
-            if (!Resolve(target, ref party) || party.PartyID == null)
+            if (!Resolve(target, ref party, logMissing: false) || party.PartyID == null)
             {
                 leader = null;
                 return false;

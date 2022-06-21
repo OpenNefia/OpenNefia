@@ -607,3 +607,7 @@ binds:
 - function: Elona.ReplComplete
   type: State
   key: Tab
+
+- function: Elona.QuickStart
+  type: State
+  key: F3

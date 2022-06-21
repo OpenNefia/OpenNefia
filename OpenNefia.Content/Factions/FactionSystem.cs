@@ -62,12 +62,10 @@ namespace OpenNefia.Content.Factions
 
         private void HandleCalculateRelation(EntityUid us, FactionComponent ourFaction, ref CalculateRelationEventArgs args)
         {
-            args.Relation = CalculateRelationDefault(us, args.Target, ourFaction);
+            args.Relation = CalculateRelationDefault(us, args.Target);
         }
 
-        public Relation CalculateRelationDefault(EntityUid us, EntityUid them,
-            FactionComponent? ourFaction = null,
-            FactionComponent? theirFaction = null)
+        public Relation CalculateRelationDefault(EntityUid us, EntityUid them)
         {
             if (us == them)
             {
@@ -82,7 +80,8 @@ namespace OpenNefia.Content.Factions
 
             // If either entity lacks a faction component, then they should be treated as neutral.
             // This prevents the AI from targeting inanimate things like doors.
-            if (!Resolve(us, ref ourFaction, logMissing: false) || !Resolve(them, ref theirFaction, logMissing: false))
+            if (!EntityManager.TryGetComponent<FactionComponent>(us, out var ourFaction)
+                || !EntityManager.TryGetComponent<FactionComponent>(them, out var theirFaction))
             {
                 return Relation.Neutral;
             }

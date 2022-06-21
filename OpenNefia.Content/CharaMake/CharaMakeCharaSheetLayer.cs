@@ -34,7 +34,6 @@ namespace OpenNefia.Content.CharaMake
         [Dependency] private readonly ISaveGameSerializer _saveSerializer = default!;
         [Dependency] private readonly IRandomNameGenerator _randomNames = default!;
         [Dependency] private readonly IGraphics _graphics = default!;
-        [Dependency] private readonly IPartySystem _parties = default!;
 
         private EntityUid _playerEntity;
 
@@ -72,7 +71,7 @@ namespace OpenNefia.Content.CharaMake
             EntityManager.EnsureComponent<SleepExperienceComponent>(playerEntity);
         }
 
-        private EntityUid CreatePlayerEntity(IEnumerable<ICharaMakeLayer> steps)
+        public EntityUid CreatePlayerEntity(IEnumerable<ICharaMakeLayer> steps)
         {
             var globalMap = _mapManager.CreateMap(1, 1, MapId.Global);
             var globalMapSpatial = EntityManager.GetComponent<SpatialComponent>(globalMap.MapEntityUid);
