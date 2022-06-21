@@ -37,6 +37,7 @@
   - type: Wallet
   - type: GuildMember
   - type: Religion
+  - type: Party
 
 - type: Entity
   id: BaseItem

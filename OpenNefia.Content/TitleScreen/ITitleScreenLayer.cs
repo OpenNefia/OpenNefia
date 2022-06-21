@@ -9,7 +9,8 @@ namespace OpenNefia.Content.TitleScreen
         RestoreSave,
         Generate,
         Options,
-        Quit
+        Quit,
+        QuickStart,
     }
 
     public record TitleScreenResult(TitleScreenAction Action);

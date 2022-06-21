@@ -228,8 +228,8 @@ namespace OpenNefia.Core.UI.Wisp
                     var mousePos = UserInterfaceManager.MousePositionScaled;
                     Love.Graphics.SetColor(Color.White);
                     Love.Graphics.SetFont(font.LoveFont);
-                    GraphicsS.PrintS(UIScale, $"Control: {control.GetType()}", mousePos.X, mousePos.Y);
-                    GraphicsS.PrintS(UIScale, $"Bounds: {control.GlobalPixelRect} {control.PixelSize}", mousePos.X, mousePos.Y + font.LoveFont.GetHeightV(UIScale));
+                    Love.Graphics.Print($"Control: {control.GetType()}", mousePos.X, mousePos.Y);
+                    Love.Graphics.Print($"Bounds: {control.GlobalPixelRect} {control.PixelSize}", mousePos.X, mousePos.Y + font.LoveFont.GetHeightV(UIScale));
 
                     var color = Color.Gold;
                     color.A = 0.2f;

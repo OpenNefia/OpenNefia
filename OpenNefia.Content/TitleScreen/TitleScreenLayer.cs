@@ -8,12 +8,18 @@ using OpenNefia.Core.UI.Layer;
 using OpenNefia.Content.Prototypes;
 using OpenNefia.Content.UI;
 using OpenNefia.Core.UI;
+using OpenNefia.Core.UI.Element;
+using OpenNefia.Content.Input;
+using OpenNefia.Core.IoC;
+using OpenNefia.Core.Input;
 
 namespace OpenNefia.Content.TitleScreen
 {
     [Localize("Elona.TitleScreen.Layer")]
     public class TitleScreenLayer : UiLayerWithResult<UINone, TitleScreenResult>, ITitleScreenLayer
     {
+        [Dependency] private readonly IAudioManager _audio = default!;
+
         public enum TitleScreenChoice
         {
             Restore,
@@ -98,6 +104,7 @@ namespace OpenNefia.Content.TitleScreen
         private IAssetInstance AssetG4;
 
         private UiText[] TextInfo;
+        [Child] private UiText TextQuickStart;
 
         [Child] [Localize] private UiWindow Window;
         [Child] [Localize] private UiList<TitleScreenChoice> List;
@@ -120,6 +127,15 @@ namespace OpenNefia.Content.TitleScreen
             }
             TextInfo[2] = new UiText(FontTitleText, $"{Engine.NameBase} version {Engine.Version} Developed by Ruin0x11");
 
+            foreach (var text in TextInfo)
+            {
+                AddChild(text);
+            }
+
+            var quickStartKey = IoCManager.Resolve<IInputManager>()
+                .GetKeyFunctionButtonString(ContentKeyFunctions.QuickStart);
+            TextQuickStart = new UiText(FontTitleText, $"{quickStartKey}: QuickStart");
+
             Window = new UiWindow();
 
             var items = new TitleScreenCell[] {
@@ -136,9 +152,16 @@ namespace OpenNefia.Content.TitleScreen
 
             Window.KeyHints = MakeKeyHints();
 
-            foreach (var text in TextInfo)
+            OnKeyBindDown += HandleKeyBindDown;
+        }
+
+        private void HandleKeyBindDown(GUIBoundKeyEventArgs args)
+        {
+            if (args.Function == ContentKeyFunctions.QuickStart)
             {
-                AddChild(text);
+                _audio.Play(Protos.Sound.Ok1);
+                Finish(new TitleScreenResult(TitleScreenAction.QuickStart));
+                args.Handle();
             }
         }
 
@@ -161,7 +184,7 @@ namespace OpenNefia.Content.TitleScreen
 
         private void RunTitleScreenAction(TitleScreenChoice selectedChoice)
         {
-            Sounds.Play(Protos.Sound.Ok1);
+            _audio.Play(Protos.Sound.Ok1);
 
             switch (selectedChoice)
             {
@@ -193,8 +216,9 @@ namespace OpenNefia.Content.TitleScreen
         {
             base.SetPosition(x, y);
             TextInfo[0].SetPosition(X + 20, Y + 20);
-            TextInfo[1].SetPosition(X + 20, Y + 20 + FontTitleText.LoveFont.GetHeight() + 5);
-            TextInfo[2].SetPosition(X + 20, Y + 20 + (FontTitleText.LoveFont.GetHeight() + 5) * 2);
+            TextInfo[1].SetPosition(X + 20, Y + 20 + FontTitleText.LoveFont.GetHeightV(UIScale) + 5);
+            TextInfo[2].SetPosition(X + 20, Y + 20 + (FontTitleText.LoveFont.GetHeightV(UIScale) + 5) * 2);
+            TextQuickStart.SetPosition(X + 20, Y + Height - 20 - FontTitleText.LoveFont.GetHeightV(UIScale));
             Window.SetPosition(X + 80, (Height - 308) / 2);
             List.SetPosition(Window.X + 40, Window.Y + 48);
         }
@@ -208,6 +232,7 @@ namespace OpenNefia.Content.TitleScreen
         {
             foreach (var text in TextInfo)
                 text.Update(dt);
+            TextQuickStart.Update(dt);
 
             Window.Update(dt);
             List.Update(dt);
@@ -217,6 +242,7 @@ namespace OpenNefia.Content.TitleScreen
         {
             foreach (var text in TextInfo)
                 text.Draw();
+            TextQuickStart.Draw();
 
             Window.Draw();
             List.Draw();
@@ -236,6 +262,7 @@ namespace OpenNefia.Content.TitleScreen
             {
                 text.Dispose();
             }
+            TextQuickStart.Dispose();
             Window.Dispose();
             List.Dispose();
         }

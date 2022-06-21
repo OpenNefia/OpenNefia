@@ -19,7 +19,6 @@ namespace OpenNefia.Core.UserInterface
         [Dependency] private readonly IInputManager _inputManager = default!;
         [Dependency] private readonly IGraphics _graphics = default!;
         [Dependency] private readonly ILocalizationManager _loc = default!;
-        [Dependency] private readonly IConfigurationManager _config = default!;
 
         /// <inheritdoc/>
         public UiElement? KeyboardFocused { get; private set; }
