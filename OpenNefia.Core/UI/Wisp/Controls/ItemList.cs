@@ -358,7 +358,7 @@ namespace OpenNefia.Core.UI.Wisp.Controls
                 itemHeight = Math.Max(itemHeight, font.LoveFont.GetHeight());
                 itemHeight += ActualItemBackground.MinimumSize.Y;
 
-                var region = UIBox2.FromDimensions(PixelX, PixelY + offset, PixelWidth, itemHeight);
+                var region = UIBox2.FromDimensions(0, offset, PixelWidth, itemHeight).Translated(PixelPosition);
                 item.Region = region;
 
                 if (region.Intersects(sizeBox))

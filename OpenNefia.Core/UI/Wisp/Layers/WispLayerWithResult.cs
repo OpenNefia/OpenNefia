@@ -162,10 +162,15 @@ namespace OpenNefia.Core.UI.Wisp
             if (!control.Visible)
                 return;
 
+            // TODO: global offsets are where most of the performance problems
+            // are. Should probably adapt a drawing handle architecture combined with
+            // Love.Graphics.Push to stop having to add offsets unnecessarily.
+            var globalPixelRect = control.GlobalPixelRect;
+
             if (_currentScissor != null)
             {
                 // Manual clip test with scissor region as optimization.
-                var controlBox = control.GlobalPixelRect;
+                var controlBox = globalPixelRect;
                 var clipMargin = control.RectDrawClipMargin;
                 var clipTestBox = new UIBox2i(controlBox.Left - clipMargin, controlBox.Top - clipMargin,
                     controlBox.Right + clipMargin, controlBox.Bottom + clipMargin);
@@ -182,7 +187,7 @@ namespace OpenNefia.Core.UI.Wisp
 
             if (control.RectClipContent && !DebugClipping)
             {
-                PushScissor(control.GlobalRect);
+                PushScissor(globalPixelRect);
             }
 
             tint *= control.ActualTint;

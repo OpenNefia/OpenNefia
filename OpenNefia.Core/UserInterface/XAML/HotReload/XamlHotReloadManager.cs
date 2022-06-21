@@ -453,7 +453,7 @@ namespace OpenNefia.Core.UserInterface.XAML.HotReload
                     {
                         var op = i[c].operand as MethodInfo;
 
-                        if (op != null && op.Name == "Load")
+                        if (op != null && (op.Name == "Load" || op.Name == TrampolineName))
                         {
                             var parameters = op.GetParameters();
                             if (parameters.Length == 1
