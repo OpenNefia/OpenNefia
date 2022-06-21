@@ -43,6 +43,7 @@ namespace OpenNefia.Content.Tests.EntityGen
                    factory.LoadExtraSystemType<MapPlacementSystem>();
                    factory.LoadExtraSystemType<MapTilesetSystem>();
                    factory.LoadExtraSystemType<PartySystem>();
+                   factory.LoadExtraSystemType<RefreshSystem>();
                    factory.LoadExtraSystemType<EntityGenTestSystem>();
                })
                .InitializeInstance();
