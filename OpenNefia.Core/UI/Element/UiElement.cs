@@ -241,7 +241,7 @@ namespace OpenNefia.Core.UI.Element
         /// <remarks>TODO implement</remarks>
         public virtual bool Visible
         {
-            get => _visible && (Parent?.Visible ?? true);
+            get => _visible;
             set => _visible = value;
         }
 
@@ -488,6 +488,14 @@ namespace OpenNefia.Core.UI.Element
         ///     handle KeyBindDown as that's the only way a control would gain focus.
         /// </remarks>
         protected internal virtual void ControlFocusExited()
+        {
+        }
+
+        /// <summary>
+        ///     Called when this modal control is closed.
+        ///     Only used for controls that are actually modals.
+        /// </summary>
+        protected internal virtual void ModalRemoved()
         {
         }
 

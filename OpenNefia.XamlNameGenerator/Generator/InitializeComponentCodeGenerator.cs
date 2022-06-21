@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using OpenNefia.XamlNameGenerator.Domain;
 using XamlX.TypeSystem;
 
@@ -24,7 +25,7 @@ internal class InitializeComponentCodeGenerator: ICodeGenerator
         _diagnosticsAreConnected = false; // types.FindAssembly("Avalonia.Diagnostics") != null;
     }
 
-    public string GenerateCode(string className, string nameSpace, IXamlType xamlType, IEnumerable<ResolvedName> names)
+    public string GenerateCode(string className, IList<string> generics, string nameSpace, IXamlType xamlType, IEnumerable<ResolvedName> names)
     {
         var properties = new List<string>();
         var initializations = new List<string>();
@@ -33,6 +34,9 @@ internal class InitializeComponentCodeGenerator: ICodeGenerator
             properties.Add($"        {fieldModifier} global::{typeName} {name};");
             initializations.Add($"            {name} = this.FindControl<global::{typeName}>(\"{name}\");");
         }
+        var genericsStr = string.Empty;
+        if (generics.Count > 0)
+            genericsStr = $"<{string.Join(", ", generics)}>";
 
         var attachDevTools = _diagnosticsAreConnected && IsWindow(xamlType);
 
@@ -43,7 +47,7 @@ using OpenNefia.Core.UI.Wisp.Controls;
 
 namespace {nameSpace}
 {{
-    partial class {className}
+    partial class {className}{genericsStr}
     {{
 {string.Join("\n", properties)}
 

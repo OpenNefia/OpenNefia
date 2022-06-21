@@ -309,7 +309,7 @@ namespace OpenNefia.Tests.Core.Maths
         {
             var (box, amount, expected) = value;
 
-            Assert.That(box.Expand(amount), Is.EqualTo(expected));
+            Assert.That(box.Scale(amount), Is.EqualTo(expected));
         }
     }
 }

@@ -178,6 +178,11 @@ binds:
   key: MouseRight
   canFocus: true
   priority: 10
+- function: UIMiddleClick
+  type: State
+  key: MouseMiddle
+  canFocus: true
+  priority: 10
 
 - function: UIUp
   type: State

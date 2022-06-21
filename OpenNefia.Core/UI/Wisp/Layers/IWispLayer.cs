@@ -1,4 +1,5 @@
-﻿using OpenNefia.Core.UI.Layer;
+﻿using OpenNefia.Core.Maths;
+using OpenNefia.Core.UI.Layer;
 using OpenNefia.Core.UI.Wisp.Controls;
 using OpenNefia.Core.UI.Wisp.CustomControls;
 
@@ -26,6 +27,35 @@ namespace OpenNefia.Core.UI.Wisp
         /// </remarks>
         LayoutContainer WindowRoot { get; }
 
+        PopupContainer ModalRoot { get; }
+
+        // TODO: use a DrawHandle class instead of Love.Graphics methods for the below
+
+        /// <summary>
+        /// Global color modulation to be used when rendering.
+        /// </summary>
+        /// <remarks>
+        /// !!! THIS IS A STUPID HACK !!!
+        /// </remarks>
+        Color GlobalTint { get; }
+
+        /// <summary>
+        /// Pushes a global scissor.
+        /// </summary>
+        /// <remarks>
+        /// !!! THIS IS A STUPID HACK !!!
+        /// </remarks>
+        void PushScissor(UIBox2 scissor, bool ignoreParents = false);
+
+        /// <summary>
+        /// Pops a global scissor.
+        /// </summary>
+        /// <remarks>
+        /// !!! THIS IS A STUPID HACK !!!
+        /// </remarks>
+        void PopScissor();
+
         bool Debug { get; set; }
+        bool DebugClipping { get; set; }
     }
 }

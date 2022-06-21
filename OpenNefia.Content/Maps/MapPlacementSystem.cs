@@ -178,7 +178,7 @@ namespace OpenNefia.Content.Maps
 
         public MapCoordinates? FindFreePositionForChara(IMap map, CharaPlaceType type = CharaPlaceType.Npc)
         {
-            var pos = _random.NextVec2iInBounds(map.Bounds.Expand(-2));
+            var pos = _random.NextVec2iInBounds(map.Bounds.Scale(-2));
             return FindFreePositionForChara(map.AtPos(pos), type);
         }
 

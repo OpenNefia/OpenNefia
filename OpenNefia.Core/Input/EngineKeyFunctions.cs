@@ -21,6 +21,7 @@ namespace OpenNefia.Core.Input
 
         public static readonly BoundKeyFunction UIClick = "UIClick";
         public static readonly BoundKeyFunction UIRightClick = "UIRightClick";
+        public static readonly BoundKeyFunction UIMiddleClick = "UIMiddleClick";
 
         public static readonly BoundKeyFunction UIUp = "UIUp";
         public static readonly BoundKeyFunction UIDown = "UIDown";
@@ -34,6 +35,7 @@ namespace OpenNefia.Core.Input
         public static readonly BoundKeyFunction UINextPage = "UINextPage";
         public static readonly BoundKeyFunction UIPreviousPage = "UIPreviousPage";
 
+        public static readonly BoundKeyFunction CloseModals = "CloseModals";
         public static readonly BoundKeyFunction ShowDebugConsole = "ShowDebugConsole";
         public static readonly BoundKeyFunction ShowDebugView = "ShowDebugView";
 

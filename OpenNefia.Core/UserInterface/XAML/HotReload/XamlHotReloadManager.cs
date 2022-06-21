@@ -137,7 +137,6 @@ namespace OpenNefia.Core.UserInterface.XAML.HotReload
                 .Where(asm => !asm.IsDynamic)
                 .Select(asm => asm.Location)
                 .ToArray();
-
         }
 
         /// <inheritdoc/>
@@ -163,11 +162,11 @@ namespace OpenNefia.Core.UserInterface.XAML.HotReload
             var xamlResource = new XamlResource(controlType, xamlPath);
 
             var transformerConfig = new TransformerConfiguration(
-            _typeSystem,
-            _typeSystem.GetAssembly(containingAssembly),
-            _xamlLanguage,
-            _xmlnsMappings,
-            CustomValueConverter);
+                _typeSystem,
+                _typeSystem.GetAssembly(containingAssembly),
+                _xamlLanguage,
+                _xmlnsMappings,
+                CustomValueConverter);
 
             var compiler = new OpenNefiaXamlILCompiler(transformerConfig, _emitConfig, true);
 
@@ -454,7 +453,7 @@ namespace OpenNefia.Core.UserInterface.XAML.HotReload
                     {
                         var op = i[c].operand as MethodInfo;
 
-                        if (op != null && op.Name == "Load")
+                        if (op != null && (op.Name == "Load" || op.Name == TrampolineName))
                         {
                             var parameters = op.GetParameters();
                             if (parameters.Length == 1

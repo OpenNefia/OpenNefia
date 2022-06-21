@@ -8,7 +8,8 @@ namespace OpenNefia.Core.UI.Wisp
     // ReSharper disable once RequiredBaseTypesIsNotInherited
     public partial class WispControl
     {
-        public const string StylePropertyModulateSelf = "modulate-self";
+        public const string StylePropertyTintSelf = "tintSelf";
+        public const string StylePropertyTint = "tint";
 
         /// <summary>
         ///     Overrides the style sheet used for this control and its descendants.

@@ -63,7 +63,7 @@ namespace OpenNefia.Core.UI.Wisp.Controls
             base.Draw();
 
             var style = ActualStyleBox;
-            style.Draw(GlobalPixelRect);
+            style.Draw(GlobalPixelRect, WispRootLayer!.GlobalTint);
         }
 
         protected override void DrawModeChanged()

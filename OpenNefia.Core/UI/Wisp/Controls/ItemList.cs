@@ -335,7 +335,7 @@ namespace OpenNefia.Core.UI.Wisp.Controls
 
             var offset = -_scrollBar.Value;
 
-            listBg.Draw(GlobalPixelRect);
+            listBg.Draw(GlobalPixelRect, WispRootLayer!.GlobalTint);
 
             foreach (var item in _itemList)
             {
@@ -358,18 +358,18 @@ namespace OpenNefia.Core.UI.Wisp.Controls
                 itemHeight = Math.Max(itemHeight, font.LoveFont.GetHeight());
                 itemHeight += ActualItemBackground.MinimumSize.Y;
 
-                var region = UIBox2.FromDimensions(PixelX, PixelY + offset, PixelWidth, itemHeight);
+                var region = UIBox2.FromDimensions(0, offset, PixelWidth, itemHeight).Translated(PixelPosition);
                 item.Region = region;
 
                 if (region.Intersects(sizeBox))
                 {
-                    bg.Draw(item.Region.Value);
+                    bg.Draw(item.Region.Value.Translated(GlobalPixelPosition), WispRootLayer!.GlobalTint);
 
                     var contentBox = bg.GetContentBox(item.Region.Value);
                     var drawOffset = contentBox.TopLeft;
                     if (item.Icon != null)
                     {
-                        Love.Graphics.SetColor(item.IconModulate);
+                        GraphicsS.SetColorTinted(this, item.IconModulate);
                         var drawLocation = UIBox2.FromDimensions(GlobalPixelPosition + drawOffset, item.Icon.PixelSize);
                         if (item.IconRegion.Size == Vector2.Zero)
                         {
@@ -401,13 +401,13 @@ namespace OpenNefia.Core.UI.Wisp.Controls
             var font = ActualFont;
 
             var color = ActualFontColor;
-            var offsetY = (int)(box.Height - font.LoveFont.GetHeight()) / 2;
-            var baseLine = new Vector2i(GlobalPixelX, GlobalPixelY + offsetY + font.LoveFont.GetAscent()) + box.TopLeft;
+            var offsetY = (int)(box.Height - font.LoveFont.GetHeight()) / 2 - 1;
+            var baseLine = GlobalPixelPosition + new Vector2i(0, offsetY) + box.TopLeft;
 
-            Love.Graphics.SetColor(color);
-            Love.Graphics.SetScissor(box);
+            GraphicsS.SetColorTinted(this, color);
+            WispRootLayer!.PushScissor(box.Translated(GlobalPixelPosition), ignoreParents: true);
             Love.Graphics.Draw(text, baseLine.X, baseLine.Y);
-            Love.Graphics.SetScissor();
+            WispRootLayer.PopScissor();
         }
 
         protected override Vector2 MeasureOverride(Vector2 availableSize)

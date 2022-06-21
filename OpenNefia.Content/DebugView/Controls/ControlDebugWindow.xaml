@@ -1,8 +1,9 @@
 ﻿<DefaultWindow xmlns="https://opennefia.io"
-               Class="OpenNefia.Core.ControlTest.ControlDebugWindow"
+               Class="OpenNefia.Content.DebugView.ControlDebugWindow"
                Title="Control Debug">
     <BoxContainer Orientation="Vertical" VerticalExpand="True">
         <Button Name="ToggleDebugButton" Text="Toggle Debug" HorizontalExpand="True" Margin ="0 4" />
+        <Button Name="ToggleClippingButton" Text="Toggle Clipping" HorizontalExpand="True" Margin ="0 4" />
         <Button Name="DesignerButton" Text="Designer" HorizontalExpand="True" Margin ="0 4" />
     </BoxContainer>
 </DefaultWindow>

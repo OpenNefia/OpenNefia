@@ -1,9 +1,10 @@
 ﻿<DefaultWindow xmlns="https://opennefia.io"
-               Class="OpenNefia.Core.ControlTest.ControlTestMainWindow"
+               Class="OpenNefia.Content.DebugView.ControlTestMainWindow"
                Title="Control Test">
     <BoxContainer Orientation="Vertical" VerticalExpand="True" >
         <Button Name="AllInOneButton" Text="All In One" HorizontalExpand="True" Margin ="0 4" />
         <Button Name="TextureRectButton" Text="TextureRect" HorizontalExpand="True" Margin ="0 4" />
         <Button Name="ItemListButton" Text="ItemList" HorizontalExpand="True" Margin ="0 4" />
+        <Button Name="ViewVariablesButton" Text="ViewVariables" HorizontalExpand="True" Margin ="0 4" />
     </BoxContainer>
 </DefaultWindow>

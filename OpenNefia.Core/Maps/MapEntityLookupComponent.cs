@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 namespace OpenNefia.Core.Maps
 {
+    [ComponentUsage(ComponentTarget.Map)]
     public class MapEntityLookupComponent : Component
     {
         /// <inheritdoc />

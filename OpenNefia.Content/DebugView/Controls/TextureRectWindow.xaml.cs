@@ -6,7 +6,7 @@ using OpenNefia.Core.UI.Wisp.CustomControls;
 using OpenNefia.Core.UserInterface.XAML;
 using OpenNefia.Core.Utility;
 
-namespace OpenNefia.Core.ControlTest
+namespace OpenNefia.Content.DebugView
 {
     public partial class TextureRectWindow : DefaultWindow
     {

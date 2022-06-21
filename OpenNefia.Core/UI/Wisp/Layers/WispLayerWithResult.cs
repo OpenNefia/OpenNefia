@@ -25,6 +25,7 @@ namespace OpenNefia.Core.UI.Wisp
         where TResult : class
     {
         [Dependency] private IWispManager _wispManager = default!;
+        [Dependency] private IGraphics _graphics = default!;
 
         private UIBox2? _currentScissor;
         private Stack<UIBox2> _scissorStack = new();
@@ -35,7 +36,14 @@ namespace OpenNefia.Core.UI.Wisp
         /// <inheritdoc/>
         public LayoutContainer WindowRoot { get; }
 
+        /// <inheritdoc/>
+        public PopupContainer ModalRoot { get; }
+
         public bool Debug { get; set; }
+        public bool DebugClipping { get; set; }
+
+        /// <inheritdoc/>
+        public Color GlobalTint { get; private set; }
 
         public WispLayerWithResult()
         {
@@ -56,13 +64,49 @@ namespace OpenNefia.Core.UI.Wisp
             };
             WispRoot.AddChild(WindowRoot);
 
-            AddChild(WispRoot);
+            ModalRoot = new PopupContainer
+            {
+                Name = nameof(ModalRoot),
+                EventFilter = UIEventFilterMode.Ignore
+            };
+            WispRoot.AddChild(ModalRoot);
 
-            // Arrange early so that WispRoot has the correct size set by the time the
-            // constructor finishes.
-            var graphics = IoCManager.Resolve<IGraphics>();
-            WispRoot.Measure(graphics.WindowSize);
-            WispRoot.Arrange(UIBox2.FromDimensions(Vector2.Zero, graphics.WindowSize));
+            AddChild(WispRoot);
+        }
+
+        /// <inheritdoc/>
+        public void PushScissor(UIBox2 scissor, bool ignoreParents = false)
+        {
+            var oldScissor = _currentScissor;
+            var newScissor = scissor;
+
+            if (oldScissor != null)
+            {
+                if (!ignoreParents)
+                {
+                    // New scissors should be subsets of the parent.
+                    newScissor = oldScissor.Value.Intersection(newScissor) ?? new UIBox2();
+                }
+                _scissorStack.Push(oldScissor.Value);
+            }
+
+            _currentScissor = newScissor;
+            Love.Graphics.SetScissor(newScissor);
+        }
+
+        /// <inheritdoc/>
+        public void PopScissor()
+        {
+            if (_scissorStack.Count == 0)
+            {
+                _currentScissor = null;
+                Love.Graphics.SetScissor();
+            }
+            else
+            {
+                _currentScissor = _scissorStack.Pop();
+                Love.Graphics.SetScissor(_currentScissor.Value);
+            }
         }
 
         public override void SetSize(float width, float height)
@@ -73,6 +117,9 @@ namespace OpenNefia.Core.UI.Wisp
 
         public override void OnQuery()
         {
+            WispRoot.Measure(_graphics.WindowSize);
+            WispRoot.Arrange(UIBox2.FromDimensions(Vector2.Zero, _graphics.WindowSize));
+
             base.OnQuery();
 
             // TODO move to UserInterfaceManager
@@ -97,9 +144,11 @@ namespace OpenNefia.Core.UI.Wisp
                 return;
 
             control.Update(dt);
-            foreach (var child in control.WispChildren)
+
+            foreach (var child in control.Children)
             {
-                UpdateRecursive(child, dt);
+                if (child is WispControl wispChild)
+                    UpdateRecursive(wispChild, dt);
             }
         }
 
@@ -108,57 +157,96 @@ namespace OpenNefia.Core.UI.Wisp
             UpdateRecursive(WispRoot, dt);
         }
 
-        private void DrawRecursive(WispControl control)
+        private void DrawRecursive(WispControl control, Color tint)
         {
             if (!control.Visible)
                 return;
 
-            // TODO Love.Graphics.Push!
+            // TODO: global offsets are where most of the performance problems
+            // are. Should probably adapt a drawing handle architecture combined with
+            // Love.Graphics.Push to stop having to add offsets unnecessarily.
+            var globalPixelRect = control.GlobalPixelRect;
 
-            if (control.RectClipContent)
+            if (_currentScissor != null)
             {
-                if (_currentScissor != null)
-                    _scissorStack.Push(_currentScissor.Value);
-                _currentScissor = control.GlobalPixelRect;
-                Love.Graphics.SetScissor(_currentScissor.Value);
+                // Manual clip test with scissor region as optimization.
+                var controlBox = globalPixelRect;
+                var clipMargin = control.RectDrawClipMargin;
+                var clipTestBox = new UIBox2i(controlBox.Left - clipMargin, controlBox.Top - clipMargin,
+                    controlBox.Right + clipMargin, controlBox.Bottom + clipMargin);
+
+                if (!_currentScissor.Value.Intersects(clipTestBox))
+                {
+                    return;
+                }
             }
+
+            // TODO Love.Graphics.Push!
+            // WispControl.Draw() is supposed to use local coordinates
+            // (no GlobalPosition/X/Y)
+
+            if (control.RectClipContent && !DebugClipping)
+            {
+                PushScissor(globalPixelRect);
+            }
+
+            tint *= control.ActualTint;
+            GlobalTint = tint * control.ActualTintSelf;
 
             control.Draw();
 
             if (Debug)
             {
-                var color = Color.Red;
-                if (UserInterfaceManager.ControlFocused == control)
-                    color = Color.Gold;
-                else if (UserInterfaceManager.CurrentlyHovered == control)
-                    color = Color.LightBlue;
-                Love.Graphics.SetColor(color);
+                Love.Graphics.SetColor(Color.Red);
                 GraphicsS.RectangleS(UIScale, Love.DrawMode.Line, control.GlobalRect);
             }
 
-            foreach (var child in control.WispChildren)
+            foreach (var child in control.Children)
             {
-                DrawRecursive(child);
+                if (child is WispControl wispChild)
+                    DrawRecursive(wispChild, tint);
             }
 
-            if (control.RectClipContent)
+            if (control.RectClipContent && !DebugClipping)
             {
-                if (_scissorStack.Count == 0)
-                {
-                    _currentScissor = null;
-                    Love.Graphics.SetScissor();
-                }
-                else
-                {
-                    _currentScissor = _scissorStack.Pop();
-                    Love.Graphics.SetScissor(_currentScissor.Value);
-                }
+                PopScissor();
             }
         }
 
         public override void Draw()
         {
-            DrawRecursive(WispRoot);
+            _scissorStack.Clear();
+            DrawRecursive(WispRoot, Color.White);
+
+            if (Debug)
+            {
+                var control = UserInterfaceManager.CurrentlyHovered;
+
+                if (control != null)
+                {
+                    var font = _wispManager.GetStyleFallback<FontSpec>();
+                    var mousePos = UserInterfaceManager.MousePositionScaled;
+                    Love.Graphics.SetColor(Color.White);
+                    Love.Graphics.SetFont(font.LoveFont);
+                    GraphicsS.PrintS(UIScale, $"Control: {control.GetType()}", mousePos.X, mousePos.Y);
+                    GraphicsS.PrintS(UIScale, $"Bounds: {control.GlobalPixelRect} {control.PixelSize}", mousePos.X, mousePos.Y + font.LoveFont.GetHeightV(UIScale));
+
+                    var color = Color.Gold;
+                    color.A = 0.2f;
+                    Love.Graphics.SetColor(color);
+                    GraphicsS.RectangleS(UIScale, Love.DrawMode.Fill, control.GlobalRect);
+                }
+
+                control = UserInterfaceManager.ControlFocused;
+
+                if (control != null)
+                {
+                    var color = Color.Cyan;
+                    color.A = 0.2f;
+                    Love.Graphics.SetColor(color);
+                    GraphicsS.RectangleS(UIScale, Love.DrawMode.Fill, control.GlobalRect);
+                }
+            }
         }
     }
 }

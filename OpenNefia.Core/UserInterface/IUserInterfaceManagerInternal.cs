@@ -36,6 +36,8 @@ namespace OpenNefia.Core.UserInterface
 
         void ControlRemovedFromTree(UiElement control);
 
+        void RemoveModal(UiElement modal);
+
         Vector2? CalcRelativeMousePositionFor(UiElement control, ScreenCoordinates mousePos);
 
         void ReleaseKeyboardFocus();

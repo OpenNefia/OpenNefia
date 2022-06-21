@@ -240,11 +240,11 @@ namespace OpenNefia.Core.UI.Wisp.Controls
 
             var baseLine = CalcBaseline();
 
-            Love.Graphics.SetColor(actualFontColor);
-            
+            GraphicsS.SetColorTinted(this, actualFontColor);
+
             // TODO: need better clipping management (global stack used by WispManager)
             if (ClipText)
-                Love.Graphics.SetScissor(GlobalPixelRect);
+                WispRootLayer!.PushScissor(GlobalPixelRect);
 
             foreach (var line in _splitText)
             {
@@ -254,7 +254,7 @@ namespace OpenNefia.Core.UI.Wisp.Controls
             }
 
             if (ClipText)
-                Love.Graphics.SetScissor();
+                WispRootLayer!.PopScissor();
         }
 
         protected override Vector2 MeasureOverride(Vector2 availableSize)
@@ -290,7 +290,6 @@ namespace OpenNefia.Core.UI.Wisp.Controls
         private void _calculateTextDimension()
         {
             _cachedTextWidths.Clear();
-            _cachedTextWidths.Add(0);
 
             if (_text == null)
             {
@@ -303,6 +302,7 @@ namespace OpenNefia.Core.UI.Wisp.Controls
             _cachedTextWidths.AddRange(_splitText.Select(line => line.GetWidth()));
             _cachedTextHeight = (font.LoveFont.GetHeight() * _splitText.Count);
 
+            _cachedTextWidths.Add(0);
             _textDimensionCacheValid = true;
         }
 

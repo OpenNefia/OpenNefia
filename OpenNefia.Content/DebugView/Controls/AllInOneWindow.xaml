@@ -1,5 +1,5 @@
 ﻿<DefaultWindow xmlns="https://opennefia.io"
-               Class="OpenNefia.Core.ControlTest.AllInOneWindow"
+               Class="OpenNefia.Content.DebugView.AllInOneWindow"
                Title="All In One"
                MinSize="300 300">
     <ScrollContainer VerticalExpand="False">

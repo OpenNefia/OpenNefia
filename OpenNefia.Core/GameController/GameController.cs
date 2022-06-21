@@ -1,4 +1,5 @@
 ﻿using System.Runtime;
+using OpenNefia.Core.Areas;
 using OpenNefia.Core.Asynchronous;
 using OpenNefia.Core.Audio;
 using OpenNefia.Core.Configuration;
@@ -44,6 +45,7 @@ namespace OpenNefia.Core.GameController
         [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
         [Dependency] private readonly ILogManager _log = default!;
         [Dependency] private readonly ISerializationManager _serialization = default!;
+        [Dependency] private readonly IAreaManagerInternal _areaManager = default!;
         [Dependency] private readonly IComponentFactory _components = default!;
         [Dependency] private readonly ITileDefinitionManagerInternal _tileDefinitionManager = default!;
         [Dependency] private readonly IUserInterfaceManagerInternal _uiManager = default!;
@@ -151,6 +153,8 @@ namespace OpenNefia.Core.GameController
             _atlasManager.LoadAtlases();
 
             _entityManager.Startup();
+
+            _areaManager.Initialize();
 
             _saveGameSerializer.Initialize();
 
@@ -305,6 +309,7 @@ namespace OpenNefia.Core.GameController
         private void DoShutdown()
         {
             _entityManager.Shutdown();
+            _areaManager.Shutdown();
             _uiManager.Shutdown();
             _graphics.Shutdown();
             _audio.Shutdown();

@@ -52,7 +52,7 @@ namespace OpenNefia.Core.UI.Wisp.Styling
                     new[]
                     {
                         // new StyleProperty(TextureButton.StylePropertyTexture, Prototypes.Protos.Asset.AutoTurnIcon),
-                        new StyleProperty(WispControl.StylePropertyModulateSelf, Color.FromHex("#4B596A")),
+                        new StyleProperty(WispControl.StylePropertyTintSelf, Color.FromHex("#4B596A")),
                     }),
                 // Window close button hover.
                 new StyleRule(
@@ -60,7 +60,7 @@ namespace OpenNefia.Core.UI.Wisp.Styling
                         new[] {TextureButton.StylePseudoClassHover}),
                     new[]
                     {
-                        new StyleProperty(WispControl.StylePropertyModulateSelf, Color.FromHex("#7F3636")),
+                        new StyleProperty(WispControl.StylePropertyTintSelf, Color.FromHex("#7F3636")),
                     }),
                 // Window close button pressed.
                 new StyleRule(
@@ -68,7 +68,7 @@ namespace OpenNefia.Core.UI.Wisp.Styling
                         new[] {TextureButton.StylePseudoClassPressed}),
                     new[]
                     {
-                        new StyleProperty(WispControl.StylePropertyModulateSelf, Color.FromHex("#753131")),
+                        new StyleProperty(WispControl.StylePropertyTintSelf, Color.FromHex("#753131")),
                     }),
 
                 /*

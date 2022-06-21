@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 namespace OpenNefia.Content.MapVisibility
 {
     [RegisterComponent]
+    [ComponentUsage(ComponentTarget.Map)]
     public sealed class MapVisibilityComponent : Component
     {
         public override string Name => "MapVisibility";

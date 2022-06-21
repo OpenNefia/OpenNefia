@@ -29,6 +29,28 @@ namespace OpenNefia.Core.GameObjects
         public bool IsValid()
         {
             return _uid > 0;
+        }        
+        
+        /// <summary>
+        ///     Creates an entity UID by parsing a string number.
+        /// </summary>
+        public static EntityUid Parse(ReadOnlySpan<char> uid)
+        {
+            return new EntityUid(int.Parse(uid));
+        }
+
+        public static bool TryParse(ReadOnlySpan<char> uid, out EntityUid entityUid)
+        {
+            try
+            {
+                entityUid = Parse(uid);
+                return true;
+            }
+            catch (FormatException)
+            {
+                entityUid = Invalid;
+                return false;
+            }
         }
 
         /// <inheritdoc />

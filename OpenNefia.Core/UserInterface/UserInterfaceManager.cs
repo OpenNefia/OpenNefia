@@ -45,6 +45,8 @@ namespace OpenNefia.Core.UserInterface
         /// <inheritdoc/>
         public ScreenCoordinates MousePositionScaled => _inputManager.MouseScreenPosition;
 
+        private readonly List<UiElement> _modalStack = new();
+
         public void Initialize()
         {
             _inputManager.UIKeyBindStateChanged += OnUIKeyBindStateChanged;
@@ -127,6 +129,19 @@ namespace OpenNefia.Core.UserInterface
 
             if (control != ControlFocused) return;
             ControlFocused = null;
+        }
+
+        public void PushModal(UiElement modal)
+        {
+            _modalStack.Add(modal);
+        }
+
+        public void RemoveModal(UiElement modal)
+        {
+            if (_modalStack.Remove(modal))
+            {
+                modal.ModalRemoved();
+            }
         }
 
         public UiElement? MouseGetControl(ScreenCoordinates coordinates)

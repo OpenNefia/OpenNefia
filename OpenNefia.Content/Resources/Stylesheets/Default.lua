@@ -55,14 +55,6 @@ local function font(t)
     return result
 end
 
-local function font(t)
-    local result = FontSpec(t.size, t.smallSize or t.size)
-    t.size = nil
-    t.smallSize = nil
-    setProps(result, t)
-    return result
-end
-
 ----------------------------------------
 -- Fallback
 ----------------------------------------
@@ -180,18 +172,16 @@ Label ".windowTitleAlert" {
     font = fontBold12,
 }
 
-Button {
+ContainerButton {
     styleBox = styleBoxFlat {
         borderColor = "#446666",
         backgroundColor = "#447777",
-        borderThickness = margin(2),
     },
 
     rule ":hover" {
         styleBox = styleBoxFlat {
             borderColor = "#446666",
             backgroundColor = "#44AAAA",
-            borderThickness = margin(2),
         },
     },
 
@@ -199,7 +189,6 @@ Button {
         styleBox = styleBoxFlat {
             borderColor = "#886666",
             backgroundColor = "#AAAA44",
-            borderThickness = margin(2),
         },
     },
 
@@ -207,8 +196,44 @@ Button {
         styleBox = styleBoxFlat {
             borderColor = "#444444",
             backgroundColor = "#666666",
-            borderThickness = margin(2),
         },
+        tintSelf = "#30313c",
+    },
+}
+
+ContainerButton ".tileButton" {
+    tint = "#FFFFFF00",
+
+    rule ":hover" {
+        tint = "#44AAAAA0",
+    },
+
+    rule ":pressed" {
+        tint = "#AAAA44A0",
+    },
+
+    rule ":disabled" {
+        tint = "#30313CA0",
+    },
+}
+
+TextureRect ".optionTriangle" {
+    texture = asset "Core.WispOptionButtonTriangle",
+}
+
+TabContainer {
+    tabStyleBox = styleBoxFlat {
+        backgroundColor = "#6666AA",
+        borderColor = "#444466",
+    },
+    tabStyleBoxInactive = styleBoxFlat {
+        backgroundColor = "#222244",
+        borderColor = "#404040",
+    },
+    fontColor = "#FFFFFF",
+    fontColorInactive = "#BBBBBB",
+    panelStyleBox = styleBoxFlat {
+        backgroundColor = "#404040",
     },
 }
 
@@ -219,7 +244,7 @@ CheckBox {
 }
 
 TextureButton ".windowCloseButton" {
-    texture = asset "Elona.AutoTurnIcon",
+    texture = asset "Core.WispCross",
     modulateSelf = "#4B596A",
 }
 
@@ -246,6 +271,21 @@ PanelContainer ".designerToolbar" {
 Label ".pointerText" {
     fontColor = "#00AAAA",
     font = font10,
+}
+
+ItemList {
+    itemlistBackground = styleBoxFlat {
+        backgroundColor = "#505070",
+    },
+    itemBackground = styleBoxFlat {
+        backgroundColor = "#444477",
+    },
+    selectedItemBackground = styleBoxFlat {
+        backgroundColor = "#AAAA44",
+    },
+    disabledItemBackground = styleBoxFlat {
+        backgroundColor = "#505050",
+    },
 }
 
 MeasurementPointer {

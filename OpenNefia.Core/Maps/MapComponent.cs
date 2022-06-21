@@ -7,6 +7,7 @@ namespace OpenNefia.Core.Maps
     /// <summary>
     ///     Represents a map inside the ECS system.
     /// </summary>
+    [ComponentUsage(ComponentTarget.Map)]
     public class MapComponent : Component
     {
         /// <inheritdoc />

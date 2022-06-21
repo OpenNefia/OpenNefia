@@ -12,6 +12,7 @@ using OpenNefia.Content.RandomGen;
 namespace OpenNefia.Content.Maps
 {
     [RegisterComponent]
+    [ComponentUsage(ComponentTarget.Map)]
     public class MapCharaGenComponent : Component
     {
         public override string Name => "MapCharaGen";

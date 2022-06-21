@@ -76,7 +76,7 @@ namespace OpenNefia.Core.ControlDesigner
         {
             base.Draw();
 
-            Love.Graphics.SetColor(RulerColor);
+            GraphicsS.SetColorTinted(this, RulerColor);
             Love.Graphics.SetLineWidth(RulerThickness);
 
             Love.Graphics.Line(GlobalPixelX, 0, GlobalPixelX, WispRootLayer!.WispRoot.PixelHeight);

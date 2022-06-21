@@ -12,6 +12,7 @@ namespace OpenNefia.Content.Maps
     /// Map to travel to when exiting a map from the edges.
     /// </summary>
     [RegisterComponent]
+    [ComponentUsage(ComponentTarget.Map)]
     public class MapEdgesEntranceComponent : Component
     {
         public override string Name => "MapEdgesEntrance";

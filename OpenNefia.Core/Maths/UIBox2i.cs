@@ -89,7 +89,7 @@ namespace OpenNefia.Core.Maths
             return new(Left + point.X, Top + point.Y, Right + point.X, Bottom + point.Y);
         }
 
-        public readonly UIBox2i Expand(int amount)
+        public readonly UIBox2i Scale(int amount)
         {
             return new(Left - amount, Top - amount, Right + amount * 2, Bottom + amount * 2);
         }

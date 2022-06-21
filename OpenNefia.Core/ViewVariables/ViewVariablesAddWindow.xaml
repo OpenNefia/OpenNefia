@@ -1,0 +1,8 @@
+<DefaultWindow xmlns="https://opennefia.io"
+                  Class="OpenNefia.Core.ViewVariables.ViewVariablesAddWindow">
+    <BoxContainer Orientation="Vertical" VerticalExpand="True">
+        <LineEdit Name="SearchLineEdit" PlaceHolder="Search..." HorizontalExpand="True" />
+        <ItemList Name="EntryItemList" VerticalExpand="True" HorizontalExpand="True" SelectMode="Single" />
+        <Button Name="AddButton" Text="Select" TextAlign="Center" HorizontalExpand="True"/>
+    </BoxContainer>
+</DefaultWindow>
