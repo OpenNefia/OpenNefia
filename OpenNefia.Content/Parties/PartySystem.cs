@@ -15,59 +15,236 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Diagnostics.CodeAnalysis;
+using OpenNefia.Core.SaveGames;
+using OpenNefia.Core.Serialization.Manager.Attributes;
 
 namespace OpenNefia.Content.Parties
 {
+    [DataDefinition]
+    internal sealed class Party
+    {
+        public Party() {}
+
+        public Party(EntityUid leader)
+        {
+            Leader = leader;
+            Members.Add(leader);
+        }
+
+        [DataField(required: true)]
+        public EntityUid Leader { get; set; }
+
+        [DataField(required: true)]
+        public HashSet<EntityUid> Members { get; set; } = new();
+    }
+
+    [DataDefinition]
+    internal sealed class PartyCollection
+    {
+        [DataField]
+        private Dictionary<int, Party> Parties { get; set; } = new();
+
+        [DataField]
+        private Dictionary<EntityUid, int> EntityUidToPartyId { get; set; } = new();
+
+        [DataField]
+        private int NextPartyId { get; set; } = 0;
+
+        public void AddMember(int partyId, EntityUid uid)
+        {
+            if (!Parties.TryGetValue(partyId, out var party))
+                throw new ArgumentException($"Party {partyId} does not exist.");
+
+            if (EntityUidToPartyId.TryGetValue(uid, out var existing))
+                throw new ArgumentException($"Entity {uid} is already in party {existing}, but tried adding them to {partyId}.");
+
+            party.Members.Add(uid);
+            EntityUidToPartyId[uid] = partyId;
+        }
+
+        public bool HasMember(int partyId, EntityUid uid)
+        {
+            if (!Parties.TryGetValue(partyId, out var party))
+                return false;
+
+            return party.Members.Contains(uid);
+        }
+
+        public void SetLeader(int partyId, EntityUid uid)
+        {
+            if (!Parties.TryGetValue(partyId, out var party))
+                throw new ArgumentException($"Party {partyId} does not exist.");
+
+            if (!party.Members.Contains(uid))
+                throw new ArgumentException($"Party {partyId} does not have entity {uid}.");
+
+            party.Leader = uid;
+        }
+
+        public bool TryGetLeader(int partyId, [NotNullWhen(true)] out EntityUid? leader)
+        {
+            if (!Parties.TryGetValue(partyId, out var party))
+            {
+                leader = null;
+                return false;
+            }
+
+            leader = party.Leader;
+            return true;
+        }
+
+        public void RemoveMember(int partyId, EntityUid uid)
+        {
+            var party = Parties[partyId];
+            party.Members.Remove(uid);
+            EntityUidToPartyId.Remove(uid);
+
+            if (party.Leader == uid)
+            {
+                if (party.Members.Count > 0)
+                {
+                    var newLeader = party.Members.First();
+                    Logger.WarningS("party", $"Auto-setting new leader for party {partyId}: {newLeader}");
+                    party.Leader = newLeader;
+                }
+                else
+                {
+                    Parties.Remove(partyId);
+                }
+            }
+        }
+
+        public int AddParty(EntityUid leader)
+        {
+            var id = NextPartyId;
+            NextPartyId++;
+            Parties[id] = new Party(leader);
+            EntityUidToPartyId[leader] = id;
+            return id;
+        }
+
+        public bool TryGetPartyId(EntityUid entityUid, [NotNullWhen(true)] out int partyId)
+        {
+            return EntityUidToPartyId.TryGetValue(entityUid, out partyId);
+        }
+
+        public bool TryGetParty(EntityUid entityUid, [NotNullWhen(true)] out Party? party)
+        {
+            if (!TryGetPartyId(entityUid, out var partyId))
+            {
+                party = null;
+                return false;
+            }
+
+            return TryGetParty(partyId, out party);
+        }
+
+        public bool TryGetParty(int partyId, [NotNullWhen(true)] out Party? party)
+        {
+            return Parties.TryGetValue(partyId, out party);
+        }
+
+        public int GetPartyId(EntityUid leader)
+        {
+            if (!TryGetPartyId(leader, out var partyId))
+                throw new KeyNotFoundException($"{leader} had no party.");
+
+            return partyId;
+        }
+
+        public Party GetParty(EntityUid leader)
+        {
+            if (!TryGetParty(leader, out var party))
+                throw new KeyNotFoundException($"{leader} had no party.");
+
+            return party;
+        }
+    }
     public interface IPartySystem : IEntitySystem
     {
         /// <summary>
-        /// Gets the entity that is the highest up the chain of party leaders.
+        /// Tries to get this entity's leader.
+        /// Also returns successfully if the entity is a leader themselves.
         /// </summary>
-        /// <remarks>
-        /// If the entity is not in a party, returns null.
-        /// </remarks>
-        public PartyComponent? GetSupremeCommander(EntityUid entity);
+        bool TryGetLeader(EntityUid target, [NotNullWhen(true)] out EntityUid? leader, PartyComponent? party = null);
+        bool TryGetMembers(EntityUid leader, [NotNullWhen(true)] out IReadOnlySet<EntityUid>? members, PartyComponent? partyComp = null);
+        bool IsPartyLeaderOf(EntityUid leader, EntityUid target, PartyComponent? partyLeader = null);
+
+        EntityUid? GetLeader(EntityUid target, PartyComponent? party = null);
 
         /// <summary>
         /// Returns true if this entity is in the player's party.
         /// </summary>
         bool IsInPlayerParty(EntityUid entity, PartyComponent? party = null);
 
-        bool IsDirectPartyLeaderOf(EntityUid leader, EntityUid target);
-
-        /// <summary>
-        /// Creates a <see cref="PartyComponent"/> on the given entity if it doesn't exist,
-        /// sets the leader to the given entity, and ensures they are a member of the party.
-        /// </summary>
-        PartyComponent EnsurePartyAndSetLeader(EntityUid entity);
-
         bool CanRecruitMoreMembers(EntityUid entity, PartyComponent? party = null);
         bool RecruitAsAlly(EntityUid leader, EntityUid ally, PartyComponent? partyLeader = null, PartyComponent? partyAlly = null, bool noMessage = false);
+        bool TryLeaveParty(EntityUid ally, PartyComponent? party = null);
     }
 
     public class PartySystem : EntitySystem, IPartySystem
     {
         [Dependency] private readonly IGameSessionManager _gameSession = default!;
         [Dependency] private readonly IMessagesManager _mes = default!;
-        [Dependency] private readonly IRefreshSystem _refresh = default!;
         [Dependency] private readonly IAudioManager _audio = default!;
 
-        public PartyComponent? GetSupremeCommander(EntityUid entity)
+        [RegisterSaveData("Elona.PartySystem.Parties")]
+        private PartyCollection Parties { get; set; } = new();
+
+        public override void Initialize()
         {
-            while (EntityManager.TryGetComponent(entity, out PartyComponent party))
-            {
-                if (party.Leader == null || party.Leader == entity)
-                    return party;
-
-                entity = party.Leader.Value;
-            }
-
-            return null;
+            SubscribeLocalEvent<EntityDeletedEvent>(HandleEntityDeleted, nameof(HandleEntityDeleted));
         }
 
-        public bool IsDirectPartyLeaderOf(EntityUid leader, EntityUid target)
+        private void HandleEntityDeleted(EntityDeletedEvent ev)
         {
-            throw new NotImplementedException();
+            if (Parties.TryGetPartyId(ev.EntityUid, out var partyId))
+            {
+                Parties.RemoveMember(partyId, ev.EntityUid);
+            }
+        }
+
+        public bool TryGetLeader(EntityUid target, [NotNullWhen(true)] out EntityUid? leader, PartyComponent? party = null)
+        {
+            if (!Resolve(target, ref party) || party.PartyID == null)
+            {
+                leader = null;
+                return false;
+            }
+
+            // Also counts an entity leading themselves.
+            return Parties.TryGetLeader(party.PartyID.Value, out leader);
+        }
+
+        public EntityUid? GetLeader(EntityUid target, PartyComponent? party = null)
+        {
+            TryGetLeader(target, out var leader, party);
+            return leader;
+        }
+
+        public bool TryGetMembers(EntityUid leader, [NotNullWhen(true)] out IReadOnlySet<EntityUid>? members, PartyComponent? partyComp = null)
+        {
+            if (!Resolve(leader, ref partyComp, logMissing: false) 
+                || partyComp.PartyID == null 
+                || !Parties.TryGetParty(partyComp.PartyID.Value, out var party))
+            {
+                members = null;
+                return false;
+            }
+
+            members = party.Members;
+            return true;
+        }
+
+        public bool IsPartyLeaderOf(EntityUid leader, EntityUid target, PartyComponent? partyLeader = null)
+        {
+            if (!Resolve(leader, ref partyLeader, logMissing: false)
+                || partyLeader.PartyID == null
+                || !Parties.TryGetParty(partyLeader.PartyID.Value, out var party))
+                return false;
+
+            return party.Members.Contains(target) && party.Leader == leader;
         }
 
         public bool IsInPlayerParty(EntityUid entity, PartyComponent? party = null)
@@ -75,20 +252,7 @@ namespace OpenNefia.Content.Parties
             if (_gameSession.IsPlayer(entity))
                 return true;
 
-            if (!Resolve(entity, ref party, logMissing: false))
-                return false;
-
-            return party.Leader != null && party.Leader == _gameSession.Player;
-        }
-
-        public PartyComponent EnsurePartyAndSetLeader(EntityUid entity)
-        {
-            var parties = EntityManager.EnsureComponent<PartyComponent>(entity);
-
-            parties.Leader = entity;
-            parties.Members.Add(entity);
-
-            return parties;
+            return IsPartyLeaderOf(_gameSession.Player!, entity, party);
         }
 
         public bool CanRecruitMoreMembers(EntityUid entity, PartyComponent? party = null)
@@ -105,18 +269,24 @@ namespace OpenNefia.Content.Parties
             if (!Resolve(leader, ref partyLeader) || !Resolve(ally, ref partyAlly))
                 return false;
 
-            if (leader == ally)
+            if (!EntityManager.IsAlive(leader) || !EntityManager.IsAlive(ally))
                 return false;
 
-            if (partyLeader.Members.Contains(ally))
+            if (leader == ally)
             {
-                Logger.WarningS("party", $"Ally already in this party");
+                Logger.WarningS("party", $"Leader {leader} tried to recruit themselves");
                 return false;
             }
 
-            if (partyAlly.Leader != null)
+            if (IsPartyLeaderOf(leader, ally, partyLeader))
             {
-                Logger.WarningS("party", $"Ally already had another party");
+                Logger.WarningS("party", $"Ally {ally} already in this party ({leader})");
+                return false;
+            }
+
+            if (Parties.TryGetPartyId(ally, out var otherParty))
+            {
+                Logger.WarningS("party", $"Ally is already in another party: {otherParty}");
                 return false;
             }
 
@@ -127,9 +297,14 @@ namespace OpenNefia.Content.Parties
                 return false;
             }
 
-            // TODO
-            partyAlly.Leader = leader;
-            partyLeader.Members.Add(ally);
+            if (!Parties.TryGetPartyId(leader, out var partyId))
+            {
+                partyId = Parties.AddParty(leader);
+                partyLeader.PartyID = partyId;
+            }
+
+            Parties.AddMember(partyId, ally);
+            partyAlly.PartyID = partyId;
 
             if (EntityManager.TryGetComponent<FactionComponent>(leader, out var factionLeader) && EntityManager.TryGetComponent<FactionComponent>(ally, out var factionAlly))
             {
@@ -151,6 +326,22 @@ namespace OpenNefia.Content.Parties
             var ev = new CharaRecruitedAsAllyEvent(leader, noMessage);
             RaiseLocalEvent(ally, ev);
 
+            return true;
+        }
+
+        public bool TryLeaveParty(EntityUid ally, PartyComponent? party = null)
+        {
+            if (!Resolve(ally, ref party) || party.PartyID == null)
+                return false;
+
+            if (_gameSession.IsPlayer(ally))
+            {
+                Logger.ErrorS("party", "Player tried to leave their own party!");
+                return false;
+            }
+
+            Parties.RemoveMember(party.PartyID.Value, ally);
+            party.PartyID = null;
             return true;
         }
     }

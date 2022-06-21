@@ -17,21 +17,9 @@ namespace OpenNefia.Content.Parties
         public override string Name => "Party";
 
         /// <summary>
-        /// Allied entities that this entity is leading.
+        /// Party ID of this entity.
         /// </summary>
-        /// <remarks>
-        /// The leader themselves are also a member.
-        /// </remarks>
         [DataField]
-        public SortedSet<EntityUid> Members { get; } = new();
-
-        /// <summary>
-        /// Party leader entity that is leading this entity, if any.
-        /// </summary>
-        /// <remarks>
-        /// The leader counts as leading themselves.
-        /// </remarks>
-        [DataField]
-        public EntityUid? Leader { get; set; }
+        public int? PartyID { get; set; } = null;
     }
 }

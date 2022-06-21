@@ -144,7 +144,10 @@ namespace OpenNefia.Content.VanillaAI
 
         private EntityUid GetDefaultTarget(EntityUid entity)
         {
-            return _parties.GetSupremeCommander(entity)?.Owner ?? _gameSession.Player;
+            if (_parties.TryGetLeader(entity, out var leader))
+                return leader.Value;
+
+            return _gameSession.Player;
         }
 
         private bool IsAlliedWithPlayer(EntityUid entity)
@@ -284,7 +287,9 @@ namespace OpenNefia.Content.VanillaAI
                 return;
             }
 
-            var target = _parties.GetSupremeCommander(ai.CurrentTarget.Value)?.Owner ?? ai.CurrentTarget.Value;
+            var target = ai.CurrentTarget.Value;
+            if (_parties.TryGetLeader(entity, out var leader))
+                target = leader.Value;
 
             RunMeleeAction(entity, target);
         }
@@ -333,17 +338,15 @@ namespace OpenNefia.Content.VanillaAI
             if (!updateTarget)
                 return;
 
-            var leader = _parties.GetSupremeCommander(ally);
+            EntityUid? leader = _parties.GetLeader(ally);
             
             if (leader == null && currentTarget != null
                 && _factions.GetRelationTowards(ally, currentTarget.Value) >= Relation.Ally)
             {
-                leader = EntityManager.EnsureComponent<PartyComponent>(currentTarget.Value);
+                leader = currentTarget.Value;
             }
 
-            var map = _mapManager.GetMap(spatial.MapID);
-
-            if (leader != null && EntityManager.TryGetComponent(leader.Owner, out VanillaAIComponent? leaderAi))
+            if (leader != null && EntityManager.TryGetComponent(leader.Value, out VanillaAIComponent? leaderAi))
             {
                 // If a party leader was attacked by something, make their allies target the attacker.
                 var leaderAttacker = leaderAi.LastAttacker;
@@ -360,12 +363,12 @@ namespace OpenNefia.Content.VanillaAI
                 }
 
                 // If the ally has no target at this point, make them target the same thing as the leader.
-                if ((ai.CurrentTarget == null || ai.CurrentTarget == leader.Owner)
-                    && EntityManager.IsAlive(leader.Owner))
+                if ((ai.CurrentTarget == null || ai.CurrentTarget == leader.Value)
+                    && EntityManager.IsAlive(leader))
                 {
                     var leaderTarget = leaderAi.CurrentTarget;
                     if (EntityManager.IsAlive(leaderTarget)
-                        && _factions.GetRelationTowards(leader.Owner, leaderTarget.Value) <= Relation.Enemy
+                        && _factions.GetRelationTowards(leader.Value, leaderTarget.Value) <= Relation.Enemy
                         && _vision.HasLineOfSight(ally, leaderTarget.Value))
                     {
                         SetTarget(ally, leaderTarget.Value, 5, ai);
@@ -377,7 +380,7 @@ namespace OpenNefia.Content.VanillaAI
             var target = ai.CurrentTarget;
             if (EntityManager.IsAlive(target) && !_vision.CanSeeEntity(ally, target.Value) && !_random.OneIn(5))
             {
-                ai.CurrentTarget = leader?.Owner;
+                ai.CurrentTarget = leader;
             }
         }
     }
