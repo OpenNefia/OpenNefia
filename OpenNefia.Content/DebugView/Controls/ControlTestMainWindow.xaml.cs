@@ -35,7 +35,6 @@ namespace OpenNefia.Content.DebugView
                 if (area != null)
                     vv.OpenVV(area);
             };
-            TilePickerButton.OnPressed += _ => WispRootLayer!.OpenWindowCentered(new TilePickerWindow());
         }
     }
 }

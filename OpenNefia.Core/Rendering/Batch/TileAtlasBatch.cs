@@ -2,6 +2,7 @@
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Log;
 using OpenNefia.Core.Maths;
+using Color = OpenNefia.Core.Maths.Color;
 
 namespace OpenNefia.Core.Rendering
 {
@@ -94,9 +95,9 @@ namespace OpenNefia.Core.Rendering
             BatchPixelHeight = 0;
         }
 
-        public void Draw(float uiScale, float x, float y, float? width = null, float? height = null)
+        public void Draw(float uiScale, float x, float y, float? width = null, float? height = null, Color? color = null)
         {
-            Love.Graphics.SetColor(Love.Color.White);
+            Love.Graphics.SetColor(color ?? Color.White);
             GraphicsEx.DrawSpriteBatchS(uiScale, _batch, x, y, width, height);
         }
 

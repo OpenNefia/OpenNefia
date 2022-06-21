@@ -21,6 +21,7 @@ namespace OpenNefia.Core.Input
 
         public static readonly BoundKeyFunction UIClick = "UIClick";
         public static readonly BoundKeyFunction UIRightClick = "UIRightClick";
+        public static readonly BoundKeyFunction UIMiddleClick = "UIMiddleClick";
 
         public static readonly BoundKeyFunction UIUp = "UIUp";
         public static readonly BoundKeyFunction UIDown = "UIDown";

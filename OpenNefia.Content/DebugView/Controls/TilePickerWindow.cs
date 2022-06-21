@@ -14,6 +14,8 @@ namespace OpenNefia.Content.DebugView
     {
         [Dependency] private readonly IPrototypeManager _protos = default!;
 
+        public event Action<TileButtonPressedEventArgs>? OnTileButtonPressed;
+
         public const string StyleClassTileButton = "tileButton";
 
         public TilePickerWindow()
@@ -30,13 +32,30 @@ namespace OpenNefia.Content.DebugView
             {
                 var box = new BoxContainer() { Orientation = LayoutOrientation.Vertical };
 
-                var tileView = new TileView() { Tile = tileProto };
+                var tileView = new TileView() { Tile = tileProto, Name = nameof(TileView) };
                 var button = new ContainerButton() {};
                 button.AddStyleClass(StyleClassTileButton);
+                button.OnPressed += OnButtonPressed;
                 tileView.AddChild(button);
                 box.AddChild(tileView);
 
                 TileGrid.AddChild(box);
+            }
+        }
+
+        private void OnButtonPressed(BaseButton.ButtonEventArgs obj)
+        {
+            var tileView = (TileView)obj.Button.Parent!;
+            OnTileButtonPressed?.Invoke(new(tileView.Tile!));
+        }
+
+        public sealed class TileButtonPressedEventArgs : EventArgs
+        {
+            public TilePrototype TilePrototype { get; }
+
+            public TileButtonPressedEventArgs(TilePrototype entry)
+            {
+                TilePrototype = entry;
             }
         }
     }
