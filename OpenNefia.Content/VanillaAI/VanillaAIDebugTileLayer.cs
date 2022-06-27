@@ -133,7 +133,7 @@ namespace OpenNefia.Content.VanillaAI
 
         private void DrawTileOutline(Love.Vector2[] outline, Color color)
         {
-            Love.Graphics.SetColor(color.Lighten(0.5f).WithAlpha(5));
+            Love.Graphics.SetColor(color.Lighten(0.5f).WithAlphaB(5));
             Love.Graphics.Polygon(Love.DrawMode.Fill, outline);
 
             Love.Graphics.SetColor(color);

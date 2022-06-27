@@ -77,7 +77,7 @@ namespace OpenNefia.Content.ConfigMenu.UICell
 
         protected virtual bool ShowArrows => true;
 
-        protected Color ColorArrowDisabled = Color.White.WithAlpha(100);
+        protected Color ColorArrowDisabled = Color.White.WithAlphaB(100);
 
         public BaseConfigMenuUICell(ConfigMenuItemProtoId protoId, TMenuNode menuNode) 
             : base(menuNode)

@@ -112,7 +112,7 @@ namespace OpenNefia.Core.ViewVariables
         public static StyleBox GetAlternatingStyleBox(bool other)
         {
             var box = new StyleBoxFlat();
-            box.BackgroundColor = other ? Color.Transparent : Color.Black.WithAlpha(0.25f);
+            box.BackgroundColor = other ? Color.Transparent : Color.Black.WithAlphaF(0.25f);
             box.SetContentMarginOverride(StyleBox.Margin.Vertical, 1);
             box.SetContentMarginOverride(StyleBox.Margin.Horizontal, 5);
             return box;

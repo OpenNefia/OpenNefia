@@ -248,42 +248,42 @@ namespace OpenNefia.Core.Maths
             return $"{{(R, G, B, A) = ({R}, {G}, {B}, {A})}}";
         }
 
-        public readonly Color WithRed(float newR)
+        public readonly Color WithRedF(float newR)
         {
             return new(newR, G, B, A);
         }
 
-        public readonly Color WithGreen(float newG)
+        public readonly Color WithGreenF(float newG)
         {
             return new(R, newG, B, A);
         }
 
-        public readonly Color WithBlue(float newB)
+        public readonly Color WithBlueF(float newB)
         {
             return new(R, G, newB, A);
         }
 
-        public readonly Color WithAlpha(float newA)
+        public readonly Color WithAlphaF(float newA)
         {
             return new(R, G, B, newA);
         }
 
-        public readonly Color WithRed(byte newR)
+        public readonly Color WithRedB(byte newR)
         {
             return new((float) newR / byte.MaxValue, G, B, A);
         }
 
-        public readonly Color WithGreen(byte newG)
+        public readonly Color WithGreenB(byte newG)
         {
             return new(R, (float) newG / byte.MaxValue, B, A);
         }
 
-        public readonly Color WithBlue(byte newB)
+        public readonly Color WithBlueB(byte newB)
         {
             return new(R, G, (float) newB / byte.MaxValue, A);
         }
 
-        public readonly Color WithAlpha(byte newA)
+        public readonly Color WithAlphaB(byte newA)
         {
             return new(R, G, B, (float) newA / byte.MaxValue);
         }

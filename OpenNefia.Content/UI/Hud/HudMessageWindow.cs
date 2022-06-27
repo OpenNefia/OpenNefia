@@ -82,7 +82,7 @@ namespace OpenNefia.Content.UI.Hud
                 foreach(var item in _entries)
                 {
                     if (item.Element is MessageText text && text.ChangeOpacity)
-                        text.Color = text.Color.WithAlpha(opacity);
+                        text.Color = text.Color.WithAlphaB(opacity);
                 }
             }
         }
