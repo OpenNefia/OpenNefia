@@ -28,13 +28,7 @@ namespace OpenNefia.Content.VanillaAI
         private IAssetInstance AssetHPBarAlly = default!;
         private IAssetInstance AssetHPBarOther = default!;
 
-        private IMap? _map;
         private List<UiHelpers.UiBarDrawableState> _entries = new();
-
-        public override void SetMap(IMap map)
-        {
-            _map = map;
-        }
 
         public override void Initialize()
         {

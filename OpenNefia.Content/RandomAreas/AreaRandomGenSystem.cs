@@ -43,14 +43,14 @@ namespace OpenNefia.Content.RandomAreas
 
         public override void Initialize()
         {
-            SubscribeLocalEvent<MapRandomAreaManagerComponent, MapEnteredEvent>(OnMapEntered, nameof(OnMapEntered));
+            SubscribeLocalEvent<MapRandomAreaManagerComponent, MapEnterEvent>(OnMapEnter, nameof(OnMapEnter));
         }
 
-        private void OnMapEntered(EntityUid mapEnt, MapRandomAreaManagerComponent mapRandomAreas, MapEnteredEvent args)
+        private void OnMapEnter(EntityUid mapEnt, MapRandomAreaManagerComponent mapRandomAreas, MapEnterEvent args)
         {
-            if (ShouldRegenerateRandomAreas(args.NewMap.Id, mapRandomAreas))
+            if (ShouldRegenerateRandomAreas(args.Map.Id, mapRandomAreas))
             {
-                RegenerateRandomAreas(args.NewMap.Id, mapRandomAreas);
+                RegenerateRandomAreas(args.Map.Id, mapRandomAreas);
             }
         }
 

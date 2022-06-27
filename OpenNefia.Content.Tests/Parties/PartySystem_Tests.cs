@@ -67,16 +67,16 @@ namespace OpenNefia.Content.Tests.Parties
 
             Assert.Multiple(() =>
             {
-                Assert.That(parties.TryGetMembers(entLeader, out var _), Is.False);
-                Assert.That(parties.TryGetMembers(entAlly, out var _), Is.False);
+                Assert.That(parties.EnumerateMembers(entLeader), Is.EquivalentTo(Enumerable.Empty<EntityUid>()));
+                Assert.That(parties.EnumerateMembers(entAlly), Is.EquivalentTo(Enumerable.Empty<EntityUid>()));
 
                 Assert.That(parties.RecruitAsAlly(entLeader, entAlly), Is.True);
 
-                Assert.That(parties.TryGetMembers(entLeader, out var members), Is.True);
+                var members = parties.EnumerateMembers(entLeader).ToList();
                 Assert.That(members!.Count, Is.EqualTo(2));
                 Assert.That(members.Contains(entLeader));
                 Assert.That(members.Contains(entAlly));
-                Assert.That(parties.TryGetMembers(entAlly, out var _), Is.True);
+                Assert.That(parties.EnumerateMembers(entAlly), Is.EquivalentTo(members));
                 Assert.That(partyLeader.PartyID, Is.EqualTo(0));
                 Assert.That(partyAlly.PartyID, Is.EqualTo(0));
             });
@@ -305,9 +305,9 @@ namespace OpenNefia.Content.Tests.Parties
                 Assert.That(partyLeader.PartyID, Is.EqualTo(0));
                 Assert.That(partyAlly.PartyID, Is.EqualTo(0));
 
-                Assert.That(parties.TryGetMembers(entAlly, out var members), Is.True);
-                Assert.That(members!.Count(), Is.EqualTo(1));
-                Assert.That(members!.Contains(entAlly), Is.True);
+                var members = parties.EnumerateMembers(entAlly).ToList();
+                Assert.That(members.Count(), Is.EqualTo(1));
+                Assert.That(members.Contains(entAlly), Is.True);
 
                 Assert.That(parties.TryGetLeader(entAlly, out var resultLeader), Is.True);
                 Assert.That(resultLeader!.Value, Is.EqualTo(entAlly));

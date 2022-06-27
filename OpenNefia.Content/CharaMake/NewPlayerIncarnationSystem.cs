@@ -55,9 +55,7 @@ namespace OpenNefia.Content.CharaMake
 
             // TODO class inits
 
-            var feats = EntityManager.EnsureComponent<FeatsComponent>(uid);
-
-            var skillBonusPoints = DefaultSkillBonusPoints + _feats.Level(feats, CharaFeat.PermSkillPoint);
+            var skillBonusPoints = DefaultSkillBonusPoints + _feats.Level(uid, CharaFeat.PermSkillPoint);
             _skills.GainBonusPoints(uid, skillBonusPoints, skills);
 
             foreach (var item in inventory.Container.ContainedEntities)

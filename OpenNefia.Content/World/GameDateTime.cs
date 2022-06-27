@@ -24,6 +24,10 @@ namespace OpenNefia.Content.World
         public const long SecondsPerMonth  = 60 * 60 * 24 * 31;
         public const long SecondsPerYear   = 60 * 60 * 24 * 31 * 12;
 
+        public static GameDateTime Zero => new(0);
+        public static GameDateTime MinValue => new(long.MinValue);
+        public static GameDateTime MaxValue => new(long.MaxValue);
+
         public GameDateTime()
         {
             TotalSeconds = 0;
@@ -34,7 +38,7 @@ namespace OpenNefia.Content.World
             Set(year, month, day, hour, minute, second);
         }
 
-        public GameDateTime(int totalSeconds)
+        public GameDateTime(long totalSeconds)
         {
             if (totalSeconds < 0)
             {
@@ -119,5 +123,68 @@ namespace OpenNefia.Content.World
         /// Current in-game second.
         /// </summary>
         public int Second => (int)(TotalSeconds % 60);
+
+        public static bool operator ==(GameDateTime lhs, GameDateTime rhs)
+        {
+            return lhs.TotalSeconds == rhs.TotalSeconds;
+        }
+
+        public static bool operator !=(GameDateTime lhs, GameDateTime rhs)
+        {
+            return !(lhs == rhs);
+        }
+
+        public static bool operator >(GameDateTime lhs, GameDateTime rhs)
+        {
+            return lhs.TotalSeconds > rhs.TotalSeconds;
+        }
+
+        public static bool operator <(GameDateTime lhs, GameDateTime rhs)
+        {
+            return lhs.TotalSeconds < rhs.TotalSeconds;
+        }
+
+        public static bool operator >=(GameDateTime lhs, GameDateTime rhs)
+        {
+            return lhs.TotalSeconds >= rhs.TotalSeconds;
+        }
+
+        public static bool operator <=(GameDateTime lhs, GameDateTime rhs)
+        {
+            return lhs.TotalSeconds <= rhs.TotalSeconds;
+        }
+
+        public static GameDateTime operator +(GameDateTime dateTime, GameTimeSpan timeSpan)
+        {
+            return new(dateTime.TotalSeconds + timeSpan.TotalSeconds);
+        }
+
+        public static GameDateTime operator -(GameDateTime dateTime, GameTimeSpan timeSpan)
+        {
+            return new(dateTime.TotalSeconds - timeSpan.TotalSeconds);
+        }
+
+        public static GameTimeSpan operator +(GameDateTime dateTime, GameDateTime timeSpan)
+        {
+            return new(dateTime.TotalSeconds + timeSpan.TotalSeconds);
+        }
+
+        public static GameTimeSpan operator -(GameDateTime dateTime, GameDateTime timeSpan)
+        {
+            return new(dateTime.TotalSeconds - timeSpan.TotalSeconds);
+        }
+
+        public override bool Equals(object? other)
+        {
+            if (other is GameDateTime otherTime)
+                return this == otherTime;
+            
+            return false;
+        }
+
+        public override int GetHashCode()
+        {
+            return TotalSeconds.GetHashCode();
+        }
     }
 }

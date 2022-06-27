@@ -67,7 +67,6 @@ namespace OpenNefia.Content.Pot
                 _audio.Play(Protos.Sound.Crush1, uid);
                 var drawable = new BreakingFragmentsMapDrawable();
                 _mapDrawables.Enqueue(drawable, spatial.MapPosition);
-                _mapDrawables.WaitForDrawables();
             }
 
             EntityManager.DeleteEntity(uid);

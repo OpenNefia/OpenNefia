@@ -16,7 +16,6 @@ namespace OpenNefia.Content.MapVisibility
         [Dependency] private readonly ICoords _coords = default!;
         [Dependency] private readonly IEntityManager _entityManager = default!;
 
-        private IMap _map = default!;
         private MapVisibilityComponent _mapVis = default!;
         private ShadowBatch _batch = new();
 
@@ -32,7 +31,7 @@ namespace OpenNefia.Content.MapVisibility
 
         public override void SetMap(IMap map)
         {
-            _map = map;
+            base.SetMap(map);
             _mapVis = _entityManager.GetComponent<MapVisibilityComponent>(map.MapEntityUid);
             _batch.SetMapSize(map.Size);
         }

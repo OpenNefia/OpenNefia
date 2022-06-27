@@ -11,6 +11,15 @@ using System;
 using OpenNefia.Core.Random;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Core.Log;
+using OpenNefia.Content.Sanity;
+using OpenNefia.Content.Hunger;
+using OpenNefia.Content.VanillaAI;
+using OpenNefia.Content.EmotionIcon;
+using OpenNefia.Content.World;
+using OpenNefia.Content.StatusEffects;
+using OpenNefia.Content.Buffs;
+using OpenNefia.Content.Activity;
+using OpenNefia.Content.Weight;
 
 namespace OpenNefia.Content.Charas
 {
@@ -19,6 +28,8 @@ namespace OpenNefia.Content.Charas
         PrototypeId<ChipPrototype> GetDefaultCharaChip(EntityUid uid, CharaComponent? chara = null);
         PrototypeId<ChipPrototype> GetDefaultCharaChip(PrototypeId<RacePrototype> raceID, Gender gender);
         PrototypeId<ChipPrototype> GetDefaultCharaChip(RacePrototype race, Gender gender);
+        bool RenewStatus(EntityUid entity, CharaComponent? chara);
+        bool Revive(EntityUid uid, CharaComponent? chara = null);
     }
 
     public class CharaSystem : EntitySystem, ICharaSystem
@@ -28,6 +39,13 @@ namespace OpenNefia.Content.Charas
         [Dependency] private readonly IEquipSlotsSystem _equipSlots = default!;
         [Dependency] private readonly IEntityManager _entityManager = default!;
         [Dependency] private readonly IRandom _random = default!; // randomness is only used for race height/weight here.
+        [Dependency] private readonly IVanillaAISystem _vanillaAI = default!;
+        [Dependency] private readonly IRefreshSystem _refresh = default!;
+        [Dependency] private readonly IEmotionIconSystem _emoicons = default!;
+        [Dependency] private readonly IActivitySystem _activities = default!;
+        [Dependency] private readonly IStatusEffectSystem _effects = default!;
+        [Dependency] private readonly IBuffsSystem _buffs = default!;
+        [Dependency] private readonly ISkillAdjustsSystem _skillAdjusts = default!;
 
         public override void Initialize()
         {
@@ -84,7 +102,7 @@ namespace OpenNefia.Content.Charas
             var weight = EntityManager.EnsureComponent<WeightComponent>(uid);
 
             weight.Age = _random.Next(race.MinAge, race.MaxAge);
-            
+
             if (chara.Gender == Gender.Unknown)
             {
                 if (_random.Prob(race.MaleRatio))
@@ -110,7 +128,7 @@ namespace OpenNefia.Content.Charas
         {
             if (!Resolve(uid, ref chip))
                 return;
-            
+
             if (chip.ChipID == Chip.Default)
             {
                 chip.ChipID = GetDefaultCharaChip(uid, chara);
@@ -177,6 +195,56 @@ namespace OpenNefia.Content.Charas
             }
 
             _entityManager.RemoveComponent<CharaMakeSkillInitTempComponent>(uid);
+        }
+
+        public bool Revive(EntityUid entity, CharaComponent? chara = null)
+        {
+            if (!Resolve(entity, ref chara) || EntityManager.IsAlive(entity))
+                return false;
+
+            chara.Liveness = CharaLivenessState.Alive;
+
+            if (EntityManager.TryGetComponent<SkillsComponent>(entity, out var skills))
+            {
+                skills.HP = skills.MaxHP / 3;
+                skills.MP = skills.MaxMP / 3;
+                skills.Stamina = skills.MaxStamina / 3;
+            }
+
+            if (EntityManager.TryGetComponent<SanityComponent>(entity, out var sanity))
+            {
+                sanity.Insanity = 0;
+            }
+
+            if (EntityManager.TryGetComponent<HungerComponent>(entity, out var hunger))
+            {
+                hunger.Nutrition = 8000;
+            }
+
+            _vanillaAI.SetTarget(entity, null, 0);
+
+            return RenewStatus(entity, chara);
+        }
+
+        public bool RenewStatus(EntityUid entity, CharaComponent? chara = null)
+        {
+            if (!Resolve(entity, ref chara))
+                return false;
+
+            _activities.RemoveActivity(entity);
+            _effects.RemoveAll(entity);
+            _buffs.RemoveAllBuffs(entity);
+            _emoicons.SetEmotionIcon(entity, "None", GameTimeSpan.Zero);
+            _skillAdjusts.RemoveAllSkillAdjusts(entity);
+
+            if (EntityManager.TryGetComponent<VanillaAIComponent>(entity, out var vai))
+            {
+                vai.Aggro = 0;
+            }
+            
+            _refresh.Refresh(entity);
+
+            return true;
         }
     }
 }

@@ -14,40 +14,53 @@ namespace OpenNefia.Content.Feats
 {
     public interface IFeatsSystem : IEntitySystem
     {
-        int Level(FeatsComponent feats, PrototypeId<FeatPrototype> id);
-        bool TryGetKnown(FeatsComponent feats, PrototypeId<FeatPrototype> protoId, [NotNullWhen(true)] out FeatLevel? stat);
-        void AddLevel(EntityUid ent, PrototypeId<FeatPrototype> protoId, int delta);
+        bool TryGetKnown(EntityUid entity, PrototypeId<FeatPrototype> protoId, [NotNullWhen(true)] out FeatLevel? stat, FeatsComponent? feats = null);
+        bool HasFeat(EntityUid entity, PrototypeId<FeatPrototype> id, FeatsComponent? feats = null);
+        int Level(EntityUid entity, PrototypeId<FeatPrototype> id, FeatsComponent? feats = null);
+        void AddLevel(EntityUid ent, PrototypeId<FeatPrototype> protoId, int delta, FeatsComponent? feats = null);
     }
 
     public sealed class FeatsSystem : EntitySystem, IFeatsSystem
     {
         [Dependency] private readonly IPrototypeManager _protos = default!;
 
-        public int Level(FeatsComponent feats, PrototypeId<FeatPrototype> id)
+        public bool TryGetKnown(EntityUid entity, PrototypeId<FeatPrototype> protoId, [NotNullWhen(true)] out FeatLevel? level, FeatsComponent? feats = null)
         {
-            if (TryGetKnown(feats, id, out var feat))
-                return feat.Level.Buffed;
+            if (!Resolve(entity, ref feats))
+            {
+                level = null;
+                return false;
+            }
 
-            return 0;
-        }
-
-        public bool TryGetKnown(FeatsComponent feats, PrototypeId<FeatPrototype> protoId, [NotNullWhen(true)] out FeatLevel? level)
-        {
             return feats.Feats.TryGetValue(protoId, out level);
         }
 
-        public void AddLevel(EntityUid ent, PrototypeId<FeatPrototype> protoId, int delta)
+        public int Level(EntityUid entity, PrototypeId<FeatPrototype> protoId, FeatsComponent? feats = null)
+        {
+            if (!TryGetKnown(entity, protoId, out var feat))
+                return 0;
+
+            return feat.Level.Buffed;
+        }
+        
+        public bool HasFeat(EntityUid entity, PrototypeId<FeatPrototype> protoId, FeatsComponent? feats = null)
+        {
+            if (!TryGetKnown(entity, protoId, out var feat))
+                return false;
+
+            return feat.Level != 0;
+        }
+
+        public void AddLevel(EntityUid entity, PrototypeId<FeatPrototype> protoId, int delta, FeatsComponent? feats = null)
         {
             if (delta == 0)
                 return;
-
-            if (!EntityManager.TryGetComponent(ent, out FeatsComponent feats))
+            
+            if (!Resolve(entity, ref feats))
                 return;
 
             var featProto = _protos.Index(protoId);
-
             var level = feats.Feats.GetValueOrInsert(protoId, () => new FeatLevel(0));
-
             level.Level.Base = Math.Clamp(level.Level.Base + delta, featProto.LevelMin, featProto.LevelMax);
         }
     }

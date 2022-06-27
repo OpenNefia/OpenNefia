@@ -12,8 +12,11 @@ using OpenNefia.Core.Locale;
 using OpenNefia.Core.Log;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.Prototypes;
+using OpenNefia.Content.Prototypes;
 using OpenNefia.Core.Random;
-using static OpenNefia.Content.Prototypes.Protos;
+using OpenNefia.Core.Game;
+using OpenNefia.Content.Feats;
+using OpenNefia.Content.EquipSlots;
 
 namespace OpenNefia.Content.Skills
 {
@@ -23,6 +26,9 @@ namespace OpenNefia.Content.Skills
         [Dependency] private readonly IVisibilitySystem _visibility = default!;
         [Dependency] private readonly IPartySystem _parties = default!;
         [Dependency] private readonly IMessagesManager _mes = default!;
+        [Dependency] private readonly IGameSessionManager _gameSession = default!;
+        [Dependency] private readonly IFeatsSystem _feats = default!;
+        [Dependency] private readonly IEquipSlotsSystem _equipSlots = default!;
 
         public static readonly IntRange PotentialRange = new(1, 400);
 
@@ -231,7 +237,7 @@ namespace OpenNefia.Content.Skills
 
                     if (_parties.IsInPlayerParty(uid))
                     {
-                        Sounds.Play(Sound.Ding3);
+                        Sounds.Play(Protos.Sound.Ding3);
                         mesColor = UiColors.MesGreen;
                         mesAlert = true;
                     }
@@ -279,7 +285,7 @@ namespace OpenNefia.Content.Skills
         }
 
         /// <inheritdoc/>
-        public void GainSkill(EntityUid uid, PrototypeId<SkillPrototype> skillId, LevelAndPotential? initialValues = null, 
+        public void GainSkill(EntityUid uid, PrototypeId<SkillPrototype> skillId, LevelAndPotential? initialValues = null,
             SkillsComponent? skills = null)
         {
             if (!Resolve(uid, ref skills))
@@ -307,6 +313,148 @@ namespace OpenNefia.Content.Skills
             }
 
             _refresh.Refresh(uid);
+        }
+
+        public void GainLevel(EntityUid entity, bool showMessage = false, SkillsComponent? skillsComp = null, LevelComponent? levelComp = null)
+        {
+            if (!Resolve(entity, ref skillsComp) || !Resolve(entity, ref levelComp))
+                return;
+
+            levelComp.Experience = Math.Max(levelComp.Experience - levelComp.ExperienceToNext, 0);
+            levelComp.Level++;
+
+            if (showMessage)
+            {
+                if (_gameSession.IsPlayer(entity))
+                {
+                    _mes.Display(Loc.GetString("Elona.Level.Gain.Player", ("entity", entity), ("level", levelComp.Level)), UiColors.MesGreen);
+                }
+                else
+                {
+                    _mes.Display(Loc.GetString("Elona.Level.Gain.Other", ("entity", entity), ("level", levelComp.Level)), UiColors.MesGreen);
+                }
+            }
+
+            var skillBonus = 5 + (100 + BaseLevel(entity, Protos.Skill.AttrLearning) + 10) / (300 + levelComp.Level + 15) + 1;
+
+            if (_gameSession.IsPlayer(entity))
+            {
+                if (TryComp<FeatsComponent>(entity, out var feats))
+                {
+                    if (levelComp.Level % 5 == 0 && levelComp.MaxLevelReached < levelComp.Level && levelComp.Level < 50)
+                    {
+                        feats.NumberOfFeatsAcquirable++;
+                    }
+
+                    skillBonus += _feats.Level(entity, Protos.CharaFeat.PermSkillPoint, feats);
+                }
+            }
+
+            GainBonusPoints(entity, skillBonus, skillsComp);
+
+            if (_feats.HasFeat(entity, Protos.CharaFeat.PermChaosShape))
+            {
+                if (levelComp.Level < 37 && levelComp.Level % 3 == 0 && levelComp.MaxLevelReached < levelComp.Level)
+                {
+                    GainRandomEquipSlot(entity, showMessage: true, skillsComp: skillsComp);
+                }
+            }
+
+            levelComp.MaxLevelReached = Math.Max(levelComp.MaxLevelReached, levelComp.Level);
+
+            if (!_parties.IsInPlayerParty(entity))
+            {
+                GrowPrimarySkills(entity, skillsComp);
+            }
+
+            levelComp.ExperienceToNext = CalcExperienceToNext(entity, levelComp);
+            _refresh.Refresh(entity);
+        }
+
+        private PrototypeId<EquipSlotPrototype> GetRandomEquipSlot()
+        {
+            if (_rand.OneIn(7))
+                return Protos.EquipSlot.Neck;
+            if (_rand.OneIn(9))
+                return Protos.EquipSlot.Back;
+            if (_rand.OneIn(8))
+                return Protos.EquipSlot.Hand;
+            if (_rand.OneIn(4))
+                return Protos.EquipSlot.Ring;
+            if (_rand.OneIn(6))
+                return Protos.EquipSlot.Hand;
+            if (_rand.OneIn(5))
+                return Protos.EquipSlot.Waist;
+            if (_rand.OneIn(5))
+                return Protos.EquipSlot.Leg;
+            return Protos.EquipSlot.Head;
+        }
+
+        private void RefreshSpeedCorrection(EntityUid entity, SkillsComponent? skillsComp = null)
+        {
+            if (!Resolve(entity, ref skillsComp))
+                return;
+
+            // XXX: "blocked" body parts from things like ether disease still get counted
+            // towards the speed penalty.
+            var count = _equipSlots.GetEquipSlots(entity).Count();
+            if (count > 13)
+            {
+                skillsComp.SpeedCorrection = (count - 13) + 5;
+            }
+            else
+            {
+                skillsComp.SpeedCorrection = 0;
+            }
+        }
+
+        private void GainRandomEquipSlot(EntityUid entity, bool showMessage, SkillsComponent? skillsComp = null, EquipSlotsComponent? equipSlots = null)
+        {
+            if (!Resolve(entity, ref skillsComp) || !Resolve(entity, ref equipSlots))
+                return;
+
+            var equipSlot = GetRandomEquipSlot();
+            if (!_equipSlots.TryAddEquipSlot(entity, equipSlot, out _, out _, equipSlots))
+                Logger.WarningS("skills", $"Failed to add equip slot {equipSlot} to {entity}");
+
+            if (showMessage)
+            {
+                var bodyPartName = Loc.GetPrototypeString(equipSlot, "Name");
+                _mes.Display(Loc.GetString("Elona.Skill.Leveling.GainNewBodyPart", ("entity", entity), ("bodyPartName", bodyPartName)), UiColors.MesGreen);
+            }
+
+            RefreshSpeedCorrection(entity, skillsComp);
+        }
+
+        private void GrowPrimarySkills(EntityUid entity, SkillsComponent? skillsComp = null)
+        {
+            if (!Resolve(entity, ref skillsComp))
+                return;
+            
+            void Grow(PrototypeId<SkillPrototype> skillId)
+            {
+                skillsComp!.Ensure(skillId).Level.Base += _rand.Next(3);
+            }
+
+            foreach (var attr in EnumerateAllAttributes())
+            {
+                Grow(attr.GetStrongID());
+            }
+
+            // Grow some skills available on all characters (by default: evasion, martial arts, bow)
+            foreach (var primarySkill in _protos.EnumeratePrototypes<SkillPrototype>().Where(s => s.IsPrimarySkill))
+            {
+                Grow(primarySkill.GetStrongID());
+            }
+        }
+
+        private int CalcExperienceToNext(EntityUid entity, LevelComponent? levelComp = null)
+        {
+            if (!Resolve(entity, ref levelComp))
+                return 0;
+
+            var level = Math.Clamp(levelComp.Level, 1, 200);
+            return Math.Clamp(level * (level + 1) * (level + 2) * (level + 3) + 3000, 0, 100000000);
         }
     }
 

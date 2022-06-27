@@ -14,6 +14,7 @@ namespace OpenNefia.Content.Cargo
     {
         int GetTotalCargoWeight(EntityUid ent, InventoryComponent? inv = null);
         int? GetMaxCargoWeight(EntityUid ent, CargoHolderComponent? cargoHolder = null);
+        bool IsBurdenedByCargo(EntityUid ent, CargoHolderComponent? cargoHolder = null, InventoryComponent? inv = null);
     }
 
     public class CargoSystem : EntitySystem, ICargoSystem
@@ -46,6 +47,14 @@ namespace OpenNefia.Content.Cargo
                 return 0;
 
             return cargoHolder.MaxCargoWeight;
+        }
+
+        public bool IsBurdenedByCargo(EntityUid ent, CargoHolderComponent? cargoHolder = null, InventoryComponent? inv = null)
+        {
+            if (!Resolve(ent, ref cargoHolder) || !Resolve(ent, ref inv))
+                return false;
+
+            return GetTotalCargoWeight(ent, inv) > GetMaxCargoWeight(ent, cargoHolder);
         }
     }
 }

@@ -2,4 +2,14 @@
   id: Elona.MapWorld
   parent: BaseMap
   components:
+  - type: MapTypeWorldMap
+  - type: MapRandomAreaManager
   - type: WorldMapFields
+
+- type: Entity
+  id: Elona.MapNefia
+  parent: BaseMap
+  components:
+  - type: MapCommon
+    isIndoors: true
+  - type: MapTypeDungeon

@@ -64,5 +64,6 @@ namespace OpenNefia.Content.Hud
 
         public void Newline() => MessageWindow.Newline();
         public void Print(string queryText, Color? color = null) => MessageWindow.Print(queryText, color);
+        public void Clear() => MessageWindow.Clear();
     }
 }

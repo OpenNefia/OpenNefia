@@ -92,6 +92,13 @@ namespace OpenNefia.Content.Skills
         public int BonusPoints { get; set; } = 0;
 
         /// <summary>
+        /// Adjustment to <see cref="Content.Prototypes.Protos.Skill.AttrSpeed"/>.
+        /// Affected by the number of body parts.
+        /// </summary>
+        [DataField]
+        public int SpeedCorrection { get; set; } = 0;
+
+        /// <summary>
         /// Total number of skill bonus points this character has 
         /// gained in their lifetime.
         /// </summary>

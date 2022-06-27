@@ -203,5 +203,21 @@ namespace OpenNefia.Content.World
         /// </summary>
         [DataField]
         public int DeepestLevel { get; set; }
+
+        /// <summary>
+        /// Date the player last entered the world map.
+        /// </summary>
+        [DataField]
+        public GameDateTime TravelStartDate { get; set; } = GameDateTime.Zero;
+
+        /// <summary>
+        /// Total distance traveled on the world map so far. Reset when entering
+        /// a new travel destination map (town/guild).
+        /// </summary>
+        [DataField]
+        public int TravelDistance { get; set; }
+
+        [DataField]
+        public string? LastDepartedMapName { get; set; }
     }
 }

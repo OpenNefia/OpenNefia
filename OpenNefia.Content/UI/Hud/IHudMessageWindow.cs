@@ -7,5 +7,6 @@ namespace OpenNefia.Content.UI.Hud
     {
         void Print(string queryText, Color? color = null);
         void Newline();
+        void Clear();
     }
 }

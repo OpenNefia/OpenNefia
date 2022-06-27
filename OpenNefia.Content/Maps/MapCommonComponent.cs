@@ -5,9 +5,14 @@ using OpenNefia.Core.Prototypes;
 using OpenNefia.Content.Prototypes;
 using OpenNefia.Core.Serialization.Manager.Attributes;
 using OpenNefia.Content.Material;
+using OpenNefia.Content.World;
 
 namespace OpenNefia.Content.Maps
 {
+    /// <summary>
+    /// Holds some common data for all maps.
+    /// This can be broken up later if desirable.
+    /// </summary>
     [RegisterComponent]
     [ComponentUsage(ComponentTarget.Map)]
     public class MapCommonComponent : Component, IHspIds<int>
@@ -20,6 +25,9 @@ namespace OpenNefia.Content.Maps
 
         [DataField]
         public PrototypeId<MusicPrototype>? Music { get; set; }
+
+        [DataField]
+        public int? FloorNumber { get; set; } = null;
 
         [DataField]
         public bool IsIndoors { get; set; } = false;
@@ -38,5 +46,20 @@ namespace OpenNefia.Content.Maps
 
         [DataField]
         public PrototypeId<MaterialSpotPrototype>? MaterialSpotType { get; set; } = null;
+
+        [DataField]
+        public GameDateTime RenewMajorDate { get; set; } = new();
+
+        [DataField]
+        public GameDateTime RenewMinorDate { get; set; } = new();
+
+        /// <summary>
+        /// If true, the player can gain traveling experience by entering this map.
+        /// </summary>
+        [DataField]
+        public bool IsTravelDestination { get; set; } = false;
+
+        [DataField]
+        public bool? RevealsFog { get; set; }
     }
 }

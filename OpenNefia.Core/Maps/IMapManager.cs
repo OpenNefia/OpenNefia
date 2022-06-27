@@ -1,11 +1,20 @@
 ﻿using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Maths;
+using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.SaveGames;
 using System.Diagnostics.CodeAnalysis;
 
 namespace OpenNefia.Core.Maps
 {
-    public delegate void ActiveMapChangedDelegate(IMap newMap, IMap? oldMap);
+    public enum MapLoadType
+    {
+        InitializeOnly,
+        GameLoaded,
+        Traveled,
+        Full
+    }
+
+    public delegate void ActiveMapChangedDelegate(IMap newMap, IMap? oldMap, MapLoadType loadType);
 
     public interface IMapManager
     {
@@ -18,13 +27,13 @@ namespace OpenNefia.Core.Maps
 
         event ActiveMapChangedDelegate? OnActiveMapChanged;
 
-        void SetActiveMap(MapId mapId);
+        void SetActiveMap(MapId mapId, MapLoadType loadType = MapLoadType.Full);
 
         bool IsMapInitialized(MapId mapId);
 
         bool MapIsLoaded(MapId mapId);
-        IMap CreateMap(int width, int height);
-        IMap CreateMap(int width, int height, MapId mapId);
+        IMap CreateMap(int width, int height, PrototypeId<EntityPrototype>? mapEntityProto = null);
+        IMap CreateMap(int width, int height, MapId mapId, PrototypeId<EntityPrototype>? mapEntityProto = null);
 
         /// <summary>
         /// Sets the MapEntity(root node) for a given map. If an entity is already set, it will be deleted

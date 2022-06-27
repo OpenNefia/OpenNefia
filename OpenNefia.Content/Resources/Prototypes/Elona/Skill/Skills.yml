@@ -9,6 +9,7 @@
   id: Elona.Evasion
   relatedSkill: Elona.AttrDexterity
   skillType: Skill
+  isPrimarySkill: true
 
 - type: Elona.Skill
   id: Elona.DualWield

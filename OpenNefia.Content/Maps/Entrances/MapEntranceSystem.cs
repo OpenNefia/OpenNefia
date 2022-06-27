@@ -1,3 +1,4 @@
+using OpenNefia.Content.Levels;
 using OpenNefia.Core.Areas;
 using OpenNefia.Core.Game;
 using OpenNefia.Core.GameObjects;
@@ -11,12 +12,30 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace OpenNefia.Content.Maps
 {
-    public sealed class MapEntranceSystem : EntitySystem
+    public interface IMapEntranceSystem : IEntitySystem
+    {
+        bool TryGetAreaOfEntrance(MapEntrance entrance, [NotNullWhen(true)] out IArea? area);
+        bool UseMapEntrance(EntityUid user, MapEntrance entrance, SpatialComponent? spatial = null);
+        bool UseMapEntrance(EntityUid user, MapEntrance entrance, [NotNullWhen(true)] out MapId? mapId, SpatialComponent? spatial = null);
+
+        /// <summary>
+        /// Sets the map to travel to when exiting the destination map via the edges.
+        /// </summary>
+        /// <param name="mapTravellingTo">Map that is being travelled to.</param>
+        /// <param name="prevCoords">Location that exiting the given map from the edges should lead to.</param>
+        void SetPreviousMap(MapId mapTravellingTo, MapCoordinates prevCoords);
+
+        int GetFloorNumber(IMap map);
+    }
+
+    public sealed class MapEntranceSystem : EntitySystem, IMapEntranceSystem
     {
         [Dependency] private readonly IMapLoader _mapLoader = default!;
         [Dependency] private readonly IMapManager _mapManager = default!;
         [Dependency] private readonly IAreaManager _areaManager = default!;
         [Dependency] private readonly ISaveGameManager _saveGameManager = default!;
+        [Dependency] private readonly IGameSessionManager _session = default!;
+        [Dependency] private readonly IMapTransferSystem _mapTransfer = default!;
 
         public bool TryGetAreaOfEntrance(MapEntrance entrance, [NotNullWhen(true)] out IArea? area)
         {
@@ -34,7 +53,7 @@ namespace OpenNefia.Content.Maps
             SpatialComponent? spatial = null)
             => UseMapEntrance(user, entrance, out _, spatial);
 
-        public bool UseMapEntrance(EntityUid user, MapEntrance entrance, 
+        public bool UseMapEntrance(EntityUid user, MapEntrance entrance,
             [NotNullWhen(true)] out MapId? mapId,
             SpatialComponent? spatial = null)
         {
@@ -56,8 +75,8 @@ namespace OpenNefia.Content.Maps
             var newPos = entrance.StartLocation.GetStartPosition(user, map)
                 .BoundWithin(map.Bounds);
 
-            spatial.Coordinates = new EntityCoordinates(map.MapEntityUid, newPos);
-
+            _mapTransfer.DoMapTransfer(spatial, map, map.AtPosEntity(newPos), MapLoadType.Traveled);
+            
             return true;
         }
 
@@ -70,7 +89,7 @@ namespace OpenNefia.Content.Maps
             // See if this map is still in memory and hasn't been flushed yet.
             if (_mapManager.TryGetMap(mapToLoad, out map))
             {
-                Logger.WarningS("map.entrance", $"Travelling to cached map {map.Id}");
+                Logger.WarningS("map.entrance", $"Traveling to cached map {map.Id}");
                 return true;
             }
 
@@ -92,17 +111,25 @@ namespace OpenNefia.Content.Maps
             return true;
         }
 
-        /// <summary>
-        /// Sets the map to travel to when exiting the destination map via the edges.
-        /// </summary>
-        /// <param name="mapTravellingTo">Map that is being travelled to.</param>
-        /// <param name="prevCoords">Location that exiting the given map from the edges should lead to.</param>
+        /// <inheritdoc/>
         public void SetPreviousMap(MapId mapTravellingTo, MapCoordinates prevCoords)
         {
             var mapEntityUid = _mapManager.GetMap(mapTravellingTo).MapEntityUid;
             var mapMapEntrance = EntityManager.EnsureComponent<MapEdgesEntranceComponent>(mapEntityUid);
             mapMapEntrance.Entrance.MapIdSpecifier = new BasicMapIdSpecifier(prevCoords.MapId);
             mapMapEntrance.Entrance.StartLocation = new SpecificMapLocation(prevCoords.Position);
+        }
+
+        public int GetFloorNumber(IMap map)
+        {
+            var common = EnsureComp<MapCommonComponent>(map.MapEntityUid);
+            if (common.FloorNumber != null)
+                return common.FloorNumber.Value;
+
+            if (TryComp<LevelComponent>(map.MapEntityUid, out var level))
+                return level.Level;
+
+            return 0;
         }
     }
 }

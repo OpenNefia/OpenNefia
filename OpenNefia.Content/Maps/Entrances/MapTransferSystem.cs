@@ -1,76 +1,77 @@
 ﻿using OpenNefia.Core.Audio;
 using OpenNefia.Core.GameObjects;
-using OpenNefia.Content.Prototypes;
 using OpenNefia.Core.Maps;
 using OpenNefia.Core.IoC;
-using OpenNefia.Core.Utility;
 using OpenNefia.Core.Log;
 using OpenNefia.Core.Game;
 using OpenNefia.Core.SaveGames;
 using OpenNefia.Content.GameObjects;
+using OpenNefia.Core.Utility;
+using OpenNefia.Content.Parties;
+using OpenNefia.Core.Areas;
 
 namespace OpenNefia.Content.Maps
 {
-    public class MapTransferSystem : EntitySystem
+    public interface IMapTransferSystem : IEntitySystem
+    {
+        void DoMapTransfer(SpatialComponent playerSpatial, IMap map, EntityCoordinates newCoords, MapLoadType loadType);
+    }
+
+    public partial class MapTransferSystem : EntitySystem, IMapTransferSystem
     {
         [Dependency] private readonly IMapLoader _mapLoader = default!;
         [Dependency] private readonly IMapManager _mapManager = default!;
-        [Dependency] private readonly MapEntranceSystem _mapEntrances = default!;
+        [Dependency] private readonly IAreaManager _areaManager = default!;
+        [Dependency] private readonly IMapEntranceSystem _mapEntrances = default!;
         [Dependency] private readonly IAudioManager _sounds = default!;
         [Dependency] private readonly IGameSessionManager _gameSession = default!;
         [Dependency] private readonly ISaveGameManager _saveGameManager = default!;
-
+        [Dependency] private readonly IMapPlacement _placement = default!;
+        [Dependency] private readonly IPartySystem _parties = default!;
+        
         public override void Initialize()
         {
-            SubscribeLocalEvent<PlayerComponent, ExitMapEventArgs>(HandleExitMap, nameof(HandleExitMap));
-            SubscribeLocalEvent<PlayerComponent, EntityParentChangedEvent>(HandleEntityParentChanged, nameof(HandleEntityParentChanged));
+            SubscribeLocalEvent<PlayerComponent, ExitingMapFromEdgesEventArgs>(HandleExitMapFromEdges, nameof(HandleExitMapFromEdges));
+            SubscribeLocalEvent<MapComponent, ActiveMapChangedEvent>(HandleActiveMapChanged, nameof(HandleActiveMapChanged));
+            SubscribeLocalEvent<MapComponent, MapLeaveEventArgs>(HandleLeaveMap, nameof(HandleLeaveMap));
         }
 
-        private void HandleExitMap(EntityUid playerUid, PlayerComponent component, ExitMapEventArgs args)
+        public void DoMapTransfer(SpatialComponent spatial, IMap map, EntityCoordinates newCoords, MapLoadType loadType)
         {
-            if (args.Handled)
-                return;
+            if (newCoords.GetMapId(EntityManager) != map.Id)
+                throw new ArgumentException($"Coordinates {newCoords} are not within map ${map}!");
 
-            SpatialComponent? spatial = null;
-            
-            if (!Resolve(playerUid, ref spatial))
-                return;
-
-            _sounds.Play(Protos.Sound.Exitmap1);
-
-            var turnResult = _mapEntrances.UseMapEntrance(playerUid, args.Entrance) 
-                ? TurnResult.Succeeded : TurnResult.Failed;
-            args.Handle(turnResult);
-        }
-
-        private void HandleEntityParentChanged(EntityUid uid, PlayerComponent component, ref EntityParentChangedEvent evt)
-        {
-            SpatialComponent? spatial = null;
-
-            if (!Resolve(uid, ref spatial))
-                return;
-
-            if (spatial.MapID == _mapManager.ActiveMap?.Id)
-                return;
-
-            // TODO: dunno if the potential for an expensive map load on property setting
-            // is desirable...
-            if (_gameSession.IsPlayer(uid) && spatial.MapID != MapId.Nullspace && spatial.MapID != MapId.Global)
+            if (newCoords.GetMapId(EntityManager) == _mapManager.ActiveMap?.Id)
             {
-                DoMapTransfer(uid, spatial);
+                spatial.Coordinates = newCoords;
+                return;
+            }
+
+            if (_gameSession.IsPlayer(spatial.Owner))
+            {
+                TransferPlayer(spatial, map, newCoords, loadType);
+            }
+            else
+            {
+                spatial.Coordinates = newCoords;
             }
         }
 
-        private void DoMapTransfer(EntityUid player, SpatialComponent spatial)
+        public void TransferPlayer(SpatialComponent playerSpatial, IMap map, EntityCoordinates newCoords, MapLoadType loadType)
         {
             var oldMap = _mapManager.ActiveMap;
 
-            TransferPlayerParty(player, spatial);
+            TransferPlayerParty(playerSpatial, newCoords);
 
-            RunMapInitializeEvents();
+            if (oldMap != null)
+            {
+                var evLeave = new MapLeaveEventArgs(map, oldMap);
+                RaiseLocalEvent(oldMap.MapEntityUid, evLeave);
+            }
 
-            // TODO move allies over and do other things before the old map gets unloaded.
+            _mapManager.SetActiveMap(map.Id, loadType);
 
+            // Unload the old map.
             if (oldMap != null)
             {
                 var save = _saveGameManager.CurrentSave!;
@@ -93,15 +94,29 @@ namespace OpenNefia.Content.Maps
             }
         }
 
-        private void TransferPlayerParty(EntityUid player, SpatialComponent spatial)
+        private void TransferPlayerParty(SpatialComponent playerSpatial, EntityCoordinates newCoords)
         {
-            // TODO
-            _mapManager.SetActiveMap(spatial.MapID);
-        }
+            var mapCoords = newCoords.ToMap(EntityManager);
 
-        private void RunMapInitializeEvents()
+            var player = playerSpatial.Owner;
+            DebugTools.Assert(_placement.TryPlaceChara(player, mapCoords), $"Could not place player in {mapCoords}/{newCoords}!");
+
+            foreach (var ally in _parties.EnumerateUnderlings(_gameSession.Player))
+            {
+                _placement.TryPlaceChara(ally, mapCoords);
+            }
+        }
+    }
+
+    public sealed class MapLeaveEventArgs : EntityEventArgs
+    {
+        public IMap NewMap { get; }
+        public IMap OldMap { get; }
+
+        public MapLeaveEventArgs(IMap newMap, IMap oldMap)
         {
-            // TODO
+            NewMap = newMap;
+            OldMap = oldMap;
         }
     }
 }

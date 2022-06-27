@@ -293,7 +293,7 @@ namespace OpenNefia.Content.Religion
                 var godName = Loc.GetPrototypeString(newGodID.Value, "Name");
                 _audio.Play(Protos.Sound.Complete1);
                 _mes.Display(Loc.GetString("Elona.Religion.Switch.Follower", ("godName", godName)), UiColors.MesYellow);
-                GodSays(newGodID.Value, "Elona.GodStartBelivingIn");
+                GodSays(newGodID.Value, "Elona.GodStartBelievingIn");
 
                 var ev = new OnJoinFaithEvent(newGodID.Value);
                 RaiseLocalEvent(target, ev);
@@ -336,7 +336,6 @@ namespace OpenNefia.Content.Religion
             var positions = new Vector2i[] { spatial.WorldPosition };
             var anim = new AnimMiracleMapDrawable(positions);
             _drawables.Enqueue(anim, spatial.MapPosition);
-            _drawables.WaitForDrawables();
             _audio.Play(Protos.Sound.Pray2, target);
 
             _magic.Cast(Protos.Magic.EffectElixir, power: 100, target: target);
@@ -481,7 +480,6 @@ namespace OpenNefia.Content.Religion
 
             _audio.Play(Protos.Sound.Offer2, chara);
             _drawables.Enqueue(new ParticleMapDrawable(Protos.Asset.OfferEffect), chara);
-            _drawables.WaitForDrawables();
 
             if (!EntityManager.IsAlive(altar) || !EntityManager.TryGetComponent<AltarComponent>(altar.Value, out var altarComp))
                 return true;
@@ -514,7 +512,6 @@ namespace OpenNefia.Content.Religion
                     var spatial = EntityManager.GetComponent<SpatialComponent>(chara);
                     var positions = new Vector2i[] { spatial.WorldPosition };
                     _drawables.Enqueue(new AnimMiracleMapDrawable(positions), spatial.MapPosition);
-                    _drawables.WaitForDrawables();
                     _audio.Play(Protos.Sound.Pray2, chara);
                     if (altarComp.GodID != null)
                         _mes.DisplayL("Elona.Religion.Offer.TakeOver.Shadow");

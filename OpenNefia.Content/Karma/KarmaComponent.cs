@@ -17,4 +17,10 @@ namespace OpenNefia.Content.Karma
         [DataField]
         public Stat<int> Karma { get; set; } = new(0);
     }
+
+    public static class KarmaLevels
+    {
+        public const int Bad = -30;
+        public const int Good = 20;
+    }
 }

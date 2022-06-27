@@ -11,4 +11,10 @@ Elona.Skill = {
             return ("%s%s %s skill increases."):format(_.name(entity), _.his_owned(entity), skillName)
         end,
     },
+
+    Leveling = {
+        GainNewBodyPart = function(entity, bodyPartName)
+            return ("%s grow%s a new %s!"):format(_.name(entity), _.s(entity), bodyPartName)
+        end,
+    },
 }

@@ -27,17 +27,7 @@ namespace OpenNefia.Content.VanillaAI
         private Color ColorLineOther = Color.LimeGreen;
         private Color ColorLineAnchor = Color.Yellow;
 
-        private IMap? _map;
         private List<DrawEntry> _entries = new();
-
-        public override void SetMap(IMap map)
-        {
-            _map = map;
-        }
-
-        public override void OnThemeSwitched()
-        {
-        }
 
         public override void RedrawAll()
         {

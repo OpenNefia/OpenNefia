@@ -1,4 +1,5 @@
-﻿using OpenNefia.Core.GameObjects;
+﻿using OpenNefia.Content.World;
+using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Serialization.Manager.Attributes;
 
@@ -32,6 +33,12 @@ namespace OpenNefia.Content.Charas
 
         [DataField]
         public Gender Gender { get; set; } = Gender.Unknown;
+
+        /// <summary>
+        /// Date of respawn for the <see cref="VillagerDead"/> state.
+        /// </summary>
+        [DataField]
+        public GameDateTime RespawnDate { get; set; } = new();
 
         [ComponentDependency]
         private MetaDataComponent? _metaData;

@@ -85,6 +85,8 @@ namespace OpenNefia.Content.Nefia
 
             ConnectStairs(map, args.Area, floorNumber, args.PreviousCoords);
 
+            GetComp<MapCommonComponent>(map.MapEntityUid).FloorNumber = floorNumber;
+
             args.Handle(map);
         }
 

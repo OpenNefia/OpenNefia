@@ -69,7 +69,12 @@ namespace OpenNefia.Content.Tests
         public void Print(string queryText, Color? color = null)
         {
         }
+        
         public void Newline()
+        {
+        }
+
+        public void Clear()
         {
         }
 

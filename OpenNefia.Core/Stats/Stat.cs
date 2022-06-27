@@ -89,6 +89,120 @@ namespace OpenNefia.Core.Stats
             return !(left == right);
         }
 
+        public static bool operator >(Stat<T>? left, Stat<T>? right)
+        {
+            if (left is null)
+                return false;
+            if (right is null)
+                return true;
+            if (left.Buffed is IComparable<T> leftComp)
+            {
+                return leftComp.CompareTo(right.Buffed) > 0;
+            }
+            return false;
+        }
+
+        public static bool operator <(Stat<T>? left, Stat<T>? right)
+        {
+            if (left is null)
+                return true;
+            if (right is null)
+                return false;
+            if (left is IComparable<T> leftComp)
+            {
+                return leftComp.CompareTo(right.Buffed) < 0;
+            }
+            return false;
+        }
+
+        public static bool operator >=(Stat<T>? left, Stat<T>? right)
+        {
+            if (left is null)
+                return false;
+            if (right is null)
+                return true;
+            if (left.Buffed is IComparable<T> leftComp)
+            {
+                return leftComp.CompareTo(right.Buffed) >= 0;
+            }
+            return false;
+        }
+
+        public static bool operator <=(Stat<T>? left, Stat<T>? right)
+        {
+            if (left is null)
+                return true;
+            if (right is null)
+                return false;
+            if (left is IComparable<T> leftComp)
+            {
+                return leftComp.CompareTo(right.Buffed) <= 0;
+            }
+            return false;
+        }
+
+        public static bool operator ==(Stat<T>? left, T? right)
+        {
+            return left?.Equals(right) ?? false;
+        }
+
+        public static bool operator !=(Stat<T>? left, T? right)
+        {
+            return !(left == right);
+        }
+
+        public static bool operator >(Stat<T>? left, T? right)
+        {
+            if (left is null)
+                return false;
+            if (right is null)
+                return true;
+            if (left.Buffed is IComparable<T> leftComp)
+            {
+                return leftComp.CompareTo(right) > 0;
+            }
+            return false;
+        }
+
+        public static bool operator <(Stat<T>? left, T? right)
+        {
+            if (left is null)
+                return true;
+            if (right is null)
+                return false;
+            if (left is IComparable<T> leftComp)
+            {
+                return leftComp.CompareTo(right) < 0;
+            }
+            return false;
+        }
+
+        public static bool operator >=(Stat<T>? left, T? right)
+        {
+            if (left is null)
+                return false;
+            if (right is null)
+                return true;
+            if (left is IComparable<T> leftComp)
+            {
+                return leftComp.CompareTo(right) >= 0;
+            }
+            return false;
+        }
+
+        public static bool operator <=(Stat<T>? left, T? right)
+        {
+            if (left is null)
+                return true;
+            if (right is null)
+                return false;
+            if (left is IComparable<T> leftComp)
+            {
+                return leftComp.CompareTo(right) <= 0;
+            }
+            return false;
+        }
+
         public override string ToString()
         {
             return $"{Buffed}({Base})";

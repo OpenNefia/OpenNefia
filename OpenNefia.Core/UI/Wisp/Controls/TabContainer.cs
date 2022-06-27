@@ -203,7 +203,7 @@ namespace OpenNefia.Core.UI.Wisp.Controls
 
                 GraphicsS.SetColorTinted(this, fontColor);
                 Love.Graphics.SetFont(font.LoveFont);
-                GraphicsS.PrintS(UIScale, title, baseLine.X, baseLine.Y);
+                Love.Graphics.Print(title, baseLine.X, baseLine.Y);
                 //foreach (var rune in title.EnumerateRunes())
                 //{
                 //    if (!font.TryGetCharMetrics(rune, UIScale, out var metrics))

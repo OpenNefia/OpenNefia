@@ -1,4 +1,4 @@
-﻿using OpenNefia.Content.GameObjects;
+﻿using OpenNefia.Content.Weight;
 using OpenNefia.Core.GameObjects;
 using System;
 using System.Collections.Generic;

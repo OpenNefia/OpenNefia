@@ -23,5 +23,8 @@ namespace OpenNefia.Content.VanillaAI
 
         [DataField]
         public VanillaAICalmAction DefaultCalmAction { get; set; } = VanillaAICalmAction.Roam;
+
+        [DataField]
+        public bool NoAggroRefresh { get; set; } = false;
     }
 }
