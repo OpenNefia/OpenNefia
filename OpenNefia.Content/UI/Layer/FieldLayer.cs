@@ -62,7 +62,7 @@ namespace OpenNefia.Content.UI.Layer
             return this.IsInActiveLayerList() && _mapManager.ActiveMap != null;
         }
 
-        private void OnActiveMapChanged(IMap newMap, IMap? oldMap)
+        private void OnActiveMapChanged(IMap newMap, IMap? oldMap, MapLoadType loadType)
         {
             SetMap(newMap);
         }

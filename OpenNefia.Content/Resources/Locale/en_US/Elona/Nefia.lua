@@ -5,6 +5,13 @@ Elona.Nefia = {
         return ("%s"):format(_.ordinal(floorNumber))
     end,
 
+    Event = {
+        ReachedDeepestLevel = "It seems you have reached the deepest level of this dungeon.",
+        GuardedByLord = function(mapEntity, bossEntity)
+            return ("Be aware! This level is guarded by the lord of %s, %s."):format(mapEntity, _.basename(bossEntity))
+        end,
+    },
+
     Names = {
         TypeA = {
             Rank0 = function(baseName)

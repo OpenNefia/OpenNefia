@@ -19,27 +19,27 @@ namespace OpenNefia.Core.Maps
             SubscribeLocalEvent<MapComponent, ComponentStartup>(OnMapStartup, nameof(OnMapStartup));
         }
 
-        private void OnActiveMapChanged(IMap map, IMap? oldMap)
+        private void OnActiveMapChanged(IMap map, IMap? oldMap, MapLoadType loadType)
         {
-            var ev = new MapEnteredEvent(map, oldMap);
+            var ev = new ActiveMapChangedEvent(map, oldMap, loadType);
             RaiseLocalEvent(map.MapEntityUid, ev);
         }
 
         private void OnMapAdd(EntityUid uid, MapComponent component, ComponentAdd args)
         {
-            var msg = new MapAddEvent(uid, component.MapId);
+            var msg = new MapComponentAddEvent(uid, component.MapId);
             EntityManager.EventBus.RaiseLocalEvent(uid, msg);
         }
 
         private void OnMapInit(EntityUid uid, MapComponent component, ComponentInit args)
         {
-            var msg = new MapInitializeEvent(uid, component.MapId);
+            var msg = new MapComponentInitializeEvent(uid, component.MapId);
             EntityManager.EventBus.RaiseLocalEvent(uid, msg);
         }
 
         private void OnMapStartup(EntityUid uid, MapComponent component, ComponentStartup args)
         {
-            var msg = new MapStartupEvent(uid, component.MapId);
+            var msg = new MapComponentStartupEvent(uid, component.MapId);
             EntityManager.EventBus.RaiseLocalEvent(uid, msg);
         }
     }
@@ -47,12 +47,12 @@ namespace OpenNefia.Core.Maps
     /// <summary>
     /// Raised whenever a map component starts up.
     /// </summary>
-    public sealed class MapStartupEvent : EntityEventArgs
+    public sealed class MapComponentStartupEvent : EntityEventArgs
     {
         public EntityUid EntityUid { get; }
         public MapId MapId { get; }
 
-        public MapStartupEvent(EntityUid uid, MapId mapId)
+        public MapComponentStartupEvent(EntityUid uid, MapId mapId)
         {
             EntityUid = uid;
             MapId = mapId;
@@ -62,12 +62,12 @@ namespace OpenNefia.Core.Maps
     /// <summary>
     /// Raised whenever a map is being initialized.
     /// </summary>
-    public sealed class MapInitializeEvent : EntityEventArgs
+    public sealed class MapComponentInitializeEvent : EntityEventArgs
     {
         public EntityUid EntityUid { get; }
         public MapId MapId { get; }
 
-        public MapInitializeEvent(EntityUid uid, MapId mapId)
+        public MapComponentInitializeEvent(EntityUid uid, MapId mapId)
         {
             EntityUid = uid;
             MapId = mapId;
@@ -77,12 +77,12 @@ namespace OpenNefia.Core.Maps
     /// <summary>
     /// Raised whenever a map is added.
     /// </summary>
-    public sealed class MapAddEvent : EntityEventArgs
+    public sealed class MapComponentAddEvent : EntityEventArgs
     {
         public EntityUid EntityUid { get; }
         public MapId MapId { get; }
 
-        public MapAddEvent(EntityUid uid, MapId mapId)
+        public MapComponentAddEvent(EntityUid uid, MapId mapId)
         {
             EntityUid = uid;
             MapId = mapId;
@@ -92,15 +92,17 @@ namespace OpenNefia.Core.Maps
     /// <summary>
     /// Raised whenever the current map changes.
     /// </summary>
-    public sealed class MapEnteredEvent : EntityEventArgs
+    public sealed class ActiveMapChangedEvent : EntityEventArgs
     {
         public IMap NewMap { get; }
         public IMap? OldMap { get; }
+        public MapLoadType LoadType { get; }
 
-        public MapEnteredEvent(IMap newMap, IMap? oldMap = null)
+        public ActiveMapChangedEvent(IMap newMap, IMap? oldMap = null, MapLoadType loadType = MapLoadType.Full)
         {
             NewMap = newMap;
             OldMap = oldMap;
+            LoadType = loadType;
         }
     }
 }

@@ -7,9 +7,4 @@ using System.Threading.Tasks;
 
 namespace OpenNefia.Content.StatusEffects
 {
-    [RegisterComponent]
-    public class StatusFearComponent : Component
-    {
-        public override string Name => "StatusFear";
-    }
 }

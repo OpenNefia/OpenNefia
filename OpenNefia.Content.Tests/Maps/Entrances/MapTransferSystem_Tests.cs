@@ -30,6 +30,7 @@ namespace OpenNefia.Content.Tests.Maps.Entrances
             var gameSess = sim.Resolve<IGameSessionManager>();
             var saveGameMan = sim.Resolve<ISaveGameManager>();
             var mapLoader = sim.Resolve<IMapLoader>();
+            var mapTransfer = sim.GetEntitySystem<IMapTransferSystem>();
 
             var map1 = sim.CreateMapAndSetActive(10, 10);
             var map2 = mapMan.CreateMap(10, 10);
@@ -49,7 +50,7 @@ namespace OpenNefia.Content.Tests.Maps.Entrances
             });
 
             var expectedPos = new Vector2i(3, 4);
-            playerSpatial.Coordinates = map2.AtPosEntity(expectedPos);
+            mapTransfer.DoMapTransfer(playerSpatial, map2, map2.AtPosEntity(expectedPos), MapLoadType.Full);
 
             Assert.Multiple(() =>
             {

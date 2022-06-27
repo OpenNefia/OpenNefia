@@ -22,7 +22,8 @@ namespace OpenNefia.Content.VanillaAI
     public interface IVanillaAISystem : IEntitySystem
     {
         public EntityUid? GetTarget(EntityUid entity, VanillaAIComponent? ai = null);
-        public void SetTarget(EntityUid entity, EntityUid? target, int aggro, VanillaAIComponent? ai = null);
+        public void SetTarget(EntityUid entity, EntityUid? target, int aggro = 0, VanillaAIComponent? ai = null);
+        public void ResetAI(EntityUid entity, VanillaAIComponent? ai = null);
     }
 
     /// <summary>
@@ -168,7 +169,7 @@ namespace OpenNefia.Content.VanillaAI
             return ai.CurrentTarget;
         }
 
-        public void SetTarget(EntityUid entity, EntityUid? target, int aggro, VanillaAIComponent? ai = null)
+        public void SetTarget(EntityUid entity, EntityUid? target, int aggro = 0, VanillaAIComponent? ai = null)
         {
             if (!Resolve(entity, ref ai))
                 return;
@@ -188,7 +189,7 @@ namespace OpenNefia.Content.VanillaAI
 
         private void DoTargetedAction(EntityUid entity, VanillaAIComponent ai, SpatialComponent spatial)
         {
-            if (EntityManager.HasComponent<StatusBlindComponent>(entity))
+            if (EntityManager.HasComponent<StatusBlindnessComponent>(entity))
             {
                 if (_random.Next(10) > 2)
                 {
@@ -217,7 +218,7 @@ namespace OpenNefia.Content.VanillaAI
                 return;
             }
 
-            if (EntityManager.HasComponent<StatusBlindComponent>(entity))
+            if (EntityManager.HasComponent<StatusBlindnessComponent>(entity))
             {
                 if (_random.OneIn(3))
                 {
@@ -382,6 +383,14 @@ namespace OpenNefia.Content.VanillaAI
             {
                 ai.CurrentTarget = leader;
             }
+        }
+
+        public void ResetAI(EntityUid entity, VanillaAIComponent? ai = null)
+        {
+            if (!Resolve(entity, ref ai))
+                return;
+
+            SetTarget(entity, null, ai: ai);
         }
     }
 }

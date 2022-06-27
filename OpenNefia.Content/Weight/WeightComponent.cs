@@ -1,11 +1,12 @@
 ﻿using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Serialization.Manager.Attributes;
 
-namespace OpenNefia.Content.GameObjects
+namespace OpenNefia.Content.Weight
 {
     [RegisterComponent]
-    public class WeightComponent : Component
+    public sealed class WeightComponent : Component
     {
+        /// <inheritdoc/>
         public override string Name => "Weight";
 
         [DataField]

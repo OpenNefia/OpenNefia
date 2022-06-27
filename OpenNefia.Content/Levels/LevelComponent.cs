@@ -16,5 +16,8 @@ namespace OpenNefia.Content.Levels
 
         [DataField]
         public int ExperienceToNext { get; set; }
+
+        [DataField(required: true)]
+        public int MaxLevelReached { get; set; } = 1;
     }
 }

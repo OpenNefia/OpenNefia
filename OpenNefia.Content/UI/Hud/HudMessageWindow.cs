@@ -133,6 +133,12 @@ namespace OpenNefia.Content.UI.Hud
             NeedsRelayout = true;
         }
 
+        public void Clear()
+        {
+            Messages.Clear();
+            NeedsRelayout = true;
+        }
+
         private MessageContainer GetMessageLine(bool newLine)
         {
             var cont = new MessageContainer();

@@ -1,5 +1,4 @@
 using OpenNefia.Analyzers;
-using OpenNefia.Content.TurnOrder;
 using OpenNefia.Content.UI.Layer;
 using OpenNefia.Content.World;
 using OpenNefia.Core.Game;
@@ -8,21 +7,19 @@ using OpenNefia.Core.IoC;
 using OpenNefia.Core.Log;
 using OpenNefia.Core.Maps;
 using OpenNefia.Content.Prototypes;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using OpenNefia.Core.Audio;
 using OpenNefia.Content.Logic;
 using OpenNefia.Core.Locale;
 using OpenNefia.Core.UserInterface;
 using OpenNefia.Core.SaveGames;
+using OpenNefia.Content.Maps;
 
 namespace OpenNefia.Content.TurnOrder
 {
     public interface ITurnOrderSystem : IEntitySystem
     {
+        bool PlayerAboutToRespawn { get; }
+
         /// <summary>
         /// Calculates the raw speed value for an entity.
         /// </summary>
@@ -76,6 +73,7 @@ namespace OpenNefia.Content.TurnOrder
         [Dependency] private readonly IUserInterfaceManager _uiManager = default!;
         [Dependency] private readonly ISaveGameSerializer _saveGameSerializer = default!;
         [Dependency] private readonly IMessagesManager _mes = default!;
+        [Dependency] private readonly IMapTransferSystem _mapTransfer = default!;
 
         private TurnOrderState _state = TurnOrderState.TurnBegin;
 
@@ -84,17 +82,19 @@ namespace OpenNefia.Content.TurnOrder
         private TurnOrderComponent? _activeEntity;
         private bool _saveWasLoaded;
 
+        public bool PlayerAboutToRespawn { get; private set; }
+
         public override void Initialize()
         {
             _mapManager.OnActiveMapChanged += OnActiveMapChanged;
             _saveGameSerializer.OnGameLoaded += OnGameLoaded;
 
-            SubscribeLocalEvent<MapTurnOrderComponent, MapEnteredEvent>(HandleMapChangedTurnOrder, nameof(HandleMapChangedTurnOrder));
+            SubscribeLocalEvent<MapTurnOrderComponent, ActiveMapChangedEvent>(HandleMapChangedTurnOrder, nameof(HandleMapChangedTurnOrder));
         }
 
         #region Event Handlers
 
-        private void OnActiveMapChanged(IMap newMap, IMap? oldMap)
+        private void OnActiveMapChanged(IMap newMap, IMap? oldMap, MapLoadType loadType)
         {
             InitializeState();
         }
@@ -104,7 +104,7 @@ namespace OpenNefia.Content.TurnOrder
             _saveWasLoaded = true;
         }
 
-        private void HandleMapChangedTurnOrder(EntityUid uid, MapTurnOrderComponent mapTurnOrder, MapEnteredEvent args)
+        private void HandleMapChangedTurnOrder(EntityUid uid, MapTurnOrderComponent mapTurnOrder, ActiveMapChangedEvent args)
         {
             mapTurnOrder.IsFirstTurn = true;
 
@@ -150,8 +150,41 @@ namespace OpenNefia.Content.TurnOrder
         /// <inheritdoc/>
         public void AdvanceStateFromPlayer(TurnResult turnResult)
         {
+            // Initialize the map cleanly if the player has changed maps
+            // since the last turn action.
+            CheckIfPlayerInMap();
+
             _state = turnResult.ToTurnOrderState(isPlayerTurn: true);
             AdvanceState();
+        }
+
+        /// <summary>
+        /// Checks if an event changed the player's current map without setting the active map to the player's, 
+        /// and run map init events if so.
+        /// </summary>
+        private void CheckIfPlayerInMap()
+        {
+            var player = _gameSession.Player;
+            var playerSpatial = EntityManager.GetComponent<SpatialComponent>(player);
+
+            if (_mapManager.ActiveMap != null && playerSpatial.MapID != _mapManager.ActiveMap.Id)
+            {
+                Logger.WarningS("turn", $"Player is in map {playerSpatial.MapID}, but we are viewing map {_mapManager.ActiveMap.Id}!");
+                if (playerSpatial.MapID != MapId.Nullspace && playerSpatial.MapID != MapId.Global)
+                {
+                    var oldMapId = _mapManager.ActiveMap!.Id;
+                    if (_mapManager.MapIsLoaded(oldMapId))
+                    {
+                        Logger.WarningS("turn", $"Running full map transfer.");
+                        _mapTransfer.DoMapTransfer(playerSpatial, _mapManager.GetMap(oldMapId), playerSpatial.Coordinates, MapLoadType.Traveled);
+                    }
+                    else
+                    {
+                        Logger.WarningS("turn", $"Map {oldMapId} is not loaded anymore, skipping map transfer.");
+                        _mapManager.SetActiveMap(playerSpatial.MapID);
+                    }
+                }
+            }
         }
 
         /// <inheritdoc/>

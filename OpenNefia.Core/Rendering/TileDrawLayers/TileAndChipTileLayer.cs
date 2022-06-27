@@ -14,7 +14,6 @@ namespace OpenNefia.Core.Rendering.TileDrawLayers
         [Dependency] private readonly ITileAtlasManager _atlasManager = default!;
         [Dependency] private readonly ICoords _coords = default!;
 
-        private IMap _map = default!;
         private TileAndChipBatch _tileAndChipBatch = new();
         private WallTileShadows _wallShadows = new();
 
@@ -31,7 +30,7 @@ namespace OpenNefia.Core.Rendering.TileDrawLayers
 
         public override void SetMap(IMap map)
         {
-            _map = map;
+            base.SetMap(map);
 
             _tileAndChipBatch.SetMapSize(map.Size);
             _wallShadows.SetMap(map);
@@ -58,7 +57,7 @@ namespace OpenNefia.Core.Rendering.TileDrawLayers
             var tileIndex = tile.Image.AtlasIndex;
 
             var oneDown = pos + (0, 1);
-            var oneTileDown = _map.GetTile(oneDown);
+            var oneTileDown = _map!.GetTile(oneDown);
 
             var oneUp = pos + (0, -1);
             var oneTileUp = _map.GetTile(oneUp);
@@ -90,7 +89,7 @@ namespace OpenNefia.Core.Rendering.TileDrawLayers
         public void RedrawMapObjects()
         {
             _tileAndChipBatch.Clear();
-            foreach (var memory in _map.MapObjectMemory.AllMemory.Values)
+            foreach (var memory in _map!.MapObjectMemory.AllMemory.Values)
             {
                 _tileAndChipBatch.AddChipEntry(memory);
             }
@@ -101,7 +100,7 @@ namespace OpenNefia.Core.Rendering.TileDrawLayers
             _wallShadows.Clear();
             _tileAndChipBatch.Clear();
 
-            foreach (var coords in _map.AllTiles)
+            foreach (var coords in _map!.AllTiles)
             {
                 SetMapTile(coords.Position, _map.TileMemory[coords.X, coords.Y].ResolvePrototype());
             }
@@ -115,7 +114,7 @@ namespace OpenNefia.Core.Rendering.TileDrawLayers
         {
             foreach (var pos in dirtyTilesThisTurn)
             {
-                SetMapTile(pos, _map.TileMemory[pos.X, pos.Y].ResolvePrototype());
+                SetMapTile(pos, _map!.TileMemory[pos.X, pos.Y].ResolvePrototype());
             }
 
             RedrawMapObjects();

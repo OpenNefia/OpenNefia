@@ -25,6 +25,13 @@ using OpenNefia.Core.Log;
 using OpenNefia.Content.GameObjects.EntitySystems.Tag;
 using System.Text.RegularExpressions;
 using System.Reflection.Metadata;
+using OpenNefia.Content.Logic;
+using OpenNefia.Content.DisplayName;
+using OpenNefia.Content.DeferredEvents;
+using OpenNefia.Content.UI;
+using OpenNefia.Content.RandomGen;
+using OpenNefia.Content.CustomName;
+using OpenNefia.Content.Factions;
 
 namespace OpenNefia.Content.Nefia
 {
@@ -39,6 +46,11 @@ namespace OpenNefia.Content.Nefia
         [Dependency] private readonly ILocalizationManager _loc = default!;
         [Dependency] private readonly IEntityGen _entityGen = default!;
         [Dependency] private readonly ITagSystem _tags = default!;
+        [Dependency] private readonly IMapEntranceSystem _mapEntrances = default!;
+        [Dependency] private readonly IMessagesManager _mes = default!;
+        [Dependency] private readonly IDisplayNameSystem _names = default!;
+        [Dependency] private readonly IDeferredEventsSystem _deferredEvs = default!;
+        [Dependency] private readonly ICharaGen _charaGen = default!;
 
         public override void Initialize()
         {
@@ -47,17 +59,78 @@ namespace OpenNefia.Content.Nefia
             SubscribeLocalEvent<AreaNefiaComponent, AreaGeneratedEvent>(OnNefiaGenerated, nameof(OnNefiaGenerated));
             SubscribeLocalEvent<AreaNefiaComponent, RandomAreaCheckIsActiveEvent>(OnCheckIsActive, nameof(OnCheckIsActive));
             SubscribeLocalEvent<GenerateRandomAreaEvent>(GenerateRandomNefia, nameof(GenerateRandomNefia));
+            SubscribeLocalEvent<AreaNefiaComponent, AreaMapInitializeEvent>(SpawnNefiaBoss, nameof(SpawnNefiaBoss));
         }
 
-        private void OnNefiaAreaEntered(EntityUid uid, AreaNefiaComponent component, AreaEnteredEvent args)
+        private void OnNefiaAreaEntered(EntityUid uid, AreaNefiaComponent areaNefia, AreaEnteredEvent args)
         {
-            if (component.State == NefiaState.Unvisited)
-                component.State = NefiaState.Visited;
+            if (areaNefia.State == NefiaState.Unvisited)
+                areaNefia.State = NefiaState.Visited;
         }
 
         private void OnCheckIsActive(EntityUid uid, AreaNefiaComponent areaNefia, RandomAreaCheckIsActiveEvent args)
         {
             args.IsActive |= areaNefia.State == NefiaState.Unvisited || areaNefia.State == NefiaState.Visited;
+        }
+
+        private void SpawnNefiaBoss(EntityUid uid, AreaNefiaComponent areaNefia, AreaMapInitializeEvent args)
+        {
+            // -- >>>>>>>> shade2/map.hsp:395 	if areaId(gArea)=areaRandDungeon{ ...
+            if (args.LoadType == MapLoadType.GameLoaded)
+                return;
+
+            if (!TryComp<AreaDungeonComponent>(uid, out var areaDungeon))
+                return;
+
+            if (areaDungeon.DeepestFloor == _mapEntrances.GetFloorNumber(args.Map))
+            {
+                if (areaNefia.State == NefiaState.BossVanished)
+                {
+                    _mes.Display(Loc.GetString("Elona.Nefia.NoDungeonMaster", ("mapEntity", args.Map.MapEntityUid)));
+                }
+                else if (areaNefia.BossEntityUid == null)
+                {
+                    _deferredEvs.Add(() => EventNefiaBoss(args.Map));
+                }
+            }
+            // -- <<<<<<<< shade2/map.hsp:398 		} ..
+        }
+
+        private void EventNefiaBoss(IMap map)
+        {
+            if (!_areaManager.TryGetAreaOfMap(map, out var area))
+                return;
+
+            if (!TryComp<AreaNefiaComponent>(area.AreaEntityUid, out var areaNefia))
+                return;
+
+            if (!TryComp<AreaDungeonComponent>(area.AreaEntityUid, out var areaDungeon))
+                return;
+
+            areaNefia.BossEntityUid = SpawnBoss(map);
+
+            _mes.Display(Loc.GetString("Nefia.Event.ReachedDeepestLevel"));
+            _mes.Display(Loc.GetString("Nefia.Event.GuardedByLord", ("mapEntity", map.MapEntityUid), ("bossEntity", areaNefia.BossEntityUid)), UiColors.MesRed);
+        }
+
+        private EntityUid SpawnBoss(IMap map)
+        {
+            EntityUid? boss = null;
+            var filter = new CharaFilter()
+            {
+                Quality = Qualities.Quality.Great,
+                LevelOverride = _levels.GetLevel(map.MapEntityUid) + _random.Next(5)
+            };
+            while (boss == null)
+            {
+                boss = _charaGen.GenerateChara(map, filter);
+            }
+
+            var customName = EnsureComp<CustomNameComponent>(boss.Value);
+            customName.CustomName = $"{customName.CustomName} Lv{_levels.GetLevel(boss.Value)}";
+            EnsureComp<FactionComponent>(boss.Value).RelationToPlayer = Relation.Enemy;
+
+            return boss.Value;
         }
 
         private IMap GenerateFallbackMap(AreaFloorGenerateEvent args)

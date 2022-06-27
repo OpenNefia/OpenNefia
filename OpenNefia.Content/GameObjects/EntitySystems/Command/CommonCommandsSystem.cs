@@ -3,6 +3,7 @@ using OpenNefia.Content.ConfigMenu;
 using OpenNefia.Content.Input;
 using OpenNefia.Content.Journal;
 using OpenNefia.Content.Logic;
+using OpenNefia.Content.SaveLoad;
 using OpenNefia.Content.UI.Layer;
 using OpenNefia.Core;
 using OpenNefia.Core.Audio;
@@ -39,6 +40,7 @@ namespace OpenNefia.Content.GameObjects
         [Dependency] private readonly IGameController _gameController = default!;
         [Dependency] private readonly IGraphics _graphics = default!;
         [Dependency] private readonly IMessagesManager _mes = default!;
+        [Dependency] private readonly ISaveLoadSystem _saveLoad = default!;
 
         public override void Initialize()
         {
@@ -130,39 +132,14 @@ namespace OpenNefia.Content.GameObjects
 
         private TurnResult? QuickSaveGame(IGameSessionManager? session)
         {
-            var save = _saveGameManager.CurrentSave!;
-
-            // Step one frame to get a screenshot without modals.
-            _gameController.StepFrame();
-
-            // Put the screenshot in the temp files first.
-            SaveScreenshot(save);
-
-            // Commit all temp files.
-            _saveGameSerializer.SaveGame(save);
-
-            _sounds.Play(Sound.Write1);
-            _mes.Display(Loc.GetString("Elona.UserInterface.Save.QuickSave"));
+            _saveLoad.QuickSaveGame();
 
             return TurnResult.Aborted;
         }
 
-        private void SaveScreenshot(ISaveGameHandle save)
-        {
-            var path = SaveGameConstants.ScreenshotPath;
-
-            // This will output a capture of the previous draw frame, as we're in the middle
-            // of the next frame's Update() call.
-            var pngBytes = _graphics.CaptureCanvasPNG();
-
-            save.Files.WriteAllBytes(path, pngBytes);
-        }
-
         private TurnResult? QuickLoadGame(IGameSessionManager? session)
         {
-            var save = _saveGameManager.CurrentSave!;
-
-            _saveGameSerializer.LoadGame(save);
+            _saveLoad.QuickLoadGame();
 
             return TurnResult.Aborted;
         }

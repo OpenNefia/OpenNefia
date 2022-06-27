@@ -5,6 +5,8 @@ using OpenNefia.Content.EntityGen;
 using OpenNefia.Content.Equipment;
 using OpenNefia.Content.GameObjects;
 using OpenNefia.Content.Levels;
+using OpenNefia.Content.Logic;
+using OpenNefia.Core.Game;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Prototypes;
@@ -55,6 +57,7 @@ namespace OpenNefia.Content.Skills
         void GainSkillExp(EntityUid uid, PrototypeId<SkillPrototype> skillId, int baseExpGained, int relatedSkillExpDivisor = 0, int levelExpDivisor = 0, SkillsComponent? skills = null);
         void GainSkill(EntityUid uid, PrototypeId<SkillPrototype> skillId, LevelAndPotential? initialValues = null,
             SkillsComponent? skills = null);
+        void GainLevel(EntityUid entity, bool showMessage = false, SkillsComponent? skillComp = null, LevelComponent? levelComp = null);
 
         #endregion
 

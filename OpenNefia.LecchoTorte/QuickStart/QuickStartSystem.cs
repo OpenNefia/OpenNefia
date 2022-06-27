@@ -39,9 +39,9 @@ namespace OpenNefia.LecchoTorte.QuickStart
             }
 
             var skills = EntityManager.GetComponent<SkillsComponent>(player);
-            skills.Skills[Protos.Skill.AttrConstitution].Level.Base = 2000;
-            skills.Skills[Protos.Skill.AttrStrength].Level.Base = 2000;
-            skills.Skills[Protos.Skill.AttrLife].Level.Base = 2000;
+            skills.Ensure(Protos.Skill.AttrConstitution).Level.Base = 2000;
+            skills.Ensure(Protos.Skill.AttrStrength).Level.Base = 2000;
+            skills.Ensure(Protos.Skill.AttrLife).Level.Base = 2000;
             _refresh.Refresh(player);
             _skills.HealToMax(player);
 

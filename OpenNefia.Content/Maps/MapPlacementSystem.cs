@@ -260,6 +260,7 @@ namespace OpenNefia.Content.Maps
                 return true;
             }
 
+            Logger.WarningS("map.placement", $"Failed to place {entity} near {coords}");
             spatial.Coordinates = new EntityCoordinates(map.MapEntityUid, Vector2i.Zero);
             FailedToPlaceChara(entity);
             return false;

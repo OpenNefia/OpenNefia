@@ -80,6 +80,9 @@ namespace OpenNefia.Core
         public static readonly CVarDef<float> AnimeAnimationWait =
             CVarDef.Create("anime.animationWait", 0.2f);
 
+        public static readonly CVarDef<int> ScreenRefresh =
+            CVarDef.Create("anime.screenRefresh", 20);
+
         /*
          * Audio
          */

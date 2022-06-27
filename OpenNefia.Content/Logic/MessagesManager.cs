@@ -15,6 +15,7 @@ namespace OpenNefia.Content.Logic
     {
         void Newline();
         void Display(string text, Color? color = null, bool alert = false, bool noCapitalize = false, EntityUid? entity = null);
+        void Clear();
     }
 
     public class MessagesManager : IMessagesManager
@@ -58,6 +59,11 @@ namespace OpenNefia.Content.Logic
                 }
             }
             // <<<<<<<< elona122/shade2/init.hsp:3581 		} ...
+        }
+
+        public void Clear()
+        {
+            _hud.MessageWindow?.Clear();
         }
     }
 

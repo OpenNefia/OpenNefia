@@ -76,8 +76,9 @@ namespace OpenNefia.Core.GameObjects
         /// </remarks>
         /// <param name="uid"></param>
         /// <param name="comps"></param>
+        /// <param name="overwrite">If true, overwrite existing components on the entity.</param>
         /// <returns>The slot ID of the new slot.</returns>
-        SlotId AddSlot(EntityUid uid, ComponentRegistry comps);
+        SlotId AddSlot(EntityUid uid, ComponentRegistry comps, bool overwrite = false);
 
         /// <summary>
         /// Removes an existing slot on an entity.
@@ -110,9 +111,10 @@ namespace OpenNefia.Core.GameObjects
         [Dependency] private readonly IComponentFactory _componentFactory = default!;
 
         /// <inheritdoc/>
-        public SlotId AddSlot(EntityUid uid, ComponentRegistry comps)
+        public SlotId AddSlot(EntityUid uid, ComponentRegistry comps, bool overwrite = false)
         {
             var addingComps = new ComponentRegistry();
+            var removingComps = new ComponentRegistry();
             var slotRegCompTypes = new HashSet<Type>();
 
             var slots = EntityManager.EnsureComponent<SlotsComponent>(uid);
@@ -125,6 +127,11 @@ namespace OpenNefia.Core.GameObjects
                 {
                     addingComps.Add(name, comp);
                 }
+                else if (overwrite)
+                {
+                    removingComps.Add(name, comp);
+                    addingComps.Add(name, comp);
+                }
 
                 // If the entity doesn't have the component, track it in the slot.
                 //
@@ -135,11 +142,16 @@ namespace OpenNefia.Core.GameObjects
                 // If the entity has the component, but it's *not* part of a slot
                 // (e.g. it's in the entity's original component list), then don't track
                 // it in the slot system at all.
-                bool notInOriginalEntityComps = !EntityManager.HasComponent(uid, compType) || slots.HasAnySlotsWithComp(compType);
+                bool notInOriginalEntityComps = !EntityManager.HasComponent(uid, compType) || slots.HasAnySlotsWithComp(compType) || overwrite;
                 if (notInOriginalEntityComps)
                 {
                     slotRegCompTypes.Add(compType);
                 }
+            }
+
+            foreach (var compProto in removingComps.Values)
+            {
+                EntityManager.RemoveComponent(uid, compProto.GetType());
             }
 
             foreach (var compProto in addingComps.Values)

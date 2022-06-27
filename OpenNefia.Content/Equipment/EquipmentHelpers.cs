@@ -1,7 +1,7 @@
 ﻿using OpenNefia.Content.EquipSlots;
-using OpenNefia.Content.GameObjects;
 using OpenNefia.Content.Inventory;
 using OpenNefia.Content.Prototypes;
+using OpenNefia.Content.Weight;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Locale;
 using OpenNefia.Core.Log;

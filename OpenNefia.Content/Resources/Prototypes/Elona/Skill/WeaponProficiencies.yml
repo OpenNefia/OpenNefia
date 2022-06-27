@@ -34,6 +34,7 @@
   id: Elona.MartialArts
   relatedSkill: Elona.AttrStrength
   skillType: WeaponProficiency
+  isPrimarySkill: true
 
 - type: Elona.Skill
   id: Elona.Scythe
@@ -44,6 +45,7 @@
   id: Elona.Bow
   relatedSkill: Elona.AttrDexterity
   skillType: WeaponProficiency
+  isPrimarySkill: true
 
 - type: Elona.Skill
   id: Elona.Crossbow

@@ -5,7 +5,7 @@
 --
 -- It's run like this:
 --
--- cd C:/users/yuno/build/elona-next & OpenNefia.bat exec C:/users/yuno/build/OpenNefia.NET/Support/convert_lua_protos.lua -r
+-- cd C:/users/yuno/build/elona-next && bash OpenNefia exec C:/users/yuno/build/OpenNefia.NET/Support/convert_lua_protos.lua -r
 --
 
 local automagic = require "thirdparty.automagic"
@@ -656,6 +656,29 @@ end
 
 handlers["elona_sys.magic"] = function(from, to) end
 
+handlers["base.effect"] = function(from, to)
+    if from.color then
+        to.color = rgbToHex(from.color)
+    end
+    if from.stops_activity then
+        to.stopsActivity = from.stops_activity
+    end
+    if from.auto_heal then
+        to.autoHeal = from.auto_heal
+    end
+    if from.related_element then
+        to.related_element = dotted(from.related_element)
+    end
+    if from.emotion_icon then
+        to.emotionIconId = from.emotion_icon
+    end
+    to.components = {
+        {
+            type = ("Status%s"):format(dataPart(from._id)),
+        },
+    }
+end
+
 local function sort(a, b)
     return (a.elona_id or 0) < (b.elona_id or 0)
 end
@@ -682,6 +705,7 @@ local hspTypes = {
     ["base.pcc_part"] = "Elona.PCCPart",
     ["elona.field_type"] = "Elona.FieldType",
     ["base.trait"] = "Elona.Feat",
+    ["base.effect"] = "Elona.StatusEffect",
 }
 
 local function transformMinimal(i)
@@ -751,6 +775,7 @@ write("elona.material_spot", "MaterialSpot.yml")
 write("elona.material", "Material.yml")
 write("elona.god", "God.yml")
 write("elona_sys.magic", "Magic.yml")
+write("base.effect", "StatusEffect.yml")
 
 -- for _, tag in ipairs(allTags) do
 --     print(tag)

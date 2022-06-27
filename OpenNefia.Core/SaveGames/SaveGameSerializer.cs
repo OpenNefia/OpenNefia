@@ -394,7 +394,7 @@ namespace OpenNefia.Core.SaveGames
 
             // Set the active map. This also lets things like map tile layers that depend
             // on the player being valid refresh themselves correctly.
-            _mapManager.SetActiveMap(map.Id);
+            _mapManager.SetActiveMap(map.Id, MapLoadType.GameLoaded);
         }
 
         public void LoadGlobalData(ISaveGameHandle save)

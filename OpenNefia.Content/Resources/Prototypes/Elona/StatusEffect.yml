@@ -1,0 +1,115 @@
+---
+- type: Elona.StatusEffect
+  id: Elona.Sick
+  color: '#507800'
+  components:
+  - type: StatusSick
+- type: Elona.StatusEffect
+  id: Elona.Fury
+  color: '#960000'
+  autoHeal: true
+  components:
+  - type: StatusFury
+- type: Elona.StatusEffect
+  id: Elona.Dimming
+  color: '#006464'
+  stopsActivity: true
+  autoHeal: true
+  related_element: Elona.Sound
+  emotionIconId: elona.dim
+  components:
+  - type: StatusDimming
+- type: Elona.StatusEffect
+  id: Elona.Bleeding
+  color: '#960000'
+  stopsActivity: true
+  autoHeal: true
+  emotionIconId: elona.bleed
+  components:
+  - type: StatusBleeding
+- type: Elona.StatusEffect
+  id: Elona.Drunk
+  color: '#640064'
+  autoHeal: true
+  emotionIconId: elona.happy
+  components:
+  - type: StatusDrunk
+- type: Elona.StatusEffect
+  id: Elona.Insanity
+  color: '#966400'
+  stopsActivity: true
+  autoHeal: true
+  emotionIconId: elona.insane
+  components:
+  - type: StatusInsanity
+- type: Elona.StatusEffect
+  id: Elona.Wet
+  color: '#0000A0'
+  autoHeal: true
+  components:
+  - type: StatusWet
+- type: Elona.StatusEffect
+  id: Elona.Fear
+  color: '#640064'
+  autoHeal: true
+  related_element: Elona.Mind
+  emotionIconId: elona.fear
+  components:
+  - type: StatusFear
+- type: Elona.StatusEffect
+  id: Elona.Choking
+  color: '#006464'
+  components:
+  - type: StatusChoking
+- type: Elona.StatusEffect
+  id: Elona.Poison
+  color: '#009600'
+  stopsActivity: true
+  autoHeal: true
+  related_element: Elona.Poison
+  emotionIconId: elona.skull
+  components:
+  - type: StatusPoison
+- type: Elona.StatusEffect
+  id: Elona.Confusion
+  color: '#640064'
+  stopsActivity: true
+  autoHeal: true
+  related_element: Elona.Mind
+  emotionIconId: elona.confuse
+  components:
+  - type: StatusConfusion
+- type: Elona.StatusEffect
+  id: Elona.Sleep
+  color: '#003232'
+  stopsActivity: true
+  autoHeal: true
+  related_element: Elona.Nerve
+  emotionIconId: elona.sleep
+  components:
+  - type: StatusSleep
+- type: Elona.StatusEffect
+  id: Elona.Paralysis
+  color: '#006464'
+  stopsActivity: true
+  autoHeal: true
+  related_element: Elona.Nerve
+  emotionIconId: elona.paralyze
+  components:
+  - type: StatusParalysis
+- type: Elona.StatusEffect
+  id: Elona.Blindness
+  color: '#646400'
+  stopsActivity: true
+  autoHeal: true
+  related_element: Elona.Darkness
+  emotionIconId: elona.blind
+  components:
+  - type: StatusBlindness
+- type: Elona.StatusEffect
+  id: Elona.Gravity
+  color: '#005050'
+  autoHeal: true
+  components:
+  - type: StatusGravity
+...

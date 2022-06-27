@@ -33,6 +33,7 @@ using static OpenNefia.Content.Prototypes.Protos;
 using OpenNefia.Content.CharaAppearance;
 using OpenNefia.Core.Audio;
 using System.Xml.Linq;
+using OpenNefia.Content.Weight;
 
 namespace OpenNefia.Content.CharaInfo
 {

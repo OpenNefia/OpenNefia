@@ -35,5 +35,9 @@ namespace OpenNefia.Content.Tests
         public void Newline()
         {
         }
+
+        public void Clear()
+        {
+        }
     }
 }

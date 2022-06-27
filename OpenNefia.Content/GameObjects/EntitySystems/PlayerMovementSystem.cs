@@ -48,7 +48,7 @@ namespace OpenNefia.Content.GameObjects
                     if (_playerQuery.YesOrNo(Loc.GetString("Elona.PlayerMovement.PromptLeaveMap", ("map", map.MapEntityUid))))
                     {
                         playerSpatial.Direction = playerSpatial.Direction.GetOpposite();
-                        Raise(uid, new ExitMapEventArgs(map, mapEdgesEntrance.Entrance), args);
+                        Raise(uid, new ExitingMapFromEdgesEventArgs(map, mapEdgesEntrance.Entrance), args);
                     }
                 }
             }
@@ -106,12 +106,12 @@ namespace OpenNefia.Content.GameObjects
         }
     }
 
-    public class ExitMapEventArgs : TurnResultEntityEventArgs
+    public class ExitingMapFromEdgesEventArgs : TurnResultEntityEventArgs
     {
         public readonly IMap Map;
         public readonly MapEntrance Entrance;
 
-        public ExitMapEventArgs(IMap map, MapEntrance entrance)
+        public ExitingMapFromEdgesEventArgs(IMap map, MapEntrance entrance)
         {
             Map = map;
             Entrance = entrance;

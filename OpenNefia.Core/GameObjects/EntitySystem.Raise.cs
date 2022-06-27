@@ -35,5 +35,28 @@ namespace OpenNefia.Core.GameObjects
 
             return true;
         }
+
+        public T GetComp<T>(EntityUid uid) 
+            where T: class, IComponent
+        {
+            return EntityManager.GetComponent<T>(uid);
+        }
+
+        public bool TryComp<T>(EntityUid uid, [NotNullWhen(true)] out T? component)
+            where T : class, IComponent
+        {
+            return EntityManager.TryGetComponent(uid, out component);
+        }
+
+        public bool HasComp<T>(EntityUid ent)
+        {
+            return EntityManager.HasComponent<T>(ent);
+        }
+
+        public T EnsureComp<T>(EntityUid ent)
+            where T : Component, new()
+        {
+            return EntityManager.EnsureComponent<T>(ent);
+        }
     }
 }

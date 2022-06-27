@@ -2,6 +2,7 @@
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Log;
+using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Rendering;
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
@@ -81,13 +82,13 @@ namespace OpenNefia.Core.Maps
         }
 
         /// <inheritdoc/>
-        public IMap CreateMap(int width, int height)
+        public IMap CreateMap(int width, int height, PrototypeId<EntityPrototype>? mapEntityProto = null)
         {
-            return CreateMap(width, height, GenerateMapId());  
+            return CreateMap(width, height, GenerateMapId(), mapEntityProto);  
         }
 
         /// <inheritdoc/>
-        public IMap CreateMap(int width, int height, MapId mapId)
+        public IMap CreateMap(int width, int height, MapId mapId, PrototypeId<EntityPrototype>? mapEntityProto = null)
         {
             if (MapIsLoaded(mapId))
                 throw new ArgumentException($"Attempted to create an already existing map {mapId}!");
@@ -95,7 +96,7 @@ namespace OpenNefia.Core.Maps
             var map = new Map(width, height);
             _maps.Add(mapId, map);
             map.Id = mapId;
-            RebindMapEntity(mapId, map);
+            RebindMapEntity(mapId, map, mapEntityProto);
 
             return map;
         }
@@ -130,7 +131,7 @@ namespace OpenNefia.Core.Maps
             SetMapAndEntityIds(map, mapId, mapEntityUid);
         }
 
-        private EntityUid RebindMapEntity(MapId actualID, IMap map)
+        private EntityUid RebindMapEntity(MapId actualID, IMap map, PrototypeId<EntityPrototype>? mapEntityProto = null)
         {
             var mapComps = _entityManager.EntityQuery<MapComponent>();
 
@@ -152,14 +153,14 @@ namespace OpenNefia.Core.Maps
             }
             else
             {
-                var newEnt = _entityManager.CreateEntityUninitialized(null);
+                var newEnt = _entityManager.CreateEntityUninitialized(mapEntityProto);
                 _mapEntities.Add(actualID, newEnt);
                 
                 // Make sure the map IDs are set on the map object before map component
                 // events are fired.
                 SetMapAndEntityIds(map, actualID, newEnt);
 
-                var mapComp = _entityManager.AddComponent<MapComponent>(newEnt);
+                var mapComp = _entityManager.EnsureComponent<MapComponent>(newEnt);
                 mapComp.MapId = actualID;
 
                 _entityManager.InitializeComponents(newEnt);
@@ -267,7 +268,7 @@ namespace OpenNefia.Core.Maps
         }
 
         /// <inheritdoc/>
-        public void SetActiveMap(MapId mapId)
+        public void SetActiveMap(MapId mapId, MapLoadType loadType = MapLoadType.Full)
         {
             if (mapId == MapId.Global)
                 throw new ArgumentException($"Cannot set the active map to the global map.", nameof(mapId));
@@ -283,7 +284,7 @@ namespace OpenNefia.Core.Maps
             var oldMap = ActiveMap;
             var map = _maps[mapId];
             ActiveMap = map;
-            OnActiveMapChanged?.Invoke(map, oldMap);
+            OnActiveMapChanged?.Invoke(map, oldMap, loadType);
         }
 
         /// <inheritdoc/>

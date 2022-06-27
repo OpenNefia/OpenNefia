@@ -23,6 +23,7 @@
   - type: Level
   - type: Chara
   - type: Skills
+  - type: SkillAdjusts
   - type: Resists
   - type: Feats
   - type: Spells
@@ -38,6 +39,10 @@
   - type: GuildMember
   - type: Religion
   - type: Party
+  - type: Hunger
+  - type: EmotionIcon
+  - type: Activity
+  - type: StatusEffects
 
 - type: Entity
   id: BaseItem

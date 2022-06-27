@@ -36,7 +36,7 @@ namespace OpenNefia.Content.Parties
         public EntityUid Leader { get; set; }
 
         [DataField(required: true)]
-        public HashSet<EntityUid> Members { get; set; } = new();
+        public SortedSet<EntityUid> Members { get; set; } = new();
     }
 
     [DataDefinition]
@@ -168,15 +168,41 @@ namespace OpenNefia.Content.Parties
         /// Also returns successfully if the entity is a leader themselves.
         /// </summary>
         bool TryGetLeader(EntityUid target, [NotNullWhen(true)] out EntityUid? leader, PartyComponent? party = null);
-        bool TryGetMembers(EntityUid leader, [NotNullWhen(true)] out IReadOnlySet<EntityUid>? members, PartyComponent? partyComp = null);
+
+        /// <summary>
+        /// Enumerates all members in the party of this entity, including the leader.
+        /// </summary>
+        IEnumerable<EntityUid> EnumerateMembers(EntityUid member, PartyComponent? partyComp = null);
+
+        /// <summary>
+        /// Enumerates all members in the party of this entity, excluding the leader.
+        /// </summary>
+        IEnumerable<EntityUid> EnumerateUnderlings(EntityUid member, PartyComponent? partyComp = null);
+
+        /// <summary>
+        /// Returns true if <paramref name="leader"/> is the leader of <paramref name="target"/>.
+        /// Also returns true if <paramref name="target"/> is the leader of the party.
+        /// </summary>
         bool IsPartyLeaderOf(EntityUid leader, EntityUid target, PartyComponent? partyLeader = null);
+
+        /// <summary>
+        /// Returns true if <paramref name="leader"/> is the leader of <paramref name="target"/>.
+        /// Does *not* return true if <paramref name="target"/> is the leader of the party.
+        /// </summary>
+        bool IsDirectAllyOf(EntityUid leader, EntityUid target, PartyComponent? partyLeader = null);
 
         EntityUid? GetLeader(EntityUid target, PartyComponent? party = null);
 
         /// <summary>
         /// Returns true if this entity is in the player's party.
+        /// Includes the player themselves.
         /// </summary>
         bool IsInPlayerParty(EntityUid entity, PartyComponent? party = null);
+
+        /// <summary>
+        /// Returns true if this entity is in the player's party, excluding the player themselves.
+        /// </summary>
+        bool IsDirectAllyOfPlayer(EntityUid entity, PartyComponent? party = null);
 
         bool CanRecruitMoreMembers(EntityUid entity, PartyComponent? party = null);
         bool RecruitAsAlly(EntityUid leader, EntityUid ally, PartyComponent? partyLeader = null, PartyComponent? partyAlly = null, bool noMessage = false);
@@ -237,6 +263,23 @@ namespace OpenNefia.Content.Parties
             return true;
         }
 
+        public IEnumerable<EntityUid> EnumerateMembers(EntityUid member, PartyComponent? partyComp = null)
+        {
+            if (!Resolve(member, ref partyComp) || !Parties.TryGetParty(member, out var party))
+                return Enumerable.Empty<EntityUid>();
+
+            return party.Members;
+        }
+
+        public IEnumerable<EntityUid> EnumerateUnderlings(EntityUid member, PartyComponent? partyComp = null)
+        {
+            if (!Resolve(member, ref partyComp) || !Parties.TryGetParty(member, out var party))
+                return Enumerable.Empty<EntityUid>();
+
+
+            return party.Members.Where(m => m != party.Leader);
+        }
+
         public bool IsPartyLeaderOf(EntityUid leader, EntityUid target, PartyComponent? partyLeader = null)
         {
             if (!Resolve(leader, ref partyLeader, logMissing: false)
@@ -253,6 +296,19 @@ namespace OpenNefia.Content.Parties
                 return true;
 
             return IsPartyLeaderOf(_gameSession.Player!, entity, party);
+        }
+
+        public bool IsDirectAllyOf(EntityUid leader, EntityUid target, PartyComponent? partyLeader = null)
+        {
+            if (target == leader)
+                return false;
+
+            return IsPartyLeaderOf(leader, target, partyLeader);
+        }
+
+        public bool IsDirectAllyOfPlayer(EntityUid entity, PartyComponent? party = null)
+        {
+            return IsDirectAllyOf(_gameSession.Player, entity);
         }
 
         public bool CanRecruitMoreMembers(EntityUid entity, PartyComponent? party = null)

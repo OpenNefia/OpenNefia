@@ -228,5 +228,6 @@ namespace OpenNefia.Content.RandomGen
         public EntityGenCommonArgs CommonArgs => Args.Get<EntityGenCommonArgs>();
 
         public Quality? Quality { get => CommonArgs.Quality; set => CommonArgs.Quality = value; }
+        public int? LevelOverride { get => CommonArgs.LevelOverride; set => CommonArgs.LevelOverride = value; }
     }
 }

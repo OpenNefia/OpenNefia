@@ -42,6 +42,14 @@ namespace OpenNefia.Content.Locale.Funcs
             return EntitySystem.Get<IDisplayNameSystem>().GetDisplayName(entity);
         }
 
+        [LocaleFunction("basename")]
+        public static string BuiltIn_basename(object? obj)
+        {
+            // TODO
+            return BuiltIn_name(obj, ignoreSight: true);
+        }
+
+
         /// <summary>
         /// returns the ordnial short form for a number; 1 = st, 2 = nd, 3 = rd, ect.
         /// </summary>

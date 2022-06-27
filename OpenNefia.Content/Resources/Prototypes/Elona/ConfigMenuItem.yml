@@ -115,6 +115,14 @@
     step: 0.1
 
 - type: Elona.ConfigMenuItem
+  id: Elona.AnimeScreenRefresh
+  node: !type:ConfigIntMenuNode
+    cvar: anime.animationWait
+    min: 1
+    max: 250
+    step: 1
+
+- type: Elona.ConfigMenuItem
   id: Elona.AnimeAnimationWait
   node: !type:ConfigFloatMenuNode
     cvar: anime.animationWait

@@ -37,15 +37,18 @@ namespace OpenNefia.Content.Skills
         [DataField("id", required: true)]
         public string ID { get; } = default!;
 
+        /// <inheritdoc/>
+        [DataField]
+        [NeverPushInheritance]
+        public HspIds<int>? HspIds { get; }
+
         [DataField]
         public PrototypeId<SkillPrototype>? RelatedSkill { get; }
 
         [DataField(required: true)]
         public SkillType SkillType { get; } = SkillType.Skill;
 
-        /// <inheritdoc/>
         [DataField]
-        [NeverPushInheritance]
-        public HspIds<int>? HspIds { get; }
+        public bool IsPrimarySkill { get; } = false;
     }
 }

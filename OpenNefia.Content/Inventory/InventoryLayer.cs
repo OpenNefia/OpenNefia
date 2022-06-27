@@ -14,7 +14,6 @@ using System.Text;
 using System.Threading.Tasks;
 using OpenNefia.Content.Logic;
 using OpenNefia.Core.IoC;
-using OpenNefia.Content.GameObjects;
 using OpenNefia.Content.UI;
 using OpenNefia.Content.UI.Layer;
 using OpenNefia.Core.UserInterface;
@@ -27,6 +26,7 @@ using OpenNefia.Content.GameObjects.Pickable;
 using OpenNefia.Core.Locale;
 using OpenNefia.Content.Cargo;
 using static OpenNefia.Content.Equipment.EquipmentLayer;
+using OpenNefia.Content.Weight;
 
 namespace OpenNefia.Content.Inventory
 {

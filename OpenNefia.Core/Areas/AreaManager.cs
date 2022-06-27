@@ -137,7 +137,7 @@ namespace OpenNefia.Core.Areas
             _mapManager.OnActiveMapChanged -= OnActiveMapChanged;
         }
 
-        private void OnActiveMapChanged(IMap newMap, IMap? oldMap)
+        private void OnActiveMapChanged(IMap newMap, IMap? oldMap, MapLoadType loadType)
         {
             IArea? oldArea = null;
             IArea? newArea;
