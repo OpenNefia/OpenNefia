@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<VSTemplate Version="3.0.0" Type="Item" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005" xmlns:sdk="http://schemas.microsoft.com/developer/vstemplate-sdkextension/2010">
+  <TemplateData>
+    <Name>OpenNefia Component</Name>
+    <Description>OpenNefia Custom Component</Description>
+    <Icon>OpenNefia.VSTemplates.Component.ico</Icon>
+    <TemplateID>445414f6-7b50-44fd-8ac2-66e0087345cd</TemplateID>
+    <ProjectType>CSharp</ProjectType>
+    <LanguageTag>csharp</LanguageTag>
+    <ProjectTypeTag>OpenNefia</ProjectTypeTag>
+    <RequiredFrameworkVersion>2.0</RequiredFrameworkVersion>
+    <NumberOfParentCategoriesToRollUp>1</NumberOfParentCategoriesToRollUp>
+    <DefaultName>New</DefaultName>
+  </TemplateData>
+  <TemplateContent>
+    <ProjectItem ReplaceParameters="true" TargetFileName="$fileinputname$Component.cs">Component.cs</ProjectItem>
+  </TemplateContent>
+</VSTemplate>
