@@ -232,7 +232,7 @@ namespace OpenNefia.Tests.Core.Maths
             var color = new Color(rf, gf, bf, af);
             var controlColor = new Color(f, gf, bf, af);
 
-            var colorWithRed = color.WithRed(f);
+            var colorWithRed = color.WithRedF(f);
 
             Assert.That(colorWithRed, Is.EqualTo(controlColor));
         }
@@ -246,7 +246,7 @@ namespace OpenNefia.Tests.Core.Maths
             var color = new Color(rf, gf, bf, af);
             var controlColor = new Color(rf, f, bf, af);
 
-            var colorWithGreen = color.WithGreen(f);
+            var colorWithGreen = color.WithGreenF(f);
 
             Assert.That(colorWithGreen, Is.EqualTo(controlColor));
         }
@@ -260,7 +260,7 @@ namespace OpenNefia.Tests.Core.Maths
             var color = new Color(rf, gf, bf, af);
             var controlColor = new Color(rf, gf, f, af);
 
-            var colorWithBlue = color.WithBlue(f);
+            var colorWithBlue = color.WithBlueF(f);
 
             Assert.That(colorWithBlue, Is.EqualTo(controlColor));
         }
@@ -274,7 +274,7 @@ namespace OpenNefia.Tests.Core.Maths
             var color = new Color(rf, gf, bf, af);
             var controlColor = new Color(rf, gf, bf, f);
 
-            var colorWithAlpha = color.WithAlpha(f);
+            var colorWithAlpha = color.WithAlphaF(f);
 
             Assert.That(colorWithAlpha, Is.EqualTo(controlColor));
         }
@@ -288,7 +288,7 @@ namespace OpenNefia.Tests.Core.Maths
             var color = new Color(rb, gb, bb, ab);
             var controlColor = new Color(b, gb, bb, ab);
 
-            var colorWithRed = color.WithRed(b);
+            var colorWithRed = color.WithRedB(b);
 
             Assert.That(colorWithRed, Is.EqualTo(controlColor));
         }
@@ -302,7 +302,7 @@ namespace OpenNefia.Tests.Core.Maths
             var color = new Color(rb, gb, bb, ab);
             var controlColor = new Color(rb, b, bb, ab);
 
-            var colorWithGreen = color.WithGreen(b);
+            var colorWithGreen = color.WithGreenB(b);
 
             Assert.That(colorWithGreen, Is.EqualTo(controlColor));
         }
@@ -316,7 +316,7 @@ namespace OpenNefia.Tests.Core.Maths
             var color = new Color(rb, gb, bb, ab);
             var controlColor = new Color(rb, gb, b, ab);
 
-            var colorWithBlue = color.WithBlue(b);
+            var colorWithBlue = color.WithBlueB(b);
 
             Assert.That(colorWithBlue, Is.EqualTo(controlColor));
         }
@@ -330,7 +330,7 @@ namespace OpenNefia.Tests.Core.Maths
             var color = new Color(rb, gb, bb, ab);
             var controlColor = new Color(rb, gb, bb, b);
 
-            var colorWithAlpha = color.WithAlpha(b);
+            var colorWithAlpha = color.WithAlphaB(b);
 
             Assert.That(colorWithAlpha, Is.EqualTo(controlColor));
         }

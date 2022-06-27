@@ -64,7 +64,6 @@ namespace OpenNefia.Content.WorldMap
 
         public override void Update(float dt)
         {
-            // TODO assumes 60fps
             _frame += dt;
         }
 
@@ -81,7 +80,7 @@ namespace OpenNefia.Content.WorldMap
             {
                 var cloud = _clouds[i];
 
-                var color = Color.White.WithAlpha((byte)(7 + i * 2));
+                var color = Color.White.WithAlphaB((byte)(7 + i * 2));
                 Love.Graphics.SetColor(color);
                 var pos = _coords.TileToScreen(cloud.TilePosition - playerPos);
                 var x = ((float)pos.X * 100 / (40 + i * 5)) + (_frame * _speed) * 100 / (50 + i * 20);

@@ -152,7 +152,7 @@ namespace OpenNefia.Content.UI.Layer
 
             var pos = Position + screenPos + (_coords.TileSize / UIScale) / 2;
 
-            Love.Graphics.SetColor(Color.White.WithAlpha(alpha));
+            Love.Graphics.SetColor(Color.White.WithAlphaB(alpha));
 
             if (!_diagonalOnly)
             {
