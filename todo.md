@@ -271,7 +271,7 @@
 - [x] 2325	./src/mod/elona/api/aspect/IItemMusicDisc.lua
 - [x] 2414	./src/mod/elona/api/aspect/IItemChair.lua
 - [x] 2436	./src/mod/elona/api/aspect/IItemRangedWeapon.lua
-- [ ] 2462	./src/mod/elona/api/gui/CloudLayer.lua
+- [x] 2462	./src/mod/elona/api/gui/CloudLayer.lua
 - [x] 2728	./src/mod/elona/api/aspect/IItemBait.lua
 - [x] 2769	./src/mod/elona/api/aspect/ItemHolyWellAspect.lua
 - [ ] 2847	./src/mod/elona/api/Production.lua
@@ -364,7 +364,7 @@
 - [ ] 3213	./src/mod/elona/events/action.lua
 - [ ] 3541	./src/mod/elona/events/trait.lua
 - [ ] 3845	./src/mod/elona/events/sidequest.lua
-- [ ] 4122	./src/mod/elona/events/map_init.lua
+- [x] 4122	./src/mod/elona/events/map_init.lua
 - [ ] 4237	./src/mod/elona/events/nefia.lua
 - [ ] 4243	./src/mod/elona/events/ai.lua
 - [ ] 4425	./src/mod/elona/events/world_map.lua
