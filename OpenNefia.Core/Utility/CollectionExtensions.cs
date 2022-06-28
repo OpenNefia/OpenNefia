@@ -395,5 +395,32 @@ namespace OpenNefia.Core.Utility
         {
             return source.Cast<T?>();
         }
+
+        public static long[] GetLongLengths (this Array array)
+        {
+            var lengths = new long[array.Rank];
+
+            for (var i = 0; i < array.Rank; i++)
+                lengths[i] = array.GetLongLength(i);
+
+            return lengths;
+        }
+
+        public static long[] GetCumulativeLengths(this Array arr)
+        {
+            var lengths = new long[arr.Length];
+
+            for (int dim = 0; dim < arr.Rank; dim++)
+            {
+                int length = 1;
+                for (int i = dim + 1; i < arr.Rank; i++)
+                {
+                    length *= arr.GetLength(i);
+                }
+                lengths[dim] = length;
+            }
+
+            return lengths;
+        }
     }
 }
