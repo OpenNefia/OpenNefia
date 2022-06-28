@@ -98,6 +98,7 @@ namespace OpenNefia.Content.Equipment
         #endregion
     }
 
+    [ByRefEvent]
     public struct ApplyEquipmentToEquipperEvent
     {
         /// <summary>

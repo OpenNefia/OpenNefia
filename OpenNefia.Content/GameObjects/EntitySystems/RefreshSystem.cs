@@ -31,6 +31,7 @@ namespace OpenNefia.Content.GameObjects
         }
     }
 
+    [ByRefEvent]
     public struct EntityRefreshEvent
     {
     }

@@ -54,6 +54,7 @@ namespace OpenNefia.Content.DisplayName
         }
     }
 
+    [ByRefEvent]
     public struct GetBaseNameEventArgs
     {
         public string BaseName = string.Empty;
@@ -63,6 +64,7 @@ namespace OpenNefia.Content.DisplayName
         }
     }
 
+    [ByRefEvent]
     public struct GetDisplayNameEventArgs
     {
         public string Name = string.Empty;
