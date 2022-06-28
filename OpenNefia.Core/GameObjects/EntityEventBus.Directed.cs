@@ -38,7 +38,7 @@ namespace OpenNefia.Core.GameObjects
 
         #endregion
 
-        void UnsubscribeLocalEvent<TComp, TEvent>()
+        void UnsubscribeAllLocalEvents<TComp, TEvent>()
             where TComp : IComponent
             where TEvent : notnull;
 
@@ -197,11 +197,11 @@ namespace OpenNefia.Core.GameObjects
         }
 
         /// <inheritdoc />
-        public void UnsubscribeLocalEvent<TComp, TEvent>()
+        public void UnsubscribeAllLocalEvents<TComp, TEvent>()
             where TComp : IComponent
             where TEvent : notnull
         {
-            _eventTables.Unsubscribe(typeof(TComp), typeof(TEvent));
+            _eventTables.UnsubscribeAll(typeof(TComp), typeof(TEvent));
         }
 
         // Null component type means broadcast event
@@ -245,8 +245,8 @@ namespace OpenNefia.Core.GameObjects
                 }
             }
 
-            // EventType -> CompType -> Handler
-            private Dictionary<Type, Dictionary<Type, DirectedRegistration>> _subscriptions;
+            // EventType -> CompType -> Handlers (sorted)
+            private Dictionary<Type, Dictionary<Type, List<DirectedRegistration>>> _subscriptions;
 
             // prevents shitcode, get your subscriptions figured out before you start spawning entities
             private bool _subscriptionLock;
@@ -302,15 +302,15 @@ namespace OpenNefia.Core.GameObjects
 
                 if (!_subscriptions.TryGetValue(compType, out var compSubs))
                 {
-                    compSubs = new Dictionary<Type, DirectedRegistration>();
+                    compSubs = new Dictionary<Type, List<DirectedRegistration>>();
                     _subscriptions.Add(compType, compSubs);
                 }
 
-                if (compSubs.ContainsKey(eventType))
-                    throw new InvalidOperationException(
-                        $"Duplicate Subscriptions for comp={compType.Name}, event={eventType.Name}");
+                if (!compSubs.ContainsKey(eventType))
+                    compSubs.Add(eventType, new List<DirectedRegistration>());
 
-                compSubs.Add(eventType, registration);
+                var registrations = compSubs[eventType];
+                registrations.Add(registration);
             }
 
             public void Subscribe<TEvent>(Type compType, Type eventType, DirectedEventHandler<TEvent> handler,
@@ -325,7 +325,7 @@ namespace OpenNefia.Core.GameObjects
                     }, byReference));
             }
 
-            public void Unsubscribe(Type compType, Type eventType)
+            public void UnsubscribeAll(Type compType, Type eventType)
             {
                 if (_subscriptionLock)
                     throw new InvalidOperationException("Subscription locked.");
@@ -418,15 +418,18 @@ namespace OpenNefia.Core.GameObjects
                     if (!_subscriptions.TryGetValue(compType, out var compSubs))
                         return;
 
-                    if (!compSubs.TryGetValue(eventType, out var reg))
+                    if (!compSubs.TryGetValue(eventType, out var registrations))
                         return;
 
-                    if (reg.ReferenceEvent != byRef)
-                        ThrowByRefMisMatch();
+                    foreach (var reg in registrations)
+                    {
+                        if (reg.ReferenceEvent != byRef)
+                            ThrowByRefMisMatch();
 
-                    var component = _entMan.GetComponent(euid, compType);
+                        var component = _entMan.GetComponent(euid, compType);
 
-                    found.Add((new((ref Unit ev) => reg.Handler(euid, component, ref ev), compType), reg.Ordering));
+                        found.Add((new((ref Unit ev) => reg.Handler(euid, component, ref ev), compType), reg.Ordering));
+                    }
                 }
             }
 
@@ -441,15 +444,19 @@ namespace OpenNefia.Core.GameObjects
                     if (!_subscriptions.TryGetValue(type, out var compSubs))
                         continue;
 
-                    if (!compSubs.TryGetValue(typeof(TEvent), out var reg))
+                    if (!compSubs.TryGetValue(typeof(TEvent), out var registrations))
                         continue;
 
-                    if (reg.ReferenceEvent != dispatchByReference)
-                        ThrowByRefMisMatch();
+                    foreach (var reg in registrations)
+                    {
+                        if (reg.ReferenceEvent != dispatchByReference)
+                            ThrowByRefMisMatch();
 
-                    regs.Add(reg);
+                        regs.Add(reg);
+                    }
                 }
 
+                // TODO: cache sorting
                 regs.Sort();
 
                 foreach (var reg in regs)

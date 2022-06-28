@@ -56,7 +56,6 @@ namespace OpenNefia.Tests.Core.GameObjects
                 Assert.That(component, Is.EqualTo(compInstance));
                 Assert.That(args.TestNumber, Is.EqualTo(5));
             }
-
         }
 
         [Test]
@@ -88,7 +87,7 @@ namespace OpenNefia.Tests.Core.GameObjects
             // Subscribe
             int calledCount = 0;
             bus.SubscribeLocalEvent<MetaDataComponent, TestEvent>(HandleTestEvent);
-            bus.UnsubscribeLocalEvent<MetaDataComponent, TestEvent>();
+            bus.UnsubscribeAllLocalEvents<MetaDataComponent, TestEvent>();
 
             // add a component to the system
             entManMock.Raise(m => m.EntityAdded += null, entManMock.Object, entUid);
@@ -336,6 +335,60 @@ namespace OpenNefia.Tests.Core.GameObjects
 
             // Assert
             Assert.That(broadcast, Is.True, "Broadcast did not fire");
+        }
+        [Test]
+        public void DuplicateCompEventPairs()
+        {
+            // Arrange
+            var entUid = new EntityUid(7);
+            var compInstance = new MetaDataComponent();
+
+            var compRegistration = new Mock<IComponentRegistration>();
+            var entManMock = new Mock<IEntityManager>();
+            var compFacMock = new Mock<IComponentFactory>();
+
+            compRegistration.Setup(m => m.References).Returns(new List<Type> { typeof(MetaDataComponent) });
+            compFacMock.Setup(m => m.GetRegistration(typeof(MetaDataComponent))).Returns(compRegistration.Object);
+            entManMock.Setup(m => m.ComponentFactory).Returns(compFacMock.Object);
+
+            IComponent? outIComponent = compInstance;
+            entManMock.Setup(m => m.TryGetComponent(entUid, typeof(MetaDataComponent), out outIComponent))
+                .Returns(true);
+            entManMock.Setup(m => m.GetComponent(entUid, typeof(MetaDataComponent)))
+                .Returns(compInstance);
+
+            var bus = new EntityEventBus(entManMock.Object);
+
+            var a = false;
+            var b = false;
+
+            void HandleTestEventA(EntityUid uid, MetaDataComponent component, TestEvent args)
+            {
+                Assert.That(b, Is.True, "A should run after B");
+                a = true;
+            }
+            
+            void HandleTestEventB(EntityUid uid, MetaDataComponent component, TestEvent args)
+            {
+                Assert.That(a, Is.False, "B should run before A.");
+                b = true;
+            }
+
+            // Subscribe
+            bus.SubscribeLocalEvent<MetaDataComponent, TestEvent>(HandleTestEventA, priority: EventPriorities.Low);
+            bus.SubscribeLocalEvent<MetaDataComponent, TestEvent>(HandleTestEventB);
+
+            // add a component to the system
+            entManMock.Raise(m => m.EntityAdded += null, entManMock.Object, entUid);
+            entManMock.Raise(m => m.ComponentAdded += null, new AddedComponentEventArgs(compInstance, entUid));
+
+            // Raise
+            var evntArgs = new TestEvent(5);
+            bus.RaiseLocalEvent(entUid, evntArgs);
+
+            // Assert
+            Assert.That(a, Is.True, "A did not fire.");
+            Assert.That(a, Is.True, "B did not fire.");
         }
 
         private class DummyComponent : Component
