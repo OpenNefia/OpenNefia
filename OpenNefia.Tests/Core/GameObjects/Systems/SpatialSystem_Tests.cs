@@ -46,7 +46,7 @@ namespace OpenNefia.Tests.Core.GameObjects.Systems
             var subscriber = new Subscriber();
             int calledCount = 0;
             var entUid = new { Uid = EntityUid.Invalid };
-            entMan.EventBus.SubscribeEvent<EntityPositionChangedEvent>(EventSource.Local, subscriber, MoveEventHandler);
+            entMan.EventBus.SubscribeEvent<EntityPositionChangedEvent>(subscriber, MoveEventHandler);
             var ent1 = entMan.SpawnEntity(null, new MapCoordinates(map.Id, Vector2i.Zero));
 
             Assert.That(calledCount, Is.EqualTo(1));
@@ -77,7 +77,7 @@ namespace OpenNefia.Tests.Core.GameObjects.Systems
             var ent = entMan.SpawnEntity(null, new MapCoordinates(map.Id, Vector2i.Zero));
             var spatial = entMan.GetComponent<SpatialComponent>(ent);
 
-            entMan.EventBus.SubscribeEvent<EntityPositionChangedEvent>(EventSource.Local, subscriber, MoveEventHandler);
+            entMan.EventBus.SubscribeEvent<EntityPositionChangedEvent>(subscriber, MoveEventHandler);
 
             spatial.WorldPosition = Vector2i.One;
 

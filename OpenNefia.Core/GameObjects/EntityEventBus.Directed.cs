@@ -150,7 +150,7 @@ namespace OpenNefia.Core.GameObjects
                 // This is important if no component event handlers are registered, but there are
                 // still broadcast handlers.
                 if (broadcast)
-                    ProcessBroadcastEvent(EventSource.Local, ref unitRef, eventType, byRef);
+                    ProcessBroadcastEvent(ref unitRef, eventType, byRef);
                 
                 return;
             }
@@ -162,7 +162,7 @@ namespace OpenNefia.Core.GameObjects
                 var found = new List<(HandlerAndCompType, OrderingData)>();
                 
                 _eventTables.CollectOrdered(uid, eventType, found, byRef);
-                CollectBroadcastOrdered(EventSource.Local, eventType, found, byRef);
+                CollectBroadcastOrdered(eventType, found, byRef);
 
                 table.Set(found);
             }

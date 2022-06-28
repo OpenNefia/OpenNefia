@@ -294,7 +294,7 @@ namespace OpenNefia.Tests.Core.GameObjects
             var subscriber = new DummyEventSubscriber();
 
             bus.SubscribeLocalEvent<OrderComponentA, TestEvent>(HandlerA, EventPriorities.High);
-            bus.SubscribeEvent<TestEvent>(EventSource.Local, subscriber, HandlerBroadcast, EventPriorities.VeryHigh);
+            bus.SubscribeEvent<TestEvent>(subscriber, HandlerBroadcast, EventPriorities.VeryHigh);
             bus.SubscribeLocalEvent<OrderComponentB, TestEvent>(HandlerB, EventPriorities.VeryLow);
 
             // add a component to the system
@@ -327,7 +327,7 @@ namespace OpenNefia.Tests.Core.GameObjects
 
             var subscriber = new DummyEventSubscriber();
 
-            bus.SubscribeEvent<TestEvent>(EventSource.Local, subscriber, _ => broadcast = true, EventPriorities.VeryHigh);
+            bus.SubscribeEvent<TestEvent>(subscriber, _ => broadcast = true, EventPriorities.VeryHigh);
 
             // Raise
             var evntArgs = new TestEvent(5);
