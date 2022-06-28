@@ -85,7 +85,7 @@ namespace OpenNefia.Content.Skills
             var levelDelta = ProcSkillLeveling(uid, skillProto, skill, newExp);
 
             var ev = new SkillExpGainedEvent(skillProto, expGained, expGained, levelDelta);
-            RaiseLocalEvent(uid, ref ev);
+            RaiseEvent(uid, ref ev);
         }
 
         /// <inheritdoc/>
@@ -161,7 +161,7 @@ namespace OpenNefia.Content.Skills
             var levelDelta = ProcSkillLeveling(uid, skillProto, skill, newExp);
 
             var ev = new SkillExpGainedEvent(skillProto, baseExpGained, actualExpGained, levelDelta);
-            RaiseLocalEvent(uid, ref ev);
+            RaiseEvent(uid, ref ev);
 
             // <<<<<<<< shade2/module.hsp:349 	#defcfunc calcFame int c,int per ..
         }

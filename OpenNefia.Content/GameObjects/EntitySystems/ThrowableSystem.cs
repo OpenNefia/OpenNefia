@@ -105,7 +105,7 @@ namespace OpenNefia.Content.GameObjects
             _mes.Display(Loc.GetString("Elona.Throwable.Throws", ("entity", source), ("item", throwing)));
 
             var ev = new EntityThrownEventArgs(source, coords);
-            RaiseLocalEvent(throwing, ev);
+            RaiseEvent(throwing, ev);
             return true;
         }
 

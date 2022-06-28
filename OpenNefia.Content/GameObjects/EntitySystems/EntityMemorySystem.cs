@@ -43,7 +43,7 @@ namespace OpenNefia.Content.GameObjects
         {
             var memory = new MapObjectMemory();
             var ev = new GetMapObjectMemoryEventArgs(memory);
-            RaiseLocalEvent(entity, ev);
+            RaiseEvent(entity, ev);
             return memory;
         }
     }

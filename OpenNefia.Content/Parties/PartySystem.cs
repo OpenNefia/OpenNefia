@@ -380,7 +380,7 @@ namespace OpenNefia.Content.Parties
             }
 
             var ev = new CharaRecruitedAsAllyEvent(leader, noMessage);
-            RaiseLocalEvent(ally, ev);
+            RaiseEvent(ally, ev);
 
             return true;
         }

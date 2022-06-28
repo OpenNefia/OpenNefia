@@ -46,34 +46,34 @@ namespace OpenNefia.Core.GameObjects
 
         #region Event Proxy
 
-        protected void RaiseLocalEvent<T>(T message) where T : notnull
+        protected void RaiseEvent<T>(T message) where T : notnull
         {
             EntityManager.EventBus.RaiseEvent(message);
         }
 
-        protected void RaiseLocalEvent(object message)
+        protected void RaiseEvent(object message)
         {
             EntityManager.EventBus.RaiseEvent(message);
         }
 
-        protected void RaiseLocalEvent<TEvent>(EntityUid uid, TEvent args, bool broadcast = true)
+        protected void RaiseEvent<TEvent>(EntityUid uid, TEvent args, bool broadcast = true)
             where TEvent : notnull
         {
             EntityManager.EventBus.RaiseEvent(uid, args, broadcast);
         }
 
-        protected void RaiseLocalEvent(EntityUid uid, object args, bool broadcast = true)
+        protected void RaiseEvent(EntityUid uid, object args, bool broadcast = true)
         {
             EntityManager.EventBus.RaiseEvent(uid, args, broadcast);
         }
 
-        protected void RaiseLocalEvent<TEvent>(EntityUid uid, ref TEvent args, bool broadcast = true)
+        protected void RaiseEvent<TEvent>(EntityUid uid, ref TEvent args, bool broadcast = true)
             where TEvent : notnull
         {
             EntityManager.EventBus.RaiseEvent(uid, ref args, broadcast);
         }
 
-        protected void RaiseLocalEvent(EntityUid uid, ref object args, bool broadcast = true)
+        protected void RaiseEvent(EntityUid uid, ref object args, bool broadcast = true)
         {
             EntityManager.EventBus.RaiseEvent(uid, ref args, broadcast);
         }

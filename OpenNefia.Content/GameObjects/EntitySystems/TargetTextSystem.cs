@@ -32,7 +32,7 @@ namespace OpenNefia.Content.GameObjects
             foreach (var spatial in _lookup.GetLiveEntitiesAtCoords(targetPos))
             {
                 var ev = new GetTargetTextEventArgs(onlooker, visibleOnly);
-                RaiseLocalEvent(spatial.Owner, ev);
+                RaiseEvent(spatial.Owner, ev);
                 foreach (var line in ev.TargetTexts)
                 {
                     sb.AppendLine(line);

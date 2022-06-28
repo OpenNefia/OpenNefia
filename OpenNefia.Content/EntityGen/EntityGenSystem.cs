@@ -57,7 +57,7 @@ namespace OpenNefia.Content.EntityGen
         {
             // TODO: Check if generated has already been fired for this entity.
             var ev = new EntityGeneratedEvent();
-            RaiseLocalEvent(entity, ref ev);
+            RaiseEvent(entity, ref ev);
         }
 
         /// <summary>
@@ -107,7 +107,7 @@ namespace OpenNefia.Content.EntityGen
 
             args ??= EntityGenArgSet.Make();
             var ev = new EntityBeingGeneratedEvent(args);
-            RaiseLocalEvent(ent, ref ev);
+            RaiseEvent(ent, ref ev);
 
             FireGeneratedEvent(ent);
 

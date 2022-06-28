@@ -24,12 +24,12 @@ namespace OpenNefia.Core.Areas
             if (oldArea != null)
             {
                 var ev = new AreaExitedEvent(newArea, oldArea);
-                RaiseLocalEvent(oldArea.AreaEntityUid, ev);
+                RaiseEvent(oldArea.AreaEntityUid, ev);
             }
             if (newArea != null)
             {
                 var ev = new AreaEnteredEvent(newArea, oldArea);
-                RaiseLocalEvent(newArea.AreaEntityUid, ev);
+                RaiseEvent(newArea.AreaEntityUid, ev);
             }
         }
 

@@ -295,7 +295,7 @@ namespace OpenNefia.Content.Maps
             charaComp.Liveness = liveness;
 
             var ev = new CharaPlaceFailureEvent(entity);
-            RaiseLocalEvent(entity, ev);
+            RaiseEvent(entity, ev);
         }
     }
 

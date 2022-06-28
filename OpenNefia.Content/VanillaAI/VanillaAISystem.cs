@@ -310,7 +310,7 @@ namespace OpenNefia.Content.VanillaAI
         private TurnResult RunAIAction(EntityUid entity, EntityUid action)
         {
             var ev = new RunAIActionEvent(entity);
-            RaiseLocalEvent(action, ev);
+            RaiseEvent(action, ev);
             return ev.TurnResult;
         }
 

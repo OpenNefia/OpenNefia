@@ -30,7 +30,7 @@ namespace OpenNefia.Core.GameObjects
             var verbs = new SortedSet<Verb>();
 
             var getVerbsEvent = new GetVerbsEventArgs(source, target);
-            RaiseLocalEvent(target, getVerbsEvent);
+            RaiseEvent(target, getVerbsEvent);
             verbs.AddRange(getVerbsEvent.Verbs);
 
             return verbs;
@@ -42,7 +42,7 @@ namespace OpenNefia.Core.GameObjects
         public TurnResult ExecuteVerb(EntityUid source, EntityUid target, Verb verb)
         {
             var ev = new ExecuteVerbEventArgs(source, target, verb);
-            RaiseLocalEvent(source, ev);
+            RaiseEvent(source, ev);
             return ev.TurnResult;
         }
     }

@@ -22,7 +22,7 @@ namespace OpenNefia.Core.Maps
         private void OnActiveMapChanged(IMap map, IMap? oldMap, MapLoadType loadType)
         {
             var ev = new ActiveMapChangedEvent(map, oldMap, loadType);
-            RaiseLocalEvent(map.MapEntityUid, ev);
+            RaiseEvent(map.MapEntityUid, ev);
         }
 
         private void OnMapAdd(EntityUid uid, MapComponent component, ComponentAdd args)

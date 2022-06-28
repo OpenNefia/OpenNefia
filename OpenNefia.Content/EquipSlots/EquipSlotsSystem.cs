@@ -40,10 +40,10 @@ namespace OpenNefia.Content.EquipSlots
                 return;
 
             var gotUnequippedEvent = new GotUnequippedEvent(uid, args.Entity, equipSlot);
-            RaiseLocalEvent(args.Entity, gotUnequippedEvent);
+            RaiseEvent(args.Entity, gotUnequippedEvent);
 
             var unequippedEvent = new DidUnequipEvent(uid, args.Entity, equipSlot);
-            RaiseLocalEvent(uid, unequippedEvent);
+            RaiseEvent(uid, unequippedEvent);
         }
 
         private void OnEntInserted(EntityUid uid, EquipSlotsComponent equipSlots, EntInsertedIntoContainerMessage args)
@@ -52,10 +52,10 @@ namespace OpenNefia.Content.EquipSlots
                 return;
 
             var gotEquippedEvent = new GotEquippedEvent(uid, args.Entity, equipSlot);
-            RaiseLocalEvent(args.Entity, gotEquippedEvent);
+            RaiseEvent(args.Entity, gotEquippedEvent);
 
             var equippedEvent = new DidEquipEvent(uid, args.Entity, equipSlot);
-            RaiseLocalEvent(uid, equippedEvent);
+            RaiseEvent(uid, equippedEvent);
         }
 
         public bool TryEquip(EntityUid uid, EntityUid itemUid, EquipSlotInstance equipSlot,
@@ -143,7 +143,7 @@ namespace OpenNefia.Content.EquipSlots
                 return false;
 
             var attemptEvent = new IsEquippingAttemptEvent(actor, target, itemUid, equipSlot);
-            RaiseLocalEvent(target, attemptEvent);
+            RaiseEvent(target, attemptEvent);
             if (attemptEvent.Cancelled)
             {
                 reason = attemptEvent.Reason ?? reason;
@@ -154,7 +154,7 @@ namespace OpenNefia.Content.EquipSlots
             {
                 //reuse the event. this is gucci, right?
                 attemptEvent.Reason = null;
-                RaiseLocalEvent(actor, attemptEvent);
+                RaiseEvent(actor, attemptEvent);
                 if (attemptEvent.Cancelled)
                 {
                     reason = attemptEvent.Reason ?? reason;
@@ -163,7 +163,7 @@ namespace OpenNefia.Content.EquipSlots
             }
 
             var itemAttemptEvent = new BeingEquippedAttemptEvent(actor, target, itemUid, equipSlot);
-            RaiseLocalEvent(itemUid, itemAttemptEvent);
+            RaiseEvent(itemUid, itemAttemptEvent);
             if (itemAttemptEvent.Cancelled)
             {
                 reason = itemAttemptEvent.Reason ?? reason;
@@ -303,7 +303,7 @@ namespace OpenNefia.Content.EquipSlots
             var itemUid = containerSlot.ContainedEntity.Value;
 
             var attemptEvent = new IsUnequippingAttemptEvent(actor, target, itemUid, equipSlot);
-            RaiseLocalEvent(target, attemptEvent);
+            RaiseEvent(target, attemptEvent);
             if (attemptEvent.Cancelled)
             {
                 reason = attemptEvent.Reason ?? reason;
@@ -314,7 +314,7 @@ namespace OpenNefia.Content.EquipSlots
             {
                 //reuse the event. this is gucci, right?
                 attemptEvent.Reason = null;
-                RaiseLocalEvent(actor, attemptEvent);
+                RaiseEvent(actor, attemptEvent);
                 if (attemptEvent.Cancelled)
                 {
                     reason = attemptEvent.Reason ?? reason;
@@ -323,7 +323,7 @@ namespace OpenNefia.Content.EquipSlots
             }
 
             var itemAttemptEvent = new BeingUnequippedAttemptEvent(actor, target, itemUid, equipSlot);
-            RaiseLocalEvent(itemUid, itemAttemptEvent);
+            RaiseEvent(itemUid, itemAttemptEvent);
             if (itemAttemptEvent.Cancelled)
             {
                 reason = attemptEvent.Reason ?? reason;

@@ -218,7 +218,7 @@ namespace OpenNefia.Core.GameObjects
 
             stack.Count = amount;
 
-            RaiseLocalEvent(uid, new StackCountChangedEvent(old, stack.Count), false);
+            RaiseEvent(uid, new StackCountChangedEvent(old, stack.Count), false);
         }
 
         /// <inheritdoc/>
@@ -294,7 +294,7 @@ namespace OpenNefia.Core.GameObjects
             var newCount = stackTarget.Count + stackWith.Count;
 
             var ev = new EntityStackedEvent(with, stackTarget.Count, newCount, showMessage);
-            RaiseLocalEvent(target, ref ev);
+            RaiseEvent(target, ref ev);
 
             SetCount(target, newCount, stackTarget);
             SetCount(with, 0, stackWith);
@@ -383,14 +383,14 @@ namespace OpenNefia.Core.GameObjects
             var newEntity = EntityManager.SpawnEntity(null, spawnPosition);
 
             var args = new EntityClonedEventArgs(newEntity);
-            RaiseLocalEvent(target, args);
+            RaiseEvent(target, args);
 
             CopyComponents(newEntity, target, args);
 
             _entityFactory.LocalizeComponents(newEntity);
 
             var ev = new EntityCloneFinishedEventArgs(target);
-            RaiseLocalEvent(newEntity, ev);
+            RaiseEvent(newEntity, ev);
 
             return newEntity;
         }
@@ -474,7 +474,7 @@ namespace OpenNefia.Core.GameObjects
             }
 
             var ev = new EntitySplitEvent(split);
-            RaiseLocalEvent(uid, ref ev);
+            RaiseEvent(uid, ref ev);
 
             return true;
         }

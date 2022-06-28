@@ -33,7 +33,7 @@ namespace OpenNefia.Core.GameObjects
 
             var oldPosition = spatial.MapPosition;
             var ev = new MoveEventArgs(oldPosition, newPosition);
-            RaiseLocalEvent(entity, ev);
+            RaiseEvent(entity, ev);
             return ev.TurnResult;
         }
 
@@ -81,7 +81,7 @@ namespace OpenNefia.Core.GameObjects
             spatial.WorldPosition = newCoords.Position;
 
             var evAfter = new AfterMoveEventArgs(oldCoords, newCoords);
-            RaiseLocalEvent(uid, evAfter);
+            RaiseEvent(uid, evAfter);
 
             return TurnResult.Succeeded;
         }

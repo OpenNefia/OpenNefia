@@ -66,7 +66,7 @@ namespace OpenNefia.Content.Maps
             if (oldMap != null)
             {
                 var evLeave = new MapLeaveEventArgs(map, oldMap);
-                RaiseLocalEvent(oldMap.MapEntityUid, evLeave);
+                RaiseEvent(oldMap.MapEntityUid, evLeave);
             }
 
             _mapManager.SetActiveMap(map.Id, loadType);
