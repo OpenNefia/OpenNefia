@@ -57,19 +57,19 @@ namespace OpenNefia.Core.Rendering.TileDrawLayers
             var tileIndex = tile.Image.AtlasIndex;
 
             var oneDown = pos + (0, 1);
-            var oneTileDown = _map!.GetTile(oneDown);
+            var oneTileDown = Map!.GetTile(oneDown);
 
             var oneUp = pos + (0, -1);
-            var oneTileUp = _map.GetTile(oneUp);
+            var oneTileUp = Map.GetTile(oneUp);
 
             if (tile.WallImage != null)
             {
-                if (oneTileDown != null && oneTileDown.Value.Tile.ResolvePrototype().WallImage == null && _map.IsMemorized(oneDown))
+                if (oneTileDown != null && oneTileDown.Value.Tile.ResolvePrototype().WallImage == null && Map.IsMemorized(oneDown))
                 {
                     tileIndex = tile.WallImage.AtlasIndex;
                 }
 
-                if (oneTileUp != null && oneTileUp.Value.Tile.ResolvePrototype().WallImage != null && _map.IsMemorized(oneUp))
+                if (oneTileUp != null && oneTileUp.Value.Tile.ResolvePrototype().WallImage != null && Map.IsMemorized(oneUp))
                 {
                     _tileAndChipBatch.SetTile(oneUp, oneTileUp.Value.Tile.ResolvePrototype().Image.AtlasIndex);
                 }
@@ -89,7 +89,7 @@ namespace OpenNefia.Core.Rendering.TileDrawLayers
         public void RedrawMapObjects()
         {
             _tileAndChipBatch.Clear();
-            foreach (var memory in _map!.MapObjectMemory.AllMemory.Values)
+            foreach (var memory in Map!.MapObjectMemory.AllMemory.Values)
             {
                 _tileAndChipBatch.AddChipEntry(memory);
             }
@@ -100,9 +100,9 @@ namespace OpenNefia.Core.Rendering.TileDrawLayers
             _wallShadows.Clear();
             _tileAndChipBatch.Clear();
 
-            foreach (var coords in _map!.AllTiles)
+            foreach (var coords in Map!.AllTiles)
             {
-                SetMapTile(coords.Position, _map.TileMemory[coords.X, coords.Y].ResolvePrototype());
+                SetMapTile(coords.Position, Map.TileMemory[coords.X, coords.Y].ResolvePrototype());
             }
 
             RedrawMapObjects();
@@ -114,7 +114,7 @@ namespace OpenNefia.Core.Rendering.TileDrawLayers
         {
             foreach (var pos in dirtyTilesThisTurn)
             {
-                SetMapTile(pos, _map!.TileMemory[pos.X, pos.Y].ResolvePrototype());
+                SetMapTile(pos, Map!.TileMemory[pos.X, pos.Y].ResolvePrototype());
             }
 
             RedrawMapObjects();

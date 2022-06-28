@@ -23,7 +23,6 @@ namespace OpenNefia.Core.Rendering
         public string? RegionId { get; set; }
         public Vector2 OriginOffset { get; set; }
 
-
         public AssetDrawable(PrototypeId<AssetPrototype> proto, Color? color = null, bool centered = false, float rotation = 0f, string? regionId = null, Vector2 originOffset = default)
             : this(Assets.Get(proto), color, centered, rotation, regionId, originOffset)
         {

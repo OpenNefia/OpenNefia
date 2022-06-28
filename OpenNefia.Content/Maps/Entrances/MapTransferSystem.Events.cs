@@ -59,6 +59,7 @@ namespace OpenNefia.Content.Maps
         [Dependency] private readonly ITurnOrderSystem _turnOrder = default!;
         [Dependency] private readonly IWeatherSystem _weather = default!;
         [Dependency] private readonly ICargoSystem _cargo = default!;
+        [Dependency] private readonly IMapDebrisSystem _mapDebris = default!;
 
         public const int MapRenewMajorIntervalHours = 120;
         public const int MapRenewMinorIntervalHours = 24;
@@ -163,8 +164,15 @@ namespace OpenNefia.Content.Maps
 
         private void OnMapInitialize(IMap map, MapLoadType loadType)
         {
+            if (loadType != MapLoadType.Traveled)
+            {
+                _mes.Clear();
+            }
+
             if (loadType == MapLoadType.GameLoaded)
                 return;
+
+            _mapDebris.Clear(map);
 
             var common = EntityManager.GetComponent<MapCommonComponent>(map.MapEntityUid);
 

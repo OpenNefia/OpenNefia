@@ -30,7 +30,7 @@ namespace OpenNefia.Content.Rendering
             IoCManager.InjectDependencies(this);
 
             if (waitSecs == null)
-                waitSecs = IoCManager.Resolve<IConfigurationManager>().GetCVar(CCVars.AnimeAnimationWait);
+                waitSecs = IoCManager.Resolve<IConfigurationManager>().GetCVar(CCVars.AnimeAnimationWait) * 10;
 
             AssetParticle = Assets.Get(asset);
             Particles = Enumerable.Range(0, maxParticles)

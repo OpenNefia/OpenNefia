@@ -48,7 +48,7 @@ namespace OpenNefia.Content.VanillaAI
 
         private void UpdateEntries()
         {
-            if (_map == null)
+            if (Map == null)
                 return;
 
             foreach (var entry in _entries)
@@ -56,7 +56,7 @@ namespace OpenNefia.Content.VanillaAI
 
             _entries.Clear();
 
-            foreach (var (spatial, skills) in _lookup.EntityQueryInMap<SpatialComponent, SkillsComponent>(_map.Id))
+            foreach (var (spatial, skills) in _lookup.EntityQueryInMap<SpatialComponent, SkillsComponent>(Map.Id))
             {
                 if (!_entMan.IsAlive(spatial.Owner) || !_visibility.CanSeeEntity(_gameSession.Player!, spatial.Owner))
                     continue;

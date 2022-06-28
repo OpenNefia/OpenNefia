@@ -616,7 +616,7 @@ namespace OpenNefia.Core.Serialization.Manager
             {
                 var leftArray = (Array)left;
                 var rightArray = (Array)right;
-
+                
                 if (leftArray.Length != rightArray.Length)
                 {
                     return false;
