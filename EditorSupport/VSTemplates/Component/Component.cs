@@ -9,7 +9,7 @@ namespace $rootnamespace$
 {
     [RegisterComponent]
     [ComponentUsage(ComponentTarget.Normal)]
-    public sealed class $safeitemrootname$Component : Component
+    public sealed class $safeitemrootname$ : Component
     {
         public override string Name => "$safeitemrootname$";
     }

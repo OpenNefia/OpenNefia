@@ -188,8 +188,9 @@ namespace OpenNefia.Core.Utility
             for (int i = 0; i < _buffer.Length; i++)
                 _buffer[i] = default(T)!;
 
+            _size = 0;
             _start = 0;
-            _end = _size == _buffer.Length ? 0 : _size;
+            _end = 0;
         }
 
         /// <summary>

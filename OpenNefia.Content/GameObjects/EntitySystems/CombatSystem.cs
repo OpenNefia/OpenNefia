@@ -1,6 +1,7 @@
 ﻿using OpenNefia.Content.DisplayName;
 using OpenNefia.Content.Factions;
 using OpenNefia.Content.Logic;
+using OpenNefia.Content.Maps;
 using OpenNefia.Content.Prototypes;
 using OpenNefia.Content.Skills;
 using OpenNefia.Core.Audio;
@@ -25,6 +26,7 @@ namespace OpenNefia.Content.GameObjects
         [Dependency] private readonly IRandom _random = default!;
         [Dependency] private readonly IDisplayNameSystem _displayNames = default!;
         [Dependency] private readonly IMessagesManager _mes = default!;
+        [Dependency] private readonly IMapDebrisSystem _mapDebris = default!;
 
         public override void Initialize()
         {
@@ -59,12 +61,16 @@ namespace OpenNefia.Content.GameObjects
             Protos.Sound.Kill2,
         };
 
-        private void KillEntity(EntityUid target, MetaDataComponent? metaData = null)
+        private void KillEntity(EntityUid target, MetaDataComponent? metaData = null, SpatialComponent? spatial = null)
         {
             if (!Resolve(target, ref metaData))
                 return;
 
             _sounds.Play(_random.Pick(KillSounds), target);
+
+            // TODO
+            if (Resolve(target, ref spatial))
+                _mapDebris.SpillBlood(spatial.MapPosition, 5);
 
             metaData.Liveness = EntityGameLiveness.DeadAndBuried;
         }

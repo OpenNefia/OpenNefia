@@ -41,12 +41,12 @@ namespace OpenNefia.Content.VanillaAI
 
         private void UpdateEntries()
         {
-            if (_map == null)
+            if (Map == null)
                 return;
 
             _entries.Clear();
 
-            foreach (var (spatial, ai) in _lookup.EntityQueryInMap<SpatialComponent, VanillaAIComponent>(_map.Id))
+            foreach (var (spatial, ai) in _lookup.EntityQueryInMap<SpatialComponent, VanillaAIComponent>(Map.Id))
             {
                 if (!EntityManager.IsAlive(spatial.Owner) 
                     || _gameSession.IsPlayer(spatial.Owner)
