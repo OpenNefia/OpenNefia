@@ -24,15 +24,15 @@ namespace OpenNefia.Core.GameObjects
         /// <param name="source"></param>
         /// <param name="subscriber">Subscriber that owns the handler.</param>
         /// <param name="eventHandler">Delegate that handles the event.</param>
-        void SubscribeEvent<T>(
+        void SubscribeBroadcastEvent<T>(
             IEntityEventSubscriber subscriber,
-            EntityEventHandler<T> eventHandler,
+            BroadcastEventHandler<T> eventHandler,
             long priority = EventPriorities.Default)
             where T : notnull;
 
-        void SubscribeEvent<T>(
+        void SubscribeBroadcastEvent<T>(
             IEntityEventSubscriber subscriber,
-            EntityEventRefHandler<T> eventHandler,
+            BroadcastEventRefHandler<T> eventHandler,
             long priority = EventPriorities.Default)
             where T : notnull;
 
@@ -98,9 +98,9 @@ namespace OpenNefia.Core.GameObjects
         }
 
         /// <inheritdoc />
-        public void SubscribeEvent<T>(
+        public void SubscribeBroadcastEvent<T>(
             IEntityEventSubscriber subscriber,
-            EntityEventHandler<T> eventHandler,
+            BroadcastEventHandler<T> eventHandler,
             long priority = EventPriorities.Default)
             where T : notnull
         {
@@ -113,7 +113,7 @@ namespace OpenNefia.Core.GameObjects
                 eventHandler, order, false);
         }
 
-        public void SubscribeEvent<T>(IEntityEventSubscriber subscriber, EntityEventRefHandler<T> eventHandler,
+        public void SubscribeBroadcastEvent<T>(IEntityEventSubscriber subscriber, BroadcastEventRefHandler<T> eventHandler,
             long priority = EventPriorities.Default) where T : notnull
         {
             var order = new OrderingData(priority, _nextEventIndex++);

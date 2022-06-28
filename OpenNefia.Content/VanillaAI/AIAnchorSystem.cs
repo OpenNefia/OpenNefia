@@ -16,8 +16,8 @@ namespace OpenNefia.Content.VanillaAI
 
         public override void Initialize()
         {
-            SubscribeLocalEvent<VanillaAIComponent, EntityGeneratedEvent>(HandleGenerated);
-            SubscribeLocalEvent<AIAnchorComponent, ComponentStartup>(HandleStartup);
+            SubscribeComponent<VanillaAIComponent, EntityGeneratedEvent>(HandleGenerated);
+            SubscribeComponent<AIAnchorComponent, ComponentStartup>(HandleStartup);
         }
 
         private void HandleGenerated(EntityUid uid, VanillaAIComponent ai, ref EntityGeneratedEvent args)

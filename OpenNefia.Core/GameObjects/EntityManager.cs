@@ -207,7 +207,7 @@ namespace OpenNefia.Core.GameObjects
             metadata.EntityLifeStage = EntityLifeStage.Terminating;
             metadata.Liveness = EntityGameLiveness.DeadAndBuried;
 
-            EventBus.RaiseLocalEvent(uid, ref EntityTerminating, false);
+            EventBus.RaiseEvent(uid, ref EntityTerminating, false);
 
             // DeleteEntity modifies our _children collection, we must cache the collection to iterate properly
             foreach (var child in spatial._children.ToArray())

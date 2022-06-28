@@ -168,7 +168,7 @@ namespace OpenNefia.Core.Maps
                 Logger.DebugS("map", $"Binding map {actualID} to entity {newEnt}");
 
                 var ev = new MapCreatedEvent(map, loadedFromSave: false);
-                _entityManager.EventBus.RaiseLocalEvent(map.MapEntityUid, ev);
+                _entityManager.EventBus.RaiseEvent(map.MapEntityUid, ev);
 
                 return newEnt;
             }
@@ -299,7 +299,7 @@ namespace OpenNefia.Core.Maps
             map.LastSightId++;
 
             var ev = new RefreshMapVisibilityEvent(map);
-            IoCManager.Resolve<IEntityManager>().EventBus.RaiseLocalEvent(map.MapEntityUid, ref ev);
+            IoCManager.Resolve<IEntityManager>().EventBus.RaiseEvent(map.MapEntityUid, ref ev);
 
             var outOfSightCoords = map.MapObjectMemory.AllMemory.Values
                 .Where(memory => memory.HideWhenOutOfSight && !map.IsInWindowFov(memory.Coords.Position))

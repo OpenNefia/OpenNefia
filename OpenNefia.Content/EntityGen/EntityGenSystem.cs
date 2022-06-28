@@ -50,7 +50,7 @@ namespace OpenNefia.Content.EntityGen
         {
             _mapLoader.OnBlueprintEntityStartup += HandleBlueprintEntityStartup;
 
-            SubscribeLocalEvent<SpatialComponent, EntityCloneFinishedEventArgs>(HandleClone, priority: EventPriorities.VeryLow);
+            SubscribeComponent<SpatialComponent, EntityCloneFinishedEventArgs>(HandleClone, priority: EventPriorities.VeryLow);
         }
 
         public void FireGeneratedEvent(EntityUid entity)

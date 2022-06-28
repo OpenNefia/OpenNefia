@@ -16,7 +16,7 @@ namespace OpenNefia.Content.DisplayName
         {
             base.Initialize();
 
-            SubscribeLocalEvent<MetaDataComponent, GetBaseNameEventArgs>(GetDefaultBaseName, priority: EventPriorities.Highest);
+            SubscribeComponent<MetaDataComponent, GetBaseNameEventArgs>(GetDefaultBaseName, priority: EventPriorities.Highest);
         }
 
         private string GetFallbackName(EntityUid uid)

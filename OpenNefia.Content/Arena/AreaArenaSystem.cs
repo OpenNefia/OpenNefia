@@ -29,7 +29,7 @@ namespace OpenNefia.Content.Arena
 
         public override void Initialize()
         {
-            SubscribeLocalEvent<AreaArenaComponent, AreaMapInitializeEvent>(CheckArenaRenew);
+            SubscribeComponent<AreaArenaComponent, AreaMapInitializeEvent>(CheckArenaRenew);
         }
 
         private void CheckArenaRenew(EntityUid uid, AreaArenaComponent component, AreaMapInitializeEvent args)

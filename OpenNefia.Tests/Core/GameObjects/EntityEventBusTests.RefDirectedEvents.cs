@@ -28,7 +28,7 @@ namespace OpenNefia.Tests.Core.GameObjects
             // Act.
             var testEvent = new TestStructEvent {TestNumber = 5};
             var eventBus = simulation.Resolve<IEntityManager>().EventBus;
-            eventBus.RaiseLocalEvent(entity, ref testEvent);
+            eventBus.RaiseEvent(entity, ref testEvent);
 
             // Check that the entity system changed the value correctly
             Assert.That(testEvent.TestNumber, Is.EqualTo(10));
@@ -39,7 +39,7 @@ namespace OpenNefia.Tests.Core.GameObjects
         {
             public override void Initialize()
             {
-                SubscribeLocalEvent<DummyComponent, TestStructEvent>(MyRefHandler);
+                SubscribeComponent<DummyComponent, TestStructEvent>(MyRefHandler);
             }
 
             private void MyRefHandler(EntityUid uid, DummyComponent component, ref TestStructEvent args)
@@ -73,8 +73,8 @@ namespace OpenNefia.Tests.Core.GameObjects
             public override void Initialize()
             {
                 // The below is not allowed, as you're subscribing by-ref and by-value to the same event...
-                SubscribeLocalEvent<DummyComponent, TestStructEvent>(MyRefHandler);
-                SubscribeLocalEvent<DummyTwoComponent, TestStructEvent>(MyValueHandler);
+                SubscribeComponent<DummyComponent, TestStructEvent>(MyRefHandler);
+                SubscribeComponent<DummyTwoComponent, TestStructEvent>(MyValueHandler);
             }
 
             private void MyValueHandler(EntityUid uid, DummyTwoComponent component, TestStructEvent args) { }
@@ -114,7 +114,7 @@ namespace OpenNefia.Tests.Core.GameObjects
             // Act.
             var testEvent = new TestStructEvent {TestNumber = 5};
             var eventBus = simulation.Resolve<IEntityManager>().EventBus;
-            eventBus.RaiseLocalEvent(entity, ref testEvent);
+            eventBus.RaiseEvent(entity, ref testEvent);
 
             // Check that the entity systems changed the value correctly
             Assert.That(testEvent.TestNumber, Is.EqualTo(20));
@@ -127,7 +127,7 @@ namespace OpenNefia.Tests.Core.GameObjects
             {
                 base.Initialize();
 
-                SubscribeLocalEvent<OrderComponentA, TestStructEvent>(OnA);
+                SubscribeComponent<OrderComponentA, TestStructEvent>(OnA);
             }
 
             private void OnA(EntityUid uid, OrderComponentA component, ref TestStructEvent args)
@@ -145,7 +145,7 @@ namespace OpenNefia.Tests.Core.GameObjects
             {
                 base.Initialize();
 
-                SubscribeLocalEvent<OrderComponentB, TestStructEvent>(OnB, EventPriorities.Low);
+                SubscribeComponent<OrderComponentB, TestStructEvent>(OnB, EventPriorities.Low);
             }
 
             private void OnB(EntityUid uid, OrderComponentB component, ref TestStructEvent args)
@@ -163,8 +163,8 @@ namespace OpenNefia.Tests.Core.GameObjects
             {
                 base.Initialize();
 
-                SubscribeLocalEvent<OrderComponentC, TestStructEvent>(OnC, EventPriorities.Highest);
-                SubscribeLocalEvent<OrderComponentC2, TestStructEvent>(OnC2, EventPriorities.High);
+                SubscribeComponent<OrderComponentC, TestStructEvent>(OnC, EventPriorities.Highest);
+                SubscribeComponent<OrderComponentC2, TestStructEvent>(OnC2, EventPriorities.High);
             }
 
             private void OnC(EntityUid uid, OrderComponentC component, ref TestStructEvent args)

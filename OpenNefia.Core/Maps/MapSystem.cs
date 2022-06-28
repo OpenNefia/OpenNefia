@@ -14,9 +14,9 @@ namespace OpenNefia.Core.Maps
 
             _mapManager.OnActiveMapChanged += OnActiveMapChanged;
 
-            SubscribeLocalEvent<MapComponent, ComponentAdd>(OnMapAdd);
-            SubscribeLocalEvent<MapComponent, ComponentInit>(OnMapInit);
-            SubscribeLocalEvent<MapComponent, ComponentStartup>(OnMapStartup);
+            SubscribeComponent<MapComponent, ComponentAdd>(OnMapAdd);
+            SubscribeComponent<MapComponent, ComponentInit>(OnMapInit);
+            SubscribeComponent<MapComponent, ComponentStartup>(OnMapStartup);
         }
 
         private void OnActiveMapChanged(IMap map, IMap? oldMap, MapLoadType loadType)
@@ -28,19 +28,19 @@ namespace OpenNefia.Core.Maps
         private void OnMapAdd(EntityUid uid, MapComponent component, ComponentAdd args)
         {
             var msg = new MapComponentAddEvent(uid, component.MapId);
-            EntityManager.EventBus.RaiseLocalEvent(uid, msg);
+            EntityManager.EventBus.RaiseEvent(uid, msg);
         }
 
         private void OnMapInit(EntityUid uid, MapComponent component, ComponentInit args)
         {
             var msg = new MapComponentInitializeEvent(uid, component.MapId);
-            EntityManager.EventBus.RaiseLocalEvent(uid, msg);
+            EntityManager.EventBus.RaiseEvent(uid, msg);
         }
 
         private void OnMapStartup(EntityUid uid, MapComponent component, ComponentStartup args)
         {
             var msg = new MapComponentStartupEvent(uid, component.MapId);
-            EntityManager.EventBus.RaiseLocalEvent(uid, msg);
+            EntityManager.EventBus.RaiseEvent(uid, msg);
         }
     }
 

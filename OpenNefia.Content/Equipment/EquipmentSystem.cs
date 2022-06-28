@@ -33,12 +33,12 @@ namespace OpenNefia.Content.Equipment
 
         public override void Initialize()
         {
-            SubscribeLocalEvent<EquipmentComponent, GotEquippedEvent>(HandleGotEquipped);
-            SubscribeLocalEvent<EquipmentComponent, GotUnequippedEvent>(HandleGotUnequipped);
+            SubscribeComponent<EquipmentComponent, GotEquippedEvent>(HandleGotEquipped);
+            SubscribeComponent<EquipmentComponent, GotUnequippedEvent>(HandleGotUnequipped);
 
-            SubscribeLocalEvent<EquipSlotsComponent, DidEquipEvent>(HandleDidEquip);
-            SubscribeLocalEvent<EquipSlotsComponent, DidUnequipEvent>(HandleDidUnequip);
-            SubscribeLocalEvent<EquipSlotsComponent, EntityRefreshEvent>(HandleRefresh, priority: EventPriorities.High);
+            SubscribeComponent<EquipSlotsComponent, DidEquipEvent>(HandleDidEquip);
+            SubscribeComponent<EquipSlotsComponent, DidUnequipEvent>(HandleDidUnequip);
+            SubscribeComponent<EquipSlotsComponent, EntityRefreshEvent>(HandleRefresh, priority: EventPriorities.High);
         }
 
         #region Event Handlers

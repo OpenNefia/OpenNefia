@@ -359,7 +359,7 @@ namespace OpenNefia.Core.Maps
             // at that point.
             // Maybe run initialize/startup for just the map entity first?
             var ev = new MapCreatedEvent(MapGrid!, loadedFromSave: true);
-            _entityManager.EventBus.RaiseLocalEvent(MapGrid!.MapEntityUid, ev);
+            _entityManager.EventBus.RaiseEvent(MapGrid!.MapEntityUid, ev);
 
             foreach (var entityUid in _context.Entities)
             {

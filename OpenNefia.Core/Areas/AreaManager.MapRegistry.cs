@@ -108,7 +108,7 @@ namespace OpenNefia.Core.Areas
             var previousCoords = _entityManager.GetComponent<SpatialComponent>(player).MapPosition;
 
             var ev = new AreaFloorGenerateEvent(area, floorId, previousCoords);
-            _entityManager.EventBus.RaiseLocalEvent(area.AreaEntityUid, ev);
+            _entityManager.EventBus.RaiseEvent(area.AreaEntityUid, ev);
 
             if (ev.ResultMapId == null)
             {

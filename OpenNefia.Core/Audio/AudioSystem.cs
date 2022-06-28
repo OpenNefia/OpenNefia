@@ -12,7 +12,7 @@ namespace OpenNefia.Core.Audio
 
         public override void Initialize()
         {
-            SubscribeLocalEvent<PlayerComponent, EntityPositionChangedEvent>(OnPlayerPositionChanged);
+            SubscribeComponent<PlayerComponent, EntityPositionChangedEvent>(OnPlayerPositionChanged);
         }
 
         // TODO: when implementing scrolling, run this every frame to account for sub-tile positioning.

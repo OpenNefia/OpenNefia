@@ -14,9 +14,9 @@ namespace OpenNefia.Core.Areas
 
             _areaManager.OnActiveAreaChanged += OnActiveAreaChanged;
 
-            SubscribeLocalEvent<AreaComponent, ComponentAdd>(OnAreaAdd);
-            SubscribeLocalEvent<AreaComponent, ComponentInit>(OnAreaInit);
-            SubscribeLocalEvent<AreaComponent, ComponentStartup>(OnAreaStartup);
+            SubscribeComponent<AreaComponent, ComponentAdd>(OnAreaAdd);
+            SubscribeComponent<AreaComponent, ComponentInit>(OnAreaInit);
+            SubscribeComponent<AreaComponent, ComponentStartup>(OnAreaStartup);
         }
 
         private void OnActiveAreaChanged(IArea? newArea, IArea? oldArea)
@@ -36,19 +36,19 @@ namespace OpenNefia.Core.Areas
         private void OnAreaAdd(EntityUid uid, AreaComponent component, ComponentAdd args)
         {
             var msg = new AreaAddEvent(uid, component.AreaId);
-            EntityManager.EventBus.RaiseLocalEvent(uid, msg);
+            EntityManager.EventBus.RaiseEvent(uid, msg);
         }
 
         private void OnAreaInit(EntityUid uid, AreaComponent component, ComponentInit args)
         {
             var msg = new AreaInitializeEvent(uid, component.AreaId);
-            EntityManager.EventBus.RaiseLocalEvent(uid, msg);
+            EntityManager.EventBus.RaiseEvent(uid, msg);
         }
 
         private void OnAreaStartup(EntityUid uid, AreaComponent component, ComponentStartup args)
         {
             var msg = new AreaStartupEvent(uid, component.AreaId);
-            EntityManager.EventBus.RaiseLocalEvent(uid, msg);
+            EntityManager.EventBus.RaiseEvent(uid, msg);
         }
     }
 

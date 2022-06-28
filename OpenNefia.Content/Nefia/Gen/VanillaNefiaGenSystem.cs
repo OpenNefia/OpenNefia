@@ -50,10 +50,10 @@ namespace OpenNefia.Content.Nefia
 
         public override void Initialize()
         {
-            SubscribeLocalEvent<NefiaVanillaComponent, NefiaFloorGenerateEvent>(OnNefiaFloorGenerate, priority: EventPriorities.High);
-            SubscribeLocalEvent<NefiaVanillaComponent, GenerateNefiaFloorParamsEvent>(SetupBaseParams, priority: EventPriorities.VeryHigh);
-            SubscribeLocalEvent<NefiaVanillaComponent, GenerateNefiaFloorAttemptEvent>(GenerateFloorAttempt, priority: EventPriorities.High);
-            SubscribeLocalEvent<NefiaVanillaComponent, AfterGenerateNefiaFloorEvent>(FinalizeNefia, priority: EventPriorities.High);
+            SubscribeComponent<NefiaVanillaComponent, NefiaFloorGenerateEvent>(OnNefiaFloorGenerate, priority: EventPriorities.High);
+            SubscribeComponent<NefiaVanillaComponent, GenerateNefiaFloorParamsEvent>(SetupBaseParams, priority: EventPriorities.VeryHigh);
+            SubscribeComponent<NefiaVanillaComponent, GenerateNefiaFloorAttemptEvent>(GenerateFloorAttempt, priority: EventPriorities.High);
+            SubscribeComponent<NefiaVanillaComponent, AfterGenerateNefiaFloorEvent>(FinalizeNefia, priority: EventPriorities.High);
         }
 
         /// <summary>
@@ -100,7 +100,7 @@ namespace OpenNefia.Content.Nefia
                 return false;
 
             var ev = new AfterGenerateNefiaFloorEvent(area, map, data, floorNumber);
-            EntityManager.EventBus.RaiseLocalEvent(area.AreaEntityUid, ev);
+            EntityManager.EventBus.RaiseEvent(area.AreaEntityUid, ev);
 
             return true;
         }
@@ -118,10 +118,10 @@ namespace OpenNefia.Content.Nefia
                 data.Get<BaseNefiaGenParams>().MapSize = (width, height);
 
                 var paramsEv = new GenerateNefiaFloorParamsEvent(area, mapId, data, floorNumber, i);
-                EntityManager.EventBus.RaiseLocalEvent(area.AreaEntityUid, paramsEv);
+                EntityManager.EventBus.RaiseEvent(area.AreaEntityUid, paramsEv);
 
                 var genEv = new GenerateNefiaFloorAttemptEvent(area, mapId, data, floorNumber, i);
-                EntityManager.EventBus.RaiseLocalEvent(area.AreaEntityUid, genEv);
+                EntityManager.EventBus.RaiseEvent(area.AreaEntityUid, genEv);
 
                 if (genEv.Handled)
                 {

@@ -105,8 +105,8 @@ namespace OpenNefia.Content.Tests.Areas
 
             public override void Initialize()
             {
-                SubscribeLocalEvent<TestRandomAreaComponent, RandomAreaCheckIsActiveEvent>(HandleIsActive);
-                SubscribeLocalEvent<GenerateRandomAreaEvent>(GenerateRandomArea);
+                SubscribeComponent<TestRandomAreaComponent, RandomAreaCheckIsActiveEvent>(HandleIsActive);
+                SubscribeBroadcast<GenerateRandomAreaEvent>(GenerateRandomArea);
             }
 
             private void HandleIsActive(EntityUid uid, TestRandomAreaComponent component, RandomAreaCheckIsActiveEvent args)

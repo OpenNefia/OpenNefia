@@ -138,7 +138,7 @@ namespace OpenNefia.Core.Rendering
                 var memory = GetOrCreateMemory();
 
                 _event.Memory = memory;
-                entityManager.EventBus.RaiseLocalEvent(spatial.Owner, _event);
+                entityManager.EventBus.RaiseEvent(spatial.Owner, _event);
                 memory = _event.Memory;
 
                 if (at == null)

@@ -16,7 +16,7 @@ namespace OpenNefia.Content.GameObjects
 
         public override void Initialize()
         {
-            SubscribeLocalEvent<CharaComponent, GetTargetTextEventArgs>(HandleTargetTextChara);
+            SubscribeComponent<CharaComponent, GetTargetTextEventArgs>(HandleTargetTextChara);
         }
 
         public bool GetTargetText(EntityUid onlooker, MapCoordinates targetPos, out string text, bool visibleOnly)

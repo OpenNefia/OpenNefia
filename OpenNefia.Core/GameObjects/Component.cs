@@ -150,7 +150,7 @@ namespace OpenNefia.Core.GameObjects
         /// </summary>
         protected virtual void OnAdd()
         {
-            GetBus().RaiseComponentEvent(this, CompAddInstance);
+            GetBus().RaiseDirectedComponentEvent(this, CompAddInstance);
             LifeStage = ComponentLifeStage.Added;
         }
 
@@ -160,7 +160,7 @@ namespace OpenNefia.Core.GameObjects
         /// </summary>
         protected virtual void Initialize()
         {
-            GetBus().RaiseComponentEvent(this, CompInitInstance);
+            GetBus().RaiseDirectedComponentEvent(this, CompInitInstance);
             LifeStage = ComponentLifeStage.Initialized;
         }
 
@@ -172,7 +172,7 @@ namespace OpenNefia.Core.GameObjects
         /// </remarks>
         protected virtual void Startup()
         {
-            GetBus().RaiseComponentEvent(this, CompStartupInstance);
+            GetBus().RaiseDirectedComponentEvent(this, CompStartupInstance);
             LifeStage = ComponentLifeStage.Running;
         }
 
@@ -181,7 +181,7 @@ namespace OpenNefia.Core.GameObjects
         /// </summary>
         protected virtual void Shutdown()
         {
-            GetBus().RaiseComponentEvent(this, CompShutdownInstance);
+            GetBus().RaiseDirectedComponentEvent(this, CompShutdownInstance);
             LifeStage = ComponentLifeStage.Stopped;
         }
 
@@ -192,7 +192,7 @@ namespace OpenNefia.Core.GameObjects
         /// </summary>
         protected virtual void OnRemove()
         {
-            GetBus().RaiseComponentEvent(this, CompRemoveInstance);
+            GetBus().RaiseDirectedComponentEvent(this, CompRemoveInstance);
             LifeStage = ComponentLifeStage.Deleted;
         }
     }

@@ -16,7 +16,7 @@ namespace OpenNefia.Content.GameObjects.EntitySystems
         [Dependency] private readonly IMessagesManager _mes = default!;
         public override void Initialize()
         {
-            SubscribeLocalEvent<CurseStateComponent, GotEquippedInMenuEvent>(OnEquippedInMenu, priority: EventPriorities.High);
+            SubscribeComponent<CurseStateComponent, GotEquippedInMenuEvent>(OnEquippedInMenu, priority: EventPriorities.High);
         }
 
         private void OnEquippedInMenu(EntityUid item, CurseStateComponent component, GotEquippedInMenuEvent args)

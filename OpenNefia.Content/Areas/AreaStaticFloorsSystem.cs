@@ -19,7 +19,7 @@ namespace OpenNefia.Content.Areas
 
         public override void Initialize()
         {
-            SubscribeLocalEvent<AreaStaticFloorsComponent, AreaFloorGenerateEvent>(OnAreaFloorGenerate);
+            SubscribeComponent<AreaStaticFloorsComponent, AreaFloorGenerateEvent>(OnAreaFloorGenerate);
         }
 
         private void OnAreaFloorGenerate(EntityUid areaEntity, AreaStaticFloorsComponent areaStaticFloors, AreaFloorGenerateEvent args)

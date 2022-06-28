@@ -49,7 +49,7 @@ namespace OpenNefia.Content.Charas
 
         public override void Initialize()
         {
-            SubscribeLocalEvent<CharaComponent, EntityGeneratedEvent>(HandleGenerated, priority: EventPriorities.Highest);
+            SubscribeComponent<CharaComponent, EntityGeneratedEvent>(HandleGenerated, priority: EventPriorities.Highest);
         }
 
         private void HandleGenerated(EntityUid uid, CharaComponent chara, ref EntityGeneratedEvent args)

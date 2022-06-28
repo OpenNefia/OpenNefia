@@ -13,7 +13,7 @@ namespace OpenNefia.Content.Fame
     {
         public override void Initialize()
         {
-            SubscribeLocalEvent<KarmaComponent, EntityRefreshEvent>(HandleRefresh);
+            SubscribeComponent<KarmaComponent, EntityRefreshEvent>(HandleRefresh);
         }
 
         private void HandleRefresh(EntityUid uid, KarmaComponent karmaComp, ref EntityRefreshEvent args)

@@ -220,7 +220,7 @@ namespace OpenNefia.Content.Parties
 
         public override void Initialize()
         {
-            SubscribeLocalEvent<EntityDeletedEvent>(HandleEntityDeleted, priority: EventPriorities.VeryHigh);
+            SubscribeBroadcast<EntityDeletedEvent>(HandleEntityDeleted, priority: EventPriorities.VeryHigh);
         }
 
         private void HandleEntityDeleted(EntityDeletedEvent ev)

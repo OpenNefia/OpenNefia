@@ -232,7 +232,7 @@ namespace OpenNefia.Content.CharaMake
                 Sounds.Play(Sound.Skill);
 
                 var ev = new NewPlayerIncarnatedEvent(_playerEntity);
-                EntityManager.EventBus.RaiseLocalEvent(_playerEntity, ev);
+                EntityManager.EventBus.RaiseEvent(_playerEntity, ev);
 
                 if (!EntityManager.IsAlive(_playerEntity))
                 {

@@ -345,7 +345,7 @@ namespace OpenNefia.Content.Equipment
 
                 // Display messages relating to curse state, weapon suitability, etc.
                 var ev = new GotEquippedInMenuEvent(_equipee, _equipTarget, equipSlot);
-                _entityManager.EventBus.RaiseLocalEvent(splitItem, ev);
+                _entityManager.EventBus.RaiseEvent(splitItem, ev);
                 OnEquipped?.Invoke(ev);
 
                 UpdateFromEquipTarget();

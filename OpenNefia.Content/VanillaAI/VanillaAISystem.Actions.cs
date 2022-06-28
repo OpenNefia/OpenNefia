@@ -16,7 +16,7 @@ namespace OpenNefia.Content.VanillaAI
 
         private void SubscribeAIActions()
         {
-            SubscribeLocalEvent<AIActionMeleeComponent, RunAIActionEvent>(HandleActionMelee);
+            SubscribeComponent<AIActionMeleeComponent, RunAIActionEvent>(HandleActionMelee);
         }
 
         private void HandleActionMelee(EntityUid action, AIActionMeleeComponent component, RunAIActionEvent args)

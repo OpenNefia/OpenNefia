@@ -43,7 +43,7 @@ namespace OpenNefia.Content.RandomAreas
 
         public override void Initialize()
         {
-            SubscribeLocalEvent<MapRandomAreaManagerComponent, MapEnterEvent>(OnMapEnter, priority: EventPriorities.High);
+            SubscribeComponent<MapRandomAreaManagerComponent, MapEnterEvent>(OnMapEnter, priority: EventPriorities.High);
         }
 
         private void OnMapEnter(EntityUid mapEnt, MapRandomAreaManagerComponent mapRandomAreas, MapEnterEvent args)

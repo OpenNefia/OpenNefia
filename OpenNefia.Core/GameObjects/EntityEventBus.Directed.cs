@@ -12,12 +12,12 @@ namespace OpenNefia.Core.GameObjects
 
     public interface IDirectedEventBus
     {
-        void RaiseLocalEvent<TEvent>(EntityUid uid, TEvent args, bool broadcast = true)
+        void RaiseEvent<TEvent>(EntityUid uid, TEvent args, bool broadcast = true)
             where TEvent : notnull;
 
-        void RaiseLocalEvent(EntityUid uid, object args, bool broadcast = true);
+        void RaiseEvent(EntityUid uid, object args, bool broadcast = true);
 
-        void SubscribeLocalEvent<TComp, TEvent>(
+        void SubscribeComponentEvent<TComp, TEvent>(
             ComponentEventHandler<TComp, TEvent> handler,
             long priority = EventPriorities.Default)
             where TComp : IComponent
@@ -25,12 +25,12 @@ namespace OpenNefia.Core.GameObjects
 
         #region Ref Subscriptions
 
-        void RaiseLocalEvent<TEvent>(EntityUid uid, ref TEvent args, bool broadcast = true)
+        void RaiseEvent<TEvent>(EntityUid uid, ref TEvent args, bool broadcast = true)
             where TEvent : notnull;
 
-        void RaiseLocalEvent(EntityUid uid, ref object args, bool broadcast = true);
+        void RaiseEvent(EntityUid uid, ref object args, bool broadcast = true);
 
-        void SubscribeLocalEvent<TComp, TEvent>(
+        void SubscribeComponentEvent<TComp, TEvent>(
             ComponentEventRefHandler<TComp, TEvent> handler,
             long priority = EventPriorities.Default)
             where TComp : IComponent
@@ -38,7 +38,7 @@ namespace OpenNefia.Core.GameObjects
 
         #endregion
 
-        void UnsubscribeAllLocalEvents<TComp, TEvent>()
+        void UnsubscribeAllComponentEvents<TComp, TEvent>()
             where TComp : IComponent
             where TEvent : notnull;
 
@@ -52,7 +52,7 @@ namespace OpenNefia.Core.GameObjects
         /// <typeparam name="TEvent">Event to dispatch.</typeparam>
         /// <param name="component">Component receiving the event.</param>
         /// <param name="args">Event arguments for the event.</param>
-        internal void RaiseComponentEvent<TEvent>(IComponent component, TEvent args)
+        internal void RaiseDirectedComponentEvent<TEvent>(IComponent component, TEvent args)
             where TEvent : notnull;
 
         /// <summary>
@@ -65,7 +65,7 @@ namespace OpenNefia.Core.GameObjects
         /// <typeparam name="TEvent">Event to dispatch.</typeparam>
         /// <param name="component">Component receiving the event.</param>
         /// <param name="args">Event arguments for the event.</param>
-        internal void RaiseComponentEvent<TEvent>(IComponent component, ref TEvent args)
+        internal void RaiseDirectedComponentEvent<TEvent>(IComponent component, ref TEvent args)
             where TEvent : notnull;
     }
 
@@ -91,7 +91,7 @@ namespace OpenNefia.Core.GameObjects
         }
 
         /// <inheritdoc />
-        void IDirectedEventBus.RaiseComponentEvent<TEvent>(IComponent component, TEvent args)
+        void IDirectedEventBus.RaiseDirectedComponentEvent<TEvent>(IComponent component, TEvent args)
         {
             ref var unitRef = ref Unsafe.As<TEvent, Unit>(ref args);
 
@@ -99,7 +99,7 @@ namespace OpenNefia.Core.GameObjects
         }
 
         /// <inheritdoc />
-        void IDirectedEventBus.RaiseComponentEvent<TEvent>(IComponent component, ref TEvent args)
+        void IDirectedEventBus.RaiseDirectedComponentEvent<TEvent>(IComponent component, ref TEvent args)
         {
             ref var unitRef = ref Unsafe.As<TEvent, Unit>(ref args);
 
@@ -107,42 +107,42 @@ namespace OpenNefia.Core.GameObjects
         }
 
         /// <inheritdoc />
-        public void RaiseLocalEvent<TEvent>(EntityUid uid, TEvent args, bool broadcast = true)
+        public void RaiseEvent<TEvent>(EntityUid uid, TEvent args, bool broadcast = true)
             where TEvent : notnull
         {
             var type = typeof(TEvent);
             ref var unitRef = ref Unsafe.As<TEvent, Unit>(ref args);
 
-            RaiseLocalEventCore(uid, ref unitRef, type, broadcast, false);
+            RaiseEventCore(uid, ref unitRef, type, broadcast, false);
         }
 
         /// <inheritdoc />
-        public void RaiseLocalEvent(EntityUid uid, object args, bool broadcast = true)
+        public void RaiseEvent(EntityUid uid, object args, bool broadcast = true)
         {
             var type = args.GetType();
             ref var unitRef = ref Unsafe.As<object, Unit>(ref args);
 
-            RaiseLocalEventCore(uid, ref unitRef, type, broadcast, false);
+            RaiseEventCore(uid, ref unitRef, type, broadcast, false);
         }
 
-        public void RaiseLocalEvent<TEvent>(EntityUid uid, ref TEvent args, bool broadcast = true)
+        public void RaiseEvent<TEvent>(EntityUid uid, ref TEvent args, bool broadcast = true)
             where TEvent : notnull
         {
             var type = typeof(TEvent);
             ref var unitRef = ref Unsafe.As<TEvent, Unit>(ref args);
 
-            RaiseLocalEventCore(uid, ref unitRef, type, broadcast, true);
+            RaiseEventCore(uid, ref unitRef, type, broadcast, true);
         }
 
-        public void RaiseLocalEvent(EntityUid uid, ref object args, bool broadcast = true)
+        public void RaiseEvent(EntityUid uid, ref object args, bool broadcast = true)
         {
             var type = args.GetType();
             ref var unitRef = ref Unsafe.As<object, Unit>(ref args);
 
-            RaiseLocalEventCore(uid, ref unitRef, type, broadcast, true);
+            RaiseEventCore(uid, ref unitRef, type, broadcast, true);
         }
 
-        private void RaiseLocalEventCore(EntityUid uid, ref Unit unitRef, Type eventType, bool broadcast, bool byRef)
+        private void RaiseEventCore(EntityUid uid, ref Unit unitRef, Type eventType, bool broadcast, bool byRef)
         {
             if (!_eventTables.TryGetEntityTable(uid, eventType, out var table))
             {
@@ -171,7 +171,7 @@ namespace OpenNefia.Core.GameObjects
         }
 
         /// <inheritdoc />
-        public void SubscribeLocalEvent<TComp, TEvent>(
+        public void SubscribeComponentEvent<TComp, TEvent>(
             ComponentEventHandler<TComp, TEvent> handler,
             long priority = EventPriorities.Default)
             where TComp : IComponent
@@ -185,7 +185,7 @@ namespace OpenNefia.Core.GameObjects
             _eventTables.Subscribe<TEvent>(typeof(TComp), typeof(TEvent), EventHandler, orderData, false);
         }
 
-        public void SubscribeLocalEvent<TComp, TEvent>(ComponentEventRefHandler<TComp, TEvent> handler,
+        public void SubscribeComponentEvent<TComp, TEvent>(ComponentEventRefHandler<TComp, TEvent> handler,
             long priority = EventPriorities.Default) where TComp : IComponent where TEvent : notnull
         {
             void EventHandler(EntityUid uid, IComponent comp, ref TEvent args)
@@ -197,7 +197,7 @@ namespace OpenNefia.Core.GameObjects
         }
 
         /// <inheritdoc />
-        public void UnsubscribeAllLocalEvents<TComp, TEvent>()
+        public void UnsubscribeAllComponentEvents<TComp, TEvent>()
             where TComp : IComponent
             where TEvent : notnull
         {

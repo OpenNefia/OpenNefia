@@ -10,7 +10,7 @@ namespace OpenNefia.Content.GameObjects
 
         public override void Initialize()
         {
-            SubscribeLocalEvent<MoveableComponent, AfterMoveEventArgs>(HandleAfterMove);
+            SubscribeComponent<MoveableComponent, AfterMoveEventArgs>(HandleAfterMove);
         }
 
         private void HandleAfterMove(EntityUid uid, MoveableComponent moveable, AfterMoveEventArgs args)

@@ -12,8 +12,8 @@ namespace OpenNefia.Content.DisplayName
         {
             base.Initialize();
 
-            SubscribeLocalEvent<CharaComponent, GetDisplayNameEventArgs>(GetCharaName, priority: EventPriorities.Highest);
-            SubscribeLocalEvent<ItemComponent, GetDisplayNameEventArgs>(GetItemName, priority: EventPriorities.Highest);
+            SubscribeComponent<CharaComponent, GetDisplayNameEventArgs>(GetCharaName, priority: EventPriorities.Highest);
+            SubscribeComponent<ItemComponent, GetDisplayNameEventArgs>(GetItemName, priority: EventPriorities.Highest);
         }
 
         public void GetCharaName(EntityUid uid, CharaComponent component, ref GetDisplayNameEventArgs args)
@@ -26,7 +26,7 @@ namespace OpenNefia.Content.DisplayName
         public void GetItemName(EntityUid uid, ItemComponent component, ref GetDisplayNameEventArgs args)
         {
             var ev = new GetItemNameEvent();
-            EntityManager.EventBus.RaiseLocalEvent(uid, ref ev);
+            EntityManager.EventBus.RaiseEvent(uid, ref ev);
             args.Name = ev.ItemName;
         }
     }

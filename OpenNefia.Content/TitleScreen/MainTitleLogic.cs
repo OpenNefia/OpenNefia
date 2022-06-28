@@ -190,7 +190,7 @@ namespace OpenNefia.Content.TitleScreen
             _mapManager.SetActiveMap(map.Id);
 
             var ev = new NewGameStartedEventArgs();
-            _entityManager.EventBus.RaiseLocalEvent(_gameSessionManager.Player, ev);
+            _entityManager.EventBus.RaiseEvent(_gameSessionManager.Player, ev);
 
             _mapManager.RefreshVisibility(map);
 
@@ -230,7 +230,7 @@ namespace OpenNefia.Content.TitleScreen
             if (!isNewSave)
             {
                 var ev = new GameLoadedEventArgs();
-                _entityManager.EventBus.RaiseLocalEvent(_gameSessionManager.Player, ev);
+                _entityManager.EventBus.RaiseEvent(_gameSessionManager.Player, ev);
             }
 
             _uiManager.Query(_fieldLayer);
@@ -239,7 +239,7 @@ namespace OpenNefia.Content.TitleScreen
 
             // TODO this shouldn't target an entity?
             var evCleanedUp = new GameCleanedUpEventArgs();
-            _entityManager.EventBus.RaiseLocalEvent(_gameSessionManager.Player, evCleanedUp);
+            _entityManager.EventBus.RaiseEvent(_gameSessionManager.Player, evCleanedUp);
         }
     }
 

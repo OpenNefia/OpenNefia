@@ -23,9 +23,9 @@ namespace OpenNefia.Content.GameObjects
 
         public override void Initialize()
         {
-            SubscribeLocalEvent<StairsComponent, GetVerbsEventArgs>(HandleGetVerbs);
-            SubscribeLocalEvent<ExecuteVerbEventArgs>(HandleExecuteVerb);
-            SubscribeLocalEvent<StairsComponent, UseStairsEventArgs>(HandleUseStairs);
+            SubscribeComponent<StairsComponent, GetVerbsEventArgs>(HandleGetVerbs);
+            SubscribeBroadcast<ExecuteVerbEventArgs>(HandleExecuteVerb);
+            SubscribeComponent<StairsComponent, UseStairsEventArgs>(HandleUseStairs);
         }
 
         private void HandleGetVerbs(EntityUid uid, StairsComponent component, GetVerbsEventArgs args)

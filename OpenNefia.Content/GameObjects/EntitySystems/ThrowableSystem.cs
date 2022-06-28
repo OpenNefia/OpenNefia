@@ -25,11 +25,11 @@ namespace OpenNefia.Content.GameObjects
 
         public override void Initialize()
         {
-            SubscribeLocalEvent<ThrowableComponent, GetVerbsEventArgs>(HandleGetVerbs);
-            SubscribeLocalEvent<ExecuteVerbEventArgs>(HandleExecuteVerb);
-            SubscribeLocalEvent<ChipComponent, EntityThrownEventArgs>(ShowThrownChipRenderable, priority: EventPriorities.VeryHigh);
-            SubscribeLocalEvent<ThrowableComponent, EntityThrownEventArgs>(HandleEntityThrown);
-            SubscribeLocalEvent<CharaComponent, HitByThrownEntityEventArgs>(HandleCharaHitByThrown);
+            SubscribeComponent<ThrowableComponent, GetVerbsEventArgs>(HandleGetVerbs);
+            SubscribeBroadcast<ExecuteVerbEventArgs>(HandleExecuteVerb);
+            SubscribeComponent<ChipComponent, EntityThrownEventArgs>(ShowThrownChipRenderable, priority: EventPriorities.VeryHigh);
+            SubscribeComponent<ThrowableComponent, EntityThrownEventArgs>(HandleEntityThrown);
+            SubscribeComponent<CharaComponent, HitByThrownEntityEventArgs>(HandleCharaHitByThrown);
         }
 
         private void HandleCharaHitByThrown(EntityUid uid, CharaComponent component, HitByThrownEntityEventArgs args)

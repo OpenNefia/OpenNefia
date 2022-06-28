@@ -204,7 +204,7 @@ namespace OpenNefia.Core.Areas
             }
 
             var ev = new AreaGeneratedEvent(area);
-            _entityManager.EventBus.RaiseLocalEvent(area.AreaEntityUid, ev);
+            _entityManager.EventBus.RaiseEvent(area.AreaEntityUid, ev);
 
             return area;
         }

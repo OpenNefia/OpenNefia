@@ -17,7 +17,7 @@ namespace OpenNefia.Content.DisplayName
         {
             base.Initialize();
 
-            SubscribeLocalEvent<ItemComponent, GetItemNameEvent>(BasicName, priority: EventPriorities.VeryHigh);
+            SubscribeComponent<ItemComponent, GetItemNameEvent>(BasicName, priority: EventPriorities.VeryHigh);
         }
 
         public void BasicName(EntityUid uid, ItemComponent component, ref GetItemNameEvent args)
