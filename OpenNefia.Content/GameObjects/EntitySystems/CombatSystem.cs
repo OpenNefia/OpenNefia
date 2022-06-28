@@ -106,7 +106,7 @@ namespace OpenNefia.Content.GameObjects
         public TurnResult? MeleeAttack(EntityUid attacker, EntityUid target)
         {
             var ev = new GetMeleeWeaponsEvent();
-            RaiseLocalEvent(attacker, ev);
+            RaiseEvent(attacker, ev);
 
             if (ev.Weapons.Count > 0)
             {
@@ -156,7 +156,7 @@ namespace OpenNefia.Content.GameObjects
                 Weapon = weapon,
                 AttackCount = attackCount
             };
-            RaiseLocalEvent(attacker, ev);
+            RaiseEvent(attacker, ev);
         }
     }
 

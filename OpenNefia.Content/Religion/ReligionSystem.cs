@@ -279,7 +279,7 @@ namespace OpenNefia.Content.Religion
             if (religion.GodID != null)
             {
                 var ev = new OnLeaveFaithEvent(religion.GodID.Value);
-                RaiseLocalEvent(target, ev);
+                RaiseEvent(target, ev);
             }
 
             religion.GodID = newGodID;
@@ -296,7 +296,7 @@ namespace OpenNefia.Content.Religion
                 GodSays(newGodID.Value, "Elona.GodStartBelievingIn");
 
                 var ev = new OnJoinFaithEvent(newGodID.Value);
-                RaiseLocalEvent(target, ev);
+                RaiseEvent(target, ev);
             }
 
             _refresh.Refresh(target);
@@ -456,7 +456,7 @@ namespace OpenNefia.Content.Religion
         public int CalculateItemPietyValue(EntityUid item)
         {
             var ev = new CalculateItemPietyValueEvent(item);
-            RaiseLocalEvent(item, ev);
+            RaiseEvent(item, ev);
             return ev.ResultPietyValue;
         }
 

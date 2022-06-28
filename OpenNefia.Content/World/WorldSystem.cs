@@ -94,22 +94,22 @@ namespace OpenNefia.Content.World
                 if (hoursPassed > 0)
                 {
                     var ev = new MapOnHoursPassedEvent(hoursPassed);
-                    RaiseLocalEvent(map.MapEntityUid, ref ev);
+                    RaiseEvent(map.MapEntityUid, ref ev);
                 }
                 if (daysPassed > 0)
                 {
                     var ev = new MapOnDaysPassedEvent(daysPassed);
-                    RaiseLocalEvent(map.MapEntityUid, ref ev);
+                    RaiseEvent(map.MapEntityUid, ref ev);
                 }
                 if (monthsPassed > 0)
                 {
                     var ev = new MapOnMonthsPassedEvent(monthsPassed);
-                    RaiseLocalEvent(map.MapEntityUid, ref ev);
+                    RaiseEvent(map.MapEntityUid, ref ev);
                 }
                 if (yearsPassed > 0)
                 {
                     var ev = new MapOnYearsPassedEvent(yearsPassed);
-                    RaiseLocalEvent(map.MapEntityUid, ref ev);
+                    RaiseEvent(map.MapEntityUid, ref ev);
                 }
             }
         }

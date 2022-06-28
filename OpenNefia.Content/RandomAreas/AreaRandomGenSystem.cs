@@ -90,7 +90,7 @@ namespace OpenNefia.Content.RandomAreas
                 if (mapCoords != null)
                 {
                     var ev = new GenerateRandomAreaEvent(mapCoords.Value);
-                    RaiseLocalEvent(map.MapEntityUid, ev);
+                    RaiseEvent(map.MapEntityUid, ev);
                     if (ev.ResultArea != null)
                     {
                         _areaEntrances.CreateAreaEntrance(ev.ResultArea, ev.RandomAreaCoords);
@@ -216,7 +216,7 @@ namespace OpenNefia.Content.RandomAreas
         {
             var ev = new RandomAreaCheckIsActiveEvent();
             ev.IsActive = false;
-            RaiseLocalEvent(area.AreaEntityUid, ev);
+            RaiseEvent(area.AreaEntityUid, ev);
             return ev.IsActive;
         }
 

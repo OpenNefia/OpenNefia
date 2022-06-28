@@ -25,7 +25,7 @@ namespace OpenNefia.Content.Factions
         public Relation GetRelationTowards(EntityUid us, EntityUid them)
         {
             var ev = new CalculateRelationEventArgs(them);
-            RaiseLocalEvent(us, ref ev);
+            RaiseEvent(us, ref ev);
             return ev.Relation;
         }
 

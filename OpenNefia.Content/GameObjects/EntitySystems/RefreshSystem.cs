@@ -22,7 +22,7 @@ namespace OpenNefia.Content.GameObjects
         public void Refresh(EntityUid entity)
         {
             var ev = new EntityRefreshEvent();
-            RaiseLocalEvent(entity, ref ev);
+            RaiseEvent(entity, ref ev);
         }
 
         private void OnMapInit(EntityUid uid, MetaDataComponent component, ref EntityMapInitEvent args)

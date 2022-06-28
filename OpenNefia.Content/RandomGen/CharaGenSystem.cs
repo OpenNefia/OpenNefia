@@ -176,7 +176,7 @@ namespace OpenNefia.Content.RandomGen
         public CharaFilter GenerateCharaFilter(IMap map)
         {
             var ev = new GetCharaFilterEvent(map);
-            RaiseLocalEvent(map.MapEntityUid, ref ev);
+            RaiseEvent(map.MapEntityUid, ref ev);
             return ev.CharaFilter;
         }
 

@@ -160,7 +160,7 @@ namespace OpenNefia.Content.Nefia
                 return;
 
             var ev = new NefiaFloorGenerateEvent(args.Area, args.FloorId, args.PreviousCoords);
-            RaiseLocalEvent(uid, ev);
+            RaiseEvent(uid, ev);
 
             if (ev.Handled)
             {

@@ -71,7 +71,7 @@ namespace OpenNefia.Content.GameObjects.EntitySystems
         public void GetItemDescription(EntityUid entity, IList<ItemDescriptionEntry> entries)
         {
             var ev = new GetItemDescriptionEventArgs(entries);
-            RaiseLocalEvent(entity, ev);
+            RaiseEvent(entity, ev);
          
             if (entries.Count == 0)
             {

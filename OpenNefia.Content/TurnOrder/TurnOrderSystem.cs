@@ -434,7 +434,7 @@ namespace OpenNefia.Content.TurnOrder
             _field.RefreshScreen();
 
             var ev = new PlayerTurnStartedEvent();
-            RaiseLocalEvent(turnOrder.Owner, ref ev);
+            RaiseEvent(turnOrder.Owner, ref ev);
             if (ev.Handled)
             {
                 return ev.TurnResult.ToTurnOrderState();
@@ -447,7 +447,7 @@ namespace OpenNefia.Content.TurnOrder
         private TurnOrderState HandleNPCTurn(TurnOrderComponent turnOrder)
         {
             var ev = new NPCTurnStartedEvent();
-            RaiseLocalEvent(turnOrder.Owner, ref ev);
+            RaiseEvent(turnOrder.Owner, ref ev);
             return ev.TurnResult.ToTurnOrderState();
         }
 
@@ -459,7 +459,7 @@ namespace OpenNefia.Content.TurnOrder
             }
 
             var ev = new EntityTurnEndingEventArgs();
-            RaiseLocalEvent(_activeEntity.Owner, ev);
+            RaiseEvent(_activeEntity.Owner, ev);
 
             return TurnOrderState.PassTurns;
         }
@@ -470,7 +470,7 @@ namespace OpenNefia.Content.TurnOrder
             _field.RefreshScreen();
 
             var ev = new PlayerDiedEventArgs();
-            RaiseLocalEvent(_gameSession.Player, ev);
+            RaiseEvent(_gameSession.Player, ev);
             if (ev.Handled) 
             {
                 return ev.TurnResult.ToTurnOrderState();

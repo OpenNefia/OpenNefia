@@ -29,7 +29,7 @@ namespace OpenNefia.Content.GameObjects
             foreach (var steppedSpatial in _lookup.GetLiveEntitiesAtCoords(spatial.MapPosition).ToList())
             {
                 var ev = new EntitySteppedOnEvent(stepper, spatial.MapPosition);
-                RaiseLocalEvent(steppedSpatial.Owner, ev);
+                RaiseEvent(steppedSpatial.Owner, ev);
 
                 if (!EntityManager.IsAlive(stepper))
                     break;

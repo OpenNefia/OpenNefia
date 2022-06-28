@@ -16,7 +16,7 @@ namespace OpenNefia.Core.GameObjects
         public bool Raise<T>(EntityUid uid, T args)
             where T : HandledEntityEventArgs
         {
-            RaiseLocalEvent(uid, args);
+            RaiseEvent(uid, args);
             return args.Handled || !EntityManager.IsAlive(uid);
         }
 
@@ -24,7 +24,7 @@ namespace OpenNefia.Core.GameObjects
             where T1 : TurnResultEntityEventArgs
             where T2 : TurnResultEntityEventArgs
         {
-            RaiseLocalEvent(uid, args);
+            RaiseEvent(uid, args);
             
             if (args.Handled || !EntityManager.IsAlive(uid))
             {

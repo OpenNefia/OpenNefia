@@ -184,11 +184,11 @@ namespace OpenNefia.Content.Maps
             UpdateQuests(map);
 
             var ev = new MapInitializeEvent(map, loadType);
-            RaiseLocalEvent(map.MapEntityUid, ev);
+            RaiseEvent(map.MapEntityUid, ev);
             if (_areaManager.TryGetAreaOfMap(map.Id, out var area))
             {
                 var areaEv = new AreaMapInitializeEvent(map, loadType);
-                RaiseLocalEvent(area.AreaEntityUid, areaEv);
+                RaiseEvent(area.AreaEntityUid, areaEv);
             }
         }
 
@@ -256,7 +256,7 @@ namespace OpenNefia.Content.Maps
             }
 
             var ev = new MapRenewMajorEvent(isFirstRenewal);
-            RaiseLocalEvent(map.MapEntityUid, ev);
+            RaiseEvent(map.MapEntityUid, ev);
         }
 
         private void RenewMinor(IMap map, MapCommonComponent common)
@@ -281,7 +281,7 @@ namespace OpenNefia.Content.Maps
             Logger.InfoS("map.renew", $"Running minor renewal for map {map}. ({renewSteps} steps)");
 
             var ev = new MapRenewMinorEvent(renewSteps);
-            RaiseLocalEvent(map.MapEntityUid, ev);
+            RaiseEvent(map.MapEntityUid, ev);
         }
 
         private void RecalculateMaxCharas(IMap map)
@@ -412,11 +412,11 @@ namespace OpenNefia.Content.Maps
             RevealFog(map);
 
             var ev = new MapEnterEvent(map, loadType);
-            RaiseLocalEvent(map.MapEntityUid, ev);
+            RaiseEvent(map.MapEntityUid, ev);
             if (_areaManager.TryGetAreaOfMap(map.Id, out var area))
             {
                 var areaEv = new AreaMapEnterEvent(map, loadType);
-                RaiseLocalEvent(area.AreaEntityUid, areaEv);
+                RaiseEvent(area.AreaEntityUid, areaEv);
             }
 
             UpdateDeepestFloor(map);

@@ -73,7 +73,7 @@ namespace OpenNefia.Content.Equipment
                     if (EntityManager.IsAlive(equipment))
                     {
                         var ev = new ApplyEquipmentToEquipperEvent(equipper);
-                        RaiseLocalEvent(equipment.Value, ref ev);
+                        RaiseEvent(equipment.Value, ref ev);
                     }
                 }
             }

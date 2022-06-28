@@ -39,7 +39,7 @@ namespace OpenNefia.Content.DisplayName
         public string GetBaseName(EntityUid uid)
         {
             var ev = new GetBaseNameEventArgs();
-            RaiseLocalEvent(uid, ref ev);
+            RaiseEvent(uid, ref ev);
             return ev.BaseName;
         }
 
@@ -47,7 +47,7 @@ namespace OpenNefia.Content.DisplayName
         {
             var baseName = GetBaseName(uid);
             var ev = new GetDisplayNameEventArgs() { Name = baseName };
-            RaiseLocalEvent(uid, ref ev);
+            RaiseEvent(uid, ref ev);
             return ev.Name;
         }
     }
