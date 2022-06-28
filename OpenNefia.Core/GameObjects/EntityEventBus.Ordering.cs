@@ -18,7 +18,7 @@ namespace OpenNefia.Core.GameObjects
             foreach (var handler in subs)
             {
                 if (handler.ReferenceEvent != byRef)
-                    ThrowByRefMisMatch();
+                    ThrowByRefMisMatch(handler.ReferenceEvent);
 
                 found.Add((new(handler.Handler, null), handler.Ordering));
             }
