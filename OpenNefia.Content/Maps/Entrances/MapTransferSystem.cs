@@ -31,9 +31,9 @@ namespace OpenNefia.Content.Maps
         
         public override void Initialize()
         {
-            SubscribeLocalEvent<PlayerComponent, ExitingMapFromEdgesEventArgs>(HandleExitMapFromEdges, nameof(HandleExitMapFromEdges));
-            SubscribeLocalEvent<MapComponent, ActiveMapChangedEvent>(HandleActiveMapChanged, nameof(HandleActiveMapChanged));
-            SubscribeLocalEvent<MapComponent, MapLeaveEventArgs>(HandleLeaveMap, nameof(HandleLeaveMap));
+            SubscribeLocalEvent<PlayerComponent, ExitingMapFromEdgesEventArgs>(HandleExitMapFromEdges, priority: EventPriorities.Low);
+            SubscribeLocalEvent<MapComponent, ActiveMapChangedEvent>(HandleActiveMapChanged, priority: EventPriorities.VeryHigh);
+            SubscribeLocalEvent<MapComponent, MapLeaveEventArgs>(HandleLeaveMap, priority: EventPriorities.VeryHigh);
         }
 
         public void DoMapTransfer(SpatialComponent spatial, IMap map, EntityCoordinates newCoords, MapLoadType loadType)

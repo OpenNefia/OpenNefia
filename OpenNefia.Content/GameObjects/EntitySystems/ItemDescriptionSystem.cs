@@ -14,8 +14,8 @@ namespace OpenNefia.Content.GameObjects.EntitySystems
     {
         public override void Initialize()
         {
-            SubscribeLocalEvent<ItemComponent, GetItemDescriptionEventArgs>(GetDescItem, nameof(GetDescItem));
-            SubscribeLocalEvent<ItemDescriptionComponent, GetItemDescriptionEventArgs>(GetDescItemDesc, nameof(GetDescItemDesc));
+            SubscribeLocalEvent<ItemComponent, GetItemDescriptionEventArgs>(GetDescItem, priority: EventPriorities.VeryHigh);
+            SubscribeLocalEvent<ItemDescriptionComponent, GetItemDescriptionEventArgs>(GetDescItemDesc, priority: EventPriorities.VeryHigh);
         }
 
         private void GetDescItem(EntityUid uid, ItemComponent item, GetItemDescriptionEventArgs args)

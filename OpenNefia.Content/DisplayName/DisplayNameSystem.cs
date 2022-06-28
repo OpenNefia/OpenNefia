@@ -12,13 +12,11 @@ namespace OpenNefia.Content.DisplayName
 
     public class DisplayNameSystem : EntitySystem, IDisplayNameSystem
     {
-        public static readonly SubId HandlerGetDefaultBaseName = new(typeof(DisplayNameSystem), nameof(GetDefaultBaseName));
-
         public override void Initialize()
         {
             base.Initialize();
 
-            SubscribeLocalEvent<MetaDataComponent, GetBaseNameEventArgs>(GetDefaultBaseName, nameof(GetDefaultBaseName));
+            SubscribeLocalEvent<MetaDataComponent, GetBaseNameEventArgs>(GetDefaultBaseName, priority: EventPriorities.Highest);
         }
 
         private string GetFallbackName(EntityUid uid)

@@ -31,7 +31,7 @@ namespace OpenNefia.Content.CharaMake
 
         public override void Initialize()
         {
-            SubscribeLocalEvent<PlayerComponent, NewPlayerIncarnatedEvent>(HandleNewPlayerIncarnated, nameof(HandleNewPlayerIncarnated));
+            SubscribeLocalEvent<PlayerComponent, NewPlayerIncarnatedEvent>(HandleNewPlayerIncarnated);
         }
 
         private void HandleNewPlayerIncarnated(EntityUid uid, PlayerComponent player, NewPlayerIncarnatedEvent args)

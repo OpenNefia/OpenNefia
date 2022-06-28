@@ -23,15 +23,13 @@ namespace OpenNefia.Content.Arena
 
     public sealed class AreaArenaSystem : EntitySystem, IAreaArenaSystem
     {
-        [Dependency] private readonly IMapManager _mapManager = default!;
         [Dependency] private readonly IAreaManager _areaManager = default!;
         [Dependency] private readonly IRandom _rand = default!;
-        [Dependency] private readonly IMessagesManager _mes = default!;
         [Dependency] private readonly IWorldSystem _world = default!;
 
         public override void Initialize()
         {
-            SubscribeLocalEvent<AreaArenaComponent, AreaMapInitializeEvent>(CheckArenaRenew, nameof(CheckArenaRenew));
+            SubscribeLocalEvent<AreaArenaComponent, AreaMapInitializeEvent>(CheckArenaRenew);
         }
 
         private void CheckArenaRenew(EntityUid uid, AreaArenaComponent component, AreaMapInitializeEvent args)

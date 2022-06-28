@@ -26,7 +26,7 @@ namespace OpenNefia.Content.WorldMap
 
         public override void Initialize()
         {
-            SubscribeLocalEvent<MapEnterEvent>(CheckCloudLayer, nameof(CheckCloudLayer));
+            SubscribeLocalEvent<MapEnterEvent>(CheckCloudLayer);
         }
 
         private void CheckCloudLayer(MapEnterEvent ev)

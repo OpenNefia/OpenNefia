@@ -38,8 +38,7 @@ namespace OpenNefia.Content.Resists
 
         public override void Initialize()
         {
-            SubscribeLocalEvent<ResistsComponent, EntityRefreshEvent>(HandleRefresh, nameof(HandleRefresh),
-                before: new[] { new SubId(typeof(EquipmentSystem), "HandleRefresh") });
+            SubscribeLocalEvent<ResistsComponent, EntityRefreshEvent>(HandleRefresh, priority: EventPriorities.VeryHigh);
         }
 
         private void HandleRefresh(EntityUid uid, ResistsComponent resists, ref EntityRefreshEvent args)

@@ -44,7 +44,7 @@ namespace OpenNefia.Content.VanillaAI
 
         public override void Initialize()
         {
-            SubscribeLocalEvent<VanillaAIComponent, NPCTurnStartedEvent>(HandleNPCTurnStarted, nameof(HandleNPCTurnStarted));
+            SubscribeLocalEvent<VanillaAIComponent, NPCTurnStartedEvent>(HandleNPCTurnStarted, priority: EventPriorities.VeryLow);
             SubscribeAIActions();
         }
 

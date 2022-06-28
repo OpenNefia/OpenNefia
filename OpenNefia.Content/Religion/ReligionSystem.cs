@@ -76,10 +76,10 @@ namespace OpenNefia.Content.Religion
 
         public override void Initialize()
         {
-            SubscribeLocalEvent<ReligionComponent, OnJoinFaithEvent>(OnJoinFaith, nameof(OnJoinFaith));
-            SubscribeLocalEvent<ReligionComponent, OnLeaveFaithEvent>(OnLeaveFaith, nameof(OnLeaveFaith));
-            SubscribeLocalEvent<ReligionComponent, EntityBeingGeneratedEvent>(SetRandomGod, nameof(SetRandomGod));
-            SubscribeLocalEvent<ReligionComponent, EntityRefreshEvent>(ApplyBlessings, nameof(ApplyBlessings));
+            SubscribeLocalEvent<ReligionComponent, OnJoinFaithEvent>(OnJoinFaith);
+            SubscribeLocalEvent<ReligionComponent, OnLeaveFaithEvent>(OnLeaveFaith);
+            SubscribeLocalEvent<ReligionComponent, EntityBeingGeneratedEvent>(SetRandomGod);
+            SubscribeLocalEvent<ReligionComponent, EntityRefreshEvent>(ApplyBlessings);
         }
 
         private void SetRandomGod(EntityUid uid, ReligionComponent component, ref EntityBeingGeneratedEvent args)

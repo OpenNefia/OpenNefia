@@ -7,26 +7,10 @@ namespace OpenNefia.Core.GameObjects
 {
     internal partial class EntityEventBus
     {
-        // TODO: Topological sort is currently done every time an event is emitted.
-        // This should be fine for low-volume stuff like interactions, but definitely not for anything high volume.
-        // Not sure if we could pre-cache the topological sort, here.
-
-        // Ordered event raising is slow so if this event has any ordering dependencies we use a slower path.
-        private readonly HashSet<Type> _orderedEvents = new();
-
-        private void ProcessSingleEventOrdered(EventSource source, ref Unit eventArgs, Type eventType, bool byRef)
-        {
-            var found = new List<(RefEventHandler, OrderingData?)>();
-
-            CollectBroadcastOrdered(source, eventType, found, byRef);
-
-            DispatchOrderedEvents(ref eventArgs, found);
-        }
-
         private void CollectBroadcastOrdered(
             EventSource source,
             Type eventType,
-            List<(RefEventHandler, OrderingData?)> found,
+            List<(HandlerAndCompType, OrderingData)> found,
             bool byRef)
         {
             if (!_eventSubscriptions.TryGetValue(eventType, out var subs))
@@ -38,59 +22,19 @@ namespace OpenNefia.Core.GameObjects
                     ThrowByRefMisMatch();
 
                 if ((handler.Mask & source) != 0)
-                    found.Add((handler.Handler, handler.Ordering));
+                    found.Add((new(handler.Handler, null), handler.Ordering));
             }
         }
 
-        private void RaiseLocalOrdered(EntityUid uid,
-            Type eventType,
-            ref Unit unitRef,
-            bool broadcast, 
-            bool byRef)
+        private sealed record OrderingData(long Priority, int InsertionIndex) : IComparable<OrderingData>
         {
-            var found = new List<(RefEventHandler, OrderingData?)>();
-
-            if (broadcast)
-                CollectBroadcastOrdered(EventSource.Local, eventType, found, byRef);
-
-            _eventTables.CollectOrdered(uid, eventType, found, byRef);
-
-            DispatchOrderedEvents(ref unitRef, found);
-        }
-
-        private static void DispatchOrderedEvents(ref Unit eventArgs, List<(RefEventHandler, OrderingData?)> found)
-        {
-            var nodes = TopologicalSort.FromBeforeAfter(
-                found.Where(f => f.Item2 != null),
-                n => n.Item2!.OrderIdent,
-                n => n.Item1!,
-                n => n.Item2!.Before ?? Array.Empty<SubId>(),
-                n => n.Item2!.After ?? Array.Empty<SubId>(),
-                allowMissing: true);
-
-            foreach (var handler in TopologicalSort.Sort(nodes))
+            public int CompareTo(OrderingData? other)
             {
-                handler(ref eventArgs);
-            }
+                if (Priority == other?.Priority)
+                    return InsertionIndex.CompareTo(other?.InsertionIndex);
 
-            // Go over all handlers that don't have ordering so weren't included in the sort.
-            foreach (var (handler, orderData) in found)
-            {
-                if (orderData == null)
-                    handler(ref eventArgs);
+                return Priority.CompareTo(other?.Priority);
             }
         }
-
-        private void HandleOrderRegistration(Type eventType, OrderingData? data)
-        {
-            if (data == null)
-                return;
-
-            if (data.Before != null || data.After != null)
-                _orderedEvents.Add(eventType);
-        }
-
-        private sealed record OrderingData(SubId OrderIdent, SubId[]? Before, SubId[]? After);
-
     }
 }

@@ -14,9 +14,9 @@ namespace OpenNefia.Core.Areas
 
             _areaManager.OnActiveAreaChanged += OnActiveAreaChanged;
 
-            SubscribeLocalEvent<AreaComponent, ComponentAdd>(OnAreaAdd, nameof(OnAreaAdd));
-            SubscribeLocalEvent<AreaComponent, ComponentInit>(OnAreaInit, nameof(OnAreaInit));
-            SubscribeLocalEvent<AreaComponent, ComponentStartup>(OnAreaStartup, nameof(OnAreaStartup));
+            SubscribeLocalEvent<AreaComponent, ComponentAdd>(OnAreaAdd);
+            SubscribeLocalEvent<AreaComponent, ComponentInit>(OnAreaInit);
+            SubscribeLocalEvent<AreaComponent, ComponentStartup>(OnAreaStartup);
         }
 
         private void OnActiveAreaChanged(IArea? newArea, IArea? oldArea)

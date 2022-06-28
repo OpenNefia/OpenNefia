@@ -22,9 +22,9 @@ namespace OpenNefia.Content.GameObjects
 
         public override void Initialize()
         {
-            SubscribeLocalEvent<MoveableComponent, BeforeMoveEventArgs>(HandleBeforeMove, nameof(HandleBeforeMove));
-            SubscribeLocalEvent<PlayerComponent, BeforeMoveEventArgs>(HandleBeforeMovePlayer, nameof(HandleBeforeMovePlayer));
-            SubscribeLocalEvent<PlayerComponent, AfterMoveEventArgs>(HandleAfterMovePlayer, nameof(HandleAfterMovePlayer));
+            SubscribeLocalEvent<MoveableComponent, BeforeMoveEventArgs>(HandleBeforeMove, priority: EventPriorities.High);
+            SubscribeLocalEvent<PlayerComponent, BeforeMoveEventArgs>(HandleBeforeMovePlayer, priority: EventPriorities.High);
+            SubscribeLocalEvent<PlayerComponent, AfterMoveEventArgs>(HandleAfterMovePlayer, priority: EventPriorities.High);
         }
 
         private void HandleBeforeMovePlayer(EntityUid uid, PlayerComponent player, BeforeMoveEventArgs args)

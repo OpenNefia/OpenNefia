@@ -102,12 +102,11 @@ namespace OpenNefia.Content.Tests.Areas
         {
             [Dependency] private readonly IMapManager _mapManager = default!;
             [Dependency] private readonly IAreaManager _areaManager = default!;
-            [Dependency] private readonly IAreaEntranceSystem _areaEntrances = default!;
 
             public override void Initialize()
             {
-                SubscribeLocalEvent<TestRandomAreaComponent, RandomAreaCheckIsActiveEvent>(HandleIsActive, nameof(HandleIsActive));
-                SubscribeLocalEvent<GenerateRandomAreaEvent>(GenerateRandomArea, nameof(GenerateRandomArea));
+                SubscribeLocalEvent<TestRandomAreaComponent, RandomAreaCheckIsActiveEvent>(HandleIsActive);
+                SubscribeLocalEvent<GenerateRandomAreaEvent>(GenerateRandomArea);
             }
 
             private void HandleIsActive(EntityUid uid, TestRandomAreaComponent component, RandomAreaCheckIsActiveEvent args)

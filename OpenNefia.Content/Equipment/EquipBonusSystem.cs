@@ -13,8 +13,8 @@ namespace OpenNefia.Content.Equipment
     {
         public override void Initialize()
         {
-            SubscribeLocalEvent<EquipBonusComponent, EntityRefreshEvent>(OnRefresh, nameof(OnRefresh));
-            SubscribeLocalEvent<EquipBonusComponent, ApplyEquipmentToEquipperEvent>(OnApplyToEquipper, nameof(OnApplyToEquipper));
+            SubscribeLocalEvent<EquipBonusComponent, EntityRefreshEvent>(OnRefresh, priority: EventPriorities.High);
+            SubscribeLocalEvent<EquipBonusComponent, ApplyEquipmentToEquipperEvent>(OnApplyToEquipper, priority: EventPriorities.High);
         }
 
         private void OnRefresh(EntityUid uid, EquipBonusComponent equipBonus, ref EntityRefreshEvent args)

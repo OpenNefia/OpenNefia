@@ -17,9 +17,9 @@ namespace OpenNefia.Content.Maps
 
         public override void Initialize()
         {
-            SubscribeLocalEvent<WorldMapEntranceComponent, GetVerbsEventArgs>(HandleGetVerbs, nameof(HandleGetVerbs));
-            SubscribeLocalEvent<ExecuteVerbEventArgs>(HandleExecuteVerb, nameof(HandleExecuteVerb));
-            SubscribeLocalEvent<WorldMapEntranceComponent, UseWorldMapEntranceEvent>(HandleUseWorldMapEntrance, nameof(HandleUseWorldMapEntrance));
+            SubscribeLocalEvent<WorldMapEntranceComponent, GetVerbsEventArgs>(HandleGetVerbs);
+            SubscribeLocalEvent<ExecuteVerbEventArgs>(HandleExecuteVerb);
+            SubscribeLocalEvent<WorldMapEntranceComponent, UseWorldMapEntranceEvent>(HandleUseWorldMapEntrance);
         }
 
         private void HandleGetVerbs(EntityUid uid, WorldMapEntranceComponent component, GetVerbsEventArgs args)

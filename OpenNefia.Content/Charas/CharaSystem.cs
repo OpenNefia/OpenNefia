@@ -49,8 +49,7 @@ namespace OpenNefia.Content.Charas
 
         public override void Initialize()
         {
-            SubscribeLocalEvent<CharaComponent, EntityGeneratedEvent>(HandleGenerated, nameof(HandleGenerated),
-                before: new[] { new SubId(typeof(SkillsSystem), "HandleGenerated") });
+            SubscribeLocalEvent<CharaComponent, EntityGeneratedEvent>(HandleGenerated, priority: EventPriorities.Highest);
         }
 
         private void HandleGenerated(EntityUid uid, CharaComponent chara, ref EntityGeneratedEvent args)

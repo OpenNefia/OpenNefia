@@ -26,8 +26,8 @@ namespace OpenNefia.Content.GameObjects
         {
             base.Initialize();
 
-            SubscribeLocalEvent<CharaComponent, ImpregnateEvent>(HandleImpregnate, nameof(HandleImpregnate));
-            SubscribeLocalEvent<PregnantComponent, TurnStartEvent>(DoAlienBirth, nameof(DoAlienBirth));
+            SubscribeLocalEvent<CharaComponent, ImpregnateEvent>(HandleImpregnate);
+            SubscribeLocalEvent<PregnantComponent, TurnStartEvent>(DoAlienBirth);
         }
 
         public void HandleImpregnate(EntityUid uid, CharaComponent component, ImpregnateEvent args)

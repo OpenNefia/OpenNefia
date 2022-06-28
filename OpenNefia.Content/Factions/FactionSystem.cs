@@ -18,7 +18,7 @@ namespace OpenNefia.Content.Factions
 
         public override void Initialize()
         {
-            SubscribeLocalEvent<FactionComponent, CalculateRelationEventArgs>(HandleCalculateRelation, nameof(HandleCalculateRelation));
+            SubscribeLocalEvent<FactionComponent, CalculateRelationEventArgs>(HandleCalculateRelation, priority: EventPriorities.VeryHigh);
         }
 
         /// <inheritdoc/>
