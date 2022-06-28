@@ -21,8 +21,8 @@ namespace OpenNefia.Content.GameObjects
 
         public override void Initialize()
         {
-            SubscribeLocalEvent<WorldMapFieldsComponent, GetVerbsEventArgs>(HandleGetVerbs, nameof(HandleGetVerbs));
-            SubscribeLocalEvent<ExecuteVerbEventArgs>(HandleExecuteVerb, nameof(HandleExecuteVerb));
+            SubscribeLocalEvent<WorldMapFieldsComponent, GetVerbsEventArgs>(HandleGetVerbs);
+            SubscribeLocalEvent<ExecuteVerbEventArgs>(HandleExecuteVerb);
         }
 
         private void HandleGetVerbs(EntityUid uid, WorldMapFieldsComponent component, GetVerbsEventArgs args)

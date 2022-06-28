@@ -16,7 +16,7 @@ namespace OpenNefia.Content.GameObjects
     {
         public override void Initialize()
         {
-            SubscribeLocalEvent<MetaDataComponent, EntityMapInitEvent>(OnMapInit, nameof(OnMapInit));
+            SubscribeLocalEvent<MetaDataComponent, EntityMapInitEvent>(OnMapInit, priority: EventPriorities.VeryLow);
         }
 
         public void Refresh(EntityUid entity)

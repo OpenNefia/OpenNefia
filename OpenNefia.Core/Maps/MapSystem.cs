@@ -14,9 +14,9 @@ namespace OpenNefia.Core.Maps
 
             _mapManager.OnActiveMapChanged += OnActiveMapChanged;
 
-            SubscribeLocalEvent<MapComponent, ComponentAdd>(OnMapAdd, nameof(OnMapAdd));
-            SubscribeLocalEvent<MapComponent, ComponentInit>(OnMapInit, nameof(OnMapInit));
-            SubscribeLocalEvent<MapComponent, ComponentStartup>(OnMapStartup, nameof(OnMapStartup));
+            SubscribeLocalEvent<MapComponent, ComponentAdd>(OnMapAdd);
+            SubscribeLocalEvent<MapComponent, ComponentInit>(OnMapInit);
+            SubscribeLocalEvent<MapComponent, ComponentStartup>(OnMapStartup);
         }
 
         private void OnActiveMapChanged(IMap map, IMap? oldMap, MapLoadType loadType)

@@ -50,10 +50,10 @@ namespace OpenNefia.Content.Nefia
 
         public override void Initialize()
         {
-            SubscribeLocalEvent<NefiaVanillaComponent, NefiaFloorGenerateEvent>(OnNefiaFloorGenerate, nameof(OnNefiaFloorGenerate));
-            SubscribeLocalEvent<NefiaVanillaComponent, GenerateNefiaFloorParamsEvent>(SetupBaseParams, nameof(SetupBaseParams));
-            SubscribeLocalEvent<NefiaVanillaComponent, GenerateNefiaFloorAttemptEvent>(GenerateFloorAttempt, nameof(GenerateFloorAttempt));
-            SubscribeLocalEvent<NefiaVanillaComponent, AfterGenerateNefiaFloorEvent>(FinalizeNefia, nameof(FinalizeNefia));
+            SubscribeLocalEvent<NefiaVanillaComponent, NefiaFloorGenerateEvent>(OnNefiaFloorGenerate, priority: EventPriorities.High);
+            SubscribeLocalEvent<NefiaVanillaComponent, GenerateNefiaFloorParamsEvent>(SetupBaseParams, priority: EventPriorities.VeryHigh);
+            SubscribeLocalEvent<NefiaVanillaComponent, GenerateNefiaFloorAttemptEvent>(GenerateFloorAttempt, priority: EventPriorities.High);
+            SubscribeLocalEvent<NefiaVanillaComponent, AfterGenerateNefiaFloorEvent>(FinalizeNefia, priority: EventPriorities.High);
         }
 
         /// <summary>

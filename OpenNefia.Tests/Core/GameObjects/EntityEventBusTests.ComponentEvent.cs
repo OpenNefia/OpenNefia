@@ -214,13 +214,10 @@ namespace OpenNefia.Tests.Core.GameObjects
 
             void HandlerC(EntityUid uid, Component comp, TestEvent ev) => c = true;
 
-            bus.SubscribeLocalEvent<OrderComponentA, TestEvent>(HandlerA, new SubId(typeof(OrderComponentA), "A"), 
-                before: new []{new SubId(typeof(OrderComponentB), "B"), new SubId(typeof(OrderComponentC), "C")});
-            bus.SubscribeLocalEvent<OrderComponentB, TestEvent>(HandlerB, new SubId(typeof(OrderComponentB), "B"),
-                after: new []{new SubId(typeof(OrderComponentC), "C")});
-            bus.SubscribeLocalEvent<OrderComponentC, TestEvent>(HandlerC, new SubId(typeof(OrderComponentC), "C"));
-            bus.SubscribeLocalEvent<OrderComponentC2, TestEvent>(HandlerC2, new SubId(typeof(OrderComponentC), "C2"),
-                after: new[] {new SubId(typeof(OrderComponentC), "C")});
+            bus.SubscribeLocalEvent<OrderComponentA, TestEvent>(HandlerA, EventPriorities.Highest);
+            bus.SubscribeLocalEvent<OrderComponentB, TestEvent>(HandlerB);
+            bus.SubscribeLocalEvent<OrderComponentC, TestEvent>(HandlerC, EventPriorities.High);
+            bus.SubscribeLocalEvent<OrderComponentC2, TestEvent>(HandlerC2, EventPriorities.Low);
 
             // add a component to the system
             entManMock.Raise(m=>m.EntityAdded += null, entManMock.Object, entUid);
@@ -238,6 +235,107 @@ namespace OpenNefia.Tests.Core.GameObjects
             Assert.That(b, Is.True, "B did not fire");
             Assert.That(c, Is.True, "C did not fire");
             Assert.That(c2, Is.True, "C2 did not fire");
+        }
+
+        [Test]
+        public void CompAndBroadcastEventsOrdered()
+        {
+            // Arrange
+            var entUid = new EntityUid(7);
+
+            var entManMock = new Mock<IEntityManager>();
+            var compFacMock = new Mock<IComponentFactory>();
+
+            void Setup<T>(out T instance) where T : IComponent, new()
+            {
+                IComponent? inst = instance = new T();
+                var reg = new Mock<IComponentRegistration>();
+                reg.Setup(m => m.References).Returns(new Type[] { typeof(T) });
+
+                compFacMock.Setup(m => m.GetRegistration(typeof(T))).Returns(reg.Object);
+                entManMock.Setup(m => m.TryGetComponent(entUid, typeof(T), out inst)).Returns(true);
+                entManMock.Setup(m => m.GetComponent(entUid, typeof(T))).Returns(inst);
+            }
+
+            Setup<OrderComponentA>(out var instA);
+            Setup<OrderComponentB>(out var instB);
+            Setup<OrderComponentC>(out var instC);
+            Setup<OrderComponentC2>(out var instC2);
+
+            entManMock.Setup(m => m.ComponentFactory).Returns(compFacMock.Object);
+            var bus = new EntityEventBus(entManMock.Object);
+
+            // Subscribe
+            var a = false;
+            var broadcast = false;
+            var b = false;
+
+            void HandlerA(EntityUid uid, Component comp, TestEvent ev)
+            {
+                Assert.That(b, Is.False, "A should run before B");
+                Assert.That(broadcast, Is.True, "A should run after broadcast");
+
+                a = true;
+            }
+
+            void HandlerBroadcast(TestEvent ev)
+            {
+                Assert.That(a, Is.False, "Broadcast should run before A");
+                Assert.That(b, Is.False, "Broadcast should run before B");
+                broadcast = true;
+            }
+
+            void HandlerB(EntityUid uid, Component comp, TestEvent ev)
+            {
+                Assert.That(a, Is.True, "B should run after A");
+                Assert.That(broadcast, Is.True, "B should run after broadcast");
+                b = true;
+            }
+
+            var subscriber = new DummyEventSubscriber();
+
+            bus.SubscribeLocalEvent<OrderComponentA, TestEvent>(HandlerA, EventPriorities.High);
+            bus.SubscribeEvent<TestEvent>(EventSource.Local, subscriber, HandlerBroadcast, EventPriorities.VeryHigh);
+            bus.SubscribeLocalEvent<OrderComponentB, TestEvent>(HandlerB, EventPriorities.VeryLow);
+
+            // add a component to the system
+            entManMock.Raise(m => m.EntityAdded += null, entManMock.Object, entUid);
+            entManMock.Raise(m => m.ComponentAdded += null, new AddedComponentEventArgs(instA, entUid));
+            entManMock.Raise(m => m.ComponentAdded += null, new AddedComponentEventArgs(instB, entUid));
+
+            // Raise
+            var evntArgs = new TestEvent(5);
+            bus.RaiseLocalEvent(entUid, evntArgs);
+
+            // Assert
+            Assert.That(a, Is.True, "A did not fire");
+            Assert.That(broadcast, Is.True, "Broadcast did not fire");
+            Assert.That(b, Is.True, "B did not fire");
+        }
+
+        [Test]
+        public void BroadcastEventsOrdered()
+        {
+            // Arrange
+            var entUid = new EntityUid(7);
+
+            var entManMock = new Mock<IEntityManager>();
+
+            var bus = new EntityEventBus(entManMock.Object);
+
+            // Subscribe
+            var broadcast = false;
+
+            var subscriber = new DummyEventSubscriber();
+
+            bus.SubscribeEvent<TestEvent>(EventSource.Local, subscriber, _ => broadcast = true, EventPriorities.VeryHigh);
+
+            // Raise
+            var evntArgs = new TestEvent(5);
+            bus.RaiseLocalEvent(entUid, evntArgs);
+
+            // Assert
+            Assert.That(broadcast, Is.True, "Broadcast did not fire");
         }
 
         private class DummyComponent : Component
@@ -259,11 +357,13 @@ namespace OpenNefia.Tests.Core.GameObjects
         {
             public override string Name => "OrderComponentC";
         }
+        
         private class OrderComponentC2 : Component
         {
             public override string Name => "OrderComponentC2";
         }
 
+        private class DummyEventSubscriber : IEntityEventSubscriber {}
 
         private class TestEvent : EntityEventArgs
         {

@@ -95,7 +95,7 @@ entities:
             {
                 base.Initialize();
 
-                SubscribeLocalEvent<EntityGenTestComponent, EntityGeneratedEvent>(OnGen, "OnGen");
+                SubscribeLocalEvent<EntityGenTestComponent, EntityGeneratedEvent>(OnGen);
             }
 
             private void OnGen(EntityUid uid, EntityGenTestComponent component, ref EntityGeneratedEvent args)

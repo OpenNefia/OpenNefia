@@ -11,11 +11,9 @@ namespace OpenNefia.Content.Maps
 {
     public class MapCommonSystem : EntitySystem
     {
-        [Dependency] private readonly IMapManager _mapManager = default!;
-
         public override void Initialize()
         {
-            SubscribeLocalEvent<MapCreatedEvent>(AddRequiredComponents, nameof(AddRequiredComponents));
+            SubscribeLocalEvent<MapCreatedEvent>(AddRequiredComponents, priority: EventPriorities.Highest);
         }
 
         private void AddRequiredComponents(MapCreatedEvent args)

@@ -16,8 +16,8 @@ namespace OpenNefia.Content.MapVisibility
 
         public override void Initialize()
         {
-            SubscribeLocalEvent<MapCreatedEvent>(HandleMapCreated, nameof(HandleMapCreated));
-            SubscribeLocalEvent<MapVisibilityComponent, RefreshMapVisibilityEvent>(RefreshVisibility, nameof(RefreshVisibility));
+            SubscribeLocalEvent<MapCreatedEvent>(HandleMapCreated, priority: EventPriorities.Highest);
+            SubscribeLocalEvent<MapVisibilityComponent, RefreshMapVisibilityEvent>(RefreshVisibility, priority: EventPriorities.High);
         }
 
         private void HandleMapCreated(MapCreatedEvent ev)

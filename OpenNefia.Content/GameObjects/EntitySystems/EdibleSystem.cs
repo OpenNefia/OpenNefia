@@ -21,10 +21,10 @@ namespace OpenNefia.Content.GameObjects
 
         public override void Initialize()
         {
-            SubscribeLocalEvent<EdibleComponent, GetVerbsEventArgs>(HandleGetVerbs, nameof(HandleGetVerbs));
-            SubscribeLocalEvent<ExecuteVerbEventArgs>(HandleExecuteVerb, nameof(HandleExecuteVerb));
-            SubscribeLocalEvent<EdibleComponent, DoEatEventArgs>(HandleDoEat, nameof(HandleDoEat));
-            SubscribeLocalEvent<EdibleComponent, ThrownEntityImpactedOtherEvent>(HandleImpactOther, nameof(HandleImpactOther));
+            SubscribeLocalEvent<EdibleComponent, GetVerbsEventArgs>(HandleGetVerbs);
+            SubscribeLocalEvent<ExecuteVerbEventArgs>(HandleExecuteVerb);
+            SubscribeLocalEvent<EdibleComponent, DoEatEventArgs>(HandleDoEat);
+            SubscribeLocalEvent<EdibleComponent, ThrownEntityImpactedOtherEvent>(HandleImpactOther);
         }
 
         private void HandleGetVerbs(EntityUid potion, EdibleComponent edibleComp, GetVerbsEventArgs args)

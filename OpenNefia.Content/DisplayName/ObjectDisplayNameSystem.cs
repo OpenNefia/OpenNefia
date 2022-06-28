@@ -12,9 +12,8 @@ namespace OpenNefia.Content.DisplayName
         {
             base.Initialize();
 
-            SubscribeLocalEvent<CharaComponent, GetDisplayNameEventArgs>(GetCharaName, nameof(GetCharaName),
-                after: new [] { QualitySystem.HandlerAddQualityBrackets });
-            SubscribeLocalEvent<ItemComponent, GetDisplayNameEventArgs>(GetItemName, nameof(GetItemName));
+            SubscribeLocalEvent<CharaComponent, GetDisplayNameEventArgs>(GetCharaName, priority: EventPriorities.Highest);
+            SubscribeLocalEvent<ItemComponent, GetDisplayNameEventArgs>(GetItemName, priority: EventPriorities.Highest);
         }
 
         public void GetCharaName(EntityUid uid, CharaComponent component, ref GetDisplayNameEventArgs args)

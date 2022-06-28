@@ -15,7 +15,7 @@ namespace OpenNefia.Content.GameObjects
         [Dependency] private readonly IMessagesManager _mes = default!;
         public override void Initialize()
         {
-            SubscribeLocalEvent<SpatialComponent, EntityStackedEvent>(HandleStacked, nameof(HandleStacked));
+            SubscribeLocalEvent<SpatialComponent, EntityStackedEvent>(HandleStacked);
         }
 
         private void HandleStacked(EntityUid uid, SpatialComponent component, ref EntityStackedEvent args)

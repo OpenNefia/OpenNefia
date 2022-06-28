@@ -44,8 +44,8 @@ namespace OpenNefia.Content.PCCs
 
         public override void Initialize()
         {
-            SubscribeLocalEvent<PCCComponent, ComponentStartup>(OnComponentStartup, nameof(OnComponentStartup));
-            SubscribeLocalEvent<PCCComponent, ComponentShutdown>(OnComponentShutdown, nameof(OnComponentShutdown));
+            SubscribeLocalEvent<PCCComponent, ComponentStartup>(OnComponentStartup);
+            SubscribeLocalEvent<PCCComponent, ComponentShutdown>(OnComponentShutdown);
         }
 
         private void OnComponentStartup(EntityUid uid, PCCComponent pccComp, ComponentStartup args)

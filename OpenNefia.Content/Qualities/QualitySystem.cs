@@ -11,12 +11,9 @@ namespace OpenNefia.Content.Qualities
 {
     public sealed class QualitySystem : EntitySystem
     {
-        public static readonly SubId HandlerAddQualityBrackets = new(typeof(QualitySystem), nameof(AddQualityBrackets));
-
         public override void Initialize()
         {
-            SubscribeLocalEvent<QualityComponent, GetBaseNameEventArgs>(AddQualityBrackets, nameof(AddQualityBrackets),
-                after: new[] { DisplayNameSystem.HandlerGetDefaultBaseName });
+            SubscribeLocalEvent<QualityComponent, GetBaseNameEventArgs>(AddQualityBrackets);
         }
 
         private void AddQualityBrackets(EntityUid uid, QualityComponent quality, ref GetBaseNameEventArgs args)

@@ -30,8 +30,8 @@ namespace OpenNefia.Content.EquipSlots
         public override void Initialize()
         {
             //these events ensure that the client also gets its proper events raised when getting its containerstate updated
-            SubscribeLocalEvent<EquipSlotsComponent, EntInsertedIntoContainerMessage>(OnEntInserted, nameof(OnEntInserted));
-            SubscribeLocalEvent<EquipSlotsComponent, EntRemovedFromContainerMessage>(OnEntRemoved, nameof(OnEntRemoved));
+            SubscribeLocalEvent<EquipSlotsComponent, EntInsertedIntoContainerMessage>(OnEntInserted, priority: EventPriorities.Low);
+            SubscribeLocalEvent<EquipSlotsComponent, EntRemovedFromContainerMessage>(OnEntRemoved, priority: EventPriorities.Low);
         }
 
         private void OnEntRemoved(EntityUid uid, EquipSlotsComponent equipSlots, EntRemovedFromContainerMessage args)

@@ -14,13 +14,12 @@ namespace OpenNefia.Content.Areas
 {
     public sealed class AreaStaticFloorsSystem : EntitySystem
     {
-        [Dependency] private readonly IAreaManager _areaManager = default!;
         [Dependency] private readonly IPrototypeManager _protos = default!;
         [Dependency] private readonly IMapLoader _mapLoader = default!;
 
         public override void Initialize()
         {
-            SubscribeLocalEvent<AreaStaticFloorsComponent, AreaFloorGenerateEvent>(OnAreaFloorGenerate, nameof(OnAreaFloorGenerate));
+            SubscribeLocalEvent<AreaStaticFloorsComponent, AreaFloorGenerateEvent>(OnAreaFloorGenerate);
         }
 
         private void OnAreaFloorGenerate(EntityUid areaEntity, AreaStaticFloorsComponent areaStaticFloors, AreaFloorGenerateEvent args)

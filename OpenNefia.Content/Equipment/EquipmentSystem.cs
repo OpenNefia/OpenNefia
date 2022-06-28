@@ -31,16 +31,14 @@ namespace OpenNefia.Content.Equipment
         [Dependency] private readonly IRefreshSystem _refresh = default!;
         [Dependency] private readonly IEquipSlotsSystem _equipSlotsSystem = default!;
 
-        public static readonly SubId HandlerHandleRefresh = new SubId(typeof(EquipmentSystem), nameof(HandleRefresh));
-
         public override void Initialize()
         {
-            SubscribeLocalEvent<EquipmentComponent, GotEquippedEvent>(HandleGotEquipped, nameof(HandleGotEquipped));
-            SubscribeLocalEvent<EquipmentComponent, GotUnequippedEvent>(HandleGotUnequipped, nameof(HandleGotUnequipped));
+            SubscribeLocalEvent<EquipmentComponent, GotEquippedEvent>(HandleGotEquipped);
+            SubscribeLocalEvent<EquipmentComponent, GotUnequippedEvent>(HandleGotUnequipped);
 
-            SubscribeLocalEvent<EquipSlotsComponent, DidEquipEvent>(HandleDidEquip, nameof(HandleDidEquip));
-            SubscribeLocalEvent<EquipSlotsComponent, DidUnequipEvent>(HandleDidUnequip, nameof(HandleDidUnequip));
-            SubscribeLocalEvent<EquipSlotsComponent, EntityRefreshEvent>(HandleRefresh, nameof(HandleRefresh));
+            SubscribeLocalEvent<EquipSlotsComponent, DidEquipEvent>(HandleDidEquip);
+            SubscribeLocalEvent<EquipSlotsComponent, DidUnequipEvent>(HandleDidUnequip);
+            SubscribeLocalEvent<EquipSlotsComponent, EntityRefreshEvent>(HandleRefresh, priority: EventPriorities.High);
         }
 
         #region Event Handlers

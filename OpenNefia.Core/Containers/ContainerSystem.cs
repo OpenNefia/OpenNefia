@@ -18,7 +18,7 @@ namespace OpenNefia.Core.Containers
         {
             base.Initialize();
 
-            SubscribeLocalEvent<EntityParentChangedEvent>(HandleParentChanged, nameof(HandleParentChanged));
+            SubscribeLocalEvent<EntityParentChangedEvent>(HandleParentChanged);
         }
 
         #region Container Management
@@ -80,7 +80,7 @@ namespace OpenNefia.Core.Containers
         public IContainer GetContainer(EntityUid uid, ContainerId id, ContainerManagerComponent? containerManager = null)
         {
             if (!Resolve(uid, ref containerManager))
-                throw new ArgumentException("Entity does not have a ContainerManagerComponent!", nameof(uid));
+                throw new ArgumentException("Entity does not have a ContainerManagerComponent!");
 
             return containerManager.Containers[id];
         }

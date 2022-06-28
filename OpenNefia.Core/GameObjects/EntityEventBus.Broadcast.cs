@@ -24,28 +24,18 @@ namespace OpenNefia.Core.GameObjects
         /// <param name="source"></param>
         /// <param name="subscriber">Subscriber that owns the handler.</param>
         /// <param name="eventHandler">Delegate that handles the event.</param>
-        void SubscribeEvent<T>(EventSource source, IEntityEventSubscriber subscriber,
-            EntityEventHandler<T> eventHandler) where T : notnull;
-
         void SubscribeEvent<T>(
             EventSource source,
             IEntityEventSubscriber subscriber,
             EntityEventHandler<T> eventHandler,
-            SubId orderIdent,
-            SubId[]? before = null,
-            SubId[]? after = null)
+            long priority = EventPriorities.Default)
             where T : notnull;
-
-        void SubscribeEvent<T>(EventSource source, IEntityEventSubscriber subscriber,
-            EntityEventRefHandler<T> eventHandler) where T : notnull;
 
         void SubscribeEvent<T>(
             EventSource source,
             IEntityEventSubscriber subscriber,
             EntityEventRefHandler<T> eventHandler,
-            SubId orderIdent,
-            SubId[]? before = null,
-            SubId[]? after = null)
+            long priority = EventPriorities.Default)
             where T : notnull;
 
         /// <summary>
@@ -74,8 +64,6 @@ namespace OpenNefia.Core.GameObjects
         void UnsubscribeEvents(IEntityEventSubscriber subscriber);
     }
 
-    public sealed record SubId(Type OrderType, string ID);
-
     [Flags]
     public enum EventSource : byte
     {
@@ -96,12 +84,14 @@ namespace OpenNefia.Core.GameObjects
         // Type arguments require the JIT to compile a new method implementation for every event type,
         // which would start to weigh a LOT.
 
-        private delegate void RefEventHandler(ref Unit ev);
+        internal delegate void RefEventHandler(ref Unit ev);
 
         private readonly Dictionary<Type, List<Registration>> _eventSubscriptions = new();
 
         private readonly Dictionary<IEntityEventSubscriber, Dictionary<Type, Registration>> _inverseEventSubscriptions
             = new();
+
+        private readonly HashSet<Type> _broadcastDirty = new();
 
         /// <inheritdoc />
         public void UnsubscribeEvents(IEntityEventSubscriber subscriber)
@@ -123,58 +113,30 @@ namespace OpenNefia.Core.GameObjects
         public void SubscribeEvent<T>(
             EventSource source,
             IEntityEventSubscriber subscriber,
-            EntityEventHandler<T> eventHandler)
-            where T : notnull
-        {
-            if (eventHandler == null)
-                throw new ArgumentNullException(nameof(eventHandler));
-
-            SubscribeEventCommon<T>(source, subscriber,
-                (ref Unit ev) => eventHandler(Unsafe.As<Unit, T>(ref ev)), eventHandler, null, false);
-        }
-
-        public void SubscribeEvent<T>(
-            EventSource source,
-            IEntityEventSubscriber subscriber,
             EntityEventHandler<T> eventHandler,
-            SubId orderIdent,
-            SubId[]? before = null,
-            SubId[]? after = null)
+            long priority = EventPriorities.Default)
             where T : notnull
         {
             if (eventHandler == null)
                 throw new ArgumentNullException(nameof(eventHandler));
 
-            var order = new OrderingData(orderIdent, before, after);
+            var order = new OrderingData(priority, _nextEventIndex++);
 
             SubscribeEventCommon<T>(source, subscriber,
                 (ref Unit ev) => eventHandler(Unsafe.As<Unit, T>(ref ev)), eventHandler, order, false);
-
-            HandleOrderRegistration(typeof(T), order);
-        }
-
-        public void SubscribeEvent<T>(EventSource source, IEntityEventSubscriber subscriber,
-            EntityEventRefHandler<T> eventHandler) where T : notnull
-        {
-            SubscribeEventCommon<T>(source, subscriber, (ref Unit ev) =>
-            {
-                ref var tev = ref Unsafe.As<Unit, T>(ref ev);
-                eventHandler(ref tev);
-            }, eventHandler, null, true);
         }
 
         public void SubscribeEvent<T>(EventSource source, IEntityEventSubscriber subscriber,
             EntityEventRefHandler<T> eventHandler,
-            SubId orderIdent, SubId[]? before = null, SubId[]? after = null) where T : notnull
+            long priority = EventPriorities.Default) where T : notnull
         {
-            var order = new OrderingData(orderIdent, before, after);
+            var order = new OrderingData(priority, _nextEventIndex++);
 
             SubscribeEventCommon<T>(source, subscriber, (ref Unit ev) =>
             {
                 ref var tev = ref Unsafe.As<Unit, T>(ref ev);
                 eventHandler(ref tev);
             }, eventHandler, order, true);
-            HandleOrderRegistration(typeof(T), order);
         }
 
         private void SubscribeEventCommon<T>(
@@ -182,7 +144,7 @@ namespace OpenNefia.Core.GameObjects
             IEntityEventSubscriber subscriber,
             RefEventHandler handler,
             object equalityToken,
-            OrderingData? order,
+            OrderingData order,
             bool byRef)
             where T : notnull
         {
@@ -209,6 +171,9 @@ namespace OpenNefia.Core.GameObjects
             var inverseSubscription = _inverseEventSubscriptions.GetOrNew(subscriber);
             if (!inverseSubscription.ContainsKey(eventType))
                 inverseSubscription.Add(eventType, subscriptionTuple);
+
+            _broadcastDirty.Add(eventType);
+            _eventTables.SetCompTypeDirty(eventType);
         }
 
         /// <inheritdoc />
@@ -236,7 +201,7 @@ namespace OpenNefia.Core.GameObjects
             var eventType = toRaise.GetType();
             ref var unitRef = ref ExtractUnitRef(ref toRaise, eventType);
 
-            ProcessSingleEvent(source, ref unitRef, eventType, false);
+            ProcessBroadcastEvent(source, ref unitRef, eventType, false);
         }
 
         public void RaiseEvent<T>(EventSource source, T toRaise) where T : notnull
@@ -244,7 +209,7 @@ namespace OpenNefia.Core.GameObjects
             if (source == EventSource.None)
                 throw new ArgumentOutOfRangeException(nameof(source));
 
-            ProcessSingleEvent(source, ref Unsafe.As<T, Unit>(ref toRaise), typeof(T), false);
+            ProcessBroadcastEvent(source, ref Unsafe.As<T, Unit>(ref toRaise), typeof(T), false);
         }
 
         public void RaiseEvent<T>(EventSource source, ref T toRaise) where T : notnull
@@ -252,7 +217,7 @@ namespace OpenNefia.Core.GameObjects
             if (source == EventSource.None)
                 throw new ArgumentOutOfRangeException(nameof(source));
 
-            ProcessSingleEvent(source, ref Unsafe.As<T, Unit>(ref toRaise), typeof(T), true);
+            ProcessBroadcastEvent(source, ref Unsafe.As<T, Unit>(ref toRaise), typeof(T), true);
         }
 
         private void UnsubscribeEvent(Type eventType, Registration tuple, IEntityEventSubscriber subscriber)
@@ -262,16 +227,21 @@ namespace OpenNefia.Core.GameObjects
 
             if (_inverseEventSubscriptions.TryGetValue(subscriber, out var inverse) && inverse.ContainsKey(eventType))
                 inverse.Remove(eventType);
+
+            _broadcastDirty.Add(eventType);
+            _eventTables.SetCompTypeDirty(eventType);
         }
 
-        private void ProcessSingleEvent(EventSource source, ref Unit unitRef, Type eventType, bool byRef)
+        private void ProcessBroadcastEvent(EventSource source, ref Unit unitRef, Type eventType, bool byRef)
         {
-            if (_orderedEvents.Contains(eventType))
+            if (_eventSubscriptions.TryGetValue(eventType, out var subs))
             {
-                ProcessSingleEventOrdered(source, ref unitRef, eventType, byRef);
-            }
-            else if (_eventSubscriptions.TryGetValue(eventType, out var subs))
-            {
+                if (_broadcastDirty.Contains(eventType))
+                {
+                    subs.Sort();
+                    _broadcastDirty.Remove(eventType);
+                }
+
                 foreach (var handler in subs)
                 {
                     if (handler.ReferenceEvent != byRef)
@@ -298,20 +268,20 @@ namespace OpenNefia.Core.GameObjects
                 : ref Unsafe.As<object, Unit>(ref obj);
         }
 
-        private readonly struct Registration : IEquatable<Registration>
+        private readonly struct Registration : IEquatable<Registration>, IComparable<Registration>
         {
             public readonly EventSource Mask;
             public readonly object EqualityToken;
 
             public readonly RefEventHandler Handler;
-            public readonly OrderingData? Ordering;
+            public readonly OrderingData Ordering;
             public readonly bool ReferenceEvent;
 
             public Registration(
                 EventSource mask,
                 RefEventHandler handler,
                 object equalityToken,
-                OrderingData? ordering,
+                OrderingData ordering,
                 bool referenceEvent)
             {
                 Mask = mask;
@@ -329,6 +299,11 @@ namespace OpenNefia.Core.GameObjects
             public override bool Equals(object? obj)
             {
                 return obj is Registration other && Equals(other);
+            }
+
+            public int CompareTo(Registration other)
+            {
+                return Ordering.CompareTo(other.Ordering);
             }
 
             public override int GetHashCode()
@@ -352,12 +327,12 @@ namespace OpenNefia.Core.GameObjects
 
         // This is not a real type. Whenever you see a "ref Unit" it means it's a ref to *some* kind of other type.
         // It should always be cast to/from with Unsafe.As<,>
-        private readonly struct Unit
+        internal readonly struct Unit
         {
         }
 
         [StructLayout(LayoutKind.Sequential)]
-        private class UnitBox
+        internal class UnitBox
         {
             [UsedImplicitly] public Unit Value;
         }

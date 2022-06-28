@@ -62,7 +62,7 @@ namespace OpenNefia.Tests.Core.GameObjects.Systems
         }
 
         /// <summary>
-        /// When the local position of the spatial component changes, a PositionChangedEvent is raised.
+        /// When the local position of the spatial component changes, an EntityPositionChangedEvent is raised.
         /// </summary>
         [Test]
         public void TestRaiseMoveEvent()

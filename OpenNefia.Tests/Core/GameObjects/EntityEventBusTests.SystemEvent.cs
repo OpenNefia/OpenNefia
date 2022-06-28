@@ -360,12 +360,9 @@ namespace OpenNefia.Tests.Core.GameObjects
 
             void HandlerC(TestEventArgs ev) => c = true;
 
-            bus.SubscribeEvent<TestEventArgs>(EventSource.Local, new SubA(), HandlerA,
-                new SubId(typeof(SubA), "Sub"), before: new []{new SubId(typeof(SubB), "Sub"), new SubId(typeof(SubC), "Sub") });
-            bus.SubscribeEvent<TestEventArgs>(EventSource.Local, new SubB(), HandlerB, 
-                new SubId(typeof(SubB), "Sub"), after: new []{new SubId(typeof(SubC), "Sub") });
-            bus.SubscribeEvent<TestEventArgs>(EventSource.Local, new SubC(), HandlerC, 
-                new SubId(typeof(SubC), "Sub"));
+            bus.SubscribeEvent<TestEventArgs>(EventSource.Local, new SubA(), HandlerA, EventPriorities.High);
+            bus.SubscribeEvent<TestEventArgs>(EventSource.Local, new SubB(), HandlerB, EventPriorities.Low);
+            bus.SubscribeEvent<TestEventArgs>(EventSource.Local, new SubC(), HandlerC);
 
             // Act
             bus.RaiseEvent(EventSource.Local, new TestEventArgs());
@@ -403,12 +400,9 @@ namespace OpenNefia.Tests.Core.GameObjects
 
             void HandlerC(TestEventArgs ev) => c = true;
 
-            bus.SubscribeEvent<TestEventArgs>(EventSource.Local, new SubA(), HandlerA,
-                new SubId(typeof(SubA), "A"), before: new[] { new SubId(typeof(SubA), "B"), new SubId(typeof(SubA), "C") });
-            bus.SubscribeEvent<TestEventArgs>(EventSource.Local, new SubB(), HandlerB,
-                new SubId(typeof(SubA), "B"), after: new[] { new SubId(typeof(SubA), "C") });
-            bus.SubscribeEvent<TestEventArgs>(EventSource.Local, new SubC(), HandlerC,
-                new SubId(typeof(SubA), "C"));
+            bus.SubscribeEvent<TestEventArgs>(EventSource.Local, new SubA(), HandlerA, EventPriorities.High);
+            bus.SubscribeEvent<TestEventArgs>(EventSource.Local, new SubB(), HandlerB, EventPriorities.VeryLow);
+            bus.SubscribeEvent<TestEventArgs>(EventSource.Local, new SubC(), HandlerC, EventPriorities.Low);
 
             // Act
             bus.RaiseEvent(EventSource.Local, new TestEventArgs());

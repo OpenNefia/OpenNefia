@@ -24,7 +24,7 @@ namespace OpenNefia.LecchoTorte.QuickStart
 
         public override void Initialize()
         {
-            SubscribeLocalEvent<NewGameStartedEventArgs>(HandleNewGame, nameof(HandleNewGame));
+            SubscribeLocalEvent<NewGameStartedEventArgs>(HandleNewGame);
         }
 
         private void HandleNewGame(NewGameStartedEventArgs ev)

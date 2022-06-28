@@ -28,7 +28,7 @@ namespace OpenNefia.Content.RandomSite
 
         public override void Initialize()
         {
-            SubscribeLocalEvent<MapRenewMajorEvent>(SpawnRandomSites, nameof(SpawnRandomSites));
+            SubscribeLocalEvent<MapRenewMajorEvent>(SpawnRandomSites);
         }
 
         private void SpawnRandomSites(MapRenewMajorEvent ev)

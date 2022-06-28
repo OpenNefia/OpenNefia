@@ -19,7 +19,7 @@ namespace OpenNefia.Core.GameObjects
 
         public override void Initialize()
         {
-            SubscribeLocalEvent<MoveableComponent, MoveEventArgs>(HandleMove, nameof(HandleMove));
+            SubscribeLocalEvent<MoveableComponent, MoveEventArgs>(HandleMove);
         }
 
         #region Methods
