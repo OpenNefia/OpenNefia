@@ -556,7 +556,7 @@ namespace OpenNefia.Content.TurnOrder
     {
     }
 
-    [EventArgsUsage(EventArgsTargets.ByRef)]
+    [ByRefEvent]
     public struct PlayerTurnStartedEvent
     {
         /// <summary>
@@ -576,7 +576,7 @@ namespace OpenNefia.Content.TurnOrder
         }
     }
 
-    [EventArgsUsage(EventArgsTargets.ByRef)]
+    [ByRefEvent]
     public struct NPCTurnStartedEvent
     {
         /// <summary>

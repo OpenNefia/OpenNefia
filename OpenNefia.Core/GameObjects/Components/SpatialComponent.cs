@@ -565,7 +565,7 @@ namespace OpenNefia.Core.GameObjects
     ///     Raised whenever an entity moves.
     ///     There is no guarantee it will be raised if they move in worldspace, only when moved relative to their parent.
     /// </summary>
-    [EventArgsUsage(EventArgsTargets.ByRef)]
+    [ByRefEvent]
     public readonly struct EntityPositionChangedEvent
     {
         public EntityPositionChangedEvent(EntityUid entityUid, EntityCoordinates oldPos, EntityCoordinates newPos, SpatialComponent component)
@@ -585,7 +585,7 @@ namespace OpenNefia.Core.GameObjects
     /// <summary>
     ///     Raised when an entity parent is changed.
     /// </summary>
-    [EventArgsUsage(EventArgsTargets.ByRef)]
+    [ByRefEvent]
     public struct EntityParentChangedEvent
     {
         /// <summary>
@@ -613,7 +613,7 @@ namespace OpenNefia.Core.GameObjects
     /// <summary>
     ///     Raised when an entity's solidity or opacity changes.
     /// </summary>
-    [EventArgsUsage(EventArgsTargets.ByRef)]
+    [ByRefEvent]
     public struct EntityTangibilityChangedEvent
     {
         public EntityTangibilityChangedEvent()

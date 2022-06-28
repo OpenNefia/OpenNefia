@@ -32,7 +32,7 @@ namespace OpenNefia.Content.DisplayName
         }
     }
 
-    [EventArgsUsage(EventArgsTargets.ByRef)]
+    [ByRefEvent]
     public struct GetItemNameEvent
     {
         public string ItemName = string.Empty;

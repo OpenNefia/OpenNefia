@@ -329,7 +329,7 @@ namespace OpenNefia.Core.Maps
         }
     }
 
-    [EventArgsUsage(EventArgsTargets.ByRef)]
+    [ByRefEvent]
     public struct RefreshMapVisibilityEvent
     {
         public IMap Map { get; }

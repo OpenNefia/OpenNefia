@@ -509,7 +509,6 @@ namespace OpenNefia.Core.GameObjects
     /// a <see cref="StackComponent"/> is split off. Use this event to
     /// run custom deep copying logic per component.
     /// </summary>
-    [EventArgsUsage(EventArgsTargets.ByValue)]
     public class EntityClonedEventArgs
     {
         /// <summary>
@@ -561,7 +560,7 @@ namespace OpenNefia.Core.GameObjects
     /// Raised when this entity has been successfully stacked with another
     /// entity, but before their stack counts have been updated.
     /// </summary>
-    [EventArgsUsage(EventArgsTargets.ByRef)]
+    [ByRefEvent]
     public struct EntityStackedEvent
     {
         public EntityUid StackedWith { get; }
@@ -581,7 +580,7 @@ namespace OpenNefia.Core.GameObjects
     /// <summary>
     /// Raised after this entity has been successfully split into two stacks.
     /// </summary>
-    [EventArgsUsage(EventArgsTargets.ByRef)]
+    [ByRefEvent]
     public struct EntitySplitEvent
     {
         /// <summary>
@@ -599,7 +598,6 @@ namespace OpenNefia.Core.GameObjects
     /// <summary>
     ///     Event raised when a stack's count has changed.
     /// </summary>
-    [EventArgsUsage(EventArgsTargets.ByValue)]
     public class StackCountChangedEvent : EntityEventArgs
     {
         /// <summary>

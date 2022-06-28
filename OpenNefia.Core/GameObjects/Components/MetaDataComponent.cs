@@ -103,7 +103,7 @@ namespace OpenNefia.Core.GameObjects
         DeadAndBuried
     }
 
-    [EventArgsUsage(EventArgsTargets.ByRef)]
+    [ByRefEvent]
     public struct EntityLivenessChangedEvent
     {
         public readonly EntityUid EntityUid;
