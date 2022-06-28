@@ -16,7 +16,7 @@ namespace OpenNefia.Content.GameObjects
     {
         public override void Initialize()
         {
-            SubscribeComponent<MetaDataComponent, EntityMapInitEvent>(OnMapInit, priority: EventPriorities.VeryLow);
+            SubscribeEntity<EntityMapInitEvent>(OnMapInit, priority: EventPriorities.VeryLow);
         }
 
         public void Refresh(EntityUid entity)
@@ -25,7 +25,7 @@ namespace OpenNefia.Content.GameObjects
             RaiseEvent(entity, ref ev);
         }
 
-        private void OnMapInit(EntityUid uid, MetaDataComponent component, ref EntityMapInitEvent args)
+        private void OnMapInit(EntityUid uid, ref EntityMapInitEvent args)
         {
             Refresh(uid);
         }

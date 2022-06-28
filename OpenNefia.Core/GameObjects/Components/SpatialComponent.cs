@@ -245,7 +245,7 @@ namespace OpenNefia.Core.GameObjects
                 _parent = value.EntityId;
                 ChangeMapId(newParent.MapID);
 
-                var entParentChangedMessage = new EntityParentChangedEvent(Owner, oldParent?.Owner);
+                var entParentChangedMessage = new EntityParentChangedEvent(oldParent?.Owner);
                 _entityManager.EventBus.RaiseEvent(Owner, ref entParentChangedMessage);
             }
 
@@ -257,7 +257,7 @@ namespace OpenNefia.Core.GameObjects
 
             if (!noEvents)
             {
-                var moveEvent = new EntityPositionChangedEvent(Owner, oldPosition, Coordinates, this);
+                var moveEvent = new EntityPositionChangedEvent(oldPosition, Coordinates, this);
                 _entityManager.EventBus.RaiseEvent(Owner, ref moveEvent);
             }
         }
@@ -292,7 +292,7 @@ namespace OpenNefia.Core.GameObjects
 
             if (!noEvents)
             {
-                var moveEvent = new EntityPositionChangedEvent(Owner, oldPos, Coordinates, this);
+                var moveEvent = new EntityPositionChangedEvent(oldPos, Coordinates, this);
                 _entityManager.EventBus.RaiseEvent(Owner, ref moveEvent);
             }
         }
@@ -418,7 +418,7 @@ namespace OpenNefia.Core.GameObjects
             _parent = EntityUid.Invalid;
             var oldMapId = MapID;
             MapID = MapId.Nullspace;
-            var entParentChangedMessage = new EntityParentChangedEvent(Owner, oldParent?.Owner);
+            var entParentChangedMessage = new EntityParentChangedEvent(oldParent?.Owner);
             _entityManager.EventBus.RaiseEvent(Owner, ref entParentChangedMessage);
 
             // Does it even make sense to call these since this is called purely from OnRemove right now?
@@ -568,15 +568,13 @@ namespace OpenNefia.Core.GameObjects
     [ByRefEvent]
     public readonly struct EntityPositionChangedEvent
     {
-        public EntityPositionChangedEvent(EntityUid entityUid, EntityCoordinates oldPos, EntityCoordinates newPos, SpatialComponent component)
+        public EntityPositionChangedEvent(EntityCoordinates oldPos, EntityCoordinates newPos, SpatialComponent component)
         {
-            EntityUid = entityUid;
             OldPosition = oldPos;
             NewPosition = newPos;
             Component = component;
         }
 
-        public readonly EntityUid EntityUid;
         public readonly EntityCoordinates OldPosition;
         public readonly EntityCoordinates NewPosition;
         public readonly SpatialComponent Component;
@@ -589,11 +587,6 @@ namespace OpenNefia.Core.GameObjects
     public struct EntityParentChangedEvent
     {
         /// <summary>
-        ///     Entity that was adopted. The transform component has a property with the new parent.
-        /// </summary>
-        public EntityUid EntityUid { get; }
-
-        /// <summary>
         ///     Old parent that abandoned the Entity.
         /// </summary>
         public EntityUid? OldParent { get; }
@@ -603,9 +596,8 @@ namespace OpenNefia.Core.GameObjects
         /// </summary>
         /// <param name="entity"></param>
         /// <param name="oldParent"></param>
-        public EntityParentChangedEvent(EntityUid entity, EntityUid? oldParent)
+        public EntityParentChangedEvent(EntityUid? oldParent)
         {
-            EntityUid = entity;
             OldParent = oldParent;
         }
     }

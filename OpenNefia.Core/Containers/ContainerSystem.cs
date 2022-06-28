@@ -18,7 +18,7 @@ namespace OpenNefia.Core.Containers
         {
             base.Initialize();
 
-            SubscribeBroadcast<EntityParentChangedEvent>(HandleParentChanged);
+            SubscribeEntity<EntityParentChangedEvent>(HandleParentChanged);
         }
 
         #region Container Management
@@ -254,7 +254,7 @@ namespace OpenNefia.Core.Containers
         #region Event Handlers
 
         // Eject entities from their parent container if the parent change is done by the transform only.
-        private void HandleParentChanged(ref EntityParentChangedEvent message)
+        private void HandleParentChanged(EntityUid entity, ref EntityParentChangedEvent message)
         {
             var oldParentEntity = message.OldParent;
 
@@ -262,7 +262,7 @@ namespace OpenNefia.Core.Containers
                 return;
 
             if (EntityManager.TryGetComponent(oldParentEntity!.Value, out ContainerManagerComponent? containerManager))
-                ForceRemove(message.EntityUid, containerManager);
+                ForceRemove(entity, containerManager);
         }
 
         #endregion
