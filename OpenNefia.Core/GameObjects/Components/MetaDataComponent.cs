@@ -49,6 +49,7 @@ namespace OpenNefia.Core.GameObjects
         public bool EntityDeleted => EntityLifeStage >= EntityLifeStage.Deleted;
         public bool EntityTerminating => EntityLifeStage >= EntityLifeStage.Terminating;
 
+        [DataField(required: true)]
         private EntityGameLiveness _liveness = EntityGameLiveness.Alive;
 
         /// <summary>

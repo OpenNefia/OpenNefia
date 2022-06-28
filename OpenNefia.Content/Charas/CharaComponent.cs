@@ -43,7 +43,9 @@ namespace OpenNefia.Content.Charas
         [ComponentDependency]
         private MetaDataComponent? _metaData;
 
-        private CharaLivenessState _liveness;
+        [DataField(required: true)]
+        private CharaLivenessState _liveness = CharaLivenessState.Alive;
+        
         public CharaLivenessState Liveness
         {
             get => _liveness;

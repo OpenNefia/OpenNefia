@@ -184,7 +184,7 @@ namespace OpenNefia.Content.DebugView
 
             foreach (var entity in lookup.GetLiveEntitiesAtCoords(coords))
             {
-                _viewVariables.OpenVV(entity, this);
+                _viewVariables.OpenVV(entity.Owner, this);
             }
         }
     }

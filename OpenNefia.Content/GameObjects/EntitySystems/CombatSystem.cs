@@ -1,4 +1,5 @@
-﻿using OpenNefia.Content.DisplayName;
+﻿using OpenNefia.Content.Charas;
+using OpenNefia.Content.DisplayName;
 using OpenNefia.Content.Factions;
 using OpenNefia.Content.Logic;
 using OpenNefia.Content.Maps;
@@ -72,7 +73,15 @@ namespace OpenNefia.Content.GameObjects
             if (Resolve(target, ref spatial))
                 _mapDebris.SpillBlood(spatial.MapPosition, 5);
 
-            metaData.Liveness = EntityGameLiveness.DeadAndBuried;
+            // TODO
+            if (TryComp<CharaComponent>(target, out var chara))
+            {
+                chara.Liveness = CharaLivenessState.Dead;
+            }
+            else
+            {
+                metaData.Liveness = EntityGameLiveness.DeadAndBuried;
+            }
         }
 
         private void HandleCollideWith(EntityUid uid, MoveableComponent _, CollideWithEventArgs args)
