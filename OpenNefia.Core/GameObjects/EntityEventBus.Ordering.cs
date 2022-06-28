@@ -8,7 +8,6 @@ namespace OpenNefia.Core.GameObjects
     internal partial class EntityEventBus
     {
         private void CollectBroadcastOrdered(
-            EventSource source,
             Type eventType,
             List<(HandlerAndCompType, OrderingData)> found,
             bool byRef)
@@ -21,8 +20,7 @@ namespace OpenNefia.Core.GameObjects
                 if (handler.ReferenceEvent != byRef)
                     ThrowByRefMisMatch();
 
-                if ((handler.Mask & source) != 0)
-                    found.Add((new(handler.Handler, null), handler.Ordering));
+                found.Add((new(handler.Handler, null), handler.Ordering));
             }
         }
 

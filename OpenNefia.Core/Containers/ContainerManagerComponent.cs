@@ -79,8 +79,7 @@ namespace OpenNefia.Core.Containers
             {
                 foreach (var containerEntity in container.ContainedEntities)
                 {
-                    _entityManager.EventBus.RaiseEvent(EventSource.Local,
-                        new UpdateContainerOcclusionEvent(containerEntity));
+                    _entityManager.EventBus.RaiseEvent(new UpdateContainerOcclusionEvent(containerEntity));
                 }
             }
         }

@@ -27,7 +27,7 @@ namespace OpenNefia.Tests.Core.GameObjects
             var subscriber = new TestEventSubscriber();
 
             // Act
-            void Code() => bus.SubscribeEvent(EventSource.Local, subscriber, (EntityEventHandler<TestEventArgs>) null!);
+            void Code() => bus.SubscribeEvent(subscriber, (EntityEventHandler<TestEventArgs>)null!);
 
             //Assert
             Assert.Throws<ArgumentNullException>(Code);
@@ -43,7 +43,7 @@ namespace OpenNefia.Tests.Core.GameObjects
             var bus = BusFactory();
 
             // Act
-            void Code() => bus.SubscribeEvent<TestEventArgs>(EventSource.Local, null!, ev => {});
+            void Code() => bus.SubscribeEvent<TestEventArgs>(null!, ev => { });
 
             //Assert: this should do nothing
             Assert.Throws<ArgumentNullException>(Code);
@@ -64,11 +64,11 @@ namespace OpenNefia.Tests.Core.GameObjects
             void Handler(TestEventArgs ev) => delegateCallCount++;
 
             // 2 subscriptions 1 handler
-            bus.SubscribeEvent<TestEventArgs>(EventSource.Local, subscriber, Handler);
-            bus.SubscribeEvent<TestEventArgs>(EventSource.Local, subscriber, Handler);
+            bus.SubscribeEvent<TestEventArgs>(subscriber, Handler);
+            bus.SubscribeEvent<TestEventArgs>(subscriber, Handler);
 
             // Act
-            bus.RaiseEvent(EventSource.Local, new TestEventArgs());
+            bus.RaiseEvent(new TestEventArgs());
 
             //Assert
             Assert.That(delegateCallCount, Is.EqualTo(1));
@@ -88,11 +88,11 @@ namespace OpenNefia.Tests.Core.GameObjects
             int delFooCount = 0;
             int delBarCount = 0;
 
-            bus.SubscribeEvent<TestEventArgs>(EventSource.Local, subscriber, ev => delFooCount++);
-            bus.SubscribeEvent<TestEventArgs>(EventSource.Local, subscriber, ev => delBarCount++);
+            bus.SubscribeEvent<TestEventArgs>(subscriber, ev => delFooCount++);
+            bus.SubscribeEvent<TestEventArgs>(subscriber, ev => delBarCount++);
 
             // Act
-            bus.RaiseEvent(EventSource.Local, new TestEventArgs());
+            bus.RaiseEvent(new TestEventArgs());
 
             // Assert
             Assert.That(delFooCount, Is.EqualTo(1));
@@ -112,39 +112,19 @@ namespace OpenNefia.Tests.Core.GameObjects
             int delFooCount = 0;
             int delBarCount = 0;
 
-            bus.SubscribeEvent<TestEventArgs>(EventSource.Local, subscriber, ev => delFooCount++);
-            bus.SubscribeEvent<TestEventTwoArgs>(EventSource.Local, subscriber, ev => delBarCount++);
+            bus.SubscribeEvent<TestEventArgs>(subscriber, ev => delFooCount++);
+            bus.SubscribeEvent<TestEventTwoArgs>(subscriber, ev => delBarCount++);
 
             // Act & Assert
-            bus.RaiseEvent(EventSource.Local, new TestEventArgs());
+            bus.RaiseEvent(new TestEventArgs());
             Assert.That(delFooCount, Is.EqualTo(1));
             Assert.That(delBarCount, Is.EqualTo(0));
 
             delFooCount = delBarCount = 0;
 
-            bus.RaiseEvent(EventSource.Local, new TestEventTwoArgs());
+            bus.RaiseEvent(new TestEventTwoArgs());
             Assert.That(delFooCount, Is.EqualTo(0));
             Assert.That(delBarCount, Is.EqualTo(1));
-        }
-
-        /// <summary>
-        /// Trying to subscribe with <see cref="EventSource.None"/> makes no sense and causes
-        /// a <see cref="ArgumentOutOfRangeException"/> to be thrown.
-        /// </summary>
-        [Test]
-        public void SubscribeEvent_SourceNone_ArgOutOfRange()
-        {
-            // Arrange
-            var bus = BusFactory();
-            var subscriber = new TestEventSubscriber();
-
-            void TestEventHandler(TestEventArgs args) { }
-
-            // Act
-            void Code() => bus.SubscribeEvent(EventSource.None, subscriber, (EntityEventHandler<TestEventArgs>)TestEventHandler);
-
-            //Assert
-            Assert.Throws<ArgumentOutOfRangeException>(Code);
         }
 
         /// <summary>
@@ -159,11 +139,11 @@ namespace OpenNefia.Tests.Core.GameObjects
 
             void Handler(TestEventArgs ev) { }
 
-            bus.SubscribeEvent<TestEventArgs>(EventSource.Local, subscriber, Handler);
-            bus.UnsubscribeEvent<TestEventArgs>(EventSource.Local, subscriber);
+            bus.SubscribeEvent<TestEventArgs>(subscriber, Handler);
+            bus.UnsubscribeEvent<TestEventArgs>(subscriber);
 
             // Act
-            bus.UnsubscribeEvent<TestEventArgs>(EventSource.Local, subscriber);
+            bus.UnsubscribeEvent<TestEventArgs>(subscriber);
 
             // Assert: Does not throw
         }
@@ -179,7 +159,7 @@ namespace OpenNefia.Tests.Core.GameObjects
             var subscriber = new TestEventSubscriber();
 
             // Act
-            bus.UnsubscribeEvent<TestEventArgs>(EventSource.Local, subscriber);
+            bus.UnsubscribeEvent<TestEventArgs>(subscriber);
 
             // Assert: Does not throw
         }
@@ -194,28 +174,10 @@ namespace OpenNefia.Tests.Core.GameObjects
             var bus = BusFactory();
 
             // Act
-            void Code() => bus.UnsubscribeEvent<TestEventArgs>(EventSource.Local, null!);
+            void Code() => bus.UnsubscribeEvent<TestEventArgs>(null!);
 
             // Assert
             Assert.Throws<ArgumentNullException>(Code);
-        }
-
-        /// <summary>
-        /// An event cannot be subscribed to with <see cref="EventSource.None"/>, so trying to unsubscribe
-        /// with an <see cref="EventSource.None"/> causes a <see cref="ArgumentOutOfRangeException"/> to be thrown.
-        /// </summary>
-        [Test]
-        public void UnsubscribeEvent_SourceNone_ArgOutOfRange()
-        {
-            // Arrange
-            var bus = BusFactory();
-            var subscriber = new TestEventSubscriber();
-
-            // Act
-            void Code() => bus.UnsubscribeEvent<TestEventArgs>(EventSource.None, subscriber);
-
-            // Assert
-            Assert.Throws<ArgumentOutOfRangeException>(Code);
         }
 
         /// <summary>
@@ -229,10 +191,10 @@ namespace OpenNefia.Tests.Core.GameObjects
             var subscriber = new TestEventSubscriber();
 
             int delCalledCount = 0;
-            bus.SubscribeEvent<TestEventTwoArgs>(EventSource.Local, subscriber, ev => delCalledCount++);
+            bus.SubscribeEvent<TestEventTwoArgs>(subscriber, ev => delCalledCount++);
 
             // Act
-            bus.RaiseEvent(EventSource.Local, new TestEventArgs());
+            bus.RaiseEvent(new TestEventArgs());
 
             // Assert
             Assert.That(delCalledCount, Is.EqualTo(0));
@@ -251,31 +213,14 @@ namespace OpenNefia.Tests.Core.GameObjects
             int delCallCount = 0;
             void Handler(TestEventArgs ev) => delCallCount++;
 
-            bus.SubscribeEvent<TestEventArgs>(EventSource.Local, subscriber, Handler);
-            bus.UnsubscribeEvent<TestEventArgs>(EventSource.Local, subscriber);
+            bus.SubscribeEvent<TestEventArgs>(subscriber, Handler);
+            bus.UnsubscribeEvent<TestEventArgs>(subscriber);
 
             // Act
-            bus.RaiseEvent(EventSource.Local, new TestEventArgs());
+            bus.RaiseEvent(new TestEventArgs());
 
             // Assert
             Assert.That(delCallCount, Is.EqualTo(0));
-        }
-
-        /// <summary>
-        /// Trying to raise an event with <see cref="EventSource.None"/> makes no sense and causes
-        /// a <see cref="ArgumentOutOfRangeException"/> to be thrown.
-        /// </summary>
-        [Test]
-        public void RaiseEvent_SourceNone_ArgOutOfRange()
-        {
-            // Arrange
-            var bus = BusFactory();
-
-            // Act
-            void Code() => bus.RaiseEvent(EventSource.None, new TestEventArgs());
-
-            // Assert
-            Assert.Throws<ArgumentOutOfRangeException>(Code);
         }
 
         /// <summary>
@@ -323,11 +268,11 @@ namespace OpenNefia.Tests.Core.GameObjects
             int delCallCount = 0;
             void Handler(TestEventArgs ev) => delCallCount++;
 
-            bus.SubscribeEvent<TestEventArgs>(EventSource.Local, subscriber, Handler);
+            bus.SubscribeEvent<TestEventArgs>(subscriber, Handler);
             bus.UnsubscribeEvents(subscriber);
 
             // Act
-            bus.RaiseEvent(EventSource.Local, new TestEventArgs());
+            bus.RaiseEvent(new TestEventArgs());
 
             // Assert
             Assert.That(delCallCount, Is.EqualTo(0));
@@ -360,12 +305,12 @@ namespace OpenNefia.Tests.Core.GameObjects
 
             void HandlerC(TestEventArgs ev) => c = true;
 
-            bus.SubscribeEvent<TestEventArgs>(EventSource.Local, new SubA(), HandlerA, EventPriorities.High);
-            bus.SubscribeEvent<TestEventArgs>(EventSource.Local, new SubB(), HandlerB, EventPriorities.Low);
-            bus.SubscribeEvent<TestEventArgs>(EventSource.Local, new SubC(), HandlerC);
+            bus.SubscribeEvent<TestEventArgs>(new SubA(), HandlerA, EventPriorities.High);
+            bus.SubscribeEvent<TestEventArgs>(new SubB(), HandlerB, EventPriorities.Low);
+            bus.SubscribeEvent<TestEventArgs>(new SubC(), HandlerC);
 
             // Act
-            bus.RaiseEvent(EventSource.Local, new TestEventArgs());
+            bus.RaiseEvent(new TestEventArgs());
 
             // Assert
             Assert.That(a, Is.True, "A did not fire");
@@ -400,12 +345,12 @@ namespace OpenNefia.Tests.Core.GameObjects
 
             void HandlerC(TestEventArgs ev) => c = true;
 
-            bus.SubscribeEvent<TestEventArgs>(EventSource.Local, new SubA(), HandlerA, EventPriorities.High);
-            bus.SubscribeEvent<TestEventArgs>(EventSource.Local, new SubB(), HandlerB, EventPriorities.VeryLow);
-            bus.SubscribeEvent<TestEventArgs>(EventSource.Local, new SubC(), HandlerC, EventPriorities.Low);
+            bus.SubscribeEvent<TestEventArgs>(new SubA(), HandlerA, EventPriorities.High);
+            bus.SubscribeEvent<TestEventArgs>(new SubB(), HandlerB, EventPriorities.VeryLow);
+            bus.SubscribeEvent<TestEventArgs>(new SubC(), HandlerC, EventPriorities.Low);
 
             // Act
-            bus.RaiseEvent(EventSource.Local, new TestEventArgs());
+            bus.RaiseEvent(new TestEventArgs());
 
             // Assert
             Assert.That(a, Is.True, "A did not fire");

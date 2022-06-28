@@ -18,7 +18,7 @@ namespace OpenNefia.Tests.Core.GameObjects
                 .InitializeInstance();
 
             var ev = new TestStructEvent() {TestNumber = 5};
-            simulation.Resolve<IEntityManager>().EventBus.RaiseEvent(EventSource.Local, ref ev);
+            simulation.Resolve<IEntityManager>().EventBus.RaiseEvent(ref ev);
             Assert.That(ev.TestNumber, Is.EqualTo(15));
         }
 
@@ -83,7 +83,7 @@ namespace OpenNefia.Tests.Core.GameObjects
             // Act.
             var testEvent = new TestStructEvent {TestNumber = 5};
             var eventBus = simulation.Resolve<IEntityManager>().EventBus;
-            eventBus.RaiseEvent(EventSource.Local, ref testEvent);
+            eventBus.RaiseEvent(ref testEvent);
 
             // Check that the entity systems changed the value correctly
             Assert.That(testEvent.TestNumber, Is.EqualTo(15));

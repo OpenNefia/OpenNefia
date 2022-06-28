@@ -48,12 +48,12 @@ namespace OpenNefia.Core.GameObjects
 
         protected void RaiseLocalEvent<T>(T message) where T : notnull
         {
-            EntityManager.EventBus.RaiseEvent(EventSource.Local, message);
+            EntityManager.EventBus.RaiseEvent(message);
         }
 
         protected void RaiseLocalEvent(object message)
         {
-            EntityManager.EventBus.RaiseEvent(EventSource.Local, message);
+            EntityManager.EventBus.RaiseEvent(message);
         }
 
         protected void RaiseLocalEvent<TEvent>(EntityUid uid, TEvent args, bool broadcast = true)
