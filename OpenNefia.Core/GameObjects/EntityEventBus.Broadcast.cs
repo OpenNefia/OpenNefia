@@ -215,16 +215,24 @@ namespace OpenNefia.Core.GameObjects
                 foreach (var handler in subs)
                 {
                     if (handler.ReferenceEvent != byRef)
-                        ThrowByRefMisMatch();
+                        ThrowByRefMisMatch(handler.ReferenceEvent);
 
                     handler.Handler(ref unitRef);
                 }
             }
         }
+        
+        private const string ValueDispatchError = "Tried to dispatch a value event to a by-reference subscription.";
+        private const string RefDispatchError = "Tried to dispatch a ref event to a by-value subscription.";
 
         [MethodImpl(MethodImplOptions.NoInlining)]
-        private static void ThrowByRefMisMatch() =>
-            throw new InvalidOperationException("Mismatching by-ref ness on event!");
+        private static void ThrowByRefMisMatch(bool subIsByRef)
+        {
+            if (subIsByRef)
+                throw new InvalidOperationException(ValueDispatchError);
+            else
+                throw new InvalidOperationException(RefDispatchError);
+        }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static ref Unit ExtractUnitRef(ref object obj, Type objType)

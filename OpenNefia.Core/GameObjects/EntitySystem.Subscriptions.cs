@@ -60,7 +60,7 @@ namespace OpenNefia.Core.GameObjects
             EntityManager.EventBus.SubscribeComponentEvent(handler, priority);
 
             _subscriptions ??= new();
-            _subscriptions.Add(new SubLocal<TComp, TEvent>());
+            _subscriptions.Add(new SubComp<TComp, TEvent>());
         }
 
         protected void SubscribeComponent<TComp, TEvent>(
@@ -72,7 +72,29 @@ namespace OpenNefia.Core.GameObjects
             EntityManager.EventBus.SubscribeComponentEvent(handler, priority);
 
             _subscriptions ??= new();
-            _subscriptions.Add(new SubLocal<TComp, TEvent>());
+            _subscriptions.Add(new SubEntity<TEvent>());
+        }
+
+        protected void SubscribeEntity<TEvent>(
+            EntityEventHandler<TEvent> handler,
+            long priority = EventPriorities.Default)
+            where TEvent : notnull
+        {
+            EntityManager.EventBus.SubscribeEntityEvent(handler, priority);
+
+            _subscriptions ??= new();
+            _subscriptions.Add(new SubEntity<TEvent>());
+        }
+
+        protected void SubscribeEntity<TEvent>(
+            EntityEventRefHandler<TEvent> handler,
+            long priority = EventPriorities.Default)
+            where TEvent : notnull
+        {
+            EntityManager.EventBus.SubscribeEntityEvent(handler, priority);
+
+            _subscriptions ??= new();
+            _subscriptions.Add(new SubEntity<TEvent>());
         }
 
         private void ShutdownSubscriptions()
@@ -136,11 +158,19 @@ namespace OpenNefia.Core.GameObjects
             }
         }
 
-        private sealed class SubLocal<TComp, TBase> : SubBase where TComp : IComponent where TBase : notnull
+        private sealed class SubComp<TComp, TBase> : SubBase where TComp : IComponent where TBase : notnull
         {
             public override void Unsubscribe(EntitySystem sys, IEventBus bus)
             {
                 bus.UnsubscribeAllComponentEvents<TComp, TBase>();
+            }
+        }
+
+        private sealed class SubEntity<TBase> : SubBase where TBase : notnull
+        {
+            public override void Unsubscribe(EntitySystem sys, IEventBus bus)
+            {
+                bus.UnsubscribeAllEntityEvents<TBase>();
             }
         }
     }

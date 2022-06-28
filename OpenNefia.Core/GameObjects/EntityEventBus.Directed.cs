@@ -17,10 +17,21 @@ namespace OpenNefia.Core.GameObjects
 
         void RaiseEvent(EntityUid uid, object args, bool broadcast = true);
 
+        /// <summary>
+        /// Subscribes an event handler targeting entities with a given component.
+        /// </summary>
         void SubscribeComponentEvent<TComp, TEvent>(
             ComponentEventHandler<TComp, TEvent> handler,
             long priority = EventPriorities.Default)
             where TComp : IComponent
+            where TEvent : notnull;
+
+        /// <summary>
+        /// Subscribes an event handler that will be run on all entities.
+        /// </summary>
+        void SubscribeEntityEvent<TEvent>(
+            EntityEventHandler<TEvent> handler,
+            long priority = EventPriorities.Default)
             where TEvent : notnull;
 
         #region Ref Subscriptions
@@ -30,16 +41,30 @@ namespace OpenNefia.Core.GameObjects
 
         void RaiseEvent(EntityUid uid, ref object args, bool broadcast = true);
 
+        /// <summary>
+        /// Subscribes an event handler targeting entities with a given component, by reference.
+        /// </summary>
         void SubscribeComponentEvent<TComp, TEvent>(
             ComponentEventRefHandler<TComp, TEvent> handler,
             long priority = EventPriorities.Default)
             where TComp : IComponent
             where TEvent : notnull;
 
+        /// <summary>
+        /// Subscribes an event handler that will be run on all entities, by reference.
+        /// </summary>
+        void SubscribeEntityEvent<TEvent>(
+            EntityEventRefHandler<TEvent> handler,
+            long priority = EventPriorities.Default)
+            where TEvent : notnull;
+
         #endregion
 
         void UnsubscribeAllComponentEvents<TComp, TEvent>()
             where TComp : IComponent
+            where TEvent : notnull;
+
+        void UnsubscribeAllEntityEvents<TEvent>()
             where TEvent : notnull;
 
         /// <summary>
@@ -75,6 +100,25 @@ namespace OpenNefia.Core.GameObjects
 
         private delegate void DirectedEventHandler<TEvent>(EntityUid uid, IComponent comp, ref TEvent args)
             where TEvent : notnull;
+
+        private delegate void DirectedEntityEventHandler(EntityUid uid, ref Unit args);
+
+        private delegate void DirectedEntityEventHandler<TEvent>(EntityUid uid, ref TEvent args)
+            where TEvent : notnull;
+
+        /// <summary>
+        /// Dummy component type that makes entity event handlers targeting no
+        /// components work.
+        /// </summary>
+        private sealed class NullComponentType : IComponent
+        {
+            public ComponentLifeStage LifeStage => ComponentLifeStage.Deleted;
+            public EntityUid Owner => EntityUid.Invalid;
+            public string Name => string.Empty;
+            public bool Initialized => false;
+            public bool Running => false;
+            public bool Deleted => false;
+        }
 
         private IEntityManager _entMan;
         private EventTables _eventTables;
@@ -151,22 +195,22 @@ namespace OpenNefia.Core.GameObjects
                 // still broadcast handlers.
                 if (broadcast)
                     ProcessBroadcastEvent(ref unitRef, eventType, byRef);
-                
+
                 return;
             }
-            
+
             // The entity event table weaves together the component and broadcast event handlers
             // with the same priority sorting system.
             if (table.Dirty)
             {
                 var found = new List<(HandlerAndCompType, OrderingData)>();
-                
+
                 _eventTables.CollectOrdered(uid, eventType, found, byRef);
                 CollectBroadcastOrdered(eventType, found, byRef);
 
                 table.Set(found);
             }
-            
+
             _eventTables.Dispatch(uid, eventType, ref unitRef, broadcast, byRef);
         }
 
@@ -182,9 +226,10 @@ namespace OpenNefia.Core.GameObjects
 
             var orderData = new OrderingData(priority, _nextEventIndex++);
 
-            _eventTables.Subscribe<TEvent>(typeof(TComp), typeof(TEvent), EventHandler, orderData, false);
+            _eventTables.SubscribeComponent<TEvent>(typeof(TComp), typeof(TEvent), EventHandler, orderData, false);
         }
 
+        /// <inheritdoc/>
         public void SubscribeComponentEvent<TComp, TEvent>(ComponentEventRefHandler<TComp, TEvent> handler,
             long priority = EventPriorities.Default) where TComp : IComponent where TEvent : notnull
         {
@@ -193,7 +238,34 @@ namespace OpenNefia.Core.GameObjects
 
             var orderData = new OrderingData(priority, _nextEventIndex++);
 
-            _eventTables.Subscribe<TEvent>(typeof(TComp), typeof(TEvent), EventHandler, orderData, true);
+            _eventTables.SubscribeComponent<TEvent>(typeof(TComp), typeof(TEvent), EventHandler, orderData, true);
+        }
+
+        /// <inheritdoc />
+        public void SubscribeEntityEvent<TEvent>(
+            EntityEventHandler<TEvent> handler,
+            long priority = EventPriorities.Default)
+            where TEvent : notnull
+        {
+            void EventHandler(EntityUid uid, ref TEvent args)
+                => handler(uid, args);
+
+            var orderData = new OrderingData(priority, _nextEventIndex++);
+
+            _eventTables.SubscribeEntity<TEvent>(typeof(TEvent), EventHandler, orderData, false);
+        }
+
+        /// <inheritdoc/>
+        public void SubscribeEntityEvent<TEvent>(EntityEventRefHandler<TEvent> handler,
+            long priority = EventPriorities.Default)
+            where TEvent : notnull
+        {
+            void EventHandler(EntityUid uid, ref TEvent args)
+                => handler(uid, ref args);
+
+            var orderData = new OrderingData(priority, _nextEventIndex++);
+
+            _eventTables.SubscribeEntity<TEvent>(typeof(TEvent), EventHandler, orderData, true);
         }
 
         /// <inheritdoc />
@@ -204,19 +276,25 @@ namespace OpenNefia.Core.GameObjects
             _eventTables.UnsubscribeAll(typeof(TComp), typeof(TEvent));
         }
 
+        /// <inheritdoc />
+        public void UnsubscribeAllEntityEvents<TEvent>()
+            where TEvent : notnull
+        {
+            UnsubscribeAllComponentEvents<NullComponentType, TEvent>();
+        }
+
         // Null component type means broadcast event
         internal record HandlerAndCompType(RefEventHandler Handler, Type? ComponentType);
 
         private class EventTables : IDisposable
         {
-            private const string ValueDispatchError = "Tried to dispatch a value event to a by-reference subscription.";
-            private const string RefDispatchError = "Tried to dispatch a ref event to a by-value subscription.";
-
             private IEntityManager _entMan;
             private IComponentFactory _comFac;
 
             // eUid -> EventType -> { CompType1, ... CompTypeN }
             private Dictionary<EntityUid, Dictionary<Type, EntityEventTable>> _eventTables;
+            
+            private readonly NullComponentType _nullComp = new();
 
             public class EntityEventTable
             {
@@ -313,7 +391,7 @@ namespace OpenNefia.Core.GameObjects
                 registrations.Add(registration);
             }
 
-            public void Subscribe<TEvent>(Type compType, Type eventType, DirectedEventHandler<TEvent> handler,
+            public void SubscribeComponent<TEvent>(Type compType, Type eventType, DirectedEventHandler<TEvent> handler,
                 OrderingData order, bool byReference)
                 where TEvent : notnull
             {
@@ -322,6 +400,18 @@ namespace OpenNefia.Core.GameObjects
                     {
                         ref var tev = ref Unsafe.As<Unit, TEvent>(ref ev);
                         handler(uid, comp, ref tev);
+                    }, byReference));
+            }
+
+            public void SubscribeEntity<TEvent>(Type eventType, DirectedEntityEventHandler<TEvent> handler,
+                OrderingData order, bool byReference)
+                where TEvent : notnull
+            {
+                AddSubscription(typeof(NullComponentType), eventType, new DirectedRegistration(handler, order,
+                    (EntityUid uid, IComponent comp, ref Unit ev) =>
+                    {
+                        ref var tev = ref Unsafe.As<Unit, TEvent>(ref ev);
+                        handler(uid, ref tev);
                     }, byReference));
             }
 
@@ -338,9 +428,24 @@ namespace OpenNefia.Core.GameObjects
 
             private void AddEntity(EntityUid euid)
             {
-                // odds are at least 1 component will subscribe to an event on the entity, so just
-                // preallocate the table now. Dispatch does not need to check this later.
-                _eventTables.Add(euid, new Dictionary<Type, EntityEventTable>());
+                var eventTable = new Dictionary<Type, EntityEventTable>();
+                _eventTables.Add(euid, eventTable);
+
+                // Add entity (non-component) subs.
+
+                if (!_subscriptions.TryGetValue(typeof(NullComponentType), out var compSubs))
+                    return;
+
+                foreach (var kvSub in compSubs)
+                {
+                    if (!eventTable.TryGetValue(kvSub.Key, out var entityTable))
+                    {
+                        entityTable = new EntityEventTable();
+                        eventTable.Add(kvSub.Key, entityTable);
+                    }
+
+                    entityTable.AddComponentType(typeof(NullComponentType));
+                }
             }
 
             private void RemoveEntity(EntityUid euid)
@@ -353,9 +458,9 @@ namespace OpenNefia.Core.GameObjects
                 var eventTable = _eventTables[euid];
 
                 var enumerator = GetReferences(compType);
-                while (enumerator.MoveNext(out var type))
+                while (enumerator.MoveNext(out var compRefType))
                 {
-                    if (!_subscriptions.TryGetValue(type, out var compSubs))
+                    if (!_subscriptions.TryGetValue(compRefType, out var compSubs))
                         continue;
 
                     foreach (var kvSub in compSubs)
@@ -366,7 +471,7 @@ namespace OpenNefia.Core.GameObjects
                             eventTable.Add(kvSub.Key, entityTable);
                         }
 
-                        entityTable.AddComponentType(type);
+                        entityTable.AddComponentType(compRefType);
                     }
                 }
             }
@@ -413,9 +518,11 @@ namespace OpenNefia.Core.GameObjects
                 if (!eventTable.TryGetValue(eventType, out var entityEventTable))
                     return;
 
+                Dictionary<Type, List<DirectedRegistration>>? compSubs;
+
                 foreach (var compType in entityEventTable.SubscribedComponents)
                 {
-                    if (!_subscriptions.TryGetValue(compType, out var compSubs))
+                    if (!_subscriptions.TryGetValue(compType, out compSubs))
                         return;
 
                     if (!compSubs.TryGetValue(eventType, out var registrations))
@@ -424,9 +531,13 @@ namespace OpenNefia.Core.GameObjects
                     foreach (var reg in registrations)
                     {
                         if (reg.ReferenceEvent != byRef)
-                            ThrowByRefMisMatch();
+                            ThrowByRefMisMatch(reg.ReferenceEvent);
 
-                        var component = _entMan.GetComponent(euid, compType);
+                        IComponent component;
+                        if (compType == typeof(NullComponentType))
+                            component = _nullComp; // Handler ignores this component.
+                        else
+                            component = _entMan.GetComponent(euid, compType);
 
                         found.Add((new((ref Unit ev) => reg.Handler(euid, component, ref ev), compType), reg.Ordering));
                     }
@@ -438,7 +549,7 @@ namespace OpenNefia.Core.GameObjects
             {
                 var enumerator = GetReferences(component.GetType());
                 var regs = new List<DirectedRegistration>();
-                
+
                 while (enumerator.MoveNext(out var type))
                 {
                     if (!_subscriptions.TryGetValue(type, out var compSubs))
@@ -450,7 +561,7 @@ namespace OpenNefia.Core.GameObjects
                     foreach (var reg in registrations)
                     {
                         if (reg.ReferenceEvent != dispatchByReference)
-                            ThrowByRefMisMatch();
+                            ThrowByRefMisMatch(reg.ReferenceEvent);
 
                         regs.Add(reg);
                     }
@@ -469,7 +580,7 @@ namespace OpenNefia.Core.GameObjects
             {
                 _eventTables = new();
                 _subscriptionLock = false;
-        }
+            }
 
             public void Clear()
             {
@@ -544,7 +655,7 @@ namespace OpenNefia.Core.GameObjects
                     }
                 }
             }
-            
+
             private struct ReferencesEnumerator
             {
                 private readonly Type _baseType;
@@ -596,7 +707,7 @@ namespace OpenNefia.Core.GameObjects
                 public bool MoveNext(
                     [NotNullWhen(true)] out RefEventHandler? handler)
                 {
-begin:
+                begin:
                     _enumerator.MoveNext();
 
                     // ReSharper disable once ConditionIsAlwaysTrueOrFalse
@@ -658,6 +769,12 @@ begin:
             }
         }
     }
+
+    public delegate void EntityEventHandler<in TEvent>(EntityUid uid, TEvent args)
+        where TEvent : notnull;
+
+    public delegate void EntityEventRefHandler<TEvent>(EntityUid uid, ref TEvent args)
+        where TEvent : notnull;
 
     public delegate void ComponentEventHandler<in TComp, in TEvent>(EntityUid uid, TComp component, TEvent args)
         where TComp : IComponent
