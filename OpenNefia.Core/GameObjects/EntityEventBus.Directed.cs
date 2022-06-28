@@ -156,7 +156,7 @@ namespace OpenNefia.Core.GameObjects
             }
             
             // The entity event table weaves together the component and broadcast event handlers
-            // with the same priority sorting.
+            // with the same priority sorting system.
             if (table.Dirty)
             {
                 var found = new List<(HandlerAndCompType, OrderingData)>();
@@ -462,7 +462,7 @@ namespace OpenNefia.Core.GameObjects
             {
                 _eventTables = new();
                 _subscriptionLock = false;
-            }
+        }
 
             public void Clear()
             {
@@ -619,6 +619,7 @@ begin:
         public void ClearEventTables()
         {
             _eventTables.Clear();
+            _nextEventIndex = 0;
         }
 
         public void Dispose()
