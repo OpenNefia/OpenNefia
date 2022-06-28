@@ -305,13 +305,13 @@ namespace OpenNefia.Core.Serialization.Manager
             var method =
                 typeof(SerializationManager).GetRuntimeMethods().First(m => m.Name == nameof(ValidateWithSerializer))!.MakeGenericMethod(
                     type, node.GetType(), typeSerializer);
-            return (ValidationNode)method.Invoke(this, new object?[] {node, context})!;
+            return (ValidationNode)method.Invoke(this, new object?[] { node, context })!;
         }
 
         public ValidationNode ValidateNodeWith<TType, TSerializer, TNode>(TNode node,
             ISerializationContext? context = null)
             where TSerializer : ITypeValidator<TType, TNode>
-            where TNode: DataNode
+            where TNode : DataNode
         {
             return ValidateNodeWith(typeof(TType), typeof(TSerializer), node, context);
         }
@@ -326,7 +326,7 @@ namespace OpenNefia.Core.Serialization.Manager
         public DeserializationResult PopulateDataDefinition<T>(T obj, DeserializedDefinition<T> definition, bool skipHook = false)
             where T : notnull, new()
         {
-            return PopulateDataDefinition(obj, (IDeserializedDefinition) definition, skipHook);
+            return PopulateDataDefinition(obj, (IDeserializedDefinition)definition, skipHook);
         }
 
         public DeserializationResult PopulateDataDefinition(object obj, IDeserializedDefinition definition, bool skipHook = false)
@@ -451,7 +451,7 @@ namespace OpenNefia.Core.Serialization.Manager
             {
                 // Enums implement IConvertible.
                 // Need it for the culture overload.
-                var convertible = (IConvertible) value;
+                var convertible = (IConvertible)value;
                 return new ValueDataNode(convertible.ToString(CultureInfo.InvariantCulture));
             }
 
@@ -525,22 +525,46 @@ namespace OpenNefia.Core.Serialization.Manager
 
             if (sourceType.IsArray && targetType.IsArray)
             {
-                var sourceArray = (Array) source;
-                var targetArray = (Array) target;
+                var sourceArray = (Array)source;
+                var targetArray = (Array)target;
+                var elementType = sourceArray.GetType().GetElementType()!;
 
                 Array newArray;
-                if(sourceArray.Length == targetArray.Length)
+
+                if (sourceArray.Rank != targetArray.Rank)
                 {
-                    newArray = targetArray;
-                }
-                else
-                {
-                    newArray = Array.CreateInstance(sourceArray.GetType(), sourceArray.GetLongLengths());
+                    throw new InvalidOperationException(
+                        $"Source and target arrays must have the same dimensions. Source: {sourceArray.Rank}, Target: {targetArray.Rank}");
                 }
 
                 if (sourceArray.Rank == 1)
                 {
-                    for (var i = 0; i < sourceArray.Length; i++)
+                    if (sourceArray.Length == targetArray.Length)
+                    {
+                        newArray = targetArray;
+                    }
+                    else
+                    {
+                        newArray = Array.CreateInstance(elementType, sourceArray.Length);
+                    }
+                }
+                else
+                {
+                    var sourceLengths = sourceArray.GetLongLengths();
+                    var targetLengths = targetArray.GetLongLengths();
+
+                    if (!Enumerable.SequenceEqual(sourceLengths, targetLengths))
+                    {
+                        throw new InvalidOperationException(
+                            $"Source and target arrays must have the same dimensions. Source: {sourceLengths}, Target: {targetLengths}");
+                    }
+                    
+                    newArray = Array.CreateInstance(elementType, sourceLengths);
+                }
+
+                if (sourceArray.Rank == 1)
+                {
+                    for (var i = 0; i < sourceArray.LongLength; i++)
                     {
                         newArray.SetValue(CreateCopy(sourceArray.GetValue(i), context, skipHook), i);
                     }
@@ -550,7 +574,7 @@ namespace OpenNefia.Core.Serialization.Manager
                     var indices = new long[sourceArray.Rank];
                     var cumulativeLengths = sourceArray.GetCumulativeLengths();
 
-                    for (var i = 0; i < sourceArray.Length; i++)
+                    for (var i = 0; i < sourceArray.LongLength; i++)
                     {
                         for (int dim = sourceArray.Rank - 1; dim >= 0; dim--)
                         {
@@ -616,7 +640,7 @@ namespace OpenNefia.Core.Serialization.Manager
         {
             var copy = CopyToTarget(source, target, context, skipHook);
 
-            return copy == null ? default : (T?) copy;
+            return copy == null ? default : (T?)copy;
         }
 
         [MustUseReturnValue]
@@ -658,7 +682,7 @@ namespace OpenNefia.Core.Serialization.Manager
                 return default;
             }
 
-            return (T?) copy;
+            return (T?)copy;
         }
 
         public bool Compare(object? left, object? right, ISerializationContext? context = null, bool skipHook = false)
@@ -686,7 +710,7 @@ namespace OpenNefia.Core.Serialization.Manager
             {
                 var leftArray = (Array)left;
                 var rightArray = (Array)right;
-                
+
                 if (leftArray.Rank != rightArray.Rank)
                 {
                     return false;
@@ -702,7 +726,7 @@ namespace OpenNefia.Core.Serialization.Manager
 
                 if (leftArray.Rank == 1)
                 {
-                    for (var i = 0; i < leftArray.Length; i++)
+                    for (var i = 0; i < leftArray.LongLength; i++)
                     {
                         if (!Compare(leftArray.GetValue(i), rightArray.GetValue(i), context, skipHook))
                             return false;

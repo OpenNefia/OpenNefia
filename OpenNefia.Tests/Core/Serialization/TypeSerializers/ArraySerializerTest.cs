@@ -97,6 +97,11 @@ namespace OpenNefia.Tests.Core.Serialization.TypeSerializers
             var result = Serialization.Copy(list1, list2);
             Assert.That(list1, Is.EqualTo(list1));
             Assert.That(result, Is.EqualTo(list1));
+            
+            var list3 = new[,] { { " ", " " }, { " ", " " } };
+            var list4 = new[] { " ", " " };
+            Assert.Throws<InvalidOperationException>(() => Serialization.Copy(list1, list3));
+            Assert.Throws<InvalidOperationException>(() => Serialization.Copy(list1, list4));
         }
 
         [Test]
@@ -105,8 +110,14 @@ namespace OpenNefia.Tests.Core.Serialization.TypeSerializers
             var list1 = new[,] { { "A", "B", "C" }, { "E", "F", "G" } };
             var list2 = new[,] { { "A", "B", "C" }, { "E", "F", "G" } };
             Assert.That(Serialization.Compare(list1, list2), Is.True);
+            
             list1[0, 0] = " ";
             Assert.That(Serialization.Compare(list1, list2), Is.False);
+            
+            var list3 = new[,] { { "A", "B" }, { "E", "F" } };
+            var list4 = new[] { "A", "B" };
+            Assert.That(Serialization.Compare(list1, list3), Is.False);
+            Assert.That(Serialization.Compare(list1, list4), Is.False);
         }
     }
 }
