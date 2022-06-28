@@ -68,5 +68,45 @@ namespace OpenNefia.Tests.Core.Serialization.TypeSerializers
 
             Assert.That(deserializedList, Is.EqualTo(list));
         }
+
+        [Test]
+        public void CopyTest_Sequence()
+        {
+            var list1 = new[] { "A", "B", "C" };
+            var list2 = new[] { " ", " ", " " };
+            var result = Serialization.Copy(list1, list2);
+            Assert.That(list1, Is.EqualTo(list1));
+            Assert.That(result, Is.EqualTo(list1));
+        }
+
+        [Test]
+        public void CompareTest_Sequence()
+        {
+            var list1 = new[] { "A", "B", "C" };
+            var list2 = new[] { "A", "B", "C" };
+            Assert.That(Serialization.Compare(list1, list2), Is.True);
+            list1[0] = " ";
+            Assert.That(Serialization.Compare(list1, list2), Is.False);
+        }
+
+        [Test]
+        public void CopyTest_MultiDim()
+        {
+            var list1 = new[,] { { "A", "B", "C" }, { "E", "F", "G" } };
+            var list2 = new[,] { { " ", " ", " " }, { " ", " ", " " } };
+            var result = Serialization.Copy(list1, list2);
+            Assert.That(list1, Is.EqualTo(list1));
+            Assert.That(result, Is.EqualTo(list1));
+        }
+
+        [Test]
+        public void CompareTest_MultiDim()
+        {
+            var list1 = new[,] { { "A", "B", "C" }, { "E", "F", "G" } };
+            var list2 = new[,] { { "A", "B", "C" }, { "E", "F", "G" } };
+            Assert.That(Serialization.Compare(list1, list2), Is.True);
+            list1[0, 0] = " ";
+            Assert.That(Serialization.Compare(list1, list2), Is.False);
+        }
     }
 }

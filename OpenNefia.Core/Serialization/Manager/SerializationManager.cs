@@ -538,9 +538,26 @@ namespace OpenNefia.Core.Serialization.Manager
                     newArray = Array.CreateInstance(sourceArray.GetType(), sourceArray.GetLongLengths());
                 }
 
-                for (var i = 0; i < sourceArray.Length; i++)
+                if (sourceArray.Rank == 1)
                 {
-                    newArray.SetValue(CreateCopy(sourceArray.GetValue(i), context, skipHook), i);
+                    for (var i = 0; i < sourceArray.Length; i++)
+                    {
+                        newArray.SetValue(CreateCopy(sourceArray.GetValue(i), context, skipHook), i);
+                    }
+                }
+                else
+                {
+                    var indices = new long[sourceArray.Rank];
+                    var cumulativeLengths = sourceArray.GetCumulativeLengths();
+
+                    for (var i = 0; i < sourceArray.Length; i++)
+                    {
+                        for (int dim = sourceArray.Rank - 1; dim >= 0; dim--)
+                        {
+                            indices[dim] = i / cumulativeLengths[dim] % sourceArray.GetLongLength(dim);
+                        }
+                        newArray.SetValue(CreateCopy(sourceArray.GetValue(indices), context, skipHook), indices);
+                    }
                 }
 
                 return newArray;
@@ -683,10 +700,28 @@ namespace OpenNefia.Core.Serialization.Manager
                     }
                 }
 
-                for (var i = 0; i < leftArray.Length; i++)
+                if (leftArray.Rank == 1)
                 {
-                    if (!Compare(leftArray.GetValue(i), rightArray.GetValue(i), context, skipHook))
-                        return false;
+                    for (var i = 0; i < leftArray.Length; i++)
+                    {
+                        if (!Compare(leftArray.GetValue(i), rightArray.GetValue(i), context, skipHook))
+                            return false;
+                    }
+                }
+                else
+                {
+                    var indices = new long[leftArray.Rank];
+                    var cumulativeLengths = leftArray.GetCumulativeLengths();
+
+                    for (var i = 0; i < leftArray.LongLength; i++)
+                    {
+                        for (int dim = leftArray.Rank - 1; dim >= 0; dim--)
+                        {
+                            indices[dim] = i / cumulativeLengths[dim] % leftArray.GetLongLength(dim);
+                        }
+                        if (!Compare(leftArray.GetValue(indices), rightArray.GetValue(indices), context, skipHook))
+                            return false;
+                    }
                 }
 
                 return true;
