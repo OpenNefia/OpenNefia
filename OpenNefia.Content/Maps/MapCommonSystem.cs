@@ -13,7 +13,7 @@ namespace OpenNefia.Content.Maps
     {
         public override void Initialize()
         {
-            SubscribeLocalEvent<MapCreatedEvent>(AddRequiredComponents, priority: EventPriorities.Highest);
+            SubscribeBroadcast<MapCreatedEvent>(AddRequiredComponents, priority: EventPriorities.Highest);
         }
 
         private void AddRequiredComponents(MapCreatedEvent args)

@@ -18,7 +18,7 @@ namespace OpenNefia.Core.Containers
         {
             base.Initialize();
 
-            SubscribeLocalEvent<EntityParentChangedEvent>(HandleParentChanged);
+            SubscribeBroadcast<EntityParentChangedEvent>(HandleParentChanged);
         }
 
         #region Container Management

@@ -17,11 +17,11 @@ namespace OpenNefia.Core.GameObjects
 
         public override void Initialize()
         {
-            SubscribeLocalEvent<SpatialComponent, EntityPositionChangedEvent>(HandlePositionChanged);
-            SubscribeLocalEvent<SpatialComponent, EntityMapInitEvent>(HandleMapInit);
-            SubscribeLocalEvent<SpatialComponent, EntityLivenessChangedEvent>(HandleLivenessChanged);
-            SubscribeLocalEvent<SpatialComponent, EntityTerminatingEvent>(HandleEntityTerminating);
-            SubscribeLocalEvent<SpatialComponent, EntityTangibilityChangedEvent>(HandleTangibilityChanged);
+            SubscribeComponent<SpatialComponent, EntityPositionChangedEvent>(HandlePositionChanged);
+            SubscribeComponent<SpatialComponent, EntityMapInitEvent>(HandleMapInit);
+            SubscribeComponent<SpatialComponent, EntityLivenessChangedEvent>(HandleLivenessChanged);
+            SubscribeComponent<SpatialComponent, EntityTerminatingEvent>(HandleEntityTerminating);
+            SubscribeComponent<SpatialComponent, EntityTangibilityChangedEvent>(HandleTangibilityChanged);
         }
 
         /// <summary>

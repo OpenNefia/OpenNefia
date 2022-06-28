@@ -13,7 +13,7 @@ namespace OpenNefia.Content.Qualities
     {
         public override void Initialize()
         {
-            SubscribeLocalEvent<QualityComponent, GetBaseNameEventArgs>(AddQualityBrackets);
+            SubscribeComponent<QualityComponent, GetBaseNameEventArgs>(AddQualityBrackets);
         }
 
         private void AddQualityBrackets(EntityUid uid, QualityComponent quality, ref GetBaseNameEventArgs args)

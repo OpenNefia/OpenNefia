@@ -37,7 +37,7 @@ namespace OpenNefia.Tests.Core.GameObjects
 
             // Subscribe
             int calledCount = 0;
-            bus.SubscribeLocalEvent<MetaDataComponent, TestEvent>(HandleTestEvent);
+            bus.SubscribeComponentEvent<MetaDataComponent, TestEvent>(HandleTestEvent);
 
             // add a component to the system
             entManMock.Raise(m=>m.EntityAdded += null, entManMock.Object, entUid);
@@ -45,7 +45,7 @@ namespace OpenNefia.Tests.Core.GameObjects
 
             // Raise
             var evntArgs = new TestEvent(5);
-            bus.RaiseLocalEvent(entUid, evntArgs);
+            bus.RaiseEvent(entUid, evntArgs);
 
             // Assert
             Assert.That(calledCount, Is.EqualTo(1));
@@ -86,8 +86,8 @@ namespace OpenNefia.Tests.Core.GameObjects
 
             // Subscribe
             int calledCount = 0;
-            bus.SubscribeLocalEvent<MetaDataComponent, TestEvent>(HandleTestEvent);
-            bus.UnsubscribeAllLocalEvents<MetaDataComponent, TestEvent>();
+            bus.SubscribeComponentEvent<MetaDataComponent, TestEvent>(HandleTestEvent);
+            bus.UnsubscribeAllComponentEvents<MetaDataComponent, TestEvent>();
 
             // add a component to the system
             entManMock.Raise(m => m.EntityAdded += null, entManMock.Object, entUid);
@@ -95,7 +95,7 @@ namespace OpenNefia.Tests.Core.GameObjects
 
             // Raise
             var evntArgs = new TestEvent(5);
-            bus.RaiseLocalEvent(entUid, evntArgs);
+            bus.RaiseEvent(entUid, evntArgs);
 
             // Assert
             Assert.That(calledCount, Is.EqualTo(0));
@@ -135,14 +135,14 @@ namespace OpenNefia.Tests.Core.GameObjects
 
             // Subscribe
             int calledCount = 0;
-            bus.SubscribeLocalEvent<MetaDataComponent, ComponentInit>(HandleTestEvent);
+            bus.SubscribeComponentEvent<MetaDataComponent, ComponentInit>(HandleTestEvent);
 
             // add a component to the system
             entManMock.Raise(m=>m.EntityAdded += null, entManMock.Object, entUid);
             entManMock.Raise(m => m.ComponentAdded += null, new AddedComponentEventArgs(compInstance, entUid));
 
             // Raise
-            ((IEventBus)bus).RaiseComponentEvent(compInstance, new ComponentInit());
+            ((IEventBus)bus).RaiseDirectedComponentEvent(compInstance, new ComponentInit());
 
             // Assert
             Assert.That(calledCount, Is.EqualTo(1));
@@ -213,10 +213,10 @@ namespace OpenNefia.Tests.Core.GameObjects
 
             void HandlerC(EntityUid uid, Component comp, TestEvent ev) => c = true;
 
-            bus.SubscribeLocalEvent<OrderComponentA, TestEvent>(HandlerA, EventPriorities.Highest);
-            bus.SubscribeLocalEvent<OrderComponentB, TestEvent>(HandlerB);
-            bus.SubscribeLocalEvent<OrderComponentC, TestEvent>(HandlerC, EventPriorities.High);
-            bus.SubscribeLocalEvent<OrderComponentC2, TestEvent>(HandlerC2, EventPriorities.Low);
+            bus.SubscribeComponentEvent<OrderComponentA, TestEvent>(HandlerA, EventPriorities.Highest);
+            bus.SubscribeComponentEvent<OrderComponentB, TestEvent>(HandlerB);
+            bus.SubscribeComponentEvent<OrderComponentC, TestEvent>(HandlerC, EventPriorities.High);
+            bus.SubscribeComponentEvent<OrderComponentC2, TestEvent>(HandlerC2, EventPriorities.Low);
 
             // add a component to the system
             entManMock.Raise(m=>m.EntityAdded += null, entManMock.Object, entUid);
@@ -227,7 +227,7 @@ namespace OpenNefia.Tests.Core.GameObjects
 
             // Raise
             var evntArgs = new TestEvent(5);
-            bus.RaiseLocalEvent(entUid, evntArgs);
+            bus.RaiseEvent(entUid, evntArgs);
 
             // Assert
             Assert.That(a, Is.True, "A did not fire");
@@ -293,9 +293,9 @@ namespace OpenNefia.Tests.Core.GameObjects
 
             var subscriber = new DummyEventSubscriber();
 
-            bus.SubscribeLocalEvent<OrderComponentA, TestEvent>(HandlerA, EventPriorities.High);
-            bus.SubscribeEvent<TestEvent>(subscriber, HandlerBroadcast, EventPriorities.VeryHigh);
-            bus.SubscribeLocalEvent<OrderComponentB, TestEvent>(HandlerB, EventPriorities.VeryLow);
+            bus.SubscribeComponentEvent<OrderComponentA, TestEvent>(HandlerA, EventPriorities.High);
+            bus.SubscribeBroadcastEvent<TestEvent>(subscriber, HandlerBroadcast, EventPriorities.VeryHigh);
+            bus.SubscribeComponentEvent<OrderComponentB, TestEvent>(HandlerB, EventPriorities.VeryLow);
 
             // add a component to the system
             entManMock.Raise(m => m.EntityAdded += null, entManMock.Object, entUid);
@@ -304,7 +304,7 @@ namespace OpenNefia.Tests.Core.GameObjects
 
             // Raise
             var evntArgs = new TestEvent(5);
-            bus.RaiseLocalEvent(entUid, evntArgs);
+            bus.RaiseEvent(entUid, evntArgs);
 
             // Assert
             Assert.That(a, Is.True, "A did not fire");
@@ -327,11 +327,11 @@ namespace OpenNefia.Tests.Core.GameObjects
 
             var subscriber = new DummyEventSubscriber();
 
-            bus.SubscribeEvent<TestEvent>(subscriber, _ => broadcast = true, EventPriorities.VeryHigh);
+            bus.SubscribeBroadcastEvent<TestEvent>(subscriber, _ => broadcast = true, EventPriorities.VeryHigh);
 
             // Raise
             var evntArgs = new TestEvent(5);
-            bus.RaiseLocalEvent(entUid, evntArgs);
+            bus.RaiseEvent(entUid, evntArgs);
 
             // Assert
             Assert.That(broadcast, Is.True, "Broadcast did not fire");
@@ -375,8 +375,8 @@ namespace OpenNefia.Tests.Core.GameObjects
             }
 
             // Subscribe
-            bus.SubscribeLocalEvent<MetaDataComponent, TestEvent>(HandleTestEventA, priority: EventPriorities.Low);
-            bus.SubscribeLocalEvent<MetaDataComponent, TestEvent>(HandleTestEventB);
+            bus.SubscribeComponentEvent<MetaDataComponent, TestEvent>(HandleTestEventA, priority: EventPriorities.Low);
+            bus.SubscribeComponentEvent<MetaDataComponent, TestEvent>(HandleTestEventB);
 
             // add a component to the system
             entManMock.Raise(m => m.EntityAdded += null, entManMock.Object, entUid);
@@ -384,7 +384,7 @@ namespace OpenNefia.Tests.Core.GameObjects
 
             // Raise
             var evntArgs = new TestEvent(5);
-            bus.RaiseLocalEvent(entUid, evntArgs);
+            bus.RaiseEvent(entUid, evntArgs);
 
             // Assert
             Assert.That(a, Is.True, "A did not fire.");

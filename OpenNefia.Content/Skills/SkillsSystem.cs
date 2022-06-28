@@ -82,8 +82,8 @@ namespace OpenNefia.Content.Skills
 
         public override void Initialize()
         {
-            SubscribeLocalEvent<SkillsComponent, EntityRefreshEvent>(HandleRefresh, priority: EventPriorities.VeryHigh);
-            SubscribeLocalEvent<SkillsComponent, EntityGeneratedEvent>(HandleGenerated, priority: EventPriorities.VeryHigh);
+            SubscribeComponent<SkillsComponent, EntityRefreshEvent>(HandleRefresh, priority: EventPriorities.VeryHigh);
+            SubscribeComponent<SkillsComponent, EntityGeneratedEvent>(HandleGenerated, priority: EventPriorities.VeryHigh);
         }
 
         private void HandleGenerated(EntityUid uid, SkillsComponent component, ref EntityGeneratedEvent args)

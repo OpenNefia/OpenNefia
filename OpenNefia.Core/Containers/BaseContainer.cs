@@ -97,12 +97,12 @@ namespace OpenNefia.Core.Containers
 
             //raise events
             var insertAttemptEvent = new ContainerIsInsertingAttemptEvent(this, toinsert);
-            entMan.EventBus.RaiseLocalEvent(Owner, insertAttemptEvent);
+            entMan.EventBus.RaiseEvent(Owner, insertAttemptEvent);
             if (insertAttemptEvent.Cancelled)
                 return false;
 
             var gettingInsertedAttemptEvent = new ContainerGettingInsertedAttemptEvent(this, toinsert);
-            entMan.EventBus.RaiseLocalEvent(toinsert, gettingInsertedAttemptEvent);
+            entMan.EventBus.RaiseEvent(toinsert, gettingInsertedAttemptEvent);
             if (gettingInsertedAttemptEvent.Cancelled)
                 return false;
 
@@ -149,12 +149,12 @@ namespace OpenNefia.Core.Containers
 
             //raise events
             var removeAttemptEvent = new ContainerIsRemovingAttemptEvent(this, toremove);
-            entMan.EventBus.RaiseLocalEvent(Owner, removeAttemptEvent);
+            entMan.EventBus.RaiseEvent(Owner, removeAttemptEvent);
             if (removeAttemptEvent.Cancelled)
                 return false;
 
             var gettingRemovedAttemptEvent = new ContainerGettingRemovedAttemptEvent(this, toremove);
-            entMan.EventBus.RaiseLocalEvent(toremove, gettingRemovedAttemptEvent);
+            entMan.EventBus.RaiseEvent(toremove, gettingRemovedAttemptEvent);
             if (gettingRemovedAttemptEvent.Cancelled)
                 return false;
 
@@ -180,7 +180,7 @@ namespace OpenNefia.Core.Containers
         {
             DebugTools.Assert(!Deleted);
 
-            entMan.EventBus.RaiseLocalEvent(Owner, new EntInsertedIntoContainerMessage(toinsert, this));
+            entMan.EventBus.RaiseEvent(Owner, new EntInsertedIntoContainerMessage(toinsert, this));
         }
 
         /// <summary>
@@ -195,7 +195,7 @@ namespace OpenNefia.Core.Containers
             DebugTools.AssertNotNull(toremove);
             DebugTools.Assert(entMan.EntityExists(toremove));
 
-            entMan.EventBus.RaiseLocalEvent(Owner, new EntRemovedFromContainerMessage(toremove, this));
+            entMan.EventBus.RaiseEvent(Owner, new EntRemovedFromContainerMessage(toremove, this));
         }
     }
 }

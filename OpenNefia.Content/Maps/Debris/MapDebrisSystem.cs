@@ -24,7 +24,7 @@ namespace OpenNefia.Content.Maps
 
         public override void Initialize()
         {
-            SubscribeLocalEvent<MapCreatedEvent>(HandleMapCreated, priority: EventPriorities.Highest);
+            SubscribeBroadcast<MapCreatedEvent>(HandleMapCreated, priority: EventPriorities.Highest);
         }
 
         public const int MaxBlood = 6;

@@ -29,7 +29,7 @@ namespace OpenNefia.Tests.Core.GameObjects
             {
                 base.Initialize();
 
-                SubscribeLocalEvent<TestStructEvent>(OnTestEvent);
+                SubscribeBroadcast<TestStructEvent>(OnTestEvent);
             }
 
             private void OnTestEvent(ref TestStructEvent ev)
@@ -58,8 +58,8 @@ namespace OpenNefia.Tests.Core.GameObjects
             public override void Initialize()
             {
                 // The below is not allowed, as you're subscribing by-ref and by-value to the same event...
-                SubscribeLocalEvent<TestStructEvent>(MyRefHandler);
-                SubscribeLocalEvent<TestStructEvent>(MyValueHandler);
+                SubscribeBroadcast<TestStructEvent>(MyRefHandler);
+                SubscribeBroadcast<TestStructEvent>(MyValueHandler);
             }
 
             private void MyValueHandler(TestStructEvent args) { }
@@ -96,7 +96,7 @@ namespace OpenNefia.Tests.Core.GameObjects
             {
                 base.Initialize();
 
-                SubscribeLocalEvent<TestStructEvent>(OnA);
+                SubscribeBroadcast<TestStructEvent>(OnA);
             }
 
             private void OnA(ref TestStructEvent args)
@@ -114,7 +114,7 @@ namespace OpenNefia.Tests.Core.GameObjects
             {
                 base.Initialize();
 
-                SubscribeLocalEvent<TestStructEvent>(OnB, EventPriorities.Low);
+                SubscribeBroadcast<TestStructEvent>(OnB, EventPriorities.Low);
             }
 
             private void OnB(ref TestStructEvent args)
@@ -132,7 +132,7 @@ namespace OpenNefia.Tests.Core.GameObjects
             {
                 base.Initialize();
 
-                SubscribeLocalEvent<TestStructEvent>(OnC, EventPriorities.High);
+                SubscribeBroadcast<TestStructEvent>(OnC, EventPriorities.High);
             }
 
             private void OnC(ref TestStructEvent args)

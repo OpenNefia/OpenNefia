@@ -38,7 +38,7 @@ namespace OpenNefia.Content.Pot
 
         public override void Initialize()
         {
-            SubscribeLocalEvent<PotComponent, WasCollidedWithEventArgs>(HandleCollidedWith);
+            SubscribeComponent<PotComponent, WasCollidedWithEventArgs>(HandleCollidedWith);
         }
 
         private void HandleCollidedWith(EntityUid uid, PotComponent component, WasCollidedWithEventArgs args)

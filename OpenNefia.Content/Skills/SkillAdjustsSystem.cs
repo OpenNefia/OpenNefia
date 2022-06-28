@@ -19,7 +19,7 @@ namespace OpenNefia.Content.Skills
     {
         public override void Initialize()
         {
-            SubscribeLocalEvent<SkillAdjustsComponent, EntityRefreshEvent>(OnRefresh);
+            SubscribeComponent<SkillAdjustsComponent, EntityRefreshEvent>(OnRefresh);
         }
 
         private void OnRefresh(EntityUid entity, SkillAdjustsComponent skillAdj, ref EntityRefreshEvent args)

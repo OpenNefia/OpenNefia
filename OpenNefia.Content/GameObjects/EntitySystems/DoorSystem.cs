@@ -24,11 +24,11 @@ namespace OpenNefia.Content.GameObjects
 
         public override void Initialize()
         {
-            SubscribeLocalEvent<DoorComponent, GetVerbsEventArgs>(HandleGetVerbs);
-            SubscribeLocalEvent<ExecuteVerbEventArgs>(HandleExecuteVerb);
-            SubscribeLocalEvent<DoorComponent, DoCloseEventArgs>(HandleClose);
-            SubscribeLocalEvent<DoorComponent, EntityMapInitEvent>(HandleInitialize);
-            SubscribeLocalEvent<DoorComponent, WasCollidedWithEventArgs>(HandleCollidedWith);
+            SubscribeComponent<DoorComponent, GetVerbsEventArgs>(HandleGetVerbs);
+            SubscribeBroadcast<ExecuteVerbEventArgs>(HandleExecuteVerb);
+            SubscribeComponent<DoorComponent, DoCloseEventArgs>(HandleClose);
+            SubscribeComponent<DoorComponent, EntityMapInitEvent>(HandleInitialize);
+            SubscribeComponent<DoorComponent, WasCollidedWithEventArgs>(HandleCollidedWith);
         }
 
         private void HandleGetVerbs(EntityUid uid, DoorComponent component, GetVerbsEventArgs args)

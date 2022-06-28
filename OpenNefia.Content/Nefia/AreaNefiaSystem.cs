@@ -54,13 +54,13 @@ namespace OpenNefia.Content.Nefia
 
         public override void Initialize()
         {
-            SubscribeLocalEvent<AreaNefiaComponent, AreaEnteredEvent>(OnNefiaAreaEntered, priority: EventPriorities.High);
-            SubscribeLocalEvent<AreaNefiaComponent, AreaFloorGenerateEvent>(OnNefiaFloorGenerate, priority: EventPriorities.High);
-            SubscribeLocalEvent<AreaNefiaComponent, AreaGeneratedEvent>(OnNefiaGenerated, priority: EventPriorities.High);
-            SubscribeLocalEvent<AreaNefiaComponent, RandomAreaCheckIsActiveEvent>(OnCheckIsActive, priority: EventPriorities.High);
-            SubscribeLocalEvent<AreaNefiaComponent, AreaMapInitializeEvent>(SpawnNefiaBoss);
+            SubscribeComponent<AreaNefiaComponent, AreaEnteredEvent>(OnNefiaAreaEntered, priority: EventPriorities.High);
+            SubscribeComponent<AreaNefiaComponent, AreaFloorGenerateEvent>(OnNefiaFloorGenerate, priority: EventPriorities.High);
+            SubscribeComponent<AreaNefiaComponent, AreaGeneratedEvent>(OnNefiaGenerated, priority: EventPriorities.High);
+            SubscribeComponent<AreaNefiaComponent, RandomAreaCheckIsActiveEvent>(OnCheckIsActive, priority: EventPriorities.High);
+            SubscribeComponent<AreaNefiaComponent, AreaMapInitializeEvent>(SpawnNefiaBoss);
             
-            SubscribeLocalEvent<GenerateRandomAreaEvent>(GenerateRandomNefia, priority: EventPriorities.VeryLow);
+            SubscribeBroadcast<GenerateRandomAreaEvent>(GenerateRandomNefia, priority: EventPriorities.VeryLow);
         }
 
         private void OnNefiaAreaEntered(EntityUid uid, AreaNefiaComponent areaNefia, AreaEnteredEvent args)

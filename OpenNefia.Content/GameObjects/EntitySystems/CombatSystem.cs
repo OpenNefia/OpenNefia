@@ -31,8 +31,8 @@ namespace OpenNefia.Content.GameObjects
 
         public override void Initialize()
         {
-            SubscribeLocalEvent<MoveableComponent, CollideWithEventArgs>(HandleCollideWith, priority: EventPriorities.Low);
-            SubscribeLocalEvent<SkillsComponent, PhysicalAttackEventArgs>(HandlePhysicalAttackMain);
+            SubscribeComponent<MoveableComponent, CollideWithEventArgs>(HandleCollideWith, priority: EventPriorities.Low);
+            SubscribeComponent<SkillsComponent, PhysicalAttackEventArgs>(HandlePhysicalAttackMain);
         }
 
         private void HandlePhysicalAttackMain(EntityUid uid, SkillsComponent skills, PhysicalAttackEventArgs args)

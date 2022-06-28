@@ -26,7 +26,7 @@ namespace OpenNefia.Core.GameObjects
             meta.EntityLifeStage = EntityLifeStage.MapInitialized;
 
             var ev = new EntityMapInitEvent();
-            entMan.EventBus.RaiseLocalEvent(entity, ref ev, false);
+            entMan.EventBus.RaiseEvent(entity, ref ev, false);
         }
     }
 }

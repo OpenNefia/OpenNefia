@@ -72,7 +72,7 @@ namespace OpenNefia.Core.GameObjects
                 _liveness = value;
 
                 var livenessEvent = new EntityLivenessChangedEvent(Owner, oldLiveness, Liveness);
-                _entityManager.EventBus.RaiseLocalEvent(Owner, ref livenessEvent);
+                _entityManager.EventBus.RaiseEvent(Owner, ref livenessEvent);
             }
         }
 

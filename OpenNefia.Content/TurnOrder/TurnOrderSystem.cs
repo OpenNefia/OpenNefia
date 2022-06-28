@@ -89,7 +89,7 @@ namespace OpenNefia.Content.TurnOrder
             _mapManager.OnActiveMapChanged += OnActiveMapChanged;
             _saveGameSerializer.OnGameLoaded += OnGameLoaded;
 
-            SubscribeLocalEvent<MapTurnOrderComponent, ActiveMapChangedEvent>(HandleMapChangedTurnOrder, priority: EventPriorities.VeryHigh);
+            SubscribeComponent<MapTurnOrderComponent, ActiveMapChangedEvent>(HandleMapChangedTurnOrder, priority: EventPriorities.VeryHigh);
         }
 
         #region Event Handlers

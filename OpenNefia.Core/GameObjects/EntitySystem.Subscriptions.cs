@@ -13,71 +13,63 @@ namespace OpenNefia.Core.GameObjects
         /// </summary>
         protected Subscriptions Subs { get; }
 
-        protected void SubscribeLocalEvent<T>(
-            EntityEventHandler<T> handler,
+        protected void SubscribeBroadcast<T>(
+            BroadcastEventHandler<T> handler,
             long priority = EventPriorities.Default)
             where T : notnull
         {
-            SubEvent(handler, priority);
+            SubBroadcastEvent(handler, priority);
         }
 
-        protected void SubscribeLocalEvent<T>(
-            EntityEventRefHandler<T> handler,
+        protected void SubscribeBroadcast<T>(
+            BroadcastEventRefHandler<T> handler,
             long priority = EventPriorities.Default)
             where T : notnull
         {
-            SubEvent(handler, priority);
+            SubBroadcastEvent(handler, priority);
         }
 
-        protected void SubscribeAllEvent<T>(
-            EntityEventHandler<T> handler,
+        private void SubBroadcastEvent<T>(
+            BroadcastEventHandler<T> handler,
             long priority = EventPriorities.Default)
             where T : notnull
         {
-            SubEvent(handler, priority);
-        }
-
-        private void SubEvent<T>(
-            EntityEventHandler<T> handler,
-            long priority = EventPriorities.Default)
-            where T : notnull
-        {
-            EntityManager.EventBus.SubscribeEvent(this, handler, priority);
+            EntityManager.EventBus.SubscribeBroadcastEvent(this, handler, priority);
 
             _subscriptions ??= new();
             _subscriptions.Add(new SubBroadcast<T>());
         }
 
-        private void SubEvent<T>(
-            EntityEventRefHandler<T> handler,
+        private void SubBroadcastEvent<T>(
+            BroadcastEventRefHandler<T> handler,
             long priority = EventPriorities.Default)
             where T : notnull
         {
-            EntityManager.EventBus.SubscribeEvent(this, handler, priority);
+            EntityManager.EventBus.SubscribeBroadcastEvent(this, handler, priority);
 
             _subscriptions ??= new();
             _subscriptions.Add(new SubBroadcast<T>());
         }
 
-        protected void SubscribeLocalEvent<TComp, TEvent>(
+        protected void SubscribeComponent<TComp, TEvent>(
             ComponentEventHandler<TComp, TEvent> handler,
             long priority = EventPriorities.Default)
             where TComp : IComponent
             where TEvent : notnull
         {
-            EntityManager.EventBus.SubscribeLocalEvent(handler, priority);
+            EntityManager.EventBus.SubscribeComponentEvent(handler, priority);
 
             _subscriptions ??= new();
             _subscriptions.Add(new SubLocal<TComp, TEvent>());
         }
 
-        protected void SubscribeLocalEvent<TComp, TEvent>(
+        protected void SubscribeComponent<TComp, TEvent>(
             ComponentEventRefHandler<TComp, TEvent> handler,
             long priority = EventPriorities.Default)
             where TComp : IComponent
             where TEvent : notnull
         {
-            EntityManager.EventBus.SubscribeLocalEvent(handler, priority);
+            EntityManager.EventBus.SubscribeComponentEvent(handler, priority);
 
             _subscriptions ??= new();
             _subscriptions.Add(new SubLocal<TComp, TEvent>());
@@ -113,12 +105,12 @@ namespace OpenNefia.Core.GameObjects
 
             // Intended for helper methods, so minimal API.
 
-            public void SubEvent<T>(
-                EntityEventHandler<T> handler,
+            public void SubBroadcast<T>(
+                BroadcastEventHandler<T> handler,
                 long priority = EventPriorities.Default)
                 where T : notnull
             {
-                System.SubEvent(handler, priority);
+                System.SubBroadcastEvent(handler, priority);
             }
 
             public void SubscribeLocalEvent<TComp, TEvent>(
@@ -127,7 +119,7 @@ namespace OpenNefia.Core.GameObjects
                 where TComp : IComponent
                 where TEvent : EntityEventArgs
             {
-                System.SubscribeLocalEvent(handler, priority);
+                System.SubscribeComponent(handler, priority);
             }
         }
 
@@ -148,7 +140,7 @@ namespace OpenNefia.Core.GameObjects
         {
             public override void Unsubscribe(EntitySystem sys, IEventBus bus)
             {
-                bus.UnsubscribeAllLocalEvents<TComp, TBase>();
+                bus.UnsubscribeAllComponentEvents<TComp, TBase>();
             }
         }
     }

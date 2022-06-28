@@ -191,7 +191,7 @@ namespace OpenNefia.Core.GameObjects
                 _isSolid = value;
 
                 var ev = new EntityTangibilityChangedEvent();
-                _entityManager.EventBus.RaiseLocalEvent(Owner, ref ev);
+                _entityManager.EventBus.RaiseEvent(Owner, ref ev);
             } 
         }
 
@@ -209,7 +209,7 @@ namespace OpenNefia.Core.GameObjects
                 _isOpaque = value;
 
                 var ev = new EntityTangibilityChangedEvent();
-                _entityManager.EventBus.RaiseLocalEvent(Owner, ref ev);
+                _entityManager.EventBus.RaiseEvent(Owner, ref ev);
             }
         }
 
@@ -246,7 +246,7 @@ namespace OpenNefia.Core.GameObjects
                 ChangeMapId(newParent.MapID);
 
                 var entParentChangedMessage = new EntityParentChangedEvent(Owner, oldParent?.Owner);
-                _entityManager.EventBus.RaiseLocalEvent(Owner, ref entParentChangedMessage);
+                _entityManager.EventBus.RaiseEvent(Owner, ref entParentChangedMessage);
             }
 
             // These conditions roughly emulate the effects of the code before I changed things,
@@ -258,7 +258,7 @@ namespace OpenNefia.Core.GameObjects
             if (!noEvents)
             {
                 var moveEvent = new EntityPositionChangedEvent(Owner, oldPosition, Coordinates, this);
-                _entityManager.EventBus.RaiseLocalEvent(Owner, ref moveEvent);
+                _entityManager.EventBus.RaiseEvent(Owner, ref moveEvent);
             }
         }
 
@@ -293,7 +293,7 @@ namespace OpenNefia.Core.GameObjects
             if (!noEvents)
             {
                 var moveEvent = new EntityPositionChangedEvent(Owner, oldPos, Coordinates, this);
-                _entityManager.EventBus.RaiseLocalEvent(Owner, ref moveEvent);
+                _entityManager.EventBus.RaiseEvent(Owner, ref moveEvent);
             }
         }
 
@@ -419,7 +419,7 @@ namespace OpenNefia.Core.GameObjects
             var oldMapId = MapID;
             MapID = MapId.Nullspace;
             var entParentChangedMessage = new EntityParentChangedEvent(Owner, oldParent?.Owner);
-            _entityManager.EventBus.RaiseLocalEvent(Owner, ref entParentChangedMessage);
+            _entityManager.EventBus.RaiseEvent(Owner, ref entParentChangedMessage);
 
             // Does it even make sense to call these since this is called purely from OnRemove right now?
             RebuildMatrices();
@@ -476,7 +476,7 @@ namespace OpenNefia.Core.GameObjects
 
         private void MapIdChanged(MapId oldId)
         {
-            _entityManager.EventBus.RaiseLocalEvent(Owner, new EntMapIdChangedEvent(Owner, oldId));
+            _entityManager.EventBus.RaiseEvent(Owner, new EntMapIdChangedEvent(Owner, oldId));
         }
 
         public void AttachParent(EntityUid parent)

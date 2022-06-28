@@ -4,8 +4,8 @@ namespace OpenNefia.Core.GameObjects
 {
     public interface IEntityEventSubscriber { }
 
-    public delegate void EntityEventHandler<in T>(T ev);
-    public delegate void EntityEventRefHandler<T>(ref T ev);
+    public delegate void BroadcastEventHandler<in T>(T ev);
+    public delegate void BroadcastEventRefHandler<T>(ref T ev);
 
     [Serializable]
     public abstract class EntityEventArgs { }

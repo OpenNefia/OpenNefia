@@ -27,7 +27,7 @@ namespace OpenNefia.Tests.Core.GameObjects
             var subscriber = new TestEventSubscriber();
 
             // Act
-            void Code() => bus.SubscribeEvent(subscriber, (EntityEventHandler<TestEventArgs>)null!);
+            void Code() => bus.SubscribeBroadcastEvent(subscriber, (BroadcastEventHandler<TestEventArgs>)null!);
 
             //Assert
             Assert.Throws<ArgumentNullException>(Code);
@@ -43,7 +43,7 @@ namespace OpenNefia.Tests.Core.GameObjects
             var bus = BusFactory();
 
             // Act
-            void Code() => bus.SubscribeEvent<TestEventArgs>(null!, ev => { });
+            void Code() => bus.SubscribeBroadcastEvent<TestEventArgs>(null!, ev => { });
 
             //Assert: this should do nothing
             Assert.Throws<ArgumentNullException>(Code);
@@ -64,8 +64,8 @@ namespace OpenNefia.Tests.Core.GameObjects
             void Handler(TestEventArgs ev) => delegateCallCount++;
 
             // 2 subscriptions 1 handler
-            bus.SubscribeEvent<TestEventArgs>(subscriber, Handler);
-            bus.SubscribeEvent<TestEventArgs>(subscriber, Handler);
+            bus.SubscribeBroadcastEvent<TestEventArgs>(subscriber, Handler);
+            bus.SubscribeBroadcastEvent<TestEventArgs>(subscriber, Handler);
 
             // Act
             bus.RaiseEvent(new TestEventArgs());
@@ -88,8 +88,8 @@ namespace OpenNefia.Tests.Core.GameObjects
             int delFooCount = 0;
             int delBarCount = 0;
 
-            bus.SubscribeEvent<TestEventArgs>(subscriber, ev => delFooCount++);
-            bus.SubscribeEvent<TestEventArgs>(subscriber, ev => delBarCount++);
+            bus.SubscribeBroadcastEvent<TestEventArgs>(subscriber, ev => delFooCount++);
+            bus.SubscribeBroadcastEvent<TestEventArgs>(subscriber, ev => delBarCount++);
 
             // Act
             bus.RaiseEvent(new TestEventArgs());
@@ -112,8 +112,8 @@ namespace OpenNefia.Tests.Core.GameObjects
             int delFooCount = 0;
             int delBarCount = 0;
 
-            bus.SubscribeEvent<TestEventArgs>(subscriber, ev => delFooCount++);
-            bus.SubscribeEvent<TestEventTwoArgs>(subscriber, ev => delBarCount++);
+            bus.SubscribeBroadcastEvent<TestEventArgs>(subscriber, ev => delFooCount++);
+            bus.SubscribeBroadcastEvent<TestEventTwoArgs>(subscriber, ev => delBarCount++);
 
             // Act & Assert
             bus.RaiseEvent(new TestEventArgs());
@@ -139,7 +139,7 @@ namespace OpenNefia.Tests.Core.GameObjects
 
             void Handler(TestEventArgs ev) { }
 
-            bus.SubscribeEvent<TestEventArgs>(subscriber, Handler);
+            bus.SubscribeBroadcastEvent<TestEventArgs>(subscriber, Handler);
             bus.UnsubscribeEvent<TestEventArgs>(subscriber);
 
             // Act
@@ -191,7 +191,7 @@ namespace OpenNefia.Tests.Core.GameObjects
             var subscriber = new TestEventSubscriber();
 
             int delCalledCount = 0;
-            bus.SubscribeEvent<TestEventTwoArgs>(subscriber, ev => delCalledCount++);
+            bus.SubscribeBroadcastEvent<TestEventTwoArgs>(subscriber, ev => delCalledCount++);
 
             // Act
             bus.RaiseEvent(new TestEventArgs());
@@ -213,7 +213,7 @@ namespace OpenNefia.Tests.Core.GameObjects
             int delCallCount = 0;
             void Handler(TestEventArgs ev) => delCallCount++;
 
-            bus.SubscribeEvent<TestEventArgs>(subscriber, Handler);
+            bus.SubscribeBroadcastEvent<TestEventArgs>(subscriber, Handler);
             bus.UnsubscribeEvent<TestEventArgs>(subscriber);
 
             // Act
@@ -268,7 +268,7 @@ namespace OpenNefia.Tests.Core.GameObjects
             int delCallCount = 0;
             void Handler(TestEventArgs ev) => delCallCount++;
 
-            bus.SubscribeEvent<TestEventArgs>(subscriber, Handler);
+            bus.SubscribeBroadcastEvent<TestEventArgs>(subscriber, Handler);
             bus.UnsubscribeEvents(subscriber);
 
             // Act
@@ -305,9 +305,9 @@ namespace OpenNefia.Tests.Core.GameObjects
 
             void HandlerC(TestEventArgs ev) => c = true;
 
-            bus.SubscribeEvent<TestEventArgs>(new SubA(), HandlerA, EventPriorities.High);
-            bus.SubscribeEvent<TestEventArgs>(new SubB(), HandlerB, EventPriorities.Low);
-            bus.SubscribeEvent<TestEventArgs>(new SubC(), HandlerC);
+            bus.SubscribeBroadcastEvent<TestEventArgs>(new SubA(), HandlerA, EventPriorities.High);
+            bus.SubscribeBroadcastEvent<TestEventArgs>(new SubB(), HandlerB, EventPriorities.Low);
+            bus.SubscribeBroadcastEvent<TestEventArgs>(new SubC(), HandlerC);
 
             // Act
             bus.RaiseEvent(new TestEventArgs());
@@ -345,9 +345,9 @@ namespace OpenNefia.Tests.Core.GameObjects
 
             void HandlerC(TestEventArgs ev) => c = true;
 
-            bus.SubscribeEvent<TestEventArgs>(new SubA(), HandlerA, EventPriorities.High);
-            bus.SubscribeEvent<TestEventArgs>(new SubB(), HandlerB, EventPriorities.VeryLow);
-            bus.SubscribeEvent<TestEventArgs>(new SubC(), HandlerC, EventPriorities.Low);
+            bus.SubscribeBroadcastEvent<TestEventArgs>(new SubA(), HandlerA, EventPriorities.High);
+            bus.SubscribeBroadcastEvent<TestEventArgs>(new SubB(), HandlerB, EventPriorities.VeryLow);
+            bus.SubscribeBroadcastEvent<TestEventArgs>(new SubC(), HandlerC, EventPriorities.Low);
 
             // Act
             bus.RaiseEvent(new TestEventArgs());

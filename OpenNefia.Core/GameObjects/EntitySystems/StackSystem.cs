@@ -148,12 +148,12 @@ namespace OpenNefia.Core.GameObjects
 
         public override void Initialize()
         {
-            SubscribeLocalEvent<StackComponent, EntityMapInitEvent>(HandleEntityInitialized);
-            SubscribeLocalEvent<StackComponent, StackCountChangedEvent>(HandleStackCountChanged);
+            SubscribeComponent<StackComponent, EntityMapInitEvent>(HandleEntityInitialized);
+            SubscribeComponent<StackComponent, StackCountChangedEvent>(HandleStackCountChanged);
 
-            SubscribeLocalEvent<SpatialComponent, EntityClonedEventArgs>(HandleCloneSpatial);
-            SubscribeLocalEvent<MetaDataComponent, EntityClonedEventArgs>(HandleCloneMetaData);
-            SubscribeLocalEvent<StackComponent, EntityClonedEventArgs>(HandleCloneStack);
+            SubscribeComponent<SpatialComponent, EntityClonedEventArgs>(HandleCloneSpatial);
+            SubscribeComponent<MetaDataComponent, EntityClonedEventArgs>(HandleCloneMetaData);
+            SubscribeComponent<StackComponent, EntityClonedEventArgs>(HandleCloneStack);
         }
 
         private void HandleEntityInitialized(EntityUid uid, StackComponent stackable, ref EntityMapInitEvent args)

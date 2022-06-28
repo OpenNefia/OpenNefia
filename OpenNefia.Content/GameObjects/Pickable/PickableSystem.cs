@@ -34,10 +34,10 @@ namespace OpenNefia.Content.GameObjects.Pickable
 
         public override void Initialize()
         {
-            SubscribeLocalEvent<PickableComponent, GetVerbsEventArgs>(HandleGetVerbs);
-            SubscribeLocalEvent<ExecuteVerbEventArgs>(HandleExecuteVerb);
-            SubscribeLocalEvent<PickableComponent, DoPickUpEventArgs>(HandleDoPickUp);
-            SubscribeLocalEvent<PickableComponent, DoDropEventArgs>(HandleDoDrop);
+            SubscribeComponent<PickableComponent, GetVerbsEventArgs>(HandleGetVerbs);
+            SubscribeBroadcast<ExecuteVerbEventArgs>(HandleExecuteVerb);
+            SubscribeComponent<PickableComponent, DoPickUpEventArgs>(HandleDoPickUp);
+            SubscribeComponent<PickableComponent, DoDropEventArgs>(HandleDoDrop);
         }
 
         private void HandleGetVerbs(EntityUid uid, PickableComponent pickable, GetVerbsEventArgs args)
