@@ -8,7 +8,7 @@ namespace OpenNefia.Core.GameObjects
     /// <summary>
     ///     Raised directed on an entity when the map is initialized.
     /// </summary>
-    [EventArgsUsage(EventArgsTargets.ByRef)]
+    [ByRefEvent]
     public struct EntityMapInitEvent
     {
     }

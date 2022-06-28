@@ -458,7 +458,7 @@ namespace OpenNefia.Content.Skills
         }
     }
 
-    [EventArgsUsage(EventArgsTargets.ByRef)]
+    [ByRefEvent]
     public struct SkillExpGainedEvent
     {
         public SkillPrototype Skill { get; }

@@ -202,7 +202,7 @@ namespace OpenNefia.Content.RandomGen
         }
     }
 
-    [EventArgsUsage(EventArgsTargets.ByRef)]
+    [ByRefEvent]
     public struct GetCharaFilterEvent
     {
         public GetCharaFilterEvent(IMap map) { Map = map; }

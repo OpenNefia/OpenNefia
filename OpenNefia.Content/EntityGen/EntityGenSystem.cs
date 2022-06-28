@@ -180,7 +180,7 @@ namespace OpenNefia.Content.EntityGen
         }
     }
 
-    [EventArgsUsage(EventArgsTargets.ByRef)]
+    [ByRefEvent]
     public struct EntityBeingGeneratedEvent
     {
         public EntityGenArgSet Args { get; }
@@ -191,7 +191,7 @@ namespace OpenNefia.Content.EntityGen
         }
     }
 
-    [EventArgsUsage(EventArgsTargets.ByRef)]
+    [ByRefEvent]
     public struct EntityGeneratedEvent
     {
     }

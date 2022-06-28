@@ -105,7 +105,7 @@ namespace OpenNefia.Content.Factions
         }
     }
 
-    [EventArgsUsage(EventArgsTargets.ByRef)]
+    [ByRefEvent]
     public struct CalculateRelationEventArgs
     {
         public EntityUid Target { get; }

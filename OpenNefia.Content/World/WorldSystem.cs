@@ -115,7 +115,7 @@ namespace OpenNefia.Content.World
         }
     }
 
-    [EventArgsUsage(EventArgsTargets.ByRef)]
+    [ByRefEvent]
     public struct MapOnHoursPassedEvent
     {
         public int HoursPassed { get; }
@@ -126,7 +126,7 @@ namespace OpenNefia.Content.World
         }
     }
 
-    [EventArgsUsage(EventArgsTargets.ByRef)]
+    [ByRefEvent]
     public struct MapOnDaysPassedEvent
     {
         public int DaysPassed { get; }
@@ -137,7 +137,7 @@ namespace OpenNefia.Content.World
         }
     }
 
-    [EventArgsUsage(EventArgsTargets.ByRef)]
+    [ByRefEvent]
     public struct MapOnMonthsPassedEvent
     {
         public int MonthsPassed { get; }
@@ -148,7 +148,7 @@ namespace OpenNefia.Content.World
         }
     }
 
-    [EventArgsUsage(EventArgsTargets.ByRef)]
+    [ByRefEvent]
     public struct MapOnYearsPassedEvent
     {
         public int YearsPassed { get; }
