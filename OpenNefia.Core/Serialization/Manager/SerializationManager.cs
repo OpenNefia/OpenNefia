@@ -378,6 +378,73 @@ namespace OpenNefia.Core.Serialization.Manager
         {
             var underlyingType = Nullable.GetUnderlyingType(type) ?? type;
 
+            if (underlyingType.IsArray)
+            {
+                if (underlyingType.GetArrayRank() == 1)
+                {
+                    if (value == null)
+                        return new ValueDataNode("null");
+
+                    var sequenceNode = new SequenceDataNode();
+                    var array = (Array)value;
+
+                    foreach (var val in array)
+                    {
+                        var serializedVal = WriteValue(val.GetType(), val, alwaysWrite, context);
+                        sequenceNode.Add(serializedVal);
+                    }
+
+                    return sequenceNode;
+                }
+                else
+                {
+                    // Serialize the multidimensional array like so:
+                    // ["elements"] => { { 1, 2, 3 }, { 4, 5, 6 } }
+                    // ["lengths"] => { 3, 2 }
+
+                    DataNode elementsNode;
+                    SequenceDataNode lengthsNode;
+
+                    if (value == null)
+                    {
+                        elementsNode = new ValueDataNode("null");
+                        lengthsNode = new SequenceDataNode();
+
+                        for (int i = 0; i < type.GetArrayRank(); i++)
+                        {
+                            lengthsNode.Add(new ValueDataNode("0"));
+                        }
+                    }
+                    else
+                    {
+                        var seqElementsNode = new SequenceDataNode();
+                        elementsNode = seqElementsNode;
+                        var array = (Array)value;
+
+                        foreach (var val in array)
+                        {
+                            var serializedVal = WriteValue(val.GetType(), val, alwaysWrite, context);
+                            seqElementsNode.Add(serializedVal);
+                        }
+
+                        lengthsNode = new SequenceDataNode();
+
+                        for (int i = 0; i < array.Rank; i++)
+                        {
+                            lengthsNode.Add(new ValueDataNode(array.GetLongLength(i).ToString()));
+                        }
+                    }
+
+                    var mappingNode = new MappingDataNode(new Dictionary<DataNode, DataNode>()
+                {
+                    {new ValueDataNode("lengths"), lengthsNode},
+                    {new ValueDataNode("elements"), elementsNode}
+                });
+
+                    return mappingNode;
+                }
+            }
+
             if (value == null) return new MappingDataNode();
 
             if (underlyingType.IsEnum)
@@ -386,20 +453,6 @@ namespace OpenNefia.Core.Serialization.Manager
                 // Need it for the culture overload.
                 var convertible = (IConvertible) value;
                 return new ValueDataNode(convertible.ToString(CultureInfo.InvariantCulture));
-            }
-
-            if (underlyingType.IsArray)
-            {
-                var sequenceNode = new SequenceDataNode();
-                var array = (Array) value;
-
-                foreach (var val in array)
-                {
-                    var serializedVal = WriteValue(val.GetType(), val, alwaysWrite, context);
-                    sequenceNode.Add(serializedVal);
-                }
-
-                return sequenceNode;
             }
 
             if (value is ISerializationHooks serHook)
@@ -482,7 +535,7 @@ namespace OpenNefia.Core.Serialization.Manager
                 }
                 else
                 {
-                    newArray = (Array) Activator.CreateInstance(sourceArray.GetType(), sourceArray.Length)!;
+                    newArray = Array.CreateInstance(sourceArray.GetType(), sourceArray.GetLongLengths());
                 }
 
                 for (var i = 0; i < sourceArray.Length; i++)
@@ -617,9 +670,17 @@ namespace OpenNefia.Core.Serialization.Manager
                 var leftArray = (Array)left;
                 var rightArray = (Array)right;
                 
-                if (leftArray.Length != rightArray.Length)
+                if (leftArray.Rank != rightArray.Rank)
                 {
                     return false;
+                }
+
+                for (int i = 0; i < leftArray.Rank; i++)
+                {
+                    if (leftArray.GetLongLength(i) != rightArray.GetLongLength(i))
+                    {
+                        return false;
+                    }
                 }
 
                 for (var i = 0; i < leftArray.Length; i++)

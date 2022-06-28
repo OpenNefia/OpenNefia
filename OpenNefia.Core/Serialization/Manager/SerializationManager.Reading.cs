@@ -53,6 +53,9 @@ namespace OpenNefia.Core.Serialization.Manager
 
                     switch (node)
                     {
+                        // BUG: does this even work?
+                        // typeof(T[]?) acts as typeof(T[]) at runtime.
+                        // https://stackoverflow.com/a/62186551
                         case ValueDataNode when nullable:
                             call = Expression.Call(
                                 instanceConst,
@@ -88,6 +91,67 @@ namespace OpenNefia.Core.Serialization.Manager
                                 Expression.Convert(nodeParam, typeof(SequenceDataNode)),
                                 contextParam,
                                 skipHookParam);
+                            break;
+
+                        case MappingDataNode mappingNode:
+                            var lengthsNode = (SequenceDataNode)mappingNode["lengths"];
+                            var lengths = new long[lengthsNode.Sequence.Count];
+                            for (int i = 0; i < lengths.Length; i++)
+                            {
+                                lengths[i] = long.Parse(((ValueDataNode)lengthsNode[i]).Value);
+                            }
+
+                            var elementsNode = mappingNode["elements"];
+                            switch (elementsNode)
+                            {
+                                // BUG: does this even work?
+                                // typeof(T[]?) acts as typeof(T[]) at runtime.
+                                // https://stackoverflow.com/a/62186551
+                                case ValueDataNode when nullable:
+                                    var rankConst = Expression.Constant(lengths.Length);
+                                    call = Expression.Call(
+                                        instanceConst,
+                                        nameof(ReadArrayValueMultiDim),
+                                        new[] { elementType },
+                                        Expression.Convert(nodeParam, typeof(MappingDataNode)),
+                                        rankConst);
+                                    break;
+                                    
+                                case SequenceDataNode seqNode:
+                                    var lengthsConst = Expression.Constant(lengths);
+                                    var isSealed2 = elementType.IsPrimitive || elementType.IsEnum ||
+                                                   elementType == typeof(string) || elementType.IsSealed;
+
+                                    if (isSealed2 && seqNode.Sequence.Count > 0)
+                                    {
+                                        var reader = instance.GetOrCreateReader(elementType, seqNode.Sequence[0]);
+                                        var readerConst = Expression.Constant(reader);
+
+                                        call = Expression.Call(
+                                            instanceConst,
+                                            nameof(ReadArraySequenceSealedMultiDim),
+                                            new[] { elementType },
+                                            Expression.Convert(nodeParam, typeof(MappingDataNode)),
+                                            readerConst,
+                                            lengthsConst,
+                                            contextParam,
+                                            skipHookParam);
+
+                                        break;
+                                    }
+
+                                    call = Expression.Call(
+                                        instanceConst,
+                                        nameof(ReadArraySequenceMultiDim),
+                                        new[] { elementType },
+                                        Expression.Convert(nodeParam, typeof(MappingDataNode)),
+                                        lengthsConst,
+                                        contextParam,
+                                        skipHookParam);
+                                    break;
+                                default:
+                                    throw new ArgumentException($"Cannot read array from data node type {elementsNode.GetType()}");
+                            }
                             break;
                         default:
                             throw new ArgumentException($"Cannot read array from data node type {nodeType}");
@@ -265,7 +329,7 @@ namespace OpenNefia.Core.Serialization.Manager
                 var result = Read(type, subNode, context, skipHook);
 
                 results[i] = result;
-                array[i] = (T) result.RawValue!;
+                array[i] = (T)result.RawValue!;
             }
 
             return new DeserializedArray(array, results);
@@ -287,7 +351,82 @@ namespace OpenNefia.Core.Serialization.Manager
                 var result = elementReader(type, subNode, context, skipHook);
 
                 results[i] = result;
-                array[i] = (T) result.RawValue!;
+                array[i] = (T)result.RawValue!;
+            }
+
+            return new DeserializedArray(array, results);
+        }
+
+        private DeserializationResult ReadArrayValueMultiDim<T>(MappingDataNode mapping, int rank)
+        {
+            var value = (ValueDataNode)mapping["elements"];
+            if (value.Value == "null")
+            {
+                var arrayType = typeof(T).MakeArrayType(rank).EnsureNullableType();
+                return (DeserializedValue)Activator.CreateInstance(arrayType, null)!;
+            }
+
+            throw new InvalidNodeTypeException("Cannot read an array from a value data node that is not null.");
+        }
+
+        private DeserializationResult ReadArraySequenceMultiDim<T>(
+            MappingDataNode mapping,
+            long[] lengths,
+            ISerializationContext? context = null,
+            bool skipHook = false)
+        {
+            var node = (SequenceDataNode)mapping["elements"];
+            var type = typeof(T);
+            var array = Array.CreateInstance(type, lengths);
+            var results = new DeserializationResult[node.Sequence.Count];
+
+            var indices = new long[array.Rank];
+            var cumulativeLengths = array.GetCumulativeLengths();
+
+            for (var i = 0; i < node.Sequence.Count; i++)
+            {
+                var subNode = node.Sequence[i];
+                var result = Read(type, subNode, context, skipHook);
+
+                for (int dim = array.Rank - 1; dim >= 0; dim--)
+                {
+                    indices[dim] = i / cumulativeLengths[dim] % lengths[dim];
+                }
+
+                results[i] = result;
+                array.SetValue(result.RawValue!, indices);
+            }
+
+            return new DeserializedArray(array, results);
+        }
+
+        private DeserializationResult ReadArraySequenceSealedMultiDim<T>(
+            MappingDataNode mapping,
+            ReadDelegate elementReader,
+            long[] lengths,
+            ISerializationContext? context = null,
+            bool skipHook = false)
+        {
+            var node = (SequenceDataNode)mapping["elements"];
+            var type = typeof(T);
+            var array = Array.CreateInstance(type, lengths);
+            var results = new DeserializationResult[node.Sequence.Count];
+
+            var indices = new long[array.Rank];
+            var cumulativeLengths = array.GetCumulativeLengths();
+
+            for (var i = 0; i < node.Sequence.Count; i++)
+            {
+                var subNode = node.Sequence[i];
+                var result = elementReader(type, subNode, context, skipHook);
+
+                for (int dim = array.Rank - 1; dim >= 0; dim--)
+                {
+                    indices[dim] = i / cumulativeLengths[dim] % lengths[dim];
+                }
+
+                results[i] = result;
+                array.SetValue(result.RawValue!, indices);
             }
 
             return new DeserializedArray(array, results);
