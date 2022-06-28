@@ -187,6 +187,7 @@ namespace OpenNefia.Tests.Core.GameObjects
             public override string Name => "DummyTwo";
         }
 
+        [ByRefEvent]
         private struct TestStructEvent
         {
             public int TestNumber;
