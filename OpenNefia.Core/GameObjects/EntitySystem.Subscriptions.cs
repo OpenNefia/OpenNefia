@@ -158,7 +158,7 @@ namespace OpenNefia.Core.GameObjects
         {
             public override void Unsubscribe(EntitySystem sys, IEventBus bus)
             {
-                bus.UnsubscribeLocalEvent<TComp, TBase>();
+                bus.UnsubscribeAllLocalEvents<TComp, TBase>();
             }
         }
     }
