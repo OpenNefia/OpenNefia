@@ -32,6 +32,9 @@ namespace OpenNefia.Content.Maps
 
         private void HandleMapCreated(MapCreatedEvent ev)
         {
+            if (ev.LoadedFromSave)
+                return;
+
             var map = ev.Map;
             var mapDebris = EntityManager.EnsureComponent<MapDebrisComponent>(map.MapEntityUid);
             mapDebris.Initialize(map);

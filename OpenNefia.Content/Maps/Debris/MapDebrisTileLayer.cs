@@ -44,10 +44,28 @@ namespace OpenNefia.Content.Maps.Debris
                 }
             }
 
-            RedrawAll();
+            RebuildBatches();
         }
 
         public override void RedrawAll()
+        {
+            if (Map == null || !EntityManager.TryGetComponent<MapDebrisComponent>(Map.MapEntityUid, out var mapDebris))
+                return;
+
+            foreach (var tile in Map.AllTiles)
+            {
+                if (Map.IsMemorized(tile.MapPosition.Position))
+                {
+                    // TODO MapTileMemorizedEvent?
+                    // maybe tile layers should not update component state
+                    mapDebris.DebrisMemory[tile.X, tile.Y] = mapDebris.DebrisState[tile.X, tile.Y];
+                }
+            }
+            
+            RebuildBatches();
+        }
+
+        private void RebuildBatches()
         {
             _bloodBatch?.Dispose();
             _bloodBatch = null;

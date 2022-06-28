@@ -14,6 +14,7 @@
             var common = contexts.GetContext(InputContextContainer.DefaultContextName);
             common.AddFunction(EngineKeyFunctions.UIClick);
             common.AddFunction(EngineKeyFunctions.UIRightClick);
+            common.AddFunction(EngineKeyFunctions.UIMiddleClick);
 
             common.AddFunction(EngineKeyFunctions.North);
             common.AddFunction(EngineKeyFunctions.South);

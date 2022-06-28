@@ -550,16 +550,7 @@ namespace OpenNefia.Core.Serialization.Manager
                 }
                 else
                 {
-                    var sourceLengths = sourceArray.GetLongLengths();
-                    var targetLengths = targetArray.GetLongLengths();
-
-                    if (!Enumerable.SequenceEqual(sourceLengths, targetLengths))
-                    {
-                        throw new InvalidOperationException(
-                            $"Source and target arrays must have the same dimensions. Source: {sourceLengths}, Target: {targetLengths}");
-                    }
-                    
-                    newArray = Array.CreateInstance(elementType, sourceLengths);
+                    newArray = Array.CreateInstance(elementType, sourceArray.GetLongLengths());
                 }
 
                 if (sourceArray.Rank == 1)
