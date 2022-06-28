@@ -99,8 +99,10 @@ namespace OpenNefia.Tests.Core.Serialization.TypeSerializers
             Assert.That(result, Is.EqualTo(list1));
             
             var list3 = new[,] { { " ", " " }, { " ", " " } };
+            result = Serialization.Copy(list1, list3);
+            Assert.That(result, Is.EqualTo(list1));
+
             var list4 = new[] { " ", " " };
-            Assert.Throws<InvalidOperationException>(() => Serialization.Copy(list1, list3));
             Assert.Throws<InvalidOperationException>(() => Serialization.Copy(list1, list4));
         }
 
