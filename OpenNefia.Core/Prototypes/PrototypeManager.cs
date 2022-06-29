@@ -517,6 +517,10 @@ namespace OpenNefia.Core.Prototypes
 
             var registered = 0;
 
+            var flags = BindingFlags.Instance | BindingFlags.Public;
+            var subscribeValue = _eventBus.GetType().GetMethod("SubscribeEventValue", flags)!;
+            var subscribeRef = _eventBus.GetType().GetMethod("SubscribeEventRef", flags)!;
+
             foreach (var (prototypeType, eventDefLists) in _prototypeEventDefs)
             {
                 foreach (var (prototypeId, eventDefs) in eventDefLists)
@@ -529,7 +533,7 @@ namespace OpenNefia.Core.Prototypes
                             continue;
                         }
 
-                        var methodDef = eventDef.EntitySystemType.GetMethod(eventDef.MethodName, BindingFlags.Instance | BindingFlags.Public);
+                        var methodDef = eventDef.EntitySystemType.GetMethod(eventDef.MethodName, flags);
                         if (methodDef == null)
                         {
                             Logger.ErrorS("Serv3", $"Method {eventDef.EntitySystemType}.{eventDef.MethodName}(...) not found! ({prototypeId})");
@@ -539,26 +543,25 @@ namespace OpenNefia.Core.Prototypes
                         var target = EntitySystem.Get(eventDef.EntitySystemType);
                         
                         Type handlerType;
-                        string methodName;
+                        MethodInfo subMethod;
                         var isByRef = eventDef.EventType.HasCustomAttribute<ByRefEventAttribute>();
                         
                         if (isByRef)
                         {
                             handlerType = typeof(PrototypeEventRefHandler<,>);
-                            methodName = "SubscribeEventRef";
+                            subMethod = subscribeRef;
                         }
                         else
                         {
                             handlerType = typeof(PrototypeEventHandler<,>);
-                            methodName = "SubscribeEventValue";
+                            subMethod = subscribeValue;
                         }
 
                         var handler = methodDef.CreateDelegate(handlerType
-                                .MakeGenericType(prototypeType, eventDef.EventType), target);
-                        var call = typeof(PrototypeEventBus).GetMethod(methodName, BindingFlags.Instance | BindingFlags.Public)!
-                          .MakeGenericMethod(prototypeType, eventDef.EventType);
-
-                        call.Invoke(_eventBus, new object[] { prototypeId, handler, eventDef.Priority });
+                            .MakeGenericType(prototypeType, eventDef.EventType), target);
+                        
+                        var genericSubMethod = subMethod.MakeGenericMethod(prototypeType, eventDef.EventType);
+                        genericSubMethod.Invoke(_eventBus, new object[] { prototypeId, handler, eventDef.Priority });
 
                         registered++;
                     }
