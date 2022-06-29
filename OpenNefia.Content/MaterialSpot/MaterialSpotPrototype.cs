@@ -8,7 +8,7 @@ using OpenNefia.Core.Maps;
 using OpenNefia.Core.Random;
 using OpenNefia.Core.IoC;
 
-namespace OpenNefia.Content.Material
+namespace OpenNefia.Content.MaterialSpot
 {
     [Prototype("Elona.MaterialSpot")]
     public class MaterialSpotPrototype : IPrototype
@@ -16,9 +16,9 @@ namespace OpenNefia.Content.Material
         [DataField("id", required: true)]
         public string ID { get; } = default!;
 
-        [DataField(required: true)]
-        private readonly List<PrototypeId<MaterialPrototype>> _materials = new();
+        [DataField("materials", required: true)]
+        private readonly List<PrototypeId<BlendMaterialPrototype>> _materials = new();
 
-        public IReadOnlyList<PrototypeId<MaterialPrototype>> Materials => _materials;
+        public IReadOnlyList<PrototypeId<BlendMaterialPrototype>> Materials => _materials;
     }
 }

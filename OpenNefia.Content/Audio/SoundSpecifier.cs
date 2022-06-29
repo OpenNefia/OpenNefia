@@ -11,6 +11,11 @@ namespace OpenNefia.Content.Audio
         public abstract PrototypeId<SoundPrototype>? GetSound();
     }
 
+    public sealed class SoundNullSpecifier : SoundSpecifier
+    {
+        public override PrototypeId<SoundPrototype>? GetSound() => null;
+    }
+
     public sealed class SoundPathSpecifier : SoundSpecifier
     {
         public const string Node = "soundID";

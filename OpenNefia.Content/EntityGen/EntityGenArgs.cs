@@ -1,4 +1,5 @@
-﻿using OpenNefia.Content.Qualities;
+﻿using OpenNefia.Content.GameObjects.Pickable;
+using OpenNefia.Content.Qualities;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Utility;
@@ -68,6 +69,11 @@ namespace OpenNefia.Content.EntityGen
         /// If true, this item is being generated in a shopkeeper's inventory.
         /// </summary>
         public bool IsShop { get; set; } = false;
+
+        /// <summary>
+        /// Own state to generate this item/pickable with.
+        /// </summary>
+        public OwnState OwnState { get; set; } = OwnState.None;
     }
 
     public sealed class MefGenArgs : EntityGenArgs

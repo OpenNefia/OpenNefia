@@ -1,14 +1,9 @@
-﻿using OpenNefia.Core.Audio;
-using OpenNefia.Core.GameObjects;
+﻿using OpenNefia.Core.GameObjects;
 using OpenNefia.Content.Prototypes;
 using OpenNefia.Core.Maps;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Log;
-using OpenNefia.Core.Game;
-using OpenNefia.Core.SaveGames;
 using OpenNefia.Content.GameObjects;
-using OpenNefia.Core.Utility;
-using OpenNefia.Content.Parties;
 using OpenNefia.Content.World;
 using OpenNefia.Content.Charas;
 using OpenNefia.Content.Skills;
@@ -21,8 +16,6 @@ using OpenNefia.Content.Levels;
 using OpenNefia.Content.Factions;
 using OpenNefia.Content.StatusEffects;
 using OpenNefia.Core.Random;
-using OpenNefia.Core.Areas;
-using OpenNefia.Content.Arena;
 using OpenNefia.Content.TurnOrder;
 using OpenNefia.Content.Quests;
 using OpenNefia.Content.GameObjects.Pickable;
@@ -35,7 +28,6 @@ using OpenNefia.Content.DisplayName;
 using OpenNefia.Content.SaveLoad;
 using OpenNefia.Content.Weather;
 using OpenNefia.Content.Cargo;
-using KeraLua;
 
 namespace OpenNefia.Content.Maps
 {
@@ -47,7 +39,6 @@ namespace OpenNefia.Content.Maps
         [Dependency] private readonly IVanillaAISystem _vanillaAI = default!;
         [Dependency] private readonly ILevelSystem _levels = default!;
         [Dependency] private readonly ISkillsSystem _skills = default!;
-        [Dependency] private readonly IFactionSystem _factions = default!;
         [Dependency] private readonly IStatusEffectSystem _effects = default!;
         [Dependency] private readonly IRandom _rand = default!;
         [Dependency] private readonly IQuestSystem _quests = default!;
@@ -255,7 +246,7 @@ namespace OpenNefia.Content.Maps
                 }
             }
 
-            var ev = new MapRenewMajorEvent(isFirstRenewal);
+            var ev = new MapRenewMajorEvent(map, isFirstRenewal);
             RaiseEvent(map.MapEntityUid, ev);
         }
 
@@ -280,7 +271,7 @@ namespace OpenNefia.Content.Maps
 
             Logger.InfoS("map.renew", $"Running minor renewal for map {map}. ({renewSteps} steps)");
 
-            var ev = new MapRenewMinorEvent(renewSteps);
+            var ev = new MapRenewMinorEvent(map, renewSteps);
             RaiseEvent(map.MapEntityUid, ev);
         }
 
@@ -517,20 +508,24 @@ namespace OpenNefia.Content.Maps
 
     public sealed class MapRenewMajorEvent : EntityEventArgs
     {
+        public IMap Map { get; }
         public bool IsFirstRenewal { get; }
 
-        public MapRenewMajorEvent(bool isFirstRenewal)
+        public MapRenewMajorEvent(IMap map, bool isFirstRenewal)
         {
+            Map = map;
             IsFirstRenewal = isFirstRenewal;
         }
     }
 
     public sealed class MapRenewMinorEvent : EntityEventArgs
     {
+        public IMap Map { get; }
         public int RenewSteps { get; }
 
-        public MapRenewMinorEvent(int renewSteps)
+        public MapRenewMinorEvent(IMap map, int renewSteps)
         {
+            Map = map;
             RenewSteps = renewSteps;
         }
     }

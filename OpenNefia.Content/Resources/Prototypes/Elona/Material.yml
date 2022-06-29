@@ -1,387 +1,462 @@
 ---
 - type: Elona.Material
-  id: Elona.Kuzu
+  id: Elona.Sand
   hspIds:
     elona122: 0
-  level: 0
-  rarity: 1
-  chip: Elona.ItemGarbage
-- type: Elona.Material
-  id: Elona.CasinoChip
-  hspIds:
-    elona122: 1
-  level: 1
-  rarity: 80
-  chip: Elona.ItemCasinoChip
-- type: Elona.Material
-  id: Elona.Sumi
-  hspIds:
-    elona122: 2
-  level: 1
-  rarity: 10
-  chip: Elona.ItemWoodPiece
-- type: Elona.Material
-  id: Elona.Driftwood
-  hspIds:
-    elona122: 3
-  level: 1
-  rarity: 10
-  chip: Elona.ItemWoodPiece
-- type: Elona.Material
-  id: Elona.Feather
-  hspIds:
-    elona122: 4
-  level: 1
-  rarity: 10
-  chip: Elona.ItemMaterialFeather
-- type: Elona.Material
-  id: Elona.Waterdrop
-  hspIds:
-    elona122: 5
-  level: 1
-  rarity: 10
-  chip: Elona.ItemPotion
-- type: Elona.Material
-  id: Elona.Staff
-  hspIds:
-    elona122: 6
-  level: 1
-  rarity: 70
-  chip: Elona.ItemWoodPiece
-- type: Elona.Material
-  id: Elona.MithrilFrag
-  hspIds:
-    elona122: 7
-  level: 1
-  rarity: 40
-  chip: Elona.ItemOrePiece
-- type: Elona.Material
-  id: Elona.EtherFrag
-  hspIds:
-    elona122: 8
-  level: 10
-  rarity: 40
-  chip: Elona.ItemOrePiece
-- type: Elona.Material
-  id: Elona.SteelFrag
-  hspIds:
-    elona122: 9
-  level: 1
-  rarity: 10
-  chip: Elona.ItemOrePiece
-- type: Elona.Material
-  id: Elona.TearAngel
-  hspIds:
-    elona122: 10
-  level: 4
-  rarity: 50
-  chip: Elona.ItemPotion
-- type: Elona.Material
-  id: Elona.TearWitch
-  hspIds:
-    elona122: 11
-  level: 8
-  rarity: 30
-  chip: Elona.ItemPotion
-- type: Elona.Material
-  id: Elona.SeaWater
-  hspIds:
-    elona122: 12
-  level: 1
-  rarity: 10
-  chip: Elona.ItemPotion
-- type: Elona.Material
-  id: Elona.Plant1
-  hspIds:
-    elona122: 13
-  level: 1
-  rarity: 10
-  chip: Elona.ItemStomafillia
-- type: Elona.Material
-  id: Elona.Plant2
-  hspIds:
-    elona122: 14
-  level: 1
-  rarity: 20
-  chip: Elona.ItemStomafillia
-- type: Elona.Material
-  id: Elona.Plant3
-  hspIds:
-    elona122: 15
-  level: 1
-  rarity: 20
-  chip: Elona.ItemStomafillia
-- type: Elona.Material
-  id: Elona.Plant4
-  hspIds:
-    elona122: 16
-  level: 1
-  rarity: 10
-  chip: Elona.ItemStomafillia
-- type: Elona.Material
-  id: Elona.Plant5
-  hspIds:
-    elona122: 17
-  level: 12
-  rarity: 20
-  chip: Elona.ItemStomafillia
-- type: Elona.Material
-  id: Elona.TailRabbit
-  hspIds:
-    elona122: 18
-  level: 1
-  rarity: 80
-  chip: Elona.ItemRabbitsTail
-- type: Elona.Material
-  id: Elona.GenTroll
-  hspIds:
-    elona122: 19
-  level: 5
-  rarity: 15
-  chip: Elona.ItemRemainsHeart
-- type: Elona.Material
-  id: Elona.Snow
-  hspIds:
-    elona122: 20
-  level: 12
-  rarity: 15
-  chip: Elona.ItemMaterialSpark
-- type: Elona.Material
-  id: Elona.FairyDust
-  hspIds:
-    elona122: 21
-  level: 15
-  rarity: 45
-  chip: Elona.ItemOrePiece
-- type: Elona.Material
-  id: Elona.ElemFrag
-  hspIds:
-    elona122: 22
-  level: 20
-  rarity: 100
-  chip: Elona.ItemOrePiece
-- type: Elona.Material
-  id: Elona.Elec
-  hspIds:
-    elona122: 23
-  level: 12
-  rarity: 20
-  chip: Elona.ItemMaterialSpark
-- type: Elona.Material
-  id: Elona.BlackMyst
-  hspIds:
-    elona122: 24
-  level: 15
-  rarity: 40
-  chip: Elona.ItemMaterialSkull
-- type: Elona.Material
-  id: Elona.HotWater
-  hspIds:
-    elona122: 25
-  level: 4
-  rarity: 20
-  chip: Elona.ItemPotion
-- type: Elona.Material
-  id: Elona.FireStone
-  hspIds:
-    elona122: 26
-  level: 5
-  rarity: 10
-  chip: Elona.ItemOrePiece
-- type: Elona.Material
-  id: Elona.IceStone
-  hspIds:
-    elona122: 27
-  level: 5
-  rarity: 10
-  chip: Elona.ItemOrePiece
-- type: Elona.Material
-  id: Elona.ElecStone
-  hspIds:
-    elona122: 28
-  level: 5
-  rarity: 10
-  chip: Elona.ItemOrePiece
-- type: Elona.Material
-  id: Elona.FlyingGrass
-  hspIds:
-    elona122: 29
-  level: 7
-  rarity: 50
-  chip: Elona.ItemStomafillia
-- type: Elona.Material
-  id: Elona.MagicMass
-  hspIds:
-    elona122: 30
-  level: 10
-  rarity: 150
-  chip: Elona.ItemMaterialSpark
-- type: Elona.Material
-  id: Elona.GenHuman
-  hspIds:
-    elona122: 31
-  level: 1
-  rarity: 20
-  chip: Elona.ItemRemainsHeart
-- type: Elona.Material
-  id: Elona.EyeWitch
-  hspIds:
-    elona122: 32
-  level: 8
-  rarity: 40
-  chip: Elona.ItemRemainsHeart
+  weight: 10
+  value: 80
+  hitBonus: -5
+  damageBonus: -5
+  dv: -5
+  pv: -5
+  diceY: 100
+  color: '#FFFFFF'
 - type: Elona.Material
   id: Elona.Leather
   hspIds:
-    elona122: 33
-  level: 4
-  rarity: 20
-  chip: Elona.ItemSilkCloth
+    elona122: 1
+  weight: 100
+  value: 150
+  hitBonus: 12
+  damageBonus: 2
+  dv: 13
+  pv: 6
+  diceY: 100
+  color: '#FFD7AF'
 - type: Elona.Material
-  id: Elona.Sap
+  id: Elona.Silk
   hspIds:
-    elona122: 34
-  level: 25
-  rarity: 200
-  chip: Elona.ItemPotion
-- type: Elona.Material
-  id: Elona.MagicPaper
-  hspIds:
-    elona122: 35
-  level: 8
-  rarity: 40
-  chip: Elona.ItemScroll
-- type: Elona.Material
-  id: Elona.MagicInk
-  hspIds:
-    elona122: 36
-  level: 8
-  rarity: 40
-  chip: Elona.ItemPotion
-- type: Elona.Material
-  id: Elona.CrookedStaff
-  hspIds:
-    elona122: 37
-  level: 12
-  rarity: 60
-  chip: Elona.ItemRod
-- type: Elona.Material
-  id: Elona.Yellmadman
-  hspIds:
-    elona122: 38
-  level: 4
-  rarity: 30
-  chip: Elona.ItemProjectileBomb1
-- type: Elona.Material
-  id: Elona.TailBear
-  hspIds:
-    elona122: 39
-  level: 3
-  rarity: 20
-  chip: Elona.ItemRabbitsTail
-- type: Elona.Material
-  id: Elona.Coin1
-  hspIds:
-    elona122: 40
-  level: 1
-  rarity: 200
-  chip: Elona.ItemPlatinumCoin
-- type: Elona.Material
-  id: Elona.Coin2
-  hspIds:
-    elona122: 41
-  level: 1
-  rarity: 1000
-  chip: Elona.ItemPlatinumCoin
-- type: Elona.Material
-  id: Elona.PlantHeal
-  hspIds:
-    elona122: 42
-  level: 3
-  rarity: 20
-  chip: Elona.ItemStomafillia
-- type: Elona.Material
-  id: Elona.Paper
-  hspIds:
-    elona122: 43
-  level: 1
-  rarity: 20
-  chip: Elona.ItemScroll
-- type: Elona.Material
-  id: Elona.Generate
-  hspIds:
-    elona122: 44
-  level: 25
-  rarity: 150
-  chip: Elona.ItemMaterialSpark
+    elona122: 2
+  weight: 40
+  value: 190
+  hitBonus: 9
+  damageBonus: -2
+  dv: 10
+  pv: 2
+  diceY: 100
+  color: '#FFFFAF'
+  noFurniture: true
 - type: Elona.Material
   id: Elona.Cloth
   hspIds:
-    elona122: 45
-  level: 3
-  rarity: 20
-  chip: Elona.ItemSilkCloth
+    elona122: 3
+  weight: 20
+  value: 30
+  hitBonus: 6
+  damageBonus: -5
+  dv: 7
+  pv: 2
+  diceY: 100
+  color: '#FFC3B9'
+  noFurniture: true
 - type: Elona.Material
-  id: Elona.Stick
+  id: Elona.Scale
   hspIds:
-    elona122: 46
-  level: 2
-  rarity: 20
-  chip: Elona.ItemWoodPiece
+    elona122: 4
+  weight: 180
+  value: 250
+  hitBonus: 14
+  damageBonus: 6
+  dv: 12
+  pv: 11
+  diceY: 120
+  color: '#FFC3B9'
 - type: Elona.Material
-  id: Elona.TightWood
+  id: Elona.Glass
   hspIds:
-    elona122: 47
-  level: 10
-  rarity: 20
-  chip: Elona.ItemWoodPiece
+    elona122: 5
+  weight: 180
+  value: 150
+  hitBonus: 19
+  damageBonus: 0
+  dv: 17
+  pv: 0
+  diceY: 100
+  color: '#AFAFFF'
 - type: Elona.Material
-  id: Elona.Stone
+  id: Elona.Mithril
   hspIds:
-    elona122: 48
-  level: 1
-  rarity: 10
-  chip: Elona.ItemOrePiece
+    elona122: 7
+  weight: 240
+  value: 750
+  hitBonus: 20
+  damageBonus: 18
+  dv: 25
+  pv: 17
+  diceY: 190
+  color: '#AFFFAF'
 - type: Elona.Material
-  id: Elona.MemoryFrag
+  id: Elona.Ether
   hspIds:
-    elona122: 49
-  level: 5
-  rarity: 50
-  chip: Elona.ItemGorgeousCandlestick
+    elona122: 8
+  weight: 80
+  value: 1200
+  hitBonus: 8
+  damageBonus: 45
+  dv: 35
+  pv: 8
+  diceY: 250
+  color: '#AFAFFF'
 - type: Elona.Material
-  id: Elona.MagicFrag
+  id: Elona.Steel
   hspIds:
-    elona122: 50
-  level: 1
-  rarity: 30
-  chip: Elona.ItemOrePiece
+    elona122: 9
+  weight: 270
+  value: 280
+  hitBonus: 12
+  damageBonus: 13
+  dv: 8
+  pv: 18
+  diceY: 140
+  color: '#FFFFFF'
 - type: Elona.Material
-  id: Elona.ChaosStone
+  id: Elona.Iron
   hspIds:
-    elona122: 51
-  level: 40
-  rarity: 200
-  chip: Elona.ItemOrePiece
+    elona122: 10
+  weight: 280
+  value: 190
+  hitBonus: 8
+  damageBonus: 8
+  dv: 3
+  pv: 14
+  diceY: 130
+  color: '#FFFFFF'
 - type: Elona.Material
-  id: Elona.GoodStone
+  id: Elona.Crystal
   hspIds:
-    elona122: 52
-  level: 8
-  rarity: 50
-  chip: Elona.ItemOrePiece
+    elona122: 11
+  weight: 200
+  value: 800
+  hitBonus: 19
+  damageBonus: 14
+  dv: 16
+  pv: 19
+  diceY: 150
+  color: '#FFFFFF'
 - type: Elona.Material
-  id: Elona.String
+  id: Elona.Bronze
   hspIds:
-    elona122: 53
-  level: 6
-  rarity: 20
-  chip: Elona.ItemRope
+    elona122: 12
+  weight: 200
+  value: 70
+  hitBonus: 2
+  damageBonus: 5
+  dv: 1
+  pv: 5
+  diceY: 100
+  color: '#FFD7AF'
 - type: Elona.Material
-  id: Elona.Adhesive
+  id: Elona.Diamond
   hspIds:
-    elona122: 54
-  level: 1
-  rarity: 50
-  chip: Elona.ItemPotion
+    elona122: 13
+  weight: 330
+  value: 1100
+  hitBonus: 19
+  damageBonus: 27
+  dv: 13
+  pv: 31
+  diceY: 220
+  color: '#FFFFFF'
+- type: Elona.Material
+  id: Elona.SpiritCloth
+  hspIds:
+    elona122: 14
+  weight: 40
+  value: 750
+  hitBonus: 3
+  damageBonus: 2
+  dv: 34
+  pv: 6
+  diceY: 100
+  color: '#AFAFFF'
+- type: Elona.Material
+  id: Elona.Rubynus
+  hspIds:
+    elona122: 15
+  weight: 250
+  value: 1000
+  hitBonus: 38
+  damageBonus: 18
+  dv: 31
+  pv: 24
+  diceY: 190
+  color: '#FF9B9B'
+- type: Elona.Material
+  id: Elona.Paper
+  hspIds:
+    elona122: 16
+  weight: 10
+  value: 20
+  hitBonus: 15
+  damageBonus: -10
+  dv: 12
+  pv: 0
+  diceY: 100
+  color: '#FFFFFF'
+  noFurniture: true
+- type: Elona.Material
+  id: Elona.DawnCloth
+  hspIds:
+    elona122: 17
+  weight: 45
+  value: 850
+  hitBonus: 10
+  damageBonus: 8
+  dv: 35
+  pv: 15
+  diceY: 100
+  color: '#AFAFFF'
+- type: Elona.Material
+  id: Elona.Bone
+  hspIds:
+    elona122: 18
+  weight: 120
+  value: 300
+  hitBonus: 10
+  damageBonus: 6
+  dv: 12
+  pv: 11
+  diceY: 140
+  color: '#FFFFFF'
+- type: Elona.Material
+  id: Elona.Chain
+  hspIds:
+    elona122: 19
+  weight: 200
+  value: 300
+  hitBonus: 11
+  damageBonus: 8
+  dv: 17
+  pv: 14
+  diceY: 100
+  color: '#FFFFFF'
+- type: Elona.Material
+  id: Elona.Obsidian
+  hspIds:
+    elona122: 20
+  weight: 160
+  value: 350
+  hitBonus: 16
+  damageBonus: 10
+  dv: 13
+  pv: 14
+  diceY: 130
+  color: '#FFFFFF'
+- type: Elona.Material
+  id: Elona.Mica
+  hspIds:
+    elona122: 21
+  weight: 40
+  value: 150
+  hitBonus: 10
+  damageBonus: -2
+  dv: 12
+  pv: 0
+  diceY: 100
+  color: '#FFFFFF'
+  noFurniture: true
+- type: Elona.Material
+  id: Elona.Pearl
+  hspIds:
+    elona122: 22
+  weight: 240
+  value: 400
+  hitBonus: 18
+  damageBonus: 6
+  dv: 18
+  pv: 12
+  diceY: 140
+  color: '#FFC3B9'
+- type: Elona.Material
+  id: Elona.Emerald
+  hspIds:
+    elona122: 23
+  weight: 240
+  value: 1050
+  hitBonus: 22
+  damageBonus: 23
+  dv: 18
+  pv: 28
+  diceY: 190
+  color: '#AFFFAF'
+- type: Elona.Material
+  id: Elona.DragonScale
+  hspIds:
+    elona122: 24
+  weight: 220
+  value: 800
+  hitBonus: 25
+  damageBonus: 24
+  dv: 29
+  pv: 24
+  diceY: 160
+  color: '#AFFFAF'
+- type: Elona.Material
+  id: Elona.Silver
+  hspIds:
+    elona122: 25
+  weight: 230
+  value: 250
+  hitBonus: 10
+  damageBonus: 7
+  dv: 7
+  pv: 11
+  diceY: 130
+  color: '#FFFFFF'
+- type: Elona.Material
+  id: Elona.Platinum
+  hspIds:
+    elona122: 26
+  weight: 260
+  value: 350
+  hitBonus: 16
+  damageBonus: 11
+  dv: 14
+  pv: 17
+  diceY: 140
+  color: '#FFFFFF'
+- type: Elona.Material
+  id: Elona.Zylon
+  hspIds:
+    elona122: 27
+  weight: 50
+  value: 500
+  hitBonus: 5
+  damageBonus: 4
+  dv: 21
+  pv: 16
+  diceY: 100
+  color: '#AFAFFF'
+- type: Elona.Material
+  id: Elona.GriffonScale
+  hspIds:
+    elona122: 28
+  weight: 70
+  value: 1000
+  hitBonus: 16
+  damageBonus: 17
+  dv: 32
+  pv: 24
+  diceY: 120
+  color: '#AFFFAF'
+- type: Elona.Material
+  id: Elona.Titanium
+  hspIds:
+    elona122: 29
+  weight: 200
+  value: 750
+  hitBonus: 21
+  damageBonus: 18
+  dv: 19
+  pv: 22
+  diceY: 160
+  color: '#FFFFFF'
+- type: Elona.Material
+  id: Elona.Chrome
+  hspIds:
+    elona122: 30
+  weight: 320
+  value: 500
+  hitBonus: 15
+  damageBonus: 17
+  dv: 12
+  pv: 22
+  diceY: 150
+  color: '#FFFFFF'
+- type: Elona.Material
+  id: Elona.Adamantium
+  hspIds:
+    elona122: 31
+  weight: 360
+  value: 1150
+  hitBonus: 11
+  damageBonus: 38
+  dv: 8
+  pv: 42
+  diceY: 240
+  color: '#FFC3B9'
+- type: Elona.Material
+  id: Elona.Gold
+  hspIds:
+    elona122: 32
+  weight: 300
+  value: 800
+  hitBonus: 13
+  damageBonus: 18
+  dv: 14
+  pv: 22
+  diceY: 140
+  color: '#FFFFAF'
+- type: Elona.Material
+  id: Elona.Coral
+  hspIds:
+    elona122: 33
+  weight: 180
+  value: 240
+  hitBonus: 7
+  damageBonus: 2
+  dv: 10
+  pv: 7
+  diceY: 120
+  color: '#FFFFAF'
+- type: Elona.Material
+  id: Elona.Lead
+  hspIds:
+    elona122: 34
+  weight: 300
+  value: 50
+  hitBonus: 3
+  damageBonus: 4
+  dv: -3
+  pv: 11
+  diceY: 100
+  color: '#FFFFFF'
+- type: Elona.Material
+  id: Elona.Fresh
+  hspIds:
+    elona122: 35
+  weight: 100
+  value: 50
+  hitBonus: -5
+  damageBonus: -5
+  dv: -5
+  pv: -5
+  diceY: 100
+  color: '#FFFFFF'
+- type: Elona.Material
+  id: Elona.Wood
+  hspIds:
+    elona122: 43
+  weight: 150
+  value: 50
+  hitBonus: -5
+  damageBonus: -5
+  dv: -5
+  pv: -5
+  diceY: 100
+  color: '#FFFFFF'
+- type: Elona.Material
+  id: Elona.Metal
+  hspIds:
+    elona122: 1000
+  weight: 0
+  value: 0
+  hitBonus: 0
+  damageBonus: 0
+  dv: 0
+  pv: 0
+  diceY: 0
+  color: '#FFFFFF'
+- type: Elona.Material
+  id: Elona.Soft
+  hspIds:
+    elona122: 1001
+  weight: 0
+  value: 0
+  hitBonus: 0
+  damageBonus: 0
+  dv: 0
+  pv: 0
+  diceY: 0
+  color: '#FFFFFF'
 ...

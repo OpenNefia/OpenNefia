@@ -4,8 +4,8 @@ using OpenNefia.Core.Maps;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Content.Prototypes;
 using OpenNefia.Core.Serialization.Manager.Attributes;
-using OpenNefia.Content.Material;
 using OpenNefia.Content.World;
+using OpenNefia.Content.MaterialSpot;
 
 namespace OpenNefia.Content.Maps
 {

@@ -1,0 +1,191 @@
+---
+- type: Elona.FoodType
+  id: Elona.Meat
+  hspIds:
+    elona122: 1
+  usesCharaName: true
+  expGains:
+  - amount: 30
+    skillID: Elona.AttrStrength
+  - amount: 40
+    skillID: Elona.AttrConstitution
+  - amount: 10
+    skillID: Elona.AttrCharisma
+  baseNutrition: 3500
+  itemChips:
+    0: Elona.ItemDishCharred
+    1: Elona.ItemDishCharred
+    2: Elona.ItemDishCharred
+    3: Elona.ItemDishMeat3
+    4: Elona.ItemDishMeat4
+    5: Elona.ItemDishMeat5
+    6: Elona.ItemDishMeat5
+    7: Elona.ItemDishMeat7
+    8: Elona.ItemDishMeat8
+    9: Elona.ItemDishMeat4
+  questRewardCategory: Elona.EquipAmmo
+- type: Elona.FoodType
+  id: Elona.Vegetable
+  hspIds:
+    elona122: 2
+  expGains:
+  - amount: 50
+    skillID: Elona.AttrWill
+  - amount: 50
+    skillID: Elona.AttrLearning
+  baseNutrition: 2000
+  itemChips:
+    0: Elona.ItemDishCharred
+    1: Elona.ItemDishCharred
+    2: Elona.ItemDishCharred
+    3: Elona.ItemDishMeat8
+    4: Elona.ItemDishVegetable4
+    5: Elona.ItemDishMeat7
+    6: Elona.ItemDishMeat8
+    7: Elona.ItemDishVegetable4
+    8: Elona.ItemDishMeat8
+    9: Elona.ItemDishMeat7
+  questRewardCategory: Elona.Rod
+- type: Elona.FoodType
+  id: Elona.Fruit
+  hspIds:
+    elona122: 3
+  expGains:
+  - amount: 50
+    skillID: Elona.AttrWill
+  - amount: 50
+    skillID: Elona.AttrLearning
+  baseNutrition: 1500
+  itemChips:
+    0: Elona.ItemDishCharred
+    1: Elona.ItemDishCharred
+    2: Elona.ItemDishCharred
+    3: Elona.ItemDishMeat8
+    4: Elona.ItemDishFruit4
+    5: Elona.ItemDishFruit4
+    6: Elona.ItemDishFruit6
+    7: Elona.ItemDishFruit6
+    8: Elona.ItemDishEgg8
+    9: Elona.ItemDishFruit4
+  questRewardCategory: Elona.Scroll
+- type: Elona.FoodType
+  id: Elona.Sweet
+  hspIds:
+    elona122: 4
+  expGains:
+  - amount: 40
+    skillID: Elona.AttrMagic
+  - amount: 30
+    skillID: Elona.AttrDexterity
+  - amount: 30
+    skillID: Elona.AttrLearning
+  baseNutrition: 1500
+  itemChips:
+    0: Elona.ItemDishCharred
+    1: Elona.ItemDishCharred
+    2: Elona.ItemDishCharred
+    3: Elona.ItemDishSweet3
+    4: Elona.ItemDishFruit4
+    5: Elona.ItemDishSweet5
+    6: Elona.ItemDishFruit4
+    7: Elona.ItemDishEgg8
+    8: Elona.ItemDishEgg8
+    9: Elona.ItemDishEgg8
+  questRewardCategory: Elona.Drink
+- type: Elona.FoodType
+  id: Elona.Pasta
+  hspIds:
+    elona122: 5
+  expGains:
+  - amount: 60
+    skillID: Elona.AttrConstitution
+  - amount: 40
+    skillID: Elona.AttrDexterity
+  baseNutrition: 3500
+  itemChips:
+    0: Elona.ItemDishCharred
+    1: Elona.ItemDishCharred
+    2: Elona.ItemDishMeat8
+    3: Elona.ItemDishPasta3
+    4: Elona.ItemDishPasta4
+    5: Elona.ItemDishPasta4
+    6: Elona.ItemDishPasta3
+    7: Elona.ItemDishPasta3
+    8: Elona.ItemDishPasta4
+    9: Elona.ItemDishPasta3
+  questRewardCategory: Elona.Drink
+- type: Elona.FoodType
+  id: Elona.Fish
+  hspIds:
+    elona122: 6
+  expGains:
+  - amount: 40
+    skillID: Elona.AttrLearning
+  - amount: 40
+    skillID: Elona.AttrDexterity
+  - amount: 20
+    skillID: Elona.AttrPerception
+  baseNutrition: 3000
+  itemChips:
+    0: Elona.ItemDishCharred
+    1: Elona.ItemDishCharred
+    2: Elona.ItemDishCharred
+    3: Elona.ItemDishFish3
+    4: Elona.ItemDishVegetable4
+    5: Elona.ItemDishVegetable4
+    6: Elona.ItemDishFish3
+    7: Elona.ItemDishFish7
+    8: Elona.ItemDishFish3
+    9: Elona.ItemDishFish3
+  questRewardCategory: Elona.EquipAmmo
+- type: Elona.FoodType
+  id: Elona.Bread
+  hspIds:
+    elona122: 7
+  expGains:
+  - amount: 25
+    skillID: Elona.AttrStrength
+  - amount: 25
+    skillID: Elona.AttrDexterity
+  - amount: 25
+    skillID: Elona.AttrLearning
+  - amount: 25
+    skillID: Elona.AttrConstitution
+  baseNutrition: 2800
+  itemChips:
+    0: Elona.ItemDishCharred
+    1: Elona.ItemDishCharred
+    2: Elona.ItemDishSweet5
+    3: Elona.ItemDishSweet3
+    4: Elona.ItemDishSweet5
+    5: Elona.ItemDishBread5
+    6: Elona.ItemDishBread6
+    7: Elona.ItemDishBread7
+    8: Elona.ItemDishBread8
+    9: Elona.ItemDishBread9
+  questRewardCategory: Elona.Ore
+- type: Elona.FoodType
+  id: Elona.Egg
+  hspIds:
+    elona122: 8
+  usesCharaName: true
+  expGains:
+  - amount: 20
+    skillID: Elona.AttrCharisma
+  - amount: 20
+    skillID: Elona.AttrPerception
+  - amount: 20
+    skillID: Elona.AttrWill
+  baseNutrition: 2000
+  itemChips:
+    0: Elona.ItemDishCharred
+    1: Elona.ItemDishCharred
+    2: Elona.ItemDishCharred
+    3: Elona.ItemDishEgg3
+    4: Elona.ItemDishMeat8
+    5: Elona.ItemDishEgg3
+    6: Elona.ItemDishVegetable4
+    7: Elona.ItemHeroCheese
+    8: Elona.ItemDishEgg8
+    9: Elona.ItemDishMeat7
+...

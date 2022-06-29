@@ -518,8 +518,9 @@ namespace OpenNefia.Core.Prototypes
             var registered = 0;
 
             var flags = BindingFlags.Instance | BindingFlags.Public;
-            var subscribeValue = _eventBus.GetType().GetMethod("SubscribeEventValue", flags)!;
-            var subscribeRef = _eventBus.GetType().GetMethod("SubscribeEventRef", flags)!;
+            var eventBusType = _eventBus.GetType();
+            var subscribeValue = eventBusType.GetMethod("SubscribeEventValue", flags)!;
+            var subscribeRef = eventBusType.GetMethod("SubscribeEventRef", flags)!;
 
             foreach (var (prototypeType, eventDefLists) in _prototypeEventDefs)
             {

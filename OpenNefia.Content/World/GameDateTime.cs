@@ -124,12 +124,12 @@ namespace OpenNefia.Content.World
         /// </summary>
         public int Second => (int)(TotalSeconds % 60);
 
-        public static bool operator ==(GameDateTime lhs, GameDateTime rhs)
+        public static bool operator ==(GameDateTime? lhs, GameDateTime? rhs)
         {
-            return lhs.TotalSeconds == rhs.TotalSeconds;
+            return lhs?.TotalSeconds == rhs?.TotalSeconds;
         }
 
-        public static bool operator !=(GameDateTime lhs, GameDateTime rhs)
+        public static bool operator !=(GameDateTime? lhs, GameDateTime? rhs)
         {
             return !(lhs == rhs);
         }

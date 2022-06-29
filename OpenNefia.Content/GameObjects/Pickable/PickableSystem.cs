@@ -11,6 +11,7 @@ using OpenNefia.Core.Log;
 using OpenNefia.Core.Locale;
 using OpenNefia.Core.Game;
 using OpenNefia.Content.Inventory;
+using OpenNefia.Content.EntityGen;
 
 namespace OpenNefia.Content.GameObjects.Pickable
 {
@@ -38,6 +39,13 @@ namespace OpenNefia.Content.GameObjects.Pickable
             SubscribeBroadcast<ExecuteVerbEventArgs>(HandleExecuteVerb);
             SubscribeComponent<PickableComponent, DoPickUpEventArgs>(HandleDoPickUp);
             SubscribeComponent<PickableComponent, DoDropEventArgs>(HandleDoDrop);
+            SubscribeComponent<PickableComponent, EntityBeingGeneratedEvent>(HandleBeingGenerated);
+        }
+
+        private void HandleBeingGenerated(EntityUid uid, PickableComponent component, ref EntityBeingGeneratedEvent args)
+        {
+            if (args.GenArgs.TryGet<ItemGenArgs>(out var itemGenArgs))
+                component.OwnState = itemGenArgs.OwnState;
         }
 
         private void HandleGetVerbs(EntityUid uid, PickableComponent pickable, GetVerbsEventArgs args)

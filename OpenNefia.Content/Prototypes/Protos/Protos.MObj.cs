@@ -27,6 +27,12 @@ namespace OpenNefia.Content.Prototypes
             public static readonly EntityPrototypeId LockedHatch   = new($"Elona.MObj{nameof(LockedHatch)}");
             public static readonly EntityPrototypeId MaterialSpot  = new($"Elona.MObj{nameof(MaterialSpot)}");
 
+            public static readonly EntityPrototypeId MaterialSpotDefault = new($"Elona.MObj{nameof(MaterialSpotDefault)}");
+            public static readonly EntityPrototypeId MaterialSpotRemains = new($"Elona.MObj{nameof(MaterialSpotRemains)}");
+            public static readonly EntityPrototypeId MaterialSpotSpring  = new($"Elona.MObj{nameof(MaterialSpotSpring)}");
+            public static readonly EntityPrototypeId MaterialSpotMine    = new($"Elona.MObj{nameof(MaterialSpotMine)}");
+            public static readonly EntityPrototypeId MaterialSpotBush    = new($"Elona.MObj{nameof(MaterialSpotBush)}");
+
             #pragma warning restore format
         }
     }

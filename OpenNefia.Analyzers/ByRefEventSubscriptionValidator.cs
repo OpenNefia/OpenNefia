@@ -54,6 +54,13 @@ namespace OpenNefia.Analyzers
             private readonly INamedTypeSymbol _entityEventRefHandlerType;
             private readonly INamedTypeSymbol _componentEventRefHandlerType;
 
+            private static HashSet<string> SubMethodNames = new HashSet<string>()
+            {
+                "SubscribeComponent",
+                "SubscribeEntity",
+                "SubscribeBroadcast",
+            };
+
             public CompilationAnalyzer(INamedTypeSymbol byRefEventAttributeType, INamedTypeSymbol entitySystemType, INamedTypeSymbol entityEventRefHandlerType, INamedTypeSymbol componentEventRefHandlerType)
             {
                 _byRefEventAttributeType = byRefEventAttributeType;
@@ -70,18 +77,19 @@ namespace OpenNefia.Analyzers
                         var invocation = (IInvocationOperation)context.Operation;
                         var method = invocation.TargetMethod;
                         
-                        if (method.Name == "SubscribeLocalEvent" && SymbolEqualityComparer.Default.Equals(method.ContainingType, _entitySystemType))
+                        if (SubMethodNames.Contains(method.Name) && SymbolEqualityComparer.Default.Equals(method.ContainingType, _entitySystemType))
                         {
                             ITypeSymbol eventType;
 
                             if (method.TypeArguments.Length == 2)
                             {
-                                // SubscribeLocalEvent<TComp, TEvent>(...);
+                                // SubscribeComponent<TComp, TEvent>(...);
                                 eventType = method.TypeArguments[1];
                             }
                             else
                             {
-                                // SubscribeLocalEvent<TEvent>(...);
+                                // SubscribeEntity<TEvent>(...);
+                                // SubscribeBroadcast<TEvent>(...);
                                 eventType = method.TypeArguments[0];
                             }
 

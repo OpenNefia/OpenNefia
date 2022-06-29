@@ -195,5 +195,161 @@
 
 - id: Elona.MObjMaterialSpot
   parent: BaseMObj
+  abstract: true
   type: Entity
+  components:
+  - type: MaterialSpot
+
+- id: Elona.MObjMaterialSpotDefault
+  parent: Elona.MObjMaterialSpot
+  type: Entity
+  components:
+  - type: Chip
+    id: Elona.MObjMaterialCrafting
+  - type: MaterialSpot
+    # >>>>>>>> shade2/action.hsp:1546 		if feat(1)=objREremain	:call search ...
+    autoTurnAnim: !type:SearchingAutoTurnAnim {}
+    # <<<<<<<< shade2/action.hsp:1546 		if feat(1)=objREremain	:call search ..
+
+    # >>>>>>>> shade2/proc.hsp:1007 		if cTurn(cc)¥5=0:txtActDigging ...
+    gatherSoundText: Elona.Dig.Spot.Sound
+    # <<<<<<<< shade2/proc.hsp:1007 		if cTurn(cc)¥5=0:txtActDigging ..
+
+    # >>>>>>>> shade2/proc.hsp:997 		cRowAct(cc)=rowActSearch ...
+    activityName: OpenNefia.Prototypes.Activity.Elona.Searching.Verb
+    activityDefaultTurns: 20
+    activityAnimationWait: 15
+    startGatherText: Elona.Dig.Spot.Start.Other
+    # <<<<<<<< shade2/proc.hsp:999 		if rowActRE=false:txt lang("地面を掘り始めた。","You star ..
+
+- id: Elona.MObjMaterialSpotRemains
+  parent: Elona.MObjMaterialSpot
+  type: Entity
+  components:
+  - type: Chip
+    id: Elona.MObjMaterialCrafting
+  - type: MaterialSpot
+    # >>>>>>>> shade2/action.hsp:1546 		if feat(1)=objREremain	:call search ...
+    autoTurnAnim: !type:SearchingAutoTurnAnim {}
+    # <<<<<<<< shade2/action.hsp:1546 		if feat(1)=objREremain	:call search ..
+
+    # >>>>>>>> shade2/proc.hsp:1007 		if cTurn(cc)¥5=0:txtActDigging ...
+    gatherSoundText: Elona.Dig.Spot.Sound
+    # <<<<<<<< shade2/proc.hsp:1007 		if cTurn(cc)¥5=0:txtActDigging ..
+
+    # >>>>>>>> shade2/proc.hsp:997 		cRowAct(cc)=rowActSearch ...
+    activityName: OpenNefia.Prototypes.Activity.Elona.Searching.Verb
+    activityDefaultTurns: 20
+    activityAnimationWait: 15
+    startGatherText: Elona.MaterialSpot.Remains.Start
+    # <<<<<<<< shade2/proc.hsp:999 		if rowActRE=false:txt lang("地面を掘り始めた。","You star ..
+
+    # >>>>>>>> shade2/action.hsp:763 			if feat(1)=objREremain		:txt lang("何かの残骸がある。"," ...
+    steppedOnText: Elona.MaterialSpot.Remains.Description
+    # <<<<<<<< shade2/action.hsp:763 			if feat(1)=objREremain		:txt lang("何かの残骸がある。"," ..
+  - type: MaterialSpotRemains
+
+- id: Elona.MObjMaterialSpotSpring
+  parent: Elona.MObjMaterialSpot
+  type: Entity
+  components:
+  - type: Chip
+    # >>>>>>>> shade2/map_func.hsp:836 			cell_featSet x,y,245,objREspring ...
+    id: Elona.MObjMaterialFish
+    # <<<<<<<< shade2/map_func.hsp:836 			cell_featSet x,y,245,objREspring ..
+
+  - type: MaterialSpot
+    # >>>>>>>> shade2/action.hsp:1546 		if feat(1)=objREremain	:call search ...
+    autoTurnAnim: !type:FishingAutoTurnAnim {}
+    # <<<<<<<< shade2/action.hsp:1546 		if feat(1)=objREremain	:call search ..
+
+    # >>>>>>>> shade2/proc.hsp:33 	if feat(1)=objREspring	:atxSpot=atxWater1 ...
+    materialSpotType: Elona.Water
+    # <<<<<<<< shade2/proc.hsp:33 	if feat(1)=objREspring	:atxSpot=atxWater1 ..
+
+    # >>>>>>>> shade2/proc.hsp:997 		cRowAct(cc)=rowActSearch ...
+    activityName: OpenNefia.Prototypes.Activity.Elona.Fishing.Verb
+    activityDefaultTurns: 100
+    activityAnimationWait: 40
+    startGatherText: Elona.Fishing.Start
+    startGatherSound: Elona.FishCast
+    # <<<<<<<< shade2/proc.hsp:999 		if rowActRE=false:txt lang("地面を掘り始めた。","You star ..
+
+    # >>>>>>>> shade2/proc.hsp:57 		if feat(1)=objREspring	:s=lang("泉は干上がった。","The s ...
+    gatherNoMoreText: Elona.MaterialSpot.Spring.NoMore
+    # <<<<<<<< shade2/proc.hsp:57 		if feat(1)=objREspring	:s=lang("泉は干上がった。","The s ..
+
+    # >>>>>>>> shade2/action.hsp:765 			if feat(1)=objREspring		:txt lang("泉がある。","You  ...
+    steppedOnText: Elona.MaterialSpot.Spring.Description
+    # <<<<<<<< shade2/action.hsp:765 			if feat(1)=objREspring		:txt lang("泉がある。","You  ..
+
+- id: Elona.MObjMaterialMine
+  parent: Elona.MObjMaterialSpot
+  type: Entity
+  components:
+  - type: Chip
+    # >>>>>>>> shade2/map_func.hsp:832 			cell_featSet x,y,244,objREmine ...
+    id: Elona.MObjMaterialMine
+    # <<<<<<<< shade2/map_func.hsp:832 			cell_featSet x,y,244,objREmine ..
+
+  - type: MaterialSpot
+    # >>>>>>>> shade2/action.hsp:1546 		if feat(1)=objREremain	:call search ...
+    autoTurnAnim: !type:MiningAutoTurnAnim {}
+    # <<<<<<<< shade2/action.hsp:1546 		if feat(1)=objREremain	:call search ..
+
+    # >>>>>>>> shade2/proc.hsp:34 	if feat(1)=objREmine	:atxSpot=atxMine1 ...
+    materialSpotType: Elona.Mine
+    # <<<<<<<< shade2/proc.hsp:34 	if feat(1)=objREmine	:atxSpot=atxMine1 ..
+
+    # >>>>>>>> shade2/proc.hsp:1042 		cRowAct(cc)=rowActDig ...
+    activityName: OpenNefia.Prototypes.Activity.Elona.Mining.Verb
+    activityDefaultTurns: 40
+    activityAnimationWait: 15
+    startGatherText: Elona.MaterialSpot.Mine.Start
+    # <<<<<<<< shade2/proc.hsp:1044 		if rowActRE=false:txt lang("壁を掘りはじめた。","You star ..
+
+    # >>>>>>>> shade2/proc.hsp:1098 			if cTurn(cc)¥5=0:txtActDigging ...
+    gatherSoundText: Elona.Dig.Spot.Sound
+    # <<<<<<<< shade2/proc.hsp:1098 			if cTurn(cc)¥5=0:txtActDigging ..
+
+    # >>>>>>>> shade2/proc.hsp:58 		if feat(1)=objREmine	:s=lang("鉱石を掘りつくした。","There ...
+    gatherNoMoreText: Elona.MaterialSpot.Mine.NoMore
+    # <<<<<<<< shade2/proc.hsp:58 		if feat(1)=objREmine	:s=lang("鉱石を掘りつくした。","There ..
+
+    # >>>>>>>> shade2/action.hsp:764 			if feat(1)=objREmine		:txt lang("採掘場がある。","You  ...
+    steppedOnText: Elona.MaterialSpot.Mine.Description
+    # <<<<<<<< shade2/action.hsp:764 			if feat(1)=objREmine		:txt lang("採掘場がある。","You  ..
+
+- id: Elona.MObjMaterialBush
+  parent: Elona.MObjMaterialSpot
+  type: Entity
+  components:
+  - type: Chip
+    # >>>>>>>> shade2/map_func.hsp:840 			cell_featSet x,y,246,objREbush ...
+    id: Elona.MObjMaterialPlant
+    # <<<<<<<< shade2/map_func.hsp:840 			cell_featSet x,y,246,objREbush ..
+
+  - type: MaterialSpot
+    # >>>>>>>> shade2/action.hsp:1549 		if feat(1)=objREbush	:call plant ...
+    autoTurnAnim: !type:HarvestingAutoTurnAnim {}
+    # <<<<<<<< shade2/action.hsp:1549 		if feat(1)=objREbush	:call plant ..
+
+    # >>>>>>>> shade2/proc.hsp:35 	if feat(1)=objREbush	:atxSpot=atxBush1 ...
+    materialSpotType: Elona.Bush
+    # <<<<<<<< shade2/proc.hsp:35 	if feat(1)=objREbush	:atxSpot=atxBush1 ..
+
+    # >>>>>>>> shade2/proc.hsp:982 		cRowAct(cc)=rowActPlant ...
+    activityName: OpenNefia.Prototypes.Activity.Elona.DiggingSpot.Verb
+    activityDefaultTurns: 40
+    activityAnimationWait: 15
+    startGatherText: Elona.MaterialSpot.Bush.Start
+    # <<<<<<<< shade2/proc.hsp:984 		txt lang("採取を始めた。","You start to search the spot ..
+
+    # >>>>>>>> shade2/proc.hsp:59 		if feat(1)=objREbush	:s=lang("もう目ぼしい植物は見当たらない。", ...
+    gatherNoMoreText: Elona.MaterialSpot.Bush.NoMore
+    # <<<<<<<< shade2/proc.hsp:59 		if feat(1)=objREbush	:s=lang("もう目ぼしい植物は見当たらない。", ..
+
+    # >>>>>>>> shade2/action.hsp:766 			if feat(1)=objREbush		:txt lang("色んな植物が生えている。", ...
+    steppedOnText: Elona.MaterialSpot.Bush.Description
+    # <<<<<<<< shade2/action.hsp:766 			if feat(1)=objREbush		:txt lang("色んな植物が生えている。", ..
 ...

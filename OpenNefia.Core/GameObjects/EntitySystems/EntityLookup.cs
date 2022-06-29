@@ -2,6 +2,7 @@
 using OpenNefia.Core.Maps;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -70,6 +71,8 @@ namespace OpenNefia.Core.GameObjects
 
         IEnumerable<SpatialComponent> EntitiesUnderneath(EntityUid player, bool includeMapEntity = false, SpatialComponent? spatial = null);
 
+        bool TryGetMapPlacedIn(EntityUid ent, [NotNullWhen(true)] out IMap? map);
+
         /// <summary>
         ///     Returns ALL component instances of a specified type in the given map.
         /// </summary>
@@ -117,6 +120,19 @@ namespace OpenNefia.Core.GameObjects
         /// <param name="includeChildren">If true, also query the children of entities in the map.</param>
         /// <returns>The pairs of components from each entity in the map that has the four required components.</returns>
         IEnumerable<(TComp1, TComp2, TComp3, TComp4)> EntityQueryInMap<TComp1, TComp2, TComp3, TComp4>(MapId mapId, bool includeChildren = false)
+            where TComp1 : IComponent
+            where TComp2 : IComponent
+            where TComp3 : IComponent
+            where TComp4 : IComponent;
+        IEnumerable<TComp> EntityQueryInMap<TComp>(IMap map, bool includeChildren = false) where TComp : IComponent;
+        IEnumerable<(TComp1, TComp2)> EntityQueryInMap<TComp1, TComp2>(IMap map, bool includeChildren = false)
+            where TComp1 : IComponent
+            where TComp2 : IComponent;
+        IEnumerable<(TComp1, TComp2, TComp3)> EntityQueryInMap<TComp1, TComp2, TComp3>(IMap map, bool includeChildren = false)
+            where TComp1 : IComponent
+            where TComp2 : IComponent
+            where TComp3 : IComponent;
+        IEnumerable<(TComp1, TComp2, TComp3, TComp4)> EntityQueryInMap<TComp1, TComp2, TComp3, TComp4>(IMap map, bool includeChildren = false)
             where TComp1 : IComponent
             where TComp2 : IComponent
             where TComp3 : IComponent
@@ -234,6 +250,24 @@ namespace OpenNefia.Core.GameObjects
                 .Where(s => s.Owner != player);
         }
 
+        /// <inheritdoc/>
+        public bool TryGetMapPlacedIn(EntityUid ent, [NotNullWhen(true)] out IMap? map)
+        {
+            if (!TryComp<SpatialComponent>(ent, out var spatial) || spatial.Parent == null)
+            {
+                map = null;
+                return false;
+            }
+
+            if (!TryComp<MapComponent>(spatial.Parent.Owner, out var mapComp))
+            {
+                map = null;
+                return false;
+            }
+
+            return _mapManager.TryGetMap(mapComp.MapId, out map);
+        }
+
         /// <inheritdoc />
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private bool EntityIsInMap(MapId mapId, SpatialComponent spatial, bool includeChildren)
@@ -304,5 +338,31 @@ namespace OpenNefia.Core.GameObjects
                 }
             }
         }
+
+        /// <inheritdoc />
+        public IEnumerable<TComp> EntityQueryInMap<TComp>(IMap map, bool includeChildren = false)
+            where TComp : IComponent
+            => EntityQueryInMap<TComp>(map.Id, includeChildren);
+
+        /// <inheritdoc />
+        public IEnumerable<(TComp1, TComp2)> EntityQueryInMap<TComp1, TComp2>(IMap map, bool includeChildren = false)
+            where TComp1 : IComponent
+            where TComp2 : IComponent
+            => EntityQueryInMap<TComp1, TComp2>(map.Id, includeChildren);
+
+        /// <inheritdoc />
+        public IEnumerable<(TComp1, TComp2, TComp3)> EntityQueryInMap<TComp1, TComp2, TComp3>(IMap map, bool includeChildren = false)
+            where TComp1 : IComponent
+            where TComp2 : IComponent
+            where TComp3 : IComponent
+            => EntityQueryInMap<TComp1, TComp2, TComp3>(map.Id, includeChildren);
+
+        /// <inheritdoc />
+        public IEnumerable<(TComp1, TComp2, TComp3, TComp4)> EntityQueryInMap<TComp1, TComp2, TComp3, TComp4>(IMap map, bool includeChildren = false)
+            where TComp1 : IComponent
+            where TComp2 : IComponent
+            where TComp3 : IComponent
+            where TComp4 : IComponent
+            => EntityQueryInMap<TComp1, TComp2, TComp3, TComp4>(map.Id, includeChildren);
     }
 }

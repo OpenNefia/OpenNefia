@@ -1,4 +1,4 @@
-﻿using MaterialSpotPrototypeId = OpenNefia.Core.Prototypes.PrototypeId<OpenNefia.Content.Material.MaterialSpotPrototype>;
+﻿using MaterialSpotPrototypeId = OpenNefia.Core.Prototypes.PrototypeId<OpenNefia.Content.MaterialSpot.MaterialSpotPrototype>;
 
 namespace OpenNefia.Content.Prototypes
 {
