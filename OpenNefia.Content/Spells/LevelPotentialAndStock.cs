@@ -1,5 +1,6 @@
 ﻿using OpenNefia.Content.Skills;
 using OpenNefia.Core.Serialization.Manager.Attributes;
+using OpenNefia.Core.Stats;
 
 namespace OpenNefia.Content.Spells
 {
@@ -9,11 +10,21 @@ namespace OpenNefia.Content.Spells
     [DataDefinition]
     public class LevelPotentialAndStock : IEquatable<LevelPotentialAndStock>
     {
+        public LevelPotentialAndStock(int level = 1, int potential = LevelAndPotential.DefaultPotential, int experience = 0, int spellStock = 0)
+        {
+            Stats = new LevelAndPotential(level, potential, experience);
+            SpellStock = spellStock;
+        }
+
         /// <summary>
         /// The level, potential and experience associated with this spell.
         /// </summary>
         [DataField]
         public LevelAndPotential Stats { get; } = new();
+
+        public Stat<int> Level => Stats.Level;
+        public int Potential => Stats.Potential;
+        public int Experience => Stats.Experience;
 
         /// <summary>
         /// Current spell stock.

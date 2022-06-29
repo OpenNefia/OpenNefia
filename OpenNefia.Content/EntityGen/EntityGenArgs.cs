@@ -1,4 +1,5 @@
 ﻿using OpenNefia.Content.Qualities;
+using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Utility;
 using System;
@@ -13,17 +14,17 @@ namespace OpenNefia.Content.EntityGen
     {
     }
 
-    public sealed class EntityGenArgSet : Blackboard<EntityGenArgs> 
+    public sealed class EntityGenArgSet : Blackboard<EntityGenArgs>
     {
         public static EntityGenArgSet Make(params EntityGenArgs[] rest)
         {
             var result = new EntityGenArgSet();
-            
+
             foreach (var param in rest)
                 result.Add(param);
 
             result.Ensure<EntityGenCommonArgs>();
-            
+
             return result;
         }
     }
@@ -67,5 +68,23 @@ namespace OpenNefia.Content.EntityGen
         /// If true, this item is being generated in a shopkeeper's inventory.
         /// </summary>
         public bool IsShop { get; set; } = false;
+    }
+
+    public sealed class MefGenArgs : EntityGenArgs
+    {
+        /// <summary>
+        /// Number of turns this mef will last for.
+        /// </summary>
+        public int TurnDuration { get; set; } = 10;
+
+        /// <summary>
+        /// Power of this mef.
+        /// </summary>
+        public int Power { get; set; } = 10;
+
+        /// <summary>
+        /// The entity responsible for creating this mef.
+        /// </summary>
+        public EntityUid? Origin { get; set; } = null;
     }
 }

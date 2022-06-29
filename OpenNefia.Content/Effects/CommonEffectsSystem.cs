@@ -39,5 +39,15 @@ namespace OpenNefia.Content.Effects
                 }
             }
         }
+
+        public void DamageTileFire(MapCoordinates coords, EntityUid? source)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DamageItemsFire(EntityUid target)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

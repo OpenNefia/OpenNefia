@@ -45,9 +45,9 @@ namespace OpenNefia.Core.Stats.Serialization
             ISerializationContext? context = null)
         {
             if (!node.TryGet("base", out var baseNode))
-                throw new InvalidMappingException($"No 'base' mapping provided to {nameof(StatSerializerFull<T>)}");
+                return new ErrorNode(node, $"No 'base' mapping provided to {nameof(StatSerializerFull<T>)}");
             if (!node.TryGet("buffed", out var buffedNode))
-                throw new InvalidMappingException($"No 'buffed' mapping provided to {nameof(StatSerializerFull<T>)}");
+                return new ErrorNode(node, $"No 'buffed' mapping provided to {nameof(StatSerializerFull<T>)}");
 
             var dict = new Dictionary<ValidationNode, ValidationNode>
             {

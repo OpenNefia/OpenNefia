@@ -9,7 +9,14 @@ namespace OpenNefia.Content.Skills
     [DataDefinition]
     public class LevelAndPotential : IEquatable<LevelAndPotential>
     {
-        public const int DEFAULT_POTENTIAL = 100;
+        public const int DefaultPotential = 100;
+
+        public LevelAndPotential(int level = 1, int potential = DefaultPotential, int experience = 0)
+        {
+            Level = new Stat<int>(level);
+            Potential = potential;
+            Experience = experience;
+        }
 
         /// <summary>
         /// Level of the skill.
@@ -21,7 +28,7 @@ namespace OpenNefia.Content.Skills
         /// Potential of the skill, specified as a percentage. 100 is the baseline.
         /// </summary>
         [DataField]
-        public int Potential { get; set; } = DEFAULT_POTENTIAL;
+        public int Potential { get; set; } = DefaultPotential;
 
         /// <summary>
         /// Current experience of the skill.

@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Serialization.Manager.Attributes;
+using OpenNefia.Content.Prototypes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
