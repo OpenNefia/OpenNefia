@@ -200,6 +200,7 @@ namespace OpenNefia.Core.Prototypes
             // ProtoType -> EventType -> ID -> { CompType1, ... CompTypeN }
             private Dictionary<Type, Dictionary<Type, Dictionary<string, List<DirectedRegistration>>>> _subscriptions;
 
+            private bool _dirty;
             private bool _subscriptionLock;
 
             public EventTables(IPrototypeManager protoMan)
@@ -207,6 +208,7 @@ namespace OpenNefia.Core.Prototypes
                 _protoMan = protoMan;
 
                 _subscriptions = new();
+                _dirty = true;
                 _subscriptionLock = false;
             }
 
@@ -238,6 +240,7 @@ namespace OpenNefia.Core.Prototypes
 
                 var registrations = protoSubs[protoID];
                 registrations.Add(registration);
+                _dirty = true;
             }
 
             public void Subscribe<TEvent>(Type protoType, string protoID, Type eventType, DirectedEventHandler<TEvent> handler,
@@ -261,10 +264,31 @@ namespace OpenNefia.Core.Prototypes
                     return;
 
                 protoSubs.Remove(eventType);
+                _dirty = true;
+            }
+
+            private void SortEvents()
+            {
+                foreach (var protoSubs in _subscriptions.Values)
+                {
+                    foreach (var eventSubs in protoSubs.Values)
+                    {
+                        foreach (var registrations in eventSubs.Values)
+                        {
+                            registrations.Sort();
+                        }
+                    }
+                }
             }
 
             public void Dispatch(Type prototypeType, string prototypeID, Type eventType, ref Unit args, bool dispatchByReference)
             {
+                if (_dirty)
+                {
+                    SortEvents();
+                    _dirty = false;
+                }
+
                 if (!TryGetRegistrations(prototypeType, prototypeID, eventType, dispatchByReference, out var registrations))
                     return;
 
@@ -384,4 +408,6 @@ namespace OpenNefia.Core.Prototypes
     public delegate void PrototypeEventRefHandler<in TProto, TEvent>(TProto prototype, ref TEvent args)
         where TProto : IPrototype
         where TEvent : notnull;
+
+    public abstract class PrototypeEventArgs {}
 }
