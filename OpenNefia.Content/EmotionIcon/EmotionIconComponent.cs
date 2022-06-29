@@ -18,6 +18,6 @@ namespace OpenNefia.Content.EmotionIcon
         public string EmotionIconId { get; set; } = string.Empty;
 
         [DataField]
-        public GameTimeSpan TimeRemaining { get; set; } = GameTimeSpan.Zero;
+        public int TurnsRemaining { get; set; }
     }
 }

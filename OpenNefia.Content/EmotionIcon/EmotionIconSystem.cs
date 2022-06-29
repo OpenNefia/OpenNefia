@@ -10,18 +10,18 @@ namespace OpenNefia.Content.EmotionIcon
 {
     public interface IEmotionIconSystem : IEntitySystem
     {
-        void SetEmotionIcon(EntityUid entity, string id, GameTimeSpan turns, EmotionIconComponent? emoicon = null);
+        void SetEmotionIcon(EntityUid entity, string id, int turns, EmotionIconComponent? emoicon = null);
     }
 
     public sealed class EmotionIconSystem : EntitySystem, IEmotionIconSystem
     {
-        public void SetEmotionIcon(EntityUid entity, string id, GameTimeSpan turns, EmotionIconComponent? emoicon = null)
+        public void SetEmotionIcon(EntityUid entity, string id, int turns, EmotionIconComponent? emoicon = null)
         {
             if (!Resolve(entity, ref emoicon))
                 return;
 
             emoicon.EmotionIconId = id;
-            emoicon.TimeRemaining = turns;
+            emoicon.TurnsRemaining = turns;
         }
     }
 }
