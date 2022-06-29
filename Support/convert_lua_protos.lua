@@ -28,9 +28,27 @@ local function classify(str)
     return str:gsub("%W*(%w+)", capitalize)
 end
 
+local replacements = {
+    ["stat_life"] = "attr_life",
+    ["stat_mana"] = "attr_mana",
+    ["stat_strength"] = "attr_strength",
+    ["stat_constitution"] = "attr_constitution",
+    ["stat_dexterity"] = "attr_dexterity",
+    ["stat_perception"] = "attr_perception",
+    ["stat_learning"] = "attr_learning",
+    ["stat_will"] = "attr_will",
+    ["stat_magic"] = "attr_magic",
+    ["stat_charisma"] = "attr_charisma",
+    ["stat_speed"] = "attr_speed",
+    ["stat_luck"] = "attr_luck",
+}
+
 local function dotted(str)
     local mod_id, data_id = str:match "([^.]+)%.([^.]+)"
-    return ("%s.%s"):format(classify(mod_id), classify(data_id))
+    data_id = replacements[data_id] or data_id
+    local result = ("%s.%s"):format(classify(mod_id), classify(data_id))
+    result = result:gsub("^Elona.Stat([A-Z])", "Elona.Attr")
+    return result
 end
 
 local function dottedEntity(str, ty)
@@ -679,6 +697,58 @@ handlers["base.effect"] = function(from, to)
     }
 end
 
+handlers["elona.item_material"] = function(from, to)
+    if from.weight then
+        to.weight = from.weight
+    end
+    if from.value then
+        to.value = from.value
+    end
+    if from.hit_bonus then
+        to.hitBonus = from.hit_bonus
+    end
+    if from.damage_bonus then
+        to.damageBonus = from.damage_bonus
+    end
+    if from.dv then
+        to.dv = from.dv
+    end
+    if from.pv then
+        to.pv = from.pv
+    end
+    if from.dice_y then
+        to.diceY = from.dice_y
+    end
+    if from.color then
+        to.color = rgbToHex(from.color)
+    end
+    if from.no_furniture then
+        to.noFurniture = from.no_furniture
+    end
+end
+
+handlers["elona.food_type"] = function(from, to)
+    if from.uses_chara_name then
+        to.usesCharaName = from.uses_chara_name
+    end
+    to.expGains = {}
+    for _, gain in ipairs(from.exp_gains) do
+        local t = {
+            skillID = dotted(gain._id),
+            amount = gain.amount,
+        }
+        table.insert(to.expGains, t)
+    end
+    to.baseNutrition = from.base_nutrition
+    to.itemChips = {}
+    for k, v in pairs(from.item_chips) do
+        to.itemChips[k] = dotted(v)
+    end
+    if from.quest_reward_category then
+        to.questRewardCategory = dotted(from.quest_reward_category)
+    end
+end
+
 local function sort(a, b)
     return (a.elona_id or 0) < (b.elona_id or 0)
 end
@@ -706,6 +776,8 @@ local hspTypes = {
     ["elona.field_type"] = "Elona.FieldType",
     ["base.trait"] = "Elona.Feat",
     ["base.effect"] = "Elona.StatusEffect",
+    ["elona.material"] = "Elona.BlendMaterial",
+    ["elona.item_material"] = "Elona.Material",
 }
 
 local function transformMinimal(i)
@@ -772,10 +844,12 @@ write("base.item", "Entity/Item.yml")
 -- write("base.element", "Element.yml")
 -- write("elona_sys.map_tileset", "MapTileset.yml")
 -- write("elona.material_spot", "MaterialSpot.yml")
--- write("elona.material", "Material.yml")
+-- write("elona.material", "BlendMaterial.yml")
 -- write("elona.god", "God.yml")
 -- write("elona_sys.magic", "Magic.yml")
 -- write("base.effect", "StatusEffect.yml")
+-- write("elona.item_material", "Material.yml")
+write("elona.food_type", "FoodType.yml")
 
 -- for _, tag in ipairs(allTags) do
 --     print(tag)

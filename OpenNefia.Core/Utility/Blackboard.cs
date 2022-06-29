@@ -35,12 +35,14 @@ namespace OpenNefia.Core.Utility
 
         public void Add<T>(T instance) where T: class, TType
         {
-            if (_instances.ContainsKey(typeof(T)))
+            var specificType = instance.GetType();
+       
+            if (_instances.ContainsKey(specificType))
             {
-                throw new ArgumentException($"Key {typeof(T)} already exists.");
+                throw new ArgumentException($"Key {specificType} already exists.");
             }
 
-            _instances[typeof(T)] = instance;
+            _instances[specificType] = instance;
         }
 
         public bool Remove<T>() where T: class, TType

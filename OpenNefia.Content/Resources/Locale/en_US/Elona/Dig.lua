@@ -21,7 +21,6 @@ Elona.Dig = {
         Sound = { "*clink*", "*smash*", "*thud*", "*sing*", "*sigh*" },
         Start = {
             Global = "You start to dig the ground.",
-            Other = "You start to dig the spot.",
         },
     },
 }

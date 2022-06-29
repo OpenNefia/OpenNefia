@@ -183,11 +183,11 @@ namespace OpenNefia.Content.EntityGen
     [ByRefEvent]
     public struct EntityBeingGeneratedEvent
     {
-        public EntityGenArgSet Args { get; }
+        public EntityGenArgSet GenArgs { get; }
 
         public EntityBeingGeneratedEvent(EntityGenArgSet args)
         {
-            Args = args;
+            GenArgs = args;
         }
     }
 

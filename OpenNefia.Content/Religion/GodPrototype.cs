@@ -66,11 +66,11 @@ namespace OpenNefia.Content.Religion
         [DataField]
         public PrototypeId<EntityPrototype>? Servant { get; }
 
-        [DataField]
+        [DataField("items")]
         private readonly List<GodItem> _items = new();
         public IReadOnlyList<GodItem> Items => _items;
 
-        [DataField]
+        [DataField("offerings")]
         private readonly List<GodOffering> _offerings = new();
         public IReadOnlyList<GodOffering> Offerings => _offerings;
 

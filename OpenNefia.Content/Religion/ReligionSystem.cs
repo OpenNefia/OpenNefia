@@ -29,7 +29,7 @@ namespace OpenNefia.Content.Religion
 {
     public interface IReligionSystem : IEntitySystem
     {
-        PrototypeId<GodPrototype>? PickRandomGodId(bool noEyth = false);
+        PrototypeId<GodPrototype>? PickRandomGodID(bool includeEyth = true);
         void GodSays(PrototypeId<GodPrototype>? godId, string text);
         bool ModifyPiety(EntityUid target, int amount, ReligionComponent? religion = null);
         bool CanOfferItemToGod(PrototypeId<GodPrototype>? godId, EntityUid item);
@@ -89,7 +89,7 @@ namespace OpenNefia.Content.Religion
                 hasDialog = dialog.CanTalk || dialog.DialogID != null;
 
             if (!_gameSession.IsPlayer(uid) && hasDialog && component.GodID == null)
-                component.GodID = PickRandomGodId();
+                component.GodID = PickRandomGodID();
         }
 
         private void ApplyBlessings(EntityUid uid, ReligionComponent component, ref EntityRefreshEvent args)
@@ -154,14 +154,14 @@ namespace OpenNefia.Content.Religion
             resist.Level.Buffed += amount;
         }
 
-        public PrototypeId<GodPrototype>? PickRandomGodId(bool noEyth = false)
+        public PrototypeId<GodPrototype>? PickRandomGodID(bool includeEyth = true)
         {
             var ids = _protos.EnumeratePrototypes<GodPrototype>()
                 .Where(proto => proto.IsPrimaryGod)
                 .Select(proto => proto.GetStrongID())
                 .ToList();
 
-            if (!noEyth)
+            if (includeEyth)
                 ids.Add(Protos.God.Eyth);
 
             var result = _rand.Pick(ids);
