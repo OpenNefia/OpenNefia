@@ -14,6 +14,7 @@ using OpenNefia.Tests.Core.Serialization;
 namespace OpenNefia.Content.Tests.GameObjects.Components
 {
     [TestFixture]
+    [TestOf(typeof(LevelAndPotentialSerializer))]
     public class LevelAndPotentialSerializer_Tests : ContentSerializationTest
     {
         [Test]

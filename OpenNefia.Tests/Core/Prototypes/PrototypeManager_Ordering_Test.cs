@@ -18,7 +18,6 @@ namespace OpenNefia.Tests.Core.Prototypes
     {
         private IPrototypeManager manager = default!;
 
-
         private static readonly PrototypeId<EntityPrototype> TestProto1ID = new("TestProto1");
         private static readonly PrototypeId<EntityPrototype> TestProto2ID = new("TestProto2");
         private static readonly PrototypeId<EntityPrototype> TestProto3ID = new("TestProto3");
