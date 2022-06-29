@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading;
@@ -90,7 +91,7 @@ namespace OpenNefia.Core.Prototypes
         /// <exception cref="KeyNotFoundException">
         /// Thrown if the type of prototype is not registered.
         /// </exception>
-        TExt GetExtendedData<TProto, TExt>(PrototypeId<TProto> id) 
+        TExt GetExtendedData<TProto, TExt>(PrototypeId<TProto> id)
             where TProto : class, IPrototype
             where TExt : class;
 
@@ -102,11 +103,11 @@ namespace OpenNefia.Core.Prototypes
         /// </exception>
         object GetExtendedData(Type protoType, Type extType, string id);
 
-        bool HasExtendedData<TProto, TExt>(PrototypeId<TProto> id) 
+        bool HasExtendedData<TProto, TExt>(PrototypeId<TProto> id)
             where TProto : class, IPrototype
             where TExt : class;
         bool HasExtendedData(Type protoType, Type extType, string id);
-        bool TryGetExtendedData<TProto, TExt>(PrototypeId<TProto> id, [NotNullWhen(true)] out TExt? data) 
+        bool TryGetExtendedData<TProto, TExt>(PrototypeId<TProto> id, [NotNullWhen(true)] out TExt? data)
             where TProto : class, IPrototype
             where TExt : class;
         bool TryGetExtendedData(Type protoType, Type extType, string id, [NotNullWhen(true)] out object? data);
@@ -183,6 +184,8 @@ namespace OpenNefia.Core.Prototypes
         /// </summary>
         void Resync();
 
+        void RegisterEvents();
+
         /// <summary>
         /// Loads a single prototype class type into the manager.
         /// </summary>
@@ -196,6 +199,8 @@ namespace OpenNefia.Core.Prototypes
         /// <param name="protoClass">A prototype class type that implements IPrototype. This type also
         /// requires a <see cref="PrototypeAttribute"/> with a non-empty class string.</param>
         void RegisterType(Type protoClass);
+        
+        IPrototypeEventBus EventBus { get; }
 
         event Action<YamlStream, string>? LoadedData;
 
@@ -265,6 +270,11 @@ namespace OpenNefia.Core.Prototypes
         private readonly Dictionary<string, Type> _prototypeTypes = new();
         private readonly Dictionary<Type, int> _prototypePriorities = new();
 
+        private PrototypeEventBus _eventBus = null!;
+
+        /// <inheritdoc />
+        public IPrototypeEventBus EventBus => _eventBus;
+
         private bool _initialized;
         private bool _hasEverBeenReloaded;
 
@@ -278,8 +288,29 @@ namespace OpenNefia.Core.Prototypes
         private readonly Dictionary<Type, Dictionary<string, Dictionary<Type, object>>> _prototypeExtendedData = new();
         private readonly Dictionary<Type, Dictionary<string, List<PrototypeEventHandlerDef>>> _prototypeEventDefs = new();
 
+        private static Dictionary<T1, Dictionary<T2, T3>> Deepcopy<T1, T2, T3>(Dictionary<T1, Dictionary<T2, T3>> dict)
+            where T1 : class
+            where T2 : class
+        {
+            // Deepcopy two layers worth of dictionaries.
+            var result = new Dictionary<T1, Dictionary<T2, T3>>();
+            foreach (var (a, b) in dict)
+            {
+                var inner = new Dictionary<T2, T3>();
+                foreach (var (prototypeId, res) in b)
+                {
+                    inner.Add(prototypeId, res);
+                }
+                result.Add(a, inner);
+            }
+            return result;
+        }
+
         // For avoiding reparsing in unit tests
-        public PrototypeManagerCache Cache => new(_prototypeResults, _prototypeOrdering, _prototypeExtendedData, _prototypeEventDefs);
+        public PrototypeManagerCache Cache => new(Deepcopy(_prototypeResults), 
+            Deepcopy(_prototypeOrdering), 
+            Deepcopy(_prototypeExtendedData),
+            Deepcopy(_prototypeEventDefs));
 
         public void Initialize()
         {
@@ -290,6 +321,8 @@ namespace OpenNefia.Core.Prototypes
 
             _initialized = true;
             ReloadPrototypeTypes();
+
+            _eventBus = new PrototypeEventBus(this);
 
             _graphics.OnWindowFocused += WindowFocusedChanged;
 
@@ -357,6 +390,7 @@ namespace OpenNefia.Core.Prototypes
             _inheritanceTrees.Clear();
             _prototypeExtendedData.Clear();
             _prototypeEventDefs.Clear();
+            _eventBus?.ClearEventTables();
         }
 
         private int SortPrototypesByPriority(Type a, Type b)
@@ -446,7 +480,6 @@ namespace OpenNefia.Core.Prototypes
         {
             ResyncInheritance();
             SortAllPrototypes();
-            RegisterPrototypeEvents();
 
             _hasEverBeenReloaded = true;
         }
@@ -478,10 +511,12 @@ namespace OpenNefia.Core.Prototypes
             }
         }
 
-        private void RegisterPrototypeEvents()
+        public void RegisterEvents()
         {
+            _eventBus.ClearEventTables();
+
             var registered = 0;
-            
+
             foreach (var (prototypeType, eventDefLists) in _prototypeEventDefs)
             {
                 foreach (var (prototypeId, eventDefs) in eventDefLists)
@@ -494,12 +529,36 @@ namespace OpenNefia.Core.Prototypes
                             continue;
                         }
 
-                        var methodDef = eventDef.EntitySystemType.GetMethod(eventDef.MethodName);
+                        var methodDef = eventDef.EntitySystemType.GetMethod(eventDef.MethodName, BindingFlags.Instance | BindingFlags.Public);
                         if (methodDef == null)
                         {
                             Logger.ErrorS("Serv3", $"Method {eventDef.EntitySystemType}.{eventDef.MethodName}(...) not found! ({prototypeId})");
                             continue;
                         }
+
+                        var target = EntitySystem.Get(eventDef.EntitySystemType);
+                        
+                        Type handlerType;
+                        string methodName;
+                        var isByRef = eventDef.EventType.HasCustomAttribute<ByRefEventAttribute>();
+                        
+                        if (isByRef)
+                        {
+                            handlerType = typeof(PrototypeEventRefHandler<,>);
+                            methodName = "SubscribeEventRef";
+                        }
+                        else
+                        {
+                            handlerType = typeof(PrototypeEventHandler<,>);
+                            methodName = "SubscribeEventValue";
+                        }
+
+                        var handler = methodDef.CreateDelegate(handlerType
+                                .MakeGenericType(prototypeType, eventDef.EventType), target);
+                        var call = typeof(PrototypeEventBus).GetMethod(methodName, BindingFlags.Instance | BindingFlags.Public)!
+                          .MakeGenericMethod(prototypeType, eventDef.EventType);
+
+                        call.Invoke(_eventBus, new object[] { prototypeId, handler, eventDef.Priority });
 
                         registered++;
                     }
@@ -955,7 +1014,7 @@ namespace OpenNefia.Core.Prototypes
         }
 
         public bool HasIndex<T>(PrototypeId<T> id) where T : class, IPrototype
-            => HasIndex(typeof(T), (string)id); 
+            => HasIndex(typeof(T), (string)id);
 
         public bool HasIndex(Type type, string id)
         {
@@ -1039,7 +1098,7 @@ namespace OpenNefia.Core.Prototypes
 
         /// <inheritdoc />
         public TExt GetExtendedData<TProto, TExt>(PrototypeId<TProto> id)
-            where TProto : class, IPrototype 
+            where TProto : class, IPrototype
             where TExt : class
         {
             if (!TryGetExtendedData<TProto, TExt>(id, out var data))
@@ -1058,8 +1117,8 @@ namespace OpenNefia.Core.Prototypes
         }
 
         /// <inheritdoc />
-        public bool HasExtendedData<TProto, TExt>(PrototypeId<TProto> id) 
-            where TProto : class, IPrototype 
+        public bool HasExtendedData<TProto, TExt>(PrototypeId<TProto> id)
+            where TProto : class, IPrototype
             where TExt : class
         {
             return HasExtendedData(typeof(TProto), typeof(TExt), (string)id);
@@ -1078,8 +1137,8 @@ namespace OpenNefia.Core.Prototypes
         }
 
         /// <inheritdoc />
-        public bool TryGetExtendedData<TProto, TExt>(PrototypeId<TProto> id, [NotNullWhen(true)] out TExt? data) 
-            where TProto : class, IPrototype 
+        public bool TryGetExtendedData<TProto, TExt>(PrototypeId<TProto> id, [NotNullWhen(true)] out TExt? data)
+            where TProto : class, IPrototype
             where TExt : class
         {
             if (!TryGetExtendedData(typeof(TProto), typeof(TExt), (string)id, out var obj))

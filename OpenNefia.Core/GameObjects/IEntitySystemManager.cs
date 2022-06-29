@@ -44,6 +44,13 @@ namespace OpenNefia.Core.GameObjects
         T GetEntitySystem<T>() where T : IEntitySystem;
 
         /// <summary>
+        /// Get an entity system of the specified type.
+        /// </summary>
+        /// <param name="type">The type of entity system to find.</typeparam>
+        /// <returns>The <see cref="IEntitySystem"/> instance matching the specified type.</returns>
+        IEntitySystem GetEntitySystem(Type type);
+
+        /// <summary>
         /// Resolves an entity system.
         /// </summary>
         /// <exception cref="UnregisteredTypeException">Thrown if the provided type is not registered.</exception>

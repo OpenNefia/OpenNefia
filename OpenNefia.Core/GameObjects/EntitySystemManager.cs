@@ -56,6 +56,16 @@ namespace OpenNefia.Core.GameObjects
             return _systemDependencyCollection.Resolve<T>();
         }
 
+        public IEntitySystem GetEntitySystem(Type type)
+        {
+            if (!typeof(IEntitySystem).IsAssignableFrom(type))
+            {
+                throw new ArgumentException($"Type '{type}' does not implement {nameof(IEntitySystem)}");
+            }
+            
+            return (IEntitySystem)_systemDependencyCollection.ResolveType(type);
+        }
+
         [MethodImpl(MethodImplOptions.AggressiveOptimization | MethodImplOptions.AggressiveInlining)]
         public void Resolve<T>([NotNull] ref T? instance)
             where T : IEntitySystem

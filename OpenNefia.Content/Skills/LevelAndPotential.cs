@@ -11,6 +11,8 @@ namespace OpenNefia.Content.Skills
     {
         public const int DefaultPotential = 100;
 
+        public LevelAndPotential() {}
+
         public LevelAndPotential(int level = 1, int potential = DefaultPotential, int experience = 0)
         {
             Level = new Stat<int>(level);

@@ -10,6 +10,8 @@ namespace OpenNefia.Content.Spells
     [DataDefinition]
     public class LevelPotentialAndStock : IEquatable<LevelPotentialAndStock>
     {
+        public LevelPotentialAndStock() { }
+        
         public LevelPotentialAndStock(int level = 1, int potential = LevelAndPotential.DefaultPotential, int experience = 0, int spellStock = 0)
         {
             Stats = new LevelAndPotential(level, potential, experience);
