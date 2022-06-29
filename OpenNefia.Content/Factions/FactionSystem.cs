@@ -9,6 +9,7 @@ namespace OpenNefia.Content.Factions
     public interface IFactionSystem : IEntitySystem
     {
         Relation GetRelationTowards(EntityUid us, EntityUid them);
+        Relation GetRelationToPlayer(EntityUid target, FactionComponent? faction = null);
     }
 
     public class FactionSystem : EntitySystem, IFactionSystem
@@ -102,6 +103,14 @@ namespace OpenNefia.Content.Factions
             {
                 return faction.RelationToPlayer;
             }
+        }
+
+        public Relation GetRelationToPlayer(EntityUid target, FactionComponent? faction = null)
+        {
+            if (!Resolve(target, ref faction))
+                return Relation.Neutral;
+
+            return faction.RelationToPlayer;
         }
     }
 
