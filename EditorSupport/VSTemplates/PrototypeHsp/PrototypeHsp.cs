@@ -2,12 +2,10 @@
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Locale;
 using OpenNefia.Core.Random;
-using OpenNefia.Content.Logic;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Serialization.Manager.Attributes;
+using OpenNefia.Content.Prototypes;
+using OpenNefia.Content.Logic;
 using System;
 using System.Collections.Generic;
 using System.Linq;

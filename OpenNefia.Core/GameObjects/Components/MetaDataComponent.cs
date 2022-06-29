@@ -113,9 +113,9 @@ namespace OpenNefia.Core.GameObjects
 
         public EntityLivenessChangedEvent(EntityUid entityUid, EntityGameLiveness oldLiveness, EntityGameLiveness liveness)
         {
-            this.EntityUid = entityUid;
-            this.OldLiveness = oldLiveness;
-            this.NewLiveness = liveness;
+            EntityUid = entityUid;
+            OldLiveness = oldLiveness;
+            NewLiveness = liveness;
         }
     }
 }

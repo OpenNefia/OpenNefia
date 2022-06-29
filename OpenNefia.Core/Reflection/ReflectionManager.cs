@@ -17,7 +17,7 @@ namespace OpenNefia.Core.Reflection
         /// <remarks>
         /// First prefix should probably be <code>""</code>.
         /// </remarks>
-        protected virtual IEnumerable<string> TypePrefixes { get; } = new List<string>() { "", "OpenNefia.Core." };
+        protected virtual IEnumerable<string> TypePrefixes { get; } = new List<string>() { "", "OpenNefia.Core.", "OpenNefia.Content." };
 
         private readonly List<Assembly> assemblies = new();
 

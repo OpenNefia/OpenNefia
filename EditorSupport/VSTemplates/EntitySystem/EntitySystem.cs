@@ -5,12 +5,12 @@ using OpenNefia.Core.Random;
 using OpenNefia.Core.Maps;
 using OpenNefia.Core.Areas;
 using OpenNefia.Content.Logic;
+using OpenNefia.Content.Prototypes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static OpenNefia.Content.Prototypes.Protos;
 
 namespace $rootnamespace$
 {

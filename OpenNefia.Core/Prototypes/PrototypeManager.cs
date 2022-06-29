@@ -21,6 +21,7 @@ using OpenNefia.Core.Serialization.Manager.Attributes;
 using OpenNefia.Core.Serialization.Manager.Result;
 using OpenNefia.Core.Serialization.Markdown;
 using OpenNefia.Core.Serialization.Markdown.Mapping;
+using OpenNefia.Core.Serialization.Markdown.Sequence;
 using OpenNefia.Core.Serialization.Markdown.Validation;
 using OpenNefia.Core.Utility;
 using YamlDotNet.Core;
@@ -235,19 +236,22 @@ namespace OpenNefia.Core.Prototypes
 
     internal interface IPrototypeManagerInternal : IPrototypeManager
     {
-        Dictionary<Type, Dictionary<string, DeserializationResult>> PrototypeResults { get; }
-        Dictionary<Type, Dictionary<string, PrototypeOrderingData>> PrototypeOrdering { get; }
-        Dictionary<Type, Dictionary<string, Dictionary<Type, object>>> PrototypeExtendedData { get; }
+        // For avoiding reparsing in unit tests
+        PrototypeManagerCache Cache { get; }
 
         /// <summary>
         /// Loads from set of previously cached parsing results.
         /// </summary>
-        List<IPrototype> LoadFromCachedResults(Dictionary<Type, Dictionary<string, DeserializationResult>> results,
-            Dictionary<Type, Dictionary<string, PrototypeOrderingData>> ordering,
-            Dictionary<Type, Dictionary<string, Dictionary<Type, object>>> extendedData);
+        List<IPrototype> LoadFromCachedResults(PrototypeManagerCache cache);
     }
 
     public record PrototypeOrderingData(string[] Before, string[] After);
+
+    public sealed record PrototypeManagerCache(
+        Dictionary<Type, Dictionary<string, DeserializationResult>> PrototypeResults,
+        Dictionary<Type, Dictionary<string, PrototypeOrderingData>> PrototypeOrdering,
+        Dictionary<Type, Dictionary<string, Dictionary<Type, object>>> PrototypeExtendedData,
+        Dictionary<Type, Dictionary<string, List<PrototypeEventHandlerDef>>> PrototypeEventDefs);
 
     public sealed partial class PrototypeManager : IPrototypeManagerInternal
     {
@@ -272,11 +276,10 @@ namespace OpenNefia.Core.Prototypes
         private readonly Dictionary<Type, Dictionary<string, PrototypeOrderingData>> _prototypeOrdering = new();
         private readonly Dictionary<Type, List<IPrototype>> _sortedPrototypes = new();
         private readonly Dictionary<Type, Dictionary<string, Dictionary<Type, object>>> _prototypeExtendedData = new();
+        private readonly Dictionary<Type, Dictionary<string, List<PrototypeEventHandlerDef>>> _prototypeEventDefs = new();
 
-        // for avoiding reparsing in unit tests
-        public Dictionary<Type, Dictionary<string, DeserializationResult>> PrototypeResults => _prototypeResults;
-        public Dictionary<Type, Dictionary<string, PrototypeOrderingData>> PrototypeOrdering => _prototypeOrdering;
-        public Dictionary<Type, Dictionary<string, Dictionary<Type, object>>> PrototypeExtendedData => _prototypeExtendedData;
+        // For avoiding reparsing in unit tests
+        public PrototypeManagerCache Cache => new(_prototypeResults, _prototypeOrdering, _prototypeExtendedData, _prototypeEventDefs);
 
         public void Initialize()
         {
@@ -353,6 +356,7 @@ namespace OpenNefia.Core.Prototypes
             _sortedPrototypes.Clear();
             _inheritanceTrees.Clear();
             _prototypeExtendedData.Clear();
+            _prototypeEventDefs.Clear();
         }
 
         private int SortPrototypesByPriority(Type a, Type b)
@@ -440,6 +444,15 @@ namespace OpenNefia.Core.Prototypes
 
         public void Resync()
         {
+            ResyncInheritance();
+            SortAllPrototypes();
+            RegisterPrototypeEvents();
+
+            _hasEverBeenReloaded = true;
+        }
+
+        private void ResyncInheritance()
+        {
             var trees = _inheritanceTrees.Keys.ToList();
             trees.Sort(SortPrototypesByPriority);
             foreach (var type in trees)
@@ -463,7 +476,41 @@ namespace OpenNefia.Core.Prototypes
                     }
                 }
             }
+        }
 
+        private void RegisterPrototypeEvents()
+        {
+            var registered = 0;
+            
+            foreach (var (prototypeType, eventDefLists) in _prototypeEventDefs)
+            {
+                foreach (var (prototypeId, eventDefs) in eventDefLists)
+                {
+                    foreach (var eventDef in eventDefs)
+                    {
+                        if (!typeof(IEntitySystem).IsAssignableFrom(eventDef.EntitySystemType))
+                        {
+                            Logger.ErrorS("Serv3", $"Cannot register events for non-entity system {eventDef.EntitySystemType}! ({prototypeId})");
+                            continue;
+                        }
+
+                        var methodDef = eventDef.EntitySystemType.GetMethod(eventDef.MethodName);
+                        if (methodDef == null)
+                        {
+                            Logger.ErrorS("Serv3", $"Method {eventDef.EntitySystemType}.{eventDef.MethodName}(...) not found! ({prototypeId})");
+                            continue;
+                        }
+
+                        registered++;
+                    }
+                }
+            }
+
+            Logger.InfoS("Serv3", $"Registered {registered} prototype events.");
+        }
+
+        private void SortAllPrototypes()
+        {
             // Sort all prototypes according to topological sort order.
             _sortedPrototypes.Clear();
             foreach (var (prototypeType, protos) in _prototypes)
@@ -478,8 +525,6 @@ namespace OpenNefia.Core.Prototypes
 
                 _sortedPrototypes[prototypeType] = TopologicalSort.Sort(nodes).ToList();
             }
-
-            _hasEverBeenReloaded = true;
         }
 
         public void PushInheritance(Type type, string id, string child, DeserializationResult? baseResult,
@@ -774,34 +819,22 @@ namespace OpenNefia.Core.Prototypes
                 changedPrototypes.Add(prototype);
 
                 _prototypeOrdering[prototypeType].Remove(prototype.ID);
+                _prototypeExtendedData[prototypeType].Remove(prototype.ID);
+                _prototypeEventDefs[prototypeType].Remove(prototype.ID);
+
                 if (node.TryGetNode("ordering", out var orderingNode) && orderingNode is YamlMappingNode orderingMappingNode)
                 {
                     ParseOrdering(previousProtoID, prototypeType, prototype, orderingMappingNode);
                 }
 
-                _prototypeExtendedData[prototypeType].Remove(prototype.ID);
                 if (node.TryGetNode("extendedData", out var extDataNode) && extDataNode is YamlSequenceNode extDataSequenceNode)
                 {
-                    foreach (var child in extDataSequenceNode.Children.Cast<YamlMappingNode>())
-                    {
-                        if (!child.TryGetNode("type", out var extDataTypeNode))
-                        {
-                            throw new PrototypeLoadException($"Extended data entry is missing 'type' property", filename, child);
-                        }
+                    ParseExtendedData(filename, prototypeType, prototype, extDataSequenceNode);
+                }
 
-                        var extDataTypeStr = extDataTypeNode.AsString();
-                        if (!_reflectionManager.TryLooseGetType(extDataTypeStr, out var extDataType))
-                        {
-                            throw new PrototypeLoadException($"Unable to find type ending with '{extDataTypeStr}'", filename, child);
-                        }
-
-                        var extDataMappingNode = child.ToDataNodeCast<MappingDataNode>();
-                        var extDataRes = _serializationManager.Read(extDataType, extDataMappingNode, skipHook: true);
-                        var obj = extDataRes.RawValue!;
-
-                        var objs = _prototypeExtendedData[prototypeType].GetValueOrInsert(prototype.ID, () => new());
-                        objs.Add(obj.GetType(), obj);
-                    }
+                if (node.TryGetNode("events", out var eventsNode) && eventsNode is YamlSequenceNode eventsSequenceNode)
+                {
+                    ParseEvents(filename, prototypeType, prototype, eventsSequenceNode);
                 }
 
                 previousProtoID = prototype.ID;
@@ -832,16 +865,44 @@ namespace OpenNefia.Core.Prototypes
             _prototypeOrdering[prototypeType][prototype.ID] = ordering;
         }
 
+        private void ParseExtendedData(string? filename, Type prototypeType, IPrototype prototype, YamlSequenceNode extDataSequenceNode)
+        {
+            foreach (var child in extDataSequenceNode.Children.Cast<YamlMappingNode>())
+            {
+                if (!child.TryGetNode("type", out var extDataTypeNode))
+                {
+                    throw new PrototypeLoadException($"Extended data entry is missing 'type' property", filename, child);
+                }
+
+                var extDataTypeStr = extDataTypeNode.AsString();
+                if (!_reflectionManager.TryLooseGetType(extDataTypeStr, out var extDataType))
+                {
+                    throw new PrototypeLoadException($"Unable to find type ending with '{extDataTypeStr}'", filename, child);
+                }
+
+                var extDataMappingNode = child.ToDataNodeCast<MappingDataNode>();
+                var extDataRes = _serializationManager.Read(extDataType, extDataMappingNode, skipHook: true);
+                var obj = extDataRes.RawValue!;
+
+                var objs = _prototypeExtendedData[prototypeType].GetValueOrInsert(prototype.ID, () => new());
+                objs.Add(obj.GetType(), obj);
+            }
+        }
+
+        private void ParseEvents(string filename, Type prototypeType, IPrototype prototype, YamlSequenceNode eventsSequenceNode)
+        {
+            var node = eventsSequenceNode.ToDataNodeCast<SequenceDataNode>();
+            _prototypeEventDefs[prototypeType][prototype.ID] = _serializationManager.ReadValueOrThrow<List<PrototypeEventHandlerDef>>(node);
+        }
+
         /// <inheritdoc />
-        public List<IPrototype> LoadFromCachedResults(Dictionary<Type, Dictionary<string, DeserializationResult>> results,
-            Dictionary<Type, Dictionary<string, PrototypeOrderingData>> ordering,
-            Dictionary<Type, Dictionary<string, Dictionary<Type, object>>> extendedData)
+        public List<IPrototype> LoadFromCachedResults(PrototypeManagerCache cache)
         {
             var changedPrototypes = new List<IPrototype>();
 
             _hasEverBeenReloaded = true;
 
-            foreach (var (prototypeType, protos) in results)
+            foreach (var (prototypeType, protos) in cache.PrototypeResults)
             {
                 foreach (var (prototypeId, res) in protos)
                 {
@@ -863,7 +924,7 @@ namespace OpenNefia.Core.Prototypes
                 }
             }
 
-            foreach (var (prototypeType, orderings) in ordering)
+            foreach (var (prototypeType, orderings) in cache.PrototypeOrdering)
             {
                 _prototypeOrdering[prototypeType].Clear();
                 foreach (var (prototypeId, orderingData) in orderings)
@@ -872,12 +933,21 @@ namespace OpenNefia.Core.Prototypes
                 }
             }
 
-            foreach (var (prototypeType, extendedDatas) in extendedData)
+            foreach (var (prototypeType, extendedDatas) in cache.PrototypeExtendedData)
             {
                 _prototypeExtendedData[prototypeType].Clear();
                 foreach (var (prototypeId, objs) in extendedDatas)
                 {
                     _prototypeExtendedData[prototypeType][prototypeId] = objs.ShallowClone();
+                }
+            }
+
+            foreach (var (prototypeType, eventDefLists) in cache.PrototypeEventDefs)
+            {
+                _prototypeEventDefs[prototypeType].Clear();
+                foreach (var (prototypeId, eventDefs) in eventDefLists)
+                {
+                    _prototypeEventDefs[prototypeType][prototypeId] = eventDefs.ToList();
                 }
             }
 
@@ -1073,6 +1143,7 @@ namespace OpenNefia.Core.Prototypes
                     _inheritanceTrees[type] = new PrototypeInheritanceTree();
                 _prototypeOrdering[type] = new Dictionary<string, PrototypeOrderingData>();
                 _prototypeExtendedData[type] = new Dictionary<string, Dictionary<Type, object>>();
+                _prototypeEventDefs[type] = new Dictionary<string, List<PrototypeEventHandlerDef>>();
             }
         }
 

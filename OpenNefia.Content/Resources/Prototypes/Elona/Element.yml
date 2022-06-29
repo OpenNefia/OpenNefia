@@ -10,6 +10,10 @@
   deathAnim: Base.AnimElemFire
   deathAnimDY: -20
   rarity: 1
+  events:
+  - type: Resists.P_ElementKillCharaEvent
+    system: Resists.VanillaElementsSystem
+    method: Fire_KillChara
 - type: Elona.Element
   id: Elona.Cold
   hspIds:
