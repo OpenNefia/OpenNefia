@@ -169,6 +169,7 @@ namespace OpenNefia.Core.GameObjects
             RaiseEventCore(uid, ref unitRef, type, broadcast, false);
         }
 
+        /// <inheritdoc/>
         public void RaiseEvent<TEvent>(EntityUid uid, ref TEvent args, bool broadcast = true)
             where TEvent : notnull
         {
@@ -178,6 +179,7 @@ namespace OpenNefia.Core.GameObjects
             RaiseEventCore(uid, ref unitRef, type, broadcast, true);
         }
 
+        /// <inheritdoc/>
         public void RaiseEvent(EntityUid uid, ref object args, bool broadcast = true)
         {
             var type = args.GetType();

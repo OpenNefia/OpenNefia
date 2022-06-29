@@ -154,6 +154,8 @@ namespace OpenNefia.Core.GameController
 
             _entityManager.Startup();
 
+            _prototypeManager.RegisterEvents();
+
             _areaManager.Initialize();
 
             _saveGameSerializer.Initialize();

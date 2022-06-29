@@ -11,6 +11,15 @@
   deathAnimDY: -20
   rarity: 1
   events:
+  - type: Resists.P_ElementModifyDamageEvent
+    system: Resists.VanillaElementsSystem
+    method: Fire_ModifyDamage
+  - type: Resists.P_ElementDamageTileEvent
+    system: Resists.VanillaElementsSystem
+    method: Fire_DamageTile
+  - type: Resists.P_ElementDamageCharaEvent
+    system: Resists.VanillaElementsSystem
+    method: Fire_DamageChara
   - type: Resists.P_ElementKillCharaEvent
     system: Resists.VanillaElementsSystem
     method: Fire_KillChara

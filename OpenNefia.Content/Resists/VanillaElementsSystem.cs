@@ -22,7 +22,7 @@ namespace OpenNefia.Content.Resists
 
         #region Elona.Fire
 
-        public void Fire_ModifyDamage(ref P_ElementModifyDamageEvent ev)
+        public void Fire_ModifyDamage(ElementPrototype proto, ref P_ElementModifyDamageEvent ev)
         {
             // >>>>>>>> shade2/chara_func.hsp:1459 		if (ele=rsResFire)or(dmgSource=dmgFromFire):dmg= ..
             if (_effects.HasEffect(ev.Target, Protos.StatusEffect.Wet))
@@ -30,21 +30,21 @@ namespace OpenNefia.Content.Resists
             // <<<<<<<< shade2/chara_func.hsp:1459 		if (ele=rsResFire)or(dmgSource=dmgFromFire):dmg= ..
         }
 
-        public void Fire_DamageTile(ref P_ElementDamageTileEvent ev)
+        public void Fire_DamageTile(ElementPrototype proto, ref P_ElementDamageTileEvent ev)
         {
             // >>>>>>>> shade2/proc.hsp:1774 	if ele=rsResFire:mapitem_fire dx,dy ...
             _commonEffects.DamageTileFire(ev.Coords, ev.Source);
             // <<<<<<<< shade2/chara_func.hsp:1459 		if (ele=rsResFire)or(dmgSource=dmgFromFire):dmg= ..
         }
 
-        public void Fire_DamageChara(ref P_ElementDamageCharaEvent ev)
+        public void Fire_DamageChara(ElementPrototype proto, ref P_ElementDamageCharaEvent ev)
         {
             // >>>>>>>> shade2/chara_func.hsp:1560 		if (ele=rsResFire)or(dmgSource=dmgFromFire): ite ...
             _commonEffects.DamageItemsFire(ev.Target);
             // <<<<<<<< shade2/chara_func.hsp:1560 		if (ele=rsResFire)or(dmgSource=dmgFromFire): ite ..
         }
 
-        public void Fire_KillChara(ref P_ElementKillCharaEvent ev)
+        public void Fire_KillChara(ElementPrototype proto, ref P_ElementKillCharaEvent ev)
         {
             // >>>>>>>> shade2/chara_func.hsp:1643 		if (dmgSource=dmgFromFire)or(ele=rsResFire){ ..
             var pos = GetComp<SpatialComponent>(ev.Target).Coordinates;

@@ -112,6 +112,27 @@ namespace OpenNefia.Core.GameObjects
         }
 
         /// <summary>
+        /// Gets the indicated entity system.
+        /// </summary>
+        /// <typeparam name="T">entity system to get</typeparam>
+        /// <returns></returns>
+        public static IEntitySystem Get(Type type)
+        {
+            return IoCManager.Resolve<IEntitySystemManager>().GetEntitySystem(type);
+        }
+
+        /// <summary>
+        /// Tries to get an entity system of the specified type.
+        /// </summary>
+        /// <typeparam name="T">Type of entity system to find.</typeparam>
+        /// <param name="entitySystem">instance matching the specified type (if exists).</param>
+        /// <returns>If an instance of the specified entity system type exists.</returns>
+        public static bool TryGet(Type type, [NotNullWhen(true)] out IEntitySystem? entitySystem)
+        {
+            return IoCManager.Resolve<IEntitySystemManager>().TryGetEntitySystem(type, out entitySystem);
+        }
+
+        /// <summary>
         ///     Injects dependencies into all fields with <see cref="DependencyAttribute"/> on the provided object,
         ///     using the dependency collection of the <see cref="IEntitySystemManager"/>.
         /// </summary>
