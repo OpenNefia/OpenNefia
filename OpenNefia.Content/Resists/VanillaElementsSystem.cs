@@ -1,15 +1,12 @@
-﻿using OpenNefia.Content.Logic;
-using OpenNefia.Content.StatusEffects;
-using OpenNefia.Core.Areas;
+﻿using OpenNefia.Content.StatusEffects;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
-using OpenNefia.Core.Locale;
 using OpenNefia.Core.Maps;
 using OpenNefia.Core.Random;
 using OpenNefia.Content.Prototypes;
 using OpenNefia.Content.Effects;
 using OpenNefia.Content.EntityGen;
-using OpenNefia.Analyzers;
+using OpenNefia.Core.Prototypes;
 
 namespace OpenNefia.Content.Resists
 {
@@ -59,19 +56,6 @@ namespace OpenNefia.Content.Resists
         }
 
         #endregion
-    }
-
-    public class PrototypeEventArgs {}
-
-    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Struct)]
-    public class PrototypeEventAttribute : Attribute
-    {
-        public Type PrototypeType { get; }
-
-        public PrototypeEventAttribute(Type prototypeType)
-        {
-            PrototypeType = prototypeType;
-        }
     }
 
     [ByRefEvent]
