@@ -10,10 +10,16 @@ using System.Threading.Tasks;
 
 namespace OpenNefia.Core.GameObjects
 {
+    public interface IMoveableSystem : IEntitySystem
+    {
+        TurnResult? MoveEntity(EntityUid entity, MapCoordinates newPosition, MoveableComponent? moveable = null, SpatialComponent? spatial = null);
+        bool SwapPlaces(EntityUid entity, EntityUid with, SpatialComponent? spatial = null, SpatialComponent? withSpatial = null);
+    }
+
     /// <summary>
     /// Handles moving moveable entities.
     /// </summary>
-    public class MoveableSystem : EntitySystem
+    public class MoveableSystem : EntitySystem, IMoveableSystem
     {
         [Dependency] private readonly IMapManager _mapManager = default!;
 
