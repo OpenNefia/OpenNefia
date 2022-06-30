@@ -1,1602 +1,1602 @@
 OpenNefia.Prototypes.Entity.Elona = {
     CharaAbyss = {
         MetaData = {
-            Name = "<Abyss> the thief watchman",
+            Name = "盗賊ギルドの番人『アビス』",
         },
     },
     CharaAcidSlime = {
         MetaData = {
-            Name = "acid slime",
+            Name = "弱酸性スライム",
         },
     },
     CharaAdamantiumGolem = {
         MetaData = {
-            Name = "adamantium golem",
+            Name = "アダマンタイトゴーレム",
         },
     },
     CharaAinc = {
         MetaData = {
-            Name = "<Ainc> the novice knight",
+            Name = "見習い騎士『アインク』",
         },
     },
     CharaAlien = {
         MetaData = {
-            Name = "alien",
+            Name = "エイリアン",
         },
     },
     CharaAncientCoffin = {
         MetaData = {
-            Name = "ancient coffin",
+            Name = "古代の棺",
         },
     },
     CharaAndroid = {
         MetaData = {
-            Name = "android",
+            Name = "アンドロイド",
         },
     },
     CharaArenaMaster = {
         MetaData = {
-            Name = "arena master",
+            Name = "アリーナマスター",
         },
     },
     CharaArnord = {
         MetaData = {
-            Name = "<Arnord> the injured soldier",
+            Name = "負傷兵『アーノルド』",
         },
     },
     CharaArtist = {
         MetaData = {
-            Name = "artist",
+            Name = "芸術家",
         },
     },
     CharaAsura = {
         MetaData = {
-            Name = "asura",
+            Name = "阿修羅",
         },
     },
     CharaAt = {
         MetaData = {
-            Name = "@",
+            Name = "＠",
         },
     },
     CharaAzzrssil = {
         MetaData = {
-            Name = "<Azzrssil> the impure",
+            Name = "不浄なる者『アズラシズル』",
         },
     },
     CharaBalzak = {
         MetaData = {
-            Name = "<Balzak> the janitor",
+            Name = "掃除屋『バルザック』",
         },
     },
     CharaBard = {
         MetaData = {
-            Name = "bard",
+            Name = "吟遊詩人",
         },
     },
     CharaBartender = {
         MetaData = {
-            Name = "bartender",
+            Name = "バーテンダー",
         },
     },
     CharaBat = {
         MetaData = {
-            Name = "bat",
+            Name = "コウモリ",
         },
     },
     CharaBeetle = {
         MetaData = {
-            Name = "beetle",
+            Name = "かぶと虫",
         },
     },
     CharaBeggar = {
         MetaData = {
-            Name = "beggar",
+            Name = "乞食",
         },
     },
     CharaBigDaddy = {
         MetaData = {
-            Name = "<Big daddy>",
+            Name = "『ビッグダディ』",
         },
     },
     CharaBishop = {
         MetaData = {
-            Name = "<Bishop>",
+            Name = "＜ビショップ＞",
         },
     },
     CharaBlackAngel = {
         MetaData = {
-            Name = "black angel",
+            Name = "黒天使",
         },
     },
     CharaBlackCat = {
         MetaData = {
-            Name = "black cat",
+            Name = "黒猫",
         },
     },
     CharaBlackWidow = {
         MetaData = {
-            Name = "black widow",
+            Name = "ブラックウィドウ",
         },
     },
     CharaBlade = {
         MetaData = {
-            Name = "blade",
+            Name = "ブレイド",
         },
     },
     CharaBladeAlpha = {
         MetaData = {
-            Name = "blade alpha",
+            Name = "ブレイドβ",
         },
     },
     CharaBladeOmega = {
         MetaData = {
-            Name = "blade omega",
+            Name = "ブレイドΩ",
         },
     },
     CharaBloodSpider = {
         MetaData = {
-            Name = "blood spider",
+            Name = "吸血蜘蛛",
         },
     },
     CharaBlueBaptist = {
         MetaData = {
-            Name = "blue baptist",
+            Name = "青の洗礼者",
         },
     },
     CharaBlueBubble = {
         MetaData = {
-            Name = "blue bubble",
+            Name = "ブルーバブル",
         },
     },
     CharaBombRock = {
         MetaData = {
-            Name = "bomb rock",
+            Name = "爆弾岩",
         },
     },
     CharaBrownBear = {
         MetaData = {
-            Name = "brown bear",
+            Name = "ブラウンベア",
         },
     },
     CharaBubble = {
         MetaData = {
-            Name = "bubble",
+            Name = "バブル",
         },
     },
     CharaBug = {
         MetaData = {
-            Name = "bug",
+            Name = "バグ",
         },
     },
     CharaCacy = {
         MetaData = {
-            Name = "<Cacy> the cat tamer",
+            Name = "猫使い『ケシー』",
         },
     },
     CharaCaptain = {
         MetaData = {
-            Name = "captain",
+            Name = "船長",
         },
     },
     CharaCaravanMaster = {
         MetaData = {
-            Name = "caravan master",
+            Name = "キャラバンの隊長",
         },
     },
     CharaCarbuncle = {
         MetaData = {
-            Name = "carbuncle",
+            Name = "カーバンクル",
         },
     },
     CharaCat = {
         MetaData = {
-            Name = "cat",
+            Name = "猫",
         },
     },
     CharaCentipede = {
         MetaData = {
-            Name = "centipede",
+            Name = "ムカデ",
         },
     },
     CharaCerberus = {
         MetaData = {
-            Name = "cerberus",
+            Name = "ケルベロス",
         },
     },
     CharaChaosCloud = {
         MetaData = {
-            Name = "chaos cloud",
+            Name = "混沌の塊",
         },
     },
     CharaChaosDragon = {
         MetaData = {
-            Name = "chaos dragon",
+            Name = "カオスドラゴン",
         },
     },
     CharaChaosEye = {
         MetaData = {
-            Name = "chaos eye",
+            Name = "カオスアイ",
         },
     },
     CharaChaosFlower = {
         MetaData = {
-            Name = "chaos flower",
+            Name = "カオスフラワー",
         },
     },
     CharaChaosHound = {
         MetaData = {
-            Name = "chaos hound",
+            Name = "カオスハウンド",
         },
     },
     CharaChaosImp = {
         MetaData = {
-            Name = "chaos imp",
+            Name = "カオスインプ",
         },
     },
     CharaChaosMushroom = {
         MetaData = {
-            Name = "chaos mushroom",
+            Name = "混沌きのこ",
         },
     },
     CharaChicken = {
         MetaData = {
-            Name = "chicken",
+            Name = "鶏",
         },
     },
     CharaCitizen = {
         MetaData = {
-            Name = "citizen",
+            Name = "市民",
         },
     },
     CharaCitizen2 = {
         MetaData = {
-            Name = "citizen",
+            Name = "市民",
         },
     },
     CharaCitizenOfCyberDome = {
         MetaData = {
-            Name = "citizen of cyber dome",
+            Name = "サイバードームの住人",
         },
     },
     CharaCitizenOfCyberDome2 = {
         MetaData = {
-            Name = "citizen of cyber dome",
+            Name = "サイバードームの住人",
         },
     },
     CharaCleaner = {
         MetaData = {
-            Name = "cleaner",
+            Name = "清掃員",
         },
     },
     CharaCobra = {
         MetaData = {
-            Name = "cobra",
+            Name = "コブラ",
         },
     },
     CharaConery = {
         MetaData = {
-            Name = "<Conery> Palmian major general",
+            Name = "パルミア少将『コネリー』",
         },
     },
     CharaCorgon = {
         MetaData = {
-            Name = "<Corgon> the steel dragon",
+            Name = "鋼鉄竜『コルゴン』",
         },
     },
     CharaCub = {
         MetaData = {
-            Name = "cub",
+            Name = "カブ",
         },
     },
     CharaCube = {
         MetaData = {
-            Name = "cube",
+            Name = "キューブ",
         },
     },
     CharaCultistOfFire = {
         MetaData = {
-            Name = "cultist of fire",
+            Name = "炎の信仰者",
         },
     },
     CharaCupidOfLove = {
         MetaData = {
-            Name = "cupid of love",
+            Name = "恋のキューピット",
         },
     },
     CharaCuteFairy = {
         MetaData = {
-            Name = "cute fairy",
+            Name = "妖精さん",
         },
     },
     CharaCyclops = {
         MetaData = {
-            Name = "cyclops",
+            Name = "サイクロプス",
         },
     },
     CharaDarkHound = {
         MetaData = {
-            Name = "dark hound",
+            Name = "ダークハウンド",
         },
     },
     CharaDeathArmor = {
         MetaData = {
-            Name = "death armor",
+            Name = "デスアーマー",
         },
     },
     CharaDeathGaze = {
         MetaData = {
-            Name = "death gaze",
+            Name = "デスゲイズ",
         },
     },
     CharaDefender = {
         MetaData = {
-            Name = "defender",
+            Name = "防衛者",
         },
     },
     CharaDeformedEye = {
         MetaData = {
-            Name = "deformed eye",
+            Name = "異形の目",
         },
     },
     CharaDemiLich = {
         MetaData = {
-            Name = "demi lich",
+            Name = "デミリッチ",
         },
     },
     CharaDog = {
         MetaData = {
-            Name = "dog",
+            Name = "犬",
         },
     },
     CharaDoria = {
         MetaData = {
-            Name = "<Doria> the fighter watchman",
+            Name = "戦士ギルドの番人『ドリア』",
         },
     },
     CharaDragonBat = {
         MetaData = {
-            Name = "dragon bat",
+            Name = "ドラゴンバット",
         },
     },
     CharaDungeonCleaner = {
         MetaData = {
-            Name = "<Dungeon cleaner>",
+            Name = "『ダンジョンクリーナー』",
         },
     },
     CharaEbon = {
         MetaData = {
-            Name = "<Ebon> the fire giant",
+            Name = "火の巨人『エボン』",
         },
     },
     CharaEbon2 = {
         MetaData = {
-            Name = "<Ebon> the fire giant",
+            Name = "火の巨人『エボン』",
         },
     },
     CharaEhekatl = {
         MetaData = {
-            Name = "<Ehekatl>",
+            Name = "《幸運のエヘカトル》",
         },
     },
     CharaElder = {
         MetaData = {
-            Name = "elder",
+            Name = "長",
         },
     },
     CharaElecDragon = {
         MetaData = {
-            Name = "elec dragon",
+            Name = "エレキドラゴン",
         },
     },
     CharaElectricCloud = {
         MetaData = {
-            Name = "electric cloud",
+            Name = "放電雲",
         },
     },
     CharaErystia = {
         MetaData = {
-            Name = "<Erystia> the scholar of history",
+            Name = "歴史を学ぶ『エリステア』",
         },
     },
     CharaEuryale = {
         MetaData = {
-            Name = "euryale",
+            Name = "エウリュアレ",
         },
     },
     CharaExecutioner = {
         MetaData = {
-            Name = "executioner",
+            Name = "死刑執行人",
         },
     },
     CharaExile = {
         MetaData = {
-            Name = "exile",
+            Name = "追放者",
         },
     },
     CharaFairy = {
         MetaData = {
-            Name = "fairy",
+            Name = "妖精",
         },
     },
     CharaFallenSoldier = {
         MetaData = {
-            Name = "fallen soldier",
+            Name = "敗残兵",
         },
     },
     CharaFanatic = {
         MetaData = {
-            Name = "Jure fanatic",
+            Name = "ジュアの狂信者",
         },
     },
     CharaFarmer = {
         MetaData = {
-            Name = "farmer",
+            Name = "農夫",
         },
     },
     CharaFestivalTourist = {
         MetaData = {
-            Name = "festival tourist",
+            Name = "祭りの観光客",
         },
     },
     CharaFighterGuildMember = {
         MetaData = {
-            Name = "fighter guild member",
+            Name = "戦士ギルド",
         },
     },
     CharaFireCentipede = {
         MetaData = {
-            Name = "fire centipede",
+            Name = "火炎ムカデ",
         },
     },
     CharaFireCrab = {
         MetaData = {
-            Name = "fire crab",
+            Name = "火蟹",
         },
     },
     CharaFireDrake = {
         MetaData = {
-            Name = "fire drake",
+            Name = "ファイアドレイク",
         },
     },
     CharaFireEnt = {
         MetaData = {
-            Name = "fire ent",
+            Name = "火炎樹",
         },
     },
     CharaFireHound = {
         MetaData = {
-            Name = "fire hound",
+            Name = "ファイアハウンド",
         },
     },
     CharaFloatingEye = {
         MetaData = {
-            Name = "floating eye",
+            Name = "フローティングアイ",
         },
     },
     CharaFlyingFrog = {
         MetaData = {
-            Name = "flying frog",
+            Name = "飛び蛙",
         },
     },
     CharaFray = {
         MetaData = {
-            Name = "<Fray> the fighter guildmaster",
+            Name = "戦士ギルドマスター『フレイ』",
         },
     },
     CharaFrisia = {
         MetaData = {
-            Name = "<Frisia> the cat queen",
+            Name = "猫の女王『フリージア』",
         },
     },
     CharaGagu = {
         MetaData = {
-            Name = "gagu",
+            Name = "ガグ",
         },
     },
     CharaGangster = {
         MetaData = {
-            Name = "gangster",
+            Name = "ごろつき",
         },
     },
     CharaGarokk = {
         MetaData = {
-            Name = "<Garokk> the legendary smith",
+            Name = "伝説の職人『ガロク』",
         },
     },
     CharaGhost = {
         MetaData = {
-            Name = "ghost",
+            Name = "亡霊",
         },
     },
     CharaGiantSquirrel = {
         MetaData = {
-            Name = "giant squirrel",
+            Name = "巨大リス",
         },
     },
     CharaGilbert = {
         MetaData = {
-            Name = "<Gilbert> the colonel",
+            Name = "辺境の勇士『ギルバート大佐』",
         },
     },
     CharaGoblin = {
         MetaData = {
-            Name = "goblin",
+            Name = "ゴブリン",
         },
     },
     CharaGoblinShaman = {
         MetaData = {
-            Name = "goblin shaman",
+            Name = "ゴブリンシャーマン",
         },
     },
     CharaGoblinWarrior = {
         MetaData = {
-            Name = "goblin warrior",
+            Name = "ゴブリンの戦士",
         },
     },
     CharaGoblinWizard = {
         MetaData = {
-            Name = "goblin wizard",
+            Name = "ゴブリンの魔法使い",
         },
     },
     CharaGodInsideEhekatl = {
         MetaData = {
-            Name = "<God inside Ehekatl>",
+            Name = "《エヘカトルの中の神》",
         },
     },
     CharaGoda = {
         MetaData = {
-            Name = "<Goda> the captain of orc",
+            Name = "オークの隊長『ゴダ』",
         },
     },
     CharaGoldBell = {
         MetaData = {
-            Name = "gold bell",
+            Name = "ゴールドベル",
         },
     },
     CharaGoldenArmor = {
         MetaData = {
-            Name = "golden armor",
+            Name = "ゴールデンアーマー",
         },
     },
     CharaGoldenGolem = {
         MetaData = {
-            Name = "golden golem",
+            Name = "ゴールドゴーレム",
         },
     },
     CharaGoldenKnight = {
         MetaData = {
-            Name = "golden knight",
+            Name = "黄金の騎士",
         },
     },
     CharaGreatRaceOfYith = {
         MetaData = {
-            Name = "great race of Yith",
+            Name = "イスの偉大なる種族",
         },
     },
     CharaGreaterMummy = {
         MetaData = {
-            Name = "greater mummy",
+            Name = "グレイターマミー",
         },
     },
     CharaGreaterPumpkin = {
         MetaData = {
-            Name = "greater pumpkin",
+            Name = "南瓜の怪物",
         },
     },
     CharaGreenDragon = {
         MetaData = {
-            Name = "green dragon",
+            Name = "グリーンドラゴン",
         },
     },
     CharaGrizzly = {
         MetaData = {
-            Name = "grizzly",
+            Name = "グリズリー",
         },
     },
     CharaGrudge = {
         MetaData = {
-            Name = "grudge",
+            Name = "怨念",
         },
     },
     CharaGuard = {
         MetaData = {
-            Name = "guard",
+            Name = "ガード",
         },
     },
     CharaGuardPortKapul = {
         MetaData = {
-            Name = "guard",
+            Name = "ガード",
         },
     },
     CharaGuildTrainer = {
         MetaData = {
-            Name = "guild trainer",
+            Name = "ギルドトレイナー",
         },
     },
     CharaGwen = {
         MetaData = {
-            Name = "<Gwen> the innocent",
+            Name = "無邪気な少女『グウェン』",
         },
     },
     CharaHalloweenNightmare = {
         MetaData = {
-            Name = "halloween nightmare",
+            Name = "ハロウィンナイトメア",
         },
     },
     CharaHandOfTheChaos = {
         MetaData = {
-            Name = "hand of the chaos",
+            Name = "混沌の手",
         },
     },
     CharaHandOfTheDead = {
         MetaData = {
-            Name = "hand of the dead",
+            Name = "亡者の手",
         },
     },
     CharaHandOfTheMurderer = {
         MetaData = {
-            Name = "hand of the murderer",
+            Name = "殺人鬼の手",
         },
     },
     CharaHardGay = {
         MetaData = {
-            Name = "hard gay",
+            Name = "ハードゲイ",
         },
     },
     CharaHarpy = {
         MetaData = {
-            Name = "harpy",
+            Name = "ハーピー",
         },
     },
     CharaHealer = {
         MetaData = {
-            Name = "healer",
+            Name = "癒し手",
         },
     },
     CharaHedgehog = {
         MetaData = {
-            Name = "hedgehog",
+            Name = "ハリねずみ",
         },
     },
     CharaHermitCrab = {
         MetaData = {
-            Name = "hermit crab",
+            Name = "やどかり",
         },
     },
     CharaHolyBeast = {
         MetaData = {
-            Name = "holy beast",
+            Name = "聖獣",
         },
     },
     CharaHotSpringManiac = {
         MetaData = {
-            Name = "citizen",
+            Name = "温泉マニア",
         },
     },
     CharaHound = {
         MetaData = {
-            Name = "hound",
+            Name = "猟犬",
         },
     },
     CharaHungryDemon = {
         MetaData = {
-            Name = "hungry demon",
+            Name = "餓鬼",
         },
     },
     CharaHungrySeaLion = {
         MetaData = {
-            Name = "hungry sea lion",
+            Name = "大食いトド",
         },
     },
     CharaIceDrake = {
         MetaData = {
-            Name = "ice drake",
+            Name = "アイスドレイク",
         },
     },
     CharaIceEnt = {
         MetaData = {
-            Name = "ice ent",
+            Name = "氷結樹",
         },
     },
     CharaIceHound = {
         MetaData = {
-            Name = "ice hound",
+            Name = "アイスハウンド",
         },
     },
     CharaIcolle = {
         MetaData = {
-            Name = "<Icolle> the biologist",
+            Name = "生化学者『イコール』",
         },
     },
     CharaIllusionHound = {
         MetaData = {
-            Name = "illusion hound",
+            Name = "幻惑ハウンド",
         },
     },
     CharaImp = {
         MetaData = {
-            Name = "imp",
+            Name = "インプ",
         },
     },
     CharaImpureEye = {
         MetaData = {
-            Name = "impure eye",
+            Name = "不浄なる瞳",
         },
     },
     CharaInformer = {
         MetaData = {
-            Name = "informer",
+            Name = "情報屋",
         },
     },
     CharaIronMaiden = {
         MetaData = {
-            Name = "iron maiden",
+            Name = "鉄の処女",
         },
     },
     CharaIsca = {
         MetaData = {
-            Name = "<Isca> the fallen angel",
+            Name = "堕天使『イスカ』",
         },
     },
     CharaIssizzle = {
         MetaData = {
-            Name = "<Issizzle> the dark abomination",
+            Name = "闇の奇形『イスシズル』",
         },
     },
     CharaJuereInfantry = {
         MetaData = {
-            Name = "juere infantry",
+            Name = "ジューア歩兵",
         },
     },
     CharaJuereSwordman = {
         MetaData = {
-            Name = "juere swordman",
+            Name = "ジューア剣闘士",
         },
     },
     CharaKamikazeSamurai = {
         MetaData = {
-            Name = "kamikaze samurai",
+            Name = "地雷侍",
         },
     },
     CharaKamikazeYeek = {
         MetaData = {
-            Name = "kamikaze yeek",
+            Name = "カミカゼ・イーク",
         },
     },
     CharaKanedaBike = {
         MetaData = {
-            Name = "<Kaneda Bike>",
+            Name = "『カネダのバイク』",
         },
     },
     CharaKaram = {
         MetaData = {
-            Name = "<Karam> the lonely wolf of Karune",
+            Name = "カルーンの孤狼『カラム』",
         },
     },
     CharaKillerSquirrel = {
         MetaData = {
-            Name = "killer squirrel",
+            Name = "殺人リス",
         },
     },
     CharaKing = {
         MetaData = {
-            Name = "<King>",
+            Name = "＜キング＞",
         },
     },
     CharaKingCobra = {
         MetaData = {
-            Name = "king cobra",
+            Name = "キングコブラ",
         },
     },
     CharaKingScorpion = {
         MetaData = {
-            Name = "king scorpion",
+            Name = "ダイオウサソリ",
         },
     },
     CharaKnight = {
         MetaData = {
-            Name = "<Knight>",
+            Name = "＜ナイト＞",
         },
     },
     CharaKobold = {
         MetaData = {
-            Name = "kobold",
+            Name = "コボルト",
         },
     },
     CharaKumiromi = {
         MetaData = {
-            Name = "<Kumiromi>",
+            Name = "《収穫のクミロミ》",
         },
     },
     CharaLameHorse = {
         MetaData = {
-            Name = "lame horse",
+            Name = "駄馬",
         },
     },
     CharaLarnneire = {
         MetaData = {
-            Name = "<Larnneire> the listener of wind",
+            Name = "風を聴く者『ラーネイレ』",
         },
     },
     CharaLesserMummy = {
         MetaData = {
-            Name = "lesser mummy",
+            Name = "レッサーマミー",
         },
     },
     CharaLesserPhantom = {
         MetaData = {
-            Name = "lesser phantom",
+            Name = "レッサーファントム",
         },
     },
     CharaLexus = {
         MetaData = {
-            Name = "<Lexus> the guild watchman",
+            Name = "魔術士ギルドの番人『レクサス』",
         },
     },
     CharaLich = {
         MetaData = {
-            Name = "lich",
+            Name = "リッチ",
         },
     },
     CharaLightningHound = {
         MetaData = {
-            Name = "lightning hound",
+            Name = "ライトニングハウンド",
         },
     },
     CharaLily = {
         MetaData = {
-            Name = "Pael's mom <Lily>",
+            Name = "パエルの母『リリィ』",
         },
     },
     CharaLion = {
         MetaData = {
-            Name = "lion",
+            Name = "ライオン",
         },
     },
     CharaLittleGirl = {
         MetaData = {
-            Name = "little girl",
+            Name = "少女",
         },
     },
     CharaLittleSister = {
         MetaData = {
-            Name = "<Little sister>",
+            Name = "『リトルシスター』",
         },
     },
     CharaLivingArmor = {
         MetaData = {
-            Name = "living armor",
+            Name = "リビングアーマー",
         },
     },
     CharaLizardMan = {
         MetaData = {
-            Name = "lizard man",
+            Name = "リザードマン",
         },
     },
     CharaLomias = {
         MetaData = {
-            Name = "<Lomias> the messenger from Vindale",
+            Name = "異形の森の使者『ロミアス』",
         },
     },
     CharaLoyter = {
         MetaData = {
-            Name = "<Loyter> the crimson of Zanan",
+            Name = "ザナンの紅の英雄『ロイター』",
         },
     },
     CharaLulwy = {
         MetaData = {
-            Name = "<Lulwy>",
+            Name = "《風のルルウィ》",
         },
     },
     CharaMadGaze = {
         MetaData = {
-            Name = "mad gaze",
+            Name = "マッドゲイズ",
         },
     },
     CharaMadScientist = {
         MetaData = {
-            Name = "<Mad scientist>",
+            Name = "『マッドサイエンティスト』",
         },
     },
     CharaMageGuildMember = {
         MetaData = {
-            Name = "mage guild member",
+            Name = "魔術士ギルド",
         },
     },
     CharaMaid = {
         MetaData = {
-            Name = "maid",
+            Name = "メイド",
         },
     },
     CharaMammoth = {
         MetaData = {
-            Name = "Mammoth",
+            Name = "マンモス",
         },
     },
     CharaManEaterFlower = {
         MetaData = {
-            Name = "man eater flower",
+            Name = "人食い花",
         },
     },
     CharaMandrake = {
         MetaData = {
-            Name = "mandrake",
+            Name = "マンドレイク",
         },
     },
     CharaMani = {
         MetaData = {
-            Name = "<Mani>",
+            Name = "《機械のマニ》",
         },
     },
     CharaMarks = {
         MetaData = {
-            Name = "<Marks> the great thief",
+            Name = "稀代の泥棒『マークス』",
         },
     },
     CharaMassMonster = {
         MetaData = {
-            Name = "mass monster",
+            Name = "塊の怪物",
         },
     },
     CharaMasterLich = {
         MetaData = {
-            Name = "master lich",
+            Name = "マスターリッチ",
         },
     },
     CharaPetArenaMaster = {
         MetaData = {
-            Name = "master of pet arena",
+            Name = "ペットアリーナの主催者『ニノ』",
         },
     },
     CharaMasterThief = {
         MetaData = {
-            Name = "master thief",
+            Name = "マスターシーフ",
         },
     },
     CharaMasterYeek = {
         MetaData = {
-            Name = "master yeek",
+            Name = "マスター・イーク",
         },
     },
     CharaMedusa = {
         MetaData = {
-            Name = "medusa",
+            Name = "メデューサ",
         },
     },
     CharaMercenary = {
         MetaData = {
-            Name = "mercenary",
+            Name = "傭兵",
         },
     },
     CharaMercenaryArcher = {
         MetaData = {
-            Name = "mercenary archer",
+            Name = "傭兵射手",
         },
     },
     CharaMercenaryWarrior = {
         MetaData = {
-            Name = "mercenary warrior",
+            Name = "傭兵戦士",
         },
     },
     CharaMercenaryWizard = {
         MetaData = {
-            Name = "mercenary wizard",
+            Name = "傭兵魔術士",
         },
     },
     CharaMessengerOfDeath = {
         MetaData = {
-            Name = "messenger of death",
+            Name = "死神の使い",
         },
     },
     CharaMia = {
         MetaData = {
-            Name = "<Mia> the cat freak",
+            Name = "猫かぶり『ミーア』",
         },
     },
     CharaMiches = {
         MetaData = {
-            Name = "<Miches> the apprentice",
+            Name = "見習い『ミシェス』",
         },
     },
     CharaMineDog = {
         MetaData = {
-            Name = "mine dog",
+            Name = "地雷犬",
         },
     },
     CharaMiner = {
         MetaData = {
-            Name = "miner",
+            Name = "鉱夫",
         },
     },
     CharaMinotaur = {
         MetaData = {
-            Name = "minotaur",
+            Name = "ミノタウロス",
         },
     },
     CharaMinotaurBoxer = {
         MetaData = {
-            Name = "minotaur boxer",
+            Name = "ミノタウロスの闘士",
         },
     },
     CharaMinotaurKing = {
         MetaData = {
-            Name = "minotaur king",
+            Name = "ミノタウロスの戦士",
         },
     },
     CharaMinotaurMagician = {
         MetaData = {
-            Name = "minotaur magician",
+            Name = "ミノタウロスの術士",
         },
     },
     CharaMiral = {
         MetaData = {
-            Name = "<Miral> the legendary smith",
+            Name = "伝説の職人『ミラル』",
         },
     },
     CharaMissionaryOfDarkness = {
         MetaData = {
-            Name = "missionary of darkness",
+            Name = "闇の宣教師",
         },
     },
     CharaMithrilGolem = {
         MetaData = {
-            Name = "mithril golem",
+            Name = "ミスリルゴーレム",
         },
     },
     CharaMitra = {
         MetaData = {
-            Name = "mitra",
+            Name = "ミトラ",
         },
     },
     CharaMoyerTheCrooked = {
         MetaData = {
-            Name = "<Moyer> the crooked",
+            Name = "見世物屋の『モイアー』",
         },
     },
     CharaMummy = {
         MetaData = {
-            Name = "mummy",
+            Name = "マミー",
         },
     },
     CharaMushroom = {
         MetaData = {
-            Name = "mushroom",
+            Name = "きのこ",
         },
     },
     CharaMutant = {
         MetaData = {
-            Name = "mutant",
+            Name = "ミュータント",
         },
     },
     CharaMysteriousProducer = {
         MetaData = {
-            Name = "<Mysterious Producer>",
+            Name = "『謎のプロデューサー』",
         },
     },
     CharaNerveHound = {
         MetaData = {
-            Name = "nerve hound",
+            Name = "神経ハウンド",
         },
     },
     CharaNetherDragon = {
         MetaData = {
-            Name = "nether dragon",
+            Name = "冥界ドラゴン",
         },
     },
     CharaNetherHound = {
         MetaData = {
-            Name = "nether hound",
+            Name = "地獄ハウンド",
         },
     },
     CharaNetherImp = {
         MetaData = {
-            Name = "nether imp",
+            Name = "冥界の使い",
         },
     },
     CharaNoble = {
         MetaData = {
-            Name = "noble",
+            Name = "貴族",
         },
     },
     CharaNobleChild = {
         MetaData = {
-            Name = "noble child",
+            Name = "貴族の子供",
         },
     },
     CharaNoel = {
         MetaData = {
-            Name = "<Noel> the bomber",
+            Name = "爆弾魔『ノエル』",
         },
     },
     CharaNoyelHorse = {
         MetaData = {
-            Name = "Noyel horse",
+            Name = "ノイエル馬",
         },
     },
     CharaNun = {
         MetaData = {
-            Name = "sister",
+            Name = "シスター",
         },
     },
     CharaNurse = {
         MetaData = {
-            Name = "nurse",
+            Name = "白衣のナース",
         },
     },
     CharaNymph = {
         MetaData = {
-            Name = "nymph",
+            Name = "ニンフ",
         },
     },
     CharaOldPerson = {
         MetaData = {
-            Name = "old person",
+            Name = "老人",
         },
     },
     CharaOpatos = {
         MetaData = {
-            Name = "<Opatos>",
+            Name = "《地のオパートス》",
         },
     },
     CharaOrc = {
         MetaData = {
-            Name = "orc",
+            Name = "オーク",
         },
     },
     CharaOrcWarrior = {
         MetaData = {
-            Name = "orc warrior",
+            Name = "オークの戦士",
         },
     },
     CharaOrphe = {
         MetaData = {
-            Name = "<Orphe> the chaos child",
+            Name = "混沌の寵児『オルフェ』",
         },
     },
     CharaPael = {
         MetaData = {
-            Name = "Lonely <Pael>",
+            Name = "ひとりぼっちの『パエル』",
         },
     },
     CharaPalmianEliteSoldier = {
         MetaData = {
-            Name = "palmian elite soldier",
+            Name = "パルミア特殊部隊",
         },
     },
     CharaParalyzer = {
         MetaData = {
-            Name = "paralyzer",
+            Name = "パラライザー",
         },
     },
     CharaPartTimeWorker = {
         MetaData = {
-            Name = "part time worker",
+            Name = "着ぐるみのバイト",
         },
     },
     CharaPawn = {
         MetaData = {
-            Name = "<Pawn>",
+            Name = "＜ポーン＞",
         },
     },
     CharaPoisonHound = {
         MetaData = {
-            Name = "poison hound",
+            Name = "ポイズンハウンド",
         },
     },
     CharaPoppy = {
         MetaData = {
-            Name = "<Poppy> the little dog",
+            Name = "子犬の『ポピー』",
         },
     },
     CharaPrisoner = {
         MetaData = {
-            Name = "prisoner",
+            Name = "囚人",
         },
     },
     CharaProstitute = {
         MetaData = {
-            Name = "prostitute",
+            Name = "娼婦",
         },
     },
     CharaPublicPerformer = {
         MetaData = {
-            Name = "public performer",
+            Name = "大道芸人",
         },
     },
     CharaPumpkin = {
         MetaData = {
-            Name = "pumpkin",
+            Name = "パンプキン",
         },
     },
     CharaPunk = {
         MetaData = {
-            Name = "punk",
+            Name = "パンク",
         },
     },
     CharaPuppet = {
         MetaData = {
-            Name = "puppet",
+            Name = "パペット",
         },
     },
     CharaPuppy = {
         MetaData = {
-            Name = "puppy",
+            Name = "パピー",
         },
     },
     CharaPutit = {
         MetaData = {
-            Name = "putit",
+            Name = "プチ",
         },
     },
     CharaQueen = {
         MetaData = {
-            Name = "<Queen>",
+            Name = "＜クィーン＞",
         },
     },
     CharaQuickling = {
         MetaData = {
-            Name = "quickling",
+            Name = "クイックリング",
         },
     },
     CharaQuicklingArcher = {
         MetaData = {
-            Name = "quickling archer",
+            Name = "クイックリングの弓使い",
         },
     },
     CharaQuruiza = {
         MetaData = {
-            Name = "<Quruiza> the red-eyed Deceiver",
+            Name = "赤き義眼の『クルイツゥア』",
         },
     },
     CharaRabbit = {
         MetaData = {
-            Name = "rabbit",
+            Name = "野うさぎ",
         },
     },
     CharaRaphael = {
         MetaData = {
-            Name = "<Raphael> the womanizer",
+            Name = "女たらしの『ラファエロ』",
         },
     },
     CharaRat = {
         MetaData = {
-            Name = "rat",
+            Name = "ネズミ",
         },
     },
     CharaRedBaptist = {
         MetaData = {
-            Name = "red baptist",
+            Name = "赤の洗礼者",
         },
     },
     CharaRedDragon = {
         MetaData = {
-            Name = "red dragon",
+            Name = "レッドドラゴン",
         },
     },
     CharaRedPutit = {
         MetaData = {
-            Name = "red putit",
+            Name = "ベスプチ",
         },
     },
     CharaRedWasp = {
         MetaData = {
-            Name = "red wasp",
+            Name = "レッドワスプ",
         },
     },
     CharaRenton = {
         MetaData = {
-            Name = "<Renton> the suffering wizard",
+            Name = "悩める魔術士『レントン』",
         },
     },
     CharaRevlus = {
         MetaData = {
-            Name = "<Revlus> the mage guildmaster",
+            Name = "魔術士ギルドマスター『レヴラス』",
         },
     },
     CharaRichPerson = {
         MetaData = {
-            Name = "rich person",
+            Name = "大富豪",
         },
     },
     CharaRilian = {
         MetaData = {
-            Name = "<Rilian> the dog lover",
+            Name = "犬好きの少女『リリアン』",
         },
     },
     CharaRobber = {
         MetaData = {
-            Name = "robber",
+            Name = "強盗",
         },
     },
     CharaRockThrower = {
         MetaData = {
-            Name = "rock thrower",
+            Name = "ロックスロアー",
         },
     },
     CharaRodlob = {
         MetaData = {
-            Name = "<Rodlob> the boss of yeeks",
+            Name = "イークの首領『ルードルボ』",
         },
     },
     CharaRogue = {
         MetaData = {
-            Name = "rogue",
+            Name = "ならずもの",
         },
     },
     CharaRogueArcher = {
         MetaData = {
-            Name = "rogue archer",
+            Name = "盗賊団の殺し屋",
         },
     },
     CharaRogueBoss = {
         MetaData = {
-            Name = "rogue boss",
+            Name = "盗賊団の頭領",
         },
     },
     CharaRogueWarrior = {
         MetaData = {
-            Name = "rogue warrior",
+            Name = "盗賊団の用心棒",
         },
     },
     CharaRogueWizard = {
         MetaData = {
-            Name = "rogue wizard",
+            Name = "盗賊団の術士",
         },
     },
     CharaRook = {
         MetaData = {
-            Name = "<Rook>",
+            Name = "＜ルーク＞",
         },
     },
     CharaSailor = {
         MetaData = {
-            Name = "sailor",
+            Name = "水夫",
         },
     },
     CharaSalesPerson = {
         MetaData = {
-            Name = "sales person",
+            Name = "セールスマン",
         },
     },
     CharaScorpion = {
         MetaData = {
-            Name = "scorpion",
+            Name = "サソリ",
         },
     },
     CharaShade = {
         MetaData = {
-            Name = "shade",
+            Name = "シェイド",
         },
     },
     CharaShadowStalker = {
         MetaData = {
-            Name = "shadow stalker",
+            Name = "闇の老師",
         },
     },
     CharaShena = {
         MetaData = {
-            Name = "<Shena> the draw",
+            Name = "看板娘『シーナ』",
         },
     },
     CharaShiningHedgehog = {
         MetaData = {
-            Name = "shining hedgehog",
+            Name = "輝くハリねずみ",
         },
     },
     CharaShopkeeper = {
         MetaData = {
-            Name = "shopkeeper",
+            Name = "店主",
         },
     },
     CharaShubNiggurath = {
         MetaData = {
-            Name = "Shub-Niggurath",
+            Name = "シュブ＝ニグラス",
         },
     },
     CharaSilverBell = {
         MetaData = {
-            Name = "silver bell",
+            Name = "シルバーベル",
         },
     },
     CharaSilverCat = {
         MetaData = {
-            Name = "silver cat",
+            Name = "シルバーキャット",
         },
     },
     CharaSilverEyedWitch = {
         MetaData = {
-            Name = "silver eyed witch",
+            Name = "銀眼の斬殺者",
         },
     },
     CharaSilverWolf = {
         MetaData = {
-            Name = "silver wolf",
+            Name = "銀狼",
         },
     },
     CharaSilvia = {
         MetaData = {
-            Name = "<Silvia> The princess",
+            Name = "皇女『シルヴィア』",
         },
     },
     CharaSin = {
         MetaData = {
-            Name = "<Sin> the thief guildmaster",
+            Name = "盗賊ギルドマスター『シン』",
         },
     },
     CharaSister = {
         MetaData = {
-            Name = "sister",
+            Name = "修道女",
         },
     },
     CharaSkeletonBerserker = {
         MetaData = {
-            Name = "skeleton berserker",
+            Name = "骸骨狂戦士",
         },
     },
     CharaSkeletonWarrior = {
         MetaData = {
-            Name = "skeleton warrior",
+            Name = "骸骨戦士",
         },
     },
     CharaSkyGolem = {
         MetaData = {
-            Name = "sky golem",
+            Name = "スカイゴーレム",
         },
     },
     CharaSlan = {
         MetaData = {
-            Name = "<Slan> the shadow of Palmia",
+            Name = "パルミアの影『スラン』",
         },
     },
     CharaSlime = {
         MetaData = {
-            Name = "slime",
+            Name = "スライム",
         },
     },
     CharaSnail = {
         MetaData = {
-            Name = "snail",
+            Name = "かたつむり",
         },
     },
     CharaSoundHound = {
         MetaData = {
-            Name = "sound hound",
+            Name = "轟音ハウンド",
         },
     },
     CharaSpider = {
         MetaData = {
-            Name = "spider",
+            Name = "まだら蜘蛛",
         },
     },
     CharaSpiralKing = {
         MetaData = {
-            Name = "spiral king",
+            Name = "螺旋の王",
         },
     },
     CharaSporeMushroom = {
         MetaData = {
-            Name = "spore mushroom",
+            Name = "胞子きのこ",
         },
     },
     CharaStalker = {
         MetaData = {
-            Name = "stalker",
+            Name = "闇子",
         },
     },
     CharaSteelGolem = {
         MetaData = {
-            Name = "steel golem",
+            Name = "スティールゴーレム",
         },
     },
     CharaSteelMass = {
         MetaData = {
-            Name = "steel mass",
+            Name = "鉄塊",
         },
     },
     CharaStersha = {
         MetaData = {
-            Name = "<Stersha> the queen of Palmia",
+            Name = "パルミア王妃『スターシャ』",
         },
     },
     CharaStheno = {
         MetaData = {
-            Name = "stheno",
+            Name = "ステンノ",
         },
     },
     CharaStoneGolem = {
         MetaData = {
-            Name = "stone golem",
+            Name = "ストーンゴーレム",
         },
     },
     CharaStrangeScientist = {
         MetaData = {
-            Name = "<Strange scientist>",
+            Name = "『謎の科学者』",
         },
     },
     CharaStrayCat = {
         MetaData = {
-            Name = "stray cat",
+            Name = "迷子の子猫",
         },
     },
     CharaSuperHungrySeaLion = {
         MetaData = {
-            Name = "super hungry sea lion",
+            Name = "超大食いトド",
         },
     },
     CharaTam = {
         MetaData = {
-            Name = "<Tam> the cat hater",
+            Name = "猫嫌いの『タム』",
         },
     },
     CharaTarantula = {
         MetaData = {
-            Name = "tarantula",
+            Name = "タランチュラ",
         },
     },
     CharaTestSubject = {
         MetaData = {
-            Name = "<Stersha> the queen of Palmia",
+            Name = "実験台",
         },
     },
     CharaTheLeopardWarrior = {
         MetaData = {
-            Name = "<The leopard warrior>",
+            Name = "『豹頭の戦士』",
         },
     },
     CharaThief = {
         MetaData = {
-            Name = "thief",
+            Name = "見習い盗賊",
         },
     },
     CharaThiefGuildMember = {
         MetaData = {
-            Name = "thief guild member",
+            Name = "盗賊ギルド",
         },
     },
     CharaTitan = {
         MetaData = {
-            Name = "titan",
+            Name = "タイタン",
         },
     },
     CharaTourist = {
         MetaData = {
-            Name = "tourist",
+            Name = "観光客",
         },
     },
     CharaTownChild = {
         MetaData = {
-            Name = "town child",
+            Name = "街の子供",
         },
     },
     CharaTrainer = {
         MetaData = {
-            Name = "trainer",
+            Name = "トレイナー",
         },
     },
     CharaTroll = {
         MetaData = {
-            Name = "troll",
+            Name = "トロール",
         },
     },
     CharaTuwen = {
         MetaData = {
-            Name = "<Tuwen> the master of the pyramid",
+            Name = "ピラミッドの主『ツェン』",
         },
     },
     CharaTwintail = {
         MetaData = {
-            Name = "twintail",
+            Name = "ツインテール",
         },
     },
     CharaTyrannosaurus = {
         MetaData = {
-            Name = "Tyrannosaurus",
+            Name = "ティラノサウルス",
         },
     },
     CharaUngaga = {
         MetaData = {
-            Name = "<Ungaga> the minotaur king",
+            Name = "ミノタウロスの王『ウンガガ』",
         },
     },
     CharaUser = {
@@ -1606,162 +1606,162 @@ OpenNefia.Prototypes.Entity.Elona = {
     },
     CharaUtima = {
         MetaData = {
-            Name = "<Utima> the destroyer of Xeren",
+            Name = "ゼイレン究極破壊兵器『ウティマ』",
         },
     },
     CharaVampireBat = {
         MetaData = {
-            Name = "vampire bat",
+            Name = "吸血コウモリ",
         },
     },
     CharaVaruna = {
         MetaData = {
-            Name = "varuna",
+            Name = "ヴァルナ",
         },
     },
     CharaVesda = {
         MetaData = {
-            Name = "<Vesda> the fire dragon",
+            Name = "火炎竜『ヴェスダ』",
         },
     },
     CharaWarrior = {
         MetaData = {
-            Name = "warrior",
+            Name = "戦士",
         },
     },
     CharaWarriorOfElea = {
         MetaData = {
-            Name = "warrior of Elea",
+            Name = "エレアの戦士",
         },
     },
     CharaWasp = {
         MetaData = {
-            Name = "wasp",
+            Name = "ワスプ",
         },
     },
     CharaWhiteDragon = {
         MetaData = {
-            Name = "white dragon",
+            Name = "ホワイトドラゴン",
         },
     },
     CharaWhomDwellInTheVanity = {
         MetaData = {
-            Name = "<Whom dwell in the vanity>",
+            Name = "『虚空を這いずる者』",
         },
     },
     CharaWildHorse = {
         MetaData = {
-            Name = "wild horse",
+            Name = "野生馬",
         },
     },
     CharaWildHorse2 = {
         MetaData = {
-            Name = "wild horse",
+            Name = "サラブレッド",
         },
     },
     CharaWildSheep = {
         MetaData = {
-            Name = "wild sheep",
+            Name = "羊",
         },
     },
     CharaWisp = {
         MetaData = {
-            Name = "wisp",
+            Name = "ウィスプ",
         },
     },
     CharaWizard = {
         MetaData = {
-            Name = "wizard",
+            Name = "魔術士",
         },
     },
     CharaWizardOfElea = {
         MetaData = {
-            Name = "wizard of Elea",
+            Name = "エレアの魔術士",
         },
     },
     CharaWoodenGolem = {
         MetaData = {
-            Name = "wooden golem",
+            Name = "ウッドゴーレム",
         },
     },
     CharaWynan = {
         MetaData = {
-            Name = "<Wynan> the lord of the Ancient Castle",
+            Name = "古城の主『ワイナン』",
         },
     },
     CharaWyvern = {
         MetaData = {
-            Name = "wyvern",
+            Name = "ワイバーン",
         },
     },
     CharaXabi = {
         MetaData = {
-            Name = "<Xabi> the king of Palmia",
+            Name = "パルミア王『ジャビ』",
         },
     },
     CharaYeek = {
         MetaData = {
-            Name = "yeek",
+            Name = "イーク",
         },
     },
     CharaYeekArcher = {
         MetaData = {
-            Name = "yeek archer",
+            Name = "イークの射手",
         },
     },
     CharaYeekWarrior = {
         MetaData = {
-            Name = "yeek warrior",
+            Name = "イークの戦士",
         },
     },
     CharaYerlesEliteMachineInfantry = {
         MetaData = {
-            Name = "Yerles elite machine infantry",
+            Name = "イェルスエリート機械兵",
         },
     },
     CharaYerlesMachineInfantry = {
         MetaData = {
-            Name = "Yerles machine infantry",
+            Name = "イェルス機械兵",
         },
     },
     CharaYerlesSelfPropelledGun = {
         MetaData = {
-            Name = "yerles self-propelled gun",
+            Name = "イェルス自走砲",
         },
     },
     CharaYoungLady = {
         MetaData = {
-            Name = "young lady",
+            Name = "嬢",
         },
     },
     CharaYoungerCatSister = {
         MetaData = {
-            Name = "younger cat sister",
+            Name = "妹猫",
         },
     },
     CharaYoungerSister = {
         MetaData = {
-            Name = "younger sister",
+            Name = "妹",
         },
     },
     CharaYoungerSisterOfMansion = {
         MetaData = {
-            Name = "younger sister",
+            Name = "妹",
         },
     },
     CharaYowynHorse = {
         MetaData = {
-            Name = "Yowyn horse",
+            Name = "ヨウィン馬",
         },
     },
     CharaZeome = {
         MetaData = {
-            Name = "<Zeome> the false prophet",
+            Name = "偽りの預言者『ゼーム』",
         },
     },
     CharaZombie = {
         MetaData = {
-            Name = "zombie",
+            Name = "ゾンビ",
         },
     },
 }
