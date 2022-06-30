@@ -16,7 +16,7 @@ using System.Text;
 
 namespace $rootnamespace$
 {
-    [Prototype("Elona.$safeitemrootname$")]
+    [Prototype(!"Elona.$safeitemrootname$")]
     public class $safeitemrootname$ : IPrototype
     {
         [DataField("id", required: true)]

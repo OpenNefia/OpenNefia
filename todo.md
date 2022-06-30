@@ -278,7 +278,7 @@
 - [ ] 2892	./src/mod/elona/api/ElonaPos.lua
 - [ ] 2914	./src/mod/elona/api/gui/TreasureMapWindow.lua
 - [x] 3044	./src/mod/elona/api/aspect/ItemWellAspect.lua
-- [ ] 3166	./src/mod/elona/api/Rank.lua
+- [x] 3166	./src/mod/elona/api/Rank.lua
 - [ ] 3566	./src/mod/elona/api/gui/MapEditTileList.lua
 - [x] 3839	./src/mod/elona/api/aspect/IItemMoneyBox.lua
 - [ ] 4008	./src/mod/elona/api/gui/ExHelpPrompt.lua

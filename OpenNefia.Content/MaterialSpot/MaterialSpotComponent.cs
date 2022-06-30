@@ -10,6 +10,7 @@ using System.Collections.Generic;
 
 namespace OpenNefia.Content.MaterialSpot
 {
+    // TODO: use [Localize]
     [RegisterComponent]
     [ComponentUsage(ComponentTarget.Normal)]
     public sealed class MaterialSpotComponent : Component
