@@ -216,7 +216,7 @@
     # <<<<<<<< shade2/proc.hsp:1007 		if cTurn(cc)¥5=0:txtActDigging ..
 
     # >>>>>>>> shade2/proc.hsp:997 		cRowAct(cc)=rowActSearch ...
-    activityName: OpenNefia.Prototypes.Activity.Elona.Searching.Verb
+    activityName: OpenNefia.Prototypes.Elona.Activity.Elona.Searching.Verb
     activityDefaultTurns: 20
     activityAnimationWait: 15
     startGatherText: Elona.Dig.Spot.Start.Other
@@ -238,7 +238,7 @@
     # <<<<<<<< shade2/proc.hsp:1007 		if cTurn(cc)¥5=0:txtActDigging ..
 
     # >>>>>>>> shade2/proc.hsp:997 		cRowAct(cc)=rowActSearch ...
-    activityName: OpenNefia.Prototypes.Activity.Elona.Searching.Verb
+    activityName: OpenNefia.Prototypes.Elona.Activity.Elona.Searching.Verb
     activityDefaultTurns: 20
     activityAnimationWait: 15
     startGatherText: Elona.MaterialSpot.Remains.Start
@@ -268,7 +268,7 @@
     # <<<<<<<< shade2/proc.hsp:33 	if feat(1)=objREspring	:atxSpot=atxWater1 ..
 
     # >>>>>>>> shade2/proc.hsp:997 		cRowAct(cc)=rowActSearch ...
-    activityName: OpenNefia.Prototypes.Activity.Elona.Fishing.Verb
+    activityName: OpenNefia.Prototypes.Elona.Activity.Elona.Fishing.Verb
     activityDefaultTurns: 100
     activityAnimationWait: 40
     startGatherText: Elona.Fishing.Start
@@ -302,7 +302,7 @@
     # <<<<<<<< shade2/proc.hsp:34 	if feat(1)=objREmine	:atxSpot=atxMine1 ..
 
     # >>>>>>>> shade2/proc.hsp:1042 		cRowAct(cc)=rowActDig ...
-    activityName: OpenNefia.Prototypes.Activity.Elona.Mining.Verb
+    activityName: OpenNefia.Prototypes.Elona.Activity.Elona.Mining.Verb
     activityDefaultTurns: 40
     activityAnimationWait: 15
     startGatherText: Elona.MaterialSpot.Mine.Start
@@ -339,7 +339,7 @@
     # <<<<<<<< shade2/proc.hsp:35 	if feat(1)=objREbush	:atxSpot=atxBush1 ..
 
     # >>>>>>>> shade2/proc.hsp:982 		cRowAct(cc)=rowActPlant ...
-    activityName: OpenNefia.Prototypes.Activity.Elona.DiggingSpot.Verb
+    activityName: OpenNefia.Prototypes.Elona.Activity.Elona.DiggingSpot.Verb
     activityDefaultTurns: 40
     activityAnimationWait: 15
     startGatherText: Elona.MaterialSpot.Bush.Start
