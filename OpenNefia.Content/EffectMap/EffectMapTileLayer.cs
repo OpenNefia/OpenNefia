@@ -38,8 +38,8 @@ namespace OpenNefia.Content.EffectMap
             public byte Alpha;
 
             public float Dt = 0f;
-            public int AssetFrame = 1;
-            public int Frame = 1;
+            public int AssetFrame = 0;
+            public int Frame = 0;
 
             public EffectMapEntry(IAssetInstance asset, int maxFrames, float rotation, EffectMapType type, Vector2i screenPosition, Vector2i tilePosition, byte alpha)
             {
@@ -81,7 +81,7 @@ namespace OpenNefia.Content.EffectMap
         {
             var size = _entries.Count;
             var i = 0;
-            while (i < size)
+            while (i < size - 1)
             {
                 var entry = _entries[i];
                 var removed = false;
@@ -102,7 +102,7 @@ namespace OpenNefia.Content.EffectMap
                             entry.Alpha = (byte)((entry.MaxFrames - entry.Frame) * 12 + 30);
                             break;
                     }
-                    if (entry.Frame > entry.MaxFrames)
+                    if (entry.Frame >= entry.MaxFrames)
                     {
                         _entries[i] = _entries[size - 1];
                         _entries.RemoveAt(size - 1);

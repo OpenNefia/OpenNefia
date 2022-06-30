@@ -27,6 +27,9 @@ using OpenNefia.Content.StatusEffects;
 using OpenNefia.Content.Effects;
 using OpenNefia.Core.Game;
 using OpenNefia.Content.EffectMap;
+using OpenNefia.Core.Maths;
+using OpenNefia.Core.Rendering;
+using System.Collections.Immutable;
 
 namespace OpenNefia.Content.GameObjects
 {
@@ -47,11 +50,13 @@ namespace OpenNefia.Content.GameObjects
         [Dependency] private readonly IGameSessionManager _gameSession = default!;
         [Dependency] private readonly IAudioManager _audio = default!;
         [Dependency] private readonly IEffectMapSystem _effectMaps = default!;
+        [Dependency] private readonly IRandom _rand = default!;
 
         public override void Initialize()
         {
             SubscribeComponent<MoveableComponent, CollideWithEventArgs>(HandleCollideWith, priority: EventPriorities.Low);
             SubscribeComponent<MoveableComponent, AfterMoveEventArgs>(CheckMovementIntoWater, priority: EventPriorities.Low);
+            SubscribeComponent<PlayerComponent, AfterMoveEventArgs>(LeaveFootsteps, priority: EventPriorities.Low);
         }
 
         private void HandleCollideWith(EntityUid uid, MoveableComponent _, CollideWithEventArgs args)
@@ -145,6 +150,55 @@ namespace OpenNefia.Content.GameObjects
                 if (_gameSession.IsPlayer(uid))
                 {
                     _audio.Play(Protos.Sound.Water2, spatial.MapPosition);
+                }
+            }
+        }
+
+        public static readonly PrototypeId<SoundPrototype>[] FootstepSounds = new[]
+        {
+            Protos.Sound.Foot1a,
+            Protos.Sound.Foot1b,
+        };
+
+        public static readonly PrototypeId<SoundPrototype>[] SnowFootstepSounds = new[]
+        {
+            Protos.Sound.Foot2a,
+            Protos.Sound.Foot2b,
+            Protos.Sound.Foot2c,
+        };
+
+        public static readonly PrototypeId<AssetPrototype>[] SnowEffectMaps = new[]
+        {
+            Protos.Asset.EffectMapSnow1,
+            Protos.Asset.EffectMapSnow2,
+        };
+
+        private int _footstep = 0;
+
+        private void LeaveFootsteps(EntityUid uid, PlayerComponent component, AfterMoveEventArgs args)
+        {
+            if (!_gameSession.IsPlayer(uid) || !TryMap(uid, out var map, _mapMan))
+                return;
+
+            if (args.OldPosition != args.NewPosition)
+            {
+                var angle = Spatial(uid).Direction.ToAngle();
+                var tileProto = map.GetTilePrototype(args.NewPosition.Position);
+
+                if (tileProto != null)
+                {
+                    if (tileProto.Kind == TileKind.Snow)
+                    {
+                        _effectMaps.AddEffectMap(_rand.Pick(SnowEffectMaps), args.NewPosition, 10, angle, EffectMapType.Fade);
+                        _audio.Play(SnowFootstepSounds[_footstep % SnowFootstepSounds.Length], args.NewPosition);
+                        _footstep += _rand.Next(2);
+                    }
+                    else if (HasComp<MapTypeWorldMapComponent>(map.MapEntityUid))
+                    {
+                        _effectMaps.AddEffectMap(Protos.Asset.EffectMapFoot, args.NewPosition, 10, angle, EffectMapType.Fade);
+                        _audio.Play(FootstepSounds[_footstep % FootstepSounds.Length], args.NewPosition);
+                        _footstep++;
+                    }
                 }
             }
         }
