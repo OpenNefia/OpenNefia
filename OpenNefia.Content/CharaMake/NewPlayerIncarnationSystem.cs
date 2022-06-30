@@ -3,6 +3,7 @@ using OpenNefia.Content.EntityGen;
 using OpenNefia.Content.Factions;
 using OpenNefia.Content.Feats;
 using OpenNefia.Content.GameObjects;
+using OpenNefia.Content.Identify;
 using OpenNefia.Content.Inventory;
 using OpenNefia.Content.Qualities;
 using OpenNefia.Content.RandomGen;

@@ -5,6 +5,7 @@ using OpenNefia.Core.Serialization.Markdown.Mapping;
 using OpenNefia.Core.Stats;
 using System.Collections;
 using System.Diagnostics.CodeAnalysis;
+using OpenNefia.Content.TurnOrder
 
 namespace OpenNefia.Content.Skills
 {
@@ -97,6 +98,14 @@ namespace OpenNefia.Content.Skills
         /// </summary>
         [DataField]
         public int SpeedCorrection { get; set; } = 0;
+
+        /// <summary>
+        /// Whether or not the entity regains HP/MP/stamina at the end of this turn.
+        /// The idea is that this is set to <code>true</code> on the <see cref="EntityTurnStartingEventArgs"/>
+        /// and modified during the <see cref="EntityTurnEndingEventArgs"/>.
+        /// </summary>
+        [DataField]
+        public bool CanRegenerateThisTurn { get; set; } = true;
 
         /// <summary>
         /// Total number of skill bonus points this character has 

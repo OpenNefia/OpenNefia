@@ -15,7 +15,7 @@ namespace OpenNefia.Content.EmotionIcon
         public override string Name => "EmotionIcon";
 
         [DataField]
-        public string EmotionIconId { get; set; } = string.Empty;
+        public string? EmotionIconId { get; set; }
 
         [DataField]
         public int TurnsRemaining { get; set; }

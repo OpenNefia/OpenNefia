@@ -1,4 +1,5 @@
-﻿using OpenNefia.Core.Prototypes;
+﻿using OpenNefia.Content.Prototypes;
+using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Serialization.Manager.Attributes;
 using System;
 using System.Collections.Generic;
@@ -6,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OpenNefia.Content.Prototypes
+namespace OpenNefia.Content.Buffs
 {
     public enum BuffType
     {

@@ -44,8 +44,17 @@ namespace OpenNefia.Content.VanillaAI
 
         public override void Initialize()
         {
+            SubscribeComponent<VanillaAIComponent, EntityTurnStartingEventArgs>(HandleTurnStarting);
             SubscribeComponent<VanillaAIComponent, NPCTurnStartedEvent>(HandleNPCTurnStarted, priority: EventPriorities.VeryLow);
             SubscribeAIActions();
+        }
+
+        private void HandleTurnStarting(EntityUid uid, VanillaAIComponent ai, EntityTurnStartingEventArgs args)
+        {
+            if (!EntityManager.IsAlive(ai.CurrentTarget))
+            {
+                SetTarget(uid, null, ai: ai);
+            }
         }
 
         private void HandleNPCTurnStarted(EntityUid uid, VanillaAIComponent ai, ref NPCTurnStartedEvent args)

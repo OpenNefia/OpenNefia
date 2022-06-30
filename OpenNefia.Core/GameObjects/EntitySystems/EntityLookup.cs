@@ -137,6 +137,26 @@ namespace OpenNefia.Core.GameObjects
             where TComp2 : IComponent
             where TComp3 : IComponent
             where TComp4 : IComponent;
+
+        IEnumerable<TComp> QueryLiveEntitiesAtCoords<TComp>(MapCoordinates coords)
+            where TComp : IComponent;
+        IEnumerable<TComp> QueryLiveEntitiesAtCoords<TComp>(EntityCoordinates coords)
+            where TComp : IComponent;
+
+        IEnumerable<TComp> EntityQueryDirectlyIn<TComp>(EntityUid ent)
+            where TComp : IComponent;
+        IEnumerable<(TComp1, TComp2)> EntityQueryDirectlyIn<TComp1, TComp2>(EntityUid ent)
+            where TComp1 : IComponent
+            where TComp2 : IComponent;
+        IEnumerable<(TComp1, TComp2, TComp3)> EntityQueryDirectlyIn<TComp1, TComp2, TComp3>(EntityUid ent)
+            where TComp1 : IComponent
+            where TComp2 : IComponent
+            where TComp3 : IComponent;
+        IEnumerable<(TComp1, TComp2, TComp3, TComp4)> EntityQueryDirectlyIn<TComp1, TComp2, TComp3, TComp4>(EntityUid ent)
+            where TComp1 : IComponent
+            where TComp2 : IComponent
+            where TComp3 : IComponent
+            where TComp4 : IComponent;
     }
 
     public class EntityLookup : EntitySystem, IEntityLookup
@@ -375,5 +395,70 @@ namespace OpenNefia.Core.GameObjects
             where TComp3 : IComponent
             where TComp4 : IComponent
             => EntityQueryInMap<TComp1, TComp2, TComp3, TComp4>(map.Id, includeChildren);
+
+        public IEnumerable<TComp> QueryLiveEntitiesAtCoords<TComp>(MapCoordinates coords) where TComp : IComponent
+        {
+            foreach (var spatial in GetLiveEntitiesAtCoords(coords))
+            {
+                if (EntityManager.TryGetComponent<TComp>(spatial.Owner, out var comp))
+                    yield return comp;
+            }
+        }
+
+        public IEnumerable<TComp> QueryLiveEntitiesAtCoords<TComp>(EntityCoordinates coords) where TComp : IComponent
+        {
+            return QueryLiveEntitiesAtCoords<TComp>(coords.ToMap(EntityManager));
+        }
+
+        public IEnumerable<TComp> EntityQueryDirectlyIn<TComp>(EntityUid ent) where TComp : IComponent
+        {
+            foreach (var child in GetEntitiesDirectlyIn(ent))
+            {
+                if (EntityManager.TryGetComponent<TComp>(child.Owner, out var comp))
+                    yield return comp;
+            }
+        }
+
+        public IEnumerable<(TComp1, TComp2)> EntityQueryDirectlyIn<TComp1, TComp2>(EntityUid ent) 
+            where TComp1 : IComponent
+            where TComp2 : IComponent
+        {
+            foreach (var child in GetEntitiesDirectlyIn(ent))
+            {
+                if (EntityManager.TryGetComponent<TComp1>(child.Owner, out var comp1)
+                    && EntityManager.TryGetComponent<TComp2>(child.Owner, out var comp2))
+                    yield return (comp1, comp2);
+            }
+        }
+
+        public IEnumerable<(TComp1, TComp2, TComp3)> EntityQueryDirectlyIn<TComp1, TComp2, TComp3>(EntityUid ent)
+            where TComp1 : IComponent
+            where TComp2 : IComponent
+            where TComp3 : IComponent
+        {
+            foreach (var child in GetEntitiesDirectlyIn(ent))
+            {
+                if (EntityManager.TryGetComponent<TComp1>(child.Owner, out var comp1)
+                    && EntityManager.TryGetComponent<TComp2>(child.Owner, out var comp2)
+                    && EntityManager.TryGetComponent<TComp3>(child.Owner, out var comp3))
+                    yield return (comp1, comp2, comp3);
+            }
+        }
+
+        public IEnumerable<(TComp1, TComp2, TComp3, TComp4)> EntityQueryDirectlyIn<TComp1, TComp2, TComp3, TComp4>(EntityUid ent)
+            where TComp1 : IComponent
+            where TComp2 : IComponent
+            where TComp3 : IComponent
+            where TComp4 : IComponent
+        {
+            foreach (var child in GetEntitiesDirectlyIn(ent))
+            {
+                if (EntityManager.TryGetComponent<TComp1>(child.Owner, out var comp1)
+                    && EntityManager.TryGetComponent<TComp2>(child.Owner, out var comp2)
+                    && EntityManager.TryGetComponent<TComp3>(child.Owner, out var comp3)
+                    && EntityManager.TryGetComponent<TComp4>(child.Owner, out var comp4))
+                    yield return (comp1, comp2, comp3, comp4);
+            }
+        }
     }
 }

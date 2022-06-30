@@ -30,6 +30,7 @@ using OpenNefia.Content.EffectMap;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.Rendering;
 using System.Collections.Immutable;
+using OpenNefia.Content.Encounters;
 
 namespace OpenNefia.Content.GameObjects
 {
@@ -51,12 +52,15 @@ namespace OpenNefia.Content.GameObjects
         [Dependency] private readonly IAudioManager _audio = default!;
         [Dependency] private readonly IEffectMapSystem _effectMaps = default!;
         [Dependency] private readonly IRandom _rand = default!;
+        [Dependency] private readonly IEntityLookup _lookup = default!;
+        [Dependency] private readonly IEncounterSystem _encounters = default!;
 
         public override void Initialize()
         {
             SubscribeComponent<MoveableComponent, CollideWithEventArgs>(HandleCollideWith, priority: EventPriorities.Low);
             SubscribeComponent<MoveableComponent, AfterMoveEventArgs>(CheckMovementIntoWater, priority: EventPriorities.Low);
             SubscribeComponent<PlayerComponent, AfterMoveEventArgs>(LeaveFootsteps, priority: EventPriorities.Low);
+            SubscribeComponent<PlayerComponent, AfterMoveEventArgs>(ProcRandomEncounters, priority: EventPriorities.VeryLow);
         }
 
         private void HandleCollideWith(EntityUid uid, MoveableComponent _, CollideWithEventArgs args)
@@ -200,6 +204,27 @@ namespace OpenNefia.Content.GameObjects
                         _footstep++;
                     }
                 }
+            }
+        }
+
+        private void ProcRandomEncounters(EntityUid uid, PlayerComponent component, AfterMoveEventArgs args)
+        {
+            if (args.Handled)
+                return;
+
+            if (!_gameSession.IsPlayer(uid) || !TryMap(uid, out var map, _mapMan))
+                return;
+
+            var spatial = Spatial(uid);
+
+            if (!HasComp<MapTypeWorldMapComponent>(map.MapEntityUid) || _lookup.QueryLiveEntitiesAtCoords<MObjComponent>(spatial.MapPosition).Any())
+                return;
+
+            var id = _encounters.PickRandomEncounterID();
+            if (id != null)
+            {
+                _encounters.StartEncounter(id);
+                args.Handled = true;
             }
         }
     }

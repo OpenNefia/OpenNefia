@@ -28,6 +28,9 @@ namespace OpenNefia.Content.Inventory
         [DataField]
         public int? MaxWeight { get; set; } = 0;
 
+        [DataField]
+        public BurdenType BurdenType { get; set; } = BurdenType.None;
+
         protected override void Initialize()
         {
             base.Initialize();
@@ -48,5 +51,14 @@ namespace OpenNefia.Content.Inventory
 
             return true;
         }
+    }
+
+    public enum BurdenType
+    {
+        None,
+        Light,
+        Moderate,
+        Heavy,
+        Max
     }
 }

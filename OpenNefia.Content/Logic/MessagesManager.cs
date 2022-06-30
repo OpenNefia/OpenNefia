@@ -15,6 +15,7 @@ namespace OpenNefia.Content.Logic
     {
         void Newline();
         void Display(string text, Color? color = null, bool alert = false, bool noCapitalize = false, EntityUid? entity = null);
+        void Alert();
         void Clear();
     }
 
@@ -51,14 +52,17 @@ namespace OpenNefia.Content.Logic
             // >>>>>>>> elona122/shade2/init.hsp:3570 	if msgAlert@=true:if cfg_alert@>1{ ...
             if (alert)
             {
-                var wait = _config.GetCVar(CCVars.AnimeAlertWait);
-
-                while (wait > 0f)
-                {
-                    wait -= _gameController.StepFrame();
-                }
+                Alert();
             }
             // <<<<<<<< elona122/shade2/init.hsp:3581 		} ...
+        }
+
+        public void Alert()
+        {
+            var wait = _config.GetCVar(CCVars.AnimeAlertWait);
+
+            while (wait > 0f)
+                wait -= _gameController.StepFrame();
         }
 
         public void Clear()

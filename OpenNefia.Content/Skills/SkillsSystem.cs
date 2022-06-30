@@ -6,6 +6,7 @@ using OpenNefia.Content.Equipment;
 using OpenNefia.Content.GameObjects;
 using OpenNefia.Content.Levels;
 using OpenNefia.Content.Logic;
+using OpenNefia.Content.TurnOrder;
 using OpenNefia.Core.Game;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
@@ -71,6 +72,9 @@ namespace OpenNefia.Content.Skills
         /// Applies the skill point bonus. Does not consume any skill points.
         /// </summary>
         void ApplyBonusPoint(EntityUid uid, PrototypeId<SkillPrototype> skillId, SkillsComponent? skills = null);
+        void HealHP(EntityUid uid, int amount, bool showMessage = true, SkillsComponent? skills = null);
+        void HealMP(EntityUid uid, int amount, bool showMessage = true, SkillsComponent? skills = null);
+        void HealStamina(EntityUid uid, int amount, bool showMessage = true, SkillsComponent? skills = null);
 
         #endregion
     }
@@ -84,6 +88,9 @@ namespace OpenNefia.Content.Skills
         {
             SubscribeComponent<SkillsComponent, EntityRefreshEvent>(HandleRefresh, priority: EventPriorities.VeryHigh);
             SubscribeComponent<SkillsComponent, EntityGeneratedEvent>(HandleGenerated, priority: EventPriorities.VeryHigh);
+
+            SubscribeComponent<SkillsComponent, EntityTurnStartingEventArgs>(HandleTurnStarting, priority: EventPriorities.VeryHigh);
+            SubscribeComponent<SkillsComponent, EntityTurnEndingEventArgs>(HandleTurnEnding, priority: EventPriorities.Low);
         }
 
         private void HandleGenerated(EntityUid uid, SkillsComponent component, ref EntityGeneratedEvent args)

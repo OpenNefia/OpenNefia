@@ -1,10 +1,4 @@
 ﻿using OpenNefia.Core.Serialization.Manager.Attributes;
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OpenNefia.Content.World
 {
@@ -17,13 +11,19 @@ namespace OpenNefia.Content.World
         public const long SecondsPerMinute = 60;
         public const long SecondsPerHour   = 60 * 60;
         public const long SecondsPerDay    = 60 * 60 * 24;
-        
+        public const long SecondsPerMonth  = 60 * 60 * 24 * 31;
+        public const long SecondsPerYear   = 60 * 60 * 24 * 31 * 12;
+
         public static GameTimeSpan Zero => new(0);
         public static GameTimeSpan MinValue => new(long.MinValue);
         public static GameTimeSpan MaxValue => new(long.MaxValue);
 
+        public static GameTimeSpan FromSeconds(int seconds) => new(0, 0, seconds);
+        public static GameTimeSpan FromMinutes(int minutes) => new(0, minutes, 0);
         public static GameTimeSpan FromHours(int hours) => new(hours, 0, 0);
-        public static GameTimeSpan FromDays(int days) => new(days * 24, 0, 0);
+        public static GameTimeSpan FromDays(int days) => new(0, 0, days, 0, 0, 0);
+        public static GameTimeSpan FromMonths(int months) => new(0, months, 0, 0, 0, 0);
+        public static GameTimeSpan FromYears(int years) => new(years, 0, 0, 0, 0, 0);
 
         public GameTimeSpan()
         {
@@ -31,8 +31,11 @@ namespace OpenNefia.Content.World
         }
 
         public GameTimeSpan(int hours, int minutes, int seconds)
+            : this(0, 0, 0, hours, minutes, seconds) {}
+
+        public GameTimeSpan(int years, int months, int days, int hours, int minutes, int seconds)
         {
-            Set(hours, minutes, seconds);
+            Set(years, months, days, hours, minutes, seconds);
         }
 
         public GameTimeSpan(long totalSeconds)
@@ -50,11 +53,14 @@ namespace OpenNefia.Content.World
             TotalSeconds = other.TotalSeconds;
         }
 
-        public void Set(int hours, int minutes, int seconds)
+        public void Set(int years, int months, int days, int hours, int minutes, int seconds)
         {
             TotalSeconds = seconds
                 + minutes * SecondsPerMinute
-                + hours * SecondsPerHour;
+                + hours * SecondsPerHour
+                + days * SecondsPerDay
+                + months * SecondsPerMonth
+                + years * SecondsPerYear;
         }
 
         /// <summary>
@@ -64,25 +70,37 @@ namespace OpenNefia.Content.World
         public long TotalSeconds { get; private set; }
 
         /// <summary>
-        /// Gets the days component tof the time interval this time span represents.
+        /// Gets the years component of the time interval this time span represents.
         /// </summary>
-        public int Day    => (int)(TotalSeconds / SecondsPerDay);
+        public int Year => (int)(TotalSeconds / SecondsPerYear);
 
         /// <summary>
-        /// Gets the hours component tof the time interval this time span represents.
+        /// Gets the months component of the time interval this time span represents.
+        /// </summary>
+        public int Month => (int)((TotalSeconds / SecondsPerMonth) % 12);
+
+        /// <summary>
+        /// Gets the days component of the time interval this time span represents.
+        /// </summary>
+        public int Day    => (int)((TotalSeconds / SecondsPerDay) % 31);
+
+        /// <summary>
+        /// Gets the hours component of the time interval this time span represents.
         /// </summary>
         public int Hour   => (int)((TotalSeconds / SecondsPerHour) % 24);
 
         /// <summary>
-        /// Gets the minutes component tof the time interval this time span represents.
+        /// Gets the minutes component of the time interval this time span represents.
         /// </summary>
         public int Minute => (int)((TotalSeconds / SecondsPerMinute) % 60);
 
         /// <summary>
-        /// Gets the seconds component tof the time interval this time span represents.
+        /// Gets the seconds component of the time interval this time span represents.
         /// </summary>
         public int Second => (int)(TotalSeconds % 60);
 
+        public int TotalYears => (int)(TotalSeconds / SecondsPerYear);
+        public int TotalMonths => (int)(TotalSeconds / SecondsPerMonth);
         public int TotalDays => (int)(TotalSeconds / SecondsPerDay);
         public int TotalHours => (int)((TotalSeconds / SecondsPerHour));
         public int TotalMinutes => (int)((TotalSeconds / SecondsPerMinute));

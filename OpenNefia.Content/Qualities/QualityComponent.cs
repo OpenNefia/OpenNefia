@@ -1,5 +1,6 @@
 ﻿using OpenNefia.Content.Logic;
 using OpenNefia.Core.GameObjects;
+using OpenNefia.Core.Locale;
 using OpenNefia.Core.Serialization.Manager.Attributes;
 using OpenNefia.Core.Stats;
 using System;
@@ -27,5 +28,13 @@ namespace OpenNefia.Content.Qualities
         Great = 4,
         God = 5,
         Unique = 6
+    }
+
+    public static class QualityExtensions
+    {
+        public static string GetLocalizedName(this Quality quality)
+        {
+            return Loc.GetString("Elona.Quality.Names. " + quality.ToString());
+        }
     }
 }

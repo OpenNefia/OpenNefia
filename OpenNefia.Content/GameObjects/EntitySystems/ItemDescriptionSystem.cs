@@ -1,4 +1,5 @@
-﻿using OpenNefia.Content.Inventory;
+﻿using OpenNefia.Content.Identify;
+using OpenNefia.Content.Inventory;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Locale;
 using OpenNefia.Core.Utility;

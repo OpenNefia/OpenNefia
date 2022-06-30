@@ -23,6 +23,39 @@ namespace OpenNefia.Content.Skills
             skills.Stamina = skills.MaxStamina;
         }
 
+        public void HealHP(EntityUid uid, int amount, bool showMessage = true, SkillsComponent? skills = null)
+        {
+            if (!Resolve(uid, ref skills))
+                return;
+
+            amount = Math.Clamp(amount, 0, skills.MaxHP - skills.HP);
+            skills.HP += amount;
+
+            var ev = new AfterHealEvent(uid, HealType.HP, amount, showMessage);
+            RaiseEvent(uid, ref ev);
+        }
+
+        public void HealMP(EntityUid uid, int amount, bool showMessage = true, SkillsComponent? skills = null)
+        {
+            if (!Resolve(uid, ref skills))
+                return;
+
+            amount = Math.Clamp(amount, 0, skills.MaxMP - skills.MP);
+            skills.MP += amount;
+
+            var ev = new AfterHealEvent(uid, HealType.MP, amount, showMessage);
+            RaiseEvent(uid, ref ev);
+        }
+
+        public void HealStamina(EntityUid uid, int amount, bool showMessage = true, SkillsComponent? skills = null)
+        {
+            if (!Resolve(uid, ref skills))
+                return;
+
+            var ev = new AfterHealEvent(uid, HealType.Stamina, amount, showMessage);
+            RaiseEvent(uid, ref ev);
+        }
+
         public void GainBonusPoints(EntityUid uid, int bonusPoints, SkillsComponent? skills = null)
         {
             if (!Resolve(uid, ref skills))
@@ -41,6 +74,30 @@ namespace OpenNefia.Content.Skills
             ModifyPotential(uid, skillId, Math.Clamp(15 - Potential(uid, skillId) / 15, 2, 15), skills);
             _refresh.Refresh(uid);
             // <<<<<<<< shade2/command.hsp:2743 		goto *com_charaInfo_loop ..
+        }
+    }
+
+    public enum HealType
+    {
+        HP,
+        MP,
+        Stamina
+    }
+
+    [ByRefEvent]
+    public struct AfterHealEvent
+    {
+        public EntityUid Entity { get; }
+        public HealType Type { get; }
+        public int Amount { get; }
+        public bool ShowMessage { get; }
+
+        public AfterHealEvent(EntityUid uid, HealType type, int amount, bool showMessage)
+        {
+            Entity = uid;
+            Type = type;
+            Amount = amount;
+            ShowMessage = showMessage;
         }
     }
 }
