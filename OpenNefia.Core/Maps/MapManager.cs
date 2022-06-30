@@ -167,7 +167,7 @@ namespace OpenNefia.Core.Maps
                 _entityManager.StartComponents(newEnt);
                 Logger.DebugS("map", $"Binding map {actualID} to entity {newEnt}");
 
-                var ev = new MapCreatedEvent(map, loadedFromSave: false);
+                var ev = new MapCreatedEvent(map, MapCreationMode.Normal);
                 _entityManager.EventBus.RaiseEvent(map.MapEntityUid, ev);
 
                 return newEnt;
@@ -314,18 +314,36 @@ namespace OpenNefia.Core.Maps
     }
 
     /// <summary>
-    /// Raised when a map is either created from scratch or loaded
-    /// from save data.
+    /// Raised when a map is created from scratch.
     /// </summary>
     public sealed class MapCreatedEvent : EntityEventArgs
     {
         public IMap Map { get; }
-        public bool LoadedFromSave { get; }
-
-        public MapCreatedEvent(IMap map, bool loadedFromSave)
+        public MapCreationMode Mode { get; }
+        
+        public MapCreatedEvent(IMap map, MapCreationMode mode)
         {
             Map = map;
-            LoadedFromSave = loadedFromSave;
+            Mode = mode;
+        }
+    }
+
+    public enum MapCreationMode
+    {
+        Normal,
+        LoadedFromBlueprint,
+    }
+
+    /// <summary>
+    /// Raised when a map is loaded from save data.
+    /// </summary>
+    public sealed class MapLoadedFromSaveEvent : EntityEventArgs
+    {
+        public IMap Map { get; }
+
+        public MapLoadedFromSaveEvent(IMap map)
+        {
+            Map = map;
         }
     }
 

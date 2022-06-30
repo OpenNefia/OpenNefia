@@ -17,15 +17,26 @@ namespace OpenNefia.Content.MapVisibility
         public override void Initialize()
         {
             SubscribeBroadcast<MapCreatedEvent>(HandleMapCreated, priority: EventPriorities.Highest);
+            SubscribeBroadcast<MapLoadedFromSaveEvent>(HandleMapLoadedFromSave, priority: EventPriorities.Highest);
             SubscribeComponent<MapVisibilityComponent, RefreshMapVisibilityEvent>(RefreshVisibility, priority: EventPriorities.High);
         }
 
         private void HandleMapCreated(MapCreatedEvent ev)
         {
-            var mapVis = EntityManager.EnsureComponent<MapVisibilityComponent>(ev.Map.MapEntityUid);
+            InitializeShadowMap(ev.Map);
+        }
+
+        private void HandleMapLoadedFromSave(MapLoadedFromSaveEvent ev)
+        {
+            InitializeShadowMap(ev.Map);
+        }
+
+        private void InitializeShadowMap(IMap map)
+        {
+            var mapVis = EntityManager.EnsureComponent<MapVisibilityComponent>(map.MapEntityUid);
 
             EntitySystem.InjectDependencies(mapVis.ShadowMap);
-            mapVis.ShadowMap.Initialize(ev.Map);
+            mapVis.ShadowMap.Initialize(map);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
