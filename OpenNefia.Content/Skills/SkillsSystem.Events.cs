@@ -21,6 +21,9 @@ namespace OpenNefia.Content.Skills
 
         private void HandleTurnStarting(EntityUid uid, SkillsComponent skills, EntityTurnStartingEventArgs args)
         {
+            if (args.Handled)
+                return;
+
             skills.CanRegenerateThisTurn = true;
 
             if (_gameSession.IsPlayer(uid))

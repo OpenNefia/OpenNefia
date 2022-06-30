@@ -1,5 +1,9 @@
-﻿using OpenNefia.Content.Weight;
+﻿using OpenNefia.Content.Logic;
+using OpenNefia.Content.TurnOrder;
+using OpenNefia.Content.Weight;
 using OpenNefia.Core.GameObjects;
+using OpenNefia.Core.IoC;
+using OpenNefia.Core.Locale;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,6 +28,26 @@ namespace OpenNefia.Content.Inventory
     /// </summary>
     public sealed class InventorySystem : EntitySystem, IInventorySystem
     {
+        [Dependency] private readonly IMessagesManager _mes = default!;
+
+        public override void Initialize()
+        {
+            SubscribeComponent<InventoryComponent, BeforeMoveEventArgs>(ProcMovementPreventionOnBurden);
+        }
+
+        private void ProcMovementPreventionOnBurden(EntityUid uid, InventoryComponent inv, BeforeMoveEventArgs args)
+        {
+            if (args.Handled)
+                return;
+
+            if (inv.BurdenType >= BurdenType.Max)
+            {
+                _mes.Display(Loc.GetString("Elona.Inventory.CarryTooMuch"), combineDuplicates: true);
+                args.Handle(TurnResult.Failed);
+                return;
+            }
+        }
+
         public IEnumerable<EntityUid> EnumerateLiveItems(EntityUid entity, InventoryComponent? inv = null)
         {
             if (!Resolve(entity, ref inv))

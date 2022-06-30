@@ -39,7 +39,7 @@ namespace OpenNefia.Content.GameObjects
             if (args.Handled || !Resolve(uid, ref player, ref playerSpatial))
                 return;
 
-            var (pos, mapId) = args.NewPosition;
+            var (pos, mapId) = args.DesiredPosition;
 
             if (_mapManager.TryGetMap(mapId, out var map) && !map.IsInBounds(pos))
             {
@@ -65,7 +65,7 @@ namespace OpenNefia.Content.GameObjects
             if (args.Handled || !Resolve(source, ref moveable))
                 return;
 
-            var entities = _lookup.GetLiveEntitiesAtCoords(args.NewPosition)
+            var entities = _lookup.GetLiveEntitiesAtCoords(args.DesiredPosition)
                 .Where(spatial => spatial.IsSolid);
 
             foreach (var collidedSpatial in entities.ToList())

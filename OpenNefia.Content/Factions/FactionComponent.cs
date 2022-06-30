@@ -13,6 +13,9 @@ namespace OpenNefia.Content.Factions
         /// </summary>
         [DataField("relation")]
         public Relation RelationToPlayer { get; set; } = Relation.Neutral;
+
+        [DataField]
+        public Dictionary<EntityUid, Relation> PersonalRelations { get; set; } = new();
     }
 
     public enum Relation : int

@@ -78,6 +78,8 @@ namespace OpenNefia.Core.GameObjects
             if (Raise(uid, evBefore))
                 return evBefore.TurnResult;
 
+            newCoords = evBefore.OutNewPosition;
+
             if (!_mapManager.TryGetMap(newCoords.MapId, out var map)
                 || !map.CanAccess(newCoords.Position))
             {
@@ -124,12 +126,15 @@ namespace OpenNefia.Core.GameObjects
     public class BeforeMoveEventArgs : TurnResultEntityEventArgs
     {
         public readonly MapCoordinates OldPosition;
-        public readonly MapCoordinates NewPosition;
+        public readonly MapCoordinates DesiredPosition;
+
+        public MapCoordinates OutNewPosition;
 
         public BeforeMoveEventArgs(MapCoordinates oldPosition, MapCoordinates newPosition)
         {
             OldPosition = oldPosition;
-            NewPosition = newPosition;
+            DesiredPosition = newPosition;
+            OutNewPosition = DesiredPosition;
         }
     }
 
