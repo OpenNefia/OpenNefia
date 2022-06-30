@@ -1,4 +1,5 @@
 ﻿using OpenNefia.Content.GameObjects.Pickable;
+using OpenNefia.Core;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Locale;
@@ -18,6 +19,7 @@ namespace OpenNefia.Content.Inventory
         public override UiElement MakeIcon() => InventoryHelpers.MakeIcon(InventoryIcon.Drop);
 
         public override bool QueryAmount => true;
+        public override LocaleKey? QueryAmountPrompt => "Elona.Inventory.Behavior.Drop.HowMany";
 
         public override IEnumerable<IInventorySource> GetSources(InventoryContext context)
         {

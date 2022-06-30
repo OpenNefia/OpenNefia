@@ -60,6 +60,11 @@ namespace OpenNefia.Tests
             return false;
         }
 
+        public bool HasString(LocaleKey key)
+        {
+            return false;
+        }
+
         public bool TryGetString(LocaleKey key, [NotNullWhen(true)] out string? str, params LocaleArg[] args)
         {
             str = null;
