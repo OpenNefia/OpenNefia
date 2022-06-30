@@ -23,6 +23,8 @@ namespace OpenNefia.Content.World
         public static GameTimeSpan MaxValue => new(long.MaxValue);
 
         public static GameTimeSpan FromHours(int hours) => new(hours, 0, 0);
+        public static GameTimeSpan FromDays(int days) => new(days * 24, 0, 0);
+
         public GameTimeSpan()
         {
             TotalSeconds = 0;
@@ -85,12 +87,12 @@ namespace OpenNefia.Content.World
         public int TotalHours => (int)((TotalSeconds / SecondsPerHour));
         public int TotalMinutes => (int)((TotalSeconds / SecondsPerMinute));
 
-        public static bool operator ==(GameTimeSpan lhs, GameTimeSpan rhs)
+        public static bool operator ==(GameTimeSpan? lhs, GameTimeSpan? rhs)
         {
-            return lhs.TotalSeconds == rhs.TotalSeconds;
+            return lhs?.TotalSeconds == rhs?.TotalSeconds;
         }
 
-        public static bool operator !=(GameTimeSpan lhs, GameTimeSpan rhs)
+        public static bool operator !=(GameTimeSpan? lhs, GameTimeSpan? rhs)
         {
             return !(lhs == rhs);
         }
