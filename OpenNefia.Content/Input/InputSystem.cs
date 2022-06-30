@@ -15,10 +15,15 @@ using System.Threading.Tasks;
 
 namespace OpenNefia.Content.Input
 {
+    public interface IInputSystem : IEntitySystem
+    {
+        bool PlayerIsRunning();
+    }
+
     /// <summary>
     /// Dispatches bound key events to systems that have registered input command handlers.
     /// </summary>
-    public sealed class InputSystem : EntitySystem
+    public sealed class InputSystem : EntitySystem, IInputSystem
     {
         [Dependency] protected readonly IInputManager _inputManager = default!;
         [Dependency] protected readonly IEntitySystemManager _entitySystemManager = default!;
@@ -36,6 +41,12 @@ namespace OpenNefia.Content.Input
         public override void Initialize()
         {
             _inputManager.KeyBindStateChanged += OnKeyBindStateChanged;
+        }
+
+        public bool PlayerIsRunning()
+        {
+            // TODO
+            return false;
         }
 
         /// <summary>

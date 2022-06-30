@@ -15,6 +15,7 @@ Elona.UserInterface = {
                 ReturnToTitle = "Return to Title",
                 Exit = "Exit",
             },
+            PromptSaveGame = "Save the game?",
         },
 
         Saved = "Your game has been saved successfully.",

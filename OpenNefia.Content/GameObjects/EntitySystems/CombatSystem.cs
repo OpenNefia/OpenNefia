@@ -1,11 +1,13 @@
 ﻿using OpenNefia.Content.Charas;
 using OpenNefia.Content.DisplayName;
 using OpenNefia.Content.Factions;
+using OpenNefia.Content.Input;
 using OpenNefia.Content.Logic;
 using OpenNefia.Content.Maps;
 using OpenNefia.Content.Prototypes;
 using OpenNefia.Content.Skills;
 using OpenNefia.Core.Audio;
+using OpenNefia.Core.Configuration;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Prototypes;
@@ -28,6 +30,8 @@ namespace OpenNefia.Content.GameObjects
         [Dependency] private readonly IDisplayNameSystem _displayNames = default!;
         [Dependency] private readonly IMessagesManager _mes = default!;
         [Dependency] private readonly IMapDebrisSystem _mapDebris = default!;
+        [Dependency] private readonly IConfigurationManager _config = default!;
+        [Dependency] private readonly IInputSystem _input = default!;
 
         public override void Initialize()
         {
@@ -86,21 +90,46 @@ namespace OpenNefia.Content.GameObjects
 
         private void HandleCollideWith(EntityUid uid, MoveableComponent _, CollideWithEventArgs args)
         {
+            // >>>>>>>> shade2 / action.hsp:537        tc = cellChara...
+            if (args.Handled)
+                return;
+
             if (!EntityManager.HasComponent<MoveableComponent>(args.Target))
                 return;
 
             var relation = _factions.GetRelationTowards(uid, args.Target);
-            if (relation >= Relation.Dislike)
-                return;
-
-            var turnResult = MeleeAttack(uid, args.Target);
-
-            if (turnResult != null)
+            
+            if (ShouldDisplace(relation))
             {
-                args.Handled = true;
-                args.TurnResult = turnResult.Value;
-                return;
+                if (TryDisplace(uid, args.Target))
+                {
+                    args.Handle(TurnResult.Succeeded);
+                    return;
+                }
             }
+
+            if (relation <= Relation.Dislike)
+            {
+                var turnResult = MeleeAttack(uid, args.Target);
+
+                if (turnResult != null)
+                {
+                    args.Handle(turnResult.Value);
+                    return;
+                }
+            }
+            // <<<<<<<< shade2/action.hsp:563 		goto *turn_end ..
+        }
+
+        private bool ShouldDisplace(Relation relation)
+        {
+            return relation >= Relation.Ally
+                || (relation == Relation.Dislike && (!_config.GetCVar<bool>(CCVars.GameAttackNeutralNPCs) || _input.PlayerIsRunning()))
+        }
+
+        private bool TryDisplace(EntityUid uid, EntityUid target)
+        {
+            throw new NotImplementedException();
         }
 
         public TurnResult? MeleeAttack(EntityUid attacker, EntityUid target)

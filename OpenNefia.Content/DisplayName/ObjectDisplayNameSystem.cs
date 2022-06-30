@@ -1,5 +1,6 @@
 ﻿using OpenNefia.Analyzers;
 using OpenNefia.Content.Charas;
+using OpenNefia.Content.CustomName;
 using OpenNefia.Content.GameObjects;
 using OpenNefia.Content.Qualities;
 using OpenNefia.Core.GameObjects;
@@ -14,20 +15,24 @@ namespace OpenNefia.Content.DisplayName
 
             SubscribeComponent<CharaComponent, GetDisplayNameEventArgs>(GetCharaName, priority: EventPriorities.Highest);
             SubscribeComponent<ItemComponent, GetDisplayNameEventArgs>(GetItemName, priority: EventPriorities.Highest);
-        }
-
-        public void GetCharaName(EntityUid uid, CharaComponent component, ref GetDisplayNameEventArgs args)
-        {
-            // This is called after DisplayNameSystem puts the base name of the
-            // entity in the event args.
-            args.Name = $"the {args.Name}";
+            SubscribeComponent<CustomNameComponent, GetDisplayNameEventArgs>(GetCustomName, priority: EventPriorities.VeryHigh);
         }
 
         public void GetItemName(EntityUid uid, ItemComponent component, ref GetDisplayNameEventArgs args)
         {
             var ev = new GetItemNameEvent();
             EntityManager.EventBus.RaiseEvent(uid, ref ev);
-            args.Name = ev.ItemName;
+            args.OutName = ev.ItemName;
+        }
+
+        public void GetCharaName(EntityUid uid, CharaComponent component, ref GetDisplayNameEventArgs args)
+        {
+            args.OutName = $"the {args.BaseName}";
+        }
+
+        private void GetCustomName(EntityUid uid, CustomNameComponent component, ref GetDisplayNameEventArgs args)
+        {
+            args.OutName = args.BaseName;
         }
     }
 

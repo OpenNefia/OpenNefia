@@ -28,6 +28,7 @@ using OpenNefia.Content.DisplayName;
 using OpenNefia.Content.SaveLoad;
 using OpenNefia.Content.Weather;
 using OpenNefia.Content.Cargo;
+using OpenNefia.Core.Configuration;
 
 namespace OpenNefia.Content.Maps
 {
@@ -51,6 +52,7 @@ namespace OpenNefia.Content.Maps
         [Dependency] private readonly IWeatherSystem _weather = default!;
         [Dependency] private readonly ICargoSystem _cargo = default!;
         [Dependency] private readonly IMapDebrisSystem _mapDebris = default!;
+        [Dependency] private readonly IConfigurationManager _config = default!;
 
         public const int MapRenewMajorIntervalHours = 120;
         public const int MapRenewMinorIntervalHours = 24;
@@ -188,12 +190,14 @@ namespace OpenNefia.Content.Maps
             // >>>>>>>> shade2/map.hsp:2173 *check_renew ..
             var common = EntityManager.GetComponent<MapCommonComponent>(map.MapEntityUid);
 
-            if (_world.State.GameDate > common.RenewMajorDate)
+            var forceRenewal = _config.GetCVar(CCVars.DebugForceMapRenewal);
+
+            if (_world.State.GameDate > common.RenewMajorDate || forceRenewal == ForceMapRenewalType.Major)
             {
                 RenewMajor(map, common);
                 common.RenewMajorDate = _world.State.GameDate + GameTimeSpan.FromHours(MapRenewMajorIntervalHours);
             }
-            if (_world.State.GameDate > common.RenewMinorDate)
+            if (_world.State.GameDate > common.RenewMinorDate || forceRenewal == ForceMapRenewalType.Minor)
             {
                 RenewMinor(map, common);
                 common.RenewMinorDate = _world.State.GameDate + GameTimeSpan.FromHours(MapRenewMinorIntervalHours);
@@ -310,7 +314,9 @@ namespace OpenNefia.Content.Maps
 
             if (!common.IsTemporary && common.IsRenewable)
             {
-                if (_world.State.GameDate > common.RenewMajorDate && !isFirstRenewal)
+                if ((_world.State.GameDate > common.RenewMajorDate
+                    || _config.GetCVar(CCVars.DebugForceMapRenewal) == ForceMapRenewalType.Major) 
+                    && !isFirstRenewal)
                 {
                     var ev = new MapRenewGeometryEvent();
                     Raise(map.MapEntityUid, ev);

@@ -1,5 +1,5 @@
 ﻿using OpenNefia.Core.Prototypes;
-using BasicAnimPrototypeId = OpenNefia.Core.Prototypes.PrototypeId<OpenNefia.Core.Rendering.BasicAnimPrototype>;
+using BasicAnimPrototypeId = OpenNefia.Core.Prototypes.PrototypeId<OpenNefia.Content.BaseAnim.BasicAnimPrototype>;
 
 namespace OpenNefia.Content.Prototypes
 {

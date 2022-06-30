@@ -1,16 +1,16 @@
 ﻿using OpenNefia.Core.Audio;
 using OpenNefia.Core.Prototypes;
+using OpenNefia.Core.Rendering;
 using OpenNefia.Core.Serialization.Manager.Attributes;
 
-namespace OpenNefia.Core.Rendering
+namespace OpenNefia.Content.BaseAnim
 {
-    [Obsolete("TODO move to content")]
-    [Prototype("BasicAnim", -1)]
+    [Prototype("Elona.BasicAnim", -1)]
     public class BasicAnimPrototype : IPrototype
     {
         [DataField("id", required: true)]
-        public string ID { get; private set; } = default!;       
-       
+        public string ID { get; private set; } = default!;
+
         /// <summary>
         /// How much time to wait between frames of this animation.
         /// </summary>

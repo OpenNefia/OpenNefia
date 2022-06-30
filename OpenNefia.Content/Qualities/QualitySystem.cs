@@ -20,11 +20,11 @@ namespace OpenNefia.Content.Qualities
         {
             if (quality.Quality.Buffed == Quality.Great)
             {
-                args.BaseName = Loc.GetString("Elona.Quality.Brackets.Great", ("name", args.BaseName));
+                args.OutBaseName = Loc.GetString("Elona.Quality.Brackets.Great", ("name", args.OutBaseName));
             }
             else if (quality.Quality.Buffed == Quality.God)
             {
-                args.BaseName = Loc.GetString("Elona.Quality.Brackets.God", ("name", args.BaseName));
+                args.OutBaseName = Loc.GetString("Elona.Quality.Brackets.God", ("name", args.OutBaseName));
             }
         }
     }
