@@ -349,7 +349,7 @@ namespace OpenNefia.Content.Parties
             if (!CanRecruitMoreMembers(leader, partyLeader))
             {
                 if (!noMessage)
-                    _mes.DisplayL("Party.AllyJoins.PartyFull");
+                    _mes.Display(Loc.GetString("Party.AllyJoins.PartyFull"));
                 return false;
             }
 

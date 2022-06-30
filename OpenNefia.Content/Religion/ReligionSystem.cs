@@ -372,7 +372,7 @@ namespace OpenNefia.Content.Religion
                         {
                             CreateGiftItem(item, target, godId);
                         }
-                        _mes.DisplayL("Elona.Common.SomethingIsPut");
+                        _mes.Display(Loc.GetString("Elona.Common.SomethingIsPut"));
                     }
                 }
                 else if (religion.GodRank == 5)
@@ -380,7 +380,7 @@ namespace OpenNefia.Content.Religion
                     if (godProto.Artifact != null)
                     {
                         CreateGiftArtifact(godProto.Artifact.Value, target, godId);
-                        _mes.DisplayL("Elona.Common.SomethingIsPut");
+                        _mes.Display(Loc.GetString("Elona.Common.SomethingIsPut"));
                     }
                 }
 
@@ -399,12 +399,12 @@ namespace OpenNefia.Content.Religion
 
             if (servantsInParty >= 2)
             {
-                _mes.DisplayL("Elona.Religion.Pray.Servant.NoMore");
+                _mes.Display(Loc.GetString("Elona.Religion.Pray.Servant.NoMore"));
                 success = false;
             }
             else if (!_parties.CanRecruitMoreMembers(target))
             {
-                _mes.DisplayL("Elona.Religion.Pray.Servant.PartyIsFull");
+                _mes.Display(Loc.GetString("Elona.Religion.Pray.Servant.PartyIsFull"));
                 success = false;
             }
 
@@ -464,7 +464,7 @@ namespace OpenNefia.Content.Religion
         {
             if (!Resolve(chara, ref religion) || religion.GodID == null)
             {
-                _mes.DisplayL("Elona.Religion.Pray.DoNotBelieve");
+                _mes.Display(Loc.GetString("Elona.Religion.Pray.DoNotBelieve"));
                 return false;
             }
 
@@ -514,7 +514,7 @@ namespace OpenNefia.Content.Religion
                     _drawables.Enqueue(new AnimMiracleMapDrawable(positions), spatial.MapPosition);
                     _audio.Play(Protos.Sound.Pray2, chara);
                     if (altarComp.GodID != null)
-                        _mes.DisplayL("Elona.Religion.Offer.TakeOver.Shadow");
+                        _mes.Display(Loc.GetString("Elona.Religion.Offer.TakeOver.Shadow"));
                     _mes.Display(Loc.GetString("Elona.Religion.Offer.TakeOver.Succeed", ("godName", godName), ("altar", altar.Value)), UiColors.MesYellow);
                     GodSays(godId, "Elona.GodTakeOverSucceed");
                     altarComp.GodID = godId;
