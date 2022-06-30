@@ -19,5 +19,8 @@ namespace OpenNefia.Content.Visibility
 
         [DataField]
         public Stat<bool> CanSeeInvisible { get; set; } = new(false);
+
+        [DataField]
+        public int Noise { get; set; } = 0;
     }
 }

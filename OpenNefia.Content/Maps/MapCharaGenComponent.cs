@@ -25,6 +25,12 @@ namespace OpenNefia.Content.Maps
         public int MaxCharaCount { get; set; } = 100;
 
         /// <summary>
+        /// Current number of characters in this map.
+        /// </summary>
+        [DataField]
+        public int CurrentCharaCount { get; set; } = 0;
+
+        /// <summary>
         /// Random character generation behavior.
         /// </summary>
         [DataField]

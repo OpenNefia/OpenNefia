@@ -29,11 +29,11 @@ namespace OpenNefia.Content
         public static readonly CVarDef<bool> GameAttackNeutralNPCs =
             CVarDef.Create("game.attackNeutralNPCs", false, CVar.Archive);
 
-        public static readonly CVarDef<bool> GameHideShopUpdates =
-            CVarDef.Create("game.hideShopUpdates", false, CVar.Archive);
+        public static readonly CVarDef<ShopUpdatesType> GameHideShopUpdates =
+            CVarDef.Create("game.hideShopUpdates", ShopUpdatesType.None, CVar.Archive);
 
-        public static readonly CVarDef<bool> GameHideAutoidentify =
-            CVarDef.Create("game.hideAutoidentify", false, CVar.Archive);
+        public static readonly CVarDef<AutoIdentifyType> GameHideAutoidentify =
+            CVarDef.Create("game.hideAutoidentify", AutoIdentifyType.None, CVar.Archive);
 
         public static readonly CVarDef<bool> GameExtraHelp =
             CVarDef.Create("game.extraHelp", true, CVar.Archive);
@@ -46,6 +46,12 @@ namespace OpenNefia.Content
 
         public static readonly CVarDef<SaveOnReturnToTitle> GameSaveOnReturnToTitle =
             CVarDef.Create("game.saveOnReturnToTitle", SaveOnReturnToTitle.Never, CVar.Archive);
+
+        public static readonly CVarDef<bool> GameItemShortcutsRespectCurseState =
+            CVarDef.Create("game.itemShortcutsRespectCurseState", false, CVar.Archive);
+
+        public static readonly CVarDef<bool> GameWarnOnSpellOvercast =
+            CVarDef.Create("game.warnOnSpellOvercast", true, CVar.Archive);
 
         /*
          * Display
@@ -122,6 +128,9 @@ namespace OpenNefia.Content
         public static readonly CVarDef<bool> AnimeSkipSleepAnimation =
             CVarDef.Create("anime.skipSleepAnimation", false, CVar.Archive);
 
+        public static readonly CVarDef<bool> AnimeSkipFishingAnimation =
+            CVarDef.Create("anime.skipFishingAnimation", false, CVar.Archive);
+
         /*
          * Input
          */
@@ -181,6 +190,21 @@ namespace OpenNefia.Content
 
         public static readonly CVarDef<ForceMapRenewalType> DebugForceMapRenewal =
             CVarDef.Create("debug.forceMapRenewal", ForceMapRenewalType.Disabled, CVar.Archive);
+
+        public static readonly CVarDef<bool> DebugLivingWeapon =
+            CVarDef.Create("debug.livingWeapon", false, CVar.Archive);
+
+        public static readonly CVarDef<bool> DebugAlwaysDropFigureAndCard =
+            CVarDef.Create("debug.alwaysDropFigureAndCard", false, CVar.Archive);
+
+        public static readonly CVarDef<bool> DebugAlwaysDropRemains =
+            CVarDef.Create("debug.alwaysDropRemains", false, CVar.Archive);
+
+        public static readonly CVarDef<bool> DebugProductionVersatileTool =
+            CVarDef.Create("debug.productionVersatileTool", false, CVar.Archive);
+
+        public static readonly CVarDef<bool> DebugNoEncounters =
+            CVarDef.Create("debug.noEncounters", false, CVar.Archive);
     }
 
     public enum AutosaveType
@@ -196,6 +220,20 @@ namespace OpenNefia.Content
         Always,
         Ask,
         Never,
+    }
+
+    public enum ShopUpdatesType
+    {
+        None,
+        CouldNotSell,
+        All
+    }
+
+    public enum AutoIdentifyType
+    {
+        None,
+        Quality,
+        All
     }
 
     public enum ScrollTargets

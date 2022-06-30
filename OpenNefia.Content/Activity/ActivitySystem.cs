@@ -15,6 +15,7 @@ namespace OpenNefia.Content.Activity
         void InterruptUsing(EntityUid offeringItem);
         void RemoveActivity(EntityUid entity);
         bool TryGetActivity(EntityUid target, [NotNullWhen(true)] out ActivityComponent? activityComp);
+        bool HasActivity(EntityUid entity);
     }
 
     public sealed class ActivitySystem : EntitySystem, IActivitySystem
@@ -59,6 +60,11 @@ namespace OpenNefia.Content.Activity
             }
 
             return true;
+        }
+
+        public bool HasActivity(EntityUid entity)
+        {
+            return TryGetActivity(entity, out _);
         }
     }
 }

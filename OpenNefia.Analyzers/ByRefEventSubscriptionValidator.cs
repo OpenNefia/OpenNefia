@@ -15,6 +15,7 @@ namespace OpenNefia.Analyzers
         public const string EntitySystemTypeName = "OpenNefia.Core.GameObjects.EntitySystem";
         public const string EntityEventRefHandlerTypeName = "OpenNefia.Core.GameObjects.EntityEventRefHandler`1";
         public const string ComponentEventRefHandlerTypeName = "OpenNefia.Core.GameObjects.ComponentEventRefHandler`2";
+        public const string BroadcastEventRefHandlerTypeName = "OpenNefia.Core.GameObjects.BroadcastEventRefHandler`1";
 
         public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics => ImmutableArray.Create(Diagnostics.InvalidEventSubscribingByValue, Diagnostics.InvalidEventSubscribingByRef);
 
@@ -40,8 +41,12 @@ namespace OpenNefia.Analyzers
                 if (componentEventRefHandlerType == null)
                     return;
 
+                var broadcastEventRefHandlerType = compilationContext.Compilation.GetTypeByMetadataName(BroadcastEventRefHandlerTypeName);
+                if (broadcastEventRefHandlerType == null)
+                    return;
+
                 // Initialize state in the start action.
-                var analyzer = new CompilationAnalyzer(byRefEventAttributeType, entitySystemType, entityEventRefHandlerType, componentEventRefHandlerType);
+                var analyzer = new CompilationAnalyzer(byRefEventAttributeType, entitySystemType, entityEventRefHandlerType, componentEventRefHandlerType, broadcastEventRefHandlerType);
 
                 compilationContext.RegisterOperationAction(analyzer.AnalyzeOperation, OperationKind.Invocation);
             });
@@ -53,6 +58,7 @@ namespace OpenNefia.Analyzers
             private readonly INamedTypeSymbol _entitySystemType;
             private readonly INamedTypeSymbol _entityEventRefHandlerType;
             private readonly INamedTypeSymbol _componentEventRefHandlerType;
+            private readonly INamedTypeSymbol _broadcastEventRefHandlerType;
 
             private static HashSet<string> SubMethodNames = new HashSet<string>()
             {
@@ -61,12 +67,13 @@ namespace OpenNefia.Analyzers
                 "SubscribeBroadcast",
             };
 
-            public CompilationAnalyzer(INamedTypeSymbol byRefEventAttributeType, INamedTypeSymbol entitySystemType, INamedTypeSymbol entityEventRefHandlerType, INamedTypeSymbol componentEventRefHandlerType)
+            public CompilationAnalyzer(INamedTypeSymbol byRefEventAttributeType, INamedTypeSymbol entitySystemType, INamedTypeSymbol entityEventRefHandlerType, INamedTypeSymbol componentEventRefHandlerType, INamedTypeSymbol broadcastEventRefHandlerType)
             {
                 _byRefEventAttributeType = byRefEventAttributeType;
                 _entitySystemType = entitySystemType;
                 _entityEventRefHandlerType = entityEventRefHandlerType;
                 _componentEventRefHandlerType = componentEventRefHandlerType;
+                _broadcastEventRefHandlerType = broadcastEventRefHandlerType;
             }
 
             public void AnalyzeOperation(OperationAnalysisContext context)
@@ -98,7 +105,7 @@ namespace OpenNefia.Analyzers
                             var isEventByRef = eventType.GetAttributes()
                                     .Any(attr => SymbolEqualityComparer.Default.Equals(attr.AttributeClass, _byRefEventAttributeType));
                             
-                            var isSubscribedByRef = SymbolEqualityComparer.Default.Equals(handler.Type.OriginalDefinition, _componentEventRefHandlerType) || SymbolEqualityComparer.Default.Equals(handler.Type.OriginalDefinition, _entityEventRefHandlerType);
+                            var isSubscribedByRef = SymbolEqualityComparer.Default.Equals(handler.Type.OriginalDefinition, _componentEventRefHandlerType) || SymbolEqualityComparer.Default.Equals(handler.Type.OriginalDefinition, _entityEventRefHandlerType) || SymbolEqualityComparer.Default.Equals(handler.Type.OriginalDefinition, _broadcastEventRefHandlerType);
 
                             if (isEventByRef != isSubscribedByRef)
                             {

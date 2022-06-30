@@ -288,7 +288,7 @@ namespace OpenNefia.Content.Maps
             if (TryComp<MapVanillaAIComponent>(map.MapEntityUid, out var vai))
                 noAggroRefresh = vai.NoAggroRefresh;
 
-            gen.MaxCharaCount = 0;
+            gen.CurrentCharaCount = 0;
             foreach (var (chara, turnOrder) in _lookup.EntityQueryInMap<CharaComponent, TurnOrderComponent>(map.Id))
             {
                 turnOrder.TimeThisTurn = 0;
@@ -298,7 +298,7 @@ namespace OpenNefia.Content.Maps
                 }
                 if (!_parties.IsInPlayerParty(chara.Owner) && chara.Liveness == CharaLivenessState.Dead)
                 {
-                    gen.MaxCharaCount++;
+                    gen.CurrentCharaCount++;
                 }
             }
         }

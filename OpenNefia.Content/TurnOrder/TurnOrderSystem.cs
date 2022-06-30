@@ -55,7 +55,7 @@ namespace OpenNefia.Content.TurnOrder
     /// first for the ability to take an action, followed by other characters.
     /// </para>
     /// <para>
-    /// Then, the initial "turn budget" each character gets is calculated. More budget means more actions.
+    /// Then, the initial "turn budget" each character gets is calculated. A larger budget means more actions.
     /// When a turn begins, each character's turn budget is replenished based on their speed. Each turn, every
     /// character in the map is iterated. if a character has a greater budget than the cost per action for the map,
     /// they can take an action and subtract the cost from their budget. Otherwise, their turn is skipped until their 
@@ -293,9 +293,9 @@ namespace OpenNefia.Content.TurnOrder
             }
         }
 
-        private TimeSpan TimeUnitsToSeconds(int timeUnits)
+        private GameTimeSpan TimeUnitsToSeconds(int timeUnits)
         {
-            return TimeSpan.FromSeconds(timeUnits / 5 + 1);
+            return GameTimeSpan.FromSeconds(timeUnits / 5 + 1);
         }
 
         private TurnOrderState DoTurnBegin()
@@ -330,7 +330,7 @@ namespace OpenNefia.Content.TurnOrder
 
             if (!mapTurnOrder.IsFirstTurn)
             {
-                _world.PassTime(TimeUnitsToSeconds(startingTurnTime / 5 + 1));
+                _world.PassTime(TimeUnitsToSeconds(startingTurnTime));
             }
 
             return TurnOrderState.PassTurns;
@@ -404,6 +404,10 @@ namespace OpenNefia.Content.TurnOrder
             {
                 return ev.TurnResult.ToTurnOrderState();
             }
+
+            var ev2 = new EntityPassTurnEventArgs();
+            if (Raise(nextInOrder.Owner, ev2))
+                return ev2.TurnResult.ToTurnOrderState();
 
             if (_gameSession.IsPlayer(nextInOrder.Owner))
             {
@@ -546,6 +550,10 @@ namespace OpenNefia.Content.TurnOrder
         }
 
         public bool IsFirstTurn { get; }
+    }
+
+    public class EntityPassTurnEventArgs : TurnResultEntityEventArgs
+    {
     }
 
     public class EntityTurnEndingEventArgs : TurnResultEntityEventArgs

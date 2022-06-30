@@ -9,6 +9,7 @@ using OpenNefia.Core.Locale;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Core.Log;
 using OpenNefia.Content.Prototypes;
+using OpenNefia.Content.Identify;
 
 namespace OpenNefia.Content.Inventory
 {

@@ -4,7 +4,6 @@ using OpenNefia.Core.Rendering;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
-using OpenNefia.Content.GameObjects;
 using OpenNefia.Content.Charas;
 using OpenNefia.Content.Skills;
 using OpenNefia.Content.World;
@@ -34,6 +33,7 @@ using OpenNefia.Content.CharaAppearance;
 using OpenNefia.Core.Audio;
 using System.Xml.Linq;
 using OpenNefia.Content.Weight;
+using OpenNefia.Content.Buffs;
 
 namespace OpenNefia.Content.CharaInfo
 {

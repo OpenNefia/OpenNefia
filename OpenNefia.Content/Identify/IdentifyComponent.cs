@@ -2,7 +2,7 @@
 using OpenNefia.Core.Locale;
 using OpenNefia.Core.Serialization.Manager.Attributes;
 
-namespace OpenNefia.Content.GameObjects
+namespace OpenNefia.Content.Identify
 {
     [RegisterComponent]
     public class IdentifyComponent : Component, IComponentLocalizable

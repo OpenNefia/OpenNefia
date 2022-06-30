@@ -75,6 +75,7 @@
     isOpaque: false
   - type: Chip
     drawDepth: Feats
+  - type: MObj
 
 - type: Entity
   id: BaseMef

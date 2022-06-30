@@ -16,7 +16,7 @@ namespace OpenNefia.Content.World
     {
         WorldState State { get; }
 
-        void PassTime(TimeSpan time, bool noEvents = false);
+        void PassTime(GameTimeSpan time, bool noEvents = false);
     }
 
     public class WorldSystem : EntitySystem, IWorldSystem
@@ -26,7 +26,7 @@ namespace OpenNefia.Content.World
         [RegisterSaveData("Elona.WorldSystem.State")]
         public WorldState State { get; } = new();
 
-        public void PassTime(TimeSpan time, bool noEvents = false)
+        public void PassTime(GameTimeSpan time, bool noEvents = false)
         {
             var map = _mapManager.ActiveMap;
             if (map == null)
@@ -37,7 +37,7 @@ namespace OpenNefia.Content.World
             // Also, events are only fired when one of the counters rolls over to zero. That's
             // the reason why the addition is manual.
             var date = State.GameDate;
-            
+
             var newSeconds = date.Second;
             var newMinutes = date.Minute;
             var newHours = date.Hour;
@@ -45,14 +45,15 @@ namespace OpenNefia.Content.World
             var newMonths = date.Month;
             var newYears = date.Year;
 
+            int secondsPassed = (int)time.TotalSeconds;
             int minutesPassed = 0;
             int hoursPassed = 0;
             int daysPassed = 0;
             int monthsPassed = 0;
             int yearsPassed = 0;
-
-            newSeconds += (int)time.TotalSeconds;
-            if (newSeconds > 0)
+            
+            newSeconds += secondsPassed;
+            if (newSeconds >= 60)
             {
                 minutesPassed = newSeconds / 60;
                 newSeconds %= 60;
@@ -91,71 +92,33 @@ namespace OpenNefia.Content.World
 
             if (!noEvents)
             {
-                if (hoursPassed > 0)
-                {
-                    var ev = new MapOnHoursPassedEvent(hoursPassed);
-                    RaiseEvent(map.MapEntityUid, ref ev);
-                }
-                if (daysPassed > 0)
-                {
-                    var ev = new MapOnDaysPassedEvent(daysPassed);
-                    RaiseEvent(map.MapEntityUid, ref ev);
-                }
-                if (monthsPassed > 0)
-                {
-                    var ev = new MapOnMonthsPassedEvent(monthsPassed);
-                    RaiseEvent(map.MapEntityUid, ref ev);
-                }
-                if (yearsPassed > 0)
-                {
-                    var ev = new MapOnYearsPassedEvent(yearsPassed);
-                    RaiseEvent(map.MapEntityUid, ref ev);
-                }
+                var ev = new MapOnTimePassedEvent(map, yearsPassed, monthsPassed, daysPassed, hoursPassed, minutesPassed, secondsPassed);
+                RaiseEvent(map.MapEntityUid, ref ev);
+
             }
         }
     }
 
     [ByRefEvent]
-    public struct MapOnHoursPassedEvent
+    public struct MapOnTimePassedEvent
     {
-        public int HoursPassed { get; }
-
-        public MapOnHoursPassedEvent(int hoursPassed)
-        {
-            HoursPassed = hoursPassed;
-        }
-    }
-
-    [ByRefEvent]
-    public struct MapOnDaysPassedEvent
-    {
-        public int DaysPassed { get; }
-
-        public MapOnDaysPassedEvent(int hoursPassed)
-        {
-            DaysPassed = hoursPassed;
-        }
-    }
-
-    [ByRefEvent]
-    public struct MapOnMonthsPassedEvent
-    {
-        public int MonthsPassed { get; }
-
-        public MapOnMonthsPassedEvent(int hoursPassed)
-        {
-            MonthsPassed = hoursPassed;
-        }
-    }
-
-    [ByRefEvent]
-    public struct MapOnYearsPassedEvent
-    {
+        public IMap Map { get; }
         public int YearsPassed { get; }
+        public int MonthsPassed { get; }
+        public int DaysPassed { get; }
+        public int HoursPassed { get; }
+        public int MinutesPassed { get; }
+        public int SecondsPassed { get; }
 
-        public MapOnYearsPassedEvent(int hoursPassed)
+        public MapOnTimePassedEvent(IMap map, int yearsPassed, int monthsPassed, int daysPassed, int hoursPassed, int minutesPassed, int secondsPassed)
         {
-            YearsPassed = hoursPassed;
+            Map = map;
+            YearsPassed = yearsPassed;
+            MonthsPassed = monthsPassed;
+            DaysPassed = daysPassed;
+            HoursPassed = hoursPassed;
+            MinutesPassed = minutesPassed;
+            SecondsPassed = secondsPassed;
         }
     }
 
@@ -197,7 +160,7 @@ namespace OpenNefia.Content.World
         /// </summary>
         [DataField]
         public int RandomSeed { get; set; }
-    
+
         /// <summary>
         /// The deepest dungeon level the player has traversed to.
         /// </summary>

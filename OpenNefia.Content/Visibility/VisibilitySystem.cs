@@ -1,5 +1,6 @@
 ﻿using Love;
 using OpenNefia.Content.GameObjects;
+using OpenNefia.Content.TurnOrder;
 using OpenNefia.Core.Game;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
@@ -43,12 +44,18 @@ namespace OpenNefia.Content.Visibility
         public override void Initialize()
         {
             SubscribeComponent<VisibilityComponent, EntityRefreshEvent>(OnEntityRefresh, priority: EventPriorities.Highest);
+            SubscribeComponent<VisibilityComponent, EntityTurnStartingEventArgs>(OnTurnStart);
         }
 
         private void OnEntityRefresh(EntityUid uid, VisibilityComponent vis, ref EntityRefreshEvent args)
         {
             vis.IsInvisible.Reset();
             vis.CanSeeInvisible.Reset();
+        }
+
+        private void OnTurnStart(EntityUid uid, VisibilityComponent vis, EntityTurnStartingEventArgs args)
+        {
+            vis.Noise = 0;
         }
 
         public bool IsInWindowFov(EntityUid target, SpatialComponent? spatial = null)

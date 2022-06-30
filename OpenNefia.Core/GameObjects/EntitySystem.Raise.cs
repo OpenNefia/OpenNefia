@@ -5,6 +5,7 @@ using System.Runtime.CompilerServices;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Log;
 using OpenNefia.Core.Maps;
+using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Utility;
 
 namespace OpenNefia.Core.GameObjects
@@ -27,7 +28,7 @@ namespace OpenNefia.Core.GameObjects
             where T2 : TurnResultEntityEventArgs
         {
             RaiseEvent(uid, args);
-            
+
             if (args.Handled || !EntityManager.IsAlive(uid))
             {
                 propagateTo.Handled = true;
@@ -39,8 +40,8 @@ namespace OpenNefia.Core.GameObjects
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        protected T GetComp<T>(EntityUid uid) 
-            where T: class, IComponent
+        protected T GetComp<T>(EntityUid uid)
+            where T : class, IComponent
         {
             return EntityManager.GetComponent<T>(uid);
         }
@@ -60,6 +61,40 @@ namespace OpenNefia.Core.GameObjects
         protected SpatialComponent Spatial(EntityUid uid)
         {
             return EntityManager.GetComponent<SpatialComponent>(uid);
+        }
+
+        /// <summary>
+        ///     Returns the <see cref="MetaDataComponent"/> on an entity.
+        /// </summary>
+        /// <exception cref="KeyNotFoundException">Thrown when the entity doesn't exist.</exception>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        protected MetaDataComponent MetaData(EntityUid uid)
+        {
+            return EntityManager.GetComponent<MetaDataComponent>(uid);
+        }
+
+        protected bool TryProto(EntityUid uid, [NotNullWhen(true)] out EntityPrototype? proto)
+        {
+            if (!TryComp<MetaDataComponent>(uid, out var metaData))
+            {
+                proto = null;
+                return false;
+            }
+
+            proto = metaData.EntityPrototype;
+            return proto != null;
+        }
+        
+        protected bool TryProtoID(EntityUid uid, [NotNullWhen(true)] out PrototypeId<EntityPrototype>? protoID)
+        {
+            if (!TryComp<MetaDataComponent>(uid, out var metaData))
+            {
+                protoID = null;
+                return false;
+            }
+
+            protoID = metaData.EntityPrototype?.GetStrongID();
+            return protoID != null;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
