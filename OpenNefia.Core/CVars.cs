@@ -16,13 +16,6 @@ namespace OpenNefia.Core
         }
 
         /*
-         * Message
-         */
-
-        public static readonly CVarDef<int> MessageFade =
-            CVarDef.Create("message.fade", 50, CVar.Archive);
-
-        /*
          * Log
          */
 
@@ -72,16 +65,6 @@ namespace OpenNefia.Core
         // think emacs' defcustom
         public static readonly CVarDef<string> DisplayTitle =
             CVarDef.Create("display.title", "OpenNefia");
-
-        /*
-         * Anime
-         */
-
-        public static readonly CVarDef<float> AnimeAnimationWait =
-            CVarDef.Create("anime.animationWait", 0.2f);
-
-        public static readonly CVarDef<int> ScreenRefresh =
-            CVarDef.Create("anime.screenRefresh", 20);
 
         /*
          * Audio

@@ -21,6 +21,7 @@ using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.SaveGames;
 using OpenNefia.Core.UI;
 using OpenNefia.Core.UserInterface;
+using OpenNefia.Core.Utility;
 using static OpenNefia.Content.CharaInfo.CharaGroupSublayerArgs;
 using static OpenNefia.Content.Journal.LogGroupSublayerArgs;
 using static OpenNefia.Content.Prototypes.Protos;
@@ -207,10 +208,32 @@ namespace OpenNefia.Content.GameObjects
 
         private void ReturnToTitle(IGameSessionManager gameSession)
         {
-            QuickSaveGame(gameSession);
-            _mes.Display(Loc.GetString("Elona.UserInterface.Exit.Saved"));
-            _playerQuery.PromptMore();
-            _gameController.Wait(0.3f);
+            bool save;
+            
+            switch (_config.GetCVar(CCVars.GameSaveOnReturnToTitle))
+            {
+                case SaveOnReturnToTitle.Always:
+                default:
+                    save = true;
+                    break;
+                case SaveOnReturnToTitle.Ask:
+                    var response = _playerQuery.YesOrNoOrCancel(Loc.GetString("Elona.UserInterface.Exit.Prompt.PromptSaveGame"));
+                    if (response == null)
+                        return;
+                    save = response.Value;
+                    break;
+                case SaveOnReturnToTitle.Never:
+                    save = false;
+                    break;
+            }
+
+            if (save)
+            {
+                QuickSaveGame(gameSession);
+                _mes.Display(Loc.GetString("Elona.UserInterface.Exit.Saved"));
+                _playerQuery.PromptMore();
+                _gameController.Wait(0.3f);
+            }
 
             _field.Cancel();
         }

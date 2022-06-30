@@ -33,42 +33,47 @@ namespace OpenNefia.Content.DisplayName
                 baseName = customName.CustomName;
             }
 
-            args.BaseName = baseName;
+            args.OutBaseName = baseName;
         }
 
         public string GetBaseName(EntityUid uid)
         {
             var ev = new GetBaseNameEventArgs();
             RaiseEvent(uid, ref ev);
-            return ev.BaseName;
+            return ev.OutBaseName;
         }
 
         public string GetDisplayName(EntityUid uid)
         {
             var baseName = GetBaseName(uid);
-            var ev = new GetDisplayNameEventArgs() { Name = baseName };
+            var ev = new GetDisplayNameEventArgs(baseName);
             RaiseEvent(uid, ref ev);
-            return ev.Name;
+            return ev.OutName;
         }
     }
 
     [ByRefEvent]
     public struct GetBaseNameEventArgs
     {
-        public string BaseName = string.Empty;
+        public string OutBaseName { get; set; } = string.Empty;
 
-        public GetBaseNameEventArgs()
+        public GetBaseNameEventArgs(string baseName)
         {
+            OutBaseName = baseName;
         }
     }
 
     [ByRefEvent]
     public struct GetDisplayNameEventArgs
     {
-        public string Name = string.Empty;
+        public string BaseName { get; }
+        
+        public string OutName { get; set; } = string.Empty;
 
-        public GetDisplayNameEventArgs()
+        public GetDisplayNameEventArgs(string baseName)
         {
+            BaseName = baseName;
+            OutName = baseName;
         }
     }
 }

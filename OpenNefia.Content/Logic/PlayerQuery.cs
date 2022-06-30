@@ -20,7 +20,9 @@ namespace OpenNefia.Content.Logic
     {
         bool YesOrNo(string queryText);
         bool YesOrNo(YesOrNoOptions opts);
-        
+        bool? YesOrNoOrCancel(string queryText);
+        bool? YesOrNoOrCancel(YesOrNoOptions opts);
+
         /// <summary>
         /// Shows a "More..." prompt and waits for the player to press a key.
         /// </summary>
@@ -37,12 +39,15 @@ namespace OpenNefia.Content.Logic
             No
         }
 
-        public bool YesOrNo(string queryText)
+        public bool YesOrNo(string queryText) => YesOrNoOrCancel(queryText) ?? false;
+        public bool YesOrNo(YesOrNoOptions opts) => YesOrNoOrCancel(opts) ?? false;
+
+        public bool? YesOrNoOrCancel(string queryText)
         {
-            return YesOrNo(new YesOrNoOptions() { QueryText = queryText });
+            return YesOrNoOrCancel(new YesOrNoOptions() { QueryText = queryText });
         }
 
-        public bool YesOrNo(YesOrNoOptions opts)
+        public bool? YesOrNoOrCancel(YesOrNoOptions opts)
         {
             var items = new List<PromptChoice<YesNo>>()
             {
@@ -66,7 +71,7 @@ namespace OpenNefia.Content.Logic
                 return result.Value.ChoiceData == YesNo.Yes;
             }
 
-            return false;
+            return null;
         }
 
         public void PromptMore()

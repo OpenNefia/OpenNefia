@@ -1,9 +1,11 @@
-﻿using OpenNefia.Core.Audio;
+﻿using OpenNefia.Core;
+using OpenNefia.Core.Audio;
 using OpenNefia.Core.Configuration;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Prototypes;
+using OpenNefia.Core.Rendering;
 
-namespace OpenNefia.Core.Rendering
+namespace OpenNefia.Content.BaseAnim
 {
     public class BasicAnimMapDrawable : BaseMapDrawable
     {
@@ -22,23 +24,23 @@ namespace OpenNefia.Core.Rendering
         {
             IoCManager.InjectDependencies(this);
 
-            this.BasicAnim = _protos.Index(basicAnimId);
+            BasicAnim = _protos.Index(basicAnimId);
             var asset = _protos.Index(BasicAnim.Asset);
 
             var animeWait = _config.GetCVar(CVars.AnimeAnimationWait);
             var maxFrames = asset.CountX;
-            if (this.BasicAnim.FrameCount != null)
-                maxFrames = this.BasicAnim.FrameCount.Value;
+            if (BasicAnim.FrameCount != null)
+                maxFrames = BasicAnim.FrameCount.Value;
 
-            this.Counter = new FrameCounter(animeWait + this.BasicAnim.FrameDelayMillis / 2, maxFrames);
-            this.AssetDrawable = _assets.GetAsset(this.BasicAnim.Asset);
+            Counter = new FrameCounter(animeWait + BasicAnim.FrameDelayMillis / 2, maxFrames);
+            AssetDrawable = _assets.GetAsset(BasicAnim.Asset);
         }
 
         public override void OnEnqueue()
         {
-            if (this.BasicAnim.Sound != null)
+            if (BasicAnim.Sound != null)
             {
-                _sounds.Play(this.BasicAnim.Sound.Value, this.ScreenLocalPos);
+                _sounds.Play(BasicAnim.Sound.Value, ScreenLocalPos);
             }
         }
 
@@ -47,18 +49,18 @@ namespace OpenNefia.Core.Rendering
             Counter.Update(dt);
             if (Counter.IsFinished)
             {
-                this.Finish();
+                Finish();
             }
         }
 
         public override void Draw()
         {
             Love.Graphics.SetColor(Love.Color.White);
-            this.AssetDrawable.DrawRegionUnscaled(Counter.FrameInt.ToString(), 
-                this.X + _coords.TileSize.X / 2, 
-                this.Y + _coords.TileSize.Y / 6,
+            AssetDrawable.DrawRegionUnscaled(Counter.FrameInt.ToString(),
+                X + _coords.TileSize.X / 2,
+                Y + _coords.TileSize.Y / 6,
                 centered: true,
-                rotationRads: this.BasicAnim.Rotation * this.Counter.Frame);
+                rotationRads: BasicAnim.Rotation * Counter.Frame);
         }
     }
 }
