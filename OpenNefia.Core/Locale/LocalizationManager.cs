@@ -21,6 +21,7 @@ namespace OpenNefia.Core.Locale
 {
     public interface ILocalizationFetcher
     {
+        bool HasString(LocaleKey key);
         bool TryGetString(LocaleKey key, [NotNullWhen(true)] out string? str, params LocaleArg[] args);
         string GetString(LocaleKey key, params LocaleArg[] args);
         string GetPrototypeString<T>(PrototypeId<T> protoId, LocaleKey key, params LocaleArg[] args)
@@ -154,6 +155,11 @@ namespace OpenNefia.Core.Locale
             _entityCache.Clear();
 
             OnLanguageSwitched?.Invoke(language);
+        }
+
+        public bool HasString(LocaleKey key)
+        {
+            return (_stringStore.ContainsKey(key) || _functionStore.ContainsKey(key) || _listStore.ContainsKey(key));
         }
 
         public bool TryGetString(LocaleKey key, [NotNullWhen(true)] out string? str, params LocaleArg[] args)

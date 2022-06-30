@@ -9,6 +9,7 @@ using OpenNefia.Core.GameObjects;
 using OpenNefia.Content.GameObjects.Pickable;
 using OpenNefia.Core.UI.Element;
 using OpenNefia.Core.UI;
+using OpenNefia.Core;
 
 namespace OpenNefia.Content.Inventory
 {
@@ -26,6 +27,11 @@ namespace OpenNefia.Content.Inventory
         /// Whether the player should be queried for an item count after selecting an item.
         /// </summary>
         bool QueryAmount { get; }
+
+        /// <summary>
+        /// Text to print when querying amount.
+        /// </summary>
+        LocaleKey? QueryAmountPrompt { get; }
 
         /// <summary>
         /// Whether to show the user's total weight in the inventory screen.

@@ -21,6 +21,11 @@ namespace OpenNefia.Core.Locale
 
         public static PrototypeId<LanguagePrototype> Language => _localization.Language;
 
+        public static bool HasString(LocaleKey key)
+        {
+            return _localization.HasString(key);
+        }
+
         public static bool TryGetString(LocaleKey key, [NotNullWhen(true)] out string? str, params LocaleArg[] args)
         {
             return _localization.TryGetString(key, out str, args);

@@ -38,6 +38,11 @@ namespace OpenNefia.Core.Locale
             KeyPrefix = keyPrefix;
         }
 
+        public bool HasString(LocaleKey key)
+        {
+            return _localizationManager.HasString(KeyPrefix.With(key));
+        }
+
         public string GetString(LocaleKey key, params LocaleArg[] args)
         {
             return _localizationManager.GetString(KeyPrefix.With(key), args);

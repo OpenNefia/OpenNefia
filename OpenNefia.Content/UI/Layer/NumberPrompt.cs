@@ -8,6 +8,10 @@ using OpenNefia.Core.UI.Element;
 using OpenNefia.Core.Input;
 using static OpenNefia.Content.Prototypes.Protos;
 using OpenNefia.Core.UI;
+using OpenNefia.Core;
+using OpenNefia.Core.Locale;
+using OpenNefia.Content.Logic;
+using OpenNefia.Core.IoC;
 
 namespace OpenNefia.Content.UI.Layer
 {
@@ -15,18 +19,20 @@ namespace OpenNefia.Content.UI.Layer
     {
         public new class Args
         {
-            public Args(int maxValue = 1, int minValue = 1, int? initialValue = null, bool isCancellable = true)
+            public Args(int maxValue = 1, int minValue = 1, int? initialValue = null, bool isCancellable = true, string? prompt = null)
             {
                 MaxValue = maxValue;
                 MinValue = minValue;
                 InitialValue = initialValue;
                 IsCancellable = isCancellable;
+                Prompt = prompt;
             }
 
             public int MaxValue { get; set; }
             public int MinValue { get; set; }
             public int? InitialValue { get; set; }
             public bool IsCancellable { get; set; }
+            public string? Prompt { get; set; }
         }
 
         public new class Result
@@ -73,7 +79,11 @@ namespace OpenNefia.Content.UI.Layer
             }
         }
 
+        private string? _Prompt;
+
         public bool IsCancellable { get; set; }
+
+        [Dependency] private readonly IMessagesManager _mes = default!;
 
         protected IAssetInstance AssetLabelInput;
         protected IAssetInstance AssetArrowLeft;
@@ -105,6 +115,7 @@ namespace OpenNefia.Content.UI.Layer
             _MinValue = args.MinValue;
             _MaxValue = args.MaxValue;
             _Value = Math.Clamp(args.InitialValue ?? MaxValue, MinValue, MaxValue);
+            _Prompt = args.Prompt;
             IsCancellable = args.IsCancellable;
 
             UpdateText();
@@ -146,6 +157,9 @@ namespace OpenNefia.Content.UI.Layer
         public override void OnQuery()
         {
             Sounds.Play(Sound.Pop2);
+
+            if (_Prompt != null)
+                _mes.Display(_Prompt);
         }
 
         protected virtual void UpdateText()

@@ -21,6 +21,9 @@ Elona.Inventory.Behavior = {
     Drop = {
         WindowTitle = "置く",
         QueryText = "どのアイテムを置く？",
+        HowMany = function(min, max, entity)
+            return ("%sをいくつ落とす？ (%s〜%s) "):format(_.name(entity), min, max)
+        end,
     },
 
     PickUp = {
@@ -61,6 +64,9 @@ Elona.Inventory.Behavior = {
     Buy = {
         WindowTitle = "購入する",
         QueryText = "どれを購入する？",
+        HowMany = function(min, max, entity)
+            return ("%sをいくつ買う？ (%s〜%s)"):format(_.name(entity), min, max)
+        end,
     },
 
     Identify = {
@@ -71,6 +77,9 @@ Elona.Inventory.Behavior = {
     Sell = {
         WindowTitle = "売却する",
         QueryText = "どれを売却する？",
+        HowMany = function(min, max, entity)
+            return ("%sをいくつ売る？ (%s〜%s)"):format(_.name(entity), min, max)
+        end,
     },
 
     Use = {
@@ -96,7 +105,7 @@ Elona.Inventory.Behavior = {
     MixTarget = {
         WindowTitle = "混ぜる対象",
         QueryText = function(item)
-            return ("何に混ぜる？(%sの効果を適用するアイテムを選択) "):format(item)
+            return ("何に混ぜる？(%sの効果を適用するアイテムを選択) "):format(_.name(item))
         end,
     },
 

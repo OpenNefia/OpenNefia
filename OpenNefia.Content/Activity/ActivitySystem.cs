@@ -53,8 +53,11 @@ namespace OpenNefia.Content.Activity
 
             if (activityComp.SlotID == null || !_slots.HasSlot(target, activityComp.SlotID.Value))
             {
-                Logger.WarningS("activity", $"Pruning dead activity with slot {activityComp.SlotID} on entity {target}");
-                RemoveActivity(target);
+                if (activityComp.SlotID != null)
+                {
+                    Logger.WarningS("activity", $"Pruning dead activity with slot {activityComp.SlotID} on entity {target}");
+                    RemoveActivity(target);
+                }
                 activityComp = null;
                 return false;
             }

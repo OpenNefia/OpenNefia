@@ -1,7 +1,9 @@
 ﻿using OpenNefia.Content.Logic;
 using OpenNefia.Content.UI.Layer;
+using OpenNefia.Core;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
+using OpenNefia.Core.Locale;
 using OpenNefia.Core.UI;
 using OpenNefia.Core.UI.Layer;
 using OpenNefia.Core.UserInterface;
@@ -86,11 +88,21 @@ namespace OpenNefia.Content.Inventory
 
             if (_entityManager.TryGetComponent<StackComponent>(item, out var stack))
             {
-                if (Behavior.QueryAmount)
+                if (Behavior.QueryAmount && stack.Count > 1)
                 {
-                    _mes.Display($"How many? ({1} ~ {stack.Count})");
+                    var min = 1;
+                    var max = stack.Count;
 
-                    var result = _uiManager.Query<NumberPrompt, NumberPrompt.Args, NumberPrompt.Result>(new(stack.Count, 1, isCancellable: true));
+                    LocaleKey promptKey;
+                    if (Behavior.QueryAmountPrompt != null && Loc.HasString(Behavior.QueryAmountPrompt.Value))
+                        promptKey = Behavior.QueryAmountPrompt.Value;
+                    else
+                        promptKey = "Elona.Inventory.Common.HowMany";
+
+                    var prompt = Loc.GetString(promptKey, ("min", min), ("max", max), ("entity", item));
+
+                    var result = _uiManager.Query<NumberPrompt, NumberPrompt.Args, NumberPrompt.Result>(new(max, min, isCancellable: true, prompt: prompt));
+
                     if (!result.HasValue)
                     {
                         return new InventoryResult.Continuing();

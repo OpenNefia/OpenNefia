@@ -1,5 +1,6 @@
 ﻿using OpenNefia.Content.GameObjects.Pickable;
 using OpenNefia.Content.Logic;
+using OpenNefia.Core;
 using OpenNefia.Core.Audio;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
@@ -32,6 +33,7 @@ namespace OpenNefia.Content.Inventory
         public virtual bool ShowTargetEquip => false;
         public virtual int DefaultAmount => 1;
         public virtual bool AllowSpecialOwned => false;
+        public virtual LocaleKey? QueryAmountPrompt => null;
 
         /// <inheritdoc/>
         public abstract IEnumerable<IInventorySource> GetSources(InventoryContext context);

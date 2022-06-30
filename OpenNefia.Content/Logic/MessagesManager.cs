@@ -51,9 +51,7 @@ namespace OpenNefia.Content.Logic
 
             // >>>>>>>> elona122/shade2/init.hsp:3570 	if msgAlert@=true:if cfg_alert@>1{ ...
             if (alert)
-            {
                 Alert();
-            }
             // <<<<<<<< elona122/shade2/init.hsp:3581 		} ...
         }
 
