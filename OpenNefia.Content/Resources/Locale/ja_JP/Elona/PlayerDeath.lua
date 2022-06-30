@@ -1,9 +1,8 @@
-Elona.Death = {
+Elona.PlayerDeath = {
     GoodBye = "さようなら… ",
     PromptDyingMessage = "遺言は？",
-    MessageQuotes = function(message)
-        return ("「%s」"):format(message)
-    end,
+    PenaltyNotApplied = "レベル6に達していないので能力値の減少はない。",
+    YouLostSomeMoney = "金貨を幾らか失った…",
     DefaultLastWords = {
         "そんな馬鹿な！",
         "まだやれるのに…",

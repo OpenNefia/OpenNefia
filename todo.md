@@ -380,5 +380,5 @@
 - [ ] 8825	./src/mod/elona/events/charagen.lua
 - [ ] 9435	./src/mod/elona/events/house_board.lua
 - [ ] 10814	./src/mod/elona/events/main_quest.lua
-- [ ] 15723	./src/mod/elona/events/turn_event.lua
+- [x] 15723	./src/mod/elona/events/turn_event.lua
 - [ ] 16068	./src/mod/elona/events/combat.lua

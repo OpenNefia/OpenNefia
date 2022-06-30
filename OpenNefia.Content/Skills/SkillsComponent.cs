@@ -5,7 +5,7 @@ using OpenNefia.Core.Serialization.Markdown.Mapping;
 using OpenNefia.Core.Stats;
 using System.Collections;
 using System.Diagnostics.CodeAnalysis;
-using OpenNefia.Content.TurnOrder
+using OpenNefia.Content.TurnOrder;
 
 namespace OpenNefia.Content.Skills
 {

@@ -14,6 +14,6 @@ namespace OpenNefia.Content.EtherDisease
         public override string Name => "EtherDisease";
 
         [DataField]
-        public int DiseaseProgression { get; set; } = 0;
+        public int Corruption { get; set; } = 0;
     }
 }

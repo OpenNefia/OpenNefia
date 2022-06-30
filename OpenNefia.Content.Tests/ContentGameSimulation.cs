@@ -28,11 +28,15 @@ namespace OpenNefia.Content.Tests
 
     internal class DummyMessageManager : IMessagesManager
     {
-        public void Display(string text, Color? color = null, bool alert = false, bool noCapitalize = false, EntityUid? entity = null)
+        public void Display(string text, Color? color = null, bool alert = false, bool noCapitalize = false, bool combineDuplicates = false, EntityUid? entity = null)
         {
         }
 
         public void Newline()
+        {
+        }
+
+        public void Alert()
         {
         }
 
