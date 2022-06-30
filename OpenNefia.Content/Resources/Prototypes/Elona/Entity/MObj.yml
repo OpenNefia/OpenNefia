@@ -283,7 +283,7 @@
     steppedOnText: Elona.MaterialSpot.Spring.Description
     # <<<<<<<< shade2/action.hsp:765 			if feat(1)=objREspring		:txt lang("泉がある。","You  ..
 
-- id: Elona.MObjMaterialMine
+- id: Elona.MObjMaterialSpotMine
   parent: Elona.MObjMaterialSpot
   type: Entity
   components:
@@ -320,7 +320,7 @@
     steppedOnText: Elona.MaterialSpot.Mine.Description
     # <<<<<<<< shade2/action.hsp:764 			if feat(1)=objREmine		:txt lang("採掘場がある。","You  ..
 
-- id: Elona.MObjMaterialBush
+- id: Elona.MObjMaterialSpotBush
   parent: Elona.MObjMaterialSpot
   type: Entity
   components:
