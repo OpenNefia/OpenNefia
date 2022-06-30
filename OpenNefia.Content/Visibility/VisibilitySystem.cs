@@ -1,6 +1,7 @@
 ﻿using Love;
 using OpenNefia.Content.GameObjects;
 using OpenNefia.Content.TurnOrder;
+using OpenNefia.Content.VanillaAI;
 using OpenNefia.Core.Game;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
@@ -44,6 +45,7 @@ namespace OpenNefia.Content.Visibility
         public override void Initialize()
         {
             SubscribeComponent<VisibilityComponent, EntityRefreshEvent>(OnEntityRefresh, priority: EventPriorities.Highest);
+            SubscribeComponent<VisibilityComponent, BeforeTurnBeginEventArgs>(BeforeTurnBegin);
             SubscribeComponent<VisibilityComponent, EntityTurnStartingEventArgs>(OnTurnStart);
         }
 
@@ -51,6 +53,16 @@ namespace OpenNefia.Content.Visibility
         {
             vis.IsInvisible.Reset();
             vis.CanSeeInvisible.Reset();
+        }
+
+        private void BeforeTurnBegin(EntityUid uid, VisibilityComponent component, BeforeTurnBeginEventArgs args)
+        {
+            if (TryComp<VanillaAIComponent>(uid, out var vai))
+            {
+                var target = vai.CurrentTarget;
+                if (EntityManager.IsAlive(target) && !CanSeeEntity(uid, target.Value))
+                    vai.CurrentTarget = null;
+            }
         }
 
         private void OnTurnStart(EntityUid uid, VisibilityComponent vis, EntityTurnStartingEventArgs args)

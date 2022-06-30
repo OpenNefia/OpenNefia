@@ -14,7 +14,7 @@ namespace OpenNefia.Content.Logic
     public interface IMessagesManager
     {
         void Newline();
-        void Display(string text, Color? color = null, bool alert = false, bool noCapitalize = false, EntityUid? entity = null);
+        void Display(string text, Color? color = null, bool alert = false, bool noCapitalize = false, bool combineDuplicates = false, EntityUid? entity = null);
         void Alert();
         void Clear();
     }
@@ -32,12 +32,12 @@ namespace OpenNefia.Content.Logic
             _hud.MessageWindow?.Newline();
         }
 
-        public void Display(string text, Color? color = null, bool alert = false, bool noCapitalize = false, EntityUid? entity = null)
+        public void Display(string text, Color? color = null, bool alert = false, bool noCapitalize = false, bool combineDuplicates = false, EntityUid? entity = null)
         {
             if (entity != null)
             {
                 var visibilitySys = EntitySystem.Get<IVisibilitySystem>();
-                var canSee = _entityManager.IsAlive(_gameSession.Player) 
+                var canSee = _entityManager.IsAlive(_gameSession.Player)
                     && visibilitySys.HasLineOfSight(_gameSession.Player, entity.Value);
 
                 if (!canSee)
@@ -46,7 +46,7 @@ namespace OpenNefia.Content.Logic
 
             if (!noCapitalize)
                 text = Loc.Capitalize(text);
-            
+
             _hud.MessageWindow?.Print(text, color);
 
             // >>>>>>>> elona122/shade2/init.hsp:3570 	if msgAlert@=true:if cfg_alert@>1{ ...

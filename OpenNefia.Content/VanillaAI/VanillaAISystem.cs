@@ -400,6 +400,7 @@ namespace OpenNefia.Content.VanillaAI
                 return;
 
             SetTarget(entity, null, ai: ai);
+            _factions.ClearAllPersonalRelations(entity);
         }
     }
 }

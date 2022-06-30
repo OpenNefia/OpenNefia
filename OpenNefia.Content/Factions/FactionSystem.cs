@@ -10,6 +10,8 @@ namespace OpenNefia.Content.Factions
     {
         Relation GetRelationTowards(EntityUid us, EntityUid them);
         Relation GetRelationToPlayer(EntityUid target, FactionComponent? faction = null);
+        void SetPersonalRelationTowards(EntityUid us, EntityUid them, Relation relation, FactionComponent? ourFaction = null);
+        void ClearAllPersonalRelations(EntityUid entity, FactionComponent? faction = null);
     }
 
     public class FactionSystem : EntitySystem, IFactionSystem
@@ -28,6 +30,45 @@ namespace OpenNefia.Content.Factions
             var ev = new CalculateRelationEventArgs(them);
             RaiseEvent(us, ref ev);
             return ev.Relation;
+        }
+
+        private void HandleCalculateRelation(EntityUid us, FactionComponent ourFaction, ref CalculateRelationEventArgs args)
+        {
+            args.Relation = CalculateRelationDefault(us, args.Target);
+        }
+
+        public Relation CalculateRelationDefault(EntityUid us, EntityUid them)
+        {
+            if (us == them)
+            {
+                // Love thyself.
+                return Relation.Ally;
+            }
+
+            // TODO: how should this interact with leaders?
+            if (TryComp<FactionComponent>(us, out var faction)
+                && faction.PersonalRelations.TryGetValue(them, out var relation))
+            {
+                return relation;
+            }
+
+            if (_partySystem.TryGetLeader(us, out var leader))
+                us = leader.Value;
+            if (_partySystem.TryGetLeader(them, out leader))
+                them = leader.Value;
+
+            // If either entity lacks a faction component, then they should be treated as neutral.
+            // This prevents the AI from targeting inanimate things like doors.
+            if (!EntityManager.TryGetComponent<FactionComponent>(us, out var ourFaction)
+                || !EntityManager.TryGetComponent<FactionComponent>(them, out var theirFaction))
+            {
+                return Relation.Neutral;
+            }
+
+            var ourRelation = GetBaseRelation(us, ourFaction);
+            var theirRelation = GetBaseRelation(them, theirFaction);
+
+            return CompareRelations(ourRelation, theirRelation);
         }
 
         public Relation CompareRelations(Relation ourRelation, Relation theirRelation)
@@ -61,38 +102,6 @@ namespace OpenNefia.Content.Factions
             return (Relation)Math.Min((int)ourRelation, (int)theirRelation);
         }
 
-        private void HandleCalculateRelation(EntityUid us, FactionComponent ourFaction, ref CalculateRelationEventArgs args)
-        {
-            args.Relation = CalculateRelationDefault(us, args.Target);
-        }
-
-        public Relation CalculateRelationDefault(EntityUid us, EntityUid them)
-        {
-            if (us == them)
-            {
-                // Love thyself.
-                return Relation.Ally;
-            }
-
-            if (_partySystem.TryGetLeader(us, out var leader))
-                us = leader.Value;
-            if (_partySystem.TryGetLeader(them, out leader))
-                them = leader.Value;
-
-            // If either entity lacks a faction component, then they should be treated as neutral.
-            // This prevents the AI from targeting inanimate things like doors.
-            if (!EntityManager.TryGetComponent<FactionComponent>(us, out var ourFaction)
-                || !EntityManager.TryGetComponent<FactionComponent>(them, out var theirFaction))
-            {
-                return Relation.Neutral;
-            }
-
-            var ourRelation = GetBaseRelation(us, ourFaction);
-            var theirRelation = GetBaseRelation(them, theirFaction);
-
-            return CompareRelations(ourRelation, theirRelation);
-        }
-
         private Relation GetBaseRelation(EntityUid entity, FactionComponent faction)
         {
             if (_gameSession.IsPlayer(entity))
@@ -111,6 +120,22 @@ namespace OpenNefia.Content.Factions
                 return Relation.Neutral;
 
             return faction.RelationToPlayer;
+        }
+
+        public void SetPersonalRelationTowards(EntityUid us, EntityUid them, Relation relation, FactionComponent? ourFaction = null)
+        {
+            if (!Resolve(us, ref ourFaction))
+                return;
+
+            ourFaction.PersonalRelations[them] = relation;
+        }
+
+        public void ClearAllPersonalRelations(EntityUid entity, FactionComponent? faction = null)
+        {
+            if (!Resolve(entity, ref faction))
+                return;
+
+            faction.PersonalRelations.Clear();
         }
     }
 

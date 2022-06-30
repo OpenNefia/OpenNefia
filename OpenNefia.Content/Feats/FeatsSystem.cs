@@ -1,4 +1,5 @@
-﻿using OpenNefia.Core.GameObjects;
+﻿using OpenNefia.Content.TurnOrder;
+using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Stats;
@@ -24,6 +25,25 @@ namespace OpenNefia.Content.Feats
     {
         [Dependency] private readonly IPrototypeManager _protos = default!;
 
+        public override void Initialize()
+        {
+            SubscribeComponent<FeatsComponent, BeforeTurnBeginEventArgs>(ProcFeatTurnBeginEvents);
+        }
+
+        private void ProcFeatTurnBeginEvents(EntityUid uid, FeatsComponent component, BeforeTurnBeginEventArgs args)
+        {
+            var ev = new P_FeatBeforeTurnBeginEvent(uid);
+            
+            foreach (var proto in _protos.EnumeratePrototypes<FeatPrototype>())
+            {
+                var id = proto.GetStrongID();
+                if (TryGetKnown(uid, id, out var feat, component))
+                {
+                    _protos.EventBus.RaiseEvent(id, ev);
+                }
+            }
+        }
+
         public bool TryGetKnown(EntityUid entity, PrototypeId<FeatPrototype> protoId, [NotNullWhen(true)] out FeatLevel? level, FeatsComponent? feats = null)
         {
             if (!Resolve(entity, ref feats))
@@ -42,7 +62,7 @@ namespace OpenNefia.Content.Feats
 
             return feat.Level.Buffed;
         }
-        
+
         public bool HasFeat(EntityUid entity, PrototypeId<FeatPrototype> protoId, FeatsComponent? feats = null)
         {
             if (!TryGetKnown(entity, protoId, out var feat))
@@ -55,7 +75,7 @@ namespace OpenNefia.Content.Feats
         {
             if (delta == 0)
                 return;
-            
+
             if (!Resolve(entity, ref feats))
                 return;
 
@@ -64,4 +84,16 @@ namespace OpenNefia.Content.Feats
             level.Level.Base = Math.Clamp(level.Level.Base + delta, featProto.LevelMin, featProto.LevelMax);
         }
     }
+
+    [PrototypeEvent(typeof(FeatPrototype))]
+    public sealed class P_FeatBeforeTurnBeginEvent : PrototypeEventArgs
+    {
+        public EntityUid Entity { get; }
+
+        public P_FeatBeforeTurnBeginEvent(EntityUid entity)
+        {
+            Entity = entity;
+        }
+    }
+
 }
