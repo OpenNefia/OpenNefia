@@ -540,6 +540,13 @@ handlers["base.map_tile"] = function(from, to)
 
     to.isSolid = from.is_solid
     to.isOpaque = from.is_opaque
+
+    if from.kind and from.kind ~= Enum.TileRole.None then
+        to.kind = Enum.TileRole:to_string(from.kind)
+    end
+    if from.kind2 and from.kind2 ~= Enum.TileRole.None then
+        to.kind2 = Enum.TileRole:to_string(from.kind2)
+    end
 end
 
 handlers["base.chip"] = function(from, to)

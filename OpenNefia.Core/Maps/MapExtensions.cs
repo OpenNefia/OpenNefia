@@ -1,4 +1,5 @@
-﻿using OpenNefia.Core.Maths;
+﻿using OpenNefia.Core.IoC;
+using OpenNefia.Core.Maths;
 using OpenNefia.Core.Prototypes;
 using System;
 using System.Collections.Generic;
@@ -18,6 +19,11 @@ namespace OpenNefia.Core.Maps
         public static PrototypeId<TilePrototype>? GetTileID(this IMap map, Vector2i pos)
         {
             return map.GetTile(pos)?.Tile.GetStrongID();
+        }
+
+        public static TilePrototype? GetTilePrototype(this IMap map, Vector2i pos)
+        {
+            return map.GetTile(pos)?.Tile.ResolvePrototype();
         }
     }
 }

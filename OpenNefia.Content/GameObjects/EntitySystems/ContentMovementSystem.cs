@@ -21,6 +21,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using OpenNefia.Content.Activity;
+using OpenNefia.Core.Maps;
+using OpenNefia.Content.Sanity;
+using OpenNefia.Content.StatusEffects;
+using OpenNefia.Content.Effects;
+using OpenNefia.Core.Game;
+using OpenNefia.Content.EffectMap;
 
 namespace OpenNefia.Content.GameObjects
 {
@@ -34,10 +40,18 @@ namespace OpenNefia.Content.GameObjects
         [Dependency] private readonly IMoveableSystem _movement = default!;
         [Dependency] private readonly IActivitySystem _activities = default!;
         [Dependency] private readonly IPrototypeManager _protos = default!;
+        [Dependency] private readonly IMapManager _mapMan = default!;
+        [Dependency] private readonly ISanitySystem _sanity = default!;
+        [Dependency] private readonly IStatusEffectSystem _effects = default!;
+        [Dependency] private readonly CommonEffectsSystem _commonEffects = default!;
+        [Dependency] private readonly IGameSessionManager _gameSession = default!;
+        [Dependency] private readonly IAudioManager _audio = default!;
+        [Dependency] private readonly IEffectMapSystem _effectMaps = default!;
 
         public override void Initialize()
         {
             SubscribeComponent<MoveableComponent, CollideWithEventArgs>(HandleCollideWith, priority: EventPriorities.Low);
+            SubscribeComponent<MoveableComponent, AfterMoveEventArgs>(CheckMovementIntoWater, priority: EventPriorities.Low);
         }
 
         private void HandleCollideWith(EntityUid uid, MoveableComponent _, CollideWithEventArgs args)
@@ -104,6 +118,35 @@ namespace OpenNefia.Content.GameObjects
                 }
             }
             // <<<<<<<< shade2 / action.hsp:551            if cRowAct(tc) = rowActEat:if cActionPeriod(tc) > 0..
+        }
+
+        private void CheckMovementIntoWater(EntityUid uid, MoveableComponent component, AfterMoveEventArgs args)
+        {
+            var spatial = Spatial(uid);
+
+            if (!TryMap(uid, out var map))
+                return;
+
+            var tile = map.GetTilePrototype(spatial.WorldPosition);
+            if (tile != null && tile.Kind == TileKind.Water)
+            {
+                if (tile.Kind2 == TileKind.MountainWater)
+                {
+                    _sanity.HealInsanity(uid, 1);
+                }
+
+                _effectMaps.AddEffectMap(Protos.Asset.EffectMapRipple, spatial.MapPosition);
+
+                if (!_effects.HasEffect(uid, Protos.StatusEffect.Wet))
+                {
+                    _commonEffects.GetWet(uid, 20);
+                }
+
+                if (_gameSession.IsPlayer(uid))
+                {
+                    _audio.Play(Protos.Sound.Water2, spatial.MapPosition);
+                }
+            }
         }
     }
 }

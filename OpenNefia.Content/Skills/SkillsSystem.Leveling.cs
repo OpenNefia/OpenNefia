@@ -1,5 +1,4 @@
 ﻿using OpenNefia.Analyzers;
-using OpenNefia.Content.GameObjects;
 using OpenNefia.Content.Levels;
 using OpenNefia.Content.Logic;
 using OpenNefia.Content.Parties;
@@ -17,6 +16,7 @@ using OpenNefia.Core.Random;
 using OpenNefia.Core.Game;
 using OpenNefia.Content.Feats;
 using OpenNefia.Content.EquipSlots;
+using OpenNefia.Content.Visibility;
 
 namespace OpenNefia.Content.Skills
 {

@@ -20,6 +20,7 @@ using OpenNefia.Content.Rendering;
 using OpenNefia.Content.RandomGen;
 using OpenNefia.Content.Qualities;
 using OpenNefia.Core.Random;
+using OpenNefia.Content.Visibility;
 
 namespace OpenNefia.Content.Pot
 {
