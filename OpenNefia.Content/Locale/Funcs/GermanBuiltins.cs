@@ -1,5 +1,5 @@
 ﻿using OpenNefia.Content.DisplayName;
-using OpenNefia.Content.GameObjects;
+using OpenNefia.Content.Visibility;
 using OpenNefia.Core.Game;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;

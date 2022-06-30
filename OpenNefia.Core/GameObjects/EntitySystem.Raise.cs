@@ -2,7 +2,9 @@ using System;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
+using OpenNefia.Core.IoC;
 using OpenNefia.Core.Log;
+using OpenNefia.Core.Maps;
 using OpenNefia.Core.Utility;
 
 namespace OpenNefia.Core.GameObjects
@@ -13,14 +15,14 @@ namespace OpenNefia.Core.GameObjects
         /// Raises an event.
         /// </summary>
         /// <returns>True if something handled the event, or the target entity is dead after the event was fired.</returns>
-        public bool Raise<T>(EntityUid uid, T args)
+        protected bool Raise<T>(EntityUid uid, T args)
             where T : HandledEntityEventArgs
         {
             RaiseEvent(uid, args);
             return args.Handled || !EntityManager.IsAlive(uid);
         }
 
-        public bool Raise<T1, T2>(EntityUid uid, T1 args, T2 propagateTo)
+        protected bool Raise<T1, T2>(EntityUid uid, T1 args, T2 propagateTo)
             where T1 : TurnResultEntityEventArgs
             where T2 : TurnResultEntityEventArgs
         {
@@ -36,27 +38,54 @@ namespace OpenNefia.Core.GameObjects
             return true;
         }
 
-        public T GetComp<T>(EntityUid uid) 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        protected T GetComp<T>(EntityUid uid) 
             where T: class, IComponent
         {
             return EntityManager.GetComponent<T>(uid);
         }
 
-        public bool TryComp<T>(EntityUid uid, [NotNullWhen(true)] out T? component)
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        protected bool TryComp<T>(EntityUid uid, [NotNullWhen(true)] out T? component)
             where T : class, IComponent
         {
             return EntityManager.TryGetComponent(uid, out component);
         }
 
-        public bool HasComp<T>(EntityUid ent)
+        /// <summary>
+        ///     Returns the <see cref="SpatialComponent"/> on an entity.
+        /// </summary>
+        /// <exception cref="KeyNotFoundException">Thrown when the entity doesn't exist.</exception>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        protected SpatialComponent Spatial(EntityUid uid)
+        {
+            return EntityManager.GetComponent<SpatialComponent>(uid);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        protected bool HasComp<T>(EntityUid ent)
         {
             return EntityManager.HasComponent<T>(ent);
         }
 
-        public T EnsureComp<T>(EntityUid ent)
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        protected T EnsureComp<T>(EntityUid ent)
             where T : Component, new()
         {
             return EntityManager.EnsureComponent<T>(ent);
+        }
+
+        protected bool TryMap(EntityUid uid, [NotNullWhen(true)] out IMap? map, IMapManager? mapMan = null, SpatialComponent? spatial = null)
+        {
+            IoCManager.Resolve(ref mapMan);
+
+            if (!Resolve(uid, ref spatial))
+            {
+                map = null;
+                return false;
+            }
+
+            return mapMan.TryGetMap(spatial.MapID, out map);
         }
     }
 }

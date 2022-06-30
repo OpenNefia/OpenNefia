@@ -1,5 +1,5 @@
-﻿using OpenNefia.Content.GameObjects;
-using OpenNefia.Content.UI.Hud;
+﻿using OpenNefia.Content.UI.Hud;
+using OpenNefia.Content.Visibility;
 using OpenNefia.Core;
 using OpenNefia.Core.Configuration;
 using OpenNefia.Core.Game;

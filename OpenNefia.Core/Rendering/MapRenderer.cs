@@ -124,6 +124,11 @@ namespace OpenNefia.Core.Rendering
             _layerDependencyCollection.Register(type);
         }
 
+        public T GetTileLayer<T>() where T : ITileLayer
+        {
+            return (T)_allTileLayers.Single(layer => layer is T);
+        }
+
         private IEnumerable<Type> GetSortedLayers()
         {
             var nodes = TopologicalSort.FromBeforeAfter(

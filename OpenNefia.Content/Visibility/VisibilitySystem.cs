@@ -1,10 +1,11 @@
 ﻿using Love;
+using OpenNefia.Content.GameObjects;
 using OpenNefia.Core.Game;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Maps;
 
-namespace OpenNefia.Content.GameObjects
+namespace OpenNefia.Content.Visibility
 {
     public interface IVisibilitySystem : IEntitySystem
     {
@@ -39,8 +40,19 @@ namespace OpenNefia.Content.GameObjects
         [Dependency] private readonly IMapManager _mapManager = default!;
         [Dependency] private readonly IGameSessionManager _gameSession = default!;
 
+        public override void Initialize()
+        {
+            SubscribeComponent<VisibilityComponent, EntityRefreshEvent>(OnEntityRefresh, priority: EventPriorities.Highest);
+        }
+
+        private void OnEntityRefresh(EntityUid uid, VisibilityComponent vis, ref EntityRefreshEvent args)
+        {
+            vis.IsInvisible.Reset();
+            vis.CanSeeInvisible.Reset();
+        }
+
         public bool IsInWindowFov(EntityUid target, SpatialComponent? spatial = null)
-{
+        {
             if (!Resolve(target, ref spatial))
                 return false;
 
@@ -94,7 +106,11 @@ namespace OpenNefia.Content.GameObjects
                 return _mapManager.ActiveMap?.Id == map.MapId;
             }
 
-            // TODO
+            if (TryComp<VisibilityComponent>(target, out var vis) && vis.IsInvisible.Buffed)
+            {
+                if (!TryComp<VisibilityComponent>(onlooker, out var onlookerVis) || !onlookerVis.CanSeeInvisible.Buffed)
+                    return false;
+            }
 
             return HasLineOfSight(onlooker, targetSpatial.MapPosition);
         }

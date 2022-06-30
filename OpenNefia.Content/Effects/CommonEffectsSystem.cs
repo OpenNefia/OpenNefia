@@ -11,6 +11,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using OpenNefia.Core.Random;
+using OpenNefia.Content.Logic;
+using OpenNefia.Core.Locale;
+using OpenNefia.Content.Visibility;
 
 namespace OpenNefia.Content.Effects
 {
@@ -21,6 +24,8 @@ namespace OpenNefia.Content.Effects
         [Dependency] private readonly IPartySystem _parties = default!;
         [Dependency] private readonly IStatusEffectSystem _effects = default!;
         [Dependency] private readonly IRandom _rand = default!;
+        [Dependency] private readonly IVisibilitySystem _vis = default!;
+        [Dependency] private readonly IMessagesManager _mes = default!;
 
         public void WakeUpEveryone(IMap map)
         {
@@ -37,6 +42,21 @@ namespace OpenNefia.Content.Effects
                         }
                     }
                 }
+            }
+        }
+
+        // TODO move into effect apply callbacks
+        public void GetWet(EntityUid ent, int amount, StatusEffectsComponent? statusEffects = null)
+        {
+            if (!Resolve(ent, ref statusEffects))
+                return;
+
+            _effects.Apply(ent, Protos.StatusEffect.Wet, amount, statusEffects: statusEffects);
+            _mes.Display(Loc.GetString("Elona.CommonEffects.Wet.GetsWet", ("entity", ent)));
+
+            if (TryComp<VisibilityComponent>(ent, out var vis) && vis.IsInvisible.Buffed)
+            {
+                _mes.Display(Loc.GetString("Elona.CommonEffects.Wet.IsRevealed", ("entity", ent)));
             }
         }
 

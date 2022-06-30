@@ -1,9 +1,9 @@
 ﻿using OpenNefia.Content.Factions;
-using OpenNefia.Content.GameObjects;
 using OpenNefia.Content.Maps;
 using OpenNefia.Content.Parties;
 using OpenNefia.Content.StatusEffects;
 using OpenNefia.Content.TurnOrder;
+using OpenNefia.Content.Visibility;
 using OpenNefia.Core.Directions;
 using OpenNefia.Core.Game;
 using OpenNefia.Core.GameObjects;

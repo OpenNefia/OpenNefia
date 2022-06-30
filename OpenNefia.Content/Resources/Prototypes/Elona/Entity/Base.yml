@@ -43,6 +43,7 @@
   - type: EmotionIcon
   - type: Activity
   - type: StatusEffects
+  - type: Visibility
 
 - type: Entity
   id: BaseItem
