@@ -23,6 +23,9 @@ using OpenNefia.Content.Karma;
 using OpenNefia.Content.Fame;
 using OpenNefia.Content.Sleep;
 using OpenNefia.Content.Parties;
+using OpenNefia.Core.Serialization.Manager.Attributes;
+using OpenNefia.Content.Skills;
+using OpenNefia.Core.Prototypes;
 
 namespace OpenNefia.Content.CharaMake
 {
@@ -83,17 +86,18 @@ namespace OpenNefia.Content.CharaMake
             EntityManager.InitializeComponents(playerEntity);
             EntityManager.StartComponents(playerEntity);
 
+            var genArgs = EntityGenArgSet.Make();
+
             foreach (var creationStep in steps)
             {
-                creationStep.ApplyStep(playerEntity);
+                creationStep.ApplyStep(playerEntity, genArgs);
             }
 
             var customName = EntityManager.EnsureComponent<CustomNameComponent>(playerEntity);
             customName.CustomName = "????";
 
             AddPlayerOnlyComponents(playerEntity);
-
-            _entityGen.FireGeneratedEvent(playerEntity);
+            _entityGen.FireGeneratingEvents(playerEntity, genArgs);
 
             return playerEntity;
         }
@@ -287,5 +291,16 @@ namespace OpenNefia.Content.CharaMake
             CharaInfoPages.Draw();
             KeyHintBar.Draw();
         }
+    }
+
+    public sealed class CharaMakeGenArgs : EntityGenArgs
+    {
+        /// <summary>
+        /// Overrides the initial skills for a character, which are set during the 
+        /// <see cref="EntityGen.EntityGeneratedEvent"/>. Used during character creation for
+        /// the skill initialization process there.
+        /// </summary>
+        [DataField]
+        public Dictionary<PrototypeId<SkillPrototype>, int> InitialSkills { get; } = new();
     }
 }

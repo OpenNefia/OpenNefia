@@ -1,4 +1,5 @@
-﻿using OpenNefia.Content.Input;
+﻿using OpenNefia.Content.EntityGen;
+using OpenNefia.Content.Input;
 using OpenNefia.Content.Prototypes;
 using OpenNefia.Content.Skills;
 using OpenNefia.Content.UI;
@@ -126,9 +127,8 @@ namespace OpenNefia.Content.CharaMake
         }
 
         //will be used to actually make the change to the character after creation
-        public virtual void ApplyStep(EntityUid entity)
+        public virtual void ApplyStep(EntityUid entity, EntityGenArgSet args)
         {
-            
         }
     }
 }

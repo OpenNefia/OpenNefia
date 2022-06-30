@@ -1,4 +1,5 @@
 ﻿using OpenNefia.Content.CharaInfo;
+using OpenNefia.Content.EntityGen;
 using OpenNefia.Content.Feats;
 using OpenNefia.Content.Prototypes;
 using OpenNefia.Content.UI;
@@ -107,9 +108,9 @@ namespace OpenNefia.Content.CharaMake
             FeatWindow.Update(dt);
         }
 
-        public override void ApplyStep(EntityUid entity)
+        public override void ApplyStep(EntityUid entity, EntityGenArgSet args)
         {
-            base.ApplyStep(entity);
+            base.ApplyStep(entity, args);
             if (!Data.TryGetCharaMakeResult<Dictionary<PrototypeId<FeatPrototype>, FeatLevel>>(ResultName, out var feats))
                 return;
 

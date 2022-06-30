@@ -1,4 +1,5 @@
 ﻿using OpenNefia.Content.Charas;
+using OpenNefia.Content.EntityGen;
 using OpenNefia.Content.Input;
 using OpenNefia.Content.RandomText;
 using OpenNefia.Content.UI;
@@ -202,9 +203,9 @@ namespace OpenNefia.Content.CharaMake
             List.Update(dt);
         }
 
-        public override void ApplyStep(EntityUid entity)
+        public override void ApplyStep(EntityUid entity, EntityGenArgSet args)
         {
-            base.ApplyStep(entity);
+            base.ApplyStep(entity, args);
             if (!Data.TryGetCharaMakeResult<string>(ResultName, out var alias))
                 return;
 

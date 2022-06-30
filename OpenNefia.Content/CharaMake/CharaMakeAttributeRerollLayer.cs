@@ -1,4 +1,5 @@
-﻿using OpenNefia.Content.GameObjects;
+﻿using OpenNefia.Content.EntityGen;
+using OpenNefia.Content.GameObjects;
 using OpenNefia.Content.Input;
 using OpenNefia.Content.Prototypes;
 using OpenNefia.Content.Skills;
@@ -116,9 +117,9 @@ namespace OpenNefia.Content.CharaMake
         [Dependency] private readonly IRandom _random = default!;
         [Dependency] private readonly ISkillsSystem _skillsSys = default!;
 
-        [Child] [Localize] private UiWindow Window = new();
-        [Child] [Localize] private UiTextTopic AttributeTopic = new();
-        [Child] [Localize] private UiWrappedText AttributeInfo;
+        [Child][Localize] private UiWindow Window = new();
+        [Child][Localize] private UiTextTopic AttributeTopic = new();
+        [Child][Localize] private UiWrappedText AttributeInfo;
         [Child] private UiText LockAmount = new();
         [Child] private UiList<AttributeRerollData> List;
 
@@ -233,7 +234,7 @@ namespace OpenNefia.Content.CharaMake
 
             if (!Data.TryGetCharaMakeResult(CharaMakeRaceSelectLayer.ResultName, out RacePrototype? race))
                 return;
-            
+
             if (!Data.TryGetCharaMakeResult(CharaMakeClassSelectLayer.ResultName, out ClassPrototype? @class))
                 return;
 
@@ -326,21 +327,18 @@ namespace OpenNefia.Content.CharaMake
             AttributeInfo.Draw();
         }
 
-        public override void ApplyStep(EntityUid entity)
+        public override void ApplyStep(EntityUid entity, EntityGenArgSet args)
         {
-            base.ApplyStep(entity);
+            base.ApplyStep(entity, args);
             if (!Data.TryGetCharaMakeResult<Dictionary<PrototypeId<SkillPrototype>, int>>(ResultName, out var attributes))
                 return;
 
-            if (!EntityManager.TryGetComponent<CharaMakeSkillInitTempComponent>(entity, out var skills))
-            {
-                skills = EntityManager.AddComponent<CharaMakeSkillInitTempComponent>(entity);
-            }
+            var charaGenArgs = args.Ensure<CharaMakeGenArgs>();
 
             foreach (var attribute in attributes)
             {
-                skills.Skills.TryGetValue(attribute.Key, out var level);
-                skills.Skills[attribute.Key] = attribute.Value + level;
+                charaGenArgs.InitialSkills.TryGetValue(attribute.Key, out var level);
+                charaGenArgs.InitialSkills[attribute.Key] = attribute.Value + level;
             }
         }
     }

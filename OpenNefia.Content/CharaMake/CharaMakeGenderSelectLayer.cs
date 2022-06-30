@@ -20,6 +20,7 @@ using OpenNefia.Core.Audio;
 using OpenNefia.Content.Prototypes;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.UI;
+using OpenNefia.Content.EntityGen;
 
 namespace OpenNefia.Content.CharaMake
 {
@@ -114,9 +115,9 @@ namespace OpenNefia.Content.CharaMake
             List.Update(dt);
         }
 
-        public override void ApplyStep(EntityUid entity)
+        public override void ApplyStep(EntityUid entity, EntityGenArgSet args)
         {
-            base.ApplyStep(entity);
+            base.ApplyStep(entity, args);
             if (!Data.TryGetCharaMakeResult<Gender>(ResultName, out var gender))
                 return;
 
