@@ -214,6 +214,49 @@ namespace OpenNefia.Content.Locale.Funcs
             }
         }
 
+        private static string GetPossessiveSuffix(object? obj)
+        {
+            switch (obj)
+            {
+                case int objInt:
+                    if (objInt == 1)
+                        return "'";
+                    else
+                        return "'s";
+
+                case long objLong:
+                    if (objLong == 1L)
+                        return "'";
+                    else
+                        return "'s";
+
+                case EntityUid objEntity:
+                    var gameSession = IoCManager.Resolve<IGameSessionManager>();
+                    if (gameSession.IsPlayer(objEntity))
+                    {
+                        return "r";
+                    }
+
+                    return "'s";
+
+                default:
+                    return "'s";
+            }
+        }
+
+        /// <summary>
+        /// Function: possessive(entity)
+        /// </summary>
+        /// <remarks>
+        /// Equivalent to (name(entity) + 's/'/r), which is ("you" + "r") for the player.
+        /// </remarks>
+        /// <hsp>#defcfunc your int tg,int mode</hsp>
+        [LocaleFunction("his_named")]
+        public static string BuiltIn_his_named(object? obj)
+        {
+            return SharedBuiltins.BuiltIn_name(obj) + GetPossessiveSuffix(obj);
+        }
+
         /// <summary>
         /// Function: him(entity)
         /// </summary>

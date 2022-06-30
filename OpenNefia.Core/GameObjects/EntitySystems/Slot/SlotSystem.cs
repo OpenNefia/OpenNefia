@@ -102,11 +102,12 @@ namespace OpenNefia.Core.GameObjects
         /// <param name="slots">Slots component to use.</param>
         /// <returns>The slot ID, if found.</returns>
         SlotId? FindSlotWithComponent<T>(EntityUid uid, SlotsComponent? slots = null) where T : IComponent;
+
+        bool HasSlot(EntityUid uid, SlotId slotId, SlotsComponent? slots = null);
     }
 
     public class SlotSystem : EntitySystem, ISlotSystem
     {
-        [Dependency] private readonly IEntityManager _entityManager = default!;
         [Dependency] private readonly ISerializationManager _serializationManager = default!;
         [Dependency] private readonly IComponentFactory _componentFactory = default!;
 
@@ -222,6 +223,14 @@ namespace OpenNefia.Core.GameObjects
             }
 
             return null;
+        }
+
+        public bool HasSlot(EntityUid uid, SlotId slotId, SlotsComponent? slots = null)
+        {
+            if (!Resolve(uid, ref slots))
+                return false;
+
+            return slots._registrations.ContainsKey(slotId);
         }
     }
 }

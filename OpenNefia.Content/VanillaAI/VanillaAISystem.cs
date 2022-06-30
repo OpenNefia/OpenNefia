@@ -35,7 +35,7 @@ namespace OpenNefia.Content.VanillaAI
     {
         [Dependency] private readonly IMapRandom _mapRandom = default!;
         [Dependency] private readonly IMapManager _mapManager = default!;
-        [Dependency] private readonly MoveableSystem _movement = default!;
+        [Dependency] private readonly IMoveableSystem _movement = default!;
         [Dependency] private readonly IFactionSystem _factions = default!;
         [Dependency] private readonly IPartySystem _parties = default!;
         [Dependency] private readonly IGameSessionManager _gameSession = default!;
