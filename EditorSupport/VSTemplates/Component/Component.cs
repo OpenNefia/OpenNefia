@@ -11,6 +11,6 @@ namespace $rootnamespace$
     [ComponentUsage(ComponentTarget.Normal)]
     public sealed class $safeitemrootname$ : Component
     {
-        public override string Name => "$safeitemrootname$";
+        public override string Name => !"$safeitemrootname$";
     }
 }

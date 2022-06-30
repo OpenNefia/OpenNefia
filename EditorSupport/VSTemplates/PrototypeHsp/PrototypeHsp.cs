@@ -13,7 +13,7 @@ using System.Text;
 
 namespace $rootnamespace$
 {
-    [Prototype("Elona.$safeitemrootname$")]
+    [Prototype(!"Elona.$safeitemrootname$")]
     public class $safeitemrootname$ : IPrototype, IHspIds<int>
     {
         [DataField("id", required: true)]
@@ -23,5 +23,5 @@ namespace $rootnamespace$
         [DataField]
         [NeverPushInheritance]
         public HspIds<int>? HspIds { get; }
-}
+    }
 }

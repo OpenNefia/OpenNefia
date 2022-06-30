@@ -9,10 +9,13 @@
 --
 
 local automagic = require "thirdparty.automagic"
+local fs = require "util.fs"
 local lyaml = require "lyaml"
 local Enum = require "api.Enum"
 local Log = require "api.Log"
 local IItemEquipment = require "mod.elona.api.aspect.IItemEquipment"
+
+local rootDir = "C:/Users/yuno/build/OpenNefia.NET"
 
 local tags = {}
 
@@ -65,6 +68,11 @@ local function itemCategory(str, ident)
     return ("%s.%s%s"):format(classify(mod_id), ident, classify(data_id))
 end
 
+local function modPart(str)
+    local mod_id, data_id = str:match "([^.]+)%.([^.]+)"
+    return classify(mod_id)
+end
+
 local function dataPart(str)
     local mod_id, data_id = str:match "([^.]+)%.([^.]+)"
     return classify(data_id)
@@ -100,6 +108,24 @@ local function rgbToHex(rgb)
     end
 
     return hexadecimal
+end
+
+local function field(from, to, field_name)
+    if from[field_name] then
+        to[camelize(field_name)] = from[field_name]
+    end
+end
+
+local function event(from, to, field_name, namespace, system, event_name)
+    if not from[field_name] then
+        return
+    end
+    to.events = to.events or automagic()
+    local e = automagic()
+    e.type = ("P_%s%sEvent"):format(dataPart(from._type), event_name)
+    e.system = ("%s.%s"):format(namespace, system)
+    e.method = ("%s_%s"):format(dataPart(from._id), event_name)
+    table.insert(to.events, e)
 end
 
 local ops = {
@@ -749,6 +775,12 @@ handlers["elona.food_type"] = function(from, to)
     end
 end
 
+handlers["elona.rank"] = function(from, to)
+    field(from, to, "decay_period_days")
+    field(from, to, "provides_salary_items")
+    event(from, to, "calc_income", "Ranks", "VanillaRanksSystem", "CalcIncome")
+end
+
 local function sort(a, b)
     return (a.elona_id or 0) < (b.elona_id or 0)
 end
@@ -810,7 +842,142 @@ local function transformMinimal(i)
     return t
 end
 
-local function write(ty, filename)
+local concat = function(acc, s)
+    return (acc and (acc .. "\n") or "") .. s
+end
+local concat2 = function(acc, s)
+    return (acc and (acc .. "\n\n") or "") .. s
+end
+
+local function write_protos_file(ty, datas, protoClass)
+    local tyName = dataPart(ty)
+    local maxPad = fun.iter(datas):extract("id"):map(dataPart):map(fun.op.len):max()
+    local ids = fun.iter(datas)
+        :map(function(dat)
+            local modName = modPart(dat.id)
+            local idName = dataPart(dat.id)
+            local padding = string.rep(" ", maxPad - #idName)
+            return ("            public static readonly %sPrototypeId %s%s = new($\"%s.{nameof(%s)}\");"):format(
+                tyName,
+                idName,
+                padding,
+                modName,
+                idName
+            )
+        end)
+        :foldl(concat)
+    local code = ([[
+using %sPrototypeId = OpenNefia.Core.Prototypes.PrototypeId<%s>;
+
+namespace OpenNefia.Content.Prototypes
+{
+    public static partial class Protos
+    {
+        public static class %s
+        {
+            #pragma warning disable format
+
+%s
+
+            #pragma warning restore format
+        }
+    }
+}
+]]):format(tyName, protoClass, tyName, ids)
+
+    local file = io.open(("%s/OpenNefia.Content/Prototypes/Protos/Protos.%s.cs"):format(rootDir, tyName), "w")
+    file:write(code)
+    file:close()
+end
+
+local function write_entity_system(ty, eventful, system_type)
+    -- assuming it will go in content
+    local full_system_type = "OpenNefia.Content." .. system_type
+    local namespace, short_system_type = full_system_type:match "^(.+)%.([^.]+)$"
+    local prototype_type = ("%sPrototype"):format(dataPart(ty))
+
+    local filename = ("%s/OpenNefia.Content/%s.cs"):format(rootDir, system_type:gsub("%.", "/"))
+    if fs.exists(filename) then
+        return
+    end
+
+    local function print_handler(event)
+        return ([[
+        public void %s(%s proto, ref %s ev)
+        {
+        }
+]]):format(event.method, prototype_type, event.type)
+    end
+
+    local function print_event_handlers(dat)
+        local events = dat.events
+        local fns = fun.iter(dat.events):map(print_handler):foldl(concat)
+
+        return ([[
+        #region %s
+
+%s
+        #endregion]]):format(dat.id, fns)
+    end
+
+    local function print_event_class(event_name)
+        return ([[
+    [PrototypeEvent(typeof(%s))]
+    public sealed class %s : PrototypeEventArgs
+    {
+        public %s()
+        {
+        }
+    }]]):format(prototype_type, event_name, event_name)
+    end
+
+    local event_handlers = fun.iter(eventful):map(print_event_handlers):foldl(concat2)
+
+    local event_names = fun.iter(eventful)
+        :extract("events")
+        :flatmap(function(d)
+            return fun.iter(d):extract("type"):to_list()
+        end)
+        :to_set()
+    event_names = table.keys(event_names)
+    local events = fun.iter(event_names):map(print_event_class):foldl(concat2)
+
+    local code = ([[
+using OpenNefia.Content.StatusEffects;
+using OpenNefia.Core.GameObjects;
+using OpenNefia.Core.IoC;
+using OpenNefia.Core.Maps;
+using OpenNefia.Core.Random;
+using OpenNefia.Core.Prototypes;
+using OpenNefia.Content.Effects;
+using OpenNefia.Content.EntityGen;
+using OpenNefia.Content.RandomGen;
+using OpenNefia.Content.Prototypes;
+
+namespace %s
+{
+    public sealed class %s : EntitySystem
+    {
+        [Dependency] private readonly IRandom _rand = default!;
+        [Dependency] private readonly IMapManager _mapManager = default!;
+        [Dependency] private readonly IEntityLookup _entityLookup = default!;
+        [Dependency] private readonly IEntityGen _entityGen = default!;
+        [Dependency] private readonly IRandomGenSystem _randomGen = default!;
+        [Dependency] private readonly ICharaGen _charaGen = default!;
+        [Dependency] private readonly IItemGen _itemGen = default!;
+
+%s
+    }
+
+%s
+}]]):format(namespace, short_system_type, event_handlers, events)
+
+    local file = io.open(filename, "w")
+    file:write(code)
+    file:close()
+end
+
+local function write(ty, filename, namespace)
     tags = {}
     local sort_ = sorts[ty] or sort
     local datas = data[ty]
@@ -821,12 +988,32 @@ local function write(ty, filename)
             return i ~= nil
         end)
         :to_list()
-    local file = io.open(
-        ("C:/Users/yuno/build/OpenNefia.NET/OpenNefia.Content/Resources/Prototypes/Elona/%s"):format(filename),
-        "w"
-    )
+
+    local file = io.open(("%s/OpenNefia.Content/Resources/Prototypes/Elona/%s"):format(rootDir, filename), "w")
     file:write(lyaml.dump({ datas }, { tag_directives = tags }))
     file:close()
+
+    if namespace then
+        write_protos_file(ty, datas, namespace)
+    end
+
+    local eventful = fun.iter(datas)
+        :filter(function(d)
+            return rawget(d, "events")
+        end)
+        :to_list()
+    local systems = fun.iter(eventful)
+        :extract("events")
+        :flatmap(function(evs)
+            return fun.iter(evs):extract("system"):to_list()
+        end)
+        :to_set()
+    systems = table.keys(systems)
+    if #systems == 1 then
+        write_entity_system(ty, eventful, systems[1])
+    elseif #systems > 1 then
+        error "Multiple entity systems specified in events."
+    end
 end
 
 write("base.chara", "Entity/Chara.yml")
@@ -849,7 +1036,8 @@ write("base.item", "Entity/Item.yml")
 -- write("elona_sys.magic", "Magic.yml")
 -- write("base.effect", "StatusEffect.yml")
 -- write("elona.item_material", "Material.yml")
-write("elona.food_type", "FoodType.yml")
+-- write("elona.food_type", "FoodType.yml")
+-- write("elona.rank", "Rank.yml")
 
 -- for _, tag in ipairs(allTags) do
 --     print(tag)

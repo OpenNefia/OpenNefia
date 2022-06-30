@@ -43,7 +43,7 @@ namespace OpenNefia.Content.Memory
 
     public sealed class EntityGenMemorySystem : EntitySystem, IEntityGenMemorySystem
     {
-        [RegisterSaveData($"Elona.EntityMemorySystem.Memory")]
+        [RegisterSaveData("Elona.EntityMemorySystem.Memory")]
         private EntityGenMemory Memory { get; } = new();
 
         public void Memorize(PrototypeId<EntityPrototype> id, string kind)

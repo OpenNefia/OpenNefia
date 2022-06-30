@@ -7,6 +7,7 @@ using OpenNefia.Content.GameObjects.EntitySystems.Tag;
 using OpenNefia.Content.Logic;
 using OpenNefia.Content.Maps;
 using OpenNefia.Content.Prototypes;
+using OpenNefia.Content.Ranks;
 using OpenNefia.Content.Stayers;
 using OpenNefia.Content.Talk;
 using OpenNefia.Content.UI;
@@ -15,12 +16,7 @@ using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Locale;
 using OpenNefia.Core.Maps;
-using OpenNefia.Core.Random;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using OpenNefia.Core.Maths;
 
 namespace OpenNefia.Content.Home
 {
@@ -28,19 +24,16 @@ namespace OpenNefia.Content.Home
     {
         int CalcItemValue(EntityUid entity, ItemComponent? itemComp = null);
         int CalcFurnitureValue(EntityUid entity, ItemComponent? itemComp = null);
-        IEnumerable<(ItemComponent item, int value)> CalcMostValuableItems(IMap map);
+        IEnumerable<(ItemComponent item, int value)> CalcMostValuableItems(IMap map, int amount = 10);
         int CalcTotalHomeValue(IMap map);
         int CalcTotalFurnitureValue(IMap map);
         int SumTotalValue(int baseValue, int furnitureValue, int homeValue);
         HomeRank CalcRank(IMap map, MapHomeComponent? mapHome = null);
-        void UpdateRank(IMap map);
+        HomeRank UpdateRank(IMap map);
     }
 
     public sealed class HomeSystem : EntitySystem, IHomeSystem
     {
-        [Dependency] private readonly IMapManager _mapManager = default!;
-        [Dependency] private readonly IAreaManager _areaManager = default!;
-        [Dependency] private readonly IRandom _rand = default!;
         [Dependency] private readonly IMessagesManager _mes = default!;
         [Dependency] private readonly ITagSystem _tags = default!;
         [Dependency] private readonly IStackSystem _stacks = default!;
@@ -50,6 +43,7 @@ namespace OpenNefia.Content.Home
         [Dependency] private readonly IStayersSystem _stayers = default!;
         [Dependency] private readonly IEmotionIconSystem _emoicons = default!;
         [Dependency] private readonly ITalkSystem _talk = default!;
+        [Dependency] private readonly IRankSystem _ranks = default!;
 
         public override void Initialize()
         {
@@ -121,12 +115,12 @@ namespace OpenNefia.Content.Home
             return Math.Clamp(itemComp.Value / 50, 50, 500);
         }
 
-        public IEnumerable<(ItemComponent item, int value)> CalcMostValuableItems(IMap map)
+        public IEnumerable<(ItemComponent item, int value)> CalcMostValuableItems(IMap map, int amount = 10)
         {
             return _lookup.EntityQueryInMap<ItemComponent>(map)
                 .Select(item => (item, CalcItemValue(item.Owner, item)))
                 .OrderByDescending(tuple => tuple.Item2)
-                .Take(10);
+                .Take(amount);
         }
 
         public int CalcTotalHomeValue(IMap map)
@@ -159,12 +153,36 @@ namespace OpenNefia.Content.Home
             return new HomeRank(homeRank, baseValue, homeValue, furnitureValue);
         }
 
-        public void UpdateRank(IMap map)
+        public HomeRank UpdateRank(IMap map)
         {
             var newRank = CalcRank(map);
-            // TODO rank
+            var oldRank = _ranks.GetRank(Protos.Rank.Home);
+
+            if (newRank.RankExperience != oldRank.Experience)
+            {
+                Color color;
+                // 1st rank is better than 10th rank.
+
+                if (newRank.RankExperience < oldRank.Experience)
+                    color = UiColors.MesGreen;
+                else
+                    color = UiColors.MesPurple;
+
+                _mes.Display(Loc.GetString("Elona.Home.Rank.Change",
+                    ("furnitureRank", newRank.FurnitureValue / 100),
+                    ("homeRank", newRank.HomeValue / 100),
+                    ("oldRank", oldRank.Place),
+                    ("newRank", newRank.RankPlace),
+                    ("title", _ranks.GetRankTitle(Protos.Rank.Home, newRank.RankPlace))), color);
+            }
+
+            _ranks.SetRank(Protos.Rank.Home, newRank.RankExperience);
+            return newRank;
         }
     }
 
-    public sealed record HomeRank(int Rank, int BaseValue, int HomeValue, int FurnitureValue);
+    public sealed record HomeRank(int RankExperience, int BaseValue, int HomeValue, int FurnitureValue)
+    {
+        public int RankPlace => RankExperience / Rank.ExpPerRankPlace;
+    }
 }

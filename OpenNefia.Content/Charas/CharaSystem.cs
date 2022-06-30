@@ -233,7 +233,7 @@ namespace OpenNefia.Content.Charas
             _activities.RemoveActivity(entity);
             _effects.RemoveAll(entity);
             _buffs.RemoveAllBuffs(entity);
-            _emoicons.SetEmotionIcon(entity, "None", GameTimeSpan.Zero);
+            _emoicons.SetEmotionIcon(entity, "None", 0);
             _skillAdjusts.RemoveAllSkillAdjusts(entity);
 
             if (EntityManager.TryGetComponent<VanillaAIComponent>(entity, out var vai))
