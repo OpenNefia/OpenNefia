@@ -4,7 +4,7 @@ namespace OpenNefia.Content.Prototypes
 {
     public static partial class Protos
     {
-        public static class CharaFeat
+        public static class Feat
         {
             #pragma warning disable format
 

@@ -18,6 +18,7 @@ namespace OpenNefia.Content.EtherDisease
 {
     public interface IEtherDiseaseSystem : IEntitySystem
     {
+        void ModifyCorruption(EntityUid player, int v, EtherDiseaseComponent? etherDisease = null);
     }
 
     public sealed class EtherDiseaseSystem : EntitySystem, IEtherDiseaseSystem
@@ -41,11 +42,15 @@ namespace OpenNefia.Content.EtherDisease
             if (!EntityManager.IsAlive(uid))
                 return;
 
-            if (etherDisease.DiseaseProgression >= EtherDiseaseDeathThreshold)
+            if (etherDisease.Corruption >= EtherDiseaseDeathThreshold)
             {
                 if (TryComp<SkillsComponent>(uid, out var skills))
                     _skills.DamageHP(uid, Math.Max(999999, skills.MaxHP), "Elona.EtherDisease");
             }
+        }
+
+        public void ModifyCorruption(EntityUid player, int v, EtherDiseaseComponent? etherDisease = null)
+        {
         }
     }
 }

@@ -73,7 +73,7 @@ namespace OpenNefia.Content.Logic
 
     public static class IMessagesManagerExt
     {
-        public static void DisplayL(this IMessagesManager mes, LocaleKey key, Color? color = null, bool alert = false, bool noCapitalize = false, EntityUid? entity = null)
-            => mes.Display(Loc.GetString(key), color, alert, noCapitalize, entity);
+        public static void DisplayL(this IMessagesManager mes, LocaleKey key, Color? color = null, bool alert = false, bool combineDuplicates = false, bool noCapitalize = false, EntityUid? entity = null)
+            => mes.Display(Loc.GetString(key), color, alert, noCapitalize, combineDuplicates, entity);
     }
 }

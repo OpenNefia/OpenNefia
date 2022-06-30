@@ -361,7 +361,7 @@ namespace OpenNefia.Content.CharaInfo
             for (int i = 0; i < 15; i++)
             {
                 if (buffs?.Buffs.Count > i)
-                    blessCont.AddElement(new HexAndBlessingIcon(_protos.Index(buffs.Buffs[i])));
+                    blessCont.AddElement(new HexAndBlessingIcon(_protos.Index(buffs.Buffs[i].BuffID)));
                 else
                     blessCont.AddElement(new HexAndBlessingIcon(null));
             }

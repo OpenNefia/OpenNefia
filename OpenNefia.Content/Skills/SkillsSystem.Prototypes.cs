@@ -1,4 +1,5 @@
 ﻿using OpenNefia.Core.Prototypes;
+using OpenNefia.Core.Random;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -45,6 +46,11 @@ namespace OpenNefia.Content.Skills
         {
             return _protos.EnumeratePrototypes<SkillPrototype>()
                 .Where(skillProto => skillProto.SkillType == SkillType.WeaponProficiency);
+        }
+
+        public SkillPrototype PickRandomBaseAttribute()
+        {
+            return _rand.Pick(EnumerateBaseAttributes().ToList());
         }
     }
 }

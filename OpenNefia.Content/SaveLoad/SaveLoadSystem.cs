@@ -13,7 +13,7 @@ namespace OpenNefia.Content.SaveLoad
 {
     public interface ISaveLoadSystem : IEntitySystem
     {
-        void QueueAutosave();
+        void QueueAutosave(AutosaveType threshold = AutosaveType.Always);
         void QuickSaveGame();
         void QuickLoadGame();
     }
@@ -27,7 +27,7 @@ namespace OpenNefia.Content.SaveLoad
         [Dependency] private readonly IGraphics _graphics = default!;
         [Dependency] private readonly IMessagesManager _mes = default!;
 
-        public void QueueAutosave()
+        public void QueueAutosave(AutosaveType type = AutosaveType.Always)
         {
             // TODO
         }

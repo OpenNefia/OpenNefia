@@ -166,6 +166,13 @@ namespace OpenNefia.Content.Skills
             // <<<<<<<< shade2/module.hsp:349 	#defcfunc calcFame int c,int per ..
         }
 
+        public void GainSkillExp(EntityUid uid, SkillPrototype skill,
+            int baseExpGained,
+            int relatedSkillExpDivisor = 0,
+            int levelExpDivisor = 0,
+            SkillsComponent? skills = null)
+            => GainSkillExp(uid, skill.GetStrongID(), baseExpGained, relatedSkillExpDivisor, levelExpDivisor, skills);
+
         private int CalcNewPotentialFromLeveling(int potential, int levelDelta)
         {
             var newPotential = potential;
@@ -346,13 +353,13 @@ namespace OpenNefia.Content.Skills
                         feats.NumberOfFeatsAcquirable++;
                     }
 
-                    skillBonus += _feats.Level(entity, Protos.CharaFeat.PermSkillPoint, feats);
+                    skillBonus += _feats.Level(entity, Protos.Feat.PermSkillPoint, feats);
                 }
             }
 
             GainBonusPoints(entity, skillBonus, skillsComp);
 
-            if (_feats.HasFeat(entity, Protos.CharaFeat.PermChaosShape))
+            if (_feats.HasFeat(entity, Protos.Feat.PermChaosShape))
             {
                 if (levelComp.Level < 37 && levelComp.Level % 3 == 0 && levelComp.MaxLevelReached < levelComp.Level)
                 {

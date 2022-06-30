@@ -1,4 +1,4 @@
-﻿using OpenNefia.Analyzers;  
+﻿using OpenNefia.Analyzers;
 using OpenNefia.Content.Parties;
 using OpenNefia.Core.Game;
 using OpenNefia.Core.GameObjects;
@@ -10,7 +10,9 @@ namespace OpenNefia.Content.Factions
     {
         Relation GetRelationTowards(EntityUid us, EntityUid them);
         Relation GetRelationToPlayer(EntityUid target, FactionComponent? faction = null);
+
         void SetPersonalRelationTowards(EntityUid us, EntityUid them, Relation relation, FactionComponent? ourFaction = null);
+        bool ClearPersonalRelationTowards(EntityUid us, EntityUid them, FactionComponent? ourFaction = null);
         void ClearAllPersonalRelations(EntityUid entity, FactionComponent? faction = null);
     }
 
@@ -128,6 +130,14 @@ namespace OpenNefia.Content.Factions
                 return;
 
             ourFaction.PersonalRelations[them] = relation;
+        }
+
+        public bool ClearPersonalRelationTowards(EntityUid us, EntityUid them, FactionComponent? ourFaction = null)
+        {
+            if (!Resolve(us, ref ourFaction))
+                return false;
+
+            return ourFaction.PersonalRelations.Remove(them);
         }
 
         public void ClearAllPersonalRelations(EntityUid entity, FactionComponent? faction = null)

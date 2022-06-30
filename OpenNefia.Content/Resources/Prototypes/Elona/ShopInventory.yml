@@ -1,0 +1,94 @@
+---
+- type: Elona.ShopInventory
+  id: Elona.Blacksmith
+  hspIds:
+    elona122: 1001
+- type: Elona.ShopInventory
+  id: Elona.FoodVendor
+  hspIds:
+    elona122: 1002
+- type: Elona.ShopInventory
+  id: Elona.Bakery
+  hspIds:
+    elona122: 1003
+- type: Elona.ShopInventory
+  id: Elona.MagicVendor
+  hspIds:
+    elona122: 1004
+- type: Elona.ShopInventory
+  id: Elona.Innkeeper
+  hspIds:
+    elona122: 1005
+- type: Elona.ShopInventory
+  id: Elona.GeneralVendor
+  hspIds:
+    elona122: 1006
+- type: Elona.ShopInventory
+  id: Elona.Blackmarket
+  hspIds:
+    elona122: 1007
+- type: Elona.ShopInventory
+  id: Elona.GoodsVendor
+  hspIds:
+    elona122: 1008
+- type: Elona.ShopInventory
+  id: Elona.Trader
+  hspIds:
+    elona122: 1009
+- type: Elona.ShopInventory
+  id: Elona.WanderingMerchant
+  hspIds:
+    elona122: 1010
+- type: Elona.ShopInventory
+  id: Elona.CyberDome
+  hspIds:
+    elona122: 1011
+- type: Elona.ShopInventory
+  id: Elona.Embassy
+  hspIds:
+    elona122: 1012
+- type: Elona.ShopInventory
+  id: Elona.Deed
+  hspIds:
+    elona122: 1013
+- type: Elona.ShopInventory
+  id: Elona.Fisher
+  hspIds:
+    elona122: 1014
+- type: Elona.ShopInventory
+  id: Elona.Moyer
+  hspIds:
+    elona122: 1015
+- type: Elona.ShopInventory
+  id: Elona.Miral
+  hspIds:
+    elona122: 1016
+- type: Elona.ShopInventory
+  id: Elona.DyeVendor
+  hspIds:
+    elona122: 1017
+- type: Elona.ShopInventory
+  id: Elona.SouvenirVendor
+  hspIds:
+    elona122: 1018
+- type: Elona.ShopInventory
+  id: Elona.YoungerSisterOfMansion
+  hspIds:
+    elona122: 1019
+- type: Elona.ShopInventory
+  id: Elona.SpellWriter
+  hspIds:
+    elona122: 1020
+- type: Elona.ShopInventory
+  id: Elona.TheFence
+  hspIds:
+    elona122: 1021
+- type: Elona.ShopInventory
+  id: Elona.StreetVendor
+  hspIds:
+    elona122: 1022
+- type: Elona.ShopInventory
+  id: Elona.VisitingMerchant
+  hspIds:
+    elona122: 2003
+...

@@ -795,7 +795,6 @@ handlers["elona.rank"] = function(from, to)
 end
 
 handlers["base.activity"] = function(from, to)
-    to.params = "TODO"
     if from.default_turns and type(from.default_turns) == "number" then
         field(from, to, "default_turns")
     end
@@ -810,6 +809,8 @@ handlers["base.activity"] = function(from, to)
     field(from, to, "interrupt_on_displace")
     comp(to, ("Activity%s"):format(dataPart(from._id)))
 end
+
+handlers["elona.shop_inventory"] = function(from, to) end
 
 local function sort(a, b)
     return (a.elona_id or 0) < (b.elona_id or 0)
@@ -1069,6 +1070,7 @@ write("base.item", "Entity/Item.yml")
 -- write("elona.food_type", "FoodType.yml")
 -- write("elona.rank", "Rank.yml")
 -- write("base.activity", "Activity.yml", "OpenNefia.Content.Activity.ActivityPrototype")
+write("elona.shop_inventory", "ShopInventory.yml", "OpenNefia.Content.Shopkeeper.ShopInventoryPrototype")
 
 -- for _, tag in ipairs(allTags) do
 --     print(tag)

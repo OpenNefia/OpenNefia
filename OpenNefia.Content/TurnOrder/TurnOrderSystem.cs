@@ -13,6 +13,9 @@ using OpenNefia.Core.Locale;
 using OpenNefia.Core.UserInterface;
 using OpenNefia.Core.SaveGames;
 using OpenNefia.Content.Maps;
+using OpenNefia.Content.Skills;
+using OpenNefia.Content.Charas;
+using OpenNefia.Core.Utility;
 
 namespace OpenNefia.Content.TurnOrder
 {
@@ -74,6 +77,8 @@ namespace OpenNefia.Content.TurnOrder
         [Dependency] private readonly ISaveGameSerializer _saveGameSerializer = default!;
         [Dependency] private readonly IMessagesManager _mes = default!;
         [Dependency] private readonly IMapTransferSystem _mapTransfer = default!;
+        [Dependency] private readonly IPlayerQuery _playerQuery = default!;
+        [Dependency] private readonly ICharaSystem _charas = default!;
 
         private TurnOrderState _state = TurnOrderState.TurnBegin;
 
@@ -134,7 +139,7 @@ namespace OpenNefia.Content.TurnOrder
 
             return (int)MathF.Max(turnOrder.CurrentSpeed * turnOrder.SpeedPercentage, 10f);
         }
-        
+
         /// <inheritdoc/>
         public void InitializeState()
         {
@@ -475,20 +480,20 @@ namespace OpenNefia.Content.TurnOrder
 
             var ev = new PlayerDiedEventArgs();
             RaiseEvent(_gameSession.Player, ev);
-            if (ev.Handled) 
+            if (ev.Handled)
             {
                 return ev.TurnResult.ToTurnOrderState();
             }
 
-            _mes.Display(Loc.GetString("Elona.Death.GoodBye"));
+            _mes.Display(Loc.GetString("Elona.PlayerDeath.GoodBye"));
 
-            var promptArgs = new TextPrompt.Args(maxLength: 16, prompt: Loc.GetString("Elona.Death.PromptDyingMessage"));
+            var promptArgs = new TextPrompt.Args(maxLength: 16, prompt: Loc.GetString("Elona.PlayerDeath.PromptDyingMessage"));
             var result = _uiManager.Query<TextPrompt, TextPrompt.Args, TextPrompt.Result>(promptArgs);
             string lastWords;
 
             if (!result.HasValue || string.IsNullOrEmpty(result.Value.Text))
             {
-                lastWords = Loc.GetString("Elona.Death.DefaultLastWords");
+                lastWords = Loc.GetString("Elona.PlayerDeath.DefaultLastWords");
             }
             else
             {
@@ -499,7 +504,50 @@ namespace OpenNefia.Content.TurnOrder
 
             Logger.Info($"Player death: {lastWords}");
 
+            if (_playerQuery.YesOrNo("Revive?"))
+            {
+                RevivePlayer();
+                return TurnOrderState.TurnBegin;
+            }
+
             return TurnOrderState.TitleScreen;
+        }
+
+        private void RevivePlayer()
+        {
+            Exception? ex = null;
+            try
+            {
+                PlayerAboutToRespawn = true;
+                DoRevivePlayer();
+            }
+            catch (Exception e)
+            {
+                ex = e;
+                Logger.Error($"Failed to revive player!\n{e}");
+            }
+            finally
+            {
+                PlayerAboutToRespawn = false;
+            }
+
+            if (ex != null)
+                throw ex;
+        }
+
+        private void DoRevivePlayer()
+        {
+            var player = _gameSession.Player;
+            DebugTools.Assert(_charas.Revive(player), "Failed to revive player!");
+
+            if (_mapManager.TryGetMap(new MapId(1), out var map))
+            {
+                var pos = new CenterMapLocation().GetStartPosition(player, map);
+                _mapTransfer.DoMapTransfer(Spatial(player), map, map.AtPosEntity(pos), MapLoadType.Traveled);
+            }
+
+            var ev = new PlayerRevivingEvent();
+            RaiseEvent(player, ev);
         }
 
         #endregion
@@ -531,18 +579,18 @@ namespace OpenNefia.Content.TurnOrder
                 case TurnResult.Failed:
                 case TurnResult.Succeeded:
                 default:
-                    return TurnOrderState.TurnEnd; 
+                    return TurnOrderState.TurnEnd;
             }
         }
     }
 
     #region Events
 
-    public class BeforeTurnBeginEventArgs : TurnResultEntityEventArgs
+    public sealed class BeforeTurnBeginEventArgs : TurnResultEntityEventArgs
     {
     }
 
-    public class EntityTurnStartingEventArgs : TurnResultEntityEventArgs
+    public sealed class EntityTurnStartingEventArgs : TurnResultEntityEventArgs
     {
         public EntityTurnStartingEventArgs(bool isFirstTurn)
         {
@@ -552,15 +600,15 @@ namespace OpenNefia.Content.TurnOrder
         public bool IsFirstTurn { get; }
     }
 
-    public class EntityPassTurnEventArgs : TurnResultEntityEventArgs
+    public sealed class EntityPassTurnEventArgs : TurnResultEntityEventArgs
     {
     }
 
-    public class EntityTurnEndingEventArgs : TurnResultEntityEventArgs
+    public sealed class EntityTurnEndingEventArgs : TurnResultEntityEventArgs
     {
     }
 
-    internal class PlayerDiedEventArgs : TurnResultEntityEventArgs
+    public sealed class PlayerDiedEventArgs : TurnResultEntityEventArgs
     {
     }
 
@@ -603,6 +651,8 @@ namespace OpenNefia.Content.TurnOrder
             TurnResult = turnResult;
         }
     }
+
+    public sealed class PlayerRevivingEvent : EntityEventArgs {}
 
     #endregion
 }

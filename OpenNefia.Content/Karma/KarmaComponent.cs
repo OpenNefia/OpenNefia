@@ -16,6 +16,9 @@ namespace OpenNefia.Content.Karma
 
         [DataField]
         public Stat<int> Karma { get; set; } = new(0);
+
+        [DataField]
+        public Stat<bool> IsIncognito { get; set; } = new(false);
     }
 
     public static class KarmaLevels

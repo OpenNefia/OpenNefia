@@ -374,7 +374,7 @@ namespace OpenNefia.Content.Maps
                                     _skills.GainLevel(ent, showMessage: false);
                                 }
                             }
-                            if (!HasComp<IncognitoComponent>(player))
+                            if (!TryComp<KarmaComponent>(player, out var karma) || !karma.IsIncognito.Buffed)
                             {
                                 _vanillaAI.SetTarget(ent, player, 200);
                                 EnsureComp<FactionComponent>(ent).RelationToPlayer = Relation.Enemy;

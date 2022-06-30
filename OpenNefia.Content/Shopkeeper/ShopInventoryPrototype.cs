@@ -3,7 +3,7 @@ using OpenNefia.Core.Serialization.Manager.Attributes;
 
 namespace OpenNefia.Content.Shopkeeper
 {
-    [Prototype("ShopInventory")]
+    [Prototype("Elona.ShopInventory")]
     public class ShopInventoryPrototype : IPrototype
     {
         /// <inheritdoc />
