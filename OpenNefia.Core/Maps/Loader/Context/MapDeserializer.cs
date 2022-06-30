@@ -358,8 +358,17 @@ namespace OpenNefia.Core.Maps
             // This can't go in RegisterMap() because entities haven't been initialized
             // at that point.
             // Maybe run initialize/startup for just the map entity first?
-            var ev = new MapCreatedEvent(MapGrid!, loadedFromSave: true);
-            _entityManager.EventBus.RaiseEvent(MapGrid!.MapEntityUid, ev);
+
+            if (_mode == MapSerializeMode.Blueprint)
+            {
+                var ev = new MapCreatedEvent(MapGrid!, MapCreationMode.LoadedFromBlueprint);
+                _entityManager.EventBus.RaiseEvent(MapGrid!.MapEntityUid, ev);
+            }
+            else if (_mode == MapSerializeMode.Full)
+            {
+                var ev = new MapLoadedFromSaveEvent(MapGrid!);
+                _entityManager.EventBus.RaiseEvent(MapGrid!.MapEntityUid, ev);
+            }
 
             foreach (var entityUid in _context.Entities)
             {
