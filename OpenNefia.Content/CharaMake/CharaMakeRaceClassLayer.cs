@@ -1,4 +1,5 @@
 ﻿using OpenNefia.Content.Charas;
+using OpenNefia.Content.EntityGen;
 using OpenNefia.Content.Prototypes;
 using OpenNefia.Content.Skills;
 using OpenNefia.Content.UI;
@@ -41,9 +42,9 @@ namespace OpenNefia.Content.CharaMake
             }));
         }
 
-        public override void ApplyStep(EntityUid entity)
+        public override void ApplyStep(EntityUid entity, EntityGenArgSet args)
         {
-            base.ApplyStep(entity);
+            base.ApplyStep(entity, args);
             if (!Data.TryGetCharaMakeResult<RacePrototype>(ResultName, out var race))
                 return;
 
@@ -131,16 +132,16 @@ namespace OpenNefia.Content.CharaMake
             Atlas.Flush();
             Atlas.Draw(UIScale, 0, 0);
         }
-
-        public override void ApplyStep(EntityUid entity)
+                                                         
+        public override void ApplyStep(EntityUid entity, EntityGenArgSet args)
         {
-            base.ApplyStep(entity);
+            base.ApplyStep(entity, args);
             if (!Data.TryGetCharaMakeResult<ClassPrototype>(ResultName, out var @class))
                 return;
 
             if (!EntityManager.TryGetComponent<CharaComponent>(entity, out var chara))
             {
-                Logger.WarningS("charamake", "No CharaComponent present on entity");
+                Logger.WarningS("charamake", $"No {nameof(CharaComponent)} present on entity");
                 return;
             }
 

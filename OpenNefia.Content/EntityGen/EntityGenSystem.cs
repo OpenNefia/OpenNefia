@@ -31,7 +31,7 @@ namespace OpenNefia.Content.EntityGen
     /// </remarks>
     public interface IEntityGen : IEntitySystem
     {
-        void FireGeneratedEvent(EntityUid entity);
+        void FireGeneratingEvents(EntityUid entity, EntityGenArgSet? args = null);
         EntityUid? SpawnEntity(PrototypeId<EntityPrototype>? protoId, EntityCoordinates coordinates, int? amount = null, EntityGenArgSet? args = null);
         EntityUid? SpawnEntity(PrototypeId<EntityPrototype>? protoId, MapCoordinates coordinates, int? amount = null, EntityGenArgSet? args = null);
         EntityUid? SpawnEntity(PrototypeId<EntityPrototype>? protoId, IContainer container, int? amount = null, EntityGenArgSet? args = null);
@@ -53,11 +53,15 @@ namespace OpenNefia.Content.EntityGen
             SubscribeEntity<EntityCloneFinishedEventArgs>(HandleClone, priority: EventPriorities.VeryLow);
         }
 
-        public void FireGeneratedEvent(EntityUid entity)
+        public void FireGeneratingEvents(EntityUid entity, EntityGenArgSet? args = null)
         {
+            args ??= EntityGenArgSet.Make();
+            var ev1 = new EntityBeingGeneratedEvent(args);
+            RaiseEvent(entity, ref ev1);
+
             // TODO: Check if generated has already been fired for this entity.
-            var ev = new EntityGeneratedEvent();
-            RaiseEvent(entity, ref ev);
+            var ev2 = new EntityGeneratedEvent();
+            RaiseEvent(entity, ref ev2);
         }
 
         /// <summary>
@@ -65,7 +69,7 @@ namespace OpenNefia.Content.EntityGen
         /// </summary>
         private void HandleBlueprintEntityStartup(EntityUid entity)
         {
-            FireGeneratedEvent(entity);
+            FireGeneratingEvents(entity);
         }
 
         /// <summary>
@@ -73,7 +77,7 @@ namespace OpenNefia.Content.EntityGen
         /// </summary>
         private void HandleClone(EntityUid entity, EntityCloneFinishedEventArgs args)
         {
-            FireGeneratedEvent(entity);
+            FireGeneratingEvents(entity);
         }
 
         public EntityUid? SpawnEntity(PrototypeId<EntityPrototype>? protoId, EntityCoordinates coordinates, int? count = null, EntityGenArgSet? args = null)
@@ -105,11 +109,7 @@ namespace OpenNefia.Content.EntityGen
                     break;
             }
 
-            args ??= EntityGenArgSet.Make();
-            var ev = new EntityBeingGeneratedEvent(args);
-            RaiseEvent(ent, ref ev);
-
-            FireGeneratedEvent(ent);
+            FireGeneratingEvents(ent, args);
 
             if (!EntityManager.IsAlive(ent))
             {

@@ -20,6 +20,7 @@ using OpenNefia.Content.StatusEffects;
 using OpenNefia.Content.Buffs;
 using OpenNefia.Content.Activity;
 using OpenNefia.Content.Weight;
+using OpenNefia.Content.CharaMake;
 
 namespace OpenNefia.Content.Charas
 {
@@ -49,10 +50,10 @@ namespace OpenNefia.Content.Charas
 
         public override void Initialize()
         {
-            SubscribeComponent<CharaComponent, EntityGeneratedEvent>(HandleGenerated, priority: EventPriorities.Highest);
+            SubscribeComponent<CharaComponent, EntityBeingGeneratedEvent>(HandleGenerated, priority: EventPriorities.Highest);
         }
 
-        private void HandleGenerated(EntityUid uid, CharaComponent chara, ref EntityGeneratedEvent args)
+        private void HandleGenerated(EntityUid uid, CharaComponent chara, ref EntityBeingGeneratedEvent args)
         {
             InitRaceSkills(uid, chara);
             InitRaceEquipSlots(uid, chara);
@@ -60,7 +61,7 @@ namespace OpenNefia.Content.Charas
             SetDefaultCharaChip(uid, chara);
 
             InitClassSkills(uid, chara);
-            InitCharaMakeSkills(uid);
+            InitCharaMakeSkills(uid, args.GenArgs);
         }
 
         private void InitRaceSkills(EntityUid uid, CharaComponent chara,
@@ -179,21 +180,18 @@ namespace OpenNefia.Content.Charas
             }
         }
 
-        private void InitCharaMakeSkills(EntityUid uid, SkillsComponent? skills = null,
-            CharaMakeSkillInitTempComponent? charaMakeSkill = null)
+        private void InitCharaMakeSkills(EntityUid uid, EntityGenArgSet args, SkillsComponent? skills = null)
         {
-            if (!Resolve(uid, ref charaMakeSkill, ref skills, logMissing: false))
+            if (!Resolve(uid, ref skills) || !args.TryGet<CharaMakeGenArgs>(out var charaMakeArgs))
                 return;
 
-            foreach (var skill in charaMakeSkill.Skills)
+            foreach (var skill in charaMakeArgs.InitialSkills)
             {
                 skills.Skills[skill.Key] = new LevelAndPotential
                 {
                     Level = new(skill.Value),
                 };
             }
-
-            _entityManager.RemoveComponent<CharaMakeSkillInitTempComponent>(uid);
         }
 
         public bool Revive(EntityUid entity, CharaComponent? chara = null)

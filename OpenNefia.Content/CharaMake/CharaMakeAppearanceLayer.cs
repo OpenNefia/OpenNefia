@@ -14,6 +14,7 @@ using OpenNefia.Core.Log;
 using OpenNefia.Content.CharaAppearance;
 using OpenNefia.Content.UI;
 using OpenNefia.Core.UI;
+using OpenNefia.Content.EntityGen;
 
 namespace OpenNefia.Content.CharaMake
 {
@@ -117,9 +118,9 @@ namespace OpenNefia.Content.CharaMake
             AppearanceControl.Dispose();
         }
 
-        public override void ApplyStep(EntityUid entity)
+        public override void ApplyStep(EntityUid entity, EntityGenArgSet args)
         {
-            base.ApplyStep(entity);
+            base.ApplyStep(entity, args);
             if (!Data.TryGetCharaMakeResult<CharaAppearanceData>(ResultName, out var appearance))
                 return;
 
