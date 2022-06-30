@@ -110,14 +110,20 @@ local function rgbToHex(rgb)
     return hexadecimal
 end
 
-local function field(from, to, field_name)
+local id = function(i)
+    return i
+end
+
+local function field(from, to, field_name, transform)
+    transform = transform or id
+
     if from[field_name] then
-        to[camelize(field_name)] = from[field_name]
+        to[camelize(field_name)] = transform(from[field_name])
     end
 end
 
 local function event(from, to, field_name, namespace, system, event_name)
-    if not from[field_name] then
+    if field_name ~= nil and not from[field_name] then
         return
     end
     to.events = to.events or automagic()
@@ -781,6 +787,23 @@ handlers["elona.rank"] = function(from, to)
     event(from, to, "calc_income", "Ranks", "VanillaRanksSystem", "CalcIncome")
 end
 
+handlers["base.activity"] = function(from, to)
+    to.params = "TODO"
+    if from.default_turns and type(from.default_turns) == "number" then
+        field(from, to, "default_turns")
+    end
+    if from.animation_wait and type(from.animation_wait) == "number" then
+        field(from, to, "animation_wait")
+    end
+    if from.auto_turn_anim and type(from.auto_turn_anim) == "string" then
+        field(from, to, "auto_turn_anim", dotted)
+    end
+    field(from, to, "can_scroll")
+    field(from, to, "on_interrupt", classify)
+    field(from, to, "interrupt_on_displace")
+    comp(to, ("Activity%s"):format(dataPart(from._id)))
+end
+
 local function sort(a, b)
     return (a.elona_id or 0) < (b.elona_id or 0)
 end
@@ -1038,6 +1061,7 @@ write("base.item", "Entity/Item.yml")
 -- write("elona.item_material", "Material.yml")
 -- write("elona.food_type", "FoodType.yml")
 -- write("elona.rank", "Rank.yml")
+-- write("base.activity", "Activity.yml", "OpenNefia.Content.Activity.ActivityPrototype")
 
 -- for _, tag in ipairs(allTags) do
 --     print(tag)
