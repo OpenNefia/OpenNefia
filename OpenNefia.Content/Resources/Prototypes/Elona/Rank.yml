@@ -1,0 +1,63 @@
+---
+- type: Elona.Rank
+  id: Elona.Arena
+  hspIds:
+    elona122: 0
+  decayPeriodDays: 20
+  providesSalaryItems: true
+  incomeModifier: 0.8
+
+- type: Elona.Rank
+  id: Elona.PetArena
+  hspIds:
+    elona122: 1
+  decayPeriodDays: 60
+  providesSalaryItems: true
+  incomeModifier: 0.7
+
+- type: Elona.Rank
+  id: Elona.Crawler
+  hspIds:
+    elona122: 2
+  decayPeriodDays: 45
+  providesSalaryItems: true
+  incomeModifier: 1.2
+
+- type: Elona.Rank
+  id: Elona.Museum
+  hspIds:
+    elona122: 3
+  providesSalaryItems: false
+
+- type: Elona.Rank
+  id: Elona.Home
+  hspIds:
+    elona122: 4
+  providesSalaryItems: true
+  incomeModifier: 0.6
+
+- type: Elona.Rank
+  id: Elona.Shop
+  hspIds:
+    elona122: 5
+  incomeModifier: 0.2
+
+- type: Elona.Rank
+  id: Elona.Vote
+  hspIds:
+    elona122: 6
+  decayPeriodDays: 30
+  incomeModifier: 0.25
+
+- type: Elona.Rank
+  id: Elona.Fishing
+  hspIds:
+    elona122: 7
+  providesSalaryItems: true
+
+- type: Elona.Rank
+  id: Elona.Guild
+  hspIds:
+    elona122: 8
+  providesSalaryItems: true
+...
