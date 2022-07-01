@@ -24,6 +24,7 @@ using OpenNefia.Content.EntityGen;
 using OpenNefia.Content.Memory;
 using OpenNefia.Content.Activity;
 using OpenNefia.Core;
+using OpenNefia.Content.Dialog;
 
 namespace OpenNefia.Content.Religion
 {

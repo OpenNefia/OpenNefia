@@ -4,12 +4,14 @@
     after: Elona.Throwing
   relatedSkill: Elona.AttrConstitution
   skillType: Skill
+  initialLevel: 3
 
 - type: Elona.Skill
   id: Elona.Evasion
   relatedSkill: Elona.AttrDexterity
   skillType: Skill
-  isPrimarySkill: true
+  growOnLevelUp: true
+  initialLevel: 4
 
 - type: Elona.Skill
   id: Elona.DualWield
@@ -40,6 +42,7 @@
   id: Elona.Healing
   relatedSkill: Elona.AttrConstitution
   skillType: Skill
+  initialLevel: 4
 
 - type: Elona.Skill
   id: Elona.Mining
@@ -55,16 +58,19 @@
   id: Elona.HeavyArmor
   relatedSkill: Elona.AttrConstitution
   skillType: Skill
+  initialLevel: 4
 
 - type: Elona.Skill
   id: Elona.MediumArmor
   relatedSkill: Elona.AttrConstitution
   skillType: Skill
+  initialLevel: 4
 
 - type: Elona.Skill
   id: Elona.LightArmor
   relatedSkill: Elona.AttrDexterity
   skillType: Skill
+  initialLevel: 4
 
 - type: Elona.Skill
   id: Elona.LockPicking
@@ -90,6 +96,7 @@
   id: Elona.Stealth
   relatedSkill: Elona.AttrPerception
   skillType: Skill
+  initialLevel: 4
 
 - type: Elona.Skill
   id: Elona.Detection
@@ -145,6 +152,7 @@
   id: Elona.Meditation
   relatedSkill: Elona.AttrMagic
   skillType: Skill
+  initialLevel: 4
 
 - type: Elona.Skill
   id: Elona.MagicDevice
@@ -170,6 +178,7 @@
   id: Elona.Faith
   relatedSkill: Elona.AttrWill
   skillType: Skill
+  initialLevel: 4
 
 - type: Elona.Skill
   id: Elona.Traveling

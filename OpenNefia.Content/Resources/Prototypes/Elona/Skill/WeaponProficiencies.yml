@@ -4,53 +4,63 @@
     after: Elona.AttrLuck
   relatedSkill: Elona.AttrStrength
   skillType: WeaponProficiency
+  initialLevel: 4
 
 - type: Elona.Skill
   id: Elona.ShortSword
   relatedSkill: Elona.AttrDexterity
   skillType: WeaponProficiency
+  initialLevel: 4
 
 - type: Elona.Skill
   id: Elona.Axe
   relatedSkill: Elona.AttrConstitution
   skillType: WeaponProficiency
+  initialLevel: 4
 
 - type: Elona.Skill
   id: Elona.Blunt
   relatedSkill: Elona.AttrConstitution
   skillType: WeaponProficiency
+  initialLevel: 4
 
 - type: Elona.Skill
   id: Elona.Polearm
   relatedSkill: Elona.AttrConstitution
   skillType: WeaponProficiency
+  initialLevel: 4
 
 - type: Elona.Skill
   id: Elona.Stave
   relatedSkill: Elona.AttrConstitution
   skillType: WeaponProficiency
+  initialLevel: 4
 
 - type: Elona.Skill
   id: Elona.MartialArts
   relatedSkill: Elona.AttrStrength
   skillType: WeaponProficiency
-  isPrimarySkill: true
+  growOnLevelUp: true
+  initialLevel: 4
 
 - type: Elona.Skill
   id: Elona.Scythe
   relatedSkill: Elona.AttrStrength
   skillType: WeaponProficiency
+  initialLevel: 4
 
 - type: Elona.Skill
   id: Elona.Bow
   relatedSkill: Elona.AttrDexterity
   skillType: WeaponProficiency
-  isPrimarySkill: true
+  growOnLevelUp: true
+  initialLevel: 4
 
 - type: Elona.Skill
   id: Elona.Crossbow
   relatedSkill: Elona.AttrDexterity
   skillType: WeaponProficiency
+  initialLevel: 4
 
 - type: Elona.Skill
   id: Elona.Firearm
@@ -61,3 +71,4 @@
   id: Elona.Throwing
   relatedSkill: Elona.AttrDexterity
   skillType: WeaponProficiency
+  initialLevel: 4

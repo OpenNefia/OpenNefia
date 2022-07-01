@@ -31,6 +31,7 @@ using OpenNefia.Core.Maths;
 using OpenNefia.Core.Rendering;
 using System.Collections.Immutable;
 using OpenNefia.Content.Encounters;
+using OpenNefia.Content.Combat;
 
 namespace OpenNefia.Content.GameObjects
 {

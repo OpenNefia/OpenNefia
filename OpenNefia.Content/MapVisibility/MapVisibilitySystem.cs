@@ -1,4 +1,5 @@
-﻿using OpenNefia.Core.Game;
+﻿using OpenNefia.Content.Visibility;
+using OpenNefia.Core.Game;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Graphics;
 using OpenNefia.Core.Maps;
@@ -86,8 +87,9 @@ namespace OpenNefia.Content.MapVisibility
             var shadowEnd = _coords.TileToScreen(end - 1);
             shadows.ShadowSize = shadowEnd - shadows.ShadowPos;
 
-            // TODO make this buffable.
             var fovSize = 15;
+            if (TryComp<VisibilityComponent>(uid, out var vis))
+                fovSize = vis.FieldOfViewRadius.Buffed;
 
             var fovRadius = FovRadius.Get(fovSize);
             var radius = fovSize / 2 + 1;

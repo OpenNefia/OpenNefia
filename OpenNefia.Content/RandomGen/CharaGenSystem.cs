@@ -8,13 +8,11 @@ using OpenNefia.Content.Prototypes;
 using OpenNefia.Core.Random;
 using OpenNefia.Core.Log;
 using OpenNefia.Core.Maps;
-using OpenNefia.Core.Game;
-using OpenNefia.Content.Skills;
 using OpenNefia.Content.EntityGen;
 using OpenNefia.Content.Charas;
 using OpenNefia.Content.Memory;
 using OpenNefia.Content.Maps;
-using OpenNefia.Analyzers;
+using OpenNefia.Core.Rendering;
 
 namespace OpenNefia.Content.RandomGen
 {
@@ -43,9 +41,10 @@ namespace OpenNefia.Content.RandomGen
         EntityUid? GenerateCharaFromMapFilter(IMap map);
 
         int GetMaxCrowdDensity(IMap map);
+        PrototypeId<ChipPrototype> PickRandomHumanChipID(Gender gender);
     }
 
-    public sealed class CharaGenSystem : EntitySystem, ICharaGen
+    public sealed partial class CharaGenSystem : EntitySystem, ICharaGen
     {
         [Dependency] private readonly IMapManager _mapManager = default!;
         [Dependency] private readonly IRandomGenSystem _randomGen = default!;
@@ -199,6 +198,14 @@ namespace OpenNefia.Content.RandomGen
                 return 0;
 
             return mapCharaGen.MaxCharaCount;
+        }
+
+        public PrototypeId<ChipPrototype> PickRandomHumanChipID(Gender gender)
+        {
+            if (gender == Gender.Male)
+                return _rand.Pick(MaleHumanChips);
+            else
+                return _rand.Pick(FemaleHumanChips);
         }
     }
 

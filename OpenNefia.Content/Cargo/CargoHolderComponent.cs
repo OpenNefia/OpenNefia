@@ -17,6 +17,9 @@ namespace OpenNefia.Content.Cargo
     {
         public override string Name => "CargoHolder";
 
+        [DataField]
+        public int InitialMaxCargoWeight { get; set; } = 0;
+
         /// <summary>
         /// Maximum cargo weight this entity can hold. Null means "unlimited".
         /// </summary>

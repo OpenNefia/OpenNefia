@@ -56,61 +56,17 @@ namespace OpenNefia.Content.Resists
         }
 
         #endregion
-    }
 
-    [ByRefEvent]
-    [PrototypeEvent(typeof(ElementPrototype))]
-    public struct P_ElementModifyDamageEvent
-    {
-        public P_ElementModifyDamageEvent(EntityUid target)
+        #region Elona.Magic
+
+        public void Magic_CalcInitialResistLevel(ElementPrototype proto, ref P_ElementCalcInitialResistLevel ev)
         {
-            Target = target;
+            // >>>>>>>> shade2/calculation.hsp:979 	if ((cnt=rsResMagic)&(p<500))or(cLevel(r1)=1):p=1 ..
+            if (ev.OutInitialLevel < 500)
+                ev.OutInitialLevel = 100;
+            // <<<<<<<< shade2/calculation.hsp:979 	if ((cnt=rsResMagic)&(p<500))or(cLevel(r1)=1):p=1 ..
         }
 
-        public EntityUid Target { get; }
-
-        public int OutRawDamage { get; set; } = 0;
-    }
-
-    [ByRefEvent]
-    [PrototypeEvent(typeof(ElementPrototype))]
-    public struct P_ElementDamageTileEvent
-    {
-        public EntityUid? Source { get; }
-        public MapCoordinates Coords { get; }
-
-        public P_ElementDamageTileEvent(MapCoordinates coords, EntityUid? source)
-        {
-            Coords = coords;
-            Source = source;
-        }
-    }
-
-    [ByRefEvent]
-    [PrototypeEvent(typeof(ElementPrototype))]
-    public struct P_ElementDamageCharaEvent
-    {
-        public EntityUid? Source { get; }
-        public EntityUid Target { get; }
-
-        public P_ElementDamageCharaEvent(EntityUid? source, EntityUid target)
-        {
-            Source = source;
-            Target = target;
-        }
-    }
-
-    [ByRefEvent]
-    [PrototypeEvent(typeof(ElementPrototype))]
-    public struct P_ElementKillCharaEvent
-    {
-        public EntityUid? Source { get; }
-        public EntityUid Target { get; }
-
-        public P_ElementKillCharaEvent(EntityUid? source, EntityUid target)
-        {
-            Source = source;
-            Target = target;
-        }
+        #endregion
     }
 }

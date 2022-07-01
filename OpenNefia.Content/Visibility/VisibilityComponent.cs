@@ -22,5 +22,8 @@ namespace OpenNefia.Content.Visibility
 
         [DataField]
         public int Noise { get; set; } = 0;
+
+        [DataField]
+        public Stat<int> FieldOfViewRadius { get; set; } = new(14);
     }
 }

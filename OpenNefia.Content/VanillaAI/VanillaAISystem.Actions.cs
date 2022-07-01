@@ -1,4 +1,4 @@
-﻿using OpenNefia.Content.GameObjects;
+﻿using OpenNefia.Content.Combat;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Random;

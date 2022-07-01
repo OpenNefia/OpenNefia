@@ -125,6 +125,8 @@ namespace OpenNefia.Content.Skills
             };
         }
 
+        public LevelAndPotential Ensure(SkillPrototype proto) => Ensure(proto.GetStrongID());
+
         public bool TryGetKnown(SkillPrototype proto, [NotNullWhen(true)] out LevelAndPotential? level)
             => TryGetKnown(proto.GetStrongID(), out level);
         public bool TryGetKnown(PrototypeId<SkillPrototype> protoId, [NotNullWhen(true)] out LevelAndPotential? level)

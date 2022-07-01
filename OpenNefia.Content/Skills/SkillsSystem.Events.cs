@@ -12,12 +12,131 @@ using OpenNefia.Content.Activity;
 using OpenNefia.Core.IoC;
 using OpenNefia.Content.Maps;
 using OpenNefia.Content.Inventory;
+using OpenNefia.Content.EntityGen;
+using OpenNefia.Content.GameObjects;
+using OpenNefia.Content.Levels;
+using OpenNefia.Content.Resists;
 
 namespace OpenNefia.Content.Skills
 {
     public sealed partial class SkillsSystem
     {
         [Dependency] private readonly IActivitySystem _activities = default!;
+        [Dependency] private readonly IRefreshSystem _refresh = default!;
+        [Dependency] private readonly ILevelSystem _levels = default!;
+
+        public override void Initialize()
+        {
+            SubscribeComponent<SkillsComponent, EntityBeingGeneratedEvent>(InitDefaultSkills, priority: EventPriorities.Low);
+            SubscribeComponent<SkillsComponent, EntityGeneratedEvent>(HandleGenerated, priority: EventPriorities.Low);
+            SubscribeComponent<SkillsComponent, EntityRefreshEvent>(HandleRefresh, priority: EventPriorities.VeryHigh);
+
+            SubscribeComponent<SkillsComponent, EntityTurnStartingEventArgs>(HandleTurnStarting, priority: EventPriorities.VeryHigh);
+            SubscribeComponent<SkillsComponent, EntityTurnEndingEventArgs>(HandleTurnEnding, priority: EventPriorities.Low);
+        }
+
+        public const int MaxSkillLevel = 2000;
+        public const int MaxSkillPotential = 400;
+        public const int MaxSkillExperience = 1000;
+        public const double PotentialDecayRate = 0.9;
+
+        private void InitDefaultSkills(EntityUid uid, SkillsComponent component, ref EntityBeingGeneratedEvent args)
+        {
+            foreach (var proto in _protos.EnumeratePrototypes<SkillPrototype>())
+            {
+                if (proto.InitialLevel != null)
+                {
+                    var currentLevel = BaseLevel(uid, proto, component);
+                    var entityLevel = _levels.GetLevel(uid);
+                    var initial = CalcInitialSkillLevelAndPotential(uid, proto, proto.InitialLevel.Value, currentLevel, entityLevel);
+                    component.Skills[proto.GetStrongID()] = initial;
+                }
+            }
+        }
+
+        private LevelAndPotential CalcInitialSkillLevelAndPotential(EntityUid uid, SkillPrototype proto, int initialLevel, int currentLevel, int entityLevel)
+        {
+            var potential = CalcInitialPotential(proto, initialLevel, currentLevel != 0);
+            var ev1 = new P_SkillCalcInitialPotentialEvent(uid, initialLevel, potential);
+            _protos.EventBus.RaiseEvent(proto, ev1);
+            potential = ev1.OutInitialPotential;
+
+            var level = ((int)Math.Pow(potential, 2) * entityLevel / 45000 + initialLevel + entityLevel / 3);
+            var ev2 = new P_SkillCalcInitialLevelEvent(uid, level);
+            _protos.EventBus.RaiseEvent(proto, ev2);
+            level = ev2.OutInitialLevel;
+
+            potential = CalcDecayedInitialPotential(potential, entityLevel);
+
+            // For life/mana/luck/speed
+            var ev3 = new P_SkillCalcFinalInitialLevelAndPotentialEvent(uid, level, potential);
+            _protos.EventBus.RaiseEvent(proto, ev3);
+            level = ev3.OutInitialLevel;
+            potential = ev3.OutInitialPotential;
+
+            level = Math.Clamp(level, 0, MaxSkillLevel);
+            potential = Math.Clamp(potential, 1, MaxSkillPotential);
+
+            return new LevelAndPotential(level, potential);
+        }
+
+        private int CalcDecayedInitialPotential(int potential, int entityLevel)
+        {
+            // >>>>>>>> shade2/calculation.hsp:955 	if cLevel(c)>1	:p=int(pow@(growthDec,cLevel(c))*p ..
+            if (entityLevel <= 1)
+                return potential;
+
+            return (int)(Math.Exp(Math.Log(PotentialDecayRate) * entityLevel) * potential);
+            // <<<<<<<< shade2/calculation.hsp:955 	if cLevel(c)>1	:p=int(pow@(growthDec,cLevel(c))*p ..
+        }
+
+        private int CalcInitialPotential(SkillPrototype proto, int initialLevel, bool alreadyKnowsSkill)
+        {
+            // >>>>>>>> shade2/calculation.hsp:955 	if cLevel(c)>1	:p=int(pow@(growthDec,cLevel(c))*p ..
+            if (proto.SkillType == SkillType.Attribute)
+                return Math.Min(initialLevel * 20, 400);
+
+            var potential = initialLevel * 5;
+
+            if (alreadyKnowsSkill)
+                potential += 50;
+            else
+                potential += 100;
+
+            return potential;
+            // <<<<<<<< shade2/calculation.hsp:955 	if cLevel(c)>1	:p=int(pow@(growthDec,cLevel(c))*p ..
+        }
+
+        private void HandleGenerated(EntityUid uid, SkillsComponent component, ref EntityGeneratedEvent args)
+        {
+            _refresh.Refresh(uid);
+            HealToMax(uid);
+        }
+
+        private void HandleRefresh(EntityUid uid, SkillsComponent skills, ref EntityRefreshEvent args)
+        {
+            var level = EntityManager.EnsureComponent<LevelComponent>(uid);
+
+            ResetStatBuffs(skills);
+            ResetSkillBuffs(skills);
+            RefreshHPMPAndStamina(skills, level);
+        }
+
+        private void ResetStatBuffs(SkillsComponent skills)
+        {
+            skills.DV.Reset();
+            skills.PV.Reset();
+            skills.HitBonus.Reset();
+            skills.DamageBonus.Reset();
+        }
+
+        private void ResetSkillBuffs(SkillsComponent skills)
+        {
+            foreach (var (_, level) in skills.Skills)
+            {
+                level.Level.Reset();
+            }
+        }
 
         private void HandleTurnStarting(EntityUid uid, SkillsComponent skills, EntityTurnStartingEventArgs args)
         {
@@ -134,5 +253,56 @@ namespace OpenNefia.Content.Skills
                 HealMP(uid, mpDelta, showMessage: false, skills);
             }
         }
+    }
+
+    [ByRefEvent]
+    [PrototypeEvent(typeof(SkillPrototype))]
+    public struct P_SkillCalcInitialPotentialEvent
+    {
+        public P_SkillCalcInitialPotentialEvent(EntityUid entity, int initialLevel, int initialPotential)
+        {
+            Entity = entity;
+            InitialLevel = initialLevel;
+            OutInitialPotential = initialPotential;
+        }
+
+        public EntityUid Entity { get; }
+        public int InitialLevel { get; }
+
+        public int OutInitialPotential { get; set; }
+    }
+
+    [ByRefEvent]
+    [PrototypeEvent(typeof(SkillPrototype))]
+    public struct P_SkillCalcInitialLevelEvent
+    {
+        public P_SkillCalcInitialLevelEvent(EntityUid entity, int initialLevel)
+        {
+            Entity = entity;
+            InitialLevel = initialLevel;
+            OutInitialLevel = initialLevel;
+        }
+
+        public EntityUid Entity { get; }
+        public int InitialLevel { get; }
+
+        public int OutInitialLevel { get; set; }
+    }
+
+    [ByRefEvent]
+    [PrototypeEvent(typeof(SkillPrototype))]
+    public struct P_SkillCalcFinalInitialLevelAndPotentialEvent
+    {
+        public P_SkillCalcFinalInitialLevelAndPotentialEvent(EntityUid entity, int initialLevel, int initialPotential)
+        {
+            Entity = entity;
+            OutInitialLevel = initialLevel;
+            OutInitialPotential = initialPotential;
+        }
+
+        public EntityUid Entity { get; }
+
+        public int OutInitialLevel { get; set; }
+        public int OutInitialPotential { get; set; }
     }
 }

@@ -1,5 +1,7 @@
-﻿using OpenNefia.Content.GameObjects;
+﻿using OpenNefia.Content.EntityGen;
+using OpenNefia.Content.GameObjects;
 using OpenNefia.Content.Inventory;
+using OpenNefia.Core.Game;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using System;
@@ -20,6 +22,23 @@ namespace OpenNefia.Content.Cargo
     public class CargoSystem : EntitySystem, ICargoSystem
     {
         [Dependency] private readonly IInventorySystem _invSys = default!;
+        [Dependency] private readonly IGameSessionManager _gameSession = default!;
+
+        public override void Initialize()
+        {
+            SubscribeComponent<CargoHolderComponent, EntityBeingGeneratedEvent>(InitializeCargoWeights);
+        }
+
+        private void InitializeCargoWeights(EntityUid uid, CargoHolderComponent cargo, ref EntityBeingGeneratedEvent args)
+        {
+            if (!_gameSession.IsPlayer(uid))
+                return;
+
+            // >>>>>>>> shade2/chara.hsp:532 	if rc=pc{ ..
+            cargo.InitialMaxCargoWeight = 80000;
+            cargo.MaxCargoWeight = cargo.InitialMaxCargoWeight;
+            // <<<<<<<< shade2/chara.hsp:534 		} ..
+        }
 
         public int GetCargoWeight(EntityUid item, CargoComponent? cargo = null)
         {
