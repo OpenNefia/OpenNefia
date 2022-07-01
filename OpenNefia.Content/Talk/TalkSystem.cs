@@ -16,7 +16,7 @@ namespace OpenNefia.Content.Talk
 {
     public interface ITalkSystem : IEntitySystem
     {
-        bool Say(EntityUid ent, string talkId);
+        bool Say(EntityUid ent, string talkId, Dictionary<string, object>? args = null);
     }
 
     public sealed class TalkSystem : EntitySystem, ITalkSystem
@@ -30,7 +30,7 @@ namespace OpenNefia.Content.Talk
         {
         }
 
-        public bool Say(EntityUid ent, string talkId)
+        public bool Say(EntityUid ent, string talkId, Dictionary<string, object>? args = null)
         {
             // TODO
             return false;

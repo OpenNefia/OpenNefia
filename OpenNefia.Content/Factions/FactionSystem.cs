@@ -1,8 +1,19 @@
 ﻿using OpenNefia.Analyzers;
+using OpenNefia.Content.Charas;
+using OpenNefia.Content.EmotionIcon;
+using OpenNefia.Content.Fame;
+using OpenNefia.Content.Logic;
 using OpenNefia.Content.Parties;
+using OpenNefia.Content.Prototypes;
+using OpenNefia.Content.Talk;
+using OpenNefia.Content.UI;
+using OpenNefia.Content.VanillaAI;
+using OpenNefia.Content.World;
 using OpenNefia.Core.Game;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
+using OpenNefia.Core.Locale;
+using OpenNefia.Core.Random;
 
 namespace OpenNefia.Content.Factions
 {
@@ -14,12 +25,22 @@ namespace OpenNefia.Content.Factions
         void SetPersonalRelationTowards(EntityUid us, EntityUid them, Relation relation, FactionComponent? ourFaction = null);
         bool ClearPersonalRelationTowards(EntityUid us, EntityUid them, FactionComponent? ourFaction = null);
         void ClearAllPersonalRelations(EntityUid entity, FactionComponent? faction = null);
+
+        void ActHostileTowards(EntityUid us, EntityUid them);
     }
 
     public class FactionSystem : EntitySystem, IFactionSystem
     {
         [Dependency] private readonly IPartySystem _partySystem = default!;
         [Dependency] private readonly IGameSessionManager _gameSession = default!;
+        [Dependency] private readonly IEmotionIconSystem _emoIcons = default!;
+        [Dependency] private readonly IMessagesManager _mes = default!;
+        [Dependency] private readonly IKarmaSystem _karma = default!;
+        [Dependency] private readonly IWorldSystem _world = default!;
+        [Dependency] private readonly IVanillaAISystem _vanillaAI = default!;
+        [Dependency] private readonly ITalkSystem _talk = default!;
+        [Dependency] private readonly IRandom _rand = default!;
+        [Dependency] private readonly IEntityLookup _lookup = default!;
 
         public override void Initialize()
         {
@@ -146,6 +167,64 @@ namespace OpenNefia.Content.Factions
                 return;
 
             faction.PersonalRelations.Clear();
+        }
+
+        public void ActHostileTowards(EntityUid us, EntityUid them)
+        {
+            if (!_partySystem.IsInPlayerParty(us) || _gameSession.IsPlayer(them))
+                return;
+
+            var theirRelation = GetRelationTowards(them, us);
+
+            if (theirRelation > Relation.Enemy)
+                _emoIcons.SetEmotionIcon(them, "Elona.Angry", 4);
+
+            var glares = () =>
+                    _mes.Display(Loc.GetString("Elona.Faction.HostileAction.GlaresAt", ("us", us), ("them", them)), UiColors.MesPurple);
+
+            if (theirRelation >= Relation.Ally)
+            {
+                glares();
+            }
+            else
+            {
+                if (theirRelation > Relation.Neutral)
+                    _karma.ModifyKarma(us, -2);
+
+                // TODO
+                if (ProtoID(them) == Protos.Chara.Ebon && !_world.State.IsFireGiantReleased)
+                {
+                    glares();
+                    return;
+                }
+
+                if (theirRelation > Relation.Hate)
+                {
+                    glares();
+                    SetPersonalRelationTowards(them, us, Relation.Hate);
+                }
+                else
+                {
+                    if (theirRelation > Relation.Enemy)
+                        _mes.Display(Loc.GetString("Elona.Faction.HostileAction.GetsFurious", ("us", us), ("them", them)), UiColors.MesPurple);
+                    SetPersonalRelationTowards(them, us, Relation.Enemy);
+                    _vanillaAI.SetTarget(them, us, 80);
+                }
+
+                _talk.Say(them, "Elona.Aggro", new Dictionary<string, object>() { { "target", us } });
+            }
+
+            if (HasComp<LivestockComponent>(them) && _rand.OneIn(50) && TryMap(them, out var map))
+            {
+                _mes.Display(Loc.GetString("Elona.Faction.HostileAction.AnimalsGetExcited"), UiColors.MesRed);
+
+                foreach (var livestock in _lookup.EntityQueryInMap<LivestockComponent>(map))
+                {
+                    SetPersonalRelationTowards(livestock.Owner, us, Relation.Enemy);
+                    _vanillaAI.SetTarget(livestock.Owner, us, 20);
+                    _emoIcons.SetEmotionIcon(livestock.Owner, "Elona.Angry", 3);
+                }
+            }
         }
     }
 

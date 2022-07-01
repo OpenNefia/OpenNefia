@@ -97,6 +97,12 @@ namespace OpenNefia.Core.GameObjects
             return protoID != null;
         }
 
+        protected PrototypeId<EntityPrototype>? ProtoID(EntityUid uid)
+        {
+            TryProtoID(uid, out var protoID);
+            return protoID;
+        }
+
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         protected bool HasComp<T>(EntityUid ent)
         {
