@@ -39,7 +39,7 @@ namespace OpenNefia.Content.Charas
         [Dependency] private readonly ISkillsSystem _skills = default!;
         [Dependency] private readonly IEquipSlotsSystem _equipSlots = default!;
         [Dependency] private readonly IEntityManager _entityManager = default!;
-        [Dependency] private readonly IRandom _random = default!; // randomness is only used for race height/weight here.
+        [Dependency] private readonly IRandom _rand = default!; // randomness is only used for race height/weight here.
         [Dependency] private readonly IVanillaAISystem _vanillaAI = default!;
         [Dependency] private readonly IRefreshSystem _refresh = default!;
         [Dependency] private readonly IEmotionIconSystem _emoicons = default!;
@@ -101,11 +101,11 @@ namespace OpenNefia.Content.Charas
 
             var weight = EntityManager.EnsureComponent<WeightComponent>(uid);
 
-            weight.Age = _random.Next(race.MinAge, race.MaxAge);
+            weight.Age = _rand.Next(race.MinAge, race.MaxAge);
 
             if (chara.Gender == Gender.Unknown)
             {
-                if (_random.Prob(race.MaleRatio))
+                if (_rand.Prob(race.MaleRatio))
                 {
                     chara.Gender = Gender.Male;
                 }
@@ -118,8 +118,8 @@ namespace OpenNefia.Content.Charas
             // >>>>>>>> shade2/chara.hsp:518 	cHeight(rc)=cHeight(rc) + rnd(cHeight(rc)/5+1) -  ...
 
             weight.Height = race.BaseHeight;
-            weight.Height = weight.Height + _random.Next(weight.Height / 5 + 1) - _random.Next(weight.Height / 5 + 1);
-            weight.Weight = weight.Height * weight.Height * (_random.Next(6) + 18) / 10000;
+            weight.Height = weight.Height + _rand.Next(weight.Height / 5 + 1) - _rand.Next(weight.Height / 5 + 1);
+            weight.Weight = weight.Height * weight.Height * (_rand.Next(6) + 18) / 10000;
 
             // <<<<<<<< shade2/chara.hsp:519 	cWeight(rc)= cHeight(rc)*cHeight(rc)*(rnd(6)+18)/ ..
         }

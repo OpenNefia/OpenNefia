@@ -1,9 +1,10 @@
-﻿using OpenNefia.Content.Rendering;
+﻿using OpenNefia.Content.Charas;
+using OpenNefia.Content.Rendering;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Core.Serialization.Manager.Attributes;
 
-namespace OpenNefia.Content.Charas
+namespace OpenNefia.Content.Portraits
 {
     [Prototype("Elona.Portrait")]
     public class PortraitPrototype : IPrototype, IHspIds<int>, IAtlasRegionProvider
@@ -18,6 +19,9 @@ namespace OpenNefia.Content.Charas
 
         [DataField(required: true)]
         public TileSpecifier Image { get; } = null!;
+
+        [DataField]
+        public Gender? Gender { get; }
 
         public IEnumerable<AtlasRegion> GetAtlasRegions()
         {

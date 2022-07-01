@@ -4,6 +4,7 @@ using OpenNefia.Content.CustomName;
 using OpenNefia.Content.GameObjects;
 using OpenNefia.Content.Qualities;
 using OpenNefia.Core.GameObjects;
+using OpenNefia.Core.Locale;
 
 namespace OpenNefia.Content.DisplayName
 {
@@ -13,9 +14,7 @@ namespace OpenNefia.Content.DisplayName
         {
             base.Initialize();
 
-            SubscribeComponent<CharaComponent, GetDisplayNameEventArgs>(GetCharaName, priority: EventPriorities.Highest);
             SubscribeComponent<ItemComponent, GetDisplayNameEventArgs>(GetItemName, priority: EventPriorities.Highest);
-            SubscribeComponent<CustomNameComponent, GetDisplayNameEventArgs>(GetCustomName, priority: EventPriorities.VeryHigh);
         }
 
         public void GetItemName(EntityUid uid, ItemComponent component, ref GetDisplayNameEventArgs args)
@@ -23,16 +22,6 @@ namespace OpenNefia.Content.DisplayName
             var ev = new GetItemNameEvent();
             EntityManager.EventBus.RaiseEvent(uid, ref ev);
             args.OutName = ev.ItemName;
-        }
-
-        public void GetCharaName(EntityUid uid, CharaComponent component, ref GetDisplayNameEventArgs args)
-        {
-            args.OutName = $"the {args.BaseName}";
-        }
-
-        private void GetCustomName(EntityUid uid, CustomNameComponent component, ref GetDisplayNameEventArgs args)
-        {
-            args.OutName = args.BaseName;
         }
     }
 

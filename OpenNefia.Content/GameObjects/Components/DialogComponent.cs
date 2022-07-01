@@ -20,8 +20,5 @@ namespace OpenNefia.Content.GameObjects
 
         [DataField]
         public bool CanTalk { get; set; } = false;
-
-        [DataField]
-        public PrototypeId<PortraitPrototype>? Portrait { get; set; }
     }
 }

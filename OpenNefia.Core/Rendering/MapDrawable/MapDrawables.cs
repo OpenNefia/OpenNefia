@@ -73,7 +73,7 @@ namespace OpenNefia.Core.Rendering
             while (HasActiveDrawables())
             {
                 var dt = Love.Timer.GetDelta();
-                var frameArgs = new FrameEventArgs(dt);
+                var frameArgs = new FrameEventArgs(dt, stepInput: false);
                 _gameController.Update(frameArgs);
                 this.Update(dt);
 

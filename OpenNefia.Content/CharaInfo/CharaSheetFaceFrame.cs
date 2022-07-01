@@ -1,5 +1,5 @@
-﻿using OpenNefia.Content.Charas;
-using OpenNefia.Content.Inventory;
+﻿using OpenNefia.Content.Inventory;
+using OpenNefia.Content.Portraits;
 using OpenNefia.Content.Rendering;
 using OpenNefia.Content.UI;
 using OpenNefia.Content.UI.Element;

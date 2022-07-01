@@ -11,12 +11,18 @@
         public float DeltaSeconds { get; }
 
         /// <summary>
+        /// If false, do not update keybinds.
+        /// </summary>
+        public bool StepInput { get; }
+
+        /// <summary>
         ///     Constructs an instance of this object.
         /// </summary>
         /// <param name="deltaSeconds">Seconds passed since this event was last called.</param>
-        public FrameEventArgs(float deltaSeconds)
+        public FrameEventArgs(float deltaSeconds, bool stepInput = true)
         {
             DeltaSeconds = deltaSeconds;
+            StepInput = stepInput;
         }
     }
 }

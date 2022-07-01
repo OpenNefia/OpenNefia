@@ -11,6 +11,7 @@
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 0, 0, 48, 72
+  gender: Male
 - type: Elona.Portrait
   id: Elona.Man2
   hspIds:
@@ -18,6 +19,7 @@
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 48, 0, 48, 72
+  gender: Male
 - type: Elona.Portrait
   id: Elona.Man3
   hspIds:
@@ -25,6 +27,7 @@
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 96, 0, 48, 72
+  gender: Male
 - type: Elona.Portrait
   id: Elona.Man4
   hspIds:
@@ -32,6 +35,7 @@
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 144, 0, 48, 72
+  gender: Male
 - type: Elona.Portrait
   id: Elona.Man5
   hspIds:
@@ -39,6 +43,7 @@
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 192, 0, 48, 72
+  gender: Male
 - type: Elona.Portrait
   id: Elona.Man6
   hspIds:
@@ -46,6 +51,7 @@
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 240, 0, 48, 72
+  gender: Male
 - type: Elona.Portrait
   id: Elona.Man7
   hspIds:
@@ -53,6 +59,7 @@
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 288, 0, 48, 72
+  gender: Male
 - type: Elona.Portrait
   id: Elona.Man8
   hspIds:
@@ -60,6 +67,7 @@
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 336, 0, 48, 72
+  gender: Male
 - type: Elona.Portrait
   id: Elona.Man9
   hspIds:
@@ -67,6 +75,7 @@
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 384, 0, 48, 72
+  gender: Male
 - type: Elona.Portrait
   id: Elona.Man10
   hspIds:
@@ -74,6 +83,7 @@
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 432, 0, 48, 72
+  gender: Male
 - type: Elona.Portrait
   id: Elona.Man11
   hspIds:
@@ -81,6 +91,7 @@
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 480, 0, 48, 72
+  gender: Male
 - type: Elona.Portrait
   id: Elona.Man12
   hspIds:
@@ -88,6 +99,7 @@
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 528, 0, 48, 72
+  gender: Male
 - type: Elona.Portrait
   id: Elona.Man13
   hspIds:
@@ -95,6 +107,7 @@
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 576, 0, 48, 72
+  gender: Male
 - type: Elona.Portrait
   id: Elona.Man14
   hspIds:
@@ -102,6 +115,7 @@
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 624, 0, 48, 72
+  gender: Male
 - type: Elona.Portrait
   id: Elona.Man15
   hspIds:
@@ -109,6 +123,7 @@
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 672, 0, 48, 72
+  gender: Male
 - type: Elona.Portrait
   id: Elona.Man16
   hspIds:
@@ -116,6 +131,7 @@
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 720, 0, 48, 72
+  gender: Male
 - type: Elona.Portrait
   id: Elona.Man17
   hspIds:
@@ -123,6 +139,7 @@
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 0, 72, 48, 72
+  gender: Male
 - type: Elona.Portrait
   id: Elona.Man18
   hspIds:
@@ -130,6 +147,7 @@
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 48, 72, 48, 72
+  gender: Male
 - type: Elona.Portrait
   id: Elona.Man19
   hspIds:
@@ -137,6 +155,7 @@
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 96, 72, 48, 72
+  gender: Male
 - type: Elona.Portrait
   id: Elona.Man20
   hspIds:
@@ -144,6 +163,7 @@
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 144, 72, 48, 72
+  gender: Male
 - type: Elona.Portrait
   id: Elona.Man21
   hspIds:
@@ -151,6 +171,7 @@
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 192, 72, 48, 72
+  gender: Male
 - type: Elona.Portrait
   id: Elona.Man22
   hspIds:
@@ -158,6 +179,7 @@
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 240, 72, 48, 72
+  gender: Male
 - type: Elona.Portrait
   id: Elona.Man23
   hspIds:
@@ -165,6 +187,7 @@
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 288, 72, 48, 72
+  gender: Male
 - type: Elona.Portrait
   id: Elona.Man24
   hspIds:
@@ -172,6 +195,7 @@
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 336, 72, 48, 72
+  gender: Male
 - type: Elona.Portrait
   id: Elona.Man25
   hspIds:
@@ -179,6 +203,7 @@
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 384, 72, 48, 72
+  gender: Male
 - type: Elona.Portrait
   id: Elona.Man26
   hspIds:
@@ -186,6 +211,7 @@
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 432, 72, 48, 72
+  gender: Male
 - type: Elona.Portrait
   id: Elona.Man27
   hspIds:
@@ -193,6 +219,7 @@
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 480, 72, 48, 72
+  gender: Male
 - type: Elona.Portrait
   id: Elona.Man28
   hspIds:
@@ -200,6 +227,7 @@
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 528, 72, 48, 72
+  gender: Male
 - type: Elona.Portrait
   id: Elona.Man29
   hspIds:
@@ -207,6 +235,7 @@
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 576, 72, 48, 72
+  gender: Male
 - type: Elona.Portrait
   id: Elona.Man30
   hspIds:
@@ -214,6 +243,7 @@
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 624, 72, 48, 72
+  gender: Male
 - type: Elona.Portrait
   id: Elona.Man31
   hspIds:
@@ -221,6 +251,7 @@
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 672, 72, 48, 72
+  gender: Male
 - type: Elona.Portrait
   id: Elona.Man32
   hspIds:
@@ -228,6 +259,7 @@
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 720, 72, 48, 72
+  gender: Male
 - type: Elona.Portrait
   id: Elona.Man33
   hspIds:
@@ -235,6 +267,7 @@
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 0, 144, 48, 72
+  gender: Male
 - type: Elona.Portrait
   id: Elona.Gilbert
   hspIds:
@@ -249,6 +282,7 @@
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 96, 144, 48, 72
+  gender: Male
 - type: Elona.Portrait
   id: Elona.Man35
   hspIds:
@@ -256,6 +290,7 @@
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 144, 144, 48, 72
+  gender: Male
 - type: Elona.Portrait
   id: Elona.Arnord
   hspIds:
@@ -270,6 +305,7 @@
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 240, 144, 48, 72
+  gender: Male
 - type: Elona.Portrait
   id: Elona.Balzak
   hspIds:
@@ -291,6 +327,7 @@
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 384, 144, 48, 72
+  gender: Male
 - type: Elona.Portrait
   id: Elona.Man40
   hspIds:
@@ -298,6 +335,7 @@
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 432, 144, 48, 72
+  gender: Male
 - type: Elona.Portrait
   id: Elona.Man41
   hspIds:
@@ -305,6 +343,7 @@
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 480, 144, 48, 72
+  gender: Male
 - type: Elona.Portrait
   id: Elona.Man42
   hspIds:
@@ -312,6 +351,7 @@
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 528, 144, 48, 72
+  gender: Male
 - type: Elona.Portrait
   id: Elona.Man43
   hspIds:
@@ -319,6 +359,7 @@
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 576, 144, 48, 72
+  gender: Male
 - type: Elona.Portrait
   id: Elona.Man44
   hspIds:
@@ -326,6 +367,7 @@
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 624, 144, 48, 72
+  gender: Male
 - type: Elona.Portrait
   id: Elona.Barius
   hspIds:
@@ -403,6 +445,7 @@
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 480, 216, 48, 72
+  gender: Male
 - type: Elona.Portrait
   id: Elona.Sevilis
   hspIds:
@@ -417,6 +460,7 @@
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 576, 216, 48, 72
+  gender: Male
 - type: Elona.Portrait
   id: Elona.Man47
   hspIds:
@@ -424,6 +468,7 @@
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 624, 216, 48, 72
+  gender: Male
 - type: Elona.Portrait
   id: Elona.Man48
   hspIds:
@@ -431,6 +476,7 @@
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 672, 216, 48, 72
+  gender: Male
 - type: Elona.Portrait
   id: Elona.Woman1
   hspIds:
@@ -438,6 +484,7 @@
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 0, 288, 48, 72
+  gender: Female
 - type: Elona.Portrait
   id: Elona.Woman2
   hspIds:
@@ -445,6 +492,7 @@
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 48, 288, 48, 72
+  gender: Female
 - type: Elona.Portrait
   id: Elona.Woman3
   hspIds:
@@ -452,6 +500,7 @@
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 96, 288, 48, 72
+  gender: Female
 - type: Elona.Portrait
   id: Elona.Woman4
   hspIds:
@@ -459,6 +508,7 @@
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 144, 288, 48, 72
+  gender: Female
 - type: Elona.Portrait
   id: Elona.Woman5
   hspIds:
@@ -466,6 +516,7 @@
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 192, 288, 48, 72
+  gender: Female
 - type: Elona.Portrait
   id: Elona.Woman6
   hspIds:
@@ -473,6 +524,7 @@
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 240, 288, 48, 72
+  gender: Female
 - type: Elona.Portrait
   id: Elona.Woman7
   hspIds:
@@ -480,6 +532,7 @@
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 288, 288, 48, 72
+  gender: Female
 - type: Elona.Portrait
   id: Elona.Woman8
   hspIds:
@@ -487,6 +540,7 @@
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 336, 288, 48, 72
+  gender: Female
 - type: Elona.Portrait
   id: Elona.Woman9
   hspIds:
@@ -494,6 +548,7 @@
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 384, 288, 48, 72
+  gender: Female
 - type: Elona.Portrait
   id: Elona.Woman10
   hspIds:
@@ -501,6 +556,7 @@
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 432, 288, 48, 72
+  gender: Female
 - type: Elona.Portrait
   id: Elona.Woman11
   hspIds:
@@ -508,6 +564,7 @@
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 480, 288, 48, 72
+  gender: Female
 - type: Elona.Portrait
   id: Elona.Woman12
   hspIds:
@@ -515,6 +572,7 @@
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 528, 288, 48, 72
+  gender: Female
 - type: Elona.Portrait
   id: Elona.Woman13
   hspIds:
@@ -522,6 +580,7 @@
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 576, 288, 48, 72
+  gender: Female
 - type: Elona.Portrait
   id: Elona.Woman14
   hspIds:
@@ -529,6 +588,7 @@
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 624, 288, 48, 72
+  gender: Female
 - type: Elona.Portrait
   id: Elona.Woman15
   hspIds:
@@ -536,6 +596,7 @@
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 672, 288, 48, 72
+  gender: Female
 - type: Elona.Portrait
   id: Elona.Woman16
   hspIds:
@@ -543,6 +604,7 @@
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 720, 288, 48, 72
+  gender: Female
 - type: Elona.Portrait
   id: Elona.Woman17
   hspIds:
@@ -550,6 +612,7 @@
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 0, 360, 48, 72
+  gender: Female
 - type: Elona.Portrait
   id: Elona.Woman18
   hspIds:
@@ -557,6 +620,7 @@
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 48, 360, 48, 72
+  gender: Female
 - type: Elona.Portrait
   id: Elona.Woman19
   hspIds:
@@ -564,6 +628,7 @@
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 96, 360, 48, 72
+  gender: Female
 - type: Elona.Portrait
   id: Elona.Woman20
   hspIds:
@@ -571,6 +636,7 @@
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 144, 360, 48, 72
+  gender: Female
 - type: Elona.Portrait
   id: Elona.Woman21
   hspIds:
@@ -578,6 +644,7 @@
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 192, 360, 48, 72
+  gender: Female
 - type: Elona.Portrait
   id: Elona.Woman22
   hspIds:
@@ -585,6 +652,7 @@
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 240, 360, 48, 72
+  gender: Female
 - type: Elona.Portrait
   id: Elona.Woman23
   hspIds:
@@ -592,6 +660,7 @@
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 288, 360, 48, 72
+  gender: Female
 - type: Elona.Portrait
   id: Elona.Woman24
   hspIds:
@@ -599,6 +668,7 @@
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 336, 360, 48, 72
+  gender: Female
 - type: Elona.Portrait
   id: Elona.Woman25
   hspIds:
@@ -606,6 +676,7 @@
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 384, 360, 48, 72
+  gender: Female
 - type: Elona.Portrait
   id: Elona.Woman26
   hspIds:
@@ -613,6 +684,7 @@
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 432, 360, 48, 72
+  gender: Female
 - type: Elona.Portrait
   id: Elona.Woman27
   hspIds:
@@ -620,6 +692,7 @@
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 480, 360, 48, 72
+  gender: Female
 - type: Elona.Portrait
   id: Elona.Woman28
   hspIds:
@@ -627,6 +700,7 @@
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 528, 360, 48, 72
+  gender: Female
 - type: Elona.Portrait
   id: Elona.Woman29
   hspIds:
@@ -634,6 +708,7 @@
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 576, 360, 48, 72
+  gender: Female
 - type: Elona.Portrait
   id: Elona.Woman30
   hspIds:
@@ -641,6 +716,7 @@
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 624, 360, 48, 72
+  gender: Female
 - type: Elona.Portrait
   id: Elona.Woman31
   hspIds:
@@ -648,6 +724,7 @@
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 672, 360, 48, 72
+  gender: Female
 - type: Elona.Portrait
   id: Elona.Woman32
   hspIds:
@@ -655,6 +732,7 @@
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 720, 360, 48, 72
+  gender: Female
 - type: Elona.Portrait
   id: Elona.Woman34
   hspIds:
@@ -662,6 +740,7 @@
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 0, 432, 48, 72
+  gender: Female
 - type: Elona.Portrait
   id: Elona.Woman35
   hspIds:
@@ -669,6 +748,7 @@
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 48, 432, 48, 72
+  gender: Female
 - type: Elona.Portrait
   id: Elona.Mia
   hspIds:
@@ -683,6 +763,7 @@
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 144, 432, 48, 72
+  gender: Female
 - type: Elona.Portrait
   id: Elona.Woman37
   hspIds:
@@ -690,6 +771,7 @@
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 192, 432, 48, 72
+  gender: Female
 - type: Elona.Portrait
   id: Elona.Woman38
   hspIds:
@@ -697,6 +779,7 @@
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 240, 432, 48, 72
+  gender: Female
 - type: Elona.Portrait
   id: Elona.Woman39
   hspIds:
@@ -704,6 +787,7 @@
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 288, 432, 48, 72
+  gender: Female
 - type: Elona.Portrait
   id: Elona.Woman40
   hspIds:
@@ -711,6 +795,7 @@
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 336, 432, 48, 72
+  gender: Female
 - type: Elona.Portrait
   id: Elona.Woman41
   hspIds:
@@ -718,6 +803,7 @@
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 384, 432, 48, 72
+  gender: Female
 - type: Elona.Portrait
   id: Elona.Woman42
   hspIds:
@@ -725,6 +811,7 @@
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 432, 432, 48, 72
+  gender: Female
 - type: Elona.Portrait
   id: Elona.Woman43
   hspIds:
@@ -732,6 +819,7 @@
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 480, 432, 48, 72
+  gender: Female
 - type: Elona.Portrait
   id: Elona.Woman44
   hspIds:
@@ -739,6 +827,7 @@
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 528, 432, 48, 72
+  gender: Female
 - type: Elona.Portrait
   id: Elona.Woman45
   hspIds:
@@ -746,6 +835,7 @@
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 576, 432, 48, 72
+  gender: Female
 - type: Elona.Portrait
   id: Elona.Woman46
   hspIds:
@@ -753,6 +843,7 @@
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 624, 432, 48, 72
+  gender: Female
 - type: Elona.Portrait
   id: Elona.Larnneire
   hspIds:
@@ -788,6 +879,7 @@
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 192, 504, 48, 72
+  gender: Female
 - type: Elona.Portrait
   id: Elona.Woman48
   hspIds:
@@ -795,6 +887,7 @@
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 240, 504, 48, 72
+  gender: Female
 - type: Elona.Portrait
   id: Elona.Stersha
   hspIds:
@@ -823,4 +916,5 @@
   image:
     filepath: /Graphic/Elona/face1.bmp
     region: 432, 504, 48, 72
+  gender: Female
 ...
