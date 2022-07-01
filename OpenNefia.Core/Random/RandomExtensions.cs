@@ -133,8 +133,9 @@ namespace OpenNefia.Core.Random
         /// <param name="chance">The chance to pass, 1 or greater</param>
         public static bool OneIn(this IRandom random, int chance)
         {
-            DebugTools.Assert(chance > 1, $"Chance must be greater than 1. It was {chance}.");
-
+            if (chance <= 1)
+                return true;
+            
             return random.Next(chance) == 0;
         }
 
