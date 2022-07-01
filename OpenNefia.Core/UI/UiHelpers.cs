@@ -15,15 +15,28 @@ namespace OpenNefia.Core.UI
 {
     public static class UiHelpers
     {
+        // NOTE: Extremely expensive, cache this ASAP.
         private static IEnumerable<AbstractFieldInfo> GetChildAnnotatedFields(UiElement elem)
         {
             return elem.GetType().GetAllPropertiesAndFields()
                 .Where(info => info.HasAttribute<ChildAttribute>());
         }
 
+        /// <summary>
+        /// Mapping from <see cref="UiElement"/> type to all fields/properties on that type
+        /// annotated with <see cref="ChildAttribute"/>.
+        /// </summary>
+        private static Dictionary<Type, List<AbstractFieldInfo>> _childFieldsCache = new();
+
         public static void AddChildrenFromAttributesRecursive(UiElement parent)
         {
-            foreach (var info in GetChildAnnotatedFields(parent))
+            if (!_childFieldsCache.TryGetValue(parent.GetType(), out var fields))
+            {
+                fields = GetChildAnnotatedFields(parent).ToList();
+                _childFieldsCache[parent.GetType()] = fields;
+            }
+
+            foreach (var info in fields)
             {
                 var child = info.GetValue(parent);
                 if (child is not UiElement childElem)
