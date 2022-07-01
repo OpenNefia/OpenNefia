@@ -15,5 +15,11 @@ namespace OpenNefia.Content.CustomName
 
         [DataField]
         public string CustomName { get; set; } = string.Empty;
+
+        /// <summary>
+        /// Display the name like "Orland the putit" instead of just "Orland".
+        /// </summary>
+        [DataField]
+        public bool ShowBaseName { get; set; } = false;
     }
 }

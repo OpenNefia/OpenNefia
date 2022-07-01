@@ -276,11 +276,11 @@ handlers["base.chara"] = function(from, to)
         c.dialogID = dotted(from.dialog)
     end
     if from.portrait then
-        c = comp(to, "Dialog")
+        c = comp(to, "Portrait")
         if from.portrait == "random" then
-            c.portrait = "Random"
+            c.hasRandomPortrait = true
         else
-            c.portrait = dotted(from.portrait)
+            c.portraitID = dotted(from.portrait)
         end
     end
 
@@ -304,6 +304,11 @@ handlers["base.chara"] = function(from, to)
 
     if from.is_unique then
         c = comp(to, "UniqueCompanion")
+    end
+
+    if from.has_own_name then
+        c = comp(to, "CharaNameGen")
+        c.hasRandomName = true
     end
 end
 

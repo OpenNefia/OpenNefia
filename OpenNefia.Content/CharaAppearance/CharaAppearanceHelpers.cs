@@ -1,5 +1,4 @@
-﻿using OpenNefia.Content.Charas;
-using OpenNefia.Content.PCCs;
+﻿using OpenNefia.Content.PCCs;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.Prototypes;
@@ -8,6 +7,7 @@ using OpenNefia.Core.ResourceManagement;
 using static NetVips.Enums;
 using static OpenNefia.Content.Prototypes.Protos;
 using OpenNefia.Core.Utility;
+using OpenNefia.Content.Portraits;
 
 namespace OpenNefia.Content.CharaAppearance
 {

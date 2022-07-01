@@ -177,7 +177,7 @@ namespace OpenNefia.Core.GameController
         private void InitializeConfig()
         {
             _config.Initialize();
-            
+
             // Load our own (non-mod) CVars.
             _config.LoadCVarsFromAssembly(typeof(GameController).Assembly);
 
@@ -280,7 +280,7 @@ namespace OpenNefia.Core.GameController
                 _logHandler = logHandler;
                 _log.RootSawmill.AddHandler(_logHandler!);
             }
-            
+
             // TODO
             _log.GetSawmill("repl.exec").Level = LogLevel.Info;
             _log.GetSawmill("go.sys").Level = LogLevel.Info;
@@ -340,7 +340,8 @@ namespace OpenNefia.Core.GameController
             _hotReloadWatcher.FrameUpdate(frame);
             _taskManager.ProcessPendingTasks();
             _timerManager.UpdateTimers(frame);
-            _inputManager.UpdateKeyRepeats(frame);
+            if (frame.StepInput)
+                _inputManager.UpdateKeyRepeats(frame);
             _wispManager.FrameUpdate(frame);
             _uiManager.UpdateLayers(frame);
             _taskManager.ProcessPendingTasks();

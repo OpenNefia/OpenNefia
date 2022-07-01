@@ -14,7 +14,7 @@ using OpenNefia.Core;
 using static OpenNefia.Content.Prototypes.Protos;
 using OpenNefia.Core.ResourceManagement;
 using OpenNefia.Core.Utility;
-using OpenNefia.Content.Charas;
+using OpenNefia.Content.Portraits;
 
 namespace OpenNefia.Content.CharaAppearance
 {

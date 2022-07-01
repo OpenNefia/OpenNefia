@@ -28,11 +28,6 @@ namespace OpenNefia.Content.DisplayName
         {
             var baseName = metaData.DisplayName ?? GetFallbackName(uid); 
 
-            if (EntityManager.TryGetComponent(uid, out CustomNameComponent customName))
-            {
-                baseName = customName.CustomName;
-            }
-
             args.OutBaseName = baseName;
         }
 

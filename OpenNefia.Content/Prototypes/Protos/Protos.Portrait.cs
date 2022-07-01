@@ -1,4 +1,4 @@
-﻿using PortraitPrototypeId = OpenNefia.Core.Prototypes.PrototypeId<OpenNefia.Content.Charas.PortraitPrototype>;
+﻿using PortraitPrototypeId = OpenNefia.Core.Prototypes.PrototypeId<OpenNefia.Content.Portraits.PortraitPrototype>;
 
 namespace OpenNefia.Content.Prototypes
 {

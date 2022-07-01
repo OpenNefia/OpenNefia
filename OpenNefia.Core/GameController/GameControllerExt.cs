@@ -13,7 +13,7 @@ namespace OpenNefia.Core.GameController
         public static float StepFrame(this IGameController gameController)
         {
             var dt = Love.Timer.GetDelta();
-            var frameArgs = new FrameEventArgs(dt);
+            var frameArgs = new FrameEventArgs(dt, stepInput: false);
             gameController.Update(frameArgs);
             gameController.Draw();
             // gameController.SystemStep();
