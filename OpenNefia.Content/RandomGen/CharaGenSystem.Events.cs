@@ -22,7 +22,7 @@ namespace OpenNefia.Content.RandomGen
 
         public override void Initialize()
         {
-            SubscribeComponent<CharaComponent, EntityBeingGeneratedEvent>(FixLevelAndQuality, priority: EventPriorities.High);
+            SubscribeComponent<CharaComponent, EntityBeingGeneratedEvent>(FixLevelAndQuality, priority: EventPriorities.VeryHigh);
 
             _protos.PrototypesReloaded += ev =>
             {

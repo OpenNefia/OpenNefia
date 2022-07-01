@@ -65,7 +65,7 @@ namespace OpenNefia.Content.StatusEffects
                 TryToPickDrunkardFight(drunkard);
 
             if (_statusEffects.GetTurns(drunkard, Protos.StatusEffect.Drunk) >= DrunkLevelHeavy
-                || (TryComp<HungerComponent>(drunkard, out var hunger) && hunger.Nutrition >= HungerSystem.NutritionThresholdVomit))
+                || (TryComp<HungerComponent>(drunkard, out var hunger) && hunger.Nutrition >= HungerLevels.Vomit))
             {
                 if (_rand.OneIn(60))
                 {
