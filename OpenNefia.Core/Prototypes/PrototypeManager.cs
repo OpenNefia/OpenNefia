@@ -93,7 +93,7 @@ namespace OpenNefia.Core.Prototypes
         /// </exception>
         TExt GetExtendedData<TProto, TExt>(PrototypeId<TProto> id)
             where TProto : class, IPrototype
-            where TExt : class;
+            where TExt : class, IPrototypeExtendedData;
 
         /// <summary>
         /// Index for a <see cref="IPrototype"/>'s extended data.
@@ -101,16 +101,16 @@ namespace OpenNefia.Core.Prototypes
         /// <exception cref="KeyNotFoundException">
         /// Thrown if the ID does not exist or the type of prototype is not registered.
         /// </exception>
-        object GetExtendedData(Type protoType, Type extType, string id);
+        IPrototypeExtendedData GetExtendedData(Type protoType, Type extType, string id);
 
         bool HasExtendedData<TProto, TExt>(PrototypeId<TProto> id)
             where TProto : class, IPrototype
-            where TExt : class;
+            where TExt : class, IPrototypeExtendedData;
         bool HasExtendedData(Type protoType, Type extType, string id);
         bool TryGetExtendedData<TProto, TExt>(PrototypeId<TProto> id, [NotNullWhen(true)] out TExt? data)
             where TProto : class, IPrototype
-            where TExt : class;
-        bool TryGetExtendedData(Type protoType, Type extType, string id, [NotNullWhen(true)] out object? data);
+            where TExt : class, IPrototypeExtendedData;
+        bool TryGetExtendedData(Type protoType, Type extType, string id, [NotNullWhen(true)] out IPrototypeExtendedData? data);
 
         /// <summary>
         ///     Returns whether a prototype variant <param name="variant"/> exists.
@@ -218,6 +218,11 @@ namespace OpenNefia.Core.Prototypes
         event Action<MappingDataNode> BeforePrototypeLoad;
     }
 
+    [ImplicitDataDefinitionForInheritors]
+    public interface IPrototypeExtendedData
+    {
+    }
+
     /// <summary>
     /// Quick attribute to give the prototype its type string.
     /// To prevent needing to instantiate it because interfaces can't declare statics.
@@ -255,7 +260,7 @@ namespace OpenNefia.Core.Prototypes
     public sealed record PrototypeManagerCache(
         Dictionary<Type, Dictionary<string, DeserializationResult>> PrototypeResults,
         Dictionary<Type, Dictionary<string, PrototypeOrderingData>> PrototypeOrdering,
-        Dictionary<Type, Dictionary<string, Dictionary<Type, object>>> PrototypeExtendedData,
+        Dictionary<Type, Dictionary<string, Dictionary<Type, IPrototypeExtendedData>>> PrototypeExtendedData,
         Dictionary<Type, Dictionary<string, List<PrototypeEventHandlerDef>>> PrototypeEventDefs);
 
     public sealed partial class PrototypeManager : IPrototypeManagerInternal
@@ -285,7 +290,7 @@ namespace OpenNefia.Core.Prototypes
         private readonly Dictionary<Type, PrototypeInheritanceTree> _inheritanceTrees = new();
         private readonly Dictionary<Type, Dictionary<string, PrototypeOrderingData>> _prototypeOrdering = new();
         private readonly Dictionary<Type, List<IPrototype>> _sortedPrototypes = new();
-        private readonly Dictionary<Type, Dictionary<string, Dictionary<Type, object>>> _prototypeExtendedData = new();
+        private readonly Dictionary<Type, Dictionary<string, Dictionary<Type, IPrototypeExtendedData>>> _prototypeExtendedData = new();
         private readonly Dictionary<Type, Dictionary<string, List<PrototypeEventHandlerDef>>> _prototypeEventDefs = new();
 
         private static Dictionary<T1, Dictionary<T2, T3>> Deepcopy<T1, T2, T3>(Dictionary<T1, Dictionary<T2, T3>> dict)
@@ -945,7 +950,7 @@ namespace OpenNefia.Core.Prototypes
 
                 var extDataMappingNode = child.ToDataNodeCast<MappingDataNode>();
                 var extDataRes = _serializationManager.Read(extDataType, extDataMappingNode, skipHook: true);
-                var obj = extDataRes.RawValue!;
+                var obj = (IPrototypeExtendedData)extDataRes.RawValue!;
 
                 var objs = _prototypeExtendedData[prototypeType].GetValueOrInsert(prototype.ID, () => new());
                 objs.Add(obj.GetType(), obj);
@@ -1103,7 +1108,7 @@ namespace OpenNefia.Core.Prototypes
         /// <inheritdoc />
         public TExt GetExtendedData<TProto, TExt>(PrototypeId<TProto> id)
             where TProto : class, IPrototype
-            where TExt : class
+            where TExt : class, IPrototypeExtendedData
         {
             if (!TryGetExtendedData<TProto, TExt>(id, out var data))
                 throw new KeyNotFoundException($"Extended data {typeof(TExt)} for {typeof(TProto)}:{id} not found.");
@@ -1112,7 +1117,7 @@ namespace OpenNefia.Core.Prototypes
         }
 
         /// <inheritdoc />
-        public object GetExtendedData(Type protoType, Type extType, string id)
+        public IPrototypeExtendedData GetExtendedData(Type protoType, Type extType, string id)
         {
             if (!TryGetExtendedData(protoType, extType, id, out var data))
                 throw new KeyNotFoundException($"Extended data {extType} for {protoType}:{id} not found.");
@@ -1123,7 +1128,7 @@ namespace OpenNefia.Core.Prototypes
         /// <inheritdoc />
         public bool HasExtendedData<TProto, TExt>(PrototypeId<TProto> id)
             where TProto : class, IPrototype
-            where TExt : class
+            where TExt : class, IPrototypeExtendedData
         {
             return HasExtendedData(typeof(TProto), typeof(TExt), (string)id);
         }
@@ -1143,7 +1148,7 @@ namespace OpenNefia.Core.Prototypes
         /// <inheritdoc />
         public bool TryGetExtendedData<TProto, TExt>(PrototypeId<TProto> id, [NotNullWhen(true)] out TExt? data)
             where TProto : class, IPrototype
-            where TExt : class
+            where TExt : class, IPrototypeExtendedData
         {
             if (!TryGetExtendedData(typeof(TProto), typeof(TExt), (string)id, out var obj))
             {
@@ -1156,8 +1161,13 @@ namespace OpenNefia.Core.Prototypes
         }
 
         /// <inheritdoc />
-        public bool TryGetExtendedData(Type protoType, Type extType, string id, [NotNullWhen(true)] out object? obj)
+        public bool TryGetExtendedData(Type protoType, Type extType, string id, [NotNullWhen(true)] out IPrototypeExtendedData? obj)
         {
+            if (!typeof(IPrototype).IsAssignableFrom(protoType))
+                throw new ArgumentException($"{protoType} is not a prototype type.");
+            if (!typeof(IPrototypeExtendedData).IsAssignableFrom(extType))
+                throw new ArgumentException($"{extType} is not an extended data type.");
+
             obj = null;
             if (!_prototypeExtendedData.TryGetValue(protoType, out var extData))
                 return false;
@@ -1205,7 +1215,7 @@ namespace OpenNefia.Core.Prototypes
                 if (typeof(IInheritingPrototype).IsAssignableFrom(type))
                     _inheritanceTrees[type] = new PrototypeInheritanceTree();
                 _prototypeOrdering[type] = new Dictionary<string, PrototypeOrderingData>();
-                _prototypeExtendedData[type] = new Dictionary<string, Dictionary<Type, object>>();
+                _prototypeExtendedData[type] = new Dictionary<string, Dictionary<Type, IPrototypeExtendedData>>();
                 _prototypeEventDefs[type] = new Dictionary<string, List<PrototypeEventHandlerDef>>();
             }
         }

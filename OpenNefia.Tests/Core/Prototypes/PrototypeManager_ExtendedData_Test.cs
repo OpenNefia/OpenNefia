@@ -72,7 +72,7 @@ namespace OpenNefia.Tests.Core.Prototypes
     }
 
     [DataDefinition]
-    public sealed class TestExtendedData
+    public sealed class TestExtendedData : IPrototypeExtendedData
     {
         [DataField]
         public int Foo { get; set; } = 0;
