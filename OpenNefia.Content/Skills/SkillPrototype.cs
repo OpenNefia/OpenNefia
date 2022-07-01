@@ -49,6 +49,9 @@ namespace OpenNefia.Content.Skills
         public SkillType SkillType { get; } = SkillType.Skill;
 
         [DataField]
-        public bool IsPrimarySkill { get; } = false;
+        public bool GrowOnLevelUp { get; } = false;
+
+        [DataField]
+        public int? InitialLevel { get; } = null;
     }
 }

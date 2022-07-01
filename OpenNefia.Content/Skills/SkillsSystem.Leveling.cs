@@ -322,13 +322,10 @@ namespace OpenNefia.Content.Skills
             _refresh.Refresh(uid);
         }
 
-        public void GainLevel(EntityUid entity, bool showMessage = false, SkillsComponent? skillsComp = null, LevelComponent? levelComp = null)
+        public void ApplyEntityLevelUpGrowth(EntityUid entity, bool showMessage = false, SkillsComponent? skillsComp = null, LevelComponent? levelComp = null)
         {
             if (!Resolve(entity, ref skillsComp) || !Resolve(entity, ref levelComp))
                 return;
-
-            levelComp.Experience = Math.Max(levelComp.Experience - levelComp.ExperienceToNext, 0);
-            levelComp.Level++;
 
             if (showMessage)
             {
@@ -367,14 +364,11 @@ namespace OpenNefia.Content.Skills
                 }
             }
 
-            levelComp.MaxLevelReached = Math.Max(levelComp.MaxLevelReached, levelComp.Level);
-
             if (!_parties.IsInPlayerParty(entity))
             {
                 GrowPrimarySkills(entity, skillsComp);
             }
 
-            levelComp.ExperienceToNext = CalcExperienceToNext(entity, levelComp);
             _refresh.Refresh(entity);
         }
 
@@ -449,19 +443,10 @@ namespace OpenNefia.Content.Skills
             }
 
             // Grow some skills available on all characters (by default: evasion, martial arts, bow)
-            foreach (var primarySkill in _protos.EnumeratePrototypes<SkillPrototype>().Where(s => s.IsPrimarySkill))
+            foreach (var growableSkill in _protos.EnumeratePrototypes<SkillPrototype>().Where(s => s.GrowOnLevelUp))
             {
-                Grow(primarySkill.GetStrongID());
+                Grow(growableSkill.GetStrongID());
             }
-        }
-
-        private int CalcExperienceToNext(EntityUid entity, LevelComponent? levelComp = null)
-        {
-            if (!Resolve(entity, ref levelComp))
-                return 0;
-
-            var level = Math.Clamp(levelComp.Level, 1, 200);
-            return Math.Clamp(level * (level + 1) * (level + 2) * (level + 3) + 3000, 0, 100000000);
         }
     }
 

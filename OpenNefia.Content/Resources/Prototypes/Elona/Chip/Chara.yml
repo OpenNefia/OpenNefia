@@ -15,6 +15,9 @@
   image:
     filepath: /Graphic/Elona/character.bmp
     region: "48, 0, 48, 48"
+  extendedData:
+  - type: RandomGen.ExtRandomHumanChip
+    gender: Male
 
 - type: Chip
   id: Elona.CharaHumanFemale
@@ -24,6 +27,9 @@
   image:
     filepath: /Graphic/Elona/character.bmp
     region: "96, 0, 48, 48"
+  extendedData:
+  - type: RandomGen.ExtRandomHumanChip
+    gender: Female
 
 - type: Chip
   id: Elona.CharaEleaMale
@@ -33,6 +39,9 @@
   image:
     filepath: /Graphic/Elona/character.bmp
     region: "144, 0, 48, 48"
+  extendedData:
+  - type: RandomGen.ExtRandomHumanChip
+    gender: Male
 
 - type: Chip
   id: Elona.CharaEleaFemale
@@ -42,6 +51,9 @@
   image:
     filepath: /Graphic/Elona/character.bmp
     region: "192, 0, 48, 48"
+  extendedData:
+  - type: RandomGen.ExtRandomHumanChip
+    gender: Female
 
 - type: Chip
   id: Elona.CharaEuldernaMale
@@ -51,6 +63,9 @@
   image:
     filepath: /Graphic/Elona/character.bmp
     region: "240, 0, 48, 48"
+  extendedData:
+  - type: RandomGen.ExtRandomHumanChip
+    gender: Male
 
 - type: Chip
   id: Elona.CharaEuldernaFemale
@@ -60,6 +75,9 @@
   image:
     filepath: /Graphic/Elona/character.bmp
     region: "288, 0, 48, 48"
+  extendedData:
+  - type: RandomGen.ExtRandomHumanChip
+    gender: Female
 
 - type: Chip
   id: Elona.CharaTrainerMale
@@ -69,6 +87,9 @@
   image:
     filepath: /Graphic/Elona/character.bmp
     region: "336, 0, 48, 48"
+  extendedData:
+  - type: RandomGen.ExtRandomHumanChip
+    gender: Male
 
 - type: Chip
   id: Elona.CharaMiches
@@ -78,6 +99,9 @@
   image:
     filepath: /Graphic/Elona/character.bmp
     region: "384, 0, 48, 48"
+  extendedData:
+  - type: RandomGen.ExtRandomHumanChip
+    gender: Female
 
 - type: Chip
   id: Elona.CharaJuereMale
@@ -87,6 +111,9 @@
   image:
     filepath: /Graphic/Elona/character.bmp
     region: "432, 0, 48, 48"
+  extendedData:
+  - type: RandomGen.ExtRandomHumanChip
+    gender: Male
 
 - type: Chip
   id: Elona.CharaJuereFemale
@@ -96,6 +123,9 @@
   image:
     filepath: /Graphic/Elona/character.bmp
     region: "480, 0, 48, 48"
+  extendedData:
+  - type: RandomGen.ExtRandomHumanChip
+    gender: Female
 
 - type: Chip
   id: Elona.CharaAdventurerMale1
@@ -105,6 +135,9 @@
   image:
     filepath: /Graphic/Elona/character.bmp
     region: "528, 0, 48, 48"
+  extendedData:
+  - type: RandomGen.ExtRandomHumanChip
+    gender: Male
 
 - type: Chip
   id: Elona.CharaAdventurerFemale1
@@ -114,6 +147,9 @@
   image:
     filepath: /Graphic/Elona/character.bmp
     region: "576, 0, 48, 48"
+  extendedData:
+  - type: RandomGen.ExtRandomHumanChip
+    gender: Female
 
 - type: Chip
   id: Elona.CharaWizardMale
@@ -123,6 +159,9 @@
   image:
     filepath: /Graphic/Elona/character.bmp
     region: "624, 0, 48, 48"
+  extendedData:
+  - type: RandomGen.ExtRandomHumanChip
+    gender: Male
 
 - type: Chip
   id: Elona.CharaWizardFemale
@@ -132,6 +171,9 @@
   image:
     filepath: /Graphic/Elona/character.bmp
     region: "672, 0, 48, 48"
+  extendedData:
+  - type: RandomGen.ExtRandomHumanChip
+    gender: Female
 
 - type: Chip
   id: Elona.CharaInformerMale
@@ -141,6 +183,9 @@
   image:
     filepath: /Graphic/Elona/character.bmp
     region: "720, 0, 48, 48"
+  extendedData:
+  - type: RandomGen.ExtRandomHumanChip
+    gender: Male
 
 - type: Chip
   id: Elona.CharaInformerFemale
@@ -150,6 +195,9 @@
   image:
     filepath: /Graphic/Elona/character.bmp
     region: "768, 0, 48, 48"
+  extendedData:
+  - type: RandomGen.ExtRandomHumanChip
+    gender: Female
 
 - type: Chip
   id: Elona.CharaAdventurerMale2
@@ -159,6 +207,9 @@
   image:
     filepath: /Graphic/Elona/character.bmp
     region: "816, 0, 48, 48"
+  extendedData:
+  - type: RandomGen.ExtRandomHumanChip
+    gender: Male
 
 - type: Chip
   id: Elona.CharaAdventurerFemale2
@@ -168,6 +219,9 @@
   image:
     filepath: /Graphic/Elona/character.bmp
     region: "864, 0, 48, 48"
+  extendedData:
+  - type: RandomGen.ExtRandomHumanChip
+    gender: Female
 
 - type: Chip
   id: Elona.CharaAdventurerMale3
@@ -177,6 +231,9 @@
   image:
     filepath: /Graphic/Elona/character.bmp
     region: "912, 0, 48, 48"
+  extendedData:
+  - type: RandomGen.ExtRandomHumanChip
+    gender: Male
 
 - type: Chip
   id: Elona.CharaWarriorFemale
@@ -186,6 +243,9 @@
   image:
     filepath: /Graphic/Elona/character.bmp
     region: "960, 0, 48, 48"
+  extendedData:
+  - type: RandomGen.ExtRandomHumanChip
+    gender: Female
 
 - type: Chip
   id: Elona.CharaWarriorMale
@@ -195,6 +255,9 @@
   image:
     filepath: /Graphic/Elona/character.bmp
     region: "1008, 0, 48, 48"
+  extendedData:
+  - type: RandomGen.ExtRandomHumanChip
+    gender: Male
 
 - type: Chip
   id: Elona.CharaAdventurerFemale3
@@ -204,6 +267,9 @@
   image:
     filepath: /Graphic/Elona/character.bmp
     region: "1056, 0, 48, 48"
+  extendedData:
+  - type: RandomGen.ExtRandomHumanChip
+    gender: Female
 
 - type: Chip
   id: Elona.CharaMoyerTheCrooked
@@ -213,6 +279,9 @@
   image:
     filepath: /Graphic/Elona/character.bmp
     region: "1104, 0, 48, 48"
+  extendedData:
+  - type: RandomGen.ExtRandomHumanChip
+    gender: Male
 
 - type: Chip
   id: Elona.CharaAdventurerFemale4
@@ -222,6 +291,9 @@
   image:
     filepath: /Graphic/Elona/character.bmp
     region: "1152, 0, 48, 48"
+  extendedData:
+  - type: RandomGen.ExtRandomHumanChip
+    gender: Female
 
 - type: Chip
   id: Elona.CharaGuard
@@ -231,6 +303,9 @@
   image:
     filepath: /Graphic/Elona/character.bmp
     region: "1200, 0, 48, 48"
+  extendedData:
+  - type: RandomGen.ExtRandomHumanChip
+    gender: Male
 
 - type: Chip
   id: Elona.CharaAdventurerFemale5
@@ -240,6 +315,9 @@
   image:
     filepath: /Graphic/Elona/character.bmp
     region: "1248, 0, 48, 48"
+  extendedData:
+  - type: RandomGen.ExtRandomHumanChip
+    gender: Female
 
 - type: Chip
   id: Elona.CharaPunkFemale
@@ -249,6 +327,9 @@
   image:
     filepath: /Graphic/Elona/character.bmp
     region: "1296, 0, 48, 48"
+  extendedData:
+  - type: RandomGen.ExtRandomHumanChip
+    gender: Male
 
 - type: Chip
   id: Elona.CharaAdventurerFemale6
@@ -258,6 +339,9 @@
   image:
     filepath: /Graphic/Elona/character.bmp
     region: "1344, 0, 48, 48"
+  extendedData:
+  - type: RandomGen.ExtRandomHumanChip
+    gender: Female
 
 - type: Chip
   id: Elona.CharaAdventurerMale4
@@ -267,6 +351,9 @@
   image:
     filepath: /Graphic/Elona/character.bmp
     region: "1392, 0, 48, 48"
+  extendedData:
+  - type: RandomGen.ExtRandomHumanChip
+    gender: Male
 
 - type: Chip
   id: Elona.CharaAdventurerFemale7
@@ -276,6 +363,9 @@
   image:
     filepath: /Graphic/Elona/character.bmp
     region: "1440, 0, 48, 48"
+  extendedData:
+  - type: RandomGen.ExtRandomHumanChip
+    gender: Female
 
 - type: Chip
   id: Elona.CharaGangsterMale
@@ -285,6 +375,9 @@
   image:
     filepath: /Graphic/Elona/character.bmp
     region: "1488, 0, 48, 48"
+  extendedData:
+  - type: RandomGen.ExtRandomHumanChip
+    gender: Male
 
 - type: Chip
   id: Elona.CharaAdventurerFemale8
@@ -294,6 +387,9 @@
   image:
     filepath: /Graphic/Elona/character.bmp
     region: "1536, 0, 48, 48"
+  extendedData:
+  - type: RandomGen.ExtRandomHumanChip
+    gender: Female
 
 - type: Chip
   id: Elona.CharaAdventurerMale5
@@ -303,6 +399,9 @@
   image:
     filepath: /Graphic/Elona/character.bmp
     region: "0, 48, 48, 48"
+  extendedData:
+  - type: RandomGen.ExtRandomHumanChip
+    gender: Male
 
 - type: Chip
   id: Elona.CharaWarriorOfEleaFemale
@@ -312,6 +411,9 @@
   image:
     filepath: /Graphic/Elona/character.bmp
     region: "48, 48, 48, 48"
+  extendedData:
+  - type: RandomGen.ExtRandomHumanChip
+    gender: Female
 
 - type: Chip
   id: Elona.CharaAdventurerMale6
@@ -321,6 +423,9 @@
   image:
     filepath: /Graphic/Elona/character.bmp
     region: "96, 48, 48, 48"
+  extendedData:
+  - type: RandomGen.ExtRandomHumanChip
+    gender: Male
 
 - type: Chip
   id: Elona.CharaGangsterFemale
@@ -330,6 +435,9 @@
   image:
     filepath: /Graphic/Elona/character.bmp
     region: "144, 48, 48, 48"
+  extendedData:
+  - type: RandomGen.ExtRandomHumanChip
+    gender: Female
 
 - type: Chip
   id: Elona.CharaFallenSoldier
@@ -339,6 +447,9 @@
   image:
     filepath: /Graphic/Elona/character.bmp
     region: "192, 48, 48, 48"
+  extendedData:
+  - type: RandomGen.ExtRandomHumanChip
+    gender: Male
 
 - type: Chip
   id: Elona.CharaAdventurerFemale9
@@ -348,6 +459,9 @@
   image:
     filepath: /Graphic/Elona/character.bmp
     region: "240, 48, 48, 48"
+  extendedData:
+  - type: RandomGen.ExtRandomHumanChip
+    gender: Female
 
 - type: Chip
   id: Elona.CharaAdventurerMale7
@@ -357,6 +471,9 @@
   image:
     filepath: /Graphic/Elona/character.bmp
     region: "288, 48, 48, 48"
+  extendedData:
+  - type: RandomGen.ExtRandomHumanChip
+    gender: Male
 
 - type: Chip
   id: Elona.CharaAdventurerFemale10
@@ -366,6 +483,9 @@
   image:
     filepath: /Graphic/Elona/character.bmp
     region: "336, 48, 48, 48"
+  extendedData:
+  - type: RandomGen.ExtRandomHumanChip
+    gender: Female
 
 - type: Chip
   id: Elona.CharaArenaMaster
@@ -375,6 +495,9 @@
   image:
     filepath: /Graphic/Elona/character.bmp
     region: "384, 48, 48, 48"
+  extendedData:
+  - type: RandomGen.ExtRandomHumanChip
+    gender: Male
 
 - type: Chip
   id: Elona.CharaWizardOfEleaFemale
@@ -384,6 +507,9 @@
   image:
     filepath: /Graphic/Elona/character.bmp
     region: "432, 48, 48, 48"
+  extendedData:
+  - type: RandomGen.ExtRandomHumanChip
+    gender: Female
 
 - type: Chip
   id: Elona.CharaAdventurerMale8
@@ -393,6 +519,9 @@
   image:
     filepath: /Graphic/Elona/character.bmp
     region: "480, 48, 48, 48"
+  extendedData:
+  - type: RandomGen.ExtRandomHumanChip
+    gender: Male
 
 - type: Chip
   id: Elona.CharaAdventurerFemale11
@@ -402,6 +531,9 @@
   image:
     filepath: /Graphic/Elona/character.bmp
     region: "528, 48, 48, 48"
+  extendedData:
+  - type: RandomGen.ExtRandomHumanChip
+    gender: Female
 
 - type: Chip
   id: Elona.CharaAdventurerMale9
@@ -411,6 +543,9 @@
   image:
     filepath: /Graphic/Elona/character.bmp
     region: "576, 48, 48, 48"
+  extendedData:
+  - type: RandomGen.ExtRandomHumanChip
+    gender: Male
 
 - type: Chip
   id: Elona.CharaAdventurerFemale12
@@ -420,6 +555,9 @@
   image:
     filepath: /Graphic/Elona/character.bmp
     region: "624, 48, 48, 48"
+  extendedData:
+  - type: RandomGen.ExtRandomHumanChip
+    gender: Female
 
 - type: Chip
   id: Elona.CharaWizardOfEleaMale
@@ -429,6 +567,9 @@
   image:
     filepath: /Graphic/Elona/character.bmp
     region: "672, 48, 48, 48"
+  extendedData:
+  - type: RandomGen.ExtRandomHumanChip
+    gender: Male
 
 - type: Chip
   id: Elona.CharaAdventurerFemale13
@@ -438,6 +579,9 @@
   image:
     filepath: /Graphic/Elona/character.bmp
     region: "720, 48, 48, 48"
+  extendedData:
+  - type: RandomGen.ExtRandomHumanChip
+    gender: Female
 
 - type: Chip
   id: Elona.CharaAdventurerMale10
@@ -447,6 +591,9 @@
   image:
     filepath: /Graphic/Elona/character.bmp
     region: "768, 48, 48, 48"
+  extendedData:
+  - type: RandomGen.ExtRandomHumanChip
+    gender: Male
 
 - type: Chip
   id: Elona.CharaAdventurerFemale14
@@ -456,6 +603,9 @@
   image:
     filepath: /Graphic/Elona/character.bmp
     region: "816, 48, 48, 48"
+  extendedData:
+  - type: RandomGen.ExtRandomHumanChip
+    gender: Female
 
 - type: Chip
   id: Elona.CharaAdventurerMale11
@@ -465,6 +615,9 @@
   image:
     filepath: /Graphic/Elona/character.bmp
     region: "864, 48, 48, 48"
+  extendedData:
+  - type: RandomGen.ExtRandomHumanChip
+    gender: Male
 
 - type: Chip
   id: Elona.CharaAdventurerFemale15
@@ -474,6 +627,9 @@
   image:
     filepath: /Graphic/Elona/character.bmp
     region: "912, 48, 48, 48"
+  extendedData:
+  - type: RandomGen.ExtRandomHumanChip
+    gender: Female
 
 - type: Chip
   id: Elona.CharaAdventurerMale12
@@ -483,6 +639,9 @@
   image:
     filepath: /Graphic/Elona/character.bmp
     region: "960, 48, 48, 48"
+  extendedData:
+  - type: RandomGen.ExtRandomHumanChip
+    gender: Male
 
 - type: Chip
   id: Elona.CharaAdventurerFemale16
@@ -492,6 +651,9 @@
   image:
     filepath: /Graphic/Elona/character.bmp
     region: "1008, 48, 48, 48"
+  extendedData:
+  - type: RandomGen.ExtRandomHumanChip
+    gender: Female
 
 - type: Chip
   id: Elona.CharaAdventurerMale13
@@ -501,6 +663,9 @@
   image:
     filepath: /Graphic/Elona/character.bmp
     region: "1056, 48, 48, 48"
+  extendedData:
+  - type: RandomGen.ExtRandomHumanChip
+    gender: Male
 
 - type: Chip
   id: Elona.CharaAdventurerFemale17
@@ -510,6 +675,9 @@
   image:
     filepath: /Graphic/Elona/character.bmp
     region: "1104, 48, 48, 48"
+  extendedData:
+  - type: RandomGen.ExtRandomHumanChip
+    gender: Female
 
 - type: Chip
   id: Elona.CharaMercenaryArcher
@@ -519,6 +687,9 @@
   image:
     filepath: /Graphic/Elona/character.bmp
     region: "1152, 48, 48, 48"
+  extendedData:
+  - type: RandomGen.ExtRandomHumanChip
+    gender: Male
 
 - type: Chip
   id: Elona.CharaAdventurerFemale18
@@ -528,6 +699,9 @@
   image:
     filepath: /Graphic/Elona/character.bmp
     region: "1200, 48, 48, 48"
+  extendedData:
+  - type: RandomGen.ExtRandomHumanChip
+    gender: Female
 
 - type: Chip
   id: Elona.CharaAdventurerMale14
@@ -537,6 +711,9 @@
   image:
     filepath: /Graphic/Elona/character.bmp
     region: "1248, 48, 48, 48"
+  extendedData:
+  - type: RandomGen.ExtRandomHumanChip
+    gender: Male
 
 - type: Chip
   id: Elona.CharaAdventurerFemale19
@@ -546,6 +723,9 @@
   image:
     filepath: /Graphic/Elona/character.bmp
     region: "1296, 48, 48, 48"
+  extendedData:
+  - type: RandomGen.ExtRandomHumanChip
+    gender: Female
 
 - type: Chip
   id: Elona.CharaAdventurerMale15
@@ -555,6 +735,9 @@
   image:
     filepath: /Graphic/Elona/character.bmp
     region: "1344, 48, 48, 48"
+  extendedData:
+  - type: RandomGen.ExtRandomHumanChip
+    gender: Male
 
 - type: Chip
   id: Elona.CharaAdventurerFemale20
@@ -564,6 +747,9 @@
   image:
     filepath: /Graphic/Elona/character.bmp
     region: "1392, 48, 48, 48"
+  extendedData:
+  - type: RandomGen.ExtRandomHumanChip
+    gender: Female
 
 - type: Chip
   id: Elona.CharaAdventurerMale16
@@ -573,6 +759,9 @@
   image:
     filepath: /Graphic/Elona/character.bmp
     region: "1440, 48, 48, 48"
+  extendedData:
+  - type: RandomGen.ExtRandomHumanChip
+    gender: Male
 
 - type: Chip
   id: Elona.CharaAdventurerFemale21
@@ -582,6 +771,9 @@
   image:
     filepath: /Graphic/Elona/character.bmp
     region: "1488, 48, 48, 48"
+  extendedData:
+  - type: RandomGen.ExtRandomHumanChip
+    gender: Female
 
 - type: Chip
   id: Elona.CharaAdventurerMale17
@@ -591,6 +783,9 @@
   image:
     filepath: /Graphic/Elona/character.bmp
     region: "1536, 48, 48, 48"
+  extendedData:
+  - type: RandomGen.ExtRandomHumanChip
+    gender: Male
 
 - type: Chip
   id: Elona.CharaDwarf

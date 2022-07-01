@@ -61,7 +61,7 @@ namespace OpenNefia.Content.Skills
         void GainSkillExp(EntityUid uid, SkillPrototype skill, int baseExpGained, int relatedSkillExpDivisor = 0, int levelExpDivisor = 0, SkillsComponent? skills = null);
         void GainSkill(EntityUid uid, PrototypeId<SkillPrototype> skillId, LevelAndPotential? initialValues = null,
             SkillsComponent? skills = null);
-        void GainLevel(EntityUid entity, bool showMessage = false, SkillsComponent? skillComp = null, LevelComponent? levelComp = null);
+        void ApplyEntityLevelUpGrowth(EntityUid entity, bool showMessage = false, SkillsComponent? skillComp = null, LevelComponent? levelComp = null);
 
         #endregion
 
@@ -86,47 +86,6 @@ namespace OpenNefia.Content.Skills
     public sealed partial class SkillsSystem : EntitySystem, ISkillsSystem
     {
         [Dependency] private readonly IPrototypeManager _protos = default!;
-        [Dependency] private readonly IRefreshSystem _refresh = default!;
-
-        public override void Initialize()
-        {
-            SubscribeComponent<SkillsComponent, EntityRefreshEvent>(HandleRefresh, priority: EventPriorities.VeryHigh);
-            SubscribeComponent<SkillsComponent, EntityGeneratedEvent>(HandleGenerated, priority: EventPriorities.VeryHigh);
-
-            SubscribeComponent<SkillsComponent, EntityTurnStartingEventArgs>(HandleTurnStarting, priority: EventPriorities.VeryHigh);
-            SubscribeComponent<SkillsComponent, EntityTurnEndingEventArgs>(HandleTurnEnding, priority: EventPriorities.Low);
-        }
-
-        private void HandleGenerated(EntityUid uid, SkillsComponent component, ref EntityGeneratedEvent args)
-        {
-            _refresh.Refresh(uid);
-            HealToMax(uid);
-        }
-
-        private void HandleRefresh(EntityUid uid, SkillsComponent skills, ref EntityRefreshEvent args)
-        {
-            var level = EntityManager.EnsureComponent<LevelComponent>(uid);
-
-            ResetStatBuffs(skills);
-            ResetSkillBuffs(skills);
-            RefreshHPMPAndStamina(skills, level);
-        }
-
-        private void ResetStatBuffs(SkillsComponent skills)
-        {
-            skills.DV.Reset();
-            skills.PV.Reset();
-            skills.HitBonus.Reset();
-            skills.DamageBonus.Reset();
-        }
-
-        private void ResetSkillBuffs(SkillsComponent skills)
-        {
-            foreach (var (_, level) in skills.Skills)
-            {
-                level.Level.Reset();
-            }
-        }
 
         public bool TryGetKnown(EntityUid uid, PrototypeId<SkillPrototype> protoId, [NotNullWhen(true)] out LevelAndPotential? level, SkillsComponent? skills = null)
         {

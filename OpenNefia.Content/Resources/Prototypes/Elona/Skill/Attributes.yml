@@ -45,3 +45,4 @@
 - type: Elona.Skill
   id: Elona.AttrLuck
   skillType: Attribute
+  initialLevel: 50

@@ -1,6 +1,7 @@
 ﻿using OpenNefia.Content.Charas;
 using OpenNefia.Content.DisplayName;
 using OpenNefia.Content.Factions;
+using OpenNefia.Content.GameObjects;
 using OpenNefia.Content.Input;
 using OpenNefia.Content.Logic;
 using OpenNefia.Content.Maps;
@@ -21,7 +22,7 @@ using System.Text;
 using System.Threading.Tasks;
 using static OpenNefia.Content.Prototypes.Protos;
 
-namespace OpenNefia.Content.GameObjects
+namespace OpenNefia.Content.Combat
 {
     public interface ICombatSystem
     {
@@ -54,7 +55,7 @@ namespace OpenNefia.Content.GameObjects
 
             _mes.Display($"{_displayNames.GetDisplayName(uid)} punches {_displayNames.GetDisplayName(args.Target)}");
 
-            _sounds.Play(Protos.Sound.Atk1, args.Target);
+            _sounds.Play(Sound.Atk1, args.Target);
             targetSkills.HP--;
             if (targetSkills.HP < 0)
             {
@@ -67,8 +68,8 @@ namespace OpenNefia.Content.GameObjects
 
         private readonly PrototypeId<SoundPrototype>[] KillSounds = new[]
         {
-            Protos.Sound.Kill1,
-            Protos.Sound.Kill2,
+            Sound.Kill1,
+            Sound.Kill2,
         };
 
         private void KillEntity(EntityUid target, MetaDataComponent? metaData = null, SpatialComponent? spatial = null)

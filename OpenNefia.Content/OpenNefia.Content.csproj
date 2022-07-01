@@ -14,7 +14,7 @@
   <ItemGroup>
     <Compile Remove="Scratch.cs" />
   </ItemGroup>
-  
+	
 	<ItemGroup>
     <ProjectReference Include="..\OpenNefia.Core\OpenNefia.Core.csproj" />
   </ItemGroup>

@@ -371,7 +371,7 @@ namespace OpenNefia.Content.Maps
                             {
                                 if (_levels.GetLevel(player) < _levels.GetLevel(ent))
                                 {
-                                    _skills.GainLevel(ent, showMessage: false);
+                                    _levels.GainLevel(ent, showMessage: false);
                                 }
                             }
                             if (!TryComp<KarmaComponent>(player, out var karma) || !karma.IsIncognito.Buffed)

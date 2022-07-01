@@ -33,6 +33,8 @@ namespace OpenNefia.Content.Resists
             };
         }
 
+        public LevelAndPotential Ensure(ElementPrototype proto) => Ensure(proto.GetStrongID());
+
         public bool TryGetKnown(ElementPrototype proto, [NotNullWhen(true)] out LevelAndPotential? level)
             => TryGetKnown(proto.GetStrongID(), out level);
         public bool TryGetKnown(PrototypeId<ElementPrototype> protoId, [NotNullWhen(true)] out LevelAndPotential? level)

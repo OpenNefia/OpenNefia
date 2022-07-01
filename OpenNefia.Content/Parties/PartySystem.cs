@@ -194,6 +194,11 @@ namespace OpenNefia.Content.Parties
         EntityUid? GetLeader(EntityUid target, PartyComponent? party = null);
 
         /// <summary>
+        /// Returns true if this character is leading a party.
+        /// </summary>
+        bool IsLeaderOfSomeParty(EntityUid target, PartyComponent? party = null);
+
+        /// <summary>
         /// Returns true if this entity is in the player's party.
         /// Includes the player themselves.
         /// </summary>
@@ -288,6 +293,11 @@ namespace OpenNefia.Content.Parties
                 return false;
 
             return party.Members.Contains(target) && party.Leader == leader;
+        }
+
+        public bool IsLeaderOfSomeParty(EntityUid target, PartyComponent? partyComp = null)
+        {
+            return IsPartyLeaderOf(target, target, partyComp);
         }
 
         public bool IsInPlayerParty(EntityUid entity, PartyComponent? party = null)
