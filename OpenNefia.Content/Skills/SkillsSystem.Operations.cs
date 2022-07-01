@@ -38,7 +38,7 @@ namespace OpenNefia.Content.Skills
             if (!Resolve(uid, ref skills))
                 return;
 
-            amount = Math.Clamp(amount, 0, skills.MaxHP - skills.HP);
+            amount = Math.Clamp(amount, 0, Math.Max(skills.MaxHP - skills.HP, 0));
             skills.HP += amount;
 
             var ev = new AfterHealEvent(uid, HealType.HP, amount, showMessage);
@@ -50,7 +50,7 @@ namespace OpenNefia.Content.Skills
             if (!Resolve(uid, ref skills))
                 return;
 
-            amount = Math.Clamp(amount, 0, skills.MaxMP - skills.MP);
+            amount = Math.Clamp(amount, 0, Math.Max(skills.MaxMP - skills.MP, 0));
             skills.MP += amount;
 
             var ev = new AfterHealEvent(uid, HealType.MP, amount, showMessage);
@@ -61,6 +61,9 @@ namespace OpenNefia.Content.Skills
         {
             if (!Resolve(uid, ref skills))
                 return;
+
+            amount = Math.Clamp(amount, 0, Math.Max(skills.MaxStamina - skills.Stamina, 0));
+            skills.Stamina += amount;
 
             var ev = new AfterHealEvent(uid, HealType.Stamina, amount, showMessage);
             RaiseEvent(uid, ref ev);
