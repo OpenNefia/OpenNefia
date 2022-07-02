@@ -1,7 +1,10 @@
 ﻿using OpenNefia.Content.Charas;
 using OpenNefia.Content.DisplayName;
+using OpenNefia.Content.Equipment;
+using OpenNefia.Content.EquipSlots;
 using OpenNefia.Content.Factions;
 using OpenNefia.Content.GameObjects;
+using OpenNefia.Content.GameObjects.EntitySystems.Tag;
 using OpenNefia.Content.Input;
 using OpenNefia.Content.Logic;
 using OpenNefia.Content.Maps;
@@ -24,8 +27,11 @@ using static OpenNefia.Content.Prototypes.Protos;
 
 namespace OpenNefia.Content.Combat
 {
+    public sealed record EquipState(int AttackCount, bool IsWieldingShield, bool IsWieldingTwoHanded, bool IsDualWielding);
+
     public interface ICombatSystem
     {
+        EquipState GetEquipState(EntityUid ent);
         TurnResult? MeleeAttack(EntityUid attacker, EntityUid target);
     }
 
@@ -39,6 +45,8 @@ namespace OpenNefia.Content.Combat
         [Dependency] private readonly IMapDebrisSystem _mapDebris = default!;
         [Dependency] private readonly IConfigurationManager _config = default!;
         [Dependency] private readonly IInputSystem _input = default!;
+        [Dependency] private readonly IEquipSlotsSystem _equipSlots = default!;
+        [Dependency] private readonly ITagSystem _tags = default!;
 
         public override void Initialize()
         {
@@ -64,6 +72,53 @@ namespace OpenNefia.Content.Combat
             }
 
             args.Handled = true;
+        }
+
+        public EquipState GetEquipState(EntityUid ent)
+        {
+            var attackCount = 0;
+            var isWieldingShield = false;
+            var isWieldingTwoHanded = false;
+            var isDualWielding = false;
+
+            foreach (var equipSlot in _equipSlots.GetEquipSlots(ent))
+            {
+                if (!_equipSlots.TryGetContainerForEquipSlot(ent, equipSlot, out var container))
+                    continue;
+
+                if (!EntityManager.IsAlive(container.ContainedEntity))
+                    continue;
+
+                if (TryComp<EquipmentComponent>(container.ContainedEntity.Value, out var equip))
+                {
+                    // TODO generalize
+                    if (equip.EquipSlots.Contains(Protos.EquipSlot.Hand))
+                        attackCount++;
+
+                    if (_tags.HasTag(equip.Owner, Protos.Tag.ItemCatEquipShield))
+                        isWieldingShield = true;
+                }
+            }
+
+            if (isWieldingShield)
+            {
+                if (TryComp<SkillsComponent>(ent, out var skills))
+                {
+                    if (skills.PV.Buffed > 0)
+                    {
+                        skills.PV.Buffed *= (int)((120 + Math.Sqrt(skills.Level(Protos.Skill.Shield)) * 2) / 100);
+                    }
+                }
+                else
+                {
+                    if (attackCount == 1)
+                        isWieldingTwoHanded = true;
+                    else if (attackCount > 0)
+                        isDualWielding = true;
+                }
+            }
+
+            return new(attackCount, isWieldingShield, isWieldingTwoHanded, isDualWielding);
         }
 
         private readonly PrototypeId<SoundPrototype>[] KillSounds = new[]

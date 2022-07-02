@@ -162,7 +162,6 @@ namespace OpenNefia.Content.Skills
 
             var ev = new SkillExpGainedEvent(skillProto, baseExpGained, actualExpGained, levelDelta);
             RaiseEvent(uid, ref ev);
-
             // <<<<<<<< shade2/module.hsp:349 	#defcfunc calcFame int c,int per ..
         }
 

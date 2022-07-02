@@ -32,7 +32,7 @@ namespace OpenNefia.Content.Tests.Maps.Entrances
             var ent = entMan.SpawnEntity(null, desired);
             entMan.GetComponent<SpatialComponent>(ent).IsSolid = true;
 
-            Assert.That(mapPlacement.FindFreePositionForChara(desired), Is.EqualTo(map.AtPos((0, 2))));
+            Assert.That(mapPlacement.FindFreePositionForChara(desired), Is.EqualTo(map.AtPos((1, 0))));
         }
         
         [Test]

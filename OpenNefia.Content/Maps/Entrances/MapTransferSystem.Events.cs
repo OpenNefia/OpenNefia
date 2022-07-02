@@ -128,7 +128,7 @@ namespace OpenNefia.Content.Maps
         {
             return HasComp<MapTypeTownComponent>(map.MapEntityUid)
                     || HasComp<MapTypeTownComponent>(map.MapEntityUid)
-                    || GetComp<MapCommonComponent>(map.MapEntityUid).IsTravelDestination;
+                    || Comp<MapCommonComponent>(map.MapEntityUid).IsTravelDestination;
         }
 
         private void HandleActiveMapChanged(EntityUid uid, MapComponent component, ActiveMapChangedEvent args)
@@ -367,7 +367,7 @@ namespace OpenNefia.Content.Maps
                         if (HasComp<RoleGuardComponent>(ent))
                         {
                             var player = _gameSession.Player;
-                            if (GetComp<KarmaComponent>(player).Karma < KarmaLevels.Bad)
+                            if (Comp<KarmaComponent>(player).Karma < KarmaLevels.Bad)
                             {
                                 if (_levels.GetLevel(player) < _levels.GetLevel(ent))
                                 {
@@ -424,7 +424,7 @@ namespace OpenNefia.Content.Maps
         {
             var mapEnt = map.MapEntityUid;
 
-            var revealsFog = GetComp<MapCommonComponent>(mapEnt).RevealsFog;
+            var revealsFog = Comp<MapCommonComponent>(mapEnt).RevealsFog;
             if (revealsFog.HasValue)
                 return revealsFog.Value;
 

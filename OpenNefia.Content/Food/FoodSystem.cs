@@ -115,7 +115,7 @@ namespace OpenNefia.Content.Food
 
             if (_lookup.TryGetMapPlacedIn(ent, out var map))
             {
-                var spatial = GetComp<SpatialComponent>(ent);
+                var spatial = Comp<SpatialComponent>(ent);
                 map.RefreshTile(spatial.WorldPosition);
             }
         }

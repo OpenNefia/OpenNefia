@@ -44,7 +44,7 @@ namespace OpenNefia.Content.Resists
         public void Fire_KillChara(ElementPrototype proto, ref P_ElementKillCharaEvent ev)
         {
             // >>>>>>>> shade2/chara_func.hsp:1643 		if (dmgSource=dmgFromFire)or(ele=rsResFire){ ..
-            var pos = GetComp<SpatialComponent>(ev.Target).Coordinates;
+            var pos = Comp<SpatialComponent>(ev.Target).Coordinates;
             var args = EntityGenArgSet.Make(new MefGenArgs()
             {
                 TurnDuration = _rand.Next(10) + 5,

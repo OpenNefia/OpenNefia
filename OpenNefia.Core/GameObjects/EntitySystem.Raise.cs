@@ -39,11 +39,29 @@ namespace OpenNefia.Core.GameObjects
             return true;
         }
 
+        /// <inheritdoc cref="IEntityManager.GetComponent&lt;T&gt;"/>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        protected T GetComp<T>(EntityUid uid)
-            where T : class, IComponent
+        protected T Comp<T>(EntityUid uid) where T : class, IComponent
         {
             return EntityManager.GetComponent<T>(uid);
+        }
+
+        /// <summary>
+        ///     Returns the component of a specific type, or null when it's missing or the entity does not exist.
+        /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        protected T? CompOrNull<T>(EntityUid uid) where T : class, IComponent
+        {
+            return EntityManager.GetComponentOrNull<T>(uid);
+        }
+
+        /// <summary>
+        ///     Returns the component of a specific type, or null when it's missing or the entity does not exist.
+        /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        protected T? CompOrNull<T>(EntityUid? uid) where T : class, IComponent
+        {
+            return uid.HasValue ? EntityManager.GetComponentOrNull<T>(uid.Value) : null;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
