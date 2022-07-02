@@ -14,7 +14,14 @@ namespace OpenNefia.Content.DisplayName
         {
             base.Initialize();
 
+            SubscribeComponent<CharaComponent, GetDisplayNameEventArgs>(GetCharaName, priority: EventPriorities.Highest);
             SubscribeComponent<ItemComponent, GetDisplayNameEventArgs>(GetItemName, priority: EventPriorities.Highest);
+        }
+
+        private void GetCharaName(EntityUid uid, CharaComponent component, ref GetDisplayNameEventArgs args)
+        {
+            // CustomNameComponent is applied after this.
+            args.OutName = $"the {args.BaseName}";
         }
 
         public void GetItemName(EntityUid uid, ItemComponent component, ref GetDisplayNameEventArgs args)

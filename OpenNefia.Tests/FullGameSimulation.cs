@@ -155,7 +155,7 @@ namespace OpenNefia.Tests
             // just in case a system needs one of them.
             var configMan = container.Resolve<IConfigurationManagerInternal>();
             configMan.Initialize();
-            foreach (var assembly in assemblies)
+            foreach (var assembly in assemblies.Concat(contentAssemblies))
             {
                 configMan.LoadCVarsFromAssembly(assembly);
             }
@@ -188,15 +188,10 @@ namespace OpenNefia.Tests
 
             _systemDelegate?.Invoke(entitySystemMan);
 
-            entityMan.Startup();
-
-            var mapManager = container.Resolve<IMapManagerInternal>();
-            mapManager.CreateMap(1, 1, MapId.Global);
-
-            container.Resolve<ISerializationManager>().Initialize();
-
             var protoMan = container.Resolve<IPrototypeManagerInternal>();
             protoMan.Initialize();
+
+            container.Resolve<ISerializationManager>().Initialize();
 
             // Don't reparse prototypes from disk every run.
             if (_prototypeManagerCache.IsValueCreated)
@@ -215,6 +210,11 @@ namespace OpenNefia.Tests
 
             _protoDelegate?.Invoke(protoMan);
             protoMan.Resync();
+
+            entityMan.Startup();
+
+            var mapManager = container.Resolve<IMapManagerInternal>();
+            mapManager.CreateMap(1, 1, MapId.Global);
 
             var tileMan = container.Resolve<ITileDefinitionManagerInternal>();
             tileMan.RegisterAll();
