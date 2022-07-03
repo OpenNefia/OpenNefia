@@ -6,6 +6,7 @@ using OpenNefia.Core.IoC;
 using OpenNefia.Core.Log;
 using OpenNefia.Core.Prototypes;
 using System.Diagnostics.CodeAnalysis;
+using static OpenNefia.Content.Prototypes.Protos;
 using EquipSlotPrototypeId = OpenNefia.Core.Prototypes.PrototypeId<OpenNefia.Content.EquipSlots.EquipSlotPrototype>;
 
 namespace OpenNefia.Content.EquipSlots
@@ -256,8 +257,31 @@ namespace OpenNefia.Content.EquipSlots
         /// <inheritdoc/>
         public IList<EquipSlotInstance> GetEquipSlots(EntityUid uid, EquipSlotsComponent? equipSlotsComp = null)
         {
-            if (!Resolve(uid, ref equipSlotsComp)) throw new InvalidOperationException();
+            if (!Resolve(uid, ref equipSlotsComp))
+                return new List<EquipSlotInstance>();
+
             return equipSlotsComp.EquipSlots;
+        }
+
+        /// <inheritdoc/>
+        public bool IsEquippedOnSlotOfType(EntityUid uid, EquipSlotPrototypeId slotId)
+        {
+            if (!TryComp<SpatialComponent>(uid, out var spatialComp))
+                return false;
+
+            foreach (var equipSlot in GetEquipSlots(spatialComp.ParentUid))
+            {
+                if (equipSlot.ID != slotId)
+                    continue;
+
+                if (!TryGetContainerForEquipSlot(spatialComp.ParentUid, equipSlot, out var containerSlot))
+                    continue;
+
+                if (containerSlot.ContainedEntity == uid)
+                    return true;
+            }
+
+            return false;
         }
 
         public struct ContainerSlotEnumerator

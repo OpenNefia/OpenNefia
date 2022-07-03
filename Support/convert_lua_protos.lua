@@ -417,10 +417,10 @@ handlers["base.item"] = function(from, to)
             c.diceY = weapon.dice_y
         end
         if (weapon.pierce_rate or 0) ~= 0 then
-            c.pierce_rate = weapon.pierce_rate
+            c.pierceRate = weapon.pierce_rate
         end
-        if equipment.skill then
-            c.weaponSkill = dotted(equipment.skill)
+        if weapon.skill then
+            c.weaponSkill = dotted(weapon.skill)
         end
     end
 

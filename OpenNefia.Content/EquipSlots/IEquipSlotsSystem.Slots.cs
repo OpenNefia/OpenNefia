@@ -125,5 +125,7 @@ namespace OpenNefia.Content.EquipSlots
 
         IList<EquipSlotInstance> GetEquipSlots(EntityUid uid,
             EquipSlotsComponent? equipSlotsComp = null);
+
+        bool IsEquippedOnSlotOfType(EntityUid uid, PrototypeId<EquipSlotPrototype> slotId);
     }
 }

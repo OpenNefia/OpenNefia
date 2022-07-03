@@ -15,8 +15,6 @@ namespace OpenNefia.Content.Combat
         [Dependency] protected readonly IRandom _rand = default!;
         [Dependency] protected readonly ICoords _coords = default!;
 
-        private bool _breaksIntoDebris;
-        private int _damagePercent;
         private bool _isCritical;
         private bool _hasAttackAnim;
         private IAssetInstance _assetAttackAnim;
@@ -32,10 +30,9 @@ namespace OpenNefia.Content.Combat
             IoCManager.InjectDependencies(this);
 
             _assetParticle = Assets.Get(assetParticle);
-            _hasAttackAnim = _assetAttackAnim != null;
+            _hasAttackAnim = assetAttackAnim != null;
             _assetAttackAnim = Assets.Get(assetAttackAnim ?? Protos.Asset.SwarmEffect);
             _assetCritical = Assets.Get(Protos.Asset.AnimCritical);
-            _damagePercent = damagePercent;
             _isCritical = isCritical;
 
             var pointCount = Math.Min(damagePercent / 4 + 1, 20);
@@ -44,7 +41,7 @@ namespace OpenNefia.Content.Combat
                 _points.Add(new Vector2i(_rand.Next(24) - 12, _rand.Next(8)));
             }
 
-            var waitSecs = IoCManager.Resolve<IConfigurationManager>().GetCVar(CCVars.AnimeAnimationWait) * 10;
+            var waitSecs = IoCManager.Resolve<IConfigurationManager>().GetCVar(CCVars.AnimeAnimationWait) / 5;
 
             var frames = 4u;
             if (_hasAttackAnim)
@@ -64,12 +61,15 @@ namespace OpenNefia.Content.Combat
 
         public override void Draw()
         {
-            if (_isCritical)
+            // >>>>>>>> shade2 / screen.hsp:701   case aniNormalAttack...
+            Love.Graphics.SetColor(Color.White);
+
+            if (_isCritical && _counter.FrameInt < (int)_assetCritical.CountX)
                 _assetCritical.DrawRegionUnscaled(_counter.FrameInt.ToString(), PixelX - 24, PixelY - 32);
 
             for (var i = 0; i < _points.Count; i++)
             {
-                var frame2 = _counter.FrameInt + 2;
+                var frame2 = _counter.FrameInt * 2;
                 var point = _points[i];
                 var dx = point.X + _coords.TileSize.X / 2;
                 if (point.X < 4)
@@ -78,7 +78,7 @@ namespace OpenNefia.Content.Combat
                     if (_counter.FrameInt % 2 == 0)
                         dx -= frame2;
                 }
-                if (point.X < -4)
+                if (point.X > -4)
                 {
                     dx += frame2;
                     if (_counter.FrameInt % 2 == 0)
@@ -88,22 +88,29 @@ namespace OpenNefia.Content.Combat
                 }
 
                 var dy = point.Y + frame2 * (frame2 / 3);
-                _assetParticle.DrawUnscaled(PixelX + dx, PixelY + dy, 6, 6, centered: true, rotationRads: 0.4f * _counter.FrameInt);
+                _assetParticle.DrawUnscaled(PixelX + dx, PixelY + dy, 6, 6, centered: true, rotationRads: 0.4f * _counter.Frame);
             }
 
-            if (_hasAttackAnim)
+            if (_counter.FrameInt < _assetAttackAnim.CountX)
             {
-                if (_counter.FrameInt < _assetAttackAnim.CountX)
+                if (_hasAttackAnim)
                 {
                     _assetAttackAnim.DrawRegionUnscaled(_counter.FrameInt.ToString(), PixelX, PixelY);
                 }
+                else
+                {
+                    var firstPoint = _points.FirstOrDefault();
+                    var size = _counter.FrameInt * 10 + _points.Count;
+                    _assetAttackAnim.DrawRegionUnscaled(_counter.FrameInt.ToString(), 
+                        PixelX + firstPoint.X + _coords.TileSize.X / 2,
+                        PixelY + firstPoint.Y + 10, 
+                        size,
+                        size,
+                        centered: true,
+                        rotationRads: 0.5f + _counter.Frame * 0.8f);
+                }
             }
-            else
-            {
-                var firstPoint = _points.FirstOrDefault();
-                var size = _counter.FrameInt * 10 + _points.Count;
-                _assetAttackAnim.DrawUnscaled(PixelX + firstPoint.X + _coords.TileSize.X / 2, PixelY + firstPoint.Y + 10, size, size, centered: true, rotationRads: 0.5f + _counter.Frame * 0.8f);
-            }
+            // <<<<<<<< shade2/screen.hsp:746 	loop ...
         }
     }
 }

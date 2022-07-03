@@ -52,7 +52,8 @@
   - type: Weapon
     diceX: 2
     diceY: 8
-    pierce_rate: 5
+    pierceRate: 5
+    weaponSkill: Elona.LongSword
 - type: Entity
   id: Elona.ItemDagger
   parent: BaseItem
@@ -82,7 +83,8 @@
   - type: Weapon
     diceX: 2
     diceY: 5
-    pierce_rate: 10
+    pierceRate: 10
+    weaponSkill: Elona.ShortSword
 - type: Entity
   id: Elona.ItemHandAxe
   parent: BaseItem
@@ -111,6 +113,7 @@
   - type: Weapon
     diceX: 2
     diceY: 9
+    weaponSkill: Elona.Axe
 - type: Entity
   id: Elona.ItemClub
   parent: BaseItem
@@ -139,6 +142,7 @@
   - type: Weapon
     diceX: 3
     diceY: 4
+    weaponSkill: Elona.Blunt
 - type: Entity
   id: Elona.ItemMagicHat
   parent: BaseItem
@@ -1222,7 +1226,8 @@
   - type: Weapon
     diceX: 4
     diceY: 8
-    pierce_rate: 10
+    pierceRate: 10
+    weaponSkill: Elona.LongSword
 - type: Entity
   id: Elona.ItemZantetsu
   parent: BaseItem
@@ -1263,7 +1268,8 @@
   - type: Weapon
     diceX: 7
     diceY: 7
-    pierce_rate: 25
+    pierceRate: 25
+    weaponSkill: Elona.LongSword
 - type: Entity
   id: Elona.ItemLongBow
   parent: BaseItem
@@ -1292,7 +1298,8 @@
   - type: Weapon
     diceX: 2
     diceY: 7
-    pierce_rate: 20
+    pierceRate: 20
+    weaponSkill: Elona.Bow
   - type: RangedWeapon
     rangedAccuracy: !type:RangedAccuracyTable
       table:
@@ -1360,7 +1367,8 @@
   - type: Weapon
     diceX: 1
     diceY: 22
-    pierce_rate: 10
+    pierceRate: 10
+    weaponSkill: Elona.Firearm
   - type: RangedWeapon
     rangedAccuracy: !type:RangedAccuracyTable
       table:
@@ -1465,7 +1473,8 @@
   - type: Weapon
     diceX: 1
     diceY: 44
-    pierce_rate: 15
+    pierceRate: 15
+    weaponSkill: Elona.Scythe
 - type: Entity
   id: Elona.ItemMournblade
   parent: BaseItem
@@ -1509,7 +1518,8 @@
   - type: Weapon
     diceX: 3
     diceY: 13
-    pierce_rate: 15
+    pierceRate: 15
+    weaponSkill: Elona.LongSword
 - type: Entity
   id: Elona.ItemLightCloak
   parent: BaseItem
@@ -1731,7 +1741,8 @@
   - type: Weapon
     diceX: 2
     diceY: 18
-    pierce_rate: 20
+    pierceRate: 20
+    weaponSkill: Elona.LongSword
 - type: Entity
   id: Elona.ItemPotionOfHealerOdina
   parent: BaseItem
@@ -4415,7 +4426,8 @@
   - type: Weapon
     diceX: 5
     diceY: 5
-    pierce_rate: 20
+    pierceRate: 20
+    weaponSkill: Elona.ShortSword
 - type: Entity
   id: Elona.ItemBowOfVindale
   parent: BaseItem
@@ -4457,7 +4469,8 @@
   - type: Weapon
     diceX: 2
     diceY: 15
-    pierce_rate: 20
+    pierceRate: 20
+    weaponSkill: Elona.Bow
   - type: RangedWeapon
     rangedAccuracy: !type:RangedAccuracyTable
       table:
@@ -4532,7 +4545,8 @@
   - type: Weapon
     diceX: 1
     diceY: 12
-    pierce_rate: 5
+    pierceRate: 5
+    weaponSkill: Elona.Throwing
   - type: RangedWeapon
     rangedAccuracy: !type:RangedAccuracyTable
       table:
@@ -4574,7 +4588,8 @@
   - type: Weapon
     diceX: 2
     diceY: 5
-    pierce_rate: 5
+    pierceRate: 5
+    weaponSkill: Elona.Scythe
 - type: Entity
   id: Elona.ItemStaff
   parent: BaseItem
@@ -4604,6 +4619,7 @@
   - type: Weapon
     diceX: 1
     diceY: 8
+    weaponSkill: Elona.Stave
 - type: Entity
   id: Elona.ItemSpear
   parent: BaseItem
@@ -4633,7 +4649,8 @@
   - type: Weapon
     diceX: 3
     diceY: 5
-    pierce_rate: 25
+    pierceRate: 25
+    weaponSkill: Elona.Polearm
 - type: Entity
   id: Elona.ItemOrePiece
   parent: BaseItem
@@ -4839,7 +4856,8 @@
   - type: Weapon
     diceX: 4
     diceY: 4
-    pierce_rate: 20
+    pierceRate: 20
+    weaponSkill: Elona.LongSword
 - type: Entity
   id: Elona.ItemScimitar
   parent: BaseItem
@@ -4869,7 +4887,8 @@
   - type: Weapon
     diceX: 3
     diceY: 4
-    pierce_rate: 10
+    pierceRate: 10
+    weaponSkill: Elona.ShortSword
 - type: Entity
   id: Elona.ItemBattleAxe
   parent: BaseItem
@@ -4898,6 +4917,7 @@
   - type: Weapon
     diceX: 1
     diceY: 18
+    weaponSkill: Elona.Axe
 - type: Entity
   id: Elona.ItemHammer
   parent: BaseItem
@@ -4926,6 +4946,7 @@
   - type: Weapon
     diceX: 2
     diceY: 13
+    weaponSkill: Elona.Blunt
 - type: Entity
   id: Elona.ItemTrident
   parent: BaseItem
@@ -4955,7 +4976,8 @@
   - type: Weapon
     diceX: 4
     diceY: 4
-    pierce_rate: 25
+    pierceRate: 25
+    weaponSkill: Elona.Polearm
 - type: Entity
   id: Elona.ItemLongStaff
   parent: BaseItem
@@ -4985,6 +5007,7 @@
   - type: Weapon
     diceX: 2
     diceY: 5
+    weaponSkill: Elona.Stave
 - type: Entity
   id: Elona.ItemShortBow
   parent: BaseItem
@@ -5013,7 +5036,8 @@
   - type: Weapon
     diceX: 3
     diceY: 5
-    pierce_rate: 15
+    pierceRate: 15
+    weaponSkill: Elona.Bow
   - type: RangedWeapon
     rangedAccuracy: !type:RangedAccuracyTable
       table:
@@ -5056,6 +5080,7 @@
   - type: Weapon
     diceX: 10
     diceY: 3
+    weaponSkill: Elona.Firearm
   - type: RangedWeapon
     rangedAccuracy: !type:RangedAccuracyTable
       table:
@@ -5097,6 +5122,7 @@
   - type: Weapon
     diceX: 3
     diceY: 7
+    weaponSkill: Elona.LongSword
 - type: Entity
   id: Elona.ItemRation
   parent: BaseItem
@@ -5142,6 +5168,7 @@
   - type: Weapon
     diceX: 1
     diceY: 20
+    weaponSkill: Elona.Axe
 - type: Entity
   id: Elona.ItemHalberd
   parent: BaseItem
@@ -5170,7 +5197,8 @@
   - type: Weapon
     diceX: 2
     diceY: 10
-    pierce_rate: 30
+    pierceRate: 30
+    weaponSkill: Elona.Polearm
 - type: Entity
   id: Elona.ItemScrollOfReturn
   parent: BaseItem
@@ -5832,7 +5860,8 @@
   - type: Weapon
     diceX: 4
     diceY: 4
-    pierce_rate: 5
+    pierceRate: 5
+    weaponSkill: Elona.ShortSword
 - type: Entity
   id: Elona.ItemSpellbookOfDarknessBeam
   parent: BaseItem
@@ -7796,6 +7825,7 @@
   - type: Weapon
     diceX: 3
     diceY: 5
+    weaponSkill: Elona.Blunt
 - type: Entity
   id: Elona.ItemRingOfSteelDragon
   parent: BaseItem
@@ -7874,6 +7904,7 @@
   - type: Weapon
     diceX: 1
     diceY: 8
+    weaponSkill: Elona.Stave
 - type: Entity
   id: Elona.ItemRankis
   parent: BaseItem
@@ -7916,7 +7947,8 @@
   - type: Weapon
     diceX: 8
     diceY: 4
-    pierce_rate: 40
+    pierceRate: 40
+    weaponSkill: Elona.Polearm
 - type: Entity
   id: Elona.ItemPalmiaPride
   parent: BaseItem
@@ -10717,7 +10749,8 @@
   - type: Weapon
     diceX: 1
     diceY: 18
-    pierce_rate: 25
+    pierceRate: 25
+    weaponSkill: Elona.Crossbow
   - type: RangedWeapon
     rangedAccuracy: !type:RangedAccuracyTable
       table:
@@ -11071,7 +11104,8 @@
   - type: Weapon
     diceX: 4
     diceY: 8
-    pierce_rate: 30
+    pierceRate: 30
+    weaponSkill: Elona.Firearm
   - type: RangedWeapon
     rangedAccuracy: !type:RangedAccuracyTable
       table:
@@ -11468,7 +11502,8 @@
   - type: Weapon
     diceX: 2
     diceY: 12
-    pierce_rate: 5
+    pierceRate: 5
+    weaponSkill: Elona.Firearm
   - type: RangedWeapon
     rangedAccuracy: !type:RangedAccuracyTable
       table:
@@ -11548,7 +11583,8 @@
   - type: Weapon
     diceX: 4
     diceY: 10
-    pierce_rate: 5
+    pierceRate: 5
+    weaponSkill: Elona.Firearm
   - type: RangedWeapon
     rangedAccuracy: !type:RangedAccuracyTable
       table:
@@ -14363,7 +14399,8 @@
   - type: Weapon
     diceX: 1
     diceY: 35
-    pierce_rate: 5
+    pierceRate: 5
+    weaponSkill: Elona.Throwing
   - type: RangedWeapon
     rangedAccuracy: !type:RangedAccuracyTable
       table:
@@ -15356,7 +15393,8 @@
   - type: Weapon
     diceX: 2
     diceY: 23
-    pierce_rate: 20
+    pierceRate: 20
+    weaponSkill: Elona.Bow
   - type: RangedWeapon
     rangedAccuracy: !type:RangedAccuracyTable
       table:
@@ -15411,7 +15449,8 @@
   - type: Weapon
     diceX: 8
     diceY: 9
-    pierce_rate: 30
+    pierceRate: 30
+    weaponSkill: Elona.Firearm
   - type: RangedWeapon
     rangedAccuracy: !type:RangedAccuracyTable
       table:
@@ -15466,7 +15505,8 @@
   - type: Weapon
     diceX: 1
     diceY: 38
-    pierce_rate: 15
+    pierceRate: 15
+    weaponSkill: Elona.Scythe
 - type: Entity
   id: Elona.ItemElementalStaff
   parent: BaseItem
@@ -15510,6 +15550,7 @@
   - type: Weapon
     diceX: 1
     diceY: 14
+    weaponSkill: Elona.Stave
 - type: Entity
   id: Elona.ItemHolyLance
   parent: BaseItem
@@ -15551,7 +15592,8 @@
   - type: Weapon
     diceX: 7
     diceY: 5
-    pierce_rate: 30
+    pierceRate: 30
+    weaponSkill: Elona.Polearm
 - type: Entity
   id: Elona.ItemLuckyDagger
   parent: BaseItem
@@ -15595,7 +15637,8 @@
   - type: Weapon
     diceX: 4
     diceY: 6
-    pierce_rate: 10
+    pierceRate: 10
+    weaponSkill: Elona.ShortSword
 - type: Entity
   id: Elona.ItemGaiaHammer
   parent: BaseItem
@@ -15637,6 +15680,7 @@
   - type: Weapon
     diceX: 2
     diceY: 30
+    weaponSkill: Elona.Blunt
 - type: Entity
   id: Elona.ItemLulwysGemStoneOfGodSpeed
   parent: BaseItem
@@ -16056,6 +16100,7 @@
   - type: Weapon
     diceX: 1
     diceY: 70
+    weaponSkill: Elona.Axe
 - type: Entity
   id: Elona.ItemSpellbookOfMagicBall
   parent: BaseItem
@@ -16508,7 +16553,8 @@
   - type: Weapon
     diceX: 1
     diceY: 20
-    pierce_rate: 15
+    pierceRate: 15
+    weaponSkill: Elona.Throwing
   - type: RangedWeapon
     rangedAccuracy: !type:RangedAccuracyTable
       table:
@@ -16553,6 +16599,7 @@
   - type: Weapon
     diceX: 1
     diceY: 6
+    weaponSkill: Elona.Throwing
   - type: RangedWeapon
     rangedAccuracy: !type:RangedAccuracyTable
       table:
@@ -16629,7 +16676,8 @@
   - type: Weapon
     diceX: 1
     diceY: 42
-    pierce_rate: 50
+    pierceRate: 50
+    weaponSkill: Elona.Throwing
   - type: RangedWeapon
     rangedAccuracy: !type:RangedAccuracyTable
       table:
@@ -16710,7 +16758,8 @@
   - type: Weapon
     diceX: 1
     diceY: 47
-    pierce_rate: 5
+    pierceRate: 5
+    weaponSkill: Elona.Throwing
   - type: RangedWeapon
     rangedAccuracy: !type:RangedAccuracyTable
       table:
@@ -16764,6 +16813,7 @@
   - type: Weapon
     diceX: 3
     diceY: 14
+    weaponSkill: Elona.LongSword
 - type: Entity
   id: Elona.ItemHappyBed
   parent: BaseItem
@@ -16958,6 +17008,7 @@
   - type: Weapon
     diceX: 1
     diceY: 112
+    weaponSkill: Elona.Throwing
   - type: RangedWeapon
     rangedAccuracy: !type:RangedAccuracyTable
       table:
@@ -17254,7 +17305,8 @@
   - type: Weapon
     diceX: 1
     diceY: 17
-    pierce_rate: 5
+    pierceRate: 5
+    weaponSkill: Elona.Scythe
 - type: Entity
   id: Elona.ItemFireproofLiquid
   parent: BaseItem
@@ -17365,7 +17417,8 @@
   - type: Weapon
     diceX: 25
     diceY: 16
-    pierce_rate: 65
+    pierceRate: 65
+    weaponSkill: Elona.Scythe
 - type: Entity
   id: Elona.ItemUnknownShell
   parent: BaseItem
@@ -17445,7 +17498,8 @@
   - type: Weapon
     diceX: 6
     diceY: 6
-    pierce_rate: 20
+    pierceRate: 20
+    weaponSkill: Elona.LongSword
 - type: Entity
   id: Elona.ItemLicenseOfTheVoidExplorer
   parent: BaseItem
@@ -17907,7 +17961,8 @@
   - type: Weapon
     diceX: 1
     diceY: 24
-    pierce_rate: 35
+    pierceRate: 35
+    weaponSkill: Elona.Firearm
   - type: RangedWeapon
     rangedAccuracy: !type:RangedAccuracyTable
       table:
@@ -17952,7 +18007,8 @@
   - type: Weapon
     diceX: 2
     diceY: 5
-    pierce_rate: 100
+    pierceRate: 100
+    weaponSkill: Elona.LongSword
 - type: Entity
   id: Elona.ItemGaroksHammer
   parent: BaseItem
@@ -18495,7 +18551,8 @@
   - type: Weapon
     diceX: 1
     diceY: 14
-    pierce_rate: 40
+    pierceRate: 40
+    weaponSkill: Elona.ShortSword
 - type: Entity
   id: Elona.ItemDish
   parent: BaseItem
@@ -18663,7 +18720,8 @@
   - type: Weapon
     diceX: 1
     diceY: 17
-    pierce_rate: 15
+    pierceRate: 15
+    weaponSkill: Elona.Bow
   - type: RangedWeapon
     rangedAccuracy: !type:RangedAccuracyTable
       table:
@@ -18755,6 +18813,7 @@
   - type: Weapon
     diceX: 3
     diceY: 14
+    weaponSkill: Elona.LongSword
 - type: Entity
   id: Elona.ItemPutitoro
   parent: BaseItem
