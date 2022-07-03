@@ -1,5 +1,6 @@
 ﻿using OpenNefia.Content.Audio;
 using OpenNefia.Content.EquipSlots;
+using OpenNefia.Content.Skills;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Serialization.Manager.Attributes;

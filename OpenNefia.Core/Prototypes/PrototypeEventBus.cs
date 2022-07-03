@@ -1,4 +1,5 @@
-﻿using OpenNefia.Core.GameObjects;
+﻿using NLua;
+using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Utility;
 using System;
 using System.Collections.Generic;
@@ -19,7 +20,7 @@ namespace OpenNefia.Core.Prototypes
         void RaiseEvent<TProto, TEvent>(TProto prototype, TEvent args)
             where TProto : IPrototype
             where TEvent : notnull;
-        
+
         void RaiseEvent<TProto, TEvent>(PrototypeId<TProto> prototypeId, TEvent args)
             where TProto : class, IPrototype
             where TEvent : notnull;
@@ -57,6 +58,14 @@ namespace OpenNefia.Core.Prototypes
         void UnsubscribeAllEvents<TProto, TEvent>()
             where TProto : IPrototype
             where TEvent : notnull;
+
+        bool HasEventHandlerFor<TProto, TEvent>(TProto prototype)
+            where TProto : class, IPrototype
+            where TEvent : notnull;
+
+        bool HasEventHandlerFor<TProto, TEvent>(PrototypeId<TProto> prototypeId)
+            where TProto : class, IPrototype
+            where TEvent : notnull;
     }
 
     public sealed class PrototypeEventBus : IPrototypeEventBus
@@ -81,6 +90,22 @@ namespace OpenNefia.Core.Prototypes
         {
             _protoMan = protoMan;
             _eventTables = new EventTables(_protoMan);
+        }
+
+        public bool HasEventHandlerFor<TProto, TEvent>(TProto prototype)
+            where TProto : class, IPrototype
+            where TEvent : notnull
+        {
+            var byRef = typeof(TEvent).HasCustomAttribute<ByRefEventAttribute>();
+            return _eventTables.HasEventHandlerFor(typeof(TProto), prototype.ID, typeof(TEvent), byRef);
+        }
+
+        public bool HasEventHandlerFor<TProto, TEvent>(PrototypeId<TProto> prototypeID)
+            where TProto : class, IPrototype
+            where TEvent : notnull
+        {
+            var byRef = typeof(TEvent).HasCustomAttribute<ByRefEventAttribute>();
+            return _eventTables.HasEventHandlerFor(typeof(TProto), (string)prototypeID, typeof(TEvent), byRef);
         }
 
         public void RaiseEvent<TProto, TEvent>(TProto prototype, TEvent args)
@@ -321,6 +346,11 @@ namespace OpenNefia.Core.Prototypes
                 return protoTable.TryGetValue(protoID, out list);
             }
 
+            public bool HasEventHandlerFor(Type protoType, string protoID, Type eventType, bool byRef)
+            {
+                return TryGetRegistrations(protoType, protoID, eventType, byRef, out _);
+            }
+
             public void Clear()
             {
                 _subscriptions = new();
@@ -409,5 +439,5 @@ namespace OpenNefia.Core.Prototypes
         where TProto : IPrototype
         where TEvent : notnull;
 
-    public abstract class PrototypeEventArgs {}
+    public abstract class PrototypeEventArgs { }
 }

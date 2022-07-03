@@ -5,6 +5,7 @@ using OpenNefia.Core.Rendering;
 using OpenNefia.Core.Serialization.Manager.Attributes;
 using OpenNefia.Content.EquipSlots;
 using OpenNefia.Content.Feats;
+using static OpenNefia.Core.Prototypes.EntityPrototype;
 
 namespace OpenNefia.Core.Prototypes
 {
@@ -67,5 +68,8 @@ namespace OpenNefia.Core.Prototypes
         private readonly Dictionary<PrototypeId<FeatPrototype>, int> _initialFeats = new();
 
         public IReadOnlyDictionary<PrototypeId<FeatPrototype>, int> InitialFeats => _initialFeats;
+
+        [DataField]
+        public ComponentRegistry Components { get; } = new();
     }
 }

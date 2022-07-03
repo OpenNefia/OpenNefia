@@ -5,18 +5,27 @@
   relatedSkill: Elona.AttrStrength
   skillType: WeaponProficiency
   initialLevel: 4
+  extendedData:
+  - type: Combat.ExtAttackAnim
+    attackAnimType: Melee
 
 - type: Elona.Skill
   id: Elona.ShortSword
   relatedSkill: Elona.AttrDexterity
   skillType: WeaponProficiency
   initialLevel: 4
+  extendedData:
+  - type: Combat.ExtAttackAnim
+    attackAnimType: Melee
 
 - type: Elona.Skill
   id: Elona.Axe
   relatedSkill: Elona.AttrConstitution
   skillType: WeaponProficiency
   initialLevel: 4
+  extendedData:
+  - type: Combat.ExtAttackAnim
+    attackAnimType: Melee
 
 - type: Elona.Skill
   id: Elona.Blunt
@@ -29,6 +38,9 @@
   relatedSkill: Elona.AttrConstitution
   skillType: WeaponProficiency
   initialLevel: 4
+  extendedData:
+  - type: Combat.ExtAttackAnim
+    attackAnimType: Melee
 
 - type: Elona.Skill
   id: Elona.Stave
@@ -42,12 +54,22 @@
   skillType: WeaponProficiency
   growOnLevelUp: true
   initialLevel: 4
+  events:
+  - type: Combat.P_SkillCalcAttackStrengthEvent
+    system: Skills.VanillaSkillsSystem
+    method: MartialArts_CalcAttackStrength
+  - type: Combat.P_SkillCalcCriticalDamageEvent
+    system: Skills.VanillaSkillsSystem
+    method: MartialArts_CalcCriticalDamage
 
 - type: Elona.Skill
   id: Elona.Scythe
   relatedSkill: Elona.AttrStrength
   skillType: WeaponProficiency
   initialLevel: 4
+  extendedData:
+  - type: Combat.ExtAttackAnim
+    attackAnimType: Melee
 
 - type: Elona.Skill
   id: Elona.Bow
@@ -55,20 +77,32 @@
   skillType: WeaponProficiency
   growOnLevelUp: true
   initialLevel: 4
+  extendedData:
+  - type: Combat.ExtAttackAnim
+    attackAnimType: Ranged
 
 - type: Elona.Skill
   id: Elona.Crossbow
   relatedSkill: Elona.AttrDexterity
   skillType: WeaponProficiency
   initialLevel: 4
+  extendedData:
+  - type: Combat.ExtAttackAnim
+    attackAnimType: Ranged
 
 - type: Elona.Skill
   id: Elona.Firearm
   relatedSkill: Elona.AttrPerception
   skillType: WeaponProficiency
+  extendedData:
+  - type: Combat.ExtAttackAnim
+    attackAnimType: Ranged
 
 - type: Elona.Skill
   id: Elona.Throwing
   relatedSkill: Elona.AttrDexterity
   skillType: WeaponProficiency
   initialLevel: 4
+  extendedData:
+  - type: Combat.ExtAttackAnim
+    attackAnimType: Ranged

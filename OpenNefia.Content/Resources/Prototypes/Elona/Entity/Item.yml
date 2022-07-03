@@ -46,7 +46,7 @@
   - type: Equipment
     equipSlots:
     - Elona.Hand
-  - type: EquipBonus
+  - type: EquipStats
     hitBonus: 5
     damageBonus: 4
 - type: Entity
@@ -71,7 +71,7 @@
   - type: Equipment
     equipSlots:
     - Elona.Hand
-  - type: EquipBonus
+  - type: EquipStats
     dv: 4
     hitBonus: 9
     damageBonus: 4
@@ -97,7 +97,7 @@
   - type: Equipment
     equipSlots:
     - Elona.Hand
-  - type: EquipBonus
+  - type: EquipStats
     hitBonus: 4
     damageBonus: 5
 - type: Entity
@@ -122,7 +122,7 @@
   - type: Equipment
     equipSlots:
     - Elona.Hand
-  - type: EquipBonus
+  - type: EquipStats
     hitBonus: 4
     damageBonus: 7
 - type: Entity
@@ -147,7 +147,7 @@
   - type: Equipment
     equipSlots:
     - Elona.Head
-  - type: EquipBonus
+  - type: EquipStats
     dv: 6
     pv: 4
 - type: Entity
@@ -172,7 +172,7 @@
   - type: Equipment
     equipSlots:
     - Elona.Head
-  - type: EquipBonus
+  - type: EquipStats
     dv: 7
     pv: 5
 - type: Entity
@@ -197,7 +197,7 @@
   - type: Equipment
     equipSlots:
     - Elona.Body
-  - type: EquipBonus
+  - type: EquipStats
     dv: 6
     pv: 10
 - type: Entity
@@ -222,7 +222,7 @@
   - type: Equipment
     equipSlots:
     - Elona.Body
-  - type: EquipBonus
+  - type: EquipStats
     dv: 11
     pv: 3
 - type: Entity
@@ -247,7 +247,7 @@
   - type: Equipment
     equipSlots:
     - Elona.Arm
-  - type: EquipBonus
+  - type: EquipStats
     dv: 7
     pv: 5
     hitBonus: 6
@@ -274,7 +274,7 @@
   - type: Equipment
     equipSlots:
     - Elona.Arm
-  - type: EquipBonus
+  - type: EquipStats
     dv: 2
     pv: 4
     hitBonus: 2
@@ -301,7 +301,7 @@
   - type: Equipment
     equipSlots:
     - Elona.Leg
-  - type: EquipBonus
+  - type: EquipStats
     dv: 1
     pv: 3
 - type: Entity
@@ -326,7 +326,7 @@
   - type: Equipment
     equipSlots:
     - Elona.Leg
-  - type: EquipBonus
+  - type: EquipStats
     dv: 1
     pv: 5
 - type: Entity
@@ -351,7 +351,7 @@
   - type: Equipment
     equipSlots:
     - Elona.Ring
-  - type: EquipBonus
+  - type: EquipStats
 - type: Entity
   id: Elona.ItemScrollOfIdentify
   parent: BaseItem
@@ -1200,7 +1200,7 @@
   - type: Equipment
     equipSlots:
     - Elona.Hand
-  - type: EquipBonus
+  - type: EquipStats
     dv: -3
     pv: 2
     hitBonus: 2
@@ -1240,7 +1240,7 @@
   - type: Equipment
     equipSlots:
     - Elona.Hand
-  - type: EquipBonus
+  - type: EquipStats
     hitBonus: 4
 - type: Entity
   id: Elona.ItemLongBow
@@ -1264,7 +1264,7 @@
   - type: Equipment
     equipSlots:
     - Elona.Ranged
-  - type: EquipBonus
+  - type: EquipStats
     hitBonus: 4
     damageBonus: 8
 - type: Entity
@@ -1289,7 +1289,7 @@
   - type: Equipment
     equipSlots:
     - Elona.Hand
-  - type: EquipBonus
+  - type: EquipStats
     dv: -2
     pv: 8
 - type: Entity
@@ -1315,7 +1315,7 @@
   - type: Equipment
     equipSlots:
     - Elona.Ranged
-  - type: EquipBonus
+  - type: EquipStats
     hitBonus: 7
     damageBonus: 1
 - type: Entity
@@ -1340,7 +1340,7 @@
   - type: Equipment
     equipSlots:
     - Elona.Ammo
-  - type: EquipBonus
+  - type: EquipStats
     hitBonus: 2
     damageBonus: 1
 - type: Entity
@@ -1366,7 +1366,7 @@
   - type: Equipment
     equipSlots:
     - Elona.Ammo
-  - type: EquipBonus
+  - type: EquipStats
     hitBonus: 4
     damageBonus: 1
 - type: Entity
@@ -1404,7 +1404,7 @@
   - type: Equipment
     equipSlots:
     - Elona.Hand
-  - type: EquipBonus
+  - type: EquipStats
     damageBonus: 4
 - type: Entity
   id: Elona.ItemMournblade
@@ -1441,7 +1441,7 @@
   - type: Equipment
     equipSlots:
     - Elona.Hand
-  - type: EquipBonus
+  - type: EquipStats
     dv: -4
     pv: 4
     hitBonus: 8
@@ -1468,7 +1468,7 @@
   - type: Equipment
     equipSlots:
     - Elona.Back
-  - type: EquipBonus
+  - type: EquipStats
     dv: 4
     pv: 3
 - type: Entity
@@ -1493,7 +1493,7 @@
   - type: Equipment
     equipSlots:
     - Elona.Waist
-  - type: EquipBonus
+  - type: EquipStats
     dv: 3
     pv: 3
 - type: Entity
@@ -1518,7 +1518,7 @@
   - type: Equipment
     equipSlots:
     - Elona.Neck
-  - type: EquipBonus
+  - type: EquipStats
 - type: Entity
   id: Elona.ItemPotionOfCureMinorWound
   parent: BaseItem
@@ -1659,7 +1659,7 @@
   - type: Equipment
     equipSlots:
     - Elona.Hand
-  - type: EquipBonus
+  - type: EquipStats
     dv: -1
     pv: 1
     hitBonus: 4
@@ -4339,7 +4339,7 @@
   - type: Equipment
     equipSlots:
     - Elona.Hand
-  - type: EquipBonus
+  - type: EquipStats
     dv: 4
     pv: 6
     hitBonus: 16
@@ -4379,7 +4379,7 @@
   - type: Equipment
     equipSlots:
     - Elona.Ranged
-  - type: EquipBonus
+  - type: EquipStats
     hitBonus: 5
     damageBonus: 7
 - type: Entity
@@ -4439,7 +4439,7 @@
   - type: Equipment
     equipSlots:
     - Elona.Ranged
-  - type: EquipBonus
+  - type: EquipStats
 - type: Entity
   id: Elona.ItemSickle
   parent: BaseItem
@@ -4462,7 +4462,7 @@
   - type: Equipment
     equipSlots:
     - Elona.Hand
-  - type: EquipBonus
+  - type: EquipStats
     hitBonus: 2
     damageBonus: 10
 - type: Entity
@@ -4487,7 +4487,7 @@
   - type: Equipment
     equipSlots:
     - Elona.Hand
-  - type: EquipBonus
+  - type: EquipStats
     dv: 4
     hitBonus: 4
     damageBonus: 3
@@ -4513,7 +4513,7 @@
   - type: Equipment
     equipSlots:
     - Elona.Hand
-  - type: EquipBonus
+  - type: EquipStats
     dv: 3
     hitBonus: 2
     damageBonus: 4
@@ -4717,7 +4717,7 @@
   - type: Equipment
     equipSlots:
     - Elona.Hand
-  - type: EquipBonus
+  - type: EquipStats
     damageBonus: 6
 - type: Entity
   id: Elona.ItemScimitar
@@ -4741,7 +4741,7 @@
   - type: Equipment
     equipSlots:
     - Elona.Hand
-  - type: EquipBonus
+  - type: EquipStats
     dv: 2
     hitBonus: 7
     damageBonus: 3
@@ -4767,7 +4767,7 @@
   - type: Equipment
     equipSlots:
     - Elona.Hand
-  - type: EquipBonus
+  - type: EquipStats
     hitBonus: -1
     damageBonus: 3
 - type: Entity
@@ -4792,7 +4792,7 @@
   - type: Equipment
     equipSlots:
     - Elona.Hand
-  - type: EquipBonus
+  - type: EquipStats
     hitBonus: -3
     damageBonus: 4
 - type: Entity
@@ -4817,7 +4817,7 @@
   - type: Equipment
     equipSlots:
     - Elona.Hand
-  - type: EquipBonus
+  - type: EquipStats
     dv: 3
     hitBonus: 1
     damageBonus: 3
@@ -4843,7 +4843,7 @@
   - type: Equipment
     equipSlots:
     - Elona.Hand
-  - type: EquipBonus
+  - type: EquipStats
     dv: 4
     hitBonus: 3
     damageBonus: 4
@@ -4869,7 +4869,7 @@
   - type: Equipment
     equipSlots:
     - Elona.Ranged
-  - type: EquipBonus
+  - type: EquipStats
     hitBonus: 8
     damageBonus: 3
 - type: Entity
@@ -4895,7 +4895,7 @@
   - type: Equipment
     equipSlots:
     - Elona.Ranged
-  - type: EquipBonus
+  - type: EquipStats
     hitBonus: 10
     damageBonus: 1
 - type: Entity
@@ -4920,7 +4920,7 @@
   - type: Equipment
     equipSlots:
     - Elona.Hand
-  - type: EquipBonus
+  - type: EquipStats
     hitBonus: 1
     damageBonus: 8
 - type: Entity
@@ -4962,7 +4962,7 @@
   - type: Equipment
     equipSlots:
     - Elona.Hand
-  - type: EquipBonus
+  - type: EquipStats
     hitBonus: -1
     damageBonus: 5
 - type: Entity
@@ -4987,7 +4987,7 @@
   - type: Equipment
     equipSlots:
     - Elona.Hand
-  - type: EquipBonus
+  - type: EquipStats
     hitBonus: -2
     damageBonus: 1
 - type: Entity
@@ -5644,7 +5644,7 @@
   - type: Equipment
     equipSlots:
     - Elona.Hand
-  - type: EquipBonus
+  - type: EquipStats
     dv: 1
     hitBonus: 6
     damageBonus: 5
@@ -7567,7 +7567,7 @@
   - type: Equipment
     equipSlots:
     - Elona.Arm
-  - type: EquipBonus
+  - type: EquipStats
     dv: 5
     pv: 30
 - type: Entity
@@ -7605,7 +7605,7 @@
   - type: Equipment
     equipSlots:
     - Elona.Hand
-  - type: EquipBonus
+  - type: EquipStats
     hitBonus: 8
     damageBonus: 22
 - type: Entity
@@ -7642,7 +7642,7 @@
   - type: Equipment
     equipSlots:
     - Elona.Ring
-  - type: EquipBonus
+  - type: EquipStats
     pv: 50
 - type: Entity
   id: Elona.ItemStaffOfInsanity
@@ -7678,7 +7678,7 @@
   - type: Equipment
     equipSlots:
     - Elona.Hand
-  - type: EquipBonus
+  - type: EquipStats
     dv: 15
     pv: 3
     hitBonus: -5
@@ -7718,7 +7718,7 @@
   - type: Equipment
     equipSlots:
     - Elona.Hand
-  - type: EquipBonus
+  - type: EquipStats
     dv: 6
     hitBonus: 2
     damageBonus: 11
@@ -7756,7 +7756,7 @@
   - type: Equipment
     equipSlots:
     - Elona.Ring
-  - type: EquipBonus
+  - type: EquipStats
     dv: 15
     pv: 5
 - type: Entity
@@ -9351,7 +9351,7 @@
   - type: Equipment
     equipSlots:
     - Elona.Body
-  - type: EquipBonus
+  - type: EquipStats
     dv: 5
     pv: 12
 - type: Entity
@@ -9376,7 +9376,7 @@
   - type: Equipment
     equipSlots:
     - Elona.Body
-  - type: EquipBonus
+  - type: EquipStats
     dv: 6
     pv: 21
 - type: Entity
@@ -9401,7 +9401,7 @@
   - type: Equipment
     equipSlots:
     - Elona.Body
-  - type: EquipBonus
+  - type: EquipStats
     dv: 6
     pv: 14
 - type: Entity
@@ -9426,7 +9426,7 @@
   - type: Equipment
     equipSlots:
     - Elona.Body
-  - type: EquipBonus
+  - type: EquipStats
     dv: 7
     pv: 17
 - type: Entity
@@ -9451,7 +9451,7 @@
   - type: Equipment
     equipSlots:
     - Elona.Body
-  - type: EquipBonus
+  - type: EquipStats
     dv: 7
     pv: 19
 - type: Entity
@@ -9476,7 +9476,7 @@
   - type: Equipment
     equipSlots:
     - Elona.Body
-  - type: EquipBonus
+  - type: EquipStats
     dv: 18
     pv: 8
 - type: Entity
@@ -9501,7 +9501,7 @@
   - type: Equipment
     equipSlots:
     - Elona.Body
-  - type: EquipBonus
+  - type: EquipStats
     dv: 10
     pv: 8
 - type: Entity
@@ -9526,7 +9526,7 @@
   - type: Equipment
     equipSlots:
     - Elona.Body
-  - type: EquipBonus
+  - type: EquipStats
     dv: 13
     pv: 9
 - type: Entity
@@ -9551,7 +9551,7 @@
   - type: Equipment
     equipSlots:
     - Elona.Body
-  - type: EquipBonus
+  - type: EquipStats
     dv: 15
     pv: 11
 - type: Entity
@@ -9576,7 +9576,7 @@
   - type: Equipment
     equipSlots:
     - Elona.Body
-  - type: EquipBonus
+  - type: EquipStats
     dv: 14
     pv: 15
 - type: Entity
@@ -9601,7 +9601,7 @@
   - type: Equipment
     equipSlots:
     - Elona.Arm
-  - type: EquipBonus
+  - type: EquipStats
     dv: 5
     pv: 4
     hitBonus: 5
@@ -9628,7 +9628,7 @@
   - type: Equipment
     equipSlots:
     - Elona.Arm
-  - type: EquipBonus
+  - type: EquipStats
     dv: 3
     pv: 7
     hitBonus: 3
@@ -9655,7 +9655,7 @@
   - type: Equipment
     equipSlots:
     - Elona.Arm
-  - type: EquipBonus
+  - type: EquipStats
     dv: 3
     pv: 3
     hitBonus: 3
@@ -9681,7 +9681,7 @@
   - type: Equipment
     equipSlots:
     - Elona.Arm
-  - type: EquipBonus
+  - type: EquipStats
     dv: 3
     pv: 5
     hitBonus: 4
@@ -9708,7 +9708,7 @@
   - type: Equipment
     equipSlots:
     - Elona.Hand
-  - type: EquipBonus
+  - type: EquipStats
     dv: 3
     pv: 4
 - type: Entity
@@ -9733,7 +9733,7 @@
   - type: Equipment
     equipSlots:
     - Elona.Hand
-  - type: EquipBonus
+  - type: EquipStats
     dv: 4
     pv: 5
 - type: Entity
@@ -9758,7 +9758,7 @@
   - type: Equipment
     equipSlots:
     - Elona.Hand
-  - type: EquipBonus
+  - type: EquipStats
     dv: 3
     pv: 6
 - type: Entity
@@ -9783,7 +9783,7 @@
   - type: Equipment
     equipSlots:
     - Elona.Hand
-  - type: EquipBonus
+  - type: EquipStats
     dv: 2
     pv: 8
 - type: Entity
@@ -9808,7 +9808,7 @@
   - type: Equipment
     equipSlots:
     - Elona.Hand
-  - type: EquipBonus
+  - type: EquipStats
     dv: -3
     pv: 13
 - type: Entity
@@ -9833,7 +9833,7 @@
   - type: Equipment
     equipSlots:
     - Elona.Hand
-  - type: EquipBonus
+  - type: EquipStats
     dv: -1
     pv: 10
 - type: Entity
@@ -9858,7 +9858,7 @@
   - type: Equipment
     equipSlots:
     - Elona.Leg
-  - type: EquipBonus
+  - type: EquipStats
     dv: 3
     pv: 1
 - type: Entity
@@ -9883,7 +9883,7 @@
   - type: Equipment
     equipSlots:
     - Elona.Leg
-  - type: EquipBonus
+  - type: EquipStats
     dv: 5
     pv: 2
 - type: Entity
@@ -9908,7 +9908,7 @@
   - type: Equipment
     equipSlots:
     - Elona.Leg
-  - type: EquipBonus
+  - type: EquipStats
     dv: 6
     pv: 3
 - type: Entity
@@ -9933,7 +9933,7 @@
   - type: Equipment
     equipSlots:
     - Elona.Leg
-  - type: EquipBonus
+  - type: EquipStats
     pv: 6
 - type: Entity
   id: Elona.ItemCompositeGirdle
@@ -9957,7 +9957,7 @@
   - type: Equipment
     equipSlots:
     - Elona.Waist
-  - type: EquipBonus
+  - type: EquipStats
     dv: 5
     pv: 3
 - type: Entity
@@ -9982,7 +9982,7 @@
   - type: Equipment
     equipSlots:
     - Elona.Waist
-  - type: EquipBonus
+  - type: EquipStats
     dv: 3
     pv: 6
 - type: Entity
@@ -10007,7 +10007,7 @@
   - type: Equipment
     equipSlots:
     - Elona.Back
-  - type: EquipBonus
+  - type: EquipStats
     dv: 5
     pv: 4
 - type: Entity
@@ -10032,7 +10032,7 @@
   - type: Equipment
     equipSlots:
     - Elona.Back
-  - type: EquipBonus
+  - type: EquipStats
     dv: 7
     pv: 3
 - type: Entity
@@ -10057,7 +10057,7 @@
   - type: Equipment
     equipSlots:
     - Elona.Head
-  - type: EquipBonus
+  - type: EquipStats
     dv: 5
     pv: 1
 - type: Entity
@@ -10082,7 +10082,7 @@
   - type: Equipment
     equipSlots:
     - Elona.Head
-  - type: EquipBonus
+  - type: EquipStats
     dv: 4
     pv: 7
 - type: Entity
@@ -10107,7 +10107,7 @@
   - type: Equipment
     equipSlots:
     - Elona.Head
-  - type: EquipBonus
+  - type: EquipStats
     dv: 1
     pv: 7
 - type: Entity
@@ -10132,7 +10132,7 @@
   - type: Equipment
     equipSlots:
     - Elona.Head
-  - type: EquipBonus
+  - type: EquipStats
     dv: 3
     pv: 5
 - type: Entity
@@ -10157,7 +10157,7 @@
   - type: Equipment
     equipSlots:
     - Elona.Head
-  - type: EquipBonus
+  - type: EquipStats
     dv: 5
     pv: 8
 - type: Entity
@@ -10182,7 +10182,7 @@
   - type: Equipment
     equipSlots:
     - Elona.Neck
-  - type: EquipBonus
+  - type: EquipStats
     hitBonus: 4
 - type: Entity
   id: Elona.ItemTalisman
@@ -10206,7 +10206,7 @@
   - type: Equipment
     equipSlots:
     - Elona.Neck
-  - type: EquipBonus
+  - type: EquipStats
     dv: 4
 - type: Entity
   id: Elona.ItemNeckGuard
@@ -10230,7 +10230,7 @@
   - type: Equipment
     equipSlots:
     - Elona.Neck
-  - type: EquipBonus
+  - type: EquipStats
     pv: 3
 - type: Entity
   id: Elona.ItemCharm
@@ -10255,7 +10255,7 @@
   - type: Equipment
     equipSlots:
     - Elona.Neck
-  - type: EquipBonus
+  - type: EquipStats
     damageBonus: 3
 - type: Entity
   id: Elona.ItemBejeweledAmulet
@@ -10279,7 +10279,7 @@
   - type: Equipment
     equipSlots:
     - Elona.Neck
-  - type: EquipBonus
+  - type: EquipStats
 - type: Entity
   id: Elona.ItemEngagementAmulet
   parent: BaseItem
@@ -10307,7 +10307,7 @@
   - type: Equipment
     equipSlots:
     - Elona.Neck
-  - type: EquipBonus
+  - type: EquipStats
 - type: Entity
   id: Elona.ItemCompositeRing
   parent: BaseItem
@@ -10330,7 +10330,7 @@
   - type: Equipment
     equipSlots:
     - Elona.Ring
-  - type: EquipBonus
+  - type: EquipStats
     damageBonus: 2
 - type: Entity
   id: Elona.ItemArmoredRing
@@ -10354,7 +10354,7 @@
   - type: Equipment
     equipSlots:
     - Elona.Ring
-  - type: EquipBonus
+  - type: EquipStats
     pv: 2
 - type: Entity
   id: Elona.ItemRing
@@ -10378,7 +10378,7 @@
   - type: Equipment
     equipSlots:
     - Elona.Ring
-  - type: EquipBonus
+  - type: EquipStats
 - type: Entity
   id: Elona.ItemEngagementRing
   parent: BaseItem
@@ -10406,7 +10406,7 @@
   - type: Equipment
     equipSlots:
     - Elona.Ring
-  - type: EquipBonus
+  - type: EquipStats
 - type: Entity
   id: Elona.ItemStethoscope
   parent: BaseItem
@@ -10516,7 +10516,7 @@
   - type: Equipment
     equipSlots:
     - Elona.Ranged
-  - type: EquipBonus
+  - type: EquipStats
     hitBonus: 4
     damageBonus: 6
 - type: Entity
@@ -10541,7 +10541,7 @@
   - type: Equipment
     equipSlots:
     - Elona.Ammo
-  - type: EquipBonus
+  - type: EquipStats
     hitBonus: 2
     damageBonus: 1
 - type: Entity
@@ -10853,7 +10853,7 @@
   - type: Equipment
     equipSlots:
     - Elona.Ranged
-  - type: EquipBonus
+  - type: EquipStats
     hitBonus: 4
     damageBonus: 6
 - type: Entity
@@ -11233,7 +11233,7 @@
   - type: Equipment
     equipSlots:
     - Elona.Ranged
-  - type: EquipBonus
+  - type: EquipStats
     hitBonus: 5
     damageBonus: 5
 - type: Entity
@@ -11259,7 +11259,7 @@
   - type: Equipment
     equipSlots:
     - Elona.Ammo
-  - type: EquipBonus
+  - type: EquipStats
     damageBonus: 1
 - type: Entity
   id: Elona.ItemRailGun
@@ -11296,7 +11296,7 @@
   - type: Equipment
     equipSlots:
     - Elona.Ranged
-  - type: EquipBonus
+  - type: EquipStats
     hitBonus: -20
     damageBonus: 15
 - type: Entity
@@ -11443,7 +11443,7 @@
   - type: Equipment
     equipSlots:
     - Elona.Back
-  - type: EquipBonus
+  - type: EquipStats
     dv: 9
 - type: Entity
   id: Elona.ItemDeedOfMuseum
@@ -12197,7 +12197,7 @@
   - type: Equipment
     equipSlots:
     - Elona.Back
-  - type: EquipBonus
+  - type: EquipStats
     dv: 4
     pv: 6
 - type: Entity
@@ -12297,7 +12297,7 @@
   - type: Equipment
     equipSlots:
     - Elona.Leg
-  - type: EquipBonus
+  - type: EquipStats
     dv: 7
     pv: 2
 - type: Entity
@@ -12327,7 +12327,7 @@
   - type: Equipment
     equipSlots:
     - Elona.Back
-  - type: EquipBonus
+  - type: EquipStats
     dv: 7
     pv: 3
 - type: Entity
@@ -12357,7 +12357,7 @@
   - type: Equipment
     equipSlots:
     - Elona.Ring
-  - type: EquipBonus
+  - type: EquipStats
     dv: 2
     pv: 2
 - type: Entity
@@ -13951,7 +13951,7 @@
   - type: Equipment
     equipSlots:
     - Elona.Head
-  - type: EquipBonus
+  - type: EquipStats
     dv: 4
     pv: 15
 - type: Entity
@@ -14096,7 +14096,7 @@
   - type: Equipment
     equipSlots:
     - Elona.Ranged
-  - type: EquipBonus
+  - type: EquipStats
 - type: Entity
   id: Elona.ItemLeash
   parent: BaseItem
@@ -14750,7 +14750,7 @@
   - type: Equipment
     equipSlots:
     - Elona.Leg
-  - type: EquipBonus
+  - type: EquipStats
     dv: 16
     pv: 7
 - type: Entity
@@ -14838,7 +14838,7 @@
   - type: Equipment
     equipSlots:
     - Elona.Ring
-  - type: EquipBonus
+  - type: EquipStats
 - type: Entity
   id: Elona.ItemStatueOfOpatos
   parent: BaseItem
@@ -15070,7 +15070,7 @@
   - type: Equipment
     equipSlots:
     - Elona.Ranged
-  - type: EquipBonus
+  - type: EquipStats
     hitBonus: 4
     damageBonus: 11
 - type: Entity
@@ -15108,7 +15108,7 @@
   - type: Equipment
     equipSlots:
     - Elona.Ranged
-  - type: EquipBonus
+  - type: EquipStats
     hitBonus: 7
     damageBonus: 2
 - type: Entity
@@ -15146,7 +15146,7 @@
   - type: Equipment
     equipSlots:
     - Elona.Hand
-  - type: EquipBonus
+  - type: EquipStats
     hitBonus: 5
     damageBonus: 2
 - type: Entity
@@ -15184,7 +15184,7 @@
   - type: Equipment
     equipSlots:
     - Elona.Hand
-  - type: EquipBonus
+  - type: EquipStats
     dv: 11
     pv: 4
     hitBonus: 6
@@ -15223,7 +15223,7 @@
   - type: Equipment
     equipSlots:
     - Elona.Hand
-  - type: EquipBonus
+  - type: EquipStats
     dv: 4
     hitBonus: 12
     damageBonus: 11
@@ -15262,7 +15262,7 @@
   - type: Equipment
     equipSlots:
     - Elona.Hand
-  - type: EquipBonus
+  - type: EquipStats
     dv: 18
     pv: 13
     hitBonus: 13
@@ -15302,7 +15302,7 @@
   - type: Equipment
     equipSlots:
     - Elona.Hand
-  - type: EquipBonus
+  - type: EquipStats
     hitBonus: -3
     damageBonus: 2
 - type: Entity
@@ -15719,7 +15719,7 @@
   - type: Equipment
     equipSlots:
     - Elona.Hand
-  - type: EquipBonus
+  - type: EquipStats
     hitBonus: -35
 - type: Entity
   id: Elona.ItemSpellbookOfMagicBall
@@ -15966,7 +15966,7 @@
   - type: Equipment
     equipSlots:
     - Elona.Neck
-  - type: EquipBonus
+  - type: EquipStats
     dv: 8
 - type: Entity
   id: Elona.ItemPotionOfDescent
@@ -16168,7 +16168,7 @@
   - type: Equipment
     equipSlots:
     - Elona.Ranged
-  - type: EquipBonus
+  - type: EquipStats
     hitBonus: 4
 - type: Entity
   id: Elona.ItemGrenade
@@ -16197,7 +16197,7 @@
   - type: Equipment
     equipSlots:
     - Elona.Ranged
-  - type: EquipBonus
+  - type: EquipStats
 - type: Entity
   id: Elona.ItemSecretExperienceOfKumiromi
   parent: BaseItem
@@ -16257,7 +16257,7 @@
   - type: Equipment
     equipSlots:
     - Elona.Ranged
-  - type: EquipBonus
+  - type: EquipStats
 - type: Entity
   id: Elona.ItemSecretExperienceOfLomias
   parent: BaseItem
@@ -16319,7 +16319,7 @@
   - type: Equipment
     equipSlots:
     - Elona.Ranged
-  - type: EquipBonus
+  - type: EquipStats
     hitBonus: 7
     damageBonus: 4
 - type: Entity
@@ -16356,7 +16356,7 @@
   - type: Equipment
     equipSlots:
     - Elona.Hand
-  - type: EquipBonus
+  - type: EquipStats
     hitBonus: 1
     damageBonus: 16
 - type: Entity
@@ -16447,7 +16447,7 @@
   - type: Equipment
     equipSlots:
     - Elona.Neck
-  - type: EquipBonus
+  - type: EquipStats
     hitBonus: 12
 - type: Entity
   id: Elona.ItemTwinEdge
@@ -16484,7 +16484,7 @@
   - type: Equipment
     equipSlots:
     - Elona.Neck
-  - type: EquipBonus
+  - type: EquipStats
     damageBonus: 4
 - type: Entity
   id: Elona.ItemMusicTicket
@@ -16548,7 +16548,7 @@
   - type: Equipment
     equipSlots:
     - Elona.Ranged
-  - type: EquipBonus
+  - type: EquipStats
     hitBonus: -28
 - type: Entity
   id: Elona.ItemAlud
@@ -16585,7 +16585,7 @@
   - type: Equipment
     equipSlots:
     - Elona.Hand
-  - type: EquipBonus
+  - type: EquipStats
     dv: -1
     pv: 35
 - type: Entity
@@ -16623,7 +16623,7 @@
   - type: Equipment
     equipSlots:
     - Elona.Hand
-  - type: EquipBonus
+  - type: EquipStats
     pv: 1
     damageBonus: 14
 - type: Entity
@@ -16661,7 +16661,7 @@
   - type: Equipment
     equipSlots:
     - Elona.Waist
-  - type: EquipBonus
+  - type: EquipStats
     dv: 2
     pv: 15
 - type: Entity
@@ -16827,7 +16827,7 @@
   - type: Equipment
     equipSlots:
     - Elona.Hand
-  - type: EquipBonus
+  - type: EquipStats
     hitBonus: 3
     damageBonus: 4
 - type: Entity
@@ -16934,7 +16934,7 @@
   - type: Equipment
     equipSlots:
     - Elona.Hand
-  - type: EquipBonus
+  - type: EquipStats
     hitBonus: -460
     damageBonus: 32
 - type: Entity
@@ -16972,7 +16972,7 @@
   - type: Equipment
     equipSlots:
     - Elona.Neck
-  - type: EquipBonus
+  - type: EquipStats
     dv: 2
     pv: 14
 - type: Entity
@@ -17010,7 +17010,7 @@
   - type: Equipment
     equipSlots:
     - Elona.Hand
-  - type: EquipBonus
+  - type: EquipStats
     hitBonus: 3
     damageBonus: 2
 - type: Entity
@@ -17428,7 +17428,7 @@
   - type: Equipment
     equipSlots:
     - Elona.Head
-  - type: EquipBonus
+  - type: EquipStats
     dv: 2
     pv: 7
     damageBonus: 8
@@ -17468,7 +17468,7 @@
   - type: Equipment
     equipSlots:
     - Elona.Ranged
-  - type: EquipBonus
+  - type: EquipStats
     hitBonus: 14
     damageBonus: 26
 - type: Entity
@@ -17498,7 +17498,7 @@
   - type: Equipment
     equipSlots:
     - Elona.Hand
-  - type: EquipBonus
+  - type: EquipStats
 - type: Entity
   id: Elona.ItemGaroksHammer
   parent: BaseItem
@@ -18035,7 +18035,7 @@
   - type: Equipment
     equipSlots:
     - Elona.Hand
-  - type: EquipBonus
+  - type: EquipStats
     hitBonus: 5
     damageBonus: 1
 - type: Entity
@@ -18199,7 +18199,7 @@
   - type: Equipment
     equipSlots:
     - Elona.Ranged
-  - type: EquipBonus
+  - type: EquipStats
     hitBonus: -18
     damageBonus: 10
 - type: Entity
@@ -18272,7 +18272,7 @@
   - type: Equipment
     equipSlots:
     - Elona.Hand
-  - type: EquipBonus
+  - type: EquipStats
     dv: -42
     pv: 30
     hitBonus: -25

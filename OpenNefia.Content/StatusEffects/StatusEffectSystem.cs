@@ -14,7 +14,15 @@ namespace OpenNefia.Content.StatusEffects
 {
     public interface IStatusEffectSystem : IEntitySystem
     {
+        /// <summary>
+        /// Checks if this entity has the indicated status effect.
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <param name="id"></param>
+        /// <param name="statusEffects"></param>
+        /// <returns></returns>
         bool HasEffect(EntityUid entity, PrototypeId<StatusEffectPrototype> id, StatusEffectsComponent? statusEffects = null);
+
         void Remove(EntityUid entity, PrototypeId<StatusEffectPrototype> id, StatusEffectsComponent? statusEffects = null);
         void RemoveAll(EntityUid entity, StatusEffectsComponent? statusEffects = null);
         int GetTurns(EntityUid entity, PrototypeId<StatusEffectPrototype> id, StatusEffectsComponent? statusEffects = null);

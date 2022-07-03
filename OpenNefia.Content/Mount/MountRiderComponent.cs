@@ -5,18 +5,15 @@ using OpenNefia.Core.Serialization.Manager.Attributes;
 using System;
 using System.Collections.Generic;
 
-namespace OpenNefia.Content.Equipment
+namespace OpenNefia.Content.Mount
 {
-    /// <summary>
-    /// Represents a bonus attached to an item (+2, +9, etc.)
-    /// </summary>
     [RegisterComponent]
     [ComponentUsage(ComponentTarget.Normal)]
-    public sealed class BonusComponent : Component
+    public sealed class MountRiderComponent : Component
     {
-        public override string Name => "Bonus";
+        public override string Name => "MountRider";
 
         [DataField]
-        public int Bonus { get; set; } = 0;
+        public EntityUid Mount { get; set; }
     }
 }

@@ -38,9 +38,13 @@ namespace OpenNefia.Content.Tests.Charas
   - {TestSlot1ID}
   - {TestSlot2ID}
   - {TestSlot1ID}
+  components:
+  - TestRace
 
 - type: Elona.Class
   id: TestClass
+  components:
+  - TestClass
 
 - type: Entity
   id: TestChara
@@ -56,6 +60,11 @@ namespace OpenNefia.Content.Tests.Charas
             var sim = ContentFullGameSimulation
                 .NewSimulation()
                 .RegisterPrototypes(protoMan => protoMan.LoadString(Prototypes))
+                .RegisterComponents(factory =>
+                {
+                    factory.RegisterClass<TestClassComponent>();
+                    factory.RegisterClass<TestRaceComponent>();
+                })
                 .InitializeInstance();
 
             return sim;
@@ -94,6 +103,40 @@ namespace OpenNefia.Content.Tests.Charas
                 Assert.That(equipSlots.EquipSlots[3].ID, Is.EqualTo(EquipSlot.Ranged), "Equip slot 4 ID (ranged)");
                 Assert.That(equipSlots.EquipSlots[4].ID, Is.EqualTo(EquipSlot.Ammo), "Equip slot 5 ID (ammo)");
             });
+        }
+
+        [Test]
+        public void TestClassAndRaceComponentsInitialization()
+        {
+            var sim = SimulationFactory();
+
+            var entMan = sim.Resolve<IEntityManager>();
+            var mapMan = sim.Resolve<IMapManager>();
+
+            var entGen = sim.GetEntitySystem<IEntityGen>();
+            var equipSlotSys = sim.GetEntitySystem<EquipSlotsSystem>();
+
+            var map = sim.CreateMapAndSetActive(10, 10);
+
+            var ent = entGen.SpawnEntity(TestCharaID, map.AtPos(Vector2i.One))!.Value;
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(entMan.GetComponent<CharaComponent>(ent).RaceSlot, Is.Not.Null, "Has race slot");
+                Assert.That(entMan.GetComponent<CharaComponent>(ent).ClassSlot, Is.Not.Null, "Has class slot");
+                Assert.That(entMan.HasComponent<TestRaceComponent>(ent), Is.True, "Has race component");
+                Assert.That(entMan.HasComponent<TestClassComponent>(ent), Is.True, "Has class component");
+            });
+        }
+
+        private class TestRaceComponent : Component
+        {
+            public override string Name => "TestRace";
+        }
+
+        private class TestClassComponent : Component
+        {
+            public override string Name => "TestClass";
         }
     }
 }

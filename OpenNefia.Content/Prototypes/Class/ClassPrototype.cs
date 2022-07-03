@@ -7,6 +7,7 @@ using OpenNefia.Content.Effects;
 using OpenNefia.Content.Equipment;
 using OpenNefia.Content.Skills;
 using OpenNefia.Core.Serialization.Manager.Attributes;
+using static OpenNefia.Core.Prototypes.EntityPrototype;
 
 namespace OpenNefia.Core.Prototypes
 {
@@ -29,5 +30,8 @@ namespace OpenNefia.Core.Prototypes
         private Dictionary<PrototypeId<SkillPrototype>, int> _baseSkills = new();
 
         public IReadOnlyDictionary<PrototypeId<SkillPrototype>, int> BaseSkills => _baseSkills;
+
+        [DataField]
+        public ComponentRegistry Components { get; } = new();
     }
 }

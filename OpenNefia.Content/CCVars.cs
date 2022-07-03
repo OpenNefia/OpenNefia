@@ -186,7 +186,7 @@ namespace OpenNefia.Content
             CVarDef.Create("debug.unlimitedSkillPoints", false, CVar.Archive | CVar.Cheat);
 
         public static readonly CVarDef<bool> DebugSkipRandomEvents =
-            CVarDef.Create("debug.skipRandomEvents", false, CVar.Archive);
+            CVarDef.Create("debug.skipRandomEvents", false, CVar.Archive | CVar.Cheat);
 
         public static readonly CVarDef<ForceMapRenewalType> DebugForceMapRenewal =
             CVarDef.Create("debug.forceMapRenewal", ForceMapRenewalType.Disabled, CVar.Archive);
@@ -195,16 +195,16 @@ namespace OpenNefia.Content
             CVarDef.Create("debug.livingWeapon", false, CVar.Archive);
 
         public static readonly CVarDef<bool> DebugAlwaysDropFigureAndCard =
-            CVarDef.Create("debug.alwaysDropFigureAndCard", false, CVar.Archive);
+            CVarDef.Create("debug.alwaysDropFigureAndCard", false, CVar.Archive | CVar.Cheat);
 
         public static readonly CVarDef<bool> DebugAlwaysDropRemains =
-            CVarDef.Create("debug.alwaysDropRemains", false, CVar.Archive);
+            CVarDef.Create("debug.alwaysDropRemains", false, CVar.Archive | CVar.Cheat);
 
         public static readonly CVarDef<bool> DebugProductionVersatileTool =
-            CVarDef.Create("debug.productionVersatileTool", false, CVar.Archive);
+            CVarDef.Create("debug.productionVersatileTool", false, CVar.Archive | CVar.Cheat);
 
         public static readonly CVarDef<bool> DebugNoEncounters =
-            CVarDef.Create("debug.noEncounters", false, CVar.Archive);
+            CVarDef.Create("debug.noEncounters", false, CVar.Archive | CVar.Cheat);
     }
 
     public enum AutosaveType
