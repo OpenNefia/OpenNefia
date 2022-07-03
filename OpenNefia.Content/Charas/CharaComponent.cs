@@ -23,6 +23,12 @@ namespace OpenNefia.Content.Charas
         public PrototypeId<RacePrototype> Race { get; set; } = default!;
 
         /// <summary>
+        /// Slot to hold components added by race.
+        /// </summary>
+        [DataField]
+        public SlotId RaceSlot { get; set; }
+
+        /// <summary>
         /// Class of this character.
         /// </summary>
         /// <remarks>
@@ -30,6 +36,12 @@ namespace OpenNefia.Content.Charas
         /// </remarks>
         [DataField(required: true)]
         public PrototypeId<ClassPrototype> Class { get; set; } = default!;
+
+        /// <summary>
+        /// Slot to hold components added by class.
+        /// </summary>
+        [DataField]
+        public SlotId ClassSlot { get; set; }
 
         [DataField]
         public Gender Gender { get; set; } = Gender.Unknown;

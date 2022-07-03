@@ -36,6 +36,7 @@ namespace OpenNefia.Content.Charas
         [Dependency] private readonly IStatusEffectSystem _effects = default!;
         [Dependency] private readonly IBuffsSystem _buffs = default!;
         [Dependency] private readonly ISkillAdjustsSystem _skillAdjusts = default!;
+        [Dependency] private readonly ISlotSystem _slots = default!;
 
         public override void Initialize()
         {
@@ -44,13 +45,21 @@ namespace OpenNefia.Content.Charas
 
         private void HandleGenerated(EntityUid uid, CharaComponent chara, ref EntityBeingGeneratedEvent args)
         {
+            InitRaceComponents(uid, chara);
             InitRaceSkills(uid, chara);
             InitRaceEquipSlots(uid, chara);
             InitRacePhysiqueAndGender(uid, chara);
             SetDefaultCharaChip(uid, chara);
 
+            InitClassComponents(uid, chara);
             InitClassSkills(uid, chara);
             InitCharaMakeSkills(uid, args.GenArgs);
+        }
+
+        private void InitRaceComponents(EntityUid uid, CharaComponent chara)
+        {
+            var race = _protos.Index(chara.Race);
+            chara.RaceSlot = _slots.AddSlot(uid, race.Components);
         }
 
         private void InitRaceSkills(EntityUid uid, CharaComponent chara,
@@ -150,6 +159,12 @@ namespace OpenNefia.Content.Charas
                 default:
                     return race.ChipFemale;
             }
+        }
+
+        private void InitClassComponents(EntityUid uid, CharaComponent chara)
+        {
+            var klass = _protos.Index(chara.Class);
+            chara.ClassSlot = _slots.AddSlot(uid, klass.Components);
         }
 
         private void InitClassSkills(EntityUid uid, CharaComponent chara,

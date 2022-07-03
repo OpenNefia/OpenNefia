@@ -1,4 +1,5 @@
 ﻿using NetVips;
+using OpenNefia.Content.Combat;
 using OpenNefia.Content.DisplayName;
 using OpenNefia.Content.EquipSlots;
 using OpenNefia.Content.Input;
@@ -185,6 +186,7 @@ namespace OpenNefia.Content.Equipment
         [Dependency] private readonly DisplayNameSystem _displayNames = default!;
         [Dependency] private readonly IStackSystem _stackSystem = default!;
         [Dependency] private readonly IPrototypeManager _protos = default!;
+        [Dependency] private readonly IEquipmentSystem _equip = default!;
 
         [Child] protected AssetDrawable AssetInventoryIcons;
         [Child] protected AssetDrawable AssetDecoWearA;
@@ -414,18 +416,20 @@ namespace OpenNefia.Content.Equipment
             var pv = "-";
             var hitBonus = "-";
             var damageBonus = "-";
+            var criticalRate = "-";
 
-            if (_entityManager.TryGetComponent(equipTarget, out SkillsComponent skills))
+            if (_entityManager.TryGetComponent(equipTarget, out EquipStatsComponent stats))
             {
-                dv = skills.DV.Buffed.ToString();
-                pv = skills.PV.Buffed.ToString();
-                hitBonus = skills.HitBonus.Buffed.ToString();
-                damageBonus = skills.DamageBonus.Buffed.ToString();
+                dv = stats.DV.Buffed.ToString();
+                pv = stats.PV.Buffed.ToString();
+                hitBonus = stats.HitBonus.Buffed.ToString();
+                damageBonus = stats.DamageBonus.Buffed.ToString();
+                criticalRate = stats.CriticalRate.Buffed.ToString();
             }
 
-            var weight = EquipmentHelpers.GetTotalEquipmentWeight(equipTarget, _entityManager, _equipSlots);
+            var weight = _equip.GetTotalEquipmentWeight(equipTarget);
 
-            return string.Format("{0}: {1}{2} {3}:{4} {5}:{6}  DV/PV:{7}/{8}",
+            return string.Format("{0}: {1}{2} {3}:{4} {5}:{6}  DV/PV:{7}/{8} Crit:{9}",
                 Loc.GetString("Elona.Equipment.Layer.Stats.EquipWeight"),
                 UiUtils.DisplayWeight(weight),
                 EquipmentHelpers.DisplayArmorClass(weight),
@@ -434,7 +438,8 @@ namespace OpenNefia.Content.Equipment
                 Loc.GetString("Elona.Equipment.Layer.Stats.DamageBonus"),
                 damageBonus,
                 dv,
-                pv);
+                pv,
+                criticalRate);
         }
 
         public override void OnQuery()

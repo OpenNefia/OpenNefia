@@ -34,7 +34,7 @@ namespace OpenNefia.Content.Effects
             {
                 foreach (var effects in _lookup.EntityQueryInMap<StatusEffectsComponent>(map.Id))
                 {
-                    if (_parties.IsDirectAllyOfPlayer(effects.Owner) && _effects.HasEffect(effects.Owner, Protos.StatusEffect.Sleep))
+                    if (_parties.IsUnderlingOfPlayer(effects.Owner) && _effects.HasEffect(effects.Owner, Protos.StatusEffect.Sleep))
                     {
                         if (_rand.OneIn(10))
                         {

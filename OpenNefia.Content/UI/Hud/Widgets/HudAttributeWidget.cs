@@ -15,6 +15,7 @@ using System.Drawing;
 using OpenNefia.Core.Stats;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Core.UI;
+using OpenNefia.Content.Combat;
 
 namespace OpenNefia.Content.Hud
 {
@@ -50,7 +51,8 @@ namespace OpenNefia.Content.Hud
         public override void UpdateWidget()
         {
             base.UpdateWidget();
-            if (_entMan.TryGetComponent<SkillsComponent>(GameSession.Player, out var skills))
+            if (_entMan.TryGetComponent<EquipStatsComponent>(GameSession.Player, out var equipStats)
+                && _entMan.TryGetComponent<SkillsComponent>(GameSession.Player, out var skills))
             {
                 PrototypeId<SkillPrototype>? protoId = Type switch
                 {
@@ -74,7 +76,7 @@ namespace OpenNefia.Content.Hud
                 else
                 {
                     UiText.Color = Color.Black;
-                    UiText.Text = $"{skills.DV.Buffed}/{skills.PV.Buffed}";
+                    UiText.Text = $"{equipStats.DV.Buffed}/{equipStats.PV.Buffed}";
                 }
             }
         }

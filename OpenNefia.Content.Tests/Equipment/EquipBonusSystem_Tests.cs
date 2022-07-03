@@ -1,6 +1,6 @@
 ﻿using NUnit.Framework;
+using OpenNefia.Content.Combat;
 using OpenNefia.Content.EntityGen;
-using OpenNefia.Content.Equipment;
 using OpenNefia.Content.EquipSlots;
 using OpenNefia.Content.GameObjects;
 using OpenNefia.Content.Skills;
@@ -20,7 +20,7 @@ using static OpenNefia.Content.Prototypes.Protos;
 namespace OpenNefia.Content.Tests.Equipment
 {
     [TestFixture, Parallelizable]
-    [TestOf(typeof(EquipBonusSystem))]
+    [TestOf(typeof(EquipStatsSystem))]
     public class EquipBonusSystem_Tests : OpenNefiaUnitTest
     {
         private static readonly PrototypeId<EntityPrototype> TestEquipmentID = new("TestEquipment");
@@ -70,29 +70,35 @@ namespace OpenNefia.Content.Tests.Equipment
             var entChara = entGen.SpawnEntity(TestCharaID, map.AtPos(Vector2i.One))!.Value;
             var entEquipment = entGen.SpawnEntity(TestEquipmentID, map.AtPos(Vector2i.One))!.Value;
 
-            var skills = entMan.EnsureComponent<SkillsComponent>(entChara);
+            var equipperStats = entMan.EnsureComponent<EquipStatsComponent>(entChara);
 
-            skills.DV.Base = 10;
-            skills.PV.Base = 11;
-            skills.HitBonus.Base = 12;
-            skills.DamageBonus.Base = 13;
+            equipperStats.DV.Base = 10;
+            equipperStats.PV.Base = 11;
+            equipperStats.HitBonus.Base = 12;
+            equipperStats.DamageBonus.Base = 13;
+            equipperStats.PierceRate.Base = 14;
+            equipperStats.CriticalRate.Base = 15;
 
-            var equipBonus = entMan.EnsureComponent<EquipBonusComponent>(entEquipment);
+            var equipStats = entMan.EnsureComponent<EquipStatsComponent>(entEquipment);
 
-            equipBonus.DV.Base = 10;
-            equipBonus.PV.Base = 11;
-            equipBonus.HitBonus.Base = 12;
-            equipBonus.DamageBonus.Base = 13;
+            equipStats.DV.Base = 10;
+            equipStats.PV.Base = 11;
+            equipStats.HitBonus.Base = 12;
+            equipStats.DamageBonus.Base = 13;
+            equipStats.PierceRate.Base = 14;
+            equipStats.CriticalRate.Base = 15;
 
             refreshSys.Refresh(entChara);
             refreshSys.Refresh(entEquipment);
 
             Assert.Multiple(() =>
             {
-                Assert.That(skills.DV.Buffed, Is.EqualTo(10));
-                Assert.That(skills.PV.Buffed, Is.EqualTo(11));
-                Assert.That(skills.HitBonus.Buffed, Is.EqualTo(12));
-                Assert.That(skills.DamageBonus.Buffed, Is.EqualTo(13));
+                Assert.That(equipperStats.DV.Buffed, Is.EqualTo(10));
+                Assert.That(equipperStats.PV.Buffed, Is.EqualTo(11));
+                Assert.That(equipperStats.HitBonus.Buffed, Is.EqualTo(12));
+                Assert.That(equipperStats.DamageBonus.Buffed, Is.EqualTo(13));
+                Assert.That(equipperStats.PierceRate.Buffed, Is.EqualTo(14));
+                Assert.That(equipperStats.CriticalRate.Buffed, Is.EqualTo(15));
             });
 
             Assert.That(equipSlotSys.TryGetEmptyEquipSlot(entChara, EquipSlot.Hand, out var equipSlot), Is.True);
@@ -100,17 +106,21 @@ namespace OpenNefia.Content.Tests.Equipment
 
             Assert.Multiple(() =>
             {
-                Assert.That(skills.DV.Buffed, Is.EqualTo(20));
-                Assert.That(skills.PV.Buffed, Is.EqualTo(22));
-                Assert.That(skills.HitBonus.Buffed, Is.EqualTo(24));
-                Assert.That(skills.DamageBonus.Buffed, Is.EqualTo(26));
+                Assert.That(equipperStats.DV.Buffed, Is.EqualTo(20));
+                Assert.That(equipperStats.PV.Buffed, Is.EqualTo(22));
+                Assert.That(equipperStats.HitBonus.Buffed, Is.EqualTo(24));
+                Assert.That(equipperStats.DamageBonus.Buffed, Is.EqualTo(26));
+                Assert.That(equipperStats.PierceRate.Buffed, Is.EqualTo(28));
+                Assert.That(equipperStats.CriticalRate.Buffed, Is.EqualTo(30));
 
                 Assert.That(equipSlotSys.TryUnequip(entChara, equipSlot!, out _), Is.True);
 
-                Assert.That(skills.DV.Buffed, Is.EqualTo(10));
-                Assert.That(skills.PV.Buffed, Is.EqualTo(11));
-                Assert.That(skills.HitBonus.Buffed, Is.EqualTo(12));
-                Assert.That(skills.DamageBonus.Buffed, Is.EqualTo(13));
+                Assert.That(equipperStats.DV.Buffed, Is.EqualTo(10));
+                Assert.That(equipperStats.PV.Buffed, Is.EqualTo(11));
+                Assert.That(equipperStats.HitBonus.Buffed, Is.EqualTo(12));
+                Assert.That(equipperStats.DamageBonus.Buffed, Is.EqualTo(13));
+                Assert.That(equipperStats.PierceRate.Buffed, Is.EqualTo(14));
+                Assert.That(equipperStats.CriticalRate.Buffed, Is.EqualTo(15));
             });
         }
     }

@@ -390,7 +390,7 @@ handlers["base.item"] = function(from, to)
             c.equipSlots[#c.equipSlots + 1] = dotted(slot)
         end
 
-        c = comp(to, "EquipBonus")
+        c = comp(to, "EquipStats")
         if (equipment.dv or 0) ~= 0 then
             c.dv = equipment.dv
         end

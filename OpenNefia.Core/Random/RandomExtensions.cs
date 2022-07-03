@@ -121,7 +121,10 @@ namespace OpenNefia.Core.Random
         /// <param name="chance">The chance to pass, from 0 to 1.</param>
         public static bool Prob(this IRandom random, float chance)
         {
-            DebugTools.Assert(chance <= 1 && chance >= 0, $"Chance must be in the range 0-1. It was {chance}.");
+            if (chance >= 1)
+                return true;
+            else if (chance <= 0)
+                return false;
 
             return random.NextDouble() <= chance;
         }

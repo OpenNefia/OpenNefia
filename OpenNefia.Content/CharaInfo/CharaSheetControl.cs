@@ -105,6 +105,7 @@ namespace OpenNefia.Content.CharaInfo
         [Dependency] private readonly IDisplayNameSystem _displayNames = default!;
         [Dependency] private readonly IPrototypeManager _protos = default!;
         [Dependency] private readonly IPlayTimeManager _playTime = default!;
+        [Dependency] private readonly IEquipmentSystem _equip = default!;
 
         private const int SheetWidth = 700;
         private const int SheetHeight = 400;
@@ -399,7 +400,7 @@ namespace OpenNefia.Content.CharaInfo
                 dict[_locScope.GetString("Group.Extra.CargoWeight")] = UiUtils.DisplayWeight(cargoWeight);
                 dict[_locScope.GetString("Group.Extra.CargoLimit")] = UiUtils.DisplayWeight(cargoHold.MaxCargoWeight ?? 0);
             }
-            var eqWeight = EquipmentHelpers.GetTotalEquipmentWeight(_charaEntity, _entityManager, _equipSlots);
+            var eqWeight = _equip.GetTotalEquipmentWeight(_charaEntity);
             dict[_locScope.GetString("Group.Extra.EquipWeight")] = $"{UiUtils.DisplayWeight(eqWeight)} {EquipmentHelpers.DisplayArmorClass(eqWeight)}";
             dict[_locScope.GetString("Group.Extra.DeepestLevel")] = $"{_locScope.GetString("Group.Extra.DeepestLevelCounter", ("level", _world.State.DeepestLevel))}";
             SetupContainer(ExtraContainer, 6, dict);

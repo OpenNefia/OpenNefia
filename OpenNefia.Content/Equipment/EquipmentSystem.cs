@@ -2,6 +2,9 @@
 using OpenNefia.Content.EquipSlots;
 using OpenNefia.Content.EquipSlots.Events;
 using OpenNefia.Content.GameObjects;
+using OpenNefia.Content.Prototypes;
+using OpenNefia.Content.Skills;
+using OpenNefia.Content.Weight;
 using OpenNefia.Core.Containers;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
@@ -24,6 +27,11 @@ namespace OpenNefia.Content.Equipment
         /// <param name="equipSlotId">Equipment slot equipping to.</param>
         bool CanEquipItemInSlot(EntityUid item, EquipSlotPrototypeId equipSlotId, 
             EquipmentComponent? itemEquipment = null);
+
+        int GetTotalEquipmentWeight(EntityUid equipTarget, EquipSlotsComponent? equipSlotsComp = null);
+        
+        PrototypeId<SkillPrototype> GetArmorClass(int weight);
+        PrototypeId<SkillPrototype> GetArmorClass(EntityUid ent, EquipSlotsComponent? equipSlotsComp = null);
     }
 
     public class EquipmentSystem : EntitySystem, IEquipmentSystem
@@ -91,6 +99,53 @@ namespace OpenNefia.Content.Equipment
                 return false;
 
             return itemEquipment.EquipSlots.Contains(equipSlotId);
+        }
+
+        public int GetTotalEquipmentWeight(EntityUid equipTarget, EquipSlotsComponent? equipSlotsComp = null)
+        {
+            if (!_equipSlotsSystem.TryGetEquipSlots(equipTarget, out var equipSlots, equipSlotsComp))
+                return 0;
+
+            var totalWeight = 0;
+
+            foreach (var equipSlot in equipSlots)
+            {
+                if (!_equipSlotsSystem.TryGetContainerForEquipSlot(equipTarget, equipSlot, out var containerSlot))
+                    continue;
+
+                if (!EntityManager.IsAlive(containerSlot.ContainedEntity))
+                    continue;
+
+                var equipment = containerSlot.ContainedEntity.Value;
+
+                if (!EntityManager.TryGetComponent(equipment, out WeightComponent weight))
+                    continue;
+
+                totalWeight += weight.Weight;
+            }
+
+            return totalWeight;
+        }
+
+        public PrototypeId<SkillPrototype> GetArmorClass(EntityUid ent, EquipSlotsComponent? equipSlotsComp = null)
+        {
+            return GetArmorClass(GetTotalEquipmentWeight(ent, equipSlotsComp));
+        }
+
+        public PrototypeId<SkillPrototype> GetArmorClass(int weight)
+        {
+            if (weight >= EquipmentConstants.ArmorClassHeavyWeight)
+            {
+                return Protos.Skill.HeavyArmor;
+            }
+            else if (weight >= EquipmentConstants.ArmorClassMediumWeight)
+            {
+                return Protos.Skill.MediumArmor;
+            }
+            else
+            {
+                return Protos.Skill.LightArmor;
+            }
         }
 
         #endregion

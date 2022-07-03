@@ -11,6 +11,18 @@ namespace OpenNefia.Content.GameObjects
         public override string Name => "Weapon";
 
         [DataField(required: true)]
-        public PrototypeId<SkillPrototype> UsedSkill { get; } = default!;
+        public PrototypeId<SkillPrototype> WeaponSkill { get; } = default!;
+
+        [DataField]
+        public int DiceX { get; set; }
+
+        [DataField]
+        public int DiceY { get; set; }
+
+        /// <summary>
+        /// 0-100.
+        /// </summary>
+        [DataField]
+        public int PierceRate { get; set; }
     }
 }

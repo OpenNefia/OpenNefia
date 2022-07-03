@@ -106,6 +106,8 @@
   - Elona.Arm
   - Elona.Waist
   - Elona.Leg
+  components:
+  - type: BreaksIntoDebris
 - type: Elona.Race
   id: Elona.Troll
   hspIds:
@@ -1570,6 +1572,8 @@
   - Elona.Ring
   - Elona.Ring
   - Elona.Arm
+  components:
+  - type: BreaksIntoDebris
 - type: Elona.Race
   id: Elona.Harpy
   hspIds:
@@ -1777,6 +1781,8 @@
   initialFeats:
     Elona.PermDim: 1
     Elona.PermPoison: 2
+  components:
+  - type: BreaksIntoDebris
 - type: Elona.Race
   id: Elona.Rock
   hspIds:
@@ -1806,6 +1812,8 @@
     Elona.WeightLifting: 3
   initialEquipSlots:
   - Elona.Head
+  components:
+  - type: BreaksIntoDebris
 - type: Elona.Race
   id: Elona.Crab
   hspIds:
@@ -1880,6 +1888,8 @@
   - Elona.Arm
   - Elona.Waist
   - Elona.Leg
+  components:
+  - type: BreaksIntoDebris
 - type: Elona.Race
   id: Elona.Piece
   hspIds:
@@ -1918,6 +1928,8 @@
   - Elona.Ring
   - Elona.Arm
   - Elona.Waist
+  components:
+  - type: BreaksIntoDebris
 - type: Elona.Race
   id: Elona.Cat
   hspIds:
@@ -2162,6 +2174,8 @@
   - Elona.Arm
   - Elona.Waist
   - Elona.Leg
+  components:
+  - type: BreaksIntoDebris
 - type: Elona.Race
   id: Elona.Undeadgod
   hspIds:
@@ -2237,6 +2251,8 @@
   - Elona.Arm
   - Elona.Waist
   - Elona.Leg
+  components:
+  - type: BreaksIntoDebris
 - type: Elona.Race
   id: Elona.Wisp
   hspIds:
@@ -2692,4 +2708,6 @@
   - Elona.Waist
   - Elona.Leg
   - Elona.Leg
+  components:
+  - type: BreaksIntoDebris
 ...

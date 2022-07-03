@@ -24,6 +24,7 @@
   - type: Chara
   - type: Skills
   - type: SkillAdjusts
+  - type: EquipStats
   - type: Resists
   - type: Feats
   - type: Spells
@@ -64,6 +65,7 @@
   - type: Weight
   - type: CurseState
   - type: Pickable
+  - type: Bonus
 
 - type: Entity
   id: BaseMObj
