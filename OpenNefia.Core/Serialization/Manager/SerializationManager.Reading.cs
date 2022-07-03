@@ -94,13 +94,6 @@ namespace OpenNefia.Core.Serialization.Manager
                             break;
 
                         case MappingDataNode mappingNode:
-                            var lengthsNode = (SequenceDataNode)mappingNode["lengths"];
-                            var lengths = new long[lengthsNode.Sequence.Count];
-                            for (int i = 0; i < lengths.Length; i++)
-                            {
-                                lengths[i] = long.Parse(((ValueDataNode)lengthsNode[i]).Value);
-                            }
-
                             var elementsNode = mappingNode["elements"];
                             switch (elementsNode)
                             {
@@ -108,17 +101,14 @@ namespace OpenNefia.Core.Serialization.Manager
                                 // typeof(T[]?) acts as typeof(T[]) at runtime.
                                 // https://stackoverflow.com/a/62186551
                                 case ValueDataNode when nullable:
-                                    var rankConst = Expression.Constant(lengths.Length);
                                     call = Expression.Call(
                                         instanceConst,
                                         nameof(ReadArrayValueMultiDim),
                                         new[] { elementType },
-                                        Expression.Convert(nodeParam, typeof(MappingDataNode)),
-                                        rankConst);
+                                        Expression.Convert(nodeParam, typeof(MappingDataNode)));
                                     break;
                                     
                                 case SequenceDataNode seqNode:
-                                    var lengthsConst = Expression.Constant(lengths);
                                     var isSealed2 = elementType.IsPrimitive || elementType.IsEnum ||
                                                    elementType == typeof(string) || elementType.IsSealed;
 
@@ -133,7 +123,6 @@ namespace OpenNefia.Core.Serialization.Manager
                                             new[] { elementType },
                                             Expression.Convert(nodeParam, typeof(MappingDataNode)),
                                             readerConst,
-                                            lengthsConst,
                                             contextParam,
                                             skipHookParam);
 
@@ -145,7 +134,6 @@ namespace OpenNefia.Core.Serialization.Manager
                                         nameof(ReadArraySequenceMultiDim),
                                         new[] { elementType },
                                         Expression.Convert(nodeParam, typeof(MappingDataNode)),
-                                        lengthsConst,
                                         contextParam,
                                         skipHookParam);
                                     break;
@@ -357,8 +345,10 @@ namespace OpenNefia.Core.Serialization.Manager
             return new DeserializedArray(array, results);
         }
 
-        private DeserializationResult ReadArrayValueMultiDim<T>(MappingDataNode mapping, int rank)
+        private DeserializationResult ReadArrayValueMultiDim<T>(MappingDataNode mapping)
         {
+            var lengthsNode = (SequenceDataNode)mapping["lengths"];
+            var rank = lengthsNode.Sequence.Count;
             var value = (ValueDataNode)mapping["elements"];
             if (value.Value == "null")
             {
@@ -371,10 +361,16 @@ namespace OpenNefia.Core.Serialization.Manager
 
         private DeserializationResult ReadArraySequenceMultiDim<T>(
             MappingDataNode mapping,
-            long[] lengths,
             ISerializationContext? context = null,
             bool skipHook = false)
         {
+            var lengthsNode = (SequenceDataNode)mapping["lengths"];
+            var lengths = new long[lengthsNode.Sequence.Count];
+            for (int i = 0; i < lengths.Length; i++)
+            {
+                lengths[i] = long.Parse(((ValueDataNode)lengthsNode[i]).Value);
+            }
+
             var node = (SequenceDataNode)mapping["elements"];
             var type = typeof(T);
             var array = Array.CreateInstance(type, lengths);
@@ -403,10 +399,16 @@ namespace OpenNefia.Core.Serialization.Manager
         private DeserializationResult ReadArraySequenceSealedMultiDim<T>(
             MappingDataNode mapping,
             ReadDelegate elementReader,
-            long[] lengths,
             ISerializationContext? context = null,
             bool skipHook = false)
         {
+            var lengthsNode = (SequenceDataNode)mapping["lengths"];
+            var lengths = new long[lengthsNode.Sequence.Count];
+            for (int i = 0; i < lengths.Length; i++)
+            {
+                lengths[i] = long.Parse(((ValueDataNode)lengthsNode[i]).Value);
+            }
+            
             var node = (SequenceDataNode)mapping["elements"];
             var type = typeof(T);
             var array = Array.CreateInstance(type, lengths);

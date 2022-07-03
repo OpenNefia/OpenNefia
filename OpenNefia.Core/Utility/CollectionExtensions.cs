@@ -396,7 +396,7 @@ namespace OpenNefia.Core.Utility
             return source.Cast<T?>();
         }
 
-        public static long[] GetLongLengths (this Array array)
+        public static long[] GetLongLengths(this Array array)
         {
             var lengths = new long[array.Rank];
 
@@ -408,7 +408,7 @@ namespace OpenNefia.Core.Utility
 
         public static long[] GetCumulativeLengths(this Array arr)
         {
-            var lengths = new long[arr.Length];
+            var lengths = new long[arr.Rank];
 
             for (int dim = 0; dim < arr.Rank; dim++)
             {
