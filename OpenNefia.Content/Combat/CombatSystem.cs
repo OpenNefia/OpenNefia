@@ -305,7 +305,7 @@ namespace OpenNefia.Content.Combat
                 var playAnimation = _gameSession.IsPlayer(attacker) && _config.GetCVar(CCVars.AnimeAttackAnimation);
                 if (playAnimation)
                 {
-                    var damagePercent = rawDamage.Damage * 100 / (Comp<SkillsComponent>(target).MaxHP);
+                    var damagePercent = rawDamage.TotalDamage * 100 / (Comp<SkillsComponent>(target).MaxHP);
                     if (TryGetAttackAnimation(target, attackSkill, damagePercent, isCritical, out var anim))
                     {
                         _mapDrawables.Enqueue(anim, Spatial(target).MapPosition);
@@ -423,7 +423,7 @@ namespace OpenNefia.Content.Combat
             if (ev.OutHitResult != null)
                 return ev.OutHitResult.Value;
 
-            toHit = ev.OutToHit;
+            toHit = ev.OutAccuracy;
             evasion = ev.OutEvasion;
 
             if (toHit < 1)
@@ -453,7 +453,7 @@ namespace OpenNefia.Content.Combat
                 if (!TryComp<WeaponComponent>(weapon.Value, out var weaponComp))
                     return 0;
 
-                // XXX: I believe that attack_skill always gets set to the weapon's skill
+                // XXX: I believe that attackSkill always gets set to the weapon's skill
                 // in vanilla. (attackSkill=iSkillRef(cw) in HSP.) With weapons now being
                 // able to act as both a melee and ranged weapon, it's difficult to tell
                 // which weapon skill should be used for calculating accuracy.
@@ -494,7 +494,7 @@ namespace OpenNefia.Content.Combat
 
             var ev = new CalcPhysicalAttackAccuracyEvent(target, attackSkill, weapon, attackCount, isRanged, considerDistance, baseAccuracy);
             RaiseEvent(attacker, ref ev);
-            return ev.OutToHit;
+            return ev.OutAccuracy;
         }
 
         private int CalcBasePhysicalAttackEvasion(EntityUid target)
@@ -714,16 +714,16 @@ namespace OpenNefia.Content.Combat
 
     public sealed class AttackDamage
     {
-        public AttackDamage(int damage, bool vorpal, int normalDamage, int pierceDamage, int originalDamage)
+        public AttackDamage(int totalDamage, bool vorpal, int normalDamage, int pierceDamage, int originalDamage)
         {
-            Damage = damage;
+            TotalDamage = totalDamage;
             Vorpal = vorpal;
             NormalDamage = normalDamage;
             PierceDamage = pierceDamage;
             OriginalDamage = originalDamage;
         }
 
-        public int Damage { get; set; }
+        public int TotalDamage { get; set; }
         public bool Vorpal { get; set; }
         public int NormalDamage { get; set; }
         public int PierceDamage { get; set; }
@@ -753,7 +753,7 @@ namespace OpenNefia.Content.Combat
         public bool IsRanged { get; }
         public bool ConsiderDistance { get; }
 
-        public int OutToHit { get; set; }
+        public int OutAccuracy { get; set; }
 
         public CalcPhysicalAttackAccuracyEvent(EntityUid target, PrototypeId<SkillPrototype> attackSkill, EntityUid? weapon, int attackCount, bool isRanged, bool considerDistance, int baseAccuracy)
         {
@@ -763,7 +763,7 @@ namespace OpenNefia.Content.Combat
             AttackCount = attackCount;
             IsRanged = isRanged;
             ConsiderDistance = considerDistance;
-            OutToHit = baseAccuracy;
+            OutAccuracy = baseAccuracy;
         }
     }
 
@@ -798,7 +798,7 @@ namespace OpenNefia.Content.Combat
         public int AttackCount { get; }
         public bool IsRanged { get; }
 
-        public int OutToHit { get; set; }
+        public int OutAccuracy { get; set; }
         public int OutEvasion { get; set; }
         public HitResult? OutHitResult { get; set; } = null;
         public bool Handled { get; set; } = false;
@@ -810,7 +810,7 @@ namespace OpenNefia.Content.Combat
             Weapon = weapon;
             AttackCount = attackCount;
             IsRanged = isRanged;
-            OutToHit = toHit;
+            OutAccuracy = toHit;
             OutEvasion = evasion;
         }
 

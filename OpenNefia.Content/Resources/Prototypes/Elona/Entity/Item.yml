@@ -49,6 +49,10 @@
   - type: EquipStats
     hitBonus: 5
     damageBonus: 4
+  - type: Weapon
+    diceX: 2
+    diceY: 8
+    pierce_rate: 5
 - type: Entity
   id: Elona.ItemDagger
   parent: BaseItem
@@ -75,6 +79,10 @@
     dv: 4
     hitBonus: 9
     damageBonus: 4
+  - type: Weapon
+    diceX: 2
+    diceY: 5
+    pierce_rate: 10
 - type: Entity
   id: Elona.ItemHandAxe
   parent: BaseItem
@@ -100,6 +108,9 @@
   - type: EquipStats
     hitBonus: 4
     damageBonus: 5
+  - type: Weapon
+    diceX: 2
+    diceY: 9
 - type: Entity
   id: Elona.ItemClub
   parent: BaseItem
@@ -125,6 +136,9 @@
   - type: EquipStats
     hitBonus: 4
     damageBonus: 7
+  - type: Weapon
+    diceX: 3
+    diceY: 4
 - type: Entity
   id: Elona.ItemMagicHat
   parent: BaseItem
@@ -1205,6 +1219,10 @@
     pv: 2
     hitBonus: 2
     damageBonus: 8
+  - type: Weapon
+    diceX: 4
+    diceY: 8
+    pierce_rate: 10
 - type: Entity
   id: Elona.ItemZantetsu
   parent: BaseItem
@@ -1242,6 +1260,10 @@
     - Elona.Hand
   - type: EquipStats
     hitBonus: 4
+  - type: Weapon
+    diceX: 7
+    diceY: 7
+    pierce_rate: 25
 - type: Entity
   id: Elona.ItemLongBow
   parent: BaseItem
@@ -1267,6 +1289,23 @@
   - type: EquipStats
     hitBonus: 4
     damageBonus: 8
+  - type: Weapon
+    diceX: 2
+    diceY: 7
+    pierce_rate: 20
+  - type: RangedWeapon
+    rangedAccuracy: !type:RangedAccuracyTable
+      table:
+      - 0.5
+      - 0.9
+      - 1
+      - 0.9
+      - 0.8
+      - 0.8
+      - 0.7
+      - 0.6
+      - 0.5
+      - 0.2
 - type: Entity
   id: Elona.ItemKnightShield
   parent: BaseItem
@@ -1318,6 +1357,23 @@
   - type: EquipStats
     hitBonus: 7
     damageBonus: 1
+  - type: Weapon
+    diceX: 1
+    diceY: 22
+    pierce_rate: 10
+  - type: RangedWeapon
+    rangedAccuracy: !type:RangedAccuracyTable
+      table:
+      - 1
+      - 0.9
+      - 0.7
+      - 0.5
+      - 0.2
+      - 0.2
+      - 0.2
+      - 0.2
+      - 0.2
+      - 0.2
 - type: Entity
   id: Elona.ItemArrow
   parent: BaseItem
@@ -1406,6 +1462,10 @@
     - Elona.Hand
   - type: EquipStats
     damageBonus: 4
+  - type: Weapon
+    diceX: 1
+    diceY: 44
+    pierce_rate: 15
 - type: Entity
   id: Elona.ItemMournblade
   parent: BaseItem
@@ -1446,6 +1506,10 @@
     pv: 4
     hitBonus: 8
     damageBonus: 5
+  - type: Weapon
+    diceX: 3
+    diceY: 13
+    pierce_rate: 15
 - type: Entity
   id: Elona.ItemLightCloak
   parent: BaseItem
@@ -1664,6 +1728,10 @@
     pv: 1
     hitBonus: 4
     damageBonus: 3
+  - type: Weapon
+    diceX: 2
+    diceY: 18
+    pierce_rate: 20
 - type: Entity
   id: Elona.ItemPotionOfHealerOdina
   parent: BaseItem
@@ -4344,6 +4412,10 @@
     pv: 6
     hitBonus: 16
     damageBonus: 8
+  - type: Weapon
+    diceX: 5
+    diceY: 5
+    pierce_rate: 20
 - type: Entity
   id: Elona.ItemBowOfVindale
   parent: BaseItem
@@ -4382,6 +4454,23 @@
   - type: EquipStats
     hitBonus: 5
     damageBonus: 7
+  - type: Weapon
+    diceX: 2
+    diceY: 15
+    pierce_rate: 20
+  - type: RangedWeapon
+    rangedAccuracy: !type:RangedAccuracyTable
+      table:
+      - 0.5
+      - 0.9
+      - 1
+      - 0.9
+      - 0.8
+      - 0.8
+      - 0.7
+      - 0.6
+      - 0.5
+      - 0.2
 - type: Entity
   id: Elona.ItemWorthlessFakeGoldBar
   parent: BaseItem
@@ -4440,6 +4529,23 @@
     equipSlots:
     - Elona.Ranged
   - type: EquipStats
+  - type: Weapon
+    diceX: 1
+    diceY: 12
+    pierce_rate: 5
+  - type: RangedWeapon
+    rangedAccuracy: !type:RangedAccuracyTable
+      table:
+      - 0.6
+      - 1
+      - 0.7
+      - 0.2
+      - 0.2
+      - 0.2
+      - 0.2
+      - 0.2
+      - 0.2
+      - 0.2
 - type: Entity
   id: Elona.ItemSickle
   parent: BaseItem
@@ -4465,6 +4571,10 @@
   - type: EquipStats
     hitBonus: 2
     damageBonus: 10
+  - type: Weapon
+    diceX: 2
+    diceY: 5
+    pierce_rate: 5
 - type: Entity
   id: Elona.ItemStaff
   parent: BaseItem
@@ -4491,6 +4601,9 @@
     dv: 4
     hitBonus: 4
     damageBonus: 3
+  - type: Weapon
+    diceX: 1
+    diceY: 8
 - type: Entity
   id: Elona.ItemSpear
   parent: BaseItem
@@ -4517,6 +4630,10 @@
     dv: 3
     hitBonus: 2
     damageBonus: 4
+  - type: Weapon
+    diceX: 3
+    diceY: 5
+    pierce_rate: 25
 - type: Entity
   id: Elona.ItemOrePiece
   parent: BaseItem
@@ -4719,6 +4836,10 @@
     - Elona.Hand
   - type: EquipStats
     damageBonus: 6
+  - type: Weapon
+    diceX: 4
+    diceY: 4
+    pierce_rate: 20
 - type: Entity
   id: Elona.ItemScimitar
   parent: BaseItem
@@ -4745,6 +4866,10 @@
     dv: 2
     hitBonus: 7
     damageBonus: 3
+  - type: Weapon
+    diceX: 3
+    diceY: 4
+    pierce_rate: 10
 - type: Entity
   id: Elona.ItemBattleAxe
   parent: BaseItem
@@ -4770,6 +4895,9 @@
   - type: EquipStats
     hitBonus: -1
     damageBonus: 3
+  - type: Weapon
+    diceX: 1
+    diceY: 18
 - type: Entity
   id: Elona.ItemHammer
   parent: BaseItem
@@ -4795,6 +4923,9 @@
   - type: EquipStats
     hitBonus: -3
     damageBonus: 4
+  - type: Weapon
+    diceX: 2
+    diceY: 13
 - type: Entity
   id: Elona.ItemTrident
   parent: BaseItem
@@ -4821,6 +4952,10 @@
     dv: 3
     hitBonus: 1
     damageBonus: 3
+  - type: Weapon
+    diceX: 4
+    diceY: 4
+    pierce_rate: 25
 - type: Entity
   id: Elona.ItemLongStaff
   parent: BaseItem
@@ -4847,6 +4982,9 @@
     dv: 4
     hitBonus: 3
     damageBonus: 4
+  - type: Weapon
+    diceX: 2
+    diceY: 5
 - type: Entity
   id: Elona.ItemShortBow
   parent: BaseItem
@@ -4872,6 +5010,23 @@
   - type: EquipStats
     hitBonus: 8
     damageBonus: 3
+  - type: Weapon
+    diceX: 3
+    diceY: 5
+    pierce_rate: 15
+  - type: RangedWeapon
+    rangedAccuracy: !type:RangedAccuracyTable
+      table:
+      - 0.7
+      - 1
+      - 1
+      - 0.8
+      - 0.6
+      - 0.2
+      - 0.2
+      - 0.2
+      - 0.2
+      - 0.2
 - type: Entity
   id: Elona.ItemMachineGun
   parent: BaseItem
@@ -4898,6 +5053,22 @@
   - type: EquipStats
     hitBonus: 10
     damageBonus: 1
+  - type: Weapon
+    diceX: 10
+    diceY: 3
+  - type: RangedWeapon
+    rangedAccuracy: !type:RangedAccuracyTable
+      table:
+      - 0.8
+      - 1
+      - 1
+      - 0.9
+      - 0.8
+      - 0.7
+      - 0.2
+      - 0.2
+      - 0.2
+      - 0.2
 - type: Entity
   id: Elona.ItemClaymore
   parent: BaseItem
@@ -4923,6 +5094,9 @@
   - type: EquipStats
     hitBonus: 1
     damageBonus: 8
+  - type: Weapon
+    diceX: 3
+    diceY: 7
 - type: Entity
   id: Elona.ItemRation
   parent: BaseItem
@@ -4965,6 +5139,9 @@
   - type: EquipStats
     hitBonus: -1
     damageBonus: 5
+  - type: Weapon
+    diceX: 1
+    diceY: 20
 - type: Entity
   id: Elona.ItemHalberd
   parent: BaseItem
@@ -4990,6 +5167,10 @@
   - type: EquipStats
     hitBonus: -2
     damageBonus: 1
+  - type: Weapon
+    diceX: 2
+    diceY: 10
+    pierce_rate: 30
 - type: Entity
   id: Elona.ItemScrollOfReturn
   parent: BaseItem
@@ -5648,6 +5829,10 @@
     dv: 1
     hitBonus: 6
     damageBonus: 5
+  - type: Weapon
+    diceX: 4
+    diceY: 4
+    pierce_rate: 5
 - type: Entity
   id: Elona.ItemSpellbookOfDarknessBeam
   parent: BaseItem
@@ -7608,6 +7793,9 @@
   - type: EquipStats
     hitBonus: 8
     damageBonus: 22
+  - type: Weapon
+    diceX: 3
+    diceY: 5
 - type: Entity
   id: Elona.ItemRingOfSteelDragon
   parent: BaseItem
@@ -7683,6 +7871,9 @@
     pv: 3
     hitBonus: -5
     damageBonus: 2
+  - type: Weapon
+    diceX: 1
+    diceY: 8
 - type: Entity
   id: Elona.ItemRankis
   parent: BaseItem
@@ -7722,6 +7913,10 @@
     dv: 6
     hitBonus: 2
     damageBonus: 11
+  - type: Weapon
+    diceX: 8
+    diceY: 4
+    pierce_rate: 40
 - type: Entity
   id: Elona.ItemPalmiaPride
   parent: BaseItem
@@ -10519,6 +10714,23 @@
   - type: EquipStats
     hitBonus: 4
     damageBonus: 6
+  - type: Weapon
+    diceX: 1
+    diceY: 18
+    pierce_rate: 25
+  - type: RangedWeapon
+    rangedAccuracy: !type:RangedAccuracyTable
+      table:
+      - 0.8
+      - 1
+      - 0.9
+      - 0.8
+      - 0.7
+      - 0.6
+      - 0.5
+      - 0.2
+      - 0.2
+      - 0.2
 - type: Entity
   id: Elona.ItemBolt
   parent: BaseItem
@@ -10856,6 +11068,23 @@
   - type: EquipStats
     hitBonus: 4
     damageBonus: 6
+  - type: Weapon
+    diceX: 4
+    diceY: 8
+    pierce_rate: 30
+  - type: RangedWeapon
+    rangedAccuracy: !type:RangedAccuracyTable
+      table:
+      - 1
+      - 0.6
+      - 0.2
+      - 0.2
+      - 0.2
+      - 0.2
+      - 0.2
+      - 0.2
+      - 0.2
+      - 0.2
 - type: Entity
   id: Elona.ItemPopCorn
   parent: BaseItem
@@ -11236,6 +11465,23 @@
   - type: EquipStats
     hitBonus: 5
     damageBonus: 5
+  - type: Weapon
+    diceX: 2
+    diceY: 12
+    pierce_rate: 5
+  - type: RangedWeapon
+    rangedAccuracy: !type:RangedAccuracyTable
+      table:
+      - 1
+      - 1
+      - 1
+      - 1
+      - 1
+      - 1
+      - 1
+      - 0.2
+      - 0.2
+      - 0.2
 - type: Entity
   id: Elona.ItemEnergyCell
   parent: BaseItem
@@ -11299,6 +11545,23 @@
   - type: EquipStats
     hitBonus: -20
     damageBonus: 15
+  - type: Weapon
+    diceX: 4
+    diceY: 10
+    pierce_rate: 5
+  - type: RangedWeapon
+    rangedAccuracy: !type:RangedAccuracyTable
+      table:
+      - 1
+      - 1
+      - 1
+      - 1
+      - 1
+      - 1
+      - 1
+      - 0.5
+      - 0.2
+      - 0.2
 - type: Entity
   id: Elona.ItemScrollOfRecharge
   parent: BaseItem
@@ -14097,6 +14360,23 @@
     equipSlots:
     - Elona.Ranged
   - type: EquipStats
+  - type: Weapon
+    diceX: 1
+    diceY: 35
+    pierce_rate: 5
+  - type: RangedWeapon
+    rangedAccuracy: !type:RangedAccuracyTable
+      table:
+      - 0.5
+      - 1
+      - 0.5
+      - 0.2
+      - 0.2
+      - 0.2
+      - 0.2
+      - 0.2
+      - 0.2
+      - 0.2
 - type: Entity
   id: Elona.ItemLeash
   parent: BaseItem
@@ -15073,6 +15353,23 @@
   - type: EquipStats
     hitBonus: 4
     damageBonus: 11
+  - type: Weapon
+    diceX: 2
+    diceY: 23
+    pierce_rate: 20
+  - type: RangedWeapon
+    rangedAccuracy: !type:RangedAccuracyTable
+      table:
+      - 0.5
+      - 0.9
+      - 1
+      - 0.9
+      - 0.8
+      - 0.8
+      - 0.7
+      - 0.6
+      - 0.5
+      - 0.2
 - type: Entity
   id: Elona.ItemWinchesterPremium
   parent: BaseItem
@@ -15111,6 +15408,23 @@
   - type: EquipStats
     hitBonus: 7
     damageBonus: 2
+  - type: Weapon
+    diceX: 8
+    diceY: 9
+    pierce_rate: 30
+  - type: RangedWeapon
+    rangedAccuracy: !type:RangedAccuracyTable
+      table:
+      - 1
+      - 0.4
+      - 0.2
+      - 0.2
+      - 0.2
+      - 0.2
+      - 0.2
+      - 0.2
+      - 0.2
+      - 0.2
 - type: Entity
   id: Elona.ItemKumiromiScythe
   parent: BaseItem
@@ -15149,6 +15463,10 @@
   - type: EquipStats
     hitBonus: 5
     damageBonus: 2
+  - type: Weapon
+    diceX: 1
+    diceY: 38
+    pierce_rate: 15
 - type: Entity
   id: Elona.ItemElementalStaff
   parent: BaseItem
@@ -15189,6 +15507,9 @@
     pv: 4
     hitBonus: 6
     damageBonus: 2
+  - type: Weapon
+    diceX: 1
+    diceY: 14
 - type: Entity
   id: Elona.ItemHolyLance
   parent: BaseItem
@@ -15227,6 +15548,10 @@
     dv: 4
     hitBonus: 12
     damageBonus: 11
+  - type: Weapon
+    diceX: 7
+    diceY: 5
+    pierce_rate: 30
 - type: Entity
   id: Elona.ItemLuckyDagger
   parent: BaseItem
@@ -15267,6 +15592,10 @@
     pv: 13
     hitBonus: 13
     damageBonus: 18
+  - type: Weapon
+    diceX: 4
+    diceY: 6
+    pierce_rate: 10
 - type: Entity
   id: Elona.ItemGaiaHammer
   parent: BaseItem
@@ -15305,6 +15634,9 @@
   - type: EquipStats
     hitBonus: -3
     damageBonus: 2
+  - type: Weapon
+    diceX: 2
+    diceY: 30
 - type: Entity
   id: Elona.ItemLulwysGemStoneOfGodSpeed
   parent: BaseItem
@@ -15721,6 +16053,9 @@
     - Elona.Hand
   - type: EquipStats
     hitBonus: -35
+  - type: Weapon
+    diceX: 1
+    diceY: 70
 - type: Entity
   id: Elona.ItemSpellbookOfMagicBall
   parent: BaseItem
@@ -16170,6 +16505,23 @@
     - Elona.Ranged
   - type: EquipStats
     hitBonus: 4
+  - type: Weapon
+    diceX: 1
+    diceY: 20
+    pierce_rate: 15
+  - type: RangedWeapon
+    rangedAccuracy: !type:RangedAccuracyTable
+      table:
+      - 0.6
+      - 1
+      - 0.7
+      - 0.2
+      - 0.2
+      - 0.2
+      - 0.2
+      - 0.2
+      - 0.2
+      - 0.2
 - type: Entity
   id: Elona.ItemGrenade
   parent: BaseItem
@@ -16198,6 +16550,22 @@
     equipSlots:
     - Elona.Ranged
   - type: EquipStats
+  - type: Weapon
+    diceX: 1
+    diceY: 6
+  - type: RangedWeapon
+    rangedAccuracy: !type:RangedAccuracyTable
+      table:
+      - 0.8
+      - 1
+      - 0.9
+      - 0.8
+      - 0.6
+      - 0.2
+      - 0.2
+      - 0.2
+      - 0.2
+      - 0.2
 - type: Entity
   id: Elona.ItemSecretExperienceOfKumiromi
   parent: BaseItem
@@ -16258,6 +16626,23 @@
     equipSlots:
     - Elona.Ranged
   - type: EquipStats
+  - type: Weapon
+    diceX: 1
+    diceY: 42
+    pierce_rate: 50
+  - type: RangedWeapon
+    rangedAccuracy: !type:RangedAccuracyTable
+      table:
+      - 0.6
+      - 1
+      - 0.7
+      - 0.2
+      - 0.2
+      - 0.2
+      - 0.2
+      - 0.2
+      - 0.2
+      - 0.2
 - type: Entity
   id: Elona.ItemSecretExperienceOfLomias
   parent: BaseItem
@@ -16322,6 +16707,23 @@
   - type: EquipStats
     hitBonus: 7
     damageBonus: 4
+  - type: Weapon
+    diceX: 1
+    diceY: 47
+    pierce_rate: 5
+  - type: RangedWeapon
+    rangedAccuracy: !type:RangedAccuracyTable
+      table:
+      - 0.5
+      - 1
+      - 0.5
+      - 0.2
+      - 0.2
+      - 0.2
+      - 0.2
+      - 0.2
+      - 0.2
+      - 0.2
 - type: Entity
   id: Elona.ItemClaymoreUnique
   parent: BaseItem
@@ -16359,6 +16761,9 @@
   - type: EquipStats
     hitBonus: 1
     damageBonus: 16
+  - type: Weapon
+    diceX: 3
+    diceY: 14
 - type: Entity
   id: Elona.ItemHappyBed
   parent: BaseItem
@@ -16550,6 +16955,22 @@
     - Elona.Ranged
   - type: EquipStats
     hitBonus: -28
+  - type: Weapon
+    diceX: 1
+    diceY: 112
+  - type: RangedWeapon
+    rangedAccuracy: !type:RangedAccuracyTable
+      table:
+      - 0.6
+      - 1
+      - 0.7
+      - 0.2
+      - 0.2
+      - 0.2
+      - 0.2
+      - 0.2
+      - 0.2
+      - 0.2
 - type: Entity
   id: Elona.ItemAlud
   parent: BaseItem
@@ -16830,6 +17251,10 @@
   - type: EquipStats
     hitBonus: 3
     damageBonus: 4
+  - type: Weapon
+    diceX: 1
+    diceY: 17
+    pierce_rate: 5
 - type: Entity
   id: Elona.ItemFireproofLiquid
   parent: BaseItem
@@ -16937,6 +17362,10 @@
   - type: EquipStats
     hitBonus: -460
     damageBonus: 32
+  - type: Weapon
+    diceX: 25
+    diceY: 16
+    pierce_rate: 65
 - type: Entity
   id: Elona.ItemUnknownShell
   parent: BaseItem
@@ -17013,6 +17442,10 @@
   - type: EquipStats
     hitBonus: 3
     damageBonus: 2
+  - type: Weapon
+    diceX: 6
+    diceY: 6
+    pierce_rate: 20
 - type: Entity
   id: Elona.ItemLicenseOfTheVoidExplorer
   parent: BaseItem
@@ -17471,6 +17904,23 @@
   - type: EquipStats
     hitBonus: 14
     damageBonus: 26
+  - type: Weapon
+    diceX: 1
+    diceY: 24
+    pierce_rate: 35
+  - type: RangedWeapon
+    rangedAccuracy: !type:RangedAccuracyTable
+      table:
+      - 1
+      - 0.9
+      - 0.7
+      - 0.5
+      - 0.2
+      - 0.2
+      - 0.2
+      - 0.2
+      - 0.2
+      - 0.2
 - type: Entity
   id: Elona.ItemLightsabre
   parent: BaseItem
@@ -17499,6 +17949,10 @@
     equipSlots:
     - Elona.Hand
   - type: EquipStats
+  - type: Weapon
+    diceX: 2
+    diceY: 5
+    pierce_rate: 100
 - type: Entity
   id: Elona.ItemGaroksHammer
   parent: BaseItem
@@ -18038,6 +18492,10 @@
   - type: EquipStats
     hitBonus: 5
     damageBonus: 1
+  - type: Weapon
+    diceX: 1
+    diceY: 14
+    pierce_rate: 40
 - type: Entity
   id: Elona.ItemDish
   parent: BaseItem
@@ -18202,6 +18660,23 @@
   - type: EquipStats
     hitBonus: -18
     damageBonus: 10
+  - type: Weapon
+    diceX: 1
+    diceY: 17
+    pierce_rate: 15
+  - type: RangedWeapon
+    rangedAccuracy: !type:RangedAccuracyTable
+      table:
+      - 0.6
+      - 0.9
+      - 1
+      - 1
+      - 0.8
+      - 0.6
+      - 0.2
+      - 0.2
+      - 0.2
+      - 0.2
 - type: Entity
   id: Elona.ItemPotForTesting
   parent: BaseItem
@@ -18277,6 +18752,9 @@
     pv: 30
     hitBonus: -25
     damageBonus: 20
+  - type: Weapon
+    diceX: 3
+    diceY: 14
 - type: Entity
   id: Elona.ItemPutitoro
   parent: BaseItem

@@ -27,5 +27,8 @@ namespace OpenNefia.Content.Combat
 
         [DataField]
         public SoundSpecifier? AnimImpactSound { get; }
+
+        [DataField]
+        public IRangedAccuracy RangedAccuracy { get; } = new RangedAccuracyTable();
     }
 }

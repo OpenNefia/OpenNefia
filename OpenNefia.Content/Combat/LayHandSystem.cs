@@ -21,12 +21,7 @@ namespace OpenNefia.Content.Combat
 {
     public sealed class LayHandSystem : EntitySystem
     {
-        [Dependency] private readonly IMapManager _mapManager = default!;
-        [Dependency] private readonly IAreaManager _areaManager = default!;
-        [Dependency] private readonly IRandom _rand = default!;
         [Dependency] private readonly IMessagesManager _mes = default!;
-        [Dependency] private readonly IEntityLookup _lookup = default!;
-        [Dependency] private readonly IGameSessionManager _gameSession = default!;
         [Dependency] private readonly IPartySystem _parties = default!;
         [Dependency] private readonly IAudioManager _audio = default!;
 
