@@ -5,6 +5,7 @@ using OpenNefia.Content.EmotionIcon;
 using OpenNefia.Content.EntityGen;
 using OpenNefia.Content.EquipSlots;
 using OpenNefia.Content.GameObjects;
+using OpenNefia.Content.Prototypes;
 using OpenNefia.Content.Skills;
 using OpenNefia.Content.StatusEffects;
 using OpenNefia.Content.VanillaAI;

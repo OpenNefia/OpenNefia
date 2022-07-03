@@ -19,7 +19,7 @@ using OpenNefia.Content.EntityGen;
 namespace OpenNefia.Content.CharaMake
 {
     [Localize("Elona.CharaMake.AppearanceSelect")]
-    public class CharaMakeAppearanceLayer : CharaMakeLayer
+    public class CharaMakeAppearanceLayer : CharaMakeLayer<CharaMakeAppearanceLayer.ResultData>
     {
         [Dependency] private readonly IPrototypeManager _protos = default!;
         [Dependency] private readonly IResourceCache _resourceCache = default!;
@@ -35,31 +35,49 @@ namespace OpenNefia.Content.CharaMake
             AppearanceControl.List_OnActivated += OnListActivated;
         }
 
+        public sealed class ResultData : CharaMakeResult
+        {
+            [Dependency] private readonly IPCCSystem _pccs = default!;
+
+            public CharaAppearanceData AppearanceData { get; set; }
+
+            public ResultData(CharaAppearanceData appearanceData)
+            {
+                AppearanceData = appearanceData;
+            }
+
+            public override void ApplyStep(EntityUid entity, EntityGenArgSet args)
+            {
+                CharaAppearanceHelpers.ApplyAppearanceDataTo(entity, AppearanceData, EntityManager, _pccs);
+            }
+        }
+
         private void OnListActivated(object? sender, UiListEventArgs<CharaAppearanceUICellData> args)
         {
             switch (args.SelectedCell.Data)
             {
                 case CharaAppearanceUICellData.Done:
-                    Finish(new CharaMakeResult(new Dictionary<string, object>
-                    {
-                        { ResultName, AppearanceControl.AppearanceData }
-                    }));
+                    Finish(new CharaMakeUIResult(new ResultData(AppearanceControl.AppearanceData)));
                     break;
             }
         }
 
         private PrototypeId<ChipPrototype> GetDefaultCharaChip()
         {
-            if (!Data.TryGetCharaMakeResult<Gender>(CharaMakeGenderSelectLayer.ResultName, out var gender))
+            Gender gender;
+
+            if (Results.TryGet<CharaMakeGenderSelectLayer.ResultData>(out var genderResult))
+                gender = genderResult.Gender;
+            else
                 gender = Gender.Female;
 
-            if (!Data.TryGetCharaMakeResult<RacePrototype>(CharaMakeRaceSelectLayer.ResultName, out var race))
+            if (!Results.TryGet<CharaMakeRaceSelectLayer.ResultData>(out var raceResult))
                 return Protos.Chip.Default;
 
-            return _charas.GetDefaultCharaChip(race, gender);
+            return _charas.GetDefaultCharaChip(raceResult.RaceID, gender);
         }
 
-        public override void Initialize(CharaMakeData args)
+        public override void Initialize(CharaMakeResultSet args)
         {
             base.Initialize(args);
 
@@ -116,15 +134,6 @@ namespace OpenNefia.Content.CharaMake
         {
             base.Dispose();
             AppearanceControl.Dispose();
-        }
-
-        public override void ApplyStep(EntityUid entity, EntityGenArgSet args)
-        {
-            base.ApplyStep(entity, args);
-            if (!Data.TryGetCharaMakeResult<CharaAppearanceData>(ResultName, out var appearance))
-                return;
-
-            CharaAppearanceHelpers.ApplyAppearanceDataTo(entity, appearance, EntityManager, _pccs);
         }
     }
 }

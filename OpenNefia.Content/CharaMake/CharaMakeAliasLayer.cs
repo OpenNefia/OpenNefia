@@ -28,7 +28,7 @@ using static OpenNefia.Content.Prototypes.Protos;
 namespace OpenNefia.Content.CharaMake
 {
     [Localize("Elona.CharaMake.AliasSelect")]
-    public class CharaMakeAliasLayer : CharaMakeLayer
+    public class CharaMakeAliasLayer : CharaMakeLayer<CharaMakeAliasLayer.ResultData>
     {
         public class CreateCharaAliasData
         {
@@ -105,7 +105,7 @@ namespace OpenNefia.Content.CharaMake
             return keyHints;
         }
 
-        public override void Initialize(CharaMakeData args)
+        public override void Initialize(CharaMakeResultSet args)
         {
             base.Initialize(args);
             Window.KeyHints = MakeKeyHints();
@@ -121,11 +121,29 @@ namespace OpenNefia.Content.CharaMake
             }
             else
             {
-                Result = new CharaMakeResult(new Dictionary<string, object>
-                {
-                    { ResultName, args.SelectedCell.Data.Alias }
-                });
+                Result = new CharaMakeUIResult(new ResultData(args.SelectedCell.Data.Alias));
                 Finish(Result);
+            }
+        }
+        
+        public sealed class ResultData : CharaMakeResult
+        {
+            public string Alias { get; set; }
+
+            public ResultData(string alias)
+            {
+                Alias = alias;
+            }
+
+            public override void ApplyStep(EntityUid entity, EntityGenArgSet args)
+            {
+                if (!EntityManager.TryGetComponent<CharaComponent>(entity, out var chara))
+                {
+                    Logger.WarningS("charamake", "No CharaComponent present on entity");
+                    return;
+                }
+
+                chara.Alias = Alias;
             }
         }
 
@@ -201,21 +219,6 @@ namespace OpenNefia.Content.CharaMake
             Window.Update(dt);
             AliasTopic.Update(dt);
             List.Update(dt);
-        }
-
-        public override void ApplyStep(EntityUid entity, EntityGenArgSet args)
-        {
-            base.ApplyStep(entity, args);
-            if (!Data.TryGetCharaMakeResult<string>(ResultName, out var alias))
-                return;
-
-            if (!EntityManager.TryGetComponent<CharaComponent>(entity, out var chara))
-            {
-                Logger.WarningS("charamake", "No CharaComponent present on entity");
-                return;
-            }
-
-            chara.Alias = alias;
         }
     }
 }

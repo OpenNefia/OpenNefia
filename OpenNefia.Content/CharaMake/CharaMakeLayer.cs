@@ -26,7 +26,11 @@ using System.Threading.Tasks;
 
 namespace OpenNefia.Content.CharaMake
 {
-    public class CharaMakeLayer : UiLayerWithResult<CharaMakeData, CharaMakeResult>, ICharaMakeLayer
+    public abstract class CharaMakeLayer : UiLayerWithResult<CharaMakeResultSet, CharaMakeUIResult>, ICharaMakeLayer
+        {}
+
+    public class CharaMakeLayer<T> : CharaMakeLayer, ICharaMakeLayer<T>
+        where T: ICharaMakeResult
     {
         [Dependency] protected readonly IEntityManager EntityManager = default!;
 
@@ -34,7 +38,7 @@ namespace OpenNefia.Content.CharaMake
         protected IAssetInstance[] AssetWindows;
         protected IAssetInstance CurrentWindowBG;
 
-        protected CharaMakeData Data = default!;
+        protected CharaMakeResultSet Results = default!;
 
         [Child] [Localize] protected CharaMakeCaption Caption;
         private int UiMoveCount;
@@ -64,7 +68,7 @@ namespace OpenNefia.Content.CharaMake
 
             if (args.Function == EngineKeyFunctions.UICancel)
             {
-                Finish(new CharaMakeResult(new(), CharaMakeStep.GoBack));
+                Finish(new CharaMakeUIResult(null, CharaMakeStep.GoBack));
                 args.Handle();
             }
             else if (args.Function == EngineKeyFunctions.UIDown || args.Function == EngineKeyFunctions.UIUp)
@@ -98,9 +102,9 @@ namespace OpenNefia.Content.CharaMake
             return cont;
         }
 
-        public override void Initialize(CharaMakeData args)
+        public override void Initialize(CharaMakeResultSet args)
         {
-            Data = args;
+            Results = args;
         }
 
         public override void SetSize(float width, float height)
@@ -124,11 +128,6 @@ namespace OpenNefia.Content.CharaMake
         public override void Dispose()
         {
             OnKeyBindDown -= HandleKeyBindDown;
-        }
-
-        //will be used to actually make the change to the character after creation
-        public virtual void ApplyStep(EntityUid entity, EntityGenArgSet args)
-        {
         }
     }
 }

@@ -523,6 +523,9 @@ handlers["base.race"] = function(from, to)
             to.initialFeats[dotted(part)] = level
         end
     end
+    if from.properties.breaks_into_debris then
+        comp(to, "BreaksIntoDebris")
+    end
     -- if #from.traits > 0 then
     --    to.traits = {}
     --    for id, level in pairs(from.traits) do
@@ -1088,7 +1091,7 @@ end
 write("base.chara", "Entity/Chara.yml")
 write("base.item", "Entity/Item.yml")
 -- write("base.class", "Class.yml")
--- write("base.race", "Race.yml")
+write("base.race", "Race.yml", "OpenNefia.Content.Prototypes.RacePrototype")
 -- write("elona_sys.dialog", "Dialog.yml")
 -- write("base.tone", "Tone.yml")
 -- write("base.portrait", "Portrait.yml")

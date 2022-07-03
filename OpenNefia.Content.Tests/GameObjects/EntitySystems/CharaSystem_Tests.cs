@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using NUnit.Framework;
 using OpenNefia.Content.Charas;
 using OpenNefia.Content.EntityGen;
+using OpenNefia.Content.Prototypes;
 using OpenNefia.Content.Tests;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;

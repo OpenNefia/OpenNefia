@@ -7,7 +7,7 @@
   initialLevel: 4
   extendedData:
   - type: Combat.ExtAttackAnim
-    attackAnimType: Melee
+    attackAnim: Elona.AnimSlash
 
 - type: Elona.Skill
   id: Elona.ShortSword
@@ -16,7 +16,7 @@
   initialLevel: 4
   extendedData:
   - type: Combat.ExtAttackAnim
-    attackAnimType: Melee
+    attackAnim: Elona.AnimSlash
 
 - type: Elona.Skill
   id: Elona.Axe
@@ -25,7 +25,7 @@
   initialLevel: 4
   extendedData:
   - type: Combat.ExtAttackAnim
-    attackAnimType: Melee
+    attackAnim: Elona.AnimSlash
 
 - type: Elona.Skill
   id: Elona.Blunt
@@ -40,7 +40,7 @@
   initialLevel: 4
   extendedData:
   - type: Combat.ExtAttackAnim
-    attackAnimType: Melee
+    attackAnim: Elona.AnimSlash
 
 - type: Elona.Skill
   id: Elona.Stave
@@ -69,7 +69,7 @@
   initialLevel: 4
   extendedData:
   - type: Combat.ExtAttackAnim
-    attackAnimType: Melee
+    attackAnim: Elona.AnimSlash
 
 - type: Elona.Skill
   id: Elona.Bow
@@ -79,7 +79,7 @@
   initialLevel: 4
   extendedData:
   - type: Combat.ExtAttackAnim
-    attackAnimType: Ranged
+    attackAnim: Elona.AnimBash
 
 - type: Elona.Skill
   id: Elona.Crossbow
@@ -88,7 +88,7 @@
   initialLevel: 4
   extendedData:
   - type: Combat.ExtAttackAnim
-    attackAnimType: Ranged
+    attackAnim: Elona.AnimBash
 
 - type: Elona.Skill
   id: Elona.Firearm
@@ -96,7 +96,7 @@
   skillType: WeaponProficiency
   extendedData:
   - type: Combat.ExtAttackAnim
-    attackAnimType: Ranged
+    attackAnim: Elona.AnimBash
 
 - type: Elona.Skill
   id: Elona.Throwing
@@ -105,4 +105,4 @@
   initialLevel: 4
   extendedData:
   - type: Combat.ExtAttackAnim
-    attackAnimType: Ranged
+    attackAnim: Elona.AnimBash

@@ -54,9 +54,7 @@ namespace OpenNefia.Content.Rendering
         {
             Counter.Update(dt);
             if (Counter.IsFinished)
-            {
                 Finish();
-            }
         }
     }
 

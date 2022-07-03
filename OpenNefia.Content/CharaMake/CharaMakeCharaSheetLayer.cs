@@ -30,7 +30,7 @@ using OpenNefia.Core.Prototypes;
 namespace OpenNefia.Content.CharaMake
 {
     [Localize("Elona.CharaMake.CharaSheet")]
-    public class CharaMakeCharaSheetLayer : CharaMakeLayer
+    public class CharaMakeCharaSheetLayer : CharaMakeLayer<CharaMakeCharaSheetLayer.ResultData>
     {
         [Dependency] private readonly IMapManager _mapManager = default!;
         [Dependency] private readonly IEntityGen _entityGen = default!;
@@ -54,7 +54,7 @@ namespace OpenNefia.Content.CharaMake
             CharaInfoPages.GrabFocus();
         }
 
-        public override void Initialize(CharaMakeData args)
+        public override void Initialize(CharaMakeResultSet args)
         {
             base.Initialize(args);
             Reroll(playSound: false);
@@ -74,7 +74,7 @@ namespace OpenNefia.Content.CharaMake
             EntityManager.EnsureComponent<SleepExperienceComponent>(playerEntity);
         }
 
-        public EntityUid CreatePlayerEntity(IEnumerable<ICharaMakeLayer> steps)
+        public EntityUid CreatePlayerEntity(IEnumerable<ICharaMakeResult> results)
         {
             var globalMap = _mapManager.CreateMap(1, 1, MapId.Global);
             var globalMapSpatial = EntityManager.GetComponent<SpatialComponent>(globalMap.MapEntityUid);
@@ -88,9 +88,10 @@ namespace OpenNefia.Content.CharaMake
 
             var genArgs = EntityGenArgSet.Make();
 
-            foreach (var creationStep in steps)
+            foreach (var creationResult in results)
             {
-                creationStep.ApplyStep(playerEntity, genArgs);
+                EntitySystem.InjectDependencies(creationResult);
+                creationResult.ApplyStep(playerEntity, genArgs);
             }
 
             var customName = EntityManager.EnsureComponent<CustomNameComponent>(playerEntity);
@@ -106,7 +107,7 @@ namespace OpenNefia.Content.CharaMake
         {
             _saveSerializer.ResetGameState();
 
-            _playerEntity = CreatePlayerEntity(Data.AllSteps);
+            _playerEntity = CreatePlayerEntity(Results.AllResults.Values);
 
             CharaInfoPages.Initialize(_playerEntity);
             CharaInfoPages.RefreshFromEntity();
@@ -192,10 +193,10 @@ namespace OpenNefia.Content.CharaMake
                     case FinalPromptChoice.No:
                         break;
                     case FinalPromptChoice.Restart:
-                        Finish(new CharaMakeResult(new(), CharaMakeStep.Restart));
+                        Finish(new CharaMakeUIResult(null, CharaMakeStep.Restart));
                         break;
                     case FinalPromptChoice.GoBack:
-                        Finish(new CharaMakeResult(new(), CharaMakeStep.GoBack));
+                        Finish(new CharaMakeUIResult(null, CharaMakeStep.GoBack));
                         break;
                     default:
                         break;
@@ -246,15 +247,26 @@ namespace OpenNefia.Content.CharaMake
                 }
                 else
                 {
-                    Finish(new CharaMakeResult(new Dictionary<string, object>()
-                    {
-                        { CharaMakeLogic.PlayerEntityResultName, _playerEntity }
-                    }));
+                    Finish(new CharaMakeUIResult(new ResultData(_playerEntity)));
                 }
             }
             else
             {
                 ResetCaption();
+            }
+        }
+
+        public sealed class ResultData : CharaMakeResult
+        {
+            public EntityUid PlayerEntity { get; }
+
+            public ResultData(EntityUid playerEntity)
+            {
+                PlayerEntity = playerEntity;
+            }
+
+            public override void ApplyStep(EntityUid entity, EntityGenArgSet args)
+            {
             }
         }
 

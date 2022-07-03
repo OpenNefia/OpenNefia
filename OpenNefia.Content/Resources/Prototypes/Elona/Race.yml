@@ -106,8 +106,6 @@
   - Elona.Arm
   - Elona.Waist
   - Elona.Leg
-  components:
-  - type: BreaksIntoDebris
 - type: Elona.Race
   id: Elona.Troll
   hspIds:
@@ -1467,6 +1465,8 @@
   - Elona.Hand
   - Elona.Arm
   - Elona.Waist
+  components:
+  - type: BreaksIntoDebris
 - type: Elona.Race
   id: Elona.Medusa
   hspIds:
