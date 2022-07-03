@@ -148,14 +148,57 @@ namespace OpenNefia.Content.Combat
             }
         }
 
+        public bool IsMeleeWeapon(EntityUid ent)
+        {
+            return HasComp<WeaponComponent>(ent)
+                && !_equipSlots.IsEquippedOnSlotOfType(ent, Protos.EquipSlot.Ranged)
+                && !_equipSlots.IsEquippedOnSlotOfType(ent, Protos.EquipSlot.Ammo);
+        }
+
+        public bool IsRangedWeapon(EntityUid ent)
+        {
+            return HasComp<WeaponComponent>(ent)
+                && HasComp<RangedWeaponComponent>(ent)
+                && _equipSlots.IsEquippedOnSlotOfType(ent, Protos.EquipSlot.Ranged);
+        }
+
+        public bool IsAmmo(EntityUid ent)
+        {
+            return HasComp<AmmoComponent>(ent)
+                && _equipSlots.IsEquippedOnSlotOfType(ent, Protos.EquipSlot.Ammo);
+        }
+
+        public bool IsArmor(EntityUid ent)
+        {
+            return !IsMeleeWeapon(ent) && !IsRangedWeapon(ent);
+        }
+
+        public IList<EntityUid> GetMeleeWeapons(EntityUid ent)
+        {
+            var result = new List<EntityUid>();
+
+            foreach (var equipSlot in _equipSlots.GetEquipSlots(ent))
+            {
+                if (!_equipSlots.TryGetContainerForEquipSlot(ent, equipSlot, out var container))
+                    continue;
+
+                if (!EntityManager.IsAlive(container.ContainedEntity))
+                    continue;
+
+                if (IsMeleeWeapon(container.ContainedEntity.Value))
+                    result.Add(container.ContainedEntity.Value);
+            }
+
+            return result;
+        }
+
         public TurnResult? MeleeAttack(EntityUid attacker, EntityUid target)
         {
-            var ev = new GetMeleeWeaponsEvent();
-            RaiseEvent(attacker, ev);
+            var weapons = GetMeleeWeapons(attacker);
 
-            if (ev.Weapons.Count > 0)
+            if (weapons.Count > 0)
             {
-                foreach (var (weapon, attackCount) in ev.Weapons.WithIndex())
+                foreach (var (weapon, attackCount) in weapons.WithIndex())
                 {
 
                     var attackSkill = GetPhysicalAttackSkill(weapon);
@@ -306,19 +349,17 @@ namespace OpenNefia.Content.Combat
                 if (playAnimation)
                 {
                     var damagePercent = rawDamage.TotalDamage * 100 / (Comp<SkillsComponent>(target).MaxHP);
-                    if (TryGetAttackAnimation(target, attackSkill, damagePercent, isCritical, out var anim))
-                    {
-                        _mapDrawables.Enqueue(anim, Spatial(target).MapPosition);
-                    }
+                    var anim = GetAttackAnimation(target, attackSkill, damagePercent, isCritical);
+                    _mapDrawables.Enqueue(anim, Spatial(target).MapPosition);
                 }
 
                 if (weapon != null)
                 {
-                    
+
                 }
                 else
                 {
-                    
+
                 }
             }
             else
@@ -349,7 +390,7 @@ namespace OpenNefia.Content.Combat
                 return;
 
             var capitalize = true;
-            
+
             if (attackCount > 0)
             {
                 _mes.Display(Loc.GetString("Elona.Combat.PhysicalAttack.Furthermore"));
@@ -365,7 +406,7 @@ namespace OpenNefia.Content.Combat
             {
                 key = "Elona.Combat.PhysicalAttack.Miss.Other";
             }
-            
+
             _mes.Display(Loc.GetString(key, ("attacker", attacker), ("target", target)), noCapitalize: !capitalize);
             // <<<<<<<< shade2/action.hsp:1368 		} ...
         }
@@ -398,12 +439,12 @@ namespace OpenNefia.Content.Combat
             // <<<<<<<< shade2/action.hsp:1372 		} ...
         }
 
-        private bool TryGetAttackAnimation(EntityUid target, PrototypeId<SkillPrototype> attackSkill, int damagePercent, bool isCritical, [NotNullWhen(true)] out IMapDrawable? anim)
+        private IMapDrawable GetAttackAnimation(EntityUid target, PrototypeId<SkillPrototype> attackSkill, int damagePercent, bool isCritical)
         {
-            if (!_protos.TryGetExtendedData<SkillPrototype, ExtAttackAnim>(attackSkill, out var ext))
+            PrototypeId<AssetPrototype>? attackAnimAsset = null;
+            if (_protos.TryGetExtendedData<SkillPrototype, ExtAttackAnim>(attackSkill, out var ext))
             {
-                anim = null;
-                return false;
+                attackAnimAsset = ext.AttackAnim;
             }
 
             var breaksIntoDebris = HasComp<BreaksIntoDebrisComponent>(target);
@@ -413,8 +454,7 @@ namespace OpenNefia.Content.Combat
             else
                 particleAsset = Protos.Asset.MeleeAttackBlood;
 
-            anim = new MeleeAttackMapDrawable(particleAsset, ext.AttackAnim, damagePercent, isCritical);
-            return true;
+            return new MeleeAttackMapDrawable(particleAsset, attackAnimAsset, damagePercent, isCritical);
         }
 
         public HitResult CalcPhysicalAttackHit(EntityUid attacker, EntityUid target, PrototypeId<SkillPrototype> attackSkill, EntityUid? weapon, int attackCount, bool isRanged)
@@ -741,11 +781,6 @@ namespace OpenNefia.Content.Combat
         public EntityUid Target;
         public EntityUid? Weapon;
         public int AttackCount;
-    }
-
-    public sealed class GetMeleeWeaponsEvent : EntityEventArgs
-    {
-        public readonly List<EntityUid> Weapons = new();
     }
 
     [ByRefEvent]

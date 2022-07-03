@@ -479,5 +479,41 @@ namespace OpenNefia.Content.Tests.EquipSlots
                 Assert.That(enumerator.MoveNext(out _), Is.False, "MoveNext 4");
             });
         }
+
+        [Test]
+        public void TestIsEquippedOnSlotOfType()
+        {
+            var sim = SimulationFactory();
+
+            var entMan = sim.Resolve<IEntityManager>();
+            var mapMan = sim.Resolve<IMapManager>();
+
+            var containerSys = sim.GetEntitySystem<ContainerSystem>();
+            var equipSlotSys = sim.GetEntitySystem<EquipSlotsSystem>();
+
+            var map = sim.CreateMapAndSetActive(10, 10);
+
+            var ent = entMan.SpawnEntity(null, map.AtPos(Vector2i.One));
+            var entItem = entMan.SpawnEntity(TestEquipment1ID, map.AtPos(Vector2i.One));
+
+            List<PrototypeId<EquipSlotPrototype>> equipSlotProtos = new()
+            {
+                TestSlot1ID,
+            };
+
+            equipSlotSys.InitializeEquipSlots(ent, equipSlotProtos);
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(equipSlotSys.IsEquippedOnSlotOfType(entItem, TestSlot1ID), Is.False, "Is equipped on slot of type (false)");
+                Assert.That(equipSlotSys.TryGetEmptyEquipSlot(ent, TestSlot1ID, out var equipSlot), Is.True);
+
+                Assert.That(equipSlotSys.TryEquip(ent, entItem, equipSlot!), Is.True, "Try equip");
+                Assert.That(equipSlotSys.IsEquippedOnSlotOfType(entItem, TestSlot1ID), Is.True, "Is equipped on slot of type (true)");
+                
+                Assert.That(equipSlotSys.TryUnequip(ent, equipSlot!), Is.True, "Try unequip");
+                Assert.That(equipSlotSys.IsEquippedOnSlotOfType(entItem, TestSlot1ID), Is.False, "Is equipped on slot of type (false)");
+            });
+        }
     }
 }
