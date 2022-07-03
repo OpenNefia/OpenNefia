@@ -7,6 +7,8 @@ using OpenNefia.Content.Prototypes;
 using OpenNefia.Content.RandomAreas;
 using OpenNefia.Content.GameObjects;
 using OpenNefia.Content.Mount;
+using NuGet.Packaging.Signing;
+using OpenNefia.Content.Weight;
 
 namespace OpenNefia.Content.Combat
 {
@@ -16,6 +18,7 @@ namespace OpenNefia.Content.Combat
         {
             SubscribeEntity<BeforePhysicalAttackEventArgs>(BlockPhysicalAttackFear, priority: EventPriorities.VeryHigh);
 
+            SubscribeEntity<CalcPhysicalAttackAccuracyEvent>(HandleCalcAccuracyEquipState, priority: EventPriorities.VeryHigh);
             SubscribeEntity<CalcPhysicalAttackAccuracyEvent>(HandleCalcAccuracyAttackCount, priority: EventPriorities.VeryHigh);
 
             SubscribeEntity<CalcPhysicalAttackHitEvent>(HandleCalcHitStatusEffects, priority: EventPriorities.VeryHigh);
@@ -39,20 +42,58 @@ namespace OpenNefia.Content.Combat
 
         #region Accuracy calculation
 
+        private void HandleCalcAccuracyEquipState(EntityUid attacker, ref CalcPhysicalAttackAccuracyEvent args)
+        {
+            if (!EntityManager.IsAlive(args.Weapon))
+                return;
+
+            if (args.IsRanged)
+            {
+                if (args.ConsiderDistance && EntityManager.IsAlive(args.Target)
+                    && Spatial(attacker).MapPosition.TryDistanceFractional(Spatial(args.Target).MapPosition, out var dist)
+                    && TryComp<RangedWeaponComponent>(args.Weapon.Value, out var ranged))
+                {
+                    args.OutAccuracy = (int)(args.OutAccuracy * ranged.RangedAccuracy.GetAccuracyModifier(dist));
+                }
+            }
+            else
+            {
+                var weight = CompOrNull<WeightComponent>(args.Weapon)?.Weight ?? 0;
+                var equipState = GetEquipState(attacker);
+                if (equipState.IsWieldingTwoHanded)
+                {
+                    args.OutAccuracy += 25;
+                    if (weight >= WeaponWeight.Heavy)
+                    {
+                        args.OutAccuracy += _skills.Level(attacker, Protos.Skill.TwoHand);
+                    }
+                }
+                else if (equipState.IsDualWielding)
+                {
+                    if (args.AttackCount == 1)
+                    {
+                        if (weight > WeaponWeight.Heavy)
+                        {
+                           args.OutAccuracy -= (weight - WeaponWeight.Heavy + 400) / (10 + _skills.Level(attacker, Protos.Skill.DualWield) / 5);
+                        }
+                        else if (weight > WeaponWeight.Light)
+                        {
+                            args.OutAccuracy -= (weight - WeaponWeight.Light + 100) / (10 + _skills.Level(attacker, Protos.Skill.DualWield) / 5);
+                        }
+                    }
+                }
+            }
+        }
+
         private void HandleCalcAccuracyAttackCount(EntityUid attacker, ref CalcPhysicalAttackAccuracyEvent args)
         {
             if (args.AttackCount <= 0)
                 return;
 
             var hits = 100 - (args.AttackCount - 1) * (10000 / (100 * _skills.Level(attacker, Protos.Skill.DualWield) * 10));
-            
-            if (args.OutToHit > 0)
-                args.OutToHit = args.OutToHit * hits / 100;
-        }
 
-        private void HandleCalcEvasion(EntityUid target, CalcPhysicalAttackEvasionEvent args)
-        {
-            args.OutEvasion = _skills.Level(target, Protos.Skill.AttrPerception) / 3;
+            if (args.OutAccuracy > 0)
+                args.OutAccuracy = args.OutAccuracy * hits / 100;
         }
 
         #endregion
@@ -76,7 +117,7 @@ namespace OpenNefia.Content.Combat
             }
             if (_effects.HasEffect(attacker, Protos.StatusEffect.Blindness))
             {
-                args.OutToHit /= 2;
+                args.OutAccuracy /= 2;
             }
             if (_effects.HasEffect(args.Target, Protos.StatusEffect.Blindness))
             {
@@ -91,11 +132,11 @@ namespace OpenNefia.Content.Combat
             {
                 if (args.IsRanged)
                 {
-                    args.OutToHit /= 5;
+                    args.OutAccuracy /= 5;
                 }
                 else
                 {
-                    args.OutToHit = args.OutToHit / 3 * 2;
+                    args.OutAccuracy = args.OutAccuracy / 3 * 2;
                 }
             }
             // <<<<<<<< shade2/calculation.hsp:225 	if (cConfuse(cc)!0)or(cDim(cc)!0) : if AttackRang ..
@@ -108,9 +149,9 @@ namespace OpenNefia.Content.Combat
             if (greaterEvasion <= 0)
                 return;
 
-            if (args.OutToHit > 0 && args.OutEvasion < greaterEvasion * 10)
+            if (args.OutAccuracy > 0 && args.OutEvasion < greaterEvasion * 10)
             {
-                var evadeRef = args.OutEvasion * 100 / Math.Max(args.OutToHit, 1);
+                var evadeRef = args.OutEvasion * 100 / Math.Max(args.OutAccuracy, 1);
                 var value = _rand.Next(greaterEvasion * 250);
                 if (evadeRef > 300)
                 {

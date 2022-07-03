@@ -14,6 +14,8 @@ local lyaml = require "lyaml"
 local Enum = require "api.Enum"
 local Log = require "api.Log"
 local IItemEquipment = require "mod.elona.api.aspect.IItemEquipment"
+local IItemMeleeWeapon = require "mod.elona.api.aspect.IItemMeleeWeapon"
+local IItemRangedWeapon = require "mod.elona.api.aspect.IItemRangedWeapon"
 
 local rootDir = "C:/Users/yuno/build/OpenNefia.NET"
 
@@ -402,6 +404,37 @@ handlers["base.item"] = function(from, to)
         end
         if (equipment.damage_bonus or 0) ~= 0 then
             c.damageBonus = equipment.damage_bonus
+        end
+    end
+
+    local weapon = from._ext and (from._ext[IItemMeleeWeapon] or from._ext[IItemRangedWeapon])
+    if weapon then
+        c = comp(to, "Weapon")
+        if (weapon.dice_y or 0) ~= 0 then
+            c.diceX = weapon.dice_x
+        end
+        if (weapon.dice_y or 0) ~= 0 then
+            c.diceY = weapon.dice_y
+        end
+        if (weapon.pierce_rate or 0) ~= 0 then
+            c.pierce_rate = weapon.pierce_rate
+        end
+        if equipment.skill then
+            c.weaponSkill = dotted(equipment.skill)
+        end
+    end
+
+    local ranged_weapon = from._ext and from._ext[IItemRangedWeapon]
+    if ranged_weapon then
+        c = comp(to, "RangedWeapon")
+        if ranged_weapon.effective_range then
+            c.rangedAccuracy = setmetatable({
+                table = fun.iter(ranged_weapon.effective_range)
+                    :map(function(i)
+                        return i / 100.0
+                    end)
+                    :to_list(),
+            }, { tag = "type:RangedAccuracyTable", type = "mapping" })
         end
     end
 end
@@ -1075,7 +1108,7 @@ write("base.item", "Entity/Item.yml")
 -- write("elona.food_type", "FoodType.yml")
 -- write("elona.rank", "Rank.yml")
 -- write("base.activity", "Activity.yml", "OpenNefia.Content.Activity.ActivityPrototype")
-write("elona.shop_inventory", "ShopInventory.yml", "OpenNefia.Content.Shopkeeper.ShopInventoryPrototype")
+-- write("elona.shop_inventory", "ShopInventory.yml", "OpenNefia.Content.Shopkeeper.ShopInventoryPrototype")
 
 -- for _, tag in ipairs(allTags) do
 --     print(tag)
