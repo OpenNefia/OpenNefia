@@ -10,7 +10,6 @@ using OpenNefia.Content.Prototypes;
 using OpenNefia.Core.SaveGames;
 using OpenNefia.Core.UserInterface;
 using OpenNefia.Core.Areas;
-using static OpenNefia.Content.Prototypes.Protos;
 using OpenNefia.Content.Skills;
 using OpenNefia.Content.CharaMake;
 using OpenNefia.Core.Prototypes;
@@ -23,6 +22,7 @@ using OpenNefia.Core.Audio;
 using OpenNefia.Content.Logic;
 using OpenNefia.Core.Locale;
 using OpenNefia.Content.CustomName;
+using OpenNefia.Content.SaveLoad;
 
 namespace OpenNefia.Content.TitleScreen
 {
@@ -109,7 +109,10 @@ namespace OpenNefia.Content.TitleScreen
         {
             _saveGameSerializer.ResetGameState();
             var layer = _uiManager.CreateLayer<CharaMakeCharaSheetLayer>();
-            var player = layer.CreatePlayerEntity(new List<ICharaMakeLayer>());
+            var player = layer.CreatePlayerEntity(new List<ICharaMakeResult>()
+            {
+                new CharaMakeRaceSelectLayer.ResultData(Protos.Race.God),
+            });
             var customName = _entityManager.EnsureComponent<CustomNameComponent>(player);
             customName.CustomName = "*QuickStart*";
             StartNewGame(player);
@@ -196,7 +199,7 @@ namespace OpenNefia.Content.TitleScreen
 
             // copied from CommonCommandsSystem
             _saveGameSerializer.SaveGame(save);
-            Sounds.Play(Sound.Write1);
+            Sounds.Play(Protos.Sound.Write1);
             _mes.Display(Loc.GetString("Elona.UserInterface.Save.QuickSave"));
 
             QueryFieldLayer(isNewSave: true);

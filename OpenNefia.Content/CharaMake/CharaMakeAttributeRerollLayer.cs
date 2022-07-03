@@ -29,7 +29,7 @@ using System.Threading.Tasks;
 namespace OpenNefia.Content.CharaMake
 {
     [Localize("Elona.CharaMake.AttributeReroll")]
-    public class CharaMakeAttributeRerollLayer : CharaMakeLayer
+    public class CharaMakeAttributeRerollLayer : CharaMakeLayer<CharaMakeAttributeRerollLayer.ResultData>
     {
         public enum AttributeRerollChoice
         {
@@ -116,6 +116,7 @@ namespace OpenNefia.Content.CharaMake
 
         [Dependency] private readonly IRandom _random = default!;
         [Dependency] private readonly ISkillsSystem _skillsSys = default!;
+        [Dependency] private readonly IPrototypeManager _protos = default!;
 
         [Child][Localize] private UiWindow Window = new();
         [Child][Localize] private UiTextTopic AttributeTopic = new();
@@ -137,7 +138,7 @@ namespace OpenNefia.Content.CharaMake
             SetLockCountText();
         }
 
-        public override void Initialize(CharaMakeData args)
+        public override void Initialize(CharaMakeResultSet args)
         {
             if (args.LastStep != CharaMakeStep.GoBack)
                 Reset();
@@ -189,13 +190,12 @@ namespace OpenNefia.Content.CharaMake
                     switch (choice.Choice)
                     {
                         case AttributeRerollChoice.Proceed:
-                            Finish(new CharaMakeResult(new Dictionary<string, object>
-                            {
-                                { ResultName, List.Select(x => x.Data)
+                            var attributes = List.Select(x => x.Data)
                                     .Where(x => x is AttributeRerollData.Attribute)
                                     .Cast<AttributeRerollData.Attribute>()
-                                    .ToDictionary(x => x.Id, y => y.Amount) }
-                            }));
+                                    .ToDictionary(x => x.Id, y => y.Amount);
+
+                            Finish(new CharaMakeUIResult(new ResultData(attributes)));
                             break;
                         default:
                             Reroll();
@@ -232,11 +232,14 @@ namespace OpenNefia.Content.CharaMake
             if (playSound)
                 Sounds.Play(Protos.Sound.Dice);
 
-            if (!Data.TryGetCharaMakeResult(CharaMakeRaceSelectLayer.ResultName, out RacePrototype? race))
+            if (!Results.TryGet(out CharaMakeRaceSelectLayer.ResultData? raceResult))
                 return;
 
-            if (!Data.TryGetCharaMakeResult(CharaMakeClassSelectLayer.ResultName, out ClassPrototype? @class))
+            if (!Results.TryGet(out CharaMakeClassSelectLayer.ResultData? classResult))
                 return;
+
+            var race = _protos.Index(raceResult.RaceID);
+            var @class = _protos.Index(classResult.ClassID);
 
             foreach (var item in List)
             {
@@ -327,18 +330,24 @@ namespace OpenNefia.Content.CharaMake
             AttributeInfo.Draw();
         }
 
-        public override void ApplyStep(EntityUid entity, EntityGenArgSet args)
+        public sealed class ResultData : CharaMakeResult
         {
-            base.ApplyStep(entity, args);
-            if (!Data.TryGetCharaMakeResult<Dictionary<PrototypeId<SkillPrototype>, int>>(ResultName, out var attributes))
-                return;
+            public Dictionary<PrototypeId<SkillPrototype>, int> Attributes { get; }
 
-            var charaGenArgs = args.Ensure<CharaMakeGenArgs>();
-
-            foreach (var attribute in attributes)
+            public ResultData(Dictionary<PrototypeId<SkillPrototype>, int> attributes)
             {
-                charaGenArgs.InitialSkills.TryGetValue(attribute.Key, out var level);
-                charaGenArgs.InitialSkills[attribute.Key] = attribute.Value + level;
+                Attributes = attributes;
+            }
+
+            public override void ApplyStep(EntityUid entity, EntityGenArgSet args)
+            {
+                var charaGenArgs = args.Ensure<CharaMakeGenArgs>();
+
+                foreach (var attribute in Attributes)
+                {
+                    charaGenArgs.InitialSkills.TryGetValue(attribute.Key, out var level);
+                    charaGenArgs.InitialSkills[attribute.Key] = attribute.Value + level;
+                }
             }
         }
     }

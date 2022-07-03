@@ -23,12 +23,6 @@ namespace OpenNefia.Content.CharaMake
         [Dependency] private readonly IUserInterfaceManager _uiManager = default!;
         [Dependency] private readonly IEntityManager _entityManager = default!;
 
-        /// <summary>
-        /// This charamake result must be available to the charamake process once it finishes.
-        /// It must be the <see cref="EntityUid"/> of the new player character.
-        /// </summary>
-        public const string PlayerEntityResultName = "playerEntity";
-
         public List<CharaMakeLayer> GetDefaultCreationSteps()
         {
             return new List<CharaMakeLayer>
@@ -49,18 +43,17 @@ namespace OpenNefia.Content.CharaMake
         public CharaMakeLogicResult RunCreateChara()
         {
             var steps = GetDefaultCreationSteps();
-            var data = new CharaMakeData(steps);
+            var data = new CharaMakeResultSet(steps);
             var stepIndex = 0;
             var step = CharaMakeStep.Continue;
             var finished = false;
 
-            UiResult<CharaMakeResult> result;
+            UiResult<CharaMakeUIResult> result;
             CharaMakeLayer currentStep;
 
-            void GoBack(Type charaMakeLayerType)
+            void GoBack(CharaMakeLayer layer)
             {
-                if (data.CharaData.ContainsKey(charaMakeLayerType))
-                    data.CharaData.Remove(charaMakeLayerType);
+                data.AllResults.Remove(layer);
                 stepIndex--;
                 if (stepIndex < 0)
                     step = CharaMakeStep.Cancel;
@@ -73,7 +66,7 @@ namespace OpenNefia.Content.CharaMake
                     layer.Dispose();
                 }
                 steps = GetDefaultCreationSteps();
-                data = new CharaMakeData(steps);
+                data = new CharaMakeResultSet(steps);
                 stepIndex = 0;
             }
 
@@ -82,7 +75,7 @@ namespace OpenNefia.Content.CharaMake
                 currentStep = steps[stepIndex];
 
                 var charaMakeLayerType = currentStep.GetType();
-                result = _uiManager.Query<CharaMakeResult, CharaMakeLayer, CharaMakeData>(currentStep, data);
+                result = _uiManager.Query<CharaMakeUIResult, CharaMakeLayer, CharaMakeResultSet>(currentStep, (CharaMakeResultSet)data);
 
                 if (!result.HasValue)
                 {
@@ -95,10 +88,10 @@ namespace OpenNefia.Content.CharaMake
                     data.LastStep = step;
                 }
 
-                switch(step)
+                switch (step)
                 {
                     case CharaMakeStep.GoBack:
-                        GoBack(charaMakeLayerType);
+                        GoBack(currentStep);
                         break;
                     case CharaMakeStep.Restart:
                         Restart();
@@ -106,7 +99,8 @@ namespace OpenNefia.Content.CharaMake
                     case CharaMakeStep.Cancel:
                         break;
                     default:
-                        data.CharaData[charaMakeLayerType] = result.Value.Added;
+                        if (result.Value.Added != null)
+                            data.AllResults.Add(currentStep, result.Value.Added);
                         stepIndex++;
                         if (stepIndex == steps.Count)
                             finished = true;
@@ -124,15 +118,15 @@ namespace OpenNefia.Content.CharaMake
                 return new CharaMakeLogicResult.Canceled();
             }
 
-            if (!data.TryGetCharaMakeResult<EntityUid>(PlayerEntityResultName, out var newPlayer))
+            if (!data.TryGet<CharaMakeCharaSheetLayer, CharaMakeCharaSheetLayer.ResultData>(out var finalResult))
             {
-                Logger.ErrorS("charamake", $"Did not find a charamake result with name '{PlayerEntityResultName}' containing the new player!");
+                Logger.ErrorS("charamake", $"Did not find a charamake result with type '{typeof(CharaMakeCharaSheetLayer.ResultData).FullName}' containing the new player!");
                 return new CharaMakeLogicResult.Canceled();
             }
 
-            DebugTools.Assert(_entityManager.IsAlive(newPlayer), "New charamake player was not alive!");
+            DebugTools.Assert(_entityManager.IsAlive(finalResult.PlayerEntity), "New charamake player was not alive!");
 
-            return new CharaMakeLogicResult.NewPlayerIncarnated(newPlayer);
+            return new CharaMakeLogicResult.NewPlayerIncarnated(finalResult.PlayerEntity);
         }
     }
 }

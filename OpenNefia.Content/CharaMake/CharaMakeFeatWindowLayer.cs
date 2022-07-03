@@ -16,11 +16,9 @@ using OpenNefia.Core.Utility;
 namespace OpenNefia.Content.CharaMake
 {
     [Localize("Elona.CharaMake.FeatSelect")]
-    public class CharaMakeFeatWindowLayer : CharaMakeLayer
+    public class CharaMakeFeatWindowLayer : CharaMakeLayer<CharaMakeFeatWindowLayer.ResultData>
     {
-        [Dependency] private readonly IFeatsSystem _feats = default!;
-
-        public const string ResultName = "feats";
+        [Dependency] private readonly IPrototypeManager _protos = default!;
 
         private readonly Dictionary<PrototypeId<FeatPrototype>, FeatLevel> SelectedFeats = new();
         private int FeatCount;
@@ -32,7 +30,7 @@ namespace OpenNefia.Content.CharaMake
             FeatWindow = new FeatWindow(new CharaMakeFeatWindowBehavior(this));
         }
 
-        public override void Initialize(CharaMakeData args)
+        public override void Initialize(CharaMakeResultSet args)
         {
             base.Initialize(args);
             Reset();
@@ -47,10 +45,31 @@ namespace OpenNefia.Content.CharaMake
 
             if (FeatCount <= 0)
             {
-                Finish(new CharaMakeResult(new Dictionary<string, object>
+                Finish(new CharaMakeUIResult(new ResultData(SelectedFeats)));
+            }
+        }
+
+        public sealed class ResultData : CharaMakeResult
+        {
+            public Dictionary<PrototypeId<FeatPrototype>, FeatLevel> SelectedFeats { get; set; } = new();
+
+            public ResultData(Dictionary<PrototypeId<FeatPrototype>, FeatLevel> selectedFeats)
+            {
+                SelectedFeats = selectedFeats;
+            }
+
+            public override void ApplyStep(EntityUid entity, EntityGenArgSet args)
+            {
+                if (!EntityManager.TryGetComponent<FeatsComponent>(entity, out var featsComponent))
                 {
-                    { ResultName, SelectedFeats }
-                }));
+                    Logger.WarningS("charamake", "No FeatsComponent present on entity");
+                    return;
+                }
+
+                foreach (var (featId, level) in SelectedFeats)
+                {
+                    featsComponent.Feats[featId] = level;
+                }
             }
         }
 
@@ -58,9 +77,9 @@ namespace OpenNefia.Content.CharaMake
         {
             SelectedFeats.Clear();
             FeatCount = 3;
-            if (Data.TryGetCharaMakeResult(CharaMakeRaceSelectLayer.ResultName, out RacePrototype? race))
+            if (Results.TryGet<CharaMakeRaceSelectLayer.ResultData>(out var raceResult))
             {
-                foreach (var feat in race.InitialFeats)
+                foreach (var feat in _protos.Index(raceResult.RaceID).InitialFeats)
                     SelectedFeats[feat.Key] = new FeatLevel(feat.Value);
             }
             FeatWindow.RefreshData();
@@ -106,24 +125,6 @@ namespace OpenNefia.Content.CharaMake
         {
             base.Update(dt);
             FeatWindow.Update(dt);
-        }
-
-        public override void ApplyStep(EntityUid entity, EntityGenArgSet args)
-        {
-            base.ApplyStep(entity, args);
-            if (!Data.TryGetCharaMakeResult<Dictionary<PrototypeId<FeatPrototype>, FeatLevel>>(ResultName, out var feats))
-                return;
-
-            if (!EntityManager.TryGetComponent<FeatsComponent>(entity, out var featsComponent))
-            {
-                Logger.WarningS("charamake", "No FeatsComponent present on entity");
-                return;
-            }
-
-            foreach (var (featId, level) in feats)
-            {
-                featsComponent.Feats[featId] = level;
-            }
         }
 
         private class CharaMakeFeatWindowBehavior : IFeatWindowBehavior

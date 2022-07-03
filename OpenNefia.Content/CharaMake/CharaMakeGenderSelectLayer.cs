@@ -25,7 +25,7 @@ using OpenNefia.Content.EntityGen;
 namespace OpenNefia.Content.CharaMake
 {
     [Localize("Elona.CharaMake.GenderSelect")]
-    public class CharaMakeGenderSelectLayer : CharaMakeLayer
+    public class CharaMakeGenderSelectLayer : CharaMakeLayer<CharaMakeGenderSelectLayer.ResultData>
     {
         public class GenderCell : UiListCell<Gender>
         {
@@ -41,8 +41,6 @@ namespace OpenNefia.Content.CharaMake
             }
         }
 
-        public const string ResultName = "gender";
-
         [Child] [Localize] private UiWindow Window = new();
         [Child] [Localize] private UiTextTopic GenderTopic = new();
         [Child] private UiList<Gender> List = new();
@@ -57,10 +55,7 @@ namespace OpenNefia.Content.CharaMake
             List.OnActivated += (_, args) =>
             {
                 Sounds.Play(Protos.Sound.Ok1);
-                Finish(new CharaMakeResult(new Dictionary<string, object>
-                {
-                    { ResultName, args.SelectedCell.Data }
-                }));
+                Finish(new CharaMakeUIResult(new ResultData(args.SelectedCell.Data)));
             };
 
             Window.KeyHints = MakeKeyHints();
@@ -115,19 +110,25 @@ namespace OpenNefia.Content.CharaMake
             List.Update(dt);
         }
 
-        public override void ApplyStep(EntityUid entity, EntityGenArgSet args)
+        public sealed class ResultData : CharaMakeResult
         {
-            base.ApplyStep(entity, args);
-            if (!Data.TryGetCharaMakeResult<Gender>(ResultName, out var gender))
-                return;
+            public Gender Gender { get; set; }
 
-            if (!EntityManager.TryGetComponent<CharaComponent>(entity, out var chara))
+            public ResultData(Gender gender)
             {
-                Logger.WarningS("charamake", "No CharaComponent present on entity");
-                return;
+                Gender = gender;
             }
 
-            chara.Gender = gender;
+            public override void ApplyStep(EntityUid entity, EntityGenArgSet args)
+            {
+                if (!EntityManager.TryGetComponent<CharaComponent>(entity, out var chara))
+                {
+                    Logger.WarningS("charamake", "No CharaComponent present on entity");
+                    return;
+                }
+
+                chara.Gender = Gender;
+            }
         }
     }
 }

@@ -6,8 +6,9 @@ using OpenNefia.Core.Serialization.Manager.Attributes;
 using OpenNefia.Content.EquipSlots;
 using OpenNefia.Content.Feats;
 using static OpenNefia.Core.Prototypes.EntityPrototype;
+using OpenNefia.Core.Prototypes;
 
-namespace OpenNefia.Core.Prototypes
+namespace OpenNefia.Content.Prototypes
 {
     [Prototype("Elona.Race")]
     public class RacePrototype : IPrototype, IHspIds<int>

@@ -18,10 +18,14 @@ namespace OpenNefia.Content.CharaMake
         Restart,
         Cancel
     }
-    public record CharaMakeResult(Dictionary<string, object> Added, CharaMakeStep Step = CharaMakeStep.Continue);
+    public record CharaMakeUIResult(ICharaMakeResult? Added, CharaMakeStep Step = CharaMakeStep.Continue);
 
-    public interface ICharaMakeLayer : IUiLayerWithResult<CharaMakeData, CharaMakeResult>
+    public interface ICharaMakeLayer : IUiLayerWithResult<CharaMakeResultSet, CharaMakeUIResult>
     {
-        void ApplyStep(EntityUid entity, EntityGenArgSet args);
+    }
+
+    public interface ICharaMakeLayer<T> : ICharaMakeLayer
+        where T: ICharaMakeResult
+    {
     }
 }

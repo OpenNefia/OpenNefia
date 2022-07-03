@@ -407,8 +407,13 @@ namespace OpenNefia.Content.Combat
             }
 
             var breaksIntoDebris = HasComp<BreaksIntoDebrisComponent>(target);
+            PrototypeId<AssetPrototype> particleAsset;
+            if (breaksIntoDebris)
+                particleAsset = Protos.Asset.MeleeAttackDebris;
+            else
+                particleAsset = Protos.Asset.MeleeAttackBlood;
 
-            anim = new MeleeAttackMapDrawable(breaksIntoDebris, ext.AttackAnimType, damagePercent, isCritical);
+            anim = new MeleeAttackMapDrawable(particleAsset, ext.AttackAnim, damagePercent, isCritical);
             return true;
         }
 
@@ -930,15 +935,9 @@ namespace OpenNefia.Content.Combat
         CriticalHit
     }
 
-    public enum AttackAnimType
-    {
-        Melee,
-        Ranged
-    }
-
     public sealed class ExtAttackAnim : IPrototypeExtendedData
     {
         [DataField]
-        public AttackAnimType AttackAnimType { get; set; }
+        public PrototypeId<AssetPrototype> AttackAnim { get; set; }
     }
 }

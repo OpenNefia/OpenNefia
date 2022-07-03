@@ -23,6 +23,11 @@ namespace OpenNefia.Core.Utility
             return (T)_instances[typeof(T)];
         }
 
+        public bool Has<T>() where T : class, TType
+        {
+            return TryGet<T>(out _);
+        }
+
         public T Ensure<T>() where T: class, TType, new()
         {
             if (TryGet<T>(out var instance))

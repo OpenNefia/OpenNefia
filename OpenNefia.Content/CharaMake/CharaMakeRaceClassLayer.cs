@@ -1,4 +1,5 @@
-﻿using OpenNefia.Content.Charas;
+﻿using Love;
+using OpenNefia.Content.Charas;
 using OpenNefia.Content.EntityGen;
 using OpenNefia.Content.Prototypes;
 using OpenNefia.Content.Skills;
@@ -26,42 +27,46 @@ using System.Threading.Tasks;
 namespace OpenNefia.Content.CharaMake
 {
     [Localize("Elona.CharaMake.RaceSelect")]
-    public class CharaMakeRaceSelectLayer : CharaMakeRaceClassLayer
+    public class CharaMakeRaceSelectLayer : CharaMakeRaceClassLayer<CharaMakeRaceSelectLayer.ResultData>
     {
-        public const string ResultName = "race";
         public override IEnumerable<RaceClass> GetData()
         {
             return _prototypeManager.EnumeratePrototypes<RacePrototype>().OrderBy(x => x.IsExtra).Select(x => new RaceClass(x));
         }
 
-        protected override void Select(RaceClass item)
+        public sealed class ResultData :CharaMakeResult
         {
-            Finish(new CharaMakeResult(new Dictionary<string, object>
-            {
-                { ResultName, item.Data }
-            }));
-        }
+            public PrototypeId<RacePrototype> RaceID { get; set; }
 
-        public override void ApplyStep(EntityUid entity, EntityGenArgSet args)
-        {
-            base.ApplyStep(entity, args);
-            if (!Data.TryGetCharaMakeResult<RacePrototype>(ResultName, out var race))
-                return;
-
-            if (!EntityManager.TryGetComponent<CharaComponent>(entity, out var chara))
+            public ResultData(PrototypeId<RacePrototype> race)
             {
-                Logger.WarningS("charamake", "No CharaComponent present on entity");
-                return;
+                RaceID = race;
             }
 
-            chara.Race = race.GetStrongID();
+            public override void ApplyStep(EntityUid entity, EntityGenArgSet args)
+            {
+                if (!EntityManager.TryGetComponent<CharaComponent>(entity, out var chara))
+                {
+                    Logger.WarningS("charamake", "No CharaComponent present on entity");
+                    return;
+                }
+
+                chara.Race = RaceID;
+            }
+        }
+        
+        protected override void Select(RaceClass item)
+        {
+            Finish(new CharaMakeUIResult(new ResultData(((RacePrototype)item.Data).GetStrongID())));
         }
     }
     [Localize("Elona.CharaMake.ClassSelect")]
-    public class CharaMakeClassSelectLayer : CharaMakeRaceClassLayer
+    public class CharaMakeClassSelectLayer : CharaMakeRaceClassLayer<CharaMakeClassSelectLayer.ResultData>
     {
         public const string ResultName = "class";
         
+        [Dependency] private readonly IPrototypeManager _protos = default!;
+
         [Child] private UiText RaceText;
         
         private TileAtlasBatch Atlas = default!;
@@ -74,31 +79,29 @@ namespace OpenNefia.Content.CharaMake
             Atlas = new TileAtlasBatch(AtlasNames.Chip);
         }
 
-        public override void Initialize(CharaMakeData args)
+        public override void Initialize(CharaMakeResultSet args)
         {
             base.Initialize(args);
             
-            if (Data.CharaData.TryGetValue(typeof(CharaMakeRaceSelectLayer), out var vals))
+            if (Results.TryGet<CharaMakeRaceSelectLayer.ResultData>(out var raceResult))
             {
-                if (vals.TryGetValue(CharaMakeRaceSelectLayer.ResultName, out var raceObj) && raceObj is RacePrototype race)
+                var race = _protos.Index(raceResult.RaceID);
+                RaceText.Text = $"{Loc.GetString("Elona.CharaMake.ClassSelect.RaceLabel")}: {Loc.GetPrototypeString(raceResult.RaceID, "Name")}";
+                try
                 {
-                    RaceText.Text = $"{Loc.GetString("Elona.CharaMake.ClassSelect.RaceLabel")}: {Loc.GetPrototypeString(race.GetStrongID(), "Name")}";
-                    try
-                    {
-                        MaleChip = race.ChipMale.ResolvePrototype();
-                    }
-                    catch (Exception ex)
-                    {
-                        Logger.ErrorS("charamake", ex, $"error resolving prototype for male race chip for race {race.ID}");
-                    }
-                    try
-                    {
-                        FemaleChip = race.ChipFemale.ResolvePrototype();
-                    }
-                    catch (Exception ex)
-                    {
-                        Logger.ErrorS("charamake", ex, $"error resolving prototype for female race chip for race {race.ID}");
-                    }
+                    MaleChip = race.ChipMale.ResolvePrototype();
+                }
+                catch (Exception ex)
+                {
+                    Logger.ErrorS("charamake", ex, $"error resolving prototype for male race chip for race {race.ID}");
+                }
+                try
+                {
+                    FemaleChip = race.ChipFemale.ResolvePrototype();
+                }
+                catch (Exception ex)
+                {
+                    Logger.ErrorS("charamake", ex, $"error resolving prototype for female race chip for race {race.ID}");
                 }
             }
         }
@@ -110,10 +113,7 @@ namespace OpenNefia.Content.CharaMake
 
         protected override void Select(RaceClass item)
         {
-            Finish(new CharaMakeResult(new Dictionary<string, object>
-            {
-                { ResultName, item.Data }
-            }));
+            Finish(new CharaMakeUIResult(new ResultData(((ClassPrototype)item.Data).GetStrongID())));
         }
 
         public override void SetPosition(float x, float y)
@@ -132,24 +132,31 @@ namespace OpenNefia.Content.CharaMake
             Atlas.Flush();
             Atlas.Draw(UIScale, 0, 0);
         }
-                                                         
-        public override void ApplyStep(EntityUid entity, EntityGenArgSet args)
-        {
-            base.ApplyStep(entity, args);
-            if (!Data.TryGetCharaMakeResult<ClassPrototype>(ResultName, out var @class))
-                return;
 
-            if (!EntityManager.TryGetComponent<CharaComponent>(entity, out var chara))
+        public sealed class ResultData : CharaMakeResult
+        {
+            public PrototypeId<ClassPrototype> ClassID { get; set; }
+
+            public ResultData(PrototypeId<ClassPrototype> @class)
             {
-                Logger.WarningS("charamake", $"No {nameof(CharaComponent)} present on entity");
-                return;
+                ClassID = @class;
             }
 
-            chara.Class = @class.GetStrongID();
+            public override void ApplyStep(EntityUid entity, EntityGenArgSet args)
+            {
+                if (!EntityManager.TryGetComponent<CharaComponent>(entity, out var chara))
+                {
+                    Logger.WarningS("charamake", $"No {nameof(CharaComponent)} present on entity");
+                    return;
+                }
+
+                chara.Class = ClassID;
+            }
         }
     }
 
-    public abstract class CharaMakeRaceClassLayer : CharaMakeLayer
+    public abstract class CharaMakeRaceClassLayer<T> : CharaMakeLayer<T>
+        where T: ICharaMakeResult
     {
         public class RaceClass
         {
@@ -288,7 +295,7 @@ namespace OpenNefia.Content.CharaMake
             };
         }
 
-        public override void Initialize(CharaMakeData args)
+        public override void Initialize(CharaMakeResultSet args)
         {
             base.Initialize(args);
             AllData = GetData().Select(x => new RaceClassCell(x)).ToArray();
@@ -385,7 +392,7 @@ namespace OpenNefia.Content.CharaMake
             return list;
         }
 
-        private void GetAttributeAmountDesc(int amount, out string text, out Color color)
+        private void GetAttributeAmountDesc(int amount, out string text, out Core.Maths.Color color)
         {
             switch (amount)
             {
