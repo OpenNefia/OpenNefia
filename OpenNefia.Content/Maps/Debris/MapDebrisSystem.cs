@@ -5,6 +5,9 @@ using OpenNefia.Core.Maths;
 using OpenNefia.Core.Random;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Content.Prototypes;
+using OpenNefia.Content.Combat;
+using OpenNefia.Content.Skills;
+using NetVips;
 
 namespace OpenNefia.Content.Maps
 {
@@ -25,6 +28,7 @@ namespace OpenNefia.Content.Maps
         public override void Initialize()
         {
             SubscribeBroadcast<MapCreatedEvent>(HandleMapCreated, priority: EventPriorities.Highest);
+            SubscribeEntity<EntityWoundedEvent>(HandleEntityWounded, priority: EventPriorities.VeryHigh);
         }
 
         public const int MaxBlood = 6;
@@ -35,6 +39,18 @@ namespace OpenNefia.Content.Maps
             var map = ev.Map;
             var mapDebris = EntityManager.EnsureComponent<MapDebrisComponent>(map.MapEntityUid);
             mapDebris.Initialize(map);
+        }
+
+        private void HandleEntityWounded(EntityUid uid, ref EntityWoundedEvent args)
+        {
+            var damageLevel = (args.FinalDamage * 6) / CompOrNull<SkillsComponent>(uid)?.MaxHP ?? 1;
+            if (damageLevel > 1)
+{
+                if (CompOrNull<StoneBloodComponent>(uid)?.HasStoneBlood ?? false)
+                    SpillFragments(Spatial(uid).MapPosition, 1 + _rand.Next(2));
+                else
+                    SpillBlood(Spatial(uid).MapPosition, 1 + _rand.Next(2));
+            }
         }
 
         public void SpillBlood(MapCoordinates coords, int amount)

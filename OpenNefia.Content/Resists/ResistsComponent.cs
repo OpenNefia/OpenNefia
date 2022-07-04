@@ -22,6 +22,9 @@ namespace OpenNefia.Content.Resists
         [DataField]
         public Dictionary<PrototypeId<ElementPrototype>, LevelAndPotential> Resists { get; } = new();
 
+        [DataField]
+        public bool IsImmuneToElementalDamage { get; set; } = false;
+
         public LevelAndPotential Ensure(PrototypeId<ElementPrototype> protoId)
         {
             if (Resists.TryGetValue(protoId, out var level))

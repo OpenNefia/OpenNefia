@@ -75,7 +75,7 @@ namespace OpenNefia.Content.Skills
         /// Applies the skill point bonus. Does not consume any skill points.
         /// </summary>
         void ApplyBonusPoint(EntityUid uid, PrototypeId<SkillPrototype> skillId, SkillsComponent? skills = null);
-        void DamageHP(EntityUid uid, int amount, string source, bool showMessage = true, SkillsComponent? skills = null);
+        void DamageHP(EntityUid uid, int amount, EntityUid? attacker = null, IDamageType? source = null, bool showMessage = true, SkillsComponent? skills = null);
         void HealHP(EntityUid uid, int amount, bool showMessage = true, SkillsComponent? skills = null);
         void HealMP(EntityUid uid, int amount, bool showMessage = true, SkillsComponent? skills = null);
         void HealStamina(EntityUid uid, int amount, bool showMessage = true, SkillsComponent? skills = null);

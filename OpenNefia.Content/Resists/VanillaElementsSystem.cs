@@ -7,6 +7,7 @@ using OpenNefia.Content.Prototypes;
 using OpenNefia.Content.Effects;
 using OpenNefia.Content.EntityGen;
 using OpenNefia.Core.Prototypes;
+using OpenNefia.Content.Combat;
 
 namespace OpenNefia.Content.Resists
 {
@@ -17,13 +18,26 @@ namespace OpenNefia.Content.Resists
         [Dependency] private readonly CommonEffectsSystem _commonEffects = default!;
         [Dependency] private readonly IEntityGen _entityGen = default!;
 
+        public override void Initialize()
+        {
+            SubscribeEntity<CalcFinalDamageEvent>(ProcVorpalDamage, priority: EventPriorities.Low);
+        }
+
+        private void ProcVorpalDamage(EntityUid uid, ref CalcFinalDamageEvent args)
+        {
+            // >>>>>>>> shade2/chara_func.hsp:1467 	if ele=actFinish:dmg=dmgOrg ..
+            if (args.DamageType is ElementalDamageType ele && ele.ElementID == Protos.Element.Vorpal)
+                args.OutFinalDamage = args.BaseDamage;
+            // <<<<<<<< shade2/chara_func.hsp:1467 	if ele=actFinish:dmg=dmgOrg ..
+        }
+
         #region Elona.Fire
 
         public void Fire_ModifyDamage(ElementPrototype proto, ref P_ElementModifyDamageEvent ev)
         {
             // >>>>>>>> shade2/chara_func.hsp:1459 		if (ele=rsResFire)or(dmgSource=dmgFromFire):dmg= ..
             if (_effects.HasEffect(ev.Target, Protos.StatusEffect.Wet))
-                ev.OutRawDamage /= 3;
+                ev.OutFinalDamage /= 3;
             // <<<<<<<< shade2/chara_func.hsp:1459 		if (ele=rsResFire)or(dmgSource=dmgFromFire):dmg= ..
         }
 

@@ -1,8 +1,8 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
-using System.Security.Cryptography;
+using OpenNefia.Content.Combat;
 using OpenNefia.Content.EntityGen;
-using OpenNefia.Content.Equipment;
+using OpenNefia.Content.Prototypes;
 using OpenNefia.Content.GameObjects;
 using OpenNefia.Content.Levels;
 using OpenNefia.Content.Skills;
@@ -11,7 +11,6 @@ using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Maps;
 using OpenNefia.Core.Prototypes;
-using static OpenNefia.Content.Prototypes.Protos;
 
 namespace OpenNefia.Content.Resists
 {
@@ -44,8 +43,10 @@ namespace OpenNefia.Content.Resists
         {
             SubscribeComponent<ResistsComponent, EntityRefreshEvent>(HandleRefresh, priority: EventPriorities.VeryHigh);
             SubscribeComponent<ResistsComponent, EntityBeingGeneratedEvent>(CalcInitialResistanceLevels, priority: EventPriorities.VeryHigh);
+            SubscribeEntity<CalcFinalDamageEvent>(ApplyElementalDamage, priority: EventPriorities.VeryHigh + 20000);
+            SubscribeEntity<AfterDamageAppliedEvent>(ApplyElementOnDamageEvents, priority: EventPriorities.High);
         }
-        
+
         private void HandleRefresh(EntityUid uid, ResistsComponent resists, ref EntityRefreshEvent args)
         {
             ResetResistBuffs(resists);
@@ -94,6 +95,58 @@ namespace OpenNefia.Content.Resists
             {
                 level.Level.Reset();
             }
+        }
+
+        private void ApplyElementalDamage(EntityUid uid, ref CalcFinalDamageEvent args)
+        {
+            if (args.DamageType is not ElementalDamageType ele)
+                return;
+
+            var resists = CompOrNull<ResistsComponent>(uid);
+
+            // >>>>>>>> elona122/shade2/chara_func.hsp:1463 	if ele:if ele!rsResMagic:if cBit(cResEle,tc):dmg= ..
+            if (resists != null && resists.IsImmuneToElementalDamage)
+            {
+                args.OutFinalDamage = 0;
+                return;
+            }
+            // <<<<<<<< elona122/shade2/chara_func.hsp:1463 	if ele:if ele!rsResMagic:if cBit(cResEle,tc):dmg= ..
+
+            var eleProto = _protos.Index(ele.ElementID);
+
+            // >>>>>>>> shade2/chara_func.hsp:1444 	if (ele=false)or(ele>=tailResist){ ..
+            if (eleProto.CanResist && resists != null)
+            {
+                var grade = Grade(uid, ele.ElementID, resists);
+                if (grade < ResistGrades.Minimum)
+                    args.OutFinalDamage = args.OutFinalDamage * 150 / (Math.Clamp(grade * 50 + 50, 40, 150));
+                else if (grade < ResistGrades.Immune)
+                    args.OutFinalDamage = args.OutFinalDamage * 100 / (grade * 50 + 50);
+                else
+                    args.OutFinalDamage = 0;
+                args.OutFinalDamage = args.OutFinalDamage + 100 / (Level(uid, Protos.Element.Magic, resists) / 2 + 50);
+            }
+            // <<<<<<<< shade2/chara_func.hsp:1454 		} ..
+
+            // >>>>>>>> elona122/shade2/chara_func.hsp:1458 	if cWet(tc)>0{ ..
+            var ev = new P_ElementModifyDamageEvent(args.Target, args.BaseDamage, args.OutFinalDamage, args.Attacker, ele, args.ExtraArgs);
+            _protos.EventBus.RaiseEvent(ele.ElementID, ref ev);
+            args.OutFinalDamage = ev.OutFinalDamage;
+            // <<<<<<<< elona122/shade2/chara_func.hsp:1461 		} ..
+
+            // >>>>>>>> elona122/shade2/chara_func.hsp:1463 	if ele:if ele!rsResMagic:if cBit(cResEle,tc):dmg= ..
+            // <<<<<<<< elona122/shade2/chara_func.hsp:1463 	if ele:if ele!rsResMagic:if cBit(cResEle,tc):dmg= ..
+        }
+
+        private void ApplyElementOnDamageEvents(EntityUid uid, ref AfterDamageAppliedEvent args)
+        {
+            // >>>>>>>> shade2/chara_func.hsp:1541 		if ele{ ...
+            if (args.DamageType is not ElementalDamageType ele)
+                return;
+
+            var ev = new P_ElementDamageCharaEvent(args.Target, args.BaseDamage, args.FinalDamage, args.Attacker, ele, args.ExtraArgs);
+            _protos.EventBus.RaiseEvent(ele.ElementID, ref ev);
+            // <<<<<<<< shade2/chara_func.hsp:1558 			} ..
         }
 
         public bool TryGetKnown(EntityUid uid, PrototypeId<ElementPrototype> protoId, [NotNullWhen(true)] out LevelAndPotential? level, ResistsComponent? resists = null)
@@ -162,14 +215,24 @@ namespace OpenNefia.Content.Resists
     [PrototypeEvent(typeof(ElementPrototype))]
     public struct P_ElementModifyDamageEvent
     {
-        public P_ElementModifyDamageEvent(EntityUid target)
+        public EntityUid Target { get; }
+        public int BaseDamage { get; }
+        public EntityUid? Attacker { get; }
+        public IDamageType DamageType { get; }
+        public DamageHPExtraArgs? ExtraArgs { get; }
+
+        public int OutFinalDamage { get; set; }
+
+        public P_ElementModifyDamageEvent(EntityUid target, int damage, int finalDamage, EntityUid? attacker, IDamageType damageType, DamageHPExtraArgs? extraArgs)
         {
             Target = target;
+            BaseDamage = damage;
+            Attacker = attacker;
+            DamageType = damageType;
+            ExtraArgs = extraArgs;
+
+            OutFinalDamage = finalDamage;
         }
-
-        public EntityUid Target { get; }
-
-        public int OutRawDamage { get; set; } = 0;
     }
 
     [ByRefEvent]
@@ -190,13 +253,21 @@ namespace OpenNefia.Content.Resists
     [PrototypeEvent(typeof(ElementPrototype))]
     public struct P_ElementDamageCharaEvent
     {
-        public EntityUid? Source { get; }
         public EntityUid Target { get; }
+        public int BaseDamage { get; }
+        public int FinalDamage { get; }
+        public EntityUid? Attacker { get; }
+        public IDamageType DamageType { get; }
+        public DamageHPExtraArgs? ExtraArgs { get; }
 
-        public P_ElementDamageCharaEvent(EntityUid? source, EntityUid target)
+        public P_ElementDamageCharaEvent(EntityUid target, int damage, int finalDamage, EntityUid? attacker, IDamageType damageType, DamageHPExtraArgs? extraArgs)
         {
-            Source = source;
             Target = target;
+            BaseDamage = damage;
+            FinalDamage = finalDamage;
+            Attacker = attacker;
+            DamageType = damageType;
+            ExtraArgs = extraArgs;
         }
     }
 

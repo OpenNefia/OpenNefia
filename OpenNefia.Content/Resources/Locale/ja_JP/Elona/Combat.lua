@@ -26,4 +26,33 @@ Elona.Combat = {
             return ("%sは%sを誇らしげに構えた。"):format(_.name(wielder), itemName)
         end,
     },
+    Damage = {
+        Levels = {
+            Critically = "致命傷を与えた。",
+            Moderately = "傷つけた。",
+            Scratch = "かすり傷をつけた。",
+            Severely = "深い傷を負わせた。",
+            Slightly = "軽い傷を負わせた。",
+        },
+        Reactions = {
+            Screams = function(entity)
+                return ("%sは痛手を負った。"):format(_.name(entity))
+            end,
+            WrithesInPain = function(entity)
+                return ("%sは苦痛にもだえた。"):format(_.name(entity))
+            end,
+            IsSeverelyHurt = function(entity)
+                return ("%sは悲痛な叫び声をあげた。"):format(_.name(entity))
+            end,
+            IsHealed = function(entity)
+                return ("%sは回復した。"):format(_.name(entity))
+            end,
+        },
+        RunsAway = function(entity)
+            return ("%sは恐怖して逃げ出した。"):format(_.name(entity))
+        end,
+        SleepIsDisturbed = function(entity)
+            return ("%sは眠りを妨げられた。"):format(_.name(entity))
+        end,
+    },
 }

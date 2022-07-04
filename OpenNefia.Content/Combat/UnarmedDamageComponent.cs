@@ -1,4 +1,5 @@
 ﻿using OpenNefia.Content.Prototypes;
+using OpenNefia.Content.Skills;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Serialization.Manager.Attributes;
@@ -9,11 +10,11 @@ namespace OpenNefia.Content.Combat
 {
     [RegisterComponent]
     [ComponentUsage(ComponentTarget.Normal)]
-    public sealed class StoneBloodComponent : Component
+    public sealed class UnarmedDamageComponent : Component
     {
-        public override string Name => "StoneBlood";
+        public override string Name => "UnarmedDamage";
 
-        [DataField]
-        public bool HasStoneBlood { get; set; } = true;
+        [DataField("damageType", required: true)]
+        public IDamageType DamageType { get; set; } = default!;
     }
 }

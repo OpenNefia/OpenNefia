@@ -312,6 +312,30 @@ handlers["base.chara"] = function(from, to)
         c = comp(to, "CharaNameGen")
         c.hasRandomName = true
     end
+
+    if from.unarmed_element_id then
+        c = comp(to, "UnarmedDamage")
+        c.damageType = setmetatable({
+            elementID = dotted(from.unarmed_element_id),
+            power = from.unarmed_element_power,
+        }, { tag = "ElementalDamageType", type = "mapping" })
+    end
+
+    if from.is_immune_to_elemental_damage then
+        c = comp(to, "Resists")
+        c.isImmuneToElementalDamage = true
+    end
+    if from.splits then
+        c = comp(to, "Splittable")
+        c.splitsOnHighDamage = true
+    end
+    if from.splits2 then
+        c = comp(to, "Splittable")
+        c.splitsRandomlyWhenAttacked = true
+    end
+    if from.is_quick_tempered or table.set(from.flags or {}).IsQuickTempered then
+        c = comp(to, "QuickTempered")
+    end
 end
 
 handlers["base.item"] = function(from, to)
@@ -524,7 +548,7 @@ handlers["base.race"] = function(from, to)
         end
     end
     if from.properties.breaks_into_debris then
-        comp(to, "BreaksIntoDebris")
+        comp(to, "StoneBlood")
     end
     -- if #from.traits > 0 then
     --    to.traits = {}

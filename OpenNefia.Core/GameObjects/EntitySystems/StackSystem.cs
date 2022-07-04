@@ -103,6 +103,14 @@ namespace OpenNefia.Core.GameObjects
         /// <param name="spawnPosition">Position to spawn the newly cloned entity.</param>
         /// <returns>A non-null <see cref="EntityUid"/> if successful.</returns>
         EntityUid Clone(EntityUid target, EntityCoordinates spawnPosition);
+        
+        /// <summary>
+        /// Clones this entity.
+        /// </summary>
+        /// <param name="target">Entity to clone.</param>
+        /// <param name="spawnPosition">Position to spawn the newly cloned entity.</param>
+        /// <returns>A non-null <see cref="EntityUid"/> if successful.</returns>
+        EntityUid? Clone(EntityUid target, MapCoordinates spawnPosition);
 
         /// <summary>
         /// Tries to split this stack into two.
@@ -393,6 +401,14 @@ namespace OpenNefia.Core.GameObjects
             RaiseEvent(newEntity, ev);
 
             return newEntity;
+        }
+
+        /// <inheritdoc/>
+        public EntityUid? Clone(EntityUid target, MapCoordinates spawnPosition)
+        {
+            if (!spawnPosition.TryToEntity(_mapManager, out var entityPosition))
+                return null;
+            return Clone(target, entityPosition);
         }
 
         private void HandleCloneMetaData(EntityUid source, MetaDataComponent spatial, EntityClonedEventArgs args)

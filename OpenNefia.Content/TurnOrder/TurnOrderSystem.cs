@@ -500,7 +500,7 @@ namespace OpenNefia.Content.TurnOrder
                 lastWords = result.Value.Text;
             }
 
-            lastWords = Loc.GetString("Elona.Common.Quote", ("str", lastWords));
+            lastWords = Loc.GetString("Elona.Common.Quotes", ("str", lastWords));
 
             Logger.Info($"Player death: {lastWords}");
 

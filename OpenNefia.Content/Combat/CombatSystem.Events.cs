@@ -9,23 +9,13 @@ using OpenNefia.Content.GameObjects;
 using OpenNefia.Content.Mount;
 using NuGet.Packaging.Signing;
 using OpenNefia.Content.Weight;
+using OpenNefia.Content.UI;
+using OpenNefia.Core;
 
 namespace OpenNefia.Content.Combat
 {
     public sealed partial class CombatSystem
     {
-        public override void Initialize()
-        {
-            SubscribeEntity<BeforePhysicalAttackEventArgs>(BlockPhysicalAttackFear, priority: EventPriorities.VeryHigh);
-
-            SubscribeEntity<CalcPhysicalAttackAccuracyEvent>(HandleCalcAccuracyEquipState, priority: EventPriorities.VeryHigh);
-            SubscribeEntity<CalcPhysicalAttackAccuracyEvent>(HandleCalcAccuracyAttackCount, priority: EventPriorities.VeryHigh);
-
-            SubscribeEntity<CalcPhysicalAttackHitEvent>(HandleCalcHitStatusEffects, priority: EventPriorities.VeryHigh);
-            SubscribeEntity<CalcPhysicalAttackHitEvent>(HandleCalcHitGreaterEvasion, priority: EventPriorities.VeryHigh);
-            SubscribeEntity<CalcPhysicalAttackHitEvent>(HandleCalcHitCriticals, priority: EventPriorities.VeryHigh);
-        }
-
         private void BlockPhysicalAttackFear(EntityUid attacker, BeforePhysicalAttackEventArgs args)
         {
             if (args.Handled)
@@ -74,7 +64,7 @@ namespace OpenNefia.Content.Combat
                     {
                         if (weight > WeaponWeight.Heavy)
                         {
-                           args.OutAccuracy -= (weight - WeaponWeight.Heavy + 400) / (10 + _skills.Level(attacker, Protos.Skill.DualWield) / 5);
+                            args.OutAccuracy -= (weight - WeaponWeight.Heavy + 400) / (10 + _skills.Level(attacker, Protos.Skill.DualWield) / 5);
                         }
                         else if (weight > WeaponWeight.Light)
                         {
@@ -207,6 +197,7 @@ namespace OpenNefia.Content.Combat
                 return;
             }
         }
+
         #endregion
     }
 }

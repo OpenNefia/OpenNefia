@@ -1466,7 +1466,7 @@
   - Elona.Arm
   - Elona.Waist
   components:
-  - type: BreaksIntoDebris
+  - type: StoneBlood
 - type: Elona.Race
   id: Elona.Medusa
   hspIds:
@@ -1573,7 +1573,7 @@
   - Elona.Ring
   - Elona.Arm
   components:
-  - type: BreaksIntoDebris
+  - type: StoneBlood
 - type: Elona.Race
   id: Elona.Harpy
   hspIds:
@@ -1782,7 +1782,7 @@
     Elona.PermDim: 1
     Elona.PermPoison: 2
   components:
-  - type: BreaksIntoDebris
+  - type: StoneBlood
 - type: Elona.Race
   id: Elona.Rock
   hspIds:
@@ -1813,7 +1813,7 @@
   initialEquipSlots:
   - Elona.Head
   components:
-  - type: BreaksIntoDebris
+  - type: StoneBlood
 - type: Elona.Race
   id: Elona.Crab
   hspIds:
@@ -1889,7 +1889,7 @@
   - Elona.Waist
   - Elona.Leg
   components:
-  - type: BreaksIntoDebris
+  - type: StoneBlood
 - type: Elona.Race
   id: Elona.Piece
   hspIds:
@@ -1929,7 +1929,7 @@
   - Elona.Arm
   - Elona.Waist
   components:
-  - type: BreaksIntoDebris
+  - type: StoneBlood
 - type: Elona.Race
   id: Elona.Cat
   hspIds:
@@ -2175,7 +2175,7 @@
   - Elona.Waist
   - Elona.Leg
   components:
-  - type: BreaksIntoDebris
+  - type: StoneBlood
 - type: Elona.Race
   id: Elona.Undeadgod
   hspIds:
@@ -2252,7 +2252,7 @@
   - Elona.Waist
   - Elona.Leg
   components:
-  - type: BreaksIntoDebris
+  - type: StoneBlood
 - type: Elona.Race
   id: Elona.Wisp
   hspIds:
@@ -2709,5 +2709,5 @@
   - Elona.Leg
   - Elona.Leg
   components:
-  - type: BreaksIntoDebris
+  - type: StoneBlood
 ...

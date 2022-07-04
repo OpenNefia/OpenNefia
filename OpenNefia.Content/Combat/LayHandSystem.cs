@@ -29,6 +29,7 @@ namespace OpenNefia.Content.Combat
         public override void Initialize()
         {
             SubscribeComponent<LayHandComponent, EntityBeingGeneratedEvent>(InitLayHand);
+            SubscribeComponent<SkillsComponent, AfterDamageAppliedEvent>(ProcLayHand);
         }
 
         private void InitLayHand(EntityUid uid, LayHandComponent component, ref EntityBeingGeneratedEvent args)
@@ -36,7 +37,7 @@ namespace OpenNefia.Content.Combat
             component.HasLayHand = true;
         }
 
-        private void ProcLayHand(EntityUid inTrouble, SkillsComponent skills)
+        private void ProcLayHand(EntityUid inTrouble, SkillsComponent skills, ref AfterDamageAppliedEvent ev)
         {
             // >>>>>>>> elona122/shade2/chara_func.hsp:1486 	if cHP(tc)<0 : if tc<maxFollower{ ...
             if (!_parties.IsLeaderOfSomeParty(inTrouble))

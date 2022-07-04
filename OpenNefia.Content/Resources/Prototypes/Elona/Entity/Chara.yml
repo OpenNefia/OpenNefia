@@ -691,6 +691,7 @@
   - type: Faction
     relation: Enemy
   - type: UniqueCompanion
+  - type: QuickTempered
 - type: Entity
   id: Elona.CharaMadScientist
   parent: BaseChara
@@ -1325,6 +1326,10 @@
     class: Elona.Predator
   - type: Faction
     relation: Enemy
+  - type: UnarmedDamage
+    damageType: !ElementalDamageType
+      elementID: Elona.Fire
+      power: 200
 - type: Entity
   id: Elona.CharaIceEnt
   parent: BaseChara
@@ -1345,6 +1350,10 @@
     class: Elona.Predator
   - type: Faction
     relation: Enemy
+  - type: UnarmedDamage
+    damageType: !ElementalDamageType
+      elementID: Elona.Cold
+      power: 200
 - type: Entity
   id: Elona.CharaLich
   parent: BaseChara
@@ -1931,6 +1940,10 @@
     relation: Enemy
   - type: VanillaAI
     moveChance: 0.7
+  - type: UnarmedDamage
+    damageType: !ElementalDamageType
+      elementID: Elona.Chaos
+      power: 300
 - type: Entity
   id: Elona.CharaFloatingEye
   parent: BaseChara
@@ -1953,6 +1966,10 @@
   - type: VanillaAI
     calmAction: Stand
     moveChance: 0.15
+  - type: UnarmedDamage
+    damageType: !ElementalDamageType
+      elementID: Elona.Nerve
+      power: 250
 - type: Entity
   id: Elona.CharaWyvern
   parent: BaseChara
@@ -2444,6 +2461,7 @@
     relation: Enemy
   - type: VanillaAI
     moveChance: 0.85
+  - type: QuickTempered
 - type: Entity
   id: Elona.CharaTitan
   parent: BaseChara
@@ -2470,6 +2488,7 @@
     id: Elona.Titan
   - type: VanillaAI
     moveChance: 0.85
+  - type: QuickTempered
 - type: Entity
   id: Elona.CharaImp
   parent: BaseChara
@@ -2590,6 +2609,10 @@
     calmAction: Stand
     targetDistance: 3
     moveChance: 0.25
+  - type: UnarmedDamage
+    damageType: !ElementalDamageType
+      elementID: Elona.Darkness
+      power: 80
 - type: Entity
   id: Elona.CharaHandOfTheChaos
   parent: BaseChara
@@ -2620,6 +2643,10 @@
     calmAction: Stand
     targetDistance: 3
     moveChance: 0.25
+  - type: UnarmedDamage
+    damageType: !ElementalDamageType
+      elementID: Elona.Chaos
+      power: 180
 - type: Entity
   id: Elona.CharaHandOfTheMurderer
   parent: BaseChara
@@ -2680,6 +2707,10 @@
       Elona.ActionTouchOfWeakness: 1
   - type: Faction
     relation: Enemy
+  - type: UnarmedDamage
+    damageType: !ElementalDamageType
+      elementID: Elona.Nether
+      power: 80
 - type: Entity
   id: Elona.CharaNymph
   parent: BaseChara
@@ -2713,6 +2744,10 @@
     relation: Enemy
   - type: VanillaAI
     moveChance: 0.6
+  - type: UnarmedDamage
+    damageType: !ElementalDamageType
+      elementID: Elona.Mind
+      power: 200
 - type: Entity
   id: Elona.CharaManEaterFlower
   parent: BaseChara
@@ -2736,6 +2771,10 @@
   - type: VanillaAI
     calmAction: Stand
     moveChance: 0.2
+  - type: UnarmedDamage
+    damageType: !ElementalDamageType
+      elementID: Elona.Mind
+      power: 200
 - type: Entity
   id: Elona.CharaChaosFlower
   parent: BaseChara
@@ -2760,6 +2799,10 @@
   - type: VanillaAI
     calmAction: Stand
     moveChance: 0.2
+  - type: UnarmedDamage
+    damageType: !ElementalDamageType
+      elementID: Elona.Chaos
+      power: 250
 - type: Entity
   id: Elona.CharaCobra
   parent: BaseChara
@@ -3172,6 +3215,7 @@
     class: Elona.Predator
   - type: Faction
     relation: Enemy
+  - type: QuickTempered
 - type: Entity
   id: Elona.CharaLivingArmor
   parent: BaseChara
@@ -3662,6 +3706,10 @@
     canTalk: true
   - type: VanillaAI
     moveChance: 0.8
+  - type: UnarmedDamage
+    damageType: !ElementalDamageType
+      elementID: Elona.Poison
+      power: 150
 - type: Entity
   id: Elona.CharaParalyzer
   parent: BaseChara
@@ -3694,6 +3742,10 @@
     canTalk: true
   - type: VanillaAI
     moveChance: 0.8
+  - type: UnarmedDamage
+    damageType: !ElementalDamageType
+      elementID: Elona.Nerve
+      power: 150
 - type: Entity
   id: Elona.CharaTarantula
   parent: BaseChara
@@ -3726,6 +3778,10 @@
     canTalk: true
   - type: VanillaAI
     moveChance: 0.8
+  - type: UnarmedDamage
+    damageType: !ElementalDamageType
+      elementID: Elona.Poison
+      power: 200
 - type: Entity
   id: Elona.CharaBloodSpider
   parent: BaseChara
@@ -3758,6 +3814,10 @@
     canTalk: true
   - type: VanillaAI
     moveChance: 0.8
+  - type: UnarmedDamage
+    damageType: !ElementalDamageType
+      elementID: Elona.Nether
+      power: 100
 - type: Entity
   id: Elona.CharaWoodenGolem
   parent: BaseChara
@@ -4195,6 +4255,10 @@
     class: Elona.Predator
   - type: Faction
     relation: Enemy
+  - type: UnarmedDamage
+    damageType: !ElementalDamageType
+      elementID: Elona.Fire
+      power: 150
 - type: Entity
   id: Elona.CharaFireCentipede
   parent: BaseChara
@@ -4218,6 +4282,10 @@
     class: Elona.Predator
   - type: Faction
     relation: Enemy
+  - type: UnarmedDamage
+    damageType: !ElementalDamageType
+      elementID: Elona.Fire
+      power: 200
 - type: Entity
   id: Elona.CharaCultistOfFire
   parent: BaseChara
@@ -4333,6 +4401,10 @@
     id: Elona.MissionaryOfDarkness
   - type: VanillaAI
     moveChance: 0.8
+  - type: UnarmedDamage
+    damageType: !ElementalDamageType
+      elementID: Elona.Mind
+      power: 150
 - type: Entity
   id: Elona.CharaPawn
   parent: BaseChara
@@ -5328,6 +5400,10 @@
     class: Elona.Predator
   - type: Faction
     relation: Enemy
+  - type: UnarmedDamage
+    damageType: !ElementalDamageType
+      elementID: Elona.Cut
+      power: 100
 - type: Entity
   id: Elona.CharaBladeAlpha
   parent: BaseChara
@@ -5348,6 +5424,10 @@
     class: Elona.Predator
   - type: Faction
     relation: Enemy
+  - type: UnarmedDamage
+    damageType: !ElementalDamageType
+      elementID: Elona.Cut
+      power: 120
 - type: Entity
   id: Elona.CharaBladeOmega
   parent: BaseChara
@@ -5368,6 +5448,10 @@
     class: Elona.Predator
   - type: Faction
     relation: Enemy
+  - type: UnarmedDamage
+    damageType: !ElementalDamageType
+      elementID: Elona.Cut
+      power: 150
 - type: Entity
   id: Elona.CharaDeformedEye
   parent: BaseChara
@@ -5541,6 +5625,10 @@
     canTalk: true
   - type: VanillaAI
     moveChance: 0.6
+  - type: UnarmedDamage
+    damageType: !ElementalDamageType
+      elementID: Elona.Acid
+      power: 100
 - type: Entity
   id: Elona.CharaChicken
   parent: BaseChara
@@ -5594,6 +5682,10 @@
     calmAction: Stand
     targetDistance: 2
     moveChance: 0.5
+  - type: UnarmedDamage
+    damageType: !ElementalDamageType
+      elementID: Elona.Mind
+      power: 100
 - type: Entity
   id: Elona.CharaGreaterPumpkin
   parent: BaseChara
@@ -5622,6 +5714,10 @@
     calmAction: Stand
     targetDistance: 2
     moveChance: 0.5
+  - type: UnarmedDamage
+    damageType: !ElementalDamageType
+      elementID: Elona.Mind
+      power: 200
 - type: Entity
   id: Elona.CharaHalloweenNightmare
   parent: BaseChara
@@ -5650,6 +5746,10 @@
     calmAction: Stand
     targetDistance: 2
     moveChance: 0.5
+  - type: UnarmedDamage
+    damageType: !ElementalDamageType
+      elementID: Elona.Mind
+      power: 250
 - type: Entity
   id: Elona.CharaStalker
   parent: BaseChara
@@ -5731,6 +5831,10 @@
     calmAction: Stand
     targetDistance: 3
     moveChance: 0.8
+  - type: UnarmedDamage
+    damageType: !ElementalDamageType
+      elementID: Elona.Mind
+      power: 150
 - type: Entity
   id: Elona.CharaEbon
   parent: BaseChara
@@ -7441,6 +7545,10 @@
     class: Elona.Predator
   - type: Faction
     relation: Enemy
+  - type: UnarmedDamage
+    damageType: !ElementalDamageType
+      elementID: Elona.Poison
+      power: 150
 - type: Entity
   id: Elona.CharaKingScorpion
   parent: BaseChara
@@ -7465,6 +7573,10 @@
     class: Elona.Predator
   - type: Faction
     relation: Enemy
+  - type: UnarmedDamage
+    damageType: !ElementalDamageType
+      elementID: Elona.Poison
+      power: 350
 - type: Entity
   id: Elona.CharaTuwen
   parent: BaseChara
@@ -7518,6 +7630,10 @@
     class: Elona.Predator
   - type: Faction
     relation: Enemy
+  - type: UnarmedDamage
+    damageType: !ElementalDamageType
+      elementID: Elona.Cut
+      power: 150
 - type: Entity
   id: Elona.CharaNoel
   parent: BaseChara
@@ -8277,6 +8393,7 @@
     class: Elona.Warrior
   - type: Faction
     relation: Enemy
+  - type: QuickTempered
 - type: Entity
   id: Elona.CharaMinotaur
   parent: BaseChara
@@ -8326,6 +8443,10 @@
     calmAction: Stand
     targetDistance: 2
     moveChance: 0
+  - type: UnarmedDamage
+    damageType: !ElementalDamageType
+      elementID: Elona.Mind
+      power: 150
 - type: Entity
   id: Elona.CharaChaosMushroom
   parent: BaseChara
@@ -8354,6 +8475,10 @@
     calmAction: Stand
     targetDistance: 2
     moveChance: 0
+  - type: UnarmedDamage
+    damageType: !ElementalDamageType
+      elementID: Elona.Chaos
+      power: 250
 - type: Entity
   id: Elona.CharaBlueBubble
   parent: BaseChara
@@ -8380,6 +8505,8 @@
     relation: Enemy
   - type: Dialog
     canTalk: true
+  - type: Splittable
+    splitsOnHighDamage: true
 - type: Entity
   id: Elona.CharaBubble
   parent: BaseChara
@@ -8405,6 +8532,8 @@
     relation: Enemy
   - type: Dialog
     canTalk: true
+  - type: Splittable
+    splitsOnHighDamage: true
 - type: Entity
   id: Elona.CharaMassMonster
   parent: BaseChara
@@ -8431,6 +8560,8 @@
   - type: VanillaAI
     calmAction: Stand
     moveChance: 0.2
+  - type: Splittable
+    splitsOnHighDamage: true
 - type: Entity
   id: Elona.CharaRevlus
   parent: BaseChara
@@ -8812,6 +8943,7 @@
     class: Elona.Predator
   - type: Faction
     relation: Enemy
+  - type: QuickTempered
 - type: Entity
   id: Elona.CharaMinotaurKing
   parent: BaseChara
@@ -8898,6 +9030,7 @@
     portraitID: Elona.Conery
   - type: Tone
     id: Elona.Conery
+  - type: QuickTempered
 - type: Entity
   id: Elona.CharaRogueBoss
   parent: BaseChara
@@ -9291,6 +9424,10 @@
   - type: VanillaAI
     calmAction: Stand
     moveChance: 0.15
+  - type: UnarmedDamage
+    damageType: !ElementalDamageType
+      elementID: Elona.Nerve
+      power: 450
 - type: Entity
   id: Elona.CharaChaosEye
   parent: BaseChara
@@ -9317,6 +9454,10 @@
   - type: VanillaAI
     calmAction: Stand
     moveChance: 0.15
+  - type: UnarmedDamage
+    damageType: !ElementalDamageType
+      elementID: Elona.Chaos
+      power: 400
 - type: Entity
   id: Elona.CharaMadGaze
   parent: BaseChara
@@ -9344,6 +9485,10 @@
   - type: VanillaAI
     calmAction: Stand
     moveChance: 0.15
+  - type: UnarmedDamage
+    damageType: !ElementalDamageType
+      elementID: Elona.Mind
+      power: 300
 - type: Entity
   id: Elona.CharaSilverEyedWitch
   parent: BaseChara
@@ -9563,6 +9708,10 @@
       Elona.ActionTouchOfWeakness: 1
   - type: Faction
     relation: Enemy
+  - type: UnarmedDamage
+    damageType: !ElementalDamageType
+      elementID: Elona.Nether
+      power: 400
 - type: Entity
   id: Elona.CharaQuickling
   parent: BaseChara
@@ -9672,6 +9821,10 @@
   - type: VanillaAI
     calmAction: Stand
     moveChance: 0.2
+  - type: Resists
+    isImmuneToElementalDamage: true
+  - type: Splittable
+    splitsRandomlyWhenAttacked: true
 - type: Entity
   id: Elona.CharaSilverBell
   parent: BaseChara
@@ -9754,6 +9907,10 @@
       Elona.ActionPregnant: 1
   - type: Faction
     relation: Enemy
+  - type: UnarmedDamage
+    damageType: !ElementalDamageType
+      elementID: Elona.Acid
+      power: 250
 - type: Entity
   id: Elona.CharaEhekatl
   parent: BaseChara
@@ -10280,6 +10437,7 @@
     id: Elona.Fanatic
   - type: CharaNameGen
     hasRandomName: true
+  - type: QuickTempered
 - type: Entity
   id: Elona.CharaPartTimeWorker
   parent: BaseChara
@@ -10313,6 +10471,7 @@
     id: Elona.PartTimeWorker
   - type: VanillaAI
     calmAction: Stand
+  - type: QuickTempered
 - type: Entity
   id: Elona.CharaHolyBeast
   parent: BaseChara
@@ -10342,6 +10501,7 @@
     canTalk: true
   - type: Tone
     id: Elona.HolyBeast
+  - type: QuickTempered
 - type: Entity
   id: Elona.CharaFestivalTourist
   parent: BaseChara
@@ -10408,6 +10568,7 @@
     canTalk: true
   - type: Tone
     id: Elona.TheLeopardWarrior
+  - type: QuickTempered
 - type: Entity
   id: Elona.CharaSilvia
   parent: BaseChara

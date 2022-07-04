@@ -1,5 +1,5 @@
 Elona.Common = {
-    Quote = function(str)
+    Quotes = function(str)
         return ("「%s」"):format(str)
     end,
     ItIsImpossible = "それは無理だ。",
