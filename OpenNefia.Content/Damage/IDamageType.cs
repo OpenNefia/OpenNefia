@@ -12,7 +12,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OpenNefia.Content.Combat
+namespace OpenNefia.Content.Damage
 {
     public interface IDamageType
     {
@@ -31,29 +31,6 @@ namespace OpenNefia.Content.Combat
         /// "was squashed by a putitoro."
         /// </remarks>
         string LocalizeDeathCauseMessage(EntityUid target, EntityUid? attacker, IEntityManager entityManager);
-    }
-
-    public sealed class DamageHPExtraArgs
-    {
-        public int OriginalDamage { get; set; }
-
-        /// <summary>
-        /// Number of recursive calls to DamageHP().
-        /// This is for damage types that themselves call DamageHP() somewhere,
-        /// so that certain effects like splitting up monsters (bubbles, etc.) are
-        /// not applied twice.
-        /// </summary>
-        public int DamageSubLevel { get; set; } = 0;
-
-        // The following properties are only used for printing the damage message.
-
-        public bool ShowMessage { get; set; } = true;
-        public EntityUid? Weapon { get; set; }
-        public int AttackCount { get; set; }
-        public PrototypeId<SkillPrototype>? AttackSkill { get; set; }
-        public DamageHPTense MessageTense { get; set; }
-        public bool IsThirdPerson { get; set; }
-        public bool NoAttackText { get; set; }
     }
 
     public enum DamageHPTense

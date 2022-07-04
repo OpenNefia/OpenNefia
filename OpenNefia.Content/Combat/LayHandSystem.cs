@@ -1,4 +1,5 @@
-﻿using OpenNefia.Content.EntityGen;
+﻿using OpenNefia.Content.Damage;
+using OpenNefia.Content.EntityGen;
 using OpenNefia.Content.Logic;
 using OpenNefia.Content.Parties;
 using OpenNefia.Content.Prototypes;

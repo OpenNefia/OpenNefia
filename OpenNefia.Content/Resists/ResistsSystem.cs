@@ -1,6 +1,5 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
-using OpenNefia.Content.Combat;
 using OpenNefia.Content.EntityGen;
 using OpenNefia.Content.Prototypes;
 using OpenNefia.Content.GameObjects;
@@ -11,6 +10,7 @@ using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Maps;
 using OpenNefia.Core.Prototypes;
+using OpenNefia.Content.Damage;
 
 namespace OpenNefia.Content.Resists
 {
@@ -129,7 +129,7 @@ namespace OpenNefia.Content.Resists
             // <<<<<<<< shade2/chara_func.hsp:1454 		} ..
 
             // >>>>>>>> elona122/shade2/chara_func.hsp:1458 	if cWet(tc)>0{ ..
-            var ev = new P_ElementModifyDamageEvent(args.Target, args.BaseDamage, args.OutFinalDamage, args.Attacker, ele, args.ExtraArgs);
+            var ev = new P_ElementModifyDamageEvent(uid, args.BaseDamage, args.OutFinalDamage, args.Attacker, ele, args.ExtraArgs);
             _protos.EventBus.RaiseEvent(ele.ElementID, ref ev);
             args.OutFinalDamage = ev.OutFinalDamage;
             // <<<<<<<< elona122/shade2/chara_func.hsp:1461 		} ..
@@ -144,7 +144,7 @@ namespace OpenNefia.Content.Resists
             if (args.DamageType is not ElementalDamageType ele)
                 return;
 
-            var ev = new P_ElementDamageCharaEvent(args.Target, args.BaseDamage, args.FinalDamage, args.Attacker, ele, args.ExtraArgs);
+            var ev = new P_ElementDamageCharaEvent(uid, args.BaseDamage, args.FinalDamage, args.Attacker, ele, args.ExtraArgs);
             _protos.EventBus.RaiseEvent(ele.ElementID, ref ev);
             // <<<<<<<< shade2/chara_func.hsp:1558 			} ..
         }

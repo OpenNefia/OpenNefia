@@ -2,6 +2,7 @@
 using OpenNefia.Content.Activity;
 using OpenNefia.Content.Charas;
 using OpenNefia.Content.CustomName;
+using OpenNefia.Content.Damage;
 using OpenNefia.Content.DisplayName;
 using OpenNefia.Content.EmotionIcon;
 using OpenNefia.Content.Equipment;
@@ -49,14 +50,10 @@ namespace OpenNefia.Content.Combat
 
     public sealed partial class CombatSystem : EntitySystem, ICombatSystem
     {
-        [Dependency] private readonly IAudioManager _sounds = default!;
-        [Dependency] private readonly IFactionSystem _factions = default!;
         [Dependency] private readonly IRandom _rand = default!;
         [Dependency] private readonly IDisplayNameSystem _displayNames = default!;
         [Dependency] private readonly IMessagesManager _mes = default!;
-        [Dependency] private readonly IMapDebrisSystem _mapDebris = default!;
         [Dependency] private readonly IConfigurationManager _config = default!;
-        [Dependency] private readonly IInputSystem _input = default!;
         [Dependency] private readonly IEquipSlotsSystem _equipSlots = default!;
         [Dependency] private readonly ITagSystem _tags = default!;
         [Dependency] private readonly IVisibilitySystem _vis = default!;
@@ -70,7 +67,7 @@ namespace OpenNefia.Content.Combat
         [Dependency] private readonly IFeatsSystem _feats = default!;
         [Dependency] private readonly IActivitySystem _activities = default!;
         [Dependency] private readonly IPartySystem _parties = default!;
-        [Dependency] private readonly IEmotionIconSystem _emoIcons = default!;
+        [Dependency] private readonly IDamageSystem _damage = default!;
 
         public override void Initialize()
         {
@@ -83,17 +80,6 @@ namespace OpenNefia.Content.Combat
             SubscribeEntity<CalcPhysicalAttackHitEvent>(HandleCalcHitStatusEffects, priority: EventPriorities.VeryHigh);
             SubscribeEntity<CalcPhysicalAttackHitEvent>(HandleCalcHitGreaterEvasion, priority: EventPriorities.VeryHigh);
             SubscribeEntity<CalcPhysicalAttackHitEvent>(HandleCalcHitCriticals, priority: EventPriorities.VeryHigh);
-            #endregion
-
-            #region Damage events
-            SubscribeEntity<EntityWoundedEvent>(DisplayDamageMessages, priority: EventPriorities.VeryHigh);
-            SubscribeEntity<EntityWoundedEvent>(ProcRetreatInFear, priority: EventPriorities.VeryHigh + 10000);
-            SubscribeEntity<EntityWoundedEvent>(DisturbSleep, priority: EventPriorities.VeryHigh + 20000);
-            SubscribeEntity<EntityWoundedEvent>(ApplyHostileActionAfterDamage, priority: EventPriorities.VeryHigh + 60000);
-            SubscribeEntity<EntityWoundedEvent>(PlayHeartbeatSound, priority: EventPriorities.Lowest);
-            SubscribeEntity<EntityKilledEvent>(HandleKilled, priority: EventPriorities.VeryHigh);
-
-            SubscribeEntity<AfterDamageMPEvent>(ProcMagicReaction, priority: EventPriorities.VeryHigh);
             #endregion
         }
 
@@ -143,12 +129,6 @@ namespace OpenNefia.Content.Combat
 
             return new(attackCount, isWieldingShield, isWieldingTwoHanded, isDualWielding);
         }
-
-        private readonly PrototypeId<SoundPrototype>[] KillSounds = new[]
-        {
-            Protos.Sound.Kill1,
-            Protos.Sound.Kill2,
-        };
 
         public bool IsMeleeWeapon(EntityUid ent)
         {
@@ -370,7 +350,7 @@ namespace OpenNefia.Content.Combat
                         damageType = unarmed.DamageType;
                 }
 
-                _skills.DamageHP(target, rawDamage.TotalDamage, attacker, damageType);
+                _damage.DamageHP(target, rawDamage.TotalDamage, attacker, damageType);
             }
             else
             {

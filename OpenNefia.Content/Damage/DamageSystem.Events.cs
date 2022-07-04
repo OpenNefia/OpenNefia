@@ -19,64 +19,13 @@ using OpenNefia.Core.Random;
 using NuGet.DependencyResolver;
 using System.IO.Abstractions;
 using OpenNefia.Content.Charas;
+using OpenNefia.Core.Audio;
+using OpenNefia.Core.Prototypes;
 
-namespace OpenNefia.Content.Combat
+namespace OpenNefia.Content.Damage
 {
-    public record struct DamageHPResult(bool WasKilled, int BaseDamage, int FinalDamage);
-
-    public sealed partial class CombatSystem
+    public sealed partial class DamageSystem
     {
-        public DamageHPResult DamageHP(EntityUid target, int baseDamage, EntityUid? attacker = null, IDamageType? damageType = null, DamageHPExtraArgs? extraArgs = null, SkillsComponent? skills = null)
-        {
-            if (!Resolve(target, ref skills))
-                return new(false, 0, 0);
-
-            if (!EntityManager.IsAlive(target))
-                return new(false, 0, 0);
-
-            extraArgs ??= new();
-
-            var ev1 = new CalcFinalDamageEvent(baseDamage, attacker, damageType, extraArgs);
-            RaiseEvent(target, ref ev1);
-            var finalDamage = ev1.OutFinalDamage;
-
-            skills.HP = Math.Min(skills.HP - finalDamage, skills.MaxHP);
-
-            // This is for nether damage HP recovery.
-            var ev2 = new AfterDamageAppliedEvent(baseDamage, finalDamage, attacker, damageType, extraArgs);
-            RaiseEvent(target, ref ev2);
-
-            // shade2/chara_func.hsp:1501 	if cHP(tc)>=0{ ...
-            if (skills.HP >= 0)
-            {
-                var ev3 = new EntityWoundedEvent(baseDamage, finalDamage, attacker, damageType, extraArgs);
-                RaiseEvent(target, ref ev3);
-            }
-
-            // shade2/chara_func.hsp:1596 	if cHp(tc)<0{ ...
-            var wasKilled = false;
-            if (skills.HP < 0)
-            {
-                var ev4 = new EntityKilledEvent(baseDamage, finalDamage, attacker, damageType, extraArgs);
-                RaiseEvent(target, ref ev4);
-                wasKilled = !EntityManager.IsAlive(target);
-            }
-
-            var ev5 = new AfterDamageHPEvent(baseDamage, finalDamage, attacker, damageType, extraArgs);
-            RaiseEvent(target, ref ev5);
-
-            return new(wasKilled, baseDamage, finalDamage);
-        }
-
-        public void DamageMP(EntityUid target, int amount, bool noMagicReaction = false, bool showMessage = true, SkillsComponent? skills = null)
-        {
-            if (!Resolve(target, ref skills))
-                return;
-
-            var ev = new AfterDamageMPEvent(amount, noMagicReaction, showMessage);
-            RaiseEvent(target, ref ev);
-        }
-
         #region Damage events
 
         private void DisplayElementalDamageMessage(EntityUid target, ref EntityWoundedEvent args)
@@ -301,7 +250,7 @@ namespace OpenNefia.Content.Combat
                 _audio.Play(Protos.Sound.Heart1);
         }
 
-        private void ProcMagicReaction(EntityUid uid, AfterDamageMPEvent args)
+        private void ProcMagicReaction(EntityUid uid, ref AfterDamageMPEvent args)
         {
             // >>>>>>>> shade2/chara_func.hsp:1778 	if cMP(tc)<0{	 ..
             if (!TryComp<SkillsComponent>(uid, out var skills) || skills.MP >= 0 || args.NoMagicReaction)
@@ -333,10 +282,22 @@ namespace OpenNefia.Content.Combat
 
         #region Kill events
 
+        private readonly PrototypeId<SoundPrototype>[] KillSounds = new[]
+        {
+            Protos.Sound.Kill1,
+            Protos.Sound.Kill2,
+        };
+
         private void HandleKilled(EntityUid target, ref EntityKilledEvent ev)
         {
-            if (!TryComp<MetaDataComponent>(target, out var metaData))
-                return;
+            if (ev.DamageType is ElementalDamageType ele)
+            {
+                var sound = _protos.Index(ele.ElementID).Sound?.GetSound();
+                if (sound != null)
+                    _audio.Play(sound.Value, target);
+            }
+
+            ShowKillText(target, ref ev);
 
             _sounds.Play(_rand.Pick(KillSounds), target);
 
@@ -348,15 +309,48 @@ namespace OpenNefia.Content.Combat
             {
                 chara.Liveness = CharaLivenessState.Dead;
             }
-            else
+            else if (TryComp<MetaDataComponent>(target, out var metaData))
             {
                 metaData.Liveness = EntityGameLiveness.DeadAndBuried;
             }
         }
 
+        private void ShowKillText(EntityUid target, ref EntityKilledEvent ev)
+        {
+            if (!_vis.IsInWindowFov(target))
+                return;
+
+            var capitalize = true;
+            if (ev.ExtraArgs.AttackCount > 0)
+            {
+                _mes.Display("Elona.Combat.PhysicalAttack.Furthermore");
+                capitalize = false;
+            }
+
+            var isAlly = _parties.IsInPlayerParty(target);
+
+            if (isAlly)
+            {
+                if (!ev.ExtraArgs.NoAttackText)
+                {
+                    if (EntityManager.IsAlive(ev.ExtraArgs.Weapon))
+                    {
+                        // TODO
+                        if (ev.ExtraArgs.AttackSkill == Protos.Skill.Throwing)
+                        {
+
+                        }
+                        else
+                        {
+
+                        }
+                    }
+                }
+            }
+        }
+
         #endregion
     }
-
     [ByRefEvent]
     public struct CalcFinalDamageEvent
     {

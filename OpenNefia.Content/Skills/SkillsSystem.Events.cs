@@ -16,6 +16,7 @@ using OpenNefia.Content.EntityGen;
 using OpenNefia.Content.GameObjects;
 using OpenNefia.Content.Levels;
 using OpenNefia.Content.Resists;
+using OpenNefia.Content.Damage;
 
 namespace OpenNefia.Content.Skills
 {
@@ -24,6 +25,7 @@ namespace OpenNefia.Content.Skills
         [Dependency] private readonly IActivitySystem _activities = default!;
         [Dependency] private readonly IRefreshSystem _refresh = default!;
         [Dependency] private readonly ILevelSystem _levels = default!;
+        [Dependency] private readonly IDamageSystem _damage = default!;
 
         public override void Initialize()
         {
@@ -110,7 +112,7 @@ namespace OpenNefia.Content.Skills
         private void HandleGenerated(EntityUid uid, SkillsComponent component, ref EntityGeneratedEvent args)
         {
             _refresh.Refresh(uid);
-            HealToMax(uid);
+            _damage.HealToMax(uid);
         }
 
         private void HandleRefresh(EntityUid uid, SkillsComponent skills, ref EntityRefreshEvent args)
@@ -174,7 +176,7 @@ namespace OpenNefia.Content.Skills
             {
                 if (!_activities.HasActivity(uid))
                 {
-                    HealStamina(uid, 2, showMessage: false, skills);
+                    _damage.HealStamina(uid, 2, showMessage: false, skills);
                 }
             }
         }
@@ -245,12 +247,12 @@ namespace OpenNefia.Content.Skills
             if (_rand.OneIn(6))
             {
                 var hpDelta = _rand.Next(Level(uid, Protos.Skill.Healing) / 3 + 1) + 1;
-                HealHP(uid, hpDelta, showMessage: false, skills);
+                _damage.HealHP(uid, hpDelta, showMessage: false, skills);
             }
             if (_rand.OneIn(5))
             {
                 var mpDelta = _rand.Next(Level(uid, Protos.Skill.Meditation) / 2 + 1) + 1;
-                HealMP(uid, mpDelta, showMessage: false, skills);
+                _damage.HealMP(uid, mpDelta, showMessage: false, skills);
             }
         }
     }

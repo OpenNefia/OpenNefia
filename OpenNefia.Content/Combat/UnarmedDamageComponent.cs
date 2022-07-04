@@ -1,4 +1,5 @@
-﻿using OpenNefia.Content.Prototypes;
+﻿using OpenNefia.Content.Damage;
+using OpenNefia.Content.Prototypes;
 using OpenNefia.Content.Skills;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Prototypes;

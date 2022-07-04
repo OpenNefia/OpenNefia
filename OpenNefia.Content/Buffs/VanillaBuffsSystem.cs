@@ -1,4 +1,4 @@
-﻿using OpenNefia.Content.Combat;
+﻿using OpenNefia.Content.Damage;
 using OpenNefia.Content.Logic;
 using OpenNefia.Content.Prototypes;
 using OpenNefia.Content.Skills;

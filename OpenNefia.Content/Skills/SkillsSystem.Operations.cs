@@ -12,53 +12,7 @@ namespace OpenNefia.Content.Skills
     public sealed partial class SkillsSystem
     {
         public const int BonusPointExperienceAmount = 400;
-
-        public void HealToMax(EntityUid uid, SkillsComponent? skills = null)
-        {
-            if (!Resolve(uid, ref skills))
-                return;
-
-            skills.HP = skills.MaxHP;
-            skills.MP = skills.MaxHP;
-            skills.Stamina = skills.MaxStamina;
-        }
-
-        public void HealHP(EntityUid uid, int amount, bool showMessage = true, SkillsComponent? skills = null)
-        {
-            if (!Resolve(uid, ref skills))
-                return;
-
-            amount = Math.Clamp(amount, 0, Math.Max(skills.MaxHP - skills.HP, 0));
-            skills.HP += amount;
-
-            var ev = new AfterHealEvent(uid, HealType.HP, amount, showMessage);
-            RaiseEvent(uid, ref ev);
-        }
-
-        public void HealMP(EntityUid uid, int amount, bool showMessage = true, SkillsComponent? skills = null)
-        {
-            if (!Resolve(uid, ref skills))
-                return;
-
-            amount = Math.Clamp(amount, 0, Math.Max(skills.MaxMP - skills.MP, 0));
-            skills.MP += amount;
-
-            var ev = new AfterHealEvent(uid, HealType.MP, amount, showMessage);
-            RaiseEvent(uid, ref ev);
-        }
-
-        public void HealStamina(EntityUid uid, int amount, bool showMessage = true, SkillsComponent? skills = null)
-        {
-            if (!Resolve(uid, ref skills))
-                return;
-
-            amount = Math.Clamp(amount, 0, Math.Max(skills.MaxStamina - skills.Stamina, 0));
-            skills.Stamina += amount;
-
-            var ev = new AfterHealEvent(uid, HealType.Stamina, amount, showMessage);
-            RaiseEvent(uid, ref ev);
-        }
-
+        
         public void GainBonusPoints(EntityUid uid, int bonusPoints, SkillsComponent? skills = null)
         {
             if (!Resolve(uid, ref skills))

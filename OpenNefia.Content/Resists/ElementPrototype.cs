@@ -1,4 +1,5 @@
-﻿using OpenNefia.Core.Audio;
+﻿using OpenNefia.Content.Audio;
+using OpenNefia.Core.Audio;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Rendering;
@@ -23,7 +24,7 @@ namespace OpenNefia.Content.Resists
         public Color UIColor { get; }
 
         [DataField]
-        public PrototypeId<SoundPrototype>? Sound { get; }
+        public SoundSpecifier? Sound { get; }
 
         [DataField]
         public PrototypeId<AssetPrototype>? DeathAnim { get; }

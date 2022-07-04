@@ -7,7 +7,7 @@ using OpenNefia.Content.Prototypes;
 using OpenNefia.Content.Effects;
 using OpenNefia.Content.EntityGen;
 using OpenNefia.Core.Prototypes;
-using OpenNefia.Content.Combat;
+using OpenNefia.Content.Damage;
 
 namespace OpenNefia.Content.Resists
 {
