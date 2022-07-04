@@ -1,4 +1,15 @@
 Elona.DamageSource = {
+    Default = {
+        Damage = function(entity)
+            return ("%sは傷ついた。"):format(_.name(entity))
+        end,
+        Death = {
+            Active = "殺した。",
+            Passive = function(entity)
+                return ("%sは死んだ。"):format(_.name(entity))
+            end,
+        },
+    },
     Chara = {
         DeathCause = function(entity)
             return ("%sに殺された。"):format(_.basename(entity))

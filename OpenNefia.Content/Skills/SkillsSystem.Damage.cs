@@ -1,7 +1,9 @@
 ﻿using OpenNefia.Content.DisplayName;
+using OpenNefia.Content.Resists;
 using OpenNefia.Core;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Locale;
+using OpenNefia.Core.Prototypes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +14,7 @@ namespace OpenNefia.Content.Skills
 {
     public sealed partial class SkillsSystem
     {
-        public void DamageHP(EntityUid uid, int amount, string source, bool showMessage = true, SkillsComponent? skills = null)
+        public void DamageHP(EntityUid uid, int amount, IDamageSource? source, bool showMessage = true, SkillsComponent? skills = null)
         {
             if (!Resolve(uid, ref skills))
                 return;
@@ -70,6 +72,26 @@ namespace OpenNefia.Content.Skills
         public string LocalizeDeathMessage(EntityUid target, IEntityManager entityManager)
         {
             return Loc.GetString($"Elona.DamageSource.Chara.{Type}.Passive", ("entity", target), ("attacker", AttackedBy));
+        }
+    }
+
+    public sealed class ElementalDamageSource : IDamageSource
+    {
+        public PrototypeId<ElementPrototype> ElementID { get; }
+        public int Power { get; }
+
+        public ElementalDamageSource(PrototypeId<ElementPrototype> elementID, int power)
+        {
+            ElementID = elementID;
+            Power = power;
+        }
+
+        public string LocalizeDeathCauseMessage(EntityUid target, IEntityManager entityManager)
+        {
+        }
+
+        public string LocalizeDeathMessage(EntityUid target, IEntityManager entityManager)
+        {
         }
     }
 
