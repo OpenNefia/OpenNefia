@@ -21,6 +21,9 @@ Elona.Combat = {
                 return ("%s攻撃をかわされた。"):format(_.kare_wa(attacker))
             end,
         },
-        furthermore = "さらに",
+        Furthermore = "さらに",
+        WieldsProudly = function(wielder, itemName)
+            return ("%sは%sを誇らしげに構えた。"):format(_.name(wielder), itemName)
+        end,
     },
 }

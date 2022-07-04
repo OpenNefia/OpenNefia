@@ -1,6 +1,7 @@
 ﻿using JetBrains.Annotations;
 using OpenNefia.Content.Activity;
 using OpenNefia.Content.Charas;
+using OpenNefia.Content.CustomName;
 using OpenNefia.Content.DisplayName;
 using OpenNefia.Content.Equipment;
 using OpenNefia.Content.EquipSlots;
@@ -8,11 +9,13 @@ using OpenNefia.Content.Factions;
 using OpenNefia.Content.Feats;
 using OpenNefia.Content.GameObjects;
 using OpenNefia.Content.GameObjects.EntitySystems.Tag;
+using OpenNefia.Content.Identify;
 using OpenNefia.Content.Input;
 using OpenNefia.Content.Logic;
 using OpenNefia.Content.Maps;
 using OpenNefia.Content.Parties;
 using OpenNefia.Content.Prototypes;
+using OpenNefia.Content.Qualities;
 using OpenNefia.Content.Rendering;
 using OpenNefia.Content.Skills;
 using OpenNefia.Content.StatusEffects;
@@ -355,11 +358,10 @@ namespace OpenNefia.Content.Combat
 
                 if (weapon != null)
                 {
-
-                }
-                else
-                {
-
+                    if (_rand.OneIn(5))
+                    {
+                        ShowWieldsProudlyMesssage(attacker, weapon.Value);
+                    }
                 }
             }
             else
@@ -381,6 +383,31 @@ namespace OpenNefia.Content.Combat
 
             _activities.InterruptActivity(target);
             // <<<<<<<< shade2/action.hsp:1292  ..
+        }
+
+        private void ShowWieldsProudlyMesssage(EntityUid attacker, EntityUid weapon)
+        {
+            var quality = CompOrNull<QualityComponent>(weapon)?.Quality;
+            var identifyState = CompOrNull<IdentifyComponent>(weapon)?.IdentifyState;
+            var itemName = _displayNames.GetBaseName(weapon);
+            string name;
+
+            // Don't spoil the item's title if not fully identified yet
+            if (quality >= Quality.Great && identifyState >= IdentifyState.Full)
+            {
+                name = Loc.GetString("Elona.Item.NameModifiers.Article", ("name", itemName));
+            }
+            else
+            {
+                var customName = CompOrNull<CustomNameComponent>(weapon);
+                if (customName?.Title != null)
+                    name = customName.Title;
+                else
+                    name = Loc.GetString("Elona.Item.NameModifiers.Article", ("name", itemName));
+            }
+            name = Loc.GetString("Elona.Item.NameModifiers.Great", ("name", name));
+
+            _mes.Display(Loc.GetString("Elona.Combat.PhysicalAttack.WieldsProudly", ("wielder", attacker), ("itemName", name)), UiColors.MesSkyBlue);
         }
 
         private void ShowMissText(EntityUid attacker, EntityUid target, int attackCount)

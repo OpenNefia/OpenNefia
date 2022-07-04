@@ -22,10 +22,11 @@ namespace OpenNefia.Content.Locale.Funcs
         [LocaleFunction("name")]
         public static string BuiltIn_name(object? obj, bool ignoreSight = false)
         {
+            if (obj is string s)
+                return s;
+            
             if (obj is not EntityUid entity)
-            {
                 return Loc.GetString("Elona.GameObjects.Common.Something");
-            }
 
             var gameSession = IoCManager.Resolve<IGameSessionManager>();
 
@@ -45,10 +46,14 @@ namespace OpenNefia.Content.Locale.Funcs
         [LocaleFunction("basename")]
         public static string BuiltIn_basename(object? obj)
         {
-            // TODO
-            return BuiltIn_name(obj, ignoreSight: true);
-        }
+            if (obj is string s)
+                return s;
 
+            if (obj is not EntityUid entity)
+                return Loc.GetString("Elona.GameObjects.Common.Something");
+            
+            return EntitySystem.Get<IDisplayNameSystem>().GetBaseName(entity);
+        }
 
         /// <summary>
         /// returns the ordnial short form for a number; 1 = st, 2 = nd, 3 = rd, ect.
