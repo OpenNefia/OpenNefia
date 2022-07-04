@@ -1,4 +1,5 @@
-﻿using OpenNefia.Content.GameObjects;
+﻿using OpenNefia.Content.Damage;
+using OpenNefia.Content.GameObjects;
 using OpenNefia.Content.Logic;
 using OpenNefia.Content.Prototypes;
 using OpenNefia.Content.UI;
@@ -22,11 +23,8 @@ namespace OpenNefia.Content.Combat
 
     public sealed class ExplosiveSystem : EntitySystem, IExplosiveSystem
     {
-        [Dependency] private readonly IMapManager _mapManager = default!;
-        [Dependency] private readonly IAreaManager _areaManager = default!;
         [Dependency] private readonly IRandom _rand = default!;
         [Dependency] private readonly IMessagesManager _mes = default!;
-        [Dependency] private readonly IEntityLookup _lookup = default!;
 
         public override void Initialize()
         {
@@ -50,7 +48,7 @@ namespace OpenNefia.Content.Combat
             if (_rand.Prob(component.ExplodeChance.Buffed))
             {
                 component.IsAboutToExplode = true;
-                _mes.Display(Loc.GetString("Elona.Exploslive.Click"), UiColors.MesLightBlue);
+                _mes.Display(Loc.GetString("Elona.Explosive.Click"), UiColors.MesLightBlue);
             }
         }
     }

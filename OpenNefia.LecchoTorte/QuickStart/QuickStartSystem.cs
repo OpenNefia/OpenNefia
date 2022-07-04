@@ -12,6 +12,7 @@ using OpenNefia.Core.Rendering;
 using OpenNefia.Content.VanillaAI;
 using OpenNefia.Content.Resists;
 using OpenNefia.Core.Prototypes;
+using OpenNefia.Content.Damage;
 
 namespace OpenNefia.LecchoTorte.QuickStart
 {
@@ -21,9 +22,9 @@ namespace OpenNefia.LecchoTorte.QuickStart
         [Dependency] private readonly ICharaGen _charaGen = default!;
         [Dependency] private readonly IGameSessionManager _gameSession = default!;
         [Dependency] private readonly IRefreshSystem _refresh = default!;
-        [Dependency] private readonly ISkillsSystem _skills = default!;
         [Dependency] private readonly IMapRenderer _mapRenderer = default!;
         [Dependency] private readonly IPrototypeManager _protoMan = default!;
+        [Dependency] private readonly IDamageSystem _damage = default!;
 
         public override void Initialize()
         {
@@ -46,7 +47,7 @@ namespace OpenNefia.LecchoTorte.QuickStart
             skills.Ensure(Protos.Skill.AttrStrength).Level.Base = 2000;
             skills.Ensure(Protos.Skill.AttrLife).Level.Base = 2000;
             _refresh.Refresh(player);
-            _skills.HealToMax(player);
+            _damage.HealToMax(player);
 
             _mapRenderer.SetTileLayerEnabled(typeof(VanillaAIDebugTileLayer), true);
 

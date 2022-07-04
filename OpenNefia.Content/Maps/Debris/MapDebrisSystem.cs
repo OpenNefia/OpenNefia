@@ -8,6 +8,7 @@ using OpenNefia.Content.Prototypes;
 using OpenNefia.Content.Combat;
 using OpenNefia.Content.Skills;
 using NetVips;
+using OpenNefia.Content.Damage;
 
 namespace OpenNefia.Content.Maps
 {

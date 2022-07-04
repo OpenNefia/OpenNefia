@@ -1,4 +1,5 @@
-﻿using OpenNefia.Content.GameObjects;
+﻿using OpenNefia.Content.Damage;
+using OpenNefia.Content.GameObjects;
 using OpenNefia.Content.Logic;
 using OpenNefia.Content.Prototypes;
 using OpenNefia.Core.Areas;
@@ -15,25 +16,25 @@ using System.Threading.Tasks;
 
 namespace OpenNefia.Content.Combat
 {
-    public sealed class DamageImmunitySystem : EntitySystem
+    public sealed class NullifyDamageSystem : EntitySystem
     {
         [Dependency] private readonly IRandom _rand = default!;
 
         public override void Initialize()
         {
-            SubscribeComponent<DamageImmunityComponent, EntityRefreshEvent>(HandleRefresh, priority: EventPriorities.Highest);
-            SubscribeComponent<DamageImmunityComponent, CalcFinalDamageEvent>(HandleCalcFinalDamage, priority: EventPriorities.VeryLow);
+            SubscribeComponent<NullifyDamageComponent, EntityRefreshEvent>(HandleRefresh, priority: EventPriorities.Highest);
+            SubscribeComponent<NullifyDamageComponent, CalcFinalDamageEvent>(HandleCalcFinalDamage, priority: EventPriorities.VeryLow);
         }
 
-        private void HandleRefresh(EntityUid uid, DamageImmunityComponent component, ref EntityRefreshEvent args)
+        private void HandleRefresh(EntityUid uid, NullifyDamageComponent component, ref EntityRefreshEvent args)
         {
-            component.DamageImmunityChance.Reset();
+            component.NullifyDamageChance.Reset();
         }
 
-        private void HandleCalcFinalDamage(EntityUid uid, DamageImmunityComponent component, ref CalcFinalDamageEvent args)
+        private void HandleCalcFinalDamage(EntityUid uid, NullifyDamageComponent component, ref CalcFinalDamageEvent args)
         {
             // >>>>>>>> elona122/shade2/chara_func.hsp:1466 	if cImmuneDamage(tc)>0:if cImmuneDamage(tc)>rnd(1 ..
-            if (_rand.Prob(component.DamageImmunityChance.Buffed))
+            if (_rand.Prob(component.NullifyDamageChance.Buffed))
                 args.OutFinalDamage = 0;
             // <<<<<<<< elona122/shade2/chara_func.hsp:1466 	if cImmuneDamage(tc)>0:if cImmuneDamage(tc)>rnd(1 ..
         }

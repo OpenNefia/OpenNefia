@@ -670,7 +670,9 @@ handlers["base.element"] = function(from, to)
         to.preservesSleep = from.preserves_sleep
     end
     if from.sound then
-        to.sound = dotted(from.sound)
+        setmetatable({
+            soundID = dotted(from.sound),
+        }, { tag = "type:SoundPathSpecifier", type = "mapping" })
     end
     if from.death_anim then
         to.deathAnim = dotted(from.death_anim)

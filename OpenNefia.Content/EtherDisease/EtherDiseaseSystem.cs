@@ -1,4 +1,5 @@
-﻿using OpenNefia.Content.Logic;
+﻿using OpenNefia.Content.Damage;
+using OpenNefia.Content.Logic;
 using OpenNefia.Content.Prototypes;
 using OpenNefia.Content.Skills;
 using OpenNefia.Content.TurnOrder;
@@ -23,12 +24,7 @@ namespace OpenNefia.Content.EtherDisease
 
     public sealed class EtherDiseaseSystem : EntitySystem, IEtherDiseaseSystem
     {
-        [Dependency] private readonly IMapManager _mapManager = default!;
-        [Dependency] private readonly IAreaManager _areaManager = default!;
-        [Dependency] private readonly IRandom _rand = default!;
-        [Dependency] private readonly IMessagesManager _mes = default!;
-        [Dependency] private readonly IEntityLookup _lookup = default!;
-        [Dependency] private readonly ISkillsSystem _skills = default!;
+        [Dependency] private readonly IDamageSystem _damage = default!;
 
         public const int EtherDiseaseDeathThreshold = 20000;
 
@@ -45,7 +41,7 @@ namespace OpenNefia.Content.EtherDisease
             if (etherDisease.Corruption >= EtherDiseaseDeathThreshold)
             {
                 if (TryComp<SkillsComponent>(uid, out var skills))
-                    _skills.DamageHP(uid, Math.Max(999999, skills.MaxHP), "Elona.EtherDisease");
+                    _damage.DamageHP(uid, Math.Max(999999, skills.MaxHP), damageType: new GenericDamageType("Elona.DamageType.EtherDisease"));
             }
         }
 

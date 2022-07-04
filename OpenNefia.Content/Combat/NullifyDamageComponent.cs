@@ -10,11 +10,11 @@ namespace OpenNefia.Content.Combat
 {
     [RegisterComponent]
     [ComponentUsage(ComponentTarget.Normal)]
-    public sealed class DamageImmunityComponent : Component
+    public sealed class NullifyDamageComponent : Component
     {
-        public override string Name => "DamageImmunity";
+        public override string Name => "NullifyDamage";
 
-        [[DataField]
-        public Stat<float> DamageImmunityChance { get; set; } = new(0f);
+        [DataField]
+        public Stat<float> NullifyDamageChance { get; set; } = new(0f);
     }
 }

@@ -21,7 +21,7 @@ using OpenNefia.Content.Factions;
 using OpenNefia.Content.Hunger;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.Directions;
-using OpenNefia.Content.Combat;
+using OpenNefia.Content.Damage;
 
 namespace OpenNefia.Content.StatusEffects
 {
