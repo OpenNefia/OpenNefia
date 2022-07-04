@@ -389,7 +389,7 @@ namespace OpenNefia.Content.Parties
                 _audio.Play(Protos.Sound.Pray1);
             }
 
-            var ev = new CharaRecruitedAsAllyEvent(leader, noMessage);
+            var ev = new AfterRecruitedAsAllyEvent(leader, noMessage);
             RaiseEvent(ally, ev);
 
             return true;
@@ -412,12 +412,12 @@ namespace OpenNefia.Content.Parties
         }
     }
 
-    public sealed class CharaRecruitedAsAllyEvent : EntityEventArgs
+    public sealed class AfterRecruitedAsAllyEvent : EntityEventArgs
     {
         public EntityUid Leader { get; }
         public bool NoMessage { get; }
 
-        public CharaRecruitedAsAllyEvent(EntityUid leader, bool noMessage)
+        public AfterRecruitedAsAllyEvent(EntityUid leader, bool noMessage)
         {
             Leader = leader;
             NoMessage = noMessage;

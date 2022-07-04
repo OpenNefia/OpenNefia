@@ -1,4 +1,4 @@
-Elona.DamageSource = {
+Elona.DamageType = {
     Default = {
         Damage = function(entity)
             return ("%s %s wounded."):format(_.name(entity), _.is(entity))

@@ -22,6 +22,7 @@ namespace OpenNefia.Content.StatusEffects
         /// <param name="statusEffects"></param>
         /// <returns></returns>
         bool HasEffect(EntityUid entity, PrototypeId<StatusEffectPrototype> id, StatusEffectsComponent? statusEffects = null);
+        bool CanApplyTo(EntityUid entity, PrototypeId<StatusEffectPrototype> id, StatusEffectsComponent? statusEffects = null);
 
         void Remove(EntityUid entity, PrototypeId<StatusEffectPrototype> id, StatusEffectsComponent? statusEffects = null);
         void RemoveAll(EntityUid entity, StatusEffectsComponent? statusEffects = null);
@@ -57,6 +58,14 @@ namespace OpenNefia.Content.StatusEffects
         public bool HasEffect(EntityUid entity, PrototypeId<StatusEffectPrototype> id, StatusEffectsComponent? statusEffects = null)
         {
             return GetTurns(entity, id, statusEffects) > 0;
+        }
+
+        public bool CanApplyTo(EntityUid entity, PrototypeId<StatusEffectPrototype> id, StatusEffectsComponent? statusEffects = null)
+        {
+            if (!Resolve(entity, ref statusEffects))
+                return false;
+
+            return !statusEffects.StatusEffectImmunities.Contains(id);
         }
 
         public bool SetTurns(EntityUid entity, PrototypeId<StatusEffectPrototype> id, int turns, bool force = false, StatusEffectsComponent? statusEffects = null)

@@ -21,6 +21,7 @@ using OpenNefia.Content.Factions;
 using OpenNefia.Content.Hunger;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.Directions;
+using OpenNefia.Content.Combat;
 
 namespace OpenNefia.Content.StatusEffects
 {
@@ -37,11 +38,22 @@ namespace OpenNefia.Content.StatusEffects
         [Dependency] private readonly IStatusEffectSystem _statusEffects = default!;
         [Dependency] private readonly IHungerSystem _hunger = default!;
 
-
         public override void Initialize()
         {
-            SubscribeComponent<StatusDrunkComponent, EntityPassTurnEventArgs>(HandlePassTurnDrunk);
+            SubscribeComponent<StatusEffectsComponent, CalcFinalDamageEvent>(HandleCalcDamageFury, priority: EventPriorities.VeryHigh);
+            SubscribeComponent<StatusEffectsComponent, EntityPassTurnEventArgs>(HandlePassTurnDrunk);
             SubscribeComponent<StatusEffectsComponent, BeforeMoveEventArgs>(ProcRandomMovement);
+        }
+
+        private void HandleCalcDamageFury(EntityUid uid, StatusEffectsComponent component, ref CalcFinalDamageEvent args)
+        {
+            // >>>>>>>> elona122/shade2/chara_func.hsp:1441 	dmg = dmgOrg * (1+(cAngry(tc)>0)) ..
+            if (_statusEffects.HasEffect(uid, Protos.StatusEffect.Fury, component))
+                args.OutFinalDamage *= 2;
+
+            if (EntityManager.IsAlive(args.Attacker) && _statusEffects.HasEffect(args.Attacker.Value, Protos.StatusEffect.Fury))
+                args.OutFinalDamage *= 2;
+            // <<<<<<<< elona122/shade2/chara_func.hsp:1442 	if dmgSource>=0 : if cAngry(dmgSource)>0:dmg*=2 ..
         }
 
         public const int DrunkLevelHeavy = 45;
@@ -56,9 +68,9 @@ namespace OpenNefia.Content.StatusEffects
                 && _rand.OneIn(3);
         }
 
-        private void HandlePassTurnDrunk(EntityUid drunkard, StatusDrunkComponent component, EntityPassTurnEventArgs args)
+        private void HandlePassTurnDrunk(EntityUid drunkard, StatusEffectsComponent component, EntityPassTurnEventArgs args)
         {
-            if (args.Handled)
+            if (args.Handled || !_statusEffects.HasEffect(drunkard, Protos.StatusEffect.Drunk, component))
                 return;
 
             if (_rand.OneIn(200) && !_gameSession.IsPlayer(drunkard))

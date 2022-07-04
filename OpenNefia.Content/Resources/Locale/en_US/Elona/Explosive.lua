@@ -1,0 +1,3 @@
+Elona.Explosive {
+    Click = "*click*",
+}

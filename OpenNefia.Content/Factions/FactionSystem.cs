@@ -20,6 +20,7 @@ namespace OpenNefia.Content.Factions
     public interface IFactionSystem : IEntitySystem
     {
         Relation GetRelationTowards(EntityUid us, EntityUid them);
+        Relation GetOriginalRelationTowards(EntityUid us, EntityUid them);
         Relation GetRelationToPlayer(EntityUid target, FactionComponent? faction = null);
 
         void SetPersonalRelationTowards(EntityUid us, EntityUid them, Relation relation, FactionComponent? ourFaction = null);
@@ -50,17 +51,25 @@ namespace OpenNefia.Content.Factions
         /// <inheritdoc/>
         public Relation GetRelationTowards(EntityUid us, EntityUid them)
         {
-            var ev = new CalculateRelationEventArgs(them);
+            var ev = new CalculateRelationEventArgs(them, ignorePersonal: false);
+            RaiseEvent(us, ref ev);
+            return ev.Relation;
+        }
+        
+        /// <inheritdoc/>
+        public Relation GetOriginalRelationTowards(EntityUid us, EntityUid them)
+        {
+            var ev = new CalculateRelationEventArgs(them, ignorePersonal: true);
             RaiseEvent(us, ref ev);
             return ev.Relation;
         }
 
         private void HandleCalculateRelation(EntityUid us, FactionComponent ourFaction, ref CalculateRelationEventArgs args)
         {
-            args.Relation = CalculateRelationDefault(us, args.Target);
+            args.Relation = CalculateRelationDefault(us, args.Target, args.IgnorePersonal);
         }
 
-        public Relation CalculateRelationDefault(EntityUid us, EntityUid them)
+        public Relation CalculateRelationDefault(EntityUid us, EntityUid them, bool ignorePersonal)
         {
             if (us == them)
             {
@@ -68,13 +77,14 @@ namespace OpenNefia.Content.Factions
                 return Relation.Ally;
             }
 
-            // TODO: how should this interact with leaders?
-            if (TryComp<FactionComponent>(us, out var faction)
-                && faction.PersonalRelations.TryGetValue(them, out var relation))
+            Relation? ourUnderlingRelation = null;
+            Relation? theirUnderlingRelation = null;
+            if (!ignorePersonal)
             {
-                return relation;
+                ourUnderlingRelation = CompOrNull<FactionComponent>(us)?.PersonalRelations.GetValueOrDefault(them);
+                theirUnderlingRelation = CompOrNull<FactionComponent>(us)?.PersonalRelations.GetValueOrDefault(us);
             }
-
+            
             if (_partySystem.TryGetLeader(us, out var leader))
                 us = leader.Value;
             if (_partySystem.TryGetLeader(them, out leader))
@@ -90,6 +100,21 @@ namespace OpenNefia.Content.Factions
 
             var ourRelation = GetBaseRelation(us, ourFaction);
             var theirRelation = GetBaseRelation(them, theirFaction);
+
+            if (!ignorePersonal)
+            {
+                if (ourFaction.PersonalRelations.TryGetValue(them, out var ourPersonal))
+                    ourRelation = ourPersonal;
+                if (theirFaction.PersonalRelations.TryGetValue(them, out var theirPersonal))
+                    ourRelation = theirPersonal;
+
+                // If our allies have a beef with each other, the leaders also share that beef towards the
+                // entire opposing party.
+                if (ourUnderlingRelation != null)
+                    ourRelation = CompareRelations(ourRelation, ourUnderlingRelation.Value);
+                if (theirUnderlingRelation != null)
+                    theirRelation = CompareRelations(theirRelation, theirUnderlingRelation.Value);
+            }
 
             return CompareRelations(ourRelation, theirRelation);
         }
@@ -232,12 +257,14 @@ namespace OpenNefia.Content.Factions
     public struct CalculateRelationEventArgs
     {
         public EntityUid Target { get; }
+        public bool IgnorePersonal { get; }
 
         public Relation Relation { get; set; } = Relation.Neutral;
 
-        public CalculateRelationEventArgs(EntityUid target)
+        public CalculateRelationEventArgs(EntityUid target, bool ignorePersonal)
         {
             Target = target;
+            IgnorePersonal = ignorePersonal;
         }
     }
 }

@@ -9,11 +9,11 @@ namespace OpenNefia.Content.Combat
 {
     [RegisterComponent]
     [ComponentUsage(ComponentTarget.Normal)]
-    public sealed class StoneBloodComponent : Component
+    public sealed class MetalComponent : Component
     {
-        public override string Name => "StoneBlood";
+        public override string Name => "Metal";
 
         [DataField]
-        public bool HasStoneBlood { get; set; } = true;
+        public bool IsMetal { get; set; } = true;
     }
 }

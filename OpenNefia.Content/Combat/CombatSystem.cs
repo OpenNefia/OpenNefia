@@ -1,8 +1,9 @@
-﻿using JetBrains.Annotations;
+﻿using NuGet.DependencyResolver;
 using OpenNefia.Content.Activity;
 using OpenNefia.Content.Charas;
 using OpenNefia.Content.CustomName;
 using OpenNefia.Content.DisplayName;
+using OpenNefia.Content.EmotionIcon;
 using OpenNefia.Content.Equipment;
 using OpenNefia.Content.EquipSlots;
 using OpenNefia.Content.Factions;
@@ -36,13 +37,7 @@ using OpenNefia.Core.Random;
 using OpenNefia.Core.Rendering;
 using OpenNefia.Core.Serialization.Manager.Attributes;
 using OpenNefia.Core.Utility;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using YamlDotNet.Core;
 
 namespace OpenNefia.Content.Combat
 {
@@ -75,6 +70,32 @@ namespace OpenNefia.Content.Combat
         [Dependency] private readonly IFeatsSystem _feats = default!;
         [Dependency] private readonly IActivitySystem _activities = default!;
         [Dependency] private readonly IPartySystem _parties = default!;
+        [Dependency] private readonly IEmotionIconSystem _emoIcons = default!;
+
+        public override void Initialize()
+        {
+            #region Physical attack events
+            SubscribeEntity<BeforePhysicalAttackEventArgs>(BlockPhysicalAttackFear, priority: EventPriorities.VeryHigh);
+
+            SubscribeEntity<CalcPhysicalAttackAccuracyEvent>(HandleCalcAccuracyEquipState, priority: EventPriorities.VeryHigh);
+            SubscribeEntity<CalcPhysicalAttackAccuracyEvent>(HandleCalcAccuracyAttackCount, priority: EventPriorities.VeryHigh);
+
+            SubscribeEntity<CalcPhysicalAttackHitEvent>(HandleCalcHitStatusEffects, priority: EventPriorities.VeryHigh);
+            SubscribeEntity<CalcPhysicalAttackHitEvent>(HandleCalcHitGreaterEvasion, priority: EventPriorities.VeryHigh);
+            SubscribeEntity<CalcPhysicalAttackHitEvent>(HandleCalcHitCriticals, priority: EventPriorities.VeryHigh);
+            #endregion
+
+            #region Damage events
+            SubscribeEntity<EntityWoundedEvent>(DisplayDamageMessages, priority: EventPriorities.VeryHigh);
+            SubscribeEntity<EntityWoundedEvent>(ProcRetreatInFear, priority: EventPriorities.VeryHigh + 10000);
+            SubscribeEntity<EntityWoundedEvent>(DisturbSleep, priority: EventPriorities.VeryHigh + 20000);
+            SubscribeEntity<EntityWoundedEvent>(ApplyHostileActionAfterDamage, priority: EventPriorities.VeryHigh + 60000);
+            SubscribeEntity<EntityWoundedEvent>(PlayHeartbeatSound, priority: EventPriorities.Lowest);
+            SubscribeEntity<EntityKilledEvent>(HandleKilled, priority: EventPriorities.VeryHigh);
+
+            SubscribeEntity<AfterDamageMPEvent>(ProcMagicReaction, priority: EventPriorities.VeryHigh);
+            #endregion
+        }
 
         public EquipState GetEquipState(EntityUid ent)
         {
@@ -128,28 +149,6 @@ namespace OpenNefia.Content.Combat
             Protos.Sound.Kill1,
             Protos.Sound.Kill2,
         };
-
-        private void KillEntity(EntityUid target, MetaDataComponent? metaData = null, SpatialComponent? spatial = null)
-        {
-            if (!Resolve(target, ref metaData))
-                return;
-
-            _sounds.Play(_rand.Pick(KillSounds), target);
-
-            // TODO
-            if (Resolve(target, ref spatial))
-                _mapDebris.SpillBlood(spatial.MapPosition, 5);
-
-            // TODO
-            if (TryComp<CharaComponent>(target, out var chara))
-            {
-                chara.Liveness = CharaLivenessState.Dead;
-            }
-            else
-            {
-                metaData.Liveness = EntityGameLiveness.DeadAndBuried;
-            }
-        }
 
         public bool IsMeleeWeapon(EntityUid ent)
         {
@@ -356,6 +355,8 @@ namespace OpenNefia.Content.Combat
                     _mapDrawables.Enqueue(anim, Spatial(target).MapPosition);
                 }
 
+                IDamageType? damageType = null;
+
                 if (weapon != null)
                 {
                     if (_rand.OneIn(5))
@@ -363,6 +364,13 @@ namespace OpenNefia.Content.Combat
                         ShowWieldsProudlyMesssage(attacker, weapon.Value);
                     }
                 }
+                else
+                {
+                    if (TryComp<UnarmedDamageComponent>(attacker, out var unarmed))
+                        damageType = unarmed.DamageType;
+                }
+
+                _skills.DamageHP(target, rawDamage.TotalDamage, attacker, damageType);
             }
             else
             {
@@ -474,9 +482,9 @@ namespace OpenNefia.Content.Combat
                 attackAnimAsset = ext.AttackAnim;
             }
 
-            var breaksIntoDebris = HasComp<BreaksIntoDebrisComponent>(target);
+            var hasStoneBlood = CompOrNull<StoneBloodComponent>(target)?.HasStoneBlood ?? false;
             PrototypeId<AssetPrototype> particleAsset;
-            if (breaksIntoDebris)
+            if (hasStoneBlood)
                 particleAsset = Protos.Asset.MeleeAttackDebris;
             else
                 particleAsset = Protos.Asset.MeleeAttackBlood;

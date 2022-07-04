@@ -80,5 +80,11 @@ namespace OpenNefia.Content.Locale.Funcs
                 _ => null
             };
         }
+
+        [LocaleFunction("quote")]
+        public static string BuiltIn_quote(object? obj)
+        {
+            return Loc.GetString("Elona.Common.Quotes", ("s", obj?.ToString() ?? "null"));
+        }
     }
 }

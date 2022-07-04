@@ -33,5 +33,8 @@ namespace OpenNefia.Content.Resists
 
         [DataField]
         public int Rarity { get; set; } = 1;
+
+        [DataField]
+        public bool PreservesSleep { get; set; } = false;
     }
 }

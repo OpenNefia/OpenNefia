@@ -1,4 +1,4 @@
-Elona.DamageSource = {
+Elona.DamageType = {
     Default = {
         Damage = function(entity)
             return ("%sは傷ついた。"):format(_.name(entity))
@@ -45,7 +45,7 @@ Elona.DamageSource = {
             return ("%sは罠にかかって死んだ。"):format(_.name(entity))
         end,
     },
-    ManaReaction = {
+    MagicReaction = {
         DeathCause = "マナの反動で消滅した。",
         Message = function(entity)
             return ("%sはマナの反動で死んだ。"):format(_.name(entity))
