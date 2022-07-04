@@ -1,4 +1,17 @@
 Elona.DamageSource = {
+    Default = {
+        Damage = function(entity)
+            return ("%s %s wounded."):format(_.name(entity), _.is(entity))
+        end,
+        Death = {
+            Active = function(entity, attacker)
+                return ("kill%s %s."):format(_.s(attacker), _.him(entity))
+            end,
+            Passive = function(entity)
+                return ("%s %s killed."):format(_.name(entity), _.is(entity))
+            end,
+        },
+    },
     Chara = {
         DeathCause = function(attacker)
             return ("was killed by %s"):format(_.basename(attacker))
