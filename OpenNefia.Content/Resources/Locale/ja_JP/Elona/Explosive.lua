@@ -1,3 +1,3 @@
-Elona.Explosive {
+Elona.Explosive = {
     Click = " *カチッ* ",
 }

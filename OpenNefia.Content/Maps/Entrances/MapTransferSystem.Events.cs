@@ -341,7 +341,7 @@ namespace OpenNefia.Content.Maps
                 if (chara.Liveness == CharaLivenessState.VillagerDead
                     && _world.State.GameDate >= chara.RespawnDate)
                 {
-                    _chara.Revive(ent, chara);
+                    _chara.Revive(ent, chara: chara);
                 }
 
                 if (EntityManager.IsAlive(ent))

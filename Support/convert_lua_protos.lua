@@ -318,7 +318,7 @@ handlers["base.chara"] = function(from, to)
         c.damageType = setmetatable({
             elementID = dotted(from.unarmed_element_id),
             power = from.unarmed_element_power,
-        }, { tag = "ElementalDamageType", type = "mapping" })
+        }, { tag = "type:ElementalDamageType", type = "mapping" })
     end
 
     if from.is_immune_to_elemental_damage then

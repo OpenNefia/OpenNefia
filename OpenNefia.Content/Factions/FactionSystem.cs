@@ -14,6 +14,7 @@ using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Locale;
 using OpenNefia.Core.Random;
+using OpenNefia.Core.Utility;
 
 namespace OpenNefia.Content.Factions
 {
@@ -81,8 +82,12 @@ namespace OpenNefia.Content.Factions
             Relation? theirUnderlingRelation = null;
             if (!ignorePersonal)
             {
-                ourUnderlingRelation = CompOrNull<FactionComponent>(us)?.PersonalRelations.GetValueOrDefault(them);
-                theirUnderlingRelation = CompOrNull<FactionComponent>(us)?.PersonalRelations.GetValueOrDefault(us);
+                if (TryComp<FactionComponent>(us, out var ourUnderlingFaction)
+                    && ourUnderlingFaction.PersonalRelations.TryGetValue(them, out var ourRel))
+                    ourUnderlingRelation = ourRel;
+                if (TryComp<FactionComponent>(them, out var theirUnderlingFaction)
+                    && theirUnderlingFaction.PersonalRelations.TryGetValue(us, out var theirRel))
+                    theirUnderlingRelation = theirRel;
             }
             
             if (_partySystem.TryGetLeader(us, out var leader))
@@ -111,9 +116,9 @@ namespace OpenNefia.Content.Factions
                 // If our allies have a beef with each other, the leaders also share that beef towards the
                 // entire opposing party.
                 if (ourUnderlingRelation != null)
-                    ourRelation = CompareRelations(ourRelation, ourUnderlingRelation.Value);
+                    ourRelation = (Relation)Math.Min((int)ourRelation, (int)ourUnderlingRelation.Value);
                 if (theirUnderlingRelation != null)
-                    theirRelation = CompareRelations(theirRelation, theirUnderlingRelation.Value);
+                    theirRelation = (Relation)Math.Min((int)theirRelation, (int)theirUnderlingRelation.Value);
             }
 
             return CompareRelations(ourRelation, theirRelation);

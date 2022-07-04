@@ -1,4 +1,5 @@
-﻿using OpenNefia.Content.Factions;
+﻿using OpenNefia.Content.EmotionIcon;
+using OpenNefia.Content.Factions;
 using OpenNefia.Content.Maps;
 using OpenNefia.Content.Parties;
 using OpenNefia.Content.StatusEffects;
@@ -41,6 +42,7 @@ namespace OpenNefia.Content.VanillaAI
         [Dependency] private readonly IGameSessionManager _gameSession = default!;
         [Dependency] private readonly IVisibilitySystem _vision = default!;
         [Dependency] private readonly IRandom _random = default!;
+        [Dependency] private readonly IEmotionIconSystem _emoIcons = default!;
 
         public override void Initialize()
         {
@@ -132,13 +134,13 @@ namespace OpenNefia.Content.VanillaAI
                         {
                             var onCellSpatial = _lookup.GetBlockingEntity(map.AtPos(x, y));
 
-                            if (onCellSpatial != null)
+                            if (onCellSpatial != null && entity != onCellSpatial.Owner)
                             {
                                 if (!EntityManager.HasComponent<AINoTargetComponent>(onCellSpatial.Owner)
                                     && _factions.GetRelationTowards(entity, onCellSpatial.Owner) <= Relation.Enemy)
                                 {
                                     SetTarget(entity, onCellSpatial.Owner, 30, ai);
-                                    // TODO emotion icon
+                                    _emoIcons.SetEmotionIcon(onCellSpatial.Owner, "Elona.Angry", 2);
                                     return true;
                                 }
                             }
@@ -299,7 +301,11 @@ namespace OpenNefia.Content.VanillaAI
 
             var target = ai.CurrentTarget.Value;
             if (_parties.TryGetLeader(entity, out var leader))
+            {
                 target = leader.Value;
+                if (TryComp<VanillaAIComponent>(leader.Value, out var leaderAI))
+                    leaderAI.LastAttacker = entity;
+            }
 
             RunMeleeAction(entity, target);
         }
