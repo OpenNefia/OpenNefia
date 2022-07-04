@@ -13,16 +13,6 @@ namespace OpenNefia.Content.Skills
     {
         public const int BonusPointExperienceAmount = 400;
 
-        public void DamageHP(EntityUid uid, int amount, string source, bool showMessage = true, SkillsComponent? skills = null)
-        {
-            if (!Resolve(uid, ref skills))
-                return;
-
-            // TODO damage source struct, kill checking
-            amount = Math.Max(amount, 0);
-            skills.HP -= amount;
-        }
-
         public void HealToMax(EntityUid uid, SkillsComponent? skills = null)
         {
             if (!Resolve(uid, ref skills))

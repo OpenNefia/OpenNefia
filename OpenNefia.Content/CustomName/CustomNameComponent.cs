@@ -21,5 +21,8 @@ namespace OpenNefia.Content.CustomName
         /// </summary>
         [DataField]
         public bool ShowBaseName { get; set; } = false;
+
+        [DataField]
+        public string? Title { get; set; }
     }
 }

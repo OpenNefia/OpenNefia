@@ -21,6 +21,9 @@ Elona.Combat = {
                 return ("%s skillfully evade%s %s."):format(_.name(target), _.s(target), _.name(attacker))
             end,
         },
-        furthermore = "Futhermore,",
+        Furthermore = "Futhermore,",
+        WieldsProudly = function(wielder, itemName)
+            return ("%s wield%s %s proudly."):format(_.name(wielder), _.s(wielder), itemName)
+        end,
     },
 }
