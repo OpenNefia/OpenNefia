@@ -206,7 +206,6 @@ namespace OpenNefia.Content.Damage
         public EntityUid? Weapon { get; set; }
         public int AttackCount { get; set; }
         public PrototypeId<SkillPrototype>? AttackSkill { get; set; }
-        public DamageHPTense MessageTense { get; set; }
         public bool IsThirdPerson { get; set; }
         public bool NoAttackText { get; set; }
     }

@@ -1327,7 +1327,7 @@
   - type: Faction
     relation: Enemy
   - type: UnarmedDamage
-    damageType: !ElementalDamageType
+    damageType: !type:ElementalDamageType
       elementID: Elona.Fire
       power: 200
 - type: Entity
@@ -1351,7 +1351,7 @@
   - type: Faction
     relation: Enemy
   - type: UnarmedDamage
-    damageType: !ElementalDamageType
+    damageType: !type:ElementalDamageType
       elementID: Elona.Cold
       power: 200
 - type: Entity
@@ -1941,7 +1941,7 @@
   - type: VanillaAI
     moveChance: 0.7
   - type: UnarmedDamage
-    damageType: !ElementalDamageType
+    damageType: !type:ElementalDamageType
       elementID: Elona.Chaos
       power: 300
 - type: Entity
@@ -1967,7 +1967,7 @@
     calmAction: Stand
     moveChance: 0.15
   - type: UnarmedDamage
-    damageType: !ElementalDamageType
+    damageType: !type:ElementalDamageType
       elementID: Elona.Nerve
       power: 250
 - type: Entity
@@ -2610,7 +2610,7 @@
     targetDistance: 3
     moveChance: 0.25
   - type: UnarmedDamage
-    damageType: !ElementalDamageType
+    damageType: !type:ElementalDamageType
       elementID: Elona.Darkness
       power: 80
 - type: Entity
@@ -2644,7 +2644,7 @@
     targetDistance: 3
     moveChance: 0.25
   - type: UnarmedDamage
-    damageType: !ElementalDamageType
+    damageType: !type:ElementalDamageType
       elementID: Elona.Chaos
       power: 180
 - type: Entity
@@ -2708,7 +2708,7 @@
   - type: Faction
     relation: Enemy
   - type: UnarmedDamage
-    damageType: !ElementalDamageType
+    damageType: !type:ElementalDamageType
       elementID: Elona.Nether
       power: 80
 - type: Entity
@@ -2745,7 +2745,7 @@
   - type: VanillaAI
     moveChance: 0.6
   - type: UnarmedDamage
-    damageType: !ElementalDamageType
+    damageType: !type:ElementalDamageType
       elementID: Elona.Mind
       power: 200
 - type: Entity
@@ -2772,7 +2772,7 @@
     calmAction: Stand
     moveChance: 0.2
   - type: UnarmedDamage
-    damageType: !ElementalDamageType
+    damageType: !type:ElementalDamageType
       elementID: Elona.Mind
       power: 200
 - type: Entity
@@ -2800,7 +2800,7 @@
     calmAction: Stand
     moveChance: 0.2
   - type: UnarmedDamage
-    damageType: !ElementalDamageType
+    damageType: !type:ElementalDamageType
       elementID: Elona.Chaos
       power: 250
 - type: Entity
@@ -3707,7 +3707,7 @@
   - type: VanillaAI
     moveChance: 0.8
   - type: UnarmedDamage
-    damageType: !ElementalDamageType
+    damageType: !type:ElementalDamageType
       elementID: Elona.Poison
       power: 150
 - type: Entity
@@ -3743,7 +3743,7 @@
   - type: VanillaAI
     moveChance: 0.8
   - type: UnarmedDamage
-    damageType: !ElementalDamageType
+    damageType: !type:ElementalDamageType
       elementID: Elona.Nerve
       power: 150
 - type: Entity
@@ -3779,7 +3779,7 @@
   - type: VanillaAI
     moveChance: 0.8
   - type: UnarmedDamage
-    damageType: !ElementalDamageType
+    damageType: !type:ElementalDamageType
       elementID: Elona.Poison
       power: 200
 - type: Entity
@@ -3815,7 +3815,7 @@
   - type: VanillaAI
     moveChance: 0.8
   - type: UnarmedDamage
-    damageType: !ElementalDamageType
+    damageType: !type:ElementalDamageType
       elementID: Elona.Nether
       power: 100
 - type: Entity
@@ -4256,7 +4256,7 @@
   - type: Faction
     relation: Enemy
   - type: UnarmedDamage
-    damageType: !ElementalDamageType
+    damageType: !type:ElementalDamageType
       elementID: Elona.Fire
       power: 150
 - type: Entity
@@ -4283,7 +4283,7 @@
   - type: Faction
     relation: Enemy
   - type: UnarmedDamage
-    damageType: !ElementalDamageType
+    damageType: !type:ElementalDamageType
       elementID: Elona.Fire
       power: 200
 - type: Entity
@@ -4402,7 +4402,7 @@
   - type: VanillaAI
     moveChance: 0.8
   - type: UnarmedDamage
-    damageType: !ElementalDamageType
+    damageType: !type:ElementalDamageType
       elementID: Elona.Mind
       power: 150
 - type: Entity
@@ -5401,7 +5401,7 @@
   - type: Faction
     relation: Enemy
   - type: UnarmedDamage
-    damageType: !ElementalDamageType
+    damageType: !type:ElementalDamageType
       elementID: Elona.Cut
       power: 100
 - type: Entity
@@ -5425,7 +5425,7 @@
   - type: Faction
     relation: Enemy
   - type: UnarmedDamage
-    damageType: !ElementalDamageType
+    damageType: !type:ElementalDamageType
       elementID: Elona.Cut
       power: 120
 - type: Entity
@@ -5449,7 +5449,7 @@
   - type: Faction
     relation: Enemy
   - type: UnarmedDamage
-    damageType: !ElementalDamageType
+    damageType: !type:ElementalDamageType
       elementID: Elona.Cut
       power: 150
 - type: Entity
@@ -5626,7 +5626,7 @@
   - type: VanillaAI
     moveChance: 0.6
   - type: UnarmedDamage
-    damageType: !ElementalDamageType
+    damageType: !type:ElementalDamageType
       elementID: Elona.Acid
       power: 100
 - type: Entity
@@ -5683,7 +5683,7 @@
     targetDistance: 2
     moveChance: 0.5
   - type: UnarmedDamage
-    damageType: !ElementalDamageType
+    damageType: !type:ElementalDamageType
       elementID: Elona.Mind
       power: 100
 - type: Entity
@@ -5715,7 +5715,7 @@
     targetDistance: 2
     moveChance: 0.5
   - type: UnarmedDamage
-    damageType: !ElementalDamageType
+    damageType: !type:ElementalDamageType
       elementID: Elona.Mind
       power: 200
 - type: Entity
@@ -5747,7 +5747,7 @@
     targetDistance: 2
     moveChance: 0.5
   - type: UnarmedDamage
-    damageType: !ElementalDamageType
+    damageType: !type:ElementalDamageType
       elementID: Elona.Mind
       power: 250
 - type: Entity
@@ -5832,7 +5832,7 @@
     targetDistance: 3
     moveChance: 0.8
   - type: UnarmedDamage
-    damageType: !ElementalDamageType
+    damageType: !type:ElementalDamageType
       elementID: Elona.Mind
       power: 150
 - type: Entity
@@ -7546,7 +7546,7 @@
   - type: Faction
     relation: Enemy
   - type: UnarmedDamage
-    damageType: !ElementalDamageType
+    damageType: !type:ElementalDamageType
       elementID: Elona.Poison
       power: 150
 - type: Entity
@@ -7574,7 +7574,7 @@
   - type: Faction
     relation: Enemy
   - type: UnarmedDamage
-    damageType: !ElementalDamageType
+    damageType: !type:ElementalDamageType
       elementID: Elona.Poison
       power: 350
 - type: Entity
@@ -7631,7 +7631,7 @@
   - type: Faction
     relation: Enemy
   - type: UnarmedDamage
-    damageType: !ElementalDamageType
+    damageType: !type:ElementalDamageType
       elementID: Elona.Cut
       power: 150
 - type: Entity
@@ -8444,7 +8444,7 @@
     targetDistance: 2
     moveChance: 0
   - type: UnarmedDamage
-    damageType: !ElementalDamageType
+    damageType: !type:ElementalDamageType
       elementID: Elona.Mind
       power: 150
 - type: Entity
@@ -8476,7 +8476,7 @@
     targetDistance: 2
     moveChance: 0
   - type: UnarmedDamage
-    damageType: !ElementalDamageType
+    damageType: !type:ElementalDamageType
       elementID: Elona.Chaos
       power: 250
 - type: Entity
@@ -9425,7 +9425,7 @@
     calmAction: Stand
     moveChance: 0.15
   - type: UnarmedDamage
-    damageType: !ElementalDamageType
+    damageType: !type:ElementalDamageType
       elementID: Elona.Nerve
       power: 450
 - type: Entity
@@ -9455,7 +9455,7 @@
     calmAction: Stand
     moveChance: 0.15
   - type: UnarmedDamage
-    damageType: !ElementalDamageType
+    damageType: !type:ElementalDamageType
       elementID: Elona.Chaos
       power: 400
 - type: Entity
@@ -9486,7 +9486,7 @@
     calmAction: Stand
     moveChance: 0.15
   - type: UnarmedDamage
-    damageType: !ElementalDamageType
+    damageType: !type:ElementalDamageType
       elementID: Elona.Mind
       power: 300
 - type: Entity
@@ -9709,7 +9709,7 @@
   - type: Faction
     relation: Enemy
   - type: UnarmedDamage
-    damageType: !ElementalDamageType
+    damageType: !type:ElementalDamageType
       elementID: Elona.Nether
       power: 400
 - type: Entity
@@ -9908,7 +9908,7 @@
   - type: Faction
     relation: Enemy
   - type: UnarmedDamage
-    damageType: !ElementalDamageType
+    damageType: !type:ElementalDamageType
       elementID: Elona.Acid
       power: 250
 - type: Entity

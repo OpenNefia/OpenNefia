@@ -21,6 +21,8 @@ using OpenNefia.Content.Buffs;
 using OpenNefia.Content.Activity;
 using OpenNefia.Content.Weight;
 using OpenNefia.Content.CharaMake;
+using OpenNefia.Content.Maps;
+using OpenNefia.Core.Maps;
 
 namespace OpenNefia.Content.Charas
 {
@@ -30,16 +32,28 @@ namespace OpenNefia.Content.Charas
         PrototypeId<ChipPrototype> GetDefaultCharaChip(PrototypeId<RacePrototype> raceID, Gender gender);
         PrototypeId<ChipPrototype> GetDefaultCharaChip(RacePrototype race, Gender gender);
         bool RenewStatus(EntityUid entity, CharaComponent? chara);
-        bool Revive(EntityUid uid, CharaComponent? chara = null);
+        bool Revive(EntityUid uid, bool force = false, CharaComponent? chara = null);
     }
 
     public sealed partial class CharaSystem : EntitySystem, ICharaSystem
     {
-        public bool Revive(EntityUid entity, CharaComponent? chara = null)
+        [Dependency] private readonly IMapPlacement _mapPlacement = default!;
+        [Dependency] private readonly IMapManager _mapManager = default!;
+
+        public bool Revive(EntityUid entity, bool force = false, CharaComponent? chara = null)
         {
             if (!Resolve(entity, ref chara) || EntityManager.IsAlive(entity))
                 return false;
 
+            var spatial = Spatial(entity);
+            var placeType = CharaPlaceType.Npc;
+            if (force)
+                placeType = CharaPlaceType.Ally;
+            var pos = _mapPlacement.FindFreePositionForChara(spatial.MapPosition, placeType);
+            if (pos == null || !pos.Value.TryToEntity(_mapManager, out var entPos))
+                return false;
+
+            spatial.Coordinates = entPos;
             chara.Liveness = CharaLivenessState.Alive;
 
             if (EntityManager.TryGetComponent<SkillsComponent>(entity, out var skills))

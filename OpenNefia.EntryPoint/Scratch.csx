@@ -23,5 +23,6 @@ using OpenNefia.Core.Prototypes;
 
 var item = EntitySystem.Get<IItemGen>();
 var chara = EntitySystem.Get<ICharaGen>();
+var map = IoCManager.Resolve<IMapManager>();
 
-return item.PickRandomItemIdRaw(1, tags: new[] { Protos.Tag.ItemCatJunkInField }, fltselect: "Elona.Snow");
+return chara.GenerateChara(map.ActiveMap!, Protos.Chara.Putit);

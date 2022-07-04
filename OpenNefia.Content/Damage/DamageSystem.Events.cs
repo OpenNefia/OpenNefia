@@ -68,8 +68,8 @@ namespace OpenNefia.Content.Damage
                     damageLevel++;
             }
 
-            var isAlly = _parties.IsInPlayerParty(entity);
-            if (!isAlly)
+            var isAttackerAnEnemy = EntityManager.IsAlive(args.Attacker) && !_parties.IsInPlayerParty(args.Attacker.Value);
+            if (!isAttackerAnEnemy)
             {
                 LocaleKey? key = null;
                 var color = UiColors.MesWhite;

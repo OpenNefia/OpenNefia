@@ -11,9 +11,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static OpenNefia.Content.Prototypes.Protos;
 
 namespace OpenNefia.Content.Damage
 {
+    [ImplicitDataDefinitionForInheritors]
     public interface IDamageType
     {
         /// <summary>
@@ -33,12 +35,6 @@ namespace OpenNefia.Content.Damage
         string LocalizeDeathCauseMessage(EntityUid target, EntityUid? attacker, IEntityManager entityManager);
     }
 
-    public enum DamageHPTense
-    {
-        Passive,
-        Active
-    }
-
     public enum CharaDeathType
     {
         Killed,
@@ -47,7 +43,21 @@ namespace OpenNefia.Content.Damage
         Destroyed,
     }
 
-    [DataDefinition]
+    public sealed class DefaultDamageType : IDamageType
+    {
+        public string LocalizeDeathCauseMessage(EntityUid target, EntityUid? attacker, IEntityManager entityManager)
+        {
+            // TODO?
+            return "???";
+        }
+
+        public string LocalizeDeathMessage(EntityUid target, EntityUid? attacker, IEntityManager entityManager)
+        {
+            return Loc.GetString("Elona.DamageType.Default.Death.Passive", ("entity", target));
+
+        }
+    }
+
     public sealed class CharaDamageType : IDamageType
     {
         [DataField]
@@ -56,13 +66,11 @@ namespace OpenNefia.Content.Damage
         [DataField]
         public int AttackCount { get; }
 
-        [DataField]
-        public IDamageType? Inner { get; }
+        public CharaDamageType() {}
 
-        public CharaDamageType(CharaDeathType type, IDamageType inner)
+        public CharaDamageType(CharaDeathType type)
         {
             CharaDeathType = type;
-            Inner = inner;
         }
 
         public string LocalizeDeathCauseMessage(EntityUid target, EntityUid? attacker, IEntityManager entityManager)
@@ -76,7 +84,6 @@ namespace OpenNefia.Content.Damage
         }
     }
 
-    [DataDefinition]
     public sealed class ElementalDamageType : IDamageType
     {
         [DataField]
@@ -84,6 +91,8 @@ namespace OpenNefia.Content.Damage
 
         [DataField]
         public int Power { get; }
+
+        public ElementalDamageType() {}
 
         public ElementalDamageType(PrototypeId<ElementPrototype> elementID, int power)
         {
@@ -102,11 +111,12 @@ namespace OpenNefia.Content.Damage
         }
     }
 
-    [DataDefinition]
     public sealed class BurdenDamageType : IDamageType
     {
         [DataField]
         public EntityUid? ItemSquashedBy { get; }
+
+        public BurdenDamageType() {}
 
         public BurdenDamageType(EntityUid itemSquashedBy)
         {
@@ -134,7 +144,6 @@ namespace OpenNefia.Content.Damage
         }
     }
 
-    [DataDefinition]
     public sealed class GenericDamageType : IDamageType
     {
         /// <summary>
@@ -142,6 +151,8 @@ namespace OpenNefia.Content.Damage
         /// </summary>
         [DataField]
         public LocaleKey LocaleKey { get; }
+
+        public GenericDamageType() {}
 
         public GenericDamageType(LocaleKey localeKey)
         {

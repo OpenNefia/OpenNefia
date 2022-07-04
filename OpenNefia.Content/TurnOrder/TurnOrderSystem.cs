@@ -538,7 +538,7 @@ namespace OpenNefia.Content.TurnOrder
         private void DoRevivePlayer()
         {
             var player = _gameSession.Player;
-            DebugTools.Assert(_charas.Revive(player), "Failed to revive player!");
+            DebugTools.Assert(_charas.Revive(player, force: true), "Failed to revive player!");
 
             if (_mapManager.TryGetMap(new MapId(1), out var map))
             {

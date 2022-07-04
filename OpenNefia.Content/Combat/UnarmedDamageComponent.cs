@@ -16,6 +16,6 @@ namespace OpenNefia.Content.Combat
         public override string Name => "UnarmedDamage";
 
         [DataField("damageType", required: true)]
-        public IDamageType DamageType { get; set; } = default!;
+        public IDamageType DamageType { get; set; } = new DefaultDamageType();
     }
 }
