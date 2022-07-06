@@ -43,6 +43,7 @@ namespace OpenNefia.Content.VanillaAI
         [Dependency] private readonly IVisibilitySystem _vision = default!;
         [Dependency] private readonly IRandom _random = default!;
         [Dependency] private readonly IEmotionIconSystem _emoIcons = default!;
+        [Dependency] private readonly IVisibilitySystem _vis = default!;
 
         public override void Initialize()
         {
@@ -105,7 +106,13 @@ namespace OpenNefia.Content.VanillaAI
                 }
             }
 
-            // TODO try to perceive
+            target = ai.CurrentTarget;
+            if (EntityManager.IsAlive(target) && _gameSession.IsPlayer(target.Value))
+            {
+                var perceived = _vis.TryToPercieve(entity, target.Value);
+                if (perceived && _factions.GetRelationTowards(entity, target.Value) <= Relation.Enemy)
+                    SetTarget(entity, target, 30);
+            }
 
             DoIdleAction(entity, ai);
 
