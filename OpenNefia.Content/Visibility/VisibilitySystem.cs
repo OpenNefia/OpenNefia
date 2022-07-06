@@ -4,8 +4,12 @@ using OpenNefia.Content.TurnOrder;
 using OpenNefia.Content.VanillaAI;
 using OpenNefia.Core.Game;
 using OpenNefia.Core.GameObjects;
+using OpenNefia.Content.Prototypes;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Maps;
+using OpenNefia.Core.Random;
+using XamlX.Transform.Transformers;
+using OpenNefia.Content.Skills;
 
 namespace OpenNefia.Content.Visibility
 {
@@ -36,12 +40,16 @@ namespace OpenNefia.Content.Visibility
         /// Returns true if the onlooker can see the entity, including visibility checks.
         /// </summary>
         bool CanSeeEntity(EntityUid onlooker, EntityUid target);
+
+        bool TryToPercieve(EntityUid perceiver, EntityUid target);
     }
 
     public class VisibilitySystem : EntitySystem, IVisibilitySystem
     {
         [Dependency] private readonly IMapManager _mapManager = default!;
         [Dependency] private readonly IGameSessionManager _gameSession = default!;
+        [Dependency] private readonly IRandom _rand = default!;
+        [Dependency] private readonly ISkillsSystem _skills = default!;
 
         public override void Initialize()
         {
@@ -138,6 +146,42 @@ namespace OpenNefia.Content.Visibility
             }
 
             return HasLineOfSight(onlooker, targetSpatial.MapPosition);
+        }
+
+        private bool IsInSquare(MapCoordinates from, MapCoordinates to, int radius)
+        {
+            if (from.MapId != to.MapId)
+                return false;
+
+            var fp = from.Position;
+            var tp = to.Position;
+            return fp.X > tp.X - radius && fp.X < tp.X + radius && fp.Y > tp.Y - radius && fp.Y < tp.Y + radius;
+        }
+
+        public bool TryToPercieve(EntityUid perceiver, EntityUid target)
+        {
+            // >>>>>>>> shade2/calculation.hsp:1141 *calcStealth ...
+            var radius = 8;
+            var perceiverPos = Spatial(perceiver).MapPosition;
+            var targetPos = Spatial(target).MapPosition;
+            if (IsInSquare(perceiverPos, targetPos, radius))
+            {
+                if (TryComp<VanillaAIComponent>(perceiver, out var ai) && ai.Aggro > 0)
+                    return true;
+
+                if (perceiverPos.TryDistanceTiled(targetPos, out var dist))
+                {
+                    var chance = dist * 150 + _skills.Level(target, Protos.Skill.Stealth) + 100 + 150 + 1;
+                    if (_rand.Next(chance) < _rand.Next(_skills.Level(perceiver, Protos.Skill.AttrPerception) * 60 + 150))
+                        return true;
+                }
+            }
+
+            if (TryComp<VisibilityComponent>(target, out var vis) && vis.Noise > 0 && _rand.Next(150) < vis.Noise)
+                return true;
+
+            return false;
+            // <<<<<<<< shade2/calculation.hsp:1149 	return false ..
         }
     }
 }
