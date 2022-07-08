@@ -202,7 +202,7 @@ namespace OpenNefia.Content.TitleScreen
             Sounds.Play(Protos.Sound.Write1);
             _mes.Display(Loc.GetString("Elona.UserInterface.Save.QuickSave"));
 
-            QueryFieldLayer(isNewSave: true);
+            QueryFieldLayer();
 
             _saveGameManager.CurrentSave = null;
         }
@@ -216,33 +216,29 @@ namespace OpenNefia.Content.TitleScreen
 
             _mapManager.RefreshVisibility(map);
 
-            QueryFieldLayer(isNewSave: false);
+            QueryFieldLayer();
 
             _mapManager.UnloadMap(map.Id);
 
             _saveGameManager.CurrentSave = null;
         }
 
-        private void QueryFieldLayer(bool isNewSave)
+        private void QueryFieldLayer()
         {
             _hud.Initialize();
             var hudLayer = (UiLayer)_hud;
             hudLayer.ZOrder = HudLayer.HudZOrder;
             _uiManager.PushLayer(hudLayer);
 
-            if (!isNewSave)
-            {
-                var ev = new GameInitiallyLoadedEventArgs();
-                _entityManager.EventBus.RaiseEvent(_gameSessionManager.Player, ev);
-            }
+            var ev = new GameInitiallyLoadedEventArgs();
+            _entityManager.EventBus.RaiseEvent(ev);
 
             _uiManager.Query(_fieldLayer);
             _hud.ClearWidgets();
             _uiManager.PopLayer(hudLayer);
 
-            // TODO this shouldn't target an entity?
             var evCleanedUp = new GameCleanedUpEventArgs();
-            _entityManager.EventBus.RaiseEvent(_gameSessionManager.Player, evCleanedUp);
+            _entityManager.EventBus.RaiseEvent(evCleanedUp);
         }
     }
 

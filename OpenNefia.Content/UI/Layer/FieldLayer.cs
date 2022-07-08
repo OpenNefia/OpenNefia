@@ -11,6 +11,7 @@ using OpenNefia.Core.Input;
 using OpenNefia.Content.TurnOrder;
 using OpenNefia.Core.Audio;
 using OpenNefia.Content.TitleScreen;
+using OpenNefia.Content.Input;
 
 namespace OpenNefia.Content.UI.Layer
 {
@@ -33,6 +34,8 @@ namespace OpenNefia.Content.UI.Layer
         private UiScroller _scroller;
 
         public Camera Camera { get; private set; }
+
+        private PlayerFrameUpdateEventArgs _frameUpdateEv = new();
 
         public event IFieldLayer.ScreenRefreshDelegate OnScreenRefresh = default!;
 
@@ -130,6 +133,8 @@ namespace OpenNefia.Content.UI.Layer
 
         public override void Update(float dt)
         {
+            _entityManager.EventBus.RaiseEvent(_frameUpdateEv);
+
             if (Map.NeedsRedraw)
             {
                 RefreshScreen();
