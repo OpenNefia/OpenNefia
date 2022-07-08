@@ -1,7 +1,7 @@
 ﻿using OpenNefia.Content.GameObjects;
-using OpenNefia.Content.GameObjects.Pickable;
 using OpenNefia.Content.Logic;
 using OpenNefia.Content.Parties;
+using OpenNefia.Content.Pickable;
 using OpenNefia.Content.Prototypes;
 using OpenNefia.Content.World;
 using OpenNefia.Core.Areas;

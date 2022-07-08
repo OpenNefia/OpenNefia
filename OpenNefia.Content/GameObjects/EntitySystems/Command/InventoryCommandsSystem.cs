@@ -1,8 +1,8 @@
 ﻿using OpenNefia.Content.Equipment;
-using OpenNefia.Content.GameObjects.Pickable;
 using OpenNefia.Content.Input;
 using OpenNefia.Content.Inventory;
 using OpenNefia.Content.Logic;
+using OpenNefia.Content.Pickable;
 using OpenNefia.Content.UI;
 using OpenNefia.Content.UI.Layer;
 using OpenNefia.Core.Game;

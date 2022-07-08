@@ -13,11 +13,11 @@ using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Locale;
 using OpenNefia.Content.RandomGen;
 using OpenNefia.Content.GameObjects;
-using OpenNefia.Content.GameObjects.Pickable;
 using OpenNefia.Content.Maps;
 using OpenNefia.Content.TurnOrder;
 using OpenNefia.Content.Levels;
 using OpenNefia.Content.VanillaAI;
+using OpenNefia.Content.Pickable;
 
 namespace OpenNefia.Content.FieldMap
 {

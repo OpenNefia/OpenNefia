@@ -1,4 +1,4 @@
-﻿using OpenNefia.Content.GameObjects.Pickable;
+﻿using OpenNefia.Content.Pickable;
 using OpenNefia.Content.Input;
 using OpenNefia.Content.Logic;
 using OpenNefia.Content.UI.Layer;

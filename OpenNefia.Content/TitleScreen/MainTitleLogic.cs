@@ -232,7 +232,7 @@ namespace OpenNefia.Content.TitleScreen
 
             if (!isNewSave)
             {
-                var ev = new GameLoadedEventArgs();
+                var ev = new GameInitiallyLoadedEventArgs();
                 _entityManager.EventBus.RaiseEvent(_gameSessionManager.Player, ev);
             }
 
@@ -246,13 +246,20 @@ namespace OpenNefia.Content.TitleScreen
         }
     }
 
-    public sealed class GameLoadedEventArgs : EntityEventArgs
+    /// <summary>
+    /// Raised when the game is first loaded from the title screen, *not* when
+    /// the game is quickloaded while already in-game.
+    /// </summary>
+    public sealed class GameInitiallyLoadedEventArgs : EntityEventArgs
     {
-        public GameLoadedEventArgs()
+        public GameInitiallyLoadedEventArgs()
         {
         }
     }
 
+    /// <summary>
+    /// Raised when a new save file is created and the game is about to start.
+    /// </summary>
     public sealed class NewGameStartedEventArgs : EntityEventArgs
     {
         public NewGameStartedEventArgs()
@@ -260,6 +267,9 @@ namespace OpenNefia.Content.TitleScreen
         }
     }
 
+    /// <summary>
+    /// Raised when the player quits the game, either back to the title screen or to desktop.
+    /// </summary>
     public sealed class GameCleanedUpEventArgs : EntityEventArgs
     {
     }

@@ -1,5 +1,5 @@
 ﻿using OpenNefia.Content.GameObjects;
-using OpenNefia.Content.GameObjects.Pickable;
+using OpenNefia.Content.Pickable;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Locale;

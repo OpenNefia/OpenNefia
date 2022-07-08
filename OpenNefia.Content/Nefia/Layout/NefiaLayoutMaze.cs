@@ -22,7 +22,7 @@ using OpenNefia.Content.GameObjects.EntitySystems.Tag;
 using OpenNefia.Content.GameObjects;
 using OpenNefia.Content.Nefia.Layout;
 using OpenNefia.Content.Factions;
-using OpenNefia.Content.GameObjects.Pickable;
+using OpenNefia.Content.Pickable;
 using OpenNefia.Content.RandomGen;
 using OpenNefia.Content.Qualities;
 
@@ -35,7 +35,6 @@ namespace OpenNefia.Content.Nefia
     {
         [Dependency] private readonly IEntityManager _entityManager = default!;
         [Dependency] private readonly IItemGen _itemGen = default!;
-        [Dependency] private readonly IEntityLookup _lookup = default!;
         [Dependency] private readonly INefiaLayoutCommon _nefiaLayout = default!;
         [Dependency] private readonly IRandom _rand = default!;
 

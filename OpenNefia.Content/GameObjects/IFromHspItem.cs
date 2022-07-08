@@ -1,4 +1,4 @@
-﻿using OpenNefia.Content.GameObjects.Pickable;
+﻿using OpenNefia.Content.Pickable;
 using System;
 using System.Collections.Generic;
 using System.Linq;
