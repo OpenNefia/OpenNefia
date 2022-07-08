@@ -4,6 +4,7 @@ using OpenNefia.Content.Maps;
 using OpenNefia.Content.Parties;
 using OpenNefia.Content.StatusEffects;
 using OpenNefia.Content.TurnOrder;
+using OpenNefia.Content.Prototypes;
 using OpenNefia.Content.Visibility;
 using OpenNefia.Core.Directions;
 using OpenNefia.Core.Game;
@@ -17,6 +18,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using OpenNefia.Content.GameObjects;
 
 namespace OpenNefia.Content.VanillaAI
 {
@@ -41,15 +43,16 @@ namespace OpenNefia.Content.VanillaAI
         [Dependency] private readonly IPartySystem _parties = default!;
         [Dependency] private readonly IGameSessionManager _gameSession = default!;
         [Dependency] private readonly IVisibilitySystem _vision = default!;
-        [Dependency] private readonly IRandom _random = default!;
+        [Dependency] private readonly IRandom _rand = default!;
         [Dependency] private readonly IEmotionIconSystem _emoIcons = default!;
         [Dependency] private readonly IVisibilitySystem _vis = default!;
+        [Dependency] private readonly IStatusEffectSystem _effects = default!;
+        [Dependency] private readonly IActionBashSystem _actionBash = default!;
 
         public override void Initialize()
         {
             SubscribeComponent<VanillaAIComponent, EntityTurnStartingEventArgs>(HandleTurnStarting);
             SubscribeComponent<VanillaAIComponent, NPCTurnStartedEvent>(HandleNPCTurnStarted, priority: EventPriorities.VeryLow);
-            SubscribeAIActions();
         }
 
         private void HandleTurnStarting(EntityUid uid, VanillaAIComponent ai, EntityTurnStartingEventArgs args)
@@ -66,6 +69,35 @@ namespace OpenNefia.Content.VanillaAI
                 return;
 
             args.Handle(RunVanillaAI(uid, ai));
+        }
+
+        private bool HelpWithChoking(EntityUid entity, VanillaAIComponent ai, SpatialComponent spatial)
+        {
+            // >>>>>>>> elona122/shade2/ai.hsp:107 	if cRelation(cc)>=cNeutral{ ...
+            if (_parties.TryGetLeader(entity, out var leader) && leader != entity && _effects.HasEffect(leader.Value, Protos.StatusEffect.Choking))
+            {
+                var leaderSpatial = Spatial(leader.Value);
+                if (spatial.MapPosition.IsAdjacentTo(leaderSpatial.MapPosition))
+                {
+                    _actionBash.DoBash(entity, leaderSpatial.MapPosition);
+                    return true;
+                }
+            }
+
+            return false;
+            // <<<<<<<< elona122/shade2/ai.hsp:109 	} ...
+        }
+
+        private bool TryToHeal(EntityUid entity, VanillaAIComponent ai, SpatialComponent spatial)
+        {
+            // TODO
+            return false;
+        }
+
+        private bool TryToUseItem(EntityUid entity, VanillaAIComponent ai, SpatialComponent spatial)
+        {
+            // TODO
+            return false;
         }
 
         public TurnResult RunVanillaAI(EntityUid entity, VanillaAIComponent? ai = null,
@@ -87,12 +119,17 @@ namespace OpenNefia.Content.VanillaAI
                 SetTarget(entity, GetDefaultTarget(entity), 0, ai);
             }
 
-            // TODO choking
-            // TODO healing
-            // TODO items
+            if (HelpWithChoking(entity, ai, spatial))
+                return TurnResult.Succeeded;
+
+            if (TryToHeal(entity, ai, spatial))
+                return TurnResult.Succeeded;
+
+            if (TryToUseItem(entity, ai, spatial))
+                return TurnResult.Succeeded;
 
             var target = ai.CurrentTarget;
-            if (EntityManager.IsAlive(target) 
+            if (EntityManager.IsAlive(target)
                 && (ai.Aggro > 0 || IsAlliedWithPlayer(entity)))
             {
                 DoTargetedAction(entity, ai, spatial);
@@ -209,7 +246,7 @@ namespace OpenNefia.Content.VanillaAI
         {
             if (EntityManager.HasComponent<StatusBlindnessComponent>(entity))
             {
-                if (_random.Next(10) > 2)
+                if (_rand.Next(10) > 2)
                 {
                     DoIdleAction(entity, ai);
                     return;
@@ -217,7 +254,7 @@ namespace OpenNefia.Content.VanillaAI
             }
             if (EntityManager.HasComponent<StatusConfusionComponent>(entity))
             {
-                if (_random.Next(10) > 3)
+                if (_rand.Next(10) > 3)
                 {
                     DoIdleAction(entity, ai);
                     return;
@@ -238,7 +275,7 @@ namespace OpenNefia.Content.VanillaAI
 
             if (EntityManager.HasComponent<StatusBlindnessComponent>(entity))
             {
-                if (_random.OneIn(3))
+                if (_rand.OneIn(3))
                 {
                     DoIdleAction(entity, ai);
                     return;
@@ -249,7 +286,7 @@ namespace OpenNefia.Content.VanillaAI
             {
                 if (spatial.MapPosition.TryDistanceTiled(targetSpatial.MapPosition, out var dist)
                     && dist != ai.TargetDistance
-                    && _random.Prob(ai.MoveChance))
+                    && _rand.Prob(ai.MoveChance))
                 {
                     MoveTowardsTarget(entity, ai, spatial);
                     return;
@@ -257,20 +294,6 @@ namespace OpenNefia.Content.VanillaAI
             }
 
             DoBasicAction(entity, ai);
-        }
-
-        private void DoIdleAction(EntityUid entity, VanillaAIComponent ai)
-        {
-            if (FollowPlayer(entity, ai))
-                return;
-            
-            if (!_random.OneIn(5))
-                return;
-
-            if (DoAICalmAction(entity, ai))
-                return;
-
-            Wander(entity, ai);
         }
 
         private bool FollowPlayer(EntityUid entity, VanillaAIComponent ai)
@@ -287,53 +310,49 @@ namespace OpenNefia.Content.VanillaAI
             return false;
         }
 
+        private bool DoIdleAction(EntityUid entity, VanillaAIComponent ai)
+        {
+            if (FollowPlayer(entity, ai))
+                return true;
+
+            if (!_rand.OneIn(5))
+                return true;
+
+            if (DoAICalmAction(entity, ai))
+                return true;
+
+            Wander(entity, ai);
+            return true;
+        }
+
         private bool DoAICalmAction(EntityUid entity, VanillaAIComponent ai)
         {
-            // TODO
-
-            return false;
+            // TODO implement
+            var ev = new OnAICalmActionEvent();
+            return Raise(entity, ev);
         }
 
-        private void DoAllyIdleAction(EntityUid entity, VanillaAIComponent ai)
+        private bool DoAllyIdleAction(EntityUid entity, VanillaAIComponent ai)
         {
-            // TODO
-        }
+            // >>>>>>>> shade2/ai.hsp:147 		if cRelation(cc)=cAlly:if tc=pc{ ...
+            if (!IsAlive(ai.CurrentTarget))
+                return false;
 
-        private void DoBasicAction(EntityUid entity, VanillaAIComponent ai)
-        {
-            if (ai.CurrentTarget == null)
+            // TODO shopkeeper movement
+            var ev = new OnAllyCalmActionEvent();
+            if (Raise(entity, ev))
+                return true;
+
+            if (Spatial(entity).MapPosition.TryDistanceTiled(
+                Spatial(ai.CurrentTarget.Value).MapPosition,
+                out var dist)
+                && (dist > 2 || _rand.OneIn(3)))
             {
-                return;
+                return MoveTowardsTarget(entity, ai);
             }
 
-            var target = ai.CurrentTarget.Value;
-            if (_parties.TryGetLeader(target, out var leader))
-            {
-                target = leader.Value;
-                if (TryComp<VanillaAIComponent>(leader.Value, out var leaderAI))
-                    leaderAI.LastAttacker = entity;
-            }
-
-            RunMeleeAction(entity, target);
-        }
-
-        private void RunMeleeAction(EntityUid entity, EntityUid target)
-        {
-            // TODO: is spawning temporary entities here a good idea?
-            // maybe reserve a range of UIDs as temporary and always wipe them?
-            var action = EntityManager.SpawnEntity(null, new EntityCoordinates(target, Vector2i.Zero));
-            EntityManager.AddComponent<AIActionMeleeComponent>(action);
-
-            RunAIAction(entity, action);
-
-            EntityManager.DeleteEntity(action);
-        }
-
-        private TurnResult RunAIAction(EntityUid entity, EntityUid action)
-        {
-            var ev = new RunAIActionEvent(entity);
-            RaiseEvent(action, ev);
-            return ev.TurnResult;
+            return DoIdleAction(entity, ai);
+            // <<<<<<<< shade2/ai.hsp:161 			} ..
         }
 
         private void DecideAllyTarget(EntityUid ally, VanillaAIComponent ai, SpatialComponent spatial)
@@ -362,7 +381,7 @@ namespace OpenNefia.Content.VanillaAI
                 return;
 
             EntityUid? leader = _parties.GetLeader(ally);
-            
+
             if (leader == null && currentTarget != null
                 && _factions.GetRelationTowards(ally, currentTarget.Value) >= Relation.Ally)
             {
@@ -374,7 +393,7 @@ namespace OpenNefia.Content.VanillaAI
                 // If a party leader was attacked by something, make their allies target the attacker.
                 var leaderAttacker = leaderAi.LastAttacker;
 
-                if (EntityManager.IsAlive(leaderAttacker) 
+                if (EntityManager.IsAlive(leaderAttacker)
                     && _factions.GetRelationTowards(ally, leaderAttacker.Value) <= Relation.Enemy
                     && _vision.HasLineOfSight(ally, leaderAttacker.Value))
                 {
@@ -401,7 +420,7 @@ namespace OpenNefia.Content.VanillaAI
 
             // The AI will occasionally lose sight of invisible targets.
             var target = ai.CurrentTarget;
-            if (EntityManager.IsAlive(target) && !_vision.CanSeeEntity(ally, target.Value) && !_random.OneIn(5))
+            if (EntityManager.IsAlive(target) && !_vision.CanSeeEntity(ally, target.Value) && !_rand.OneIn(5))
             {
                 ai.CurrentTarget = leader;
             }
@@ -414,6 +433,20 @@ namespace OpenNefia.Content.VanillaAI
 
             SetTarget(entity, null, ai: ai);
             _factions.ClearAllPersonalRelations(entity);
+        }
+    }
+
+    public sealed class OnAICalmActionEvent : HandledEntityEventArgs
+    {
+        public OnAICalmActionEvent()
+        {
+        }
+    }
+
+    public sealed class OnAllyCalmActionEvent : HandledEntityEventArgs
+    {
+        public OnAllyCalmActionEvent()
+        {
         }
     }
 }

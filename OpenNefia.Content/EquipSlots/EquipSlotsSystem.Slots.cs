@@ -264,6 +264,21 @@ namespace OpenNefia.Content.EquipSlots
         }
 
         /// <inheritdoc/>
+        public IEnumerable<EntityUid> EnumerateEquippedEntities(EntityUid uid, EquipSlotsComponent? equipSlotsComp = null)
+        {
+            foreach (var equipSlot in GetEquipSlots(uid))
+            {
+                if (!TryGetContainerForEquipSlot(uid, equipSlot, out var containerSlot))
+                    continue;
+
+                if (!IsAlive(containerSlot.ContainedEntity))
+                    continue;
+
+                yield return containerSlot.ContainedEntity.Value;
+            }
+        }
+
+        /// <inheritdoc/>
         public bool IsEquippedOnSlotOfType(EntityUid uid, EquipSlotPrototypeId slotId)
         {
             if (!TryComp<SpatialComponent>(uid, out var spatialComp))

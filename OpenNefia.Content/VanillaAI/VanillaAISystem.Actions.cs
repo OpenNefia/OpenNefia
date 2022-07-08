@@ -12,30 +12,38 @@ namespace OpenNefia.Content.VanillaAI
 {
     public sealed partial class VanillaAISystem
     {
-        [Dependency] private readonly CombatSystem _combat = default!;
+        [Dependency] private readonly ICombatSystem _combat = default!;
 
-        private void SubscribeAIActions()
-        {
-            SubscribeComponent<AIActionMeleeComponent, RunAIActionEvent>(HandleActionMelee);
-        }
+        public const int AIRangedAttackThreshold = 6;
 
-        private void HandleActionMelee(EntityUid action, AIActionMeleeComponent component, RunAIActionEvent args)
+        private void DoBasicAction(EntityUid entity, VanillaAIComponent ai)
         {
-            if (args.Handled)
+            // >>>>>>>> shade2/ai.hsp:470 *ai_actMain ..
+            if (!IsAlive(ai.CurrentTarget))
                 return;
 
-            args.Handle(DoActionMelee(args.Actor, component));
+            var target = ai.CurrentTarget.Value;
+            if (_parties.TryGetLeader(target, out var leader))
+            {
+                target = leader.Value;
+                if (TryComp<VanillaAIComponent>(leader.Value, out var leaderAI))
+                    leaderAI.LastAttacker = entity;
+            }
+
+            // TODO
+            DoActionPhysicalAttack(entity, target, ai);
+            // <<<<<<<< shade2/ai.hsp:527 	 ..
         }
 
-        private TurnResult DoActionMelee(EntityUid attacker, AIActionMeleeComponent actMelee,
-            SpatialComponent? spatial = null,
+        private TurnResult? DoActionPhysicalAttack(EntityUid attacker, EntityUid target,
             VanillaAIComponent? ai = null,
+            SpatialComponent? spatial = null,
             SpatialComponent? targetSpatial = null)
         {
             if (!Resolve(attacker, ref spatial, ref ai))
                 return TurnResult.Failed;
 
-            if (!EntityManager.IsAlive(ai.CurrentTarget) || !Resolve(ai.CurrentTarget.Value, ref targetSpatial))
+            if (!EntityManager.IsAlive(target) || !Resolve(target, ref targetSpatial))
                 return TurnResult.Failed;
 
             if (!spatial.MapPosition.TryDistanceTiled(targetSpatial.MapPosition, out var dist))
@@ -45,23 +53,29 @@ namespace OpenNefia.Content.VanillaAI
             {
                 return AttemptToMelee(attacker, targetSpatial.Owner);
             }
-            
-            // TODO ranged
+
+            if (dist < AIRangedAttackThreshold && _vis.HasLineOfSight(attacker, target))
+            {
+                if (_combat.TryGetRangedWeaponAndAmmo(attacker, out var pair))
+                {
+                    return _combat.RangedAttack(attacker, target, pair.Value.Item1);
+                }
+            }
 
             if (ai.TargetDistance <= dist)
             {
-                if (_random.OneIn(3))
+                if (_rand.OneIn(3))
                 {
                     return TurnResult.Succeeded;
                 }
             }
 
-            if (_random.OneIn(5))
+            if (_rand.OneIn(5))
             {
                 DecrementAggro(ai);
             }
 
-            if (_random.Prob(ai.MoveChance))
+            if (_rand.Prob(ai.MoveChance))
             {
                 DoIdleAction(attacker, ai);
                 return TurnResult.Succeeded;
@@ -70,7 +84,7 @@ namespace OpenNefia.Content.VanillaAI
             return TurnResult.Failed;
         }
 
-        private TurnResult AttemptToMelee(EntityUid attacker, EntityUid target,
+        private TurnResult? AttemptToMelee(EntityUid attacker, EntityUid target,
             SpatialComponent? spatial = null,
             VanillaAIComponent? ai = null,
             SpatialComponent? targetSpatial = null)
@@ -78,7 +92,7 @@ namespace OpenNefia.Content.VanillaAI
             if (!Resolve(attacker, ref spatial, ref ai))
                 return TurnResult.Failed;
 
-            if (!EntityManager.IsAlive(ai.CurrentTarget) || !Resolve(ai.CurrentTarget.Value, ref targetSpatial))
+            if (!EntityManager.IsAlive(target) || !Resolve(target, ref targetSpatial))
                 return TurnResult.Failed;
 
             if (!spatial.MapPosition.TryDistanceTiled(targetSpatial.MapPosition, out var dist))
@@ -87,6 +101,31 @@ namespace OpenNefia.Content.VanillaAI
             if (dist <= 1)
             {
                 return _combat.MeleeAttack(attacker, target) ?? TurnResult.Failed;
+            }
+
+            return TurnResult.Failed;
+        }
+
+        private TurnResult? DoActionRangedAttack(EntityUid attacker, EntityUid target,
+            VanillaAIComponent? ai = null,
+            SpatialComponent? spatial = null,
+            SpatialComponent? targetSpatial = null)
+        {
+            if (!Resolve(attacker, ref spatial, ref ai))
+                return TurnResult.Failed;
+
+            if (!EntityManager.IsAlive(target) || !Resolve(target, ref targetSpatial))
+                return TurnResult.Failed;
+
+            if (!spatial.MapPosition.TryDistanceTiled(targetSpatial.MapPosition, out var dist))
+                return TurnResult.Failed;
+
+            if (dist < AIRangedAttackThreshold && _vis.HasLineOfSight(attacker, target))
+            {
+                if (_combat.TryGetRangedWeaponAndAmmo(attacker, out var pair))
+                {
+                    return _combat.RangedAttack(attacker, target, pair.Value.Item1);
+                }
             }
 
             return TurnResult.Failed;

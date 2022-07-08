@@ -25,4 +25,13 @@ Elona.Combat = {
             return ("%sは%sを誇らしげに構えた。"):format(_.name(wielder), itemName)
         end,
     },
+    RangedAttack = {
+        Errors = {
+            Elona = {
+                NoRangedWeapon = "射撃用の道具を装備していない。",
+                NoAmmo = "矢/弾丸を装備する必要がある。",
+                WrongAmmoType = "矢/弾丸の種類が適していない。",
+            },
+        },
+    },
 }

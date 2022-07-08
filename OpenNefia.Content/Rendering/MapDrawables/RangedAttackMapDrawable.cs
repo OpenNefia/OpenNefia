@@ -34,7 +34,7 @@ namespace OpenNefia.Content.Rendering
 
         public RangedAttackMapDrawable(MapCoordinates startPos, MapCoordinates endPos, 
             PrototypeId<ChipPrototype> chip,
-            Love.Color? color = null, 
+            Color? color = null, 
             PrototypeId<SoundPrototype>? sound = null, 
             PrototypeId<SoundPrototype>? impactSound = null)
         {
@@ -52,7 +52,7 @@ namespace OpenNefia.Content.Rendering
             if (_startPos.TryDistanceTiled(_endPos, out var dist)) {
                 maxFrames = (int)dist / 2 + 1;
             }
-            _counter = new FrameCounter(_config.GetCVar(CCVars.AnimeAnimationWait), (uint)maxFrames);
+            _counter = new FrameCounter(_config.GetCVar(CCVars.AnimeAnimationWait) / 1, (uint)maxFrames);
         }
 
         public override void OnThemeSwitched()
@@ -109,7 +109,7 @@ namespace OpenNefia.Content.Rendering
                     _coords.TileSize.Y,
                     color: _color, 
                     centered: true, 
-                    rotation: (float)Angle.BetweenPoints(_startPos.Position, _endPos.Position).Degrees);
+                    rotationRads: (float)Angle.BetweenPoints(_startPos.Position, _endPos.Position).Theta);
                 _chipBatch.Flush();
                 _chipBatch.Draw(_graphics.WindowScale, X, Y, Width, Height);
             }

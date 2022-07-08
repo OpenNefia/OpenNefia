@@ -125,6 +125,13 @@ namespace OpenNefia.Core.Maps
             return true;
         }
 
+        public bool IsAdjacentTo(MapCoordinates otherCoordinates)
+        {
+            if (!TryDistanceTiled(otherCoordinates, out var distance))
+                return false;
+            return distance == 1;
+        }
+
         /// <inheritdoc />
         public bool Equals(MapCoordinates other)
         {

@@ -29,6 +29,7 @@ namespace OpenNefia.Content.GameObjects
             SubscribeComponent<DoorComponent, DoCloseEventArgs>(HandleClose);
             SubscribeComponent<DoorComponent, EntityMapInitEvent>(HandleInitialize);
             SubscribeComponent<DoorComponent, WasCollidedWithEventArgs>(HandleCollidedWith);
+            SubscribeComponent<DoorComponent, EntityBashedEventArgs>(HandleBashed);
         }
 
         private void HandleGetVerbs(EntityUid uid, DoorComponent component, GetVerbsEventArgs args)
@@ -122,6 +123,15 @@ namespace OpenNefia.Content.GameObjects
             }
 
             SetOpen(uid, true, door);
+            args.Handle(TurnResult.Succeeded);
+        }
+
+        private void HandleBashed(EntityUid uid, DoorComponent component, EntityBashedEventArgs args)
+        {
+            if (args.Handled)
+                return;
+
+            _mes.Display("TODO");
             args.Handle(TurnResult.Succeeded);
         }
     }

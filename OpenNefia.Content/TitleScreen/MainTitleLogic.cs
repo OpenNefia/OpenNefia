@@ -23,6 +23,7 @@ using OpenNefia.Content.Logic;
 using OpenNefia.Core.Locale;
 using OpenNefia.Content.CustomName;
 using OpenNefia.Content.SaveLoad;
+using OpenNefia.Core.Log;
 
 namespace OpenNefia.Content.TitleScreen
 {
@@ -74,27 +75,35 @@ namespace OpenNefia.Content.TitleScreen
 
                     if (result.HasValue)
                     {
-                        action = result.Value.Action;
-                        switch (action)
+                        try
                         {
-                            case TitleScreenAction.ReturnToTitle:
-                                break;
-                            case TitleScreenAction.RestoreSave:
-                                RunRestoreSave();
-                                break;
-                            case TitleScreenAction.Generate:
-                                RunGenerate();
-                                break;
-                            case TitleScreenAction.Options:
-                                _uiManager.PushLayer(bg);
-                                ShowConfigMenu();
-                                _uiManager.PopLayer(bg);
-                                break;
-                            case TitleScreenAction.Quit:
-                                break;
-                            case TitleScreenAction.QuickStart:
-                                RunQuickStart();
-                                break;
+                            action = result.Value.Action;
+                            switch (action)
+                            {
+                                case TitleScreenAction.ReturnToTitle:
+                                    break;
+                                case TitleScreenAction.RestoreSave:
+                                    RunRestoreSave();
+                                    break;
+                                case TitleScreenAction.Generate:
+                                    RunGenerate();
+                                    break;
+                                case TitleScreenAction.Options:
+                                    _uiManager.PushLayer(bg);
+                                    ShowConfigMenu();
+                                    _uiManager.PopLayer(bg);
+                                    break;
+                                case TitleScreenAction.Quit:
+                                    break;
+                                case TitleScreenAction.QuickStart:
+                                    RunQuickStart();
+                                    break;
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            Logger.ErrorS("maintitle", $"Exception when running action {action}:\n{ex}");
+                            action = TitleScreenAction.ReturnToTitle;
                         }
                     }
                     else

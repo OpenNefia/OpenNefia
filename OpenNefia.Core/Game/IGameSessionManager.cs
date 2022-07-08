@@ -13,6 +13,7 @@ namespace OpenNefia.Core.Game
     {
         public EntityUid Player { get; set; }
 
+        // TODO move this to IFactionSystem
         bool IsPlayer(EntityUid objEntity);
     }
 }
