@@ -36,6 +36,12 @@ namespace OpenNefia.Content.World
         public int TotalKills { get; set; }
 
         /// <summary>
+        /// Total number of times the player has died.
+        /// </summary>
+        [DataField]
+        public int TotalDeaths { get; set; }
+
+        /// <summary>
         /// Random seed this save was initialized with.
         /// </summary>
         [DataField]

@@ -97,6 +97,7 @@ namespace OpenNefia.Content.Charas
         PetWait,
         VillagerDead,
         Dead,
+        AdventurerHospital
     }
 
     public enum Gender : int

@@ -148,12 +148,7 @@ namespace OpenNefia.Content.Skills
                 {
                     var levelExpGained = CalcLevelExpGainFromSkillExpGain(levelComp.ExperienceToNext, levelComp.Level, actualExpGained, levelExpDivisor);
 
-                    levelComp.Experience += levelExpGained;
-
-                    if (EntityManager.TryGetComponent(uid, out SleepExperienceComponent sleepExpComp))
-                    {
-                        sleepExpComp.SleepExperience += levelExpGained;
-                    }
+                    _levels.GainExperience(uid, levelExpGained, levelComp);
                 }
             }
 

@@ -32,6 +32,12 @@ using OpenNefia.Content.UI;
 using OpenNefia.Content.RandomGen;
 using OpenNefia.Content.CustomName;
 using OpenNefia.Content.Factions;
+using OpenNefia.Content.Damage;
+using static OpenNefia.Content.Prototypes.Protos;
+using OpenNefia.Core.Audio;
+using OpenNefia.Content.Ranks;
+using OpenNefia.Content.Fame;
+using OpenNefia.Content.Chest;
 
 namespace OpenNefia.Content.Nefia
 {
@@ -45,12 +51,17 @@ namespace OpenNefia.Content.Nefia
         [Dependency] private readonly IGameSessionManager _gameSession = default!;
         [Dependency] private readonly ILocalizationManager _loc = default!;
         [Dependency] private readonly IEntityGen _entityGen = default!;
-        [Dependency] private readonly ITagSystem _tags = default!;
         [Dependency] private readonly IMapEntranceSystem _mapEntrances = default!;
         [Dependency] private readonly IMessagesManager _mes = default!;
-        [Dependency] private readonly IDisplayNameSystem _names = default!;
         [Dependency] private readonly IDeferredEventsSystem _deferredEvs = default!;
         [Dependency] private readonly ICharaGen _charaGen = default!;
+        [Dependency] private readonly IMusicManager _music = default!;
+        [Dependency] private readonly IAudioManager _audio = default!;
+        [Dependency] private readonly IRankSystem _ranks = default!;
+        [Dependency] private readonly IRandomGenSystem _randomGen = default!;
+        [Dependency] private readonly IItemGen _itemGen = default!;
+        [Dependency] private readonly IStackSystem _stacks = default!;
+        [Dependency] private readonly IFameSystem _fame = default!;
 
         public override void Initialize()
         {
@@ -59,8 +70,10 @@ namespace OpenNefia.Content.Nefia
             SubscribeComponent<AreaNefiaComponent, AreaGeneratedEvent>(OnNefiaGenerated, priority: EventPriorities.High);
             SubscribeComponent<AreaNefiaComponent, RandomAreaCheckIsActiveEvent>(OnCheckIsActive, priority: EventPriorities.High);
             SubscribeComponent<AreaNefiaComponent, AreaMapInitializeEvent>(SpawnNefiaBoss);
-            
+
             SubscribeBroadcast<GenerateRandomAreaEvent>(GenerateRandomNefia, priority: EventPriorities.VeryLow);
+
+            SubscribeEntity<EntityKilledEvent>(CheckNefiaBossKilled);
         }
 
         private void OnNefiaAreaEntered(EntityUid uid, AreaNefiaComponent areaNefia, AreaEnteredEvent args)
@@ -105,9 +118,6 @@ namespace OpenNefia.Content.Nefia
             if (!TryComp<AreaNefiaComponent>(area.AreaEntityUid, out var areaNefia))
                 return;
 
-            if (!TryComp<AreaDungeonComponent>(area.AreaEntityUid, out var areaDungeon))
-                return;
-
             areaNefia.BossEntityUid = SpawnBoss(map);
 
             _mes.Display(Loc.GetString("Nefia.Event.ReachedDeepestLevel"));
@@ -134,24 +144,98 @@ namespace OpenNefia.Content.Nefia
             return boss.Value;
         }
 
-        private IMap GenerateFallbackMap(AreaFloorGenerateEvent args)
+        private int CalcBossPlatinumAmount(EntityUid player)
         {
-            var map = _mapManager.CreateMap(20, 20);
+            return Math.Clamp(_random.Next(3) + _levels.GetLevel(player) / 10, 1, 6);
+        }
 
-            map.Clear(Protos.Tile.Dirt);
-            foreach (var pos in EnumerateBorder(map.Bounds))
+        private int CalcBossFameGained(EntityUid player, IMap map)
+        {
+            // >>>>>>>> shade2/main.hsp:1763 	gQuestFame	=calcFame(pc,gLevel*30+200) ...
+            return _fame.CalcFameGained(player, _levels.GetLevel(map.MapEntityUid) * 30 + 200);
+            // <<<<<<<< shade2/main.hsp:1763 	gQuestFame	=calcFame(pc,gLevel*30+200) ...
+        }
+
+        private void CreateBossRewards(EntityUid player, EntityUid boss)
+        {
+            // >>>>>>>> shade2/main.hsp:1751 	case evRandBossWin ...
+            if (!TryMap(player, out var map))
+                return;
+
+            var filter = new ItemFilter()
             {
-                map.SetTile(pos, Protos.Tile.WallDirt);
+                MinLevel = _randomGen.CalcObjectLevel(map),
+                Quality = _randomGen.CalcObjectQuality(),
+                Tags = new[] { Protos.Tag.ItemCatSpellbook }
+            };
+            _itemGen.GenerateItem(player, filter);
+
+            var scroll = _itemGen.GenerateItem(player, Protos.Item.ScrollOfReturn);
+
+            var goldAmount = 200 + _stacks.GetCount(scroll) * 5; // XXX: ...What?
+            _itemGen.GenerateItem(player, Protos.Item.GoldPiece, amount: goldAmount);
+
+            var platinumAmount = CalcBossPlatinumAmount(player);
+            _itemGen.GenerateItem(player, Protos.Item.PlatinumCoin, amount: platinumAmount);
+
+            var chest = _itemGen.GenerateItem(player, Protos.Item.BejeweledChest);
+            if (TryComp<ChestComponent>(chest, out var chestComp))
+                chestComp.LockpickDifficulty = 0;
+            // <<<<<<<< shade2/main.hsp:1765 	cFame(pc)+=gQuestFame ..
+        }
+
+        private void EventNefiaBossDefeated(IMap map)
+        {
+            if (!_areaManager.TryGetAreaOfMap(map, out var area))
+                return;
+
+            if (!TryComp<AreaNefiaComponent>(area.AreaEntityUid, out var areaNefia))
+                return;
+
+            _music.Play(Protos.Music.Victory);
+            _audio.Play(Protos.Sound.Complete1);
+
+            var boss = areaNefia.BossEntityUid;
+
+            if (boss != null)
+                CreateBossRewards(_gameSession.Player, boss.Value);
+
+            // >>>>>>>> shade2/main.hsp:1762 	txtEf coGreen:txtQuestComplete:txtMore:txtQuestIt ...
+            _mes.Display(Loc.GetString("Elona.Quest.Completed"), UiColors.MesGreen);
+            _mes.Display("Elona.Common.SomethingIsPut");
+            _ranks.ModifyRank(Protos.Rank.Crawler, 300, 8);
+
+            if (TryComp<FameComponent>(_gameSession.Player, out var fame))
+            {
+                var fameGained = CalcBossFameGained(_gameSession.Player, map);
+                _mes.Display(Loc.GetString("Elona.Quest.GainFame", ("fameGained", fameGained)), UiColors.MesGreen);
+                fame.Fame.Base += fameGained;
             }
+            // <<<<<<<< shade2/main.hsp:1765 	cFame(pc)+=gQuestFame ..
 
-            var stairs = _entityGen.SpawnEntity(Protos.MObj.StairsUp, map.AtPos(3, 3))!.Value;
-            var stairsComp = EntityManager.EnsureComponent<StairsComponent>(stairs);
-            stairsComp.Entrance = MapEntrance.FromMapCoordinates(args.PreviousCoords);
+            // >>>>>>>> shade2/main.hsp:1771 	}else{ ...
+            areaNefia.BossEntityUid = null;
+            areaNefia.State = NefiaState.Conquered;
+            // <<<<<<<< shade2/main.hsp:1773 	} ..
+        }
 
-            var tagComp = EntityManager.EnsureComponent<TagComponent>(stairs);
-            tagComp.AddTag(Protos.Tag.DungeonStairsSurfacing);
+        private void CheckNefiaBossKilled(EntityUid uid, ref EntityKilledEvent args)
+        {
+            // >>>>>>>> shade2/chara_func.hsp:1717 			if (gLevel=areaMaxLevel(gArea))or(gArea=areaVoi ...
+            if (!TryMap(uid, out var map))
+                return;
 
-            return map;
+            if (!_areaManager.TryGetAreaOfMap(map, out var area))
+                return;
+
+            if (!TryComp<AreaNefiaComponent>(area.AreaEntityUid, out var areaNefia))
+                return;
+
+            if (areaNefia.BossEntityUid == uid)
+            {
+                _deferredEvs.Add(() => EventNefiaBossDefeated(map));
+            }
+            // <<<<<<<< shade2/chara_func.hsp:1719 				} ..
         }
 
         private void OnNefiaFloorGenerate(EntityUid uid, AreaNefiaComponent component, AreaFloorGenerateEvent args)
@@ -202,7 +286,6 @@ namespace OpenNefia.Content.Nefia
             var areaDungeonComp = EntityManager.EnsureComponent<AreaDungeonComponent>(areaEntity);
             areaDungeonComp.DeepestFloor = floorCount;
 
-            // TODO: temporary until dungeon logic is in place.
             var areaEntranceComp = EntityManager.EnsureComponent<AreaEntranceComponent>(areaEntity);
             areaEntranceComp.StartingFloor = FloorNumberToAreaId(1);
         }

@@ -2,6 +2,7 @@ using System;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
+using OpenNefia.Core.Areas;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Log;
 using OpenNefia.Core.Maps;
@@ -72,10 +73,16 @@ namespace OpenNefia.Core.GameObjects
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        protected bool TryComp<T>(EntityUid uid, [NotNullWhen(true)] out T? component)
+        protected bool TryComp<T>(EntityUid? uid, [NotNullWhen(true)] out T? component)
             where T : class, IComponent
         {
-            return EntityManager.TryGetComponent(uid, out component);
+            if (uid == null)
+            {
+                component = null;
+                return false;
+            }
+            
+            return EntityManager.TryGetComponent(uid.Value, out component);
         }
 
         /// <summary>
@@ -152,6 +159,19 @@ namespace OpenNefia.Core.GameObjects
             }
 
             return mapMan.TryGetMap(spatial.MapID, out map);
+        }
+
+        protected bool TryArea(EntityUid uid, [NotNullWhen(true)] out IArea? area, IMapManager? mapMan = null, IAreaManager? areaMan = null, SpatialComponent? spatial = null)
+        {
+            IoCManager.Resolve(ref areaMan);
+
+            if (!TryMap(uid, out var map, mapMan, spatial))
+            {
+                area = null;
+                return false;
+            }
+
+            return areaMan.TryGetAreaOfMap(map, out area);
         }
     }
 }

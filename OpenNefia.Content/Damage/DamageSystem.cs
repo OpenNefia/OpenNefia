@@ -26,11 +26,16 @@ namespace OpenNefia.Content.Damage
         void HealHP(EntityUid uid, int amount, bool showMessage = true, SkillsComponent? skills = null);
         void HealMP(EntityUid uid, int amount, bool showMessage = true, SkillsComponent? skills = null);
         void HealStamina(EntityUid uid, int amount, bool showMessage = true, SkillsComponent? skills = null);
+
+        /// <summary>
+        /// Runs some extra events as if <see cref="attacker"/> killed <see cref="target"/>,
+        /// including karma loss, quest quotas, etc.
+        /// </summary>
+        void RunCheckKillEvents(EntityUid target, EntityUid attacker);
     }
 
     public sealed partial class DamageSystem : EntitySystem, IDamageSystem
     {
-        [Dependency] private readonly IAudioManager _sounds = default!;
         [Dependency] private readonly IFactionSystem _factions = default!;
         [Dependency] private readonly IRandom _rand = default!;
         [Dependency] private readonly IMessagesManager _mes = default!;

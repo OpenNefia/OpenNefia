@@ -39,7 +39,7 @@ namespace OpenNefia.Core.GameObjects
     /// </remarks>
     public interface IStackSystem : IEntitySystem
     {
-        int GetCount(EntityUid uid, StackComponent? stack = null);
+        int GetCount(EntityUid? uid, StackComponent? stack = null);
 
         /// <summary>
         /// Sets the stack count of this entity, if it has a <see cref="StackComponent"/>.
@@ -201,9 +201,12 @@ namespace OpenNefia.Core.GameObjects
 
         #region Count Modification
 
-        public int GetCount(EntityUid uid, StackComponent? stack = null)
+        public int GetCount(EntityUid? uid, StackComponent? stack = null)
         {
-            if (!Resolve(uid, ref stack))
+            if (uid == null)
+                return 0;
+
+            if (!Resolve(uid.Value, ref stack))
                 return 1;
 
             return stack.Count;

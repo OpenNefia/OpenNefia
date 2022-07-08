@@ -1,4 +1,5 @@
-﻿using OpenNefia.Core.Areas;
+﻿using OpenNefia.Content.Roles;
+using OpenNefia.Core.Areas;
 using OpenNefia.Core.Containers;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Prototypes;
@@ -9,7 +10,7 @@ namespace OpenNefia.Content.Shopkeeper
     /// <hspVariant>elona122</hspVariant>
     /// <hspId>1</hspId>
     [RegisterComponent]
-    public class RoleShopkeeperComponent : Component
+    public class RoleShopkeeperComponent : Component, IRoleComponent
     {
         public static readonly ContainerId ContainerIdShopInventory = new("Elona.ShopInventory");
 

@@ -14,6 +14,8 @@ using System.Threading.Tasks;
 using OpenNefia.Core.Audio;
 using OpenNefia.Content.Skills;
 using OpenNefia.Content.EntityGen;
+using OpenNefia.Content.Sleep;
+using System.Security.Cryptography;
 
 namespace OpenNefia.Content.Levels
 {
@@ -22,6 +24,7 @@ namespace OpenNefia.Content.Levels
         int CalcExperienceToNext(EntityUid entity, LevelComponent? levelComp = null);
         int GetLevel(EntityUid entity, LevelComponent? levelComp = null);
         void GainLevel(EntityUid uid, bool showMessage = true, LevelComponent? level = null);
+        void GainExperience(EntityUid entity, int expGained, LevelComponent? levelComp = null);
     }
 
     public sealed class LevelSystem : EntitySystem, ILevelSystem
@@ -55,7 +58,7 @@ namespace OpenNefia.Content.Levels
         {
             if (!Resolve(uid, ref level))
                 return;
-            
+
             level.Level++;
 
             if (_gameSession.IsPlayer(uid) && showMessage)
@@ -88,6 +91,18 @@ namespace OpenNefia.Content.Levels
                 return 1;
 
             return levelComp.Level;
+        }
+
+        public void GainExperience(EntityUid entity, int expGained, LevelComponent? levelComp = null)
+        {
+            if (!Resolve(entity, ref levelComp))
+                return;
+
+            expGained = Math.Max(expGained, 0);
+
+            levelComp.Experience += expGained;
+            if (TryComp(entity, out SleepExperienceComponent? sleepExpComp))
+                sleepExpComp.SleepExperience += expGained;
         }
     }
 }

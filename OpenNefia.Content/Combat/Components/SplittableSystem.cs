@@ -37,6 +37,7 @@ namespace OpenNefia.Content.Combat
         {
             SubscribeComponent<SplittableComponent, EntityRefreshEvent>(HandleRefresh, priority: EventPriorities.Highest);
             SubscribeComponent<SplittableComponent, EntityWoundedEvent>(HandleWounded, priority: EventPriorities.VeryHigh + 40000);
+            SubscribeComponent<SplittableComponent, CalcKillExperienceEvent>(ModifyKillExperience, priority: EventPriorities.Low);
         }
 
         private void HandleRefresh(EntityUid uid, SplittableComponent component, ref EntityRefreshEvent args)
@@ -97,6 +98,12 @@ namespace OpenNefia.Content.Combat
                     _mes.Display(Loc.GetString("Elona.Splittable.Splits", ("entity", uid)));
                 }
             }
+        }
+
+        private void ModifyKillExperience(EntityUid uid, SplittableComponent component, ref CalcKillExperienceEvent args)
+        {
+            if (component.SplitsOnHighDamage.Buffed|| component.SplitsRandomlyWhenAttacked.Buffed)
+                args.OutExperience /= 20;
         }
     }
 }
