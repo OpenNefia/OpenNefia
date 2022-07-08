@@ -9,6 +9,7 @@ namespace OpenNefia.Content.GameObjects
 {
     public interface IEntityMemorySystem : IEntitySystem
     {
+        void GetEntityMemory(EntityUid entity, ref MapObjectMemory memory);
         MapObjectMemory GetEntityMemory(EntityUid entity);
     }
 
@@ -39,11 +40,16 @@ namespace OpenNefia.Content.GameObjects
             memory.HideWhenOutOfSight = false;
         }
 
+        public void GetEntityMemory(EntityUid entity, ref MapObjectMemory memory)
+        {
+            var ev = new GetMapObjectMemoryEventArgs(memory);
+            RaiseEvent(entity, ev);
+        }
+
         public MapObjectMemory GetEntityMemory(EntityUid entity)
         {
             var memory = new MapObjectMemory();
-            var ev = new GetMapObjectMemoryEventArgs(memory);
-            RaiseEvent(entity, ev);
+            GetEntityMemory(entity, ref memory);
             return memory;
         }
     }

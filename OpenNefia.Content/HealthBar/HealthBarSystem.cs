@@ -33,17 +33,18 @@ namespace OpenNefia.Content.HealthBar
         }
 
         [RegisterSaveData("Elona.HealthBarSystem.StethoscopeTarget")]
-        public EntityUid? StethoscopeTarget { get; set; }
+        // TODO: save data requires non-nullable references...
+        public EntityUid StethoscopeTarget { get; set; } = EntityUid.Invalid;
 
         public bool ShouldShowHealthBarFor(EntityUid uid)
-{
+        {
             return _parties.IsInPlayerParty(uid) || uid == StethoscopeTarget;
         }
 
         private void RemoveStethoscopeTarget(EntityUid uid, ref EntityKilledEvent args)
         {
             if (StethoscopeTarget == uid)
-                StethoscopeTarget = null;
+                StethoscopeTarget = EntityUid.Invalid;
         }
     }
 }

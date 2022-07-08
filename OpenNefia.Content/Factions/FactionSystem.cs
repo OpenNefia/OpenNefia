@@ -207,7 +207,7 @@ namespace OpenNefia.Content.Factions
             var theirRelation = GetRelationTowards(them, us);
 
             if (theirRelation > Relation.Enemy)
-                _emoIcons.SetEmotionIcon(them, "Elona.Angry", 4);
+                _emoIcons.SetEmotionIcon(them, EmotionIcons.Angry, 4);
 
             var glares = () =>
                     _mes.Display(Loc.GetString("Elona.Faction.HostileAction.GlaresAt", ("us", us), ("them", them)), UiColors.MesPurple);
@@ -252,7 +252,7 @@ namespace OpenNefia.Content.Factions
                 {
                     SetPersonalRelationTowards(livestock.Owner, us, Relation.Enemy);
                     _vanillaAI.SetTarget(livestock.Owner, us, 20);
-                    _emoIcons.SetEmotionIcon(livestock.Owner, "Elona.Angry", 3);
+                    _emoIcons.SetEmotionIcon(livestock.Owner, EmotionIcons.Angry, 3);
                 }
             }
         }
