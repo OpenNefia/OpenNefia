@@ -1,7 +1,7 @@
 ﻿using OpenNefia.Content.DisplayName;
-using OpenNefia.Content.GameObjects.Pickable;
 using OpenNefia.Content.Logic;
 using OpenNefia.Content.Maps;
+using OpenNefia.Content.Pickable;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Locale;

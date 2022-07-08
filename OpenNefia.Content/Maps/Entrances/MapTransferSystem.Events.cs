@@ -18,7 +18,6 @@ using OpenNefia.Content.StatusEffects;
 using OpenNefia.Core.Random;
 using OpenNefia.Content.TurnOrder;
 using OpenNefia.Content.Quests;
-using OpenNefia.Content.GameObjects.Pickable;
 using OpenNefia.Content.Effects;
 using OpenNefia.Content.Dungeons;
 using OpenNefia.Content.Logic;
@@ -29,6 +28,7 @@ using OpenNefia.Content.SaveLoad;
 using OpenNefia.Content.Weather;
 using OpenNefia.Content.Cargo;
 using OpenNefia.Core.Configuration;
+using OpenNefia.Content.Pickable;
 
 namespace OpenNefia.Content.Maps
 {

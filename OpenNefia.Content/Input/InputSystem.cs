@@ -38,6 +38,8 @@ namespace OpenNefia.Content.Input
         /// </summary>
         public IPlayerCommandStates CmdStates => _cmdStates;
 
+        private PlayerFrameUpdateEventArgs _frameUpdateEv = new();
+
         public override void Initialize()
         {
             _inputManager.KeyBindStateChanged += OnKeyBindStateChanged;
@@ -110,5 +112,17 @@ namespace OpenNefia.Content.Input
             return false;
         }
 
+        public override void Update(float frameTime)
+        {
+            RaiseEvent(_frameUpdateEv);
+        }
+    }
+
+    /// <summary>
+    /// Runs on every frame while the player is awaiting input.
+    /// Subscribers to this event should not do anything computationally expensive.
+    /// </summary>
+    public sealed class PlayerFrameUpdateEventArgs : EntityEventArgs
+    {
     }
 }

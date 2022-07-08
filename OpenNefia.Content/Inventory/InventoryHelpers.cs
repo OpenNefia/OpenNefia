@@ -1,5 +1,4 @@
-﻿using OpenNefia.Content.GameObjects.Pickable;
-using OpenNefia.Content.GameObjects;
+﻿using OpenNefia.Content.GameObjects;
 using OpenNefia.Content.UI;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Maths;
@@ -10,6 +9,7 @@ using OpenNefia.Core.Rendering;
 using OpenNefia.Core.Log;
 using OpenNefia.Content.Prototypes;
 using OpenNefia.Content.Identify;
+using OpenNefia.Content.Pickable;
 
 namespace OpenNefia.Content.Inventory
 {

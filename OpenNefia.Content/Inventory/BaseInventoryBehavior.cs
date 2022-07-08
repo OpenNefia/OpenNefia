@@ -1,5 +1,5 @@
-﻿using OpenNefia.Content.GameObjects.Pickable;
-using OpenNefia.Content.Logic;
+﻿using OpenNefia.Content.Logic;
+using OpenNefia.Content.Pickable;
 using OpenNefia.Core;
 using OpenNefia.Core.Audio;
 using OpenNefia.Core.GameObjects;

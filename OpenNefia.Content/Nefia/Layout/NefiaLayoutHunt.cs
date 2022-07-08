@@ -22,8 +22,8 @@ using OpenNefia.Content.GameObjects.EntitySystems.Tag;
 using OpenNefia.Content.GameObjects;
 using OpenNefia.Content.Nefia.Layout;
 using OpenNefia.Content.Factions;
-using OpenNefia.Content.GameObjects.Pickable;
 using OpenNefia.Content.RandomGen;
+using OpenNefia.Content.Pickable;
 
 namespace OpenNefia.Content.Nefia
 {

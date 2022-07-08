@@ -13,7 +13,7 @@ using OpenNefia.Core.Game;
 using OpenNefia.Content.Inventory;
 using OpenNefia.Content.EntityGen;
 
-namespace OpenNefia.Content.GameObjects.Pickable
+namespace OpenNefia.Content.Pickable
 {
     public class PickableSystem : EntitySystem
     {

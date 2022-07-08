@@ -22,7 +22,7 @@ using OpenNefia.Core.Input;
 using OpenNefia.Content.Input;
 using OpenNefia.Core.Log;
 using OpenNefia.Content.DisplayName;
-using OpenNefia.Content.GameObjects.Pickable;
+using OpenNefia.Content.Pickable;
 using OpenNefia.Core.Locale;
 using OpenNefia.Content.Cargo;
 using static OpenNefia.Content.Equipment.EquipmentLayer;

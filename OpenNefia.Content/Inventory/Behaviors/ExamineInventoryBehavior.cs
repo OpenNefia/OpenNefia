@@ -1,6 +1,6 @@
-﻿using OpenNefia.Content.GameObjects.Pickable;
-using OpenNefia.Content.Input;
+﻿using OpenNefia.Content.Input;
 using OpenNefia.Content.Logic;
+using OpenNefia.Content.Pickable;
 using OpenNefia.Core.Audio;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;

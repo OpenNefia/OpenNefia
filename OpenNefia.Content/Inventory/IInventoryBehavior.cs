@@ -6,10 +6,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using OpenNefia.Core.GameObjects;
-using OpenNefia.Content.GameObjects.Pickable;
 using OpenNefia.Core.UI.Element;
 using OpenNefia.Core.UI;
 using OpenNefia.Core;
+using OpenNefia.Content.Pickable;
 
 namespace OpenNefia.Content.Inventory
 {

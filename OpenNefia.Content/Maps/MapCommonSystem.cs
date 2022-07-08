@@ -7,12 +7,12 @@ using OpenNefia.Content.Prototypes;
 using OpenNefia.Core.Random;
 using OpenNefia.Content.RandomGen;
 using OpenNefia.Content.EntityGen;
-using OpenNefia.Content.GameObjects.Pickable;
 using OpenNefia.Content.Religion;
 using OpenNefia.Core.Game;
 using OpenNefia.Content.Levels;
 using OpenNefia.Content.Qualities;
 using OpenNefia.Content.Food;
+using OpenNefia.Content.Pickable;
 
 namespace OpenNefia.Content.Maps
 {
