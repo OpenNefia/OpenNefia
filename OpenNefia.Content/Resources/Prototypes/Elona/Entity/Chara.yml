@@ -5319,6 +5319,8 @@
     id: Elona.RichPerson
   - type: CharaNameGen
     hasRandomName: true
+  - type: KarmaValue
+    karmaValue: -15
 - type: Entity
   id: Elona.CharaNobleChild
   parent: BaseChara
@@ -5350,6 +5352,8 @@
     id: Elona.NobleChild
   - type: CharaNameGen
     hasRandomName: true
+  - type: KarmaValue
+    karmaValue: -10
 - type: Entity
   id: Elona.CharaTourist
   parent: BaseChara
@@ -5381,6 +5385,8 @@
     id: Elona.Tourist
   - type: CharaNameGen
     hasRandomName: true
+  - type: KarmaValue
+    karmaValue: -5
 - type: Entity
   id: Elona.CharaBlade
   parent: BaseChara

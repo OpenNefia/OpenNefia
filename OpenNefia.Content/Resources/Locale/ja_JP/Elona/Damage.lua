@@ -39,17 +39,14 @@ Elona.Damage = {
             return ("%sは回復した。"):format(_.name(entity))
         end,
     },
-    Wounded = function(target, attacker)
-        return ("%s %s wounded."):format(_.name(entity), _.is(entity))
-    end,
+    Wounded = "は傷ついた。",
     Killed = {
-        Active = function(target, attacker)
-            return ("kill%s %s."):format(_.s(attacker), _.him(target))
-        end,
+        Active = "殺した。",
         Passive = function(target, attacker)
-            return ("%s %s killed."):format(_.name(target), _.is(target))
+            return ("%sは死んだ。"):format(_.name(target, attacker))
         end,
     },
+    YouFeelSad = "あなたは悲しくなった。",
     MagicReaction = {
         Hurts = function(entity)
             return ("マナの反動が%sの精神を蝕んだ！"):format(_.name(entity))

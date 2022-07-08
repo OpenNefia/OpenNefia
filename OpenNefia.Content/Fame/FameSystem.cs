@@ -9,6 +9,9 @@ namespace OpenNefia.Content.Fame
     {
         /// <hsp>#deffunc decFame int c, int per</hsp>
         int DecrementFame(EntityUid ent, int fraction, FameComponent? fame = null);
+
+        /// <hsp>#deffunc calcFame int c, int per</hsp>
+        int CalcFameGained(EntityUid ent, int baseAmount, FameComponent? fame = null);
     }
 
     public sealed class FameSystem : EntitySystem, IFameSystem
@@ -35,6 +38,19 @@ namespace OpenNefia.Content.Fame
             delta += _rand.Next(delta / 2) - _rand.Next(delta / 2);
             fame.Fame.Base = Math.Max(fame.Fame.Base - delta, 0);
             return delta;
+        }
+
+        /// <inheritdoc/>
+        public int CalcFameGained(EntityUid ent, int baseAmount, FameComponent? fame = null)
+        {
+            if (!Resolve(ent, ref fame))
+                return 0;
+            
+            var ret = baseAmount * 100 / (100 + fame.Fame.Base / 100 * (fame.Fame.Base / 100) / 2500);
+            if (ret < 5)
+                ret = _rand.Next(5) + 1;
+
+            return ret;
         }
     }
 }

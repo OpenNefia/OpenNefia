@@ -16,16 +16,29 @@ using OpenNefia.Content.Visibility;
 using OpenNefia.Content.Factions;
 using OpenNefia.Content.VanillaAI;
 using OpenNefia.Core.Random;
-using NuGet.DependencyResolver;
-using System.IO.Abstractions;
 using OpenNefia.Content.Charas;
 using OpenNefia.Core.Audio;
 using OpenNefia.Core.Prototypes;
+using OpenNefia.Content.Combat;
+using OpenNefia.Core.Rendering;
+using OpenNefia.Core.IoC;
+using OpenNefia.Content.Roles;
+using OpenNefia.Content.World;
+using OpenNefia.Content.Levels;
+using OpenNefia.Content.Memory;
+using OpenNefia.Content.Maps;
 
 namespace OpenNefia.Content.Damage
 {
     public sealed partial class DamageSystem
     {
+        [Dependency] private readonly IMapDrawables _mapDrawables = default!;
+        [Dependency] private readonly IRoleSystem _roles = default!;
+        [Dependency] private readonly IWorldSystem _world = default!;
+        [Dependency] private readonly ILevelSystem _levels = default!;
+        [Dependency] private readonly IVanillaAISystem _vanillaAI = default!;
+        [Dependency] private readonly IEntityGenMemorySystem _entityGenMemory = default!;
+
         #region Damage events
 
         private void ProcRetreatInFear(EntityUid entity, ref EntityWoundedEvent args)
@@ -172,6 +185,112 @@ namespace OpenNefia.Content.Damage
             Protos.Sound.Kill2,
         };
 
+        private void SpillBloodOrDebrisOnDeath(EntityUid target, ref EntityKilledEvent ev)
+        {
+            //>>>>>>>> elona122/shade2/chara_func.hsp:1651 		if cBit(cStoneBlood,tc){ ...
+            var elementID = (ev.DamageType as ElementalDamageType)?.ElementID;
+
+            if (CompOrNull<StoneBloodComponent>(target)?.HasStoneBlood ?? false)
+            {
+                if (_vis.IsInWindowFov(target))
+                {
+                    _audio.Play(Protos.Sound.Crush1, target);
+                    var anim = new DeathMapDrawable(Protos.Asset.DeathFragments, elementID);
+                    _mapDrawables.Enqueue(anim, target);
+                }
+                _mapDebris.SpillFragments(Spatial(target).MapPosition, 3);
+            }
+            else
+            {
+                if (_vis.IsInWindowFov(target))
+                {
+                    _audio.Play(_rand.Pick(KillSounds), target);
+                    var anim = new DeathMapDrawable(Protos.Asset.DeathBlood, elementID);
+                    _mapDrawables.Enqueue(anim, target);
+                }
+                _mapDebris.SpillBlood(Spatial(target).MapPosition, 4);
+            }
+            // <<<<<<<< elona122/shade2/chara_func.hsp:1661 			} ...
+        }
+
+        private const int VillagerRespawnPeriodHours = 48;
+        private const int AdventurerRespawnPeriodHours = 24;
+
+        private void SetLivenessOnDeath(EntityUid target)
+        {
+            // -- >>>>>>>> elona122/shade2/chara_func.hsp:1663 		if cRole(tc)=0{ ...
+            if (!TryComp<CharaComponent>(target, out var chara))
+            {
+                if (TryComp<MetaDataComponent>(target, out var metaData))
+                {
+                    metaData.Liveness = EntityGameLiveness.DeadAndBuried;
+                }
+                return;
+            }
+
+            if (!_roles.HasAnyRoles(target))
+            {
+                chara.Liveness = CharaLivenessState.Dead;
+            }
+            else
+            {
+                if (HasComp<RoleAdventurerComponent>(target))
+                {
+                    chara.Liveness = CharaLivenessState.AdventurerHospital;
+                    chara.RespawnDate = _world.State.GameDate + GameTimeSpan.FromHours(AdventurerRespawnPeriodHours + _rand.Next(AdventurerRespawnPeriodHours / 2));
+                }
+                else
+                {
+                    chara.Liveness = CharaLivenessState.VillagerDead;
+                    chara.RespawnDate = _world.State.GameDate + GameTimeSpan.FromHours(VillagerRespawnPeriodHours);
+                }
+            }
+
+            // -- <<<<<<<< elona122/shade2/chara_func.hsp:1672 			} ...
+        }
+
+        private int CalcDefaultKillExperience(EntityUid target, EntityUid attacker)
+        {
+            var level = _levels.GetLevel(target);
+            var exp = Math.Clamp(level, 1, 200) * Math.Clamp(level + 1, 1, 200) * Math.Clamp(level + 2, 1, 200) / 20 + 8;
+            if (level > _levels.GetLevel(attacker))
+                exp /= 4;
+
+            return exp;
+        }
+
+        private int CalcKillExperience(EntityUid target, EntityUid attacker)
+        {
+            var defaultExp = CalcDefaultKillExperience(target, attacker);
+            var ev = new CalcKillExperienceEvent(target, attacker, defaultExp);
+            RaiseEvent(target, ref ev);
+            return ev.OutExperience;
+        }
+
+        private void ApplyExperienceGainOnKill(EntityUid target, ref EntityKilledEvent ev)
+        {
+            // >>>>>>>> elona122/shade2/chara_func.hsp:1688 		if dmgSource >= dmgFromChara{ ...
+            if (!IsAlive(ev.Attacker))
+                return;
+
+            var exp = CalcKillExperience(target, ev.Attacker.Value);
+            _levels.GainExperience(target, exp);
+            // <<<<<<<< elona122/shade2/chara_func.hsp:1695 			} ...
+        }
+
+        private void UpdateEntityGenMemory(EntityUid target, ref EntityKilledEvent ev)
+        {
+            // >>>>>>>> shade2/chara_func.hsp:1726 		if tc!pc{ ..
+            if (_gameSession.IsPlayer(target))
+                return;
+
+            if (TryComp<MetaDataComponent>(target, out var metaData) && metaData.EntityPrototype != null)
+            {
+                _entityGenMemory.Killed(metaData.EntityPrototype.GetStrongID());
+            }
+            // <<<<<<<< shade2/chara_func.hsp:1735 		check_kill dmgSource,tc ..
+        }
+
         private void HandleKilled(EntityUid target, ref EntityKilledEvent ev)
         {
             if (ev.DamageType is ElementalDamageType ele)
@@ -179,62 +298,52 @@ namespace OpenNefia.Content.Damage
                 var sound = _protos.Index(ele.ElementID).Sound?.GetSound();
                 if (sound != null)
                     _audio.Play(sound.Value, target);
+
+                var pev = new P_ElementKillCharaEvent(ev.Attacker, target);
+                _protos.EventBus.RaiseEvent(ele.ElementID, ref pev);
             }
 
-            ShowKillText(target, ref ev);
+            SpillBloodOrDebrisOnDeath(target, ref ev);
+            SetLivenessOnDeath(target);
 
-            _sounds.Play(_rand.Pick(KillSounds), target);
+            // TODO ally impression, quest bodyguard
 
-            // TODO
-            _mapDebris.SpillBlood(Spatial(target).MapPosition, 5);
-
-            // TODO
-            if (TryComp<CharaComponent>(target, out var chara))
+            if (_gameSession.IsPlayer(target))
             {
-                chara.Liveness = CharaLivenessState.Dead;
+                _world.State.TotalDeaths++;
             }
-            else if (TryComp<MetaDataComponent>(target, out var metaData))
+
+            ApplyExperienceGainOnKill(target, ref ev);
+
+            if (IsAlive(ev.Attacker))
             {
-                metaData.Liveness = EntityGameLiveness.DeadAndBuried;
+                _vanillaAI.SetTarget(ev.Attacker.Value, null);
             }
+
+            UpdateEntityGenMemory(target, ref ev);
+
+            if (_parties.IsUnderlingOfPlayer(target))
+                _mes.Display(Loc.GetString("Elona.Damage.YouFeelSad"));
+
+            if (TryMap(target, out var map) && TryComp<MapCharaGenComponent>(map.MapEntityUid, out var mapCharaGen))
+                mapCharaGen.MaxCharaCount--;
+
+            if (ev.Attacker != null)
+                RunCheckKillEvents(target, ev.Attacker.Value);
         }
 
-        private void ShowKillText(EntityUid target, ref EntityKilledEvent ev)
+        /// <inheritdoc/>
+        public void RunCheckKillEvents(EntityUid target, EntityUid attacker)
         {
-            if (!_vis.IsInWindowFov(target))
-                return;
-
-            var capitalize = true;
-            if (ev.ExtraArgs.AttackCount > 0)
-            {
-                _mes.Display("Elona.Combat.PhysicalAttack.Furthermore");
-                capitalize = false;
-            }
-
-            var isAlly = _parties.IsInPlayerParty(target);
-
-            if (isAlly)
-            {
-                if (!ev.ExtraArgs.NoAttackText)
-                {
-                    if (EntityManager.IsAlive(ev.ExtraArgs.Weapon))
-                    {
-                        // TODO
-                        if (ev.ExtraArgs.AttackSkill == Protos.Skill.Throwing)
-                        {
-
-                        }
-                        else
-                        {
-
-                        }
-                    }
-                }
-            }
+            // >>>>>>>> shade2/chara_func.hsp:1121 #deffunc check_kill int cc,int tc ..
+            var ev = new CheckKillEvent(target, attacker);
+            RaiseEvent(target, ref ev);
+            // <<<<<<<< shade2/chara_func.hsp:1146 	return ..
         }
 
         #endregion
     }
+
     [ByRefEvent]
     public struct CalcFinalDamageEvent
     {
@@ -344,6 +453,46 @@ namespace OpenNefia.Content.Damage
             Amount = amount;
             NoMagicReaction = noMagicReaction;
             ShowMessage = showMessage;
+        }
+    }
+
+    [ByRefEvent]
+    public struct CalcKillExperienceEvent
+    {
+        public EntityUid Target { get; }
+        public EntityUid Attacker { get; }
+
+        public int OutExperience { get; set; }
+
+        public CalcKillExperienceEvent(EntityUid target, EntityUid attacker, int exp)
+        {
+            Target = target;
+            Attacker = attacker;
+            OutExperience = exp;
+        }
+    }
+
+    /// <summary>
+    /// Event run when trying to assign blame to a character's death.
+    /// The target may not necessarily have died from a direct combat strike
+    /// from the attacker, but instead from something like a trap or spilt potion
+    /// set up by the attacker. This event ensures that karma and impression loss 
+    /// applies for those kinds of deathsas well.
+    /// 
+    /// By contrast, <see cref="EntityKilledEvent"/> alone may not have the entity to blame
+    /// for the death passed to the "attacker" field because there technically was no direct "attacker"
+    /// for the trap/potion/etc.
+    /// </summary>
+    [ByRefEvent]
+    public struct CheckKillEvent
+    {
+        public EntityUid Target { get; }
+        public EntityUid Attacker { get; }
+
+        public CheckKillEvent(EntityUid target, EntityUid attacker)
+        {
+            Target = target;
+            Attacker = attacker;
         }
     }
 }

@@ -30,7 +30,7 @@ namespace OpenNefia.Content.Resists
         public PrototypeId<AssetPrototype>? DeathAnim { get; }
 
         [DataField]
-        public int DeathAnimDy { get; } = 0;
+        public int DeathAnimDy { get; } = -16;
 
         [DataField]
         public int Rarity { get; set; } = 1;

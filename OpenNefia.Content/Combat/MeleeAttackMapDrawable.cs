@@ -64,12 +64,13 @@ namespace OpenNefia.Content.Combat
             // >>>>>>>> shade2 / screen.hsp:701   case aniNormalAttack...
             Love.Graphics.SetColor(Color.White);
 
+            var frame2 = _counter.FrameInt * 2;
+
             if (_isCritical && _counter.FrameInt < (int)_assetCritical.CountX)
                 _assetCritical.DrawRegionUnscaled(_counter.FrameInt.ToString(), PixelX - 24, PixelY - 32);
 
             for (var i = 0; i < _points.Count; i++)
             {
-                var frame2 = _counter.FrameInt * 2;
                 var point = _points[i];
                 var dx = point.X + _coords.TileSize.X / 2;
                 if (point.X < 4)

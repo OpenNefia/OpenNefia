@@ -19,6 +19,8 @@ using OpenNefia.Content.Roles;
 using OpenNefia.Content.Factions;
 using OpenNefia.Content.EmotionIcon;
 using OpenNefia.Content.Shopkeeper;
+using OpenNefia.Content.Damage;
+using OpenNefia.Content.Dialog;
 
 namespace OpenNefia.Content.Fame
 {
@@ -42,6 +44,7 @@ namespace OpenNefia.Content.Fame
         [Dependency] private readonly IFactionSystem _factions = default!;
         [Dependency] private readonly IVanillaAISystem _vanillaAI = default!;
         [Dependency] private readonly IEmotionIconSystem _emoIcons = default!;
+        [Dependency] private readonly IDialogSystem _dialog = default!;
 
         public const int KarmaThresholdBad = -30;
         public const int KarmaThresholdGood = 20;
@@ -49,6 +52,7 @@ namespace OpenNefia.Content.Fame
         public override void Initialize()
         {
             SubscribeComponent<KarmaComponent, EntityRefreshEvent>(HandleRefresh);
+            SubscribeEntity<CheckKillEvent>(ProcKarmaLossOnKill);
         }
 
         private void HandleRefresh(EntityUid uid, KarmaComponent karmaComp, ref EntityRefreshEvent args)
@@ -183,6 +187,29 @@ namespace OpenNefia.Content.Fame
                 {
                     ApplyAggro(target, other, vai);
                 }
+            }
+        }
+
+        private void ProcKarmaLossOnKill(EntityUid victim, ref CheckKillEvent args)
+        {
+            if (!_parties.TryGetLeader(args.Attacker, out var leader))
+                return;
+
+            if (!_parties.IsPartyLeaderOf(leader.Value, victim))
+            {
+                var karmaLoss = 0;
+
+                if (_factions.GetRelationTowards(victim, args.Attacker) >= Relation.Neutral)
+                    karmaLoss = -2;
+
+                if (TryComp<KarmaValueComponent>(victim, out var karmaValue))
+                    karmaLoss = -karmaValue.KarmaValue;
+
+                // TODO generalize?
+                if (HasComp<RoleShopkeeperComponent>(victim))
+                    karmaLoss = -10;
+
+                ModifyKarma(args.Attacker, karmaLoss);
             }
         }
     }

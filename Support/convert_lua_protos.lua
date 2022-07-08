@@ -336,6 +336,17 @@ handlers["base.chara"] = function(from, to)
     if from.is_quick_tempered or table.set(from.flags or {}).IsQuickTempered then
         c = comp(to, "QuickTempered")
     end
+
+    if from._id == "elona.rich_person" then
+        c = comp(to, "KarmaValue")
+        c.karmaValue = 15
+    elseif from._id == "elona.noble_child" then
+        c = comp(to, "KarmaValue")
+        c.karmaValue = 10
+    elseif from._id == "elona.tourist" then
+        c = comp(to, "KarmaValue")
+        c.karmaValue = 5
+    end
 end
 
 handlers["base.item"] = function(from, to)

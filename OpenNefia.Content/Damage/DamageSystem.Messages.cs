@@ -255,7 +255,7 @@ namespace OpenNefia.Content.Damage
             "Killed"
         };
 
-        private void DisplayDefaultDeathMessage(EntityUid target, ref EntityKilledEvent args)
+        private void DisplayCombatDeathMessage(EntityUid target, ref EntityKilledEvent args)
         {
             // >>>>>>>> shade2/chara_func.hsp:1603 				p=rnd(4) ...
             var deathType = _rand.Pick(DeathMessageKeys);
@@ -265,15 +265,30 @@ namespace OpenNefia.Content.Damage
             // <<<<<<<< shade2/chara_func.hsp:1608 				} ...
         }
 
+        private void DisplayDamageTypeDeathMessage(EntityUid target, ref EntityKilledEvent args)
+        {
+            if (args.DamageType == null)
+                return;
+
+            _mes.Display(args.DamageType.LocalizeDeathMessage(target, args.Attacker, EntityManager));
+        }
+
         private void DisplayDamageMessagesKilled(EntityUid target, ref EntityKilledEvent args)
         {
-            if (args.DamageType is ElementalDamageType ele)
+            if (args.Attacker != null)
             {
-                DisplayElementalDeathMessage(target, ref args, ele);
+                if (args.DamageType is ElementalDamageType ele)
+                {
+                    DisplayElementalDeathMessage(target, ref args, ele);
+                }
+                else
+                {
+                    DisplayCombatDeathMessage(target, ref args);
+                }
             }
             else
             {
-                DisplayDefaultDeathMessage(target, ref args);
+                DisplayDamageTypeDeathMessage(target, ref args);
             }
         }
     }

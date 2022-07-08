@@ -1,4 +1,5 @@
 ﻿using OpenNefia.Content.Factions;
+using OpenNefia.Content.HealthBar;
 using OpenNefia.Content.Parties;
 using OpenNefia.Content.Prototypes;
 using OpenNefia.Content.Skills;
@@ -24,6 +25,7 @@ namespace OpenNefia.Content.VanillaAI
         [Dependency] private readonly IGameSessionManager _gameSession = default!;
         [Dependency] private readonly IVisibilitySystem _visibility = default!;
         [Dependency] private readonly IPartySystem _parties = default!;
+        [Dependency] private readonly IHealthBarSystem _healthBar = default!;
 
         private IAssetInstance AssetHPBarAlly = default!;
         private IAssetInstance AssetHPBarOther = default!;
@@ -59,6 +61,9 @@ namespace OpenNefia.Content.VanillaAI
             foreach (var (spatial, skills) in _lookup.EntityQueryInMap<SpatialComponent, SkillsComponent>(Map.Id))
             {
                 if (!_entMan.IsAlive(spatial.Owner) || !_visibility.CanSeeEntity(_gameSession.Player!, spatial.Owner))
+                    continue;
+
+                if (!_healthBar.ShouldShowHealthBarFor(spatial.Owner))
                     continue;
 
                 IAssetInstance assetInstance;

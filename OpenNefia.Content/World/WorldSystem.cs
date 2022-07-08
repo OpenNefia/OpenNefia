@@ -1,4 +1,6 @@
 ﻿using OpenNefia.Analyzers;
+using OpenNefia.Content.Damage;
+using OpenNefia.Content.Parties;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Maps;
@@ -21,9 +23,21 @@ namespace OpenNefia.Content.World
     public class WorldSystem : EntitySystem, IWorldSystem
     {
         [Dependency] private readonly IMapManager _mapManager = default!;
+        [Dependency] private readonly IPartySystem _parties = default!;
 
         [RegisterSaveData("Elona.WorldSystem.State")]
         public WorldState State { get; } = new();
+
+        public override void Initialize()
+        {
+            SubscribeEntity<CheckKillEvent>(IncrementTotalKills);
+        }
+
+        private void IncrementTotalKills(EntityUid victim, ref CheckKillEvent args)
+        {
+            if (_parties.IsInPlayerParty(args.Attacker) && !_parties.IsInPlayerParty(victim))
+                State.TotalKills++;
+        }
 
         public void PassTime(GameTimeSpan time, bool noEvents = false)
         {
