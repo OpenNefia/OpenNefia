@@ -10,7 +10,7 @@ Elona.DamageType = {
             end,
         },
     },
-    Chara = {
+    Combat = {
         DeathCause = function(entity)
             return ("%sに殺された。"):format(_.basename(entity))
         end,

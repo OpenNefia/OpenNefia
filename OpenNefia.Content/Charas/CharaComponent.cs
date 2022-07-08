@@ -3,6 +3,7 @@ using OpenNefia.Content.World;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Serialization.Manager.Attributes;
+using System.Security.Cryptography;
 
 namespace OpenNefia.Content.Charas
 {
@@ -26,7 +27,8 @@ namespace OpenNefia.Content.Charas
         /// <summary>
         /// Slot to hold components added by race.
         /// </summary>
-        [DataField]
+        // TODO might be a bad idea since we may want to merge component fields
+        // from the RacePrototype instead, but that is incompatible with slots.
         public SlotId RaceSlot { get; set; }
 
         /// <summary>
@@ -41,6 +43,8 @@ namespace OpenNefia.Content.Charas
         /// <summary>
         /// Slot to hold components added by class.
         /// </summary>
+        // TODO might be a bad idea since we may want to merge component fields
+        // from the ClassPrototype instead, but that is incompatible with slots.
         [DataField]
         public SlotId ClassSlot { get; set; }
 

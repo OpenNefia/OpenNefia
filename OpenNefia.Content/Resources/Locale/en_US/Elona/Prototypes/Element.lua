@@ -4,7 +4,7 @@ OpenNefia.Prototypes.Elona.Element.Elona = {
         ShortName = "Ch",
         Description = "Resistance to chaos.",
         Ego = "chaotic",
-        Damage = function(entity)
+        Wounded = function(entity)
             return ("%s %s hurt by chaotic force."):format(_.name(entity), _.is(entity))
         end,
         Resist = {
@@ -15,7 +15,7 @@ OpenNefia.Prototypes.Elona.Element.Elona = {
                 return ("%s no longer understand%s chaos."):format(_.name(entity), _.s(entity))
             end,
         },
-        Death = {
+        Killed = {
             Active = function(entity, attacker)
                 return ("let%s the chaos consume %s."):format(_.s(attacker), _.him(entity))
             end,
@@ -29,7 +29,7 @@ OpenNefia.Prototypes.Elona.Element.Elona = {
         ShortName = "Co",
         Description = "Resistance to cold.",
         Ego = "icy",
-        Damage = function(entity)
+        Wounded = function(entity)
             return ("%s %s frozen."):format(_.name(entity), _.is(entity))
         end,
         Resist = {
@@ -40,7 +40,7 @@ OpenNefia.Prototypes.Elona.Element.Elona = {
                 return ("%s shiver%s."):format(_.name(entity), _.s(entity))
             end,
         },
-        Death = {
+        Killed = {
             Active = function(entity, attacker)
                 return ("transform%s %s to an ice sculpture."):format(_.s(attacker), _.him(entity))
             end,
@@ -57,10 +57,10 @@ OpenNefia.Prototypes.Elona.Element.Elona = {
         Name = "cut",
         Description = "Resistance to cut.",
         Ego = "cut",
-        Damage = function(entity)
+        Wounded = function(entity)
             return ("%s get%s a cut."):format(_.name(entity), _.s(entity))
         end,
-        Death = {
+        Killed = {
             Active = function(entity, attacker)
                 return ("cut%s %s into thin strips."):format(_.s(attacker), _.him(entity))
             end,
@@ -74,7 +74,7 @@ OpenNefia.Prototypes.Elona.Element.Elona = {
         ShortName = "Da",
         Description = "Resistance to darkness.",
         Ego = "gloomy",
-        Damage = function(entity)
+        Wounded = function(entity)
             return ("%s %s struck by dark force."):format(_.name(entity), _.is(entity))
         end,
         Resist = {
@@ -85,7 +85,7 @@ OpenNefia.Prototypes.Elona.Element.Elona = {
                 return ("Suddenly, %s fear%s darkness."):format(_.name(entity), _.s(entity))
             end,
         },
-        Death = {
+        Killed = {
             Active = function(entity, attacker)
                 return ("let%s the depths swallow %s."):format(_.s(attacker), _.him(entity))
             end,
@@ -99,7 +99,7 @@ OpenNefia.Prototypes.Elona.Element.Elona = {
         ShortName = "Fi",
         Description = "Resistance to fire.",
         Ego = "burning",
-        Damage = function(entity)
+        Wounded = function(entity)
             return ("%s %s burnt."):format(_.name(entity), _.is(entity))
         end,
         Resist = {
@@ -110,7 +110,7 @@ OpenNefia.Prototypes.Elona.Element.Elona = {
                 return ("%s sweat%s."):format(_.name(entity), _.s(entity))
             end,
         },
-        Death = {
+        Killed = {
             Active = function(entity, attacker)
                 return ("burn%s %s to death."):format(_.s(attacker), _.him(entity))
             end,
@@ -124,7 +124,7 @@ OpenNefia.Prototypes.Elona.Element.Elona = {
         ShortName = "Li",
         Description = "Resistance to lightning.",
         Ego = "electric",
-        Damage = function(entity)
+        Wounded = function(entity)
             return ("%s %s shocked."):format(_.name(entity), _.is(entity))
         end,
         Resist = {
@@ -135,7 +135,7 @@ OpenNefia.Prototypes.Elona.Element.Elona = {
                 return ("%s %s shocked."):format(_.name(entity), _.is(entity))
             end,
         },
-        Death = {
+        Killed = {
             Active = function(entity, attacker)
                 return ("electrocute%s %s to death."):format(_.s(attacker), _.him(entity))
             end,
@@ -162,7 +162,7 @@ OpenNefia.Prototypes.Elona.Element.Elona = {
         ShortName = "Mi",
         Description = "Resistance to mind.",
         Ego = "psychic",
-        Damage = function(entity)
+        Wounded = function(entity)
             return ("%s suffer%s a splitting headache."):format(_.name(entity), _.s(entity))
         end,
         Resist = {
@@ -173,7 +173,7 @@ OpenNefia.Prototypes.Elona.Element.Elona = {
                 return ("%s%s mind becomes slippery."):format(_.name(entity), _.his_owned(entity))
             end,
         },
-        Death = {
+        Killed = {
             Active = function(entity, attacker)
                 return ("completely disable%s %s."):format(_.s(attacker), _.him(entity))
             end,
@@ -192,7 +192,7 @@ OpenNefia.Prototypes.Elona.Element.Elona = {
         ShortName = "Nr",
         Description = "Resistance to nerve.",
         Ego = "numb",
-        Damage = function(entity)
+        Wounded = function(entity)
             return ("%s%s nerves are hurt."):format(_.name(entity), _.his_owned(entity))
         end,
         Resist = {
@@ -203,7 +203,7 @@ OpenNefia.Prototypes.Elona.Element.Elona = {
                 return ("%s become%s dull."):format(_.name(entity), _.s(entity))
             end,
         },
-        Death = {
+        Killed = {
             Active = function(entity, attacker)
                 return ("destroy%s %s nerves."):format(_.s(attacker), _.his(entity))
             end,
@@ -217,7 +217,7 @@ OpenNefia.Prototypes.Elona.Element.Elona = {
         ShortName = "Mt",
         Description = "Resistance to nether.",
         Ego = "infernal",
-        Damage = function(entity)
+        Wounded = function(entity)
             return ("%s %s chilled by infernal squall."):format(_.name(entity), _.is(entity))
         end,
         Resist = {
@@ -228,7 +228,7 @@ OpenNefia.Prototypes.Elona.Element.Elona = {
                 return ("%s %s afraid of hell."):format(_.name(entity), _.is(entity))
             end,
         },
-        Death = {
+        Killed = {
             Active = function(entity, attacker)
                 return ("entrap%s %s into the inferno."):format(_.s(attacker), _.him(entity))
             end,
@@ -242,7 +242,7 @@ OpenNefia.Prototypes.Elona.Element.Elona = {
         ShortName = "Po",
         Description = "Resistance to poison.",
         Ego = "poisonous",
-        Damage = function(entity)
+        Wounded = function(entity)
             return ("%s suffer%s from venom."):format(_.name(entity), _.s(entity))
         end,
         Resist = {
@@ -253,7 +253,7 @@ OpenNefia.Prototypes.Elona.Element.Elona = {
                 return ("%s lose%s antibodies to poisons."):format(_.name(entity), _.s(entity))
             end,
         },
-        Death = {
+        Killed = {
             Active = function(entity, attacker)
                 return ("kill%s %s with poison."):format(_.s(attacker), _.him(entity))
             end,
@@ -267,7 +267,7 @@ OpenNefia.Prototypes.Elona.Element.Elona = {
         ShortName = "So",
         Description = "Resistance to sound.",
         Ego = "shivering",
-        Damage = function(entity)
+        Wounded = function(entity)
             return ("%s %s shocked by a shrill sound."):format(_.name(entity), _.is(entity))
         end,
         Resist = {
@@ -278,7 +278,7 @@ OpenNefia.Prototypes.Elona.Element.Elona = {
                 return ("%s become%s very sensitive to noises."):format(_.name(entity), _.s(entity))
             end,
         },
-        Death = {
+        Killed = {
             Active = function(entity, attacker)
                 return ("shatter%s %s to atoms."):format(_.s(attacker), _.him(entity))
             end,
@@ -288,10 +288,10 @@ OpenNefia.Prototypes.Elona.Element.Elona = {
         },
     },
     Acid = {
-        Damage = function(entity)
+        Wounded = function(entity)
             return ("%s %s burnt by acid."):format(_.name(entity), _.is(entity))
         end,
-        Death = {
+        Killed = {
             Active = function(entity, attacker)
                 return ("melt%s %s away."):format(_.s(attacker), _.him(entity))
             end,

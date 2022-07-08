@@ -2,7 +2,6 @@ OpenNefia.Prototypes.Elona.Skill.Elona = {
     AttrStrength = {
         Name = "筋力",
         ShortName = "筋力",
-
         OnDecrease = function(entity)
             return ("%sは少し贅肉が増えたような気がした。"):format(_.name(entity))
         end,
@@ -13,7 +12,6 @@ OpenNefia.Prototypes.Elona.Skill.Elona = {
     AttrConstitution = {
         Name = "耐久",
         ShortName = "耐久",
-
         OnDecrease = function(entity)
             return ("%sは我慢ができなくなった。"):format(_.name(entity))
         end,
@@ -24,7 +22,6 @@ OpenNefia.Prototypes.Elona.Skill.Elona = {
     AttrDexterity = {
         Name = "器用",
         ShortName = "器用",
-
         OnDecrease = function(entity)
             return ("%sは不器用になった。"):format(_.name(entity))
         end,
@@ -35,7 +32,6 @@ OpenNefia.Prototypes.Elona.Skill.Elona = {
     AttrPerception = {
         Name = "感覚",
         ShortName = "感覚",
-
         OnDecrease = function(entity)
             return ("%sは感覚のずれを感じた。"):format(_.name(entity))
         end,
@@ -46,7 +42,6 @@ OpenNefia.Prototypes.Elona.Skill.Elona = {
     AttrLearning = {
         Name = "習得",
         ShortName = "習得",
-
         OnDecrease = function(entity)
             return ("%sの学習意欲が低下した。"):format(_.name(entity))
         end,
@@ -57,7 +52,6 @@ OpenNefia.Prototypes.Elona.Skill.Elona = {
     AttrWill = {
         Name = "意思",
         ShortName = "意思",
-
         OnDecrease = function(entity)
             return ("%sは何でもすぐ諦める。"):format(_.name(entity))
         end,
@@ -68,7 +62,6 @@ OpenNefia.Prototypes.Elona.Skill.Elona = {
     AttrMagic = {
         Name = "魔力",
         ShortName = "魔力",
-
         OnDecrease = function(entity)
             return ("%sは魔力の衰えを感じた。"):format(_.name(entity))
         end,
@@ -79,7 +72,6 @@ OpenNefia.Prototypes.Elona.Skill.Elona = {
     AttrCharisma = {
         Name = "魅力",
         ShortName = "魅力",
-
         OnDecrease = function(entity)
             return ("%sは急に人前に出るのが嫌になった。"):format(_.name(entity))
         end,
@@ -89,7 +81,6 @@ OpenNefia.Prototypes.Elona.Skill.Elona = {
     },
     AttrSpeed = {
         Name = "速度",
-
         OnDecrease = function(entity)
             return ("%sは遅くなった。"):format(_.name(entity))
         end,
@@ -99,7 +90,6 @@ OpenNefia.Prototypes.Elona.Skill.Elona = {
     },
     AttrLuck = {
         Name = "運勢",
-
         OnDecrease = function(entity)
             return ("%sは不幸になった。"):format(_.name(entity))
         end,
@@ -109,7 +99,6 @@ OpenNefia.Prototypes.Elona.Skill.Elona = {
     },
     AttrLife = {
         Name = "生命力",
-
         OnDecrease = function(entity)
             return ("%sは生命力の衰えを感じた。"):format(_.name(entity))
         end,
@@ -119,7 +108,6 @@ OpenNefia.Prototypes.Elona.Skill.Elona = {
     },
     AttrMana = {
         Name = "マナ",
-
         OnDecrease = function(entity)
             return ("%sはマナの衰えを感じた。"):format(_.name(entity))
         end,
@@ -127,7 +115,6 @@ OpenNefia.Prototypes.Elona.Skill.Elona = {
             return ("%sはマナの向上を感じた。"):format(_.name(entity))
         end,
     },
-
     ActionAbsorbMagic = {
         Description = "マナ回復",
         Name = "魔力の吸収",
@@ -149,10 +136,20 @@ OpenNefia.Prototypes.Elona.Skill.Elona = {
     Axe = {
         Description = "斧を扱う技術",
         Name = "斧",
+        Damage = {
+            WeaponName = "斧",
+            VerbPassive = "切られた",
+            VerbActive = "切り払い",
+        },
     },
     Blunt = {
         Description = "鈍器を扱う技術",
         Name = "鈍器",
+        Damage = {
+            WeaponName = "鈍器",
+            VerbPassive = "打たれた",
+            VerbActive = "打って",
+        },
     },
     BuffBoost = {
         Name = "ブースト",
@@ -161,6 +158,11 @@ OpenNefia.Prototypes.Elona.Skill.Elona = {
     Bow = {
         Description = "弓を扱う技術",
         Name = "弓",
+        Damage = {
+            WeaponName = "弓",
+            VerbPassive = "撃たれた",
+            VerbActive = "射撃し",
+        },
     },
     Carpentry = {
         Description = "木を加工し、アイテムを作り出す",
@@ -210,6 +212,11 @@ OpenNefia.Prototypes.Elona.Skill.Elona = {
     Crossbow = {
         Description = "クロスボウを扱う技術",
         Name = "クロスボウ",
+        Damage = {
+            WeaponName = "クロスボウ",
+            VerbPassive = "撃たれた",
+            VerbActive = "射撃し",
+        },
     },
     SpellCrystalSpear = {
         Description = "無属性の矢",
@@ -367,6 +374,11 @@ OpenNefia.Prototypes.Elona.Skill.Elona = {
     Firearm = {
         Description = "遠隔機装を扱う技術",
         Name = "銃器",
+        Damage = {
+            WeaponName = "銃",
+            VerbPassive = "撃たれた",
+            VerbActive = "射撃し",
+        },
     },
     Fishing = {
         Description = "釣りを可能にする",
@@ -497,6 +509,11 @@ OpenNefia.Prototypes.Elona.Skill.Elona = {
     LongSword = {
         Description = "刃渡りの長い剣を扱う技術",
         Name = "長剣",
+        Damage = {
+            WeaponName = "長剣",
+            VerbPassive = "切られた",
+            VerbActive = "切り払い",
+        },
     },
     BuffLulwysTrick = {
         Name = "ルルウィの憑依",
@@ -636,6 +653,11 @@ OpenNefia.Prototypes.Elona.Skill.Elona = {
     Polearm = {
         Description = "槍を扱う技術",
         Name = "槍",
+        Damage = {
+            WeaponName = "槍",
+            VerbPassive = "刺された",
+            VerbActive = "突き刺して",
+        },
     },
     ActionPowerBreath = {
         Description = "ブレス",
@@ -692,6 +714,11 @@ OpenNefia.Prototypes.Elona.Skill.Elona = {
     Scythe = {
         Description = "鎌を扱う技術",
         Name = "鎌",
+        Damage = {
+            WeaponName = "鎌",
+            VerbPassive = "切られた",
+            VerbActive = "切り払い",
+        },
     },
     SpellSenseObject = {
         Description = "周囲の物質感知",
@@ -712,6 +739,11 @@ OpenNefia.Prototypes.Elona.Skill.Elona = {
     ShortSword = {
         Description = "刃渡りの短い剣を扱う技術",
         Name = "短剣",
+        Damage = {
+            WeaponName = "短剣",
+            VerbPassive = "刺された",
+            VerbActive = "突き刺して",
+        },
     },
     SpellShortTeleport = {
         Description = "近くへの瞬間移動",
@@ -730,6 +762,11 @@ OpenNefia.Prototypes.Elona.Skill.Elona = {
     Stave = {
         Description = "杖を扱う技術",
         Name = "杖",
+        Damage = {
+            WeaponName = "杖",
+            VerbPassive = "打たれた",
+            VerbActive = "打って",
+        },
     },
     Stealth = {
         Description = "周囲に気づかれず行動する",
@@ -797,6 +834,14 @@ OpenNefia.Prototypes.Elona.Skill.Elona = {
     Throwing = {
         Description = "投擲道具を扱う技術",
         Name = "投擲",
+        Damage = {
+            WeaponName = "飛び道具",
+            VerbPassive = "攻撃された",
+            VerbActive = "投げ",
+            AttacksActive = function(attacker, verb, target, weapon)
+                return ("%s%sに%sを%s"):format(_.sore_wa(attacker), _.name(target), _.name(weapon), verb)
+            end,
+        },
     },
     ActionTouchOfFear = {
         Description = "無属性攻撃",

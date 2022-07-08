@@ -21,7 +21,10 @@ namespace OpenNefia.Content.DisplayName
         private void GetCharaName(EntityUid uid, CharaComponent component, ref GetDisplayNameEventArgs args)
         {
             // CustomNameComponent is applied after this.
-            args.OutName = $"the {args.BaseName}";
+
+            // TODO
+            if (Loc.Language == LanguagePrototypeOf.English)
+                args.OutName = $"the {args.BaseName}";
         }
 
         public void GetItemName(EntityUid uid, ItemComponent component, ref GetDisplayNameEventArgs args)

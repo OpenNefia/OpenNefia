@@ -550,6 +550,10 @@ handlers["base.race"] = function(from, to)
     if from.properties.breaks_into_debris then
         comp(to, "StoneBlood")
     end
+    if from.properties.melee_style then
+        local c = comp(to, "UnarmedDamageText")
+        c.damageTextType = dotted(from.properties.melee_style)
+    end
     -- if #from.traits > 0 then
     --    to.traits = {}
     --    for id, level in pairs(from.traits) do

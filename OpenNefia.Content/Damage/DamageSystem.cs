@@ -1,43 +1,20 @@
-﻿using NuGet.DependencyResolver;
-using OpenNefia.Content.Activity;
-using OpenNefia.Content.Charas;
-using OpenNefia.Content.CustomName;
-using OpenNefia.Content.DisplayName;
+﻿using OpenNefia.Content.Activity;
 using OpenNefia.Content.EmotionIcon;
-using OpenNefia.Content.Equipment;
-using OpenNefia.Content.EquipSlots;
 using OpenNefia.Content.Factions;
 using OpenNefia.Content.Feats;
-using OpenNefia.Content.GameObjects;
-using OpenNefia.Content.GameObjects.EntitySystems.Tag;
-using OpenNefia.Content.Identify;
-using OpenNefia.Content.Input;
 using OpenNefia.Content.Logic;
 using OpenNefia.Content.Maps;
 using OpenNefia.Content.Parties;
-using OpenNefia.Content.Prototypes;
-using OpenNefia.Content.Qualities;
-using OpenNefia.Content.Rendering;
 using OpenNefia.Content.Skills;
 using OpenNefia.Content.StatusEffects;
-using OpenNefia.Content.UI;
 using OpenNefia.Content.Visibility;
-using OpenNefia.Content.Weight;
-using OpenNefia.Core;
 using OpenNefia.Core.Audio;
 using OpenNefia.Core.Configuration;
 using OpenNefia.Core.Game;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
-using OpenNefia.Core.Locale;
-using OpenNefia.Core.Maps;
-using OpenNefia.Core.Maths;
 using OpenNefia.Core.Prototypes;
 using OpenNefia.Core.Random;
-using OpenNefia.Core.Rendering;
-using OpenNefia.Core.Serialization.Manager.Attributes;
-using OpenNefia.Core.Utility;
-using System.Diagnostics.CodeAnalysis;
 
 namespace OpenNefia.Content.Damage
 {
@@ -56,21 +33,15 @@ namespace OpenNefia.Content.Damage
         [Dependency] private readonly IAudioManager _sounds = default!;
         [Dependency] private readonly IFactionSystem _factions = default!;
         [Dependency] private readonly IRandom _rand = default!;
-        [Dependency] private readonly IDisplayNameSystem _displayNames = default!;
         [Dependency] private readonly IMessagesManager _mes = default!;
         [Dependency] private readonly IMapDebrisSystem _mapDebris = default!;
         [Dependency] private readonly IConfigurationManager _config = default!;
-        [Dependency] private readonly IInputSystem _input = default!;
-        [Dependency] private readonly IEquipSlotsSystem _equipSlots = default!;
-        [Dependency] private readonly ITagSystem _tags = default!;
         [Dependency] private readonly IVisibilitySystem _vis = default!;
-        [Dependency] private readonly IMapDrawables _mapDrawables = default!;
         [Dependency] private readonly IStatusEffectSystem _effects = default!;
         [Dependency] private readonly ISkillsSystem _skills = default!;
         [Dependency] private readonly IGameSessionManager _gameSession = default!;
         [Dependency] private readonly IAudioManager _audio = default!;
         [Dependency] private readonly IPrototypeManager _protos = default!;
-        [Dependency] private readonly IEquipmentSystem _equip = default!;
         [Dependency] private readonly IFeatsSystem _feats = default!;
         [Dependency] private readonly IActivitySystem _activities = default!;
         [Dependency] private readonly IPartySystem _parties = default!;
@@ -78,12 +49,16 @@ namespace OpenNefia.Content.Damage
 
         public override void Initialize()
         {
-            SubscribeEntity<EntityWoundedEvent>(DisplayDamageMessages, priority: EventPriorities.VeryHigh);
+            SubscribeEntity<AfterDamageAppliedEvent>(DisplayAttackMessage, priority: EventPriorities.VeryHigh);
+            
+            SubscribeEntity<EntityWoundedEvent>(DisplayDamageMessagesWounded, priority: EventPriorities.VeryHigh);
             SubscribeEntity<EntityWoundedEvent>(ProcRetreatInFear, priority: EventPriorities.VeryHigh + 10000);
             SubscribeEntity<EntityWoundedEvent>(DisturbSleep, priority: EventPriorities.VeryHigh + 20000);
             SubscribeEntity<EntityWoundedEvent>(ApplyHostileActionAfterDamage, priority: EventPriorities.VeryHigh + 60000);
             SubscribeEntity<EntityWoundedEvent>(PlayHeartbeatSound, priority: EventPriorities.Lowest);
-            SubscribeEntity<EntityKilledEvent>(HandleKilled, priority: EventPriorities.VeryHigh);
+            
+            SubscribeEntity<EntityKilledEvent>(DisplayDamageMessagesKilled, priority: EventPriorities.VeryHigh);
+            SubscribeEntity<EntityKilledEvent>(HandleKilled, priority: EventPriorities.VeryHigh + 10000);
 
             SubscribeEntity<AfterDamageMPEvent>(ProcMagicReaction, priority: EventPriorities.VeryHigh);
         }
@@ -188,6 +163,15 @@ namespace OpenNefia.Content.Damage
 
     public record struct DamageHPResult(bool WasKilled, int BaseDamage, int FinalDamage);
 
+    public enum DamageHPMessageTense
+    {
+        // "...was killed."
+        Passive,
+
+        // "...and kills them."
+        Active
+    }
+
     public sealed class DamageHPExtraArgs
     {
         public int OriginalDamage { get; set; }
@@ -205,6 +189,7 @@ namespace OpenNefia.Content.Damage
         public bool ShowMessage { get; set; } = true;
         public EntityUid? Weapon { get; set; }
         public int AttackCount { get; set; }
+        public DamageHPMessageTense MessageTense { get; set; } = DamageHPMessageTense.Passive;
         public PrototypeId<SkillPrototype>? AttackSkill { get; set; }
         public bool IsThirdPerson { get; set; }
         public bool NoAttackText { get; set; }
