@@ -35,7 +35,7 @@ namespace OpenNefia.Content.Locale.Funcs
 
             var visibilitySys = EntitySystem.Get<VisibilitySystem>();
 
-            if (!visibilitySys.CanSeeEntity(GameSession.Player, entity))
+            if (!visibilitySys.CanSeeEntity(GameSession.Player, entity) && !ignoreSight)
             {
                 return Loc.GetString("Elona.GameObjects.Common.Something");
             }

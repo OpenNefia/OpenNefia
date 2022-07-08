@@ -2,7 +2,6 @@ OpenNefia.Prototypes.Elona.Skill.Elona = {
     AttrStrength = {
         Name = "Strength",
         ShortName = "STR",
-
         OnDecrease = function(entity)
             return ("%s%s muscles soften."):format(_.name(entity), _.his_owned(entity))
         end,
@@ -13,7 +12,6 @@ OpenNefia.Prototypes.Elona.Skill.Elona = {
     AttrConstitution = {
         Name = "Constitution",
         ShortName = "CON",
-
         OnDecrease = function(entity)
             return ("%s lose%s patience."):format(_.name(entity), _.s(entity))
         end,
@@ -24,7 +22,6 @@ OpenNefia.Prototypes.Elona.Skill.Elona = {
     AttrDexterity = {
         Name = "Dexterity",
         ShortName = "DEX",
-
         OnDecrease = function(entity)
             return ("%s become%s clumsy."):format(_.name(entity), _.s(entity))
         end,
@@ -35,7 +32,6 @@ OpenNefia.Prototypes.Elona.Skill.Elona = {
     AttrPerception = {
         Name = "Perception",
         ShortName = "PER",
-
         OnDecrease = function(entity)
             return ("%s %s getting out of touch with the world."):format(_.name(entity), _.is(entity))
         end,
@@ -46,7 +42,6 @@ OpenNefia.Prototypes.Elona.Skill.Elona = {
     AttrLearning = {
         Name = "Learning",
         ShortName = "LER",
-
         OnDecrease = function(entity)
             return ("%s lose%s curiosity."):format(_.name(entity), _.s(entity))
         end,
@@ -57,7 +52,6 @@ OpenNefia.Prototypes.Elona.Skill.Elona = {
     AttrWill = {
         Name = "Will",
         ShortName = "WIL",
-
         OnDecrease = function(entity)
             return ("%s%s will softens."):format(_.name(entity), _.his_owned(entity))
         end,
@@ -68,7 +62,6 @@ OpenNefia.Prototypes.Elona.Skill.Elona = {
     AttrMagic = {
         Name = "Magic",
         ShortName = "MAG",
-
         OnDecrease = function(entity)
             return ("%s%s magic degrades."):format(_.name(entity), _.his_owned(entity))
         end,
@@ -79,7 +72,6 @@ OpenNefia.Prototypes.Elona.Skill.Elona = {
     AttrCharisma = {
         Name = "Charisma",
         ShortName = "CHR",
-
         OnDecrease = function(entity)
             return ("%s start%s to avoid eyes of people."):format(_.name(entity), _.s(entity))
         end,
@@ -89,7 +81,6 @@ OpenNefia.Prototypes.Elona.Skill.Elona = {
     },
     AttrSpeed = {
         Name = "Speed",
-
         OnDecrease = function(entity)
             return ("%s%s speed decreases."):format(_.name(entity), _.his_owned(entity))
         end,
@@ -99,7 +90,6 @@ OpenNefia.Prototypes.Elona.Skill.Elona = {
     },
     AttrLuck = {
         Name = "Luck",
-
         OnDecrease = function(entity)
             return ("%s become%s unlucky."):format(_.name(entity), _.s(entity))
         end,
@@ -109,7 +99,6 @@ OpenNefia.Prototypes.Elona.Skill.Elona = {
     },
     AttrLife = {
         Name = "Life",
-
         OnDecrease = function(entity)
             return ("%s%s life force decreases."):format(_.name(entity), _.his_owned(entity))
         end,
@@ -119,7 +108,6 @@ OpenNefia.Prototypes.Elona.Skill.Elona = {
     },
     AttrMana = {
         Name = "Mana",
-
         OnDecrease = function(entity)
             return ("%s%s mana decreases."):format(_.name(entity), _.his_owned(entity))
         end,
@@ -127,7 +115,6 @@ OpenNefia.Prototypes.Elona.Skill.Elona = {
             return ("%s%s mana increases."):format(_.name(entity), _.his_owned(entity))
         end,
     },
-
     ActionAbsorbMagic = {
         Description = "Heal MP",
         Name = "Absorb Magic",
@@ -147,10 +134,20 @@ OpenNefia.Prototypes.Elona.Skill.Elona = {
     Axe = {
         Description = "Indicates your skill with axes.",
         Name = "Axe",
+        Damage = {
+            WeaponName = "axe",
+            VerbPassive = "slash",
+            VerbActive = "slash",
+        },
     },
     Blunt = {
         Description = "Indicates your skill with blunt weapons.",
         Name = "Blunt",
+        Damage = {
+            WeaponName = "mace",
+            VerbPassive = "smash",
+            VerbActive = "smash",
+        },
     },
     BuffBoost = {
         Name = "Boost",
@@ -159,6 +156,11 @@ OpenNefia.Prototypes.Elona.Skill.Elona = {
     Bow = {
         Description = "Indicates your skill with bows.",
         Name = "Bow",
+        Damage = {
+            WeaponName = "bow",
+            VerbPassive = "shoot",
+            VerbActive = "shoot",
+        },
     },
     Carpentry = {
         Description = "Skill to cut trees and manufcture products.",
@@ -206,6 +208,11 @@ OpenNefia.Prototypes.Elona.Skill.Elona = {
     Crossbow = {
         Description = "Indicates your skill with cross bows",
         Name = "Crossbow",
+        Damage = {
+            WeaponName = "crossbow",
+            VerbPassive = "shoot",
+            VerbActive = "shoot",
+        },
     },
     SpellCrystalSpear = {
         Description = "Target(Magic)",
@@ -360,6 +367,11 @@ OpenNefia.Prototypes.Elona.Skill.Elona = {
     Firearm = {
         Description = "Indicates your skill with firearms.",
         Name = "Firearm",
+        Damage = {
+            WeaponName = "gun",
+            VerbPassive = "shoot",
+            VerbActive = "shoot",
+        },
     },
     Fishing = {
         Description = "Displays your fishing skill.",
@@ -482,6 +494,11 @@ OpenNefia.Prototypes.Elona.Skill.Elona = {
     LongSword = {
         Description = "Indicates your skill with long swords.",
         Name = "Long Sword",
+        Damage = {
+            WeaponName = "sword",
+            VerbPassive = "slash",
+            VerbActive = "slash",
+        },
     },
     BuffLulwysTrick = {
         Name = "Lulwy's Trick",
@@ -613,6 +630,11 @@ OpenNefia.Prototypes.Elona.Skill.Elona = {
     Polearm = {
         Description = "Indicates your skill with polearms.",
         Name = "Polearm",
+        Damage = {
+            WeaponName = "spear",
+            VerbPassive = "stab",
+            VerbActive = "stab",
+        },
     },
     ActionPowerBreath = {
         Description = "Breath",
@@ -668,6 +690,11 @@ OpenNefia.Prototypes.Elona.Skill.Elona = {
     Scythe = {
         Description = "Indicates your skill with sycthes.",
         Name = "Scythe",
+        Damage = {
+            WeaponName = "scythe",
+            VerbPassive = "slash",
+            VerbActive = "slash",
+        },
     },
     SpellSenseObject = {
         Description = "Reveal nearby objects",
@@ -688,6 +715,11 @@ OpenNefia.Prototypes.Elona.Skill.Elona = {
     ShortSword = {
         Description = "Indicates your skill with short swords.",
         Name = "Short Sword",
+        Damage = {
+            WeaponName = "dagger",
+            VerbPassive = "stab",
+            VerbActive = "stab",
+        },
     },
     SpellShortTeleport = {
         Description = "Teleport self",
@@ -706,6 +738,11 @@ OpenNefia.Prototypes.Elona.Skill.Elona = {
     Stave = {
         Description = "Indicates your skill with staves.",
         Name = "Stave",
+        Damage = {
+            WeaponName = "staff",
+            VerbPassive = "smash",
+            VerbActive = "smash",
+        },
     },
     Stealth = {
         Description = "Allows you to move quietly.",
@@ -771,6 +808,14 @@ OpenNefia.Prototypes.Elona.Skill.Elona = {
     Throwing = {
         Description = "Indicates your skill with throwing objects.",
         Name = "Throwing",
+        Damage = {
+            WeaponName = "projectile",
+            VerbPassive = "shoot",
+            VerbActive = "shoot",
+            AttacksActive = function(attacker, verb, target, weapon)
+                return ("%s %s%s %s and"):format(_.name(attacker), verb, _.s(attacker), _.name(target))
+            end,
+        },
     },
     ActionTouchOfFear = {
         Description = "Fear target",

@@ -188,7 +188,7 @@ namespace OpenNefia.Content.UI.Hud
                                 sb.Append(word);
                                 totalWidth += wordWidth;
                             }
-                            currentLine.AddElement(new MessageText($"{sb.ToString().TrimStart()} ") { Color = currentColor });
+                            currentLine.AddElement(new MessageText($"{sb.ToString().TrimStart()}{Loc.Space()}") { Color = currentColor });
                             break;
 
                         case IconMessageTag icon:

@@ -39,6 +39,13 @@ namespace OpenNefia.Core.GameObjects
             return true;
         }
 
+        /// <inheritdoc/>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        protected bool IsAlive([NotNullWhen(true)] EntityUid? uid)
+        {
+            return EntityManager.IsAlive(uid);
+        }
+        
         /// <inheritdoc cref="IEntityManager.GetComponent&lt;T&gt;"/>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         protected T Comp<T>(EntityUid uid) where T : class, IComponent

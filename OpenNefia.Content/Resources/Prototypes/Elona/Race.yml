@@ -888,6 +888,9 @@
   initialEquipSlots:
   - Elona.Head
   - Elona.Neck
+  components:
+  - type: UnarmedDamageText
+    damageTextType: Elona.Spore
 - type: Elona.Race
   id: Elona.Bat
   hspIds:
@@ -916,6 +919,9 @@
     Elona.MartialArts: 2
   initialEquipSlots:
   - Elona.Head
+  components:
+  - type: UnarmedDamageText
+    damageTextType: Elona.Bite
 - type: Elona.Race
   id: Elona.Ent
   hspIds:
@@ -1026,6 +1032,9 @@
   - Elona.Body
   - Elona.Back
   - Elona.Leg
+  components:
+  - type: UnarmedDamageText
+    damageTextType: Elona.Bite
 - type: Elona.Race
   id: Elona.Ghost
   hspIds:
@@ -1062,6 +1071,9 @@
   - Elona.Hand
   - Elona.Ring
   - Elona.Ring
+  components:
+  - type: UnarmedDamageText
+    damageTextType: Elona.Touch
 - type: Elona.Race
   id: Elona.Spirit
   hspIds:
@@ -1127,6 +1139,9 @@
     Elona.MartialArts: 2
   initialEquipSlots:
   - Elona.Head
+  components:
+  - type: UnarmedDamageText
+    damageTextType: Elona.Gaze
 - type: Elona.Race
   id: Elona.Wyvern
   hspIds:
@@ -1159,6 +1174,9 @@
   - Elona.Body
   - Elona.Ring
   - Elona.Ring
+  components:
+  - type: UnarmedDamageText
+    damageTextType: Elona.Claw
 - type: Elona.Race
   id: Elona.Wasp
   hspIds:
@@ -1187,6 +1205,9 @@
     Elona.MartialArts: 2
   initialEquipSlots:
   - Elona.Head
+  components:
+  - type: UnarmedDamageText
+    damageTextType: Elona.Sting
 - type: Elona.Race
   id: Elona.Giant
   hspIds:
@@ -1257,6 +1278,9 @@
   - Elona.Ring
   - Elona.Ring
   - Elona.Ring
+  components:
+  - type: UnarmedDamageText
+    damageTextType: Elona.Claw
 - type: Elona.Race
   id: Elona.Hand
   hspIds:
@@ -1317,6 +1341,9 @@
     Elona.Stealth: 4
   initialEquipSlots:
   - Elona.Body
+  components:
+  - type: UnarmedDamageText
+    damageTextType: Elona.Bite
 - type: Elona.Race
   id: Elona.Drake
   hspIds:
@@ -1349,6 +1376,9 @@
   - Elona.Body
   - Elona.Ring
   - Elona.Ring
+  components:
+  - type: UnarmedDamageText
+    damageTextType: Elona.Claw
 - type: Elona.Race
   id: Elona.Goblin
   hspIds:
@@ -1429,6 +1459,9 @@
   - Elona.Arm
   - Elona.Waist
   - Elona.Leg
+  components:
+  - type: UnarmedDamageText
+    damageTextType: Elona.Claw
 - type: Elona.Race
   id: Elona.Armor
   hspIds:
@@ -1642,6 +1675,9 @@
   - Elona.Body
   - Elona.Ring
   - Elona.Ring
+  components:
+  - type: UnarmedDamageText
+    damageTextType: Elona.Claw
 - type: Elona.Race
   id: Elona.Dinosaur
   hspIds:
@@ -1674,6 +1710,9 @@
   - Elona.Body
   - Elona.Ring
   - Elona.Ring
+  components:
+  - type: UnarmedDamageText
+    damageTextType: Elona.Claw
 - type: Elona.Race
   id: Elona.Cerberus
   hspIds:
@@ -1709,6 +1748,9 @@
   - Elona.Arm
   - Elona.Leg
   - Elona.Leg
+  components:
+  - type: UnarmedDamageText
+    damageTextType: Elona.Claw
 - type: Elona.Race
   id: Elona.Spider
   hspIds:
@@ -1739,6 +1781,9 @@
   initialEquipSlots:
   - Elona.Ring
   - Elona.Ring
+  components:
+  - type: UnarmedDamageText
+    damageTextType: Elona.Bite
 - type: Elona.Race
   id: Elona.Golem
   hspIds:
@@ -1848,6 +1893,9 @@
   - Elona.Ring
   - Elona.Ring
   - Elona.Leg
+  components:
+  - type: UnarmedDamageText
+    damageTextType: Elona.Claw
 - type: Elona.Race
   id: Elona.Skeleton
   hspIds:
@@ -1966,6 +2014,9 @@
   - Elona.Hand
   - Elona.Leg
   - Elona.Leg
+  components:
+  - type: UnarmedDamageText
+    damageTextType: Elona.Claw
 - type: Elona.Race
   id: Elona.Dog
   hspIds:
@@ -2002,6 +2053,9 @@
   - Elona.Hand
   - Elona.Leg
   - Elona.Leg
+  components:
+  - type: UnarmedDamageText
+    damageTextType: Elona.Bite
 - type: Elona.Race
   id: Elona.Roran
   hspIds:
@@ -2074,6 +2128,9 @@
   - Elona.Arm
   - Elona.Waist
   - Elona.Leg
+  components:
+  - type: UnarmedDamageText
+    damageTextType: Elona.Bite
 - type: Elona.Race
   id: Elona.Shell
   hspIds:
@@ -2103,6 +2160,9 @@
     Elona.SenseQuality: 3
   initialEquipSlots:
   - Elona.Leg
+  components:
+  - type: UnarmedDamageText
+    damageTextType: Elona.Claw
 - type: Elona.Race
   id: Elona.Catgod
   hspIds:
@@ -2139,6 +2199,9 @@
   - Elona.Ring
   - Elona.Arm
   - Elona.Leg
+  components:
+  - type: UnarmedDamageText
+    damageTextType: Elona.Claw
 - type: Elona.Race
   id: Elona.Machinegod
   hspIds:
@@ -2282,6 +2345,9 @@
     Elona.MartialArts: 1
   initialEquipSlots:
   - Elona.Head
+  components:
+  - type: UnarmedDamageText
+    damageTextType: Elona.Gaze
 - type: Elona.Race
   id: Elona.Chicken
   hspIds:
@@ -2311,6 +2377,9 @@
     Elona.Meditation: 3
   initialEquipSlots:
   - Elona.Head
+  components:
+  - type: UnarmedDamageText
+    damageTextType: Elona.Bite
 - type: Elona.Race
   id: Elona.Stalker
   hspIds:
@@ -2345,6 +2414,9 @@
   - Elona.Ring
   - Elona.Ring
   - Elona.Arm
+  components:
+  - type: UnarmedDamageText
+    damageTextType: Elona.Claw
 - type: Elona.Race
   id: Elona.Catsister
   hspIds:
@@ -2384,6 +2456,9 @@
   - Elona.Arm
   - Elona.Waist
   - Elona.Leg
+  components:
+  - type: UnarmedDamageText
+    damageTextType: Elona.Claw
 - type: Elona.Race
   id: Elona.Mutant
   hspIds:
@@ -2492,6 +2567,9 @@
   - Elona.Ring
   - Elona.Ring
   - Elona.Ring
+  components:
+  - type: UnarmedDamageText
+    damageTextType: Elona.Touch
 - type: Elona.Race
   id: Elona.Servant
   hspIds:
@@ -2566,6 +2644,9 @@
   - Elona.Body
   - Elona.Leg
   - Elona.Leg
+  components:
+  - type: UnarmedDamageText
+    damageTextType: Elona.Bite
 - type: Elona.Race
   id: Elona.God
   hspIds:
@@ -2671,6 +2752,9 @@
   - Elona.Head
   - Elona.Body
   - Elona.Back
+  components:
+  - type: UnarmedDamageText
+    damageTextType: Elona.Bite
 - type: Elona.Race
   id: Elona.Bike
   hspIds:

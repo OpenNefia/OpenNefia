@@ -28,122 +28,6 @@ namespace OpenNefia.Content.Damage
     {
         #region Damage events
 
-        private void DisplayElementalDamageMessage(EntityUid target, ref EntityWoundedEvent args)
-        {
-            //  >>>>>>>> elona122/shade2/chara_func.hsp:1352 #deffunc txtEleDmg int er,int cc,int tc,int ele ...
-            string text;
-            if (args.DamageType is ElementalDamageType ele)
-            {
-                text = Loc.GetPrototypeString(ele.ElementID, "Damage", ("entity", target), ("attacker", args.Attacker));
-            }
-            else
-            {
-                text = Loc.GetString("Elona.DamageType.Default.Damage", ("entity", target), ("attacker", args.Attacker));
-            }
-            _mes.Display(text, entity: target);
-            // <<<<<<<< elona122/shade2/chara_func.hsp:1430 	return  ...
-        }
-
-        private void DisplayDamageMessages(EntityUid entity, ref EntityWoundedEvent args)
-        {
-            // >>>>>>>> elona122/shade2/chara_func.hsp:1506 		if dmgType=dmgSub{ ...
-            if (args.ExtraArgs.DamageSubLevel > 0)
-            {
-                DisplayElementalDamageMessage(entity, ref args);
-                return;
-            }
-
-            if (!TryComp<SkillsComponent>(entity, out var skills))
-                return;
-
-            var damageLevel = args.FinalDamage * 6 / skills.MaxHP;
-
-            if (damageLevel > 0)
-            {
-                if (skills.MaxHP / 2 > skills.HP)
-                    damageLevel++;
-                if (skills.MaxHP / 4 > skills.HP)
-                    damageLevel++;
-                if (skills.MaxHP / 10 > skills.HP)
-                    damageLevel++;
-            }
-
-            var isAttackerAnEnemy = EntityManager.IsAlive(args.Attacker) && !_parties.IsInPlayerParty(args.Attacker.Value);
-            if (!isAttackerAnEnemy)
-            {
-                LocaleKey? key = null;
-                var color = UiColors.MesWhite;
-
-                if (damageLevel == -1)
-                {
-                    key = "Elona.Combat.Damage.Levels.Scratch";
-                }
-                else if (damageLevel == 0)
-                {
-                    key = "Elona.Combat.Damage.Levels.Slightly";
-                    color = UiColors.MesYellow;
-                }
-                else if (damageLevel == 1)
-                {
-                    key = "Elona.Combat.Damage.Levels.Moderately";
-                    color = UiColors.MesOrange;
-                }
-                else if (damageLevel == 2)
-                {
-                    key = "Elona.Combat.Damage.Levels.Severely";
-                    color = UiColors.MesPink;
-                }
-                else if (damageLevel >= 3)
-                {
-                    key = "Elona.Combat.Damage.Levels.Critically";
-                    color = UiColors.MesRed;
-                }
-
-                if (key != null)
-                {
-                    _mes.Display(Loc.GetString(key.Value, ("entity", entity), ("attacker", args.Attacker)), color, noCapitalize: true);
-                }
-
-                goto skipDmgTxt;
-            }
-
-            if (_vis.IsInWindowFov(entity))
-            {
-                LocaleKey? key = null;
-                var color = UiColors.MesWhite;
-
-                if (damageLevel == 1)
-                {
-                    key = "Elona.Combat.Damage.Reactions.Screams";
-                    color = UiColors.MesOrange;
-                }
-                else if (damageLevel == 2)
-                {
-                    key = "Elona.Combat.Damage.Reactions.WrithesInPain";
-                    color = UiColors.MesPink;
-                }
-                else if (damageLevel >= 3)
-                {
-                    key = "Elona.Combat.Damage.Reactions.IsSeverelyHurt";
-                    color = UiColors.MesRed;
-                }
-                else if (args.FinalDamage < 0)
-                {
-                    key = "Elona.Combat.Damage.Reactions.IsHealed";
-                    color = UiColors.MesBlue;
-                }
-
-                if (key != null)
-                {
-                    _mes.Display(Loc.GetString(key.Value, ("entity", entity), ("attacker", args.Attacker)), color, entity: entity);
-                }
-            }
-
-        skipDmgTxt:
-            _activities.InterruptActivity(entity);
-            // <<<<<<<< elona122/shade2/chara_func.hsp:1534 		rowAct_Check tc ...
-        }
-
         private void ProcRetreatInFear(EntityUid entity, ref EntityWoundedEvent args)
         {
             // >>>>>>>> shade2/chara_func.hsp:1535 		if cHp(tc)<cMhp(tc)/5:if tc!pc:if cFear(tc)=0:if ..
@@ -164,7 +48,7 @@ namespace OpenNefia.Content.Damage
             if (retreats)
             {
                 _effects.SetTurns(entity, Protos.StatusEffect.Fear, _rand.Next(20 + 5));
-                _mes.Display(Loc.GetString("Elona.Combat.Damage.RunsAway", ("entity", entity)), UiColors.MesBlue, entity: entity);
+                _mes.Display(Loc.GetString("Elona.Damage.RunsAway", ("entity", entity)), UiColors.MesBlue, entity: entity);
             }
             // <<<<<<<< shade2/chara_func.hsp:1539 			} ..
         }
@@ -177,7 +61,7 @@ namespace OpenNefia.Content.Damage
                 if (_effects.HasEffect(entity, Protos.StatusEffect.Sleep))
                 {
                     _effects.Remove(entity, Protos.StatusEffect.Sleep);
-                    _mes.Display(Loc.GetString("Elona.Combat.Damage.SleepIsDisturbed", ("entity", entity)));
+                    _mes.Display(Loc.GetString("Elona.Damage.SleepIsDisturbed", ("entity", entity)));
                 }
             }
 
@@ -273,7 +157,7 @@ namespace OpenNefia.Content.Damage
                     return;
             }
 
-            _mes.Display(Loc.GetString("Elona.Combat.MagicReaction.Hurts", ("entity", uid)));
+            _mes.Display(Loc.GetString("Elona.Damage.MagicReaction.Hurts", ("entity", uid)));
             DamageHP(uid, damage, damageType: new GenericDamageType("Elona.DamageType.MagicReaction"));
             // <<<<<<<< shade2/chara_func.hsp:1789 	return true ..
         }

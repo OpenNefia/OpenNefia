@@ -350,7 +350,15 @@ namespace OpenNefia.Content.Combat
                         damageType = unarmed.DamageType;
                 }
 
-                _damage.DamageHP(target, rawDamage.TotalDamage, attacker, damageType);
+                _damage.DamageHP(target, rawDamage.TotalDamage, attacker, damageType, new DamageHPExtraArgs()
+                {
+                    AttackCount = attackCount,
+                    AttackSkill = attackSkill,
+                    OriginalDamage = rawDamage.OriginalDamage,
+                    Weapon = weapon,
+                    MessageTense = _parties.IsInPlayerParty(target) ? DamageHPMessageTense.Passive : DamageHPMessageTense.Active
+                });
+
             }
             else
             {
