@@ -29,7 +29,7 @@ namespace OpenNefia.Core.Rendering
             _batch = Love.Graphics.NewSpriteBatch(_atlas.Image, 2048, SpriteBatchUsage.Dynamic);
         }
 
-        public void Add(float uiScale, string tileId, float x, float y, float? width = null, float? height = null, Love.Color? color = null, bool centered = false, float rotation = 0f)
+        public void Add(float uiScale, string tileId, float x, float y, float? width = null, float? height = null, Love.Color? color = null, bool centered = false, float rotationRads = 0f)
         {
             if (!_atlas.TryGetTile(tileId, out var tile))
             {
@@ -78,7 +78,7 @@ namespace OpenNefia.Core.Rendering
                 oy = ((float)tth) / 2;
             }
 
-            _batch.Add(tile.Quad, x, y, MathUtil.DegreesToRadians(rotation), sx, sy, ox, oy);
+            _batch.Add(tile.Quad, x, y, rotationRads, sx, sy, ox, oy);
 
             BatchPixelWidth = Math.Max(BatchPixelWidth, (int)(x + ttw));
             BatchPixelHeight = Math.Max(BatchPixelHeight, (int)(y + tth));

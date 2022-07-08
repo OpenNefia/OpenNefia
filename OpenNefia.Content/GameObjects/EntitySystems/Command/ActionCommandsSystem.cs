@@ -14,6 +14,8 @@ using OpenNefia.Core.UserInterface;
 using System.Threading.Tasks;
 using OpenNefia.Core.Maps;
 using OpenNefia.Content.Maps;
+using OpenNefia.Content.Factions;
+using OpenNefia.Content.Combat;
 
 namespace OpenNefia.Content.GameObjects
 {
@@ -23,17 +25,37 @@ namespace OpenNefia.Content.GameObjects
         [Dependency] private readonly IUserInterfaceManager _uiMgr = default!;
         [Dependency] private readonly IMessagesManager _mes = default!;
         [Dependency] private readonly IAudioManager _audio = default!;
-        [Dependency] private readonly IMapTilesetSystem _tilesets = default!;
+        [Dependency] private readonly ITargetingSystem _targeting = default!;
+        [Dependency] private readonly IFactionSystem _factions = default!;
+        [Dependency] private readonly ICombatSystem _combat = default!;
+        [Dependency] private readonly IEntityLookup _lookup = default!;
+        [Dependency] private readonly IActionBashSystem _actionBash = default!;
+        [Dependency] private readonly IActionDigSystem _actionDig = default!;
 
         public override void Initialize()
         {
             CommandBinds.Builder
                 .Bind(ContentKeyFunctions.Dig, InputCmdHandler.FromDelegate(CommandDig))
+                .Bind(ContentKeyFunctions.Bash, InputCmdHandler.FromDelegate(CommandBash))
+                .Bind(ContentKeyFunctions.Fire, InputCmdHandler.FromDelegate(CommandFire))
                 .Register<ActionCommandsSystem>();
+        }
+
+        private bool BlockIfWorldMap(EntityUid player)
+        {
+            if (!TryMap(player, out var map) || HasComp<MapTypeWorldMapComponent>(map.MapEntityUid))
+            {
+                _mes.Display(Loc.GetString("Elona.Common.CannotDoInGlobal"));
+                return true;
+            }
+            return false;
         }
 
         private TurnResult? CommandDig(IGameSessionManager? session)
         {
+            if (BlockIfWorldMap(session!.Player))
+                return TurnResult.Aborted;
+
             _mes.Display(Loc.GetString("Elona.Dig.Prompt"));
 
             var dir = _uiMgr.Query<DirectionPrompt, DirectionPrompt.Args, DirectionPrompt.Result>(new(session!.Player));
@@ -43,23 +65,45 @@ namespace OpenNefia.Content.GameObjects
                 return TurnResult.Aborted;
             }
 
-            return DoDig(session!.Player, dir.Value.Coords);
+            return _actionDig.DoDig(session!.Player, dir.Value.Coords);
         }
 
-        private TurnResult DoDig(EntityUid uid, MapCoordinates digPos)
+        private TurnResult? CommandBash(IGameSessionManager? session)
         {
-            var map = _mapManager.GetMap(digPos.MapId);
-            
-            // TODO
-            if (map.IsInBounds(digPos) && map.GetTile(digPos)!.Value.Tile.ResolvePrototype().IsSolid)
+            if (BlockIfWorldMap(session!.Player))
+                return TurnResult.Aborted;
+
+            _mes.Display(Loc.GetString("Elona.Bash.Prompt"));
+
+            var dir = _uiMgr.Query<DirectionPrompt, DirectionPrompt.Args, DirectionPrompt.Result>(new(session!.Player));
+            if (!dir.HasValue)
             {
-                _audio.Play(Protos.Sound.Crush1, digPos);
-                var mapCommon = EntityManager.EnsureComponent<MapCommonComponent>(map.MapEntityUid);
-                var tile = _tilesets.GetTile(Protos.Tile.MapgenTunnel, mapCommon.Tileset)!;
-                map.SetTile(digPos.Position, tile.Value);
+                _mes.Display(Loc.GetString("Elona.Common.ItIsImpossible"));
+                return TurnResult.Aborted;
             }
 
-            return TurnResult.Succeeded;
+            return _actionBash.DoBash(session!.Player, dir.Value.Coords);
+        }
+
+        private TurnResult? CommandFire(IGameSessionManager? session)
+        {
+            if (BlockIfWorldMap(session!.Player))
+                return TurnResult.Aborted;
+
+            if (!_targeting.TryGetTarget(session.Player, out var target))
+                return TurnResult.Aborted;
+
+            if (_factions.GetRelationTowards(session.Player, target.Value) >= Relation.Neutral
+                && !_targeting.PromptReallyAttack(session.Player, target.Value))
+                return TurnResult.Aborted;
+
+            if (!_combat.TryGetRangedWeaponAndAmmo(session.Player, out var pair, out var errorReason))
+            {
+                _mes.Display(Loc.GetString($"Elona.Combat.RangedAttack.Errors.{errorReason}"), combineDuplicates: true);
+                return TurnResult.Aborted;
+            }
+
+            return _combat.RangedAttack(session.Player, target.Value, pair.Value.Item1);
         }
     }
 }

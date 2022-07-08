@@ -36,25 +36,25 @@ namespace OpenNefia.LecchoTorte.QuickStart
             var player = _gameSession.Player;
 
             var coords = EntityManager.GetComponent<SpatialComponent>(player).MapPosition;
-            var android = _charaGen.GenerateChara(coords, Protos.Chara.Android);
-            if (android != null)
+            var ally = _charaGen.GenerateChara(coords, Protos.Chara.GoldenKnight);
+            if (ally != null)
             {
-                _parties.RecruitAsAlly(player, android.Value);
+                _parties.RecruitAsAlly(player, ally.Value);
             } 
             
             var skills = EntityManager.GetComponent<SkillsComponent>(player);
-            skills.Ensure(Protos.Skill.AttrConstitution).Level.Base = 20;
-            skills.Ensure(Protos.Skill.AttrStrength).Level.Base = 20;
+            skills.Ensure(Protos.Skill.AttrConstitution).Level.Base = 2000;
+            skills.Ensure(Protos.Skill.AttrStrength).Level.Base = 2000;
             skills.Ensure(Protos.Skill.AttrLife).Level.Base = 2000;
             _refresh.Refresh(player);
             _damage.HealToMax(player);
 
-            skills = EntityManager.GetComponent<SkillsComponent>(android!.Value);
+            skills = EntityManager.GetComponent<SkillsComponent>(ally!.Value);
             skills.Ensure(Protos.Skill.AttrConstitution).Level.Base = 2000;
             skills.Ensure(Protos.Skill.AttrStrength).Level.Base = 2000;
             skills.Ensure(Protos.Skill.AttrLife).Level.Base = 2000;
-            _refresh.Refresh(android.Value);
-            _damage.HealToMax(android.Value);
+            _refresh.Refresh(ally.Value);
+            _damage.HealToMax(ally.Value);
 
             _mapRenderer.SetTileLayerEnabled(typeof(VanillaAIDebugTileLayer), true);
 

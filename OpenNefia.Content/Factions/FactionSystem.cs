@@ -13,6 +13,7 @@ using OpenNefia.Core.Game;
 using OpenNefia.Core.GameObjects;
 using OpenNefia.Core.IoC;
 using OpenNefia.Core.Locale;
+using OpenNefia.Core.Log;
 using OpenNefia.Core.Random;
 using OpenNefia.Core.Utility;
 
@@ -24,6 +25,7 @@ namespace OpenNefia.Content.Factions
         Relation GetOriginalRelationTowards(EntityUid us, EntityUid them);
         Relation GetRelationToPlayer(EntityUid target, FactionComponent? faction = null);
 
+        bool IsPlayer(EntityUid ent);
         void SetPersonalRelationTowards(EntityUid us, EntityUid them, Relation relation, FactionComponent? ourFaction = null);
         bool ClearPersonalRelationTowards(EntityUid us, EntityUid them, FactionComponent? ourFaction = null);
         void ClearAllPersonalRelations(EntityUid entity, FactionComponent? faction = null);
@@ -49,14 +51,20 @@ namespace OpenNefia.Content.Factions
             SubscribeComponent<FactionComponent, CalculateRelationEventArgs>(HandleCalculateRelation, priority: EventPriorities.VeryHigh);
         }
 
+        public bool IsPlayer(EntityUid ent)
+        {
+            return _gameSession.IsPlayer(ent);
+        }
+
         /// <inheritdoc/>
         public Relation GetRelationTowards(EntityUid us, EntityUid them)
         {
             var ev = new CalculateRelationEventArgs(them, ignorePersonal: false);
             RaiseEvent(us, ref ev);
+            Logger.DebugS("factions", $"relation: {CompOrNull<FactionComponent>(us)?.RelationToPlayer} -> {CompOrNull<FactionComponent>(them)?.RelationToPlayer} = {ev.Relation}");
             return ev.Relation;
         }
-        
+
         /// <inheritdoc/>
         public Relation GetOriginalRelationTowards(EntityUid us, EntityUid them)
         {

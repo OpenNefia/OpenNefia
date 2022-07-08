@@ -132,6 +132,13 @@ binds:
 - function: Elona.Throw
   type: State
   key: T
+- function: Elona.Fire
+  type: State
+  key: F
+  canRepeat: true
+- function: Elona.Bash
+  type: State
+  key: B
 - function: Elona.Examine
   type: State
   key: X
@@ -144,6 +151,7 @@ binds:
 - function: Elona.FeatInfo
   type: State
   key: F
+  mod1: Shift
 - function: Elona.Journal
   type: State
   key: J

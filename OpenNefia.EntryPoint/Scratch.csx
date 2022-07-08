@@ -1,5 +1,6 @@
 #nullable enable
 #r "System.Runtime"
+#r "C:/Users/yuno/build/OpenNefia.NET/OpenNefia.EntryPoint/bin/Debug/net6.0/project_dotnet.dll"
 #r "C:/Users/yuno/build/OpenNefia.NET/OpenNefia.EntryPoint/bin/Debug/net6.0/OpenNefia.Core.dll"
 #r "C:/Users/yuno/build/OpenNefia.NET/OpenNefia.EntryPoint/bin/Debug/net6.0/Resources/Assemblies/OpenNefia.Content.dll"
 
@@ -20,9 +21,24 @@ using OpenNefia.Content.GameObjects.EntitySystems.Tag;
 using OpenNefia.Content.GameObjects;
 using OpenNefia.Content.RandomGen;
 using OpenNefia.Core.Prototypes;
+using OpenNefia.Core.Rendering;
+using OpenNefia.Core.Directions;
+using OpenNefia.Content.Rendering;
 
+var entMan = IoCManager.Resolve<IEntityManager>();
 var item = EntitySystem.Get<IItemGen>();
 var chara = EntitySystem.Get<ICharaGen>();
 var map = IoCManager.Resolve<IMapManager>();
+var _mapDrawables = IoCManager.Resolve<IMapDrawables>();
+var _gameSession = IoCManager.Resolve<IGameSessionManager>();
 
-return chara.GenerateChara(map.ActiveMap!, Protos.Chara.Putit);
+var spatial = entMan.GetComponent<SpatialComponent>(_gameSession.Player);
+
+foreach (var dir in DirectionUtility.RandomCardinalDirections())
+{
+    var drawable = new RangedAttackMapDrawable(spatial.MapPosition, new(spatial.MapPosition.MapId, spatial.MapPosition.Position + dir.ToIntVec() * 8), Protos.Chip.ItemProjectileArrow);
+    _mapDrawables.Enqueue(drawable, spatial.MapPosition);
+    Console.WriteLine(dir.ToString());
+}
+
+return true;

@@ -1407,6 +1407,10 @@
   - type: EquipStats
     hitBonus: 2
     damageBonus: 1
+  - type: Ammo
+    ammoSkill: Elona.Bow
+    diceX: 1
+    diceY: 8
 - type: Entity
   id: Elona.ItemBullet
   parent: BaseItem
@@ -1433,6 +1437,10 @@
   - type: EquipStats
     hitBonus: 4
     damageBonus: 1
+  - type: Ammo
+    ammoSkill: Elona.Firearm
+    diceX: 2
+    diceY: 2
 - type: Entity
   id: Elona.ItemScytheOfVoid
   parent: BaseItem
@@ -10789,6 +10797,10 @@
   - type: EquipStats
     hitBonus: 2
     damageBonus: 1
+  - type: Ammo
+    ammoSkill: Elona.Crossbow
+    diceX: 1
+    diceY: 8
 - type: Entity
   id: Elona.ItemSpellbookOfWeb
   parent: BaseItem
@@ -11542,6 +11554,10 @@
     - Elona.Ammo
   - type: EquipStats
     damageBonus: 1
+  - type: Ammo
+    ammoSkill: Elona.Firearm
+    diceX: 2
+    diceY: 3
 - type: Entity
   id: Elona.ItemRailGun
   parent: BaseItem

@@ -110,9 +110,9 @@ namespace OpenNefia.Content.VanillaAI
         {
             var offset = pos.DirectionTowards(towards).ToIntVec();
 
-            if (_random.OneIn(2))
+            if (_rand.OneIn(2))
                 offset.X = 0;
-            if (_random.OneIn(2))
+            if (_rand.OneIn(2))
                 offset.Y = 0;
 
             return pos + offset;
@@ -210,7 +210,7 @@ namespace OpenNefia.Content.VanillaAI
                     && _factions.GetRelationTowards(entity, ai.CurrentTarget!.Value) <= Relation.Hate
                     && map.IsInBounds(newCoords))
                 {
-                    if (_random.OneIn(4))
+                    if (_rand.OneIn(4))
                     {
                         // TODO crush wall
                         return true;
@@ -251,7 +251,7 @@ namespace OpenNefia.Content.VanillaAI
                     ai.TurnsUntilMovement = 6;
                 }
 
-                var dir = _random.Pick(result.AvailableDirs);
+                var dir = _rand.Pick(result.AvailableDirs);
                 var offset = dir.ToIntVec() * 6;
                 ai.DestinationCoords = spatial.WorldPosition + offset;
             }

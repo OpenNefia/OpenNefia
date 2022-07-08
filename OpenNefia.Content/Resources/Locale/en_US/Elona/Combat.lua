@@ -25,4 +25,13 @@ Elona.Combat = {
             return ("%s wield%s %s proudly."):format(_.name(wielder), _.s(wielder), itemName)
         end,
     },
+    RangedAttack = {
+        Errors = {
+            Elona = {
+                NoRangedWeapon = "You need to equip ammos or arrows.",
+                NoAmmo = "You need to equip a firing weapon.",
+                WrongAmmoType = "You're equipped with wrong type of ammos.",
+            },
+        },
+    },
 }

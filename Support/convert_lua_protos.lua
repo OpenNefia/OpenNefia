@@ -16,6 +16,7 @@ local Log = require "api.Log"
 local IItemEquipment = require "mod.elona.api.aspect.IItemEquipment"
 local IItemMeleeWeapon = require "mod.elona.api.aspect.IItemMeleeWeapon"
 local IItemRangedWeapon = require "mod.elona.api.aspect.IItemRangedWeapon"
+local IItemAmmo = require "mod.elona.api.aspect.IItemAmmo"
 
 local rootDir = "C:/Users/yuno/build/OpenNefia.NET"
 
@@ -116,11 +117,11 @@ local id = function(i)
     return i
 end
 
-local function field(from, to, field_name, transform)
+local function field(from, to, field_name, transform, new_field_name)
     transform = transform or id
 
     if from[field_name] then
-        to[camelize(field_name)] = transform(from[field_name])
+        to[camelize(new_field_name or field_name)] = transform(from[field_name])
     end
 end
 
@@ -471,6 +472,14 @@ handlers["base.item"] = function(from, to)
                     :to_list(),
             }, { tag = "type:RangedAccuracyTable", type = "mapping" })
         end
+    end
+
+    local ammo = from._ext and from._ext[IItemAmmo]
+    if ammo then
+        c = comp(to, "Ammo")
+        field(ammo, c, "skill", dotted, "ammoSkill")
+        field(ammo, c, "dice_x")
+        field(ammo, c, "dice_y")
     end
 end
 

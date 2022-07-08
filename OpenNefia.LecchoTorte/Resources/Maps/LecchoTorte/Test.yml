@@ -88,13 +88,13 @@ entities:
   - type: Identify
     identifyState: Full
 - uid: 9
-  protoId: Elona.ItemComputer
+  protoId: Elona.ItemLongBow
   components:
   - type: Spatial
     parent: 0
     pos: 2,3
 - uid: 10
-  protoId: Elona.ItemComputer
+  protoId: Elona.ItemArrow
   components:
   - type: Spatial
     parent: 0
