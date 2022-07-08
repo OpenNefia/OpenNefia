@@ -84,6 +84,9 @@ namespace OpenNefia.Content.Fame
                 delta = (int)(delta * 1.5);
             }
 
+            if (delta == 0)
+                return;
+
             Color color;
             if (delta >= 0)
                 color = UiColors.MesYellow;
@@ -137,7 +140,7 @@ namespace OpenNefia.Content.Fame
         {
             _factions.SetPersonalRelationTowards(guard, criminal, Relation.Enemy);
             _vanillaAI.SetTarget(guard, criminal, 80, vai);
-            _emoIcons.SetEmotionIcon(guard, "Elona.Angry", 2);
+            _emoIcons.SetEmotionIcon(guard, EmotionIcons.Angry, 2);
         }
 
         public void TurnGuardsHostile(EntityUid target, KarmaComponent? karma = null)
@@ -169,7 +172,7 @@ namespace OpenNefia.Content.Fame
                 {
                     vai.Aggro = 0;
                     _factions.ClearPersonalRelationTowards(other, target);
-                    _emoIcons.SetEmotionIcon(other, "Elona.Question", 2);
+                    _emoIcons.SetEmotionIcon(other, EmotionIcons.Question, 2);
                 }
             }
         }
@@ -199,7 +202,7 @@ namespace OpenNefia.Content.Fame
             {
                 var karmaLoss = 0;
 
-                if (_factions.GetRelationTowards(victim, args.Attacker) >= Relation.Neutral)
+                if (_factions.GetRelationTowards(args.Attacker, victim) >= Relation.Neutral)
                     karmaLoss = -2;
 
                 if (TryComp<KarmaValueComponent>(victim, out var karmaValue))
@@ -209,7 +212,8 @@ namespace OpenNefia.Content.Fame
                 if (HasComp<RoleShopkeeperComponent>(victim))
                     karmaLoss = -10;
 
-                ModifyKarma(args.Attacker, karmaLoss);
+                if (karmaLoss != 0)
+                    ModifyKarma(args.Attacker, karmaLoss);
             }
         }
     }

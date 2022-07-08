@@ -27,6 +27,7 @@ using OpenNefia.Content.World;
 using OpenNefia.Content.Levels;
 using OpenNefia.Content.Memory;
 using OpenNefia.Content.Maps;
+using OpenNefia.Content.EmotionIcon;
 
 namespace OpenNefia.Content.Damage
 {
@@ -126,7 +127,7 @@ namespace OpenNefia.Content.Damage
 
                 if (targetAI.Aggro <= 0)
                 {
-                    _emoIcons.SetEmotionIcon(target, "Elona.Angry", 2);
+                    _emoIcons.SetEmotionIcon(target, EmotionIcons.Angry, 2);
                     targetAI.Aggro = 20;
                 }
                 else

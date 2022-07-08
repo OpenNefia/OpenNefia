@@ -68,7 +68,7 @@ namespace OpenNefia.Content.Dialog
                     if (_rand.OneIn(2))
                     {
                         ModifyImpression(args.Attacker, 1);
-                        _emoIcons.SetEmotionIcon(args.Attacker, "Elona.Heart", 3);
+                        _emoIcons.SetEmotionIcon(args.Attacker, EmotionIcons.Heart, 3);
                     }
                 }
                 else
@@ -76,7 +76,7 @@ namespace OpenNefia.Content.Dialog
                     if (_rand.OneIn(10))
                     {
                         ModifyImpression(args.Attacker, 1);
-                        _emoIcons.SetEmotionIcon(args.Attacker, "Elona.Heart", 3);
+                        _emoIcons.SetEmotionIcon(args.Attacker, EmotionIcons.Heart, 3);
                     }
                 }
             }

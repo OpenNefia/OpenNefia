@@ -124,7 +124,7 @@ namespace OpenNefia.Content.StatusEffects
                     _factions.SetPersonalRelationTowards(opponent, drunkard, Relation.Enemy);
 
                     _vanillaAI.SetTarget(opponent, drunkard, 20);
-                    _emoIcons.SetEmotionIcon(opponent, "Elona.Angry", 2);
+                    _emoIcons.SetEmotionIcon(opponent, EmotionIcons.Angry, 2);
                 }
             }
         }

@@ -78,13 +78,13 @@ namespace OpenNefia.Content.Damage
                 var point = _points[i];
                 var dx = 0;
 
-                if (point.X < 4)
+                if (point.X < 3)
                 {
                     dx -= frame2;
                     if (_counter.FrameInt % 2 == 0)
                         dx -= frame2;
                 }
-                if (point.X > -4)
+                if (point.X > -3)
                 {
                     dx += frame2;
                     if (_counter.FrameInt % 2 == 0)
@@ -95,7 +95,7 @@ namespace OpenNefia.Content.Damage
 
                 _fragmentsAnim.DrawRegionUnscaled(_counter.FrameInt.ToString(),
                    PixelX + _coords.TileSize.X / 2 + point.X + dx,
-                   PixelY + frame2 * frame2 / 2 - 12 + i,
+                   PixelY + frame2 * frame2 / 2 - 12 + i + point.Y,
                    (_coords.TileSize.X / 2) - frame2 * 2,
                    (_coords.TileSize.Y / 2) - frame2 * 2,
                    true,

@@ -71,7 +71,7 @@ namespace OpenNefia.Content.Home
 
             void Welcome(EntityUid ent)
             {
-                _emoicons.SetEmotionIcon(ent, "Elona.Happy", 20);
+                _emoicons.SetEmotionIcon(ent, EmotionIcons.Happy, 20);
                 if (!_talk.Say(ent, "Elona.Welcome"))
                     extraTalks++;
             }
