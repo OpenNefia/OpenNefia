@@ -52,7 +52,7 @@ namespace OpenNefia.Content.Hud
         {
             base.Draw();
             BarBGAsset.Draw(UIScale, X, Y);
-            UiHelpers.DrawPercentageBar(UIScale, BarState, new Vector2(X, Y) + BarOffset, BarState.HPRatio * BarSize.X, Size);
+            UiHelpers.DrawPercentageBar(UIScale, BarState, Position + BarOffset, BarState.HPRatio * BarSize.X);
             UiText.Draw();
         }
     }
