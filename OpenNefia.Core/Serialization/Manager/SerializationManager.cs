@@ -578,6 +578,12 @@ namespace OpenNefia.Core.Serialization.Manager
                 return newArray;
             }
 
+            // hack to work around System.Type fields showing up as System.RuntimeType at runtime
+            // since it causes TypeSerializer to be ignored (System.Type is abstract and
+            // System.RuntimeType is private)
+            if (typeof(Type).IsAssignableFrom(sourceType)) sourceType = typeof(Type);
+            if (typeof(Type).IsAssignableFrom(targetType)) targetType = typeof(Type);
+
             if (sourceType.IsArray != targetType.IsArray)
             {
                 throw new InvalidOperationException(
