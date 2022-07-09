@@ -2,6 +2,7 @@
 using OpenNefia.Content.Buffs;
 using OpenNefia.Content.Cargo;
 using OpenNefia.Content.DisplayName;
+using OpenNefia.Content.EntityGen;
 using OpenNefia.Content.Feats;
 using OpenNefia.Content.GameObjects;
 using OpenNefia.Content.Hunger;
@@ -72,10 +73,35 @@ namespace OpenNefia.Content.Food
 
         public override void Initialize()
         {
+            SubscribeComponent<FoodComponent, EntityBeingGeneratedEvent>(HandleGenerated, priority: EventPriorities.High);
             SubscribeComponent<FoodComponent, GetVerbsEventArgs>(HandleGetVerbs);
             SubscribeComponent<FoodComponent, SpoilFoodEvent>(HandleSpoilFood, priority: EventPriorities.VeryLow);
             SubscribeComponent<FoodComponent, AfterItemEatenEvent>(HandleEatFood, priority: EventPriorities.VeryLow);
             SubscribeEntity<MapOnTimePassedEvent>(ProcSpoilFoodInMap, priority: EventPriorities.High);
+        }
+
+        private void HandleGenerated(EntityUid uid, FoodComponent foodComp, ref EntityBeingGeneratedEvent args)
+        {
+            if (args.GenArgs.TryGet<ItemGenArgs>(out var itemGenArgs))
+            {
+                if (itemGenArgs.IsShop)
+                {
+                    if (_rand.OneIn(2))
+                    {
+                        foodComp.FoodQuality = 0;
+                    }
+                    else
+                    {
+                        foodComp.FoodQuality = _rand.Next(3) + 3;
+                    }
+                }
+            }
+
+            if (foodComp.SpoilTimeHours != null)
+                foodComp.SpoilageDate = _world.State.GameDate + GameTimeSpan.FromHours(foodComp.SpoilTimeHours.Value);
+
+            if (IsCooked(uid, foodComp) && TryComp<ChipComponent>(uid, out var chip))
+                chip.ChipID = GetFoodChip(foodComp.FoodType!.Value, foodComp.FoodQuality);
         }
 
         private void HandleGetVerbs(EntityUid uid, FoodComponent food, GetVerbsEventArgs args)
@@ -125,8 +151,10 @@ namespace OpenNefia.Content.Food
 
         private void ProcSpoilFoodInMap(EntityUid uid, ref MapOnTimePassedEvent args)
         {
-            for (var i = 0; i < args.HoursPassed; i++)
-                SpoilFoodInMap(args.Map);
+            if (args.HoursPassed <= 0)
+                return;
+
+            SpoilFoodInMap(args.Map);
         }
 
         public bool IsAboutToRot(EntityUid ent, FoodComponent? food = null)
@@ -140,7 +168,7 @@ namespace OpenNefia.Content.Food
             if (TryComp<ItemComponent>(ent, out var item) && item.Material != Protos.Material.Fresh)
                 return false;
 
-            if (TryComp<PickableComponent>(ent, out var pickable) && pickable.OwnState <= OwnState.NPC)
+            if (TryComp<PickableComponent>(ent, out var pickable) && pickable.OwnState > OwnState.NPC)
                 return false;
 
             return !food.IsRotten && food.SpoilageDate != null && food.SpoilageDate < _world.State.GameDate;

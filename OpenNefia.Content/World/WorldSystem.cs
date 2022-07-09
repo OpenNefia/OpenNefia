@@ -18,7 +18,7 @@ using System.Threading.Tasks;
 
 namespace OpenNefia.Content.World
 {
-    public interface IWorldSystem
+    public interface IWorldSystem : IEntitySystem
     {
         WorldState State { get; }
 
