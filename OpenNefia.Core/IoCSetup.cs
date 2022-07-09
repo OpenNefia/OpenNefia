@@ -48,6 +48,7 @@ namespace OpenNefia
                     IoCManager.Register<ITaskRunner, HeadlessTaskRunner>();
                     IoCManager.Register<IAudioManager, HeadlessAudioManager>();
                     IoCManager.Register<IMusicManager, HeadlessMusicManager>();
+                    IoCManager.Register<IClipboardManager, HeadlessGraphics>();
                     break;
                 case DisplayMode.Love:
                     IoCManager.Register<IGraphics, LoveGraphics>();
@@ -55,6 +56,7 @@ namespace OpenNefia
                     IoCManager.Register<ITaskRunner, LoveTaskRunner>();
                     IoCManager.Register<IAudioManager, LoveAudioManager>();
                     IoCManager.Register<IMusicManager, LoveMusicManager>();
+                    IoCManager.Register<IClipboardManager, LoveGraphics>();
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();

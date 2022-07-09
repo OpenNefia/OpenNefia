@@ -1,3 +1,4 @@
+using OpenNefia.Core.Graphics;
 using OpenNefia.Core.Input;
 using OpenNefia.Core.Log;
 using OpenNefia.Core.Maths;
@@ -103,19 +104,18 @@ namespace OpenNefia.Core.UI.Wisp.CustomControls
 
             if (CurrentDrag == DragMode.None)
             {
-                /*
                 var cursor = CursorShape.Arrow;
                 var previewDragMode = GetDragModeFor(args.RelativePosition);
                 switch (previewDragMode)
                 {
                     case DragMode.Top:
                     case DragMode.Bottom:
-                        cursor = CursorShape.VResize;
+                        cursor = CursorShape.SizeNS;
                         break;
 
                     case DragMode.Left:
                     case DragMode.Right:
-                        cursor = CursorShape.HResize;
+                        cursor = CursorShape.SizeWE;
                         break;
 
                     case DragMode.Bottom | DragMode.Left:
@@ -130,7 +130,6 @@ namespace OpenNefia.Core.UI.Wisp.CustomControls
                 }
 
                 DefaultCursorShape = cursor;
-                */
             }
             else
             {

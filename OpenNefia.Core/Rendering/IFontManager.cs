@@ -11,6 +11,8 @@ namespace OpenNefia.Core.Rendering
         void Initialize();
         Love.Font GetFont(FontSpec spec);
         Love.Font GetFont(FontSpec spec, float uiScale);
+        Love.Rasterizer GetRasterizer(FontSpec spec);
+        Love.Rasterizer GetRasterizer(FontSpec spec, float uiScale);
         void Clear();
     }
 }

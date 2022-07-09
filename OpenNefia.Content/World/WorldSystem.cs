@@ -153,16 +153,31 @@ namespace OpenNefia.Content.World
         }
     }
 
+    /// <summary>
+    /// Raised when time passes.
+    /// </summary>
+    /// <remarks>
+    /// The "time passed" properties on this class indicate when a time counter
+    /// has rolled over to the next value. For example, if time passes from
+    /// 8:59 to 9:01, then HoursPassed will be 1. This is to allow events to take place
+    /// on the hour/day/month/etc.
+    /// </remarks>
     [ByRefEvent]
     public struct MapOnTimePassedEvent
     {
         public IMap Map { get; }
+        
         public int YearsPassed { get; }
         public int MonthsPassed { get; }
         public int DaysPassed { get; }
         public int HoursPassed { get; }
         public int MinutesPassed { get; }
         public int SecondsPassed { get; }
+        
+        /// <summary>
+        /// Amount of time that was actually passed. Used if the event handler
+        /// is accumulating time by adding up this value on every turn.
+        /// </summary>
         public GameTimeSpan TotalTimePassed { get; }
 
         public MapOnTimePassedEvent(IMap map, int yearsPassed, int monthsPassed, int daysPassed, int hoursPassed, int minutesPassed, int secondsPassed, GameTimeSpan totalTimePassed)

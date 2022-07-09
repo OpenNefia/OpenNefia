@@ -1,10 +1,11 @@
 ﻿using OpenNefia.Core.Input;
 using OpenNefia.Core.Maths;
+using OpenNefia.Core.UserInterface;
 using Vector2 = OpenNefia.Core.Maths.Vector2;
 
 namespace OpenNefia.Core.Graphics
 {
-    public class HeadlessGraphics : Love.Scene, IGraphics
+    public class HeadlessGraphics : Love.Scene, IGraphics, IClipboardManager
     {
         public float WindowScale => 1f;
         public Vector2 WindowSize => (Vector2)WindowPixelSize * WindowScale;
@@ -69,6 +70,19 @@ namespace OpenNefia.Core.Graphics
         public string GetDisplayName(int displayIndex)
         {
             return string.Empty;
+        }
+
+        public void SetCursor(CursorShape cursorShape)
+        {
+        }
+
+        string IClipboardManager.GetText()
+        {
+            return string.Empty;
+        }
+
+        void IClipboardManager.SetText(string text)
+        {
         }
 
         public void ShowSplashScreen()

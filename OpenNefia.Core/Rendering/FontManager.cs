@@ -14,9 +14,8 @@ namespace OpenNefia.Core.Rendering
         [Dependency] private readonly ILocalizationManager _localization = default!;
         [Dependency] private readonly IResourceCache _resourceCache = default!;
         [Dependency] private readonly IGraphics _graphics = default!;
-        [Dependency] private readonly IConfigurationManager _config = default!;
 
-        private sealed record FontCacheEntry(FontSpec FontSpec, Love.Font LoveFont);
+        private sealed record FontCacheEntry(FontSpec FontSpec, Love.Font LoveFont, Love.Rasterizer LoveRasterizer);
 
         private ResourcePath _fallbackFontPath = new("/Font/Core/kochi-gothic-subst.ttf");
         private static Dictionary<int, FontCacheEntry> _fontCache = new();
@@ -59,10 +58,7 @@ namespace OpenNefia.Core.Rendering
             _fontCache.Clear();
         }
 
-        public Love.Font GetFont(FontSpec spec) => GetFont(spec, _graphics.WindowScale);
-
-        // TODO: Needs UI scale passed to it
-        public Love.Font GetFont(FontSpec spec, float uiScale)
+        private FontCacheEntry Get(FontSpec spec, float uiScale)
         {
             _fontSpecs.Add(spec);
 
@@ -71,7 +67,7 @@ namespace OpenNefia.Core.Rendering
 
             if (_fontCache.TryGetValue(size, out var cachedEntry))
             {
-                return cachedEntry.LoveFont;
+                return cachedEntry;
             }
 
             var fontFilepath = _fallbackFontPath;
@@ -79,12 +75,24 @@ namespace OpenNefia.Core.Rendering
             var fileData = _resourceCache.GetResource<LoveFileDataResource>(fontFilepath);
             var rasterizer = Love.Font.NewTrueTypeRasterizer(fileData, size);
             var font = Love.Graphics.NewFont(rasterizer);
-            var fontCacheEntry = new FontCacheEntry(spec, font);
+            var fontCacheEntry = new FontCacheEntry(spec, font, rasterizer);
 
             font.SetFilter(Love.FilterMode.Nearest, Love.FilterMode.Nearest, 1);
             _fontCache[size] = fontCacheEntry;
 
-            return font;
+            return fontCacheEntry;
+        }
+
+        public Love.Font GetFont(FontSpec spec) => GetFont(spec, _graphics.WindowScale);
+        public Love.Font GetFont(FontSpec spec, float uiScale)
+        {
+            return Get(spec, uiScale).LoveFont;
+        }
+
+        public Love.Rasterizer GetRasterizer(FontSpec spec) => GetRasterizer(spec, _graphics.WindowScale);
+        public Love.Rasterizer GetRasterizer(FontSpec spec, float uiScale)
+        {
+            return Get(spec, uiScale).LoveRasterizer;
         }
 
         public void Clear()

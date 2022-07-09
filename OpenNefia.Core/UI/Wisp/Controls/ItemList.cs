@@ -405,9 +405,7 @@ namespace OpenNefia.Core.UI.Wisp.Controls
             var baseLine = GlobalPixelPosition + new Vector2i(0, offsetY) + box.TopLeft;
 
             GraphicsS.SetColorTinted(this, color);
-            WispRootLayer!.PushScissor(box.Translated(GlobalPixelPosition), ignoreParents: true);
             Love.Graphics.Draw(text, baseLine.X, baseLine.Y);
-            WispRootLayer.PopScissor();
         }
 
         protected override Vector2 MeasureOverride(Vector2 availableSize)

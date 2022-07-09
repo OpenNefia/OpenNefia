@@ -3,6 +3,7 @@ using OpenNefia.Core.IoC;
 using OpenNefia.Core.Reflection;
 using OpenNefia.Core.Serialization.Manager.Attributes;
 using OpenNefia.Core.Utility;
+using OpenNefia.Core.ViewVariables;
 
 namespace OpenNefia.Core.GameObjects
 {
@@ -12,12 +13,14 @@ namespace OpenNefia.Core.GameObjects
     public abstract class Component : IComponent
     {
         /// <inheritdoc />
+        [ViewVariables(VVAccess.ReadOnly)]
         public EntityUid Owner { get; set; } = default!;
 
         /// <inheritdoc />
         public ComponentLifeStage LifeStage { get; private set; } = ComponentLifeStage.PreAdd;
 
         /// <inheritdoc />
+        [ViewVariables(VVAccess.ReadOnly)]
         public abstract string Name { get; }
 
         /// <summary>

@@ -3,11 +3,12 @@ using OpenNefia.Core.IoC;
 using OpenNefia.Core.Maths;
 using OpenNefia.Core.Timing;
 using OpenNefia.Core.UI.Wisp.Styling;
+using OpenNefia.Core.UserInterface;
 
 namespace OpenNefia.Core.UI.Wisp
 {
     /// <summary>
-    /// TODO: Intent is for this to be merged into <see cref="UserInterface.IUserInterfaceManagerInternal"/>.
+    /// TODO: Intent is for this to be merged into <see cref="IUserInterfaceManagerInternal"/>.
     /// </summary>
     public interface IWispManager
     {
@@ -17,11 +18,14 @@ namespace OpenNefia.Core.UI.Wisp
         /// </summary>
         Stylesheet? Stylesheet { get; set; }
 
+        void Initialize();
+
         void AddRoot(WispRoot root);
         void RemoveRoot(WispRoot root);
         void QueueStyleUpdate(WispControl control);
         void QueueArrangeUpdate(WispControl control);
         void QueueMeasureUpdate(WispControl control);
+        void CursorChanged(WispControl control);
         void FrameUpdate(FrameEventArgs args);
 
         /// <summary>
@@ -35,12 +39,14 @@ namespace OpenNefia.Core.UI.Wisp
     {
         [Dependency] private readonly IGraphics _graphics = default!;
         [Dependency] private readonly IStylesheetManager _stylesheetManager = default!;
+        [Dependency] private readonly IUserInterfaceManager _uiManager = default!;
 
         private readonly Queue<WispControl> _styleUpdateQueue = new();
         private readonly Queue<WispControl> _measureUpdateQueue = new();
         private readonly Queue<WispControl> _arrangeUpdateQueue = new();
 
         private readonly List<WispRoot> _roots = new();
+        private bool _needUpdateActiveCursor;
 
         private Stylesheet? _stylesheet;
         public Stylesheet? Stylesheet
@@ -58,6 +64,12 @@ namespace OpenNefia.Core.UI.Wisp
                     }
                 }
             }
+        }
+
+        public void Initialize()
+        {
+            // TODO remove after merging this with IUserInterfaceManager
+            _uiManager.OnHoveredElementChanged += () => _needUpdateActiveCursor = true;
         }
 
         public void AddRoot(WispRoot root)
@@ -84,6 +96,14 @@ namespace OpenNefia.Core.UI.Wisp
         public void QueueArrangeUpdate(WispControl control)
         {
             _arrangeUpdateQueue.Enqueue(control);
+        }
+
+        public void CursorChanged(WispControl control)
+        {
+            if (control == _uiManager.ControlFocused || control == _uiManager.CurrentlyHovered)
+            {
+                _needUpdateActiveCursor = true;
+            }
         }
 
         public void FrameUpdate(FrameEventArgs args)
@@ -135,6 +155,12 @@ namespace OpenNefia.Core.UI.Wisp
             //        _showTooltip();
             //    }
             //}
+
+            if (_needUpdateActiveCursor)
+            {
+                _needUpdateActiveCursor = false;
+                UpdateActiveCursor();
+            }
         }
 
         private void RunMeasure(WispControl control)
@@ -175,6 +201,20 @@ namespace OpenNefia.Core.UI.Wisp
             {
                 control.Arrange(control.PreviousArrange.Value);
             }
+        }
+
+        private void UpdateActiveCursor()
+        {
+            // Consider mouse input focus first so that dragging windows don't act up etc.
+            var cursorTarget = _uiManager.ControlFocused ?? _uiManager.CurrentlyHovered;
+
+            if (cursorTarget is not WispControl wispCursorTarget)
+            {
+                _graphics.SetCursor(CursorShape.Arrow);
+                return;
+            }
+
+            _graphics.SetCursor(wispCursorTarget.DefaultCursorShape);
         }
 
         public T GetStyleFallback<T>() => _stylesheetManager.GetStyleFallback<T>();

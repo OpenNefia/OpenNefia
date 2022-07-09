@@ -52,12 +52,15 @@ namespace OpenNefia.Core.Rendering
         public Maths.Color BgColor { get; } = Color.Black;
 
         private Love.Font? _font = null;
-
         public Love.Font LoveFont => _font ??= IoCManager.Resolve<IFontManager>().GetFont(this);
+
+        private Love.Rasterizer? _rasterizer = null;
+        public Love.Rasterizer LoveRasterizer => _rasterizer ??= IoCManager.Resolve<IFontManager>().GetRasterizer(this);
 
         internal void ClearCachedFont()
         {
             _font = null;
+            _rasterizer = null;
         }
     }
 }
